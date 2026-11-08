@@ -1,0 +1,417 @@
+// 717:0
+[temperature_bar]
+type=rectangle
+x=22
+y=36
+width=145
+height=14
+layer=layer_1
+colour=0xcc00cc
+fill=yes
+trans=1
+
+// 717:1
+[layer_1]
+type=layer
+width=188
+height=256
+onload=easter08_incubator_init
+
+// 717:2
+[com_2]
+type=model
+x=27
+y=26
+width=127
+height=67
+layer=layer_1
+model=model_32676
+modelorigin=0,33
+modelzoom=345
+
+// 717:3
+[temperature_target]
+type=model
+x=84
+y=30
+width=19
+height=127
+layer=layer_1
+model=model_32671
+modelorigin=0,1
+modelangle=2047,0,0
+modelzoom=365
+ontimer=script893
+
+// 717:4
+[demo_pointer]
+type=model
+x=89
+y=43
+width=7
+height=103
+layer=layer_1
+model=model_32674
+modelzoom=388
+ontimer=script893
+
+// 717:5
+[com_5]
+type=rectangle
+x=50
+y=123
+width=23
+height=114
+colour=0x000000
+fill=yes
+
+// 717:6
+[com_6]
+type=rectangle
+x=117
+y=125
+width=23
+height=114
+colour=0x000000
+fill=yes
+
+// 717:7
+[coal_indicator]
+type=rectangle
+x=113
+y=122
+width=27
+height=116
+colour=0xff6666
+fill=yes
+onvartransmit=script895{varplayer_1205}
+
+// 717:8
+[water_indicator]
+type=rectangle
+x=49
+y=122
+width=27
+height=116
+colour=0x3399ff
+fill=yes
+onvartransmit=script894{varplayer_1205}
+
+// 717:9
+[dial_cap]
+type=model
+x=60
+y=85
+width=61
+height=10
+layer=layer_1
+model=model_32670
+modelorigin=0,5
+modelangle=2047,0,0
+modelzoom=409
+
+// 717:10
+[machine_panel]
+type=model
+x=-21
+y=-5
+width=223
+height=277
+layer=layer_1
+model=model_32677
+modelorigin=0,-39
+modelangle=2044,0,0
+modelzoom=352
+
+// 717:11
+[water_window]
+type=model
+x=44
+y=118
+width=37
+height=128
+model=model_32675
+modelorigin=0,1
+modelzoom=360
+
+// 717:12
+[coal_window]
+type=model
+x=110
+y=118
+width=37
+height=128
+model=model_32675
+modelorigin=0,1
+modelzoom=360
+
+// 717:13
+[coal_button]
+type=model
+x=149
+y=193
+width=39
+height=34
+model=model_32672
+modelorigin=2,0
+modelzoom=400
+onmouseover=script899
+onmouseleave=script900
+onclick=script903
+onrelease=script904
+
+// 717:14
+[water_button]
+type=model
+x=3
+y=193
+width=39
+height=34
+model=model_32672
+modelorigin=2,0
+modelzoom=400
+onmouseover=script897
+onmouseleave=script898
+onclick=script901
+onrelease=script902
+
+// 717:15
+[add_water_button]
+type=layer
+x=8
+y=193
+width=28
+height=31
+
+// 717:16
+[add_water_selector]
+type=rectangle
+x=2
+y=192
+width=40
+height=35
+colour=0xffff00
+fill=yes
+trans=254
+transmitop=1
+op1=Add-Water
+onmouseleave=deltooltip(easter08_incubator_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, easter08_incubator_side:tooltip_layer, "Add water to cool the incubator.", 50, 180)
+
+// 717:17
+[add_coal_button]
+type=layer
+x=156
+y=196
+width=28
+height=31
+
+// 717:18
+[add_coal_selector]
+type=rectangle
+x=149
+y=192
+width=39
+height=35
+colour=0xffff00
+fill=yes
+trans=254
+transmitop=1
+op1=Add-Coal
+onmouseleave=deltooltip(easter08_incubator_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, easter08_incubator_side:tooltip_layer, "Add coal to heat the incubator.", 50, 180)
+
+// 717:19
+[com_19]
+type=rectangle
+x=8
+y=7
+width=171
+height=93
+layer=target_update_layer
+colour=0x009900
+fill=yes
+trans=54
+
+// 717:20
+[com_20]
+type=text
+x=9
+y=8
+width=173
+height=92
+layer=target_update_layer
+textfont=q8_full
+text=Temperature reached!<br><br>New target<br>temperature set.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffcc00
+
+// 717:21
+[target_update_layer]
+type=layer
+x=-2
+width=192
+height=256
+hide=yes
+
+// 717:22
+[com_22]
+type=model
+x=25
+y=126
+width=13
+height=13
+model=model_32157
+modelzoom=1936
+
+// 717:23
+[com_23]
+type=model
+x=25
+y=159
+width=13
+height=13
+model=model_32157
+modelzoom=1936
+
+// 717:24
+[com_24]
+type=model
+x=152
+y=159
+width=13
+height=13
+model=model_32157
+modelzoom=1936
+
+// 717:25
+[com_25]
+type=model
+x=152
+y=126
+width=13
+height=13
+model=model_32157
+modelzoom=1936
+
+// 717:26
+[com_26]
+type=graphic
+x=167
+y=4
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 717:27
+[add_water_tooltip]
+type=rectangle
+x=3
+y=192
+width=38
+height=35
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(easter08_incubator_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, easter08_incubator_side:tooltip_layer, "Add water to cool the incubator.", 25, 180)
+
+// 717:28
+[add_coal_tooltip]
+type=rectangle
+x=149
+y=192
+width=38
+height=35
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(easter08_incubator_side:tooltip_layer)
+onmouserepeat=addtooltip(event_com, easter08_incubator_side:tooltip_layer, "Add coal to heat the incubator.", 25, 180)
+
+// 717:29
+[com_29]
+type=layer
+x=4
+y=227
+width=182
+height=30
+
+// 717:30
+[tooltip_layer]
+type=layer
+x=13
+y=11
+width=14
+height=21
+layer=com_29
+
+// 717:31
+[com_31]
+type=graphic
+x=156
+y=197
+width=25
+height=25
+graphic="easter_08_icon,0"
+colour=0x000000
+
+// 717:32
+[com_32]
+type=graphic
+x=11
+y=196
+width=25
+height=25
+graphic="easter_08_icon,1"
+colour=0x000000
+
+// 717:33
+[water_highlight_layer]
+type=layer
+x=2
+y=192
+width=40
+height=35
+hide=yes
+
+// 717:34
+[water_highlight_rect]
+type=rectangle
+x=3
+y=2
+width=34
+height=31
+layer=water_highlight_layer
+colour=0xffffff
+fill=yes
+trans=180
+
+// 717:35
+[coal_highlight_layer]
+type=layer
+x=148
+y=192
+width=40
+height=35
+hide=yes
+
+// 717:36
+[coal_highlight_rect]
+type=rectangle
+x=3
+y=2
+width=35
+height=31
+layer=coal_highlight_layer
+colour=0xffffff
+fill=yes
+trans=180

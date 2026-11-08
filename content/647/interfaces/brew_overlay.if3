@@ -1,102 +1,102 @@
 // 415:0
-[com_0]
+[fires]
 type=layer
 width=75
 height=150
 ymode=abs_centre
 
 // 415:1
-[com_1]
+[hopper_normal]
 type=model
 x=11
 y=17
 width=39
 height=37
-layer=com_0
+layer=fires
 model=model_15694
 modelorigin=0,-1
 modelangle=515,0,0
 modelzoom=360
 
 // 415:2
-[com_2]
+[pipes_normal]
 type=model
 x=12
 y=58
 width=38
 height=28
-layer=com_0
+layer=fires
 model=model_15695
 modelorigin=0,-6
 modelangle=534,2047,0
 modelzoom=600
 
 // 415:3
-[com_3]
+[bridge_normal]
 type=model
 x=8
 y=97
 width=47
 height=23
-layer=com_0
+layer=fires
 model=model_15688
 modelorigin=2,-2
 modelangle=531,2041,0
 modelzoom=1007
 
 // 415:4
-[com_4]
+[hopper_amount]
 type=text
 x=62
 y=25
 width=9
 height=14
-layer=com_0
+layer=fires
 textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=script1757(brew_overlay:com_7, brew_overlay:com_4)
-onvarctransmit=script1757(brew_overlay:com_7, brew_overlay:com_4){varclient_219}
+onload=script1757(brew_overlay:hopper_fire_model, brew_overlay:hopper_amount)
+onvarctransmit=script1757(brew_overlay:hopper_fire_model, brew_overlay:hopper_amount){varclient_219}
 
 // 415:5
-[com_5]
+[pipe_amount]
 type=text
 x=62
 y=60
 width=9
 height=14
-layer=com_0
+layer=fires
 textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=script1758(brew_overlay:com_8, brew_overlay:com_5)
-onvarctransmit=script1758(brew_overlay:com_8, brew_overlay:com_5){varclient_218}
+onload=script1758(brew_overlay:pipe_fire_model, brew_overlay:pipe_amount)
+onvarctransmit=script1758(brew_overlay:pipe_fire_model, brew_overlay:pipe_amount){varclient_218}
 
 // 415:6
-[com_6]
+[bridge_amount]
 type=text
 x=62
 y=94
 width=9
 height=14
-layer=com_0
+layer=fires
 textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=script1759(brew_overlay:com_9, brew_overlay:com_6)
-onvarctransmit=script1759(brew_overlay:com_9, brew_overlay:com_6){varclient_220}
+onload=script1759(brew_overlay:bridge_fire_model, brew_overlay:bridge_amount)
+onvarctransmit=script1759(brew_overlay:bridge_fire_model, brew_overlay:bridge_amount){varclient_220}
 
 // 415:7
-[com_7]
+[hopper_fire_model]
 type=model
 x=13
 y=38
 width=36
 height=15
-layer=com_0
+layer=fires
 hide=yes
 model=model_15693
 modelorigin=1,-7
@@ -104,13 +104,13 @@ modelangle=327,3,0
 modelzoom=400
 
 // 415:8
-[com_8]
+[pipe_fire_model]
 type=model
 x=13
 y=69
 width=36
 height=15
-layer=com_0
+layer=fires
 hide=yes
 model=model_15693
 modelorigin=1,-7
@@ -118,13 +118,13 @@ modelangle=327,3,0
 modelzoom=400
 
 // 415:9
-[com_9]
+[bridge_fire_model]
 type=model
 x=13
 y=108
 width=36
 height=15
-layer=com_0
+layer=fires
 hide=yes
 model=model_15693
 modelorigin=1,-7
@@ -132,7 +132,7 @@ modelangle=327,3,0
 modelzoom=400
 
 // 415:10
-[com_10]
+[bitternut_model]
 type=model
 x=169
 y=41
@@ -144,7 +144,7 @@ modelangle=348,15,0
 modelzoom=700
 
 // 415:11
-[com_11]
+[sweetgrub_model]
 type=model
 x=214
 y=44
@@ -156,7 +156,7 @@ modelangle=405,42,0
 modelzoom=700
 
 // 415:12
-[com_12]
+[bucket_model]
 type=model
 x=268
 y=40
@@ -168,7 +168,7 @@ modelangle=444,3,0
 modelzoom=600
 
 // 415:13
-[com_13]
+[colourwater_model]
 type=model
 x=306
 y=44
@@ -180,7 +180,7 @@ modelangle=483,18,0
 modelzoom=790
 
 // 415:14
-[com_14]
+[bark_model]
 type=model
 x=358
 y=44
@@ -192,7 +192,7 @@ modelangle=390,30,0
 modelzoom=700
 
 // 415:15
-[com_15]
+[boiler1_model]
 type=model
 x=19
 y=38
@@ -204,7 +204,7 @@ modelangle=402,0,0
 modelzoom=700
 
 // 415:16
-[com_16]
+[boiler2_model]
 type=model
 x=70
 y=38
@@ -216,7 +216,7 @@ modelangle=402,0,0
 modelzoom=700
 
 // 415:17
-[com_17]
+[boiler3_model]
 type=model
 x=119
 y=38
@@ -228,7 +228,7 @@ modelangle=402,0,0
 modelzoom=700
 
 // 415:18
-[com_18]
+[score_sheet]
 type=layer
 width=184
 height=73
@@ -236,7 +236,7 @@ xmode=abs_right
 ymode=abs_bottom
 
 // 415:19
-[com_19]
+[red_bottle_off]
 type=layer
 x=420
 y=13
@@ -244,19 +244,19 @@ width=69
 height=68
 
 // 415:20
-[com_20]
+[red_bottle_off_model]
 type=model
 x=24
 y=14
 width=23
 height=48
-layer=com_19
+layer=red_bottle_off
 model=model_15696
 modelangle=468,0,0
 modelzoom=850
 
 // 415:21
-[com_21]
+[blue_bottle_off]
 type=layer
 x=420
 y=13
@@ -265,19 +265,19 @@ height=68
 hide=yes
 
 // 415:22
-[com_22]
+[blue_bottle_off_model]
 type=model
 x=24
 y=14
 width=23
 height=48
-layer=com_21
+layer=blue_bottle_off
 model=model_15670
 modelangle=468,0,0
 modelzoom=850
 
 // 415:23
-[com_23]
+[red_bottle_on]
 type=layer
 x=420
 y=13
@@ -286,20 +286,20 @@ height=68
 hide=yes
 
 // 415:24
-[com_24]
+[red_bottle_on_model]
 type=model
 x=24
 y=14
 width=23
 height=48
-layer=com_23
+layer=red_bottle_on
 model=model_15723
 modelangle=468,0,0
 modelzoom=850
 modelanim=seq_4262
 
 // 415:25
-[com_25]
+[blue_bottle_on]
 type=layer
 x=420
 y=13
@@ -308,20 +308,20 @@ height=68
 hide=yes
 
 // 415:26
-[com_26]
+[blue_bottle_on_model]
 type=model
 x=24
 y=14
 width=23
 height=48
-layer=com_25
+layer=blue_bottle_on
 model=model_15722
 modelangle=468,0,0
 modelzoom=850
 modelanim=seq_4262
 
 // 415:27
-[com_27]
+[red_bottle_warning]
 type=layer
 x=420
 y=13
@@ -330,20 +330,20 @@ height=68
 hide=yes
 
 // 415:28
-[com_28]
+[red_bottle_warning_model]
 type=model
 x=24
 y=14
 width=23
 height=48
-layer=com_27
+layer=red_bottle_warning
 model=model_15698
 modelangle=468,0,0
 modelzoom=850
 modelanim=seq_4262
 
 // 415:29
-[com_29]
+[blue_bottle_warning]
 type=layer
 x=420
 y=13
@@ -352,13 +352,13 @@ height=68
 hide=yes
 
 // 415:30
-[com_30]
+[blue_bottle_warning_model]
 type=model
 x=21
 y=7
 width=29
 height=61
-layer=com_29
+layer=blue_bottle_warning
 model=model_15668
 modelorigin=0,1
 modelangle=468,0,0
@@ -366,7 +366,7 @@ modelzoom=656
 modelanim=seq_4262
 
 // 415:31
-[com_31]
+[boiler1_count]
 type=text
 x=29
 y=23
@@ -376,11 +376,11 @@ textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=brew_boiler1(brew_overlay:com_15, brew_overlay:com_31)
-onvarctransmit=brew_boiler1(brew_overlay:com_15, brew_overlay:com_31){varclient_228}
+onload=brew_boiler1(brew_overlay:boiler1_model, brew_overlay:boiler1_count)
+onvarctransmit=brew_boiler1(brew_overlay:boiler1_model, brew_overlay:boiler1_count){varclient_228}
 
 // 415:32
-[com_32]
+[boiler2_count]
 type=text
 x=80
 y=23
@@ -390,11 +390,11 @@ textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=brew_boiler2(brew_overlay:com_16, brew_overlay:com_32)
-onvarctransmit=brew_boiler2(brew_overlay:com_16, brew_overlay:com_32){varclient_229}
+onload=brew_boiler2(brew_overlay:boiler2_model, brew_overlay:boiler2_count)
+onvarctransmit=brew_boiler2(brew_overlay:boiler2_model, brew_overlay:boiler2_count){varclient_229}
 
 // 415:33
-[com_33]
+[boiler3_count]
 type=text
 x=129
 y=23
@@ -404,11 +404,11 @@ textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=brew_boiler3(brew_overlay:com_17, brew_overlay:com_33)
-onvarctransmit=brew_boiler3(brew_overlay:com_17, brew_overlay:com_33){varclient_230}
+onload=brew_boiler3(brew_overlay:boiler3_model, brew_overlay:boiler3_count)
+onvarctransmit=brew_boiler3(brew_overlay:boiler3_model, brew_overlay:boiler3_count){varclient_230}
 
 // 415:34
-[com_34]
+[bitternut_count]
 type=text
 x=180
 y=23
@@ -418,11 +418,11 @@ textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=brew_bitternut(brew_overlay:com_10, brew_overlay:com_34)
-onvarctransmit=brew_bitternut(brew_overlay:com_10, brew_overlay:com_34){varclient_223}
+onload=brew_bitternut(brew_overlay:bitternut_model, brew_overlay:bitternut_count)
+onvarctransmit=brew_bitternut(brew_overlay:bitternut_model, brew_overlay:bitternut_count){varclient_223}
 
 // 415:35
-[com_35]
+[sweetgrub_count]
 type=text
 x=225
 y=23
@@ -432,11 +432,11 @@ textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=script1753(brew_overlay:com_11, brew_overlay:com_35)
-onvarctransmit=script1753(brew_overlay:com_11, brew_overlay:com_35){varclient_224}
+onload=script1753(brew_overlay:sweetgrub_model, brew_overlay:sweetgrub_count)
+onvarctransmit=script1753(brew_overlay:sweetgrub_model, brew_overlay:sweetgrub_count){varclient_224}
 
 // 415:36
-[com_36]
+[bucket_count]
 type=text
 x=276
 y=23
@@ -446,11 +446,11 @@ textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=brew_buckets(brew_overlay:com_12, brew_overlay:com_36)
-onvarctransmit=brew_buckets(brew_overlay:com_12, brew_overlay:com_36){varclient_226}
+onload=brew_buckets(brew_overlay:bucket_model, brew_overlay:bucket_count)
+onvarctransmit=brew_buckets(brew_overlay:bucket_model, brew_overlay:bucket_count){varclient_226}
 
 // 415:37
-[com_37]
+[colourwater_count]
 type=text
 x=322
 y=24
@@ -460,12 +460,12 @@ textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=brew_colourwater(brew_overlay:com_13, brew_overlay:com_37)
-oninvtransmit=brew_colourwater(brew_overlay:com_13, brew_overlay:com_37){worn}
-onvarctransmit=brew_colourwater(brew_overlay:com_13, brew_overlay:com_37){varclient_227}
+onload=brew_colourwater(brew_overlay:colourwater_model, brew_overlay:colourwater_count)
+oninvtransmit=brew_colourwater(brew_overlay:colourwater_model, brew_overlay:colourwater_count){worn}
+onvarctransmit=brew_colourwater(brew_overlay:colourwater_model, brew_overlay:colourwater_count){varclient_227}
 
 // 415:38
-[com_38]
+[bark_count]
 type=text
 x=371
 y=24
@@ -475,17 +475,17 @@ textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=brew_bark(brew_overlay:com_14, brew_overlay:com_38)
-onvarctransmit=brew_bark(brew_overlay:com_14, brew_overlay:com_38){varclient_225}
+onload=brew_bark(brew_overlay:bark_model, brew_overlay:bark_count)
+onvarctransmit=brew_bark(brew_overlay:bark_model, brew_overlay:bark_count){varclient_225}
 
 // 415:39
-[com_39]
+[brew_score_text]
 type=text
 y=2
 width=120
 height=14
 xmode=abs_centre
-layer=com_18
+layer=score_sheet
 textfont=p12_full
 text=Current Score
 textalignh=centre
@@ -493,28 +493,28 @@ textshadow=yes
 colour=0xff981f
 
 // 415:40
-[com_40]
+[score_sheet_model]
 type=model
 x=-1
 width=175
 height=45
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=score_sheet
 model=model_10119
 modelorigin=0,-8
 modelangle=288,0,0
 modelzoom=912
 
 // 415:41
-[com_41]
+[red_score]
 type=text
 x=-25
 y=22
 width=9
 height=14
 xmode=abs_centre
-layer=com_18
+layer=score_sheet
 textfont=b12_full
 text=0
 colour=0x990000
@@ -522,14 +522,14 @@ onload=brew_redscore(event_com)
 onvarctransmit=brew_redscore(event_com){varclient_221}
 
 // 415:42
-[com_42]
+[blue_score]
 type=text
 x=25
 y=22
 width=9
 height=14
 xmode=abs_centre
-layer=com_18
+layer=score_sheet
 textfont=b12_full
 text=0
 colour=0x0000cc
@@ -537,14 +537,14 @@ onload=brew_bluescore(event_com)
 onvarctransmit=brew_bluescore(event_com){varclient_222}
 
 // 415:43
-[com_43]
+[brew_time_display]
 type=text
 y=5
 height=14
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_18
+layer=score_sheet
 textfont=p12_full
 textalignh=centre
 textshadow=yes

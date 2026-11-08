@@ -116,7 +116,7 @@ height=32
 graphic="v2_stone_borders,10"
 
 // 565:12
-[com_12]
+[close]
 type=graphic
 x=405
 y=43
@@ -130,7 +130,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 565:13
-[com_13]
+[title]
 type=text
 x=211
 y=41
@@ -144,7 +144,7 @@ textshadow=yes
 colour=0xff981f
 
 // 565:14
-[com_14]
+[warning]
 type=text
 x=108
 y=84
@@ -156,8 +156,8 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff7d1f
-onload=cws_setup(cws_warning_10:com_21, cws_warning_10:com_20, 10)
-onvartransmit=cws_setup(cws_warning_10:com_21, cws_warning_10:com_20, 10){varplayer_1045}
+onload=cws_setup(cws_warning_10:cws_warning_layer, cws_warning_10:cws_toggle_button, 10)
+onvartransmit=cws_setup(cws_warning_10:cws_warning_layer, cws_warning_10:cws_toggle_button, 10){varplayer_1045}
 
 // 565:15
 [com_15]
@@ -178,7 +178,7 @@ height=19
 graphic="warning_icons,0"
 
 // 565:17
-[com_17]
+[warn1]
 type=text
 x=108
 y=204
@@ -196,7 +196,7 @@ onmouseover=text_colour_swapper(event_com, 0xff981f)
 onmouseleave=text_colour_swapper(event_com, ^red)
 
 // 565:18
-[com_18]
+[warn2]
 type=text
 x=108
 y=236
@@ -214,13 +214,13 @@ onmouseover=text_colour_swapper(event_com, 0xff981f)
 onmouseleave=text_colour_swapper(event_com, ^red)
 
 // 565:19
-[com_19]
+[warn3]
 type=text
 x=1
 y=2
 width=315
 height=15
-layer=com_21
+layer=cws_warning_layer
 textfont=p12_full
 text=Don't ask me this again
 textalignh=centre
@@ -229,16 +229,16 @@ textshadow=yes
 colour=0xff981f
 
 // 565:20
-[com_20]
+[cws_toggle_button]
 type=graphic
 x=2
 width=19
 height=19
-layer=com_21
+layer=cws_warning_layer
 graphic="warning_icons,1"
 
 // 565:21
-[com_21]
+[cws_warning_layer]
 type=layer
 x=107
 y=267
@@ -247,5 +247,5 @@ height=20
 hide=yes
 pausebutton=yes
 pausetext=Toggle
-onmouseover=text_colour_swapper(cws_warning_10:com_19, ^white)
-onmouseleave=text_colour_swapper(cws_warning_10:com_19, 0xff981f)
+onmouseover=text_colour_swapper(cws_warning_10:warn3, ^white)
+onmouseleave=text_colour_swapper(cws_warning_10:warn3, 0xff981f)

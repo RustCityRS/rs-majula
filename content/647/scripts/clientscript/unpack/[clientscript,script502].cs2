@@ -1,39 +1,39 @@
 // 502
 [clientscript,script502](component $component0, component $component1)
-if ($component0 = conq_set_formation:com_156 & %varplayerbit_7520 = 0) {
+if ($component0 = conq_set_formation:unit_1_text & %varplayerbit_7520 = 0) {
     return;
 }
-if ($component0 = conq_set_formation:com_157 & %varplayerbit_7521 = 0) {
+if ($component0 = conq_set_formation:unit_2_text & %varplayerbit_7521 = 0) {
     return;
 }
-if ($component0 = conq_set_formation:com_158 & %varplayerbit_7526 = 0) {
+if ($component0 = conq_set_formation:unit_3_text & %varplayerbit_7526 = 0) {
     return;
 }
-if ($component0 = conq_set_formation:com_159 & %varplayerbit_7527 = 0) {
+if ($component0 = conq_set_formation:unit_4_text & %varplayerbit_7527 = 0) {
     return;
 }
-if ($component0 = conq_set_formation:com_160 & %varplayerbit_7530 = 0) {
+if ($component0 = conq_set_formation:unit_5_text & %varplayerbit_7530 = 0) {
     return;
 }
-if ($component0 = conq_set_formation:com_161 & %varplayerbit_7531 = 0) {
+if ($component0 = conq_set_formation:unit_6_text & %varplayerbit_7531 = 0) {
     return;
 }
-if ($component0 = conq_set_formation:com_162 & %varplayerbit_7532 = 0) {
+if ($component0 = conq_set_formation:unit_7_text & %varplayerbit_7532 = 0) {
     return;
 }
-if ($component0 = conq_set_formation:com_163 & %varplayerbit_7533 = 0) {
+if ($component0 = conq_set_formation:unit_8_text & %varplayerbit_7533 = 0) {
     return;
 }
-if ($component0 = conq_set_formation:com_164 & %varplayerbit_7534 = 0) {
+if ($component0 = conq_set_formation:unit_9_text & %varplayerbit_7534 = 0) {
     return;
 }
-if ($component0 = conq_set_formation:com_165 & %varplayerbit_7535 = 0) {
+if ($component0 = conq_set_formation:unit_10_text & %varplayerbit_7535 = 0) {
     return;
 }
 switch_component ($component1) {
     case default :
         return;
-    case conq_set_formation:com_166, conq_set_formation:com_167, conq_set_formation:com_168, conq_set_formation:com_169, conq_set_formation:com_170, conq_set_formation:com_171, conq_set_formation:com_172, conq_set_formation:com_173, conq_set_formation:com_174, conq_set_formation:com_175, conq_set_formation:com_176, conq_set_formation:com_177, conq_set_formation:com_178, conq_set_formation:com_179, conq_set_formation:com_180, conq_set_formation:com_181, conq_set_formation:com_182, conq_set_formation:com_183, conq_set_formation:com_184, conq_set_formation:com_185, conq_set_formation:com_186, conq_set_formation:com_187, conq_set_formation:com_188, conq_set_formation:com_189, conq_set_formation:com_190, conq_set_formation:com_191, conq_set_formation:com_192, conq_set_formation:com_193, conq_set_formation:com_194, conq_set_formation:com_195, conq_set_formation:com_196, conq_set_formation:com_197, conq_set_formation:com_198, conq_set_formation:com_199, conq_set_formation:com_200, conq_set_formation:com_201, conq_set_formation:com_202, conq_set_formation:com_203, conq_set_formation:com_204, conq_set_formation:com_205, conq_set_formation:com_206, conq_set_formation:com_207, conq_set_formation:com_208, conq_set_formation:com_209, conq_set_formation:com_210, conq_set_formation:com_211, conq_set_formation:com_212, conq_set_formation:com_213, conq_set_formation:com_214, conq_set_formation:com_215, conq_set_formation:com_216, conq_set_formation:com_217, conq_set_formation:com_218, conq_set_formation:com_219, conq_set_formation:com_220, conq_set_formation:com_221, conq_set_formation:com_222, conq_set_formation:com_223, conq_set_formation:com_224, conq_set_formation:com_225 :
+    case conq_set_formation:tile_text_1, conq_set_formation:tile_text_2, conq_set_formation:tile_text_3, conq_set_formation:tile_text_4, conq_set_formation:tile_text_5, conq_set_formation:tile_text_6, conq_set_formation:tile_text_7, conq_set_formation:tile_text_8, conq_set_formation:tile_text_9, conq_set_formation:tile_text_10, conq_set_formation:tile_text_11, conq_set_formation:tile_text_12, conq_set_formation:tile_text_13, conq_set_formation:tile_text_14, conq_set_formation:tile_text_15, conq_set_formation:tile_text_16, conq_set_formation:tile_text_17, conq_set_formation:tile_text_18, conq_set_formation:tile_text_19, conq_set_formation:tile_text_20, conq_set_formation:tile_text_21, conq_set_formation:tile_text_22, conq_set_formation:tile_text_23, conq_set_formation:tile_text_24, conq_set_formation:tile_text_25, conq_set_formation:tile_text_26, conq_set_formation:tile_text_27, conq_set_formation:tile_text_28, conq_set_formation:tile_text_29, conq_set_formation:tile_text_30, conq_set_formation:tile_text_31, conq_set_formation:tile_text_32, conq_set_formation:tile_text_33, conq_set_formation:tile_text_34, conq_set_formation:tile_text_35, conq_set_formation:tile_text_36, conq_set_formation:tile_text_37, conq_set_formation:tile_text_38, conq_set_formation:tile_text_39, conq_set_formation:tile_text_40, conq_set_formation:tile_text_41, conq_set_formation:tile_text_42, conq_set_formation:tile_text_43, conq_set_formation:tile_text_44, conq_set_formation:tile_text_45, conq_set_formation:tile_text_46, conq_set_formation:tile_text_47, conq_set_formation:tile_text_48, conq_set_formation:tile_text_49, conq_set_formation:tile_text_50, conq_set_formation:tile_text_51, conq_set_formation:tile_text_52, conq_set_formation:tile_text_53, conq_set_formation:tile_text_54, conq_set_formation:tile_text_55, conq_set_formation:tile_text_56, conq_set_formation:tile_text_57, conq_set_formation:tile_text_58, conq_set_formation:tile_text_59, conq_set_formation:tile_text_60 :
         if_sethide(true, $component0);
         %varclient_1387 = 1;
 }

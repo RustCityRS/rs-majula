@@ -1,5 +1,5 @@
 // 24:0
-[com_0]
+[barrows_control_layer]
 type=layer
 width=16391
 height=16391
@@ -9,7 +9,7 @@ onvartransmit=barrows_killcount_update{varplayer_453}
 onvarctransmit=barrows_show_head{varclient_1043}
 
 // 24:1
-[com_1]
+[kills_layer]
 type=layer
 x=10
 y=8
@@ -17,24 +17,24 @@ width=147
 height=64
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=barrows_control_layer
 
 // 24:2
-[com_2]
+[brothers_slain_layer]
 type=layer
 width=147
 height=30
 heightmode=minus
-layer=com_1
+layer=kills_layer
 
 // 24:3
-[com_3]
+[brother_kills]
 type=text
 y=15
 width=147
 height=79
 xmode=abs_right
-layer=com_2
+layer=brothers_slain_layer
 textfont=p12_full
 text=None
 textalignh=right
@@ -45,12 +45,12 @@ op10=
 onvartransmit=barrows_killcount_update{varplayer_453}
 
 // 24:4
-[com_4]
+[brothers_slain_title]
 type=text
 width=147
 height=16
 xmode=abs_right
-layer=com_2
+layer=brothers_slain_layer
 textfont=p12_full
 text=Brothers slain:
 textalignh=right
@@ -61,21 +61,21 @@ op10=
 onvartransmit=barrows_killcount_update{varplayer_453}
 
 // 24:5
-[com_5]
+[creatures_slain_layer]
 type=layer
 width=147
 height=31
 ymode=abs_bottom
-layer=com_1
+layer=kills_layer
 
 // 24:6
-[com_6]
+[creature_kills]
 type=text
 width=147
 height=16
 xmode=abs_right
 ymode=abs_bottom
-layer=com_5
+layer=creatures_slain_layer
 textfont=p12_full
 text=0
 textalignh=right
@@ -84,14 +84,14 @@ colour=0x7d7d4b
 onvartransmit=barrows_killcount_update{varplayer_453}
 
 // 24:7
-[com_7]
+[creatures_slain_title]
 type=text
 y=15
 width=147
 height=16
 xmode=abs_right
 ymode=abs_bottom
-layer=com_5
+layer=creatures_slain_layer
 textfont=p12_full
 text=Creatures slain:
 textalignh=right
@@ -101,7 +101,7 @@ transmitop=10
 op10= 
 
 // 24:8
-[com_8]
+[barrows_dharok]
 type=model
 x=-2361
 y=1871
@@ -111,14 +111,14 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=barrows_control_layer
 model=null
 modelzoom=1000
 modelobjwidth=32
 modelobjheight=32
 
 // 24:9
-[com_9]
+[barrows_guthan]
 type=model
 x=2983
 y=-1072
@@ -128,14 +128,14 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=barrows_control_layer
 model=null
 modelzoom=1000
 modelobjwidth=32
 modelobjheight=32
 
 // 24:10
-[com_10]
+[barrows_ahrim]
 type=model
 x=-4921
 y=-2151
@@ -145,7 +145,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=barrows_control_layer
 model=null
 modelorigin=0,2
 modelzoom=1000
@@ -153,7 +153,7 @@ modelobjwidth=32
 modelobjheight=32
 
 // 24:11
-[com_11]
+[barrows_karil]
 type=model
 x=4007
 y=2459
@@ -163,14 +163,14 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=barrows_control_layer
 model=null
 modelzoom=1000
 modelobjwidth=32
 modelobjheight=32
 
 // 24:12
-[com_12]
+[barrows_torag]
 type=model
 x=5223
 y=-483
@@ -180,14 +180,14 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=barrows_control_layer
 model=null
 modelzoom=1000
 modelobjwidth=32
 modelobjheight=32
 
 // 24:13
-[com_13]
+[barrows_verac]
 type=model
 x=-3673
 y=693
@@ -197,7 +197,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=barrows_control_layer
 model=null
 modelzoom=1000
 modelobjwidth=32

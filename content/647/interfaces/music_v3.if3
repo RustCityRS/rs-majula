@@ -10,7 +10,7 @@ trans=200
 onvarctransmit=script2871(0){varclient_1077}
 
 // 187:1
-[com_1]
+[jukebox]
 type=layer
 y=62
 width=170
@@ -28,13 +28,13 @@ width=16
 height=187
 
 // 187:3
-[com_3]
+[music_bounding_box]
 type=layer
 width=190
 height=261
 
 // 187:4
-[com_4]
+[now_playing_text]
 type=text
 x=7
 y=40
@@ -50,7 +50,7 @@ transmitop=1
 op1=Add to Playlist
 
 // 187:5
-[com_5]
+[unlock_counter]
 type=text
 x=108
 y=4
@@ -88,7 +88,7 @@ colour=0xffffffff
 opbase= 
 
 // 187:8
-[com_8]
+[divider_bar_bottom]
 type=graphic
 y=236
 width=190
@@ -101,7 +101,7 @@ opbase=
 op10= 
 
 // 187:9
-[com_9]
+[playlist]
 type=layer
 y=62
 width=186
@@ -109,7 +109,7 @@ height=187
 onvartransmit=script2877{varplayer_1621, varplayer_1622, varplayer_1623, varplayer_1624, varplayer_1625, varplayer_1626, varplayer_1189}
 
 // 187:10
-[com_10]
+[playlist_on]
 type=graphic
 x=31
 y=6
@@ -119,13 +119,13 @@ graphic="music_header_icons,2"
 colour=0xffffffff
 transmitop=1
 op1=Playlist on/off
-onmouseleave=deltooltip(music_v3:com_16)
+onmouseleave=deltooltip(music_v3:music_tooltip_layer)
 onvartransmit=script2874{varplayer_1621}
 onop=setintminimenu
 onmouserepeat=script2882
 
 // 187:11
-[com_11]
+[playlist_clear]
 type=graphic
 x=57
 y=6
@@ -135,11 +135,11 @@ graphic="music_header_icons,4"
 colour=0xffffffff
 transmitop=1
 op1=Clear Playlist
-onmouseleave=deltooltip(music_v3:com_16)
+onmouseleave=deltooltip(music_v3:music_tooltip_layer)
 onmouserepeat=script2883
 
 // 187:12
-[com_12]
+[playlist_interface]
 type=graphic
 x=5
 y=6
@@ -147,12 +147,12 @@ width=24
 height=24
 graphic="music_header_icons,0"
 colour=0xffffffff
-onmouseleave=deltooltip(music_v3:com_16)
+onmouseleave=deltooltip(music_v3:music_tooltip_layer)
 onmouserepeat=script2880
 onclick=script2871(1)
 
 // 187:13
-[com_13]
+[playlist_random]
 type=graphic
 x=83
 y=6
@@ -162,13 +162,13 @@ graphic="music_header_icons,5"
 colour=0xffffffff
 transmitop=1
 op1=Shuffle on/off
-onmouseleave=deltooltip(music_v3:com_16)
+onmouseleave=deltooltip(music_v3:music_tooltip_layer)
 onvartransmit=script2876{varplayer_1621}
 onop=script2875
 onmouserepeat=script2884
 
 // 187:14
-[com_14]
+[playlist_empty]
 type=text
 x=18
 y=80
@@ -181,20 +181,20 @@ textshadow=yes
 colour=0xff0033
 
 // 187:15
-[com_15]
+[music_tooltip_container]
 type=layer
 width=190
 height=250
 
 // 187:16
-[com_16]
+[music_tooltip_layer]
 type=layer
 width=1
 height=1
-layer=com_15
+layer=music_tooltip_container
 
 // 187:17
-[com_17]
+[music_search]
 type=graphic
 x=31
 y=6
@@ -205,12 +205,12 @@ colour=0xffffffff
 transmitop=1
 op1=Search
 opcursor0=cursor_56
-onmouseleave=deltooltip(music_v3:com_16)
+onmouseleave=deltooltip(music_v3:music_tooltip_layer)
 onop=script3682
 onmouserepeat=script3684
 
 // 187:18
-[com_18]
+[music_search_empty]
 type=text
 x=31
 y=80

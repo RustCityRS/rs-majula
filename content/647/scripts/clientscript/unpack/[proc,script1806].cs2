@@ -23,5 +23,5 @@ if (string_length(%varclient_1557) > 0) {
 } else {
     mes("Caller feature disabled.");
 }
-~script1809(clanwars_overlay:com_22, clanwars_overlay:com_24, clanwars_overlay:com_25);
-~script1809(clanwars_ffa_overlay:com_14, clanwars_ffa_overlay:com_16, clanwars_ffa_overlay:com_17);
+~script1809(clanwars_overlay:caller_layer, clanwars_overlay:caller_name, clanwars_overlay:caller_text);
+~script1809(clanwars_ffa_overlay:caller_layer, clanwars_ffa_overlay:caller_name, clanwars_ffa_overlay:caller_text);

@@ -5,200 +5,200 @@ x=37
 y=1
 width=454
 height=333
-layer=com_18
+layer=content_layer
 model=model_4652
 modelorigin=-21,-14
 modelangle=481,0,0
 modelzoom=885
 
 // 174:1
-[com_1]
+[wom1]
 type=text
 x=82
 y=44
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom1
 colour=0xf0bb5e
 
 // 174:2
-[com_2]
+[wom2]
 type=text
 x=82
 y=60
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom2
 colour=0xf0bb5e
 
 // 174:3
-[com_3]
+[wom3]
 type=text
 x=82
 y=76
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom3
 colour=0xf0bb5e
 
 // 174:4
-[com_4]
+[wom4]
 type=text
 x=82
 y=92
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom4
 colour=0xf0bb5e
 
 // 174:5
-[com_5]
+[wom5]
 type=text
 x=82
 y=108
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom5
 colour=0xf0bb5e
 
 // 174:6
-[com_6]
+[wom6]
 type=text
 x=82
 y=124
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom6
 colour=0xf0bb5e
 
 // 174:7
-[com_7]
+[wom7]
 type=text
 x=82
 y=140
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom7
 colour=0xf0bb5e
 
 // 174:8
-[com_8]
+[wom8]
 type=text
 x=82
 y=156
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom8
 colour=0xf0bb5e
 
 // 174:9
-[com_9]
+[wom9]
 type=text
 x=82
 y=172
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom9
 colour=0xf0bb5e
 
 // 174:10
-[com_10]
+[wom10]
 type=text
 x=82
 y=188
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom10
 colour=0xf0bb5e
 
 // 174:11
-[com_11]
+[wom11]
 type=text
 x=82
 y=204
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom11
 colour=0xf0bb5e
 
 // 174:12
-[com_12]
+[wom12]
 type=text
 x=82
 y=220
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom12
 colour=0xf0bb5e
 
 // 174:13
-[com_13]
+[wom13]
 type=text
 x=82
 y=236
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom13
 colour=0xf0bb5e
 
 // 174:14
-[com_14]
+[wom14]
 type=text
 x=82
 y=252
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom14
 colour=0xf0bb5e
 
 // 174:15
-[com_15]
+[wom15]
 type=text
 x=82
 y=268
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom15
 colour=0xf0bb5e
 
 // 174:16
-[com_16]
+[wom16]
 type=text
 x=82
 y=284
 width=335
 height=17
-layer=com_18
+layer=content_layer
 textfont=q8_full
 text=wom16
 colour=0xf0bb5e
@@ -210,7 +210,7 @@ x=420
 y=30
 width=26
 height=23
-layer=com_18
+layer=content_layer
 graphic="close_buttons,6"
 colour=0x000000
 transmitop=1
@@ -220,7 +220,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,6")
 onop=closebutton_click
 
 // 174:18
-[com_18]
+[content_layer]
 type=layer
 width=512
 height=334

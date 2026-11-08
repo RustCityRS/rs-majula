@@ -1,7 +1,7 @@
 // 501
 [clientscript,script501](int $int0)
 if ($int0 = 1) {
-    if_sethide(false, interface_1012:com_7);
+    if_sethide(false, conq_side_unit_details:current_unit_image_highlight);
 } else {
-    if_sethide(true, interface_1012:com_7);
+    if_sethide(true, conq_side_unit_details:current_unit_image_highlight);
 }

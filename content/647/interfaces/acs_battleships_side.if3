@@ -5,10 +5,10 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_1
+layer=main_layer
 
 // 1078:1
-[com_1]
+[main_layer]
 type=layer
 width=190
 height=261
@@ -261,7 +261,7 @@ onvartransmit=script4237{varplayer_2077}
 ontimer=script4238(70647832, acs_battleships_side:com_28, acs_battleships_side:com_30)
 
 // 1078:25
-[com_25]
+[fire_button]
 type=layer
 width=66
 height=66

@@ -1,11 +1,11 @@
 // [oploct,magic:air_orb]@magic_spell_charge_orb(^air_orb, loc_type);
-[oploct,magic:charge_air_orb]@magic_spell_charge_orb(^air_orb, loc_type);
+[oploct,magic:sb37]@magic_spell_charge_orb(^air_orb, loc_type);
 // [oploct,magic:water_orb]@magic_spell_charge_orb(^water_orb, loc_type);
-[oploct,magic:charge_water_orb]@magic_spell_charge_orb(^water_orb, loc_type);
+[oploct,magic:sb29]@magic_spell_charge_orb(^water_orb, loc_type);
 // [oploct,magic:earth_orb]@magic_spell_charge_orb(^earth_orb, loc_type);
-[oploct,magic:charge_earth_orb]@magic_spell_charge_orb(^earth_orb, loc_type);
+[oploct,magic:sb33]@magic_spell_charge_orb(^earth_orb, loc_type);
 // [oploct,magic:fire_orb]@magic_spell_charge_orb(^fire_orb, loc_type);
-[oploct,magic:charge_fire_orb]@magic_spell_charge_orb(^fire_orb, loc_type);
+[oploct,magic:sb35]@magic_spell_charge_orb(^fire_orb, loc_type);
 
 [label,magic_spell_charge_orb](int $spell, loc $loc)
 // check if they have orb in inv

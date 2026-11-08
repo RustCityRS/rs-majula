@@ -1,51 +1,51 @@
 // 978:0
-[com_0]
+[centre]
 type=layer
 height=209
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_8
+layer=body
 
 // 978:1
-[com_1]
+[autosetup_button]
 type=layer
 y=4
 width=300
 height=32
 xmode=abs_centre
-layer=com_0
+layer=centre
 op10=  
 
 // 978:2
-[com_2]
+[setup_buttons]
 type=layer
 x=2
 y=30
 width=498
 height=180
-layer=com_0
+layer=centre
 
 // 978:3
-[com_3]
+[manual_setup_layer]
 type=layer
 x=-1
 y=4
 width=475
 height=85
 xmode=abs_centre
-layer=com_2
+layer=setup_buttons
 op10=  
 
 // 978:4
-[com_4]
+[windowmode_layer]
 type=layer
 x=-1
 y=94
 width=475
 height=85
 xmode=abs_centre
-layer=com_2
+layer=setup_buttons
 op10= 
 
 // 978:5
@@ -58,7 +58,7 @@ ymode=abs_centre
 op10= 
 
 // 978:6
-[com_6]
+[header]
 type=layer
 height=24
 widthmode=minus
@@ -67,13 +67,13 @@ layer=com_5
 op10= 
 
 // 978:7
-[com_7]
+[messages]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=header
 textfont=p11_full
 text=If the game runs slowly on your computer, please try reducing these settings.
 textalignh=centre
@@ -82,7 +82,7 @@ colour=0xebe0bc
 op10= 
 
 // 978:8
-[com_8]
+[body]
 type=layer
 y=23
 height=23
@@ -93,14 +93,14 @@ layer=com_5
 op10= 
 
 // 978:9
-[com_9]
+[windowmode_layer_text]
 type=text
 x=5
 y=5
 width=10
 height=16
 widthmode=minus
-layer=com_4
+layer=windowmode_layer
 textfont=verdana_13pt_regular
 text=Screen Sizing
 textalignv=centre
@@ -109,92 +109,92 @@ colour=0xebe0bc
 op10= 
 
 // 978:10
-[com_10]
+[windowmode_layer_buttons]
 type=layer
 height=60
 widthmode=minus
 ymode=abs_bottom
-layer=com_4
+layer=windowmode_layer
 
 // 978:11
-[com_11]
+[windowmode_bg]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_10
+layer=windowmode_layer_buttons
 op10= 
 
 // 978:12
-[com_12]
+[windowmode_1_button]
 type=layer
 x=36
 y=6
 width=123
 height=46
-layer=com_10
+layer=windowmode_layer_buttons
 op10= 
 
 // 978:13
-[com_13]
+[windowmode_2_button]
 type=layer
 y=6
 width=146
 height=46
 xmode=abs_centre
-layer=com_10
+layer=windowmode_layer_buttons
 op10= 
 
 // 978:14
-[com_14]
+[windowmode_3_button]
 type=layer
 x=5
 y=6
 width=156
 height=46
 xmode=abs_right
-layer=com_10
+layer=windowmode_layer_buttons
 op10= 
 
 // 978:15
-[com_15]
+[windowmode_3_noclick]
 type=layer
 x=5
 y=21
 width=102
 height=31
 xmode=abs_right
-layer=com_10
+layer=windowmode_layer_buttons
 noclickthrough=yes
 op10= 
 
 // 978:16
-[com_16]
+[resolutions]
 type=layer
 x=18
 y=29
 width=75
 height=16
 xmode=abs_right
-layer=com_10
+layer=windowmode_layer_buttons
 op10= 
 
 // 978:17
-[com_17]
+[windowmode_3_icon]
 type=graphic
 width=54
 height=46
-layer=com_14
+layer=windowmode_3_button
 colour=0xffffffff
 op10= 
 
 // 978:18
-[com_18]
+[windowmode_3_text]
 type=text
 x=71
 y=1
 width=85
 height=14
-layer=com_14
+layer=windowmode_3_button
 textfont=p11_full
 text=FULLSCREEN
 textalignv=bottom
@@ -203,22 +203,22 @@ colour=0xebe1bc
 op10= 
 
 // 978:19
-[com_19]
+[windowmode_2_icon]
 type=graphic
 width=54
 height=46
-layer=com_13
+layer=windowmode_2_button
 colour=0xffffffff
 op10= 
 
 // 978:20
-[com_20]
+[windowmode_2_text]
 type=text
 x=72
 y=1
 width=74
 height=14
-layer=com_13
+layer=windowmode_2_button
 textfont=p11_full
 text=RESIZEABLE
 textalignv=bottom
@@ -227,22 +227,22 @@ colour=0xebe0bc
 op10= 
 
 // 978:21
-[com_21]
+[windowmode_1_icon]
 type=graphic
 width=54
 height=46
-layer=com_12
+layer=windowmode_1_button
 colour=0xffffffff
 op10= 
 
 // 978:22
-[com_22]
+[windowmode_1_text]
 type=text
 x=72
 y=2
 width=51
 height=14
-layer=com_12
+layer=windowmode_1_button
 textfont=p11_full
 text=FIXED
 textalignv=bottom
@@ -259,7 +259,7 @@ width=16
 height=16
 widthmode=minus
 heightmode=minus
-layer=com_11
+layer=windowmode_bg
 colour=0x383530
 fill=yes
 op10=  
@@ -269,7 +269,7 @@ op10=
 type=graphic
 width=8
 height=8
-layer=com_11
+layer=windowmode_bg
 graphic="lobby_smlframe,0"
 colour=0xffffffff
 op10=  
@@ -281,7 +281,7 @@ width=8
 height=8
 xmode=abs_right
 ymode=abs_bottom
-layer=com_11
+layer=windowmode_bg
 graphic="lobby_smlframe,0"
 vflip=yes
 hflip=yes
@@ -295,7 +295,7 @@ x=8
 width=16
 height=8
 widthmode=minus
-layer=com_11
+layer=windowmode_bg
 graphic="lobby_smlframe,1"
 tiling=yes
 colour=0xffffffff
@@ -308,7 +308,7 @@ y=8
 width=8
 height=16
 heightmode=minus
-layer=com_11
+layer=windowmode_bg
 graphic="lobby_smlframe,2"
 tiling=yes
 colour=0xffffffff
@@ -320,7 +320,7 @@ type=graphic
 width=8
 height=8
 ymode=abs_bottom
-layer=com_11
+layer=windowmode_bg
 graphic="lobby_smlframe,0"
 vflip=yes
 colour=0xffffffff
@@ -332,7 +332,7 @@ type=graphic
 width=8
 height=8
 xmode=abs_right
-layer=com_11
+layer=windowmode_bg
 graphic="lobby_smlframe,0"
 hflip=yes
 colour=0xffffffff
@@ -346,7 +346,7 @@ width=8
 height=16
 heightmode=minus
 xmode=abs_right
-layer=com_11
+layer=windowmode_bg
 graphic="lobby_smlframe,2"
 tiling=yes
 hflip=yes
@@ -361,7 +361,7 @@ width=16
 height=8
 widthmode=minus
 ymode=abs_bottom
-layer=com_11
+layer=windowmode_bg
 graphic="lobby_smlframe,1"
 tiling=yes
 vflip=yes
@@ -369,14 +369,14 @@ colour=0xffffffff
 op10=  
 
 // 978:32
-[com_32]
+[manual_setup_layer_text]
 type=text
 x=5
 y=5
 width=10
 height=16
 widthmode=minus
-layer=com_3
+layer=manual_setup_layer
 textfont=verdana_13pt_regular
 text=Manual Setup
 textalignv=centre
@@ -385,75 +385,75 @@ colour=0xebe0bc
 op10=  
 
 // 978:33
-[com_33]
+[manual_setup_layer_buttons]
 type=layer
 height=60
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_3
+layer=manual_setup_layer
 op10= 
 
 // 978:34
-[com_34]
+[manual_setup_layer_bg]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_33
+layer=manual_setup_layer_buttons
 op10=  
 
 // 978:35
-[com_35]
+[manual_setup_buttons]
 type=layer
 width=376
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_33
+layer=manual_setup_layer_buttons
 op10= 
 
 // 978:36
-[com_36]
+[manual_setup_min]
 type=layer
 width=60
 height=26
-layer=com_35
+layer=manual_setup_buttons
 op10=   
 
 // 978:37
-[com_37]
+[manual_setup_low]
 type=layer
 x=70
 width=60
 height=26
-layer=com_35
+layer=manual_setup_buttons
 op10=    
 
 // 978:38
-[com_38]
+[manual_setup_mid]
 type=layer
 x=140
 width=60
 height=26
-layer=com_35
+layer=manual_setup_buttons
 op10=    
 
 // 978:39
-[com_39]
+[manual_setup_high]
 type=layer
 x=210
 width=60
 height=26
-layer=com_35
+layer=manual_setup_buttons
 op10=    
 
 // 978:40
-[com_40]
+[manual_setup_custom]
 type=layer
 width=86
 height=26
 xmode=abs_right
-layer=com_35
+layer=manual_setup_buttons
 op10=    
 
 // 978:41
@@ -465,7 +465,7 @@ width=16
 height=16
 widthmode=minus
 heightmode=minus
-layer=com_34
+layer=manual_setup_layer_bg
 colour=0x383530
 fill=yes
 op10=   
@@ -475,7 +475,7 @@ op10=
 type=graphic
 width=8
 height=8
-layer=com_34
+layer=manual_setup_layer_bg
 graphic="lobby_smlframe,0"
 colour=0xffffffff
 op10=   
@@ -487,7 +487,7 @@ width=8
 height=8
 xmode=abs_right
 ymode=abs_bottom
-layer=com_34
+layer=manual_setup_layer_bg
 graphic="lobby_smlframe,0"
 vflip=yes
 hflip=yes
@@ -501,7 +501,7 @@ x=8
 width=16
 height=8
 widthmode=minus
-layer=com_34
+layer=manual_setup_layer_bg
 graphic="lobby_smlframe,1"
 tiling=yes
 colour=0xffffffff
@@ -514,7 +514,7 @@ y=8
 width=8
 height=16
 heightmode=minus
-layer=com_34
+layer=manual_setup_layer_bg
 graphic="lobby_smlframe,2"
 tiling=yes
 colour=0xffffffff
@@ -526,7 +526,7 @@ type=graphic
 width=8
 height=8
 ymode=abs_bottom
-layer=com_34
+layer=manual_setup_layer_bg
 graphic="lobby_smlframe,0"
 vflip=yes
 colour=0xffffffff
@@ -538,7 +538,7 @@ type=graphic
 width=8
 height=8
 xmode=abs_right
-layer=com_34
+layer=manual_setup_layer_bg
 graphic="lobby_smlframe,0"
 hflip=yes
 colour=0xffffffff
@@ -552,7 +552,7 @@ width=8
 height=16
 heightmode=minus
 xmode=abs_right
-layer=com_34
+layer=manual_setup_layer_bg
 graphic="lobby_smlframe,2"
 tiling=yes
 hflip=yes
@@ -567,7 +567,7 @@ width=16
 height=8
 widthmode=minus
 ymode=abs_bottom
-layer=com_34
+layer=manual_setup_layer_bg
 graphic="lobby_smlframe,1"
 tiling=yes
 vflip=yes

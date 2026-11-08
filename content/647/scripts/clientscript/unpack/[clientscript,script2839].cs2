@@ -2,4 +2,4 @@
 [clientscript,script2839]
 %varclient_1068 = 2;
 cam_movealong(0, %varclient_1068, 350, 400, 1, %varclient_1068);
-if_setoncamfinished("script2840", nom_cutscene_controller:com_0);
+if_setoncamfinished("script2840", nom_cutscene_controller:cutscene_controller);

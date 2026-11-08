@@ -40,7 +40,7 @@ transmitop=10
 op10= 
 
 // 893:4
-[com_4]
+[tutorial_layer]
 type=layer
 width=16391
 height=16391
@@ -50,46 +50,46 @@ transmitop=10
 op10= 
 
 // 893:5
-[com_5]
+[abort_layer]
 type=layer
 width=190
 height=261
-layer=com_4
+layer=tutorial_layer
 
 // 893:6
-[com_6]
+[brown_back]
 type=rectangle
 x=4
 y=4
 width=72
 height=22
 xmode=abs_right
-layer=com_5
+layer=abort_layer
 colour=0x453b2c
 fill=yes
 
 // 893:7
-[com_7]
+[black_border]
 type=rectangle
 x=3
 y=3
 width=74
 height=24
 xmode=abs_right
-layer=com_5
+layer=abort_layer
 colour=0x000000
 transmitop=10
 op10= 
 
 // 893:8
-[com_8]
+[abort]
 type=text
 x=4
 y=5
 width=70
 height=20
 xmode=abs_right
-layer=com_5
+layer=abort_layer
 textfont=p11_full
 text=Abort<br>tutorial
 textalignh=centre
@@ -103,13 +103,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xcd3700)
 
 // 893:9
-[com_9]
+[title]
 type=text
 x=4
 y=26
 width=184
 height=32
-layer=com_4
+layer=tutorial_layer
 textfont=tutorial_font
 textalignh=centre
 textshadow=yes
@@ -119,13 +119,13 @@ op10=
 onvarcstrtransmit=script1845{varclient_1716, varclient_1717, varclient_1718, varclient_1719}
 
 // 893:10
-[com_10]
+[body]
 type=text
 x=3
 y=61
 width=185
 height=161
-layer=com_4
+layer=tutorial_layer
 textfont=tutorial_font
 textalignh=centre
 textalignv=centre
@@ -141,7 +141,7 @@ y=223
 width=16046
 height=35
 widthmode=proportion
-layer=com_4
+layer=tutorial_layer
 textfont=tutorial_font
 textalignh=centre
 textalignv=centre
@@ -160,7 +160,7 @@ y=223
 width=16132
 height=35
 widthmode=proportion
-layer=com_4
+layer=tutorial_layer
 textfont=tutorial_font
 textalignh=centre
 textalignv=centre
@@ -169,20 +169,20 @@ transmitop=10
 op10= 
 
 // 893:13
-[com_13]
+[hint_arrow_layer]
 type=layer
 width=190
 height=261
 hide=yes
 
 // 893:14
-[com_14]
+[hint_body]
 type=text
 y=62
 width=162
 height=90
 xmode=abs_centre
-layer=com_13
+layer=hint_arrow_layer
 textfont=q8_full
 text=Follow the hint-arrow on your minimap to reach your destination.
 textalignh=centre
@@ -198,20 +198,20 @@ x=5
 y=224
 width=180
 height=22
-layer=com_13
+layer=hint_arrow_layer
 graphic="km_buttonlongtemp00,1"
 colour=0xffffffff
 onmouseover=graphic_swapper(event_com, "km_buttonlongtemp00,0")
 onmouseleave=graphic_swapper(event_com, "km_buttonlongtemp00,1")
 
 // 893:16
-[com_16]
+[hint_abort]
 type=text
 y=226
 width=186
 height=18
 xmode=abs_centre
-layer=com_13
+layer=hint_arrow_layer
 textfont=b12_full
 text=Turn off Hint-arrow
 textalignh=centre
@@ -225,13 +225,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff8000)
 
 // 893:17
-[com_17]
+[hint_title]
 type=text
 y=36
 width=130
 height=38
 xmode=abs_centre
-layer=com_13
+layer=hint_arrow_layer
 textfont=quill_oblique_large
 text=Hint-arrow
 textalignh=centre

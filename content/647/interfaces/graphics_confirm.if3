@@ -34,7 +34,7 @@ trans=200
 op10= 
 
 // 883:3
-[com_3]
+[box]
 type=layer
 width=300
 height=150
@@ -50,7 +50,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=box
 colour=0x453c31
 fill=yes
 
@@ -62,7 +62,7 @@ width=2
 height=70
 widthmode=minus
 xmode=abs_centre
-layer=com_3
+layer=box
 graphic=graphic_2042
 tiling=yes
 colour=0xffffffff
@@ -76,7 +76,7 @@ height=46
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_3
+layer=box
 graphic=graphic_2038
 tiling=yes
 colour=0xffffffff
@@ -90,7 +90,7 @@ width=32
 height=32
 heightmode=minus
 ymode=abs_centre
-layer=com_3
+layer=box
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -105,7 +105,7 @@ height=32
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_3
+layer=box
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -118,7 +118,7 @@ width=32
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_3
+layer=box
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -129,7 +129,7 @@ op10=
 type=graphic
 width=32
 height=32
-layer=com_3
+layer=box
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 op10= 
@@ -140,7 +140,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_3
+layer=box
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 op10= 
@@ -154,7 +154,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_3
+layer=box
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -166,7 +166,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_3
+layer=box
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 op10= 
@@ -178,7 +178,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
+layer=box
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 op10= 
@@ -189,7 +189,7 @@ type=text
 height=22
 widthmode=minus
 xmode=abs_centre
-layer=com_3
+layer=box
 textfont=b12_full
 text=Accept this setting?
 textalignh=centre
@@ -198,13 +198,13 @@ textshadow=yes
 colour=0xff991f
 
 // 883:16
-[com_16]
+[countdown]
 type=text
 y=22
 height=58
 widthmode=minus
 xmode=abs_centre
-layer=com_3
+layer=box
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -212,32 +212,32 @@ textshadow=yes
 colour=0xe69933
 
 // 883:17
-[com_17]
+[confirm_button]
 type=layer
 x=20
 y=20
 width=100
 height=30
 ymode=abs_bottom
-layer=com_3
+layer=box
 
 // 883:18
-[com_18]
+[confirm_graphics]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=confirm_button
 
 // 883:19
-[com_19]
+[confirm_text]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=confirm_button
 textfont=b12_full
 text=Confirm
 textalignh=centre
@@ -246,7 +246,7 @@ textshadow=yes
 colour=0xff991f
 
 // 883:20
-[com_20]
+[cancel_button]
 type=layer
 x=20
 y=20
@@ -254,25 +254,25 @@ width=100
 height=30
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
+layer=box
 
 // 883:21
-[com_21]
+[cancel_graphics]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_20
+layer=cancel_button
 
 // 883:22
-[com_22]
+[cancel_text]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_20
+layer=cancel_button
 textfont=b12_full
 text=Cancel
 textalignh=centre

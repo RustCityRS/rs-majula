@@ -1,5 +1,5 @@
 // 672:0
-[com_0]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -13,7 +13,7 @@ x=17
 y=25
 width=489
 height=305
-layer=com_0
+layer=content_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -25,7 +25,7 @@ x=14
 y=25
 width=485
 height=300
-layer=com_0
+layer=content_layer
 graphic=tradebacking
 tiling=yes
 colour=0x000000
@@ -36,7 +36,7 @@ type=graphic
 y=53
 width=32
 height=241
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0x000000
@@ -48,7 +48,7 @@ x=13
 y=20
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,4"
 colour=0x000000
 
@@ -59,7 +59,7 @@ x=480
 y=51
 width=32
 height=243
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0x000000
@@ -71,25 +71,25 @@ x=45
 y=306
 width=423
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0x000000
 
 // 672:7
-[com_7]
+[close]
 type=graphic
 x=474
 y=30
 width=16
 height=16
-layer=com_0
+layer=content_layer
 graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(interface_672:com_7, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(interface_672:com_7, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(interface_672:close, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(interface_672:close, "v2_stone_close_button,0")
 onop=closebutton_click
 onclick=closebutton_click
 
@@ -100,7 +100,7 @@ x=13
 y=294
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,6"
 colour=0x000000
 
@@ -111,7 +111,7 @@ x=468
 y=20
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,5"
 colour=0x000000
 
@@ -122,7 +122,7 @@ x=468
 y=294
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,7"
 colour=0x000000
 
@@ -133,7 +133,7 @@ x=24
 y=35
 width=465
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0x000000
@@ -145,7 +145,7 @@ x=13
 y=37
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,9"
 colour=0x000000
 
@@ -156,7 +156,7 @@ x=468
 y=37
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,10"
 colour=0x000000
 
@@ -167,7 +167,7 @@ x=44
 y=7
 width=424
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0x000000
@@ -179,7 +179,7 @@ x=222
 y=30
 width=250
 height=16
-layer=com_0
+layer=content_layer
 textfont=b12_full
 text=Summoning Pouch Creation  
 textalignh=centre
@@ -187,48 +187,48 @@ textshadow=yes
 colour=0xff981f
 
 // 672:16
-[com_16]
+[scroll_icons]
 type=layer
 x=22
 y=59
 width=453
 height=257
-layer=com_0
+layer=content_layer
 scrollheight=1400
 
 // 672:17
-[com_17]
+[lore_pouch_layer]
 type=layer
 x=22
 y=59
 width=453
 height=257
-layer=com_0
+layer=content_layer
 
 // 672:18
-[com_18]
+[scroller]
 type=layer
 x=474
 y=59
 width=16
 height=257
-layer=com_0
-onload=scrollbar_vertical_graphics(event_com, interface_672:com_16, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+layer=content_layer
+onload=scrollbar_vertical_graphics(event_com, interface_672:scroll_icons, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 672:19
-[com_19]
+[tab_back]
 type=graphic
 x=92
 y=29
 width=79
 height=20
-layer=com_0
+layer=content_layer
 graphic="tabs,0"
 colour=0x000000
 transmitop=1
 op1=Transform Scrolls
-onmouseleave=deltooltip(interface_672:com_24)
-onmouserepeat=script779(event_com, interface_672:com_24, 44040216, 1, "Swap between creating animal pouches and scrolls")
+onmouseleave=deltooltip(interface_672:tool_tip_build_layer)
+onmouserepeat=script779(event_com, interface_672:tool_tip_build_layer, 44040216, 1, "Swap between creating animal pouches and scrolls")
 
 // 672:20
 [com_20]
@@ -237,18 +237,18 @@ x=114
 y=30
 width=25
 height=18
-layer=com_0
+layer=content_layer
 graphic="lore_switch,2"
 colour=0x000000
 
 // 672:21
-[com_21]
+[tab_front]
 type=graphic
 x=22
 y=29
 width=79
 height=20
-layer=com_0
+layer=content_layer
 graphic="tabs,1"
 colour=0x000000
 
@@ -259,20 +259,20 @@ x=42
 y=30
 width=25
 height=18
-layer=com_0
+layer=content_layer
 graphic="lore_switch,1"
 colour=0x000000
 
 // 672:23
-[com_23]
+[tooltip_bounding_box]
 type=layer
 width=512
 height=334
-layer=com_0
+layer=content_layer
 
 // 672:24
-[com_24]
+[tool_tip_build_layer]
 type=layer
 width=512
 height=334
-layer=com_23
+layer=tooltip_bounding_box

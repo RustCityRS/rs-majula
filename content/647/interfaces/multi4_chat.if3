@@ -1,5 +1,5 @@
 // 233:0
-[com_0]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -7,26 +7,26 @@ widthmode=proportion
 heightmode=proportion
 
 // 233:1
-[com_1]
+[multi4t_chat]
 type=text
 y=14
 width=480
 height=17
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Select an Option
 textalignh=centre
 colour=0x800000
 
 // 233:2
-[com_2]
+[multi4a_chat]
 type=text
 y=32
 width=480
 height=17
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option1
 textalignh=centre
@@ -36,13 +36,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 233:3
-[com_3]
+[multi4b_chat]
 type=text
 y=52
 width=480
 height=17
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option2
 textalignh=centre
@@ -52,13 +52,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 233:4
-[com_4]
+[multi4c_chat]
 type=text
 y=72
 width=480
 height=17
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option3
 textalignh=centre
@@ -68,13 +68,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 233:5
-[com_5]
+[multi4d_chat]
 type=text
 y=92
 width=480
 height=17
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option4
 textalignh=centre
@@ -88,7 +88,7 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 type=graphic
 width=57
 height=13
-layer=com_8
+layer=multi4swords_chat
 graphic="sworddecor,1"
 colour=0x000000
 
@@ -98,18 +98,18 @@ type=graphic
 width=57
 height=13
 xmode=abs_right
-layer=com_8
+layer=multi4swords_chat
 graphic="sworddecor,0"
 colour=0x000000
 
 // 233:8
-[com_8]
+[multi4swords_chat]
 type=layer
 y=15
 width=337
 height=13
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 
 // 233:9
 [com_9]
@@ -118,7 +118,7 @@ y=15
 width=476
 height=13
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 hide=yes
 
 // 233:10

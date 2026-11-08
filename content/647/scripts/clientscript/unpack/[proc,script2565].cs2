@@ -2,6 +2,6 @@
 [proc,script2565]
 def_int $int0 = 0;
 %varclient_846 = %varplayerbit_6380;
-if_settext(tostring(%varplayerbit_6380), mob_squad_buy:com_30);
+if_settext(tostring(%varplayerbit_6380), mob_squad_buy:quantity_field);
 $int0 = calc(%varclient_839 - 100 * %varclient_846);
-if_settext(~tostring_spacer($int0, ","), mob_squad_buy:com_14);
+if_settext(~tostring_spacer($int0, ","), mob_squad_buy:remainder_field);

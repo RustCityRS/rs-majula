@@ -1,18 +1,18 @@
 // 1100:0
-[com_0]
+[text_layer]
 type=layer
 x=48
 y=51
 width=400
 height=21
-layer=com_5
+layer=content_layer_2
 
 // 1100:1
 [com_1]
 type=graphic
 width=6
 height=21
-layer=com_0
+layer=text_layer
 graphic="aif_text_input_3,0"
 
 // 1100:2
@@ -23,7 +23,7 @@ width=100
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_5
+layer=content_layer_2
 textfont=verdana_15pt_regular
 text=Forum Thread ID
 textalignh=centre
@@ -53,7 +53,7 @@ graphic=window_texture_1
 tiling=yes
 
 // 1100:5
-[com_5]
+[content_layer_2]
 type=layer
 width=6
 height=6
@@ -420,7 +420,7 @@ width=12
 height=21
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=text_layer
 graphic="aif_text_input_3,1"
 tiling=yes
 
@@ -430,7 +430,7 @@ type=graphic
 width=6
 height=21
 xmode=abs_right
-layer=com_0
+layer=text_layer
 graphic="aif_text_input_3,2"
 
 // 1100:38
@@ -442,33 +442,33 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
-textfont=graphic_5631
+layer=text_layer
+textfont=verdana_11pt_regular_multiline
 textalignh=centre
 textalignv=centre
 colour=0x1f1d19
-onload=clan_qfc_text_init(event_com, clan_qfc_input:com_39)
-onclick=clan_qfc_text_click(event_com, clan_qfc_input:com_39, event_mousex)
+onload=clan_qfc_text_init(event_com, clan_qfc_input:caret)
+onclick=clan_qfc_text_click(event_com, clan_qfc_input:caret, event_mousex)
 
 // 1100:39
-[com_39]
+[caret]
 type=line
 x=2
 height=12
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=text_layer
 hide=yes
 colour=0xffffff
 
 // 1100:40
-[com_40]
+[instructions]
 type=text
 y=33
 width=400
 height=16
 xmode=abs_centre
-layer=com_5
+layer=content_layer_2
 textfont=p11_full
 text=Type or paste in your clan forum's thread ID:
 textalignh=centre
@@ -476,7 +476,7 @@ textalignv=centre
 colour=0x1f2723
 
 // 1100:41
-[com_41]
+[accept_button_layer]
 type=layer
 x=-130
 y=10
@@ -484,7 +484,7 @@ width=100
 height=25
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_5
+layer=content_layer_2
 
 // 1100:42
 [com_42]
@@ -494,10 +494,10 @@ width=100
 height=25
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_5
+layer=content_layer_2
 
 // 1100:43
-[com_43]
+[cancel_button_layer]
 type=layer
 x=130
 y=10
@@ -505,7 +505,7 @@ width=100
 height=25
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_5
+layer=content_layer_2
 
 // 1100:44
 [com_44]
@@ -514,7 +514,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_41
+layer=accept_button_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -526,7 +526,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_41
+layer=accept_button_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -538,7 +538,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_41
+layer=accept_button_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -549,7 +549,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_41
+layer=accept_button_layer
 onload=script4201(event_com, struct_1736)
 
 // 1100:48
@@ -559,7 +559,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_41
+layer=accept_button_layer
 onload=script4201(event_com, struct_1737)
 
 // 1100:49
@@ -569,7 +569,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_41
+layer=accept_button_layer
 onload=script4201(event_com, struct_1738)
 
 // 1100:50
@@ -579,17 +579,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_41
+layer=accept_button_layer
 onload=script4201(event_com, struct_1739)
 
 // 1100:51
-[com_51]
+[ok_button]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_41
+layer=accept_button_layer
 onload=script4213(event_com)
 onclick=clan_qfc_return(1)
 
@@ -600,7 +600,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_41
+layer=accept_button_layer
 
 // 1100:53
 [com_53]
@@ -626,7 +626,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_41
+layer=accept_button_layer
 hide=yes
 noclickthrough=yes
 onload=script4201(event_com, struct_1740)
@@ -786,7 +786,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_43
+layer=cancel_button_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -798,7 +798,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_43
+layer=cancel_button_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -810,7 +810,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_43
+layer=cancel_button_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -821,7 +821,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
+layer=cancel_button_layer
 onload=script4201(event_com, struct_1736)
 
 // 1100:72
@@ -831,7 +831,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
+layer=cancel_button_layer
 onload=script4201(event_com, struct_1737)
 
 // 1100:73
@@ -841,7 +841,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
+layer=cancel_button_layer
 onload=script4201(event_com, struct_1738)
 
 // 1100:74
@@ -851,17 +851,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
+layer=cancel_button_layer
 onload=script4201(event_com, struct_1739)
 
 // 1100:75
-[com_75]
+[cancel_button]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
+layer=cancel_button_layer
 onload=script4213(event_com)
 onclick=clan_qfc_return(0)
 
@@ -872,7 +872,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
+layer=cancel_button_layer
 
 // 1100:77
 [com_77]
@@ -898,7 +898,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
+layer=cancel_button_layer
 hide=yes
 noclickthrough=yes
 onload=script4201(event_com, struct_1740)

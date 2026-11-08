@@ -1,5 +1,5 @@
 // 793:0
-[com_0]
+[universe]
 type=layer
 y=34
 width=400
@@ -16,60 +16,60 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=universe
 graphic=tradebacking
 tiling=yes
 colour=0x000000
 opbase= 
 
 // 793:2
-[com_2]
+[close]
 type=graphic
 x=9
 y=9
 width=16
 height=16
 xmode=abs_right
-layer=com_0
+layer=universe
 graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1
 op1=Close
-onload=clanwars_ffa_warning_setup(clanwars_ffa_warning:com_5, clanwars_ffa_warning:com_13, clanwars_ffa_warning:com_3, clanwars_ffa_warning:com_4, clanwars_ffa_warning:com_9, clanwars_ffa_warning:com_11)
+onload=clanwars_ffa_warning_setup(clanwars_ffa_warning:title, clanwars_ffa_warning:text, clanwars_ffa_warning:left_symbol, clanwars_ffa_warning:right_symbol, clanwars_ffa_warning:nomorewarnings, clanwars_ffa_warning:toggleicon)
 onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
 onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
-onvartransmit=clanwars_ffa_warning_setup(clanwars_ffa_warning:com_5, clanwars_ffa_warning:com_13, clanwars_ffa_warning:com_3, clanwars_ffa_warning:com_4, clanwars_ffa_warning:com_9, clanwars_ffa_warning:com_11){varplayer_1147}
+onvartransmit=clanwars_ffa_warning_setup(clanwars_ffa_warning:title, clanwars_ffa_warning:text, clanwars_ffa_warning:left_symbol, clanwars_ffa_warning:right_symbol, clanwars_ffa_warning:nomorewarnings, clanwars_ffa_warning:toggleicon){varplayer_1147}
 onop=closebutton_click
 
 // 793:3
-[com_3]
+[left_symbol]
 type=graphic
 y=8
 width=19
 height=19
-layer=com_0
+layer=universe
 graphic="warning_icons,0"
 colour=0x000000
 
 // 793:4
-[com_4]
+[right_symbol]
 type=graphic
 y=8
 width=19
 height=19
 xmode=abs_right
-layer=com_0
+layer=universe
 graphic="warning_icons,0"
 colour=0x000000
 
 // 793:5
-[com_5]
+[title]
 type=text
 y=7
 height=21
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=universe
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -77,7 +77,7 @@ textshadow=yes
 colour=0xff981f
 
 // 793:6
-[com_6]
+[text_layer]
 type=layer
 y=37
 width=18
@@ -85,24 +85,24 @@ height=83
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_0
+layer=universe
 onload=clanwars_setup_createbox(event_com, 0, 0, 0)
 
 // 793:7
-[com_7]
+[cancel_layer]
 type=layer
 x=9
 y=9
 width=98
 height=34
 ymode=abs_bottom
-layer=com_0
+layer=universe
 onload=v2_stone_button_filled(event_com)
 onmouseover=v2_stone_button_in_filled(event_com)
 onmouseleave=v2_stone_button_filled(event_com)
 
 // 793:8
-[com_8]
+[enter_layer]
 type=layer
 x=9
 y=9
@@ -110,13 +110,13 @@ width=98
 height=34
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=universe
 onload=v2_stone_button_filled(event_com)
 onmouseover=v2_stone_button_in_filled(event_com)
 onmouseleave=v2_stone_button_filled(event_com)
 
 // 793:9
-[com_9]
+[nomorewarnings]
 type=layer
 y=9
 width=222
@@ -124,7 +124,7 @@ height=34
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=universe
 transmitop=1
 op1=Toggle warning
 onload=clanwars_setup_createbox(event_com, 0, 0, 0)
@@ -140,19 +140,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=nomorewarnings
 colour=0x000000
 fill=yes
 trans=255
 
 // 793:11
-[com_11]
+[toggleicon]
 type=graphic
 x=3
 width=17
 height=17
 ymode=abs_centre
-layer=com_9
+layer=nomorewarnings
 graphic="options_radio_buttons,0"
 colour=0x000000
 
@@ -166,7 +166,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_9
+layer=nomorewarnings
 textfont=p12_full
 text=Don't show this again
 textalignv=centre
@@ -174,7 +174,7 @@ textshadow=yes
 colour=0xff7d1f
 
 // 793:13
-[com_13]
+[text]
 type=text
 width=4
 height=4
@@ -182,7 +182,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=text_layer
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -190,14 +190,14 @@ textshadow=yes
 colour=0xff7d1f
 
 // 793:14
-[com_14]
+[cancel]
 type=text
 x=9
 y=9
 width=98
 height=34
 ymode=abs_bottom
-layer=com_0
+layer=universe
 textfont=b12_full
 text=Cancel
 textalignh=centre
@@ -208,7 +208,7 @@ transmitop=1
 op1=Cancel
 
 // 793:15
-[com_15]
+[enter]
 type=text
 x=9
 y=9
@@ -216,7 +216,7 @@ width=98
 height=34
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=universe
 textfont=b12_full
 text=Go in
 textalignh=centre

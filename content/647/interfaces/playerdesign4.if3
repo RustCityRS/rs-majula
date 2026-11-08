@@ -7,128 +7,128 @@ widthmode=minus
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_40
+layer=skincolours_container
 colour=0x050000
 fill=yes
 
 // 1028:1
-[com_1]
+[fill_2]
 type=graphic
 width=16056
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_108
+layer=colours_container
 graphic=window_texture
 tiling=yes
 
 // 1028:2
-[com_2]
+[bottom_1]
 type=graphic
 width=72
 height=8
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_108
+layer=colours_container
 graphic="corner_frame_2,2"
 
 // 1028:3
-[com_3]
+[left_1]
 type=graphic
 width=38
 height=100
 heightmode=minus
 ymode=abs_centre
-layer=com_108
+layer=colours_container
 graphic="corner_frame_1,1"
 tiling=yes
 hflip=yes
 
 // 1028:4
-[com_4]
+[right_1]
 type=graphic
 width=38
 height=100
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_108
+layer=colours_container
 graphic="corner_frame_1,1"
 tiling=yes
 
 // 1028:5
-[com_5]
+[top_1]
 type=graphic
 x=-1
 height=8
 widthmode=minus
 xmode=abs_centre
-layer=com_108
+layer=colours_container
 graphic="corner_frame_2,0"
 
 // 1028:6
-[com_6]
+[fill_1]
 type=graphic
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_92
+layer=tabs_container
 graphic=window_texture
 tiling=yes
 
 // 1028:7
-[com_7]
+[bottom_left_3]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_108
+layer=colours_container
 graphic="corner_frame_1,4"
 hflip=yes
 
 // 1028:8
-[com_8]
+[top_right_2]
 type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_108
+layer=colours_container
 graphic="corner_frame_1,5"
 
 // 1028:9
-[com_9]
+[bottom_right_3]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_108
+layer=colours_container
 graphic="corner_frame_1,4"
 
 // 1028:10
-[com_10]
+[top_left_2]
 type=graphic
 width=38
 height=72
-layer=com_108
+layer=colours_container
 graphic="corner_frame_1,5"
 hflip=yes
 
 // 1028:11
-[com_11]
+[top_side]
 type=graphic
 width=72
 height=8
 widthmode=minus
 xmode=abs_centre
-layer=com_92
+layer=tabs_container
 graphic="corner_frame_2,0"
 tiling=yes
 
 // 1028:12
-[com_12]
+[bottom_side]
 type=graphic
 y=-1
 width=20
@@ -136,58 +136,58 @@ height=8
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_92
+layer=tabs_container
 graphic="corner_frame_2,1"
 tiling=yes
 
 // 1028:13
-[com_13]
+[bottom_left_2]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_92
+layer=tabs_container
 graphic="corner_frame_1,4"
 hflip=yes
 
 // 1028:14
-[com_14]
+[bottom_right_2]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_92
+layer=tabs_container
 graphic="corner_frame_1,4"
 
 // 1028:15
-[com_15]
+[top_left_1]
 type=graphic
 width=38
 height=32
-layer=com_92
+layer=tabs_container
 graphic="corner_frame_1,5"
 tiling=yes
 hflip=yes
 
 // 1028:16
-[com_16]
+[top_right_1]
 type=graphic
 width=38
 height=29
 xmode=abs_right
-layer=com_92
+layer=tabs_container
 graphic="corner_frame_1,5"
 tiling=yes
 
 // 1028:17
-[com_17]
+[fill]
 type=graphic
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_101
+layer=menu_container
 graphic=window_texture
 tiling=yes
 colour=0xffffffff
@@ -199,112 +199,112 @@ x=7
 y=5
 width=340
 height=34
-layer=com_101
+layer=menu_container
 colour=0x2b2929
 fill=yes
 
 // 1028:19
-[com_19]
+[ts]
 type=graphic
 x=38
 width=277
 height=8
-layer=com_101
+layer=menu_container
 graphic="corner_frame_2,0"
 tiling=yes
 
 // 1028:20
-[com_20]
+[rs]
 type=graphic
 width=38
 height=87
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_101
+layer=menu_container
 graphic="corner_frame_1,1"
 tiling=yes
 colour=0xffffffff
 
 // 1028:21
-[com_21]
+[bs]
 type=graphic
 x=38
 width=277
 height=8
 ymode=abs_bottom
-layer=com_101
+layer=menu_container
 graphic="corner_frame_2,2"
 tiling=yes
 
 // 1028:22
-[com_22]
+[ls]
 type=graphic
 y=38
 width=38
 height=87
 heightmode=minus
-layer=com_101
+layer=menu_container
 graphic="corner_frame_1,1"
 tiling=yes
 hflip=yes
 colour=0xffffffff
 
 // 1028:23
-[com_23]
+[ts_1]
 type=graphic
 x=38
 y=34
 width=277
 height=8
-layer=com_101
+layer=menu_container
 graphic="corner_frame_2,0"
 tiling=yes
 
 // 1028:24
-[com_24]
+[blc]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_101
+layer=menu_container
 graphic="corner_frame_1,4"
 hflip=yes
 colour=0xffffffff
 
 // 1028:25
-[com_25]
+[tlc]
 type=graphic
 width=38
 height=72
-layer=com_101
+layer=menu_container
 graphic="corner_frame_1,0"
 hflip=yes
 colour=0xffffffff
 
 // 1028:26
-[com_26]
+[trc]
 type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_101
+layer=menu_container
 graphic="corner_frame_1,0"
 colour=0xffffffff
 
 // 1028:27
-[com_27]
+[brc]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_101
+layer=menu_container
 graphic="corner_frame_1,4"
 colour=0xffffffff
 
 // 1028:28
-[com_28]
+[black]
 type=rectangle
 widthmode=minus
 heightmode=minus
@@ -314,7 +314,7 @@ colour=0x000000
 fill=yes
 
 // 1028:29
-[com_29]
+[universe]
 type=layer
 width=765
 height=503
@@ -323,7 +323,7 @@ ymode=abs_centre
 onload=playerdesign4_init(event_com)
 
 // 1028:30
-[com_30]
+[gradient1]
 type=layer
 y=4
 width=8
@@ -331,7 +331,7 @@ height=91
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_29
+layer=universe
 
 // 1028:31
 [com_31]
@@ -342,7 +342,7 @@ width=392
 height=19
 widthmode=minus
 ymode=abs_bottom
-layer=com_29
+layer=universe
 graphic=graphic_3397
 hflip=yes
 colour=0xffffffff
@@ -356,12 +356,12 @@ width=384
 height=19
 xmode=abs_right
 ymode=abs_bottom
-layer=com_29
+layer=universe
 graphic=graphic_3397
 colour=0xffffffff
 
 // 1028:33
-[com_33]
+[gradient2]
 type=layer
 y=4
 width=8
@@ -369,16 +369,16 @@ height=64
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_29
+layer=universe
 
 // 1028:34
-[com_34]
+[backdrop]
 type=layer
 width=512
 height=334
 xmode=abs_right
 ymode=abs_bottom
-layer=com_29
+layer=universe
 
 // 1028:35
 [com_35]
@@ -388,10 +388,10 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=universe
 
 // 1028:36
-[com_36]
+[roles_header]
 type=layer
 width=200
 height=30
@@ -408,7 +408,7 @@ layer=com_35
 hide=yes
 
 // 1028:38
-[com_38]
+[male]
 type=layer
 x=200
 width=50
@@ -419,7 +419,7 @@ transmitop=1
 op1=Male
 
 // 1028:39
-[com_39]
+[female]
 type=layer
 x=250
 width=50
@@ -430,7 +430,7 @@ transmitop=1
 op1=Female
 
 // 1028:40
-[com_40]
+[skincolours_container]
 type=layer
 x=32
 width=306
@@ -439,20 +439,20 @@ xmode=abs_right
 layer=com_35
 
 // 1028:41
-[com_41]
+[skincolours_graphics]
 type=layer
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_40
+layer=skincolours_container
 
 // 1028:42
 [com_42]
 type=graphic
 width=12
 height=34
-layer=com_41
+layer=skincolours_graphics
 graphic="task_colour_select,0"
 
 // 1028:43
@@ -462,7 +462,7 @@ width=20
 height=34
 widthmode=minus
 xmode=abs_centre
-layer=com_41
+layer=skincolours_graphics
 graphic="task_colour_select,1"
 
 // 1028:44
@@ -472,18 +472,18 @@ x=1
 width=12
 height=34
 xmode=abs_right
-layer=com_41
+layer=skincolours_graphics
 graphic="task_colour_select,0"
 hflip=yes
 
 // 1028:45
-[com_45]
+[skincolours]
 type=layer
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_40
+layer=skincolours_container
 
 // 1028:46
 [com_46]
@@ -495,13 +495,13 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_45
+layer=skincolours
 textfont=verdana_11pt_regular
 text=Pick skin colour
 colour=0xebe0bc
 
 // 1028:47
-[com_47]
+[roles]
 type=layer
 y=37
 height=180
@@ -510,214 +510,214 @@ xmode=abs_centre
 layer=com_35
 
 // 1028:48
-[com_48]
+[role0]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:49
-[com_49]
+[role1]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:50
-[com_50]
+[role2]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:51
-[com_51]
+[role3]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:52
-[com_52]
+[role4]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:53
-[com_53]
+[role5]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:54
-[com_54]
+[role6]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:55
-[com_55]
+[role7]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:56
-[com_56]
+[role8]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:57
-[com_57]
+[role9]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:58
-[com_58]
+[role10]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:59
-[com_59]
+[role11]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:60
-[com_60]
+[role12]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:61
-[com_61]
+[role13]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:62
-[com_62]
+[role14]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:63
-[com_63]
+[role15]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:64
-[com_64]
+[role16]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:65
-[com_65]
+[role17]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:66
-[com_66]
+[role18]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:67
-[com_67]
+[role19]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:68
-[com_68]
+[role20]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:69
-[com_69]
+[role21]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:70
-[com_70]
+[role22]
 type=layer
-layer=com_47
+layer=roles
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:71
-[com_71]
+[no_role]
 type=layer
 y=237
 width=50
@@ -736,7 +736,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_71
+layer=no_role
 colour=0xcebfae
 fill=yes
 
@@ -748,7 +748,7 @@ width=14
 height=7
 widthmode=minus
 xmode=abs_centre
-layer=com_71
+layer=no_role
 graphic=avatar_msg_bubble_top
 tiling=yes
 colour=0xffffffff
@@ -761,7 +761,7 @@ height=7
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_71
+layer=no_role
 graphic=avatar_msg_bubble_bottom
 tiling=yes
 colour=0xffffffff
@@ -774,7 +774,7 @@ width=7
 height=24
 heightmode=minus
 ymode=abs_bottom
-layer=com_71
+layer=no_role
 graphic=avatar_msg_bubble_side
 tiling=yes
 colour=0xffffffff
@@ -788,7 +788,7 @@ height=24
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_71
+layer=no_role
 graphic=avatar_msg_bubble_side
 tiling=yes
 hflip=yes
@@ -800,7 +800,7 @@ type=graphic
 y=10
 width=7
 height=7
-layer=com_71
+layer=no_role
 graphic=avatar_msg_bubble_corner
 colour=0xffffffff
 
@@ -811,7 +811,7 @@ y=10
 width=7
 height=7
 xmode=abs_right
-layer=com_71
+layer=no_role
 graphic=avatar_msg_bubble_corner
 hflip=yes
 colour=0xffffffff
@@ -822,7 +822,7 @@ type=graphic
 width=7
 height=7
 ymode=abs_bottom
-layer=com_71
+layer=no_role
 graphic=avatar_msg_bubble_corner
 vflip=yes
 colour=0xffffffff
@@ -834,7 +834,7 @@ width=7
 height=7
 xmode=abs_right
 ymode=abs_bottom
-layer=com_71
+layer=no_role
 graphic=avatar_msg_bubble_corner
 vflip=yes
 hflip=yes
@@ -846,12 +846,12 @@ type=graphic
 width=30
 height=11
 xmode=abs_centre
-layer=com_71
+layer=no_role
 graphic=avatar_msg_bubble_arrow
 colour=0xffffffff
 
 // 1028:82
-[com_82]
+[outfits]
 type=layer
 height=213
 widthmode=minus
@@ -860,67 +860,67 @@ ymode=abs_bottom
 layer=com_35
 
 // 1028:83
-[com_83]
+[outfit0]
 type=layer
-layer=com_82
+layer=outfits
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:84
-[com_84]
+[outfit1]
 type=layer
-layer=com_82
+layer=outfits
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:85
-[com_85]
+[outfit2]
 type=layer
-layer=com_82
+layer=outfits
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:86
-[com_86]
+[outfit3]
 type=layer
-layer=com_82
+layer=outfits
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:87
-[com_87]
+[outfit4]
 type=layer
-layer=com_82
+layer=outfits
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:88
-[com_88]
+[outfit5]
 type=layer
-layer=com_82
+layer=outfits
 hide=yes
 noclickthrough=yes
 transmitop=1
 op1=*
 
 // 1028:89
-[com_89]
+[customise_page]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=universe
 hide=yes
 
 // 1028:90
@@ -930,7 +930,7 @@ x=16
 y=116
 width=375
 height=270
-layer=com_29
+layer=universe
 hide=yes
 
 // 1028:91
@@ -942,7 +942,7 @@ width=329
 height=36
 widthmode=minus
 xmode=abs_centre
-layer=com_89
+layer=customise_page
 textfont=welcome_font_small
 text=Customise Character
 textalignh=centre
@@ -950,157 +950,157 @@ textalignv=centre
 colour=0x241b12
 
 // 1028:92
-[com_92]
+[tabs_container]
 type=layer
 x=15
 y=70
 width=350
 height=68
-layer=com_89
+layer=customise_page
 
 // 1028:93
-[com_93]
+[tabs_graphics]
 type=layer
 width=313
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_92
+layer=tabs_container
 
 // 1028:94
-[com_94]
+[tabs]
 type=layer
 width=313
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_92
+layer=tabs_container
 
 // 1028:95
-[com_95]
+[skin]
 type=graphic
 x=-125
 width=47
 height=47
 xmode=abs_centre
 ymode=abs_centre
-layer=com_94
+layer=tabs
 graphic="custom_selection_icons,0"
 colour=0xffffffff
 transmitop=1
 op1=Skin colour
 
 // 1028:96
-[com_96]
+[hair]
 type=graphic
 x=-75
 width=47
 height=47
 xmode=abs_centre
 ymode=abs_centre
-layer=com_94
+layer=tabs
 graphic="custom_selection_icons,1"
 colour=0xffffffff
 transmitop=1
 op1=Hair
 
 // 1028:97
-[com_97]
+[torso]
 type=graphic
 x=-25
 width=47
 height=47
 xmode=abs_centre
 ymode=abs_centre
-layer=com_94
+layer=tabs
 graphic="custom_selection_icons,2"
 colour=0xffffffff
 transmitop=1
 op1=Torso
 
 // 1028:98
-[com_98]
+[legs]
 type=graphic
 x=25
 width=47
 height=47
 xmode=abs_centre
 ymode=abs_centre
-layer=com_94
+layer=tabs
 graphic="custom_selection_icons,4"
 colour=0xffffffff
 transmitop=1
 op1=Legs
 
 // 1028:99
-[com_99]
+[boots]
 type=graphic
 x=75
 width=47
 height=47
 xmode=abs_centre
 ymode=abs_centre
-layer=com_94
+layer=tabs
 graphic="custom_selection_icons,5"
 colour=0xffffffff
 transmitop=1
 op1=Boots
 
 // 1028:100
-[com_100]
+[beard]
 type=graphic
 x=125
 width=47
 height=47
 xmode=abs_centre
 ymode=abs_centre
-layer=com_94
+layer=tabs
 graphic="custom_selection_icons,6"
 colour=0xffffffff
 transmitop=1
 op1=Beard
 
 // 1028:101
-[com_101]
+[menu_container]
 type=layer
 x=15
 y=140
 width=350
 height=305
-layer=com_89
+layer=customise_page
 
 // 1028:102
-[com_102]
+[colour_set]
 type=layer
 x=456
 y=140
 width=100
 height=27
-layer=com_89
+layer=customise_page
 transmitop=1
 op1=Choose My Colour
 
 // 1028:103
-[com_103]
+[menu_graphics]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_101
+layer=menu_container
 
 // 1028:104
-[com_104]
+[menu_text]
 type=layer
 y=8
 width=31
 height=25
 widthmode=minus
 xmode=abs_centre
-layer=com_101
+layer=menu_container
 
 // 1028:105
-[com_105]
+[menu_scrollbar]
 type=layer
 x=10
 y=9
@@ -1109,10 +1109,10 @@ height=79
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_101
+layer=menu_container
 
 // 1028:106
-[com_106]
+[menu_inner]
 type=layer
 x=10
 y=9
@@ -1121,10 +1121,10 @@ height=59
 widthmode=minus
 heightmode=minus
 ymode=abs_bottom
-layer=com_101
+layer=menu_container
 
 // 1028:107
-[com_107]
+[menu]
 type=layer
 y=9
 width=16
@@ -1133,28 +1133,28 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_106
+layer=menu_inner
 
 // 1028:108
-[com_108]
+[colours_container]
 type=layer
 x=368
 y=140
 width=84
 height=305
-layer=com_89
+layer=customise_page
 
 // 1028:109
-[com_109]
+[colours_graphics]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_108
+layer=colours_container
 
 // 1028:110
-[com_110]
+[colours_scrollbar]
 type=layer
 x=8
 width=16
@@ -1162,10 +1162,10 @@ height=12
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_108
+layer=colours_container
 
 // 1028:111
-[com_111]
+[colours]
 type=layer
 x=-7
 width=41
@@ -1174,40 +1174,40 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_108
+layer=colours_container
 noclickthrough=yes
 
 // 1028:112
-[com_112]
+[player]
 type=model
 width=512
 height=334
 xmode=abs_right
 ymode=abs_bottom
-layer=com_29
+layer=universe
 model=null
 modelzoom=800
 
 // 1028:113
-[com_113]
+[spotanim]
 type=model
 width=512
 height=334
 xmode=abs_right
 ymode=abs_bottom
-layer=com_29
+layer=universe
 model=null
 modelzoom=800
 
 // 1028:114
-[com_114]
+[bottombuttons]
 type=layer
 height=26
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=universe
 
 // 1028:115
 [com_115]
@@ -1217,127 +1217,127 @@ width=100
 height=27
 xmode=abs_right
 ymode=abs_bottom
-layer=com_114
+layer=bottombuttons
 hide=yes
 transmitop=1
 op1=*
 
 // 1028:116
-[com_116]
+[back]
 type=layer
 x=40
 width=100
 height=27
 xmode=abs_right
 ymode=abs_bottom
-layer=com_114
+layer=bottombuttons
 hide=yes
 transmitop=1
 op1=*
 
 // 1028:117
-[com_117]
+[confirm]
 type=layer
 x=40
 width=100
 height=27
 xmode=abs_right
 ymode=abs_bottom
-layer=com_114
+layer=bottombuttons
 hide=yes
 transmitop=1
 op1=*
 
 // 1028:118
-[com_118]
+[top_left]
 type=graphic
 width=38
 height=38
-layer=com_29
+layer=universe
 graphic="corner_flourish,0"
 hflip=yes
 colour=0xffffffff
 
 // 1028:119
-[com_119]
+[top_border]
 type=graphic
 x=38
 y=1
 width=76
 height=6
 widthmode=minus
-layer=com_29
+layer=universe
 graphic=corner_frame_3
 tiling=yes
 hflip=yes
 
 // 1028:120
-[com_120]
+[top_right]
 type=graphic
 width=38
 height=38
 xmode=abs_right
-layer=com_29
+layer=universe
 graphic="corner_flourish,0"
 colour=0xffffffff
 
 // 1028:121
-[com_121]
+[left_border]
 type=graphic
 y=38
 width=7
 height=110
 heightmode=minus
-layer=com_29
+layer=universe
 graphic=frame_border_vertical
 tiling=yes
 hflip=yes
 
 // 1028:122
-[com_122]
+[right_border]
 type=graphic
 y=38
 width=7
 height=110
 heightmode=minus
 xmode=abs_right
-layer=com_29
+layer=universe
 graphic=frame_border_vertical
 tiling=yes
 
 // 1028:123
-[com_123]
+[bottom_left]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_29
+layer=universe
 graphic="corner_frame_5,4"
 vflip=yes
 hflip=yes
 colour=0xffffffff
 
 // 1028:124
-[com_124]
+[bottom_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_29
+layer=universe
 graphic="corner_frame_5,4"
 vflip=yes
 colour=0xffffffff
 
 // 1028:125
-[com_125]
+[tooltip]
 type=layer
 width=1
 height=1
 hide=yes
 
 // 1028:126
-[com_126]
+[border]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -1348,112 +1348,112 @@ layer=com_90
 type=graphic
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:128
-[com_128]
+[background_texture_1]
 type=graphic
 x=100
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:129
-[com_129]
+[background_texture_2]
 type=graphic
 x=200
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:130
-[com_130]
+[background_texture_3]
 type=graphic
 x=300
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:131
-[com_131]
+[background_texture_5]
 type=graphic
 y=100
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:132
-[com_132]
+[background_texture_6]
 type=graphic
 x=100
 y=100
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:133
-[com_133]
+[background_texture_7]
 type=graphic
 x=200
 y=100
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:134
-[com_134]
+[background_texture_8]
 type=graphic
 x=300
 y=100
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:135
-[com_135]
+[background_texture_10]
 type=graphic
 y=200
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:136
-[com_136]
+[background_texture_11]
 type=graphic
 x=100
 y=200
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:137
-[com_137]
+[background_texture_12]
 type=graphic
 x=200
 y=200
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:138
-[com_138]
+[background_texture_13]
 type=graphic
 x=300
 y=200
 width=100
 height=100
-layer=com_126
+layer=border
 graphic=window_texture
 
 // 1028:139
@@ -1464,116 +1464,116 @@ y=8
 width=76
 height=27
 widthmode=minus
-layer=com_126
+layer=border
 colour=0x000000
 fill=yes
 trans=200
 
 // 1028:140
-[com_140]
+[bottom_left_corner]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_126
+layer=border
 graphic="corner_frame_1,2"
 hflip=yes
 
 // 1028:141
-[com_141]
+[left_side]
 type=graphic
 width=38
 height=144
 heightmode=minus
 ymode=abs_centre
-layer=com_126
+layer=border
 graphic="corner_frame_1,1"
 tiling=yes
 hflip=yes
 
 // 1028:142
-[com_142]
+[right_side]
 type=graphic
 y=72
 width=38
 height=144
 heightmode=minus
 xmode=abs_right
-layer=com_126
+layer=border
 graphic="corner_frame_1,1"
 tiling=yes
 
 // 1028:143
-[com_143]
+[upper_top_side]
 type=graphic
 width=76
 height=8
 widthmode=minus
 xmode=abs_centre
-layer=com_126
+layer=border
 graphic="corner_frame_2,0"
 tiling=yes
 
 // 1028:144
-[com_144]
+[bottom_2]
 type=graphic
 width=76
 height=8
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_126
+layer=border
 graphic="corner_frame_2,2"
 tiling=yes
 
 // 1028:145
-[com_145]
+[bottom_right_corner]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_126
+layer=border
 graphic="corner_frame_1,2"
 
 // 1028:146
-[com_146]
+[top_left_corner]
 type=graphic
 width=38
 height=72
-layer=com_126
+layer=border
 graphic="corner_frame_1,0"
 hflip=yes
 
 // 1028:147
-[com_147]
+[top_right_corner]
 type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_126
+layer=border
 graphic="corner_frame_1,0"
 
 // 1028:148
-[com_148]
+[lower_top_side]
 type=graphic
 y=35
 width=76
 height=8
 widthmode=minus
 xmode=abs_centre
-layer=com_126
+layer=border
 graphic="corner_frame_2,1"
 tiling=yes
 
 // 1028:149
-[com_149]
+[title]
 type=text
 y=6
 height=29
 widthmode=minus
 xmode=abs_centre
-layer=com_126
+layer=border
 textfont=verdana_15pt_regular
 text=Character Name
 textalignh=centre
@@ -1588,7 +1588,7 @@ y=75
 width=329
 height=1
 xmode=abs_centre
-layer=com_126
+layer=border
 colour=0x161513
 
 // 1028:151
@@ -1598,7 +1598,7 @@ y=76
 width=329
 height=1
 xmode=abs_centre
-layer=com_126
+layer=border
 colour=0x2d2d2d
 
 // 1028:152
@@ -1608,7 +1608,7 @@ y=211
 width=329
 height=1
 xmode=abs_centre
-layer=com_126
+layer=border
 colour=0x161513
 
 // 1028:153
@@ -1618,7 +1618,7 @@ y=212
 width=329
 height=1
 xmode=abs_centre
-layer=com_126
+layer=border
 colour=0x2d2d2d
 
 // 1028:154
@@ -1629,7 +1629,7 @@ width=25
 height=16
 widthmode=minus
 xmode=abs_centre
-layer=com_126
+layer=border
 textfont=verdana_11pt_regular
 text=Please enter your desired character name.
 textlineheight=14
@@ -1645,7 +1645,7 @@ y=115
 width=329
 height=96
 xmode=abs_centre
-layer=com_126
+layer=border
 textfont=verdana_11pt_regular
 text=Characters names can be up to 12 characters long and may contain letters, numbers, spaces, underscores and dashes only.
 textlineheight=14
@@ -1660,7 +1660,7 @@ y=115
 width=329
 height=96
 xmode=abs_centre
-layer=com_126
+layer=border
 hide=yes
 
 // 1028:157
@@ -1680,7 +1680,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 1028:158
-[com_158]
+[suggestion_1]
 type=text
 y=28
 width=100
@@ -1698,7 +1698,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 1028:159
-[com_159]
+[suggestion_2]
 type=text
 y=28
 width=100
@@ -1717,7 +1717,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 1028:160
-[com_160]
+[suggestion_3]
 type=text
 y=28
 width=100
@@ -1736,7 +1736,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 1028:161
-[com_161]
+[suggestion_4]
 type=text
 y=50
 width=100
@@ -1754,7 +1754,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 1028:162
-[com_162]
+[suggestion_5]
 type=text
 y=50
 width=100
@@ -1773,7 +1773,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 1028:163
-[com_163]
+[suggestion_6]
 type=text
 y=50
 width=100
@@ -1792,7 +1792,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 1028:164
-[com_164]
+[previous_suggestions]
 type=text
 y=78
 width=130
@@ -1811,7 +1811,7 @@ onmouseover=script3950(event_com, 1)
 onmouseleave=script3950(event_com, 0)
 
 // 1028:165
-[com_165]
+[more_suggestions]
 type=text
 y=78
 width=110
@@ -1831,18 +1831,18 @@ onmouseover=script3950(event_com, 1)
 onmouseleave=script3950(event_com, 0)
 
 // 1028:166
-[com_166]
+[continue]
 type=layer
 y=225
 width=101
 height=26
 xmode=abs_centre
-layer=com_126
+layer=border
 transmitop=1
 op1=Continue
 opkey1=84,0
-onmouseover=script3937(playerdesign4:com_168, "set_but_end_3,1", playerdesign4:com_169, "set_but_fill_3,1", playerdesign4:com_170, "set_but_fill_3,1", playerdesign4:com_171, "set_but_end_3,1")
-onmouseleave=script3937(playerdesign4:com_168, "set_but_end_3,0", playerdesign4:com_169, "set_but_fill_3,0", playerdesign4:com_170, "set_but_fill_3,0", playerdesign4:com_171, "set_but_end_3,0")
+onmouseover=script3937(playerdesign4:continue_left, "set_but_end_3,1", playerdesign4:com_169, "set_but_fill_3,1", playerdesign4:com_170, "set_but_fill_3,1", playerdesign4:continue_right, "set_but_end_3,1")
+onmouseleave=script3937(playerdesign4:continue_left, "set_but_end_3,0", playerdesign4:com_169, "set_but_fill_3,0", playerdesign4:com_170, "set_but_fill_3,0", playerdesign4:continue_right, "set_but_end_3,0")
 
 // 1028:167
 [com_167]
@@ -1853,16 +1853,16 @@ width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_166
+layer=continue
 colour=0x000000
 fill=yes
 
 // 1028:168
-[com_168]
+[continue_left]
 type=graphic
 width=25
 height=25
-layer=com_166
+layer=continue
 graphic="set_but_end_3,0"
 
 // 1028:169
@@ -1871,7 +1871,7 @@ type=graphic
 x=25
 width=25
 height=25
-layer=com_166
+layer=continue
 graphic="set_but_fill_3,0"
 tiling=yes
 
@@ -1881,19 +1881,19 @@ type=graphic
 x=50
 width=25
 height=25
-layer=com_166
+layer=continue
 graphic="set_but_fill_3,0"
 tiling=yes
 hflip=yes
 
 // 1028:171
-[com_171]
+[continue_right]
 type=graphic
 x=1
 width=25
 height=25
 xmode=abs_right
-layer=com_166
+layer=continue
 graphic="set_but_end_3,0"
 hflip=yes
 
@@ -1905,7 +1905,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_166
+layer=continue
 textfont=verdana_11pt_regular
 text=Continue
 textalignh=centre
@@ -1913,14 +1913,14 @@ textalignv=centre
 colour=0xc0b154
 
 // 1028:173
-[com_173]
+[continue_text]
 type=text
 y=-1
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_166
+layer=continue
 textfont=verdana_11pt_regular
 text=Continue
 textalignh=centre
@@ -2037,7 +2037,7 @@ colour=0xebe0bc
 fill=yes
 
 // 1028:184
-[com_184]
+[bottom_border]
 type=graphic
 x=38
 y=1
@@ -2045,7 +2045,7 @@ width=76
 height=6
 widthmode=minus
 ymode=abs_bottom
-layer=com_29
+layer=universe
 graphic=corner_frame_3
 tiling=yes
 vflip=yes

@@ -1,6 +1,6 @@
 // 863
 [clientscript,script863]
 if (%varplayerbit_7912 = 1) {
-    if_setmodel(~script3438(%varplayerbit_7919), interface_986:com_3);
+    if_setmodel(~script3438(%varplayerbit_7919), csi_fingerprint:fingerprint_magnified);
     return;
 }

@@ -1,5 +1,5 @@
 // 458:0
-[com_0]
+[multi3t]
 type=text
 y=-1
 width=480
@@ -59,7 +59,7 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 type=graphic
 width=57
 height=13
-layer=com_6
+layer=multi3swords
 graphic="sworddecor,1"
 colour=0x000000
 
@@ -69,12 +69,12 @@ type=graphic
 x=280
 width=57
 height=13
-layer=com_6
+layer=multi3swords
 graphic="sworddecor,0"
 colour=0x000000
 
 // 458:6
-[com_6]
+[multi3swords]
 type=layer
 x=72
 y=1

@@ -1,7 +1,7 @@
 // 89
 [proc,rebuildpmbox]
-if (minimenuopen(private_chat:com_0, -1) = true) {
-    if_setontimer("rebuildpmbox_timer", private_chat:com_0);
+if (minimenuopen(pmchat:pmchat, -1) = true) {
+    if_setontimer("rebuildpmbox_timer", pmchat:pmchat);
     return;
 }
 def_int $int0 = 0;
@@ -12,14 +12,14 @@ if (reboottimer > 0) {
     $int2 = calc(reboottimer / 50 % 60);
     $int3 = calc(reboottimer / 3000);
     if ($int2 < 10) {
-        if_settext("<col=ffff00>System update in: <tostring($int3)>:0<tostring($int2)>", private_chat:com_5);
+        if_settext("<col=ffff00>System update in: <tostring($int3)>:0<tostring($int2)>", pmchat:pm5);
     } else {
-        if_settext("<col=ffff00>System update in: <tostring($int3)>:<tostring($int2)>", private_chat:com_5);
+        if_settext("<col=ffff00>System update in: <tostring($int3)>:<tostring($int2)>", pmchat:pm5);
     }
     $int0 = 1;
-    if_clearops(private_chat:com_5);
-    if_setonop(null, private_chat:com_5);
-    if_settextshadow(true, private_chat:com_5);
+    if_clearops(pmchat:pm5);
+    if_setonop(null, pmchat:pm5);
+    if_settextshadow(true, pmchat:pm5);
 }
 def_int $int4 = 0;
 def_int $chattype5 = ^chattype_gamemessage;

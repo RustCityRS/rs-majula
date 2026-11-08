@@ -1,5 +1,5 @@
 // 230:0
-[com_0]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -7,28 +7,28 @@ widthmode=proportion
 heightmode=proportion
 
 // 230:1
-[com_1]
+[multi3t]
 type=text
 y=1638
 width=480
 height=17
 xmode=abs_centre
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Select an Option
 textalignh=centre
 colour=0x800000
 
 // 230:2
-[com_2]
+[multi3a]
 type=text
 y=5341
 width=480
 height=17
 xmode=abs_centre
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option1
 textalignh=centre
@@ -38,14 +38,14 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 230:3
-[com_3]
+[multi3b]
 type=text
 y=8389
 width=480
 height=17
 xmode=abs_centre
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option2
 textalignh=centre
@@ -55,14 +55,14 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 230:4
-[com_4]
+[multi3c]
 type=text
 y=11437
 width=480
 height=17
 xmode=abs_centre
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option3
 textalignh=centre
@@ -76,7 +76,7 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 type=graphic
 width=57
 height=13
-layer=com_7
+layer=multi3swords
 graphic="sworddecor,1"
 colour=0x000000
 
@@ -86,19 +86,19 @@ type=graphic
 x=280
 width=57
 height=13
-layer=com_7
+layer=multi3swords
 graphic="sworddecor,0"
 colour=0x000000
 
 // 230:7
-[com_7]
+[multi3swords]
 type=layer
 y=1638
 width=337
 height=13
 xmode=abs_centre
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 
 // 230:8
 [com_8]
@@ -127,5 +127,5 @@ width=476
 height=13
 xmode=abs_centre
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 hide=yes

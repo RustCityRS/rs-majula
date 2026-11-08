@@ -10,12 +10,12 @@ if (%varclient_799 >= 30) {
     }
 }
 if (%varclient_798 = true) {
-    if_settext("<escape(%varclient_1543)><col=ffff00> ", snapshot_main_v2:com_53);
+    if_settext("<escape(%varclient_1543)><col=ffff00> ", snapshot_main_v2:name);
 } else {
-    if_settext("<escape(%varclient_1543)><col=ffff00>|", snapshot_main_v2:com_53);
+    if_settext("<escape(%varclient_1543)><col=ffff00>|", snapshot_main_v2:name);
 }
 if (compare(%varclient_1543, "") = 0) {
-    if_setcolour(0xbbbbbb, snapshot_main_v2:com_58);
+    if_setcolour(0xbbbbbb, snapshot_main_v2:name_next_text);
 } else {
-    if_setcolour(^white, snapshot_main_v2:com_58);
+    if_setcolour(^white, snapshot_main_v2:name_next_text);
 }

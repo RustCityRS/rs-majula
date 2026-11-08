@@ -1,5 +1,5 @@
 // 120:0
-[com_0]
+[fade]
 type=model
 width=16807
 height=19088
@@ -18,7 +18,7 @@ onload=fade_out_darkness(event_com)
 onvartransmit=fade_out_darkness(event_com){varplayer_425}
 
 // 120:1
-[com_1]
+[fade_text]
 type=text
 x=71
 y=3342

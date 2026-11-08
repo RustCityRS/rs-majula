@@ -1,5 +1,5 @@
 // 925:0
-[com_0]
+[main_layer]
 type=layer
 width=512
 height=334
@@ -12,7 +12,7 @@ width=466
 height=250
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=main_layer
 transmitop=10
 op10=  
 
@@ -229,7 +229,7 @@ transmitop=10
 op10=  
 
 // 925:17
-[com_17]
+[close_button_1]
 type=graphic
 x=9
 y=4
@@ -265,7 +265,7 @@ transmitop=10
 op10=   
 
 // 925:19
-[com_19]
+[content_layer]
 type=layer
 x=1
 y=22
@@ -277,17 +277,17 @@ xmode=abs_centre
 layer=com_4
 
 // 925:20
-[com_20]
+[left_layer]
 type=layer
 width=5400
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_19
+layer=content_layer
 
 // 925:21
-[com_21]
+[centre_layer]
 type=layer
 width=5570
 height=16391
@@ -295,10 +295,10 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_19
+layer=content_layer
 
 // 925:22
-[com_22]
+[right_layer]
 type=layer
 width=5570
 height=16391
@@ -306,12 +306,12 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_19
+layer=content_layer
 transmitop=10
 op10= 
 
 // 925:23
-[com_23]
+[tackle_box_button_layer]
 type=layer
 width=16391
 height=5678
@@ -319,7 +319,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_22
+layer=right_layer
 transmitop=10
 op10= 
 
@@ -333,12 +333,12 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=proportion_top
-layer=com_22
+layer=right_layer
 transmitop=10
 op10= 
 
 // 925:25
-[com_25]
+[tackle_box_cost_txt]
 type=text
 y=3604
 width=16391
@@ -347,7 +347,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=proportion_centre
-layer=com_22
+layer=right_layer
 textfont=p11_full
 text=Cost: 0 tokens
 textalignh=centre
@@ -358,7 +358,7 @@ transmitop=10
 op10=      
 
 // 925:26
-[com_26]
+[tackle_box_req_txt]
 type=text
 y=2293
 width=16391
@@ -367,7 +367,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=proportion_centre
-layer=com_22
+layer=right_layer
 textfont=p11_full
 text=(Requires 0 medals)
 textalignh=centre
@@ -378,14 +378,14 @@ transmitop=10
 op10=       
 
 // 925:27
-[com_27]
+[tackle_box_title_layer]
 type=layer
 width=16933
 height=3440
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_22
+layer=right_layer
 transmitop=10
 op10= 
 
@@ -398,7 +398,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_27
+layer=tackle_box_title_layer
 textfont=b12_full
 text=Tackle box
 textalignh=centre
@@ -409,7 +409,7 @@ transmitop=10
 op10=     
 
 // 925:29
-[com_29]
+[panel_layer_1]
 type=layer
 width=13439
 height=16384
@@ -428,7 +428,7 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_29
+layer=panel_layer_1
 colour=0x000000
 fill=yes
 trans=165
@@ -443,7 +443,7 @@ width=32
 height=64
 heightmode=minus
 ymode=abs_centre
-layer=com_29
+layer=panel_layer_1
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
@@ -459,7 +459,7 @@ height=64
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_29
+layer=panel_layer_1
 graphic="v2_stone_borders,24"
 colour=0xffffffff
 transmitop=10
@@ -473,7 +473,7 @@ width=64
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_29
+layer=panel_layer_1
 graphic="v2_stone_borders,23"
 colour=0xffffffff
 transmitop=10
@@ -487,7 +487,7 @@ height=16
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_29
+layer=panel_layer_1
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -500,7 +500,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_29
+layer=panel_layer_1
 graphic="v2_stone_borders,29"
 colour=0xffffffff
 transmitop=10
@@ -512,7 +512,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_29
+layer=panel_layer_1
 graphic="v2_stone_borders,30"
 colour=0xffffffff
 transmitop=10
@@ -523,7 +523,7 @@ op10=
 type=graphic
 width=32
 height=32
-layer=com_29
+layer=panel_layer_1
 graphic="v2_stone_borders,28"
 colour=0xffffffff
 transmitop=10
@@ -536,14 +536,14 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_29
+layer=panel_layer_1
 graphic="v2_stone_borders,31"
 colour=0xffffffff
 transmitop=10
 op10=       
 
 // 925:39
-[com_39]
+[raw_fish_layer_1]
 type=layer
 x=-12
 y=-15
@@ -551,7 +551,7 @@ width=144
 height=91
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=panel_layer_1
 transmitop=10
 op10= 
 
@@ -565,12 +565,12 @@ height=73
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_39
+layer=raw_fish_layer_1
 transmitop=10
 op10= 
 
 // 925:41
-[com_41]
+[box_icon]
 type=model
 x=-7
 y=-1
@@ -594,7 +594,7 @@ width=99
 height=26
 xmode=abs_centre
 ymode=proportion_bottom
-layer=com_23
+layer=tackle_box_button_layer
 transmitop=1,10
 op1=Claim
 op10= 
@@ -657,7 +657,7 @@ width=32
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_21
+layer=centre_layer
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
@@ -673,7 +673,7 @@ height=16391
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_21
+layer=centre_layer
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
@@ -689,16 +689,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_21
+layer=centre_layer
 
 // 925:49
-[com_49]
+[raw_fish_title_layer]
 type=layer
 width=16384
 height=3440
 widthmode=proportion
 heightmode=proportion
-layer=com_21
+layer=centre_layer
 
 // 925:50
 [com_50]
@@ -710,10 +710,10 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=proportion_top
-layer=com_21
+layer=centre_layer
 
 // 925:51
-[com_51]
+[raw_fish_cost_txt]
 type=text
 y=3604
 width=16391
@@ -722,7 +722,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=proportion_centre
-layer=com_21
+layer=centre_layer
 textfont=p11_full
 text=Cost: 0 tokens
 textalignh=centre
@@ -733,7 +733,7 @@ transmitop=10
 op10=     
 
 // 925:52
-[com_52]
+[species_name_1_txt]
 type=text
 x=13
 y=1966
@@ -742,7 +742,7 @@ height=1474
 widthmode=proportion
 heightmode=proportion
 ymode=proportion_centre
-layer=com_21
+layer=centre_layer
 textfont=p11_full
 textalignh=centre
 textalignv=centre
@@ -752,7 +752,7 @@ transmitop=10
 op10=      
 
 // 925:53
-[com_53]
+[species_name_2_txt]
 type=text
 x=15
 y=1966
@@ -762,7 +762,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=proportion_centre
-layer=com_21
+layer=centre_layer
 textfont=p11_full
 textalignh=centre
 textalignv=centre
@@ -772,7 +772,7 @@ transmitop=10
 op10=       
 
 // 925:54
-[com_54]
+[panel_layer]
 type=layer
 width=13439
 height=16384
@@ -791,7 +791,7 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_54
+layer=panel_layer
 colour=0x000000
 fill=yes
 trans=165
@@ -806,7 +806,7 @@ width=32
 height=64
 heightmode=minus
 ymode=abs_centre
-layer=com_54
+layer=panel_layer
 graphic="v2_stone_borders,24"
 colour=0xffffffff
 transmitop=10
@@ -821,7 +821,7 @@ height=64
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_54
+layer=panel_layer
 graphic="v2_stone_borders,24"
 colour=0xffffffff
 transmitop=10
@@ -835,7 +835,7 @@ width=64
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_54
+layer=panel_layer
 graphic="v2_stone_borders,23"
 colour=0xffffffff
 transmitop=10
@@ -849,7 +849,7 @@ height=16
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_54
+layer=panel_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -862,7 +862,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_54
+layer=panel_layer
 graphic="v2_stone_borders,29"
 colour=0xffffffff
 transmitop=10
@@ -874,7 +874,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_54
+layer=panel_layer
 graphic="v2_stone_borders,30"
 colour=0xffffffff
 transmitop=10
@@ -885,7 +885,7 @@ op10=
 type=graphic
 width=32
 height=32
-layer=com_54
+layer=panel_layer
 graphic="v2_stone_borders,28"
 colour=0xffffffff
 transmitop=10
@@ -898,62 +898,62 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_54
+layer=panel_layer
 graphic="v2_stone_borders,31"
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 925:64
-[com_64]
+[raw_fish_layer]
 type=layer
 width=97
 height=42
 xmode=abs_centre
 ymode=abs_centre
-layer=com_54
+layer=panel_layer
 
 // 925:65
-[com_65]
+[raw_fish_2_icon_layer]
 type=layer
 width=36
 height=36
 xmode=abs_right
 ymode=abs_centre
-layer=com_64
+layer=raw_fish_layer
 
 // 925:66
-[com_66]
+[raw_fish_1_icon_layer]
 type=layer
 width=36
 height=36
 ymode=abs_centre
-layer=com_64
+layer=raw_fish_layer
 
 // 925:67
-[com_67]
+[fish_1_icon]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_66
+layer=raw_fish_1_icon_layer
 colour=0xffffffff
 
 // 925:68
-[com_68]
+[fish_2_icon]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_65
+layer=raw_fish_2_icon_layer
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 925:69
-[com_69]
+[raw_fish_title_txt]
 type=text
 width=16391
 height=16391
@@ -961,7 +961,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_49
+layer=raw_fish_title_layer
 textfont=b12_full
 text=Raw fish
 textalignh=centre
@@ -972,7 +972,7 @@ transmitop=10
 op10=    
 
 // 925:70
-[com_70]
+[claim_fish_button]
 type=layer
 y=2593
 width=99
@@ -992,7 +992,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_70
+layer=claim_fish_button
 colour=0x302c22
 fill=yes
 
@@ -1005,7 +1005,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_70
+layer=claim_fish_button
 transmitop=10
 op10= 
 onload=v2_stone_button_filled(event_com)
@@ -1021,7 +1021,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_70
+layer=claim_fish_button
 textfont=p11_full
 text=Claim
 textalignh=centre
@@ -1037,7 +1037,7 @@ height=6
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_20
+layer=left_layer
 graphic="v2_stone_borders,33"
 tiling=yes
 colour=0xffffffff
@@ -1045,13 +1045,13 @@ transmitop=10
 op10=   
 
 // 925:75
-[com_75]
+[tokens_title_txt]
 type=text
 width=7536
 height=8199
 widthmode=proportion
 heightmode=proportion
-layer=com_20
+layer=left_layer
 textfont=b12_full
 text=Fish<br>tokens
 textalignh=centre
@@ -1062,14 +1062,14 @@ transmitop=10
 op10=    
 
 // 925:76
-[com_76]
+[medals_title_txt]
 type=text
 width=7536
 height=8199
 widthmode=proportion
 heightmode=proportion
 ymode=abs_bottom
-layer=com_20
+layer=left_layer
 textfont=b12_full
 text=Medals<br>won
 textalignh=centre
@@ -1080,14 +1080,14 @@ transmitop=10
 op10=     
 
 // 925:77
-[com_77]
+[tokens_txt]
 type=text
 width=7208
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_right
-layer=com_20
+layer=left_layer
 textfont=p11_full
 text=0
 textalignv=centre
@@ -1097,7 +1097,7 @@ transmitop=10
 op10=     
 
 // 925:78
-[com_78]
+[medals_txt]
 type=text
 width=7208
 height=8192
@@ -1105,7 +1105,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_bottom
-layer=com_20
+layer=left_layer
 textfont=p11_full
 text=0
 textalignv=centre

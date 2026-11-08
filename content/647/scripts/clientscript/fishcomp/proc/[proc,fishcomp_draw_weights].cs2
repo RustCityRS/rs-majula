@@ -6,21 +6,21 @@ $intarray0(%varclient_1105) = calc($intarray0(%varclient_1105) + 1);
 $intarray0(%varclient_1106) = calc($intarray0(%varclient_1106) + 1);
 $intarray0(%varclient_1107) = calc($intarray0(%varclient_1107) + 1);
 $intarray0(%varclient_1108) = calc($intarray0(%varclient_1108) + 1);
-if_settext("Small x <tostring($intarray0(1))>", fishcomp_side:com_53);
-if_settext("Med. x <tostring($intarray0(2))>", fishcomp_side:com_54);
-if_settext("Large x <tostring($intarray0(3))>", fishcomp_side:com_55);
+if_settext("Small x <tostring($intarray0(1))>", fishcomp_side:selected_weights_small_txt);
+if_settext("Med. x <tostring($intarray0(2))>", fishcomp_side:selected_weights_medium_txt);
+if_settext("Large x <tostring($intarray0(3))>", fishcomp_side:selected_weights_large_txt);
 def_string $string0 = "";
 if ($intarray0(1) > 0) {
     $string0 = "Remove-weight";
 }
-if_setop(1, $string0, fishcomp_side:com_53);
+if_setop(1, $string0, fishcomp_side:selected_weights_small_txt);
 $string0 = "";
 if ($intarray0(2) > 0) {
     $string0 = "Remove-weight";
 }
-if_setop(1, $string0, fishcomp_side:com_54);
+if_setop(1, $string0, fishcomp_side:selected_weights_medium_txt);
 $string0 = "";
 if ($intarray0(3) > 0) {
     $string0 = "Remove-weight";
 }
-if_setop(1, $string0, fishcomp_side:com_55);
+if_setop(1, $string0, fishcomp_side:selected_weights_large_txt);

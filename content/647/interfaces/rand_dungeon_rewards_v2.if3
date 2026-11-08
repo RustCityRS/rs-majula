@@ -1,5 +1,5 @@
 // 933:0
-[com_0]
+[fade_layer]
 type=layer
 width=16384
 height=16384
@@ -16,7 +16,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 933:2
-[com_2]
+[timer_and_init]
 type=rectangle
 x=12
 y=19
@@ -30,7 +30,7 @@ onload=script2275
 ontimer=script3267
 
 // 933:3
-[com_3]
+[frame_nw]
 type=graphic
 x=13
 y=20
@@ -43,7 +43,7 @@ transmitop=10
 op10= 
 
 // 933:4
-[com_4]
+[frame_ne]
 type=graphic
 x=468
 y=20
@@ -56,7 +56,7 @@ transmitop=10
 op10= 
 
 // 933:5
-[com_5]
+[frame_sw]
 type=graphic
 x=13
 y=294
@@ -69,7 +69,7 @@ transmitop=10
 op10= 
 
 // 933:6
-[com_6]
+[frame_se]
 type=graphic
 x=468
 y=294
@@ -82,7 +82,7 @@ transmitop=10
 op10= 
 
 // 933:7
-[com_7]
+[frame_w]
 type=graphic
 y=52
 width=32
@@ -95,7 +95,7 @@ transmitop=10
 op10= 
 
 // 933:8
-[com_8]
+[frame_e]
 type=graphic
 x=480
 y=51
@@ -109,7 +109,7 @@ transmitop=10
 op10= 
 
 // 933:9
-[com_9]
+[frame_n]
 type=graphic
 x=45
 y=20
@@ -123,7 +123,7 @@ transmitop=10
 op10= 
 
 // 933:10
-[com_10]
+[frame_s]
 type=graphic
 x=45
 y=306
@@ -137,7 +137,7 @@ transmitop=10
 op10= 
 
 // 933:11
-[com_11]
+[title]
 type=text
 y=20
 width=384
@@ -179,7 +179,7 @@ onmouseleave=graphic_swapper(event_com, "bank_buttons_large,0")
 onclick=script3276
 
 // 933:14
-[com_14]
+[skip_button_2]
 type=graphic
 x=470
 y=23
@@ -192,7 +192,7 @@ transmitop=10
 op10= 
 
 // 933:15
-[com_15]
+[skip_button_3]
 type=graphic
 x=465
 y=23
@@ -205,7 +205,7 @@ transmitop=10
 op10=  
 
 // 933:16
-[com_16]
+[skip_button_1]
 type=graphic
 x=460
 y=23
@@ -216,7 +216,7 @@ graphic="catcon_catapult_arrows,3"
 colour=0x000000
 
 // 933:17
-[com_17]
+[stage_1]
 type=layer
 x=22
 y=44
@@ -225,7 +225,7 @@ height=75
 layer=com_1
 
 // 933:18
-[com_18]
+[stage_2]
 type=layer
 x=21
 y=113
@@ -234,7 +234,7 @@ height=168
 layer=com_1
 
 // 933:19
-[com_19]
+[stage_3]
 type=layer
 x=21
 y=279
@@ -243,7 +243,7 @@ height=40
 layer=com_1
 
 // 933:20
-[com_20]
+[totalflashbutton_layer]
 type=layer
 x=192
 y=11
@@ -304,7 +304,7 @@ transmitop=10
 op10= 
 
 // 933:25
-[com_25]
+[totalflashbutton]
 type=graphic
 x=7
 y=7
@@ -312,83 +312,83 @@ width=90
 height=45
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_20
+layer=totalflashbutton_layer
 graphic=flashing_info_but
 colour=0x000000
 
 // 933:26
-[com_26]
+[stats_18]
 type=rectangle
 x=17
 y=17
 width=302
 height=4
-layer=com_19
+layer=stage_3
 colour=0x221e18
 fill=yes
 transmitop=10
 op10= 
 
 // 933:27
-[com_27]
+[stats_10]
 type=graphic
 x=2
 y=2
 width=15
 height=15
-layer=com_19
+layer=stage_3
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:28
-[com_28]
+[stats_11]
 type=graphic
 x=17
 y=2
 width=302
 height=15
-layer=com_19
+layer=stage_3
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:29
-[com_29]
+[stats_12]
 type=graphic
 x=17
 y=21
 width=302
 height=15
-layer=com_19
+layer=stage_3
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:30
-[com_30]
+[stats_13]
 type=graphic
 x=2
 y=17
 width=15
 height=4
-layer=com_19
+layer=stage_3
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:31
-[com_31]
+[stats_14]
 type=graphic
 x=319
 y=17
 width=15
 height=4
-layer=com_19
+layer=stage_3
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -396,13 +396,13 @@ transmitop=10
 op10=  
 
 // 933:32
-[com_32]
+[stats_15]
 type=graphic
 x=319
 y=2
 width=15
 height=15
-layer=com_19
+layer=stage_3
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -410,26 +410,26 @@ transmitop=10
 op10=  
 
 // 933:33
-[com_33]
+[stats_16]
 type=graphic
 x=2
 y=21
 width=15
 height=15
-layer=com_19
+layer=stage_3
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:34
-[com_34]
+[stats_17]
 type=graphic
 x=319
 y=21
 width=15
 height=15
-layer=com_19
+layer=stage_3
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -437,13 +437,13 @@ transmitop=10
 op10=    
 
 // 933:35
-[com_35]
+[stats_alpha_4]
 type=graphic
 x=4
 y=9
 width=327
 height=27
-layer=com_19
+layer=stage_3
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -451,13 +451,13 @@ transmitop=10
 op10= 
 
 // 933:36
-[com_36]
+[stats_alpha_5]
 type=graphic
 x=12
 y=4
 width=309
 height=29
-layer=com_19
+layer=stage_3
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -471,19 +471,19 @@ x=2
 y=2
 width=332
 height=34
-layer=com_19
+layer=stage_3
 graphic=rand_flashing_layer_3
 trans=255
 colour=0x000000
 
 // 933:38
-[com_38]
+[xp_text]
 type=text
 x=-8
 y=12
 width=100
 height=15
-layer=com_19
+layer=stage_3
 textfont=b12_full
 text=Total XP:
 textalignh=right
@@ -492,13 +492,13 @@ textshadow=yes
 colour=0xc69b01
 
 // 933:39
-[com_39]
+[xp_value]
 type=text
 x=93
 y=4
 width=110
 height=32
-layer=com_19
+layer=stage_3
 textfont=welcome_font_small
 text=99999999
 textalignh=centre
@@ -507,13 +507,13 @@ textshadow=yes
 colour=0xe2e2a2
 
 // 933:40
-[com_40]
+[tokens_text]
 type=text
 x=205
 y=12
 width=50
 height=15
-layer=com_19
+layer=stage_3
 textfont=b12_full
 text=Tokens:
 textalignh=right
@@ -522,13 +522,13 @@ textshadow=yes
 colour=0xc69b01
 
 // 933:41
-[com_41]
+[tokens_count]
 type=text
 x=256
 y=4
 width=60
 height=32
-layer=com_19
+layer=stage_3
 textfont=welcome_font_small
 text=0
 textalignh=centre
@@ -537,66 +537,66 @@ textshadow=yes
 colour=0xe2e2a2
 
 // 933:42
-[com_42]
+[stats_1]
 type=graphic
 x=2
 y=9
 width=15
 height=15
-layer=com_18
+layer=stage_2
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:43
-[com_43]
+[stats_2]
 type=graphic
 x=17
 y=9
 width=301
 height=15
-layer=com_18
+layer=stage_2
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:44
-[com_44]
+[stats_3]
 type=graphic
 x=17
 y=150
 width=301
 height=15
-layer=com_18
+layer=stage_2
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:45
-[com_45]
+[stats_4]
 type=graphic
 x=2
 y=24
 width=15
 height=126
-layer=com_18
+layer=stage_2
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:46
-[com_46]
+[stats_5]
 type=graphic
 x=4
 y=24
 width=15
 height=126
 xmode=abs_right
-layer=com_18
+layer=stage_2
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -604,14 +604,14 @@ transmitop=10
 op10=  
 
 // 933:47
-[com_47]
+[stats_6]
 type=graphic
 x=4
 y=9
 width=15
 height=15
 xmode=abs_right
-layer=com_18
+layer=stage_2
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -619,27 +619,27 @@ transmitop=10
 op10=  
 
 // 933:48
-[com_48]
+[stats_7]
 type=graphic
 x=2
 y=150
 width=15
 height=15
-layer=com_18
+layer=stage_2
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:49
-[com_49]
+[stats_8]
 type=graphic
 x=4
 y=150
 width=15
 height=15
 xmode=abs_right
-layer=com_18
+layer=stage_2
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -647,26 +647,26 @@ transmitop=10
 op10=    
 
 // 933:50
-[com_50]
+[stats_9]
 type=rectangle
 x=16
 y=24
 width=302
 height=126
-layer=com_18
+layer=stage_2
 colour=0x221e18
 fill=yes
 transmitop=10
 op10= 
 
 // 933:51
-[com_51]
+[stats_alpha_2]
 type=graphic
 x=5
 y=16
 width=325
 height=39
-layer=com_18
+layer=stage_2
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -674,13 +674,13 @@ transmitop=10
 op10= 
 
 // 933:52
-[com_52]
+[stats_alpha_3]
 type=graphic
 x=11
 y=11
 width=309
 height=30
-layer=com_18
+layer=stage_2
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -694,19 +694,19 @@ x=2
 y=9
 width=331
 height=156
-layer=com_18
+layer=stage_2
 graphic=rand_flashing_layer_2
 trans=255
 colour=0x000000
 
 // 933:54
-[com_54]
+[dungeon_size_text]
 type=text
 x=11
 y=24
 width=85
 height=15
-layer=com_18
+layer=stage_2
 textfont=p12_full
 text=Dungeon Size:
 textalignh=right
@@ -717,13 +717,13 @@ transmitop=10
 op10=   
 
 // 933:55
-[com_55]
+[bonus_rooms_text]
 type=text
 x=11
 y=46
 width=85
 height=15
-layer=com_18
+layer=stage_2
 textfont=p12_full
 text=Bonus Rooms:
 textalignh=right
@@ -734,13 +734,13 @@ transmitop=10
 op10=    
 
 // 933:56
-[com_56]
+[difficulty_text]
 type=text
 x=11
 y=68
 width=85
 height=15
-layer=com_18
+layer=stage_2
 textfont=p12_full
 text=Difficulty:
 textalignh=right
@@ -751,13 +751,13 @@ transmitop=10
 op10=     
 
 // 933:57
-[com_57]
+[difficulty_setting]
 type=text
 x=97
 y=68
 width=35
 height=15
-layer=com_18
+layer=stage_2
 textfont=p12_full
 text=5 : 5
 textalignh=centre
@@ -768,13 +768,13 @@ transmitop=10
 op10=      
 
 // 933:58
-[com_58]
+[complexity_setting]
 type=text
 x=97
 y=90
 width=35
 height=15
-layer=com_18
+layer=stage_2
 textfont=p12_full
 text=6
 textalignh=centre
@@ -785,13 +785,13 @@ transmitop=10
 op10=       
 
 // 933:59
-[com_59]
+[difficulty_val]
 type=text
 x=149
 y=68
 width=35
 height=15
-layer=com_18
+layer=stage_2
 textfont=p11_full
 text=+XX%
 textalignh=centre
@@ -802,13 +802,13 @@ transmitop=10
 op10=       
 
 // 933:60
-[com_60]
+[complexity_val]
 type=text
 x=149
 y=90
 width=35
 height=15
-layer=com_18
+layer=stage_2
 textfont=p11_full
 text=+XX%
 textalignh=centre
@@ -825,7 +825,7 @@ x=204
 y=68
 width=85
 height=15
-layer=com_18
+layer=stage_2
 textfont=p12_full
 text=Level Mod:
 textalignh=right
@@ -836,13 +836,13 @@ transmitop=10
 op10=      
 
 // 933:62
-[com_62]
+[complexity_text]
 type=text
 x=11
 y=90
 width=85
 height=15
-layer=com_18
+layer=stage_2
 textfont=p12_full
 text=Complexity:
 textalignh=right
@@ -853,13 +853,13 @@ transmitop=10
 op10=      
 
 // 933:63
-[com_63]
+[exploration_mode_text]
 type=text
 x=184
 y=90
 width=105
 height=15
-layer=com_18
+layer=stage_2
 textfont=p12_full
 text=Guide Mode:
 textalignh=right
@@ -877,18 +877,18 @@ y=46
 width=145
 height=17
 widthmode=minus
-layer=com_18
+layer=stage_2
 transmitop=10
 op10= 
 
 // 933:65
-[com_65]
+[deaths_text]
 type=text
 x=11
 y=113
 width=85
 height=15
-layer=com_18
+layer=stage_2
 textfont=p12_full
 text=Deaths:
 textalignh=right
@@ -897,49 +897,49 @@ textshadow=yes
 colour=0xc69b01
 
 // 933:66
-[com_66]
+[deaths_container]
 type=layer
 x=105
 y=108
 width=149
 height=25
 widthmode=minus
-layer=com_18
+layer=stage_2
 
 // 933:67
-[com_67]
+[deaths_mod]
 type=text
 x=4
 y=116
 width=35
 height=15
 xmode=abs_right
-layer=com_18
+layer=stage_2
 textfont=p11_full
 text=-0%
 textshadow=yes
 colour=0xe2e2a2
 
 // 933:68
-[com_68]
+[small_dungeon_graphic]
 type=graphic
 x=103
 y=17
 width=62
 height=30
-layer=com_18
+layer=stage_2
 graphic="bank_buttons,7"
 trans=200
 colour=0xff0000
 
 // 933:69
-[com_69]
+[medium_dungeon_graphic]
 type=graphic
 x=164
 y=17
 width=62
 height=30
-layer=com_18
+layer=stage_2
 graphic="bank_buttons,7"
 trans=200
 colour=0xffff00
@@ -947,13 +947,13 @@ transmitop=10
 op10= 
 
 // 933:70
-[com_70]
+[large_dungeon_graphic]
 type=graphic
 x=226
 y=17
 width=62
 height=30
-layer=com_18
+layer=stage_2
 graphic="bank_buttons,7"
 trans=200
 colour=0x66ff00
@@ -961,13 +961,13 @@ transmitop=10
 op10=  
 
 // 933:71
-[com_71]
+[small_dungeon_text]
 type=text
 x=63
 y=26
 width=85
 height=15
-layer=com_18
+layer=stage_2
 textfont=p11_full
 text=Small
 textalignh=right
@@ -978,13 +978,13 @@ transmitop=10
 op10=    
 
 // 933:72
-[com_72]
+[medium_dungeon_text]
 type=text
 x=129
 y=26
 width=85
 height=15
-layer=com_18
+layer=stage_2
 textfont=p11_full
 text=Medium
 textalignh=right
@@ -995,13 +995,13 @@ transmitop=10
 op10=     
 
 // 933:73
-[com_73]
+[large_dungeon_text]
 type=text
 x=186
 y=26
 width=85
 height=15
-layer=com_18
+layer=stage_2
 textfont=p11_full
 text=Large
 textalignh=right
@@ -1018,7 +1018,7 @@ x=287
 y=26
 width=43
 height=15
-layer=com_18
+layer=stage_2
 textfont=p11_full
 text=+XX%
 textalignh=centre
@@ -1035,7 +1035,7 @@ x=287
 y=48
 width=43
 height=15
-layer=com_18
+layer=stage_2
 textfont=p11_full
 text=+XX%
 textalignh=centre
@@ -1052,7 +1052,7 @@ x=289
 y=68
 width=41
 height=15
-layer=com_18
+layer=stage_2
 textfont=p11_full
 text=+XX%
 textalignh=centre
@@ -1069,7 +1069,7 @@ x=289
 y=90
 width=41
 height=15
-layer=com_18
+layer=stage_2
 textfont=p11_full
 text=+XX%
 textalignh=centre
@@ -1080,13 +1080,13 @@ transmitop=10
 op10=          
 
 // 933:78
-[com_78]
+[difficulty_to_percentage_arrow]
 type=graphic
 x=133
 y=70
 width=11
 height=11
-layer=com_18
+layer=stage_2
 graphic="world_select_updown_arrows,2"
 2dangle=49152
 colour=0x64ff00
@@ -1094,13 +1094,13 @@ transmitop=10
 op10=  
 
 // 933:79
-[com_79]
+[complexity_to_percentage_arrow]
 type=graphic
 x=133
 y=92
 width=11
 height=11
-layer=com_18
+layer=stage_2
 graphic="world_select_updown_arrows,2"
 2dangle=49152
 colour=0x64ff00
@@ -1108,13 +1108,13 @@ transmitop=10
 op10=   
 
 // 933:80
-[com_80]
+[difficulty_to_percentage_arrow_1]
 type=graphic
 x=138
 y=70
 width=11
 height=11
-layer=com_18
+layer=stage_2
 graphic="world_select_updown_arrows,0"
 2dangle=49152
 colour=0x64ff00
@@ -1122,13 +1122,13 @@ transmitop=10
 op10=   
 
 // 933:81
-[com_81]
+[complexity_to_percentage_arrow_1]
 type=graphic
 x=138
 y=92
 width=11
 height=11
-layer=com_18
+layer=stage_2
 graphic="world_select_updown_arrows,0"
 2dangle=49152
 colour=0x64ff00
@@ -1136,13 +1136,13 @@ transmitop=10
 op10=    
 
 // 933:82
-[com_82]
+[large_dungeon_lock]
 type=graphic
 x=248
 y=24
 width=15
 height=15
-layer=com_18
+layer=stage_2
 graphic=demomode_iflock
 trans=100
 colour=0x000000
@@ -1153,41 +1153,41 @@ type=layer
 x=8
 width=125
 height=20
-layer=com_18
+layer=stage_2
 transmitop=10
 op10=    
 
 // 933:84
-[com_84]
+[xp_nerf_layer]
 type=layer
 x=105
 y=118
 width=141
 height=23
 widthmode=minus
-layer=com_18
+layer=stage_2
 hide=yes
 transmitop=10
 op10=   
 
 // 933:85
-[com_85]
+[container_36]
 type=graphic
 width=5
 height=5
-layer=com_84
+layer=xp_nerf_layer
 graphic="rand_sml_framea,0"
 colour=0xff3232
 transmitop=10
 op10=     
 
 // 933:86
-[com_86]
+[container_37]
 type=graphic
 x=183
 width=5
 height=5
-layer=com_84
+layer=xp_nerf_layer
 graphic="rand_sml_framea,0"
 hflip=yes
 colour=0xff3232
@@ -1195,24 +1195,24 @@ transmitop=10
 op10=     
 
 // 933:87
-[com_87]
+[container_38]
 type=graphic
 x=5
 width=178
 height=5
-layer=com_84
+layer=xp_nerf_layer
 graphic="rand_sml_framea,1"
 colour=0xff3232
 transmitop=10
 op10=     
 
 // 933:88
-[com_88]
+[container_39]
 type=graphic
 y=14
 width=5
 height=5
-layer=com_84
+layer=xp_nerf_layer
 graphic="rand_sml_framea,0"
 vflip=yes
 colour=0xff3232
@@ -1220,13 +1220,13 @@ transmitop=10
 op10=     
 
 // 933:89
-[com_89]
+[container_40]
 type=graphic
 x=183
 y=14
 width=5
 height=5
-layer=com_84
+layer=xp_nerf_layer
 graphic="rand_sml_framea,0"
 vflip=yes
 hflip=yes
@@ -1235,13 +1235,13 @@ transmitop=10
 op10=     
 
 // 933:90
-[com_90]
+[container_41]
 type=graphic
 x=5
 y=14
 width=178
 height=5
-layer=com_84
+layer=xp_nerf_layer
 graphic="rand_sml_framea,1"
 vflip=yes
 colour=0xff3232
@@ -1249,12 +1249,12 @@ transmitop=10
 op10=     
 
 // 933:91
-[com_91]
+[container_42]
 type=graphic
 y=5
 width=5
 height=9
-layer=com_84
+layer=xp_nerf_layer
 graphic="rand_sml_framea,2"
 tiling=yes
 colour=0xff3232
@@ -1262,13 +1262,13 @@ transmitop=10
 op10=     
 
 // 933:92
-[com_92]
+[container_43]
 type=graphic
 x=183
 y=5
 width=5
 height=9
-layer=com_84
+layer=xp_nerf_layer
 graphic="rand_sml_framea,2"
 tiling=yes
 hflip=yes
@@ -1277,13 +1277,13 @@ transmitop=10
 op10=     
 
 // 933:93
-[com_93]
+[container_44]
 type=rectangle
 x=5
 y=5
 width=178
 height=10
-layer=com_84
+layer=xp_nerf_layer
 colour=0x000000
 fill=yes
 transmitop=10
@@ -1296,7 +1296,7 @@ x=4
 y=3
 width=180
 height=15
-layer=com_84
+layer=xp_nerf_layer
 textfont=p11_full
 text=Unbalanced party penalty: XX%
 textalignh=centre
@@ -1312,7 +1312,7 @@ y=137
 width=141
 height=24
 widthmode=minus
-layer=com_18
+layer=stage_2
 transmitop=10
 op10=  
 
@@ -1323,7 +1323,7 @@ x=271
 y=140
 width=82
 height=17
-layer=com_18
+layer=stage_2
 textfont=p12_full
 text=100%
 textalignh=centre
@@ -1331,13 +1331,13 @@ textshadow=yes
 colour=0xe2e2a2
 
 // 933:97
-[com_97]
+[total_modifier]
 type=text
 x=-6
 y=142
 width=100
 height=15
-layer=com_18
+layer=stage_2
 textfont=p12_full
 text=Total Modifier:
 textalignh=right
@@ -1354,7 +1354,7 @@ x=200
 y=138
 width=1
 height=4
-layer=com_18
+layer=stage_2
 colour=0x595959
 fill=yes
 
@@ -1365,14 +1365,14 @@ x=200
 y=155
 width=1
 height=4
-layer=com_18
+layer=stage_2
 colour=0x595959
 fill=yes
 transmitop=10
 op10= 
 
 // 933:100
-[com_100]
+[container_27]
 type=graphic
 width=5
 height=5
@@ -1383,7 +1383,7 @@ transmitop=10
 op10=    
 
 // 933:101
-[com_101]
+[container_28]
 type=graphic
 x=183
 width=5
@@ -1396,7 +1396,7 @@ transmitop=10
 op10=    
 
 // 933:102
-[com_102]
+[container_29]
 type=graphic
 x=5
 width=178
@@ -1408,7 +1408,7 @@ transmitop=10
 op10=    
 
 // 933:103
-[com_103]
+[container_30]
 type=graphic
 y=18
 width=5
@@ -1421,7 +1421,7 @@ transmitop=10
 op10=    
 
 // 933:104
-[com_104]
+[container_31]
 type=graphic
 x=183
 y=18
@@ -1436,7 +1436,7 @@ transmitop=10
 op10=    
 
 // 933:105
-[com_105]
+[container_32]
 type=graphic
 x=5
 y=18
@@ -1450,7 +1450,7 @@ transmitop=10
 op10=    
 
 // 933:106
-[com_106]
+[container_33]
 type=graphic
 y=5
 width=5
@@ -1463,7 +1463,7 @@ transmitop=10
 op10=    
 
 // 933:107
-[com_107]
+[container_34]
 type=graphic
 x=183
 y=5
@@ -1478,7 +1478,7 @@ transmitop=10
 op10=    
 
 // 933:108
-[com_108]
+[container_35]
 type=rectangle
 x=5
 y=5
@@ -1491,7 +1491,7 @@ transmitop=10
 op10=   
 
 // 933:109
-[com_109]
+[layer_5]
 type=layer
 x=6
 width=180
@@ -1501,7 +1501,7 @@ transmitop=10
 op10=  
 
 // 933:110
-[com_110]
+[progress_bar_s_3]
 type=graphic
 x=2
 y=1
@@ -1533,12 +1533,12 @@ width=8192
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_109
+layer=layer_5
 transmitop=10
 op10=  
 
 // 933:113
-[com_113]
+[progress_3]
 type=graphic
 y=1
 width=16056
@@ -1551,7 +1551,7 @@ transmitop=10
 op10=   
 
 // 933:114
-[com_114]
+[progress_bar_e_3]
 type=graphic
 y=1
 width=7
@@ -1564,7 +1564,7 @@ transmitop=10
 op10=   
 
 // 933:115
-[com_115]
+[modifer_bar_higher_bound]
 type=rectangle
 x=158
 y=3
@@ -1578,7 +1578,7 @@ transmitop=10
 op10= 
 
 // 933:116
-[com_116]
+[modifer_bar_higher_bound_1]
 type=rectangle
 x=153
 y=3
@@ -1592,7 +1592,7 @@ transmitop=10
 op10=  
 
 // 933:117
-[com_117]
+[modifer_bar_higher_bound_2]
 type=rectangle
 x=148
 y=3
@@ -1606,7 +1606,7 @@ transmitop=10
 op10=   
 
 // 933:118
-[com_118]
+[modifer_bar_higher_bound_3]
 type=rectangle
 x=143
 y=3
@@ -1620,7 +1620,7 @@ transmitop=10
 op10=    
 
 // 933:119
-[com_119]
+[modifer_bar_higher_bound_4]
 type=rectangle
 x=138
 y=3
@@ -1634,7 +1634,7 @@ transmitop=10
 op10=     
 
 // 933:120
-[com_120]
+[modifer_bar_higher_bound_5]
 type=rectangle
 x=133
 y=3
@@ -1648,7 +1648,7 @@ transmitop=10
 op10=      
 
 // 933:121
-[com_121]
+[modifer_bar_lower_bound]
 type=rectangle
 y=3
 width=20
@@ -1660,7 +1660,7 @@ transmitop=10
 op10=  
 
 // 933:122
-[com_122]
+[modifer_bar_lower_bound_1]
 type=rectangle
 x=20
 y=3
@@ -1674,7 +1674,7 @@ transmitop=10
 op10=   
 
 // 933:123
-[com_123]
+[modifer_bar_lower_bound_2]
 type=rectangle
 x=25
 y=3
@@ -1688,7 +1688,7 @@ transmitop=10
 op10=    
 
 // 933:124
-[com_124]
+[modifer_bar_lower_bound_3]
 type=rectangle
 x=30
 y=3
@@ -1702,7 +1702,7 @@ transmitop=10
 op10=     
 
 // 933:125
-[com_125]
+[modifer_bar_lower_bound_4]
 type=rectangle
 x=35
 y=3
@@ -1716,7 +1716,7 @@ transmitop=10
 op10=      
 
 // 933:126
-[com_126]
+[modifer_bar_lower_bound_5]
 type=rectangle
 x=40
 y=3
@@ -1730,7 +1730,7 @@ transmitop=10
 op10=       
 
 // 933:127
-[com_127]
+[container_45]
 type=graphic
 width=5
 height=5
@@ -1741,7 +1741,7 @@ transmitop=10
 op10=      
 
 // 933:128
-[com_128]
+[container_46]
 type=graphic
 width=5
 height=5
@@ -1754,7 +1754,7 @@ transmitop=10
 op10=      
 
 // 933:129
-[com_129]
+[container_47]
 type=graphic
 x=5
 width=115
@@ -1766,7 +1766,7 @@ transmitop=10
 op10=      
 
 // 933:130
-[com_130]
+[container_48]
 type=graphic
 y=14
 width=5
@@ -1779,7 +1779,7 @@ transmitop=10
 op10=      
 
 // 933:131
-[com_131]
+[container_49]
 type=graphic
 y=14
 width=5
@@ -1794,7 +1794,7 @@ transmitop=10
 op10=      
 
 // 933:132
-[com_132]
+[container_50]
 type=graphic
 x=5
 y=14
@@ -1808,7 +1808,7 @@ transmitop=10
 op10=      
 
 // 933:133
-[com_133]
+[container_51]
 type=graphic
 y=5
 width=5
@@ -1821,7 +1821,7 @@ transmitop=10
 op10=      
 
 // 933:134
-[com_134]
+[container_52]
 type=graphic
 y=5
 width=5
@@ -1836,7 +1836,7 @@ transmitop=10
 op10=      
 
 // 933:135
-[com_135]
+[container_53]
 type=rectangle
 x=5
 y=4
@@ -1867,23 +1867,23 @@ transmitop=10
 op10= 
 
 // 933:137
-[com_137]
+[deaths_nw]
 type=graphic
 width=5
 height=5
-layer=com_66
+layer=deaths_container
 graphic="rand_sml_framea,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:138
-[com_138]
+[deaths_ne]
 type=graphic
 width=5
 height=5
 xmode=abs_right
-layer=com_66
+layer=deaths_container
 graphic="rand_sml_framea,0"
 hflip=yes
 colour=0xffffffff
@@ -1891,25 +1891,25 @@ transmitop=10
 op10= 
 
 // 933:139
-[com_139]
+[deaths_n]
 type=graphic
 x=5
 width=10
 height=5
 widthmode=minus
-layer=com_66
+layer=deaths_container
 graphic="rand_sml_framea,1"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:140
-[com_140]
+[deaths_sw]
 type=graphic
 width=5
 height=5
 ymode=abs_bottom
-layer=com_66
+layer=deaths_container
 graphic="rand_sml_framea,0"
 vflip=yes
 colour=0xffffffff
@@ -1917,13 +1917,13 @@ transmitop=10
 op10= 
 
 // 933:141
-[com_141]
+[deaths_se]
 type=graphic
 width=5
 height=5
 xmode=abs_right
 ymode=abs_bottom
-layer=com_66
+layer=deaths_container
 graphic="rand_sml_framea,0"
 vflip=yes
 hflip=yes
@@ -1932,14 +1932,14 @@ transmitop=10
 op10= 
 
 // 933:142
-[com_142]
+[deaths_s]
 type=graphic
 x=5
 width=10
 height=5
 widthmode=minus
 ymode=abs_bottom
-layer=com_66
+layer=deaths_container
 graphic="rand_sml_framea,1"
 vflip=yes
 colour=0xffffffff
@@ -1947,13 +1947,13 @@ transmitop=10
 op10= 
 
 // 933:143
-[com_143]
+[deaths_w]
 type=graphic
 y=5
 width=5
 height=10
 heightmode=minus
-layer=com_66
+layer=deaths_container
 graphic="rand_sml_framea,2"
 tiling=yes
 colour=0xffffffff
@@ -1961,14 +1961,14 @@ transmitop=10
 op10= 
 
 // 933:144
-[com_144]
+[deaths_e]
 type=graphic
 y=5
 width=5
 height=10
 heightmode=minus
 xmode=abs_right
-layer=com_66
+layer=deaths_container
 graphic="rand_sml_framea,2"
 tiling=yes
 hflip=yes
@@ -1977,7 +1977,7 @@ transmitop=10
 op10= 
 
 // 933:145
-[com_145]
+[deaths_back]
 type=rectangle
 x=5
 y=5
@@ -1985,205 +1985,205 @@ width=10
 height=10
 widthmode=minus
 heightmode=minus
-layer=com_66
+layer=deaths_container
 colour=0x000000
 fill=yes
 
 // 933:146
-[com_146]
+[skull_1]
 type=graphic
 x=5
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 
 // 933:147
-[com_147]
+[skull_2]
 type=graphic
 x=16
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:148
-[com_148]
+[skull_3]
 type=graphic
 x=27
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:149
-[com_149]
+[skull_4]
 type=graphic
 x=38
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:150
-[com_150]
+[skull_5]
 type=graphic
 x=49
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:151
-[com_151]
+[skull_6]
 type=graphic
 x=60
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:152
-[com_152]
+[skull_7]
 type=graphic
 x=71
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:153
-[com_153]
+[skull_8]
 type=graphic
 x=82
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:154
-[com_154]
+[skull_9]
 type=graphic
 x=93
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:155
-[com_155]
+[skull_10]
 type=graphic
 x=104
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:156
-[com_156]
+[skull_11]
 type=graphic
 x=115
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:157
-[com_157]
+[skull_12]
 type=graphic
 x=126
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:158
-[com_158]
+[skull_13]
 type=graphic
 x=137
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:159
-[com_159]
+[skull_14]
 type=graphic
 x=148
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:160
-[com_160]
+[skull_15]
 type=graphic
 x=159
 y=3
 width=19
 height=19
-layer=com_66
+layer=deaths_container
 graphic="rand_death_icon,0"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:161
-[com_161]
+[container_18]
 type=graphic
 width=5
 height=5
@@ -2194,7 +2194,7 @@ transmitop=10
 op10=   
 
 // 933:162
-[com_162]
+[container_19]
 type=graphic
 x=183
 width=5
@@ -2207,7 +2207,7 @@ transmitop=10
 op10=   
 
 // 933:163
-[com_163]
+[container_20]
 type=graphic
 x=5
 width=178
@@ -2219,7 +2219,7 @@ transmitop=10
 op10=   
 
 // 933:164
-[com_164]
+[container_21]
 type=graphic
 y=12
 width=5
@@ -2232,7 +2232,7 @@ transmitop=10
 op10=   
 
 // 933:165
-[com_165]
+[container_22]
 type=graphic
 x=183
 y=12
@@ -2247,7 +2247,7 @@ transmitop=10
 op10=   
 
 // 933:166
-[com_166]
+[container_23]
 type=graphic
 x=5
 y=12
@@ -2261,7 +2261,7 @@ transmitop=10
 op10=   
 
 // 933:167
-[com_167]
+[container_24]
 type=graphic
 y=5
 width=5
@@ -2274,7 +2274,7 @@ transmitop=10
 op10=   
 
 // 933:168
-[com_168]
+[container_25]
 type=graphic
 x=183
 y=5
@@ -2289,7 +2289,7 @@ transmitop=10
 op10=   
 
 // 933:169
-[com_169]
+[container_26]
 type=rectangle
 x=5
 y=5
@@ -2302,7 +2302,7 @@ transmitop=10
 op10=  
 
 // 933:170
-[com_170]
+[layer_4]
 type=layer
 x=6
 width=180
@@ -2312,7 +2312,7 @@ transmitop=10
 op10= 
 
 // 933:171
-[com_171]
+[progress_bar_s_2]
 type=graphic
 x=2
 y=1
@@ -2331,12 +2331,12 @@ width=16384
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_170
+layer=layer_4
 transmitop=10
 op10= 
 
 // 933:173
-[com_173]
+[progress_2]
 type=graphic
 y=1
 width=177
@@ -2348,7 +2348,7 @@ transmitop=10
 op10=  
 
 // 933:174
-[com_174]
+[progress_bar_e_2]
 type=graphic
 y=1
 width=7
@@ -2361,66 +2361,66 @@ transmitop=10
 op10=  
 
 // 933:175
-[com_175]
+[stats_nw]
 type=graphic
 x=2
 y=10
 width=15
 height=15
-layer=com_17
+layer=stage_1
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:176
-[com_176]
+[stats_n]
 type=graphic
 x=16
 y=10
 width=301
 height=15
-layer=com_17
+layer=stage_1
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:177
-[com_177]
+[stats_s]
 type=graphic
 x=16
 y=53
 width=301
 height=15
-layer=com_17
+layer=stage_1
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:178
-[com_178]
+[stats_w]
 type=graphic
 x=2
 y=25
 width=15
 height=28
-layer=com_17
+layer=stage_1
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:179
-[com_179]
+[stats_e]
 type=graphic
 x=2
 y=25
 width=15
 height=28
 xmode=abs_right
-layer=com_17
+layer=stage_1
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -2428,14 +2428,14 @@ transmitop=10
 op10= 
 
 // 933:180
-[com_180]
+[stats_ne]
 type=graphic
 x=2
 y=10
 width=15
 height=15
 xmode=abs_right
-layer=com_17
+layer=stage_1
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -2443,27 +2443,27 @@ transmitop=10
 op10= 
 
 // 933:181
-[com_181]
+[stats_sw]
 type=graphic
 x=2
 y=53
 width=15
 height=15
-layer=com_17
+layer=stage_1
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:182
-[com_182]
+[stats_se]
 type=graphic
 x=2
 y=53
 width=15
 height=15
 xmode=abs_right
-layer=com_17
+layer=stage_1
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -2471,36 +2471,36 @@ transmitop=10
 op10=   
 
 // 933:183
-[com_183]
+[stats_bg]
 type=rectangle
 x=16
 y=25
 width=302
 height=28
-layer=com_17
+layer=stage_1
 colour=0x221e18
 fill=yes
 
 // 933:184
-[com_184]
+[stats_alpha]
 type=graphic
 x=5
 y=17
 width=324
 height=40
-layer=com_17
+layer=stage_1
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
 
 // 933:185
-[com_185]
+[stats_alpha_1]
 type=graphic
 x=11
 y=12
 width=309
 height=30
-layer=com_17
+layer=stage_1
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -2514,39 +2514,39 @@ x=2
 y=10
 width=330
 height=58
-layer=com_17
+layer=stage_1
 graphic=rand_flashing_layer_1
 trans=255
 colour=0x000000
 
 // 933:187
-[com_187]
+[base_floor_layer]
 type=layer
 x=18
 y=15
 width=90
 height=50
-layer=com_17
+layer=stage_1
 
 // 933:188
-[com_188]
+[prestige_floor_layer]
 type=layer
 x=121
 y=15
 width=90
 height=50
-layer=com_17
+layer=stage_1
 transmitop=10
 op10= 
 
 // 933:189
-[com_189]
+[total_base_layer]
 type=layer
 x=225
 y=15
 width=90
 height=50
-layer=com_17
+layer=stage_1
 transmitop=10
 op10=  
 
@@ -2557,7 +2557,7 @@ x=102
 y=35
 width=27
 height=15
-layer=com_17
+layer=stage_1
 graphic="achievement_page_arrows,3"
 2dangle=49152
 colour=0xffff00
@@ -2569,7 +2569,7 @@ x=205
 y=35
 width=27
 height=15
-layer=com_17
+layer=stage_1
 graphic="achievement_page_arrows,3"
 2dangle=49152
 colour=0x66ff00
@@ -2582,12 +2582,12 @@ type=layer
 x=7
 width=125
 height=20
-layer=com_17
+layer=stage_1
 transmitop=10
 op10=     
 
 // 933:193
-[com_193]
+[container_63]
 type=graphic
 width=5
 height=5
@@ -2598,7 +2598,7 @@ transmitop=10
 op10=       
 
 // 933:194
-[com_194]
+[container_65]
 type=graphic
 x=5
 width=115
@@ -2610,7 +2610,7 @@ transmitop=10
 op10=       
 
 // 933:195
-[com_195]
+[container_66]
 type=graphic
 y=14
 width=5
@@ -2623,7 +2623,7 @@ transmitop=10
 op10=       
 
 // 933:196
-[com_196]
+[container_68]
 type=graphic
 x=5
 y=14
@@ -2637,7 +2637,7 @@ transmitop=10
 op10=       
 
 // 933:197
-[com_197]
+[container_69]
 type=graphic
 y=5
 width=5
@@ -2650,7 +2650,7 @@ transmitop=10
 op10=       
 
 // 933:198
-[com_198]
+[container_71]
 type=rectangle
 x=5
 y=4
@@ -2681,7 +2681,7 @@ transmitop=10
 op10=  
 
 // 933:200
-[com_200]
+[container_67]
 type=graphic
 y=14
 width=5
@@ -2696,7 +2696,7 @@ transmitop=10
 op10=       
 
 // 933:201
-[com_201]
+[container_70]
 type=graphic
 y=5
 width=5
@@ -2711,7 +2711,7 @@ transmitop=10
 op10=       
 
 // 933:202
-[com_202]
+[container_64]
 type=graphic
 width=5
 height=5
@@ -2724,26 +2724,26 @@ transmitop=10
 op10=       
 
 // 933:203
-[com_203]
+[stats_53]
 type=graphic
 x=15
 y=35
 width=60
 height=15
-layer=com_189
+layer=total_base_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 933:204
-[com_204]
+[stats_54]
 type=graphic
 y=10
 width=15
 height=25
 xmode=abs_right
-layer=com_189
+layer=total_base_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -2751,13 +2751,13 @@ transmitop=10
 op10=    
 
 // 933:205
-[com_205]
+[stats_55]
 type=graphic
 y=5
 width=15
 height=15
 xmode=abs_right
-layer=com_189
+layer=total_base_layer
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -2765,25 +2765,25 @@ transmitop=10
 op10=    
 
 // 933:206
-[com_206]
+[stats_56]
 type=graphic
 y=35
 width=15
 height=15
-layer=com_189
+layer=total_base_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 933:207
-[com_207]
+[stats_57]
 type=graphic
 y=35
 width=15
 height=15
 xmode=abs_right
-layer=com_189
+layer=total_base_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -2791,63 +2791,63 @@ transmitop=10
 op10=      
 
 // 933:208
-[com_208]
+[stats_58]
 type=graphic
 y=5
 width=15
 height=15
-layer=com_189
+layer=total_base_layer
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 933:209
-[com_209]
+[stats_59]
 type=graphic
 x=15
 y=5
 width=60
 height=15
-layer=com_189
+layer=total_base_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 933:210
-[com_210]
+[stats_60]
 type=graphic
 y=20
 width=15
 height=15
-layer=com_189
+layer=total_base_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 933:211
-[com_211]
+[stats_61]
 type=rectangle
 x=15
 y=20
 width=60
 height=15
-layer=com_189
+layer=total_base_layer
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=   
 
 // 933:212
-[com_212]
+[stats_alpha_10]
 type=graphic
 x=2
 y=15
 width=86
 height=40
-layer=com_189
+layer=total_base_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -2855,13 +2855,13 @@ transmitop=10
 op10=   
 
 // 933:213
-[com_213]
+[stats_alpha_11]
 type=graphic
 x=15
 y=7
 width=61
 height=30
-layer=com_189
+layer=total_base_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -2869,12 +2869,12 @@ transmitop=10
 op10=    
 
 // 933:214
-[com_214]
+[total_floor_base]
 type=text
 y=10
 width=90
 height=15
-layer=com_189
+layer=total_base_layer
 textfont=p12_full
 text=Average:
 textalignh=centre
@@ -2885,12 +2885,12 @@ transmitop=10
 op10=   
 
 // 933:215
-[com_215]
+[total_base_xp_val]
 type=text
 y=27
 width=90
 height=15
-layer=com_189
+layer=total_base_layer
 textfont=p12_full
 text=8888888
 textalignh=centre
@@ -2901,26 +2901,26 @@ transmitop=10
 op10=    
 
 // 933:216
-[com_216]
+[stats_44]
 type=graphic
 x=15
 y=35
 width=60
 height=15
-layer=com_188
+layer=prestige_floor_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 933:217
-[com_217]
+[stats_45]
 type=graphic
 y=10
 width=15
 height=25
 xmode=abs_right
-layer=com_188
+layer=prestige_floor_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -2928,13 +2928,13 @@ transmitop=10
 op10=   
 
 // 933:218
-[com_218]
+[stats_46]
 type=graphic
 y=5
 width=15
 height=15
 xmode=abs_right
-layer=com_188
+layer=prestige_floor_layer
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -2942,25 +2942,25 @@ transmitop=10
 op10=   
 
 // 933:219
-[com_219]
+[stats_47]
 type=graphic
 y=35
 width=15
 height=15
-layer=com_188
+layer=prestige_floor_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 933:220
-[com_220]
+[stats_48]
 type=graphic
 y=35
 width=15
 height=15
 xmode=abs_right
-layer=com_188
+layer=prestige_floor_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -2968,63 +2968,63 @@ transmitop=10
 op10=     
 
 // 933:221
-[com_221]
+[stats_49]
 type=graphic
 y=5
 width=15
 height=15
-layer=com_188
+layer=prestige_floor_layer
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:222
-[com_222]
+[stats_50]
 type=graphic
 x=15
 y=5
 width=60
 height=15
-layer=com_188
+layer=prestige_floor_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:223
-[com_223]
+[stats_51]
 type=graphic
 y=20
 width=15
 height=15
-layer=com_188
+layer=prestige_floor_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:224
-[com_224]
+[stats_52]
 type=rectangle
 x=15
 y=20
 width=60
 height=15
-layer=com_188
+layer=prestige_floor_layer
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=  
 
 // 933:225
-[com_225]
+[stats_alpha_8]
 type=graphic
 x=2
 y=15
 width=86
 height=40
-layer=com_188
+layer=prestige_floor_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -3032,13 +3032,13 @@ transmitop=10
 op10=  
 
 // 933:226
-[com_226]
+[stats_alpha_9]
 type=graphic
 x=15
 y=7
 width=61
 height=30
-layer=com_188
+layer=prestige_floor_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -3046,12 +3046,12 @@ transmitop=10
 op10=   
 
 // 933:227
-[com_227]
+[prestige_floor]
 type=text
 y=10
 width=90
 height=15
-layer=com_188
+layer=prestige_floor_layer
 textfont=p12_full
 text=Prestige: XX
 textalignh=centre
@@ -3067,7 +3067,7 @@ type=text
 y=27
 width=90
 height=15
-layer=com_188
+layer=prestige_floor_layer
 textfont=p12_full
 text=8888888
 textalignh=centre
@@ -3078,26 +3078,26 @@ transmitop=10
 op10=   
 
 // 933:229
-[com_229]
+[stats_37]
 type=graphic
 x=15
 y=35
 width=60
 height=15
-layer=com_187
+layer=base_floor_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:230
-[com_230]
+[stats_39]
 type=graphic
 y=10
 width=15
 height=25
 xmode=abs_right
-layer=com_187
+layer=base_floor_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -3105,13 +3105,13 @@ transmitop=10
 op10=  
 
 // 933:231
-[com_231]
+[stats_40]
 type=graphic
 y=5
 width=15
 height=15
 xmode=abs_right
-layer=com_187
+layer=base_floor_layer
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -3119,25 +3119,25 @@ transmitop=10
 op10=  
 
 // 933:232
-[com_232]
+[stats_41]
 type=graphic
 y=35
 width=15
 height=15
-layer=com_187
+layer=base_floor_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 933:233
-[com_233]
+[stats_42]
 type=graphic
 y=35
 width=15
 height=15
 xmode=abs_right
-layer=com_187
+layer=base_floor_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -3145,63 +3145,63 @@ transmitop=10
 op10=    
 
 // 933:234
-[com_234]
+[stats_35]
 type=graphic
 y=5
 width=15
 height=15
-layer=com_187
+layer=base_floor_layer
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:235
-[com_235]
+[stats_36]
 type=graphic
 x=15
 y=5
 width=60
 height=15
-layer=com_187
+layer=base_floor_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:236
-[com_236]
+[stats_38]
 type=graphic
 y=20
 width=15
 height=15
-layer=com_187
+layer=base_floor_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:237
-[com_237]
+[stats_43]
 type=rectangle
 x=15
 y=20
 width=60
 height=15
-layer=com_187
+layer=base_floor_layer
 colour=0x221e18
 fill=yes
 transmitop=10
 op10= 
 
 // 933:238
-[com_238]
+[stats_alpha_6]
 type=graphic
 x=2
 y=15
 width=86
 height=40
-layer=com_187
+layer=base_floor_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -3209,13 +3209,13 @@ transmitop=10
 op10= 
 
 // 933:239
-[com_239]
+[stats_alpha_7]
 type=graphic
 x=15
 y=7
 width=61
 height=30
-layer=com_187
+layer=base_floor_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -3223,12 +3223,12 @@ transmitop=10
 op10=  
 
 // 933:240
-[com_240]
+[floor_val]
 type=text
 y=10
 width=90
 height=15
-layer=com_187
+layer=base_floor_layer
 textfont=p12_full
 text=Floor XX:
 textalignh=centre
@@ -3239,12 +3239,12 @@ transmitop=10
 op10= 
 
 // 933:241
-[com_241]
+[floor_xp_val]
 type=text
 y=27
 width=90
 height=15
-layer=com_187
+layer=base_floor_layer
 textfont=p12_full
 text=8888888
 textalignh=centre
@@ -3255,7 +3255,7 @@ transmitop=10
 op10=  
 
 // 933:242
-[com_242]
+[background_nw]
 type=graphic
 width=10
 height=10
@@ -3266,7 +3266,7 @@ transmitop=10
 op10= 
 
 // 933:243
-[com_243]
+[background_se]
 type=graphic
 x=-1
 width=10
@@ -3280,7 +3280,7 @@ transmitop=10
 op10= 
 
 // 933:244
-[com_244]
+[background_sw]
 type=graphic
 width=10
 height=10
@@ -3292,7 +3292,7 @@ transmitop=10
 op10= 
 
 // 933:245
-[com_245]
+[background_w]
 type=graphic
 y=10
 width=10
@@ -3305,7 +3305,7 @@ transmitop=10
 op10= 
 
 // 933:246
-[com_246]
+[background_n]
 type=graphic
 x=10
 width=19
@@ -3318,7 +3318,7 @@ transmitop=10
 op10= 
 
 // 933:247
-[com_247]
+[background_s]
 type=graphic
 x=10
 width=19
@@ -3332,7 +3332,7 @@ transmitop=10
 op10= 
 
 // 933:248
-[com_248]
+[background_e]
 type=graphic
 x=-1
 y=10
@@ -3347,7 +3347,7 @@ transmitop=10
 op10= 
 
 // 933:249
-[com_249]
+[background_fill]
 type=graphic
 x=10
 y=10
@@ -3364,7 +3364,7 @@ transmitop=10
 op10= 
 
 // 933:250
-[com_250]
+[background_ne]
 type=graphic
 x=-1
 width=10
@@ -3377,19 +3377,19 @@ transmitop=10
 op10= 
 
 // 933:251
-[com_251]
+[fade]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=fade_layer
 colour=0x000000
 fill=yes
 trans=255
 
 // 933:252
-[com_252]
+[titles]
 type=layer
 x=167
 y=13
@@ -3399,7 +3399,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 933:253
-[com_253]
+[tooltip_container]
 type=layer
 x=133
 y=13
@@ -3409,48 +3409,48 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 933:254
-[com_254]
+[tooltip_layer]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_253
+layer=tooltip_container
 transmitop=10
 op10=     
 
 // 933:255
-[com_255]
+[titles_sw]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_252
+layer=titles
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:256
-[com_256]
+[titles_w]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
-layer=com_252
+layer=titles
 graphic="rand_framea_edges,7"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:257
-[com_257]
+[titles_e]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
 xmode=abs_right
-layer=com_252
+layer=titles
 graphic="rand_framea_edges,7"
 hflip=yes
 colour=0xffffffff
@@ -3458,27 +3458,27 @@ transmitop=10
 op10= 
 
 // 933:258
-[com_258]
+[titles_s]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
 ymode=abs_bottom
-layer=com_252
+layer=titles
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:259
-[com_259]
+[titles_se]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_252
+layer=titles
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -3486,7 +3486,7 @@ transmitop=10
 op10= 
 
 // 933:260
-[com_260]
+[titles_bg_alpha]
 type=graphic
 x=3
 y=2
@@ -3494,13 +3494,13 @@ width=6
 height=30
 widthmode=minus
 heightmode=minus
-layer=com_252
+layer=titles
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
 
 // 933:261
-[com_261]
+[titles_bg]
 type=rectangle
 x=3
 y=15
@@ -3508,30 +3508,30 @@ width=6
 height=30
 widthmode=minus
 heightmode=minus
-layer=com_252
+layer=titles
 colour=0x221e18
 fill=yes
 
 // 933:262
-[com_262]
+[titles_n]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
-layer=com_252
+layer=titles
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:263
-[com_263]
+[titles_ne]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_252
+layer=titles
 graphic="rand_framea_edges,5"
 2dangle=49152
 colour=0xffffffff
@@ -3539,51 +3539,51 @@ transmitop=10
 op10= 
 
 // 933:264
-[com_264]
+[titles_nw]
 type=graphic
 width=15
 height=15
-layer=com_252
+layer=titles
 graphic="rand_framea_edges,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:265
-[com_265]
+[player_1]
 type=layer
 x=2
 y=4
 width=3
 height=49
 widthmode=minus
-layer=com_252
+layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(61145353)
 onvarctransmit=script2277{varclient_1198}
 
 // 933:266
-[com_266]
+[player_2]
 type=layer
 x=2
 y=55
 width=4
 height=49
 widthmode=minus
-layer=com_252
+layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(61145354)
 onvarctransmit=script2288{varclient_1199}
 
 // 933:267
-[com_267]
+[player_2_name]
 type=text
 x=5
 height=18
 widthmode=minus
-layer=com_266
+layer=player_2
 textfont=b12_full
 text=Mod Trick
 textalignv=centre
@@ -3594,13 +3594,13 @@ op10=
 onvarcstrtransmit=script2939{varclient_1830}
 
 // 933:268
-[com_268]
+[player_2_title_1]
 type=text
 x=13
 y=16
 width=100
 height=18
-layer=com_266
+layer=player_2
 textfont=p12_full
 text=Battle Mage
 textshadow=yes
@@ -3610,13 +3610,13 @@ op10=
 onvarctransmit=script2942{varclient_1209}
 
 // 933:269
-[com_269]
+[player_2_title_2]
 type=text
 x=13
 y=31
 width=100
 height=18
-layer=com_266
+layer=player_2
 textfont=p12_full
 text=Culinary Disaster
 textshadow=yes
@@ -3626,13 +3626,13 @@ op10=
 onvarctransmit=script2965{varclient_1210}
 
 // 933:270
-[com_270]
+[player_2_title_3]
 type=text
 x=13
 y=46
 width=100
 height=18
-layer=com_266
+layer=player_2
 textfont=p12_full
 text=Master of None
 textshadow=yes
@@ -3642,13 +3642,13 @@ op10=
 onvarctransmit=script2966{varclient_1211}
 
 // 933:271
-[com_271]
+[player_2_title_4]
 type=text
 x=13
 y=61
 width=100
 height=18
-layer=com_266
+layer=player_2
 textfont=p12_full
 text=MVP
 textshadow=yes
@@ -3658,13 +3658,13 @@ op10=
 onvarctransmit=script3021{varclient_1212}
 
 // 933:272
-[com_272]
+[player_2_title_5]
 type=text
 x=13
 y=76
 width=100
 height=18
-layer=com_266
+layer=player_2
 textfont=p12_full
 text=Master Chef
 textshadow=yes
@@ -3674,13 +3674,13 @@ op10=
 onvarctransmit=script3033{varclient_1213}
 
 // 933:273
-[com_273]
+[player_2_title_6]
 type=text
 x=13
 y=91
 width=100
 height=18
-layer=com_266
+layer=player_2
 textfont=p12_full
 text=Uneconomical Alcher
 textshadow=yes
@@ -3690,48 +3690,48 @@ op10=
 onvarctransmit=script3034{varclient_1214}
 
 // 933:274
-[com_274]
+[player_2_divider]
 type=line
 y=1
 widthmode=minus
 ymode=abs_bottom
-layer=com_266
+layer=player_2
 hide=yes
 colour=0x595144
 
 // 933:275
-[com_275]
+[player_2_button]
 type=graphic
 x=108
 width=16
 height=16
-layer=com_266
+layer=player_2
 graphic="rand_team_icon,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:276
-[com_276]
+[player_3]
 type=layer
 x=2
 y=107
 width=4
 height=49
 widthmode=minus
-layer=com_252
+layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(61145364)
 onvarctransmit=script3162{varclient_1200}
 
 // 933:277
-[com_277]
+[player_3_name]
 type=text
 x=5
 height=18
 widthmode=minus
-layer=com_276
+layer=player_3
 textfont=b12_full
 text=Mod Trick
 textalignv=centre
@@ -3742,13 +3742,13 @@ op10=
 onvarcstrtransmit=script3240{varclient_1831}
 
 // 933:278
-[com_278]
+[player_3_title_1]
 type=text
 x=13
 y=16
 width=100
 height=18
-layer=com_276
+layer=player_3
 textfont=p12_full
 text=Battle Mage
 textshadow=yes
@@ -3758,13 +3758,13 @@ op10=
 onvarctransmit=script3241{varclient_1215}
 
 // 933:279
-[com_279]
+[player_3_title_2]
 type=text
 x=13
 y=31
 width=100
 height=18
-layer=com_276
+layer=player_3
 textfont=p12_full
 text=Culinary Disaster
 textshadow=yes
@@ -3774,13 +3774,13 @@ op10=
 onvarctransmit=script3242{varclient_1216}
 
 // 933:280
-[com_280]
+[player_3_title_3]
 type=text
 x=13
 y=46
 width=100
 height=18
-layer=com_276
+layer=player_3
 textfont=p12_full
 text=Master of None
 textshadow=yes
@@ -3790,13 +3790,13 @@ op10=
 onvarctransmit=script3243{varclient_1217}
 
 // 933:281
-[com_281]
+[player_3_title_4]
 type=text
 x=13
 y=61
 width=100
 height=18
-layer=com_276
+layer=player_3
 textfont=p12_full
 text=MVP
 textshadow=yes
@@ -3806,13 +3806,13 @@ op10=
 onvarctransmit=script3244{varclient_1218}
 
 // 933:282
-[com_282]
+[player_3_title_5]
 type=text
 x=13
 y=76
 width=100
 height=18
-layer=com_276
+layer=player_3
 textfont=p12_full
 text=Master Chef
 textshadow=yes
@@ -3822,13 +3822,13 @@ op10=
 onvarctransmit=script3245{varclient_1219}
 
 // 933:283
-[com_283]
+[player_3_title_6]
 type=text
 x=13
 y=91
 width=100
 height=18
-layer=com_276
+layer=player_3
 textfont=p12_full
 text=Uneconomical Alcher
 textshadow=yes
@@ -3838,50 +3838,50 @@ op10=
 onvarctransmit=script3246{varclient_1220}
 
 // 933:284
-[com_284]
+[player_3_divider]
 type=line
 y=1
 widthmode=minus
 ymode=abs_bottom
-layer=com_276
+layer=player_3
 hide=yes
 colour=0x595144
 transmitop=10
 op10= 
 
 // 933:285
-[com_285]
+[player_3_button]
 type=graphic
 x=108
 width=16
 height=16
-layer=com_276
+layer=player_3
 graphic="rand_team_icon,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:286
-[com_286]
+[player_4]
 type=layer
 x=2
 y=160
 width=4
 height=49
 widthmode=minus
-layer=com_252
+layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(61145374)
 onvarctransmit=script3247{varclient_1201}
 
 // 933:287
-[com_287]
+[player_4_name]
 type=text
 x=5
 height=18
 widthmode=minus
-layer=com_286
+layer=player_4
 textfont=b12_full
 text=Mod Trick
 textalignv=centre
@@ -3892,13 +3892,13 @@ op10=
 onvarcstrtransmit=script3249{varclient_1832}
 
 // 933:288
-[com_288]
+[player_4_title_1]
 type=text
 x=13
 y=16
 width=100
 height=18
-layer=com_286
+layer=player_4
 textfont=p12_full
 text=Battle Mage
 textshadow=yes
@@ -3908,13 +3908,13 @@ op10=
 onvarctransmit=set_buttons_indexop0{varclient_1221}
 
 // 933:289
-[com_289]
+[player_4_title_2]
 type=text
 x=13
 y=31
 width=100
 height=18
-layer=com_286
+layer=player_4
 textfont=p12_full
 text=Culinary Disaster
 textshadow=yes
@@ -3924,13 +3924,13 @@ op10=
 onvarctransmit=set_buttons_indexop1{varclient_1222}
 
 // 933:290
-[com_290]
+[player_4_title_3]
 type=text
 x=13
 y=46
 width=100
 height=18
-layer=com_286
+layer=player_4
 textfont=p12_full
 text=Master of None
 textshadow=yes
@@ -3940,13 +3940,13 @@ op10=
 onvarctransmit=set_buttons_indexop2{varclient_1223}
 
 // 933:291
-[com_291]
+[player_4_title_4]
 type=text
 x=13
 y=61
 width=100
 height=18
-layer=com_286
+layer=player_4
 textfont=p12_full
 text=MVP
 textshadow=yes
@@ -3956,13 +3956,13 @@ op10=
 onvarctransmit=set_buttons_indexop3{varclient_1224}
 
 // 933:292
-[com_292]
+[player_4_title_5]
 type=text
 x=13
 y=76
 width=100
 height=18
-layer=com_286
+layer=player_4
 textfont=p12_full
 text=Master Chef
 textshadow=yes
@@ -3972,13 +3972,13 @@ op10=
 onvarctransmit=set_buttons_indexop4{varclient_1225}
 
 // 933:293
-[com_293]
+[player_4_title_6]
 type=text
 x=13
 y=91
 width=100
 height=18
-layer=com_286
+layer=player_4
 textfont=p12_full
 text=Uneconomical Alcher
 textshadow=yes
@@ -3988,51 +3988,51 @@ op10=
 onvarctransmit=set_buttons_indexop5{varclient_1226}
 
 // 933:294
-[com_294]
+[player_4_divider]
 type=line
 y=1
 widthmode=minus
 ymode=abs_bottom
-layer=com_286
+layer=player_4
 hide=yes
 colour=0x595144
 transmitop=10
 op10= 
 
 // 933:295
-[com_295]
+[player_4_button]
 type=graphic
 x=108
 width=16
 height=16
-layer=com_286
+layer=player_4
 graphic="rand_team_icon,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:296
-[com_296]
+[player_5]
 type=layer
 x=2
 y=212
 width=4
 height=49
 widthmode=minus
-layer=com_252
+layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(61145384)
 onvarctransmit=script3256{varclient_1202}
 
 // 933:297
-[com_297]
+[title_hide_1]
 type=rectangle
 x=7
 y=4
 width=119
 height=260
-layer=com_252
+layer=titles
 hide=yes
 colour=0x221e18
 fill=yes
@@ -4040,51 +4040,51 @@ transmitop=10
 op10= 
 
 // 933:298
-[com_298]
+[title_hide_2]
 type=rectangle
 x=2
 y=10
 width=5
 height=240
-layer=com_252
+layer=titles
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=  
 
 // 933:299
-[com_299]
+[title_hide_3]
 type=rectangle
 x=126
 y=10
 width=3
 height=240
-layer=com_252
+layer=titles
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=   
 
 // 933:300
-[com_300]
+[terminator_line]
 type=line
 x=2
 y=50
 width=4
 widthmode=minus
-layer=com_252
+layer=titles
 hide=yes
 colour=0x595144
 transmitop=10
 op10=  
 
 // 933:301
-[com_301]
+[player_5_name]
 type=text
 x=5
 height=18
 widthmode=minus
-layer=com_296
+layer=player_5
 textfont=b12_full
 text=Mod Trick
 textalignv=centre
@@ -4095,13 +4095,13 @@ op10=
 onvarcstrtransmit=script3258{varclient_1833}
 
 // 933:302
-[com_302]
+[player_5_title_1]
 type=text
 x=13
 y=16
 width=100
 height=18
-layer=com_296
+layer=player_5
 textfont=p12_full
 text=Battle Mage
 textshadow=yes
@@ -4111,13 +4111,13 @@ op10=
 onvarctransmit=script3259{varclient_1227}
 
 // 933:303
-[com_303]
+[player_5_title_2]
 type=text
 x=13
 y=31
 width=100
 height=18
-layer=com_296
+layer=player_5
 textfont=p12_full
 text=Culinary Disaster
 textshadow=yes
@@ -4127,13 +4127,13 @@ op10=
 onvarctransmit=rand_unlock_oh{varclient_1228}
 
 // 933:304
-[com_304]
+[player_5_title_3]
 type=text
 x=13
 y=46
 width=100
 height=18
-layer=com_296
+layer=player_5
 textfont=p12_full
 text=Master of None
 textshadow=yes
@@ -4143,13 +4143,13 @@ op10=
 onvarctransmit=script3261{varclient_1229}
 
 // 933:305
-[com_305]
+[player_5_title_4]
 type=text
 x=13
 y=61
 width=100
 height=18
-layer=com_296
+layer=player_5
 textfont=p12_full
 text=MVP
 textshadow=yes
@@ -4159,13 +4159,13 @@ op10=
 onvarctransmit=script3262{varclient_1230}
 
 // 933:306
-[com_306]
+[player_5_title_5]
 type=text
 x=13
 y=76
 width=100
 height=18
-layer=com_296
+layer=player_5
 textfont=p12_full
 text=Master Chef
 textshadow=yes
@@ -4175,13 +4175,13 @@ op10=
 onvarctransmit=rand_unlock_ok{varclient_1231}
 
 // 933:307
-[com_307]
+[player_5_title_6]
 type=text
 x=13
 y=91
 width=100
 height=18
-layer=com_296
+layer=player_5
 textfont=p12_full
 text=Uneconomical Alcher
 textshadow=yes
@@ -4191,24 +4191,24 @@ op10=
 onvarctransmit=script3264{varclient_1232}
 
 // 933:308
-[com_308]
+[player_5_button]
 type=graphic
 x=108
 width=16
 height=16
-layer=com_296
+layer=player_5
 graphic="rand_team_icon,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 933:309
-[com_309]
+[player_1_name]
 type=text
 x=5
 height=18
 widthmode=minus
-layer=com_265
+layer=player_1
 textfont=b12_full
 text=Mod Trick
 textalignv=centre
@@ -4217,13 +4217,13 @@ colour=0xffff99
 onvarcstrtransmit=script2279{varclient_1829}
 
 // 933:310
-[com_310]
+[player_1_title_1]
 type=text
 x=13
 y=16
 width=100
 height=18
-layer=com_265
+layer=player_1
 textfont=p12_full
 text=Battle Mage
 textshadow=yes
@@ -4231,13 +4231,13 @@ colour=0x00cc33
 onvarctransmit=script2280{varclient_1203}
 
 // 933:311
-[com_311]
+[player_1_title_2]
 type=text
 x=13
 y=31
 width=100
 height=18
-layer=com_265
+layer=player_1
 textfont=p12_full
 text=Culinary Disaster
 textshadow=yes
@@ -4245,13 +4245,13 @@ colour=0xcc0000
 onvarctransmit=script2281{varclient_1204}
 
 // 933:312
-[com_312]
+[player_1_title_3]
 type=text
 x=13
 y=46
 width=100
 height=18
-layer=com_265
+layer=player_1
 textfont=p12_full
 text=Master of None
 textshadow=yes
@@ -4259,13 +4259,13 @@ colour=0xcc0000
 onvarctransmit=script2282{varclient_1205}
 
 // 933:313
-[com_313]
+[player_1_title_4]
 type=text
 x=13
 y=61
 width=100
 height=18
-layer=com_265
+layer=player_1
 textfont=p12_full
 text=MVP
 textshadow=yes
@@ -4273,13 +4273,13 @@ colour=0x00cc33
 onvarctransmit=script2285{varclient_1206}
 
 // 933:314
-[com_314]
+[player_1_title_5]
 type=text
 x=13
 y=76
 width=100
 height=18
-layer=com_265
+layer=player_1
 textfont=p12_full
 text=Master Chef
 textshadow=yes
@@ -4287,13 +4287,13 @@ colour=0x00cc33
 onvarctransmit=script2286{varclient_1207}
 
 // 933:315
-[com_315]
+[player_1_title_6]
 type=text
 x=13
 y=91
 width=100
 height=18
-layer=com_265
+layer=player_1
 textfont=p12_full
 text=Uneconomical Alcher
 textshadow=yes
@@ -4301,29 +4301,29 @@ colour=0xcc0000
 onvarctransmit=script2287{varclient_1208}
 
 // 933:316
-[com_316]
+[player_1_divider]
 type=line
 y=1
 widthmode=minus
 ymode=abs_bottom
-layer=com_265
+layer=player_1
 hide=yes
 colour=0x595144
 
 // 933:317
-[com_317]
+[player_1_button]
 type=graphic
 x=108
 width=16
 height=16
-layer=com_265
+layer=player_1
 graphic="rand_team_icon,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 933:318
-[com_318]
+[readybutton_player5]
 type=graphic
 x=476
 y=23
@@ -4340,7 +4340,7 @@ onmouseleave=graphic_swapper(event_com, "rand_readyup_icons,8")
 onvarctransmit=script1199{varclient_1401}
 
 // 933:319
-[com_319]
+[readybutton_player4]
 type=graphic
 x=462
 y=23
@@ -4357,7 +4357,7 @@ onmouseleave=graphic_swapper(event_com, "rand_readyup_icons,6")
 onvarctransmit=script953{varclient_1400}
 
 // 933:320
-[com_320]
+[readybutton_player3]
 type=graphic
 x=448
 y=23
@@ -4374,7 +4374,7 @@ onmouseleave=graphic_swapper(event_com, "rand_readyup_icons,4")
 onvarctransmit=script952{varclient_1399}
 
 // 933:321
-[com_321]
+[readybutton_player2]
 type=graphic
 x=434
 y=23
@@ -4391,7 +4391,7 @@ onmouseleave=graphic_swapper(event_com, "rand_readyup_icons,2")
 onvarctransmit=script951{varclient_1398}
 
 // 933:322
-[com_322]
+[readybutton_player1]
 type=graphic
 x=420
 y=23
@@ -4408,7 +4408,7 @@ onmouseleave=graphic_swapper(event_com, "rand_readyup_icons,0")
 onvarctransmit=script950{varclient_1397}
 
 // 933:323
-[com_323]
+[readyborder_player1]
 type=rectangle
 x=421
 y=24
@@ -4418,7 +4418,7 @@ layer=com_1
 colour=0x646401
 
 // 933:324
-[com_324]
+[readyborder_player2]
 type=rectangle
 x=435
 y=24
@@ -4428,7 +4428,7 @@ layer=com_1
 colour=0x646401
 
 // 933:325
-[com_325]
+[readyborder_player3]
 type=rectangle
 x=449
 y=24
@@ -4438,7 +4438,7 @@ layer=com_1
 colour=0x646401
 
 // 933:326
-[com_326]
+[readyborder_player4]
 type=rectangle
 x=463
 y=24
@@ -4448,7 +4448,7 @@ layer=com_1
 colour=0x646401
 
 // 933:327
-[com_327]
+[readyborder_player5]
 type=rectangle
 x=477
 y=24

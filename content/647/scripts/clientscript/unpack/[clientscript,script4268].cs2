@@ -2,63 +2,63 @@
 [clientscript,script4268](int $int0)
 switch_int ($int0) {
     case 1 :
-        if_settext("Teleport to South Falador", lunarfm_rewards_new:com_76);
+        if_settext("Teleport to South Falador", lunarfm_rewards_new:name);
     case 2 :
-        if_settext("Repair Rune Pouch", lunarfm_rewards_new:com_76);
+        if_settext("Repair Rune Pouch", lunarfm_rewards_new:name);
     case 3 :
-        if_settext("Teleport to North Ardougne", lunarfm_rewards_new:com_76);
+        if_settext("Teleport to North Ardougne", lunarfm_rewards_new:name);
     case 4 :
-        if_settext("Remote Farming", lunarfm_rewards_new:com_76);
+        if_settext("Remote Farming", lunarfm_rewards_new:name);
     case 5 :
-        if_settext("Spiritualise Food", lunarfm_rewards_new:com_76);
+        if_settext("Spiritualise Food", lunarfm_rewards_new:name);
     case 6 :
-        if_settext("Make Leather", lunarfm_rewards_new:com_76);
+        if_settext("Make Leather", lunarfm_rewards_new:name);
     case 7 :
-        if_settext("Disruption Shield", lunarfm_rewards_new:com_76);
+        if_settext("Disruption Shield", lunarfm_rewards_new:name);
     case 8 :
-        if_settext("Vengeance Group", lunarfm_rewards_new:com_76);
+        if_settext("Vengeance Group", lunarfm_rewards_new:name);
     case 9 :
-        if_settext("Let it Rain Seeds!", lunarfm_rewards_new:com_76);
+        if_settext("Let it Rain Seeds!", lunarfm_rewards_new:name);
     case 10 :
-        if_settext("Gimme Herbs!", lunarfm_rewards_new:com_76);
+        if_settext("Gimme Herbs!", lunarfm_rewards_new:name);
     case 11 :
-        if_settext("Vial My Herbs!", lunarfm_rewards_new:com_76);
+        if_settext("Vial My Herbs!", lunarfm_rewards_new:name);
     case 12 :
-        if_settext("Turn Lunar Lumber into Runes!", lunarfm_rewards_new:com_76);
+        if_settext("Turn Lunar Lumber into Runes!", lunarfm_rewards_new:name);
     case 13 :
-        if_settext("Reduce the Fish I Burn!", lunarfm_rewards_new:com_76);
+        if_settext("Reduce the Fish I Burn!", lunarfm_rewards_new:name);
     case 14 :
-        if_settext("More Planks, Please!", lunarfm_rewards_new:com_76);
+        if_settext("More Planks, Please!", lunarfm_rewards_new:name);
 }
 switch_int ($int0) {
     case 1 :
-        if_settext("Teleports you to the south of Falador.", lunarfm_rewards_new:com_78);
+        if_settext("Teleports you to the south of Falador.", lunarfm_rewards_new:description);
     case 2 :
-        if_settext("Use on a degraded pouch to repair it and improve its strength, so it takes longer to degrade.", lunarfm_rewards_new:com_78);
+        if_settext("Use on a degraded pouch to repair it and improve its strength, so it takes longer to degrade.", lunarfm_rewards_new:description);
     case 3 :
-        if_settext("Teleports you to the north of Ardougne.", lunarfm_rewards_new:com_78);
+        if_settext("Teleports you to the north of Ardougne.", lunarfm_rewards_new:description);
     case 4 :
-        if_settext("View the status of farming patches and cure any disease from a distance.", lunarfm_rewards_new:com_78);
+        if_settext("View the status of farming patches and cure any disease from a distance.", lunarfm_rewards_new:description);
     case 5 :
-        if_settext("Cast on ordinary food and feed it to your familiar to heal it, boost its combat stats and extend its timer.", lunarfm_rewards_new:com_78);
+        if_settext("Cast on ordinary food and feed it to your familiar to heal it, boost its combat stats and extend its timer.", lunarfm_rewards_new:description);
     case 6 :
-        if_settext("Cast on hides to turn them into leather. This will convert 5 hides at a time.", lunarfm_rewards_new:com_78);
+        if_settext("Cast on hides to turn them into leather. This will convert 5 hides at a time.", lunarfm_rewards_new:description);
     case 7 :
-        if_settext("Nullifies the next hit you receive from another player. This works against players only, not against monsters.", lunarfm_rewards_new:com_78);
+        if_settext("Nullifies the next hit you receive from another player. This works against players only, not against monsters.", lunarfm_rewards_new:description);
     case 8 :
-        if_settext("When cast, those nearby get to rebound damage.<br>After learning this last spell, your current produce will be reduced by <~tostring_spacer(calc(enum(int, int, enum_3674, 7) * 10), ",")> and the remainder can be spent on wishes.", lunarfm_rewards_new:com_78);
+        if_settext("When cast, those nearby get to rebound damage.<br>After learning this last spell, your current produce will be reduced by <~tostring_spacer(calc(enum(int, int, enum_3674, 7) * 10), ",")> and the remainder can be spent on wishes.", lunarfm_rewards_new:description);
     case 9 :
-        if_settext("Seeds will appear on the floor. Be quick to pick up the ones you want.", lunarfm_rewards_new:com_78);
+        if_settext("Seeds will appear on the floor. Be quick to pick up the ones you want.", lunarfm_rewards_new:description);
     case 10 :
-        if_settext("Puts a load of grimy herbs in your inventory.", lunarfm_rewards_new:com_78);
+        if_settext("Puts a load of grimy herbs in your inventory.", lunarfm_rewards_new:description);
     case 11 :
-        if_settext("Takes all the clean herbs in your inventory and turns them into unfinished potions of that herb type. This will work on noted herbs of up to 50 at a time.", lunarfm_rewards_new:com_78);
+        if_settext("Takes all the clean herbs in your inventory and turns them into unfinished potions of that herb type. This will work on noted herbs of up to 50 at a time.", lunarfm_rewards_new:description);
     case 12 :
-        if_settext("Turns all lunar lumber in your inventory into runes. You'll need a full inventory of logs.", lunarfm_rewards_new:com_78);
+        if_settext("Turns all lunar lumber in your inventory into runes. You'll need a full inventory of logs.", lunarfm_rewards_new:description);
     case 13 :
-        if_settext("For the next thirty minutes, you'll find that you burn fewer fish.", lunarfm_rewards_new:com_78);
+        if_settext("For the next thirty minutes, you'll find that you burn fewer fish.", lunarfm_rewards_new:description);
     case 14 :
-        if_settext("This will be active for the next twenty minutes: when casting Plank Make, you will have a chance of receiving additional planks.", lunarfm_rewards_new:com_78);
+        if_settext("This will be active for the next twenty minutes: when casting Plank Make, you will have a chance of receiving additional planks.", lunarfm_rewards_new:description);
 }
 switch_int ($int0) {
     case 1 :

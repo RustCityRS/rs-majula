@@ -5,12 +5,12 @@ def_int $int1 = 0;
 if (%varclient_632 = 0) {
     $int0 = calc(3 - %varclient_635);
     if ($int0 = 1) {
-        if_settext("New game: <tostring($int0)> min", snp_waiting_room:com_9);
+        if_settext("New game: <tostring($int0)> min", snp_waiting_room:text_next_game_count);
     } else {
-        if_settext("New game: <tostring($int0)> mins", snp_waiting_room:com_9);
+        if_settext("New game: <tostring($int0)> mins", snp_waiting_room:text_next_game_count);
     }
 } else {
     $int1 = calc(20 - %varclient_636);
     $int0 = calc($int1 + 3);
-    if_settext("New game: <tostring($int0)> mins", snp_waiting_room:com_9);
+    if_settext("New game: <tostring($int0)> mins", snp_waiting_room:text_next_game_count);
 }

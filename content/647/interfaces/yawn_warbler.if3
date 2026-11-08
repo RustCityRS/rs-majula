@@ -1,5 +1,5 @@
 // 732:0
-[com_0]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -22,7 +22,7 @@ x=16
 y=50
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -40,7 +40,7 @@ x=18
 y=59
 width=35
 height=27
-layer=com_193
+layer=scrolling_layer
 model=model_33173
 modelorigin=0,-2
 modelangle=512,0,0
@@ -54,7 +54,7 @@ x=57
 y=53
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Druidic Mage Top 
 textlineheight=12
@@ -68,7 +68,7 @@ x=57
 y=68
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 20 Magic, 10 Defence
 textlineheight=12
@@ -81,7 +81,7 @@ x=57
 y=83
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 300, Recharge: 30)
 textlineheight=12
@@ -94,7 +94,7 @@ x=250
 y=50
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -113,7 +113,7 @@ x=254
 y=54
 width=27
 height=39
-layer=com_193
+layer=scrolling_layer
 model=model_33153
 modelorigin=0,-1
 modelangle=512,0,0
@@ -127,7 +127,7 @@ x=286
 y=53
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Druidic Mage Bottom
 textlineheight=12
@@ -141,7 +141,7 @@ x=286
 y=68
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 20 Magic, 10 Defence
 textlineheight=12
@@ -154,7 +154,7 @@ x=286
 y=83
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 200, Recharge: 20)
 textlineheight=12
@@ -167,7 +167,7 @@ x=16
 y=106
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -186,7 +186,7 @@ x=27
 y=116
 width=19
 height=26
-layer=com_193
+layer=scrolling_layer
 model=model_33158
 modelorigin=2,12
 modelangle=0,152,0
@@ -200,7 +200,7 @@ x=57
 y=109
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Druidic Mage Hood
 textlineheight=12
@@ -214,7 +214,7 @@ x=57
 y=124
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 20 Magic, 10 Defence
 textlineheight=12
@@ -227,20 +227,20 @@ x=57
 y=139
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 100, Recharge: 10)
 textlineheight=12
 colour=0x999999
 
 // 732:17
-[com_17]
+[divider_rectangle01]
 type=rectangle
 x=45
 y=161
 width=400
 height=1
-layer=com_193
+layer=scrolling_layer
 colour=0xff6600
 fill=yes
 trans=200
@@ -252,7 +252,7 @@ x=45
 y=160
 width=400
 height=3
-layer=com_193
+layer=scrolling_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -264,7 +264,7 @@ x=16
 y=168
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -277,13 +277,13 @@ op4=Buy 10
 op5=Information
 
 // 732:20
-[com_20]
+[combat_robe_top_model]
 type=model
 x=17
 y=175
 width=40
 height=29
-layer=com_193
+layer=scrolling_layer
 model=model_33191
 modelorigin=0,-1
 modelangle=512,0,0
@@ -291,13 +291,13 @@ modelzoom=1000
 modelorthog=yes
 
 // 732:21
-[com_21]
+[combat_robe_top_name]
 type=text
 x=57
 y=171
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Combat Robe Top
 textlineheight=12
@@ -305,26 +305,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:22
-[com_22]
+[combat_robe_top_requirement]
 type=text
 x=57
 y=186
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 20 Magic, 10 Defence
 textlineheight=12
 colour=0xff6600
 
 // 732:23
-[com_23]
+[combat_robe_top_cost]
 type=text
 x=57
 y=201
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 150, Recharge: 15)
 textlineheight=12
@@ -337,7 +337,7 @@ x=250
 y=168
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -350,13 +350,13 @@ op4=Buy 10
 op5=Information
 
 // 732:25
-[com_25]
+[combat_robe_bottom_model]
 type=model
 x=256
 y=172
 width=25
 height=40
-layer=com_193
+layer=scrolling_layer
 model=model_33167
 modelorigin=0,2
 modelangle=512,0,0
@@ -364,13 +364,13 @@ modelzoom=1250
 modelorthog=yes
 
 // 732:26
-[com_26]
+[combat_robe_bottom_name]
 type=text
 x=286
 y=171
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Combat Robe Bottom
 textlineheight=12
@@ -378,26 +378,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:27
-[com_27]
+[combat_robe_bottom_requirement]
 type=text
 x=286
 y=186
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 20 Magic, 10 Defence
 textlineheight=12
 colour=0xff6600
 
 // 732:28
-[com_28]
+[combat_robe_bottom_cost]
 type=text
 x=286
 y=201
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 100, Recharge: 10)
 textlineheight=12
@@ -410,7 +410,7 @@ x=16
 y=224
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -429,7 +429,7 @@ x=26
 y=235
 width=19
 height=26
-layer=com_193
+layer=scrolling_layer
 model=model_33185
 modelorigin=2,12
 modelangle=0,152,0
@@ -443,7 +443,7 @@ x=57
 y=227
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Combat Hood
 textlineheight=12
@@ -457,7 +457,7 @@ x=57
 y=242
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 20 Magic, 10 Defence
 textlineheight=12
@@ -470,20 +470,20 @@ x=57
 y=257
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 50, Recharge: 5)
 textlineheight=12
 colour=0x999999
 
 // 732:34
-[com_34]
+[divider_rectangle02]
 type=rectangle
 x=45
 y=279
 width=400
 height=1
-layer=com_193
+layer=scrolling_layer
 colour=0xff6600
 fill=yes
 trans=200
@@ -495,7 +495,7 @@ x=45
 y=278
 width=400
 height=3
-layer=com_193
+layer=scrolling_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -507,7 +507,7 @@ x=16
 y=284
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -526,7 +526,7 @@ x=18
 y=294
 width=41
 height=29
-layer=com_193
+layer=scrolling_layer
 model=model_33149
 modelorigin=0,-2
 modelangle=512,0,0
@@ -540,7 +540,7 @@ x=57
 y=287
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Battle Robe Top
 textlineheight=12
@@ -554,7 +554,7 @@ x=57
 y=302
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 60 Magic, 50 Defence
 textlineheight=12
@@ -567,7 +567,7 @@ x=57
 y=317
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 1500, Recharge: 150)
 textlineheight=12
@@ -580,7 +580,7 @@ x=250
 y=284
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -599,7 +599,7 @@ x=254
 y=290
 width=24
 height=40
-layer=com_193
+layer=scrolling_layer
 model=model_33160
 modelorigin=0,2
 modelangle=512,0,0
@@ -613,7 +613,7 @@ x=286
 y=287
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Battle Robe Bottom
 textlineheight=12
@@ -627,7 +627,7 @@ x=286
 y=302
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 60 Magic, 50 Defence
 textlineheight=12
@@ -640,7 +640,7 @@ x=286
 y=317
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 1000, Recharge: 100)
 textlineheight=12
@@ -653,7 +653,7 @@ x=16
 y=340
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -672,7 +672,7 @@ x=29
 y=351
 width=19
 height=26
-layer=com_193
+layer=scrolling_layer
 model=model_33163
 modelorigin=2,12
 modelangle=0,152,0
@@ -686,7 +686,7 @@ x=57
 y=343
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Battle Hood
 textlineheight=12
@@ -700,7 +700,7 @@ x=57
 y=358
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 60 Magic, 50 Defence
 textlineheight=12
@@ -713,20 +713,20 @@ x=57
 y=373
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 250, Recharge: 25)
 textlineheight=12
 colour=0x999999
 
 // 732:51
-[com_51]
+[divider_rectangle03]
 type=rectangle
 x=45
 y=395
 width=400
 height=1
-layer=com_193
+layer=scrolling_layer
 colour=0xff6600
 fill=yes
 trans=200
@@ -738,7 +738,7 @@ x=45
 y=394
 width=400
 height=3
-layer=com_193
+layer=scrolling_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -750,7 +750,7 @@ x=16
 y=403
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -769,7 +769,7 @@ x=26
 y=411
 width=30
 height=34
-layer=com_193
+layer=scrolling_layer
 model=model_33199
 modelorigin=-4,12
 modelangle=113,1706,0
@@ -783,7 +783,7 @@ x=57
 y=406
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Green D'hide Coif
 textlineheight=12
@@ -797,7 +797,7 @@ x=57
 y=421
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 40 Ranged, 40 Defence
 textlineheight=12
@@ -810,7 +810,7 @@ x=57
 y=436
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 150, Recharge: 15)
 textlineheight=12
@@ -823,7 +823,7 @@ x=250
 y=403
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -842,7 +842,7 @@ x=253
 y=412
 width=30
 height=34
-layer=com_193
+layer=scrolling_layer
 model=model_33187
 modelorigin=-4,12
 modelangle=113,1706,0
@@ -856,7 +856,7 @@ x=286
 y=406
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Blue D'hide Coif
 textlineheight=12
@@ -870,7 +870,7 @@ x=286
 y=421
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 50 Ranged, 40 Defence
 textlineheight=12
@@ -883,7 +883,7 @@ x=286
 y=436
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 200, Recharge: 20)
 textlineheight=12
@@ -896,7 +896,7 @@ x=16
 y=461
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -915,7 +915,7 @@ x=26
 y=471
 width=30
 height=34
-layer=com_193
+layer=scrolling_layer
 model=model_33154
 modelorigin=-4,12
 modelangle=113,1706,0
@@ -929,7 +929,7 @@ x=57
 y=464
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Red D'hide Coif
 textlineheight=12
@@ -943,7 +943,7 @@ x=57
 y=479
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 60 Ranged, 40 Defence
 textlineheight=12
@@ -956,7 +956,7 @@ x=57
 y=494
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 300, Recharge: 30)
 textlineheight=12
@@ -969,7 +969,7 @@ x=250
 y=461
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -988,7 +988,7 @@ x=256
 y=474
 width=30
 height=34
-layer=com_193
+layer=scrolling_layer
 model=model_33171
 modelorigin=-4,12
 modelangle=113,1706,0
@@ -1002,7 +1002,7 @@ x=286
 y=464
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Black D'hide Coif
 textlineheight=12
@@ -1016,7 +1016,7 @@ x=286
 y=479
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 70 Ranged, 40 Defence
 textlineheight=12
@@ -1029,20 +1029,20 @@ x=286
 y=494
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 500, Recharge: 50)
 textlineheight=12
 colour=0x999999
 
 // 732:73
-[com_73]
+[divider_rectangle04]
 type=rectangle
 x=40
 y=514
 width=400
 height=1
-layer=com_193
+layer=scrolling_layer
 colour=0xff6600
 fill=yes
 trans=200
@@ -1054,7 +1054,7 @@ x=40
 y=513
 width=400
 height=3
-layer=com_193
+layer=scrolling_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -1066,7 +1066,7 @@ x=16
 y=521
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1079,13 +1079,13 @@ op4=Buy 10
 op5=Information
 
 // 732:76
-[com_76]
+[bronze_gauntlets_model]
 type=model
 x=19
 y=534
 width=37
 height=22
-layer=com_193
+layer=scrolling_layer
 model=model_33194
 modelorigin=0,-4
 modelangle=514,0,0
@@ -1093,13 +1093,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:77
-[com_77]
+[bronze_gauntlets_name]
 type=text
 x=57
 y=524
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Bronze Gauntlets
 textlineheight=12
@@ -1107,26 +1107,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:78
-[com_78]
+[bronze_gauntlets_requirement]
 type=text
 x=57
 y=539
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. None
 textlineheight=12
 colour=0xff6600
 
 // 732:79
-[com_79]
+[bronze_gauntlets_cost]
 type=text
 x=57
 y=554
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 15, Recharge: 3)
 textlineheight=12
@@ -1139,7 +1139,7 @@ x=250
 y=521
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1152,13 +1152,13 @@ op4=Buy 10
 op5=Information
 
 // 732:81
-[com_81]
+[iron_gauntlets_model]
 type=model
 x=249
 y=534
 width=37
 height=22
-layer=com_193
+layer=scrolling_layer
 model=model_33156
 modelorigin=0,-4
 modelangle=514,0,0
@@ -1166,13 +1166,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:82
-[com_82]
+[iron_gauntlets_name]
 type=text
 x=287
 y=524
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Iron Gauntlets
 textlineheight=12
@@ -1180,26 +1180,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:83
-[com_83]
+[iron_gauntlets_requirement]
 type=text
 x=287
 y=539
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. None
 textlineheight=12
 colour=0xff6600
 
 // 732:84
-[com_84]
+[iron_gauntlets_cost]
 type=text
 x=287
 y=554
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 30, Recharge: 5)
 textlineheight=12
@@ -1212,7 +1212,7 @@ x=16
 y=579
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1225,13 +1225,13 @@ op4=Buy 10
 op5=Information
 
 // 732:86
-[com_86]
+[steel_gauntlets_model]
 type=model
 x=19
 y=594
 width=37
 height=22
-layer=com_193
+layer=scrolling_layer
 model=model_33182
 modelorigin=0,-4
 modelangle=514,0,0
@@ -1239,13 +1239,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:87
-[com_87]
+[steel_gauntlets_name]
 type=text
 x=57
 y=582
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Steel Gauntlets
 textlineheight=12
@@ -1253,26 +1253,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:88
-[com_88]
+[steel_gauntlets_requirement]
 type=text
 x=57
 y=597
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 5 Defence
 textlineheight=12
 colour=0xff6600
 
 // 732:89
-[com_89]
+[steel_gauntlets_cost]
 type=text
 x=57
 y=612
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 50, Recharge: 8)
 textlineheight=12
@@ -1285,7 +1285,7 @@ x=250
 y=579
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1298,13 +1298,13 @@ op4=Buy 10
 op5=Information
 
 // 732:91
-[com_91]
+[black_gauntlets_model]
 type=model
 x=248
 y=593
 width=37
 height=22
-layer=com_193
+layer=scrolling_layer
 model=model_33179
 modelorigin=0,-4
 modelangle=514,0,0
@@ -1312,13 +1312,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:92
-[com_92]
+[black_gauntlets_name]
 type=text
 x=287
 y=582
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Black Gauntlets
 textlineheight=12
@@ -1326,26 +1326,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:93
-[com_93]
+[black_gauntlets_requirement]
 type=text
 x=287
 y=597
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 10 Defence
 textlineheight=12
 colour=0xff6600
 
 // 732:94
-[com_94]
+[black_gauntlets_cost]
 type=text
 x=287
 y=612
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 75, Recharge: 13)
 textlineheight=12
@@ -1358,7 +1358,7 @@ x=16
 y=637
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1371,13 +1371,13 @@ op4=Buy 10
 op5=Information
 
 // 732:96
-[com_96]
+[mithril_gauntlets_model]
 type=model
 x=19
 y=651
 width=37
 height=22
-layer=com_193
+layer=scrolling_layer
 model=model_33176
 modelorigin=0,-4
 modelangle=514,0,0
@@ -1385,13 +1385,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:97
-[com_97]
+[mithril_gauntlets_name]
 type=text
 x=57
 y=640
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Mithril Gauntlets
 textlineheight=12
@@ -1399,26 +1399,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:98
-[com_98]
+[mithril_gauntlets_requirement]
 type=text
 x=57
 y=655
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 20 Defence
 textlineheight=12
 colour=0xff6600
 
 // 732:99
-[com_99]
+[mithril_gauntlets_cost]
 type=text
 x=57
 y=670
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 100, Recharge: 17)
 textlineheight=12
@@ -1431,7 +1431,7 @@ x=250
 y=637
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1444,13 +1444,13 @@ op4=Buy 10
 op5=Information
 
 // 732:101
-[com_101]
+[adamant_gauntlets_model]
 type=model
 x=249
 y=651
 width=37
 height=22
-layer=com_193
+layer=scrolling_layer
 model=model_33151
 modelorigin=0,-4
 modelangle=514,0,0
@@ -1458,13 +1458,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:102
-[com_102]
+[adamant_gauntlets_name]
 type=text
 x=287
 y=640
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Adamant Gauntlets
 textlineheight=12
@@ -1472,26 +1472,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:103
-[com_103]
+[adamant_gauntlets_requirement]
 type=text
 x=287
 y=655
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 30 Defence
 textlineheight=12
 colour=0xff6600
 
 // 732:104
-[com_104]
+[adamant_gauntlets_cost]
 type=text
 x=287
 y=670
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 150, Recharge: 25)
 textlineheight=12
@@ -1504,7 +1504,7 @@ x=16
 y=695
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1517,13 +1517,13 @@ op4=Buy 10
 op5=Information
 
 // 732:106
-[com_106]
+[rune_gauntlets_model]
 type=model
 x=18
 y=710
 width=37
 height=22
-layer=com_193
+layer=scrolling_layer
 model=model_33146
 modelorigin=0,-4
 modelangle=514,0,0
@@ -1531,13 +1531,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:107
-[com_107]
+[rune_gauntlets_name]
 type=text
 x=57
 y=698
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Rune Gauntlets
 textlineheight=12
@@ -1545,26 +1545,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:108
-[com_108]
+[rune_gauntlets_requirement]
 type=text
 x=57
 y=713
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 40 Defence
 textlineheight=12
 colour=0xff6600
 
 // 732:109
-[com_109]
+[rune_gauntlets_cost]
 type=text
 x=57
 y=728
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 200, Recharge: 35)
 textlineheight=12
@@ -1577,7 +1577,7 @@ x=250
 y=695
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1590,13 +1590,13 @@ op4=Buy 10
 op5=Information
 
 // 732:111
-[com_111]
+[dragon_gauntlets_model]
 type=model
 x=249
 y=707
 width=37
 height=25
-layer=com_193
+layer=scrolling_layer
 model=model_33148
 modelorigin=0,-2
 modelangle=514,0,0
@@ -1604,13 +1604,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:112
-[com_112]
+[dragon_gauntlets_name]
 type=text
 x=287
 y=698
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Dragon Gauntlets
 textlineheight=12
@@ -1618,39 +1618,39 @@ textshadow=yes
 colour=0xff981f
 
 // 732:113
-[com_113]
+[dragon_gauntlets_requirement]
 type=text
 x=287
 y=713
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 60 Defence
 textlineheight=12
 colour=0xff6600
 
 // 732:114
-[com_114]
+[dragon_gauntlets_cost]
 type=text
 x=287
 y=728
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 300, Recharge: 50)
 textlineheight=12
 colour=0x999999
 
 // 732:115
-[com_115]
+[divider_rectangle05]
 type=rectangle
 x=40
 y=752
 width=400
 height=1
-layer=com_193
+layer=scrolling_layer
 colour=0xff6600
 fill=yes
 trans=200
@@ -1662,7 +1662,7 @@ x=40
 y=751
 width=400
 height=3
-layer=com_193
+layer=scrolling_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -1674,7 +1674,7 @@ x=16
 y=760
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1693,7 +1693,7 @@ x=24
 y=763
 width=27
 height=45
-layer=com_193
+layer=scrolling_layer
 model=model_33178
 modelorigin=0,-1
 modelangle=514,0,0
@@ -1707,7 +1707,7 @@ x=57
 y=763
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Adamant Spikeshield
 textlineheight=12
@@ -1721,7 +1721,7 @@ x=57
 y=778
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 35 Defence
 textlineheight=12
@@ -1734,7 +1734,7 @@ x=57
 y=793
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 50, Recharge: 5)
 textlineheight=12
@@ -1747,7 +1747,7 @@ x=250
 y=760
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1766,7 +1766,7 @@ x=248
 y=761
 width=39
 height=47
-layer=com_193
+layer=scrolling_layer
 model=model_33198
 modelorigin=0,-2
 modelangle=514,0,0
@@ -1780,7 +1780,7 @@ x=288
 y=763
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Adamant Berserker Shield
 textlineheight=12
@@ -1794,7 +1794,7 @@ x=288
 y=778
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 35 Defence
 textlineheight=12
@@ -1807,7 +1807,7 @@ x=288
 y=793
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 100, Recharge: 10)
 textlineheight=12
@@ -1820,7 +1820,7 @@ x=16
 y=818
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1839,7 +1839,7 @@ x=24
 y=821
 width=27
 height=45
-layer=com_193
+layer=scrolling_layer
 model=model_33197
 modelorigin=0,-1
 modelangle=514,0,0
@@ -1853,7 +1853,7 @@ x=57
 y=821
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Rune Spikeshield
 textlineheight=12
@@ -1867,7 +1867,7 @@ x=57
 y=836
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 45 Defence
 textlineheight=12
@@ -1880,7 +1880,7 @@ x=57
 y=851
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 200, Recharge: 20)
 textlineheight=12
@@ -1893,7 +1893,7 @@ x=250
 y=818
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -1912,7 +1912,7 @@ x=248
 y=819
 width=39
 height=47
-layer=com_193
+layer=scrolling_layer
 model=model_33188
 modelorigin=0,-2
 modelangle=514,0,0
@@ -1926,7 +1926,7 @@ x=288
 y=821
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Rune Berserker Shield
 textlineheight=12
@@ -1940,7 +1940,7 @@ x=288
 y=836
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 45 Defence
 textlineheight=12
@@ -1953,20 +1953,20 @@ x=288
 y=851
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 300, Recharge: 30)
 textlineheight=12
 colour=0x999999
 
 // 732:137
-[com_137]
+[divider_rectangle06]
 type=rectangle
 x=41
 y=875
 width=400
 height=1
-layer=com_193
+layer=scrolling_layer
 colour=0xff6600
 fill=yes
 trans=200
@@ -1978,7 +1978,7 @@ x=41
 y=874
 width=400
 height=3
-layer=com_193
+layer=scrolling_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -1990,7 +1990,7 @@ x=16
 y=881
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -2001,13 +2001,13 @@ op2=Buy 1
 op3=Information
 
 // 732:140
-[com_140]
+[irit_gloves_model]
 type=model
 x=24
 y=886
 width=29
 height=36
-layer=com_193
+layer=scrolling_layer
 model=model_33162
 modelorigin=2,3
 modelangle=512,455,113
@@ -2015,13 +2015,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:141
-[com_141]
+[irit_gloves_name]
 type=text
 x=57
 y=884
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Irit Gloves
 textlineheight=12
@@ -2029,26 +2029,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:142
-[com_142]
+[irit_gloves_requirement]
 type=text
 x=57
 y=899
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 50 Herblore
 textlineheight=12
 colour=0xff6600
 
 // 732:143
-[com_143]
+[irit_gloves_cost]
 type=text
 x=57
 y=914
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 75)
 textlineheight=12
@@ -2061,7 +2061,7 @@ x=250
 y=881
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -2072,13 +2072,13 @@ op2=Buy 1
 op3=Information
 
 // 732:145
-[com_145]
+[avantoe_gloves_model]
 type=model
 x=254
 y=887
 width=29
 height=36
-layer=com_193
+layer=scrolling_layer
 model=model_33150
 modelorigin=2,3
 modelangle=512,455,113
@@ -2086,13 +2086,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:146
-[com_146]
+[avantoe_gloves_name]
 type=text
 x=288
 y=884
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Avantoe Gloves
 textlineheight=12
@@ -2100,26 +2100,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:147
-[com_147]
+[avantoe_gloves_requirement]
 type=text
 x=288
 y=899
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 60 Herblore
 textlineheight=12
 colour=0xff6600
 
 // 732:148
-[com_148]
+[avantoe_gloves_cost]
 type=text
 x=288
 y=914
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 100)
 textlineheight=12
@@ -2132,7 +2132,7 @@ x=16
 y=939
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -2143,13 +2143,13 @@ op2=Buy 1
 op3=Information
 
 // 732:150
-[com_150]
+[kwuarm_gloves_model]
 type=model
 x=23
 y=942
 width=29
 height=36
-layer=com_193
+layer=scrolling_layer
 model=model_33170
 modelorigin=2,3
 modelangle=512,455,113
@@ -2157,13 +2157,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:151
-[com_151]
+[kwuarm_gloves_name]
 type=text
 x=57
 y=942
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Kwuarm Gloves
 textlineheight=12
@@ -2171,26 +2171,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:152
-[com_152]
+[kwuarm_gloves_requirement]
 type=text
 x=57
 y=957
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 70 Herblore
 textlineheight=12
 colour=0xff6600
 
 // 732:153
-[com_153]
+[kwuarm_gloves_cost]
 type=text
 x=57
 y=972
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 200)
 textlineheight=12
@@ -2203,7 +2203,7 @@ x=250
 y=939
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -2214,13 +2214,13 @@ op2=Buy 1
 op3=Information
 
 // 732:155
-[com_155]
+[cadantine_gloves_model]
 type=model
 x=254
 y=943
 width=29
 height=36
-layer=com_193
+layer=scrolling_layer
 model=model_33147
 modelorigin=2,3
 modelangle=512,455,113
@@ -2228,13 +2228,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:156
-[com_156]
+[cadantine_gloves_name]
 type=text
 x=288
 y=942
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Cadantine Gloves
 textlineheight=12
@@ -2242,39 +2242,39 @@ textshadow=yes
 colour=0xff981f
 
 // 732:157
-[com_157]
+[cadantine_gloves_requirement]
 type=text
 x=288
 y=957
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 80 Herblore
 textlineheight=12
 colour=0xff6600
 
 // 732:158
-[com_158]
+[cadantine_gloves_cost]
 type=text
 x=288
 y=972
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 200)
 textlineheight=12
 colour=0x999999
 
 // 732:159
-[com_159]
+[divider_rectangle07]
 type=rectangle
 x=40
 y=996
 width=400
 height=1
-layer=com_193
+layer=scrolling_layer
 colour=0xff6600
 fill=yes
 trans=200
@@ -2286,7 +2286,7 @@ x=40
 y=995
 width=400
 height=3
-layer=com_193
+layer=scrolling_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -2298,7 +2298,7 @@ x=16
 y=1002
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -2309,13 +2309,13 @@ op2=Buy 1
 op3=Information
 
 // 732:162
-[com_162]
+[swordfish_gloves_model]
 type=model
 x=25
 y=1008
 width=29
 height=36
-layer=com_193
+layer=scrolling_layer
 model=model_33172
 modelorigin=2,3
 modelangle=512,455,113
@@ -2323,13 +2323,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:163
-[com_163]
+[swordfish_gloves_name]
 type=text
 x=57
 y=1005
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Swordfish Gloves
 textlineheight=12
@@ -2337,26 +2337,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:164
-[com_164]
+[swordfish_gloves_requirement]
 type=text
 x=57
 y=1020
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 65 Fishing
 textlineheight=12
 colour=0xff6600
 
 // 732:165
-[com_165]
+[swordfish_gloves_cost]
 type=text
 x=57
 y=1035
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 200)
 textlineheight=12
@@ -2369,7 +2369,7 @@ x=250
 y=1002
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -2380,13 +2380,13 @@ op2=Buy 1
 op3=Information
 
 // 732:167
-[com_167]
+[shark_gloves_model]
 type=model
 x=253
 y=1007
 width=29
 height=36
-layer=com_193
+layer=scrolling_layer
 model=model_33168
 modelorigin=2,3
 modelangle=512,455,113
@@ -2394,13 +2394,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:168
-[com_168]
+[shark_gloves_name]
 type=text
 x=288
 y=1005
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Shark Gloves
 textlineheight=12
@@ -2408,26 +2408,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:169
-[com_169]
+[shark_gloves_requirement]
 type=text
 x=288
 y=1020
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 90 Fishing
 textlineheight=12
 colour=0xff6600
 
 // 732:170
-[com_170]
+[shark_gloves_cost]
 type=text
 x=288
 y=1035
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 200)
 textlineheight=12
@@ -2440,7 +2440,7 @@ x=16
 y=1060
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -2457,7 +2457,7 @@ x=24
 y=1065
 width=29
 height=36
-layer=com_193
+layer=scrolling_layer
 model=model_33164
 modelorigin=2,3
 modelangle=512,455,113
@@ -2465,13 +2465,13 @@ modelzoom=750
 modelorthog=yes
 
 // 732:173
-[com_173]
+[dragon_slayer_gloves_name]
 type=text
 x=57
 y=1063
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Dragon Slayer Gloves
 textlineheight=12
@@ -2479,26 +2479,26 @@ textshadow=yes
 colour=0xff981f
 
 // 732:174
-[com_174]
+[dragon_slayer_gloves_requirement]
 type=text
 x=57
 y=1078
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 70 Slayer
 textlineheight=12
 colour=0xff6600
 
 // 732:175
-[com_175]
+[dragon_slayer_gloves_cost]
 type=text
 x=57
 y=1093
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 200)
 textlineheight=12
@@ -2511,7 +2511,7 @@ x=250
 y=1060
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -2528,7 +2528,7 @@ x=253
 y=1064
 width=29
 height=36
-layer=com_193
+layer=scrolling_layer
 model=model_33189
 modelorigin=2,3
 modelangle=512,455,113
@@ -2542,7 +2542,7 @@ x=288
 y=1063
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Air Runecrafting Gloves
 textlineheight=12
@@ -2556,7 +2556,7 @@ x=288
 y=1078
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 10 Runecrafting
 textlineheight=12
@@ -2569,7 +2569,7 @@ x=288
 y=1093
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 75)
 textlineheight=12
@@ -2582,7 +2582,7 @@ x=16
 y=1119
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -2599,7 +2599,7 @@ x=25
 y=1124
 width=29
 height=36
-layer=com_193
+layer=scrolling_layer
 model=model_33165
 modelorigin=2,3
 modelangle=512,455,113
@@ -2613,7 +2613,7 @@ x=57
 y=1122
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Water Runecrafting Gloves
 textlineheight=12
@@ -2627,7 +2627,7 @@ x=57
 y=1137
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 20 Runecrafting
 textlineheight=12
@@ -2640,7 +2640,7 @@ x=57
 y=1152
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 75)
 textlineheight=12
@@ -2653,7 +2653,7 @@ x=250
 y=1119
 width=228
 height=51
-layer=com_193
+layer=scrolling_layer
 colour=0x595e55
 fill=yes
 trans=200
@@ -2670,7 +2670,7 @@ x=254
 y=1125
 width=29
 height=36
-layer=com_193
+layer=scrolling_layer
 model=model_33152
 modelorigin=2,3
 modelangle=512,455,113
@@ -2684,7 +2684,7 @@ x=288
 y=1122
 width=120
 height=14
-layer=com_193
+layer=scrolling_layer
 textfont=p12_full
 text=Earth Runecrafting Gloves
 textlineheight=12
@@ -2698,7 +2698,7 @@ x=288
 y=1137
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=Lvl. Req. 30 Runecrafting
 textlineheight=12
@@ -2711,20 +2711,20 @@ x=288
 y=1152
 width=162
 height=15
-layer=com_193
+layer=scrolling_layer
 textfont=p11_full
 text=(Cost: 75)
 textlineheight=12
 colour=0x999999
 
 // 732:191
-[com_191]
+[divider_rectangle8]
 type=rectangle
 x=40
 y=1177
 width=400
 height=1
-layer=com_193
+layer=scrolling_layer
 colour=0xff6600
 fill=yes
 trans=200
@@ -2736,13 +2736,13 @@ x=40
 y=1176
 width=400
 height=3
-layer=com_193
+layer=scrolling_layer
 colour=0x000000
 fill=yes
 trans=200
 
 // 732:193
-[com_193]
+[scrolling_layer]
 type=layer
 y=23
 width=504
@@ -2757,7 +2757,7 @@ x=11
 y=8
 width=491
 height=33
-layer=com_207
+layer=background_layer
 graphic=tradebacking
 colour=0xffffffff
 
@@ -2768,7 +2768,7 @@ x=-9
 y=43
 width=31
 height=235
-layer=com_207
+layer=background_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -2780,7 +2780,7 @@ x=489
 y=43
 width=31
 height=235
-layer=com_207
+layer=background_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -2792,18 +2792,18 @@ x=4
 y=26
 width=32
 height=32
-layer=com_207
+layer=background_layer
 graphic="v2_stone_borders,9"
 colour=0xffffffff
 
 // 732:198
-[com_198]
+[unsubscribe_county]
 type=graphic
 x=36
 y=272
 width=441
 height=30
-layer=com_207
+layer=background_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -2815,7 +2815,7 @@ x=4
 y=260
 width=32
 height=32
-layer=com_207
+layer=background_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 
@@ -2826,7 +2826,7 @@ x=477
 y=260
 width=32
 height=32
-layer=com_207
+layer=background_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 
@@ -2837,7 +2837,7 @@ x=477
 y=26
 width=32
 height=32
-layer=com_207
+layer=background_layer
 graphic="v2_stone_borders,10"
 colour=0xffffffff
 
@@ -2848,7 +2848,7 @@ x=15
 y=24
 width=483
 height=25
-layer=com_207
+layer=background_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -2860,41 +2860,41 @@ x=36
 y=-6
 width=441
 height=33
-layer=com_207
+layer=background_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
 
 // 732:204
-[com_204]
+[tl_border]
 type=graphic
 x=4
 y=7
 width=32
 height=32
-layer=com_207
+layer=background_layer
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 
 // 732:205
-[com_205]
+[tr_border]
 type=graphic
 x=477
 y=7
 width=32
 height=32
-layer=com_207
+layer=background_layer
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 
 // 732:206
-[com_206]
+[title_text]
 type=text
 x=96
 y=19
 width=324
 height=15
-layer=com_207
+layer=background_layer
 textfont=b12_full
 text=Fist of Guthix Reward Shop
 textlineheight=12
@@ -2903,7 +2903,7 @@ textshadow=yes
 colour=0xff981f
 
 // 732:207
-[com_207]
+[background_layer]
 type=layer
 x=-1
 y=13
@@ -2911,7 +2911,7 @@ width=512
 height=334
 
 // 732:208
-[com_208]
+[close_button]
 type=graphic
 x=479
 y=30
@@ -2921,8 +2921,8 @@ graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(yawn_warbler:com_208, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(yawn_warbler:com_208, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(yawn_warbler:close_button, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(yawn_warbler:close_button, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 732:209
@@ -2932,4 +2932,4 @@ x=484
 y=57
 width=16
 height=240
-onload=scrollbar_vertical_graphics(event_com, yawn_warbler:com_193, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, yawn_warbler:scrolling_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")

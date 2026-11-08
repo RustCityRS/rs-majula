@@ -2,17 +2,17 @@
 [proc,graphics_options_startcountdown](int $int0, int $int1, boolean $boolean2, boolean $boolean3)
 def_int $int4 = calc(clientclock + 750);
 if ($int1 = 1) {
-    if_setontimer("graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)", toplevel_fullscreen:com_80);
-    if_setontimer("graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)", toplevel:com_20);
+    if_setontimer("graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)", toplevel_fullscreen:graphics_confirm_layer);
+    if_setontimer("graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)", toplevel:graphics_confirm_layer);
     ~graphics_options_opencountdown($int0, $boolean2, $boolean3);
 } else if ($int1 = 2) {
-    if_setontimer("graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)", lobbyscreen:com_13);
+    if_setontimer("graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)", lobbyscreen:base);
     ~lobbyscreen_countdown;
-    if_setonop("graphics_options_decision(true, $int0, $int1, $boolean2, $boolean3)", lobbyscreen:com_116);
-    if_setonop("graphics_options_decision(false, $int0, $int1, $boolean2, $boolean3)", lobbyscreen:com_118);
+    if_setonop("graphics_options_decision(true, $int0, $int1, $boolean2, $boolean3)", lobbyscreen:windowmode_confirm_yes);
+    if_setonop("graphics_options_decision(false, $int0, $int1, $boolean2, $boolean3)", lobbyscreen:windowmode_confirm_no);
 } else {
-    if_setontimer("graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)", loginscreen:com_17);
+    if_setontimer("graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)", loginscreen:background_layer);
     ~loginscreen_setactivemenu(10);
-    if_setonclick("graphics_options_decision(true, $int0, $int1, $boolean2, $boolean3)", loginscreen:com_56);
-    if_setonclick("graphics_options_decision(false, $int0, $int1, $boolean2, $boolean3)", loginscreen:com_57);
+    if_setonclick("graphics_options_decision(true, $int0, $int1, $boolean2, $boolean3)", loginscreen:windowmode_confirm_yes);
+    if_setonclick("graphics_options_decision(false, $int0, $int1, $boolean2, $boolean3)", loginscreen:windowmode_confirm_no);
 }

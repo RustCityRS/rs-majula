@@ -7,7 +7,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 902:1
-[com_1]
+[cut_screen]
 type=layer
 width=512
 height=334
@@ -15,13 +15,13 @@ transmitop=10
 op10= 
 
 // 902:2
-[com_2]
+[title_1]
 type=text
 y=12
 width=318
 height=24
 xmode=abs_centre
-layer=com_1
+layer=cut_screen
 textfont=b12_full
 text=What cuts would you like to make?
 textalignh=centre
@@ -39,7 +39,7 @@ width=180
 height=80
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=cut_screen
 transmitop=10
 op10= 
 
@@ -65,7 +65,7 @@ transmitop=10
 op10= 
 
 // 902:6
-[com_6]
+[toothgroove]
 type=layer
 x=-92
 y=12
@@ -73,7 +73,7 @@ width=180
 height=80
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=cut_screen
 transmitop=10
 op10=  
 
@@ -82,7 +82,7 @@ op10=
 type=rectangle
 width=180
 height=80
-layer=com_6
+layer=toothgroove
 colour=0x000000
 transmitop=10
 op10= 
@@ -94,7 +94,7 @@ width=178
 height=78
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=toothgroove
 colour=0x463d32
 fill=yes
 transmitop=10
@@ -109,7 +109,7 @@ width=180
 height=80
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=cut_screen
 transmitop=10
 op10=  
 
@@ -145,7 +145,7 @@ width=180
 height=80
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=cut_screen
 transmitop=10
 op10=   
 
@@ -231,7 +231,7 @@ transmitop=10
 op10=     
 
 // 902:19
-[com_19]
+[curve_button]
 type=rectangle
 width=16391
 height=16384
@@ -337,7 +337,7 @@ x=2
 y=10
 width=32
 height=32
-layer=com_6
+layer=toothgroove
 graphic="km_woodicons,3"
 colour=0xffffffff
 transmitop=10
@@ -351,7 +351,7 @@ y=6
 width=32
 height=32
 widthmode=minus
-layer=com_6
+layer=toothgroove
 textfont=b12_full
 text=Tooth & Groove Cut
 textlineheight=15
@@ -367,7 +367,7 @@ x=36
 y=24
 width=166
 height=18
-layer=com_6
+layer=toothgroove
 textfont=p11_full
 text=Level of Difficulty: V. Hard
 textlineheight=10
@@ -383,7 +383,7 @@ x=36
 y=42
 height=36
 widthmode=minus
-layer=com_6
+layer=toothgroove
 textfont=p11_full
 text=1x Tooth-Cut Plank
 textshadow=yes
@@ -398,7 +398,7 @@ x=36
 y=56
 height=36
 widthmode=minus
-layer=com_6
+layer=toothgroove
 textfont=p11_full
 text=1x Groove-Cut Plank
 textshadow=yes
@@ -407,13 +407,13 @@ transmitop=10
 op10=     
 
 // 902:30
-[com_30]
+[tooth_button]
 type=rectangle
 width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_6
+layer=toothgroove
 colour=0x000000
 fill=yes
 trans=200
@@ -502,7 +502,7 @@ transmitop=10
 op10=    
 
 // 902:36
-[com_36]
+[straight_button]
 type=rectangle
 width=16391
 height=16384
@@ -523,7 +523,7 @@ onmouseover=if_settrans(225, event_com)
 onmouseleave=if_settrans(200, event_com)
 
 // 902:37
-[com_37]
+[layer_1]
 type=layer
 width=412
 height=334
@@ -618,7 +618,7 @@ tiling=yes
 colour=0xffffffff
 
 // 902:44
-[com_44]
+[background_2]
 type=graphic
 y=100
 width=136
@@ -633,7 +633,7 @@ transmitop=10
 op10= 
 
 // 902:45
-[com_45]
+[background_1]
 type=graphic
 y=190
 width=376
@@ -647,7 +647,7 @@ transmitop=10
 op10= 
 
 // 902:46
-[com_46]
+[top]
 type=graphic
 y=8
 width=160
@@ -660,7 +660,7 @@ tiling=yes
 colour=0xffffffff
 
 // 902:47
-[com_47]
+[left]
 type=graphic
 x=47
 y=-30
@@ -674,7 +674,7 @@ tiling=yes
 colour=0xffffffff
 
 // 902:48
-[com_48]
+[bottom]
 type=graphic
 y=78
 width=183
@@ -688,7 +688,7 @@ tiling=yes
 colour=0xffffffff
 
 // 902:49
-[com_49]
+[right]
 type=graphic
 x=48
 y=20
@@ -702,7 +702,7 @@ tiling=yes
 colour=0xffffffff
 
 // 902:50
-[com_50]
+[top_left]
 type=graphic
 x=60
 y=8
@@ -713,7 +713,7 @@ graphic="v2_stone_borders,35"
 colour=0xffffffff
 
 // 902:51
-[com_51]
+[top_right]
 type=graphic
 x=60
 y=8
@@ -725,7 +725,7 @@ graphic="v2_stone_borders,37"
 colour=0xffffffff
 
 // 902:52
-[com_52]
+[bottom_left]
 type=graphic
 x=60
 y=90
@@ -737,7 +737,7 @@ graphic="v2_stone_borders,6"
 colour=0xffffffff
 
 // 902:53
-[com_53]
+[bottom_right]
 type=graphic
 x=60
 y=90
@@ -750,7 +750,7 @@ graphic="v2_stone_borders,7"
 colour=0xffffffff
 
 // 902:54
-[com_54]
+[exit_button]
 type=graphic
 x=80
 y=11

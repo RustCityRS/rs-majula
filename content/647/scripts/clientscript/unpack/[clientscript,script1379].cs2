@@ -17,10 +17,10 @@ switch_int (%varplayerbit_5389) {
         if_sethide(true, interface_796:com_9);
         if_sethide(false, interface_796:com_5);
     case 7 :
-        if_setmodelanim(seq_10437, interface_796:com_4);
+        if_setmodelanim(seq_10437, interface_796:wise_old_man);
     case 8 :
         if_sethide(true, interface_796:com_5);
-        if_sethide(true, interface_796:com_3);
+        if_sethide(true, interface_796:white_backdrop);
         if_sethide(false, interface_796:com_30);
-        if_sethide(false, interface_796:com_1);
+        if_sethide(false, interface_796:backdrop_layer);
 }

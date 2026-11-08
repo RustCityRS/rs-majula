@@ -15,7 +15,7 @@ while ($component3 ! null) {
 $int2 = calc($int1 + 1);
 while (cc_find($component0, $int2) = true) {
     cc_delete;
-    if (.cc_find(chatbox_background:com_2, $int2) = true) {
+    if (.cc_find(chatdefault:quickchat_path_highlight, $int2) = true) {
         .cc_delete;
     }
     $int2 = calc($int2 + 1);

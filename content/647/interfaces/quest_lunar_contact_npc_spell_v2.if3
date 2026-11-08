@@ -1,5 +1,5 @@
 // 88:0
-[com_0]
+[transparent_back]
 type=rectangle
 width=521
 height=344
@@ -8,7 +8,7 @@ fill=yes
 trans=160
 
 // 88:1
-[com_1]
+[backing]
 type=graphic
 x=12
 y=20
@@ -19,7 +19,7 @@ tiling=yes
 colour=0xffffffff
 
 // 88:2
-[com_2]
+[border_side_left]
 type=graphic
 x=-1
 y=51
@@ -40,7 +40,7 @@ graphic="v2_stone_borders,4"
 colour=0xffffffff
 
 // 88:4
-[com_4]
+[border_side_right]
 type=graphic
 x=482
 y=50
@@ -51,7 +51,7 @@ tiling=yes
 colour=0xffffffff
 
 // 88:5
-[com_5]
+[border_side_top]
 type=graphic
 x=37
 y=7
@@ -62,7 +62,7 @@ tiling=yes
 colour=0xffffffff
 
 // 88:6
-[com_6]
+[border_side_bottom]
 type=graphic
 x=37
 y=304
@@ -103,7 +103,7 @@ graphic="v2_stone_borders,7"
 colour=0xffffffff
 
 // 88:10
-[com_10]
+[close_button]
 type=graphic
 x=471
 y=26
@@ -118,7 +118,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,0")
 onop=closebutton_click
 
 // 88:11
-[com_11]
+[top_left]
 type=graphic
 x=27
 y=57
@@ -128,7 +128,7 @@ graphic="v2_borders_slim,4"
 colour=0xffffffff
 
 // 88:12
-[com_12]
+[btm_left]
 type=graphic
 x=27
 y=281
@@ -138,7 +138,7 @@ graphic="v2_borders_slim,6"
 colour=0xffffffff
 
 // 88:13
-[com_13]
+[btm_right]
 type=graphic
 x=441
 y=281
@@ -148,7 +148,7 @@ graphic="v2_borders_slim,7"
 colour=0xffffffff
 
 // 88:14
-[com_14]
+[top_right]
 type=graphic
 x=441
 y=57
@@ -158,7 +158,7 @@ graphic="v2_borders_slim,5"
 colour=0xffffffff
 
 // 88:15
-[com_15]
+[top]
 type=graphic
 x=59
 y=40
@@ -169,7 +169,7 @@ tiling=yes
 colour=0xffffffff
 
 // 88:16
-[com_16]
+[btm]
 type=graphic
 x=59
 y=297
@@ -180,7 +180,7 @@ tiling=yes
 colour=0xffffffff
 
 // 88:17
-[com_17]
+[left]
 type=graphic
 x=14
 y=89
@@ -191,7 +191,7 @@ tiling=yes
 colour=0xffffffff
 
 // 88:18
-[com_18]
+[right]
 type=graphic
 x=453
 y=89
@@ -202,7 +202,7 @@ tiling=yes
 colour=0xffffffff
 
 // 88:19
-[com_19]
+[title]
 type=text
 x=79
 y=33
@@ -216,7 +216,7 @@ colour=0xff981f
 onload=contact_spell
 
 // 88:20
-[com_20]
+[scrollbar_layer]
 type=layer
 x=450
 y=60
@@ -224,7 +224,7 @@ width=20
 height=250
 
 // 88:21
-[com_21]
+[scroll_layer]
 type=layer
 x=30
 y=60
@@ -232,20 +232,20 @@ width=420
 height=250
 
 // 88:22
-[com_22]
+[model_layer]
 type=layer
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_21
+layer=scroll_layer
 
 // 88:23
-[com_23]
+[caption_layer]
 type=layer
 y=-7
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_21
+layer=scroll_layer

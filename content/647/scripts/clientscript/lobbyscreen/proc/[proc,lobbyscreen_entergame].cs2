@@ -19,16 +19,16 @@ if (~script2727 = true & %varclient_547 = 0) {
     ~lobby_draw_button_grey(lobbyscreen:com_91);
     ~script3026(lobbyscreen:com_93);
     ~script3025(lobbyscreen:com_91);
-    if_sethide(false, lobbyscreen:com_32);
+    if_sethide(false, lobbyscreen:pvp_warning);
     sound_jingle(jingle_349, 0);
-    ~script3412(lobbyscreen:com_86, lobbyscreen:com_87);
-    $int3 = if_getwidth(lobbyscreen:com_87);
-    $int4 = if_getwidth(lobbyscreen:com_87);
-    $int1 = max(337, calc(stringwidth(if_gettext(lobbyscreen:com_86), b12_full) + 30));
-    $int4 = max(152, calc(paraheight(if_gettext(lobbyscreen:com_87), $int3, b12_full) * 16));
+    ~script3412(lobbyscreen:pvp_warning_text_title, lobbyscreen:pvp_warning_text_main);
+    $int3 = if_getwidth(lobbyscreen:pvp_warning_text_main);
+    $int4 = if_getwidth(lobbyscreen:pvp_warning_text_main);
+    $int1 = max(337, calc(stringwidth(if_gettext(lobbyscreen:pvp_warning_text_title), b12_full) + 30));
+    $int4 = max(152, calc(paraheight(if_gettext(lobbyscreen:pvp_warning_text_main), $int3, b12_full) * 16));
     $int2 = max(243, calc($int4 + 91));
-    if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, lobbyscreen:com_87);
-    if_setsize($int1, $int2, ^setsize_abs, ^setsize_abs, lobbyscreen:com_84);
+    if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, lobbyscreen:pvp_warning_text_main);
+    if_setsize($int1, $int2, ^setsize_abs, ^setsize_abs, lobbyscreen:pvp_warning_window);
     return;
 }
 %varclient_200 = 0;

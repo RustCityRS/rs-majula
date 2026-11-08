@@ -8,32 +8,32 @@ if (~check_spell_requirements($spell_data) = false) {
 }
 p_opplayert(db_getfield($spell_data, magic_spell_table:spellcom, 0));
 
-[applayert,magic:wind_strike] ~pvp_default_spell(^wind_strike);
-[applayert,magic:water_strike] ~pvp_default_spell(^water_strike);
-[applayert,magic:earth_strike] ~pvp_default_spell(^earth_strike);
-[applayert,magic:fire_strike] ~pvp_default_spell(^fire_strike);
-[applayert,magic:wind_bolt] ~pvp_default_spell(^wind_bolt);
-[applayert,magic:water_bolt] ~pvp_default_spell(^water_bolt);
-[applayert,magic:earth_bolt] ~pvp_default_spell(^earth_bolt);
-[applayert,magic:fire_bolt] ~pvp_default_spell(^fire_bolt);
-[applayert,magic:wind_blast] ~pvp_default_spell(^wind_blast);
-[applayert,magic:water_blast] ~pvp_default_spell(^water_blast);
-[applayert,magic:earth_blast] ~pvp_default_spell(^earth_blast);
-[applayert,magic:fire_blast] ~pvp_default_spell(^fire_blast);
-[applayert,magic:wind_wave] ~pvp_default_spell(^wind_wave);
-[applayert,magic:water_wave] ~pvp_default_spell(^water_wave);
-[applayert,magic:earth_wave] ~pvp_default_spell(^earth_wave);
-[applayert,magic:fire_wave] ~pvp_default_spell(^fire_wave);
-[applayert,magic:curse] ~pvp_default_spell(^curse);
-[applayert,magic:weaken] ~pvp_default_spell(^weaken);
-[applayert,magic:confuse] ~pvp_default_spell(^confuse);
-[applayert,magic:bind] ~pvp_default_spell(^bind);
-[applayert,magic:snare] ~pvp_default_spell(^snare);
-[applayert,magic:entangle] ~pvp_default_spell(^entangle);
-[applayert,magic:vulnerability] ~pvp_default_spell(^vulnerability);
-[applayert,magic:enfeeble] ~pvp_default_spell(^enfeeble);
-[applayert,magic:stun] ~pvp_default_spell(^stun);
-[applayert,magic:crumble_undead] ~pvp_default_spell(^crumble_undead);
+[applayert,magic:sb0] ~pvp_default_spell(^wind_strike);
+[applayert,magic:sb2] ~pvp_default_spell(^water_strike);
+[applayert,magic:sb4] ~pvp_default_spell(^earth_strike);
+[applayert,magic:sb6] ~pvp_default_spell(^fire_strike);
+[applayert,magic:sb8] ~pvp_default_spell(^wind_bolt);
+[applayert,magic:sb11] ~pvp_default_spell(^water_bolt);
+[applayert,magic:sb14] ~pvp_default_spell(^earth_bolt);
+[applayert,magic:sb17] ~pvp_default_spell(^fire_bolt);
+[applayert,magic:sb20] ~pvp_default_spell(^wind_blast);
+[applayert,magic:sb23] ~pvp_default_spell(^water_blast);
+[applayert,magic:sb27] ~pvp_default_spell(^earth_blast);
+[applayert,magic:sb32] ~pvp_default_spell(^fire_blast);
+[applayert,magic:sb34] ~pvp_default_spell(^wind_wave);
+[applayert,magic:sb36] ~pvp_default_spell(^water_wave);
+[applayert,magic:sb40] ~pvp_default_spell(^earth_wave);
+[applayert,magic:sb42] ~pvp_default_spell(^fire_wave);
+[applayert,magic:sb9] ~pvp_default_spell(^curse);
+[applayert,magic:sb5] ~pvp_default_spell(^weaken);
+[applayert,magic:sb1] ~pvp_default_spell(^confuse);
+[applayert,magic:sb44] ~pvp_default_spell(^bind);
+[applayert,magic:sb45] ~pvp_default_spell(^snare);
+[applayert,magic:sb46] ~pvp_default_spell(^entangle);
+[applayert,magic:sb38] ~pvp_default_spell(^vulnerability);
+[applayert,magic:sb41] ~pvp_default_spell(^enfeeble);
+[applayert,magic:sb43] ~pvp_default_spell(^stun);
+[applayert,magic:sb19] ~pvp_default_spell(^crumble_undead);
 
 [proc,pvp_default_spell](int $spell)
 def_dbrow $spell_data = ~get_spell_data($spell);

@@ -3,7 +3,7 @@
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=round_time_background_layer
 colour=0x201c17
 
 // 1023:1
@@ -15,7 +15,7 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=round_time_background_layer
 colour=0x595143
 
 // 1023:2
@@ -27,7 +27,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=round_time_background_layer
 colour=0x161410
 fill=yes
 
@@ -148,7 +148,7 @@ textshadow=yes
 colour=0x77736a
 
 // 1023:13
-[com_13]
+[minigamefools]
 type=layer
 y=17
 width=192
@@ -158,12 +158,12 @@ layer=com_10
 scrollheight=300
 
 // 1023:14
-[com_14]
+[stake_text]
 type=text
 width=16391
 height=115
 widthmode=proportion
-layer=com_13
+layer=minigamefools
 textfont=p11_full
 textalignh=centre
 textalignv=centre
@@ -171,7 +171,7 @@ textshadow=yes
 colour=0xaaaaaa
 
 // 1023:15
-[com_15]
+[stake_scrollbar_layer]
 type=layer
 x=213
 y=18
@@ -190,7 +190,7 @@ transmitop=10
 op10= 
 
 // 1023:17
-[com_17]
+[round_time_background_layer]
 type=layer
 x=23
 y=188
@@ -230,7 +230,7 @@ textshadow=yes
 colour=0x77736a
 
 // 1023:20
-[com_20]
+[opponent_text_layer]
 type=layer
 y=17
 width=192
@@ -240,12 +240,12 @@ layer=com_16
 scrollheight=300
 
 // 1023:21
-[com_21]
+[opponent_text]
 type=text
 width=16391
 height=115
 widthmode=proportion
-layer=com_20
+layer=opponent_text_layer
 textfont=p11_full
 textalignh=centre
 textalignv=centre
@@ -253,7 +253,7 @@ textshadow=yes
 colour=0xaaaaaa
 
 // 1023:22
-[com_22]
+[opponent_scrollbar_layer]
 type=layer
 x=213
 y=18
@@ -277,7 +277,7 @@ transmitop=10
 op10= 
 
 // 1023:24
-[com_24]
+[bottom_left_corner]
 type=graphic
 x=5
 y=291
@@ -290,7 +290,7 @@ transmitop=10
 op10= 
 
 // 1023:25
-[com_25]
+[top_left_corner]
 type=graphic
 x=5
 y=20
@@ -303,7 +303,7 @@ transmitop=10
 op10= 
 
 // 1023:26
-[com_26]
+[top_right_corner]
 type=graphic
 x=5
 y=20
@@ -317,7 +317,7 @@ transmitop=10
 op10= 
 
 // 1023:27
-[com_27]
+[bottom_right_corner]
 type=graphic
 x=5
 y=291
@@ -331,7 +331,7 @@ transmitop=10
 op10= 
 
 // 1023:28
-[com_28]
+[left_side]
 type=graphic
 x=-8
 y=52
@@ -345,7 +345,7 @@ transmitop=10
 op10= 
 
 // 1023:29
-[com_29]
+[right_side]
 type=graphic
 x=-7
 y=52
@@ -360,7 +360,7 @@ transmitop=10
 op10= 
 
 // 1023:30
-[com_30]
+[top_side]
 type=graphic
 x=37
 y=20
@@ -374,7 +374,7 @@ transmitop=10
 op10= 
 
 // 1023:31
-[com_31]
+[bottom_side]
 type=graphic
 y=303
 width=444
@@ -388,7 +388,7 @@ transmitop=10
 op10= 
 
 // 1023:32
-[com_32]
+[border_shadow]
 type=rectangle
 x=11
 y=41
@@ -400,7 +400,7 @@ transmitop=10
 op10= 
 
 // 1023:33
-[com_33]
+[border_shadow_3]
 type=rectangle
 x=12
 y=6
@@ -413,7 +413,7 @@ transmitop=10
 op10= 
 
 // 1023:34
-[com_34]
+[border_shadow_2]
 type=rectangle
 x=13
 y=43
@@ -426,7 +426,7 @@ transmitop=10
 op10= 
 
 // 1023:35
-[com_35]
+[border_shadow_1]
 type=rectangle
 x=12
 y=42
@@ -439,7 +439,7 @@ transmitop=10
 op10= 
 
 // 1023:36
-[com_36]
+[close_button]
 type=graphic
 x=481
 y=23
@@ -506,7 +506,7 @@ transmitop=10
 op10=  
 
 // 1023:41
-[com_41]
+[main_title_text]
 type=text
 x=12
 y=23
@@ -523,7 +523,7 @@ transmitop=10
 op10=  
 
 // 1023:42
-[com_42]
+[accept_layer]
 type=layer
 x=4096
 y=230
@@ -533,11 +533,11 @@ xmode=proportion_left
 opbase= 
 
 // 1023:43
-[com_43]
+[accept_graphic]
 type=graphic
 width=90
 height=43
-layer=com_42
+layer=accept_layer
 graphic=graphic_3255
 tiling=yes
 colour=0x000000
@@ -546,13 +546,13 @@ opbase=
 op10=   
 
 // 1023:44
-[com_44]
+[accept]
 type=text
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_42
+layer=accept_layer
 textfont=welcome_font_tiny
 text=Accept
 textalignh=centre
@@ -566,7 +566,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1023:45
-[com_45]
+[decline_layer]
 type=layer
 x=4103
 y=230
@@ -576,11 +576,11 @@ xmode=proportion_right
 opbase= 
 
 // 1023:46
-[com_46]
+[decline_graphic]
 type=graphic
 width=90
 height=43
-layer=com_45
+layer=decline_layer
 graphic=graphic_3255
 tiling=yes
 colour=0x000000
@@ -589,13 +589,13 @@ opbase=
 op10=  
 
 // 1023:47
-[com_47]
+[decline]
 type=text
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_45
+layer=decline_layer
 textfont=welcome_font_tiny
 text=Decline
 textalignh=centre
@@ -610,7 +610,7 @@ onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 onop=closebutton_click
 
 // 1023:48
-[com_48]
+[duel2status]
 type=text
 y=275
 width=256
@@ -625,13 +625,13 @@ transmitop=10
 op10= 
 
 // 1023:49
-[com_49]
+[round_time_title]
 type=text
 y=3
 width=16391
 height=15
 widthmode=proportion
-layer=com_17
+layer=round_time_background_layer
 textfont=welcome_font_tiny
 text=Maximum Turn Time
 textlineheight=15
@@ -642,14 +642,14 @@ transmitop=10
 op10=  
 
 // 1023:50
-[com_50]
+[round_time_amount]
 type=text
 y=6
 width=43
 height=15
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_17
+layer=round_time_background_layer
 textfont=welcome_font_tiny
 text=0:30
 textlineheight=15

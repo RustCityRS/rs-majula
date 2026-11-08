@@ -6,7 +6,7 @@ height=334
 onload=script2913(event_com, 0)
 
 // 999:1
-[com_1]
+[background_top]
 type=graphic
 y=22
 width=5
@@ -21,7 +21,7 @@ transmitop=10
 op10=  
 
 // 999:2
-[com_2]
+[background_mid]
 type=graphic
 y=92
 width=5
@@ -53,7 +53,7 @@ transmitop=10
 op10=  
 
 // 999:4
-[com_4]
+[container]
 type=layer
 width=512
 height=334
@@ -61,7 +61,7 @@ transmitop=10
 op10= 
 
 // 999:5
-[com_5]
+[layer_1]
 type=layer
 x=10
 y=24
@@ -69,51 +69,51 @@ width=48
 height=52
 widthmode=minus
 heightmode=minus
-layer=com_4
+layer=container
 
 // 999:6
-[com_6]
+[s_layer]
 type=layer
 x=5
 y=5
 width=48
 height=52
-layer=com_5
+layer=layer_1
 transmitop=1,2,3
 opbase=<col=FF981F>Damaged book</col>
 op1=Info
 op2=Buy
 op3=Examine
-onmouseover=comp_sethide(false, interface_999:com_8)
-onmouseleave=comp_sethide(true, interface_999:com_8)
+onmouseover=comp_sethide(false, interface_999:s_outline)
+onmouseleave=comp_sethide(true, interface_999:s_outline)
 
 // 999:7
 [com_7]
 type=graphic
 width=48
 height=52
-layer=com_6
+layer=s_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 
 // 999:8
-[com_8]
+[s_outline]
 type=graphic
 width=48
 height=52
-layer=com_6
+layer=s_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
 
 // 999:9
-[com_9]
+[s_coin]
 type=graphic
 x=2
 y=38
 width=12
 height=12
-layer=com_6
+layer=s_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 
@@ -124,7 +124,7 @@ x=13
 y=39
 width=31
 height=12
-layer=com_6
+layer=s_layer
 textfont=p11_full
 text=5000
 textalignh=right
@@ -133,90 +133,90 @@ textshadow=yes
 colour=0xffff00
 
 // 999:11
-[com_11]
+[z_layer]
 type=layer
 x=5
 y=5
 width=48
 height=52
-layer=com_5
+layer=layer_1
 transmitop=1,2,3,10
 opbase=<col=FF981F>Damaged book</col>
 op1=Info
 op2=Buy
 op3=Examine
 op10= 
-onmouseover=comp_sethide(false, interface_999:com_37)
-onmouseleave=comp_sethide(true, interface_999:com_37)
+onmouseover=comp_sethide(false, interface_999:z_outline)
+onmouseleave=comp_sethide(true, interface_999:z_outline)
 
 // 999:12
-[com_12]
+[g_layer]
 type=layer
 x=5
 y=5
 width=48
 height=52
-layer=com_5
+layer=layer_1
 transmitop=1,2,3,10
 opbase=<col=FF981F>Damaged book</col>
 op1=Info
 op2=Buy
 op3=Examine
 op10= 
-onmouseover=comp_sethide(false, interface_999:com_32)
-onmouseleave=comp_sethide(true, interface_999:com_32)
+onmouseover=comp_sethide(false, interface_999:g_outline)
+onmouseleave=comp_sethide(true, interface_999:g_outline)
 
 // 999:13
-[com_13]
+[a_layer]
 type=layer
 x=5
 y=5
 width=48
 height=52
-layer=com_5
+layer=layer_1
 transmitop=1,2,3,10
 opbase=<col=FF981F>Damaged book</col>
 op1=Info
 op2=Buy
 op3=Examine
 op10= 
-onmouseover=comp_sethide(false, interface_999:com_27)
-onmouseleave=comp_sethide(true, interface_999:com_27)
+onmouseover=comp_sethide(false, interface_999:a_outline)
+onmouseleave=comp_sethide(true, interface_999:a_outline)
 
 // 999:14
-[com_14]
+[b_layer]
 type=layer
 x=5
 y=5
 width=48
 height=52
-layer=com_5
+layer=layer_1
 transmitop=1,2,3,10
 opbase=<col=FF981F>Damaged book</col>
 op1=Info
 op2=Buy
 op3=Examine
 op10= 
-onmouseover=comp_sethide(false, interface_999:com_16)
-onmouseleave=comp_sethide(true, interface_999:com_16)
+onmouseover=comp_sethide(false, interface_999:b_outline)
+onmouseleave=comp_sethide(true, interface_999:b_outline)
 
 // 999:15
 [com_15]
 type=graphic
 width=48
 height=52
-layer=com_14
+layer=b_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 999:16
-[com_16]
+[b_outline]
 type=graphic
 width=48
 height=52
-layer=com_14
+layer=b_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -224,13 +224,13 @@ transmitop=10
 op10= 
 
 // 999:17
-[com_17]
+[b_coin]
 type=graphic
 x=2
 y=38
 width=12
 height=12
-layer=com_14
+layer=b_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
@@ -243,7 +243,7 @@ x=13
 y=39
 width=31
 height=12
-layer=com_14
+layer=b_layer
 textfont=p11_full
 text=5000
 textalignh=right
@@ -254,39 +254,39 @@ transmitop=10
 op10= 
 
 // 999:19
-[com_19]
+[zs_layer]
 type=layer
 x=5
 y=5
 width=48
 height=52
-layer=com_5
+layer=layer_1
 transmitop=1,2,3,10
 opbase=<col=FF981F>Damaged book</col>
 op1=Info
 op2=Buy
 op3=Examine
 op10= 
-onmouseover=comp_sethide(false, interface_999:com_21)
-onmouseleave=comp_sethide(true, interface_999:com_21)
+onmouseover=comp_sethide(false, interface_999:zs_outline)
+onmouseleave=comp_sethide(true, interface_999:zs_outline)
 
 // 999:20
 [com_20]
 type=graphic
 width=48
 height=52
-layer=com_19
+layer=zs_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 999:21
-[com_21]
+[zs_outline]
 type=graphic
 width=48
 height=52
-layer=com_19
+layer=zs_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -294,13 +294,13 @@ transmitop=10
 op10= 
 
 // 999:22
-[com_22]
+[zs_coin]
 type=graphic
 x=2
 y=38
 width=12
 height=12
-layer=com_19
+layer=zs_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
@@ -313,7 +313,7 @@ x=13
 y=39
 width=31
 height=12
-layer=com_19
+layer=zs_layer
 textfont=p11_full
 text=5000
 textalignh=right
@@ -324,26 +324,26 @@ transmitop=10
 op10= 
 
 // 999:24
-[com_24]
+[zs_graphic]
 type=graphic
 y=4
 width=36
 height=32
 xmode=abs_centre
-layer=com_19
+layer=zs_layer
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 999:25
-[com_25]
+[b_graphic]
 type=graphic
 y=4
 width=36
 height=32
 xmode=abs_centre
-layer=com_14
+layer=b_layer
 outline=1
 colour=0xffffffff
 transmitop=10
@@ -354,18 +354,18 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_13
+layer=a_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 999:27
-[com_27]
+[a_outline]
 type=graphic
 width=48
 height=52
-layer=com_13
+layer=a_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -373,13 +373,13 @@ transmitop=10
 op10= 
 
 // 999:28
-[com_28]
+[a_coin]
 type=graphic
 x=2
 y=38
 width=12
 height=12
-layer=com_13
+layer=a_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
@@ -392,7 +392,7 @@ x=13
 y=39
 width=31
 height=12
-layer=com_13
+layer=a_layer
 textfont=p11_full
 text=5000
 textalignh=right
@@ -403,13 +403,13 @@ transmitop=10
 op10= 
 
 // 999:30
-[com_30]
+[a_graphic]
 type=graphic
 y=4
 width=36
 height=32
 xmode=abs_centre
-layer=com_13
+layer=a_layer
 outline=1
 colour=0xffffffff
 transmitop=10
@@ -420,18 +420,18 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_12
+layer=g_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 999:32
-[com_32]
+[g_outline]
 type=graphic
 width=48
 height=52
-layer=com_12
+layer=g_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -439,13 +439,13 @@ transmitop=10
 op10= 
 
 // 999:33
-[com_33]
+[g_coin]
 type=graphic
 x=2
 y=38
 width=12
 height=12
-layer=com_12
+layer=g_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
@@ -458,7 +458,7 @@ x=13
 y=39
 width=31
 height=12
-layer=com_12
+layer=g_layer
 textfont=p11_full
 text=5000
 textalignh=right
@@ -469,13 +469,13 @@ transmitop=10
 op10= 
 
 // 999:35
-[com_35]
+[g_graphic]
 type=graphic
 y=4
 width=36
 height=32
 xmode=abs_centre
-layer=com_12
+layer=g_layer
 outline=1
 colour=0xffffffff
 transmitop=10
@@ -486,18 +486,18 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_11
+layer=z_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 999:37
-[com_37]
+[z_outline]
 type=graphic
 width=48
 height=52
-layer=com_11
+layer=z_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -505,13 +505,13 @@ transmitop=10
 op10= 
 
 // 999:38
-[com_38]
+[z_coin]
 type=graphic
 x=2
 y=38
 width=12
 height=12
-layer=com_11
+layer=z_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
@@ -524,7 +524,7 @@ x=13
 y=39
 width=31
 height=12
-layer=com_11
+layer=z_layer
 textfont=p11_full
 text=5000
 textalignh=right
@@ -535,13 +535,13 @@ transmitop=10
 op10= 
 
 // 999:40
-[com_40]
+[z_graphic]
 type=graphic
 y=4
 width=36
 height=32
 xmode=abs_centre
-layer=com_11
+layer=z_layer
 outline=1
 colour=0xffffffff
 transmitop=10
@@ -554,7 +554,7 @@ y=4
 width=135
 height=25
 xmode=abs_centre
-layer=com_4
+layer=container
 textfont=b12_full
 text=Book shop
 textalignh=centre
@@ -566,13 +566,13 @@ op2=Buy
 op3=Examine
 
 // 999:42
-[com_42]
+[s_graphic]
 type=graphic
 y=4
 width=36
 height=32
 xmode=abs_centre
-layer=com_6
+layer=s_layer
 outline=1
 colour=0xffffffff
 
@@ -583,7 +583,7 @@ x=487
 y=3
 width=16
 height=16
-layer=com_4
+layer=container
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1

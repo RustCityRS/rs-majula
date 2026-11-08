@@ -1,0 +1,198 @@
+// 727:0
+[map_background]
+type=model
+x=34
+width=449
+height=331
+layer=layer_1
+model=model_4652
+modelorigin=-19,-14
+modelangle=479,2,0
+modelzoom=894
+
+// 727:1
+[background_layer]
+type=layer
+width=512
+height=334
+
+// 727:2
+[com_2]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=background_layer
+colour=0x241f0c
+fill=yes
+
+// 727:3
+[map_details]
+type=model
+x=75
+y=-45
+width=369
+height=458
+layer=layer_1
+model=model_46305
+modelorigin=0,-18
+modelangle=506,0,0
+modelzoom=776
+
+// 727:4
+[ice_path]
+type=text
+x=286
+y=202
+width=148
+height=18
+layer=layer_1
+textfont=p11_full
+text=Ice<br>Path
+textalignh=centre
+colour=0x282315
+
+// 727:5
+[waterbirth_island]
+type=text
+x=80
+y=228
+width=97
+height=30
+layer=layer_1
+textfont=p11_full
+text=Waterbirth<br>Island
+textalignh=centre
+colour=0x282315
+
+// 727:6
+[com_6]
+type=text
+x=47
+y=176
+width=120
+height=16
+layer=layer_1
+textfont=p11_full
+text=Miscellania
+textalignh=centre
+colour=0x282315
+
+// 727:7
+[com_7]
+type=text
+x=116
+y=104
+width=92
+height=16
+layer=layer_1
+textfont=p11_full
+text=Etceteria
+textalignh=centre
+colour=0x282315
+
+// 727:8
+[trollweiss_mountain]
+type=text
+x=279
+y=158
+width=75
+height=18
+layer=layer_1
+textfont=p11_full
+text=Trollweiss Mountain
+colour=0x282315
+
+// 727:9
+[god_wars_dungeon]
+type=text
+x=375
+y=259
+width=135
+height=18
+layer=layer_1
+textfont=p11_full
+text=God Wars<br>Dungeon
+colour=0x282315
+
+// 727:10
+[keldagrim_entrance]
+type=text
+x=196
+y=284
+width=122
+height=18
+layer=layer_1
+textfont=p11_full
+text=Keldagrim Entrance
+textalignh=centre
+colour=0x282315
+
+// 727:11
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 727:12
+[map_return]
+type=model
+x=179
+y=66
+width=201
+height=154
+layer=map_return_layer
+model=model_46304
+modelorigin=-17,26
+modelangle=506,0,0
+modelzoom=776
+modelanim=seq_11576
+transmitop=10
+op10= 
+
+// 727:13
+[map_return_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1
+hide=yes
+
+// 727:14
+[map_out]
+type=model
+x=179
+y=66
+width=201
+height=154
+layer=map_out_layer
+model=model_46304
+modelorigin=-17,26
+modelangle=506,0,0
+modelzoom=776
+modelanim=seq_11575
+
+// 727:15
+[map_out_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1
+hide=yes
+
+// 727:16
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre

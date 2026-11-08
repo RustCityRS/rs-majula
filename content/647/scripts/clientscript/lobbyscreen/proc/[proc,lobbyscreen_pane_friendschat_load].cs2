@@ -1,16 +1,16 @@
 // 4554
 [proc,lobbyscreen_pane_friendschat_load](int $int0)
-if_setsize(calc(if_getx(lobbyscreen_pane_friendschat:com_45) - if_getx(lobbyscreen_pane_friendschat:com_43)), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendschat:com_55);
-if_setsize(calc(if_getwidth(lobbyscreen_pane_friendschat:com_51) - if_getwidth(lobbyscreen_pane_friendschat:com_55) - 2), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendschat:com_57);
-if_setscrollsize(0, 0, lobbyscreen_pane_friendschat:com_51);
-if_setscrollpos(0, 0, lobbyscreen_pane_friendschat:com_51);
-~scrollbar_vertical(lobbyscreen_pane_friendschat:com_52, lobbyscreen_pane_friendschat:com_51, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_setscrollsize(0, 0, lobbyscreen_pane_friendschat:com_23);
-if_setscrollpos(0, 0, lobbyscreen_pane_friendschat:com_23);
-~scrollbar_vertical(lobbyscreen_pane_friendschat:com_24, lobbyscreen_pane_friendschat:com_23, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_setonclantransmit("lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friendschat:com_55, lobbyscreen_pane_friendschat:com_56, lobbyscreen_pane_friendschat:com_57, lobbyscreen_pane_friendschat:com_53, lobbyscreen_pane_friendschat:com_51, lobbyscreen_pane_friendschat:com_52)", lobbyscreen_pane_friendschat:com_51);
-if_setonfriendtransmit("lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friendschat:com_55, lobbyscreen_pane_friendschat:com_56, lobbyscreen_pane_friendschat:com_57, lobbyscreen_pane_friendschat:com_53, lobbyscreen_pane_friendschat:com_51, lobbyscreen_pane_friendschat:com_52)", lobbyscreen_pane_friendschat:com_51);
-~lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friendschat:com_55, lobbyscreen_pane_friendschat:com_56, lobbyscreen_pane_friendschat:com_57, lobbyscreen_pane_friendschat:com_53, lobbyscreen_pane_friendschat:com_51, lobbyscreen_pane_friendschat:com_52);
+if_setsize(calc(if_getx(lobbyscreen_pane_friendschat:clan_vdiv) - if_getx(lobbyscreen_pane_friendschat:clan_content)), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendschat:clan_name);
+if_setsize(calc(if_getwidth(lobbyscreen_pane_friendschat:clan_main) - if_getwidth(lobbyscreen_pane_friendschat:clan_name) - 2), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendschat:clan_status);
+if_setscrollsize(0, 0, lobbyscreen_pane_friendschat:clan_main);
+if_setscrollpos(0, 0, lobbyscreen_pane_friendschat:clan_main);
+~scrollbar_vertical(lobbyscreen_pane_friendschat:clan_build_layer_scroll, lobbyscreen_pane_friendschat:clan_main, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollsize(0, 0, lobbyscreen_pane_friendschat:chat_build);
+if_setscrollpos(0, 0, lobbyscreen_pane_friendschat:chat_build);
+~scrollbar_vertical(lobbyscreen_pane_friendschat:chat_scroll, lobbyscreen_pane_friendschat:chat_build, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setonclantransmit("lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friendschat:clan_name, lobbyscreen_pane_friendschat:clan_namechange, lobbyscreen_pane_friendschat:clan_status, lobbyscreen_pane_friendschat:clan_bg, lobbyscreen_pane_friendschat:clan_main, lobbyscreen_pane_friendschat:clan_build_layer_scroll)", lobbyscreen_pane_friendschat:clan_main);
+if_setonfriendtransmit("lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friendschat:clan_name, lobbyscreen_pane_friendschat:clan_namechange, lobbyscreen_pane_friendschat:clan_status, lobbyscreen_pane_friendschat:clan_bg, lobbyscreen_pane_friendschat:clan_main, lobbyscreen_pane_friendschat:clan_build_layer_scroll)", lobbyscreen_pane_friendschat:clan_main);
+~lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friendschat:clan_name, lobbyscreen_pane_friendschat:clan_namechange, lobbyscreen_pane_friendschat:clan_status, lobbyscreen_pane_friendschat:clan_bg, lobbyscreen_pane_friendschat:clan_main, lobbyscreen_pane_friendschat:clan_build_layer_scroll);
 if (clan_getchatcount > 0) {
     if_settext("Leave chat channel", lobbyscreen_pane_friendschat:com_41);
     if_setop(1, "Leave chat channel", lobbyscreen_pane_friendschat:com_39);
@@ -19,8 +19,8 @@ if (clan_getchatcount > 0) {
     if_setop(1, "Join chat channel", lobbyscreen_pane_friendschat:com_39);
 }
 %varclient_1868 = "";
-~brown_cursebearer(lobbyscreen_pane_friendschat:com_31);
+~brown_cursebearer(lobbyscreen_pane_friendschat:chat_bg);
 %varclient_1507 = string_length(%varclient_1868);
-if_setonclick("script4570(event_mousex, lobbyscreen_pane_friendschat:com_27, lobbyscreen_pane_friendschat:com_28)", lobbyscreen_pane_friendschat:com_27);
-~script4571(lobbyscreen_pane_friendschat:com_27, lobbyscreen_pane_friendschat:com_28, %varclient_1868);
-if_sethide(true, lobbyscreen_pane_friendschat:com_28);
+if_setonclick("script4570(event_mousex, lobbyscreen_pane_friendschat:chat_input_text, lobbyscreen_pane_friendschat:input_caret)", lobbyscreen_pane_friendschat:chat_input_text);
+~script4571(lobbyscreen_pane_friendschat:chat_input_text, lobbyscreen_pane_friendschat:input_caret, %varclient_1868);
+if_sethide(true, lobbyscreen_pane_friendschat:input_caret);

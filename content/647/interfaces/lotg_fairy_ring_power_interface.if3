@@ -1,0 +1,798 @@
+// 624:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 624:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 624:2
+[com_2]
+type=graphic
+y=53
+width=32
+height=241
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 624:3
+[com_3]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 624:4
+[com_4]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 624:5
+[com_5]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 624:6
+[com_6]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 624:7
+[com_7]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 624:8
+[com_8]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 624:9
+[com_9]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0x000000
+
+// 624:10
+[com_10]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 624:11
+[com_11]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+
+// 624:12
+[com_12]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0x000000
+
+// 624:13
+[com_13]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0x000000
+
+// 624:14
+[com_14]
+type=model
+x=38
+y=67
+width=235
+height=239
+model=model_29264
+modelzoom=257
+modelorthog=yes
+opbase= 
+
+// 624:15
+[meter_1]
+type=rectangle
+y=90
+width=15
+height=90
+layer=meter1_layer
+colour=0x3cb5bf
+fill=yes
+trans=100
+
+// 624:16
+[meter1_layer]
+type=layer
+x=105
+y=129
+width=15
+height=90
+
+// 624:17
+[meter_2]
+type=rectangle
+y=90
+width=15
+height=90
+layer=meter2_layer
+colour=0x3cb5bf
+fill=yes
+trans=100
+
+// 624:18
+[meter2_layer]
+type=layer
+x=146
+y=129
+width=15
+height=90
+
+// 624:19
+[meter_3]
+type=rectangle
+y=90
+width=16
+height=90
+layer=meter3_layer
+colour=0x3cb5bf
+fill=yes
+trans=100
+opbase=m
+
+// 624:20
+[meter3_layer]
+type=layer
+x=189
+y=129
+width=15
+height=90
+
+// 624:21
+[com_21]
+type=rectangle
+x=98
+y=243
+width=14
+height=16
+colour=0x805018
+fill=yes
+transmitop=1
+op1=Add
+onmouseover=comp_sethide(false, lotg_fairy_ring_power_interface:outer_ring)
+onmouseleave=comp_sethide(true, lotg_fairy_ring_power_interface:outer_ring)
+onvartransmit=script555{varplayer_1094}
+onop=script549
+
+// 624:22
+[com_22]
+type=rectangle
+x=114
+y=243
+width=14
+height=16
+colour=0x805018
+fill=yes
+transmitop=1
+op1=Subtract
+onmouseover=comp_sethide(false, lotg_fairy_ring_power_interface:outer_ring)
+onmouseleave=comp_sethide(true, lotg_fairy_ring_power_interface:outer_ring)
+onop=script550
+
+// 624:23
+[com_23]
+type=rectangle
+x=140
+y=243
+width=14
+height=16
+colour=0x805018
+fill=yes
+transmitop=1
+op1=Add
+onmouseover=comp_sethide(false, lotg_fairy_ring_power_interface:middle_ring)
+onmouseleave=comp_sethide(true, lotg_fairy_ring_power_interface:middle_ring)
+onop=script551
+
+// 624:24
+[com_24]
+type=rectangle
+x=156
+y=243
+width=14
+height=16
+colour=0x805018
+fill=yes
+transmitop=1
+op1=Subtract
+onmouseover=comp_sethide(false, lotg_fairy_ring_power_interface:middle_ring)
+onmouseleave=comp_sethide(true, lotg_fairy_ring_power_interface:middle_ring)
+onop=script552
+
+// 624:25
+[com_25]
+type=rectangle
+x=182
+y=243
+width=14
+height=16
+colour=0x805018
+fill=yes
+transmitop=1
+op1=Add
+onmouseover=comp_sethide(false, lotg_fairy_ring_power_interface:centre_ring)
+onmouseleave=comp_sethide(true, lotg_fairy_ring_power_interface:centre_ring)
+onop=script553
+
+// 624:26
+[com_26]
+type=rectangle
+x=198
+y=243
+width=14
+height=16
+colour=0x805018
+fill=yes
+transmitop=1
+op1=Subtract
+onmouseover=comp_sethide(false, lotg_fairy_ring_power_interface:centre_ring)
+onmouseleave=comp_sethide(true, lotg_fairy_ring_power_interface:centre_ring)
+onop=script554
+
+// 624:27
+[meter1_]
+type=rectangle
+x=99
+y=244
+width=12
+height=14
+colour=0x9e6e36
+fill=yes
+
+// 624:28
+[com_28]
+type=rectangle
+x=115
+y=244
+width=12
+height=14
+colour=0x9e6e36
+fill=yes
+
+// 624:29
+[meter2_]
+type=rectangle
+x=141
+y=244
+width=12
+height=14
+colour=0x9e6e36
+fill=yes
+
+// 624:30
+[com_30]
+type=rectangle
+x=157
+y=244
+width=12
+height=14
+colour=0x9e6e36
+fill=yes
+
+// 624:31
+[meter3_]
+type=rectangle
+x=183
+y=244
+width=12
+height=14
+colour=0x9e6e36
+fill=yes
+
+// 624:32
+[meter1k]
+type=rectangle
+x=199
+y=244
+width=12
+height=14
+colour=0x9e6e36
+fill=yes
+
+// 624:33
+[com_33]
+type=model
+x=99
+y=109
+width=113
+height=149
+model=model_29267
+modelorigin=-1,1
+modelzoom=257
+modelorthog=yes
+opbase= 
+
+// 624:34
+[com_34]
+type=model
+x=282
+y=115
+width=189
+height=167
+model=model_29268
+modelorigin=11,0
+modelzoom=912
+modelorthog=yes
+
+// 624:35
+[outer_ring]
+type=layer
+x=-4
+y=-24
+width=512
+height=334
+hide=yes
+
+// 624:36
+[outer_ring_power]
+type=model
+x=308
+y=139
+width=167
+height=167
+layer=outer_ring
+model=model_29266
+modelzoom=912
+modelorthog=yes
+
+// 624:37
+[middle_ring]
+type=layer
+x=-4
+y=-24
+width=512
+height=334
+hide=yes
+
+// 624:38
+[middle_ring_power]
+type=model
+x=331
+y=162
+width=121
+height=121
+layer=middle_ring
+model=model_29271
+modelzoom=912
+modelorthog=yes
+
+// 624:39
+[centre_ring]
+type=layer
+x=-4
+y=-24
+width=512
+height=334
+hide=yes
+
+// 624:40
+[centre_ring_power]
+type=model
+x=358
+y=189
+width=67
+height=67
+layer=centre_ring
+model=model_29270
+modelzoom=912
+modelorthog=yes
+
+// 624:41
+[com_41]
+type=rectangle
+x=291
+y=62
+width=190
+height=48
+colour=0x3d342e
+fill=yes
+
+// 624:42
+[com_42]
+type=line
+x=289
+y=60
+width=193
+colour=0x332b25
+
+// 624:43
+[com_43]
+type=line
+x=290
+y=111
+width=192
+colour=0x332b25
+opbase=m
+
+// 624:44
+[com_44]
+type=line
+x=482
+y=60
+height=50
+colour=0x332b25
+
+// 624:45
+[com_45]
+type=line
+x=289
+y=61
+height=50
+colour=0x332b25
+
+// 624:46
+[com_46]
+type=text
+x=19
+y=30
+width=474
+height=16
+textfont=b12_full
+text=Fairy Ring Power Relay
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 624:47
+[com_47]
+type=text
+x=294
+y=63
+width=182
+height=45
+textfont=p12_full
+text=Assign power to each ring in proportion to its area:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 624:48
+[layer_button1]
+type=layer
+x=97
+y=242
+width=16
+height=18
+hide=yes
+
+// 624:49
+[button1]
+type=rectangle
+y=1
+width=16
+height=16
+layer=layer_button1
+colour=0x9e6e3a
+fill=yes
+trans=200
+
+// 624:50
+[layer_button2]
+type=layer
+x=113
+y=242
+width=16
+height=18
+hide=yes
+
+// 624:51
+[button2]
+type=rectangle
+y=1
+width=16
+height=16
+layer=layer_button2
+colour=0x9e6e3a
+fill=yes
+trans=200
+
+// 624:52
+[layer_button3]
+type=layer
+x=139
+y=242
+width=16
+height=18
+hide=yes
+
+// 624:53
+[button3]
+type=rectangle
+y=1
+width=16
+height=16
+layer=layer_button3
+colour=0x9e6e3a
+fill=yes
+trans=200
+
+// 624:54
+[layer_button4]
+type=layer
+x=155
+y=242
+width=16
+height=18
+hide=yes
+
+// 624:55
+[button4]
+type=rectangle
+y=1
+width=16
+height=16
+layer=layer_button4
+colour=0x9e6e3a
+fill=yes
+trans=200
+
+// 624:56
+[layer_button5]
+type=layer
+x=181
+y=242
+width=16
+height=18
+hide=yes
+
+// 624:57
+[button5]
+type=rectangle
+y=1
+width=16
+height=16
+layer=layer_button5
+colour=0x9e6e3a
+fill=yes
+trans=200
+
+// 624:58
+[layer_button6]
+type=layer
+x=197
+y=242
+width=16
+height=18
+hide=yes
+
+// 624:59
+[button6]
+type=rectangle
+y=1
+width=16
+height=16
+layer=layer_button6
+colour=0x9e6e3a
+fill=yes
+trans=200
+
+// 624:60
+[com_60]
+type=graphic
+x=376
+y=287
+width=108
+height=9
+graphic="v2_stone_button,5"
+tiling=yes
+colour=0x000000
+
+// 624:61
+[com_61]
+type=graphic
+x=377
+y=307
+width=106
+height=9
+graphic="v2_stone_button,7"
+tiling=yes
+colour=0x000000
+
+// 624:62
+[com_62]
+type=graphic
+x=479
+y=290
+width=9
+height=22
+graphic="v2_stone_button,6"
+tiling=yes
+colour=0x000000
+
+// 624:63
+[com_63]
+type=graphic
+x=371
+y=292
+width=9
+height=18
+graphic="v2_stone_button,4"
+tiling=yes
+colour=0x000000
+
+// 624:64
+[com_64]
+type=graphic
+x=479
+y=307
+width=9
+height=9
+graphic="v2_stone_button,3"
+colour=0x000000
+
+// 624:65
+[com_65]
+type=graphic
+x=479
+y=287
+width=9
+height=9
+graphic="v2_stone_button,1"
+colour=0x000000
+
+// 624:66
+[com_66]
+type=graphic
+x=371
+y=287
+width=9
+height=9
+graphic="v2_stone_button,0"
+colour=0x000000
+
+// 624:67
+[com_67]
+type=graphic
+x=371
+y=307
+width=9
+height=9
+graphic="v2_stone_button,2"
+colour=0x000000
+
+// 624:68
+[confirm]
+type=text
+x=378
+y=294
+width=103
+height=15
+textfont=p12_full
+text=Confirm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc9800d
+
+// 624:69
+[confirm_button]
+type=layer
+x=371
+y=287
+width=117
+height=29
+transmitop=1
+op1=Confirm
+
+// 624:70
+[counter1]
+type=text
+x=107
+y=261
+width=13
+height=17
+textfont=p11_full
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 624:71
+[counter2]
+type=text
+x=148
+y=261
+width=13
+height=17
+textfont=p11_full
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 624:72
+[counter3]
+type=text
+x=190
+y=261
+width=13
+height=17
+textfont=p11_full
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f

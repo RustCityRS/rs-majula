@@ -9,74 +9,74 @@ if (%varclient_1 < $int4) {
 $int3 = max(min($int3, $int1), 0);
 %varclient_2, %varclient_773 = $int0, $int1;
 def_int $int5 = 0;
-if (if_gethide(playerdesign4:com_125) = false) {
-    if_setposition(if_getx(playerdesign4:com_125), max(calc($int2 - if_getheight(playerdesign4:com_125)), 0), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com_125);
-    if (cc_find(playerdesign4:com_125, 9) = true) {
-        $int5 = calc($int0 + $int3 - (~if_getx_absolute(playerdesign4:com_125) + cc_getwidth / 2));
-        cc_setposition(min(max($int5, 5), calc(if_getwidth(playerdesign4:com_125) - (cc_getwidth + 5))), 0, ^setpos_abs_left, ^setpos_abs_bottom);
+if (if_gethide(playerdesign4:tooltip) = false) {
+    if_setposition(if_getx(playerdesign4:tooltip), max(calc($int2 - if_getheight(playerdesign4:tooltip)), 0), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:tooltip);
+    if (cc_find(playerdesign4:tooltip, 9) = true) {
+        $int5 = calc($int0 + $int3 - (~if_getx_absolute(playerdesign4:tooltip) + cc_getwidth / 2));
+        cc_setposition(min(max($int5, 5), calc(if_getwidth(playerdesign4:tooltip) - (cc_getwidth + 5))), 0, ^setpos_abs_left, ^setpos_abs_bottom);
     }
     return;
 }
-if_sethide(false, playerdesign4:com_125);
-cc_deleteall(playerdesign4:com_125);
-def_int $int6 = parawidth($string0, if_getwidth(playerdesign4:com_29), p12_full);
+if_sethide(false, playerdesign4:tooltip);
+cc_deleteall(playerdesign4:tooltip);
+def_int $int6 = parawidth($string0, if_getwidth(playerdesign4:universe), p12_full);
 def_int $int7 = calc(paraheight($string0, $int6, p12_full) * 12 + 3);
 def_int $int8 = max(calc($int6 + 8), 45);
 def_int $int9 = calc($int7 + 18);
 def_int $int10 = max(calc($int8 - 14), 0);
 def_int $int11 = max(calc($int9 - 25), 0);
-if_setsize($int8, $int9, ^setsize_abs, ^setsize_abs, playerdesign4:com_125);
-cc_create(playerdesign4:com_125, ^iftype_rectangle, if_getnextsubid(playerdesign4:com_125));
+if_setsize($int8, $int9, ^setsize_abs, ^setsize_abs, playerdesign4:tooltip);
+cc_create(playerdesign4:tooltip, ^iftype_rectangle, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize($int10, $int11, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 7, ^setpos_abs_centre, ^setpos_abs_top);
 cc_setfill(true);
 cc_setcolour(0xe3e2e1);
-cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
+cc_create(playerdesign4:tooltip, ^iftype_graphic, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize($int10, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
 cc_settiling(true);
 cc_setgraphic(graphic_3476);
-cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
+cc_create(playerdesign4:tooltip, ^iftype_graphic, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize($int10, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 11, ^setpos_abs_centre, ^setpos_abs_bottom);
 cc_settiling(true);
 cc_setvflip(true);
 cc_setgraphic(graphic_3476);
-cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
+cc_create(playerdesign4:tooltip, ^iftype_graphic, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize(7, $int11, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 7, ^setpos_abs_left, ^setpos_abs_top);
 cc_settiling(true);
 cc_setgraphic(graphic_3475);
-cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
+cc_create(playerdesign4:tooltip, ^iftype_graphic, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize(7, $int11, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 7, ^setpos_abs_right, ^setpos_abs_top);
 cc_settiling(true);
 cc_sethflip(true);
 cc_setgraphic(graphic_3475);
-cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
+cc_create(playerdesign4:tooltip, ^iftype_graphic, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize(7, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
 cc_setgraphic(graphic_3474);
-cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
+cc_create(playerdesign4:tooltip, ^iftype_graphic, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize(7, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
 cc_sethflip(true);
 cc_setgraphic(graphic_3474);
-cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
+cc_create(playerdesign4:tooltip, ^iftype_graphic, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize(7, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 11, ^setpos_abs_left, ^setpos_abs_bottom);
 cc_setvflip(true);
 cc_setgraphic(graphic_3474);
-cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
+cc_create(playerdesign4:tooltip, ^iftype_graphic, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize(7, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 11, ^setpos_abs_right, ^setpos_abs_bottom);
 cc_sethflip(true);
 cc_setvflip(true);
 cc_setgraphic(graphic_3474);
-cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
+cc_create(playerdesign4:tooltip, ^iftype_graphic, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize(11, 12, ^setsize_abs, ^setsize_abs);
 cc_setgraphic(graphic_3473);
-.cc_create(playerdesign4:com_125, ^iftype_text, if_getnextsubid(playerdesign4:com_125));
+.cc_create(playerdesign4:tooltip, ^iftype_text, if_getnextsubid(playerdesign4:tooltip));
 .cc_setsize($int6, $int7, ^setsize_abs, ^setsize_abs);
 .cc_setposition(0, 3, ^setpos_abs_centre, ^setpos_abs_top);
 .cc_setcolour(^black);
@@ -88,8 +88,8 @@ $int5 = calc($int0 + $int3 - $int10);
 def_int $int12 = 0;
 if ($int5 < 0) {
     $int12 = calc(0 - $int5);
-} else if (calc($int5 + $int8) > if_getwidth(playerdesign4:com_28)) {
-    $int12 = calc(if_getwidth(playerdesign4:com_28) - ($int5 + $int8));
+} else if (calc($int5 + $int8) > if_getwidth(playerdesign4:black)) {
+    $int12 = calc(if_getwidth(playerdesign4:black) - ($int5 + $int8));
 }
-if_setposition(calc($int5 + $int12), max(calc($int2 - $int9), 0), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com_125);
+if_setposition(calc($int5 + $int12), max(calc($int2 - $int9), 0), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:tooltip);
 cc_setposition(calc(0 - $int12), 0, ^setpos_abs_centre, ^setpos_abs_bottom);

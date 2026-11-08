@@ -1,5 +1,5 @@
 // 1935
 [clientscript,script1935]
-if_sethide(true, sc_reward_shop:com_3);
-if_setcolour(0xc8aa64, sc_reward_shop:com_30);
-~deltooltip_action(sc_reward_shop:com_35);
+if_sethide(true, sc_reward_shop:recharge_highlight_rect);
+if_setcolour(0xc8aa64, sc_reward_shop:recharge_text);
+~deltooltip_action(sc_reward_shop:purchase_tooltip_build);

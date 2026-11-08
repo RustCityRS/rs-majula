@@ -16,7 +16,7 @@ x=262
 y=3
 width=187
 height=324
-layer=com_4
+layer=layer_1
 model=model_28324
 modelorigin=-2,4
 modelangle=535,2038,0
@@ -29,20 +29,20 @@ x=28
 y=3
 width=187
 height=324
-layer=com_4
+layer=layer_1
 model=model_28316
 modelorigin=-2,4
 modelangle=535,2038,0
 modelzoom=679
 
 // 611:3
-[com_3]
+[close_button]
 type=graphic
 x=461
 y=17
 width=26
 height=23
-layer=com_4
+layer=layer_1
 graphic="close_buttons,6"
 colour=0x000000
 onmouseover=graphic_swapper(event_com, "close_buttons,7")
@@ -50,7 +50,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,6")
 onclick=closebutton_click
 
 // 611:4
-[com_4]
+[layer_1]
 type=layer
 width=512
 height=334

@@ -1,5 +1,5 @@
 // 635:0
-[com_0]
+[duel_icon]
 type=graphic
 x=25
 y=25
@@ -17,13 +17,13 @@ y=74
 width=90
 height=131
 xmode=abs_right
-layer=com_33
+layer=text
 colour=0x000000
 fill=yes
 trans=125
 
 // 635:2
-[com_2]
+[potion_lay]
 type=layer
 width=16391
 height=16391
@@ -31,11 +31,11 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=boundingbox
 hide=yes
 
 // 635:3
-[com_3]
+[food_lay]
 type=layer
 width=16391
 height=16391
@@ -43,11 +43,11 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=boundingbox
 hide=yes
 
 // 635:4
-[com_4]
+[prayer_lay]
 type=layer
 width=16391
 height=16391
@@ -55,11 +55,11 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=boundingbox
 hide=yes
 
 // 635:5
-[com_5]
+[spec_att_lay]
 type=layer
 width=16391
 height=16391
@@ -67,7 +67,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=boundingbox
 hide=yes
 
 // 635:6
@@ -79,11 +79,11 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=boundingbox
 hide=yes
 
 // 635:7
-[com_7]
+[healing_lay]
 type=layer
 width=16391
 height=16391
@@ -91,11 +91,11 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=boundingbox
 hide=yes
 
 // 635:8
-[com_8]
+[weaponslot_lay]
 type=layer
 width=16391
 height=16391
@@ -103,11 +103,11 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=boundingbox
 hide=yes
 
 // 635:9
-[com_9]
+[ranged_lay]
 type=layer
 width=16391
 height=16391
@@ -115,11 +115,11 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=boundingbox
 hide=yes
 
 // 635:10
-[com_10]
+[melee_lay]
 type=layer
 width=16391
 height=16391
@@ -127,11 +127,11 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=boundingbox
 hide=yes
 
 // 635:11
-[com_11]
+[magic_lay]
 type=layer
 width=16391
 height=16391
@@ -139,11 +139,11 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=boundingbox
 hide=yes
 
 // 635:12
-[com_12]
+[boundingbox]
 type=layer
 width=16384
 height=16391
@@ -153,85 +153,85 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 635:13
-[com_13]
+[combat_txt]
 type=text
 x=9
 y=30
 width=32
 height=12
-layer=com_33
+layer=text
 textfont=p11_full
 text=Style:
 textshadow=yes
 colour=0xcc9900
 
 // 635:14
-[com_14]
+[options_txt]
 type=text
 x=50
 y=30
 width=32
 height=12
-layer=com_33
+layer=text
 textfont=p11_full
 text=Options:
 textshadow=yes
 colour=0xcc9900
 
 // 635:15
-[com_15]
+[potion]
 type=graphic
 x=23
 y=-4211
 width=25
 height=25
 ymode=proportion_centre
-layer=com_2
+layer=potion_lay
 colour=0xffffffff
-onmouseleave=deltooltip(interface_635:com_25)
-onmouserepeat=addtooltip(event_com, interface_635:com_25, "Potions Allowed", 50, 150)
+onmouseleave=deltooltip(interface_635:tooltip)
+onmouserepeat=addtooltip(event_com, interface_635:tooltip, "Potions Allowed", 50, 150)
 
 // 635:16
-[com_16]
+[food]
 type=graphic
 x=23
 y=-2887
 width=25
 height=25
 ymode=proportion_centre
-layer=com_3
+layer=food_lay
 colour=0xffffffff
-onmouseleave=deltooltip(interface_635:com_25)
-onmouserepeat=addtooltip(event_com, interface_635:com_25, "Food Allowed", 50, 150)
+onmouseleave=deltooltip(interface_635:tooltip)
+onmouserepeat=addtooltip(event_com, interface_635:tooltip, "Food Allowed", 50, 150)
 
 // 635:17
-[com_17]
+[prayer]
 type=graphic
 x=23
 y=-1562
 width=25
 height=25
 ymode=proportion_centre
-layer=com_4
+layer=prayer_lay
 colour=0xffffffff
-onmouseleave=deltooltip(interface_635:com_25)
-onmouserepeat=addtooltip(event_com, interface_635:com_25, "Prayers Allowed", 50, 150)
+onmouseleave=deltooltip(interface_635:tooltip)
+onmouserepeat=addtooltip(event_com, interface_635:tooltip, "Prayers Allowed", 50, 150)
 
 // 635:18
-[com_18]
+[spec_att]
 type=graphic
 x=23
 y=-238
 width=25
 height=25
 ymode=proportion_centre
-layer=com_5
+layer=spec_att_lay
 colour=0xffffffff
-onmouseleave=deltooltip(interface_635:com_25)
-onmouserepeat=addtooltip(event_com, interface_635:com_25, "Special Attacks Allowed", 50, 150)
+onmouseleave=deltooltip(interface_635:tooltip)
+onmouserepeat=addtooltip(event_com, interface_635:tooltip, "Special Attacks Allowed", 50, 150)
 
 // 635:19
-[com_19]
+[sum_lore]
 type=graphic
 x=23
 y=1086
@@ -240,76 +240,76 @@ height=25
 ymode=proportion_centre
 layer=com_6
 colour=0xffffffff
-onmouseleave=deltooltip(interface_635:com_25)
-onmouserepeat=addtooltip(event_com, interface_635:com_25, "Summoning Allowed", 50, 150)
+onmouseleave=deltooltip(interface_635:tooltip)
+onmouserepeat=addtooltip(event_com, interface_635:tooltip, "Summoning Allowed", 50, 150)
 
 // 635:20
-[com_20]
+[healing]
 type=graphic
 x=23
 y=2410
 width=25
 height=25
 ymode=proportion_centre
-layer=com_7
+layer=healing_lay
 colour=0xffffffff
-onmouseleave=deltooltip(interface_635:com_25)
-onmouserepeat=addtooltip(event_com, interface_635:com_25, "Healing Between Rounds", 50, 150)
+onmouseleave=deltooltip(interface_635:tooltip)
+onmouserepeat=addtooltip(event_com, interface_635:tooltip, "Healing Between Rounds", 50, 150)
 
 // 635:21
-[com_21]
+[weaponslot]
 type=graphic
 x=23
 y=2410
 width=25
 height=25
 ymode=proportion_centre
-layer=com_8
+layer=weaponslot_lay
 colour=0xffffffff
-onmouseleave=deltooltip(interface_635:com_25)
-onmouserepeat=addtooltip(event_com, interface_635:com_25, "Weapon Slots Only", 50, 150)
+onmouseleave=deltooltip(interface_635:tooltip)
+onmouserepeat=addtooltip(event_com, interface_635:tooltip, "Weapon Slots Only", 50, 150)
 
 // 635:22
-[com_22]
+[ranged]
 type=graphic
 x=23
 y=3735
 width=25
 height=25
 ymode=proportion_centre
-layer=com_9
+layer=ranged_lay
 colour=0xffffffff
-onmouseleave=deltooltip(interface_635:com_25)
-onmouserepeat=addtooltip(event_com, interface_635:com_25, "Ranged Combat Allowed", 50, 150)
+onmouseleave=deltooltip(interface_635:tooltip)
+onmouserepeat=addtooltip(event_com, interface_635:tooltip, "Ranged Combat Allowed", 50, 150)
 
 // 635:23
-[com_23]
+[melee]
 type=graphic
 x=23
 y=5059
 width=25
 height=25
 ymode=proportion_centre
-layer=com_10
+layer=melee_lay
 colour=0xffffffff
-onmouseleave=deltooltip(interface_635:com_25)
-onmouserepeat=addtooltip(event_com, interface_635:com_25, "Melee Combat Allowed", 50, 150)
+onmouseleave=deltooltip(interface_635:tooltip)
+onmouserepeat=addtooltip(event_com, interface_635:tooltip, "Melee Combat Allowed", 50, 150)
 
 // 635:24
-[com_24]
+[magic]
 type=graphic
 x=23
 y=6384
 width=25
 height=25
 ymode=proportion_centre
-layer=com_11
+layer=magic_lay
 colour=0xffffffff
-onmouseleave=deltooltip(interface_635:com_25)
-onmouserepeat=addtooltip(event_com, interface_635:com_25, "Magic Combat Allowed", 50, 150)
+onmouseleave=deltooltip(interface_635:tooltip)
+onmouserepeat=addtooltip(event_com, interface_635:tooltip, "Magic Combat Allowed", 50, 150)
 
 // 635:25
-[com_25]
+[tooltip]
 type=layer
 x=-19
 y=30
@@ -318,19 +318,19 @@ height=2606
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_12
+layer=boundingbox
 onload=script565
 onvartransmit=script565{varplayer_286}
 
 // 635:26
-[com_26]
+[warn]
 type=text
 y=9
 width=254
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_33
+layer=text
 textfont=p11_full
 textshadow=yes
 colour=0xcc0000
@@ -343,21 +343,21 @@ y=176
 width=80
 height=12
 xmode=abs_right
-layer=com_33
+layer=text
 textfont=p11_full
 text=Time left:
 textshadow=yes
 colour=0xcc9900
 
 // 635:28
-[com_28]
+[time_left]
 type=text
 x=15
 y=188
 width=75
 height=12
 xmode=abs_right
-layer=com_33
+layer=text
 textfont=p11_full
 textshadow=yes
 colour=0xcc9900
@@ -370,21 +370,21 @@ y=152
 width=80
 height=12
 xmode=abs_right
-layer=com_33
+layer=text
 textfont=p11_full
 text=Entry Fee:
 textshadow=yes
 colour=0xcc9900
 
 // 635:30
-[com_30]
+[entry_fee]
 type=text
 x=15
 y=164
 width=75
 height=12
 xmode=abs_right
-layer=com_33
+layer=text
 textfont=p11_full
 textshadow=yes
 colour=0xcc9900
@@ -397,27 +397,27 @@ y=128
 width=80
 height=12
 xmode=abs_right
-layer=com_33
+layer=text
 textfont=p11_full
 text=Tourn. Value:
 textshadow=yes
 colour=0xcc9900
 
 // 635:32
-[com_32]
+[kval]
 type=text
 x=15
 y=140
 width=75
 height=12
 xmode=abs_right
-layer=com_33
+layer=text
 textfont=p11_full
 textshadow=yes
 colour=0xcc9900
 
 // 635:33
-[com_33]
+[text]
 type=layer
 width=16391
 height=16391
@@ -427,7 +427,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 635:34
-[com_34]
+[rank]
 type=layer
 y=50
 width=16391
@@ -437,14 +437,14 @@ heightmode=proportion
 xmode=abs_right
 
 // 635:35
-[com_35]
+[npc_num]
 type=text
 x=15
 y=42
 width=75
 height=12
 xmode=abs_right
-layer=com_34
+layer=rank
 textfont=p11_full
 textshadow=yes
 colour=0xcc9900
@@ -458,35 +458,35 @@ y=30
 width=80
 height=12
 xmode=abs_right
-layer=com_34
+layer=rank
 textfont=p11_full
 text=Registrar:
 textshadow=yes
 colour=0xcc9900
 
 // 635:37
-[com_37]
+[tourn_rank_txt]
 type=text
 x=10
 y=54
 width=80
 height=12
 xmode=abs_right
-layer=com_34
+layer=rank
 textfont=p11_full
 text=Tourn. Rank:
 textshadow=yes
 colour=0xcc9900
 
 // 635:38
-[com_38]
+[tourn_rank]
 type=text
 x=30
 y=66
 width=60
 height=12
 xmode=abs_right
-layer=com_34
+layer=rank
 textfont=p11_full
 textshadow=yes
 colour=0xcc9900

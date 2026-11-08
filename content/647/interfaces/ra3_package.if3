@@ -1,0 +1,153 @@
+// 887:0
+[com_0]
+type=model
+x=15
+y=3
+width=475
+height=323
+model=model_48505
+modelorigin=-66,10
+modelangle=512,3,0
+modelzoom=160
+onvartransmit=ra3_package_update_interface{varplayer_1498}
+oninvtransmit=ra3_package_update_interface{inv, bank}
+
+// 887:1
+[box]
+type=model
+x=51
+y=17
+width=417
+height=308
+model=model_48507
+modelorigin=-11,83
+modelangle=318,69,0
+modelzoom=416
+
+// 887:2
+[bowl]
+type=model
+x=226
+y=229
+width=52
+height=36
+model=model_48518
+modelorigin=0,5
+modelangle=231,1804,0
+modelzoom=1312
+transmitop=1
+opbase=Metal Bowl
+op1=Take
+opcursor0=cursor_45
+
+// 887:3
+[sheet]
+type=model
+x=305
+y=191
+width=41
+height=38
+model=model_48511
+modelorigin=0,-2
+modelangle=303,1648,0
+modelzoom=672
+transmitop=1
+opbase=Metal Rectangle
+op1=Take
+opcursor0=cursor_45
+
+// 887:4
+[boot]
+type=model
+x=289
+y=230
+width=48
+height=49
+model=model_48510
+modelorigin=-2,11
+modelangle=174,1774,0
+modelzoom=672
+transmitop=1
+opbase=Boot
+op1=Take
+opcursor0=cursor_45
+
+// 887:5
+[handled_rod]
+type=model
+x=147
+y=171
+width=44
+height=74
+model=model_48515
+modelorigin=0,-1
+modelangle=630,114,0
+modelzoom=800
+transmitop=1
+opbase=Metal Rod
+op1=Take
+opcursor0=cursor_45
+
+// 887:6
+[turn_screw]
+type=model
+x=190
+y=187
+width=33
+height=67
+model=model_48516
+modelorigin=0,-1
+modelangle=546,636,0
+modelzoom=288
+transmitop=1
+opbase=Turnscrew
+op1=Take
+opcursor0=cursor_45
+
+// 887:7
+[yellow_stone]
+type=model
+x=268
+y=187
+width=30
+height=35
+model=model_8681
+modelorigin=0,5
+modelangle=300,1830,0
+modelzoom=416
+transmitop=1
+opbase=Yellow Stone
+op1=Take
+opcursor0=cursor_45
+
+// 887:8
+[green_stone]
+type=model
+x=231
+y=178
+width=30
+height=34
+model=model_8680
+modelorigin=0,6
+modelangle=276,1831,0
+modelzoom=416
+transmitop=1
+opbase=Green Stone
+op1=Take
+opcursor0=cursor_45
+
+// 887:9
+[close_button]
+type=graphic
+x=433
+y=38
+width=26
+height=23
+graphic="close_buttons,6"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click

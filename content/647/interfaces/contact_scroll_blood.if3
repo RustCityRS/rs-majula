@@ -5,20 +5,20 @@ x=13
 y=37
 width=485
 height=282
-layer=com_5
+layer=content_layer
 model=model_3032
 modelorigin=1,-25
 modelangle=400,0,0
 modelzoom=604
 
 // 498:1
-[com_1]
+[contact_scroll_text]
 type=text
 x=99
 y=93
 width=320
 height=181
-layer=com_5
+layer=content_layer
 textfont=p12_full
 text=Kaleef<br><br>Your mission is to contact our agent inside Menaphos.<br>Use the tunnels beneath the temple of lesser gods.<br>Be vigilant of traps and the hostile natives.<br> They're about as welcoming as the Menaphites only slightly better looking.<br><br>Os
 textlineheight=17
@@ -33,7 +33,7 @@ x=102
 y=87
 width=315
 height=195
-layer=com_5
+layer=content_layer
 model=model_20733
 modelorigin=-9,-33
 modelangle=406,0,0
@@ -46,7 +46,7 @@ x=379
 y=80
 width=26
 height=23
-layer=com_5
+layer=content_layer
 graphic="close_buttons,2"
 colour=0x000000
 transmitop=1
@@ -56,17 +56,17 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,2")
 onop=closebutton_click
 
 // 498:4
-[com_4]
+[contact_scroll_blood_close]
 type=layer
 x=376
 y=72
 width=32
 height=32
-layer=com_5
+layer=content_layer
 hide=yes
 
 // 498:5
-[com_5]
+[content_layer]
 type=layer
 x=7
 width=512

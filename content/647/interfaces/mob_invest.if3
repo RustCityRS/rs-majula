@@ -8,13 +8,13 @@ transmitop=10
 op10=  
 
 // 862:1
-[com_1]
+[offer_title]
 type=text
 x=23
 y=66
 width=48
 height=16
-layer=com_29
+layer=content
 textfont=b12_full
 text=Items offered:
 textalignv=centre
@@ -32,30 +32,30 @@ width=14791
 height=1723
 widthmode=proportion
 heightmode=proportion
-layer=com_29
+layer=content
 colour=0x000000
 transmitop=10
 op10= 
 
 // 862:3
-[com_3]
+[side_lay]
 type=layer
 x=27
 y=85
 width=452
 height=35
-layer=com_29
+layer=content
 transmitop=10
 op10=  
 
 // 862:4
-[com_4]
+[invest]
 type=layer
 x=408
 y=124
 width=75
 height=32
-layer=com_29
+layer=content
 transmitop=1
 op1=Exchange
 onload=v2_stone_button(event_com)
@@ -63,13 +63,13 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 862:5
-[com_5]
+[invest_total_title]
 type=text
 x=30
 y=123
 width=115
 height=33
-layer=com_29
+layer=content
 textfont=p12_full
 text=Current investment credits:
 textalignv=centre
@@ -79,13 +79,13 @@ transmitop=10
 op10=  
 
 // 862:6
-[com_6]
+[invested_field]
 type=text
 x=155
 y=123
 width=56
 height=33
-layer=com_29
+layer=content
 textfont=p11_full
 text=0
 textalignv=centre
@@ -102,7 +102,7 @@ x=229
 y=123
 width=101
 height=33
-layer=com_29
+layer=content
 textfont=p12_full
 text=Value of offered commodities:
 textalignv=centre
@@ -112,13 +112,13 @@ transmitop=10
 op10=  
 
 // 862:8
-[com_8]
+[product_field]
 type=text
 x=338
 y=123
 width=56
 height=33
-layer=com_29
+layer=content
 textfont=p11_full
 text=0
 textalignv=centre
@@ -129,13 +129,13 @@ op10=
 onvartransmit=script2491{varplayer_1452}
 
 // 862:9
-[com_9]
+[explanation]
 type=text
 x=20
 y=162
 width=466
 height=20
-layer=com_29
+layer=content
 textfont=p11_full
 text=Select items from your inventory to exchange for investment credit. You can use investment credit to hire squads, buy special units and invest in a scenario. Prices are based on selling to general stores.
 textalignh=centre
@@ -146,25 +146,25 @@ transmitop=10
 op10=  
 
 // 862:10
-[com_10]
+[specials]
 type=layer
 x=14
 y=188
 width=472
 height=122
-layer=com_29
+layer=content
 
 // 862:11
-[com_11]
+[tooltip]
 type=layer
 x=4
 y=-69
 width=100
 height=334
-layer=com_10
+layer=specials
 
 // 862:12
-[com_12]
+[background_1]
 type=graphic
 x=17
 y=26
@@ -179,7 +179,7 @@ opbase=
 op10=   
 
 // 862:13
-[com_13]
+[left_side]
 type=graphic
 y=26
 width=38
@@ -193,7 +193,7 @@ opbase=
 op10=   
 
 // 862:14
-[com_14]
+[right_side]
 type=graphic
 x=479
 y=26
@@ -208,7 +208,7 @@ opbase=
 op10=   
 
 // 862:15
-[com_15]
+[bottom]
 type=graphic
 x=22
 y=283
@@ -222,7 +222,7 @@ transmitop=10
 op10=   
 
 // 862:16
-[com_16]
+[top]
 type=graphic
 x=14
 y=10
@@ -237,7 +237,7 @@ opbase=
 op10=   
 
 // 862:17
-[com_17]
+[bottom_right]
 type=graphic
 x=467
 y=271
@@ -251,7 +251,7 @@ opbase=
 op10=   
 
 // 862:18
-[com_18]
+[bottom_left]
 type=graphic
 x=13
 y=271
@@ -264,7 +264,7 @@ transmitop=10
 op10=   
 
 // 862:19
-[com_19]
+[top_left]
 type=graphic
 x=13
 y=23
@@ -278,7 +278,7 @@ opbase=
 op10=   
 
 // 862:20
-[com_20]
+[top_right]
 type=graphic
 x=467
 y=23
@@ -292,7 +292,7 @@ opbase=
 op10=   
 
 // 862:21
-[com_21]
+[title_bar]
 type=graphic
 x=16
 y=38
@@ -306,7 +306,7 @@ transmitop=10
 op10=   
 
 // 862:22
-[com_22]
+[title_1]
 type=graphic
 x=20
 y=170
@@ -320,7 +320,7 @@ transmitop=10
 op10=   
 
 // 862:23
-[com_23]
+[left_joint]
 type=graphic
 x=13
 y=40
@@ -334,7 +334,7 @@ transmitop=10
 op10=   
 
 // 862:24
-[com_24]
+[left_joint_1]
 type=graphic
 x=13
 y=172
@@ -348,7 +348,7 @@ transmitop=10
 op10=   
 
 // 862:25
-[com_25]
+[right_joint]
 type=graphic
 x=467
 y=40
@@ -362,7 +362,7 @@ transmitop=10
 op10=   
 
 // 862:26
-[com_26]
+[right_joint_1]
 type=graphic
 x=467
 y=172
@@ -376,7 +376,7 @@ transmitop=10
 op10=   
 
 // 862:27
-[com_27]
+[close_button]
 type=graphic
 x=471
 y=32
@@ -393,7 +393,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 862:28
-[com_28]
+[title]
 type=text
 x=23
 y=32
@@ -410,14 +410,14 @@ transmitop=10
 op10=  
 
 // 862:29
-[com_29]
+[content]
 type=layer
 x=3
 width=512
 height=334
 
 // 862:30
-[com_30]
+[confirm_layer]
 type=layer
 x=-70
 y=45
@@ -429,13 +429,13 @@ hide=yes
 noclickthrough=yes
 
 // 862:31
-[com_31]
+[background_2]
 type=graphic
 x=159
 y=6
 width=457
 height=174
-layer=com_30
+layer=confirm_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -444,13 +444,13 @@ opbase=
 op10=   
 
 // 862:32
-[com_32]
+[top_1]
 type=graphic
 x=156
 y=4
 width=32
 height=32
-layer=com_30
+layer=confirm_layer
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 transmitop=10
@@ -458,26 +458,26 @@ opbase=
 op10=   
 
 // 862:33
-[com_33]
+[bottom_2]
 type=graphic
 x=156
 y=148
 width=32
 height=32
-layer=com_30
+layer=confirm_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 862:34
-[com_34]
+[bottom_right_1]
 type=graphic
 x=589
 y=148
 width=32
 height=32
-layer=com_30
+layer=confirm_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -485,13 +485,13 @@ opbase=
 op10=   
 
 // 862:35
-[com_35]
+[top_right_1]
 type=graphic
 x=589
 y=4
 width=32
 height=32
-layer=com_30
+layer=confirm_layer
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 transmitop=10
@@ -499,13 +499,13 @@ opbase=
 op10=   
 
 // 862:36
-[com_36]
+[right_1]
 type=graphic
 x=601
 y=26
 width=29
 height=133
-layer=com_30
+layer=confirm_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -514,13 +514,13 @@ opbase=
 op10=   
 
 // 862:37
-[com_37]
+[bottom_1]
 type=graphic
 x=172
 y=160
 width=420
 height=29
-layer=com_30
+layer=confirm_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -528,13 +528,13 @@ transmitop=10
 op10=   
 
 // 862:38
-[com_38]
+[top_2]
 type=graphic
 x=178
 y=-9
 width=421
 height=41
-layer=com_30
+layer=confirm_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -543,13 +543,13 @@ opbase=
 op10=   
 
 // 862:39
-[com_39]
+[left_1]
 type=graphic
 x=143
 y=17
 width=41
 height=143
-layer=com_30
+layer=confirm_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -558,13 +558,13 @@ opbase=
 op10=   
 
 // 862:40
-[com_40]
+[text_layer]
 type=layer
 x=162
 y=10
 width=453
 height=161
-layer=com_30
+layer=confirm_layer
 
 // 862:41
 [com_41]
@@ -573,7 +573,7 @@ y=10
 width=239
 height=39
 xmode=abs_centre
-layer=com_40
+layer=text_layer
 textfont=b12_full
 text=Exchange these items for investment credit?
 textlineheight=18
@@ -592,7 +592,7 @@ y=86
 width=223
 height=23
 xmode=abs_centre
-layer=com_40
+layer=text_layer
 textfont=p12_full
 text=Total value of selected commodities:
 textalignv=centre
@@ -602,13 +602,13 @@ transmitop=10
 op10=  
 
 // 862:43
-[com_43]
+[product_field_1]
 type=text
 x=335
 y=86
 width=65
 height=21
-layer=com_40
+layer=text_layer
 textfont=p11_full
 text=0
 textalignv=centre
@@ -625,7 +625,7 @@ x=99
 y=59
 width=199
 height=21
-layer=com_40
+layer=text_layer
 textfont=p12_full
 text=Current total investment credits:
 textalignv=centre
@@ -635,13 +635,13 @@ transmitop=10
 op10=  
 
 // 862:45
-[com_45]
+[invested_field_1]
 type=text
 x=335
 y=59
 width=65
 height=21
-layer=com_40
+layer=text_layer
 textfont=p11_full
 text=0
 textalignv=centre
@@ -652,13 +652,13 @@ op10=
 onvartransmit=script2491{varplayer_1452}
 
 // 862:46
-[com_46]
+[invest_final]
 type=layer
 x=266
 y=117
 width=75
 height=32
-layer=com_40
+layer=text_layer
 transmitop=1
 op1=Exchange
 onload=v2_stone_button(event_com)
@@ -666,13 +666,13 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 862:47
-[com_47]
+[cancel]
 type=layer
 x=116
 y=118
 width=75
 height=32
-layer=com_40
+layer=text_layer
 transmitop=1
 op1=Cancel
 onload=v2_stone_button(event_com)
@@ -680,13 +680,13 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 862:48
-[com_48]
+[cancel_txt]
 type=text
 width=37
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_47
+layer=cancel
 textfont=b12_full
 text=Cancel
 textalignh=centre
@@ -697,14 +697,14 @@ transmitop=10
 op10=    
 
 // 862:49
-[com_49]
+[buy_title_1]
 type=text
 x=1
 width=66
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=invest_final
 textfont=b12_full
 text=Exchange
 textalignh=centre
@@ -715,97 +715,97 @@ transmitop=10
 op10=    
 
 // 862:50
-[com_50]
+[special_item1]
 type=graphic
 x=35
 y=47
 width=32
 height=32
-layer=com_10
+layer=specials
 colour=0xffffffff
 transmitop=1
 op1=Examine
 
 // 862:51
-[com_51]
+[special_item2]
 type=graphic
 x=110
 y=47
 width=32
 height=32
-layer=com_10
+layer=specials
 colour=0xffffffff
 transmitop=1
 op1=Examine
 
 // 862:52
-[com_52]
+[special_item3]
 type=graphic
 x=185
 y=47
 width=32
 height=32
-layer=com_10
+layer=specials
 colour=0xffffffff
 transmitop=1
 op1=Examine
 
 // 862:53
-[com_53]
+[special_item4]
 type=graphic
 x=260
 y=47
 width=32
 height=32
-layer=com_10
+layer=specials
 colour=0xffffffff
 transmitop=1
 op1=Examine
 
 // 862:54
-[com_54]
+[special_item5]
 type=graphic
 x=335
 y=46
 width=32
 height=32
-layer=com_10
+layer=specials
 colour=0xffffffff
 transmitop=1
 op1=Examine
 
 // 862:55
-[com_55]
+[special_item6]
 type=graphic
 x=410
 y=47
 width=32
 height=32
-layer=com_10
+layer=specials
 colour=0xffffffff
 transmitop=1
 op1=Examine
 
 // 862:56
-[com_56]
+[rect]
 type=rectangle
 x=8
 y=43
 width=460
 height=67
-layer=com_10
+layer=specials
 colour=0x000000
 transmitop=10
 op10= 
 
 // 862:57
-[com_57]
+[item_price1]
 type=text
 x=27
 y=82
 width=47
 height=25
-layer=com_10
+layer=specials
 textfont=p11_full
 text=2350 gp
 textlineheight=12
@@ -815,13 +815,13 @@ textshadow=yes
 colour=0xff9933
 
 // 862:58
-[com_58]
+[item_price2]
 type=text
 x=102
 y=82
 width=47
 height=25
-layer=com_10
+layer=specials
 textfont=p11_full
 text=2350 gp
 textlineheight=12
@@ -831,13 +831,13 @@ textshadow=yes
 colour=0xff9933
 
 // 862:59
-[com_59]
+[item_price3]
 type=text
 x=177
 y=82
 width=47
 height=25
-layer=com_10
+layer=specials
 textfont=p11_full
 text=2350 gp
 textlineheight=12
@@ -847,13 +847,13 @@ textshadow=yes
 colour=0xff9933
 
 // 862:60
-[com_60]
+[item_price4]
 type=text
 x=253
 y=82
 width=47
 height=25
-layer=com_10
+layer=specials
 textfont=p11_full
 text=2350 gp
 textlineheight=12
@@ -863,13 +863,13 @@ textshadow=yes
 colour=0xff9933
 
 // 862:61
-[com_61]
+[item_price5]
 type=text
 x=328
 y=81
 width=47
 height=25
-layer=com_10
+layer=specials
 textfont=p11_full
 text=2350 gp
 textlineheight=12
@@ -879,13 +879,13 @@ textshadow=yes
 colour=0xff9933
 
 // 862:62
-[com_62]
+[item_price6]
 type=text
 x=402
 y=82
 width=47
 height=25
-layer=com_10
+layer=specials
 textfont=p11_full
 text=2350 gp
 textlineheight=12
@@ -895,13 +895,13 @@ textshadow=yes
 colour=0xff9933
 
 // 862:63
-[com_63]
+[special_title]
 type=text
 y=10
 width=327
 height=16
 xmode=abs_centre
-layer=com_10
+layer=specials
 textfont=p12_full
 text=~ Wanted items ~
 textalignh=centre
@@ -913,13 +913,13 @@ op10=
 onvarcstrtransmit=mob_invest_tooltips{varclient_1703, varclient_1704, varclient_1705, varclient_1706, varclient_1707, varclient_1708}
 
 // 862:64
-[com_64]
+[special_desc]
 type=text
 y=26
 width=370
 height=17
 xmode=abs_centre
-layer=com_10
+layer=specials
 textfont=p11_full
 text=( The following items are worthwhile ideas for you to invest )
 textalignh=centre
@@ -930,13 +930,13 @@ transmitop=10
 op10=  
 
 // 862:65
-[com_65]
+[buy_title]
 type=text
 width=37
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=invest
 textfont=b12_full
 text=Exchange
 textalignh=centre

@@ -3,7 +3,7 @@
 type=graphic
 width=80
 height=40
-layer=com_50
+layer=layer_8
 graphic=artisan_sword_back
 
 // 1074:1
@@ -12,7 +12,7 @@ type=graphic
 x=80
 width=80
 height=40
-layer=com_50
+layer=layer_8
 graphic=artisan_sword_back
 
 // 1074:2
@@ -21,7 +21,7 @@ type=graphic
 x=160
 width=80
 height=40
-layer=com_50
+layer=layer_8
 graphic=artisan_sword_back
 
 // 1074:3
@@ -30,7 +30,7 @@ type=graphic
 x=240
 width=80
 height=40
-layer=com_50
+layer=layer_8
 graphic=artisan_sword_back
 
 // 1074:4
@@ -39,7 +39,7 @@ type=graphic
 y=40
 width=80
 height=40
-layer=com_50
+layer=layer_8
 graphic=artisan_sword_back
 vflip=yes
 
@@ -50,7 +50,7 @@ x=80
 y=40
 width=80
 height=40
-layer=com_50
+layer=layer_8
 graphic=artisan_sword_back
 vflip=yes
 
@@ -61,7 +61,7 @@ x=160
 y=40
 width=80
 height=40
-layer=com_50
+layer=layer_8
 graphic=artisan_sword_back
 vflip=yes
 
@@ -72,18 +72,18 @@ x=240
 y=40
 width=80
 height=40
-layer=com_50
+layer=layer_8
 graphic=artisan_sword_back
 vflip=yes
 
 // 1074:8
-[com_8]
+[layer_9]
 type=layer
 x=-22
 y=-49
 width=573
 height=403
-layer=com_68
+layer=layer_7
 
 // 1074:9
 [com_9]
@@ -111,7 +111,7 @@ type=graphic
 y=3
 width=27
 height=12
-layer=com_18
+layer=pointer
 graphic=artisan_sword_gauge_marker
 
 // 1074:12
@@ -120,7 +120,7 @@ type=graphic
 width=16391
 height=111
 widthmode=proportion
-layer=com_68
+layer=layer_7
 graphic=graphic_4704
 graphicshadow=16776958
 
@@ -131,7 +131,7 @@ x=10
 y=21
 width=35
 height=66
-layer=com_68
+layer=layer_7
 graphic=artisan_down_edge_mid
 
 // 1074:14
@@ -141,7 +141,7 @@ x=45
 y=21
 width=35
 height=66
-layer=com_68
+layer=layer_7
 graphic=artisan_down_edge_mid
 hflip=yes
 
@@ -152,20 +152,20 @@ x=16
 y=25
 width=67
 height=18
-layer=com_68
+layer=layer_7
 textfont=p12_full
 text=Cooldown:
 textshadow=yes
 colour=0xfffffe
 
 // 1074:16
-[com_16]
+[countdown]
 type=text
 x=44
 y=48
 width=32
 height=32
-layer=com_68
+layer=layer_7
 textfont=welcome_font_large
 text=00
 textshadow=yes
@@ -178,24 +178,24 @@ x=3
 y=2
 width=21
 height=118
-layer=com_61
+layer=layer_6
 graphic=artisan_gauge
 vflip=yes
 
 // 1074:18
-[com_18]
+[pointer]
 type=layer
 y=4
 width=27
 height=18
-layer=com_61
+layer=layer_6
 
 // 1074:19
 [com_19]
 type=graphic
 width=370
 height=134
-layer=com_69
+layer=layer_4
 graphic=graphic_4707
 outline=2
 graphicshadow=16776958
@@ -207,7 +207,7 @@ type=line
 x=42
 y=1
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -217,7 +217,7 @@ type=line
 x=82
 y=1
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -227,7 +227,7 @@ type=line
 x=122
 y=1
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -237,7 +237,7 @@ type=line
 x=162
 y=1
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -247,7 +247,7 @@ type=line
 x=202
 y=1
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -257,7 +257,7 @@ type=line
 x=242
 y=1
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -267,7 +267,7 @@ type=line
 x=282
 y=1
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -277,7 +277,7 @@ type=line
 x=122
 y=108
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -287,7 +287,7 @@ type=line
 x=82
 y=108
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -297,7 +297,7 @@ type=line
 x=42
 y=108
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -307,7 +307,7 @@ type=line
 x=162
 y=108
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -317,7 +317,7 @@ type=line
 x=202
 y=108
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -327,7 +327,7 @@ type=line
 x=242
 y=108
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -337,7 +337,7 @@ type=line
 x=282
 y=108
 height=22
-layer=com_69
+layer=layer_4
 linewid=2
 colour=0x010000
 
@@ -348,7 +348,7 @@ x=15
 y=5
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 colour=0xffffffff
 
@@ -359,7 +359,7 @@ x=52
 y=5
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 colour=0xffffffff
 transmitop=10
@@ -372,7 +372,7 @@ x=92
 y=5
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:37
@@ -382,7 +382,7 @@ x=132
 y=5
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:38
@@ -392,7 +392,7 @@ x=172
 y=5
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:39
@@ -402,7 +402,7 @@ x=212
 y=5
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:40
@@ -412,7 +412,7 @@ x=252
 y=5
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:41
@@ -422,7 +422,7 @@ x=332
 y=5
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:42
@@ -432,7 +432,7 @@ x=15
 y=111
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:43
@@ -442,7 +442,7 @@ x=52
 y=111
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:44
@@ -452,7 +452,7 @@ x=92
 y=111
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:45
@@ -462,7 +462,7 @@ x=132
 y=111
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:46
@@ -472,7 +472,7 @@ x=172
 y=111
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:47
@@ -482,7 +482,7 @@ x=212
 y=111
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:48
@@ -492,7 +492,7 @@ x=252
 y=111
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:49
@@ -502,29 +502,29 @@ x=332
 y=111
 width=18
 height=18
-layer=com_69
+layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:50
-[com_50]
+[layer_8]
 type=layer
 x=21
 y=27
 width=320
 height=80
-layer=com_69
+layer=layer_4
 
 // 1074:51
-[com_51]
+[layer_1]
 type=layer
 x=21
 y=27
 width=320
 height=80
-layer=com_69
+layer=layer_4
 
 // 1074:52
-[com_52]
+[layer_2]
 type=layer
 x=-6
 y=8
@@ -538,7 +538,7 @@ x=29
 y=169
 width=6
 height=134
-layer=com_52
+layer=layer_2
 graphic=graphic_4705
 
 // 1074:54
@@ -548,7 +548,7 @@ x=119
 y=169
 width=6
 height=134
-layer=com_52
+layer=layer_2
 graphic=graphic_4705
 hflip=yes
 
@@ -559,7 +559,7 @@ x=35
 y=169
 width=84
 height=134
-layer=com_52
+layer=layer_2
 graphic=graphic_4704
 
 // 1074:56
@@ -569,7 +569,7 @@ x=125
 y=41
 width=366
 height=111
-layer=com_52
+layer=layer_2
 graphic=graphic_4704
 
 // 1074:57
@@ -579,7 +579,7 @@ x=40
 y=181
 width=32
 height=32
-layer=com_52
+layer=layer_2
 textfont=p12_full
 text=Hard
 textshadow=yes
@@ -591,7 +591,7 @@ x=40
 y=211
 width=49
 height=33
-layer=com_52
+layer=layer_2
 textfont=p12_full
 text=Medium
 textshadow=yes
@@ -603,7 +603,7 @@ x=40
 y=241
 width=49
 height=33
-layer=com_52
+layer=layer_2
 textfont=p12_full
 text=Soft
 textshadow=yes
@@ -615,19 +615,19 @@ x=40
 y=271
 width=49
 height=33
-layer=com_52
+layer=layer_2
 textfont=p12_full
 text=Careful
 textshadow=yes
 
 // 1074:61
-[com_61]
+[layer_6]
 type=layer
 x=89
 y=175
 width=27
 height=121
-layer=com_52
+layer=layer_2
 
 // 1074:62
 [com_62]
@@ -636,7 +636,7 @@ x=35
 y=175
 width=85
 height=33
-layer=com_52
+layer=layer_2
 transmitop=1
 candrop=yes
 op1=Select
@@ -651,7 +651,7 @@ x=35
 y=208
 width=85
 height=32
-layer=com_52
+layer=layer_2
 transmitop=1
 candrop=yes
 op1=Select
@@ -666,7 +666,7 @@ x=35
 y=240
 width=85
 height=30
-layer=com_52
+layer=layer_2
 transmitop=1
 candrop=yes
 op1=Select
@@ -681,7 +681,7 @@ x=35
 y=270
 width=85
 height=30
-layer=com_52
+layer=layer_2
 transmitop=1
 candrop=yes
 op1=Select
@@ -690,49 +690,49 @@ onmouseover=script4188(event_com)
 onmouseleave=script4189(event_com)
 
 // 1074:66
-[com_66]
+[layer_5]
 type=layer
 x=148
 y=57
 width=320
 height=80
-layer=com_52
+layer=layer_2
 
 // 1074:67
-[com_67]
+[layer_3]
 type=layer
 x=148
 y=57
 width=320
 height=80
-layer=com_52
+layer=layer_2
 
 // 1074:68
-[com_68]
+[layer_7]
 type=layer
 x=28
 y=41
 width=90
 height=111
-layer=com_52
+layer=layer_2
 
 // 1074:69
-[com_69]
+[layer_4]
 type=layer
 x=126
 y=169
 width=366
 height=134
-layer=com_52
+layer=layer_2
 
 // 1074:70
-[com_70]
+[grid_layer]
 type=layer
 x=6
 y=-8
 width=512
 height=334
-layer=com_52
+layer=layer_2
 
 // 1074:71
 [com_71]
@@ -741,18 +741,18 @@ x=145
 y=67
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
 colour=0xff9603
 
 // 1074:72
-[com_72]
+[button1]
 type=layer
 width=42
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -764,7 +764,7 @@ onmouseleave=script4194(event_com)
 type=graphic
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 
@@ -774,7 +774,7 @@ type=graphic
 x=40
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -786,7 +786,7 @@ type=graphic
 x=80
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -798,7 +798,7 @@ type=graphic
 x=120
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -810,7 +810,7 @@ type=graphic
 x=160
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -822,7 +822,7 @@ type=graphic
 x=200
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -834,7 +834,7 @@ type=graphic
 x=240
 width=80
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword2b,0"
 colour=0xffffffff
 transmitop=10
@@ -846,7 +846,7 @@ type=graphic
 y=40
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -859,7 +859,7 @@ x=40
 y=40
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -872,7 +872,7 @@ x=80
 y=40
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -885,7 +885,7 @@ x=120
 y=40
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -898,7 +898,7 @@ x=160
 y=40
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -911,7 +911,7 @@ x=200
 y=40
 width=40
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -924,136 +924,136 @@ x=240
 y=40
 width=80
 height=40
-layer=com_67
+layer=layer_3
 graphic="sword2b,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 1074:87
-[com_87]
+[graphic1]
 type=graphic
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 
 // 1074:88
-[com_88]
+[graphic2]
 type=graphic
 x=40
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 
 // 1074:89
-[com_89]
+[graphic3]
 type=graphic
 x=80
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 
 // 1074:90
-[com_90]
+[graphic4]
 type=graphic
 x=120
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 
 // 1074:91
-[com_91]
+[graphic5]
 type=graphic
 x=160
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 
 // 1074:92
-[com_92]
+[graphic6]
 type=graphic
 x=200
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 
 // 1074:93
-[com_93]
+[graphic7]
 type=graphic
 x=240
 width=80
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword2b,0"
 colour=0xffffffff
 
 // 1074:94
-[com_94]
+[graphic8]
 type=graphic
 y=40
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 
 // 1074:95
-[com_95]
+[graphic9]
 type=graphic
 x=40
 y=40
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 
 // 1074:96
-[com_96]
+[graphic10]
 type=graphic
 x=80
 y=40
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1074:97
-[com_97]
+[graphic11]
 type=graphic
 x=120
 y=40
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1074:98
-[com_98]
+[graphic12]
 type=graphic
 x=160
 y=40
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -1066,7 +1066,7 @@ x=200
 y=40
 width=40
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword1b,0"
 colour=0xffffffff
 transmitop=10
@@ -1079,19 +1079,19 @@ x=240
 y=40
 width=80
 height=40
-layer=com_51
+layer=layer_1
 graphic="sword2b,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1074:101
-[com_101]
+[button2]
 type=layer
 x=42
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1099,12 +1099,12 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:102
-[com_102]
+[button3]
 type=layer
 x=82
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1112,12 +1112,12 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:103
-[com_103]
+[button4]
 type=layer
 x=122
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1125,12 +1125,12 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:104
-[com_104]
+[button5]
 type=layer
 x=162
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1138,12 +1138,12 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:105
-[com_105]
+[button6]
 type=layer
 x=202
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1151,12 +1151,12 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:106
-[com_106]
+[button7]
 type=layer
 x=242
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1164,12 +1164,12 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:107
-[com_107]
+[button8]
 type=layer
 x=282
 width=84
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1177,12 +1177,12 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:108
-[com_108]
+[button9]
 type=layer
 y=107
 width=42
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1190,13 +1190,13 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:109
-[com_109]
+[button10]
 type=layer
 x=42
 y=107
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1204,13 +1204,13 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:110
-[com_110]
+[button11]
 type=layer
 x=82
 y=107
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1218,13 +1218,13 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:111
-[com_111]
+[button12]
 type=layer
 x=122
 y=107
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1232,13 +1232,13 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:112
-[com_112]
+[button13]
 type=layer
 x=162
 y=107
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1246,13 +1246,13 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:113
-[com_113]
+[button14]
 type=layer
 x=202
 y=107
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1260,13 +1260,13 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:114
-[com_114]
+[button15]
 type=layer
 x=242
 y=107
 width=40
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1274,13 +1274,13 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:115
-[com_115]
+[button16]
 type=layer
 x=282
 y=107
 width=84
 height=27
-layer=com_69
+layer=layer_4
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1292,7 +1292,7 @@ onmouseleave=script4194(event_com)
 type=graphic
 width=80
 height=40
-layer=com_66
+layer=layer_5
 graphic=artisan_sword_back
 
 // 1074:117
@@ -1301,7 +1301,7 @@ type=graphic
 x=80
 width=80
 height=40
-layer=com_66
+layer=layer_5
 graphic=artisan_sword_back
 
 // 1074:118
@@ -1310,7 +1310,7 @@ type=graphic
 x=160
 width=80
 height=40
-layer=com_66
+layer=layer_5
 graphic=artisan_sword_back
 
 // 1074:119
@@ -1319,7 +1319,7 @@ type=graphic
 x=240
 width=80
 height=40
-layer=com_66
+layer=layer_5
 graphic=artisan_sword_back
 
 // 1074:120
@@ -1328,7 +1328,7 @@ type=graphic
 y=40
 width=80
 height=40
-layer=com_66
+layer=layer_5
 graphic=artisan_sword_back
 vflip=yes
 
@@ -1339,7 +1339,7 @@ x=80
 y=40
 width=80
 height=40
-layer=com_66
+layer=layer_5
 graphic=artisan_sword_back
 vflip=yes
 
@@ -1350,7 +1350,7 @@ x=160
 y=40
 width=80
 height=40
-layer=com_66
+layer=layer_5
 graphic=artisan_sword_back
 vflip=yes
 
@@ -1361,7 +1361,7 @@ x=240
 y=40
 width=80
 height=40
-layer=com_66
+layer=layer_5
 graphic=artisan_sword_back
 vflip=yes
 
@@ -1638,7 +1638,7 @@ onclick=script4207(event_com, 0)
 onrelease=script4207(event_com, 1)
 
 // 1074:149
-[com_149]
+[title_layer]
 type=layer
 width=16384
 height=23
@@ -1655,7 +1655,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_149
+layer=title_layer
 textfont=palatino_linotype_18pt_regular
 text=Ceremonial Sword
 textalignh=centre
@@ -1664,7 +1664,7 @@ colour=0xebe0bc
 onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1074:151
-[com_151]
+[content_layer]
 type=layer
 x=8
 y=29
@@ -1719,7 +1719,7 @@ x=185
 y=67
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1732,7 +1732,7 @@ x=225
 y=67
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1745,7 +1745,7 @@ x=265
 y=67
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1758,7 +1758,7 @@ x=305
 y=67
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1771,7 +1771,7 @@ x=345
 y=67
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1784,7 +1784,7 @@ x=385
 y=67
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1797,7 +1797,7 @@ x=454
 y=67
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1810,7 +1810,7 @@ x=145
 y=133
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1823,7 +1823,7 @@ x=185
 y=133
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1836,7 +1836,7 @@ x=225
 y=133
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1849,7 +1849,7 @@ x=265
 y=133
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1862,7 +1862,7 @@ x=305
 y=133
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1875,7 +1875,7 @@ x=345
 y=133
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1888,7 +1888,7 @@ x=385
 y=133
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1901,7 +1901,7 @@ x=454
 y=133
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1914,7 +1914,7 @@ x=143
 y=207
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1927,7 +1927,7 @@ x=183
 y=207
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1940,7 +1940,7 @@ x=223
 y=207
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1953,7 +1953,7 @@ x=263
 y=207
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1966,7 +1966,7 @@ x=303
 y=207
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1979,7 +1979,7 @@ x=343
 y=207
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -1992,7 +1992,7 @@ x=383
 y=207
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -2005,7 +2005,7 @@ x=453
 y=207
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -2018,7 +2018,7 @@ x=143
 y=271
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -2031,7 +2031,7 @@ x=183
 y=271
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -2044,7 +2044,7 @@ x=223
 y=271
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -2057,7 +2057,7 @@ x=263
 y=271
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -2070,7 +2070,7 @@ x=303
 y=271
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -2083,7 +2083,7 @@ x=343
 y=271
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -2096,7 +2096,7 @@ x=383
 y=271
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes
@@ -2109,7 +2109,7 @@ x=453
 y=271
 width=20
 height=21
-layer=com_70
+layer=grid_layer
 textfont=p11_full
 text=1
 textshadow=yes

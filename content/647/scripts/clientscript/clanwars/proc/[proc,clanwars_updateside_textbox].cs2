@@ -1,6 +1,6 @@
 // 1785
 [proc,clanwars_updateside_textbox](string $string0, int $int0, int $int1, int $int2, int $int3)(int, int)
-cc_create(clanwars_setup_side:com_3, ^iftype_text, $int1);
+cc_create(clanwars_setup_side:contents, ^iftype_text, $int1);
 cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_top);
 cc_settextfont(p12_full);
 cc_settextshadow(true);

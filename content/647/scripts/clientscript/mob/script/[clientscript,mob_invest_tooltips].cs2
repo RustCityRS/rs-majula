@@ -1,26 +1,26 @@
 // 2492
 [clientscript,mob_invest_tooltips]
 if (compare(%varclient_1703, "") = 0) {
-    if_setonmouserepeat("addtooltip(mob_invest:com_50, mob_invest:com_11, %varclient_1703, 50, 250)", mob_invest:com_50);
-    if_setonmouseleave("deltooltip(mob_invest:com_11)", mob_invest:com_50);
+    if_setonmouserepeat("addtooltip(mob_invest:special_item1, mob_invest:tooltip, %varclient_1703, 50, 250)", mob_invest:special_item1);
+    if_setonmouseleave("deltooltip(mob_invest:tooltip)", mob_invest:special_item1);
 }
 if (compare(%varclient_1704, "") = 0) {
-    if_setonmouserepeat("addtooltip(mob_invest:com_51, mob_invest:com_11, %varclient_1704, 50, 250)", mob_invest:com_51);
-    if_setonmouseleave("deltooltip(mob_invest:com_11)", mob_invest:com_51);
+    if_setonmouserepeat("addtooltip(mob_invest:special_item2, mob_invest:tooltip, %varclient_1704, 50, 250)", mob_invest:special_item2);
+    if_setonmouseleave("deltooltip(mob_invest:tooltip)", mob_invest:special_item2);
 }
 if (compare(%varclient_1705, "") = 0) {
-    if_setonmouserepeat("addtooltip(mob_invest:com_52, mob_invest:com_11, %varclient_1705, 50, 250)", mob_invest:com_52);
-    if_setonmouseleave("deltooltip(mob_invest:com_11)", mob_invest:com_52);
+    if_setonmouserepeat("addtooltip(mob_invest:special_item3, mob_invest:tooltip, %varclient_1705, 50, 250)", mob_invest:special_item3);
+    if_setonmouseleave("deltooltip(mob_invest:tooltip)", mob_invest:special_item3);
 }
 if (compare(%varclient_1706, "") = 0) {
-    if_setonmouserepeat("addtooltip(mob_invest:com_53, mob_invest:com_11, %varclient_1706, 50, 250)", mob_invest:com_53);
-    if_setonmouseleave("deltooltip(mob_invest:com_11)", mob_invest:com_53);
+    if_setonmouserepeat("addtooltip(mob_invest:special_item4, mob_invest:tooltip, %varclient_1706, 50, 250)", mob_invest:special_item4);
+    if_setonmouseleave("deltooltip(mob_invest:tooltip)", mob_invest:special_item4);
 }
 if (compare(%varclient_1707, "") = 0) {
-    if_setonmouserepeat("addtooltip(mob_invest:com_54, mob_invest:com_11, %varclient_1707, 50, 250)", mob_invest:com_54);
-    if_setonmouseleave("deltooltip(mob_invest:com_11)", mob_invest:com_54);
+    if_setonmouserepeat("addtooltip(mob_invest:special_item5, mob_invest:tooltip, %varclient_1707, 50, 250)", mob_invest:special_item5);
+    if_setonmouseleave("deltooltip(mob_invest:tooltip)", mob_invest:special_item5);
 }
 if (compare(%varclient_1708, "") = 0) {
-    if_setonmouserepeat("addtooltip(mob_invest:com_55, mob_invest:com_11, %varclient_1708, 50, 250)", mob_invest:com_55);
-    if_setonmouseleave("deltooltip(mob_invest:com_11)", mob_invest:com_55);
+    if_setonmouserepeat("addtooltip(mob_invest:special_item6, mob_invest:tooltip, %varclient_1708, 50, 250)", mob_invest:special_item6);
+    if_setonmouseleave("deltooltip(mob_invest:tooltip)", mob_invest:special_item6);
 }

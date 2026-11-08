@@ -11,7 +11,7 @@ cc_setop(5, "Withdraw-X");
 cc_setop(6, "Withdraw-All");
 cc_setop(7, "Withdraw-All but one");
 cc_setop(10, "Examine<col=ff9040>");
-cc_setdraggable(bank_v2_main:com_0, -1);
+cc_setdraggable(bank_v2_main:all, -1);
 cc_setdragdeadzone(5);
 cc_setdragdeadtime(5);
 cc_setondrag("bank_v2_bankitemdrag(event_mousey)");

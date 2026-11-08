@@ -9,7 +9,7 @@ transmitop=10
 op10=  
 
 // 1050:1
-[com_1]
+[drop_shadow]
 type=rectangle
 width=500
 height=316
@@ -21,7 +21,7 @@ opbase=
 op10=  
 
 // 1050:2
-[com_2]
+[drop_shadow_1]
 type=rectangle
 x=1
 y=1
@@ -36,7 +36,7 @@ opbase=
 op10=   
 
 // 1050:3
-[com_3]
+[drop_shadow_2]
 type=rectangle
 x=2
 y=2
@@ -51,7 +51,7 @@ opbase=
 op10=    
 
 // 1050:4
-[com_4]
+[drop_shadow_3]
 type=rectangle
 x=3
 y=3
@@ -66,7 +66,7 @@ opbase=
 op10=     
 
 // 1050:5
-[com_5]
+[drop_shadow_4]
 type=rectangle
 x=4
 y=4
@@ -81,7 +81,7 @@ opbase=
 op10=      
 
 // 1050:6
-[com_6]
+[background_top]
 type=graphic
 x=8
 y=22
@@ -96,7 +96,7 @@ transmitop=10
 op10= 
 
 // 1050:7
-[com_7]
+[background_mid]
 type=graphic
 x=8
 y=92
@@ -128,7 +128,7 @@ transmitop=10
 op10= 
 
 // 1050:9
-[com_9]
+[background_border]
 type=rectangle
 x=7
 y=22
@@ -140,7 +140,7 @@ layer=com_0
 colour=0x000000
 
 // 1050:10
-[com_10]
+[border_left]
 type=graphic
 x=-13
 y=32
@@ -155,7 +155,7 @@ transmitop=10
 op10=   
 
 // 1050:11
-[com_11]
+[border_right]
 type=graphic
 x=-6
 y=32
@@ -171,7 +171,7 @@ transmitop=10
 op10=   
 
 // 1050:12
-[com_12]
+[border_top]
 type=graphic
 x=32
 width=70
@@ -185,7 +185,7 @@ transmitop=10
 op10=       
 
 // 1050:13
-[com_13]
+[border_bottom]
 type=graphic
 x=32
 y=-7
@@ -201,7 +201,7 @@ transmitop=10
 op10=   
 
 // 1050:14
-[com_14]
+[border_top_left]
 type=graphic
 width=32
 height=32
@@ -212,7 +212,7 @@ transmitop=10
 op10=       
 
 // 1050:15
-[com_15]
+[border_top_right]
 type=graphic
 x=6
 width=32
@@ -225,7 +225,7 @@ transmitop=10
 op10=       
 
 // 1050:16
-[com_16]
+[border_bottom_left]
 type=graphic
 y=5
 width=32
@@ -238,7 +238,7 @@ transmitop=10
 op10=   
 
 // 1050:17
-[com_17]
+[border_bottom_right]
 type=graphic
 x=6
 y=5
@@ -253,7 +253,7 @@ transmitop=10
 op10=   
 
 // 1050:18
-[com_18]
+[close_button]
 type=graphic
 x=18
 y=2
@@ -271,7 +271,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 1050:19
-[com_19]
+[shop_title]
 type=text
 y=4
 width=80
@@ -287,7 +287,7 @@ textshadow=yes
 colour=0xff981f
 
 // 1050:20
-[com_20]
+[main_title]
 type=text
 x=20
 y=95
@@ -305,7 +305,7 @@ transmitop=10
 op10= 
 
 // 1050:21
-[com_21]
+[key_title]
 type=text
 x=23
 y=24
@@ -324,7 +324,7 @@ transmitop=10
 op10=  
 
 // 1050:22
-[com_22]
+[right_click_text]
 type=text
 y=14
 width=400
@@ -351,16 +351,16 @@ height=255
 onvartransmit=script1999(event_com){shop, varplayer_1081, varplayer_1073, varplayer_1073, varplayer_1072, varplayer_1071}
 
 // 1050:24
-[com_24]
+[tooltip_layer]
 type=layer
 width=512
 height=334
 
 // 1050:25
-[com_25]
+[tooltip]
 type=layer
 x=30
 y=63
 width=85
 height=17
-layer=com_24
+layer=tooltip_layer

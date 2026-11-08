@@ -3,20 +3,20 @@
 if (%varplayer_1108 <= 3) {
     if_settext("If you selected the 'Buy' option, you would see this screen. You can choose an item to buy by clicking on the indicated box.", handle_fills_03:com_84);
     if_sethide(true, handle_fills_03:com_85);
-    if_settext("N/A", handle_fills_03:com_27);
+    if_settext("N/A", handle_fills_03:offeritem_marketprice);
     if_sethide(false, handle_fills_03:com_68);
-    if_settext("Choose an item to exchange", handle_fills_03:com_28);
-    if_settext("1", handle_fills_03:com_33);
-    if_settext("1 gp", handle_fills_03:com_38);
-    if_settext("1 gp", handle_fills_03:com_65);
+    if_settext("Choose an item to exchange", handle_fills_03:offeritem_name);
+    if_settext("1", handle_fills_03:offercount);
+    if_settext("1 gp", handle_fills_03:offerprice);
+    if_settext("1 gp", handle_fills_03:totalvalue);
 } else {
     if_settext("You can set how many you wish to buy, and the price you're willing to pay, before clicking the 'Confirm Offer' button. We'll suggest a guide price for the item, but you can offer whatever you like.", handle_fills_03:com_84);
     if_sethide(false, handle_fills_03:com_85);
     if_setobject_nonum(staff_of_air, 1, handle_fills_03:com_85);
-    if_settext("1,281 gp", handle_fills_03:com_27);
+    if_settext("1,281 gp", handle_fills_03:offeritem_marketprice);
     if_sethide(true, handle_fills_03:com_68);
-    if_settext("Staff of air", handle_fills_03:com_28);
-    if_settext("2", handle_fills_03:com_33);
-    if_settext("1,281 gp", handle_fills_03:com_38);
-    if_settext("2,562 gp", handle_fills_03:com_65);
+    if_settext("Staff of air", handle_fills_03:offeritem_name);
+    if_settext("2", handle_fills_03:offercount);
+    if_settext("1,281 gp", handle_fills_03:offerprice);
+    if_settext("2,562 gp", handle_fills_03:totalvalue);
 }

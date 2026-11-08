@@ -9,25 +9,25 @@
 // levelup.rs2) opens 2011's level-up details (lvl_scroll, 741) instead, once:
 // %level_up_details is the stat's menu index times 8, and the flash clears.
 // 289's rows, ops and inv are not used: the client has its own.
-[if_button,stats:attack] @skill_guide(attack, 0);
-[if_button,stats:hitpoints] @skill_guide(hitpoints, 0);
-[if_button,stats:strength] @skill_guide(strength, 0);
-[if_button,stats:defence] @skill_guide(defence, 0);
-[if_button,stats:mining] @skill_guide(mining, 0);
-[if_button,stats:agility] @skill_guide(agility, 0);
-[if_button,stats:smithing] @skill_guide(smithing, 0);
-[if_button,stats:herblore] @skill_guide(herblore, 0);
-[if_button,stats:fishing] @skill_guide(fishing, 0);
-[if_button,stats:ranged] @skill_guide(ranged, 0);
-[if_button,stats:thieving] @skill_guide(thieving, 0);
-[if_button,stats:cooking] @skill_guide(cooking, 0);
-[if_button,stats:prayer] @skill_guide(prayer, 0);
-[if_button,stats:crafting] @skill_guide(crafting, 0);
-[if_button,stats:firemaking] @skill_guide(firemaking, 0);
-[if_button,stats:magic] @skill_guide(magic, 0);
-[if_button,stats:fletching] @skill_guide(fletching, 0);
-[if_button,stats:woodcutting] @skill_guide(woodcutting, 0);
-[if_button,stats:runecrafting] @skill_guide(runecraft, 0);
+[if_button,stats:attack_button] @skill_guide(attack, 0);
+[if_button,stats:hitpoints_button] @skill_guide(hitpoints, 0);
+[if_button,stats:strength_button] @skill_guide(strength, 0);
+[if_button,stats:defence_button] @skill_guide(defence, 0);
+[if_button,stats:mining_button] @skill_guide(mining, 0);
+[if_button,stats:agility_button] @skill_guide(agility, 0);
+[if_button,stats:smithing_button] @skill_guide(smithing, 0);
+[if_button,stats:herblore_button] @skill_guide(herblore, 0);
+[if_button,stats:fishing_button] @skill_guide(fishing, 0);
+[if_button,stats:ranged_button] @skill_guide(ranged, 0);
+[if_button,stats:thieving_button] @skill_guide(thieving, 0);
+[if_button,stats:cooking_button] @skill_guide(cooking, 0);
+[if_button,stats:prayer_button] @skill_guide(prayer, 0);
+[if_button,stats:crafting_button] @skill_guide(crafting, 0);
+[if_button,stats:firemaking_button] @skill_guide(firemaking, 0);
+[if_button,stats:magic_button] @skill_guide(magic, 0);
+[if_button,stats:fletching_button] @skill_guide(fletching, 0);
+[if_button,stats:woodcutting_button] @skill_guide(woodcutting, 0);
+[if_button,stats:runecraft_button] @skill_guide(runecraft, 0);
 
 [label,skill_guide](stat $lookup, int $page)
 db_find(levelup:stat, $lookup);
@@ -53,21 +53,21 @@ if_openmain(skill_guide_v2);
 // 2011's guide lists its sections down the left (components 10-24; cache 786
 // gives component 25 the same "Open subsection" op, which nothing here
 // handles); each shows the skill's section of that index.
-[if_button,skill_guide_v2:section1] @change_skill_guide(0);
-[if_button,skill_guide_v2:section2] @change_skill_guide(1);
-[if_button,skill_guide_v2:section3] @change_skill_guide(2);
-[if_button,skill_guide_v2:section4] @change_skill_guide(3);
-[if_button,skill_guide_v2:section5] @change_skill_guide(4);
-[if_button,skill_guide_v2:section6] @change_skill_guide(5);
-[if_button,skill_guide_v2:section7] @change_skill_guide(6);
-[if_button,skill_guide_v2:section8] @change_skill_guide(7);
-[if_button,skill_guide_v2:section9] @change_skill_guide(8);
-[if_button,skill_guide_v2:section10] @change_skill_guide(9);
-[if_button,skill_guide_v2:section11] @change_skill_guide(10);
-[if_button,skill_guide_v2:section12] @change_skill_guide(11);
-[if_button,skill_guide_v2:section13] @change_skill_guide(12);
-[if_button,skill_guide_v2:section14] @change_skill_guide(13);
-[if_button,skill_guide_v2:section15] @change_skill_guide(14);
+[if_button,skill_guide_v2:subsection_button_1] @change_skill_guide(0);
+[if_button,skill_guide_v2:subsection_button_2] @change_skill_guide(1);
+[if_button,skill_guide_v2:subsection_button_3] @change_skill_guide(2);
+[if_button,skill_guide_v2:subsection_button_4] @change_skill_guide(3);
+[if_button,skill_guide_v2:subsection_button_5] @change_skill_guide(4);
+[if_button,skill_guide_v2:subsection_button_6] @change_skill_guide(5);
+[if_button,skill_guide_v2:subsection_button_7] @change_skill_guide(6);
+[if_button,skill_guide_v2:subsection_button_8] @change_skill_guide(7);
+[if_button,skill_guide_v2:subsection_button_9] @change_skill_guide(8);
+[if_button,skill_guide_v2:subsection_button_10] @change_skill_guide(9);
+[if_button,skill_guide_v2:subsection_button_11] @change_skill_guide(10);
+[if_button,skill_guide_v2:subsection_button_12] @change_skill_guide(11);
+[if_button,skill_guide_v2:subsection_button_13] @change_skill_guide(12);
+[if_button,skill_guide_v2:subsection_button_14] @change_skill_guide(13);
+[if_button,skill_guide_v2:subsection_button_15] @change_skill_guide(14);
 
 [label,change_skill_guide](int $page)
 db_find(levelup:stat, %skill_guide_skill);

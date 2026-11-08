@@ -1,52 +1,52 @@
 // 538:0
-[com_0]
+[grim_paper]
 type=layer
 x=89
 y=12
 width=300
 height=300
-layer=com_4
+layer=content_layer
 
 // 538:1
-[com_1]
+[grim_scroll]
 type=model
 x=79
 y=2
 width=327
 height=329
-layer=com_4
+layer=content_layer
 model=model_25920
 modelorigin=9,-36
 modelangle=507,2044,0
 modelzoom=656
 
 // 538:2
-[com_2]
+[grim_to_do_list]
 type=layer
 x=88
 y=44
 width=300
 height=250
-layer=com_4
+layer=content_layer
 
 // 538:3
-[com_3]
+[close_button]
 type=graphic
 x=357
 y=29
 width=26
 height=23
-layer=com_4
+layer=content_layer
 graphic="close_buttons,6"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(grim_tasklist:com_3, "close_buttons,7")
-onmouseleave=graphic_swapper(grim_tasklist:com_3, "close_buttons,6")
+onmouseover=graphic_swapper(grim_tasklist:close_button, "close_buttons,7")
+onmouseleave=graphic_swapper(grim_tasklist:close_button, "close_buttons,6")
 onop=closebutton_click
 
 // 538:4
-[com_4]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -54,25 +54,25 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 538:5
-[com_5]
+[grim_note_title]
 type=text
 x=8
 y=23
 width=329
 height=17
-layer=com_2
+layer=grim_to_do_list
 textfont=q8_full
 text=Things to do:
 colour=0x000000
 
 // 538:6
-[com_6]
+[grim_list]
 type=text
 x=7
 y=49
 width=319
 height=186
-layer=com_2
+layer=grim_to_do_list
 textfont=q8_full
 text=Take out the rubbish<br>Buy a new record for the gramophone<br>Check shrunken ogleroot supply<br>Feed ogleroots to my darlings<br>Wash the bedsheets<br>Hang out the washing<br>Practise the piano<br>Terrorise the little brat with the ball again<br>Trim hedges in the garden<br>Floss warts<br>Plot revenge on Fritz's murderer
 colour=0x000000

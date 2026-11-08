@@ -51,7 +51,7 @@ if (%sa_attack = ^false) {
 // 289 gives each weapon tab its own special bar; 2011's combat_side has one
 // (component 4). It answers as 289's tab for the worn weapon would: the axe
 // and hacksword tabs hold the instant specials, every other tab toggles.
-[if_button,combat_side:special_attack_bar]
+[if_button,combat_side:sp_attack_button]
 def_obj $obj = inv_getobj(worn, ^wearpos_rhand);
 if ($obj = null | (map_members = ^false & oc_members($obj) = true)) {
     @toggle_sa;

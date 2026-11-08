@@ -1,10 +1,10 @@
 // 1776
 [proc,clanwars_resynch_ranged]
 if (%varclient_251 = false) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_129);
-    if_settrans(0, clanwars_setup:com_128);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:ranged_indicator);
+    if_settrans(0, clanwars_setup:ranged);
 } else {
-    if_setgraphic("options_radio_buttons,1", clanwars_setup:com_129);
-    if_settrans(225, clanwars_setup:com_128);
+    if_setgraphic("options_radio_buttons,1", clanwars_setup:ranged_indicator);
+    if_settrans(225, clanwars_setup:ranged);
 }
 ~clanwars_updateside;

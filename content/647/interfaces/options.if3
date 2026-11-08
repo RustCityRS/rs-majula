@@ -1,17 +1,17 @@
 // 261:0
-[com_0]
+[all]
 type=layer
 width=190
 height=261
 onload=options_update_all
 
 // 261:1
-[com_1]
+[title]
 type=text
 y=2
 width=190
 height=14
-layer=com_0
+layer=all
 textfont=p12_full
 text=Options
 textalignh=centre
@@ -26,7 +26,7 @@ type=graphic
 y=9
 width=190
 height=32
-layer=com_0
+layer=all
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0x000000
@@ -40,90 +40,90 @@ x=19
 y=133
 width=40
 height=40
-layer=com_0
+layer=all
 graphic=graphic_4584
 transmitop=1
 op1=Toggle Profanity Filter
-onmouseleave=deltooltip(options:com_20)
+onmouseleave=deltooltip(options:options_tooltip)
 onvartransmit=script4142{varplayer_1438}
-onmouserepeat=addtooltip(event_com, options:com_20, "Toggle Profanity Filter", 25, 180)
+onmouserepeat=addtooltip(event_com, options:options_tooltip, "Toggle Profanity Filter", 25, 180)
 
 // 261:4
-[com_4]
+[optchat]
 type=graphic
 x=75
 y=133
 width=40
 height=40
-layer=com_0
+layer=all
 graphic="options_boxes,0"
 colour=0x000000
 transmitop=1
 op1=Toggle Chat Effects
-onmouseleave=deltooltip(options:com_20)
+onmouseleave=deltooltip(options:options_tooltip)
 onvartransmit=options_chat{option_chat}
 onclick=options_chat
 
 // 261:5
-[com_5]
+[optpm]
 type=graphic
 x=131
 y=133
 width=40
 height=40
-layer=com_0
+layer=all
 graphic="options_boxes,0"
 colour=0x000000
 transmitop=1
 op1=Open Chat Setup
-onmouseleave=deltooltip(options:com_20)
-onmouserepeat=addtooltip(event_com, options:com_20, "Options for changing how Clan Chat and private chat are displayed", 25, 180)
+onmouseleave=deltooltip(options:options_tooltip)
+onmouserepeat=addtooltip(event_com, options:options_tooltip, "Options for changing how Clan Chat and private chat are displayed", 25, 180)
 
 // 261:6
-[com_6]
+[optmouse]
 type=graphic
 x=75
 y=206
 width=40
 height=40
-layer=com_0
+layer=all
 graphic="options_boxes,0"
 colour=0x000000
 transmitop=1
 op1=Toggle Number of Mouse Buttons
-onmouseleave=deltooltip(options:com_20)
+onmouseleave=deltooltip(options:options_tooltip)
 onvartransmit=options_mouse{option_mouse}
 onclick=options_mouse
 
 // 261:7
-[com_7]
+[optaid]
 type=graphic
 x=19
 y=206
 width=40
 height=40
-layer=com_0
+layer=all
 graphic="options_boxes,0"
 colour=0x000000
 transmitop=1
 op1=Toggle Accept Aid
-onmouseleave=deltooltip(options:com_20)
+onmouseleave=deltooltip(options:options_tooltip)
 onvartransmit=options_aid{varplayer_427}
 onclick=options_aid
 
 // 261:8
-[com_8]
+[houseoptions]
 type=graphic
 x=131
 y=206
 width=40
 height=40
-layer=com_0
+layer=all
 graphic="options_boxes,0"
 colour=0x000000
 transmitop=1
 op1=Open House Options
-onmouseleave=deltooltip(options:com_20)
+onmouseleave=deltooltip(options:options_tooltip)
 
 // 261:9
 [com_9]
@@ -132,51 +132,51 @@ x=136
 y=136
 width=32
 height=33
-layer=com_0
+layer=all
 graphic="options_icons,5"
 colour=0x000000
 
 // 261:10
-[com_10]
+[optchat_gfx]
 type=graphic
 x=78
 y=137
 width=32
 height=33
-layer=com_0
+layer=all
 graphic="options_icons,3"
 colour=0x000000
 
 // 261:11
-[com_11]
+[optmouse_gfx]
 type=graphic
 x=79
 y=212
 width=32
 height=32
-layer=com_0
+layer=all
 graphic="options_icons,4"
 colour=0x000000
 
 // 261:12
-[com_12]
+[optaid_gfx]
 type=graphic
 x=23
 y=211
 width=32
 height=33
-layer=com_0
+layer=all
 graphic="options_icons,6"
 colour=0x000000
 
 // 261:13
-[com_13]
+[houseoptions_gfx]
 type=graphic
 x=136
 y=211
 width=32
 height=32
-layer=com_0
+layer=all
 graphic="options_icons,17"
 colour=0x000000
 
@@ -187,14 +187,14 @@ x=45
 y=41
 width=40
 height=40
-layer=com_0
+layer=all
 graphic="options_boxes,0"
 colour=0x000000
 transmitop=1,10
 op1=Graphics Settings
 op10= 
-onmouseleave=deltooltip(options:com_20)
-onmouserepeat=addtooltip(event_com, options:com_20, "Options for changing your graphics settings", 25, 180)
+onmouseleave=deltooltip(options:options_tooltip)
+onmouserepeat=addtooltip(event_com, options:options_tooltip, "Options for changing your graphics settings", 25, 180)
 
 // 261:15
 [com_15]
@@ -203,7 +203,7 @@ x=45
 y=41
 width=40
 height=40
-layer=com_0
+layer=all
 graphic="options_buttons,2"
 colour=0x000000
 transmitop=10
@@ -216,14 +216,14 @@ x=101
 y=41
 width=40
 height=40
-layer=com_0
+layer=all
 graphic="options_boxes,0"
 colour=0x000000
 transmitop=1,10
 op1=Audio Settings
 op10=  
-onmouseleave=deltooltip(options:com_20)
-onmouserepeat=addtooltip(event_com, options:com_20, "Options for changing your audio settings", 25, 180)
+onmouseleave=deltooltip(options:options_tooltip)
+onmouserepeat=addtooltip(event_com, options:options_tooltip, "Options for changing your audio settings", 25, 180)
 
 // 261:17
 [com_17]
@@ -232,7 +232,7 @@ x=105
 y=45
 width=32
 height=32
-layer=com_0
+layer=all
 graphic="options_icons,2"
 colour=0x000000
 transmitop=10
@@ -244,7 +244,7 @@ type=graphic
 y=90
 width=190
 height=27
-layer=com_0
+layer=all
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0x000000
@@ -258,14 +258,14 @@ x=6
 y=5
 width=179
 height=251
-layer=com_0
+layer=all
 
 // 261:20
-[com_20]
+[options_tooltip]
 type=layer
 x=29
 y=56
 width=116
 height=132
 layer=com_19
-onmouseleave=deltooltip(options:com_20)
+onmouseleave=deltooltip(options:options_tooltip)

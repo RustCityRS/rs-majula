@@ -194,7 +194,7 @@ colour=0x000000
 opbase= 
 
 // 640:18
-[com_18]
+[friendly_duel]
 type=text
 x=202
 y=101
@@ -214,7 +214,7 @@ onmouseleave=text_colour_swapper(event_com, 0xff981f)
 onvartransmit=duel2_select_type_vartrans{varplayer_283}
 
 // 640:19
-[com_19]
+[staked_duel]
 type=text
 x=202
 y=150
@@ -233,7 +233,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 640:20
-[com_20]
+[to_options]
 type=text
 x=191
 y=183
@@ -251,7 +251,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 640:21
-[com_21]
+[staked_duel2]
 type=graphic
 x=188
 y=150
@@ -264,7 +264,7 @@ transmitop=1
 op1=Ok
 
 // 640:22
-[com_22]
+[friendly_duel2]
 type=graphic
 x=188
 y=101
@@ -288,7 +288,7 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 640:24
-[com_24]
+[duel_close]
 type=graphic
 x=345
 y=74

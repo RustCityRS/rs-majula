@@ -1,13 +1,13 @@
 // 2504
 [clientscript,script2504]
 def_int $int0 = 0;
-if_settext(%varclient_1699, interface_291:com_73);
-if_settext(%varclient_1700, interface_291:com_28);
+if_settext(%varclient_1699, interface_291:text);
+if_settext(%varclient_1700, interface_291:summary);
 $int0 = calc(paraheight(%varclient_1699, 207, q8_full) * 17 + 5);
-if_setsize(207, $int0, ^setsize_abs, ^setsize_abs, interface_291:com_73);
-if_setscrollsize(0, $int0, interface_291:com_72);
-~scrollbar_resize(interface_291:com_69, interface_291:com_72, 0);
+if_setsize(207, $int0, ^setsize_abs, ^setsize_abs, interface_291:text);
+if_setscrollsize(0, $int0, interface_291:text_layer);
+~scrollbar_resize(interface_291:scroll_bar, interface_291:text_layer, 0);
 $int0 = calc(paraheight(%varclient_1700, 207, q8_full) * 17 + 5);
-if_setsize(207, $int0, ^setsize_abs, ^setsize_abs, interface_291:com_28);
-if_setscrollsize(0, $int0, interface_291:com_68);
-~scrollbar_resize(interface_291:com_70, interface_291:com_68, 0);
+if_setsize(207, $int0, ^setsize_abs, ^setsize_abs, interface_291:summary);
+if_setscrollsize(0, $int0, interface_291:summary_layer);
+~scrollbar_resize(interface_291:scroll_summary, interface_291:summary_layer, 0);

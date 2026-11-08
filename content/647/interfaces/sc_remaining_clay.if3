@@ -5,19 +5,19 @@ width=438
 height=244
 xmode=abs_centre
 ymode=abs_centre
-layer=com_137
+layer=graph_layer
 colour=0x000000
 fill=yes
 trans=197
 
 // 806:1
-[com_1]
+[info_bottom_6]
 type=graphic
 x=-13
 y=31
 width=32
 height=183
-layer=com_137
+layer=graph_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0x000000
@@ -25,26 +25,26 @@ transmitop=10
 op10=     
 
 // 806:2
-[com_2]
+[info_corner9]
 type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_137
+layer=graph_layer
 graphic="v2_stone_borders,6"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:3
-[com_3]
+[info_bottom_7]
 type=graphic
 x=-10
 width=30
 height=181
 xmode=abs_right
 ymode=abs_centre
-layer=com_137
+layer=graph_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0x000000
@@ -52,37 +52,37 @@ transmitop=10
 op10=      
 
 // 806:4
-[com_4]
+[info_corner10]
 type=graphic
 width=32
 height=32
-layer=com_137
+layer=graph_layer
 graphic="v2_stone_borders,4"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:5
-[com_5]
+[info_corner11]
 type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_137
+layer=graph_layer
 graphic="v2_stone_borders,5"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:6
-[com_6]
+[info_bottom_8]
 type=graphic
 y=-10
 width=385
 height=30
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_137
+layer=graph_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0x000000
@@ -90,26 +90,26 @@ transmitop=10
 op10=   
 
 // 806:7
-[com_7]
+[info_corner12]
 type=graphic
 width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_137
+layer=graph_layer
 graphic="v2_stone_borders,7"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:8
-[com_8]
+[info_2]
 type=graphic
 y=-13
 width=385
 height=29
 xmode=abs_centre
-layer=com_137
+layer=graph_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0x000000
@@ -117,48 +117,48 @@ transmitop=10
 op10=   
 
 // 806:9
-[com_9]
+[graph_fishing_layer]
 type=layer
 x=97
 y=12
 width=86
 height=210
 ymode=abs_bottom
-layer=com_137
+layer=graph_layer
 
 // 806:10
-[com_10]
+[graph_mining_layer]
 type=layer
 x=182
 y=12
 width=86
 height=210
 ymode=abs_bottom
-layer=com_137
+layer=graph_layer
 transmitop=10
 op10= 
 
 // 806:11
-[com_11]
+[graph_woodcutting_layer]
 type=layer
 x=267
 y=12
 width=86
 height=210
 ymode=abs_bottom
-layer=com_137
+layer=graph_layer
 transmitop=10
 op10= 
 
 // 806:12
-[com_12]
+[graph_hunting_layer]
 type=layer
 x=352
 y=12
 width=86
 height=210
 ymode=abs_bottom
-layer=com_137
+layer=graph_layer
 transmitop=10
 op10= 
 
@@ -170,7 +170,7 @@ y=186
 width=76
 height=32
 xmode=abs_centre
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=Basic<br>clay
 textalignh=centre
@@ -188,7 +188,7 @@ y=20
 width=19
 height=169
 xmode=abs_centre
-layer=com_137
+layer=graph_layer
 textfont=friendslist_font
 text=S<br>p<br>o<br>t<br>s<br><br>l<br>e<br>f<br>t
 textalignh=centre
@@ -205,7 +205,7 @@ x=28
 y=172
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=1
 textalignh=centre
@@ -222,7 +222,7 @@ x=28
 y=159
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=2
 textalignh=centre
@@ -239,7 +239,7 @@ x=28
 y=146
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=3
 textalignh=centre
@@ -256,7 +256,7 @@ x=28
 y=132
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=4
 textalignh=centre
@@ -267,13 +267,13 @@ onmouseover=script1916(event_com)
 onmouseleave=script1917(event_com)
 
 // 806:19
-[com_19]
+[hideprivacy]
 type=text
 x=28
 y=119
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=5
 textalignh=centre
@@ -290,7 +290,7 @@ x=28
 y=105
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=6
 textalignh=centre
@@ -307,7 +307,7 @@ x=28
 y=92
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=7
 textalignh=centre
@@ -324,7 +324,7 @@ x=28
 y=79
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=8
 textalignh=centre
@@ -341,7 +341,7 @@ x=28
 y=65
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=9
 textalignh=centre
@@ -358,7 +358,7 @@ x=28
 y=50
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=10
 textalignh=centre
@@ -375,7 +375,7 @@ x=28
 y=37
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=11
 textalignh=centre
@@ -392,7 +392,7 @@ x=28
 y=23
 width=20
 height=14
-layer=com_137
+layer=graph_layer
 textfont=p11_full
 text=12
 textalignh=centre
@@ -403,190 +403,190 @@ onmouseover=script1916(event_com)
 onmouseleave=script1917(event_com)
 
 // 806:27
-[com_27]
+[info_divider_9]
 type=graphic
 x=51
 y=64
 width=39
 height=30
 ymode=abs_centre
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:28
-[com_28]
+[info_divider_11]
 type=graphic
 x=28
 y=6
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:29
-[com_29]
+[info_divider_12]
 type=graphic
 x=28
 y=19
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:30
-[com_30]
+[info_divider_13]
 type=graphic
 x=28
 y=33
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:31
-[com_31]
+[info_divider_14]
 type=graphic
 x=28
 y=47
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:32
-[com_32]
+[info_divider_15]
 type=graphic
 x=28
 y=62
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:33
-[com_33]
+[info_divider_16]
 type=graphic
 x=28
 y=76
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:34
-[com_34]
+[info_divider_17]
 type=graphic
 x=28
 y=88
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:35
-[com_35]
+[info_divider_18]
 type=graphic
 x=28
 y=102
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:36
-[com_36]
+[info_divider_20]
 type=graphic
 x=28
 y=115
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:37
-[com_37]
+[info_divider_19]
 type=graphic
 x=28
 y=128
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:38
-[com_38]
+[info_divider_10]
 type=graphic
 x=28
 y=143
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:39
-[com_39]
+[info_divider_21]
 type=graphic
 x=28
 y=155
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:40
-[com_40]
+[info_divider_22]
 type=graphic
 x=28
 y=171
 width=20
 height=30
-layer=com_137
+layer=graph_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:41
-[com_41]
+[fishing_tier_text]
 type=text
 x=-1
 y=25
@@ -594,7 +594,7 @@ width=76
 height=18
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_9
+layer=graph_fishing_layer
 textfont=p11_full
 text=2    3    4    5
 textalignh=centre
@@ -605,7 +605,7 @@ onmouseover=script1916(event_com)
 onmouseleave=script1917(event_com)
 
 // 806:42
-[com_42]
+[info_divider_1]
 type=graphic
 x=-1
 y=77
@@ -613,14 +613,14 @@ width=76
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=graph_fishing_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:43
-[com_43]
+[fishing_text]
 type=text
 x=-1
 y=7
@@ -628,7 +628,7 @@ width=76
 height=15
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_9
+layer=graph_fishing_layer
 textfont=p11_full
 text=Fishing
 textalignh=centre
@@ -639,7 +639,7 @@ onmouseover=script1916(event_com)
 onmouseleave=script1917(event_com)
 
 // 806:44
-[com_44]
+[info_divider_2]
 type=graphic
 x=-1
 y=59
@@ -647,21 +647,21 @@ width=76
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=graph_fishing_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:45
-[com_45]
+[graph_fishing_bound]
 type=layer
 width=86
 height=161
-layer=com_9
+layer=graph_fishing_layer
 
 // 806:46
-[com_46]
+[main_layer]
 type=layer
 width=512
 height=334
@@ -669,22 +669,22 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 806:47
-[com_47]
+[graph_basic_clay_bound]
 type=layer
 x=64
 y=23
 width=16
 height=161
-layer=com_137
+layer=graph_layer
 
 // 806:48
-[com_48]
+[layer_52]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_138
+layer=basic_clay_graph_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -692,33 +692,33 @@ transmitop=10
 op10=  
 
 // 806:49
-[com_49]
+[tooltip_layer]
 type=layer
 width=10
 height=10
-layer=com_137
+layer=graph_layer
 
 // 806:50
-[com_50]
+[layer_53]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_138
+layer=basic_clay_graph_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10=  
 
 // 806:51
-[com_51]
+[layer_54]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_138
+layer=basic_clay_graph_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -735,12 +735,12 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_80
+layer=graph_mining_bound
 transmitop=10
 op10=   
 
 // 806:53
-[com_53]
+[layer_49]
 type=rectangle
 x=-178
 y=2
@@ -756,7 +756,7 @@ transmitop=10
 op10=   
 
 // 806:54
-[com_54]
+[layer_50]
 type=rectangle
 x=-178
 y=2
@@ -771,7 +771,7 @@ transmitop=10
 op10=   
 
 // 806:55
-[com_55]
+[layer_51]
 type=rectangle
 x=-178
 y=2
@@ -787,7 +787,7 @@ transmitop=10
 op10=   
 
 // 806:56
-[com_56]
+[woodcutting_tier_text]
 type=text
 x=-1
 y=25
@@ -795,7 +795,7 @@ width=76
 height=18
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_11
+layer=graph_woodcutting_layer
 textfont=p11_full
 text=2    3    4    5
 textalignh=centre
@@ -808,7 +808,7 @@ onmouseover=script1916(event_com)
 onmouseleave=script1917(event_com)
 
 // 806:57
-[com_57]
+[info_divider_3]
 type=graphic
 x=-1
 y=77
@@ -816,14 +816,14 @@ width=76
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_11
+layer=graph_woodcutting_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=    
 
 // 806:58
-[com_58]
+[woodcutting_text]
 type=text
 x=-1
 y=7
@@ -831,7 +831,7 @@ width=76
 height=15
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_11
+layer=graph_woodcutting_layer
 textfont=p11_full
 text=Woodcutting
 textalignh=centre
@@ -844,7 +844,7 @@ onmouseover=script1916(event_com)
 onmouseleave=script1917(event_com)
 
 // 806:59
-[com_59]
+[info_divider_4]
 type=graphic
 x=-1
 y=59
@@ -852,23 +852,23 @@ width=76
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_11
+layer=graph_woodcutting_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=    
 
 // 806:60
-[com_60]
+[graph_woodcutting_bound]
 type=layer
 width=86
 height=161
-layer=com_11
+layer=graph_woodcutting_layer
 transmitop=10
 op10= 
 
 // 806:61
-[com_61]
+[woodcutting_tier2_layer]
 type=layer
 x=-26
 width=16
@@ -876,19 +876,19 @@ height=16384
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_60
+layer=graph_woodcutting_bound
 transmitop=10
 op10= 
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:62
-[com_62]
+[layer_13]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_61
+layer=woodcutting_tier2_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -896,26 +896,26 @@ transmitop=10
 op10= 
 
 // 806:63
-[com_63]
+[layer_14]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_61
+layer=woodcutting_tier2_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10= 
 
 // 806:64
-[com_64]
+[layer_15]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_61
+layer=woodcutting_tier2_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -923,7 +923,7 @@ transmitop=10
 op10= 
 
 // 806:65
-[com_65]
+[woodcutting_tier3_layer]
 type=layer
 x=-8
 width=16
@@ -931,19 +931,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_60
+layer=graph_woodcutting_bound
 transmitop=10
 op10=  
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:66
-[com_66]
+[layer_16]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_65
+layer=woodcutting_tier3_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -951,26 +951,26 @@ transmitop=10
 op10=  
 
 // 806:67
-[com_67]
+[layer_17]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_65
+layer=woodcutting_tier3_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10=  
 
 // 806:68
-[com_68]
+[layer_18]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_65
+layer=woodcutting_tier3_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -978,7 +978,7 @@ transmitop=10
 op10=  
 
 // 806:69
-[com_69]
+[woodcutting_tier4_layer]
 type=layer
 x=10
 width=16
@@ -986,19 +986,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_60
+layer=graph_woodcutting_bound
 transmitop=10
 op10=  
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:70
-[com_70]
+[layer_19]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_69
+layer=woodcutting_tier4_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -1006,26 +1006,26 @@ transmitop=10
 op10=  
 
 // 806:71
-[com_71]
+[layer_20]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_69
+layer=woodcutting_tier4_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10=  
 
 // 806:72
-[com_72]
+[layer_21]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_69
+layer=woodcutting_tier4_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -1033,7 +1033,7 @@ transmitop=10
 op10=  
 
 // 806:73
-[com_73]
+[woodcutting_tier5_layer]
 type=layer
 x=27
 width=16
@@ -1041,19 +1041,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_60
+layer=graph_woodcutting_bound
 transmitop=10
 op10=  
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:74
-[com_74]
+[layer_22]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_73
+layer=woodcutting_tier5_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -1061,26 +1061,26 @@ transmitop=10
 op10=  
 
 // 806:75
-[com_75]
+[layer_23]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_73
+layer=woodcutting_tier5_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10=  
 
 // 806:76
-[com_76]
+[layer_24]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_73
+layer=woodcutting_tier5_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -1088,7 +1088,7 @@ transmitop=10
 op10=  
 
 // 806:77
-[com_77]
+[mining_tier_text]
 type=text
 x=-1
 y=25
@@ -1096,7 +1096,7 @@ width=76
 height=18
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_10
+layer=graph_mining_layer
 textfont=p11_full
 text=2    3    4    5
 textalignh=centre
@@ -1109,7 +1109,7 @@ onmouseover=script1916(event_com)
 onmouseleave=script1917(event_com)
 
 // 806:78
-[com_78]
+[info_divider_5]
 type=graphic
 x=-1
 y=77
@@ -1117,14 +1117,14 @@ width=76
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_10
+layer=graph_mining_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=    
 
 // 806:79
-[com_79]
+[mining_text]
 type=text
 x=-1
 y=7
@@ -1132,7 +1132,7 @@ width=76
 height=15
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_10
+layer=graph_mining_layer
 textfont=p11_full
 text=Mining
 textalignh=centre
@@ -1145,16 +1145,16 @@ onmouseover=script1916(event_com)
 onmouseleave=script1917(event_com)
 
 // 806:80
-[com_80]
+[graph_mining_bound]
 type=layer
 width=86
 height=161
-layer=com_10
+layer=graph_mining_layer
 transmitop=10
 op10= 
 
 // 806:81
-[com_81]
+[info_divider_6]
 type=graphic
 x=-1
 y=59
@@ -1162,14 +1162,14 @@ width=76
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_10
+layer=graph_mining_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=    
 
 // 806:82
-[com_82]
+[mining_tier2_layer]
 type=layer
 x=-26
 width=16
@@ -1177,19 +1177,19 @@ height=16384
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_80
+layer=graph_mining_bound
 transmitop=10
 op10= 
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:83
-[com_83]
+[layer_25]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_82
+layer=mining_tier2_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -1197,26 +1197,26 @@ transmitop=10
 op10= 
 
 // 806:84
-[com_84]
+[layer_26]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_82
+layer=mining_tier2_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10= 
 
 // 806:85
-[com_85]
+[layer_27]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_82
+layer=mining_tier2_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -1224,7 +1224,7 @@ transmitop=10
 op10= 
 
 // 806:86
-[com_86]
+[mining_tier3_layer]
 type=layer
 x=-8
 width=16
@@ -1232,19 +1232,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_80
+layer=graph_mining_bound
 transmitop=10
 op10=  
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:87
-[com_87]
+[layer_28]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_86
+layer=mining_tier3_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -1252,26 +1252,26 @@ transmitop=10
 op10=  
 
 // 806:88
-[com_88]
+[layer_29]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_86
+layer=mining_tier3_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10=  
 
 // 806:89
-[com_89]
+[layer_30]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_86
+layer=mining_tier3_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -1279,7 +1279,7 @@ transmitop=10
 op10=  
 
 // 806:90
-[com_90]
+[mining_tier4_layer]
 type=layer
 x=10
 width=16
@@ -1287,19 +1287,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_80
+layer=graph_mining_bound
 transmitop=10
 op10=  
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:91
-[com_91]
+[layer_31]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_90
+layer=mining_tier4_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -1307,26 +1307,26 @@ transmitop=10
 op10=  
 
 // 806:92
-[com_92]
+[layer_32]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_90
+layer=mining_tier4_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10=  
 
 // 806:93
-[com_93]
+[layer_33]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_90
+layer=mining_tier4_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -1334,7 +1334,7 @@ transmitop=10
 op10=  
 
 // 806:94
-[com_94]
+[mining_tier5_layer]
 type=layer
 x=27
 width=16
@@ -1342,19 +1342,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_80
+layer=graph_mining_bound
 transmitop=10
 op10=  
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:95
-[com_95]
+[layer_34]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_94
+layer=mining_tier5_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -1362,26 +1362,26 @@ transmitop=10
 op10=  
 
 // 806:96
-[com_96]
+[layer_35]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_94
+layer=mining_tier5_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10=  
 
 // 806:97
-[com_97]
+[layer_36]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_94
+layer=mining_tier5_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -1389,7 +1389,7 @@ transmitop=10
 op10=  
 
 // 806:98
-[com_98]
+[hunting_tier_text]
 type=text
 x=-1
 y=25
@@ -1397,7 +1397,7 @@ width=76
 height=18
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_12
+layer=graph_hunting_layer
 textfont=p11_full
 text=2    3    4    5
 textalignh=centre
@@ -1410,7 +1410,7 @@ onmouseover=script1916(event_com)
 onmouseleave=script1917(event_com)
 
 // 806:99
-[com_99]
+[info_divider_7]
 type=graphic
 x=-1
 y=77
@@ -1418,14 +1418,14 @@ width=76
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=graph_hunting_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=    
 
 // 806:100
-[com_100]
+[hunting_text]
 type=text
 x=-1
 y=7
@@ -1433,7 +1433,7 @@ width=76
 height=15
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_12
+layer=graph_hunting_layer
 textfont=p11_full
 text=Hunter
 textalignh=centre
@@ -1446,7 +1446,7 @@ onmouseover=script1916(event_com)
 onmouseleave=script1917(event_com)
 
 // 806:101
-[com_101]
+[info_divider_8]
 type=graphic
 x=-1
 y=59
@@ -1454,23 +1454,23 @@ width=76
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=graph_hunting_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
 op10=    
 
 // 806:102
-[com_102]
+[graph_hunting_bound]
 type=layer
 width=86
 height=161
-layer=com_12
+layer=graph_hunting_layer
 transmitop=10
 op10= 
 
 // 806:103
-[com_103]
+[hunting_tier2_layer]
 type=layer
 x=-26
 width=16
@@ -1478,19 +1478,19 @@ height=16384
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_102
+layer=graph_hunting_bound
 transmitop=10
 op10= 
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:104
-[com_104]
+[layer_37]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_103
+layer=hunting_tier2_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -1498,26 +1498,26 @@ transmitop=10
 op10= 
 
 // 806:105
-[com_105]
+[layer_38]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_103
+layer=hunting_tier2_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10= 
 
 // 806:106
-[com_106]
+[layer_39]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_103
+layer=hunting_tier2_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -1525,7 +1525,7 @@ transmitop=10
 op10= 
 
 // 806:107
-[com_107]
+[hunting_tier3_layer]
 type=layer
 x=-8
 width=16
@@ -1533,19 +1533,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_102
+layer=graph_hunting_bound
 transmitop=10
 op10=  
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:108
-[com_108]
+[layer_40]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_107
+layer=hunting_tier3_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -1553,26 +1553,26 @@ transmitop=10
 op10=  
 
 // 806:109
-[com_109]
+[layer_41]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_107
+layer=hunting_tier3_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10=  
 
 // 806:110
-[com_110]
+[layer_42]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_107
+layer=hunting_tier3_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -1580,7 +1580,7 @@ transmitop=10
 op10=  
 
 // 806:111
-[com_111]
+[hunting_tier4_layer]
 type=layer
 x=10
 width=16
@@ -1588,19 +1588,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_102
+layer=graph_hunting_bound
 transmitop=10
 op10=  
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:112
-[com_112]
+[layer_43]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_111
+layer=hunting_tier4_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -1608,26 +1608,26 @@ transmitop=10
 op10=  
 
 // 806:113
-[com_113]
+[layer_44]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_111
+layer=hunting_tier4_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10=  
 
 // 806:114
-[com_114]
+[layer_45]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_111
+layer=hunting_tier4_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -1635,7 +1635,7 @@ transmitop=10
 op10=  
 
 // 806:115
-[com_115]
+[hunting_tier5_layer]
 type=layer
 x=27
 width=16
@@ -1643,19 +1643,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_102
+layer=graph_hunting_bound
 transmitop=10
 op10=  
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:116
-[com_116]
+[layer_46]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_115
+layer=hunting_tier5_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -1663,26 +1663,26 @@ transmitop=10
 op10=  
 
 // 806:117
-[com_117]
+[layer_47]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_115
+layer=hunting_tier5_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10=  
 
 // 806:118
-[com_118]
+[layer_48]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_115
+layer=hunting_tier5_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -1690,13 +1690,13 @@ transmitop=10
 op10=  
 
 // 806:119
-[com_119]
+[init_rect]
 type=rectangle
 x=34
 y=25
 width=32
 height=32
-layer=com_46
+layer=main_layer
 colour=0xffff00
 trans=255
 onload=script1907
@@ -1708,20 +1708,20 @@ y=15
 width=470
 height=305
 xmode=abs_centre
-layer=com_46
+layer=main_layer
 graphic=tradebacking
 tiling=yes
 colour=0x000000
 
 // 806:121
-[com_121]
+[title_text]
 type=text
 x=-3
 y=15
 width=376
 height=42
 xmode=abs_centre
-layer=com_46
+layer=main_layer
 textfont=quill_oblique_large
 text=Remaining Clay
 textalignh=centre
@@ -1730,13 +1730,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 806:122
-[com_122]
+[help_text]
 type=text
 y=10
 width=280
 height=44
 xmode=abs_centre
-layer=com_137
+layer=graph_layer
 hide=yes
 textfont=p11_full
 text=This chart shows the number of gathering spots in the area, categorised by class and skill requirement. Gathering spots will disappear from the chart as they are used up.
@@ -1751,7 +1751,7 @@ x=32
 y=25
 width=72
 height=37
-layer=com_46
+layer=main_layer
 model=model_43148
 modelorigin=3,-5
 modelangle=682,364,0
@@ -1764,7 +1764,7 @@ x=404
 y=28
 width=57
 height=26
-layer=com_46
+layer=main_layer
 model=model_43228
 modelorigin=-4,1
 modelangle=142,0,0
@@ -1777,7 +1777,7 @@ x=339
 y=24
 width=55
 height=32
-layer=com_46
+layer=main_layer
 model=model_43163
 modelorigin=-1,-1
 modelangle=682,1689,955
@@ -1790,20 +1790,20 @@ x=113
 y=23
 width=62
 height=39
-layer=com_46
+layer=main_layer
 model=model_43166
 modelorigin=-1,3
 modelangle=364,1592,989
 modelzoom=829
 
 // 806:127
-[com_127]
+[help_button]
 type=graphic
 x=469
 y=39
 width=16
 height=16
-layer=com_46
+layer=main_layer
 graphic="v2_stone_close_button,4"
 colour=0x000000
 transmitop=1
@@ -1813,13 +1813,13 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,4")
 onop=sc_remaining_clay_help
 
 // 806:128
-[com_128]
+[close_button]
 type=graphic
 x=469
 y=20
 width=16
 height=16
-layer=com_46
+layer=main_layer
 graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1
@@ -1829,7 +1829,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 806:129
-[com_129]
+[info_bottom_3]
 type=graphic
 x=-234
 y=2
@@ -1837,7 +1837,7 @@ width=32
 height=255
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=main_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0x000000
@@ -1845,7 +1845,7 @@ transmitop=10
 op10=     
 
 // 806:130
-[com_130]
+[info_bottom_4]
 type=graphic
 x=234
 y=1
@@ -1853,7 +1853,7 @@ width=32
 height=256
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=main_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0x000000
@@ -1861,7 +1861,7 @@ transmitop=10
 op10=      
 
 // 806:131
-[com_131]
+[info_corner8]
 type=graphic
 x=-221
 y=140
@@ -1869,14 +1869,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=main_layer
 graphic="v2_stone_borders,6"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:132
-[com_132]
+[info_corner5]
 type=graphic
 x=-221
 y=-139
@@ -1884,14 +1884,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=main_layer
 graphic="v2_stone_borders,4"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:133
-[com_133]
+[info_corner7]
 type=graphic
 x=222
 y=-139
@@ -1899,14 +1899,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=main_layer
 graphic="v2_stone_borders,5"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:134
-[com_134]
+[info_corner6]
 type=graphic
 x=222
 y=140
@@ -1914,14 +1914,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=main_layer
 graphic="v2_stone_borders,7"
 colour=0x000000
 transmitop=10
 op10=   
 
 // 806:135
-[com_135]
+[info_bottom_5]
 type=graphic
 x=2
 y=152
@@ -1929,7 +1929,7 @@ width=418
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=main_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0x000000
@@ -1937,7 +1937,7 @@ transmitop=10
 op10=   
 
 // 806:136
-[com_136]
+[info_1]
 type=graphic
 x=1
 y=-152
@@ -1945,7 +1945,7 @@ width=415
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=main_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0x000000
@@ -1953,31 +1953,31 @@ transmitop=10
 op10=   
 
 // 806:137
-[com_137]
+[graph_layer]
 type=layer
 y=21
 width=447
 height=244
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=main_layer
 
 // 806:138
-[com_138]
+[basic_clay_graph_layer]
 type=layer
 width=16
 height=16384
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_47
+layer=graph_basic_clay_bound
 transmitop=10
 op10=  
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
-onmouserepeat=addtooltip(event_com, sc_remaining_clay:com_49, "Basic clay remaining", 25, 200)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
+onmouserepeat=addtooltip(event_com, sc_remaining_clay:tooltip_layer, "Basic clay remaining", 25, 200)
 
 // 806:139
-[com_139]
+[fishing_tier2_layer]
 type=layer
 x=-26
 width=16
@@ -1985,11 +1985,11 @@ height=16384
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_45
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+layer=graph_fishing_bound
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:140
-[com_140]
+[fishing_tier3_layer]
 type=layer
 x=-8
 width=16
@@ -1997,19 +1997,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_45
+layer=graph_fishing_bound
 transmitop=10
 op10= 
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:141
-[com_141]
+[layer_4]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_140
+layer=fishing_tier3_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -2017,26 +2017,26 @@ transmitop=10
 op10= 
 
 // 806:142
-[com_142]
+[layer_5]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_140
+layer=fishing_tier3_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10= 
 
 // 806:143
-[com_143]
+[layer_6]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_140
+layer=fishing_tier3_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -2044,7 +2044,7 @@ transmitop=10
 op10= 
 
 // 806:144
-[com_144]
+[fishing_tier4_layer]
 type=layer
 x=10
 width=16
@@ -2052,19 +2052,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_45
+layer=graph_fishing_bound
 transmitop=10
 op10= 
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:145
-[com_145]
+[layer_7]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_144
+layer=fishing_tier4_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -2072,26 +2072,26 @@ transmitop=10
 op10= 
 
 // 806:146
-[com_146]
+[layer_8]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_144
+layer=fishing_tier4_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10= 
 
 // 806:147
-[com_147]
+[layer_9]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_144
+layer=fishing_tier4_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -2099,7 +2099,7 @@ transmitop=10
 op10= 
 
 // 806:148
-[com_148]
+[fishing_tier5_layer]
 type=layer
 x=27
 width=16
@@ -2107,19 +2107,19 @@ height=16391
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_45
+layer=graph_fishing_bound
 transmitop=10
 op10= 
-onmouseleave=deltooltip(sc_remaining_clay:com_49)
+onmouseleave=deltooltip(sc_remaining_clay:tooltip_layer)
 
 // 806:149
-[com_149]
+[layer_10]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_148
+layer=fishing_tier5_layer
 colour=0xa98626
 fill=yes
 trans=12
@@ -2127,26 +2127,26 @@ transmitop=10
 op10= 
 
 // 806:150
-[com_150]
+[layer_11]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_148
+layer=fishing_tier5_layer
 colour=0xc8aa64
 fill=yes
 transmitop=10
 op10= 
 
 // 806:151
-[com_151]
+[layer_12]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_148
+layer=fishing_tier5_layer
 colour=0xffea95
 fill=yes
 trans=129
@@ -2154,36 +2154,36 @@ transmitop=10
 op10= 
 
 // 806:152
-[com_152]
+[layer_1]
 type=rectangle
 width=14
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_139
+layer=fishing_tier2_layer
 colour=0xa98626
 fill=yes
 trans=12
 
 // 806:153
-[com_153]
+[layer_2]
 type=rectangle
 width=8
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_139
+layer=fishing_tier2_layer
 colour=0xc8aa64
 fill=yes
 
 // 806:154
-[com_154]
+[layer_3]
 type=rectangle
 width=3
 height=16391
 heightmode=proportion
 xmode=abs_centre
-layer=com_139
+layer=fishing_tier2_layer
 colour=0xffea95
 fill=yes
 trans=129

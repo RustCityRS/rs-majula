@@ -1,5 +1,5 @@
 // 287:0
-[com_0]
+[main_layer]
 type=layer
 width=16391
 height=16391
@@ -9,23 +9,23 @@ onload=script1618
 oninvtransmit=script1618{inv_221, inv_222}
 
 // 287:1
-[com_1]
+[board_layer]
 type=layer
 x=143
 y=26
 width=236
 height=237
-layer=com_0
+layer=main_layer
 
 // 287:2
-[com_2]
+[mm_puzzleback]
 type=model
 y=-1
 width=205
 height=204
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=board_layer
 model=model_3437
 modelorigin=2,17
 modelangle=512,0,0
@@ -33,13 +33,13 @@ modelzoom=430
 modelorthog=yes
 
 // 287:3
-[com_3]
+[mm_puzzletop]
 type=model
 width=238
 height=238
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=board_layer
 model=model_4695
 modelorigin=2,17
 modelangle=512,0,0
@@ -47,22 +47,22 @@ modelzoom=443
 modelorthog=yes
 
 // 287:4
-[com_4]
+[inv_layer]
 type=layer
 x=28
 y=29
 width=179
 height=178
-layer=com_1
+layer=board_layer
 
 // 287:5
-[com_5]
+[column1_row1]
 type=model
 x=1
 y=2
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -70,13 +70,13 @@ transmitop=1
 op1=Slide
 
 // 287:6
-[com_6]
+[column2_row1]
 type=model
 x=38
 y=2
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -84,13 +84,13 @@ transmitop=1
 op1=Slide
 
 // 287:7
-[com_7]
+[column3_row1]
 type=model
 x=75
 y=2
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -98,13 +98,13 @@ transmitop=1
 op1=Slide
 
 // 287:8
-[com_8]
+[column4_row1]
 type=model
 x=111
 y=2
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -112,13 +112,13 @@ transmitop=1
 op1=Slide
 
 // 287:9
-[com_9]
+[column5_row1]
 type=model
 x=148
 y=2
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -126,13 +126,13 @@ transmitop=1
 op1=Slide
 
 // 287:10
-[com_10]
+[column1_row2]
 type=model
 x=1
 y=39
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -140,13 +140,13 @@ transmitop=1
 op1=Slide
 
 // 287:11
-[com_11]
+[column2_row2]
 type=model
 x=38
 y=39
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -154,13 +154,13 @@ transmitop=1
 op1=Slide
 
 // 287:12
-[com_12]
+[column3_row2]
 type=model
 x=75
 y=39
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -168,13 +168,13 @@ transmitop=1
 op1=Slide
 
 // 287:13
-[com_13]
+[column4_row2]
 type=model
 x=111
 y=39
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -182,13 +182,13 @@ transmitop=1
 op1=Slide
 
 // 287:14
-[com_14]
+[column5_row2]
 type=model
 x=148
 y=39
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -196,13 +196,13 @@ transmitop=1
 op1=Slide
 
 // 287:15
-[com_15]
+[column1_row3]
 type=model
 x=1
 y=76
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -211,13 +211,13 @@ op1=Slide
 op10= 
 
 // 287:16
-[com_16]
+[column2_row3]
 type=model
 x=38
 y=76
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -226,13 +226,13 @@ op1=Slide
 op10= 
 
 // 287:17
-[com_17]
+[column3_row3]
 type=model
 x=75
 y=76
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -241,13 +241,13 @@ op1=Slide
 op10= 
 
 // 287:18
-[com_18]
+[column4_row3]
 type=model
 x=111
 y=76
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -256,13 +256,13 @@ op1=Slide
 op10= 
 
 // 287:19
-[com_19]
+[column5_row3]
 type=model
 x=148
 y=76
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -271,13 +271,13 @@ op1=Slide
 op10= 
 
 // 287:20
-[com_20]
+[column1_row4]
 type=model
 x=1
 y=112
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -286,13 +286,13 @@ op1=Slide
 op10=  
 
 // 287:21
-[com_21]
+[column2_row4]
 type=model
 x=38
 y=112
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -301,13 +301,13 @@ op1=Slide
 op10=  
 
 // 287:22
-[com_22]
+[column3_row4]
 type=model
 x=75
 y=112
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -316,13 +316,13 @@ op1=Slide
 op10=  
 
 // 287:23
-[com_23]
+[column4_row4]
 type=model
 x=111
 y=112
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -331,13 +331,13 @@ op1=Slide
 op10=  
 
 // 287:24
-[com_24]
+[column5_row4]
 type=model
 x=148
 y=112
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -346,13 +346,13 @@ op1=Slide
 op10=  
 
 // 287:25
-[com_25]
+[column1_row5]
 type=model
 x=1
 y=149
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -361,13 +361,13 @@ op1=Slide
 op10=  
 
 // 287:26
-[com_26]
+[column2_row5]
 type=model
 x=38
 y=149
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -376,13 +376,13 @@ op1=Slide
 op10=  
 
 // 287:27
-[com_27]
+[column3_row5]
 type=model
 x=75
 y=149
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -391,13 +391,13 @@ op1=Slide
 op10=  
 
 // 287:28
-[com_28]
+[column4_row5]
 type=model
 x=111
 y=149
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -406,13 +406,13 @@ op1=Slide
 op10=  
 
 // 287:29
-[com_29]
+[column5_row5]
 type=model
 x=148
 y=149
 width=31
 height=30
-layer=com_4
+layer=inv_layer
 model=model_4671
 modelangle=512,0,0
 modelzoom=2180
@@ -421,7 +421,7 @@ op1=Slide
 op10=  
 
 // 287:30
-[com_30]
+[close_button]
 type=graphic
 x=144
 y=-129
@@ -429,7 +429,7 @@ width=26
 height=23
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=main_layer
 graphic="close_buttons,6"
 colour=0xffffffff
 transmitop=1
@@ -439,7 +439,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,6")
 onop=closebutton_click
 
 // 287:31
-[com_31]
+[mm_puzzle_complete_layer1]
 type=layer
 x=4
 y=-23
@@ -447,5 +447,5 @@ width=194
 height=192
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=main_layer
 hide=yes

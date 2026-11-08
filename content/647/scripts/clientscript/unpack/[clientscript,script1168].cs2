@@ -3,6 +3,6 @@
 if (calc(clientclock % 50) ! 0) {
     return;
 }
-if (cc_find(exchange_interface_experts:com_16, $int0) = true) {
+if (cc_find(exchange_interface_experts:content, $int0) = true) {
     cc_settext($string0);
 }

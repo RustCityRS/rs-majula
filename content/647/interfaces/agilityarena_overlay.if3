@@ -5,7 +5,7 @@ x=485
 y=5
 width=22
 height=22
-layer=com_4
+layer=content_layer
 colour=0xcccccc
 trans=40
 
@@ -16,18 +16,18 @@ x=485
 y=26
 width=22
 height=22
-layer=com_4
+layer=content_layer
 colour=0xcccccc
 trans=40
 
 // 5:2
-[com_2]
+[red]
 type=rectangle
 x=486
 y=27
 width=20
 height=20
-layer=com_4
+layer=content_layer
 colour=0x670000
 fill=yes
 trans=40
@@ -35,19 +35,19 @@ onload=agilityarena_overlay
 onvartransmit=agilityarena_overlay{varplayer_309}
 
 // 5:3
-[com_3]
+[green]
 type=rectangle
 x=486
 y=6
 width=20
 height=20
-layer=com_4
+layer=content_layer
 colour=0x006c00
 fill=yes
 trans=40
 
 // 5:4
-[com_4]
+[content_layer]
 type=layer
 width=512
 height=334

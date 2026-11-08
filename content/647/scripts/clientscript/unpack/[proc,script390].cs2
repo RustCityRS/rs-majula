@@ -10,15 +10,15 @@ while ($int3 >= 0) {
     }
     $int3 = calc($int3 - 1);
 }
-cc_deleteall(playerdesign4:com_82);
+cc_deleteall(playerdesign4:outfits);
 def_struct $struct4 = enum(int, struct, enum_3278, calc(%varclient_197 - 1));
-cc_deleteall(playerdesign4:com_71);
+cc_deleteall(playerdesign4:no_role);
 def_string $string0 = "Please choose your character.<br><br>Your choice will not affect your abilities.<br>You can modify features like your hair style and clothing once you have chosen your character.";
 if ($struct4 = null) {
-    $int1 = calc(if_getwidth(playerdesign4:com_82) - 16);
+    $int1 = calc(if_getwidth(playerdesign4:outfits) - 16);
     $int1, $int3 = parawidth($string0, $int1, p12_full), calc(paraheight($string0, $int1, p12_full) * 20 + 3);
-    if_setsize(calc($int1 + 16), calc($int3 + 50), ^setsize_abs, ^setsize_abs, playerdesign4:com_71);
-    cc_create(playerdesign4:com_71, ^iftype_text, if_getnextsubid(playerdesign4:com_71));
+    if_setsize(calc($int1 + 16), calc($int3 + 50), ^setsize_abs, ^setsize_abs, playerdesign4:no_role);
+    cc_create(playerdesign4:no_role, ^iftype_text, if_getnextsubid(playerdesign4:no_role));
     cc_setsize($int1, $int3, ^setsize_abs, ^setsize_abs);
     cc_setposition(0, 22, ^setpos_abs_centre, ^setpos_abs_top);
     cc_settextfont(verdana_11pt_regular);
@@ -26,10 +26,10 @@ if ($struct4 = null) {
     cc_settextshadow(false);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 20);
     cc_settext($string0);
-    if_sethide(false, playerdesign4:com_71);
+    if_sethide(false, playerdesign4:no_role);
     return;
 }
-if_sethide(true, playerdesign4:com_71);
+if_sethide(true, playerdesign4:no_role);
 def_int $int5 = 0;
 $int3 = 0;
 def_struct $struct6 = ~playerdesign4_getoutfit(0, $struct4, $boolean0);

@@ -10,7 +10,7 @@ fill=yes
 trans=200
 
 // 163:1
-[com_1]
+[background_graphic]
 type=graphic
 x=14
 y=25
@@ -74,7 +74,7 @@ tiling=yes
 colour=0x000000
 
 // 163:7
-[com_7]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -84,8 +84,8 @@ graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(smki_learn:com_7, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(smki_learn:com_7, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(smki_learn:close_button, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(smki_learn:close_button, "v2_stone_close_button,0")
 onop=closebutton_click
 onclick=closebutton_click
 
@@ -151,7 +151,7 @@ graphic="v2_stone_borders,10"
 colour=0x000000
 
 // 163:14
-[com_14]
+[assignment_tab]
 type=graphic
 x=182
 y=29
@@ -161,11 +161,11 @@ graphic="tabs,1"
 colour=0x000000
 transmitop=1
 op1=Assignment
-onmouseleave=deltooltip(smki_learn:com_43)
-onmouserepeat=addtooltip(event_com, smki_learn:com_43, "Manage Slayer assignments", 25, 150)
+onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn:tool_tip_build_layer, "Manage Slayer assignments", 25, 150)
 
 // 163:15
-[com_15]
+[buy_tab]
 type=graphic
 x=22
 y=29
@@ -175,11 +175,11 @@ graphic="tabs,1"
 colour=0x000000
 transmitop=1
 op1=Buy
-onmouseleave=deltooltip(smki_learn:com_43)
-onmouserepeat=addtooltip(event_com, smki_learn:com_43, "Buy Slayer equipment", 25, 150)
+onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn:tool_tip_build_layer, "Buy Slayer equipment", 25, 150)
 
 // 163:16
-[com_16]
+[learn_tab]
 type=graphic
 x=99
 y=29
@@ -199,7 +199,7 @@ colour=0x484038
 fill=yes
 
 // 163:18
-[com_18]
+[xxxx]
 type=text
 x=198
 y=87
@@ -212,7 +212,7 @@ textshadow=yes
 colour=0xd7b011
 
 // 163:19
-[com_19]
+[buy]
 type=text
 x=35
 y=33
@@ -224,7 +224,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 163:20
-[com_20]
+[learn]
 type=text
 x=112
 y=34
@@ -236,7 +236,7 @@ textshadow=yes
 colour=0xff981f
 
 // 163:21
-[com_21]
+[assignment]
 type=text
 x=193
 y=34
@@ -248,7 +248,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 163:22
-[com_22]
+[ability_missiles]
 type=text
 x=118
 y=138
@@ -260,11 +260,11 @@ textshadow=yes
 colour=0xd7b011
 transmitop=1
 op1=Buy Ability
-onmouseleave=deltooltip(smki_learn:com_43)
-onmouserepeat=addtooltip(event_com, smki_learn:com_43, "Learn how to fletch broad arrows (with 52 Fletching) and bolts (with 55 Fletching).", 25, 150)
+onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn:tool_tip_build_layer, "Learn how to fletch broad arrows (with 52 Fletching) and bolts (with 55 Fletching).", 25, 150)
 
 // 163:23
-[com_23]
+[ability_ring]
 type=text
 x=118
 y=191
@@ -276,11 +276,11 @@ textshadow=yes
 colour=0xd7b011
 transmitop=1
 op1=Buy Ability
-onmouseleave=deltooltip(smki_learn:com_43)
-onmouserepeat=addtooltip(event_com, smki_learn:com_43, "Learn how to craft rings of slaying (with 75 Crafting).", 25, 150)
+onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn:tool_tip_build_layer, "Learn how to craft rings of slaying (with 75 Crafting).", 25, 150)
 
 // 163:24
-[com_24]
+[ability_helm]
 type=text
 x=118
 y=241
@@ -292,11 +292,11 @@ textshadow=yes
 colour=0xd7b011
 transmitop=1
 op1=Buy Ability
-onmouseleave=deltooltip(smki_learn:com_43)
-onmouserepeat=addtooltip(event_com, smki_learn:com_43, "Learn how to combine the nosepeg, earmuffs, spiny helm, facemask and uncharged black mask (with 55 Crafting).", 25, 150)
+onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn:tool_tip_build_layer, "Learn how to combine the nosepeg, earmuffs, spiny helm, facemask and uncharged black mask (with 55 Crafting).", 25, 150)
 
 // 163:25
-[com_25]
+[missile_known]
 type=text
 x=118
 y=159
@@ -308,7 +308,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 163:26
-[com_26]
+[ring_known]
 type=text
 x=118
 y=211
@@ -320,7 +320,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 163:27
-[com_27]
+[helm_known]
 type=text
 x=118
 y=261
@@ -344,7 +344,7 @@ textshadow=yes
 colour=0xd7b011
 
 // 163:29
-[com_29]
+[missile_points]
 type=text
 x=366
 y=138
@@ -356,11 +356,11 @@ textshadow=yes
 colour=0xff981f
 transmitop=1
 op1=Buy Ability
-onmouseleave=deltooltip(smki_learn:com_43)
-onmouserepeat=addtooltip(event_com, smki_learn:com_43, "Learn how to fletch broad arrows (with 52 Fletching) and bolts (with 55 Fletching).", 25, 150)
+onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn:tool_tip_build_layer, "Learn how to fletch broad arrows (with 52 Fletching) and bolts (with 55 Fletching).", 25, 150)
 
 // 163:30
-[com_30]
+[ring_points]
 type=text
 x=366
 y=191
@@ -372,11 +372,11 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Buy Ability
-onmouseleave=deltooltip(smki_learn:com_43)
-onmouserepeat=addtooltip(event_com, smki_learn:com_43, "Learn how to craft rings of slaying (with 75 Crafting).", 25, 150)
+onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn:tool_tip_build_layer, "Learn how to craft rings of slaying (with 75 Crafting).", 25, 150)
 
 // 163:31
-[com_31]
+[helm_points]
 type=text
 x=366
 y=241
@@ -388,11 +388,11 @@ textshadow=yes
 colour=0xff981f
 transmitop=1
 op1=Buy Ability
-onmouseleave=deltooltip(smki_learn:com_43)
-onmouserepeat=addtooltip(event_com, smki_learn:com_43, "Learn how to combine the nosepeg, earmuffs, spiny helm, facemask and uncharged black mask (with 55 Crafting).", 25, 150)
+onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn:tool_tip_build_layer, "Learn how to combine the nosepeg, earmuffs, spiny helm, facemask and uncharged black mask (with 55 Crafting).", 25, 150)
 
 // 163:32
-[com_32]
+[helm]
 type=model
 x=74
 y=231
@@ -404,8 +404,8 @@ modelangle=162,0,0
 modelzoom=528
 transmitop=1
 op1=Buy Ability
-onmouseleave=deltooltip(smki_learn:com_43)
-onmouserepeat=addtooltip(event_com, smki_learn:com_43, "Learn how to combine the nosepeg, earmuffs, spiny helm, facemask and uncharged black mask (with 55 Crafting).", 25, 150)
+onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn:tool_tip_build_layer, "Learn how to combine the nosepeg, earmuffs, spiny helm, facemask and uncharged black mask (with 55 Crafting).", 25, 150)
 
 // 163:33
 [com_33]
@@ -420,11 +420,11 @@ modelangle=420,1774,0
 modelzoom=400
 transmitop=1
 op1=Buy Ability
-onmouseleave=deltooltip(smki_learn:com_43)
-onmouserepeat=addtooltip(event_com, smki_learn:com_43, "Learn how to fletch broad arrows (with 52 Fletching) and bolts (with 55 Fletching).", 25, 150)
+onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn:tool_tip_build_layer, "Learn how to fletch broad arrows (with 52 Fletching) and bolts (with 55 Fletching).", 25, 150)
 
 // 163:34
-[com_34]
+[missiles]
 type=model
 x=69
 y=140
@@ -436,7 +436,7 @@ modelangle=228,216,0
 modelzoom=784
 
 // 163:35
-[com_35]
+[ring]
 type=model
 x=71
 y=191
@@ -448,8 +448,8 @@ modelangle=255,210,0
 modelzoom=400
 transmitop=1
 op1=Buy Ability
-onmouseleave=deltooltip(smki_learn:com_43)
-onmouserepeat=addtooltip(event_com, smki_learn:com_43, "Learn how to craft rings of slaying (with 75 Crafting).", 25, 150)
+onmouseleave=deltooltip(smki_learn:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn:tool_tip_build_layer, "Learn how to craft rings of slaying (with 75 Crafting).", 25, 150)
 
 // 163:36
 [com_36]
@@ -512,14 +512,14 @@ graphic="v2_stone_borders,2"
 colour=0x000000
 
 // 163:42
-[com_42]
+[tooltip_bounding_box]
 type=layer
 width=512
 height=334
 
 // 163:43
-[com_43]
+[tool_tip_build_layer]
 type=layer
 width=512
 height=334
-layer=com_42
+layer=tooltip_bounding_box

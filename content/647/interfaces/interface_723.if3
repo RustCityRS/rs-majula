@@ -19,7 +19,7 @@ height=197
 scrollheight=400
 
 // 723:2
-[com_2]
+[dwarf]
 type=model
 x=18
 y=8
@@ -31,7 +31,7 @@ modelorigin=0,14
 modelzoom=288
 
 // 723:3
-[com_3]
+[goblin]
 type=model
 x=18
 y=98
@@ -43,7 +43,7 @@ modelorigin=0,14
 modelzoom=288
 
 // 723:4
-[com_4]
+[pirate]
 type=model
 x=18
 y=188
@@ -55,7 +55,7 @@ modelorigin=0,14
 modelzoom=288
 
 // 723:5
-[com_5]
+[guide]
 type=model
 x=18
 y=278
@@ -135,7 +135,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=script2347(4)
 
 // 723:10
-[com_10]
+[scroll]
 type=layer
 x=401
 y=82

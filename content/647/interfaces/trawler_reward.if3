@@ -12,7 +12,7 @@ fill=yes
 trans=200
 
 // 367:1
-[com_1]
+[universe]
 type=layer
 width=490
 height=300
@@ -28,7 +28,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic=tradebacking
 tiling=yes
 colour=0x000000
@@ -40,7 +40,7 @@ x=14
 y=28
 width=303
 height=255
-layer=com_1
+layer=universe
 model=model_1866
 modelorigin=12,-1
 modelangle=238,147,0
@@ -55,7 +55,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic=tradebacking
 tiling=yes
 trans=50
@@ -70,7 +70,7 @@ width=32
 height=10
 heightmode=minus
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0x000000
@@ -82,7 +82,7 @@ width=30
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0x000000
@@ -92,7 +92,7 @@ colour=0x000000
 type=graphic
 width=32
 height=32
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,35"
 colour=0x000000
 
@@ -105,7 +105,7 @@ height=10
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0x000000
@@ -119,7 +119,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0x000000
@@ -130,7 +130,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,6"
 colour=0x000000
 
@@ -140,7 +140,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,37"
 colour=0x000000
 
@@ -151,7 +151,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,7"
 colour=0x000000
 
@@ -161,7 +161,7 @@ type=text
 width=400
 height=24
 xmode=abs_centre
-layer=com_1
+layer=universe
 textfont=b12_full
 text=Trawler Catch
 textalignh=centre
@@ -177,7 +177,7 @@ y=4
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=universe
 graphic="v2_stone_close_button,2"
 colour=0x000000
 transmitop=1
@@ -187,14 +187,14 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,2")
 onop=closebutton_click
 
 // 367:15
-[com_15]
+[bank]
 type=model
 x=10
 y=169
 width=70
 height=117
 xmode=abs_right
-layer=com_1
+layer=universe
 model=model_9357
 modelorigin=-2,58
 modelangle=0,68,0
@@ -203,7 +203,7 @@ modelnodepth=yes
 candrop=yes
 
 // 367:16
-[com_16]
+[banktext]
 type=text
 x=10
 y=130
@@ -211,7 +211,7 @@ width=70
 height=100
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=universe
 textfont=p11_full
 text=Drag items here to send them to your bank.
 textalignv=bottom
@@ -219,14 +219,14 @@ textshadow=yes
 candrop=yes
 
 // 367:17
-[com_17]
+[warning]
 type=text
 width=100
 height=100
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=universe
 textfont=p11_full
 text=Items left in the net will be dumped on the ground<br>when this interface is closed.
 textalignh=centre
@@ -234,13 +234,13 @@ textalignv=centre
 textshadow=yes
 
 // 367:18
-[com_18]
+[items]
 type=layer
 x=10
 y=40
 width=400
 height=240
-layer=com_1
+layer=universe
 noclickthrough=yes
-onload=trawler_reward_setup(event_com, trawler_reward:com_15, trawler_reward:com_16)
-oninvtransmit=trawler_reward_setup(event_com, trawler_reward:com_15, trawler_reward:com_16){inv_0}
+onload=trawler_reward_setup(event_com, trawler_reward:bank, trawler_reward:banktext)
+oninvtransmit=trawler_reward_setup(event_com, trawler_reward:bank, trawler_reward:banktext){inv_0}

@@ -7,7 +7,7 @@ if ($int2 <= 30) {
         sound_synth(synth_2871, 1, 0);
     }
     $int3 = calc(11 * $int2 - 325);
-    if_setposition($int3, 5, ^setpos_abs_left, ^setpos_abs_top, interface_475:com_8);
+    if_setposition($int3, 5, ^setpos_abs_left, ^setpos_abs_top, machinima_livecamera:messagelayer);
     return;
 }
 if ($int2 < 170) {
@@ -18,7 +18,7 @@ if ($int2 < 201) {
         sound_synth(synth_2871, 1, 0);
     }
     $int3 = calc(5 - 11 * ($int2 - 170));
-    if_setposition($int3, 5, ^setpos_abs_left, ^setpos_abs_top, interface_475:com_8);
+    if_setposition($int3, 5, ^setpos_abs_left, ^setpos_abs_top, machinima_livecamera:messagelayer);
     return;
 }
 if_setontimer(null, $component0);

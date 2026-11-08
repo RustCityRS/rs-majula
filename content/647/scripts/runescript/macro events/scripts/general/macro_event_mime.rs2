@@ -99,14 +99,14 @@ if(coord = 0_31_74_24_28) p_teleport(movecoord(coord, 0, 0, -2));
 // 2011's macro_mime_emotes (188) lays its buttons out as Think, Cry, Laugh,
 // Dance, Climb Rope, Lean on air, Glass Box, Glass Wall (cache-786); 289's had
 // Cry and Think, and Glass Wall and Glass Box, the other way round.
-[if_button,macro_mime_emotes:com_2] @mime_random_emote(emote_think,1);
-[if_button,macro_mime_emotes:com_3] @mime_random_emote(emote_cry,0);
-[if_button,macro_mime_emotes:com_4] @mime_random_emote(emote_laugh,2);
-[if_button,macro_mime_emotes:com_5] @mime_random_emote(emote_dance,3);
-[if_button,macro_mime_emotes:com_6] @mime_random_emote(emote_climbing_rope,4);
+[if_button,macro_mime_emotes:macro_emote_think] @mime_random_emote(emote_think,1);
+[if_button,macro_mime_emotes:macro_emote_cry] @mime_random_emote(emote_cry,0);
+[if_button,macro_mime_emotes:macro_emote_laugh] @mime_random_emote(emote_laugh,2);
+[if_button,macro_mime_emotes:macro_emote_dance] @mime_random_emote(emote_dance,3);
+[if_button,macro_mime_emotes:macro_emote_climbrope] @mime_random_emote(emote_climbing_rope,4);
 [if_button,macro_mime_emotes:com_7] @mime_random_emote(emote_mime_lean,5);
-[if_button,macro_mime_emotes:com_8] @mime_random_emote(emote_glass_box,7);
-[if_button,macro_mime_emotes:com_9] @mime_random_emote(emote_glass_wall,6);
+[if_button,macro_mime_emotes:macro_emote_glassbox] @mime_random_emote(emote_glass_box,7);
+[if_button,macro_mime_emotes:macro_emote_glasswall] @mime_random_emote(emote_glass_wall,6);
 
 // Label to check if the right emote is selected
 [label,mime_random_emote](seq $anim, int $num)

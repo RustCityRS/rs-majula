@@ -1,31 +1,31 @@
 // 3159
 [proc,lobbyscreen_pane_clanchat_load](int $int0)
-if_setsize(calc(if_getx(lobbyscreen_pane_clanchat:com_39) - if_getx(lobbyscreen_pane_clanchat:com_37)), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_clanchat:com_49);
-if_setsize(calc(if_getwidth(lobbyscreen_pane_clanchat:com_45) - if_getwidth(lobbyscreen_pane_clanchat:com_49) - 2), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_clanchat:com_51);
-if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:com_45);
-if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:com_45);
-~scrollbar_vertical(lobbyscreen_pane_clanchat:com_46, lobbyscreen_pane_clanchat:com_45, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:com_21);
-if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:com_21);
-~scrollbar_vertical(lobbyscreen_pane_clanchat:com_22, lobbyscreen_pane_clanchat:com_21, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_setonclansettingstransmit("lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:com_49, lobbyscreen_pane_clanchat:com_50, lobbyscreen_pane_clanchat:com_51, lobbyscreen_pane_clanchat:com_47, lobbyscreen_pane_clanchat:com_45, lobbyscreen_pane_clanchat:com_46)", lobbyscreen_pane_clanchat:com_45);
-if_setonclanchanneltransmit("lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:com_49, lobbyscreen_pane_clanchat:com_50, lobbyscreen_pane_clanchat:com_51, lobbyscreen_pane_clanchat:com_47, lobbyscreen_pane_clanchat:com_45, lobbyscreen_pane_clanchat:com_46)", lobbyscreen_pane_clanchat:com_45);
+if_setsize(calc(if_getx(lobbyscreen_pane_clanchat:clan_vdiv) - if_getx(lobbyscreen_pane_clanchat:clan_content)), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_clanchat:clan_name);
+if_setsize(calc(if_getwidth(lobbyscreen_pane_clanchat:clan_main) - if_getwidth(lobbyscreen_pane_clanchat:clan_name) - 2), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_clanchat:clan_status);
+if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:clan_main);
+if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:clan_main);
+~scrollbar_vertical(lobbyscreen_pane_clanchat:clan_build_layer_scroll, lobbyscreen_pane_clanchat:clan_main, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:chat_build);
+if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:chat_build);
+~scrollbar_vertical(lobbyscreen_pane_clanchat:chat_scroll, lobbyscreen_pane_clanchat:chat_build, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setonclansettingstransmit("lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:clan_name, lobbyscreen_pane_clanchat:clan_namechange, lobbyscreen_pane_clanchat:clan_status, lobbyscreen_pane_clanchat:clan_bg, lobbyscreen_pane_clanchat:clan_main, lobbyscreen_pane_clanchat:clan_build_layer_scroll)", lobbyscreen_pane_clanchat:clan_main);
+if_setonclanchanneltransmit("lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:clan_name, lobbyscreen_pane_clanchat:clan_namechange, lobbyscreen_pane_clanchat:clan_status, lobbyscreen_pane_clanchat:clan_bg, lobbyscreen_pane_clanchat:clan_main, lobbyscreen_pane_clanchat:clan_build_layer_scroll)", lobbyscreen_pane_clanchat:clan_main);
 if (activeclanchannel_find_affined = true) {
-    if_sethide(true, lobbyscreen_pane_clanchat:com_12);
-    ~lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:com_49, lobbyscreen_pane_clanchat:com_50, lobbyscreen_pane_clanchat:com_51, lobbyscreen_pane_clanchat:com_47, lobbyscreen_pane_clanchat:com_45, lobbyscreen_pane_clanchat:com_46);
-    if (if_gethide(lobbyscreen:com_178) = false) {
+    if_sethide(true, lobbyscreen_pane_clanchat:info_layer);
+    ~lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:clan_name, lobbyscreen_pane_clanchat:clan_namechange, lobbyscreen_pane_clanchat:clan_status, lobbyscreen_pane_clanchat:clan_bg, lobbyscreen_pane_clanchat:clan_main, lobbyscreen_pane_clanchat:clan_build_layer_scroll);
+    if (if_gethide(lobbyscreen:clanchat_panel) = false) {
         ~script3161(1);
     } else {
         ~script3161(0);
     }
 } else {
-    if_sethide(false, lobbyscreen_pane_clanchat:com_12);
+    if_sethide(false, lobbyscreen_pane_clanchat:info_layer);
     ~script3161(0);
 }
 %varclient_1797 = "";
-~brown_cursebearer(lobbyscreen_pane_clanchat:com_29);
-~script3027(lobbyscreen_pane_clanchat:com_8);
+~brown_cursebearer(lobbyscreen_pane_clanchat:chat_bg);
+~script3027(lobbyscreen_pane_clanchat:clan_title);
 %varclient_1098 = string_length(%varclient_1797);
-if_setonclick("script1335(event_mousex, lobbyscreen_pane_clanchat:com_25, lobbyscreen_pane_clanchat:com_26)", lobbyscreen_pane_clanchat:com_25);
-~script1390(lobbyscreen_pane_clanchat:com_25, lobbyscreen_pane_clanchat:com_26, %varclient_1797);
-if_sethide(true, lobbyscreen_pane_clanchat:com_26);
+if_setonclick("script1335(event_mousex, lobbyscreen_pane_clanchat:chat_input_text, lobbyscreen_pane_clanchat:input_caret)", lobbyscreen_pane_clanchat:chat_input_text);
+~script1390(lobbyscreen_pane_clanchat:chat_input_text, lobbyscreen_pane_clanchat:input_caret, %varclient_1797);
+if_sethide(true, lobbyscreen_pane_clanchat:input_caret);

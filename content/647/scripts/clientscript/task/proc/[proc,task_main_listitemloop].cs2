@@ -32,7 +32,7 @@ while ($int0 ! 450 & $int0 ! 4094) {
             } else {
                 $graphic8 = struct_param($struct3, param_1271);
             }
-            cc_create(task_main:com_98, ^iftype_graphic, $int10);
+            cc_create(task_main:list_window, ^iftype_graphic, $int10);
             if ($int4 = 2) {
                 $graphic13 = graphic_4043;
                 $graphic12 = graphic_4043;
@@ -62,19 +62,19 @@ while ($int0 ! 450 & $int0 ! 4094) {
             if (~script3994($int0) = 1 & $int0 ! 4094) {
                 %varclient_1422 = $int10;
             }
-            cc_create(task_main:com_98, ^iftype_graphic, calc($int10 + 1));
+            cc_create(task_main:list_window, ^iftype_graphic, calc($int10 + 1));
             cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
             cc_setgraphic($graphic8);
             cc_setposition(calc($int15 + 2), calc($int17 + 2), ^setpos_abs_left, ^setpos_abs_top);
             cc_settrans($int18);
-            cc_create(task_main:com_98, ^iftype_graphic, calc($int10 + 2));
+            cc_create(task_main:list_window, ^iftype_graphic, calc($int10 + 2));
             if ($int5 ! 0 & $int5 ! 63) {
                 $graphic9 = small_compass;
                 cc_setsize(13, 13, ^setsize_abs, ^setsize_abs);
                 cc_setgraphic($graphic9);
                 cc_setposition(calc($int15 + 70 - 17), calc($int17 + 4), ^setpos_abs_left, ^setpos_abs_top);
             }
-            cc_create(task_main:com_98, ^iftype_graphic, calc($int10 + 3));
+            cc_create(task_main:list_window, ^iftype_graphic, calc($int10 + 3));
             if (~script3994($int0) = 1) {
                 $graphic9 = graphic_4296;
                 cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);

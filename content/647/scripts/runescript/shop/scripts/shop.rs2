@@ -16,9 +16,9 @@
 %shop_buy = $shop_buy;
 %shop_sell = $shop_sell;
 %shop_haggle = $shop_haggle;
-if_settext(shop_template:com_76, $title);
-inv_transmit(inv, shop_template_side:inv);
-inv_transmit($shop, shop_template:inv);
+if_settext(shop_template:shop_title, $title);
+inv_transmit(inv, shop_template_side:inventory_layer);
+inv_transmit($shop, shop_template:com_25);
 if_openmain_side(shop_template, shop_template_side);
 ~openshop_2011;
 
@@ -27,9 +27,9 @@ if_openmain_side(shop_template, shop_template_side);
 %shop_buy = npc_param(shop_buy_multiplier);
 %shop_sell = npc_param(shop_sell_multiplier);
 %shop_haggle = npc_param(shop_delta);
-if_settext(shop_template:com_76, npc_param(shop_title));
-inv_transmit(inv, shop_template_side:inv);
-inv_transmit(%shop, shop_template:inv);
+if_settext(shop_template:shop_title, npc_param(shop_title));
+inv_transmit(inv, shop_template_side:inventory_layer);
+inv_transmit(%shop, shop_template:com_25);
 if_openmain_side(shop_template, shop_template_side);
 ~openshop_2011;
 
@@ -79,9 +79,9 @@ if_openmain_side(shop_template, shop_template_side);
 %varclient_983 = ~shop_stockbase(37);
 %varclient_984 = ~shop_stockbase(38);
 %varclient_985 = ~shop_stockbase(39);
-if_setevents(shop_template:inv, 0, calc(inv_size(%shop) * ^shop_slot_components - 1), ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^if_op6, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
-runclientscript("interface_inv_init_big(shop_template_side:inv, inv, 4, 7, 0, -1, \"Value\", \"Sell 1\", \"Sell 5\", \"Sell 10\", \"Sell 50\", \"Examine\", \"\", \"\", \"\")");
-if_setevents(shop_template_side:inv, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^if_op6, ^no_op, ^no_op, ^no_op, ^no_op), 0, 0, ^false, ^false);
+if_setevents(shop_template:com_25, 0, calc(inv_size(%shop) * ^shop_slot_components - 1), ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^if_op6, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
+runclientscript("interface_inv_init_big(shop_template_side:inventory_layer, inv, 4, 7, 0, -1, \"Value\", \"Sell 1\", \"Sell 5\", \"Sell 10\", \"Sell 50\", \"Examine\", \"\", \"\", \"\")");
+if_setevents(shop_template_side:inventory_layer, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^if_op6, ^no_op, ^no_op, ^no_op, ^no_op), 0, 0, ^false, ^false);
 
 [proc,shop_stockbase](int $slot)(int)
 if ($slot < inv_size(%shop)) {
@@ -93,8 +93,8 @@ if ($slot < inv_size(%shop)) {
 return(0);
 
 [if_close,shop_template]
-inv_stoptransmit(shop_template_side:inv);
-inv_stoptransmit(shop_template:inv);
+inv_stoptransmit(shop_template_side:inventory_layer);
+inv_stoptransmit(shop_template:com_25);
 
 [proc,can_sell_obj](obj $item)(boolean)
 def_boolean $item_is_tradable = oc_tradeable(oc_uncert($item));
@@ -111,7 +111,7 @@ if ($item = coins) {
 return (true);
 
 // sell value
-[if_button1,shop_template_side:inv]
+[if_button1,shop_template_side:inventory_layer]
 def_obj $item = oc_uncert(inv_getobj(inv, last_slot));
 def_string $item_name = oc_name($item);
 def_int $item_value = ~adjusted_item_cost_selling($item, inv_total(%shop, $item));
@@ -123,7 +123,7 @@ mes("<$item_name>: shop will buy for <tostring($item_value)>gp.");
 // Buy value: 289's left-click on the stock, 2011's Info (clientscript 2723;
 // void-634 opens its item information panel there, obj_info, which is not
 // ported).
-[if_button1,shop_template:inv]
+[if_button1,shop_template:com_25]
 def_obj $item = inv_getobj(%shop, ~shop_slot(last_slot));
 def_string $item_name = oc_name($item);
 def_int $item_value = ~adjusted_item_cost_buying($item, inv_total(%shop, $item));
@@ -244,19 +244,19 @@ if ($sell_amount > $player_amount) {
 return ($sell_amount);
 
 // Sell buttons (void-634 adds Sell 50)
-[if_button2,shop_template_side:inv] @shop_request(inv, last_slot, 1);
-[if_button3,shop_template_side:inv] @shop_request(inv, last_slot, 5);
-[if_button4,shop_template_side:inv] @shop_request(inv, last_slot, 10);
-[if_button5,shop_template_side:inv] @shop_request(inv, last_slot, 50);
-[if_button6,shop_template_side:inv] ~inv_examine(last_slot);
+[if_button2,shop_template_side:inventory_layer] @shop_request(inv, last_slot, 1);
+[if_button3,shop_template_side:inventory_layer] @shop_request(inv, last_slot, 5);
+[if_button4,shop_template_side:inventory_layer] @shop_request(inv, last_slot, 10);
+[if_button5,shop_template_side:inventory_layer] @shop_request(inv, last_slot, 50);
+[if_button6,shop_template_side:inventory_layer] ~inv_examine(last_slot);
 
 // Buy buttons (2011 adds Buy 50 and Buy 500, clientscript 2723)
-[if_button2,shop_template:inv] @shop_request(%shop, ~shop_slot(last_slot), 1);
-[if_button3,shop_template:inv] @shop_request(%shop, ~shop_slot(last_slot), 5);
-[if_button4,shop_template:inv] @shop_request(%shop, ~shop_slot(last_slot), 10);
-[if_button5,shop_template:inv] @shop_request(%shop, ~shop_slot(last_slot), 50);
-[if_button6,shop_template:inv] @shop_request(%shop, ~shop_slot(last_slot), 500);
-[if_button10,shop_template:inv]
+[if_button2,shop_template:com_25] @shop_request(%shop, ~shop_slot(last_slot), 1);
+[if_button3,shop_template:com_25] @shop_request(%shop, ~shop_slot(last_slot), 5);
+[if_button4,shop_template:com_25] @shop_request(%shop, ~shop_slot(last_slot), 10);
+[if_button5,shop_template:com_25] @shop_request(%shop, ~shop_slot(last_slot), 50);
+[if_button6,shop_template:com_25] @shop_request(%shop, ~shop_slot(last_slot), 500);
+[if_button10,shop_template:com_25]
 def_obj $obj = inv_getobj(%shop, ~shop_slot(last_slot));
 if ($obj ! null) {
     mes(oc_desc($obj));
@@ -292,11 +292,11 @@ return($int4);
 // 289's shop ops are inv_buttons on its two invs; 2011's client sends an
 // inventory component's ops as IF_BUTTON1-10, so they are the if_button1-4
 // triggers above.
-// [inv_button1,shop_template_side:inv]
-// [inv_button2,shop_template_side:inv]
-// [inv_button3,shop_template_side:inv]
-// [inv_button4,shop_template_side:inv]
-// [inv_button1,shop_template:inv]
-// [inv_button2,shop_template:inv]
-// [inv_button3,shop_template:inv]
-// [inv_button4,shop_template:inv]
+// [inv_button1,shop_template_side:inventory_layer]
+// [inv_button2,shop_template_side:inventory_layer]
+// [inv_button3,shop_template_side:inventory_layer]
+// [inv_button4,shop_template_side:inventory_layer]
+// [inv_button1,shop_template:com_25]
+// [inv_button2,shop_template:com_25]
+// [inv_button3,shop_template:com_25]
+// [inv_button4,shop_template:com_25]

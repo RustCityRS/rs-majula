@@ -12,25 +12,25 @@ fill=yes
 trans=160
 
 // 505:1
-[com_1]
+[peng_map_interface]
 type=model
 x=34
 width=449
 height=331
-layer=com_9
+layer=layer_1
 model=model_4652
 modelorigin=-19,-14
 modelangle=479,2,0
 modelzoom=894
 
 // 505:2
-[com_2]
+[misc_shipmodel]
 type=model
 x=78
 y=28
 width=356
 height=268
-layer=com_9
+layer=layer_1
 model=model_21733
 modelorigin=-21,-22
 modelangle=346,60,0
@@ -43,7 +43,7 @@ x=92
 y=203
 width=148
 height=18
-layer=com_9
+layer=layer_1
 textfont=q8_full
 text=Waterbirth <br>Island
 textalignh=centre
@@ -56,7 +56,7 @@ x=171
 y=110
 width=120
 height=16
-layer=com_9
+layer=layer_1
 textfont=q8_full
 text=Miscellania
 textalignh=centre
@@ -69,7 +69,7 @@ x=223
 y=161
 width=92
 height=16
-layer=com_9
+layer=layer_1
 textfont=q8_full
 text=Etceteria
 textalignh=centre
@@ -82,7 +82,7 @@ x=274
 y=282
 width=75
 height=18
-layer=com_9
+layer=layer_1
 textfont=q8_full
 text=Rellekka
 colour=0x282315
@@ -94,7 +94,7 @@ x=79
 y=178
 width=135
 height=18
-layer=com_9
+layer=layer_1
 textfont=q8_full
 text=Neitiznot & Jatizso
 colour=0x282315
@@ -106,14 +106,14 @@ x=334
 y=260
 width=122
 height=18
-layer=com_9
+layer=layer_1
 textfont=q8_full
 text=Keldagrim<br>entrance
 textalignh=centre
 colour=0x282315
 
 // 505:9
-[com_9]
+[layer_1]
 type=layer
 width=512
 height=334
@@ -121,7 +121,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 505:10
-[com_10]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -129,7 +129,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 505:11
-[com_11]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -139,7 +139,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 505:12
-[com_12]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -147,7 +147,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_11
+layer=fsborder_main_layer
 
 // 505:13
 [com_13]
@@ -250,7 +250,7 @@ tiling=yes
 colour=0x000000
 
 // 505:21
-[com_21]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -258,30 +258,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 505:22
-[com_22]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 505:23
-[com_23]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 505:24
-[com_24]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -289,16 +289,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 505:25
-[com_25]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 505:26
 [com_26]
@@ -308,7 +308,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_22
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -323,7 +323,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_21
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -337,7 +337,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_23
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -352,7 +352,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_24
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

@@ -1,98 +1,98 @@
 // 594
 [proc,sm_updateofferlayer](int $int0, obj $obj1, int $int2, int $int3)
-if_setobject($obj1, -1, stockmarket:com_139);
+if_setobject($obj1, -1, stockmarket:offeritem_model);
 def_string $string0 = null;
 def_string $string1 = null;
 def_string $string2 = null;
 if ($int0 = 0) {
-    if_settext("Buy Offer", stockmarket:com_134);
-    if_setgraphic("grand_exchange_misc_graphics,7", stockmarket:com_135);
-    if_settext("+1", stockmarket:com_160);
-    if_setop(1, "Add 1", stockmarket:com_160);
+    if_settext("Buy Offer", stockmarket:offertype_text);
+    if_setgraphic("grand_exchange_misc_graphics,7", stockmarket:offertype_icon);
+    if_settext("+1", stockmarket:offercount_1);
+    if_setop(1, "Add 1", stockmarket:offercount_1);
     $string2 = "Add 1 to quantity";
-    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:com_210, $string2, 25, 300)", stockmarket:com_160);
-    if_settext("+10", stockmarket:com_162);
-    if_setop(1, "Add 10", stockmarket:com_162);
+    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:offertooltip, $string2, 25, 300)", stockmarket:offercount_1);
+    if_settext("+10", stockmarket:offercount_10);
+    if_setop(1, "Add 10", stockmarket:offercount_10);
     $string2 = "Add 10 to quantity";
-    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:com_210, $string2, 25, 300)", stockmarket:com_162);
-    if_settext("+100", stockmarket:com_164);
-    if_setop(1, "Add 100", stockmarket:com_164);
+    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:offertooltip, $string2, 25, 300)", stockmarket:offercount_10);
+    if_settext("+100", stockmarket:offercount_100);
+    if_setop(1, "Add 100", stockmarket:offercount_100);
     $string2 = "Add 100 to quantity";
-    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:com_210, $string2, 25, 300)", stockmarket:com_164);
-    if_settext("+1K", stockmarket:com_166);
-    if_setop(1, "Add 1000", stockmarket:com_166);
+    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:offertooltip, $string2, 25, 300)", stockmarket:offercount_100);
+    if_settext("+1K", stockmarket:offercount_1000);
+    if_setop(1, "Add 1000", stockmarket:offercount_1000);
     $string2 = "Add 1,000 to quantity";
-    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:com_210, $string2, 25, 300)", stockmarket:com_166);
+    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:offertooltip, $string2, 25, 300)", stockmarket:offercount_1000);
 } else {
-    if_settext("Sell Offer", stockmarket:com_134);
-    if_setgraphic("grand_exchange_misc_graphics,6", stockmarket:com_135);
-    if_settext("1", stockmarket:com_160);
-    if_setop(1, "Sell 1", stockmarket:com_160);
+    if_settext("Sell Offer", stockmarket:offertype_text);
+    if_setgraphic("grand_exchange_misc_graphics,6", stockmarket:offertype_icon);
+    if_settext("1", stockmarket:offercount_1);
+    if_setop(1, "Sell 1", stockmarket:offercount_1);
     $string2 = "Sell 1";
-    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:com_210, $string2, 25, 300)", stockmarket:com_160);
-    if_settext("10", stockmarket:com_162);
-    if_setop(1, "Sell 10", stockmarket:com_162);
+    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:offertooltip, $string2, 25, 300)", stockmarket:offercount_1);
+    if_settext("10", stockmarket:offercount_10);
+    if_setop(1, "Sell 10", stockmarket:offercount_10);
     $string2 = "Sell 10";
-    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:com_210, $string2, 25, 300)", stockmarket:com_162);
-    if_settext("100", stockmarket:com_164);
-    if_setop(1, "Sell 100", stockmarket:com_164);
+    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:offertooltip, $string2, 25, 300)", stockmarket:offercount_10);
+    if_settext("100", stockmarket:offercount_100);
+    if_setop(1, "Sell 100", stockmarket:offercount_100);
     $string2 = "Sell 100";
-    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:com_210, $string2, 25, 300)", stockmarket:com_164);
-    if_settext("ALL", stockmarket:com_166);
-    if_setop(1, "Sell All", stockmarket:com_166);
+    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:offertooltip, $string2, 25, 300)", stockmarket:offercount_100);
+    if_settext("ALL", stockmarket:offercount_1000);
+    if_setop(1, "Sell All", stockmarket:offercount_1000);
     $string2 = "Sell all";
-    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:com_210, $string2, 25, 300)", stockmarket:com_166);
+    if_setonmouserepeat("sm_offer_addtooltip(event_com, stockmarket:offertooltip, $string2, 25, 300)", stockmarket:offercount_1000);
 }
 if ($obj1 = null) {
-    if_settext("Choose an item to exchange", stockmarket:com_142);
-    if_settext("N/A", stockmarket:com_141);
-    if_settext("", stockmarket:com_143);
+    if_settext("Choose an item to exchange", stockmarket:offeritem_name);
+    if_settext("N/A", stockmarket:offeritem_marketprice);
+    if_settext("", stockmarket:offeritem_desc);
     if (%varplayer_1113 = 0) {
-        if (if_gettrans(stockmarket:com_138) = 255) {
-            if_setontimer("script634(stockmarket:com_138, 0, 255, 5)", stockmarket:com_138);
+        if (if_gettrans(stockmarket:offeritem_pulsate) = 255) {
+            if_setontimer("script634(stockmarket:offeritem_pulsate, 0, 255, 5)", stockmarket:offeritem_pulsate);
         }
     } else if (%varplayer_1113 = 1) {
-        if_sethide(false, stockside:com_0);
-        if_settrans(255, stockmarket:com_138);
-        if_setontimer(null, stockmarket:com_138);
-        if (if_gettrans(stockside:com_1) = 245) {
-            if_setontimer("script634(stockside:com_1, 155, 255, 2)", stockside:com_1);
-            if_setontimer("script634(stockside:com_2, 155, 255, 2)", stockside:com_2);
-            if_setontimer("script634(stockside:com_3, 155, 255, 2)", stockside:com_3);
-            if_setontimer("script634(stockside:com_4, 155, 255, 2)", stockside:com_4);
-            if_setontimer("script634(stockside:com_5, 145, 245, 2)", stockside:com_5);
-            if_setontimer("script634(stockside:com_6, 145, 245, 2)", stockside:com_6);
-            if_setontimer("script634(stockside:com_7, 145, 245, 2)", stockside:com_7);
-            if_setontimer("script634(stockside:com_8, 135, 235, 2)", stockside:com_8);
-            if_setontimer("script634(stockside:com_9, 135, 235, 2)", stockside:com_9);
-            if_setontimer("script634(stockside:com_10, 135, 235, 2)", stockside:com_10);
-            if_setontimer("script634(stockside:com_11, 125, 225, 2)", stockside:com_11);
-            if_setontimer("script634(stockside:com_12, 125, 225, 2)", stockside:com_12);
-            if_setontimer("script634(stockside:com_13, 125, 225, 2)", stockside:com_13);
-            if_setontimer("script634(stockside:com_14, 115, 215, 2)", stockside:com_14);
-            if_setontimer("script634(stockside:com_15, 115, 215, 2)", stockside:com_15);
-            if_setontimer("script634(stockside:com_16, 115, 215, 2)", stockside:com_16);
-            if_setontimer("script634(stockside:com_17, 110, 210, 2)", stockside:com_17);
+        if_sethide(false, stockside:stockside_pulsatelayer);
+        if_settrans(255, stockmarket:offeritem_pulsate);
+        if_setontimer(null, stockmarket:offeritem_pulsate);
+        if (if_gettrans(stockside:stockside_pulsate0) = 245) {
+            if_setontimer("script634(stockside:stockside_pulsate0, 155, 255, 2)", stockside:stockside_pulsate0);
+            if_setontimer("script634(stockside:stockside_pulsate0b, 155, 255, 2)", stockside:stockside_pulsate0b);
+            if_setontimer("script634(stockside:stockside_pulsate0c, 155, 255, 2)", stockside:stockside_pulsate0c);
+            if_setontimer("script634(stockside:stockside_pulsate0d, 155, 255, 2)", stockside:stockside_pulsate0d);
+            if_setontimer("script634(stockside:stockside_pulsate1, 145, 245, 2)", stockside:stockside_pulsate1);
+            if_setontimer("script634(stockside:stockside_pulsate1b, 145, 245, 2)", stockside:stockside_pulsate1b);
+            if_setontimer("script634(stockside:stockside_pulsate1c, 145, 245, 2)", stockside:stockside_pulsate1c);
+            if_setontimer("script634(stockside:stockside_pulsate2, 135, 235, 2)", stockside:stockside_pulsate2);
+            if_setontimer("script634(stockside:stockside_pulsate2b, 135, 235, 2)", stockside:stockside_pulsate2b);
+            if_setontimer("script634(stockside:stockside_pulsate2c, 135, 235, 2)", stockside:stockside_pulsate2c);
+            if_setontimer("script634(stockside:stockside_pulsate3, 125, 225, 2)", stockside:stockside_pulsate3);
+            if_setontimer("script634(stockside:stockside_pulsate3b, 125, 225, 2)", stockside:stockside_pulsate3b);
+            if_setontimer("script634(stockside:stockside_pulsate3c, 125, 225, 2)", stockside:stockside_pulsate3c);
+            if_setontimer("script634(stockside:stockside_pulsate4, 115, 215, 2)", stockside:stockside_pulsate4);
+            if_setontimer("script634(stockside:stockside_pulsate4b, 115, 215, 2)", stockside:stockside_pulsate4b);
+            if_setontimer("script634(stockside:glass_starting, 115, 215, 2)", stockside:glass_starting);
+            if_setontimer("script634(stockside:stockside_pulsate5, 110, 210, 2)", stockside:stockside_pulsate5);
         }
     }
 } else {
-    if_settext(oc_name($obj1), stockmarket:com_142);
+    if_settext(oc_name($obj1), stockmarket:offeritem_name);
     if (%varplayer_1109 ! null) {
         $string0 = tostring_localised(%varplayer_1114, true);
-        if_settext("<$string0> gp", stockmarket:com_141);
+        if_settext("<$string0> gp", stockmarket:offeritem_marketprice);
     } else {
-        if_settext("Retrieving details...", stockmarket:com_143);
-        if_settext("N/A", stockmarket:com_141);
+        if_settext("Retrieving details...", stockmarket:offeritem_desc);
+        if_settext("N/A", stockmarket:offeritem_marketprice);
     }
-    if_settrans(255, stockmarket:com_138);
-    if_setontimer(null, stockmarket:com_138);
-    if_sethide(true, stockside:com_0);
+    if_settrans(255, stockmarket:offeritem_pulsate);
+    if_setontimer(null, stockmarket:offeritem_pulsate);
+    if_sethide(true, stockside:stockside_pulsatelayer);
 }
 def_int $int4 = 0;
 def_int $int5 = 0;
 def_int $int6 = 0;
 def_int $int7 = 0;
-if (if_find(stockmarket:com_141) = true & .if_find(stockmarket:com_140) = true) {
+if (if_find(stockmarket:offeritem_marketprice) = true & .if_find(stockmarket:offeritem_marketpriceicon) = true) {
     $int5 = cc_getwidth;
     $int6 = parawidth(cc_gettext, $int5, p11_full);
     $int7 = .cc_getwidth;
@@ -101,11 +101,11 @@ if (if_find(stockmarket:com_141) = true & .if_find(stockmarket:com_140) = true) 
 }
 if (%varclient_82 <= 0) {
     $string0 = tostring_localised($int2, true);
-    if_settext($string0, stockmarket:com_148);
+    if_settext($string0, stockmarket:offercount);
     %varclient_84 = %varplayer_1110;
 }
 if (%varclient_83 <= 0) {
     $string0 = tostring_localised($int3, true);
-    if_settext("<$string0> gp", stockmarket:com_153);
+    if_settext("<$string0> gp", stockmarket:offerprice);
     %varclient_85 = %varplayer_1111;
 }

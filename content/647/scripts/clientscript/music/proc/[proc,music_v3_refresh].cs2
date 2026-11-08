@@ -1,9 +1,9 @@
 // 3680
 [proc,music_v3_refresh]
-~deltooltip_action(music_v3:com_16);
+~deltooltip_action(music_v3:music_tooltip_layer);
 %varclient_1 = 0;
 def_int $int0 = -1;
-if (if_find(music_v3:com_4) = true) {
+if (if_find(music_v3:now_playing_text) = true) {
     $int0 = cc_param(param_1133);
 }
 def_int $int1 = 0;
@@ -12,12 +12,12 @@ def_string $string0 = "";
 def_int $int3 = string_length(%varclient_1715);
 def_int $int4 = 5;
 while ($int0 ! -1) {
-    if (cc_find(music_v3:com_1, calc($int0 * 2)) = true & .cc_find(music_v3:com_1, calc($int0 * 2 + 1)) = true) {
+    if (cc_find(music_v3:jukebox, calc($int0 * 2)) = true & .cc_find(music_v3:jukebox, calc($int0 * 2 + 1)) = true) {
         cc_clearops;
         .cc_clearops;
         $string0 = lowercase(cc_gettext);
         if (string_length($string0) > 0) {
-            if (~music_track_unlocked($int0) = ^true) {
+            if (~music_getvar($int0) = ^true) {
                 if ($int3 = 0 | string_indexof_string($string0, %varclient_1715, 0) ! -1) {
                     cc_setop(2, "Unlock hint");
                     ~script3681($int0);
@@ -53,11 +53,11 @@ while ($int0 ! -1) {
         $int0 = -1;
     }
 }
-if_setscrollsize(167, calc(5 + $int4), music_v3:com_1);
-~scrollbar_resize(music_v3:com_2, music_v3:com_1, %varclient_88);
-if_settext("Unlocked:<br><tostring($int1)> / <tostring($int2)>", music_v3:com_5);
+if_setscrollsize(167, calc(5 + $int4), music_v3:jukebox);
+~scrollbar_resize(music_v3:com_2, music_v3:jukebox, %varclient_88);
+if_settext("Unlocked:<br><tostring($int1)> / <tostring($int2)>", music_v3:unlock_counter);
 if ($int4 = 5) {
-    if_sethide(false, music_v3:com_18);
+    if_sethide(false, music_v3:music_search_empty);
 } else {
-    if_sethide(true, music_v3:com_18);
+    if_sethide(true, music_v3:music_search_empty);
 }

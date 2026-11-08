@@ -1,5 +1,5 @@
 // 109:0
-[com_0]
+[shadow]
 type=rectangle
 x=4
 y=4
@@ -12,7 +12,7 @@ fill=yes
 trans=200
 
 // 109:1
-[com_1]
+[contents]
 type=layer
 width=366
 height=305
@@ -28,7 +28,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=contents
 graphic=tradebacking
 tiling=yes
 
@@ -39,7 +39,7 @@ width=32
 height=4
 heightmode=minus
 ymode=abs_centre
-layer=com_1
+layer=contents
 graphic="v2_stone_borders_alt,1"
 tiling=yes
 
@@ -51,7 +51,7 @@ height=4
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_1
+layer=contents
 graphic="v2_stone_borders_alt,3"
 tiling=yes
 
@@ -62,7 +62,7 @@ width=4
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=contents
 graphic="v2_stone_borders_alt,0"
 tiling=yes
 
@@ -74,7 +74,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=contents
 graphic="v2_stone_borders_alt,2"
 tiling=yes
 
@@ -83,7 +83,7 @@ tiling=yes
 type=graphic
 width=32
 height=32
-layer=com_1
+layer=contents
 graphic="v2_stone_borders_alt,4"
 
 // 109:8
@@ -92,7 +92,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_1
+layer=contents
 graphic="v2_stone_borders_alt,6"
 
 // 109:9
@@ -101,7 +101,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_1
+layer=contents
 graphic="v2_stone_borders_alt,5"
 
 // 109:10
@@ -111,7 +111,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=contents
 graphic="v2_stone_borders_alt,7"
 
 // 109:11
@@ -122,7 +122,7 @@ width=4
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=contents
 graphic="v2_stone_borders_alt,8"
 tiling=yes
 
@@ -132,7 +132,7 @@ type=graphic
 y=15
 width=32
 height=32
-layer=com_1
+layer=contents
 graphic="v2_stone_borders_alt,9"
 
 // 109:13
@@ -142,18 +142,18 @@ y=15
 width=32
 height=32
 xmode=abs_right
-layer=com_1
+layer=contents
 graphic="v2_stone_borders_alt,10"
 
 // 109:14
-[com_14]
+[closebutton]
 type=graphic
 x=8
 y=8
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=contents
 graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
@@ -168,17 +168,17 @@ x=11
 y=5
 width=25
 height=25
-layer=com_1
+layer=contents
 graphic=grand_exchange_icon_25
 
 // 109:16
-[com_16]
+[title]
 type=text
 y=6
 height=21
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=contents
 textfont=b12_full
 text= Collection Box
 textalignh=centre
@@ -194,38 +194,38 @@ x=19
 y=44
 width=106
 height=80
-layer=com_1
+layer=contents
 colour=0x000000
 fill=yes
 trans=200
 
 // 109:18
-[com_18]
+[offerbutton0]
 type=layer
 x=14
 y=39
 width=106
 height=80
-layer=com_1
+layer=contents
 onload=stockmarket_chooseoption_corner(event_com)
 
 // 109:19
-[com_19]
+[offersummary0]
 type=layer
 x=14
 y=39
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:20
-[com_20]
+[offertooltip0]
 type=layer
 x=14
 y=39
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:21
 [com_21]
@@ -234,38 +234,38 @@ x=135
 y=44
 width=106
 height=80
-layer=com_1
+layer=contents
 colour=0x000000
 fill=yes
 trans=200
 
 // 109:22
-[com_22]
+[offerbutton1]
 type=layer
 x=130
 y=39
 width=106
 height=80
-layer=com_1
+layer=contents
 onload=stockmarket_chooseoption_corner(event_com)
 
 // 109:23
-[com_23]
+[offersummary1]
 type=layer
 x=130
 y=39
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:24
-[com_24]
+[offertooltip1]
 type=layer
 x=130
 y=39
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:25
 [com_25]
@@ -274,47 +274,47 @@ x=251
 y=44
 width=106
 height=80
-layer=com_1
+layer=contents
 colour=0x000000
 fill=yes
 trans=200
 
 // 109:26
-[com_26]
+[offerbutton2]
 type=layer
 x=246
 y=39
 width=106
 height=80
-layer=com_1
+layer=contents
 onload=stockmarket_chooseoption_corner(event_com)
 
 // 109:27
-[com_27]
+[offersummary2]
 type=layer
 x=246
 y=39
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:28
-[com_28]
+[offertooltip2]
 type=layer
 x=246
 y=39
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:29
-[com_29]
+[offerbutton2_hide]
 type=layer
 x=246
 y=39
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:30
 [com_30]
@@ -323,47 +323,47 @@ x=19
 y=134
 width=106
 height=80
-layer=com_1
+layer=contents
 colour=0x000000
 fill=yes
 trans=200
 
 // 109:31
-[com_31]
+[offerbutton3]
 type=layer
 x=14
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 onload=stockmarket_chooseoption_corner(event_com)
 
 // 109:32
-[com_32]
+[offersummary3]
 type=layer
 x=14
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:33
-[com_33]
+[offertooltip3]
 type=layer
 x=14
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:34
-[com_34]
+[offerbutton3_hide]
 type=layer
 x=14
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:35
 [com_35]
@@ -372,47 +372,47 @@ x=135
 y=134
 width=106
 height=80
-layer=com_1
+layer=contents
 colour=0x000000
 fill=yes
 trans=200
 
 // 109:36
-[com_36]
+[offerbutton4]
 type=layer
 x=130
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 onload=stockmarket_chooseoption_corner(event_com)
 
 // 109:37
-[com_37]
+[offersummary4]
 type=layer
 x=130
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:38
-[com_38]
+[offertooltip4]
 type=layer
 x=130
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:39
-[com_39]
+[offerbutton4_hide]
 type=layer
 x=130
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:40
 [com_40]
@@ -421,47 +421,47 @@ x=251
 y=134
 width=106
 height=80
-layer=com_1
+layer=contents
 colour=0x000000
 fill=yes
 trans=200
 
 // 109:41
-[com_41]
+[offerbutton5]
 type=layer
 x=246
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 onload=stockmarket_chooseoption_corner(event_com)
 
 // 109:42
-[com_42]
+[offersummary5]
 type=layer
 x=246
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:43
-[com_43]
+[offertooltip5]
 type=layer
 x=246
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:44
-[com_44]
+[offerbutton5_hide]
 type=layer
 x=246
 y=129
 width=106
 height=80
-layer=com_1
+layer=contents
 
 // 109:45
 [com_45]
@@ -472,7 +472,7 @@ width=150
 height=73
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=contents
 hide=yes
 
 // 109:46
@@ -635,38 +635,38 @@ textalignv=centre
 textshadow=yes
 
 // 109:60
-[com_60]
+[tooltip0]
 type=layer
 x=24
 y=24
 width=10
 height=10
-layer=com_20
+layer=offertooltip0
 
 // 109:61
-[com_61]
+[tooltip1]
 type=layer
 x=24
 y=24
 width=10
 height=10
-layer=com_24
+layer=offertooltip1
 
 // 109:62
-[com_62]
+[tooltip2]
 type=layer
 x=24
 y=24
 width=10
 height=10
-layer=com_28
+layer=offertooltip2
 
 // 109:63
 [com_63]
 type=rectangle
 width=120
 height=80
-layer=com_29
+layer=offerbutton2_hide
 colour=0x808080
 fill=yes
 trans=160
@@ -676,25 +676,25 @@ trans=160
 type=graphic
 width=120
 height=80
-layer=com_29
+layer=offerbutton2_hide
 graphic=mesh
 tiling=yes
 
 // 109:65
-[com_65]
+[tooltip3]
 type=layer
 x=24
 y=24
 width=10
 height=10
-layer=com_33
+layer=offertooltip3
 
 // 109:66
 [com_66]
 type=rectangle
 width=140
 height=110
-layer=com_34
+layer=offerbutton3_hide
 colour=0x808080
 fill=yes
 trans=160
@@ -704,25 +704,25 @@ trans=160
 type=graphic
 width=140
 height=110
-layer=com_34
+layer=offerbutton3_hide
 graphic=mesh
 tiling=yes
 
 // 109:68
-[com_68]
+[tooltip4]
 type=layer
 x=24
 y=24
 width=10
 height=10
-layer=com_38
+layer=offertooltip4
 
 // 109:69
 [com_69]
 type=rectangle
 width=140
 height=110
-layer=com_39
+layer=offerbutton4_hide
 colour=0x808080
 fill=yes
 trans=160
@@ -732,25 +732,25 @@ trans=160
 type=graphic
 width=140
 height=110
-layer=com_39
+layer=offerbutton4_hide
 graphic=mesh
 tiling=yes
 
 // 109:71
-[com_71]
+[tooltip5]
 type=layer
 x=24
 y=24
 width=10
 height=10
-layer=com_43
+layer=offertooltip5
 
 // 109:72
 [com_72]
 type=rectangle
 width=140
 height=110
-layer=com_44
+layer=offerbutton5_hide
 colour=0x808080
 fill=yes
 trans=160
@@ -760,6 +760,6 @@ trans=160
 type=graphic
 width=140
 height=110
-layer=com_44
+layer=offerbutton5_hide
 graphic=mesh
 tiling=yes

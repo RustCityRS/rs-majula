@@ -14,161 +14,161 @@ if ($int0 = 1) {
     $int7 = 6;
 }
 if ($int4 = 0) {
-    if_sethide(true, conq_side_command:com_8);
+    if_sethide(true, conq_side_command:ability_layer_1);
     $int1 = calc($int1 + 1);
 } else {
     $struct3 = ~script488($int4);
     if ($struct3 ! null) {
-        if_sethide(false, conq_side_command:com_8);
-        if_setopbase(struct_param($struct3, param_1150), conq_side_command:com_8);
-        if_settext(struct_param($struct3, param_1150), conq_side_command:com_75);
-        if_setgraphic(struct_param($struct3, param_1153), conq_side_command:com_77);
-        if_settext(tostring(struct_param($struct3, param_1154)), conq_side_command:com_76);
+        if_sethide(false, conq_side_command:ability_layer_1);
+        if_setopbase(struct_param($struct3, param_1150), conq_side_command:ability_layer_1);
+        if_settext(struct_param($struct3, param_1150), conq_side_command:name_1);
+        if_setgraphic(struct_param($struct3, param_1153), conq_side_command:icon_1);
+        if_settext(tostring(struct_param($struct3, param_1154)), conq_side_command:cost_1);
     }
     if ($int4 = 9) {
-        if_setop(1, "Cast", conq_side_command:com_8);
+        if_setop(1, "Cast", conq_side_command:ability_layer_1);
     }
 }
 if ($int5 = 0) {
-    if_sethide(true, conq_side_command:com_9);
+    if_sethide(true, conq_side_command:ability_layer_2);
     $int1 = calc($int1 + 1);
 } else {
     $struct3 = ~script488($int5);
     if ($struct3 ! null) {
-        if_sethide(false, conq_side_command:com_9);
-        if_setopbase(struct_param($struct3, param_1150), conq_side_command:com_9);
-        if_settext(struct_param($struct3, param_1150), conq_side_command:com_58);
-        if_setgraphic(struct_param($struct3, param_1153), conq_side_command:com_60);
-        if_settext(tostring(struct_param($struct3, param_1154)), conq_side_command:com_59);
+        if_sethide(false, conq_side_command:ability_layer_2);
+        if_setopbase(struct_param($struct3, param_1150), conq_side_command:ability_layer_2);
+        if_settext(struct_param($struct3, param_1150), conq_side_command:name_2);
+        if_setgraphic(struct_param($struct3, param_1153), conq_side_command:icon_2);
+        if_settext(tostring(struct_param($struct3, param_1154)), conq_side_command:cost_2);
     }
     if ($int5 = 9) {
-        if_setop(1, "Cast", conq_side_command:com_9);
+        if_setop(1, "Cast", conq_side_command:ability_layer_2);
     }
 }
 if ($int6 = 0) {
-    if_sethide(true, conq_side_command:com_10);
+    if_sethide(true, conq_side_command:ability_layer_3);
     $int1 = calc($int1 + 1);
 } else {
     $struct3 = ~script488($int6);
     if ($struct3 ! null) {
-        if_sethide(false, conq_side_command:com_10);
-        if_setopbase(struct_param($struct3, param_1150), conq_side_command:com_10);
-        if_settext(struct_param($struct3, param_1150), conq_side_command:com_41);
-        if_setgraphic(struct_param($struct3, param_1153), conq_side_command:com_43);
-        if_settext(tostring(struct_param($struct3, param_1154)), conq_side_command:com_42);
+        if_sethide(false, conq_side_command:ability_layer_3);
+        if_setopbase(struct_param($struct3, param_1150), conq_side_command:ability_layer_3);
+        if_settext(struct_param($struct3, param_1150), conq_side_command:name_3);
+        if_setgraphic(struct_param($struct3, param_1153), conq_side_command:icon_3);
+        if_settext(tostring(struct_param($struct3, param_1154)), conq_side_command:cost_3);
     }
     if ($int6 = 9) {
-        if_setop(1, "Cast", conq_side_command:com_10);
+        if_setop(1, "Cast", conq_side_command:ability_layer_3);
     }
 }
 if ($int7 = 0) {
-    if_sethide(true, conq_side_command:com_11);
+    if_sethide(true, conq_side_command:ability_layer_4);
     $int1 = calc($int1 + 1);
 } else {
     $struct3 = ~script488($int7);
     if ($struct3 ! null) {
-        if_sethide(false, conq_side_command:com_11);
-        if_setopbase(struct_param($struct3, param_1150), conq_side_command:com_11);
-        if_settext(struct_param($struct3, param_1150), conq_side_command:com_24);
-        if_setgraphic(struct_param($struct3, param_1153), conq_side_command:com_26);
-        if_settext(tostring(struct_param($struct3, param_1154)), conq_side_command:com_25);
+        if_sethide(false, conq_side_command:ability_layer_4);
+        if_setopbase(struct_param($struct3, param_1150), conq_side_command:ability_layer_4);
+        if_settext(struct_param($struct3, param_1150), conq_side_command:name_4);
+        if_setgraphic(struct_param($struct3, param_1153), conq_side_command:icon_4);
+        if_settext(tostring(struct_param($struct3, param_1154)), conq_side_command:cost_4);
     }
     if ($int7 = 9) {
-        if_setop(1, "Cast", conq_side_command:com_11);
+        if_setop(1, "Cast", conq_side_command:ability_layer_4);
     }
 }
 if ($int1 = 4) {
-    if_sethide(true, conq_side_command:com_1);
-    if_sethide(false, conq_side_command:com_2);
+    if_sethide(true, conq_side_command:abilities_layer);
+    if_sethide(false, conq_side_command:no_abilities_layer);
 } else if ($int1 = 3) {
-    if_sethide(false, conq_side_command:com_1);
-    if_sethide(true, conq_side_command:com_2);
+    if_sethide(false, conq_side_command:abilities_layer);
+    if_sethide(true, conq_side_command:no_abilities_layer);
     if ($int4 ! 0) {
-        if_setposition(if_getx(conq_side_command:com_8), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_8);
-        if_setonmouserepeat("script432(event_com, 6)", conq_side_command:com_65);
+        if_setposition(if_getx(conq_side_command:ability_layer_1), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_1);
+        if_setonmouserepeat("script432(event_com, 6)", conq_side_command:backing_1);
     } else if ($int5 ! 0) {
-        if_setposition(if_getx(conq_side_command:com_9), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_9);
-        if_setonmouserepeat("script432(event_com, 6)", conq_side_command:com_48);
+        if_setposition(if_getx(conq_side_command:ability_layer_2), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_2);
+        if_setonmouserepeat("script432(event_com, 6)", conq_side_command:backing_2);
     } else if ($int6 ! 0) {
-        if_setposition(if_getx(conq_side_command:com_10), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_10);
-        if_setonmouserepeat("script432(event_com, 6)", conq_side_command:com_31);
+        if_setposition(if_getx(conq_side_command:ability_layer_3), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_3);
+        if_setonmouserepeat("script432(event_com, 6)", conq_side_command:backing_3);
     } else if ($int7 ! 0) {
-        if_setposition(if_getx(conq_side_command:com_11), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_11);
-        if_setonmouserepeat("script432(event_com, 6)", conq_side_command:com_14);
+        if_setposition(if_getx(conq_side_command:ability_layer_4), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_4);
+        if_setonmouserepeat("script432(event_com, 6)", conq_side_command:backing_4);
     }
 } else if ($int1 = 2) {
-    if_sethide(false, conq_side_command:com_1);
-    if_sethide(true, conq_side_command:com_2);
+    if_sethide(false, conq_side_command:abilities_layer);
+    if_sethide(true, conq_side_command:no_abilities_layer);
     if ($int4 ! 0) {
-        if_setposition(if_getx(conq_side_command:com_8), 60, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_8);
-        if_setonmouserepeat("script432(event_com, 111)", conq_side_command:com_65);
+        if_setposition(if_getx(conq_side_command:ability_layer_1), 60, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_1);
+        if_setonmouserepeat("script432(event_com, 111)", conq_side_command:backing_1);
         $int2 = calc($int2 + 1);
     }
     if ($int5 ! 0) {
         if ($int2 = 0) {
-            if_setposition(if_getx(conq_side_command:com_9), 60, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_9);
-            if_setonmouserepeat("script432(event_com, 111)", conq_side_command:com_48);
+            if_setposition(if_getx(conq_side_command:ability_layer_2), 60, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_2);
+            if_setonmouserepeat("script432(event_com, 111)", conq_side_command:backing_2);
         } else {
-            if_setposition(if_getx(conq_side_command:com_9), 145, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_9);
-            if_setonmouserepeat("script432(event_com, 49)", conq_side_command:com_48);
+            if_setposition(if_getx(conq_side_command:ability_layer_2), 145, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_2);
+            if_setonmouserepeat("script432(event_com, 49)", conq_side_command:backing_2);
         }
         $int2 = calc($int2 + 1);
     }
     if ($int6 ! 0) {
         if ($int2 = 0) {
-            if_setposition(if_getx(conq_side_command:com_10), 60, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_10);
-            if_setonmouserepeat("script432(event_com, 111)", conq_side_command:com_31);
+            if_setposition(if_getx(conq_side_command:ability_layer_3), 60, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_3);
+            if_setonmouserepeat("script432(event_com, 111)", conq_side_command:backing_3);
         } else {
-            if_setposition(if_getx(conq_side_command:com_10), 145, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_10);
-            if_setonmouserepeat("script432(event_com, 49)", conq_side_command:com_31);
+            if_setposition(if_getx(conq_side_command:ability_layer_3), 145, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_3);
+            if_setonmouserepeat("script432(event_com, 49)", conq_side_command:backing_3);
         }
         $int2 = calc($int2 + 1);
     }
     if ($int7 ! 0) {
-        if_setposition(if_getx(conq_side_command:com_11), 145, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_11);
-        if_setonmouserepeat("script432(event_com, 49)", conq_side_command:com_14);
+        if_setposition(if_getx(conq_side_command:ability_layer_4), 145, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_4);
+        if_setonmouserepeat("script432(event_com, 49)", conq_side_command:backing_4);
     }
 } else if ($int1 = 1) {
-    if_sethide(false, conq_side_command:com_1);
-    if_sethide(true, conq_side_command:com_2);
+    if_sethide(false, conq_side_command:abilities_layer);
+    if_sethide(true, conq_side_command:no_abilities_layer);
     if ($int4 ! 0) {
-        if_setposition(if_getx(conq_side_command:com_8), 41, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_8);
-        if_setonmouserepeat("script432(event_com, 92)", conq_side_command:com_65);
+        if_setposition(if_getx(conq_side_command:ability_layer_1), 41, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_1);
+        if_setonmouserepeat("script432(event_com, 92)", conq_side_command:backing_1);
         $int2 = calc($int2 + 1);
     }
     if ($int5 ! 0) {
         if ($int2 = 0) {
-            if_setposition(if_getx(conq_side_command:com_9), 41, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_9);
-            if_setonmouserepeat("script432(event_com, 92)", conq_side_command:com_48);
+            if_setposition(if_getx(conq_side_command:ability_layer_2), 41, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_2);
+            if_setonmouserepeat("script432(event_com, 92)", conq_side_command:backing_2);
         } else {
-            if_setposition(if_getx(conq_side_command:com_9), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_9);
-            if_setonmouserepeat("script432(event_com, 6)", conq_side_command:com_48);
+            if_setposition(if_getx(conq_side_command:ability_layer_2), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_2);
+            if_setonmouserepeat("script432(event_com, 6)", conq_side_command:backing_2);
         }
         $int2 = calc($int2 + 1);
     }
     if ($int6 ! 0) {
         if ($int2 = 1) {
-            if_setposition(if_getx(conq_side_command:com_10), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_10);
-            if_setonmouserepeat("script432(event_com, 6)", conq_side_command:com_31);
+            if_setposition(if_getx(conq_side_command:ability_layer_3), 102, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_3);
+            if_setonmouserepeat("script432(event_com, 6)", conq_side_command:backing_3);
         } else {
-            if_setposition(if_getx(conq_side_command:com_10), 163, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_10);
-            if_setonmouserepeat("script432(event_com, 67)", conq_side_command:com_31);
+            if_setposition(if_getx(conq_side_command:ability_layer_3), 163, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_3);
+            if_setonmouserepeat("script432(event_com, 67)", conq_side_command:backing_3);
         }
         $int2 = calc($int2 + 1);
     }
     if ($int7 ! 0) {
-        if_setposition(if_getx(conq_side_command:com_11), 163, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_11);
-        if_setonmouserepeat("script432(event_com, 67)", conq_side_command:com_31);
+        if_setposition(if_getx(conq_side_command:ability_layer_4), 163, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_4);
+        if_setonmouserepeat("script432(event_com, 67)", conq_side_command:backing_3);
     }
 } else {
-    if_sethide(false, conq_side_command:com_1);
-    if_sethide(true, conq_side_command:com_2);
-    if_setposition(if_getx(conq_side_command:com_8), 29, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_8);
-    if_setonmouserepeat("script432(event_com, 80)", conq_side_command:com_65);
-    if_setposition(if_getx(conq_side_command:com_9), 78, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_9);
-    if_setonmouserepeat("script432(event_com, 129)", conq_side_command:com_48);
-    if_setposition(if_getx(conq_side_command:com_10), 127, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_10);
-    if_setonmouserepeat("script432(event_com, 31)", conq_side_command:com_31);
-    if_setposition(if_getx(conq_side_command:com_11), 176, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:com_11);
-    if_setonmouserepeat("script432(event_com, 80)", conq_side_command:com_14);
+    if_sethide(false, conq_side_command:abilities_layer);
+    if_sethide(true, conq_side_command:no_abilities_layer);
+    if_setposition(if_getx(conq_side_command:ability_layer_1), 29, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_1);
+    if_setonmouserepeat("script432(event_com, 80)", conq_side_command:backing_1);
+    if_setposition(if_getx(conq_side_command:ability_layer_2), 78, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_2);
+    if_setonmouserepeat("script432(event_com, 129)", conq_side_command:backing_2);
+    if_setposition(if_getx(conq_side_command:ability_layer_3), 127, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_3);
+    if_setonmouserepeat("script432(event_com, 31)", conq_side_command:backing_3);
+    if_setposition(if_getx(conq_side_command:ability_layer_4), 176, ^setpos_abs_left, ^setpos_abs_top, conq_side_command:ability_layer_4);
+    if_setonmouserepeat("script432(event_com, 80)", conq_side_command:backing_4);
 }

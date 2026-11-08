@@ -5,10 +5,10 @@ def_int $int6 = 0;
 def_int $int7 = 0;
 def_component $component8 = $component0;
 if (clientclock > $int2) {
-    if_settext($string0, lobbyscreen:com_212);
-    if_setsize(calc(if_getx(lobbyscreen:com_212) * 2 + stringwidth($string0, p12_full)), if_getheight(lobbyscreen:com_209), ^setsize_abs, ^setsize_abs, lobbyscreen:com_209);
+    if_settext($string0, lobbyscreen:tooltip_text);
+    if_setsize(calc(if_getx(lobbyscreen:tooltip_text) * 2 + stringwidth($string0, p12_full)), if_getheight(lobbyscreen:tooltip), ^setsize_abs, ^setsize_abs, lobbyscreen:tooltip);
     while ($int7 = 0) {
-        if ($component8 = lobbyscreen:com_17) {
+        if ($component8 = lobbyscreen:menu) {
             $int7 = 1;
         }
         $int5 = calc($int5 + if_getx($component8));
@@ -20,15 +20,15 @@ if (clientclock > $int2) {
         $int6 = calc($int6 + cc_gety);
     }
     $int5 = calc($int5 + $int3 + 3);
-    $int6 = calc($int6 + $int4 - 3 - if_getheight(lobbyscreen:com_209));
-    if (calc($int5 + if_getwidth(lobbyscreen:com_209)) > if_getwidth(lobbyscreen:com_13)) {
-        $int5 = calc(if_getwidth(lobbyscreen:com_13) - if_getwidth(lobbyscreen:com_209));
+    $int6 = calc($int6 + $int4 - 3 - if_getheight(lobbyscreen:tooltip));
+    if (calc($int5 + if_getwidth(lobbyscreen:tooltip)) > if_getwidth(lobbyscreen:base)) {
+        $int5 = calc(if_getwidth(lobbyscreen:base) - if_getwidth(lobbyscreen:tooltip));
     }
     if ($int6 < 0) {
         $int6 = 0;
     }
-    if_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen:com_209);
-    if_sethide(false, lobbyscreen:com_209);
+    if_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen:tooltip);
+    if_sethide(false, lobbyscreen:tooltip);
     if ($int1 < 0) {
         if_setonmouserepeat(null, $component0);
     } else if (cc_find($component0, $int1) = true) {

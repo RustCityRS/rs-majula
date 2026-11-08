@@ -6,4 +6,4 @@ if (%varclient_1354 = null | %varclient_1357 < 0 | %varclient_1358 < 0) {
 cam_followcoord(%varclient_1354);
 %varclient_1355 = cam_getangle_xa;
 %varclient_1356 = cam_getangle_ya;
-if_setontimer("script421(%varclient_1357, %varclient_1358, 0)", conq_scroll_overlay:com_0);
+if_setontimer("script421(%varclient_1357, %varclient_1358, 0)", conq_scroll_overlay:main_layer);

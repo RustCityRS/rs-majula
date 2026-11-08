@@ -11,8 +11,8 @@ $graphic4 = "set_but_end_1,1";
 $graphic6 = "set_but_fill_1,1";
 $graphic5 = "set_but_end_1,1";
 if_setonmouseover("loginscreen_button_highlight($component1, $graphic4, $component2, $graphic6, $component3, $graphic5)", $component0);
-def_component $component7 = login:com_60;
+def_component $component7 = login:popup_big_button_text;
 if (unknown_command_5623 = true) {
-    $component7 = south_progress9:com_10;
+    $component7 = south_progress9:popup_big_button_text;
 }
 if_settext($string0, $component7);

@@ -3,7 +3,7 @@
 type=graphic
 width=6
 height=19
-layer=com_174
+layer=advice_close
 graphic=graphic_4322
 
 // 1056:1
@@ -12,7 +12,7 @@ type=graphic
 width=6
 height=19
 xmode=abs_right
-layer=com_174
+layer=advice_close
 graphic=graphic_4322
 hflip=yes
 
@@ -21,7 +21,7 @@ hflip=yes
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_171
+layer=advice_layer
 graphic=window_texture
 trans=25
 
@@ -30,7 +30,7 @@ trans=25
 type=layer
 width=190
 height=14
-layer=com_92
+layer=hints_layer
 onmouseleave=task_side_tab_hover(0)
 onop=task_side_tab(2)
 
@@ -41,7 +41,7 @@ y=14
 width=190
 height=14
 ymode=abs_bottom
-layer=com_92
+layer=hints_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -55,7 +55,7 @@ type=layer
 width=190
 height=14
 ymode=abs_bottom
-layer=com_92
+layer=hints_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -197,7 +197,7 @@ graphic="task_tab,0"
 hflip=yes
 
 // 1056:19
-[com_19]
+[details_hintarrow]
 type=graphic
 x=1
 y=3
@@ -359,7 +359,7 @@ graphic="task_tab,0"
 hflip=yes
 
 // 1056:34
-[com_34]
+[rewards_hintarrow]
 type=graphic
 x=1
 y=3
@@ -387,7 +387,7 @@ colour=0xdedede
 type=layer
 width=190
 height=14
-layer=com_94
+layer=rewards_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -401,7 +401,7 @@ type=layer
 y=14
 width=190
 height=14
-layer=com_94
+layer=rewards_layer
 onmouseleave=task_side_tab_hover(0)
 onop=task_side_tab(1)
 
@@ -411,7 +411,7 @@ type=layer
 width=190
 height=14
 ymode=abs_bottom
-layer=com_94
+layer=rewards_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -562,7 +562,7 @@ graphic="task_tab,0"
 hflip=yes
 
 // 1056:52
-[com_52]
+[hints_hintarrow]
 type=graphic
 x=1
 y=3
@@ -586,80 +586,80 @@ textalignv=centre
 colour=0xdedede
 
 // 1056:54
-[com_54]
+[task_bg_2]
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_142
+layer=task_layer_2
 graphic=graphic_4041
 onmouseover=graphic_swapper(event_com, graphic_4042)
 onmouseleave=graphic_swapper(event_com, graphic_4041)
 
 // 1056:55
-[com_55]
+[task_bg_3]
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_147
+layer=task_layer_3
 graphic=graphic_4041
 onmouseover=graphic_swapper(event_com, graphic_4042)
 onmouseleave=graphic_swapper(event_com, graphic_4041)
 
 // 1056:56
-[com_56]
+[task_bg_4]
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_152
+layer=task_layer_4
 graphic=graphic_4041
 onmouseover=graphic_swapper(event_com, graphic_4042)
 onmouseleave=graphic_swapper(event_com, graphic_4041)
 
 // 1056:57
-[com_57]
+[task_bg_5]
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_157
+layer=task_layer_5
 graphic=graphic_4041
 onmouseover=graphic_swapper(event_com, graphic_4042)
 onmouseleave=graphic_swapper(event_com, graphic_4041)
 
 // 1056:58
-[com_58]
+[task_bg_6]
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_162
+layer=task_layer_6
 graphic=graphic_4041
 onmouseover=graphic_swapper(event_com, graphic_4042)
 onmouseleave=graphic_swapper(event_com, graphic_4041)
 
 // 1056:59
-[com_59]
+[task_bg_1]
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_99
+layer=task_layer_1
 graphic=graphic_4041
 onmouseover=graphic_swapper(event_com, graphic_4042)
 onmouseleave=graphic_swapper(event_com, graphic_4041)
 
 // 1056:60
-[com_60]
+[progress_bar_left]
 type=graphic
 width=6
 height=20
-layer=com_111
+layer=progress_layer
 graphic=graphic_4305
 
 // 1056:61
-[com_61]
+[progress_bar_right]
 type=graphic
 width=6
 height=20
 xmode=abs_right
-layer=com_111
+layer=progress_layer
 graphic=graphic_4307
 
 // 1056:62
@@ -669,42 +669,42 @@ y=52
 height=52
 widthmode=minus
 heightmode=minus
-layer=com_122
+layer=summary_layer
 graphic=window_texture
 
 // 1056:63
-[com_63]
+[task_pin_1]
 type=graphic
 x=6
 y=24
 width=11
 height=11
 xmode=abs_right
-layer=com_99
+layer=task_layer_1
 graphic=graphic_4296
 
 // 1056:64
-[com_64]
+[task_1]
 type=graphic
 x=4
 y=3
 width=50
 height=50
-layer=com_99
+layer=task_layer_1
 graphic="task_icons_48_60,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1056:65
-[com_65]
+[rewards_text]
 type=text
 x=10
 y=10
 width=20
 height=20
 widthmode=minus
-layer=com_74
+layer=rewards_window
 textfont=p12_full
 text=Rewards info here
 textshadow=yes
@@ -716,7 +716,7 @@ type=text
 y=2
 height=20
 widthmode=minus
-layer=com_74
+layer=rewards_window
 textfont=p12_full
 textshadow=yes
 colour=0xdedede
@@ -727,104 +727,104 @@ type=text
 y=2
 height=20
 widthmode=minus
-layer=com_74
+layer=rewards_window
 textfont=p12_full
 textshadow=yes
 colour=0xdedede
 
 // 1056:68
-[com_68]
+[rewards_set_1]
 type=text
 y=2
 height=20
 widthmode=minus
-layer=com_74
+layer=rewards_window
 textfont=p12_full
 textshadow=yes
 colour=0xdedede
 
 // 1056:69
-[com_69]
+[rewards_set_2]
 type=text
 y=2
 height=20
 widthmode=minus
-layer=com_74
+layer=rewards_window
 textfont=p12_full
 textshadow=yes
 colour=0xdedede
 
 // 1056:70
-[com_70]
+[rewards_set_3]
 type=text
 y=2
 height=20
 widthmode=minus
-layer=com_74
+layer=rewards_window
 textfont=p12_full
 textshadow=yes
 colour=0xdedede
 
 // 1056:71
-[com_71]
+[rewards_set_4]
 type=text
 y=2
 height=20
 widthmode=minus
-layer=com_74
+layer=rewards_window
 textfont=p12_full
 textshadow=yes
 colour=0xdedede
 
 // 1056:72
-[com_72]
+[rewards_set_5]
 type=text
 y=2
 height=20
 widthmode=minus
-layer=com_74
+layer=rewards_window
 textfont=p12_full
 textshadow=yes
 colour=0xdedede
 
 // 1056:73
-[com_73]
+[rewards_set_6]
 type=text
 y=2
 height=20
 widthmode=minus
-layer=com_74
+layer=rewards_window
 textfont=p12_full
 textshadow=yes
 colour=0xdedede
 
 // 1056:74
-[com_74]
+[rewards_window]
 type=layer
 y=28
 width=16
 height=42
 widthmode=minus
 heightmode=minus
-layer=com_94
+layer=rewards_layer
 
 // 1056:75
 [com_75]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_131
+layer=menu_layer
 colour=0x776445
 fill=yes
 
 // 1056:76
-[com_76]
+[overview_step1]
 type=text
 x=3
 y=1
 width=140
 height=30
-layer=com_123
+layer=hints_window
 textfont=p12_full
 text=1. First instruction for completing the Task here.
 textalignv=centre
@@ -839,22 +839,22 @@ y=7
 width=21
 height=21
 xmode=abs_right
-layer=com_123
+layer=hints_window
 graphic="km_helpandexit21x21,0"
 colour=0xffffffff
 transmitop=1
 op1=Hint
-onmouseleave=deltooltip(task_side:com_136)
-onmouserepeat=addtooltip(event_com, task_side:com_136, "Click to toggle a map hint for this step.", 45, 135)
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
 
 // 1056:78
-[com_78]
+[overview_step2]
 type=text
 x=3
 y=29
 width=140
 height=30
-layer=com_123
+layer=hints_window
 textfont=p12_full
 text=1. Second instruction for completing the task here.
 textalignv=centre
@@ -871,23 +871,23 @@ y=35
 width=21
 height=21
 xmode=abs_right
-layer=com_123
+layer=hints_window
 graphic="km_helpandexit21x21,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Hint
 op10= 
-onmouseleave=deltooltip(task_side:com_136)
-onmouserepeat=addtooltip(event_com, task_side:com_136, "Click to toggle a map hint for this step.", 45, 135)
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
 
 // 1056:80
-[com_80]
+[overview_step3]
 type=text
 x=3
 y=57
 width=140
 height=30
-layer=com_123
+layer=hints_window
 textfont=p12_full
 text=1. Third instruction for completing the task here.
 textalignv=centre
@@ -904,23 +904,23 @@ y=63
 width=21
 height=21
 xmode=abs_right
-layer=com_123
+layer=hints_window
 graphic="km_helpandexit21x21,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Hint
 op10= 
-onmouseleave=deltooltip(task_side:com_136)
-onmouserepeat=addtooltip(event_com, task_side:com_136, "Click to toggle a map hint for this step.", 45, 135)
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
 
 // 1056:82
-[com_82]
+[overview_step4]
 type=text
 x=3
 y=83
 width=140
 height=30
-layer=com_123
+layer=hints_window
 textfont=p12_full
 text=1. Fourth instruction for completing the task here.
 textalignv=centre
@@ -937,23 +937,23 @@ y=89
 width=21
 height=21
 xmode=abs_right
-layer=com_123
+layer=hints_window
 graphic="km_helpandexit21x21,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Hint
 op10= 
-onmouseleave=deltooltip(task_side:com_136)
-onmouserepeat=addtooltip(event_com, task_side:com_136, "Click to toggle a map hint for this step.", 45, 135)
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
 
 // 1056:84
-[com_84]
+[overview_step5]
 type=text
 x=3
 y=109
 width=140
 height=30
-layer=com_123
+layer=hints_window
 textfont=p12_full
 text=1. Fifth instruction for completing the task here.
 textalignv=centre
@@ -970,23 +970,23 @@ y=115
 width=21
 height=21
 xmode=abs_right
-layer=com_123
+layer=hints_window
 graphic="km_helpandexit21x21,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Hint
 op10= 
-onmouseleave=deltooltip(task_side:com_136)
-onmouserepeat=addtooltip(event_com, task_side:com_136, "Click to toggle a map hint for this step.", 45, 135)
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
 
 // 1056:86
-[com_86]
+[overview_step6]
 type=text
 x=3
 y=133
 width=140
 height=30
-layer=com_123
+layer=hints_window
 textfont=p12_full
 text=1. Sixth instruction for completing the task here.
 textalignv=centre
@@ -1003,14 +1003,14 @@ y=139
 width=21
 height=21
 xmode=abs_right
-layer=com_123
+layer=hints_window
 graphic="km_helpandexit21x21,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Hint
 op10= 
-onmouseleave=deltooltip(task_side:com_136)
-onmouserepeat=addtooltip(event_com, task_side:com_136, "Click to toggle a map hint for this step.", 45, 135)
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
 
 // 1056:88
 [com_88]
@@ -1019,13 +1019,13 @@ x=81
 y=1
 width=49
 height=19
-layer=com_131
+layer=menu_layer
 transmitop=1
 op1=Set
 onmouseover=task_side_pin_hover(0)
 onmouseleave=task_side_pin_hover(1)
 onop=script3974
-onmouserepeat=addtooltip(event_com, task_side:com_136, "Pin this Task to refer to it later.", 45, 135)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Pin this Task to refer to it later.", 45, 135)
 
 // 1056:89
 [com_89]
@@ -1038,22 +1038,22 @@ layer=com_88
 graphic=graphic_4323
 
 // 1056:90
-[com_90]
+[summary_close]
 type=layer
 x=131
 y=1
 width=58
 height=19
-layer=com_131
+layer=menu_layer
 transmitop=1
 op1=Close-summary
 onmouseover=task_side_close_hover(0)
 onmouseleave=task_side_close_hover(1)
 onop=task_side_closesummary
-onmouserepeat=addtooltip(event_com, task_side:com_136, "Close this window and return to the Tasks.", 45, 135)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Close this window and return to the Tasks.", 45, 135)
 
 // 1056:91
-[com_91]
+[title_text]
 type=text
 x=2
 y=23
@@ -1061,7 +1061,7 @@ width=55
 height=29
 widthmode=minus
 xmode=abs_right
-layer=com_131
+layer=menu_layer
 textfont=p11_full
 textalignh=centre
 textalignv=centre
@@ -1069,13 +1069,13 @@ textshadow=yes
 colour=0xdedede
 
 // 1056:92
-[com_92]
+[hints_layer]
 type=layer
 y=54
 height=54
 widthmode=minus
 heightmode=minus
-layer=com_122
+layer=summary_layer
 hide=yes
 noclickthrough=yes
 
@@ -1088,41 +1088,41 @@ layer=com_102
 graphic="task_tab,0"
 
 // 1056:94
-[com_94]
+[rewards_layer]
 type=layer
 y=54
 height=54
 widthmode=minus
 heightmode=minus
-layer=com_122
+layer=summary_layer
 hide=yes
 noclickthrough=yes
 
 // 1056:95
-[com_95]
+[rewards_scroll]
 type=layer
 y=28
 width=16
 height=42
 heightmode=minus
 xmode=abs_right
-layer=com_94
+layer=rewards_layer
 
 // 1056:96
-[com_96]
+[bg_layer]
 type=layer
 width=16
 height=262
 widthmode=minus
 
 // 1056:97
-[com_97]
+[area_layer]
 type=layer
 height=41
 widthmode=minus
 
 // 1056:98
-[com_98]
+[tasks_layer]
 type=layer
 y=41
 height=58
@@ -1132,28 +1132,28 @@ onvartransmit=script3971{varplayer_1960, varplayer_1963, varplayer_1965}
 onvarctransmit=script3972{varclient_1428}
 
 // 1056:99
-[com_99]
+[task_layer_1]
 type=layer
 x=14
 y=10
 width=73
 height=58
-layer=com_98
+layer=tasks_layer
 transmitop=1,2
 op1=Select Task
 op2=Pin/Unpin Task
-onmouseleave=deltooltip(task_side:com_163)
-onop=graphic_swapper(task_side:com_59, graphic_4041)
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_1, graphic_4041)
 
 // 1056:100
-[com_100]
+[task_set_1]
 type=graphic
 x=5
 y=4
 width=13
 height=13
 xmode=abs_right
-layer=com_99
+layer=task_layer_1
 graphic=small_compass
 
 // 1056:101
@@ -1165,7 +1165,7 @@ width=9
 height=11
 xmode=abs_right
 ymode=abs_bottom
-layer=com_99
+layer=task_layer_1
 graphic=graphic_4330
 
 // 1056:102
@@ -1184,7 +1184,7 @@ onmouseover=script4003(0)
 onmouseleave=script4003(1)
 
 // 1056:103
-[com_103]
+[multitip]
 type=layer
 x=7
 y=108
@@ -1193,35 +1193,35 @@ height=130
 hide=yes
 
 // 1056:104
-[com_104]
+[progress_bar_none]
 type=graphic
 x=6
 width=12
 height=20
 widthmode=minus
-layer=com_111
+layer=progress_layer
 graphic=graphic_4306
 
 // 1056:105
-[com_105]
+[progress_bar_done]
 type=graphic
 x=1
 y=2
 width=6
 height=17
-layer=com_111
+layer=progress_layer
 graphic=graphic_4313
 tiling=yes
 
 // 1056:106
-[com_106]
+[tasks_done]
 type=text
 x=-26
 y=1
 width=91
 height=20
 xmode=abs_centre
-layer=com_111
+layer=progress_layer
 textfont=verdana_11pt_regular
 text=Progress: ##
 textalignh=right
@@ -1229,28 +1229,28 @@ textalignv=centre
 onvarctransmit=script4002{varclient_1424}
 
 // 1056:107
-[com_107]
+[outof]
 type=text
 x=25
 y=3
 width=45
 height=20
 xmode=abs_centre
-layer=com_111
+layer=progress_layer
 textfont=verdana_11pt_regular
 text=/
 textalignh=centre
 textalignv=centre
 
 // 1056:108
-[com_108]
+[tasks_total]
 type=text
 x=39
 y=1
 width=20
 height=20
 xmode=abs_centre
-layer=com_111
+layer=progress_layer
 textfont=verdana_11pt_regular
 text=##
 textalignh=centre
@@ -1258,54 +1258,54 @@ textalignv=centre
 onvarctransmit=script4002{varclient_1423}
 
 // 1056:109
-[com_109]
+[title_bg]
 type=rectangle
 height=42
 widthmode=minus
-layer=com_97
+layer=area_layer
 colour=0x332c22
 fill=yes
 
 // 1056:110
-[com_110]
+[area_text]
 type=text
 width=21
 height=19
 widthmode=minus
 xmode=abs_right
-layer=com_97
+layer=area_layer
 textfont=verdana_11pt_regular
 textalignh=centre
 textalignv=centre
 colour=0xbb9a72
 
 // 1056:111
-[com_111]
+[progress_layer]
 type=layer
 y=20
 height=20
 widthmode=minus
-layer=com_97
+layer=area_layer
 
 // 1056:112
-[com_112]
+[area_icon]
 type=graphic
 x=4
 y=2
 width=14
 height=18
-layer=com_97
+layer=area_layer
 graphic=graphic_4283
 colour=0xffffffff
 
 // 1056:113
-[com_113]
+[complete_text]
 type=text
 y=1
 width=96
 height=18
 xmode=abs_centre
-layer=com_130
+layer=complete_layer
 textfont=verdana_11pt_regular
 text=Task complete!
 textalignh=centre
@@ -1319,7 +1319,7 @@ type=graphic
 y=18
 width=6
 height=19
-layer=com_130
+layer=complete_layer
 graphic=graphic_4322
 colour=0xffffffff
 
@@ -1330,7 +1330,7 @@ y=18
 width=6
 height=19
 xmode=abs_right
-layer=com_130
+layer=complete_layer
 graphic=graphic_4322
 hflip=yes
 
@@ -1342,7 +1342,7 @@ y=18
 width=12
 height=19
 widthmode=minus
-layer=com_130
+layer=complete_layer
 graphic=graphic_4323
 
 // 1056:117
@@ -1352,7 +1352,7 @@ y=17
 width=52
 height=21
 xmode=abs_centre
-layer=com_130
+layer=complete_layer
 textfont=verdana_11pt_regular
 text=OK
 textalignh=centre
@@ -1380,7 +1380,7 @@ graphic=graphic_4322
 hflip=yes
 
 // 1056:120
-[com_120]
+[active_state]
 type=text
 y=1
 widthmode=minus
@@ -1405,7 +1405,7 @@ layer=com_88
 graphic=graphic_4295
 
 // 1056:122
-[com_122]
+[summary_layer]
 type=layer
 width=190
 height=261
@@ -1413,7 +1413,7 @@ hide=yes
 noclickthrough=yes
 
 // 1056:123
-[com_123]
+[hints_window]
 type=layer
 x=1
 y=14
@@ -1421,26 +1421,26 @@ width=17
 height=42
 widthmode=minus
 heightmode=minus
-layer=com_92
+layer=hints_layer
 
 // 1056:124
-[com_124]
+[hints_scroll]
 type=layer
 y=14
 width=16
 height=42
 heightmode=minus
 xmode=abs_right
-layer=com_92
+layer=hints_layer
 
 // 1056:125
-[com_125]
+[details_layer]
 type=layer
 y=54
 height=54
 widthmode=minus
 heightmode=minus
-layer=com_122
+layer=summary_layer
 hide=yes
 noclickthrough=yes
 
@@ -1449,7 +1449,7 @@ noclickthrough=yes
 type=layer
 width=190
 height=14
-layer=com_125
+layer=details_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1463,7 +1463,7 @@ type=layer
 y=14
 width=190
 height=14
-layer=com_125
+layer=details_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1477,12 +1477,12 @@ type=layer
 y=28
 width=190
 height=14
-layer=com_125
+layer=details_layer
 onmouseleave=task_side_tab_hover(0)
 onop=task_side_tab(0)
 
 // 1056:129
-[com_129]
+[details_text]
 type=text
 x=10
 y=52
@@ -1490,35 +1490,35 @@ width=20
 height=62
 widthmode=minus
 heightmode=minus
-layer=com_125
+layer=details_layer
 textfont=p12_full
 text=Task details here
 textshadow=yes
 colour=0xdedede
 
 // 1056:130
-[com_130]
+[complete_layer]
 type=layer
 y=75
 width=109
 height=41
 xmode=abs_centre
 ymode=abs_centre
-layer=com_125
+layer=details_layer
 hide=yes
 transmitop=1
 op1=OK
 onmouseover=script4007(0)
 onmouseleave=script4007(1)
 onop=deltooltip(event_com)
-onmouserepeat=addtooltip(event_com, task_side:com_136, "Clear this Task.", 45, 135)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Clear this Task.", 45, 135)
 
 // 1056:131
-[com_131]
+[menu_layer]
 type=layer
 height=54
 widthmode=minus
-layer=com_122
+layer=summary_layer
 
 // 1056:132
 [com_132]
@@ -1527,89 +1527,89 @@ x=53
 y=21
 width=135
 height=1
-layer=com_131
+layer=menu_layer
 colour=0x3e3e3e
 
 // 1056:133
-[com_133]
+[task_area]
 type=graphic
 x=54
 y=3
 width=14
 height=17
-layer=com_131
+layer=menu_layer
 graphic=graphic_4283
-onmouseleave=deltooltip(task_side:com_136)
-onmouserepeat=addtooltip(event_com, task_side:com_136, "The area in which this Task is located.", 45, 135)
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "The area in which this Task is located.", 45, 135)
 
 // 1056:134
-[com_134]
+[task_difficulty]
 type=graphic
 x=70
 y=4
 width=9
 height=11
-layer=com_131
+layer=menu_layer
 graphic=graphic_4330
-onmouseleave=deltooltip(task_side:com_136)
-onmouserepeat=addtooltip(event_com, task_side:com_136, "The difficulty level of this Task.", 45, 135)
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "The difficulty level of this Task.", 45, 135)
 
 // 1056:135
-[com_135]
+[task_icon]
 type=graphic
 x=2
 y=2
 width=50
 height=50
-layer=com_131
+layer=menu_layer
 graphic="task_icons_lumbridge,61"
 
 // 1056:136
-[com_136]
+[summary_tooltip]
 type=layer
 x=51
 y=23
 width=138
 height=53
-layer=com_122
+layer=summary_layer
 
 // 1056:137
-[com_137]
+[close_button_m]
 type=graphic
 x=6
 width=12
 widthmode=minus
 heightmode=minus
-layer=com_90
+layer=summary_close
 graphic=graphic_4323
 
 // 1056:138
-[com_138]
+[close_button_l]
 type=graphic
 width=6
 heightmode=minus
 ymode=abs_centre
-layer=com_90
+layer=summary_close
 graphic=graphic_4322
 
 // 1056:139
-[com_139]
+[close_button_r]
 type=graphic
 width=6
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_90
+layer=summary_close
 graphic=graphic_4322
 hflip=yes
 
 // 1056:140
-[com_140]
+[close_text]
 type=text
 y=-1
 widthmode=minus
 heightmode=minus
-layer=com_90
+layer=summary_close
 textfont=verdana_11pt_regular
 text=Back
 textalignh=centre
@@ -1617,60 +1617,60 @@ textalignv=centre
 colour=0x282828
 
 // 1056:141
-[com_141]
+[close_arrow]
 type=graphic
 x=3
 y=5
 width=15
 height=8
-layer=com_90
+layer=summary_close
 graphic="task_arrow,0"
 
 // 1056:142
-[com_142]
+[task_layer_2]
 type=layer
 x=14
 y=10
 width=73
 height=58
 xmode=abs_right
-layer=com_98
+layer=tasks_layer
 transmitop=1,2
 op1=Select Task
 op2=Pin/Unpin Task
-onmouseleave=deltooltip(task_side:com_163)
-onop=graphic_swapper(task_side:com_54, graphic_4041)
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_2, graphic_4041)
 
 // 1056:143
-[com_143]
+[task_pin_2]
 type=graphic
 x=6
 y=24
 width=11
 height=11
 xmode=abs_right
-layer=com_142
+layer=task_layer_2
 graphic=graphic_4296
 
 // 1056:144
-[com_144]
+[task_2]
 type=graphic
 x=4
 y=3
 width=50
 height=50
-layer=com_142
+layer=task_layer_2
 graphic="task_icons_48_60,5"
 
 // 1056:145
-[com_145]
+[task_set_2]
 type=graphic
 x=5
 y=4
 width=13
 height=13
 xmode=abs_right
-layer=com_142
+layer=task_layer_2
 graphic=small_compass
 
 // 1056:146
@@ -1682,53 +1682,53 @@ width=9
 height=11
 xmode=abs_right
 ymode=abs_bottom
-layer=com_142
+layer=task_layer_2
 graphic=graphic_4330
 
 // 1056:147
-[com_147]
+[task_layer_3]
 type=layer
 x=14
 y=73
 width=73
 height=58
-layer=com_98
+layer=tasks_layer
 transmitop=1,2
 op1=Select Task
 op2=Pin/Unpin Task
-onmouseleave=deltooltip(task_side:com_163)
-onop=graphic_swapper(task_side:com_55, graphic_4041)
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_3, graphic_4041)
 
 // 1056:148
-[com_148]
+[task_pin_3]
 type=graphic
 x=6
 y=24
 width=11
 height=11
 xmode=abs_right
-layer=com_147
+layer=task_layer_3
 graphic=graphic_4296
 
 // 1056:149
-[com_149]
+[task_3]
 type=graphic
 x=4
 y=3
 width=50
 height=50
-layer=com_147
+layer=task_layer_3
 graphic="task_icons_48_60,5"
 
 // 1056:150
-[com_150]
+[task_set_3]
 type=graphic
 x=5
 y=4
 width=13
 height=13
 xmode=abs_right
-layer=com_147
+layer=task_layer_3
 graphic=small_compass
 
 // 1056:151
@@ -1740,54 +1740,54 @@ width=9
 height=11
 xmode=abs_right
 ymode=abs_bottom
-layer=com_147
+layer=task_layer_3
 graphic=graphic_4330
 
 // 1056:152
-[com_152]
+[task_layer_4]
 type=layer
 x=14
 y=73
 width=73
 height=58
 xmode=abs_right
-layer=com_98
+layer=tasks_layer
 transmitop=1,2
 op1=Select Task
 op2=Pin/Unpin Task
-onmouseleave=deltooltip(task_side:com_163)
-onop=graphic_swapper(task_side:com_56, graphic_4041)
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_4, graphic_4041)
 
 // 1056:153
-[com_153]
+[task_pin_4]
 type=graphic
 x=6
 y=24
 width=11
 height=11
 xmode=abs_right
-layer=com_152
+layer=task_layer_4
 graphic=graphic_4296
 
 // 1056:154
-[com_154]
+[task_4]
 type=graphic
 x=4
 y=3
 width=50
 height=50
-layer=com_152
+layer=task_layer_4
 graphic="task_icons_48_60,5"
 
 // 1056:155
-[com_155]
+[task_set_4]
 type=graphic
 x=5
 y=4
 width=13
 height=13
 xmode=abs_right
-layer=com_152
+layer=task_layer_4
 graphic=small_compass
 
 // 1056:156
@@ -1799,54 +1799,54 @@ width=9
 height=11
 xmode=abs_right
 ymode=abs_bottom
-layer=com_152
+layer=task_layer_4
 graphic=graphic_4330
 
 // 1056:157
-[com_157]
+[task_layer_5]
 type=layer
 x=14
 y=10
 width=73
 height=58
 ymode=abs_bottom
-layer=com_98
+layer=tasks_layer
 transmitop=1,2
 op1=Select Task
 op2=Pin/Unpin Task
-onmouseleave=deltooltip(task_side:com_163)
-onop=graphic_swapper(task_side:com_57, graphic_4041)
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_5, graphic_4041)
 
 // 1056:158
-[com_158]
+[task_pin_5]
 type=graphic
 x=6
 y=24
 width=11
 height=11
 xmode=abs_right
-layer=com_157
+layer=task_layer_5
 graphic=graphic_4296
 
 // 1056:159
-[com_159]
+[task_5]
 type=graphic
 x=4
 y=3
 width=50
 height=50
-layer=com_157
+layer=task_layer_5
 graphic="task_icons_48_60,5"
 
 // 1056:160
-[com_160]
+[task_set_5]
 type=graphic
 x=5
 y=4
 width=13
 height=13
 xmode=abs_right
-layer=com_157
+layer=task_layer_5
 graphic=small_compass
 
 // 1056:161
@@ -1858,11 +1858,11 @@ width=9
 height=11
 xmode=abs_right
 ymode=abs_bottom
-layer=com_157
+layer=task_layer_5
 graphic=graphic_4330
 
 // 1056:162
-[com_162]
+[task_layer_6]
 type=layer
 x=14
 y=10
@@ -1870,52 +1870,52 @@ width=73
 height=58
 xmode=abs_right
 ymode=abs_bottom
-layer=com_98
+layer=tasks_layer
 transmitop=1,2
 op1=Select Task
 op2=Pin/Unpin Task
-onmouseleave=deltooltip(task_side:com_163)
-onop=graphic_swapper(task_side:com_58, graphic_4041)
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_6, graphic_4041)
 
 // 1056:163
-[com_163]
+[tasks_tooltip]
 type=layer
 x=11
 y=68
 width=178
 height=63
-layer=com_98
+layer=tasks_layer
 
 // 1056:164
-[com_164]
+[task_pin_6]
 type=graphic
 x=6
 y=24
 width=11
 height=11
 xmode=abs_right
-layer=com_162
+layer=task_layer_6
 graphic=graphic_4296
 
 // 1056:165
-[com_165]
+[task_6]
 type=graphic
 x=4
 y=3
 width=50
 height=50
-layer=com_162
+layer=task_layer_6
 graphic="task_icons_48_60,5"
 
 // 1056:166
-[com_166]
+[task_set_6]
 type=graphic
 x=5
 y=4
 width=13
 height=13
 xmode=abs_right
-layer=com_162
+layer=task_layer_6
 graphic=small_compass
 
 // 1056:167
@@ -1927,7 +1927,7 @@ width=9
 height=11
 xmode=abs_right
 ymode=abs_bottom
-layer=com_162
+layer=task_layer_6
 graphic=graphic_4330
 
 // 1056:168
@@ -1967,7 +1967,7 @@ textshadow=yes
 colour=0xdedede
 
 // 1056:171
-[com_171]
+[advice_layer]
 type=layer
 width=190
 height=261
@@ -1975,14 +1975,14 @@ hide=yes
 noclickthrough=yes
 
 // 1056:172
-[com_172]
+[advice_gone]
 type=text
 x=9
 y=243
 width=155
 height=15
 xmode=abs_right
-layer=com_171
+layer=advice_layer
 textfont=p11_full
 text=Do not show this again
 textalignh=centre
@@ -1990,13 +1990,13 @@ textalignv=centre
 textshadow=yes
 
 // 1056:173
-[com_173]
+[advice_toggle]
 type=graphic
 x=27
 y=242
 width=14
 height=14
-layer=com_171
+layer=advice_layer
 graphic="check_box_2,0"
 transmitop=1
 op1=Toggle
@@ -2005,13 +2005,13 @@ onmouseleave=script4012(1, 0)
 onop=fulfilmouse_leave
 
 // 1056:174
-[com_174]
+[advice_close]
 type=layer
 y=205
 width=84
 height=19
 xmode=abs_centre
-layer=com_171
+layer=advice_layer
 transmitop=1
 op1=Close
 onmouseover=script4005(0)
@@ -2024,7 +2024,7 @@ x=6
 width=12
 height=19
 widthmode=minus
-layer=com_174
+layer=advice_close
 graphic=graphic_4323
 
 // 1056:176
@@ -2035,7 +2035,7 @@ width=14
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_174
+layer=advice_close
 textfont=verdana_11pt_regular
 text=Close
 textalignh=centre
@@ -2049,20 +2049,20 @@ x=4
 y=6
 width=15
 height=8
-layer=com_174
+layer=advice_close
 graphic="task_arrow,0"
 onmouseover=graphic_swapper(event_com, "task_arrow,1")
 onmouseleave=graphic_swapper(event_com, "task_arrow,0")
 
 // 1056:178
-[com_178]
+[advice_where]
 type=text
 x=5
 y=144
 width=10
 height=59
 widthmode=minus
-layer=com_171
+layer=advice_layer
 textfont=verdana_11pt_regular
 text=Explorer Jack in Lumbridge can explain Tasks further and hand out rewards you earn.
 textlineheight=14
@@ -2071,14 +2071,14 @@ textalignv=centre
 textshadow=yes
 
 // 1056:179
-[com_179]
+[advice_why]
 type=text
 x=5
 y=82
 width=10
 height=59
 widthmode=minus
-layer=com_171
+layer=advice_layer
 textfont=verdana_11pt_regular
 text=Completing these Tasks will give you money and other rewards.
 textlineheight=14
@@ -2087,14 +2087,14 @@ textalignv=centre
 textshadow=yes
 
 // 1056:180
-[com_180]
+[advice_what]
 type=text
 x=5
 y=6
 width=10
 height=74
 widthmode=minus
-layer=com_171
+layer=advice_layer
 textfont=verdana_11pt_regular
 text=This sidebar shows you six Tasks you can do nearby. Click on one for a summary.
 textlineheight=14

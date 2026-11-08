@@ -1,9 +1,9 @@
 // 4450
 [clientscript,clan_chat_minimenu_timer]
-if (minimenuopen(clan_chat:com_14, -1) = true) {
+if (minimenuopen(clan_chat:clanlist, -1) = true) {
     return;
 }
-if_setontimer(null, clan_chat:com_14);
+if_setontimer(null, clan_chat:clanlist);
 if (activeclanchannel_find_affined = true) {
     ~script4451;
 }

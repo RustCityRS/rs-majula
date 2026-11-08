@@ -1,5 +1,5 @@
 // 797:0
-[com_0]
+[zsmoke_rush]
 type=graphic
 x=16
 y=31
@@ -9,10 +9,10 @@ graphic="magicon2,10"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,10", "magicoff2,10", 50, "Smoke Rush", "A single target smoke attack", chaos_rune, 2, death_rune, 2, fire_rune, 1, air_rune, 1)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,10", "magicoff2,10", 50, "Smoke Rush", "A single target smoke attack", chaos_rune, 2, death_rune, 2, fire_rune, 1, air_rune, 1)
 
 // 797:1
-[com_1]
+[zshadow_rush]
 type=graphic
 x=50
 y=31
@@ -22,10 +22,10 @@ graphic="magicon2,18"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,18", "magicoff2,18", 52, "Shadow Rush", "A single target shadow attack", chaos_rune, 2, death_rune, 2, air_rune, 1, soul_rune, 1)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,18", "magicoff2,18", 52, "Shadow Rush", "A single target shadow attack", chaos_rune, 2, death_rune, 2, air_rune, 1, soul_rune, 1)
 
 // 797:2
-[com_2]
+[zblood_rush]
 type=graphic
 x=84
 y=31
@@ -35,10 +35,10 @@ graphic="magicon2,14"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,14", "magicoff2,14", 56, "Blood Rush", "A single target blood attack", chaos_rune, 2, death_rune, 2, blood_rune, 1, null, 0)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,14", "magicoff2,14", 56, "Blood Rush", "A single target blood attack", chaos_rune, 2, death_rune, 2, blood_rune, 1, null, 0)
 
 // 797:3
-[com_3]
+[zice_rush]
 type=graphic
 x=118
 y=31
@@ -48,10 +48,10 @@ graphic="magicon2,6"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,6", "magicoff2,6", 58, "Ice Rush", "A single target ice attack", chaos_rune, 2, death_rune, 2, water_rune, 2, null, 0)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,6", "magicoff2,6", 58, "Ice Rush", "A single target ice attack", chaos_rune, 2, death_rune, 2, water_rune, 2, null, 0)
 
 // 797:4
-[com_4]
+[zsmoke_burst]
 type=graphic
 x=16
 y=82
@@ -61,10 +61,10 @@ graphic="magicon2,11"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,11", "magicoff2,11", 62, "Smoke Burst", "A multi-target smoke attack", chaos_rune, 4, death_rune, 2, fire_rune, 2, air_rune, 2)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,11", "magicoff2,11", 62, "Smoke Burst", "A multi-target smoke attack", chaos_rune, 4, death_rune, 2, fire_rune, 2, air_rune, 2)
 
 // 797:5
-[com_5]
+[zshadow_burst]
 type=graphic
 x=50
 y=82
@@ -74,10 +74,10 @@ graphic="magicon2,19"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,19", "magicoff2,19", 64, "Shadow Burst", "A multi-target shadow attack", chaos_rune, 4, death_rune, 2, air_rune, 1, soul_rune, 2)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,19", "magicoff2,19", 64, "Shadow Burst", "A multi-target shadow attack", chaos_rune, 4, death_rune, 2, air_rune, 1, soul_rune, 2)
 
 // 797:6
-[com_6]
+[zblood_burst]
 type=graphic
 x=84
 y=82
@@ -87,10 +87,10 @@ graphic="magicon2,15"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,15", "magicoff2,15", 68, "Blood Burst", "A multi-target blood attack", chaos_rune, 4, death_rune, 2, blood_rune, 2, null, 0)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,15", "magicoff2,15", 68, "Blood Burst", "A multi-target blood attack", chaos_rune, 4, death_rune, 2, blood_rune, 2, null, 0)
 
 // 797:7
-[com_7]
+[zice_burst]
 type=graphic
 x=118
 y=82
@@ -100,10 +100,10 @@ graphic="magicon2,7"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,7", "magicoff2,7", 70, "Ice Burst", "A multi-target ice attack", chaos_rune, 4, death_rune, 2, water_rune, 4, null, 0)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,7", "magicoff2,7", 70, "Ice Burst", "A multi-target ice attack", chaos_rune, 4, death_rune, 2, water_rune, 4, null, 0)
 
 // 797:8
-[com_8]
+[zsmoke_blitz]
 type=graphic
 x=16
 y=141
@@ -113,10 +113,10 @@ graphic="magicon2,12"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,12", "magicoff2,12", 74, "Smoke Blitz", "A single target strong smoke attack", death_rune, 2, blood_rune, 2, fire_rune, 2, air_rune, 2)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,12", "magicoff2,12", 74, "Smoke Blitz", "A single target strong smoke attack", death_rune, 2, blood_rune, 2, fire_rune, 2, air_rune, 2)
 
 // 797:9
-[com_9]
+[zshadow_blitz]
 type=graphic
 x=50
 y=142
@@ -126,10 +126,10 @@ graphic="magicon2,20"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,20", "magicoff2,20", 76, "Shadow Blitz", "A single target strong shadow attack", death_rune, 2, blood_rune, 2, air_rune, 2, soul_rune, 2)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,20", "magicoff2,20", 76, "Shadow Blitz", "A single target strong shadow attack", death_rune, 2, blood_rune, 2, air_rune, 2, soul_rune, 2)
 
 // 797:10
-[com_10]
+[zblood_blitz]
 type=graphic
 x=84
 y=142
@@ -139,10 +139,10 @@ graphic="magicon2,16"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,16", "magicoff2,16", 80, "Blood Blitz", "A single target strong blood attack", death_rune, 2, blood_rune, 4, null, 0, null, 0)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,16", "magicoff2,16", 80, "Blood Blitz", "A single target strong blood attack", death_rune, 2, blood_rune, 4, null, 0, null, 0)
 
 // 797:11
-[com_11]
+[zice_blitz]
 type=graphic
 x=118
 y=142
@@ -152,10 +152,10 @@ graphic="magicon2,8"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,8", "magicoff2,8", 82, "Ice Blitz", "A single target strong ice attack", death_rune, 2, blood_rune, 2, water_rune, 3, null, 0)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,8", "magicoff2,8", 82, "Ice Blitz", "A single target strong ice attack", death_rune, 2, blood_rune, 2, water_rune, 3, null, 0)
 
 // 797:12
-[com_12]
+[zsmoke_barrage]
 type=graphic
 x=16
 y=198
@@ -165,10 +165,10 @@ graphic="magicon2,13"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,13", "magicoff2,13", 86, "Smoke Barrage", "A multi-target smoke attack", death_rune, 4, blood_rune, 2, fire_rune, 4, air_rune, 4)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,13", "magicoff2,13", 86, "Smoke Barrage", "A multi-target smoke attack", death_rune, 4, blood_rune, 2, fire_rune, 4, air_rune, 4)
 
 // 797:13
-[com_13]
+[zshadow_barrage]
 type=graphic
 x=50
 y=198
@@ -178,10 +178,10 @@ graphic="magicon2,21"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,21", "magicoff2,21", 88, "Shadow Barrage", "A multi-target strong shadow attack", death_rune, 4, blood_rune, 2, air_rune, 4, soul_rune, 3)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,21", "magicoff2,21", 88, "Shadow Barrage", "A multi-target strong shadow attack", death_rune, 4, blood_rune, 2, air_rune, 4, soul_rune, 3)
 
 // 797:14
-[com_14]
+[zblood_barrage]
 type=graphic
 x=84
 y=198
@@ -191,10 +191,10 @@ graphic="magicon2,17"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,17", "magicoff2,17", 92, "Blood Barrage", "A multi-target strong blood attack", death_rune, 4, blood_rune, 4, soul_rune, 1, null, 0)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,17", "magicoff2,17", 92, "Blood Barrage", "A multi-target strong blood attack", death_rune, 4, blood_rune, 4, soul_rune, 1, null, 0)
 
 // 797:15
-[com_15]
+[zice_barrage]
 type=graphic
 x=118
 y=198
@@ -204,10 +204,10 @@ graphic="magicon2,9"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,9", "magicoff2,9", 94, "Ice Barrage", "A multi-target strong ice attack", death_rune, 4, blood_rune, 2, water_rune, 6, null, 0)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,9", "magicoff2,9", 94, "Ice Barrage", "A multi-target strong ice attack", death_rune, 4, blood_rune, 2, water_rune, 6, null, 0)
 
 // 797:16
-[com_16]
+[pvpw_rush]
 type=graphic
 x=152
 y=31
@@ -217,10 +217,10 @@ graphic="magicon2,44"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, interface_797:com_21, "magicon2,44", "magicoff2,44", 61, "Miasmic Rush", "A single target miasmic attack", zuriel_s_staff, 1, chaos_rune, 2, earth_rune, 1, soul_rune, 1)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,44", "magicoff2,44", 61, "Miasmic Rush", "A single target miasmic attack", zuriel_s_staff, 1, chaos_rune, 2, earth_rune, 1, soul_rune, 1)
 
 // 797:17
-[com_17]
+[pvpw_burst]
 type=graphic
 x=152
 y=82
@@ -231,10 +231,10 @@ colour=0x000000
 transmitop=1,10
 op1=Cast
 op10= 
-onload=magic_init(event_com, interface_797:com_21, "magicon2,45", "magicoff2,45", 73, "Miasmic Burst", "A multi-target miasmic attack", zuriel_s_staff, 1, chaos_rune, 4, earth_rune, 2, soul_rune, 2)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,45", "magicoff2,45", 73, "Miasmic Burst", "A multi-target miasmic attack", zuriel_s_staff, 1, chaos_rune, 4, earth_rune, 2, soul_rune, 2)
 
 // 797:18
-[com_18]
+[pvpw_blitz]
 type=graphic
 x=152
 y=142
@@ -245,10 +245,10 @@ colour=0x000000
 transmitop=1,10
 op1=Cast
 op10= 
-onload=magic_init(event_com, interface_797:com_21, "magicon2,43", "magicoff2,43", 85, "Miasmic Blitz", "A single target strong miasmic attack", zuriel_s_staff, 1, blood_rune, 2, earth_rune, 3, soul_rune, 2)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,43", "magicoff2,43", 85, "Miasmic Blitz", "A single target strong miasmic attack", zuriel_s_staff, 1, blood_rune, 2, earth_rune, 3, soul_rune, 2)
 
 // 797:19
-[com_19]
+[pvpw_barrage]
 type=graphic
 x=152
 y=198
@@ -259,10 +259,10 @@ colour=0x000000
 transmitop=1,10
 op1=Cast
 op10= 
-onload=magic_init(event_com, interface_797:com_21, "magicon2,42", "magicoff2,42", 97, "Miasmic Barrage", "A multi-target strong miasmic attack", zuriel_s_staff, 1, blood_rune, 4, earth_rune, 4, soul_rune, 4)
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,42", "magicoff2,42", 97, "Miasmic Barrage", "A multi-target strong miasmic attack", zuriel_s_staff, 1, blood_rune, 4, earth_rune, 4, soul_rune, 4)
 
 // 797:20
-[com_20]
+[clans_webcam1]
 type=text
 x=127
 y=241
@@ -279,7 +279,7 @@ onmouseover=text_colour_swapper(event_com, 0xc8c8c8)
 onmouseleave=text_colour_swapper(event_com, 0x808080)
 
 // 797:21
-[com_21]
+[tooltip]
 type=layer
 width=190
 height=261

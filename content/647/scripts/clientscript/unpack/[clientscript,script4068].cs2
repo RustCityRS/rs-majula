@@ -1,23 +1,23 @@
 // 4068
 [clientscript,script4068](component $component0)
 switch_component ($component0) {
-    case warguild_token_choice:com_22 :
+    case warguild_token_choice:balance_layer :
         if (if_getgraphic(warguild_token_choice:com_19) ! graphic_4444) {
             if_setposition(-160, 18, ^setpos_abs_centre, ^setpos_abs_top, $component0);
         }
-    case warguild_token_choice:com_23 :
+    case warguild_token_choice:strength_layer :
         if (if_getgraphic(warguild_token_choice:com_17) ! graphic_4445) {
             if_setposition(-80, 18, ^setpos_abs_centre, ^setpos_abs_top, $component0);
         }
-    case warguild_token_choice:com_24 :
+    case warguild_token_choice:combat_layer :
         if (if_getgraphic(warguild_token_choice:com_15) ! graphic_4446) {
             if_setposition(0, 18, ^setpos_abs_centre, ^setpos_abs_top, $component0);
         }
-    case warguild_token_choice:com_26 :
+    case warguild_token_choice:defence_layer :
         if (if_getgraphic(warguild_token_choice:com_13) ! graphic_4447) {
             if_setposition(80, 18, ^setpos_abs_centre, ^setpos_abs_top, $component0);
         }
-    case warguild_token_choice:com_25 :
+    case warguild_token_choice:attack_layer :
         if (if_getgraphic(warguild_token_choice:com_11) ! graphic_4448) {
             if_setposition(160, 18, ^setpos_abs_centre, ^setpos_abs_top, $component0);
         }

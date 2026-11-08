@@ -1,5 +1,5 @@
 // 48:0
-[com_0]
+[content_layer]
 type=layer
 x=7
 y=7
@@ -19,7 +19,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 graphic=tradebacking
 tiling=yes
 colour=0x000000
@@ -31,32 +31,32 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=content_layer
 colour=0x000000
 fill=yes
 trans=144
 
 // 48:3
-[com_3]
+[bob_locator]
 type=model
 x=116
 y=-220
 width=294
 height=529
-layer=com_0
+layer=content_layer
 model=model_9374
 modelorigin=12,57
 modelangle=295,0,0
 modelzoom=246
 
 // 48:4
-[com_4]
+[bob_locator_nose_lights]
 type=model
 x=158
 y=83
 width=209
 height=182
-layer=com_0
+layer=content_layer
 model=model_9380
 modelorigin=13,-73
 modelangle=295,0,0
@@ -64,13 +64,13 @@ modelzoom=246
 modelanim=seq_2675
 
 // 48:5
-[com_5]
+[bob_locator_r_eye]
 type=model
 x=277
 y=84
 width=40
 height=69
-layer=com_0
+layer=content_layer
 model=model_9376
 modelorigin=-26,-18
 modelangle=293,0,0
@@ -78,13 +78,13 @@ modelzoom=246
 modelanim=seq_2684
 
 // 48:6
-[com_6]
+[bob_locator_l_eye]
 type=model
 x=213
 y=84
 width=37
 height=68
-layer=com_0
+layer=content_layer
 model=model_9376
 modelorigin=-10,-27
 modelangle=295,110,0
@@ -92,13 +92,13 @@ modelzoom=246
 modelanim=seq_2684
 
 // 48:7
-[com_7]
+[bob_locator_mouth]
 type=model
 x=217
 y=191
 width=94
 height=58
-layer=com_0
+layer=content_layer
 model=model_9379
 modelorigin=11,-119
 modelangle=295,0,0
@@ -106,71 +106,71 @@ modelzoom=246
 modelanim=seq_2684
 
 // 48:8
-[com_8]
+[bob_locator_l_whisker]
 type=graphic
 x=178
 y=150
 width=66
 height=40
-layer=com_0
+layer=content_layer
 colour=0x000000
 transmitop=1
 op1=Rotate Anti-clockwise
 
 // 48:9
-[com_9]
+[bob_locator_r_whisker]
 type=graphic
 x=278
 y=150
 width=66
 height=40
-layer=com_0
+layer=content_layer
 colour=0x000000
 transmitop=1
 op1=Rotate clockwise
 
 // 48:10
-[com_10]
+[bob_button_r_whisker]
 type=model
 x=286
 y=152
 width=56
 height=36
-layer=com_0
+layer=content_layer
 model=model_9381
 modelorigin=-39,-69
 modelangle=295,0,0
 modelzoom=246
 
 // 48:11
-[com_11]
+[bob_button_l_whisker]
 type=model
 x=183
 y=152
 width=57
 height=36
-layer=com_0
+layer=content_layer
 model=model_9377
 modelorigin=64,-69
 modelangle=295,0,0
 modelzoom=246
 
 // 48:12
-[com_12]
+[bob_locator_close_button]
 type=graphic
 x=483
 y=5
 width=26
 height=23
-layer=com_0
+layer=content_layer
 graphic="close_buttons,4"
 colour=0x000000
-onmouseover=graphic_swapper(bob_locator_amulet:com_12, "close_buttons,5")
-onmouseleave=graphic_swapper(bob_locator_amulet:com_12, "close_buttons,4")
+onmouseover=graphic_swapper(bob_locator_amulet:bob_locator_close_button, "close_buttons,5")
+onmouseleave=graphic_swapper(bob_locator_amulet:bob_locator_close_button, "close_buttons,4")
 onclick=closebutton_click
 
 // 48:13
-[com_13]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -180,7 +180,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 48:14
-[com_14]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -188,7 +188,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=fsborder_main_layer
 
 // 48:15
 [com_15]
@@ -291,7 +291,7 @@ tiling=yes
 colour=0x000000
 
 // 48:23
-[com_23]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -299,30 +299,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_14
+layer=fsborder_resizing_layer
 
 // 48:24
-[com_24]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_14
+layer=fsborder_resizing_layer
 
 // 48:25
-[com_25]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_14
+layer=fsborder_resizing_layer
 
 // 48:26
-[com_26]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -330,16 +330,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_14
+layer=fsborder_resizing_layer
 
 // 48:27
-[com_27]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_14
+layer=fsborder_resizing_layer
 
 // 48:28
 [com_28]
@@ -349,7 +349,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_24
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -364,7 +364,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_23
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -378,7 +378,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_25
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -393,7 +393,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_26
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

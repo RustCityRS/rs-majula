@@ -4,7 +4,7 @@ type=graphic
 y=1
 width=15
 height=31
-layer=com_64
+layer=pm_button_bg
 graphic=graphic_4690
 
 // 909:1
@@ -15,7 +15,7 @@ y=1
 width=30
 height=31
 widthmode=minus
-layer=com_64
+layer=pm_button_bg
 graphic=graphic_4691
 
 // 909:2
@@ -25,7 +25,7 @@ y=1
 width=15
 height=31
 xmode=abs_right
-layer=com_64
+layer=pm_button_bg
 graphic=graphic_4692
 
 // 909:3
@@ -124,7 +124,7 @@ type=graphic
 y=1
 width=15
 height=31
-layer=com_70
+layer=ignore_add_bg
 graphic=graphic_4690
 
 // 909:13
@@ -134,7 +134,7 @@ widthmode=minus
 heightmode=minus
 
 // 909:14
-[com_14]
+[friends_title]
 type=text
 x=10
 width=7864
@@ -149,7 +149,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 909:15
-[com_15]
+[friends_desc]
 type=text
 x=10
 y=29
@@ -165,7 +165,7 @@ textalignv=centre
 colour=0xebe0bc
 
 // 909:16
-[com_16]
+[friends]
 type=layer
 x=10
 y=46
@@ -177,7 +177,7 @@ layer=com_13
 op10=  
 
 // 909:17
-[com_17]
+[ignore_title]
 type=text
 x=10
 width=7867
@@ -194,7 +194,7 @@ colour=0xebe0bc
 op10= 
 
 // 909:18
-[com_18]
+[ignore_desc]
 type=text
 x=10
 y=29
@@ -212,26 +212,26 @@ colour=0xebe0bc
 op10= 
 
 // 909:19
-[com_19]
+[friends_upper]
 type=layer
 height=35
 widthmode=minus
 heightmode=minus
-layer=com_16
+layer=friends
 
 // 909:20
-[com_20]
+[friends_border]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_19
+layer=friends_upper
 
 // 909:21
 [com_21]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_20
+layer=friends_border
 colour=0xc9b997
 
 // 909:22
@@ -243,26 +243,26 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_20
+layer=friends_border
 colour=0x000000
 op10= 
 
 // 909:23
-[com_23]
+[friends_lower]
 type=layer
 height=32
 widthmode=minus
 ymode=abs_bottom
-layer=com_16
+layer=friends
 
 // 909:24
-[com_24]
+[friend_add_button]
 type=layer
 width=7998
 widthmode=proportion
 heightmode=minus
 ymode=abs_bottom
-layer=com_23
+layer=friends_lower
 op1=Add Friend
 op10= 
 onop=script3048
@@ -272,19 +272,19 @@ onop=script3048
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_24
+layer=friend_add_button
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_6, graphic_4693, lobbyscreen_pane_friendslist:com_7, graphic_4694, lobbyscreen_pane_friendslist:com_8, graphic_4695)
 onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_6, graphic_4690, lobbyscreen_pane_friendslist:com_7, graphic_4691, lobbyscreen_pane_friendslist:com_8, graphic_4692)
 
 // 909:26
-[com_26]
+[friend_delete_button]
 type=layer
 width=7998
 widthmode=proportion
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_23
+layer=friends_lower
 op1=Remove Friend
 op10=  
 onop=script3049
@@ -294,7 +294,7 @@ onop=script3049
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_26
+layer=friend_delete_button
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_3, graphic_4693, lobbyscreen_pane_friendslist:com_4, graphic_4694, lobbyscreen_pane_friendslist:com_5, graphic_4695)
 onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_3, graphic_4690, lobbyscreen_pane_friendslist:com_4, graphic_4691, lobbyscreen_pane_friendslist:com_5, graphic_4692)
 
@@ -305,7 +305,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_26
+layer=friend_delete_button
 textfont=verdana_13pt_regular
 text=Remove Friend
 textlineheight=12
@@ -316,13 +316,13 @@ colour=0xebe0bc
 op10=   
 
 // 909:29
-[com_29]
+[friend_setrank_failbg]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_24
+layer=friend_add_button
 textfont=verdana_13pt_regular
 text=Add Friend
 textlineheight=12
@@ -333,7 +333,7 @@ colour=0xebe0bc
 op10=  
 
 // 909:30
-[com_30]
+[friends_content]
 type=layer
 x=2
 y=2
@@ -341,11 +341,11 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_19
+layer=friends_upper
 op10= 
 
 // 909:31
-[com_31]
+[friends_vdiv]
 type=rectangle
 x=10632
 y=2
@@ -353,51 +353,51 @@ width=2
 height=4
 heightmode=minus
 xmode=proportion_left
-layer=com_19
+layer=friends_upper
 colour=0x453718
 
 // 909:32
-[com_32]
+[friends_tooltip]
 type=layer
 x=119
 y=82
 width=82
 height=18
-layer=com_19
+layer=friends_upper
 hide=yes
 op10=    
 
 // 909:33
-[com_33]
+[friends_tooltip_bg]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_32
+layer=friends_tooltip
 colour=0xffffa0
 fill=yes
 op10=    
 
 // 909:34
-[com_34]
+[friends_tooltip_outline]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_32
+layer=friends_tooltip
 colour=0x000000
 op10=    
 
 // 909:35
-[com_35]
+[friends_tooltip_text]
 type=text
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_32
+layer=friends_tooltip
 textfont=p11_full
 textlineheight=14
 textalignh=centre
@@ -406,29 +406,29 @@ colour=0x000000
 op10=    
 
 // 909:36
-[com_36]
+[friends_titles]
 type=layer
 height=34
 widthmode=minus
-layer=com_30
+layer=friends_content
 
 // 909:37
-[com_37]
+[friends_title_bg]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_36
+layer=friends_titles
 colour=0x382e22
 fill=yes
 
 // 909:38
-[com_38]
+[friend_name_title]
 type=text
 width=10658
 height=2
 widthmode=proportion
 heightmode=minus
-layer=com_36
+layer=friends_titles
 textfont=verdana_13pt_regular
 text=Name
 textalignh=centre
@@ -437,14 +437,14 @@ textshadow=yes
 colour=0xebe0bc
 
 // 909:39
-[com_39]
+[friend_status_title]
 type=text
 width=5648
 height=2
 widthmode=proportion
 heightmode=minus
 xmode=abs_right
-layer=com_36
+layer=friends_titles
 textfont=verdana_13pt_regular
 text=Status
 textalignh=centre
@@ -454,83 +454,83 @@ colour=0xebe0bc
 op10= 
 
 // 909:40
-[com_40]
+[friends_title_div]
 type=rectangle
 height=2
 widthmode=minus
 ymode=abs_bottom
-layer=com_36
+layer=friends_titles
 colour=0x0e0b09
 fill=yes
 op10= 
 
 // 909:41
-[com_41]
+[friends_main]
 type=layer
 y=34
 width=16
 height=34
 widthmode=minus
 heightmode=minus
-layer=com_30
+layer=friends_content
 op10= 
 
 // 909:42
-[com_42]
+[friends_bg]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_41
+layer=friends_main
 
 // 909:43
-[com_43]
+[friends_mo_bg]
 type=rectangle
 height=15
 widthmode=minus
-layer=com_41
+layer=friends_main
 hide=yes
 colour=0x606060
 fill=yes
 op10= 
 
 // 909:44
-[com_44]
+[friends_namechange]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_41
+layer=friends_main
 op10=  
 
 // 909:45
-[com_45]
+[friends_name]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_41
+layer=friends_main
 op10= 
 
 // 909:46
-[com_46]
+[friends_status]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_right
-layer=com_41
+layer=friends_main
 op10= 
 
 // 909:47
-[com_47]
+[friends_build_layer_scroll]
 type=layer
 y=34
 width=16
 height=34
 heightmode=minus
 xmode=abs_right
-layer=com_30
+layer=friends_content
 op10= 
 
 // 909:48
-[com_48]
+[ignore]
 type=layer
 x=10
 y=46
@@ -543,7 +543,7 @@ layer=com_13
 op10=   
 
 // 909:49
-[com_49]
+[chat]
 type=layer
 y=35
 width=20
@@ -555,15 +555,15 @@ layer=com_13
 op10= 
 
 // 909:50
-[com_50]
+[chat_border]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_49
+layer=chat
 op10= 
 
 // 909:51
-[com_51]
+[chat_content]
 type=layer
 x=2
 y=2
@@ -571,10 +571,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_49
+layer=chat
 
 // 909:52
-[com_52]
+[chat_build]
 type=layer
 x=2
 y=2
@@ -583,11 +583,11 @@ height=4
 widthmode=minus
 heightmode=minus
 ymode=abs_bottom
-layer=com_51
+layer=chat_content
 op10= 
 
 // 909:53
-[com_53]
+[chat_scroll]
 type=layer
 x=2
 y=2
@@ -595,7 +595,7 @@ width=16
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_51
+layer=chat_content
 op10=  
 
 // 909:54
@@ -603,7 +603,7 @@ op10=
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_50
+layer=chat_border
 colour=0xc9b997
 op10= 
 
@@ -616,12 +616,12 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_50
+layer=chat_border
 colour=0x000000
 op10=  
 
 // 909:56
-[com_56]
+[chat_bg]
 type=rectangle
 x=2
 y=2
@@ -629,13 +629,13 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_50
+layer=chat_border
 colour=0x292016
 fill=yes
 op10=   
 
 // 909:57
-[com_57]
+[pm_button]
 type=layer
 x=10
 width=4761
@@ -651,7 +651,7 @@ op10=
 onop=script3046(event_op)
 
 // 909:58
-[com_58]
+[report_abuse_button]
 type=layer
 x=10
 width=36
@@ -681,7 +681,7 @@ type=graphic
 width=36
 height=31
 xmode=abs_right
-layer=com_58
+layer=report_abuse_button
 graphic=graphic_4655
 colour=0xffffffff
 op10=   
@@ -689,7 +689,7 @@ onmouseover=graphic_swapper(event_com, graphic_4656)
 onmouseleave=graphic_swapper(event_com, graphic_4655)
 
 // 909:61
-[com_61]
+[chatbox_resize]
 type=layer
 y=140
 width=20
@@ -701,12 +701,12 @@ layer=com_13
 op10= 
 
 // 909:62
-[com_62]
+[chatbox_resize_dragger]
 type=layer
 height=15
 widthmode=minus
 ymode=abs_bottom
-layer=com_61
+layer=chatbox_resize
 noclickthrough=yes
 op10= 
 
@@ -717,29 +717,29 @@ width=8
 height=13
 xmode=abs_centre
 ymode=abs_centre
-layer=com_62
+layer=chatbox_resize_dragger
 graphic=graphic_3130
 alpha=yes
 colour=0xffffffff
 op10= 
 
 // 909:64
-[com_64]
+[pm_button_bg]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_57
+layer=pm_button
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_0, graphic_4693, lobbyscreen_pane_friendslist:com_1, graphic_4694, lobbyscreen_pane_friendslist:com_2, graphic_4695)
 onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_0, graphic_4690, lobbyscreen_pane_friendslist:com_1, graphic_4691, lobbyscreen_pane_friendslist:com_2, graphic_4692)
 
 // 909:65
-[com_65]
+[pm_button_text_title]
 type=text
 y=2
 height=12
 widthmode=minus
 xmode=abs_centre
-layer=com_57
+layer=pm_button
 textfont=verdana_11pt_regular
 text=Show online status to:
 textlineheight=12
@@ -749,14 +749,14 @@ colour=0xebe0bc
 op10=    
 
 // 909:66
-[com_66]
+[pm_button_text]
 type=text
 y=2
 height=12
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_57
+layer=pm_button
 textfont=verdana_13pt_regular
 text=Everybody
 textlineheight=12
@@ -767,51 +767,51 @@ colour=0xebe0bc
 op10=     
 
 // 909:67
-[com_67]
+[ignore_upper]
 type=layer
 height=35
 widthmode=minus
 heightmode=minus
-layer=com_48
+layer=ignore
 
 // 909:68
-[com_68]
+[ignore_lower]
 type=layer
 height=32
 widthmode=minus
 ymode=abs_bottom
-layer=com_48
+layer=ignore
 
 // 909:69
-[com_69]
+[ignore_add_button]
 type=layer
 width=7864
 widthmode=proportion
 heightmode=minus
 ymode=abs_bottom
-layer=com_68
+layer=ignore_lower
 op1=Add Name
 op10= 
 onop=script3050
 
 // 909:70
-[com_70]
+[ignore_add_bg]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_69
+layer=ignore_add_button
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_12, graphic_4693, lobbyscreen_pane_friendslist:com_93, graphic_4694, lobbyscreen_pane_friendslist:com_94, graphic_4695)
 onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_12, graphic_4690, lobbyscreen_pane_friendslist:com_93, graphic_4691, lobbyscreen_pane_friendslist:com_94, graphic_4692)
 
 // 909:71
-[com_71]
+[ignore_delete_button]
 type=layer
 width=7998
 widthmode=proportion
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_68
+layer=ignore_lower
 op1=Remove Name
 op10=   
 onop=script3051
@@ -821,7 +821,7 @@ onop=script3051
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_71
+layer=ignore_delete_button
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_9, graphic_4693, lobbyscreen_pane_friendslist:com_10, graphic_4694, lobbyscreen_pane_friendslist:com_11, graphic_4695)
 onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_9, graphic_4690, lobbyscreen_pane_friendslist:com_10, graphic_4691, lobbyscreen_pane_friendslist:com_11, graphic_4692)
 
@@ -832,7 +832,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_71
+layer=ignore_delete_button
 textfont=verdana_13pt_regular
 text=Remove Name
 textlineheight=12
@@ -843,13 +843,13 @@ colour=0xebe0bc
 op10=    
 
 // 909:74
-[com_74]
+[ignore_add_text]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_69
+layer=ignore_add_button
 textfont=verdana_13pt_regular
 text=Add Name
 textlineheight=12
@@ -860,14 +860,14 @@ colour=0xebe0bc
 op10=   
 
 // 909:75
-[com_75]
+[ignore_border]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_67
+layer=ignore_upper
 
 // 909:76
-[com_76]
+[ignore_content]
 type=layer
 x=2
 y=2
@@ -875,80 +875,80 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_67
+layer=ignore_upper
 
 // 909:77
-[com_77]
+[ignore_titles]
 type=layer
 height=34
 widthmode=minus
-layer=com_76
+layer=ignore_content
 op10= 
 
 // 909:78
-[com_78]
+[ignore_main]
 type=layer
 y=34
 width=16
 height=34
 widthmode=minus
 heightmode=minus
-layer=com_76
+layer=ignore_content
 op10=  
 
 // 909:79
-[com_79]
+[ignore_scroll]
 type=layer
 y=34
 width=16
 height=34
 heightmode=minus
 xmode=abs_right
-layer=com_76
+layer=ignore_content
 op10= 
 
 // 909:80
-[com_80]
+[ignore_tooltip]
 type=layer
 x=143
 y=84
 width=82
 height=18
-layer=com_76
+layer=ignore_content
 hide=yes
 op10=     
 
 // 909:81
-[com_81]
+[ignore_tooltip_bg]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_80
+layer=ignore_tooltip
 colour=0xffffa0
 fill=yes
 op10=     
 
 // 909:82
-[com_82]
+[ignore_tooltip_outline]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_80
+layer=ignore_tooltip
 colour=0x000000
 op10=     
 
 // 909:83
-[com_83]
+[ignore_tooltip_text]
 type=text
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_80
+layer=ignore_tooltip
 textfont=p11_full
 textlineheight=14
 textalignh=centre
@@ -957,54 +957,54 @@ colour=0x000000
 op10=     
 
 // 909:84
-[com_84]
+[ignore_bg]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_78
+layer=ignore_main
 
 // 909:85
-[com_85]
+[ignore_mo_bg]
 type=rectangle
 height=15
 widthmode=minus
-layer=com_78
+layer=ignore_main
 hide=yes
 colour=0x606060
 fill=yes
 op10=  
 
 // 909:86
-[com_86]
+[ignore_namechange]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_78
+layer=ignore_main
 
 // 909:87
-[com_87]
+[ignore_name]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_78
+layer=ignore_main
 
 // 909:88
 [com_88]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_77
+layer=ignore_titles
 colour=0x382e22
 fill=yes
 op10= 
 
 // 909:89
-[com_89]
+[ignore_name_title]
 type=text
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_77
+layer=ignore_titles
 textfont=verdana_13pt_regular
 text=Name
 textalignh=centre
@@ -1019,7 +1019,7 @@ type=rectangle
 height=2
 widthmode=minus
 ymode=abs_bottom
-layer=com_77
+layer=ignore_titles
 colour=0x0e0b09
 fill=yes
 op10=  
@@ -1029,7 +1029,7 @@ op10=
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_75
+layer=ignore_border
 colour=0xc9b997
 op10= 
 
@@ -1042,7 +1042,7 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_75
+layer=ignore_border
 colour=0x000000
 op10=  
 
@@ -1054,7 +1054,7 @@ y=1
 width=30
 height=31
 widthmode=minus
-layer=com_70
+layer=ignore_add_bg
 graphic=graphic_4691
 
 // 909:94
@@ -1064,5 +1064,5 @@ y=1
 width=15
 height=31
 xmode=abs_right
-layer=com_70
+layer=ignore_add_bg
 graphic=graphic_4692

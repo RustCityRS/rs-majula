@@ -1,7 +1,7 @@
 // 4449
 [clientscript,clan_chat_onclantransmit](component $component0)
-if (minimenuopen(clan_chat:com_14, -1) = true) {
-    if_setontimer("clan_chat_minimenu_timer", clan_chat:com_14);
+if (minimenuopen(clan_chat:clanlist, -1) = true) {
+    if_setontimer("clan_chat_minimenu_timer", clan_chat:clanlist);
     return;
 }
 if (activeclanchannel_find_affined = true) {

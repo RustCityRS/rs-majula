@@ -1,5 +1,5 @@
 // 991:0
-[com_0]
+[universe]
 type=layer
 width=10
 height=10
@@ -7,7 +7,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-onload=love_puzzle_init(event_com, love_puzzle:com_2, love_puzzle:com_10, love_puzzle:com_11, love_puzzle:com_20, love_puzzle:com_21)
+onload=love_puzzle_init(event_com, love_puzzle:scroller, love_puzzle:com_10, love_puzzle:com_11, love_puzzle:com_20, love_puzzle:com_21)
 
 // 991:1
 [com_1]
@@ -18,20 +18,20 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=universe
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
 
 // 991:2
-[com_2]
+[scroller]
 type=layer
 width=10
 height=300
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=universe
 scrollheight=600
 
 // 991:3
@@ -42,7 +42,7 @@ y=10
 width=16
 height=16
 xmode=abs_right
-layer=com_0
+layer=universe
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -52,13 +52,13 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 991:4
-[com_4]
+[bottomhalf]
 type=layer
 height=300
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=scroller
 
 // 991:5
 [com_5]
@@ -69,7 +69,7 @@ width=301
 height=337
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=bottomhalf
 model=model_57902
 modelorigin=-6,22
 modelangle=512,0,0
@@ -83,7 +83,7 @@ height=15
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_4
+layer=bottomhalf
 textfont=p11_full
 text=START NODE
 textalignh=centre
@@ -92,14 +92,14 @@ textshadow=yes
 colour=0x960064
 
 // 991:7
-[com_7]
+[source_1_l]
 type=graphic
 x=10
 y=-40
 width=36
 height=32
 ymode=abs_centre
-layer=com_4
+layer=bottomhalf
 outline=1
 colour=0xffffffff
 dragdepth=1
@@ -108,13 +108,13 @@ dragdeadzone=5
 dragdeadtime=5
 
 // 991:8
-[com_8]
+[source_1_r]
 type=graphic
 x=10
 width=36
 height=32
 ymode=abs_centre
-layer=com_4
+layer=bottomhalf
 outline=1
 colour=0xffffffff
 dragdepth=1
@@ -123,14 +123,14 @@ dragdeadzone=5
 dragdeadtime=5
 
 // 991:9
-[com_9]
+[source_1_b]
 type=graphic
 x=10
 y=40
 width=36
 height=32
 ymode=abs_centre
-layer=com_4
+layer=bottomhalf
 outline=1
 colour=0xffffffff
 dragdepth=1
@@ -146,7 +146,7 @@ y=25
 width=80
 height=45
 xmode=abs_right
-layer=com_4
+layer=bottomhalf
 transmitop=1,10
 op1=View upper half
 op10= 
@@ -180,7 +180,7 @@ transmitop=10
 op10= 
 
 // 991:13
-[com_13]
+[grid1]
 type=layer
 x=-1
 y=2
@@ -188,15 +188,15 @@ width=224
 height=224
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=bottomhalf
 
 // 991:14
-[com_14]
+[tophalf]
 type=layer
 height=300
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=scroller
 
 // 991:15
 [com_15]
@@ -207,7 +207,7 @@ width=301
 height=337
 xmode=abs_centre
 ymode=abs_centre
-layer=com_14
+layer=tophalf
 model=model_57906
 modelorigin=-6,-25
 modelangle=512,0,0
@@ -220,7 +220,7 @@ y=20
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_14
+layer=tophalf
 textfont=p11_full
 text=DESTINATION NODE
 textalignh=centre
@@ -231,14 +231,14 @@ transmitop=10
 op10= 
 
 // 991:17
-[com_17]
+[source_2_l]
 type=graphic
 x=10
 y=-40
 width=36
 height=32
 ymode=abs_centre
-layer=com_14
+layer=tophalf
 outline=1
 colour=0xffffffff
 transmitop=10
@@ -249,13 +249,13 @@ dragdeadzone=5
 dragdeadtime=5
 
 // 991:18
-[com_18]
+[source_2_r]
 type=graphic
 x=10
 width=36
 height=32
 ymode=abs_centre
-layer=com_14
+layer=tophalf
 outline=1
 colour=0xffffffff
 transmitop=10
@@ -266,14 +266,14 @@ dragdeadzone=5
 dragdeadtime=5
 
 // 991:19
-[com_19]
+[source_2_b]
 type=graphic
 x=10
 y=40
 width=36
 height=32
 ymode=abs_centre
-layer=com_14
+layer=tophalf
 outline=1
 colour=0xffffffff
 transmitop=10
@@ -292,7 +292,7 @@ width=80
 height=45
 xmode=abs_right
 ymode=abs_bottom
-layer=com_14
+layer=tophalf
 transmitop=1
 op1=View lower half
 
@@ -321,7 +321,7 @@ textshadow=yes
 colour=0xff981f
 
 // 991:23
-[com_23]
+[grid2]
 type=layer
 x=-1
 y=-3
@@ -329,4 +329,4 @@ width=224
 height=224
 xmode=abs_centre
 ymode=abs_centre
-layer=com_14
+layer=tophalf

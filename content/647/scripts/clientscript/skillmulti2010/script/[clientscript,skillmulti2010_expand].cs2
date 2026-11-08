@@ -7,7 +7,7 @@ if ($int1 < $int0) {
     if ($int2 >= $int0) {
         if_setsize(calc($int0 + 5), 0, ^setsize_abs, ^setsize_minus, skillmulti2010_numbers:com_2);
         if_setsize($int0, 0, ^setsize_abs, ^setsize_minus, skillmulti2010:com_5);
-        if_setontimer(null, skillmulti2010_numbers:com_21);
+        if_setontimer(null, skillmulti2010_numbers:expander);
         return;
     }
     if_setsize(calc($int2 + 5), 0, ^setsize_abs, ^setsize_minus, skillmulti2010_numbers:com_2);
@@ -17,7 +17,7 @@ if ($int1 < $int0) {
     if ($int2 <= $int0) {
         if_setsize(calc($int0 + 5), 0, ^setsize_abs, ^setsize_minus, skillmulti2010_numbers:com_2);
         if_setsize($int0, 0, ^setsize_abs, ^setsize_minus, skillmulti2010:com_5);
-        if_setontimer(null, skillmulti2010_numbers:com_21);
+        if_setontimer(null, skillmulti2010_numbers:expander);
         return;
     }
     if_setsize(calc($int2 + 5), 0, ^setsize_abs, ^setsize_minus, skillmulti2010_numbers:com_2);

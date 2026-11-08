@@ -4,61 +4,61 @@ def_int $int0 = 50;
 def_int $int1 = 45;
 def_string $string0 = ~magic_tostring(%varplayerbit_4138);
 if (%varplayerbit_4140 > 0) {
-    if_sethide(false, interface_635:com_33);
-    if_settext(tostring(%varplayerbit_4140), interface_635:com_35);
-    if_settext(tostring(%varplayerbit_4143), interface_635:com_32);
-    if_settext("<$string0> Coins", interface_635:com_30);
+    if_sethide(false, interface_635:text);
+    if_settext(tostring(%varplayerbit_4140), interface_635:npc_num);
+    if_settext(tostring(%varplayerbit_4143), interface_635:kval);
+    if_settext("<$string0> Coins", interface_635:entry_fee);
     if (%varplayerbit_4144 = 0) {
-        if_setgraphic("staticons2,8", interface_635:com_15);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:com_15);
-        if_sethide(false, interface_635:com_2);
+        if_setgraphic("staticons2,8", interface_635:potion);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:potion);
+        if_sethide(false, interface_635:potion_lay);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, interface_635:com_2);
+        if_sethide(true, interface_635:potion_lay);
     }
     if (%varplayerbit_4145 = 0) {
-        if_setgraphic("staticons2,10", interface_635:com_16);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:com_16);
-        if_sethide(false, interface_635:com_3);
+        if_setgraphic("staticons2,10", interface_635:food);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:food);
+        if_sethide(false, interface_635:food_lay);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, interface_635:com_3);
+        if_sethide(true, interface_635:food_lay);
     }
     if (%varplayerbit_4146 = 0) {
-        if_setgraphic("staticons,4", interface_635:com_17);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:com_17);
-        if_sethide(false, interface_635:com_4);
+        if_setgraphic("staticons,4", interface_635:prayer);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:prayer);
+        if_sethide(false, interface_635:prayer_lay);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, interface_635:com_4);
+        if_sethide(true, interface_635:prayer_lay);
     }
     if (%varplayerbit_4147 = 0) {
-        if_setgraphic("staticons2,11", interface_635:com_18);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:com_18);
-        if_sethide(false, interface_635:com_5);
+        if_setgraphic("staticons2,11", interface_635:spec_att);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:spec_att);
+        if_sethide(false, interface_635:spec_att_lay);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, interface_635:com_5);
+        if_sethide(true, interface_635:spec_att_lay);
     }
     if (%varplayerbit_4151 = 0) {
-        if_setgraphic("staticons,6", interface_635:com_20);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:com_20);
-        if_sethide(false, interface_635:com_7);
+        if_setgraphic("staticons,6", interface_635:healing);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:healing);
+        if_sethide(false, interface_635:healing_lay);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, interface_635:com_7);
+        if_sethide(true, interface_635:healing_lay);
     }
     if (%varplayerbit_4152 = 1) {
-        if_setgraphic("staticons2,12", interface_635:com_21);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:com_21);
-        if_sethide(false, interface_635:com_8);
+        if_setgraphic("staticons2,12", interface_635:weaponslot);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:weaponslot);
+        if_sethide(false, interface_635:weaponslot_lay);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, interface_635:com_8);
+        if_sethide(true, interface_635:weaponslot_lay);
     }
     if (%varplayerbit_4276 = 1) {
-        if_setgraphic("staticons2,7", interface_635:com_19);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:com_19);
+        if_setgraphic("staticons2,7", interface_635:sum_lore);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:sum_lore);
         if_sethide(false, interface_635:com_6);
         $int1 = calc($int1 + 29);
     } else {
@@ -67,42 +67,42 @@ if (%varplayerbit_4140 > 0) {
     $int0 = 8;
     $int1 = 45;
     if (%varplayerbit_4148 = 0) {
-        if_setgraphic("staticons,3", interface_635:com_22);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:com_22);
-        if_sethide(false, interface_635:com_9);
+        if_setgraphic("staticons,3", interface_635:ranged);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:ranged);
+        if_sethide(false, interface_635:ranged_lay);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, interface_635:com_9);
+        if_sethide(true, interface_635:ranged_lay);
     }
     if (%varplayerbit_4149 = 0) {
-        if_setgraphic("staticons,0", interface_635:com_23);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:com_23);
-        if_sethide(false, interface_635:com_10);
+        if_setgraphic("staticons,0", interface_635:melee);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:melee);
+        if_sethide(false, interface_635:melee_lay);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, interface_635:com_10);
+        if_sethide(true, interface_635:melee_lay);
     }
     if (%varplayerbit_4150 = 0) {
-        if_setgraphic("staticons,5", interface_635:com_24);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:com_24);
-        if_sethide(false, interface_635:com_11);
+        if_setgraphic("staticons,5", interface_635:magic);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_635:magic);
+        if_sethide(false, interface_635:magic_lay);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, interface_635:com_11);
+        if_sethide(true, interface_635:magic_lay);
     }
 } else {
-    if_setgraphic(null, interface_635:com_15);
-    if_setgraphic(null, interface_635:com_16);
-    if_setgraphic(null, interface_635:com_17);
-    if_setgraphic(null, interface_635:com_18);
-    if_setgraphic(null, interface_635:com_20);
-    if_setgraphic(null, interface_635:com_21);
-    if_setgraphic(null, interface_635:com_22);
-    if_setgraphic(null, interface_635:com_24);
-    if_setgraphic(null, interface_635:com_23);
-    if_setgraphic(null, interface_635:com_19);
-    if_settext(" ", interface_635:com_32);
-    if_settext(" ", interface_635:com_30);
-    if_settext(" ", interface_635:com_26);
-    if_sethide(true, interface_635:com_33);
+    if_setgraphic(null, interface_635:potion);
+    if_setgraphic(null, interface_635:food);
+    if_setgraphic(null, interface_635:prayer);
+    if_setgraphic(null, interface_635:spec_att);
+    if_setgraphic(null, interface_635:healing);
+    if_setgraphic(null, interface_635:weaponslot);
+    if_setgraphic(null, interface_635:ranged);
+    if_setgraphic(null, interface_635:magic);
+    if_setgraphic(null, interface_635:melee);
+    if_setgraphic(null, interface_635:sum_lore);
+    if_settext(" ", interface_635:kval);
+    if_settext(" ", interface_635:entry_fee);
+    if_settext(" ", interface_635:warn);
+    if_sethide(true, interface_635:text);
 }

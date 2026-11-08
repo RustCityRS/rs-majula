@@ -25,13 +25,13 @@ def_int $int14 = 0;
 def_int $int15 = 0;
 def_string $string3 = "";
 if ($int5 = -2) {
-    if_settext("Name", lobbyscreen_pane_friendslist:com_89);
+    if_settext("Name", lobbyscreen_pane_friendslist:ignore_name_title);
     ~script3038("Loading Ignore List.<br><br>Please wait.", $component2);
 } else if ($int5 = -1) {
-    if_settext("Name", lobbyscreen_pane_friendslist:com_89);
+    if_settext("Name", lobbyscreen_pane_friendslist:ignore_name_title);
     ~script3038("Connecting to server.<br><br>Please wait.", $component2);
 } else if ($int5 > 0) {
-    if_settext("Name (<tostring($int5)>/100)", lobbyscreen_pane_friendslist:com_89);
+    if_settext("Name (<tostring($int5)>/100)", lobbyscreen_pane_friendslist:ignore_name_title);
     while ($int6 < $int5) {
         $string0, $string1 = ignore_getname($int6);
         ~cc_add_rect($component2, $int6, if_getwidth($component2), $int10, 0, $int7, ^black, true, 0);
@@ -44,12 +44,12 @@ if ($int5 = -2) {
         cc_setonmouseleave("script3036");
         if (string_length($string1) > 0) {
             $int15 = calc(stringwidth("Last known as: <$string1>", p11_full) + 8);
-            if ($int15 > if_getwidth(lobbyscreen_pane_friendslist:com_76)) {
+            if ($int15 > if_getwidth(lobbyscreen_pane_friendslist:ignore_content)) {
                 $string3 = "Last known as:<br><$string1>";
             } else {
                 $string3 = "Last known as: <$string1>";
             }
-            cc_setonmouserepeat("friend_tooltip(event_com, event_comsubid, $string3, event_mousex, event_mousey, lobbyscreen_pane_friendslist:com_78, lobbyscreen_pane_friendslist:com_80, lobbyscreen_pane_friendslist:com_83, p11_full)");
+            cc_setonmouserepeat("friend_tooltip(event_com, event_comsubid, $string3, event_mousex, event_mousey, lobbyscreen_pane_friendslist:ignore_main, lobbyscreen_pane_friendslist:ignore_tooltip, lobbyscreen_pane_friendslist:ignore_tooltip_text, p11_full)");
         }
         cc_setopbase($string0);
         cc_setop(1, "Delete");
@@ -86,19 +86,19 @@ if ($int5 = -2) {
         $int11 = $int7;
     }
     if ($int9 <= $int5) {
-        $int14 = if_getscrolly(lobbyscreen_pane_friendslist:com_78);
-        if_setscrollsize(0, $int11, lobbyscreen_pane_friendslist:com_78);
+        $int14 = if_getscrolly(lobbyscreen_pane_friendslist:ignore_main);
+        if_setscrollsize(0, $int11, lobbyscreen_pane_friendslist:ignore_main);
         if ($int14 > $int11) {
             $int14 = $int11;
         }
-        ~scrollbar_resize(lobbyscreen_pane_friendslist:com_79, lobbyscreen_pane_friendslist:com_78, $int14);
+        ~scrollbar_resize(lobbyscreen_pane_friendslist:ignore_scroll, lobbyscreen_pane_friendslist:ignore_main, $int14);
     } else {
-        if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:com_78);
-        if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:com_78);
-        ~scrollbar_resize(lobbyscreen_pane_friendslist:com_79, lobbyscreen_pane_friendslist:com_78, 0);
+        if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:ignore_main);
+        if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:ignore_main);
+        ~scrollbar_resize(lobbyscreen_pane_friendslist:ignore_scroll, lobbyscreen_pane_friendslist:ignore_main, 0);
     }
 } else if ($int5 = 0) {
-    if_settext("Name", lobbyscreen_pane_friendslist:com_89);
+    if_settext("Name", lobbyscreen_pane_friendslist:ignore_name_title);
     ~script3038("You are not ignoring any players.", $component2);
 }
 return;

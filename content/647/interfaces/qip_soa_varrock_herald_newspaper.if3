@@ -1,0 +1,132 @@
+// 530:0
+[qip_soa_newspaper_model]
+type=model
+y=-5
+width=513
+height=346
+layer=content_layer
+model=model_25725
+modelangle=512,0,0
+modelzoom=450
+
+// 530:1
+[back_page_scroll_left]
+type=layer
+x=50
+y=77
+width=151
+height=199
+layer=content_layer
+scrollheight=430
+
+// 530:2
+[scroll_left]
+type=layer
+x=203
+y=77
+width=16
+height=199
+layer=content_layer
+onload=scrollbar_vertical_graphics(event_com, qip_soa_varrock_herald_newspaper:back_page_scroll_left, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 530:3
+[scroll_right]
+type=layer
+x=473
+y=77
+width=16
+height=199
+layer=content_layer
+onload=scrollbar_vertical_graphics(event_com, qip_soa_varrock_herald_newspaper:back_page_scroll_right, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 530:4
+[back_page_scroll_right]
+type=layer
+x=319
+y=77
+width=151
+height=199
+layer=content_layer
+scrollheight=930
+
+// 530:5
+[front_page]
+type=layer
+x=32
+y=50
+width=462
+height=252
+layer=content_layer
+hide=yes
+
+// 530:6
+[com_6]
+type=graphic
+x=467
+y=19
+width=26
+height=23
+layer=content_layer
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 530:7
+[com_7]
+type=text
+x=3
+y=16
+width=145
+height=730
+layer=back_page_scroll_left
+textfont=q8_full
+text=Text
+colour=0x1b1b1b
+
+// 530:8
+[com_8]
+type=text
+x=3
+y=16
+width=145
+height=1230
+layer=back_page_scroll_right
+textfont=q8_full
+text=Text
+colour=0x1b1b1b
+
+// 530:9
+[front_page_text_left]
+type=text
+x=18
+y=27
+width=151
+height=199
+layer=front_page
+textfont=q8_full
+text=This is an interface type test.
+colour=0x1b1b1b
+
+// 530:10
+[front_page_text_right]
+type=text
+x=287
+y=27
+width=151
+height=199
+layer=front_page
+textfont=q8_full
+text=This is an interface type test.
+colour=0x1b1b1b
+
+// 530:11
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre

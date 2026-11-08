@@ -2,11 +2,11 @@
 [clientscript,script491](component $component0)
 switch_component ($component0) {
     case conq_buy_army:com_96 :
-        if_setcolour(^white, conq_buy_army:com_100);
+        if_setcolour(^white, conq_buy_army:command_ability_1_name);
     case conq_buy_army:com_90 :
-        if_setcolour(^white, conq_buy_army:com_92);
+        if_setcolour(^white, conq_buy_army:command_ability_2_name);
     case conq_buy_army:com_84 :
-        if_setcolour(^white, conq_buy_army:com_86);
+        if_setcolour(^white, conq_buy_army:command_ability_3_name);
     case conq_buy_army:com_78 :
-        if_setcolour(^white, conq_buy_army:com_80);
+        if_setcolour(^white, conq_buy_army:command_ability_4_name);
 }

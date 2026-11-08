@@ -1,7 +1,7 @@
 // 835
 [proc,script835](boolean $boolean0)
-if_sethide($boolean0, interface_475:com_55);
-if_sethide($boolean0, interface_475:com_57);
-if_sethide($boolean0, interface_475:com_56);
+if_sethide($boolean0, machinima_livecamera:chattop);
+if_sethide($boolean0, machinima_livecamera:filterbuttons);
+if_sethide($boolean0, machinima_livecamera:pmchat);
 ~rebuildchatbox;
 ~rebuildpmbox;

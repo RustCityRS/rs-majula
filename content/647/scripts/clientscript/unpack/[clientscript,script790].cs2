@@ -1,127 +1,127 @@
 // 790
 [clientscript,script790]
 if (%xplamp_stat = 1) {
-    if_sethide(false, xplamp:com_4);
+    if_sethide(false, interface_134:click_attack);
 } else {
-    if_sethide(true, xplamp:com_4);
+    if_sethide(true, interface_134:click_attack);
 }
 if (%xplamp_stat = 2) {
-    if_sethide(false, xplamp:com_21);
+    if_sethide(false, interface_134:click_strength);
 } else {
-    if_sethide(true, xplamp:com_21);
+    if_sethide(true, interface_134:click_strength);
 }
 if (%xplamp_stat = 3) {
-    if_sethide(false, xplamp:com_22);
+    if_sethide(false, interface_134:click_ranged);
 } else {
-    if_sethide(true, xplamp:com_22);
+    if_sethide(true, interface_134:click_ranged);
 }
 if (%xplamp_stat = 4) {
-    if_sethide(false, xplamp:com_23);
+    if_sethide(false, interface_134:click_magic);
 } else {
-    if_sethide(true, xplamp:com_23);
+    if_sethide(true, interface_134:click_magic);
 }
 if (%xplamp_stat = 5) {
-    if_sethide(false, xplamp:com_24);
+    if_sethide(false, interface_134:click_defence);
 } else {
-    if_sethide(true, xplamp:com_24);
+    if_sethide(true, interface_134:click_defence);
 }
 if (%xplamp_stat = 6) {
-    if_sethide(false, xplamp:com_25);
+    if_sethide(false, interface_134:click_hitpoints);
 } else {
-    if_sethide(true, xplamp:com_25);
+    if_sethide(true, interface_134:click_hitpoints);
 }
 if (%xplamp_stat = 7) {
-    if_sethide(false, xplamp:com_27);
+    if_sethide(false, interface_134:click_prayer);
 } else {
-    if_sethide(true, xplamp:com_27);
+    if_sethide(true, interface_134:click_prayer);
 }
 if (%xplamp_stat = 8) {
-    if_sethide(false, xplamp:com_5);
+    if_sethide(false, interface_134:click_agility);
 } else {
-    if_sethide(true, xplamp:com_5);
+    if_sethide(true, interface_134:click_agility);
 }
 if (%xplamp_stat = 9) {
-    if_sethide(false, xplamp:com_6);
+    if_sethide(false, interface_134:click_herblore);
 } else {
-    if_sethide(true, xplamp:com_6);
+    if_sethide(true, interface_134:click_herblore);
 }
 if (%xplamp_stat = 10) {
-    if_sethide(false, xplamp:com_8);
+    if_sethide(false, interface_134:click_thieving);
 } else {
-    if_sethide(true, xplamp:com_8);
+    if_sethide(true, interface_134:click_thieving);
 }
 if (%xplamp_stat = 11) {
-    if_sethide(false, xplamp:com_26);
+    if_sethide(false, interface_134:click_crafting);
 } else {
-    if_sethide(true, xplamp:com_26);
+    if_sethide(true, interface_134:click_crafting);
 }
 if (%xplamp_stat = 12) {
-    if_sethide(false, xplamp:com_9);
+    if_sethide(false, interface_134:click_runecraft);
 } else {
-    if_sethide(true, xplamp:com_9);
+    if_sethide(true, interface_134:click_runecraft);
 }
 if (%xplamp_stat = 13) {
-    if_sethide(false, xplamp:com_12);
+    if_sethide(false, interface_134:click_mining);
 } else {
-    if_sethide(true, xplamp:com_12);
+    if_sethide(true, interface_134:click_mining);
 }
 if (%xplamp_stat = 14) {
-    if_sethide(false, xplamp:com_13);
+    if_sethide(false, interface_134:click_smithing);
 } else {
-    if_sethide(true, xplamp:com_13);
+    if_sethide(true, interface_134:click_smithing);
 }
 if (%xplamp_stat = 15) {
-    if_sethide(false, xplamp:com_7);
+    if_sethide(false, interface_134:click_fishing);
 } else {
-    if_sethide(true, xplamp:com_7);
+    if_sethide(true, interface_134:click_fishing);
 }
 if (%xplamp_stat = 16) {
-    if_sethide(false, xplamp:com_15);
+    if_sethide(false, interface_134:click_cooking);
 } else {
-    if_sethide(true, xplamp:com_15);
+    if_sethide(true, interface_134:click_cooking);
 }
 if (%xplamp_stat = 17) {
-    if_sethide(false, xplamp:com_16);
+    if_sethide(false, interface_134:click_firemaking);
 } else {
-    if_sethide(true, xplamp:com_16);
+    if_sethide(true, interface_134:click_firemaking);
 }
 if (%xplamp_stat = 18) {
-    if_sethide(false, xplamp:com_17);
+    if_sethide(false, interface_134:click_woodcutting);
 } else {
-    if_sethide(true, xplamp:com_17);
+    if_sethide(true, interface_134:click_woodcutting);
 }
 if (%xplamp_stat = 19) {
-    if_sethide(false, xplamp:com_18);
+    if_sethide(false, interface_134:click_fletching);
 } else {
-    if_sethide(true, xplamp:com_18);
+    if_sethide(true, interface_134:click_fletching);
 }
 if (%xplamp_stat = 20) {
-    if_sethide(false, xplamp:com_10);
+    if_sethide(false, interface_134:click_slayer);
 } else {
-    if_sethide(true, xplamp:com_10);
+    if_sethide(true, interface_134:click_slayer);
 }
 if (%xplamp_stat = 21) {
-    if_sethide(false, xplamp:com_11);
+    if_sethide(false, interface_134:click_farming);
 } else {
-    if_sethide(true, xplamp:com_11);
+    if_sethide(true, interface_134:click_farming);
 }
 if (%xplamp_stat = 22) {
-    if_sethide(false, xplamp:com_19);
+    if_sethide(false, interface_134:click_construction);
 } else {
-    if_sethide(true, xplamp:com_19);
+    if_sethide(true, interface_134:click_construction);
 }
 if (%xplamp_stat = 23) {
-    if_sethide(false, xplamp:com_14);
+    if_sethide(false, interface_134:click_hunter);
 } else {
-    if_sethide(true, xplamp:com_14);
+    if_sethide(true, interface_134:click_hunter);
 }
 if (%xplamp_stat = 24) {
-    if_sethide(false, xplamp:com_20);
+    if_sethide(false, interface_134:click_lore);
 } else {
-    if_sethide(true, xplamp:com_20);
+    if_sethide(true, interface_134:click_lore);
 }
 if (%xplamp_stat = 25) {
-    if_sethide(false, xplamp:com_28);
+    if_sethide(false, interface_134:click_dungeoneering);
 } else {
-    if_sethide(true, xplamp:com_28);
+    if_sethide(true, interface_134:click_dungeoneering);
 }

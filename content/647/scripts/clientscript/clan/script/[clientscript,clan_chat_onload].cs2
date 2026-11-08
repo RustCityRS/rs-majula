@@ -9,8 +9,8 @@ if (activeclanchannel_find_affined = true) {
     if_setonfriendtransmit("clan_chat_onclantransmit(event_com)", $component0);
     if_setscrollsize(0, 0, $component0);
     if_setscrollpos(0, 0, $component0);
-    if_setmouseovercursor(cursor_149, clan_chat:com_27);
-    if_sethide(false, clan_chat:com_22);
+    if_setmouseovercursor(cursor_149, clan_chat:drag_layer);
+    if_sethide(false, clan_chat:kick_button_layer);
     ~script4470;
     ~script4436($component0, %varclient_1035);
     ~script4447;

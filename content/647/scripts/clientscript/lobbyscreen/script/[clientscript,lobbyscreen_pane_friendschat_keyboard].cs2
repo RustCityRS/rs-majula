@@ -14,16 +14,16 @@ switch_int ($key0) {
             mes_typed(^chattype_friendschatnotification, 0, "You are not in a Friends Chat Channel.");
         }
         %varclient_1868 = "";
-        if_settext(escape(%varclient_1868), lobbyscreen_pane_friendschat:com_27);
+        if_settext(escape(%varclient_1868), lobbyscreen_pane_friendschat:chat_input_text);
         %varclient_1507 = string_length(%varclient_1868);
-        ~script4571(lobbyscreen_pane_friendschat:com_27, lobbyscreen_pane_friendschat:com_28, %varclient_1868);
+        ~script4571(lobbyscreen_pane_friendschat:chat_input_text, lobbyscreen_pane_friendschat:input_caret, %varclient_1868);
     case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
         %varclient_1507 = ~script1553($key0, %varclient_1507, %varclient_1868);
-        ~script4571(lobbyscreen_pane_friendschat:com_27, lobbyscreen_pane_friendschat:com_28, %varclient_1868);
+        ~script4571(lobbyscreen_pane_friendschat:chat_input_text, lobbyscreen_pane_friendschat:input_caret, %varclient_1868);
     case null, ^key_backspace, ^key_del :
         if (char_isprintable($char1) = true | $key0 = ^key_backspace | $key0 = ^key_del) {
             %varclient_1868, %varclient_1507 = ~script802(%varclient_1507, %varclient_1868, 0, $key0, $char1);
-            if_settext(escape(%varclient_1868), lobbyscreen_pane_friendschat:com_27);
-            ~script4571(lobbyscreen_pane_friendschat:com_27, lobbyscreen_pane_friendschat:com_28, %varclient_1868);
+            if_settext(escape(%varclient_1868), lobbyscreen_pane_friendschat:chat_input_text);
+            ~script4571(lobbyscreen_pane_friendschat:chat_input_text, lobbyscreen_pane_friendschat:input_caret, %varclient_1868);
         }
 }

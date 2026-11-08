@@ -1,37 +1,37 @@
 // 993:0
-[com_0]
+[frame_1]
 type=graphic
 x=13
 y=20
 width=32
 height=32
-layer=com_193
+layer=main_1
 graphic="v2_stone_borders,35"
 
 // 993:1
-[com_1]
+[frame_2]
 type=graphic
 x=12
 y=20
 width=32
 height=32
 xmode=abs_right
-layer=com_193
+layer=main_1
 graphic="v2_stone_borders,37"
 
 // 993:2
-[com_2]
+[frame_3]
 type=graphic
 x=13
 y=8
 width=32
 height=32
 ymode=abs_bottom
-layer=com_193
+layer=main_1
 graphic="v2_stone_borders,6"
 
 // 993:3
-[com_3]
+[frame_4]
 type=graphic
 x=12
 y=8
@@ -39,23 +39,23 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_193
+layer=main_1
 graphic="v2_stone_borders,7"
 
 // 993:4
-[com_4]
+[frame_5]
 type=graphic
 y=6
 width=32
 height=92
 heightmode=minus
 ymode=abs_centre
-layer=com_193
+layer=main_1
 graphic="v2_stone_borders,1"
 tiling=yes
 
 // 993:5
-[com_5]
+[frame_6]
 type=graphic
 y=5
 width=32
@@ -63,12 +63,12 @@ height=88
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_193
+layer=main_1
 graphic="v2_stone_borders,3"
 tiling=yes
 
 // 993:6
-[com_6]
+[frame_7]
 type=graphic
 x=1
 y=20
@@ -76,12 +76,12 @@ width=88
 height=26
 widthmode=minus
 xmode=abs_centre
-layer=com_193
+layer=main_1
 graphic="v2_stone_borders,36"
 tiling=yes
 
 // 993:7
-[com_7]
+[frame_8]
 type=graphic
 y=-4
 width=86
@@ -89,18 +89,18 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_193
+layer=main_1
 graphic="v2_stone_borders,2"
 tiling=yes
 
 // 993:8
-[com_8]
+[reset_title]
 type=text
 y=20
 width=384
 height=24
 xmode=abs_centre
-layer=com_193
+layer=main_1
 textfont=b12_full
 text=~ Confirm Reset ~
 textalignh=centre
@@ -109,39 +109,39 @@ textshadow=yes
 colour=0xc69b01
 
 // 993:9
-[com_9]
+[background_4]
 type=graphic
 x=19
 y=41
 width=10
 height=10
-layer=com_193
+layer=main_1
 graphic="rand_smithing_edges,0"
 
 // 993:10
-[com_10]
+[background_16]
 type=graphic
 x=18
 y=41
 width=10
 height=10
 xmode=abs_right
-layer=com_193
+layer=main_1
 graphic="rand_smithing_edges,1"
 
 // 993:11
-[com_11]
+[background_11]
 type=graphic
 x=19
 y=15
 width=10
 height=10
 ymode=abs_bottom
-layer=com_193
+layer=main_1
 graphic="rand_smithing_edges,3"
 
 // 993:12
-[com_12]
+[background_6]
 type=graphic
 x=18
 y=15
@@ -149,11 +149,11 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_193
+layer=main_1
 graphic="rand_smithing_edges,2"
 
 // 993:13
-[com_13]
+[background_12]
 type=graphic
 x=19
 y=13
@@ -161,11 +161,11 @@ width=10
 height=76
 heightmode=minus
 ymode=abs_centre
-layer=com_193
+layer=main_1
 graphic="rand_smithing_edges,4"
 
 // 993:14
-[com_14]
+[background_13]
 type=graphic
 y=15
 width=54
@@ -173,11 +173,11 @@ height=10
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_193
+layer=main_1
 graphic="rand_smithing_edges,7"
 
 // 993:15
-[com_15]
+[background_14]
 type=graphic
 x=18
 y=13
@@ -186,22 +186,22 @@ height=74
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_193
+layer=main_1
 graphic="rand_smithing_edges,6"
 
 // 993:16
-[com_16]
+[background_17]
 type=graphic
 y=41
 width=54
 height=10
 widthmode=minus
 xmode=abs_centre
-layer=com_193
+layer=main_1
 graphic="rand_smithing_edges,5"
 
 // 993:17
-[com_17]
+[background_15]
 type=graphic
 y=13
 width=54
@@ -210,19 +210,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_193
+layer=main_1
 graphic=rand_smithing_background_fill
 tiling=yes
 alpha=yes
 
 // 993:18
-[com_18]
+[reset_confirm_text]
 type=text
 y=52
 width=174
 height=54
 xmode=abs_centre
-layer=com_193
+layer=main_1
 textfont=p12_full
 text=Sorry, you have no remaining resets.
 textalignh=centre
@@ -230,28 +230,28 @@ textshadow=yes
 colour=0xe6c89b
 
 // 993:19
-[com_19]
+[reset_confirm_count]
 type=text
 x=-113
 y=81
 width=174
 height=20
 xmode=abs_centre
-layer=com_193
+layer=main_1
 textfont=p11_full
 text=You have
 textalignh=right
 textshadow=yes
 
 // 993:20
-[com_20]
+[reset_confirm_count_number]
 type=text
 x=-19
 y=82
 width=174
 height=20
 xmode=abs_centre
-layer=com_193
+layer=main_1
 textfont=p11_full
 text=0
 textalignh=centre
@@ -259,38 +259,38 @@ textshadow=yes
 colour=0xfc4343
 
 // 993:21
-[com_21]
+[reset_confirm_count_2]
 type=text
 x=113
 y=81
 width=115
 height=20
-layer=com_193
+layer=main_1
 textfont=p11_full
 text=remaining reset(s)
 textshadow=yes
 
 // 993:22
-[com_22]
+[reset_confirm_button]
 type=graphic
 x=30
 y=97
 width=95
 height=21
-layer=com_193
+layer=main_1
 graphic=rand_button_glow
 transmitop=1,10
 op1=Reset
 op10= 
 
 // 993:23
-[com_23]
+[fake_reset_button]
 type=graphic
 x=30
 y=97
 width=95
 height=21
-layer=com_193
+layer=main_1
 hide=yes
 graphic=rand_button_glow
 
@@ -301,7 +301,7 @@ x=30
 y=98
 width=95
 height=20
-layer=com_193
+layer=main_1
 textfont=b12_full
 text=Reset
 textalignh=centre
@@ -318,7 +318,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 993:26
-[com_26]
+[ring_c_layer]
 type=layer
 x=20
 y=252
@@ -328,7 +328,7 @@ transmitop=10
 op10=  
 
 // 993:27
-[com_27]
+[ring_b_layer]
 type=layer
 x=20
 y=186
@@ -338,65 +338,65 @@ transmitop=10
 op10= 
 
 // 993:28
-[com_28]
+[topleft_6]
 type=graphic
 width=15
 height=15
-layer=com_27
+layer=ring_b_layer
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:29
-[com_29]
+[top_6]
 type=graphic
 width=15400
 height=15
 widthmode=proportion
 xmode=abs_centre
-layer=com_27
+layer=ring_b_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:30
-[com_30]
+[bottom_6]
 type=graphic
 width=15564
 height=15
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_27
+layer=ring_b_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:31
-[com_31]
+[left_6]
 type=graphic
 width=15
 height=9011
 heightmode=proportion
 ymode=abs_centre
-layer=com_27
+layer=ring_b_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:32
-[com_32]
+[right_6]
 type=graphic
 width=15
 height=9011
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_27
+layer=ring_b_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -404,12 +404,12 @@ transmitop=10
 op10=    
 
 // 993:33
-[com_33]
+[topright_6]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_27
+layer=ring_b_layer
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -417,25 +417,25 @@ transmitop=10
 op10=    
 
 // 993:34
-[com_34]
+[bottomleft_6]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_27
+layer=ring_b_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:35
-[com_35]
+[bottomright_6]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_27
+layer=ring_b_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -443,7 +443,7 @@ transmitop=10
 op10=      
 
 // 993:36
-[com_36]
+[middle_6]
 type=rectangle
 width=15564
 height=9011
@@ -451,21 +451,21 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_27
+layer=ring_b_layer
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=   
 
 // 993:37
-[com_37]
+[stats_alpha_14]
 type=graphic
 y=2
 width=15564
 height=39
 widthmode=proportion
 xmode=abs_centre
-layer=com_27
+layer=ring_b_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -473,14 +473,14 @@ transmitop=10
 op10=   
 
 // 993:38
-[com_38]
+[stats_alpha_15]
 type=graphic
 y=6
 width=16056
 height=30
 widthmode=proportion
 xmode=abs_centre
-layer=com_27
+layer=ring_b_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -488,13 +488,13 @@ transmitop=10
 op10=    
 
 // 993:39
-[com_39]
+[ring_b_name]
 type=text
 x=80
 y=5
 width=150
 height=22
-layer=com_27
+layer=ring_b_layer
 textfont=welcome_font_small
 text=Tactician
 textshadow=yes
@@ -503,13 +503,13 @@ transmitop=10
 op10= 
 
 // 993:40
-[com_40]
+[ring_b_description]
 type=text
 x=80
 y=25
 width=100
 height=15
-layer=com_27
+layer=ring_b_layer
 textfont=p11_full
 text=Increases chance of hitting in accurate stance.
 textalignv=centre
@@ -519,29 +519,29 @@ transmitop=10
 op10=  
 
 // 993:41
-[com_41]
+[ring_b]
 type=graphic
 x=5
 width=55
 height=54
 ymode=abs_centre
-layer=com_27
+layer=ring_b_layer
 graphic="staticons_high_res2_clean,13"
 colour=0xffffffff
 transmitop=10
 op10= 
-onmouseleave=deltooltip(rand_ring_interface:com_301)
+onmouseleave=deltooltip(rand_ring_interface:tooltip_layer_b)
 onmouserepeat=rand_ring_bar_tooltip(event_com, event_comsubid)
 
 // 993:42
-[com_42]
+[ring_b_bar_container]
 type=layer
 x=80
 y=6
 width=345
 height=17
 ymode=abs_bottom
-layer=com_27
+layer=ring_b_layer
 transmitop=10
 op10=  
 
@@ -552,7 +552,7 @@ x=370
 y=40
 width=95
 height=20
-layer=com_27
+layer=ring_b_layer
 graphic=rand_button_glow
 colour=0xffffffff
 transmitop=10
@@ -567,7 +567,7 @@ x=373
 y=42
 width=90
 height=17
-layer=com_27
+layer=ring_b_layer
 hide=yes
 colour=0xcccc00
 fill=yes
@@ -578,13 +578,13 @@ op2=Quick-switch
 op10= 
 
 // 993:45
-[com_45]
+[select_ring_b]
 type=text
 x=370
 y=40
 width=95
 height=20
-layer=com_27
+layer=ring_b_layer
 textfont=b12_full
 text=Switch-to
 textalignh=centre
@@ -595,14 +595,14 @@ transmitop=10
 op10= 
 
 // 993:46
-[com_46]
+[upgrade_ring_b]
 type=graphic
 x=110
 y=41
 width=18
 height=18
 xmode=abs_right
-layer=com_27
+layer=ring_b_layer
 graphic="notes_add_delete_icons,1"
 colour=0xffffffff
 transmitop=1,10
@@ -612,23 +612,23 @@ onmouseover=graphic_swapper(event_com, "notes_add_delete_icons,2")
 onmouseleave=graphic_swapper(event_com, "notes_add_delete_icons,1")
 
 // 993:47
-[com_47]
+[container_27]
 type=graphic
 width=5
 height=5
-layer=com_42
+layer=ring_b_bar_container
 graphic="rand_sml_framea,0"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:48
-[com_48]
+[container_28]
 type=graphic
 x=255
 width=5
 height=5
-layer=com_42
+layer=ring_b_bar_container
 graphic="rand_sml_framea,0"
 hflip=yes
 colour=0xffffffff
@@ -636,24 +636,24 @@ transmitop=10
 op10=    
 
 // 993:49
-[com_49]
+[container_29]
 type=graphic
 x=5
 width=250
 height=5
-layer=com_42
+layer=ring_b_bar_container
 graphic="rand_sml_framea,1"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:50
-[com_50]
+[container_30]
 type=graphic
 y=12
 width=5
 height=5
-layer=com_42
+layer=ring_b_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 colour=0xffffffff
@@ -661,13 +661,13 @@ transmitop=10
 op10=    
 
 // 993:51
-[com_51]
+[container_31]
 type=graphic
 x=255
 y=12
 width=5
 height=5
-layer=com_42
+layer=ring_b_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 hflip=yes
@@ -676,13 +676,13 @@ transmitop=10
 op10=    
 
 // 993:52
-[com_52]
+[container_32]
 type=graphic
 x=5
 y=12
 width=250
 height=5
-layer=com_42
+layer=ring_b_bar_container
 graphic="rand_sml_framea,1"
 vflip=yes
 colour=0xffffffff
@@ -690,12 +690,12 @@ transmitop=10
 op10=    
 
 // 993:53
-[com_53]
+[container_33]
 type=graphic
 y=5
 width=5
 height=7
-layer=com_42
+layer=ring_b_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 colour=0xffffffff
@@ -703,13 +703,13 @@ transmitop=10
 op10=    
 
 // 993:54
-[com_54]
+[container_34]
 type=graphic
 x=255
 y=5
 width=5
 height=7
-layer=com_42
+layer=ring_b_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 hflip=yes
@@ -718,49 +718,49 @@ transmitop=10
 op10=    
 
 // 993:55
-[com_55]
+[container_35]
 type=rectangle
 x=5
 y=4
 width=250
 height=10
-layer=com_42
+layer=ring_b_bar_container
 colour=0x000000
 fill=yes
 transmitop=10
 op10=   
 
 // 993:56
-[com_56]
+[ring_b_bar]
 type=layer
 x=6
 width=250
 height=17
-layer=com_42
+layer=ring_b_bar_container
 transmitop=10
 op10=  
 
 // 993:57
-[com_57]
+[progress_bar_s_3]
 type=graphic
 x=2
 y=1
 width=7
 height=14
-layer=com_42
+layer=ring_b_bar_container
 graphic="rand_grad_caps,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 993:58
-[com_58]
+[progress_13]
 type=graphic
 x=29
 y=1
 width=1
 height=14
-layer=com_42
+layer=ring_b_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -768,13 +768,13 @@ transmitop=10
 op10=    
 
 // 993:59
-[com_59]
+[progress_14]
 type=graphic
 x=54
 y=1
 width=1
 height=14
-layer=com_42
+layer=ring_b_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -782,13 +782,13 @@ transmitop=10
 op10=     
 
 // 993:60
-[com_60]
+[progress_15]
 type=graphic
 x=79
 y=1
 width=1
 height=14
-layer=com_42
+layer=ring_b_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -796,13 +796,13 @@ transmitop=10
 op10=     
 
 // 993:61
-[com_61]
+[progress_16]
 type=graphic
 x=103
 y=1
 width=1
 height=14
-layer=com_42
+layer=ring_b_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -810,13 +810,13 @@ transmitop=10
 op10=     
 
 // 993:62
-[com_62]
+[progress_17]
 type=graphic
 x=129
 y=1
 width=1
 height=14
-layer=com_42
+layer=ring_b_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -824,13 +824,13 @@ transmitop=10
 op10=     
 
 // 993:63
-[com_63]
+[progress_18]
 type=graphic
 x=154
 y=1
 width=1
 height=14
-layer=com_42
+layer=ring_b_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -838,13 +838,13 @@ transmitop=10
 op10=     
 
 // 993:64
-[com_64]
+[progress_19]
 type=graphic
 x=178
 y=1
 width=1
 height=14
-layer=com_42
+layer=ring_b_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -852,13 +852,13 @@ transmitop=10
 op10=     
 
 // 993:65
-[com_65]
+[progress_20]
 type=graphic
 x=203
 y=1
 width=1
 height=14
-layer=com_42
+layer=ring_b_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -866,13 +866,13 @@ transmitop=10
 op10=     
 
 // 993:66
-[com_66]
+[progress_21]
 type=graphic
 x=228
 y=1
 width=1
 height=14
-layer=com_42
+layer=ring_b_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -880,102 +880,102 @@ transmitop=10
 op10=     
 
 // 993:67
-[com_67]
+[ring_b_bar_actual]
 type=layer
 width=16384
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_56
+layer=ring_b_bar
 transmitop=10
 op10=  
 
 // 993:68
-[com_68]
+[progress_12]
 type=graphic
 y=1
 width=16384
 height=14
 widthmode=proportion
-layer=com_67
+layer=ring_b_bar_actual
 graphic=rand_grad_02
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:69
-[com_69]
+[progress_bar_e_3]
 type=graphic
 y=1
 width=7
 height=14
 xmode=abs_right
-layer=com_67
+layer=ring_b_bar_actual
 graphic="rand_grad_caps,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:70
-[com_70]
+[topleft_7]
 type=graphic
 width=15
 height=15
-layer=com_26
+layer=ring_c_layer
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:71
-[com_71]
+[top_7]
 type=graphic
 width=15400
 height=15
 widthmode=proportion
 xmode=abs_centre
-layer=com_26
+layer=ring_c_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:72
-[com_72]
+[bottom_7]
 type=graphic
 width=15564
 height=15
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_26
+layer=ring_c_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 993:73
-[com_73]
+[left_7]
 type=graphic
 width=15
 height=9011
 heightmode=proportion
 ymode=abs_centre
-layer=com_26
+layer=ring_c_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:74
-[com_74]
+[right_7]
 type=graphic
 width=15
 height=9011
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_26
+layer=ring_c_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -983,12 +983,12 @@ transmitop=10
 op10=     
 
 // 993:75
-[com_75]
+[topright_7]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_26
+layer=ring_c_layer
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -996,25 +996,25 @@ transmitop=10
 op10=     
 
 // 993:76
-[com_76]
+[bottomleft_7]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_26
+layer=ring_c_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 993:77
-[com_77]
+[bottomright_7]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_26
+layer=ring_c_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -1022,7 +1022,7 @@ transmitop=10
 op10=       
 
 // 993:78
-[com_78]
+[middle_7]
 type=rectangle
 width=15564
 height=9011
@@ -1030,21 +1030,21 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_26
+layer=ring_c_layer
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=    
 
 // 993:79
-[com_79]
+[stats_alpha_16]
 type=graphic
 y=2
 width=15564
 height=39
 widthmode=proportion
 xmode=abs_centre
-layer=com_26
+layer=ring_c_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -1052,14 +1052,14 @@ transmitop=10
 op10=    
 
 // 993:80
-[com_80]
+[stats_alpha_17]
 type=graphic
 y=6
 width=16056
 height=30
 widthmode=proportion
 xmode=abs_centre
-layer=com_26
+layer=ring_c_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -1067,13 +1067,13 @@ transmitop=10
 op10=     
 
 // 993:81
-[com_81]
+[ring_c_name]
 type=text
 x=80
 y=5
 width=150
 height=22
-layer=com_26
+layer=ring_c_layer
 textfont=welcome_font_small
 text=Berserker
 textshadow=yes
@@ -1082,13 +1082,13 @@ transmitop=10
 op10=  
 
 // 993:82
-[com_82]
+[ring_c_description]
 type=text
 x=80
 y=25
 width=100
 height=15
-layer=com_26
+layer=ring_c_layer
 textfont=p11_full
 text=Increases damage when in aggressive stance.
 textalignv=centre
@@ -1098,29 +1098,29 @@ transmitop=10
 op10=   
 
 // 993:83
-[com_83]
+[ring_c]
 type=graphic
 x=5
 width=55
 height=54
 ymode=abs_centre
-layer=com_26
+layer=ring_c_layer
 graphic="staticons_high_res2_clean,13"
 colour=0xffffffff
 transmitop=10
 op10=  
-onmouseleave=deltooltip(rand_ring_interface:com_300)
+onmouseleave=deltooltip(rand_ring_interface:tooltip_layer_c)
 onmouserepeat=rand_ring_bar_tooltip(event_com, event_comsubid)
 
 // 993:84
-[com_84]
+[ring_c_bar_container]
 type=layer
 x=80
 y=6
 width=345
 height=17
 ymode=abs_bottom
-layer=com_26
+layer=ring_c_layer
 transmitop=10
 op10=   
 
@@ -1131,7 +1131,7 @@ x=370
 y=40
 width=95
 height=20
-layer=com_26
+layer=ring_c_layer
 graphic=rand_button_glow
 colour=0xffffffff
 transmitop=10
@@ -1146,7 +1146,7 @@ x=373
 y=42
 width=90
 height=17
-layer=com_26
+layer=ring_c_layer
 hide=yes
 colour=0xcccc00
 fill=yes
@@ -1157,13 +1157,13 @@ op2=Quick-switch
 op10= 
 
 // 993:87
-[com_87]
+[select_ring_c]
 type=text
 x=370
 y=40
 width=95
 height=20
-layer=com_26
+layer=ring_c_layer
 textfont=b12_full
 text=Switch-to
 textalignh=centre
@@ -1174,14 +1174,14 @@ transmitop=10
 op10=  
 
 // 993:88
-[com_88]
+[upgrade_ring_c]
 type=graphic
 x=110
 y=41
 width=18
 height=18
 xmode=abs_right
-layer=com_26
+layer=ring_c_layer
 graphic="notes_add_delete_icons,1"
 colour=0xffffffff
 transmitop=1,10
@@ -1191,23 +1191,23 @@ onmouseover=graphic_swapper(event_com, "notes_add_delete_icons,2")
 onmouseleave=graphic_swapper(event_com, "notes_add_delete_icons,1")
 
 // 993:89
-[com_89]
+[container_36]
 type=graphic
 width=5
 height=5
-layer=com_84
+layer=ring_c_bar_container
 graphic="rand_sml_framea,0"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:90
-[com_90]
+[container_37]
 type=graphic
 x=255
 width=5
 height=5
-layer=com_84
+layer=ring_c_bar_container
 graphic="rand_sml_framea,0"
 hflip=yes
 colour=0xffffffff
@@ -1215,24 +1215,24 @@ transmitop=10
 op10=     
 
 // 993:91
-[com_91]
+[container_38]
 type=graphic
 x=5
 width=250
 height=5
-layer=com_84
+layer=ring_c_bar_container
 graphic="rand_sml_framea,1"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:92
-[com_92]
+[container_39]
 type=graphic
 y=12
 width=5
 height=5
-layer=com_84
+layer=ring_c_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 colour=0xffffffff
@@ -1240,13 +1240,13 @@ transmitop=10
 op10=     
 
 // 993:93
-[com_93]
+[container_40]
 type=graphic
 x=255
 y=12
 width=5
 height=5
-layer=com_84
+layer=ring_c_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 hflip=yes
@@ -1255,13 +1255,13 @@ transmitop=10
 op10=     
 
 // 993:94
-[com_94]
+[container_41]
 type=graphic
 x=5
 y=12
 width=250
 height=5
-layer=com_84
+layer=ring_c_bar_container
 graphic="rand_sml_framea,1"
 vflip=yes
 colour=0xffffffff
@@ -1269,12 +1269,12 @@ transmitop=10
 op10=     
 
 // 993:95
-[com_95]
+[container_42]
 type=graphic
 y=5
 width=5
 height=7
-layer=com_84
+layer=ring_c_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 colour=0xffffffff
@@ -1282,13 +1282,13 @@ transmitop=10
 op10=     
 
 // 993:96
-[com_96]
+[container_43]
 type=graphic
 x=255
 y=5
 width=5
 height=7
-layer=com_84
+layer=ring_c_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 hflip=yes
@@ -1297,49 +1297,49 @@ transmitop=10
 op10=     
 
 // 993:97
-[com_97]
+[container_44]
 type=rectangle
 x=5
 y=4
 width=250
 height=10
-layer=com_84
+layer=ring_c_bar_container
 colour=0x000000
 fill=yes
 transmitop=10
 op10=    
 
 // 993:98
-[com_98]
+[ring_c_bar]
 type=layer
 x=6
 width=250
 height=17
-layer=com_84
+layer=ring_c_bar_container
 transmitop=10
 op10=   
 
 // 993:99
-[com_99]
+[progress_bar_s_4]
 type=graphic
 x=2
 y=1
 width=7
 height=14
-layer=com_84
+layer=ring_c_bar_container
 graphic="rand_grad_caps,0"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:100
-[com_100]
+[progress_23]
 type=graphic
 x=29
 y=1
 width=1
 height=14
-layer=com_84
+layer=ring_c_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -1347,13 +1347,13 @@ transmitop=10
 op10=     
 
 // 993:101
-[com_101]
+[progress_24]
 type=graphic
 x=54
 y=1
 width=1
 height=14
-layer=com_84
+layer=ring_c_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -1361,13 +1361,13 @@ transmitop=10
 op10=      
 
 // 993:102
-[com_102]
+[progress_25]
 type=graphic
 x=79
 y=1
 width=1
 height=14
-layer=com_84
+layer=ring_c_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -1375,13 +1375,13 @@ transmitop=10
 op10=      
 
 // 993:103
-[com_103]
+[progress_26]
 type=graphic
 x=103
 y=1
 width=1
 height=14
-layer=com_84
+layer=ring_c_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -1389,13 +1389,13 @@ transmitop=10
 op10=      
 
 // 993:104
-[com_104]
+[progress_27]
 type=graphic
 x=129
 y=1
 width=1
 height=14
-layer=com_84
+layer=ring_c_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -1403,13 +1403,13 @@ transmitop=10
 op10=      
 
 // 993:105
-[com_105]
+[progress_28]
 type=graphic
 x=154
 y=1
 width=1
 height=14
-layer=com_84
+layer=ring_c_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -1417,13 +1417,13 @@ transmitop=10
 op10=      
 
 // 993:106
-[com_106]
+[progress_29]
 type=graphic
 x=178
 y=1
 width=1
 height=14
-layer=com_84
+layer=ring_c_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -1431,13 +1431,13 @@ transmitop=10
 op10=      
 
 // 993:107
-[com_107]
+[progress_30]
 type=graphic
 x=203
 y=1
 width=1
 height=14
-layer=com_84
+layer=ring_c_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -1445,13 +1445,13 @@ transmitop=10
 op10=      
 
 // 993:108
-[com_108]
+[progress_31]
 type=graphic
 x=228
 y=1
 width=1
 height=14
-layer=com_84
+layer=ring_c_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -1459,44 +1459,44 @@ transmitop=10
 op10=      
 
 // 993:109
-[com_109]
+[ring_c_bar_actual]
 type=layer
 width=16384
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_98
+layer=ring_c_bar
 transmitop=10
 op10=   
 
 // 993:110
-[com_110]
+[progress_22]
 type=graphic
 y=1
 width=16384
 height=14
 widthmode=proportion
-layer=com_109
+layer=ring_c_bar_actual
 graphic=rand_grad_02
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:111
-[com_111]
+[progress_bar_e_4]
 type=graphic
 y=1
 width=7
 height=14
 xmode=abs_right
-layer=com_109
+layer=ring_c_bar_actual
 graphic="rand_grad_caps,1"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:112
-[com_112]
+[ring_a_layer]
 type=layer
 x=20
 y=120
@@ -1504,7 +1504,7 @@ width=472
 height=65
 
 // 993:113
-[com_113]
+[background_1]
 type=layer
 x=19
 y=41
@@ -1523,31 +1523,31 @@ height=87
 noclickthrough=yes
 
 // 993:115
-[com_115]
+[background_2]
 type=graphic
 width=10
 height=10
-layer=com_113
+layer=background_1
 graphic="rand_smithing_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 993:116
-[com_116]
+[background_5]
 type=graphic
 y=10
 width=10
 height=20
 heightmode=minus
-layer=com_113
+layer=background_1
 graphic="rand_smithing_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 993:117
-[com_117]
+[background_7]
 type=graphic
 x=-1
 y=10
@@ -1555,14 +1555,14 @@ width=10
 height=20
 heightmode=minus
 xmode=abs_right
-layer=com_113
+layer=background_1
 graphic="rand_smithing_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 993:118
-[com_118]
+[background_8]
 type=graphic
 x=10
 y=10
@@ -1570,7 +1570,7 @@ width=19
 height=20
 widthmode=minus
 heightmode=minus
-layer=com_113
+layer=background_1
 graphic=rand_smithing_background_fill
 tiling=yes
 alpha=yes
@@ -1579,91 +1579,91 @@ transmitop=10
 op10=  
 
 // 993:119
-[com_119]
+[background_9]
 type=graphic
 x=-1
 width=10
 height=10
 xmode=abs_right
-layer=com_113
+layer=background_1
 graphic="rand_smithing_edges,1"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 993:120
-[com_120]
+[background_10]
 type=graphic
 x=10
 width=19
 height=10
 widthmode=minus
-layer=com_113
+layer=background_1
 graphic="rand_smithing_edges,5"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 993:121
-[com_121]
+[topleft_5]
 type=graphic
 width=15
 height=15
-layer=com_112
+layer=ring_a_layer
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:122
-[com_122]
+[top_5]
 type=graphic
 width=15400
 height=15
 widthmode=proportion
 xmode=abs_centre
-layer=com_112
+layer=ring_a_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:123
-[com_123]
+[bottom_5]
 type=graphic
 width=15564
 height=15
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_112
+layer=ring_a_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:124
-[com_124]
+[left_5]
 type=graphic
 width=15
 height=9011
 heightmode=proportion
 ymode=abs_centre
-layer=com_112
+layer=ring_a_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:125
-[com_125]
+[right_5]
 type=graphic
 width=15
 height=9011
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_112
+layer=ring_a_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -1671,12 +1671,12 @@ transmitop=10
 op10=   
 
 // 993:126
-[com_126]
+[topright_5]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_112
+layer=ring_a_layer
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -1684,25 +1684,25 @@ transmitop=10
 op10=   
 
 // 993:127
-[com_127]
+[bottomleft_5]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_112
+layer=ring_a_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:128
-[com_128]
+[bottomright_5]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_112
+layer=ring_a_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -1710,7 +1710,7 @@ transmitop=10
 op10=     
 
 // 993:129
-[com_129]
+[middle_5]
 type=rectangle
 width=15564
 height=9011
@@ -1718,21 +1718,21 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_112
+layer=ring_a_layer
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=  
 
 // 993:130
-[com_130]
+[stats_alpha_12]
 type=graphic
 y=2
 width=15564
 height=39
 widthmode=proportion
 xmode=abs_centre
-layer=com_112
+layer=ring_a_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -1740,14 +1740,14 @@ transmitop=10
 op10=  
 
 // 993:131
-[com_131]
+[stats_alpha_13]
 type=graphic
 y=7
 width=16220
 height=30
 widthmode=proportion
 xmode=abs_centre
-layer=com_112
+layer=ring_a_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -1755,26 +1755,26 @@ transmitop=10
 op10=   
 
 // 993:132
-[com_132]
+[ring_a_name]
 type=text
 x=80
 y=5
 width=150
 height=22
-layer=com_112
+layer=ring_a_layer
 textfont=welcome_font_small
 text=Tank
 textshadow=yes
 colour=0xe2e2a2
 
 // 993:133
-[com_133]
+[ring_a_description]
 type=text
 x=80
 y=25
 width=100
 height=15
-layer=com_112
+layer=ring_a_layer
 textfont=p11_full
 text=Damage is reduced when wielding a shield.
 textalignv=centre
@@ -1784,27 +1784,27 @@ transmitop=10
 op10= 
 
 // 993:134
-[com_134]
+[ring_a]
 type=graphic
 x=5
 width=55
 height=54
 ymode=abs_centre
-layer=com_112
+layer=ring_a_layer
 graphic="staticons_high_res2_clean,13"
 colour=0xffffffff
-onmouseleave=deltooltip(rand_ring_interface:com_302)
+onmouseleave=deltooltip(rand_ring_interface:tooltip_layer)
 onmouserepeat=rand_ring_bar_tooltip(event_com, event_comsubid)
 
 // 993:135
-[com_135]
+[ring_a_bar_container]
 type=layer
 x=80
 y=6
 width=345
 height=17
 ymode=abs_bottom
-layer=com_112
+layer=ring_a_layer
 transmitop=10
 op10= 
 
@@ -1815,7 +1815,7 @@ x=370
 y=40
 width=95
 height=20
-layer=com_112
+layer=ring_a_layer
 graphic=rand_button_glow
 colour=0xffffffff
 onmouseover=rand_ring_onhover(event_com)
@@ -1828,7 +1828,7 @@ x=373
 y=42
 width=90
 height=17
-layer=com_112
+layer=ring_a_layer
 hide=yes
 colour=0xcccc00
 fill=yes
@@ -1838,13 +1838,13 @@ op1=Switch-to
 op2=Quick-switch
 
 // 993:138
-[com_138]
+[select_ring_a]
 type=text
 x=370
 y=40
 width=95
 height=20
-layer=com_112
+layer=ring_a_layer
 textfont=b12_full
 text=Switch-to
 textalignh=centre
@@ -1853,14 +1853,14 @@ textshadow=yes
 colour=0xffff98
 
 // 993:139
-[com_139]
+[upgrade_ring_a]
 type=graphic
 x=110
 y=41
 width=18
 height=18
 xmode=abs_right
-layer=com_112
+layer=ring_a_layer
 graphic="notes_add_delete_icons,1"
 colour=0xffffffff
 transmitop=1
@@ -1869,23 +1869,23 @@ onmouseover=graphic_swapper(event_com, "notes_add_delete_icons,2")
 onmouseleave=graphic_swapper(event_com, "notes_add_delete_icons,1")
 
 // 993:140
-[com_140]
+[container_18]
 type=graphic
 width=5
 height=5
-layer=com_135
+layer=ring_a_bar_container
 graphic="rand_sml_framea,0"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:141
-[com_141]
+[container_19]
 type=graphic
 x=255
 width=5
 height=5
-layer=com_135
+layer=ring_a_bar_container
 graphic="rand_sml_framea,0"
 hflip=yes
 colour=0xffffffff
@@ -1893,24 +1893,24 @@ transmitop=10
 op10=   
 
 // 993:142
-[com_142]
+[container_20]
 type=graphic
 x=5
 width=250
 height=5
-layer=com_135
+layer=ring_a_bar_container
 graphic="rand_sml_framea,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:143
-[com_143]
+[container_21]
 type=graphic
 y=12
 width=5
 height=5
-layer=com_135
+layer=ring_a_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 colour=0xffffffff
@@ -1918,13 +1918,13 @@ transmitop=10
 op10=   
 
 // 993:144
-[com_144]
+[container_22]
 type=graphic
 x=255
 y=12
 width=5
 height=5
-layer=com_135
+layer=ring_a_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 hflip=yes
@@ -1933,13 +1933,13 @@ transmitop=10
 op10=   
 
 // 993:145
-[com_145]
+[container_23]
 type=graphic
 x=5
 y=12
 width=250
 height=5
-layer=com_135
+layer=ring_a_bar_container
 graphic="rand_sml_framea,1"
 vflip=yes
 colour=0xffffffff
@@ -1947,12 +1947,12 @@ transmitop=10
 op10=   
 
 // 993:146
-[com_146]
+[container_24]
 type=graphic
 y=5
 width=5
 height=7
-layer=com_135
+layer=ring_a_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 colour=0xffffffff
@@ -1960,13 +1960,13 @@ transmitop=10
 op10=   
 
 // 993:147
-[com_147]
+[container_25]
 type=graphic
 x=255
 y=5
 width=5
 height=7
-layer=com_135
+layer=ring_a_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 hflip=yes
@@ -1975,49 +1975,49 @@ transmitop=10
 op10=   
 
 // 993:148
-[com_148]
+[container_26]
 type=rectangle
 x=5
 y=4
 width=250
 height=10
-layer=com_135
+layer=ring_a_bar_container
 colour=0x000000
 fill=yes
 transmitop=10
 op10=  
 
 // 993:149
-[com_149]
+[ring_a_bar]
 type=layer
 x=6
 width=250
 height=17
-layer=com_135
+layer=ring_a_bar_container
 transmitop=10
 op10= 
 
 // 993:150
-[com_150]
+[progress_bar_s_2]
 type=graphic
 x=2
 y=1
 width=7
 height=14
-layer=com_135
+layer=ring_a_bar_container
 graphic="rand_grad_caps,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 993:151
-[com_151]
+[progress_3]
 type=graphic
 x=29
 y=1
 width=1
 height=14
-layer=com_135
+layer=ring_a_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -2025,13 +2025,13 @@ transmitop=10
 op10=   
 
 // 993:152
-[com_152]
+[progress_4]
 type=graphic
 x=54
 y=1
 width=1
 height=14
-layer=com_135
+layer=ring_a_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -2039,13 +2039,13 @@ transmitop=10
 op10=    
 
 // 993:153
-[com_153]
+[progress_5]
 type=graphic
 x=79
 y=1
 width=1
 height=14
-layer=com_135
+layer=ring_a_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -2053,13 +2053,13 @@ transmitop=10
 op10=    
 
 // 993:154
-[com_154]
+[progress_6]
 type=graphic
 x=103
 y=1
 width=1
 height=14
-layer=com_135
+layer=ring_a_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -2067,13 +2067,13 @@ transmitop=10
 op10=    
 
 // 993:155
-[com_155]
+[progress_7]
 type=graphic
 x=129
 y=1
 width=1
 height=14
-layer=com_135
+layer=ring_a_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -2081,13 +2081,13 @@ transmitop=10
 op10=    
 
 // 993:156
-[com_156]
+[progress_8]
 type=graphic
 x=154
 y=1
 width=1
 height=14
-layer=com_135
+layer=ring_a_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -2095,13 +2095,13 @@ transmitop=10
 op10=    
 
 // 993:157
-[com_157]
+[progress_9]
 type=graphic
 x=178
 y=1
 width=1
 height=14
-layer=com_135
+layer=ring_a_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -2109,13 +2109,13 @@ transmitop=10
 op10=    
 
 // 993:158
-[com_158]
+[progress_10]
 type=graphic
 x=203
 y=1
 width=1
 height=14
-layer=com_135
+layer=ring_a_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -2123,13 +2123,13 @@ transmitop=10
 op10=    
 
 // 993:159
-[com_159]
+[progress_11]
 type=graphic
 x=228
 y=1
 width=1
 height=14
-layer=com_135
+layer=ring_a_bar_container
 graphic=rand_grad_02
 trans=100
 colour=0xffffffff
@@ -2137,43 +2137,43 @@ transmitop=10
 op10=    
 
 // 993:160
-[com_160]
+[ring_a_bar_actual]
 type=layer
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_149
+layer=ring_a_bar
 transmitop=10
 op10= 
 
 // 993:161
-[com_161]
+[progress_2]
 type=graphic
 y=1
 width=16384
 height=14
 widthmode=proportion
-layer=com_160
+layer=ring_a_bar_actual
 graphic=rand_grad_02
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 993:162
-[com_162]
+[progress_bar_e_2]
 type=graphic
 y=1
 width=7
 height=14
 xmode=abs_right
-layer=com_160
+layer=ring_a_bar_actual
 graphic="rand_grad_caps,1"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 993:163
-[com_163]
+[timer_and_init]
 type=rectangle
 x=13
 y=20
@@ -2187,7 +2187,7 @@ onload=rand_ring_interface_init
 ontimer=rand_ring_interface_timer
 
 // 993:164
-[com_164]
+[frame_nw]
 type=graphic
 x=13
 y=20
@@ -2200,7 +2200,7 @@ transmitop=10
 op10= 
 
 // 993:165
-[com_165]
+[frame_ne]
 type=graphic
 x=468
 y=20
@@ -2213,7 +2213,7 @@ transmitop=10
 op10= 
 
 // 993:166
-[com_166]
+[frame_sw]
 type=graphic
 x=13
 y=294
@@ -2226,7 +2226,7 @@ transmitop=10
 op10= 
 
 // 993:167
-[com_167]
+[frame_se]
 type=graphic
 x=468
 y=294
@@ -2239,7 +2239,7 @@ transmitop=10
 op10= 
 
 // 993:168
-[com_168]
+[frame_w]
 type=graphic
 y=52
 width=32
@@ -2252,7 +2252,7 @@ transmitop=10
 op10= 
 
 // 993:169
-[com_169]
+[frame_e]
 type=graphic
 x=480
 y=51
@@ -2266,7 +2266,7 @@ transmitop=10
 op10= 
 
 // 993:170
-[com_170]
+[frame_n]
 type=graphic
 x=45
 y=20
@@ -2280,7 +2280,7 @@ transmitop=10
 op10= 
 
 // 993:171
-[com_171]
+[frame_s]
 type=graphic
 x=45
 y=306
@@ -2294,7 +2294,7 @@ transmitop=10
 op10= 
 
 // 993:172
-[com_172]
+[title]
 type=text
 y=20
 width=384
@@ -2320,7 +2320,7 @@ height=278
 layer=com_25
 
 // 993:174
-[com_174]
+[close_button]
 type=graphic
 x=470
 y=23
@@ -2336,7 +2336,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 993:175
-[com_175]
+[background_nw]
 type=graphic
 width=10
 height=10
@@ -2347,7 +2347,7 @@ transmitop=10
 op10= 
 
 // 993:176
-[com_176]
+[background_se]
 type=graphic
 x=-1
 width=10
@@ -2361,7 +2361,7 @@ transmitop=10
 op10= 
 
 // 993:177
-[com_177]
+[background_sw]
 type=graphic
 width=10
 height=10
@@ -2373,7 +2373,7 @@ transmitop=10
 op10= 
 
 // 993:178
-[com_178]
+[background_w]
 type=graphic
 y=10
 width=10
@@ -2386,7 +2386,7 @@ transmitop=10
 op10= 
 
 // 993:179
-[com_179]
+[background_s]
 type=graphic
 x=10
 width=19
@@ -2400,7 +2400,7 @@ transmitop=10
 op10= 
 
 // 993:180
-[com_180]
+[background_e]
 type=graphic
 x=-1
 y=10
@@ -2415,7 +2415,7 @@ transmitop=10
 op10= 
 
 // 993:181
-[com_181]
+[background_fill]
 type=graphic
 x=10
 y=10
@@ -2432,7 +2432,7 @@ transmitop=10
 op10= 
 
 // 993:182
-[com_182]
+[background_ne]
 type=graphic
 x=-1
 width=10
@@ -2445,7 +2445,7 @@ transmitop=10
 op10= 
 
 // 993:183
-[com_183]
+[background_n]
 type=graphic
 x=10
 width=19
@@ -2458,7 +2458,7 @@ transmitop=10
 op10= 
 
 // 993:184
-[com_184]
+[melee_class_button]
 type=layer
 x=118
 y=46
@@ -2468,7 +2468,7 @@ onmouseleave=rand_ring_onexitspin(event_com)
 onmouserepeat=rand_ring_onhoverspin(event_com)
 
 // 993:185
-[com_185]
+[ranged_class_button]
 type=layer
 x=212
 y=46
@@ -2480,7 +2480,7 @@ onmouseleave=rand_ring_onexitspin(event_com)
 onmouserepeat=rand_ring_onhoverspin(event_com)
 
 // 993:186
-[com_186]
+[magic_class_button]
 type=layer
 x=306
 y=46
@@ -2492,7 +2492,7 @@ onmouseleave=rand_ring_onexitspin(event_com)
 onmouserepeat=rand_ring_onhoverspin(event_com)
 
 // 993:187
-[com_187]
+[skiller_class_button]
 type=layer
 x=400
 y=46
@@ -2504,7 +2504,7 @@ onmouseleave=rand_ring_onexitspin(event_com)
 onmouserepeat=rand_ring_onhoverspin(event_com)
 
 // 993:188
-[com_188]
+[select_class]
 type=text
 x=25
 y=45
@@ -2520,7 +2520,7 @@ transmitop=10
 op10=  
 
 // 993:189
-[com_189]
+[reset_text]
 type=text
 x=13
 y=84
@@ -2534,7 +2534,7 @@ textshadow=yes
 colour=0xe1c864
 
 // 993:190
-[com_190]
+[reset_graphic]
 type=graphic
 x=86
 y=92
@@ -2548,7 +2548,7 @@ onmouseover=graphic_swapper(event_com, "lobby_world_reset,1")
 onmouseleave=graphic_swapper(event_com, "lobby_world_reset,0")
 
 // 993:191
-[com_191]
+[reset_interface]
 type=layer
 x=13
 y=20
@@ -2562,13 +2562,13 @@ noclickthrough=yes
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_191
+layer=reset_interface
 colour=0x000000
 fill=yes
 trans=100
 
 // 993:193
-[com_193]
+[main_1]
 type=layer
 x=-1
 y=-3
@@ -2576,10 +2576,10 @@ width=248
 height=140
 xmode=abs_centre
 ymode=abs_centre
-layer=com_191
+layer=reset_interface
 
 // 993:194
-[com_194]
+[melee_link]
 type=rectangle
 x=160
 y=116
@@ -2589,7 +2589,7 @@ colour=0x261b1b
 fill=yes
 
 // 993:195
-[com_195]
+[ranged_link]
 type=rectangle
 x=255
 y=116
@@ -2601,7 +2601,7 @@ transmitop=10
 op10= 
 
 // 993:196
-[com_196]
+[magic_link]
 type=rectangle
 x=347
 y=116
@@ -2613,7 +2613,7 @@ transmitop=10
 op10= 
 
 // 993:197
-[com_197]
+[skiller_link]
 type=rectangle
 x=440
 y=116
@@ -2625,65 +2625,65 @@ transmitop=10
 op10= 
 
 // 993:198
-[com_198]
+[topleft_4]
 type=graphic
 width=15
 height=15
-layer=com_187
+layer=skiller_class_button
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 993:199
-[com_199]
+[top_4]
 type=graphic
 width=10977
 height=15
 widthmode=proportion
 xmode=abs_centre
-layer=com_187
+layer=skiller_class_button
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 993:200
-[com_200]
+[bottom_4]
 type=graphic
 width=10977
 height=15
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_187
+layer=skiller_class_button
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=       
 
 // 993:201
-[com_201]
+[left_4]
 type=graphic
 width=15
 height=9502
 heightmode=proportion
 ymode=abs_centre
-layer=com_187
+layer=skiller_class_button
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 993:202
-[com_202]
+[right_4]
 type=graphic
 width=15
 height=9369
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_187
+layer=skiller_class_button
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -2691,12 +2691,12 @@ transmitop=10
 op10=      
 
 // 993:203
-[com_203]
+[topright_4]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_187
+layer=skiller_class_button
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -2704,25 +2704,25 @@ transmitop=10
 op10=      
 
 // 993:204
-[com_204]
+[bottomleft_4]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_187
+layer=skiller_class_button
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=       
 
 // 993:205
-[com_205]
+[bottomright_4]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_187
+layer=skiller_class_button
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -2730,7 +2730,7 @@ transmitop=10
 op10=        
 
 // 993:206
-[com_206]
+[middle_4]
 type=rectangle
 width=10977
 height=9830
@@ -2738,21 +2738,21 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_187
+layer=skiller_class_button
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=     
 
 // 993:207
-[com_207]
+[stats_alpha_10]
 type=graphic
 y=3
 width=14745
 height=39
 widthmode=proportion
 xmode=abs_centre
-layer=com_187
+layer=skiller_class_button
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -2760,14 +2760,14 @@ transmitop=10
 op10=     
 
 // 993:208
-[com_208]
+[stats_alpha_11]
 type=graphic
 y=8
 width=15728
 height=30
 widthmode=proportion
 xmode=abs_centre
-layer=com_187
+layer=skiller_class_button
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -2781,7 +2781,7 @@ x=3
 y=3
 width=84
 height=64
-layer=com_187
+layer=skiller_class_button
 colour=0xffff50
 fill=yes
 trans=220
@@ -2789,20 +2789,20 @@ transmitop=10
 op10= 
 
 // 993:210
-[com_210]
+[skiller_icon]
 type=graphic
 y=5
 width=52
 height=52
 xmode=abs_centre
-layer=com_187
+layer=skiller_class_button
 graphic="staticons_high_res_clean,10"
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 993:211
-[com_211]
+[skiller]
 type=text
 width=14570
 height=14518
@@ -2810,7 +2810,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_187
+layer=skiller_class_button
 textfont=tutorial_font
 text=Skiller
 textalignh=centre
@@ -2827,7 +2827,7 @@ x=3
 y=3
 width=84
 height=64
-layer=com_187
+layer=skiller_class_button
 colour=0x33ff33
 fill=yes
 trans=255
@@ -2838,65 +2838,65 @@ opcursor0=cursor_46
 onop=rand_ring_button_click(event_com)
 
 // 993:213
-[com_213]
+[topleft_3]
 type=graphic
 width=15
 height=15
-layer=com_186
+layer=magic_class_button
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:214
-[com_214]
+[top_3]
 type=graphic
 width=10977
 height=15
 widthmode=proportion
 xmode=abs_centre
-layer=com_186
+layer=magic_class_button
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:215
-[com_215]
+[bottom_3]
 type=graphic
 width=10977
 height=15
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_186
+layer=magic_class_button
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 993:216
-[com_216]
+[left_3]
 type=graphic
 width=15
 height=9502
 heightmode=proportion
 ymode=abs_centre
-layer=com_186
+layer=magic_class_button
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:217
-[com_217]
+[right_3]
 type=graphic
 width=15
 height=9369
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_186
+layer=magic_class_button
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -2904,12 +2904,12 @@ transmitop=10
 op10=     
 
 // 993:218
-[com_218]
+[topright_3]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_186
+layer=magic_class_button
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -2917,25 +2917,25 @@ transmitop=10
 op10=     
 
 // 993:219
-[com_219]
+[bottomleft_3]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_186
+layer=magic_class_button
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 993:220
-[com_220]
+[bottomright_3]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_186
+layer=magic_class_button
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -2943,7 +2943,7 @@ transmitop=10
 op10=       
 
 // 993:221
-[com_221]
+[middle_3]
 type=rectangle
 width=10977
 height=9830
@@ -2951,21 +2951,21 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_186
+layer=magic_class_button
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=    
 
 // 993:222
-[com_222]
+[stats_alpha_8]
 type=graphic
 y=3
 width=14745
 height=39
 widthmode=proportion
 xmode=abs_centre
-layer=com_186
+layer=magic_class_button
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -2973,14 +2973,14 @@ transmitop=10
 op10=    
 
 // 993:223
-[com_223]
+[stats_alpha_9]
 type=graphic
 y=8
 width=15728
 height=30
 widthmode=proportion
 xmode=abs_centre
-layer=com_186
+layer=magic_class_button
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -2994,7 +2994,7 @@ x=3
 y=3
 width=84
 height=64
-layer=com_186
+layer=magic_class_button
 colour=0xffff50
 fill=yes
 trans=220
@@ -3002,19 +3002,19 @@ transmitop=10
 op10= 
 
 // 993:225
-[com_225]
+[magic_icon]
 type=graphic
 width=52
 height=52
 xmode=abs_centre
-layer=com_186
+layer=magic_class_button
 graphic="staticons_high_res_clean,5"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 993:226
-[com_226]
+[magic]
 type=text
 width=14570
 height=14518
@@ -3022,7 +3022,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_186
+layer=magic_class_button
 textfont=tutorial_font
 text=Magic
 textalignh=centre
@@ -3039,7 +3039,7 @@ x=3
 y=3
 width=84
 height=64
-layer=com_186
+layer=magic_class_button
 colour=0x33ff33
 fill=yes
 trans=255
@@ -3050,65 +3050,65 @@ opcursor0=cursor_46
 onop=rand_ring_button_click(event_com)
 
 // 993:228
-[com_228]
+[topleft_2]
 type=graphic
 width=15
 height=15
-layer=com_185
+layer=ranged_class_button
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:229
-[com_229]
+[top_2]
 type=graphic
 width=10977
 height=15
 widthmode=proportion
 xmode=abs_centre
-layer=com_185
+layer=ranged_class_button
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:230
-[com_230]
+[bottom_2]
 type=graphic
 width=10977
 height=15
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_185
+layer=ranged_class_button
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:231
-[com_231]
+[left_2]
 type=graphic
 width=15
 height=9502
 heightmode=proportion
 ymode=abs_centre
-layer=com_185
+layer=ranged_class_button
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:232
-[com_232]
+[right_2]
 type=graphic
 width=15
 height=9369
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_185
+layer=ranged_class_button
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -3116,12 +3116,12 @@ transmitop=10
 op10=    
 
 // 993:233
-[com_233]
+[topright_2]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_185
+layer=ranged_class_button
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -3129,25 +3129,25 @@ transmitop=10
 op10=    
 
 // 993:234
-[com_234]
+[bottomleft_2]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_185
+layer=ranged_class_button
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:235
-[com_235]
+[bottomright_2]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_185
+layer=ranged_class_button
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -3155,7 +3155,7 @@ transmitop=10
 op10=      
 
 // 993:236
-[com_236]
+[middle_2]
 type=rectangle
 width=10977
 height=9830
@@ -3163,21 +3163,21 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_185
+layer=ranged_class_button
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=   
 
 // 993:237
-[com_237]
+[stats_alpha_6]
 type=graphic
 y=3
 width=14745
 height=39
 widthmode=proportion
 xmode=abs_centre
-layer=com_185
+layer=ranged_class_button
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -3185,14 +3185,14 @@ transmitop=10
 op10=   
 
 // 993:238
-[com_238]
+[stats_alpha_7]
 type=graphic
 y=8
 width=15728
 height=30
 widthmode=proportion
 xmode=abs_centre
-layer=com_185
+layer=ranged_class_button
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -3206,7 +3206,7 @@ x=3
 y=3
 width=84
 height=64
-layer=com_185
+layer=ranged_class_button
 colour=0xffff50
 fill=yes
 trans=220
@@ -3214,19 +3214,19 @@ transmitop=10
 op10= 
 
 // 993:240
-[com_240]
+[ranged_icon]
 type=graphic
 width=52
 height=52
 xmode=abs_centre
-layer=com_185
+layer=ranged_class_button
 graphic="staticons_high_res_clean,3"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 993:241
-[com_241]
+[ranged]
 type=text
 width=14570
 height=14518
@@ -3234,7 +3234,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_185
+layer=ranged_class_button
 textfont=tutorial_font
 text=Ranged
 textalignh=centre
@@ -3251,7 +3251,7 @@ x=3
 y=3
 width=84
 height=64
-layer=com_185
+layer=ranged_class_button
 colour=0x33ff33
 fill=yes
 trans=255
@@ -3262,65 +3262,65 @@ opcursor0=cursor_46
 onop=rand_ring_button_click(event_com)
 
 // 993:243
-[com_243]
+[topleft_1]
 type=graphic
 width=15
 height=15
-layer=com_184
+layer=melee_class_button
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:244
-[com_244]
+[top_1]
 type=graphic
 width=10977
 height=15
 widthmode=proportion
 xmode=abs_centre
-layer=com_184
+layer=melee_class_button
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:245
-[com_245]
+[bottom_1]
 type=graphic
 width=10977
 height=15
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_184
+layer=melee_class_button
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:246
-[com_246]
+[left_1]
 type=graphic
 width=15
 height=9502
 heightmode=proportion
 ymode=abs_centre
-layer=com_184
+layer=melee_class_button
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:247
-[com_247]
+[right_1]
 type=graphic
 width=15
 height=9369
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_184
+layer=melee_class_button
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -3328,12 +3328,12 @@ transmitop=10
 op10=   
 
 // 993:248
-[com_248]
+[topright_1]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_184
+layer=melee_class_button
 graphic="rand_framea_edges,0"
 2dangle=49152
 colour=0xffffffff
@@ -3341,25 +3341,25 @@ transmitop=10
 op10=   
 
 // 993:249
-[com_249]
+[bottomleft_1]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_184
+layer=melee_class_button
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:250
-[com_250]
+[bottomright_1]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_184
+layer=melee_class_button
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -3367,7 +3367,7 @@ transmitop=10
 op10=     
 
 // 993:251
-[com_251]
+[middle_1]
 type=rectangle
 width=10977
 height=9830
@@ -3375,21 +3375,21 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_184
+layer=melee_class_button
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=  
 
 // 993:252
-[com_252]
+[stats_alpha_4]
 type=graphic
 y=3
 width=14745
 height=39
 widthmode=proportion
 xmode=abs_centre
-layer=com_184
+layer=melee_class_button
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -3397,14 +3397,14 @@ transmitop=10
 op10=  
 
 // 993:253
-[com_253]
+[stats_alpha_5]
 type=graphic
 y=8
 width=15728
 height=30
 widthmode=proportion
 xmode=abs_centre
-layer=com_184
+layer=melee_class_button
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -3418,23 +3418,23 @@ x=3
 y=3
 width=84
 height=64
-layer=com_184
+layer=melee_class_button
 colour=0xffff50
 fill=yes
 trans=220
 
 // 993:255
-[com_255]
+[melee_icon]
 type=graphic
 width=52
 height=52
 xmode=abs_centre
-layer=com_184
+layer=melee_class_button
 graphic="staticons_high_res_clean,0"
 colour=0xffffffff
 
 // 993:256
-[com_256]
+[melee]
 type=text
 width=14570
 height=14518
@@ -3442,7 +3442,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_184
+layer=melee_class_button
 textfont=tutorial_font
 text=Melee
 textalignh=centre
@@ -3457,7 +3457,7 @@ x=3
 y=3
 width=84
 height=64
-layer=com_184
+layer=melee_class_button
 colour=0x33ff33
 fill=yes
 trans=255
@@ -3468,7 +3468,7 @@ opcursor0=cursor_46
 onop=rand_ring_button_click(event_com)
 
 // 993:258
-[com_258]
+[tooltip_bounding_box]
 type=layer
 x=20
 y=123
@@ -3476,7 +3476,7 @@ width=470
 height=65
 
 // 993:259
-[com_259]
+[tooltip_bounding_box_1]
 type=layer
 x=20
 y=185
@@ -3486,7 +3486,7 @@ transmitop=10
 op10= 
 
 // 993:260
-[com_260]
+[tooltip_bounding_box_2]
 type=layer
 x=20
 y=254
@@ -3496,7 +3496,7 @@ transmitop=10
 op10=  
 
 // 993:261
-[com_261]
+[confirm_upgrade_layer]
 type=layer
 x=23
 y=123
@@ -3506,51 +3506,51 @@ hide=yes
 noclickthrough=yes
 
 // 993:262
-[com_262]
+[confirm_bg]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_261
+layer=confirm_upgrade_layer
 colour=0x333333
 fill=yes
 trans=30
 
 // 993:263
-[com_263]
+[topleft_9]
 type=graphic
 x=87
 y=3
 width=15
 height=15
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="rand_framea_edges,5"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:264
-[com_264]
+[top_9]
 type=graphic
 y=3
 width=260
 height=15
 xmode=abs_centre
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:265
-[com_265]
+[topright_9]
 type=graphic
 x=362
 y=3
 width=15
 height=15
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="rand_framea_edges,5"
 hflip=yes
 colour=0xffffffff
@@ -3558,65 +3558,65 @@ transmitop=10
 op10=     
 
 // 993:266
-[com_266]
+[topleft_8]
 type=graphic
 x=20
 y=18
 width=15
 height=15
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="rand_framea_edges,5"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:267
-[com_267]
+[top_8]
 type=graphic
 y=18
 width=395
 height=15
 xmode=abs_centre
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:268
-[com_268]
+[bottom_8]
 type=graphic
 y=113
 width=395
 height=15
 xmode=abs_centre
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:269
-[com_269]
+[left_8]
 type=graphic
 x=20
 y=33
 width=15
 height=82
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 993:270
-[com_270]
+[right_8]
 type=graphic
 x=430
 y=33
 width=15
 height=82
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -3624,13 +3624,13 @@ transmitop=10
 op10=    
 
 // 993:271
-[com_271]
+[topright_8]
 type=graphic
 x=430
 y=18
 width=15
 height=15
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="rand_framea_edges,5"
 hflip=yes
 colour=0xffffffff
@@ -3638,26 +3638,26 @@ transmitop=10
 op10=    
 
 // 993:272
-[com_272]
+[bottomleft_8]
 type=graphic
 x=20
 y=113
 width=15
 height=15
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 993:273
-[com_273]
+[bottomright_8]
 type=graphic
 x=430
 y=113
 width=15
 height=15
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -3665,39 +3665,39 @@ transmitop=10
 op10=      
 
 // 993:274
-[com_274]
+[middle_8]
 type=rectangle
 y=33
 width=395
 height=82
 xmode=abs_centre
-layer=com_261
+layer=confirm_upgrade_layer
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=   
 
 // 993:275
-[com_275]
+[middle_9]
 type=rectangle
 y=18
 width=285
 height=2
 xmode=abs_centre
-layer=com_261
+layer=confirm_upgrade_layer
 colour=0x221e18
 fill=yes
 transmitop=10
 op10=    
 
 // 993:276
-[com_276]
+[confirm_details]
 type=text
 y=25
 width=400
 height=100
 xmode=abs_centre
-layer=com_261
+layer=confirm_upgrade_layer
 textfont=tutorial_font
 textalignh=centre
 textalignv=centre
@@ -3705,13 +3705,13 @@ textshadow=yes
 colour=0xe2e2a2
 
 // 993:277
-[com_277]
+[upgrade_cost_text]
 type=text
 y=5
 width=400
 height=20
 xmode=abs_centre
-layer=com_261
+layer=confirm_upgrade_layer
 textfont=welcome_font_small
 text=Upgrade cost:
 textalignh=centre
@@ -3722,77 +3722,77 @@ transmitop=10
 op10= 
 
 // 993:278
-[com_278]
+[cancel_button]
 type=layer
 x=75
 y=130
 width=115
 height=30
 xmode=abs_centre
-layer=com_261
+layer=confirm_upgrade_layer
 transmitop=1
 op1=Cancel
 onmouseover=rand_ring_onhover(event_com)
 onmouseleave=rand_ring_onexit(event_com)
 
 // 993:279
-[com_279]
+[confirm_button]
 type=layer
 x=-75
 y=130
 width=115
 height=30
 xmode=abs_centre
-layer=com_261
+layer=confirm_upgrade_layer
 transmitop=1
 op1=Confirm
 onmouseover=rand_ring_onhover(event_com)
 onmouseleave=rand_ring_onexit(event_com)
 
 // 993:280
-[com_280]
+[token_layer]
 type=layer
 width=7372
 height=33
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_261
+layer=confirm_upgrade_layer
 transmitop=10
 op10=  
 
 // 993:281
-[com_281]
+[cancel_button_left]
 type=graphic
 x=252
 y=129
 width=18
 height=31
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="login_lobby_button,8"
 colour=0xffffffff
 
 // 993:282
-[com_282]
+[cancel_button_middle]
 type=graphic
 x=270
 y=129
 width=77
 height=31
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="login_lobby_button,9"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 993:283
-[com_283]
+[cancel_button_right]
 type=graphic
 x=347
 y=129
 width=18
 height=31
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="login_lobby_button,8"
 hflip=yes
 colour=0xffffffff
@@ -3800,39 +3800,39 @@ transmitop=10
 op10= 
 
 // 993:284
-[com_284]
+[confirm_button_left]
 type=graphic
 x=100
 y=129
 width=18
 height=31
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="login_lobby_button,8"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 993:285
-[com_285]
+[confirm_button_middle]
 type=graphic
 x=118
 y=129
 width=79
 height=31
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="login_lobby_button,9"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 993:286
-[com_286]
+[confirm_button_right]
 type=graphic
 x=197
 y=129
 width=18
 height=31
-layer=com_261
+layer=confirm_upgrade_layer
 graphic="login_lobby_button,8"
 hflip=yes
 colour=0xffffffff
@@ -3840,14 +3840,14 @@ transmitop=10
 op10=  
 
 // 993:287
-[com_287]
+[confirm_button_text]
 type=text
 x=-75
 y=129
 width=115
 height=30
 xmode=abs_centre
-layer=com_261
+layer=confirm_upgrade_layer
 textfont=welcome_font_small
 text=Upgrade
 textalignh=centre
@@ -3856,14 +3856,14 @@ textshadow=yes
 colour=0xe2e2a2
 
 // 993:288
-[com_288]
+[cancel_button_text]
 type=text
 x=75
 y=129
 width=115
 height=30
 xmode=abs_centre
-layer=com_261
+layer=confirm_upgrade_layer
 textfont=welcome_font_small
 text=Cancel
 textalignh=centre
@@ -3874,27 +3874,27 @@ transmitop=10
 op10= 
 
 // 993:289
-[com_289]
+[button_topleft_1]
 type=graphic
 x=4
 y=2
 width=15
 height=15
-layer=com_280
+layer=token_layer
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 993:290
-[com_290]
+[button_1]
 type=graphic
 x=17
 y=2
 width=36
 height=15
 widthmode=minus
-layer=com_280
+layer=token_layer
 graphic="rand_framea_edges,1"
 tiling=yes
 colour=0xffffffff
@@ -3902,7 +3902,7 @@ transmitop=10
 op10=   
 
 // 993:291
-[com_291]
+[button_bottom_1]
 type=graphic
 x=17
 y=1
@@ -3910,7 +3910,7 @@ width=36
 height=15
 widthmode=minus
 ymode=abs_bottom
-layer=com_280
+layer=token_layer
 graphic="rand_framea_edges,9"
 tiling=yes
 colour=0xffffffff
@@ -3925,21 +3925,21 @@ y=1
 width=15
 height=15
 ymode=abs_bottom
-layer=com_280
+layer=token_layer
 graphic="rand_framea_edges,8"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 993:293
-[com_293]
+[button_topright_1]
 type=graphic
 x=4
 y=2
 width=15
 height=15
 xmode=abs_right
-layer=com_280
+layer=token_layer
 graphic="rand_framea_edges,0"
 hflip=yes
 colour=0xffffffff
@@ -3955,7 +3955,7 @@ width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_280
+layer=token_layer
 graphic="rand_framea_edges,8"
 hflip=yes
 colour=0xffffffff
@@ -3971,14 +3971,14 @@ width=20
 height=19
 widthmode=minus
 heightmode=minus
-layer=com_280
+layer=token_layer
 colour=0x2c2a20
 fill=yes
 transmitop=10
 op10=  
 
 // 993:296
-[com_296]
+[button_3]
 type=graphic
 x=6
 y=10
@@ -3986,7 +3986,7 @@ width=12
 height=19
 widthmode=minus
 heightmode=minus
-layer=com_280
+layer=token_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -3994,13 +3994,13 @@ transmitop=10
 op10=      
 
 // 993:297
-[com_297]
+[your_points]
 type=text
 x=27
 y=10
 width=225
 height=17
-layer=com_280
+layer=token_layer
 textfont=b12_full
 text=Your tokens: 
 textalignv=centre
@@ -4011,13 +4011,13 @@ op10=
 onload=rand_rewards_populate
 
 // 993:298
-[com_298]
+[tokencount]
 type=text
 x=114
 y=10
 width=191
 height=17
-layer=com_280
+layer=token_layer
 textfont=b12_full
 text=0
 textshadow=yes
@@ -4026,13 +4026,13 @@ transmitop=10
 op10= 
 
 // 993:299
-[com_299]
+[token_graphic]
 type=graphic
 x=12
 y=11
 width=12
 height=12
-layer=com_280
+layer=token_layer
 graphic="km_shopitems,4"
 colour=0xffffffff
 transmitop=10
@@ -4040,35 +4040,35 @@ op10=
 onload=text_colour_swapper(event_com, 0xc80000)
 
 // 993:300
-[com_300]
+[tooltip_layer_c]
 type=layer
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_260
+layer=tooltip_bounding_box_2
 transmitop=10
 op10=   
 
 // 993:301
-[com_301]
+[tooltip_layer_b]
 type=layer
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_259
+layer=tooltip_bounding_box_1
 transmitop=10
 op10=  
 
 // 993:302
-[com_302]
+[tooltip_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_258
+layer=tooltip_bounding_box
 transmitop=10
 op10= 
 
@@ -4079,7 +4079,7 @@ x=124
 y=97
 width=95
 height=21
-layer=com_193
+layer=main_1
 graphic=rand_button_glow
 transmitop=1
 op1=Cancel
@@ -4091,7 +4091,7 @@ x=124
 y=98
 width=95
 height=20
-layer=com_193
+layer=main_1
 textfont=b12_full
 text=Cancel
 textalignh=centre
@@ -4106,7 +4106,7 @@ x=30
 y=96
 width=95
 height=22
-layer=com_193
+layer=main_1
 graphic=rand_smithing_background_fill
 tiling=yes
 alpha=yes
@@ -4119,4 +4119,4 @@ x=26
 y=92
 width=101
 height=30
-layer=com_193
+layer=main_1

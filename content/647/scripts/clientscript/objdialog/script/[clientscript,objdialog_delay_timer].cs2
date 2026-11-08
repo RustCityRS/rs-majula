@@ -4,5 +4,5 @@
 if (%varclient_81 > 0) {
     return;
 }
-if_setontimer(null, objdialog:com_9);
+if_setontimer(null, objdialog:searchtext);
 ~objdialog_refreshsearch;

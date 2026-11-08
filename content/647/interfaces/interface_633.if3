@@ -147,7 +147,7 @@ modelangle=105,312,0
 modelzoom=1031
 
 // 633:14
-[com_14]
+[duel_acceptlayer_win]
 type=layer
 x=344
 y=262
@@ -174,18 +174,18 @@ x=6
 y=6
 width=94
 height=32
-layer=com_14
+layer=duel_acceptlayer_win
 colour=0x000000
 fill=yes
 
 // 633:17
-[com_17]
+[duel_claim]
 type=text
 x=6
 y=6
 width=93
 height=32
-layer=com_14
+layer=duel_acceptlayer_win
 textfont=p12_full
 text=Close
 textalignh=centre
@@ -261,7 +261,7 @@ tiling=yes
 colour=0xffffffff
 
 // 633:24
-[com_24]
+[duel_standard]
 type=model
 x=348
 y=154
@@ -333,7 +333,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 633:30
-[com_30]
+[duel_level]
 type=text
 x=215
 y=162
@@ -345,7 +345,7 @@ textshadow=yes
 colour=0xaaaaaa
 
 // 633:31
-[com_31]
+[duel_name]
 type=text
 x=173
 y=138
@@ -355,10 +355,10 @@ textfont=p12_full
 text=Crunchy
 textshadow=yes
 colour=0xaaaaaa
-onvarcstrtransmit=script1640(event_com, interface_633:com_33, p12_full){varclient_1793}
+onvarcstrtransmit=script1640(event_com, interface_633:tooltip, p12_full){varclient_1793}
 
 // 633:32
-[com_32]
+[tooltip_bounding_layer]
 type=layer
 width=16384
 height=16391
@@ -366,12 +366,12 @@ widthmode=proportion
 heightmode=proportion
 
 // 633:33
-[com_33]
+[tooltip]
 type=layer
 x=198
 y=144
 width=59
 height=14
-layer=com_32
+layer=tooltip_bounding_layer
 transmitop=10
 op10=    

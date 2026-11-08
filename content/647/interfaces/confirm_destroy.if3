@@ -1,5 +1,5 @@
 // 94:0
-[com_0]
+[tick]
 type=model
 x=265
 y=27
@@ -22,7 +22,7 @@ modelangle=400,2030,0
 modelzoom=2278
 
 // 94:2
-[com_2]
+[destroy_title]
 type=text
 y=-1
 width=333
@@ -35,7 +35,7 @@ textalignv=centre
 colour=0x800000
 
 // 94:3
-[com_3]
+[destroy_yes]
 type=text
 x=269
 y=32
@@ -50,7 +50,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 94:4
-[com_4]
+[destroy_no]
 type=text
 x=376
 y=32
@@ -86,7 +86,7 @@ graphic="sworddecor,1"
 colour=0x000000
 
 // 94:7
-[com_7]
+[destroy_message]
 type=text
 x=6
 y=67
@@ -98,7 +98,7 @@ textalignh=centre
 colour=0x000088
 
 // 94:8
-[com_8]
+[destroy_name]
 type=text
 x=80
 y=41
@@ -109,7 +109,7 @@ text=Name
 colour=0x000000
 
 // 94:9
-[com_9]
+[destroy_item]
 type=graphic
 x=24
 y=29

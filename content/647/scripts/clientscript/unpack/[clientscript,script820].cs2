@@ -1,17 +1,17 @@
 // 820
 [clientscript,script820]
 if (%varplayerbit_4286 ! 101) {
-    if_settext("<tostring(%varplayerbit_4286)>%", lore_cats_side:com_19);
+    if_settext("<tostring(%varplayerbit_4286)>%", lore_cats_side:hunger);
     if (%varplayerbit_4286 > 74) {
-        if_setcolour(^red, lore_cats_side:com_19);
+        if_setcolour(^red, lore_cats_side:hunger);
     } else {
-        if_setcolour(^white, lore_cats_side:com_19);
+        if_setcolour(^white, lore_cats_side:hunger);
     }
 } else {
-    if_settext("NA", lore_cats_side:com_19);
+    if_settext("NA", lore_cats_side:hunger);
 }
 if (%varplayerbit_4285 ! 101) {
-    if_settext("<tostring(%varplayerbit_4285)>%", lore_cats_side:com_17);
+    if_settext("<tostring(%varplayerbit_4285)>%", lore_cats_side:size_percentage);
 } else {
-    if_settext("NA", lore_cats_side:com_17);
+    if_settext("NA", lore_cats_side:size_percentage);
 }

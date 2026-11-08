@@ -11,5 +11,5 @@ switch_int ($int0) {
     case 4 :
         $string0 = "At least 80% of fish caught were the heaviest species.";
 }
-if_setonmouserepeat("addtooltip(event_com, fishcomp_scores:com_57, $string0, 25, 128)", $component1);
-if_setonmouseleave("deltooltip(fishcomp_scores:com_57)", $component1);
+if_setonmouserepeat("addtooltip(event_com, fishcomp_scores:medal_tooltip_layer, $string0, 25, 128)", $component1);
+if_setonmouseleave("deltooltip(fishcomp_scores:medal_tooltip_layer)", $component1);

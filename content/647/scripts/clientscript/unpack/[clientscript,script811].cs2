@@ -5,20 +5,20 @@ if ($int0 > 1) {
     return;
 }
 if (getwindowmode >= 2) {
-    $boolean1 = if_gethide(toplevel_fullscreen:com_181);
+    $boolean1 = if_gethide(toplevel_fullscreen:xpbaselayer);
 } else {
-    $boolean1 = if_gethide(toplevel:com_21);
+    $boolean1 = if_gethide(toplevel:xpbaselayer);
 }
 if ($boolean1 = true) {
     ~script3337;
-    if_sethide(true, toplevel:com_23);
-    if_setontimer(null, toplevel:com_21);
-    if_sethide(true, toplevel_fullscreen:com_184);
-    if_setontimer(null, toplevel_fullscreen:com_181);
-    if_sethide(false, toplevel_fullscreen:com_181);
-    if_sethide(false, toplevel:com_21);
+    if_sethide(true, toplevel:xpsplat);
+    if_setontimer(null, toplevel:xpbaselayer);
+    if_sethide(true, toplevel_fullscreen:xpsplat);
+    if_setontimer(null, toplevel_fullscreen:xpbaselayer);
+    if_sethide(false, toplevel_fullscreen:xpbaselayer);
+    if_sethide(false, toplevel:xpbaselayer);
 } else {
-    if_sethide(true, toplevel_fullscreen:com_181);
-    if_sethide(true, toplevel:com_21);
+    if_sethide(true, toplevel_fullscreen:xpbaselayer);
+    if_sethide(true, toplevel:xpbaselayer);
 }
 ~script776;

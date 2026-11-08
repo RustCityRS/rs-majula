@@ -12,13 +12,13 @@ transmitop=10
 op10= 
 
 // 770:1
-[com_1]
+[race_title]
 type=text
 x=28
 y=114
 width=48
 height=16
-layer=com_31
+layer=content_layer
 textfont=b12_full
 text=Race:
 textalignv=centre
@@ -28,13 +28,13 @@ transmitop=10
 op10= 
 
 // 770:2
-[com_2]
+[desc_title]
 type=text
 x=28
 y=138
 width=48
 height=16
-layer=com_31
+layer=content_layer
 textfont=b12_full
 text=Desc:
 textalignv=centre
@@ -44,22 +44,22 @@ transmitop=10
 op10= 
 
 // 770:3
-[com_3]
+[stats]
 type=layer
 x=265
 y=65
 width=211
 height=70
-layer=com_31
+layer=content_layer
 
 // 770:4
-[com_4]
+[combat_title]
 type=text
 x=3
 y=2
 width=136
 height=16
-layer=com_3
+layer=stats
 textfont=b12_full
 text=Combat stat:
 textalignv=centre
@@ -69,13 +69,13 @@ transmitop=10
 op10= 
 
 // 770:5
-[com_5]
+[combat_field]
 type=text
 x=139
 y=2
 width=26
 height=16
-layer=com_3
+layer=stats
 textfont=p11_full
 text=500
 textalignv=centre
@@ -83,13 +83,13 @@ textshadow=yes
 colour=0xff9933
 
 // 770:6
-[com_6]
+[health_title]
 type=text
 x=3
 y=26
 width=136
 height=16
-layer=com_3
+layer=stats
 textfont=b12_full
 text=Life points:
 textalignv=centre
@@ -99,13 +99,13 @@ transmitop=10
 op10= 
 
 // 770:7
-[com_7]
+[hitpoints_field]
 type=text
 x=139
 y=26
 width=33
 height=16
-layer=com_3
+layer=stats
 textfont=p11_full
 text=4500
 textalignv=centre
@@ -113,13 +113,13 @@ textshadow=yes
 colour=0xff9933
 
 // 770:8
-[com_8]
+[discipline_title]
 type=text
 x=3
 y=50
 width=136
 height=16
-layer=com_3
+layer=stats
 textfont=b12_full
 text=Discipline stat:
 textalignv=centre
@@ -129,13 +129,13 @@ transmitop=10
 op10= 
 
 // 770:9
-[com_9]
+[discipline_field]
 type=text
 x=139
 y=50
 width=26
 height=16
-layer=com_3
+layer=stats
 textfont=p11_full
 text=60
 textalignv=centre
@@ -143,13 +143,13 @@ textshadow=yes
 colour=0xff9933
 
 // 770:10
-[com_10]
+[investment_title]
 type=text
 x=273
 y=249
 width=140
 height=27
-layer=com_31
+layer=content_layer
 textfont=b12_full
 text=Investment credits after purchase:
 textalignv=centre
@@ -159,41 +159,41 @@ transmitop=10
 op10= 
 
 // 770:11
-[com_11]
+[quantity]
 type=layer
 x=269
 y=194
 width=211
 height=23
-layer=com_31
+layer=content_layer
 
 // 770:12
-[com_12]
+[class]
 type=layer
 x=269
 y=157
 width=211
 height=38
-layer=com_31
+layer=content_layer
 
 // 770:13
-[com_13]
+[buy]
 type=layer
 x=394
 y=309
 width=89
 height=32
-layer=com_31
+layer=content_layer
 onload=v2_stone_button(event_com)
 
 // 770:14
-[com_14]
+[buy_title]
 type=text
 width=37
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=buy
 textfont=b12_full
 text=Hire
 textalignh=centre
@@ -210,7 +210,7 @@ x=24
 y=186
 width=232
 height=149
-layer=com_31
+layer=content_layer
 colour=0x000000
 fill=yes
 trans=158
@@ -222,7 +222,7 @@ x=263
 y=65
 width=223
 height=72
-layer=com_31
+layer=content_layer
 colour=0x000000
 trans=158
 
@@ -233,7 +233,7 @@ x=436
 y=65
 width=50
 height=72
-layer=com_31
+layer=content_layer
 colour=0x000000
 trans=158
 
@@ -244,7 +244,7 @@ x=24
 y=65
 width=232
 height=118
-layer=com_31
+layer=content_layer
 colour=0x000000
 trans=158
 
@@ -255,7 +255,7 @@ x=263
 y=140
 width=223
 height=166
-layer=com_31
+layer=content_layer
 colour=0x000000
 trans=158
 
@@ -266,18 +266,18 @@ x=24
 y=186
 width=232
 height=150
-layer=com_31
+layer=content_layer
 colour=0x000000
 trans=158
 
 // 770:21
-[com_21]
+[light_title]
 type=text
 x=142
 y=3
 width=13
 height=16
-layer=com_12
+layer=class
 textfont=p11_full
 text=Light
 textalignh=centre
@@ -286,13 +286,13 @@ textshadow=yes
 colour=0xff9933
 
 // 770:22
-[com_22]
+[heavy_title]
 type=text
 x=184
 y=3
 width=13
 height=16
-layer=com_12
+layer=class
 textfont=p11_full
 text=Heavy
 textalignh=centre
@@ -301,39 +301,39 @@ textshadow=yes
 colour=0xff9933
 
 // 770:23
-[com_23]
+[button_light]
 type=graphic
 x=141
 y=18
 width=15
 height=15
-layer=com_12
+layer=class
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 770:24
-[com_24]
+[button_heavy]
 type=graphic
 x=183
 y=18
 width=15
 height=15
-layer=com_12
+layer=class
 graphic="radio_buttons,1"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 770:25
-[com_25]
+[weight_title]
 type=text
 x=2
 width=97
 height=16
 ymode=abs_centre
-layer=com_12
+layer=class
 textfont=b12_full
 text=Class:
 textalignv=centre
@@ -343,13 +343,13 @@ transmitop=10
 op10= 
 
 // 770:26
-[com_26]
+[quantity_field]
 type=text
 x=176
 width=14
 height=16
 ymode=abs_centre
-layer=com_11
+layer=quantity
 textfont=p11_full
 text=1
 textalignh=centre
@@ -358,39 +358,39 @@ textshadow=yes
 colour=0xff9933
 
 // 770:27
-[com_27]
+[minus_button]
 type=graphic
 x=160
 width=16
 height=14
 ymode=abs_centre
-layer=com_11
+layer=quantity
 graphic="grand_exchange_misc_graphics,2"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 770:28
-[com_28]
+[plus_button]
 type=graphic
 x=192
 width=16
 height=14
 ymode=abs_centre
-layer=com_11
+layer=quantity
 graphic="grand_exchange_misc_graphics,3"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 770:29
-[com_29]
+[quantity_title]
 type=text
 x=2
 width=97
 height=16
 ymode=abs_centre
-layer=com_11
+layer=quantity
 textfont=b12_full
 text=Quantity:
 textalignv=centre
@@ -400,13 +400,13 @@ transmitop=10
 op10= 
 
 // 770:30
-[com_30]
+[squad_model]
 type=model
 x=32
 y=206
 width=214
 height=141
-layer=com_31
+layer=content_layer
 model=model_47786
 modelorigin=8,5
 modelangle=174,119,0
@@ -415,7 +415,7 @@ modelanim=seq_11831
 onload=set_spinner(0, 5, 0, event_com)
 
 // 770:31
-[com_31]
+[content_layer]
 type=layer
 x=-3
 y=-17
@@ -425,13 +425,13 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 770:32
-[com_32]
+[combat_triangle]
 type=layer
 x=437
 y=74
 width=50
 height=48
-layer=com_31
+layer=content_layer
 transmitop=10
 op10= 
 
@@ -442,7 +442,7 @@ x=14
 y=2
 width=16
 height=16
-layer=com_32
+layer=combat_triangle
 graphic=graphic_2016
 colour=0xffffffff
 transmitop=10
@@ -455,7 +455,7 @@ x=2
 y=29
 width=16
 height=16
-layer=com_32
+layer=combat_triangle
 graphic=graphic_2017
 colour=0xffffffff
 transmitop=10
@@ -468,7 +468,7 @@ x=30
 y=29
 width=16
 height=16
-layer=com_32
+layer=combat_triangle
 graphic=graphic_2018
 colour=0xffffffff
 transmitop=10
@@ -481,7 +481,7 @@ x=15
 y=29
 width=16
 height=16
-layer=com_32
+layer=combat_triangle
 graphic=graphic_2019
 colour=0xffffffff
 transmitop=10
@@ -494,7 +494,7 @@ x=3
 y=15
 width=16
 height=16
-layer=com_32
+layer=combat_triangle
 graphic=graphic_2020
 colour=0xffffffff
 transmitop=10
@@ -507,14 +507,14 @@ x=27
 y=15
 width=16
 height=16
-layer=com_32
+layer=combat_triangle
 graphic=graphic_2021
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 770:39
-[com_39]
+[background_1]
 type=graphic
 x=17
 y=26
@@ -529,7 +529,7 @@ opbase=
 op10=  
 
 // 770:40
-[com_40]
+[left_side]
 type=graphic
 y=26
 width=39
@@ -543,7 +543,7 @@ opbase=
 op10=  
 
 // 770:41
-[com_41]
+[right_side]
 type=graphic
 x=479
 y=26
@@ -558,7 +558,7 @@ opbase=
 op10=  
 
 // 770:42
-[com_42]
+[bottom]
 type=graphic
 x=16
 y=331
@@ -572,7 +572,7 @@ transmitop=10
 op10=  
 
 // 770:43
-[com_43]
+[top]
 type=graphic
 x=14
 y=10
@@ -587,7 +587,7 @@ opbase=
 op10=  
 
 // 770:44
-[com_44]
+[bottom_right]
 type=graphic
 x=467
 y=319
@@ -601,7 +601,7 @@ opbase=
 op10=  
 
 // 770:45
-[com_45]
+[bottom_left]
 type=graphic
 x=13
 y=319
@@ -614,7 +614,7 @@ transmitop=10
 op10=  
 
 // 770:46
-[com_46]
+[top_left]
 type=graphic
 x=13
 y=23
@@ -628,7 +628,7 @@ opbase=
 op10=  
 
 // 770:47
-[com_47]
+[top_right]
 type=graphic
 x=467
 y=23
@@ -642,7 +642,7 @@ opbase=
 op10=  
 
 // 770:48
-[com_48]
+[title_bar]
 type=graphic
 x=16
 y=38
@@ -656,7 +656,7 @@ transmitop=10
 op10=  
 
 // 770:49
-[com_49]
+[left_joint]
 type=graphic
 x=13
 y=40
@@ -670,7 +670,7 @@ transmitop=10
 op10=  
 
 // 770:50
-[com_50]
+[right_joint]
 type=graphic
 x=467
 y=40
@@ -684,7 +684,7 @@ transmitop=10
 op10=  
 
 // 770:51
-[com_51]
+[close_button]
 type=graphic
 x=471
 y=32
@@ -697,7 +697,7 @@ transmitop=10
 op10=  
 
 // 770:52
-[com_52]
+[title]
 type=text
 x=23
 y=32
@@ -714,13 +714,13 @@ transmitop=10
 op10= 
 
 // 770:53
-[com_53]
+[race_field]
 type=text
 x=83
 y=114
 width=83
 height=16
-layer=com_31
+layer=content_layer
 textfont=p11_full
 text=Dwarf
 textalignv=centre
@@ -728,13 +728,13 @@ textshadow=yes
 colour=0xff9933
 
 // 770:54
-[com_54]
+[desc_field]
 type=text
 x=83
 y=138
 width=170
 height=41
-layer=com_31
+layer=content_layer
 textfont=p11_full
 text=Small folk, found in the dark depths. Not averse to getting a tan.
 textshadow=yes
@@ -747,20 +747,20 @@ x=29
 y=70
 width=223
 height=40
-layer=com_31
+layer=content_layer
 textfont=p11_full
 text=The cost of recruiting a squad is taken from your total investment - to invest more, speak to Junior Cadet Mal.
 textshadow=yes
 colour=0xff9935
 
 // 770:56
-[com_56]
+[cost_title]
 type=text
 x=272
 y=226
 width=97
 height=16
-layer=com_31
+layer=content_layer
 textfont=b12_full
 text=Cost each:
 textalignv=centre
@@ -770,13 +770,13 @@ transmitop=10
 op10= 
 
 // 770:57
-[com_57]
+[cost_field]
 type=text
 x=439
 y=227
 width=34
 height=16
-layer=com_31
+layer=content_layer
 textfont=p11_full
 text=100
 textalignh=right
@@ -785,13 +785,13 @@ textshadow=yes
 colour=0xff9933
 
 // 770:58
-[com_58]
+[remainder_field]
 type=text
 x=439
 y=257
 width=34
 height=16
-layer=com_31
+layer=content_layer
 textfont=p11_full
 text=0
 textalignh=right

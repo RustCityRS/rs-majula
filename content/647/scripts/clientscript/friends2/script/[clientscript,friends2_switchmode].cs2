@@ -2,12 +2,12 @@
 [clientscript,friends2_switchmode](int $int0)
 if ($int0 = 1) {
     if_sethide(true, friends2:com_9);
-    if_sethide(false, friends2:com_30);
+    if_sethide(false, friends2:ignore_layer);
     if_sethide(true, friends2:com_48);
     if_sethide(false, friends2:com_50);
     ~ignore_init;
 } else {
-    if_sethide(true, friends2:com_30);
+    if_sethide(true, friends2:ignore_layer);
     if_sethide(false, friends2:com_9);
     if_sethide(true, friends2:com_50);
     if_sethide(false, friends2:com_48);

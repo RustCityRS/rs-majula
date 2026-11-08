@@ -1,5 +1,5 @@
 // 491:0
-[com_0]
+[pouch_layer]
 type=layer
 x=23
 y=60
@@ -13,24 +13,24 @@ x=11
 y=-26
 width=32
 height=32
-layer=com_0
+layer=pouch_layer
 model=null
 modelzoom=800
 
 // 491:2
-[com_2]
+[background_layer]
 type=layer
 width=512
 height=334
 
 // 491:3
-[com_3]
+[right_side]
 type=graphic
 x=479
 y=26
 width=47
 height=285
-layer=com_2
+layer=background_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -45,7 +45,7 @@ x=17
 y=26
 width=480
 height=293
-layer=com_2
+layer=background_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -54,13 +54,13 @@ opbase=
 op10= 
 
 // 491:5
-[com_5]
+[top_right]
 type=graphic
 x=467
 y=23
 width=32
 height=32
-layer=com_2
+layer=background_layer
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 transmitop=10
@@ -68,26 +68,26 @@ opbase=
 op10= 
 
 // 491:6
-[com_6]
+[bottom_left]
 type=graphic
 x=13
 y=290
 width=32
 height=32
-layer=com_2
+layer=background_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 491:7
-[com_7]
+[top]
 type=graphic
 x=14
 y=10
 width=464
 height=34
-layer=com_2
+layer=background_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -96,12 +96,12 @@ opbase=
 op10= 
 
 // 491:8
-[com_8]
+[left_side]
 type=graphic
 y=26
 width=28
 height=290
-layer=com_2
+layer=background_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -110,13 +110,13 @@ opbase=
 op10= 
 
 // 491:9
-[com_9]
+[bottom]
 type=graphic
 x=15
 y=302
 width=462
 height=26
-layer=com_2
+layer=background_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -124,13 +124,13 @@ transmitop=10
 op10= 
 
 // 491:10
-[com_10]
+[top_left]
 type=graphic
 x=13
 y=23
 width=32
 height=32
-layer=com_2
+layer=background_layer
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 transmitop=10
@@ -138,13 +138,13 @@ opbase=
 op10= 
 
 // 491:11
-[com_11]
+[bottom_right]
 type=graphic
 x=467
 y=290
 width=32
 height=32
-layer=com_2
+layer=background_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -152,13 +152,13 @@ opbase=
 op10= 
 
 // 491:12
-[com_12]
+[title_bar]
 type=graphic
 x=16
 y=38
 width=478
 height=35
-layer=com_2
+layer=background_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -166,13 +166,13 @@ transmitop=10
 op10= 
 
 // 491:13
-[com_13]
+[right_joint]
 type=graphic
 x=467
 y=40
 width=32
 height=32
-layer=com_2
+layer=background_layer
 graphic="v2_stone_borders,10"
 tiling=yes
 colour=0xffffffff
@@ -180,13 +180,13 @@ transmitop=10
 op10= 
 
 // 491:14
-[com_14]
+[left_joint]
 type=graphic
 x=13
 y=40
 width=32
 height=32
-layer=com_2
+layer=background_layer
 graphic="v2_stone_borders,9"
 tiling=yes
 colour=0xffffffff
@@ -194,13 +194,13 @@ transmitop=10
 op10= 
 
 // 491:15
-[com_15]
+[close_button]
 type=graphic
 x=471
 y=32
 width=16
 height=16
-layer=com_2
+layer=background_layer
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1,10
@@ -211,13 +211,13 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 491:16
-[com_16]
+[title]
 type=text
 x=25
 y=22
 width=467
 height=38
-layer=com_2
+layer=background_layer
 textfont=b12_full
 text=Pickenmix Pouches
 textalignh=centre

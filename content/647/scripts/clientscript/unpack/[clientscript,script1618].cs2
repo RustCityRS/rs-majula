@@ -5,7 +5,7 @@ def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
 def_int $int4 = 0;
-if_sethide(false, reinitialisation_puzzle:com_4);
+if_sethide(false, reinitialisation_puzzle:inv_layer);
 if (%varclient_1032 = 1) {
     $inv0 = inv_221;
 } else {

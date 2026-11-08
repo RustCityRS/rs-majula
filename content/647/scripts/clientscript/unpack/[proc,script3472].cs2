@@ -106,7 +106,7 @@ switch_int (%varclient_1007) {
         cam_movealong(0, 0, 50, 100, 1, 0);
     case 63 :
         ~tutorial3_fadein(50, $component0);
-        ~clanwars_ffa(1, $component1, love_cutscenes:com_5, love_cutscenes:com_6, love_cutscenes:com_7, love_cutscenes:com_8, null, 1);
+        ~clanwars_ffa(1, $component1, love_cutscenes:clanwars_background, love_cutscenes:clanwars_icon, love_cutscenes:clanwars_header, love_cutscenes:clanwars_text, null, 1);
         if_sethide(false, $component1);
         spline_new(0, 3);
         spline_new(1, 3);

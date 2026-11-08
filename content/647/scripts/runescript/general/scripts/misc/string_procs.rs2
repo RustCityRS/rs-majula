@@ -13,9 +13,6 @@ if ($amount = 1) {
     return ("<tostring($amount)> <$noun>s");
 }
 
-[proc,text_plural](int $amount, string $singular_noun, string $plural_noun)(string)
-return("<tostring($amount)> <~text_plural_noun($amount, $singular_noun, $plural_noun)>");
-
 [proc,string_right](string $string, int $amount)(string)
 return (substring($string, calc(string_length($string) - $amount), string_length($string)));
 

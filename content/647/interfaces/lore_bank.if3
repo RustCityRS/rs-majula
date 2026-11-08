@@ -1,5 +1,5 @@
 // 671:0
-[com_0]
+[shadow]
 type=rectangle
 x=74
 y=24
@@ -137,7 +137,7 @@ graphic="v2_stone_borders,10"
 colour=0x000000
 
 // 671:13
-[com_13]
+[closebutton]
 type=graphic
 x=413
 y=29
@@ -166,7 +166,7 @@ textshadow=yes
 colour=0xff981f
 
 // 671:15
-[com_15]
+[divider]
 type=model
 x=12
 y=-1
@@ -295,7 +295,7 @@ trans=120
 colour=0x000000
 
 // 671:26
-[com_26]
+[divider_1]
 type=model
 x=12
 y=-14
@@ -304,7 +304,7 @@ modelangle=1874,559,0
 modelzoom=400
 
 // 671:27
-[com_27]
+[lore_bob_layer]
 type=layer
 x=88
 y=65
@@ -320,7 +320,7 @@ width=356
 height=292
 
 // 671:29
-[com_29]
+[bobdump]
 type=graphic
 x=330
 y=267
@@ -331,11 +331,11 @@ graphic="bank_bob_button,0"
 colour=0x000000
 transmitop=1
 op1=Take BoB
-onmouseleave=deltooltip(lore_bank:com_30)
-onmouserepeat=addtooltip(event_com, lore_bank:com_30, "Take Beast of Burden items.", 25, 100)
+onmouseleave=deltooltip(lore_bank:build_layer)
+onmouserepeat=addtooltip(event_com, lore_bank:build_layer, "Take Beast of Burden items.", 25, 100)
 
 // 671:30
-[com_30]
+[build_layer]
 type=layer
 y=27
 width=323

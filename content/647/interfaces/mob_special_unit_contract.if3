@@ -1,58 +1,58 @@
 // 845:0
-[com_0]
+[back]
 type=model
 x=40
 y=49
 width=436
 height=222
-layer=com_5
+layer=content
 model=model_40721
 modelorigin=0,-6
 modelzoom=666
 
 // 845:1
-[com_1]
+[top]
 type=model
 x=18
 y=25
 width=481
 height=31
-layer=com_5
+layer=content
 model=model_40722
 modelorigin=0,1
 modelzoom=664
 
 // 845:2
-[com_2]
+[bottom]
 type=model
 x=19
 y=264
 width=478
 height=30
-layer=com_5
+layer=content
 model=model_40722
 modelorigin=0,-1
 modelangle=1024,1024,0
 modelzoom=666
 
 // 845:3
-[com_3]
+[text_layer]
 type=layer
 x=57
 y=53
 width=404
 height=215
-layer=com_5
+layer=content
 scrollheight=6000
 
 // 845:4
-[com_4]
+[close_button]
 type=graphic
 x=452
 y=27
 width=21
 height=20
-layer=com_5
+layer=content
 graphic="close_buttons,2"
 colour=0xffffffff
 transmitop=1
@@ -62,7 +62,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,2")
 onop=closebutton_click
 
 // 845:5
-[com_5]
+[content]
 type=layer
 width=512
 height=334
@@ -70,12 +70,12 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 845:6
-[com_6]
+[title]
 type=text
 y=-5
 width=403
 height=28
-layer=com_3
+layer=text_layer
 textfont=barbassault_font
 text=Special Unit Contract
 textalignh=centre
@@ -84,12 +84,12 @@ onload=script2560
 onvarctransmit=script2560{varclient_828, varclient_829, varclient_830, varclient_831, varclient_832}
 
 // 845:7
-[com_7]
+[name_cannon]
 type=text
 y=32
 width=50
 height=15
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=Cannon
 textalignv=centre
@@ -104,18 +104,18 @@ x=66
 y=22
 width=35
 height=35
-layer=com_3
+layer=text_layer
 graphic=graphic_1881
 colour=0xffffffff
 
 // 845:9
-[com_9]
+[num1]
 type=text
 x=108
 y=26
 width=32
 height=32
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=x 5
 textalignh=centre
@@ -123,24 +123,24 @@ textalignv=centre
 colour=0x000000
 
 // 845:10
-[com_10]
+[text1]
 type=text
 x=146
 y=26
 width=247
 height=32
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=Damages squads in its line of fire, including your own. Be sure to place it wisely.
 colour=0x000000
 
 // 845:11
-[com_11]
+[name_glider]
 type=text
 y=71
 width=50
 height=15
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=Glider
 textalignv=centre
@@ -155,20 +155,20 @@ x=66
 y=60
 width=35
 height=35
-layer=com_3
+layer=text_layer
 graphic=graphic_1882
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 845:13
-[com_13]
+[num2]
 type=text
 x=107
 y=67
 width=32
 height=32
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=x 5
 textalignh=centre
@@ -176,25 +176,25 @@ textalignv=centre
 colour=0x000000
 
 // 845:14
-[com_14]
+[text2]
 type=text
 x=145
 y=67
 width=247
 height=32
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=Targets an individual squad, causing some serious damage.
 colour=0x000000
 
 // 845:15
-[com_15]
+[name_chompa]
 type=text
 x=1
 y=112
 width=50
 height=15
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=Chompa
 textalignv=centre
@@ -209,20 +209,20 @@ x=68
 y=99
 width=35
 height=35
-layer=com_3
+layer=text_layer
 graphic=graphic_1880
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 845:17
-[com_17]
+[num3]
 type=text
 x=106
 y=104
 width=32
 height=32
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=x 5
 textalignh=centre
@@ -230,25 +230,25 @@ textalignv=centre
 colour=0x000000
 
 // 845:18
-[com_18]
+[text3]
 type=text
 x=144
 y=104
 width=247
 height=32
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=Causes damage to all squads within it's blast radius, including your own.
 colour=0x000000
 
 // 845:19
-[com_19]
+[name_distract]
 type=text
 x=1
 y=150
 width=50
 height=15
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=Distractor
 textalignv=centre
@@ -263,20 +263,20 @@ x=67
 y=138
 width=35
 height=35
-layer=com_3
+layer=text_layer
 graphic=graphic_1883
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 845:21
-[com_21]
+[num4]
 type=text
 x=106
 y=141
 width=32
 height=32
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=x 5
 textalignh=centre
@@ -284,13 +284,13 @@ textalignv=centre
 colour=0x000000
 
 // 845:22
-[com_22]
+[text4]
 type=text
 x=144
 y=141
 width=247
 height=32
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=Distracts nearby squads from their orders. It also affects your squads, so beware.
 colour=0x000000
@@ -302,7 +302,7 @@ x=1
 y=186
 width=50
 height=15
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=Barricade
 textalignv=centre
@@ -317,20 +317,20 @@ x=62
 y=179
 width=35
 height=35
-layer=com_3
+layer=text_layer
 graphic=graphic_1886
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 845:25
-[com_25]
+[num5]
 type=text
 x=106
 y=182
 width=32
 height=32
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=x 5
 textalignh=centre
@@ -338,25 +338,25 @@ textalignv=centre
 colour=0x000000
 
 // 845:26
-[com_26]
+[text5]
 type=text
 x=144
 y=182
 width=247
 height=32
-layer=com_3
+layer=text_layer
 textfont=p12_full
 text=Stops squads in their tracks by placing obstacles. It also affects your squads.
 colour=0x000000
 
 // 845:27
-[com_27]
+[separator]
 type=graphic
 x=-7
 y=43
 width=401
 height=31
-layer=com_3
+layer=text_layer
 graphic="v2_borders_slim,11"
 tiling=yes
 graphicshadow=1
@@ -365,13 +365,13 @@ transmitop=10
 op10=  
 
 // 845:28
-[com_28]
+[separator_3]
 type=graphic
 x=-6
 y=159
 width=401
 height=31
-layer=com_3
+layer=text_layer
 graphic="v2_borders_slim,11"
 tiling=yes
 graphicshadow=1
@@ -380,13 +380,13 @@ transmitop=10
 op10=  
 
 // 845:29
-[com_29]
+[separator_2]
 type=graphic
 x=-6
 y=120
 width=401
 height=31
-layer=com_3
+layer=text_layer
 graphic="v2_borders_slim,11"
 tiling=yes
 graphicshadow=1
@@ -395,13 +395,13 @@ transmitop=10
 op10=  
 
 // 845:30
-[com_30]
+[separator_1]
 type=graphic
 x=-5
 y=81
 width=401
 height=31
-layer=com_3
+layer=text_layer
 graphic="v2_borders_slim,11"
 tiling=yes
 graphicshadow=1

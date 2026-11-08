@@ -1,25 +1,25 @@
 // 1024:0
-[com_0]
+[background_components_layer]
 type=layer
 width=190
 height=261
 onload=script427(0)
 
 // 1024:1
-[com_1]
+[abilities_layer]
 type=layer
 width=190
 height=261
 
 // 1024:2
-[com_2]
+[no_abilities_layer]
 type=layer
 width=190
 height=261
 hide=yes
 
 // 1024:3
-[com_3]
+[points_layer]
 type=layer
 width=190
 height=261
@@ -30,7 +30,7 @@ type=graphic
 y=212
 width=190
 height=32
-layer=com_3
+layer=points_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -38,13 +38,13 @@ transmitop=10
 op10=    
 
 // 1024:5
-[com_5]
+[command_points_text]
 type=text
 y=228
 width=16391
 height=22
 widthmode=proportion
-layer=com_3
+layer=points_layer
 textfont=p11_full
 text=Command Points: 1000
 textalignh=centre
@@ -54,12 +54,12 @@ colour=0xff991f
 onvartransmit=script428{varplayer_1870}
 
 // 1024:6
-[com_6]
+[no_abilities_grey_rectangle]
 type=rectangle
 y=25
 width=190
 height=199
-layer=com_2
+layer=no_abilities_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -67,13 +67,13 @@ transmitop=10
 op10= 
 
 // 1024:7
-[com_7]
+[no_abilities_text]
 type=text
 width=16391
 height=32
 widthmode=proportion
 ymode=abs_centre
-layer=com_2
+layer=no_abilities_layer
 textfont=p11_full
 text=You have not included any Commands in your army selection.
 textalignh=centre
@@ -82,13 +82,13 @@ textshadow=yes
 colour=0xff991f
 
 // 1024:8
-[com_8]
+[ability_layer_1]
 type=layer
 y=29
 width=182
 height=45
 xmode=abs_centre
-layer=com_1
+layer=abilities_layer
 targetverb=Cast
 onmouseover=script430(event_com, 1)
 onmouseleave=script430(event_com, 0)
@@ -96,13 +96,13 @@ ontargetleave=script431(event_com, 0)
 ontargetenter=script431(event_com, 1)
 
 // 1024:9
-[com_9]
+[ability_layer_2]
 type=layer
 y=78
 width=182
 height=45
 xmode=abs_centre
-layer=com_1
+layer=abilities_layer
 transmitop=10
 op10= 
 targetverb=Cast
@@ -112,13 +112,13 @@ ontargetleave=script431(event_com, 0)
 ontargetenter=script431(event_com, 1)
 
 // 1024:10
-[com_10]
+[ability_layer_3]
 type=layer
 y=127
 width=182
 height=45
 xmode=abs_centre
-layer=com_1
+layer=abilities_layer
 transmitop=10
 op10= 
 targetverb=Cast
@@ -128,13 +128,13 @@ ontargetleave=script431(event_com, 0)
 ontargetenter=script431(event_com, 1)
 
 // 1024:11
-[com_11]
+[ability_layer_4]
 type=layer
 y=176
 width=182
 height=45
 xmode=abs_centre
-layer=com_1
+layer=abilities_layer
 transmitop=10
 op10= 
 targetverb=Cast
@@ -144,34 +144,34 @@ ontargetleave=script431(event_com, 0)
 ontargetenter=script431(event_com, 1)
 
 // 1024:12
-[com_12]
+[opponents_turn_layer]
 type=layer
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_1
+layer=abilities_layer
 hide=yes
 
 // 1024:13
-[com_13]
+[gery_rectangle]
 type=rectangle
 y=25
 width=190
 height=199
-layer=com_12
+layer=opponents_turn_layer
 colour=0x000000
 fill=yes
 trans=200
 
 // 1024:14
-[com_14]
+[backing_4]
 type=graphic
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_11
+layer=ability_layer_4
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -181,13 +181,13 @@ op10=
 onmouseleave=script433
 
 // 1024:15
-[com_15]
+[left_4]
 type=graphic
 x=-17
 width=32
 height=16384
 heightmode=proportion
-layer=com_11
+layer=ability_layer_4
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -195,13 +195,13 @@ transmitop=10
 op10= 
 
 // 1024:16
-[com_16]
+[right_4]
 type=graphic
 x=163
 width=32
 height=16384
 heightmode=proportion
-layer=com_11
+layer=ability_layer_4
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -209,13 +209,13 @@ transmitop=10
 op10=  
 
 // 1024:17
-[com_17]
+[top_4]
 type=graphic
 x=1
 y=-14
 width=179
 height=32
-layer=com_11
+layer=ability_layer_4
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -223,12 +223,12 @@ transmitop=10
 op10=  
 
 // 1024:18
-[com_18]
+[bot_4]
 type=graphic
 y=29
 width=181
 height=32
-layer=com_11
+layer=ability_layer_4
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -236,26 +236,26 @@ transmitop=10
 op10=   
 
 // 1024:19
-[com_19]
+[cost_backing_4]
 type=rectangle
 x=151
 y=12
 width=22
 height=22
-layer=com_11
+layer=ability_layer_4
 colour=0x423a2f
 fill=yes
 transmitop=10
 op10= 
 
 // 1024:20
-[com_20]
+[cost_left_4]
 type=graphic
 x=132
 y=10
 width=32
 height=25
-layer=com_11
+layer=ability_layer_4
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -263,13 +263,13 @@ transmitop=10
 op10=  
 
 // 1024:21
-[com_21]
+[cost_right_4]
 type=graphic
 x=156
 y=10
 width=32
 height=26
-layer=com_11
+layer=ability_layer_4
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -277,13 +277,13 @@ transmitop=10
 op10=   
 
 // 1024:22
-[com_22]
+[cost_top_4]
 type=graphic
 x=150
 y=-4
 width=23
 height=32
-layer=com_11
+layer=ability_layer_4
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -297,7 +297,7 @@ x=149
 y=19
 width=25
 height=33
-layer=com_11
+layer=ability_layer_4
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -305,12 +305,12 @@ transmitop=10
 op10=    
 
 // 1024:24
-[com_24]
+[name_4]
 type=text
 width=110
 height=45
 xmode=abs_centre
-layer=com_11
+layer=ability_layer_4
 textfont=welcome_font_tiny
 text=Command 4
 textlineheight=15
@@ -322,13 +322,13 @@ transmitop=10
 op10= 
 
 // 1024:25
-[com_25]
+[cost_4]
 type=text
 x=149
 y=10
 width=26
 height=26
-layer=com_11
+layer=ability_layer_4
 textfont=p11_full
 text=200
 textalignh=centre
@@ -340,26 +340,26 @@ op10=
 onvartransmit=script429(event_com){varplayer_1870}
 
 // 1024:26
-[com_26]
+[icon_4]
 type=graphic
 x=7
 y=10
 width=25
 height=25
-layer=com_11
+layer=ability_layer_4
 graphic="conq_command_icon,0"
 colour=0x000000
 transmitop=10
 op10= 
 
 // 1024:27
-[com_27]
+[cooldown_4]
 type=text
 x=7
 y=10
 width=26
 height=26
-layer=com_11
+layer=ability_layer_4
 textfont=welcome_font_small
 textalignh=centre
 textalignv=centre
@@ -370,13 +370,13 @@ op10=
 onvarctransmit=script429(event_com){varclient_1378, varclient_1379, varclient_1380, varclient_1381, varclient_1382}
 
 // 1024:28
-[com_28]
+[shading_rect_4]
 type=rectangle
 x=2
 y=2
 width=178
 height=41
-layer=com_11
+layer=ability_layer_4
 hide=yes
 colour=0x000000
 fill=yes
@@ -385,20 +385,20 @@ transmitop=10
 op10= 
 
 // 1024:29
-[com_29]
+[highlight_outer_rect_4]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_11
+layer=ability_layer_4
 hide=yes
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 1024:30
-[com_30]
+[highlight_inner_rect_4]
 type=rectangle
 x=1
 y=1
@@ -406,20 +406,20 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_11
+layer=ability_layer_4
 hide=yes
 colour=0x969696
 transmitop=10
 op10=  
 
 // 1024:31
-[com_31]
+[backing_3]
 type=graphic
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_10
+layer=ability_layer_3
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -429,13 +429,13 @@ op10=
 onmouseleave=script433
 
 // 1024:32
-[com_32]
+[left_3]
 type=graphic
 x=-17
 width=32
 height=16384
 heightmode=proportion
-layer=com_10
+layer=ability_layer_3
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -443,13 +443,13 @@ transmitop=10
 op10= 
 
 // 1024:33
-[com_33]
+[right_3]
 type=graphic
 x=163
 width=32
 height=16384
 heightmode=proportion
-layer=com_10
+layer=ability_layer_3
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -457,13 +457,13 @@ transmitop=10
 op10=  
 
 // 1024:34
-[com_34]
+[top_3]
 type=graphic
 x=1
 y=-14
 width=179
 height=32
-layer=com_10
+layer=ability_layer_3
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -471,12 +471,12 @@ transmitop=10
 op10=  
 
 // 1024:35
-[com_35]
+[bot_3]
 type=graphic
 y=29
 width=181
 height=32
-layer=com_10
+layer=ability_layer_3
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -484,26 +484,26 @@ transmitop=10
 op10=   
 
 // 1024:36
-[com_36]
+[cost_backing_3]
 type=rectangle
 x=151
 y=12
 width=22
 height=22
-layer=com_10
+layer=ability_layer_3
 colour=0x423a2f
 fill=yes
 transmitop=10
 op10= 
 
 // 1024:37
-[com_37]
+[cost_left_3]
 type=graphic
 x=132
 y=10
 width=32
 height=25
-layer=com_10
+layer=ability_layer_3
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -511,13 +511,13 @@ transmitop=10
 op10=  
 
 // 1024:38
-[com_38]
+[cost_right_3]
 type=graphic
 x=156
 y=10
 width=32
 height=26
-layer=com_10
+layer=ability_layer_3
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -525,13 +525,13 @@ transmitop=10
 op10=   
 
 // 1024:39
-[com_39]
+[cost_top_3]
 type=graphic
 x=150
 y=-4
 width=23
 height=32
-layer=com_10
+layer=ability_layer_3
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -545,7 +545,7 @@ x=149
 y=19
 width=25
 height=33
-layer=com_10
+layer=ability_layer_3
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -553,12 +553,12 @@ transmitop=10
 op10=    
 
 // 1024:41
-[com_41]
+[name_3]
 type=text
 width=110
 height=45
 xmode=abs_centre
-layer=com_10
+layer=ability_layer_3
 textfont=welcome_font_tiny
 text=Command 3
 textlineheight=15
@@ -570,13 +570,13 @@ transmitop=10
 op10= 
 
 // 1024:42
-[com_42]
+[cost_3]
 type=text
 x=149
 y=10
 width=26
 height=26
-layer=com_10
+layer=ability_layer_3
 textfont=p11_full
 text=200
 textalignh=centre
@@ -588,26 +588,26 @@ op10=
 onvartransmit=script429(event_com){varplayer_1870}
 
 // 1024:43
-[com_43]
+[icon_3]
 type=graphic
 x=7
 y=10
 width=25
 height=25
-layer=com_10
+layer=ability_layer_3
 graphic="conq_command_icon,0"
 colour=0x000000
 transmitop=10
 op10= 
 
 // 1024:44
-[com_44]
+[cooldown_3]
 type=text
 x=7
 y=10
 width=26
 height=26
-layer=com_10
+layer=ability_layer_3
 textfont=welcome_font_small
 textalignh=centre
 textalignv=centre
@@ -618,13 +618,13 @@ op10=
 onvarctransmit=script429(event_com){varclient_1378, varclient_1379, varclient_1380, varclient_1381, varclient_1382}
 
 // 1024:45
-[com_45]
+[shading_rect_3]
 type=rectangle
 x=2
 y=2
 width=178
 height=41
-layer=com_10
+layer=ability_layer_3
 hide=yes
 colour=0x000000
 fill=yes
@@ -633,20 +633,20 @@ transmitop=10
 op10= 
 
 // 1024:46
-[com_46]
+[highlight_outer_rect_3]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_10
+layer=ability_layer_3
 hide=yes
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 1024:47
-[com_47]
+[highlight_inner_rect_3]
 type=rectangle
 x=1
 y=1
@@ -654,20 +654,20 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_10
+layer=ability_layer_3
 hide=yes
 colour=0x969696
 transmitop=10
 op10=  
 
 // 1024:48
-[com_48]
+[backing_2]
 type=graphic
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_9
+layer=ability_layer_2
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -677,13 +677,13 @@ op10=
 onmouseleave=script433
 
 // 1024:49
-[com_49]
+[left_2]
 type=graphic
 x=-17
 width=32
 height=16384
 heightmode=proportion
-layer=com_9
+layer=ability_layer_2
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -691,13 +691,13 @@ transmitop=10
 op10= 
 
 // 1024:50
-[com_50]
+[right_2]
 type=graphic
 x=163
 width=32
 height=16384
 heightmode=proportion
-layer=com_9
+layer=ability_layer_2
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -705,13 +705,13 @@ transmitop=10
 op10=  
 
 // 1024:51
-[com_51]
+[top_2]
 type=graphic
 x=1
 y=-14
 width=179
 height=32
-layer=com_9
+layer=ability_layer_2
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -719,12 +719,12 @@ transmitop=10
 op10=  
 
 // 1024:52
-[com_52]
+[bot_2]
 type=graphic
 y=29
 width=181
 height=32
-layer=com_9
+layer=ability_layer_2
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -732,26 +732,26 @@ transmitop=10
 op10=   
 
 // 1024:53
-[com_53]
+[cost_backing_2]
 type=rectangle
 x=151
 y=12
 width=22
 height=22
-layer=com_9
+layer=ability_layer_2
 colour=0x423a2f
 fill=yes
 transmitop=10
 op10= 
 
 // 1024:54
-[com_54]
+[cost_left_2]
 type=graphic
 x=132
 y=10
 width=32
 height=25
-layer=com_9
+layer=ability_layer_2
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -759,13 +759,13 @@ transmitop=10
 op10=  
 
 // 1024:55
-[com_55]
+[cost_right_2]
 type=graphic
 x=156
 y=10
 width=32
 height=26
-layer=com_9
+layer=ability_layer_2
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -773,13 +773,13 @@ transmitop=10
 op10=   
 
 // 1024:56
-[com_56]
+[cost_top_2]
 type=graphic
 x=150
 y=-4
 width=23
 height=32
-layer=com_9
+layer=ability_layer_2
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -793,7 +793,7 @@ x=149
 y=19
 width=25
 height=33
-layer=com_9
+layer=ability_layer_2
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -801,12 +801,12 @@ transmitop=10
 op10=    
 
 // 1024:58
-[com_58]
+[name_2]
 type=text
 width=110
 height=45
 xmode=abs_centre
-layer=com_9
+layer=ability_layer_2
 textfont=welcome_font_tiny
 text=Command 2
 textlineheight=15
@@ -818,13 +818,13 @@ transmitop=10
 op10= 
 
 // 1024:59
-[com_59]
+[cost_2]
 type=text
 x=149
 y=10
 width=26
 height=26
-layer=com_9
+layer=ability_layer_2
 textfont=p11_full
 text=200
 textalignh=centre
@@ -836,26 +836,26 @@ op10=
 onvartransmit=script429(event_com){varplayer_1870}
 
 // 1024:60
-[com_60]
+[icon_2]
 type=graphic
 x=7
 y=10
 width=25
 height=25
-layer=com_9
+layer=ability_layer_2
 graphic="conq_command_icon,0"
 colour=0x000000
 transmitop=10
 op10= 
 
 // 1024:61
-[com_61]
+[cooldown_2]
 type=text
 x=7
 y=9
 width=26
 height=26
-layer=com_9
+layer=ability_layer_2
 textfont=welcome_font_small
 textalignh=centre
 textalignv=centre
@@ -866,13 +866,13 @@ op10=
 onvarctransmit=script429(event_com){varclient_1378, varclient_1379, varclient_1380, varclient_1381, varclient_1382}
 
 // 1024:62
-[com_62]
+[shading_rect_2]
 type=rectangle
 x=2
 y=2
 width=178
 height=41
-layer=com_9
+layer=ability_layer_2
 hide=yes
 colour=0x000000
 fill=yes
@@ -881,20 +881,20 @@ transmitop=10
 op10= 
 
 // 1024:63
-[com_63]
+[highlight_outer_rect_2]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_9
+layer=ability_layer_2
 hide=yes
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 1024:64
-[com_64]
+[highlight_inner_rect_2]
 type=rectangle
 x=1
 y=1
@@ -902,20 +902,20 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_9
+layer=ability_layer_2
 hide=yes
 colour=0x969696
 transmitop=10
 op10=  
 
 // 1024:65
-[com_65]
+[backing_1]
 type=graphic
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_8
+layer=ability_layer_1
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -925,25 +925,25 @@ op10=
 onmouseleave=script433
 
 // 1024:66
-[com_66]
+[left_1]
 type=graphic
 x=-17
 width=32
 height=16384
 heightmode=proportion
-layer=com_8
+layer=ability_layer_1
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
 
 // 1024:67
-[com_67]
+[right_1]
 type=graphic
 x=163
 width=32
 height=16384
 heightmode=proportion
-layer=com_8
+layer=ability_layer_1
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -951,13 +951,13 @@ transmitop=10
 op10= 
 
 // 1024:68
-[com_68]
+[top_1]
 type=graphic
 x=1
 y=-14
 width=179
 height=32
-layer=com_8
+layer=ability_layer_1
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -965,12 +965,12 @@ transmitop=10
 op10= 
 
 // 1024:69
-[com_69]
+[bot_1]
 type=graphic
 y=29
 width=181
 height=32
-layer=com_8
+layer=ability_layer_1
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -978,24 +978,24 @@ transmitop=10
 op10=  
 
 // 1024:70
-[com_70]
+[cost_backing_1]
 type=rectangle
 x=151
 y=12
 width=22
 height=22
-layer=com_8
+layer=ability_layer_1
 colour=0x423a2f
 fill=yes
 
 // 1024:71
-[com_71]
+[cost_left_1]
 type=graphic
 x=132
 y=10
 width=32
 height=25
-layer=com_8
+layer=ability_layer_1
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -1003,13 +1003,13 @@ transmitop=10
 op10= 
 
 // 1024:72
-[com_72]
+[cost_right_1]
 type=graphic
 x=156
 y=10
 width=32
 height=26
-layer=com_8
+layer=ability_layer_1
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -1017,13 +1017,13 @@ transmitop=10
 op10=  
 
 // 1024:73
-[com_73]
+[cost_top_1]
 type=graphic
 x=150
 y=-4
 width=23
 height=32
-layer=com_8
+layer=ability_layer_1
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -1037,7 +1037,7 @@ x=149
 y=19
 width=25
 height=33
-layer=com_8
+layer=ability_layer_1
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -1045,12 +1045,12 @@ transmitop=10
 op10=   
 
 // 1024:75
-[com_75]
+[name_1]
 type=text
 width=110
 height=45
 xmode=abs_centre
-layer=com_8
+layer=ability_layer_1
 textfont=welcome_font_tiny
 text=Command 1
 textlineheight=15
@@ -1060,13 +1060,13 @@ textshadow=yes
 colour=0xff991f
 
 // 1024:76
-[com_76]
+[cost_1]
 type=text
 x=149
 y=10
 width=26
 height=26
-layer=com_8
+layer=ability_layer_1
 textfont=p11_full
 text=200
 textalignh=centre
@@ -1076,24 +1076,24 @@ colour=0xff991f
 onvartransmit=script429(event_com){varplayer_1870}
 
 // 1024:77
-[com_77]
+[icon_1]
 type=graphic
 x=7
 y=10
 width=25
 height=25
-layer=com_8
+layer=ability_layer_1
 graphic="conq_command_icon,0"
 colour=0x000000
 
 // 1024:78
-[com_78]
+[cooldown_1]
 type=text
 x=7
 y=9
 width=26
 height=26
-layer=com_8
+layer=ability_layer_1
 textfont=welcome_font_small
 textalignh=centre
 textalignv=centre
@@ -1104,31 +1104,31 @@ op10=
 onvarctransmit=script429(event_com){varclient_1378, varclient_1379, varclient_1380, varclient_1381, varclient_1382}
 
 // 1024:79
-[com_79]
+[shading_rect_1]
 type=rectangle
 x=2
 y=2
 width=178
 height=41
-layer=com_8
+layer=ability_layer_1
 hide=yes
 colour=0x000000
 fill=yes
 trans=200
 
 // 1024:80
-[com_80]
+[highlight_outer_rect_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_8
+layer=ability_layer_1
 hide=yes
 colour=0xffffff
 
 // 1024:81
-[com_81]
+[highlight_inner_rect_1]
 type=rectangle
 x=1
 y=1
@@ -1136,20 +1136,20 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_8
+layer=ability_layer_1
 hide=yes
 colour=0x969696
 transmitop=10
 op10= 
 
 // 1024:82
-[com_82]
+[main_title_text]
 type=text
 y=5
 width=16391
 height=14
 widthmode=proportion
-layer=com_0
+layer=background_components_layer
 textfont=b12_full
 text=Commands
 textalignh=centre
@@ -1165,7 +1165,7 @@ type=graphic
 y=9
 width=190
 height=32
-layer=com_0
+layer=background_components_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -1178,7 +1178,7 @@ type=graphic
 y=236
 width=190
 height=32
-layer=com_0
+layer=background_components_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -1186,7 +1186,7 @@ transmitop=10
 op10=   
 
 // 1024:85
-[com_85]
+[tooltip_content_layer]
 type=layer
 x=4
 y=80
@@ -1195,13 +1195,13 @@ height=90
 hide=yes
 
 // 1024:86
-[com_86]
+[tool_shadow]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_85
+layer=tooltip_content_layer
 colour=0x000000
 fill=yes
 transmitop=10
@@ -1216,18 +1216,18 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_85
+layer=tooltip_content_layer
 colour=0x423a2f
 fill=yes
 
 // 1024:88
-[com_88]
+[left_5]
 type=graphic
 x=-16
 y=1
 width=32
 height=86
-layer=com_85
+layer=tooltip_content_layer
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -1235,14 +1235,14 @@ transmitop=10
 op10= 
 
 // 1024:89
-[com_89]
+[bot_5]
 type=graphic
 x=1
 y=-15
 width=180
 height=32
 ymode=abs_bottom
-layer=com_85
+layer=tooltip_content_layer
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -1250,14 +1250,14 @@ transmitop=10
 op10=   
 
 // 1024:90
-[com_90]
+[right_5]
 type=graphic
 x=-12
 y=1
 width=32
 height=87
 xmode=abs_right
-layer=com_85
+layer=tooltip_content_layer
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
@@ -1265,13 +1265,13 @@ transmitop=10
 op10=  
 
 // 1024:91
-[com_91]
+[top_5]
 type=graphic
 x=2
 y=-13
 width=177
 height=32
-layer=com_85
+layer=tooltip_content_layer
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
@@ -1279,12 +1279,12 @@ transmitop=10
 op10=  
 
 // 1024:92
-[com_92]
+[tooltip_name]
 type=text
 width=16391
 height=16
 widthmode=proportion
-layer=com_85
+layer=tooltip_content_layer
 textfont=welcome_font_tiny
 textalignh=centre
 textalignv=centre
@@ -1292,14 +1292,14 @@ textshadow=yes
 colour=0xff991f
 
 // 1024:93
-[com_93]
+[tooltip_desc]
 type=text
 x=4
 width=8
 height=64
 widthmode=minus
 ymode=abs_centre
-layer=com_85
+layer=tooltip_content_layer
 textfont=p11_full
 textalignh=centre
 textalignv=centre
@@ -1309,7 +1309,7 @@ transmitop=10
 op10= 
 
 // 1024:94
-[com_94]
+[tooltip_cost]
 type=text
 x=5
 y=1
@@ -1317,7 +1317,7 @@ width=64
 height=16
 xmode=abs_right
 ymode=abs_bottom
-layer=com_85
+layer=tooltip_content_layer
 textfont=p11_full
 textalignh=right
 textalignv=centre
@@ -1327,14 +1327,14 @@ transmitop=10
 op10=  
 
 // 1024:95
-[com_95]
+[tooltip_cooldown]
 type=text
 x=4
 y=1
 width=64
 height=16
 ymode=abs_bottom
-layer=com_85
+layer=tooltip_content_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes

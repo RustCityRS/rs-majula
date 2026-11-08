@@ -1,7 +1,7 @@
 // 3092
 [proc,lobbyscreen_pvp_warning](int $int0)
 %varclient_547 = $int0;
-if_sethide(true, lobbyscreen:com_32);
+if_sethide(true, lobbyscreen:pvp_warning);
 if (%varclient_547 = 1) {
-    ~lobbyscreen_entergame(lobbyscreen:com_160);
+    ~lobbyscreen_entergame(lobbyscreen:loginbutton);
 }

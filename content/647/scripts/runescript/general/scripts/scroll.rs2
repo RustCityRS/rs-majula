@@ -6,36 +6,36 @@
 // when it opens, as void-634's messageScroll sets every line.
 
 [proc,messagescroll_open]
-if_settext(messagescroll:com_13, ^string_empty);
-if_settext(messagescroll:com_14, ^string_empty);
-if_settext(messagescroll:com_15, ^string_empty);
+if_settext(messagescroll:messcroll13, ^string_empty);
+if_settext(messagescroll:messcroll14, ^string_empty);
+if_settext(messagescroll:messcroll15, ^string_empty);
 if_openmain(messagescroll);
 
 [label,scroll_pirate_message]
-if_settext(messagescroll:com_1, ^string_empty);
-if_settext(messagescroll:com_2, ^string_empty);
-if_settext(messagescroll:com_3, ^string_empty);
-if_settext(messagescroll:com_4, "Visit the city of the White Knights. In the park,");
-if_settext(messagescroll:com_5, "Saradomin points to the X which marks the spot.");
-if_settext(messagescroll:com_6, ^string_empty);
-if_settext(messagescroll:com_7, ^string_empty);
-if_settext(messagescroll:com_8, ^string_empty);
-if_settext(messagescroll:com_9, ^string_empty);
-if_settext(messagescroll:com_10, ^string_empty);
-if_settext(messagescroll:com_11, ^string_empty);
-if_settext(messagescroll:com_12, ^string_empty);
-if_setcolour(messagescroll:com_1, ^yellow_rgb);
-if_setcolour(messagescroll:com_2, ^yellow_rgb);
-if_setcolour(messagescroll:com_3, ^yellow_rgb);
-if_setcolour(messagescroll:com_4, ^yellow_rgb);
-if_setcolour(messagescroll:com_5, ^yellow_rgb);
-if_setcolour(messagescroll:com_6, ^yellow_rgb);
-if_setcolour(messagescroll:com_7, ^yellow_rgb);
-if_setcolour(messagescroll:com_8, ^yellow_rgb);
-if_setcolour(messagescroll:com_9, ^yellow_rgb);
-if_setcolour(messagescroll:com_10, ^yellow_rgb);
-if_setcolour(messagescroll:com_11, ^yellow_rgb);
-if_setcolour(messagescroll:com_12, ^yellow_rgb);
+if_settext(messagescroll:messcroll1, ^string_empty);
+if_settext(messagescroll:messcroll2, ^string_empty);
+if_settext(messagescroll:messcroll3, ^string_empty);
+if_settext(messagescroll:messcroll4, "Visit the city of the White Knights. In the park,");
+if_settext(messagescroll:messcroll5, "Saradomin points to the X which marks the spot.");
+if_settext(messagescroll:messcroll6, ^string_empty);
+if_settext(messagescroll:messcroll7, ^string_empty);
+if_settext(messagescroll:messcroll8, ^string_empty);
+if_settext(messagescroll:messcroll9, ^string_empty);
+if_settext(messagescroll:messcroll10, ^string_empty);
+if_settext(messagescroll:messcroll11, ^string_empty);
+if_settext(messagescroll:messcroll12, ^string_empty);
+if_setcolour(messagescroll:messcroll1, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll3, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll4, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll5, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll6, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll7, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll8, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll9, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll10, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;
 
 [label,scroll_elena_hangover_cure_recipe]
@@ -43,294 +43,294 @@ if_setcolour(messagescroll:com_12, ^yellow_rgb);
 // Then grind some chocolate with a pestle and mortar.
 // Add the ground chocolate to the milk.
 // Finally add some snape grass.
-if_settext(messagescroll:com_1, ^string_empty);
-if_settext(messagescroll:com_2, ^string_empty);
-if_settext(messagescroll:com_3, ^string_empty);
-if_settext(messagescroll:com_4, ^string_empty);
-if_settext(messagescroll:com_5, "Got a bncket of nnilk");
-if_settext(messagescroll:com_6, "Tlen qrind sorne lcoculate");
-if_settext(messagescroll:com_7, "vnith a pestal and rnortar");
-if_settext(messagescroll:com_8, "ald the grourd dlocolate to tho milt");
-if_settext(messagescroll:com_9, "fnales add 5cme snape gras5");
-if_settext(messagescroll:com_10, ^string_empty);
-if_settext(messagescroll:com_11, ^string_empty);
-if_settext(messagescroll:com_12, ^string_empty);
-if_setcolour(messagescroll:com_1, ^yellow_rgb);
-if_setcolour(messagescroll:com_2, ^yellow_rgb);
-if_setcolour(messagescroll:com_3, ^yellow_rgb);
-if_setcolour(messagescroll:com_4, ^yellow_rgb);
-if_setcolour(messagescroll:com_5, ^black_rgb);
-if_setcolour(messagescroll:com_6, ^black_rgb);
-if_setcolour(messagescroll:com_7, ^black_rgb);
-if_setcolour(messagescroll:com_8, ^black_rgb);
-if_setcolour(messagescroll:com_9, ^black_rgb);
-if_setcolour(messagescroll:com_10, ^yellow_rgb);
-if_setcolour(messagescroll:com_11, ^yellow_rgb);
-if_setcolour(messagescroll:com_12, ^yellow_rgb);
+if_settext(messagescroll:messcroll1, ^string_empty);
+if_settext(messagescroll:messcroll2, ^string_empty);
+if_settext(messagescroll:messcroll3, ^string_empty);
+if_settext(messagescroll:messcroll4, ^string_empty);
+if_settext(messagescroll:messcroll5, "Got a bncket of nnilk");
+if_settext(messagescroll:messcroll6, "Tlen qrind sorne lcoculate");
+if_settext(messagescroll:messcroll7, "vnith a pestal and rnortar");
+if_settext(messagescroll:messcroll8, "ald the grourd dlocolate to tho milt");
+if_settext(messagescroll:messcroll9, "fnales add 5cme snape gras5");
+if_settext(messagescroll:messcroll10, ^string_empty);
+if_settext(messagescroll:messcroll11, ^string_empty);
+if_settext(messagescroll:messcroll12, ^string_empty);
+if_setcolour(messagescroll:messcroll1, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll3, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll4, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll5, ^black_rgb);
+if_setcolour(messagescroll:messcroll6, ^black_rgb);
+if_setcolour(messagescroll:messcroll7, ^black_rgb);
+if_setcolour(messagescroll:messcroll8, ^black_rgb);
+if_setcolour(messagescroll:messcroll9, ^black_rgb);
+if_setcolour(messagescroll:messcroll10, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;
 
 // 289's barcrawl card reads %barcrawl's bits (^bluemoon_index ...): waits for
 // the Alfred Grimhand's Barcrawl port, which brings them.
 // [label,scroll_barcrawl_card]
-// if_settext(messagescroll:com_1, "@blu@The Official Alfred Grimhand Barcrawl!");
-// if_settext(messagescroll:com_2, ^string_empty);
+// if_settext(messagescroll:messcroll1, "@blu@The Official Alfred Grimhand Barcrawl!");
+// if_settext(messagescroll:messcroll2, ^string_empty);
 // if(testbit(%barcrawl, ^bluemoon_index) = ^true) {
-//     if_settext(messagescroll:com_3, "@gre@BlueMoon Inn - Completed!");
+//     if_settext(messagescroll:messcroll3, "@gre@BlueMoon Inn - Completed!");
 // } else {
-//     if_settext(messagescroll:com_3, "@red@BlueMoon Inn - Not Completed...");
+//     if_settext(messagescroll:messcroll3, "@red@BlueMoon Inn - Not Completed...");
 // }
 //
 // if(testbit(%barcrawl, ^blurberry_index) = ^true) {
-//     if_settext(messagescroll:com_4, "@gre@Blurberry's Bar - Completed!");
+//     if_settext(messagescroll:messcroll4, "@gre@Blurberry's Bar - Completed!");
 // } else {
-//     if_settext(messagescroll:com_4, "@red@Blurberry's Bar - Not Completed...");
+//     if_settext(messagescroll:messcroll4, "@red@Blurberry's Bar - Not Completed...");
 // }
 //
 // if(testbit(%barcrawl, ^deadman_index) = ^true) {
-//     if_settext(messagescroll:com_5, "@gre@Dead Man's Chest - Completed!");
+//     if_settext(messagescroll:messcroll5, "@gre@Dead Man's Chest - Completed!");
 // } else {
-//     if_settext(messagescroll:com_5, "@red@Dead Man's Chest - Not Completed...");
+//     if_settext(messagescroll:messcroll5, "@red@Dead Man's Chest - Not Completed...");
 // }
 //
 // if(testbit(%barcrawl, ^dragoninn_index) = ^true) {
-//     if_settext(messagescroll:com_6, "@gre@Dragon Inn - Completed!");
+//     if_settext(messagescroll:messcroll6, "@gre@Dragon Inn - Completed!");
 // } else {
-//     if_settext(messagescroll:com_6, "@red@Dragon Inn - Not Completed...");
+//     if_settext(messagescroll:messcroll6, "@red@Dragon Inn - Not Completed...");
 // }
 //
 // if(testbit(%barcrawl, ^flyinghorse_index) = ^true) {
-//     if_settext(messagescroll:com_7, "@gre@Flying Horse Inn - Completed!");
+//     if_settext(messagescroll:messcroll7, "@gre@Flying Horse Inn - Completed!");
 // } else {
-//     if_settext(messagescroll:com_7, "@red@Flying Horse Inn - Not Completed...");
+//     if_settext(messagescroll:messcroll7, "@red@Flying Horse Inn - Not Completed...");
 // }
 //
 // if(testbit(%barcrawl, ^forestersarms_index) = ^true) {
-//     if_settext(messagescroll:com_8, "@gre@Foresters Arms - Completed!");
+//     if_settext(messagescroll:messcroll8, "@gre@Foresters Arms - Completed!");
 // } else {
-//     if_settext(messagescroll:com_8, "@red@Foresters Arms - Not Completed...");
+//     if_settext(messagescroll:messcroll8, "@red@Foresters Arms - Not Completed...");
 // }
 //
 // if(testbit(%barcrawl, ^jollyboar_index) = ^true) {
-//     if_settext(messagescroll:com_9, "@gre@Jolly Boar Inn - Completed!");
+//     if_settext(messagescroll:messcroll9, "@gre@Jolly Boar Inn - Completed!");
 // } else {
-//     if_settext(messagescroll:com_9, "@red@Jolly Boar Inn - Not Completed...");
+//     if_settext(messagescroll:messcroll9, "@red@Jolly Boar Inn - Not Completed...");
 // }
 //
 // if(testbit(%barcrawl, ^karamjaspirits_index) = ^true) {
-//     if_settext(messagescroll:com_10, "@gre@Karamja Spirits Bar - Completed!");
+//     if_settext(messagescroll:messcroll10, "@gre@Karamja Spirits Bar - Completed!");
 // } else {
-//     if_settext(messagescroll:com_10, "@red@Karamja Spirits Bar - Not Completed...");
+//     if_settext(messagescroll:messcroll10, "@red@Karamja Spirits Bar - Not Completed...");
 // }
 //
 // if(testbit(%barcrawl, ^risingsun_index) = ^true) {
-//     if_settext(messagescroll:com_11, "@gre@Rising Sun Inn - Completed!");
+//     if_settext(messagescroll:messcroll11, "@gre@Rising Sun Inn - Completed!");
 // } else {
-//     if_settext(messagescroll:com_11, "@red@Rising Sun Inn - Not Completed...");
+//     if_settext(messagescroll:messcroll11, "@red@Rising Sun Inn - Not Completed...");
 // }
 //
 // if(testbit(%barcrawl, ^rustyanchor_index) = ^true) {
-//     if_settext(messagescroll:com_12, "@gre@Rusty Anchor Inn - Completed!");
+//     if_settext(messagescroll:messcroll12, "@gre@Rusty Anchor Inn - Completed!");
 // } else {
-//     if_settext(messagescroll:com_12, "@red@Rusty Anchor Inn - Not Completed...");
+//     if_settext(messagescroll:messcroll12, "@red@Rusty Anchor Inn - Not Completed...");
 // }
-// if_setcolour(messagescroll:com_2, ^yellow_rgb);
+// if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
 // ~messagescroll_open;
 
 [label,scroll_hazelmere]
-if_settext(messagescroll:com_1, ^string_empty);
-if_settext(messagescroll:com_2, ^string_empty);
-if_settext(messagescroll:com_3, ^string_empty);
-if_settext(messagescroll:com_4, ^string_empty);
-if_settext(messagescroll:com_5, "Es lemanto meso pro eis prit ta Cinqo mond.");
-if_settext(messagescroll:com_6, "Mi lovos ta lemanto Daconia arpos");
-if_settext(messagescroll:com_7, "et Daconia arpos eto meriz ta priw!");
-if_settext(messagescroll:com_8, ^string_empty);
-if_settext(messagescroll:com_9, ^string_empty);
-if_settext(messagescroll:com_10, ^string_empty);
-if_settext(messagescroll:com_11, ^string_empty);
-if_settext(messagescroll:com_12, ^string_empty);
-if_setcolour(messagescroll:com_1, ^yellow_rgb);
-if_setcolour(messagescroll:com_2, ^yellow_rgb);
-if_setcolour(messagescroll:com_3, ^yellow_rgb);
-if_setcolour(messagescroll:com_4, ^yellow_rgb);
-if_setcolour(messagescroll:com_5, ^yellow_rgb);
-if_setcolour(messagescroll:com_6, ^yellow_rgb);
-if_setcolour(messagescroll:com_7, ^yellow_rgb);
-if_setcolour(messagescroll:com_8, ^yellow_rgb);
-if_setcolour(messagescroll:com_9, ^yellow_rgb);
-if_setcolour(messagescroll:com_10, ^yellow_rgb);
-if_setcolour(messagescroll:com_11, ^yellow_rgb);
-if_setcolour(messagescroll:com_12, ^yellow_rgb);
+if_settext(messagescroll:messcroll1, ^string_empty);
+if_settext(messagescroll:messcroll2, ^string_empty);
+if_settext(messagescroll:messcroll3, ^string_empty);
+if_settext(messagescroll:messcroll4, ^string_empty);
+if_settext(messagescroll:messcroll5, "Es lemanto meso pro eis prit ta Cinqo mond.");
+if_settext(messagescroll:messcroll6, "Mi lovos ta lemanto Daconia arpos");
+if_settext(messagescroll:messcroll7, "et Daconia arpos eto meriz ta priw!");
+if_settext(messagescroll:messcroll8, ^string_empty);
+if_settext(messagescroll:messcroll9, ^string_empty);
+if_settext(messagescroll:messcroll10, ^string_empty);
+if_settext(messagescroll:messcroll11, ^string_empty);
+if_settext(messagescroll:messcroll12, ^string_empty);
+if_setcolour(messagescroll:messcroll1, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll3, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll4, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll5, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll6, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll7, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll8, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll9, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll10, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;
 
 [label,scroll_lumber_order]
-if_settext(messagescroll:com_1, ^string_empty);
-if_settext(messagescroll:com_2, "@red@Karamja Shipyard");
-if_settext(messagescroll:com_3, ^string_empty);
-if_settext(messagescroll:com_4, "@gre@Order");
-if_settext(messagescroll:com_5, ^string_empty);
-if_settext(messagescroll:com_6, "Order for 30 Karamja battleships");
-if_settext(messagescroll:com_7, "Lumber required: 2000");
-if_settext(messagescroll:com_8, "Troop capacity: 300");
-if_settext(messagescroll:com_9, ^string_empty);
-if_settext(messagescroll:com_10, ^string_empty);
-if_settext(messagescroll:com_11, ^string_empty);
-if_settext(messagescroll:com_12, ^string_empty);
-if_setcolour(messagescroll:com_1, ^yellow_rgb);
-if_setcolour(messagescroll:com_2, ^yellow_rgb);
-if_setcolour(messagescroll:com_3, ^yellow_rgb);
-if_setcolour(messagescroll:com_4, ^yellow_rgb);
-if_setcolour(messagescroll:com_5, ^yellow_rgb);
-if_setcolour(messagescroll:com_6, ^yellow_rgb);
-if_setcolour(messagescroll:com_7, ^yellow_rgb);
-if_setcolour(messagescroll:com_8, ^yellow_rgb);
-if_setcolour(messagescroll:com_9, ^yellow_rgb);
-if_setcolour(messagescroll:com_10, ^yellow_rgb);
-if_setcolour(messagescroll:com_11, ^yellow_rgb);
-if_setcolour(messagescroll:com_12, ^yellow_rgb);
+if_settext(messagescroll:messcroll1, ^string_empty);
+if_settext(messagescroll:messcroll2, "@red@Karamja Shipyard");
+if_settext(messagescroll:messcroll3, ^string_empty);
+if_settext(messagescroll:messcroll4, "@gre@Order");
+if_settext(messagescroll:messcroll5, ^string_empty);
+if_settext(messagescroll:messcroll6, "Order for 30 Karamja battleships");
+if_settext(messagescroll:messcroll7, "Lumber required: 2000");
+if_settext(messagescroll:messcroll8, "Troop capacity: 300");
+if_settext(messagescroll:messcroll9, ^string_empty);
+if_settext(messagescroll:messcroll10, ^string_empty);
+if_settext(messagescroll:messcroll11, ^string_empty);
+if_settext(messagescroll:messcroll12, ^string_empty);
+if_setcolour(messagescroll:messcroll1, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll3, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll4, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll5, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll6, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll7, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll8, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll9, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll10, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;
 
 [label,scroll_invasion_plans]
 // https://web.archive.org/web/20060911005925im_/http://www.runeweb.net/fireball/Grand%20Tree%20Images/GrandTree12.PNG
-if_settext(messagescroll:com_1, "@red@Invasion");
-if_settext(messagescroll:com_2, ^string_empty);
-if_settext(messagescroll:com_3, "Troops board three fleets of battleships at Karamja.");
-if_settext(messagescroll:com_4, "@gre@Fleet one");
-if_settext(messagescroll:com_5, "Attacks Misthalin from the south.");
-if_settext(messagescroll:com_6, "@gre@Fleet two");
-if_settext(messagescroll:com_7, "Groups at crandor and attacks Asgarnia from the west.");
-if_settext(messagescroll:com_8, "@gre@Fleet three");
-if_settext(messagescroll:com_9, "Sails north to attack Kandarin from south, reinforced");
-if_settext(messagescroll:com_10, "by gnome foot soldiers leaving gnome stronghold.");
-if_settext(messagescroll:com_11, ^string_empty);
-if_settext(messagescroll:com_12, "@red@Take no prisoners!");
-if_setcolour(messagescroll:com_1, ^yellow_rgb);
-if_setcolour(messagescroll:com_2, ^yellow_rgb);
-if_setcolour(messagescroll:com_3, ^yellow_rgb);
-if_setcolour(messagescroll:com_4, ^yellow_rgb);
-if_setcolour(messagescroll:com_5, ^yellow_rgb);
-if_setcolour(messagescroll:com_6, ^yellow_rgb);
-if_setcolour(messagescroll:com_7, ^yellow_rgb);
-if_setcolour(messagescroll:com_8, ^yellow_rgb);
-if_setcolour(messagescroll:com_9, ^yellow_rgb);
-if_setcolour(messagescroll:com_10, ^yellow_rgb);
-if_setcolour(messagescroll:com_11, ^yellow_rgb);
-if_setcolour(messagescroll:com_12, ^yellow_rgb);
+if_settext(messagescroll:messcroll1, "@red@Invasion");
+if_settext(messagescroll:messcroll2, ^string_empty);
+if_settext(messagescroll:messcroll3, "Troops board three fleets of battleships at Karamja.");
+if_settext(messagescroll:messcroll4, "@gre@Fleet one");
+if_settext(messagescroll:messcroll5, "Attacks Misthalin from the south.");
+if_settext(messagescroll:messcroll6, "@gre@Fleet two");
+if_settext(messagescroll:messcroll7, "Groups at crandor and attacks Asgarnia from the west.");
+if_settext(messagescroll:messcroll8, "@gre@Fleet three");
+if_settext(messagescroll:messcroll9, "Sails north to attack Kandarin from south, reinforced");
+if_settext(messagescroll:messcroll10, "by gnome foot soldiers leaving gnome stronghold.");
+if_settext(messagescroll:messcroll11, ^string_empty);
+if_settext(messagescroll:messcroll12, "@red@Take no prisoners!");
+if_setcolour(messagescroll:messcroll1, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll3, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll4, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll5, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll6, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll7, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll8, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll9, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll10, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;
 
 [label,upass_well_inscription]
 // https://web.archive.org/web/20060908030821im_/http://www.runeweb.net/fireball/Underground%20Pass%20Images/Underground12.PNG
-if_settext(messagescroll:com_1, ^string_empty);
-if_settext(messagescroll:com_2, "While I sense the beating of a");
-if_settext(messagescroll:com_3, "good heart I will not open.");
-if_settext(messagescroll:com_4, "Feed me three crests of the blessed");
-if_settext(messagescroll:com_5, "and the creature's remains,");
-if_settext(messagescroll:com_6, "throw them to me as an offering...");
-if_settext(messagescroll:com_7, "a gift of hatred, a token.");
-if_settext(messagescroll:com_8, "Then finally rejoice as all goodness");
-if_settext(messagescroll:com_9, "dies in my flames.....");
-if_settext(messagescroll:com_10, ^string_empty);
-if_settext(messagescroll:com_11, ^string_empty);
-if_settext(messagescroll:com_12, ^string_empty);
-if_setcolour(messagescroll:com_1, ^yellow_rgb);
-if_setcolour(messagescroll:com_2, ^yellow_rgb);
-if_setcolour(messagescroll:com_3, ^yellow_rgb);
-if_setcolour(messagescroll:com_4, ^yellow_rgb);
-if_setcolour(messagescroll:com_5, ^yellow_rgb);
-if_setcolour(messagescroll:com_6, ^yellow_rgb);
-if_setcolour(messagescroll:com_7, ^yellow_rgb);
-if_setcolour(messagescroll:com_8, ^yellow_rgb);
-if_setcolour(messagescroll:com_9, ^yellow_rgb);
-if_setcolour(messagescroll:com_10, ^yellow_rgb);
-if_setcolour(messagescroll:com_11, ^yellow_rgb);
-if_setcolour(messagescroll:com_12, ^yellow_rgb);
+if_settext(messagescroll:messcroll1, ^string_empty);
+if_settext(messagescroll:messcroll2, "While I sense the beating of a");
+if_settext(messagescroll:messcroll3, "good heart I will not open.");
+if_settext(messagescroll:messcroll4, "Feed me three crests of the blessed");
+if_settext(messagescroll:messcroll5, "and the creature's remains,");
+if_settext(messagescroll:messcroll6, "throw them to me as an offering...");
+if_settext(messagescroll:messcroll7, "a gift of hatred, a token.");
+if_settext(messagescroll:messcroll8, "Then finally rejoice as all goodness");
+if_settext(messagescroll:messcroll9, "dies in my flames.....");
+if_settext(messagescroll:messcroll10, ^string_empty);
+if_settext(messagescroll:messcroll11, ^string_empty);
+if_settext(messagescroll:messcroll12, ^string_empty);
+if_setcolour(messagescroll:messcroll1, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll3, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll4, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll5, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll6, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll7, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll8, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll9, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll10, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;
 
 [label,scroll_zombiequeen_tattered]
-if_settext(messagescroll:com_1, ^string_empty);
-if_settext(messagescroll:com_2, "Bervirius, son of King Danthalas, was killed in battle. His");
-if_settext(messagescroll:com_3, "devout Mother Rashiliyia was so heartbroken that she swore");
-if_settext(messagescroll:com_4, "fealty to Zamorak if he would return her son to her. Bervirius");
-if_settext(messagescroll:com_5, "returned as an undead creature and terrorized the King and");
-if_settext(messagescroll:com_6, "Queen. Many guards died fighting the Undead Bervirius.");
-if_settext(messagescroll:com_7, "Eventually the undead Bervirius was set on fire and soon only");
-if_settext(messagescroll:com_8, "the bones remained.His remains were taken far to the South,");
-if_settext(messagescroll:com_9, "and then towards the setting sun to a tomb that is surrounded");
-if_settext(messagescroll:com_10, "by and level with the sea. The only remedy for containing the");
-if_settext(messagescroll:com_11, "spirits of witches and undead.");
-if_settext(messagescroll:com_12, ^string_empty);
-if_setcolour(messagescroll:com_1, ^yellow_rgb);
-if_setcolour(messagescroll:com_2, ^yellow_rgb);
-if_setcolour(messagescroll:com_3, ^yellow_rgb);
-if_setcolour(messagescroll:com_4, ^yellow_rgb);
-if_setcolour(messagescroll:com_5, ^yellow_rgb);
-if_setcolour(messagescroll:com_6, ^yellow_rgb);
-if_setcolour(messagescroll:com_7, ^yellow_rgb);
-if_setcolour(messagescroll:com_8, ^yellow_rgb);
-if_setcolour(messagescroll:com_9, ^yellow_rgb);
-if_setcolour(messagescroll:com_10, ^yellow_rgb);
-if_setcolour(messagescroll:com_11, ^yellow_rgb);
-if_setcolour(messagescroll:com_12, ^yellow_rgb);
+if_settext(messagescroll:messcroll1, ^string_empty);
+if_settext(messagescroll:messcroll2, "Bervirius, son of King Danthalas, was killed in battle. His");
+if_settext(messagescroll:messcroll3, "devout Mother Rashiliyia was so heartbroken that she swore");
+if_settext(messagescroll:messcroll4, "fealty to Zamorak if he would return her son to her. Bervirius");
+if_settext(messagescroll:messcroll5, "returned as an undead creature and terrorized the King and");
+if_settext(messagescroll:messcroll6, "Queen. Many guards died fighting the Undead Bervirius.");
+if_settext(messagescroll:messcroll7, "Eventually the undead Bervirius was set on fire and soon only");
+if_settext(messagescroll:messcroll8, "the bones remained.His remains were taken far to the South,");
+if_settext(messagescroll:messcroll9, "and then towards the setting sun to a tomb that is surrounded");
+if_settext(messagescroll:messcroll10, "by and level with the sea. The only remedy for containing the");
+if_settext(messagescroll:messcroll11, "spirits of witches and undead.");
+if_settext(messagescroll:messcroll12, ^string_empty);
+if_setcolour(messagescroll:messcroll1, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll3, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll4, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll5, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll6, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll7, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll8, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll9, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll10, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;
 
 // if 222 in osrs, can't find any equivalence in this version
 // (2011's cache has a 222, messagescroll_handwriting; no source shows 2011
 // reading this scroll in it.)
 [label,scroll_zombiequeen_crumpled]
-if_settext(messagescroll:com_1, ^string_empty);
-if_settext(messagescroll:com_2, ^string_empty);
-if_settext(messagescroll:com_3, "Rashiliyia's rage went unchecked. She killed");
-if_settext(messagescroll:com_4, "without mercy for revenge of her son's life. Like");
-if_settext(messagescroll:com_5, "a spectre through the night she entered houses");
-if_settext(messagescroll:com_6, "and one by one quietly strangled life from the");
-if_settext(messagescroll:com_7, "occupants. It is said that only a handful survived,");
-if_settext(messagescroll:com_8, "protected by necklace wards to keep the Witch");
-if_settext(messagescroll:com_9, "Queen at bay.");
-if_settext(messagescroll:com_10, ^string_empty);
-if_settext(messagescroll:com_11, ^string_empty);
-if_settext(messagescroll:com_12, ^string_empty);
-if_setcolour(messagescroll:com_1, ^yellow_rgb);
-if_setcolour(messagescroll:com_2, ^yellow_rgb);
-if_setcolour(messagescroll:com_3, ^black_rgb);
-if_setcolour(messagescroll:com_4, ^black_rgb);
-if_setcolour(messagescroll:com_5, ^black_rgb);
-if_setcolour(messagescroll:com_6, ^black_rgb);
-if_setcolour(messagescroll:com_7, ^black_rgb);
-if_setcolour(messagescroll:com_8, ^black_rgb);
-if_setcolour(messagescroll:com_9, ^black_rgb);
-if_setcolour(messagescroll:com_10, ^yellow_rgb);
-if_setcolour(messagescroll:com_11, ^yellow_rgb);
-if_setcolour(messagescroll:com_12, ^yellow_rgb);
+if_settext(messagescroll:messcroll1, ^string_empty);
+if_settext(messagescroll:messcroll2, ^string_empty);
+if_settext(messagescroll:messcroll3, "Rashiliyia's rage went unchecked. She killed");
+if_settext(messagescroll:messcroll4, "without mercy for revenge of her son's life. Like");
+if_settext(messagescroll:messcroll5, "a spectre through the night she entered houses");
+if_settext(messagescroll:messcroll6, "and one by one quietly strangled life from the");
+if_settext(messagescroll:messcroll7, "occupants. It is said that only a handful survived,");
+if_settext(messagescroll:messcroll8, "protected by necklace wards to keep the Witch");
+if_settext(messagescroll:messcroll9, "Queen at bay.");
+if_settext(messagescroll:messcroll10, ^string_empty);
+if_settext(messagescroll:messcroll11, ^string_empty);
+if_settext(messagescroll:messcroll12, ^string_empty);
+if_setcolour(messagescroll:messcroll1, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll3, ^black_rgb);
+if_setcolour(messagescroll:messcroll4, ^black_rgb);
+if_setcolour(messagescroll:messcroll5, ^black_rgb);
+if_setcolour(messagescroll:messcroll6, ^black_rgb);
+if_setcolour(messagescroll:messcroll7, ^black_rgb);
+if_setcolour(messagescroll:messcroll8, ^black_rgb);
+if_setcolour(messagescroll:messcroll9, ^black_rgb);
+if_setcolour(messagescroll:messcroll10, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;
 
 // if 222 in osrs, can't find any equivalence in this version
 // (2011's cache has a 222, messagescroll_handwriting; no source shows 2011
 // reading this scroll in it.)
 [label,scroll_zombiequeen_yellow]
-if_settext(messagescroll:com_1, ^string_empty);
-if_settext(messagescroll:com_2, ^string_empty);
-if_settext(messagescroll:com_3, ^string_empty);
-if_settext(messagescroll:com_4, "...and rest like your mother who is silent in the");
-if_settext(messagescroll:com_5, "peace of her tomb far to the North of Ah Za");
-if_settext(messagescroll:com_6, "Rhoon. Near the sea, and under the hills deep in");
-if_settext(messagescroll:com_7, "the underground to watch all of nature from the");
-if_settext(messagescroll:com_8, "darkness of her final resting place.");
-if_settext(messagescroll:com_9, ^string_empty);
-if_settext(messagescroll:com_10, ^string_empty);
-if_settext(messagescroll:com_11, ^string_empty);
-if_settext(messagescroll:com_12, ^string_empty);
-if_setcolour(messagescroll:com_1, ^yellow_rgb);
-if_setcolour(messagescroll:com_2, ^yellow_rgb);
-if_setcolour(messagescroll:com_3, ^yellow_rgb);
-if_setcolour(messagescroll:com_4, ^black_rgb);
-if_setcolour(messagescroll:com_5, ^black_rgb);
-if_setcolour(messagescroll:com_6, ^black_rgb);
-if_setcolour(messagescroll:com_7, ^black_rgb);
-if_setcolour(messagescroll:com_8, ^black_rgb);
-if_setcolour(messagescroll:com_9, ^yellow_rgb);
-if_setcolour(messagescroll:com_10, ^yellow_rgb);
-if_setcolour(messagescroll:com_11, ^yellow_rgb);
-if_setcolour(messagescroll:com_12, ^yellow_rgb);
+if_settext(messagescroll:messcroll1, ^string_empty);
+if_settext(messagescroll:messcroll2, ^string_empty);
+if_settext(messagescroll:messcroll3, ^string_empty);
+if_settext(messagescroll:messcroll4, "...and rest like your mother who is silent in the");
+if_settext(messagescroll:messcroll5, "peace of her tomb far to the North of Ah Za");
+if_settext(messagescroll:messcroll6, "Rhoon. Near the sea, and under the hills deep in");
+if_settext(messagescroll:messcroll7, "the underground to watch all of nature from the");
+if_settext(messagescroll:messcroll8, "darkness of her final resting place.");
+if_settext(messagescroll:messcroll9, ^string_empty);
+if_settext(messagescroll:messcroll10, ^string_empty);
+if_settext(messagescroll:messcroll11, ^string_empty);
+if_settext(messagescroll:messcroll12, ^string_empty);
+if_setcolour(messagescroll:messcroll1, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll3, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll4, ^black_rgb);
+if_setcolour(messagescroll:messcroll5, ^black_rgb);
+if_setcolour(messagescroll:messcroll6, ^black_rgb);
+if_setcolour(messagescroll:messcroll7, ^black_rgb);
+if_setcolour(messagescroll:messcroll8, ^black_rgb);
+if_setcolour(messagescroll:messcroll9, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll10, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;
 
 
@@ -338,30 +338,30 @@ if_setcolour(messagescroll:com_12, ^yellow_rgb);
 // (2011's cache has a 222, messagescroll_handwriting; no source shows 2011
 // reading this scroll in it.)
 [label,scroll_zombiequeen_white]
-if_settext(messagescroll:com_1, ^string_empty);
-if_settext(messagescroll:com_2, ^string_empty);
-if_settext(messagescroll:com_3, ^string_empty);
-if_settext(messagescroll:com_4, ^string_empty);
-if_settext(messagescroll:com_5, "...Rashiliyia did so love objects of beauty. Her");
-if_settext(messagescroll:com_6, "tomb was adorned with crystals that glowed");
-if_settext(messagescroll:com_7, "brightly when near to each other.");
-if_settext(messagescroll:com_8, ^string_empty);
-if_settext(messagescroll:com_9, ^string_empty);
-if_settext(messagescroll:com_10, ^string_empty);
-if_settext(messagescroll:com_11, ^string_empty);
-if_settext(messagescroll:com_12, ^string_empty);
-if_setcolour(messagescroll:com_1, ^yellow_rgb);
-if_setcolour(messagescroll:com_2, ^yellow_rgb);
-if_setcolour(messagescroll:com_3, ^yellow_rgb);
-if_setcolour(messagescroll:com_4, ^yellow_rgb);
-if_setcolour(messagescroll:com_5, ^black_rgb);
-if_setcolour(messagescroll:com_6, ^black_rgb);
-if_setcolour(messagescroll:com_7, ^black_rgb);
-if_setcolour(messagescroll:com_8, ^yellow_rgb);
-if_setcolour(messagescroll:com_9, ^yellow_rgb);
-if_setcolour(messagescroll:com_10, ^yellow_rgb);
-if_setcolour(messagescroll:com_11, ^yellow_rgb);
-if_setcolour(messagescroll:com_12, ^yellow_rgb);
+if_settext(messagescroll:messcroll1, ^string_empty);
+if_settext(messagescroll:messcroll2, ^string_empty);
+if_settext(messagescroll:messcroll3, ^string_empty);
+if_settext(messagescroll:messcroll4, ^string_empty);
+if_settext(messagescroll:messcroll5, "...Rashiliyia did so love objects of beauty. Her");
+if_settext(messagescroll:messcroll6, "tomb was adorned with crystals that glowed");
+if_settext(messagescroll:messcroll7, "brightly when near to each other.");
+if_settext(messagescroll:messcroll8, ^string_empty);
+if_settext(messagescroll:messcroll9, ^string_empty);
+if_settext(messagescroll:messcroll10, ^string_empty);
+if_settext(messagescroll:messcroll11, ^string_empty);
+if_settext(messagescroll:messcroll12, ^string_empty);
+if_setcolour(messagescroll:messcroll1, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll3, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll4, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll5, ^black_rgb);
+if_setcolour(messagescroll:messcroll6, ^black_rgb);
+if_setcolour(messagescroll:messcroll7, ^black_rgb);
+if_setcolour(messagescroll:messcroll8, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll9, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll10, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;
 
 
@@ -369,28 +369,28 @@ if_setcolour(messagescroll:com_12, ^yellow_rgb);
 // (2011's cache has a 222, messagescroll_handwriting; no source shows 2011
 // reading this scroll in it.)
 [label,scroll_zombiequeen_orange]
-if_settext(messagescroll:com_1, ^string_empty);
-if_settext(messagescroll:com_2, ^string_empty);
-if_settext(messagescroll:com_3, ^string_empty);
-if_settext(messagescroll:com_4, ^string_empty);
-if_settext(messagescroll:com_5, "...the sphere is activated when power of a spiritual");
-if_settext(messagescroll:com_6, "nature is expended upon it, this can be very");
-if_settext(messagescroll:com_7, "draining on the body...");
-if_settext(messagescroll:com_8, ^string_empty);
-if_settext(messagescroll:com_9, ^string_empty);
-if_settext(messagescroll:com_10, ^string_empty);
-if_settext(messagescroll:com_11, ^string_empty);
-if_settext(messagescroll:com_12, ^string_empty);
-if_setcolour(messagescroll:com_1, ^yellow_rgb);
-if_setcolour(messagescroll:com_2, ^yellow_rgb);
-if_setcolour(messagescroll:com_3, ^yellow_rgb);
-if_setcolour(messagescroll:com_4, ^yellow_rgb);
-if_setcolour(messagescroll:com_5, ^black_rgb);
-if_setcolour(messagescroll:com_6, ^black_rgb);
-if_setcolour(messagescroll:com_7, ^black_rgb);
-if_setcolour(messagescroll:com_8, ^yellow_rgb);
-if_setcolour(messagescroll:com_9, ^yellow_rgb);
-if_setcolour(messagescroll:com_10, ^yellow_rgb);
-if_setcolour(messagescroll:com_11, ^yellow_rgb);
-if_setcolour(messagescroll:com_12, ^yellow_rgb);
+if_settext(messagescroll:messcroll1, ^string_empty);
+if_settext(messagescroll:messcroll2, ^string_empty);
+if_settext(messagescroll:messcroll3, ^string_empty);
+if_settext(messagescroll:messcroll4, ^string_empty);
+if_settext(messagescroll:messcroll5, "...the sphere is activated when power of a spiritual");
+if_settext(messagescroll:messcroll6, "nature is expended upon it, this can be very");
+if_settext(messagescroll:messcroll7, "draining on the body...");
+if_settext(messagescroll:messcroll8, ^string_empty);
+if_settext(messagescroll:messcroll9, ^string_empty);
+if_settext(messagescroll:messcroll10, ^string_empty);
+if_settext(messagescroll:messcroll11, ^string_empty);
+if_settext(messagescroll:messcroll12, ^string_empty);
+if_setcolour(messagescroll:messcroll1, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll2, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll3, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll4, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll5, ^black_rgb);
+if_setcolour(messagescroll:messcroll6, ^black_rgb);
+if_setcolour(messagescroll:messcroll7, ^black_rgb);
+if_setcolour(messagescroll:messcroll8, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll9, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll10, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll11, ^yellow_rgb);
+if_setcolour(messagescroll:messcroll12, ^yellow_rgb);
 ~messagescroll_open;

@@ -22,6 +22,6 @@ switch_int ($key2) {
             %varclient_1865 = ~add_to_inputstring(%varclient_1865, 0, $key2, $char1);
         }
 }
-%varclient_1498 = ~script1552(%varclient_1498, %varclient_1865, graphic_5631, $component0, -1);
+%varclient_1498 = ~script1552(%varclient_1498, %varclient_1865, verdana_11pt_regular_multiline, $component0, -1);
 if_setposition(%varclient_1498, if_gety($component3), ^setpos_abs_left, ^setpos_abs_top, $component3);
 if_settext(%varclient_1865, $component0);

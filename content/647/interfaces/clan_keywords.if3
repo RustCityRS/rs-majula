@@ -3,34 +3,34 @@
 type=layer
 height=43
 widthmode=minus
-layer=com_6
+layer=content_layer
 
 // 1097:1
-[com_1]
+[main_layer]
 type=layer
 y=45
 height=177
 widthmode=minus
-layer=com_6
+layer=content_layer
 onvartransmit=clan_keywords_update{varplayer_2138, varplayer_2138, varplayer_2139, varplayer_2139, varplayer_2140, varplayer_2140, varplayer_2141, varplayer_2141, varplayer_2142, varplayer_2142, varplayer_2138, varplayer_2138, varplayer_2139, varplayer_2139, varplayer_2140, varplayer_2140, varplayer_2141, varplayer_2141, varplayer_2142, varplayer_2142}
 
 // 1097:2
-[com_2]
+[ok_button_layer]
 type=layer
 x=69
 y=224
 width=130
 height=28
-layer=com_6
+layer=content_layer
 
 // 1097:3
-[com_3]
+[cancel_button_layer]
 type=layer
 x=244
 y=224
 width=130
 height=28
-layer=com_6
+layer=content_layer
 
 // 1097:4
 [com_4]
@@ -53,7 +53,7 @@ layer=com_4
 onload=script4260(event_com)
 
 // 1097:6
-[com_6]
+[content_layer]
 type=layer
 x=12
 y=33
@@ -200,7 +200,7 @@ layer=com_43
 onload=script4201(event_com, struct_1739)
 
 // 1097:19
-[com_19]
+[add_button]
 type=layer
 width=4
 height=4
@@ -268,7 +268,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=main_layer
 graphic=window_texture_2
 tiling=yes
 
@@ -277,7 +277,7 @@ tiling=yes
 type=graphic
 width=10
 height=10
-layer=com_1
+layer=main_layer
 graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
@@ -287,7 +287,7 @@ type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_1
+layer=main_layer
 graphic="aif_overlay_frame_gold_corner_2,1"
 
 // 1097:27
@@ -296,7 +296,7 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_1
+layer=main_layer
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 hflip=yes
@@ -308,7 +308,7 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=main_layer
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 
@@ -320,7 +320,7 @@ height=10
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=main_layer
 graphic="aif_overlay_frame_gold_corner_2,0"
 tiling=yes
 vflip=yes
@@ -333,7 +333,7 @@ width=20
 height=10
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=main_layer
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 1097:31
@@ -344,7 +344,7 @@ height=20
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_1
+layer=main_layer
 graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
@@ -355,7 +355,7 @@ width=10
 height=20
 heightmode=minus
 ymode=abs_centre
-layer=com_1
+layer=main_layer
 graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
@@ -366,7 +366,7 @@ x=6
 y=14
 width=20
 height=14
-layer=com_1
+layer=main_layer
 textfont=p11_full
 text=1.
 textalignh=right
@@ -488,7 +488,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_2
+layer=ok_button_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -500,7 +500,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_2
+layer=ok_button_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -512,7 +512,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_2
+layer=ok_button_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -523,7 +523,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=ok_button_layer
 onload=script4201(event_com, struct_1736)
 
 // 1097:48
@@ -533,7 +533,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=ok_button_layer
 onload=script4201(event_com, struct_1737)
 
 // 1097:49
@@ -543,7 +543,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=ok_button_layer
 onload=script4201(event_com, struct_1738)
 
 // 1097:50
@@ -553,17 +553,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=ok_button_layer
 onload=script4201(event_com, struct_1739)
 
 // 1097:51
-[com_51]
+[ok_button]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=ok_button_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -576,7 +576,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=ok_button_layer
 
 // 1097:53
 [com_53]
@@ -602,7 +602,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=ok_button_layer
 hide=yes
 noclickthrough=yes
 onload=script4201(event_com, struct_1740)
@@ -626,7 +626,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_3
+layer=cancel_button_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -638,7 +638,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_3
+layer=cancel_button_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -650,7 +650,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
+layer=cancel_button_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -661,7 +661,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=cancel_button_layer
 onload=script4201(event_com, struct_1736)
 
 // 1097:60
@@ -671,7 +671,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=cancel_button_layer
 onload=script4201(event_com, struct_1737)
 
 // 1097:61
@@ -681,7 +681,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=cancel_button_layer
 onload=script4201(event_com, struct_1738)
 
 // 1097:62
@@ -691,17 +691,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=cancel_button_layer
 onload=script4201(event_com, struct_1739)
 
 // 1097:63
-[com_63]
+[cancel_button]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=cancel_button_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -715,7 +715,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=cancel_button_layer
 
 // 1097:65
 [com_65]
@@ -741,7 +741,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=cancel_button_layer
 hide=yes
 noclickthrough=yes
 onload=script4201(event_com, struct_1740)
@@ -880,7 +880,7 @@ x=6
 y=44
 width=20
 height=14
-layer=com_1
+layer=main_layer
 textfont=p11_full
 text=2.
 textalignh=right
@@ -1010,7 +1010,7 @@ x=6
 y=75
 width=20
 height=14
-layer=com_1
+layer=main_layer
 textfont=p11_full
 text=3.
 textalignh=right
@@ -1140,7 +1140,7 @@ x=6
 y=107
 width=20
 height=14
-layer=com_1
+layer=main_layer
 textfont=p11_full
 text=4.
 textalignh=right
@@ -1270,7 +1270,7 @@ x=6
 y=138
 width=20
 height=14
-layer=com_1
+layer=main_layer
 textfont=p11_full
 text=5.
 textalignh=right
@@ -1400,7 +1400,7 @@ x=229
 y=14
 width=20
 height=14
-layer=com_1
+layer=main_layer
 textfont=p11_full
 text=6.
 textalignh=right
@@ -1530,7 +1530,7 @@ x=229
 y=44
 width=20
 height=14
-layer=com_1
+layer=main_layer
 textfont=p11_full
 text=7.
 textalignh=right
@@ -1660,7 +1660,7 @@ x=229
 y=75
 width=20
 height=14
-layer=com_1
+layer=main_layer
 textfont=p11_full
 text=8.
 textalignh=right
@@ -1790,7 +1790,7 @@ x=229
 y=107
 width=20
 height=14
-layer=com_1
+layer=main_layer
 textfont=p11_full
 text=9.
 textalignh=right
@@ -1920,7 +1920,7 @@ x=229
 y=138
 width=20
 height=14
-layer=com_1
+layer=main_layer
 textfont=p11_full
 text=10.
 textalignh=right
@@ -1935,7 +1935,7 @@ x=31
 y=13
 width=170
 height=16
-layer=com_1
+layer=main_layer
 
 // 1097:168
 [com_168]
@@ -1944,7 +1944,7 @@ x=31
 y=43
 width=170
 height=16
-layer=com_1
+layer=main_layer
 
 // 1097:169
 [com_169]
@@ -1953,7 +1953,7 @@ x=31
 y=74
 width=170
 height=16
-layer=com_1
+layer=main_layer
 
 // 1097:170
 [com_170]
@@ -1962,7 +1962,7 @@ x=31
 y=106
 width=170
 height=16
-layer=com_1
+layer=main_layer
 
 // 1097:171
 [com_171]
@@ -1971,7 +1971,7 @@ x=31
 y=137
 width=170
 height=16
-layer=com_1
+layer=main_layer
 
 // 1097:172
 [com_172]
@@ -1980,7 +1980,7 @@ x=254
 y=13
 width=170
 height=16
-layer=com_1
+layer=main_layer
 
 // 1097:173
 [com_173]
@@ -1989,7 +1989,7 @@ x=254
 y=43
 width=170
 height=16
-layer=com_1
+layer=main_layer
 
 // 1097:174
 [com_174]
@@ -1998,7 +1998,7 @@ x=254
 y=74
 width=170
 height=16
-layer=com_1
+layer=main_layer
 
 // 1097:175
 [com_175]
@@ -2007,7 +2007,7 @@ x=254
 y=106
 width=170
 height=16
-layer=com_1
+layer=main_layer
 
 // 1097:176
 [com_176]
@@ -2016,7 +2016,7 @@ x=254
 y=137
 width=170
 height=16
-layer=com_1
+layer=main_layer
 
 // 1097:177
 [com_177]
@@ -2025,7 +2025,7 @@ x=203
 y=16
 width=11
 height=11
-layer=com_1
+layer=main_layer
 graphic=graphic_6003
 transmitop=1
 op1=Remove
@@ -2154,7 +2154,7 @@ x=203
 y=45
 width=11
 height=11
-layer=com_1
+layer=main_layer
 graphic=graphic_6003
 transmitop=1
 op1=Remove
@@ -2168,7 +2168,7 @@ x=204
 y=76
 width=11
 height=11
-layer=com_1
+layer=main_layer
 graphic=graphic_6003
 transmitop=1
 op1=Remove
@@ -2182,7 +2182,7 @@ x=204
 y=108
 width=11
 height=11
-layer=com_1
+layer=main_layer
 graphic=graphic_6003
 transmitop=1
 op1=Remove
@@ -2196,7 +2196,7 @@ x=204
 y=139
 width=11
 height=11
-layer=com_1
+layer=main_layer
 graphic=graphic_6003
 transmitop=1
 op1=Remove
@@ -2210,7 +2210,7 @@ x=427
 y=15
 width=11
 height=11
-layer=com_1
+layer=main_layer
 graphic=graphic_6003
 transmitop=1
 op1=Remove
@@ -2224,7 +2224,7 @@ x=427
 y=45
 width=11
 height=11
-layer=com_1
+layer=main_layer
 graphic=graphic_6003
 transmitop=1
 op1=Remove
@@ -2238,7 +2238,7 @@ x=428
 y=77
 width=11
 height=11
-layer=com_1
+layer=main_layer
 graphic=graphic_6003
 transmitop=1
 op1=Remove
@@ -2252,7 +2252,7 @@ x=428
 y=109
 width=11
 height=11
-layer=com_1
+layer=main_layer
 graphic=graphic_6003
 transmitop=1
 op1=Remove
@@ -2266,7 +2266,7 @@ x=428
 y=139
 width=11
 height=11
-layer=com_1
+layer=main_layer
 graphic=graphic_6003
 transmitop=1
 op1=Remove
@@ -2535,7 +2535,7 @@ ymode=abs_bottom
 layer=com_197
 
 // 1097:222
-[com_222]
+[background_1]
 type=graphic
 width=16
 height=16391

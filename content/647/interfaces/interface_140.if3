@@ -19,7 +19,7 @@ graphic="sworddecor,0"
 colour=0x000000
 
 // 140:2
-[com_2]
+[mine_completed_01]
 type=text
 x=15
 y=16
@@ -34,7 +34,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 140:3
-[com_3]
+[mine_completed_02]
 type=text
 x=243
 y=16
@@ -49,7 +49,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 140:4
-[com_4]
+[graphical_multi_2title]
 type=text
 x=8
 y=3
@@ -61,7 +61,7 @@ textalignh=centre
 colour=0x800000
 
 // 140:5
-[com_5]
+[graphical_multi_pic2a]
 type=model
 x=100
 y=20
@@ -71,7 +71,7 @@ model=null
 modelzoom=400
 
 // 140:6
-[com_6]
+[graphical_multi_pic2b]
 type=model
 x=325
 y=20

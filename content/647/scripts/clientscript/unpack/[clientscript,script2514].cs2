@@ -5,7 +5,7 @@ if_settext("0", mob_special_units:com_60);
 if_settext("0", mob_special_units:com_52);
 if_settext("0", mob_special_units:com_44);
 if_settext("0", mob_special_units:com_69);
-if_settext("0", mob_special_units:com_74);
+if_settext("0", mob_special_units:grand_total_qty);
 if (%varclient_839 >= 0) {
     if_settext(~tostring_spacer(%varclient_839, ","), mob_special_units:com_77);
 }

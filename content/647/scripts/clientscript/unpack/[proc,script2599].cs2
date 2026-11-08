@@ -41,24 +41,24 @@ while ($int1 < 10) {
     }
     $int1 = calc($int1 + 1);
 }
-if_settext(tostring($intarray2(%varclient_929)), mob_squad_exchange:com_101);
+if_settext(tostring($intarray2(%varclient_929)), mob_squad_exchange:total);
 %varclient_928 = $int4;
-if_settext(tostring(%varclient_928), mob_squad_exchange:com_126);
-if_settext("Remaining investment credits: <tostring(calc(%varplayerbit_6351 - %varclient_928))>", mob_squad_exchange:com_128);
+if_settext(tostring(%varclient_928), mob_squad_exchange:grand_total_text);
+if_settext("Remaining investment credits: <tostring(calc(%varplayerbit_6351 - %varclient_928))>", mob_squad_exchange:investment_total_text);
 if (%varclient_928 <= %varplayerbit_6351) {
-    if_setgraphic("mob_exchange_tick,0", mob_squad_exchange:com_123);
-    if_setonop("script2605", mob_squad_exchange:com_122);
-    if_setop(1, "Apply changes", mob_squad_exchange:com_122);
-    if_setonmouseover("v2_stone_button_in(event_com)", mob_squad_exchange:com_122);
-    if_setcolour(0xff9935, mob_squad_exchange:com_126);
-    if_setonclick(null, mob_squad_exchange:com_122);
+    if_setgraphic("mob_exchange_tick,0", mob_squad_exchange:apply_graphic);
+    if_setonop("script2605", mob_squad_exchange:apply);
+    if_setop(1, "Apply changes", mob_squad_exchange:apply);
+    if_setonmouseover("v2_stone_button_in(event_com)", mob_squad_exchange:apply);
+    if_setcolour(0xff9935, mob_squad_exchange:grand_total_text);
+    if_setonclick(null, mob_squad_exchange:apply);
 } else {
-    if_setgraphic("mob_exchange_tick,1", mob_squad_exchange:com_123);
-    if_setonop(null, mob_squad_exchange:com_122);
-    if_clearops(mob_squad_exchange:com_122);
-    if_setonmouseover(null, mob_squad_exchange:com_122);
-    if_setcolour(0xff1111, mob_squad_exchange:com_126);
-    if_setonclick("script2606(event_com)", mob_squad_exchange:com_122);
+    if_setgraphic("mob_exchange_tick,1", mob_squad_exchange:apply_graphic);
+    if_setonop(null, mob_squad_exchange:apply);
+    if_clearops(mob_squad_exchange:apply);
+    if_setonmouseover(null, mob_squad_exchange:apply);
+    if_setcolour(0xff1111, mob_squad_exchange:grand_total_text);
+    if_setonclick("script2606(event_com)", mob_squad_exchange:apply);
 }
 $int1 = 0;
 while ($int1 < 10) {
@@ -68,19 +68,19 @@ while ($int1 < 10) {
     $int1 = calc($int1 + 1);
 }
 if ($int0 > 0) {
-    if_settext("Resupply all<br>(<tostring($int0)>)", mob_squad_exchange:com_124);
+    if_settext("Resupply all<br>(<tostring($int0)>)", mob_squad_exchange:resupply_all_text);
 }
 if (%varplayerbit_6351 >= $int0 & $int0 > 0) {
-    if_setcolour(0xff9935, mob_squad_exchange:com_124);
-    if_setonop("script2603", mob_squad_exchange:com_119);
-    if_setop(1, "Resupply all", mob_squad_exchange:com_119);
-    if_setonmouseover("v2_stone_button_in(event_com)", mob_squad_exchange:com_119);
-    if_setonclick(null, mob_squad_exchange:com_119);
+    if_setcolour(0xff9935, mob_squad_exchange:resupply_all_text);
+    if_setonop("script2603", mob_squad_exchange:resupply_all);
+    if_setop(1, "Resupply all", mob_squad_exchange:resupply_all);
+    if_setonmouseover("v2_stone_button_in(event_com)", mob_squad_exchange:resupply_all);
+    if_setonclick(null, mob_squad_exchange:resupply_all);
 } else {
-    if_settext("Resupply all", mob_squad_exchange:com_124);
-    if_setcolour(0x666666, mob_squad_exchange:com_124);
-    if_setonop(null, mob_squad_exchange:com_119);
-    if_clearops(mob_squad_exchange:com_119);
-    if_setonmouseover(null, mob_squad_exchange:com_119);
-    if_setonclick("script2606(event_com)", mob_squad_exchange:com_119);
+    if_settext("Resupply all", mob_squad_exchange:resupply_all_text);
+    if_setcolour(0x666666, mob_squad_exchange:resupply_all_text);
+    if_setonop(null, mob_squad_exchange:resupply_all);
+    if_clearops(mob_squad_exchange:resupply_all);
+    if_setonmouseover(null, mob_squad_exchange:resupply_all);
+    if_setonclick("script2606(event_com)", mob_squad_exchange:resupply_all);
 }

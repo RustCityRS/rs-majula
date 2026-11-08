@@ -10,13 +10,13 @@ fill=yes
 trans=200
 
 // 801:1
-[com_1]
+[text]
 type=layer
 width=400
 height=183
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=body
 
 // 801:2
 [com_2]
@@ -145,7 +145,7 @@ graphic="v2_stone_borders_alt,10"
 colour=0x000000
 
 // 801:14
-[com_14]
+[closebutton]
 type=graphic
 x=473
 y=30
@@ -161,7 +161,7 @@ onop=closebutton_click
 onclick=closebutton_click
 
 // 801:15
-[com_15]
+[title]
 type=text
 x=21
 y=30
@@ -174,7 +174,7 @@ textshadow=yes
 colour=0xcc9800
 
 // 801:16
-[com_16]
+[body]
 type=layer
 x=20
 y=55
@@ -187,12 +187,12 @@ type=graphic
 width=16384
 height=32
 widthmode=proportion
-layer=com_1
+layer=text
 graphic="v2_borders_slim,11"
 colour=0x000000
 
 // 801:18
-[com_18]
+[body_text]
 type=text
 x=1
 y=25
@@ -200,7 +200,7 @@ width=2
 height=50
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=text
 textfont=p12_full
 text=Please note that your account has been restricted to Quick Chat, as you are currently ineligible for full chat - see our Terms and Conditions for more information.<br><br>To find out more about accessing our full chat features, your parent or guardian should click <col=6266FA><u=6266FAA>here</u></col>.
 textlineheight=14
@@ -214,6 +214,6 @@ width=16384
 height=32
 widthmode=proportion
 ymode=abs_bottom
-layer=com_1
+layer=text
 graphic="v2_borders_slim,11"
 colour=0x000000

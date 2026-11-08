@@ -57,7 +57,7 @@ transmitop=10
 op10= 
 
 // 947:5
-[com_5]
+[background_e]
 type=graphic
 x=7
 y=32
@@ -72,7 +72,7 @@ transmitop=10
 op10= 
 
 // 947:6
-[com_6]
+[background_w]
 type=graphic
 x=7
 y=32
@@ -86,7 +86,7 @@ transmitop=10
 op10= 
 
 // 947:7
-[com_7]
+[background_s]
 type=graphic
 x=17
 y=7
@@ -101,7 +101,7 @@ transmitop=10
 op10= 
 
 // 947:8
-[com_8]
+[background_n]
 type=graphic
 x=17
 y=22
@@ -115,7 +115,7 @@ transmitop=10
 op10= 
 
 // 947:9
-[com_9]
+[background_se]
 type=graphic
 x=7
 y=7
@@ -130,7 +130,7 @@ transmitop=10
 op10= 
 
 // 947:10
-[com_10]
+[background_sw]
 type=graphic
 x=7
 y=7
@@ -144,7 +144,7 @@ transmitop=10
 op10= 
 
 // 947:11
-[com_11]
+[background_ne]
 type=graphic
 x=7
 y=22
@@ -158,7 +158,7 @@ transmitop=10
 op10= 
 
 // 947:12
-[com_12]
+[background_nw]
 type=graphic
 x=7
 y=22
@@ -171,7 +171,7 @@ transmitop=10
 op10= 
 
 // 947:13
-[com_13]
+[background_image]
 type=graphic
 x=17
 y=32
@@ -184,7 +184,7 @@ transmitop=10
 op10= 
 
 // 947:14
-[com_14]
+[border_nw]
 type=graphic
 width=32
 height=32
@@ -195,7 +195,7 @@ transmitop=10
 op10= 
 
 // 947:15
-[com_15]
+[border_ne]
 type=graphic
 width=32
 height=32
@@ -207,7 +207,7 @@ transmitop=10
 op10= 
 
 // 947:16
-[com_16]
+[border_n]
 type=graphic
 x=32
 width=64
@@ -221,7 +221,7 @@ transmitop=10
 op10= 
 
 // 947:17
-[com_17]
+[border_w]
 type=graphic
 x=-13
 y=32
@@ -236,7 +236,7 @@ transmitop=10
 op10= 
 
 // 947:18
-[com_18]
+[border_sw]
 type=graphic
 y=302
 width=32
@@ -248,7 +248,7 @@ transmitop=10
 op10= 
 
 // 947:19
-[com_19]
+[border_se]
 type=graphic
 x=480
 y=302
@@ -261,7 +261,7 @@ transmitop=10
 op10= 
 
 // 947:20
-[com_20]
+[border_e]
 type=graphic
 x=492
 y=32
@@ -276,7 +276,7 @@ transmitop=10
 op10= 
 
 // 947:21
-[com_21]
+[border_s]
 type=graphic
 x=32
 y=314
@@ -291,7 +291,7 @@ transmitop=10
 op10= 
 
 // 947:22
-[com_22]
+[border_title]
 type=text
 y=-4
 width=494
@@ -308,7 +308,7 @@ transmitop=10
 op10= 
 
 // 947:23
-[com_23]
+[close_button]
 type=graphic
 x=487
 y=3
@@ -333,7 +333,7 @@ width=250
 height=211
 
 // 947:25
-[com_25]
+[floor_bg_layer]
 type=layer
 width=16391
 height=16384
@@ -347,7 +347,7 @@ type=graphic
 y=1
 width=15
 height=15
-layer=com_25
+layer=floor_bg_layer
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 transmitop=10
@@ -360,7 +360,7 @@ x=14
 y=1
 width=220
 height=15
-layer=com_25
+layer=floor_bg_layer
 graphic="rand_framea_edges,1"
 colour=0xffffffff
 transmitop=10
@@ -373,7 +373,7 @@ x=234
 y=1
 width=15
 height=15
-layer=com_25
+layer=floor_bg_layer
 graphic="rand_framea_edges,0"
 hflip=yes
 colour=0xffffffff
@@ -386,7 +386,7 @@ type=graphic
 y=16
 width=15
 height=180
-layer=com_25
+layer=floor_bg_layer
 graphic="rand_framea_edges,7"
 colour=0xffffffff
 transmitop=10
@@ -399,7 +399,7 @@ x=234
 y=16
 width=15
 height=180
-layer=com_25
+layer=floor_bg_layer
 graphic="rand_framea_edges,7"
 hflip=yes
 colour=0xffffffff
@@ -412,7 +412,7 @@ type=graphic
 y=196
 width=15
 height=15
-layer=com_25
+layer=floor_bg_layer
 graphic="rand_framea_edges,0"
 vflip=yes
 colour=0xffffffff
@@ -426,7 +426,7 @@ x=14
 y=196
 width=221
 height=15
-layer=com_25
+layer=floor_bg_layer
 graphic="rand_framea_edges,1"
 vflip=yes
 colour=0xffffffff
@@ -440,7 +440,7 @@ x=234
 y=196
 width=15
 height=15
-layer=com_25
+layer=floor_bg_layer
 graphic="rand_framea_edges,0"
 vflip=yes
 hflip=yes
@@ -455,7 +455,7 @@ x=2
 y=18
 width=245
 height=180
-layer=com_25
+layer=floor_bg_layer
 colour=0x2c2a20
 fill=yes
 transmitop=10
@@ -468,7 +468,7 @@ x=2
 y=9
 width=245
 height=226
-layer=com_25
+layer=floor_bg_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -476,7 +476,7 @@ transmitop=10
 op10=  
 
 // 947:36
-[com_36]
+[floor_select_layer]
 type=layer
 x=6
 y=7
@@ -486,7 +486,7 @@ layer=com_24
 scrollheight=690
 
 // 947:37
-[com_37]
+[floor_grad]
 type=graphic
 x=2
 y=136
@@ -501,7 +501,7 @@ transmitop=10
 op10=   
 
 // 947:38
-[com_38]
+[tooltip_build]
 type=layer
 x=6
 y=7
@@ -511,13 +511,13 @@ layer=com_24
 scrollheight=690
 
 // 947:39
-[com_39]
+[floor_tooltip]
 type=layer
 y=61
 width=16384
 height=20
 widthmode=proportion
-layer=com_38
+layer=tooltip_build
 
 // 947:40
 [com_40]
@@ -525,7 +525,7 @@ type=graphic
 x=98
 width=124
 height=20
-layer=com_39
+layer=floor_tooltip
 graphic=rand_floor_select_wood_slider
 colour=0xffffffff
 
@@ -536,7 +536,7 @@ x=11
 y=4
 width=87
 height=12
-layer=com_39
+layer=floor_tooltip
 graphic=rand_floor_select_gold_slider
 colour=0xffffffff
 
@@ -547,7 +547,7 @@ x=104
 y=1
 width=32
 height=18
-layer=com_39
+layer=floor_tooltip
 textfont=p11_full
 text=Floor
 textalignh=centre
@@ -562,17 +562,17 @@ x=58
 y=-3
 width=32
 height=32
-layer=com_39
+layer=floor_tooltip
 colour=0xffffffff
 
 // 947:44
-[com_44]
+[floor_tooltip_floor]
 type=text
 x=135
 y=1
 width=20
 height=18
-layer=com_39
+layer=floor_tooltip
 textfont=p11_full
 text=1
 textalignh=centre
@@ -581,13 +581,13 @@ textshadow=yes
 colour=0xe2e2a2
 
 // 947:45
-[com_45]
+[floor_tooltip_theme]
 type=text
 x=154
 y=1
 width=68
 height=18
-layer=com_39
+layer=floor_tooltip
 textfont=p11_full
 text=Frozen
 textalignh=centre
@@ -596,18 +596,18 @@ textshadow=yes
 colour=0xe2e2a2
 
 // 947:46
-[com_46]
+[floor_bg_image]
 type=graphic
 x=-27
 y=-10
 width=275
 height=705
-layer=com_36
+layer=floor_select_layer
 graphic=rand_floor_select_bg_image
 colour=0xffffffff
 
 // 947:47
-[com_47]
+[scroll]
 type=layer
 x=228
 y=7
@@ -616,872 +616,872 @@ height=200
 layer=com_24
 transmitop=10
 op10=  
-onload=scrollbar_vertical_graphics_2(event_com, rand_floor_select:com_36, rand_floor_select:com_38, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics_2(event_com, rand_floor_select:floor_select_layer, rand_floor_select:tooltip_build, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 947:48
-[com_48]
+[floor_button_1]
 type=layer
 y=66
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1
 op1=Select-floor
-onmouseover=script3284(1, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(1, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:49
-[com_49]
+[floor_button_2]
 type=layer
 y=76
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(2, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(2, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:50
-[com_50]
+[floor_button_3]
 type=layer
 y=86
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(3, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(3, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:51
-[com_51]
+[floor_button_4]
 type=layer
 y=96
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(4, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(4, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:52
-[com_52]
+[floor_button_5]
 type=layer
 y=106
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(5, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(5, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:53
-[com_53]
+[floor_button_6]
 type=layer
 y=116
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(6, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(6, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:54
-[com_54]
+[floor_button_7]
 type=layer
 y=126
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(7, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(7, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:55
-[com_55]
+[floor_button_8]
 type=layer
 y=136
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(8, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(8, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:56
-[com_56]
+[floor_button_9]
 type=layer
 y=146
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(9, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(9, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:57
-[com_57]
+[floor_button_10]
 type=layer
 y=156
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(10, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(10, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:58
-[com_58]
+[floor_button_11]
 type=layer
 y=166
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(11, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(11, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:59
-[com_59]
+[floor_button_12]
 type=layer
 y=176
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(12, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(12, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:60
-[com_60]
+[floor_button_13]
 type=layer
 y=186
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(13, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(13, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:61
-[com_61]
+[floor_button_14]
 type=layer
 y=196
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(14, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(14, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:62
-[com_62]
+[floor_button_15]
 type=layer
 y=206
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(15, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(15, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:63
-[com_63]
+[floor_button_16]
 type=layer
 y=216
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(16, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(16, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:64
-[com_64]
+[floor_button_17]
 type=layer
 y=226
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(17, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(17, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:65
-[com_65]
+[floor_button_18]
 type=layer
 y=236
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(18, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(18, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:66
-[com_66]
+[floor_button_19]
 type=layer
 y=246
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(19, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(19, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:67
-[com_67]
+[floor_button_20]
 type=layer
 y=256
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(20, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(20, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:68
-[com_68]
+[floor_button_21]
 type=layer
 y=266
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(21, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(21, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:69
-[com_69]
+[floor_button_22]
 type=layer
 y=276
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(22, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(22, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:70
-[com_70]
+[floor_button_23]
 type=layer
 y=286
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(23, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(23, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:71
-[com_71]
+[floor_button_24]
 type=layer
 y=296
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(24, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(24, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:72
-[com_72]
+[floor_button_25]
 type=layer
 y=306
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(25, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(25, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:73
-[com_73]
+[floor_button_26]
 type=layer
 y=316
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(26, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(26, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:74
-[com_74]
+[floor_button_27]
 type=layer
 y=326
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(27, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(27, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:75
-[com_75]
+[floor_button_28]
 type=layer
 y=336
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(28, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(28, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:76
-[com_76]
+[floor_button_29]
 type=layer
 y=346
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(29, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(29, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:77
-[com_77]
+[floor_button_30]
 type=layer
 y=356
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(30, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(30, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:78
-[com_78]
+[floor_button_31]
 type=layer
 y=366
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(31, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(31, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:79
-[com_79]
+[floor_button_32]
 type=layer
 y=376
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(32, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(32, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:80
-[com_80]
+[floor_button_33]
 type=layer
 y=386
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(33, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(33, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:81
-[com_81]
+[floor_button_34]
 type=layer
 y=396
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(34, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(34, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:82
-[com_82]
+[floor_button_35]
 type=layer
 y=406
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(35, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(35, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:83
-[com_83]
+[floor_button_36]
 type=layer
 y=416
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(36, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(36, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:84
-[com_84]
+[floor_button_37]
 type=layer
 y=426
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(37, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(37, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:85
-[com_85]
+[floor_button_38]
 type=layer
 y=436
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(38, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(38, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:86
-[com_86]
+[floor_button_39]
 type=layer
 y=446
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(39, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(39, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:87
-[com_87]
+[floor_button_40]
 type=layer
 y=456
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(40, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(40, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:88
-[com_88]
+[floor_button_41]
 type=layer
 y=466
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(41, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(41, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:89
-[com_89]
+[floor_button_42]
 type=layer
 y=476
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(42, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(42, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:90
-[com_90]
+[floor_button_43]
 type=layer
 y=486
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(43, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(43, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:91
-[com_91]
+[floor_button_44]
 type=layer
 y=496
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(44, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(44, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:92
-[com_92]
+[floor_button_45]
 type=layer
 y=506
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(45, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(45, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:93
-[com_93]
+[floor_button_46]
 type=layer
 y=516
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(46, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(46, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:94
-[com_94]
+[floor_button_47]
 type=layer
 y=526
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(47, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(47, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:95
-[com_95]
+[floor_button_48]
 type=layer
 y=536
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(48, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(48, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:96
-[com_96]
+[floor_button_49]
 type=layer
 y=546
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(49, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(49, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:97
-[com_97]
+[floor_button_50]
 type=layer
 y=556
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(50, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(50, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:98
-[com_98]
+[floor_button_51]
 type=layer
 y=566
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10= 
-onmouseover=script3284(51, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(51, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:99
-[com_99]
+[floor_button_52]
 type=layer
 y=576
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(52, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(52, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:100
-[com_100]
+[floor_button_53]
 type=layer
 y=586
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(53, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(53, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:101
-[com_101]
+[floor_button_54]
 type=layer
 y=596
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(54, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(54, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:102
-[com_102]
+[floor_button_55]
 type=layer
 y=606
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(55, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(55, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:103
-[com_103]
+[floor_button_56]
 type=layer
 y=616
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(56, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(56, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:104
-[com_104]
+[floor_button_57]
 type=layer
 y=626
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(57, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(57, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:105
-[com_105]
+[floor_button_58]
 type=layer
 y=636
 width=16384
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(58, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(58, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:106
-[com_106]
+[floor_button_59]
 type=layer
 y=646
 width=16391
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(59, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(59, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:107
-[com_107]
+[floor_button_60]
 type=layer
 y=656
 width=16391
 height=10
 widthmode=proportion
-layer=com_36
+layer=floor_select_layer
 hide=yes
 transmitop=1,10
 op1=Select-floor
 op10=  
-onmouseover=script3284(60, rand_floor_select:com_39, rand_floor_select:com_44, rand_floor_select:com_45)
+onmouseover=script3284(60, rand_floor_select:floor_tooltip, rand_floor_select:floor_tooltip_floor, rand_floor_select:floor_tooltip_theme)
 
 // 947:108
-[com_108]
+[progress_layer]
 type=layer
 y=50
 width=92
 height=635
-layer=com_36
+layer=floor_select_layer
 
 // 947:109
-[com_109]
+[standard_charge_35_192]
 type=layer
 width=31350
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_108
+layer=progress_layer
 
 // 947:110
-[com_110]
+[quantity_buttons_runescape_surface]
 type=text
 x=9
 y=-1
 width=20
 height=20
-layer=com_108
+layer=progress_layer
 textfont=b12_full
 text=1
 textalignh=centre
@@ -1491,22 +1491,22 @@ transmitop=10
 op10= 
 
 // 947:111
-[com_111]
+[progress_no_layer]
 type=layer
 x=11
 y=17
 width=14
 height=605
-layer=com_108
+layer=progress_layer
 
 // 947:112
-[com_112]
+[player_label_2]
 type=text
 x=23
 y=-1
 width=20
 height=20
-layer=com_108
+layer=progress_layer
 textfont=b12_full
 text=2
 textalignh=centre
@@ -1516,24 +1516,24 @@ transmitop=10
 op10=  
 
 // 947:113
-[com_113]
+[progress_p2_layer]
 type=layer
 x=25
 y=17
 width=14
 height=605
-layer=com_108
+layer=progress_layer
 transmitop=10
 op10= 
 
 // 947:114
-[com_114]
+[player_label_3]
 type=text
 x=37
 y=-1
 width=20
 height=20
-layer=com_108
+layer=progress_layer
 textfont=b12_full
 text=3
 textalignh=centre
@@ -1543,24 +1543,24 @@ transmitop=10
 op10=  
 
 // 947:115
-[com_115]
+[progress_p3_layer]
 type=layer
 x=39
 y=17
 width=14
 height=605
-layer=com_108
+layer=progress_layer
 transmitop=10
 op10=  
 
 // 947:116
-[com_116]
+[player_label_4]
 type=text
 x=51
 y=-1
 width=20
 height=20
-layer=com_108
+layer=progress_layer
 textfont=b12_full
 text=4
 textalignh=centre
@@ -1570,24 +1570,24 @@ transmitop=10
 op10=  
 
 // 947:117
-[com_117]
+[progress_p4_layer]
 type=layer
 x=53
 y=17
 width=14
 height=605
-layer=com_108
+layer=progress_layer
 transmitop=10
 op10=   
 
 // 947:118
-[com_118]
+[player_label_5]
 type=text
 x=65
 y=-1
 width=20
 height=20
-layer=com_108
+layer=progress_layer
 textfont=b12_full
 text=5
 textalignh=centre
@@ -1597,23 +1597,23 @@ transmitop=10
 op10=  
 
 // 947:119
-[com_119]
+[progress_p5_layer]
 type=layer
 x=67
 y=17
 width=14
 height=605
-layer=com_108
+layer=progress_layer
 transmitop=10
 op10=    
 
 // 947:120
-[com_120]
+[floor_1_p_5]
 type=graphic
 x=3
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,0"
 colour=0xffffffff
@@ -1621,13 +1621,13 @@ transmitop=10
 op10=    
 
 // 947:121
-[com_121]
+[floor_2_p_5]
 type=graphic
 x=3
 y=10
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,1"
 colour=0xffffffff
@@ -1635,13 +1635,13 @@ transmitop=10
 op10=     
 
 // 947:122
-[com_122]
+[floor_3_p_5]
 type=graphic
 x=3
 y=20
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,2"
 colour=0xffffffff
@@ -1649,13 +1649,13 @@ transmitop=10
 op10=     
 
 // 947:123
-[com_123]
+[floor_4_p_5]
 type=graphic
 x=3
 y=30
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,3"
 colour=0xffffffff
@@ -1663,13 +1663,13 @@ transmitop=10
 op10=     
 
 // 947:124
-[com_124]
+[floor_5_p_5]
 type=graphic
 x=3
 y=40
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,4"
 colour=0xffffffff
@@ -1677,13 +1677,13 @@ transmitop=10
 op10=     
 
 // 947:125
-[com_125]
+[floor_6_p_5]
 type=graphic
 x=3
 y=50
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,5"
 colour=0xffffffff
@@ -1691,13 +1691,13 @@ transmitop=10
 op10=     
 
 // 947:126
-[com_126]
+[floor_7_p_5]
 type=graphic
 x=3
 y=60
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,6"
 colour=0xffffffff
@@ -1705,13 +1705,13 @@ transmitop=10
 op10=     
 
 // 947:127
-[com_127]
+[floor_8_p_5]
 type=graphic
 x=3
 y=70
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,7"
 colour=0xffffffff
@@ -1719,13 +1719,13 @@ transmitop=10
 op10=     
 
 // 947:128
-[com_128]
+[floor_9_p_5]
 type=graphic
 x=3
 y=80
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,8"
 colour=0xffffffff
@@ -1733,13 +1733,13 @@ transmitop=10
 op10=     
 
 // 947:129
-[com_129]
+[floor_10_p_5]
 type=graphic
 x=3
 y=90
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,9"
 colour=0xffffffff
@@ -1747,13 +1747,13 @@ transmitop=10
 op10=     
 
 // 947:130
-[com_130]
+[floor_11_p_5]
 type=graphic
 x=3
 y=100
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,10"
 colour=0xffffffff
@@ -1761,13 +1761,13 @@ transmitop=10
 op10=      
 
 // 947:131
-[com_131]
+[floor_12_p_5]
 type=graphic
 x=3
 y=110
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,11"
 colour=0xffffffff
@@ -1775,13 +1775,13 @@ transmitop=10
 op10=      
 
 // 947:132
-[com_132]
+[floor_13_p_5]
 type=graphic
 x=3
 y=120
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,12"
 colour=0xffffffff
@@ -1789,13 +1789,13 @@ transmitop=10
 op10=      
 
 // 947:133
-[com_133]
+[floor_14_p_5]
 type=graphic
 x=3
 y=130
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,13"
 colour=0xffffffff
@@ -1803,13 +1803,13 @@ transmitop=10
 op10=      
 
 // 947:134
-[com_134]
+[floor_15_p_5]
 type=graphic
 x=3
 y=140
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,14"
 colour=0xffffffff
@@ -1817,13 +1817,13 @@ transmitop=10
 op10=      
 
 // 947:135
-[com_135]
+[floor_16_p_5]
 type=graphic
 x=3
 y=150
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,15"
 colour=0xffffffff
@@ -1831,13 +1831,13 @@ transmitop=10
 op10=      
 
 // 947:136
-[com_136]
+[floor_17_p_5]
 type=graphic
 x=3
 y=160
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,16"
 colour=0xffffffff
@@ -1845,13 +1845,13 @@ transmitop=10
 op10=      
 
 // 947:137
-[com_137]
+[floor_18_p_5]
 type=graphic
 x=3
 y=170
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,17"
 colour=0xffffffff
@@ -1859,13 +1859,13 @@ transmitop=10
 op10=      
 
 // 947:138
-[com_138]
+[floor_19_p_5]
 type=graphic
 x=3
 y=180
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,18"
 colour=0xffffffff
@@ -1873,13 +1873,13 @@ transmitop=10
 op10=      
 
 // 947:139
-[com_139]
+[floor_20_p_5]
 type=graphic
 x=3
 y=190
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,19"
 colour=0xffffffff
@@ -1887,13 +1887,13 @@ transmitop=10
 op10=      
 
 // 947:140
-[com_140]
+[floor_21_p_5]
 type=graphic
 x=3
 y=200
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,20"
 colour=0xffffffff
@@ -1901,13 +1901,13 @@ transmitop=10
 op10=       
 
 // 947:141
-[com_141]
+[floor_22_p_5]
 type=graphic
 x=3
 y=210
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,21"
 colour=0xffffffff
@@ -1915,13 +1915,13 @@ transmitop=10
 op10=       
 
 // 947:142
-[com_142]
+[floor_23_p_5]
 type=graphic
 x=3
 y=220
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,22"
 colour=0xffffffff
@@ -1929,13 +1929,13 @@ transmitop=10
 op10=       
 
 // 947:143
-[com_143]
+[floor_24_p_5]
 type=graphic
 x=3
 y=230
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,23"
 colour=0xffffffff
@@ -1943,13 +1943,13 @@ transmitop=10
 op10=       
 
 // 947:144
-[com_144]
+[floor_25_p_5]
 type=graphic
 x=3
 y=240
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,24"
 colour=0xffffffff
@@ -1957,13 +1957,13 @@ transmitop=10
 op10=       
 
 // 947:145
-[com_145]
+[floor_26_p_5]
 type=graphic
 x=3
 y=250
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,25"
 colour=0xffffffff
@@ -1971,13 +1971,13 @@ transmitop=10
 op10=       
 
 // 947:146
-[com_146]
+[floor_27_p_5]
 type=graphic
 x=3
 y=260
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,26"
 colour=0xffffffff
@@ -1985,13 +1985,13 @@ transmitop=10
 op10=       
 
 // 947:147
-[com_147]
+[floor_28_p_5]
 type=graphic
 x=3
 y=270
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,27"
 colour=0xffffffff
@@ -1999,13 +1999,13 @@ transmitop=10
 op10=       
 
 // 947:148
-[com_148]
+[floor_29_p_5]
 type=graphic
 x=3
 y=280
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,28"
 colour=0xffffffff
@@ -2013,13 +2013,13 @@ transmitop=10
 op10=       
 
 // 947:149
-[com_149]
+[floor_30_p_5]
 type=graphic
 x=3
 y=290
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,29"
 colour=0xffffffff
@@ -2027,13 +2027,13 @@ transmitop=10
 op10=       
 
 // 947:150
-[com_150]
+[floor_31_p_5]
 type=graphic
 x=3
 y=300
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,30"
 colour=0xffffffff
@@ -2041,13 +2041,13 @@ transmitop=10
 op10=        
 
 // 947:151
-[com_151]
+[floor_32_p_5]
 type=graphic
 x=3
 y=310
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,31"
 colour=0xffffffff
@@ -2055,13 +2055,13 @@ transmitop=10
 op10=        
 
 // 947:152
-[com_152]
+[floor_33_p_5]
 type=graphic
 x=3
 y=320
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,32"
 colour=0xffffffff
@@ -2069,13 +2069,13 @@ transmitop=10
 op10=        
 
 // 947:153
-[com_153]
+[floor_34_p_5]
 type=graphic
 x=3
 y=330
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,33"
 colour=0xffffffff
@@ -2083,13 +2083,13 @@ transmitop=10
 op10=        
 
 // 947:154
-[com_154]
+[floor_35_p_5]
 type=graphic
 x=3
 y=340
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,34"
 colour=0xffffffff
@@ -2097,13 +2097,13 @@ transmitop=10
 op10=        
 
 // 947:155
-[com_155]
+[floor_36_p_5]
 type=graphic
 x=3
 y=350
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,35"
 colour=0xffffffff
@@ -2111,13 +2111,13 @@ transmitop=10
 op10=        
 
 // 947:156
-[com_156]
+[floor_37_p_5]
 type=graphic
 x=3
 y=360
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,36"
 colour=0xffffffff
@@ -2125,13 +2125,13 @@ transmitop=10
 op10=        
 
 // 947:157
-[com_157]
+[floor_38_p_5]
 type=graphic
 x=3
 y=370
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,37"
 colour=0xffffffff
@@ -2139,13 +2139,13 @@ transmitop=10
 op10=        
 
 // 947:158
-[com_158]
+[floor_39_p_5]
 type=graphic
 x=3
 y=380
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,38"
 colour=0xffffffff
@@ -2153,13 +2153,13 @@ transmitop=10
 op10=        
 
 // 947:159
-[com_159]
+[floor_40_p_5]
 type=graphic
 x=3
 y=390
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,39"
 colour=0xffffffff
@@ -2167,13 +2167,13 @@ transmitop=10
 op10=        
 
 // 947:160
-[com_160]
+[floor_41_p_5]
 type=graphic
 x=3
 y=400
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,40"
 colour=0xffffffff
@@ -2181,13 +2181,13 @@ transmitop=10
 op10=         
 
 // 947:161
-[com_161]
+[floor_42_p_5]
 type=graphic
 x=3
 y=410
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,41"
 colour=0xffffffff
@@ -2195,13 +2195,13 @@ transmitop=10
 op10=         
 
 // 947:162
-[com_162]
+[unlockspanes5]
 type=graphic
 x=3
 y=420
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,42"
 colour=0xffffffff
@@ -2209,13 +2209,13 @@ transmitop=10
 op10=         
 
 // 947:163
-[com_163]
+[floor_44_p_5]
 type=graphic
 x=3
 y=430
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,43"
 colour=0xffffffff
@@ -2223,13 +2223,13 @@ transmitop=10
 op10=         
 
 // 947:164
-[com_164]
+[floor_45_p_5]
 type=graphic
 x=3
 y=440
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,44"
 colour=0xffffffff
@@ -2237,13 +2237,13 @@ transmitop=10
 op10=         
 
 // 947:165
-[com_165]
+[floor_46_p_5]
 type=graphic
 x=3
 y=450
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,45"
 colour=0xffffffff
@@ -2251,13 +2251,13 @@ transmitop=10
 op10=         
 
 // 947:166
-[com_166]
+[floor_47_p_5]
 type=graphic
 x=3
 y=460
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,46"
 colour=0xffffffff
@@ -2265,13 +2265,13 @@ transmitop=10
 op10=         
 
 // 947:167
-[com_167]
+[floor_48_p_5]
 type=graphic
 x=3
 y=470
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,47"
 colour=0xffffffff
@@ -2279,13 +2279,13 @@ transmitop=10
 op10=         
 
 // 947:168
-[com_168]
+[floor_49_p_5]
 type=graphic
 x=3
 y=480
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,48"
 colour=0xffffffff
@@ -2293,13 +2293,13 @@ transmitop=10
 op10=         
 
 // 947:169
-[com_169]
+[floor_50_p_5]
 type=graphic
 x=3
 y=490
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,49"
 colour=0xffffffff
@@ -2307,13 +2307,13 @@ transmitop=10
 op10=         
 
 // 947:170
-[com_170]
+[floor_51_p_5]
 type=graphic
 x=3
 y=500
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,50"
 colour=0xffffffff
@@ -2321,13 +2321,13 @@ transmitop=10
 op10=          
 
 // 947:171
-[com_171]
+[floor_52_p_5]
 type=graphic
 x=3
 y=510
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,51"
 colour=0xffffffff
@@ -2335,13 +2335,13 @@ transmitop=10
 op10=          
 
 // 947:172
-[com_172]
+[floor_53_p_5]
 type=graphic
 x=3
 y=520
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,52"
 colour=0xffffffff
@@ -2349,13 +2349,13 @@ transmitop=10
 op10=          
 
 // 947:173
-[com_173]
+[floor_54_p_5]
 type=graphic
 x=3
 y=530
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,53"
 colour=0xffffffff
@@ -2363,13 +2363,13 @@ transmitop=10
 op10=          
 
 // 947:174
-[com_174]
+[floor_55_p_5]
 type=graphic
 x=3
 y=540
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,54"
 colour=0xffffffff
@@ -2377,13 +2377,13 @@ transmitop=10
 op10=          
 
 // 947:175
-[com_175]
+[floor_56_p_5]
 type=graphic
 x=3
 y=550
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,55"
 colour=0xffffffff
@@ -2391,13 +2391,13 @@ transmitop=10
 op10=          
 
 // 947:176
-[com_176]
+[floor_57_p_5]
 type=graphic
 x=3
 y=560
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,56"
 colour=0xffffffff
@@ -2405,13 +2405,13 @@ transmitop=10
 op10=          
 
 // 947:177
-[com_177]
+[floor_58_p_5]
 type=graphic
 x=3
 y=570
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,57"
 colour=0xffffffff
@@ -2419,13 +2419,13 @@ transmitop=10
 op10=          
 
 // 947:178
-[com_178]
+[floor_59_p_5]
 type=graphic
 x=3
 y=580
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,58"
 colour=0xffffffff
@@ -2433,13 +2433,13 @@ transmitop=10
 op10=          
 
 // 947:179
-[com_179]
+[floor_60_p_5]
 type=graphic
 x=3
 y=590
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,59"
 colour=0xffffffff
@@ -2447,23 +2447,23 @@ transmitop=10
 op10=          
 
 // 947:180
-[com_180]
+[progress_p5_layer_1]
 type=layer
 y=-2
 width=14
 height=605
-layer=com_119
+layer=progress_p5_layer
 transmitop=10
 op10=     
 
 // 947:181
-[com_181]
+[floor_1_p_10]
 type=graphic
 x=3
 y=2
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2471,13 +2471,13 @@ transmitop=10
 op10=     
 
 // 947:182
-[com_182]
+[floor_2_p_10]
 type=graphic
 x=3
 y=12
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2485,13 +2485,13 @@ transmitop=10
 op10=      
 
 // 947:183
-[com_183]
+[floor_3_p_10]
 type=graphic
 x=3
 y=22
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2499,13 +2499,13 @@ transmitop=10
 op10=      
 
 // 947:184
-[com_184]
+[floor_4_p_10]
 type=graphic
 x=3
 y=32
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2513,13 +2513,13 @@ transmitop=10
 op10=      
 
 // 947:185
-[com_185]
+[floor_5_p_10]
 type=graphic
 x=3
 y=42
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2527,13 +2527,13 @@ transmitop=10
 op10=      
 
 // 947:186
-[com_186]
+[floor_6_p_10]
 type=graphic
 x=3
 y=52
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2541,13 +2541,13 @@ transmitop=10
 op10=      
 
 // 947:187
-[com_187]
+[floor_7_p_10]
 type=graphic
 x=3
 y=62
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2555,13 +2555,13 @@ transmitop=10
 op10=      
 
 // 947:188
-[com_188]
+[floor_8_p_10]
 type=graphic
 x=3
 y=72
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2569,13 +2569,13 @@ transmitop=10
 op10=      
 
 // 947:189
-[com_189]
+[floor_9_p_10]
 type=graphic
 x=3
 y=82
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2583,13 +2583,13 @@ transmitop=10
 op10=      
 
 // 947:190
-[com_190]
+[floor_10_p_10]
 type=graphic
 x=3
 y=92
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2597,13 +2597,13 @@ transmitop=10
 op10=      
 
 // 947:191
-[com_191]
+[floor_11_p_10]
 type=graphic
 x=3
 y=102
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2611,13 +2611,13 @@ transmitop=10
 op10=       
 
 // 947:192
-[com_192]
+[floor_12_p_10]
 type=graphic
 x=3
 y=112
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2625,13 +2625,13 @@ transmitop=10
 op10=       
 
 // 947:193
-[com_193]
+[floor_13_p_10]
 type=graphic
 x=3
 y=122
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2639,13 +2639,13 @@ transmitop=10
 op10=       
 
 // 947:194
-[com_194]
+[floor_14_p_10]
 type=graphic
 x=3
 y=132
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2653,13 +2653,13 @@ transmitop=10
 op10=       
 
 // 947:195
-[com_195]
+[floor_15_p_10]
 type=graphic
 x=3
 y=142
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2667,13 +2667,13 @@ transmitop=10
 op10=       
 
 // 947:196
-[com_196]
+[floor_16_p_10]
 type=graphic
 x=3
 y=152
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2681,13 +2681,13 @@ transmitop=10
 op10=       
 
 // 947:197
-[com_197]
+[floor_17_p_10]
 type=graphic
 x=3
 y=162
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2695,13 +2695,13 @@ transmitop=10
 op10=       
 
 // 947:198
-[com_198]
+[floor_18_p_10]
 type=graphic
 x=3
 y=172
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2709,13 +2709,13 @@ transmitop=10
 op10=       
 
 // 947:199
-[com_199]
+[floor_19_p_10]
 type=graphic
 x=3
 y=182
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2723,13 +2723,13 @@ transmitop=10
 op10=       
 
 // 947:200
-[com_200]
+[floor_20_p_10]
 type=graphic
 x=3
 y=192
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2737,13 +2737,13 @@ transmitop=10
 op10=       
 
 // 947:201
-[com_201]
+[floor_21_p_10]
 type=graphic
 x=3
 y=202
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2751,13 +2751,13 @@ transmitop=10
 op10=        
 
 // 947:202
-[com_202]
+[floor_22_p_10]
 type=graphic
 x=3
 y=212
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2765,13 +2765,13 @@ transmitop=10
 op10=        
 
 // 947:203
-[com_203]
+[floor_23_p_10]
 type=graphic
 x=3
 y=222
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2779,13 +2779,13 @@ transmitop=10
 op10=        
 
 // 947:204
-[com_204]
+[floor_24_p_10]
 type=graphic
 x=3
 y=232
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2793,13 +2793,13 @@ transmitop=10
 op10=        
 
 // 947:205
-[com_205]
+[floor_25_p_10]
 type=graphic
 x=3
 y=242
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2807,13 +2807,13 @@ transmitop=10
 op10=        
 
 // 947:206
-[com_206]
+[floor_26_p_10]
 type=graphic
 x=3
 y=252
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2821,13 +2821,13 @@ transmitop=10
 op10=        
 
 // 947:207
-[com_207]
+[floor_27_p_10]
 type=graphic
 x=3
 y=262
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2835,13 +2835,13 @@ transmitop=10
 op10=        
 
 // 947:208
-[com_208]
+[floor_28_p_10]
 type=graphic
 x=3
 y=272
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2849,13 +2849,13 @@ transmitop=10
 op10=        
 
 // 947:209
-[com_209]
+[floor_29_p_10]
 type=graphic
 x=3
 y=282
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2863,13 +2863,13 @@ transmitop=10
 op10=        
 
 // 947:210
-[com_210]
+[floor_30_p_10]
 type=graphic
 x=3
 y=292
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2877,13 +2877,13 @@ transmitop=10
 op10=        
 
 // 947:211
-[com_211]
+[floor_31_p_10]
 type=graphic
 x=3
 y=302
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2891,13 +2891,13 @@ transmitop=10
 op10=         
 
 // 947:212
-[com_212]
+[floor_32_p_10]
 type=graphic
 x=3
 y=312
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2905,13 +2905,13 @@ transmitop=10
 op10=         
 
 // 947:213
-[com_213]
+[floor_33_p_10]
 type=graphic
 x=3
 y=322
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2919,13 +2919,13 @@ transmitop=10
 op10=         
 
 // 947:214
-[com_214]
+[floor_34_p_10]
 type=graphic
 x=3
 y=332
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2933,13 +2933,13 @@ transmitop=10
 op10=         
 
 // 947:215
-[com_215]
+[floor_35_p_10]
 type=graphic
 x=3
 y=342
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2947,13 +2947,13 @@ transmitop=10
 op10=         
 
 // 947:216
-[com_216]
+[floor_36_p_10]
 type=graphic
 x=3
 y=352
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2961,13 +2961,13 @@ transmitop=10
 op10=         
 
 // 947:217
-[com_217]
+[floor_37_p_10]
 type=graphic
 x=3
 y=362
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2975,13 +2975,13 @@ transmitop=10
 op10=         
 
 // 947:218
-[com_218]
+[floor_38_p_10]
 type=graphic
 x=3
 y=372
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -2989,13 +2989,13 @@ transmitop=10
 op10=         
 
 // 947:219
-[com_219]
+[floor_39_p_10]
 type=graphic
 x=3
 y=382
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3003,13 +3003,13 @@ transmitop=10
 op10=         
 
 // 947:220
-[com_220]
+[floor_40_p_10]
 type=graphic
 x=3
 y=392
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3017,13 +3017,13 @@ transmitop=10
 op10=         
 
 // 947:221
-[com_221]
+[floor_41_p_10]
 type=graphic
 x=3
 y=402
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3031,13 +3031,13 @@ transmitop=10
 op10=          
 
 // 947:222
-[com_222]
+[floor_42_p_10]
 type=graphic
 x=3
 y=412
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3045,13 +3045,13 @@ transmitop=10
 op10=          
 
 // 947:223
-[com_223]
+[unlockspanes10]
 type=graphic
 x=3
 y=422
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3059,13 +3059,13 @@ transmitop=10
 op10=          
 
 // 947:224
-[com_224]
+[floor_44_p_10]
 type=graphic
 x=3
 y=432
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3073,13 +3073,13 @@ transmitop=10
 op10=          
 
 // 947:225
-[com_225]
+[floor_45_p_10]
 type=graphic
 x=3
 y=442
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3087,13 +3087,13 @@ transmitop=10
 op10=          
 
 // 947:226
-[com_226]
+[floor_46_p_10]
 type=graphic
 x=3
 y=452
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3101,13 +3101,13 @@ transmitop=10
 op10=          
 
 // 947:227
-[com_227]
+[floor_47_p_10]
 type=graphic
 x=3
 y=462
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3115,13 +3115,13 @@ transmitop=10
 op10=          
 
 // 947:228
-[com_228]
+[floor_48_p_10]
 type=graphic
 x=3
 y=472
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3129,13 +3129,13 @@ transmitop=10
 op10=          
 
 // 947:229
-[com_229]
+[floor_49_p_10]
 type=graphic
 x=3
 y=482
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3143,13 +3143,13 @@ transmitop=10
 op10=          
 
 // 947:230
-[com_230]
+[floor_50_p_10]
 type=graphic
 x=3
 y=492
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3157,13 +3157,13 @@ transmitop=10
 op10=          
 
 // 947:231
-[com_231]
+[floor_51_p_10]
 type=graphic
 x=3
 y=502
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3171,13 +3171,13 @@ transmitop=10
 op10=           
 
 // 947:232
-[com_232]
+[floor_52_p_10]
 type=graphic
 x=3
 y=512
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3185,13 +3185,13 @@ transmitop=10
 op10=           
 
 // 947:233
-[com_233]
+[floor_53_p_10]
 type=graphic
 x=3
 y=522
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3199,13 +3199,13 @@ transmitop=10
 op10=           
 
 // 947:234
-[com_234]
+[floor_54_p_10]
 type=graphic
 x=3
 y=532
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3213,13 +3213,13 @@ transmitop=10
 op10=           
 
 // 947:235
-[com_235]
+[floor_55_p_10]
 type=graphic
 x=3
 y=542
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3227,13 +3227,13 @@ transmitop=10
 op10=           
 
 // 947:236
-[com_236]
+[floor_56_p_10]
 type=graphic
 x=3
 y=552
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3241,13 +3241,13 @@ transmitop=10
 op10=           
 
 // 947:237
-[com_237]
+[floor_57_p_10]
 type=graphic
 x=3
 y=562
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3255,13 +3255,13 @@ transmitop=10
 op10=           
 
 // 947:238
-[com_238]
+[floor_58_p_10]
 type=graphic
 x=3
 y=572
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3269,13 +3269,13 @@ transmitop=10
 op10=           
 
 // 947:239
-[com_239]
+[floor_59_p_10]
 type=graphic
 x=3
 y=582
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3283,13 +3283,13 @@ transmitop=10
 op10=           
 
 // 947:240
-[com_240]
+[floor_60_p_10]
 type=graphic
 x=3
 y=592
 width=8
 height=9
-layer=com_180
+layer=progress_p5_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -3297,24 +3297,24 @@ transmitop=10
 op10=           
 
 // 947:241
-[com_241]
+[floor_cap_p5]
 type=graphic
 x=3
 width=8
 height=10
-layer=com_119
+layer=progress_p5_layer
 graphic=rand_floor_select_progress_end_trinket2
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 947:242
-[com_242]
+[floor_1_p_4]
 type=graphic
 x=3
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,0"
 colour=0xffffffff
@@ -3322,13 +3322,13 @@ transmitop=10
 op10=   
 
 // 947:243
-[com_243]
+[floor_2_p_4]
 type=graphic
 x=3
 y=10
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,1"
 colour=0xffffffff
@@ -3336,13 +3336,13 @@ transmitop=10
 op10=    
 
 // 947:244
-[com_244]
+[floor_3_p_4]
 type=graphic
 x=3
 y=20
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,2"
 colour=0xffffffff
@@ -3350,13 +3350,13 @@ transmitop=10
 op10=    
 
 // 947:245
-[com_245]
+[floor_4_p_4]
 type=graphic
 x=3
 y=30
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,3"
 colour=0xffffffff
@@ -3364,13 +3364,13 @@ transmitop=10
 op10=    
 
 // 947:246
-[com_246]
+[floor_5_p_4]
 type=graphic
 x=3
 y=40
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,4"
 colour=0xffffffff
@@ -3378,13 +3378,13 @@ transmitop=10
 op10=    
 
 // 947:247
-[com_247]
+[floor_6_p_4]
 type=graphic
 x=3
 y=50
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,5"
 colour=0xffffffff
@@ -3392,13 +3392,13 @@ transmitop=10
 op10=    
 
 // 947:248
-[com_248]
+[floor_7_p_4]
 type=graphic
 x=3
 y=60
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,6"
 colour=0xffffffff
@@ -3406,13 +3406,13 @@ transmitop=10
 op10=    
 
 // 947:249
-[com_249]
+[floor_8_p_4]
 type=graphic
 x=3
 y=70
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,7"
 colour=0xffffffff
@@ -3420,13 +3420,13 @@ transmitop=10
 op10=    
 
 // 947:250
-[com_250]
+[floor_9_p_4]
 type=graphic
 x=3
 y=80
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,8"
 colour=0xffffffff
@@ -3434,13 +3434,13 @@ transmitop=10
 op10=    
 
 // 947:251
-[com_251]
+[floor_10_p_4]
 type=graphic
 x=3
 y=90
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,9"
 colour=0xffffffff
@@ -3448,13 +3448,13 @@ transmitop=10
 op10=    
 
 // 947:252
-[com_252]
+[floor_11_p_4]
 type=graphic
 x=3
 y=100
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,10"
 colour=0xffffffff
@@ -3462,13 +3462,13 @@ transmitop=10
 op10=     
 
 // 947:253
-[com_253]
+[floor_12_p_4]
 type=graphic
 x=3
 y=110
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,11"
 colour=0xffffffff
@@ -3476,13 +3476,13 @@ transmitop=10
 op10=     
 
 // 947:254
-[com_254]
+[floor_13_p_4]
 type=graphic
 x=3
 y=120
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,12"
 colour=0xffffffff
@@ -3490,13 +3490,13 @@ transmitop=10
 op10=     
 
 // 947:255
-[com_255]
+[floor_14_p_4]
 type=graphic
 x=3
 y=130
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,13"
 colour=0xffffffff
@@ -3504,13 +3504,13 @@ transmitop=10
 op10=     
 
 // 947:256
-[com_256]
+[floor_15_p_4]
 type=graphic
 x=3
 y=140
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,14"
 colour=0xffffffff
@@ -3518,13 +3518,13 @@ transmitop=10
 op10=     
 
 // 947:257
-[com_257]
+[floor_16_p_4]
 type=graphic
 x=3
 y=150
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,15"
 colour=0xffffffff
@@ -3532,13 +3532,13 @@ transmitop=10
 op10=     
 
 // 947:258
-[com_258]
+[floor_17_p_4]
 type=graphic
 x=3
 y=160
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,16"
 colour=0xffffffff
@@ -3546,13 +3546,13 @@ transmitop=10
 op10=     
 
 // 947:259
-[com_259]
+[floor_18_p_4]
 type=graphic
 x=3
 y=170
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,17"
 colour=0xffffffff
@@ -3560,13 +3560,13 @@ transmitop=10
 op10=     
 
 // 947:260
-[com_260]
+[floor_19_p_4]
 type=graphic
 x=3
 y=180
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,18"
 colour=0xffffffff
@@ -3574,13 +3574,13 @@ transmitop=10
 op10=     
 
 // 947:261
-[com_261]
+[floor_20_p_4]
 type=graphic
 x=3
 y=190
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,19"
 colour=0xffffffff
@@ -3588,13 +3588,13 @@ transmitop=10
 op10=     
 
 // 947:262
-[com_262]
+[floor_21_p_4]
 type=graphic
 x=3
 y=200
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,20"
 colour=0xffffffff
@@ -3602,13 +3602,13 @@ transmitop=10
 op10=      
 
 // 947:263
-[com_263]
+[floor_22_p_4]
 type=graphic
 x=3
 y=210
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,21"
 colour=0xffffffff
@@ -3616,13 +3616,13 @@ transmitop=10
 op10=      
 
 // 947:264
-[com_264]
+[floor_23_p_4]
 type=graphic
 x=3
 y=220
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,22"
 colour=0xffffffff
@@ -3630,13 +3630,13 @@ transmitop=10
 op10=      
 
 // 947:265
-[com_265]
+[floor_24_p_4]
 type=graphic
 x=3
 y=230
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,23"
 colour=0xffffffff
@@ -3644,13 +3644,13 @@ transmitop=10
 op10=      
 
 // 947:266
-[com_266]
+[floor_25_p_4]
 type=graphic
 x=3
 y=240
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,24"
 colour=0xffffffff
@@ -3658,13 +3658,13 @@ transmitop=10
 op10=      
 
 // 947:267
-[com_267]
+[floor_26_p_4]
 type=graphic
 x=3
 y=250
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,25"
 colour=0xffffffff
@@ -3672,13 +3672,13 @@ transmitop=10
 op10=      
 
 // 947:268
-[com_268]
+[floor_27_p_4]
 type=graphic
 x=3
 y=260
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,26"
 colour=0xffffffff
@@ -3686,13 +3686,13 @@ transmitop=10
 op10=      
 
 // 947:269
-[com_269]
+[floor_28_p_4]
 type=graphic
 x=3
 y=270
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,27"
 colour=0xffffffff
@@ -3700,13 +3700,13 @@ transmitop=10
 op10=      
 
 // 947:270
-[com_270]
+[floor_29_p_4]
 type=graphic
 x=3
 y=280
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,28"
 colour=0xffffffff
@@ -3714,13 +3714,13 @@ transmitop=10
 op10=      
 
 // 947:271
-[com_271]
+[floor_30_p_4]
 type=graphic
 x=3
 y=290
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,29"
 colour=0xffffffff
@@ -3728,13 +3728,13 @@ transmitop=10
 op10=      
 
 // 947:272
-[com_272]
+[floor_31_p_4]
 type=graphic
 x=3
 y=300
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,30"
 colour=0xffffffff
@@ -3742,13 +3742,13 @@ transmitop=10
 op10=       
 
 // 947:273
-[com_273]
+[floor_32_p_4]
 type=graphic
 x=3
 y=310
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,31"
 colour=0xffffffff
@@ -3756,13 +3756,13 @@ transmitop=10
 op10=       
 
 // 947:274
-[com_274]
+[floor_33_p_4]
 type=graphic
 x=3
 y=320
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,32"
 colour=0xffffffff
@@ -3770,13 +3770,13 @@ transmitop=10
 op10=       
 
 // 947:275
-[com_275]
+[floor_34_p_4]
 type=graphic
 x=3
 y=330
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,33"
 colour=0xffffffff
@@ -3784,13 +3784,13 @@ transmitop=10
 op10=       
 
 // 947:276
-[com_276]
+[floor_35_p_4]
 type=graphic
 x=3
 y=340
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,34"
 colour=0xffffffff
@@ -3798,13 +3798,13 @@ transmitop=10
 op10=       
 
 // 947:277
-[com_277]
+[floor_36_p_4]
 type=graphic
 x=3
 y=350
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,35"
 colour=0xffffffff
@@ -3812,13 +3812,13 @@ transmitop=10
 op10=       
 
 // 947:278
-[com_278]
+[floor_37_p_4]
 type=graphic
 x=3
 y=360
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,36"
 colour=0xffffffff
@@ -3826,13 +3826,13 @@ transmitop=10
 op10=       
 
 // 947:279
-[com_279]
+[floor_38_p_4]
 type=graphic
 x=3
 y=370
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,37"
 colour=0xffffffff
@@ -3840,13 +3840,13 @@ transmitop=10
 op10=       
 
 // 947:280
-[com_280]
+[floor_39_p_4]
 type=graphic
 x=3
 y=380
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,38"
 colour=0xffffffff
@@ -3854,13 +3854,13 @@ transmitop=10
 op10=       
 
 // 947:281
-[com_281]
+[floor_40_p_4]
 type=graphic
 x=3
 y=390
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,39"
 colour=0xffffffff
@@ -3868,13 +3868,13 @@ transmitop=10
 op10=       
 
 // 947:282
-[com_282]
+[floor_41_p_4]
 type=graphic
 x=3
 y=400
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,40"
 colour=0xffffffff
@@ -3882,13 +3882,13 @@ transmitop=10
 op10=        
 
 // 947:283
-[com_283]
+[floor_42_p_4]
 type=graphic
 x=3
 y=410
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,41"
 colour=0xffffffff
@@ -3896,13 +3896,13 @@ transmitop=10
 op10=        
 
 // 947:284
-[com_284]
+[unlockspanes4]
 type=graphic
 x=3
 y=420
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,42"
 colour=0xffffffff
@@ -3910,13 +3910,13 @@ transmitop=10
 op10=        
 
 // 947:285
-[com_285]
+[floor_44_p_4]
 type=graphic
 x=3
 y=430
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,43"
 colour=0xffffffff
@@ -3924,13 +3924,13 @@ transmitop=10
 op10=        
 
 // 947:286
-[com_286]
+[floor_45_p_4]
 type=graphic
 x=3
 y=440
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,44"
 colour=0xffffffff
@@ -3938,13 +3938,13 @@ transmitop=10
 op10=        
 
 // 947:287
-[com_287]
+[floor_46_p_4]
 type=graphic
 x=3
 y=450
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,45"
 colour=0xffffffff
@@ -3952,13 +3952,13 @@ transmitop=10
 op10=        
 
 // 947:288
-[com_288]
+[floor_47_p_4]
 type=graphic
 x=3
 y=460
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,46"
 colour=0xffffffff
@@ -3966,13 +3966,13 @@ transmitop=10
 op10=        
 
 // 947:289
-[com_289]
+[floor_48_p_4]
 type=graphic
 x=3
 y=470
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,47"
 colour=0xffffffff
@@ -3980,13 +3980,13 @@ transmitop=10
 op10=        
 
 // 947:290
-[com_290]
+[floor_49_p_4]
 type=graphic
 x=3
 y=480
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,48"
 colour=0xffffffff
@@ -3994,13 +3994,13 @@ transmitop=10
 op10=        
 
 // 947:291
-[com_291]
+[floor_50_p_4]
 type=graphic
 x=3
 y=490
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,49"
 colour=0xffffffff
@@ -4008,13 +4008,13 @@ transmitop=10
 op10=        
 
 // 947:292
-[com_292]
+[floor_51_p_4]
 type=graphic
 x=3
 y=500
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,50"
 colour=0xffffffff
@@ -4022,13 +4022,13 @@ transmitop=10
 op10=         
 
 // 947:293
-[com_293]
+[floor_52_p_4]
 type=graphic
 x=3
 y=510
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,51"
 colour=0xffffffff
@@ -4036,13 +4036,13 @@ transmitop=10
 op10=         
 
 // 947:294
-[com_294]
+[floor_53_p_4]
 type=graphic
 x=3
 y=520
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,52"
 colour=0xffffffff
@@ -4050,13 +4050,13 @@ transmitop=10
 op10=         
 
 // 947:295
-[com_295]
+[floor_54_p_4]
 type=graphic
 x=3
 y=530
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,53"
 colour=0xffffffff
@@ -4064,13 +4064,13 @@ transmitop=10
 op10=         
 
 // 947:296
-[com_296]
+[floor_55_p_4]
 type=graphic
 x=3
 y=540
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,54"
 colour=0xffffffff
@@ -4078,13 +4078,13 @@ transmitop=10
 op10=         
 
 // 947:297
-[com_297]
+[floor_56_p_4]
 type=graphic
 x=3
 y=550
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,55"
 colour=0xffffffff
@@ -4092,13 +4092,13 @@ transmitop=10
 op10=         
 
 // 947:298
-[com_298]
+[floor_57_p_4]
 type=graphic
 x=3
 y=560
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,56"
 colour=0xffffffff
@@ -4106,13 +4106,13 @@ transmitop=10
 op10=         
 
 // 947:299
-[com_299]
+[floor_58_p_4]
 type=graphic
 x=3
 y=570
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,57"
 colour=0xffffffff
@@ -4120,13 +4120,13 @@ transmitop=10
 op10=         
 
 // 947:300
-[com_300]
+[floor_59_p_4]
 type=graphic
 x=3
 y=580
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,58"
 colour=0xffffffff
@@ -4134,13 +4134,13 @@ transmitop=10
 op10=         
 
 // 947:301
-[com_301]
+[floor_60_p_4]
 type=graphic
 x=3
 y=590
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,59"
 colour=0xffffffff
@@ -4148,23 +4148,23 @@ transmitop=10
 op10=         
 
 // 947:302
-[com_302]
+[progress_p4_layer_1]
 type=layer
 y=-2
 width=14
 height=605
-layer=com_117
+layer=progress_p4_layer
 transmitop=10
 op10=    
 
 // 947:303
-[com_303]
+[floor_1_p_9]
 type=graphic
 x=3
 y=2
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4172,13 +4172,13 @@ transmitop=10
 op10=    
 
 // 947:304
-[com_304]
+[floor_2_p_9]
 type=graphic
 x=3
 y=12
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4186,13 +4186,13 @@ transmitop=10
 op10=     
 
 // 947:305
-[com_305]
+[floor_3_p_9]
 type=graphic
 x=3
 y=22
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4200,13 +4200,13 @@ transmitop=10
 op10=     
 
 // 947:306
-[com_306]
+[floor_4_p_9]
 type=graphic
 x=3
 y=32
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4214,13 +4214,13 @@ transmitop=10
 op10=     
 
 // 947:307
-[com_307]
+[floor_5_p_9]
 type=graphic
 x=3
 y=42
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4228,13 +4228,13 @@ transmitop=10
 op10=     
 
 // 947:308
-[com_308]
+[floor_6_p_9]
 type=graphic
 x=3
 y=52
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4242,13 +4242,13 @@ transmitop=10
 op10=     
 
 // 947:309
-[com_309]
+[floor_7_p_9]
 type=graphic
 x=3
 y=62
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4256,13 +4256,13 @@ transmitop=10
 op10=     
 
 // 947:310
-[com_310]
+[floor_8_p_9]
 type=graphic
 x=3
 y=72
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4270,13 +4270,13 @@ transmitop=10
 op10=     
 
 // 947:311
-[com_311]
+[floor_9_p_9]
 type=graphic
 x=3
 y=82
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4284,13 +4284,13 @@ transmitop=10
 op10=     
 
 // 947:312
-[com_312]
+[floor_10_p_9]
 type=graphic
 x=3
 y=92
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4298,13 +4298,13 @@ transmitop=10
 op10=     
 
 // 947:313
-[com_313]
+[floor_11_p_9]
 type=graphic
 x=3
 y=102
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4312,13 +4312,13 @@ transmitop=10
 op10=      
 
 // 947:314
-[com_314]
+[floor_12_p_9]
 type=graphic
 x=3
 y=112
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4326,13 +4326,13 @@ transmitop=10
 op10=      
 
 // 947:315
-[com_315]
+[floor_13_p_9]
 type=graphic
 x=3
 y=122
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4340,13 +4340,13 @@ transmitop=10
 op10=      
 
 // 947:316
-[com_316]
+[floor_14_p_9]
 type=graphic
 x=3
 y=132
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4354,13 +4354,13 @@ transmitop=10
 op10=      
 
 // 947:317
-[com_317]
+[floor_15_p_9]
 type=graphic
 x=3
 y=142
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4368,13 +4368,13 @@ transmitop=10
 op10=      
 
 // 947:318
-[com_318]
+[floor_16_p_9]
 type=graphic
 x=3
 y=152
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4382,13 +4382,13 @@ transmitop=10
 op10=      
 
 // 947:319
-[com_319]
+[floor_17_p_9]
 type=graphic
 x=3
 y=162
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4396,13 +4396,13 @@ transmitop=10
 op10=      
 
 // 947:320
-[com_320]
+[floor_18_p_9]
 type=graphic
 x=3
 y=172
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4410,13 +4410,13 @@ transmitop=10
 op10=      
 
 // 947:321
-[com_321]
+[floor_19_p_9]
 type=graphic
 x=3
 y=182
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4424,13 +4424,13 @@ transmitop=10
 op10=      
 
 // 947:322
-[com_322]
+[floor_20_p_9]
 type=graphic
 x=3
 y=192
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4438,13 +4438,13 @@ transmitop=10
 op10=      
 
 // 947:323
-[com_323]
+[floor_21_p_9]
 type=graphic
 x=3
 y=202
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4452,13 +4452,13 @@ transmitop=10
 op10=       
 
 // 947:324
-[com_324]
+[floor_22_p_9]
 type=graphic
 x=3
 y=212
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4466,13 +4466,13 @@ transmitop=10
 op10=       
 
 // 947:325
-[com_325]
+[floor_23_p_9]
 type=graphic
 x=3
 y=222
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4480,13 +4480,13 @@ transmitop=10
 op10=       
 
 // 947:326
-[com_326]
+[floor_24_p_9]
 type=graphic
 x=3
 y=232
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4494,13 +4494,13 @@ transmitop=10
 op10=       
 
 // 947:327
-[com_327]
+[floor_25_p_9]
 type=graphic
 x=3
 y=242
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4508,13 +4508,13 @@ transmitop=10
 op10=       
 
 // 947:328
-[com_328]
+[floor_26_p_9]
 type=graphic
 x=3
 y=252
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4522,13 +4522,13 @@ transmitop=10
 op10=       
 
 // 947:329
-[com_329]
+[floor_27_p_9]
 type=graphic
 x=3
 y=262
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4536,13 +4536,13 @@ transmitop=10
 op10=       
 
 // 947:330
-[com_330]
+[floor_28_p_9]
 type=graphic
 x=3
 y=272
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4550,13 +4550,13 @@ transmitop=10
 op10=       
 
 // 947:331
-[com_331]
+[floor_29_p_9]
 type=graphic
 x=3
 y=282
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4564,13 +4564,13 @@ transmitop=10
 op10=       
 
 // 947:332
-[com_332]
+[floor_30_p_9]
 type=graphic
 x=3
 y=292
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4578,13 +4578,13 @@ transmitop=10
 op10=       
 
 // 947:333
-[com_333]
+[floor_31_p_9]
 type=graphic
 x=3
 y=302
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4592,13 +4592,13 @@ transmitop=10
 op10=        
 
 // 947:334
-[com_334]
+[floor_32_p_9]
 type=graphic
 x=3
 y=312
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4606,13 +4606,13 @@ transmitop=10
 op10=        
 
 // 947:335
-[com_335]
+[floor_33_p_9]
 type=graphic
 x=3
 y=322
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4620,13 +4620,13 @@ transmitop=10
 op10=        
 
 // 947:336
-[com_336]
+[floor_34_p_9]
 type=graphic
 x=3
 y=332
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4634,13 +4634,13 @@ transmitop=10
 op10=        
 
 // 947:337
-[com_337]
+[floor_35_p_9]
 type=graphic
 x=3
 y=342
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4648,13 +4648,13 @@ transmitop=10
 op10=        
 
 // 947:338
-[com_338]
+[floor_36_p_9]
 type=graphic
 x=3
 y=352
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4662,13 +4662,13 @@ transmitop=10
 op10=        
 
 // 947:339
-[com_339]
+[floor_37_p_9]
 type=graphic
 x=3
 y=362
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4676,13 +4676,13 @@ transmitop=10
 op10=        
 
 // 947:340
-[com_340]
+[floor_38_p_9]
 type=graphic
 x=3
 y=372
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4690,13 +4690,13 @@ transmitop=10
 op10=        
 
 // 947:341
-[com_341]
+[floor_39_p_9]
 type=graphic
 x=3
 y=382
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4704,13 +4704,13 @@ transmitop=10
 op10=        
 
 // 947:342
-[com_342]
+[floor_40_p_9]
 type=graphic
 x=3
 y=392
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4718,13 +4718,13 @@ transmitop=10
 op10=        
 
 // 947:343
-[com_343]
+[floor_41_p_9]
 type=graphic
 x=3
 y=402
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4732,13 +4732,13 @@ transmitop=10
 op10=         
 
 // 947:344
-[com_344]
+[floor_42_p_9]
 type=graphic
 x=3
 y=412
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4746,13 +4746,13 @@ transmitop=10
 op10=         
 
 // 947:345
-[com_345]
+[unlockspanes9]
 type=graphic
 x=3
 y=422
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4760,13 +4760,13 @@ transmitop=10
 op10=         
 
 // 947:346
-[com_346]
+[floor_44_p_9]
 type=graphic
 x=3
 y=432
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4774,13 +4774,13 @@ transmitop=10
 op10=         
 
 // 947:347
-[com_347]
+[floor_45_p_9]
 type=graphic
 x=3
 y=442
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4788,13 +4788,13 @@ transmitop=10
 op10=         
 
 // 947:348
-[com_348]
+[floor_46_p_9]
 type=graphic
 x=3
 y=452
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4802,13 +4802,13 @@ transmitop=10
 op10=         
 
 // 947:349
-[com_349]
+[floor_47_p_9]
 type=graphic
 x=3
 y=462
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4816,13 +4816,13 @@ transmitop=10
 op10=         
 
 // 947:350
-[com_350]
+[floor_48_p_9]
 type=graphic
 x=3
 y=472
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4830,13 +4830,13 @@ transmitop=10
 op10=         
 
 // 947:351
-[com_351]
+[floor_49_p_9]
 type=graphic
 x=3
 y=482
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4844,13 +4844,13 @@ transmitop=10
 op10=         
 
 // 947:352
-[com_352]
+[floor_50_p_9]
 type=graphic
 x=3
 y=492
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4858,13 +4858,13 @@ transmitop=10
 op10=         
 
 // 947:353
-[com_353]
+[floor_51_p_9]
 type=graphic
 x=3
 y=502
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4872,13 +4872,13 @@ transmitop=10
 op10=          
 
 // 947:354
-[com_354]
+[floor_52_p_9]
 type=graphic
 x=3
 y=512
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4886,13 +4886,13 @@ transmitop=10
 op10=          
 
 // 947:355
-[com_355]
+[floor_53_p_9]
 type=graphic
 x=3
 y=522
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4900,13 +4900,13 @@ transmitop=10
 op10=          
 
 // 947:356
-[com_356]
+[floor_54_p_9]
 type=graphic
 x=3
 y=532
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4914,13 +4914,13 @@ transmitop=10
 op10=          
 
 // 947:357
-[com_357]
+[floor_55_p_9]
 type=graphic
 x=3
 y=542
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4928,13 +4928,13 @@ transmitop=10
 op10=          
 
 // 947:358
-[com_358]
+[floor_56_p_9]
 type=graphic
 x=3
 y=552
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4942,13 +4942,13 @@ transmitop=10
 op10=          
 
 // 947:359
-[com_359]
+[floor_57_p_9]
 type=graphic
 x=3
 y=562
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4956,13 +4956,13 @@ transmitop=10
 op10=          
 
 // 947:360
-[com_360]
+[floor_58_p_9]
 type=graphic
 x=3
 y=572
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4970,13 +4970,13 @@ transmitop=10
 op10=          
 
 // 947:361
-[com_361]
+[floor_59_p_9]
 type=graphic
 x=3
 y=582
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4984,13 +4984,13 @@ transmitop=10
 op10=          
 
 // 947:362
-[com_362]
+[floor_60_p_9]
 type=graphic
 x=3
 y=592
 width=8
 height=9
-layer=com_302
+layer=progress_p4_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -4998,24 +4998,24 @@ transmitop=10
 op10=          
 
 // 947:363
-[com_363]
+[floor_cap_p4]
 type=graphic
 x=3
 width=8
 height=10
-layer=com_117
+layer=progress_p4_layer
 graphic=rand_floor_select_progress_end_trinket2
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 947:364
-[com_364]
+[floor_1_p_3]
 type=graphic
 x=3
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,0"
 colour=0xffffffff
@@ -5023,13 +5023,13 @@ transmitop=10
 op10=  
 
 // 947:365
-[com_365]
+[floor_2_p_3]
 type=graphic
 x=3
 y=10
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,1"
 colour=0xffffffff
@@ -5037,13 +5037,13 @@ transmitop=10
 op10=   
 
 // 947:366
-[com_366]
+[floor_3_p_3]
 type=graphic
 x=3
 y=20
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,2"
 colour=0xffffffff
@@ -5051,13 +5051,13 @@ transmitop=10
 op10=   
 
 // 947:367
-[com_367]
+[floor_4_p_3]
 type=graphic
 x=3
 y=30
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,3"
 colour=0xffffffff
@@ -5065,13 +5065,13 @@ transmitop=10
 op10=   
 
 // 947:368
-[com_368]
+[floor_5_p_3]
 type=graphic
 x=3
 y=40
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,4"
 colour=0xffffffff
@@ -5079,13 +5079,13 @@ transmitop=10
 op10=   
 
 // 947:369
-[com_369]
+[floor_6_p_3]
 type=graphic
 x=3
 y=50
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,5"
 colour=0xffffffff
@@ -5093,13 +5093,13 @@ transmitop=10
 op10=   
 
 // 947:370
-[com_370]
+[floor_7_p_3]
 type=graphic
 x=3
 y=60
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,6"
 colour=0xffffffff
@@ -5107,13 +5107,13 @@ transmitop=10
 op10=   
 
 // 947:371
-[com_371]
+[floor_8_p_3]
 type=graphic
 x=3
 y=70
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,7"
 colour=0xffffffff
@@ -5121,13 +5121,13 @@ transmitop=10
 op10=   
 
 // 947:372
-[com_372]
+[floor_9_p_3]
 type=graphic
 x=3
 y=80
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,8"
 colour=0xffffffff
@@ -5135,13 +5135,13 @@ transmitop=10
 op10=   
 
 // 947:373
-[com_373]
+[floor_10_p_3]
 type=graphic
 x=3
 y=90
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,9"
 colour=0xffffffff
@@ -5149,13 +5149,13 @@ transmitop=10
 op10=   
 
 // 947:374
-[com_374]
+[floor_11_p_3]
 type=graphic
 x=3
 y=100
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,10"
 colour=0xffffffff
@@ -5163,13 +5163,13 @@ transmitop=10
 op10=    
 
 // 947:375
-[com_375]
+[floor_12_p_3]
 type=graphic
 x=3
 y=110
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,11"
 colour=0xffffffff
@@ -5177,13 +5177,13 @@ transmitop=10
 op10=    
 
 // 947:376
-[com_376]
+[floor_13_p_3]
 type=graphic
 x=3
 y=120
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,12"
 colour=0xffffffff
@@ -5191,13 +5191,13 @@ transmitop=10
 op10=    
 
 // 947:377
-[com_377]
+[floor_14_p_3]
 type=graphic
 x=3
 y=130
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,13"
 colour=0xffffffff
@@ -5205,13 +5205,13 @@ transmitop=10
 op10=    
 
 // 947:378
-[com_378]
+[floor_15_p_3]
 type=graphic
 x=3
 y=140
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,14"
 colour=0xffffffff
@@ -5219,13 +5219,13 @@ transmitop=10
 op10=    
 
 // 947:379
-[com_379]
+[floor_16_p_3]
 type=graphic
 x=3
 y=150
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,15"
 colour=0xffffffff
@@ -5233,13 +5233,13 @@ transmitop=10
 op10=    
 
 // 947:380
-[com_380]
+[floor_17_p_3]
 type=graphic
 x=3
 y=160
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,16"
 colour=0xffffffff
@@ -5247,13 +5247,13 @@ transmitop=10
 op10=    
 
 // 947:381
-[com_381]
+[floor_18_p_3]
 type=graphic
 x=3
 y=170
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,17"
 colour=0xffffffff
@@ -5261,13 +5261,13 @@ transmitop=10
 op10=    
 
 // 947:382
-[com_382]
+[floor_19_p_3]
 type=graphic
 x=3
 y=180
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,18"
 colour=0xffffffff
@@ -5275,13 +5275,13 @@ transmitop=10
 op10=    
 
 // 947:383
-[com_383]
+[floor_20_p_3]
 type=graphic
 x=3
 y=190
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,19"
 colour=0xffffffff
@@ -5289,13 +5289,13 @@ transmitop=10
 op10=    
 
 // 947:384
-[com_384]
+[floor_21_p_3]
 type=graphic
 x=3
 y=200
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,20"
 colour=0xffffffff
@@ -5303,13 +5303,13 @@ transmitop=10
 op10=     
 
 // 947:385
-[com_385]
+[floor_22_p_3]
 type=graphic
 x=3
 y=210
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,21"
 colour=0xffffffff
@@ -5317,13 +5317,13 @@ transmitop=10
 op10=     
 
 // 947:386
-[com_386]
+[floor_23_p_3]
 type=graphic
 x=3
 y=220
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,22"
 colour=0xffffffff
@@ -5331,13 +5331,13 @@ transmitop=10
 op10=     
 
 // 947:387
-[com_387]
+[floor_24_p_3]
 type=graphic
 x=3
 y=230
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,23"
 colour=0xffffffff
@@ -5345,13 +5345,13 @@ transmitop=10
 op10=     
 
 // 947:388
-[com_388]
+[floor_25_p_3]
 type=graphic
 x=3
 y=240
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,24"
 colour=0xffffffff
@@ -5359,13 +5359,13 @@ transmitop=10
 op10=     
 
 // 947:389
-[com_389]
+[floor_26_p_3]
 type=graphic
 x=3
 y=250
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,25"
 colour=0xffffffff
@@ -5373,13 +5373,13 @@ transmitop=10
 op10=     
 
 // 947:390
-[com_390]
+[floor_27_p_3]
 type=graphic
 x=3
 y=260
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,26"
 colour=0xffffffff
@@ -5387,13 +5387,13 @@ transmitop=10
 op10=     
 
 // 947:391
-[com_391]
+[floor_28_p_3]
 type=graphic
 x=3
 y=270
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,27"
 colour=0xffffffff
@@ -5401,13 +5401,13 @@ transmitop=10
 op10=     
 
 // 947:392
-[com_392]
+[floor_29_p_3]
 type=graphic
 x=3
 y=280
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,28"
 colour=0xffffffff
@@ -5415,13 +5415,13 @@ transmitop=10
 op10=     
 
 // 947:393
-[com_393]
+[floor_30_p_3]
 type=graphic
 x=3
 y=290
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,29"
 colour=0xffffffff
@@ -5429,13 +5429,13 @@ transmitop=10
 op10=     
 
 // 947:394
-[com_394]
+[floor_31_p_3]
 type=graphic
 x=3
 y=300
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,30"
 colour=0xffffffff
@@ -5443,13 +5443,13 @@ transmitop=10
 op10=      
 
 // 947:395
-[com_395]
+[floor_32_p_3]
 type=graphic
 x=3
 y=310
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,31"
 colour=0xffffffff
@@ -5457,13 +5457,13 @@ transmitop=10
 op10=      
 
 // 947:396
-[com_396]
+[floor_33_p_3]
 type=graphic
 x=3
 y=320
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,32"
 colour=0xffffffff
@@ -5471,13 +5471,13 @@ transmitop=10
 op10=      
 
 // 947:397
-[com_397]
+[floor_34_p_3]
 type=graphic
 x=3
 y=330
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,33"
 colour=0xffffffff
@@ -5485,13 +5485,13 @@ transmitop=10
 op10=      
 
 // 947:398
-[com_398]
+[floor_35_p_3]
 type=graphic
 x=3
 y=340
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,34"
 colour=0xffffffff
@@ -5499,13 +5499,13 @@ transmitop=10
 op10=      
 
 // 947:399
-[com_399]
+[floor_36_p_3]
 type=graphic
 x=3
 y=350
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,35"
 colour=0xffffffff
@@ -5513,13 +5513,13 @@ transmitop=10
 op10=      
 
 // 947:400
-[com_400]
+[floor_37_p_3]
 type=graphic
 x=3
 y=360
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,36"
 colour=0xffffffff
@@ -5527,13 +5527,13 @@ transmitop=10
 op10=      
 
 // 947:401
-[com_401]
+[floor_38_p_3]
 type=graphic
 x=3
 y=370
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,37"
 colour=0xffffffff
@@ -5541,13 +5541,13 @@ transmitop=10
 op10=      
 
 // 947:402
-[com_402]
+[floor_39_p_3]
 type=graphic
 x=3
 y=380
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,38"
 colour=0xffffffff
@@ -5555,13 +5555,13 @@ transmitop=10
 op10=      
 
 // 947:403
-[com_403]
+[floor_40_p_3]
 type=graphic
 x=3
 y=390
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,39"
 colour=0xffffffff
@@ -5569,13 +5569,13 @@ transmitop=10
 op10=      
 
 // 947:404
-[com_404]
+[floor_41_p_3]
 type=graphic
 x=3
 y=400
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,40"
 colour=0xffffffff
@@ -5583,13 +5583,13 @@ transmitop=10
 op10=       
 
 // 947:405
-[com_405]
+[floor_42_p_3]
 type=graphic
 x=3
 y=410
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,41"
 colour=0xffffffff
@@ -5597,13 +5597,13 @@ transmitop=10
 op10=       
 
 // 947:406
-[com_406]
+[unlockspanes3]
 type=graphic
 x=3
 y=420
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,42"
 colour=0xffffffff
@@ -5611,13 +5611,13 @@ transmitop=10
 op10=       
 
 // 947:407
-[com_407]
+[floor_44_p_3]
 type=graphic
 x=3
 y=430
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,43"
 colour=0xffffffff
@@ -5625,13 +5625,13 @@ transmitop=10
 op10=       
 
 // 947:408
-[com_408]
+[floor_45_p_3]
 type=graphic
 x=3
 y=440
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,44"
 colour=0xffffffff
@@ -5639,13 +5639,13 @@ transmitop=10
 op10=       
 
 // 947:409
-[com_409]
+[floor_46_p_3]
 type=graphic
 x=3
 y=450
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,45"
 colour=0xffffffff
@@ -5653,13 +5653,13 @@ transmitop=10
 op10=       
 
 // 947:410
-[com_410]
+[floor_47_p_3]
 type=graphic
 x=3
 y=460
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,46"
 colour=0xffffffff
@@ -5667,13 +5667,13 @@ transmitop=10
 op10=       
 
 // 947:411
-[com_411]
+[floor_48_p_3]
 type=graphic
 x=3
 y=470
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,47"
 colour=0xffffffff
@@ -5681,13 +5681,13 @@ transmitop=10
 op10=       
 
 // 947:412
-[com_412]
+[floor_49_p_3]
 type=graphic
 x=3
 y=480
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,48"
 colour=0xffffffff
@@ -5695,13 +5695,13 @@ transmitop=10
 op10=       
 
 // 947:413
-[com_413]
+[floor_50_p_3]
 type=graphic
 x=3
 y=490
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,49"
 colour=0xffffffff
@@ -5709,13 +5709,13 @@ transmitop=10
 op10=       
 
 // 947:414
-[com_414]
+[floor_51_p_3]
 type=graphic
 x=3
 y=500
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,50"
 colour=0xffffffff
@@ -5723,13 +5723,13 @@ transmitop=10
 op10=        
 
 // 947:415
-[com_415]
+[floor_52_p_3]
 type=graphic
 x=3
 y=510
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,51"
 colour=0xffffffff
@@ -5737,13 +5737,13 @@ transmitop=10
 op10=        
 
 // 947:416
-[com_416]
+[floor_53_p_3]
 type=graphic
 x=3
 y=520
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,52"
 colour=0xffffffff
@@ -5751,13 +5751,13 @@ transmitop=10
 op10=        
 
 // 947:417
-[com_417]
+[floor_54_p_3]
 type=graphic
 x=3
 y=530
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,53"
 colour=0xffffffff
@@ -5765,13 +5765,13 @@ transmitop=10
 op10=        
 
 // 947:418
-[com_418]
+[floor_55_p_3]
 type=graphic
 x=3
 y=540
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,54"
 colour=0xffffffff
@@ -5779,13 +5779,13 @@ transmitop=10
 op10=        
 
 // 947:419
-[com_419]
+[floor_56_p_3]
 type=graphic
 x=3
 y=550
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,55"
 colour=0xffffffff
@@ -5793,13 +5793,13 @@ transmitop=10
 op10=        
 
 // 947:420
-[com_420]
+[floor_57_p_3]
 type=graphic
 x=3
 y=560
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,56"
 colour=0xffffffff
@@ -5807,13 +5807,13 @@ transmitop=10
 op10=        
 
 // 947:421
-[com_421]
+[floor_58_p_3]
 type=graphic
 x=3
 y=570
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,57"
 colour=0xffffffff
@@ -5821,13 +5821,13 @@ transmitop=10
 op10=        
 
 // 947:422
-[com_422]
+[floor_59_p_3]
 type=graphic
 x=3
 y=580
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,58"
 colour=0xffffffff
@@ -5835,13 +5835,13 @@ transmitop=10
 op10=        
 
 // 947:423
-[com_423]
+[floor_60_p_3]
 type=graphic
 x=3
 y=590
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,59"
 colour=0xffffffff
@@ -5849,23 +5849,23 @@ transmitop=10
 op10=        
 
 // 947:424
-[com_424]
+[progress_p3_layer_1]
 type=layer
 y=-2
 width=14
 height=605
-layer=com_115
+layer=progress_p3_layer
 transmitop=10
 op10=   
 
 // 947:425
-[com_425]
+[floor_1_p_8]
 type=graphic
 x=3
 y=2
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -5873,13 +5873,13 @@ transmitop=10
 op10=   
 
 // 947:426
-[com_426]
+[floor_2_p_8]
 type=graphic
 x=3
 y=12
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -5887,13 +5887,13 @@ transmitop=10
 op10=    
 
 // 947:427
-[com_427]
+[floor_3_p_8]
 type=graphic
 x=3
 y=22
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -5901,13 +5901,13 @@ transmitop=10
 op10=    
 
 // 947:428
-[com_428]
+[floor_4_p_8]
 type=graphic
 x=3
 y=32
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -5915,13 +5915,13 @@ transmitop=10
 op10=    
 
 // 947:429
-[com_429]
+[floor_5_p_8]
 type=graphic
 x=3
 y=42
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -5929,13 +5929,13 @@ transmitop=10
 op10=    
 
 // 947:430
-[com_430]
+[floor_6_p_8]
 type=graphic
 x=3
 y=52
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -5943,13 +5943,13 @@ transmitop=10
 op10=    
 
 // 947:431
-[com_431]
+[floor_7_p_8]
 type=graphic
 x=3
 y=62
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -5957,13 +5957,13 @@ transmitop=10
 op10=    
 
 // 947:432
-[com_432]
+[floor_8_p_8]
 type=graphic
 x=3
 y=72
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -5971,13 +5971,13 @@ transmitop=10
 op10=    
 
 // 947:433
-[com_433]
+[floor_9_p_8]
 type=graphic
 x=3
 y=82
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -5985,13 +5985,13 @@ transmitop=10
 op10=    
 
 // 947:434
-[com_434]
+[floor_10_p_8]
 type=graphic
 x=3
 y=92
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -5999,13 +5999,13 @@ transmitop=10
 op10=    
 
 // 947:435
-[com_435]
+[floor_11_p_8]
 type=graphic
 x=3
 y=102
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6013,13 +6013,13 @@ transmitop=10
 op10=     
 
 // 947:436
-[com_436]
+[floor_12_p_8]
 type=graphic
 x=3
 y=112
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6027,13 +6027,13 @@ transmitop=10
 op10=     
 
 // 947:437
-[com_437]
+[floor_13_p_8]
 type=graphic
 x=3
 y=122
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6041,13 +6041,13 @@ transmitop=10
 op10=     
 
 // 947:438
-[com_438]
+[floor_14_p_8]
 type=graphic
 x=3
 y=132
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6055,13 +6055,13 @@ transmitop=10
 op10=     
 
 // 947:439
-[com_439]
+[floor_15_p_8]
 type=graphic
 x=3
 y=142
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6069,13 +6069,13 @@ transmitop=10
 op10=     
 
 // 947:440
-[com_440]
+[floor_16_p_8]
 type=graphic
 x=3
 y=152
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6083,13 +6083,13 @@ transmitop=10
 op10=     
 
 // 947:441
-[com_441]
+[floor_17_p_8]
 type=graphic
 x=3
 y=162
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6097,13 +6097,13 @@ transmitop=10
 op10=     
 
 // 947:442
-[com_442]
+[floor_18_p_8]
 type=graphic
 x=3
 y=172
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6111,13 +6111,13 @@ transmitop=10
 op10=     
 
 // 947:443
-[com_443]
+[floor_19_p_8]
 type=graphic
 x=3
 y=182
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6125,13 +6125,13 @@ transmitop=10
 op10=     
 
 // 947:444
-[com_444]
+[floor_20_p_8]
 type=graphic
 x=3
 y=192
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6139,13 +6139,13 @@ transmitop=10
 op10=     
 
 // 947:445
-[com_445]
+[floor_21_p_8]
 type=graphic
 x=3
 y=202
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6153,13 +6153,13 @@ transmitop=10
 op10=      
 
 // 947:446
-[com_446]
+[floor_22_p_8]
 type=graphic
 x=3
 y=212
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6167,13 +6167,13 @@ transmitop=10
 op10=      
 
 // 947:447
-[com_447]
+[floor_23_p_8]
 type=graphic
 x=3
 y=222
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6181,13 +6181,13 @@ transmitop=10
 op10=      
 
 // 947:448
-[com_448]
+[floor_24_p_8]
 type=graphic
 x=3
 y=232
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6195,13 +6195,13 @@ transmitop=10
 op10=      
 
 // 947:449
-[com_449]
+[floor_25_p_8]
 type=graphic
 x=3
 y=242
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6209,13 +6209,13 @@ transmitop=10
 op10=      
 
 // 947:450
-[com_450]
+[floor_26_p_8]
 type=graphic
 x=3
 y=252
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6223,13 +6223,13 @@ transmitop=10
 op10=      
 
 // 947:451
-[com_451]
+[floor_27_p_8]
 type=graphic
 x=3
 y=262
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6237,13 +6237,13 @@ transmitop=10
 op10=      
 
 // 947:452
-[com_452]
+[floor_28_p_8]
 type=graphic
 x=3
 y=272
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6251,13 +6251,13 @@ transmitop=10
 op10=      
 
 // 947:453
-[com_453]
+[floor_29_p_8]
 type=graphic
 x=3
 y=282
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6265,13 +6265,13 @@ transmitop=10
 op10=      
 
 // 947:454
-[com_454]
+[floor_30_p_8]
 type=graphic
 x=3
 y=292
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6279,13 +6279,13 @@ transmitop=10
 op10=      
 
 // 947:455
-[com_455]
+[floor_31_p_8]
 type=graphic
 x=3
 y=302
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6293,13 +6293,13 @@ transmitop=10
 op10=       
 
 // 947:456
-[com_456]
+[floor_32_p_8]
 type=graphic
 x=3
 y=312
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6307,13 +6307,13 @@ transmitop=10
 op10=       
 
 // 947:457
-[com_457]
+[floor_33_p_8]
 type=graphic
 x=3
 y=322
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6321,13 +6321,13 @@ transmitop=10
 op10=       
 
 // 947:458
-[com_458]
+[floor_34_p_8]
 type=graphic
 x=3
 y=332
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6335,13 +6335,13 @@ transmitop=10
 op10=       
 
 // 947:459
-[com_459]
+[floor_35_p_8]
 type=graphic
 x=3
 y=342
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6349,13 +6349,13 @@ transmitop=10
 op10=       
 
 // 947:460
-[com_460]
+[floor_36_p_8]
 type=graphic
 x=3
 y=352
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6363,13 +6363,13 @@ transmitop=10
 op10=       
 
 // 947:461
-[com_461]
+[floor_37_p_8]
 type=graphic
 x=3
 y=362
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6377,13 +6377,13 @@ transmitop=10
 op10=       
 
 // 947:462
-[com_462]
+[floor_38_p_8]
 type=graphic
 x=3
 y=372
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6391,13 +6391,13 @@ transmitop=10
 op10=       
 
 // 947:463
-[com_463]
+[floor_39_p_8]
 type=graphic
 x=3
 y=382
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6405,13 +6405,13 @@ transmitop=10
 op10=       
 
 // 947:464
-[com_464]
+[floor_40_p_8]
 type=graphic
 x=3
 y=392
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6419,13 +6419,13 @@ transmitop=10
 op10=       
 
 // 947:465
-[com_465]
+[floor_41_p_8]
 type=graphic
 x=3
 y=402
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6433,13 +6433,13 @@ transmitop=10
 op10=        
 
 // 947:466
-[com_466]
+[floor_42_p_8]
 type=graphic
 x=3
 y=412
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6447,13 +6447,13 @@ transmitop=10
 op10=        
 
 // 947:467
-[com_467]
+[unlockspanes8]
 type=graphic
 x=3
 y=422
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6461,13 +6461,13 @@ transmitop=10
 op10=        
 
 // 947:468
-[com_468]
+[floor_44_p_8]
 type=graphic
 x=3
 y=432
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6475,13 +6475,13 @@ transmitop=10
 op10=        
 
 // 947:469
-[com_469]
+[floor_45_p_8]
 type=graphic
 x=3
 y=442
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6489,13 +6489,13 @@ transmitop=10
 op10=        
 
 // 947:470
-[com_470]
+[floor_46_p_8]
 type=graphic
 x=3
 y=452
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6503,13 +6503,13 @@ transmitop=10
 op10=        
 
 // 947:471
-[com_471]
+[floor_47_p_8]
 type=graphic
 x=3
 y=462
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6517,13 +6517,13 @@ transmitop=10
 op10=        
 
 // 947:472
-[com_472]
+[floor_48_p_8]
 type=graphic
 x=3
 y=472
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6531,13 +6531,13 @@ transmitop=10
 op10=        
 
 // 947:473
-[com_473]
+[floor_49_p_8]
 type=graphic
 x=3
 y=482
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6545,13 +6545,13 @@ transmitop=10
 op10=        
 
 // 947:474
-[com_474]
+[floor_50_p_8]
 type=graphic
 x=3
 y=492
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6559,13 +6559,13 @@ transmitop=10
 op10=        
 
 // 947:475
-[com_475]
+[floor_51_p_8]
 type=graphic
 x=3
 y=502
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6573,13 +6573,13 @@ transmitop=10
 op10=         
 
 // 947:476
-[com_476]
+[floor_52_p_8]
 type=graphic
 x=3
 y=512
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6587,13 +6587,13 @@ transmitop=10
 op10=         
 
 // 947:477
-[com_477]
+[floor_53_p_8]
 type=graphic
 x=3
 y=522
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6601,13 +6601,13 @@ transmitop=10
 op10=         
 
 // 947:478
-[com_478]
+[floor_54_p_8]
 type=graphic
 x=3
 y=532
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6615,13 +6615,13 @@ transmitop=10
 op10=         
 
 // 947:479
-[com_479]
+[floor_55_p_8]
 type=graphic
 x=3
 y=542
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6629,13 +6629,13 @@ transmitop=10
 op10=         
 
 // 947:480
-[com_480]
+[floor_56_p_8]
 type=graphic
 x=3
 y=552
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6643,13 +6643,13 @@ transmitop=10
 op10=         
 
 // 947:481
-[com_481]
+[floor_57_p_8]
 type=graphic
 x=3
 y=562
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6657,13 +6657,13 @@ transmitop=10
 op10=         
 
 // 947:482
-[com_482]
+[floor_58_p_8]
 type=graphic
 x=3
 y=572
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6671,13 +6671,13 @@ transmitop=10
 op10=         
 
 // 947:483
-[com_483]
+[floor_59_p_8]
 type=graphic
 x=3
 y=582
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6685,13 +6685,13 @@ transmitop=10
 op10=         
 
 // 947:484
-[com_484]
+[floor_60_p_8]
 type=graphic
 x=3
 y=592
 width=8
 height=9
-layer=com_424
+layer=progress_p3_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -6699,24 +6699,24 @@ transmitop=10
 op10=         
 
 // 947:485
-[com_485]
+[floor_cap_p3]
 type=graphic
 x=3
 width=8
 height=10
-layer=com_115
+layer=progress_p3_layer
 graphic=rand_floor_select_progress_end_trinket2
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 947:486
-[com_486]
+[floor_1_p_2]
 type=graphic
 x=3
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,0"
 colour=0xffffffff
@@ -6724,13 +6724,13 @@ transmitop=10
 op10= 
 
 // 947:487
-[com_487]
+[floor_2_p_2]
 type=graphic
 x=3
 y=10
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,1"
 colour=0xffffffff
@@ -6738,13 +6738,13 @@ transmitop=10
 op10=  
 
 // 947:488
-[com_488]
+[floor_3_p_2]
 type=graphic
 x=3
 y=20
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,2"
 colour=0xffffffff
@@ -6752,13 +6752,13 @@ transmitop=10
 op10=  
 
 // 947:489
-[com_489]
+[floor_4_p_2]
 type=graphic
 x=3
 y=30
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,3"
 colour=0xffffffff
@@ -6766,13 +6766,13 @@ transmitop=10
 op10=  
 
 // 947:490
-[com_490]
+[floor_5_p_2]
 type=graphic
 x=3
 y=40
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,4"
 colour=0xffffffff
@@ -6780,13 +6780,13 @@ transmitop=10
 op10=  
 
 // 947:491
-[com_491]
+[floor_6_p_2]
 type=graphic
 x=3
 y=50
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,5"
 colour=0xffffffff
@@ -6794,13 +6794,13 @@ transmitop=10
 op10=  
 
 // 947:492
-[com_492]
+[floor_7_p_2]
 type=graphic
 x=3
 y=60
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,6"
 colour=0xffffffff
@@ -6808,13 +6808,13 @@ transmitop=10
 op10=  
 
 // 947:493
-[com_493]
+[floor_8_p_2]
 type=graphic
 x=3
 y=70
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,7"
 colour=0xffffffff
@@ -6822,13 +6822,13 @@ transmitop=10
 op10=  
 
 // 947:494
-[com_494]
+[floor_9_p_2]
 type=graphic
 x=3
 y=80
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,8"
 colour=0xffffffff
@@ -6836,13 +6836,13 @@ transmitop=10
 op10=  
 
 // 947:495
-[com_495]
+[floor_10_p_2]
 type=graphic
 x=3
 y=90
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,9"
 colour=0xffffffff
@@ -6850,13 +6850,13 @@ transmitop=10
 op10=  
 
 // 947:496
-[com_496]
+[floor_11_p_2]
 type=graphic
 x=3
 y=100
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,10"
 colour=0xffffffff
@@ -6864,13 +6864,13 @@ transmitop=10
 op10=   
 
 // 947:497
-[com_497]
+[floor_12_p_2]
 type=graphic
 x=3
 y=110
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,11"
 colour=0xffffffff
@@ -6878,13 +6878,13 @@ transmitop=10
 op10=   
 
 // 947:498
-[com_498]
+[floor_13_p_2]
 type=graphic
 x=3
 y=120
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,12"
 colour=0xffffffff
@@ -6892,13 +6892,13 @@ transmitop=10
 op10=   
 
 // 947:499
-[com_499]
+[floor_14_p_2]
 type=graphic
 x=3
 y=130
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,13"
 colour=0xffffffff
@@ -6906,13 +6906,13 @@ transmitop=10
 op10=   
 
 // 947:500
-[com_500]
+[floor_15_p_2]
 type=graphic
 x=3
 y=140
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,14"
 colour=0xffffffff
@@ -6920,13 +6920,13 @@ transmitop=10
 op10=   
 
 // 947:501
-[com_501]
+[floor_16_p_2]
 type=graphic
 x=3
 y=150
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,15"
 colour=0xffffffff
@@ -6934,13 +6934,13 @@ transmitop=10
 op10=   
 
 // 947:502
-[com_502]
+[floor_17_p_2]
 type=graphic
 x=3
 y=160
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,16"
 colour=0xffffffff
@@ -6948,13 +6948,13 @@ transmitop=10
 op10=   
 
 // 947:503
-[com_503]
+[floor_18_p_2]
 type=graphic
 x=3
 y=170
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,17"
 colour=0xffffffff
@@ -6962,13 +6962,13 @@ transmitop=10
 op10=   
 
 // 947:504
-[com_504]
+[floor_19_p_2]
 type=graphic
 x=3
 y=180
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,18"
 colour=0xffffffff
@@ -6976,13 +6976,13 @@ transmitop=10
 op10=   
 
 // 947:505
-[com_505]
+[floor_20_p_2]
 type=graphic
 x=3
 y=190
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,19"
 colour=0xffffffff
@@ -6990,13 +6990,13 @@ transmitop=10
 op10=   
 
 // 947:506
-[com_506]
+[floor_21_p_2]
 type=graphic
 x=3
 y=200
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,20"
 colour=0xffffffff
@@ -7004,13 +7004,13 @@ transmitop=10
 op10=    
 
 // 947:507
-[com_507]
+[floor_22_p_2]
 type=graphic
 x=3
 y=210
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,21"
 colour=0xffffffff
@@ -7018,13 +7018,13 @@ transmitop=10
 op10=    
 
 // 947:508
-[com_508]
+[floor_23_p_2]
 type=graphic
 x=3
 y=220
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,22"
 colour=0xffffffff
@@ -7032,13 +7032,13 @@ transmitop=10
 op10=    
 
 // 947:509
-[com_509]
+[floor_24_p_2]
 type=graphic
 x=3
 y=230
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,23"
 colour=0xffffffff
@@ -7046,13 +7046,13 @@ transmitop=10
 op10=    
 
 // 947:510
-[com_510]
+[floor_25_p_2]
 type=graphic
 x=3
 y=240
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,24"
 colour=0xffffffff
@@ -7060,13 +7060,13 @@ transmitop=10
 op10=    
 
 // 947:511
-[com_511]
+[floor_26_p_2]
 type=graphic
 x=3
 y=250
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,25"
 colour=0xffffffff
@@ -7074,13 +7074,13 @@ transmitop=10
 op10=    
 
 // 947:512
-[com_512]
+[floor_27_p_2]
 type=graphic
 x=3
 y=260
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,26"
 colour=0xffffffff
@@ -7088,13 +7088,13 @@ transmitop=10
 op10=    
 
 // 947:513
-[com_513]
+[floor_28_p_2]
 type=graphic
 x=3
 y=270
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,27"
 colour=0xffffffff
@@ -7102,13 +7102,13 @@ transmitop=10
 op10=    
 
 // 947:514
-[com_514]
+[floor_29_p_2]
 type=graphic
 x=3
 y=280
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,28"
 colour=0xffffffff
@@ -7116,13 +7116,13 @@ transmitop=10
 op10=    
 
 // 947:515
-[com_515]
+[floor_30_p_2]
 type=graphic
 x=3
 y=290
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,29"
 colour=0xffffffff
@@ -7130,13 +7130,13 @@ transmitop=10
 op10=    
 
 // 947:516
-[com_516]
+[floor_31_p_2]
 type=graphic
 x=3
 y=300
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,30"
 colour=0xffffffff
@@ -7144,13 +7144,13 @@ transmitop=10
 op10=     
 
 // 947:517
-[com_517]
+[floor_32_p_2]
 type=graphic
 x=3
 y=310
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,31"
 colour=0xffffffff
@@ -7158,13 +7158,13 @@ transmitop=10
 op10=     
 
 // 947:518
-[com_518]
+[floor_33_p_2]
 type=graphic
 x=3
 y=320
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,32"
 colour=0xffffffff
@@ -7172,13 +7172,13 @@ transmitop=10
 op10=     
 
 // 947:519
-[com_519]
+[floor_34_p_2]
 type=graphic
 x=3
 y=330
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,33"
 colour=0xffffffff
@@ -7186,13 +7186,13 @@ transmitop=10
 op10=     
 
 // 947:520
-[com_520]
+[floor_35_p_2]
 type=graphic
 x=3
 y=340
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,34"
 colour=0xffffffff
@@ -7200,13 +7200,13 @@ transmitop=10
 op10=     
 
 // 947:521
-[com_521]
+[floor_36_p_2]
 type=graphic
 x=3
 y=350
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,35"
 colour=0xffffffff
@@ -7214,13 +7214,13 @@ transmitop=10
 op10=     
 
 // 947:522
-[com_522]
+[floor_37_p_2]
 type=graphic
 x=3
 y=360
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,36"
 colour=0xffffffff
@@ -7228,13 +7228,13 @@ transmitop=10
 op10=     
 
 // 947:523
-[com_523]
+[floor_38_p_2]
 type=graphic
 x=3
 y=370
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,37"
 colour=0xffffffff
@@ -7242,13 +7242,13 @@ transmitop=10
 op10=     
 
 // 947:524
-[com_524]
+[floor_39_p_2]
 type=graphic
 x=3
 y=380
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,38"
 colour=0xffffffff
@@ -7256,13 +7256,13 @@ transmitop=10
 op10=     
 
 // 947:525
-[com_525]
+[floor_40_p_2]
 type=graphic
 x=3
 y=390
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,39"
 colour=0xffffffff
@@ -7270,13 +7270,13 @@ transmitop=10
 op10=     
 
 // 947:526
-[com_526]
+[floor_41_p_2]
 type=graphic
 x=3
 y=400
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,40"
 colour=0xffffffff
@@ -7284,13 +7284,13 @@ transmitop=10
 op10=      
 
 // 947:527
-[com_527]
+[floor_42_p_2]
 type=graphic
 x=3
 y=410
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,41"
 colour=0xffffffff
@@ -7298,13 +7298,13 @@ transmitop=10
 op10=      
 
 // 947:528
-[com_528]
+[unlockspanes2]
 type=graphic
 x=3
 y=420
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,42"
 colour=0xffffffff
@@ -7312,13 +7312,13 @@ transmitop=10
 op10=      
 
 // 947:529
-[com_529]
+[floor_44_p_2]
 type=graphic
 x=3
 y=430
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,43"
 colour=0xffffffff
@@ -7326,13 +7326,13 @@ transmitop=10
 op10=      
 
 // 947:530
-[com_530]
+[floor_45_p_2]
 type=graphic
 x=3
 y=440
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,44"
 colour=0xffffffff
@@ -7340,13 +7340,13 @@ transmitop=10
 op10=      
 
 // 947:531
-[com_531]
+[floor_46_p_2]
 type=graphic
 x=3
 y=450
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,45"
 colour=0xffffffff
@@ -7354,13 +7354,13 @@ transmitop=10
 op10=      
 
 // 947:532
-[com_532]
+[floor_47_p_2]
 type=graphic
 x=3
 y=460
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,46"
 colour=0xffffffff
@@ -7368,13 +7368,13 @@ transmitop=10
 op10=      
 
 // 947:533
-[com_533]
+[floor_48_p_2]
 type=graphic
 x=3
 y=470
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,47"
 colour=0xffffffff
@@ -7382,13 +7382,13 @@ transmitop=10
 op10=      
 
 // 947:534
-[com_534]
+[floor_49_p_2]
 type=graphic
 x=3
 y=480
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,48"
 colour=0xffffffff
@@ -7396,13 +7396,13 @@ transmitop=10
 op10=      
 
 // 947:535
-[com_535]
+[floor_50_p_2]
 type=graphic
 x=3
 y=490
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,49"
 colour=0xffffffff
@@ -7410,13 +7410,13 @@ transmitop=10
 op10=      
 
 // 947:536
-[com_536]
+[floor_51_p_2]
 type=graphic
 x=3
 y=500
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,50"
 colour=0xffffffff
@@ -7424,13 +7424,13 @@ transmitop=10
 op10=       
 
 // 947:537
-[com_537]
+[floor_52_p_2]
 type=graphic
 x=3
 y=510
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,51"
 colour=0xffffffff
@@ -7438,13 +7438,13 @@ transmitop=10
 op10=       
 
 // 947:538
-[com_538]
+[floor_53_p_2]
 type=graphic
 x=3
 y=520
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,52"
 colour=0xffffffff
@@ -7452,13 +7452,13 @@ transmitop=10
 op10=       
 
 // 947:539
-[com_539]
+[floor_54_p_2]
 type=graphic
 x=3
 y=530
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,53"
 colour=0xffffffff
@@ -7466,13 +7466,13 @@ transmitop=10
 op10=       
 
 // 947:540
-[com_540]
+[floor_55_p_2]
 type=graphic
 x=3
 y=540
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,54"
 colour=0xffffffff
@@ -7480,13 +7480,13 @@ transmitop=10
 op10=       
 
 // 947:541
-[com_541]
+[floor_56_p_2]
 type=graphic
 x=3
 y=550
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,55"
 colour=0xffffffff
@@ -7494,13 +7494,13 @@ transmitop=10
 op10=       
 
 // 947:542
-[com_542]
+[floor_57_p_2]
 type=graphic
 x=3
 y=560
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,56"
 colour=0xffffffff
@@ -7508,13 +7508,13 @@ transmitop=10
 op10=       
 
 // 947:543
-[com_543]
+[floor_58_p_2]
 type=graphic
 x=3
 y=570
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,57"
 colour=0xffffffff
@@ -7522,13 +7522,13 @@ transmitop=10
 op10=       
 
 // 947:544
-[com_544]
+[floor_59_p_2]
 type=graphic
 x=3
 y=580
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,58"
 colour=0xffffffff
@@ -7536,13 +7536,13 @@ transmitop=10
 op10=       
 
 // 947:545
-[com_545]
+[floor_60_p_2]
 type=graphic
 x=3
 y=590
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,59"
 colour=0xffffffff
@@ -7550,23 +7550,23 @@ transmitop=10
 op10=       
 
 // 947:546
-[com_546]
+[progress_p2_layer_1]
 type=layer
 y=-2
 width=14
 height=605
-layer=com_113
+layer=progress_p2_layer
 transmitop=10
 op10=  
 
 // 947:547
-[com_547]
+[floor_1_p_7]
 type=graphic
 x=3
 y=2
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7574,13 +7574,13 @@ transmitop=10
 op10=  
 
 // 947:548
-[com_548]
+[floor_2_p_7]
 type=graphic
 x=3
 y=12
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7588,13 +7588,13 @@ transmitop=10
 op10=   
 
 // 947:549
-[com_549]
+[floor_3_p_7]
 type=graphic
 x=3
 y=22
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7602,13 +7602,13 @@ transmitop=10
 op10=   
 
 // 947:550
-[com_550]
+[floor_4_p_7]
 type=graphic
 x=3
 y=32
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7616,13 +7616,13 @@ transmitop=10
 op10=   
 
 // 947:551
-[com_551]
+[floor_5_p_7]
 type=graphic
 x=3
 y=42
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7630,13 +7630,13 @@ transmitop=10
 op10=   
 
 // 947:552
-[com_552]
+[floor_6_p_7]
 type=graphic
 x=3
 y=52
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7644,13 +7644,13 @@ transmitop=10
 op10=   
 
 // 947:553
-[com_553]
+[floor_7_p_7]
 type=graphic
 x=3
 y=62
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7658,13 +7658,13 @@ transmitop=10
 op10=   
 
 // 947:554
-[com_554]
+[floor_8_p_7]
 type=graphic
 x=3
 y=72
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7672,13 +7672,13 @@ transmitop=10
 op10=   
 
 // 947:555
-[com_555]
+[floor_9_p_7]
 type=graphic
 x=3
 y=82
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7686,13 +7686,13 @@ transmitop=10
 op10=   
 
 // 947:556
-[com_556]
+[floor_10_p_7]
 type=graphic
 x=3
 y=92
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7700,13 +7700,13 @@ transmitop=10
 op10=   
 
 // 947:557
-[com_557]
+[floor_11_p_7]
 type=graphic
 x=3
 y=102
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7714,13 +7714,13 @@ transmitop=10
 op10=    
 
 // 947:558
-[com_558]
+[floor_12_p_7]
 type=graphic
 x=3
 y=112
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7728,13 +7728,13 @@ transmitop=10
 op10=    
 
 // 947:559
-[com_559]
+[floor_13_p_7]
 type=graphic
 x=3
 y=122
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7742,13 +7742,13 @@ transmitop=10
 op10=    
 
 // 947:560
-[com_560]
+[floor_14_p_7]
 type=graphic
 x=3
 y=132
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7756,13 +7756,13 @@ transmitop=10
 op10=    
 
 // 947:561
-[com_561]
+[floor_15_p_7]
 type=graphic
 x=3
 y=142
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7770,13 +7770,13 @@ transmitop=10
 op10=    
 
 // 947:562
-[com_562]
+[floor_16_p_7]
 type=graphic
 x=3
 y=152
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7784,13 +7784,13 @@ transmitop=10
 op10=    
 
 // 947:563
-[com_563]
+[floor_17_p_7]
 type=graphic
 x=3
 y=162
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7798,13 +7798,13 @@ transmitop=10
 op10=    
 
 // 947:564
-[com_564]
+[floor_18_p_7]
 type=graphic
 x=3
 y=172
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7812,13 +7812,13 @@ transmitop=10
 op10=    
 
 // 947:565
-[com_565]
+[floor_19_p_7]
 type=graphic
 x=3
 y=182
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7826,13 +7826,13 @@ transmitop=10
 op10=    
 
 // 947:566
-[com_566]
+[floor_20_p_7]
 type=graphic
 x=3
 y=192
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7840,13 +7840,13 @@ transmitop=10
 op10=    
 
 // 947:567
-[com_567]
+[floor_21_p_7]
 type=graphic
 x=3
 y=202
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7854,13 +7854,13 @@ transmitop=10
 op10=     
 
 // 947:568
-[com_568]
+[floor_22_p_7]
 type=graphic
 x=3
 y=212
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7868,13 +7868,13 @@ transmitop=10
 op10=     
 
 // 947:569
-[com_569]
+[floor_23_p_7]
 type=graphic
 x=3
 y=222
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7882,13 +7882,13 @@ transmitop=10
 op10=     
 
 // 947:570
-[com_570]
+[floor_24_p_7]
 type=graphic
 x=3
 y=232
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7896,13 +7896,13 @@ transmitop=10
 op10=     
 
 // 947:571
-[com_571]
+[floor_25_p_7]
 type=graphic
 x=3
 y=242
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7910,13 +7910,13 @@ transmitop=10
 op10=     
 
 // 947:572
-[com_572]
+[floor_26_p_7]
 type=graphic
 x=3
 y=252
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7924,13 +7924,13 @@ transmitop=10
 op10=     
 
 // 947:573
-[com_573]
+[floor_27_p_7]
 type=graphic
 x=3
 y=262
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7938,13 +7938,13 @@ transmitop=10
 op10=     
 
 // 947:574
-[com_574]
+[floor_28_p_7]
 type=graphic
 x=3
 y=272
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7952,13 +7952,13 @@ transmitop=10
 op10=     
 
 // 947:575
-[com_575]
+[floor_29_p_7]
 type=graphic
 x=3
 y=282
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7966,13 +7966,13 @@ transmitop=10
 op10=     
 
 // 947:576
-[com_576]
+[floor_30_p_7]
 type=graphic
 x=3
 y=292
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7980,13 +7980,13 @@ transmitop=10
 op10=     
 
 // 947:577
-[com_577]
+[floor_31_p_7]
 type=graphic
 x=3
 y=302
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -7994,13 +7994,13 @@ transmitop=10
 op10=      
 
 // 947:578
-[com_578]
+[floor_32_p_7]
 type=graphic
 x=3
 y=312
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8008,13 +8008,13 @@ transmitop=10
 op10=      
 
 // 947:579
-[com_579]
+[floor_33_p_7]
 type=graphic
 x=3
 y=322
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8022,13 +8022,13 @@ transmitop=10
 op10=      
 
 // 947:580
-[com_580]
+[floor_34_p_7]
 type=graphic
 x=3
 y=332
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8036,13 +8036,13 @@ transmitop=10
 op10=      
 
 // 947:581
-[com_581]
+[floor_35_p_7]
 type=graphic
 x=3
 y=342
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8050,13 +8050,13 @@ transmitop=10
 op10=      
 
 // 947:582
-[com_582]
+[floor_36_p_7]
 type=graphic
 x=3
 y=352
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8064,13 +8064,13 @@ transmitop=10
 op10=      
 
 // 947:583
-[com_583]
+[floor_37_p_7]
 type=graphic
 x=3
 y=362
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8078,13 +8078,13 @@ transmitop=10
 op10=      
 
 // 947:584
-[com_584]
+[floor_38_p_7]
 type=graphic
 x=3
 y=372
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8092,13 +8092,13 @@ transmitop=10
 op10=      
 
 // 947:585
-[com_585]
+[floor_39_p_7]
 type=graphic
 x=3
 y=382
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8106,13 +8106,13 @@ transmitop=10
 op10=      
 
 // 947:586
-[com_586]
+[floor_40_p_7]
 type=graphic
 x=3
 y=392
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8120,13 +8120,13 @@ transmitop=10
 op10=      
 
 // 947:587
-[com_587]
+[floor_41_p_7]
 type=graphic
 x=3
 y=402
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8134,13 +8134,13 @@ transmitop=10
 op10=       
 
 // 947:588
-[com_588]
+[floor_42_p_7]
 type=graphic
 x=3
 y=412
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8148,13 +8148,13 @@ transmitop=10
 op10=       
 
 // 947:589
-[com_589]
+[unlockspanes7]
 type=graphic
 x=3
 y=422
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8162,13 +8162,13 @@ transmitop=10
 op10=       
 
 // 947:590
-[com_590]
+[floor_44_p_7]
 type=graphic
 x=3
 y=432
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8176,13 +8176,13 @@ transmitop=10
 op10=       
 
 // 947:591
-[com_591]
+[floor_45_p_7]
 type=graphic
 x=3
 y=442
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8190,13 +8190,13 @@ transmitop=10
 op10=       
 
 // 947:592
-[com_592]
+[floor_46_p_7]
 type=graphic
 x=3
 y=452
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8204,13 +8204,13 @@ transmitop=10
 op10=       
 
 // 947:593
-[com_593]
+[floor_47_p_7]
 type=graphic
 x=3
 y=462
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8218,13 +8218,13 @@ transmitop=10
 op10=       
 
 // 947:594
-[com_594]
+[floor_48_p_7]
 type=graphic
 x=3
 y=472
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8232,13 +8232,13 @@ transmitop=10
 op10=       
 
 // 947:595
-[com_595]
+[floor_49_p_7]
 type=graphic
 x=3
 y=482
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8246,13 +8246,13 @@ transmitop=10
 op10=       
 
 // 947:596
-[com_596]
+[floor_50_p_7]
 type=graphic
 x=3
 y=492
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8260,13 +8260,13 @@ transmitop=10
 op10=       
 
 // 947:597
-[com_597]
+[floor_51_p_7]
 type=graphic
 x=3
 y=502
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8274,13 +8274,13 @@ transmitop=10
 op10=        
 
 // 947:598
-[com_598]
+[floor_52_p_7]
 type=graphic
 x=3
 y=512
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8288,13 +8288,13 @@ transmitop=10
 op10=        
 
 // 947:599
-[com_599]
+[floor_53_p_7]
 type=graphic
 x=3
 y=522
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8302,13 +8302,13 @@ transmitop=10
 op10=        
 
 // 947:600
-[com_600]
+[floor_54_p_7]
 type=graphic
 x=3
 y=532
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8316,13 +8316,13 @@ transmitop=10
 op10=        
 
 // 947:601
-[com_601]
+[floor_55_p_7]
 type=graphic
 x=3
 y=542
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8330,13 +8330,13 @@ transmitop=10
 op10=        
 
 // 947:602
-[com_602]
+[floor_56_p_7]
 type=graphic
 x=3
 y=552
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8344,13 +8344,13 @@ transmitop=10
 op10=        
 
 // 947:603
-[com_603]
+[floor_57_p_7]
 type=graphic
 x=3
 y=562
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8358,13 +8358,13 @@ transmitop=10
 op10=        
 
 // 947:604
-[com_604]
+[floor_58_p_7]
 type=graphic
 x=3
 y=572
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8372,13 +8372,13 @@ transmitop=10
 op10=        
 
 // 947:605
-[com_605]
+[floor_59_p_7]
 type=graphic
 x=3
 y=582
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8386,13 +8386,13 @@ transmitop=10
 op10=        
 
 // 947:606
-[com_606]
+[floor_60_p_7]
 type=graphic
 x=3
 y=592
 width=8
 height=9
-layer=com_546
+layer=progress_p2_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -8400,36 +8400,36 @@ transmitop=10
 op10=        
 
 // 947:607
-[com_607]
+[floor_cap_p2]
 type=graphic
 x=3
 width=8
 height=10
-layer=com_113
+layer=progress_p2_layer
 graphic=rand_floor_select_progress_end_trinket2
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 947:608
-[com_608]
+[floor_1_p_1]
 type=graphic
 x=3
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,0"
 colour=0xffffffff
 
 // 947:609
-[com_609]
+[floor_2_p_1]
 type=graphic
 x=3
 y=10
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,1"
 colour=0xffffffff
@@ -8437,13 +8437,13 @@ transmitop=10
 op10= 
 
 // 947:610
-[com_610]
+[floor_3_p_1]
 type=graphic
 x=3
 y=20
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,2"
 colour=0xffffffff
@@ -8451,13 +8451,13 @@ transmitop=10
 op10= 
 
 // 947:611
-[com_611]
+[floor_4_p_1]
 type=graphic
 x=3
 y=30
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,3"
 colour=0xffffffff
@@ -8465,13 +8465,13 @@ transmitop=10
 op10= 
 
 // 947:612
-[com_612]
+[floor_5_p_1]
 type=graphic
 x=3
 y=40
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,4"
 colour=0xffffffff
@@ -8479,13 +8479,13 @@ transmitop=10
 op10= 
 
 // 947:613
-[com_613]
+[floor_6_p_1]
 type=graphic
 x=3
 y=50
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,5"
 colour=0xffffffff
@@ -8493,13 +8493,13 @@ transmitop=10
 op10= 
 
 // 947:614
-[com_614]
+[floor_7_p_1]
 type=graphic
 x=3
 y=60
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,6"
 colour=0xffffffff
@@ -8507,13 +8507,13 @@ transmitop=10
 op10= 
 
 // 947:615
-[com_615]
+[floor_8_p_1]
 type=graphic
 x=3
 y=70
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,7"
 colour=0xffffffff
@@ -8521,13 +8521,13 @@ transmitop=10
 op10= 
 
 // 947:616
-[com_616]
+[floor_9_p_1]
 type=graphic
 x=3
 y=80
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,8"
 colour=0xffffffff
@@ -8535,13 +8535,13 @@ transmitop=10
 op10= 
 
 // 947:617
-[com_617]
+[floor_10_p_1]
 type=graphic
 x=3
 y=90
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,9"
 colour=0xffffffff
@@ -8549,13 +8549,13 @@ transmitop=10
 op10= 
 
 // 947:618
-[com_618]
+[floor_11_p_1]
 type=graphic
 x=3
 y=100
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,10"
 colour=0xffffffff
@@ -8563,13 +8563,13 @@ transmitop=10
 op10=  
 
 // 947:619
-[com_619]
+[floor_12_p_1]
 type=graphic
 x=3
 y=110
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,11"
 colour=0xffffffff
@@ -8577,13 +8577,13 @@ transmitop=10
 op10=  
 
 // 947:620
-[com_620]
+[floor_13_p_1]
 type=graphic
 x=3
 y=120
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,12"
 colour=0xffffffff
@@ -8591,13 +8591,13 @@ transmitop=10
 op10=  
 
 // 947:621
-[com_621]
+[floor_14_p_1]
 type=graphic
 x=3
 y=130
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,13"
 colour=0xffffffff
@@ -8605,13 +8605,13 @@ transmitop=10
 op10=  
 
 // 947:622
-[com_622]
+[floor_15_p_1]
 type=graphic
 x=3
 y=140
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,14"
 colour=0xffffffff
@@ -8619,13 +8619,13 @@ transmitop=10
 op10=  
 
 // 947:623
-[com_623]
+[floor_16_p_1]
 type=graphic
 x=3
 y=150
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,15"
 colour=0xffffffff
@@ -8633,13 +8633,13 @@ transmitop=10
 op10=  
 
 // 947:624
-[com_624]
+[floor_17_p_1]
 type=graphic
 x=3
 y=160
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,16"
 colour=0xffffffff
@@ -8647,13 +8647,13 @@ transmitop=10
 op10=  
 
 // 947:625
-[com_625]
+[floor_18_p_1]
 type=graphic
 x=3
 y=170
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,17"
 colour=0xffffffff
@@ -8661,13 +8661,13 @@ transmitop=10
 op10=  
 
 // 947:626
-[com_626]
+[floor_19_p_1]
 type=graphic
 x=3
 y=180
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,18"
 colour=0xffffffff
@@ -8675,13 +8675,13 @@ transmitop=10
 op10=  
 
 // 947:627
-[com_627]
+[floor_20_p_1]
 type=graphic
 x=3
 y=190
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,19"
 colour=0xffffffff
@@ -8689,13 +8689,13 @@ transmitop=10
 op10=  
 
 // 947:628
-[com_628]
+[floor_21_p_1]
 type=graphic
 x=3
 y=200
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,20"
 colour=0xffffffff
@@ -8703,13 +8703,13 @@ transmitop=10
 op10=   
 
 // 947:629
-[com_629]
+[floor_22_p_1]
 type=graphic
 x=3
 y=210
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,21"
 colour=0xffffffff
@@ -8717,13 +8717,13 @@ transmitop=10
 op10=   
 
 // 947:630
-[com_630]
+[floor_23_p_1]
 type=graphic
 x=3
 y=220
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,22"
 colour=0xffffffff
@@ -8731,13 +8731,13 @@ transmitop=10
 op10=   
 
 // 947:631
-[com_631]
+[floor_24_p_1]
 type=graphic
 x=3
 y=230
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,23"
 colour=0xffffffff
@@ -8745,13 +8745,13 @@ transmitop=10
 op10=   
 
 // 947:632
-[com_632]
+[floor_25_p_1]
 type=graphic
 x=3
 y=240
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,24"
 colour=0xffffffff
@@ -8759,13 +8759,13 @@ transmitop=10
 op10=   
 
 // 947:633
-[com_633]
+[floor_26_p_1]
 type=graphic
 x=3
 y=250
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,25"
 colour=0xffffffff
@@ -8773,13 +8773,13 @@ transmitop=10
 op10=   
 
 // 947:634
-[com_634]
+[floor_27_p_1]
 type=graphic
 x=3
 y=260
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,26"
 colour=0xffffffff
@@ -8787,13 +8787,13 @@ transmitop=10
 op10=   
 
 // 947:635
-[com_635]
+[floor_28_p_1]
 type=graphic
 x=3
 y=270
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,27"
 colour=0xffffffff
@@ -8801,13 +8801,13 @@ transmitop=10
 op10=   
 
 // 947:636
-[com_636]
+[floor_29_p_1]
 type=graphic
 x=3
 y=280
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,28"
 colour=0xffffffff
@@ -8815,13 +8815,13 @@ transmitop=10
 op10=   
 
 // 947:637
-[com_637]
+[floor_30_p_1]
 type=graphic
 x=3
 y=290
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,29"
 colour=0xffffffff
@@ -8829,13 +8829,13 @@ transmitop=10
 op10=   
 
 // 947:638
-[com_638]
+[floor_31_p_1]
 type=graphic
 x=3
 y=300
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,30"
 colour=0xffffffff
@@ -8843,13 +8843,13 @@ transmitop=10
 op10=    
 
 // 947:639
-[com_639]
+[floor_32_p_1]
 type=graphic
 x=3
 y=310
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,31"
 colour=0xffffffff
@@ -8857,13 +8857,13 @@ transmitop=10
 op10=    
 
 // 947:640
-[com_640]
+[floor_33_p_1]
 type=graphic
 x=3
 y=320
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,32"
 colour=0xffffffff
@@ -8871,13 +8871,13 @@ transmitop=10
 op10=    
 
 // 947:641
-[com_641]
+[floor_34_p_1]
 type=graphic
 x=3
 y=330
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,33"
 colour=0xffffffff
@@ -8885,13 +8885,13 @@ transmitop=10
 op10=    
 
 // 947:642
-[com_642]
+[floor_35_p_1]
 type=graphic
 x=3
 y=340
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,34"
 colour=0xffffffff
@@ -8899,13 +8899,13 @@ transmitop=10
 op10=    
 
 // 947:643
-[com_643]
+[floor_36_p_1]
 type=graphic
 x=3
 y=350
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,35"
 colour=0xffffffff
@@ -8913,13 +8913,13 @@ transmitop=10
 op10=    
 
 // 947:644
-[com_644]
+[floor_37_p_1]
 type=graphic
 x=3
 y=360
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,36"
 colour=0xffffffff
@@ -8927,13 +8927,13 @@ transmitop=10
 op10=    
 
 // 947:645
-[com_645]
+[floor_38_p_1]
 type=graphic
 x=3
 y=370
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,37"
 colour=0xffffffff
@@ -8941,13 +8941,13 @@ transmitop=10
 op10=    
 
 // 947:646
-[com_646]
+[floor_39_p_1]
 type=graphic
 x=3
 y=380
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,38"
 colour=0xffffffff
@@ -8955,13 +8955,13 @@ transmitop=10
 op10=    
 
 // 947:647
-[com_647]
+[floor_40_p_1]
 type=graphic
 x=3
 y=390
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,39"
 colour=0xffffffff
@@ -8969,13 +8969,13 @@ transmitop=10
 op10=    
 
 // 947:648
-[com_648]
+[floor_41_p_1]
 type=graphic
 x=3
 y=400
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,40"
 colour=0xffffffff
@@ -8983,13 +8983,13 @@ transmitop=10
 op10=     
 
 // 947:649
-[com_649]
+[floor_42_p_1]
 type=graphic
 x=3
 y=410
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,41"
 colour=0xffffffff
@@ -8997,13 +8997,13 @@ transmitop=10
 op10=     
 
 // 947:650
-[com_650]
+[unlockspanes1]
 type=graphic
 x=3
 y=420
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,42"
 colour=0xffffffff
@@ -9011,13 +9011,13 @@ transmitop=10
 op10=     
 
 // 947:651
-[com_651]
+[floor_44_p_1]
 type=graphic
 x=3
 y=430
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,43"
 colour=0xffffffff
@@ -9025,13 +9025,13 @@ transmitop=10
 op10=     
 
 // 947:652
-[com_652]
+[floor_45_p_1]
 type=graphic
 x=3
 y=440
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,44"
 colour=0xffffffff
@@ -9039,13 +9039,13 @@ transmitop=10
 op10=     
 
 // 947:653
-[com_653]
+[floor_46_p_1]
 type=graphic
 x=3
 y=450
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,45"
 colour=0xffffffff
@@ -9053,13 +9053,13 @@ transmitop=10
 op10=     
 
 // 947:654
-[com_654]
+[floor_47_p_1]
 type=graphic
 x=3
 y=460
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,46"
 colour=0xffffffff
@@ -9067,13 +9067,13 @@ transmitop=10
 op10=     
 
 // 947:655
-[com_655]
+[floor_48_p_1]
 type=graphic
 x=3
 y=470
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,47"
 colour=0xffffffff
@@ -9081,13 +9081,13 @@ transmitop=10
 op10=     
 
 // 947:656
-[com_656]
+[floor_49_p_1]
 type=graphic
 x=3
 y=480
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,48"
 colour=0xffffffff
@@ -9095,13 +9095,13 @@ transmitop=10
 op10=     
 
 // 947:657
-[com_657]
+[floor_50_p_1]
 type=graphic
 x=3
 y=490
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,49"
 colour=0xffffffff
@@ -9109,13 +9109,13 @@ transmitop=10
 op10=     
 
 // 947:658
-[com_658]
+[floor_51_p_1]
 type=graphic
 x=3
 y=500
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,50"
 colour=0xffffffff
@@ -9123,13 +9123,13 @@ transmitop=10
 op10=      
 
 // 947:659
-[com_659]
+[floor_52_p_1]
 type=graphic
 x=3
 y=510
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,51"
 colour=0xffffffff
@@ -9137,13 +9137,13 @@ transmitop=10
 op10=      
 
 // 947:660
-[com_660]
+[floor_53_p_1]
 type=graphic
 x=3
 y=520
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,52"
 colour=0xffffffff
@@ -9151,13 +9151,13 @@ transmitop=10
 op10=      
 
 // 947:661
-[com_661]
+[floor_54_p_1]
 type=graphic
 x=3
 y=530
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,53"
 colour=0xffffffff
@@ -9165,13 +9165,13 @@ transmitop=10
 op10=      
 
 // 947:662
-[com_662]
+[floor_55_p_1]
 type=graphic
 x=3
 y=540
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,54"
 colour=0xffffffff
@@ -9179,13 +9179,13 @@ transmitop=10
 op10=      
 
 // 947:663
-[com_663]
+[floor_56_p_1]
 type=graphic
 x=3
 y=550
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,55"
 colour=0xffffffff
@@ -9193,13 +9193,13 @@ transmitop=10
 op10=      
 
 // 947:664
-[com_664]
+[floor_57_p_1]
 type=graphic
 x=3
 y=560
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,56"
 colour=0xffffffff
@@ -9207,13 +9207,13 @@ transmitop=10
 op10=      
 
 // 947:665
-[com_665]
+[floor_58_p_1]
 type=graphic
 x=3
 y=570
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,57"
 colour=0xffffffff
@@ -9221,13 +9221,13 @@ transmitop=10
 op10=      
 
 // 947:666
-[com_666]
+[floor_59_p_1]
 type=graphic
 x=3
 y=580
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,58"
 colour=0xffffffff
@@ -9235,13 +9235,13 @@ transmitop=10
 op10=      
 
 // 947:667
-[com_667]
+[floor_60_p_1]
 type=graphic
 x=3
 y=590
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 hide=yes
 graphic="rand_floor_select_progress_bar_colour,59"
 colour=0xffffffff
@@ -9249,23 +9249,23 @@ transmitop=10
 op10=      
 
 // 947:668
-[com_668]
+[progress_p1_layer_1]
 type=layer
 y=-2
 width=14
 height=605
-layer=com_111
+layer=progress_no_layer
 transmitop=10
 op10= 
 
 // 947:669
-[com_669]
+[floor_1_p_6]
 type=graphic
 x=3
 y=2
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9273,13 +9273,13 @@ transmitop=10
 op10= 
 
 // 947:670
-[com_670]
+[floor_2_p_6]
 type=graphic
 x=3
 y=12
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9287,13 +9287,13 @@ transmitop=10
 op10=  
 
 // 947:671
-[com_671]
+[floor_3_p_6]
 type=graphic
 x=3
 y=22
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9301,13 +9301,13 @@ transmitop=10
 op10=  
 
 // 947:672
-[com_672]
+[floor_4_p_6]
 type=graphic
 x=3
 y=32
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9315,13 +9315,13 @@ transmitop=10
 op10=  
 
 // 947:673
-[com_673]
+[floor_5_p_6]
 type=graphic
 x=3
 y=42
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9329,13 +9329,13 @@ transmitop=10
 op10=  
 
 // 947:674
-[com_674]
+[floor_6_p_6]
 type=graphic
 x=3
 y=52
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9343,13 +9343,13 @@ transmitop=10
 op10=  
 
 // 947:675
-[com_675]
+[floor_7_p_6]
 type=graphic
 x=3
 y=62
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9357,13 +9357,13 @@ transmitop=10
 op10=  
 
 // 947:676
-[com_676]
+[floor_8_p_6]
 type=graphic
 x=3
 y=72
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9371,13 +9371,13 @@ transmitop=10
 op10=  
 
 // 947:677
-[com_677]
+[floor_9_p_6]
 type=graphic
 x=3
 y=82
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9385,13 +9385,13 @@ transmitop=10
 op10=  
 
 // 947:678
-[com_678]
+[floor_10_p_6]
 type=graphic
 x=3
 y=92
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9399,13 +9399,13 @@ transmitop=10
 op10=  
 
 // 947:679
-[com_679]
+[floor_11_p_6]
 type=graphic
 x=3
 y=102
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9413,13 +9413,13 @@ transmitop=10
 op10=   
 
 // 947:680
-[com_680]
+[floor_12_p_6]
 type=graphic
 x=3
 y=112
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9427,13 +9427,13 @@ transmitop=10
 op10=   
 
 // 947:681
-[com_681]
+[floor_13_p_6]
 type=graphic
 x=3
 y=122
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9441,13 +9441,13 @@ transmitop=10
 op10=   
 
 // 947:682
-[com_682]
+[floor_14_p_6]
 type=graphic
 x=3
 y=132
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9455,13 +9455,13 @@ transmitop=10
 op10=   
 
 // 947:683
-[com_683]
+[floor_15_p_6]
 type=graphic
 x=3
 y=142
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9469,13 +9469,13 @@ transmitop=10
 op10=   
 
 // 947:684
-[com_684]
+[floor_16_p_6]
 type=graphic
 x=3
 y=152
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9483,13 +9483,13 @@ transmitop=10
 op10=   
 
 // 947:685
-[com_685]
+[floor_17_p_6]
 type=graphic
 x=3
 y=162
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9497,13 +9497,13 @@ transmitop=10
 op10=   
 
 // 947:686
-[com_686]
+[floor_18_p_6]
 type=graphic
 x=3
 y=172
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9511,13 +9511,13 @@ transmitop=10
 op10=   
 
 // 947:687
-[com_687]
+[floor_19_p_6]
 type=graphic
 x=3
 y=182
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9525,13 +9525,13 @@ transmitop=10
 op10=   
 
 // 947:688
-[com_688]
+[floor_20_p_6]
 type=graphic
 x=3
 y=192
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9539,13 +9539,13 @@ transmitop=10
 op10=   
 
 // 947:689
-[com_689]
+[floor_21_p_6]
 type=graphic
 x=3
 y=202
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9553,13 +9553,13 @@ transmitop=10
 op10=    
 
 // 947:690
-[com_690]
+[floor_22_p_6]
 type=graphic
 x=3
 y=212
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9567,13 +9567,13 @@ transmitop=10
 op10=    
 
 // 947:691
-[com_691]
+[floor_23_p_6]
 type=graphic
 x=3
 y=222
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9581,13 +9581,13 @@ transmitop=10
 op10=    
 
 // 947:692
-[com_692]
+[floor_24_p_6]
 type=graphic
 x=3
 y=232
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9595,13 +9595,13 @@ transmitop=10
 op10=    
 
 // 947:693
-[com_693]
+[floor_25_p_6]
 type=graphic
 x=3
 y=242
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9609,13 +9609,13 @@ transmitop=10
 op10=    
 
 // 947:694
-[com_694]
+[floor_26_p_6]
 type=graphic
 x=3
 y=252
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9623,13 +9623,13 @@ transmitop=10
 op10=    
 
 // 947:695
-[com_695]
+[floor_27_p_6]
 type=graphic
 x=3
 y=262
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9637,13 +9637,13 @@ transmitop=10
 op10=    
 
 // 947:696
-[com_696]
+[floor_28_p_6]
 type=graphic
 x=3
 y=272
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9651,13 +9651,13 @@ transmitop=10
 op10=    
 
 // 947:697
-[com_697]
+[floor_29_p_6]
 type=graphic
 x=3
 y=282
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9665,13 +9665,13 @@ transmitop=10
 op10=    
 
 // 947:698
-[com_698]
+[floor_30_p_6]
 type=graphic
 x=3
 y=292
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9679,13 +9679,13 @@ transmitop=10
 op10=    
 
 // 947:699
-[com_699]
+[floor_31_p_6]
 type=graphic
 x=3
 y=302
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9693,13 +9693,13 @@ transmitop=10
 op10=     
 
 // 947:700
-[com_700]
+[floor_32_p_6]
 type=graphic
 x=3
 y=312
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9707,13 +9707,13 @@ transmitop=10
 op10=     
 
 // 947:701
-[com_701]
+[floor_33_p_6]
 type=graphic
 x=3
 y=322
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9721,13 +9721,13 @@ transmitop=10
 op10=     
 
 // 947:702
-[com_702]
+[floor_34_p_6]
 type=graphic
 x=3
 y=332
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9735,13 +9735,13 @@ transmitop=10
 op10=     
 
 // 947:703
-[com_703]
+[floor_35_p_6]
 type=graphic
 x=3
 y=342
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9749,13 +9749,13 @@ transmitop=10
 op10=     
 
 // 947:704
-[com_704]
+[floor_36_p_6]
 type=graphic
 x=3
 y=352
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9763,13 +9763,13 @@ transmitop=10
 op10=     
 
 // 947:705
-[com_705]
+[floor_37_p_6]
 type=graphic
 x=3
 y=362
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9777,13 +9777,13 @@ transmitop=10
 op10=     
 
 // 947:706
-[com_706]
+[floor_38_p_6]
 type=graphic
 x=3
 y=372
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9791,13 +9791,13 @@ transmitop=10
 op10=     
 
 // 947:707
-[com_707]
+[floor_39_p_6]
 type=graphic
 x=3
 y=382
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9805,13 +9805,13 @@ transmitop=10
 op10=     
 
 // 947:708
-[com_708]
+[floor_40_p_6]
 type=graphic
 x=3
 y=392
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9819,13 +9819,13 @@ transmitop=10
 op10=     
 
 // 947:709
-[com_709]
+[floor_41_p_6]
 type=graphic
 x=3
 y=402
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9833,13 +9833,13 @@ transmitop=10
 op10=      
 
 // 947:710
-[com_710]
+[floor_42_p_6]
 type=graphic
 x=3
 y=412
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9847,13 +9847,13 @@ transmitop=10
 op10=      
 
 // 947:711
-[com_711]
+[unlockspanes6]
 type=graphic
 x=3
 y=422
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9861,13 +9861,13 @@ transmitop=10
 op10=      
 
 // 947:712
-[com_712]
+[floor_44_p_6]
 type=graphic
 x=3
 y=432
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9875,13 +9875,13 @@ transmitop=10
 op10=      
 
 // 947:713
-[com_713]
+[floor_45_p_6]
 type=graphic
 x=3
 y=442
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9889,13 +9889,13 @@ transmitop=10
 op10=      
 
 // 947:714
-[com_714]
+[floor_46_p_6]
 type=graphic
 x=3
 y=452
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9903,13 +9903,13 @@ transmitop=10
 op10=      
 
 // 947:715
-[com_715]
+[floor_47_p_6]
 type=graphic
 x=3
 y=462
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9917,13 +9917,13 @@ transmitop=10
 op10=      
 
 // 947:716
-[com_716]
+[floor_48_p_6]
 type=graphic
 x=3
 y=472
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9931,13 +9931,13 @@ transmitop=10
 op10=      
 
 // 947:717
-[com_717]
+[floor_49_p_6]
 type=graphic
 x=3
 y=482
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9945,13 +9945,13 @@ transmitop=10
 op10=      
 
 // 947:718
-[com_718]
+[floor_50_p_6]
 type=graphic
 x=3
 y=492
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9959,13 +9959,13 @@ transmitop=10
 op10=      
 
 // 947:719
-[com_719]
+[floor_51_p_6]
 type=graphic
 x=3
 y=502
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9973,13 +9973,13 @@ transmitop=10
 op10=       
 
 // 947:720
-[com_720]
+[floor_52_p_6]
 type=graphic
 x=3
 y=512
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -9987,13 +9987,13 @@ transmitop=10
 op10=       
 
 // 947:721
-[com_721]
+[floor_53_p_6]
 type=graphic
 x=3
 y=522
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -10001,13 +10001,13 @@ transmitop=10
 op10=       
 
 // 947:722
-[com_722]
+[floor_54_p_6]
 type=graphic
 x=3
 y=532
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -10015,13 +10015,13 @@ transmitop=10
 op10=       
 
 // 947:723
-[com_723]
+[floor_55_p_6]
 type=graphic
 x=3
 y=542
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -10029,13 +10029,13 @@ transmitop=10
 op10=       
 
 // 947:724
-[com_724]
+[floor_56_p_6]
 type=graphic
 x=3
 y=552
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -10043,13 +10043,13 @@ transmitop=10
 op10=       
 
 // 947:725
-[com_725]
+[floor_57_p_6]
 type=graphic
 x=3
 y=562
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -10057,13 +10057,13 @@ transmitop=10
 op10=       
 
 // 947:726
-[com_726]
+[floor_58_p_6]
 type=graphic
 x=3
 y=572
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -10071,13 +10071,13 @@ transmitop=10
 op10=       
 
 // 947:727
-[com_727]
+[floor_59_p_6]
 type=graphic
 x=3
 y=582
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -10085,13 +10085,13 @@ transmitop=10
 op10=       
 
 // 947:728
-[com_728]
+[floor_60_p_6]
 type=graphic
 x=3
 y=592
 width=8
 height=9
-layer=com_668
+layer=progress_p1_layer_1
 hide=yes
 graphic=rand_floor_select_tick_alpha
 colour=0xffffffff
@@ -10099,12 +10099,12 @@ transmitop=10
 op10=       
 
 // 947:729
-[com_729]
+[floor_cap_p1]
 type=graphic
 x=3
 width=8
 height=10
-layer=com_111
+layer=progress_no_layer
 graphic=rand_floor_select_progress_end_trinket2
 colour=0xffffffff
 
@@ -10114,7 +10114,7 @@ type=graphic
 x=3
 width=15
 height=15
-layer=com_109
+layer=standard_charge_35_192
 graphic="rand_framea_edges,8"
 vflip=yes
 colour=0xffffffff
@@ -10125,7 +10125,7 @@ type=graphic
 x=18
 width=57
 height=15
-layer=com_109
+layer=standard_charge_35_192
 graphic="rand_framea_edges,9"
 vflip=yes
 colour=0xffffffff
@@ -10138,7 +10138,7 @@ type=graphic
 x=75
 width=15
 height=15
-layer=com_109
+layer=standard_charge_35_192
 graphic="rand_framea_edges,8"
 vflip=yes
 hflip=yes
@@ -10153,7 +10153,7 @@ x=3
 y=15
 width=15
 height=598
-layer=com_109
+layer=standard_charge_35_192
 graphic="rand_framea_edges,7"
 vflip=yes
 colour=0xffffffff
@@ -10167,7 +10167,7 @@ x=18
 y=14
 width=57
 height=599
-layer=com_109
+layer=standard_charge_35_192
 colour=0x2b291f
 fill=yes
 
@@ -10178,7 +10178,7 @@ x=75
 y=15
 width=15
 height=598
-layer=com_109
+layer=standard_charge_35_192
 graphic="rand_framea_edges,7"
 vflip=yes
 hflip=yes
@@ -10193,7 +10193,7 @@ x=3
 y=613
 width=15
 height=15
-layer=com_109
+layer=standard_charge_35_192
 graphic="rand_framea_edges,8"
 colour=0xffffffff
 transmitop=10
@@ -10206,7 +10206,7 @@ x=18
 y=613
 width=57
 height=15
-layer=com_109
+layer=standard_charge_35_192
 graphic="rand_framea_edges,9"
 colour=0xffffffff
 transmitop=10
@@ -10219,7 +10219,7 @@ x=75
 y=613
 width=15
 height=15
-layer=com_109
+layer=standard_charge_35_192
 graphic="rand_framea_edges,8"
 hflip=yes
 colour=0xffffffff
@@ -10233,7 +10233,7 @@ x=14
 y=17
 width=8
 height=600
-layer=com_109
+layer=standard_charge_35_192
 graphic=graphic_2886
 colour=0xffffffff
 transmitop=10
@@ -10246,7 +10246,7 @@ x=13
 y=16
 width=10
 height=602
-layer=com_109
+layer=standard_charge_35_192
 graphic=graphic_2947
 colour=0xffffffff
 
@@ -10257,7 +10257,7 @@ x=28
 y=17
 width=8
 height=600
-layer=com_109
+layer=standard_charge_35_192
 graphic=graphic_2886
 colour=0xffffffff
 transmitop=10
@@ -10270,7 +10270,7 @@ x=27
 y=16
 width=10
 height=602
-layer=com_109
+layer=standard_charge_35_192
 graphic=graphic_2947
 colour=0xffffffff
 transmitop=10
@@ -10283,7 +10283,7 @@ x=42
 y=17
 width=8
 height=600
-layer=com_109
+layer=standard_charge_35_192
 graphic=graphic_2886
 colour=0xffffffff
 transmitop=10
@@ -10296,7 +10296,7 @@ x=41
 y=16
 width=10
 height=602
-layer=com_109
+layer=standard_charge_35_192
 graphic=graphic_2947
 colour=0xffffffff
 transmitop=10
@@ -10309,7 +10309,7 @@ x=56
 y=17
 width=8
 height=600
-layer=com_109
+layer=standard_charge_35_192
 graphic=graphic_2886
 colour=0xffffffff
 transmitop=10
@@ -10322,7 +10322,7 @@ x=55
 y=16
 width=10
 height=602
-layer=com_109
+layer=standard_charge_35_192
 graphic=graphic_2947
 colour=0xffffffff
 transmitop=10
@@ -10335,7 +10335,7 @@ x=70
 y=17
 width=8
 height=600
-layer=com_109
+layer=standard_charge_35_192
 graphic=graphic_2886
 colour=0xffffffff
 transmitop=10
@@ -10348,14 +10348,14 @@ x=69
 y=16
 width=10
 height=602
-layer=com_109
+layer=standard_charge_35_192
 graphic=graphic_2947
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 947:749
-[com_749]
+[display_layer]
 type=layer
 x=9
 y=234
@@ -10365,13 +10365,13 @@ transmitop=10
 op10=  
 
 // 947:750
-[com_750]
+[display_bg_layer]
 type=layer
 width=33696
 height=59488
 widthmode=proportion
 heightmode=proportion
-layer=com_749
+layer=display_layer
 
 // 947:751
 [com_751]
@@ -10380,7 +10380,7 @@ x=-1
 y=-1
 width=15
 height=15
-layer=com_750
+layer=display_bg_layer
 graphic="rand_framea_edges,0"
 colour=0xffffffff
 
@@ -10391,7 +10391,7 @@ x=13
 y=-1
 width=220
 height=15
-layer=com_750
+layer=display_bg_layer
 graphic="rand_framea_edges,1"
 colour=0xffffffff
 transmitop=10
@@ -10404,7 +10404,7 @@ x=233
 y=-1
 width=15
 height=15
-layer=com_750
+layer=display_bg_layer
 graphic="rand_framea_edges,0"
 hflip=yes
 colour=0xffffffff
@@ -10418,7 +10418,7 @@ x=-1
 y=14
 width=15
 height=62
-layer=com_750
+layer=display_bg_layer
 graphic="rand_framea_edges,7"
 colour=0xffffffff
 transmitop=10
@@ -10431,7 +10431,7 @@ x=233
 y=14
 width=15
 height=62
-layer=com_750
+layer=display_bg_layer
 graphic="rand_framea_edges,7"
 hflip=yes
 colour=0xffffffff
@@ -10445,7 +10445,7 @@ x=-1
 y=76
 width=15
 height=15
-layer=com_750
+layer=display_bg_layer
 graphic="rand_framea_edges,8"
 colour=0xffffffff
 transmitop=10
@@ -10458,7 +10458,7 @@ x=13
 y=76
 width=221
 height=15
-layer=com_750
+layer=display_bg_layer
 graphic="rand_framea_edges,9"
 colour=0xffffffff
 transmitop=10
@@ -10471,7 +10471,7 @@ x=233
 y=76
 width=15
 height=15
-layer=com_750
+layer=display_bg_layer
 graphic="rand_framea_edges,8"
 hflip=yes
 colour=0xffffffff
@@ -10485,7 +10485,7 @@ x=1
 y=16
 width=245
 height=60
-layer=com_750
+layer=display_bg_layer
 colour=0x2c2a20
 fill=yes
 
@@ -10496,19 +10496,19 @@ x=1
 y=14
 width=245
 height=62
-layer=com_750
+layer=display_bg_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
 
 // 947:761
-[com_761]
+[confirm_layer]
 type=layer
 x=160
 y=30
 width=74
 height=30
-layer=com_749
+layer=display_layer
 transmitop=10
 op10=  
 onload=v2_stone_button(event_com)
@@ -10516,25 +10516,25 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 947:762
-[com_762]
+[confirm_backing]
 type=rectangle
 width=4
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_761
+layer=confirm_layer
 colour=0x453d30
 fill=yes
 transmitop=10
 op10=     
 
 // 947:763
-[com_763]
+[standard_charge_8_206]
 type=text
 y=34
 width=97
 height=24
-layer=com_749
+layer=display_layer
 textfont=b12_full
 text=Floor
 textalignh=right
@@ -10545,28 +10545,28 @@ transmitop=10
 op10=  
 
 // 947:764
-[com_764]
+[floor_box]
 type=graphic
 x=4
 y=34
 width=27
 height=24
 xmode=abs_centre
-layer=com_749
+layer=display_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 947:765
-[com_765]
+[current_floor]
 type=text
 x=5
 y=31
 width=32
 height=32
 xmode=abs_centre
-layer=com_749
+layer=display_layer
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -10576,11 +10576,11 @@ transmitop=10
 op10= 
 
 // 947:766
-[com_766]
+[confirm]
 type=text
 width=74
 height=30
-layer=com_761
+layer=confirm_layer
 textfont=p12_full
 text=Confirm
 textlineheight=12
@@ -10595,7 +10595,7 @@ onmouseover=text_colour_swapper(event_com, 0xbb8800)
 onmouseleave=text_colour_swapper(event_com, 0xcc9900)
 
 // 947:767
-[com_767]
+[text_layer]
 type=layer
 x=257
 y=22
@@ -10605,7 +10605,7 @@ transmitop=10
 op10= 
 
 // 947:768
-[com_768]
+[text_scroll]
 type=layer
 x=5
 y=5
@@ -10613,12 +10613,12 @@ width=16
 height=10
 heightmode=minus
 xmode=abs_right
-layer=com_767
+layer=text_layer
 transmitop=10
 op10=   
 
 // 947:769
-[com_769]
+[text_scrolltarget]
 type=layer
 x=5
 y=5
@@ -10626,7 +10626,7 @@ width=10
 height=10
 widthmode=minus
 heightmode=minus
-layer=com_767
+layer=text_layer
 transmitop=10
 op10= 
 
@@ -10635,7 +10635,7 @@ op10=
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_769
+layer=text_scrolltarget
 textfont=p12_full
 text=The deeper you go down into Daemonheim, the more powerful the creatures become. As the difficulty increases with depth, so does the Dungeoneering XP reward you receive at the end of a raid.<br><br>When you first start Dungeoneering, only floor 1 will be unlocked. You must complete a raid of a floor before you can unlock the next one, and you may only access a floor if you have the necessary Dungeoneering skill level.<br><br>All members of your party must have the floor unlocked for you to raid it. To see which floors are unlocked by all players, look at the columns that run vertically down the screen to the left - there's a column for each member of your group.
 textshadow=yes

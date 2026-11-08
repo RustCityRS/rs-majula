@@ -17,7 +17,7 @@ switch_component ($component0) {
         } else {
             if_setgraphic(graphic_1701, $component0);
         }
-    case magic:com_11 :
+    case magic:filter_misc_button :
         if (%varplayerbit_6461 = 0) {
             if_setgraphic(graphic_1703, $component0);
         } else if (%varclient_990 = 1) {
@@ -41,7 +41,7 @@ switch_component ($component0) {
         } else {
             if_setgraphic(graphic_1701, $component0);
         }
-    case magic_lunar:com_9 :
+    case magic_lunar:filter_misc_button :
         if (%varplayerbit_6464 = 0) {
             if_setgraphic(graphic_1703, $component0);
         } else if (%varclient_990 = 1) {
@@ -89,7 +89,7 @@ switch_component ($component0) {
         } else {
             if_setgraphic(graphic_1701, $component0);
         }
-    case rand_magic:com_11 :
+    case rand_magic:filter_misc_button :
         if (%varplayerbit_7350 = 0) {
             if_setgraphic(graphic_1703, $component0);
         } else if (%varclient_990 = 1) {

@@ -25,21 +25,21 @@ def_int $int16 = 0;
 def_string $string1 = "";
 def_int $int17 = 0;
 if ($int7 <= 0) {
-    if_settext("Not in chat", lobbyscreen_pane_friendschat:com_19);
+    if_settext("Not in chat", lobbyscreen_pane_friendschat:clan_detail_name_text);
     if_settext("None", lobbyscreen_pane_friendschat:com_20);
     if_settext("Join Chat Channel", lobbyscreen_pane_friendschat:com_41);
     if_setop(1, "Join Chat Channel", lobbyscreen_pane_friendschat:com_39);
     ~script4560("You are not currently in a Friends Chat channel.<br><br>Use the button below if you wish to join a chat channel.", $component3);
-    if_setsize(if_getwidth(lobbyscreen_pane_friendschat:com_45), if_getheight(lobbyscreen_pane_friendschat:com_44), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_friendschat:com_45);
-    if_setscrollsize(0, 0, lobbyscreen_pane_friendschat:com_51);
-    if_setscrollpos(0, 0, lobbyscreen_pane_friendschat:com_51);
-    ~scrollbar_resize(lobbyscreen_pane_friendschat:com_52, lobbyscreen_pane_friendschat:com_51, 0);
+    if_setsize(if_getwidth(lobbyscreen_pane_friendschat:clan_vdiv), if_getheight(lobbyscreen_pane_friendschat:clan_titles), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_friendschat:clan_vdiv);
+    if_setscrollsize(0, 0, lobbyscreen_pane_friendschat:clan_main);
+    if_setscrollpos(0, 0, lobbyscreen_pane_friendschat:clan_main);
+    ~scrollbar_resize(lobbyscreen_pane_friendschat:clan_build_layer_scroll, lobbyscreen_pane_friendschat:clan_main, 0);
 } else {
-    if_settext(clan_getchatdisplayname, lobbyscreen_pane_friendschat:com_19);
+    if_settext(clan_getchatdisplayname, lobbyscreen_pane_friendschat:clan_detail_name_text);
     if_settext(clan_getchatownername, lobbyscreen_pane_friendschat:com_20);
     if_settext("Leave chat channel", lobbyscreen_pane_friendschat:com_41);
     if_setop(1, "Leave chat channel", lobbyscreen_pane_friendschat:com_39);
-    if_setsize(if_getwidth(lobbyscreen_pane_friendschat:com_45), 4, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendschat:com_45);
+    if_setsize(if_getwidth(lobbyscreen_pane_friendschat:clan_vdiv), 4, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendschat:clan_vdiv);
     while ($int8 < $int7) {
         $int16 = clan_getchatuserrank($int8);
         $string1 = clan_getchatusername_unfiltered($int8);
@@ -105,16 +105,16 @@ if ($int7 <= 0) {
         $int15 = $int12;
     }
     if ($int14 <= $int7) {
-        $int17 = if_getscrolly(lobbyscreen_pane_friendschat:com_51);
-        if_setscrollsize(0, $int15, lobbyscreen_pane_friendschat:com_51);
+        $int17 = if_getscrolly(lobbyscreen_pane_friendschat:clan_main);
+        if_setscrollsize(0, $int15, lobbyscreen_pane_friendschat:clan_main);
         if ($int17 > $int15) {
             $int17 = $int15;
         }
-        ~scrollbar_resize(lobbyscreen_pane_friendschat:com_52, lobbyscreen_pane_friendschat:com_51, $int17);
+        ~scrollbar_resize(lobbyscreen_pane_friendschat:clan_build_layer_scroll, lobbyscreen_pane_friendschat:clan_main, $int17);
     } else {
-        if_setscrollsize(0, 0, lobbyscreen_pane_friendschat:com_51);
-        if_setscrollpos(0, 0, lobbyscreen_pane_friendschat:com_51);
-        ~scrollbar_resize(lobbyscreen_pane_friendschat:com_52, lobbyscreen_pane_friendschat:com_51, 0);
+        if_setscrollsize(0, 0, lobbyscreen_pane_friendschat:clan_main);
+        if_setscrollpos(0, 0, lobbyscreen_pane_friendschat:clan_main);
+        ~scrollbar_resize(lobbyscreen_pane_friendschat:clan_build_layer_scroll, lobbyscreen_pane_friendschat:clan_main, 0);
     }
 }
 ~script4573;

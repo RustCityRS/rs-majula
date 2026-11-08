@@ -1,39 +1,39 @@
 // 2421
 [clientscript,peng_rak_tutorial]
-if_setmodel(model_46997, interface_674:com_13);
-if_setmodel(model_46976, interface_674:com_15);
-if_setmodel(model_46974, interface_674:com_14);
-if_setmodel(model_46995, interface_674:com_16);
-if_setmodel(model_46986, interface_674:com_17);
+if_setmodel(model_46997, peng_rak_engine_overlay:wrench);
+if_setmodel(model_46976, peng_rak_engine_overlay:wirecutter);
+if_setmodel(model_46974, peng_rak_engine_overlay:sparewire);
+if_setmodel(model_46995, peng_rak_engine_overlay:tape);
+if_setmodel(model_46986, peng_rak_engine_overlay:bellows);
 if (%varclient_737 = 1) {
-    if_setmodel(model_46982, interface_674:com_13);
+    if_setmodel(model_46982, peng_rak_engine_overlay:wrench);
     sound_synth(synth_6691, 1, 0);
-    if_sethide(true, interface_674:com_10);
+    if_sethide(true, peng_rak_engine_overlay:wirebox_cover);
 } else if (%varclient_737 = 2) {
-    if_setmodel(model_46979, interface_674:com_15);
+    if_setmodel(model_46979, peng_rak_engine_overlay:wirecutter);
     sound_synth(synth_6694, 1, 0);
-    if_setmodel(model_46964, interface_674:com_6);
+    if_setmodel(model_46964, peng_rak_engine_overlay:wirebox);
 } else if (%varclient_737 = 3) {
-    if_setmodel(model_46989, interface_674:com_14);
-    if_setmodel(model_46956, interface_674:com_6);
+    if_setmodel(model_46989, peng_rak_engine_overlay:sparewire);
+    if_setmodel(model_46956, peng_rak_engine_overlay:wirebox);
 } else if (%varclient_737 = 4) {
-    if_setmodel(model_46981, interface_674:com_16);
+    if_setmodel(model_46981, peng_rak_engine_overlay:tape);
     sound_synth(synth_6695, 1, 0);
-    if_setmodel(model_46965, interface_674:com_6);
+    if_setmodel(model_46965, peng_rak_engine_overlay:wirebox);
 } else if (%varclient_737 = 5) {
-    if_setmodel(model_46996, interface_674:com_17);
+    if_setmodel(model_46996, peng_rak_engine_overlay:bellows);
     sound_synth(synth_6690, 1, 0);
-    if_sethide(false, interface_674:com_5);
+    if_sethide(false, peng_rak_engine_overlay:bellows_demo);
 } else if (%varclient_737 = 6) {
-    if_setmodelanim(seq_11761, interface_674:com_9);
+    if_setmodelanim(seq_11761, peng_rak_engine_overlay:gauge);
 } else if (%varclient_737 = 7) {
-    if_setmodelanim(seq_11760, interface_674:com_9);
+    if_setmodelanim(seq_11760, peng_rak_engine_overlay:gauge);
 } else if (%varclient_737 = 8) {
-    if_setmodelanim(seq_11759, interface_674:com_9);
+    if_setmodelanim(seq_11759, peng_rak_engine_overlay:gauge);
 } else if (%varclient_737 = 9) {
-    if_setmodelanim(seq_11763, interface_674:com_9);
+    if_setmodelanim(seq_11763, peng_rak_engine_overlay:gauge);
 } else if (%varclient_737 = 10) {
-    if_setmodelanim(seq_11764, interface_674:com_9);
+    if_setmodelanim(seq_11764, peng_rak_engine_overlay:gauge);
 } else if (%varclient_737 = 11) {
-    if_setmodelanim(seq_11765, interface_674:com_9);
+    if_setmodelanim(seq_11765, peng_rak_engine_overlay:gauge);
 }

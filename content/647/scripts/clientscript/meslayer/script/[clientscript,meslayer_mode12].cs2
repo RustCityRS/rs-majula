@@ -4,24 +4,24 @@ if ($int0 ! 1) {
     return;
 }
 if (getwindowmode >= 2) {
-    if_sethide(false, toplevel_fullscreen:com_chatbox);
+    if_sethide(false, toplevel_fullscreen:chattop);
 }
-if_sethide(false, chatbox:com_3);
-if_sethide(true, chatbox:com_7);
-if_sethide(true, chatbox:com_8);
+if_sethide(false, chattop:mes_layer);
+if_sethide(true, chattop:mes_layer_large);
+if_sethide(true, chattop:mes_layer_hide);
 if (~bool_to_int(%varclient_266) = 0) {
     %varclient_1557 = "";
     %varclient_1558 = "";
     %varclient_266 = true;
 }
 if (string_length(%varclient_1557) > 0) {
-    if_settext("Edit the name of your caller:<br>(Delete it to disable this feature.)", chatbox:com_4);
+    if_settext("Edit the name of your caller:<br>(Delete it to disable this feature.)", chattop:mes_text);
 } else {
-    if_settext("Enter the name of your caller:", chatbox:com_4);
+    if_settext("Enter the name of your caller:", chattop:mes_text);
 }
 %varclient_5 = 12;
 ~meslayer_setupinput(%varclient_1557);
-if_setonclick("script1805", chatbox:com_3);
+if_setonclick("script1805", chattop:mes_layer);
 ~script2026;
-if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chatbox:com_5);
+if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chattop:mes_text2);
 ~opt_header;

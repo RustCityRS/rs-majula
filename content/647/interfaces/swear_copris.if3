@@ -1,5 +1,5 @@
 // 927:0
-[com_0]
+[all]
 type=layer
 width=512
 heightmode=minus
@@ -11,7 +11,7 @@ onload=script2242
 type=layer
 width=512
 height=334
-layer=com_0
+layer=all
 transmitop=10
 op10= 
 
@@ -99,7 +99,7 @@ transmitop=10
 op10=          
 
 // 927:8
-[com_8]
+[background_1]
 type=graphic
 x=21
 y=47
@@ -141,7 +141,7 @@ transmitop=10
 op10= 
 
 // 927:11
-[com_11]
+[right_side]
 type=graphic
 x=479
 y=26
@@ -156,7 +156,7 @@ opbase=
 op10=  
 
 // 927:12
-[com_12]
+[bottom]
 type=graphic
 x=15
 y=302
@@ -170,7 +170,7 @@ transmitop=10
 op10=  
 
 // 927:13
-[com_13]
+[top]
 type=graphic
 x=45
 y=23
@@ -185,7 +185,7 @@ opbase=
 op10=  
 
 // 927:14
-[com_14]
+[bottom_right]
 type=graphic
 x=467
 y=290
@@ -199,7 +199,7 @@ opbase=
 op10=  
 
 // 927:15
-[com_15]
+[bottom_left]
 type=graphic
 x=13
 y=290
@@ -212,7 +212,7 @@ transmitop=10
 op10=  
 
 // 927:16
-[com_16]
+[left_side]
 type=graphic
 y=26
 width=37
@@ -226,7 +226,7 @@ opbase=
 op10=  
 
 // 927:17
-[com_17]
+[top_left]
 type=graphic
 x=13
 y=23
@@ -240,7 +240,7 @@ opbase=
 op10=  
 
 // 927:18
-[com_18]
+[top_right]
 type=graphic
 x=467
 y=23
@@ -254,7 +254,7 @@ opbase=
 op10=  
 
 // 927:19
-[com_19]
+[close_button_1]
 type=graphic
 x=471
 y=26
@@ -271,7 +271,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 927:20
-[com_20]
+[title]
 type=text
 y=27
 width=443
@@ -289,33 +289,33 @@ op10=
 onload=barbassault_onload
 
 // 927:21
-[com_21]
+[detail_layer]
 type=layer
 width=512
 height=334
-layer=com_0
+layer=all
 
 // 927:22
-[com_22]
+[turnscore]
 type=text
 x=48
 y=137
 width=207
 height=24
-layer=com_21
+layer=detail_layer
 textfont=p12_full
 text=Turns taken: 12 x 101 = 1212
 textshadow=yes
 colour=0xffff00
 
 // 927:23
-[com_23]
+[incubatorrepaired]
 type=text
 x=49
 y=184
 width=204
 height=25
-layer=com_21
+layer=detail_layer
 textfont=p12_full
 text=Incubator repaired = 0
 textshadow=yes
@@ -324,13 +324,13 @@ transmitop=10
 op10= 
 
 // 927:24
-[com_24]
+[conveyorrepaired]
 type=text
 x=48
 y=232
 width=207
 height=24
-layer=com_21
+layer=detail_layer
 textfont=p12_full
 text=Conveyor repaired = 0
 textshadow=yes
@@ -339,13 +339,13 @@ transmitop=10
 op10= 
 
 // 927:25
-[com_25]
+[painterepaired]
 type=text
 x=48
 y=280
 width=207
 height=26
-layer=com_21
+layer=detail_layer
 textfont=p12_full
 text=Painter not repaired = 50
 textshadow=yes
@@ -354,13 +354,13 @@ transmitop=10
 op10= 
 
 // 927:26
-[com_26]
+[resourcesscore]
 type=text
 x=276
 y=158
 width=206
 height=26
-layer=com_21
+layer=detail_layer
 textfont=p12_full
 text=Resources: 15 x -10 = -150
 textshadow=yes
@@ -369,13 +369,13 @@ transmitop=10
 op10= 
 
 // 927:27
-[com_27]
+[underparscore]
 type=text
 x=277
 y=206
 width=207
 height=26
-layer=com_21
+layer=detail_layer
 textfont=p12_full
 text=Completed within time limit: -100
 textshadow=yes
@@ -384,13 +384,13 @@ transmitop=10
 op10= 
 
 // 927:28
-[com_28]
+[workersemployedscore]
 type=text
 x=277
 y=253
 width=206
 height=23
-layer=com_21
+layer=detail_layer
 textfont=p12_full
 text=Workers employed : 15 x -10 = -1500
 textshadow=yes
@@ -405,7 +405,7 @@ x=19
 y=101
 width=474
 height=24
-layer=com_21
+layer=detail_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -417,19 +417,19 @@ x=243
 y=115
 width=32
 height=204
-layer=com_21
+layer=detail_layer
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
 
 // 927:31
-[com_31]
+[finalscore]
 type=text
 x=52
 y=49
 width=412
 height=31
-layer=com_21
+layer=detail_layer
 textfont=welcome_font_large
 text=Final Score : 1122
 textalignh=centre
@@ -438,13 +438,13 @@ textshadow=yes
 colour=0xff6600
 
 // 927:32
-[com_32]
+[turncount]
 type=text
 x=52
 y=81
 width=412
 height=31
-layer=com_21
+layer=detail_layer
 textfont=welcome_font_large
 text=Turns Taken : 12
 textalignh=centre

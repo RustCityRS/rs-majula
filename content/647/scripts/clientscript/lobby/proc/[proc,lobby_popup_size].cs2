@@ -1,12 +1,12 @@
 // 2779
 [proc,lobby_popup_size](int $int0, int $int1, string $string0, int $int2, graphic $graphic3, int $int4, int $int5, string $string1, string $string2, int $int6, string $string3, string $string4, int $int7)
-if (if_gethide(lobbyscreen:com_19) = false) {
+if (if_gethide(lobbyscreen:popup_body) = false) {
     return;
 }
-if_clearops(lobbyscreen:com_225);
-if_clearops(lobbyscreen:com_231);
-if_setonop(null, lobbyscreen:com_225);
-if_setonop(null, lobbyscreen:com_231);
+if_clearops(lobbyscreen:popup_small_button);
+if_clearops(lobbyscreen:popup_big_button);
+if_setonop(null, lobbyscreen:popup_small_button);
+if_setonop(null, lobbyscreen:popup_big_button);
 def_int $int8 = $int7;
 if ($int4 = 1) {
     $int8 = max($int7, calc(stringwidth($string1, verdana_11pt_regular) + 26));
@@ -14,60 +14,60 @@ if ($int4 = 1) {
         $int8 = calc($int8 + 1);
     }
 }
-if_setsize($int8, 154, ^setsize_abs, ^setsize_abs, lobbyscreen:com_19);
-def_int $int9 = calc(paraheight($string0, if_getwidth(lobbyscreen:com_224), verdana_11pt_regular) * 16 + 5);
-if_setsize(20, $int9, ^setsize_minus, ^setsize_abs, lobbyscreen:com_224);
-if_settext($string0, lobbyscreen:com_224);
+if_setsize($int8, 154, ^setsize_abs, ^setsize_abs, lobbyscreen:popup_body);
+def_int $int9 = calc(paraheight($string0, if_getwidth(lobbyscreen:popup_text), verdana_11pt_regular) * 16 + 5);
+if_setsize(20, $int9, ^setsize_minus, ^setsize_abs, lobbyscreen:popup_text);
+if_settext($string0, lobbyscreen:popup_text);
 if ($int2 = 1) {
     %varclient_1092 = calc(clientclock + 5);
-    if_setgraphic("loading_wheel_1,0", lobbyscreen:com_223);
-    if_setsize(111, 111, ^setsize_abs, ^setsize_abs, lobbyscreen:com_223);
-    if_setposition(0, 7, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen:com_223);
-    if_setposition(0, 112, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen:com_224);
-    if_setontimer("lobby_popup_throbber", lobbyscreen:com_223);
+    if_setgraphic("loading_wheel_1,0", lobbyscreen:popup_throbber);
+    if_setsize(111, 111, ^setsize_abs, ^setsize_abs, lobbyscreen:popup_throbber);
+    if_setposition(0, 7, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen:popup_throbber);
+    if_setposition(0, 112, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen:popup_text);
+    if_setontimer("lobby_popup_throbber", lobbyscreen:popup_throbber);
 } else {
     %varclient_1092 = 0;
-    if_setontimer(null, lobbyscreen:com_223);
-    if_setgraphic($graphic3, lobbyscreen:com_223);
-    if_setsize(76, 63, ^setsize_abs, ^setsize_abs, lobbyscreen:com_223);
-    if_setposition(0, 18, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen:com_223);
-    if_setposition(0, 123, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen:com_224);
+    if_setontimer(null, lobbyscreen:popup_throbber);
+    if_setgraphic($graphic3, lobbyscreen:popup_throbber);
+    if_setsize(76, 63, ^setsize_abs, ^setsize_abs, lobbyscreen:popup_throbber);
+    if_setposition(0, 18, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen:popup_throbber);
+    if_setposition(0, 123, ^setpos_abs_centre, ^setpos_abs_top, lobbyscreen:popup_text);
     $int9 = calc($int9 - 35);
 }
 def_int $int10 = 0;
-$int9 = calc(if_gety(lobbyscreen:com_224) + $int9);
+$int9 = calc(if_gety(lobbyscreen:popup_text) + $int9);
 if ($int4 = 0 & $int6 = 0) {
     $int10 = 12;
     $int9 = calc($int9 + $int10);
-    if_sethide(true, lobbyscreen:com_225);
-    if_sethide(true, lobbyscreen:com_231);
+    if_sethide(true, lobbyscreen:popup_small_button);
+    if_sethide(true, lobbyscreen:popup_big_button);
 } else if ($int4 = 1 & $int6 = 0) {
     $int10 = 41;
     $int9 = calc($int9 + $int10);
-    if_setposition(0, 8, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:com_225);
-    if_sethide(false, lobbyscreen:com_225);
-    if_sethide(true, lobbyscreen:com_231);
-    ~lobby_popup_small_button($string1, $string2, lobbyscreen:com_225, lobbyscreen:com_227, lobbyscreen:com_228, lobbyscreen:com_229, $int5);
+    if_setposition(0, 8, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:popup_small_button);
+    if_sethide(false, lobbyscreen:popup_small_button);
+    if_sethide(true, lobbyscreen:popup_big_button);
+    ~lobby_popup_small_button($string1, $string2, lobbyscreen:popup_small_button, lobbyscreen:popup_small_button_left, lobbyscreen:popup_small_button_mid, lobbyscreen:popup_small_button_right, $int5);
 } else if ($int4 = 0 & $int6 = 1) {
     $int10 = 41;
     $int9 = calc($int9 + $int10);
-    if_setposition(0, 8, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:com_231);
-    if_sethide(false, lobbyscreen:com_231);
-    if_sethide(true, lobbyscreen:com_225);
-    ~lobby_popup_big_button($string3, $string4, lobbyscreen:com_231, lobbyscreen:com_233, lobbyscreen:com_234, lobbyscreen:com_235);
+    if_setposition(0, 8, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:popup_big_button);
+    if_sethide(false, lobbyscreen:popup_big_button);
+    if_sethide(true, lobbyscreen:popup_small_button);
+    ~lobby_popup_big_button($string3, $string4, lobbyscreen:popup_big_button, lobbyscreen:popup_big_button_left, lobbyscreen:popup_big_button_mid, lobbyscreen:popup_big_button_right);
 } else {
     $int10 = 70;
     $int9 = calc($int9 + $int10);
-    if_setposition(0, 40, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:com_225);
-    if_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:com_231);
-    if_sethide(false, lobbyscreen:com_231);
-    if_sethide(false, lobbyscreen:com_225);
-    ~lobby_popup_small_button($string1, $string2, lobbyscreen:com_225, lobbyscreen:com_227, lobbyscreen:com_228, lobbyscreen:com_229, $int5);
-    ~lobby_popup_big_button($string3, $string4, lobbyscreen:com_231, lobbyscreen:com_233, lobbyscreen:com_234, lobbyscreen:com_235);
+    if_setposition(0, 40, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:popup_small_button);
+    if_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:popup_big_button);
+    if_sethide(false, lobbyscreen:popup_big_button);
+    if_sethide(false, lobbyscreen:popup_small_button);
+    ~lobby_popup_small_button($string1, $string2, lobbyscreen:popup_small_button, lobbyscreen:popup_small_button_left, lobbyscreen:popup_small_button_mid, lobbyscreen:popup_small_button_right, $int5);
+    ~lobby_popup_big_button($string3, $string4, lobbyscreen:popup_big_button, lobbyscreen:popup_big_button_left, lobbyscreen:popup_big_button_mid, lobbyscreen:popup_big_button_right);
 }
-if_setsize(if_getwidth(lobbyscreen:com_19), $int9, ^setsize_abs, ^setsize_abs, lobbyscreen:com_19);
-~script3095(lobbyscreen:com_225, lobbyscreen:com_231, $int0);
-if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:com_224);
-if_setonkey("lobbyscreen_popup_keyboard(event_keycode)", lobbyscreen:com_33);
-if_sethide(false, lobbyscreen:com_33);
-if_sethide(false, lobbyscreen:com_19);
+if_setsize(if_getwidth(lobbyscreen:popup_body), $int9, ^setsize_abs, ^setsize_abs, lobbyscreen:popup_body);
+~script3095(lobbyscreen:popup_small_button, lobbyscreen:popup_big_button, $int0);
+if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:popup_text);
+if_setonkey("lobbyscreen_popup_keyboard(event_keycode)", lobbyscreen:popup);
+if_sethide(false, lobbyscreen:popup);
+if_sethide(false, lobbyscreen:popup_body);

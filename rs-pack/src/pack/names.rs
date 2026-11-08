@@ -4,9 +4,20 @@ use crate::pack::pack_registry::PackFile;
 use crate::pack::util::placeholder_prefix;
 use crate::pack::util::walk;
 use anyhow::{Context, Result, bail, ensure};
+#[cfg(since_647)]
+use rs_io::js5::java_string_hash;
+#[cfg(since_647)]
+use runec::lexer::Lexer;
+use runec::symbol::identifier_form;
+#[cfg(since_647)]
+use runec::token::Kind;
 use std::collections::HashMap;
 use std::fs;
+#[cfg(since_647)]
+use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
+#[cfg(since_647)]
+use tracing::{info, warn};
 
 pub struct AssetNames {
     packs: HashMap<String, PackFile>,
@@ -15,10 +26,15 @@ pub struct AssetNames {
 
 impl runec::clientscript::decompile::Names for AssetNames {
     fn name(&self, kind: &str, id: u32) -> String {
-        self.name(kind, id)
+        let name = self.name(kind, id);
+        if kind == "interface" {
+            identifier_form(&name)
+        } else {
+            name
+        }
     }
     fn component_name(&self, interface: u32, component: u32) -> String {
-        self.component_name(interface, component)
+        identifier_form(&self.component_name(interface, component))
     }
 }
 
@@ -149,10 +165,12 @@ impl AssetNames {
     }
 
     pub fn component_id(&self, group: u32, name: &str) -> Result<u32> {
-        if let Some((&id, _)) = self
-            .components
-            .get(&group)
+        let components = self.components.get(&group);
+        if let Some((&id, _)) = components
             .and_then(|v| v.iter().find(|(_, value)| *value == name))
+            .or_else(|| {
+                components.and_then(|v| v.iter().find(|(_, value)| identifier_form(value) == name))
+            })
         {
             return Ok(id);
         }
@@ -206,5 +224,279 @@ pub fn archive_name(id: u8) -> &'static str {
         archive::LOADING_SCREENS => "loading_backgrounds",
         archive::WORLDMAP_LOCS => "worldmap_loc",
         _ => "asset",
+    }
+}
+
+/// The 647 client's script triggers. A trigger script's cache name hash is
+/// `trigger | subject << 10` (`GLXTexture3D.method3079`), not a string hash.
+#[cfg(since_647)]
+const CLIENT_TRIGGERS: [(&str, i32); 10] = [
+    ("opworldmapelement1", 10),
+    ("opworldmapelement2", 11),
+    ("opworldmapelement3", 12),
+    ("opworldmapelement4", 13),
+    ("opworldmapelement5", 14),
+    ("worldmapelementmouseover", 15),
+    ("worldmapelementmouseleave", 16),
+    ("worldmapelementmouserepeat", 17),
+    ("video_end", 18),
+    ("jcoins_updated", 19),
+];
+
+/// Fails the pack when a registry name for an asset whose name hash comes from
+/// `<kind>.hashes` or `interfaces.fileids` is neither the real name that hash
+/// was made from nor the placeholder for its id. A real interface or component
+/// name that isn't an identifier must lex as one in its identifier form, used
+/// by no other name in its scope: that form is how scripts write it.
+#[cfg(since_647)]
+pub fn verify_names(content_dir: &Path, pack_dir: &Path, strict: bool) -> Result<()> {
+    let (checked, problems) = name_problems(content_dir, pack_dir)?;
+    if problems.is_empty() {
+        info!("Name gate: {checked} hashed names match the cache");
+        return Ok(());
+    }
+    let list = problems
+        .iter()
+        .take(20)
+        .map(String::as_str)
+        .collect::<Vec<_>>()
+        .join("\n  ");
+    if strict {
+        bail!(
+            "Name gate: {} problem(s) in {checked} hashed names:\n  {list}",
+            problems.len()
+        );
+    }
+    warn!(
+        "Name gate: {} problem(s) in {checked} hashed names (verification disabled):\n  {list}",
+        problems.len()
+    );
+    Ok(())
+}
+
+#[cfg(since_647)]
+fn name_problems(content_dir: &Path, pack_dir: &Path) -> Result<(usize, Vec<String>)> {
+    let names = AssetNames::load(pack_dir)?;
+    let mut kinds = Vec::new();
+    for entry in fs::read_dir(pack_dir)? {
+        let path = entry?.path();
+        if path.extension().is_some_and(|e| e == "hashes")
+            && let Some(kind) = path.file_stem().and_then(|s| s.to_str())
+            && names.packs.contains_key(kind)
+        {
+            kinds.push(kind.to_owned());
+        }
+    }
+    kinds.sort();
+    let mut checked = 0;
+    let mut problems = Vec::new();
+    for kind in &kinds {
+        let mut hashed = Vec::new();
+        for (key, hash) in read_pairs(&pack_dir.join(format!("{kind}.hashes")))? {
+            let id: u32 = key
+                .parse()
+                .with_context(|| format!("{kind}.hashes: {key}"))?;
+            if let Some(name) = names.packs[kind].get_by_id(id) {
+                hashed.push((
+                    kind.as_str(),
+                    key,
+                    id,
+                    name.to_owned(),
+                    hash.parse::<i32>()?,
+                ));
+            }
+        }
+        if kind == "interface" {
+            let fileids = fs::read_to_string(content_dir.join("versions/interfaces.fileids"))?;
+            for line in fileids.lines() {
+                let Some((group, files)) = line.split_once('=') else {
+                    continue;
+                };
+                let group: u32 = group.parse()?;
+                for (file, hash) in files.split(',').filter_map(|e| e.split_once(':')) {
+                    let file: u32 = file.parse()?;
+                    if let Some(name) = names.components.get(&group).and_then(|c| c.get(&file)) {
+                        hashed.push((
+                            "component",
+                            format!("{group}:{file}"),
+                            file,
+                            name.clone(),
+                            hash.parse()?,
+                        ));
+                    }
+                }
+            }
+        }
+        for (kind, key, id, name, hash) in hashed {
+            if hash == -1 {
+                continue;
+            }
+            checked += 1;
+            if java_string_hash(&name) != hash
+                && trigger_hash(&names, &name) != Some(hash)
+                && !is_placeholder(kind, &name, id)
+            {
+                problems.push(format!(
+                    "{kind} {key}: {name:?} doesn't match the cache hash"
+                ));
+            }
+        }
+    }
+    if let Some(interfaces) = names.packs.get("interface") {
+        let entries = interfaces
+            .id_to_debugname
+            .iter()
+            .map(|(id, name)| (id.to_string(), name.as_str()));
+        identifier_problems("interface", entries.collect(), &mut problems);
+    }
+    for (group, components) in &names.components {
+        let entries = components
+            .iter()
+            .map(|(file, name)| (format!("{group}:{file}"), name.as_str()));
+        identifier_problems("component", entries.collect(), &mut problems);
+    }
+    problems.sort();
+    Ok((checked, problems))
+}
+
+#[cfg(since_647)]
+fn identifier_problems(kind: &str, mut entries: Vec<(String, &str)>, problems: &mut Vec<String>) {
+    entries.sort();
+    let mut forms = HashMap::new();
+    for (key, name) in entries {
+        let form = identifier_form(name);
+        if !lexes_as_identifier(&form) {
+            problems.push(format!(
+                "{kind} {key}: {name:?} has no identifier form ({form}); use its placeholder"
+            ));
+        }
+        if let Some(other) = forms.insert(form.clone(), key.clone()) {
+            problems.push(format!(
+                "{kind} {key}: {name:?} is written {form}, as {kind} {other} is"
+            ));
+        }
+    }
+}
+
+/// runec's parser also takes a trigger keyword (`login`, `logout`) as a name.
+#[cfg(since_647)]
+fn lexes_as_identifier(form: &str) -> bool {
+    let path = PathBuf::new();
+    Lexer::new(form, &path)
+        .tokenize()
+        .is_ok_and(|tokens| match tokens.as_slice() {
+            [token, end] => {
+                matches!(token.kind, Kind::Identifier | Kind::Trigger)
+                    && token.value == form
+                    && matches!(end.kind, Kind::EndOfFile)
+            }
+            _ => false,
+        })
+}
+
+#[cfg(since_647)]
+fn read_pairs(path: &Path) -> Result<HashMap<String, String>> {
+    match fs::read_to_string(path) {
+        Ok(text) => Ok(text
+            .lines()
+            .filter_map(|l| l.split_once('='))
+            .map(|(k, v)| (k.to_owned(), v.to_owned()))
+            .collect()),
+        Err(e) if e.kind() == ErrorKind::NotFound => Ok(HashMap::new()),
+        Err(e) => Err(e).with_context(|| path.display().to_string()),
+    }
+}
+
+#[cfg(since_647)]
+fn is_placeholder(kind: &str, name: &str, id: u32) -> bool {
+    match kind {
+        "clientscript" => {
+            name == format!("[proc,script{id}]") || name == format!("[clientscript,script{id}]")
+        }
+        "component" => name == format!("com_{id}"),
+        "fontmetrics" => name == format!("fontmetrics_{id}") || name == format!("graphic_{id}"),
+        _ => name == format!("{}_{id}", asset_prefix(kind)) || name == format!("{kind}_{id}"),
+    }
+}
+
+#[cfg(since_647)]
+fn trigger_hash(names: &AssetNames, name: &str) -> Option<i32> {
+    let (trigger, subject) = name.strip_prefix('[')?.strip_suffix(']')?.split_once(',')?;
+    let (_, id) = CLIENT_TRIGGERS.iter().find(|(t, _)| *t == trigger)?;
+    let subject = if subject == "_" {
+        0xFFFF
+    } else if let Some(category) = subject.strip_prefix('_') {
+        names.id("category", category).ok()? as i32 + 65536
+    } else {
+        names.id("mel", subject).ok()? as i32
+    };
+    Some(id | subject << 10)
+}
+
+#[cfg(all(test, since_647))]
+mod tests {
+    use super::*;
+    use std::process;
+
+    #[test]
+    fn names_must_be_real_or_placeholders() {
+        let dir = Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../target/name-gate-test")
+            .join(process::id().to_string());
+        let pack = dir.join("pack");
+        fs::create_dir_all(dir.join("versions")).unwrap();
+        fs::create_dir_all(&pack).unwrap();
+        fs::write(
+            pack.join("clientscript.pack"),
+            "0=[clientscript,good]\n1=[clientscript,script1]\n2=[proc,guess]\n3=[opworldmapelement1,mapelement_2]\n4=bare\n",
+        )
+        .unwrap();
+        fs::write(
+            pack.join("clientscript.hashes"),
+            format!(
+                "0={}\n1=7\n2=9\n3={}\n4={}\n",
+                java_string_hash("[clientscript,good]"),
+                10 | 2 << 10,
+                java_string_hash("bare")
+            ),
+        )
+        .unwrap();
+        fs::write(
+            pack.join("interface.pack"),
+            "0=cove lid\n0:0=a history\n0:1=com_1\n0:2=meter1-\n0:3=meter1_\n0:4=2\n0:5=logout\n",
+        )
+        .unwrap();
+        fs::write(
+            pack.join("interface.hashes"),
+            format!("0={}\n", java_string_hash("cove lid")),
+        )
+        .unwrap();
+        fs::write(
+            dir.join("versions/interfaces.fileids"),
+            format!(
+                "0=0:{},1:77,2:{},3:{},4:{},5:{}\n",
+                java_string_hash("a history"),
+                java_string_hash("meter1-"),
+                java_string_hash("meter1_"),
+                java_string_hash("2"),
+                java_string_hash("logout")
+            ),
+        )
+        .unwrap();
+        let names = AssetNames::load(&pack).unwrap();
+        assert_eq!(names.id("interface", "cove_lid").unwrap(), 0);
+        assert_eq!(names.component_id(0, "a_history").unwrap(), 0);
+
+        let (checked, problems) = name_problems(&dir, &pack).unwrap();
+        assert_eq!(checked, 12);
+        assert_eq!(
+            problems,
+            [
+                "clientscript 2: \"[proc,guess]\" doesn't match the cache hash",
+                "component 0:3: \"meter1_\" is written meter1_, as component 0:2 is",
+                "component 0:4: \"2\" has no identifier form (2); use its placeholder",
+            ]
+        );
+        fs::remove_dir_all(&dir).unwrap();
     }
 }

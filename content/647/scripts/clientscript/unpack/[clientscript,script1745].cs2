@@ -12,4 +12,4 @@ if (%varclient_216 = 1) {
 }
 %varclient_215 = min(%varclient_215, 255);
 %varclient_215 = max(%varclient_215, 0);
-if_settrans(%varclient_215, catcon_calibration_puzzle:com_2);
+if_settrans(%varclient_215, catcon_calibration_puzzle:blackout_rect);

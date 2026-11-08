@@ -1,0 +1,279 @@
+// 747:0
+[topstat_lore]
+type=layer
+width=57
+height=34
+
+// 747:1
+[build_layer]
+type=layer
+x=-5
+y=-10
+width=104
+height=89
+
+// 747:2
+[topstat_background_lore]
+type=graphic
+width=57
+height=34
+layer=topstat_lore
+graphic=graphic_1206
+colour=0xffffffff
+onmouseover=lore_topstat_mouseover(event_com)
+onmouseleave=lore_topstat_mouseleave(event_com)
+
+// 747:3
+[topstat_circle_lore]
+type=graphic
+x=1
+y=1
+width=31
+height=31
+layer=topstat_lore
+graphic="topstat_fill_full,3"
+colour=0xffffffff
+
+// 747:4
+[com_4]
+type=graphic
+x=1
+y=1
+width=31
+height=31
+layer=topstat_lore
+graphic="topstat_fill_full,4"
+tiling=yes
+colour=0xffffffff
+onload=script815
+
+// 747:5
+[com_5]
+type=text
+x=31
+y=15
+width=24
+height=14
+layer=topstat_lore
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xca9800
+onload=script801(event_com, summoning)
+onstattransmit=script801(event_com, summoning){summoning}
+
+// 747:6
+[topstat_graphic_lore]
+type=graphic
+x=6
+y=7
+width=20
+height=20
+layer=topstat_lore
+graphic="topstat_icon,3"
+colour=0xffffffff
+
+// 747:7
+[select_leftclick_layer]
+type=layer
+width=512
+height=334
+layer=topstat_lore
+transmitop=10
+op10=Select left-click option
+onvartransmit=lore_head_update{varplayer_1493}
+
+// 747:8
+[main_ops]
+type=layer
+width=57
+height=34
+layer=topstat_lore
+hide=yes
+
+// 747:9
+[details_layer]
+type=layer
+width=512
+height=334
+layer=main_ops
+transmitop=6,10
+op6=Follower Details
+op10= 
+onop=lore_switchside_op(95, event_op)
+
+// 747:10
+[call_layer]
+type=layer
+width=512
+height=334
+layer=main_ops
+transmitop=6,10
+op6=Call Follower
+op10= 
+
+// 747:11
+[dismiss_layer]
+type=layer
+width=512
+height=334
+layer=main_ops
+transmitop=6,10
+op6=Dismiss
+op10= 
+
+// 747:12
+[bob_layer]
+type=layer
+width=512
+height=334
+layer=main_ops
+transmitop=6,10
+op6=Take BoB
+op10= 
+
+// 747:13
+[renew_layer]
+type=layer
+width=512
+height=334
+layer=main_ops
+transmitop=6,10
+op6=Renew Familiar
+op10= 
+
+// 747:14
+[attack_layer]
+type=layer
+width=57
+height=34
+layer=main_ops
+targetmask=npc,player
+targetverb=Attack
+ontargetleave=magic_leavetargetmode(topstat_lore:topstat_graphic_lore)
+ontargetenter=magic_entertargetmode(topstat_lore:topstat_graphic_lore)
+
+// 747:15
+[com_15]
+type=layer
+width=512
+height=334
+layer=main_ops
+transmitop=6
+op6=Interact
+
+// 747:16
+[spell_layer]
+type=layer
+width=57
+height=34
+layer=main_ops
+onvartransmit=lore_head_update{varplayer_1174}
+
+// 747:17
+[com_17]
+type=layer
+width=57
+height=34
+layer=main_ops
+onload=script211
+onvartransmit=script211{varplayer_448}
+onvarcstrtransmit=script211{varclient_1724}
+
+// 747:18
+[details_op1]
+type=layer
+width=512
+height=334
+layer=main_ops
+hide=yes
+transmitop=1
+op1=Follower Details
+onop=lore_switchside_op(95, event_op)
+
+// 747:19
+[call_op1]
+type=layer
+width=512
+height=334
+layer=main_ops
+hide=yes
+transmitop=1
+op1=Call Follower
+
+// 747:20
+[dismiss_op1]
+type=layer
+width=512
+height=334
+layer=main_ops
+hide=yes
+transmitop=1
+op1=Dismiss
+
+// 747:21
+[bob_op1]
+type=layer
+width=512
+height=334
+layer=main_ops
+hide=yes
+transmitop=1
+op1=Take BoB
+
+// 747:22
+[renew_op1]
+type=layer
+width=512
+height=334
+layer=main_ops
+hide=yes
+transmitop=1
+op1=Renew Familiar
+
+// 747:23
+[attack_op1]
+type=layer
+width=57
+height=34
+layer=main_ops
+hide=yes
+transmitop=10
+targetmask=npc,player
+op10= 
+targetverb=Attack
+ontargetleave=magic_leavetargetmode(topstat_lore:topstat_graphic_lore)
+ontargetenter=magic_entertargetmode(topstat_lore:topstat_graphic_lore)
+
+// 747:24
+[nullspell]
+type=layer
+width=57
+height=34
+layer=spell_layer
+hide=yes
+transmitop=10
+op10=  
+
+// 747:25
+[lore_nullspell]
+type=graphic
+width=57
+height=34
+layer=nullspell
+colour=0xffffffff
+transmitop=1,10
+opbase=Spell
+op1=Cast
+op10=  
+
+// 747:26
+[com_26]
+type=layer
+width=512
+height=334
+layer=main_ops
+hide=yes
+transmitop=1
+op1=Interact

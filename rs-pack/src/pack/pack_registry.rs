@@ -6,6 +6,8 @@ use crate::pack::util::placeholder_prefix;
 use anyhow::Result;
 #[cfg(since_647)]
 use anyhow::bail;
+#[cfg(since_647)]
+use runec::symbol::identifier_form;
 use std::collections::HashMap;
 #[cfg(since_647)]
 use std::collections::HashSet;
@@ -24,6 +26,8 @@ pub type PackId = u32;
 pub struct PackFile {
     pub id_to_debugname: HashMap<PackId, String>,
     pub debugname_to_id: HashMap<String, PackId>,
+    #[cfg(since_647)]
+    identifiers: HashMap<String, PackId>,
     pub max: PackId,
 }
 
@@ -32,6 +36,8 @@ impl PackFile {
         Self {
             id_to_debugname: HashMap::new(),
             debugname_to_id: HashMap::new(),
+            #[cfg(since_647)]
+            identifiers: HashMap::new(),
             max: 0,
         }
     }
@@ -63,19 +69,50 @@ impl PackFile {
         }
 
         Ok(Self {
+            #[cfg(since_647)]
+            identifiers: identifier_aliases(&debugname_to_id),
             id_to_debugname,
             debugname_to_id,
             max,
         })
     }
 
+    #[cfg(before_647)]
     pub fn get_by_debugname(&self, debugname: &str) -> Option<PackId> {
         self.debugname_to_id.get(debugname).copied()
+    }
+
+    /// A real name that isn't an identifier also answers to the identifier
+    /// form scripts write it as, unless two names share that form.
+    #[cfg(since_647)]
+    pub fn get_by_debugname(&self, debugname: &str) -> Option<PackId> {
+        self.debugname_to_id
+            .get(debugname)
+            .or_else(|| self.identifiers.get(debugname))
+            .copied()
     }
 
     pub fn get_by_id(&self, id: PackId) -> Option<&str> {
         self.id_to_debugname.get(&id).map(|s| s.as_str())
     }
+}
+
+#[cfg(since_647)]
+fn identifier_aliases(names: &HashMap<String, PackId>) -> HashMap<String, PackId> {
+    let mut aliases: HashMap<String, Option<PackId>> = HashMap::new();
+    for (name, &id) in names {
+        let form = identifier_form(name);
+        if form != *name && !names.contains_key(&form) {
+            aliases
+                .entry(form)
+                .and_modify(|shared| *shared = None)
+                .or_insert(Some(id));
+        }
+    }
+    aliases
+        .into_iter()
+        .filter_map(|(form, id)| Some((form, id?)))
+        .collect()
 }
 
 pub struct PackedFile {
@@ -436,7 +473,14 @@ fn load_component_hashes(path: &Path, interfaces: &PackFile) -> HashMap<String, 
             continue;
         };
         let hash = ((iface_id << 16) | comp_idx) as i32;
-        map.insert(format!("{iface_name}:{}", comp_name.trim()), hash);
+        map.insert(
+            format!(
+                "{}:{}",
+                identifier_form(iface_name),
+                identifier_form(comp_name)
+            ),
+            hash,
+        );
     }
     map
 }

@@ -1,6 +1,6 @@
 // 64
 [clientscript,vm_kudos_set]
-if_settext("<tostring(%varplayerbit_3637)>/<tostring(183)>", vm_kudos:com_1);
+if_settext("<tostring(%varplayerbit_3637)>/<tostring(183)>", vm_kudos:vm_kudos);
 if (%varplayerbit_3637 = 183) {
-    if_setcolour(^green, vm_kudos:com_1);
+    if_setcolour(^green, vm_kudos:vm_kudos);
 }

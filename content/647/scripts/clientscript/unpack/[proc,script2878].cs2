@@ -1,13 +1,13 @@
 // 2878
 [proc,script2878]
-~deltooltip_action(music_v3:com_16);
+~deltooltip_action(music_v3:music_tooltip_layer);
 %varclient_1 = 0;
-cc_deleteall(music_v3:com_9);
-while (if_getnextsubid(music_v3:com_9) < 12) {
-    cc_create(music_v3:com_9, ^iftype_text, if_getnextsubid(music_v3:com_9));
+cc_deleteall(music_v3:playlist);
+while (if_getnextsubid(music_v3:playlist) < 12) {
+    cc_create(music_v3:playlist, ^iftype_text, if_getnextsubid(music_v3:playlist));
 }
-while (if_getnextsubid(music_v3:com_9) < 24) {
-    cc_create(music_v3:com_9, ^iftype_graphic, if_getnextsubid(music_v3:com_9));
+while (if_getnextsubid(music_v3:playlist) < 24) {
+    cc_create(music_v3:playlist, ^iftype_graphic, if_getnextsubid(music_v3:playlist));
 }
 def_int $int0 = 5;
 $int0 = ~script2879(0, %varplayerbit_7081, $int0);
@@ -23,10 +23,10 @@ $int0 = ~script2879(9, %varplayerbit_7090, $int0);
 $int0 = ~script2879(10, %varplayerbit_7091, $int0);
 $int0 = ~script2879(11, %varplayerbit_7092, $int0);
 if (%varplayerbit_7081 = 32767 & %varclient_1077 = true) {
-    if_sethide(false, music_v3:com_14);
+    if_sethide(false, music_v3:playlist_empty);
 } else {
-    if_sethide(true, music_v3:com_14);
+    if_sethide(true, music_v3:playlist_empty);
 }
-cc_create(music_v3:com_9, ^iftype_text, if_getnextsubid(music_v3:com_9));
+cc_create(music_v3:playlist, ^iftype_text, if_getnextsubid(music_v3:playlist));
 cc_setposition(15, $int0, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(150, $int0, ^setsize_abs, ^setsize_minus);

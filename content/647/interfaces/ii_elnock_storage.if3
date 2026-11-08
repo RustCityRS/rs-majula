@@ -12,7 +12,7 @@ fill=yes
 trans=192
 
 // 592:1
-[com_1]
+[contents]
 type=layer
 width=265
 height=238
@@ -20,12 +20,12 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 592:2
-[com_2]
+[impling_jar_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_13
+layer=impling_jar
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -33,13 +33,13 @@ textshadow=yes
 colour=0x870000
 
 // 592:3
-[com_3]
+[impling_jar_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_13
+layer=impling_jar
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -50,16 +50,16 @@ op2=Remove 5
 op3=Remove All
 op4=Remove X
 op10=Examine
-onload=ii_storage_update(event_com, impling_jar, 127, ii_elnock_storage:com_2)
-onvartransmit=ii_storage_update(event_com, impling_jar, 127, ii_elnock_storage:com_2){varplayer_1018}
+onload=ii_storage_update(event_com, impling_jar, 127, ii_elnock_storage:impling_jar_name)
+onvartransmit=ii_storage_update(event_com, impling_jar, 127, ii_elnock_storage:impling_jar_name){varplayer_1018}
 
 // 592:4
-[com_4]
+[impling_net_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_9
+layer=impling_net
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -67,13 +67,13 @@ textshadow=yes
 colour=0x872300
 
 // 592:5
-[com_5]
+[impling_net_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_9
+layer=impling_net
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -81,18 +81,18 @@ transmitop=1,10
 opbase=<col=ff9040>Butterfly net
 op1=Remove
 op10=Examine
-onload=ii_storage_update(event_com, butterfly_net, 1, ii_elnock_storage:com_4)
-onvartransmit=ii_storage_update(event_com, butterfly_net, 1, ii_elnock_storage:com_4){varplayer_1018}
+onload=ii_storage_update(event_com, butterfly_net, 1, ii_elnock_storage:impling_net_name)
+onvartransmit=ii_storage_update(event_com, butterfly_net, 1, ii_elnock_storage:impling_net_name){varplayer_1018}
 
 // 592:6
-[com_6]
+[background_1]
 type=graphic
 y=1
 height=35
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=contents
 graphic=graphic_2042
 colour=0xffffffff
 transmitop=10
@@ -105,7 +105,7 @@ height=35
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=contents
 colour=0x252222
 fill=yes
 trans=160
@@ -113,41 +113,41 @@ transmitop=10
 op10= 
 
 // 592:8
-[com_8]
+[frame]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=contents
 onload=script2913(event_com, 0)
 
 // 592:9
-[com_9]
+[impling_net]
 type=layer
 y=28
 width=120
 height=80
 xmode=abs_centre
-layer=com_1
+layer=contents
 
 // 592:10
-[com_10]
+[impling_repellent]
 type=layer
 x=10
 y=45
 width=120
 height=80
 ymode=abs_bottom
-layer=com_1
+layer=contents
 
 // 592:11
-[com_11]
+[impling_repellent_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_10
+layer=impling_repellent
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -155,13 +155,13 @@ textshadow=yes
 colour=0x872300
 
 // 592:12
-[com_12]
+[impling_repellent_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_10
+layer=impling_repellent
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -169,11 +169,11 @@ transmitop=1,10
 opbase=<col=ff9040>Imp repellent
 op1=Remove
 op10=Examine
-onload=ii_storage_update(event_com, imp_repellent, 1, ii_elnock_storage:com_11)
-onvartransmit=ii_storage_update(event_com, imp_repellent, 1, ii_elnock_storage:com_11){varplayer_1018}
+onload=ii_storage_update(event_com, imp_repellent, 1, ii_elnock_storage:impling_repellent_name)
+onvartransmit=ii_storage_update(event_com, imp_repellent, 1, ii_elnock_storage:impling_repellent_name){varplayer_1018}
 
 // 592:13
-[com_13]
+[impling_jar]
 type=layer
 x=10
 y=45
@@ -181,7 +181,7 @@ width=120
 height=80
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=contents
 
 // 592:14
 [com_14]
@@ -191,7 +191,7 @@ y=3
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=contents
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -208,7 +208,7 @@ width=20
 height=19
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=contents
 textfont=b12_full
 text=Elnock's Equipment Store
 textalignh=centre
@@ -216,60 +216,60 @@ textshadow=yes
 colour=0xff9900
 
 // 592:16
-[com_16]
+[mouseover]
 type=text
 x=15
 y=10
 width=160
 height=18
 ymode=abs_bottom
-layer=com_1
+layer=contents
 textfont=p11_full
 textshadow=yes
 colour=0xcccccc
 
 // 592:17
-[com_17]
+[store_all]
 type=layer
 x=4
 width=85
 height=44
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=contents
 
 // 592:18
-[com_18]
+[store_pic]
 type=graphic
 x=8
 width=29
 height=21
 ymode=abs_centre
-layer=com_17
+layer=store_all
 graphic="bank_bob_button,1"
 colour=0xffffffff
 transmitop=1
 op1=Store-all
 onmouseover=settrans(event_com, 100)
-onmouseleave=ii_mouseleave(event_com, ii_elnock_storage:com_16)
-onmouserepeat=text_swapper(ii_elnock_storage:com_16, "Store all")
+onmouseleave=ii_mouseleave(event_com, ii_elnock_storage:mouseover)
+onmouserepeat=text_swapper(ii_elnock_storage:mouseover, "Store all")
 
 // 592:19
-[com_19]
+[withdraw_pic]
 type=graphic
 x=8
 width=29
 height=21
 xmode=abs_right
 ymode=abs_centre
-layer=com_17
+layer=store_all
 graphic="bank_bob_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Withdraw-all
 onmouseover=settrans(event_com, 100)
-onmouseleave=ii_mouseleave(event_com, ii_elnock_storage:com_16)
-onmouserepeat=text_swapper(ii_elnock_storage:com_16, "Withdraw all")
+onmouseleave=ii_mouseleave(event_com, ii_elnock_storage:mouseover)
+onmouserepeat=text_swapper(ii_elnock_storage:mouseover, "Withdraw all")
 
 // 592:20
 [com_20]
@@ -278,12 +278,12 @@ y=22
 height=58
 widthmode=minus
 heightmode=minus
-layer=com_8
+layer=frame
 transmitop=10
 op10= 
 
 // 592:21
-[com_21]
+[background_top]
 type=graphic
 height=70
 widthmode=minus
@@ -296,7 +296,7 @@ transmitop=10
 op10=   
 
 // 592:22
-[com_22]
+[background_mid]
 type=graphic
 y=70
 height=116

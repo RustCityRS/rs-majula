@@ -1,5 +1,5 @@
 // 232:0
-[com_0]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -7,26 +7,26 @@ widthmode=proportion
 heightmode=proportion
 
 // 232:1
-[com_1]
+[multi4t]
 type=text
 y=14
 width=480
 height=17
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Select an Option
 textalignh=centre
 colour=0x800000
 
 // 232:2
-[com_2]
+[multi4a]
 type=text
 y=35
 width=480
 height=17
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option1
 textalignh=centre
@@ -36,13 +36,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 232:3
-[com_3]
+[multi4b]
 type=text
 y=55
 width=480
 height=17
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option2
 textalignh=centre
@@ -52,13 +52,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 232:4
-[com_4]
+[multi4c]
 type=text
 y=75
 width=480
 height=17
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option3
 textalignh=centre
@@ -68,13 +68,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 232:5
-[com_5]
+[multi4d]
 type=text
 y=95
 width=480
 height=17
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option4
 textalignh=centre
@@ -88,7 +88,7 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 type=graphic
 width=57
 height=13
-layer=com_8
+layer=multi4swords
 graphic="sworddecor,1"
 colour=0x000000
 
@@ -98,27 +98,27 @@ type=graphic
 width=57
 height=13
 xmode=abs_right
-layer=com_8
+layer=multi4swords
 graphic="sworddecor,0"
 colour=0x000000
 
 // 232:8
-[com_8]
+[multi4swords]
 type=layer
 y=15
 width=337
 height=13
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 
 // 232:9
-[com_9]
+[multi4wideswords]
 type=layer
 y=15
 width=476
 height=13
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 hide=yes
 
 // 232:10
@@ -126,7 +126,7 @@ hide=yes
 type=graphic
 width=57
 height=13
-layer=com_9
+layer=multi4wideswords
 graphic="sworddecor,1"
 colour=0x000000
 
@@ -136,6 +136,6 @@ type=graphic
 width=57
 height=13
 xmode=abs_right
-layer=com_9
+layer=multi4wideswords
 graphic="sworddecor,0"
 colour=0x000000

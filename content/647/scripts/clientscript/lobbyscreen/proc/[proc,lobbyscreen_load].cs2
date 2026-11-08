@@ -1,32 +1,32 @@
 // 1299
 [proc,lobbyscreen_load](boolean $boolean0, int $int1)
 if ($int1 = 0) {
-    ~loginscreen_initialisecamera(lobbyscreen:com_14, lobbyscreen:com_15, lobbyscreen:com_16, lobbyscreen_pane_options:com_16, lobbyscreen_pane_options:com_22, lobbyscreen_pane_options:com_21);
+    ~loginscreen_initialisecamera(lobbyscreen:com_14, lobbyscreen:fader, lobbyscreen:com_16, lobbyscreen_pane_options:com_16, lobbyscreen_pane_options:com_22, lobbyscreen_pane_options:com_21);
 }
 if_setgraphic(battle_title_widescreen_2, lobbyscreen:com_237);
 if_setgraphic(battle_title_widescreen_1, lobbyscreen:com_238);
 if_setgraphic(battle_title_widescreen_3, lobbyscreen:com_239);
 if_setgraphic(battle_title_widescreen_4, lobbyscreen:com_240);
-if_setgraphic(battle_title_widescreen_6, lobbyscreen:com_241);
+if_setgraphic(battle_title_widescreen_6, lobbyscreen:telekinetic_push);
 if_setgraphic(battle_title_widescreen_5, lobbyscreen:com_242);
 if_setgraphic(battle_title_widescreen_7, lobbyscreen:com_243);
 if_setgraphic(battle_title_widescreen_8, lobbyscreen:com_244);
 if_setgraphic("corner_flourish,0", lobbyscreen:com_246);
 if_setgraphic("corner_flourish,0", lobbyscreen:com_248);
 if_setgraphic("corner_flourish,0", lobbyscreen:com_251);
-if_setgraphic("corner_frame_1,2", lobbyscreen:com_215);
-if_setvflip(true, lobbyscreen:com_215);
-if_sethflip(true, lobbyscreen:com_215);
-if_setgraphic("corner_frame_1,2", lobbyscreen:com_219);
-if_setvflip(true, lobbyscreen:com_219);
-if_sethflip(false, lobbyscreen:com_219);
-if_setgraphic("corner_frame_1,2", lobbyscreen:com_216);
-if_setvflip(false, lobbyscreen:com_216);
-if_sethflip(true, lobbyscreen:com_216);
-if_setgraphic("corner_frame_1,2", lobbyscreen:com_220);
-if_setvflip(false, lobbyscreen:com_220);
-if_sethflip(false, lobbyscreen:com_220);
-if_setonresize("lobby_resize", lobbyscreen:com_13);
+if_setgraphic("corner_frame_1,2", lobbyscreen:popup_top_left);
+if_setvflip(true, lobbyscreen:popup_top_left);
+if_sethflip(true, lobbyscreen:popup_top_left);
+if_setgraphic("corner_frame_1,2", lobbyscreen:popup_top_right);
+if_setvflip(true, lobbyscreen:popup_top_right);
+if_sethflip(false, lobbyscreen:popup_top_right);
+if_setgraphic("corner_frame_1,2", lobbyscreen:popup_bottom_left);
+if_setvflip(false, lobbyscreen:popup_bottom_left);
+if_sethflip(true, lobbyscreen:popup_bottom_left);
+if_setgraphic("corner_frame_1,2", lobbyscreen:popup_bottom_right);
+if_setvflip(false, lobbyscreen:popup_bottom_right);
+if_sethflip(false, lobbyscreen:popup_bottom_right);
+if_setonresize("lobby_resize", lobbyscreen:base);
 def_int $int2 = string_indexof_string(%varclient_1551, "@", 0);
 if ($int2 = -1) {
     %varclient_1414 = 1;
@@ -40,20 +40,20 @@ if ((userdetail_lobby_playage = 0 | compare(substring(chat_playername, 0, 1), "#
     %varclient_1100 = -3;
     if ($int1 < 50) {
         $int1 = calc($int1 + 1);
-        if_setontimer("lobbyscreen_load(false, $int1)", lobbyscreen:com_13);
+        if_setontimer("lobbyscreen_load(false, $int1)", lobbyscreen:base);
         return;
     }
     if (worldlist_fetch = false) {
-        if_setontimer("lobbyscreen_load(false, $int1)", lobbyscreen:com_13);
+        if_setontimer("lobbyscreen_load(false, $int1)", lobbyscreen:base);
         return;
     }
-    if_setontimer(null, lobbyscreen:com_13);
+    if_setontimer(null, lobbyscreen:base);
     unknown_command_5612(0);
-    if_setontimer("lobbyscreen_entergametimer(lobbyscreen:com_13, map_world)", lobbyscreen:com_13);
+    if_setontimer("lobbyscreen_entergametimer(lobbyscreen:base, map_world)", lobbyscreen:base);
     return;
 }
-if_sethide(false, lobbyscreen:com_17);
-if_sethide(true, lobbyscreen:com_30);
+if_sethide(false, lobbyscreen:menu);
+if_sethide(true, lobbyscreen:input);
 ~lobby_popup_close;
 ~lobbyscreen_loadpanels;
 ~lobbyscreen_tabswitch(0);
@@ -67,10 +67,10 @@ if (userdetail_quickchat = true) {
     mes_typed(^chattype_clanmessage, 0, "Users restricted to quick-chat cannot send messages from the Lobby.");
 }
 ~toplevel_minimenu_setup;
-if_setonkey("script1328(event_keycode)", lobbyscreen:com_13);
+if_setonkey("script1328(event_keycode)", lobbyscreen:base);
 def_string $string0 = ~script2781;
 if (string_length($string0) > 0) {
     ~lobby_popup_size(-3000, 0, "<$string0><br> ", 0, "loadingwheel,8", 1, 0, "Re-Subscribe Now", "Re-Subscribe Now", 1, "Close", "Close", 350);
 }
-if_setontimer("script1868(lobbyscreen:com_18)", lobbyscreen:com_18);
+if_setontimer("script1868(lobbyscreen:update_timer)", lobbyscreen:update_timer);
 ~lobby_resize;

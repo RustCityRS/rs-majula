@@ -1,8 +1,8 @@
-// 2011's quest tab is one list (questlist_v4:com_18), a row per 2011 quest id.
+// 2011's quest tab is one list (questlist_v4:quests), a row per 2011 quest id.
 // View, the row's op 1, opens that quest's journal: 289's
 // [if_button,questlist:<quest>], ported as [label,questlist_<quest>]. Each
 // quest's port adds its row here.
-[if_button1,questlist_v4:com_18]
+[if_button1,questlist_v4:quests]
 switch_int (last_slot) {
     case ^questlist_cook : @questlist_cook;
     case ^questlist_doric : @questlist_doric;

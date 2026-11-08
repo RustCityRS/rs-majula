@@ -1,81 +1,81 @@
 // 1771
 [proc,togglebox_variablebits]
 if (%varclient_247 = 0) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_99);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, null, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:notimelimit_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, null, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_99);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:notimelimit_indicator);
 }
 if (%varclient_247 = 1) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_59);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_59, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:5mins_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:5mins_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_59);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:5mins_indicator);
 }
 if (%varclient_247 = 2) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_62);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_62, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:10mins_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:10mins_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_62);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:10mins_indicator);
 }
 if (%varclient_247 = 3) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_65);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_65, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:30mins_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:30mins_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_65);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:30mins_indicator);
 }
 if (%varclient_247 = 4) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_68);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_68, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:1hour_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:1hour_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_68);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:1hour_indicator);
 }
 if (%varclient_247 = 5) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_71);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_71, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:1hour30_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:1hour30_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_71);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:1hour30_indicator);
 }
 if (%varclient_247 = 6) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_74);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_74, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:2hours_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:2hours_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_74);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:2hours_indicator);
 }
 if (%varclient_247 = 7) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_77);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_77, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:2hours30_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:2hours30_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_77);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:2hours30_indicator);
 }
 if (%varclient_247 = 8) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_80);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_80, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:3hours_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:3hours_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_80);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:3hours_indicator);
 }
 if (%varclient_247 = 9) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_83);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_83, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:4hours_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:4hours_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_83);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:4hours_indicator);
 }
 if (%varclient_247 = 10) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_86);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_86, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:5hours_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:5hours_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_86);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:5hours_indicator);
 }
 if (%varclient_247 = 11) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_89);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_89, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:6hours_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:6hours_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_89);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:6hours_indicator);
 }
 if (%varclient_247 = 12) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:com_92);
-    ~clanwars_focuslayer(clanwars_setup:com_96, clanwars_setup:com_97, clanwars_setup:com_92, -1);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:8hours_indicator);
+    ~clanwars_focuslayer(clanwars_setup:timelimit_layer, clanwars_setup:timelimit_scrollbar, clanwars_setup:8hours_indicator, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:com_92);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:8hours_indicator);
 }
 ~clanwars_updateside;

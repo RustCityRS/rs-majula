@@ -13,7 +13,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 506:1
-[com_1]
+[talk_layer]
 type=layer
 x=1
 y=48
@@ -25,12 +25,12 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 506:2
-[com_2]
+[frisd_talkbutton]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_1
+layer=talk_layer
 textfont=p12_full
 text=Talk to puppet
 textalignh=centre
@@ -41,7 +41,7 @@ transmitop=1
 op1=Talk-to-puppet
 
 // 506:3
-[com_3]
+[dance_layer]
 type=layer
 x=96
 y=88
@@ -53,11 +53,11 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 506:4
-[com_4]
+[frisd_dancebutton]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=dance_layer
 textfont=p12_full
 text=Dance
 textalignh=centre
@@ -68,7 +68,7 @@ transmitop=1
 op1=Dance
 
 // 506:5
-[com_5]
+[juggle_layer]
 type=layer
 x=98
 y=88
@@ -79,11 +79,11 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 506:6
-[com_6]
+[frisd_jugglebutton]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_5
+layer=juggle_layer
 textfont=p12_full
 text=Juggle
 textalignh=centre
@@ -94,7 +94,7 @@ transmitop=1
 op1=Juggle
 
 // 506:7
-[com_7]
+[skip_layer]
 type=layer
 x=96
 y=128
@@ -106,11 +106,11 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 506:8
-[com_8]
+[frisd_skipbutton]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_7
+layer=skip_layer
 textfont=p12_full
 text=Skip
 textalignh=centre
@@ -121,7 +121,7 @@ transmitop=1
 op1=Skip
 
 // 506:9
-[com_9]
+[pie_layer]
 type=layer
 x=98
 y=128
@@ -132,11 +132,11 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 506:10
-[com_10]
+[frisd_piebutton]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_9
+layer=pie_layer
 textfont=p12_full
 text=Pie
 textalignh=centre
@@ -147,7 +147,7 @@ transmitop=1
 op1=Pie
 
 // 506:11
-[com_11]
+[jig_layer]
 type=layer
 x=96
 y=168
@@ -159,11 +159,11 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 506:12
-[com_12]
+[frisd_jigbutton]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_11
+layer=jig_layer
 textfont=p12_full
 text=Jig
 textalignh=centre
@@ -174,7 +174,7 @@ transmitop=1
 op1=Jig
 
 // 506:13
-[com_13]
+[bow_layer]
 type=layer
 x=98
 y=168
@@ -185,11 +185,11 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 506:14
-[com_14]
+[frisd_bowbutton]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_13
+layer=bow_layer
 textfont=p12_full
 text=Bow
 textalignh=centre

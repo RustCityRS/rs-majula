@@ -3,23 +3,23 @@
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=scrolling_layer
 
 // 1089:1
 [com_1]
 type=layer
 width=454
 height=220
-layer=com_5
+layer=content_layer
 
 // 1089:2
-[com_2]
+[scrolling_layer]
 type=layer
 x=2
 y=2
 width=434
 height=216
-layer=com_5
+layer=content_layer
 
 // 1089:3
 [com_3]
@@ -42,7 +42,7 @@ layer=com_3
 onload=script4260(event_com)
 
 // 1089:5
-[com_5]
+[content_layer]
 type=layer
 x=12
 y=33
@@ -51,17 +51,17 @@ height=43
 widthmode=minus
 heightmode=minus
 layer=com_3
-onload=clan_setup_flags(clan_flag_selection:com_2, clan_flag_selection:com_6, clan_flag_selection:com_0, clan_flag_selection:com_35)
+onload=clan_setup_flags(clan_flag_selection:scrolling_layer, clan_flag_selection:scroll_bar, clan_flag_selection:com_0, clan_flag_selection:com_35)
 
 // 1089:6
-[com_6]
+[scroll_bar]
 type=layer
 x=4
 y=2
 width=16
 height=215
 xmode=abs_right
-layer=com_5
+layer=content_layer
 
 // 1089:7
 [com_7]
@@ -70,7 +70,7 @@ y=223
 width=130
 height=28
 xmode=abs_centre
-layer=com_5
+layer=content_layer
 
 // 1089:8
 [com_8]
@@ -389,17 +389,17 @@ trans=100
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=scrolling_layer
 
 // 1089:36
 [com_36]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=scrolling_layer
 
 // 1089:37
-[com_37]
+[tooltip]
 type=layer
 width=50
 height=50

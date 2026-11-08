@@ -3,11 +3,11 @@
 if ($struct0 = null) {
     $struct0 = struct_1112;
 }
-if_setmodel(struct_param($struct0, param_1166), playerdesign4:com_113);
+if_setmodel(struct_param($struct0, param_1166), playerdesign4:spotanim);
 if ($boolean1 = true) {
-    if_setmodelanim(struct_param($struct0, param_1165), playerdesign4:com_112);
-    if_setmodelanim(struct_param($struct0, param_1168), playerdesign4:com_113);
+    if_setmodelanim(struct_param($struct0, param_1165), playerdesign4:player);
+    if_setmodelanim(struct_param($struct0, param_1168), playerdesign4:spotanim);
 } else {
-    if_setmodelanim(struct_param($struct0, param_1164), playerdesign4:com_112);
-    if_setmodelanim(struct_param($struct0, param_1167), playerdesign4:com_113);
+    if_setmodelanim(struct_param($struct0, param_1164), playerdesign4:player);
+    if_setmodelanim(struct_param($struct0, param_1167), playerdesign4:spotanim);
 }

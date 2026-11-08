@@ -1,21 +1,21 @@
 // 481:0
-[com_0]
+[tooltip]
 type=layer
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_1
+layer=tooltip_bounds
 
 // 481:1
-[com_1]
+[tooltip_bounds]
 type=layer
 y=150
 width=353
 height=150
 
 // 481:2
-[com_2]
+[bounds]
 type=layer
 y=19
 width=353
@@ -29,7 +29,7 @@ width=351
 height=130
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=bounds
 
 // 481:4
 [com_4]
@@ -39,7 +39,7 @@ y=12
 width=14
 height=16
 widthmode=minus
-layer=com_2
+layer=bounds
 textfont=p11_full
 text=Zombie Stress Level
 textalignh=centre
@@ -54,7 +54,7 @@ y=30
 width=14
 height=29
 widthmode=minus
-layer=com_2
+layer=bounds
 onvartransmit=acs_update_progress_bar{varplayer_2081}
 onvarctransmit=acs_update_progress_bar{varclient_1494}
 
@@ -65,9 +65,9 @@ x=7
 y=61
 width=66
 height=66
-layer=com_2
-onmouseleave=deltooltip(interface_481:com_0)
-onmouserepeat=addtooltip(event_com, interface_481:com_0, "Wet willy: Lick your finger and poke it in the zombie's ear. Greatly increases zombie's stress level. Long cooldown.", 10, 250)
+layer=bounds
+onmouseleave=deltooltip(interface_481:tooltip)
+onmouserepeat=addtooltip(event_com, interface_481:tooltip, "Wet willy: Lick your finger and poke it in the zombie's ear. Greatly increases zombie's stress level. Long cooldown.", 10, 250)
 
 // 481:7
 [com_7]
@@ -76,9 +76,9 @@ x=75
 y=61
 width=66
 height=66
-layer=com_2
-onmouseleave=deltooltip(interface_481:com_0)
-onmouserepeat=addtooltip(event_com, interface_481:com_0, "Nose pinch: Pinch the zombie's nose hard. Slightly increases zombie's stress level and makes his nose sore, doubling the effect of a pig nose attack if used a short time after.", 10, 250)
+layer=bounds
+onmouseleave=deltooltip(interface_481:tooltip)
+onmouserepeat=addtooltip(event_com, interface_481:tooltip, "Nose pinch: Pinch the zombie's nose hard. Slightly increases zombie's stress level and makes his nose sore, doubling the effect of a pig nose attack if used a short time after.", 10, 250)
 
 // 481:8
 [com_8]
@@ -87,9 +87,9 @@ x=143
 y=61
 width=66
 height=66
-layer=com_2
-onmouseleave=deltooltip(interface_481:com_0)
-onmouserepeat=addtooltip(event_com, interface_481:com_0, "Pig nose: Stick your fingers in the zombie's nose and pull up. Moderately increases stress level. Effect doubled if used immediately after a nose pinch.", 10, 250)
+layer=bounds
+onmouseleave=deltooltip(interface_481:tooltip)
+onmouserepeat=addtooltip(event_com, interface_481:tooltip, "Pig nose: Stick your fingers in the zombie's nose and pull up. Moderately increases stress level. Effect doubled if used immediately after a nose pinch.", 10, 250)
 
 // 481:9
 [com_9]
@@ -98,9 +98,9 @@ x=211
 y=61
 width=66
 height=66
-layer=com_2
-onmouseleave=deltooltip(interface_481:com_0)
-onmouserepeat=addtooltip(event_com, interface_481:com_0, "Shake: Shake the zombie. Slightly increases the zombie's stress level and prevents it from reducing for a short time.", 10, 250)
+layer=bounds
+onmouseleave=deltooltip(interface_481:tooltip)
+onmouserepeat=addtooltip(event_com, interface_481:tooltip, "Shake: Shake the zombie. Slightly increases the zombie's stress level and prevents it from reducing for a short time.", 10, 250)
 
 // 481:10
 [com_10]
@@ -109,9 +109,9 @@ x=280
 y=61
 width=66
 height=66
-layer=com_2
-onmouseleave=deltooltip(interface_481:com_0)
-onmouserepeat=addtooltip(event_com, interface_481:com_0, "Insult: Insult the zombie. Slightly increases the zombie's stress level. Short cooldown.", 10, 250)
+layer=bounds
+onmouseleave=deltooltip(interface_481:tooltip)
+onmouserepeat=addtooltip(event_com, interface_481:tooltip, "Insult: Insult the zombie. Slightly increases the zombie's stress level. Short cooldown.", 10, 250)
 
 // 481:11
 [com_11]
@@ -157,7 +157,7 @@ ymode=abs_centre
 layer=com_5
 
 // 481:15
-[com_15]
+[progress_bar]
 type=layer
 width=16384
 height=16384
@@ -173,7 +173,7 @@ type=graphic
 width=6
 height=19
 ymode=abs_centre
-layer=com_15
+layer=progress_bar
 graphic="aif_progress_bar_red_fill_2,0"
 
 // 481:17
@@ -183,7 +183,7 @@ width=6
 height=19
 xmode=abs_right
 ymode=abs_centre
-layer=com_15
+layer=progress_bar
 graphic="aif_progress_bar_red_fill_2,2"
 
 // 481:18
@@ -194,7 +194,7 @@ height=19
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_15
+layer=progress_bar
 graphic="aif_progress_bar_red_fill_2,1"
 tiling=yes
 

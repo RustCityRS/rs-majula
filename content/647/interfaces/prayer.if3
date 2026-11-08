@@ -1,31 +1,31 @@
 // 271:0
-[com_0]
+[prayer_level_layer]
 type=layer
 width=190
 height=22
 ymode=abs_bottom
 
 // 271:1
-[com_1]
+[prayer_level_icon]
 type=graphic
 x=63
 y=1
 width=17
 height=18
 ymode=abs_bottom
-layer=com_0
+layer=prayer_level_layer
 graphic="options_icons_small,2"
 colour=0xffffffff
 
 // 271:2
-[com_2]
+[prayer_level]
 type=text
 x=87
 y=1
 width=48
 height=18
 ymode=abs_bottom
-layer=com_0
+layer=prayer_level_layer
 textfont=p12_full
 textalignv=centre
 textshadow=yes
@@ -45,54 +45,54 @@ transmitop=10
 op10=    
 
 // 271:4
-[com_4]
+[base]
 type=layer
 width=190
 height=261
 onvarctransmit=prayer_load_buttons{varclient_181}
 
 // 271:5
-[com_5]
+[prayer_and_glow_layer]
 type=layer
 y=2
 width=190
 height=259
-layer=com_4
+layer=base
 
 // 271:6
-[com_6]
+[scrollbar_layer]
 type=layer
 y=2
 width=16
 height=216
 xmode=abs_right
-layer=com_4
+layer=base
 
 // 271:7
-[com_7]
+[glow]
 type=layer
 width=190
 height=261
-layer=com_5
+layer=prayer_and_glow_layer
 onload=prayer_load_glow(event_com)
 
 // 271:8
-[com_8]
+[prayer_buttons]
 type=layer
 width=190
 height=261
-layer=com_5
+layer=prayer_and_glow_layer
 onload=prayer_load_buttons
 
 // 271:9
-[com_9]
+[stats_layer]
 type=layer
 y=23
 width=16391
 height=19
 widthmode=proportion
 ymode=abs_bottom
-layer=com_4
+layer=base
 onload=script1698
 
 // 271:10
@@ -102,7 +102,7 @@ width=16391
 height=18
 widthmode=proportion
 ymode=abs_bottom
-layer=com_9
+layer=stats_layer
 
 // 271:11
 [com_11]
@@ -137,7 +137,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xffcc00)
 
 // 271:13
-[com_13]
+[stats_display_layer]
 type=layer
 y=18
 width=16391
@@ -145,7 +145,7 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_bottom
-layer=com_9
+layer=stats_layer
 
 // 271:14
 [com_14]
@@ -153,7 +153,7 @@ type=line
 x=37
 y=18
 height=59
-layer=com_13
+layer=stats_display_layer
 colour=0x281d27
 
 // 271:15
@@ -162,7 +162,7 @@ type=line
 x=38
 y=22
 height=59
-layer=com_13
+layer=stats_display_layer
 colour=0x71696c
 
 // 271:16
@@ -171,7 +171,7 @@ type=line
 x=73
 y=17
 height=59
-layer=com_13
+layer=stats_display_layer
 colour=0x281d27
 
 // 271:17
@@ -180,7 +180,7 @@ type=line
 x=74
 y=21
 height=59
-layer=com_13
+layer=stats_display_layer
 colour=0x71696c
 
 // 271:18
@@ -189,7 +189,7 @@ type=line
 x=111
 y=18
 height=59
-layer=com_13
+layer=stats_display_layer
 colour=0x281d27
 
 // 271:19
@@ -198,7 +198,7 @@ type=line
 x=112
 y=22
 height=59
-layer=com_13
+layer=stats_display_layer
 colour=0x71696c
 
 // 271:20
@@ -207,7 +207,7 @@ type=line
 x=152
 y=18
 height=59
-layer=com_13
+layer=stats_display_layer
 colour=0x281d27
 
 // 271:21
@@ -216,7 +216,7 @@ type=line
 x=153
 y=22
 height=59
-layer=com_13
+layer=stats_display_layer
 colour=0x71696c
 
 // 271:22
@@ -226,7 +226,7 @@ y=21
 width=16391
 height=39
 widthmode=proportion
-layer=com_13
+layer=stats_display_layer
 colour=0xffffff
 fill=yes
 trans=222
@@ -239,76 +239,76 @@ width=16391
 height=3591
 widthmode=proportion
 heightmode=proportion
-layer=com_13
+layer=stats_display_layer
 colour=0x000000
 fill=yes
 trans=196
 
 // 271:24
-[com_24]
+[stat_text_layer]
 type=layer
 y=49
 width=190
 height=21
-layer=com_13
+layer=stats_display_layer
 hide=yes
 
 // 271:25
-[com_25]
+[attack_txt_layer]
 type=layer
 x=1
 y=-3
 width=39
 height=20
-layer=com_24
+layer=stat_text_layer
 
 // 271:26
-[com_26]
+[strength_txt_layer]
 type=layer
 x=38
 y=-3
 width=39
 height=20
-layer=com_24
+layer=stat_text_layer
 transmitop=10
 op10= 
 
 // 271:27
-[com_27]
+[defence_txt_layer]
 type=layer
 x=-1
 y=-3
 width=39
 height=20
 xmode=abs_centre
-layer=com_24
+layer=stat_text_layer
 transmitop=10
 op10= 
 
 // 271:28
-[com_28]
+[ranged_txt_layer]
 type=layer
 x=113
 y=-3
 width=39
 height=20
-layer=com_24
+layer=stat_text_layer
 transmitop=10
 op10= 
 
 // 271:29
-[com_29]
+[magic_txt_layer]
 type=layer
 x=152
 y=-3
 width=39
 height=20
-layer=com_24
+layer=stat_text_layer
 transmitop=10
 op10= 
 
 // 271:30
-[com_30]
+[magic_txt]
 type=text
 width=16391
 height=16384
@@ -316,7 +316,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=magic_txt_layer
 textfont=p11_full
 text=+15%
 textalignh=centre
@@ -327,7 +327,7 @@ transmitop=10
 op10= 
 
 // 271:31
-[com_31]
+[ranged_txt]
 type=text
 width=16391
 height=16384
@@ -335,7 +335,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_28
+layer=ranged_txt_layer
 textfont=p11_full
 text=+15%
 textalignh=centre
@@ -346,7 +346,7 @@ transmitop=10
 op10= 
 
 // 271:32
-[com_32]
+[defence_txt]
 type=text
 width=16391
 height=16384
@@ -354,7 +354,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_27
+layer=defence_txt_layer
 textfont=p11_full
 text=+15%
 textalignh=centre
@@ -365,7 +365,7 @@ transmitop=10
 op10= 
 
 // 271:33
-[com_33]
+[strength_txt]
 type=text
 width=16391
 height=16384
@@ -373,7 +373,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_26
+layer=strength_txt_layer
 textfont=p11_full
 text=+15%
 textalignh=centre
@@ -384,7 +384,7 @@ transmitop=10
 op10= 
 
 // 271:34
-[com_34]
+[attack_txt]
 type=text
 width=16391
 height=16384
@@ -392,7 +392,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_25
+layer=attack_txt_layer
 textfont=p11_full
 text=+15%
 textalignh=centre
@@ -401,13 +401,13 @@ textshadow=yes
 colour=0xff981f
 
 // 271:35
-[com_35]
+[attack_icon]
 type=graphic
 x=9
 y=21
 width=25
 height=25
-layer=com_13
+layer=stats_display_layer
 graphic="staticons,0"
 colour=0xffffffff
 transmitop=10
@@ -415,13 +415,13 @@ opbase=
 op10= 
 
 // 271:36
-[com_36]
+[strength_icon]
 type=graphic
 x=44
 y=22
 width=25
 height=25
-layer=com_13
+layer=stats_display_layer
 graphic="staticons,1"
 colour=0xffffffff
 transmitop=10
@@ -429,13 +429,13 @@ opbase=
 op10= 
 
 // 271:37
-[com_37]
+[defence_icon]
 type=graphic
 x=81
 y=21
 width=25
 height=25
-layer=com_13
+layer=stats_display_layer
 graphic="staticons,2"
 colour=0xffffffff
 transmitop=10
@@ -443,13 +443,13 @@ opbase=
 op10= 
 
 // 271:38
-[com_38]
+[ranged_icon]
 type=graphic
 x=120
 y=22
 width=25
 height=25
-layer=com_13
+layer=stats_display_layer
 graphic="staticons,3"
 colour=0xffffffff
 transmitop=10
@@ -457,13 +457,13 @@ opbase=
 op10= 
 
 // 271:39
-[com_39]
+[magic_icon]
 type=graphic
 x=158
 y=21
 width=25
 height=25
-layer=com_13
+layer=stats_display_layer
 graphic="staticons,5"
 colour=0xffffffff
 transmitop=10
@@ -490,7 +490,7 @@ type=graphic
 y=-12
 width=190
 height=32
-layer=com_9
+layer=stats_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -498,70 +498,70 @@ transmitop=10
 op10=     
 
 // 271:42
-[com_42]
+[customise]
 type=layer
 width=190
 height=261
-layer=com_4
+layer=base
 hide=yes
 
 // 271:43
-[com_43]
+[confirm_layer]
 type=layer
 x=60
 y=236
 width=100
 height=25
-layer=com_42
+layer=customise
 transmitop=1
 op1=Confirm Selection
-onmouseleave=clanwars_setup_side_gfx_icon(prayer:com_44, prayer:com_45)
-onmouserepeat=prayer_custom_confirm_mouseover(prayer:com_44, prayer:com_45)
+onmouseleave=clanwars_setup_side_gfx_icon(prayer:confirm_text, prayer:custom_confirm)
+onmouserepeat=prayer_custom_confirm_mouseover(prayer:confirm_text, prayer:custom_confirm)
 
 // 271:44
-[com_44]
+[confirm_text]
 type=text
 x=29
 y=9
 width=62
 height=15
-layer=com_43
+layer=confirm_layer
 textfont=p11_full
 text=Confirm
 textshadow=yes
 colour=0xff981f
 
 // 271:45
-[com_45]
+[custom_confirm]
 type=graphic
 x=3
 y=3
 width=23
 height=23
-layer=com_43
+layer=confirm_layer
 graphic="ame_confirm_button_no_back,0"
 colour=0xffffffff
 
 // 271:46
-[com_46]
+[custom_instructions]
 type=text
 x=4
 y=6
 width=183
 height=14
-layer=com_42
+layer=customise
 textfont=p11_full
 text=Select your quick prayers:
 textshadow=yes
 colour=0xff981f
 
 // 271:47
-[com_47]
+[grey]
 type=rectangle
 y=24
 width=190
 height=213
-layer=com_42
+layer=customise
 colour=0x969696
 fill=yes
 trans=144
@@ -572,7 +572,7 @@ type=graphic
 y=9
 width=190
 height=32
-layer=com_42
+layer=customise
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -580,8 +580,8 @@ transmitop=10
 op10=     
 
 // 271:49
-[com_49]
+[tooltips]
 type=layer
 width=1
 height=1
-layer=com_4
+layer=base

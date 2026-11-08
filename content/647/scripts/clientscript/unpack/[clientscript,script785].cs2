@@ -15,7 +15,7 @@ switch_component ($component0) {
         if (%varplayerbit_6462 = 1) {
             if_setgraphic(graphic_1702, $component0);
         }
-    case magic:com_11 :
+    case magic:filter_misc_button :
         %varclient_990 = 1;
         if (%varplayerbit_6461 = 1) {
             if_setgraphic(graphic_1702, $component0);
@@ -30,7 +30,7 @@ switch_component ($component0) {
         if (%varplayerbit_6463 = 1) {
             if_setgraphic(graphic_1702, $component0);
         }
-    case magic_lunar:com_9 :
+    case magic_lunar:filter_misc_button :
         %varclient_990 = 1;
         if (%varplayerbit_6464 = 1) {
             if_setgraphic(graphic_1702, $component0);
@@ -60,7 +60,7 @@ switch_component ($component0) {
         if (%varplayerbit_7351 = 1) {
             if_setgraphic(graphic_1702, $component0);
         }
-    case rand_magic:com_11 :
+    case rand_magic:filter_misc_button :
         %varclient_990 = 1;
         if (%varplayerbit_7350 = 1) {
             if_setgraphic(graphic_1702, $component0);

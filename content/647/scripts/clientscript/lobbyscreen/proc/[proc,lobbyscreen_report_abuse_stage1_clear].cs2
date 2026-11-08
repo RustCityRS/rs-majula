@@ -1,9 +1,9 @@
 // 3181
 [proc,lobbyscreen_report_abuse_stage1_clear]
-if_settext("", interface_914:com_27);
-if_setonkey(null, interface_914:com_27);
-if_setonop(null, interface_914:com_16);
-if_sethide(true, interface_914:com_21);
-if_setgraphic("check_box_2,0", interface_914:com_23);
+if_settext("", lobbyscreen_report_abuse_stage1:name);
+if_setonkey(null, lobbyscreen_report_abuse_stage1:name);
+if_setonop(null, lobbyscreen_report_abuse_stage1:next_button);
+if_sethide(true, lobbyscreen_report_abuse_stage1:mute_layer);
+if_setgraphic("check_box_2,0", lobbyscreen_report_abuse_stage1:com_23);
 %varclient_1796 = "";
 %varclient_1094 = false;

@@ -1,29 +1,29 @@
 // 2242
 [clientscript,script2242]
 sound_synth(synth_8727, 3, 0);
-if_settext("Turns taken score: <tostring(%varplayer_1674)> x 101 = <tostring(calc(%varplayer_1674 * 101))>", swear_copris:com_22);
-if_settext("Resources spare: <tostring(calc(%varplayer_1688 + (%varplayer_1687 + %varplayer_1686)))> x -10 = -<tostring(calc((%varplayer_1688 + (%varplayer_1687 + %varplayer_1686)) * 10))>", swear_copris:com_26);
+if_settext("Turns taken score: <tostring(%varplayer_1674)> x 101 = <tostring(calc(%varplayer_1674 * 101))>", swear_copris:turnscore);
+if_settext("Resources spare: <tostring(calc(%varplayer_1688 + (%varplayer_1687 + %varplayer_1686)))> x -10 = -<tostring(calc((%varplayer_1688 + (%varplayer_1687 + %varplayer_1686)) * 10))>", swear_copris:resourcesscore);
 if (%varplayer_1674 < 16) {
-    if_settext("Completed within turn limit: -100", swear_copris:com_27);
+    if_settext("Completed within turn limit: -100", swear_copris:underparscore);
 } else {
-    if_settext("Not completed within turn limit: 0", swear_copris:com_27);
+    if_settext("Not completed within turn limit: 0", swear_copris:underparscore);
 }
-if_settext("Workers employed: <tostring(%varplayer_1681)> x -10 = -<tostring(calc(%varplayer_1681 * 10))>", swear_copris:com_28);
-if_settext("Turns taken: <tostring(%varplayer_1674)>", swear_copris:com_32);
+if_settext("Workers employed: <tostring(%varplayer_1681)> x -10 = -<tostring(calc(%varplayer_1681 * 10))>", swear_copris:workersemployedscore);
+if_settext("Turns taken: <tostring(%varplayer_1674)>", swear_copris:turncount);
 if (%varplayerbit_7324 = 0) {
-    if_settext("Oven not repaired: 50", swear_copris:com_23);
+    if_settext("Oven not repaired: 50", swear_copris:incubatorrepaired);
 } else {
-    if_settext("Oven repaired: 0", swear_copris:com_23);
+    if_settext("Oven repaired: 0", swear_copris:incubatorrepaired);
 }
 if (%varplayerbit_7326 = 0) {
-    if_settext("Conveyor not repaired: 50", swear_copris:com_24);
+    if_settext("Conveyor not repaired: 50", swear_copris:conveyorrepaired);
 } else {
-    if_settext("Conveyor repaired: 0", swear_copris:com_24);
+    if_settext("Conveyor repaired: 0", swear_copris:conveyorrepaired);
 }
 if (%varplayerbit_7325 = 0) {
-    if_settext("Painter not repaired: 50", swear_copris:com_25);
+    if_settext("Painter not repaired: 50", swear_copris:painterepaired);
 } else {
-    if_settext("Painter repaired: 0", swear_copris:com_25);
+    if_settext("Painter repaired: 0", swear_copris:painterepaired);
 }
 def_int $int0 = 0;
 $int0 = calc(%varplayer_1674 * 101);
@@ -48,7 +48,7 @@ if ($int0 > 32768) {
     $int0 = 32768;
 }
 if ($int0 = %varplayerbit_7339) {
-    if_settext("Final score: <tostring($int0)> (New best score)", swear_copris:com_31);
+    if_settext("Final score: <tostring($int0)> (New best score)", swear_copris:finalscore);
 } else {
-    if_settext("Final score: <tostring($int0)>", swear_copris:com_31);
+    if_settext("Final score: <tostring($int0)>", swear_copris:finalscore);
 }

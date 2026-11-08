@@ -1,40 +1,40 @@
 // 789
 [clientscript,script789](component $component0)
-if (($component0 = xplamp:agility | $component0 = xplamp:herblore | $component0 = xplamp:thieving | $component0 = xplamp:fletching | $component0 = xplamp:slayer | $component0 = xplamp:farming | $component0 = xplamp:construction | $component0 = xplamp:hunter | $component0 = xplamp:summoning) & map_members = false) {
+if (($component0 = interface_134:agility | $component0 = interface_134:herblore | $component0 = interface_134:thieving | $component0 = interface_134:fletching | $component0 = interface_134:slayer | $component0 = interface_134:farming | $component0 = interface_134:construction | $component0 = interface_134:hunter | $component0 = interface_134:lore) & map_members = false) {
     return;
 }
-if ($component0 = xplamp:summoning & %varplayerbit_4302 < 110) {
+if ($component0 = interface_134:lore & %varplayerbit_4302 < 110) {
     return;
 }
-if ($component0 = xplamp:herblore & %druidquest < 4) {
+if ($component0 = interface_134:herblore & %druidquest < 4) {
     return;
 }
-if ($component0 = xplamp:construction & %varplayerbit_2187 = 0) {
+if ($component0 = interface_134:construction & %varplayerbit_2187 = 0) {
     return;
 }
-if_sethide(true, xplamp:com_4);
-if_sethide(true, xplamp:com_21);
-if_sethide(true, xplamp:com_22);
-if_sethide(true, xplamp:com_23);
-if_sethide(true, xplamp:com_24);
-if_sethide(true, xplamp:com_25);
-if_sethide(true, xplamp:com_27);
-if_sethide(true, xplamp:com_5);
-if_sethide(true, xplamp:com_6);
-if_sethide(true, xplamp:com_8);
-if_sethide(true, xplamp:com_26);
-if_sethide(true, xplamp:com_9);
-if_sethide(true, xplamp:com_12);
-if_sethide(true, xplamp:com_13);
-if_sethide(true, xplamp:com_7);
-if_sethide(true, xplamp:com_15);
-if_sethide(true, xplamp:com_16);
-if_sethide(true, xplamp:com_17);
-if_sethide(true, xplamp:com_18);
-if_sethide(true, xplamp:com_10);
-if_sethide(true, xplamp:com_11);
-if_sethide(true, xplamp:com_19);
-if_sethide(true, xplamp:com_14);
-if_sethide(true, xplamp:com_20);
-if_sethide(true, xplamp:com_28);
+if_sethide(true, interface_134:click_attack);
+if_sethide(true, interface_134:click_strength);
+if_sethide(true, interface_134:click_ranged);
+if_sethide(true, interface_134:click_magic);
+if_sethide(true, interface_134:click_defence);
+if_sethide(true, interface_134:click_hitpoints);
+if_sethide(true, interface_134:click_prayer);
+if_sethide(true, interface_134:click_agility);
+if_sethide(true, interface_134:click_herblore);
+if_sethide(true, interface_134:click_thieving);
+if_sethide(true, interface_134:click_crafting);
+if_sethide(true, interface_134:click_runecraft);
+if_sethide(true, interface_134:click_mining);
+if_sethide(true, interface_134:click_smithing);
+if_sethide(true, interface_134:click_fishing);
+if_sethide(true, interface_134:click_cooking);
+if_sethide(true, interface_134:click_firemaking);
+if_sethide(true, interface_134:click_woodcutting);
+if_sethide(true, interface_134:click_fletching);
+if_sethide(true, interface_134:click_slayer);
+if_sethide(true, interface_134:click_farming);
+if_sethide(true, interface_134:click_construction);
+if_sethide(true, interface_134:click_hunter);
+if_sethide(true, interface_134:click_lore);
+if_sethide(true, interface_134:click_dungeoneering);
 if_sethide(false, $component0);

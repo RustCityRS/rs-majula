@@ -1,5 +1,5 @@
 // 138:0
-[com_0]
+[contents]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -9,14 +9,14 @@ onload=gnomeglider_init
 onvartransmit=gnomeglider_update{varplayer_153}
 
 // 138:1
-[com_1]
+[gnomemap]
 type=model
 x=1
 width=506
 height=318
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=contents
 model=model_3048
 modelorigin=2,-14
 modelangle=503,1,0
@@ -29,20 +29,20 @@ x=54
 y=33
 width=70
 height=80
-layer=com_0
+layer=contents
 model=model_3043
 modelorigin=0,-6
 modelangle=539,2044,0
 modelzoom=1061
 
 // 138:3
-[com_3]
+[mountains]
 type=model
 x=235
 y=29
 width=77
 height=55
-layer=com_0
+layer=contents
 model=model_3030
 modelorigin=0,3
 modelangle=424,8,0
@@ -55,7 +55,7 @@ x=394
 y=40
 width=64
 height=45
-layer=com_0
+layer=contents
 model=model_3038
 modelorigin=-17,-12
 modelangle=506,2043,0
@@ -68,7 +68,7 @@ x=406
 y=149
 width=77
 height=44
-layer=com_0
+layer=contents
 model=model_3025
 modelorigin=1,-6
 modelangle=470,8,0
@@ -81,7 +81,7 @@ x=59
 y=145
 width=37
 height=43
-layer=com_0
+layer=contents
 model=model_3043
 modelorigin=0,-3
 modelangle=512,0,0
@@ -94,7 +94,7 @@ x=75
 y=145
 width=37
 height=43
-layer=com_0
+layer=contents
 model=model_3043
 modelorigin=0,-3
 modelangle=512,0,0
@@ -107,7 +107,7 @@ x=91
 y=145
 width=37
 height=43
-layer=com_0
+layer=contents
 model=model_3043
 modelorigin=0,-3
 modelangle=512,0,0
@@ -120,7 +120,7 @@ x=219
 y=224
 width=44
 height=56
-layer=com_0
+layer=contents
 model=model_3047
 modelorigin=1,-12
 modelangle=469,11,0
@@ -133,20 +133,20 @@ x=47
 y=238
 width=54
 height=66
-layer=com_0
+layer=contents
 model=model_5730
 modelorigin=4,4
 modelangle=416,29,0
 modelzoom=1200
 
 // 138:11
-[com_11]
+[grand_tree]
 type=text
 x=30
 y=109
 width=140
 height=17
-layer=com_0
+layer=contents
 textfont=q8_full
 text=Ta Quir Priw
 textalignh=centre
@@ -159,58 +159,58 @@ x=29
 y=183
 width=140
 height=17
-layer=com_0
+layer=contents
 textfont=q8_full
 text=Priw Gnomo<br>Andralo
 textalignh=centre
 colour=0x2b1c0f
 
 // 138:13
-[com_13]
+[varrocktext2]
 type=text
 x=374
 y=89
 width=103
 height=17
-layer=com_0
+layer=contents
 textfont=q8_full
 text=Lemanto Andra
 colour=0x2b1c0f
 
 // 138:14
-[com_14]
+[mountainstext]
 type=text
 x=173
 y=31
 width=90
 height=17
-layer=com_0
+layer=contents
 textfont=q8_full
 text=Sindarpos
 textalignh=centre
 colour=0x2b1c0f
 
 // 138:15
-[com_15]
+[jungle]
 type=text
 x=199
 y=282
 width=83
 height=17
-layer=com_0
+layer=contents
 textfont=q8_full
 text=Gandius
 textalignh=centre
 colour=0x2b1c0f
 
 // 138:16
-[com_16]
+[deserttext]
 type=text
 x=335
 y=137
 width=95
 height=17
-layer=com_0
+layer=contents
 textfont=q8_full
 text=Kar-Hewo
 textalignh=centre
@@ -223,7 +223,7 @@ x=24
 y=223
 width=100
 height=17
-layer=com_0
+layer=contents
 textfont=q8_full
 text=Lemantolly
 textalignh=centre
@@ -236,7 +236,7 @@ x=70
 y=237
 width=60
 height=17
-layer=com_0
+layer=contents
 textfont=q8_full
 text=Undri
 textalignh=centre
@@ -249,7 +249,7 @@ x=20
 y=140
 width=155
 height=66
-layer=com_0
+layer=contents
 transmitop=1
 op1=Travel
 onmouseover=model_swapper(glidermap:com_6, model_3045)
@@ -262,7 +262,7 @@ x=20
 y=140
 width=155
 height=66
-layer=com_0
+layer=contents
 onmouseover=model_swapper(glidermap:com_7, model_3045)
 onmouseleave=model_swapper(glidermap:com_7, model_3043)
 
@@ -273,18 +273,18 @@ x=20
 y=140
 width=155
 height=66
-layer=com_0
+layer=contents
 onmouseover=model_swapper(glidermap:com_8, model_3045)
 onmouseleave=model_swapper(glidermap:com_8, model_3043)
 
 // 138:22
-[com_22]
+[jungle_button]
 type=model
 x=214
 y=220
 width=59
 height=81
-layer=com_0
+layer=contents
 model=null
 modelzoom=400
 transmitop=1
@@ -293,13 +293,13 @@ onmouseover=model_swapper(glidermap:com_9, model_3029)
 onmouseleave=model_swapper(glidermap:com_9, model_3047)
 
 // 138:23
-[com_23]
+[grandtree_button]
 type=model
 x=41
 y=32
 width=101
 height=106
-layer=com_0
+layer=contents
 model=null
 modelzoom=400
 transmitop=1
@@ -308,28 +308,28 @@ onmouseover=model_swapper(glidermap:com_2, model_3045)
 onmouseleave=model_swapper(glidermap:com_2, model_3043)
 
 // 138:24
-[com_24]
+[mountains_button]
 type=model
 x=185
 y=29
 width=139
 height=56
-layer=com_0
+layer=contents
 model=null
 modelzoom=400
 transmitop=1
 op1=Travel
-onmouseover=model_swapper(glidermap:com_3, model_3036)
-onmouseleave=model_swapper(glidermap:com_3, model_3030)
+onmouseover=model_swapper(glidermap:mountains, model_3036)
+onmouseleave=model_swapper(glidermap:mountains, model_3030)
 
 // 138:25
-[com_25]
+[varrock_button]
 type=model
 x=373
 y=41
 width=102
 height=65
-layer=com_0
+layer=contents
 model=null
 modelorigin=45,14
 modelzoom=400
@@ -339,13 +339,13 @@ onmouseover=model_swapper(glidermap:com_4, model_3026)
 onmouseleave=model_swapper(glidermap:com_4, model_3038)
 
 // 138:26
-[com_26]
+[desert_button]
 type=model
 x=360
 y=139
 width=127
 height=61
-layer=com_0
+layer=contents
 model=null
 modelzoom=10
 transmitop=1
@@ -360,7 +360,7 @@ x=27
 y=216
 width=90
 height=100
-layer=com_0
+layer=contents
 model=null
 modelangle=416,29,0
 modelzoom=1200
@@ -370,14 +370,14 @@ onmouseover=model_swapper(glidermap:com_10, model_5731)
 onmouseleave=model_swapper(glidermap:com_10, model_5730)
 
 // 138:28
-[com_28]
+[close]
 type=graphic
 x=28
 y=14
 width=26
 height=23
 xmode=abs_right
-layer=com_0
+layer=contents
 hide=yes
 graphic="close_buttons,4"
 colour=0xffffffff
@@ -394,7 +394,7 @@ x=54
 y=36
 width=73
 height=219
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=-14,7
@@ -409,7 +409,7 @@ x=41
 y=28
 width=89
 height=253
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=25,-44
@@ -418,13 +418,13 @@ modelzoom=689
 modelanim=human_blown_end_getup_priority
 
 // 138:31
-[com_31]
+[varrockgo]
 type=model
 x=90
 y=46
 width=317
 height=61
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=33,22
@@ -433,13 +433,13 @@ modelzoom=689
 modelanim=human_blown_end_getup_priority
 
 // 138:32
-[com_32]
+[crashback]
 type=model
 x=33
 y=19
 width=168
 height=291
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=-4,26
@@ -448,13 +448,13 @@ modelzoom=650
 modelanim=human_blown_end_getup_priority
 
 // 138:33
-[com_33]
+[crashgo]
 type=model
 x=36
 y=59
 width=163
 height=313
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=-7,-46
@@ -463,13 +463,13 @@ modelzoom=650
 modelanim=human_blown_end_getup_priority
 
 // 138:34
-[com_34]
+[jungleback]
 type=model
 x=102
 y=35
 width=165
 height=206
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=2,20
@@ -478,13 +478,13 @@ modelzoom=832
 modelanim=human_blown_end_getup_priority
 
 // 138:35
-[com_35]
+[junglego]
 type=model
 x=83
 y=67
 width=178
 height=209
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=-12,-28
@@ -493,13 +493,13 @@ modelzoom=832
 modelanim=human_blown_end_getup_priority
 
 // 138:36
-[com_36]
+[mountainback]
 type=model
 x=126
 y=53
 width=177
 height=52
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=-112,13
@@ -508,13 +508,13 @@ modelzoom=689
 modelanim=seq_786
 
 // 138:37
-[com_37]
+[mountaingo]
 type=model
 x=103
 y=70
 width=176
 height=47
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=112,1
@@ -523,13 +523,13 @@ modelzoom=689
 modelanim=seq_786
 
 // 138:38
-[com_38]
+[desertback]
 type=model
 x=136
 y=101
 width=314
 height=116
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=-33,-17
@@ -538,13 +538,13 @@ modelzoom=689
 modelanim=human_blown_end_getup_priority
 
 // 138:39
-[com_39]
+[desertgo]
 type=model
 x=116
 y=67
 width=301
 height=119
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=22,19
@@ -559,7 +559,7 @@ x=80
 y=53
 width=53
 height=131
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=-17,-91
@@ -574,7 +574,7 @@ x=40
 y=46
 width=55
 height=149
-layer=com_0
+layer=contents
 hide=yes
 model=model_3063
 modelorigin=18,99

@@ -3,7 +3,7 @@
 if ($int5 ! 2 & $int5 ! 3 & $int5 ! 4) {
     return;
 }
-~deltooltip_action(music_v3:com_16);
+~deltooltip_action(music_v3:music_tooltip_layer);
 %varclient_1 = 0;
 $int4 = calc($int4 + clientclock);
 if (cc_find($component0, $int1) = true) {

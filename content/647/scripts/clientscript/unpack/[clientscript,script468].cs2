@@ -4,7 +4,7 @@ if (stat_base(attack) < 42 | stat_base(strength) < 42 | stat_base(defence) < 42 
     if_settext("<col=c80000>Higher levels required...(show)</col>", $component0);
     return;
 }
-if ($component0 = conq_rewards:com_265 & %varplayer_1875 < 1250) {
+if ($component0 = conq_rewards:deflector_value & %varplayer_1875 < 1250) {
     if_settext("<col=c80000>1250 Conquest ranking required.</col>", $component0);
     return;
 }

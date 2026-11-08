@@ -5,7 +5,7 @@ width=512
 height=334
 
 // 473:1
-[com_1]
+[points_layer]
 type=layer
 y=280
 width=455
@@ -13,12 +13,12 @@ height=31
 xmode=abs_centre
 
 // 473:2
-[com_2]
+[darker]
 type=rectangle
 width=1
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=points_layer
 colour=0x000000
 fill=yes
 trans=40
@@ -26,13 +26,13 @@ transmitop=10
 op10=  
 
 // 473:3
-[com_3]
+[highlite]
 type=rectangle
 x=1
 y=1
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=points_layer
 colour=0x999999
 fill=yes
 trans=36
@@ -40,7 +40,7 @@ transmitop=10
 op10=  
 
 // 473:4
-[com_4]
+[colour]
 type=rectangle
 x=1
 y=1
@@ -48,7 +48,7 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=points_layer
 colour=0x333333
 fill=yes
 transmitop=10
@@ -61,7 +61,7 @@ x=39
 y=3
 width=144
 height=16
-layer=com_1
+layer=points_layer
 textfont=p11_full
 text=Attacker Honour Points:
 colour=0xffff00
@@ -76,7 +76,7 @@ y=-2
 width=144
 height=16
 ymode=abs_bottom
-layer=com_1
+layer=points_layer
 textfont=p11_full
 text=Defender Honour Points:
 colour=0xffff00
@@ -90,7 +90,7 @@ x=255
 y=3
 width=144
 height=16
-layer=com_1
+layer=points_layer
 textfont=p11_full
 text=Collector Honour Points:
 colour=0xffff00
@@ -105,7 +105,7 @@ y=-3
 width=144
 height=16
 ymode=abs_bottom
-layer=com_1
+layer=points_layer
 textfont=p11_full
 text=Healer Honour Points:
 colour=0xffff00
@@ -113,13 +113,13 @@ transmitop=10
 op10= 
 
 // 473:9
-[com_9]
+[barbassault_reward_pts_att]
 type=text
 x=182
 y=3
 width=32
 height=16
-layer=com_1
+layer=points_layer
 textfont=p11_full
 text=999
 colour=0xffff00
@@ -127,14 +127,14 @@ transmitop=10
 op10= 
 
 // 473:10
-[com_10]
+[barbassault_reward_pts_def]
 type=text
 x=182
 y=-2
 width=32
 height=16
 ymode=abs_bottom
-layer=com_1
+layer=points_layer
 textfont=p11_full
 text=999
 colour=0xffff00
@@ -142,13 +142,13 @@ transmitop=10
 op10= 
 
 // 473:11
-[com_11]
+[barbassault_reward_pts_col]
 type=text
 x=397
 y=3
 width=32
 height=16
-layer=com_1
+layer=points_layer
 textfont=p11_full
 text=999
 colour=0xffff00
@@ -156,14 +156,14 @@ transmitop=10
 op10= 
 
 // 473:12
-[com_12]
+[barbassault_reward_pts_heal]
 type=text
 x=397
 y=-3
 width=32
 height=16
 ymode=abs_bottom
-layer=com_1
+layer=points_layer
 textfont=p11_full
 text=999
 colour=0xffff00
@@ -252,7 +252,7 @@ transmitop=10
 op10=         
 
 // 473:19
-[com_19]
+[background_1]
 type=graphic
 x=21
 y=47
@@ -290,7 +290,7 @@ tiling=yes
 colour=0xffffffff
 
 // 473:22
-[com_22]
+[right_side]
 type=graphic
 x=479
 y=26
@@ -305,7 +305,7 @@ opbase=
 op10= 
 
 // 473:23
-[com_23]
+[bottom]
 type=graphic
 x=15
 y=302
@@ -319,7 +319,7 @@ transmitop=10
 op10= 
 
 // 473:24
-[com_24]
+[top]
 type=graphic
 x=45
 y=23
@@ -334,7 +334,7 @@ opbase=
 op10= 
 
 // 473:25
-[com_25]
+[bottom_right]
 type=graphic
 x=467
 y=290
@@ -348,7 +348,7 @@ opbase=
 op10= 
 
 // 473:26
-[com_26]
+[bottom_left]
 type=graphic
 x=13
 y=290
@@ -361,7 +361,7 @@ transmitop=10
 op10= 
 
 // 473:27
-[com_27]
+[left_side]
 type=graphic
 y=26
 width=37
@@ -375,7 +375,7 @@ opbase=
 op10= 
 
 // 473:28
-[com_28]
+[top_left]
 type=graphic
 x=13
 y=23
@@ -389,7 +389,7 @@ opbase=
 op10= 
 
 // 473:29
-[com_29]
+[top_right]
 type=graphic
 x=467
 y=23
@@ -403,7 +403,7 @@ opbase=
 op10= 
 
 // 473:30
-[com_30]
+[close_button]
 type=graphic
 x=471
 y=26
@@ -420,7 +420,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 473:31
-[com_31]
+[title]
 type=text
 y=27
 width=443
@@ -436,7 +436,7 @@ colour=0xff991f
 onload=barbassault_onload
 
 // 473:32
-[com_32]
+[roles_button]
 type=layer
 x=27
 y=49
@@ -451,7 +451,7 @@ onmouseleave=v2_stone_button(event_com)
 onop=barbassault_roles_button
 
 // 473:33
-[com_33]
+[armour_button]
 type=layer
 x=142
 y=50
@@ -466,7 +466,7 @@ onmouseleave=v2_stone_button(event_com)
 onop=barbassault_armour_button
 
 // 473:34
-[com_34]
+[weapons_button]
 type=layer
 x=257
 y=50
@@ -481,7 +481,7 @@ onmouseleave=v2_stone_button(event_com)
 onop=barbassault_weapons_button
 
 // 473:35
-[com_35]
+[misc_button]
 type=layer
 x=372
 y=49
@@ -496,7 +496,7 @@ onmouseleave=v2_stone_button(event_com)
 onop=barbassault_misc_button
 
 // 473:36
-[com_36]
+[misc_text]
 type=text
 width=15564
 height=15564
@@ -504,7 +504,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_35
+layer=misc_button
 textfont=p12_full
 text=Misc
 textalignh=centre
@@ -514,13 +514,13 @@ transmitop=10
 op10= 
 
 // 473:37
-[com_37]
+[misc_button_line]
 type=layer
 y=23
 width=92
 height=7
 xmode=abs_centre
-layer=com_35
+layer=misc_button
 hide=yes
 
 // 473:38
@@ -530,11 +530,11 @@ y=4
 width=4103
 widthmode=proportion
 xmode=abs_centre
-layer=com_37
+layer=misc_button_line
 colour=0xffff00
 
 // 473:39
-[com_39]
+[roles_layer]
 type=layer
 x=25
 y=80
@@ -543,24 +543,24 @@ height=200
 hide=yes
 
 // 473:40
-[com_40]
+[att]
 type=layer
 x=1
 y=39
 width=222
 height=45
-layer=com_39
+layer=roles_layer
 transmitop=1
 op1=Buy
 
 // 473:41
-[com_41]
+[barbassault_attacker_lvl_button]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_40
+layer=att
 colour=0x333300
 transmitop=10
 op10= 
@@ -574,7 +574,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_40
+layer=att
 colour=0x000000
 fill=yes
 trans=185
@@ -582,13 +582,13 @@ transmitop=10
 op10= 
 
 // 473:43
-[com_43]
+[barbassault_attacker_lvl]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_40
+layer=att
 model=model_20522
 modelorigin=1,0
 modelzoom=3140
@@ -596,13 +596,13 @@ transmitop=10
 op10= 
 
 // 473:44
-[com_44]
+[barbassault_attacker_lvl_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_40
+layer=att
 textfont=p11_full
 text=Attacker level up to 2
 textalignv=centre
@@ -610,14 +610,14 @@ transmitop=10
 op10= 
 
 // 473:45
-[com_45]
+[barbassault_attacker_lvl_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_40
+layer=att
 textfont=p11_full
 text=100 Attacker points
 textalignv=centre
@@ -626,13 +626,13 @@ transmitop=10
 op10= 
 
 // 473:46
-[com_46]
+[barbassault_attacker_lvl_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_40
+layer=att
 textfont=p11_full
 text=+2 bonus damage
 textalignv=centre
@@ -640,24 +640,24 @@ transmitop=10
 op10= 
 
 // 473:47
-[com_47]
+[def]
 type=layer
 x=1
 y=97
 width=222
 height=45
-layer=com_39
+layer=roles_layer
 transmitop=1
 op1=Buy
 
 // 473:48
-[com_48]
+[barbassault_defender_lvl_button]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_47
+layer=def
 colour=0x333300
 transmitop=10
 op10= 
@@ -671,7 +671,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_47
+layer=def
 colour=0x000000
 fill=yes
 trans=185
@@ -679,13 +679,13 @@ transmitop=10
 op10= 
 
 // 473:50
-[com_50]
+[barbassault_defender_lvl]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_47
+layer=def
 model=model_20531
 modelorigin=1,0
 modelzoom=3140
@@ -693,13 +693,13 @@ transmitop=10
 op10= 
 
 // 473:51
-[com_51]
+[barbassault_defender_lvl_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_47
+layer=def
 textfont=p11_full
 text=Defender level up to 2
 textalignv=centre
@@ -707,14 +707,14 @@ transmitop=10
 op10= 
 
 // 473:52
-[com_52]
+[barbassault_defender_lvl_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_47
+layer=def
 textfont=p11_full
 text=100 Defender points
 textalignv=centre
@@ -723,13 +723,13 @@ transmitop=10
 op10= 
 
 // 473:53
-[com_53]
+[barbassault_defender_lvl_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_47
+layer=def
 textfont=p11_full
 text=Lure range 5
 textalignv=centre
@@ -737,24 +737,24 @@ transmitop=10
 op10= 
 
 // 473:54
-[com_54]
+[col]
 type=layer
 x=236
 y=38
 width=222
 height=45
-layer=com_39
+layer=roles_layer
 transmitop=1
 op1=Buy
 
 // 473:55
-[com_55]
+[barbassault_collector_lvl_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_54
+layer=col
 colour=0x333300
 transmitop=10
 op10= 
@@ -762,13 +762,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:56
-[com_56]
+[barbassault_collector_lvl_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_54
+layer=col
 colour=0x000000
 fill=yes
 trans=185
@@ -776,13 +776,13 @@ transmitop=10
 op10= 
 
 // 473:57
-[com_57]
+[barbassault_collector_lvl]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_54
+layer=col
 model=model_20526
 modelorigin=1,0
 modelzoom=3140
@@ -790,13 +790,13 @@ transmitop=10
 op10= 
 
 // 473:58
-[com_58]
+[barbassault_collector_lvl_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_54
+layer=col
 textfont=p11_full
 text=Collector level up to 2
 textalignv=centre
@@ -804,14 +804,14 @@ transmitop=10
 op10= 
 
 // 473:59
-[com_59]
+[barbassault_collector_lvl_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_54
+layer=col
 textfont=p11_full
 text=100 Collector points
 textalignv=centre
@@ -820,13 +820,13 @@ transmitop=10
 op10= 
 
 // 473:60
-[com_60]
+[barbassault_collector_lvl_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_54
+layer=col
 textfont=p11_full
 text=Bag stores 4
 textalignv=centre
@@ -834,24 +834,24 @@ transmitop=10
 op10= 
 
 // 473:61
-[com_61]
+[heal]
 type=layer
 x=236
 y=96
 width=222
 height=45
-layer=com_39
+layer=roles_layer
 transmitop=1
 op1=Buy
 
 // 473:62
-[com_62]
+[barbassault_healer_lvl_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_61
+layer=heal
 colour=0x333300
 transmitop=10
 op10= 
@@ -865,7 +865,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_61
+layer=heal
 colour=0x000000
 fill=yes
 trans=185
@@ -873,13 +873,13 @@ transmitop=10
 op10= 
 
 // 473:64
-[com_64]
+[barbassault_healer_lvl]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_61
+layer=heal
 model=model_20538
 modelorigin=1,0
 modelzoom=3140
@@ -887,13 +887,13 @@ transmitop=10
 op10= 
 
 // 473:65
-[com_65]
+[barbassault_healer_lvl_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_61
+layer=heal
 textfont=p11_full
 text=Defender level up to 2
 textalignv=centre
@@ -901,14 +901,14 @@ transmitop=10
 op10= 
 
 // 473:66
-[com_66]
+[barbassault_healer_lvl_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_61
+layer=heal
 textfont=p11_full
 text=100 Healer points
 textalignv=centre
@@ -917,13 +917,13 @@ transmitop=10
 op10= 
 
 // 473:67
-[com_67]
+[barbassault_healer_lvl_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_61
+layer=heal
 textfont=p11_full
 text=Class 2 healing
 textalignv=centre
@@ -931,7 +931,7 @@ transmitop=10
 op10= 
 
 // 473:68
-[com_68]
+[armour_layer]
 type=layer
 x=25
 y=80
@@ -939,101 +939,101 @@ width=462
 height=200
 
 // 473:69
-[com_69]
+[fight_hat]
 type=layer
 x=3
 y=2
 width=222
 height=45
-layer=com_68
+layer=armour_layer
 transmitop=1
 op1=Buy
 
 // 473:70
-[com_70]
+[ranger_hat]
 type=layer
 x=3
 y=52
 width=222
 height=45
-layer=com_68
+layer=armour_layer
 transmitop=1
 op1=Buy
 
 // 473:71
-[com_71]
+[runner_hat]
 type=layer
 x=3
 y=102
 width=222
 height=45
-layer=com_68
+layer=armour_layer
 transmitop=1
 op1=Buy
 
 // 473:72
-[com_72]
+[healer_hat]
 type=layer
 x=3
 y=151
 width=222
 height=45
-layer=com_68
+layer=armour_layer
 transmitop=1
 op1=Buy
 
 // 473:73
-[com_73]
+[torso]
 type=layer
 x=236
 y=3
 width=222
 height=45
-layer=com_68
+layer=armour_layer
 transmitop=1
 op1=Buy
 
 // 473:74
-[com_74]
+[skirt]
 type=layer
 x=236
 y=52
 width=222
 height=45
-layer=com_68
+layer=armour_layer
 transmitop=1
 op1=Buy
 
 // 473:75
-[com_75]
+[boots]
 type=layer
 x=236
 y=102
 width=222
 height=45
-layer=com_68
+layer=armour_layer
 transmitop=1
 op1=Buy
 
 // 473:76
-[com_76]
+[gloves]
 type=layer
 x=236
 y=151
 width=222
 height=45
-layer=com_68
+layer=armour_layer
 transmitop=1
 op1=Buy
 
 // 473:77
-[com_77]
+[barbassault_penance_gloves_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_76
+layer=gloves
 colour=0x333300
 transmitop=10
 op10= 
@@ -1041,13 +1041,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:78
-[com_78]
+[barbassault_penance_gloves_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_76
+layer=gloves
 colour=0x000000
 fill=yes
 trans=185
@@ -1055,13 +1055,13 @@ transmitop=10
 op10= 
 
 // 473:79
-[com_79]
+[barbassault_penance_gloves]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_76
+layer=gloves
 model=model_20549
 modelorigin=1,0
 modelzoom=3140
@@ -1069,13 +1069,13 @@ transmitop=10
 op10= 
 
 // 473:80
-[com_80]
+[barbassault_penance_gloves_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_76
+layer=gloves
 textfont=p11_full
 text=Penance gloves
 colour=0xccccff
@@ -1083,14 +1083,14 @@ transmitop=10
 op10= 
 
 // 473:81
-[com_81]
+[barbassault_penance_gloves_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_76
+layer=gloves
 textfont=p11_full
 text=150 points in each role
 textalignv=centre
@@ -1099,13 +1099,13 @@ transmitop=10
 op10= 
 
 // 473:82
-[com_82]
+[barbassault_penance_gloves_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_76
+layer=gloves
 textfont=p11_full
 text=Requires Defence 40
 textalignv=centre
@@ -1114,13 +1114,13 @@ transmitop=10
 op10= 
 
 // 473:83
-[com_83]
+[barbassault_penance_boots_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_75
+layer=boots
 colour=0x333300
 transmitop=10
 op10= 
@@ -1128,13 +1128,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:84
-[com_84]
+[barbassault_penance_boots_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_75
+layer=boots
 colour=0x000000
 fill=yes
 trans=185
@@ -1142,13 +1142,13 @@ transmitop=10
 op10= 
 
 // 473:85
-[com_85]
+[barbassault_penance_boots]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_75
+layer=boots
 model=model_20546
 modelorigin=1,0
 modelzoom=3140
@@ -1156,13 +1156,13 @@ transmitop=10
 op10= 
 
 // 473:86
-[com_86]
+[barbassault_penance_boots_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_75
+layer=boots
 textfont=p11_full
 text=Penance boots
 colour=0xccccff
@@ -1170,14 +1170,14 @@ transmitop=10
 op10= 
 
 // 473:87
-[com_87]
+[barbassault_penance_boots_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_75
+layer=boots
 textfont=p11_full
 text=100 points in each role
 textalignv=centre
@@ -1186,13 +1186,13 @@ transmitop=10
 op10= 
 
 // 473:88
-[com_88]
+[barbassault_penance_boots_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_75
+layer=boots
 textfont=p11_full
 text=Requires Defence 40
 textalignv=centre
@@ -1201,13 +1201,13 @@ transmitop=10
 op10= 
 
 // 473:89
-[com_89]
+[barbassault_penance_legs_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_74
+layer=skirt
 colour=0x333300
 transmitop=10
 op10= 
@@ -1221,7 +1221,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_74
+layer=skirt
 colour=0x000000
 fill=yes
 trans=185
@@ -1229,13 +1229,13 @@ transmitop=10
 op10= 
 
 // 473:91
-[com_91]
+[barbassault_penance_legs]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_74
+layer=skirt
 model=model_20552
 modelorigin=1,0
 modelzoom=3140
@@ -1243,13 +1243,13 @@ transmitop=10
 op10= 
 
 // 473:92
-[com_92]
+[barbassault_penance_legs_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_74
+layer=skirt
 textfont=p11_full
 text=Penance skirt
 colour=0xccccff
@@ -1257,14 +1257,14 @@ transmitop=10
 op10= 
 
 // 473:93
-[com_93]
+[barbassault_penance_legs_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_74
+layer=skirt
 textfont=p11_full
 text=375 points in each role
 colour=0xff0000
@@ -1272,13 +1272,13 @@ transmitop=10
 op10= 
 
 // 473:94
-[com_94]
+[barbassault_penance_legs_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_74
+layer=skirt
 textfont=p11_full
 text=Requires Defence 40
 textalignv=centre
@@ -1295,7 +1295,7 @@ width=57
 height=13
 xmode=abs_right
 ymode=abs_bottom
-layer=com_74
+layer=skirt
 textfont=p11_full
 text=kill queen
 textalignh=right
@@ -1305,13 +1305,13 @@ transmitop=10
 op10= 
 
 // 473:96
-[com_96]
+[barbassault_penance_torso_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_73
+layer=torso
 colour=0x333300
 transmitop=10
 op10= 
@@ -1319,13 +1319,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:97
-[com_97]
+[barbassault_penance_torso_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_73
+layer=torso
 colour=0x000000
 fill=yes
 trans=185
@@ -1333,13 +1333,13 @@ transmitop=10
 op10= 
 
 // 473:98
-[com_98]
+[barbassault_penance_torso]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_73
+layer=torso
 model=model_20557
 modelorigin=1,0
 modelzoom=3140
@@ -1347,13 +1347,13 @@ transmitop=10
 op10= 
 
 // 473:99
-[com_99]
+[barbassault_penance_torso_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_73
+layer=torso
 textfont=p11_full
 text=Penance torso
 colour=0xccccff
@@ -1361,14 +1361,14 @@ transmitop=10
 op10= 
 
 // 473:100
-[com_100]
+[barbassault_penance_torso_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_73
+layer=torso
 textfont=p11_full
 text=375 points in each role
 colour=0xff0000
@@ -1376,13 +1376,13 @@ transmitop=10
 op10= 
 
 // 473:101
-[com_101]
+[barbassault_penance_torso_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_73
+layer=torso
 textfont=p11_full
 text=Requires Defence 40
 textalignv=centre
@@ -1391,7 +1391,7 @@ transmitop=10
 op10= 
 
 // 473:102
-[com_102]
+[barbassault_penance_torso_cost_queen]
 type=text
 x=4
 y=2
@@ -1399,7 +1399,7 @@ width=57
 height=13
 xmode=abs_right
 ymode=abs_bottom
-layer=com_73
+layer=torso
 textfont=p11_full
 text=kill queen
 textalignh=right
@@ -1409,13 +1409,13 @@ transmitop=10
 op10= 
 
 // 473:103
-[com_103]
+[barbassault_penance_healer_hat_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_72
+layer=healer_hat
 colour=0x333300
 transmitop=10
 op10= 
@@ -1423,13 +1423,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:104
-[com_104]
+[barbassault_penance_healer_hat_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_72
+layer=healer_hat
 colour=0x000000
 fill=yes
 trans=185
@@ -1437,13 +1437,13 @@ transmitop=10
 op10= 
 
 // 473:105
-[com_105]
+[barbassault_penance_healer_hat]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_72
+layer=healer_hat
 model=model_20547
 modelorigin=1,0
 modelzoom=3140
@@ -1451,13 +1451,13 @@ transmitop=10
 op10= 
 
 // 473:106
-[com_106]
+[barbassault_penance_healer_hat_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_72
+layer=healer_hat
 textfont=p11_full
 text=Penance Healer hat
 colour=0xccccff
@@ -1465,14 +1465,14 @@ transmitop=10
 op10= 
 
 // 473:107
-[com_107]
+[barbassault_penance_healer_hat_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_72
+layer=healer_hat
 textfont=p11_full
 text=275 points in each role
 colour=0xff0000
@@ -1480,13 +1480,13 @@ transmitop=10
 op10= 
 
 // 473:108
-[com_108]
+[barbassault_penance_healer_hat_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_72
+layer=healer_hat
 textfont=p11_full
 text=Requires Defence 40
 textalignv=centre
@@ -1495,7 +1495,7 @@ transmitop=10
 op10= 
 
 // 473:109
-[com_109]
+[barbassault_penance_healer_hat_cost_queen]
 type=text
 x=4
 y=2
@@ -1503,7 +1503,7 @@ width=57
 height=13
 xmode=abs_right
 ymode=abs_bottom
-layer=com_72
+layer=healer_hat
 textfont=p11_full
 text=kill queen
 textalignh=right
@@ -1513,13 +1513,13 @@ transmitop=10
 op10= 
 
 // 473:110
-[com_110]
+[herbs_59]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_71
+layer=runner_hat
 colour=0x333300
 transmitop=10
 op10= 
@@ -1527,13 +1527,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:111
-[com_111]
+[barbassault_penance_runner_hat_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_71
+layer=runner_hat
 colour=0x000000
 fill=yes
 trans=185
@@ -1541,13 +1541,13 @@ transmitop=10
 op10= 
 
 // 473:112
-[com_112]
+[barbassault_penance_runner_hat]
 type=model
 x=4
 width=33
 height=34
 ymode=abs_centre
-layer=com_71
+layer=runner_hat
 model=model_20554
 modelorigin=-1,-1
 modelzoom=3140
@@ -1555,13 +1555,13 @@ transmitop=10
 op10= 
 
 // 473:113
-[com_113]
+[barbassault_penance_runner_hat_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_71
+layer=runner_hat
 textfont=p11_full
 text=Penance Runner hat
 colour=0xccccff
@@ -1569,14 +1569,14 @@ transmitop=10
 op10= 
 
 // 473:114
-[com_114]
+[barbassault_penance_runner_hat_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_71
+layer=runner_hat
 textfont=p11_full
 text=275 points in each role
 colour=0xff0000
@@ -1584,13 +1584,13 @@ transmitop=10
 op10= 
 
 // 473:115
-[com_115]
+[barbassault_penance_runner_hat_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_71
+layer=runner_hat
 textfont=p11_full
 text=Requires Defence 40
 textalignv=centre
@@ -1607,7 +1607,7 @@ width=57
 height=13
 xmode=abs_right
 ymode=abs_bottom
-layer=com_71
+layer=runner_hat
 textfont=p11_full
 text=kill queen
 textalignh=right
@@ -1617,13 +1617,13 @@ transmitop=10
 op10= 
 
 // 473:117
-[com_117]
+[barbassault_penance_ranger_hat_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_70
+layer=ranger_hat
 colour=0x333300
 transmitop=10
 op10= 
@@ -1631,13 +1631,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:118
-[com_118]
+[barbassault_penance_ranger_hat_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_70
+layer=ranger_hat
 colour=0x000000
 fill=yes
 trans=185
@@ -1645,13 +1645,13 @@ transmitop=10
 op10= 
 
 // 473:119
-[com_119]
+[barbassault_penance_ranger_hat]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_70
+layer=ranger_hat
 model=model_20550
 modelorigin=1,0
 modelzoom=3140
@@ -1659,13 +1659,13 @@ transmitop=10
 op10= 
 
 // 473:120
-[com_120]
+[barbassault_penance_ranger_hat_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_70
+layer=ranger_hat
 textfont=p11_full
 text=Penance Ranger hat
 colour=0xccccff
@@ -1673,14 +1673,14 @@ transmitop=10
 op10= 
 
 // 473:121
-[com_121]
+[barbassault_penance_ranger_hat_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_70
+layer=ranger_hat
 textfont=p11_full
 text=275 points in each role
 colour=0xff0000
@@ -1688,13 +1688,13 @@ transmitop=10
 op10= 
 
 // 473:122
-[com_122]
+[barbassault_penance_collector_hat_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_70
+layer=ranger_hat
 textfont=p11_full
 text=Requires Defence 40
 textalignv=centre
@@ -1711,7 +1711,7 @@ width=57
 height=13
 xmode=abs_right
 ymode=abs_bottom
-layer=com_70
+layer=ranger_hat
 textfont=p11_full
 text=kill queen
 textalignh=right
@@ -1721,13 +1721,13 @@ transmitop=10
 op10= 
 
 // 473:124
-[com_124]
+[barbassault_penance_fighter_hat_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_69
+layer=fight_hat
 colour=0x333300
 transmitop=10
 op10= 
@@ -1735,13 +1735,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:125
-[com_125]
+[barbassault_penance_fighter_hat_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_69
+layer=fight_hat
 colour=0x000000
 fill=yes
 trans=185
@@ -1749,13 +1749,13 @@ transmitop=10
 op10= 
 
 // 473:126
-[com_126]
+[barbassault_penance_fighter_hat]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_69
+layer=fight_hat
 model=model_20536
 modelorigin=1,0
 modelzoom=3140
@@ -1763,13 +1763,13 @@ transmitop=10
 op10= 
 
 // 473:127
-[com_127]
+[barbassault_penance_fighter_hat_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_69
+layer=fight_hat
 textfont=p11_full
 text=Penance Fighter hat
 colour=0xccccff
@@ -1777,14 +1777,14 @@ transmitop=10
 op10= 
 
 // 473:128
-[com_128]
+[barbassault_penance_fighter_hat_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_69
+layer=fight_hat
 textfont=p11_full
 text=275 points in each role
 colour=0xff0000
@@ -1792,13 +1792,13 @@ transmitop=10
 op10= 
 
 // 473:129
-[com_129]
+[barbassault_penance_fighter_hat_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_69
+layer=fight_hat
 textfont=p11_full
 text=Requires Defence 40
 textalignv=centre
@@ -1807,7 +1807,7 @@ transmitop=10
 op10= 
 
 // 473:130
-[com_130]
+[barbassault_penance_fighter_hat_cost_queen]
 type=text
 x=4
 y=2
@@ -1815,7 +1815,7 @@ width=57
 height=13
 xmode=abs_right
 ymode=abs_bottom
-layer=com_69
+layer=fight_hat
 textfont=p11_full
 text=kill queen
 textalignh=right
@@ -1825,7 +1825,7 @@ transmitop=10
 op10= 
 
 // 473:131
-[com_131]
+[weapons_layer]
 type=layer
 x=25
 y=80
@@ -1834,37 +1834,37 @@ height=200
 hide=yes
 
 // 473:132
-[com_132]
+[trident]
 type=layer
 x=7
 y=13
 width=222
 height=45
-layer=com_131
+layer=weapons_layer
 transmitop=1,10
 op1=Buy
 op10= 
 
 // 473:133
-[com_133]
+[trident_master]
 type=layer
 x=232
 y=13
 width=222
 height=45
-layer=com_131
+layer=weapons_layer
 transmitop=1,10
 op1=Buy
 op10= 
 
 // 473:134
-[com_134]
+[barbassault_trident_button_master]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_133
+layer=trident_master
 colour=0x333300
 transmitop=10
 op10=   
@@ -1878,7 +1878,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_133
+layer=trident_master
 colour=0x000000
 fill=yes
 trans=185
@@ -1886,14 +1886,14 @@ transmitop=10
 op10=   
 
 // 473:136
-[com_136]
+[barbassault_trident_master]
 type=model
 x=10
 y=1
 width=27
 height=31
 ymode=abs_centre
-layer=com_133
+layer=trident_master
 model=model_51783
 modelorigin=-5,3
 modelangle=122,1822,1678
@@ -1902,31 +1902,31 @@ transmitop=10
 op10=   
 
 // 473:137
-[com_137]
+[plus_1]
 type=line
 x=28
 y=25
 height=10
-layer=com_133
+layer=trident_master
 colour=0xccccff
 
 // 473:138
-[com_138]
+[plus_2]
 type=line
 x=23
 y=30
 width=10
-layer=com_133
+layer=trident_master
 colour=0xccccff
 
 // 473:139
-[com_139]
+[barbassault_trident_txt_master]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_133
+layer=trident_master
 textfont=p11_full
 text=Penance Trident Upgrade
 colour=0xccccff
@@ -1934,14 +1934,14 @@ transmitop=10
 op10=   
 
 // 473:140
-[com_140]
+[barbassault_trident_cost_master]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_133
+layer=trident_master
 textfont=p11_full
 text=A penance trident
 colour=0xff0000
@@ -1949,13 +1949,13 @@ transmitop=10
 op10=   
 
 // 473:141
-[com_141]
+[barbassault_trident_info_master]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_133
+layer=trident_master
 textfont=p11_full
 text=Upgrades melee stats
 textalignv=centre
@@ -1964,13 +1964,13 @@ transmitop=10
 op10=   
 
 // 473:142
-[com_142]
+[barbassault_trident_button]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_132
+layer=trident
 colour=0x333300
 transmitop=10
 op10=   
@@ -1978,13 +1978,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:143
-[com_143]
+[barbassault_trident_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_132
+layer=trident
 colour=0x000000
 fill=yes
 trans=185
@@ -1992,14 +1992,14 @@ transmitop=10
 op10=   
 
 // 473:144
-[com_144]
+[barbassault_trident]
 type=model
 x=8
 y=2
 width=24
 height=32
 ymode=abs_centre
-layer=com_132
+layer=trident
 model=model_51543
 modelorigin=-2,2
 modelangle=119,0,1678
@@ -2008,13 +2008,13 @@ transmitop=10
 op10=   
 
 // 473:145
-[com_145]
+[barbassault_trident_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_132
+layer=trident
 textfont=p11_full
 text=Penance Trident
 colour=0xccccff
@@ -2022,14 +2022,14 @@ transmitop=10
 op10=   
 
 // 473:146
-[com_146]
+[barbassault_trident_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_132
+layer=trident
 textfont=p11_full
 text=390 points in each role
 colour=0xff0000
@@ -2037,13 +2037,13 @@ transmitop=10
 op10=   
 
 // 473:147
-[com_147]
+[barbassault_trident_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_132
+layer=trident
 textfont=p11_full
 text=A 2 handed weapon
 textalignv=centre
@@ -2052,61 +2052,61 @@ transmitop=10
 op10=   
 
 // 473:148
-[com_148]
+[yellow]
 type=layer
 x=232
 y=130
 width=222
 height=45
-layer=com_131
+layer=weapons_layer
 transmitop=1,10
 op1=Buy
 op10= 
 
 // 473:149
-[com_149]
+[blue]
 type=layer
 x=6
 y=130
 width=222
 height=45
-layer=com_131
+layer=weapons_layer
 transmitop=1,10
 op1=Buy
 op10= 
 
 // 473:150
-[com_150]
+[white]
 type=layer
 x=7
 y=71
 width=222
 height=45
-layer=com_131
+layer=weapons_layer
 transmitop=1,10
 op1=Buy
 op10= 
 
 // 473:151
-[com_151]
+[green]
 type=layer
 x=232
 y=71
 width=222
 height=45
-layer=com_131
+layer=weapons_layer
 transmitop=1,10
 op1=Buy
 op10= 
 
 // 473:152
-[com_152]
+[barbassault_green_button]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_151
+layer=green
 colour=0x333300
 transmitop=10
 op10=  
@@ -2114,13 +2114,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:153
-[com_153]
+[barbassault_green_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_151
+layer=green
 colour=0x000000
 fill=yes
 trans=185
@@ -2128,26 +2128,26 @@ transmitop=10
 op10=  
 
 // 473:154
-[com_154]
+[barbassault_green]
 type=model
 x=6
 width=32
 height=32
 ymode=abs_centre
-layer=com_151
+layer=green
 model=null
 modelzoom=836
 transmitop=10
 op10=  
 
 // 473:155
-[com_155]
+[alchemist_jumped08]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_151
+layer=green
 textfont=p11_full
 text=Penance Egg Paint (Green)
 colour=0xccccff
@@ -2155,14 +2155,14 @@ transmitop=10
 op10=  
 
 // 473:156
-[com_156]
+[barbassault_green_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_151
+layer=green
 textfont=p11_full
 text=50 points in any role
 colour=0xff0000
@@ -2170,13 +2170,13 @@ transmitop=10
 op10=  
 
 // 473:157
-[com_157]
+[barbassault_green_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_151
+layer=green
 textfont=p11_full
 text=Colour Dark Bow or Abyssal Whip
 textalignv=centre
@@ -2185,13 +2185,13 @@ transmitop=10
 op10=  
 
 // 473:158
-[com_158]
+[barbassault_white_button]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_150
+layer=white
 colour=0x333300
 transmitop=10
 op10=  
@@ -2199,13 +2199,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:159
-[com_159]
+[barbassault_white_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_150
+layer=white
 colour=0x000000
 fill=yes
 trans=185
@@ -2213,26 +2213,26 @@ transmitop=10
 op10=  
 
 // 473:160
-[com_160]
+[barbassault_white]
 type=model
 x=6
 width=32
 height=32
 ymode=abs_centre
-layer=com_150
+layer=white
 model=null
 modelzoom=836
 transmitop=10
 op10=  
 
 // 473:161
-[com_161]
+[barbassault_white_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_150
+layer=white
 textfont=p11_full
 text=Penance Egg Paint (White)
 colour=0xccccff
@@ -2240,14 +2240,14 @@ transmitop=10
 op10=  
 
 // 473:162
-[com_162]
+[barbassault_white_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_150
+layer=white
 textfont=p11_full
 text=50 points in any role
 textalignv=centre
@@ -2256,13 +2256,13 @@ transmitop=10
 op10=  
 
 // 473:163
-[com_163]
+[barbassault_white_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_150
+layer=white
 textfont=p11_full
 text=Colour Dark Bow or Abyssal Whip
 textalignv=centre
@@ -2271,13 +2271,13 @@ transmitop=10
 op10=  
 
 // 473:164
-[com_164]
+[barbassault_blue_button]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_149
+layer=blue
 colour=0x333300
 transmitop=10
 op10=  
@@ -2285,13 +2285,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:165
-[com_165]
+[barbassault_blue_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_149
+layer=blue
 colour=0x000000
 fill=yes
 trans=185
@@ -2299,26 +2299,26 @@ transmitop=10
 op10=  
 
 // 473:166
-[com_166]
+[barbassault_blue]
 type=model
 x=6
 width=32
 height=32
 ymode=abs_centre
-layer=com_149
+layer=blue
 model=null
 modelzoom=836
 transmitop=10
 op10=  
 
 // 473:167
-[com_167]
+[barbassault_blue_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_149
+layer=blue
 textfont=p11_full
 text=Penance Egg Paint (Blue)
 colour=0xccccff
@@ -2326,14 +2326,14 @@ transmitop=10
 op10=  
 
 // 473:168
-[com_168]
+[barbassault_blue_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_149
+layer=blue
 textfont=p11_full
 text=50 points in any role
 textalignv=centre
@@ -2342,13 +2342,13 @@ transmitop=10
 op10=  
 
 // 473:169
-[com_169]
+[barbassault_blue_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_149
+layer=blue
 textfont=p11_full
 text=Colour Dark Bow or Abyssal Whip
 textalignv=centre
@@ -2357,13 +2357,13 @@ transmitop=10
 op10=  
 
 // 473:170
-[com_170]
+[barbassault_yellow_button]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_148
+layer=yellow
 colour=0x333300
 transmitop=10
 op10=  
@@ -2371,13 +2371,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:171
-[com_171]
+[barbassault_yellow_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_148
+layer=yellow
 colour=0x000000
 fill=yes
 trans=185
@@ -2385,26 +2385,26 @@ transmitop=10
 op10=  
 
 // 473:172
-[com_172]
+[barbassault_yellow]
 type=model
 x=6
 width=32
 height=32
 ymode=abs_centre
-layer=com_148
+layer=yellow
 model=null
 modelzoom=836
 transmitop=10
 op10=  
 
 // 473:173
-[com_173]
+[barbassault_yellow_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_148
+layer=yellow
 textfont=p11_full
 text=Penance egg paint (Yellow)
 colour=0xccccff
@@ -2412,14 +2412,14 @@ transmitop=10
 op10=  
 
 // 473:174
-[com_174]
+[barbassault_yellow_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_148
+layer=yellow
 textfont=p11_full
 text=50 points in any role
 colour=0xff0000
@@ -2427,13 +2427,13 @@ transmitop=10
 op10=  
 
 // 473:175
-[com_175]
+[barbassault_yellow_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_148
+layer=yellow
 textfont=p11_full
 text=Colour Dark Bow or Abyssal Whip
 textalignv=centre
@@ -2442,7 +2442,7 @@ transmitop=10
 op10=  
 
 // 473:176
-[com_176]
+[misc_layer]
 type=layer
 x=25
 y=80
@@ -2451,35 +2451,35 @@ height=200
 hide=yes
 
 // 473:177
-[com_177]
+[horn]
 type=layer
 x=7
 y=13
 width=222
 height=45
-layer=com_176
+layer=misc_layer
 transmitop=1
 op1=Buy
 
 // 473:178
-[com_178]
+[horn_upgrade]
 type=layer
 x=232
 y=13
 width=222
 height=45
-layer=com_176
+layer=misc_layer
 transmitop=1
 op1=Buy
 
 // 473:179
-[com_179]
+[barbassault_horn_button_upgrade]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_178
+layer=horn_upgrade
 colour=0x333300
 transmitop=10
 op10=  
@@ -2487,13 +2487,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:180
-[com_180]
+[barbassault_horn_button_upgrade_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_178
+layer=horn_upgrade
 colour=0x000000
 fill=yes
 trans=185
@@ -2501,14 +2501,14 @@ transmitop=10
 op10=  
 
 // 473:181
-[com_181]
+[barbassault_horn_upgrade]
 type=model
 x=7
 y=-1
 width=28
 height=31
 ymode=abs_centre
-layer=com_178
+layer=horn_upgrade
 model=model_51545
 modelorigin=0,5
 modelangle=563,570,0
@@ -2517,13 +2517,13 @@ transmitop=10
 op10=  
 
 // 473:182
-[com_182]
+[barbassault_horn_upgrade_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_178
+layer=horn_upgrade
 textfont=p11_full
 text=Penance Horn Upgrade
 colour=0xccccff
@@ -2531,14 +2531,14 @@ transmitop=10
 op10=  
 
 // 473:183
-[com_183]
+[barbassault_horn_upgrade_cost]
 type=text
 x=45
 y=2
 width=83
 height=13
 ymode=abs_bottom
-layer=com_178
+layer=horn_upgrade
 textfont=p11_full
 text=Lvl 5 in any role
 colour=0xff0000
@@ -2546,14 +2546,14 @@ transmitop=10
 op10=  
 
 // 473:184
-[com_184]
+[barbassault_horn_upgrade_cost_2]
 type=text
 x=135
 y=2
 width=83
 height=13
 ymode=abs_bottom
-layer=com_178
+layer=horn_upgrade
 textfont=p11_full
 text=A penance horn
 textalignh=right
@@ -2562,13 +2562,13 @@ transmitop=10
 op10=  
 
 // 473:185
-[com_185]
+[barbassault_horn_upgrade_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_178
+layer=horn_upgrade
 textfont=p11_full
 text=Blow the horn to show your might!
 textalignv=centre
@@ -2577,57 +2577,57 @@ transmitop=10
 op10=  
 
 // 473:186
-[com_186]
+[granite_body]
 type=layer
 x=232
 y=71
 width=222
 height=45
-layer=com_176
+layer=misc_layer
 transmitop=1
 op1=Buy
 
 // 473:187
-[com_187]
+[gamble_low]
 type=layer
 x=7
 y=71
 width=222
 height=45
-layer=com_176
+layer=misc_layer
 transmitop=1
 op1=Buy
 
 // 473:188
-[com_188]
+[gamble_med]
 type=layer
 x=6
 y=130
 width=222
 height=45
-layer=com_176
+layer=misc_layer
 transmitop=1
 op1=Buy
 
 // 473:189
-[com_189]
+[gamble_high]
 type=layer
 x=232
 y=130
 width=222
 height=45
-layer=com_176
+layer=misc_layer
 transmitop=1
 op1=Buy
 
 // 473:190
-[com_190]
+[barbassault_gamble_250_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_189
+layer=gamble_high
 colour=0x333300
 transmitop=10
 op10= 
@@ -2641,7 +2641,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_189
+layer=gamble_high
 colour=0x000000
 fill=yes
 trans=185
@@ -2649,13 +2649,13 @@ transmitop=10
 op10= 
 
 // 473:192
-[com_192]
+[barbassault_gamble_250]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_189
+layer=gamble_high
 model=model_20535
 modelorigin=1,0
 modelzoom=3140
@@ -2663,13 +2663,13 @@ transmitop=10
 op10= 
 
 // 473:193
-[com_193]
+[barbassault_gamble_250_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_189
+layer=gamble_high
 textfont=p11_full
 text=Gamble points - high items
 colour=0xccccff
@@ -2677,14 +2677,14 @@ transmitop=10
 op10= 
 
 // 473:194
-[com_194]
+[barbassault_gamble_250_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_189
+layer=gamble_high
 textfont=p11_full
 text=30 points (any role)
 colour=0xff0000
@@ -2692,13 +2692,13 @@ transmitop=10
 op10= 
 
 // 473:195
-[com_195]
+[barbassault_gamble_250_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_189
+layer=gamble_high
 textfont=p11_full
 text=Receive a random item
 textalignv=centre
@@ -2713,7 +2713,7 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_188
+layer=gamble_med
 colour=0x333300
 transmitop=10
 op10= 
@@ -2727,7 +2727,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_188
+layer=gamble_med
 colour=0x000000
 fill=yes
 trans=185
@@ -2741,7 +2741,7 @@ x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_188
+layer=gamble_med
 model=model_20535
 modelorigin=1,0
 modelzoom=3140
@@ -2755,7 +2755,7 @@ x=45
 y=2
 width=173
 height=13
-layer=com_188
+layer=gamble_med
 textfont=p11_full
 text=Gamble points - medium items
 colour=0xccccff
@@ -2770,7 +2770,7 @@ y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_188
+layer=gamble_med
 textfont=p11_full
 text=20 points (any role)
 textalignv=centre
@@ -2785,7 +2785,7 @@ x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_188
+layer=gamble_med
 textfont=p11_full
 text=Receive a random item
 textalignv=centre
@@ -2794,13 +2794,13 @@ transmitop=10
 op10= 
 
 // 473:202
-[com_202]
+[barbassault_gamble_50_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_187
+layer=gamble_low
 colour=0x333300
 transmitop=10
 op10= 
@@ -2814,7 +2814,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_187
+layer=gamble_low
 colour=0x000000
 fill=yes
 trans=185
@@ -2822,13 +2822,13 @@ transmitop=10
 op10= 
 
 // 473:204
-[com_204]
+[barbassault_gamble_50]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_187
+layer=gamble_low
 model=model_20535
 modelorigin=1,0
 modelzoom=3140
@@ -2836,13 +2836,13 @@ transmitop=10
 op10= 
 
 // 473:205
-[com_205]
+[barbassault_gamble_50_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_187
+layer=gamble_low
 textfont=p11_full
 text=Gamble points - low items
 colour=0xccccff
@@ -2850,14 +2850,14 @@ transmitop=10
 op10= 
 
 // 473:206
-[com_206]
+[barbassault_gamble_50_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_187
+layer=gamble_low
 textfont=p11_full
 text=10 points (any role)
 textalignv=centre
@@ -2866,13 +2866,13 @@ transmitop=10
 op10= 
 
 // 473:207
-[com_207]
+[barbassault_gamble_50_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_187
+layer=gamble_low
 textfont=p11_full
 text=Receive a random item
 textalignv=centre
@@ -2881,13 +2881,13 @@ transmitop=10
 op10= 
 
 // 473:208
-[com_208]
+[barbassault_granite_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_186
+layer=granite_body
 colour=0x333300
 transmitop=10
 op10= 
@@ -2901,7 +2901,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_186
+layer=granite_body
 colour=0x000000
 fill=yes
 trans=185
@@ -2909,13 +2909,13 @@ transmitop=10
 op10= 
 
 // 473:210
-[com_210]
+[barbassault_granite_body]
 type=model
 x=4
 width=33
 height=35
 ymode=abs_centre
-layer=com_186
+layer=granite_body
 model=model_20537
 modelorigin=1,0
 modelzoom=3140
@@ -2923,13 +2923,13 @@ transmitop=10
 op10= 
 
 // 473:211
-[com_211]
+[barbassault_granite_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_186
+layer=granite_body
 textfont=p11_full
 text=Granite body
 colour=0xccccff
@@ -2937,14 +2937,14 @@ transmitop=10
 op10= 
 
 // 473:212
-[com_212]
+[barbassault_granite_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_186
+layer=granite_body
 textfont=p11_full
 text=95,000 coins
 colour=0xff0000
@@ -2952,13 +2952,13 @@ transmitop=10
 op10= 
 
 // 473:213
-[com_213]
+[barbassault_granite_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_186
+layer=granite_body
 textfont=p11_full
 text=Requires Defence 50
 textalignv=centre
@@ -2975,7 +2975,7 @@ width=57
 height=13
 xmode=abs_right
 ymode=abs_bottom
-layer=com_186
+layer=granite_body
 textfont=p11_full
 text=kill queen
 textalignh=right
@@ -2985,13 +2985,13 @@ transmitop=10
 op10= 
 
 // 473:215
-[com_215]
+[barbassault_horn_button]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_177
+layer=horn
 colour=0x333300
 transmitop=10
 op10=  
@@ -2999,13 +2999,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 473:216
-[com_216]
+[barbassault_horn_button_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_177
+layer=horn
 colour=0x000000
 fill=yes
 trans=185
@@ -3020,7 +3020,7 @@ y=-1
 width=16
 height=25
 ymode=abs_centre
-layer=com_177
+layer=horn
 model=model_51544
 modelorigin=0,1
 modelangle=563,501,0
@@ -3029,13 +3029,13 @@ transmitop=10
 op10=  
 
 // 473:218
-[com_218]
+[barbassault_horn_txt]
 type=text
 x=45
 y=2
 width=173
 height=13
-layer=com_177
+layer=horn
 textfont=p11_full
 text=Penance Horn
 colour=0xccccff
@@ -3043,14 +3043,14 @@ transmitop=10
 op10=  
 
 // 473:219
-[com_219]
+[barbassault_horn_cost]
 type=text
 x=45
 y=2
 width=173
 height=13
 ymode=abs_bottom
-layer=com_177
+layer=horn
 textfont=p11_full
 text=Free !
 colour=0xff0000
@@ -3058,13 +3058,13 @@ transmitop=10
 op10=  
 
 // 473:220
-[com_220]
+[barbassault_horn_info]
 type=text
 x=45
 width=173
 height=13
 ymode=abs_centre
-layer=com_177
+layer=horn
 textfont=p11_full
 text=Lets you earn and spend XP
 textalignv=centre
@@ -3073,7 +3073,7 @@ transmitop=10
 op10=  
 
 // 473:221
-[com_221]
+[weapons_text]
 type=text
 width=15564
 height=15564
@@ -3081,7 +3081,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=weapons_button
 textfont=p12_full
 text=Weapons
 textalignh=centre
@@ -3092,13 +3092,13 @@ transmitop=10
 op10= 
 
 // 473:222
-[com_222]
+[weapons_button_line]
 type=layer
 y=23
 width=92
 height=7
 xmode=abs_centre
-layer=com_34
+layer=weapons_button
 hide=yes
 
 // 473:223
@@ -3108,11 +3108,11 @@ y=4
 width=4103
 widthmode=proportion
 xmode=abs_centre
-layer=com_222
+layer=weapons_button_line
 colour=0xffff00
 
 // 473:224
-[com_224]
+[armour_text]
 type=text
 width=15564
 height=15564
@@ -3120,7 +3120,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_33
+layer=armour_button
 textfont=p12_full
 text=Penance Armour
 textalignh=centre
@@ -3131,13 +3131,13 @@ transmitop=10
 op10= 
 
 // 473:225
-[com_225]
+[armour_button_line]
 type=layer
 y=23
 width=92
 height=7
 xmode=abs_centre
-layer=com_33
+layer=armour_button
 hide=yes
 
 // 473:226
@@ -3147,11 +3147,11 @@ y=4
 width=4103
 widthmode=proportion
 xmode=abs_centre
-layer=com_225
+layer=armour_button_line
 colour=0xffff00
 
 // 473:227
-[com_227]
+[text_roles]
 type=text
 width=15564
 height=15564
@@ -3159,7 +3159,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_32
+layer=roles_button
 textfont=p12_full
 text=Roles
 textalignh=centre
@@ -3170,13 +3170,13 @@ transmitop=10
 op10= 
 
 // 473:228
-[com_228]
+[roles_button_line]
 type=layer
 y=23
 width=92
 height=7
 xmode=abs_centre
-layer=com_32
+layer=roles_button
 
 // 473:229
 [com_229]
@@ -3185,5 +3185,5 @@ y=4
 width=4096
 widthmode=proportion
 xmode=abs_centre
-layer=com_228
+layer=roles_button_line
 colour=0xffff00

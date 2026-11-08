@@ -126,7 +126,7 @@ textshadow=yes
 colour=0xff981f
 
 // 735:12
-[com_12]
+[shuffle]
 type=graphic
 x=170
 y=8
@@ -139,10 +139,10 @@ transmitop=1
 op1=Re-sort list
 onmouseover=settrans(event_com, 150)
 onmouseleave=settrans(event_com, 0)
-onop=fairyrings_log_shuffle(interface_735:com_13, interface_735:com_80, interface_735:com_12)
+onop=fairyrings_log_shuffle(interface_735:text_layer, interface_735:com_80, interface_735:shuffle)
 
 // 735:13
-[com_13]
+[text_layer]
 type=layer
 x=3
 y=32
@@ -150,16 +150,16 @@ width=166
 height=226
 layer=com_0
 scrollheight=2000
-onload=fairyrings_log_init(event_com, interface_735:com_80, interface_735:com_12)
-onvartransmit=fairyrings_log_init(event_com, interface_735:com_80, interface_735:com_12){varplayer_816}
+onload=fairyrings_log_init(event_com, interface_735:com_80, interface_735:shuffle)
+onvartransmit=fairyrings_log_init(event_com, interface_735:com_80, interface_735:shuffle){varplayer_816}
 
 // 735:14
-[com_14]
+[text_aip]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -169,12 +169,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:15
-[com_15]
+[text_aiq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -184,12 +184,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:16
-[com_16]
+[text_air]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -199,12 +199,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:17
-[com_17]
+[text_ais]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -214,12 +214,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:18
-[com_18]
+[text_ajp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -229,12 +229,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:19
-[com_19]
+[text_ajq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -244,12 +244,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:20
-[com_20]
+[text_ajr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -259,12 +259,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:21
-[com_21]
+[text_ajs]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -274,12 +274,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:22
-[com_22]
+[text_akp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -289,12 +289,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:23
-[com_23]
+[text_akq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -304,12 +304,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:24
-[com_24]
+[text_akr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -319,12 +319,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:25
-[com_25]
+[text_aks]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -334,12 +334,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:26
-[com_26]
+[text_alp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -349,12 +349,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:27
-[com_27]
+[text_alq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -364,12 +364,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:28
-[com_28]
+[text_alr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -379,12 +379,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:29
-[com_29]
+[text_als]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -394,12 +394,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:30
-[com_30]
+[text_bip]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -409,12 +409,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:31
-[com_31]
+[text_biq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -424,12 +424,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:32
-[com_32]
+[text_bir]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -439,12 +439,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:33
-[com_33]
+[text_bis]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -454,12 +454,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:34
-[com_34]
+[text_bjp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -469,12 +469,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:35
-[com_35]
+[text_bjq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -484,12 +484,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:36
-[com_36]
+[text_bjr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -499,12 +499,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:37
-[com_37]
+[text_bjs]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -514,12 +514,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:38
-[com_38]
+[text_bkp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -529,12 +529,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:39
-[com_39]
+[text_bkq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -544,12 +544,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:40
-[com_40]
+[text_bkr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -559,12 +559,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:41
-[com_41]
+[text_bks]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -574,12 +574,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:42
-[com_42]
+[text_blp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -589,12 +589,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:43
-[com_43]
+[text_blq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -604,12 +604,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:44
-[com_44]
+[text_blr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -619,12 +619,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:45
-[com_45]
+[text_bls]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -634,12 +634,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:46
-[com_46]
+[text_cip]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -649,12 +649,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:47
-[com_47]
+[text_ciq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -664,12 +664,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:48
-[com_48]
+[text_cir]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -679,12 +679,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:49
-[com_49]
+[text_cis]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -694,12 +694,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:50
-[com_50]
+[text_cjp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -709,12 +709,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:51
-[com_51]
+[text_cjq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -724,12 +724,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:52
-[com_52]
+[text_cjr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -739,12 +739,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:53
-[com_53]
+[text_cjs]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -754,12 +754,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:54
-[com_54]
+[text_ckp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -769,12 +769,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:55
-[com_55]
+[text_ckq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -784,12 +784,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:56
-[com_56]
+[text_ckr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -799,12 +799,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:57
-[com_57]
+[text_cks]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -814,12 +814,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:58
-[com_58]
+[text_clp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -829,12 +829,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:59
-[com_59]
+[text_clq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -844,12 +844,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:60
-[com_60]
+[text_clr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -859,12 +859,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:61
-[com_61]
+[text_cls]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -874,12 +874,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:62
-[com_62]
+[text_dip]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -889,12 +889,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:63
-[com_63]
+[text_diq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -904,12 +904,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:64
-[com_64]
+[text_dir]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -919,12 +919,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:65
-[com_65]
+[text_dis]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -934,12 +934,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:66
-[com_66]
+[text_djp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -949,12 +949,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:67
-[com_67]
+[text_djq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -964,12 +964,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:68
-[com_68]
+[text_djr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -979,12 +979,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:69
-[com_69]
+[text_djs]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -994,12 +994,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:70
-[com_70]
+[text_dkp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -1009,12 +1009,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:71
-[com_71]
+[text_dkq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -1024,12 +1024,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:72
-[com_72]
+[text_dkr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -1039,12 +1039,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:73
-[com_73]
+[text_dks]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -1054,12 +1054,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:74
-[com_74]
+[text_dlp]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -1069,12 +1069,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:75
-[com_75]
+[text_dlq]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -1084,12 +1084,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:76
-[com_76]
+[text_dlr]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -1099,12 +1099,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:77
-[com_77]
+[text_dls]
 type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -1119,7 +1119,7 @@ type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f
@@ -1134,7 +1134,7 @@ type=text
 y=1
 width=166
 height=15
-layer=com_13
+layer=text_layer
 textfont=p12_full
 textshadow=yes
 colour=0xff981f

@@ -5,7 +5,7 @@ y=12
 width=228
 height=20
 xmode=abs_centre
-layer=com_18
+layer=content_layer
 textfont=b12_full
 text=Type in your desired clan motto:
 textalignh=centre
@@ -19,7 +19,7 @@ y=77
 width=130
 height=28
 xmode=abs_centre
-layer=com_18
+layer=content_layer
 
 // 1103:2
 [com_2]
@@ -29,7 +29,7 @@ height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=content_layer
 
 // 1103:3
 [com_3]
@@ -107,7 +107,7 @@ layer=com_1
 onload=script4201(event_com, struct_1739)
 
 // 1103:10
-[com_10]
+[ok_button]
 type=layer
 width=4
 height=4
@@ -173,7 +173,7 @@ y=29
 width=228
 height=20
 xmode=abs_centre
-layer=com_18
+layer=content_layer
 textfont=p11_full
 text=0/80
 textalignh=centre
@@ -201,7 +201,7 @@ graphic=window_texture_1
 tiling=yes
 
 // 1103:18
-[com_18]
+[content_layer]
 type=layer
 width=10
 height=10
@@ -456,14 +456,14 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_2
-textfont=graphic_5631
+textfont=verdana_11pt_regular_multiline
 textalignh=centre
 textalignv=centre
 colour=0x1f1d19
-onload=clan_motto_text_init(event_com, interface_1103:com_15, interface_1103:com_41)
+onload=clan_motto_text_init(event_com, interface_1103:com_15, interface_1103:caret)
 
 // 1103:41
-[com_41]
+[caret]
 type=line
 y=5
 height=10

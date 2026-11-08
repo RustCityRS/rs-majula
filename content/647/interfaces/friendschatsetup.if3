@@ -10,7 +10,7 @@ fill=yes
 trans=200
 
 // 1108:1
-[com_1]
+[contents]
 type=layer
 x=14
 y=25
@@ -25,20 +25,20 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_1
+layer=contents
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
 
 // 1108:3
-[com_3]
+[closebutton]
 type=graphic
 x=8
 y=8
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=contents
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -54,7 +54,7 @@ x=4
 y=12
 width=476
 height=32
-layer=com_1
+layer=contents
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -66,13 +66,13 @@ x=151
 y=27
 width=32
 height=268
-layer=com_1
+layer=contents
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
 
 // 1108:6
-[com_6]
+[clanscroll_bg]
 type=rectangle
 width=16391
 height=20
@@ -85,7 +85,7 @@ fill=yes
 trans=200
 
 // 1108:7
-[com_7]
+[sep]
 type=graphic
 x=124
 width=32
@@ -123,7 +123,7 @@ textshadow=yes
 colour=0xff981f
 
 // 1108:10
-[com_10]
+[icon_coinshare]
 type=graphic
 x=24
 y=259
@@ -133,7 +133,7 @@ graphic="loot_icon,3"
 colour=0xffffffff
 
 // 1108:11
-[com_11]
+[title]
 type=text
 x=19
 y=31
@@ -155,7 +155,7 @@ height=234
 onload=clanwars_setup_createbox(event_com, 20, 0, 0)
 
 // 1108:13
-[com_13]
+[clanscroll]
 type=layer
 x=199
 y=103
@@ -187,7 +187,7 @@ textshadow=yes
 colour=0xff981f
 
 // 1108:16
-[com_16]
+[coinshare_text]
 type=text
 x=50
 y=270
@@ -256,7 +256,7 @@ onmouseover=v2_stone_button_out_filled(event_com)
 onmouseleave=v2_stone_button_filled(event_com)
 
 // 1108:22
-[com_22]
+[opt_prefix]
 type=text
 x=23
 y=53
@@ -272,7 +272,7 @@ op1=Set prefix
 op2=Disable
 
 // 1108:23
-[com_23]
+[opt_enter]
 type=text
 x=24
 y=96
@@ -295,7 +295,7 @@ op8=General+
 op9=Only me
 
 // 1108:24
-[com_24]
+[opt_talk]
 type=text
 x=24
 y=138
@@ -318,7 +318,7 @@ op8=General+
 op9=Only me
 
 // 1108:25
-[com_25]
+[opt_kick]
 type=text
 x=24
 y=179
@@ -338,7 +338,7 @@ op8=General+
 op9=Only me
 
 // 1108:26
-[com_26]
+[opt_loot]
 type=text
 x=23
 y=219
@@ -360,7 +360,7 @@ op7=Captain+
 op8=General+
 
 // 1108:27
-[com_27]
+[opt_prefix_head]
 type=text
 x=36
 y=62
@@ -444,7 +444,7 @@ textshadow=yes
 colour=0xdac378
 
 // 1108:33
-[com_33]
+[opt_coinshare]
 type=graphic
 x=158
 y=267
@@ -457,7 +457,7 @@ op1=Toggle CoinShare
 onvartransmit=script4153{varplayer_1083}
 
 // 1108:34
-[com_34]
+[tooltip_layer]
 type=layer
 x=14
 y=25

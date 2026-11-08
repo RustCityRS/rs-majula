@@ -1,12 +1,12 @@
 // 74:0
-[com_0]
+[scentless_name]
 type=text
 x=-1
 width=14
 height=30
 widthmode=minus
 xmode=abs_centre
-layer=com_8
+layer=scentless
 textfont=p12_full
 text=Scentless potion
 textalignh=centre
@@ -14,7 +14,7 @@ textshadow=yes
 colour=0x872300
 
 // 74:1
-[com_1]
+[scentless_store]
 type=graphic
 x=-1
 y=1
@@ -22,7 +22,7 @@ width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_8
+layer=scentless
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -33,12 +33,12 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, scentless_potion__3, ecosystem_potion_storage_side:com_0)
+onload=script2968(event_com, scentless_potion__3, ecosystem_potion_storage_side:scentless_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, scentless_potion__3, ecosystem_potion_storage_side:com_0){inv}
+oninvtransmit=script2968(event_com, scentless_potion__3, ecosystem_potion_storage_side:scentless_name){inv}
 
 // 74:2
-[com_2]
+[guthix_name]
 type=text
 x=1
 y=6
@@ -46,7 +46,7 @@ width=24
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_7
+layer=guthix
 textfont=p12_full
 text=Guthix's gift
 textalignh=centre
@@ -54,7 +54,7 @@ textshadow=yes
 colour=0x872300
 
 // 74:3
-[com_3]
+[guthix_store]
 type=graphic
 x=5
 y=1
@@ -62,7 +62,7 @@ width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_7
+layer=guthix
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -73,19 +73,19 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, guthix_s_gift__3, ecosystem_potion_storage_side:com_2)
+onload=script2968(event_com, guthix_s_gift__3, ecosystem_potion_storage_side:guthix_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, guthix_s_gift__3, ecosystem_potion_storage_side:com_2){inv}
+oninvtransmit=script2968(event_com, guthix_s_gift__3, ecosystem_potion_storage_side:guthix_name){inv}
 
 // 74:4
-[com_4]
+[farming_name]
 type=text
 y=2
 width=12
 height=27
 widthmode=minus
 xmode=abs_centre
-layer=com_6
+layer=farming
 textfont=p12_full
 text=Juju farming potion
 textalignh=centre
@@ -93,7 +93,7 @@ textshadow=yes
 colour=0x872300
 
 // 74:5
-[com_5]
+[farming_store]
 type=graphic
 x=3
 y=2
@@ -101,7 +101,7 @@ width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_6
+layer=farming
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -112,12 +112,12 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, juju_farming_potion__3, ecosystem_potion_storage_side:com_4)
+onload=script2968(event_com, juju_farming_potion__3, ecosystem_potion_storage_side:farming_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, juju_farming_potion__3, ecosystem_potion_storage_side:com_4){inv}
+oninvtransmit=script2968(event_com, juju_farming_potion__3, ecosystem_potion_storage_side:farming_name){inv}
 
 // 74:6
-[com_6]
+[farming]
 type=layer
 x=2
 y=12
@@ -125,10 +125,10 @@ width=2
 height=62
 widthmode=minus
 xmode=abs_centre
-layer=com_13
+layer=right
 
 // 74:7
-[com_7]
+[guthix]
 type=layer
 x=1
 y=104
@@ -136,10 +136,10 @@ width=7
 height=61
 widthmode=minus
 xmode=abs_centre
-layer=com_13
+layer=right
 
 // 74:8
-[com_8]
+[scentless]
 type=layer
 x=2
 y=194
@@ -147,10 +147,10 @@ width=3
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_13
+layer=right
 
 // 74:9
-[com_9]
+[left]
 type=layer
 width=8199
 widthmode=proportion
@@ -158,24 +158,24 @@ heightmode=minus
 ymode=abs_centre
 
 // 74:10
-[com_10]
+[hunter]
 type=layer
 y=12
 width=2
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_9
+layer=left
 
 // 74:11
-[com_11]
+[hunter_name]
 type=text
 y=1
 width=4
 height=29
 widthmode=minus
 xmode=abs_centre
-layer=com_10
+layer=hunter
 textfont=p12_full
 text=Juju hunter potion
 textalignh=centre
@@ -183,13 +183,13 @@ textshadow=yes
 colour=0x872300
 
 // 74:12
-[com_12]
+[hunter_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_10
+layer=hunter
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -200,12 +200,12 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, juju_hunter_potion__3, ecosystem_potion_storage_side:com_11)
+onload=script2968(event_com, juju_hunter_potion__3, ecosystem_potion_storage_side:hunter_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, juju_hunter_potion__3, ecosystem_potion_storage_side:com_11){inv}
+oninvtransmit=script2968(event_com, juju_hunter_potion__3, ecosystem_potion_storage_side:hunter_name){inv}
 
 // 74:13
-[com_13]
+[right]
 type=layer
 width=8199
 widthmode=proportion
@@ -214,24 +214,24 @@ xmode=abs_right
 ymode=abs_centre
 
 // 74:14
-[com_14]
+[saradomin]
 type=layer
 x=-1
 y=104
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_9
+layer=left
 
 // 74:15
-[com_15]
+[saradomin_name]
 type=text
 y=1
 width=5
 height=29
 widthmode=minus
 xmode=abs_centre
-layer=com_14
+layer=saradomin
 textfont=p12_full
 text=Saradomin's blessing
 textalignh=centre
@@ -239,13 +239,13 @@ textshadow=yes
 colour=0x872300
 
 // 74:16
-[com_16]
+[saradomin_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_14
+layer=saradomin
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -256,29 +256,29 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, saradomin_s_blessing__3, ecosystem_potion_storage_side:com_15)
+onload=script2968(event_com, saradomin_s_blessing__3, ecosystem_potion_storage_side:saradomin_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, saradomin_s_blessing__3, ecosystem_potion_storage_side:com_15){inv}
+oninvtransmit=script2968(event_com, saradomin_s_blessing__3, ecosystem_potion_storage_side:saradomin_name){inv}
 
 // 74:17
-[com_17]
+[zamorak]
 type=layer
 y=194
 width=3
 height=59
 widthmode=minus
 xmode=abs_centre
-layer=com_9
+layer=left
 
 // 74:18
-[com_18]
+[zamorak_name]
 type=text
 y=1
 width=19
 height=28
 widthmode=minus
 xmode=abs_centre
-layer=com_17
+layer=zamorak
 textfont=p12_full
 text=Zamorak's favour
 textalignh=centre
@@ -286,13 +286,13 @@ textshadow=yes
 colour=0x872300
 
 // 74:19
-[com_19]
+[zamorak_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_17
+layer=zamorak
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -303,6 +303,6 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, zamorak_s_favour__3, ecosystem_potion_storage_side:com_18)
+onload=script2968(event_com, zamorak_s_favour__3, ecosystem_potion_storage_side:zamorak_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, zamorak_s_favour__3, ecosystem_potion_storage_side:com_18){inv}
+oninvtransmit=script2968(event_com, zamorak_s_favour__3, ecosystem_potion_storage_side:zamorak_name){inv}

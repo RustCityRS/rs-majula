@@ -1083,10 +1083,10 @@ impl ActivePlayer {
     /// Sends a packet to open a main (fullscreen) interface.
     ///
     /// Rev-647 has no screen-wide main modal: the interface is mounted with
-    /// IF_OPENSUB on the toplevel's main-screen slot (`com_main_screen`,
+    /// IF_OPENSUB on the toplevel's main-screen slot (`mainmodal`,
     /// 548:18 fixed and 746:9 resizable, `void-634`'s `main_screen` with
     /// 746's +1 drift), as a type-0 modal. An interface the content's
-    /// `wide_screen_enum` lists mounts on the full-size `com_wide_screen`
+    /// `wide_screen_enum` lists mounts on the full-size wide-screen
     /// slot instead (548:8, 746:6): 2011's skill guide fills it with its own
     /// backdrop, which in the main slot showed as a tinted box.
     pub fn if_open_main(&mut self, com: u16) {
@@ -1144,7 +1144,7 @@ impl ActivePlayer {
     /// Sends a packet to open a side-panel interface.
     ///
     /// Rev-647 mounts it with IF_OPENSUB on the toplevel's slot over the side
-    /// panels (`com_overlay_tab`, 548:198 fixed and 746:84 resizable:
+    /// panels (`sidemodal`, 548:198 fixed and 746:84 resizable:
     /// `void-634`'s `overlay_tab` 197/83 plus the revision drift, both the
     /// 190x261 of a tab), where the bank and shop inventories go.
     ///
@@ -1340,9 +1340,10 @@ impl ActivePlayer {
     /// wilderness level), or with `u16::MAX` (`null`) closes the one open.
     ///
     /// Rev-647 mounts it with IF_OPENSUB on the toplevel's full-size overlay
-    /// slot (`com_overlay`, 548:7 fixed and 746:8 resizable: `void-634`'s
-    /// `overlay` index 7, with 746's +1 drift), as type 1: an overlay is no
-    /// modal, and stays while the player walks and talks.
+    /// slot (548:7 `mainoverlay` fixed and 746:8 `mainmodal_fullscreen`
+    /// resizable: `void-634`'s `overlay` index 7, with 746's +1 drift), as
+    /// type 1: an overlay is no modal, and stays while the player walks and
+    /// talks.
     #[cfg(since_244)]
     pub fn if_openoverlay(&mut self, com: u16) {
         #[cfg(before_647)]

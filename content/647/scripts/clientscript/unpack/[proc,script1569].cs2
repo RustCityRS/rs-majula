@@ -1,10 +1,10 @@
 // 1569
 [proc,script1569]()(boolean)
 if (getwindowmode >= 2) {
-    if (if_hassub(toplevel_fullscreen:com_overlay_tab) = true) {
+    if (if_hassub(toplevel_fullscreen:sidemodal) = true) {
         return(true);
     }
-} else if (if_hassub(toplevel:com_overlay_tab) = true) {
+} else if (if_hassub(toplevel:sidemodal) = true) {
     return(true);
 }
 return(false);

@@ -1,7 +1,7 @@
 // 1909
 [clientscript,sc_remaining_clay_help]
-if (if_gethide(sc_remaining_clay:com_122) = true) {
-    if_sethide(false, sc_remaining_clay:com_122);
+if (if_gethide(sc_remaining_clay:help_text) = true) {
+    if_sethide(false, sc_remaining_clay:help_text);
 } else {
-    if_sethide(true, sc_remaining_clay:com_122);
+    if_sethide(true, sc_remaining_clay:help_text);
 }

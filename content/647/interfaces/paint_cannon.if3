@@ -1,5 +1,5 @@
 // 264:0
-[com_0]
+[target_background]
 type=model
 x=-335
 y=-411
@@ -11,7 +11,7 @@ modelangle=520,504,0
 modelzoom=117
 
 // 264:1
-[com_1]
+[toad_gun_left]
 type=text
 x=377
 y=225
@@ -24,7 +24,7 @@ transmitop=1
 op1=Left
 
 // 264:2
-[com_2]
+[toad_gun_right]
 type=text
 x=471
 y=224
@@ -37,7 +37,7 @@ transmitop=1
 op1=Right
 
 // 264:3
-[com_3]
+[toad_gun_up]
 type=text
 x=410
 y=192
@@ -50,7 +50,7 @@ transmitop=1
 op1=Up
 
 // 264:4
-[com_4]
+[toad_gun_down]
 type=text
 x=412
 y=281
@@ -63,7 +63,7 @@ transmitop=1
 op1=Down
 
 // 264:5
-[com_5]
+[toad_gun_fire]
 type=text
 x=435
 y=244
@@ -87,7 +87,7 @@ colour=0x0f251a09
 fill=yes
 
 // 264:7
-[com_7]
+[colourbit]
 type=rectangle
 x=20
 y=23
@@ -97,7 +97,7 @@ colour=0x0f926c1a
 fill=yes
 
 // 264:8
-[com_8]
+[toad_gun_loaded]
 type=model
 x=27
 y=32
@@ -112,7 +112,7 @@ onload=script1123(event_com)
 onvartransmit=script1123(event_com){varplayer_518}
 
 // 264:9
-[com_9]
+[close_button]
 type=graphic
 x=481
 y=4

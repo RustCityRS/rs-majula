@@ -5,10 +5,10 @@ def_int $int6 = 0;
 def_int $int7 = 0;
 def_component $component8 = $component0;
 if (clientclock > $int2) {
-    if_settext($string0, lobbyscreen_pane_worldselect:com_17);
-    if_setsize(calc(if_getx(lobbyscreen_pane_worldselect:com_17) * 2 + stringwidth($string0, p12_full)), if_getheight(lobbyscreen_pane_worldselect:com_14), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:com_14);
+    if_settext($string0, lobbyscreen_pane_worldselect:tooltip_text);
+    if_setsize(calc(if_getx(lobbyscreen_pane_worldselect:tooltip_text) * 2 + stringwidth($string0, p12_full)), if_getheight(lobbyscreen_pane_worldselect:tooltip), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:tooltip);
     while ($int7 = 0) {
-        if ($component8 = lobbyscreen_pane_worldselect:com_13) {
+        if ($component8 = lobbyscreen_pane_worldselect:list_content) {
             $int7 = 1;
         }
         $int5 = calc($int5 + if_getx($component8));
@@ -20,15 +20,15 @@ if (clientclock > $int2) {
         $int6 = calc($int6 + cc_gety);
     }
     $int5 = calc($int5 + $int3 + 3);
-    $int6 = calc($int6 + $int4 - 3 - if_getheight(lobbyscreen_pane_worldselect:com_14));
-    if (calc($int5 + if_getwidth(lobbyscreen_pane_worldselect:com_14)) > if_getwidth(lobbyscreen_pane_worldselect:com_0)) {
-        $int5 = calc(if_getwidth(lobbyscreen_pane_worldselect:com_0) - if_getwidth(lobbyscreen_pane_worldselect:com_14));
+    $int6 = calc($int6 + $int4 - 3 - if_getheight(lobbyscreen_pane_worldselect:tooltip));
+    if (calc($int5 + if_getwidth(lobbyscreen_pane_worldselect:tooltip)) > if_getwidth(lobbyscreen_pane_worldselect:com_0)) {
+        $int5 = calc(if_getwidth(lobbyscreen_pane_worldselect:com_0) - if_getwidth(lobbyscreen_pane_worldselect:tooltip));
     }
     if ($int6 < 0) {
         $int6 = 0;
     }
-    if_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:com_14);
-    if_sethide(false, lobbyscreen_pane_worldselect:com_14);
+    if_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:tooltip);
+    if_sethide(false, lobbyscreen_pane_worldselect:tooltip);
     if ($int1 < 0) {
         if_setonmouserepeat(null, $component0);
     } else if (cc_find($component0, $int1) = true) {

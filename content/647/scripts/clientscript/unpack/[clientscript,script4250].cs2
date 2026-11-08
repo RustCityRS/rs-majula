@@ -2,6 +2,6 @@
 [clientscript,script4250]
 def_int $int0 = if_getwidth(toplevel:com_3);
 if (getwindowmode >= 2) {
-    $int0 = if_getwidth(toplevel_fullscreen:com_0);
+    $int0 = if_getwidth(toplevel_fullscreen:main_game_container);
 }
 mes("<tostring($int0)>.");

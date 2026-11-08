@@ -5,45 +5,45 @@ def_int $int3 = 0;
 while ($int2 < 10) {
     switch_int ($int2) {
         case 0 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_23);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_24);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_25);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:25kills_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:25kills_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:25kills_button);
         case 1 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_26);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_27);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_28);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:50kills_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:50kills_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:50kills_button);
         case 2 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_29);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_30);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_31);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:100kills_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:100kills_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:100kills_button);
         case 3 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_32);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_33);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_34);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:200kills_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:200kills_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:200kills_button);
         case 4 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_35);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_36);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_37);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:400kills_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:400kills_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:400kills_button);
         case 5 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_38);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_39);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_40);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:750kills_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:750kills_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:750kills_button);
         case 6 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_41);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_42);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_43);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:1000kills_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:1000kills_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:1000kills_button);
         case 7 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_44);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_45);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_46);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:2500kills_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:2500kills_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:2500kills_button);
         case 8 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_47);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_48);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_49);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:5000kills_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:5000kills_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:5000kills_button);
         case 9 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_50);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_51);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_52);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:10000kills_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:10000kills_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:10000kills_button);
     }
     $int3 = calc($int3 + 17);
     $int2 = calc($int2 + 1);

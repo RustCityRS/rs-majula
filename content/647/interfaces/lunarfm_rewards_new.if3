@@ -54,7 +54,7 @@ layer=com_228
 onload=script4203(event_com, struct_1771)
 
 // 1083:5
-[com_5]
+[plank_button]
 type=layer
 width=16384
 height=16384
@@ -756,7 +756,7 @@ onload=script4213(event_com)
 onop=script4268(2)
 
 // 1083:66
-[com_66]
+[back]
 type=graphic
 width=16384
 height=16384
@@ -768,7 +768,7 @@ graphic=window_texture_2
 tiling=yes
 
 // 1083:67
-[com_67]
+[back_1]
 type=graphic
 width=16384
 height=16384
@@ -793,7 +793,7 @@ type=layer
 x=15
 width=220
 height=23
-layer=com_138
+layer=shield_layer
 
 // 1083:70
 [com_70]
@@ -844,13 +844,13 @@ height=23
 layer=com_132
 
 // 1083:76
-[com_76]
+[name]
 type=text
 x=8
 y=5
 width=160
 height=29
-layer=com_155
+layer=breakdown_layer
 textfont=p12_full
 text=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 textalignv=centre
@@ -865,18 +865,18 @@ width=14909
 height=2
 widthmode=proportion
 xmode=abs_centre
-layer=com_155
+layer=breakdown_layer
 colour=0x010000
 trans=182
 
 // 1083:78
-[com_78]
+[description]
 type=text
 x=10
 y=51
 width=195
 height=49
-layer=com_155
+layer=breakdown_layer
 textfont=p11_full
 text=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 textshadow=yes
@@ -890,7 +890,7 @@ width=14909
 height=2
 widthmode=proportion
 xmode=abs_centre
-layer=com_155
+layer=breakdown_layer
 colour=0x010000
 trans=182
 
@@ -902,7 +902,7 @@ y=111
 width=193
 height=32
 xmode=abs_centre
-layer=com_155
+layer=breakdown_layer
 textfont=p11_full
 text=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 textshadow=yes
@@ -915,7 +915,7 @@ x=171
 y=3
 width=28
 height=28
-layer=com_155
+layer=breakdown_layer
 
 // 1083:82
 [com_82]
@@ -957,7 +957,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 
 // 1083:86
 [com_86]
@@ -967,7 +967,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:87
@@ -978,7 +978,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:88
@@ -989,7 +989,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:89
@@ -1000,7 +1000,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:90
@@ -1011,7 +1011,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:91
@@ -1022,7 +1022,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:92
@@ -1033,7 +1033,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:93
@@ -1044,7 +1044,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:94
@@ -1055,7 +1055,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:95
@@ -1066,7 +1066,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:96
@@ -1077,7 +1077,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:97
@@ -1088,7 +1088,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:98
@@ -1099,7 +1099,7 @@ width=130
 height=28
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_155
+layer=breakdown_layer
 hide=yes
 
 // 1083:99
@@ -1175,7 +1175,7 @@ width=135
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_138
+layer=shield_layer
 textfont=p11_full
 text=Disruption Shield
 textalignv=centre
@@ -1190,7 +1190,7 @@ width=63
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_138
+layer=shield_layer
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -1206,7 +1206,7 @@ width=15
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_138
+layer=shield_layer
 textfont=p11_full
 text=7.
 textalignv=centre
@@ -1220,7 +1220,7 @@ x=215
 width=14
 height=14
 ymode=abs_centre
-layer=com_138
+layer=shield_layer
 graphic=symbol_lock
 
 // 1083:108
@@ -1614,7 +1614,7 @@ height=23
 layer=com_152
 
 // 1083:138
-[com_138]
+[shield_layer]
 type=layer
 x=1
 y=152
@@ -1769,7 +1769,7 @@ width=512
 height=334
 
 // 1083:155
-[com_155]
+[breakdown_layer]
 type=layer
 x=275
 y=106
@@ -2096,7 +2096,7 @@ onclick=script4207(event_com, 0)
 onrelease=script4207(event_com, 1)
 
 // 1083:184
-[com_184]
+[title_layer]
 type=layer
 width=16391
 height=23
@@ -2113,7 +2113,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_184
+layer=title_layer
 textfont=palatino_linotype_18pt_regular
 text=Rewards
 textalignh=centre
@@ -2157,7 +2157,7 @@ vflip=yes
 hflip=yes
 
 // 1083:189
-[com_189]
+[right]
 type=graphic
 width=10
 height=200
@@ -2168,7 +2168,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
 // 1083:190
-[com_190]
+[left]
 type=graphic
 width=10
 height=201
@@ -2193,7 +2193,7 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:192
-[com_192]
+[top]
 type=graphic
 x=7
 width=15528
@@ -2203,7 +2203,7 @@ layer=com_149
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 1083:193
-[com_193]
+[top_left]
 type=graphic
 width=10
 height=10
@@ -2212,7 +2212,7 @@ graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
 // 1083:194
-[com_194]
+[top_right]
 type=graphic
 width=10
 height=10
@@ -2221,7 +2221,7 @@ layer=com_149
 graphic="aif_overlay_frame_gold_corner_2,1"
 
 // 1083:195
-[com_195]
+[bot_1]
 type=graphic
 width=10
 height=10
@@ -2243,7 +2243,7 @@ graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 
 // 1083:197
-[com_197]
+[bot_2]
 type=graphic
 x=8
 width=15564
@@ -2256,7 +2256,7 @@ vflip=yes
 hflip=yes
 
 // 1083:198
-[com_198]
+[right_1]
 type=graphic
 width=10
 height=196
@@ -2267,7 +2267,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
 // 1083:199
-[com_199]
+[left_1]
 type=graphic
 width=10
 height=197
@@ -2277,7 +2277,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 1083:200
-[com_200]
+[top_1]
 type=graphic
 x=2
 width=15564
@@ -2288,7 +2288,7 @@ layer=com_150
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 1083:201
-[com_201]
+[top_2]
 type=graphic
 width=10
 height=10
@@ -2297,7 +2297,7 @@ graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
 // 1083:202
-[com_202]
+[top_right_1]
 type=graphic
 width=10
 height=10
@@ -4518,7 +4518,7 @@ graphic=window_texture_2
 tiling=yes
 
 // 1083:394
-[com_394]
+[bot_3]
 type=graphic
 width=10
 height=10
@@ -4540,7 +4540,7 @@ graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 
 // 1083:396
-[com_396]
+[bot_4]
 type=graphic
 x=8
 width=16056
@@ -4553,7 +4553,7 @@ vflip=yes
 hflip=yes
 
 // 1083:397
-[com_397]
+[right_2]
 type=graphic
 width=10
 height=196
@@ -4564,7 +4564,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
 // 1083:398
-[com_398]
+[left_2]
 type=graphic
 width=10
 height=197
@@ -4574,7 +4574,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 1083:399
-[com_399]
+[top_3]
 type=graphic
 x=2
 width=16056
@@ -4585,7 +4585,7 @@ layer=com_151
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 1083:400
-[com_400]
+[top_4]
 type=graphic
 width=10
 height=10
@@ -4594,7 +4594,7 @@ graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
 // 1083:401
-[com_401]
+[top_right_2]
 type=graphic
 width=10
 height=10
@@ -4603,7 +4603,7 @@ layer=com_151
 graphic="aif_overlay_frame_gold_corner_2,1"
 
 // 1083:402
-[com_402]
+[points]
 type=text
 x=214
 y=113
@@ -4617,7 +4617,7 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:403
-[com_403]
+[xp]
 type=text
 x=336
 y=113
@@ -4850,7 +4850,7 @@ colour=0x010000
 trans=182
 
 // 1083:421
-[com_421]
+[explanation]
 type=text
 y=270
 width=13434

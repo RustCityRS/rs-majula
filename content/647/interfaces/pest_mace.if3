@@ -9,7 +9,7 @@ graphic="magicon,19"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, pest_mace:com_7, "magicon,19", "magicoff,19", 39, "Crumble Undead", "Hits skeletons, ghosts, shades & zombies hard", earth_rune, 2, air_rune, 2, chaos_rune, 1, null, 0)
+onload=magic_init(event_com, pest_mace:tooltip, "magicon,19", "magicoff,19", 39, "Crumble Undead", "Hits skeletons, ghosts, shades & zombies hard", earth_rune, 2, air_rune, 2, chaos_rune, 1, null, 0)
 
 // 406:1
 [com_1]
@@ -22,10 +22,10 @@ graphic="magicon,45"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, pest_mace:com_7, "magicon,45", "magicoff,45", 60, "Claws of Guthix", "Summons the power of Guthix", fire_rune, 1, blood_rune, 2, air_rune, 4, obj_8843, 1)
+onload=magic_init(event_com, pest_mace:tooltip, "magicon,45", "magicoff,45", 60, "Claws of Guthix", "Summons the power of Guthix", fire_rune, 1, blood_rune, 2, air_rune, 4, obj_8843, 1)
 
 // 406:2
-[com_2]
+[pest_ssb12]
 type=graphic
 x=51
 y=110
@@ -35,10 +35,10 @@ graphic="magicon,31"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, pest_mace:com_7, "magicon,31", "magicoff,31", 62, "Wind Wave", "A high level Air missile", air_rune, 5, blood_rune, 1, null, 0, null, 0)
+onload=magic_init(event_com, pest_mace:tooltip, "magicon,31", "magicoff,31", 62, "Wind Wave", "A high level Air missile", air_rune, 5, blood_rune, 1, null, 0, null, 0)
 
 // 406:3
-[com_3]
+[pest_ssb13]
 type=graphic
 x=115
 y=110
@@ -48,10 +48,10 @@ graphic="magicon,33"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, pest_mace:com_7, "magicon,33", "magicoff,33", 65, "Water Wave", "A high level Water missle", water_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+onload=magic_init(event_com, pest_mace:tooltip, "magicon,33", "magicoff,33", 65, "Water Wave", "A high level Water missle", water_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
 
 // 406:4
-[com_4]
+[pest_ssb14]
 type=graphic
 x=52
 y=176
@@ -61,10 +61,10 @@ graphic="magicon,36"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, pest_mace:com_7, "magicon,36", "magicoff,36", 70, "Earth Wave", "A high level Earth missile", earth_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+onload=magic_init(event_com, pest_mace:tooltip, "magicon,36", "magicoff,36", 70, "Earth Wave", "A high level Earth missile", earth_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
 
 // 406:5
-[com_5]
+[pest_ssb15]
 type=graphic
 x=116
 y=176
@@ -74,10 +74,10 @@ graphic="magicon,37"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, pest_mace:com_7, "magicon,37", "magicoff,37", 75, "Fire Wave", "A high level Fire missile", fire_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+onload=magic_init(event_com, pest_mace:tooltip, "magicon,37", "magicoff,37", 75, "Fire Wave", "A high level Fire missile", fire_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
 
 // 406:6
-[com_6]
+[pest_cancelspell]
 type=text
 x=124
 y=240
@@ -94,7 +94,7 @@ onmouseover=text_colour_swapper(event_com, 0xc8c8c8)
 onmouseleave=text_colour_swapper(event_com, 0x808080)
 
 // 406:7
-[com_7]
+[tooltip]
 type=layer
 width=190
 height=261

@@ -255,7 +255,7 @@ layer=com_8
 graphic=aif_window_stone_close_corner_2
 
 // 1098:24
-[com_24]
+[content_layer]
 type=layer
 x=12
 y=33
@@ -273,7 +273,7 @@ type=layer
 height=36
 widthmode=minus
 xmode=abs_centre
-layer=com_24
+layer=content_layer
 
 // 1098:26
 [com_26]
@@ -400,7 +400,7 @@ y=33
 width=350
 height=196
 xmode=abs_centre
-layer=com_24
+layer=content_layer
 
 // 1098:38
 [com_38]
@@ -409,7 +409,7 @@ x=3
 y=33
 width=103
 height=196
-layer=com_24
+layer=content_layer
 
 // 1098:39
 [com_39]
@@ -419,10 +419,10 @@ y=3
 width=100
 height=26
 ymode=abs_bottom
-layer=com_24
+layer=content_layer
 
 // 1098:40
-[com_40]
+[time_text]
 type=text
 x=5
 y=15
@@ -511,9 +511,9 @@ graphic="aif_checkbox_small,4"
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=deltooltip(interface_1098:com_263)
+onmouseleave=deltooltip(interface_1098:tooltip)
 onvartransmit=script4352(event_com){varplayer_2111}
-onmouserepeat=aif_tooltip(interface_1098:com_263, event_com, -1, "Only one event can be displayed on the vexillum.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(interface_1098:tooltip, event_com, -1, "Only one event can be displayed on the vexillum.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 onclick=script4351(event_com)
 
 // 1098:47
@@ -528,8 +528,8 @@ textfont=p11_full
 text=Visible on vexillum?
 textalignv=centre
 colour=0xb7b09d
-onmouseleave=deltooltip(interface_1098:com_263)
-onmouserepeat=aif_tooltip(interface_1098:com_263, event_com, -1, "Only one event can be displayed on the vexillum.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(interface_1098:tooltip)
+onmouserepeat=aif_tooltip(interface_1098:tooltip, event_com, -1, "Only one event can be displayed on the vexillum.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1098:48
 [com_48]
@@ -588,7 +588,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_105
-textfont=graphic_5631
+textfont=verdana_11pt_regular_multiline
 textalignv=centre
 textshadow=yes
 colour=0xebe0bc
@@ -869,7 +869,7 @@ fill=yes
 trans=100
 
 // 1098:77
-[com_77]
+[cancel_layer]
 type=layer
 x=50
 y=3
@@ -877,7 +877,7 @@ width=100
 height=26
 xmode=abs_right
 ymode=abs_bottom
-layer=com_24
+layer=content_layer
 
 // 1098:78
 [com_78]
@@ -886,7 +886,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_77
+layer=cancel_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -898,7 +898,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_77
+layer=cancel_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -910,7 +910,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_77
+layer=cancel_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -921,7 +921,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_77
+layer=cancel_layer
 onload=script4201(event_com, struct_1736)
 
 // 1098:82
@@ -931,7 +931,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_77
+layer=cancel_layer
 onload=script4201(event_com, struct_1737)
 
 // 1098:83
@@ -941,7 +941,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_77
+layer=cancel_layer
 onload=script4201(event_com, struct_1738)
 
 // 1098:84
@@ -951,17 +951,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_77
+layer=cancel_layer
 onload=script4201(event_com, struct_1739)
 
 // 1098:85
-[com_85]
+[cancel_button]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_77
+layer=cancel_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -974,7 +974,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_77
+layer=cancel_layer
 
 // 1098:87
 [com_87]
@@ -1000,7 +1000,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_77
+layer=cancel_layer
 hide=yes
 noclickthrough=yes
 onload=script4201(event_com, struct_1740)
@@ -1025,7 +1025,7 @@ width=120
 height=26
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_24
+layer=content_layer
 
 // 1098:91
 [com_91]
@@ -1558,7 +1558,7 @@ ymode=abs_bottom
 layer=com_127
 
 // 1098:137
-[com_137]
+[background_8]
 type=graphic
 width=16
 height=16391
@@ -1702,7 +1702,7 @@ ymode=abs_bottom
 layer=com_156
 
 // 1098:151
-[com_151]
+[background_6]
 type=graphic
 width=16
 height=16391
@@ -1856,7 +1856,7 @@ ymode=abs_bottom
 layer=com_171
 
 // 1098:166
-[com_166]
+[background_7]
 type=graphic
 width=16
 height=16391
@@ -2010,7 +2010,7 @@ ymode=abs_bottom
 layer=com_186
 
 // 1098:181
-[com_181]
+[background_5]
 type=graphic
 width=16
 height=16391
@@ -2102,7 +2102,7 @@ height=21
 layer=com_112
 
 // 1098:191
-[com_191]
+[background_3]
 type=graphic
 width=16
 height=16391
@@ -2331,7 +2331,7 @@ ymode=abs_bottom
 layer=com_188
 
 // 1098:213
-[com_213]
+[background_2]
 type=graphic
 width=16
 height=16391
@@ -2467,7 +2467,7 @@ ymode=abs_bottom
 layer=com_189
 
 // 1098:226
-[com_226]
+[background_1]
 type=graphic
 width=16
 height=16391
@@ -2700,7 +2700,7 @@ ymode=abs_bottom
 layer=com_254
 
 // 1098:249
-[com_249]
+[background_4]
 type=graphic
 width=16
 height=16391
@@ -2850,7 +2850,7 @@ hide=yes
 onclick=script4483(event_com, interface_1098:com_242, interface_1098:com_228, interface_1098:com_215, interface_1098:com_193, interface_1098:com_251, interface_1098:com_183, interface_1098:com_153, interface_1098:com_168, interface_1098:com_139, null)
 
 // 1098:263
-[com_263]
+[tooltip]
 type=layer
 x=23
 y=45

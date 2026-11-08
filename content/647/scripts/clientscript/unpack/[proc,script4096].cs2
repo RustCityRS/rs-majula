@@ -1,6 +1,6 @@
 // 4096
 [proc,script4096](component $component0)
-if (if_gethide(toplevel_fullscreen:com_128) = false & if_gethide(toplevel_fullscreen:com_20) = false & if_hassuboverlay(toplevel_fullscreen:com_tab1, task_side) = true) {
+if (if_gethide(toplevel_fullscreen:icon1) = false & if_gethide(toplevel_fullscreen:icons) = false & if_hassuboverlay(toplevel_fullscreen:side1, task_side) = true) {
     if_sethide(false, $component0);
 } else {
     if_sethide(true, $component0);

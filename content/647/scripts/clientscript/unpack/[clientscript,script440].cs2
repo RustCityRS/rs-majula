@@ -1,22 +1,22 @@
 // 440
 [clientscript,script440]
-if_setgraphic("radio_buttons,0", interface_1016:com_24);
-if_setgraphic("radio_buttons,0", interface_1016:com_25);
-if_setgraphic("radio_buttons,0", interface_1016:com_26);
-if_setgraphic("radio_buttons,0", interface_1016:com_27);
-if_setgraphic("radio_buttons,0", interface_1016:com_28);
-if_setgraphic("radio_buttons,0", interface_1016:com_29);
+if_setgraphic("radio_buttons,0", conq_friendly_options:com_24);
+if_setgraphic("radio_buttons,0", conq_friendly_options:com_25);
+if_setgraphic("radio_buttons,0", conq_friendly_options:com_26);
+if_setgraphic("radio_buttons,0", conq_friendly_options:com_27);
+if_setgraphic("radio_buttons,0", conq_friendly_options:com_28);
+if_setgraphic("radio_buttons,0", conq_friendly_options:com_29);
 switch_int (%varplayerbit_8087) {
     case 0 :
-        if_setgraphic("radio_buttons,1", interface_1016:com_24);
+        if_setgraphic("radio_buttons,1", conq_friendly_options:com_24);
     case 1 :
-        if_setgraphic("radio_buttons,1", interface_1016:com_25);
+        if_setgraphic("radio_buttons,1", conq_friendly_options:com_25);
     case 2 :
-        if_setgraphic("radio_buttons,1", interface_1016:com_26);
+        if_setgraphic("radio_buttons,1", conq_friendly_options:com_26);
     case 3 :
-        if_setgraphic("radio_buttons,1", interface_1016:com_27);
+        if_setgraphic("radio_buttons,1", conq_friendly_options:com_27);
     case 4 :
-        if_setgraphic("radio_buttons,1", interface_1016:com_28);
+        if_setgraphic("radio_buttons,1", conq_friendly_options:com_28);
     case 5 :
-        if_setgraphic("radio_buttons,1", interface_1016:com_29);
+        if_setgraphic("radio_buttons,1", conq_friendly_options:com_29);
 }

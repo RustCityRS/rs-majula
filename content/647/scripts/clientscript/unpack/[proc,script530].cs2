@@ -1,29 +1,29 @@
 // 530
 [proc,script530](component $component0)(int, string)
-if ($component0 = assister_interface:com_74) {
+if ($component0 = assister_interface:runecrafting_event_area) {
     return(%varplayerbit_4090, "Runecrafting");
 }
-if ($component0 = assister_interface:com_75) {
+if ($component0 = assister_interface:crafting_event_area) {
     return(%varplayerbit_4091, "Crafting");
 }
-if ($component0 = assister_interface:com_76) {
+if ($component0 = assister_interface:fletching_event_area) {
     return(%varplayerbit_4093, "Fletching");
 }
-if ($component0 = assister_interface:com_77) {
+if ($component0 = assister_interface:construction_event_area) {
     return(%varplayerbit_4095, "Construction");
 }
-if ($component0 = assister_interface:com_78) {
+if ($component0 = assister_interface:farming_event_area) {
     return(%varplayerbit_4096, "Farming");
 }
-if ($component0 = assister_interface:com_79) {
+if ($component0 = assister_interface:magic_event_area) {
     return(%varplayerbit_4098, "Magic");
 }
-if ($component0 = assister_interface:com_80) {
+if ($component0 = assister_interface:smithing_event_area) {
     return(%varplayerbit_4100, "Smithing");
 }
-if ($component0 = assister_interface:com_81) {
+if ($component0 = assister_interface:cooking_event_area) {
     return(%varplayerbit_4101, "Cooking");
 }
-if ($component0 = assister_interface:com_82) {
+if ($component0 = assister_interface:herblore_event_area) {
     return(%varplayerbit_4102, "Herblore");
 }

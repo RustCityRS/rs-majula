@@ -1,33 +1,33 @@
 // 588:0
-[com_0]
+[kr_background1]
 type=rectangle
 width=513
 height=336
-layer=com_67
+layer=content_layer
 colour=0x111100
 fill=yes
 
 // 588:1
-[com_1]
+[kr_doorlock]
 type=model
 x=-15
 y=-122
 width=489
 height=625
-layer=com_67
+layer=content_layer
 model=model_27214
 modelorigin=44,-40
 modelangle=2031,123,0
 modelzoom=516
 
 // 588:2
-[com_2]
+[kr_closebtn]
 type=graphic
 x=464
 y=24
 width=26
 height=23
-layer=com_67
+layer=content_layer
 graphic="close_buttons,6"
 colour=0xffffffff
 transmitop=1
@@ -37,13 +37,13 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,6")
 onop=closebutton_click
 
 // 588:3
-[com_3]
+[kr_instr1]
 type=text
 x=32
 y=13
 width=151
 height=15
-layer=com_67
+layer=content_layer
 textfont=p11_full
 text=Correct tumbler and height
 textalignv=centre
@@ -51,13 +51,13 @@ textshadow=yes
 colour=0x64500a
 
 // 588:4
-[com_4]
+[kr_instr2]
 type=text
 x=32
 y=32
 width=151
 height=15
-layer=com_67
+layer=content_layer
 textfont=p11_full
 text=Correct height, wrong tumbler
 textalignv=centre
@@ -65,13 +65,13 @@ textshadow=yes
 colour=0x64501e
 
 // 588:5
-[com_5]
+[kr_instr5]
 type=text
 x=32
 y=49
 width=151
 height=15
-layer=com_67
+layer=content_layer
 textfont=p11_full
 text=Wrong height, wrong tumbler
 textalignv=centre
@@ -79,13 +79,13 @@ textshadow=yes
 colour=0x64501e
 
 // 588:6
-[com_6]
+[kr_instr3]
 type=text
 x=423
 y=115
 width=75
 height=67
-layer=com_67
+layer=content_layer
 textfont=p11_full
 text=Selected tumbler height
 textalignh=centre
@@ -94,13 +94,13 @@ textshadow=yes
 colour=0x64501e
 
 // 588:7
-[com_7]
+[kr_tumbler_height]
 type=text
 x=379
 y=133
 width=32
 height=32
-layer=com_67
+layer=content_layer
 textfont=quill_oblique_large
 text=0/5
 textalignh=centre
@@ -110,26 +110,26 @@ colour=0x64501e
 onvartransmit=kr_tumbler_height{varplayer_1051}
 
 // 588:8
-[com_8]
+[kr_tumbler_column]
 type=text
 x=106
 y=285
 width=37
 height=16
-layer=com_67
+layer=content_layer
 textfont=p11_full
 text=Tumbler
 textshadow=yes
 colour=0x64501e
 
 // 588:9
-[com_9]
+[kr_guess_column]
 type=text
 x=5
 y=145
 width=51
 height=46
-layer=com_67
+layer=content_layer
 textfont=p11_full
 text=Guess
 textalignh=centre
@@ -144,7 +144,7 @@ x=61
 y=80
 width=125
 height=175
-layer=com_67
+layer=content_layer
 colour=0xb1b192
 fill=yes
 trans=200
@@ -157,20 +157,20 @@ x=11
 y=8
 width=174
 height=62
-layer=com_67
+layer=content_layer
 colour=0xb1b192
 fill=yes
 trans=200
 opbase=rr
 
 // 588:12
-[com_12]
+[kr_arrow_up]
 type=model
 x=375
 y=39
 width=43
 height=81
-layer=com_67
+layer=content_layer
 model=model_27216
 modelorigin=1,7
 modelzoom=600
@@ -178,13 +178,13 @@ transmitop=1
 op1=Up
 
 // 588:13
-[com_13]
+[kr_arrow_down]
 type=model
 x=377
 y=181
 width=42
 height=80
-layer=com_67
+layer=content_layer
 model=model_27216
 modelorigin=-1,-7
 modelangle=0,0,1024
@@ -193,13 +193,13 @@ transmitop=1
 op1=Down
 
 // 588:14
-[com_14]
+[kr_check_btn]
 type=text
 x=331
 y=269
 width=98
 height=34
-layer=com_67
+layer=content_layer
 textfont=quill_oblique_large
 text=Try Lock
 textalignh=centre
@@ -212,13 +212,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x64501e)
 
 // 588:15
-[com_15]
+[kr_tumb_col_1]
 type=text
 x=68
 y=251
 width=15
 height=24
-layer=com_67
+layer=content_layer
 textfont=p11_full
 text=1
 textalignh=centre
@@ -227,13 +227,13 @@ textshadow=yes
 colour=0x64501e
 
 // 588:16
-[com_16]
+[kr_tumb_col_2]
 type=text
 x=100
 y=251
 width=15
 height=24
-layer=com_67
+layer=content_layer
 textfont=p11_full
 text=2
 textalignh=centre
@@ -242,13 +242,13 @@ textshadow=yes
 colour=0x645000
 
 // 588:17
-[com_17]
+[kr_tumb_col_3]
 type=text
 x=132
 y=251
 width=15
 height=24
-layer=com_67
+layer=content_layer
 textfont=p11_full
 text=3
 textalignh=centre
@@ -257,13 +257,13 @@ textshadow=yes
 colour=0x64501e
 
 // 588:18
-[com_18]
+[kr_tumb_col_4]
 type=text
 x=164
 y=251
 width=15
 height=24
-layer=com_67
+layer=content_layer
 textfont=p11_full
 text=4
 textalignh=centre
@@ -272,26 +272,26 @@ textshadow=yes
 colour=0x64501e
 
 // 588:19
-[com_19]
+[kr_instr4]
 type=text
 x=228
 y=222
 width=72
 height=17
-layer=com_67
+layer=content_layer
 textfont=p11_full
 text=Select a tumbler
 textshadow=yes
 colour=0x64501e
 
 // 588:20
-[com_20]
+[kr_tumb_1]
 type=text
 x=218
 y=238
 width=20
 height=30
-layer=com_67
+layer=content_layer
 textfont=quill_oblique_large
 text=1
 textalignh=centre
@@ -305,13 +305,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=kr_mouseleave_colour(1, event_com)
 
 // 588:21
-[com_21]
+[kr_tumb_2]
 type=text
 x=241
 y=238
 width=20
 height=30
-layer=com_67
+layer=content_layer
 textfont=quill_oblique_large
 text=2
 textalignh=centre
@@ -325,13 +325,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=kr_mouseleave_colour(2, event_com)
 
 // 588:22
-[com_22]
+[kr_tumb_3]
 type=text
 x=265
 y=238
 width=20
 height=30
-layer=com_67
+layer=content_layer
 textfont=quill_oblique_large
 text=3
 textalignh=centre
@@ -345,13 +345,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=kr_mouseleave_colour(3, event_com)
 
 // 588:23
-[com_23]
+[kr_tumb_4]
 type=text
 x=290
 y=238
 width=20
 height=30
-layer=com_67
+layer=content_layer
 textfont=quill_oblique_large
 text=4
 textalignh=centre
@@ -365,483 +365,483 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=kr_mouseleave_colour(4, event_com)
 
 // 588:24
-[com_24]
+[kr_chart_1_1]
 type=model
 x=68
 y=233
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1244
 
 // 588:25
-[com_25]
+[kr_chart_2_1]
 type=model
 x=100
 y=233
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:26
-[com_26]
+[kr_chart_3_1]
 type=model
 x=132
 y=233
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:27
-[com_27]
+[navigation_bar_piscatorisfishingcolony1]
 type=model
 x=164
 y=233
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:28
-[com_28]
+[kr_chart_1_2]
 type=model
 x=68
 y=217
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:29
-[com_29]
+[kr_chart_2_2]
 type=model
 x=100
 y=217
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:30
-[com_30]
+[kr_chart_3_2]
 type=model
 x=132
 y=217
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:31
-[com_31]
+[navigation_bar_piscatorisfishingcolony2]
 type=model
 x=164
 y=217
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:32
-[com_32]
+[kr_chart_1_3]
 type=model
 x=68
 y=201
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:33
-[com_33]
+[kr_chart_2_3]
 type=model
 x=100
 y=201
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:34
-[com_34]
+[kr_chart_3_3]
 type=model
 x=132
 y=201
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:35
-[com_35]
+[navigation_bar_piscatorisfishingcolony3]
 type=model
 x=164
 y=201
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:36
-[com_36]
+[kr_chart_1_4]
 type=model
 x=68
 y=185
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:37
-[com_37]
+[kr_chart_2_4]
 type=model
 x=100
 y=185
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:38
-[com_38]
+[kr_chart_3_4]
 type=model
 x=132
 y=185
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:39
-[com_39]
+[navigation_bar_piscatorisfishingcolony4]
 type=model
 x=164
 y=185
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:40
-[com_40]
+[kr_chart_1_5]
 type=model
 x=68
 y=169
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:41
-[com_41]
+[kr_chart_2_5]
 type=model
 x=100
 y=169
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:42
-[com_42]
+[kr_chart_3_5]
 type=model
 x=132
 y=169
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:43
-[com_43]
+[navigation_bar_piscatorisfishingcolony5]
 type=model
 x=164
 y=169
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:44
-[com_44]
+[kr_chart_1_6]
 type=model
 x=68
 y=153
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:45
-[com_45]
+[kr_chart_2_6]
 type=model
 x=100
 y=153
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:46
-[com_46]
+[kr_chart_3_6]
 type=model
 x=132
 y=153
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:47
-[com_47]
+[navigation_bar_piscatorisfishingcolony6]
 type=model
 x=164
 y=153
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:48
-[com_48]
+[kr_chart_1_7]
 type=model
 x=68
 y=137
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:49
-[com_49]
+[kr_chart_2_7]
 type=model
 x=100
 y=137
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:50
-[com_50]
+[kr_chart_3_7]
 type=model
 x=132
 y=137
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:51
-[com_51]
+[navigation_bar_piscatorisfishingcolony7]
 type=model
 x=164
 y=137
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:52
-[com_52]
+[kr_chart_1_8]
 type=model
 x=68
 y=121
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:53
-[com_53]
+[kr_chart_2_8]
 type=model
 x=100
 y=121
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:54
-[com_54]
+[kr_chart_3_8]
 type=model
 x=132
 y=121
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:55
-[com_55]
+[navigation_bar_piscatorisfishingcolony8]
 type=model
 x=164
 y=121
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:56
-[com_56]
+[kr_chart_1_9]
 type=model
 x=68
 y=105
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:57
-[com_57]
+[kr_chart_2_9]
 type=model
 x=100
 y=105
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:58
-[com_58]
+[kr_chart_3_9]
 type=model
 x=132
 y=105
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:59
-[com_59]
+[navigation_bar_piscatorisfishingcolony9]
 type=model
 x=164
 y=105
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:60
-[com_60]
+[kr_chart_1_10]
 type=model
 x=68
 y=89
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:61
-[com_61]
+[kr_chart_2_10]
 type=model
 x=100
 y=89
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:62
-[com_62]
+[kr_chart_3_10]
 type=model
 x=132
 y=89
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:63
-[com_63]
+[navigation_bar_piscatorisfishingcolony10]
 type=model
 x=164
 y=89
 width=16
 height=16
-layer=com_67
+layer=content_layer
 model=null
 modelzoom=1500
 
 // 588:64
-[com_64]
+[kr_key_1]
 type=model
 x=14
 y=12
 width=17
 height=17
-layer=com_67
+layer=content_layer
 model=model_27217
 modelangle=554,0,0
 modelzoom=1500
 
 // 588:65
-[com_65]
+[kr_key_2]
 type=model
 x=14
 y=30
 width=17
 height=17
-layer=com_67
+layer=content_layer
 model=model_27215
 modelangle=554,0,0
 modelzoom=1500
 
 // 588:66
-[com_66]
+[kr_key_3]
 type=model
 x=14
 y=48
 width=17
 height=17
-layer=com_67
+layer=content_layer
 model=model_27221
 modelangle=554,0,0
 modelzoom=1500
 
 // 588:67
-[com_67]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -849,7 +849,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 588:68
-[com_68]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -859,7 +859,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 588:69
-[com_69]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -867,7 +867,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_68
+layer=fsborder_main_layer
 
 // 588:70
 [com_70]
@@ -970,7 +970,7 @@ tiling=yes
 colour=0xffffffff
 
 // 588:78
-[com_78]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -978,30 +978,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_69
+layer=fsborder_resizing_layer
 
 // 588:79
-[com_79]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_69
+layer=fsborder_resizing_layer
 
 // 588:80
-[com_80]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_69
+layer=fsborder_resizing_layer
 
 // 588:81
-[com_81]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -1009,16 +1009,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_69
+layer=fsborder_resizing_layer
 
 // 588:82
-[com_82]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_69
+layer=fsborder_resizing_layer
 
 // 588:83
 [com_83]
@@ -1028,7 +1028,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_79
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -1043,7 +1043,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_78
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -1057,7 +1057,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_80
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -1072,7 +1072,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_81
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

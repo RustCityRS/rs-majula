@@ -41,7 +41,7 @@ while ($int5 < %varplayerbit_9227 & $int5 < 4) {
             .cc_setgraphicshadow(0x302020);
             .cc_setoutline(1);
             .cc_setopbase("<col=ff9040><oc_name($obj2)></col>");
-            .cc_setdraggable(deathkeep_select:com_2, -1);
+            .cc_setdraggable(deathkeep_select:contents, -1);
             .cc_setdragrenderbehaviour(2);
             .cc_setdragdeadzone(5);
             .cc_setdragdeadtime(5);
@@ -66,7 +66,7 @@ def_int $int8 = 0;
 def_int $int9 = 0;
 def_int $int10 = 0;
 def_int $int11 = 0;
-def_int $int12 = if_getwidth(deathkeep_select:com_2);
+def_int $int12 = if_getwidth(deathkeep_select:contents);
 def_int $int13 = calc($int12 - (max(if_getwidth(deathkeep_select:com_18), if_getwidth(deathkeep_select:com_26)) + 4));
 def_int $int14 = max(calc($int13 / 36), 1);
 def_int $int15 = calc(($int13 - 36 * $int14) / max(calc($int14 - 1), 1));
@@ -120,7 +120,7 @@ while ($int5 <= $int17) {
                 $int10 = calc($int6 * (36 + $int15));
                 $int11 = calc($int7 * (32 + $int16));
                 cc_setposition(calc($int10 + 2), calc($int11 + 2), ^setpos_abs_left, ^setpos_abs_top);
-                cc_setdraggable(deathkeep_select:com_2, -1);
+                cc_setdraggable(deathkeep_select:contents, -1);
                 cc_setdragrenderbehaviour(2);
                 cc_setdragdeadzone(5);
                 cc_setdragdeadtime(5);

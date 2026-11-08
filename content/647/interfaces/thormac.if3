@@ -247,7 +247,7 @@ textalignv=centre
 colour=0xaaaaaa
 
 // 332:21
-[com_21]
+[thormac_airstaff]
 type=model
 x=70
 y=72
@@ -263,7 +263,7 @@ onmouseleave=deltooltip(thormac:com_29)
 onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Air Battlestaff", 25, 150)
 
 // 332:22
-[com_22]
+[thormac_waterstaff]
 type=model
 x=180
 y=72
@@ -279,7 +279,7 @@ onmouseleave=deltooltip(thormac:com_29)
 onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Water Battlestaff", 25, 150)
 
 // 332:23
-[com_23]
+[thormac_earthstaff]
 type=model
 x=290
 y=72
@@ -295,7 +295,7 @@ onmouseleave=deltooltip(thormac:com_29)
 onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Earth Battlestaff", 25, 150)
 
 // 332:24
-[com_24]
+[thormac_firestaff]
 type=model
 x=400
 y=72
@@ -311,7 +311,7 @@ onmouseleave=deltooltip(thormac:com_29)
 onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Fire Battlestaff", 25, 150)
 
 // 332:25
-[com_25]
+[thormac_lavastaff]
 type=model
 x=70
 y=152
@@ -327,7 +327,7 @@ onmouseleave=deltooltip(thormac:com_29)
 onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Lava Battlestaff", 25, 150)
 
 // 332:26
-[com_26]
+[thormac_mudstaff]
 type=model
 x=180
 y=152
@@ -343,7 +343,7 @@ onmouseleave=deltooltip(thormac:com_29)
 onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Mud Battlestaff", 25, 150)
 
 // 332:27
-[com_27]
+[thormac_steamstaff]
 type=model
 x=290
 y=152
@@ -359,7 +359,7 @@ onmouseleave=deltooltip(thormac:com_29)
 onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Steam Battlestaff", 25, 150)
 
 // 332:28
-[com_28]
+[miscellaneous_sqr01]
 type=layer
 width=512
 height=334
@@ -371,4 +371,4 @@ x=205
 y=223
 width=50
 height=34
-layer=com_28
+layer=miscellaneous_sqr01

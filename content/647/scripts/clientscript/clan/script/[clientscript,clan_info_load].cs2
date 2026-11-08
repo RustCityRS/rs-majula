@@ -3,5 +3,5 @@
 if (activeclansettings_find_listened = true) {
     ~script4415;
 } else {
-    if_setonclansettingstransmit("script4414", clan_info:com_170);
+    if_setonclansettingstransmit("script4414", clan_info:content_layer);
 }

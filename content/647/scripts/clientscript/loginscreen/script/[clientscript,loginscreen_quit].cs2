@@ -1,6 +1,6 @@
 // 3377
 [clientscript,loginscreen_quit]
-if (if_gethide(loginscreen:com_48) = false | if_gethide(loginscreen:com_49) = false) {
+if (if_gethide(loginscreen:create) = false | if_gethide(loginscreen:create_success) = false) {
     ~create_exit;
 } else {
     quit;

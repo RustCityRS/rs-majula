@@ -1,8 +1,8 @@
 // 2749
 [clientscript,script2749](int $int0)
-if_settext(enum(int, string, enum_950, $int0), dob_confirm_login:com_46);
-if_setvflip(false, dob_confirm_login:com_60);
-if_sethide(true, dob_confirm_login:com_98);
-if_sethide(true, dob_confirm_login:com_99);
-if_sethide(true, dob_confirm_login:com_89);
-if_sethide(true, dob_confirm_login:com_27);
+if_settext(enum(int, string, enum_950, $int0), dob_confirm_login:monthtext);
+if_setvflip(false, dob_confirm_login:montharrow);
+if_sethide(true, dob_confirm_login:monthddlist);
+if_sethide(true, dob_confirm_login:monthddscroll);
+if_sethide(true, dob_confirm_login:monthddlistborder);
+if_sethide(true, dob_confirm_login:monthddback);

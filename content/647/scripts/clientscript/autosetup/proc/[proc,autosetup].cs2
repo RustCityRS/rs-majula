@@ -14,7 +14,7 @@ if ($int1 = 1 | $int1 = 3) {
     if ($int0 = 3) {
         if (unknown_command_5623 = true) {
             ~loginscreen_setactivemenu(5);
-            if_setontimer("login_delay(south_progress9:com_50, 0)", south_progress9:com_50);
+            if_setontimer("login_delay(south_progress9:login_button, 0)", south_progress9:login_button);
         } else if (~userflowflags(1) = true) {
             ~loginscreen_setactivemenu(11);
         } else {

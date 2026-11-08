@@ -200,7 +200,7 @@ graphic="v2_stone_borders,2"
 colour=0x000000
 
 // 114:20
-[com_20]
+[dr_text_sc1]
 type=text
 x=77
 y=172
@@ -213,7 +213,7 @@ textshadow=yes
 colour=0xaa8822
 
 // 114:21
-[com_21]
+[dr_text_sc2]
 type=text
 x=77
 y=192
@@ -226,7 +226,7 @@ textshadow=yes
 colour=0xaa8822
 
 // 114:22
-[com_22]
+[dr_text_sc3]
 type=text
 x=77
 y=212
@@ -239,7 +239,7 @@ textshadow=yes
 colour=0xaa8822
 
 // 114:23
-[com_23]
+[dr_text_hide]
 type=text
 x=14
 y=152
@@ -251,7 +251,7 @@ textshadow=yes
 colour=0xaa8822
 
 // 114:24
-[com_24]
+[f4_select1]
 type=graphic
 x=55
 y=172
@@ -266,7 +266,7 @@ opcursor0=cursor_46
 onvartransmit=f4_select1{varplayer_433, xplamp_stat}
 
 // 114:25
-[com_25]
+[f4_select2]
 type=graphic
 x=55
 y=192
@@ -281,7 +281,7 @@ opcursor0=cursor_46
 onvartransmit=f4_select2{varplayer_433, varplayer_262}
 
 // 114:26
-[com_26]
+[f4_select3]
 type=graphic
 x=55
 y=212
@@ -296,7 +296,7 @@ opcursor0=cursor_46
 onvartransmit=f4_select3{varplayer_433, varplayer_263}
 
 // 114:27
-[com_27]
+[f4_hide1]
 type=graphic
 x=23
 y=172
@@ -310,7 +310,7 @@ op1=Show
 onvartransmit=f4_hide1{varplayer_433, gnome_course_progress}
 
 // 114:28
-[com_28]
+[f4_hide2]
 type=graphic
 x=23
 y=192
@@ -324,7 +324,7 @@ op1=Show
 onvartransmit=f4_hide2{varplayer_433, barbarian_course_progress}
 
 // 114:29
-[com_29]
+[f4_hide3]
 type=graphic
 x=23
 y=212
@@ -338,7 +338,7 @@ op1=Show
 onvartransmit=f4_hide3{varplayer_433, wilderness_course_progress}
 
 // 114:30
-[com_30]
+[dr_rotate_button]
 type=model
 x=75
 y=49
@@ -351,7 +351,7 @@ transmitop=1
 op1=Rotate
 
 // 114:31
-[com_31]
+[dr_move_up]
 type=model
 x=75
 y=9
@@ -364,7 +364,7 @@ transmitop=1
 op1=Move-up
 
 // 114:32
-[com_32]
+[dr_move_right]
 type=model
 x=115
 y=48
@@ -378,7 +378,7 @@ transmitop=1
 op1=Move-right
 
 // 114:33
-[com_33]
+[dr_move_left]
 type=model
 x=36
 y=48
@@ -392,7 +392,7 @@ transmitop=1
 op1=Move-left
 
 // 114:34
-[com_34]
+[dr_move_down]
 type=model
 x=75
 y=88

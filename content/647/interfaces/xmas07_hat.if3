@@ -1,5 +1,5 @@
 // 658:0
-[com_0]
+[shadow]
 type=rectangle
 x=60
 y=41
@@ -10,7 +10,7 @@ fill=yes
 trans=200
 
 // 658:1
-[com_1]
+[blue_underlay]
 type=rectangle
 x=57
 y=34
@@ -136,7 +136,7 @@ trans=20
 colour=0x000000
 
 // 658:12
-[com_12]
+[close_button]
 type=graphic
 x=431
 y=43
@@ -152,7 +152,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 658:13
-[com_13]
+[title]
 type=text
 x=146
 y=44
@@ -165,7 +165,7 @@ textshadow=yes
 colour=0xb5d0d0
 
 // 658:14
-[com_14]
+[divider]
 type=model
 y=1
 model=null
@@ -185,7 +185,7 @@ textshadow=yes
 colour=0xb2e0e4
 
 // 658:16
-[com_16]
+[dragon_hat]
 type=text
 x=148
 y=150
@@ -198,7 +198,7 @@ textshadow=yes
 colour=0xb2e0e4
 
 // 658:17
-[com_17]
+[dwarf_hat]
 type=text
 x=230
 y=150
@@ -212,7 +212,7 @@ colour=0xb2e0e4
 opbase= 
 
 // 658:18
-[com_18]
+[pirate_hat]
 type=text
 x=311
 y=150
@@ -225,7 +225,7 @@ textshadow=yes
 colour=0xb2e0e4
 
 // 658:19
-[com_19]
+[top_hat]
 type=text
 x=390
 y=150
@@ -238,7 +238,7 @@ textshadow=yes
 colour=0xb2e0e4
 
 // 658:20
-[com_20]
+[divider0]
 type=model
 y=1
 model=null
@@ -256,7 +256,7 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 658:22
-[com_22]
+[barbarian_hat_button]
 type=rectangle
 x=72
 y=96
@@ -282,7 +282,7 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 658:24
-[com_24]
+[dragon_hat_button]
 type=rectangle
 x=149
 y=96
@@ -308,7 +308,7 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 658:26
-[com_26]
+[dwarf_hat_button]
 type=rectangle
 x=231
 y=96
@@ -334,7 +334,7 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 658:28
-[com_28]
+[pirate_hat_button]
 type=rectangle
 x=312
 y=96
@@ -360,7 +360,7 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 658:30
-[com_30]
+[top_hat_button]
 type=rectangle
 x=391
 y=96
@@ -381,19 +381,19 @@ x=149
 y=192
 width=50
 height=50
-layer=com_53
+layer=weapons_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 658:32
-[com_32]
+[bow_button]
 type=rectangle
 x=149
 y=192
 width=50
 height=50
-layer=com_53
+layer=weapons_layer
 colour=0x72a7a1
 fill=yes
 trans=240
@@ -409,19 +409,19 @@ x=231
 y=192
 width=50
 height=50
-layer=com_53
+layer=weapons_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 658:34
-[com_34]
+[staff_button]
 type=rectangle
 x=231
 y=192
 width=50
 height=50
-layer=com_53
+layer=weapons_layer
 colour=0x72a7a1
 fill=yes
 trans=240
@@ -437,19 +437,19 @@ x=313
 y=192
 width=50
 height=50
-layer=com_53
+layer=weapons_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 658:36
-[com_36]
+[sword_button]
 type=rectangle
 x=313
 y=192
 width=50
 height=50
-layer=com_53
+layer=weapons_layer
 colour=0x72a7a1
 fill=yes
 trans=240
@@ -459,7 +459,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 658:37
-[com_37]
+[divider2]
 type=model
 y=1
 model=null
@@ -565,7 +565,7 @@ x=154
 y=192
 width=41
 height=48
-layer=com_53
+layer=weapons_layer
 model=model_30314
 modelorigin=0,7
 modelangle=210,129,0
@@ -578,7 +578,7 @@ x=235
 y=190
 width=48
 height=54
-layer=com_53
+layer=weapons_layer
 model=model_30316
 modelorigin=2,4
 modelangle=1687,2032,0
@@ -591,20 +591,20 @@ x=317
 y=192
 width=45
 height=48
-layer=com_53
+layer=weapons_layer
 model=model_30313
 modelorigin=3,0
 modelangle=381,2041,0
 modelzoom=1296
 
 // 658:50
-[com_50]
+[bow]
 type=text
 x=145
 y=250
 width=55
 height=25
-layer=com_53
+layer=weapons_layer
 textfont=p11_full
 text=Holly Bow
 textalignh=centre
@@ -612,13 +612,13 @@ textshadow=yes
 colour=0xb2e0e4
 
 // 658:51
-[com_51]
+[staff]
 type=text
 x=228
 y=250
 width=55
 height=25
-layer=com_53
+layer=weapons_layer
 textfont=p11_full
 text=Winter Staff
 textalignh=centre
@@ -626,13 +626,13 @@ textshadow=yes
 colour=0xb2e0e4
 
 // 658:52
-[com_52]
+[sword]
 type=text
 x=309
 y=250
 width=55
 height=25
-layer=com_53
+layer=weapons_layer
 textfont=p11_full
 text=Ice Sword
 textalignh=centre
@@ -640,14 +640,14 @@ textshadow=yes
 colour=0xb2e0e4
 
 // 658:53
-[com_53]
+[weapons_layer]
 type=layer
 width=512
 height=334
 hide=yes
 
 // 658:54
-[com_54]
+[websites_dia07]
 type=rectangle
 x=57
 y=35

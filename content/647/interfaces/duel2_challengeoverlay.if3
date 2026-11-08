@@ -1,5 +1,5 @@
 // 638:0
-[com_0]
+[duel_icon_lay]
 type=layer
 width=16391
 height=16391
@@ -7,13 +7,13 @@ widthmode=proportion
 heightmode=proportion
 
 // 638:1
-[com_1]
+[duel_icon]
 type=graphic
 x=15
 y=15
 width=25
 height=25
 xmode=abs_right
-layer=com_0
+layer=duel_icon_lay
 graphic=overlay_duel
 colour=0x000000

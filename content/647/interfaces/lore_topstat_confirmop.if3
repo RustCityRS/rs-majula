@@ -1,5 +1,5 @@
 // 880:0
-[com_0]
+[customise]
 type=layer
 width=190
 height=261
@@ -42,7 +42,7 @@ colour=0xffffffff
 onvartransmit=script2672{varplayer_1494}
 
 // 880:4
-[com_4]
+[custom_instructions]
 type=text
 y=12
 width=183
@@ -57,7 +57,7 @@ transmitop=10
 op10= 
 
 // 880:5
-[com_5]
+[custom_confirm]
 type=graphic
 x=37
 y=235
@@ -69,7 +69,7 @@ transmitop=10
 op10= 
 
 // 880:6
-[com_6]
+[confirm_text]
 type=text
 x=63
 y=238
@@ -84,7 +84,7 @@ transmitop=10
 op10= 
 
 // 880:7
-[com_7]
+[details_radio]
 type=graphic
 x=12
 y=34
@@ -96,11 +96,11 @@ transmitop=1,10
 op1=Select
 op10= 
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_8, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_8, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:details_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:details_label, ^white)
 
 // 880:8
-[com_8]
+[details_label]
 type=text
 x=43
 y=40
@@ -114,11 +114,11 @@ transmitop=1,10
 op1=Select
 op10=   
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_8, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_8, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:details_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:details_label, ^white)
 
 // 880:9
-[com_9]
+[spell_radio]
 type=graphic
 x=12
 y=57
@@ -129,11 +129,11 @@ colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_10, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_10, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:spell_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:spell_label, ^white)
 
 // 880:10
-[com_10]
+[spell_label]
 type=text
 x=43
 y=63
@@ -147,11 +147,11 @@ transmitop=1,10
 op1=Select
 op10=  
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_10, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_10, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:spell_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:spell_label, ^white)
 
 // 880:11
-[com_11]
+[attack_radio]
 type=graphic
 x=12
 y=80
@@ -163,11 +163,11 @@ transmitop=1,10
 op1=Select
 op10= 
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_12, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_12, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:attack_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:attack_label, ^white)
 
 // 880:12
-[com_12]
+[attack_label]
 type=text
 x=43
 y=86
@@ -181,11 +181,11 @@ transmitop=1,10
 op1=Select
 op10=   
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_12, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_12, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:attack_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:attack_label, ^white)
 
 // 880:13
-[com_13]
+[call_radio]
 type=graphic
 x=12
 y=103
@@ -197,11 +197,11 @@ transmitop=1,10
 op1=Select
 op10= 
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_14, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_14, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:call_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:call_label, ^white)
 
 // 880:14
-[com_14]
+[call_label]
 type=text
 x=43
 y=109
@@ -215,11 +215,11 @@ transmitop=1,10
 op1=Select
 op10=   
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_14, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_14, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:call_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:call_label, ^white)
 
 // 880:15
-[com_15]
+[dismiss_radio]
 type=graphic
 x=12
 y=126
@@ -231,11 +231,11 @@ transmitop=1,10
 op1=Select
 op10= 
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_16, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_16, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:dismiss_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:dismiss_label, ^white)
 
 // 880:16
-[com_16]
+[dismiss_label]
 type=text
 x=43
 y=132
@@ -249,11 +249,11 @@ transmitop=1,10
 op1=Select
 op10=   
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_16, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_16, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:dismiss_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:dismiss_label, ^white)
 
 // 880:17
-[com_17]
+[bob_radio]
 type=graphic
 x=12
 y=149
@@ -265,11 +265,11 @@ transmitop=1,10
 op1=Select
 op10= 
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_18, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_18, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:bob_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:bob_label, ^white)
 
 // 880:18
-[com_18]
+[bob_label]
 type=text
 x=43
 y=155
@@ -283,11 +283,11 @@ transmitop=1,10
 op1=Select
 op10=   
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_18, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_18, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:bob_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:bob_label, ^white)
 
 // 880:19
-[com_19]
+[renew_radio]
 type=graphic
 x=12
 y=172
@@ -299,11 +299,11 @@ transmitop=1,10
 op1=Select
 op10= 
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_20, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_20, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:renew_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:renew_label, ^white)
 
 // 880:20
-[com_20]
+[renew_label]
 type=text
 x=43
 y=178
@@ -317,23 +317,23 @@ transmitop=1,10
 op1=Select
 op10=   
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_20, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_20, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:renew_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:renew_label, ^white)
 
 // 880:21
-[com_21]
+[confirm_layer]
 type=layer
 y=4
 width=122
 height=25
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=customise
 transmitop=1,10
 op1=Confirm Selection
 op10= 
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_6, 0xffcc00)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_6, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:confirm_text, 0xffcc00)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:confirm_text, ^white)
 
 // 880:22
 [com_22]
@@ -341,7 +341,7 @@ type=graphic
 width=190
 height=46
 ymode=abs_bottom
-layer=com_0
+layer=customise
 graphic=graphic_2038
 tiling=yes
 colour=0xffffffff
@@ -353,7 +353,7 @@ op10=
 type=graphic
 width=190
 height=70
-layer=com_0
+layer=customise
 graphic=graphic_2042
 tiling=yes
 colour=0xffffffff
@@ -364,7 +364,7 @@ type=graphic
 y=69
 width=190
 height=148
-layer=com_0
+layer=customise
 graphic=km_middlefillcolour
 tiling=yes
 colour=0xffffffff

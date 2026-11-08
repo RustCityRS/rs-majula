@@ -1,11 +1,11 @@
 // 755:0
-[com_0]
+[universe]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-onload=worldmap_init(event_com, worldmap:com_49, worldmap:com_50, worldmap:com_56, worldmap:com_25, worldmap:com_29, worldmap:com_31, worldmap:com_27, worldmap:com_32, worldmap:com_28)
+onload=worldmap_init(event_com, worldmap:com_49, worldmap:com_50, worldmap:sort_text, worldmap:findbox_text, worldmap:worldmap_overlay, worldmap:map_menu_dropdown, worldmap:map_menu_list, worldmap:map_menu_scrollbar, worldmap:worldmap)
 
 // 755:1
 [com_1]
@@ -16,13 +16,13 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
 
 // 755:2
-[com_2]
+[mainwin]
 type=layer
 y=7
 width=12
@@ -30,12 +30,12 @@ height=49
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_0
+layer=universe
 dragrenderbehaviour=1
-onscrollwheel=script1370(worldmap:com_0, worldmap:com_28, event_mousey, 1)
+onscrollwheel=script1370(worldmap:universe, worldmap:worldmap, event_mousey, 1)
 
 // 755:3
-[com_3]
+[bottombar]
 type=layer
 y=7
 width=12
@@ -43,14 +43,14 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=universe
 
 // 755:4
 [com_4]
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=bottombar
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -62,7 +62,7 @@ x=4
 width=35
 height=35
 ymode=abs_centre
-layer=com_3
+layer=bottombar
 graphic="bank_buttons,16"
 colour=0xffffffff
 transmitop=1
@@ -71,14 +71,14 @@ onmouseover=graphic_swapper(event_com, "bank_buttons,17")
 onmouseleave=graphic_swapper(event_com, "bank_buttons,16")
 
 // 755:6
-[com_6]
+[overviewtoggle]
 type=graphic
 x=59
 width=35
 height=35
 xmode=abs_right
 ymode=abs_centre
-layer=com_3
+layer=bottombar
 graphic="bank_buttons,14"
 colour=0xffffffff
 transmitop=1
@@ -87,34 +87,34 @@ onmouseover=graphic_swapper(event_com, "bank_buttons,15")
 onmouseleave=graphic_swapper(event_com, "bank_buttons,14")
 
 // 755:7
-[com_7]
+[findbox]
 type=layer
 x=1966
 width=226
 height=20
 xmode=proportion_left
 ymode=abs_centre
-layer=com_3
+layer=bottombar
 
 // 755:8
-[com_8]
+[map_menu]
 type=layer
 x=1850
 width=270
 height=22
 xmode=proportion_centre
 ymode=abs_centre
-layer=com_3
+layer=bottombar
 noclickthrough=yes
 
 // 755:9
-[com_9]
+[zoom_layer]
 type=layer
 x=1
 width=54
 heightmode=minus
 xmode=abs_right
-layer=com_3
+layer=bottombar
 
 // 755:10
 [com_10]
@@ -122,7 +122,7 @@ type=graphic
 width=20
 height=20
 ymode=abs_centre
-layer=com_9
+layer=zoom_layer
 graphic="search_box,0"
 colour=0xffffffff
 transmitop=10
@@ -135,47 +135,47 @@ x=17
 width=20
 height=20
 ymode=abs_centre
-layer=com_9
+layer=zoom_layer
 graphic="search_box,2"
 colour=0xffffffff
 
 // 755:12
-[com_12]
+[zoom_in_button]
 type=graphic
 width=16
 height=16
 xmode=abs_right
-layer=com_9
+layer=zoom_layer
 graphic="scrollbar_v2,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Zoom in
 op10= 
-onclick=script1370(worldmap:com_0, worldmap:com_28, -1, 0)
+onclick=script1370(worldmap:universe, worldmap:worldmap, -1, 0)
 
 // 755:13
-[com_13]
+[zoom_out_button]
 type=graphic
 width=16
 height=16
 xmode=abs_right
 ymode=abs_bottom
-layer=com_9
+layer=zoom_layer
 graphic="scrollbar_v2,1"
 colour=0xffffffff
 transmitop=1,10
 op1=Zoom out
 op10=  
-onclick=script1370(worldmap:com_0, worldmap:com_28, 1, 0)
+onclick=script1370(worldmap:universe, worldmap:worldmap, 1, 0)
 
 // 755:14
-[com_14]
+[zoom_level]
 type=text
 width=17
 height=20
 widthmode=minus
 ymode=abs_centre
-layer=com_9
+layer=zoom_layer
 textfont=p11_full
 text=200%
 textalignh=centre
@@ -189,7 +189,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_8
+layer=map_menu
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -200,7 +200,7 @@ type=graphic
 width=32
 heightmode=minus
 ymode=abs_centre
-layer=com_8
+layer=map_menu
 graphic="v2_stone_borders,34"
 tiling=yes
 colour=0xffffffff
@@ -212,7 +212,7 @@ width=32
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_8
+layer=map_menu
 graphic="v2_stone_borders,34"
 tiling=yes
 hflip=yes
@@ -225,7 +225,7 @@ width=4
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_8
+layer=map_menu
 graphic="v2_stone_borders,33"
 tiling=yes
 colour=0xffffffff
@@ -238,21 +238,21 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_8
+layer=map_menu
 graphic="v2_stone_borders,33"
 tiling=yes
 vflip=yes
 colour=0xffffffff
 
 // 755:20
-[com_20]
+[mapname]
 type=text
 x=4
 width=24
 widthmode=minus
 heightmode=minus
 ymode=abs_centre
-layer=com_8
+layer=map_menu
 textfont=p12_full
 textalignv=centre
 textshadow=yes
@@ -260,14 +260,14 @@ onmouseover=text_colour_swapper(event_com, 0xafafaf)
 onmouseleave=text_colour_swapper(event_com, ^white)
 
 // 755:21
-[com_21]
+[map_menu_arrow]
 type=graphic
 x=3
 width=16
 height=16
 xmode=abs_right
 ymode=abs_centre
-layer=com_8
+layer=map_menu
 graphic="scrollbar_v2,0"
 colour=0xffffffff
 onmouseover=settrans(event_com, 100)
@@ -279,7 +279,7 @@ type=graphic
 width=20
 height=20
 ymode=abs_centre
-layer=com_7
+layer=findbox
 graphic="search_box,0"
 colour=0xffffffff
 
@@ -290,7 +290,7 @@ width=40
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_7
+layer=findbox
 graphic="search_box,1"
 tiling=yes
 colour=0xffffffff
@@ -302,21 +302,21 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_centre
-layer=com_7
+layer=findbox
 graphic="search_box,2"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 755:25
-[com_25]
+[findbox_text]
 type=text
 width=20
 widthmode=minus
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_7
+layer=findbox
 textfont=p11_full
 text=Search the map by typing here.
 textalignv=centre
@@ -330,14 +330,14 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=map_menu_dropdown
 graphic=tradebacking
 tiling=yes
 trans=100
 colour=0xffffffff
 
 // 755:27
-[com_27]
+[map_menu_list]
 type=layer
 x=4
 width=24
@@ -345,54 +345,54 @@ height=3
 widthmode=minus
 heightmode=minus
 ymode=abs_bottom
-layer=com_31
+layer=map_menu_dropdown
 
 // 755:28
-[com_28]
+[worldmap]
 type=layer
 clientcode=1400
 widthmode=minus
 heightmode=minus
 xmode=abs_right
-layer=com_2
+layer=mainwin
 
 // 755:29
-[com_29]
+[worldmap_overlay]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_2
-onload=worldmap_overlay(worldmap:com_29, worldmap:com_28, 0, 0, 0)
-ontimer=worldmap_overlay(worldmap:com_29, worldmap:com_28, 0, 0, 0)
+layer=mainwin
+onload=worldmap_overlay(worldmap:worldmap_overlay, worldmap:worldmap, 0, 0, 0)
+ontimer=worldmap_overlay(worldmap:worldmap_overlay, worldmap:worldmap, 0, 0, 0)
 
 // 755:30
-[com_30]
+[ops]
 type=text
 clientcode=1406
 x=3
 y=3
 width=300
 height=16
-layer=com_29
+layer=worldmap_overlay
 textfont=b12_full
 textshadow=yes
 
 // 755:31
-[com_31]
+[map_menu_dropdown]
 type=layer
 x=1850
 width=270
 height=120
 xmode=proportion_centre
 ymode=abs_bottom
-layer=com_2
+layer=mainwin
 hide=yes
 noclickthrough=yes
 
 // 755:32
-[com_32]
+[map_menu_scrollbar]
 type=layer
 x=3
 width=16
@@ -400,7 +400,7 @@ height=3
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_31
+layer=map_menu_dropdown
 
 // 755:33
 [com_33]
@@ -408,7 +408,7 @@ type=graphic
 width=32
 heightmode=minus
 ymode=abs_centre
-layer=com_31
+layer=map_menu_dropdown
 graphic="v2_stone_borders,34"
 tiling=yes
 colour=0xffffffff
@@ -420,7 +420,7 @@ width=32
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_31
+layer=map_menu_dropdown
 graphic="v2_stone_borders,34"
 tiling=yes
 hflip=yes
@@ -433,65 +433,65 @@ width=3
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_31
+layer=map_menu_dropdown
 graphic="v2_stone_borders,33"
 tiling=yes
 hflip=yes
 colour=0xffffffff
 
 // 755:36
-[com_36]
+[you_are_here]
 type=layer
 width=50
 height=50
-layer=com_29
+layer=worldmap_overlay
 
 // 755:37
-[com_37]
+[arrow0]
 type=layer
 width=50
 height=50
-layer=com_29
+layer=worldmap_overlay
 
 // 755:38
-[com_38]
+[arrow1]
 type=layer
 width=50
 height=50
-layer=com_29
+layer=worldmap_overlay
 
 // 755:39
-[com_39]
+[arrow2]
 type=layer
 width=50
 height=50
-layer=com_29
+layer=worldmap_overlay
 
 // 755:40
-[com_40]
+[arrow3]
 type=layer
 width=50
 height=50
-layer=com_29
+layer=worldmap_overlay
 
 // 755:41
-[com_41]
+[arrow_gravestone]
 type=layer
 width=50
 height=50
-layer=com_29
+layer=worldmap_overlay
 
 // 755:42
-[com_42]
+[arrow_waypoint]
 type=layer
 width=50
 height=50
-layer=com_29
+layer=worldmap_overlay
 transmitop=10
 op10=Clear marker
 
 // 755:43
-[com_43]
+[fps]
 type=text
 clientcode=1405
 x=22
@@ -499,20 +499,20 @@ y=3
 width=100
 height=71
 xmode=abs_right
-layer=com_29
+layer=worldmap_overlay
 textfont=p11_full
 textshadow=yes
 colour=0xffff00
 
 // 755:44
-[com_44]
+[close]
 type=graphic
 x=3
 y=3
 width=16
 height=16
 xmode=abs_right
-layer=com_2
+layer=mainwin
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -522,14 +522,14 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 755:45
-[com_45]
+[closearrow]
 type=model
 x=20
 y=20
 width=82
 height=82
 xmode=abs_right
-layer=com_2
+layer=mainwin
 hide=yes
 model=model_41760
 modelorigin=0,-1
@@ -538,21 +538,21 @@ modelzoom=800
 modelanim=seq_10221
 
 // 755:46
-[com_46]
+[overviewframe]
 type=layer
 width=153
 height=153
 xmode=abs_right
 ymode=abs_bottom
-layer=com_2
+layer=mainwin
 noclickthrough=yes
 
 // 755:47
-[com_47]
+[xv_repaint01]
 type=layer
 width=185
 heightmode=minus
-layer=com_2
+layer=mainwin
 noclickthrough=yes
 
 // 755:48
@@ -560,7 +560,7 @@ noclickthrough=yes
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_47
+layer=xv_repaint01
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -572,7 +572,7 @@ width=19
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_47
+layer=xv_repaint01
 
 // 755:50
 [com_50]
@@ -582,7 +582,7 @@ width=16
 height=34
 heightmode=minus
 xmode=abs_right
-layer=com_47
+layer=xv_repaint01
 
 // 755:51
 [com_51]
@@ -590,61 +590,61 @@ type=graphic
 width=3
 heightmode=minus
 xmode=abs_right
-layer=com_47
+layer=xv_repaint01
 graphic="v2_stone_borders,34"
 tiling=yes
 colour=0xffffffff
 
 // 755:52
-[com_52]
+[sort_layer]
 type=layer
 width=3
 height=34
 widthmode=minus
 ymode=abs_bottom
-layer=com_47
+layer=xv_repaint01
 
 // 755:53
 [com_53]
 type=graphic
 height=32
 widthmode=minus
-layer=com_52
+layer=sort_layer
 graphic="v2_stone_borders,33"
 tiling=yes
 colour=0xffffffff
 
 // 755:54
-[com_54]
+[sort_button]
 type=graphic
 x=4
 y=1
 width=35
 height=35
 ymode=abs_centre
-layer=com_52
+layer=sort_layer
 graphic="bank_buttons_new2,0"
 colour=0xffffffff
 transmitop=1
 op1=Re-sort key
-onmouseover=script691(worldmap:com_54, worldmap:com_55, "bank_buttons_new2,2", 150)
-onmouseleave=script691(worldmap:com_54, worldmap:com_55, "bank_buttons_new2,0", 0)
-onop=worldmap_keysort_button(worldmap:com_49, worldmap:com_50, worldmap:com_56)
+onmouseover=script691(worldmap:sort_button, worldmap:sort_button_image, "bank_buttons_new2,2", 150)
+onmouseleave=script691(worldmap:sort_button, worldmap:sort_button_image, "bank_buttons_new2,0", 0)
+onop=worldmap_keysort_button(worldmap:com_49, worldmap:com_50, worldmap:sort_text)
 
 // 755:55
-[com_55]
+[sort_button_image]
 type=graphic
 x=4
 y=1
 width=35
 height=35
 ymode=abs_centre
-layer=com_52
+layer=sort_layer
 graphic="bank_buttons_new1,3"
 colour=0xffffffff
 
 // 755:56
-[com_56]
+[sort_text]
 type=text
 y=1
 width=39
@@ -652,7 +652,7 @@ height=35
 widthmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_52
+layer=sort_layer
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -660,18 +660,18 @@ textshadow=yes
 colour=0xff9900
 
 // 755:57
-[com_57]
+[tooltip]
 type=layer
 width=20
 height=20
-layer=com_2
+layer=mainwin
 
 // 755:58
 [com_58]
 type=graphic
 width=32
 height=32
-layer=com_46
+layer=overviewframe
 graphic="v2_stone_borders,28"
 colour=0xffffffff
 
@@ -681,7 +681,7 @@ type=graphic
 x=32
 width=120
 height=32
-layer=com_46
+layer=overviewframe
 graphic="v2_stone_borders,33"
 colour=0xffffffff
 
@@ -691,7 +691,7 @@ type=graphic
 y=32
 width=32
 height=121
-layer=com_46
+layer=overviewframe
 graphic="v2_stone_borders,34"
 colour=0xffffffff
 
@@ -703,4 +703,4 @@ width=150
 height=150
 xmode=abs_right
 ymode=abs_bottom
-layer=com_46
+layer=overviewframe

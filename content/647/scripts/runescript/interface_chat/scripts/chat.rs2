@@ -164,29 +164,29 @@ if ($lines = 0) {
     // sanity check
     return;
 } else if ($lines = 1) {
-    .if_settext(message1:com_1, split_get($page, 0));
+    .if_settext(message1:mes1a, split_get($page, 0));
     .if_openchat(message1);
 } else if ($lines = 2) {
-    .if_settext(message2:com_1, split_get($page, 0));
-    .if_settext(message2:com_2, split_get($page, 1));
+    .if_settext(message2:mes2a, split_get($page, 0));
+    .if_settext(message2:mes2b, split_get($page, 1));
     .if_openchat(message2);
 } else if ($lines = 3) {
-    .if_settext(message3:com_1, split_get($page, 0));
-    .if_settext(message3:com_2, split_get($page, 1));
-    .if_settext(message3:com_3, split_get($page, 2));
+    .if_settext(message3:mes3a, split_get($page, 0));
+    .if_settext(message3:mes3b, split_get($page, 1));
+    .if_settext(message3:mes3c, split_get($page, 2));
     .if_openchat(message3);
 } else if ($lines = 4) {
-    .if_settext(message4:com_1, split_get($page, 0));
-    .if_settext(message4:com_2, split_get($page, 1));
-    .if_settext(message4:com_3, split_get($page, 2));
-    .if_settext(message4:com_4, split_get($page, 3));
+    .if_settext(message4:mes4a, split_get($page, 0));
+    .if_settext(message4:mes4b, split_get($page, 1));
+    .if_settext(message4:mes4c, split_get($page, 2));
+    .if_settext(message4:mes4d, split_get($page, 3));
     .if_openchat(message4);
 } else if ($lines = 5) {
-    .if_settext(message5:com_1, split_get($page, 0));
-    .if_settext(message5:com_2, split_get($page, 1));
-    .if_settext(message5:com_3, split_get($page, 2));
-    .if_settext(message5:com_4, split_get($page, 3));
-    .if_settext(message5:com_5, split_get($page, 4));
+    .if_settext(message5:mes5a, split_get($page, 0));
+    .if_settext(message5:mes5b, split_get($page, 1));
+    .if_settext(message5:mes5c, split_get($page, 2));
+    .if_settext(message5:mes5d, split_get($page, 3));
+    .if_settext(message5:mes5e, split_get($page, 4));
     .if_openchat(message5);
 }
 
@@ -219,8 +219,8 @@ if (split_linecount($page) = 0) {
     // sanity check
     return;
 }
-if_setobject(objbox:com_0, $obj, $scale);
-if_settext(objbox:com_1, ~split_page_text($page));
+if_setobject(objbox:objbox_graphic, $obj, $scale);
+if_settext(objbox:objbox_text, ~split_page_text($page));
 if_openchat(objbox);
 
 [proc,objbox](obj $obj, string $string, int $scale, int $x, int $y)
@@ -265,9 +265,9 @@ if ($lines = 0 | $lines > 4) {
     // sanity check
     return;
 }
-if_settext(doubleobjbox:com_1, ~split_page_text($page));
-if_setobject(doubleobjbox:com_0, $obj_1, $scale1);
-if_setobject(doubleobjbox:com_2, $obj_2, $scale2);
+if_settext(doubleobjbox:doubleobjbox_text, ~split_page_text($page));
+if_setobject(doubleobjbox:doubleobjboxmodel1, $obj_1, $scale1);
+if_setobject(doubleobjbox:doubleobjboxmodel2, $obj_2, $scale2);
 if_openchat(doubleobjbox);
 
 [proc,doubleobjbox](obj $obj_1, obj $obj_2, string $string, int $scale)
@@ -300,170 +300,170 @@ if_close;
 // --- 2 options: interface 228 (multi2) ---
 // Components: title=com1, line1=com2, line2=com3, thin_swords=com6, wide_swords=com9
 [proc,p_choice2](string $string1, int $ret1, string $string2, int $ret2)(int)
-if_settext(multi2:com_1, "Select an Option")
-if_settext(multi2:com_2, $string1)
-if_settext(multi2:com_3, $string2)
-if_sethide(multi2:com_6, false)
+if_settext(multi2:multi2t, "Select an Option")
+if_settext(multi2:multi2a, $string1)
+if_settext(multi2:multi2b, $string2)
+if_sethide(multi2:multi2swords, false)
 if_sethide(multi2:com_9, true)
 if_openchat(multi2)
-if_addresumebutton(multi2:com_2)
-if_addresumebutton(multi2:com_3)
+if_addresumebutton(multi2:multi2a)
+if_addresumebutton(multi2:multi2b)
 p_pausebutton
 switch_component (last_com) {
-    case multi2:com_2 : return($ret1);
+    case multi2:multi2a : return($ret1);
     case default : return($ret2);
 }
 
 // p_choice2 with the caller's header in place of "Select an Option" (289's signature).
 [proc,p_choice2_header](string $string1, int $ret1, string $string2, int $ret2, string $headertext)(int)
-if_settext(multi2:com_1, $headertext)
-if_settext(multi2:com_2, $string1)
-if_settext(multi2:com_3, $string2)
-if_sethide(multi2:com_6, true)
+if_settext(multi2:multi2t, $headertext)
+if_settext(multi2:multi2a, $string1)
+if_settext(multi2:multi2b, $string2)
+if_sethide(multi2:multi2swords, true)
 if_sethide(multi2:com_9, false)
 if_openchat(multi2)
-if_addresumebutton(multi2:com_2)
-if_addresumebutton(multi2:com_3)
+if_addresumebutton(multi2:multi2a)
+if_addresumebutton(multi2:multi2b)
 p_pausebutton
 switch_component (last_com) {
-    case multi2:com_2 : return($ret1);
+    case multi2:multi2a : return($ret1);
     case default : return($ret2);
 }
 
 // --- 3 options: interface 230 (multi3) ---
 // Components: title=com1, line1=com2, line2=com3, line3=com4, thin_swords=com7, wide_swords=com10
 [proc,p_choice3](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3)(int)
-if_settext(multi3:com_1, "Select an Option")
-if_settext(multi3:com_2, $string1)
-if_settext(multi3:com_3, $string2)
-if_settext(multi3:com_4, $string3)
-if_sethide(multi3:com_7, false)
+if_settext(multi3:multi3t, "Select an Option")
+if_settext(multi3:multi3a, $string1)
+if_settext(multi3:multi3b, $string2)
+if_settext(multi3:multi3c, $string3)
+if_sethide(multi3:multi3swords, false)
 if_sethide(multi3:com_10, true)
 if_openchat(multi3)
-if_addresumebutton(multi3:com_2)
-if_addresumebutton(multi3:com_3)
-if_addresumebutton(multi3:com_4)
+if_addresumebutton(multi3:multi3a)
+if_addresumebutton(multi3:multi3b)
+if_addresumebutton(multi3:multi3c)
 p_pausebutton
 switch_component (last_com) {
-    case multi3:com_2 : return($ret1);
-    case multi3:com_3 : return($ret2);
+    case multi3:multi3a : return($ret1);
+    case multi3:multi3b : return($ret2);
     case default : return($ret3);
 }
 
 // p_choice3 with the caller's header in place of "Select an Option" (289's
 // signature; 289 uses it for the dough interface).
 [proc,p_choice3_header](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3, string $headertext)(int)
-if_settext(multi3:com_1, $headertext)
-if_settext(multi3:com_2, $string1)
-if_settext(multi3:com_3, $string2)
-if_settext(multi3:com_4, $string3)
-if_sethide(multi3:com_7, true)
+if_settext(multi3:multi3t, $headertext)
+if_settext(multi3:multi3a, $string1)
+if_settext(multi3:multi3b, $string2)
+if_settext(multi3:multi3c, $string3)
+if_sethide(multi3:multi3swords, true)
 if_sethide(multi3:com_10, false)
 if_openchat(multi3)
-if_addresumebutton(multi3:com_2)
-if_addresumebutton(multi3:com_3)
-if_addresumebutton(multi3:com_4)
+if_addresumebutton(multi3:multi3a)
+if_addresumebutton(multi3:multi3b)
+if_addresumebutton(multi3:multi3c)
 p_pausebutton
 switch_component (last_com) {
-    case multi3:com_2 : return($ret1);
-    case multi3:com_3 : return($ret2);
+    case multi3:multi3a : return($ret1);
+    case multi3:multi3b : return($ret2);
     case default : return($ret3);
 }
 
 // --- 4 options: interface 232 (multi4) ---
 // Components: title=com1, line1=com2, line2=com3, line3=com4, line4=com5, thin_swords=com8, wide_swords=com9
 [proc,p_choice4](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3, string $string4, int $ret4)(int)
-if_settext(multi4:com_1, "Select an Option")
-if_settext(multi4:com_2, $string1)
-if_settext(multi4:com_3, $string2)
-if_settext(multi4:com_4, $string3)
-if_settext(multi4:com_5, $string4)
-if_sethide(multi4:com_8, false)
-if_sethide(multi4:com_9, true)
+if_settext(multi4:multi4t, "Select an Option")
+if_settext(multi4:multi4a, $string1)
+if_settext(multi4:multi4b, $string2)
+if_settext(multi4:multi4c, $string3)
+if_settext(multi4:multi4d, $string4)
+if_sethide(multi4:multi4swords, false)
+if_sethide(multi4:multi4wideswords, true)
 if_openchat(multi4)
-if_addresumebutton(multi4:com_2)
-if_addresumebutton(multi4:com_3)
-if_addresumebutton(multi4:com_4)
-if_addresumebutton(multi4:com_5)
+if_addresumebutton(multi4:multi4a)
+if_addresumebutton(multi4:multi4b)
+if_addresumebutton(multi4:multi4c)
+if_addresumebutton(multi4:multi4d)
 p_pausebutton
 switch_component (last_com) {
-    case multi4:com_2 : return($ret1);
-    case multi4:com_3 : return($ret2);
-    case multi4:com_4 : return($ret3);
+    case multi4:multi4a : return($ret1);
+    case multi4:multi4b : return($ret2);
+    case multi4:multi4c : return($ret3);
     case default : return($ret4);
 }
 
 // p_choice4 with the caller's header in place of "Select an Option" (289's signature).
 [proc,p_choice4_header](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3, string $string4, int $ret4, string $headertext)(int)
-if_settext(multi4:com_1, $headertext)
-if_settext(multi4:com_2, $string1)
-if_settext(multi4:com_3, $string2)
-if_settext(multi4:com_4, $string3)
-if_settext(multi4:com_5, $string4)
-if_sethide(multi4:com_8, true)
-if_sethide(multi4:com_9, false)
+if_settext(multi4:multi4t, $headertext)
+if_settext(multi4:multi4a, $string1)
+if_settext(multi4:multi4b, $string2)
+if_settext(multi4:multi4c, $string3)
+if_settext(multi4:multi4d, $string4)
+if_sethide(multi4:multi4swords, true)
+if_sethide(multi4:multi4wideswords, false)
 if_openchat(multi4)
-if_addresumebutton(multi4:com_2)
-if_addresumebutton(multi4:com_3)
-if_addresumebutton(multi4:com_4)
-if_addresumebutton(multi4:com_5)
+if_addresumebutton(multi4:multi4a)
+if_addresumebutton(multi4:multi4b)
+if_addresumebutton(multi4:multi4c)
+if_addresumebutton(multi4:multi4d)
 p_pausebutton
 switch_component (last_com) {
-    case multi4:com_2 : return($ret1);
-    case multi4:com_3 : return($ret2);
-    case multi4:com_4 : return($ret3);
+    case multi4:multi4a : return($ret1);
+    case multi4:multi4b : return($ret2);
+    case multi4:multi4c : return($ret3);
     case default : return($ret4);
 }
 
 // --- 5 options: interface 234 (multi5) ---
 // Components: title=com1, line1=com2, line2=com3, line3=com4, line4=com5, line5=com6, thin_swords=com9, wide_swords=com10
 [proc,p_choice5](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3, string $string4, int $ret4, string $string5, int $ret5)(int)
-if_settext(multi5:com_1, "Select an Option")
-if_settext(multi5:com_2, $string1)
-if_settext(multi5:com_3, $string2)
-if_settext(multi5:com_4, $string3)
-if_settext(multi5:com_5, $string4)
-if_settext(multi5:com_6, $string5)
-if_sethide(multi5:com_9, false)
+if_settext(multi5:multi5t, "Select an Option")
+if_settext(multi5:multi5a, $string1)
+if_settext(multi5:multi5b, $string2)
+if_settext(multi5:multi5c, $string3)
+if_settext(multi5:multi5d, $string4)
+if_settext(multi5:multi5e, $string5)
+if_sethide(multi5:multi5swords, false)
 if_sethide(multi5:com_10, true)
 if_openchat(multi5)
-if_addresumebutton(multi5:com_2)
-if_addresumebutton(multi5:com_3)
-if_addresumebutton(multi5:com_4)
-if_addresumebutton(multi5:com_5)
-if_addresumebutton(multi5:com_6)
+if_addresumebutton(multi5:multi5a)
+if_addresumebutton(multi5:multi5b)
+if_addresumebutton(multi5:multi5c)
+if_addresumebutton(multi5:multi5d)
+if_addresumebutton(multi5:multi5e)
 p_pausebutton
 switch_component (last_com) {
-    case multi5:com_2 : return($ret1);
-    case multi5:com_3 : return($ret2);
-    case multi5:com_4 : return($ret3);
-    case multi5:com_5 : return($ret4);
+    case multi5:multi5a : return($ret1);
+    case multi5:multi5b : return($ret2);
+    case multi5:multi5c : return($ret3);
+    case multi5:multi5d : return($ret4);
     case default : return($ret5);
 }
 
 // p_choice5 with the caller's header in place of "Select an Option" (289's
 // signature).
 [proc,p_choice5_header](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3, string $string4, int $ret4, string $string5, int $ret5, string $headertext)(int)
-if_settext(multi5:com_1, $headertext)
-if_settext(multi5:com_2, $string1)
-if_settext(multi5:com_3, $string2)
-if_settext(multi5:com_4, $string3)
-if_settext(multi5:com_5, $string4)
-if_settext(multi5:com_6, $string5)
-if_sethide(multi5:com_9, true)
+if_settext(multi5:multi5t, $headertext)
+if_settext(multi5:multi5a, $string1)
+if_settext(multi5:multi5b, $string2)
+if_settext(multi5:multi5c, $string3)
+if_settext(multi5:multi5d, $string4)
+if_settext(multi5:multi5e, $string5)
+if_sethide(multi5:multi5swords, true)
 if_sethide(multi5:com_10, false)
 if_openchat(multi5)
-if_addresumebutton(multi5:com_2)
-if_addresumebutton(multi5:com_3)
-if_addresumebutton(multi5:com_4)
-if_addresumebutton(multi5:com_5)
-if_addresumebutton(multi5:com_6)
+if_addresumebutton(multi5:multi5a)
+if_addresumebutton(multi5:multi5b)
+if_addresumebutton(multi5:multi5c)
+if_addresumebutton(multi5:multi5d)
+if_addresumebutton(multi5:multi5e)
 p_pausebutton
 switch_component (last_com) {
-    case multi5:com_2 : return($ret1);
-    case multi5:com_3 : return($ret2);
-    case multi5:com_4 : return($ret3);
-    case multi5:com_5 : return($ret4);
+    case multi5:multi5a : return($ret1);
+    case multi5:multi5b : return($ret2);
+    case multi5:multi5c : return($ret3);
+    case multi5:multi5d : return($ret4);
     case default : return($ret5);
 }
 
@@ -627,34 +627,34 @@ if ($lines = 0) {
     // sanity check
     return;
 } else if ($lines = 1) {
-    if_setmodel(npcchat1:com_2, $chathead);
-    if_setanim(npcchat1:com_2, split_getanim($page));
-    if_settext(npcchat1:com_3, $npc_name);
-    if_settext(npcchat1:com_4, split_get($page, 0));
+    if_setmodel(npcchat1:npcchat1head_1, $chathead);
+    if_setanim(npcchat1:npcchat1head_1, split_getanim($page));
+    if_settext(npcchat1:npcchat1name, $npc_name);
+    if_settext(npcchat1:npcchat1a, split_get($page, 0));
     if_openchat(npcchat1);
 } else if ($lines < 3) {
-    if_setmodel(npcchat2:com_2, $chathead);
-    if_setanim(npcchat2:com_2, split_getanim($page));
-    if_settext(npcchat2:com_3, $npc_name);
-    if_settext(npcchat2:com_4, split_get($page, 0));
-    if_settext(npcchat2:com_5, split_get($page, 1));
+    if_setmodel(npcchat2:npcchat2head_1, $chathead);
+    if_setanim(npcchat2:npcchat2head_1, split_getanim($page));
+    if_settext(npcchat2:npcchat2name, $npc_name);
+    if_settext(npcchat2:npcchat2a, split_get($page, 0));
+    if_settext(npcchat2:npcchat2b, split_get($page, 1));
     if_openchat(npcchat2);
 } else if ($lines = 3) {
-    if_setmodel(npcchat3:com_2, $chathead);
-    if_setanim(npcchat3:com_2, split_getanim($page));
-    if_settext(npcchat3:com_3, $npc_name);
-    if_settext(npcchat3:com_4, split_get($page, 0));
-    if_settext(npcchat3:com_5, split_get($page, 1));
-    if_settext(npcchat3:com_6, split_get($page, 2));
+    if_setmodel(npcchat3:npcchat3head_1, $chathead);
+    if_setanim(npcchat3:npcchat3head_1, split_getanim($page));
+    if_settext(npcchat3:npcchat3name, $npc_name);
+    if_settext(npcchat3:npcchat3a, split_get($page, 0));
+    if_settext(npcchat3:npcchat3b, split_get($page, 1));
+    if_settext(npcchat3:npcchat3c, split_get($page, 2));
     if_openchat(npcchat3);
 } else if ($lines = 4) {
-    if_setmodel(npcchat4:com_2, $chathead);
-    if_setanim(npcchat4:com_2, split_getanim($page));
-    if_settext(npcchat4:com_3, $npc_name);
-    if_settext(npcchat4:com_4, split_get($page, 0));
-    if_settext(npcchat4:com_5, split_get($page, 1));
-    if_settext(npcchat4:com_6, split_get($page, 2));
-    if_settext(npcchat4:com_7, split_get($page, 3));
+    if_setmodel(npcchat4:npcchat4head_1, $chathead);
+    if_setanim(npcchat4:npcchat4head_1, split_getanim($page));
+    if_settext(npcchat4:npcchat4name, $npc_name);
+    if_settext(npcchat4:npcchat4a, split_get($page, 0));
+    if_settext(npcchat4:npcchat4b, split_get($page, 1));
+    if_settext(npcchat4:npcchat4c, split_get($page, 2));
+    if_settext(npcchat4:npcchat4d, split_get($page, 3));
     if_openchat(npcchat4);
 }
 
@@ -683,34 +683,34 @@ def_int $lines = split_linecount($page);
 if ($lines = 0) {
     return;
 } else if ($lines = 1) {
-    if_setnpchead(npcchat_np1:com_2, $npc);
-    if_setanim(npcchat_np1:com_2, split_getanim($page));
-    if_settext(npcchat_np1:com_3, $npc_name);
-    if_settext(npcchat_np1:com_4, split_get($page, 0));
+    if_setnpchead(npcchat_np1:npcchat_np1head_1, $npc);
+    if_setanim(npcchat_np1:npcchat_np1head_1, split_getanim($page));
+    if_settext(npcchat_np1:npcchat_np1name, $npc_name);
+    if_settext(npcchat_np1:npcchat_np1a, split_get($page, 0));
     if_openchat(npcchat_np1);
 } else if ($lines = 2) {
-    if_setnpchead(npcchat_np2:com_2, $npc);
-    if_setanim(npcchat_np2:com_2, split_getanim($page));
-    if_settext(npcchat_np2:com_3, $npc_name);
-    if_settext(npcchat_np2:com_4, split_get($page, 0));
-    if_settext(npcchat_np2:com_5, split_get($page, 1));
+    if_setnpchead(npcchat_np2:npcchat_np2head_1, $npc);
+    if_setanim(npcchat_np2:npcchat_np2head_1, split_getanim($page));
+    if_settext(npcchat_np2:npcchat_np2name, $npc_name);
+    if_settext(npcchat_np2:npcchat_np2a, split_get($page, 0));
+    if_settext(npcchat_np2:npcchat_np2b, split_get($page, 1));
     if_openchat(npcchat_np2);
 } else if ($lines = 3) {
-    if_setnpchead(npcchat_np3:com_2, $npc);
-    if_setanim(npcchat_np3:com_2, split_getanim($page));
-    if_settext(npcchat_np3:com_3, $npc_name);
-    if_settext(npcchat_np3:com_4, split_get($page, 0));
-    if_settext(npcchat_np3:com_5, split_get($page, 1));
-    if_settext(npcchat_np3:com_6, split_get($page, 2));
+    if_setnpchead(npcchat_np3:npcchat_np3head_1, $npc);
+    if_setanim(npcchat_np3:npcchat_np3head_1, split_getanim($page));
+    if_settext(npcchat_np3:npcchat_np3name, $npc_name);
+    if_settext(npcchat_np3:npcchat_np3a, split_get($page, 0));
+    if_settext(npcchat_np3:npcchat_np3b, split_get($page, 1));
+    if_settext(npcchat_np3:npcchat_np3c, split_get($page, 2));
     if_openchat(npcchat_np3);
 } else if ($lines = 4) {
-    if_setnpchead(npcchat_np4:com_2, $npc);
-    if_setanim(npcchat_np4:com_2, split_getanim($page));
-    if_settext(npcchat_np4:com_3, $npc_name);
-    if_settext(npcchat_np4:com_4, split_get($page, 0));
-    if_settext(npcchat_np4:com_5, split_get($page, 1));
-    if_settext(npcchat_np4:com_6, split_get($page, 2));
-    if_settext(npcchat_np4:com_7, split_get($page, 3));
+    if_setnpchead(npcchat_np4:npcchat_np4head_1, $npc);
+    if_setanim(npcchat_np4:npcchat_np4head_1, split_getanim($page));
+    if_settext(npcchat_np4:npcchat_np4name, $npc_name);
+    if_settext(npcchat_np4:npcchat_np4a, split_get($page, 0));
+    if_settext(npcchat_np4:npcchat_np4b, split_get($page, 1));
+    if_settext(npcchat_np4:npcchat_np4c, split_get($page, 2));
+    if_settext(npcchat_np4:npcchat_np4d, split_get($page, 3));
     if_openchat(npcchat_np4);
 }
 

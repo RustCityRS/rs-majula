@@ -1,9 +1,9 @@
 // 1424
 [clientscript,agilityarena_overlay]
 if (%varplayerbit_4456 = 0) {
-    if_setcolour(0x002300, agilityarena_overlay:com_3);
-    if_setcolour(^red, agilityarena_overlay:com_2);
+    if_setcolour(0x002300, agilityarena_overlay:green);
+    if_setcolour(^red, agilityarena_overlay:red);
 } else {
-    if_setcolour(^green, agilityarena_overlay:com_3);
-    if_setcolour(0x230000, agilityarena_overlay:com_2);
+    if_setcolour(^green, agilityarena_overlay:green);
+    if_setcolour(0x230000, agilityarena_overlay:red);
 }

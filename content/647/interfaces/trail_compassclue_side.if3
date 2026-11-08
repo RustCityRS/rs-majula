@@ -24,7 +24,7 @@ modelangle=521,2044,0
 modelzoom=567
 
 // 996:2
-[com_2]
+[close_button]
 type=graphic
 x=2
 y=2
@@ -52,7 +52,7 @@ modelangle=512,0,0
 modelzoom=3000
 
 // 996:4
-[com_4]
+[trail_cross]
 type=model
 y=114
 width=42
@@ -66,7 +66,7 @@ transmitop=10
 op10= 
 
 // 996:5
-[com_5]
+[trail_line]
 type=model
 y=54
 width=34
@@ -76,10 +76,10 @@ model=model_58171
 modelorigin=1,5
 modelangle=512,0,227
 modelzoom=275
-onvarctransmit=trail_compasspoint(event_com, trail_compassclue_side:com_4){varclient_1323}
+onvarctransmit=trail_compasspoint(event_com, trail_compassclue_side:trail_cross){varclient_1323}
 
 // 996:6
-[com_6]
+[north]
 type=text
 y=9
 width=32

@@ -47,14 +47,14 @@ if ($int2 = 21) {
     } else {
         $string0 = "You have only just left another world. Your profile will be transferred in<br><tostring($int3)> seconds.";
     }
-    if (if_gethide(lobbyscreen:com_19) = true) {
+    if (if_gethide(lobbyscreen:popup_body) = true) {
         ~lobby_popup($int2, 0, $string0, 0, "loadingwheel,12", 1, 1, "Abort Login", "Abort Login", 0, "", "");
     } else {
         ~lobby_popup_text_update($string0);
     }
     return;
 }
-if ($component0 = lobbyscreen:com_13) {
+if ($component0 = lobbyscreen:base) {
     ~lobbyscreen_load(true, 1);
 }
 ~lobby_popup_close;

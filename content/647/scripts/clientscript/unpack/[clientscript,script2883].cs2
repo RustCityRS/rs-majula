@@ -3,4 +3,4 @@
 if (%varplayerbit_4393 = 1 | %varplayerbit_542 = 1) {
     return;
 }
-~addtooltip_action(music_v3:com_11, music_v3:com_16, "Clear playlist", 25, 189);
+~addtooltip_action(music_v3:playlist_clear, music_v3:music_tooltip_layer, "Clear playlist", 25, 189);

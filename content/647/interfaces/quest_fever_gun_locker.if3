@@ -5,265 +5,265 @@ x=-98
 y=-60
 width=693
 height=445
-layer=com_29
+layer=contents
 model=model_15711
 modelorigin=0,-2
 modelangle=507,2047,0
 modelzoom=272
 
 // 501:1
-[com_1]
+[gun_locker]
 type=model
 x=115
 y=27
 width=245
 height=180
-layer=com_29
+layer=contents
 model=model_21518
 modelorigin=0,32
 modelangle=339,2044,0
 modelzoom=400
 
 // 501:2
-[com_2]
+[objects]
 type=layer
 x=30
 y=189
 width=425
 height=110
-layer=com_29
+layer=contents
 
 // 501:3
-[com_3]
+[cannon_barrel_button]
 type=text
 x=53
 y=219
 width=65
 height=50
-layer=com_29
+layer=contents
 textfont=p12_full
 textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Take Cannon
-onmouseover=script1282(quest_fever_gun_locker:com_8)
+onmouseover=script1282(quest_fever_gun_locker:cannon_barrel_banner)
 onmouseleave=camera_sakearchives
 
 // 501:4
-[com_4]
+[fuse_button]
 type=text
 x=136
 y=215
 width=53
 height=56
-layer=com_29
+layer=contents
 textfont=p12_full
 textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Take Fuse
-onmouseover=script1282(quest_fever_gun_locker:com_9)
+onmouseover=script1282(quest_fever_gun_locker:fuse_banner)
 onmouseleave=camera_sakearchives
 
 // 501:5
-[com_5]
+[ramrod_button]
 type=text
 x=211
 y=223
 width=47
 height=47
-layer=com_29
+layer=contents
 textfont=p12_full
 textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Take Ramrod
-onmouseover=script1282(quest_fever_gun_locker:com_10)
+onmouseover=script1282(quest_fever_gun_locker:ramrod_banner)
 onmouseleave=camera_sakearchives
 
 // 501:6
-[com_6]
+[cannon_canister_button]
 type=text
 x=387
 y=226
 width=50
 height=45
-layer=com_29
+layer=contents
 textfont=p12_full
 textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Take Canister
-onmouseover=script1282(quest_fever_gun_locker:com_12)
+onmouseover=script1282(quest_fever_gun_locker:cannon_cannister_banner)
 onmouseleave=camera_sakearchives
 
 // 501:7
-[com_7]
+[cannon_ball_button]
 type=text
 x=288
 y=214
 width=61
 height=59
-layer=com_29
+layer=contents
 textfont=p12_full
 textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Take Cannonball
-onmouseover=script1282(quest_fever_gun_locker:com_11)
+onmouseover=script1282(quest_fever_gun_locker:cannon_ball_banner)
 onmouseleave=camera_sakearchives
 
 // 501:8
-[com_8]
+[cannon_barrel_banner]
 type=layer
 x=25
 y=104
 width=149
 height=52
-layer=com_29
+layer=contents
 hide=yes
 
 // 501:9
-[com_9]
+[fuse_banner]
 type=layer
 x=89
 y=43
 width=148
 height=48
-layer=com_29
+layer=contents
 hide=yes
 
 // 501:10
-[com_10]
+[ramrod_banner]
 type=layer
 x=158
 y=133
 width=150
 height=47
-layer=com_29
+layer=contents
 hide=yes
 
 // 501:11
-[com_11]
+[cannon_ball_banner]
 type=layer
 x=244
 y=80
 width=150
 height=49
-layer=com_29
+layer=contents
 hide=yes
 
 // 501:12
-[com_12]
+[cannon_cannister_banner]
 type=layer
 x=347
 y=124
 width=150
 height=51
-layer=com_29
+layer=contents
 hide=yes
 
 // 501:13
-[com_13]
+[close]
 type=graphic
 x=462
 y=18
 width=26
 height=23
-layer=com_29
+layer=contents
 graphic="close_buttons,4"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(quest_fever_gun_locker:com_13, "close_buttons,5")
-onmouseleave=graphic_swapper(quest_fever_gun_locker:com_13, "close_buttons,4")
+onmouseover=graphic_swapper(quest_fever_gun_locker:close, "close_buttons,5")
+onmouseleave=graphic_swapper(quest_fever_gun_locker:close, "close_buttons,4")
 onop=closebutton_click
 
 // 501:14
-[com_14]
+[cannon_barrel]
 type=model
 x=25
 y=13
 width=58
 height=80
-layer=com_2
+layer=objects
 model=model_11135
 modelorigin=-2,17
 modelangle=168,2014,0
 modelzoom=528
 
 // 501:15
-[com_15]
+[fuse]
 type=model
 x=106
 y=30
 width=63
 height=43
-layer=com_2
+layer=objects
 model=model_21516
 modelorigin=-5,5
 modelangle=237,1777,0
 modelzoom=576
 
 // 501:16
-[com_16]
+[ramrod]
 type=model
 x=170
 y=34
 width=73
 height=40
-layer=com_2
+layer=objects
 model=model_11133
 modelorigin=-4,3
 modelangle=234,1582,0
 modelzoom=400
 
 // 501:17
-[com_17]
+[cannon_ball]
 type=model
 x=267
 y=34
 width=40
 height=39
-layer=com_2
+layer=objects
 model=model_11132
 modelorigin=1,15
 modelangle=222,1546,0
 modelzoom=400
 
 // 501:18
-[com_18]
+[cannon_cannister]
 type=model
 x=366
 y=22
 width=30
 height=67
-layer=com_2
+layer=objects
 model=model_11131
 modelorigin=0,23
 modelangle=264,1933,0
 modelzoom=400
 
 // 501:19
-[com_19]
+[cannon_barrel_scroll]
 type=model
 y=4
 width=147
 height=43
-layer=com_8
+layer=cannon_barrel_banner
 model=model_10119
 modelorigin=0,-5
 modelangle=492,0,0
 modelzoom=1040
 
 // 501:20
-[com_20]
+[cannon_barrel_scroll_text]
 type=text
 x=27
 y=6
 width=95
 height=31
-layer=com_8
+layer=cannon_barrel_banner
 textfont=q8_full
 text=Cannon barrel
 textalignh=centre
@@ -271,25 +271,25 @@ textalignv=centre
 colour=0x000000
 
 // 501:21
-[com_21]
+[fuse_scroll]
 type=model
 y=2
 width=147
 height=43
-layer=com_9
+layer=fuse_banner
 model=model_10119
 modelorigin=0,-5
 modelangle=492,0,0
 modelzoom=1040
 
 // 501:22
-[com_22]
+[fuse_scroll_text]
 type=text
 x=25
 y=4
 width=95
 height=31
-layer=com_9
+layer=fuse_banner
 textfont=q8_full
 text=Fuse
 textalignh=centre
@@ -297,26 +297,26 @@ textalignv=centre
 colour=0x000000
 
 // 501:23
-[com_23]
+[ramrod_scroll]
 type=model
 x=2
 y=3
 width=147
 height=43
-layer=com_10
+layer=ramrod_banner
 model=model_10119
 modelorigin=0,-5
 modelangle=492,0,0
 modelzoom=1040
 
 // 501:24
-[com_24]
+[ramrod_scroll_text]
 type=text
 x=27
 y=5
 width=95
 height=31
-layer=com_10
+layer=ramrod_banner
 textfont=q8_full
 text=Ramrod
 textalignh=centre
@@ -324,26 +324,26 @@ textalignv=centre
 colour=0x000000
 
 // 501:25
-[com_25]
+[cannon_ball_scroll]
 type=model
 x=1
 y=5
 width=147
 height=43
-layer=com_11
+layer=cannon_ball_banner
 model=model_10119
 modelorigin=0,-5
 modelangle=492,0,0
 modelzoom=1040
 
 // 501:26
-[com_26]
+[cannon_ball_scroll_text]
 type=text
 x=27
 y=6
 width=95
 height=31
-layer=com_11
+layer=cannon_ball_banner
 textfont=q8_full
 text=Cannonball
 textalignh=centre
@@ -351,25 +351,25 @@ textalignv=centre
 colour=0x000000
 
 // 501:27
-[com_27]
+[cannon_cannister_scroll]
 type=model
 y=7
 width=147
 height=43
-layer=com_12
+layer=cannon_cannister_banner
 model=model_10119
 modelorigin=0,-5
 modelangle=492,0,0
 modelzoom=1040
 
 // 501:28
-[com_28]
+[cannon_cannister_text]
 type=text
 x=27
 y=9
 width=95
 height=31
-layer=com_12
+layer=cannon_cannister_banner
 textfont=q8_full
 text=Cannon cannister
 textalignh=centre
@@ -377,7 +377,7 @@ textalignv=centre
 colour=0x000000
 
 // 501:29
-[com_29]
+[contents]
 type=layer
 x=7
 width=512
@@ -386,7 +386,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 501:30
-[com_30]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -394,7 +394,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 501:31
-[com_31]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -404,7 +404,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 501:32
-[com_32]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -412,7 +412,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=fsborder_main_layer
 
 // 501:33
 [com_33]
@@ -515,7 +515,7 @@ tiling=yes
 colour=0xffffffff
 
 // 501:41
-[com_41]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -523,30 +523,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_32
+layer=fsborder_resizing_layer
 
 // 501:42
-[com_42]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_32
+layer=fsborder_resizing_layer
 
 // 501:43
-[com_43]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_32
+layer=fsborder_resizing_layer
 
 // 501:44
-[com_44]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -554,16 +554,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_32
+layer=fsborder_resizing_layer
 
 // 501:45
-[com_45]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_32
+layer=fsborder_resizing_layer
 
 // 501:46
 [com_46]
@@ -573,7 +573,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_42
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -588,7 +588,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_41
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -602,7 +602,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_43
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -617,7 +617,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_44
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

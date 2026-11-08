@@ -1,5 +1,5 @@
 // 710:0
-[com_0]
+[content_layer]
 type=layer
 x=7
 y=7
@@ -9,13 +9,13 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 710:1
-[com_1]
+[page_bg]
 type=model
 x=12
 y=-1
 width=487
 height=335
-layer=com_0
+layer=content_layer
 model=model_32409
 modelorigin=-5,-12
 modelzoom=618
@@ -27,43 +27,43 @@ x=16
 y=-2
 width=193
 height=151
-layer=com_0
+layer=content_layer
 model=model_32406
 modelorigin=1,222
 modelzoom=115
 
 // 710:3
-[com_3]
+[sops_title]
 type=text
 x=45
 y=133
 width=175
 height=14
-layer=com_0
+layer=content_layer
 textfont=b12_full
 text=Question:
 colour=0x1e1e2d
 
 // 710:4
-[com_4]
+[sops_header]
 type=text
 x=215
 y=38
 width=300
 height=65
-layer=com_0
+layer=content_layer
 textfont=quill_oblique_large
 text=Player Safety Test
 colour=0x232330
 
 // 710:5
-[com_5]
+[duel_close_button]
 type=graphic
 x=469
 y=9
 width=26
 height=23
-layer=com_0
+layer=content_layer
 graphic="close_buttons,3"
 colour=0x000000
 transmitop=1
@@ -73,13 +73,13 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,3")
 onop=closebutton_click
 
 // 710:6
-[com_6]
+[sops_question]
 type=text
 x=45
 y=148
 width=388
 height=32
-layer=com_0
+layer=content_layer
 textfont=q8_full
 text=You are asked for your full name and date of birth by a player that you have been chatting with for a short while. Should you give them these details?
 colour=0x242330
@@ -91,7 +91,7 @@ x=45
 y=198
 width=363
 height=32
-layer=com_0
+layer=content_layer
 textfont=q8_full
 text=No. The player could use my information to steal my identity. I don't want anyone pretending to be me.
 colour=0x191930
@@ -103,19 +103,19 @@ x=45
 y=252
 width=363
 height=32
-layer=com_0
+layer=content_layer
 textfont=q8_full
 text=Yes. There's no harm in telling someone my full name and my birthday. They're only being friendly.
 colour=0x191930
 
 // 710:9
-[com_9]
+[sops_box1]
 type=model
 x=418
 y=200
 width=33
 height=34
-layer=com_0
+layer=content_layer
 model=null
 modelorigin=-1,-1
 modelangle=431,1912,0
@@ -128,13 +128,13 @@ onmouseleave=model_swapper(event_com, null)
 onclick=script891(event_com)
 
 // 710:10
-[com_10]
+[sops_box2]
 type=model
 x=421
 y=256
 width=31
 height=34
-layer=com_0
+layer=content_layer
 model=null
 modelorigin=-1,-1
 modelangle=539,1921,206
@@ -147,104 +147,104 @@ onmouseleave=model_swapper(event_com, null)
 onclick=script892(event_com)
 
 // 710:11
-[com_11]
+[box1]
 type=line
 x=425
 y=206
 width=19
 height=1
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 710:12
-[com_12]
+[box2]
 type=line
 x=425
 y=206
 height=19
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 710:13
-[com_13]
+[box3]
 type=line
 x=424
 y=224
 width=19
 height=1
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 710:14
-[com_14]
+[box4]
 type=line
 x=443
 y=206
 height=20
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 710:15
-[com_15]
+[box5]
 type=line
 x=425
 y=262
 width=19
 height=1
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 710:16
-[com_16]
+[box6]
 type=line
 x=425
 y=262
 height=19
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 710:17
-[com_17]
+[box7]
 type=line
 x=424
 y=280
 width=19
 height=1
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 710:18
-[com_18]
+[box8]
 type=line
 x=443
 y=262
 height=20
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 710:19
-[com_19]
+[underline]
 type=line
 x=193
 y=65
 width=248
-layer=com_0
+layer=content_layer
 colour=0x0e0e17
 
 // 710:20
-[com_20]
+[answer_layer]
 type=layer
 width=513
 height=335
-layer=com_0
+layer=content_layer
 hide=yes
 noclickthrough=yes
 
@@ -253,7 +253,7 @@ noclickthrough=yes
 type=rectangle
 width=512
 height=334
-layer=com_20
+layer=answer_layer
 colour=0x46341d
 fill=yes
 trans=160
@@ -265,7 +265,7 @@ x=32
 y=79
 width=449
 height=230
-layer=com_20
+layer=answer_layer
 graphic=tradebacking
 tiling=yes
 colour=0x000000
@@ -277,7 +277,7 @@ x=19
 y=111
 width=25
 height=175
-layer=com_20
+layer=answer_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0x000000
@@ -289,7 +289,7 @@ x=32
 y=79
 width=32
 height=32
-layer=com_20
+layer=answer_layer
 graphic="v2_stone_borders,4"
 colour=0x000000
 
@@ -300,7 +300,7 @@ x=451
 y=79
 width=32
 height=32
-layer=com_20
+layer=answer_layer
 graphic="v2_stone_borders,5"
 tiling=yes
 colour=0x000000
@@ -312,7 +312,7 @@ x=63
 y=66
 width=391
 height=32
-layer=com_20
+layer=answer_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0x000000
@@ -324,7 +324,7 @@ x=463
 y=111
 width=32
 height=175
-layer=com_20
+layer=answer_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0x000000
@@ -336,7 +336,7 @@ x=451
 y=284
 width=32
 height=32
-layer=com_20
+layer=answer_layer
 graphic="v2_stone_borders,7"
 tiling=yes
 colour=0x000000
@@ -348,7 +348,7 @@ x=32
 y=284
 width=32
 height=32
-layer=com_20
+layer=answer_layer
 graphic="v2_stone_borders,6"
 tiling=yes
 colour=0x000000
@@ -360,7 +360,7 @@ x=64
 y=296
 width=387
 height=25
-layer=com_20
+layer=answer_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0x000000
@@ -372,7 +372,7 @@ x=55
 y=94
 width=389
 height=160
-layer=com_20
+layer=answer_layer
 hide=yes
 
 // 710:32
@@ -408,7 +408,7 @@ x=55
 y=94
 width=389
 height=160
-layer=com_20
+layer=answer_layer
 hide=yes
 
 // 710:35
@@ -444,7 +444,7 @@ x=375
 y=255
 width=97
 height=42
-layer=com_20
+layer=answer_layer
 
 // 710:38
 [com_38]
@@ -469,7 +469,7 @@ transmitop=1
 op1=Next
 
 // 710:40
-[com_40]
+[next]
 type=text
 width=97
 height=42
@@ -482,7 +482,7 @@ textshadow=yes
 colour=0x909061
 
 // 710:41
-[com_41]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -492,7 +492,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 710:42
-[com_42]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -500,7 +500,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=fsborder_main_layer
 
 // 710:43
 [com_43]
@@ -603,7 +603,7 @@ tiling=yes
 colour=0x000000
 
 // 710:51
-[com_51]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -611,30 +611,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_42
+layer=fsborder_resizing_layer
 
 // 710:52
-[com_52]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_42
+layer=fsborder_resizing_layer
 
 // 710:53
-[com_53]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_42
+layer=fsborder_resizing_layer
 
 // 710:54
-[com_54]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -642,16 +642,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_42
+layer=fsborder_resizing_layer
 
 // 710:55
-[com_55]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_42
+layer=fsborder_resizing_layer
 
 // 710:56
 [com_56]
@@ -661,7 +661,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_52
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -676,7 +676,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_51
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -690,7 +690,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_53
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -705,7 +705,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_54
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

@@ -29,10 +29,10 @@ y=38
 width=16
 height=197
 widthmode=minus
-layer=com_30
+layer=ignore_layer
 
 // 550:4
-[com_4]
+[ignorebox]
 type=layer
 x=6
 width=6
@@ -118,7 +118,7 @@ height=198
 layer=com_9
 
 // 550:13
-[com_13]
+[friendbox_drag]
 type=layer
 x=31
 y=38
@@ -129,13 +129,13 @@ transmitop=10
 op10= 
 
 // 550:14
-[com_14]
+[drag_layer]
 type=layer
 x=74
 width=4
 heightmode=minus
 ymode=abs_centre
-layer=com_13
+layer=friendbox_drag
 hide=yes
 transmitop=10
 dragdepth=1
@@ -144,12 +144,12 @@ dragrenderbehaviour=1
 ondragcomplete=friend_update(event_mousex)
 
 // 550:15
-[com_15]
+[sep]
 type=graphic
 width=2
 heightmode=minus
 xmode=abs_centre
-layer=com_14
+layer=drag_layer
 graphic=friends_line
 tiling=yes
 trans=179
@@ -180,7 +180,7 @@ tiling=yes
 colour=0xffffffff
 
 // 550:18
-[com_18]
+[friends_info]
 type=text
 x=43
 y=3
@@ -195,7 +195,7 @@ textshadow=yes
 colour=0xdce6c8
 
 // 550:19
-[com_19]
+[friends_title]
 type=text
 y=2
 width=120
@@ -244,9 +244,9 @@ layer=com_20
 transmitop=1
 op1=Add friend
 onload=script4213(event_com)
-onmouseleave=deltooltip(friends2:com_52)
+onmouseleave=deltooltip(friends2:tooltip_layer)
 onop=meslayer_mode2
-onmouserepeat=aif_tooltip(friends2:com_52, event_com, -1, "Add friend", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(friends2:tooltip_layer, event_com, -1, "Add friend", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 550:24
 [com_24]
@@ -293,9 +293,9 @@ layer=com_25
 transmitop=1
 op1=Remove friend
 onload=script4213(event_com)
-onmouseleave=deltooltip(friends2:com_52)
+onmouseleave=deltooltip(friends2:tooltip_layer)
 onop=meslayer_mode3
-onmouserepeat=aif_tooltip(friends2:com_52, event_com, -1, "Remove friend", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(friends2:tooltip_layer, event_com, -1, "Remove friend", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 550:29
 [com_29]
@@ -308,7 +308,7 @@ layer=com_28
 graphic="aif_clanchat_icons,3"
 
 // 550:30
-[com_30]
+[ignore_layer]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -316,13 +316,13 @@ hide=yes
 onload=ignore_init
 
 // 550:31
-[com_31]
+[ignorescroll]
 type=layer
 x=174
 y=38
 width=16
 height=197
-layer=com_30
+layer=ignore_layer
 
 // 550:32
 [com_32]
@@ -331,7 +331,7 @@ y=2
 width=120
 height=30
 xmode=abs_centre
-layer=com_30
+layer=ignore_layer
 textfont=verdana_11pt_regular
 text=Ignore List
 textalignh=centre
@@ -345,7 +345,7 @@ type=graphic
 y=22
 width=190
 height=32
-layer=com_30
+layer=ignore_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 
@@ -355,19 +355,19 @@ type=graphic
 y=223
 width=190
 height=32
-layer=com_30
+layer=ignore_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 
 // 550:35
-[com_35]
+[ignore_info]
 type=text
 x=43
 y=3
 width=100
 height=15
 ymode=abs_bottom
-layer=com_30
+layer=ignore_layer
 textfont=verdana_11pt_regular
 textlineheight=15
 textalignv=centre
@@ -382,7 +382,7 @@ y=3
 width=17
 height=17
 ymode=abs_bottom
-layer=com_30
+layer=ignore_layer
 
 // 550:37
 [com_37]
@@ -409,9 +409,9 @@ layer=com_36
 transmitop=1
 op1=Add ignore
 onload=script4213(event_com)
-onmouseleave=deltooltip(friends2:com_52)
+onmouseleave=deltooltip(friends2:tooltip_layer)
 onop=meslayer_mode4
-onmouserepeat=aif_tooltip(friends2:com_52, event_com, -1, "Add ignore", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(friends2:tooltip_layer, event_com, -1, "Add ignore", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 550:40
 [com_40]
@@ -431,7 +431,7 @@ y=3
 width=17
 height=17
 ymode=abs_bottom
-layer=com_30
+layer=ignore_layer
 
 // 550:42
 [com_42]
@@ -458,9 +458,9 @@ layer=com_41
 transmitop=1
 op1=Remove ignore
 onload=script4213(event_com)
-onmouseleave=deltooltip(friends2:com_52)
+onmouseleave=deltooltip(friends2:tooltip_layer)
 onop=meslayer_mode5
-onmouserepeat=aif_tooltip(friends2:com_52, event_com, -1, "Remove ignore", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(friends2:tooltip_layer, event_com, -1, "Remove ignore", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 550:45
 [com_45]
@@ -473,7 +473,7 @@ layer=com_44
 graphic="aif_clanchat_icons,5"
 
 // 550:46
-[com_46]
+[loadingmes]
 type=text
 x=9
 y=25
@@ -495,9 +495,9 @@ height=17
 graphic="aif_chat_navigation_btn,0"
 transmitop=1
 op1=Show friends
-onmouseleave=deltooltip(friends2:com_52)
+onmouseleave=deltooltip(friends2:tooltip_layer)
 onop=friends2_switchmode(0)
-onmouserepeat=aif_tooltip(friends2:com_52, event_com, -1, "Friends<br>list", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(friends2:tooltip_layer, event_com, -1, "Friends<br>list", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 550:48
 [com_48]
@@ -518,9 +518,9 @@ height=17
 graphic="aif_chat_navigation_btn,2"
 transmitop=1
 op1=Show ignore
-onmouseleave=deltooltip(friends2:com_52)
+onmouseleave=deltooltip(friends2:tooltip_layer)
 onop=friends2_switchmode(1)
-onmouserepeat=aif_tooltip(friends2:com_52, event_com, -1, "Ignore<br>list", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(friends2:tooltip_layer, event_com, -1, "Ignore<br>list", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 550:50
 [com_50]
@@ -533,17 +533,17 @@ hide=yes
 graphic="aif_chat_navigation_btn,8"
 
 // 550:51
-[com_51]
+[tooltip_container]
 type=layer
 widthmode=minus
 heightmode=minus
 
 // 550:52
-[com_52]
+[tooltip_layer]
 type=layer
 width=1
 height=1
-layer=com_51
+layer=tooltip_container
 
 // 550:53
 [com_53]

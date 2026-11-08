@@ -19,7 +19,7 @@ fill=yes
 trans=200
 
 // 279:2
-[com_2]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -27,13 +27,13 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 279:3
-[com_3]
+[ratcatcher_cat_face]
 type=model
 x=23
 y=2
 width=154
 height=169
-layer=com_2
+layer=content_layer
 model=model_34053
 modelorigin=2,15
 modelangle=9,1950,0
@@ -41,13 +41,13 @@ modelzoom=912
 modelanim=seq_8581
 
 // 279:4
-[com_4]
+[ratcatcher_cat_face2]
 type=model
 x=354
 y=-4
 width=155
 height=171
-layer=com_2
+layer=content_layer
 model=model_34053
 modelorigin=-4,15
 modelangle=17,125,0
@@ -61,7 +61,7 @@ x=293
 y=179
 width=204
 height=116
-layer=com_2
+layer=content_layer
 model=model_9853
 modelorigin=2,5
 modelangle=512,0,0
@@ -74,7 +74,7 @@ x=10
 y=179
 width=204
 height=116
-layer=com_2
+layer=content_layer
 model=model_9853
 modelorigin=2,5
 modelangle=512,0,0
@@ -87,61 +87,61 @@ x=176
 y=74
 width=168
 height=49
-layer=com_2
+layer=content_layer
 model=model_10119
 modelorigin=-1,-5
 modelangle=512,0,0
 modelzoom=909
 
 // 279:8
-[com_8]
+[vc_accept_btn]
 type=graphic
 x=220
 y=188
 width=72
 height=36
-layer=com_2
+layer=content_layer
 graphic="combatboxes,0"
 colour=0xffffffff
 
 // 279:9
-[com_9]
+[vc_reject_btn]
 type=graphic
 x=220
 y=239
 width=72
 height=36
-layer=com_2
+layer=content_layer
 graphic="combatboxes,0"
 colour=0xffffffff
 
 // 279:10
-[com_10]
+[vc_p1_name]
 type=text
 x=43
 y=184
 width=142
 height=18
-layer=com_2
+layer=content_layer
 textfont=q8_full
 text=Player's Cat
 textalignh=centre
 colour=0x46320a
-onvarcstrtransmit=script1573(event_com, ratcatcher_cat_betting:com_23){varclient_1726}
+onvarcstrtransmit=script1573(event_com, ratcatcher_cat_betting:tooltip){varclient_1726}
 
 // 279:11
-[com_11]
+[vc_p2_name]
 type=text
 x=327
 y=184
 width=142
 height=19
-layer=com_2
+layer=content_layer
 textfont=q8_full
 text=Opponent's Cat
 textalignh=centre
 colour=0x46320a
-onvarcstrtransmit=script1574(event_com, ratcatcher_cat_betting:com_23){varclient_1727}
+onvarcstrtransmit=script1574(event_com, ratcatcher_cat_betting:tooltip){varclient_1727}
 
 // 279:12
 [com_12]
@@ -150,20 +150,20 @@ x=212
 y=87
 width=94
 height=15
-layer=com_2
+layer=content_layer
 textfont=b12_full
 text=Vs
 textalignh=centre
 colour=0x46320a
 
 // 279:13
-[com_13]
+[ratcatcher_cat_accept]
 type=text
 x=220
 y=188
 width=72
 height=36
-layer=com_2
+layer=content_layer
 textfont=p12_full
 text=ACCEPT
 textalignh=centre
@@ -174,13 +174,13 @@ transmitop=1
 op1=Accept
 
 // 279:14
-[com_14]
+[ratcatcher_cat_decline]
 type=text
 x=220
 y=239
 width=72
 height=36
-layer=com_2
+layer=content_layer
 textfont=p12_full
 text=DECLINE
 textalignh=centre
@@ -197,7 +197,7 @@ x=43
 y=208
 width=142
 height=16
-layer=com_2
+layer=content_layer
 textfont=q8_full
 text=Amount
 textalignh=centre
@@ -211,7 +211,7 @@ x=327
 y=209
 width=142
 height=16
-layer=com_2
+layer=content_layer
 textfont=q8_full
 text=Amount
 textalignh=centre
@@ -219,13 +219,13 @@ textshadow=yes
 colour=0xbf751d
 
 // 279:17
-[com_17]
+[vc_p1_bet]
 type=text
 x=62
 y=235
 width=100
 height=14
-layer=com_2
+layer=content_layer
 textfont=p12_full
 text=0
 textalignh=centre
@@ -233,13 +233,13 @@ textshadow=yes
 colour=0xe1981f
 
 // 279:18
-[com_18]
+[vc_p2_bet]
 type=text
 x=352
 y=235
 width=100
 height=14
-layer=com_2
+layer=content_layer
 textfont=p12_full
 text=0
 textalignh=centre
@@ -247,13 +247,13 @@ textshadow=yes
 colour=0xe1981f
 
 // 279:19
-[com_19]
+[vc_bet_dec]
 type=model
 x=51
 y=253
 width=31
 height=31
-layer=com_2
+layer=content_layer
 model=model_10044
 modelangle=512,0,0
 modelzoom=600
@@ -261,13 +261,13 @@ transmitop=1
 op1=Decrease
 
 // 279:20
-[com_20]
+[vc_bet_inc]
 type=model
 x=147
 y=253
 width=31
 height=31
-layer=com_2
+layer=content_layer
 model=model_10044
 modelangle=512,0,0
 modelzoom=600
@@ -281,7 +281,7 @@ x=53
 y=264
 width=27
 height=8
-layer=com_2
+layer=content_layer
 model=model_10040
 modelangle=450,0,0
 modelzoom=600
@@ -293,16 +293,16 @@ x=149
 y=255
 width=27
 height=27
-layer=com_2
+layer=content_layer
 model=model_10042
 modelangle=450,0,0
 modelzoom=600
 
 // 279:23
-[com_23]
+[tooltip]
 type=layer
 x=88
 y=193
 width=70
 height=16
-layer=com_2
+layer=content_layer

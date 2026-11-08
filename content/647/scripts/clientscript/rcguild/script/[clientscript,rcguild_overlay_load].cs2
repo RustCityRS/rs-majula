@@ -1,13 +1,13 @@
 // 731
 [clientscript,rcguild_overlay_load]
-if_setmodel(null, rcguild_overlay:com_15);
-if_setmodel(null, rcguild_overlay:com_16);
-if_setmodel(null, rcguild_overlay:com_17);
-if_setmodel(null, rcguild_overlay:com_18);
-if_setmodel(null, rcguild_overlay:com_19);
-if_setmodel(null, rcguild_overlay:com_20);
-if_setmodel(null, rcguild_overlay:com_21);
-if_setmodel(null, rcguild_overlay:com_22);
-if_setmodelanim(seq_10139, rcguild_overlay:com_33);
-if_setmodelanim(seq_10139, rcguild_overlay:com_42);
-if_sethide(true, rcguild_overlay:com_1);
+if_setmodel(null, rcguild_overlay:model_altar_1);
+if_setmodel(null, rcguild_overlay:model_altar_2);
+if_setmodel(null, rcguild_overlay:model_altar_3);
+if_setmodel(null, rcguild_overlay:model_altar_4);
+if_setmodel(null, rcguild_overlay:model_altar_5);
+if_setmodel(null, rcguild_overlay:model_altar_6);
+if_setmodel(null, rcguild_overlay:model_altar_7);
+if_setmodel(null, rcguild_overlay:model_altar_8);
+if_setmodelanim(seq_10139, rcguild_overlay:green_timer);
+if_setmodelanim(seq_10139, rcguild_overlay:yellow_timer);
+if_sethide(true, rcguild_overlay:flash_text);

@@ -1,0 +1,15 @@
+// 3943
+[clientscript,script3943]
+if_sethide(false, playerdesign4:com_90);
+if_sethide(true, playerdesign4:com_35);
+if_sethide(true, playerdesign4:com_115);
+if_sethide(true, playerdesign4:confirm);
+if_sethide(true, playerdesign4:back);
+if_sethide(true, playerdesign4:customise_page);
+~playerdesign4_tooltip_clear;
+if_setonkey("script3944(event_keycode, event_keychar, true)", playerdesign4:com_177);
+if_setonclick("script3217(event_mousex, playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, 16)", playerdesign4:com_182);
+%varclient_1099 = 0;
+%varclient_1849 = "";
+%varclient_1412 = false;
+~script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, %varclient_1849, 16);

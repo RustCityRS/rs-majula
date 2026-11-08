@@ -36,4 +36,4 @@ cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 cc_setcolour(^black);
 cc_settextshadow(false);
 cc_settext($string0);
-if_settextfont(tutorial_font, interface_200:com_4);
+if_settextfont(tutorial_font, chatmodal:continue_text);

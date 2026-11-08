@@ -2,7 +2,7 @@
 [clientscript,lobby_popup_throbber]
 def_int $int0 = lobby_entergamereply;
 if ($int0 ! -3 & %varclient_1322 = false) {
-    if_setontimer(null, lobbyscreen:com_223);
+    if_setontimer(null, lobbyscreen:popup_throbber);
     return;
 }
 if (%varclient_1322 = true & $int0 = -3) {
@@ -12,23 +12,23 @@ if (clientclock < %varclient_1092) {
     return;
 }
 %varclient_1092 = calc(clientclock + 5);
-switch_graphic (if_getgraphic(lobbyscreen:com_223)) {
+switch_graphic (if_getgraphic(lobbyscreen:popup_throbber)) {
     case "loading_wheel_1,0" :
-        if_setgraphic("loading_wheel_1,1", lobbyscreen:com_223);
+        if_setgraphic("loading_wheel_1,1", lobbyscreen:popup_throbber);
     case "loading_wheel_1,1" :
-        if_setgraphic("loading_wheel_1,2", lobbyscreen:com_223);
+        if_setgraphic("loading_wheel_1,2", lobbyscreen:popup_throbber);
     case "loading_wheel_1,2" :
-        if_setgraphic("loading_wheel_1,3", lobbyscreen:com_223);
+        if_setgraphic("loading_wheel_1,3", lobbyscreen:popup_throbber);
     case "loading_wheel_1,3" :
-        if_setgraphic("loading_wheel_1,4", lobbyscreen:com_223);
+        if_setgraphic("loading_wheel_1,4", lobbyscreen:popup_throbber);
     case "loading_wheel_1,4" :
-        if_setgraphic("loading_wheel_1,5", lobbyscreen:com_223);
+        if_setgraphic("loading_wheel_1,5", lobbyscreen:popup_throbber);
     case "loading_wheel_1,5" :
-        if_setgraphic("loading_wheel_1,6", lobbyscreen:com_223);
+        if_setgraphic("loading_wheel_1,6", lobbyscreen:popup_throbber);
     case "loading_wheel_1,6" :
-        if_setgraphic("loading_wheel_1,7", lobbyscreen:com_223);
+        if_setgraphic("loading_wheel_1,7", lobbyscreen:popup_throbber);
     case "loading_wheel_1,7" :
-        if_setgraphic("loading_wheel_1,0", lobbyscreen:com_223);
+        if_setgraphic("loading_wheel_1,0", lobbyscreen:popup_throbber);
     case default :
-        if_setgraphic("loading_wheel_1,0", lobbyscreen:com_223);
+        if_setgraphic("loading_wheel_1,0", lobbyscreen:popup_throbber);
 }

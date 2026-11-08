@@ -74,7 +74,7 @@ tiling=yes
 colour=0xffffffff
 
 // 78:7
-[com_7]
+[close]
 type=graphic
 x=474
 y=30
@@ -84,8 +84,8 @@ graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(interface_78:com_7, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(interface_78:com_7, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(interface_78:close, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(interface_78:close, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 78:8
@@ -150,7 +150,7 @@ graphic="v2_stone_borders,10"
 colour=0xffffffff
 
 // 78:14
-[com_14]
+[lore_pouch_layer]
 type=layer
 x=22
 y=59
@@ -159,7 +159,7 @@ height=257
 scrollheight=1400
 
 // 78:15
-[com_15]
+[lore_scroll_layer]
 type=layer
 x=22
 y=59
@@ -168,16 +168,16 @@ height=257
 scrollheight=1400
 
 // 78:16
-[com_16]
+[pouch_scroller]
 type=layer
 x=474
 y=59
 width=16
 height=257
-onload=scrollbar_vertical_graphics(event_com, interface_78:com_14, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, interface_78:lore_pouch_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 78:17
-[com_17]
+[scroll_scroller]
 type=layer
 x=474
 y=59
@@ -185,10 +185,10 @@ width=16
 height=257
 transmitop=10
 op10= 
-onload=scrollbar_vertical_graphics(event_com, interface_78:com_15, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, interface_78:lore_scroll_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 78:18
-[com_18]
+[pouch_label]
 type=text
 x=222
 y=30
@@ -201,7 +201,7 @@ textshadow=yes
 colour=0xff981f
 
 // 78:19
-[com_19]
+[scroll_label]
 type=text
 x=222
 y=30
@@ -226,8 +226,8 @@ graphic="tabs,0"
 colour=0xffffffff
 transmitop=1
 op1=Trade Scrolls
-onmouseleave=deltooltip(interface_78:com_29)
-onmouserepeat=script779(event_com, interface_78:com_29, 5111837, 1, "Swap between trading pouches and scrolls")
+onmouseleave=deltooltip(interface_78:tool_tip_build_layer)
+onmouserepeat=script779(event_com, interface_78:tool_tip_build_layer, 5111837, 1, "Swap between trading pouches and scrolls")
 
 // 78:21
 [com_21]
@@ -271,8 +271,8 @@ colour=0xffffffff
 transmitop=1,10
 op1=Trade Pouches
 op10= 
-onmouseleave=deltooltip(interface_78:com_29)
-onmouserepeat=script779(event_com, interface_78:com_29, 5111837, 1, "Swap between trading pouches and scrolls")
+onmouseleave=deltooltip(interface_78:tool_tip_build_layer)
+onmouserepeat=script779(event_com, interface_78:tool_tip_build_layer, 5111837, 1, "Swap between trading pouches and scrolls")
 
 // 78:25
 [com_25]
@@ -311,14 +311,14 @@ transmitop=10
 op10= 
 
 // 78:28
-[com_28]
+[tooltip_bounding_box]
 type=layer
 width=512
 height=334
 
 // 78:29
-[com_29]
+[tool_tip_build_layer]
 type=layer
 width=512
 height=334
-layer=com_28
+layer=tooltip_bounding_box

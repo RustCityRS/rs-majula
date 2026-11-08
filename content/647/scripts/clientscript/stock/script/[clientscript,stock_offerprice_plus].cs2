@@ -5,6 +5,6 @@ if (%varplayer_1109 = null) {
 }
 if (%varclient_85 < ^max_32bit_int) {
     %varclient_85 = calc(%varclient_85 + 1);
-    if_settext("<tostring_localised(%varclient_85, true)> gp", stockmarket:com_153);
+    if_settext("<tostring_localised(%varclient_85, true)> gp", stockmarket:offerprice);
     ~sm_offerprice_settimer;
 }

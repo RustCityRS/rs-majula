@@ -1,252 +1,252 @@
 // 2845
 [clientscript,barbassault_onload]
 if (%varplayerbit_3251 = 1) {
-    if_setmodel(model_20522, barbassault_reward_shop_new:com_43);
-    if_settext("Attacker level up to 2", barbassault_reward_shop_new:com_44);
-    if_settext("+20 bonus damage", barbassault_reward_shop_new:com_46);
-    if_settext("200 Attacker Honour Points", barbassault_reward_shop_new:com_45);
+    if_setmodel(model_20522, barbassault_reward_shop_new:barbassault_attacker_lvl);
+    if_settext("Attacker level up to 2", barbassault_reward_shop_new:barbassault_attacker_lvl_txt);
+    if_settext("+20 bonus damage", barbassault_reward_shop_new:barbassault_attacker_lvl_info);
+    if_settext("200 Attacker Honour Points", barbassault_reward_shop_new:barbassault_attacker_lvl_cost);
     if (%varplayerbit_3256 > 199) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_45);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_attacker_lvl_cost);
     }
 } else if (%varplayerbit_3251 = 2) {
-    if_setmodel(model_20523, barbassault_reward_shop_new:com_43);
-    if_settext("Attacker level up to 3", barbassault_reward_shop_new:com_44);
-    if_settext("+30 bonus damage", barbassault_reward_shop_new:com_46);
-    if_settext("300 Attacker Honour Points", barbassault_reward_shop_new:com_45);
+    if_setmodel(model_20523, barbassault_reward_shop_new:barbassault_attacker_lvl);
+    if_settext("Attacker level up to 3", barbassault_reward_shop_new:barbassault_attacker_lvl_txt);
+    if_settext("+30 bonus damage", barbassault_reward_shop_new:barbassault_attacker_lvl_info);
+    if_settext("300 Attacker Honour Points", barbassault_reward_shop_new:barbassault_attacker_lvl_cost);
     if (%varplayerbit_3256 > 299) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_45);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_attacker_lvl_cost);
     }
 } else if (%varplayerbit_3251 = 3) {
-    if_setmodel(model_20524, barbassault_reward_shop_new:com_43);
-    if_settext("Attacker level up to 4", barbassault_reward_shop_new:com_44);
-    if_settext("+40 bonus damage", barbassault_reward_shop_new:com_46);
-    if_settext("400 Attacker Honour Points", barbassault_reward_shop_new:com_45);
+    if_setmodel(model_20524, barbassault_reward_shop_new:barbassault_attacker_lvl);
+    if_settext("Attacker level up to 4", barbassault_reward_shop_new:barbassault_attacker_lvl_txt);
+    if_settext("+40 bonus damage", barbassault_reward_shop_new:barbassault_attacker_lvl_info);
+    if_settext("400 Attacker Honour Points", barbassault_reward_shop_new:barbassault_attacker_lvl_cost);
     if (%varplayerbit_3256 > 399) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_45);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_attacker_lvl_cost);
     }
 } else if (%varplayerbit_3251 = 4) {
-    if_setmodel(model_20525, barbassault_reward_shop_new:com_43);
-    if_settext("Attacker level up to 5", barbassault_reward_shop_new:com_44);
-    if_settext("+50 bonus damage", barbassault_reward_shop_new:com_46);
-    if_settext("500 Attacker Honour Points", barbassault_reward_shop_new:com_45);
+    if_setmodel(model_20525, barbassault_reward_shop_new:barbassault_attacker_lvl);
+    if_settext("Attacker level up to 5", barbassault_reward_shop_new:barbassault_attacker_lvl_txt);
+    if_settext("+50 bonus damage", barbassault_reward_shop_new:barbassault_attacker_lvl_info);
+    if_settext("500 Attacker Honour Points", barbassault_reward_shop_new:barbassault_attacker_lvl_cost);
     if (%varplayerbit_3256 > 499) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_45);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_attacker_lvl_cost);
     }
 } else if (%varplayerbit_3251 = 5) {
-    if_setmodel(model_20525, barbassault_reward_shop_new:com_43);
-    if_settext("Attacker level up complete", barbassault_reward_shop_new:com_44);
-    if_settext(" - Mastered - ", barbassault_reward_shop_new:com_46);
-    if_settext(" - Mastered - ", barbassault_reward_shop_new:com_45);
+    if_setmodel(model_20525, barbassault_reward_shop_new:barbassault_attacker_lvl);
+    if_settext("Attacker level up complete", barbassault_reward_shop_new:barbassault_attacker_lvl_txt);
+    if_settext(" - Mastered - ", barbassault_reward_shop_new:barbassault_attacker_lvl_info);
+    if_settext(" - Mastered - ", barbassault_reward_shop_new:barbassault_attacker_lvl_cost);
 } else {
     %varplayerbit_3251 = 1;
-    if_setmodel(model_20522, barbassault_reward_shop_new:com_43);
-    if_settext("Attacker level up to 2", barbassault_reward_shop_new:com_44);
-    if_settext("+20 bonus damage", barbassault_reward_shop_new:com_46);
-    if_settext("200 Attacker Honour Points", barbassault_reward_shop_new:com_45);
+    if_setmodel(model_20522, barbassault_reward_shop_new:barbassault_attacker_lvl);
+    if_settext("Attacker level up to 2", barbassault_reward_shop_new:barbassault_attacker_lvl_txt);
+    if_settext("+20 bonus damage", barbassault_reward_shop_new:barbassault_attacker_lvl_info);
+    if_settext("200 Attacker Honour Points", barbassault_reward_shop_new:barbassault_attacker_lvl_cost);
     if (%varplayerbit_3256 > 199) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_45);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_attacker_lvl_cost);
     }
 }
 if (%varplayerbit_3253 = 1) {
-    if_setmodel(model_20531, barbassault_reward_shop_new:com_50);
-    if_settext("Defender level up to 2", barbassault_reward_shop_new:com_51);
-    if_settext("Lure range 5", barbassault_reward_shop_new:com_53);
-    if_settext("200 Defender Honour Points", barbassault_reward_shop_new:com_52);
+    if_setmodel(model_20531, barbassault_reward_shop_new:barbassault_defender_lvl);
+    if_settext("Defender level up to 2", barbassault_reward_shop_new:barbassault_defender_lvl_txt);
+    if_settext("Lure range 5", barbassault_reward_shop_new:barbassault_defender_lvl_info);
+    if_settext("200 Defender Honour Points", barbassault_reward_shop_new:barbassault_defender_lvl_cost);
     if (%varplayerbit_3263 > 199) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_52);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_defender_lvl_cost);
     }
 } else if (%varplayerbit_3253 = 2) {
-    if_setmodel(model_20532, barbassault_reward_shop_new:com_50);
-    if_settext("Defender level up to 3", barbassault_reward_shop_new:com_51);
-    if_settext("Lure range 6", barbassault_reward_shop_new:com_53);
-    if_settext("300 Defender Honour Points", barbassault_reward_shop_new:com_52);
+    if_setmodel(model_20532, barbassault_reward_shop_new:barbassault_defender_lvl);
+    if_settext("Defender level up to 3", barbassault_reward_shop_new:barbassault_defender_lvl_txt);
+    if_settext("Lure range 6", barbassault_reward_shop_new:barbassault_defender_lvl_info);
+    if_settext("300 Defender Honour Points", barbassault_reward_shop_new:barbassault_defender_lvl_cost);
     if (%varplayerbit_3263 > 299) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_52);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_defender_lvl_cost);
     }
 } else if (%varplayerbit_3253 = 3) {
-    if_setmodel(model_20533, barbassault_reward_shop_new:com_50);
-    if_settext("Defender level up to 4", barbassault_reward_shop_new:com_51);
-    if_settext("Lure range 8", barbassault_reward_shop_new:com_53);
-    if_settext("400 Defender Honour Points", barbassault_reward_shop_new:com_52);
+    if_setmodel(model_20533, barbassault_reward_shop_new:barbassault_defender_lvl);
+    if_settext("Defender level up to 4", barbassault_reward_shop_new:barbassault_defender_lvl_txt);
+    if_settext("Lure range 8", barbassault_reward_shop_new:barbassault_defender_lvl_info);
+    if_settext("400 Defender Honour Points", barbassault_reward_shop_new:barbassault_defender_lvl_cost);
     if (%varplayerbit_3263 > 399) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_52);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_defender_lvl_cost);
     }
 } else if (%varplayerbit_3253 = 4) {
-    if_setmodel(model_20534, barbassault_reward_shop_new:com_50);
-    if_settext("Defender level up to 5", barbassault_reward_shop_new:com_51);
-    if_settext("Lure range 10", barbassault_reward_shop_new:com_53);
-    if_settext("500 Defender Honour Points", barbassault_reward_shop_new:com_52);
+    if_setmodel(model_20534, barbassault_reward_shop_new:barbassault_defender_lvl);
+    if_settext("Defender level up to 5", barbassault_reward_shop_new:barbassault_defender_lvl_txt);
+    if_settext("Lure range 10", barbassault_reward_shop_new:barbassault_defender_lvl_info);
+    if_settext("500 Defender Honour Points", barbassault_reward_shop_new:barbassault_defender_lvl_cost);
     if (%varplayerbit_3263 > 499) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_52);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_defender_lvl_cost);
     }
 } else if (%varplayerbit_3253 = 5) {
-    if_setmodel(model_20534, barbassault_reward_shop_new:com_50);
-    if_settext("Defender level up complete", barbassault_reward_shop_new:com_51);
-    if_settext(" - Mastered - ", barbassault_reward_shop_new:com_53);
-    if_settext(" - Mastered - ", barbassault_reward_shop_new:com_52);
+    if_setmodel(model_20534, barbassault_reward_shop_new:barbassault_defender_lvl);
+    if_settext("Defender level up complete", barbassault_reward_shop_new:barbassault_defender_lvl_txt);
+    if_settext(" - Mastered - ", barbassault_reward_shop_new:barbassault_defender_lvl_info);
+    if_settext(" - Mastered - ", barbassault_reward_shop_new:barbassault_defender_lvl_cost);
 } else {
     %varplayerbit_3253 = 1;
-    if_setmodel(model_20531, barbassault_reward_shop_new:com_50);
-    if_settext("Defender level up to 2", barbassault_reward_shop_new:com_51);
-    if_settext("Lure range 5", barbassault_reward_shop_new:com_53);
-    if_settext("200 Defender Honour Points", barbassault_reward_shop_new:com_52);
+    if_setmodel(model_20531, barbassault_reward_shop_new:barbassault_defender_lvl);
+    if_settext("Defender level up to 2", barbassault_reward_shop_new:barbassault_defender_lvl_txt);
+    if_settext("Lure range 5", barbassault_reward_shop_new:barbassault_defender_lvl_info);
+    if_settext("200 Defender Honour Points", barbassault_reward_shop_new:barbassault_defender_lvl_cost);
     if (%varplayerbit_3263 > 199) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_52);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_defender_lvl_cost);
     }
 }
 if (%varplayerbit_3254 = 1) {
-    if_setmodel(model_20526, barbassault_reward_shop_new:com_57);
-    if_settext("Collector level up to 2", barbassault_reward_shop_new:com_58);
-    if_settext("Egg conversion", barbassault_reward_shop_new:com_60);
-    if_settext("200 Collector Honour Points", barbassault_reward_shop_new:com_59);
+    if_setmodel(model_20526, barbassault_reward_shop_new:barbassault_collector_lvl);
+    if_settext("Collector level up to 2", barbassault_reward_shop_new:barbassault_collector_lvl_txt);
+    if_settext("Egg conversion", barbassault_reward_shop_new:barbassault_collector_lvl_info);
+    if_settext("200 Collector Honour Points", barbassault_reward_shop_new:barbassault_collector_lvl_cost);
     if (%varplayerbit_3261 > 199) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_59);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_collector_lvl_cost);
     }
 } else if (%varplayerbit_3254 = 2) {
-    if_setmodel(model_20527, barbassault_reward_shop_new:com_57);
-    if_settext("Collector level up to 3", barbassault_reward_shop_new:com_58);
-    if_settext("Egg convert success (80%)", barbassault_reward_shop_new:com_60);
-    if_settext("300 Collector Honour Points", barbassault_reward_shop_new:com_59);
+    if_setmodel(model_20527, barbassault_reward_shop_new:barbassault_collector_lvl);
+    if_settext("Collector level up to 3", barbassault_reward_shop_new:barbassault_collector_lvl_txt);
+    if_settext("Egg convert success (80%)", barbassault_reward_shop_new:barbassault_collector_lvl_info);
+    if_settext("300 Collector Honour Points", barbassault_reward_shop_new:barbassault_collector_lvl_cost);
     if (%varplayerbit_3261 > 299) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_59);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_collector_lvl_cost);
     }
 } else if (%varplayerbit_3254 = 3) {
-    if_setmodel(model_20528, barbassault_reward_shop_new:com_57);
-    if_settext("Collector level up to 4", barbassault_reward_shop_new:com_58);
-    if_settext("Egg convert success (90%)", barbassault_reward_shop_new:com_60);
-    if_settext("400 Collector Honour Points", barbassault_reward_shop_new:com_59);
+    if_setmodel(model_20528, barbassault_reward_shop_new:barbassault_collector_lvl);
+    if_settext("Collector level up to 4", barbassault_reward_shop_new:barbassault_collector_lvl_txt);
+    if_settext("Egg convert success (90%)", barbassault_reward_shop_new:barbassault_collector_lvl_info);
+    if_settext("400 Collector Honour Points", barbassault_reward_shop_new:barbassault_collector_lvl_cost);
     if (%varplayerbit_3261 > 399) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_59);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_collector_lvl_cost);
     }
 } else if (%varplayerbit_3254 = 4) {
-    if_setmodel(model_20529, barbassault_reward_shop_new:com_57);
-    if_settext("Collector level up to 5", barbassault_reward_shop_new:com_58);
-    if_settext("Egg convert success (100%)", barbassault_reward_shop_new:com_60);
-    if_settext("500 Collector Honour Points", barbassault_reward_shop_new:com_59);
+    if_setmodel(model_20529, barbassault_reward_shop_new:barbassault_collector_lvl);
+    if_settext("Collector level up to 5", barbassault_reward_shop_new:barbassault_collector_lvl_txt);
+    if_settext("Egg convert success (100%)", barbassault_reward_shop_new:barbassault_collector_lvl_info);
+    if_settext("500 Collector Honour Points", barbassault_reward_shop_new:barbassault_collector_lvl_cost);
     if (%varplayerbit_3261 > 499) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_59);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_collector_lvl_cost);
     }
 } else if (%varplayerbit_3254 = 5) {
-    if_setmodel(model_20529, barbassault_reward_shop_new:com_57);
-    if_settext("Collector level up complete", barbassault_reward_shop_new:com_58);
-    if_settext(" - Mastered - ", barbassault_reward_shop_new:com_60);
-    if_settext(" - Mastered - ", barbassault_reward_shop_new:com_59);
+    if_setmodel(model_20529, barbassault_reward_shop_new:barbassault_collector_lvl);
+    if_settext("Collector level up complete", barbassault_reward_shop_new:barbassault_collector_lvl_txt);
+    if_settext(" - Mastered - ", barbassault_reward_shop_new:barbassault_collector_lvl_info);
+    if_settext(" - Mastered - ", barbassault_reward_shop_new:barbassault_collector_lvl_cost);
 } else {
     %varplayerbit_3254 = 1;
-    if_setmodel(model_20526, barbassault_reward_shop_new:com_57);
-    if_settext("Collector level up to 2", barbassault_reward_shop_new:com_58);
-    if_settext("Egg conversion", barbassault_reward_shop_new:com_60);
-    if_settext("200 Collector Honour Points", barbassault_reward_shop_new:com_59);
+    if_setmodel(model_20526, barbassault_reward_shop_new:barbassault_collector_lvl);
+    if_settext("Collector level up to 2", barbassault_reward_shop_new:barbassault_collector_lvl_txt);
+    if_settext("Egg conversion", barbassault_reward_shop_new:barbassault_collector_lvl_info);
+    if_settext("200 Collector Honour Points", barbassault_reward_shop_new:barbassault_collector_lvl_cost);
     if (%varplayerbit_3261 > 199) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_59);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_collector_lvl_cost);
     }
 }
 if (%varplayerbit_3255 = 1) {
-    if_setmodel(model_20538, barbassault_reward_shop_new:com_64);
-    if_settext("Healer level up to 2", barbassault_reward_shop_new:com_65);
-    if_settext("Heal 150 points, more run energy", barbassault_reward_shop_new:com_67);
-    if_settext("200 Healer Honour Points", barbassault_reward_shop_new:com_66);
+    if_setmodel(model_20538, barbassault_reward_shop_new:barbassault_healer_lvl);
+    if_settext("Healer level up to 2", barbassault_reward_shop_new:barbassault_healer_lvl_txt);
+    if_settext("Heal 150 points, more run energy", barbassault_reward_shop_new:barbassault_healer_lvl_info);
+    if_settext("200 Healer Honour Points", barbassault_reward_shop_new:barbassault_healer_lvl_cost);
     if (%varplayerbit_3262 > 199) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_66);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_healer_lvl_cost);
     }
 } else if (%varplayerbit_3255 = 2) {
-    if_setmodel(model_20539, barbassault_reward_shop_new:com_64);
-    if_settext("Healer level up to 3", barbassault_reward_shop_new:com_65);
-    if_settext("Heal 200 points, more run energy", barbassault_reward_shop_new:com_67);
-    if_settext("300 Healer Honour Points", barbassault_reward_shop_new:com_66);
+    if_setmodel(model_20539, barbassault_reward_shop_new:barbassault_healer_lvl);
+    if_settext("Healer level up to 3", barbassault_reward_shop_new:barbassault_healer_lvl_txt);
+    if_settext("Heal 200 points, more run energy", barbassault_reward_shop_new:barbassault_healer_lvl_info);
+    if_settext("300 Healer Honour Points", barbassault_reward_shop_new:barbassault_healer_lvl_cost);
     if (%varplayerbit_3262 > 299) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_66);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_healer_lvl_cost);
     }
 } else if (%varplayerbit_3255 = 3) {
-    if_setmodel(model_20540, barbassault_reward_shop_new:com_64);
-    if_settext("Healer level up to 4", barbassault_reward_shop_new:com_65);
-    if_settext("Heal 250 points, more run energy", barbassault_reward_shop_new:com_67);
-    if_settext("400 Healer Honour Points", barbassault_reward_shop_new:com_66);
+    if_setmodel(model_20540, barbassault_reward_shop_new:barbassault_healer_lvl);
+    if_settext("Healer level up to 4", barbassault_reward_shop_new:barbassault_healer_lvl_txt);
+    if_settext("Heal 250 points, more run energy", barbassault_reward_shop_new:barbassault_healer_lvl_info);
+    if_settext("400 Healer Honour Points", barbassault_reward_shop_new:barbassault_healer_lvl_cost);
     if (%varplayerbit_3262 > 399) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_66);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_healer_lvl_cost);
     }
 } else if (%varplayerbit_3255 = 4) {
-    if_setmodel(model_20541, barbassault_reward_shop_new:com_64);
-    if_settext("Healer level up to 5", barbassault_reward_shop_new:com_65);
-    if_settext("Heal 350 points, more run energy", barbassault_reward_shop_new:com_67);
-    if_settext("500 Healer Honour Points", barbassault_reward_shop_new:com_66);
+    if_setmodel(model_20541, barbassault_reward_shop_new:barbassault_healer_lvl);
+    if_settext("Healer level up to 5", barbassault_reward_shop_new:barbassault_healer_lvl_txt);
+    if_settext("Heal 350 points, more run energy", barbassault_reward_shop_new:barbassault_healer_lvl_info);
+    if_settext("500 Healer Honour Points", barbassault_reward_shop_new:barbassault_healer_lvl_cost);
     if (%varplayerbit_3262 > 499) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_66);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_healer_lvl_cost);
     }
 } else if (%varplayerbit_3255 = 5) {
-    if_setmodel(model_20541, barbassault_reward_shop_new:com_64);
-    if_settext("Healer level up complete", barbassault_reward_shop_new:com_65);
-    if_settext(" - Mastered - ", barbassault_reward_shop_new:com_67);
-    if_settext(" - Mastered - ", barbassault_reward_shop_new:com_66);
+    if_setmodel(model_20541, barbassault_reward_shop_new:barbassault_healer_lvl);
+    if_settext("Healer level up complete", barbassault_reward_shop_new:barbassault_healer_lvl_txt);
+    if_settext(" - Mastered - ", barbassault_reward_shop_new:barbassault_healer_lvl_info);
+    if_settext(" - Mastered - ", barbassault_reward_shop_new:barbassault_healer_lvl_cost);
 } else {
     %varplayerbit_3255 = 1;
-    if_setmodel(model_20538, barbassault_reward_shop_new:com_64);
-    if_settext("Healer level up to 2", barbassault_reward_shop_new:com_65);
-    if_settext("Heal 150 points and even more run energy", barbassault_reward_shop_new:com_67);
-    if_settext("200 Healer Honour Points", barbassault_reward_shop_new:com_66);
+    if_setmodel(model_20538, barbassault_reward_shop_new:barbassault_healer_lvl);
+    if_settext("Healer level up to 2", barbassault_reward_shop_new:barbassault_healer_lvl_txt);
+    if_settext("Heal 150 points and even more run energy", barbassault_reward_shop_new:barbassault_healer_lvl_info);
+    if_settext("200 Healer Honour Points", barbassault_reward_shop_new:barbassault_healer_lvl_cost);
     if (%varplayerbit_3262 > 199) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_66);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_healer_lvl_cost);
     }
 }
 if (%varplayerbit_3256 > 274 & %varplayerbit_3263 > 274 & %varplayerbit_3261 > 274 & %varplayerbit_3262 > 274) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_128);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_fighter_hat_cost);
 }
 if (%varplayerbit_3256 > 274 & %varplayerbit_3263 > 274 & %varplayerbit_3261 > 274 & %varplayerbit_3262 > 274) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_121);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_ranger_hat_cost);
 }
 if (%varplayerbit_3256 > 274 & %varplayerbit_3263 > 274 & %varplayerbit_3261 > 274 & %varplayerbit_3262 > 274) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_114);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_runner_hat_cost);
 }
 if (%varplayerbit_3256 > 274 & %varplayerbit_3263 > 274 & %varplayerbit_3261 > 274 & %varplayerbit_3262 > 274) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_107);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_healer_hat_cost);
 }
 if (%varplayerbit_3256 > 374 & %varplayerbit_3263 > 374 & %varplayerbit_3261 > 374 & %varplayerbit_3262 > 374) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_100);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_torso_cost);
 }
 if (%varplayerbit_3256 > 374 & %varplayerbit_3263 > 374 & %varplayerbit_3261 > 374 & %varplayerbit_3262 > 374) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_93);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_legs_cost);
 }
 if (%varplayerbit_3256 > 99 & %varplayerbit_3263 > 99 & %varplayerbit_3261 > 99 & %varplayerbit_3262 > 99) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_87);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_boots_cost);
 }
 if (%varplayerbit_3256 > 149 & %varplayerbit_3263 > 149 & %varplayerbit_3261 > 149 & %varplayerbit_3262 > 149) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_81);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_gloves_cost);
 }
 if (inv_total(inv, coins) > 94999) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_212);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_granite_cost);
 }
 if (%varplayerbit_3245 = 1) {
     if_setcolour(^green, barbassault_reward_shop_new:com_95);
-    if_setcolour(^green, barbassault_reward_shop_new:com_102);
-    if_setcolour(^green, barbassault_reward_shop_new:com_109);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_torso_cost_queen);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_healer_hat_cost_queen);
     if_setcolour(^green, barbassault_reward_shop_new:com_116);
     if_setcolour(^green, barbassault_reward_shop_new:com_123);
-    if_setcolour(^green, barbassault_reward_shop_new:com_130);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_fighter_hat_cost_queen);
     if_setcolour(^green, barbassault_reward_shop_new:com_214);
 }
 if (%varplayerbit_3256 > 9 | %varplayerbit_3263 > 9 | %varplayerbit_3261 > 9 | %varplayerbit_3262 > 9) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_206);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_gamble_50_cost);
 }
 if (%varplayerbit_3256 > 19 | %varplayerbit_3263 > 19 | %varplayerbit_3261 > 19 | %varplayerbit_3262 > 19) {
     if_setcolour(^green, barbassault_reward_shop_new:com_200);
 }
 if (%varplayerbit_3256 > 29 | %varplayerbit_3263 > 29 | %varplayerbit_3261 > 29 | %varplayerbit_3262 > 29) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_194);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_gamble_250_cost);
 }
 if (inv_total(inv, penance_horn) < 1 & inv_total(bank, penance_horn) < 1 & inv_total(worn, penance_horn) < 1 & inv_total(inv_530, penance_horn) < 1 & inv_total(inv, penance_master_horn) < 1 & inv_total(bank, penance_master_horn) < 1 & inv_total(worn, penance_master_horn) < 1 & inv_total(inv_530, penance_master_horn) < 1) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_219);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_horn_cost);
 }
 if (%varplayerbit_3251 = 5 | %varplayerbit_3253 = 5 | %varplayerbit_3254 = 5 | %varplayerbit_3255 = 5) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_183);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_horn_upgrade_cost);
 }
 if (inv_total(inv, penance_master_horn) < 1 & inv_total(bank, penance_master_horn) < 1 & inv_total(worn, penance_master_horn) < 1 & inv_total(inv_530, penance_master_horn) < 1 & (inv_total(inv, penance_horn) > 0 | inv_total(bank, penance_horn) > 0 | inv_total(worn, penance_horn) > 0 | inv_total(inv_530, penance_horn) > 0)) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_184);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_horn_upgrade_cost_2);
 }
 if (%varplayerbit_3256 > 389 & %varplayerbit_3263 > 389 & %varplayerbit_3261 > 389 & %varplayerbit_3262 > 389) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_146);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_trident_cost);
 }
 if (inv_total(inv, penance_trident) > 0 | inv_total(worn, penance_trident) > 0) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_140);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_trident_cost_master);
 }
 def_int $int0 = 0;
 if (inv_total(inv, abyssal_whip) > 0 | inv_total(inv, dark_bow) > 0) {
@@ -254,53 +254,53 @@ if (inv_total(inv, abyssal_whip) > 0 | inv_total(inv, dark_bow) > 0) {
 }
 if (%varplayerbit_7342 = 0) {
     if (%varplayerbit_3256 > 49 | %varplayerbit_3263 > 49 | %varplayerbit_3261 > 49 | %varplayerbit_3262 > 49) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_162);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_white_cost);
     }
 } else if ($int0 = 1) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_162);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_white_cost);
 }
 if (%varplayerbit_7344 = 0) {
     if (%varplayerbit_3256 > 49 | %varplayerbit_3263 > 49 | %varplayerbit_3261 > 49 | %varplayerbit_3262 > 49) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_156);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_green_cost);
     }
 } else if ($int0 = 1) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_156);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_green_cost);
 }
 if (%varplayerbit_7341 = 0) {
     if (%varplayerbit_3256 > 49 | %varplayerbit_3263 > 49 | %varplayerbit_3261 > 49 | %varplayerbit_3262 > 49) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_174);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_yellow_cost);
     }
 } else if ($int0 = 1) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_174);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_yellow_cost);
 }
 if (%varplayerbit_7343 = 0) {
     if (%varplayerbit_3256 > 49 | %varplayerbit_3263 > 49 | %varplayerbit_3261 > 49 | %varplayerbit_3262 > 49) {
-        if_setcolour(^green, barbassault_reward_shop_new:com_168);
+        if_setcolour(^green, barbassault_reward_shop_new:barbassault_blue_cost);
     }
 } else if ($int0 = 1) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_168);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_blue_cost);
 }
 if (%varplayerbit_7342 = 1) {
-    if_settext("Carrying a valid weapon", barbassault_reward_shop_new:com_162);
-    if_settext("Use Penance Egg Paint (White)", barbassault_reward_shop_new:com_161);
+    if_settext("Carrying a valid weapon", barbassault_reward_shop_new:barbassault_white_cost);
+    if_settext("Use Penance Egg Paint (White)", barbassault_reward_shop_new:barbassault_white_txt);
 }
 if (%varplayerbit_7344 = 1) {
-    if_settext("Carrying a valid weapon", barbassault_reward_shop_new:com_156);
-    if_settext("Use Penance Egg Paint (Green)", barbassault_reward_shop_new:com_155);
+    if_settext("Carrying a valid weapon", barbassault_reward_shop_new:barbassault_green_cost);
+    if_settext("Use Penance Egg Paint (Green)", barbassault_reward_shop_new:alchemist_jumped08);
 }
 if (%varplayerbit_7343 = 1) {
-    if_settext("Carrying a valid weapon", barbassault_reward_shop_new:com_168);
-    if_settext("Use Penance Egg Paint (Blue)", barbassault_reward_shop_new:com_167);
+    if_settext("Carrying a valid weapon", barbassault_reward_shop_new:barbassault_blue_cost);
+    if_settext("Use Penance Egg Paint (Blue)", barbassault_reward_shop_new:barbassault_blue_txt);
 }
 if (%varplayerbit_7341 = 1) {
-    if_settext("Carrying a valid weapon", barbassault_reward_shop_new:com_174);
-    if_settext("Use Penance Egg Paint (Yellow)", barbassault_reward_shop_new:com_173);
+    if_settext("Carrying a valid weapon", barbassault_reward_shop_new:barbassault_yellow_cost);
+    if_settext("Use Penance Egg Paint (Yellow)", barbassault_reward_shop_new:barbassault_yellow_txt);
 }
-if_setobject(yellow_egg, -1, barbassault_reward_shop_new:com_172);
-if_setobject(green_egg, -1, barbassault_reward_shop_new:com_154);
-if_setobject(obj_15705, -1, barbassault_reward_shop_new:com_160);
-if_setobject(blue_egg, -1, barbassault_reward_shop_new:com_166);
-if_settext(tostring(%varplayerbit_3256), barbassault_reward_shop_new:com_9);
-if_settext(tostring(%varplayerbit_3263), barbassault_reward_shop_new:com_10);
-if_settext(tostring(%varplayerbit_3261), barbassault_reward_shop_new:com_11);
-if_settext(tostring(%varplayerbit_3262), barbassault_reward_shop_new:com_12);
+if_setobject(yellow_egg, -1, barbassault_reward_shop_new:barbassault_yellow);
+if_setobject(green_egg, -1, barbassault_reward_shop_new:barbassault_green);
+if_setobject(obj_15705, -1, barbassault_reward_shop_new:barbassault_white);
+if_setobject(blue_egg, -1, barbassault_reward_shop_new:barbassault_blue);
+if_settext(tostring(%varplayerbit_3256), barbassault_reward_shop_new:barbassault_reward_pts_att);
+if_settext(tostring(%varplayerbit_3263), barbassault_reward_shop_new:barbassault_reward_pts_def);
+if_settext(tostring(%varplayerbit_3261), barbassault_reward_shop_new:barbassault_reward_pts_col);
+if_settext(tostring(%varplayerbit_3262), barbassault_reward_shop_new:barbassault_reward_pts_heal);

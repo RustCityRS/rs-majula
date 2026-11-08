@@ -1,5 +1,5 @@
 // 859:0
-[com_0]
+[head_rect]
 type=rectangle
 x=72
 y=53
@@ -18,19 +18,19 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_27
+layer=text
 colour=0x000000
 fill=yes
 trans=136
 
 // 859:2
-[com_2]
+[attack]
 type=graphic
 width=35
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=button1
 graphic=graphic_1914
 colour=0xffffffff
 transmitop=10
@@ -43,7 +43,7 @@ width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_16
+layer=button4
 hide=yes
 
 // 859:4
@@ -53,7 +53,7 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_16
+layer=button4
 hide=yes
 
 // 859:5
@@ -63,11 +63,11 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_16
+layer=button4
 hide=yes
 
 // 859:6
-[com_6]
+[cave_collect]
 type=graphic
 width=35
 height=30
@@ -80,33 +80,33 @@ transmitop=10
 op10=    
 
 // 859:7
-[com_7]
+[explore]
 type=graphic
 width=35
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_15
+layer=button3
 graphic=graphic_1916
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 859:8
-[com_8]
+[move]
 type=graphic
 width=35
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_14
+layer=button2
 graphic=graphic_1915
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 859:9
-[com_9]
+[title]
 type=text
 x=22
 y=19
@@ -121,7 +121,7 @@ colour=0xe79935
 onload=script2636
 
 // 859:10
-[com_10]
+[weight_txt]
 type=text
 x=16
 y=86
@@ -136,7 +136,7 @@ colour=0xe79935
 onload=script2636
 
 // 859:11
-[com_11]
+[unit_status]
 type=text
 x=22
 y=35
@@ -149,7 +149,7 @@ textshadow=yes
 colour=0xe79935
 
 // 859:12
-[com_12]
+[top_title]
 type=text
 x=22
 y=3
@@ -165,7 +165,7 @@ onload=script2626
 onvarctransmit=mob_highlight_stop{varclient_904}
 
 // 859:13
-[com_13]
+[button1]
 type=layer
 x=12
 y=103
@@ -180,7 +180,7 @@ ontargetleave=mob_highlight_stop
 onclick=mob_highlight_start(event_com)
 
 // 859:14
-[com_14]
+[button2]
 type=layer
 x=72
 y=103
@@ -195,7 +195,7 @@ ontargetleave=mob_highlight_stop
 onclick=mob_highlight_start(event_com)
 
 // 859:15
-[com_15]
+[button3]
 type=layer
 x=133
 y=103
@@ -210,7 +210,7 @@ ontargetleave=mob_highlight_stop
 onclick=mob_highlight_start(event_com)
 
 // 859:16
-[com_16]
+[button4]
 type=layer
 x=40
 y=153
@@ -224,7 +224,7 @@ ontargetleave=mob_highlight_stop
 onclick=mob_highlight_start(event_com)
 
 // 859:17
-[com_17]
+[button5]
 type=layer
 x=110
 y=153
@@ -238,53 +238,53 @@ ontargetleave=mob_highlight_stop
 onclick=mob_highlight_start(event_com)
 
 // 859:18
-[com_18]
+[button5_steal]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_17
+layer=button5
 hide=yes
 
 // 859:19
-[com_19]
+[button5_collect]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_17
+layer=button5
 hide=yes
 
 // 859:20
-[com_20]
+[steal]
 type=graphic
 width=35
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=button5_steal
 graphic=graphic_1919
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 859:21
-[com_21]
+[collect]
 type=graphic
 width=35
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_19
+layer=button5_collect
 graphic=graphic_1920
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 859:22
-[com_22]
+[attack_wall]
 type=graphic
 width=35
 height=30
@@ -297,7 +297,7 @@ transmitop=10
 op10=    
 
 // 859:23
-[com_23]
+[rescue]
 type=graphic
 width=35
 height=30
@@ -310,7 +310,7 @@ transmitop=10
 op10=     
 
 // 859:24
-[com_24]
+[unit_race]
 type=graphic
 x=80
 y=58
@@ -323,7 +323,7 @@ op1=Go to
 onvarctransmit=script2637{varclient_902}
 
 // 859:25
-[com_25]
+[status_graphic]
 type=graphic
 x=130
 y=53
@@ -334,7 +334,7 @@ colour=0xffffffff
 onvarctransmit=overlaymouseover{varclient_906, varclient_907}
 
 // 859:26
-[com_26]
+[weight_graphic]
 type=graphic
 x=29
 y=61
@@ -345,7 +345,7 @@ colour=0xffffffff
 onvarctransmit=script2638{varclient_903}
 
 // 859:27
-[com_27]
+[text]
 type=layer
 width=16384
 height=58
@@ -353,12 +353,12 @@ widthmode=proportion
 ymode=abs_bottom
 
 // 859:28
-[com_28]
+[command_title]
 type=text
 width=16384
 height=18
 widthmode=proportion
-layer=com_27
+layer=text
 textfont=b12_full
 text=Command Name
 textalignh=centre
@@ -366,13 +366,13 @@ textshadow=yes
 colour=0xe79935
 
 // 859:29
-[com_29]
+[command_desc]
 type=text
 y=18
 width=16384
 height=40
 widthmode=proportion
-layer=com_27
+layer=text
 textfont=p12_full
 text=This will be a description of the command and what it does.
 textalignh=centre
@@ -380,7 +380,7 @@ textshadow=yes
 colour=0xe79935
 
 // 859:30
-[com_30]
+[separator]
 type=graphic
 y=188
 width=190

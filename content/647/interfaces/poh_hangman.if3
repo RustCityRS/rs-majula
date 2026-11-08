@@ -1,5 +1,5 @@
 // 393:0
-[com_0]
+[poh_hangman_letter1]
 type=text
 x=200
 y=8
@@ -15,7 +15,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:1
-[com_1]
+[poh_hangman_letter2]
 type=text
 x=232
 y=8
@@ -31,7 +31,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:2
-[com_2]
+[poh_hangman_letter3]
 type=text
 x=264
 y=8
@@ -47,7 +47,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:3
-[com_3]
+[poh_hangman_letter4]
 type=text
 x=296
 y=8
@@ -63,7 +63,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:4
-[com_4]
+[poh_hangman_letter5]
 type=text
 x=328
 y=8
@@ -79,7 +79,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:5
-[com_5]
+[poh_hangman_letter6]
 type=text
 x=360
 y=8
@@ -95,7 +95,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:6
-[com_6]
+[poh_hangman_letter7]
 type=text
 x=392
 y=8
@@ -111,7 +111,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:7
-[com_7]
+[poh_hangman_letter8]
 type=text
 x=424
 y=8
@@ -127,7 +127,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:8
-[com_8]
+[poh_hangman_letter9]
 type=text
 x=456
 y=8
@@ -143,7 +143,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:9
-[com_9]
+[poh_hangman_letter10]
 type=text
 x=216
 y=28
@@ -159,7 +159,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:10
-[com_10]
+[poh_hangman_letter11]
 type=text
 x=248
 y=28
@@ -175,7 +175,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:11
-[com_11]
+[poh_hangman_letter12]
 type=text
 x=280
 y=28
@@ -191,7 +191,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:12
-[com_12]
+[poh_hangman_letter13]
 type=text
 x=312
 y=28
@@ -207,7 +207,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:13
-[com_13]
+[poh_hangman_letter14]
 type=text
 x=344
 y=28
@@ -223,7 +223,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:14
-[com_14]
+[poh_hangman_letter15]
 type=text
 x=376
 y=28
@@ -239,7 +239,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:15
-[com_15]
+[poh_hangman_letter16]
 type=text
 x=408
 y=28
@@ -255,7 +255,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:16
-[com_16]
+[poh_hangman_letter17]
 type=text
 x=440
 y=28
@@ -271,7 +271,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:17
-[com_17]
+[poh_hangman_letter18]
 type=text
 x=200
 y=48
@@ -287,7 +287,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:18
-[com_18]
+[poh_hangman_letter19]
 type=text
 x=232
 y=48
@@ -303,7 +303,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:19
-[com_19]
+[poh_hangman_letter20]
 type=text
 x=264
 y=48
@@ -319,7 +319,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:20
-[com_20]
+[poh_hangman_letter21]
 type=text
 x=296
 y=48
@@ -335,7 +335,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:21
-[com_21]
+[poh_hangman_letter22]
 type=text
 x=328
 y=48
@@ -351,7 +351,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:22
-[com_22]
+[poh_hangman_letter23]
 type=text
 x=360
 y=48
@@ -367,7 +367,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:23
-[com_23]
+[poh_hangman_letter24]
 type=text
 x=392
 y=48
@@ -383,7 +383,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:24
-[com_24]
+[poh_hangman_letter25]
 type=text
 x=424
 y=48
@@ -399,7 +399,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 393:25
-[com_25]
+[poh_hangman_letter26]
 type=text
 x=456
 y=48
@@ -425,7 +425,7 @@ graphic="combatboxes,2"
 colour=0x000000
 
 // 393:27
-[com_27]
+[poh_hangman_guessbutton]
 type=text
 x=407
 y=75
@@ -440,7 +440,7 @@ transmitop=1
 op1=Guess
 
 // 393:28
-[com_28]
+[poh_hangman_guessbox]
 type=text
 x=24
 y=40
@@ -451,7 +451,7 @@ textshadow=yes
 colour=0x0000ff
 
 // 393:29
-[com_29]
+[poh_hangman_wordbox]
 type=text
 x=24
 y=8
@@ -467,13 +467,13 @@ colour=0x6633ff
 type=text
 width=465
 height=17
-layer=com_31
+layer=poh_hangman_guess_instructions_layer
 textfont=p12_full
 text=Enter up to five letters in any order then click 'guess' again.
 colour=0x6633ff
 
 // 393:31
-[com_31]
+[poh_hangman_guess_instructions_layer]
 type=layer
 y=72
 width=406

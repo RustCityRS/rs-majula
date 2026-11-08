@@ -24,7 +24,7 @@ textshadow=yes
 colour=0xcccccc
 
 // 425:2
-[com_2]
+[close_button]
 type=graphic
 x=461
 y=21
@@ -34,7 +34,7 @@ graphic="close_buttons,6"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(fairy2_runetemple_sign:com_2, "close_buttons,7")
-onmouseleave=graphic_swapper(fairy2_runetemple_sign:com_2, "close_buttons,6")
+onmouseover=graphic_swapper(fairy2_runetemple_sign:close_button, "close_buttons,7")
+onmouseleave=graphic_swapper(fairy2_runetemple_sign:close_button, "close_buttons,6")
 onop=closebutton_click
 onclick=closebutton_click

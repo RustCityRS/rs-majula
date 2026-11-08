@@ -1,5 +1,5 @@
 // 1162
 [proc,script1162]
-def_int $int0 = calc(if_getwidth(sound_options:com_48) - if_getwidth(sound_options:com_7));
+def_int $int0 = calc(if_getwidth(sound_options:optbgsound_dragzone) - if_getwidth(sound_options:optbgsound_slider));
 def_int $int1 = scale(detailget_bgsoundvol, 127, $int0);
-if_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top, sound_options:com_7);
+if_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top, sound_options:optbgsound_slider);

@@ -1,11 +1,11 @@
 // 1069:0
-[com_0]
+[border]
 type=layer
 width=453
 height=202
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=baselayer
 
 // 1069:1
 [com_1]
@@ -16,29 +16,29 @@ width=14
 height=14
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=border
 graphic=window_texture
 tiling=yes
 
 // 1069:2
-[com_2]
+[top_side]
 type=graphic
 x=38
 width=72
 height=8
 widthmode=minus
-layer=com_0
+layer=border
 graphic="corner_frame_2,0"
 tiling=yes
 
 // 1069:3
-[com_3]
+[top_1]
 type=graphic
 y=25
 height=8
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=border
 graphic="corner_frame_2,0"
 tiling=yes
 
@@ -49,93 +49,93 @@ x=7
 y=7
 width=473
 height=19
-layer=com_0
+layer=border
 colour=0x333333
 fill=yes
 
 // 1069:5
-[com_5]
+[bottom_side]
 type=graphic
 x=38
 width=76
 height=8
 widthmode=minus
 ymode=abs_bottom
-layer=com_0
+layer=border
 graphic="corner_frame_2,2"
 tiling=yes
 
 // 1069:6
-[com_6]
+[left_side]
 type=graphic
 y=72
 width=38
 height=144
 heightmode=minus
-layer=com_0
+layer=border
 graphic="corner_frame_5,0"
 tiling=yes
 hflip=yes
 
 // 1069:7
-[com_7]
+[right_side]
 type=graphic
 y=72
 width=38
 height=144
 heightmode=minus
 xmode=abs_right
-layer=com_0
+layer=border
 graphic="corner_frame_5,0"
 tiling=yes
 
 // 1069:8
-[com_8]
+[bottom_left]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_0
+layer=border
 graphic="corner_frame_5,1"
 hflip=yes
 
 // 1069:9
-[com_9]
+[bottom_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=border
 graphic="corner_frame_5,1"
 
 // 1069:10
-[com_10]
+[top_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_0
+layer=border
 graphic="corner_frame_5,2"
 
 // 1069:11
-[com_11]
+[closebutton]
 type=graphic
 x=8
 y=8
 width=19
 height=17
 xmode=abs_right
-layer=com_0
+layer=border
 graphic="intro_close_button,0"
 onclick=closebutton_click
 
 // 1069:12
-[com_12]
+[top_left]
 type=graphic
 width=38
 height=72
-layer=com_0
+layer=border
 graphic="corner_frame_5,2"
 hflip=yes
 
@@ -146,7 +146,7 @@ width=38
 height=38
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=border
 graphic="corner_flourish,1"
 
 // 1069:14
@@ -155,26 +155,26 @@ type=graphic
 width=38
 height=38
 ymode=abs_bottom
-layer=com_0
+layer=border
 graphic="corner_flourish,1"
 hflip=yes
 
 // 1069:15
-[com_15]
+[content]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=border
 
 // 1069:16
-[com_16]
+[titletext]
 type=text
 x=1
 y=-1
 width=390
 height=32
 xmode=abs_centre
-layer=com_15
+layer=content
 textfont=verdana_15pt_regular
 text=The Golden Joystick Award
 textalignh=centre
@@ -183,14 +183,14 @@ textshadow=yes
 colour=0xffcc00
 
 // 1069:17
-[com_17]
+[main_text]
 type=text
 y=-5
 width=423
 height=122
 xmode=abs_centre
 ymode=abs_centre
-layer=com_15
+layer=content
 textfont=tutorial_font
 text=Jagex is proud to have won the Golden Joystick Award for Best UK Games Developer in 2009 and 2010. To celebrate with us, use this cracker on another player and see what you get!
 textalignh=centre
@@ -198,19 +198,19 @@ textalignv=centre
 textshadow=yes
 
 // 1069:18
-[com_18]
+[baselayer]
 type=layer
 width=512
 height=334
 
 // 1069:19
-[com_19]
+[more_info_button]
 type=layer
 y=160
 width=140
 height=26
 xmode=abs_centre
-layer=com_15
+layer=content
 transmitop=1
 op1=More Info
 onmouseover=loginscreen_button_highlight(golden_joystick:com_21, "set_but_end_3,1", golden_joystick:com_22, "set_but_fill_3,1", golden_joystick:com_23, "set_but_end_3,1")
@@ -226,7 +226,7 @@ width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_19
+layer=more_info_button
 colour=0x000000
 fill=yes
 
@@ -235,7 +235,7 @@ fill=yes
 type=graphic
 width=25
 height=25
-layer=com_19
+layer=more_info_button
 graphic="set_but_end_3,0"
 
 // 1069:22
@@ -245,7 +245,7 @@ x=25
 width=51
 height=25
 widthmode=minus
-layer=com_19
+layer=more_info_button
 graphic="set_but_fill_3,0"
 
 // 1069:23
@@ -255,7 +255,7 @@ x=1
 width=25
 height=25
 xmode=abs_right
-layer=com_19
+layer=more_info_button
 graphic="set_but_end_3,0"
 hflip=yes
 
@@ -267,7 +267,7 @@ height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_19
+layer=more_info_button
 textfont=verdana_13pt_regular
 text=More Info
 textalignh=centre
@@ -275,14 +275,14 @@ textalignv=centre
 colour=0xc0b154
 
 // 1069:25
-[com_25]
+[login_button_text_1]
 type=text
 y=-1
 height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_19
+layer=more_info_button
 textfont=verdana_13pt_regular
 text=More Info
 textalignh=centre

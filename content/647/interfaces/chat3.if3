@@ -1,5 +1,5 @@
 // 66:0
-[com_0]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -7,27 +7,27 @@ widthmode=proportion
 heightmode=proportion
 
 // 66:1
-[com_1]
+[chat3head]
 type=model
 x=1474
 width=32
 height=32
 xmode=proportion_right
 ymode=abs_centre
-layer=com_0
+layer=layer_1
 model=null
 modelangle=40,166,0
 modelzoom=796
 
 // 66:2
-[com_2]
+[chat3head_1]
 type=model
 x=1474
 width=32
 height=32
 xmode=proportion_right
 ymode=abs_centre
-layer=com_0
+layer=layer_1
 model=null
 modelangle=40,166,0
 modelzoom=2150
@@ -35,70 +35,70 @@ transmitop=10
 op10= 
 
 // 66:3
-[com_3]
+[chat3name]
 type=text
 x=30
 y=1310
 width=350
 height=17
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Name
 textalignh=centre
 colour=0x800000
 
 // 66:4
-[com_4]
+[chat3a]
 type=text
 x=30
 y=-2787
 width=350
 height=17
 ymode=proportion_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Line1
 textalignh=centre
 colour=0x000000
 
 // 66:5
-[com_5]
+[chat3b]
 type=text
 x=30
 y=7
 width=350
 height=17
 ymode=proportion_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Line2
 textalignh=centre
 colour=0x000000
 
 // 66:6
-[com_6]
+[chat3c]
 type=text
 x=30
 y=2801
 width=350
 height=17
 ymode=proportion_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Line3
 textalignh=centre
 colour=0x000000
 
 // 66:7
-[com_7]
+[chat3next]
 type=text
 x=30
 y=1310
 width=350
 height=17
 ymode=proportion_bottom
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Click here to continue
 textalignh=centre

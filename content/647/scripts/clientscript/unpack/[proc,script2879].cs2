@@ -1,7 +1,7 @@
 // 2879
 [proc,script2879](int $int0, int $int1, int $int2)(int)
 def_string $string0 = "Remove from Playlist";
-if (cc_find(music_v3:com_9, $int0) = true & .cc_find(music_v3:com_9, calc($int0 + 12)) = true) {
+if (cc_find(music_v3:playlist, $int0) = true & .cc_find(music_v3:playlist, calc($int0 + 12)) = true) {
     if ($int1 = 32767) {
         cc_sethide(true);
         .cc_sethide(true);
@@ -25,7 +25,7 @@ if (cc_find(music_v3:com_9, $int0) = true & .cc_find(music_v3:com_9, calc($int0 
     .cc_setopbase(enum_string(enum_1345, $int1));
     cc_settextshadow(false);
     cc_settextfont(p11_full);
-    cc_setdraggable(music_v3:com_9, -1);
+    cc_setdraggable(music_v3:playlist, -1);
     .cc_setdraggable(null, -1);
     cc_setdragrenderbehaviour(2);
     .cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
@@ -33,8 +33,8 @@ if (cc_find(music_v3:com_9, $int0) = true & .cc_find(music_v3:com_9, calc($int0 
     .cc_setop(2, "Remove");
     .cc_setgraphic("music_icons_new,1");
     .cc_setonop("script2885(event_com, event_comsubid, 150, 0, 20, event_op)");
-    .cc_setonmouserepeat("script1160(music_v3:com_9, event_comsubid, music_v3:com_16, $string0, 25, 189)");
-    .cc_setonmouseleave("deltooltip(music_v3:com_16)");
-    .cc_setonclick("deltooltip(music_v3:com_16)");
+    .cc_setonmouserepeat("script1160(music_v3:playlist, event_comsubid, music_v3:music_tooltip_layer, $string0, 25, 189)");
+    .cc_setonmouseleave("deltooltip(music_v3:music_tooltip_layer)");
+    .cc_setonclick("deltooltip(music_v3:music_tooltip_layer)");
 }
 return(calc($int2 + 15));

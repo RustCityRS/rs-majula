@@ -1,6 +1,6 @@
 // 1375
 [clientscript,script1375](component $component0, component $component1)
-if (if_gethide(worldmap:com_47) = true) {
+if (if_gethide(worldmap:xv_repaint01) = true) {
     ~script1376(1, $component0, $component1);
 } else {
     ~script1376(0, $component0, $component1);

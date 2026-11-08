@@ -5,7 +5,7 @@ x=34
 y=34
 width=32
 height=32
-layer=com_9
+layer=layer_2
 
 // 293:1
 [com_1]
@@ -14,7 +14,7 @@ x=-15
 y=-7
 width=540
 height=346
-layer=com_9
+layer=layer_2
 model=model_7621
 modelorigin=31,-18
 modelangle=500,0,0
@@ -27,20 +27,20 @@ x=97
 y=10
 width=320
 height=314
-layer=com_9
+layer=layer_2
 model=model_7660
 modelorigin=7,-10
 modelangle=500,0,0
 modelzoom=1046
 
 // 293:3
-[com_3]
+[roguesden_puzzle_mosaic_tile1]
 type=model
 x=353
 y=183
 width=119
 height=115
-layer=com_9
+layer=layer_2
 model=model_7661
 modelorigin=4,-3
 modelangle=500,0,0
@@ -49,13 +49,13 @@ transmitop=1
 op1=Place piece
 
 // 293:4
-[com_4]
+[roguesden_puzzle_mosaic_tile2]
 type=model
 x=352
 y=41
 width=119
 height=117
-layer=com_9
+layer=layer_2
 model=model_7662
 modelorigin=4,-4
 modelangle=500,0,0
@@ -64,13 +64,13 @@ transmitop=1
 op1=Place piece
 
 // 293:5
-[com_5]
+[roguesden_puzzle_mosaic_tile3]
 type=model
 x=34
 y=43
 width=118
 height=116
-layer=com_9
+layer=layer_2
 model=model_7663
 modelorigin=3,-4
 modelangle=500,0,0
@@ -79,13 +79,13 @@ transmitop=1
 op1=Place piece
 
 // 293:6
-[com_6]
+[roguesden_puzzle_mosaic_tile4]
 type=model
 x=31
 y=185
 width=117
 height=117
-layer=com_9
+layer=layer_2
 model=model_7664
 modelorigin=3,-4
 modelangle=500,0,0
@@ -94,11 +94,11 @@ transmitop=1
 op1=Place piece
 
 // 293:7
-[com_7]
+[layer_1]
 type=layer
 width=512
 height=334
-layer=com_9
+layer=layer_2
 
 // 293:8
 [com_8]
@@ -107,7 +107,7 @@ x=483
 y=6
 width=26
 height=23
-layer=com_9
+layer=layer_2
 graphic="close_buttons,4"
 colour=0x000000
 transmitop=1
@@ -117,7 +117,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,4")
 onop=closebutton_click
 
 // 293:9
-[com_9]
+[layer_2]
 type=layer
 width=512
 height=334
@@ -125,7 +125,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 293:10
-[com_10]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -133,7 +133,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 293:11
-[com_11]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -143,7 +143,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 293:12
-[com_12]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -151,7 +151,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_11
+layer=fsborder_main_layer
 
 // 293:13
 [com_13]
@@ -254,7 +254,7 @@ tiling=yes
 colour=0x000000
 
 // 293:21
-[com_21]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -262,30 +262,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 293:22
-[com_22]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 293:23
-[com_23]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 293:24
-[com_24]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -293,16 +293,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 293:25
-[com_25]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 293:26
 [com_26]
@@ -312,7 +312,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_22
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -327,7 +327,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_21
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -341,7 +341,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_23
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -356,7 +356,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_24
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

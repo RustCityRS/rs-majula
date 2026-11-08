@@ -4,8 +4,8 @@ def_int $int1 = ~login_getreply;
 if ($int1 = -3 | $int1 = 21 | $int1 = 1) {
     return;
 }
-if_settext(%varclient_1551, login:com_65);
-if_settext(~script2949(%varclient_1552), login:com_71);
+if_settext(%varclient_1551, login:username);
+if_settext(~script2949(%varclient_1552), login:password);
 if (string_length(%varclient_1551) > 0) {
     %varclient_174 = 4;
 } else {
@@ -13,10 +13,10 @@ if (string_length(%varclient_1551) > 0) {
 }
 if (%varclient_174 = 3) {
     %varclient_1099 = string_length(%varclient_1551);
-    ~script3237(login:com_64, login:com_65, login:com_66, %varclient_1551, 3);
+    ~script3237(login:username_layer, login:username, login:username_caret, %varclient_1551, 3);
 } else {
     %varclient_1099 = string_length(~script2949(%varclient_1552));
-    ~script3237(login:com_70, login:com_71, login:com_72, ~script2949(%varclient_1552), 4);
+    ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%varclient_1552), 4);
 }
 if_sethide(false, loginscreen:com_26);
 if_sethide(false, login:com_4);

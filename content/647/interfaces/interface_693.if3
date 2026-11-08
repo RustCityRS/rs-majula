@@ -9,7 +9,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_10
+layer=content_layer
 model=model_32353
 modelorigin=87,-86
 modelangle=96,1816,0
@@ -28,7 +28,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_10
+layer=content_layer
 model=model_32356
 modelorigin=-28,524
 modelangle=117,1780,0
@@ -48,7 +48,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_10
+layer=content_layer
 model=model_32354
 modelorigin=-128,1565
 modelzoom=400
@@ -57,13 +57,13 @@ modelobjwidth=955
 modelobjheight=1147
 
 // 693:3
-[com_3]
+[congrats_layer]
 type=layer
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_10
+layer=content_layer
 
 // 693:4
 [com_4]
@@ -72,7 +72,7 @@ width=450
 height=200
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_3
+layer=congrats_layer
 textfont=quill_caps_large
 text=Congratulations
 textlineheight=13
@@ -90,7 +90,7 @@ width=450
 height=200
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_3
+layer=congrats_layer
 textfont=quill_caps_large
 text=Congratulations
 textlineheight=13
@@ -107,7 +107,7 @@ width=450
 height=200
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_3
+layer=congrats_layer
 textfont=quill_caps_large
 text=you  have
 textlineheight=13
@@ -125,7 +125,7 @@ width=450
 height=200
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_3
+layer=congrats_layer
 textfont=quill_caps_large
 text=you  have
 textlineheight=13
@@ -142,7 +142,7 @@ width=450
 height=200
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_3
+layer=congrats_layer
 textfont=quill_caps_large
 text=slain bork!
 textlineheight=13
@@ -160,7 +160,7 @@ width=450
 height=200
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_3
+layer=congrats_layer
 textfont=quill_caps_large
 text=slain bork!
 textlineheight=13
@@ -169,7 +169,7 @@ textshadow=yes
 colour=0x3d5340
 
 // 693:10
-[com_10]
+[content_layer]
 type=layer
 x=7
 y=7

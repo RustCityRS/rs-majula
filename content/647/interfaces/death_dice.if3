@@ -11,7 +11,7 @@ modelangle=490,0,0
 modelzoom=498
 
 // 99:1
-[com_1]
+[death_gamble_harold_dice2]
 type=model
 x=153
 y=92
@@ -23,7 +23,7 @@ modelangle=241,1454,0
 modelzoom=1528
 
 // 99:2
-[com_2]
+[death_gamble_harold_dice1]
 type=model
 x=81
 y=109
@@ -35,7 +35,7 @@ modelangle=253,1666,0
 modelzoom=1229
 
 // 99:3
-[com_3]
+[death_gamble_player_dice1]
 type=model
 x=311
 y=90
@@ -47,7 +47,7 @@ modelangle=253,1755,0
 modelzoom=1528
 
 // 99:4
-[com_4]
+[death_gamble_player_dice2]
 type=model
 x=370
 y=107
@@ -71,7 +71,7 @@ textalignh=centre
 colour=0x333333
 
 // 99:6
-[com_6]
+[death_gamble_playername]
 type=text
 x=275
 y=62
@@ -81,10 +81,10 @@ textfont=q8_full
 text=Player
 textalignh=centre
 colour=0x333333
-onvarcstrtransmit=script1576(event_com, death_dice:com_16){varclient_1728}
+onvarcstrtransmit=script1576(event_com, death_dice:tooltip){varclient_1728}
 
 // 99:7
-[com_7]
+[death_gamble_harold_gold]
 type=graphic
 x=62
 y=236
@@ -95,7 +95,7 @@ graphicshadow=2894892
 colour=0xffffffff
 
 // 99:8
-[com_8]
+[death_gamble_player_gold]
 type=graphic
 x=396
 y=236
@@ -106,7 +106,7 @@ graphicshadow=2894892
 colour=0xffffffff
 
 // 99:9
-[com_9]
+[death_gamble_roll]
 type=layer
 x=189
 y=235
@@ -115,13 +115,13 @@ height=25
 hide=yes
 
 // 99:10
-[com_10]
+[death_gamble_roll_button]
 type=text
 x=1
 y=2
 width=127
 height=22
-layer=com_9
+layer=death_gamble_roll
 textfont=q8_full
 text=Roll Dice!
 textalignh=centre
@@ -130,7 +130,7 @@ transmitop=1
 op1=Roll
 
 // 99:11
-[com_11]
+[death_gamble_continue]
 type=layer
 x=190
 y=234
@@ -139,13 +139,13 @@ height=27
 hide=yes
 
 // 99:12
-[com_12]
+[death_gamble_continue_button]
 type=text
 x=1
 y=3
 width=126
 height=20
-layer=com_11
+layer=death_gamble_continue
 textfont=q8_full
 text=Continue...
 textalignh=centre
@@ -153,7 +153,7 @@ colour=0x333333
 pausebutton=yes
 
 // 99:13
-[com_13]
+[death_gamble_result]
 type=text
 x=186
 y=197
@@ -180,7 +180,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,2")
 onop=closebutton_click
 
 // 99:15
-[com_15]
+[tooltip_bounding_layer]
 type=layer
 width=16391
 height=16391
@@ -188,10 +188,10 @@ widthmode=proportion
 heightmode=proportion
 
 // 99:16
-[com_16]
+[tooltip]
 type=layer
 x=354
 y=77
 width=89
 height=16
-layer=com_15
+layer=tooltip_bounding_layer

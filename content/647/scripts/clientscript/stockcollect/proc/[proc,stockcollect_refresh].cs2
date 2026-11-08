@@ -9,13 +9,13 @@
 def_obj $obj0 = inv_getobj(inv_540, 0);
 if ($obj0 = null) {
     if_sethide(true, stockcollect:com_45);
-    if_setsize(if_getwidth(stockcollect:com_1), 225, ^setsize_abs, ^setsize_abs, stockcollect:com_1);
-    if_setsize(if_getwidth(stockcollect:com_1), 225, ^setsize_abs, ^setsize_abs, stockcollect:com_0);
+    if_setsize(if_getwidth(stockcollect:contents), 225, ^setsize_abs, ^setsize_abs, stockcollect:contents);
+    if_setsize(if_getwidth(stockcollect:contents), 225, ^setsize_abs, ^setsize_abs, stockcollect:shadow);
     return;
 }
 if_sethide(false, stockcollect:com_45);
-if_setsize(if_getwidth(stockcollect:com_1), 305, ^setsize_abs, ^setsize_abs, stockcollect:com_1);
-if_setsize(if_getwidth(stockcollect:com_1), 305, ^setsize_abs, ^setsize_abs, stockcollect:com_0);
+if_setsize(if_getwidth(stockcollect:contents), 305, ^setsize_abs, ^setsize_abs, stockcollect:contents);
+if_setsize(if_getwidth(stockcollect:contents), 305, ^setsize_abs, ^setsize_abs, stockcollect:shadow);
 if_setobject($obj0, -1, stockcollect:com_58);
 if_setopbase("<col=ff9040><oc_name($obj0)></col>", stockcollect:com_58);
 def_string $string0 = "Lent item";

@@ -1,5 +1,5 @@
 // 139:0
-[com_0]
+[contnet_layer_1]
 type=layer
 width=512
 height=334
@@ -12,7 +12,7 @@ x=397
 y=4
 width=111
 height=60
-layer=com_0
+layer=contnet_layer_1
 colour=0x46341d
 fill=yes
 trans=160
@@ -26,7 +26,7 @@ x=401
 y=7
 width=103
 height=14
-layer=com_0
+layer=contnet_layer_1
 textfont=p12_full
 text=Gnomeball
 textalignh=centre
@@ -40,7 +40,7 @@ x=401
 y=22
 width=103
 height=14
-layer=com_0
+layer=contnet_layer_1
 textfont=p12_full
 text=Score
 textalignh=centre
@@ -48,13 +48,13 @@ textshadow=yes
 colour=0xff981f
 
 // 139:4
-[com_4]
+[gnomeball_score_if]
 type=text
 x=401
 y=40
 width=103
 height=14
-layer=com_0
+layer=contnet_layer_1
 textfont=b12_full
 textalignh=centre
 textshadow=yes

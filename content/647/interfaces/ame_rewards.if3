@@ -163,15 +163,15 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 202:15
-[com_15]
+[menu]
 type=layer
 x=24
 y=58
 width=342
 height=257
-onload=ame_reward_init(event_com, ame_rewards:com_24, ame_rewards:com_27, ame_rewards:com_26, ame_rewards:com_28)
-oninvtransmit=ame_reward_init(event_com, ame_rewards:com_24, ame_rewards:com_27, ame_rewards:com_26, ame_rewards:com_28){ame_rewards}
-ontimer=ame_rewards_scrollhint(event_com, ame_rewards:com_27)
+onload=ame_reward_init(event_com, ame_rewards:com_24, ame_rewards:scrollhint, ame_rewards:accept, ame_rewards:confirm_text)
+oninvtransmit=ame_reward_init(event_com, ame_rewards:com_24, ame_rewards:scrollhint, ame_rewards:accept, ame_rewards:confirm_text){ame_rewards}
+ontimer=ame_rewards_scrollhint(event_com, ame_rewards:scrollhint)
 
 // 202:16
 [com_16]
@@ -274,12 +274,12 @@ height=257
 type=graphic
 width=90
 height=56
-layer=com_26
+layer=accept
 graphic="wild_ditch_sign_button,2"
 colour=0x000000
 
 // 202:26
-[com_26]
+[accept]
 type=layer
 x=392
 y=154
@@ -287,7 +287,7 @@ width=90
 height=56
 
 // 202:27
-[com_27]
+[scrollhint]
 type=text
 x=392
 y=250
@@ -302,7 +302,7 @@ textshadow=yes
 colour=0xff981f
 
 // 202:28
-[com_28]
+[confirm_text]
 type=text
 x=392
 y=154

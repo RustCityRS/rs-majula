@@ -4,10 +4,10 @@ if ($int0 ! 1) {
     return;
 }
 if ($int1 <= -1) {
-    if_settext("", skillmulti2010_numbers:com_17);
+    if_settext("", skillmulti2010_numbers:number);
     return;
 }
 %skill_creation_amount = min($int1, %skill_creation_maximum);
 ~script2047;
-if_setontimer("skillmulti2010_blocker(calc(clientclock + 15))", skillmulti2010:com_28);
-if_sethide(false, skillmulti2010:com_28);
+if_setontimer("skillmulti2010_blocker(calc(clientclock + 15))", skillmulti2010:blocker);
+if_sethide(false, skillmulti2010:blocker);

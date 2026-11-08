@@ -1,5 +1,5 @@
-[opnpct,magic:saradomin_strike] ~pvm_saradomin_strike;
-[apnpct,magic:saradomin_strike] ~pvm_saradomin_strike;
+[opnpct,magic:com_66] ~pvm_saradomin_strike;
+[apnpct,magic:com_66] ~pvm_saradomin_strike;
 
 [proc,pvm_saradomin_strike]
 def_dbrow $spell_data = ~get_spell_data(^saradomin_strike);

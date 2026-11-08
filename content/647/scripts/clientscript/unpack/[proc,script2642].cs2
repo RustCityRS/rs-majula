@@ -6,18 +6,18 @@ def_int $int2 = 0;
 def_int $int3 = 0;
 %varclient_842 = 1;
 def_obj $obj4 = null;
-~script2645(interface_860:com_24);
-cc_deleteall(interface_860:com_23);
-if_settext("A list of items you can trade with Mal for investment credit.<br>Items highlighted with a green rectangle are present in your bank or inventory.", interface_860:com_19);
-$int1 = calc((if_getwidth(interface_860:com_23) - 36 * 10) / 10);
-$int2 = calc((if_getheight(interface_860:com_23) - 128) / 3);
+~script2645(interface_860:page);
+cc_deleteall(interface_860:main_stock);
+if_settext("A list of items you can trade with Mal for investment credit.<br>Items highlighted with a green rectangle are present in your bank or inventory.", interface_860:title_1);
+$int1 = calc((if_getwidth(interface_860:main_stock) - 36 * 10) / 10);
+$int2 = calc((if_getheight(interface_860:main_stock) - 128) / 3);
 def_int $int5 = 3;
 def_int $int6 = 3;
 def_int $int7 = 0;
 while ($int3 = 0 & $int0 < 900) {
     $obj4 = enum(int, obj, enum_1939, $int0);
     if ($obj4 ! logs_11760 & $obj4 ! null) {
-        cc_create(interface_860:com_23, ^iftype_graphic, $int0);
+        cc_create(interface_860:main_stock, ^iftype_graphic, $int0);
         cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int5 + (36 + $int1) * ($int0 % 10)), calc($int6 + $int0 / 10 * (32 + $int2)), ^setpos_abs_left, ^setpos_abs_top);
         cc_setobject($obj4, -1);
@@ -38,11 +38,11 @@ def_int $int11 = 0;
 while ($int8 <= inv_size(inv)) {
     if (inv_getobj(inv, $int8) ! null) {
         $int9 = enum(obj, int, enum_1941, inv_getobj(inv, $int8));
-        if ($int9 ! 9999 & $int9 < 900 & cc_find(interface_860:com_23, $int9) = true) {
+        if ($int9 ! 9999 & $int9 < 900 & cc_find(interface_860:main_stock, $int9) = true) {
             $int10 = cc_getx;
             $int11 = cc_gety;
             cc_setoutline(2);
-            cc_create(interface_860:com_23, ^iftype_rectangle, $int0);
+            cc_create(interface_860:main_stock, ^iftype_rectangle, $int0);
             cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
             cc_setposition(calc($int10 - 1), calc($int11 - 1), ^setpos_abs_left, ^setpos_abs_top);
             cc_setcolour(0x66ff66);
@@ -57,11 +57,11 @@ $int9 = 9999;
 while ($int8 <= inv_size(bank)) {
     if (inv_getobj(bank, $int8) ! null) {
         $int9 = enum(obj, int, enum_1941, inv_getobj(bank, $int8));
-        if ($int9 ! 9999 & $int9 < 900 & cc_find(interface_860:com_23, $int9) = true) {
+        if ($int9 ! 9999 & $int9 < 900 & cc_find(interface_860:main_stock, $int9) = true) {
             $int10 = cc_getx;
             $int11 = cc_gety;
             cc_setoutline(2);
-            cc_create(interface_860:com_23, ^iftype_rectangle, $int0);
+            cc_create(interface_860:main_stock, ^iftype_rectangle, $int0);
             cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
             cc_setposition(calc($int10 - 1), calc($int11 - 1), ^setpos_abs_left, ^setpos_abs_top);
             cc_setcolour(0x66ff66);
@@ -71,6 +71,6 @@ while ($int8 <= inv_size(bank)) {
     }
     $int8 = calc($int8 + 1);
 }
-if_setscrollsize(if_getwidth(interface_860:com_23), calc($int7 + 32), interface_860:com_23);
-if_setscrollpos(0, 0, interface_860:com_23);
-~scrollbar_vertical(interface_860:com_22, interface_860:com_23, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollsize(if_getwidth(interface_860:main_stock), calc($int7 + 32), interface_860:main_stock);
+if_setscrollpos(0, 0, interface_860:main_stock);
+~scrollbar_vertical(interface_860:com_22, interface_860:main_stock, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

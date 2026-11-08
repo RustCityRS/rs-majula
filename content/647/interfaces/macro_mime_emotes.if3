@@ -4,7 +4,7 @@ type=model
 x=6
 width=90
 height=102
-layer=com_10
+layer=content_layer
 model=model_38892
 modelorigin=2,-2
 modelangle=2001,1900,0
@@ -19,7 +19,7 @@ x=414
 y=-4
 width=91
 height=101
-layer=com_10
+layer=content_layer
 model=model_38892
 modelorigin=-2,-2
 modelangle=8,150,0
@@ -27,13 +27,13 @@ modelzoom=1509
 modelanim=seq_9757
 
 // 188:2
-[com_2]
+[macro_emote_think]
 type=text
 x=74
 y=10
 width=80
 height=41
-layer=com_10
+layer=content_layer
 textfont=q8_full
 text=Think
 textalignh=centre
@@ -46,13 +46,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x8686af)
 
 // 188:3
-[com_3]
+[macro_emote_cry]
 type=text
 x=74
 y=51
 width=80
 height=41
-layer=com_10
+layer=content_layer
 textfont=q8_full
 text=Cry
 textalignh=centre
@@ -65,13 +65,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x8686af)
 
 // 188:4
-[com_4]
+[macro_emote_laugh]
 type=text
 x=154
 y=10
 width=80
 height=41
-layer=com_10
+layer=content_layer
 textfont=q8_full
 text=Laugh
 textalignh=centre
@@ -84,13 +84,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x8686af)
 
 // 188:5
-[com_5]
+[macro_emote_dance]
 type=text
 x=154
 y=51
 width=80
 height=41
-layer=com_10
+layer=content_layer
 textfont=q8_full
 text=Dance
 textalignh=centre
@@ -103,13 +103,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x8686af)
 
 // 188:6
-[com_6]
+[macro_emote_climbrope]
 type=text
 x=234
 y=10
 width=100
 height=41
-layer=com_10
+layer=content_layer
 textfont=q8_full
 text=Climb Rope
 textalignh=centre
@@ -128,7 +128,7 @@ x=234
 y=51
 width=100
 height=41
-layer=com_10
+layer=content_layer
 textfont=q8_full
 text=Lean on air
 textalignh=centre
@@ -141,13 +141,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x8686af)
 
 // 188:8
-[com_8]
+[macro_emote_glassbox]
 type=text
 x=334
 y=10
 width=100
 height=41
-layer=com_10
+layer=content_layer
 textfont=q8_full
 text=Glass Box
 textalignh=centre
@@ -160,13 +160,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x8686af)
 
 // 188:9
-[com_9]
+[macro_emote_glasswall]
 type=text
 x=334
 y=51
 width=100
 height=41
-layer=com_10
+layer=content_layer
 textfont=q8_full
 text=Glass Wall
 textalignh=centre
@@ -179,7 +179,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x8686af)
 
 // 188:10
-[com_10]
+[content_layer]
 type=layer
 y=4
 width=509

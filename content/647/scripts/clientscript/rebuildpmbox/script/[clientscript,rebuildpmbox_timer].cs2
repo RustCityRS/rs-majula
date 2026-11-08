@@ -1,7 +1,7 @@
 // 1562
 [clientscript,rebuildpmbox_timer]
-if (minimenuopen(private_chat:com_0, -1) = true) {
+if (minimenuopen(pmchat:pmchat, -1) = true) {
     return;
 }
-if_setontimer(null, private_chat:com_0);
+if_setontimer(null, pmchat:pmchat);
 ~rebuildpmbox;

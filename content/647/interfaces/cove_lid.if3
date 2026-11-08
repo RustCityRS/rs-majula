@@ -91,7 +91,7 @@ transmitop=10
 op10=          
 
 // 657:7
-[com_7]
+[background_1]
 type=graphic
 x=21
 y=47
@@ -133,7 +133,7 @@ transmitop=10
 op10= 
 
 // 657:10
-[com_10]
+[right_side]
 type=graphic
 x=479
 y=26
@@ -148,7 +148,7 @@ opbase=
 op10=  
 
 // 657:11
-[com_11]
+[bottom]
 type=graphic
 x=15
 y=302
@@ -162,7 +162,7 @@ transmitop=10
 op10=  
 
 // 657:12
-[com_12]
+[top]
 type=graphic
 x=45
 y=23
@@ -177,7 +177,7 @@ opbase=
 op10=  
 
 // 657:13
-[com_13]
+[bottom_right]
 type=graphic
 x=467
 y=290
@@ -191,7 +191,7 @@ opbase=
 op10=  
 
 // 657:14
-[com_14]
+[bottom_left]
 type=graphic
 x=13
 y=290
@@ -204,7 +204,7 @@ transmitop=10
 op10=  
 
 // 657:15
-[com_15]
+[left_side]
 type=graphic
 y=26
 width=37
@@ -218,7 +218,7 @@ opbase=
 op10=  
 
 // 657:16
-[com_16]
+[top_left]
 type=graphic
 x=13
 y=23
@@ -232,7 +232,7 @@ opbase=
 op10=  
 
 // 657:17
-[com_17]
+[top_right]
 type=graphic
 x=467
 y=23
@@ -246,7 +246,7 @@ opbase=
 op10=  
 
 // 657:18
-[com_18]
+[close_button]
 type=graphic
 x=471
 y=26
@@ -259,7 +259,7 @@ transmitop=10
 op10=  
 
 // 657:19
-[com_19]
+[title]
 type=text
 y=26
 width=443
@@ -276,7 +276,7 @@ transmitop=10
 op10= 
 
 // 657:20
-[com_20]
+[base_layer]
 type=layer
 width=512
 height=334
@@ -290,20 +290,20 @@ x=2
 y=29
 width=35
 height=35
-layer=com_58
+layer=buttonlayer
 graphic="bank_buttons,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 657:22
-[com_22]
+[offercount_10]
 type=text
 x=2
 y=34
 width=35
 height=25
-layer=com_58
+layer=buttonlayer
 textfont=p11_full
 text=10
 textalignh=centre
@@ -322,21 +322,21 @@ y=29
 width=35
 height=35
 xmode=abs_right
-layer=com_58
+layer=buttonlayer
 graphic="bank_buttons,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 657:24
-[com_24]
+[offercount_100]
 type=text
 x=4
 y=34
 width=35
 height=25
 xmode=abs_right
-layer=com_58
+layer=buttonlayer
 textfont=p11_full
 text=100
 textalignh=centre
@@ -348,25 +348,25 @@ op10=
 onclick=mob_invest_add(event_com)
 
 // 657:25
-[com_25]
+[offerall_graphic]
 type=graphic
 x=2
 width=35
 height=35
-layer=com_58
+layer=buttonlayer
 graphic="bank_buttons,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 657:26
-[com_26]
+[offercount_all]
 type=text
 x=2
 y=5
 width=35
 height=25
-layer=com_58
+layer=buttonlayer
 textfont=p11_full
 text=All
 textalignh=centre
@@ -384,21 +384,21 @@ x=4
 width=35
 height=35
 xmode=abs_right
-layer=com_58
+layer=buttonlayer
 graphic="bank_buttons,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 657:28
-[com_28]
+[offercount_0]
 type=text
 x=4
 y=5
 width=35
 height=25
 xmode=abs_right
-layer=com_58
+layer=buttonlayer
 textfont=p11_full
 text=0
 textalignh=centre
@@ -416,20 +416,20 @@ x=2
 y=58
 width=35
 height=35
-layer=com_58
+layer=buttonlayer
 graphic="bank_buttons,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 657:30
-[com_30]
+[offercount_500]
 type=text
 x=2
 y=63
 width=35
 height=25
-layer=com_58
+layer=buttonlayer
 textfont=p11_full
 text=500
 textalignh=centre
@@ -448,21 +448,21 @@ y=58
 width=35
 height=35
 xmode=abs_right
-layer=com_58
+layer=buttonlayer
 graphic="bank_buttons,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 657:32
-[com_32]
+[offercount_1k]
 type=text
 x=4
 y=63
 width=35
 height=25
 xmode=abs_right
-layer=com_58
+layer=buttonlayer
 textfont=p11_full
 text=1k
 textalignh=centre
@@ -480,20 +480,20 @@ x=2
 y=87
 width=35
 height=35
-layer=com_58
+layer=buttonlayer
 graphic="bank_buttons,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 657:34
-[com_34]
+[offercount_10k]
 type=text
 x=2
 y=92
 width=35
 height=25
-layer=com_58
+layer=buttonlayer
 textfont=p11_full
 text=10k
 textalignh=centre
@@ -512,21 +512,21 @@ y=87
 width=35
 height=35
 xmode=abs_right
-layer=com_58
+layer=buttonlayer
 graphic="bank_buttons,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 657:36
-[com_36]
+[offercount_set]
 type=text
 x=4
 y=92
 width=35
 height=25
 xmode=abs_right
-layer=com_58
+layer=buttonlayer
 textfont=p11_full
 text=...
 textalignh=centre
@@ -538,7 +538,7 @@ op10=
 onclick=mob_invest_add(event_com)
 
 // 657:37
-[com_37]
+[background_3]
 type=graphic
 width=143
 height=23
@@ -551,7 +551,7 @@ opbase=
 op10= 
 
 // 657:38
-[com_38]
+[rect2]
 type=rectangle
 width=143
 height=23
@@ -561,11 +561,11 @@ fill=yes
 trans=175
 
 // 657:39
-[com_39]
+[background_2]
 type=graphic
 width=143
 height=23
-layer=com_54
+layer=invest_total_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -574,21 +574,21 @@ opbase=
 op10= 
 
 // 657:40
-[com_40]
+[rect1]
 type=rectangle
 width=143
 height=23
-layer=com_54
+layer=invest_total_layer
 colour=0x000000
 fill=yes
 trans=175
 
 // 657:41
-[com_41]
+[invest_total]
 type=text
 width=143
 height=23
-layer=com_54
+layer=invest_total_layer
 textfont=b12_full
 text=2,222,222,222
 textalignh=centre
@@ -618,7 +618,7 @@ x=47
 y=101
 width=97
 height=86
-layer=com_20
+layer=base_layer
 model=model_5494
 modelorigin=6,30
 modelangle=151,123,0
@@ -631,7 +631,7 @@ x=92
 y=134
 width=102
 height=82
-layer=com_20
+layer=base_layer
 model=model_5494
 modelorigin=-5,30
 modelangle=136,1840,0
@@ -640,13 +640,13 @@ transmitop=10
 op10= 
 
 // 657:45
-[com_45]
+[invest_text]
 type=text
 x=23
 y=63
 width=200
 height=29
-layer=com_20
+layer=base_layer
 textfont=p12_full
 text=Total investment credits available
 textalignh=centre
@@ -660,7 +660,7 @@ x=287
 y=63
 width=200
 height=29
-layer=com_20
+layer=base_layer
 textfont=p12_full
 text=Total contributed to this scenario
 textalignh=centre
@@ -674,7 +674,7 @@ x=86
 y=229
 width=148
 height=28
-layer=com_20
+layer=base_layer
 colour=0xffff00
 
 // 657:48
@@ -684,7 +684,7 @@ x=281
 y=228
 width=148
 height=28
-layer=com_20
+layer=base_layer
 colour=0xffff00
 
 // 657:49
@@ -694,7 +694,7 @@ x=86
 y=229
 width=148
 height=28
-layer=com_20
+layer=base_layer
 colour=0x000000
 
 // 657:50
@@ -704,7 +704,7 @@ x=281
 y=228
 width=148
 height=28
-layer=com_20
+layer=base_layer
 colour=0x000000
 
 // 657:51
@@ -714,7 +714,7 @@ x=432
 y=87
 width=43
 height=96
-layer=com_20
+layer=base_layer
 model=model_47490
 modelorigin=0,42
 modelangle=93,135,0
@@ -723,39 +723,39 @@ transmitop=10
 op10=  
 
 // 657:52
-[com_52]
+[model2]
 type=model
 x=333
 y=93
 width=72
 height=83
-layer=com_20
+layer=base_layer
 model=model_47488
 modelorigin=-1,31
 modelangle=105,1885,0
 modelzoom=1312
 
 // 657:53
-[com_53]
+[model3]
 type=model
 x=333
 y=139
 width=172
 height=98
-layer=com_20
+layer=base_layer
 model=model_47792
 modelorigin=3,4
 modelangle=147,180,0
 modelzoom=1056
 
 // 657:54
-[com_54]
+[invest_total_layer]
 type=layer
 x=88
 y=231
 width=143
 height=23
-layer=com_20
+layer=base_layer
 onload=script1205(event_com, 0, 0, 0)
 
 // 657:55
@@ -765,11 +765,11 @@ x=283
 y=231
 width=143
 height=23
-layer=com_20
+layer=base_layer
 onload=script1205(event_com, 0, 0, 0)
 
 // 657:56
-[com_56]
+[play_button]
 type=layer
 x=78
 y=21
@@ -777,31 +777,31 @@ width=105
 height=28
 xmode=abs_right
 ymode=abs_bottom
-layer=com_20
+layer=base_layer
 onload=v2_stone_button(event_com)
 
 // 657:57
-[com_57]
+[back_button]
 type=layer
 x=81
 y=21
 width=105
 height=28
 ymode=abs_bottom
-layer=com_20
+layer=base_layer
 onload=v2_stone_button(event_com)
 
 // 657:58
-[com_58]
+[buttonlayer]
 type=layer
 x=220
 y=100
 width=80
 height=118
-layer=com_20
+layer=base_layer
 
 // 657:59
-[com_59]
+[back_text]
 type=text
 width=16391
 height=16384
@@ -809,7 +809,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_57
+layer=back_button
 textfont=b12_full
 text=Back
 textalignh=centre
@@ -818,7 +818,7 @@ textshadow=yes
 colour=0xff9900
 
 // 657:60
-[com_60]
+[play_text]
 type=text
 width=16391
 height=16384
@@ -826,7 +826,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_56
+layer=play_button
 textfont=b12_full
 text=Play
 textalignh=centre
@@ -835,22 +835,22 @@ textshadow=yes
 colour=0xff9900
 
 // 657:61
-[com_61]
+[additional_parts]
 type=layer
 width=512
 height=334
-layer=com_20
+layer=base_layer
 transmitop=10
 op10= 
 
 // 657:62
-[com_62]
+[invest_limit]
 type=text
 x=288
 y=257
 width=182
 height=19
-layer=com_61
+layer=additional_parts
 textfont=p11_full
 text=Limit:
 textalignv=centre
@@ -861,13 +861,13 @@ op10=
 onload=mob_set_limit(event_com)
 
 // 657:63
-[com_63]
+[left_1_buttons]
 type=graphic
 x=200
 y=121
 width=30
 height=78
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,13"
 tiling=yes
 colour=0xffffffff
@@ -876,13 +876,13 @@ opbase=
 op10=   
 
 // 657:64
-[com_64]
+[right_1_buttons]
 type=graphic
 x=286
 y=119
 width=32
 height=85
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,13"
 tiling=yes
 colour=0xffffffff
@@ -891,13 +891,13 @@ opbase=
 op10=   
 
 // 657:65
-[com_65]
+[centre_bar]
 type=graphic
 x=243
 y=44
 width=37
 height=53
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -906,13 +906,13 @@ opbase=
 op10=    
 
 // 657:66
-[com_66]
+[centre_bar_bottom]
 type=graphic
 x=243
 y=221
 width=37
 height=95
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -921,13 +921,13 @@ opbase=
 op10=   
 
 // 657:67
-[com_67]
+[bottom_2_buttons]
 type=graphic
 x=232
 y=207
 width=50
 height=35
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -935,13 +935,13 @@ transmitop=10
 op10=   
 
 // 657:68
-[com_68]
+[bottom_right_1_buttons]
 type=graphic
 x=274
 y=195
 width=32
 height=32
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,21"
 colour=0xffffffff
 transmitop=10
@@ -949,13 +949,13 @@ opbase=
 op10=   
 
 // 657:69
-[com_69]
+[top_2_buttons]
 type=graphic
 x=242
 y=81
 width=32
 height=32
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -964,26 +964,26 @@ opbase=
 op10=   
 
 // 657:70
-[com_70]
+[bottom_1_buttons]
 type=graphic
 x=214
 y=195
 width=32
 height=32
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,20"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 657:71
-[com_71]
+[top_1_buttons]
 type=graphic
 x=214
 y=95
 width=32
 height=32
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,18"
 colour=0xffffffff
 transmitop=10
@@ -991,13 +991,13 @@ opbase=
 op10=   
 
 // 657:72
-[com_72]
+[top_right_1_buttons]
 type=graphic
 x=274
 y=95
 width=32
 height=32
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,19"
 colour=0xffffffff
 transmitop=10
@@ -1011,7 +1011,7 @@ x=244
 y=69
 width=32
 height=32
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,15"
 tiling=yes
 colour=0xffffffff
@@ -1019,13 +1019,13 @@ transmitop=10
 op10=  
 
 // 657:74
-[com_74]
+[bottom_joint]
 type=graphic
 x=245
 y=290
 width=32
 height=32
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,11"
 tiling=yes
 colour=0xffffffff
@@ -1033,13 +1033,13 @@ transmitop=10
 op10=  
 
 // 657:75
-[com_75]
+[right_joint_1]
 type=graphic
 x=467
 y=265
 width=32
 height=32
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,10"
 tiling=yes
 colour=0xffffffff
@@ -1047,13 +1047,13 @@ transmitop=10
 op10=  
 
 // 657:76
-[com_76]
+[bottom_1]
 type=graphic
 x=19
 y=263
 width=472
 height=31
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -1061,13 +1061,13 @@ transmitop=10
 op10=   
 
 // 657:77
-[com_77]
+[top_joint_1]
 type=graphic
 x=244
 y=221
 width=32
 height=32
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,14"
 tiling=yes
 colour=0xffffffff
@@ -1075,13 +1075,13 @@ transmitop=10
 op10=  
 
 // 657:78
-[com_78]
+[left_joint_1]
 type=graphic
 x=13
 y=265
 width=32
 height=32
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,9"
 tiling=yes
 colour=0xffffffff
@@ -1089,25 +1089,25 @@ transmitop=10
 op10=  
 
 // 657:79
-[com_79]
+[arrow]
 type=graphic
 x=8
 y=234
 width=27
 height=21
 xmode=abs_centre
-layer=com_61
+layer=additional_parts
 graphic=graphic_1980
 colour=0xffffffff
 
 // 657:80
-[com_80]
+[right_joint_2]
 type=graphic
 x=243
 y=264
 width=32
 height=32
-layer=com_61
+layer=additional_parts
 graphic="v2_stone_borders,22"
 tiling=yes
 colour=0xffffffff

@@ -1,12 +1,12 @@
 // 886:0
-[com_0]
+[universe]
 type=layer
 x=5
 y=5
 width=350
 height=42
 xmode=abs_right
-onload=duel2_spectator_init(event_com, duel2_spectator:com_8)
+onload=duel2_spectator_init(event_com, duel2_spectator:text)
 
 // 886:1
 [com_1]
@@ -17,7 +17,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=universe
 graphic=tradebacking
 tiling=yes
 trans=150
@@ -31,7 +31,7 @@ width=32
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -45,7 +45,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -55,7 +55,7 @@ colour=0xffffffff
 type=graphic
 width=32
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 
@@ -65,7 +65,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 
@@ -75,7 +75,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 
@@ -86,19 +86,19 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 
 // 886:8
-[com_8]
+[text]
 type=text
 x=8
 width=34
 widthmode=minus
 heightmode=minus
 ymode=abs_centre
-layer=com_0
+layer=universe
 textfont=p12_full
 text=Close screen to stop viewing
 textalignv=centre
@@ -113,7 +113,7 @@ width=16
 height=16
 xmode=abs_right
 ymode=abs_centre
-layer=com_0
+layer=universe
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1

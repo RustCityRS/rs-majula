@@ -12,8 +12,8 @@ if ($int0 = 1) {
     } else if ($int3 = 0) {
         if_setcolour(0xa00000, $component2);
     }
-    if_setonmouserepeat("addtooltip(event_com, rand_dungeon_rewards_v2:com_254, $string1, 25, 200)", $component2);
-    if_setonmouseleave("deltooltip(rand_dungeon_rewards_v2:com_254)", $component2);
+    if_setonmouserepeat("addtooltip(event_com, rand_dungeon_rewards_v2:tooltip_layer, $string1, 25, 200)", $component2);
+    if_setonmouseleave("deltooltip(rand_dungeon_rewards_v2:tooltip_layer)", $component2);
 } else {
     if_settext("", $component2);
 }

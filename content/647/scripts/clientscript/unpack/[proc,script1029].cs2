@@ -1,19 +1,19 @@
 // 1029
 [proc,script1029](enum $enum0, int $int1)
 cc_deleteall(quickchat_tutorial:com_23);
-cc_deleteall(quickchat_tutorial:com_25);
-if_settext("Quick-chat - Shortcut Reference", quickchat_tutorial:com_14);
-if_sethide(false, quickchat_tutorial:com_35);
-if_sethide(true, quickchat_tutorial:com_17);
-if_setonclick("quickchat_tutorial_showpage(enum_1486, 0, 7)", quickchat_tutorial:com_30);
-if_settext("User Guide", quickchat_tutorial:com_30);
+cc_deleteall(quickchat_tutorial:text);
+if_settext("Quick-chat - Shortcut Reference", quickchat_tutorial:title);
+if_sethide(false, quickchat_tutorial:buttoncontrol);
+if_sethide(true, quickchat_tutorial:pagecontrols);
+if_setonclick("quickchat_tutorial_showpage(enum_1486, 0, 7)", quickchat_tutorial:button);
+if_settext("User Guide", quickchat_tutorial:button);
 def_int $int2 = 0;
 def_int $int3 = 20;
 def_int $int4 = 0;
 def_int $int5 = 0;
 def_int $int6 = 0;
 def_string $string0 = "";
-cc_create(quickchat_tutorial:com_25, ^iftype_graphic, $int4);
+cc_create(quickchat_tutorial:text, ^iftype_graphic, $int4);
 cc_setgraphic("v2_borders_slim,11");
 cc_setposition(35, calc($int3 - 22), ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(400, 32, ^setsize_abs, ^setsize_abs);
@@ -29,13 +29,13 @@ while ($int2 < $int1) {
     $int4 = calc($int4 + 1);
     $int5 = calc($int5 + 1);
     $int3 = calc($int3 + $int6 + 10);
-    cc_create(quickchat_tutorial:com_25, ^iftype_graphic, $int4);
+    cc_create(quickchat_tutorial:text, ^iftype_graphic, $int4);
     cc_setgraphic("v2_borders_slim,11");
     cc_setposition(35, calc($int3 - 20), ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(400, 32, ^setsize_abs, ^setsize_abs);
     $int4 = calc($int4 + 1);
 }
-if ($int3 > if_getheight(quickchat_tutorial:com_25)) {
-    if_setscrollsize(0, $int3, quickchat_tutorial:com_25);
-    ~scrollbar_vertical(quickchat_tutorial:com_24, quickchat_tutorial:com_25, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if ($int3 > if_getheight(quickchat_tutorial:text)) {
+    if_setscrollsize(0, $int3, quickchat_tutorial:text);
+    ~scrollbar_vertical(quickchat_tutorial:com_24, quickchat_tutorial:text, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 }

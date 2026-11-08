@@ -1,47 +1,47 @@
 // 1397
 [clientscript,script1397]
 if (%varplayerbit_1412 = 1) {
-    if_setmodel(model_10112, ratcatcher_flute:com_19);
+    if_setmodel(model_10112, ratcatcher_flute:rc_flute_csharp);
 } else {
-    if_setmodel(model_10111, ratcatcher_flute:com_19);
+    if_setmodel(model_10111, ratcatcher_flute:rc_flute_csharp);
 }
 if (%varplayerbit_1412 = 24) {
-    if_setmodel(model_10114, ratcatcher_flute:com_20);
+    if_setmodel(model_10114, ratcatcher_flute:rc_flute_c);
 } else {
-    if_setmodel(model_10113, ratcatcher_flute:com_20);
+    if_setmodel(model_10113, ratcatcher_flute:rc_flute_c);
 }
 if (%varplayerbit_1412 = 32) {
-    if_setmodel(model_10110, ratcatcher_flute:com_18);
+    if_setmodel(model_10110, ratcatcher_flute:rc_flute_b);
 } else {
-    if_setmodel(model_10109, ratcatcher_flute:com_18);
+    if_setmodel(model_10109, ratcatcher_flute:rc_flute_b);
 }
 if (%varplayerbit_1412 = 48) {
-    if_setmodel(model_10108, ratcatcher_flute:com_17);
+    if_setmodel(model_10108, ratcatcher_flute:rc_flute_a);
 } else {
-    if_setmodel(model_10107, ratcatcher_flute:com_17);
+    if_setmodel(model_10107, ratcatcher_flute:rc_flute_a);
 }
 if (%varplayerbit_1412 = 56) {
-    if_setmodel(model_10106, ratcatcher_flute:com_16);
+    if_setmodel(model_10106, ratcatcher_flute:rc_flute_g);
 } else {
-    if_setmodel(model_10105, ratcatcher_flute:com_16);
+    if_setmodel(model_10105, ratcatcher_flute:rc_flute_g);
 }
 if (%varplayerbit_1412 = 60) {
-    if_setmodel(model_10104, ratcatcher_flute:com_15);
+    if_setmodel(model_10104, ratcatcher_flute:rc_flute_fsharp);
 } else {
-    if_setmodel(model_10103, ratcatcher_flute:com_15);
+    if_setmodel(model_10103, ratcatcher_flute:rc_flute_fsharp);
 }
 if (%varplayerbit_1412 = 62) {
-    if_setmodel(model_10102, ratcatcher_flute:com_14);
+    if_setmodel(model_10102, ratcatcher_flute:rc_flute_e);
 } else {
-    if_setmodel(model_10101, ratcatcher_flute:com_14);
+    if_setmodel(model_10101, ratcatcher_flute:rc_flute_e);
 }
 if (%varplayerbit_1412 = 63) {
-    if_setmodel(model_10100, ratcatcher_flute:com_13);
+    if_setmodel(model_10100, ratcatcher_flute:rc_flute_d);
 } else {
-    if_setmodel(model_10099, ratcatcher_flute:com_13);
+    if_setmodel(model_10099, ratcatcher_flute:rc_flute_d);
 }
 if (%varplayerbit_1413 = 1) {
-    if_setmodel(model_10116, ratcatcher_flute:com_12);
+    if_setmodel(model_10116, ratcatcher_flute:rc_flute_up_octave);
 } else {
-    if_setmodel(model_10115, ratcatcher_flute:com_12);
+    if_setmodel(model_10115, ratcatcher_flute:rc_flute_up_octave);
 }

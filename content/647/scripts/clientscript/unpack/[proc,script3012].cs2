@@ -2,11 +2,11 @@
 [proc,script3012](int $int0)(component)
 switch_int ($int0) {
     case 0 :
-        return(interface_907:com_3);
+        return(lobbyscreen_pane_playerinfo:email);
     case 1 :
-        return(interface_907:com_4);
+        return(lobbyscreen_pane_playerinfo:recovery);
     case 2 :
-        return(interface_907:com_5);
+        return(lobbyscreen_pane_playerinfo:messages);
     case 3 :
-        return(interface_907:com_43);
+        return(lobbyscreen_pane_playerinfo:credit);
 }

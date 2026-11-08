@@ -30,22 +30,22 @@ if ($obj0 = air_rune) {
         return(99999999);
     }
     $int2 = calc(inv_total(inv, air_rune) + inv_total(inv, air_rune_17780) + inv_total(inv, air_rune__b) + ~inv_total_available(inv, smoke_rune) + ~inv_total_available(inv, mist_rune) + ~inv_total_available(inv, dust_rune));
-    if (($component1 = magic:wind_bolt | $component1 = magic:water_bolt | $component1 = magic:earth_bolt | $component1 = rand_magic:com_32 | $component1 = rand_magic:com_37 | $component1 = rand_magic:com_36) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1334 > 0) {
+    if (($component1 = magic:sb8 | $component1 = magic:sb11 | $component1 = magic:sb14 | $component1 = rand_magic:wind_bolt | $component1 = rand_magic:earth_bolt | $component1 = rand_magic:water_bolt) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1334 > 0) {
         $int2 = calc($int2 + %varclient_1334 * 2);
     }
-    if (($component1 = magic:fire_bolt | $component1 = rand_magic:com_41) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1334 > 0) {
+    if (($component1 = magic:sb17 | $component1 = rand_magic:fire_bolt) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1334 > 0) {
         $int2 = calc($int2 + %varclient_1334 * 3);
     }
-    if (($component1 = magic:wind_blast | $component1 = magic:water_blast | $component1 = magic:earth_blast | $component1 = rand_magic:com_42 | $component1 = rand_magic:com_45 | $component1 = rand_magic:com_43) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1335 > 0) {
+    if (($component1 = magic:sb20 | $component1 = magic:sb23 | $component1 = magic:sb27 | $component1 = rand_magic:wind_blast | $component1 = rand_magic:earth_blast | $component1 = rand_magic:water_blast) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1335 > 0) {
         $int2 = calc($int2 + %varclient_1335 * 3);
     }
-    if (($component1 = magic:fire_blast | $component1 = rand_magic:com_47) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1335 > 0) {
+    if (($component1 = magic:sb32 | $component1 = rand_magic:fire_blast) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1335 > 0) {
         $int2 = calc($int2 + %varclient_1335 * 4);
     }
-    if (($component1 = magic:wind_wave | $component1 = magic:water_wave | $component1 = magic:earth_wave | $component1 = magic:fire_wave | $component1 = rand_magic:com_48 | $component1 = rand_magic:com_54 | $component1 = rand_magic:com_49) & (inv_getobj(worn, 5) = celestial_surgebox_19889 | inv_getobj(worn, 5) = celestial_surgebox | inv_getobj(worn, 5) = celestial_surgebox__b) & %varclient_1402 > 0) {
+    if (($component1 = magic:sb34 | $component1 = magic:sb36 | $component1 = magic:sb40 | $component1 = magic:sb42 | $component1 = rand_magic:wind_wave | $component1 = rand_magic:earth_wave | $component1 = rand_magic:water_wave) & (inv_getobj(worn, 5) = celestial_surgebox_19889 | inv_getobj(worn, 5) = celestial_surgebox | inv_getobj(worn, 5) = celestial_surgebox__b) & %varclient_1402 > 0) {
         $int2 = calc($int2 + %varclient_1402 * 5);
     }
-    if (($component1 = magic:wind_surge | $component1 = magic:water_surge | $component1 = magic:earth_surge | $component1 = magic:fire_surge | $component1 = rand_magic:com_61 | $component1 = rand_magic:com_63 | $component1 = rand_magic:com_62 | $component1 = rand_magic:com_67) & (inv_getobj(worn, 5) = celestial_surgebox_19889 | inv_getobj(worn, 5) = celestial_surgebox | inv_getobj(worn, 5) = celestial_surgebox__b) & %varclient_1403 > 0) {
+    if (($component1 = magic:wind_surge | $component1 = magic:water_surge | $component1 = magic:earth_surge | $component1 = magic:fire_surge | $component1 = rand_magic:wind_surge | $component1 = rand_magic:earth_surge | $component1 = rand_magic:water_surge | $component1 = rand_magic:fire_surge) & (inv_getobj(worn, 5) = celestial_surgebox_19889 | inv_getobj(worn, 5) = celestial_surgebox | inv_getobj(worn, 5) = celestial_surgebox__b) & %varclient_1403 > 0) {
         $int2 = calc($int2 + %varclient_1403 * 7);
     }
     if (%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3 | %varplayerbit_5493 ! 0 | inv_getobj(worn, 1) = attacker_lvl_1 | inv_getobj(worn, 1) = attacker_lvl_2 | inv_getobj(worn, 1) = attacker_lvl_3 | inv_getobj(worn, 1) = attacker_lvl_4 | inv_getobj(worn, 1) = attacker_lvl_5) {
@@ -216,7 +216,7 @@ switch_obj ($obj0) {
     case cosmic_rune :
         return(calc(inv_total(inv, cosmic_rune) + inv_total(inv, cosmic_rune_17789) + inv_total(inv, cosmic_rune__b)));
     case chaos_rune :
-        if (($component1 = magic:wind_bolt | $component1 = magic:water_bolt | $component1 = magic:earth_bolt | $component1 = magic:fire_bolt | $component1 = rand_magic:com_32 | $component1 = rand_magic:com_37 | $component1 = rand_magic:com_36 | $component1 = rand_magic:com_41) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1334 > 0) {
+        if (($component1 = magic:sb8 | $component1 = magic:sb11 | $component1 = magic:sb14 | $component1 = magic:sb17 | $component1 = rand_magic:wind_bolt | $component1 = rand_magic:earth_bolt | $component1 = rand_magic:water_bolt | $component1 = rand_magic:fire_bolt) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1334 > 0) {
             return(calc(inv_total(inv, chaos_rune) + inv_total(inv, chaos_rune_17785) + inv_total(inv, chaos_rune__b) + %varclient_1334));
         } else {
             return(calc(inv_total(inv, chaos_rune) + inv_total(inv, chaos_rune_17785) + inv_total(inv, chaos_rune__b)));
@@ -228,9 +228,9 @@ switch_obj ($obj0) {
             return(calc(inv_total(inv, nature_rune) + inv_total(inv, nature_rune_17791) + inv_total(inv, nature_rune__b)));
         }
     case death_rune :
-        if (($component1 = magic:wind_blast | $component1 = magic:water_blast | $component1 = magic:earth_blast | $component1 = magic:fire_blast | $component1 = rand_magic:com_42 | $component1 = rand_magic:com_45 | $component1 = rand_magic:com_43 | $component1 = rand_magic:com_47) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1335 > 0) {
+        if (($component1 = magic:sb20 | $component1 = magic:sb23 | $component1 = magic:sb27 | $component1 = magic:sb32 | $component1 = rand_magic:wind_blast | $component1 = rand_magic:earth_blast | $component1 = rand_magic:water_blast | $component1 = rand_magic:fire_blast) & (inv_getobj(worn, 5) = magical_blastbox | inv_getobj(worn, 5) = magical_blastbox_19867 | inv_getobj(worn, 5) = magical_blastbox__b) & %varclient_1335 > 0) {
             return(calc(inv_total(inv, death_rune) + inv_total(inv, death_rune_17786) + inv_total(inv, death_rune__b) + %varclient_1335));
-        } else if (($component1 = magic:wind_surge | $component1 = magic:water_surge | $component1 = magic:earth_surge | $component1 = magic:fire_surge | $component1 = rand_magic:com_61 | $component1 = rand_magic:com_63 | $component1 = rand_magic:com_62 | $component1 = rand_magic:com_67) & (inv_getobj(worn, 5) = celestial_surgebox_19889 | inv_getobj(worn, 5) = celestial_surgebox | inv_getobj(worn, 5) = celestial_surgebox__b) & %varclient_1403 > 0) {
+        } else if (($component1 = magic:wind_surge | $component1 = magic:water_surge | $component1 = magic:earth_surge | $component1 = magic:fire_surge | $component1 = rand_magic:wind_surge | $component1 = rand_magic:earth_surge | $component1 = rand_magic:water_surge | $component1 = rand_magic:fire_surge) & (inv_getobj(worn, 5) = celestial_surgebox_19889 | inv_getobj(worn, 5) = celestial_surgebox | inv_getobj(worn, 5) = celestial_surgebox__b) & %varclient_1403 > 0) {
             return(calc(inv_total(inv, death_rune) + inv_total(inv, death_rune_17786) + inv_total(inv, death_rune__b) + %varclient_1403));
         } else {
             return(calc(inv_total(inv, death_rune) + inv_total(inv, death_rune_17786) + inv_total(inv, death_rune__b)));
@@ -244,9 +244,9 @@ switch_obj ($obj0) {
     case soul_rune :
         return(calc(~inv_total_available(inv, soul_rune) + ~inv_total_available(inv, soul_rune_17793) + ~inv_total_available(inv, soul_rune__b)));
     case blood_rune :
-        if (($component1 = magic:wind_wave | $component1 = magic:water_wave | $component1 = magic:earth_wave | $component1 = magic:fire_wave | $component1 = rand_magic:com_48 | $component1 = rand_magic:com_54 | $component1 = rand_magic:com_49 | $component1 = rand_magic:com_58) & (inv_getobj(worn, 5) = celestial_surgebox_19889 | inv_getobj(worn, 5) = celestial_surgebox | inv_getobj(worn, 5) = celestial_surgebox__b) & %varclient_1402 > 0) {
+        if (($component1 = magic:sb34 | $component1 = magic:sb36 | $component1 = magic:sb40 | $component1 = magic:sb42 | $component1 = rand_magic:wind_wave | $component1 = rand_magic:earth_wave | $component1 = rand_magic:water_wave | $component1 = rand_magic:fire_wave) & (inv_getobj(worn, 5) = celestial_surgebox_19889 | inv_getobj(worn, 5) = celestial_surgebox | inv_getobj(worn, 5) = celestial_surgebox__b) & %varclient_1402 > 0) {
             return(calc(inv_total(inv, blood_rune) + inv_total(inv, blood_rune_17787) + inv_total(inv, blood_rune__b) + %varclient_1402));
-        } else if (($component1 = magic:wind_surge | $component1 = magic:water_surge | $component1 = magic:earth_surge | $component1 = magic:fire_surge | $component1 = rand_magic:com_61 | $component1 = rand_magic:com_63 | $component1 = rand_magic:com_62 | $component1 = rand_magic:com_67) & (inv_getobj(worn, 5) = celestial_surgebox_19889 | inv_getobj(worn, 5) = celestial_surgebox | inv_getobj(worn, 5) = celestial_surgebox__b) & %varclient_1403 > 0) {
+        } else if (($component1 = magic:wind_surge | $component1 = magic:water_surge | $component1 = magic:earth_surge | $component1 = magic:fire_surge | $component1 = rand_magic:wind_surge | $component1 = rand_magic:earth_surge | $component1 = rand_magic:water_surge | $component1 = rand_magic:fire_surge) & (inv_getobj(worn, 5) = celestial_surgebox_19889 | inv_getobj(worn, 5) = celestial_surgebox | inv_getobj(worn, 5) = celestial_surgebox__b) & %varclient_1403 > 0) {
             return(calc(inv_total(inv, blood_rune) + inv_total(inv, blood_rune_17787) + inv_total(inv, blood_rune__b) + %varclient_1403));
         } else {
             return(calc(~inv_total_available(inv, blood_rune) + ~inv_total_available(inv, blood_rune_17787) + ~inv_total_available(inv, blood_rune__b)));

@@ -1,5 +1,5 @@
 // 42:0
-[com_0]
+[model]
 type=model
 width=483
 height=322
@@ -10,156 +10,156 @@ modelorigin=0,170
 modelzoom=416
 
 // 42:1
-[com_1]
+[mob_colour1]
 type=text
 x=38
 y=12
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:2
-[com_2]
+[mob_colour2]
 type=text
 x=241
 y=12
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:3
-[com_3]
+[mob_colour3]
 type=text
 x=38
 y=125
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:4
-[com_4]
+[mob_colour4]
 type=text
 x=241
 y=125
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:5
-[com_5]
+[mob_squad1]
 type=text
 x=38
 y=31
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:6
-[com_6]
+[mob_squad2]
 type=text
 x=241
 y=31
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:7
-[com_7]
+[mob_squad3]
 type=text
 x=38
 y=144
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:8
-[com_8]
+[mob_squad4]
 type=text
 x=241
 y=144
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:9
-[com_9]
+[mob_kill1]
 type=text
 x=38
 y=50
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:10
-[com_10]
+[mob_kill2]
 type=text
 x=241
 y=50
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:11
-[com_11]
+[mob_kill3]
 type=text
 x=38
 y=163
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:12
-[com_12]
+[mob_kill4]
 type=text
 x=241
 y=163
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
@@ -172,7 +172,7 @@ x=38
 y=69
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
@@ -185,14 +185,14 @@ x=241
 y=69
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:15
-[com_15]
+[summary]
 type=text
 x=36
 y=307
@@ -206,7 +206,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 42:16
-[com_16]
+[title]
 type=text
 y=54
 width=283
@@ -219,7 +219,7 @@ textshadow=yes
 colour=0xe1981f
 
 // 42:17
-[com_17]
+[content_layer]
 type=layer
 x=31
 y=75
@@ -234,72 +234,72 @@ x=38
 y=182
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:19
-[com_19]
+[mob_spear]
 type=text
 x=241
 y=182
 width=176
 height=14
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:20
-[com_20]
+[mob_status1]
 type=text
 x=38
 y=87
 width=176
 height=28
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:21
-[com_21]
+[mob_status2]
 type=text
 x=241
 y=87
 width=176
 height=28
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:22
-[com_22]
+[mob_status3]
 type=text
 x=38
 y=201
 width=176
 height=28
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
 textshadow=yes
 
 // 42:23
-[com_23]
+[mob_status4]
 type=text
 x=241
 y=201
 width=176
 height=28
-layer=com_17
+layer=content_layer
 textfont=p12_full
 text=Getting Status....
 textalignv=centre
@@ -311,7 +311,7 @@ type=line
 x=29
 y=120
 width=392
-layer=com_17
+layer=content_layer
 colour=0x333333
 
 // 42:25
@@ -321,11 +321,11 @@ x=228
 y=15
 width=1
 height=208
-layer=com_17
+layer=content_layer
 colour=0x333333
 
 // 42:26
-[com_26]
+[close_button]
 type=graphic
 x=380
 y=49

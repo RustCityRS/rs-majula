@@ -77,9 +77,9 @@ switch_int ($key0) {
             return;
         } else if (%varclient_5 = 7) {
         }
-        if_sethide(true, chatbox:com_3);
-        if_sethide(true, chatbox:com_7);
-        if_sethide(false, chatbox:com_8);
+        if_sethide(true, chattop:mes_layer);
+        if_sethide(true, chattop:mes_layer_large);
+        if_sethide(false, chattop:mes_layer_hide);
         %varclient_5 = 0;
         if (getwindowmode >= 2) {
             ~subchanged;
@@ -112,7 +112,7 @@ switch_int ($key0) {
                 %varclient_1541, %varclient_1029 = ~script802(%varclient_1029, %varclient_1541, 2, $key0, $char1);
         }
 }
-if_settext(escape(%varclient_1541), chatbox:com_5);
+if_settext(escape(%varclient_1541), chattop:mes_text2);
 ~script1557;
 if (%varclient_5 = 11) {
     ~bank_v2_search_update;

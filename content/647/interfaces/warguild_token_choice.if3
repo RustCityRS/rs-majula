@@ -10,7 +10,7 @@ colour=0x2d241b
 fill=yes
 
 // 1058:1
-[com_1]
+[selection_text]
 type=text
 y=5
 width=288
@@ -63,7 +63,7 @@ x=-7
 y=-22
 width=512
 height=334
-layer=com_8
+layer=content_layer
 
 // 1058:5
 [com_5]
@@ -100,7 +100,7 @@ colour=0x231c14
 fill=yes
 
 // 1058:8
-[com_8]
+[content_layer]
 type=layer
 y=22
 width=498
@@ -114,7 +114,7 @@ type=layer
 width=424
 height=168
 xmode=abs_centre
-layer=com_41
+layer=detail_layers
 hide=yes
 
 // 1058:10
@@ -123,7 +123,7 @@ type=layer
 width=424
 height=143
 xmode=abs_centre
-layer=com_41
+layer=detail_layers
 hide=yes
 
 // 1058:11
@@ -132,7 +132,7 @@ type=graphic
 width=64
 height=75
 xmode=abs_centre
-layer=com_25
+layer=attack_layer
 graphic=graphic_4463
 
 // 1058:12
@@ -142,7 +142,7 @@ y=58
 width=50
 height=13
 xmode=abs_centre
-layer=com_25
+layer=attack_layer
 textfont=p11_full
 text=36635
 textalignh=centre
@@ -156,7 +156,7 @@ type=graphic
 width=64
 height=75
 xmode=abs_centre
-layer=com_26
+layer=defence_layer
 graphic=graphic_4462
 
 // 1058:14
@@ -166,7 +166,7 @@ y=58
 width=50
 height=13
 xmode=abs_centre
-layer=com_26
+layer=defence_layer
 textfont=p11_full
 text=36635
 textalignh=centre
@@ -180,7 +180,7 @@ type=graphic
 width=64
 height=75
 xmode=abs_centre
-layer=com_24
+layer=combat_layer
 graphic=graphic_4461
 
 // 1058:16
@@ -190,7 +190,7 @@ y=58
 width=50
 height=13
 xmode=abs_centre
-layer=com_24
+layer=combat_layer
 textfont=p11_full
 text=36635
 textalignh=centre
@@ -204,7 +204,7 @@ type=graphic
 width=64
 height=75
 xmode=abs_centre
-layer=com_23
+layer=strength_layer
 graphic=graphic_4460
 
 // 1058:18
@@ -214,7 +214,7 @@ y=58
 width=50
 height=13
 xmode=abs_centre
-layer=com_23
+layer=strength_layer
 textfont=p11_full
 text=36635
 textalignh=centre
@@ -228,7 +228,7 @@ type=graphic
 width=64
 height=75
 xmode=abs_centre
-layer=com_22
+layer=balance_layer
 graphic=graphic_4459
 
 // 1058:20
@@ -238,7 +238,7 @@ y=58
 width=50
 height=13
 xmode=abs_centre
-layer=com_22
+layer=balance_layer
 textfont=p11_full
 text=36635
 textalignh=centre
@@ -247,7 +247,7 @@ colour=0xbcab8d
 onvartransmit=script4048(event_com){varplayer_2030}
 
 // 1058:21
-[com_21]
+[back]
 type=rectangle
 width=19791
 height=32579
@@ -260,7 +260,7 @@ colour=0x53442f
 fill=yes
 
 // 1058:22
-[com_22]
+[balance_layer]
 type=layer
 x=-160
 y=18
@@ -276,7 +276,7 @@ onop=script4064(event_com)
 onmouserepeat=script4067(event_com)
 
 // 1058:23
-[com_23]
+[strength_layer]
 type=layer
 x=-80
 y=18
@@ -292,7 +292,7 @@ onop=script4064(event_com)
 onmouserepeat=script4067(event_com)
 
 // 1058:24
-[com_24]
+[combat_layer]
 type=layer
 y=18
 width=64
@@ -307,7 +307,7 @@ onop=script4064(event_com)
 onmouserepeat=script4067(event_com)
 
 // 1058:25
-[com_25]
+[attack_layer]
 type=layer
 x=160
 y=18
@@ -323,7 +323,7 @@ onop=script4064(event_com)
 onmouserepeat=script4067(event_com)
 
 // 1058:26
-[com_26]
+[defence_layer]
 type=layer
 x=80
 y=18
@@ -339,7 +339,7 @@ onop=script4064(event_com)
 onmouserepeat=script4067(event_com)
 
 // 1058:27
-[com_27]
+[back_1]
 type=rectangle
 width=19791
 height=32579
@@ -358,7 +358,7 @@ width=2
 height=30
 widthmode=minus
 xmode=abs_centre
-layer=com_44
+layer=ok_button
 graphic=graphic_4465
 tiling=yes
 
@@ -367,7 +367,7 @@ tiling=yes
 type=graphic
 width=2
 height=30
-layer=com_44
+layer=ok_button
 graphic=graphic_2657
 
 // 1058:30
@@ -376,19 +376,19 @@ type=graphic
 width=2
 height=30
 xmode=abs_right
-layer=com_44
+layer=ok_button
 graphic=graphic_2657
 hflip=yes
 
 // 1058:31
-[com_31]
+[ok_trans]
 type=rectangle
 y=1
 width=188
 height=28
 xmode=abs_centre
 ymode=abs_centre
-layer=com_44
+layer=ok_button
 hide=yes
 colour=0xffffff
 fill=yes
@@ -424,7 +424,7 @@ graphic=graphic_2657
 hflip=yes
 
 // 1058:35
-[com_35]
+[multi_trans]
 type=rectangle
 width=169
 height=28
@@ -466,7 +466,7 @@ graphic=graphic_2657
 hflip=yes
 
 // 1058:39
-[com_39]
+[single_trans]
 type=rectangle
 width=169
 height=28
@@ -485,18 +485,18 @@ width=16391
 height=90
 widthmode=proportion
 xmode=abs_centre
-layer=com_8
+layer=content_layer
 
 // 1058:41
-[com_41]
+[detail_layers]
 type=layer
 y=90
 width=498
 height=176
-layer=com_8
+layer=content_layer
 
 // 1058:42
-[com_42]
+[websites_drop]
 type=text
 width=16391
 height=16391
@@ -528,26 +528,26 @@ textalignv=centre
 colour=0x0d0000
 
 // 1058:44
-[com_44]
+[ok_button]
 type=layer
 x=147
 y=267
 width=190
 height=29
-layer=com_8
+layer=content_layer
 transmitop=1
 op1=Ok
 onmouseleave=warguild_trans_off(event_com)
 onmouserepeat=warguild_trans(event_com)
 
 // 1058:45
-[com_45]
+[ok_text]
 type=text
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_44
+layer=ok_button
 textfont=verdana_13pt_regular
 text=Accept Token Options
 textlineheight=18
@@ -821,7 +821,7 @@ layer=com_59
 graphic="v2_stone_borders,7"
 
 // 1058:68
-[com_68]
+[title]
 type=text
 height=22
 widthmode=minus
@@ -836,7 +836,7 @@ colour=0xbcab8d
 onvartransmit=script4063{varplayer_791}
 
 // 1058:69
-[com_69]
+[close_button]
 type=graphic
 x=10
 y=3

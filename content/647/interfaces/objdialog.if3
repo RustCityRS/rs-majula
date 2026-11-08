@@ -38,14 +38,14 @@ fill=yes
 trans=220
 
 // 389:4
-[com_4]
+[resultlist]
 type=layer
 x=60
 width=430
 height=107
 
 // 389:5
-[com_5]
+[resultlist_hide]
 type=layer
 x=64
 y=3
@@ -53,13 +53,13 @@ width=422
 height=105
 
 // 389:6
-[com_6]
+[objdialog_title]
 type=text
 x=4
 y=10
 width=414
 height=16
-layer=com_5
+layer=resultlist_hide
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -72,7 +72,7 @@ x=4
 y=48
 width=414
 height=31
-layer=com_5
+layer=resultlist_hide
 textfont=p11_full
 text=To search for an item, start by typing part of its name.<br>Then, simply select the item you want from the results on display.
 textlineheight=15
@@ -81,14 +81,14 @@ textalignv=centre
 colour=0xa05a00
 
 // 389:8
-[com_8]
+[resultscrollbar]
 type=layer
 x=490
 width=16
 height=108
 
 // 389:9
-[com_9]
+[searchtext]
 type=text
 x=27
 y=111
@@ -98,7 +98,7 @@ textfont=p12_full
 textshadow=yes
 
 // 389:10
-[com_10]
+[closebutton]
 type=graphic
 x=490
 y=111
@@ -124,7 +124,7 @@ tiling=yes
 colour=0x000000
 
 // 389:12
-[com_12]
+[indent_box]
 type=graphic
 x=46
 width=32
@@ -158,7 +158,7 @@ colour=0x000000
 opbase=  
 
 // 389:15
-[com_15]
+[objgraphic]
 type=graphic
 x=12
 y=10

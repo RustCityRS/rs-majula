@@ -20,7 +20,7 @@ transmitop=10
 op10=   
 
 // 1026:2
-[com_2]
+[bottom_left_corner]
 type=graphic
 x=109
 y=238
@@ -33,7 +33,7 @@ transmitop=10
 op10=   
 
 // 1026:3
-[com_3]
+[top_left_corner]
 type=graphic
 x=109
 y=67
@@ -46,7 +46,7 @@ transmitop=10
 op10=   
 
 // 1026:4
-[com_4]
+[top_right_corner]
 type=graphic
 x=109
 y=67
@@ -60,7 +60,7 @@ transmitop=10
 op10=   
 
 // 1026:5
-[com_5]
+[bottom_right_corner]
 type=graphic
 x=109
 y=238
@@ -74,7 +74,7 @@ transmitop=10
 op10=   
 
 // 1026:6
-[com_6]
+[left_1]
 type=graphic
 x=96
 y=99
@@ -88,7 +88,7 @@ transmitop=10
 op10=   
 
 // 1026:7
-[com_7]
+[right_1]
 type=graphic
 x=97
 y=99
@@ -103,7 +103,7 @@ transmitop=10
 op10=   
 
 // 1026:8
-[com_8]
+[top_1]
 type=graphic
 x=141
 y=67
@@ -117,7 +117,7 @@ transmitop=10
 op10=   
 
 // 1026:9
-[com_9]
+[bottom_1]
 type=graphic
 x=141
 y=250
@@ -131,7 +131,7 @@ transmitop=10
 op10=   
 
 // 1026:10
-[com_10]
+[border_shadow_3]
 type=rectangle
 x=116
 y=89
@@ -143,7 +143,7 @@ transmitop=10
 op10=   
 
 // 1026:11
-[com_11]
+[border_shadow_4]
 type=rectangle
 x=118
 y=91
@@ -156,7 +156,7 @@ transmitop=10
 op10=   
 
 // 1026:12
-[com_12]
+[border_shadow_5]
 type=rectangle
 x=117
 y=90
@@ -169,7 +169,7 @@ transmitop=10
 op10=   
 
 // 1026:13
-[com_13]
+[close_button]
 type=graphic
 x=377
 y=70
@@ -236,7 +236,7 @@ transmitop=10
 op10=    
 
 // 1026:18
-[com_18]
+[main_title_text]
 type=text
 y=70
 width=200
@@ -253,7 +253,7 @@ transmitop=10
 op10=    
 
 // 1026:19
-[com_19]
+[round_time_background_layer]
 type=layer
 y=104
 width=250
@@ -263,7 +263,7 @@ transmitop=10
 op10=   
 
 // 1026:20
-[com_20]
+[buttons_layer]
 type=layer
 y=16
 width=512
@@ -271,25 +271,25 @@ height=334
 onvartransmit=script434{varplayer_1870}
 
 // 1026:21
-[com_21]
+[regular_graphic]
 type=graphic
 x=172
 y=101
 width=15
 height=15
-layer=com_20
+layer=buttons_layer
 graphic="radio_buttons,0"
 tiling=yes
 colour=0xffffffff
 
 // 1026:22
-[com_22]
+[regular_text]
 type=text
 x=191
 y=101
 width=150
 height=15
-layer=com_20
+layer=buttons_layer
 textfont=welcome_font_tiny
 text=Regular Conquest
 textshadow=yes
@@ -301,25 +301,25 @@ onmouseleave=text_colour_swapper(event_com, 0xff981f)
 onop=script436(event_com)
 
 // 1026:23
-[com_23]
+[staked_graphic]
 type=graphic
 x=172
 y=130
 width=15
 height=15
-layer=com_20
+layer=buttons_layer
 graphic="radio_buttons,0"
 tiling=yes
 colour=0xffffffff
 
 // 1026:24
-[com_24]
+[staked_text]
 type=text
 x=191
 y=130
 width=140
 height=15
-layer=com_20
+layer=buttons_layer
 textfont=welcome_font_tiny
 text=Staked Conquest
 textalignv=centre
@@ -332,7 +332,7 @@ onmouseleave=text_colour_swapper(event_com, 0xff981f)
 onop=script436(event_com)
 
 // 1026:25
-[com_25]
+[challenge_button_layer]
 type=layer
 y=191
 width=90
@@ -342,16 +342,16 @@ transmitop=10
 op10= 
 
 // 1026:26
-[com_26]
+[challenge_graphic]
 type=graphic
 width=90
 height=43
-layer=com_25
+layer=challenge_button_layer
 graphic=graphic_3255
 colour=0x000000
 
 // 1026:27
-[com_27]
+[challenge_text]
 type=text
 width=16391
 height=16391
@@ -359,7 +359,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_25
+layer=challenge_button_layer
 textfont=welcome_font_tiny
 text=Challenge
 textalignh=centre
@@ -376,7 +376,7 @@ onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_19
+layer=round_time_background_layer
 colour=0x201c17
 
 // 1026:29
@@ -388,7 +388,7 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_19
+layer=round_time_background_layer
 colour=0x595143
 
 // 1026:30
@@ -400,6 +400,6 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_19
+layer=round_time_background_layer
 colour=0x161410
 fill=yes

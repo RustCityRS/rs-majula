@@ -63,6 +63,6 @@ if ($int6 = 1) {
     ~quickchat_phrase_search_doscrollbar($component1, $component2);
     return;
 }
-if_setonkey("quickchat_phrase_search_onkey(event_keycode, event_keychar, chatbox_background:com_1, chatbox_background:com_14, chatbox_background:com_16, chatbox_background:com_15, calc($int6 - 1))", chatbox_background:com_13);
+if_setonkey("quickchat_phrase_search_onkey(event_keycode, event_keychar, chatdefault:quickchat_path, chatdefault:quickchat_objdialog_input, chatdefault:quickchat_objdialog_search, chatdefault:quickchat_objdialog_scroll, calc($int6 - 1))", chatdefault:quickchat_objdialog);
 if_setscrollsize(0, calc(14 * ($int6 - 1)), $component1);
 ~quickchat_phrase_search_doscrollbar($component1, $component2);

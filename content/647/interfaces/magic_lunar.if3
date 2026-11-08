@@ -1,11 +1,11 @@
 // 430:0
-[com_0]
+[spells_layer]
 type=layer
 width=190
 height=229
 
 // 430:1
-[com_1]
+[xp_button_layer]
 type=layer
 width=190
 height=261
@@ -27,7 +27,7 @@ width=190
 height=261
 
 // 430:4
-[com_4]
+[filter_buttons_layer]
 type=layer
 width=190
 height=261
@@ -42,7 +42,7 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_4
+layer=filter_buttons_layer
 graphic=graphic_1701
 colour=0xffffffff
 transmitop=1,10
@@ -61,7 +61,7 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_4
+layer=filter_buttons_layer
 graphic=graphic_2192
 colour=0xffffffff
 transmitop=10
@@ -75,7 +75,7 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_4
+layer=filter_buttons_layer
 graphic=graphic_1701
 colour=0xffffffff
 transmitop=1,10
@@ -94,21 +94,21 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_4
+layer=filter_buttons_layer
 graphic=graphic_2195
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 430:9
-[com_9]
+[filter_misc_button]
 type=graphic
 x=93
 y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_4
+layer=filter_buttons_layer
 graphic=graphic_1701
 colour=0xffffffff
 transmitop=1,10
@@ -127,14 +127,14 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_4
+layer=filter_buttons_layer
 graphic=graphic_2193
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 430:11
-[com_11]
+[order0]
 type=graphic
 x=43
 y=5
@@ -153,7 +153,7 @@ onmouserepeat=script2061(event_com)
 onclick=script2058(0)
 
 // 430:12
-[com_12]
+[order1]
 type=graphic
 x=24
 y=5
@@ -172,7 +172,7 @@ onmouserepeat=script2061(event_com)
 onclick=script2058(1)
 
 // 430:13
-[com_13]
+[order2]
 type=graphic
 x=5
 y=5
@@ -191,7 +191,7 @@ onmouserepeat=script2061(event_com)
 onclick=script2058(2)
 
 // 430:14
-[com_14]
+[order_icon0]
 type=graphic
 x=43
 y=5
@@ -206,7 +206,7 @@ transmitop=10
 op10= 
 
 // 430:15
-[com_15]
+[order_icon1]
 type=graphic
 x=24
 y=5
@@ -221,7 +221,7 @@ transmitop=10
 op10=  
 
 // 430:16
-[com_16]
+[order_icon2]
 type=graphic
 x=5
 y=5
@@ -283,7 +283,7 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_1
+layer=xp_button_layer
 graphic=graphic_1701
 colour=0xffffffff
 transmitop=1,10
@@ -302,161 +302,161 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_1
+layer=xp_button_layer
 graphic=graphic_2191
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 430:22
-[com_22]
+[tele_barb_out]
 type=graphic
 x=132
 y=62
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,4"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,4", "lunar_magic_off,4", 75, "Barbarian Teleport", "Teleports you to the Barbarian Outpost", astral_rune, 2, law_rune, 2, fire_rune, 3, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,4", "lunar_magic_off,4", 75, "Barbarian Teleport", "Teleports you to the Barbarian Outpost", astral_rune, 2, law_rune, 2, fire_rune, 3, null, 0)
 
 // 430:23
-[com_23]
+[cure_other]
 type=graphic
 x=162
 y=4
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,16"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astral_rune, 1, earth_rune, 10, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astral_rune, 1, earth_rune, 10, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astral_rune, 1, earth_rune, 10, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astral_rune, 1, earth_rune, 10, null, 0, null, 0){varplayer_1092}
 
 // 430:24
-[com_24]
+[fertile_soil]
 type=graphic
 x=39
 y=119
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,10"
 colour=0xffffffff
 targetmask=loc
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,10", "lunar_magic_off,10", 83, "Fertile Soil", "Fertilise a farming patch with super compost", astral_rune, 3, nature_rune, 2, earth_rune, 15, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,10", "lunar_magic_off,10", 83, "Fertile Soil", "Fertilise a farming patch with super compost", astral_rune, 3, nature_rune, 2, earth_rune, 15, null, 0){varplayer_1092, varplayer_2089}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,10", "lunar_magic_off,10", 83, "Fertile Soil", "Fertilise a farming patch with super compost", astral_rune, 3, nature_rune, 2, earth_rune, 15, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,10", "lunar_magic_off,10", 83, "Fertile Soil", "Fertilise a farming patch with super compost", astral_rune, 3, nature_rune, 2, earth_rune, 15, null, 0){varplayer_1092, varplayer_2089}
 
 // 430:25
-[com_25]
+[cure_group]
 type=graphic
 x=68
 y=62
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,22"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0){varplayer_1092}
 
 // 430:26
-[com_26]
+[npc_contact]
 type=graphic
 x=132
 y=4
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,25"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,25", "lunar_magic_off,25", 67, "NPC Contact", "Speak with varied NPCs", astral_rune, 1, cosmic_rune, 1, air_rune, 2, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,25", "lunar_magic_off,25", 67, "NPC Contact", "Speak with varied NPCs", astral_rune, 1, cosmic_rune, 1, air_rune, 2, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,25", "lunar_magic_off,25", 67, "NPC Contact", "Speak with varied NPCs", astral_rune, 1, cosmic_rune, 1, air_rune, 2, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,25", "lunar_magic_off,25", 67, "NPC Contact", "Speak with varied NPCs", astral_rune, 1, cosmic_rune, 1, air_rune, 2, null, 0){varplayer_1092}
 
 // 430:27
-[com_27]
+[energy_trans]
 type=graphic
 x=132
 y=149
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,15"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,15", "lunar_magic_off,15", 91, "Energy Transfer", "Spend life points and SA energy to give another SA and run energy", astral_rune, 3, law_rune, 2, nature_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,15", "lunar_magic_off,15", 91, "Energy Transfer", "Spend life points and SA energy to give another SA and run energy", astral_rune, 3, law_rune, 2, nature_rune, 1, null, 0){varplayer_1092, varplayer_2089}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,15", "lunar_magic_off,15", 91, "Energy Transfer", "Spend life points and SA energy to give another SA and run energy", astral_rune, 3, law_rune, 2, nature_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,15", "lunar_magic_off,15", 91, "Energy Transfer", "Spend life points and SA energy to give another SA and run energy", astral_rune, 3, law_rune, 2, nature_rune, 1, null, 0){varplayer_1092, varplayer_2089}
 
 // 430:28
-[com_28]
+[monster_examine]
 type=graphic
 x=100
 y=4
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,34"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astral_rune, 1, cosmic_rune, 1, mind_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astral_rune, 1, cosmic_rune, 1, mind_rune, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astral_rune, 1, cosmic_rune, 1, mind_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astral_rune, 1, cosmic_rune, 1, mind_rune, 1, null, 0){varplayer_1092}
 
 // 430:29
-[com_29]
+[humidify]
 type=graphic
 x=7
 y=33
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,35"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astral_rune, 1, water_rune, 3, fire_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astral_rune, 1, water_rune, 3, fire_rune, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astral_rune, 1, water_rune, 3, fire_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astral_rune, 1, water_rune, 3, fire_rune, 1, null, 0){varplayer_1092}
 
 // 430:30
-[com_30]
+[hunter_kit]
 type=graphic
 x=163
 y=33
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,36"
 colour=0xffffffff
 transmitop=1
 op1=Cast
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,36", "lunar_magic_off,36", 71, "Hunter Kit", "Get a kit of hunter gear", astral_rune, 2, earth_rune, 2, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,36", "lunar_magic_off,36", 71, "Hunter Kit", "Get a kit of hunter gear", astral_rune, 2, earth_rune, 2, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,36", "lunar_magic_off,36", 71, "Hunter Kit", "Get a kit of hunter gear", astral_rune, 2, earth_rune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,36", "lunar_magic_off,36", 71, "Hunter Kit", "Get a kit of hunter gear", astral_rune, 2, earth_rune, 2, null, 0, null, 0){varplayer_1092}
 
 // 430:31
-[com_31]
+[stat_spy]
 type=graphic
 x=100
 y=62
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,33"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,33", "lunar_magic_off,33", 75, "Stat Spy", "Cast on another player to see their skill levels", astral_rune, 2, cosmic_rune, 2, body_rune, 5, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,33", "lunar_magic_off,33", 75, "Stat Spy", "Cast on another player to see their skill levels", astral_rune, 2, cosmic_rune, 2, body_rune, 5, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,33", "lunar_magic_off,33", 75, "Stat Spy", "Cast on another player to see their skill levels", astral_rune, 2, cosmic_rune, 2, body_rune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,33", "lunar_magic_off,33", 75, "Stat Spy", "Cast on another player to see their skill levels", astral_rune, 2, cosmic_rune, 2, body_rune, 5, null, 0){varplayer_1092}
 
 // 430:32
 [com_32]
@@ -465,307 +465,307 @@ x=100
 y=91
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,37"
 colour=0xffffffff
 transmitop=1
 op1=Cast
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,37", "lunar_magic_off,37", 79, "Dream", "Take a rest and restore life points five times faster than normal", astral_rune, 2, cosmic_rune, 1, body_rune, 5, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,37", "lunar_magic_off,37", 79, "Dream", "Take a rest and restore life points five times faster than normal", astral_rune, 2, cosmic_rune, 1, body_rune, 5, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,37", "lunar_magic_off,37", 79, "Dream", "Take a rest and restore life points five times faster than normal", astral_rune, 2, cosmic_rune, 1, body_rune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,37", "lunar_magic_off,37", 79, "Dream", "Take a rest and restore life points five times faster than normal", astral_rune, 2, cosmic_rune, 1, body_rune, 5, null, 0){varplayer_1092}
 
 // 430:33
-[com_33]
+[plank_make]
 type=graphic
 x=162
 y=120
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,38"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,38", "lunar_magic_off,38", 86, "Plank Make", "Turn logs into planks", astral_rune, 2, earth_rune, 15, nature_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,38", "lunar_magic_off,38", 86, "Plank Make", "Turn logs into planks", astral_rune, 2, earth_rune, 15, nature_rune, 1, null, 0){varplayer_1092, varplayer_2089}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,38", "lunar_magic_off,38", 86, "Plank Make", "Turn logs into planks", astral_rune, 2, earth_rune, 15, nature_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,38", "lunar_magic_off,38", 86, "Plank Make", "Turn logs into planks", astral_rune, 2, earth_rune, 15, nature_rune, 1, null, 0){varplayer_1092, varplayer_2089}
 
 // 430:34
-[com_34]
+[spellbook_swap]
 type=graphic
 x=100
 y=178
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,39"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,39", "lunar_magic_off,39", 96, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astral_rune, 3, cosmic_rune, 2, law_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,39", "lunar_magic_off,39", 96, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astral_rune, 3, cosmic_rune, 2, law_rune, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,39", "lunar_magic_off,39", 96, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astral_rune, 3, cosmic_rune, 2, law_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,39", "lunar_magic_off,39", 96, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astral_rune, 3, cosmic_rune, 2, law_rune, 1, null, 0){varplayer_1092}
 
 // 430:35
-[com_35]
+[magic_imbue]
 type=graphic
 x=7
 y=119
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,9"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,9", "lunar_magic_off,9", 82, "Magic Imbue", "Combine runes without a talisman", astral_rune, 2, fire_rune, 7, water_rune, 7, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,9", "lunar_magic_off,9", 82, "Magic Imbue", "Combine runes without a talisman", astral_rune, 2, fire_rune, 7, water_rune, 7, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,9", "lunar_magic_off,9", 82, "Magic Imbue", "Combine runes without a talisman", astral_rune, 2, fire_rune, 7, water_rune, 7, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,9", "lunar_magic_off,9", 82, "Magic Imbue", "Combine runes without a talisman", astral_rune, 2, fire_rune, 7, water_rune, 7, null, 0){varplayer_1092}
 
 // 430:36
-[com_36]
+[vengeance]
 type=graphic
 x=36
 y=178
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,21"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,21", "lunar_magic_off,21", 94, "Vengeance", "Rebound damage to an opponent", astral_rune, 4, death_rune, 2, earth_rune, 10, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,21", "lunar_magic_off,21", 94, "Vengeance", "Rebound damage to an opponent", astral_rune, 4, death_rune, 2, earth_rune, 10, null, 0)
 
 // 430:37
-[com_37]
+[burn_fuel]
 type=graphic
 x=36
 y=4
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,0"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,0", "lunar_magic_off,0", 65, "Bake Pie", "Bake pies without a stove", astral_rune, 1, fire_rune, 5, water_rune, 4, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,0", "lunar_magic_off,0", 65, "Bake Pie", "Bake pies without a stove", astral_rune, 1, fire_rune, 5, water_rune, 4, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,0", "lunar_magic_off,0", 65, "Bake Pie", "Bake pies without a stove", astral_rune, 1, fire_rune, 5, water_rune, 4, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,0", "lunar_magic_off,0", 65, "Bake Pie", "Bake pies without a stove", astral_rune, 1, fire_rune, 5, water_rune, 4, null, 0){varplayer_1092}
 
 // 430:38
-[com_38]
+[home_teleport]
 type=graphic
 x=7
 y=4
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicon2,37"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "magicon2,37", "magicoff2,37", 0, "Lunar Home Teleport", "Requires no runes. Warning: This spell takes a long time to cast and will be interrupted by combat.", null, 0, null, 0, null, 0, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "magicon2,37", "magicoff2,37", 0, "Lunar Home Teleport", "Requires no runes. Warning: This spell takes a long time to cast and will be interrupted by combat.", null, 0, null, 0, null, 0, null, 0)
 
 // 430:39
-[com_39]
+[tele_fish]
 type=graphic
 x=100
 y=120
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,12"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,12", "lunar_magic_off,12", 85, "Fishing Guild Teleport", "Teleports you to the Fishing Guild", astral_rune, 3, law_rune, 3, water_rune, 8, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,12", "lunar_magic_off,12", 85, "Fishing Guild Teleport", "Teleports you to the Fishing Guild", astral_rune, 3, law_rune, 3, water_rune, 8, null, 0)
 
 // 430:40
-[com_40]
+[tele_khazard]
 type=graphic
 x=39
 y=91
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,6"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,6", "lunar_magic_off,6", 78, "Khazard Teleport", "Teleports you to Port Khazard", astral_rune, 2, law_rune, 2, water_rune, 4, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,6", "lunar_magic_off,6", 78, "Khazard Teleport", "Teleports you to Port Khazard", astral_rune, 2, law_rune, 2, water_rune, 4, null, 0)
 
 // 430:41
-[com_41]
+[vengeance_other]
 type=graphic
 x=7
 y=178
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,18"
 colour=0xffffffff
 targetmask=npc,player
 opbase=bb
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,18", "lunar_magic_off,18", 93, "Vengeance Other", "Allows another player to rebound damage to an opponent", astral_rune, 3, death_rune, 2, earth_rune, 10, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,18", "lunar_magic_off,18", 93, "Vengeance Other", "Allows another player to rebound damage to an opponent", astral_rune, 3, death_rune, 2, earth_rune, 10, null, 0){varplayer_2089}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,18", "lunar_magic_off,18", 93, "Vengeance Other", "Allows another player to rebound damage to an opponent", astral_rune, 3, death_rune, 2, earth_rune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,18", "lunar_magic_off,18", 93, "Vengeance Other", "Allows another player to rebound damage to an opponent", astral_rune, 3, death_rune, 2, earth_rune, 10, null, 0){varplayer_2089}
 
 // 430:42
-[com_42]
+[tele_moonclan]
 type=graphic
 x=36
 y=33
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,1"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,1", "lunar_magic_off,1", 69, "Moonclan Teleport", "Teleports you to Moonclan Island", astral_rune, 2, law_rune, 1, earth_rune, 2, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,1", "lunar_magic_off,1", 69, "Moonclan Teleport", "Teleports you to Moonclan Island", astral_rune, 2, law_rune, 1, earth_rune, 2, null, 0)
 
 // 430:43
-[com_43]
+[tele_cather]
 type=graphic
 x=7
 y=149
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,13"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,13", "lunar_magic_off,13", 87, "Catherby Teleport", "Teleports you to Catherby", astral_rune, 3, law_rune, 3, water_rune, 10, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,13", "lunar_magic_off,13", 87, "Catherby Teleport", "Teleports you to Catherby", astral_rune, 3, law_rune, 3, water_rune, 10, null, 0)
 
 // 430:44
-[com_44]
+[string_jewel]
 type=graphic
 x=132
 y=91
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,7"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,7", "lunar_magic_off,7", 80, "String Jewellery", "String amulets without wool", astral_rune, 2, earth_rune, 10, water_rune, 5, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,7", "lunar_magic_off,7", 80, "String Jewellery", "String amulets without wool", astral_rune, 2, earth_rune, 10, water_rune, 5, null, 0){varplayer_1092, varplayer_2089}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,7", "lunar_magic_off,7", 80, "String Jewellery", "String amulets without wool", astral_rune, 2, earth_rune, 10, water_rune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,7", "lunar_magic_off,7", 80, "String Jewellery", "String amulets without wool", astral_rune, 2, earth_rune, 10, water_rune, 5, null, 0){varplayer_1092, varplayer_2089}
 
 // 430:45
-[com_45]
+[cure_me]
 type=graphic
 x=132
 y=33
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,19"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cure Poison and disease", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cure Poison and disease", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cure Poison and disease", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cure Poison and disease", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0){varplayer_1092}
 
 // 430:46
-[com_46]
+[tele_waterbirth]
 type=graphic
 x=9
 y=62
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,2"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,2", "lunar_magic_off,2", 72, "Waterbirth Teleport", "Teleports you to Waterbirth Island", astral_rune, 2, law_rune, 1, water_rune, 1, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,2", "lunar_magic_off,2", 72, "Waterbirth Teleport", "Teleports you to Waterbirth Island", astral_rune, 2, law_rune, 1, water_rune, 1, null, 0)
 
 // 430:47
-[com_47]
+[superglass]
 type=graphic
 x=8
 y=91
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,5"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,5", "lunar_magic_off,5", 77, "Superglass Make", "Make glass without a furnace", astral_rune, 2, fire_rune, 6, air_rune, 10, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,5", "lunar_magic_off,5", 77, "Superglass Make", "Make glass without a furnace", astral_rune, 2, fire_rune, 6, air_rune, 10, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,5", "lunar_magic_off,5", 77, "Superglass Make", "Make glass without a furnace", astral_rune, 2, fire_rune, 6, air_rune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,5", "lunar_magic_off,5", 77, "Superglass Make", "Make glass without a furnace", astral_rune, 2, fire_rune, 6, air_rune, 10, null, 0){varplayer_1092}
 
 // 430:48
-[com_48]
+[supply_setslot]
 type=graphic
 x=68
 y=119
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,8"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,8", "lunar_magic_off,8", 84, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astral_rune, 3, earth_rune, 12, water_rune, 10, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,8", "lunar_magic_off,8", 84, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astral_rune, 3, earth_rune, 12, water_rune, 10, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,8", "lunar_magic_off,8", 84, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astral_rune, 3, earth_rune, 12, water_rune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,8", "lunar_magic_off,8", 84, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astral_rune, 3, earth_rune, 12, water_rune, 10, null, 0){varplayer_1092}
 
 // 430:49
-[com_49]
+[rest_pot_share]
 type=graphic
 x=162
 y=91
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,11"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,11", "lunar_magic_off,11", 81, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astral_rune, 2, earth_rune, 10, water_rune, 10, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,11", "lunar_magic_off,11", 81, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astral_rune, 2, earth_rune, 10, water_rune, 10, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,11", "lunar_magic_off,11", 81, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astral_rune, 2, earth_rune, 10, water_rune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,11", "lunar_magic_off,11", 81, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astral_rune, 2, earth_rune, 10, water_rune, 10, null, 0){varplayer_1092}
 
 // 430:50
-[com_50]
+[tele_ghorrock]
 type=graphic
 x=68
 y=149
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,14"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,14", "lunar_magic_off,14", 89, "Ice Plateau Teleport", "Teleports you to Ice Plateau", astral_rune, 3, law_rune, 3, water_rune, 8, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,14", "lunar_magic_off,14", 89, "Ice Plateau Teleport", "Teleports you to Ice Plateau", astral_rune, 3, law_rune, 3, water_rune, 8, null, 0)
 
 // 430:51
-[com_51]
+[heal_other]
 type=graphic
 x=162
 y=149
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,17"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,17", "lunar_magic_off,17", 92, "Heal Other", "Transfers up to 75% of life points to another player", astral_rune, 3, law_rune, 3, blood_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,17", "lunar_magic_off,17", 92, "Heal Other", "Transfers up to 75% of life points to another player", astral_rune, 3, law_rune, 3, blood_rune, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,17", "lunar_magic_off,17", 92, "Heal Other", "Transfers up to 75% of life points to another player", astral_rune, 3, law_rune, 3, blood_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,17", "lunar_magic_off,17", 92, "Heal Other", "Transfers up to 75% of life points to another player", astral_rune, 3, law_rune, 3, blood_rune, 1, null, 0){varplayer_1092}
 
 // 430:52
-[com_52]
+[heal_group]
 type=graphic
 x=68
 y=178
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,23"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,23", "lunar_magic_off,23", 95, "Heal Group", "Transfers up to 75% of life points to a group", astral_rune, 4, blood_rune, 2, law_rune, 3, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,23", "lunar_magic_off,23", 95, "Heal Group", "Transfers up to 75% of life points to a group", astral_rune, 4, blood_rune, 2, law_rune, 3, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,23", "lunar_magic_off,23", 95, "Heal Group", "Transfers up to 75% of life points to a group", astral_rune, 4, blood_rune, 2, law_rune, 3, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,23", "lunar_magic_off,23", 95, "Heal Group", "Transfers up to 75% of life points to a group", astral_rune, 4, blood_rune, 2, law_rune, 3, null, 0){varplayer_1092}
 
 // 430:53
 [com_53]
@@ -774,128 +774,128 @@ x=100
 y=33
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,40"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,40", "lunar_magic_off,40", 71, "Ourania Teleport", "Teleports you to Ourania rune altar", astral_rune, 2, law_rune, 1, earth_rune, 6, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,40", "lunar_magic_off,40", 71, "Ourania Teleport", "Teleports you to Ourania rune altar", astral_rune, 2, law_rune, 1, earth_rune, 6, null, 0)
 
 // 430:54
-[com_54]
+[cure_plant]
 type=graphic
 x=68
 y=4
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,24"
 colour=0xffffffff
 targetmask=loc
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,24", "lunar_magic_off,24", 66, "Cure Plant", "Cures disease on farming patch", astral_rune, 1, earth_rune, 8, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,24", "lunar_magic_off,24", 66, "Cure Plant", "Cures disease on farming patch", astral_rune, 1, earth_rune, 8, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,24", "lunar_magic_off,24", 66, "Cure Plant", "Cures disease on farming patch", astral_rune, 1, earth_rune, 8, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,24", "lunar_magic_off,24", 66, "Cure Plant", "Cures disease on farming patch", astral_rune, 1, earth_rune, 8, null, 0, null, 0){varplayer_1092}
 
 // 430:55
-[com_55]
+[tele_group_moonclan]
 type=graphic
 x=68
 y=33
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,26"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,26", "lunar_magic_off,26", 70, "Tele Group Moonclan", "Teleports players to Moonclan Island", astral_rune, 2, law_rune, 1, earth_rune, 4, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,26", "lunar_magic_off,26", 70, "Tele Group Moonclan", "Teleports players to Moonclan Island", astral_rune, 2, law_rune, 1, earth_rune, 4, null, 0)
 
 // 430:56
-[com_56]
+[tele_group_waterbirth]
 type=graphic
 x=39
 y=62
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,27"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,27", "lunar_magic_off,27", 73, "Tele Group Waterbirth", "Teleports players to Waterbirth Island", astral_rune, 2, law_rune, 1, water_rune, 5, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,27", "lunar_magic_off,27", 73, "Tele Group Waterbirth", "Teleports players to Waterbirth Island", astral_rune, 2, law_rune, 1, water_rune, 5, null, 0)
 
 // 430:57
-[com_57]
+[tele_group_barbarian]
 type=graphic
 x=162
 y=62
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,28"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,28", "lunar_magic_off,28", 76, "Tele Group Barbarian", "Teleports players to the Barbarian Outpost", astral_rune, 2, law_rune, 2, fire_rune, 6, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,28", "lunar_magic_off,28", 76, "Tele Group Barbarian", "Teleports players to the Barbarian Outpost", astral_rune, 2, law_rune, 2, fire_rune, 6, null, 0)
 
 // 430:58
-[com_58]
+[tele_group_khazard]
 type=graphic
 x=68
 y=91
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,29"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,29", "lunar_magic_off,29", 79, "Tele Group Khazard", "Teleports players to Port Khazard", astral_rune, 2, law_rune, 2, water_rune, 8, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,29", "lunar_magic_off,29", 79, "Tele Group Khazard", "Teleports players to Port Khazard", astral_rune, 2, law_rune, 2, water_rune, 8, null, 0)
 
 // 430:59
-[com_59]
+[tele_group_fishing_guild]
 type=graphic
 x=132
 y=120
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,30"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,30", "lunar_magic_off,30", 86, "Tele Group Fishing Guild", "Teleports players to the Fishing Guild", astral_rune, 3, law_rune, 3, water_rune, 10, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,30", "lunar_magic_off,30", 86, "Tele Group Fishing Guild", "Teleports players to the Fishing Guild", astral_rune, 3, law_rune, 3, water_rune, 10, null, 0)
 
 // 430:60
-[com_60]
+[tele_group_catherby]
 type=graphic
 x=39
 y=149
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,31"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,31", "lunar_magic_off,31", 88, "Tele Group Catherby", "Teleports players to Catherby", astral_rune, 3, law_rune, 3, water_rune, 12, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,31", "lunar_magic_off,31", 88, "Tele Group Catherby", "Teleports players to Catherby", astral_rune, 3, law_rune, 3, water_rune, 12, null, 0)
 
 // 430:61
-[com_61]
+[tele_group_ghorrock]
 type=graphic
 x=100
 y=149
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,32"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,32", "lunar_magic_off,32", 90, "Tele Group Ice Plateau", "Teleports players to Ice Plateau", astral_rune, 3, law_rune, 3, water_rune, 16, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,32", "lunar_magic_off,32", 90, "Tele Group Ice Plateau", "Teleports players to Ice Plateau", astral_rune, 3, law_rune, 3, water_rune, 16, null, 0)
 
 // 430:62
-[com_62]
+[scrollbar_layer]
 type=layer
 x=1
 y=1
@@ -906,7 +906,7 @@ transmitop=10
 op10=   
 
 // 430:63
-[com_63]
+[tooltip2_bounds]
 type=layer
 y=25
 width=10
@@ -916,16 +916,16 @@ xmode=abs_centre
 ymode=abs_bottom
 
 // 430:64
-[com_64]
+[tooltip2]
 type=layer
 x=3
 y=2
 width=42
 height=14
-layer=com_63
+layer=tooltip2_bounds
 
 // 430:65
-[com_65]
+[tooltip]
 type=layer
 width=190
 height=261
@@ -938,11 +938,11 @@ x=6
 y=206
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,42"
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,42", "lunar_magic_off,42", 72, "South Falador Teleport", "Teleports you to South Falador", astral_rune, 2, law_rune, 1, air_rune, 2, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,42", "lunar_magic_off,42", 72, "South Falador Teleport", "Teleports you to South Falador", astral_rune, 2, law_rune, 1, air_rune, 2, null, 0)
 
 // 430:67
 [com_67]
@@ -951,11 +951,11 @@ x=28
 y=206
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,43"
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,43", "lunar_magic_off,43", 75, "Repair Rune Pouch", "Repairs and strengthens any degraded rune pouch", astral_rune, 2, cosmic_rune, 1, law_rune, 1, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,43", "lunar_magic_off,43", 75, "Repair Rune Pouch", "Repairs and strengthens any degraded rune pouch", astral_rune, 2, cosmic_rune, 1, law_rune, 1, null, 0)
 
 // 430:68
 [com_68]
@@ -964,11 +964,11 @@ x=51
 y=206
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,44"
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,44", "lunar_magic_off,44", 76, "North Ardougne Teleport", "Teleports you to North Ardougne", astral_rune, 2, law_rune, 1, water_rune, 5, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,44", "lunar_magic_off,44", 76, "North Ardougne Teleport", "Teleports you to North Ardougne", astral_rune, 2, law_rune, 1, water_rune, 5, null, 0)
 
 // 430:69
 [com_69]
@@ -977,11 +977,11 @@ x=76
 y=206
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,45"
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,45", "lunar_magic_off,45", 78, "Remote Farm", "See your crop status and cure any disease", astral_rune, 2, earth_rune, 2, nature_rune, 3, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,45", "lunar_magic_off,45", 78, "Remote Farm", "See your crop status and cure any disease", astral_rune, 2, earth_rune, 2, nature_rune, 3, null, 0)
 
 // 430:70
 [com_70]
@@ -990,11 +990,11 @@ x=100
 y=206
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,47"
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,47", "lunar_magic_off,47", 80, "Spiritualise Food", "Use on ordinary food to heal your familiar; boost its combat stats and extend its timer", astral_rune, 2, cosmic_rune, 3, body_rune, 5, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,47", "lunar_magic_off,47", 80, "Spiritualise Food", "Use on ordinary food to heal your familiar; boost its combat stats and extend its timer", astral_rune, 2, cosmic_rune, 3, body_rune, 5, null, 0)
 
 // 430:71
 [com_71]
@@ -1003,11 +1003,11 @@ x=124
 y=206
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,46"
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,46", "lunar_magic_off,46", 83, "Make Leather", "Turn hides into leather in sets of 5", astral_rune, 2, fire_rune, 2, body_rune, 2, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,46", "lunar_magic_off,46", 83, "Make Leather", "Turn hides into leather in sets of 5", astral_rune, 2, fire_rune, 2, body_rune, 2, null, 0)
 
 // 430:72
 [com_72]
@@ -1016,11 +1016,11 @@ x=147
 y=206
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,48"
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,48", "lunar_magic_off,48", 90, "Disruption Shield", "Nullify the next hit you receive from another player", astral_rune, 3, blood_rune, 3, body_rune, 10, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,48", "lunar_magic_off,48", 90, "Disruption Shield", "Nullify the next hit you receive from another player", astral_rune, 3, blood_rune, 3, body_rune, 10, null, 0)
 
 // 430:73
 [com_73]
@@ -1029,8 +1029,8 @@ x=170
 y=206
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="lunar_magic_off,49"
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:com_65, "lunar_magic_on,49", "lunar_magic_off,49", 95, "Vengeance Group", "Those nearby get to rebound damage", astral_rune, 4, death_rune, 3, earth_rune, 11, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,49", "lunar_magic_off,49", 95, "Vengeance Group", "Those nearby get to rebound damage", astral_rune, 4, death_rune, 3, earth_rune, 11, null, 0)

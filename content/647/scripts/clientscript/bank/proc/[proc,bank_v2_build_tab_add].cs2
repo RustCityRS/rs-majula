@@ -11,5 +11,5 @@ if_setgraphicshadow(^black, $component2);
 if_clearops($component1);
 if_setonclick("bank_v2_clickaddbutton", $component1);
 def_string $string0 = "Drag an item here to create a new tab";
-if_setonmouserepeat("addtooltip(event_com, bank_v2_main:com_119, $string0, 25, 150)", $component1);
-if_setonmouseleave("deltooltip(bank_v2_main:com_119)", $component1);
+if_setonmouserepeat("addtooltip(event_com, bank_v2_main:tooltip, $string0, 25, 150)", $component1);
+if_setonmouseleave("deltooltip(bank_v2_main:tooltip)", $component1);

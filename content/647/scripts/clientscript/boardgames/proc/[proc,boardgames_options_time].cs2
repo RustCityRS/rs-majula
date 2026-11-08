@@ -1,15 +1,15 @@
 // 1408
 [proc,boardgames_options_time]
-if_setgraphic("miscgraphics,10", boardgames_options:com_12);
-if_setgraphic("miscgraphics,10", boardgames_options:com_13);
-if_setgraphic("miscgraphics,10", boardgames_options:com_15);
-if_setgraphic("miscgraphics,10", boardgames_options:com_16);
+if_setgraphic("miscgraphics,10", boardgames_options:15seconds1);
+if_setgraphic("miscgraphics,10", boardgames_options:30seconds1);
+if_setgraphic("miscgraphics,10", boardgames_options:1minute1);
+if_setgraphic("miscgraphics,10", boardgames_options:2minutes1);
 if (%boardgames_timepermove = 0) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com_12);
+    if_setgraphic("miscgraphics,11", boardgames_options:15seconds1);
 } else if (%boardgames_timepermove = 1) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com_13);
+    if_setgraphic("miscgraphics,11", boardgames_options:30seconds1);
 } else if (%boardgames_timepermove = 2) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com_15);
+    if_setgraphic("miscgraphics,11", boardgames_options:1minute1);
 } else if (%boardgames_timepermove = 3) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com_16);
+    if_setgraphic("miscgraphics,11", boardgames_options:2minutes1);
 }

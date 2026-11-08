@@ -6,11 +6,11 @@
 %varclient_850 = %varplayerbit_6363;
 %varclient_851 = %varplayerbit_6365;
 %varclient_839 = %varplayerbit_6351;
-if_settext(tostring(%varclient_847), mob_special_units:com_13);
-if_settext(tostring(%varclient_848), mob_special_units:com_61);
-if_settext(tostring(%varclient_849), mob_special_units:com_53);
-if_settext(tostring(%varclient_850), mob_special_units:com_45);
-if_settext(tostring(%varclient_851), mob_special_units:com_70);
+if_settext(tostring(%varclient_847), mob_special_units:quantity_field1);
+if_settext(tostring(%varclient_848), mob_special_units:quantity_field2);
+if_settext(tostring(%varclient_849), mob_special_units:quantity_field3);
+if_settext(tostring(%varclient_850), mob_special_units:quantity_field4);
+if_settext(tostring(%varclient_851), mob_special_units:quantity_field5);
 if_settext(~tostring_spacer(%varclient_839, ","), mob_special_units:com_77);
 ~script2517;
 return;

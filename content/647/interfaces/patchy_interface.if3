@@ -5,7 +5,7 @@ width=512
 height=334
 
 // 419:1
-[com_1]
+[drop_shadow]
 type=rectangle
 width=500
 height=316
@@ -17,7 +17,7 @@ opbase=
 op10=   
 
 // 419:2
-[com_2]
+[drop_shadow_1]
 type=rectangle
 x=1
 y=1
@@ -32,7 +32,7 @@ opbase=
 op10=    
 
 // 419:3
-[com_3]
+[drop_shadow_2]
 type=rectangle
 x=2
 y=2
@@ -47,7 +47,7 @@ opbase=
 op10=     
 
 // 419:4
-[com_4]
+[drop_shadow_3]
 type=rectangle
 x=3
 y=3
@@ -62,7 +62,7 @@ opbase=
 op10=      
 
 // 419:5
-[com_5]
+[drop_shadow_4]
 type=rectangle
 x=4
 y=4
@@ -77,7 +77,7 @@ opbase=
 op10=       
 
 // 419:6
-[com_6]
+[background_top]
 type=graphic
 x=8
 y=22
@@ -92,7 +92,7 @@ transmitop=10
 op10=  
 
 // 419:7
-[com_7]
+[background_mid]
 type=graphic
 x=8
 y=92
@@ -124,7 +124,7 @@ transmitop=10
 op10=  
 
 // 419:9
-[com_9]
+[background_border]
 type=rectangle
 x=7
 y=22
@@ -138,7 +138,7 @@ transmitop=10
 op10= 
 
 // 419:10
-[com_10]
+[border_left]
 type=graphic
 x=-13
 y=32
@@ -153,7 +153,7 @@ transmitop=10
 op10=    
 
 // 419:11
-[com_11]
+[border_right]
 type=graphic
 x=-6
 y=32
@@ -169,7 +169,7 @@ transmitop=10
 op10=    
 
 // 419:12
-[com_12]
+[border_top]
 type=graphic
 x=32
 width=70
@@ -183,7 +183,7 @@ transmitop=10
 op10=        
 
 // 419:13
-[com_13]
+[border_bottom]
 type=graphic
 x=32
 y=-7
@@ -199,7 +199,7 @@ transmitop=10
 op10=    
 
 // 419:14
-[com_14]
+[border_top_left]
 type=graphic
 width=32
 height=32
@@ -210,7 +210,7 @@ transmitop=10
 op10=        
 
 // 419:15
-[com_15]
+[border_top_right]
 type=graphic
 x=6
 width=32
@@ -223,7 +223,7 @@ transmitop=10
 op10=        
 
 // 419:16
-[com_16]
+[border_bottom_left]
 type=graphic
 y=5
 width=32
@@ -236,7 +236,7 @@ transmitop=10
 op10=    
 
 // 419:17
-[com_17]
+[border_bottom_right]
 type=graphic
 x=6
 y=5
@@ -251,7 +251,7 @@ transmitop=10
 op10=    
 
 // 419:18
-[com_18]
+[close_button]
 type=graphic
 x=18
 y=2
@@ -269,7 +269,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 419:19
-[com_19]
+[shop_title]
 type=text
 y=4
 width=80
@@ -338,7 +338,7 @@ transmitop=10
 op10=    
 
 // 419:23
-[com_23]
+[misc_title]
 type=text
 x=24
 y=237
@@ -373,7 +373,7 @@ transmitop=10
 op10= 
 
 // 419:25
-[com_25]
+[main_title]
 type=text
 x=20
 y=95
@@ -391,7 +391,7 @@ transmitop=10
 op10=  
 
 // 419:26
-[com_26]
+[key_title]
 type=text
 x=23
 y=24
@@ -410,7 +410,7 @@ transmitop=10
 op10=   
 
 // 419:27
-[com_27]
+[right_click_text]
 type=text
 y=14
 width=400
@@ -433,7 +433,7 @@ type=layer
 y=5
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10=  
 
@@ -485,7 +485,7 @@ graphic="km_shopitems,1"
 colour=0xffffffff
 
 // 419:33
-[com_33]
+[patchy_bandana_white]
 type=model
 x=10
 y=5
@@ -502,13 +502,13 @@ op2=Buy
 op10=  
 
 // 419:34
-[com_34]
+[bandana_red_layer]
 type=layer
 x=52
 y=5
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -517,7 +517,7 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_34
+layer=bandana_red_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
@@ -530,7 +530,7 @@ onmouseleave=script1189(patchy_interface:com_36, true)
 type=graphic
 width=48
 height=52
-layer=com_34
+layer=bandana_red_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -544,7 +544,7 @@ x=16
 y=39
 width=31
 height=12
-layer=com_34
+layer=bandana_red_layer
 textfont=p11_full
 text=500
 textalignh=centre
@@ -559,20 +559,20 @@ x=3
 y=38
 width=12
 height=12
-layer=com_34
+layer=bandana_red_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 419:39
-[com_39]
+[bandana_blue_layer]
 type=layer
 x=104
 y=5
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -581,7 +581,7 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_39
+layer=bandana_blue_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
@@ -594,7 +594,7 @@ onmouseleave=script1189(patchy_interface:com_41, true)
 type=graphic
 width=48
 height=52
-layer=com_39
+layer=bandana_blue_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -608,7 +608,7 @@ x=16
 y=39
 width=31
 height=12
-layer=com_39
+layer=bandana_blue_layer
 textfont=p11_full
 text=500
 textalignh=centre
@@ -623,20 +623,20 @@ x=3
 y=38
 width=12
 height=12
-layer=com_39
+layer=bandana_blue_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 419:44
-[com_44]
+[bandana_brown_layer]
 type=layer
 x=156
 y=5
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -645,7 +645,7 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_44
+layer=bandana_brown_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
@@ -658,7 +658,7 @@ onmouseleave=script1189(patchy_interface:com_46, true)
 type=graphic
 width=48
 height=52
-layer=com_44
+layer=bandana_brown_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -672,7 +672,7 @@ x=16
 y=39
 width=31
 height=12
-layer=com_44
+layer=bandana_brown_layer
 textfont=p11_full
 text=500
 textalignh=centre
@@ -687,7 +687,7 @@ x=3
 y=38
 width=12
 height=12
-layer=com_44
+layer=bandana_brown_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
@@ -700,7 +700,7 @@ x=208
 y=5
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -764,7 +764,7 @@ x=260
 y=5
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -828,18 +828,18 @@ x=312
 y=5
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
 // 419:60
-[com_60]
+[hat_layer]
 type=layer
 x=364
 y=5
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -848,7 +848,7 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_60
+layer=hat_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
@@ -861,7 +861,7 @@ onmouseleave=script1189(patchy_interface:com_62, true)
 type=graphic
 width=48
 height=52
-layer=com_60
+layer=hat_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -869,13 +869,13 @@ transmitop=10
 op10=                      
 
 // 419:63
-[com_63]
+[hat_cost]
 type=text
 x=16
 y=39
 width=31
 height=12
-layer=com_60
+layer=hat_layer
 textfont=p11_full
 text=500
 textalignh=centre
@@ -884,26 +884,26 @@ transmitop=10
 op10=                     
 
 // 419:64
-[com_64]
+[hat_coin]
 type=graphic
 x=3
 y=38
 width=12
 height=12
-layer=com_60
+layer=hat_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
 op10=                     
 
 // 419:65
-[com_65]
+[patchy_hat]
 type=model
 x=4
 y=7
 width=39
 height=28
-layer=com_60
+layer=hat_layer
 model=model_16007
 modelorigin=-2,5
 modelangle=285,3,0
@@ -919,7 +919,7 @@ type=layer
 y=76
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -983,7 +983,7 @@ x=52
 y=76
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1047,7 +1047,7 @@ x=104
 y=76
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1111,7 +1111,7 @@ x=156
 y=76
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1296,7 +1296,7 @@ x=208
 y=76
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1360,7 +1360,7 @@ x=260
 y=76
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1424,7 +1424,7 @@ x=312
 y=76
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1435,7 +1435,7 @@ x=364
 y=76
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1568,7 +1568,7 @@ type=layer
 y=147
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1632,7 +1632,7 @@ x=52
 y=147
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1696,7 +1696,7 @@ x=104
 y=147
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1760,7 +1760,7 @@ x=156
 y=147
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1824,7 +1824,7 @@ x=208
 y=147
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1888,7 +1888,7 @@ x=260
 y=147
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1952,7 +1952,7 @@ x=312
 y=147
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -1963,7 +1963,7 @@ x=364
 y=147
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -2097,7 +2097,7 @@ x=104
 y=218
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -2155,13 +2155,13 @@ transmitop=10
 op10=                        
 
 // 419:161
-[com_161]
+[claw_layer]
 type=layer
 x=156
 y=218
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -2170,7 +2170,7 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_161
+layer=claw_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
@@ -2183,7 +2183,7 @@ onmouseleave=script1189(patchy_interface:com_163, true)
 type=graphic
 width=48
 height=52
-layer=com_161
+layer=claw_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -2197,7 +2197,7 @@ x=16
 y=39
 width=31
 height=12
-layer=com_161
+layer=claw_layer
 textfont=p11_full
 text=500
 textalignh=centre
@@ -2212,20 +2212,20 @@ x=3
 y=38
 width=12
 height=12
-layer=com_161
+layer=claw_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
 op10=                         
 
 // 419:166
-[com_166]
+[cavalier_layer]
 type=layer
 x=52
 y=218
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -2234,7 +2234,7 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_166
+layer=cavalier_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
@@ -2247,7 +2247,7 @@ onmouseleave=script1189(patchy_interface:com_168, true)
 type=graphic
 width=48
 height=52
-layer=com_166
+layer=cavalier_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -2261,7 +2261,7 @@ x=16
 y=39
 width=31
 height=12
-layer=com_166
+layer=cavalier_layer
 textfont=p11_full
 text=500
 textalignh=centre
@@ -2276,19 +2276,19 @@ x=3
 y=38
 width=12
 height=12
-layer=com_166
+layer=cavalier_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
 op10=                          
 
 // 419:171
-[com_171]
+[barret_layer]
 type=layer
 y=218
 width=48
 height=52
-layer=com_176
+layer=scrolling_layer
 transmitop=10
 op10= 
 
@@ -2297,7 +2297,7 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_171
+layer=barret_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
@@ -2310,7 +2310,7 @@ onmouseleave=script1189(patchy_interface:com_173, true)
 type=graphic
 width=48
 height=52
-layer=com_171
+layer=barret_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -2324,7 +2324,7 @@ x=16
 y=39
 width=31
 height=12
-layer=com_171
+layer=barret_layer
 textfont=p11_full
 text=500
 textalignh=centre
@@ -2339,14 +2339,14 @@ x=3
 y=38
 width=12
 height=12
-layer=com_171
+layer=barret_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
 op10=                           
 
 // 419:176
-[com_176]
+[scrolling_layer]
 type=layer
 x=23
 y=36
@@ -2356,13 +2356,13 @@ scrollheight=715
 onload=script956
 
 // 419:177
-[com_177]
+[patchy_bandana_red]
 type=model
 x=10
 y=5
 width=41
 height=33
-layer=com_34
+layer=bandana_red_layer
 model=model_16005
 modelorigin=-9,-3
 modelangle=387,75,0
@@ -2373,13 +2373,13 @@ op2=Buy
 op10= 
 
 // 419:178
-[com_178]
+[patchy_bandana_blue]
 type=model
 x=10
 y=5
 width=41
 height=33
-layer=com_39
+layer=bandana_blue_layer
 model=model_16002
 modelorigin=-9,-3
 modelangle=387,75,0
@@ -2390,13 +2390,13 @@ op2=Buy
 op10= 
 
 // 419:179
-[com_179]
+[patchy_bandana_brown]
 type=model
 x=10
 y=5
 width=41
 height=33
-layer=com_44
+layer=bandana_brown_layer
 model=model_16004
 modelorigin=-9,-3
 modelangle=387,75,0
@@ -2645,13 +2645,13 @@ op2=Buy
 op10= 
 
 // 419:194
-[com_194]
+[patchy_hook_claw]
 type=model
 x=9
 y=4
 width=31
 height=33
-layer=com_161
+layer=claw_layer
 model=model_16006
 modelorigin=1,0
 modelangle=1474,523,45
@@ -2662,12 +2662,12 @@ op2=Buy
 op10= 
 
 // 419:195
-[com_195]
+[patchy_cavalier_black]
 type=model
 y=-1
 width=51
 height=42
-layer=com_166
+layer=cavalier_layer
 model=model_26444
 modelorigin=0,2
 modelangle=2038,3,0
@@ -2678,13 +2678,13 @@ op2=Buy
 op10= 
 
 // 419:196
-[com_196]
+[patchy_barret_black]
 type=model
 x=6
 y=2
 width=32
 height=36
-layer=com_171
+layer=barret_layer
 model=model_26443
 modelorigin=4,-7
 modelangle=2038,3,0

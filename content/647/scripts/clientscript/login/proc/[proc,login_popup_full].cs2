@@ -1,30 +1,30 @@
 // 3232
 [proc,login_popup_full](int $int0, int $int1, string $string0, int $int2, graphic $graphic3, int $int4, int $int5, string $string1, int $int6, string $string2, int $int7)
-def_component $component8 = login:com_5;
-def_component $component9 = login:com_7;
-def_component $component10 = login:com_11;
-def_component $component11 = login:com_10;
-def_component $component12 = login:com_12;
-def_component $component13 = login:com_55;
-def_component $component14 = login:com_13;
-def_component $component15 = login:com_14;
-def_component $component16 = login:com_15;
-def_component $component17 = login:com_57;
-def_component $component18 = login:com_58;
-def_component $component19 = login:com_59;
+def_component $component8 = login:popup;
+def_component $component9 = login:popup_body;
+def_component $component10 = login:popup_text;
+def_component $component11 = login:popup_throbber;
+def_component $component12 = login:popup_small_button;
+def_component $component13 = login:popup_big_button;
+def_component $component14 = login:popup_small_button_left;
+def_component $component15 = login:popup_small_button_mid;
+def_component $component16 = login:popup_small_button_right;
+def_component $component17 = login:popup_big_button_left;
+def_component $component18 = login:popup_big_button_mid;
+def_component $component19 = login:popup_big_button_right;
 if (unknown_command_5623 = true) {
-    $component8 = south_progress9:com_29;
-    $component9 = south_progress9:com_1;
-    $component10 = south_progress9:com_4;
-    $component11 = south_progress9:com_3;
-    $component12 = south_progress9:com_5;
-    $component13 = south_progress9:com_6;
-    $component14 = south_progress9:com_11;
-    $component15 = south_progress9:com_12;
-    $component16 = south_progress9:com_13;
-    $component17 = south_progress9:com_7;
-    $component18 = south_progress9:com_8;
-    $component19 = south_progress9:com_9;
+    $component8 = south_progress9:popup;
+    $component9 = south_progress9:popup_body;
+    $component10 = south_progress9:popup_text;
+    $component11 = south_progress9:popup_throbber;
+    $component12 = south_progress9:popup_small_button;
+    $component13 = south_progress9:popup_big_button;
+    $component14 = south_progress9:popup_small_button_left;
+    $component15 = south_progress9:popup_small_button_mid;
+    $component16 = south_progress9:popup_small_button_right;
+    $component17 = south_progress9:popup_big_button_left;
+    $component18 = south_progress9:popup_big_button_mid;
+    $component19 = south_progress9:popup_big_button_right;
 }
 if (if_gethide($component8) = false) {
     return;

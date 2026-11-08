@@ -1,5 +1,5 @@
 // 429:0
-[com_0]
+[transparent_back]
 type=rectangle
 width=521
 height=344
@@ -8,7 +8,7 @@ fill=yes
 trans=160
 
 // 429:1
-[com_1]
+[backing]
 type=graphic
 x=12
 y=20
@@ -19,7 +19,7 @@ tiling=yes
 colour=0xffffffff
 
 // 429:2
-[com_2]
+[border_side_left]
 type=graphic
 x=-1
 y=51
@@ -40,7 +40,7 @@ graphic="v2_stone_borders,4"
 colour=0xffffffff
 
 // 429:4
-[com_4]
+[border_side_right]
 type=graphic
 x=482
 y=50
@@ -51,7 +51,7 @@ tiling=yes
 colour=0xffffffff
 
 // 429:5
-[com_5]
+[border_side_top]
 type=graphic
 x=37
 y=7
@@ -62,7 +62,7 @@ tiling=yes
 colour=0xffffffff
 
 // 429:6
-[com_6]
+[border_side_bottom]
 type=graphic
 x=37
 y=304
@@ -149,7 +149,7 @@ op1=Advisor Ghrim
 type=model
 width=87
 height=97
-layer=com_14
+layer=turael_layer
 model=model_39907
 modelorigin=3,5
 modelangle=21,1999,0
@@ -158,7 +158,7 @@ transmitop=1
 op1=Turael
 
 // 429:14
-[com_14]
+[turael_layer]
 type=layer
 x=216
 y=73
@@ -166,13 +166,13 @@ width=85
 height=113
 
 // 429:15
-[com_15]
+[slayer_master_1_spria]
 type=model
 x=209
 y=61
 width=81
 height=109
-layer=com_16
+layer=spria_layer
 model=model_35469
 modelorigin=4,5
 modelangle=2044,1969,0
@@ -181,7 +181,7 @@ transmitop=1
 op1=Spria
 
 // 429:16
-[com_16]
+[spria_layer]
 type=layer
 x=8
 y=8
@@ -208,7 +208,7 @@ op1=Lanthus
 type=model
 width=85
 height=164
-layer=com_19
+layer=mazchna_layer
 model=model_39954
 modelorigin=4,-31
 modelangle=0,1999,0
@@ -217,7 +217,7 @@ transmitop=1
 op1=Mazchna
 
 // 429:19
-[com_19]
+[mazchna_layer]
 type=layer
 x=405
 y=73
@@ -225,7 +225,7 @@ width=85
 height=113
 
 // 429:20
-[com_20]
+[achtryn_layer]
 type=layer
 x=406
 y=72
@@ -240,7 +240,7 @@ x=-2
 y=1
 width=87
 height=96
-layer=com_20
+layer=achtryn_layer
 model=model_35498
 modelorigin=3,3
 modelangle=0,1999,0
@@ -255,7 +255,7 @@ x=14
 y=79
 width=65
 height=31
-layer=com_20
+layer=achtryn_layer
 textfont=p12_full
 text=Achtryn
 textalignh=centre
@@ -271,7 +271,7 @@ onmouseleave=text_colour_swapper(event_com, 0xff981f)
 type=model
 width=59
 height=89
-layer=com_24
+layer=duradel_layer
 model=model_39789
 modelorigin=6,3
 modelangle=20,1999,0
@@ -280,7 +280,7 @@ transmitop=1
 op1=Duradel
 
 // 429:24
-[com_24]
+[duradel_layer]
 type=layer
 x=20
 y=195
@@ -288,7 +288,7 @@ width=63
 height=102
 
 // 429:25
-[com_25]
+[slayer_master_5_lapalok]
 type=model
 x=22
 y=201
@@ -461,7 +461,7 @@ x=233
 y=147
 width=32
 height=32
-layer=com_16
+layer=spria_layer
 textfont=p12_full
 text=Spria
 textshadow=yes
@@ -527,7 +527,7 @@ x=17
 y=82
 width=51
 height=31
-layer=com_14
+layer=turael_layer
 textfont=p12_full
 text=Turael
 textalignh=centre
@@ -579,7 +579,7 @@ x=15
 y=82
 width=65
 height=31
-layer=com_19
+layer=mazchna_layer
 textfont=p12_full
 text=Mazchna
 textalignh=centre
@@ -596,7 +596,7 @@ type=text
 y=76
 width=63
 height=26
-layer=com_24
+layer=duradel_layer
 textfont=p12_full
 text=Duradel
 textalignh=centre
@@ -696,7 +696,7 @@ onmouseover=text_colour_swapper(event_com, 0xf1b670)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 429:51
-[com_51]
+[random_text]
 type=text
 x=418
 y=271
@@ -714,7 +714,7 @@ onmouseover=text_colour_swapper(event_com, 0xf1b670)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 429:52
-[com_52]
+[close_button]
 type=graphic
 x=471
 y=26

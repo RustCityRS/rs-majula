@@ -7,5 +7,5 @@ if (%varplayer_1113 = 0) {
 } else {
     %varclient_84 = 100;
 }
-if_settext(tostring_localised(%varclient_84, true), stockmarket:com_148);
+if_settext(tostring_localised(%varclient_84, true), stockmarket:offercount);
 ~sm_offercount_settimer;

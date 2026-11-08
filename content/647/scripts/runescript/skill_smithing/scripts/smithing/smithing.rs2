@@ -15,65 +15,65 @@
 // 2011's buttons, Make All, X, 5 and 1 under each slot, where 289 had Make 1,
 // 5 and 10 on each inv column (inv_button1-3).
 // Dagger
-[if_button,smithing_new:com_21] @smithing_anvil_button(smithing_new:com_18, ^smithing_make_all);
-[if_button,smithing_new:com_22] @smithing_anvil_button(smithing_new:com_18, ^smithing_make_x);
-[if_button,smithing_new:com_23] @smithing_anvil_button(smithing_new:com_18, 5);
-[if_button,smithing_new:com_24] @smithing_anvil_button(smithing_new:com_18, 1);
+[if_button,smithing_new:smith_dagger_all] @smithing_anvil_button(smithing_new:smith_dagger_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_dagger_x] @smithing_anvil_button(smithing_new:smith_dagger_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_dagger_5] @smithing_anvil_button(smithing_new:smith_dagger_pic, 5);
+[if_button,smithing_new:smith_dagger_1] @smithing_anvil_button(smithing_new:smith_dagger_pic, 1);
 // Hatchet
-[if_button,smithing_new:com_29] @smithing_anvil_button(smithing_new:com_26, ^smithing_make_all);
-[if_button,smithing_new:com_30] @smithing_anvil_button(smithing_new:com_26, ^smithing_make_x);
-[if_button,smithing_new:com_31] @smithing_anvil_button(smithing_new:com_26, 5);
-[if_button,smithing_new:com_32] @smithing_anvil_button(smithing_new:com_26, 1);
+[if_button,smithing_new:smith_axe_all] @smithing_anvil_button(smithing_new:smith_axe_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_axe_x] @smithing_anvil_button(smithing_new:smith_axe_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_axe_5] @smithing_anvil_button(smithing_new:smith_axe_pic, 5);
+[if_button,smithing_new:smith_axe_1] @smithing_anvil_button(smithing_new:smith_axe_pic, 1);
 // Mace
-[if_button,smithing_new:com_37] @smithing_anvil_button(smithing_new:com_34, ^smithing_make_all);
-[if_button,smithing_new:com_38] @smithing_anvil_button(smithing_new:com_34, ^smithing_make_x);
-[if_button,smithing_new:com_39] @smithing_anvil_button(smithing_new:com_34, 5);
-[if_button,smithing_new:com_40] @smithing_anvil_button(smithing_new:com_34, 1);
+[if_button,smithing_new:smith_mace_all] @smithing_anvil_button(smithing_new:smith_mace_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_mace_x] @smithing_anvil_button(smithing_new:smith_mace_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_mace_5] @smithing_anvil_button(smithing_new:smith_mace_pic, 5);
+[if_button,smithing_new:smith_mace_1] @smithing_anvil_button(smithing_new:smith_mace_pic, 1);
 // Medium helm
 [if_button,smithing_new:com_45] @smithing_anvil_button(smithing_new:com_42, ^smithing_make_all);
 [if_button,smithing_new:com_46] @smithing_anvil_button(smithing_new:com_42, ^smithing_make_x);
 [if_button,smithing_new:com_47] @smithing_anvil_button(smithing_new:com_42, 5);
 [if_button,smithing_new:com_48] @smithing_anvil_button(smithing_new:com_42, 1);
 // Sword
-[if_button,smithing_new:com_61] @smithing_anvil_button(smithing_new:com_58, ^smithing_make_all);
-[if_button,smithing_new:com_62] @smithing_anvil_button(smithing_new:com_58, ^smithing_make_x);
-[if_button,smithing_new:com_63] @smithing_anvil_button(smithing_new:com_58, 5);
-[if_button,smithing_new:com_64] @smithing_anvil_button(smithing_new:com_58, 1);
+[if_button,smithing_new:smith_sword_all] @smithing_anvil_button(smithing_new:smith_sword_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_sword_x] @smithing_anvil_button(smithing_new:smith_sword_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_sword_5] @smithing_anvil_button(smithing_new:smith_sword_pic, 5);
+[if_button,smithing_new:smith_sword_1] @smithing_anvil_button(smithing_new:smith_sword_pic, 1);
 // Dart tips
 [if_button,smithing_new:com_69] @smithing_anvil_button(smithing_new:com_66, ^smithing_make_all);
 [if_button,smithing_new:com_70] @smithing_anvil_button(smithing_new:com_66, ^smithing_make_x);
-[if_button,smithing_new:com_71] @smithing_anvil_button(smithing_new:com_66, 5);
-[if_button,smithing_new:com_72] @smithing_anvil_button(smithing_new:com_66, 1);
+[if_button,smithing_new:pathcourse_5] @smithing_anvil_button(smithing_new:com_66, 5);
+[if_button,smithing_new:pathcourse_1] @smithing_anvil_button(smithing_new:com_66, 1);
 // Nails
-[if_button,smithing_new:com_77] @smithing_anvil_button(smithing_new:com_74, ^smithing_make_all);
-[if_button,smithing_new:com_78] @smithing_anvil_button(smithing_new:com_74, ^smithing_make_x);
-[if_button,smithing_new:com_79] @smithing_anvil_button(smithing_new:com_74, 5);
-[if_button,smithing_new:com_80] @smithing_anvil_button(smithing_new:com_74, 1);
+[if_button,smithing_new:smith_nails_all] @smithing_anvil_button(smithing_new:smith_nails_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_nails_x] @smithing_anvil_button(smithing_new:smith_nails_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_nails_5] @smithing_anvil_button(smithing_new:smith_nails_pic, 5);
+[if_button,smithing_new:smith_nails_1] @smithing_anvil_button(smithing_new:smith_nails_pic, 1);
 // Bronze wire
-[if_button,smithing_new:com_85] @smithing_anvil_button(smithing_new:com_82, ^smithing_make_all);
-[if_button,smithing_new:com_86] @smithing_anvil_button(smithing_new:com_82, ^smithing_make_x);
-[if_button,smithing_new:com_87] @smithing_anvil_button(smithing_new:com_82, 5);
-[if_button,smithing_new:com_88] @smithing_anvil_button(smithing_new:com_82, 1);
+[if_button,smithing_new:smith_wire_all] @smithing_anvil_button(smithing_new:smith_wire_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_wire_x] @smithing_anvil_button(smithing_new:smith_wire_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_wire_5] @smithing_anvil_button(smithing_new:smith_wire_pic, 5);
+[if_button,smithing_new:smith_wire_1] @smithing_anvil_button(smithing_new:smith_wire_pic, 1);
 // Studs
-[if_button,smithing_new:com_101] @smithing_anvil_button(smithing_new:com_98, ^smithing_make_all);
-[if_button,smithing_new:com_102] @smithing_anvil_button(smithing_new:com_98, ^smithing_make_x);
-[if_button,smithing_new:com_103] @smithing_anvil_button(smithing_new:com_98, 5);
-[if_button,smithing_new:com_104] @smithing_anvil_button(smithing_new:com_98, 1);
+[if_button,smithing_new:smith_studs_all] @smithing_anvil_button(smithing_new:smith_studs_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_studs_x] @smithing_anvil_button(smithing_new:smith_studs_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_studs_5] @smithing_anvil_button(smithing_new:smith_studs_pic, 5);
+[if_button,smithing_new:smith_studs_1] @smithing_anvil_button(smithing_new:smith_studs_pic, 1);
 // Arrow tips
 [if_button,smithing_new:com_109] @smithing_anvil_button(smithing_new:com_106, ^smithing_make_all);
 [if_button,smithing_new:com_110] @smithing_anvil_button(smithing_new:com_106, ^smithing_make_x);
 [if_button,smithing_new:com_111] @smithing_anvil_button(smithing_new:com_106, 5);
 [if_button,smithing_new:com_112] @smithing_anvil_button(smithing_new:com_106, 1);
 // Scimitar
-[if_button,smithing_new:com_117] @smithing_anvil_button(smithing_new:com_114, ^smithing_make_all);
-[if_button,smithing_new:com_118] @smithing_anvil_button(smithing_new:com_114, ^smithing_make_x);
-[if_button,smithing_new:com_119] @smithing_anvil_button(smithing_new:com_114, 5);
-[if_button,smithing_new:com_120] @smithing_anvil_button(smithing_new:com_114, 1);
+[if_button,smithing_new:smith_scimitar_all] @smithing_anvil_button(smithing_new:smith_scimitar_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_scimitar_x] @smithing_anvil_button(smithing_new:smith_scimitar_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_scimitar_5] @smithing_anvil_button(smithing_new:smith_scimitar_pic, 5);
+[if_button,smithing_new:smith_scimitar_1] @smithing_anvil_button(smithing_new:smith_scimitar_pic, 1);
 // Longsword
-[if_button,smithing_new:com_133] @smithing_anvil_button(smithing_new:com_130, ^smithing_make_all);
-[if_button,smithing_new:com_134] @smithing_anvil_button(smithing_new:com_130, ^smithing_make_x);
-[if_button,smithing_new:com_135] @smithing_anvil_button(smithing_new:com_130, 5);
-[if_button,smithing_new:com_136] @smithing_anvil_button(smithing_new:com_130, 1);
+[if_button,smithing_new:smith_longsword_all] @smithing_anvil_button(smithing_new:smith_longsword_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_longsword_x] @smithing_anvil_button(smithing_new:smith_longsword_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_longsword_5] @smithing_anvil_button(smithing_new:smith_longsword_pic, 5);
+[if_button,smithing_new:smith_longsword_1] @smithing_anvil_button(smithing_new:smith_longsword_pic, 1);
 // Throwing knife
 [if_button,smithing_new:com_141] @smithing_anvil_button(smithing_new:com_138, ^smithing_make_all);
 [if_button,smithing_new:com_142] @smithing_anvil_button(smithing_new:com_138, ^smithing_make_x);
@@ -90,50 +90,50 @@
 [if_button,smithing_new:com_159] @smithing_anvil_button(smithing_new:com_154, 5);
 [if_button,smithing_new:com_160] @smithing_anvil_button(smithing_new:com_154, 1);
 // Warhammer
-[if_button,smithing_new:com_181] @smithing_anvil_button(smithing_new:com_178, ^smithing_make_all);
-[if_button,smithing_new:com_182] @smithing_anvil_button(smithing_new:com_178, ^smithing_make_x);
-[if_button,smithing_new:com_183] @smithing_anvil_button(smithing_new:com_178, 5);
-[if_button,smithing_new:com_184] @smithing_anvil_button(smithing_new:com_178, 1);
+[if_button,smithing_new:smith_warhammer_all] @smithing_anvil_button(smithing_new:smith_warhammer_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_warhammer_x] @smithing_anvil_button(smithing_new:smith_warhammer_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_warhammer_5] @smithing_anvil_button(smithing_new:smith_warhammer_pic, 5);
+[if_button,smithing_new:smith_warhammer_1] @smithing_anvil_button(smithing_new:smith_warhammer_pic, 1);
 // Battleaxe
-[if_button,smithing_new:com_189] @smithing_anvil_button(smithing_new:com_186, ^smithing_make_all);
-[if_button,smithing_new:com_190] @smithing_anvil_button(smithing_new:com_186, ^smithing_make_x);
-[if_button,smithing_new:com_191] @smithing_anvil_button(smithing_new:com_186, 5);
-[if_button,smithing_new:com_192] @smithing_anvil_button(smithing_new:com_186, 1);
+[if_button,smithing_new:smith_battleaxe_all] @smithing_anvil_button(smithing_new:smith_battleaxe_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_battleaxe_x] @smithing_anvil_button(smithing_new:smith_battleaxe_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_battleaxe_5] @smithing_anvil_button(smithing_new:smith_battleaxe_pic, 5);
+[if_button,smithing_new:smith_battleaxe_1] @smithing_anvil_button(smithing_new:smith_battleaxe_pic, 1);
 // Chainbody
-[if_button,smithing_new:com_197] @smithing_anvil_button(smithing_new:com_194, ^smithing_make_all);
-[if_button,smithing_new:com_198] @smithing_anvil_button(smithing_new:com_194, ^smithing_make_x);
-[if_button,smithing_new:com_199] @smithing_anvil_button(smithing_new:com_194, 5);
-[if_button,smithing_new:com_200] @smithing_anvil_button(smithing_new:com_194, 1);
+[if_button,smithing_new:smith_chainbody_all] @smithing_anvil_button(smithing_new:smith_chainbody_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_chainbody_x] @smithing_anvil_button(smithing_new:smith_chainbody_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_chainbody_5] @smithing_anvil_button(smithing_new:smith_chainbody_pic, 5);
+[if_button,smithing_new:smith_chainbody_1] @smithing_anvil_button(smithing_new:smith_chainbody_pic, 1);
 // Kiteshield
-[if_button,smithing_new:com_205] @smithing_anvil_button(smithing_new:com_202, ^smithing_make_all);
-[if_button,smithing_new:com_206] @smithing_anvil_button(smithing_new:com_202, ^smithing_make_x);
-[if_button,smithing_new:com_207] @smithing_anvil_button(smithing_new:com_202, 5);
-[if_button,smithing_new:com_208] @smithing_anvil_button(smithing_new:com_202, 1);
+[if_button,smithing_new:smith_kiteshield_all] @smithing_anvil_button(smithing_new:smith_kiteshield_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_kiteshield_x] @smithing_anvil_button(smithing_new:smith_kiteshield_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_kiteshield_5] @smithing_anvil_button(smithing_new:smith_kiteshield_pic, 5);
+[if_button,smithing_new:smith_kiteshield_1] @smithing_anvil_button(smithing_new:smith_kiteshield_pic, 1);
 // Claws
-[if_button,smithing_new:com_213] @smithing_anvil_button(smithing_new:com_210, ^smithing_make_all);
-[if_button,smithing_new:com_214] @smithing_anvil_button(smithing_new:com_210, ^smithing_make_x);
-[if_button,smithing_new:com_215] @smithing_anvil_button(smithing_new:com_210, 5);
-[if_button,smithing_new:com_216] @smithing_anvil_button(smithing_new:com_210, 1);
+[if_button,smithing_new:smith_claws_all] @smithing_anvil_button(smithing_new:smith_claws_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_claws_x] @smithing_anvil_button(smithing_new:smith_claws_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_claws_5] @smithing_anvil_button(smithing_new:smith_claws_pic, 5);
+[if_button,smithing_new:smith_claws_1] @smithing_anvil_button(smithing_new:smith_claws_pic, 1);
 // 2-h sword
 [if_button,smithing_new:com_221] @smithing_anvil_button(smithing_new:com_218, ^smithing_make_all);
 [if_button,smithing_new:com_222] @smithing_anvil_button(smithing_new:com_218, ^smithing_make_x);
 [if_button,smithing_new:com_223] @smithing_anvil_button(smithing_new:com_218, 5);
 [if_button,smithing_new:com_224] @smithing_anvil_button(smithing_new:com_218, 1);
 // Plateskirt
-[if_button,smithing_new:com_229] @smithing_anvil_button(smithing_new:com_226, ^smithing_make_all);
-[if_button,smithing_new:com_230] @smithing_anvil_button(smithing_new:com_226, ^smithing_make_x);
-[if_button,smithing_new:com_231] @smithing_anvil_button(smithing_new:com_226, 5);
-[if_button,smithing_new:com_232] @smithing_anvil_button(smithing_new:com_226, 1);
+[if_button,smithing_new:smith_plateskirt_all] @smithing_anvil_button(smithing_new:smith_plateskirt_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_plateskirt_x] @smithing_anvil_button(smithing_new:smith_plateskirt_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_plateskirt_5] @smithing_anvil_button(smithing_new:smith_plateskirt_pic, 5);
+[if_button,smithing_new:smith_plateskirt_1] @smithing_anvil_button(smithing_new:smith_plateskirt_pic, 1);
 // Platelegs
-[if_button,smithing_new:com_237] @smithing_anvil_button(smithing_new:com_234, ^smithing_make_all);
-[if_button,smithing_new:com_238] @smithing_anvil_button(smithing_new:com_234, ^smithing_make_x);
-[if_button,smithing_new:com_239] @smithing_anvil_button(smithing_new:com_234, 5);
-[if_button,smithing_new:com_240] @smithing_anvil_button(smithing_new:com_234, 1);
+[if_button,smithing_new:smith_platelegs_all] @smithing_anvil_button(smithing_new:smith_platelegs_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_platelegs_x] @smithing_anvil_button(smithing_new:smith_platelegs_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_platelegs_5] @smithing_anvil_button(smithing_new:smith_platelegs_pic, 5);
+[if_button,smithing_new:smith_platelegs_1] @smithing_anvil_button(smithing_new:smith_platelegs_pic, 1);
 // Platebody
-[if_button,smithing_new:com_245] @smithing_anvil_button(smithing_new:com_242, ^smithing_make_all);
-[if_button,smithing_new:com_246] @smithing_anvil_button(smithing_new:com_242, ^smithing_make_x);
-[if_button,smithing_new:com_247] @smithing_anvil_button(smithing_new:com_242, 5);
-[if_button,smithing_new:com_248] @smithing_anvil_button(smithing_new:com_242, 1);
+[if_button,smithing_new:smith_platebody_all] @smithing_anvil_button(smithing_new:smith_platebody_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_platebody_x] @smithing_anvil_button(smithing_new:smith_platebody_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_platebody_5] @smithing_anvil_button(smithing_new:smith_platebody_pic, 5);
+[if_button,smithing_new:smith_platebody_1] @smithing_anvil_button(smithing_new:smith_platebody_pic, 1);
 
 [label,smithing_anvil_button](component $slot, int $count)
 def_dbrow $data = ~smithing_anvil_row(%smithing_bar, $slot);
@@ -241,40 +241,40 @@ if (inv_total(inv, hammer) < 1) {
 // steel: 2011 has a slot for each (wire, com81; nails, com73), and its nails
 // show by default.
 if ($last_item = bronze_bar) {
-    if_sethide(smithing_new:com_81, false);
-    if_sethide(smithing_new:com_73, true);
+    if_sethide(smithing_new:smith_wire, false);
+    if_sethide(smithing_new:smith_nails, true);
 } else if ($last_item = steel_bar) {
-    if_sethide(smithing_new:com_97, false);
-    if_sethide(smithing_new:com_73, false);
-    if_sethide(smithing_new:com_81, true);
+    if_sethide(smithing_new:smith_studs, false);
+    if_sethide(smithing_new:smith_nails, false);
+    if_sethide(smithing_new:smith_wire, true);
 }  else {
-    if_sethide(smithing_new:com_73, true);
-    if_sethide(smithing_new:com_81, true);
-    if_sethide(smithing_new:com_97, true);
+    if_sethide(smithing_new:smith_nails, true);
+    if_sethide(smithing_new:smith_wire, true);
+    if_sethide(smithing_new:smith_studs, true);
 }
 // hide studs button if its not steel
 if ($last_item ! steel_bar) {
-    if_sethide(smithing_new:com_97, true);
+    if_sethide(smithing_new:smith_studs, true);
 } else {
-    if_sethide(smithing_new:com_97, false);
+    if_sethide(smithing_new:smith_studs, false);
 }
 // hide claws button if death plateau is not complete
 if(%death_equiproom < ^death_complete) {
-    if_sethide(smithing_new:com_209, true);
+    if_sethide(smithing_new:smith_claws, true);
 } else {
-    if_sethide(smithing_new:com_209, false);
+    if_sethide(smithing_new:smith_claws, false);
 }
 // 289 always showed the darts, white once Tourist Trap taught them; 2011's
 // darts slot is hidden until the server shows it (cache 786), and void-634's
 // Anvil.kt shows it after Tourist Trap.
 if (%desertrescue >= ^desertrescue_learned_darts) {
-    if_sethide(smithing_new:com_65, false);
+    if_sethide(smithing_new:pathcourse, false);
 } else {
-    if_sethide(smithing_new:com_65, true);
+    if_sethide(smithing_new:pathcourse, true);
 }
 // 2011's crossbow bolts and limbs show by default; 289 makes neither.
-if_sethide(smithing_new:com_49, true);
-if_sethide(smithing_new:com_121, true);
+if_sethide(smithing_new:smith_bolts, true);
+if_sethide(smithing_new:smith_limbs, true);
 // each of the bar's products in its slot
 db_find(smithing:bar, $last_item);
 def_dbrow $data = db_findnext;

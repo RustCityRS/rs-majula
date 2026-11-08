@@ -1,5 +1,5 @@
 // 85:0
-[com_0]
+[main_layer]
 type=layer
 width=16391
 height=16391
@@ -9,24 +9,24 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 85:1
-[com_1]
+[yellow_rect]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=main_layer
 colour=0xcccc00
 fill=yes
 trans=255
 
 // 85:2
-[com_2]
+[black_rect]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=main_layer
 colour=0x000000
 fill=yes

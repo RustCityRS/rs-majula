@@ -7,7 +7,7 @@ def_int $int4 = 0;
 def_int $int5 = 0;
 def_int $int6 = 0;
 def_int $int7 = 178;
-def_component $component8 = task_side:com_163;
+def_component $component8 = task_side:tasks_tooltip;
 def_int $int9 = 0;
 def_int $int10 = 0;
 def_component $component11 = null;
@@ -23,7 +23,7 @@ if (if_find($component0) = true) {
     if (%varclient_2 ! 1) {
         $int1 = calc(cc_getx + 5);
         $int2 = calc(cc_gety + cc_getheight + 5);
-        $component11 = task_side:com_98;
+        $component11 = task_side:tasks_layer;
         if ($component11 ! null & $int7 >= if_getwidth($component11)) {
             $int7 = if_getwidth($component11);
         }

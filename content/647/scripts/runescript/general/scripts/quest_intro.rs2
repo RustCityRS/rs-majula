@@ -19,27 +19,27 @@
 // clientscript_2829 draws (0 ticked, as both recordings open it; Ernest's player has it off).
 [proc,quest_intro](struct $quest)(boolean)
 if_openmain(quest_intro);
-if_settext(quest_intro:com_14, struct_param($quest, param_845));
-if_settext(quest_intro:com_52, struct_param($quest, param_948));
+if_settext(quest_intro:quest_field, struct_param($quest, param_845));
+if_settext(quest_intro:start_point_field, struct_param($quest, param_948));
 // Start requirements: every quest that opens this window so far has none, and its recording
 // shows "None.". How 2011 listed real requirements (its structs' param_859 quests and
 // param_871 skill/level pairs) is not known yet.
 def_string $requirements = "None.";
-if_settext(quest_intro:com_55, $requirements);
+if_settext(quest_intro:req_field, $requirements);
 runclientscript("script2827($requirements)");
-if_settext(quest_intro:com_62, struct_param($quest, param_950));
-if_setgraphic(quest_intro:com_79, struct_param($quest, param_952));
-if_addresumebutton(quest_intro:com_73);
-if_addresumebutton(quest_intro:com_74);
-if_addresumebutton(quest_intro:com_57);
+if_settext(quest_intro:combat_field, struct_param($quest, param_950));
+if_setgraphic(quest_intro:quest_icon, struct_param($quest, param_952));
+if_addresumebutton(quest_intro:startyes_layer);
+if_addresumebutton(quest_intro:startno_layer);
+if_addresumebutton(quest_intro:items_hidden_button_txt);
 if_addresumebutton(quest_intro:com_31);
-if_addresumebutton(quest_intro:com_75);
-if_addresumebutton(quest_intro:com_76);
+if_addresumebutton(quest_intro:objective_set);
+if_addresumebutton(quest_intro:objective_text);
 def_string $text = "";
 while (true) {
     p_pausebutton;
     switch_component (last_com) {
-        case quest_intro:com_73 :
+        case quest_intro:startyes_layer :
             if_close;
             // Ernest the Chicken, 2011-05-04 (38.1s): with "Mark on map" off, the quest starts
             // with this message. With it on (Cook's Assistant, 2011-05-20) nothing is said.
@@ -47,23 +47,23 @@ while (true) {
                 mes("The quest area marking has been cleared.");
             }
             return(true);
-        case quest_intro:com_74 :
+        case quest_intro:startno_layer :
             if_close;
             return(false);
         // "Click here to show": the row's text in place of the button (Ernest's recording, 28-34s).
-        case quest_intro:com_57 :
+        case quest_intro:items_hidden_button_txt :
             $text = struct_param($quest, param_949);
-            if_sethide(quest_intro:com_56, true);
-            if_sethide(quest_intro:com_58, false);
-            if_settext(quest_intro:com_59, $text);
+            if_sethide(quest_intro:items_hide_show_layer, true);
+            if_sethide(quest_intro:items_text_details_layer, false);
+            if_settext(quest_intro:items_field, $text);
             runclientscript("script2828($text)");
         case quest_intro:com_31 :
             $text = struct_param($quest, param_951);
-            if_sethide(quest_intro:com_64, true);
-            if_sethide(quest_intro:com_65, false);
-            if_settext(quest_intro:com_66, $text);
+            if_sethide(quest_intro:hide_show_layer, true);
+            if_sethide(quest_intro:text_details_layer, false);
+            if_settext(quest_intro:rewards_field, $text);
             runclientscript("script4074($text)");
-        case quest_intro:com_75, quest_intro:com_76 :
+        case quest_intro:objective_set, quest_intro:objective_text :
             if (%varplayerbit_6924 = 0) {
                 %varplayerbit_6924 = 1;
             } else {

@@ -4,7 +4,7 @@ type=graphic
 x=29
 width=36
 height=36
-layer=com_27
+layer=expel_guests
 graphic="miscgraphics,6"
 colour=0xffffffff
 
@@ -40,7 +40,7 @@ type=graphic
 x=55
 width=36
 height=36
-layer=com_27
+layer=expel_guests
 graphic="miscgraphics,6"
 colour=0xffffffff
 
@@ -50,7 +50,7 @@ type=graphic
 x=81
 width=36
 height=36
-layer=com_27
+layer=expel_guests
 graphic="miscgraphics,6"
 colour=0xffffffff
 
@@ -60,7 +60,7 @@ type=graphic
 x=107
 width=36
 height=36
-layer=com_27
+layer=expel_guests
 graphic="miscgraphics,6"
 colour=0xffffffff
 
@@ -70,7 +70,7 @@ type=graphic
 x=134
 width=36
 height=36
-layer=com_27
+layer=expel_guests
 graphic="miscgraphics,6"
 colour=0xffffffff
 
@@ -112,7 +112,7 @@ type=graphic
 x=30
 width=36
 height=36
-layer=com_29
+layer=leave_house
 graphic="miscgraphics,6"
 colour=0xffffffff
 
@@ -122,7 +122,7 @@ type=graphic
 x=56
 width=36
 height=36
-layer=com_29
+layer=leave_house
 graphic="miscgraphics,6"
 colour=0xffffffff
 
@@ -132,7 +132,7 @@ type=graphic
 x=82
 width=36
 height=36
-layer=com_29
+layer=leave_house
 graphic="miscgraphics,6"
 colour=0xffffffff
 
@@ -142,7 +142,7 @@ type=graphic
 x=108
 width=36
 height=36
-layer=com_29
+layer=leave_house
 graphic="miscgraphics,6"
 colour=0xffffffff
 
@@ -152,7 +152,7 @@ type=graphic
 x=134
 width=36
 height=36
-layer=com_29
+layer=leave_house
 graphic="miscgraphics,6"
 colour=0xffffffff
 
@@ -212,7 +212,7 @@ onload=script2681
 onvarctransmit=script2681{varclient_944}
 
 // 398:19
-[com_19]
+[close_button]
 type=graphic
 x=167
 y=7
@@ -246,7 +246,7 @@ onvartransmit=script2682{varplayer_738}
 type=graphic
 width=36
 height=36
-layer=com_27
+layer=expel_guests
 graphic="miscgraphics,4"
 colour=0xffffffff
 
@@ -255,7 +255,7 @@ colour=0xffffffff
 type=graphic
 width=36
 height=36
-layer=com_29
+layer=leave_house
 graphic="miscgraphics,4"
 colour=0xffffffff
 transmitop=10
@@ -309,7 +309,7 @@ op1=When teleporting, arrive in house
 onop=script2684
 
 // 398:27
-[com_27]
+[expel_guests]
 type=layer
 x=9
 y=164
@@ -325,7 +325,7 @@ x=-1
 y=12
 width=170
 height=14
-layer=com_27
+layer=expel_guests
 textfont=p12_full
 text=Expel Guests
 textalignh=centre
@@ -333,7 +333,7 @@ textshadow=yes
 colour=0xff981f
 
 // 398:29
-[com_29]
+[leave_house]
 type=layer
 x=9
 y=201
@@ -348,7 +348,7 @@ type=text
 y=10
 width=170
 height=14
-layer=com_29
+layer=leave_house
 textfont=p12_full
 text=Leave House
 textalignh=centre

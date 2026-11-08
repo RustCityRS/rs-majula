@@ -11,4 +11,4 @@ if (%varclient_1074 = 0) {
     return;
 }
 %varclient_1281 = calc(%varclient_1281 + 1);
-if_settext(tostring(%varclient_1281), interface_475:com_78);
+if_settext(tostring(%varclient_1281), machinima_livecamera:storedtext);

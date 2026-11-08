@@ -1,238 +1,238 @@
 // 855:0
-[com_0]
+[buttons]
 type=layer
 width=190
 height=261
 onload=script2481
 
 // 855:1
-[com_1]
+[cannon_n]
 type=layer
 y=11
 width=43
 height=43
-layer=com_39
+layer=cannon_layer
 targetmask=coord
 targetverb=Place cannon
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_special:com_46, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:com_46, "Click this button then click on empty ground where you wish to drop a cannon to fire north.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to drop a cannon to fire north.", 50, 150)
 
 // 855:2
-[com_2]
+[cannon_e]
 type=layer
 x=45
 y=11
 width=43
 height=43
-layer=com_39
+layer=cannon_layer
 targetmask=coord
 targetverb=Place cannon
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_special:com_46, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:com_46, "Click this button then click on empty ground where you wish to drop a cannon to fire east.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to drop a cannon to fire east.", 50, 150)
 
 // 855:3
-[com_3]
+[cannon_s]
 type=layer
 x=91
 y=11
 width=43
 height=43
-layer=com_39
+layer=cannon_layer
 targetmask=coord
 targetverb=Place cannon
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_special:com_46, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:com_46, "Click this button then click on empty ground where you wish to drop a cannon to fire south.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to drop a cannon to fire south.", 50, 150)
 
 // 855:4
-[com_4]
+[cannon_1s]
 type=graphic
 width=35
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=cannon_s
 graphic=graphic_1891
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 855:5
-[com_5]
+[cannon_1e]
 type=graphic
 width=35
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=cannon_e
 graphic=graphic_1890
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 855:6
-[com_6]
+[cannon_1n]
 type=graphic
 width=35
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=cannon_n
 graphic=graphic_1889
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 855:7
-[com_7]
+[cannon_w]
 type=layer
 x=136
 y=11
 width=43
 height=43
-layer=com_39
+layer=cannon_layer
 targetmask=coord
 targetverb=Place cannon
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_special:com_46, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:com_46, "Click this button then click on empty ground where you wish to drop a cannon to fire west.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to drop a cannon to fire west.", 50, 150)
 
 // 855:8
-[com_8]
+[cannon_1w]
 type=graphic
 width=35
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_7
+layer=cannon_w
 graphic=graphic_1888
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 855:9
-[com_9]
+[barricade1]
 type=layer
 x=1
 y=10
 width=43
 height=43
-layer=com_38
+layer=barricade_layer
 targetmask=coord
 targetverb=Place Barricade
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_special:com_46, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:com_46, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
 
 // 855:10
-[com_10]
+[barricade_up]
 type=graphic
 width=35
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=barricade1
 graphic=graphic_1884
 colour=0xffffffff
 
 // 855:11
-[com_11]
+[barricade2]
 type=layer
 x=46
 y=10
 width=43
 height=43
-layer=com_38
+layer=barricade_layer
 targetmask=coord
 targetverb=Place Barricade
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_special:com_46, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:com_46, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
 
 // 855:12
-[com_12]
+[barricade_right]
 type=graphic
 width=30
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_11
+layer=barricade2
 graphic=graphic_1885
 colour=0xffffffff
 
 // 855:13
-[com_13]
+[barricade3]
 type=layer
 x=91
 y=10
 width=43
 height=43
-layer=com_38
+layer=barricade_layer
 targetmask=coord
 targetverb=Place Barricade
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_special:com_46, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:com_46, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
 
 // 855:14
-[com_14]
+[barricade_down]
 type=graphic
 width=35
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=barricade3
 graphic=graphic_1886
 colour=0xffffffff
 
 // 855:15
-[com_15]
+[barricade4]
 type=layer
 x=136
 y=10
 width=43
 height=43
-layer=com_38
+layer=barricade_layer
 targetmask=coord
 targetverb=Place Barricade
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_special:com_46, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:com_46, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
 
 // 855:16
-[com_16]
+[barricade_left]
 type=graphic
 width=30
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_15
+layer=barricade4
 graphic=graphic_1887
 colour=0xffffffff
 
 // 855:17
-[com_17]
+[distract]
 type=layer
 y=5
 width=43
 height=43
-layer=com_37
+layer=distract_layer
 targetmask=coord
 targetverb=Place Distractor
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_special:com_46, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:com_46, "Click this button then click on the ground near the squads you wish to affect.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on the ground near the squads you wish to affect.", 50, 150)
 
 // 855:18
 [com_18]
@@ -241,24 +241,24 @@ width=35
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=distract
 graphic=graphic_1883
 colour=0xffffffff
 
 // 855:19
-[com_19]
+[glider]
 type=layer
 x=2
 y=5
 width=43
 height=43
-layer=com_31
+layer=glider_layer
 targetmask=npc,player
 targetverb=Target
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_special:com_46, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:com_46, "Click this button then click on the squad you wish to target.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on the squad you wish to target.", 50, 150)
 
 // 855:20
 [com_20]
@@ -267,18 +267,18 @@ width=35
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_19
+layer=glider
 graphic=graphic_1882
 colour=0xffffffff
 
 // 855:21
-[com_21]
+[cannon_title]
 type=text
 y=72
 width=16384
 height=17
 widthmode=proportion
-layer=com_39
+layer=cannon_layer
 textfont=p11_full
 text=Cannon
 textalignh=centre
@@ -287,13 +287,13 @@ textshadow=yes
 colour=0xe79935
 
 // 855:22
-[com_22]
+[cannon_num]
 type=text
 x=109
 y=68
 width=20
 height=20
-layer=com_39
+layer=cannon_layer
 textfont=quill_oblique_large
 text=0
 textalignh=centre
@@ -302,13 +302,13 @@ textshadow=yes
 colour=0x009900
 
 // 855:23
-[com_23]
+[cannon_n_text]
 type=text
 x=15
 y=58
 width=14
 height=14
-layer=com_39
+layer=cannon_layer
 textfont=p11_full
 text=N
 textalignh=centre
@@ -317,13 +317,13 @@ textshadow=yes
 colour=0xe79900
 
 // 855:24
-[com_24]
+[cannon_s_text]
 type=text
 x=105
 y=58
 width=14
 height=14
-layer=com_39
+layer=cannon_layer
 textfont=p11_full
 text=S
 textalignh=centre
@@ -332,13 +332,13 @@ textshadow=yes
 colour=0xe79900
 
 // 855:25
-[com_25]
+[cannon_e_text]
 type=text
 x=60
 y=58
 width=14
 height=14
-layer=com_39
+layer=cannon_layer
 textfont=p11_full
 text=E
 textalignh=centre
@@ -347,13 +347,13 @@ textshadow=yes
 colour=0xe79900
 
 // 855:26
-[com_26]
+[cannon_w_text]
 type=text
 x=150
 y=58
 width=14
 height=14
-layer=com_39
+layer=cannon_layer
 textfont=p11_full
 text=W
 textalignh=centre
@@ -362,13 +362,13 @@ textshadow=yes
 colour=0xe79900
 
 // 855:27
-[com_27]
+[barricade_num]
 type=text
 x=117
 y=52
 width=20
 height=20
-layer=com_38
+layer=barricade_layer
 textfont=quill_oblique_large
 text=0
 textalignh=centre
@@ -383,7 +383,7 @@ y=56
 width=16384
 height=17
 widthmode=proportion
-layer=com_38
+layer=barricade_layer
 textfont=p11_full
 text=Barricade
 textalignh=centre
@@ -392,13 +392,13 @@ textshadow=yes
 colour=0xe79935
 
 // 855:29
-[com_29]
+[distract_num]
 type=text
 x=30
 y=34
 width=20
 height=20
-layer=com_37
+layer=distract_layer
 textfont=quill_oblique_large
 text=0
 textalignh=centre
@@ -413,7 +413,7 @@ x=-1
 y=56
 width=50
 height=17
-layer=com_37
+layer=distract_layer
 textfont=p11_full
 text=Distractor
 textalignh=centre
@@ -422,45 +422,45 @@ textshadow=yes
 colour=0xe79935
 
 // 855:31
-[com_31]
+[glider_layer]
 type=layer
 x=16
 y=110
 width=55
 height=70
-layer=com_0
+layer=buttons
 
 // 855:32
-[com_32]
+[mine_layer]
 type=layer
 x=73
 y=110
 width=53
 height=70
-layer=com_0
+layer=buttons
 
 // 855:33
-[com_33]
+[mine]
 type=layer
 y=5
 width=43
 height=43
-layer=com_32
+layer=mine_layer
 targetmask=coord
 targetverb=Place Chompa
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_special:com_46, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:com_46, "Click this button then click on the ground near the squads you wish to affect.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on the ground near the squads you wish to affect.", 50, 150)
 
 // 855:34
-[com_34]
+[mine_num]
 type=text
 x=30
 y=34
 width=20
 height=20
-layer=com_32
+layer=mine_layer
 textfont=quill_oblique_large
 text=0
 textalignh=centre
@@ -475,7 +475,7 @@ x=-4
 y=56
 width=50
 height=17
-layer=com_32
+layer=mine_layer
 textfont=p11_full
 text=Chompa
 textalignh=centre
@@ -490,45 +490,45 @@ width=35
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_33
+layer=mine
 graphic=graphic_1880
 colour=0xffffffff
 
 // 855:37
-[com_37]
+[distract_layer]
 type=layer
 x=127
 y=110
 width=53
 height=70
-layer=com_0
+layer=buttons
 
 // 855:38
-[com_38]
+[barricade_layer]
 type=layer
 y=184
 width=180
 height=75
 xmode=abs_centre
-layer=com_0
+layer=buttons
 
 // 855:39
-[com_39]
+[cannon_layer]
 type=layer
 y=14
 width=180
 height=92
 xmode=abs_centre
-layer=com_0
+layer=buttons
 
 // 855:40
-[com_40]
+[glider_num]
 type=text
 x=32
 y=34
 width=20
 height=20
-layer=com_31
+layer=glider_layer
 textfont=quill_oblique_large
 text=0
 textalignh=centre
@@ -543,7 +543,7 @@ x=-2
 y=56
 width=50
 height=17
-layer=com_31
+layer=glider_layer
 textfont=p11_full
 text=Glider
 textalignh=centre
@@ -552,13 +552,13 @@ textshadow=yes
 colour=0xe79935
 
 // 855:42
-[com_42]
+[top_title]
 type=text
 x=8
 y=3
 width=175
 height=16
-layer=com_0
+layer=buttons
 textfont=b12_full
 text=Special Units
 textalignh=centre
@@ -595,14 +595,14 @@ transmitop=10
 op10=   
 
 // 855:45
-[com_45]
+[tooltip_bound]
 type=layer
 width=190
 height=261
 
 // 855:46
-[com_46]
+[tooltip]
 type=layer
 width=190
 height=261
-layer=com_45
+layer=tooltip_bound

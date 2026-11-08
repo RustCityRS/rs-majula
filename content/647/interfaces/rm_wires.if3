@@ -1,5 +1,5 @@
 // 474:0
-[com_0]
+[close]
 type=graphic
 x=480
 y=7
@@ -12,7 +12,7 @@ op1=Close
 onop=closebutton_click
 
 // 474:1
-[com_1]
+[drag_zone]
 type=layer
 width=512
 height=334
@@ -23,10 +23,10 @@ onload=rm_wires_load(event_com)
 type=layer
 width=512
 height=334
-layer=com_1
+layer=drag_zone
 
 // 474:3
-[com_3]
+[back_bottom]
 type=model
 x=92
 y=186
@@ -41,7 +41,7 @@ transmitop=10
 op10=  
 
 // 474:4
-[com_4]
+[back_left]
 type=model
 x=40
 y=32
@@ -56,7 +56,7 @@ transmitop=10
 op10=  
 
 // 474:5
-[com_5]
+[back_top]
 type=model
 x=91
 y=-45
@@ -71,7 +71,7 @@ transmitop=10
 op10= 
 
 // 474:6
-[com_6]
+[back_middle]
 type=model
 x=91
 y=64
@@ -85,7 +85,7 @@ transmitop=10
 op10=  
 
 // 474:7
-[com_7]
+[back_r_top]
 type=model
 x=284
 y=32
@@ -100,7 +100,7 @@ transmitop=10
 op10= 
 
 // 474:8
-[com_8]
+[back_r_bottom]
 type=model
 x=284
 y=158
@@ -115,7 +115,7 @@ transmitop=10
 op10= 
 
 // 474:9
-[com_9]
+[back_storage]
 type=model
 x=292
 y=38
@@ -130,30 +130,30 @@ transmitop=10
 op10= 
 
 // 474:10
-[com_10]
+[wire_selected]
 type=rectangle
 x=352
 y=243
 width=32
 height=36
-layer=com_1
+layer=drag_zone
 hide=yes
 colour=0x66cc00
 fill=yes
 trans=139
 
 // 474:11
-[com_11]
+[wires_corral]
 type=layer
 x=308
 y=55
 width=143
 height=150
-layer=com_1
+layer=drag_zone
 candrop=yes
 
 // 474:12
-[com_12]
+[clear_board]
 type=layer
 x=51
 y=282
@@ -167,7 +167,7 @@ op1=Clear Wires
 type=model
 width=41
 height=41
-layer=com_12
+layer=clear_board
 model=model_51719
 modelangle=512,0,0
 modelzoom=800
@@ -175,7 +175,7 @@ onmouseover=model_swapper(event_com, model_51722)
 onmouseleave=model_swapper(event_com, model_51719)
 
 // 474:14
-[com_14]
+[check_board]
 type=layer
 x=100
 y=282
@@ -190,7 +190,7 @@ op10=
 type=model
 width=41
 height=41
-layer=com_14
+layer=check_board
 model=model_51730
 modelangle=512,0,0
 modelzoom=800

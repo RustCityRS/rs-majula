@@ -5,7 +5,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_2
+layer=main_layer
 colour=0x000000
 fill=yes
 
@@ -18,7 +18,7 @@ width=337
 height=431
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=main_layer
 model=model_46224
 modelorigin=-7,126
 modelangle=209,0,0
@@ -27,7 +27,7 @@ modelanim=seq_11560
 onload=set_spinner(0, 9, 0, event_com)
 
 // 724:2
-[com_2]
+[main_layer]
 type=layer
 width=16391
 height=16391

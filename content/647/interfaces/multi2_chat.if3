@@ -1,5 +1,5 @@
 // 229:0
-[com_0]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -7,28 +7,28 @@ widthmode=proportion
 heightmode=proportion
 
 // 229:1
-[com_1]
+[multi2t_chat]
 type=text
 y=1638
 width=480
 height=17
 xmode=abs_centre
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Select an Option
 textalignh=centre
 colour=0x800000
 
 // 229:2
-[com_2]
+[multi2a_chat]
 type=text
 y=5214
 width=480
 height=17
 xmode=abs_centre
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option1
 textalignh=centre
@@ -38,14 +38,14 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 229:3
-[com_3]
+[multi2b_chat]
 type=text
 y=9278
 width=480
 height=17
 xmode=abs_centre
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=option2
 textalignh=centre
@@ -59,7 +59,7 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 type=graphic
 width=57
 height=13
-layer=com_6
+layer=multi2swords_chat
 graphic="sworddecor,1"
 colour=0x000000
 
@@ -69,19 +69,19 @@ type=graphic
 x=280
 width=57
 height=13
-layer=com_6
+layer=multi2swords_chat
 graphic="sworddecor,0"
 colour=0x000000
 
 // 229:6
-[com_6]
+[multi2swords_chat]
 type=layer
 y=1638
 width=337
 height=13
 xmode=abs_centre
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 
 // 229:7
 [com_7]
@@ -110,5 +110,5 @@ width=476
 height=13
 xmode=abs_centre
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 hide=yes

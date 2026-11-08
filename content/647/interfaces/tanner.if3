@@ -9,7 +9,7 @@ transmitop=10
 op10=  
 
 // 324:1
-[com_1]
+[tanning_a]
 type=layer
 x=39
 y=57
@@ -23,7 +23,7 @@ op4=Tan <col=FF981F>X
 op5=Tan <col=FF981F>All
 
 // 324:2
-[com_2]
+[tanning_b]
 type=layer
 x=151
 y=57
@@ -37,7 +37,7 @@ op4=Tan <col=FF981F>X
 op5=Tan <col=FF981F>All
 
 // 324:3
-[com_3]
+[tanning_c]
 type=layer
 x=263
 y=57
@@ -51,7 +51,7 @@ op4=Tan <col=FF981F>X
 op5=Tan <col=FF981F>All
 
 // 324:4
-[com_4]
+[tanning_d]
 type=layer
 x=375
 y=57
@@ -65,7 +65,7 @@ op4=Tan <col=FF981F>X
 op5=Tan <col=FF981F>All
 
 // 324:5
-[com_5]
+[tanning_e]
 type=layer
 x=39
 y=185
@@ -79,7 +79,7 @@ op4=Tan <col=FF981F>X
 op5=Tan <col=FF981F>All
 
 // 324:6
-[com_6]
+[tanning_f]
 type=layer
 x=151
 y=185
@@ -93,7 +93,7 @@ op4=Tan <col=FF981F>X
 op5=Tan <col=FF981F>All
 
 // 324:7
-[com_7]
+[tanning_g]
 type=layer
 x=263
 y=185
@@ -107,7 +107,7 @@ op4=Tan <col=FF981F>X
 op5=Tan <col=FF981F>All
 
 // 324:8
-[com_8]
+[tanning_h]
 type=layer
 x=375
 y=185
@@ -121,108 +121,108 @@ op4=Tan <col=FF981F>X
 op5=Tan <col=FF981F>All
 
 // 324:9
-[com_9]
+[tanning_a_model]
 type=model
 y=-22
 width=70
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=tanning_a
 model=null
 modelzoom=528
 
 // 324:10
-[com_10]
+[tanning_b_model]
 type=model
 y=-22
 width=70
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=tanning_b
 model=null
 modelzoom=528
 
 // 324:11
-[com_11]
+[tanning_c_model]
 type=model
 y=-22
 width=70
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=tanning_c
 model=null
 modelzoom=528
 
 // 324:12
-[com_12]
+[tanning_d_model]
 type=model
 y=-22
 width=70
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=tanning_d
 model=null
 modelzoom=528
 
 // 324:13
-[com_13]
+[tanning_e_model]
 type=model
 y=-22
 width=70
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=tanning_e
 model=null
 modelzoom=528
 
 // 324:14
-[com_14]
+[tanning_f_model]
 type=model
 y=-22
 width=70
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=tanning_f
 model=null
 modelzoom=528
 
 // 324:15
-[com_15]
+[tanning_g_model]
 type=model
 y=-22
 width=70
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_7
+layer=tanning_g
 model=null
 modelzoom=528
 
 // 324:16
-[com_16]
+[tanning_h_model]
 type=model
 y=-22
 width=70
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_8
+layer=tanning_h
 model=null
 modelzoom=528
 
 // 324:17
-[com_17]
+[tanning_a_text]
 type=text
 y=82
 width=96
 height=28
-layer=com_1
+layer=tanning_a
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -231,12 +231,12 @@ colour=0xff981f
 onload=script1191(event_com, p11_full)
 
 // 324:18
-[com_18]
+[tanning_b_text]
 type=text
 y=82
 width=96
 height=28
-layer=com_2
+layer=tanning_b
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -245,12 +245,12 @@ colour=0xff981f
 onload=script1191(event_com, p11_full)
 
 // 324:19
-[com_19]
+[tanning_c_text]
 type=text
 y=82
 width=96
 height=28
-layer=com_3
+layer=tanning_c
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -259,12 +259,12 @@ colour=0xff981f
 onload=script1191(event_com, p11_full)
 
 // 324:20
-[com_20]
+[tanning_d_text]
 type=text
 y=82
 width=96
 height=28
-layer=com_4
+layer=tanning_d
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -273,12 +273,12 @@ colour=0xff981f
 onload=script1191(event_com, p11_full)
 
 // 324:21
-[com_21]
+[tanning_e_text]
 type=text
 y=82
 width=96
 height=28
-layer=com_5
+layer=tanning_e
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -287,12 +287,12 @@ colour=0xff981f
 onload=script1191(event_com, p11_full)
 
 // 324:22
-[com_22]
+[tanning_f_text]
 type=text
 y=82
 width=96
 height=28
-layer=com_6
+layer=tanning_f
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -301,12 +301,12 @@ colour=0xff981f
 onload=script1191(event_com, p11_full)
 
 // 324:23
-[com_23]
+[tanning_g_text]
 type=text
 y=82
 width=96
 height=28
-layer=com_7
+layer=tanning_g
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -315,12 +315,12 @@ colour=0xff981f
 onload=script1191(event_com, p11_full)
 
 // 324:24
-[com_24]
+[tanning_h_text]
 type=text
 y=82
 width=96
 height=28
-layer=com_8
+layer=tanning_h
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -329,12 +329,12 @@ colour=0xff981f
 onload=script1191(event_com, p11_full)
 
 // 324:25
-[com_25]
+[tanning_a_price]
 type=text
 y=111
 width=96
 height=14
-layer=com_1
+layer=tanning_a
 textfont=p12_full
 text=Cost
 textalignh=centre
@@ -343,12 +343,12 @@ textshadow=yes
 colour=0xff981f
 
 // 324:26
-[com_26]
+[tanning_b_price]
 type=text
 y=111
 width=96
 height=14
-layer=com_2
+layer=tanning_b
 textfont=p12_full
 text=Cost
 textalignh=centre
@@ -357,12 +357,12 @@ textshadow=yes
 colour=0xff981f
 
 // 324:27
-[com_27]
+[tanning_c_price]
 type=text
 y=111
 width=96
 height=14
-layer=com_3
+layer=tanning_c
 textfont=p12_full
 text=Cost
 textalignh=centre
@@ -371,12 +371,12 @@ textshadow=yes
 colour=0xff981f
 
 // 324:28
-[com_28]
+[tanning_d_price]
 type=text
 y=111
 width=96
 height=14
-layer=com_4
+layer=tanning_d
 textfont=p12_full
 text=Cost
 textalignh=centre
@@ -385,12 +385,12 @@ textshadow=yes
 colour=0xff981f
 
 // 324:29
-[com_29]
+[tanning_e_price]
 type=text
 y=111
 width=96
 height=14
-layer=com_5
+layer=tanning_e
 textfont=p12_full
 text=Cost
 textalignh=centre
@@ -399,12 +399,12 @@ textshadow=yes
 colour=0xff981f
 
 // 324:30
-[com_30]
+[tanning_f_price]
 type=text
 y=111
 width=96
 height=14
-layer=com_6
+layer=tanning_f
 textfont=p12_full
 text=Cost
 textalignh=centre
@@ -413,12 +413,12 @@ textshadow=yes
 colour=0xff981f
 
 // 324:31
-[com_31]
+[tanning_g_price]
 type=text
 y=111
 width=96
 height=14
-layer=com_7
+layer=tanning_g
 textfont=p12_full
 text=Cost
 textalignh=centre
@@ -427,12 +427,12 @@ textshadow=yes
 colour=0xff981f
 
 // 324:32
-[com_32]
+[tanning_h_price]
 type=text
 y=111
 width=96
 height=14
-layer=com_8
+layer=tanning_h
 textfont=p12_full
 text=Cost
 textalignh=centre
@@ -538,7 +538,7 @@ transmitop=10
 op10=   
 
 // 324:40
-[com_40]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -634,7 +634,7 @@ transmitop=10
 op10=   
 
 // 324:47
-[com_47]
+[title]
 type=text
 x=15
 y=26

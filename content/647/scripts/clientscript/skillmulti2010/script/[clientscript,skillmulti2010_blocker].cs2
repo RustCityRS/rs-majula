@@ -3,5 +3,5 @@
 if (clientclock < $int0) {
     return;
 }
-if_setontimer(null, skillmulti2010:com_28);
-if_sethide(true, skillmulti2010:com_28);
+if_setontimer(null, skillmulti2010:blocker);
+if_sethide(true, skillmulti2010:blocker);

@@ -7,7 +7,7 @@ if (%varclient_632 = 0) {
     } else {
         $int0 = 0;
     }
-    if_settext(tostring($int0), snp_waiting_room:com_3);
+    if_settext(tostring($int0), snp_waiting_room:text_blueteam_count);
 } else {
-    if_settext(tostring(%varclient_637), snp_waiting_room:com_3);
+    if_settext(tostring(%varclient_637), snp_waiting_room:text_blueteam_count);
 }

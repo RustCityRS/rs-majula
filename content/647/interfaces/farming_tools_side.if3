@@ -1,5 +1,5 @@
 // 126:0
-[com_0]
+[left]
 type=layer
 width=8199
 widthmode=proportion
@@ -7,7 +7,7 @@ heightmode=minus
 ymode=abs_centre
 
 // 126:1
-[com_1]
+[right]
 type=layer
 width=8199
 widthmode=proportion
@@ -16,21 +16,21 @@ xmode=abs_right
 ymode=abs_centre
 
 // 126:2
-[com_2]
+[rake]
 type=layer
 y=12
 height=47
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=left
 
 // 126:3
-[com_3]
+[rake_name]
 type=text
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=rake
 textfont=p12_full
 text=Rake
 textalignh=centre
@@ -38,13 +38,13 @@ textshadow=yes
 colour=0x872300
 
 // 126:4
-[com_4]
+[rake_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=rake
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -52,26 +52,26 @@ transmitop=1,10
 opbase=<col=ff9040>Rake
 op1=Store
 op10=Examine
-onload=farming_tools_side_update(event_com, rake, farming_tools_side:com_3)
+onload=farming_tools_side_update(event_com, rake, farming_tools_side:rake_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, rake, farming_tools_side:com_3){inv}
+oninvtransmit=farming_tools_side_update(event_com, rake, farming_tools_side:rake_name){inv}
 
 // 126:5
-[com_5]
+[dibber]
 type=layer
 y=12
 height=47
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=right
 
 // 126:6
-[com_6]
+[dibber_name]
 type=text
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_5
+layer=dibber
 textfont=p12_full
 text=Dibber
 textalignh=centre
@@ -79,13 +79,13 @@ textshadow=yes
 colour=0x872300
 
 // 126:7
-[com_7]
+[dibber_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_5
+layer=dibber
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -93,26 +93,26 @@ transmitop=1,10
 opbase=<col=ff9040>Dibber
 op1=Store
 op10=Examine
-onload=farming_tools_side_update(event_com, seed_dibber, farming_tools_side:com_6)
+onload=farming_tools_side_update(event_com, seed_dibber, farming_tools_side:dibber_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, seed_dibber, farming_tools_side:com_6){inv}
+oninvtransmit=farming_tools_side_update(event_com, seed_dibber, farming_tools_side:dibber_name){inv}
 
 // 126:8
-[com_8]
+[spade]
 type=layer
 y=60
 height=47
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=left
 
 // 126:9
-[com_9]
+[spade_name]
 type=text
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_8
+layer=spade
 textfont=p12_full
 text=Spade
 textalignh=centre
@@ -120,13 +120,13 @@ textshadow=yes
 colour=0x872300
 
 // 126:10
-[com_10]
+[spade_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_8
+layer=spade
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -134,26 +134,26 @@ transmitop=1,10
 opbase=<col=ff9040>Spade
 op1=Store
 op10=Examine
-onload=farming_tools_side_update(event_com, spade, farming_tools_side:com_9)
+onload=farming_tools_side_update(event_com, spade, farming_tools_side:spade_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, spade, farming_tools_side:com_9){inv}
+oninvtransmit=farming_tools_side_update(event_com, spade, farming_tools_side:spade_name){inv}
 
 // 126:11
-[com_11]
+[secateurs]
 type=layer
 y=60
 height=47
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=right
 
 // 126:12
-[com_12]
+[secateurs_name]
 type=text
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_11
+layer=secateurs
 textfont=p12_full
 text=Secateurs
 textalignh=centre
@@ -161,13 +161,13 @@ textshadow=yes
 colour=0x872300
 
 // 126:13
-[com_13]
+[secateurs_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_11
+layer=secateurs
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -175,26 +175,26 @@ transmitop=1,10
 opbase=<col=ff9040>Secateurs
 op1=Store
 op10=Examine
-onload=farming_tools_side_update(event_com, secateurs, farming_tools_side:com_12)
+onload=farming_tools_side_update(event_com, secateurs, farming_tools_side:secateurs_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, secateurs, farming_tools_side:com_12){inv}
+oninvtransmit=farming_tools_side_update(event_com, secateurs, farming_tools_side:secateurs_name){inv}
 
 // 126:14
-[com_14]
+[wateringcan]
 type=layer
 y=108
 height=47
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=left
 
 // 126:15
-[com_15]
+[wateringcan_name]
 type=text
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_14
+layer=wateringcan
 textfont=p12_full
 text=Watering can
 textalignh=centre
@@ -202,13 +202,13 @@ textshadow=yes
 colour=0x872300
 
 // 126:16
-[com_16]
+[wateringcan_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_14
+layer=wateringcan
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -216,26 +216,26 @@ transmitop=1,10
 opbase=<col=ff9040>Watering Can
 op1=Store
 op10=Examine
-onload=farming_tools_side_update(event_com, watering_can_6797, farming_tools_side:com_15)
+onload=farming_tools_side_update(event_com, watering_can_6797, farming_tools_side:wateringcan_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, watering_can_6797, farming_tools_side:com_15){inv}
+oninvtransmit=farming_tools_side_update(event_com, watering_can_6797, farming_tools_side:wateringcan_name){inv}
 
 // 126:17
-[com_17]
+[trowel]
 type=layer
 y=108
 height=47
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=right
 
 // 126:18
-[com_18]
+[trowel_name]
 type=text
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_17
+layer=trowel
 textfont=p12_full
 text=Trowel
 textalignh=centre
@@ -243,13 +243,13 @@ textshadow=yes
 colour=0x872300
 
 // 126:19
-[com_19]
+[trowel_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_17
+layer=trowel
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -257,26 +257,26 @@ transmitop=1,10
 opbase=<col=ff9040>Trowel
 op1=Store
 op10=Examine
-onload=farming_tools_side_update(event_com, gardening_trowel, farming_tools_side:com_18)
+onload=farming_tools_side_update(event_com, gardening_trowel, farming_tools_side:trowel_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, gardening_trowel, farming_tools_side:com_18){inv}
+oninvtransmit=farming_tools_side_update(event_com, gardening_trowel, farming_tools_side:trowel_name){inv}
 
 // 126:20
-[com_20]
+[buckets]
 type=layer
 y=156
 height=47
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=right
 
 // 126:21
-[com_21]
+[buckets_name]
 type=text
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_20
+layer=buckets
 textfont=p12_full
 text=Bucket
 textalignh=centre
@@ -284,13 +284,13 @@ textshadow=yes
 colour=0x872300
 
 // 126:22
-[com_22]
+[buckets_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_20
+layer=buckets
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -301,26 +301,26 @@ op2=Store 5
 op3=Store All
 op4=Store X
 op10=Examine
-onload=farming_tools_side_update(event_com, bucket, farming_tools_side:com_21)
+onload=farming_tools_side_update(event_com, bucket, farming_tools_side:buckets_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, bucket, farming_tools_side:com_21){inv}
+oninvtransmit=farming_tools_side_update(event_com, bucket, farming_tools_side:buckets_name){inv}
 
 // 126:23
-[com_23]
+[scarecrow]
 type=layer
 y=156
 height=47
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=left
 
 // 126:24
-[com_24]
+[scarecrow_name]
 type=text
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_23
+layer=scarecrow
 textfont=p12_full
 text=Scarecrow
 textalignh=centre
@@ -328,13 +328,13 @@ textshadow=yes
 colour=0x872300
 
 // 126:25
-[com_25]
+[scarecrow_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_23
+layer=scarecrow
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -345,26 +345,26 @@ op2=Store 5
 op3=Store All
 op4=Store X
 op10=Examine
-onload=farming_tools_side_update(event_com, scarecrow, farming_tools_side:com_24)
+onload=farming_tools_side_update(event_com, scarecrow, farming_tools_side:scarecrow_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, scarecrow, farming_tools_side:com_24){inv}
+oninvtransmit=farming_tools_side_update(event_com, scarecrow, farming_tools_side:scarecrow_name){inv}
 
 // 126:26
-[com_26]
+[compost]
 type=layer
 y=204
 height=47
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=left
 
 // 126:27
-[com_27]
+[compost_name]
 type=text
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_26
+layer=compost
 textfont=p12_full
 text=Compost
 textalignh=centre
@@ -372,13 +372,13 @@ textshadow=yes
 colour=0x872300
 
 // 126:28
-[com_28]
+[compost_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_26
+layer=compost
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -389,26 +389,26 @@ op2=Store 5
 op3=Store All
 op4=Store X
 op10=Examine
-onload=farming_tools_side_update(event_com, compost, farming_tools_side:com_27)
+onload=farming_tools_side_update(event_com, compost, farming_tools_side:compost_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, compost, farming_tools_side:com_27){inv}
+oninvtransmit=farming_tools_side_update(event_com, compost, farming_tools_side:compost_name){inv}
 
 // 126:29
-[com_29]
+[supercompost]
 type=layer
 y=204
 height=47
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=right
 
 // 126:30
-[com_30]
+[supercompost_name]
 type=text
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_29
+layer=supercompost
 textfont=p12_full
 text=Supercompost
 textalignh=centre
@@ -416,13 +416,13 @@ textshadow=yes
 colour=0x872300
 
 // 126:31
-[com_31]
+[supercompost_store]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_29
+layer=supercompost
 outline=1
 graphicshadow=1
 colour=0x000000
@@ -433,6 +433,6 @@ op2=Store 5
 op3=Store All
 op4=Store X
 op10=Examine
-onload=farming_tools_side_update(event_com, supercompost, farming_tools_side:com_30)
+onload=farming_tools_side_update(event_com, supercompost, farming_tools_side:supercompost_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, supercompost, farming_tools_side:com_30){inv}
+oninvtransmit=farming_tools_side_update(event_com, supercompost, farming_tools_side:supercompost_name){inv}

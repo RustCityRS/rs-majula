@@ -1,0 +1,88 @@
+// 745:0
+[statusicons]
+type=layer
+width=82
+height=25
+onload=statusicons_serverupdate
+onvarctransmit=statusicons_serverupdate{varclient_616}
+
+// 745:1
+[multiway_icon]
+type=graphic
+x=57
+width=25
+height=25
+layer=statusicons
+hide=yes
+graphic=overlay_multiway
+colour=0x000000
+onmouseleave=statusicons_deltooltip
+onmouserepeat=statusicons_addtooltip(event_com, "Multiway Combat", event_mousex, event_mousey)
+
+// 745:2
+[assist_engaged]
+type=graphic
+x=28
+width=25
+height=25
+layer=statusicons
+hide=yes
+graphic=assist_overlay
+colour=0x000000
+onmouseleave=statusicons_deltooltip
+onmouserepeat=statusicons_addtooltip(event_com, "Assisted", event_mousex, event_mousey)
+
+// 745:3
+[pvpw_safe]
+type=graphic
+width=25
+height=25
+layer=statusicons
+hide=yes
+graphic=graphic_1576
+colour=0x000000
+transmitop=10
+op10= 
+onmouseleave=statusicons_deltooltip
+onmouserepeat=statusicons_addtooltip(event_com, "PvP Safe Area", event_mousex, event_mousey)
+
+// 745:4
+[pvpw_safe_countdown]
+type=graphic
+width=25
+height=25
+layer=statusicons
+hide=yes
+graphic=graphic_1578
+colour=0x000000
+transmitop=10
+op10=  
+onmouseleave=statusicons_deltooltip
+onmouserepeat=statusicons_addtooltip(event_com, "Time Until Safe", event_mousex, event_mousey)
+
+// 745:5
+[pvpw_countdown]
+type=text
+width=25
+height=25
+layer=statusicons
+hide=yes
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+onvartransmit=script1177{varplayer_1317}
+
+// 745:6
+[com_6]
+type=graphic
+width=25
+height=25
+layer=statusicons
+hide=yes
+graphic=graphic_1577
+colour=0x000000
+transmitop=10
+op10= 
+onmouseleave=statusicons_deltooltip
+onmouserepeat=statusicons_addtooltip(event_com, "PvP Hot Spot", event_mousex, event_mousey)

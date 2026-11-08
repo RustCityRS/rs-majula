@@ -17,9 +17,9 @@ if_setscrollpos(0, 0, interface_1098:com_168);
 if_setscrollpos(0, 0, interface_1098:com_153);
 ~scrollbar_ondrag_doscroll(interface_1098:com_152, interface_1098:com_153, 0, 1);
 if (%varplayerbit_9140 = 1) {
-    if_settext("All events relative to clan time", interface_1098:com_40);
+    if_settext("All events relative to clan time", interface_1098:time_text);
 } else {
-    if_settext("All events relative to game time", interface_1098:com_40);
+    if_settext("All events relative to game time", interface_1098:time_text);
 }
 switch_int (%varplayer_2128) {
     case 1 :

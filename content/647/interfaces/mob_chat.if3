@@ -5,7 +5,7 @@ width=506
 height=129
 
 // 850:1
-[com_1]
+[button_layer]
 type=layer
 width=506
 height=129
@@ -13,32 +13,32 @@ hide=yes
 scrollheight=240
 
 // 850:2
-[com_2]
+[buttons]
 type=layer
 width=490
 height=129
-layer=com_1
+layer=button_layer
 scrollheight=240
 onload=mob_initialise_buttons
 
 // 850:3
-[com_3]
+[scrollbar_buttons]
 type=layer
 x=2
 width=16
 height=127
 xmode=abs_right
-layer=com_1
-onload=scrollbar_vertical_graphics(event_com, mob_chat:com_2, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+layer=button_layer
+onload=scrollbar_vertical_graphics(event_com, mob_chat:buttons, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 850:4
-[com_4]
+[text1]
 type=text
 x=16
 y=32
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -51,13 +51,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:5
-[com_5]
+[text2]
 type=text
 x=16
 y=51
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -70,13 +70,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:6
-[com_6]
+[text3]
 type=text
 x=16
 y=70
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -89,13 +89,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:7
-[com_7]
+[text4]
 type=text
 x=16
 y=89
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -108,13 +108,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:8
-[com_8]
+[text5]
 type=text
 x=16
 y=108
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -127,13 +127,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:9
-[com_9]
+[text6]
 type=text
 x=16
 y=127
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -146,13 +146,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:10
-[com_10]
+[text7]
 type=text
 x=16
 y=146
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -165,13 +165,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:11
-[com_11]
+[text8]
 type=text
 x=16
 y=165
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -184,13 +184,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:12
-[com_12]
+[text9]
 type=text
 x=16
 y=184
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -203,13 +203,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:13
-[com_13]
+[text10]
 type=text
 x=16
 y=203
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -222,13 +222,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:14
-[com_14]
+[text11]
 type=text
 x=253
 y=32
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -241,13 +241,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:15
-[com_15]
+[text12]
 type=text
 x=253
 y=51
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -260,13 +260,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:16
-[com_16]
+[text13]
 type=text
 x=253
 y=70
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -279,13 +279,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:17
-[com_17]
+[text14]
 type=text
 x=253
 y=89
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -298,13 +298,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:18
-[com_18]
+[text15]
 type=text
 x=253
 y=108
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -317,13 +317,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:19
-[com_19]
+[text16]
 type=text
 x=253
 y=127
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -336,13 +336,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:20
-[com_20]
+[text17]
 type=text
 x=253
 y=146
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -355,13 +355,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:21
-[com_21]
+[text18]
 type=text
 x=253
 y=165
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -374,13 +374,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:22
-[com_22]
+[text19]
 type=text
 x=253
 y=184
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -393,13 +393,13 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:23
-[com_23]
+[text20]
 type=text
 x=253
 y=203
 width=230
 height=18
-layer=com_2
+layer=buttons
 textfont=p12_full
 text=string1
 colour=0x000000
@@ -412,293 +412,293 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 onop=mob_show_hide
 
 // 850:24
-[com_24]
+[summary]
 type=text
 x=16
 y=8
 width=410
 height=21
-layer=com_2
+layer=buttons
 textfont=b12_full
 text=Select a phrase to say to your opponents (click or type a letter):
 textalignv=centre
 colour=0x000000
 
 // 850:25
-[com_25]
+[string1]
 type=text
 x=15
 y=4
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:26
-[com_26]
+[string2]
 type=text
 x=15
 y=22
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:27
-[com_27]
+[string3]
 type=text
 x=15
 y=40
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:28
-[com_28]
+[string4]
 type=text
 x=15
 y=58
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:29
-[com_29]
+[string5]
 type=text
 x=15
 y=76
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:30
-[com_30]
+[string6]
 type=text
 x=15
 y=94
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:31
-[com_31]
+[string7]
 type=text
 x=15
 y=112
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:32
-[com_32]
+[string8]
 type=text
 x=15
 y=130
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:33
-[com_33]
+[string9]
 type=text
 x=15
 y=148
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:34
-[com_34]
+[string10]
 type=text
 x=15
 y=166
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:35
-[com_35]
+[string11]
 type=text
 x=15
 y=184
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:36
-[com_36]
+[string12]
 type=text
 x=15
 y=202
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:37
-[com_37]
+[string13]
 type=text
 x=15
 y=220
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:38
-[com_38]
+[string14]
 type=text
 x=15
 y=238
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:39
-[com_39]
+[string15]
 type=text
 x=15
 y=256
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:40
-[com_40]
+[string16]
 type=text
 x=15
 y=274
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:41
-[com_41]
+[string17]
 type=text
 x=15
 y=292
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:42
-[com_42]
+[string18]
 type=text
 x=15
 y=310
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:43
-[com_43]
+[string19]
 type=text
 x=15
 y=328
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
 colour=0x000000
 
 // 850:44
-[com_44]
+[string20]
 type=text
 x=15
 y=346
 width=470
 height=17
 ymode=abs_bottom
-layer=com_46
+layer=text
 textfont=p12_full
 text=this is a testggg
 textalignv=centre
@@ -711,29 +711,29 @@ x=2
 width=16
 height=127
 xmode=abs_right
-layer=com_47
-onload=scrollbar_vertical_graphics(event_com, mob_chat:com_46, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+layer=text_layer
+onload=scrollbar_vertical_graphics(event_com, mob_chat:text, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 850:46
-[com_46]
+[text]
 type=layer
 y=5
 width=488
 height=124
 ymode=abs_bottom
-layer=com_47
+layer=text_layer
 scrollheight=360
 onload=mob_initialise_text
 
 // 850:47
-[com_47]
+[text_layer]
 type=layer
 width=506
 height=129
 onvarcstrtransmit=mob_chat_text_update{varclient_1698}
 
 // 850:48
-[com_48]
+[arrowbutton]
 type=layer
 width=14
 height=129
@@ -751,12 +751,12 @@ graphic=graphic_2025
 colour=0xffffffff
 
 // 850:50
-[com_50]
+[arrow_graphic]
 type=graphic
 x=-2
 y=-2
 width=14
 height=129
-layer=com_48
+layer=arrowbutton
 graphic=graphic_1904
 colour=0xffffffff

@@ -65,7 +65,7 @@ tiling=yes
 colour=0xffffffff
 
 // 334:6
-[com_6]
+[closebutton]
 type=graphic
 x=474
 y=30
@@ -224,7 +224,7 @@ tiling=yes
 colour=0xffffffff
 
 // 334:21
-[com_21]
+[trade2accept]
 type=rectangle
 x=188
 y=295
@@ -236,7 +236,7 @@ transmitop=1
 op1=Accept
 
 // 334:22
-[com_22]
+[dominiondice]
 type=rectangle
 x=259
 y=295
@@ -368,7 +368,7 @@ textshadow=yes
 colour=0xffff00
 
 // 334:34
-[com_34]
+[trade2title]
 type=text
 y=28
 width=474
@@ -424,7 +424,7 @@ textshadow=yes
 colour=0xc00000
 
 // 334:38
-[com_38]
+[out]
 type=layer
 x=20
 y=83
@@ -432,21 +432,21 @@ width=232
 height=171
 
 // 334:39
-[com_39]
+[out_left]
 type=layer
 width=100
 heightmode=minus
 ymode=abs_centre
-layer=com_38
+layer=out
 
 // 334:40
-[com_40]
+[out_right]
 type=layer
 width=100
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_38
+layer=out
 
 // 334:41
 [com_41]
@@ -456,7 +456,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_38
+layer=out
 candrop=yes
 
 // 334:42
@@ -530,7 +530,7 @@ fill=yes
 trans=200
 
 // 334:48
-[com_48]
+[out_loan_layer]
 type=layer
 x=19
 y=256
@@ -539,7 +539,7 @@ height=34
 hide=yes
 
 // 334:49
-[com_49]
+[in]
 type=layer
 x=260
 y=83
@@ -547,11 +547,11 @@ width=232
 height=171
 
 // 334:50
-[com_50]
+[out_loan]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_48
+layer=out_loan_layer
 textfont=p12_full
 textlineheight=17
 textalignh=centre
@@ -560,7 +560,7 @@ textshadow=yes
 colour=0xffff00
 
 // 334:51
-[com_51]
+[in_loan_layer]
 type=layer
 x=259
 y=256
@@ -569,11 +569,11 @@ height=34
 hide=yes
 
 // 334:52
-[com_52]
+[in_loan]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_51
+layer=in_loan_layer
 textfont=p12_full
 textlineheight=17
 textalignh=centre
@@ -599,7 +599,7 @@ transmitop=10
 op10= 
 
 // 334:54
-[com_54]
+[tradeopponent]
 type=text
 x=20
 y=303
@@ -613,11 +613,11 @@ textshadow=yes
 colour=0x00ffff
 transmitop=10
 op10= 
-onload=script1571(event_com, tradeconfirm:com_57, b12_full)
-onvarcstrtransmit=script1571(event_com, tradeconfirm:com_57, b12_full){varclient_1722}
+onload=script1571(event_com, tradeconfirm:tooltip, b12_full)
+onvarcstrtransmit=script1571(event_com, tradeconfirm:tooltip, b12_full){varclient_1722}
 
 // 334:55
-[com_55]
+[trade_removed_warning_right]
 type=text
 x=328
 y=290
@@ -632,7 +632,7 @@ textshadow=yes
 colour=0xff0000
 
 // 334:56
-[com_56]
+[tooltip_bounding_layer]
 type=layer
 width=16391
 height=16391
@@ -640,30 +640,30 @@ widthmode=proportion
 heightmode=proportion
 
 // 334:57
-[com_57]
+[tooltip]
 type=layer
 x=66
 y=293
 width=57
 height=16
-layer=com_56
+layer=tooltip_bounding_layer
 
 // 334:58
-[com_58]
+[in_left]
 type=layer
 width=100
 heightmode=minus
 ymode=abs_centre
-layer=com_49
+layer=in
 
 // 334:59
-[com_59]
+[in_right]
 type=layer
 width=100
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_49
+layer=in
 
 // 334:60
 [com_60]
@@ -673,7 +673,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_49
+layer=in
 candrop=yes
 
 // 334:61

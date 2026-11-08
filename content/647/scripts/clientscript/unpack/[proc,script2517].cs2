@@ -16,6 +16,6 @@ $int1 = calc($int2 + $int3);
 $int1 = calc($int1 + $int4);
 $int1 = calc($int1 + $int5);
 $int1 = calc($int1 + $int6);
-if_settext(~tostring_spacer($int1, ","), mob_special_units:com_74);
+if_settext(~tostring_spacer($int1, ","), mob_special_units:grand_total_qty);
 $int0 = calc(%varclient_839 - $int1);
 if_settext(~tostring_spacer($int0, ","), mob_special_units:com_77);

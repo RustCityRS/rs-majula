@@ -135,7 +135,7 @@ tiling=yes
 colour=0x000000
 
 // 521:13
-[com_13]
+[cyrisusclose]
 type=graphic
 x=473
 y=25
@@ -150,7 +150,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 521:14
-[com_14]
+[title]
 type=text
 x=41
 y=23
@@ -164,7 +164,7 @@ textshadow=yes
 colour=0xff981f
 
 // 521:15
-[com_15]
+[cyrisus_close]
 type=layer
 x=464
 y=24
@@ -173,7 +173,7 @@ height=32
 hide=yes
 
 // 521:16
-[com_16]
+[dream_health_lay]
 type=layer
 x=41
 y=93
@@ -181,13 +181,13 @@ width=210
 height=43
 
 // 521:17
-[com_17]
+[dream_health_bar]
 type=rectangle
 x=-195
 y=6
 width=200
 height=32
-layer=com_16
+layer=dream_health_lay
 colour=0x158b0d
 fill=yes
 trans=100
@@ -237,7 +237,7 @@ fill=yes
 trans=150
 
 // 521:22
-[com_22]
+[dream_health_lay_20]
 type=layer
 x=79
 y=94
@@ -245,19 +245,19 @@ width=16
 height=44
 
 // 521:23
-[com_23]
+[dream_health_goal_20]
 type=model
 x=5
 y=-2
 width=7
 height=42
-layer=com_22
+layer=dream_health_lay_20
 model=model_24994
 modelorigin=0,19
 modelzoom=400
 
 // 521:24
-[com_24]
+[dream_health_lay_40]
 type=layer
 x=118
 y=94
@@ -265,19 +265,19 @@ width=16
 height=40
 
 // 521:25
-[com_25]
+[dream_health_goal_40]
 type=model
 x=5
 y=-1
 width=7
 height=42
-layer=com_24
+layer=dream_health_lay_40
 model=model_24994
 modelorigin=0,19
 modelzoom=400
 
 // 521:26
-[com_26]
+[dream_health_lay_70]
 type=layer
 x=179
 y=95
@@ -285,19 +285,19 @@ width=16
 height=40
 
 // 521:27
-[com_27]
+[dream_health_goal_70]
 type=model
 x=5
 y=-1
 width=7
 height=42
-layer=com_26
+layer=dream_health_lay_70
 model=model_24994
 modelorigin=0,19
 modelzoom=400
 
 // 521:28
-[com_28]
+[dream_health_lay_100]
 type=layer
 x=235
 y=93
@@ -305,13 +305,13 @@ width=16
 height=40
 
 // 521:29
-[com_29]
+[dream_health_goal_100]
 type=model
 x=5
 y=-1
 width=7
 height=42
-layer=com_28
+layer=dream_health_lay_100
 model=model_24994
 modelorigin=0,19
 modelzoom=400
@@ -328,7 +328,7 @@ modelorigin=0,14
 modelzoom=528
 
 // 521:31
-[com_31]
+[dream_health_text]
 type=text
 x=202
 y=73
@@ -340,7 +340,7 @@ textshadow=yes
 colour=0xff981f
 
 // 521:32
-[com_32]
+[dream_health_name]
 type=text
 x=50
 y=72
@@ -357,7 +357,7 @@ onmouseover=text_colour_swapper(event_com, 0xf6b466)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 521:33
-[com_33]
+[dream_spirit_lay]
 type=layer
 x=41
 y=164
@@ -365,13 +365,13 @@ width=210
 height=43
 
 // 521:34
-[com_34]
+[dream_spirit_bar]
 type=rectangle
 x=-195
 y=8
 width=200
 height=32
-layer=com_33
+layer=dream_spirit_lay
 colour=0x158b0d
 fill=yes
 trans=100
@@ -421,7 +421,7 @@ fill=yes
 trans=150
 
 // 521:39
-[com_39]
+[dream_spirit_lay_32]
 type=layer
 x=100
 y=166
@@ -429,18 +429,18 @@ width=16
 height=44
 
 // 521:40
-[com_40]
+[dream_spirit_goal_32]
 type=model
 x=5
 width=7
 height=42
-layer=com_39
+layer=dream_spirit_lay_32
 model=model_24994
 modelorigin=0,19
 modelzoom=400
 
 // 521:41
-[com_41]
+[dream_spirit_lay_72]
 type=layer
 x=182
 y=165
@@ -448,18 +448,18 @@ width=16
 height=44
 
 // 521:42
-[com_42]
+[dream_spirit_goal_72]
 type=model
 x=5
 width=7
 height=42
-layer=com_41
+layer=dream_spirit_lay_72
 model=model_24994
 modelorigin=0,19
 modelzoom=400
 
 // 521:43
-[com_43]
+[dream_spirit_lay_100]
 type=layer
 x=235
 y=169
@@ -467,13 +467,13 @@ width=16
 height=40
 
 // 521:44
-[com_44]
+[dream_spirit_goal_100]
 type=model
 x=5
 y=-1
 width=7
 height=42
-layer=com_43
+layer=dream_spirit_lay_100
 model=model_24994
 modelorigin=0,19
 modelzoom=400
@@ -490,7 +490,7 @@ modelorigin=0,14
 modelzoom=528
 
 // 521:46
-[com_46]
+[dream_spirit_text]
 type=text
 x=202
 y=146
@@ -502,7 +502,7 @@ textshadow=yes
 colour=0xff981f
 
 // 521:47
-[com_47]
+[dream_spirit_name]
 type=text
 x=49
 y=144
@@ -519,7 +519,7 @@ onmouseover=text_colour_swapper(event_com, 0xf6b466)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 521:48
-[com_48]
+[dream_armament_lay]
 type=layer
 x=40
 y=238
@@ -527,13 +527,13 @@ width=210
 height=43
 
 // 521:49
-[com_49]
+[dream_armament_bar]
 type=rectangle
 x=-194
 y=6
 width=200
 height=32
-layer=com_48
+layer=dream_armament_lay
 colour=0x158b0d
 fill=yes
 trans=100
@@ -583,7 +583,7 @@ fill=yes
 trans=150
 
 // 521:54
-[com_54]
+[dream_armament_lay_100]
 type=layer
 x=233
 y=242
@@ -591,13 +591,13 @@ width=16
 height=40
 
 // 521:55
-[com_55]
+[dream_armament_goal_100]
 type=model
 x=5
 y=-1
 width=7
 height=42
-layer=com_54
+layer=dream_armament_lay_100
 model=model_24994
 modelorigin=0,19
 modelzoom=400
@@ -614,7 +614,7 @@ modelorigin=0,14
 modelzoom=528
 
 // 521:57
-[com_57]
+[dream_armament_text]
 type=text
 x=203
 y=218
@@ -626,7 +626,7 @@ textshadow=yes
 colour=0xff981f
 
 // 521:58
-[com_58]
+[dream_armament_name]
 type=text
 x=50
 y=217
@@ -643,7 +643,7 @@ onmouseover=text_colour_swapper(event_com, 0xf6b466)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 521:59
-[com_59]
+[chatbg_grad_1]
 type=rectangle
 x=278
 y=62
@@ -653,7 +653,7 @@ colour=0x3b322d
 fill=yes
 
 // 521:60
-[com_60]
+[chatbg_grad_2]
 type=rectangle
 x=278
 y=72
@@ -663,7 +663,7 @@ colour=0x3a312c
 fill=yes
 
 // 521:61
-[com_61]
+[chatbg_grad_3]
 type=rectangle
 x=278
 y=82
@@ -673,7 +673,7 @@ colour=0x39302c
 fill=yes
 
 // 521:62
-[com_62]
+[chatbg_grad_4]
 type=rectangle
 x=278
 y=92
@@ -683,7 +683,7 @@ colour=0x382f2b
 fill=yes
 
 // 521:63
-[com_63]
+[chatbg_grad_5]
 type=rectangle
 x=278
 y=102
@@ -693,7 +693,7 @@ colour=0x372e29
 fill=yes
 
 // 521:64
-[com_64]
+[chatbg_grad_6]
 type=rectangle
 x=278
 y=112
@@ -703,7 +703,7 @@ colour=0x362d28
 fill=yes
 
 // 521:65
-[com_65]
+[chatbg_grad_7]
 type=rectangle
 x=278
 y=122
@@ -713,7 +713,7 @@ colour=0x352d27
 fill=yes
 
 // 521:66
-[com_66]
+[chatbg_grad_8]
 type=rectangle
 x=278
 y=132
@@ -723,7 +723,7 @@ colour=0x342c26
 fill=yes
 
 // 521:67
-[com_67]
+[chatbg_grad_9]
 type=rectangle
 x=278
 y=142
@@ -733,7 +733,7 @@ colour=0x332b25
 fill=yes
 
 // 521:68
-[com_68]
+[chatbg_grad_10]
 type=rectangle
 x=278
 y=152
@@ -743,7 +743,7 @@ colour=0x322a24
 fill=yes
 
 // 521:69
-[com_69]
+[chatbg_grad_11]
 type=rectangle
 x=278
 y=162
@@ -753,7 +753,7 @@ colour=0x312923
 fill=yes
 
 // 521:70
-[com_70]
+[cyrisus_chathead_unconcious]
 type=layer
 x=315
 y=63
@@ -761,20 +761,20 @@ width=125
 height=107
 
 // 521:71
-[com_71]
+[cyrisus_chathead_unconcious_model]
 type=model
 x=13
 y=-13
 width=106
 height=114
-layer=com_70
+layer=cyrisus_chathead_unconcious
 model=model_39674
 modelorigin=45,17
 modelangle=57,141,0
 modelzoom=1884
 
 // 521:72
-[com_72]
+[cyrisus_chathead_very_ill]
 type=layer
 x=315
 y=63
@@ -783,13 +783,13 @@ height=107
 hide=yes
 
 // 521:73
-[com_73]
+[cyrisus_chathead_very_ill_model]
 type=model
 x=22
 y=-12
 width=92
 height=115
-layer=com_72
+layer=cyrisus_chathead_very_ill
 model=model_39753
 modelorigin=-14,13
 modelangle=57,141,0
@@ -797,7 +797,7 @@ modelzoom=1956
 modelanim=seq_9843
 
 // 521:74
-[com_74]
+[cyrisus_chathead_ill]
 type=layer
 x=315
 y=63
@@ -806,13 +806,13 @@ height=107
 hide=yes
 
 // 521:75
-[com_75]
+[cyrisus_chathead_ill_model]
 type=model
 x=19
 y=-12
 width=95
 height=120
-layer=com_74
+layer=cyrisus_chathead_ill
 model=model_39823
 modelorigin=-14,13
 modelangle=57,141,0
@@ -820,7 +820,7 @@ modelzoom=1884
 modelanim=seq_9845
 
 // 521:76
-[com_76]
+[cyrisus_chathead_normal]
 type=layer
 x=315
 y=63
@@ -829,13 +829,13 @@ height=107
 hide=yes
 
 // 521:77
-[com_77]
+[cyrisus_chathead_normal_model]
 type=model
 x=20
 y=2
 width=78
 height=102
-layer=com_76
+layer=cyrisus_chathead_normal
 model=model_40006
 modelorigin=-5,4
 modelangle=57,141,0
@@ -853,7 +853,7 @@ colour=0x312923
 fill=yes
 
 // 521:79
-[com_79]
+[info]
 type=text
 x=285
 y=183
@@ -865,7 +865,7 @@ textshadow=yes
 colour=0xff981f
 
 // 521:80
-[com_80]
+[dream_info_box]
 type=text
 x=285
 y=203

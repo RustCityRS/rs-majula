@@ -92,7 +92,7 @@ transmitop=10
 op10=        
 
 // 47:7
-[com_7]
+[background_1]
 type=graphic
 x=21
 y=46
@@ -134,7 +134,7 @@ transmitop=10
 op10= 
 
 // 47:10
-[com_10]
+[left_side]
 type=graphic
 y=26
 width=37
@@ -148,7 +148,7 @@ opbase=
 op10=   
 
 // 47:11
-[com_11]
+[right_side]
 type=graphic
 x=479
 y=26
@@ -163,7 +163,7 @@ opbase=
 op10=   
 
 // 47:12
-[com_12]
+[bottom]
 type=graphic
 x=15
 y=302
@@ -177,7 +177,7 @@ transmitop=10
 op10=   
 
 // 47:13
-[com_13]
+[bottom_right]
 type=graphic
 x=467
 y=290
@@ -191,7 +191,7 @@ opbase=
 op10=   
 
 // 47:14
-[com_14]
+[bottom_left]
 type=graphic
 x=13
 y=290
@@ -204,7 +204,7 @@ transmitop=10
 op10=   
 
 // 47:15
-[com_15]
+[middle]
 type=graphic
 x=44
 y=23
@@ -218,7 +218,7 @@ transmitop=10
 op10=    
 
 // 47:16
-[com_16]
+[top_right]
 type=graphic
 x=467
 y=23
@@ -231,7 +231,7 @@ transmitop=10
 op10=    
 
 // 47:17
-[com_17]
+[close_button]
 type=graphic
 x=474
 y=26
@@ -245,7 +245,7 @@ op10=
 onop=closebutton_click
 
 // 47:18
-[com_18]
+[top_left]
 type=graphic
 x=13
 y=23
@@ -258,7 +258,7 @@ transmitop=10
 op10=    
 
 // 47:19
-[com_19]
+[title]
 type=text
 x=87
 y=28
@@ -275,7 +275,7 @@ transmitop=10
 op10=  
 
 // 47:20
-[com_20]
+[content_layer]
 type=layer
 x=-1
 y=16
@@ -287,13 +287,13 @@ transmitop=10
 op10= 
 
 // 47:21
-[com_21]
+[instruction]
 type=text
 x=11
 y=-2
 width=447
 height=21
-layer=com_20
+layer=content_layer
 textfont=p11_full
 text=Select the scenario you'd like to play !
 textalignh=centre
@@ -304,13 +304,13 @@ transmitop=10
 op10= 
 
 // 47:22
-[com_22]
+[rescue_layer]
 type=layer
 x=237
 y=120
 width=227
 height=106
-layer=com_20
+layer=content_layer
 transmitop=10
 op10= 
 
@@ -321,32 +321,32 @@ x=154
 y=24
 width=50
 height=50
-layer=com_22
+layer=rescue_layer
 graphic=graphic_1993
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 47:24
-[com_24]
+[button4]
 type=layer
 x=8
 y=11
 width=138
 height=72
-layer=com_22
+layer=rescue_layer
 transmitop=10
 op10= 
 onload=v2_stone_button(event_com)
 
 // 47:25
-[com_25]
+[text4]
 type=text
 width=124
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_24
+layer=button4
 textfont=q8_full
 text=Rescue
 textalignh=centre
@@ -363,7 +363,7 @@ y=53
 width=124
 height=15
 xmode=abs_centre
-layer=com_24
+layer=button4
 textfont=p11_full
 text=Players: 6
 textalignh=centre
@@ -373,13 +373,13 @@ transmitop=10
 op10= 
 
 // 47:27
-[com_27]
+[siege_layer]
 type=layer
 x=237
 y=17
 width=227
 height=106
-layer=com_20
+layer=content_layer
 transmitop=10
 op10= 
 
@@ -390,32 +390,32 @@ x=154
 y=24
 width=50
 height=50
-layer=com_27
+layer=siege_layer
 graphic=graphic_1992
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 47:29
-[com_29]
+[button2]
 type=layer
 x=8
 y=11
 width=138
 height=72
-layer=com_27
+layer=siege_layer
 transmitop=10
 op10= 
 onload=v2_stone_button(event_com)
 
 // 47:30
-[com_30]
+[text2]
 type=text
 width=124
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=button2
 textfont=q8_full
 text=Siege
 textalignh=centre
@@ -432,7 +432,7 @@ y=53
 width=124
 height=15
 xmode=abs_centre
-layer=com_29
+layer=button2
 textfont=p11_full
 text=Players: 15
 textalignh=centre
@@ -442,13 +442,13 @@ transmitop=10
 op10= 
 
 // 47:32
-[com_32]
+[conflict_layer]
 type=layer
 x=6
 y=17
 width=227
 height=106
-layer=com_20
+layer=content_layer
 transmitop=10
 op10= 
 
@@ -459,32 +459,32 @@ x=24
 y=24
 width=50
 height=50
-layer=com_32
+layer=conflict_layer
 graphic=graphic_1994
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 47:34
-[com_34]
+[button1]
 type=layer
 x=80
 y=11
 width=138
 height=72
-layer=com_32
+layer=conflict_layer
 transmitop=10
 op10= 
 onload=v2_stone_button(event_com)
 
 // 47:35
-[com_35]
+[text1]
 type=text
 width=124
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=button1
 textfont=q8_full
 text=Conflict
 textalignh=centre
@@ -501,7 +501,7 @@ y=53
 width=124
 height=15
 xmode=abs_centre
-layer=com_34
+layer=button1
 textfont=p11_full
 text=Players: 8
 textalignh=centre
@@ -511,13 +511,13 @@ transmitop=10
 op10= 
 
 // 47:37
-[com_37]
+[hoard_layer]
 type=layer
 x=6
 y=120
 width=227
 height=106
-layer=com_20
+layer=content_layer
 transmitop=10
 op10= 
 
@@ -528,32 +528,32 @@ x=24
 y=24
 width=50
 height=50
-layer=com_37
+layer=hoard_layer
 graphic=graphic_1991
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 47:39
-[com_39]
+[button3]
 type=layer
 x=80
 y=11
 width=138
 height=72
-layer=com_37
+layer=hoard_layer
 transmitop=10
 op10= 
 onload=v2_stone_button(event_com)
 
 // 47:40
-[com_40]
+[text3]
 type=text
 width=124
 height=35
 xmode=abs_centre
 ymode=abs_centre
-layer=com_39
+layer=button3
 textfont=q8_full
 text=Hoard
 textalignh=centre
@@ -570,7 +570,7 @@ y=53
 width=124
 height=15
 xmode=abs_centre
-layer=com_39
+layer=button3
 textfont=p11_full
 text=Players 18
 textalignh=centre
@@ -586,7 +586,7 @@ x=28
 y=-86
 width=32
 height=32
-layer=com_37
+layer=hoard_layer
 model=null
 modelangle=1831,1565,0
 modelzoom=800

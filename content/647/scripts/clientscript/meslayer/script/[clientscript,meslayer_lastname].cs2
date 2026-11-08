@@ -10,7 +10,7 @@ if (%varclient_5 ! $int0 | string_length($string0) <= 0) {
     return;
 }
 %varclient_1541 = removetags($string0);
-if_settext(escape(%varclient_1541), chatbox:com_5);
+if_settext(escape(%varclient_1541), chattop:mes_text2);
 if (%varclient_5 = 8) {
     resume_namedialog(%varclient_1541);
     ~meslayer_close(0);

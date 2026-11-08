@@ -1,5 +1,5 @@
-[opnpct,magic:iban_blast] ~pvm_iban_blast;
-[apnpct,magic:iban_blast] ~pvm_iban_blast;
+[opnpct,magic:sb25] ~pvm_iban_blast;
+[apnpct,magic:sb25] ~pvm_iban_blast;
 
 [proc,pvm_iban_blast]
 def_dbrow $spell_data = ~get_spell_data(^iban_blast);

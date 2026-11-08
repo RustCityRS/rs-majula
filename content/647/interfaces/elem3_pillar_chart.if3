@@ -1,5 +1,5 @@
 // 980:0
-[com_0]
+[background_scroll]
 type=model
 x=15
 y=14
@@ -13,7 +13,7 @@ transmitop=10
 op10= 
 
 // 980:1
-[com_1]
+[close_button]
 type=graphic
 x=432
 y=35
@@ -24,8 +24,8 @@ colour=0xffffffff
 transmitop=1,10
 op1=Close
 op10= 
-onmouseover=graphic_swapper(elem3_pillar_chart:com_1, "close_buttons,7")
-onmouseleave=graphic_swapper(elem3_pillar_chart:com_1, "close_buttons,6")
+onmouseover=graphic_swapper(elem3_pillar_chart:close_button, "close_buttons,7")
+onmouseleave=graphic_swapper(elem3_pillar_chart:close_button, "close_buttons,6")
 onop=closebutton_click
 onclick=closebutton_click
 

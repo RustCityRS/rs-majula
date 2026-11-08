@@ -1,9 +1,9 @@
 // 548:0
-[xp_orb]
+[xpx2smallbutton]
 type=graphic
 width=34
 height=34
-layer=com_189
+layer=xpx2smallbuttonlayer
 graphic="xp_token,0"
 colour=0xffffffff
 transmitop=1,8
@@ -14,17 +14,17 @@ onmouseleave=script1180
 onop=script811(event_op)
 
 // 548:1
-[com_1]
+[xpx2join]
 type=graphic
 width=17
 height=34
-layer=com_189
+layer=xpx2smallbuttonlayer
 hide=yes
 graphic=xp_token_bg
 colour=0xffffffff
 
 // 548:2
-[com_2]
+[filterbuttons_container]
 type=layer
 y=480
 width=519
@@ -55,7 +55,7 @@ opkey4=96,0,1
 onop=camera_control(event_op)
 
 // 548:5
-[com_5]
+[maingame]
 type=layer
 clientcode=1337
 width=512
@@ -63,7 +63,7 @@ height=334
 layer=com_3
 
 // 548:6
-[com_6]
+[maindebug]
 type=layer
 clientcode=1405
 x=364
@@ -73,7 +73,7 @@ height=90
 layer=com_3
 
 // 548:7
-[com_overlay]
+[mainoverlay]
 type=layer
 width=16391
 height=16391
@@ -82,7 +82,7 @@ heightmode=proportion
 layer=com_3
 
 // 548:8
-[com_wide_screen]
+[mainoverlay_clipped]
 type=layer
 width=16391
 height=16391
@@ -122,7 +122,7 @@ onload=luck_previous
 onvarcstrtransmit=luck_previous{varclient_1667}
 
 // 548:11
-[com_11]
+[gravestone_layer]
 type=layer
 x=432
 y=258
@@ -135,18 +135,18 @@ layer=com_3
 type=graphic
 width=52
 height=20
-layer=com_11
+layer=gravestone_layer
 hide=yes
 graphic=gravestone_background
 colour=0xffffffff
 
 // 548:13
-[com_13]
+[gravestone_timer]
 type=text
 y=5
 width=48
 height=17
-layer=com_11
+layer=gravestone_layer
 hide=yes
 textfont=p11_full
 text=00:00
@@ -157,7 +157,7 @@ onmouseleave=statusicons_deltooltip
 onmouserepeat=statusicons_addtooltip(event_com, "Time Until Grave Marker Collapses", event_mousex, event_mousey)
 
 // 548:14
-[com_14]
+[statusicons]
 type=layer
 x=15
 y=32
@@ -168,7 +168,7 @@ ymode=abs_bottom
 layer=com_3
 
 // 548:15
-[com_15]
+[statusicon_tooltip]
 type=layer
 x=414
 y=263
@@ -180,7 +180,7 @@ transmitop=10
 op10=  
 
 // 548:16
-[com_private_chat]
+[pmchat]
 type=layer
 width=512
 height=69
@@ -188,7 +188,7 @@ ymode=abs_bottom
 layer=com_3
 
 // 548:17
-[com_17]
+[pvp_warning]
 type=layer
 width=512
 height=69
@@ -196,14 +196,14 @@ ymode=abs_bottom
 layer=com_3
 
 // 548:18
-[com_main_screen]
+[mainmodal]
 type=layer
 width=512
 height=334
 layer=com_3
 
 // 548:19
-[com_19]
+[no_displayname_layer]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -213,7 +213,7 @@ layer=com_3
 hide=yes
 
 // 548:20
-[com_20]
+[graphics_confirm_layer]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -222,7 +222,7 @@ ymode=abs_centre
 layer=com_3
 
 // 548:21
-[com_21]
+[xpbaselayer]
 type=layer
 y=46
 width=90
@@ -236,44 +236,44 @@ onvartransmit=script517{xp_counter}
 onstattransmit=script517
 
 // 548:22
-[com_22]
+[xptooltip]
 type=layer
 x=-420
 y=-50
 width=765
 height=503
-layer=com_21
+layer=xpbaselayer
 
 // 548:23
-[com_23]
+[xpsplat]
 type=layer
 width=10
 height=36
 widthmode=minus
 xmode=abs_centre
-layer=com_21
+layer=xpbaselayer
 hide=yes
 transmitop=10
 op10= 
 
 // 548:24
-[com_24]
+[xpsplaticon]
 type=graphic
 width=24
 height=34
-layer=com_23
+layer=xpsplat
 graphic=graphic_3065
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:25
-[com_25]
+[xpsplat_text]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_right
-layer=com_23
+layer=xpsplat
 textfont=p11_full
 textalignh=right
 textalignv=centre
@@ -283,13 +283,13 @@ transmitop=10
 op10= 
 
 // 548:26
-[com_26]
+[xptotallayer]
 type=layer
 y=2
 width=4
 height=30
 widthmode=minus
-layer=com_21
+layer=xpbaselayer
 noclickthrough=yes
 transmitop=10
 op10=   
@@ -301,7 +301,7 @@ y=10
 width=6
 height=6
 ymode=abs_bottom
-layer=com_26
+layer=xptotallayer
 graphic=graphic_2727
 tiling=yes
 colour=0xffffffff
@@ -314,7 +314,7 @@ type=graphic
 y=2
 width=6
 height=6
-layer=com_26
+layer=xptotallayer
 graphic=graphic_2721
 tiling=yes
 colour=0xffffffff
@@ -329,7 +329,7 @@ width=6
 height=6
 xmode=abs_right
 ymode=abs_bottom
-layer=com_26
+layer=xptotallayer
 graphic=graphic_2729
 tiling=yes
 colour=0xffffffff
@@ -343,7 +343,7 @@ y=2
 width=6
 height=6
 xmode=abs_right
-layer=com_26
+layer=xptotallayer
 graphic=graphic_2723
 tiling=yes
 colour=0xffffffff
@@ -359,7 +359,7 @@ height=24
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_26
+layer=xptotallayer
 colour=0x4d493e
 fill=yes
 transmitop=10
@@ -373,7 +373,7 @@ width=6
 height=24
 heightmode=minus
 xmode=abs_right
-layer=com_26
+layer=xptotallayer
 graphic=graphic_2726
 tiling=yes
 colour=0xffffffff
@@ -389,7 +389,7 @@ height=6
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_26
+layer=xptotallayer
 graphic=graphic_2728
 tiling=yes
 colour=0xffffffff
@@ -403,7 +403,7 @@ y=8
 width=6
 height=24
 heightmode=minus
-layer=com_26
+layer=xptotallayer
 graphic=graphic_2724
 tiling=yes
 colour=0xffffffff
@@ -418,7 +418,7 @@ width=4
 height=6
 widthmode=minus
 xmode=abs_centre
-layer=com_26
+layer=xptotallayer
 graphic=graphic_2722
 tiling=yes
 colour=0xffffffff
@@ -426,26 +426,26 @@ transmitop=10
 op10=   
 
 // 548:36
-[com_36]
+[xpx2xpearned_1]
 type=layer
 y=1
 width=6
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_26
+layer=xptotallayer
 transmitop=10
 op10=   
 
 // 548:37
-[com_37]
+[xpdisplaytext]
 type=text
 x=3
 width=28
 widthmode=minus
 heightmode=minus
 xmode=abs_right
-layer=com_36
+layer=xpx2xpearned_1
 textfont=p12_full
 textalignh=right
 textalignv=centre
@@ -458,7 +458,7 @@ op10=
 type=text
 width=25
 heightmode=minus
-layer=com_36
+layer=xpx2xpearned_1
 textfont=p12_full
 text=XP:
 textalignh=centre
@@ -468,7 +468,7 @@ transmitop=10
 op10=     
 
 // 548:39
-[com_39]
+[xpx2layer]
 type=layer
 width=83
 height=90
@@ -486,13 +486,13 @@ layer=com_3
 ontimer=script3970
 
 // 548:41
-[com_41]
+[xpx2sidelayer]
 type=layer
 x=-1
 y=-1
 width=91
 height=91
-layer=com_39
+layer=xpx2layer
 hide=yes
 transmitop=10
 op10= 
@@ -504,7 +504,7 @@ x=2
 y=78
 width=6
 height=6
-layer=com_41
+layer=xpx2sidelayer
 graphic=graphic_2727
 tiling=yes
 colour=0xffffffff
@@ -518,7 +518,7 @@ x=2
 y=2
 width=6
 height=6
-layer=com_41
+layer=xpx2sidelayer
 graphic=graphic_2721
 tiling=yes
 colour=0xffffffff
@@ -532,7 +532,7 @@ x=78
 y=78
 width=6
 height=6
-layer=com_41
+layer=xpx2sidelayer
 graphic=graphic_2729
 tiling=yes
 colour=0xffffffff
@@ -546,7 +546,7 @@ x=8
 y=8
 width=70
 height=70
-layer=com_41
+layer=xpx2sidelayer
 colour=0x4d493e
 fill=yes
 transmitop=10
@@ -559,7 +559,7 @@ x=78
 y=8
 width=6
 height=70
-layer=com_41
+layer=xpx2sidelayer
 graphic=graphic_2726
 tiling=yes
 colour=0xffffffff
@@ -573,7 +573,7 @@ x=78
 y=2
 width=6
 height=6
-layer=com_41
+layer=xpx2sidelayer
 graphic=graphic_2723
 tiling=yes
 colour=0xffffffff
@@ -587,7 +587,7 @@ x=8
 y=78
 width=70
 height=6
-layer=com_41
+layer=xpx2sidelayer
 graphic=graphic_2728
 tiling=yes
 colour=0xffffffff
@@ -601,7 +601,7 @@ x=2
 y=8
 width=6
 height=70
-layer=com_41
+layer=xpx2sidelayer
 graphic=graphic_2724
 tiling=yes
 colour=0xffffffff
@@ -615,7 +615,7 @@ x=8
 y=2
 width=70
 height=6
-layer=com_41
+layer=xpx2sidelayer
 graphic=graphic_2722
 tiling=yes
 colour=0xffffffff
@@ -623,13 +623,13 @@ transmitop=10
 op10= 
 
 // 548:51
-[com_51]
+[xpx2join2]
 type=graphic
 x=80
 y=43
 width=4
 height=34
-layer=com_41
+layer=xpx2sidelayer
 graphic=graphic_2734
 tiling=yes
 colour=0xffffffff
@@ -637,24 +637,24 @@ transmitop=10
 op10= 
 
 // 548:52
-[com_52]
+[xpx2timeremaining]
 type=layer
 x=2
 y=40
 width=82
 height=20
-layer=com_41
+layer=xpx2sidelayer
 transmitop=10
 op10= 
 
 // 548:53
-[com_53]
+[x2xpsplat]
 type=text
 x=45
 y=47
 width=38
 height=18
-layer=com_41
+layer=xpx2sidelayer
 hide=yes
 textfont=p11_full
 text=10xp
@@ -664,13 +664,13 @@ textshadow=yes
 colour=0xffff00
 
 // 548:54
-[com_54]
+[xpx2xpearned]
 type=layer
 x=1
 y=62
 width=82
 height=20
-layer=com_41
+layer=xpx2sidelayer
 transmitop=10
 op10= 
 
@@ -681,7 +681,7 @@ x=2
 y=-3
 width=81
 height=51
-layer=com_41
+layer=xpx2sidelayer
 
 // 548:56
 [com_56]
@@ -689,7 +689,7 @@ type=line
 x=4
 y=42
 width=78
-layer=com_41
+layer=xpx2sidelayer
 colour=0x333333
 
 // 548:57
@@ -698,7 +698,7 @@ type=line
 x=4
 y=61
 width=78
-layer=com_41
+layer=xpx2sidelayer
 colour=0x333333
 transmitop=10
 op10= 
@@ -750,14 +750,14 @@ transmitop=10
 op10= 
 
 // 548:61
-[com_61]
+[xpx2totaltext]
 type=text
 x=1
 width=29
 widthmode=minus
 heightmode=minus
 xmode=abs_right
-layer=com_54
+layer=xpx2xpearned
 textfont=p12_full
 text=888888xp
 textalignh=right
@@ -767,13 +767,13 @@ transmitop=10
 op10=  
 
 // 548:62
-[com_62]
+[xpx2totaltext_1]
 type=text
 x=-1
 width=52
 widthmode=minus
 heightmode=minus
-layer=com_54
+layer=xpx2xpearned
 textfont=p12_full
 text=XP:
 textalignh=centre
@@ -783,7 +783,7 @@ transmitop=10
 op10=   
 
 // 548:63
-[com_63]
+[xpx2timetext]
 type=text
 x=6
 y=1
@@ -791,7 +791,7 @@ width=39
 widthmode=minus
 heightmode=minus
 xmode=abs_right
-layer=com_52
+layer=xpx2timeremaining
 textfont=p12_full
 text=00:00
 textalignh=right
@@ -801,14 +801,14 @@ transmitop=10
 op10=   
 
 // 548:64
-[com_64]
+[xpx2timetext_1]
 type=text
 x=-1
 y=1
 width=39
 widthmode=minus
 heightmode=minus
-layer=com_52
+layer=xpx2timeremaining
 textfont=p12_full
 text=Time:
 textalignh=centre
@@ -818,7 +818,7 @@ transmitop=10
 op10=    
 
 // 548:65
-[com_65]
+[minimap]
 type=layer
 x=516
 width=249
@@ -830,28 +830,28 @@ opbase=
 type=graphic
 width=519
 height=23
-layer=com_2
+layer=filterbuttons_container
 graphic=main_stones_bottom
 colour=0xffffffff
 
 // 548:67
-[com_chatbox_tabs]
+[filterbuttons]
 type=layer
 width=519
 height=23
-layer=com_2
+layer=filterbuttons_container
 
 // 548:68
-[com_68]
+[filterbuttons_disable]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=filterbuttons_container
 hide=yes
 noclickthrough=yes
 
 // 548:69
-[com_69]
+[backbase2]
 type=layer
 x=519
 y=466
@@ -863,7 +863,7 @@ height=37
 type=graphic
 width=3
 height=37
-layer=com_69
+layer=backbase2
 graphic=graphic_1839
 colour=0xffffffff
 
@@ -873,112 +873,112 @@ type=graphic
 width=3
 height=37
 xmode=abs_right
-layer=com_69
+layer=backbase2
 graphic=graphic_1839
 colour=0xffffffff
 
 // 548:72
-[com_72]
+[bg_stone8]
 type=graphic
 x=3
 width=30
 height=37
-layer=com_69
+layer=backbase2
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 548:73
-[com_73]
+[bg_stone9]
 type=graphic
 x=33
 width=30
 height=37
-layer=com_69
+layer=backbase2
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 548:74
-[com_74]
+[bg_stone10]
 type=graphic
 x=63
 width=30
 height=37
-layer=com_69
+layer=backbase2
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 548:75
-[com_75]
+[bg_stone11]
 type=graphic
 x=93
 width=30
 height=37
-layer=com_69
+layer=backbase2
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 548:76
-[com_76]
+[bg_stone12]
 type=graphic
 x=123
 width=30
 height=37
-layer=com_69
+layer=backbase2
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 548:77
-[com_77]
+[bg_stone13]
 type=graphic
 x=153
 width=30
 height=37
-layer=com_69
+layer=backbase2
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 548:78
-[com_78]
+[bg_stone14]
 type=graphic
 x=183
 width=30
 height=37
-layer=com_69
+layer=backbase2
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 548:79
-[com_79]
+[bg_stone15]
 type=graphic
 x=213
 width=30
 height=37
-layer=com_69
+layer=backbase2
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 548:80
-[com_80]
+[backbase2_hide]
 type=layer
 width=269
 height=37
-layer=com_69
+layer=backbase2
 
 // 548:81
 [com_81]
@@ -987,10 +987,10 @@ x=-519
 y=-466
 width=765
 height=503
-layer=com_69
+layer=backbase2
 
 // 548:82
-[com_82]
+[stonehighlightalpha8]
 type=graphic
 x=513
 y=-7
@@ -1005,7 +1005,7 @@ transmitop=10
 op10= 
 
 // 548:83
-[com_83]
+[stonehighlight8]
 type=graphic
 x=513
 y=-7
@@ -1019,7 +1019,7 @@ transmitop=10
 op10= 
 
 // 548:84
-[com_84]
+[stonehighlightalpha9]
 type=graphic
 x=543
 y=-7
@@ -1034,7 +1034,7 @@ transmitop=10
 op10= 
 
 // 548:85
-[com_85]
+[stonehighlight9]
 type=graphic
 x=543
 y=-7
@@ -1048,7 +1048,7 @@ transmitop=10
 op10= 
 
 // 548:86
-[com_86]
+[stonehighlightalpha10]
 type=graphic
 x=573
 y=-7
@@ -1063,7 +1063,7 @@ transmitop=10
 op10= 
 
 // 548:87
-[com_87]
+[stonehighlight10]
 type=graphic
 x=573
 y=-7
@@ -1077,7 +1077,7 @@ transmitop=10
 op10= 
 
 // 548:88
-[com_88]
+[stonehighlightalpha11]
 type=graphic
 x=603
 y=-7
@@ -1092,7 +1092,7 @@ transmitop=10
 op10=  
 
 // 548:89
-[com_89]
+[stonehighlight11]
 type=graphic
 x=603
 y=-7
@@ -1106,7 +1106,7 @@ transmitop=10
 op10=  
 
 // 548:90
-[com_90]
+[stonehighlightalpha12]
 type=graphic
 x=633
 y=-7
@@ -1121,7 +1121,7 @@ transmitop=10
 op10=  
 
 // 548:91
-[com_91]
+[stonehighlight12]
 type=graphic
 x=633
 y=-7
@@ -1135,7 +1135,7 @@ transmitop=10
 op10=  
 
 // 548:92
-[com_92]
+[stonehighlightalpha13]
 type=graphic
 x=663
 y=-7
@@ -1150,7 +1150,7 @@ transmitop=10
 op10=  
 
 // 548:93
-[com_93]
+[stonehighlight13]
 type=graphic
 x=663
 y=-7
@@ -1164,7 +1164,7 @@ transmitop=10
 op10=  
 
 // 548:94
-[com_94]
+[stonehighlightalpha14]
 type=graphic
 x=693
 y=-7
@@ -1179,7 +1179,7 @@ transmitop=10
 op10=  
 
 // 548:95
-[com_95]
+[stonehighlight14]
 type=graphic
 x=693
 y=-7
@@ -1193,7 +1193,7 @@ transmitop=10
 op10=  
 
 // 548:96
-[com_96]
+[stonehighlightalpha15]
 type=graphic
 x=723
 y=-7
@@ -1208,7 +1208,7 @@ transmitop=10
 op10=  
 
 // 548:97
-[com_97]
+[stonehighlight15]
 type=graphic
 x=723
 y=-7
@@ -1222,12 +1222,12 @@ transmitop=10
 op10=  
 
 // 548:98
-[com_98]
+[stone8]
 type=graphic
 x=3
 width=30
 height=37
-layer=com_80
+layer=backbase2_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=10
@@ -1235,12 +1235,12 @@ op10=
 onop=switchside_op(8)
 
 // 548:99
-[com_99]
+[stone9]
 type=graphic
 x=33
 width=30
 height=37
-layer=com_80
+layer=backbase2_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1,10
@@ -1249,12 +1249,12 @@ op10=
 onop=switchside_op(9)
 
 // 548:100
-[com_100]
+[stone10]
 type=graphic
 x=63
 width=30
 height=37
-layer=com_80
+layer=backbase2_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1,10
@@ -1263,12 +1263,12 @@ op10=
 onop=switchside_op(10)
 
 // 548:101
-[com_101]
+[stone11]
 type=graphic
 x=93
 width=30
 height=37
-layer=com_80
+layer=backbase2_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1,10
@@ -1277,12 +1277,12 @@ op10=
 onop=switchside_op(11)
 
 // 548:102
-[com_102]
+[stone12]
 type=graphic
 x=123
 width=30
 height=37
-layer=com_80
+layer=backbase2_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1,10
@@ -1291,12 +1291,12 @@ op10=
 onop=switchside_op(12)
 
 // 548:103
-[com_103]
+[stone13]
 type=graphic
 x=153
 width=30
 height=37
-layer=com_80
+layer=backbase2_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1,10
@@ -1305,12 +1305,12 @@ op10=
 onop=switchside_op(13)
 
 // 548:104
-[com_104]
+[stone14]
 type=graphic
 x=183
 width=30
 height=37
-layer=com_80
+layer=backbase2_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1,10
@@ -1319,12 +1319,12 @@ op10=
 onop=switchside_op(14)
 
 // 548:105
-[com_105]
+[stone15]
 type=graphic
 x=213
 width=30
 height=37
-layer=com_80
+layer=backbase2_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1,10
@@ -1333,103 +1333,103 @@ op10=
 onop=switchside_op(15)
 
 // 548:106
-[com_106]
+[icon8]
 type=graphic
 x=7
 y=10
 width=22
 height=22
-layer=com_80
+layer=backbase2_hide
 hide=yes
 graphic="stonemenusideicons,8"
 colour=0xffffffff
 
 // 548:107
-[com_107]
+[icon9]
 type=graphic
 x=36
 y=8
 width=25
 height=25
-layer=com_80
+layer=backbase2_hide
 graphic="aif_clan_toplevel_icons,1"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:108
-[com_108]
+[icon10]
 type=graphic
 x=65
 y=8
 width=25
 height=25
-layer=com_80
+layer=backbase2_hide
 graphic="aif_clan_toplevel_icons,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:109
-[com_109]
+[icon11]
 type=graphic
 x=97
 y=9
 width=22
 height=22
-layer=com_80
+layer=backbase2_hide
 graphic="stonemenusideicons,11"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:110
-[com_110]
+[icon12]
 type=graphic
 x=127
 y=9
 width=22
 height=22
-layer=com_80
+layer=backbase2_hide
 graphic="stonemenusideicons,12"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:111
-[com_111]
+[icon13]
 type=graphic
 x=157
 y=9
 width=22
 height=22
-layer=com_80
+layer=backbase2_hide
 graphic="stonemenusideicons,13"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:112
-[com_112]
+[icon14]
 type=graphic
 x=186
 y=8
 width=22
 height=22
-layer=com_80
+layer=backbase2_hide
 graphic="stonemenusideicons,14"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:113
-[com_113]
+[icon15]
 type=graphic
 x=217
 y=10
 width=22
 height=22
-layer=com_80
+layer=backbase2_hide
 graphic="stonemenusideicons,15"
 colour=0xffffffff
 transmitop=10
@@ -1440,12 +1440,12 @@ op10=
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_69
+layer=backbase2
 hide=yes
 noclickthrough=yes
 
 // 548:115
-[com_115]
+[backhmid1]
 type=layer
 x=516
 y=168
@@ -1459,7 +1459,7 @@ onvarctransmit=script1765{varclient_232, varclient_233, varclient_234, varclient
 type=graphic
 width=3
 height=37
-layer=com_115
+layer=backhmid1
 graphic=graphic_1838
 colour=0xffffffff
 
@@ -1469,7 +1469,7 @@ type=graphic
 x=3
 width=3
 height=37
-layer=com_115
+layer=backhmid1
 graphic=graphic_1839
 colour=0xffffffff
 
@@ -1479,123 +1479,123 @@ type=graphic
 width=3
 height=37
 xmode=abs_right
-layer=com_115
+layer=backhmid1
 graphic=graphic_1839
 colour=0xffffffff
 
 // 548:119
-[com_119]
+[bg_stone0]
 type=graphic
 x=6
 width=30
 height=37
-layer=com_115
+layer=backhmid1
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:120
-[com_120]
+[bg_stone1]
 type=graphic
 x=36
 width=30
 height=37
-layer=com_115
+layer=backhmid1
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:121
-[com_121]
+[bg_stone2]
 type=graphic
 x=66
 width=30
 height=37
-layer=com_115
+layer=backhmid1
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:122
-[com_122]
+[bg_stone3]
 type=graphic
 x=96
 width=30
 height=37
-layer=com_115
+layer=backhmid1
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:123
-[com_123]
+[bg_stone4]
 type=graphic
 x=126
 width=30
 height=37
-layer=com_115
+layer=backhmid1
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:124
-[com_124]
+[bg_stone5]
 type=graphic
 x=156
 width=30
 height=37
-layer=com_115
+layer=backhmid1
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:125
-[com_125]
+[bg_stone6]
 type=graphic
 x=186
 width=30
 height=37
-layer=com_115
+layer=backhmid1
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:126
-[com_126]
+[bg_stone7]
 type=graphic
 x=216
 width=30
 height=37
-layer=com_115
+layer=backhmid1
 graphic=graphic_1835
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:127
-[com_127]
+[backhmid1_hide]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_115
+layer=backhmid1
 transmitop=10
 op10= 
 onload=switchside_init
 
 // 548:128
-[com_128]
+[stone0]
 type=graphic
 x=6
 width=30
 height=37
-layer=com_127
+layer=backhmid1_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1
@@ -1604,12 +1604,12 @@ opkey1=5,0
 onop=switchside_op(0)
 
 // 548:129
-[com_129]
+[stone1]
 type=graphic
 x=36
 width=30
 height=37
-layer=com_127
+layer=backhmid1_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1
@@ -1617,12 +1617,12 @@ op1=Task System
 onop=switchside_op(1)
 
 // 548:130
-[com_130]
+[stone2]
 type=graphic
 x=66
 width=30
 height=37
-layer=com_127
+layer=backhmid1_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1
@@ -1630,12 +1630,12 @@ op1=Stats
 onop=switchside_op(2)
 
 // 548:131
-[com_131]
+[stone3]
 type=graphic
 x=96
 width=30
 height=37
-layer=com_127
+layer=backhmid1_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1
@@ -1643,12 +1643,12 @@ op1=Quest Journals
 onop=switchside_op(3)
 
 // 548:132
-[com_132]
+[stone4]
 type=graphic
 x=126
 width=30
 height=37
-layer=com_127
+layer=backhmid1_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1
@@ -1657,12 +1657,12 @@ opkey1=1,0
 onop=switchside_op(4)
 
 // 548:133
-[com_133]
+[stone5]
 type=graphic
 x=156
 width=30
 height=37
-layer=com_127
+layer=backhmid1_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1
@@ -1671,12 +1671,12 @@ opkey1=2,0
 onop=switchside_op(5)
 
 // 548:134
-[com_134]
+[stone6]
 type=graphic
 x=186
 width=30
 height=37
-layer=com_127
+layer=backhmid1_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1
@@ -1685,12 +1685,12 @@ opkey1=3,0
 onop=switchside_op(6)
 
 // 548:135
-[com_135]
+[stone7]
 type=graphic
 x=216
 width=30
 height=37
-layer=com_127
+layer=backhmid1_hide
 graphic=graphic_1836
 colour=0xffffffff
 transmitop=1
@@ -1705,109 +1705,109 @@ x=27
 y=-4
 width=48
 height=48
-layer=com_127
+layer=backhmid1_hide
 graphic=graphic_4519
 alpha=yes
 
 // 548:137
-[com_137]
+[icon0]
 type=graphic
 x=9
 y=8
 width=22
 height=22
-layer=com_127
+layer=backhmid1_hide
 graphic="stonemenusideicons,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:138
-[com_138]
+[icon1]
 type=graphic
 x=40
 y=8
 width=22
 height=22
-layer=com_127
+layer=backhmid1_hide
 graphic="stonemenusideicons,3"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:139
-[com_139]
+[icon2]
 type=graphic
 x=70
 y=8
 width=22
 height=22
-layer=com_127
+layer=backhmid1_hide
 graphic="stonemenusideicons,1"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:140
-[com_140]
+[icon3]
 type=graphic
 x=100
 y=8
 width=22
 height=22
-layer=com_127
+layer=backhmid1_hide
 graphic="stonemenusideicons,2"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:141
-[com_141]
+[icon4]
 type=graphic
 x=130
 y=9
 width=22
 height=22
-layer=com_127
+layer=backhmid1_hide
 graphic="stonemenusideicons,4"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:142
-[com_142]
+[icon5]
 type=graphic
 x=159
 y=8
 width=22
 height=22
-layer=com_127
+layer=backhmid1_hide
 graphic="stonemenusideicons,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:143
-[com_143]
+[icon6]
 type=graphic
 x=190
 y=8
 width=22
 height=22
-layer=com_127
+layer=backhmid1_hide
 graphic="stonemenusideicons,6"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 548:144
-[com_144]
+[icon7]
 type=graphic
 x=220
 y=9
 width=22
 height=22
-layer=com_127
+layer=backhmid1_hide
 graphic="stonemenusideicons,7"
 colour=0xffffffff
 transmitop=10
@@ -1818,10 +1818,10 @@ op10=
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_115
+layer=backhmid1
 
 // 548:146
-[com_146]
+[stonehighlightalpha0]
 type=graphic
 x=-3
 y=-4
@@ -1833,7 +1833,7 @@ alpha=yes
 colour=0xffffffff
 
 // 548:147
-[com_147]
+[stonehighlight0]
 type=graphic
 x=-3
 y=-4
@@ -1844,7 +1844,7 @@ graphic=graphic_1840
 colour=0xffffffff
 
 // 548:148
-[com_148]
+[stonehighlightalpha1]
 type=graphic
 x=27
 y=-4
@@ -1858,7 +1858,7 @@ transmitop=10
 op10= 
 
 // 548:149
-[com_149]
+[stonehighlight1]
 type=graphic
 x=27
 y=-4
@@ -1871,7 +1871,7 @@ transmitop=10
 op10= 
 
 // 548:150
-[com_150]
+[stonehighlightalpha2]
 type=graphic
 x=57
 y=-4
@@ -1885,7 +1885,7 @@ transmitop=10
 op10= 
 
 // 548:151
-[com_151]
+[stonehighlight2]
 type=graphic
 x=57
 y=-4
@@ -1898,7 +1898,7 @@ transmitop=10
 op10= 
 
 // 548:152
-[com_152]
+[stonehighlightalpha3]
 type=graphic
 x=87
 y=-4
@@ -1912,7 +1912,7 @@ transmitop=10
 op10= 
 
 // 548:153
-[com_153]
+[stonehighlight3]
 type=graphic
 x=87
 y=-4
@@ -1925,7 +1925,7 @@ transmitop=10
 op10= 
 
 // 548:154
-[com_154]
+[stonehighlightalpha4]
 type=graphic
 x=117
 y=-4
@@ -1939,7 +1939,7 @@ transmitop=10
 op10= 
 
 // 548:155
-[com_155]
+[stonehighlight4]
 type=graphic
 x=117
 y=-4
@@ -1952,7 +1952,7 @@ transmitop=10
 op10= 
 
 // 548:156
-[com_156]
+[stonehighlightalpha5]
 type=graphic
 x=147
 y=-4
@@ -1966,7 +1966,7 @@ transmitop=10
 op10= 
 
 // 548:157
-[com_157]
+[stonehighlight5]
 type=graphic
 x=147
 y=-4
@@ -1979,7 +1979,7 @@ transmitop=10
 op10= 
 
 // 548:158
-[com_158]
+[stonehighlightalpha6]
 type=graphic
 x=177
 y=-4
@@ -1993,7 +1993,7 @@ transmitop=10
 op10= 
 
 // 548:159
-[com_159]
+[stonehighlight6]
 type=graphic
 x=177
 y=-4
@@ -2006,7 +2006,7 @@ transmitop=10
 op10= 
 
 // 548:160
-[com_160]
+[stonehighlightalpha7]
 type=graphic
 x=207
 y=-4
@@ -2020,7 +2020,7 @@ transmitop=10
 op10= 
 
 // 548:161
-[com_161]
+[stonehighlight7]
 type=graphic
 x=207
 y=-4
@@ -2037,7 +2037,7 @@ op10=
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_115
+layer=backhmid1
 hide=yes
 noclickthrough=yes
 
@@ -2061,7 +2061,7 @@ graphic=backleft1
 colour=0xffffffff
 
 // 548:165
-[com_165]
+[backright2]
 type=layer
 x=737
 y=205
@@ -2073,18 +2073,18 @@ height=261
 type=graphic
 width=28
 height=261
-layer=com_165
+layer=backright2
 graphic=side_background_right
 colour=0xffffffff
 
 // 548:167
-[com_167]
+[backtop1]
 type=layer
 width=516
 height=4
 
 // 548:168
-[com_168]
+[mainborder_right]
 type=layer
 x=516
 y=205
@@ -2098,7 +2098,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_168
+layer=mainborder_right
 graphic=graphic_1120
 colour=0xffffffff
 
@@ -2107,12 +2107,12 @@ colour=0xffffffff
 type=graphic
 width=516
 height=4
-layer=com_167
+layer=backtop1
 graphic=main_top
 colour=0xffffffff
 
 // 548:171
-[com_171]
+[backvmid2]
 type=layer
 x=519
 y=205
@@ -2124,7 +2124,7 @@ height=261
 type=graphic
 width=28
 height=133
-layer=com_171
+layer=backvmid2
 graphic=side_background_left1
 colour=0xffffffff
 
@@ -2134,7 +2134,7 @@ type=graphic
 y=133
 width=28
 height=128
-layer=com_171
+layer=backvmid2
 graphic=side_background_left2
 colour=0xffffffff
 
@@ -2143,20 +2143,20 @@ colour=0xffffffff
 type=graphic
 width=249
 height=4
-layer=com_65
+layer=minimap
 graphic=main_top2
 tiling=yes
 colour=0xffffffff
 
 // 548:175
-[com_175]
+[map]
 type=graphic
 clientcode=1338
 x=35
 y=9
 width=152
 height=152
-layer=com_65
+layer=minimap
 graphic=mapmask
 colour=0xffffffff
 
@@ -2168,7 +2168,7 @@ x=11
 y=8
 width=33
 height=33
-layer=com_65
+layer=minimap
 graphic=compassmask
 colour=0xffffffff
 
@@ -2179,7 +2179,7 @@ x=10
 y=7
 width=35
 height=35
-layer=com_65
+layer=minimap
 noclickthrough=yes
 transmitop=1
 op1=Face North
@@ -2191,18 +2191,18 @@ type=graphic
 y=4
 width=249
 height=157
-layer=com_65
+layer=minimap
 graphic=mapback
 colour=0xffffffff
 
 // 548:179
-[com_179]
+[worldmap_icon]
 type=graphic
 x=10
 y=124
 width=34
 height=34
-layer=com_65
+layer=minimap
 graphic="toplevel_worldmap_button,0"
 colour=0xffffffff
 transmitop=1,2
@@ -2217,17 +2217,17 @@ type=graphic
 y=161
 width=249
 height=7
-layer=com_65
+layer=minimap
 graphic=minimap_bottom
 colour=0xffffffff
 
 // 548:181
-[com_181]
+[logoutbutton]
 type=graphic
 width=21
 height=21
 xmode=abs_right
-layer=com_65
+layer=minimap
 graphic="km_helpandexit21x21,3"
 colour=0xffffffff
 transmitop=1
@@ -2239,22 +2239,22 @@ onop=switchside(99)
 onclick=graphic_swapper(event_com, "km_helpandexit21x21,5")
 
 // 548:182
-[com_orb_health]
+[topstat_hitpoints]
 type=layer
 x=174
 y=14
 width=57
 height=34
-layer=com_65
+layer=minimap
 
 // 548:183
-[com_183]
+[advisorbutton]
 type=graphic
 x=21
 width=21
 height=21
 xmode=abs_right
-layer=com_65
+layer=minimap
 graphic="km_helpandexit21x21,0"
 colour=0xffffffff
 transmitop=1
@@ -2264,22 +2264,22 @@ onmouseleave=graphic_swapper(event_com, "km_helpandexit21x21,0")
 onclick=graphic_swapper(event_com, "km_helpandexit21x21,2")
 
 // 548:184
-[com_orb_prayer]
+[topstat_prayer]
 type=layer
 x=190
 y=53
 width=57
 height=34
-layer=com_65
+layer=minimap
 
 // 548:185
-[com_orb_energy]
+[topstat_run]
 type=layer
 x=190
 y=92
 width=57
 height=34
-layer=com_65
+layer=minimap
 
 // 548:186
 [com_186]
@@ -2289,7 +2289,7 @@ y=75
 width=64
 height=64
 xmode=abs_right
-layer=com_65
+layer=minimap
 graphic="topstat_alpha_glow,0"
 alpha=yes
 colour=0xffffffff
@@ -2297,13 +2297,13 @@ onload=topstat_run_glow_onload(event_com)
 onvarctransmit=topstat_run_glow_timer_init(event_com){varclient_119}
 
 // 548:187
-[com_orb_summoning]
+[topstat_lore]
 type=layer
 x=174
 y=127
 width=57
 height=34
-layer=com_65
+layer=minimap
 
 // 548:188
 [com_188]
@@ -2311,7 +2311,7 @@ type=model
 y=-1
 width=66
 height=66
-layer=com_65
+layer=minimap
 hide=yes
 model=model_41760
 modelorigin=-1,0
@@ -2320,28 +2320,28 @@ modelzoom=1000
 modelanim=seq_10221
 
 // 548:189
-[com_189]
+[xpx2smallbuttonlayer]
 type=layer
 y=46
 width=40
 height=40
-layer=com_65
+layer=minimap
 transmitop=10
 op10=    
 
 // 548:190
-[com_190]
+[minimap_disable]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_65
+layer=minimap
 hide=yes
 noclickthrough=yes
 
 // 548:191
-[com_191]
+[chattop_container]
 type=layer
 y=338
 width=519
@@ -2349,23 +2349,23 @@ height=142
 onload=subchanged_init(event_com)
 
 // 548:192
-[com_chatbox]
+[chattop]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_191
+layer=chattop_container
 
 // 548:193
-[com_193]
+[chat_disable]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_191
+layer=chattop_container
 hide=yes
 noclickthrough=yes
 
 // 548:194
-[com_194]
+[side]
 type=layer
 x=547
 y=205
@@ -2388,40 +2388,40 @@ hide=yes
 type=graphic
 width=190
 height=261
-layer=com_194
+layer=side
 graphic=side_background
 colour=0xffffffff
 
 // 548:197
-[com_197]
+[clan_login]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_194
+layer=side
 onvarctransmit=script28(event_com){varclient_1027, varclient_1034}
 onvarcstrtransmit=script28(event_com){varclient_1721}
 
 // 548:198
-[com_overlay_tab]
+[sidemodal]
 type=layer
 width=190
 height=261
-layer=com_194
+layer=side
 
 // 548:199
-[com_199]
+[sidemodal2]
 type=layer
 width=190
 height=261
-layer=com_194
+layer=side
 hide=yes
 
 // 548:200
-[com_200]
+[side_hide]
 type=layer
 width=190
 height=261
-layer=com_194
+layer=side
 
 // 548:201
 [com_201]
@@ -2429,7 +2429,7 @@ type=model
 y=-1
 width=66
 height=66
-layer=com_194
+layer=side
 hide=yes
 model=model_41760
 modelorigin=-1,0
@@ -2438,204 +2438,204 @@ modelzoom=1000
 modelanim=seq_10221
 
 // 548:202
-[com_202]
+[side_disable]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_194
+layer=side
 hide=yes
 noclickthrough=yes
 
 // 548:203
-[com_tab0]
+[side0]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:204
-[com_tab1]
+[side1]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:205
-[com_tab2]
+[side2]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:206
-[com_tab3]
+[side3]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:207
-[com_tab4]
+[side4]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 
 // 548:208
-[com_tab5]
+[side5]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:209
-[com_tab6]
+[side6]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:210
-[com_tab7]
+[side7]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:211
-[com_tab8]
+[side8]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:212
-[com_tab9]
+[side9]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:213
-[com_tab10]
+[side10]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:214
-[com_tab11]
+[side11]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:215
-[com_tab12]
+[side12]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:216
-[com_tab13]
+[side13]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:217
-[com_tab14]
+[side14]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 transmitop=10
 op10= 
 
 // 548:218
-[com_tab15]
+[side15]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 transmitop=10
 op10= 
 
 // 548:219
-[com_219]
+[side94]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 transmitop=10
 op10= 
 
 // 548:220
-[com_220]
+[side95]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:221
-[com_221]
+[side99]
 type=layer
 width=190
 height=261
-layer=com_200
+layer=side_hide
 hide=yes
 
 // 548:222
-[com_222]
+[statusicon_tooltip_bg]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_15
+layer=statusicon_tooltip
 colour=0xffffa0
 fill=yes
 transmitop=10
 op10=  
 
 // 548:223
-[com_223]
+[statusicon_tooltip_outline]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_15
+layer=statusicon_tooltip
 colour=0x000000
 transmitop=10
 op10=  
 
 // 548:224
-[com_224]
+[statusicon_tooltip_text]
 type=text
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_15
+layer=statusicon_tooltip
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -2760,7 +2760,7 @@ height=6
 widthmode=minus
 heightmode=minus
 layer=com_225
-textfont=graphic_5631
+textfont=verdana_11pt_regular_multiline
 text=The "?" icon will add an arrow to the screen which points to your destination.
 textalignh=centre
 textalignv=centre

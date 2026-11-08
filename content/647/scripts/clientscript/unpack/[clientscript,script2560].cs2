@@ -1,12 +1,12 @@
 // 2560
 [clientscript,script2560]
-if_settext(enum(int, string, enum_2385, 1), mob_special_unit_contract:com_10);
-if_settext(enum(int, string, enum_2385, 2), mob_special_unit_contract:com_14);
-if_settext(enum(int, string, enum_2385, 3), mob_special_unit_contract:com_18);
-if_settext(enum(int, string, enum_2385, 4), mob_special_unit_contract:com_22);
-if_settext(enum(int, string, enum_2385, 5), mob_special_unit_contract:com_26);
-if_settext("x <tostring(%varclient_828)>", mob_special_unit_contract:com_9);
-if_settext("x <tostring(%varclient_829)>", mob_special_unit_contract:com_13);
-if_settext("x <tostring(%varclient_830)>", mob_special_unit_contract:com_17);
-if_settext("x <tostring(%varclient_831)>", mob_special_unit_contract:com_21);
-if_settext("x <tostring(%varclient_832)>", mob_special_unit_contract:com_25);
+if_settext(enum(int, string, enum_2385, 1), mob_special_unit_contract:text1);
+if_settext(enum(int, string, enum_2385, 2), mob_special_unit_contract:text2);
+if_settext(enum(int, string, enum_2385, 3), mob_special_unit_contract:text3);
+if_settext(enum(int, string, enum_2385, 4), mob_special_unit_contract:text4);
+if_settext(enum(int, string, enum_2385, 5), mob_special_unit_contract:text5);
+if_settext("x <tostring(%varclient_828)>", mob_special_unit_contract:num1);
+if_settext("x <tostring(%varclient_829)>", mob_special_unit_contract:num2);
+if_settext("x <tostring(%varclient_830)>", mob_special_unit_contract:num3);
+if_settext("x <tostring(%varclient_831)>", mob_special_unit_contract:num4);
+if_settext("x <tostring(%varclient_832)>", mob_special_unit_contract:num5);

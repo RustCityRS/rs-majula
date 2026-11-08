@@ -1,11 +1,11 @@
 // 3173
 [proc,lobbyscreen_pane_clanchat_chat_build](component $component0)
 ~script4548;
-if (minimenuopen(lobbyscreen_pane_clanchat:com_21, -1) = true) {
+if (minimenuopen(lobbyscreen_pane_clanchat:chat_build, -1) = true) {
     if_setontimer("lobbyscreen_pane_clanchat_chat_build($component0)", $component0);
     return;
 }
-cc_deleteall(lobbyscreen_pane_clanchat:com_21);
+cc_deleteall(lobbyscreen_pane_clanchat:chat_build);
 def_string $string0 = "<col=7fa9ff>";
 def_string $string1 = "<col=ff5256>";
 def_int $int1 = 0;
@@ -29,7 +29,7 @@ while ($int1 < 100) {
     }
     $int1 = calc($int1 + 1);
 }
-def_int $int4 = calc(if_getheight(lobbyscreen_pane_clanchat:com_21) / 15);
+def_int $int4 = calc(if_getheight(lobbyscreen_pane_clanchat:chat_build) / 15);
 $int1 = 0;
 def_int $int5 = 0;
 if ($int2 < $int4) {
@@ -40,7 +40,7 @@ if ($int2 < $int4) {
     }
 }
 def_int $int6 = max(calc($int2 * 15), calc($int4 * 15));
-if_setscrollsize(0, $int6, lobbyscreen_pane_clanchat:com_21);
-~scrollbar_resize(lobbyscreen_pane_clanchat:com_22, lobbyscreen_pane_clanchat:com_21, calc(%varclient_1124 + if_getscrollheight(lobbyscreen_pane_clanchat:com_21) - %varclient_1125));
-%varclient_1124 = if_getscrolly(lobbyscreen_pane_clanchat:com_21);
-%varclient_1125 = if_getscrollheight(lobbyscreen_pane_clanchat:com_21);
+if_setscrollsize(0, $int6, lobbyscreen_pane_clanchat:chat_build);
+~scrollbar_resize(lobbyscreen_pane_clanchat:chat_scroll, lobbyscreen_pane_clanchat:chat_build, calc(%varclient_1124 + if_getscrollheight(lobbyscreen_pane_clanchat:chat_build) - %varclient_1125));
+%varclient_1124 = if_getscrolly(lobbyscreen_pane_clanchat:chat_build);
+%varclient_1125 = if_getscrollheight(lobbyscreen_pane_clanchat:chat_build);

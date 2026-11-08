@@ -1,14 +1,14 @@
 // 1555
 [proc,script1555](int $int0)
-if_setposition(~script1551(%varclient_1028, %varclient_1520, p12_full, $int0), if_gety(chatbox_background:com_56), ^setpos_abs_left, ^setpos_abs_top, chatbox_background:com_56);
+if_setposition(~script1551(%varclient_1028, %varclient_1520, p12_full, $int0), if_gety(chatdefault:caret), ^setpos_abs_left, ^setpos_abs_top, chatdefault:caret);
 if (string_length(%varclient_1520) <= 0) {
-    if_sethide(true, chatbox_background:com_56);
-    if_setontimer(null, chatbox_background:com_55);
+    if_sethide(true, chatdefault:caret);
+    if_setontimer(null, chatdefault:input);
 } else {
     if (applet_hasfocus = true) {
-        if_sethide(false, chatbox_background:com_56);
+        if_sethide(false, chatdefault:caret);
     } else {
-        if_sethide(true, chatbox_background:com_56);
+        if_sethide(true, chatdefault:caret);
     }
-    if_setontimer("caret_flash(clientclock, chatbox_background:com_56)", chatbox_background:com_55);
+    if_setontimer("caret_flash(clientclock, chatdefault:caret)", chatdefault:input);
 }

@@ -14,7 +14,7 @@ type=model
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_23
+layer=centre
 model=null
 modelzoom=0
 modelobjwidth=80
@@ -29,7 +29,7 @@ type=model
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_14
+layer=ne
 model=null
 modelzoom=0
 modelobjwidth=80
@@ -44,7 +44,7 @@ type=model
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_20
+layer=se
 model=null
 modelzoom=0
 modelobjwidth=80
@@ -59,7 +59,7 @@ type=model
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_17
+layer=sw
 model=null
 modelzoom=0
 modelobjwidth=80
@@ -109,7 +109,7 @@ graphic="miscgraphics,8"
 colour=0x000000
 
 // 649:9
-[com_9]
+[clanwars_orb_off]
 type=text
 x=39
 y=202
@@ -128,7 +128,7 @@ onmouseover=text_colour_swapper(event_com, ^yellow)
 onmouseleave=text_colour_swapper(event_com, ^white)
 
 // 649:10
-[com_10]
+[nw]
 type=layer
 width=80
 height=80
@@ -139,7 +139,7 @@ type=model
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_10
+layer=nw
 model=null
 modelzoom=0
 modelobjwidth=80
@@ -147,12 +147,12 @@ onload=clanwars_orb(event_com)
 onvarctransmit=clanwars_orb(event_com){varclient_269}
 
 // 649:12
-[com_12]
+[nw_text]
 type=text
 width=80
 height=20
 ymode=abs_bottom
-layer=com_10
+layer=nw
 textfont=p12_full
 text=North-west
 textalignh=centre
@@ -161,37 +161,37 @@ textshadow=yes
 colour=0xb17a37
 
 // 649:13
-[com_13]
+[nw_button]
 type=rectangle
 width=25
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_10
+layer=nw
 colour=0x000000
 fill=yes
 trans=255
 transmitop=1
 opbase=<col=ff9040>North-west
 op1=View
-onmouseover=text_colour_swapper(clanwars_viewing_orb:com_12, ^white)
-onmouseleave=text_colour_swapper(clanwars_viewing_orb:com_12, 0xff981f)
+onmouseover=text_colour_swapper(clanwars_viewing_orb:nw_text, ^white)
+onmouseleave=text_colour_swapper(clanwars_viewing_orb:nw_text, 0xff981f)
 
 // 649:14
-[com_14]
+[ne]
 type=layer
 width=80
 height=80
 xmode=abs_right
 
 // 649:15
-[com_15]
+[ne_text]
 type=text
 height=20
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_14
+layer=ne
 textfont=p12_full
 text=North-east
 textalignh=centre
@@ -200,36 +200,36 @@ textshadow=yes
 colour=0xb17a37
 
 // 649:16
-[com_16]
+[ne_button]
 type=rectangle
 width=25
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_14
+layer=ne
 colour=0x000000
 fill=yes
 trans=255
 transmitop=1
 opbase=<col=ff9040>North-east
 op1=View
-onmouseover=text_colour_swapper(clanwars_viewing_orb:com_15, ^white)
-onmouseleave=text_colour_swapper(clanwars_viewing_orb:com_15, 0xff981f)
+onmouseover=text_colour_swapper(clanwars_viewing_orb:ne_text, ^white)
+onmouseleave=text_colour_swapper(clanwars_viewing_orb:ne_text, 0xff981f)
 
 // 649:17
-[com_17]
+[sw]
 type=layer
 y=116
 width=80
 height=80
 
 // 649:18
-[com_18]
+[sw_text]
 type=text
 height=20
 widthmode=minus
 ymode=abs_bottom
-layer=com_17
+layer=sw
 textfont=p12_full
 text=South-west
 textalignh=centre
@@ -238,24 +238,24 @@ textshadow=yes
 colour=0xb17a37
 
 // 649:19
-[com_19]
+[sw_button]
 type=rectangle
 width=25
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_17
+layer=sw
 colour=0x000000
 fill=yes
 trans=255
 transmitop=1
 opbase=<col=ff9040>South-west
 op1=View
-onmouseover=text_colour_swapper(clanwars_viewing_orb:com_18, ^white)
-onmouseleave=text_colour_swapper(clanwars_viewing_orb:com_18, 0xff981f)
+onmouseover=text_colour_swapper(clanwars_viewing_orb:sw_text, ^white)
+onmouseleave=text_colour_swapper(clanwars_viewing_orb:sw_text, 0xff981f)
 
 // 649:20
-[com_20]
+[se]
 type=layer
 y=116
 width=80
@@ -263,12 +263,12 @@ height=80
 xmode=abs_right
 
 // 649:21
-[com_21]
+[se_text]
 type=text
 height=20
 widthmode=minus
 ymode=abs_bottom
-layer=com_20
+layer=se
 textfont=p12_full
 text=South-east
 textalignh=centre
@@ -277,24 +277,24 @@ textshadow=yes
 colour=0xb17a37
 
 // 649:22
-[com_22]
+[se_button]
 type=rectangle
 width=25
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_20
+layer=se
 colour=0x000000
 fill=yes
 trans=255
 transmitop=1
 opbase=<col=ff9040>South-east
 op1=View
-onmouseover=text_colour_swapper(clanwars_viewing_orb:com_21, ^white)
-onmouseleave=text_colour_swapper(clanwars_viewing_orb:com_21, 0xff981f)
+onmouseover=text_colour_swapper(clanwars_viewing_orb:se_text, ^white)
+onmouseleave=text_colour_swapper(clanwars_viewing_orb:se_text, 0xff981f)
 
 // 649:23
-[com_23]
+[centre]
 type=layer
 y=58
 width=80
@@ -302,12 +302,12 @@ height=80
 xmode=abs_centre
 
 // 649:24
-[com_24]
+[centre_text]
 type=text
 height=20
 widthmode=minus
 ymode=abs_bottom
-layer=com_23
+layer=centre
 textfont=p12_full
 text=Centre
 textalignh=centre
@@ -316,18 +316,18 @@ textshadow=yes
 colour=0xb17a37
 
 // 649:25
-[com_25]
+[centre_button]
 type=rectangle
 width=25
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_23
+layer=centre
 colour=0x000000
 fill=yes
 trans=255
 transmitop=1
 opbase=<col=ff9040>Centre
 op1=View
-onmouseover=text_colour_swapper(clanwars_viewing_orb:com_24, ^white)
-onmouseleave=text_colour_swapper(clanwars_viewing_orb:com_24, 0xff981f)
+onmouseover=text_colour_swapper(clanwars_viewing_orb:centre_text, ^white)
+onmouseleave=text_colour_swapper(clanwars_viewing_orb:centre_text, 0xff981f)

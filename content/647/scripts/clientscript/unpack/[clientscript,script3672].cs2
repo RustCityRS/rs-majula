@@ -6,32 +6,32 @@ def_string $string2 = enum(int, string, enum_3231, %varclient_1330);
 def_string $string3 = "<tostring(%varclient_1325)>%";
 def_graphic $graphic0 = enum(int, graphic, enum_3233, %varclient_1328);
 def_graphic $graphic1 = enum(int, graphic, enum_3233, %varclient_1329);
-if_settext($string0, leanfounder_1:com_72);
-if_setcolour(enum(int, int, enum_3234, %varclient_1327), leanfounder_1:com_72);
-if_settext($string1, leanfounder_1:com_71);
-if_setcolour(enum(int, int, enum_3234, %varclient_1326), leanfounder_1:com_71);
-if_setgraphic($graphic0, leanfounder_1:com_68);
-if_setgraphic($graphic1, leanfounder_1:com_69);
-if_settext($string2, leanfounder_1:com_70);
-if_setcolour(enum(int, int, enum_3235, %varclient_1330), leanfounder_1:com_70);
-if_settext($string3, leanfounder_1:com_73);
+if_settext($string0, leanfounder_1:heat_value);
+if_setcolour(enum(int, int, enum_3234, %varclient_1327), leanfounder_1:heat_value);
+if_settext($string1, leanfounder_1:power_value);
+if_setcolour(enum(int, int, enum_3234, %varclient_1326), leanfounder_1:power_value);
+if_setgraphic($graphic0, leanfounder_1:needed_value);
+if_setgraphic($graphic1, leanfounder_1:current_value);
+if_settext($string2, leanfounder_1:balance_value);
+if_setcolour(enum(int, int, enum_3235, %varclient_1330), leanfounder_1:balance_value);
+if_settext($string3, leanfounder_1:progress_value);
 if (%varclient_1327 ! 3) {
-    if_sethide(false, leanfounder_1:com_66);
+    if_sethide(false, leanfounder_1:heat_warning);
 } else {
-    if_sethide(true, leanfounder_1:com_66);
+    if_sethide(true, leanfounder_1:heat_warning);
 }
 if (%varclient_1326 ! 3) {
-    if_sethide(false, leanfounder_1:com_63);
+    if_sethide(false, leanfounder_1:power_warning);
 } else {
-    if_sethide(true, leanfounder_1:com_63);
+    if_sethide(true, leanfounder_1:power_warning);
 }
 if (%varclient_1331 = 1) {
-    if_sethide(false, leanfounder_1:com_65);
+    if_sethide(false, leanfounder_1:chem_warning);
 } else {
-    if_sethide(true, leanfounder_1:com_65);
+    if_sethide(true, leanfounder_1:chem_warning);
 }
 if (%varclient_1330 > 66) {
-    if_sethide(false, leanfounder_1:com_64);
+    if_sethide(false, leanfounder_1:balance_warning);
 } else {
-    if_sethide(true, leanfounder_1:com_64);
+    if_sethide(true, leanfounder_1:balance_warning);
 }

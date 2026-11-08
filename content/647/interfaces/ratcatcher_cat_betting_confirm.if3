@@ -8,7 +8,7 @@ fill=yes
 trans=160
 
 // 280:1
-[com_1]
+[vc_confirm_yes]
 type=graphic
 x=220
 y=188
@@ -18,7 +18,7 @@ graphic="combatboxes,0"
 colour=0x000000
 
 // 280:2
-[com_2]
+[vc_confirm_no]
 type=graphic
 x=220
 y=238
@@ -28,7 +28,7 @@ graphic="combatboxes,0"
 colour=0x000000
 
 // 280:3
-[com_3]
+[ratcatcher_cat_acceptcopy]
 type=text
 x=220
 y=188
@@ -44,7 +44,7 @@ transmitop=1
 op1=Accept
 
 // 280:4
-[com_4]
+[ratcatcher_cat_declinecopy]
 type=text
 x=220
 y=238
@@ -60,7 +60,7 @@ transmitop=1
 op1=Decline
 
 // 280:5
-[com_5]
+[vc_ratpit_bet_amount]
 type=text
 x=108
 y=146

@@ -2,7 +2,7 @@
 [proc,script974](int $int0, int $int1, obj $obj2, graphic $graphic3, string $string0, int $int4, int $int5)(int)
 def_int $int6 = 0;
 def_graphic $graphic7 = graphic_2287;
-cc_create(lvl_scroll:com_2, ^iftype_graphic, $int0);
+cc_create(lvl_scroll:info, ^iftype_graphic, $int0);
 if (~script1566($int4, $int5) = 1) {
     if ($int4 = 7) {
         cc_setsize(30, 30, ^setsize_abs, ^setsize_abs);
@@ -36,7 +36,7 @@ if (~script1566($int4, $int5) = 1) {
     }
 }
 cc_setposition(0, $int1, ^setpos_abs_left, ^setpos_abs_top);
-cc_create(lvl_scroll:com_2, ^iftype_text, calc($int0 + 1));
+cc_create(lvl_scroll:info, ^iftype_text, calc($int0 + 1));
 $int6 = paraheight($string0, 300, p12_full);
 cc_setsize(300, calc($int6 * 16), ^setsize_abs, ^setsize_abs);
 return($int6);

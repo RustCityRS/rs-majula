@@ -84,15 +84,15 @@ switch_int (%varclient_174) {
                 return;
             case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
                 %varclient_1099 = ~script1553($key0, %varclient_1099, %varclient_1643);
-                ~script3218(account_create:com_77, account_create:com_78, account_create:com_79, ~script2949(%varclient_1643), 7);
+                ~script3218(account_create:com_77, account_create:password_input_text, account_create:com_79, ~script2949(%varclient_1643), 7);
                 return;
         }
         if (string_length(%varclient_1643) > 20 & $key0 ! ^key_backspace & $key0 ! ^key_del) {
             return;
         }
         %varclient_1643, %varclient_1099 = ~script802(%varclient_1099, %varclient_1643, 0, $key0, $char1);
-        if_settext(~script2949(%varclient_1643), account_create:com_78);
-        ~script3218(account_create:com_77, account_create:com_78, account_create:com_79, ~script2949(%varclient_1643), 7);
+        if_settext(~script2949(%varclient_1643), account_create:password_input_text);
+        ~script3218(account_create:com_77, account_create:password_input_text, account_create:com_79, ~script2949(%varclient_1643), 7);
         return;
     case 8 :
         switch_int ($key0) {
@@ -111,15 +111,15 @@ switch_int (%varclient_174) {
                 return;
             case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
                 %varclient_1099 = ~script1553($key0, %varclient_1099, %varclient_1644);
-                ~script3218(account_create:com_67, account_create:com_68, account_create:com_69, ~script2949(%varclient_1644), 8);
+                ~script3218(account_create:com_67, account_create:password2_input_text, account_create:com_69, ~script2949(%varclient_1644), 8);
                 return;
         }
         if (string_length(%varclient_1644) > 20 & $key0 ! ^key_backspace & $key0 ! ^key_del) {
             return;
         }
         %varclient_1644, %varclient_1099 = ~script802(%varclient_1099, %varclient_1644, 0, $key0, $char1);
-        if_settext(~script2949(%varclient_1644), account_create:com_68);
-        ~script3218(account_create:com_67, account_create:com_68, account_create:com_69, ~script2949(%varclient_1644), 8);
+        if_settext(~script2949(%varclient_1644), account_create:password2_input_text);
+        ~script3218(account_create:com_67, account_create:password2_input_text, account_create:com_69, ~script2949(%varclient_1644), 8);
         return;
     case 15 :
         switch_int ($key0) {

@@ -16,8 +16,8 @@ def_int $int2 = %varclient_1038;
 def_int $int3 = calc(%varclient_192 - $int2);
 def_int $int4 = calc(($int0 - $int2) * -1);
 def_int $int5 = calc($int3 - (439 - 1));
-if_sethide(false, bank_v2_main:com_22);
-if_sethide(true, bank_v2_main:com_23);
+if_sethide(false, bank_v2_main:bank_space);
+if_sethide(true, bank_v2_main:demo_bank_space);
 if ($int5 > 0) {
     $int2 = calc($int2 + $int5);
     $int3 = calc(439 - 1);
@@ -37,9 +37,9 @@ if ($int5 > 0) {
         $string1 = "Total number of <col=ba1626>member</col> bank slots used<br><col=ba1626>Note: this includes an overflow of <tostring($int4)> free items</col>";
     }
 }
-if_settext(tostring($int2), bank_v2_main:com_29);
-if_settext(tostring($int3), bank_v2_main:com_31);
-if_setonmouserepeat("script1160(event_com, -1, bank_v2_main:com_119, $string0, 25, 150)", bank_v2_main:com_29);
-if_setonmouserepeat("script1160(event_com, -1, bank_v2_main:com_119, $string1, 25, 150)", bank_v2_main:com_31);
-if_settext(tostring($int0), bank_v2_main:com_30);
-if_settext(tostring($int1), bank_v2_main:com_32);
+if_settext(tostring($int2), bank_v2_main:bank_space_f2p_current);
+if_settext(tostring($int3), bank_v2_main:bank_space_mem_current);
+if_setonmouserepeat("script1160(event_com, -1, bank_v2_main:tooltip, $string0, 25, 150)", bank_v2_main:bank_space_f2p_current);
+if_setonmouserepeat("script1160(event_com, -1, bank_v2_main:tooltip, $string1, 25, 150)", bank_v2_main:bank_space_mem_current);
+if_settext(tostring($int0), bank_v2_main:bank_space_f2p_total);
+if_settext(tostring($int1), bank_v2_main:bank_space_mem_total);

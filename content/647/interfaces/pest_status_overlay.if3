@@ -1,5 +1,5 @@
 // 408:0
-[com_0]
+[pest_status_over_time]
 type=text
 x=5
 y=87
@@ -11,7 +11,7 @@ textshadow=yes
 colour=0xcccccc
 
 // 408:1
-[com_1]
+[pest_status_over_health]
 type=text
 x=29
 y=32
@@ -23,7 +23,7 @@ textshadow=yes
 colour=0x5ebb29
 
 // 408:2
-[com_2]
+[pest_status_port1]
 type=model
 x=353
 y=26
@@ -34,7 +34,7 @@ modelorigin=0,15
 modelzoom=5000
 
 // 408:3
-[com_3]
+[pest_status_port2]
 type=model
 x=390
 y=26
@@ -45,7 +45,7 @@ modelorigin=0,15
 modelzoom=5000
 
 // 408:4
-[com_4]
+[pest_status_port3]
 type=model
 x=428
 y=26
@@ -56,7 +56,7 @@ modelorigin=0,15
 modelzoom=5000
 
 // 408:5
-[com_5]
+[pest_status_port4]
 type=model
 x=466
 y=26
@@ -79,7 +79,7 @@ modelangle=3,0,0
 modelzoom=1800
 
 // 408:7
-[com_7]
+[pest_portal_1_done]
 type=model
 x=350
 y=24
@@ -90,7 +90,7 @@ modelangle=540,0,0
 modelzoom=3000
 
 // 408:8
-[com_8]
+[pest_portal_2_done]
 type=model
 x=387
 y=24
@@ -101,7 +101,7 @@ modelangle=540,0,0
 modelzoom=3000
 
 // 408:9
-[com_9]
+[pest_portal_3_done]
 type=model
 x=425
 y=24
@@ -112,7 +112,7 @@ modelangle=546,0,0
 modelzoom=3000
 
 // 408:10
-[com_10]
+[pest_portal_4_done]
 type=model
 x=463
 y=24
@@ -123,7 +123,7 @@ modelangle=540,0,0
 modelzoom=3000
 
 // 408:11
-[com_11]
+[pest_status_over_dam]
 type=text
 x=29
 y=60
@@ -147,7 +147,7 @@ modelangle=579,0,0
 modelzoom=2056
 
 // 408:13
-[com_13]
+[pest_status_porttxt1]
 type=text
 x=356
 y=10
@@ -159,7 +159,7 @@ textshadow=yes
 colour=0xff00ff
 
 // 408:14
-[com_14]
+[pest_status_porttxt2]
 type=text
 x=393
 y=10
@@ -171,7 +171,7 @@ textshadow=yes
 colour=0x6666ff
 
 // 408:15
-[com_15]
+[pest_status_porttxt3]
 type=text
 x=431
 y=10
@@ -183,7 +183,7 @@ textshadow=yes
 colour=0xffff00
 
 // 408:16
-[com_16]
+[pest_status_porttxt4]
 type=text
 x=470
 y=10
@@ -195,19 +195,19 @@ textshadow=yes
 colour=0xff3333
 
 // 408:17
-[com_17]
+[shield1]
 type=model
 x=-3
 y=-25
 width=39
 height=39
-layer=com_18
+layer=purple_shield
 model=model_27167
 modelorigin=0,22
 modelzoom=3500
 
 // 408:18
-[com_18]
+[purple_shield]
 type=layer
 x=350
 y=46
@@ -215,19 +215,19 @@ width=32
 height=32
 
 // 408:19
-[com_19]
+[shield2]
 type=model
 x=-3
 y=-25
 width=39
 height=39
-layer=com_20
+layer=blue_shield
 model=model_27167
 modelorigin=0,22
 modelzoom=3500
 
 // 408:20
-[com_20]
+[blue_shield]
 type=layer
 x=387
 y=46
@@ -235,19 +235,19 @@ width=32
 height=32
 
 // 408:21
-[com_21]
+[shield3]
 type=model
 x=-3
 y=-25
 width=39
 height=39
-layer=com_22
+layer=yellow_shield
 model=model_27167
 modelorigin=0,22
 modelzoom=3500
 
 // 408:22
-[com_22]
+[yellow_shield]
 type=layer
 x=425
 y=46
@@ -255,19 +255,19 @@ width=32
 height=32
 
 // 408:23
-[com_23]
+[shield4]
 type=model
 x=-3
 y=-25
 width=39
 height=39
-layer=com_24
+layer=red_shield
 model=model_27167
 modelorigin=0,22
 modelzoom=3500
 
 // 408:24
-[com_24]
+[red_shield]
 type=layer
 x=463
 y=46

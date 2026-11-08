@@ -2,10 +2,10 @@
 [clientscript,script3674](int $int0)
 if ($int0 = 1) {
     if_setgraphic("login_lobby_button,6", leanfounder_1:com_90);
-    if_setgraphic("login_lobby_button,7", leanfounder_1:com_91);
+    if_setgraphic("login_lobby_button,7", leanfounder_1:go_button);
     if_setgraphic("login_lobby_button,6", leanfounder_1:com_92);
 } else {
     if_setgraphic("login_lobby_button,2", leanfounder_1:com_90);
-    if_setgraphic("login_lobby_button,3", leanfounder_1:com_91);
+    if_setgraphic("login_lobby_button,3", leanfounder_1:go_button);
     if_setgraphic("login_lobby_button,2", leanfounder_1:com_92);
 }

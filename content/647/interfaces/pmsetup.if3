@@ -1,9 +1,9 @@
 // 982:0
-[com_0]
+[universe]
 type=layer
 width=190
 height=261
-onload=pmsetup_init(event_com, pmsetup:com_15, pmsetup:com_70, pmsetup:com_40, pmsetup:com_95, pmsetup:com_11, pmsetup:com_13, pmsetup:com_7, pmsetup:com_9, pmsetup:com_37, pmsetup:com_38, pmsetup:com_39, pmsetup:com_92, pmsetup:com_93, pmsetup:com_94, pmsetup:com_117, pmsetup:com_118, pmsetup:com_119, pmsetup:com_41, pmsetup:com_45, pmsetup:com_67, pmsetup:com_69)
+onload=pmsetup_init(event_com, pmsetup:clan, pmsetup:com_70, pmsetup:private, pmsetup:com_95, pmsetup:tab_clan, pmsetup:com_13, pmsetup:tab_private, pmsetup:com_9, pmsetup:clansample, pmsetup:com_38, pmsetup:com_39, pmsetup:com_92, pmsetup:com_93, pmsetup:com_94, pmsetup:com_117, pmsetup:com_118, pmsetup:com_119, pmsetup:nosplit, pmsetup:nosplit_tick, pmsetup:sample, pmsetup:sample_text)
 
 // 982:1
 [com_1]
@@ -12,18 +12,18 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=universe
 graphic=tradebacking
 tiling=yes
 colour=0x000000
 
 // 982:2
-[com_2]
+[title]
 type=layer
 height=30
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=universe
 
 // 982:3
 [com_3]
@@ -31,7 +31,7 @@ type=rectangle
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_2
+layer=title
 colour=0x000000
 fill=yes
 trans=200
@@ -42,7 +42,7 @@ type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_2
+layer=title
 textfont=b12_full
 text=Chat Setup
 textalignh=centre
@@ -51,14 +51,14 @@ textshadow=yes
 colour=0xff981f
 
 // 982:5
-[com_5]
+[close]
 type=graphic
 x=5
 width=16
 height=16
 xmode=abs_right
 ymode=abs_centre
-layer=com_2
+layer=title
 graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1
@@ -67,23 +67,23 @@ onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
 onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 
 // 982:6
-[com_6]
+[tabs]
 type=layer
 y=30
 width=4
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=universe
 
 // 982:7
-[com_7]
+[tab_private]
 type=graphic
 x=135
 width=59
 height=20
 ymode=abs_centre
-layer=com_6
+layer=tabs
 graphic="tabs,1"
 
 // 982:8
@@ -93,7 +93,7 @@ x=139
 width=50
 heightmode=minus
 ymode=abs_centre
-layer=com_6
+layer=tabs
 textfont=p11_full
 text=Private
 textalignh=centre
@@ -108,7 +108,7 @@ x=90
 width=55
 height=20
 ymode=abs_centre
-layer=com_6
+layer=tabs
 graphic="tabs,1"
 
 // 982:10
@@ -118,7 +118,7 @@ x=100
 width=37
 heightmode=minus
 ymode=abs_centre
-layer=com_6
+layer=tabs
 textfont=p11_full
 text=Guest
 textalignh=centre
@@ -127,13 +127,13 @@ textshadow=yes
 colour=0xff981f
 
 // 982:11
-[com_11]
+[tab_clan]
 type=graphic
 x=45
 width=55
 height=20
 ymode=abs_centre
-layer=com_6
+layer=tabs
 graphic="tabs,1"
 
 // 982:12
@@ -143,7 +143,7 @@ x=50
 width=43
 heightmode=minus
 ymode=abs_centre
-layer=com_6
+layer=tabs
 textfont=p11_full
 text=Clan
 textalignh=centre
@@ -157,7 +157,7 @@ type=graphic
 width=55
 height=20
 ymode=abs_centre
-layer=com_6
+layer=tabs
 graphic="tabs,1"
 
 // 982:14
@@ -166,7 +166,7 @@ type=text
 width=50
 heightmode=minus
 ymode=abs_centre
-layer=com_6
+layer=tabs
 textfont=p11_full
 text=Friend
 textalignh=centre
@@ -175,14 +175,14 @@ textshadow=yes
 colour=0xff981f
 
 // 982:15
-[com_15]
+[clan]
 type=layer
 height=50
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=universe
 hide=yes
 
 // 982:16
@@ -193,7 +193,7 @@ width=8
 height=33
 widthmode=minus
 xmode=abs_centre
-layer=com_15
+layer=clan
 textfont=p11_full
 text=Clan Chat appears in the chatbox in this colour:
 textalignv=centre
@@ -201,243 +201,243 @@ textshadow=yes
 colour=0xff981f
 
 // 982:17
-[com_17]
+[clancol0]
 type=layer
 x=-60
 y=40
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:18
-[com_18]
+[clancol1]
 type=layer
 x=-30
 y=40
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:19
-[com_19]
+[clancol2]
 type=layer
 y=40
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:20
-[com_20]
+[clancol3]
 type=layer
 x=30
 y=40
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:21
-[com_21]
+[clancol4]
 type=layer
 x=60
 y=40
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:22
-[com_22]
+[clancol5]
 type=layer
 x=-60
 y=70
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:23
-[com_23]
+[clancol6]
 type=layer
 x=-30
 y=70
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:24
-[com_24]
+[clancol7]
 type=layer
 y=70
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:25
-[com_25]
+[clancol8]
 type=layer
 x=30
 y=70
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:26
-[com_26]
+[clancol9]
 type=layer
 x=60
 y=70
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:27
-[com_27]
+[clancol10]
 type=layer
 x=-60
 y=100
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:28
-[com_28]
+[clancol11]
 type=layer
 x=-30
 y=100
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:29
-[com_29]
+[clancol12]
 type=layer
 y=100
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:30
-[com_30]
+[clancol13]
 type=layer
 x=30
 y=100
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:31
-[com_31]
+[clancol14]
 type=layer
 x=60
 y=100
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:32
-[com_32]
+[clancol15]
 type=layer
 x=-60
 y=130
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:33
-[com_33]
+[clancol16]
 type=layer
 x=-30
 y=130
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:34
-[com_34]
+[clancol17]
 type=layer
 y=130
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:35
-[com_35]
+[clancol18]
 type=layer
 x=30
 y=130
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:36
-[com_36]
+[clancol19]
 type=layer
 x=60
 y=130
 width=20
 height=20
 xmode=abs_centre
-layer=com_15
+layer=clan
 transmitop=1
 op1=Select colour
 
 // 982:37
-[com_37]
+[clansample]
 type=layer
 y=14
 width=40
@@ -445,7 +445,7 @@ height=25
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_15
+layer=clan
 
 // 982:38
 [com_38]
@@ -454,7 +454,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_37
+layer=clansample
 tiling=yes
 colour=0x000000
 
@@ -465,7 +465,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_37
+layer=clansample
 textfont=p12_full
 text=Sample text
 textalignh=centre
@@ -473,27 +473,27 @@ textalignv=centre
 colour=0x000000
 
 // 982:40
-[com_40]
+[private]
 type=layer
 height=50
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=universe
 hide=yes
 
 // 982:41
-[com_41]
+[nosplit]
 type=layer
 height=42
 widthmode=minus
 xmode=abs_centre
-layer=com_40
+layer=private
 transmitop=1
 op1=No split
-onmouseover=comp_sethide(false, pmsetup:com_43)
-onmouseleave=comp_sethide(true, pmsetup:com_43)
+onmouseover=comp_sethide(false, pmsetup:nosplit_background)
+onmouseleave=comp_sethide(true, pmsetup:nosplit_background)
 
 // 982:42
 [com_42]
@@ -502,7 +502,7 @@ x=4
 width=29
 widthmode=minus
 heightmode=minus
-layer=com_41
+layer=nosplit
 textfont=p11_full
 text=Private chat appears only in the chatbox.
 textalignv=centre
@@ -510,13 +510,13 @@ textshadow=yes
 colour=0xff981f
 
 // 982:43
-[com_43]
+[nosplit_background]
 type=rectangle
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=nosplit
 hide=yes
 colour=0x000000
 fill=yes
@@ -530,12 +530,12 @@ width=17
 height=17
 xmode=abs_right
 ymode=abs_centre
-layer=com_41
+layer=nosplit
 graphic="options_radio_buttons,0"
 colour=0x000000
 
 // 982:45
-[com_45]
+[nosplit_tick]
 type=graphic
 x=4
 y=-2
@@ -543,7 +543,7 @@ width=17
 height=17
 xmode=abs_right
 ymode=abs_centre
-layer=com_41
+layer=nosplit
 hide=yes
 graphic=login_tick
 colour=0x000000
@@ -556,19 +556,19 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_41
+layer=nosplit
 graphic="v2_borders_slim,13"
 tiling=yes
 
 // 982:47
-[com_47]
+[split]
 type=layer
 height=42
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_40
+layer=private
 
 // 982:48
 [com_48]
@@ -579,7 +579,7 @@ height=147
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_47
+layer=split
 textfont=p11_full
 text=Private chat appears above the chatbox in this colour:
 textalignv=centre
@@ -587,223 +587,223 @@ textshadow=yes
 colour=0xff981f
 
 // 982:49
-[com_49]
+[colour1]
 type=layer
 x=-70
 y=36
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:50
-[com_50]
+[colour2]
 type=layer
 x=-42
 y=36
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:51
-[com_51]
+[colour3]
 type=layer
 x=-14
 y=36
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:52
-[com_52]
+[colour4]
 type=layer
 x=14
 y=36
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:53
-[com_53]
+[colour5]
 type=layer
 x=42
 y=36
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:54
-[com_54]
+[colour6]
 type=layer
 x=70
 y=36
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:55
-[com_55]
+[colour7]
 type=layer
 x=-70
 y=66
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:56
-[com_56]
+[colour8]
 type=layer
 x=-42
 y=66
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:57
-[com_57]
+[colour9]
 type=layer
 x=-14
 y=66
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:58
-[com_58]
+[colour10]
 type=layer
 x=14
 y=66
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:59
-[com_59]
+[colour11]
 type=layer
 x=42
 y=66
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:60
-[com_60]
+[colour12]
 type=layer
 x=70
 y=66
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:61
-[com_61]
+[colour13]
 type=layer
 x=-70
 y=96
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:62
-[com_62]
+[colour14]
 type=layer
 x=-42
 y=96
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:63
-[com_63]
+[colour15]
 type=layer
 x=-14
 y=96
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:64
-[com_64]
+[colour16]
 type=layer
 x=14
 y=96
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:65
-[com_65]
+[colour17]
 type=layer
 x=42
 y=96
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:66
-[com_66]
+[colour18]
 type=layer
 x=70
 y=96
 width=20
 height=20
 xmode=abs_centre
-layer=com_47
+layer=split
 transmitop=1
 op1=Select colour
 
 // 982:67
-[com_67]
+[sample]
 type=layer
 y=14
 width=40
@@ -811,7 +811,7 @@ height=25
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_47
+layer=split
 hide=yes
 
 // 982:68
@@ -821,19 +821,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_67
+layer=sample
 graphic=tradebacking
 tiling=yes
 colour=0x000000
 
 // 982:69
-[com_69]
+[sample_text]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_67
+layer=sample
 textfont=p12_full
 text=Sample text
 textalignh=centre
@@ -848,7 +848,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=universe
 hide=yes
 
 // 982:71
@@ -1146,7 +1146,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=universe
 hide=yes
 
 // 982:96

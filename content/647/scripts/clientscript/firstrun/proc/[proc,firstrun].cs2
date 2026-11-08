@@ -4,29 +4,29 @@ if_opensubclient(loginscreen:com_24, options_firstrun);
 def_string $string0 = "";
 if (detailget_safemode = true) {
     $string0 = "There was a problem with your current graphic settings, so you have been given default settings for safety. Click below to auto-choose best graphics settings.";
-    if_settext($string0, options_firstrun:com_4);
-    if_setsize(if_getwidth(options_firstrun:com_2), calc(22 * paraheight($string0, if_getwidth(options_firstrun:com_4), verdana_11pt_regular) + 86), ^setsize_abs, ^setsize_abs, options_firstrun:com_2);
-    if_setsize(stringwidth(if_gettext(options_firstrun:com_6), verdana_11pt_regular), if_getheight(options_firstrun:com_6), ^setsize_abs, ^setsize_abs, options_firstrun:com_6);
+    if_settext($string0, options_firstrun:main_text);
+    if_setsize(if_getwidth(options_firstrun:com_2), calc(22 * paraheight($string0, if_getwidth(options_firstrun:main_text), verdana_11pt_regular) + 86), ^setsize_abs, ^setsize_abs, options_firstrun:com_2);
+    if_setsize(stringwidth(if_gettext(options_firstrun:leave_button), verdana_11pt_regular), if_getheight(options_firstrun:leave_button), ^setsize_abs, ^setsize_abs, options_firstrun:leave_button);
 } else if (%varclient_1277 = true & %varclient_1240 = -1) {
     $string0 = "This is your first time playing. Click below to auto-choose best graphics settings. Choose 'Leave Alone' to continue with default settings.";
-    if_settext($string0, options_firstrun:com_4);
-    if_setsize(if_getwidth(options_firstrun:com_2), calc(22 * paraheight($string0, if_getwidth(options_firstrun:com_4), verdana_11pt_regular) + 86), ^setsize_abs, ^setsize_abs, options_firstrun:com_2);
-    if_setsize(stringwidth(if_gettext(options_firstrun:com_6), verdana_11pt_regular), if_getheight(options_firstrun:com_6), ^setsize_abs, ^setsize_abs, options_firstrun:com_6);
+    if_settext($string0, options_firstrun:main_text);
+    if_setsize(if_getwidth(options_firstrun:com_2), calc(22 * paraheight($string0, if_getwidth(options_firstrun:main_text), verdana_11pt_regular) + 86), ^setsize_abs, ^setsize_abs, options_firstrun:com_2);
+    if_setsize(stringwidth(if_gettext(options_firstrun:leave_button), verdana_11pt_regular), if_getheight(options_firstrun:leave_button), ^setsize_abs, ^setsize_abs, options_firstrun:leave_button);
 } else if (%varclient_1240 = -1) {
     $string0 = "This is your first time playing, click below to auto choose best graphics settings.";
-    if_settext($string0, options_firstrun:com_4);
-    if_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_top, options_firstrun:com_4);
-    if_setsize(if_getwidth(options_firstrun:com_4), 68, ^setsize_abs, ^setsize_minus, options_firstrun:com_4);
-    if_setposition(0, 17, ^setpos_abs_centre, ^setpos_abs_bottom, options_firstrun:com_5);
-    if_setsize(if_getwidth(options_firstrun:com_2), calc(22 * paraheight($string0, if_getwidth(options_firstrun:com_4), verdana_11pt_regular) + 68), ^setsize_abs, ^setsize_abs, options_firstrun:com_2);
-    if_sethide(true, options_firstrun:com_6);
+    if_settext($string0, options_firstrun:main_text);
+    if_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_top, options_firstrun:main_text);
+    if_setsize(if_getwidth(options_firstrun:main_text), 68, ^setsize_abs, ^setsize_minus, options_firstrun:main_text);
+    if_setposition(0, 17, ^setpos_abs_centre, ^setpos_abs_bottom, options_firstrun:auto_button);
+    if_setsize(if_getwidth(options_firstrun:com_2), calc(22 * paraheight($string0, if_getwidth(options_firstrun:main_text), verdana_11pt_regular) + 68), ^setsize_abs, ^setsize_abs, options_firstrun:com_2);
+    if_sethide(true, options_firstrun:leave_button);
 } else {
     $string0 = "Available graphics options have changed. Click below to auto choose best graphics settings.";
     if (%varclient_1277 = true) {
         $string0 = "Available graphics options have changed. Click below to auto-choose best graphics settings. Choose 'Leave Alone' to continue with your current settings.";
     }
-    if_settext($string0, options_firstrun:com_4);
-    if_setsize(if_getwidth(options_firstrun:com_2), calc(22 * paraheight($string0, if_getwidth(options_firstrun:com_4), verdana_11pt_regular) + 86), ^setsize_abs, ^setsize_abs, options_firstrun:com_2);
-    if_setsize(stringwidth(if_gettext(options_firstrun:com_6), verdana_11pt_regular), if_getheight(options_firstrun:com_6), ^setsize_abs, ^setsize_abs, options_firstrun:com_6);
+    if_settext($string0, options_firstrun:main_text);
+    if_setsize(if_getwidth(options_firstrun:com_2), calc(22 * paraheight($string0, if_getwidth(options_firstrun:main_text), verdana_11pt_regular) + 86), ^setsize_abs, ^setsize_abs, options_firstrun:com_2);
+    if_setsize(stringwidth(if_gettext(options_firstrun:leave_button), verdana_11pt_regular), if_getheight(options_firstrun:leave_button), ^setsize_abs, ^setsize_abs, options_firstrun:leave_button);
 }
 %varclient_1277 = true;

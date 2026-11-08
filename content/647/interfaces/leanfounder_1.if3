@@ -1,5 +1,5 @@
 // 1004:0
-[com_0]
+[background_layer]
 type=layer
 y=20
 width=137
@@ -7,7 +7,7 @@ height=180
 onvarctransmit=script3672{varclient_1325}
 
 // 1004:1
-[com_1]
+[notes_layer]
 type=layer
 y=20
 width=124
@@ -26,7 +26,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=notes_layer
 graphic=tradebacking
 colour=0xffffffff
 transmitop=10
@@ -41,7 +41,7 @@ width=32
 height=35
 heightmode=minus
 xmode=abs_right
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,12"
 colour=0xffffffff
 transmitop=10
@@ -55,7 +55,7 @@ y=14
 width=4
 height=32
 widthmode=minus
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,0"
 colour=0xffffffff
 transmitop=10
@@ -69,7 +69,7 @@ y=43
 width=6
 height=32
 widthmode=minus
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
@@ -83,7 +83,7 @@ y=74
 width=6
 height=32
 widthmode=minus
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
@@ -97,7 +97,7 @@ y=105
 width=6
 height=32
 widthmode=minus
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
@@ -111,7 +111,7 @@ y=136
 width=6
 height=32
 widthmode=minus
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
@@ -125,14 +125,14 @@ y=167
 width=6
 height=32
 widthmode=minus
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 1004:10
-[com_10]
+[frame_1]
 type=graphic
 x=-12
 y=32
@@ -140,21 +140,21 @@ width=32
 height=64
 heightmode=minus
 xmode=abs_right
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,3"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1004:11
-[com_11]
+[frame_2]
 type=graphic
 x=-13
 y=32
 width=32
 height=64
 heightmode=minus
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,1"
 colour=0xffffffff
 transmitop=10
@@ -169,7 +169,7 @@ width=64
 height=32
 widthmode=minus
 ymode=abs_bottom
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,2"
 colour=0xffffffff
 transmitop=10
@@ -183,7 +183,7 @@ y=-13
 width=64
 height=32
 widthmode=minus
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,0"
 colour=0xffffffff
 transmitop=10
@@ -196,7 +196,7 @@ y=2
 width=32
 height=32
 ymode=abs_bottom
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,6"
 colour=0xffffffff
 transmitop=10
@@ -210,7 +210,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -222,7 +222,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -233,7 +233,7 @@ op10=
 type=graphic
 width=32
 height=32
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,4"
 colour=0xffffffff
 transmitop=10
@@ -245,104 +245,104 @@ type=graphic
 y=12
 width=32
 height=32
-layer=com_1
+layer=notes_layer
 graphic="v2_borders_slim,9"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1004:19
-[com_19]
+[notes_values_layer]
 type=layer
 width=51
 heightmode=minus
 xmode=abs_right
-layer=com_1
+layer=notes_layer
 transmitop=10
 op10= 
 
 // 1004:20
-[com_20]
+[ab_value]
 type=graphic
 y=28
 width=34
 height=33
 xmode=abs_centre
-layer=com_19
+layer=notes_values_layer
 graphic="vkq2_chem,4"
 colour=0xffffffff
 
 // 1004:21
-[com_21]
+[ac_value]
 type=graphic
 y=59
 width=34
 height=33
 xmode=abs_centre
-layer=com_19
+layer=notes_values_layer
 graphic="vkq2_chem,4"
 colour=0xffffffff
 
 // 1004:22
-[com_22]
+[ad_value]
 type=graphic
 y=90
 width=34
 height=33
 xmode=abs_centre
-layer=com_19
+layer=notes_values_layer
 graphic="vkq2_chem,4"
 colour=0xffffffff
 
 // 1004:23
-[com_23]
+[bc_value]
 type=graphic
 y=121
 width=34
 height=33
 xmode=abs_centre
-layer=com_19
+layer=notes_values_layer
 graphic="vkq2_chem,4"
 colour=0xffffffff
 
 // 1004:24
-[com_24]
+[bd_value]
 type=graphic
 y=152
 width=34
 height=33
 xmode=abs_centre
-layer=com_19
+layer=notes_values_layer
 graphic="vkq2_chem,4"
 colour=0xffffffff
 
 // 1004:25
-[com_25]
+[cd_value]
 type=graphic
 y=183
 width=34
 height=33
 xmode=abs_centre
-layer=com_19
+layer=notes_values_layer
 graphic="vkq2_chem,4"
 colour=0xffffffff
 
 // 1004:26
-[com_26]
+[notes_labels_layer]
 type=layer
 width=47
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=notes_layer
 transmitop=10
 op10= 
 
 // 1004:27
-[com_27]
+[title_label]
 type=text
 height=30
 widthmode=minus
-layer=com_1
+layer=notes_layer
 textfont=b12_full
 text=Reactions
 textalignh=centre
@@ -353,12 +353,12 @@ transmitop=10
 op10= 
 
 // 1004:28
-[com_28]
+[cd_label]
 type=text
 y=185
 height=30
 widthmode=minus
-layer=com_26
+layer=notes_labels_layer
 textfont=p12_full
 text=+
 textalignh=centre
@@ -369,12 +369,12 @@ transmitop=10
 op10= 
 
 // 1004:29
-[com_29]
+[bd_label]
 type=text
 y=153
 height=30
 widthmode=minus
-layer=com_26
+layer=notes_labels_layer
 textfont=p12_full
 text=+
 textalignh=centre
@@ -385,12 +385,12 @@ transmitop=10
 op10=  
 
 // 1004:30
-[com_30]
+[bc_label]
 type=text
 y=122
 height=30
 widthmode=minus
-layer=com_26
+layer=notes_labels_layer
 textfont=p12_full
 text=+
 textalignh=centre
@@ -401,12 +401,12 @@ transmitop=10
 op10=  
 
 // 1004:31
-[com_31]
+[ab_label]
 type=text
 y=29
 height=30
 widthmode=minus
-layer=com_26
+layer=notes_labels_layer
 textfont=p12_full
 text=+
 textalignh=centre
@@ -417,12 +417,12 @@ transmitop=10
 op10= 
 
 // 1004:32
-[com_32]
+[ac_label]
 type=text
 y=61
 height=30
 widthmode=minus
-layer=com_26
+layer=notes_labels_layer
 textfont=p12_full
 text=+
 textalignh=centre
@@ -433,12 +433,12 @@ transmitop=10
 op10= 
 
 // 1004:33
-[com_33]
+[ad_label]
 type=text
 y=92
 height=30
 widthmode=minus
-layer=com_26
+layer=notes_labels_layer
 textfont=p12_full
 text=+
 textalignh=centre
@@ -449,169 +449,169 @@ transmitop=10
 op10= 
 
 // 1004:34
-[com_34]
+[ab_l]
 type=graphic
 x=1
 y=27
 width=34
 height=33
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1004:35
-[com_35]
+[ab_r]
 type=graphic
 x=1
 y=28
 width=34
 height=33
 xmode=abs_right
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,1"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1004:36
-[com_36]
+[ac_l]
 type=graphic
 x=1
 y=59
 width=34
 height=33
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 1004:37
-[com_37]
+[ac_r]
 type=graphic
 x=1
 y=59
 width=34
 height=33
 xmode=abs_right
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,2"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 1004:38
-[com_38]
+[ad_l]
 type=graphic
 x=1
 y=90
 width=34
 height=33
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,0"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 1004:39
-[com_39]
+[ad_r]
 type=graphic
 x=1
 y=90
 width=34
 height=33
 xmode=abs_right
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,3"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 1004:40
-[com_40]
+[bc_l]
 type=graphic
 x=1
 y=122
 width=34
 height=33
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,1"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 1004:41
-[com_41]
+[bc_r]
 type=graphic
 x=1
 y=121
 width=34
 height=33
 xmode=abs_right
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,2"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 1004:42
-[com_42]
+[bd_l]
 type=graphic
 x=1
 y=152
 width=34
 height=33
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,1"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 1004:43
-[com_43]
+[bd_r]
 type=graphic
 x=1
 y=152
 width=34
 height=33
 xmode=abs_right
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,3"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 1004:44
-[com_44]
+[cd_l]
 type=graphic
 x=1
 y=184
 width=34
 height=33
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,2"
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 1004:45
-[com_45]
+[cd_r]
 type=graphic
 x=1
 y=183
 width=34
 height=33
 xmode=abs_right
-layer=com_26
+layer=notes_labels_layer
 graphic="vkq2_chem,3"
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 1004:46
-[com_46]
+[frame_backdrop]
 type=graphic
 x=2
 y=2
@@ -619,7 +619,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=background_layer
 graphic=tradebacking
 colour=0xffffffff
 
@@ -631,7 +631,7 @@ y=40
 width=6
 height=32
 widthmode=minus
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 
@@ -643,7 +643,7 @@ y=69
 width=6
 height=32
 widthmode=minus
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
@@ -657,7 +657,7 @@ y=98
 width=6
 height=32
 widthmode=minus
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
@@ -671,7 +671,7 @@ y=130
 width=6
 height=32
 widthmode=minus
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
@@ -686,12 +686,12 @@ width=32
 height=6
 heightmode=minus
 xmode=abs_right
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,12"
 colour=0xffffffff
 
 // 1004:52
-[com_52]
+[frame_e]
 type=graphic
 x=-12
 y=32
@@ -699,19 +699,19 @@ width=32
 height=64
 heightmode=minus
 xmode=abs_right
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,3"
 colour=0xffffffff
 
 // 1004:53
-[com_53]
+[frame_w]
 type=graphic
 x=-13
 y=32
 width=32
 height=64
 heightmode=minus
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,1"
 colour=0xffffffff
 
@@ -723,7 +723,7 @@ y=14
 width=4
 height=32
 widthmode=minus
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,0"
 colour=0xffffffff
 transmitop=10
@@ -737,14 +737,14 @@ y=102
 width=5
 height=32
 widthmode=minus
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 1004:56
-[com_56]
+[frame_s]
 type=graphic
 x=32
 y=-12
@@ -752,59 +752,59 @@ width=64
 height=32
 widthmode=minus
 ymode=abs_bottom
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,2"
 colour=0xffffffff
 
 // 1004:57
-[com_57]
+[frame_n]
 type=graphic
 x=32
 y=-13
 width=64
 height=32
 widthmode=minus
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,0"
 colour=0xffffffff
 
 // 1004:58
-[com_58]
+[frame_sw]
 type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,6"
 colour=0xffffffff
 
 // 1004:59
-[com_59]
+[frame_se]
 type=graphic
 width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 
 // 1004:60
-[com_60]
+[frame_ne]
 type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 
 // 1004:61
-[com_61]
+[frame_nw]
 type=graphic
 width=32
 height=32
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,4"
 colour=0xffffffff
 
@@ -814,104 +814,104 @@ type=graphic
 y=12
 width=32
 height=32
-layer=com_0
+layer=background_layer
 graphic="v2_borders_slim,9"
 colour=0xffffffff
 
 // 1004:63
-[com_63]
+[power_warning]
 type=rectangle
 x=2
 y=58
 width=4
 height=28
 widthmode=minus
-layer=com_0
+layer=background_layer
 hide=yes
 colour=0xff0033
 transmitop=10
 op10= 
 
 // 1004:64
-[com_64]
+[balance_warning]
 type=rectangle
 x=2
 y=87
 width=4
 height=28
 widthmode=minus
-layer=com_0
+layer=background_layer
 hide=yes
 colour=0xff0033
 transmitop=10
 op10= 
 
 // 1004:65
-[com_65]
+[chem_warning]
 type=rectangle
 x=2
 y=147
 width=4
 height=31
 widthmode=minus
-layer=com_0
+layer=background_layer
 hide=yes
 colour=0xff0033
 transmitop=10
 op10= 
 
 // 1004:66
-[com_66]
+[heat_warning]
 type=rectangle
 x=2
 y=29
 width=4
 height=28
 widthmode=minus
-layer=com_0
+layer=background_layer
 hide=yes
 colour=0xff0033
 
 // 1004:67
-[com_67]
+[values_layer]
 type=layer
 width=66
 heightmode=minus
 xmode=abs_right
-layer=com_0
+layer=background_layer
 
 // 1004:68
-[com_68]
+[needed_value]
 type=graphic
 x=-1
 y=146
 width=34
 height=33
 xmode=abs_centre
-layer=com_67
+layer=values_layer
 graphic="vkq2_chem,4"
 colour=0xffffffff
 
 // 1004:69
-[com_69]
+[current_value]
 type=graphic
 x=-1
 y=115
 width=34
 height=33
 xmode=abs_centre
-layer=com_67
+layer=values_layer
 graphic="vkq2_chem,4"
 colour=0xffffffff
 
 // 1004:70
-[com_70]
+[balance_value]
 type=text
 x=-1
 y=88
 height=30
 widthmode=minus
-layer=com_67
+layer=values_layer
 textfont=p12_full
 text=OK
 textalignh=centre
@@ -920,13 +920,13 @@ textshadow=yes
 colour=0x33cc00
 
 // 1004:71
-[com_71]
+[power_value]
 type=text
 x=-1
 y=58
 height=30
 widthmode=minus
-layer=com_67
+layer=values_layer
 textfont=p12_full
 text=OK
 textalignh=centre
@@ -935,13 +935,13 @@ textshadow=yes
 colour=0x33cc00
 
 // 1004:72
-[com_72]
+[heat_value]
 type=text
 x=-1
 y=28
 height=30
 widthmode=minus
-layer=com_67
+layer=values_layer
 textfont=p12_full
 text=OK
 textalignh=centre
@@ -950,11 +950,11 @@ textshadow=yes
 colour=0x33cc00
 
 // 1004:73
-[com_73]
+[progress_value]
 type=text
 height=30
 widthmode=minus
-layer=com_67
+layer=values_layer
 textfont=b12_full
 text=0%
 textalignh=centre
@@ -963,15 +963,15 @@ textshadow=yes
 colour=0x00cc00
 
 // 1004:74
-[com_74]
+[labels_layer]
 type=layer
 width=61
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=background_layer
 
 // 1004:75
-[com_75]
+[flasher]
 type=rectangle
 x=2
 y=2
@@ -979,17 +979,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=background_layer
 hide=yes
 colour=0xffff00
 
 // 1004:76
-[com_76]
+[needed_label]
 type=text
 y=148
 height=30
 widthmode=minus
-layer=com_74
+layer=labels_layer
 textfont=p12_full
 text=Turn sample to:
 textalignh=centre
@@ -998,12 +998,12 @@ textshadow=yes
 colour=0xcc9900
 
 // 1004:77
-[com_77]
+[current_label]
 type=text
 y=117
 height=30
 widthmode=minus
-layer=com_74
+layer=labels_layer
 textfont=p12_full
 text=Sample is:
 textalignh=centre
@@ -1014,12 +1014,12 @@ transmitop=10
 op10= 
 
 // 1004:78
-[com_78]
+[heat_label]
 type=text
 y=28
 height=30
 widthmode=minus
-layer=com_74
+layer=labels_layer
 textfont=p12_full
 text=Heat:
 textalignh=centre
@@ -1028,12 +1028,12 @@ textshadow=yes
 colour=0xcc9900
 
 // 1004:79
-[com_79]
+[power_label]
 type=text
 y=58
 height=30
 widthmode=minus
-layer=com_74
+layer=labels_layer
 textfont=p12_full
 text=Power:
 textalignh=centre
@@ -1042,12 +1042,12 @@ textshadow=yes
 colour=0xcc9900
 
 // 1004:80
-[com_80]
+[balance_label]
 type=text
 y=88
 height=30
 widthmode=minus
-layer=com_74
+layer=labels_layer
 textfont=p12_full
 text=Stability:
 textalignh=centre
@@ -1056,11 +1056,11 @@ textshadow=yes
 colour=0xcc9900
 
 // 1004:81
-[com_81]
+[progress_label]
 type=text
 height=30
 widthmode=minus
-layer=com_74
+layer=labels_layer
 textfont=b12_full
 text=Progress
 textalignh=centre
@@ -1069,7 +1069,7 @@ textshadow=yes
 colour=0xcc9900
 
 // 1004:82
-[com_82]
+[go_layer]
 type=layer
 y=9
 width=182
@@ -1083,7 +1083,7 @@ onmouseleave=script3674(0)
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_82
+layer=go_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -1091,7 +1091,7 @@ transmitop=10
 op10= 
 
 // 1004:84
-[com_84]
+[go_s]
 type=graphic
 x=32
 y=-13
@@ -1099,71 +1099,71 @@ width=64
 height=32
 widthmode=minus
 ymode=abs_bottom
-layer=com_82
+layer=go_layer
 graphic="v2_borders_slim,2"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1004:85
-[com_85]
+[go_n]
 type=graphic
 x=32
 y=-13
 width=64
 height=32
 widthmode=minus
-layer=com_82
+layer=go_layer
 graphic="v2_borders_slim,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1004:86
-[com_86]
+[go_sw]
 type=graphic
 y=-1
 width=32
 height=32
 ymode=abs_bottom
-layer=com_82
+layer=go_layer
 graphic="v2_borders_slim,6"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1004:87
-[com_87]
+[go_se]
 type=graphic
 y=-1
 width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_82
+layer=go_layer
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1004:88
-[com_88]
+[go_ne]
 type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_82
+layer=go_layer
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 1004:89
-[com_89]
+[go_nw]
 type=graphic
 width=32
 height=32
-layer=com_82
+layer=go_layer
 graphic="v2_borders_slim,4"
 colour=0xffffffff
 transmitop=10
@@ -1177,7 +1177,7 @@ y=5
 width=18
 height=31
 xmode=abs_centre
-layer=com_82
+layer=go_layer
 graphic="login_lobby_button,2"
 colour=0xffffffff
 transmitop=1
@@ -1185,13 +1185,13 @@ op1=Start
 onop=script3673
 
 // 1004:91
-[com_91]
+[go_button]
 type=graphic
 y=5
 width=134
 height=31
 xmode=abs_centre
-layer=com_82
+layer=go_layer
 graphic="login_lobby_button,3"
 colour=0xffffffff
 transmitop=1
@@ -1206,7 +1206,7 @@ y=5
 width=18
 height=31
 xmode=abs_centre
-layer=com_82
+layer=go_layer
 graphic="login_lobby_button,2"
 hflip=yes
 colour=0xffffffff
@@ -1215,13 +1215,13 @@ op1=Start
 onop=script3673
 
 // 1004:93
-[com_93]
+[go_text]
 type=text
 y=5
 width=170
 height=31
 xmode=abs_centre
-layer=com_82
+layer=go_layer
 textfont=graphic_3237
 text=START REACTION
 textalignh=centre

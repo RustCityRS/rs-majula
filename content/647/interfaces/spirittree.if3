@@ -10,7 +10,7 @@ fill=yes
 trans=160
 
 // 864:1
-[com_1]
+[position_layer]
 type=layer
 width=512
 height=334
@@ -24,7 +24,7 @@ x=15
 y=23
 width=480
 height=301
-layer=com_1
+layer=position_layer
 model=model_26397
 modelorigin=-2,33
 modelangle=512,0,0
@@ -37,19 +37,19 @@ x=46
 y=44
 width=291
 height=34
-layer=com_1
+layer=position_layer
 textfont=quill_oblique_large
 text=Spirit Tree
 colour=0x46320a
 
 // 864:4
-[com_4]
+[subsection_title]
 type=text
 x=46
 y=81
 width=291
 height=13
-layer=com_1
+layer=position_layer
 textfont=q8_full
 text=Where would you like to go?
 colour=0x46320a
@@ -61,45 +61,45 @@ x=46
 y=76
 width=200
 height=1
-layer=com_1
+layer=position_layer
 colour=0x46320a
 fill=yes
 trans=200
 
 // 864:6
-[com_6]
+[close_button]
 type=graphic
 x=443
 y=40
 width=26
 height=23
-layer=com_1
+layer=position_layer
 graphic="close_buttons,6"
 colour=0xffffffff
-onmouseover=graphic_swapper(spirittree:com_6, "close_buttons,7")
-onmouseleave=graphic_swapper(spirittree:com_6, "close_buttons,6")
+onmouseover=graphic_swapper(spirittree:close_button, "close_buttons,7")
+onmouseleave=graphic_swapper(spirittree:close_button, "close_buttons,6")
 onclick=closebutton_click
 
 // 864:7
-[com_7]
+[info]
 type=layer
 x=46
 y=100
 width=392
 height=200
-layer=com_1
+layer=position_layer
 transmitop=10
 op10= 
 onload=spirittree_start
 onvartransmit=spirittree_start{varplayer_1469}
 
 // 864:8
-[com_8]
+[info_scrollbar]
 type=layer
 x=442
 y=100
 width=16
 height=200
-layer=com_1
+layer=position_layer
 transmitop=10
 op10= 

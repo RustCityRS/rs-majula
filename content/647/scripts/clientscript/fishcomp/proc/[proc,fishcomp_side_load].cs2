@@ -1,15 +1,15 @@
 // 253
 [proc,fishcomp_side_load]
-if_setonvarctransmit("fishcomp_refresh{varclient_1104, varclient_1105, varclient_1106, varclient_1107, varclient_1108, varclient_1109, varclient_1110}", fishcomp_side:com_0);
-if_setobject_nonum(obj_15658, 0, fishcomp_side:com_80);
-if_setobject_nonum(obj_15661, 0, fishcomp_side:com_81);
-if_setobject_nonum(obj_15662, 0, fishcomp_side:com_82);
-if_setobject_nonum(obj_15664, 0, fishcomp_side:com_83);
-if_setobject_nonum(obj_15665, 0, fishcomp_side:com_84);
-if_setobject_nonum(obj_15663, 0, fishcomp_side:com_85);
-if_setobject_nonum(obj_15660, 0, fishcomp_side:com_86);
-if_setobject_nonum(obj_15659, 0, fishcomp_side:com_87);
-if_setonvarctransmit("fishcomp_add_result{varclient_1111, varclient_1113, varclient_1112, varclient_1114, varclient_1115, varclient_1116, varclient_1117}", fishcomp_overlay:com_0);
+if_setonvarctransmit("fishcomp_refresh{varclient_1104, varclient_1105, varclient_1106, varclient_1107, varclient_1108, varclient_1109, varclient_1110}", fishcomp_side:main_layer);
+if_setobject_nonum(obj_15658, 0, fishcomp_side:bait_model_1);
+if_setobject_nonum(obj_15661, 0, fishcomp_side:bait_model_2);
+if_setobject_nonum(obj_15662, 0, fishcomp_side:bait_model_3);
+if_setobject_nonum(obj_15664, 0, fishcomp_side:bait_model_4);
+if_setobject_nonum(obj_15665, 0, fishcomp_side:bait_model_5);
+if_setobject_nonum(obj_15663, 0, fishcomp_side:bait_model_6);
+if_setobject_nonum(obj_15660, 0, fishcomp_side:bait_model_7);
+if_setobject_nonum(obj_15659, 0, fishcomp_side:bait_model_8);
+if_setonvarctransmit("fishcomp_add_result{varclient_1111, varclient_1113, varclient_1112, varclient_1114, varclient_1115, varclient_1116, varclient_1117}", fishcomp_overlay:main_layer);
 %varclient_1111 = 0;
 %varclient_1112 = 0;
 %varclient_1113 = 0;
@@ -17,4 +17,4 @@ if_setonvarctransmit("fishcomp_add_result{varclient_1111, varclient_1113, varcli
 %varclient_1115 = 0;
 %varclient_1116 = 0;
 %varclient_1117 = -1;
-if_setscrollsize(if_getwidth(fishcomp_overlay:com_6), if_getheight(fishcomp_overlay:com_6), fishcomp_overlay:com_6);
+if_setscrollsize(if_getwidth(fishcomp_overlay:history_scrolllayer), if_getheight(fishcomp_overlay:history_scrolllayer), fishcomp_overlay:history_scrolllayer);

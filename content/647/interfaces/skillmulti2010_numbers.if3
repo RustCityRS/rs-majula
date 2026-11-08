@@ -1,5 +1,5 @@
 // 916:0
-[com_0]
+[universe]
 type=layer
 height=34
 widthmode=minus
@@ -7,13 +7,13 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 916:1
-[com_1]
+[text]
 type=text
 x=5
 width=100
 heightmode=minus
 ymode=abs_centre
-layer=com_0
+layer=universe
 textfont=p12_full
 textalignv=centre
 textshadow=yes
@@ -25,7 +25,7 @@ width=50
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_0
+layer=universe
 
 // 916:3
 [com_3]
@@ -77,20 +77,20 @@ transmitop=1
 op1=10
 
 // 916:8
-[com_8]
+[all]
 type=layer
 ymode=abs_centre
 layer=com_2
 hide=yes
 
 // 916:9
-[com_9]
+[static_section]
 type=layer
 width=170
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_0
+layer=universe
 noclickthrough=yes
 
 // 916:10
@@ -101,7 +101,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=static_section
 graphic=sm_digit_bar_fill
 tiling=yes
 
@@ -111,7 +111,7 @@ type=graphic
 width=24
 heightmode=minus
 ymode=abs_centre
-layer=com_9
+layer=static_section
 graphic=sm_digit_bar_end
 hflip=yes
 
@@ -122,17 +122,17 @@ width=24
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_9
+layer=static_section
 graphic=sm_digit_bar_end
 
 // 916:13
-[com_13]
+[number_container]
 type=layer
 x=10
 width=130
 height=26
 ymode=abs_centre
-layer=com_9
+layer=static_section
 
 // 916:14
 [com_14]
@@ -142,7 +142,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=number_container
 graphic=graphic_3870
 
 // 916:15
@@ -152,7 +152,7 @@ width=11
 height=2
 heightmode=minus
 ymode=abs_centre
-layer=com_13
+layer=number_container
 graphic=graphic_3869
 hflip=yes
 
@@ -164,17 +164,17 @@ height=2
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_13
+layer=number_container
 graphic=graphic_3869
 
 // 916:17
-[com_17]
+[number]
 type=text
 width=48
 widthmode=minus
 heightmode=minus
 ymode=abs_centre
-layer=com_13
+layer=number_container
 textfont=p11_full
 textalignh=centre
 textalignv=centre
@@ -189,18 +189,18 @@ height=6
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_13
+layer=number_container
 colour=0x3f3420
 
 // 916:19
-[com_19]
+[up]
 type=graphic
 x=25
 width=21
 height=19
 xmode=abs_right
 ymode=abs_centre
-layer=com_13
+layer=number_container
 graphic=graphic_3863
 transmitop=1
 op1=+1
@@ -208,14 +208,14 @@ onmouseover=graphic_swapper(event_com, graphic_3865)
 onmouseleave=graphic_swapper(event_com, graphic_3863)
 
 // 916:20
-[com_20]
+[down]
 type=graphic
 x=3
 width=21
 height=19
 xmode=abs_right
 ymode=abs_centre
-layer=com_13
+layer=number_container
 graphic=graphic_3864
 transmitop=1
 op1=-1
@@ -223,13 +223,13 @@ onmouseover=graphic_swapper(event_com, graphic_3866)
 onmouseleave=graphic_swapper(event_com, graphic_3864)
 
 // 916:21
-[com_21]
+[expander]
 type=layer
 width=30
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_9
+layer=static_section
 onmouseover=graphic_swapper(skillmulti2010_numbers:com_22, graphic_3884)
 
 // 916:22
@@ -239,5 +239,5 @@ width=9
 height=11
 xmode=abs_centre
 ymode=abs_centre
-layer=com_21
+layer=expander
 graphic=graphic_3883

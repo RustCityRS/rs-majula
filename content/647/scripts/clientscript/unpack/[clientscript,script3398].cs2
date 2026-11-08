@@ -5,13 +5,13 @@ switch_int ($key0) {
         ~script3400;
         return;
     case ^key_escape :
-        if (if_gethide(interface_915:com_102) = false) {
-            ~lobbyscreen_report_abuse_help_close(interface_979:com_64, interface_979:com_65, interface_979:com_51, interface_979:com_43, interface_979:com_0);
+        if (if_gethide(lobbyscreen_report_abuse_stage2:help_layer) = false) {
+            ~lobbyscreen_report_abuse_help_close(interface_979:help_title_text, interface_979:help_body_text, interface_979:help_body, interface_979:help_layer, interface_979:com_0);
         } else {
             ~script3391;
         }
         return;
     case ^key_f1 :
-        ~lobbyscreen_report_abuse_help(2, interface_979:com_64, interface_979:com_65, interface_979:com_51, interface_979:com_43, interface_979:com_0);
+        ~lobbyscreen_report_abuse_help(2, interface_979:help_title_text, interface_979:help_body_text, interface_979:help_body, interface_979:help_layer, interface_979:com_0);
         return;
 }

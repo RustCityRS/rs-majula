@@ -8,7 +8,7 @@ if (cc_find(lore_stats_side:com_74, 0) = true) {
     cc_setonvartransmit("script660(lore_stats_side:com_74, $component0, $graphic1, $graphic2, $int3, $string0, $string1, $obj4, $int5, $obj6, $int7, $obj8, $int9, $obj10, $int11){varplayer_1175, varplayer_448}");
     ~script661(lore_stats_side:com_74, $component0, $graphic1, $graphic2, $int3, $string0, $string1, $obj4, $int5, $obj6, $int7, $obj8, $int9, $obj10, $int11);
 }
-if (cc_find(summoning_orb:com_17, 0) = true) {
-    cc_setontargetenter("lore_topstat_magic_entertargetmode(summoning_orb:com_6)");
-    cc_setontargetleave("lore_topstat_magic_leavetargetmode(summoning_orb:com_6)");
+if (cc_find(topstat_lore:com_17, 0) = true) {
+    cc_setontargetenter("lore_topstat_magic_entertargetmode(topstat_lore:topstat_graphic_lore)");
+    cc_setontargetleave("lore_topstat_magic_leavetargetmode(topstat_lore:topstat_graphic_lore)");
 }

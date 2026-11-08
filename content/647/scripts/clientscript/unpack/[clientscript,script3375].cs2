@@ -1,4 +1,4 @@
 // 3375
 [clientscript,script3375](int $int0, int $int1)
-if_setsize($int0, $int1, ^setsize_abs, ^setsize_abs, objbox:com_3);
-if_setposition(calc(16 + (64 - $int0) / 2), calc(16 + (64 - $int1) / 2), ^setpos_abs_left, ^setpos_abs_top, objbox:com_3);
+if_setsize($int0, $int1, ^setsize_abs, ^setsize_abs, objbox:graphic_box);
+if_setposition(calc(16 + (64 - $int0) / 2), calc(16 + (64 - $int1) / 2), ^setpos_abs_left, ^setpos_abs_top, objbox:graphic_box);

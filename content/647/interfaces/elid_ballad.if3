@@ -1,11 +1,11 @@
 // 116:0
-[com_0]
+[elid_close]
 type=graphic
 x=478
 y=6
 width=26
 height=23
-layer=com_6
+layer=content_layer
 graphic="close_buttons,5"
 colour=0x000000
 transmitop=1
@@ -15,13 +15,13 @@ onop=closebutton_click
 onmouserepeat=graphic_swapper(event_com, "close_buttons,4")
 
 // 116:1
-[com_1]
+[scroll]
 type=model
 x=11
 y=-2
 width=463
 height=335
-layer=com_6
+layer=content_layer
 model=model_16344
 modelorigin=23,-17
 modelangle=490,513,0
@@ -34,7 +34,7 @@ x=125
 y=29
 width=266
 height=17
-layer=com_6
+layer=content_layer
 textfont=q8_full
 text=Title
 textalignh=centre
@@ -42,13 +42,13 @@ textshadow=yes
 colour=0xd9a34d
 
 // 116:3
-[com_3]
+[elid_main]
 type=layer
 x=63
 y=54
 width=348
 height=250
-layer=com_6
+layer=content_layer
 scrollheight=1000
 
 // 116:4
@@ -58,22 +58,22 @@ x=413
 y=54
 width=16
 height=250
-layer=com_6
-onload=scrollbar_vertical_graphics(event_com, elid_ballad:com_3, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+layer=content_layer
+onload=scrollbar_vertical_graphics(event_com, elid_ballad:elid_main, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 116:5
-[com_5]
+[elid_scroll_text]
 type=text
 width=348
 height=1000
-layer=com_3
+layer=elid_main
 textfont=q8_full
 textalignh=centre
 textshadow=yes
 colour=0xd5a34d
 
 // 116:6
-[com_6]
+[content_layer]
 type=layer
 width=512
 height=334

@@ -5,5 +5,5 @@ if ($int0 ! 1) {
 }
 %skill_creation_amount = max(min(calc(%skill_creation_amount + $int1), %skill_creation_maximum), 0);
 ~script2047;
-if_setontimer("skillmulti2010_blocker(calc(clientclock + 15))", skillmulti2010:com_28);
-if_sethide(false, skillmulti2010:com_28);
+if_setontimer("skillmulti2010_blocker(calc(clientclock + 15))", skillmulti2010:blocker);
+if_sethide(false, skillmulti2010:blocker);

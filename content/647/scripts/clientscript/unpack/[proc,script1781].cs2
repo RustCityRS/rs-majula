@@ -2,10 +2,10 @@
 [proc,script1781]
 def_int $int0 = 0;
 while ($int0 <= 4) {
-    if (cc_find(clanwars_setup:com_141, calc($int0 * 4)) = true) {
+    if (cc_find(clanwars_setup:arena_layer, calc($int0 * 4)) = true) {
         if (%varclient_257 = $int0) {
             cc_setgraphic("options_radio_buttons,2");
-            ~clanwars_focuslayer(clanwars_setup:com_141, clanwars_setup:com_142, clanwars_setup:com_141, calc($int0 * 4 + 3));
+            ~clanwars_focuslayer(clanwars_setup:arena_layer, clanwars_setup:arena_scrollbar, clanwars_setup:arena_layer, calc($int0 * 4 + 3));
         } else if (map_members = false & struct_param(enum(int, struct, enum_1604, $int0), param_557) = true) {
             cc_setgraphic("options_radio_buttons,1");
         } else {

@@ -5,61 +5,61 @@ x=7
 y=35
 width=501
 height=284
-layer=com_6
+layer=content_layer
 model=model_19339
 modelorigin=3,15
 modelangle=527,0,0
 modelzoom=736
 
 // 857:1
-[com_1]
+[main_lay]
 type=layer
 width=512
 height=334
-layer=com_6
+layer=content_layer
 
 // 857:2
-[com_2]
+[breakdown_layer]
 type=layer
 x=-5
 y=23
 width=512
 height=334
-layer=com_6
+layer=content_layer
 hide=yes
 
 // 857:3
-[com_3]
+[flag1]
 type=model
 x=40
 y=68
 width=77
 height=169
-layer=com_6
+layer=content_layer
 model=model_47490
 modelorigin=0,78
 modelzoom=800
 
 // 857:4
-[com_4]
+[flag2]
 type=model
 x=400
 y=67
 width=77
 height=169
-layer=com_6
+layer=content_layer
 model=model_47490
 modelorigin=0,78
 modelzoom=800
 
 // 857:5
-[com_5]
+[close_button]
 type=graphic
 x=440
 y=42
 width=26
 height=23
-layer=com_6
+layer=content_layer
 graphic="close_buttons,2"
 colour=0xffffffff
 transmitop=1
@@ -69,7 +69,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,2")
 onop=closebutton_click
 
 // 857:6
-[com_6]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -77,7 +77,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 857:7
-[com_7]
+[main_title]
 type=text
 x=60
 y=51
@@ -85,7 +85,7 @@ width=12871
 height=1576
 widthmode=proportion
 heightmode=proportion
-layer=com_1
+layer=main_lay
 textfont=welcome_font_small
 text=--------
 textalignh=centre
@@ -93,13 +93,13 @@ textalignv=centre
 colour=0x000000
 
 // 857:8
-[com_8]
+[reward]
 type=text
 x=133
 y=102
 width=261
 height=168
-layer=com_1
+layer=main_lay
 textfont=q8_full
 text=---------
 textlineheight=24
@@ -108,13 +108,13 @@ textalignv=centre
 colour=0x000000
 
 // 857:9
-[com_9]
+[show_breakdown]
 type=text
 x=372
 y=256
 width=75
 height=32
-layer=com_1
+layer=main_lay
 textfont=b12_full
 text=Show<br>Breakdown
 textalignh=centre
@@ -126,26 +126,26 @@ onmouseover=text_colour_swapper(event_com, 0xcccccc)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 857:10
-[com_10]
+[result]
 type=text
 x=130
 y=79
 width=265
 height=18
-layer=com_1
+layer=main_lay
 textfont=p12_full
 text=----
 textalignh=centre
 colour=0x000000
 
 // 857:11
-[com_11]
+[reasoning]
 type=text
 x=106
 y=35
 width=315
 height=219
-layer=com_2
+layer=breakdown_layer
 textfont=p12_full
 text=----
 textlineheight=16
@@ -154,13 +154,13 @@ textalignv=centre
 colour=0x000000
 
 // 857:12
-[com_12]
+[show_main]
 type=text
 x=377
 y=233
 width=75
 height=32
-layer=com_2
+layer=breakdown_layer
 textfont=b12_full
 text=Show<br>Overview
 textalignh=centre

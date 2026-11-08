@@ -29,11 +29,11 @@ if_setsize(if_getwidth($component3), calc(paraheight($string1, if_getwidth($comp
 switch_component ($component5) {
     case lobbyscreen_report_abuse_ignore:com_0 :
         $component6 = lobbyscreen:com_53;
-    case interface_914:com_0 :
+    case lobbyscreen_report_abuse_stage1:com_0 :
         $component6 = lobbyscreen:com_69;
     case interface_979:com_0 :
         $component6 = lobbyscreen:com_43;
-    case interface_915:com_18 :
+    case lobbyscreen_report_abuse_stage2:com_18 :
         $component6 = lobbyscreen:com_61;
 }
 if ($component6 ! null) {

@@ -1,5 +1,5 @@
 // 240:0
-[com_0]
+[grab_evil_twin_panel]
 type=model
 x=7
 y=10
@@ -11,7 +11,7 @@ modelangle=505,0,0
 modelzoom=856
 
 // 240:1
-[com_1]
+[grab_evil_twin_arrows]
 type=model
 x=15
 y=54
@@ -23,7 +23,7 @@ modelangle=400,2047,0
 modelzoom=2192
 
 // 240:2
-[com_2]
+[grab_evil_twin_joystick]
 type=model
 x=64
 y=87
@@ -259,7 +259,7 @@ height=101
 hide=yes
 
 // 240:23
-[com_23]
+[grab_evil_twin_button]
 type=model
 x=132
 y=201
@@ -324,8 +324,8 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Grab
-onmouseover=model_swapper(interface_240:com_23, model_14936)
-onmouseleave=model_swapper(interface_240:com_23, model_14938)
+onmouseover=model_swapper(interface_240:grab_evil_twin_button, model_14936)
+onmouseleave=model_swapper(interface_240:grab_evil_twin_button, model_14938)
 
 // 240:29
 [com_29]
@@ -339,8 +339,8 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Up
-onmouseover=model_swapper(interface_240:com_2, model_14943)
-onmouseleave=model_swapper(interface_240:com_2, model_14940)
+onmouseover=model_swapper(interface_240:grab_evil_twin_joystick, model_14943)
+onmouseleave=model_swapper(interface_240:grab_evil_twin_joystick, model_14940)
 
 // 240:30
 [com_30]
@@ -354,11 +354,11 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Down
-onmouseover=model_swapper(interface_240:com_2, model_14939)
-onmouseleave=model_swapper(interface_240:com_2, model_14940)
+onmouseover=model_swapper(interface_240:grab_evil_twin_joystick, model_14939)
+onmouseleave=model_swapper(interface_240:grab_evil_twin_joystick, model_14940)
 
 // 240:31
-[com_31]
+[observer_repaint_1]
 type=text
 x=11
 y=110
@@ -369,8 +369,8 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Left
-onmouseover=model_swapper(interface_240:com_2, model_14941)
-onmouseleave=model_swapper(interface_240:com_2, model_14940)
+onmouseover=model_swapper(interface_240:grab_evil_twin_joystick, model_14941)
+onmouseleave=model_swapper(interface_240:grab_evil_twin_joystick, model_14940)
 
 // 240:32
 [com_32]
@@ -384,8 +384,8 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Right
-onmouseover=model_swapper(interface_240:com_2, model_14942)
-onmouseleave=model_swapper(interface_240:com_2, model_14940)
+onmouseover=model_swapper(interface_240:grab_evil_twin_joystick, model_14942)
+onmouseleave=model_swapper(interface_240:grab_evil_twin_joystick, model_14940)
 
 // 240:33
 [com_33]

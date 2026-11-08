@@ -74,7 +74,7 @@ tiling=yes
 colour=0xffffffff
 
 // 79:7
-[com_7]
+[close]
 type=graphic
 x=474
 y=30
@@ -84,8 +84,8 @@ graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(lore_pouch_creation_combined:com_7, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(lore_pouch_creation_combined:com_7, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(lore_pouch_creation_combined:close, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(lore_pouch_creation_combined:close, "v2_stone_close_button,0")
 onop=closebutton_click
 onclick=closebutton_click
 
@@ -164,7 +164,7 @@ textshadow=yes
 colour=0xff981f
 
 // 79:15
-[com_15]
+[scroll_creation_label]
 type=text
 x=222
 y=30
@@ -179,7 +179,7 @@ transmitop=10
 op10= 
 
 // 79:16
-[com_16]
+[lore_pouch_layer]
 type=layer
 x=22
 y=59
@@ -188,7 +188,7 @@ height=257
 scrollheight=1400
 
 // 79:17
-[com_17]
+[lore_scroll_layer]
 type=layer
 x=22
 y=59
@@ -199,16 +199,16 @@ transmitop=10
 op10= 
 
 // 79:18
-[com_18]
+[pouch_scroller]
 type=layer
 x=474
 y=59
 width=16
 height=257
-onload=scrollbar_vertical_graphics(event_com, lore_pouch_creation_combined:com_16, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, lore_pouch_creation_combined:lore_pouch_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 79:19
-[com_19]
+[scroll_scroller]
 type=layer
 x=474
 y=59
@@ -216,7 +216,7 @@ width=16
 height=257
 transmitop=10
 op10= 
-onload=scrollbar_vertical_graphics(event_com, lore_pouch_creation_combined:com_17, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, lore_pouch_creation_combined:lore_scroll_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 79:20
 [com_20]
@@ -229,8 +229,8 @@ graphic="tabs,0"
 colour=0xffffffff
 transmitop=1
 op1=Transform Scrolls
-onmouseleave=deltooltip(lore_pouch_creation_combined:com_29)
-onmouserepeat=script779(event_com, lore_pouch_creation_combined:com_29, 5177373, 1, "Swap between creating pouches and scrolls")
+onmouseleave=deltooltip(lore_pouch_creation_combined:tool_tip_build_layer)
+onmouserepeat=script779(event_com, lore_pouch_creation_combined:tool_tip_build_layer, 5177373, 1, "Swap between creating pouches and scrolls")
 
 // 79:21
 [com_21]
@@ -254,8 +254,8 @@ colour=0xffffffff
 transmitop=1,10
 op1=Infuse Pouches
 op10= 
-onmouseleave=deltooltip(lore_pouch_creation_combined:com_29)
-onmouserepeat=script779(event_com, lore_pouch_creation_combined:com_29, 5177373, 1, "Swap between creating pouches and scrolls")
+onmouseleave=deltooltip(lore_pouch_creation_combined:tool_tip_build_layer)
+onmouserepeat=script779(event_com, lore_pouch_creation_combined:tool_tip_build_layer, 5177373, 1, "Swap between creating pouches and scrolls")
 
 // 79:23
 [com_23]
@@ -314,14 +314,14 @@ transmitop=10
 op10= 
 
 // 79:28
-[com_28]
+[tooltip_bounding_box]
 type=layer
 width=512
 height=334
 
 // 79:29
-[com_29]
+[tool_tip_build_layer]
 type=layer
 width=512
 height=334
-layer=com_28
+layer=tooltip_bounding_box

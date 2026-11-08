@@ -36,7 +36,7 @@ if ($int4 = 1 & $int5 = 1 & $boolean1 = true & $boolean2 = true & $int3 = 1 & $b
         ~script4038;
     } else {
         unknown_command_5605(%varclient_1641, %varclient_1643, %varclient_1407, %varclient_1411);
-        if_setontimer("create_go_timer", account_create:com_17);
+        if_setontimer("create_go_timer", account_create:continue);
     }
 } else {
     ~create_please_wait(0);

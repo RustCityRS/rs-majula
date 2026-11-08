@@ -14,16 +14,16 @@ switch_int ($key0) {
             mes_typed(^chattype_clanmessage, 0, "You are not in a Clan.");
         }
         %varclient_1797 = "";
-        if_settext(escape(%varclient_1797), lobbyscreen_pane_clanchat:com_25);
+        if_settext(escape(%varclient_1797), lobbyscreen_pane_clanchat:chat_input_text);
         %varclient_1098 = string_length(%varclient_1797);
-        ~script1390(lobbyscreen_pane_clanchat:com_25, lobbyscreen_pane_clanchat:com_26, %varclient_1797);
+        ~script1390(lobbyscreen_pane_clanchat:chat_input_text, lobbyscreen_pane_clanchat:input_caret, %varclient_1797);
     case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
         %varclient_1098 = ~script1553($key0, %varclient_1098, %varclient_1797);
-        ~script1390(lobbyscreen_pane_clanchat:com_25, lobbyscreen_pane_clanchat:com_26, %varclient_1797);
+        ~script1390(lobbyscreen_pane_clanchat:chat_input_text, lobbyscreen_pane_clanchat:input_caret, %varclient_1797);
     case null, ^key_backspace, ^key_del :
         if (char_isprintable($char1) = true | $key0 = ^key_backspace | $key0 = ^key_del) {
             %varclient_1797, %varclient_1098 = ~script802(%varclient_1098, %varclient_1797, 0, $key0, $char1);
-            if_settext(escape(%varclient_1797), lobbyscreen_pane_clanchat:com_25);
-            ~script1390(lobbyscreen_pane_clanchat:com_25, lobbyscreen_pane_clanchat:com_26, %varclient_1797);
+            if_settext(escape(%varclient_1797), lobbyscreen_pane_clanchat:chat_input_text);
+            ~script1390(lobbyscreen_pane_clanchat:chat_input_text, lobbyscreen_pane_clanchat:input_caret, %varclient_1797);
         }
 }

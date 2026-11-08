@@ -1,22 +1,22 @@
 // 523:0
-[com_0]
+[attack]
 type=graphic
 x=20
 y=3
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,0"
 colour=0xffffffff
 
 // 523:1
-[com_1]
+[stat_attack]
 type=text
 x=48
 y=7
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -24,13 +24,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:2
-[com_2]
+[statbase_attack]
 type=text
 x=68
 y=16
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -43,31 +43,31 @@ x=64
 y=12
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:4
-[com_4]
+[hitpoints]
 type=graphic
 x=95
 y=2
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,6"
 colour=0xffffffff
 
 // 523:5
-[com_5]
+[stat_hitpoints]
 type=text
 x=123
 y=6
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -75,13 +75,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:6
-[com_6]
+[statbase_hitpoints]
 type=text
 x=143
 y=15
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -94,31 +94,31 @@ x=139
 y=11
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:8
-[com_8]
+[mining_1]
 type=graphic
 x=20
 y=30
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,12"
 colour=0xffffffff
 
 // 523:9
-[com_9]
+[stat_mining]
 type=text
 x=48
 y=34
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -126,13 +126,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:10
-[com_10]
+[statbase_mining]
 type=text
 x=68
 y=43
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -145,31 +145,31 @@ x=64
 y=39
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:12
-[com_12]
+[strength]
 type=graphic
 x=95
 y=30
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,1"
 colour=0xffffffff
 
 // 523:13
-[com_13]
+[stat_strength]
 type=text
 x=123
 y=34
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -177,13 +177,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:14
-[com_14]
+[statbase_strength]
 type=text
 x=143
 y=43
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -196,31 +196,31 @@ x=139
 y=39
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:16
-[com_16]
+[agility]
 type=graphic
 x=20
 y=58
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,7"
 colour=0xffffffff
 
 // 523:17
-[com_17]
+[stat_agility]
 type=text
 x=48
 y=62
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -228,13 +228,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:18
-[com_18]
+[statbase_agility]
 type=text
 x=68
 y=71
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -247,31 +247,31 @@ x=64
 y=67
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:20
-[com_20]
+[smithing]
 type=graphic
 x=94
 y=58
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,13"
 colour=0xffffffff
 
 // 523:21
-[com_21]
+[stat_smithing]
 type=text
 x=122
 y=62
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -279,13 +279,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:22
-[com_22]
+[statbase_smithing]
 type=text
 x=142
 y=71
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -298,31 +298,31 @@ x=138
 y=67
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:24
-[com_24]
+[defence]
 type=graphic
 x=20
 y=86
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,2"
 colour=0xffffffff
 
 // 523:25
-[com_25]
+[stat_defence]
 type=text
 x=48
 y=90
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -330,13 +330,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:26
-[com_26]
+[statbase_defence]
 type=text
 x=68
 y=99
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -349,31 +349,31 @@ x=64
 y=95
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:28
-[com_28]
+[herblore]
 type=graphic
 x=94
 y=85
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,8"
 colour=0xffffffff
 
 // 523:29
-[com_29]
+[stat_herblore]
 type=text
 x=122
 y=89
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -381,13 +381,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:30
-[com_30]
+[statbase_herblore]
 type=text
 x=142
 y=98
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -400,7 +400,7 @@ x=138
 y=94
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
@@ -413,18 +413,18 @@ x=20
 y=114
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,14"
 colour=0xffffffff
 
 // 523:33
-[com_33]
+[stat_fishing]
 type=text
 x=48
 y=118
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -432,13 +432,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:34
-[com_34]
+[statbase_fishing]
 type=text
 x=68
 y=127
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -451,31 +451,31 @@ x=64
 y=123
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:36
-[com_36]
+[ranged]
 type=graphic
 x=94
 y=113
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,3"
 colour=0xffffffff
 
 // 523:37
-[com_37]
+[stat_ranged]
 type=text
 x=122
 y=117
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -483,13 +483,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:38
-[com_38]
+[statbase_ranged]
 type=text
 x=142
 y=126
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -502,31 +502,31 @@ x=138
 y=122
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:40
-[com_40]
+[thieving]
 type=graphic
 x=20
 y=142
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,9"
 colour=0xffffffff
 
 // 523:41
-[com_41]
+[stat_thieving]
 type=text
 x=48
 y=146
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -534,13 +534,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:42
-[com_42]
+[statbase_thieving]
 type=text
 x=68
 y=155
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -553,31 +553,31 @@ x=64
 y=151
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:44
-[com_44]
+[cooking]
 type=graphic
 x=94
 y=141
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,15"
 colour=0xffffffff
 
 // 523:45
-[com_45]
+[stat_cooking]
 type=text
 x=122
 y=145
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -585,13 +585,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:46
-[com_46]
+[statbase_cooking]
 type=text
 x=142
 y=154
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -604,31 +604,31 @@ x=138
 y=150
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:48
-[com_48]
+[prayer]
 type=graphic
 x=20
 y=170
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,4"
 colour=0xffffffff
 
 // 523:49
-[com_49]
+[stat_prayer]
 type=text
 x=48
 y=174
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -636,13 +636,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:50
-[com_50]
+[statbase_prayer]
 type=text
 x=68
 y=183
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -655,31 +655,31 @@ x=64
 y=179
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:52
-[com_52]
+[crafting]
 type=graphic
 x=94
 y=169
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,10"
 colour=0xffffffff
 
 // 523:53
-[com_53]
+[stat_crafting]
 type=text
 x=122
 y=173
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -687,13 +687,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:54
-[com_54]
+[statbase_crafting]
 type=text
 x=142
 y=182
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -706,31 +706,31 @@ x=138
 y=178
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:56
-[com_56]
+[firemaking]
 type=graphic
 x=20
 y=198
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,16"
 colour=0xffffffff
 
 // 523:57
-[com_57]
+[stat_firemaking]
 type=text
 x=48
 y=202
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -738,13 +738,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:58
-[com_58]
+[statbase_firemaking]
 type=text
 x=68
 y=211
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -757,31 +757,31 @@ x=64
 y=207
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:60
-[com_60]
+[magic]
 type=graphic
 x=94
 y=198
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,5"
 colour=0xffffffff
 
 // 523:61
-[com_61]
+[stat_magic]
 type=text
 x=122
 y=202
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -789,13 +789,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:62
-[com_62]
+[statbase_magic]
 type=text
 x=142
 y=211
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -808,31 +808,31 @@ x=138
 y=207
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:64
-[com_64]
+[fletching]
 type=graphic
 x=20
 y=226
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,11"
 colour=0xffffffff
 
 // 523:65
-[com_65]
+[stat_fletching]
 type=text
 x=48
 y=230
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -840,13 +840,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:66
-[com_66]
+[statbase_fletching]
 type=text
 x=68
 y=239
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -859,31 +859,31 @@ x=64
 y=235
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:68
-[com_68]
+[woodcutting]
 type=graphic
 x=94
 y=226
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons,17"
 colour=0xffffffff
 
 // 523:69
-[com_69]
+[stat_woodcutting]
 type=text
 x=122
 y=230
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -891,13 +891,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:70
-[com_70]
+[statbase_woodcutting]
 type=text
 x=142
 y=239
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -910,31 +910,31 @@ x=138
 y=235
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:72
-[com_72]
+[runecraft]
 type=graphic
 x=20
 y=254
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons2,0"
 colour=0xffffffff
 
 // 523:73
-[com_73]
+[stat_runecraft]
 type=text
 x=48
 y=258
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -942,13 +942,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:74
-[com_74]
+[statbase_runecraft]
 type=text
 x=68
 y=267
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -961,31 +961,31 @@ x=64
 y=263
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:76
-[com_76]
+[slayer]
 type=graphic
 x=94
 y=254
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons2,1"
 colour=0xffffffff
 
 // 523:77
-[com_77]
+[stat_slayer]
 type=text
 x=122
 y=258
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -993,13 +993,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:78
-[com_78]
+[statbase_slayer]
 type=text
 x=142
 y=267
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -1012,31 +1012,31 @@ x=138
 y=263
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:80
-[com_80]
+[farming]
 type=graphic
 x=20
 y=282
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons2,2"
 colour=0xffffffff
 
 // 523:81
-[com_81]
+[stat_farming]
 type=text
 x=48
 y=286
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -1044,13 +1044,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:82
-[com_82]
+[statbase_farming]
 type=text
 x=68
 y=295
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -1063,31 +1063,31 @@ x=64
 y=291
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:84
-[com_84]
+[construction]
 type=graphic
 x=94
 y=282
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons2,6"
 colour=0xffffffff
 
 // 523:85
-[com_85]
+[stat_construction]
 type=text
 x=122
 y=286
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -1095,13 +1095,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:86
-[com_86]
+[statbase_construction]
 type=text
 x=142
 y=295
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -1114,31 +1114,31 @@ x=138
 y=291
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:88
-[com_88]
+[hunter]
 type=graphic
 x=20
 y=310
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons2,5"
 colour=0xffffffff
 
 // 523:89
-[com_89]
+[stat_hunter]
 type=text
 x=48
 y=314
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -1146,13 +1146,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:90
-[com_90]
+[statbase_hunter]
 type=text
 x=68
 y=323
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -1165,31 +1165,31 @@ x=64
 y=319
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:92
-[com_92]
+[summoning]
 type=graphic
 x=94
 y=310
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons2,7"
 colour=0xffffffff
 
 // 523:93
-[com_93]
+[stat_summoning]
 type=text
 x=121
 y=314
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -1197,13 +1197,13 @@ textshadow=yes
 colour=0xff981f
 
 // 523:94
-[com_94]
+[statbase_summoning]
 type=text
 x=142
 y=324
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -1216,33 +1216,33 @@ x=137
 y=320
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
 colour=0xff981f
 
 // 523:96
-[com_96]
+[dungeoneering]
 type=graphic
 x=20
 y=338
 width=25
 height=25
-layer=com_100
+layer=scrollbar_surround
 graphic="staticons2,13"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 523:97
-[com_97]
+[stat_dungeoneering]
 type=text
 x=48
 y=342
 width=18
 height=14
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textalignh=right
@@ -1252,13 +1252,13 @@ transmitop=10
 op10= 
 
 // 523:98
-[com_98]
+[statbase_dungeoneering]
 type=text
 x=68
 y=351
 width=15
 height=12
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=00
 textshadow=yes
@@ -1273,7 +1273,7 @@ x=64
 y=347
 width=8
 height=15
-layer=com_100
+layer=scrollbar_surround
 textfont=p12_full
 text=/
 textshadow=yes
@@ -1282,7 +1282,7 @@ transmitop=10
 op10= 
 
 // 523:100
-[com_100]
+[scrollbar_surround]
 type=layer
 y=48
 width=168
@@ -1297,7 +1297,7 @@ y=48
 width=16
 height=195
 xmode=abs_right
-onload=scrollbar_vertical_graphics(event_com, dream_player_stats:com_100, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, dream_player_stats:scrollbar_surround, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 523:102
 [com_102]
@@ -1322,7 +1322,7 @@ textshadow=yes
 colour=0xff981f
 
 // 523:104
-[com_104]
+[stat_name]
 type=text
 y=28
 height=18
@@ -1332,10 +1332,10 @@ textfont=b12_full
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onvarcstrtransmit=script1572(event_com, dream_player_stats:com_108){varclient_1725}
+onvarcstrtransmit=script1572(event_com, dream_player_stats:tooltip){varclient_1725}
 
 // 523:105
-[com_105]
+[dream_playerstat_close]
 type=graphic
 x=8
 y=8
@@ -1351,7 +1351,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 523:106
-[com_106]
+[health]
 type=text
 y=2
 height=15
@@ -1365,14 +1365,14 @@ textshadow=yes
 colour=0xff981f
 
 // 523:107
-[com_107]
+[tooltip_boundary]
 type=layer
 widthmode=minus
 heightmode=minus
 
 // 523:108
-[com_108]
+[tooltip]
 type=layer
 width=1
 height=1
-layer=com_107
+layer=tooltip_boundary

@@ -1,12 +1,12 @@
 // 561
 [clientscript,duel2_select_type_vartrans]
 if (%varplayerbit_4157 = 1) {
-    if_setgraphic("radio_buttons,1", duel2_select_type:com_22);
+    if_setgraphic("radio_buttons,1", duel2_select_type:friendly_duel2);
 } else {
-    if_setgraphic("radio_buttons,0", duel2_select_type:com_22);
+    if_setgraphic("radio_buttons,0", duel2_select_type:friendly_duel2);
 }
 if (%varplayerbit_4157 = 2) {
-    if_setgraphic("radio_buttons,1", duel2_select_type:com_21);
+    if_setgraphic("radio_buttons,1", duel2_select_type:staked_duel2);
 } else {
-    if_setgraphic("radio_buttons,0", duel2_select_type:com_21);
+    if_setgraphic("radio_buttons,0", duel2_select_type:staked_duel2);
 }

@@ -31,7 +31,7 @@ use rs_io::js5::Js5Store;
 #[cfg(since_647)]
 use runec::clientscript::decompile::{Signature, component_hook_text};
 #[cfg(since_647)]
-use runec::symbol::SymbolRegistry;
+use runec::symbol::{SymbolRegistry, identifier_form};
 #[cfg(since_647)]
 use std::collections::HashMap;
 #[cfg(before_647)]
@@ -787,7 +787,7 @@ fn emit_component(
     names: &AssetNames,
     registry: &SymbolRegistry,
 ) -> Result<()> {
-    let name = names.component_name(group, position);
+    let name = identifier_form(&names.component_name(group, position));
     writeln!(out, "// {group}:{position}\n[{name}]")?;
     let type_name = match comp.com_type {
         IfComponentType::Layer => "layer",
@@ -841,7 +841,7 @@ fn emit_component(
         writeln!(
             out,
             "layer={}",
-            names.component_name(group, comp.parent_id as u32)
+            identifier_form(&names.component_name(group, comp.parent_id as u32))
         )?;
     }
     if comp.flags & 1 != 0 {

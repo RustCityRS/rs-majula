@@ -1,7 +1,7 @@
 // 1388
 [proc,prayer_load_customise](component $component0)
 cc_deleteall($component0);
-cc_deleteall(prayer:com_6);
+cc_deleteall(prayer:scrollbar_layer);
 def_int $int1 = 5;
 def_int $int2 = 15;
 def_int $int3 = 15;

@@ -12,7 +12,7 @@ onstattransmit=ql4_refresh
 onvarctransmit=ql4_refresh{varclient_695}
 
 // 190:1
-[com_1]
+[title]
 type=text
 x=5
 y=5
@@ -109,7 +109,7 @@ transmitop=10
 op10=  
 
 // 190:8
-[com_8]
+[label_status]
 type=text
 x=4
 y=61
@@ -126,7 +126,7 @@ op10=
 onvartransmit=script2166{qp, quest_points_total}
 
 // 190:9
-[com_9]
+[button_filter]
 type=text
 x=133
 y=28
@@ -139,12 +139,12 @@ textshadow=yes
 colour=0xeb981f
 transmitop=1
 op1=Filter quests
-onmouseleave=deltooltip(questlist_v4:com_20)
+onmouseleave=deltooltip(questlist_v4:tooltip)
 onop=script2171(event_op)
 onmouserepeat=ql4_tooltip(event_com)
 
 // 190:10
-[com_10]
+[radio_filter]
 type=graphic
 x=114
 y=25
@@ -155,12 +155,12 @@ graphic="options_radio_buttons,0"
 colour=0xffffffff
 transmitop=1
 op1=Filter quests
-onmouseleave=deltooltip(questlist_v4:com_20)
+onmouseleave=deltooltip(questlist_v4:tooltip)
 onop=script2171(event_op)
 onmouserepeat=ql4_tooltip(event_com)
 
 // 190:11
-[com_11]
+[appealsdemo]
 type=text
 x=133
 y=44
@@ -174,7 +174,7 @@ colour=0xeb981f
 transmitop=1,10
 op1=Hide completed
 op10= 
-onmouseleave=deltooltip(questlist_v4:com_20)
+onmouseleave=deltooltip(questlist_v4:tooltip)
 onop=script1882(event_op)
 onmouserepeat=ql4_tooltip(event_com)
 
@@ -191,12 +191,12 @@ colour=0xffffffff
 transmitop=1,10
 op1=Hide completed
 op10= 
-onmouseleave=deltooltip(questlist_v4:com_20)
+onmouseleave=deltooltip(questlist_v4:tooltip)
 onop=script1882(event_op)
 onmouserepeat=ql4_tooltip(event_com)
 
 // 190:13
-[com_13]
+[content]
 type=layer
 x=4
 y=12
@@ -252,23 +252,23 @@ width=16
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_13
+layer=content
 transmitop=10
 op10= 
 
 // 190:18
-[com_18]
+[quests]
 type=layer
 width=16
 widthmode=minus
 heightmode=minus
 ymode=abs_bottom
-layer=com_13
+layer=content
 transmitop=10
 op10= 
 
 // 190:19
-[com_19]
+[tooltip_bounds]
 type=layer
 x=5
 y=5
@@ -276,71 +276,71 @@ width=10
 height=21
 widthmode=minus
 heightmode=minus
-layer=com_13
+layer=content
 
 // 190:20
-[com_20]
+[tooltip]
 type=layer
 width=104
 height=17
-layer=com_19
+layer=tooltip_bounds
 
 // 190:21
-[com_21]
+[label_category_0]
 type=text
 width=89
 height=19
-layer=com_18
+layer=quests
 textfont=b12_full
 textshadow=yes
 colour=0xff9900
 
 // 190:22
-[com_22]
+[label_category_1]
 type=text
 width=89
 height=19
-layer=com_18
+layer=quests
 textfont=b12_full
 textshadow=yes
 colour=0xff9900
 
 // 190:23
-[com_23]
+[label_category_2]
 type=text
 width=89
 height=19
-layer=com_18
+layer=quests
 textfont=b12_full
 textshadow=yes
 colour=0xff9900
 
 // 190:24
-[com_24]
+[label_category_3]
 type=text
 width=89
 height=19
-layer=com_18
+layer=quests
 textfont=b12_full
 textshadow=yes
 colour=0xff9900
 
 // 190:25
-[com_25]
+[label_category_4]
 type=text
 width=89
 height=19
-layer=com_18
+layer=quests
 textfont=b12_full
 textshadow=yes
 colour=0xff9900
 
 // 190:26
-[com_26]
+[label_category_5]
 type=text
 width=89
 height=19
-layer=com_18
+layer=quests
 textfont=b12_full
 textshadow=yes
 colour=0xff9900

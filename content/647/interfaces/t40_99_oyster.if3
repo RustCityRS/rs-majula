@@ -83,7 +83,7 @@ transmitop=10
 op10=      
 
 // 903:7
-[com_7]
+[background_3]
 type=graphic
 y=30
 width=237
@@ -97,7 +97,7 @@ transmitop=10
 op10= 
 
 // 903:8
-[com_8]
+[background_4]
 type=graphic
 y=100
 width=237
@@ -111,7 +111,7 @@ transmitop=10
 op10=  
 
 // 903:9
-[com_9]
+[background_5]
 type=graphic
 y=32
 width=237
@@ -126,7 +126,7 @@ transmitop=10
 op10=  
 
 // 903:10
-[com_10]
+[top_1]
 type=graphic
 y=8
 width=190
@@ -140,7 +140,7 @@ transmitop=10
 op10= 
 
 // 903:11
-[com_11]
+[left_1]
 type=graphic
 x=-123
 y=-10
@@ -156,7 +156,7 @@ transmitop=10
 op10= 
 
 // 903:12
-[com_12]
+[bottom_1]
 type=graphic
 y=12
 width=192
@@ -171,7 +171,7 @@ transmitop=10
 op10= 
 
 // 903:13
-[com_13]
+[right_1]
 type=graphic
 x=123
 y=-10
@@ -187,7 +187,7 @@ transmitop=10
 op10= 
 
 // 903:14
-[com_14]
+[top_left_1]
 type=graphic
 x=-110
 y=8
@@ -201,7 +201,7 @@ transmitop=10
 op10= 
 
 // 903:15
-[com_15]
+[top_right_1]
 type=graphic
 x=111
 y=8
@@ -215,7 +215,7 @@ transmitop=10
 op10= 
 
 // 903:16
-[com_16]
+[bottom_left_1]
 type=graphic
 x=-110
 y=24
@@ -230,7 +230,7 @@ transmitop=10
 op10= 
 
 // 903:17
-[com_17]
+[bottom_right_1]
 type=graphic
 x=111
 y=24
@@ -245,7 +245,7 @@ transmitop=10
 op10= 
 
 // 903:18
-[com_18]
+[exit_button]
 type=graphic
 x=110
 y=11
@@ -262,7 +262,7 @@ onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
 onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 
 // 903:19
-[com_19]
+[title_2]
 type=text
 y=12
 width=200
@@ -278,7 +278,7 @@ transmitop=10
 op10= 
 
 // 903:20
-[com_20]
+[short_planks]
 type=layer
 y=-80
 width=182
@@ -290,7 +290,7 @@ transmitop=10
 op10= 
 
 // 903:21
-[com_21]
+[long_planks]
 type=layer
 y=-38
 width=182
@@ -302,7 +302,7 @@ transmitop=10
 op10=  
 
 // 903:22
-[com_22]
+[diagonal_planks]
 type=layer
 y=4
 width=182
@@ -314,7 +314,7 @@ transmitop=10
 op10=   
 
 // 903:23
-[com_23]
+[tooth_planks]
 type=layer
 y=46
 width=182
@@ -326,7 +326,7 @@ transmitop=10
 op10=    
 
 // 903:24
-[com_24]
+[groove_planks]
 type=layer
 y=88
 width=182
@@ -338,7 +338,7 @@ transmitop=10
 op10=     
 
 // 903:25
-[com_25]
+[curved_planks]
 type=layer
 y=130
 width=182
@@ -355,7 +355,7 @@ type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_25
+layer=curved_planks
 colour=0x000000
 transmitop=10
 op10=      
@@ -368,7 +368,7 @@ width=174
 height=34
 xmode=abs_centre
 ymode=abs_centre
-layer=com_25
+layer=curved_planks
 colour=0x463d32
 fill=yes
 transmitop=10
@@ -381,7 +381,7 @@ y=34
 width=174
 height=1
 xmode=abs_centre
-layer=com_25
+layer=curved_planks
 colour=0x9999ff
 trans=210
 transmitop=10
@@ -394,7 +394,7 @@ y=1
 width=174
 height=1
 xmode=abs_centre
-layer=com_25
+layer=curved_planks
 colour=0xcdcccb
 trans=200
 transmitop=10
@@ -407,7 +407,7 @@ y=2
 width=176
 height=32
 xmode=abs_centre
-layer=com_25
+layer=curved_planks
 colour=0x000000
 fill=yes
 trans=200
@@ -422,7 +422,7 @@ y=4
 width=32
 height=32
 xmode=abs_right
-layer=com_25
+layer=curved_planks
 graphic="km_woodicons,1"
 colour=0xffffffff
 transmitop=10
@@ -436,7 +436,7 @@ y=4
 width=32
 height=32
 widthmode=minus
-layer=com_25
+layer=curved_planks
 textfont=p12_full
 text=Curved Planks
 textshadow=yes
@@ -445,13 +445,13 @@ transmitop=10
 op10=      
 
 // 903:33
-[com_33]
+[curve_count]
 type=text
 x=20
 y=17
 width=120
 height=36
-layer=com_25
+layer=curved_planks
 textfont=b12_full
 text=x2
 textalignh=right
@@ -461,12 +461,12 @@ transmitop=10
 op10=         
 
 // 903:34
-[com_34]
+[curve_button]
 type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_25
+layer=curved_planks
 colour=0x000000
 fill=yes
 trans=200
@@ -485,7 +485,7 @@ type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_24
+layer=groove_planks
 colour=0x000000
 transmitop=10
 op10=     
@@ -497,7 +497,7 @@ y=34
 width=174
 height=1
 xmode=abs_centre
-layer=com_24
+layer=groove_planks
 colour=0x9999ff
 trans=210
 transmitop=10
@@ -510,7 +510,7 @@ y=1
 width=174
 height=1
 xmode=abs_centre
-layer=com_24
+layer=groove_planks
 colour=0xcdcccb
 trans=200
 transmitop=10
@@ -523,7 +523,7 @@ y=2
 width=176
 height=32
 xmode=abs_centre
-layer=com_24
+layer=groove_planks
 colour=0x000000
 fill=yes
 trans=200
@@ -538,7 +538,7 @@ y=4
 width=32
 height=32
 xmode=abs_right
-layer=com_24
+layer=groove_planks
 graphic="km_woodicons,3"
 colour=0xffffffff
 transmitop=10
@@ -552,7 +552,7 @@ y=4
 width=32
 height=32
 widthmode=minus
-layer=com_24
+layer=groove_planks
 textfont=p12_full
 text=Groove-Cut Planks
 textshadow=yes
@@ -561,13 +561,13 @@ transmitop=10
 op10=     
 
 // 903:41
-[com_41]
+[groove_count]
 type=text
 x=20
 y=17
 width=120
 height=36
-layer=com_24
+layer=groove_planks
 textfont=b12_full
 text=x299
 textalignh=right
@@ -577,12 +577,12 @@ transmitop=10
 op10=        
 
 // 903:42
-[com_42]
+[groove_button]
 type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_24
+layer=groove_planks
 colour=0x000000
 fill=yes
 trans=200
@@ -601,7 +601,7 @@ type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_23
+layer=tooth_planks
 colour=0x000000
 transmitop=10
 op10=    
@@ -613,7 +613,7 @@ y=34
 width=174
 height=1
 xmode=abs_centre
-layer=com_23
+layer=tooth_planks
 colour=0x9999ff
 trans=210
 transmitop=10
@@ -626,7 +626,7 @@ y=1
 width=174
 height=1
 xmode=abs_centre
-layer=com_23
+layer=tooth_planks
 colour=0xcdcccb
 trans=200
 transmitop=10
@@ -639,7 +639,7 @@ y=2
 width=176
 height=32
 xmode=abs_centre
-layer=com_23
+layer=tooth_planks
 colour=0x000000
 fill=yes
 trans=200
@@ -654,7 +654,7 @@ y=4
 width=32
 height=32
 xmode=abs_right
-layer=com_23
+layer=tooth_planks
 graphic="km_woodicons,4"
 colour=0xffffffff
 transmitop=10
@@ -668,7 +668,7 @@ y=4
 width=32
 height=32
 widthmode=minus
-layer=com_23
+layer=tooth_planks
 textfont=p12_full
 text=Tooth-Cut Planks
 textshadow=yes
@@ -677,13 +677,13 @@ transmitop=10
 op10=    
 
 // 903:49
-[com_49]
+[tooth_count]
 type=text
 x=20
 y=17
 width=120
 height=36
-layer=com_23
+layer=tooth_planks
 textfont=b12_full
 text=x2
 textalignh=right
@@ -693,12 +693,12 @@ transmitop=10
 op10=       
 
 // 903:50
-[com_50]
+[tooth_button]
 type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_23
+layer=tooth_planks
 colour=0x000000
 fill=yes
 trans=200
@@ -717,7 +717,7 @@ type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_22
+layer=diagonal_planks
 colour=0x000000
 transmitop=10
 op10=   
@@ -729,7 +729,7 @@ y=34
 width=174
 height=1
 xmode=abs_centre
-layer=com_22
+layer=diagonal_planks
 colour=0x9999ff
 trans=210
 transmitop=10
@@ -742,7 +742,7 @@ y=1
 width=174
 height=1
 xmode=abs_centre
-layer=com_22
+layer=diagonal_planks
 colour=0xcdcccb
 trans=200
 transmitop=10
@@ -755,7 +755,7 @@ y=2
 width=176
 height=32
 xmode=abs_centre
-layer=com_22
+layer=diagonal_planks
 colour=0x000000
 fill=yes
 trans=200
@@ -770,7 +770,7 @@ y=4
 width=32
 height=32
 xmode=abs_right
-layer=com_22
+layer=diagonal_planks
 graphic="km_woodicons,2"
 colour=0xffffffff
 transmitop=10
@@ -784,7 +784,7 @@ y=4
 width=32
 height=32
 widthmode=minus
-layer=com_22
+layer=diagonal_planks
 textfont=p12_full
 text=Diagonal-Cut Planks
 textshadow=yes
@@ -793,13 +793,13 @@ transmitop=10
 op10=   
 
 // 903:57
-[com_57]
+[diag_count]
 type=text
 x=20
 y=17
 width=120
 height=36
-layer=com_22
+layer=diagonal_planks
 textfont=b12_full
 text=x2
 textalignh=right
@@ -814,7 +814,7 @@ type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_22
+layer=diagonal_planks
 colour=0x000000
 fill=yes
 trans=200
@@ -833,7 +833,7 @@ type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_21
+layer=long_planks
 colour=0x000000
 transmitop=10
 op10=  
@@ -845,7 +845,7 @@ y=1
 width=174
 height=34
 xmode=abs_centre
-layer=com_21
+layer=long_planks
 colour=0x463d32
 fill=yes
 transmitop=10
@@ -857,7 +857,7 @@ type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_20
+layer=short_planks
 colour=0x463d32
 fill=yes
 transmitop=10
@@ -870,7 +870,7 @@ y=34
 width=174
 height=1
 xmode=abs_centre
-layer=com_21
+layer=long_planks
 colour=0x9999ff
 trans=210
 transmitop=10
@@ -883,7 +883,7 @@ y=1
 width=174
 height=1
 xmode=abs_centre
-layer=com_21
+layer=long_planks
 colour=0xcdcccb
 trans=200
 transmitop=10
@@ -896,7 +896,7 @@ y=2
 width=176
 height=32
 xmode=abs_centre
-layer=com_21
+layer=long_planks
 colour=0x000000
 fill=yes
 trans=200
@@ -911,7 +911,7 @@ y=4
 width=32
 height=32
 xmode=abs_right
-layer=com_21
+layer=long_planks
 graphic="km_woodicons,5"
 colour=0xffffffff
 transmitop=10
@@ -925,7 +925,7 @@ y=4
 width=32
 height=32
 widthmode=minus
-layer=com_21
+layer=long_planks
 textfont=p12_full
 text=Long Planks
 textshadow=yes
@@ -934,13 +934,13 @@ transmitop=10
 op10=  
 
 // 903:67
-[com_67]
+[long_count]
 type=text
 x=20
 y=17
 width=120
 height=36
-layer=com_21
+layer=long_planks
 textfont=b12_full
 text=x200
 textalignh=right
@@ -950,12 +950,12 @@ transmitop=10
 op10=     
 
 // 903:68
-[com_68]
+[long_button]
 type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_21
+layer=long_planks
 colour=0x000000
 fill=yes
 trans=200
@@ -974,7 +974,7 @@ type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_20
+layer=short_planks
 colour=0x463d32
 fill=yes
 transmitop=10
@@ -986,7 +986,7 @@ type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_20
+layer=short_planks
 colour=0x000000
 transmitop=10
 op10=  
@@ -998,7 +998,7 @@ y=1
 width=174
 height=1
 xmode=abs_centre
-layer=com_20
+layer=short_planks
 colour=0xcdcccb
 trans=200
 transmitop=10
@@ -1011,7 +1011,7 @@ y=2
 width=176
 height=32
 xmode=abs_centre
-layer=com_20
+layer=short_planks
 colour=0x000000
 fill=yes
 trans=200
@@ -1026,7 +1026,7 @@ y=4
 width=32
 height=32
 xmode=abs_right
-layer=com_20
+layer=short_planks
 graphic="km_woodicons,6"
 colour=0xffffffff
 transmitop=10
@@ -1040,7 +1040,7 @@ y=4
 width=32
 height=32
 widthmode=minus
-layer=com_20
+layer=short_planks
 textfont=p12_full
 text=Short Planks
 textshadow=yes
@@ -1049,13 +1049,13 @@ transmitop=10
 op10= 
 
 // 903:75
-[com_75]
+[short_count]
 type=text
 x=20
 y=17
 width=120
 height=36
-layer=com_20
+layer=short_planks
 textfont=b12_full
 text=x20
 textalignh=right
@@ -1065,12 +1065,12 @@ transmitop=10
 op10=    
 
 // 903:76
-[com_76]
+[short_button]
 type=rectangle
 width=176
 height=36
 xmode=abs_centre
-layer=com_20
+layer=short_planks
 colour=0x000000
 fill=yes
 trans=200

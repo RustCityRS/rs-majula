@@ -1,12 +1,12 @@
 // 2186
 [proc,fishcomp_reward_tackle_box_refresh]
-def_component $component0 = deathkeep_constricted:com_0;
+def_component $component0 = deathkeep_constricted:main_layer;
 cc_deleteall($component0);
 def_int $int1 = 0;
 def_int $int2 = 0;
 $int1 = calc((if_getwidth($component0) - 36 * 4) / 3);
 $int2 = calc((if_getheight($component0) - 32 * 7) / 6);
-cc_deleteall(fishcomp_reward_tackle_box:com_35);
+cc_deleteall(fishcomp_reward_tackle_box:render_layer);
 def_int $int3 = enum_getoutputcount(enum_962);
 def_int $int4 = 0;
 def_int $int5 = 0;
@@ -20,7 +20,7 @@ while ($int4 < $int3) {
         $int6 = cc_gety;
         $enum8 = enum(int, enum, enum_963, $int4);
         $int7 = ~script2187($int4);
-        cc_create(fishcomp_reward_tackle_box:com_35, ^iftype_graphic, $int4);
+        cc_create(fishcomp_reward_tackle_box:render_layer, ^iftype_graphic, $int4);
         cc_setposition(calc($int5 + 0), calc($int6 + 2), ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
         cc_setoutline(1);

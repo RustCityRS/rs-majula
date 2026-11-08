@@ -31,7 +31,7 @@ while ($int9 < calc(enum_getoutputcount(enum_3485) + 6)) {
     } else if ($struct4 ! null) {
         $string0 = struct_param($struct4, param_1266);
         $graphic6 = struct_param($struct4, param_1271);
-        cc_create(task_main:com_98, ^iftype_graphic, $int8);
+        cc_create(task_main:list_window, ^iftype_graphic, $int8);
         $graphic12 = graphic_4041;
         $graphic11 = graphic_4042;
         cc_setgraphic($graphic12);
@@ -56,12 +56,12 @@ while ($int9 < calc(enum_getoutputcount(enum_3485) + 6)) {
         if (~script3994($int2) = 1 & $int2 ! 4094) {
             %varclient_1422 = $int8;
         }
-        cc_create(task_main:com_98, ^iftype_graphic, calc($int8 + 1));
+        cc_create(task_main:list_window, ^iftype_graphic, calc($int8 + 1));
         cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
         cc_setgraphic($graphic6);
         cc_setposition(calc($int14 + 2), calc($int15 + 2), ^setpos_abs_left, ^setpos_abs_top);
         cc_settrans($int16);
-        cc_create(task_main:com_98, ^iftype_graphic, calc($int8 + 2));
+        cc_create(task_main:list_window, ^iftype_graphic, calc($int8 + 2));
         cc_setsize(14, 18, ^setsize_abs, ^setsize_abs);
         if (~task_requirements_quick($int2) = 0) {
             $graphic7 = symbol_lock;
@@ -71,7 +71,7 @@ while ($int9 < calc(enum_getoutputcount(enum_3485) + 6)) {
         }
         cc_setgraphic($graphic7);
         cc_setposition(calc($int14 + 70 - 16), calc($int15 + 4), ^setpos_abs_left, ^setpos_abs_top);
-        cc_create(task_main:com_98, ^iftype_graphic, calc($int8 + 3));
+        cc_create(task_main:list_window, ^iftype_graphic, calc($int8 + 3));
         cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int14 + 70 - 17), calc($int15 + 39), ^setpos_abs_left, ^setpos_abs_top);
         if (~script3994($int2) = 1) {

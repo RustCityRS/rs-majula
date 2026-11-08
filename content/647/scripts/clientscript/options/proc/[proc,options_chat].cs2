@@ -2,13 +2,13 @@
 [proc,options_chat]
 def_string $string0 = null;
 if (%option_chat = 1) {
-    if_setgraphic("options_boxes,0", options:com_4);
+    if_setgraphic("options_boxes,0", options:optchat);
     $string0 = "Chat effects<br>(currently off)";
-    if_setonmouserepeat("addtooltip(event_com, options:com_20, $string0, 25, 180)", options:com_4);
+    if_setonmouserepeat("addtooltip(event_com, options:options_tooltip, $string0, 25, 180)", options:optchat);
     %varclient_2 = 0;
 } else if (%option_chat = 0) {
-    if_setgraphic("options_boxes,1", options:com_4);
+    if_setgraphic("options_boxes,1", options:optchat);
     $string0 = "Chat effects<br>(currently on)";
-    if_setonmouserepeat("addtooltip(event_com, options:com_20, $string0, 25, 180)", options:com_4);
+    if_setonmouserepeat("addtooltip(event_com, options:options_tooltip, $string0, 25, 180)", options:optchat);
     %varclient_2 = 0;
 }

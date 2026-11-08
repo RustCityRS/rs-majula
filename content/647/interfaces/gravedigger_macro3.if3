@@ -1,0 +1,62 @@
+// 143:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=content_layer
+colour=0x081907
+fill=yes
+
+// 143:1
+[com_1]
+type=model
+x=27
+y=-80
+width=466
+height=456
+layer=content_layer
+model=model_13399
+modelorigin=-2,17
+modelangle=531,0,0
+modelzoom=138
+
+// 143:2
+[grave_digger_profession]
+type=model
+x=110
+y=134
+width=338
+height=62
+layer=content_layer
+model=model_13403
+modelorigin=-11,-2
+modelzoom=270
+onload=gravedigger_spin(event_com)
+
+// 143:3
+[close_button]
+type=graphic
+x=12
+y=12
+width=26
+height=23
+xmode=abs_right
+layer=content_layer
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onop=closebutton_click
+
+// 143:4
+[content_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=script1087(event_com, 0)

@@ -10,7 +10,7 @@ fill=yes
 trans=200
 
 // 595:1
-[com_1]
+[background_graphic]
 type=graphic
 x=14
 y=25
@@ -74,7 +74,7 @@ tiling=yes
 colour=0xffffffff
 
 // 595:7
-[com_7]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -84,8 +84,8 @@ graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(mom2_completion:com_7, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(mom2_completion:com_7, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(mom2_completion:close_button, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(mom2_completion:close_button, "v2_stone_close_button,0")
 onop=closebutton_click
 onclick=closebutton_click
 
@@ -151,7 +151,7 @@ graphic="v2_stone_borders,10"
 colour=0xffffffff
 
 // 595:14
-[com_14]
+[title]
 type=text
 x=19
 y=25
@@ -178,7 +178,7 @@ textshadow=yes
 colour=0xff981f
 
 // 595:16
-[com_16]
+[total_completion_no]
 type=text
 x=258
 y=287
@@ -191,7 +191,7 @@ textshadow=yes
 colour=0xff981f
 
 // 595:17
-[com_17]
+[name_pts]
 type=text
 x=101
 y=86
@@ -220,7 +220,7 @@ transmitop=10
 op10=   
 
 // 595:19
-[com_19]
+[name_completion_no]
 type=text
 x=194
 y=92
@@ -245,7 +245,7 @@ modelangle=261,2035,0
 modelzoom=535
 
 // 595:21
-[com_21]
+[shadow_pts]
 type=text
 x=101
 y=149
@@ -274,7 +274,7 @@ transmitop=10
 op10=  
 
 // 595:23
-[com_23]
+[shadow_completion_no]
 type=text
 x=194
 y=155
@@ -299,7 +299,7 @@ modelangle=564,2038,0
 modelzoom=1184
 
 // 595:25
-[com_25]
+[body_pts]
 type=text
 x=101
 y=212
@@ -328,7 +328,7 @@ transmitop=10
 op10= 
 
 // 595:27
-[com_27]
+[body_completion_no]
 type=text
 x=194
 y=218
@@ -363,7 +363,7 @@ modelorigin=0,24
 modelzoom=906
 
 // 595:30
-[com_30]
+[double_pts]
 type=text
 x=89
 y=86
@@ -393,7 +393,7 @@ transmitop=10
 op10=  
 
 // 595:32
-[com_32]
+[double_completion_no]
 type=text
 x=436
 y=92
@@ -417,7 +417,7 @@ modelorigin=-1,11
 modelzoom=800
 
 // 595:34
-[com_34]
+[personality_pts]
 type=text
 x=89
 y=149
@@ -447,7 +447,7 @@ transmitop=10
 op10=   
 
 // 595:36
-[com_36]
+[personality_completion_no]
 type=text
 x=436
 y=155
@@ -472,7 +472,7 @@ modelangle=429,10,0
 modelzoom=1184
 
 // 595:38
-[com_38]
+[spirit_pts]
 type=text
 x=89
 y=212
@@ -502,7 +502,7 @@ transmitop=10
 op10=    
 
 // 595:40
-[com_40]
+[spirit_completion_no]
 type=text
 x=436
 y=218
@@ -549,16 +549,16 @@ tiling=yes
 colour=0xffffffff
 
 // 595:44
-[com_44]
+[tooltip_bounding_box]
 type=layer
 width=512
 height=334
 
 // 595:45
-[com_45]
+[tool_tip_build_layer]
 type=layer
 x=8
 y=8
 width=512
 height=334
-layer=com_44
+layer=tooltip_bounding_box

@@ -1,8 +1,8 @@
 // 678
 [clientscript,partyroom_interface_setup]
-~scrollbar_vertical(interface_647:com_19, interface_647:com_23, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_setscrollpos(0, 0, interface_647:com_19);
-~scrollbar_ondrag_doscroll(interface_647:com_19, interface_647:com_23, 0, 1);
-~scrollbar_vertical(interface_647:com_20, interface_647:com_24, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_setscrollpos(0, 0, interface_647:com_20);
-~scrollbar_ondrag_doscroll(interface_647:com_20, interface_647:com_24, 0, 1);
+~scrollbar_vertical(partydrop_main_rwt:scrollbar_left, partydrop_main_rwt:chest_inv_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollpos(0, 0, partydrop_main_rwt:scrollbar_left);
+~scrollbar_ondrag_doscroll(partydrop_main_rwt:scrollbar_left, partydrop_main_rwt:chest_inv_layer, 0, 1);
+~scrollbar_vertical(partydrop_main_rwt:scrollbar_right, partydrop_main_rwt:drop_inv_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollpos(0, 0, partydrop_main_rwt:scrollbar_right);
+~scrollbar_ondrag_doscroll(partydrop_main_rwt:scrollbar_right, partydrop_main_rwt:drop_inv_layer, 0, 1);

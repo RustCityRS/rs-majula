@@ -2,19 +2,19 @@
 [clientscript,lunarfm_rewards_onload]
 ~script4267;
 ~script4274;
-if_settext("", lunarfm_rewards_new:com_76);
-if_settext("Select a reward for more information.", lunarfm_rewards_new:com_78);
+if_settext("", lunarfm_rewards_new:name);
+if_settext("Select a reward for more information.", lunarfm_rewards_new:description);
 if_settext("", lunarfm_rewards_new:com_80);
 if_sethide(true, lunarfm_rewards_new:com_81);
 if_sethide(true, lunarfm_rewards_new:com_154);
 if_sethide(true, lunarfm_rewards_new:com_151);
 if_sethide(false, lunarfm_rewards_new:com_149);
 if_sethide(false, lunarfm_rewards_new:com_150);
-if_sethide(false, lunarfm_rewards_new:com_155);
+if_sethide(false, lunarfm_rewards_new:breakdown_layer);
 if (%varplayerbit_9067 < 8) {
     ~script4270;
-    if_settext("Spells", lunarfm_rewards_new:com_76);
+    if_settext("Spells", lunarfm_rewards_new:name);
 } else {
     ~script4272;
-    if_settext("Wishes", lunarfm_rewards_new:com_76);
+    if_settext("Wishes", lunarfm_rewards_new:name);
 }

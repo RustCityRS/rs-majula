@@ -32,14 +32,14 @@ mes("Please finish what you're doing first!");
 // own. Their only ops are Close, and Mono and Stereo on 743; no clientscript
 // reads varps 166, 168 or 169, and the client acts on varp clientcode 5 and
 // 6 only (Class323.method2062).
-// [if_button,options:com_0]
-// [if_button,options:com_1]
+// [if_button,options:all]
+// [if_button,options:title]
 // [if_button,options:com_2]
 // [if_button,options:com_3]
-// [if_button,options:com_4]
-// [if_button,options:com_5]
-// [if_button,options:com_6]
-// [if_button,options:com_7]
+// [if_button,options:optchat]
+// [if_button,options:optpm]
+// [if_button,options:optmouse]
+// [if_button,options:optaid]
 // [if_button,options:com_25]
 // [if_button,options:com_26]
 // [if_button,options:com_27]
@@ -52,9 +52,9 @@ mes("Please finish what you're doing first!");
 // [if_button,options:com_40]
 
 // 289's mouse buttons, com_8 (%option_mouse 0) and com_9 (1): 2011's toggle.
-// [if_button,options:com_8]
+// [if_button,options:houseoptions]
 // [if_button,options:com_9]
-[if_button,options:com_6]
+[if_button,options:optmouse]
 if_close;
 if (%option_mouse = 0) {
     %option_mouse = 1;
@@ -63,9 +63,9 @@ if (%option_mouse = 0) {
 }
 
 // 289's chat effects, com_10 (%option_chat 0) and com_11 (1): 2011's toggle.
-// [if_button,options:com_10]
-// [if_button,options:com_11]
-[if_button,options:com_4]
+// [if_button,options:optchat_gfx]
+// [if_button,options:optmouse_gfx]
+[if_button,options:optchat]
 if_close;
 if (%option_chat = 0) {
     %option_chat = 1;
@@ -78,44 +78,44 @@ if (%option_chat = 0) {
 // does (ChatSetup.kt) and gives it back on Close (com5).
 // [if_button,options:com_47]
 // [if_button,options:com_48]
-[if_button,options:com_5]
+[if_button,options:optpm]
 if_close;
 if (getwindowmode = 1) {
-    if_opensub(pmsetup, toplevel:com_tab12, ^true);
+    if_opensub(pmsetup, toplevel:side12, ^true);
 } else {
-    if_opensub(pmsetup, toplevel_fullscreen:com_tab12, ^true);
+    if_opensub(pmsetup, toplevel_fullscreen:side12, ^true);
 }
 
-[if_button,pmsetup:com_5]
+[if_button,pmsetup:close]
 if (getwindowmode = 1) {
-    if_opensub(options, toplevel:com_tab12, ^true);
+    if_opensub(options, toplevel:side12, ^true);
 } else {
-    if_opensub(options, toplevel_fullscreen:com_tab12, ^true);
+    if_opensub(options, toplevel_fullscreen:side12, ^true);
 }
 
 // No split (com41) is 0, as 289's off. Each private colour (com49-66) splits
 // private chat in that colour, 1-18: the values clientscript 83 gives those
 // buttons and clientscript 3417 writes to varp 287 on the client; 289 had
 // one colour, at 1.
-[if_button,pmsetup:com_41] %option_pm = 0;
-[if_button,pmsetup:com_49] %option_pm = 1;
-[if_button,pmsetup:com_50] %option_pm = 2;
-[if_button,pmsetup:com_51] %option_pm = 3;
-[if_button,pmsetup:com_52] %option_pm = 4;
-[if_button,pmsetup:com_53] %option_pm = 5;
-[if_button,pmsetup:com_54] %option_pm = 6;
-[if_button,pmsetup:com_55] %option_pm = 7;
-[if_button,pmsetup:com_56] %option_pm = 8;
-[if_button,pmsetup:com_57] %option_pm = 9;
-[if_button,pmsetup:com_58] %option_pm = 10;
-[if_button,pmsetup:com_59] %option_pm = 11;
-[if_button,pmsetup:com_60] %option_pm = 12;
-[if_button,pmsetup:com_61] %option_pm = 13;
-[if_button,pmsetup:com_62] %option_pm = 14;
-[if_button,pmsetup:com_63] %option_pm = 15;
-[if_button,pmsetup:com_64] %option_pm = 16;
-[if_button,pmsetup:com_65] %option_pm = 17;
-[if_button,pmsetup:com_66] %option_pm = 18;
+[if_button,pmsetup:nosplit] %option_pm = 0;
+[if_button,pmsetup:colour1] %option_pm = 1;
+[if_button,pmsetup:colour2] %option_pm = 2;
+[if_button,pmsetup:colour3] %option_pm = 3;
+[if_button,pmsetup:colour4] %option_pm = 4;
+[if_button,pmsetup:colour5] %option_pm = 5;
+[if_button,pmsetup:colour6] %option_pm = 6;
+[if_button,pmsetup:colour7] %option_pm = 7;
+[if_button,pmsetup:colour8] %option_pm = 8;
+[if_button,pmsetup:colour9] %option_pm = 9;
+[if_button,pmsetup:colour10] %option_pm = 10;
+[if_button,pmsetup:colour11] %option_pm = 11;
+[if_button,pmsetup:colour12] %option_pm = 12;
+[if_button,pmsetup:colour13] %option_pm = 13;
+[if_button,pmsetup:colour14] %option_pm = 14;
+[if_button,pmsetup:colour15] %option_pm = 15;
+[if_button,pmsetup:colour16] %option_pm = 16;
+[if_button,pmsetup:colour17] %option_pm = 17;
+[if_button,pmsetup:colour18] %option_pm = 18;
 
 // 289's low-detail options tab (options_ld, game_options_ld.rs2) has the same
 // buttons; 2011 has one options tab for every detail, answered above.

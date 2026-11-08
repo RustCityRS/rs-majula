@@ -1,5 +1,5 @@
 // 381:0
-[com_0]
+[wilderness_layer]
 type=layer
 x=8
 y=7
@@ -13,19 +13,19 @@ type=graphic
 x=15
 width=25
 height=25
-layer=com_0
+layer=wilderness_layer
 graphic="headicons_pk_interface,0"
 trans=100
 colour=0xffffffff
 
 // 381:2
-[com_2]
+[wilderness_level_text]
 type=text
 x=1
 y=26
 width=52
 height=6
-layer=com_0
+layer=wilderness_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
@@ -33,7 +33,7 @@ colour=0xe1981d
 ontimer=wilderness_level_update(event_com)
 
 // 381:3
-[com_3]
+[wilderness_layer_bounty]
 type=layer
 x=221
 y=6
@@ -48,19 +48,19 @@ type=graphic
 x=15
 width=25
 height=25
-layer=com_3
+layer=wilderness_layer_bounty
 graphic="headicons_pk_interface,7"
 trans=100
 colour=0xffffffff
 
 // 381:5
-[com_5]
+[wilderness_level_text_1]
 type=text
 x=1
 y=26
 width=52
 height=6
-layer=com_3
+layer=wilderness_layer_bounty
 textfont=p12_full
 textalignh=centre
 textshadow=yes
@@ -80,7 +80,7 @@ transmitop=10
 op10=   
 
 // 381:7
-[com_7]
+[top]
 type=rectangle
 width=16391
 height=16391
@@ -94,7 +94,7 @@ transmitop=10
 op10=   
 
 // 381:8
-[com_8]
+[bottom_border]
 type=rectangle
 y=1
 width=16391
@@ -109,7 +109,7 @@ transmitop=10
 op10=   
 
 // 381:9
-[com_9]
+[top_border]
 type=rectangle
 y=1
 width=16384
@@ -123,7 +123,7 @@ transmitop=10
 op10=   
 
 // 381:10
-[com_10]
+[right_border]
 type=rectangle
 x=1
 width=2
@@ -138,7 +138,7 @@ transmitop=10
 op10=   
 
 // 381:11
-[com_11]
+[left_border]
 type=rectangle
 x=1
 width=2
@@ -152,7 +152,7 @@ transmitop=10
 op10=   
 
 // 381:12
-[com_12]
+[full_border]
 type=rectangle
 width=16384
 height=16384
@@ -164,7 +164,7 @@ transmitop=10
 op10=   
 
 // 381:13
-[com_13]
+[target_title]
 type=text
 x=9
 y=2
@@ -180,7 +180,7 @@ transmitop=10
 op10=   
 
 // 381:14
-[com_14]
+[target_name]
 type=text
 x=8
 y=2
@@ -198,7 +198,7 @@ transmitop=10
 op10=   
 
 // 381:15
-[com_15]
+[potential_title]
 type=text
 x=9
 y=26
@@ -214,7 +214,7 @@ transmitop=10
 op10=   
 
 // 381:16
-[com_16]
+[target_icon]
 type=graphic
 x=154
 y=24

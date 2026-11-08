@@ -1,11 +1,11 @@
 // 992:0
-[com_0]
+[universe]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-onload=love_puzzle_side_init(love_puzzle_side:com_2, love_puzzle_side:com_6, love_puzzle_side:com_7)
+onload=love_puzzle_side_init(love_puzzle_side:head, love_puzzle_side:contents, love_puzzle_side:com_7)
 
 // 992:1
 [com_1]
@@ -14,19 +14,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=universe
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
 
 // 992:2
-[com_2]
+[head]
 type=layer
 y=5
 width=90
 height=80
 xmode=abs_centre
-layer=com_0
+layer=universe
 
 // 992:3
 [com_3]
@@ -35,13 +35,13 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=head
 colour=0x000000
 fill=yes
 trans=200
 
 // 992:4
-[com_4]
+[body]
 type=layer
 y=5
 width=10
@@ -50,7 +50,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=universe
 
 // 992:5
 [com_5]
@@ -59,13 +59,13 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=body
 colour=0x000000
 fill=yes
 trans=200
 
 // 992:6
-[com_6]
+[contents]
 type=layer
 width=6
 height=6
@@ -73,7 +73,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=body
 
 // 992:7
 [com_7]
@@ -84,5 +84,5 @@ height=6
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_4
+layer=body
 hide=yes

@@ -1,11 +1,11 @@
 // 1920
 [clientscript,script1920]
-if_setonvarcstrtransmit("script1921{varclient_1559}", interface_812:com_5);
-if_setonvarcstrtransmit("script1921{varclient_1560}", interface_812:com_6);
-if_setonvarcstrtransmit("script1921{varclient_1561}", interface_812:com_7);
-if_setonvarctransmit("script1921{varclient_551}", interface_812:com_5);
-if_setonvarctransmit("script1921{varclient_552}", interface_812:com_6);
-if_setonvarctransmit("script1921{varclient_553}", interface_812:com_7);
+if_setonvarcstrtransmit("script1921{varclient_1559}", sc_lobby_clan_overlay:clan_leader_text);
+if_setonvarcstrtransmit("script1921{varclient_1560}", sc_lobby_clan_overlay:ally_1_text);
+if_setonvarcstrtransmit("script1921{varclient_1561}", sc_lobby_clan_overlay:ally_2_text);
+if_setonvarctransmit("script1921{varclient_551}", sc_lobby_clan_overlay:clan_leader_text);
+if_setonvarctransmit("script1921{varclient_552}", sc_lobby_clan_overlay:ally_1_text);
+if_setonvarctransmit("script1921{varclient_553}", sc_lobby_clan_overlay:ally_2_text);
 %varclient_1559 = "You have no clan leader.";
 %varclient_1560 = "You have no allied clans.";
 %varclient_1561 = "";

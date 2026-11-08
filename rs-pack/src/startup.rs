@@ -30,6 +30,7 @@ use crate::cache::varobj::VarObjType;
 use crate::cache::varp::VarPlayerTypeRaw;
 use crate::cache::vars::VarsType;
 use crate::cache::wordenc::WordEncProvider;
+use crate::pack::names;
 use crate::pack::other::map;
 use crate::pack::pack;
 use crate::pack::pack_registry::PackedFile;
@@ -57,24 +58,24 @@ pub struct PackResult {
 /// `if_opensub` parent component without hardcoded constants.
 #[derive(Debug, Clone, Default)]
 pub struct InterfaceLayout {
-    /// interface_id → component_id for the `com_main_screen` target.
+    /// interface_id → component_id for the `mainmodal` target.
     pub main_screen: HashMap<u16, u16>,
-    /// interface_id → component_id for the `com_wide_screen` target: the
-    /// toplevel's full-size main slot (548:8 fixed, 746:6 resizable,
+    /// interface_id → component_id for the toplevel's full-size main slot
+    /// (548:8 `mainoverlay_clipped` fixed, 746:6 `mainoverlay` resizable,
     /// `void-634`'s `wide_screen` with 746's +1 drift).
     pub wide_screen: HashMap<u16, u16>,
     /// The main-screen interfaces that open in `wide_screen` instead: the
     /// content `wide_screen_enum` (2011's skill guide, whose own backdrop
     /// fills its slot).
     pub wide_screen_ifaces: HashSet<u16>,
-    /// interface_id → component_id for the `com_overlay_tab` target, the slot
+    /// interface_id → component_id for the `sidemodal` target, the slot
     /// over the side panels that side modals mount on.
     pub overlay_tab: HashMap<u16, u16>,
-    /// interface_id → component_id for the `com_overlay` target, the
-    /// full-size slot over the game view that `if_openoverlay` mounts on
-    /// (548:7, 746:8: `void-634`'s `overlay` with 746's +1 drift).
+    /// interface_id → component_id for the full-size slot over the game view
+    /// that `if_openoverlay` mounts on (548:7 `mainoverlay`, 746:8
+    /// `mainmodal_fullscreen`: `void-634`'s `overlay` with 746's +1 drift).
     pub overlay: HashMap<u16, u16>,
-    /// interface_id → component_id for the `com_chatbox` target.
+    /// interface_id → component_id for the `chattop` target.
     pub chatbox: HashMap<u16, u16>,
     /// component_id → interface_id (root_layer) for interface listener cleanup.
     pub component_roots: HashMap<u16, i32>,
@@ -83,13 +84,13 @@ pub struct InterfaceLayout {
     /// mount. Rev-647: the chatbox interface (752) hosts the dialogue_box at
     /// child component 13 — matching void `dialogue_box parent="chat_box"
     /// index=13`. Dialogues nest *inside* the chatbox frame here, rather than
-    /// replacing it at `toplevel:com_chatbox`. 0 if the chatbox interface
+    /// replacing it at `toplevel:chattop`. 0 if the chatbox interface
     /// wasn't found.
     pub dialogue_parent_hash: i32,
     /// Per-interface override of the chatbox dialogue slot: dialogue interface
     /// id → parent component hash it mounts on. Sourced from the content
     /// `dialogue_slot_enum` (e.g. objbox/doubleobjbox → chatbox child 12,
-    /// `dialogue_box_small`). Any dialogue *not* in this map uses
+    /// `chatmodal`). Any dialogue *not* in this map uses
     /// `dialogue_parent_hash` (the default `dialogue_box` slot, child 13).
     pub dialogue_slots: HashMap<u16, i32>,
 }
@@ -124,6 +125,7 @@ pub fn pack_all(
         start.elapsed().as_secs_f64()
     );
     archive::verify_crcs(&cache, verify)?;
+    names::verify_names(content_dir, pack_dir, verify)?;
     let map_dirs = map::source_dirs(content_dir);
     let spawns = map::pack_spawns(&map_dirs, pack_dir)?;
     let obj_spawns = map::pack_obj_spawns(&map_dirs, pack_dir)?;
@@ -254,9 +256,32 @@ fn load_cache(
 }
 
 /// Rev-647 chatbox child component that hosts dialogue_box interfaces
-/// (npc/player chat, message box, multi-choice). Matches void's
-/// `dialogue_box parent="chat_box" index=13`.
+/// (npc/player chat, message box, multi-choice): `chattop:chatmodallarge`,
+/// void's `dialogue_box parent="chat_box" index=13`.
 const DIALOGUE_BOX_INDEX: i32 = 13;
+
+const CHATBOX_INTERFACE: &str = "chattop";
+
+/// The layout slot a component of the fixed (`toplevel`, 548) or resizable
+/// (`toplevel_fullscreen`, 746) toplevel fills, by Jagex's names.
+fn toplevel_slot<'a>(
+    layout: &'a mut InterfaceLayout,
+    interface: &str,
+    component: &str,
+) -> Option<&'a mut HashMap<u16, u16>> {
+    Some(match (interface, component) {
+        ("toplevel" | "toplevel_fullscreen", "mainmodal") => &mut layout.main_screen,
+        ("toplevel", "mainoverlay_clipped") | ("toplevel_fullscreen", "mainoverlay") => {
+            &mut layout.wide_screen
+        }
+        ("toplevel", "mainoverlay") | ("toplevel_fullscreen", "mainmodal_fullscreen") => {
+            &mut layout.overlay
+        }
+        ("toplevel" | "toplevel_fullscreen", "sidemodal") => &mut layout.overlay_tab,
+        ("toplevel" | "toplevel_fullscreen", "chattop") => &mut layout.chatbox,
+        _ => return None,
+    })
+}
 
 /// Scan interface.pack for well-known component names and build an [`InterfaceLayout`].
 fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
@@ -265,16 +290,21 @@ fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
     let Ok(contents) = fs::read_to_string(&path) else {
         return layout;
     };
-    for line in contents.lines() {
-        let line = line.trim();
-        let Some((id_str, name)) = line.split_once('=') else {
-            continue;
-        };
+    let entries: Vec<(&str, &str)> = contents
+        .lines()
+        .filter_map(|line| line.trim().split_once('='))
+        .collect();
+    let interfaces: HashMap<&str, &str> = entries
+        .iter()
+        .filter(|(id, _)| !id.contains(':'))
+        .copied()
+        .collect();
+    for &(id_str, name) in &entries {
         let Some((iface_str, comp_str)) = id_str.split_once(':') else {
             // Top-level interface line `<id>=<name>` (no component). Capture the
             // chatbox interface id so dialogues can mount on its dialogue_box
-            // child instead of clobbering the chatbox at `toplevel:com_chatbox`.
-            if name == "chatbox"
+            // child instead of clobbering the chatbox at `toplevel:chattop`.
+            if name == CHATBOX_INTERFACE
                 && let Ok(iface) = id_str.parse::<u16>()
             {
                 layout.dialogue_parent_hash = ((iface as i32) << 16) | DIALOGUE_BOX_INDEX;
@@ -284,16 +314,9 @@ fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
         let (Ok(iface), Ok(comp)) = (iface_str.parse::<u16>(), comp_str.parse::<u16>()) else {
             continue;
         };
-        if name == "com_main_screen" {
-            layout.main_screen.insert(iface, comp);
-        } else if name == "com_wide_screen" {
-            layout.wide_screen.insert(iface, comp);
-        } else if name == "com_overlay_tab" {
-            layout.overlay_tab.insert(iface, comp);
-        } else if name == "com_overlay" {
-            layout.overlay.insert(iface, comp);
-        } else if name == "com_chatbox" {
-            layout.chatbox.insert(iface, comp);
+        let interface = interfaces.get(iface_str).copied().unwrap_or_default();
+        if let Some(slot) = toplevel_slot(&mut layout, interface, name) {
+            slot.insert(iface, comp);
         }
         layout.component_roots.insert(comp, iface as i32);
     }
@@ -304,7 +327,7 @@ fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
 ///
 /// The enum maps a dialogue interface id (key) → the chatbox child component
 /// hash it mounts on (value), e.g. objbox/doubleobjbox →
-/// `chatbox:com_dialogue_box_small` (752:12). The value is already a full
+/// `chattop:chatmodal` (752:12). The value is already a full
 /// component hash (resolved symbolically at pack time), so it is the parent the
 /// engine opens against — no slot-index math. The default `dialogue_box` slot
 /// (752:13) is implicit; only exceptions appear in the enum. It's a server-only

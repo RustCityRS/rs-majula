@@ -7,7 +7,7 @@ colour=0x000000
 fill=yes
 
 // 944:1
-[com_1]
+[frame_w]
 type=graphic
 x=2
 y=17
@@ -17,7 +17,7 @@ graphic="rand_framea_edges,7"
 colour=0xffffffff
 
 // 944:2
-[com_2]
+[frame_e]
 type=graphic
 x=489
 y=15
@@ -31,7 +31,7 @@ transmitop=10
 op10= 
 
 // 944:3
-[com_3]
+[frame_backdrop]
 type=rectangle
 x=4
 y=10
@@ -42,7 +42,7 @@ colour=0x221e18
 fill=yes
 
 // 944:4
-[com_4]
+[frame_n_sub]
 type=graphic
 x=5
 y=83
@@ -52,7 +52,7 @@ graphic="rand_framea_edges,9"
 colour=0xffffffff
 
 // 944:5
-[com_5]
+[frame_s_title]
 type=graphic
 x=5
 y=22
@@ -63,7 +63,7 @@ vflip=yes
 colour=0xffffffff
 
 // 944:6
-[com_6]
+[titlebar_layer]
 type=layer
 width=506
 height=40
@@ -71,7 +71,7 @@ onload=rand_skill_multi_num
 onvarctransmit=rand_skill_multi_num{varclient_754}
 
 // 944:7
-[com_7]
+[right_click_text]
 type=text
 y=22
 width=15
@@ -85,7 +85,7 @@ onload=skill_multi_rand_mouse(event_com)
 onvartransmit=skill_multi_rand_mouse(event_com){option_mouse}
 
 // 944:8
-[com_8]
+[bars_backdrop]
 type=rectangle
 x=4
 y=37
@@ -95,7 +95,7 @@ colour=0x221e18
 fill=yes
 
 // 944:9
-[com_9]
+[bars_alpha]
 type=graphic
 x=4
 y=36
@@ -108,7 +108,7 @@ alpha=yes
 colour=0xffffffff
 
 // 944:10
-[com_10]
+[subtitle_backdrop]
 type=rectangle
 x=4
 y=97
@@ -119,48 +119,48 @@ colour=0x221e18
 fill=yes
 
 // 944:11
-[com_11]
+[subbar_layer]
 type=layer
 width=506
 height=129
 
 // 944:12
-[com_12]
+[frame_sw]
 type=graphic
 x=2
 y=113
 width=15
 height=15
-layer=com_11
+layer=subbar_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 
 // 944:13
-[com_13]
+[frame_se]
 type=graphic
 x=489
 y=113
 width=15
 height=15
-layer=com_11
+layer=subbar_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
 
 // 944:14
-[com_14]
+[frame_s]
 type=graphic
 x=17
 y=113
 width=30
 height=15
 widthmode=minus
-layer=com_11
+layer=subbar_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 
 // 944:15
-[com_15]
+[text]
 type=text
 y=9
 width=816
@@ -168,7 +168,7 @@ height=15
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_11
+layer=subbar_layer
 textfont=b12_full
 text=Choose a resource...
 textalignh=centre
@@ -176,70 +176,70 @@ textalignv=bottom
 colour=0xc69b01
 
 // 944:16
-[com_16]
+[frame_nw]
 type=graphic
 x=2
 y=2
 width=15
 height=15
-layer=com_6
+layer=titlebar_layer
 graphic="rand_framea_edges,5"
 colour=0xffffffff
 
 // 944:17
-[com_17]
+[frame_n]
 type=graphic
 x=16
 y=2
 width=473
 height=15
-layer=com_6
+layer=titlebar_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 
 // 944:18
-[com_18]
+[frame_ne]
 type=graphic
 x=489
 y=2
 width=15
 height=15
-layer=com_6
+layer=titlebar_layer
 graphic="rand_framea_edges,5"
 2dangle=49152
 colour=0xffffffff
 
 // 944:19
-[com_19]
+[sword_left]
 type=graphic
 x=12
 width=57
 height=13
 ymode=abs_centre
-layer=com_6
+layer=titlebar_layer
 graphic="sworddecor,1"
 colour=0xffffffff
 
 // 944:20
-[com_20]
+[sword_right]
 type=graphic
 x=10
 width=57
 height=13
 xmode=abs_right
 ymode=abs_centre
-layer=com_6
+layer=titlebar_layer
 graphic="sworddecor,0"
 colour=0xffffffff
 
 // 944:21
-[com_21]
+[title]
 type=text
 y=7
 width=464
 height=17
 xmode=abs_centre
-layer=com_6
+layer=titlebar_layer
 textfont=b12_full
 text=What would you like to make?
 textalignh=centre
@@ -248,7 +248,7 @@ onload=skill_multi_rand_title(event_com)
 onvarcstrtransmit=skill_multi_rand_title(event_com){varclient_1650}
 
 // 944:22
-[com_22]
+[layer1]
 type=layer
 x=-225
 y=23
@@ -257,7 +257,7 @@ height=90
 xmode=abs_centre
 
 // 944:23
-[com_23]
+[layer2]
 type=layer
 x=-175
 y=23
@@ -268,13 +268,13 @@ transmitop=10
 op10= 
 
 // 944:24
-[com_24]
+[model2]
 type=model
 y=4
 width=57
 height=80
 xmode=abs_centre
-layer=com_23
+layer=layer2
 model=null
 modelzoom=394
 transmitop=10
@@ -284,59 +284,59 @@ onmouseover=skill_multi_rand_text(event_com)
 onvarctransmit=skill_multi_rand_model(event_com){varclient_756}
 
 // 944:25
-[com_25]
+[makex_2]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=layer2
 pausebutton=yes
 transmitop=10
 pausetext=Make X
 op10= 
 
 // 944:26
-[com_26]
+[make10_2]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=layer2
 pausebutton=yes
 transmitop=10
 pausetext=Make 10
 op10= 
 
 // 944:27
-[com_27]
+[make5_2]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=layer2
 pausebutton=yes
 transmitop=10
 pausetext=Make 5
 op10= 
 
 // 944:28
-[com_28]
+[make1_2]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=layer2
 pausebutton=yes
 transmitop=10
 pausetext=Make 1
 op10= 
 
 // 944:29
-[com_29]
+[layer3]
 type=layer
 x=-125
 y=23
@@ -347,13 +347,13 @@ transmitop=10
 op10= 
 
 // 944:30
-[com_30]
+[model3]
 type=model
 y=4
 width=57
 height=80
 xmode=abs_centre
-layer=com_29
+layer=layer3
 model=null
 modelzoom=394
 transmitop=10
@@ -363,59 +363,59 @@ onmouseover=skill_multi_rand_text(event_com)
 onvarctransmit=skill_multi_rand_model(event_com){varclient_757}
 
 // 944:31
-[com_31]
+[makex_3]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=layer3
 pausebutton=yes
 transmitop=10
 pausetext=Make X
 op10= 
 
 // 944:32
-[com_32]
+[make10_3]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=layer3
 pausebutton=yes
 transmitop=10
 pausetext=Make 10
 op10= 
 
 // 944:33
-[com_33]
+[make5_3]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=layer3
 pausebutton=yes
 transmitop=10
 pausetext=Make 5
 op10= 
 
 // 944:34
-[com_34]
+[make1_3]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=layer3
 pausebutton=yes
 transmitop=10
 pausetext=Make 1
 op10= 
 
 // 944:35
-[com_35]
+[layer4]
 type=layer
 x=-75
 y=23
@@ -426,13 +426,13 @@ transmitop=10
 op10= 
 
 // 944:36
-[com_36]
+[model4]
 type=model
 y=4
 width=57
 height=80
 xmode=abs_centre
-layer=com_35
+layer=layer4
 model=null
 modelzoom=394
 transmitop=10
@@ -442,59 +442,59 @@ onmouseover=skill_multi_rand_text(event_com)
 onvarctransmit=skill_multi_rand_model(event_com){varclient_758}
 
 // 944:37
-[com_37]
+[makex_4]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_35
+layer=layer4
 pausebutton=yes
 transmitop=10
 pausetext=Make X
 op10= 
 
 // 944:38
-[com_38]
+[make10_4]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_35
+layer=layer4
 pausebutton=yes
 transmitop=10
 pausetext=Make 10
 op10= 
 
 // 944:39
-[com_39]
+[make5_4]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_35
+layer=layer4
 pausebutton=yes
 transmitop=10
 pausetext=Make 5
 op10= 
 
 // 944:40
-[com_40]
+[make1_4]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_35
+layer=layer4
 pausebutton=yes
 transmitop=10
 pausetext=Make 1
 op10= 
 
 // 944:41
-[com_41]
+[layer5]
 type=layer
 x=-25
 y=23
@@ -505,13 +505,13 @@ transmitop=10
 op10= 
 
 // 944:42
-[com_42]
+[model5]
 type=model
 y=4
 width=57
 height=80
 xmode=abs_centre
-layer=com_41
+layer=layer5
 model=null
 modelzoom=394
 transmitop=10
@@ -521,59 +521,59 @@ onmouseover=skill_multi_rand_text(event_com)
 onvarctransmit=skill_multi_rand_model(event_com){varclient_759}
 
 // 944:43
-[com_43]
+[makex_5]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=layer5
 pausebutton=yes
 transmitop=10
 pausetext=Make X
 op10= 
 
 // 944:44
-[com_44]
+[make10_5]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=layer5
 pausebutton=yes
 transmitop=10
 pausetext=Make 10
 op10= 
 
 // 944:45
-[com_45]
+[make5_5]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=layer5
 pausebutton=yes
 transmitop=10
 pausetext=Make 5
 op10= 
 
 // 944:46
-[com_46]
+[make1_5]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=layer5
 pausebutton=yes
 transmitop=10
 pausetext=Make 1
 op10= 
 
 // 944:47
-[com_47]
+[layer6]
 type=layer
 x=25
 y=23
@@ -584,13 +584,13 @@ transmitop=10
 op10= 
 
 // 944:48
-[com_48]
+[model6]
 type=model
 y=4
 width=57
 height=80
 xmode=abs_centre
-layer=com_47
+layer=layer6
 model=null
 modelzoom=394
 transmitop=10
@@ -600,59 +600,59 @@ onmouseover=skill_multi_rand_text(event_com)
 onvarctransmit=skill_multi_rand_model(event_com){varclient_760}
 
 // 944:49
-[com_49]
+[makex_6]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_47
+layer=layer6
 pausebutton=yes
 transmitop=10
 pausetext=Make X
 op10= 
 
 // 944:50
-[com_50]
+[make10_6]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_47
+layer=layer6
 pausebutton=yes
 transmitop=10
 pausetext=Make 10
 op10= 
 
 // 944:51
-[com_51]
+[make5_6]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_47
+layer=layer6
 pausebutton=yes
 transmitop=10
 pausetext=Make 5
 op10= 
 
 // 944:52
-[com_52]
+[make1_6]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_47
+layer=layer6
 pausebutton=yes
 transmitop=10
 pausetext=Make 1
 op10= 
 
 // 944:53
-[com_53]
+[layer7]
 type=layer
 x=75
 y=23
@@ -663,13 +663,13 @@ transmitop=10
 op10= 
 
 // 944:54
-[com_54]
+[model7]
 type=model
 y=4
 width=57
 height=80
 xmode=abs_centre
-layer=com_53
+layer=layer7
 model=null
 modelzoom=394
 transmitop=10
@@ -679,59 +679,59 @@ onmouseover=skill_multi_rand_text(event_com)
 onvarctransmit=skill_multi_rand_model(event_com){varclient_1139}
 
 // 944:55
-[com_55]
+[makex_7]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_53
+layer=layer7
 pausebutton=yes
 transmitop=10
 pausetext=Make X
 op10= 
 
 // 944:56
-[com_56]
+[make10_7]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_53
+layer=layer7
 pausebutton=yes
 transmitop=10
 pausetext=Make 10
 op10= 
 
 // 944:57
-[com_57]
+[make5_7]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_53
+layer=layer7
 pausebutton=yes
 transmitop=10
 pausetext=Make 5
 op10= 
 
 // 944:58
-[com_58]
+[make1_7]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_53
+layer=layer7
 pausebutton=yes
 transmitop=10
 pausetext=Make 1
 op10= 
 
 // 944:59
-[com_59]
+[layer8]
 type=layer
 x=125
 y=23
@@ -742,13 +742,13 @@ transmitop=10
 op10= 
 
 // 944:60
-[com_60]
+[model8]
 type=model
 y=4
 width=57
 height=80
 xmode=abs_centre
-layer=com_59
+layer=layer8
 model=null
 modelzoom=394
 transmitop=10
@@ -758,59 +758,59 @@ onmouseover=skill_multi_rand_text(event_com)
 onvarctransmit=skill_multi_rand_model(event_com){varclient_1140}
 
 // 944:61
-[com_61]
+[makex_8]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_59
+layer=layer8
 pausebutton=yes
 transmitop=10
 pausetext=Make X
 op10= 
 
 // 944:62
-[com_62]
+[make10_8]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_59
+layer=layer8
 pausebutton=yes
 transmitop=10
 pausetext=Make 10
 op10= 
 
 // 944:63
-[com_63]
+[make5_8]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_59
+layer=layer8
 pausebutton=yes
 transmitop=10
 pausetext=Make 5
 op10= 
 
 // 944:64
-[com_64]
+[make1_8]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_59
+layer=layer8
 pausebutton=yes
 transmitop=10
 pausetext=Make 1
 op10= 
 
 // 944:65
-[com_65]
+[layer9]
 type=layer
 x=175
 y=23
@@ -821,13 +821,13 @@ transmitop=10
 op10= 
 
 // 944:66
-[com_66]
+[model9]
 type=model
 y=4
 width=57
 height=80
 xmode=abs_centre
-layer=com_65
+layer=layer9
 model=null
 modelzoom=394
 transmitop=10
@@ -837,59 +837,59 @@ onmouseover=skill_multi_rand_text(event_com)
 onvarctransmit=skill_multi_rand_model(event_com){varclient_1141}
 
 // 944:67
-[com_67]
+[makex_9]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_65
+layer=layer9
 pausebutton=yes
 transmitop=10
 pausetext=Make X
 op10= 
 
 // 944:68
-[com_68]
+[make10_9]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_65
+layer=layer9
 pausebutton=yes
 transmitop=10
 pausetext=Make 10
 op10= 
 
 // 944:69
-[com_69]
+[make5_9]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_65
+layer=layer9
 pausebutton=yes
 transmitop=10
 pausetext=Make 5
 op10= 
 
 // 944:70
-[com_70]
+[make1_9]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_65
+layer=layer9
 pausebutton=yes
 transmitop=10
 pausetext=Make 1
 op10= 
 
 // 944:71
-[com_71]
+[layer10]
 type=layer
 x=225
 y=23
@@ -900,13 +900,13 @@ transmitop=10
 op10= 
 
 // 944:72
-[com_72]
+[model10]
 type=model
 y=4
 width=57
 height=80
 xmode=abs_centre
-layer=com_71
+layer=layer10
 model=null
 modelzoom=394
 transmitop=10
@@ -916,65 +916,65 @@ onmouseover=skill_multi_rand_text(event_com)
 onvarctransmit=skill_multi_rand_model(event_com){varclient_1142}
 
 // 944:73
-[com_73]
+[makex_10]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_71
+layer=layer10
 pausebutton=yes
 transmitop=10
 pausetext=Make X
 op10= 
 
 // 944:74
-[com_74]
+[make10_10]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_71
+layer=layer10
 pausebutton=yes
 transmitop=10
 pausetext=Make 10
 op10= 
 
 // 944:75
-[com_75]
+[make5_10]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_71
+layer=layer10
 pausebutton=yes
 transmitop=10
 pausetext=Make 5
 op10= 
 
 // 944:76
-[com_76]
+[make1_10]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_71
+layer=layer10
 pausebutton=yes
 transmitop=10
 pausetext=Make 1
 op10= 
 
 // 944:77
-[com_77]
+[model1]
 type=model
 y=4
 width=57
 height=80
 xmode=abs_centre
-layer=com_22
+layer=layer1
 model=null
 modelzoom=394
 onload=skill_multi_rand_model(event_com)
@@ -982,45 +982,45 @@ onmouseover=skill_multi_rand_text(event_com)
 onvarctransmit=skill_multi_rand_model(event_com){varclient_755}
 
 // 944:78
-[com_78]
+[makex_1]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_22
+layer=layer1
 pausebutton=yes
 pausetext=Make X
 
 // 944:79
-[com_79]
+[make10_1]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_22
+layer=layer1
 pausebutton=yes
 pausetext=Make 10
 
 // 944:80
-[com_80]
+[make5_1]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_22
+layer=layer1
 pausebutton=yes
 pausetext=Make 5
 
 // 944:81
-[com_81]
+[make1_1]
 type=layer
 width=50
 height=60
 xmode=abs_centre
 ymode=abs_centre
-layer=com_22
+layer=layer1
 pausebutton=yes
 pausetext=Make 1

@@ -16,35 +16,35 @@
 
 [opheld1,lamp]
 %xplamp_stat = ^xplamp_none;
-if_openmain(xplamp);
+if_openmain(interface_134);
 
-[if_button,xplamp:attack] @xplamp_select(attack);
-[if_button,xplamp:strength] @xplamp_select(strength);
-[if_button,xplamp:ranged] @xplamp_select(ranged);
-[if_button,xplamp:magic] @xplamp_select(magic);
-[if_button,xplamp:defence] @xplamp_select(defence);
-[if_button,xplamp:hitpoints] @xplamp_select(hitpoints);
-[if_button,xplamp:prayer] @xplamp_select(prayer);
-[if_button,xplamp:agility] @xplamp_select(agility);
-[if_button,xplamp:herblore] @xplamp_select(herblore);
-[if_button,xplamp:thieving] @xplamp_select(thieving);
-[if_button,xplamp:crafting] @xplamp_select(crafting);
-[if_button,xplamp:runecraft] @xplamp_select(runecraft);
-[if_button,xplamp:mining] @xplamp_select(mining);
-[if_button,xplamp:smithing] @xplamp_select(smithing);
-[if_button,xplamp:fishing] @xplamp_select(fishing);
-[if_button,xplamp:cooking] @xplamp_select(cooking);
-[if_button,xplamp:firemaking] @xplamp_select(firemaking);
-[if_button,xplamp:woodcutting] @xplamp_select(woodcutting);
-[if_button,xplamp:fletching] @xplamp_select(fletching);
-[if_button,xplamp:slayer] @xplamp_select(slayer);
-[if_button,xplamp:farming] @xplamp_select(farming);
-[if_button,xplamp:construction] @xplamp_select(construction);
-[if_button,xplamp:hunter] @xplamp_select(hunter);
-[if_button,xplamp:summoning] @xplamp_select(summoning);
-[if_button,xplamp:dungeoneering] @xplamp_select(dungeoneering);
+[if_button,interface_134:attack] @xplamp_select(attack);
+[if_button,interface_134:strength] @xplamp_select(strength);
+[if_button,interface_134:ranged] @xplamp_select(ranged);
+[if_button,interface_134:magic] @xplamp_select(magic);
+[if_button,interface_134:defence] @xplamp_select(defence);
+[if_button,interface_134:hitpoints] @xplamp_select(hitpoints);
+[if_button,interface_134:prayer] @xplamp_select(prayer);
+[if_button,interface_134:agility] @xplamp_select(agility);
+[if_button,interface_134:herblore] @xplamp_select(herblore);
+[if_button,interface_134:thieving] @xplamp_select(thieving);
+[if_button,interface_134:crafting] @xplamp_select(crafting);
+[if_button,interface_134:runecraft] @xplamp_select(runecraft);
+[if_button,interface_134:mining] @xplamp_select(mining);
+[if_button,interface_134:smithing] @xplamp_select(smithing);
+[if_button,interface_134:fishing] @xplamp_select(fishing);
+[if_button,interface_134:cooking] @xplamp_select(cooking);
+[if_button,interface_134:firemaking] @xplamp_select(firemaking);
+[if_button,interface_134:woodcutting] @xplamp_select(woodcutting);
+[if_button,interface_134:fletching] @xplamp_select(fletching);
+[if_button,interface_134:slayer] @xplamp_select(slayer);
+[if_button,interface_134:farming] @xplamp_select(farming);
+[if_button,interface_134:construction] @xplamp_select(construction);
+[if_button,interface_134:hunter] @xplamp_select(hunter);
+[if_button,interface_134:lore] @xplamp_select(summoning);
+[if_button,interface_134:dungeoneering] @xplamp_select(dungeoneering);
 
-[if_button,xplamp:confirm]
+[if_button,interface_134:confirm]
 switch_int (%xplamp_stat) {
     case ^xplamp_none :
         mes("You need to choose which skill you wish to be advanced.");

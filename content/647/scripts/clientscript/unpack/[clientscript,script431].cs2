@@ -8,33 +8,33 @@ def_int $int6 = -1;
 switch_component ($component0) {
     case default :
         return;
-    case conq_side_command:com_8 :
-        $component2 = conq_side_command:com_80;
-        $component3 = conq_side_command:com_81;
+    case conq_side_command:ability_layer_1 :
+        $component2 = conq_side_command:highlight_outer_rect_1;
+        $component3 = conq_side_command:highlight_inner_rect_1;
         if (%varclient_1388 = 1) {
             $int4 = 1;
         } else {
             $int4 = %varplayerbit_7539;
         }
-    case conq_side_command:com_9 :
-        $component2 = conq_side_command:com_63;
-        $component3 = conq_side_command:com_64;
+    case conq_side_command:ability_layer_2 :
+        $component2 = conq_side_command:highlight_outer_rect_2;
+        $component3 = conq_side_command:highlight_inner_rect_2;
         if (%varclient_1388 = 1) {
             $int4 = 3;
         } else {
             $int4 = %varplayerbit_7540;
         }
-    case conq_side_command:com_10 :
-        $component2 = conq_side_command:com_46;
-        $component3 = conq_side_command:com_47;
+    case conq_side_command:ability_layer_3 :
+        $component2 = conq_side_command:highlight_outer_rect_3;
+        $component3 = conq_side_command:highlight_inner_rect_3;
         if (%varclient_1388 = 1) {
             $int4 = 5;
         } else {
             $int4 = %varplayerbit_7541;
         }
-    case conq_side_command:com_11 :
-        $component2 = conq_side_command:com_29;
-        $component3 = conq_side_command:com_30;
+    case conq_side_command:ability_layer_4 :
+        $component2 = conq_side_command:highlight_outer_rect_4;
+        $component3 = conq_side_command:highlight_inner_rect_4;
         if (%varclient_1388 = 1) {
             $int4 = 6;
         } else {

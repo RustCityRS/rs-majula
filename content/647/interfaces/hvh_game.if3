@@ -1,0 +1,349 @@
+// 730:0
+[timer_tradebacking]
+type=graphic
+x=306
+y=263
+width=190
+height=26
+layer=layer_timer
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 730:1
+[timer_corner1]
+type=graphic
+x=299
+y=256
+width=32
+height=32
+layer=layer_timer
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 730:2
+[timer_corner2]
+type=graphic
+x=299
+y=264
+width=32
+height=32
+layer=layer_timer
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 730:3
+[timer_corner3]
+type=graphic
+x=471
+y=256
+width=32
+height=32
+layer=layer_timer
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 730:4
+[timer_corner4]
+type=graphic
+x=471
+y=264
+width=32
+height=32
+layer=layer_timer
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 730:5
+[timer_top]
+type=graphic
+x=329
+y=243
+width=142
+height=32
+layer=layer_timer
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 730:6
+[timer_bottom]
+type=graphic
+x=331
+y=276
+width=140
+height=32
+layer=layer_timer
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 730:7
+[pickup_stone]
+type=text
+x=3
+y=13
+width=197
+height=17
+layer=layer_pickup
+textfont=b12_full
+text=Please pick up a stone!
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 730:8
+[layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+opbase=m
+oninvtransmit=script955{inv}
+
+// 730:9
+[info_tradebacking]
+type=graphic
+x=336
+y=17
+width=159
+height=50
+layer=content_layer2
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 730:10
+[info_corner1]
+type=graphic
+x=330
+y=10
+width=32
+height=32
+layer=content_layer2
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 730:11
+[info_corner2]
+type=graphic
+x=330
+y=39
+width=32
+height=32
+layer=content_layer2
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 730:12
+[info_corner3]
+type=graphic
+x=470
+y=10
+width=32
+height=32
+layer=content_layer2
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 730:13
+[info_corner4]
+type=graphic
+x=470
+y=39
+width=32
+height=32
+layer=content_layer2
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 730:14
+[info_top]
+type=graphic
+x=362
+y=-3
+width=108
+height=32
+layer=content_layer2
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 730:15
+[info_bottom]
+type=graphic
+x=362
+y=51
+width=108
+height=32
+layer=content_layer2
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 730:16
+[info_divider]
+type=graphic
+x=339
+y=21
+width=153
+height=32
+layer=content_layer2
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+
+// 730:17
+[charge]
+type=text
+x=339
+y=18
+width=61
+height=16
+layer=content_layer2
+textfont=p12_full
+text=Charge:
+textshadow=yes
+colour=0xc8aa64
+
+// 730:18
+[target_name]
+type=text
+x=396
+y=43
+width=97
+height=16
+layer=content_layer2
+textfont=p12_full
+text=Name
+textalignh=right
+textshadow=yes
+colour=0x77736a
+onvarcstrtransmit=script1582(event_com, hvh_game:tooltip){varclient_1736}
+
+// 730:19
+[hunter_layer]
+type=layer
+x=298
+y=10
+width=204
+height=64
+layer=content_layer2
+
+// 730:20
+[hunted_layer]
+type=layer
+x=298
+y=10
+width=201
+height=64
+layer=content_layer2
+hide=yes
+
+// 730:21
+[tooltip]
+type=layer
+x=407
+y=53
+width=72
+height=20
+layer=content_layer2
+
+// 730:22
+[content_layer2]
+type=layer
+y=7
+width=512
+height=334
+xmode=abs_right
+ymode=proportion_top
+layer=layer
+
+// 730:23
+[layer_timer]
+type=layer
+width=512
+height=334
+layer=content_layer1
+
+// 730:24
+[layer_pickup]
+type=layer
+x=299
+y=224
+width=204
+height=32
+layer=content_layer1
+
+// 730:25
+[content_layer1]
+type=layer
+x=-287
+y=-42
+width=512
+height=334
+ymode=proportion_bottom
+layer=layer
+
+// 730:26
+[hunter_text]
+type=text
+x=41
+y=33
+width=78
+height=16
+layer=hunter_layer
+textfont=p12_full
+text=Hunting:
+textshadow=yes
+colour=0xc8aa64
+
+// 730:27
+[hunted_text]
+type=text
+x=41
+y=33
+width=78
+height=16
+layer=hunted_layer
+textfont=p12_full
+text=Hunted by:
+textshadow=yes
+colour=0xc8aa64
+
+// 730:28
+[com_28]
+type=text
+x=311
+y=263
+width=182
+height=32
+layer=layer_timer
+textfont=p12_full
+text=Time left:
+textshadow=yes
+colour=0xc8aa64
+
+// 730:29
+[time_line]
+type=rectangle
+x=310
+y=280
+width=182
+height=6
+layer=layer_timer
+colour=0xffff00
+fill=yes
+onvartransmit=hvh_timer_bar{varplayer_1215}
+
+// 730:30
+[bar_backing]
+type=graphic
+x=309
+y=279
+width=184
+height=8
+layer=layer_timer
+graphic=assist_buttton
+trans=128
+colour=0xffffffff

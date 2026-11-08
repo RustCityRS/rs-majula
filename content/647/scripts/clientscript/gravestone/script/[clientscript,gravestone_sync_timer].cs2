@@ -3,12 +3,12 @@
 %varclient_815 = calc($int0 * 300 / 10);
 if (%varclient_815 > 0) {
     if (getwindowmode < 2) {
-        if_setontimer("gravestone_update_timer", toplevel:com_11);
+        if_setontimer("gravestone_update_timer", toplevel:gravestone_layer);
         if_sethide(false, toplevel:com_12);
-        if_sethide(false, toplevel:com_13);
+        if_sethide(false, toplevel:gravestone_timer);
     } else {
-        if_setontimer("gravestone_update_timer", toplevel_fullscreen:com_11);
-        if_sethide(false, toplevel_fullscreen:com_166);
+        if_setontimer("gravestone_update_timer", toplevel_fullscreen:gravestone_layer);
+        if_sethide(false, toplevel_fullscreen:gravestone_timer);
         if_sethide(false, toplevel_fullscreen:com_165);
     }
 } else {

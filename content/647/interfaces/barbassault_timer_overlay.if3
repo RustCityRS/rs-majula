@@ -1,31 +1,31 @@
 // 494:0
-[com_0]
+[layer_top]
 type=layer
 width=166
 height=83
 xmode=abs_right
 
 // 494:1
-[com_1]
+[barbassault_wave_complete_timer]
 type=text
 x=135
 y=5
 width=70
 height=15
-layer=com_0
+layer=layer_top
 textfont=b12_full
 text=XX
 textshadow=yes
 colour=0xff981f
 
 // 494:2
-[com_2]
+[barbassault_wave_complete_timere_text]
 type=text
 x=8
 y=5
 width=125
 height=15
-layer=com_0
+layer=layer_top
 textfont=p12_full
 text=Time until next wave:
 textalignh=right
@@ -33,13 +33,13 @@ textshadow=yes
 colour=0xff981f
 
 // 494:3
-[com_3]
+[barbassault_exit_room_to_cancel]
 type=text
 x=28
 y=18
 width=116
 height=16
-layer=com_0
+layer=layer_top
 textfont=p12_full
 text=(exit room to cancel)
 textshadow=yes

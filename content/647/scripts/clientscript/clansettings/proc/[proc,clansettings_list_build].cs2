@@ -77,8 +77,8 @@ while ($int23 < $int24) {
         cc_setsize($int19, $int20, ^setsize_abs, ^setsize_abs);
         cc_setgraphic(enum(int, graphic, enum_3712, $int31));
         $string1 = enum(int, string, enum_3714, $int31);
-        cc_setonmouserepeat("aif_tooltip(interface_1096:com_68, $component2, $int23, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
-        cc_setonmouseleave("deltooltip(interface_1096:com_68)");
+        cc_setonmouserepeat("aif_tooltip(interface_1096:tooltip_layer, $component2, $int23, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(interface_1096:tooltip_layer)");
     }
     cc_create($component6, ^iftype_graphic, $int23);
     if ($int32 = 0) {
@@ -86,8 +86,8 @@ while ($int23 < $int24) {
         if (activeclansettings_getaffinedextrainfo($int23, 30, 30) = 1 | $int31 >= 100) {
             cc_setgraphic("aif_clan_rank_icons,11");
             $string1 = "Rated Clan<br>Wars Leader";
-            cc_setonmouserepeat("aif_tooltip(interface_1096:com_68, $component6, $int23, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
-            cc_setonmouseleave("deltooltip(interface_1096:com_68)");
+            cc_setonmouserepeat("aif_tooltip(interface_1096:tooltip_layer, $component6, $int23, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
+            cc_setonmouseleave("deltooltip(interface_1096:tooltip_layer)");
         }
     }
     cc_create($component3, ^iftype_graphic, $int23);

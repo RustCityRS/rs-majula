@@ -29,7 +29,7 @@ layer=com_76
 graphic="aif_clanchat_icons,0"
 
 // 1110:3
-[com_3]
+[main_layer]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -126,7 +126,7 @@ layer=com_25
 hide=yes
 
 // 1110:14
-[com_14]
+[clanlist]
 type=layer
 x=11
 width=8
@@ -200,7 +200,7 @@ colour=0x524a40
 fill=yes
 
 // 1110:22
-[com_22]
+[kick_button_layer]
 type=layer
 x=12
 width=17
@@ -239,7 +239,7 @@ height=208
 layer=com_34
 
 // 1110:26
-[com_26]
+[clan_name]
 type=text
 height=20
 widthmode=minus
@@ -251,7 +251,7 @@ textshadow=yes
 colour=0xb59b84
 
 // 1110:27
-[com_27]
+[drag_layer]
 type=layer
 x=74
 width=4
@@ -272,7 +272,7 @@ width=2
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_27
+layer=drag_layer
 graphic=friends_line
 tiling=yes
 trans=179
@@ -281,7 +281,7 @@ transmitop=10
 op10=  
 
 // 1110:29
-[com_29]
+[clanlistscrollbar]
 type=layer
 x=174
 y=21
@@ -401,7 +401,7 @@ height=207
 layer=com_35
 
 // 1110:42
-[com_42]
+[ignore_info_layer]
 type=layer
 y=20
 width=190
@@ -432,7 +432,7 @@ layer=com_35
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=main_layer
 hide=yes
 graphic=window_texture_2
 
@@ -442,7 +442,7 @@ type=rectangle
 height=19
 widthmode=minus
 xmode=abs_centre
-layer=com_3
+layer=main_layer
 colour=0x141210
 fill=yes
 trans=128
@@ -453,7 +453,7 @@ type=rectangle
 y=20
 width=190
 height=210
-layer=com_3
+layer=main_layer
 colour=0x170801
 fill=yes
 trans=218
@@ -465,7 +465,7 @@ height=31
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_3
+layer=main_layer
 colour=0x141210
 fill=yes
 trans=128
@@ -476,7 +476,7 @@ type=line
 y=19
 widthmode=minus
 xmode=abs_centre
-layer=com_3
+layer=main_layer
 colour=0x4a4138
 
 // 1110:50
@@ -486,7 +486,7 @@ y=31
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_3
+layer=main_layer
 colour=0x4a4138
 
 // 1110:51
@@ -494,21 +494,21 @@ colour=0x4a4138
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=main_layer
 
 // 1110:52
 [com_52]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=main_layer
 
 // 1110:53
 [com_53]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=main_layer
 
 // 1110:54
 [com_54]
@@ -518,13 +518,13 @@ y=7
 width=17
 height=17
 ymode=abs_bottom
-layer=com_3
+layer=main_layer
 graphic="aif_chat_navigation_btn,2"
 transmitop=1
 op1=Show clan ignore list
-onmouseleave=deltooltip(clan_chat:com_60)
+onmouseleave=deltooltip(clan_chat:tooltip)
 onop=script4459
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Clan ban list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Clan ban list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1110:55
 [com_55]
@@ -534,7 +534,7 @@ y=7
 width=17
 height=17
 ymode=abs_bottom
-layer=com_3
+layer=main_layer
 hide=yes
 graphic="aif_chat_navigation_btn,8"
 
@@ -546,13 +546,13 @@ y=7
 width=17
 height=17
 ymode=abs_bottom
-layer=com_3
+layer=main_layer
 graphic="aif_chat_navigation_btn,1"
 transmitop=1
 op1=Show clan
-onmouseleave=deltooltip(clan_chat:com_60)
+onmouseleave=deltooltip(clan_chat:tooltip)
 onop=script4455
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Clan Chat.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Clan Chat.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1110:57
 [com_57]
@@ -562,7 +562,7 @@ y=7
 width=17
 height=17
 ymode=abs_bottom
-layer=com_3
+layer=main_layer
 graphic="aif_chat_navigation_btn,7"
 
 // 1110:58
@@ -573,13 +573,13 @@ y=7
 width=17
 height=17
 ymode=abs_bottom
-layer=com_3
+layer=main_layer
 graphic="aif_chat_navigation_btn,0"
 transmitop=1
 op1=Show guest clan
-onmouseleave=deltooltip(clan_chat:com_60)
+onmouseleave=deltooltip(clan_chat:tooltip)
 onop=script4457
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Visited Clan Chat.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Visited Clan Chat.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1110:59
 [com_59]
@@ -589,16 +589,16 @@ y=7
 width=17
 height=17
 ymode=abs_bottom
-layer=com_3
+layer=main_layer
 hide=yes
 graphic="aif_chat_navigation_btn,6"
 
 // 1110:60
-[com_60]
+[tooltip]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=main_layer
 
 // 1110:61
 [com_61]
@@ -715,7 +715,7 @@ colour=0xb59b84
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_42
+layer=ignore_info_layer
 colour=0x000000
 fill=yes
 trans=167
@@ -727,7 +727,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_42
+layer=ignore_info_layer
 textfont=p11_full
 text=Loading.<br><br>Please wait...
 textalignh=centre
@@ -768,8 +768,8 @@ layer=com_31
 transmitop=1
 op1=Clan Details
 onload=script4213(event_com)
-onmouseleave=deltooltip(clan_chat:com_60)
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Clan details.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(clan_chat:tooltip)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Clan details.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1110:77
 [com_77]
@@ -804,8 +804,8 @@ layer=com_32
 transmitop=1
 op1=Clan Settings
 onload=script4213(event_com)
-onmouseleave=deltooltip(clan_chat:com_60)
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Clan settings.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(clan_chat:tooltip)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Clan settings.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1110:81
 [com_81]
@@ -850,8 +850,8 @@ layer=com_30
 transmitop=1
 op1=Join Clan Channel
 onload=script4213(event_com)
-onmouseleave=deltooltip(clan_chat:com_60)
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Join your clan chat channel.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(clan_chat:tooltip)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Join your clan chat channel.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1110:86
 [com_86]
@@ -897,10 +897,10 @@ targetmask=player
 targetverb=Invite
 targetcursor2=cursor_176
 onload=script4213(event_com)
-onmouseleave=deltooltip(clan_chat:com_60)
+onmouseleave=deltooltip(clan_chat:tooltip)
 ontargetleave=script4430(event_com, clan_chat:com_91)
 ontargetenter=clan_invite_button(event_com, clan_chat:com_91)
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Invite.<br>Recruiters can click this, then click on the player to invite.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Invite.<br>Recruiters can click this, then click on the player to invite.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1110:91
 [com_91]
@@ -945,8 +945,8 @@ layer=com_66
 transmitop=1
 op1=Join Clan Channel
 onload=script4213(event_com)
-onmouseleave=deltooltip(clan_chat:com_60)
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Join another<br>clan's clanchat.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(clan_chat:tooltip)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Join another<br>clan's clanchat.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1110:96
 [com_96]
@@ -991,8 +991,8 @@ layer=com_43
 transmitop=1
 op1=Add ban
 onload=script4213(event_com)
-onmouseleave=deltooltip(clan_chat:com_60)
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Ban a player from the clan, so they cannot enter the chat until removed from this list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(clan_chat:tooltip)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Ban a player from the clan, so they cannot enter the chat until removed from this list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1110:101
 [com_101]
@@ -1037,8 +1037,8 @@ layer=com_44
 transmitop=1
 op1=Remove ban
 onload=script4213(event_com)
-onmouseleave=deltooltip(clan_chat:com_60)
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Remove a player from the clan ban list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(clan_chat:tooltip)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Remove a player from the clan ban list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1110:106
 [com_106]
@@ -1055,7 +1055,7 @@ graphic="aif_clanchat_icons,5"
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_22
+layer=kick_button_layer
 onload=script4525(event_com, struct_1800)
 
 // 1110:108
@@ -1063,7 +1063,7 @@ onload=script4525(event_com, struct_1800)
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_22
+layer=kick_button_layer
 onload=script4525(event_com, struct_1801)
 
 // 1110:109
@@ -1071,23 +1071,23 @@ onload=script4525(event_com, struct_1801)
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_22
+layer=kick_button_layer
 transmitop=1
 op1=Temporary kick/ban
 onload=script4213(event_com)
-onmouseleave=deltooltip(clan_chat:com_60)
+onmouseleave=deltooltip(clan_chat:tooltip)
 onop=clan_chat_kick_button
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Temporarily kick & ban a guest.", 80, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Temporarily kick & ban a guest.", 80, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
 
 // 1110:110
 [com_110]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_22
+layer=kick_button_layer
 noclickthrough=yes
-onmouseleave=deltooltip(clan_chat:com_60)
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "If you have a high enough rank, this allows you to temporarily kick & ban a guest.", 80, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+onmouseleave=deltooltip(clan_chat:tooltip)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "If you have a high enough rank, this allows you to temporarily kick & ban a guest.", 80, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
 
 // 1110:111
 [com_111]
@@ -1100,7 +1100,7 @@ fill=yes
 trans=128
 
 // 1110:112
-[com_112]
+[kick_button_graphic]
 type=graphic
 width=17
 height=17
@@ -1134,8 +1134,8 @@ layer=com_68
 transmitop=1
 op1=Leave Clan
 onload=script4213(event_com)
-onmouseleave=deltooltip(clan_chat:com_60)
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Leave your clan completely.<br>You will need to be re-invited to join again.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(clan_chat:tooltip)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Leave your clan completely.<br>You will need to be re-invited to join again.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1110:116
 [com_116]
@@ -1172,9 +1172,9 @@ layer=com_23
 transmitop=1
 op1=Permanently ban
 onload=script4213(event_com)
-onmouseleave=deltooltip(clan_chat:com_60)
+onmouseleave=deltooltip(clan_chat:tooltip)
 onop=meslayer_mode16
-onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Permanently ban a guest.", 80, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+onmouserepeat=aif_tooltip(clan_chat:tooltip, event_com, -1, "Permanently ban a guest.", 80, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
 
 // 1110:120
 [com_120]

@@ -71,7 +71,7 @@ switch_int (%varclient_929) {
 }
 switch_int ($int1) {
     case 0 :
-        if_setgraphic("warning_icons,1", mob_squad_exchange:com_113);
+        if_setgraphic("warning_icons,1", mob_squad_exchange:resupply);
     case 1 :
-        if_setgraphic("warning_icons,2", mob_squad_exchange:com_113);
+        if_setgraphic("warning_icons,2", mob_squad_exchange:resupply);
 }

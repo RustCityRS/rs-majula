@@ -20,11 +20,11 @@ if (calc(enum_getoutputcount(enum_869) % $int2) = 0) {
 } else {
     $int13 = calc(enum_getoutputcount(enum_869) / $int2 * $int5 + $int5);
 }
-cc_deleteall(quest_lunar_contact_npc_spell_v2:com_22);
-cc_deleteall(quest_lunar_contact_npc_spell_v2:com_23);
-if_setscrollsize(calc($int2 * $int1), $int13, quest_lunar_contact_npc_spell_v2:com_21);
+cc_deleteall(quest_lunar_contact_npc_spell_v2:model_layer);
+cc_deleteall(quest_lunar_contact_npc_spell_v2:caption_layer);
+if_setscrollsize(calc($int2 * $int1), $int13, quest_lunar_contact_npc_spell_v2:scroll_layer);
 while ($int0 < enum_getoutputcount(enum_869)) {
-    cc_create(quest_lunar_contact_npc_spell_v2:com_22, ^iftype_model, $int0);
+    cc_create(quest_lunar_contact_npc_spell_v2:model_layer, ^iftype_model, $int0);
     cc_setsize($int1, $int5, ^setsize_abs, ^setsize_abs);
     $model9, $string0, $int11, $int10, $seq12 = ~script2791($int0);
     cc_setmodel($model9);
@@ -35,7 +35,7 @@ while ($int0 < enum_getoutputcount(enum_869)) {
         cc_setonmouserepeat("script1860(event_comsubid, $seq12)");
         cc_setonmouseleave("script2607(event_comsubid)");
     }
-    cc_create(quest_lunar_contact_npc_spell_v2:com_23, ^iftype_text, $int0);
+    cc_create(quest_lunar_contact_npc_spell_v2:caption_layer, ^iftype_text, $int0);
     cc_setsize($int6, $int7, ^setsize_abs, ^setsize_abs);
     cc_setcolour(0xff9935);
     cc_settextfont(p11_full);
@@ -50,6 +50,6 @@ while ($int0 < enum_getoutputcount(enum_869)) {
     }
     $int0 = calc($int0 + 1);
 }
-if (if_getscrolly(quest_lunar_contact_npc_spell_v2:com_22) = 0) {
-    ~scrollbar_vertical(quest_lunar_contact_npc_spell_v2:com_20, quest_lunar_contact_npc_spell_v2:com_21, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if (if_getscrolly(quest_lunar_contact_npc_spell_v2:model_layer) = 0) {
+    ~scrollbar_vertical(quest_lunar_contact_npc_spell_v2:scrollbar_layer, quest_lunar_contact_npc_spell_v2:scroll_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 }

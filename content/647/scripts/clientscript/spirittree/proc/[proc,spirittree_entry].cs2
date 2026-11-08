@@ -2,7 +2,7 @@
 [proc,spirittree_entry](string $string0, int $int0, int $int1, int $int2)(int)
 def_int $int3 = paraheight($string0, 390, p12_full);
 def_int $int4 = 15;
-cc_create(spirittree:com_7, ^iftype_text, $int0);
+cc_create(spirittree:info, ^iftype_text, $int0);
 cc_setsize(390, calc($int3 * $int4), ^setsize_abs, ^setsize_abs);
 cc_settext($string0);
 cc_setposition(15, $int1, ^setpos_abs_left, ^setpos_abs_top);

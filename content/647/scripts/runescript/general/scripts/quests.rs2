@@ -29,21 +29,21 @@ if ($random < 32) {       // The least common music that plays when completing a
 // Send Quest Scroll: the quest's own points first among the rewards, the rest
 // below it, and the total (277's "Quest Points:", com7), as every 2011 scroll
 // found shows (Doric's, Cook's, Imp Catcher's, ...; void-634's Cook.kt too).
-if_settext(questscroll_ver3:com_4, $questmessage);
-if_setobject(questscroll_ver3:com_5, $obj, $objscale);
-if_settext(questscroll_ver3:com_7, tostring(%qp));
+if_settext(questscroll_ver3:quest_title_ver3, $questmessage);
+if_setobject(questscroll_ver3:quest_model_ver3, $obj, $objscale);
+if_settext(questscroll_ver3:quest_points_ver3, tostring(%qp));
 if ($questpoints = 1) {
-    if_settext(questscroll_ver3:com_10, "1 Quest Point");
+    if_settext(questscroll_ver3:quest_reward1_ver3, "1 Quest Point");
 } else {
-    if_settext(questscroll_ver3:com_10, "<tostring($questpoints)> Quest Points");
+    if_settext(questscroll_ver3:quest_reward1_ver3, "<tostring($questpoints)> Quest Points");
 }
-if_settext(questscroll_ver3:com_11, "");
-if_settext(questscroll_ver3:com_12, "");
-if_settext(questscroll_ver3:com_13, "");
-if_settext(questscroll_ver3:com_14, "");
-if_settext(questscroll_ver3:com_15, "");
-if_settext(questscroll_ver3:com_16, "");
-if_settext(questscroll_ver3:com_17, "");
+if_settext(questscroll_ver3:quest_reward2_ver3, "");
+if_settext(questscroll_ver3:quest_reward3_ver3, "");
+if_settext(questscroll_ver3:skullduration_tab, "");
+if_settext(questscroll_ver3:quest_reward5_ver3, "");
+if_settext(questscroll_ver3:quest_reward6_ver3, "");
+if_settext(questscroll_ver3:quest_reward7_ver3, "");
+if_settext(questscroll_ver3:quest_reward8_ver3, "");
 if_openmain(questscroll_ver3);
 // Update Quest Tab color
 ~send_quest_progress_colour($quest, 1, 1);
@@ -64,13 +64,13 @@ mes("Congratulations! Quest complete!");
 // "Access to the cook's range"; target/port-tools/wrap_samples_scroll.txt). 170 is within; the
 // exact width is not known.
 split_init($rewardtext, 170, 7, p12_full);
-if_settext(questscroll_ver3:com_11, split_get(0, 0));
-if_settext(questscroll_ver3:com_12, split_get(0, 1));
-if_settext(questscroll_ver3:com_13, split_get(0, 2));
-if_settext(questscroll_ver3:com_14, split_get(0, 3));
-if_settext(questscroll_ver3:com_15, split_get(0, 4));
-if_settext(questscroll_ver3:com_16, split_get(0, 5));
-if_settext(questscroll_ver3:com_17, split_get(0, 6));
+if_settext(questscroll_ver3:quest_reward2_ver3, split_get(0, 0));
+if_settext(questscroll_ver3:quest_reward3_ver3, split_get(0, 1));
+if_settext(questscroll_ver3:skullduration_tab, split_get(0, 2));
+if_settext(questscroll_ver3:quest_reward5_ver3, split_get(0, 3));
+if_settext(questscroll_ver3:quest_reward6_ver3, split_get(0, 4));
+if_settext(questscroll_ver3:quest_reward7_ver3, split_get(0, 5));
+if_settext(questscroll_ver3:quest_reward8_ver3, split_get(0, 6));
 
 [proc,update_questpoints]
 def_int $questpointrecount = ~count_questpoints;

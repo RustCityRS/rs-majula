@@ -8,7 +8,7 @@ ontimer=script3970
 onvarctransmit=script3968
 
 // 1055:1
-[com_1]
+[task_info_layer]
 type=layer
 y=18
 width=199
@@ -25,7 +25,7 @@ width=6
 height=50
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=task_info_layer
 graphic=tradebacking
 colour=0xffffffff
 transmitop=1,10
@@ -33,14 +33,14 @@ op1=Details
 op10= 
 
 // 1055:3
-[com_3]
+[task_icon]
 type=graphic
 x=-69
 y=5
 width=50
 height=50
 xmode=abs_centre
-layer=com_1
+layer=task_info_layer
 graphic="achievement_diary_icons,1"
 colour=0xffffffff
 
@@ -52,7 +52,7 @@ y=5
 width=141
 height=14
 xmode=abs_centre
-layer=com_1
+layer=task_info_layer
 textfont=welcome_font_tiny
 text=Task Complete!
 textalignh=centre
@@ -68,7 +68,7 @@ y=19
 width=141
 height=36
 xmode=abs_centre
-layer=com_1
+layer=task_info_layer
 textfont=p11_full
 textalignh=centre
 textalignv=centre
@@ -82,7 +82,7 @@ x=2
 y=2
 width=32
 height=32
-layer=com_1
+layer=task_info_layer
 graphic="v2_stone_borders,28"
 colour=0xffffffff
 
@@ -94,7 +94,7 @@ y=2
 width=4
 height=32
 widthmode=minus
-layer=com_1
+layer=task_info_layer
 graphic="v2_stone_borders,33"
 tiling=yes
 colour=0xffffffff
@@ -106,7 +106,7 @@ y=2
 width=32
 height=32
 xmode=abs_right
-layer=com_1
+layer=task_info_layer
 graphic="v2_stone_borders,29"
 colour=0xffffffff
 
@@ -117,7 +117,7 @@ x=2
 y=26
 width=32
 height=32
-layer=com_1
+layer=task_info_layer
 graphic="v2_stone_borders,30"
 colour=0xffffffff
 
@@ -129,7 +129,7 @@ y=55
 width=64
 height=32
 widthmode=minus
-layer=com_1
+layer=task_info_layer
 graphic="v2_stone_borders,33"
 tiling=yes
 colour=0xffffffff
@@ -142,7 +142,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=task_info_layer
 graphic="v2_stone_borders,31"
 colour=0xffffffff
 

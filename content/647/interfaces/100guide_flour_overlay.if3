@@ -1,5 +1,5 @@
 // 1:0
-[com_0]
+[100_flour_q1]
 type=model
 x=51
 y=36
@@ -7,14 +7,14 @@ width=42
 height=265
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=100_flour_q_anim1
 model=model_13369
 modelorigin=-3,143
 modelzoom=656
 modelanim=seq_3453
 
 // 1:1
-[com_1]
+[100_flour_q_anim1]
 type=layer
 x=-9
 y=-1
@@ -22,11 +22,11 @@ width=164
 height=326
 xmode=abs_right
 ymode=abs_bottom
-layer=com_14
+layer=layer_1
 hide=yes
 
 // 1:2
-[com_2]
+[100_flour_anim5]
 type=layer
 x=-40
 y=-1
@@ -34,11 +34,11 @@ width=195
 height=334
 xmode=abs_right
 ymode=abs_bottom
-layer=com_14
+layer=layer_1
 hide=yes
 
 // 1:3
-[com_3]
+[100_flour_anim4]
 type=layer
 x=-15
 y=-1
@@ -46,11 +46,11 @@ width=170
 height=338
 xmode=abs_right
 ymode=abs_bottom
-layer=com_14
+layer=layer_1
 hide=yes
 
 // 1:4
-[com_4]
+[100_flour_anim3]
 type=layer
 x=-13
 y=-1
@@ -58,11 +58,11 @@ width=168
 height=330
 xmode=abs_right
 ymode=abs_bottom
-layer=com_14
+layer=layer_1
 hide=yes
 
 // 1:5
-[com_5]
+[100_flour_anim2]
 type=layer
 x=-23
 y=-1
@@ -70,11 +70,11 @@ width=178
 height=329
 xmode=abs_right
 ymode=abs_bottom
-layer=com_14
+layer=layer_1
 hide=yes
 
 // 1:6
-[com_6]
+[100_flour_anim1]
 type=layer
 x=-18
 y=-1
@@ -82,11 +82,11 @@ width=173
 height=331
 xmode=abs_right
 ymode=abs_bottom
-layer=com_14
+layer=layer_1
 hide=yes
 
 // 1:7
-[com_7]
+[100_flour_plain_layer]
 type=layer
 x=-22
 y=-1
@@ -94,10 +94,10 @@ width=177
 height=333
 xmode=abs_right
 ymode=abs_bottom
-layer=com_14
+layer=layer_1
 
 // 1:8
-[com_8]
+[100_flour5]
 type=model
 x=65
 y=24
@@ -105,7 +105,7 @@ width=82
 height=68
 xmode=abs_right
 ymode=abs_bottom
-layer=com_2
+layer=100_flour_anim5
 model=model_13360
 modelorigin=0,32
 modelangle=147,0,0
@@ -113,7 +113,7 @@ modelzoom=790
 modelanim=seq_3456
 
 // 1:9
-[com_9]
+[100_flour4]
 type=model
 x=31
 y=23
@@ -121,7 +121,7 @@ width=101
 height=78
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
+layer=100_flour_anim4
 model=model_13359
 modelorigin=1,36
 modelangle=147,0,0
@@ -129,7 +129,7 @@ modelzoom=656
 modelanim=seq_3456
 
 // 1:10
-[com_10]
+[100_flour3]
 type=model
 x=14
 y=19
@@ -137,7 +137,7 @@ width=130
 height=102
 xmode=abs_right
 ymode=abs_bottom
-layer=com_4
+layer=100_flour_anim3
 model=model_13358
 modelorigin=0,44
 modelangle=207,0,0
@@ -145,7 +145,7 @@ modelzoom=528
 modelanim=seq_3456
 
 // 1:11
-[com_11]
+[100_flour2]
 type=model
 x=39
 y=18
@@ -153,7 +153,7 @@ width=99
 height=73
 xmode=abs_right
 ymode=abs_bottom
-layer=com_5
+layer=100_flour_anim2
 model=model_13357
 modelorigin=0,29
 modelangle=147,0,0
@@ -161,7 +161,7 @@ modelzoom=656
 modelanim=seq_3456
 
 // 1:12
-[com_12]
+[100_flour1]
 type=model
 x=21
 y=6
@@ -169,7 +169,7 @@ width=127
 height=100
 xmode=abs_right
 ymode=abs_bottom
-layer=com_6
+layer=100_flour_anim1
 model=model_13356
 modelorigin=1,30
 modelangle=207,0,0
@@ -177,7 +177,7 @@ modelzoom=528
 modelanim=seq_3456
 
 // 1:13
-[com_13]
+[100_flour_plain]
 type=model
 x=41
 y=18
@@ -185,14 +185,14 @@ width=97
 height=79
 xmode=abs_right
 ymode=abs_bottom
-layer=com_7
+layer=100_flour_plain_layer
 model=model_13361
 modelorigin=2,32
 modelangle=207,0,0
 modelzoom=528
 
 // 1:14
-[com_14]
+[layer_1]
 type=layer
 width=151
 height=323

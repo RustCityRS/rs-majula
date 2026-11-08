@@ -68,7 +68,7 @@ vflip=yes
 colour=0xffffffff
 
 // 387:6
-[worn]
+[hat_container]
 type=layer
 y=4
 width=36
@@ -82,18 +82,18 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=worn
+layer=hat_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 387:8
-[hat_slot]
+[hat]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=worn
+layer=hat_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,6,10
 op1=*
@@ -107,7 +107,7 @@ onload=wornitems_slot(event_com, 0)
 oninvtransmit=wornitems_slot(event_com, 0){worn}
 
 // 387:9
-[com_9]
+[back_container]
 type=layer
 x=-41
 y=43
@@ -122,18 +122,18 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=back_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 387:11
-[cape_slot]
+[back]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=back_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,6,10
 op1=*
@@ -147,7 +147,7 @@ onload=wornitems_slot(event_com, 1)
 oninvtransmit=wornitems_slot(event_com, 1){worn}
 
 // 387:12
-[com_12]
+[front_container]
 type=layer
 y=43
 width=36
@@ -161,18 +161,18 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=front_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 387:14
-[amulet_slot]
+[front]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=front_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,6,10
 op1=*
@@ -186,7 +186,7 @@ onload=wornitems_slot(event_com, 2)
 oninvtransmit=wornitems_slot(event_com, 2){worn}
 
 // 387:15
-[com_15]
+[rhand_container]
 type=layer
 x=-56
 y=82
@@ -201,18 +201,18 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_15
+layer=rhand_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 387:17
-[weapon_slot]
+[rhand]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_15
+layer=rhand_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,6,10
 op1=*
@@ -226,7 +226,7 @@ onload=wornitems_slot(event_com, 3)
 oninvtransmit=wornitems_slot(event_com, 3){worn}
 
 // 387:18
-[com_18]
+[torso_container]
 type=layer
 y=82
 width=36
@@ -240,18 +240,18 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=torso_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 387:20
-[chest_slot]
+[torso]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=torso_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,6,10
 op1=*
@@ -265,7 +265,7 @@ onload=wornitems_slot(event_com, 4)
 oninvtransmit=wornitems_slot(event_com, 4){worn}
 
 // 387:21
-[com_21]
+[lhand_container]
 type=layer
 x=56
 y=82
@@ -280,18 +280,18 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_21
+layer=lhand_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 387:23
-[shield_slot]
+[lhand]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_21
+layer=lhand_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,6,10
 op1=*
@@ -305,7 +305,7 @@ onload=wornitems_slot(event_com, 5)
 oninvtransmit=wornitems_slot(event_com, 5){worn}
 
 // 387:24
-[com_24]
+[legs_container]
 type=layer
 y=122
 width=36
@@ -319,18 +319,18 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_24
+layer=legs_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 387:26
-[legs_slot]
+[legs]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_24
+layer=legs_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,6,10
 op1=*
@@ -344,7 +344,7 @@ onload=wornitems_slot(event_com, 7)
 oninvtransmit=wornitems_slot(event_com, 7){worn}
 
 // 387:27
-[com_27]
+[hands_container]
 type=layer
 x=-56
 y=162
@@ -359,18 +359,18 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_27
+layer=hands_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 387:29
-[hands_slot]
+[hands]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_27
+layer=hands_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,6,10
 op1=*
@@ -384,7 +384,7 @@ onload=wornitems_slot(event_com, 9)
 oninvtransmit=wornitems_slot(event_com, 9){worn}
 
 // 387:30
-[com_30]
+[feet_container]
 type=layer
 y=162
 width=36
@@ -398,18 +398,18 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_30
+layer=feet_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 387:32
-[feet_slot]
+[feet]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_30
+layer=feet_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,6,10
 op1=*
@@ -423,7 +423,7 @@ onload=wornitems_slot(event_com, 10)
 oninvtransmit=wornitems_slot(event_com, 10){worn}
 
 // 387:33
-[com_33]
+[ring_container]
 type=layer
 x=56
 y=162
@@ -438,18 +438,18 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_33
+layer=ring_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 387:35
-[ring_slot]
+[ring]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_33
+layer=ring_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,6,10
 op1=*
@@ -463,7 +463,7 @@ onload=wornitems_slot(event_com, 12)
 oninvtransmit=wornitems_slot(event_com, 12){worn}
 
 // 387:36
-[com_36]
+[quiver_container]
 type=layer
 x=41
 y=43
@@ -478,18 +478,18 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_36
+layer=quiver_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 387:38
-[ammo_slot]
+[quiver]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_36
+layer=quiver_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,6,10
 op1=*
@@ -503,7 +503,7 @@ onload=wornitems_slot(event_com, 13)
 oninvtransmit=wornitems_slot(event_com, 13){worn}
 
 // 387:39
-[com_39]
+[equipscreen_container]
 type=layer
 x=-55
 y=208
@@ -512,18 +512,18 @@ height=40
 xmode=abs_centre
 transmitop=1
 op1=Show Equipment Stats
-onload=script1150(wornitems:com_40)
-onmouseover=script1152(wornitems:com_40)
-onmouseleave=script1150(wornitems:com_40)
+onload=script1150(wornitems:equipscreen)
+onmouseover=script1152(wornitems:equipscreen)
+onmouseleave=script1150(wornitems:equipscreen)
 
 // 387:40
-[com_40]
+[equipscreen]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_39
+layer=equipscreen_container
 
 // 387:41
 [com_41]
@@ -532,12 +532,12 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_39
+layer=equipscreen_container
 graphic="options_icons,16"
 colour=0xffffffff
 
 // 387:42
-[com_42]
+[pricechecker_container]
 type=layer
 y=208
 width=40
@@ -545,18 +545,18 @@ height=40
 xmode=abs_centre
 transmitop=1
 op1=Show Price-checker
-onload=script1150(wornitems:com_43)
-onmouseover=script1152(wornitems:com_43)
-onmouseleave=script1150(wornitems:com_43)
+onload=script1150(wornitems:pricechecker)
+onmouseover=script1152(wornitems:pricechecker)
+onmouseleave=script1150(wornitems:pricechecker)
 
 // 387:43
-[com_43]
+[pricechecker]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_42
+layer=pricechecker_container
 
 // 387:44
 [com_44]
@@ -565,12 +565,12 @@ width=32
 height=31
 xmode=abs_centre
 ymode=abs_centre
-layer=com_42
+layer=pricechecker_container
 graphic=bank_bag
 colour=0xffffffff
 
 // 387:45
-[com_45]
+[deathkeep_container]
 type=layer
 x=55
 y=208
@@ -579,18 +579,18 @@ height=40
 xmode=abs_centre
 transmitop=1
 op1=Show Items Kept on Death
-onload=script1150(wornitems:com_46)
-onmouseover=script1152(wornitems:com_46)
-onmouseleave=script1150(wornitems:com_46)
+onload=script1150(wornitems:deathkeep)
+onmouseover=script1152(wornitems:deathkeep)
+onmouseleave=script1150(wornitems:deathkeep)
 
 // 387:46
-[com_46]
+[deathkeep]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_45
+layer=deathkeep_container
 
 // 387:47
 [com_47]
@@ -599,6 +599,6 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_45
+layer=deathkeep_container
 graphic="options_icons,18"
 colour=0xffffffff

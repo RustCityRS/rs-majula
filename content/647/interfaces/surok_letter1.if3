@@ -1,5 +1,5 @@
 // 249:0
-[com_0]
+[lj_layer2]
 type=layer
 x=-15
 y=8
@@ -9,7 +9,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 249:1
-[com_1]
+[lj_layer1]
 type=layer
 x=-17
 y=13
@@ -19,13 +19,13 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 249:2
-[com_2]
+[lj_title]
 type=text
 x=43
 y=18
 width=329
 height=17
-layer=com_1
+layer=lj_layer1
 textfont=surok_font
 text=Surok Magis,
 colour=0x46320a
@@ -37,26 +37,26 @@ x=1
 y=-27
 width=418
 height=325
-layer=com_0
+layer=lj_layer2
 model=model_21509
 modelorigin=14,-41
 modelangle=510,0,0
 modelzoom=570
 
 // 249:4
-[com_4]
+[lj1]
 type=text
 x=43
 y=42
 width=297
 height=136
-layer=com_1
+layer=lj_layer1
 textfont=surok_font
 text=Your actions are being watched. We know what you are trying to do and the VPSG will stop you! Do not attempt to leave the palace or you will be arrested on sight. We will not hesitate to kill you if you disobey King Roald's orders.                                                                                            Rat Burgiss
 colour=0x46320a
 
 // 249:5
-[com_5]
+[closebutton]
 type=graphic
 x=129
 y=-112

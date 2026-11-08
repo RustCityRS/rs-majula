@@ -1,10 +1,10 @@
-[if_button,magic:varrock_teleport] @magic_teleport(^varrock_teleport);
-[if_button,magic:lumbridge_teleport] @magic_teleport(^lumbridge_teleport);
-[if_button,magic:falador_teleport] @magic_teleport(^falador_teleport);
-[if_button,magic:camelot_teleport] @magic_teleport(^camelot_teleport);
-[if_button,magic:ardougne_teleport] @magic_teleport(^ardougne_teleport);
-[if_button,magic:watchtower_teleport] @magic_teleport(^watchtower_teleport);
-[if_button,magic:trollheim_teleport] @magic_teleport(^trollheim_teleport);
+[if_button,magic:sb12] @magic_teleport(^varrock_teleport);
+[if_button,magic:sb15] @magic_teleport(^lumbridge_teleport);
+[if_button,magic:sb18] @magic_teleport(^falador_teleport);
+[if_button,magic:sb22] @magic_teleport(^camelot_teleport);
+[if_button,magic:sb26] @magic_teleport(^ardougne_teleport);
+[if_button,magic:sb31] @magic_teleport(^watchtower_teleport);
+[if_button,magic:sb47] @magic_teleport(^trollheim_teleport);
 
 [label,magic_teleport](int $spell)
 if_close;

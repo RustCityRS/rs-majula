@@ -77,6 +77,6 @@ if ($obj9 ! null) {
     cc_setgraphic("km_shopitems,0");
     ~script812($obj9);
     $string0 = ~obj_warning_arg($obj9);
-    cc_setonmouserepeat("script2707(event_com, event_comsubid, shop_template:com_34, $string0, 25, 200, event_mousex, event_mousey)");
-    cc_setonmouseleave("deltooltip(shop_template:com_34)");
+    cc_setonmouserepeat("script2707(event_com, event_comsubid, shop_template:tooltip, $string0, 25, 200, event_mousex, event_mousey)");
+    cc_setonmouseleave("deltooltip(shop_template:tooltip)");
 }

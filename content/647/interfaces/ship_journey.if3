@@ -3,7 +3,7 @@
 type=rectangle
 width=514
 height=335
-layer=com_50
+layer=content_layer_1
 colour=0x2a1e06
 fill=yes
 
@@ -14,7 +14,7 @@ x=21
 y=7
 width=511
 height=333
-layer=com_50
+layer=content_layer_1
 model=model_13939
 modelorigin=-11,-58
 modelangle=290,1985,0
@@ -27,7 +27,7 @@ x=166
 y=215
 width=69
 height=17
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Ape
 textalignh=centre
@@ -41,7 +41,7 @@ x=319
 y=22
 width=100
 height=19
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Asgarnia
 textalignh=centre
@@ -55,7 +55,7 @@ x=254
 y=98
 width=98
 height=19
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Karamja
 textalignh=centre
@@ -69,7 +69,7 @@ x=220
 y=79
 width=83
 height=17
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Crandor
 textalignh=centre
@@ -83,7 +83,7 @@ x=170
 y=46
 width=91
 height=17
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Entrana
 textalignh=centre
@@ -97,7 +97,7 @@ x=300
 y=50
 width=63
 height=16
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Port
 textalignh=centre
@@ -111,7 +111,7 @@ x=302
 y=64
 width=80
 height=16
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Sarim
 textalignh=centre
@@ -125,7 +125,7 @@ x=367
 y=50
 width=16
 height=22
-layer=com_50
+layer=content_layer_1
 model=model_3046
 modelorigin=-3,10
 modelangle=306,199,0
@@ -138,7 +138,7 @@ x=247
 y=39
 width=16
 height=22
-layer=com_50
+layer=content_layer_1
 model=model_3046
 modelorigin=-3,10
 modelangle=306,199,0
@@ -151,7 +151,7 @@ x=345
 y=113
 width=16
 height=21
-layer=com_50
+layer=content_layer_1
 model=model_3046
 modelorigin=-5,9
 modelangle=390,1833,0
@@ -164,7 +164,7 @@ x=112
 y=120
 width=16
 height=22
-layer=com_50
+layer=content_layer_1
 model=model_3046
 modelorigin=-3,10
 modelangle=306,199,0
@@ -177,7 +177,7 @@ x=51
 y=129
 width=78
 height=18
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Port
 textalignh=centre
@@ -191,7 +191,7 @@ x=64
 y=144
 width=91
 height=17
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Khazard
 textalignh=centre
@@ -205,7 +205,7 @@ x=282
 y=125
 width=73
 height=17
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Ship
 textalignh=centre
@@ -219,7 +219,7 @@ x=290
 y=141
 width=81
 height=18
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Yard
 textalignh=centre
@@ -233,7 +233,7 @@ x=125
 y=83
 width=16
 height=22
-layer=com_50
+layer=content_layer_1
 model=model_3046
 modelorigin=-3,10
 modelangle=306,199,0
@@ -246,7 +246,7 @@ x=196
 y=155
 width=16
 height=22
-layer=com_50
+layer=content_layer_1
 model=model_3046
 modelorigin=-3,10
 modelangle=306,199,0
@@ -259,7 +259,7 @@ x=198
 y=155
 width=69
 height=17
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Cairn
 textalignh=centre
@@ -273,7 +273,7 @@ x=205
 y=171
 width=69
 height=16
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Isle
 textalignh=centre
@@ -287,7 +287,7 @@ x=208
 y=70
 width=16
 height=22
-layer=com_50
+layer=content_layer_1
 model=model_3046
 modelorigin=-3,10
 modelangle=306,199,0
@@ -300,7 +300,7 @@ x=152
 y=94
 width=105
 height=17
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Brimhaven
 textalignh=centre
@@ -314,7 +314,7 @@ x=82
 y=63
 width=109
 height=17
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Ardougne
 textalignh=centre
@@ -328,20 +328,20 @@ x=257
 y=61
 width=16
 height=22
-layer=com_50
+layer=content_layer_1
 model=model_3046
 modelorigin=-3,10
 modelangle=306,199,0
 modelzoom=1500
 
 // 299:25
-[com_25]
+[shipjourney_text]
 type=text
 x=12
 y=8
 width=302
 height=19
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=You Journey on the ship....
 textshadow=yes
@@ -354,7 +354,7 @@ x=300
 y=75
 width=16
 height=22
-layer=com_50
+layer=content_layer_1
 model=model_3046
 modelorigin=-3,10
 modelangle=306,199,0
@@ -367,7 +367,7 @@ x=173
 y=229
 width=74
 height=16
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Atoll
 textalignh=centre
@@ -381,7 +381,7 @@ x=175
 y=254
 width=16
 height=22
-layer=com_50
+layer=content_layer_1
 model=model_3046
 modelorigin=-3,10
 modelangle=306,199,0
@@ -394,7 +394,7 @@ x=81
 y=177
 width=16
 height=21
-layer=com_50
+layer=content_layer_1
 model=model_3046
 modelorigin=-3,10
 modelangle=308,198,0
@@ -407,7 +407,7 @@ x=44
 y=199
 width=84
 height=17
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Feldip
 textalignh=centre
@@ -421,7 +421,7 @@ x=56
 y=214
 width=78
 height=16
-layer=com_50
+layer=content_layer_1
 textfont=q8_full
 text=Hills
 textalignh=centre
@@ -429,131 +429,131 @@ textshadow=yes
 colour=0xf3cc99
 
 // 299:32
-[com_32]
+[tai_feldip_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:33
-[com_33]
+[feldip_tai_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:34
-[com_34]
+[karamja_voidknight_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:35
-[com_35]
+[sarim_voidknight_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:36
-[com_36]
+[cairn_sarim_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:37
-[com_37]
+[trawler_khazzard_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:38
-[com_38]
+[khazzard_trawler_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:39
-[com_39]
+[cairn_khazzard_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:40
-[com_40]
+[khazzard_cairn_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:41
-[com_41]
+[brimhaven_ardougne_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:42
-[com_42]
+[ardougne_brimhaven_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:43
-[com_43]
+[karamja_sarim_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:44
-[com_44]
+[sarim_karamja_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:45
-[com_45]
+[sarim_crandor_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:46
-[com_46]
+[crandor_sarim_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:47
-[com_47]
+[entrana_sarim_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:48
@@ -563,7 +563,7 @@ x=1
 y=2
 width=301
 height=17
-layer=com_72
+layer=ship_journey_title_text_2
 textfont=q8_full
 text=The ogres follow the scent of the chompy.... 
 textshadow=yes
@@ -576,14 +576,14 @@ x=3
 y=1
 width=247
 height=17
-layer=com_71
+layer=ship_journey_title_text_3
 textfont=q8_full
 text=The ogres travel back with the goods
 textshadow=yes
 colour=0xc4a135
 
 // 299:50
-[com_50]
+[content_layer_1]
 type=layer
 width=512
 height=334
@@ -591,26 +591,26 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 299:51
-[com_51]
+[control_object]
 type=rectangle
 x=34
 y=34
 width=32
 height=32
-layer=com_50
+layer=content_layer_1
 colour=0x000000
 trans=255
 onload=script1441
 onvartransmit=script1442{journey_number}
 
 // 299:52
-[com_52]
+[tai_bwo_wannai_to_feldip_boat]
 type=model
 x=94
 y=99
 width=103
 height=93
-layer=com_32
+layer=tai_feldip_layer
 model=model_3065
 modelorigin=119,-30
 modelangle=288,1989,0
@@ -618,13 +618,13 @@ modelzoom=600
 modelanim=seq_3477
 
 // 299:53
-[com_53]
+[entrana_to_sarim_ship]
 type=model
 x=258
 y=23
 width=145
 height=74
-layer=com_47
+layer=entrana_sarim_layer
 model=model_3065
 modelorigin=-66,55
 modelangle=292,1989,0
@@ -632,13 +632,13 @@ modelzoom=600
 modelanim=entrana_sarim
 
 // 299:54
-[com_54]
+[sarim_to_entrana_ship]
 type=model
 x=258
 y=23
 width=145
 height=74
-layer=com_55
+layer=sarim_entrana_layer
 model=model_3065
 modelorigin=-66,55
 modelangle=292,1989,0
@@ -646,21 +646,21 @@ modelzoom=600
 modelanim=sarim_entrana
 
 // 299:55
-[com_55]
+[sarim_entrana_layer]
 type=layer
 width=512
 height=334
-layer=com_50
+layer=content_layer_1
 hide=yes
 
 // 299:56
-[com_56]
+[sarim_to_crandor_ship]
 type=model
 x=257
 y=23
 width=148
 height=66
-layer=com_45
+layer=sarim_crandor_layer
 model=model_3065
 modelorigin=-67,59
 modelangle=292,1989,0
@@ -668,13 +668,13 @@ modelzoom=600
 modelanim=sarim_crandor
 
 // 299:57
-[com_57]
+[crandor_to_sarim_ship]
 type=model
 x=257
 y=23
 width=148
 height=66
-layer=com_46
+layer=crandor_sarim_layer
 model=model_3065
 modelorigin=-67,59
 modelangle=292,1989,0
@@ -682,13 +682,13 @@ modelzoom=600
 modelanim=crandor_sarim
 
 // 299:58
-[com_58]
+[sarim_to_karamja_ship]
 type=model
 x=320
 y=22
 width=87
 height=69
-layer=com_44
+layer=sarim_karamja_layer
 model=model_3065
 modelorigin=-99,59
 modelangle=292,1989,0
@@ -696,13 +696,13 @@ modelzoom=600
 modelanim=sarim_karamja
 
 // 299:59
-[com_59]
+[karamja_to_sarim_ship]
 type=model
 x=320
 y=22
 width=87
 height=69
-layer=com_43
+layer=karamja_sarim_layer
 model=model_3065
 modelorigin=-99,59
 modelangle=292,1989,0
@@ -710,13 +710,13 @@ modelzoom=600
 modelanim=karamja_sarim
 
 // 299:60
-[com_60]
+[ardougne_to_brimhaven_ship]
 type=model
 x=159
 y=47
 width=58
 height=41
-layer=com_42
+layer=ardougne_brimhaven_layer
 model=model_3065
 modelorigin=76,48
 modelangle=292,1985,0
@@ -724,13 +724,13 @@ modelzoom=600
 modelanim=seq_636
 
 // 299:61
-[com_61]
+[brimhaven_to_ardougne_ship]
 type=model
 x=159
 y=47
 width=58
 height=41
-layer=com_41
+layer=brimhaven_ardougne_layer
 model=model_3065
 modelorigin=76,48
 modelangle=292,1985,0
@@ -738,26 +738,26 @@ modelzoom=600
 modelanim=seq_637
 
 // 299:62
-[com_62]
+[khazzard_to_cairn_ship]
 type=model
 x=246
 y=66
 width=28
 height=32
-layer=com_40
+layer=khazzard_cairn_layer
 model=model_3065
 modelorigin=4,33
 modelangle=292,1989,0
 modelzoom=600
 
 // 299:63
-[com_63]
+[cairn_to_khazzard_ship]
 type=model
 x=101
 y=92
 width=83
 height=90
-layer=com_39
+layer=cairn_khazzard_layer
 model=model_3065
 modelorigin=122,-22
 modelangle=292,1989,0
@@ -765,13 +765,13 @@ modelzoom=600
 modelanim=cairn_khazzard
 
 // 299:64
-[com_64]
+[khazzard_to_trawler_ship]
 type=model
 x=101
 y=87
 width=287
 height=125
-layer=com_38
+layer=khazzard_trawler_layer
 model=model_3065
 modelorigin=27,-39
 modelangle=296,1988,0
@@ -779,13 +779,13 @@ modelzoom=600
 modelanim=khazzard_trawler
 
 // 299:65
-[com_65]
+[trawler_to_khazzard_ship]
 type=model
 x=95
 y=87
 width=287
 height=125
-layer=com_37
+layer=trawler_khazzard_layer
 model=model_3065
 modelorigin=27,-39
 modelangle=296,1988,0
@@ -793,13 +793,13 @@ modelzoom=600
 modelanim=trawler_khazzard
 
 // 299:66
-[com_66]
+[cairn_to_sarim_ship]
 type=model
 x=158
 y=88
 width=224
 height=124
-layer=com_36
+layer=cairn_sarim_layer
 model=model_3065
 modelorigin=-6,-39
 modelangle=292,1989,0
@@ -807,13 +807,13 @@ modelzoom=600
 modelanim=cairn_sarim
 
 // 299:67
-[com_67]
+[sarim_to_voidknight_ship]
 type=model
 x=148
 y=41
 width=266
 height=236
-layer=com_35
+layer=sarim_voidknight_layer
 model=model_3065
 modelorigin=-17,-44
 modelangle=295,1988,0
@@ -821,13 +821,13 @@ modelzoom=600
 modelanim=seq_3545
 
 // 299:68
-[com_68]
+[karamja_to_voidknight_ship]
 type=model
 x=149
 y=40
 width=265
 height=237
-layer=com_34
+layer=karamja_voidknight_layer
 model=model_3065
 modelorigin=-17,-43
 modelangle=295,1986,0
@@ -835,13 +835,13 @@ modelzoom=600
 modelanim=seq_3546
 
 // 299:69
-[com_69]
+[feldip_to_tai_bwo_wannai_boat]
 type=model
 x=94
 y=99
 width=103
 height=93
-layer=com_33
+layer=feldip_tai_layer
 model=model_3065
 modelorigin=119,-30
 modelangle=288,1989,0
@@ -849,7 +849,7 @@ modelzoom=600
 modelanim=seq_3476
 
 // 299:70
-[com_70]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -859,7 +859,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 299:71
-[com_71]
+[ship_journey_title_text_3]
 type=layer
 x=8
 y=8
@@ -868,7 +868,7 @@ height=20
 hide=yes
 
 // 299:72
-[com_72]
+[ship_journey_title_text_2]
 type=layer
 x=9
 y=8
@@ -877,7 +877,7 @@ height=20
 hide=yes
 
 // 299:73
-[com_73]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -885,7 +885,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_70
+layer=fsborder_main_layer
 
 // 299:74
 [com_74]
@@ -988,7 +988,7 @@ tiling=yes
 colour=0x000000
 
 // 299:82
-[com_82]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -996,30 +996,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_73
+layer=fsborder_resizing_layer
 
 // 299:83
-[com_83]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_73
+layer=fsborder_resizing_layer
 
 // 299:84
-[com_84]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_73
+layer=fsborder_resizing_layer
 
 // 299:85
-[com_85]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -1027,16 +1027,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_73
+layer=fsborder_resizing_layer
 
 // 299:86
-[com_86]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_73
+layer=fsborder_resizing_layer
 
 // 299:87
 [com_87]
@@ -1046,7 +1046,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_83
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -1061,7 +1061,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_82
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -1075,7 +1075,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_84
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -1090,7 +1090,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_85
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

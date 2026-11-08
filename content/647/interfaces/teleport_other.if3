@@ -9,7 +9,7 @@ transmitop=10
 op10=      
 
 // 326:1
-[com_1]
+[casters_name]
 type=text
 x=164
 y=108
@@ -35,7 +35,7 @@ textshadow=yes
 colour=0xffff00
 
 // 326:3
-[com_3]
+[teleport_location]
 type=text
 x=163
 y=168
@@ -60,7 +60,7 @@ textshadow=yes
 colour=0xffff00
 
 // 326:5
-[com_5]
+[teleport_accept]
 type=layer
 x=160
 y=255
@@ -72,7 +72,7 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 326:6
-[com_6]
+[teleport_decline]
 type=layer
 x=267
 y=255
@@ -85,13 +85,13 @@ onmouseleave=v2_stone_button(event_com)
 onclick=closebutton_click
 
 // 326:7
-[com_7]
+[accept_text]
 type=text
 width=79
 height=44
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=teleport_accept
 textfont=p12_full
 text=Accept
 textalignh=centre
@@ -100,13 +100,13 @@ textshadow=yes
 colour=0x00c000
 
 // 326:8
-[com_8]
+[decline_text]
 type=text
 width=79
 height=44
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=teleport_decline
 textfont=p12_full
 text=Decline
 textalignh=centre
@@ -324,7 +324,7 @@ layer=com_0
 graphic="sworddecor,1"
 
 // 326:26
-[com_26]
+[title]
 type=text
 x=153
 y=28

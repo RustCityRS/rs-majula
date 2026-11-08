@@ -1,5 +1,5 @@
 // 861:0
-[com_0]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -14,7 +14,7 @@ x=159
 y=59
 width=272
 height=267
-layer=com_6
+layer=layer_2
 model=model_47464
 modelorigin=4,0
 modelangle=291,1533,0
@@ -23,13 +23,13 @@ transmitop=10
 op10= 
 
 // 861:2
-[com_2]
+[main_text]
 type=text
 x=15
 width=400
 height=50
 xmode=abs_centre
-layer=com_6
+layer=layer_2
 textfont=quill_oblique_large
 text=Hoard Scenario
 textalignh=centre
@@ -44,7 +44,7 @@ x=18
 y=13
 width=85
 height=177
-layer=com_6
+layer=layer_2
 model=model_47490
 modelorigin=0,74
 modelangle=204,1921,0
@@ -53,13 +53,13 @@ transmitop=10
 op10=  
 
 // 861:4
-[com_4]
+[team]
 type=text
 x=30
 y=287
 width=192
 height=30
-layer=com_6
+layer=layer_2
 textfont=p12_full
 text=-------
 textalignv=centre
@@ -75,15 +75,15 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=layer_1
 colour=0x000000
 fill=yes
 
 // 861:6
-[com_6]
+[layer_2]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=layer_1

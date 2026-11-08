@@ -22,7 +22,7 @@ colour=0x5a5245
 fill=yes
 
 // 905:2
-[com_2]
+[universe]
 type=layer
 width=2
 widthmode=minus
@@ -32,21 +32,21 @@ ymode=abs_centre
 onload=skillmulti2010_build
 
 // 905:3
-[com_3]
+[number_layer]
 type=layer
 height=34
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=universe
 
 // 905:4
-[com_4]
+[numbers]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=number_layer
 
 // 905:5
 [com_5]
@@ -55,22 +55,22 @@ width=50
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_3
+layer=number_layer
 
 // 905:6
-[com_6]
+[custom]
 type=layer
 ymode=abs_centre
 layer=com_5
 
 // 905:7
-[com_7]
+[item_layer]
 type=layer
 height=91
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=universe
 
 // 905:8
 [com_8]
@@ -80,7 +80,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_7
+layer=item_layer
 graphic=graphic_3882
 tiling=yes
 
@@ -90,7 +90,7 @@ type=graphic
 width=31
 heightmode=minus
 ymode=abs_centre
-layer=com_7
+layer=item_layer
 graphic=graphic_3881
 hflip=yes
 
@@ -101,153 +101,153 @@ width=31
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_7
+layer=item_layer
 graphic=graphic_3881
 
 // 905:11
-[com_11]
+[left]
 type=graphic
 x=4
 width=17
 height=74
 ymode=abs_centre
-layer=com_7
+layer=item_layer
 graphic="sm_select_body_button,0"
 trans=255
 
 // 905:12
-[com_12]
+[right]
 type=graphic
 x=5
 width=17
 height=74
 xmode=abs_right
 ymode=abs_centre
-layer=com_7
+layer=item_layer
 graphic="sm_select_body_button,2"
 trans=255
 
 // 905:13
-[com_13]
+[menu]
 type=layer
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_7
+layer=item_layer
 
 // 905:14
-[com_14]
+[a]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:15
-[com_15]
+[b]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:16
-[com_16]
+[c]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:17
-[com_17]
+[d]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:18
-[com_18]
+[e]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:19
-[com_19]
+[f]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:20
-[com_20]
+[g]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:21
-[com_21]
+[h]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:22
-[com_22]
+[i]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:23
-[com_23]
+[j]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:24
-[com_24]
+[k]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:25
-[com_25]
+[l]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:26
-[com_26]
+[m]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:27
-[com_27]
+[n]
 type=layer
 ymode=abs_centre
-layer=com_13
+layer=menu
 pausebutton=yes
 
 // 905:28
-[com_28]
+[blocker]
 type=layer
 width=50
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_7
+layer=item_layer
 hide=yes
 noclickthrough=yes
 
 // 905:29
-[com_29]
+[tooltip]
 type=layer
 width=1
 height=1
-layer=com_2
+layer=universe

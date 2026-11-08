@@ -19,7 +19,7 @@ hide=yes
 colour=0x000000
 
 // 934:2
-[com_2]
+[background_fill]
 type=graphic
 x=7
 y=25
@@ -33,7 +33,7 @@ alpha=yes
 colour=0xffffffff
 
 // 934:3
-[com_3]
+[background_ne]
 type=graphic
 x=8
 y=42
@@ -44,7 +44,7 @@ graphic="rand_smithing_edges,1"
 colour=0xffffffff
 
 // 934:4
-[com_4]
+[background_nw]
 type=graphic
 x=7
 y=42
@@ -54,7 +54,7 @@ graphic="rand_smithing_edges,0"
 colour=0xffffffff
 
 // 934:5
-[com_5]
+[background_sw]
 type=graphic
 x=7
 y=15
@@ -65,7 +65,7 @@ graphic="rand_smithing_edges,3"
 colour=0xffffffff
 
 // 934:6
-[com_6]
+[background_se]
 type=graphic
 x=8
 y=15
@@ -77,7 +77,7 @@ graphic="rand_smithing_edges,2"
 colour=0xffffffff
 
 // 934:7
-[com_7]
+[background_w]
 type=graphic
 x=7
 y=52
@@ -88,7 +88,7 @@ graphic="rand_smithing_edges,4"
 colour=0xffffffff
 
 // 934:8
-[com_8]
+[background_n]
 type=graphic
 x=17
 y=42
@@ -99,7 +99,7 @@ graphic="rand_smithing_edges,5"
 colour=0xffffffff
 
 // 934:9
-[com_9]
+[background_e]
 type=graphic
 x=494
 y=52
@@ -110,7 +110,7 @@ graphic="rand_smithing_edges,6"
 colour=0xffffffff
 
 // 934:10
-[com_10]
+[background_s]
 type=graphic
 x=17
 y=309
@@ -121,7 +121,7 @@ graphic="rand_smithing_edges,7"
 colour=0xffffffff
 
 // 934:11
-[com_11]
+[frame_w]
 type=graphic
 x=-13
 y=52
@@ -133,7 +133,7 @@ colour=0xffffffff
 opbase= 
 
 // 934:12
-[com_12]
+[frame_nw]
 type=graphic
 y=20
 width=32
@@ -142,7 +142,7 @@ graphic="v2_stone_borders,35"
 colour=0xffffffff
 
 // 934:13
-[com_13]
+[frame_e]
 type=graphic
 x=492
 y=51
@@ -153,7 +153,7 @@ tiling=yes
 colour=0xffffffff
 
 // 934:14
-[com_14]
+[frame_n]
 type=graphic
 x=32
 y=20
@@ -165,7 +165,7 @@ tiling=yes
 colour=0xffffffff
 
 // 934:15
-[com_15]
+[frame_s]
 type=graphic
 x=32
 y=306
@@ -176,7 +176,7 @@ tiling=yes
 colour=0xffffffff
 
 // 934:16
-[com_16]
+[frame_sw]
 type=graphic
 y=294
 width=32
@@ -185,7 +185,7 @@ graphic="v2_stone_borders,6"
 colour=0xffffffff
 
 // 934:17
-[com_17]
+[frame_ne]
 type=graphic
 y=20
 width=32
@@ -195,7 +195,7 @@ graphic="v2_stone_borders,37"
 colour=0xffffffff
 
 // 934:18
-[com_18]
+[frame_se]
 type=graphic
 x=480
 y=294
@@ -205,7 +205,7 @@ graphic="v2_stone_borders,7"
 colour=0xffffffff
 
 // 934:19
-[com_19]
+[closebutton]
 type=graphic
 x=483
 y=23
@@ -220,7 +220,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onclick=closebutton_click
 
 // 934:20
-[com_20]
+[title]
 type=text
 x=139
 y=22
@@ -233,7 +233,7 @@ textshadow=yes
 colour=0xc69b01
 
 // 934:21
-[com_21]
+[main_layer]
 type=layer
 x=12
 y=60
@@ -243,7 +243,7 @@ widthmode=minus
 heightmode=minus
 
 // 934:22
-[com_22]
+[smith_item_1]
 type=layer
 width=4096
 height=3276
@@ -251,10 +251,10 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 
 // 934:23
-[com_23]
+[smith_item_2]
 type=layer
 x=4096
 width=4096
@@ -263,12 +263,12 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:24
-[com_24]
+[smith_item_3]
 type=layer
 x=8192
 width=4096
@@ -277,29 +277,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:25
-[com_25]
+[smith_model_3]
 type=graphic
 width=36
 height=32
-layer=com_24
+layer=smith_item_3
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:26
-[com_26]
+[smith_name_3]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_24
+layer=smith_item_3
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -307,13 +307,13 @@ transmitop=10
 op10= 
 
 // 934:27
-[com_27]
+[smith_bars_3]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_24
+layer=smith_item_3
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -321,11 +321,11 @@ transmitop=10
 op10= 
 
 // 934:28
-[com_28]
+[claimit03]
 type=text
 width=109
 height=32
-layer=com_24
+layer=smith_item_3
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -338,7 +338,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:29
-[com_29]
+[smith_item_4]
 type=layer
 x=12288
 width=4096
@@ -347,29 +347,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:30
-[com_30]
+[smith_model_4]
 type=graphic
 width=36
 height=32
-layer=com_29
+layer=smith_item_4
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:31
-[com_31]
+[smith_name_4]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_29
+layer=smith_item_4
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -377,13 +377,13 @@ transmitop=10
 op10= 
 
 // 934:32
-[com_32]
+[smith_bars_4]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_29
+layer=smith_item_4
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -391,11 +391,11 @@ transmitop=10
 op10= 
 
 // 934:33
-[com_33]
+[claimit04]
 type=text
 width=109
 height=32
-layer=com_29
+layer=smith_item_4
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -408,7 +408,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:34
-[com_34]
+[smith_item_5]
 type=layer
 y=3276
 width=4096
@@ -417,29 +417,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:35
-[com_35]
+[smith_model_5]
 type=graphic
 width=36
 height=32
-layer=com_34
+layer=smith_item_5
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:36
-[com_36]
+[smith_name_5]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_34
+layer=smith_item_5
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -447,13 +447,13 @@ transmitop=10
 op10= 
 
 // 934:37
-[com_37]
+[smith_bars_5]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_34
+layer=smith_item_5
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -461,11 +461,11 @@ transmitop=10
 op10= 
 
 // 934:38
-[com_38]
+[claimit05]
 type=text
 width=109
 height=32
-layer=com_34
+layer=smith_item_5
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -478,7 +478,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:39
-[com_39]
+[smith_item_6]
 type=layer
 x=4096
 y=3276
@@ -488,29 +488,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:40
-[com_40]
+[smith_model_6]
 type=graphic
 width=36
 height=32
-layer=com_39
+layer=smith_item_6
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:41
-[com_41]
+[smith_name_6]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_39
+layer=smith_item_6
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -518,13 +518,13 @@ transmitop=10
 op10= 
 
 // 934:42
-[com_42]
+[smith_bars_6]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_39
+layer=smith_item_6
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -532,11 +532,11 @@ transmitop=10
 op10= 
 
 // 934:43
-[com_43]
+[claimit06]
 type=text
 width=109
 height=32
-layer=com_39
+layer=smith_item_6
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -549,7 +549,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:44
-[com_44]
+[smith_item_7]
 type=layer
 x=8192
 y=3276
@@ -559,29 +559,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:45
-[com_45]
+[smith_model_7]
 type=graphic
 width=36
 height=32
-layer=com_44
+layer=smith_item_7
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:46
-[com_46]
+[smith_name_7]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_44
+layer=smith_item_7
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -589,13 +589,13 @@ transmitop=10
 op10= 
 
 // 934:47
-[com_47]
+[smith_bars_7]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_44
+layer=smith_item_7
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -603,11 +603,11 @@ transmitop=10
 op10= 
 
 // 934:48
-[com_48]
+[claimit07]
 type=text
 width=109
 height=32
-layer=com_44
+layer=smith_item_7
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -620,7 +620,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:49
-[com_49]
+[smith_item_8]
 type=layer
 x=12288
 y=3276
@@ -630,29 +630,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:50
-[com_50]
+[smith_model_8]
 type=graphic
 width=36
 height=32
-layer=com_49
+layer=smith_item_8
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:51
-[com_51]
+[smith_name_8]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_49
+layer=smith_item_8
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -660,13 +660,13 @@ transmitop=10
 op10= 
 
 // 934:52
-[com_52]
+[smith_bars_8]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_49
+layer=smith_item_8
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -674,11 +674,11 @@ transmitop=10
 op10= 
 
 // 934:53
-[com_53]
+[claimit08]
 type=text
 width=109
 height=32
-layer=com_49
+layer=smith_item_8
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -691,7 +691,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:54
-[com_54]
+[smith_item_9]
 type=layer
 y=6553
 width=4096
@@ -700,29 +700,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:55
-[com_55]
+[smith_model_9]
 type=graphic
 width=36
 height=32
-layer=com_54
+layer=smith_item_9
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:56
-[com_56]
+[smith_name_9]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_54
+layer=smith_item_9
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -730,13 +730,13 @@ transmitop=10
 op10= 
 
 // 934:57
-[com_57]
+[smith_bars_9]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_54
+layer=smith_item_9
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -744,11 +744,11 @@ transmitop=10
 op10= 
 
 // 934:58
-[com_58]
+[claimit09]
 type=text
 width=109
 height=32
-layer=com_54
+layer=smith_item_9
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -761,7 +761,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:59
-[com_59]
+[smith_item_10]
 type=layer
 x=4096
 y=6553
@@ -771,29 +771,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:60
-[com_60]
+[smith_model_10]
 type=graphic
 width=36
 height=32
-layer=com_59
+layer=smith_item_10
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:61
-[com_61]
+[smith_name_10]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_59
+layer=smith_item_10
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -801,13 +801,13 @@ transmitop=10
 op10= 
 
 // 934:62
-[com_62]
+[smith_bars_10]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_59
+layer=smith_item_10
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -819,7 +819,7 @@ op10=
 type=text
 width=109
 height=32
-layer=com_59
+layer=smith_item_10
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -832,7 +832,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:64
-[com_64]
+[smith_item_11]
 type=layer
 x=8192
 y=6553
@@ -842,29 +842,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:65
-[com_65]
+[smith_model_11]
 type=graphic
 width=36
 height=32
-layer=com_64
+layer=smith_item_11
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:66
-[com_66]
+[smith_name_11]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_64
+layer=smith_item_11
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -872,13 +872,13 @@ transmitop=10
 op10= 
 
 // 934:67
-[com_67]
+[smith_bars_11]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_64
+layer=smith_item_11
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -890,7 +890,7 @@ op10=
 type=text
 width=109
 height=32
-layer=com_64
+layer=smith_item_11
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -903,7 +903,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:69
-[com_69]
+[smith_item_12]
 type=layer
 x=12288
 y=6553
@@ -913,29 +913,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:70
-[com_70]
+[smith_model_12]
 type=graphic
 width=36
 height=32
-layer=com_69
+layer=smith_item_12
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:71
-[com_71]
+[smith_name_12]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_69
+layer=smith_item_12
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -943,13 +943,13 @@ transmitop=10
 op10= 
 
 // 934:72
-[com_72]
+[smith_bars_12]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_69
+layer=smith_item_12
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -961,7 +961,7 @@ op10=
 type=text
 width=109
 height=32
-layer=com_69
+layer=smith_item_12
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -974,7 +974,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:74
-[com_74]
+[smith_item_13]
 type=layer
 y=9830
 width=4096
@@ -983,29 +983,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:75
-[com_75]
+[smith_model_13]
 type=graphic
 width=36
 height=32
-layer=com_74
+layer=smith_item_13
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:76
-[com_76]
+[smith_name_13]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_74
+layer=smith_item_13
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -1013,13 +1013,13 @@ transmitop=10
 op10= 
 
 // 934:77
-[com_77]
+[smith_bars_13]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_74
+layer=smith_item_13
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -1031,7 +1031,7 @@ op10=
 type=text
 width=109
 height=32
-layer=com_74
+layer=smith_item_13
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1044,7 +1044,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:79
-[com_79]
+[smith_item_14]
 type=layer
 x=4096
 y=9830
@@ -1054,29 +1054,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:80
-[com_80]
+[smith_model_14]
 type=graphic
 width=36
 height=32
-layer=com_79
+layer=smith_item_14
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:81
-[com_81]
+[smith_name_14]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_79
+layer=smith_item_14
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -1084,13 +1084,13 @@ transmitop=10
 op10= 
 
 // 934:82
-[com_82]
+[smith_bars_14]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_79
+layer=smith_item_14
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -1102,7 +1102,7 @@ op10=
 type=text
 width=109
 height=32
-layer=com_79
+layer=smith_item_14
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1115,7 +1115,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:84
-[com_84]
+[smith_item_15]
 type=layer
 x=8192
 y=9830
@@ -1125,29 +1125,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:85
-[com_85]
+[smith_model_15]
 type=graphic
 width=36
 height=32
-layer=com_84
+layer=smith_item_15
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:86
-[com_86]
+[smith_name_15]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_84
+layer=smith_item_15
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -1155,13 +1155,13 @@ transmitop=10
 op10= 
 
 // 934:87
-[com_87]
+[smith_bars_15]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_84
+layer=smith_item_15
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -1173,7 +1173,7 @@ op10=
 type=text
 width=109
 height=32
-layer=com_84
+layer=smith_item_15
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1186,7 +1186,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:89
-[com_89]
+[smith_item_16]
 type=layer
 x=12288
 y=9830
@@ -1196,7 +1196,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
@@ -1205,20 +1205,20 @@ op10=
 type=graphic
 width=36
 height=32
-layer=com_89
+layer=smith_item_16
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:91
-[com_91]
+[smith_name_16]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_89
+layer=smith_item_16
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -1226,13 +1226,13 @@ transmitop=10
 op10= 
 
 // 934:92
-[com_92]
+[smith_bars_16]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_89
+layer=smith_item_16
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -1244,7 +1244,7 @@ op10=
 type=text
 width=109
 height=32
-layer=com_89
+layer=smith_item_16
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1257,7 +1257,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:94
-[com_94]
+[smith_item_17]
 type=layer
 y=13107
 width=4096
@@ -1266,29 +1266,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:95
-[com_95]
+[smith_model_17]
 type=graphic
 width=36
 height=32
-layer=com_94
+layer=smith_item_17
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:96
-[com_96]
+[smith_name_17]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_94
+layer=smith_item_17
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -1296,13 +1296,13 @@ transmitop=10
 op10= 
 
 // 934:97
-[com_97]
+[smith_bars_17]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_94
+layer=smith_item_17
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -1314,7 +1314,7 @@ op10=
 type=text
 width=109
 height=32
-layer=com_94
+layer=smith_item_17
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1327,7 +1327,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:99
-[com_99]
+[smith_item_18]
 type=layer
 x=4096
 y=13107
@@ -1337,29 +1337,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:100
-[com_100]
+[smith_model_18]
 type=graphic
 width=36
 height=32
-layer=com_99
+layer=smith_item_18
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:101
-[com_101]
+[smith_name_18]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_99
+layer=smith_item_18
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -1367,13 +1367,13 @@ transmitop=10
 op10= 
 
 // 934:102
-[com_102]
+[smith_bars_18]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_99
+layer=smith_item_18
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -1385,7 +1385,7 @@ op10=
 type=text
 width=109
 height=32
-layer=com_99
+layer=smith_item_18
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1398,7 +1398,7 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:104
-[com_104]
+[smith_item_19]
 type=layer
 x=8192
 y=13107
@@ -1408,29 +1408,29 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_21
+layer=main_layer
 transmitop=10
 op10= 
 
 // 934:105
-[com_105]
+[smith_model_19]
 type=graphic
 width=36
 height=32
-layer=com_104
+layer=smith_item_19
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:106
-[com_106]
+[smith_name_19]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_104
+layer=smith_item_19
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -1438,13 +1438,13 @@ transmitop=10
 op10= 
 
 // 934:107
-[com_107]
+[smith_bars_19]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_104
+layer=smith_item_19
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -1456,7 +1456,7 @@ op10=
 type=text
 width=109
 height=32
-layer=com_104
+layer=smith_item_19
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1469,24 +1469,24 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:109
-[com_109]
+[smith_model_2]
 type=graphic
 width=36
 height=32
-layer=com_23
+layer=smith_item_2
 outline=1
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 934:110
-[com_110]
+[smith_name_2]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_23
+layer=smith_item_2
 textfont=p11_full
 textalignv=centre
 colour=0x000000
@@ -1494,13 +1494,13 @@ transmitop=10
 op10= 
 
 // 934:111
-[com_111]
+[smith_bars_2]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_23
+layer=smith_item_2
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
@@ -1508,11 +1508,11 @@ transmitop=10
 op10= 
 
 // 934:112
-[com_112]
+[claimit02]
 type=text
 width=109
 height=32
-layer=com_23
+layer=smith_item_2
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1525,44 +1525,44 @@ op4=Make 1 Dagger
 op10= 
 
 // 934:113
-[com_113]
+[smith_model_1]
 type=graphic
 width=36
 height=36
-layer=com_22
+layer=smith_item_1
 outline=1
 colour=0xffffffff
 
 // 934:114
-[com_114]
+[smith_name_1]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_22
+layer=smith_item_1
 textfont=p11_full
 textalignv=centre
 colour=0x000000
 
 // 934:115
-[com_115]
+[smith_bars_1]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_22
+layer=smith_item_1
 textfont=p11_full
 textshadow=yes
 colour=0xe8981f
 
 // 934:116
-[com_116]
+[claimit01]
 type=text
 width=109
 height=32
-layer=com_22
+layer=smith_item_1
 textfont=q8_full
 textalignh=centre
 textshadow=yes

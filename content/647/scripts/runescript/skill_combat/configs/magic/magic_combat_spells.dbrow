@@ -1,7 +1,7 @@
 [magic_spell_wind_strike]
 table=magic_spell_table
 data=spell,^wind_strike
-data=spellcom,magic:wind_strike
+data=spellcom,magic:sb0
 data=name,Wind Strike
 data=members,false
 data=levelrequired,1
@@ -20,7 +20,7 @@ data=continue_by_autocast,true
 [magic_spell_water_strike]
 table=magic_spell_table
 data=spell,^water_strike
-data=spellcom,magic:water_strike
+data=spellcom,magic:sb2
 data=name,Water Strike
 data=members,false
 data=levelrequired,5
@@ -39,7 +39,7 @@ data=continue_by_autocast,true
 [magic_spell_earth_strike]
 table=magic_spell_table
 data=spell,^earth_strike
-data=spellcom,magic:earth_strike
+data=spellcom,magic:sb4
 data=name,Earth Strike
 data=members,false
 data=levelrequired,9
@@ -58,7 +58,7 @@ data=continue_by_autocast,true
 [magic_spell_fire_strike]
 table=magic_spell_table
 data=spell,^fire_strike
-data=spellcom,magic:fire_strike
+data=spellcom,magic:sb6
 data=name,Fire Strike
 data=members,false
 data=levelrequired,13
@@ -77,7 +77,7 @@ data=continue_by_autocast,true
 [magic_spell_wind_bolt]
 table=magic_spell_table
 data=spell,^wind_bolt
-data=spellcom,magic:wind_bolt
+data=spellcom,magic:sb8
 data=name,Wind Bolt
 data=members,false
 data=levelrequired,17
@@ -96,7 +96,7 @@ data=continue_by_autocast,true
 [magic_spell_water_bolt]
 table=magic_spell_table
 data=spell,^water_bolt
-data=spellcom,magic:water_bolt
+data=spellcom,magic:sb11
 data=name,Water Bolt
 data=members,false
 data=levelrequired,23
@@ -115,7 +115,7 @@ data=continue_by_autocast,true
 [magic_spell_earth_bolt]
 table=magic_spell_table
 data=spell,^earth_bolt
-data=spellcom,magic:earth_bolt
+data=spellcom,magic:sb14
 data=name,Earth Bolt
 data=members,false
 data=levelrequired,29
@@ -134,7 +134,7 @@ data=continue_by_autocast,true
 [magic_spell_fire_bolt]
 table=magic_spell_table
 data=spell,^fire_bolt
-data=spellcom,magic:fire_bolt
+data=spellcom,magic:sb17
 data=name,Fire Bolt
 data=members,false
 data=levelrequired,35
@@ -153,7 +153,7 @@ data=continue_by_autocast,true
 [magic_spell_wind_blast]
 table=magic_spell_table
 data=spell,^wind_blast
-data=spellcom,magic:wind_blast
+data=spellcom,magic:sb20
 data=name,Wind Blast
 data=members,false
 data=levelrequired,41
@@ -172,7 +172,7 @@ data=continue_by_autocast,true
 [magic_spell_water_blast]
 table=magic_spell_table
 data=spell,^water_blast
-data=spellcom,magic:water_blast
+data=spellcom,magic:sb23
 data=name,Water Blast
 data=members,false
 data=levelrequired,47
@@ -191,7 +191,7 @@ data=continue_by_autocast,true
 [magic_spell_earth_blast]
 table=magic_spell_table
 data=spell,^earth_blast
-data=spellcom,magic:earth_blast
+data=spellcom,magic:sb27
 data=name,Earth Blast
 data=members,false
 data=levelrequired,53
@@ -210,7 +210,7 @@ data=continue_by_autocast,true
 [magic_spell_fire_blast]
 table=magic_spell_table
 data=spell,^fire_blast
-data=spellcom,magic:fire_blast
+data=spellcom,magic:sb32
 data=name,Fire Blast
 data=members,false
 data=levelrequired,59
@@ -229,7 +229,7 @@ data=continue_by_autocast,true
 [magic_spell_wind_wave]
 table=magic_spell_table
 data=spell,^wind_wave
-data=spellcom,magic:wind_wave
+data=spellcom,magic:sb34
 data=name,Wind Wave
 data=members,true
 data=levelrequired,62
@@ -248,7 +248,7 @@ data=continue_by_autocast,true
 [magic_spell_water_wave]
 table=magic_spell_table
 data=spell,^water_wave
-data=spellcom,magic:water_wave
+data=spellcom,magic:sb36
 data=name,Water Wave
 data=members,true
 data=levelrequired,65
@@ -267,7 +267,7 @@ data=continue_by_autocast,true
 [magic_spell_earth_wave]
 table=magic_spell_table
 data=spell,^earth_wave
-data=spellcom,magic:earth_wave
+data=spellcom,magic:sb40
 data=name,Earth Wave
 data=members,true
 data=levelrequired,70
@@ -286,7 +286,7 @@ data=continue_by_autocast,true
 [magic_spell_fire_wave]
 table=magic_spell_table
 data=spell,^fire_wave
-data=spellcom,magic:fire_wave
+data=spellcom,magic:sb42
 data=name,Fire Wave
 data=members,true
 data=levelrequired,75
@@ -305,7 +305,7 @@ data=continue_by_autocast,true
 [magic_spell_bind]
 table=magic_spell_table
 data=spell,^bind
-data=spellcom,magic:bind
+data=spellcom,magic:sb44
 data=members,false
 data=levelrequired,20
 data=runesrequired,nature_rune,2,water_rune,3,earth_rune,3
@@ -322,7 +322,7 @@ data=continue_by_autocast,false
 [magic_spell_snare]
 table=magic_spell_table
 data=spell,^snare
-data=spellcom,magic:snare
+data=spellcom,magic:sb45
 data=members,true
 data=levelrequired,50
 data=runesrequired,nature_rune,3,water_rune,4,earth_rune,4
@@ -340,7 +340,7 @@ data=continue_by_autocast,false
 [magic_spell_entangle]
 table=magic_spell_table
 data=spell,^entangle
-data=spellcom,magic:entangle
+data=spellcom,magic:sb46
 data=members,true
 data=levelrequired,79
 data=runesrequired,nature_rune,4,water_rune,5,earth_rune,5
@@ -358,7 +358,7 @@ data=continue_by_autocast,false
 [magic_spell_confuse]
 table=magic_spell_table
 data=spell,^confuse
-data=spellcom,magic:confuse
+data=spellcom,magic:sb1
 data=members,false
 data=levelrequired,3
 data=runesrequired,body_rune,1,water_rune,3,earth_rune,2
@@ -375,7 +375,7 @@ data=continue_by_autocast,false
 [magic_spell_weaken]
 table=magic_spell_table
 data=spell,^weaken
-data=spellcom,magic:weaken
+data=spellcom,magic:sb5
 data=members,false
 data=levelrequired,11
 data=runesrequired,body_rune,1,water_rune,3,earth_rune,2
@@ -392,7 +392,7 @@ data=continue_by_autocast,false
 [magic_spell_curse]
 table=magic_spell_table
 data=spell,^curse
-data=spellcom,magic:curse
+data=spellcom,magic:sb9
 data=members,false
 data=levelrequired,19
 data=runesrequired,body_rune,1,water_rune,2,earth_rune,3
@@ -409,7 +409,7 @@ data=continue_by_autocast,false
 [magic_spell_vulnerability]
 table=magic_spell_table
 data=spell,^vulnerability
-data=spellcom,magic:vulnerability
+data=spellcom,magic:sb38
 data=members,true
 data=levelrequired,66
 data=runesrequired,soul_rune,1,water_rune,5,earth_rune,5
@@ -426,7 +426,7 @@ data=continue_by_autocast,false
 [magic_spell_enfeeble]
 table=magic_spell_table
 data=spell,^enfeeble
-data=spellcom,magic:enfeeble
+data=spellcom,magic:sb41
 data=members,true
 data=levelrequired,73
 data=runesrequired,soul_rune,1,water_rune,8,earth_rune,8
@@ -443,7 +443,7 @@ data=continue_by_autocast,false
 [magic_spell_stun]
 table=magic_spell_table
 data=spell,^stun
-data=spellcom,magic:stun
+data=spellcom,magic:sb43
 data=members,true
 data=levelrequired,80
 data=runesrequired,soul_rune,1,water_rune,12,earth_rune,12
@@ -464,7 +464,7 @@ data=continue_by_autocast,false
 // only one fansite has the maxhit (8), it seems credible: https://web.archive.org/web/20050416144009/http://www.trillionareguild.com/runescape/magic.php
 table=magic_spell_table
 data=spell,^crumble_undead
-data=spellcom,magic:crumble_undead
+data=spellcom,magic:sb19
 data=members,false
 data=levelrequired,39
 data=runesrequired,chaos_rune,1,air_rune,2,earth_rune,2
@@ -483,7 +483,7 @@ data=maxhit,150
 [magic_spell_saradomin_strike]
 table=magic_spell_table
 data=spell,^saradomin_strike
-data=spellcom,magic:saradomin_strike
+data=spellcom,magic:com_66
 data=members,true
 data=levelrequired,60
 data=runesrequired,fire_rune,2,blood_rune,2,air_rune,4
@@ -501,7 +501,7 @@ data=stat_change,prayer,-1,0
 [magic_spell_claws_of_guthix]
 table=magic_spell_table
 data=spell,^claws_of_guthix
-data=spellcom,magic:claws_of_guthix
+data=spellcom,magic:com_67
 data=members,true
 data=levelrequired,60
 data=runesrequired,fire_rune,1,blood_rune,2,air_rune,4
@@ -519,7 +519,7 @@ data=stat_change,defence,-1,-5
 [magic_spell_flames_of_zamorak]
 table=magic_spell_table
 data=spell,^flames_of_zamorak
-data=spellcom,magic:flames_of_zamorak
+data=spellcom,magic:com_68
 data=members,true
 data=levelrequired,60
 data=runesrequired,fire_rune,4,blood_rune,2,air_rune,1
@@ -537,7 +537,7 @@ data=stat_change,magic,-1,-5
 [magic_spell_iban_blast]
 table=magic_spell_table
 data=spell,^iban_blast
-data=spellcom,magic:iban_blast
+data=spellcom,magic:sb25
 data=members,true
 data=levelrequired,50
 data=runesrequired,fire_rune,5,death_rune,1,null,null

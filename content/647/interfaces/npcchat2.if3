@@ -1,5 +1,5 @@
 // 242:0
-[com_0]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -7,33 +7,33 @@ widthmode=proportion
 heightmode=proportion
 
 // 242:1
-[com_1]
+[npcchat2head]
 type=model
 x=1474
 width=32
 height=32
 xmode=proportion_left
 ymode=abs_centre
-layer=com_0
+layer=layer_1
 model=null
 modelangle=40,1882,0
 modelzoom=796
 
 // 242:2
-[com_2]
+[npcchat2head_1]
 type=model
 x=1474
 width=32
 height=32
 xmode=proportion_left
 ymode=abs_centre
-layer=com_0
+layer=layer_1
 model=null
 modelangle=40,1882,0
 modelzoom=2150
 
 // 242:3
-[com_3]
+[npcchat2name]
 type=text
 x=30
 y=1310
@@ -41,14 +41,14 @@ width=350
 height=17
 xmode=abs_right
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Name
 textalignh=centre
 colour=0x800000
 
 // 242:4
-[com_4]
+[npcchat2a]
 type=text
 x=30
 y=-1771
@@ -56,14 +56,14 @@ width=350
 height=17
 xmode=abs_right
 ymode=proportion_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Line1
 textalignh=centre
 colour=0x000000
 
 // 242:5
-[com_5]
+[npcchat2b]
 type=text
 x=30
 y=1785
@@ -71,14 +71,14 @@ width=350
 height=17
 xmode=abs_right
 ymode=proportion_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Line2
 textalignh=centre
 colour=0x000000
 
 // 242:6
-[com_6]
+[npcchat2next]
 type=text
 x=30
 y=1310
@@ -86,7 +86,7 @@ width=350
 height=17
 xmode=abs_right
 ymode=proportion_bottom
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Click here to continue
 textalignh=centre

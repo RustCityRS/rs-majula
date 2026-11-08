@@ -1,11 +1,11 @@
 // 4079
 [proc,script4079](int $int0)
-if (cc_find(interface_1064:com_2, 0) = true) {
+if (cc_find(xmas10_salty_health:base_layer, 0) = true) {
     if ($int0 <= 30) {
         cc_setsize(calc($int0 * 8), 8, ^setsize_abs, ^setsize_abs);
     }
 } else {
-    cc_create(interface_1064:com_2, ^iftype_rectangle, 0);
+    cc_create(xmas10_salty_health:base_layer, ^iftype_rectangle, 0);
     cc_setposition(44, 44, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(calc(8 * 30), 8, ^setsize_abs, ^setsize_abs);
     cc_setcolour(0xc96c3e);

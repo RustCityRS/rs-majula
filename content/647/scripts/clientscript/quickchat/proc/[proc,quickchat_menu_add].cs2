@@ -35,9 +35,9 @@ if ($int1 > 0) {
 cc_settext($string0);
 cc_settextshadow(false);
 cc_setsize(calc(parawidth($string0, if_getwidth($component0), p12_full) + 4), if_getheight($component0), ^setsize_abs, ^setsize_abs);
-cc_setonmouseover("script1080(chatbox_background:com_2, $int1)");
-cc_setonmouseleave("script1081(chatbox_background:com_2, $int1)");
-.cc_create(chatbox_background:com_2, ^iftype_rectangle, $int1);
+cc_setonmouseover("script1080(chatdefault:quickchat_path_highlight, $int1)");
+cc_setonmouseleave("script1081(chatdefault:quickchat_path_highlight, $int1)");
+.cc_create(chatdefault:quickchat_path_highlight, ^iftype_rectangle, $int1);
 .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
 .cc_setcolour(0x577e45);
 .cc_setfill(true);

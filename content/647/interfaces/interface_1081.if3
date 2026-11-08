@@ -6,7 +6,7 @@ width=75
 height=104
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_6
+layer=button4
 model=model_64743
 modelorigin=2,33
 modelangle=170,284,0
@@ -21,7 +21,7 @@ width=71
 height=104
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_5
+layer=button3
 model=model_64735
 modelorigin=0,33
 modelangle=170,284,0
@@ -37,7 +37,7 @@ width=78
 height=102
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_4
+layer=button2
 model=model_64734
 modelorigin=-1,30
 modelangle=170,284,0
@@ -45,7 +45,7 @@ modelzoom=1020
 onload=set_spinner(0, 5, 0, event_com)
 
 // 1081:3
-[com_3]
+[button1]
 type=layer
 x=7
 y=30
@@ -57,7 +57,7 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 1081:4
-[com_4]
+[button2]
 type=layer
 x=98
 y=30
@@ -69,7 +69,7 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 1081:5
-[com_5]
+[button3]
 type=layer
 x=7
 y=145
@@ -81,7 +81,7 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 1081:6
-[com_6]
+[button4]
 type=layer
 x=98
 y=145
@@ -100,7 +100,7 @@ width=73
 height=96
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_3
+layer=button1
 model=model_64739
 modelorigin=0,29
 modelangle=170,284,0
@@ -108,7 +108,7 @@ modelzoom=1100
 onload=set_spinner(0, 5, 0, event_com)
 
 // 1081:8
-[com_8]
+[title]
 type=text
 y=6
 width=172

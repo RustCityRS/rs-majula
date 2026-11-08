@@ -1,10 +1,10 @@
 // 4002
 [clientscript,script4002]
 if (getwindowmode >= 2) {
-    if (if_hassubmodal(toplevel_fullscreen:com_main_screen, task_main) = true) {
+    if (if_hassubmodal(toplevel_fullscreen:mainmodal, task_main) = true) {
         return;
     }
-} else if (if_hassubmodal(toplevel:com_main_screen, task_main) = true) {
+} else if (if_hassubmodal(toplevel:mainmodal, task_main) = true) {
     return;
 }
 def_string $string0 = "Progress:  ";
@@ -22,15 +22,15 @@ $string1 = tostring($int0);
 $string2 = tostring($int1);
 if (%varplayerbit_8575 = 61) {
     $string3 = "Quest Area";
-    if_sethide(true, task_side:com_111);
-    if_sethide(true, task_side:com_112);
+    if_sethide(true, task_side:progress_layer);
+    if_sethide(true, task_side:area_icon);
 } else {
-    if_sethide(false, task_side:com_111);
-    if_sethide(false, task_side:com_112);
+    if_sethide(false, task_side:progress_layer);
+    if_sethide(false, task_side:area_icon);
 }
-def_int $int2 = calc($int0 * (if_getwidth(task_side:com_111) - 2) / max(1, $int1));
+def_int $int2 = calc($int0 * (if_getwidth(task_side:progress_layer) - 2) / max(1, $int1));
 $string0 = append($string0, $string1);
-if_settext($string2, task_side:com_108);
-if_settext($string0, task_side:com_106);
-if_settext($string3, task_side:com_110);
-if_setsize($int2, 18, ^setsize_abs, ^setsize_abs, task_side:com_105);
+if_settext($string2, task_side:tasks_total);
+if_settext($string0, task_side:tasks_done);
+if_settext($string3, task_side:area_text);
+if_setsize($int2, 18, ^setsize_abs, ^setsize_abs, task_side:progress_bar_done);

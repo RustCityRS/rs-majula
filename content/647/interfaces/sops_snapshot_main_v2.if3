@@ -5,7 +5,7 @@ x=17
 y=25
 width=488
 height=305
-layer=com_97
+layer=offence_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -18,48 +18,48 @@ x=13
 y=20
 width=487
 height=306
-layer=com_97
+layer=offence_layer
 
 // 593:2
-[com_2]
+[select_player_button_layer]
 type=layer
 x=384
 y=46
 width=105
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10=  
 
 // 593:3
-[com_3]
+[cancel_button_layer]
 type=layer
 x=384
 y=75
 width=105
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10=   
 
 // 593:4
-[com_4]
+[cancel_button_left]
 type=graphic
 width=18
 height=18
-layer=com_3
+layer=cancel_button_layer
 graphic="miscgraphics5,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 593:5
-[com_5]
+[cancel_button_mid]
 type=graphic
 x=18
 width=69
 height=18
-layer=com_3
+layer=cancel_button_layer
 graphic="miscgraphics5,1"
 tiling=yes
 colour=0xffffffff
@@ -67,25 +67,25 @@ transmitop=10
 op10=  
 
 // 593:6
-[com_6]
+[cancel_button_right]
 type=graphic
 x=87
 width=18
 height=18
-layer=com_3
+layer=cancel_button_layer
 graphic="miscgraphics5,2"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 593:7
-[com_7]
+[cancel_txt]
 type=text
 y=-6
 width=92
 height=29
 xmode=abs_centre
-layer=com_3
+layer=cancel_button_layer
 textfont=p11_full
 text=Cancel report
 textalignh=centre
@@ -96,14 +96,14 @@ transmitop=10
 op10=      
 
 // 593:8
-[com_8]
+[mute_layer_offence]
 type=layer
 x=-111
 y=80
 width=246
 height=20
 xmode=abs_centre
-layer=com_97
+layer=offence_layer
 hide=yes
 transmitop=10
 op10=  
@@ -115,20 +115,20 @@ x=210
 y=2
 width=17
 height=17
-layer=com_8
+layer=mute_layer_offence
 graphic="options_radio_buttons_boxed,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 593:10
-[com_10]
+[mutetoggle_offence]
 type=text
 x=3
 y=6
 width=214
 height=14
-layer=com_8
+layer=mute_layer_offence
 textfont=p11_full
 text=Suggest to mute this player for 48 hours
 textshadow=yes
@@ -137,12 +137,12 @@ transmitop=10
 op10=  
 
 // 593:11
-[com_11]
+[select_player_button_left]
 type=graphic
 y=5
 width=18
 height=18
-layer=com_2
+layer=select_player_button_layer
 graphic="miscgraphics5,0"
 colour=0xffffffff
 transmitop=10
@@ -155,7 +155,7 @@ x=18
 y=5
 width=69
 height=18
-layer=com_2
+layer=select_player_button_layer
 graphic="miscgraphics5,1"
 tiling=yes
 colour=0xffffffff
@@ -163,13 +163,13 @@ transmitop=10
 op10= 
 
 // 593:13
-[com_13]
+[select_player_button_right]
 type=graphic
 x=87
 y=5
 width=18
 height=18
-layer=com_2
+layer=select_player_button_layer
 graphic="miscgraphics5,2"
 colour=0xffffffff
 transmitop=10
@@ -182,7 +182,7 @@ y=-1
 width=91
 height=29
 xmode=abs_centre
-layer=com_2
+layer=select_player_button_layer
 textfont=p11_full
 text=Change player
 textalignh=centre
@@ -193,13 +193,13 @@ transmitop=10
 op10=     
 
 // 593:15
-[com_15]
+[page_2]
 type=text
 x=21
 y=25
 width=49
 height=16
-layer=com_97
+layer=offence_layer
 textfont=p11_full
 text=Page 2/2
 textshadow=yes
@@ -208,27 +208,27 @@ transmitop=10
 op10=  
 
 // 593:16
-[com_16]
+[layer_1]
 type=layer
 x=475
 y=23
 width=19
 height=17
-layer=com_97
+layer=offence_layer
 noclickthrough=yes
 
 // 593:17
-[com_17]
+[close_button]
 type=graphic
 x=2
 width=16
 height=16
-layer=com_16
+layer=layer_1
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 
 // 593:18
-[com_18]
+[offence_background]
 type=graphic
 y=5
 width=485
@@ -390,7 +390,7 @@ transmitop=10
 op10=  
 
 // 593:32
-[com_32]
+[type_name_layer]
 type=layer
 y=56
 width=398
@@ -407,7 +407,7 @@ x=6
 y=21
 width=385
 height=93
-layer=com_32
+layer=type_name_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -421,7 +421,7 @@ x=17
 y=31
 width=367
 height=66
-layer=com_32
+layer=type_name_layer
 textfont=p11_full
 text=To report a player who is breaking one of our rules, first enter their name in the box below and then click 'Next'.
 textlineheight=15
@@ -437,7 +437,7 @@ x=86
 y=67
 width=210
 height=18
-layer=com_32
+layer=type_name_layer
 colour=0x83815e
 fill=yes
 transmitop=10
@@ -450,7 +450,7 @@ x=-14
 y=31
 width=32
 height=72
-layer=com_32
+layer=type_name_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -464,7 +464,7 @@ x=6
 y=-1
 width=360
 height=32
-layer=com_32
+layer=type_name_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -478,7 +478,7 @@ x=378
 y=20
 width=32
 height=69
-layer=com_32
+layer=type_name_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -492,7 +492,7 @@ x=31
 y=101
 width=335
 height=32
-layer=com_32
+layer=type_name_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -506,7 +506,7 @@ x=-1
 y=89
 width=32
 height=32
-layer=com_32
+layer=type_name_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -519,7 +519,7 @@ x=366
 y=-1
 width=32
 height=32
-layer=com_32
+layer=type_name_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -532,7 +532,7 @@ x=366
 y=89
 width=32
 height=32
-layer=com_32
+layer=type_name_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -545,33 +545,33 @@ x=-1
 y=-1
 width=32
 height=32
-layer=com_32
+layer=type_name_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 593:44
-[com_44]
+[close_button_1]
 type=graphic
 x=373
 y=2
 width=16
 height=16
-layer=com_32
+layer=type_name_layer
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 593:45
-[com_45]
+[help_button_3]
 type=graphic
 x=354
 y=2
 width=16
 height=16
-layer=com_32
+layer=type_name_layer
 hide=yes
 graphic="v2_stone_close_button,4"
 colour=0xffffffff
@@ -579,13 +579,13 @@ transmitop=10
 op10=   
 
 // 593:46
-[com_46]
+[title_4]
 type=text
 x=6
 y=2
 width=385
 height=16
-layer=com_32
+layer=type_name_layer
 textfont=b12_full
 text=Report Abuse
 textalignh=centre
@@ -596,13 +596,13 @@ transmitop=10
 op10=   
 
 // 593:47
-[com_47]
+[page_3]
 type=text
 x=5
 y=6
 width=49
 height=16
-layer=com_32
+layer=type_name_layer
 textfont=p11_full
 text=Page 1/2
 textshadow=yes
@@ -618,19 +618,19 @@ y=92
 width=246
 height=20
 xmode=abs_centre
-layer=com_32
+layer=type_name_layer
 hide=yes
 transmitop=10
 op10=  
 
 // 593:49
-[com_49]
+[name]
 type=text
 x=95
 y=67
 width=192
 height=20
-layer=com_32
+layer=type_name_layer
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -645,7 +645,7 @@ x=309
 y=63
 width=57
 height=26
-layer=com_32
+layer=type_name_layer
 transmitop=10
 op10= 
 
@@ -689,7 +689,7 @@ transmitop=10
 op10=  
 
 // 593:54
-[com_54]
+[name_next_text]
 type=text
 x=15
 y=8
@@ -734,7 +734,7 @@ transmitop=10
 op10=  
 
 // 593:57
-[com_57]
+[name_list_layer]
 type=layer
 width=512
 height=334
@@ -743,21 +743,21 @@ transmitop=10
 op10= 
 
 // 593:58
-[com_58]
+[window]
 type=layer
 width=512
 height=334
-layer=com_57
+layer=name_list_layer
 
 // 593:59
-[com_59]
+[mute_layer]
 type=layer
 x=-117
 y=272
 width=246
 height=20
 xmode=abs_centre
-layer=com_57
+layer=name_list_layer
 hide=yes
 transmitop=10
 op10= 
@@ -769,18 +769,18 @@ x=18
 y=65
 width=27
 height=26
-layer=com_57
+layer=name_list_layer
 graphic=ra_time
 colour=0xffffffff
 
 // 593:61
-[com_61]
+[namelist_desc_txt]
 type=text
 x=21
 y=43
 width=469
 height=24
-layer=com_57
+layer=name_list_layer
 textfont=p11_full
 text=Click on a line of text to choose the player you are reporting, then click the 'Next' button.
 textlineheight=12
@@ -789,13 +789,13 @@ textshadow=yes
 colour=0xdbd7c1
 
 // 593:62
-[com_62]
+[select_player]
 type=text
 x=21
 y=292
 width=469
 height=24
-layer=com_57
+layer=name_list_layer
 textfont=p11_full
 text=Select player :
 textlineheight=12
@@ -810,31 +810,31 @@ x=124
 y=295
 width=188
 height=16
-layer=com_57
+layer=name_list_layer
 colour=0xdbd7c1
 fill=yes
 transmitop=10
 op10=   
 
 // 593:64
-[com_64]
+[selected_name]
 type=text
 x=127
 y=298
 width=32
 height=32
-layer=com_57
+layer=name_list_layer
 textfont=p11_full
 colour=0x000000
 
 // 593:65
-[com_65]
+[namelist_desc_txt_1]
 type=text
 x=47
 y=63
 width=447
 height=27
-layer=com_57
+layer=name_list_layer
 textfont=p11_full
 text=A report sends us the last 60 seconds of chat. Older chat may not be reportable.
 textlineheight=13
@@ -843,26 +843,26 @@ textshadow=yes
 colour=0xdbd7c1
 
 // 593:66
-[com_66]
+[help_button_1]
 type=graphic
 x=457
 y=24
 width=16
 height=16
-layer=com_57
+layer=name_list_layer
 graphic="v2_stone_close_button,4"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 593:67
-[com_67]
+[title]
 type=text
 x=67
 y=21
 width=390
 height=22
-layer=com_57
+layer=name_list_layer
 textfont=b12_full
 text=Report Abuse : Select Player
 textalignh=centre
@@ -873,13 +873,13 @@ transmitop=10
 op10= 
 
 // 593:68
-[com_68]
+[page_1]
 type=text
 x=19
 y=26
 width=49
 height=16
-layer=com_57
+layer=name_list_layer
 textfont=p11_full
 text=Page 1/2
 textshadow=yes
@@ -894,7 +894,7 @@ x=298
 y=289
 width=193
 height=26
-layer=com_57
+layer=name_list_layer
 transmitop=10
 op10=  
 
@@ -975,20 +975,20 @@ x=209
 y=2
 width=17
 height=17
-layer=com_59
+layer=mute_layer
 graphic="options_radio_buttons_boxed,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 593:76
-[com_76]
+[mutetoggle]
 type=text
 x=5
 y=6
 width=214
 height=14
-layer=com_59
+layer=mute_layer
 textfont=p11_full
 text=Suggest to mute this player for 48 hours
 textshadow=yes
@@ -1005,7 +1005,7 @@ width=20
 height=31
 widthmode=minus
 heightmode=minus
-layer=com_58
+layer=window
 graphic=tradebacking
 tiling=yes
 outline=1
@@ -1014,32 +1014,32 @@ transmitop=10
 op10= 
 
 // 593:78
-[com_78]
+[border_layer]
 type=layer
 width=512
 height=334
-layer=com_58
+layer=window
 
 // 593:79
-[com_79]
+[scroll_layer]
 type=layer
 x=475
 y=91
 width=16
 height=183
-layer=com_58
+layer=window
 transmitop=10
 op10= 
 
 // 593:80
-[com_80]
+[list_layer]
 type=layer
 x=20
 y=91
 width=58
 height=183
 widthmode=minus
-layer=com_58
+layer=window
 transmitop=10
 op10=  
 
@@ -1051,7 +1051,7 @@ y=24
 width=16
 height=16
 xmode=abs_right
-layer=com_58
+layer=window
 graphic="v2_stone_close_button,0"
 hflip=yes
 colour=0xffffffff
@@ -1067,7 +1067,7 @@ width=16719
 height=17010
 widthmode=proportion
 heightmode=proportion
-layer=com_80
+layer=list_layer
 graphic=chat_background
 colour=0xffffffff
 transmitop=10
@@ -1080,46 +1080,46 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_80
+layer=list_layer
 colour=0x000000
 transmitop=10
 op10= 
 
 // 593:84
-[com_84]
+[scrolled_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_80
+layer=list_layer
 
 // 593:85
-[com_85]
+[selected_name_layer]
 type=layer
 width=18689
 height=22999
 widthmode=proportion
 heightmode=proportion
-layer=com_84
+layer=scrolled_layer
 
 // 593:86
-[com_86]
+[highlight_name_layer]
 type=layer
 width=18689
 height=22999
 widthmode=proportion
 heightmode=proportion
-layer=com_84
+layer=scrolled_layer
 
 // 593:87
-[com_87]
+[build_layer]
 type=layer
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_84
+layer=scrolled_layer
 transmitop=10
 op10= 
 
@@ -1130,7 +1130,7 @@ x=-3
 y=52
 width=32
 height=241
-layer=com_78
+layer=border_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -1144,7 +1144,7 @@ x=482
 y=52
 width=32
 height=241
-layer=com_78
+layer=border_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -1158,7 +1158,7 @@ x=41
 y=21
 width=430
 height=32
-layer=com_78
+layer=border_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -1172,7 +1172,7 @@ x=41
 y=304
 width=430
 height=32
-layer=com_78
+layer=border_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -1186,7 +1186,7 @@ x=10
 y=292
 width=32
 height=32
-layer=com_78
+layer=border_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -1199,7 +1199,7 @@ x=470
 y=21
 width=32
 height=32
-layer=com_78
+layer=border_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -1212,7 +1212,7 @@ x=470
 y=292
 width=32
 height=32
-layer=com_78
+layer=border_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -1225,25 +1225,25 @@ x=10
 y=21
 width=32
 height=32
-layer=com_78
+layer=border_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 593:96
-[com_96]
+[help_button]
 type=graphic
 x=459
 y=23
 width=16
 height=16
-layer=com_97
+layer=offence_layer
 graphic="v2_stone_close_button,4"
 colour=0xffffffff
 
 // 593:97
-[com_97]
+[offence_layer]
 type=layer
 width=512
 height=334
@@ -1255,10 +1255,10 @@ opbase=
 type=layer
 width=512
 height=334
-layer=com_97
+layer=offence_layer
 
 // 593:99
-[com_99]
+[report_abuse_title_txt]
 type=text
 x=31
 y=24
@@ -1273,7 +1273,7 @@ textshadow=yes
 colour=0xf2aa3e
 
 // 593:100
-[com_100]
+[offence_desc_txt]
 type=text
 x=25
 y=40
@@ -1288,7 +1288,7 @@ textshadow=yes
 colour=0xdbd7c1
 
 // 593:101
-[com_101]
+[honour_title_txt]
 type=text
 x=19
 y=113
@@ -1305,7 +1305,7 @@ transmitop=10
 op10= 
 
 // 593:102
-[com_102]
+[respect_title_txt]
 type=text
 x=179
 y=113
@@ -1322,7 +1322,7 @@ transmitop=10
 op10=  
 
 // 593:103
-[com_103]
+[security_title_txt]
 type=text
 x=336
 y=113
@@ -1339,7 +1339,7 @@ transmitop=10
 op10=  
 
 // 593:104
-[com_104]
+[security_icon]
 type=graphic
 x=335
 y=108
@@ -1350,7 +1350,7 @@ graphic="ra_icons,2"
 colour=0xffffffff
 
 // 593:105
-[com_105]
+[honour_icon]
 type=graphic
 x=21
 y=108
@@ -1361,7 +1361,7 @@ graphic="ra_icons,0"
 colour=0xffffffff
 
 // 593:106
-[com_106]
+[respect_icon]
 type=graphic
 x=180
 y=108
@@ -1372,7 +1372,7 @@ graphic="ra_icons,1"
 colour=0xffffffff
 
 // 593:107
-[com_107]
+[rule_link_1]
 type=graphic
 x=144
 y=108
@@ -1383,7 +1383,7 @@ graphic="ra_icons,3"
 colour=0xffffffff
 
 // 593:108
-[com_108]
+[rule_link_2]
 type=graphic
 x=302
 y=108
@@ -1396,7 +1396,7 @@ transmitop=10
 op10= 
 
 // 593:109
-[com_109]
+[rule_link_3]
 type=graphic
 x=461
 y=108
@@ -1409,7 +1409,7 @@ transmitop=10
 op10= 
 
 // 593:110
-[com_110]
+[ignore_layer]
 type=layer
 width=16391
 height=16391
@@ -1420,14 +1420,14 @@ transmitop=10
 op10=   
 
 // 593:111
-[com_111]
+[ignore_background]
 type=graphic
 y=121
 width=245
 height=87
 widthmode=minus
 xmode=abs_centre
-layer=com_110
+layer=ignore_layer
 graphic=tradebacking
 tiling=yes
 outline=1
@@ -1436,20 +1436,20 @@ transmitop=10
 op10=    
 
 // 593:112
-[com_112]
+[ignore_yes_button_layer]
 type=layer
 y=150
 width=161
 height=18
 xmode=abs_centre
-layer=com_110
+layer=ignore_layer
 
 // 593:113
 [com_113]
 type=graphic
 width=18
 height=18
-layer=com_112
+layer=ignore_yes_button_layer
 graphic="miscgraphics5,0"
 colour=0xffffffff
 transmitop=10
@@ -1461,7 +1461,7 @@ type=graphic
 x=14
 width=129
 height=18
-layer=com_112
+layer=ignore_yes_button_layer
 graphic="miscgraphics5,1"
 tiling=yes
 colour=0xffffffff
@@ -1475,7 +1475,7 @@ x=1
 width=18
 height=18
 xmode=abs_right
-layer=com_112
+layer=ignore_yes_button_layer
 graphic="miscgraphics5,2"
 colour=0xffffffff
 transmitop=10
@@ -1488,7 +1488,7 @@ y=-2
 width=267
 height=22
 xmode=abs_centre
-layer=com_112
+layer=ignore_yes_button_layer
 textfont=p11_full
 text=Yes, ignore until I log out.
 textalignh=centre
@@ -1499,20 +1499,20 @@ transmitop=10
 op10=  
 
 // 593:117
-[com_117]
+[ignore_no_button_layer]
 type=layer
 y=171
 width=161
 height=18
 xmode=abs_centre
-layer=com_110
+layer=ignore_layer
 
 // 593:118
 [com_118]
 type=graphic
 width=18
 height=18
-layer=com_117
+layer=ignore_no_button_layer
 graphic="miscgraphics5,0"
 colour=0xffffffff
 transmitop=10
@@ -1524,7 +1524,7 @@ type=graphic
 x=14
 width=129
 height=18
-layer=com_117
+layer=ignore_no_button_layer
 graphic="miscgraphics5,1"
 tiling=yes
 colour=0xffffffff
@@ -1537,7 +1537,7 @@ type=graphic
 x=143
 width=18
 height=18
-layer=com_117
+layer=ignore_no_button_layer
 graphic="miscgraphics5,2"
 colour=0xffffffff
 transmitop=10
@@ -1550,7 +1550,7 @@ y=-2
 width=266
 height=23
 xmode=abs_centre
-layer=com_117
+layer=ignore_no_button_layer
 textfont=p11_full
 text=No, don't ignore them.
 textalignh=centre
@@ -1561,13 +1561,13 @@ transmitop=10
 op10=  
 
 // 593:122
-[com_122]
+[ignore_player_name_txt]
 type=text
 x=125
 y=129
 width=264
 height=24
-layer=com_110
+layer=ignore_layer
 textfont=p11_full
 text=Ignore?
 textalignh=centre
@@ -1576,23 +1576,23 @@ textshadow=yes
 colour=0xdbd7c1
 
 // 593:123
-[com_123]
+[ignore_border_layer]
 type=layer
 width=512
 height=334
-layer=com_110
+layer=ignore_layer
 transmitop=10
 op10=   
 
 // 593:124
-[com_124]
+[ignore_close_button]
 type=graphic
 x=128
 y=105
 width=16
 height=16
 xmode=abs_right
-layer=com_110
+layer=ignore_layer
 graphic="v2_stone_close_button,0"
 hflip=yes
 colour=0xffffffff
@@ -1600,13 +1600,13 @@ transmitop=10
 op10=    
 
 // 593:125
-[com_125]
+[ignore_title_txt]
 type=text
 x=123
 y=105
 width=245
 height=19
-layer=com_110
+layer=ignore_layer
 textfont=b12_full
 text=Temporarily ignore player?
 textalignh=centre
@@ -1616,13 +1616,13 @@ transmitop=10
 op10=    
 
 // 593:126
-[com_126]
+[help_button_2]
 type=graphic
 x=351
 y=105
 width=16
 height=16
-layer=com_110
+layer=ignore_layer
 graphic="v2_stone_close_button,4"
 colour=0xffffffff
 
@@ -1633,7 +1633,7 @@ x=104
 y=133
 width=32
 height=50
-layer=com_123
+layer=ignore_border_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -1647,7 +1647,7 @@ x=376
 y=133
 width=32
 height=50
-layer=com_123
+layer=ignore_border_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -1661,7 +1661,7 @@ x=148
 y=102
 width=217
 height=32
-layer=com_123
+layer=ignore_border_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -1675,7 +1675,7 @@ x=148
 y=193
 width=217
 height=32
-layer=com_123
+layer=ignore_border_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -1689,7 +1689,7 @@ x=117
 y=181
 width=32
 height=32
-layer=com_123
+layer=ignore_border_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -1702,7 +1702,7 @@ x=364
 y=181
 width=32
 height=32
-layer=com_123
+layer=ignore_border_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -1715,7 +1715,7 @@ x=364
 y=102
 width=32
 height=32
-layer=com_123
+layer=ignore_border_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -1728,19 +1728,19 @@ x=117
 y=102
 width=32
 height=32
-layer=com_123
+layer=ignore_border_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 593:135
-[com_135]
+[solicitation_button_left]
 type=graphic
 x=1
 width=28
 height=28
-layer=com_186
+layer=solicitation_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 
@@ -1750,29 +1750,29 @@ type=graphic
 x=29
 width=97
 height=28
-layer=com_186
+layer=solicitation_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
 
 // 593:137
-[com_137]
+[solicitation_button_right]
 type=graphic
 x=126
 width=28
 height=28
-layer=com_186
+layer=solicitation_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:138
-[com_138]
+[solicitation]
 type=text
 y=3
 width=145
 height=22
 xmode=abs_centre
-layer=com_186
+layer=solicitation_button_layer
 textfont=p11_full
 text=Solicitation
 textlineheight=10
@@ -1784,12 +1784,12 @@ transmitop=10
 op10=   
 
 // 593:139
-[com_139]
+[threats_button_left]
 type=graphic
 x=1
 width=28
 height=28
-layer=com_197
+layer=threats_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 
@@ -1799,30 +1799,30 @@ type=graphic
 x=29
 width=97
 height=28
-layer=com_197
+layer=threats_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
 
 // 593:141
-[com_141]
+[threats_button_right]
 type=graphic
 x=126
 width=28
 height=28
-layer=com_197
+layer=threats_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:142
-[com_142]
+[threats]
 type=text
 x=3
 y=3
 width=145
 height=22
 xmode=abs_centre
-layer=com_197
+layer=threats_button_layer
 textfont=p11_full
 text=Real-life threats
 textlineheight=10
@@ -1865,7 +1865,7 @@ graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:146
-[com_146]
+[personal_details]
 type=text
 y=3
 width=16391
@@ -1884,12 +1884,12 @@ transmitop=10
 op10=     
 
 // 593:147
-[com_147]
+[laws_button_left]
 type=graphic
 x=1
 width=28
 height=28
-layer=com_204
+layer=laws_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 
@@ -1899,30 +1899,30 @@ type=graphic
 x=29
 width=98
 height=28
-layer=com_204
+layer=laws_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
 
 // 593:149
-[com_149]
+[laws_button_right]
 type=graphic
 x=127
 width=28
 height=28
-layer=com_204
+layer=laws_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:150
-[com_150]
+[illegal]
 type=text
 x=6
 y=3
 width=150
 height=22
 xmode=abs_right
-layer=com_204
+layer=laws_button_layer
 textfont=p11_full
 text=Breaking real-world laws
 textlineheight=10
@@ -1934,12 +1934,12 @@ transmitop=10
 op10=      
 
 // 593:151
-[com_151]
+[scamming_button_left]
 type=graphic
 x=1
 width=28
 height=28
-layer=com_155
+layer=scamming_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 
@@ -1949,29 +1949,29 @@ type=graphic
 x=29
 width=98
 height=28
-layer=com_155
+layer=scamming_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
 
 // 593:153
-[com_153]
+[scamming_button_right]
 type=graphic
 x=127
 width=28
 height=28
-layer=com_155
+layer=scamming_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:154
-[com_154]
+[scamming]
 type=text
 x=7
 y=7
 width=145
 height=14
-layer=com_155
+layer=scamming_button_layer
 textfont=p11_full
 text=Scamming
 textlineheight=10
@@ -1983,43 +1983,43 @@ transmitop=10
 op10=   
 
 // 593:155
-[com_155]
+[scamming_button_layer]
 type=layer
 x=20
 y=256
 width=156
 height=28
-layer=com_97
+layer=offence_layer
 
 // 593:156
-[com_156]
+[buying_button_layer]
 type=layer
 x=20
 y=140
 width=156
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 
 
 // 593:157
-[com_157]
+[encouraging_button_layer]
 type=layer
 x=20
 y=169
 width=156
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10=  
 
 // 593:158
-[com_158]
+[encouraging_button_left]
 type=graphic
 x=1
 width=28
 height=28
-layer=com_157
+layer=encouraging_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 transmitop=10
@@ -2031,7 +2031,7 @@ type=graphic
 x=28
 width=99
 height=28
-layer=com_157
+layer=encouraging_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
@@ -2039,12 +2039,12 @@ transmitop=10
 op10= 
 
 // 593:160
-[com_160]
+[stopping_terrorism]
 type=graphic
 x=127
 width=28
 height=28
-layer=com_157
+layer=encouraging_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 transmitop=10
@@ -2057,7 +2057,7 @@ x=7
 y=3
 width=145
 height=22
-layer=com_157
+layer=encouraging_button_layer
 textfont=p11_full
 text=Encouraging rule breaking
 textlineheight=10
@@ -2069,24 +2069,24 @@ transmitop=10
 op10=       
 
 // 593:162
-[com_162]
+[staff_button_layer]
 type=layer
 x=20
 y=198
 width=156
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 
 
 // 593:163
-[com_163]
+[bug_button_layer]
 type=layer
 x=20
 y=285
 width=156
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 
 
@@ -2097,7 +2097,7 @@ x=20
 y=227
 width=156
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 
 
@@ -2133,7 +2133,7 @@ graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:168
-[com_168]
+[macroing]
 type=text
 x=7
 y=3
@@ -2157,7 +2157,7 @@ x=179
 y=140
 width=155
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 
 
@@ -2193,7 +2193,7 @@ graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:173
-[com_173]
+[offensive_language]
 type=text
 y=1
 width=145
@@ -2211,12 +2211,12 @@ transmitop=10
 op10=    
 
 // 593:174
-[com_174]
+[bug_button_left]
 type=graphic
 x=1
 width=28
 height=28
-layer=com_163
+layer=bug_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 
@@ -2226,29 +2226,29 @@ type=graphic
 x=29
 width=98
 height=28
-layer=com_163
+layer=bug_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
 
 // 593:176
-[com_176]
+[bug_button_right]
 type=graphic
 x=127
 width=28
 height=28
-layer=com_163
+layer=bug_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:177
-[com_177]
+[bug_abuse]
 type=text
 x=7
 y=8
 width=145
 height=14
-layer=com_163
+layer=bug_button_layer
 textfont=p11_full
 text=Exploiting a bug
 textlineheight=10
@@ -2260,44 +2260,44 @@ transmitop=10
 op10=      
 
 // 593:178
-[com_178]
+[staff_button_left]
 type=graphic
 x=1
 width=28
 height=28
-layer=com_162
+layer=staff_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 593:179
-[com_179]
+[staff_button_mid]
 type=graphic
 x=28
 width=99
 height=29
-layer=com_162
+layer=staff_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
 
 // 593:180
-[com_180]
+[staff_button_right]
 type=graphic
 x=127
 width=28
 height=28
-layer=com_162
+layer=staff_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:181
-[com_181]
+[impersonation]
 type=text
 x=7
 y=2
 width=145
 height=23
-layer=com_162
+layer=staff_button_layer
 textfont=p11_full
 text=Staff impersonation
 textlineheight=10
@@ -2309,12 +2309,12 @@ transmitop=10
 op10=     
 
 // 593:182
-[com_182]
+[buying_button_left]
 type=graphic
 x=1
 width=28
 height=28
-layer=com_156
+layer=buying_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 
@@ -2324,29 +2324,29 @@ type=graphic
 x=28
 width=99
 height=28
-layer=com_156
+layer=buying_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
 
 // 593:184
-[com_184]
+[buying_button_right]
 type=graphic
 x=127
 width=28
 height=28
-layer=com_156
+layer=buying_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:185
-[com_185]
+[account_selling]
 type=text
 x=7
 y=3
 width=145
 height=22
-layer=com_156
+layer=buying_button_layer
 textfont=p11_full
 text=Buying or selling an account
 textlineheight=10
@@ -2358,13 +2358,13 @@ transmitop=10
 op10=      
 
 // 593:186
-[com_186]
+[solicitation_button_layer]
 type=layer
 x=179
 y=169
 width=154
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 
 
@@ -2375,28 +2375,28 @@ x=179
 y=198
 width=154
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 
 
 // 593:188
-[com_188]
+[name_button_layer]
 type=layer
 x=179
 y=227
 width=155
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 
 
 // 593:189
-[com_189]
+[name_button_left]
 type=graphic
 x=1
 width=28
 height=28
-layer=com_188
+layer=name_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 
@@ -2406,30 +2406,30 @@ type=graphic
 x=29
 width=97
 height=28
-layer=com_188
+layer=name_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
 
 // 593:191
-[com_191]
+[name_button_right]
 type=graphic
 x=126
 width=28
 height=28
-layer=com_188
+layer=name_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:192
-[com_192]
+[account_name]
 type=text
 x=1
 y=3
 width=150
 height=22
 xmode=abs_centre
-layer=com_188
+layer=name_button_layer
 textfont=p11_full
 text=Offensive account name
 textlineheight=10
@@ -2441,7 +2441,7 @@ transmitop=10
 op10=    
 
 // 593:193
-[com_193]
+[disruptive_button_left]
 type=graphic
 x=1
 width=28
@@ -2462,7 +2462,7 @@ tiling=yes
 colour=0xffffffff
 
 // 593:195
-[com_195]
+[disruptive_button_right]
 type=graphic
 x=126
 width=28
@@ -2472,7 +2472,7 @@ graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:196
-[com_196]
+[disruptive]
 type=text
 y=3
 width=145
@@ -2490,13 +2490,13 @@ transmitop=10
 op10=    
 
 // 593:197
-[com_197]
+[threats_button_layer]
 type=layer
 x=179
 y=256
 width=155
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 
 
@@ -2507,28 +2507,28 @@ x=337
 y=140
 width=156
 height=31
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 
 
 // 593:199
-[com_199]
+[websites_button_layer]
 type=layer
 x=337
 y=198
 width=156
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 
 
 // 593:200
-[com_200]
+[websites_button_left]
 type=graphic
 x=1
 width=28
 height=28
-layer=com_199
+layer=websites_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 
@@ -2538,30 +2538,30 @@ type=graphic
 x=29
 width=98
 height=28
-layer=com_199
+layer=websites_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
 
 // 593:202
-[com_202]
+[websites_button_right]
 type=graphic
 x=127
 width=28
 height=28
-layer=com_199
+layer=websites_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 
 // 593:203
-[com_203]
+[websites]
 type=text
 x=2
 y=3
 width=150
 height=22
 xmode=abs_right
-layer=com_199
+layer=websites_button_layer
 textfont=p11_full
 text=Advertising websites
 textlineheight=10
@@ -2573,12 +2573,12 @@ transmitop=10
 op10=      
 
 // 593:204
-[com_204]
+[laws_button_layer]
 type=layer
 x=337
 y=169
 width=159
 height=28
-layer=com_97
+layer=offence_layer
 transmitop=10
 op10= 

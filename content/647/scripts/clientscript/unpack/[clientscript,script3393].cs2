@@ -1,5 +1,5 @@
 // 3393
 [clientscript,script3393](int $int0)
-if (cc_find(interface_979:com_26, $int0) = true) {
+if (cc_find(interface_979:highlight_name_layer, $int0) = true) {
     cc_settrans(255);
 }

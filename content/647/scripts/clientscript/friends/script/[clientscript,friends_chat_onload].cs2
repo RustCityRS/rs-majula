@@ -3,7 +3,7 @@
 if_setonclantransmit("friends_chat_onclantransmit(event_com)", $component0);
 if_setonfriendtransmit("friends_chat_onclantransmit(event_com)", $component0);
 ~script1600;
-def_component $component2 = friends_chat:com_4;
+def_component $component2 = interface_1109:com_4;
 def_int $int3 = 0;
 def_int $int4 = 19;
 while ($int3 < 500) {

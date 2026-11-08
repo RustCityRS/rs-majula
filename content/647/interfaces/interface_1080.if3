@@ -1,5 +1,5 @@
 // 1080:0
-[com_0]
+[area_layer]
 type=layer
 x=163
 y=52
@@ -7,39 +7,39 @@ width=190
 height=41
 
 // 1080:1
-[com_1]
+[title_bg]
 type=rectangle
 height=42
 widthmode=minus
-layer=com_0
+layer=area_layer
 colour=0x332c22
 fill=yes
 
 // 1080:2
-[com_2]
+[area_text]
 type=text
 width=21
 height=19
 widthmode=minus
 xmode=abs_right
-layer=com_0
+layer=area_layer
 textfont=verdana_11pt_regular
 textalignh=centre
 textalignv=centre
 colour=0xbb9a72
 
 // 1080:3
-[com_3]
+[area_icon]
 type=graphic
 x=4
 y=2
 width=14
 height=18
-layer=com_0
+layer=area_layer
 graphic=graphic_4283
 
 // 1080:4
-[com_4]
+[summary_layer]
 type=layer
 x=163
 y=52
@@ -54,17 +54,17 @@ y=52
 height=52
 widthmode=minus
 heightmode=minus
-layer=com_4
+layer=summary_layer
 graphic=window_texture
 
 // 1080:6
-[com_6]
+[details_layer]
 type=layer
 y=54
 height=54
 widthmode=minus
 heightmode=minus
-layer=com_4
+layer=summary_layer
 noclickthrough=yes
 
 // 1080:7
@@ -72,7 +72,7 @@ noclickthrough=yes
 type=layer
 width=190
 height=14
-layer=com_6
+layer=details_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -106,7 +106,7 @@ graphic="task_tab,0"
 hflip=yes
 
 // 1080:11
-[com_11]
+[details_hintarrow]
 type=graphic
 x=1
 y=3
@@ -135,7 +135,7 @@ type=layer
 y=14
 width=190
 height=14
-layer=com_6
+layer=details_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -198,7 +198,7 @@ type=layer
 y=28
 width=190
 height=14
-layer=com_6
+layer=details_layer
 
 // 1080:20
 [com_20]
@@ -254,7 +254,7 @@ textalignv=centre
 colour=0xdedede
 
 // 1080:25
-[com_25]
+[details_text]
 type=text
 x=10
 y=52
@@ -262,25 +262,25 @@ width=20
 height=62
 widthmode=minus
 heightmode=minus
-layer=com_6
+layer=details_layer
 textfont=p12_full
 text=This is where you are told how to complete your Task.
 textshadow=yes
 colour=0xdedede
 
 // 1080:26
-[com_26]
+[menu_layer]
 type=layer
 height=54
 widthmode=minus
-layer=com_4
+layer=summary_layer
 
 // 1080:27
 [com_27]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_26
+layer=menu_layer
 colour=0x776445
 fill=yes
 
@@ -291,7 +291,7 @@ x=81
 y=1
 width=49
 height=19
-layer=com_26
+layer=menu_layer
 transmitop=1
 op1=Set
 
@@ -326,7 +326,7 @@ graphic=graphic_4322
 hflip=yes
 
 // 1080:32
-[com_32]
+[active_state]
 type=text
 x=-7
 y=1
@@ -352,54 +352,54 @@ layer=com_28
 graphic=graphic_4295
 
 // 1080:34
-[com_34]
+[summary_close]
 type=layer
 x=131
 y=1
 width=58
 height=19
-layer=com_26
+layer=menu_layer
 transmitop=1
 op1=Close-summary
 
 // 1080:35
-[com_35]
+[close_button_m]
 type=graphic
 x=6
 width=12
 widthmode=minus
 heightmode=minus
-layer=com_34
+layer=summary_close
 graphic=graphic_4323
 
 // 1080:36
-[com_36]
+[close_button_l]
 type=graphic
 width=6
 heightmode=minus
 ymode=abs_centre
-layer=com_34
+layer=summary_close
 graphic=graphic_4322
 
 // 1080:37
-[com_37]
+[close_button_r]
 type=graphic
 width=6
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_34
+layer=summary_close
 graphic=graphic_4322
 hflip=yes
 
 // 1080:38
-[com_38]
+[close_text]
 type=text
 x=8
 y=-1
 widthmode=minus
 heightmode=minus
-layer=com_34
+layer=summary_close
 textfont=verdana_11pt_regular
 text=Back
 textalignh=centre
@@ -407,17 +407,17 @@ textalignv=centre
 colour=0x282828
 
 // 1080:39
-[com_39]
+[close_arrow]
 type=graphic
 x=3
 y=5
 width=15
 height=8
-layer=com_34
+layer=summary_close
 graphic="task_arrow,0"
 
 // 1080:40
-[com_40]
+[title_text]
 type=text
 x=2
 y=23
@@ -425,7 +425,7 @@ width=55
 height=29
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=menu_layer
 textfont=p11_full
 text=Title of the Task
 textalignh=centre
@@ -440,37 +440,37 @@ x=53
 y=21
 width=135
 height=1
-layer=com_26
+layer=menu_layer
 colour=0x3e3e3e
 
 // 1080:42
-[com_42]
+[task_area]
 type=graphic
 x=54
 y=3
 width=14
 height=17
-layer=com_26
+layer=menu_layer
 graphic=graphic_4283
 
 // 1080:43
-[com_43]
+[task_difficulty]
 type=graphic
 x=70
 y=4
 width=9
 height=11
-layer=com_26
+layer=menu_layer
 graphic=graphic_4330
 
 // 1080:44
-[com_44]
+[task_icon]
 type=graphic
 x=2
 y=2
 width=50
 height=50
-layer=com_26
+layer=menu_layer
 graphic="task_icons_lumbridge,61"
 
 // 1080:45

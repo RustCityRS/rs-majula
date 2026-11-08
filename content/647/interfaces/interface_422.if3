@@ -1,5 +1,5 @@
 // 422:0
-[com_0]
+[window]
 type=layer
 width=512
 height=334
@@ -13,7 +13,7 @@ width=62
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=window
 graphic=tradebacking
 tiling=yes
 outline=1
@@ -22,11 +22,11 @@ transmitop=10
 op10= 
 
 // 422:2
-[com_2]
+[border_layer]
 type=layer
 width=512
 height=334
-layer=com_0
+layer=window
 
 // 422:3
 [com_3]
@@ -35,7 +35,7 @@ x=17
 y=52
 width=32
 height=241
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -49,7 +49,7 @@ x=462
 y=52
 width=32
 height=241
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -63,7 +63,7 @@ x=61
 y=21
 width=390
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -77,7 +77,7 @@ x=61
 y=304
 width=390
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -91,7 +91,7 @@ x=30
 y=292
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -104,7 +104,7 @@ x=450
 y=21
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -117,7 +117,7 @@ x=450
 y=292
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -130,7 +130,7 @@ x=30
 y=21
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
@@ -145,7 +145,7 @@ width=431
 height=222
 
 // 422:12
-[com_12]
+[inventory_layer]
 type=layer
 x=15
 y=15
@@ -163,7 +163,7 @@ height=222
 colour=0x333333
 
 // 422:14
-[com_14]
+[scrollbar_layer]
 type=layer
 x=454
 y=80
@@ -172,7 +172,7 @@ height=222
 onload=script3419
 
 // 422:15
-[com_15]
+[t_1]
 type=text
 x=79
 y=22
@@ -184,7 +184,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:16
-[com_16]
+[r_1]
 type=rectangle
 x=2
 y=2
@@ -197,7 +197,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:17
-[com_17]
+[t_2]
 type=text
 x=79
 y=84
@@ -209,7 +209,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:18
-[com_18]
+[r_2]
 type=rectangle
 x=2
 y=64
@@ -222,7 +222,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:19
-[com_19]
+[t_3]
 type=text
 x=79
 y=146
@@ -234,7 +234,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:20
-[com_20]
+[r_3]
 type=rectangle
 x=2
 y=126
@@ -247,7 +247,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:21
-[com_21]
+[t_4]
 type=text
 x=79
 y=208
@@ -259,7 +259,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:22
-[com_22]
+[r_4]
 type=rectangle
 x=2
 y=188
@@ -272,7 +272,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:23
-[com_23]
+[t_5]
 type=text
 x=79
 y=269
@@ -284,7 +284,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:24
-[com_24]
+[r_5]
 type=rectangle
 x=2
 y=250
@@ -297,7 +297,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:25
-[com_25]
+[t_6]
 type=text
 x=79
 y=332
@@ -309,7 +309,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:26
-[com_26]
+[r_6]
 type=rectangle
 x=2
 y=312
@@ -322,7 +322,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:27
-[com_27]
+[t_7]
 type=text
 x=79
 y=394
@@ -334,7 +334,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:28
-[com_28]
+[r_7]
 type=rectangle
 x=2
 y=374
@@ -347,7 +347,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:29
-[com_29]
+[t_8]
 type=text
 x=79
 y=456
@@ -359,7 +359,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:30
-[com_30]
+[r_8]
 type=rectangle
 x=2
 y=436
@@ -372,7 +372,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:31
-[com_31]
+[t_9]
 type=text
 x=79
 y=518
@@ -384,7 +384,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:32
-[com_32]
+[r_9]
 type=rectangle
 x=2
 y=498
@@ -397,7 +397,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:33
-[com_33]
+[t_10]
 type=text
 x=79
 y=580
@@ -409,7 +409,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:34
-[com_34]
+[r_10]
 type=rectangle
 x=2
 y=560
@@ -422,7 +422,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:35
-[com_35]
+[t_11]
 type=text
 x=79
 y=642
@@ -434,7 +434,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:36
-[com_36]
+[r_11]
 type=rectangle
 x=2
 y=622
@@ -447,7 +447,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:37
-[com_37]
+[t_12]
 type=text
 x=80
 y=704
@@ -459,7 +459,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:38
-[com_38]
+[r_12]
 type=rectangle
 x=2
 y=684
@@ -472,7 +472,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:39
-[com_39]
+[t_13]
 type=text
 x=80
 y=766
@@ -484,7 +484,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:40
-[com_40]
+[r_13]
 type=rectangle
 x=2
 y=746
@@ -497,7 +497,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:41
-[com_41]
+[t_14]
 type=text
 x=80
 y=828
@@ -509,7 +509,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:42
-[com_42]
+[r_14]
 type=rectangle
 x=2
 y=808
@@ -522,7 +522,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:43
-[com_43]
+[t_15]
 type=text
 x=79
 y=890
@@ -534,7 +534,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:44
-[com_44]
+[r_15]
 type=rectangle
 x=2
 y=870
@@ -547,7 +547,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:45
-[com_45]
+[t_16]
 type=text
 x=79
 y=952
@@ -559,7 +559,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:46
-[com_46]
+[r_16]
 type=rectangle
 x=2
 y=932
@@ -572,7 +572,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:47
-[com_47]
+[t_17]
 type=text
 x=80
 y=1014
@@ -584,7 +584,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:48
-[com_48]
+[r_17]
 type=rectangle
 x=2
 y=994
@@ -597,7 +597,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:49
-[com_49]
+[t_18]
 type=text
 x=79
 y=1076
@@ -609,7 +609,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:50
-[com_50]
+[r_18]
 type=rectangle
 x=2
 y=1056
@@ -622,7 +622,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:51
-[com_51]
+[t_19]
 type=text
 x=79
 y=1138
@@ -634,7 +634,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:52
-[com_52]
+[r_19]
 type=rectangle
 x=2
 y=1118
@@ -647,7 +647,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:53
-[com_53]
+[t_20]
 type=text
 x=80
 y=1200
@@ -659,7 +659,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:54
-[com_54]
+[r_20]
 type=rectangle
 x=2
 y=1180
@@ -672,7 +672,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:55
-[com_55]
+[t_21]
 type=text
 x=79
 y=1262
@@ -684,7 +684,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:56
-[com_56]
+[r_21]
 type=rectangle
 x=2
 y=1242
@@ -697,7 +697,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:57
-[com_57]
+[t_22]
 type=text
 x=79
 y=1324
@@ -709,7 +709,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:58
-[com_58]
+[r_22]
 type=rectangle
 x=2
 y=1304
@@ -722,7 +722,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:59
-[com_59]
+[t_23]
 type=text
 x=79
 y=1386
@@ -734,7 +734,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:60
-[com_60]
+[r_23]
 type=rectangle
 x=2
 y=1366
@@ -747,7 +747,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:61
-[com_61]
+[t_24]
 type=text
 x=79
 y=1448
@@ -759,7 +759,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:62
-[com_62]
+[r_24]
 type=rectangle
 x=2
 y=1428
@@ -772,7 +772,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:63
-[com_63]
+[t_25]
 type=text
 x=79
 y=1510
@@ -784,7 +784,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:64
-[com_64]
+[r_25]
 type=rectangle
 x=2
 y=1490
@@ -797,7 +797,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:65
-[com_65]
+[t_26]
 type=text
 x=79
 y=1572
@@ -809,7 +809,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:66
-[com_66]
+[r_26]
 type=rectangle
 x=2
 y=1552
@@ -822,7 +822,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:67
-[com_67]
+[t_27]
 type=text
 x=79
 y=1634
@@ -834,7 +834,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:68
-[com_68]
+[r_27]
 type=rectangle
 x=2
 y=1614
@@ -847,7 +847,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:69
-[com_69]
+[t_28]
 type=text
 x=79
 y=1696
@@ -859,7 +859,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:70
-[com_70]
+[r_28]
 type=rectangle
 x=2
 y=1676
@@ -872,7 +872,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:71
-[com_71]
+[t_29]
 type=text
 x=79
 y=1758
@@ -884,7 +884,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:72
-[com_72]
+[r_29]
 type=rectangle
 x=2
 y=1738
@@ -897,7 +897,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:73
-[com_73]
+[t_30]
 type=text
 x=80
 y=1820
@@ -909,7 +909,7 @@ textshadow=yes
 colour=0xff981f
 
 // 422:74
-[com_74]
+[r_30]
 type=rectangle
 x=2
 y=1800
@@ -922,7 +922,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 422:75
-[com_75]
+[close_button]
 type=graphic
 x=460
 y=25
@@ -938,19 +938,19 @@ onop=closebutton_click
 onclick=closebutton_click
 
 // 422:76
-[com_76]
+[r_1_off]
 type=rectangle
 x=3
 y=3
 width=405
 height=59
-layer=com_77
+layer=r_1_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:77
-[com_77]
+[r_1_layer]
 type=layer
 width=432
 height=3200
@@ -958,19 +958,19 @@ layer=com_11
 hide=yes
 
 // 422:78
-[com_78]
+[r_2_off]
 type=rectangle
 x=3
 y=65
 width=405
 height=59
-layer=com_79
+layer=r_2_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:79
-[com_79]
+[r_2_layer]
 type=layer
 width=432
 height=3200
@@ -978,19 +978,19 @@ layer=com_11
 hide=yes
 
 // 422:80
-[com_80]
+[r_3_off]
 type=rectangle
 x=3
 y=127
 width=405
 height=59
-layer=com_81
+layer=r_3_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:81
-[com_81]
+[r_3_layer]
 type=layer
 width=432
 height=3200
@@ -998,19 +998,19 @@ layer=com_11
 hide=yes
 
 // 422:82
-[com_82]
+[r_4_off]
 type=rectangle
 x=3
 y=189
 width=405
 height=59
-layer=com_83
+layer=r_4_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:83
-[com_83]
+[r_4_layer]
 type=layer
 width=432
 height=3200
@@ -1018,19 +1018,19 @@ layer=com_11
 hide=yes
 
 // 422:84
-[com_84]
+[r_5_off]
 type=rectangle
 x=3
 y=251
 width=405
 height=59
-layer=com_85
+layer=r_5_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:85
-[com_85]
+[r_5_layer]
 type=layer
 width=432
 height=3200
@@ -1038,19 +1038,19 @@ layer=com_11
 hide=yes
 
 // 422:86
-[com_86]
+[r_6_off]
 type=rectangle
 x=3
 y=313
 width=405
 height=59
-layer=com_87
+layer=r_6_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:87
-[com_87]
+[r_6_layer]
 type=layer
 width=432
 height=3200
@@ -1058,19 +1058,19 @@ layer=com_11
 hide=yes
 
 // 422:88
-[com_88]
+[r_7_off]
 type=rectangle
 x=3
 y=375
 width=405
 height=59
-layer=com_89
+layer=r_7_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:89
-[com_89]
+[r_7_layer]
 type=layer
 width=432
 height=3200
@@ -1078,19 +1078,19 @@ layer=com_11
 hide=yes
 
 // 422:90
-[com_90]
+[r_8_off]
 type=rectangle
 x=3
 y=437
 width=405
 height=59
-layer=com_91
+layer=r_8_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:91
-[com_91]
+[r_8_layer]
 type=layer
 width=432
 height=3200
@@ -1098,19 +1098,19 @@ layer=com_11
 hide=yes
 
 // 422:92
-[com_92]
+[r_9_off]
 type=rectangle
 x=3
 y=499
 width=405
 height=59
-layer=com_93
+layer=r_9_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:93
-[com_93]
+[r_9_layer]
 type=layer
 width=432
 height=3200
@@ -1118,19 +1118,19 @@ layer=com_11
 hide=yes
 
 // 422:94
-[com_94]
+[r_10_off]
 type=rectangle
 x=3
 y=561
 width=405
 height=59
-layer=com_95
+layer=r_10_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:95
-[com_95]
+[r_10_layer]
 type=layer
 width=432
 height=3200
@@ -1138,19 +1138,19 @@ layer=com_11
 hide=yes
 
 // 422:96
-[com_96]
+[r_11_off]
 type=rectangle
 x=3
 y=623
 width=405
 height=59
-layer=com_97
+layer=r_11_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:97
-[com_97]
+[r_11_layer]
 type=layer
 width=432
 height=3200
@@ -1158,7 +1158,7 @@ layer=com_11
 hide=yes
 
 // 422:98
-[com_98]
+[r_12_off]
 type=rectangle
 x=3
 y=685
@@ -1178,19 +1178,19 @@ layer=com_11
 hide=yes
 
 // 422:100
-[com_100]
+[r_13_off]
 type=rectangle
 x=3
 y=747
 width=405
 height=59
-layer=com_101
+layer=r_13_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:101
-[com_101]
+[r_13_layer]
 type=layer
 width=432
 height=3200
@@ -1198,19 +1198,19 @@ layer=com_11
 hide=yes
 
 // 422:102
-[com_102]
+[r_14_off]
 type=rectangle
 x=3
 y=809
 width=405
 height=59
-layer=com_103
+layer=r_14_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:103
-[com_103]
+[r_14_layer]
 type=layer
 width=432
 height=3200
@@ -1218,19 +1218,19 @@ layer=com_11
 hide=yes
 
 // 422:104
-[com_104]
+[r_15_off]
 type=rectangle
 x=3
 y=871
 width=405
 height=59
-layer=com_105
+layer=r_15_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:105
-[com_105]
+[r_15_layer]
 type=layer
 width=432
 height=3200
@@ -1238,7 +1238,7 @@ layer=com_11
 hide=yes
 
 // 422:106
-[com_106]
+[r_16_off]
 type=rectangle
 x=3
 y=933
@@ -1258,7 +1258,7 @@ layer=com_11
 hide=yes
 
 // 422:108
-[com_108]
+[r_17_off]
 type=rectangle
 x=3
 y=995
@@ -1278,19 +1278,19 @@ layer=com_11
 hide=yes
 
 // 422:110
-[com_110]
+[r_18_off]
 type=rectangle
 x=3
 y=58
 width=405
 height=59
-layer=com_111
+layer=r_18_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:111
-[com_111]
+[r_18_layer]
 type=layer
 y=999
 width=432
@@ -1299,19 +1299,19 @@ layer=com_11
 hide=yes
 
 // 422:112
-[com_112]
+[r_19_off]
 type=rectangle
 x=3
 y=120
 width=405
 height=59
-layer=com_113
+layer=r_19_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:113
-[com_113]
+[r_19_layer]
 type=layer
 y=999
 width=432
@@ -1320,7 +1320,7 @@ layer=com_11
 hide=yes
 
 // 422:114
-[com_114]
+[r_20_off]
 type=rectangle
 x=3
 y=182
@@ -1341,19 +1341,19 @@ layer=com_11
 hide=yes
 
 // 422:116
-[com_116]
+[r_21_off]
 type=rectangle
 x=3
 y=244
 width=405
 height=59
-layer=com_117
+layer=r_21_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:117
-[com_117]
+[r_21_layer]
 type=layer
 y=999
 width=432
@@ -1362,19 +1362,19 @@ layer=com_11
 hide=yes
 
 // 422:118
-[com_118]
+[r_22_off]
 type=rectangle
 x=3
 y=306
 width=405
 height=59
-layer=com_119
+layer=r_22_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:119
-[com_119]
+[r_22_layer]
 type=layer
 y=999
 width=432
@@ -1383,19 +1383,19 @@ layer=com_11
 hide=yes
 
 // 422:120
-[com_120]
+[r_23_off]
 type=rectangle
 x=3
 y=368
 width=405
 height=59
-layer=com_121
+layer=r_23_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:121
-[com_121]
+[r_23_layer]
 type=layer
 y=999
 width=432
@@ -1404,19 +1404,19 @@ layer=com_11
 hide=yes
 
 // 422:122
-[com_122]
+[r_24_off]
 type=rectangle
 x=3
 y=430
 width=405
 height=59
-layer=com_123
+layer=r_24_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:123
-[com_123]
+[r_24_layer]
 type=layer
 y=999
 width=432
@@ -1425,7 +1425,7 @@ layer=com_11
 hide=yes
 
 // 422:124
-[com_124]
+[r_25_off]
 type=rectangle
 x=3
 y=492
@@ -1446,19 +1446,19 @@ layer=com_11
 hide=yes
 
 // 422:126
-[com_126]
+[r_26_off]
 type=rectangle
 x=3
 y=554
 width=405
 height=59
-layer=com_127
+layer=r_26_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:127
-[com_127]
+[r_26_layer]
 type=layer
 y=999
 width=432
@@ -1467,19 +1467,19 @@ layer=com_11
 hide=yes
 
 // 422:128
-[com_128]
+[r_27_off]
 type=rectangle
 x=3
 y=616
 width=405
 height=59
-layer=com_129
+layer=r_27_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:129
-[com_129]
+[r_27_layer]
 type=layer
 y=999
 width=432
@@ -1488,19 +1488,19 @@ layer=com_11
 hide=yes
 
 // 422:130
-[com_130]
+[r_28_off]
 type=rectangle
 x=3
 y=678
 width=405
 height=59
-layer=com_131
+layer=r_28_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:131
-[com_131]
+[r_28_layer]
 type=layer
 y=999
 width=432
@@ -1509,19 +1509,19 @@ layer=com_11
 hide=yes
 
 // 422:132
-[com_132]
+[r_29_off]
 type=rectangle
 x=3
 y=740
 width=405
 height=59
-layer=com_133
+layer=r_29_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:133
-[com_133]
+[r_29_layer]
 type=layer
 y=999
 width=432
@@ -1530,19 +1530,19 @@ layer=com_11
 hide=yes
 
 // 422:134
-[com_134]
+[r_30_off]
 type=rectangle
 x=3
 y=802
 width=405
 height=59
-layer=com_135
+layer=r_30_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 422:135
-[com_135]
+[r_30_layer]
 type=layer
 y=999
 width=432
@@ -1551,7 +1551,7 @@ layer=com_11
 hide=yes
 
 // 422:136
-[com_136]
+[title]
 type=text
 x=41
 y=25

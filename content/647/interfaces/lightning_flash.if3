@@ -1,14 +1,14 @@
 // 180:0
-[com_0]
+[controller]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-onload=lightning_init(event_com, lightning_flash:com_1)
+onload=lightning_init(event_com, lightning_flash:lightning)
 
 // 180:1
-[com_1]
+[lightning]
 type=model
 width=18727
 height=31254
@@ -16,7 +16,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=controller
 hide=yes
 model=model_11229
 modelorigin=0,18

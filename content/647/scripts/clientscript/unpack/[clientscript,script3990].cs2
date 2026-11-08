@@ -3,7 +3,7 @@
 if ($int2 ! 1) {
     return;
 }
-~deltooltip_action(task_main:com_152);
+~deltooltip_action(task_main:toggle_tooltip);
 def_int $int3 = ~task_get_progress($int0);
 if ($int3 = 2) {
     ~task_main_list_graphicswapper($int1, graphic_4043);

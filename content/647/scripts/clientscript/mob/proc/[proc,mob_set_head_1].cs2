@@ -1,9 +1,9 @@
 // 2529
 [proc,mob_set_head_1]
 if (%varclient_908 = 1) {
-    if_setgraphic(graphic_1949, mob_side_units:com_68);
+    if_setgraphic(graphic_1949, mob_side_units:unit1);
 } else if (%varclient_908 = 2) {
-    if_setgraphic(graphic_1946, mob_side_units:com_68);
+    if_setgraphic(graphic_1946, mob_side_units:unit1);
 } else if (%varclient_908 = 3) {
-    if_setgraphic(graphic_1947, mob_side_units:com_68);
+    if_setgraphic(graphic_1947, mob_side_units:unit1);
 }

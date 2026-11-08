@@ -4,13 +4,13 @@ if (%varclient_654 < 100) {
     %varclient_654 = calc(%varclient_654 + 1);
 }
 if (%varclient_654 = 50) {
-    if_sethide(true, interface_834:com_48);
-    if_sethide(true, interface_834:com_52);
-    if_sethide(true, interface_834:com_56);
+    if_sethide(true, snp_tutorial_game_overlay:east_grave_flash_layer);
+    if_sethide(true, snp_tutorial_game_overlay:west_grave_flash_layer);
+    if_sethide(true, snp_tutorial_game_overlay:obelisk_flash_layer);
 }
 if (%varclient_654 = 100) {
-    if_sethide(false, interface_834:com_48);
-    if_sethide(false, interface_834:com_52);
-    if_sethide(false, interface_834:com_56);
+    if_sethide(false, snp_tutorial_game_overlay:east_grave_flash_layer);
+    if_sethide(false, snp_tutorial_game_overlay:west_grave_flash_layer);
+    if_sethide(false, snp_tutorial_game_overlay:obelisk_flash_layer);
     %varclient_654 = 0;
 }

@@ -1,20 +1,20 @@
 // 2705
 [proc,graphics_options_decision](boolean $boolean0, int $int1, int $int2, int $int3, boolean $boolean4, boolean $boolean5)
 if ($int2 = 1) {
-    if_closesubclient(toplevel_fullscreen:com_80);
-    if_closesubclient(toplevel:com_20);
-    if_setontimer(null, toplevel_fullscreen:com_80);
-    if_setontimer(null, toplevel:com_20);
-    if_sethide(true, toplevel:com_190);
-    if_sethide(true, toplevel:com_68);
-    if_sethide(true, toplevel:com_193);
-    if_sethide(true, toplevel:com_202);
+    if_closesubclient(toplevel_fullscreen:graphics_confirm_layer);
+    if_closesubclient(toplevel:graphics_confirm_layer);
+    if_setontimer(null, toplevel_fullscreen:graphics_confirm_layer);
+    if_setontimer(null, toplevel:graphics_confirm_layer);
+    if_sethide(true, toplevel:minimap_disable);
+    if_sethide(true, toplevel:filterbuttons_disable);
+    if_sethide(true, toplevel:chat_disable);
+    if_sethide(true, toplevel:side_disable);
     if_sethide(true, toplevel:com_162);
     if_sethide(true, toplevel:com_114);
 } else if ($int2 = 2) {
-    if_setontimer(null, lobbyscreen:com_13);
+    if_setontimer(null, lobbyscreen:base);
 } else {
-    if_setontimer(null, loginscreen:com_17);
+    if_setontimer(null, loginscreen:background_layer);
 }
 def_int $int6 = 0;
 if ($boolean0 = true) {
@@ -68,7 +68,7 @@ def_string $string0 = "kbase/view.ws?guid=controls_display_options";
 if ($int2 ! 1) {
     $int6 = detailget_toolkit;
     if ($int2 = 2) {
-        if_sethide(true, lobbyscreen:com_31);
+        if_sethide(true, lobbyscreen:windowmode_confirm);
         if ($boolean5 = true) {
             ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
         } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
@@ -78,7 +78,7 @@ if ($int2 ! 1) {
         }
         if ($boolean4 = false & $int3 = 1) {
             ~lobbyscreen_input_full("", "The change of detail mode has been cancelled.<br><br>Perhaps different graphical settings would work better for you?", 0, -1, "", "Advanced info", 0);
-            if_setonclick("openurl_nologin($string0, true)", lobbyscreen:com_142);
+            if_setonclick("openurl_nologin($string0, true)", lobbyscreen:input_link);
         }
     } else if ($int2 = 3) {
         if (unknown_command_5623 = true) {
@@ -86,7 +86,7 @@ if ($int2 ! 1) {
             if (%varclient_1273 = true) {
                 return;
             } else {
-                if_setontimer("login_delay(south_progress9:com_50, 0)", south_progress9:com_50);
+                if_setontimer("login_delay(south_progress9:login_button, 0)", south_progress9:login_button);
             }
         } else if (~userflowflags(3) = true) {
             ~loginscreen_setactivemenu(7);
@@ -102,13 +102,13 @@ if ($int2 ! 1) {
             ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
         }
         if ($boolean4 = false & $int3 = 1) {
-            if_settext("The change of detail mode has been cancelled.<br><br>Perhaps different graphical settings would work better for you?", loginscreen:com_76);
+            if_settext("The change of detail mode has been cancelled.<br><br>Perhaps different graphical settings would work better for you?", loginscreen:general_messages_text);
             if ($boolean5 = true) {
-                if_setonclick("loginscreen_setactivemenu_full(6, false, true)", loginscreen:com_79);
+                if_setonclick("loginscreen_setactivemenu_full(6, false, true)", loginscreen:general_messages_continue);
             } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
-                if_setonclick("loginscreen_setactivemenu(6)", loginscreen:com_79);
+                if_setonclick("loginscreen_setactivemenu(6)", loginscreen:general_messages_continue);
             } else {
-                if_setonclick("loginscreen_setactivemenu_full(6, false, true)", loginscreen:com_79);
+                if_setonclick("loginscreen_setactivemenu_full(6, false, true)", loginscreen:general_messages_continue);
             }
             if_settext("Advanced info", loginscreen:com_78);
             if_setonclick("openurl_nologin($string0, true)", loginscreen:com_78);

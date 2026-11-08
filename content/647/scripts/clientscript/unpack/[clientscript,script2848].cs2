@@ -4,7 +4,7 @@ def_int $int6 = 0;
 def_int $int7 = 0;
 if ($component2 ! null) {
     if ($int3 = -1) {
-        if (if_find($component2) = true & $component2 = rm_wires:com_11) {
+        if (if_find($component2) = true & $component2 = rm_wires:wires_corral) {
             $int6 = $int4;
             $int7 = $int5;
             if (.cc_find($component0, $int1) = true) {

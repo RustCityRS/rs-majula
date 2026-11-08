@@ -1,11 +1,11 @@
 // 752
 [clientscript,script752]
 if (%varplayerbit_4534 = 0 & %varplayerbit_4290 = 0) {
-    if_settext("---", lore_stats_side:com_43);
+    if_settext("---", lore_stats_side:animal_time_left);
     return;
 }
 if (%varplayerbit_4290 = 0) {
-    if_settext("<tostring(%varplayerbit_4534)>.00", lore_stats_side:com_43);
+    if_settext("<tostring(%varplayerbit_4534)>.00", lore_stats_side:animal_time_left);
 } else {
-    if_settext("<tostring(%varplayerbit_4534)>.30", lore_stats_side:com_43);
+    if_settext("<tostring(%varplayerbit_4534)>.30", lore_stats_side:animal_time_left);
 }

@@ -1,6 +1,6 @@
 // 4017
 [proc,script4017](int $int0)
-if_settext(enum(int, string, enum_3487, $int0), task_main:com_121);
+if_settext(enum(int, string, enum_3487, $int0), task_main:area_selected);
 def_string $string0 = "Click to hide completed Tasks.";
 def_string $string1 = "Click to hide Tasks which are not in a set.";
 if (%varplayerbit_8579 = 1) {
@@ -9,14 +9,14 @@ if (%varplayerbit_8579 = 1) {
 } else {
     if_setonop("task_main_list_populate(999, 1, 999)", task_main:com_106);
 }
-if_setonmouserepeat("addtooltip(task_main:com_94, task_main:com_97, $string0, 45, 150)", task_main:com_106);
+if_setonmouserepeat("addtooltip(task_main:tooltip_layer, task_main:tooltip, $string0, 45, 150)", task_main:com_106);
 if (%varplayerbit_8580 = 1) {
-    if_setonop("task_main_list_populate(999, 999, 0)", task_main:com_114);
+    if_setonop("task_main_list_populate(999, 999, 0)", task_main:filter_set_button);
     $string1 = "Click to show Tasks which are not in a set.";
 } else {
-    if_setonop("task_main_list_populate(999, 999, 1)", task_main:com_114);
+    if_setonop("task_main_list_populate(999, 999, 1)", task_main:filter_set_button);
 }
-if_setonmouserepeat("addtooltip(task_main:com_94, task_main:com_97, $string1, 45, 150)", task_main:com_114);
+if_setonmouserepeat("addtooltip(task_main:tooltip_layer, task_main:tooltip, $string1, 45, 150)", task_main:filter_set_button);
 if (%varclient_1429 = 1) {
     if_setgraphic("check_box_2,2", task_main:com_142);
     if_setonmouseover("script4033(0, 1)", task_main:com_142);

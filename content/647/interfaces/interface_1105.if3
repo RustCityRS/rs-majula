@@ -5,12 +5,12 @@ x=4
 y=24
 width=326
 height=199
-layer=com_155
+layer=content_layer
 graphic=window_texture_2
 tiling=yes
 
 // 1105:1
-[com_1]
+[border_1]
 type=graphic
 width=60
 height=60
@@ -43,7 +43,7 @@ layer=com_35
 graphic=aif_colour_display_1
 
 // 1105:4
-[com_4]
+[border_4]
 type=graphic
 width=60
 height=60
@@ -76,7 +76,7 @@ layer=com_104
 graphic=aif_colour_display_1
 
 // 1105:7
-[com_7]
+[border_2]
 type=graphic
 width=60
 height=60
@@ -109,7 +109,7 @@ layer=com_80
 graphic=aif_colour_display_1
 
 // 1105:10
-[com_10]
+[border_3]
 type=graphic
 width=60
 height=60
@@ -281,7 +281,7 @@ type=layer
 width=5480
 height=20
 widthmode=proportion
-layer=com_59
+layer=tabs
 
 // 1105:25
 [com_25]
@@ -299,7 +299,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_39
+layer=colour1
 graphic=window_texture_2
 tiling=yes
 
@@ -308,7 +308,7 @@ tiling=yes
 type=graphic
 width=10
 height=10
-layer=com_39
+layer=colour1
 graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
@@ -318,7 +318,7 @@ type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_39
+layer=colour1
 graphic="aif_overlay_frame_gold_corner_2,1"
 
 // 1105:29
@@ -327,7 +327,7 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_39
+layer=colour1
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 hflip=yes
@@ -339,7 +339,7 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_39
+layer=colour1
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 
@@ -351,7 +351,7 @@ height=10
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_39
+layer=colour1
 graphic="aif_overlay_frame_gold_corner_2,0"
 vflip=yes
 hflip=yes
@@ -363,7 +363,7 @@ width=20
 height=10
 widthmode=minus
 xmode=abs_centre
-layer=com_39
+layer=colour1
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 1105:33
@@ -374,7 +374,7 @@ height=20
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_39
+layer=colour1
 graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
@@ -385,7 +385,7 @@ width=10
 height=20
 heightmode=minus
 ymode=abs_centre
-layer=com_39
+layer=colour1
 graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
@@ -396,11 +396,11 @@ y=7
 width=60
 height=60
 xmode=abs_centre
-layer=com_39
+layer=colour1
 transmitop=1
 op1=Select Colour
-onmouseover=clan_colour_mouseover(interface_1105:com_1, "aif_bronze_icon_button_1,1")
-onmouseleave=clan_colour_mouseover(interface_1105:com_1, "aif_bronze_icon_button_1,0")
+onmouseover=clan_colour_mouseover(interface_1105:border_1, "aif_bronze_icon_button_1,1")
+onmouseleave=clan_colour_mouseover(interface_1105:border_1, "aif_bronze_icon_button_1,0")
 
 // 1105:36
 [com_36]
@@ -409,7 +409,7 @@ y=59
 width=188
 height=33
 xmode=abs_centre
-layer=com_39
+layer=colour1
 textfont=p11_full
 text=Symbol colour (left/top)
 textalignh=centre
@@ -423,7 +423,7 @@ x=104
 y=7
 width=10
 height=60
-layer=com_39
+layer=colour1
 
 // 1105:38
 [com_38]
@@ -439,7 +439,7 @@ textalignh=centre
 textalignv=centre
 
 // 1105:39
-[com_39]
+[colour1]
 type=layer
 x=11
 y=17
@@ -480,7 +480,7 @@ layer=com_41
 graphic="aif_symbol_set_1,3"
 
 // 1105:43
-[com_43]
+[colour2]
 type=layer
 x=163
 y=17
@@ -489,7 +489,7 @@ height=86
 layer=com_70
 
 // 1105:44
-[com_44]
+[colour3]
 type=layer
 x=11
 y=106
@@ -498,7 +498,7 @@ height=86
 layer=com_70
 
 // 1105:45
-[com_45]
+[colour4]
 type=layer
 x=163
 y=106
@@ -610,7 +610,7 @@ x=333
 y=1
 width=138
 height=223
-layer=com_155
+layer=content_layer
 onload=clan_build_preview
 
 // 1105:56
@@ -645,13 +645,13 @@ ymode=abs_centre
 layer=com_55
 
 // 1105:59
-[com_59]
+[tabs]
 type=layer
 x=1
 y=1
 width=331
 height=21
-layer=com_155
+layer=content_layer
 
 // 1105:60
 [com_60]
@@ -660,16 +660,16 @@ x=5
 y=3
 width=327
 height=222
-layer=com_155
+layer=content_layer
 
 // 1105:61
-[com_61]
+[button_layer]
 type=layer
 y=230
 width=143
 height=30
 xmode=abs_centre
-layer=com_155
+layer=content_layer
 
 // 1105:62
 [com_62]
@@ -752,7 +752,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_43
+layer=colour2
 graphic=window_texture_2
 tiling=yes
 
@@ -761,7 +761,7 @@ tiling=yes
 type=graphic
 width=10
 height=10
-layer=com_43
+layer=colour2
 graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
@@ -771,7 +771,7 @@ type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_43
+layer=colour2
 graphic="aif_overlay_frame_gold_corner_2,1"
 
 // 1105:74
@@ -780,7 +780,7 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_43
+layer=colour2
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 hflip=yes
@@ -792,7 +792,7 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_43
+layer=colour2
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 
@@ -804,7 +804,7 @@ height=10
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_43
+layer=colour2
 graphic="aif_overlay_frame_gold_corner_2,0"
 vflip=yes
 hflip=yes
@@ -816,7 +816,7 @@ width=20
 height=10
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=colour2
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 1105:78
@@ -827,7 +827,7 @@ height=20
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_43
+layer=colour2
 graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
@@ -838,7 +838,7 @@ width=10
 height=20
 heightmode=minus
 ymode=abs_centre
-layer=com_43
+layer=colour2
 graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
@@ -849,11 +849,11 @@ y=7
 width=60
 height=60
 xmode=abs_centre
-layer=com_43
+layer=colour2
 transmitop=1
 op1=Select Colour
-onmouseover=clan_colour_mouseover(interface_1105:com_7, "aif_bronze_icon_button_1,1")
-onmouseleave=clan_colour_mouseover(interface_1105:com_7, "aif_bronze_icon_button_1,0")
+onmouseover=clan_colour_mouseover(interface_1105:border_2, "aif_bronze_icon_button_1,1")
+onmouseleave=clan_colour_mouseover(interface_1105:border_2, "aif_bronze_icon_button_1,0")
 
 // 1105:81
 [com_81]
@@ -862,7 +862,7 @@ y=59
 width=188
 height=33
 xmode=abs_centre
-layer=com_43
+layer=colour2
 textfont=p11_full
 text=Symbol colour (right/bottom)
 textalignh=centre
@@ -876,7 +876,7 @@ x=104
 y=7
 width=10
 height=60
-layer=com_43
+layer=colour2
 
 // 1105:83
 [com_83]
@@ -885,7 +885,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_44
+layer=colour3
 graphic=window_texture_2
 tiling=yes
 
@@ -894,7 +894,7 @@ tiling=yes
 type=graphic
 width=10
 height=10
-layer=com_44
+layer=colour3
 graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
@@ -904,7 +904,7 @@ type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_44
+layer=colour3
 graphic="aif_overlay_frame_gold_corner_2,1"
 
 // 1105:86
@@ -913,7 +913,7 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_44
+layer=colour3
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 hflip=yes
@@ -925,7 +925,7 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_44
+layer=colour3
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 
@@ -937,7 +937,7 @@ height=10
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_44
+layer=colour3
 graphic="aif_overlay_frame_gold_corner_2,0"
 vflip=yes
 hflip=yes
@@ -949,7 +949,7 @@ width=20
 height=10
 widthmode=minus
 xmode=abs_centre
-layer=com_44
+layer=colour3
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 1105:90
@@ -960,7 +960,7 @@ height=20
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_44
+layer=colour3
 graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
@@ -971,7 +971,7 @@ width=10
 height=20
 heightmode=minus
 ymode=abs_centre
-layer=com_44
+layer=colour3
 graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
@@ -982,11 +982,11 @@ y=7
 width=60
 height=60
 xmode=abs_centre
-layer=com_44
+layer=colour3
 transmitop=1
 op1=Select Colour
-onmouseover=clan_colour_mouseover(interface_1105:com_10, "aif_bronze_icon_button_1,1")
-onmouseleave=clan_colour_mouseover(interface_1105:com_10, "aif_bronze_icon_button_1,0")
+onmouseover=clan_colour_mouseover(interface_1105:border_3, "aif_bronze_icon_button_1,1")
+onmouseleave=clan_colour_mouseover(interface_1105:border_3, "aif_bronze_icon_button_1,0")
 
 // 1105:93
 [com_93]
@@ -995,7 +995,7 @@ y=59
 width=188
 height=33
 xmode=abs_centre
-layer=com_44
+layer=colour3
 textfont=p11_full
 text=Primary clan colour
 textalignh=centre
@@ -1009,7 +1009,7 @@ x=104
 y=7
 width=10
 height=60
-layer=com_44
+layer=colour3
 
 // 1105:95
 [com_95]
@@ -1018,7 +1018,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_45
+layer=colour4
 graphic=window_texture_2
 tiling=yes
 
@@ -1027,7 +1027,7 @@ tiling=yes
 type=graphic
 width=10
 height=10
-layer=com_45
+layer=colour4
 graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
@@ -1037,7 +1037,7 @@ type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_45
+layer=colour4
 graphic="aif_overlay_frame_gold_corner_2,1"
 
 // 1105:98
@@ -1046,7 +1046,7 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_45
+layer=colour4
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 hflip=yes
@@ -1058,7 +1058,7 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_45
+layer=colour4
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 
@@ -1070,7 +1070,7 @@ height=10
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_45
+layer=colour4
 graphic="aif_overlay_frame_gold_corner_2,0"
 vflip=yes
 hflip=yes
@@ -1082,7 +1082,7 @@ width=20
 height=10
 widthmode=minus
 xmode=abs_centre
-layer=com_45
+layer=colour4
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 1105:102
@@ -1093,7 +1093,7 @@ height=20
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_45
+layer=colour4
 graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
@@ -1104,7 +1104,7 @@ width=10
 height=20
 heightmode=minus
 ymode=abs_centre
-layer=com_45
+layer=colour4
 graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
@@ -1115,11 +1115,11 @@ y=7
 width=60
 height=60
 xmode=abs_centre
-layer=com_45
+layer=colour4
 transmitop=1
 op1=Select Colour
-onmouseover=clan_colour_mouseover(interface_1105:com_4, "aif_bronze_icon_button_1,1")
-onmouseleave=clan_colour_mouseover(interface_1105:com_4, "aif_bronze_icon_button_1,0")
+onmouseover=clan_colour_mouseover(interface_1105:border_4, "aif_bronze_icon_button_1,1")
+onmouseleave=clan_colour_mouseover(interface_1105:border_4, "aif_bronze_icon_button_1,0")
 
 // 1105:105
 [com_105]
@@ -1128,7 +1128,7 @@ y=59
 width=188
 height=33
 xmode=abs_centre
-layer=com_45
+layer=colour4
 textfont=p11_full
 text=Secondary clan colour
 textalignh=centre
@@ -1142,7 +1142,7 @@ x=104
 y=7
 width=10
 height=60
-layer=com_45
+layer=colour4
 
 // 1105:107
 [com_107]
@@ -1151,7 +1151,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_61
+layer=button_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -1163,7 +1163,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_61
+layer=button_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -1175,7 +1175,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_61
+layer=button_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -1186,7 +1186,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_61
+layer=button_layer
 onload=script4201(event_com, struct_1736)
 
 // 1105:111
@@ -1294,7 +1294,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_61
+layer=button_layer
 onload=script4201(event_com, struct_1737)
 
 // 1105:121
@@ -1304,7 +1304,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_61
+layer=button_layer
 onload=script4201(event_com, struct_1738)
 
 // 1105:122
@@ -1314,17 +1314,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_61
+layer=button_layer
 onload=script4201(event_com, struct_1739)
 
 // 1105:123
-[com_123]
+[ok_button]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_61
+layer=button_layer
 transmitop=1
 op1=Done
 
@@ -1335,7 +1335,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_61
+layer=button_layer
 
 // 1105:125
 [com_125]
@@ -1361,7 +1361,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_61
+layer=button_layer
 hide=yes
 noclickthrough=yes
 onload=script4201(event_com, struct_1740)
@@ -1663,7 +1663,7 @@ onclick=script4207(event_com, 0)
 onrelease=script4207(event_com, 1)
 
 // 1105:154
-[com_154]
+[title_layer]
 type=layer
 width=16384
 height=23
@@ -1672,7 +1672,7 @@ xmode=abs_centre
 layer=com_128
 
 // 1105:155
-[com_155]
+[content_layer]
 type=layer
 x=14
 y=31
@@ -1681,15 +1681,15 @@ height=258
 layer=com_128
 
 // 1105:156
-[com_156]
+[tooltip_trigger]
 type=layer
 x=342
 y=17
 width=109
 height=188
-layer=com_155
-onmouseleave=deltooltip(interface_1105:com_247)
-onmouserepeat=aif_tooltip(interface_1105:com_247, event_com, -1, "Preview of in game colours", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+layer=content_layer
+onmouseleave=deltooltip(interface_1105:tooltip)
+onmouserepeat=aif_tooltip(interface_1105:tooltip, event_com, -1, "Preview of in game colours", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 1105:157
 [com_157]
@@ -1700,7 +1700,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_154
+layer=title_layer
 textfont=palatino_linotype_18pt_regular
 text=Clan Motif Designer
 textalignh=centre
@@ -1874,7 +1874,7 @@ width=5480
 height=20
 widthmode=proportion
 xmode=abs_centre
-layer=com_59
+layer=tabs
 
 // 1105:173
 [com_173]
@@ -1957,7 +1957,7 @@ heightmode=proportion
 layer=com_172
 
 // 1105:181
-[com_181]
+[tab_1]
 type=text
 width=16384
 height=16384
@@ -2004,7 +2004,7 @@ width=5480
 height=20
 widthmode=proportion
 xmode=abs_right
-layer=com_59
+layer=tabs
 
 // 1105:185
 [com_185]
@@ -2087,7 +2087,7 @@ heightmode=proportion
 layer=com_184
 
 // 1105:193
-[com_193]
+[tab_2]
 type=text
 width=16384
 height=16384
@@ -2717,7 +2717,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 1105:247
-[com_247]
+[tooltip]
 type=layer
 width=512
 height=334

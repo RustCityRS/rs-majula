@@ -8,8 +8,8 @@ if (string_length($string1) < 2) {
 }
 if (%varplayerbit_9187 = 0) {
     if_settext("Match Starts In:", interface_1088:com_12);
-    if_settext("<$string0>:<$string1>", interface_1088:com_13);
+    if_settext("<$string0>:<$string1>", interface_1088:time);
 } else {
     if_settext("Time Remaining:", interface_1088:com_12);
-    if_settext("<$string0>:<$string1>", interface_1088:com_13);
+    if_settext("<$string0>:<$string1>", interface_1088:time);
 }

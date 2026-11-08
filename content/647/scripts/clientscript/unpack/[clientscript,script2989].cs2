@@ -1,4 +1,4 @@
 // 2989
 [clientscript,script2989]
-if_sethide(true, ecosystem_creatures:com_58);
-if_sethide(false, ecosystem_creatures:com_56);
+if_sethide(true, ecosystem_creatures:requirement_layer);
+if_sethide(false, ecosystem_creatures:creature_layer);

@@ -8,7 +8,7 @@ fill=yes
 trans=175
 
 // 420:1
-[com_1]
+[start_1_anchor]
 type=text
 x=25
 y=25
@@ -16,7 +16,7 @@ width=230
 height=200
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=dragzone
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -24,7 +24,7 @@ textshadow=yes
 colour=0xff991f
 
 // 420:2
-[com_2]
+[start_2_anchor]
 type=text
 x=25
 y=75
@@ -32,7 +32,7 @@ width=230
 height=200
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=dragzone
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -40,7 +40,7 @@ textshadow=yes
 colour=0xff991f
 
 // 420:3
-[com_3]
+[start_3_anchor]
 type=text
 x=25
 y=125
@@ -48,7 +48,7 @@ width=230
 height=200
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=dragzone
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -56,7 +56,7 @@ textshadow=yes
 colour=0xff991f
 
 // 420:4
-[com_4]
+[start_4_anchor]
 type=text
 x=25
 y=175
@@ -64,7 +64,7 @@ width=230
 height=200
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=dragzone
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -77,41 +77,41 @@ type=model
 width=45
 height=40
 ymode=abs_centre
-layer=com_39
+layer=build_button
 model=model_16026
 modelangle=512,0,0
 modelzoom=500
 
 // 420:6
-[com_6]
+[bees]
 type=model
 x=94
 y=43
 width=53
 height=75
-layer=com_30
+layer=bees_layer
 model=model_2949
 modelorigin=2,42
 modelzoom=800
 modelanim=swarm_walk
-onload=bees_init(event_com, beehive:com_7)
+onload=bees_init(event_com, beehive:more_bees)
 
 // 420:7
-[com_7]
+[more_bees]
 type=model
 x=337
 y=135
 width=53
 height=75
-layer=com_30
+layer=bees_layer
 model=model_2949
 modelorigin=2,42
 modelzoom=800
 modelanim=swarm_walk
-onload=bees_init(event_com, beehive:com_6)
+onload=bees_init(event_com, beehive:bees)
 
 // 420:8
-[com_8]
+[dest_1_anchor]
 type=text
 x=206
 y=20
@@ -119,7 +119,7 @@ width=230
 height=200
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=dragzone
 textfont=b12_full
 text=LID
 textalignh=centre
@@ -128,7 +128,7 @@ textshadow=yes
 colour=0xff991f
 
 // 420:9
-[com_9]
+[dest_2_anchor]
 type=text
 x=206
 y=72
@@ -136,7 +136,7 @@ width=230
 height=200
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=dragzone
 textfont=b12_full
 text=UPPER<br>MIDDLE
 textalignh=centre
@@ -145,7 +145,7 @@ textshadow=yes
 colour=0xff991f
 
 // 420:10
-[com_10]
+[dest_3_anchor]
 type=text
 x=206
 y=124
@@ -153,7 +153,7 @@ width=230
 height=200
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=dragzone
 textfont=b12_full
 text=LOWER<br>MIDDLE
 textalignh=centre
@@ -162,7 +162,7 @@ textshadow=yes
 colour=0xff991f
 
 // 420:11
-[com_11]
+[dest_4_anchor]
 type=text
 x=206
 y=176
@@ -170,7 +170,7 @@ width=230
 height=200
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=dragzone
 textfont=b12_full
 text=LEGS
 textalignh=centre
@@ -179,133 +179,133 @@ textshadow=yes
 colour=0xff991f
 
 // 420:12
-[com_12]
+[start_1]
 type=layer
 x=25
 y=25
 width=100
 height=50
-layer=com_29
+layer=dragzone
 dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:com_1){varplayer_805}
-ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_1)
+onvartransmit=script2130(event_com, beehive:start_1_anchor){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:start_1_anchor)
 
 // 420:13
-[com_13]
+[start_2]
 type=layer
 x=25
 y=75
 width=100
 height=50
-layer=com_29
+layer=dragzone
 dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:com_2){varplayer_805}
-ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_2)
+onvartransmit=script2130(event_com, beehive:start_2_anchor){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:start_2_anchor)
 
 // 420:14
-[com_14]
+[start_3]
 type=layer
 x=25
 y=125
 width=100
 height=50
-layer=com_29
+layer=dragzone
 dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:com_3){varplayer_805}
-ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_3)
+onvartransmit=script2130(event_com, beehive:start_3_anchor){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:start_3_anchor)
 
 // 420:15
-[com_15]
+[start_4]
 type=layer
 x=25
 y=175
 width=100
 height=50
-layer=com_29
+layer=dragzone
 dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:com_4){varplayer_805}
-ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_4)
+onvartransmit=script2130(event_com, beehive:start_4_anchor){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:start_4_anchor)
 
 // 420:16
-[com_16]
+[dest_1]
 type=layer
 x=206
 y=20
 width=100
 height=50
-layer=com_29
+layer=dragzone
 dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:com_8){varplayer_805}
-ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_8)
+onvartransmit=script2130(event_com, beehive:dest_1_anchor){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:dest_1_anchor)
 
 // 420:17
-[com_17]
+[dest_2]
 type=layer
 x=206
 y=72
 width=100
 height=50
-layer=com_29
+layer=dragzone
 dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:com_9){varplayer_805}
-ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_9)
+onvartransmit=script2130(event_com, beehive:dest_2_anchor){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:dest_2_anchor)
 
 // 420:18
-[com_18]
+[dest_3]
 type=layer
 x=206
 y=124
 width=100
 height=50
-layer=com_29
+layer=dragzone
 dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:com_10){varplayer_805}
-ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_10)
+onvartransmit=script2130(event_com, beehive:dest_3_anchor){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:dest_3_anchor)
 
 // 420:19
-[com_19]
+[dest_4]
 type=layer
 x=206
 y=176
 width=100
 height=50
-layer=com_29
+layer=dragzone
 dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:com_11){varplayer_805}
-ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_11)
+onvartransmit=script2130(event_com, beehive:dest_4_anchor){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:dest_4_anchor)
 
 // 420:20
-[com_20]
+[dest_1_model]
 type=model
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=dest_1
 model=null
 modelzoom=800
 modelobjwidth=100
@@ -314,39 +314,39 @@ transmitop=10
 op10= 
 
 // 420:21
-[com_21]
+[start_4_model]
 type=model
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_15
+layer=start_4
 model=null
 modelzoom=800
 modelobjwidth=100
 modelobjheight=50
 
 // 420:22
-[com_22]
+[start_2_model]
 type=model
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=start_2
 model=null
 modelzoom=800
 modelobjwidth=100
 modelobjheight=50
 
 // 420:23
-[com_23]
+[start_3_model]
 type=model
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_14
+layer=start_3
 model=null
 modelzoom=800
 modelobjwidth=100
@@ -365,26 +365,26 @@ modelangle=517,0,0
 modelzoom=421
 
 // 420:25
-[com_25]
+[start_1_model]
 type=model
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=start_1
 model=null
 modelzoom=800
 modelobjwidth=100
 modelobjheight=50
 
 // 420:26
-[com_26]
+[dest_4_model]
 type=model
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_19
+layer=dest_4
 model=null
 modelzoom=800
 modelobjwidth=100
@@ -393,13 +393,13 @@ transmitop=10
 op10= 
 
 // 420:27
-[com_27]
+[dest_3_model]
 type=model
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=dest_3
 model=null
 modelzoom=800
 modelobjwidth=100
@@ -408,13 +408,13 @@ transmitop=10
 op10= 
 
 // 420:28
-[com_28]
+[dest_2_model]
 type=model
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=dest_2
 model=null
 modelzoom=800
 modelobjwidth=100
@@ -423,15 +423,15 @@ transmitop=10
 op10= 
 
 // 420:29
-[com_29]
+[dragzone]
 type=layer
 width=330
 height=250
-onload=macro_beekeeper_init(event_com, beehive:com_25, beehive:com_22, beehive:com_23, beehive:com_21, beehive:com_20, beehive:com_28, beehive:com_27, beehive:com_26)
-onvartransmit=macro_beekeeper_transmit(event_com, beehive:com_25, beehive:com_22, beehive:com_23, beehive:com_21, beehive:com_20, beehive:com_28, beehive:com_27, beehive:com_26){varplayer_805}
+onload=macro_beekeeper_init(event_com, beehive:start_1_model, beehive:start_2_model, beehive:start_3_model, beehive:start_4_model, beehive:dest_1_model, beehive:dest_2_model, beehive:dest_3_model, beehive:dest_4_model)
+onvartransmit=macro_beekeeper_transmit(event_com, beehive:start_1_model, beehive:start_2_model, beehive:start_3_model, beehive:start_4_model, beehive:dest_1_model, beehive:dest_2_model, beehive:dest_3_model, beehive:dest_4_model){varplayer_805}
 
 // 420:30
-[com_30]
+[bees_layer]
 type=layer
 width=10
 height=10
@@ -441,7 +441,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 420:31
-[com_31]
+[example_layer]
 type=layer
 x=25
 y=25
@@ -466,25 +466,25 @@ textshadow=yes
 colour=0xff991f
 
 // 420:33
-[com_33]
+[example_top]
 type=model
 y=4
 width=70
 height=37
 xmode=abs_centre
-layer=com_31
+layer=example_layer
 model=model_16036
 modelorigin=-1,1
 modelzoom=900
 
 // 420:34
-[com_34]
+[example_body]
 type=model
 y=40
 width=65
 height=25
 xmode=abs_centre
-layer=com_31
+layer=example_layer
 model=model_16025
 modelorigin=0,13
 modelzoom=900
@@ -496,29 +496,29 @@ y=64
 width=65
 height=25
 xmode=abs_centre
-layer=com_31
+layer=example_layer
 model=model_16022
 modelzoom=900
 
 // 420:36
-[com_36]
+[example_legs]
 type=model
 y=88
 width=65
 height=31
 xmode=abs_centre
-layer=com_31
+layer=example_layer
 model=model_16034
 modelzoom=900
 
 // 420:37
-[com_37]
+[example_text]
 type=text
 height=50
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=example_layer
 textfont=b12_full
 text=EXAMPLE
 textalignh=centre
@@ -543,7 +543,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,4")
 onop=closebutton_click
 
 // 420:39
-[com_39]
+[build_button]
 type=layer
 y=250
 width=125
@@ -551,18 +551,18 @@ height=50
 xmode=abs_centre
 transmitop=1
 op1=Build
-onmouseover=text_colour_swapper(beehive:com_40, ^white)
-onmouseleave=text_colour_swapper(beehive:com_40, 0xff991f)
+onmouseover=text_colour_swapper(beehive:build_text, ^white)
+onmouseleave=text_colour_swapper(beehive:build_text, 0xff991f)
 
 // 420:40
-[com_40]
+[build_text]
 type=text
 width=45
 height=32
 widthmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_39
+layer=build_button
 textfont=b12_full
 text=BUILD
 textalignh=centre

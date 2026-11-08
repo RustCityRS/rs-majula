@@ -9,7 +9,7 @@ colour=0x3e372e
 fill=yes
 
 // 369:1
-[com_1]
+[tribalcl1]
 type=layer
 x=12
 y=20
@@ -24,7 +24,7 @@ x=6
 y=-1
 width=481
 height=53
-layer=com_1
+layer=tribalcl1
 graphic=tradebacking
 tiling=yes
 colour=0x000000
@@ -35,7 +35,7 @@ opbase=
 type=graphic
 width=32
 height=32
-layer=com_1
+layer=tribalcl1
 graphic="v2_stone_borders,4"
 tiling=yes
 colour=0x000000
@@ -47,7 +47,7 @@ x=31
 y=-13
 width=439
 height=35
-layer=com_1
+layer=tribalcl1
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0x000000
@@ -58,7 +58,7 @@ type=graphic
 x=456
 width=32
 height=32
-layer=com_1
+layer=tribalcl1
 graphic="v2_stone_borders,5"
 tiling=yes
 colour=0x000000
@@ -70,7 +70,7 @@ x=456
 y=7
 width=32
 height=32
-layer=com_1
+layer=tribalcl1
 graphic="v2_stone_borders,7"
 tiling=yes
 colour=0x000000
@@ -82,7 +82,7 @@ x=32
 y=19
 width=440
 height=22
-layer=com_1
+layer=tribalcl1
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0x000000
@@ -93,7 +93,7 @@ type=graphic
 y=7
 width=32
 height=32
-layer=com_1
+layer=tribalcl1
 graphic="v2_stone_borders,6"
 tiling=yes
 colour=0x000000
@@ -143,7 +143,7 @@ modelangle=400,0,0
 modelzoom=550
 
 // 369:13
-[com_13]
+[tribala]
 type=text
 x=65
 y=97
@@ -156,7 +156,7 @@ textshadow=yes
 colour=0xff981f
 
 // 369:14
-[com_14]
+[tribalb]
 type=text
 x=189
 y=97
@@ -169,7 +169,7 @@ textshadow=yes
 colour=0xff981f
 
 // 369:15
-[com_15]
+[tribalc]
 type=text
 x=313
 y=97
@@ -182,7 +182,7 @@ textshadow=yes
 colour=0xff981f
 
 // 369:16
-[com_16]
+[tribald]
 type=text
 x=437
 y=97
@@ -195,7 +195,7 @@ textshadow=yes
 colour=0xff981f
 
 // 369:17
-[com_17]
+[tribala_left]
 type=graphic
 x=22
 y=196
@@ -207,7 +207,7 @@ transmitop=1
 op1=Left
 
 // 369:18
-[com_18]
+[tribala_right]
 type=graphic
 x=70
 y=196
@@ -219,7 +219,7 @@ transmitop=1
 op1=Right
 
 // 369:19
-[com_19]
+[tribalb_left]
 type=graphic
 x=146
 y=196
@@ -231,7 +231,7 @@ transmitop=1
 op1=Left
 
 // 369:20
-[com_20]
+[tribalb_right]
 type=graphic
 x=194
 y=196
@@ -243,7 +243,7 @@ transmitop=1
 op1=Right
 
 // 369:21
-[com_21]
+[tribalc_left]
 type=graphic
 x=270
 y=196
@@ -255,7 +255,7 @@ transmitop=1
 op1=Left
 
 // 369:22
-[com_22]
+[tribalc_right]
 type=graphic
 x=318
 y=196
@@ -267,7 +267,7 @@ transmitop=1
 op1=Right
 
 // 369:23
-[com_23]
+[tribald_left]
 type=graphic
 x=394
 y=196
@@ -279,7 +279,7 @@ transmitop=1
 op1=Left
 
 // 369:24
-[com_24]
+[tribald_right]
 type=graphic
 x=442
 y=196
@@ -291,7 +291,7 @@ transmitop=1
 op1=Right
 
 // 369:25
-[com_25]
+[tribalcombolock]
 type=text
 x=137
 y=31
@@ -305,7 +305,7 @@ textshadow=yes
 colour=0xff981f
 
 // 369:26
-[com_26]
+[tribalenter]
 type=rectangle
 x=193
 y=262
@@ -315,7 +315,7 @@ colour=0x3e372e
 fill=yes
 
 // 369:27
-[com_27]
+[tribalenter2]
 type=text
 x=205
 y=264
@@ -332,7 +332,7 @@ op1=Enter
 opcursor0=cursor_57
 
 // 369:28
-[com_28]
+[close_button]
 type=graphic
 x=470
 y=28

@@ -1,11 +1,11 @@
 // 669:0
-[com_0]
+[u13_title]
 type=text
 y=6
 height=29
 widthmode=minus
 xmode=abs_centre
-layer=com_13
+layer=u13_layer
 textfont=verdana_15pt_regular
 text=Important Information
 textalignh=centre
@@ -14,14 +14,14 @@ textshadow=yes
 colour=0xebe0bc
 
 // 669:1
-[com_1]
+[padlock_icon]
 type=graphic
 x=10
 y=10
 width=22
 height=22
 xmode=abs_right
-layer=com_13
+layer=u13_layer
 graphic="symbols_1,0"
 
 // 669:2
@@ -31,7 +31,7 @@ x=23
 y=72
 width=504
 height=1
-layer=com_13
+layer=u13_layer
 colour=0x161513
 
 // 669:3
@@ -41,7 +41,7 @@ x=23
 y=73
 width=504
 height=1
-layer=com_13
+layer=u13_layer
 colour=0x2d2d2d
 
 // 669:4
@@ -51,7 +51,7 @@ x=23
 y=308
 width=504
 height=1
-layer=com_13
+layer=u13_layer
 colour=0x161513
 
 // 669:5
@@ -61,42 +61,42 @@ x=23
 y=309
 width=504
 height=1
-layer=com_13
+layer=u13_layer
 colour=0x2d2d2d
 
 // 669:6
-[com_6]
+[u13_continue]
 type=layer
 y=260
 width=101
 height=26
 xmode=abs_centre
-layer=com_13
+layer=u13_layer
 onmouseover=script3937(account_create_success:com_42, "set_but_end_3,1", account_create_success:com_43, "set_but_fill_3,1", account_create_success:com_44, "set_but_fill_3,1", account_create_success:com_45, "set_but_end_3,1")
 onmouseleave=script3937(account_create_success:com_42, "set_but_end_3,0", account_create_success:com_43, "set_but_fill_3,0", account_create_success:com_44, "set_but_fill_3,0", account_create_success:com_45, "set_but_end_3,0")
 onclick=script3942
 
 // 669:7
-[com_7]
+[terms_link_layer]
 type=layer
 x=265
 y=179
 width=135
 height=18
 xmode=abs_right
-layer=com_13
-onmouseover=login_link_highlight(event_com, account_create_success:com_48, verdana_11pt_regular, 1)
-onmouseleave=login_link_highlight(event_com, account_create_success:com_48, verdana_11pt_regular, 0)
+layer=u13_layer
+onmouseover=login_link_highlight(event_com, account_create_success:terms_link, verdana_11pt_regular, 1)
+onmouseleave=login_link_highlight(event_com, account_create_success:terms_link, verdana_11pt_regular, 0)
 onclick=script3212("terms/terms.ws")
 
 // 669:8
-[com_8]
+[and_text]
 type=text
 x=289
 y=179
 width=20
 height=18
-layer=com_13
+layer=u13_layer
 textfont=verdana_11pt_regular
 text=and
 textalignh=centre
@@ -105,15 +105,15 @@ textshadow=yes
 colour=0xebe0bc
 
 // 669:9
-[com_9]
+[privacy_link_layer]
 type=layer
 x=314
 y=179
 width=90
 height=18
-layer=com_13
-onmouseover=login_link_highlight(event_com, account_create_success:com_49, verdana_11pt_regular, 1)
-onmouseleave=login_link_highlight(event_com, account_create_success:com_49, verdana_11pt_regular, 0)
+layer=u13_layer
+onmouseover=login_link_highlight(event_com, account_create_success:privacy_link, verdana_11pt_regular, 1)
+onmouseleave=login_link_highlight(event_com, account_create_success:privacy_link, verdana_11pt_regular, 0)
 onclick=script3212("privacy/privacy.ws")
 
 // 669:10
@@ -124,7 +124,7 @@ width=50
 height=107
 widthmode=minus
 xmode=abs_centre
-layer=com_13
+layer=u13_layer
 textfont=verdana_11pt_regular
 text=As you are under 13, we have not saved your email address on our systems. Your email address acts as your login, but you will not receive any emails from Jagex. For more information, please see the relevant parts of the:
 textlineheight=14
@@ -143,14 +143,14 @@ ymode=abs_centre
 op10=    
 
 // 669:12
-[com_12]
+[border]
 type=layer
 widthmode=minus
 heightmode=minus
 layer=com_11
 
 // 669:13
-[com_13]
+[u13_layer]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -160,7 +160,7 @@ layer=com_11
 hide=yes
 
 // 669:14
-[com_14]
+[contents]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -170,13 +170,13 @@ layer=com_11
 op10=    
 
 // 669:15
-[com_15]
+[title]
 type=text
 y=6
 height=29
 widthmode=minus
 xmode=abs_centre
-layer=com_14
+layer=contents
 textfont=verdana_15pt_regular
 text=Sign Up Successful
 textalignh=centre
@@ -192,7 +192,7 @@ x=19
 y=235
 width=504
 height=1
-layer=com_14
+layer=contents
 colour=0x161513
 
 // 669:17
@@ -202,7 +202,7 @@ x=19
 y=236
 width=504
 height=1
-layer=com_14
+layer=contents
 colour=0x2d2d2d
 
 // 669:18
@@ -213,7 +213,7 @@ width=50
 height=80
 widthmode=minus
 xmode=abs_centre
-layer=com_14
+layer=contents
 textfont=verdana_11pt_regular
 text=Congratulations, your account has been created successfully!
 textlineheight=14
@@ -232,7 +232,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=border
 graphic=window_texture
 tiling=yes
 
@@ -244,75 +244,75 @@ y=8
 width=76
 height=27
 widthmode=minus
-layer=com_12
+layer=border
 colour=0x000000
 fill=yes
 trans=200
 
 // 669:21
-[com_21]
+[bottom_left_corner]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_12
+layer=border
 hflip=yes
 
 // 669:22
-[com_22]
+[left_side]
 type=graphic
 width=38
 height=144
 heightmode=minus
 ymode=abs_centre
-layer=com_12
+layer=border
 graphic="corner_frame_1,1"
 tiling=yes
 hflip=yes
 
 // 669:23
-[com_23]
+[right_side]
 type=graphic
 y=72
 width=38
 height=144
 heightmode=minus
 xmode=abs_right
-layer=com_12
+layer=border
 graphic="corner_frame_1,1"
 tiling=yes
 
 // 669:24
-[com_24]
+[upper_top_side]
 type=graphic
 width=76
 height=8
 widthmode=minus
 xmode=abs_centre
-layer=com_12
+layer=border
 graphic="corner_frame_2,0"
 tiling=yes
 
 // 669:25
-[com_25]
+[bottom_side]
 type=graphic
 width=76
 height=8
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_12
+layer=border
 graphic="corner_frame_2,2"
 tiling=yes
 
 // 669:26
-[com_26]
+[bottom_right_corner]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_12
+layer=border
 
 // 669:27
 [com_27]
@@ -321,33 +321,33 @@ y=35
 width=500
 height=195
 xmode=abs_centre
-layer=com_12
+layer=border
 
 // 669:28
-[com_28]
+[top_left_corner]
 type=graphic
 width=38
 height=72
-layer=com_12
+layer=border
 hflip=yes
 
 // 669:29
-[com_29]
+[top_right_corner]
 type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_12
+layer=border
 
 // 669:30
-[com_30]
+[lower_top_side]
 type=graphic
 y=35
 width=76
 height=8
 widthmode=minus
 xmode=abs_centre
-layer=com_12
+layer=border
 graphic="corner_frame_2,1"
 tiling=yes
 
@@ -360,16 +360,16 @@ width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_40
+layer=continue
 colour=0x000000
 fill=yes
 
 // 669:32
-[com_32]
+[continue_left]
 type=graphic
 width=25
 height=25
-layer=com_40
+layer=continue
 graphic="set_but_end_3,0"
 
 // 669:33
@@ -378,7 +378,7 @@ type=graphic
 x=25
 width=25
 height=25
-layer=com_40
+layer=continue
 graphic="set_but_fill_3,0"
 tiling=yes
 
@@ -388,19 +388,19 @@ type=graphic
 x=50
 width=25
 height=25
-layer=com_40
+layer=continue
 graphic="set_but_fill_3,0"
 tiling=yes
 hflip=yes
 
 // 669:35
-[com_35]
+[continue_right]
 type=graphic
 x=1
 width=25
 height=25
 xmode=abs_right
-layer=com_40
+layer=continue
 graphic="set_but_end_3,0"
 hflip=yes
 
@@ -412,7 +412,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_40
+layer=continue
 textfont=verdana_11pt_regular
 text=Continue
 textalignh=centre
@@ -420,14 +420,14 @@ textalignv=centre
 colour=0xc0b154
 
 // 669:37
-[com_37]
+[continue_text]
 type=text
 y=-1
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_40
+layer=continue
 textfont=verdana_11pt_regular
 text=Continue
 textalignh=centre
@@ -441,7 +441,7 @@ x=22
 y=317
 width=504
 height=1
-layer=com_14
+layer=contents
 colour=0x161513
 
 // 669:39
@@ -451,19 +451,19 @@ x=22
 y=318
 width=504
 height=1
-layer=com_14
+layer=contents
 colour=0x2d2d2d
 
 // 669:40
-[com_40]
+[continue]
 type=layer
 y=344
 width=101
 height=26
 xmode=abs_centre
-layer=com_14
-onmouseover=script3937(account_create_success:com_32, "set_but_end_3,1", account_create_success:com_33, "set_but_fill_3,1", account_create_success:com_34, "set_but_fill_3,1", account_create_success:com_35, "set_but_end_3,1")
-onmouseleave=script3937(account_create_success:com_32, "set_but_end_3,0", account_create_success:com_33, "set_but_fill_3,0", account_create_success:com_34, "set_but_fill_3,0", account_create_success:com_35, "set_but_end_3,0")
+layer=contents
+onmouseover=script3937(account_create_success:continue_left, "set_but_end_3,1", account_create_success:com_33, "set_but_fill_3,1", account_create_success:com_34, "set_but_fill_3,1", account_create_success:continue_right, "set_but_end_3,1")
+onmouseleave=script3937(account_create_success:continue_left, "set_but_end_3,0", account_create_success:com_33, "set_but_fill_3,0", account_create_success:com_34, "set_but_fill_3,0", account_create_success:continue_right, "set_but_end_3,0")
 
 // 669:41
 [com_41]
@@ -474,7 +474,7 @@ width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_6
+layer=u13_continue
 colour=0x000000
 fill=yes
 
@@ -483,7 +483,7 @@ fill=yes
 type=graphic
 width=25
 height=25
-layer=com_6
+layer=u13_continue
 graphic="set_but_end_3,0"
 
 // 669:43
@@ -492,7 +492,7 @@ type=graphic
 x=25
 width=25
 height=25
-layer=com_6
+layer=u13_continue
 graphic="set_but_fill_3,0"
 tiling=yes
 
@@ -502,7 +502,7 @@ type=graphic
 x=50
 width=25
 height=25
-layer=com_6
+layer=u13_continue
 graphic="set_but_fill_3,0"
 tiling=yes
 hflip=yes
@@ -514,7 +514,7 @@ x=1
 width=25
 height=25
 xmode=abs_right
-layer=com_6
+layer=u13_continue
 graphic="set_but_end_3,0"
 hflip=yes
 
@@ -526,7 +526,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=u13_continue
 textfont=verdana_11pt_regular
 text=Continue
 textalignh=centre
@@ -541,7 +541,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=u13_continue
 textfont=verdana_11pt_regular
 text=Continue
 textalignh=centre
@@ -549,11 +549,11 @@ textalignv=centre
 colour=0x000000
 
 // 669:48
-[com_48]
+[terms_link]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_7
+layer=terms_link_layer
 textfont=verdana_11pt_regular
 text=<u=C8C8C8>Terms and Conditions
 textalignh=right
@@ -562,11 +562,11 @@ textshadow=yes
 colour=0xc8c8c8
 
 // 669:49
-[com_49]
+[privacy_link]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_9
+layer=privacy_link_layer
 textfont=verdana_11pt_regular
 text=<u=C8C8C8>Privacy Policy</u>
 textalignv=centre

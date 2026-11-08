@@ -1,7 +1,7 @@
 // 3203
 [proc,lobbyscreen_report_abuse_ignore]
 if_opensubclient(lobbyscreen:com_53, lobbyscreen_report_abuse_ignore);
-if_sethide(false, lobbyscreen:com_45);
+if_sethide(false, lobbyscreen:report_abuse_ignore);
 if (if_gethide(enum(int, component, enum_941, 5)) = false) {
     ~script3161(0);
 }

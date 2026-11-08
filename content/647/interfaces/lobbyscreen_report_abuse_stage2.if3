@@ -1,0 +1,1681 @@
+// 915:0
+[com_0]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=help_body
+graphic=window_texture
+tiling=yes
+
+// 915:1
+[com_1]
+type=graphic
+width=38
+height=72
+layer=help_body
+graphic="corner_frame_5,4"
+hflip=yes
+
+// 915:2
+[com_2]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=help_body
+graphic="corner_frame_5,4"
+vflip=yes
+hflip=yes
+
+// 915:3
+[com_3]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+layer=help_body
+graphic=frame_border_vertical
+tiling=yes
+hflip=yes
+
+// 915:4
+[com_4]
+type=graphic
+y=38
+width=7
+height=72
+heightmode=minus
+xmode=abs_right
+layer=help_body
+graphic=frame_border_vertical
+tiling=yes
+
+// 915:5
+[com_5]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+ymode=abs_bottom
+layer=help_body
+graphic=frame_border_horizontal
+tiling=yes
+vflip=yes
+
+// 915:6
+[com_6]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=help_body
+graphic="corner_frame_5,4"
+
+// 915:7
+[com_7]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=help_body
+graphic="corner_frame_5,4"
+vflip=yes
+
+// 915:8
+[com_8]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+layer=help_body
+graphic=frame_border_horizontal
+tiling=yes
+
+// 915:9
+[com_9]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=bg
+graphic=window_texture
+tiling=yes
+
+// 915:10
+[top_left]
+type=graphic
+width=38
+height=72
+layer=bg
+graphic="corner_frame_5,4"
+hflip=yes
+
+// 915:11
+[bottom_left]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=bg
+graphic="corner_frame_5,4"
+vflip=yes
+hflip=yes
+
+// 915:12
+[left_side]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+layer=bg
+graphic=frame_border_vertical
+tiling=yes
+hflip=yes
+
+// 915:13
+[right_side]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+xmode=abs_right
+layer=bg
+graphic=frame_border_vertical
+tiling=yes
+
+// 915:14
+[bottom_side]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+ymode=abs_bottom
+layer=bg
+graphic=frame_border_horizontal
+tiling=yes
+vflip=yes
+
+// 915:15
+[top_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=bg
+graphic="corner_frame_5,4"
+
+// 915:16
+[bottom_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=bg
+graphic="corner_frame_5,4"
+vflip=yes
+
+// 915:17
+[top_side]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+layer=bg
+graphic=frame_border_horizontal
+tiling=yes
+
+// 915:18
+[com_18]
+type=layer
+width=487
+height=312
+xmode=abs_centre
+ymode=abs_centre
+op10= 
+
+// 915:19
+[bg]
+type=layer
+width=487
+height=312
+layer=com_18
+op10=   
+
+// 915:20
+[title_text_honour]
+type=text
+x=5
+y=210
+width=157
+height=23
+ymode=abs_bottom
+layer=com_18
+textfont=verdana_13pt_regular
+text=Honour
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 915:21
+[title_text_respect]
+type=text
+x=166
+y=210
+width=154
+height=23
+ymode=abs_bottom
+layer=com_18
+textfont=verdana_13pt_regular
+text=Respect
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=    
+
+// 915:22
+[title_text_security]
+type=text
+x=325
+y=210
+width=157
+height=23
+ymode=abs_bottom
+layer=com_18
+textfont=verdana_13pt_regular
+text=Security
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=    
+
+// 915:23
+[icon_honour]
+type=graphic
+x=6
+y=204
+width=32
+height=32
+ymode=abs_bottom
+layer=com_18
+graphic="ra_icons,0"
+colour=0xffffffff
+op10=  
+
+// 915:24
+[icon_respect]
+type=graphic
+x=166
+y=204
+width=32
+height=32
+ymode=abs_bottom
+layer=com_18
+graphic="ra_icons,1"
+colour=0xffffffff
+op10=  
+
+// 915:25
+[icon_security]
+type=graphic
+x=327
+y=204
+width=32
+height=32
+ymode=abs_bottom
+layer=com_18
+graphic="ra_icons,2"
+colour=0xffffffff
+op10=  
+
+// 915:26
+[com_26]
+type=layer
+x=132
+y=80
+width=25
+height=25
+layer=com_18
+op1=View Advice
+onmouseover=graphic_swapper(lobbyscreen_report_abuse_stage2:com_27, "ra_icons,4")
+onmouseleave=graphic_swapper(lobbyscreen_report_abuse_stage2:com_27, "ra_icons,3")
+onop=lobbyscreen_report_abuse_help(3, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:com_18)
+
+// 915:27
+[com_27]
+type=graphic
+x=-4
+y=-3
+width=32
+height=32
+ymode=abs_bottom
+layer=com_26
+graphic="ra_icons,3"
+colour=0xffffffff
+op10=  
+
+// 915:28
+[com_28]
+type=layer
+x=292
+y=80
+width=25
+height=25
+layer=com_18
+op1=View Advice
+onmouseover=graphic_swapper(lobbyscreen_report_abuse_stage2:com_29, "ra_icons,4")
+onmouseleave=graphic_swapper(lobbyscreen_report_abuse_stage2:com_29, "ra_icons,3")
+onop=lobbyscreen_report_abuse_help(4, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:com_18)
+
+// 915:29
+[com_29]
+type=graphic
+x=-4
+y=-3
+width=32
+height=32
+ymode=abs_bottom
+layer=com_28
+graphic="ra_icons,3"
+colour=0xffffffff
+op10=   
+
+// 915:30
+[com_30]
+type=layer
+x=453
+y=80
+width=25
+height=25
+layer=com_18
+op1=View Advice
+onmouseover=graphic_swapper(lobbyscreen_report_abuse_stage2:com_31, "ra_icons,4")
+onmouseleave=graphic_swapper(lobbyscreen_report_abuse_stage2:com_31, "ra_icons,3")
+onop=lobbyscreen_report_abuse_help(5, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:com_18)
+
+// 915:31
+[com_31]
+type=graphic
+x=-4
+y=-3
+width=32
+height=32
+ymode=abs_bottom
+layer=com_30
+graphic="ra_icons,3"
+colour=0xffffffff
+op10=   
+
+// 915:32
+[offence_desc_txt]
+type=text
+x=10
+y=34
+width=357
+height=26
+layer=com_18
+textfont=verdana_11pt_regular
+text=Click on the most suitable option from the Rules of RuneScape. This will send a report to our Player Support team for investigation.
+textlineheight=12
+textalignh=unknown_3
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 915:33
+[change_player_layer]
+type=layer
+x=373
+y=27
+width=105
+height=25
+layer=com_18
+op1=Change Player
+onmouseover=script3937(lobbyscreen_report_abuse_stage2:com_40, "set_but_1,2", lobbyscreen_report_abuse_stage2:com_41, "set_but_1,3", lobbyscreen_report_abuse_stage2:com_42, "set_but_1,3", lobbyscreen_report_abuse_stage2:com_43, "set_but_1,2")
+onmouseleave=script3937(lobbyscreen_report_abuse_stage2:com_40, "set_but_1,0", lobbyscreen_report_abuse_stage2:com_41, "set_but_1,1", lobbyscreen_report_abuse_stage2:com_42, "set_but_1,1", lobbyscreen_report_abuse_stage2:com_43, "set_but_1,0")
+onop=lobbyscreen_report_abuse_stage2_back
+
+// 915:34
+[cancel_layer]
+type=layer
+x=373
+y=53
+width=105
+height=25
+layer=com_18
+op1=Cancel Report
+op10= 
+onmouseover=script3937(lobbyscreen_report_abuse_stage2:cancel_left, "set_but_1,2", lobbyscreen_report_abuse_stage2:com_36, "set_but_1,3", lobbyscreen_report_abuse_stage2:com_37, "set_but_1,3", lobbyscreen_report_abuse_stage2:cancel_right, "set_but_1,2")
+onmouseleave=script3937(lobbyscreen_report_abuse_stage2:cancel_left, "set_but_1,0", lobbyscreen_report_abuse_stage2:com_36, "set_but_1,1", lobbyscreen_report_abuse_stage2:com_37, "set_but_1,1", lobbyscreen_report_abuse_stage2:cancel_right, "set_but_1,0")
+onop=lobbyscreen_report_abuse_stage2_close
+
+// 915:35
+[cancel_left]
+type=graphic
+width=25
+height=25
+layer=cancel_layer
+graphic="set_but_1,0"
+colour=0x000000
+op10= 
+
+// 915:36
+[com_36]
+type=graphic
+x=25
+width=30
+height=25
+layer=cancel_layer
+graphic="set_but_1,1"
+colour=0x000000
+op10= 
+
+// 915:37
+[com_37]
+type=graphic
+x=25
+width=25
+height=25
+xmode=abs_right
+layer=cancel_layer
+graphic="set_but_1,1"
+hflip=yes
+colour=0x000000
+
+// 915:38
+[cancel_right]
+type=graphic
+width=25
+height=25
+xmode=abs_right
+layer=cancel_layer
+graphic="set_but_1,0"
+hflip=yes
+colour=0x000000
+op10=  
+
+// 915:39
+[cancel_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=cancel_layer
+textfont=p11_full
+text=Cancel report
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 915:40
+[com_40]
+type=graphic
+width=25
+height=25
+layer=change_player_layer
+graphic="set_but_1,0"
+colour=0x000000
+
+// 915:41
+[com_41]
+type=graphic
+x=25
+width=30
+height=25
+layer=change_player_layer
+graphic="set_but_1,1"
+colour=0x000000
+
+// 915:42
+[com_42]
+type=graphic
+x=25
+width=25
+height=25
+xmode=abs_right
+layer=change_player_layer
+graphic="set_but_1,1"
+hflip=yes
+colour=0x000000
+
+// 915:43
+[com_43]
+type=graphic
+width=25
+height=25
+xmode=abs_right
+layer=change_player_layer
+graphic="set_but_1,0"
+hflip=yes
+colour=0x000000
+op10= 
+
+// 915:44
+[change_player_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=change_player_layer
+textfont=p11_full
+text=Change player
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 915:45
+[mute_layer]
+type=layer
+x=8
+y=8
+width=260
+height=15
+xmode=abs_right
+ymode=abs_bottom
+layer=com_18
+op1=Toggle Mute
+op10=   
+onop=script3178(lobbyscreen_report_abuse_stage2:com_46)
+
+// 915:46
+[com_46]
+type=graphic
+width=14
+height=14
+xmode=abs_right
+ymode=abs_bottom
+layer=mute_layer
+graphic="check_box_2,0"
+colour=0xffffffff
+op10=   
+
+// 915:47
+[mute_text]
+type=text
+width=18
+height=14
+widthmode=minus
+layer=mute_layer
+textfont=verdana_11pt_regular
+text=Suggest to mute this player for 48 hours
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 915:48
+[page_text]
+type=text
+x=10
+y=4
+width=60
+height=22
+layer=bg
+textfont=verdana_11pt_regular
+text=Page 2/2
+textalignv=centre
+textshadow=yes
+colour=0x989898
+op10= 
+
+// 915:49
+[title_text]
+type=text
+y=2
+width=250
+height=22
+xmode=abs_centre
+layer=bg
+textfont=verdana_13pt_regular
+text=Report Abuse
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 915:50
+[help_button]
+type=graphic
+x=28
+y=8
+width=19
+height=17
+xmode=abs_right
+layer=bg
+graphic=graphic_4696
+colour=0x000000
+op1=Help
+op10= 
+onmouseover=graphic_swapper(event_com, graphic_4697)
+onmouseleave=graphic_swapper(event_com, graphic_4696)
+onop=lobbyscreen_report_abuse_help(1, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:com_18)
+
+// 915:51
+[close_button]
+type=graphic
+x=8
+y=8
+width=19
+height=17
+xmode=abs_right
+layer=bg
+graphic="intro_close_button,0"
+colour=0x000000
+op1=Close
+onmouseover=graphic_swapper(event_com, "intro_close_button,1")
+onmouseleave=graphic_swapper(event_com, "intro_close_button,0")
+onop=lobbyscreen_report_abuse_stage2_close
+
+// 915:52
+[button_buying]
+type=layer
+x=8
+y=172
+width=154
+height=31
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10= 
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_buying_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_buying_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_buying_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_buying_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_buying_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_buying_right, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(7)
+
+// 915:53
+[button_encouraging]
+type=layer
+x=8
+y=139
+width=154
+height=31
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=  
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_encouraging_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_encouraging_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_encouraging_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_encouraging_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_encouraging_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_encouraging_right, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(10)
+
+// 915:54
+[button_staff]
+type=layer
+x=8
+y=106
+width=154
+height=31
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=  
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_staff_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_staff_mid, graphic_4694, lobbyscreen_report_abuse_stage2:traders191_08, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_staff_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_staff_mid, graphic_4691, lobbyscreen_report_abuse_stage2:traders191_08, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(6)
+
+// 915:55
+[button_staff_left]
+type=graphic
+width=15
+height=31
+layer=button_staff
+graphic=graphic_4690
+colour=0x000000
+op10=  
+
+// 915:56
+[button_staff_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_staff
+graphic=graphic_4691
+colour=0x000000
+op10=  
+
+// 915:57
+[traders191_08]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_staff
+graphic=graphic_4692
+colour=0x000000
+op10=  
+
+// 915:58
+[button_staff_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_staff
+textfont=p11_full
+text=Staff impersonation
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 915:59
+[button_encouraging_left]
+type=graphic
+width=15
+height=31
+layer=button_encouraging
+graphic=graphic_4690
+colour=0x000000
+op10=  
+
+// 915:60
+[button_encouraging_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_encouraging
+graphic=graphic_4691
+colour=0x000000
+op10=  
+
+// 915:61
+[button_encouraging_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_encouraging
+graphic=graphic_4692
+colour=0x000000
+op10=  
+
+// 915:62
+[button_encouraging_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_encouraging
+textfont=p11_full
+text=Encouraging rule breaking
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 915:63
+[button_bots]
+type=layer
+x=8
+y=73
+width=154
+height=31
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=  
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_bots_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_bots_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_bots_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_bots_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_bots_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_bots_right, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(8)
+
+// 915:64
+[button_scamming]
+type=layer
+x=8
+y=40
+width=154
+height=31
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=  
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_scamming_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_scamming_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_scamming_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_scamming_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_scamming_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_scamming_right, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(16)
+
+// 915:65
+[button_bug]
+type=layer
+x=8
+y=7
+width=154
+height=31
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=  
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_bug_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_bug_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_bug_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_bug_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_bug_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_bug_right, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(5)
+
+// 915:66
+[button_bug_left]
+type=graphic
+width=15
+height=31
+layer=button_bug
+graphic=graphic_4690
+colour=0x000000
+op10=  
+
+// 915:67
+[button_bug_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_bug
+graphic=graphic_4691
+colour=0x000000
+op10=  
+
+// 915:68
+[button_bug_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_bug
+graphic=graphic_4692
+colour=0x000000
+op10=  
+
+// 915:69
+[button_bug_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_bug
+textfont=p11_full
+text=Exploiting a bug
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 915:70
+[button_scamming_left]
+type=graphic
+width=15
+height=31
+layer=button_scamming
+graphic=graphic_4690
+colour=0x000000
+op10=  
+
+// 915:71
+[button_scamming_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_scamming
+graphic=graphic_4691
+colour=0x000000
+op10=  
+
+// 915:72
+[button_scamming_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_scamming
+graphic=graphic_4692
+colour=0x000000
+op10=  
+
+// 915:73
+[button_scamming_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_scamming
+textfont=p11_full
+text=Scamming
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 915:74
+[com_74]
+type=layer
+x=166
+y=172
+width=154
+height=31
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=  
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:com_75, graphic_4693, lobbyscreen_report_abuse_stage2:com_76, graphic_4694, lobbyscreen_report_abuse_stage2:com_77, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:com_75, graphic_4690, lobbyscreen_report_abuse_stage2:com_76, graphic_4691, lobbyscreen_report_abuse_stage2:com_77, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(17)
+
+// 915:75
+[com_75]
+type=graphic
+width=15
+height=31
+layer=com_74
+graphic=graphic_4690
+colour=0x000000
+op10=  
+
+// 915:76
+[com_76]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=com_74
+graphic=graphic_4691
+colour=0x000000
+op10=  
+
+// 915:77
+[com_77]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=com_74
+graphic=graphic_4692
+colour=0x000000
+op10=  
+
+// 915:78
+[com_78]
+type=text
+widthmode=minus
+heightmode=minus
+layer=com_74
+textfont=p11_full
+text=Seriously offensive language
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 915:79
+[button_solicitation]
+type=layer
+x=166
+y=139
+width=154
+height=31
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=   
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_solicitation_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_solicitation_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_solicitation_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_solicitation_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_solicitation_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_solicitation_right, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(18)
+
+// 915:80
+[button_solicitation_left]
+type=graphic
+width=15
+height=31
+layer=button_solicitation
+graphic=graphic_4690
+colour=0x000000
+op10=   
+
+// 915:81
+[button_solicitation_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_solicitation
+graphic=graphic_4691
+colour=0x000000
+op10=   
+
+// 915:82
+[button_solicitation_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_solicitation
+graphic=graphic_4692
+colour=0x000000
+op10=   
+
+// 915:83
+[button_solicitation_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_solicitation
+textfont=p11_full
+text=Solicitation
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 915:84
+[button_disruptive]
+type=layer
+x=166
+y=106
+width=154
+height=31
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=   
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_disruptive_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_disruptive_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_disruptive_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_disruptive_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_disruptive_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_disruptive_right, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(19)
+
+// 915:85
+[button_disruptive_left]
+type=graphic
+width=15
+height=31
+layer=button_disruptive
+graphic=graphic_4690
+colour=0x000000
+op10=   
+
+// 915:86
+[button_disruptive_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_disruptive
+graphic=graphic_4691
+colour=0x000000
+op10=   
+
+// 915:87
+[button_disruptive_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_disruptive
+graphic=graphic_4692
+colour=0x000000
+op10=   
+
+// 915:88
+[button_disruptive_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_disruptive
+textfont=p11_full
+text=Disruptive behaviour
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 915:89
+[button_name]
+type=layer
+x=166
+y=73
+width=154
+height=31
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=   
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_name_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_name_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_name_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_name_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_name_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_name_right, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(20)
+
+// 915:90
+[button_name_left]
+type=graphic
+width=15
+height=31
+layer=button_name
+graphic=graphic_4690
+colour=0x000000
+op10=   
+
+// 915:91
+[button_name_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_name
+graphic=graphic_4691
+colour=0x000000
+op10=   
+
+// 915:92
+[button_name_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_name
+graphic=graphic_4692
+colour=0x000000
+op10=   
+
+// 915:93
+[button_name_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_name
+textfont=p11_full
+text=Offensive account name
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 915:94
+[button_threats]
+type=layer
+x=166
+y=40
+width=154
+height=31
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=   
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_threats_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_threats_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_threats_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_threats_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_threats_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_threats_right, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(21)
+
+// 915:95
+[com_95]
+type=layer
+x=9
+y=172
+width=154
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=   
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:com_96, graphic_4693, lobbyscreen_report_abuse_stage2:com_97, graphic_4694, lobbyscreen_report_abuse_stage2:com_98, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:com_96, graphic_4690, lobbyscreen_report_abuse_stage2:com_97, graphic_4691, lobbyscreen_report_abuse_stage2:com_98, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(14)
+
+// 915:96
+[com_96]
+type=graphic
+width=15
+height=31
+layer=com_95
+graphic=graphic_4690
+colour=0x000000
+op10=   
+
+// 915:97
+[com_97]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=com_95
+graphic=graphic_4691
+colour=0x000000
+op10=   
+
+// 915:98
+[com_98]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=com_95
+graphic=graphic_4692
+colour=0x000000
+op10=   
+
+// 915:99
+[com_99]
+type=text
+widthmode=minus
+heightmode=minus
+layer=com_95
+textfont=p11_full
+text=Asking for or providing<br> contact information
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 915:100
+[button_laws]
+type=layer
+x=9
+y=139
+width=154
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=    
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_laws_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_laws_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_laws_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_laws_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_laws_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_laws_right, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(22)
+
+// 915:101
+[button_websites]
+type=layer
+x=9
+y=106
+width=154
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=com_18
+op1=Send Report
+op10=    
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_websites_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_websites_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_websites_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_websites_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_websites_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_websites_right, graphic_4692)
+onop=lobbyscreen_report_abuse_submit(12)
+
+// 915:102
+[help_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+hide=yes
+noclickthrough=yes
+
+// 915:103
+[com_103]
+type=graphic
+width=3
+height=3
+layer=help_layer
+graphic=lobby_input_corner
+trans=43
+colour=0xffffffff
+op10=     
+
+// 915:104
+[com_104]
+type=graphic
+width=3
+height=3
+ymode=abs_bottom
+layer=help_layer
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+colour=0xffffffff
+op10=      
+
+// 915:105
+[com_105]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+layer=help_layer
+graphic=lobby_input_corner
+trans=43
+hflip=yes
+colour=0xffffffff
+op10=      
+
+// 915:106
+[com_106]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+ymode=abs_bottom
+layer=help_layer
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+hflip=yes
+colour=0xffffffff
+op10=       
+
+// 915:107
+[com_107]
+type=rectangle
+y=3
+height=6
+widthmode=minus
+heightmode=minus
+layer=help_layer
+colour=0x000000
+fill=yes
+trans=43
+op10=     
+
+// 915:108
+[com_108]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+layer=help_layer
+colour=0x000000
+fill=yes
+trans=43
+op10=      
+
+// 915:109
+[com_109]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+ymode=abs_bottom
+layer=help_layer
+colour=0x000000
+fill=yes
+trans=43
+op10=       
+
+// 915:110
+[help_body]
+type=layer
+width=453
+height=300
+xmode=abs_centre
+ymode=abs_centre
+layer=help_layer
+op10=    
+
+// 915:111
+[help_close_button]
+type=graphic
+x=8
+y=8
+width=19
+height=17
+xmode=abs_right
+layer=help_body
+graphic="intro_close_button,0"
+colour=0x000000
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "intro_close_button,1")
+onmouseleave=graphic_swapper(event_com, "intro_close_button,0")
+onop=lobbyscreen_report_abuse_help_close(lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:com_18)
+
+// 915:112
+[help_title_text]
+type=text
+y=5
+width=250
+height=22
+xmode=abs_centre
+layer=help_body
+textfont=verdana_13pt_regular
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 915:113
+[help_body_text]
+type=text
+y=31
+width=427
+height=43
+heightmode=minus
+xmode=abs_centre
+layer=help_body
+textfont=verdana_11pt_regular
+textlineheight=12
+colour=0xebe0bc
+
+// 915:114
+[button_websites_left]
+type=graphic
+width=15
+height=31
+layer=button_websites
+graphic=graphic_4690
+colour=0x000000
+op10=    
+
+// 915:115
+[button_websites_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_websites
+graphic=graphic_4691
+colour=0x000000
+op10=    
+
+// 915:116
+[button_websites_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_websites
+graphic=graphic_4692
+colour=0x000000
+op10=    
+
+// 915:117
+[button_websites_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_websites
+textfont=p11_full
+text=Advertising websites
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=    
+
+// 915:118
+[button_laws_left]
+type=graphic
+width=15
+height=31
+layer=button_laws
+graphic=graphic_4690
+colour=0x000000
+op10=    
+
+// 915:119
+[button_laws_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_laws
+graphic=graphic_4691
+colour=0x000000
+op10=    
+
+// 915:120
+[button_laws_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_laws
+graphic=graphic_4692
+colour=0x000000
+op10=    
+
+// 915:121
+[button_laws_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_laws
+textfont=p11_full
+text=Breaking real-world laws
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 915:122
+[button_threats_left]
+type=graphic
+width=15
+height=31
+layer=button_threats
+graphic=graphic_4690
+colour=0x000000
+op10=   
+
+// 915:123
+[button_threats_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_threats
+graphic=graphic_4691
+colour=0x000000
+op10=   
+
+// 915:124
+[button_threats_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_threats
+graphic=graphic_4692
+colour=0x000000
+op10=   
+
+// 915:125
+[button_threats_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_threats
+textfont=p11_full
+text=Real-life threats
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 915:126
+[button_bots_left]
+type=graphic
+width=15
+height=31
+layer=button_bots
+graphic=graphic_4690
+colour=0x000000
+op10=  
+
+// 915:127
+[button_bots_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_bots
+graphic=graphic_4691
+colour=0x000000
+op10=  
+
+// 915:128
+[button_bots_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_bots
+graphic=graphic_4692
+colour=0x000000
+op10=  
+
+// 915:129
+[button_bots_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_bots
+textfont=p11_full
+text=Macroing or use of bots
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 915:130
+[button_buying_left]
+type=graphic
+width=15
+height=31
+layer=button_buying
+graphic=graphic_4690
+colour=0x000000
+op10= 
+
+// 915:131
+[button_buying_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=button_buying
+graphic=graphic_4691
+colour=0x000000
+op10= 
+
+// 915:132
+[button_buying_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=button_buying
+graphic=graphic_4692
+colour=0x000000
+op10= 
+
+// 915:133
+[button_buying_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=button_buying
+textfont=p11_full
+text=Buying or selling an account
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc

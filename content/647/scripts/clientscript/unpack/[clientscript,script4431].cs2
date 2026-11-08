@@ -4,13 +4,13 @@ def_string $string0 = "";
 if (activeclanchannel_find_affined = true) {
     if_setontimer(null, $component0);
     ~clan_chat_onclansettingstransmit;
-    if_setonclansettingstransmit("clan_chat_onclansettingstransmit", clan_chat:com_3);
-    if_setonclanchanneltransmit("clan_chat_onclansettingstransmit", clan_chat:com_3);
+    if_setonclansettingstransmit("clan_chat_onclansettingstransmit", clan_chat:main_layer);
+    if_setonclanchanneltransmit("clan_chat_onclansettingstransmit", clan_chat:main_layer);
     if_setgraphic("aif_clanchat_icons,12", clan_chat:com_86);
 } else {
     ~clan_chat_clearlist;
     $string0 = "Join Clan Chat channel.";
-    if_setonmouserepeat("aif_tooltip(clan_chat:com_60, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)", clan_chat:com_85);
+    if_setonmouserepeat("aif_tooltip(clan_chat:tooltip, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)", clan_chat:com_85);
     if_setop(1, "Join Clan Chat channel", clan_chat:com_85);
     ~script4589;
 }

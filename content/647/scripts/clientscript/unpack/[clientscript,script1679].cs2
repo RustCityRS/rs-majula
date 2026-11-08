@@ -5,5 +5,5 @@ switch_int (%varclient_1044) {
     case 0 :
         ~script1687;
     case default :
-        if_setoncamfinished(null, mah4_cutscene_overlay:com_0);
+        if_setoncamfinished(null, mah4_cutscene_overlay:main_layer);
 }

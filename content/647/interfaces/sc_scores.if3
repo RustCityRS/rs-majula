@@ -1,5 +1,5 @@
 // 810:0
-[com_0]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -14,7 +14,7 @@ x=19
 y=20
 width=486
 height=311
-layer=com_146
+layer=content_layer
 colour=0x000000
 fill=yes
 trans=188
@@ -28,7 +28,7 @@ x=13
 y=14
 width=486
 height=311
-layer=com_146
+layer=content_layer
 colour=0x000000
 fill=yes
 trans=233
@@ -36,31 +36,31 @@ transmitop=10
 op10= 
 
 // 810:3
-[com_3]
+[main_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_146
+layer=content_layer
 
 // 810:4
-[com_4]
+[tab_tooltip_bound]
 type=layer
 x=69
 y=39
 width=245
 height=72
-layer=com_146
+layer=content_layer
 
 // 810:5
-[com_5]
+[tab_tooltip_build]
 type=layer
 x=12
 y=14
 width=10
 height=11
-layer=com_4
+layer=tab_tooltip_bound
 
 // 810:6
 [com_6]
@@ -187,24 +187,24 @@ transmitop=10
 op10=  
 
 // 810:14
-[com_14]
+[scoreboard_layer_1]
 type=layer
 x=7
 y=1
 width=468
 height=245
-layer=com_144
+layer=tab_awards
 transmitop=10
 op10= 
 
 // 810:15
-[com_15]
+[team_score_title]
 type=text
 x=19
 y=5
 width=171
 height=26
-layer=com_86
+layer=tab_scores
 textfont=welcome_font_small
 text=Team Scores
 textalignh=centre
@@ -215,13 +215,13 @@ transmitop=10
 op10= 
 
 // 810:16
-[com_16]
+[individual_score_title]
 type=text
 x=209
 y=5
 width=271
 height=26
-layer=com_86
+layer=tab_scores
 textfont=welcome_font_small
 text=Personal Score
 textalignh=centre
@@ -232,13 +232,13 @@ transmitop=10
 op10= 
 
 // 810:17
-[com_17]
+[result_description_text]
 type=text
 x=9
 y=84
 width=193
 height=158
-layer=com_86
+layer=tab_scores
 textfont=p12_full
 text=  
 textshadow=yes
@@ -251,7 +251,7 @@ x=5
 y=31
 width=101
 height=24
-layer=com_86
+layer=tab_scores
 textfont=p12_full
 text=Your team
 textalignh=centre
@@ -266,7 +266,7 @@ x=5
 y=56
 width=101
 height=24
-layer=com_86
+layer=tab_scores
 textfont=p12_full
 text=Enemy team
 textalignh=centre
@@ -275,13 +275,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:20
-[com_20]
+[scoreboard_layer]
 type=layer
 x=211
 y=11
 width=263
 height=214
-layer=com_86
+layer=tab_scores
 
 // 810:21
 [com_21]
@@ -290,19 +290,19 @@ x=217
 y=207
 width=252
 height=26
-layer=com_86
+layer=tab_scores
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
 
 // 810:22
-[com_22]
+[killed_text]
 type=text
 x=220
 y=199
 width=133
 height=22
-layer=com_86
+layer=tab_scores
 textfont=p12_full
 text=Player kills:
 textalignv=centre
@@ -310,13 +310,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:23
-[com_23]
+[killed_score_text]
 type=text
 x=354
 y=199
 width=112
 height=22
-layer=com_86
+layer=tab_scores
 textfont=p12_full
 text=0
 textalignh=centre
@@ -325,13 +325,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:24
-[com_24]
+[died_text]
 type=text
 x=220
 y=222
 width=133
 height=22
-layer=com_86
+layer=tab_scores
 textfont=p12_full
 text=Number of deaths:
 textalignv=centre
@@ -341,13 +341,13 @@ transmitop=10
 op10= 
 
 // 810:25
-[com_25]
+[died_score_text]
 type=text
 x=354
 y=222
 width=112
 height=22
-layer=com_86
+layer=tab_scores
 textfont=p12_full
 text=0
 textalignh=centre
@@ -358,13 +358,13 @@ transmitop=10
 op10= 
 
 // 810:26
-[com_26]
+[tooltip_box]
 type=layer
 x=-14
 y=-37
 width=511
 height=177
-layer=com_86
+layer=tab_scores
 
 // 810:27
 [com_27]
@@ -373,7 +373,7 @@ x=192
 y=8
 width=26
 height=235
-layer=com_86
+layer=tab_scores
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
@@ -385,7 +385,7 @@ x=4
 y=17
 width=203
 height=28
-layer=com_86
+layer=tab_scores
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -397,7 +397,7 @@ x=4
 y=41
 width=203
 height=28
-layer=com_86
+layer=tab_scores
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -409,7 +409,7 @@ x=92
 y=31
 width=43
 height=47
-layer=com_86
+layer=tab_scores
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
@@ -421,19 +421,19 @@ x=4
 y=66
 width=203
 height=28
-layer=com_86
+layer=tab_scores
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
 
 // 810:32
-[com_32]
+[your_team_score_text]
 type=text
 x=108
 y=31
 width=99
 height=24
-layer=com_86
+layer=tab_scores
 textfont=b12_full
 text=0
 textalignh=centre
@@ -442,13 +442,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:33
-[com_33]
+[enemy_team_score_text]
 type=text
 x=108
 y=56
 width=99
 height=24
-layer=com_86
+layer=tab_scores
 textfont=b12_full
 text=0
 textalignh=centre
@@ -457,13 +457,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:34
-[com_34]
+[init_rect]
 type=rectangle
 x=159
 y=34
 width=32
 height=32
-layer=com_3
+layer=main_layer
 colour=0xffff00
 trans=255
 onvarctransmit=script1946{varclient_590, varclient_591, varclient_592, varclient_593, varclient_594, varclient_588, varclient_589, varclient_596, varclient_597, varclient_598}
@@ -475,7 +475,7 @@ x=7
 y=22
 width=251
 height=163
-layer=com_20
+layer=scoreboard_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -488,7 +488,7 @@ x=126
 y=23
 width=26
 height=161
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
@@ -500,7 +500,7 @@ x=8
 y=30
 width=252
 height=26
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -512,7 +512,7 @@ x=7
 y=53
 width=252
 height=26
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -524,7 +524,7 @@ x=8
 y=76
 width=252
 height=26
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -536,7 +536,7 @@ x=9
 y=99
 width=252
 height=26
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -548,7 +548,7 @@ x=6
 y=122
 width=252
 height=26
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -560,7 +560,7 @@ x=6
 y=145
 width=252
 height=26
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -572,7 +572,7 @@ x=2
 y=18
 width=32
 height=32
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 
@@ -583,7 +583,7 @@ x=34
 y=5
 width=197
 height=36
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -595,7 +595,7 @@ x=230
 y=18
 width=32
 height=32
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 
@@ -606,7 +606,7 @@ x=-11
 y=32
 width=33
 height=152
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -618,7 +618,7 @@ x=242
 y=32
 width=28
 height=152
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -630,7 +630,7 @@ x=2
 y=156
 width=32
 height=32
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 
@@ -641,7 +641,7 @@ x=31
 y=168
 width=200
 height=33
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -653,18 +653,18 @@ x=230
 y=156
 width=32
 height=32
-layer=com_20
+layer=scoreboard_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 
 // 810:51
-[com_51]
+[activity_text]
 type=text
 x=9
 y=22
 width=131
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=b12_full
 text=Activity
 textalignh=centre
@@ -673,13 +673,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:52
-[com_52]
+[gathered_text]
 type=text
 x=9
 y=45
 width=131
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=p12_full
 text=Gathering clay
 textalignh=centre
@@ -688,13 +688,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:53
-[com_53]
+[processed_text]
 type=text
 x=9
 y=68
 width=131
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=p12_full
 text=Processing clay
 textalignh=centre
@@ -703,13 +703,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:54
-[com_54]
+[deposited_text]
 type=text
 x=9
 y=91
 width=131
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=p12_full
 text=Depositing in base
 textalignh=centre
@@ -718,13 +718,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:55
-[com_55]
+[damaged_text]
 type=text
 x=9
 y=114
 width=131
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=p12_full
 text=Damaging players
 textalignh=centre
@@ -733,13 +733,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:56
-[com_56]
+[bonus_text]
 type=text
 x=9
 y=137
 width=131
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=p12_full
 text=Bonus
 textalignh=centre
@@ -748,13 +748,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:57
-[com_57]
+[total_text]
 type=text
 x=9
 y=160
 width=131
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=b12_full
 text=Total score
 textalignh=centre
@@ -763,13 +763,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:58
-[com_58]
+[bonus_score_text]
 type=text
 x=143
 y=137
 width=112
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=b12_full
 text=0
 textalignh=centre
@@ -778,13 +778,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:59
-[com_59]
+[gathered_score_text]
 type=text
 x=143
 y=45
 width=112
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=b12_full
 text=0
 textalignh=centre
@@ -793,13 +793,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:60
-[com_60]
+[processed_score_text]
 type=text
 x=143
 y=68
 width=112
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=b12_full
 text=0
 textalignh=centre
@@ -808,13 +808,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:61
-[com_61]
+[deposited_score_text]
 type=text
 x=143
 y=91
 width=112
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=b12_full
 text=0
 textalignh=centre
@@ -823,13 +823,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:62
-[com_62]
+[damaged_score_text]
 type=text
 x=143
 y=114
 width=112
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=b12_full
 text=0
 textalignh=centre
@@ -838,13 +838,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:63
-[com_63]
+[lesser_updatehud]
 type=text
 x=143
 y=160
 width=112
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=b12_full
 text=0
 textalignh=centre
@@ -853,13 +853,13 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:64
-[com_64]
+[score_text]
 type=text
 x=143
 y=22
 width=112
 height=22
-layer=com_20
+layer=scoreboard_layer
 textfont=b12_full
 text=Score
 textalignh=centre
@@ -874,7 +874,7 @@ x=14
 y=19
 width=485
 height=302
-layer=com_3
+layer=main_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -886,7 +886,7 @@ x=24
 y=65
 width=465
 height=32
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -898,7 +898,7 @@ x=24
 y=36
 width=465
 height=32
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -910,18 +910,18 @@ x=468
 y=294
 width=32
 height=32
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 
 // 810:69
-[com_69]
+[close_button]
 type=graphic
 x=474
 y=23
 width=16
 height=16
-layer=com_3
+layer=main_layer
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -937,7 +937,7 @@ x=13
 y=294
 width=32
 height=32
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 
@@ -948,7 +948,7 @@ x=45
 y=306
 width=423
 height=32
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -960,7 +960,7 @@ x=13
 y=14
 width=32
 height=32
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 
@@ -971,7 +971,7 @@ x=468
 y=14
 width=32
 height=32
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 
@@ -982,7 +982,7 @@ x=44
 y=1
 width=424
 height=34
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -993,7 +993,7 @@ type=graphic
 y=38
 width=32
 height=260
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -1005,7 +1005,7 @@ x=480
 y=38
 width=32
 height=260
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -1017,7 +1017,7 @@ x=468
 y=67
 width=32
 height=32
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,10"
 colour=0xffffffff
 
@@ -1028,7 +1028,7 @@ x=13
 y=67
 width=32
 height=32
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,9"
 colour=0xffffffff
 
@@ -1039,7 +1039,7 @@ x=468
 y=38
 width=32
 height=32
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,10"
 colour=0xffffffff
 
@@ -1050,18 +1050,18 @@ x=13
 y=38
 width=32
 height=32
-layer=com_3
+layer=main_layer
 graphic="v2_stone_borders,9"
 colour=0xffffffff
 
 // 810:81
-[com_81]
+[victory_text]
 type=text
 x=13
 y=14
 width=488
 height=36
-layer=com_3
+layer=main_layer
 textfont=quill_oblique_large
 text=The winner takes victory!
 textalignh=centre
@@ -1077,7 +1077,7 @@ type=layer
 y=51
 width=512
 height=36
-layer=com_3
+layer=main_layer
 
 // 810:83
 [com_83]
@@ -1085,7 +1085,7 @@ type=layer
 y=51
 width=512
 height=36
-layer=com_3
+layer=main_layer
 
 // 810:84
 [com_84]
@@ -1093,7 +1093,7 @@ type=layer
 y=51
 width=512
 height=36
-layer=com_3
+layer=main_layer
 
 // 810:85
 [com_85]
@@ -1101,26 +1101,26 @@ type=layer
 y=51
 width=512
 height=36
-layer=com_3
+layer=main_layer
 hide=yes
 
 // 810:86
-[com_86]
+[tab_scores]
 type=layer
 y=76
 width=482
 height=247
 xmode=abs_centre
-layer=com_3
+layer=main_layer
 
 // 810:87
-[com_87]
+[darken_1]
 type=rectangle
 x=7
 y=21
 width=454
 height=212
-layer=com_14
+layer=scoreboard_layer_1
 colour=0x000000
 fill=yes
 trans=200
@@ -1135,7 +1135,7 @@ x=155
 y=24
 width=26
 height=211
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
@@ -1149,7 +1149,7 @@ x=331
 y=24
 width=26
 height=211
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
@@ -1163,7 +1163,7 @@ x=259
 y=24
 width=26
 height=211
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
@@ -1177,7 +1177,7 @@ x=8
 y=32
 width=451
 height=26
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -1191,7 +1191,7 @@ x=8
 y=55
 width=451
 height=26
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -1205,7 +1205,7 @@ x=8
 y=78
 width=451
 height=26
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -1219,7 +1219,7 @@ x=8
 y=101
 width=451
 height=26
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -1233,7 +1233,7 @@ x=8
 y=124
 width=451
 height=26
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -1247,7 +1247,7 @@ x=8
 y=147
 width=451
 height=26
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -1261,7 +1261,7 @@ x=8
 y=170
 width=451
 height=26
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -1275,7 +1275,7 @@ x=8
 y=193
 width=451
 height=26
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -1289,7 +1289,7 @@ x=2
 y=19
 width=32
 height=32
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 transmitop=10
@@ -1302,7 +1302,7 @@ x=34
 y=6
 width=410
 height=36
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -1316,7 +1316,7 @@ x=434
 y=19
 width=32
 height=32
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 transmitop=10
@@ -1329,7 +1329,7 @@ x=-11
 y=32
 width=33
 height=177
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -1343,7 +1343,7 @@ x=446
 y=32
 width=28
 height=177
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -1357,7 +1357,7 @@ x=2
 y=204
 width=32
 height=32
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -1370,7 +1370,7 @@ x=31
 y=216
 width=410
 height=33
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -1384,20 +1384,20 @@ x=434
 y=204
 width=32
 height=32
-layer=com_14
+layer=scoreboard_layer_1
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 810:107
-[com_107]
+[award]
 type=text
 x=9
 y=24
 width=160
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=Award
 textalignh=centre
@@ -1408,13 +1408,13 @@ transmitop=10
 op10= 
 
 // 810:108
-[com_108]
+[gather_award]
 type=text
 x=9
 y=47
 width=160
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=Most clay gathered
 textalignh=centre
@@ -1425,13 +1425,13 @@ transmitop=10
 op10= 
 
 // 810:109
-[com_109]
+[process_award]
 type=text
 x=9
 y=70
 width=160
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=Most clay processed
 textalignh=centre
@@ -1442,13 +1442,13 @@ transmitop=10
 op10= 
 
 // 810:110
-[com_110]
+[deposit_award]
 type=text
 x=9
 y=93
 width=160
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=Most clay deposited
 textalignh=centre
@@ -1459,13 +1459,13 @@ transmitop=10
 op10= 
 
 // 810:111
-[com_111]
+[damage_award]
 type=text
 x=9
 y=116
 width=160
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=Most damage done
 textalignh=centre
@@ -1476,13 +1476,13 @@ transmitop=10
 op10= 
 
 // 810:112
-[com_112]
+[kill_award]
 type=text
 x=9
 y=139
 width=160
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=Most players killed
 textalignh=centre
@@ -1493,13 +1493,13 @@ transmitop=10
 op10= 
 
 // 810:113
-[com_113]
+[death_award]
 type=text
 x=9
 y=162
 width=160
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=Most deaths
 textalignh=centre
@@ -1510,13 +1510,13 @@ transmitop=10
 op10= 
 
 // 810:114
-[com_114]
+[best_award]
 type=text
 x=9
 y=185
 width=160
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=Highest personal score
 textalignh=centre
@@ -1527,13 +1527,13 @@ transmitop=10
 op10= 
 
 // 810:115
-[com_115]
+[useless_award]
 type=text
 x=9
 y=208
 width=160
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=Lowest personal score
 textalignh=centre
@@ -1550,7 +1550,7 @@ x=171
 y=24
 width=102
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=Player
 textalignh=centre
@@ -1561,13 +1561,13 @@ transmitop=10
 op10=  
 
 // 810:117
-[com_117]
+[gather_award_pl]
 type=text
 x=171
 y=47
 width=102
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=None
 textalignh=centre
@@ -1578,13 +1578,13 @@ transmitop=10
 op10=  
 
 // 810:118
-[com_118]
+[process_award_pl]
 type=text
 x=171
 y=70
 width=102
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=None
 textalignh=centre
@@ -1595,13 +1595,13 @@ transmitop=10
 op10=  
 
 // 810:119
-[com_119]
+[deposit_award_pl]
 type=text
 x=171
 y=93
 width=102
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=None
 textalignh=centre
@@ -1612,13 +1612,13 @@ transmitop=10
 op10=  
 
 // 810:120
-[com_120]
+[damage_award_pl]
 type=text
 x=171
 y=116
 width=102
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=None
 textalignh=centre
@@ -1629,13 +1629,13 @@ transmitop=10
 op10=  
 
 // 810:121
-[com_121]
+[kill_award_pl]
 type=text
 x=171
 y=139
 width=102
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=None
 textalignh=centre
@@ -1646,13 +1646,13 @@ transmitop=10
 op10=  
 
 // 810:122
-[com_122]
+[death_award_pl]
 type=text
 x=171
 y=162
 width=102
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=None
 textalignh=centre
@@ -1663,13 +1663,13 @@ transmitop=10
 op10=  
 
 // 810:123
-[com_123]
+[best_award_pl]
 type=text
 x=171
 y=185
 width=102
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=None
 textalignh=centre
@@ -1680,13 +1680,13 @@ transmitop=10
 op10=  
 
 // 810:124
-[com_124]
+[useless_award_pl]
 type=text
 x=171
 y=208
 width=102
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=p12_full
 text=None
 textalignh=centre
@@ -1697,13 +1697,13 @@ transmitop=10
 op10=   
 
 // 810:125
-[com_125]
+[award_team__________________]
 type=text
 x=275
 y=24
 width=70
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=Team
 textalignh=centre
@@ -1714,13 +1714,13 @@ transmitop=10
 op10=  
 
 // 810:126
-[com_126]
+[gather_award_t]
 type=text
 x=275
 y=47
 width=70
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=---
 textalignh=centre
@@ -1731,13 +1731,13 @@ transmitop=10
 op10=  
 
 // 810:127
-[com_127]
+[process_award_t]
 type=text
 x=275
 y=70
 width=70
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=---
 textalignh=centre
@@ -1748,13 +1748,13 @@ transmitop=10
 op10=  
 
 // 810:128
-[com_128]
+[deposit_award_t]
 type=text
 x=275
 y=93
 width=70
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=---
 textalignh=centre
@@ -1765,13 +1765,13 @@ transmitop=10
 op10=  
 
 // 810:129
-[com_129]
+[damage_award_t]
 type=text
 x=275
 y=116
 width=70
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=---
 textalignh=centre
@@ -1782,13 +1782,13 @@ transmitop=10
 op10=  
 
 // 810:130
-[com_130]
+[kill_award_t]
 type=text
 x=275
 y=139
 width=70
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=---
 textalignh=centre
@@ -1799,13 +1799,13 @@ transmitop=10
 op10=  
 
 // 810:131
-[com_131]
+[death_award_t]
 type=text
 x=275
 y=162
 width=70
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=---
 textalignh=centre
@@ -1816,13 +1816,13 @@ transmitop=10
 op10=  
 
 // 810:132
-[com_132]
+[best_award_t]
 type=text
 x=275
 y=185
 width=70
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=---
 textalignh=centre
@@ -1833,13 +1833,13 @@ transmitop=10
 op10=  
 
 // 810:133
-[com_133]
+[useless_award_t]
 type=text
 x=275
 y=208
 width=70
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=---
 textalignh=centre
@@ -1856,7 +1856,7 @@ x=347
 y=24
 width=112
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=Score
 textalignh=centre
@@ -1867,13 +1867,13 @@ transmitop=10
 op10= 
 
 // 810:135
-[com_135]
+[gather_award_sc]
 type=text
 x=347
 y=47
 width=112
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=0
 textalignh=centre
@@ -1884,13 +1884,13 @@ transmitop=10
 op10= 
 
 // 810:136
-[com_136]
+[process_award_sc]
 type=text
 x=347
 y=70
 width=112
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=0
 textalignh=centre
@@ -1901,13 +1901,13 @@ transmitop=10
 op10= 
 
 // 810:137
-[com_137]
+[deposit_award_sc]
 type=text
 x=347
 y=93
 width=112
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=0
 textalignh=centre
@@ -1918,13 +1918,13 @@ transmitop=10
 op10= 
 
 // 810:138
-[com_138]
+[damage_award_sc]
 type=text
 x=347
 y=116
 width=112
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=0
 textalignh=centre
@@ -1935,13 +1935,13 @@ transmitop=10
 op10= 
 
 // 810:139
-[com_139]
+[kill_award_sc]
 type=text
 x=347
 y=139
 width=112
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=0
 textalignh=centre
@@ -1952,13 +1952,13 @@ transmitop=10
 op10= 
 
 // 810:140
-[com_140]
+[death_award_sc]
 type=text
 x=347
 y=162
 width=112
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=0
 textalignh=centre
@@ -1969,13 +1969,13 @@ transmitop=10
 op10= 
 
 // 810:141
-[com_141]
+[best_award_sc]
 type=text
 x=347
 y=185
 width=112
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=0
 textalignh=centre
@@ -1986,13 +1986,13 @@ transmitop=10
 op10= 
 
 // 810:142
-[com_142]
+[useless_award_sc]
 type=text
 x=347
 y=208
 width=112
 height=22
-layer=com_14
+layer=scoreboard_layer_1
 textfont=b12_full
 text=0
 textalignh=centre
@@ -2003,35 +2003,35 @@ transmitop=10
 op10=  
 
 // 810:143
-[com_143]
+[tooltip]
 type=layer
 x=118
 y=67
 width=88
 height=25
-layer=com_14
+layer=scoreboard_layer_1
 
 // 810:144
-[com_144]
+[tab_awards]
 type=layer
 y=74
 width=482
 height=250
 xmode=abs_centre
-layer=com_3
+layer=main_layer
 hide=yes
 
 // 810:145
-[com_145]
+[tooltip_build]
 type=layer
 x=8
 y=9
 width=32
 height=32
-layer=com_26
+layer=tooltip_box
 
 // 810:146
-[com_146]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -2045,7 +2045,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=layer_1
 colour=0xffcc66
 fill=yes
 trans=255

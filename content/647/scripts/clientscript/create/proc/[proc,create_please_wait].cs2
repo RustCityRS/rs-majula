@@ -6,15 +6,15 @@ if ($int0 = 1) {
     ~script3209;
     if_setonclick(null, account_create:com_51);
     if_setonmouseover(null, account_create:com_51);
-    if_settext("Please wait...", account_create:com_57);
+    if_settext("Please wait...", account_create:continue_text);
     if_settext("Please wait...", account_create:com_56);
-    if_setonclick(null, account_create:com_17);
-    if_setonmouseover(null, account_create:com_17);
+    if_setonclick(null, account_create:continue);
+    if_setonmouseover(null, account_create:continue);
 } else {
     if_setonclick("create_exit", account_create:com_51);
     if_setonmouseover("text_colour_swapper(event_com, 0xfafafa)", account_create:com_51);
-    if_settext("Continue", account_create:com_57);
+    if_settext("Continue", account_create:continue_text);
     if_settext("Continue", account_create:com_56);
-    if_setonclick("create_go", account_create:com_17);
-    if_setonmouseover("script3937(account_create:com_52, $graphic1, account_create:com_53, $graphic2, account_create:com_54, $graphic2, account_create:com_55, $graphic1)", account_create:com_17);
+    if_setonclick("create_go", account_create:continue);
+    if_setonmouseover("script3937(account_create:continue_left, $graphic1, account_create:com_53, $graphic2, account_create:com_54, $graphic2, account_create:continue_right, $graphic1)", account_create:continue);
 }

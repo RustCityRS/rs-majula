@@ -189,7 +189,7 @@ textshadow=yes
 colour=0x990000
 
 // 477:17
-[com_17]
+[kyatt_text]
 type=text
 x=354
 y=144
@@ -202,7 +202,7 @@ textshadow=yes
 colour=0x990000
 
 // 477:18
-[com_18]
+[polar_text]
 type=text
 x=26
 y=67
@@ -215,7 +215,7 @@ textshadow=yes
 colour=0x990000
 
 // 477:19
-[com_19]
+[common_text]
 type=text
 x=143
 y=67
@@ -228,7 +228,7 @@ textshadow=yes
 colour=0x990000
 
 // 477:20
-[com_20]
+[feldip_text]
 type=text
 x=256
 y=67
@@ -241,7 +241,7 @@ textshadow=yes
 colour=0x990000
 
 // 477:21
-[com_21]
+[desert_text]
 type=text
 x=373
 y=67
@@ -254,7 +254,7 @@ textshadow=yes
 colour=0x990000
 
 // 477:22
-[com_22]
+[dark_text]
 type=text
 x=31
 y=221
@@ -267,7 +267,7 @@ textshadow=yes
 colour=0x990000
 
 // 477:23
-[com_23]
+[spotted_text]
 type=text
 x=187
 y=221
@@ -280,7 +280,7 @@ textshadow=yes
 colour=0x990000
 
 // 477:24
-[com_24]
+[dashing_text]
 type=text
 x=345
 y=221
@@ -293,7 +293,7 @@ textshadow=yes
 colour=0x990000
 
 // 477:25
-[com_25]
+[hunting_close]
 type=graphic
 x=473
 y=30
@@ -303,8 +303,8 @@ graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(hunting_customfurs:com_25, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(hunting_customfurs:com_25, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(hunting_customfurs:hunting_close, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(hunting_customfurs:hunting_close, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 477:26

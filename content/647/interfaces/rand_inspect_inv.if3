@@ -1,5 +1,5 @@
 // 953:0
-[com_0]
+[background_fill]
 type=graphic
 x=1
 y=1
@@ -15,7 +15,7 @@ transmitop=10
 op10=  
 
 // 953:1
-[com_1]
+[background_n]
 type=graphic
 y=20
 height=10
@@ -27,7 +27,7 @@ transmitop=10
 op10=  
 
 // 953:2
-[com_2]
+[scrollbar_surround]
 type=layer
 x=6
 y=53
@@ -43,10 +43,10 @@ y=53
 width=16
 height=204
 xmode=abs_right
-onload=scrollbar_vertical_graphics(event_com, rand_inspect_inv:com_2, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, rand_inspect_inv:scrollbar_surround, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 953:4
-[com_4]
+[border_n]
 type=graphic
 y=-2
 width=190
@@ -58,7 +58,7 @@ transmitop=10
 op10=    
 
 // 953:5
-[com_5]
+[close_button]
 type=graphic
 x=170
 y=2
@@ -73,7 +73,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onclick=closebutton_click
 
 // 953:6
-[com_6]
+[stat_name]
 type=text
 y=2
 width=163
@@ -93,7 +93,7 @@ widthmode=minus
 colour=0x000000
 
 // 953:8
-[com_8]
+[tooltip_bounding_layer]
 type=layer
 width=16391
 height=16391
@@ -101,16 +101,16 @@ widthmode=proportion
 heightmode=proportion
 
 // 953:9
-[com_9]
+[tooltip]
 type=layer
 x=102
 y=39
 width=64
 height=18
-layer=com_8
+layer=tooltip_bounding_layer
 
 // 953:10
-[com_10]
+[inv_button]
 type=layer
 y=24
 width=48
@@ -120,33 +120,33 @@ op1=View-Inventory
 op10=  
 
 // 953:11
-[com_11]
+[inv_button_bg]
 type=graphic
 y=1
 width=48
 height=26
-layer=com_10
+layer=inv_button
 graphic="tab_but,3"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 953:12
-[com_12]
+[inv_graphic]
 type=graphic
 y=1
 width=22
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_10
+layer=inv_button
 graphic="stonemenusideicons,4"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 953:13
-[com_13]
+[worn_button]
 type=layer
 x=47
 y=24
@@ -157,11 +157,11 @@ op1=View-Worn
 op10=  
 
 // 953:14
-[com_14]
+[worn_button_bg]
 type=graphic
 width=48
 height=26
-layer=com_13
+layer=worn_button
 graphic="tab_but,0"
 colour=0xffffffff
 transmitop=10
@@ -171,20 +171,20 @@ onmouseleave=graphic_swapper(event_com, "tab_but,0")
 onclick=graphic_swapper(event_com, "tab_but,2")
 
 // 953:15
-[com_15]
+[worn_graphic]
 type=graphic
 width=22
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=worn_button
 graphic="stonemenusideicons,5"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 953:16
-[com_16]
+[bob_button]
 type=layer
 x=94
 y=24
@@ -195,11 +195,11 @@ op1=View-Bob
 op10=  
 
 // 953:17
-[com_17]
+[bob_button_bg]
 type=graphic
 width=48
 height=26
-layer=com_16
+layer=bob_button
 graphic="tab_but,0"
 colour=0xffffffff
 transmitop=10
@@ -209,20 +209,20 @@ onmouseleave=graphic_swapper(event_com, "tab_but,0")
 onclick=graphic_swapper(event_com, "tab_but,2")
 
 // 953:18
-[com_18]
+[bob_graphic]
 type=graphic
 width=22
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=bob_button
 graphic="lore_icons,6"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 953:19
-[com_19]
+[stats_button]
 type=layer
 x=141
 y=24
@@ -233,11 +233,11 @@ op1=View-Stats
 op10=  
 
 // 953:20
-[com_20]
+[stats_button_bg]
 type=graphic
 width=48
 height=26
-layer=com_19
+layer=stats_button
 graphic="tab_but,0"
 colour=0xffffffff
 transmitop=10
@@ -247,13 +247,13 @@ onmouseleave=graphic_swapper(event_com, "tab_but,0")
 onclick=graphic_swapper(event_com, "tab_but,2")
 
 // 953:21
-[com_21]
+[stats_graphic]
 type=graphic
 width=22
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_19
+layer=stats_button
 graphic="stonemenusideicons,1"
 colour=0xffffffff
 transmitop=10

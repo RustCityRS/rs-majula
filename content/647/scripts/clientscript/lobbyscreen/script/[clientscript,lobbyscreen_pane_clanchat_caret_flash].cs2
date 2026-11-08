@@ -1,7 +1,7 @@
 // 1391
 [clientscript,lobbyscreen_pane_clanchat_caret_flash](int $int0, component $component1)
 if (activeclanchannel_find_affined = false) {
-    if_settext("", lobbyscreen_pane_clanchat:com_25);
+    if_settext("", lobbyscreen_pane_clanchat:chat_input_text);
     if_sethide(true, $component1);
     return;
 }

@@ -1,5 +1,5 @@
 // 894:0
-[com_0]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -32,7 +32,7 @@ transmitop=10
 op10=  
 
 // 894:3
-[com_3]
+[abort]
 type=text
 x=3
 y=4
@@ -52,22 +52,22 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xcd3700)
 
 // 894:4
-[com_4]
+[graphic]
 type=graphic
 x=24
 y=43
 width=32
 height=32
-layer=com_0
+layer=layer_1
 colour=0xffffffff
 
 // 894:5
-[com_5]
+[title]
 type=text
 x=1
 width=421
 height=16
-layer=com_0
+layer=layer_1
 textfont=b12_full
 text=Tutorial: Catching shrimp with a net. Step 1/5
 textalignh=centre
@@ -76,13 +76,13 @@ colour=0xffcd00
 onvarcstrtransmit=script1763{varclient_1716, varclient_1717, varclient_1718, varclient_1719}
 
 // 894:6
-[com_6]
+[body]
 type=text
 y=27
 width=490
 height=65
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=tutorial_font
 text=Go to Port Sarim fishing shop to get a net.
 textalignh=centre
@@ -90,14 +90,14 @@ textalignv=centre
 colour=0x000000
 
 // 894:7
-[com_7]
+[graphic_text]
 type=text
 x=32
 y=27
 width=425
 height=65
 xmode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=tutorial_font
 text=Go to Port Sarim fishing shop to get a net.
 textalignh=centre
@@ -113,7 +113,7 @@ y=94
 width=16384
 height=16
 widthmode=proportion
-layer=com_0
+layer=layer_1
 textfont=tutorial_font
 text=(You already have a net, so if you want to skip this step click here.)
 textalignh=centre
@@ -131,7 +131,7 @@ y=108
 width=16384
 height=16
 widthmode=proportion
-layer=com_0
+layer=layer_1
 textfont=tutorial_font
 text=(Please wait a minute for the net to restock.)
 textalignh=centre

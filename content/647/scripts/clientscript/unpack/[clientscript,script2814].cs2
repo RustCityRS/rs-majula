@@ -2,7 +2,7 @@
 [clientscript,script2814]
 if (%varclient_1065 ! null) {
     ~script2815;
-    if_setonvarctransmit(null, fade2:com_0);
+    if_setonvarctransmit(null, fade2:eventlayer);
 } else {
-    if_setonvarctransmit("script2814{varclient_1065}", fade2:com_0);
+    if_setonvarctransmit("script2814{varclient_1065}", fade2:eventlayer);
 }

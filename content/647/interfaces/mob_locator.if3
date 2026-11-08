@@ -7,7 +7,7 @@ transmitop=10
 op10= 
 
 // 844:1
-[com_1]
+[content_layer]
 type=layer
 x=22
 y=51
@@ -15,141 +15,141 @@ width=468
 height=266
 
 // 844:2
-[com_2]
+[herb1]
 type=graphic
 x=47
 y=3
 width=32
 height=32
-layer=com_12
+layer=other
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:3
-[com_3]
+[herbtext1]
 type=text
 x=13
 y=37
 width=94
 height=32
-layer=com_12
+layer=other
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:4
-[com_4]
+[herb2]
 type=graphic
 x=153
 y=3
 width=32
 height=32
-layer=com_12
+layer=other
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:5
-[com_5]
+[herbtext2]
 type=text
 x=123
 y=37
 width=94
 height=32
-layer=com_12
+layer=other
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:6
-[com_6]
+[fish1]
 type=graphic
 x=281
 y=3
 width=32
 height=32
-layer=com_12
+layer=other
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:7
-[com_7]
+[fishtext1]
 type=text
 x=251
 y=37
 width=94
 height=32
-layer=com_12
+layer=other
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:8
-[com_8]
+[fish2]
 type=graphic
 x=391
 y=3
 width=32
 height=32
-layer=com_12
+layer=other
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:9
-[com_9]
+[fishtext2]
 type=text
 x=363
 y=37
 width=94
 height=32
-layer=com_12
+layer=other
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:10
-[com_10]
+[ore_layer]
 type=layer
 y=39
 width=468
 height=152
-layer=com_1
+layer=content_layer
 
 // 844:11
-[com_11]
+[wood_layer]
 type=layer
 y=39
 width=468
 height=152
-layer=com_1
+layer=content_layer
 
 // 844:12
-[com_12]
+[other]
 type=layer
 y=197
 width=466
 height=69
-layer=com_1
+layer=content_layer
 
 // 844:13
-[com_13]
+[wood1]
 type=graphic
 x=20
 y=6
 width=32
 height=32
-layer=com_11
+layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
@@ -162,436 +162,436 @@ x=99
 y=6
 width=32
 height=32
-layer=com_11
+layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:15
-[com_15]
+[wood3]
 type=graphic
 x=182
 y=6
 width=32
 height=32
-layer=com_11
+layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:16
-[com_16]
+[wood4]
 type=graphic
 x=260
 y=6
 width=32
 height=32
-layer=com_11
+layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:17
-[com_17]
+[wood5]
 type=graphic
 x=338
 y=6
 width=32
 height=32
-layer=com_11
+layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:18
-[com_18]
+[wood6]
 type=graphic
 x=414
 y=6
 width=32
 height=32
-layer=com_11
+layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:19
-[com_19]
+[wood7]
 type=graphic
 x=21
 y=81
 width=32
 height=32
-layer=com_11
+layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:20
-[com_20]
+[wood8]
 type=graphic
 x=99
 y=81
 width=32
 height=32
-layer=com_11
+layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:21
-[com_21]
+[woodtext1]
 type=text
 x=3
 y=40
 width=70
 height=32
-layer=com_11
+layer=wood_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:22
-[com_22]
+[woodtext2]
 type=text
 x=83
 y=40
 width=70
 height=32
-layer=com_11
+layer=wood_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:23
-[com_23]
+[woodtext3]
 type=text
 x=165
 y=40
 width=70
 height=32
-layer=com_11
+layer=wood_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:24
-[com_24]
+[woodtext4]
 type=text
 x=242
 y=40
 width=70
 height=32
-layer=com_11
+layer=wood_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:25
-[com_25]
+[woodtext5]
 type=text
 x=321
 y=40
 width=70
 height=32
-layer=com_11
+layer=wood_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:26
-[com_26]
+[woodtext6]
 type=text
 x=398
 y=40
 width=70
 height=32
-layer=com_11
+layer=wood_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:27
-[com_27]
+[woodtext7]
 type=text
 x=4
 y=115
 width=70
 height=32
-layer=com_11
+layer=wood_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:28
-[com_28]
+[woodtext8]
 type=text
 x=81
 y=115
 width=75
 height=32
-layer=com_11
+layer=wood_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:29
-[com_29]
+[ore1]
 type=graphic
 x=20
 y=6
 width=32
 height=32
-layer=com_10
+layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:30
-[com_30]
+[ore2]
 type=graphic
 x=99
 y=6
 width=32
 height=32
-layer=com_10
+layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:31
-[com_31]
+[ore3]
 type=graphic
 x=182
 y=6
 width=32
 height=32
-layer=com_10
+layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:32
-[com_32]
+[ore4]
 type=graphic
 x=260
 y=6
 width=32
 height=32
-layer=com_10
+layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:33
-[com_33]
+[ore5]
 type=graphic
 x=338
 y=6
 width=32
 height=32
-layer=com_10
+layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:34
-[com_34]
+[ore6]
 type=graphic
 x=414
 y=6
 width=32
 height=32
-layer=com_10
+layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:35
-[com_35]
+[ore7]
 type=graphic
 x=21
 y=81
 width=32
 height=32
-layer=com_10
+layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:36
-[com_36]
+[ore8]
 type=graphic
 x=99
 y=81
 width=32
 height=32
-layer=com_10
+layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:37
-[com_37]
+[ore9]
 type=graphic
 x=182
 y=81
 width=32
 height=32
-layer=com_10
+layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 844:38
-[com_38]
+[oretext1]
 type=text
 x=3
 y=40
 width=70
 height=32
-layer=com_10
+layer=ore_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:39
-[com_39]
+[oretext2]
 type=text
 x=83
 y=40
 width=70
 height=32
-layer=com_10
+layer=ore_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:40
-[com_40]
+[oretext3]
 type=text
 x=165
 y=40
 width=70
 height=32
-layer=com_10
+layer=ore_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:41
-[com_41]
+[oretext4]
 type=text
 x=242
 y=40
 width=70
 height=32
-layer=com_10
+layer=ore_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:42
-[com_42]
+[oretext5]
 type=text
 x=321
 y=40
 width=70
 height=32
-layer=com_10
+layer=ore_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:43
-[com_43]
+[oretext6]
 type=text
 x=398
 y=40
 width=70
 height=32
-layer=com_10
+layer=ore_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:44
-[com_44]
+[oretext7]
 type=text
 x=4
 y=115
 width=70
 height=32
-layer=com_10
+layer=ore_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:45
-[com_45]
+[oretext8]
 type=text
 x=81
 y=115
 width=70
 height=32
-layer=com_10
+layer=ore_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:46
-[com_46]
+[oretext9]
 type=text
 x=164
 y=115
 width=70
 height=32
-layer=com_10
+layer=ore_layer
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff9933
 
 // 844:47
-[com_47]
+[charges]
 type=text
 x=243
 y=3
 width=209
 height=32
-layer=com_1
+layer=content_layer
 textfont=p11_full
 text=Charges left:
 textalignh=right
@@ -606,7 +606,7 @@ x=-3
 y=23
 width=474
 height=32
-layer=com_1
+layer=content_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -614,13 +614,13 @@ transmitop=10
 op10=  
 
 // 844:49
-[com_49]
+[tab_2]
 type=graphic
 x=47
 y=-9
 width=48
 height=48
-layer=com_1
+layer=content_layer
 graphic="bank_tabs,3"
 colour=0xffffffff
 transmitop=1,2,10
@@ -632,25 +632,25 @@ opcursor0=cursor_49
 onclick=mob_locator_switch_tab(event_com)
 
 // 844:50
-[com_50]
+[tab_2_icon]
 type=graphic
 x=54
 y=4
 width=32
 height=32
-layer=com_1
+layer=content_layer
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 844:51
-[com_51]
+[tab_1]
 type=graphic
 x=-1
 y=-9
 width=48
 height=48
-layer=com_1
+layer=content_layer
 graphic="bank_tabs,3"
 colour=0xffffffff
 transmitop=1,10
@@ -660,13 +660,13 @@ op10=
 onclick=mob_locator_switch_tab(event_com)
 
 // 844:52
-[com_52]
+[tab_1_icon]
 type=graphic
 x=7
 y=4
 width=32
 height=32
-layer=com_1
+layer=content_layer
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -769,7 +769,7 @@ transmitop=10
 op10=  
 
 // 844:60
-[com_60]
+[close_button]
 type=graphic
 x=474
 y=27
@@ -905,7 +905,7 @@ transmitop=10
 op10=  
 
 // 844:70
-[com_70]
+[title]
 type=text
 x=18
 y=27

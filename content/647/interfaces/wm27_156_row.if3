@@ -119,7 +119,7 @@ tiling=yes
 colour=0xffffffff
 
 // 629:11
-[com_11]
+[tourn_title]
 type=text
 x=197
 y=20
@@ -133,7 +133,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:12
-[com_12]
+[kval]
 type=text
 x=317
 y=20
@@ -147,7 +147,7 @@ colour=0xff961f
 opbase= 
 
 // 629:13
-[com_13]
+[confirm_close]
 type=graphic
 x=404
 y=19
@@ -398,7 +398,7 @@ height=16
 onload=script100(event_com)
 
 // 629:40
-[com_40]
+[rank_1]
 type=text
 x=121
 y=45
@@ -411,7 +411,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:41
-[com_41]
+[entry_1]
 type=text
 x=121
 y=64
@@ -423,7 +423,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:42
-[com_42]
+[drink_1]
 type=text
 x=121
 y=83
@@ -435,7 +435,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:43
-[com_43]
+[food_1]
 type=text
 x=121
 y=102
@@ -447,7 +447,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:44
-[com_44]
+[prayer_1]
 type=text
 x=121
 y=121
@@ -459,7 +459,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:45
-[com_45]
+[spec_1]
 type=text
 x=121
 y=140
@@ -471,7 +471,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:46
-[com_46]
+[obstacles_1]
 type=text
 x=121
 y=159
@@ -483,7 +483,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:47
-[com_47]
+[ranged_1]
 type=text
 x=121
 y=178
@@ -495,7 +495,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:48
-[com_48]
+[melee_1]
 type=text
 x=121
 y=197
@@ -507,7 +507,7 @@ textshadow=yes
 colour=0xcc9900
 
 // 629:49
-[com_49]
+[magic_1]
 type=text
 x=121
 y=216
@@ -519,7 +519,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:50
-[com_50]
+[heal_1]
 type=text
 x=121
 y=235
@@ -531,7 +531,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:51
-[com_51]
+[weaponslot_1]
 type=text
 x=121
 y=254
@@ -543,7 +543,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:52
-[com_52]
+[summon_1]
 type=text
 x=121
 y=273
@@ -555,7 +555,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:53
-[com_53]
+[rank_req]
 type=text
 x=273
 y=45
@@ -568,7 +568,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:54
-[com_54]
+[entry_fee]
 type=text
 x=273
 y=64
@@ -580,7 +580,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:55
-[com_55]
+[drink]
 type=text
 x=273
 y=83
@@ -592,7 +592,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:56
-[com_56]
+[food]
 type=text
 x=273
 y=102
@@ -604,7 +604,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:57
-[com_57]
+[prayer]
 type=text
 x=273
 y=121
@@ -616,7 +616,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:58
-[com_58]
+[spec_att]
 type=text
 x=273
 y=140
@@ -628,7 +628,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:59
-[com_59]
+[obstacles]
 type=text
 x=273
 y=159
@@ -640,7 +640,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:60
-[com_60]
+[ranged]
 type=text
 x=273
 y=178
@@ -652,7 +652,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:61
-[com_61]
+[melee]
 type=text
 x=273
 y=197
@@ -664,7 +664,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:62
-[com_62]
+[magic]
 type=text
 x=273
 y=216
@@ -676,7 +676,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:63
-[com_63]
+[heal]
 type=text
 x=273
 y=235
@@ -688,7 +688,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:64
-[com_64]
+[weaponslot]
 type=text
 x=273
 y=254
@@ -700,7 +700,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 629:65
-[com_65]
+[summon]
 type=text
 x=273
 y=273
@@ -723,12 +723,12 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 629:67
-[com_67]
+[accept1]
 type=text
 x=1
 width=71
 height=24
-layer=com_69
+layer=lay_accept1
 textfont=b12_full
 text=Join
 textalignh=centre
@@ -742,12 +742,12 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x009900)
 
 // 629:68
-[com_68]
+[resign]
 type=text
 x=1
 width=71
 height=24
-layer=com_70
+layer=lay_resign
 textfont=b12_full
 text=Resign
 textalignh=centre
@@ -761,7 +761,7 @@ onmouseover=text_colour_swapper(event_com, ^red)
 onmouseleave=text_colour_swapper(event_com, 0x990000)
 
 // 629:69
-[com_69]
+[lay_accept1]
 type=layer
 x=224
 y=289
@@ -769,7 +769,7 @@ width=73
 height=24
 
 // 629:70
-[com_70]
+[lay_resign]
 type=layer
 x=224
 y=289

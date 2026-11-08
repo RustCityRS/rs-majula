@@ -5,25 +5,25 @@ if ($boolean0 = true & %varclient_197 ! 0) {
     ~playerdesign4_rebuildmenu;
     if_sethide(true, playerdesign4:com_35);
     if_sethide(true, playerdesign4:com_115);
-    if_sethide(false, playerdesign4:com_117);
-    if_sethide(false, playerdesign4:com_116);
-    if_sethide(false, playerdesign4:com_89);
+    if_sethide(false, playerdesign4:confirm);
+    if_sethide(false, playerdesign4:back);
+    if_sethide(false, playerdesign4:customise_page);
 } else {
     ~script387($boolean1);
     ~script390($boolean1);
     if_sethide(false, playerdesign4:com_35);
     if (%varclient_197 = 0) {
         if_sethide(true, playerdesign4:com_115);
-        if_sethide(true, playerdesign4:com_117);
+        if_sethide(true, playerdesign4:confirm);
     } else {
         if_sethide(false, playerdesign4:com_115);
         if (%character_creation_multipage = 1 & %character_creation_page = 0) {
-            if_sethide(true, playerdesign4:com_117);
+            if_sethide(true, playerdesign4:confirm);
         } else {
-            if_sethide(false, playerdesign4:com_117);
+            if_sethide(false, playerdesign4:confirm);
         }
     }
-    if_sethide(true, playerdesign4:com_116);
-    if_sethide(true, playerdesign4:com_89);
+    if_sethide(true, playerdesign4:back);
+    if_sethide(true, playerdesign4:customise_page);
 }
 ~playerdesign4_tooltip_clear;

@@ -9,7 +9,7 @@ trans=160
 opbase=m
 
 // 63:1
-[com_1]
+[champions_background]
 type=model
 x=13
 y=37
@@ -21,7 +21,7 @@ modelangle=400,0,0
 modelzoom=604
 
 // 63:2
-[com_2]
+[champions_congratulations]
 type=text
 x=174
 y=89
@@ -33,7 +33,7 @@ textalignh=centre
 colour=0x46320a
 
 // 63:3
-[com_3]
+[champions_scroll_text]
 type=text
 x=101
 y=117
@@ -45,7 +45,7 @@ textalignh=centre
 colour=0x46320a
 
 // 63:4
-[com_4]
+[champions_scroll_model]
 type=model
 x=74
 y=138
@@ -57,7 +57,7 @@ modelangle=256,1655,0
 modelzoom=300
 
 // 63:5
-[com_5]
+[champions_rose]
 type=model
 x=356
 y=217
@@ -69,7 +69,7 @@ modelangle=500,138,0
 modelzoom=273
 
 // 63:6
-[com_6]
+[champions_awarded]
 type=text
 x=167
 y=168
@@ -81,7 +81,7 @@ textalignh=centre
 colour=0x46320a
 
 // 63:7
-[com_7]
+[champions_slayer_text]
 type=text
 x=172
 y=187
@@ -94,7 +94,7 @@ colour=0x46320a
 onvartransmit=champions_reward_xp{varplayer_620, varplayer_621}
 
 // 63:8
-[com_8]
+[champions_hp_text]
 type=text
 x=174
 y=205
@@ -106,7 +106,7 @@ textalignh=centre
 colour=0x46320a
 
 // 63:9
-[com_9]
+[champions_close]
 type=graphic
 x=382
 y=84

@@ -1,57 +1,57 @@
 // 1186
 [proc,script1186]
 if (getwindowmode >= 2) {
-    if (if_hassub(chatbox:com_dialogue_box) = true) {
-        if_sethide(false, chatbox:com_1);
-        if_setalpha(true, chatbox:com_1);
+    if (if_hassub(chattop:chatmodallarge) = true) {
+        if_sethide(false, chattop:chat_graphic);
+        if_setalpha(true, chattop:chat_graphic);
         if (%varplayerbit_542 = 0) {
-            if_setgraphic(chat_window, chatbox:com_1);
-            if_sethide(false, chatbox:com_2);
+            if_setgraphic(chat_window, chattop:chat_graphic);
+            if_sethide(false, chattop:chat_border);
         } else {
-            if_setgraphic(graphic_1205, chatbox:com_1);
-            if_sethide(true, chatbox:com_2);
+            if_setgraphic(graphic_1205, chattop:chat_graphic);
+            if_sethide(true, chattop:chat_border);
         }
-    } else if (if_hassub(chatbox:com_dialogue_box_small) = true) {
-        if_sethide(false, chatbox:com_1);
-        if_setalpha(true, chatbox:com_1);
+    } else if (if_hassub(chattop:chatmodal) = true) {
+        if_sethide(false, chattop:chat_graphic);
+        if_setalpha(true, chattop:chat_graphic);
         if (%varplayerbit_542 = 0) {
-            if_setgraphic(chat_window, chatbox:com_1);
-            if_sethide(false, chatbox:com_2);
+            if_setgraphic(chat_window, chattop:chat_graphic);
+            if_sethide(false, chattop:chat_border);
         } else {
-            if_setgraphic(graphic_1205, chatbox:com_1);
-            if_sethide(true, chatbox:com_2);
+            if_setgraphic(graphic_1205, chattop:chat_graphic);
+            if_sethide(true, chattop:chat_border);
         }
-    } else if (if_hassub(chatbox:com_11) = true) {
-        if_sethide(false, chatbox:com_1);
-        if_setalpha(true, chatbox:com_1);
+    } else if (if_hassub(chattop:chatoverlaylarge) = true) {
+        if_sethide(false, chattop:chat_graphic);
+        if_setalpha(true, chattop:chat_graphic);
         if (%varplayerbit_542 = 0) {
-            if_setgraphic(chat_window, chatbox:com_1);
-            if_sethide(false, chatbox:com_2);
+            if_setgraphic(chat_window, chattop:chat_graphic);
+            if_sethide(false, chattop:chat_border);
         } else {
-            if_setgraphic(graphic_1205, chatbox:com_1);
-            if_sethide(true, chatbox:com_2);
+            if_setgraphic(graphic_1205, chattop:chat_graphic);
+            if_sethide(true, chattop:chat_border);
         }
-    } else if (if_hassub(chatbox:com_10) = true) {
-        if_sethide(false, chatbox:com_1);
-        if_setalpha(true, chatbox:com_1);
+    } else if (if_hassub(chattop:chatoverlay) = true) {
+        if_sethide(false, chattop:chat_graphic);
+        if_setalpha(true, chattop:chat_graphic);
         if (%varplayerbit_542 = 0) {
-            if_setgraphic(chat_window, chatbox:com_1);
-            if_sethide(false, chatbox:com_2);
+            if_setgraphic(chat_window, chattop:chat_graphic);
+            if_sethide(false, chattop:chat_border);
         } else {
-            if_setgraphic(graphic_1205, chatbox:com_1);
-            if_sethide(true, chatbox:com_2);
+            if_setgraphic(graphic_1205, chattop:chat_graphic);
+            if_sethide(true, chattop:chat_border);
         }
     }
 }
 def_boolean $boolean0 = ~int_to_bool(%varplayerbit_6448);
-if_sethide($boolean0, toplevel:com_14);
+if_sethide($boolean0, toplevel:statusicons);
 if_sethide($boolean0, toplevel:com_9);
-if_sethide($boolean0, toplevel_fullscreen:com_76);
-if_sethide($boolean0, toplevel_fullscreen:com_12);
+if_sethide($boolean0, toplevel_fullscreen:side);
+if_sethide($boolean0, toplevel_fullscreen:statusicons);
 if_sethide($boolean0, toplevel_fullscreen:com_14);
 if (~script1569 = false) {
-    if_sethide($boolean0, toplevel_fullscreen:com_68);
+    if_sethide($boolean0, toplevel_fullscreen:stone_highlight);
 } else {
-    if_sethide(true, toplevel_fullscreen:com_68);
+    if_sethide(true, toplevel_fullscreen:stone_highlight);
 }
-if_sethide($boolean0, toplevel_fullscreen:com_17);
+if_sethide($boolean0, toplevel_fullscreen:backbase2);

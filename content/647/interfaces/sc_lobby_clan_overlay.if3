@@ -1,0 +1,95 @@
+// 812:0
+[main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 812:1
+[clan_name_layer]
+type=layer
+x=18
+y=3
+width=323
+height=49
+xmode=abs_centre
+layer=main_layer
+
+// 812:2
+[control_object]
+type=rectangle
+x=34
+y=34
+width=32
+height=32
+layer=main_layer
+colour=0xffff00
+trans=255
+onload=script1920
+
+// 812:3
+[com_3]
+type=text
+x=3
+y=2
+width=116
+height=17
+layer=clan_name_layer
+textfont=p11_full
+text=Clan leader:
+textalignh=right
+textshadow=yes
+colour=0xc8aa64
+
+// 812:4
+[com_4]
+type=text
+x=3
+y=16
+width=116
+height=17
+layer=clan_name_layer
+textfont=p11_full
+text=Allied leaders:
+textalignh=right
+textshadow=yes
+colour=0xc8aa64
+
+// 812:5
+[clan_leader_text]
+type=text
+x=123
+y=2
+width=197
+height=15
+layer=clan_name_layer
+textfont=p11_full
+text=You have no clan leader.
+textshadow=yes
+colour=0xc8aa64
+
+// 812:6
+[ally_1_text]
+type=text
+x=123
+y=16
+width=197
+height=15
+layer=clan_name_layer
+textfont=p11_full
+text=You have no allied clans.
+textshadow=yes
+colour=0xc8aa64
+
+// 812:7
+[ally_2_text]
+type=text
+x=123
+y=30
+width=197
+height=15
+layer=clan_name_layer
+textfont=p11_full
+textshadow=yes
+colour=0xc8aa64

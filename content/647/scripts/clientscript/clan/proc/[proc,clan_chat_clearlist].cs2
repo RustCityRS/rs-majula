@@ -1,13 +1,13 @@
 // 4437
 [proc,clan_chat_clearlist]
-if_sethide(true, clan_chat:com_27);
-if_clearops(clan_chat:com_27);
+if_sethide(true, clan_chat:drag_layer);
+if_clearops(clan_chat:drag_layer);
 if_setscrollpos(0, 0, clan_chat:com_25);
-if_sethide(false, clan_chat:com_29);
-~scrollbar_vertical(clan_chat:com_29, clan_chat:com_25, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+if_sethide(false, clan_chat:clanlistscrollbar);
+~scrollbar_vertical(clan_chat:clanlistscrollbar, clan_chat:com_25, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
 if_setgraphic("aif_clanchat_icons,13", clan_chat:com_86);
 if_sethide(true, clan_chat:com_13);
 if_setsize(1, 19, ^setsize_abs, ^setsize_abs, clan_chat:com_20);
 %varclient_1518 = -1;
 %varclient_1645 = "";
-if_settext("", clan_chat:com_26);
+if_settext("", clan_chat:clan_name);

@@ -20,7 +20,7 @@ transmitop=10
 op10=    
 
 // 1008:2
-[com_2]
+[bottom_left_corner_1]
 type=graphic
 x=109
 y=238
@@ -33,7 +33,7 @@ transmitop=10
 op10=    
 
 // 1008:3
-[com_3]
+[top_left_corner_1]
 type=graphic
 x=109
 y=67
@@ -46,7 +46,7 @@ transmitop=10
 op10=    
 
 // 1008:4
-[com_4]
+[top_right_corner_1]
 type=graphic
 x=109
 y=67
@@ -60,7 +60,7 @@ transmitop=10
 op10=    
 
 // 1008:5
-[com_5]
+[bottom_right_corner_1]
 type=graphic
 x=109
 y=238
@@ -74,7 +74,7 @@ transmitop=10
 op10=    
 
 // 1008:6
-[com_6]
+[left_1]
 type=graphic
 x=96
 y=99
@@ -88,7 +88,7 @@ transmitop=10
 op10=    
 
 // 1008:7
-[com_7]
+[right_1]
 type=graphic
 x=97
 y=99
@@ -103,7 +103,7 @@ transmitop=10
 op10=    
 
 // 1008:8
-[com_8]
+[top_1]
 type=graphic
 x=141
 y=67
@@ -117,7 +117,7 @@ transmitop=10
 op10=    
 
 // 1008:9
-[com_9]
+[bottom_1]
 type=graphic
 x=141
 y=250
@@ -131,7 +131,7 @@ transmitop=10
 op10=    
 
 // 1008:10
-[com_10]
+[border_shadow_3]
 type=rectangle
 x=116
 y=89
@@ -143,7 +143,7 @@ transmitop=10
 op10=    
 
 // 1008:11
-[com_11]
+[border_shadow_4]
 type=rectangle
 x=118
 y=91
@@ -156,7 +156,7 @@ transmitop=10
 op10=    
 
 // 1008:12
-[com_12]
+[border_shadow_5]
 type=rectangle
 x=117
 y=90
@@ -169,7 +169,7 @@ transmitop=10
 op10=    
 
 // 1008:13
-[com_13]
+[close_button_1]
 type=graphic
 x=377
 y=70
@@ -236,7 +236,7 @@ transmitop=10
 op10=     
 
 // 1008:18
-[com_18]
+[main_title_text]
 type=text
 y=70
 width=100
@@ -281,7 +281,7 @@ colour=0x161410
 fill=yes
 
 // 1008:22
-[com_22]
+[warning_icon]
 type=graphic
 x=161
 y=124
@@ -292,7 +292,7 @@ graphic=conq_exclamation_icon
 colour=0x000000
 
 // 1008:23
-[com_23]
+[description_text]
 type=text
 x=201
 y=114
@@ -307,7 +307,7 @@ textshadow=yes
 colour=0xff991f
 
 // 1008:24
-[com_24]
+[accept_button_layer]
 type=layer
 x=4915
 y=174
@@ -318,16 +318,16 @@ transmitop=10
 op10= 
 
 // 1008:25
-[com_25]
+[accept_graphic]
 type=graphic
 width=90
 height=43
-layer=com_24
+layer=accept_button_layer
 graphic=graphic_3255
 colour=0x000000
 
 // 1008:26
-[com_26]
+[decline_button_layer]
 type=layer
 x=4915
 y=174
@@ -338,16 +338,16 @@ transmitop=10
 op10=  
 
 // 1008:27
-[com_27]
+[decline_button]
 type=graphic
 width=90
 height=43
-layer=com_26
+layer=decline_button_layer
 graphic=graphic_3255
 colour=0x000000
 
 // 1008:28
-[com_28]
+[decline_text]
 type=text
 width=16391
 height=16391
@@ -355,7 +355,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_26
+layer=decline_button_layer
 textfont=welcome_font_tiny
 text=Decline
 textalignh=centre
@@ -369,7 +369,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1008:29
-[com_29]
+[accept_text]
 type=text
 width=16391
 height=16391
@@ -377,7 +377,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_24
+layer=accept_button_layer
 textfont=welcome_font_tiny
 text=Accept
 textalignh=centre
@@ -390,7 +390,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1008:30
-[com_30]
+[ignore_truce_layer]
 type=layer
 y=227
 width=176
@@ -404,23 +404,23 @@ onmouseleave=script455
 onvartransmit=script452{varplayer_1874}
 
 // 1008:31
-[com_31]
+[ignore_truce_check]
 type=graphic
 width=14
 height=14
-layer=com_30
+layer=ignore_truce_layer
 graphic="km_tickbox,0"
 colour=0x000000
 transmitop=10
 op10=  
 
 // 1008:32
-[com_32]
+[ignore_truce_text]
 type=text
 width=166
 height=16
 xmode=abs_right
-layer=com_30
+layer=ignore_truce_layer
 textfont=p11_full
 text=Ignore opponent's truce offers
 textalignh=right

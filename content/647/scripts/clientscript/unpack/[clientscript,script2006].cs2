@@ -1,8 +1,8 @@
 // 2006
 [clientscript,script2006](int $int0)
 if ($int0 > 0) {
-    if_setgraphic(graphic_4123, loginscreen:com_107);
+    if_setgraphic(graphic_4123, loginscreen:tool_bar_vol_button);
 } else {
-    if_setgraphic(graphic_4124, loginscreen:com_107);
+    if_setgraphic(graphic_4124, loginscreen:tool_bar_vol_button);
 }
-if_setontimer("script3961(0, loginscreen:com_7)", loginscreen:com_7);
+if_setontimer("script3961(0, loginscreen:tool_bar_vol_slider)", loginscreen:tool_bar_vol_slider);

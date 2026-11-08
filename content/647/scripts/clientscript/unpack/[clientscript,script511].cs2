@@ -2,7 +2,7 @@
 [clientscript,script511]
 if (%varclient_51 > 170) {
     %varclient_51 = calc(%varclient_51 - 1);
-    if_setmodelangle(0, 0, 0, 0, 0, %varclient_51, interface_605:com_0);
+    if_setmodelangle(0, 0, 0, 0, 0, %varclient_51, pog_door_hatch:hatch);
 } else {
-    if_setmodel(null, interface_605:com_0);
+    if_setmodel(null, pog_door_hatch:hatch);
 }

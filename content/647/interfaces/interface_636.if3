@@ -119,7 +119,7 @@ tiling=yes
 colour=0xffffffff
 
 // 636:11
-[com_11]
+[tourn_title]
 type=text
 x=197
 y=19
@@ -133,7 +133,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:12
-[com_12]
+[confirm_close]
 type=graphic
 x=404
 y=19
@@ -402,7 +402,7 @@ height=16
 onload=script100(event_com)
 
 // 636:41
-[com_41]
+[tournament_value1]
 type=text
 x=122
 y=67
@@ -414,7 +414,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:42
-[com_42]
+[rank_1]
 type=text
 x=122
 y=67
@@ -427,7 +427,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:43
-[com_43]
+[entry_1]
 type=text
 x=122
 y=86
@@ -439,7 +439,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:44
-[com_44]
+[drink_1]
 type=text
 x=122
 y=105
@@ -451,7 +451,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:45
-[com_45]
+[food_1]
 type=text
 x=122
 y=124
@@ -463,7 +463,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:46
-[com_46]
+[prayer_1]
 type=text
 x=122
 y=143
@@ -475,7 +475,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:47
-[com_47]
+[spec_1]
 type=text
 x=122
 y=162
@@ -487,7 +487,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:48
-[com_48]
+[obstacles_1]
 type=text
 x=122
 y=181
@@ -499,7 +499,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:49
-[com_49]
+[ranged_1]
 type=text
 x=122
 y=200
@@ -511,7 +511,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:50
-[com_50]
+[melee_1]
 type=text
 x=122
 y=219
@@ -523,7 +523,7 @@ textshadow=yes
 colour=0xcc9900
 
 // 636:51
-[com_51]
+[magic_1]
 type=text
 x=122
 y=238
@@ -535,7 +535,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:52
-[com_52]
+[heal_1]
 type=text
 x=122
 y=257
@@ -547,7 +547,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:53
-[com_53]
+[weaponslot_1]
 type=text
 x=122
 y=276
@@ -559,7 +559,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:54
-[com_54]
+[summon_1]
 type=text
 x=122
 y=295
@@ -571,7 +571,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:55
-[com_55]
+[tournament_value]
 type=text
 x=274
 y=67
@@ -583,7 +583,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:56
-[com_56]
+[rank_req]
 type=text
 x=274
 y=67
@@ -596,7 +596,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:57
-[com_57]
+[entry_fee]
 type=text
 x=274
 y=86
@@ -608,7 +608,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:58
-[com_58]
+[drink]
 type=text
 x=274
 y=105
@@ -620,7 +620,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:59
-[com_59]
+[food]
 type=text
 x=274
 y=124
@@ -632,7 +632,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:60
-[com_60]
+[prayer]
 type=text
 x=274
 y=143
@@ -644,7 +644,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:61
-[com_61]
+[spec_att]
 type=text
 x=274
 y=162
@@ -656,7 +656,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:62
-[com_62]
+[obstacles]
 type=text
 x=274
 y=181
@@ -668,7 +668,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:63
-[com_63]
+[ranged]
 type=text
 x=274
 y=200
@@ -680,7 +680,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:64
-[com_64]
+[melee]
 type=text
 x=274
 y=219
@@ -692,7 +692,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:65
-[com_65]
+[magic]
 type=text
 x=274
 y=238
@@ -704,7 +704,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:66
-[com_66]
+[heal]
 type=text
 x=274
 y=257
@@ -716,7 +716,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:67
-[com_67]
+[weaponslot]
 type=text
 x=274
 y=276
@@ -728,7 +728,7 @@ textshadow=yes
 colour=0xe1961f
 
 // 636:68
-[com_68]
+[summon]
 type=text
 x=274
 y=295

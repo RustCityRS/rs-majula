@@ -1,6 +1,6 @@
 // 4415
 [proc,script4415]
-if_settext(activeclansettings_getclanname, clan_info:com_173);
+if_settext(activeclansettings_getclanname, clan_info:title_text);
 if_settext("Game time:<br><~clan_offset_tostring(%varclansetting_0)>", clan_info:com_19);
 if_settext(activeclansettings_getaffineddisplayname(activeclansettings_getcurrentowner_slot), clan_info:com_35);
 if (%varclansetting_6 > 0) {
@@ -13,10 +13,10 @@ if (%varclansetting_4 = 0) {
     if_settext("This clan is recruiting.", clan_info:com_5);
 }
 ~script4332(clan_info:com_102, clan_info:com_112);
-~script4334(clan_info:com_7, clan_info:com_8);
+~script4334(clan_info:colour1, clan_info:colour2);
 ~script4336(clan_info:com_94);
 ~script4343(clan_info:com_95);
 ~script4329(clan_info:com_38);
-~script4328(clan_info:com_199);
+~script4328(clan_info:flag);
 ~script4420;
 if_sethide(true, clan_info:com_151);

@@ -7,12 +7,12 @@ switch_component ($component0) {
         if_sethide(false, rand_ring_interface:com_44);
     case rand_ring_interface:com_85 :
         if_sethide(false, rand_ring_interface:com_86);
-    case rand_ring_interface:com_278 :
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:com_281);
-        if_setgraphic("login_lobby_button,11", rand_ring_interface:com_282);
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:com_283);
-    case rand_ring_interface:com_279 :
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:com_284);
-        if_setgraphic("login_lobby_button,11", rand_ring_interface:com_285);
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:com_286);
+    case rand_ring_interface:cancel_button :
+        if_setgraphic("login_lobby_button,10", rand_ring_interface:cancel_button_left);
+        if_setgraphic("login_lobby_button,11", rand_ring_interface:cancel_button_middle);
+        if_setgraphic("login_lobby_button,10", rand_ring_interface:cancel_button_right);
+    case rand_ring_interface:confirm_button :
+        if_setgraphic("login_lobby_button,10", rand_ring_interface:confirm_button_left);
+        if_setgraphic("login_lobby_button,11", rand_ring_interface:confirm_button_middle);
+        if_setgraphic("login_lobby_button,10", rand_ring_interface:confirm_button_right);
 }

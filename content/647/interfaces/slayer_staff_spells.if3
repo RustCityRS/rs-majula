@@ -9,7 +9,7 @@ graphic="magicon,19"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, slayer_staff_spells:com_7, "magicon,19", "magicoff,19", 39, "Crumble Undead", "Hits skeletons, ghosts, shades & zombies hard", earth_rune, 2, air_rune, 2, chaos_rune, 1, null, 0)
+onload=magic_init(event_com, slayer_staff_spells:tooltip, "magicon,19", "magicoff,19", 39, "Crumble Undead", "Hits skeletons, ghosts, shades & zombies hard", earth_rune, 2, air_rune, 2, chaos_rune, 1, null, 0)
 
 // 310:1
 [com_1]
@@ -22,10 +22,10 @@ graphic="magicon2,5"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, slayer_staff_spells:com_7, "magicon2,5", "magicoff2,5", 50, "Magic Dart", "A magic dart of slaying", slayer_s_staff, 1, death_rune, 1, mind_rune, 4, null, 0)
+onload=magic_init(event_com, slayer_staff_spells:tooltip, "magicon2,5", "magicoff2,5", 50, "Magic Dart", "A magic dart of slaying", slayer_s_staff, 1, death_rune, 1, mind_rune, 4, null, 0)
 
 // 310:2
-[com_2]
+[slayer_ssb12]
 type=graphic
 x=52
 y=107
@@ -35,10 +35,10 @@ graphic="magicon,31"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, slayer_staff_spells:com_7, "magicon,31", "magicoff,31", 62, "Wind Wave", "A high level Air missle", air_rune, 5, blood_rune, 1, null, 0, null, 0)
+onload=magic_init(event_com, slayer_staff_spells:tooltip, "magicon,31", "magicoff,31", 62, "Wind Wave", "A high level Air missle", air_rune, 5, blood_rune, 1, null, 0, null, 0)
 
 // 310:3
-[com_3]
+[slayer_ssb13]
 type=graphic
 x=116
 y=107
@@ -48,10 +48,10 @@ graphic="magicon,33"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, slayer_staff_spells:com_7, "magicon,33", "magicoff,33", 65, "Water Wave", "A high level Water missle", water_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+onload=magic_init(event_com, slayer_staff_spells:tooltip, "magicon,33", "magicoff,33", 65, "Water Wave", "A high level Water missle", water_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
 
 // 310:4
-[com_4]
+[slayer_ssb14]
 type=graphic
 x=51
 y=173
@@ -61,10 +61,10 @@ graphic="magicon,36"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, slayer_staff_spells:com_7, "magicon,36", "magicoff,36", 70, "Earth Wave", "A high level Earth missle", earth_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+onload=magic_init(event_com, slayer_staff_spells:tooltip, "magicon,36", "magicoff,36", 70, "Earth Wave", "A high level Earth missle", earth_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
 
 // 310:5
-[com_5]
+[slayer_ssb15]
 type=graphic
 x=115
 y=173
@@ -74,10 +74,10 @@ graphic="magicon,37"
 colour=0x000000
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, slayer_staff_spells:com_7, "magicon,37", "magicoff,37", 75, "Fire Wave", "A high level Fire missle", fire_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+onload=magic_init(event_com, slayer_staff_spells:tooltip, "magicon,37", "magicoff,37", 75, "Fire Wave", "A high level Fire missle", fire_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
 
 // 310:6
-[com_6]
+[slayer_cancelspell]
 type=text
 x=125
 y=240
@@ -94,7 +94,7 @@ onmouseover=text_colour_swapper(event_com, 0xc8c8c8)
 onmouseleave=text_colour_swapper(event_com, 0x808080)
 
 // 310:7
-[com_7]
+[tooltip]
 type=layer
 width=190
 height=261

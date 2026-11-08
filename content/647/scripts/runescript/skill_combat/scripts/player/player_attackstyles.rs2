@@ -10,10 +10,10 @@
 // retaliate (varp 172, 1139) and special energy (varp 300, 1137). Its four
 // style buttons are 11-14 in style order (void-634's `style1`-`style4`); they
 // carry no op until login unlocks them.
-[if_button,combat_side:style1] ~set_attackstyle(0);
-[if_button,combat_side:style2] ~set_attackstyle(1);
-[if_button,combat_side:style3] ~set_attackstyle(2);
-[if_button,combat_side:style4] ~set_attackstyle(3);
+[if_button,combat_side:button1] ~set_attackstyle(0);
+[if_button,combat_side:button2] ~set_attackstyle(1);
+[if_button,combat_side:button3] ~set_attackstyle(2);
+[if_button,combat_side:button4] ~set_attackstyle(3);
 
 // 289's staff tab has an autocast toggle (combat_staff_2:auto_toggle); 2011's
 // staffs autocast from the spellbook (skill_combat/scripts/player/auto_cast.rs2).
@@ -21,7 +21,7 @@
 // 289 turns auto retaliate on and off from its controls tab
 // (interface_controls/scripts/player_controls.rs2, controls:com_2 and com_3);
 // 2011's is one toggle on combat_side (15).
-[if_button,combat_side:retaliate]
+[if_button,combat_side:auto_retaliate]
 if_close; // closes interfaces in osrs
 if (p_finduid(uid) = true) {
     p_stopaction; // https://oldschool.runescape.wiki/w/Update:Slayer_Cave_%26_High_Risk_Worlds

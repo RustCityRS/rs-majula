@@ -154,7 +154,7 @@ pausebutton=yes
 pausetext=Select digit
 
 // 13:16
-[com_16]
+[enter_box]
 type=layer
 x=20
 y=25
@@ -162,8 +162,8 @@ width=170
 height=61
 xmode=abs_right
 ymode=abs_bottom
-onload=bankpin_buttonbox(bankpin_main:com_24, bankpin_main:com_25)
-onvarctransmit=bankpin_buttonbox(bankpin_main:com_24, bankpin_main:com_25){varclient_98}
+onload=bankpin_buttonbox(bankpin_main:com_24, bankpin_main:cancel)
+onvarctransmit=bankpin_buttonbox(bankpin_main:com_24, bankpin_main:cancel){varclient_98}
 
 // 13:17
 [com_17]
@@ -174,7 +174,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=enter_box
 graphic=tex_brown
 tiling=yes
 
@@ -183,7 +183,7 @@ tiling=yes
 type=graphic
 width=32
 height=32
-layer=com_16
+layer=enter_box
 graphic="v2_stone_borders,18"
 tiling=yes
 
@@ -193,7 +193,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_16
+layer=enter_box
 graphic="v2_stone_borders,19"
 tiling=yes
 
@@ -204,7 +204,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_16
+layer=enter_box
 graphic="v2_stone_borders,21"
 tiling=yes
 
@@ -216,7 +216,7 @@ width=64
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_16
+layer=enter_box
 graphic="v2_stone_borders,8"
 tiling=yes
 
@@ -229,7 +229,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_16
+layer=enter_box
 graphic="v2_stone_borders,8"
 tiling=yes
 
@@ -239,7 +239,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_16
+layer=enter_box
 graphic="v2_stone_borders,20"
 tiling=yes
 
@@ -252,7 +252,7 @@ height=24
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=enter_box
 textfont=b12_full
 text=I don't know it.
 textalignh=centre
@@ -263,7 +263,7 @@ onmouseover=text_colour_swapper(event_com, 0xe1981f)
 onmouseleave=text_colour_swapper(event_com, 0xbf751d)
 
 // 13:25
-[com_25]
+[cancel]
 type=text
 y=-12
 width=12
@@ -271,7 +271,7 @@ height=24
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=enter_box
 textfont=b12_full
 text=Exit
 textalignh=centre
@@ -286,7 +286,7 @@ onmouseleave=text_colour_swapper(event_com, 0xbf751d)
 onop=bankpin_cancel
 
 // 13:26
-[com_26]
+[message]
 type=text
 x=18
 y=57
@@ -299,7 +299,7 @@ textshadow=yes
 colour=0xff981f
 
 // 13:27
-[com_27]
+[title]
 type=text
 x=20
 y=29

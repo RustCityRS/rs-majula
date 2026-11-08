@@ -8,10 +8,10 @@ ymode=abs_centre
 colour=0x000000
 fill=yes
 trans=255
-onload=mole_init(event_com, mole_mud:com_1)
+onload=mole_init(event_com, mole_mud:mud)
 
 // 226:1
-[com_1]
+[mud]
 type=model
 y=4990
 width=9751

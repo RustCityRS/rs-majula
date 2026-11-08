@@ -1,11 +1,11 @@
 // 1376
 [proc,script1376](int $int0, component $component1, component $component2)
 if ($int0 = 1) {
-    if_sethide(false, worldmap:com_47);
+    if_sethide(false, worldmap:xv_repaint01);
     if_setop(1, "Hide key", worldmap:com_5);
-    if_setsize(if_getwidth(worldmap:com_47), 0, ^setsize_minus, ^setsize_minus, $component1);
+    if_setsize(if_getwidth(worldmap:xv_repaint01), 0, ^setsize_minus, ^setsize_minus, $component1);
 } else {
-    if_sethide(true, worldmap:com_47);
+    if_sethide(true, worldmap:xv_repaint01);
     if_setop(1, "Show key", worldmap:com_5);
     if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component1);
 }

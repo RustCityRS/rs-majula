@@ -3,26 +3,26 @@
 cc_deleteall(deathkeep_info:com_17);
 cc_deleteall(deathkeep_info:com_20);
 cc_deleteall(deathkeep_info:com_22);
-cc_deleteall(deathkeep_info:com_15);
+cc_deleteall(deathkeep_info:items);
 if (%varplayerbit_9226 = 1) {
-    if_settext("If you die in the Wilderness...", deathkeep_info:com_12);
+    if_settext("If you die in the Wilderness...", deathkeep_info:title);
 } else {
-    if_settext("Items kept on death", deathkeep_info:com_12);
+    if_settext("Items kept on death", deathkeep_info:title);
 }
 if (%varplayerbit_9226 = 2) {
-    cc_create(deathkeep_info:com_15, ^iftype_text, 0);
+    cc_create(deathkeep_info:items, ^iftype_text, 0);
     ~script4595;
     cc_settext(%varclient_1870);
     cc_setonvarcstrtransmit("script4596(event_com, event_comsubid){varclient_1870}");
     return;
 }
 if (inv_freespace(inv) >= inv_size(inv) & inv_freespace(worn) >= inv_size(worn) & (inv_freespace(inv_530) >= inv_size(inv_530) | map_members = false)) {
-    cc_create(deathkeep_info:com_15, ^iftype_text, 0);
+    cc_create(deathkeep_info:items, ^iftype_text, 0);
     ~script4595;
     cc_settext("You have no items to lose.");
     return;
 }
-def_int $int0 = if_getwidth(deathkeep_info:com_15);
+def_int $int0 = if_getwidth(deathkeep_info:items);
 def_int $int1 = max(calc($int0 / 36), 1);
 def_int $int2 = max(calc(($int0 - 36 * $int1) / max(calc($int1 - 1), 1)), 2);
 def_int $int3 = max(calc($int2 / 2), calc(36 - 32 + 1));
@@ -195,13 +195,13 @@ if (inv_freespace(inv_530) < inv_size(inv_530) & map_members = true) {
 if_setsize(0, $intarray0(3), ^setsize_minus, ^setsize_abs, deathkeep_info:com_23);
 if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:com_23);
 $int10 = calc($int10 + $intarray0(3));
-if_setscrollsize(0, $int10, deathkeep_info:com_15);
-if ($int10 > if_getheight(deathkeep_info:com_15)) {
-    ~scrollbar_vertical(deathkeep_info:com_24, deathkeep_info:com_15, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-    if_sethide(false, deathkeep_info:com_24);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, deathkeep_info:com_15);
+if_setscrollsize(0, $int10, deathkeep_info:items);
+if ($int10 > if_getheight(deathkeep_info:items)) {
+    ~scrollbar_vertical(deathkeep_info:items_scrollbar, deathkeep_info:items, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_sethide(false, deathkeep_info:items_scrollbar);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, deathkeep_info:items);
 } else {
-    if_sethide(true, deathkeep_info:com_24);
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, deathkeep_info:com_15);
-    if_setscrollpos(0, 0, deathkeep_info:com_15);
+    if_sethide(true, deathkeep_info:items_scrollbar);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, deathkeep_info:items);
+    if_setscrollpos(0, 0, deathkeep_info:items);
 }

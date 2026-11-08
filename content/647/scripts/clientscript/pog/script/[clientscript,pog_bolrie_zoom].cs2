@@ -6,5 +6,5 @@ if (%varclient_52 < 300) {
 if (%varclient_51 > 0 & calc(%varclient_52 % 3) = 0) {
     %varclient_51 = calc(%varclient_51 - 3);
     %varclient_50 = calc(%varclient_50 + 1);
-    if_setmodelangle(0, %varclient_50, 0, 0, 0, %varclient_51, interface_615:com_0);
+    if_setmodelangle(0, %varclient_50, 0, 0, 0, %varclient_51, pog_bolrie_dream:king_bolrie);
 }

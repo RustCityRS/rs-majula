@@ -1,5 +1,5 @@
 // 524:0
-[com_0]
+[fader]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -9,7 +9,7 @@ onload=script1135(event_com)
 onvarctransmit=script1135(event_com){varclient_1007}
 
 // 524:1
-[com_1]
+[text_layer]
 type=layer
 width=465
 height=70
@@ -24,19 +24,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=text_layer
 colour=0x112526
 fill=yes
 trans=150
 
 // 524:3
-[com_3]
+[title_txt]
 type=text
 height=25
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_1
+layer=text_layer
 textfont=quill_oblique_large
 textalignh=centre
 textalignv=centre
@@ -44,13 +44,13 @@ textshadow=yes
 colour=0x666fff
 
 // 524:4
-[com_4]
+[desc_txt]
 type=text
 height=25
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=text_layer
 textfont=q8_full
 textalignh=centre
 textalignv=centre

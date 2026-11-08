@@ -1,5 +1,5 @@
 // 225:0
-[com_0]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -13,177 +13,177 @@ x=23
 y=39
 width=463
 height=299
-layer=com_0
+layer=content_layer
 model=model_3044
 modelorigin=1,-17
 modelzoom=525
 
 // 225:2
-[com_2]
+[mm_mstitle]
 type=text
 x=82
 y=82
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 textshadow=yes
 
 // 225:3
-[com_3]
+[mm_ms1]
 type=text
 x=82
 y=98
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 colour=0xcccccc
 
 // 225:4
-[com_4]
+[mm_ms2]
 type=text
 x=82
 y=114
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 colour=0xcccccc
 
 // 225:5
-[com_5]
+[mm_ms3]
 type=text
 x=82
 y=131
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 colour=0xcccccc
 
 // 225:6
-[com_6]
+[mm_ms4]
 type=text
 x=82
 y=148
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 colour=0xcccccc
 
 // 225:7
-[com_7]
+[mm_ms5]
 type=text
 x=82
 y=165
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 colour=0xcccccc
 
 // 225:8
-[com_8]
+[mm_ms6]
 type=text
 x=82
 y=182
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 colour=0xcccccc
 
 // 225:9
-[com_9]
+[mm_ms7]
 type=text
 x=82
 y=199
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 colour=0xcccccc
 
 // 225:10
-[com_10]
+[mm_ms8]
 type=text
 x=82
 y=216
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 colour=0xcccccc
 
 // 225:11
-[com_11]
+[mm_ms9]
 type=text
 x=82
 y=233
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 colour=0xcccccc
 
 // 225:12
-[com_12]
+[mm_ms10]
 type=text
 x=82
 y=250
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 colour=0xcccccc
 
 // 225:13
-[com_13]
+[mm_ms11]
 type=text
 x=82
 y=267
 width=354
 height=14
-layer=com_0
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 colour=0xcccccc
 
 // 225:14
-[com_14]
+[mm_close]
 type=graphic
 x=444
 y=54
 width=26
 height=23
-layer=com_0
+layer=content_layer
 graphic="close_buttons,2"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(mm_message:com_14, "close_buttons,3")
-onmouseleave=graphic_swapper(mm_message:com_14, "close_buttons,2")
+onmouseover=graphic_swapper(mm_message:mm_close, "close_buttons,3")
+onmouseleave=graphic_swapper(mm_message:mm_close, "close_buttons,2")
 onop=closebutton_click
 
 // 225:15
-[com_15]
+[mm_message_close_button]
 type=layer
 x=441
 y=49
 width=32
 height=32
-layer=com_0
+layer=content_layer
 hide=yes

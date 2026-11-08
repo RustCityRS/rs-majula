@@ -2,13 +2,13 @@
 [clientscript,rcguild_game_overlay_tooltips](component $component0, component $component1)
 def_string $string0 = "";
 switch_component ($component0) {
-    case rcguild_overlay:com_33, rcguild_overlay:com_42 :
+    case rcguild_overlay:green_timer, rcguild_overlay:yellow_timer :
         $string0 = "How much time is left for this round.";
-    case rcguild_overlay:com_34, rcguild_overlay:com_43 :
+    case rcguild_overlay:green_orb, rcguild_overlay:opponent_green_orb :
         $string0 = "How many orbs the green team have captured this round.";
-    case rcguild_overlay:com_44, rcguild_overlay:com_35 :
+    case rcguild_overlay:yellow_orb, rcguild_overlay:opponent_yellow_orb :
         $string0 = "How many orbs the yellow team have captured this round.";
-    case rcguild_overlay:com_37, rcguild_overlay:com_46 :
+    case rcguild_overlay:green_activity_bar_fill, rcguild_overlay:yellow_activity_bar_fill :
         $string0 = "How active you have been during this round.";
     case default :
         return;

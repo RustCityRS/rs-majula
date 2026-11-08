@@ -1,4 +1,4 @@
 // 3037
 [proc,script3037]
-if_sethide(true, lobbyscreen_pane_friendslist:com_85);
-~friend_deltooltip(lobbyscreen_pane_friendslist:com_80, lobbyscreen_pane_friendslist:com_83);
+if_sethide(true, lobbyscreen_pane_friendslist:ignore_mo_bg);
+~friend_deltooltip(lobbyscreen_pane_friendslist:ignore_tooltip, lobbyscreen_pane_friendslist:ignore_tooltip_text);

@@ -32,90 +32,90 @@ tiling=yes
 colour=0x000000
 
 // 267:3
-[com_3]
+[pest_attack]
 type=graphic
 x=3
 y=5
 width=25
 height=25
-layer=com_87
+layer=menu
 graphic="staticons,0"
 colour=0x000000
 
 // 267:4
-[com_4]
+[pest_strength]
 type=graphic
 x=222
 y=5
 width=25
 height=25
-layer=com_87
+layer=menu
 graphic="staticons,1"
 colour=0x000000
 
 // 267:5
-[com_5]
+[pest_defence]
 type=graphic
 x=2
 y=39
 width=25
 height=25
-layer=com_87
+layer=menu
 graphic="staticons,2"
 colour=0x000000
 
 // 267:6
-[com_6]
+[pest_ranged]
 type=graphic
 x=222
 y=39
 width=25
 height=25
-layer=com_87
+layer=menu
 graphic="staticons,3"
 colour=0x000000
 
 // 267:7
-[com_7]
+[pest_magic]
 type=graphic
 x=4
 y=79
 width=25
 height=25
-layer=com_87
+layer=menu
 graphic="staticons,5"
 colour=0x000000
 
 // 267:8
-[com_8]
+[pest_hitpoints]
 type=graphic
 x=222
 y=76
 width=25
 height=25
-layer=com_87
+layer=menu
 graphic="staticons,6"
 colour=0x000000
 
 // 267:9
-[com_9]
+[pest_prayer]
 type=graphic
 x=4
 y=115
 width=25
 height=25
-layer=com_87
+layer=menu
 graphic="staticons,4"
 colour=0x000000
 
 // 267:10
-[com_10]
+[pest_attack_text]
 type=text
 x=45
 y=7
 width=160
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Attack
 textlineheight=12
@@ -123,13 +123,13 @@ textshadow=yes
 colour=0xff981f
 
 // 267:11
-[com_11]
+[pest_strength_text]
 type=text
 x=264
 y=6
 width=160
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Strength
 textlineheight=12
@@ -137,13 +137,13 @@ textshadow=yes
 colour=0xff981f
 
 // 267:12
-[com_12]
+[pest_defence_text]
 type=text
 x=45
 y=44
 width=160
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Defence
 textlineheight=12
@@ -151,13 +151,13 @@ textshadow=yes
 colour=0xff981f
 
 // 267:13
-[com_13]
+[pest_ranged_text]
 type=text
 x=264
 y=44
 width=160
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Ranged
 textlineheight=12
@@ -165,13 +165,13 @@ textshadow=yes
 colour=0xff981f
 
 // 267:14
-[com_14]
+[pest_magic_text]
 type=text
 x=46
 y=81
 width=160
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Magic
 textlineheight=12
@@ -179,13 +179,13 @@ textshadow=yes
 colour=0xff981f
 
 // 267:15
-[com_15]
+[pest_hitpoints_text]
 type=text
 x=264
 y=81
 width=160
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Constitution
 textlineheight=12
@@ -193,13 +193,13 @@ textshadow=yes
 colour=0xff981f
 
 // 267:16
-[com_16]
+[pest_prayer_text]
 type=text
 x=46
 y=120
 width=160
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Prayer
 textlineheight=12
@@ -207,65 +207,65 @@ textshadow=yes
 colour=0xff981f
 
 // 267:17
-[com_17]
+[void_mace]
 type=model
 x=9
 y=281
 width=28
 height=23
-layer=com_87
+layer=menu
 model=model_15280
 modelorigin=-1,7
 modelangle=114,183,0
 modelzoom=1040
 
 // 267:18
-[com_18]
+[void_torso]
 type=model
 x=237
 y=284
 width=17
 height=23
-layer=com_87
+layer=menu
 model=model_15282
 modelorigin=0,-1
 modelangle=375,3,0
 modelzoom=1040
 
 // 267:19
-[com_19]
+[void_robes]
 type=model
 x=13
 y=323
 width=19
 height=26
-layer=com_87
+layer=menu
 model=model_15281
 modelorigin=0,-1
 modelangle=261,2041,0
 modelzoom=1808
 
 // 267:20
-[com_20]
+[herb]
 type=model
 x=2
 y=175
 width=32
 height=25
-layer=com_87
+layer=menu
 model=model_2364
 modelorigin=3,4
 modelangle=555,1855,0
 modelzoom=784
 
 // 267:21
-[com_21]
+[mineral]
 type=model
 x=229
 y=181
 width=25
 height=20
-layer=com_87
+layer=menu
 model=model_15279
 modelangle=327,1696,0
 modelzoom=1936
@@ -277,20 +277,20 @@ x=11
 y=225
 width=20
 height=14
-layer=com_87
+layer=menu
 model=model_7152
 modelorigin=1,-1
 modelangle=327,1777,0
 modelzoom=1040
 
 // 267:23
-[com_23]
+[void_gloves]
 type=model
 x=232
 y=324
 width=28
 height=23
-layer=com_87
+layer=menu
 model=model_15278
 modelorigin=4,5
 modelangle=291,771,0
@@ -303,7 +303,7 @@ x=10
 y=361
 width=25
 height=23
-layer=com_87
+layer=menu
 model=model_27164
 modelangle=273,1644,0
 modelzoom=912
@@ -315,7 +315,7 @@ x=234
 y=361
 width=25
 height=23
-layer=com_87
+layer=menu
 model=model_27163
 modelorigin=0,9
 modelangle=138,224,0
@@ -328,20 +328,20 @@ x=13
 y=399
 width=20
 height=23
-layer=com_87
+layer=menu
 model=model_27166
 modelorigin=2,8
 modelangle=159,245,0
 modelzoom=784
 
 // 267:27
-[com_27]
+[void_seal]
 type=model
 x=236
 y=401
 width=19
 height=17
-layer=com_87
+layer=menu
 model=model_27165
 modelorigin=1,1
 modelangle=324,20,0
@@ -354,7 +354,7 @@ x=46
 y=281
 width=120
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Void Knight Mace
 textlineheight=12
@@ -368,7 +368,7 @@ x=264
 y=281
 width=120
 height=15
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Void Knight Top
 textlineheight=12
@@ -382,7 +382,7 @@ x=46
 y=320
 width=120
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Void Knight Robes
 textlineheight=12
@@ -396,7 +396,7 @@ x=264
 y=320
 width=120
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Void Knight Gloves
 textlineheight=12
@@ -410,7 +410,7 @@ x=46
 y=180
 width=95
 height=15
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Herb Pack
 textlineheight=12
@@ -424,7 +424,7 @@ x=46
 y=220
 width=95
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Seed Pack
 textlineheight=12
@@ -438,7 +438,7 @@ x=46
 y=22
 width=48
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(1 Pt)
 textlineheight=12
@@ -456,7 +456,7 @@ x=265
 y=22
 width=48
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(1 Pt)
 textlineheight=12
@@ -473,7 +473,7 @@ x=46
 y=59
 width=48
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(1 Pt)
 textlineheight=12
@@ -490,7 +490,7 @@ x=264
 y=59
 width=48
 height=12
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(1 Pt)
 textlineheight=12
@@ -507,7 +507,7 @@ x=46
 y=98
 width=48
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(1 Pt)
 textlineheight=12
@@ -524,7 +524,7 @@ x=264
 y=98
 width=48
 height=12
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(1 Pt)
 textlineheight=12
@@ -541,7 +541,7 @@ x=46
 y=136
 width=48
 height=11
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(1 Pt)
 textlineheight=12
@@ -552,13 +552,13 @@ onmouseover=pest_mouseover(event_com, 19)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:41
-[com_41]
+[pest_mace2]
 type=text
 x=46
 y=297
 width=84
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(250 Pts)
 textlineheight=12
@@ -569,13 +569,13 @@ onmouseover=pest_mouseover(event_com, 22)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:42
-[com_42]
+[pest_top]
 type=text
 x=264
 y=297
 width=84
 height=12
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(250 Pts)
 textlineheight=12
@@ -586,13 +586,13 @@ onmouseover=pest_mouseover(event_com, 23)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:43
-[com_43]
+[pest_robe]
 type=text
 x=46
 y=336
 width=84
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(250 Pts)
 textlineheight=12
@@ -603,13 +603,13 @@ onmouseover=pest_mouseover(event_com, 24)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:44
-[com_44]
+[pest_glove]
 type=text
 x=265
 y=336
 width=84
 height=11
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(150 Pts)
 textlineheight=12
@@ -620,13 +620,13 @@ onmouseover=pest_mouseover(event_com, 25)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:45
-[com_45]
+[pest_herb]
 type=text
 x=46
 y=198
 width=84
 height=11
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(30 Pts)
 textlineheight=12
@@ -637,13 +637,13 @@ onmouseover=pest_mouseover(event_com, 30)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:46
-[com_46]
+[pest_mineral]
 type=text
 x=264
 y=198
 width=84
 height=11
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(15 Pts)
 textlineheight=12
@@ -660,7 +660,7 @@ x=264
 y=180
 width=95
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Mineral Pack
 textlineheight=12
@@ -668,13 +668,13 @@ textshadow=yes
 colour=0xff981f
 
 // 267:48
-[com_48]
+[pest_seed]
 type=text
 x=46
 y=237
 width=84
 height=12
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(15 Pts)
 textlineheight=12
@@ -691,7 +691,7 @@ x=92
 y=22
 width=48
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(10 Pts)
 textlineheight=12
@@ -709,7 +709,7 @@ x=311
 y=22
 width=48
 height=12
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(10 Pts)
 textlineheight=12
@@ -726,7 +726,7 @@ x=92
 y=59
 width=48
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(10 Pts)
 textlineheight=12
@@ -743,7 +743,7 @@ x=311
 y=59
 width=48
 height=12
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(10 Pts)
 textlineheight=12
@@ -760,7 +760,7 @@ x=92
 y=98
 width=48
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(10 Pts)
 textlineheight=12
@@ -777,7 +777,7 @@ x=311
 y=98
 width=48
 height=12
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(10 Pts)
 textlineheight=12
@@ -794,7 +794,7 @@ x=93
 y=136
 width=48
 height=11
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(10 Pts)
 textlineheight=12
@@ -811,7 +811,7 @@ x=152
 y=22
 width=48
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(100 Pts)
 textlineheight=12
@@ -829,7 +829,7 @@ x=371
 y=22
 width=48
 height=12
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(100 Pts)
 textlineheight=12
@@ -846,7 +846,7 @@ x=152
 y=59
 width=48
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(100 Pts)
 textlineheight=12
@@ -863,7 +863,7 @@ x=371
 y=59
 width=48
 height=12
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(100 Pts)
 textlineheight=12
@@ -880,7 +880,7 @@ x=152
 y=98
 width=48
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(100 Pts)
 textlineheight=12
@@ -897,7 +897,7 @@ x=371
 y=98
 width=48
 height=12
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(100 Pts)
 textlineheight=12
@@ -914,7 +914,7 @@ x=152
 y=136
 width=48
 height=11
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(100 Pts)
 textlineheight=12
@@ -925,52 +925,52 @@ onmouseover=pest_mouseover(event_com, 21)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:63
-[com_63]
+[mage]
 type=text
 x=46
 y=358
 width=160
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Void Knight Mage Helm
 textshadow=yes
 colour=0xff981f
 
 // 267:64
-[com_64]
+[ranger]
 type=text
 x=264
 y=358
 width=170
 height=15
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Void Knight Ranger Helm
 textshadow=yes
 colour=0xff981f
 
 // 267:65
-[com_65]
+[melee]
 type=text
 x=46
 y=396
 width=160
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Void Knight Melee Helm
 textshadow=yes
 colour=0xff981f
 
 // 267:66
-[com_66]
+[seal]
 type=text
 x=264
 y=396
 width=120
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Void Knight Seal
 textshadow=yes
@@ -983,7 +983,7 @@ x=46
 y=374
 width=84
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(200 Pts)
 colour=0x855013
@@ -993,13 +993,13 @@ onmouseover=pest_mouseover(event_com, 26)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:68
-[com_68]
+[programs_spin]
 type=text
 x=264
 y=374
 width=84
 height=12
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(200 Pts)
 colour=0x855013
@@ -1015,7 +1015,7 @@ x=46
 y=412
 width=84
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(200 Pts)
 colour=0x855013
@@ -1031,7 +1031,7 @@ x=264
 y=412
 width=84
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(10 Pts)
 colour=0x855013
@@ -1041,13 +1041,13 @@ onmouseover=pest_mouseover(event_com, 29)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:71
-[com_71]
+[spinner_text]
 type=text
 x=46
 y=454
 width=120
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Spinner Charm
 textlineheight=12
@@ -1055,13 +1055,13 @@ textshadow=yes
 colour=0xff981f
 
 // 267:72
-[com_72]
+[ravager_text]
 type=text
 x=267
 y=453
 width=120
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Ravager Charm
 textlineheight=12
@@ -1069,13 +1069,13 @@ textshadow=yes
 colour=0xff981f
 
 // 267:73
-[com_73]
+[shifter_text]
 type=text
 x=268
 y=489
 width=120
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Shifter Charm
 textlineheight=12
@@ -1083,13 +1083,13 @@ textshadow=yes
 colour=0xff981f
 
 // 267:74
-[com_74]
+[torcher_text]
 type=text
 x=46
 y=489
 width=120
 height=14
-layer=com_87
+layer=menu
 textfont=p12_full
 text=Torcher Charm
 textlineheight=12
@@ -1097,13 +1097,13 @@ textshadow=yes
 colour=0xff981f
 
 // 267:75
-[com_75]
+[spinner_points]
 type=text
 x=46
 y=472
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(2 Pts)
 colour=0x855013
@@ -1113,13 +1113,13 @@ onmouseover=pest_mouseover(event_com, 34)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:76
-[com_76]
+[spinner_points_10]
 type=text
 x=95
 y=472
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(28 Pts)
 colour=0x855013
@@ -1129,13 +1129,13 @@ onmouseover=pest_mouseover(event_com, 38)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:77
-[com_77]
+[spinner_points_100]
 type=text
 x=143
 y=472
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(56 Pts)
 colour=0x855013
@@ -1145,13 +1145,13 @@ onmouseover=pest_mouseover(event_com, 42)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:78
-[com_78]
+[torcher_points]
 type=text
 x=46
 y=505
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(2 Pts)
 colour=0x855013
@@ -1161,13 +1161,13 @@ onmouseover=pest_mouseover(event_com, 36)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:79
-[com_79]
+[torcher_points_10]
 type=text
 x=96
 y=506
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(28 Pts)
 colour=0x855013
@@ -1177,13 +1177,13 @@ onmouseover=pest_mouseover(event_com, 40)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:80
-[com_80]
+[torcher_points_100]
 type=text
 x=144
 y=506
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(56 Pts)
 colour=0x855013
@@ -1193,13 +1193,13 @@ onmouseover=pest_mouseover(event_com, 44)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:81
-[com_81]
+[ravager_points]
 type=text
 x=267
 y=471
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(2 Pts)
 colour=0x855013
@@ -1209,13 +1209,13 @@ onmouseover=pest_mouseover(event_com, 33)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:82
-[com_82]
+[ravager_points_10]
 type=text
 x=317
 y=471
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(28 Pts)
 colour=0x855013
@@ -1225,13 +1225,13 @@ onmouseover=pest_mouseover(event_com, 37)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:83
-[com_83]
+[ravager_points_100]
 type=text
 x=365
 y=471
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(56 Pts)
 colour=0x855013
@@ -1241,13 +1241,13 @@ onmouseover=pest_mouseover(event_com, 41)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:84
-[com_84]
+[shifter_points]
 type=text
 x=268
 y=505
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(2 Pts)
 colour=0x855013
@@ -1257,13 +1257,13 @@ onmouseover=pest_mouseover(event_com, 35)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:85
-[com_85]
+[shifter_points_10]
 type=text
 x=318
 y=506
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(28 Pts)
 colour=0x855013
@@ -1273,13 +1273,13 @@ onmouseover=pest_mouseover(event_com, 39)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:86
-[com_86]
+[shifter_points_100]
 type=text
 x=366
 y=506
 width=44
 height=13
-layer=com_87
+layer=menu
 textfont=p11_full
 text=(56 Pts)
 colour=0x855013
@@ -1289,7 +1289,7 @@ onmouseover=pest_mouseover(event_com, 43)
 onmouseleave=pest_mouseleave(event_com)
 
 // 267:87
-[com_87]
+[menu]
 type=layer
 x=28
 y=40
@@ -1304,58 +1304,58 @@ x=468
 y=40
 width=16
 height=220
-onload=scrollbar_vertical_graphics(event_com, pest_rewards:com_87, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, pest_rewards:menu, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 267:89
-[com_89]
+[spinner_token]
 type=model
 x=10
 y=453
 width=33
 height=33
-layer=com_87
+layer=menu
 model=model_31523
 modelangle=512,0,0
 modelzoom=500
 
 // 267:90
-[com_90]
+[torcher_token]
 type=model
 x=10
 y=495
 width=33
 height=33
-layer=com_87
+layer=menu
 model=model_31552
 modelangle=512,0,0
 modelzoom=500
 
 // 267:91
-[com_91]
+[ravager_token]
 type=model
 x=230
 y=452
 width=33
 height=33
-layer=com_87
+layer=menu
 model=model_31536
 modelangle=512,0,0
 modelzoom=500
 
 // 267:92
-[com_92]
+[shifter_token]
 type=model
 x=230
 y=495
 width=33
 height=33
-layer=com_87
+layer=menu
 model=model_31547
 modelangle=512,0,0
 modelzoom=500
 
 // 267:93
-[com_93]
+[title]
 type=text
 x=84
 y=16
@@ -1369,7 +1369,7 @@ textshadow=yes
 colour=0xff981f
 
 // 267:94
-[com_94]
+[close]
 type=graphic
 x=464
 y=13
@@ -1384,7 +1384,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 267:95
-[com_95]
+[confirm_backing]
 type=graphic
 x=179
 y=275
@@ -1395,7 +1395,7 @@ tiling=yes
 colour=0x000000
 
 // 267:96
-[com_96]
+[confirm]
 type=rectangle
 x=179
 y=275
@@ -1450,7 +1450,7 @@ graphic="v2_stone_borders,7"
 colour=0x000000
 
 // 267:101
-[com_101]
+[confirm_text]
 type=text
 x=207
 y=278
@@ -1488,7 +1488,7 @@ tiling=yes
 colour=0x000000
 
 // 267:104
-[com_104]
+[pest_rewards_confirm_text]
 type=text
 x=207
 y=309
@@ -1502,7 +1502,7 @@ textshadow=yes
 colour=0xff981f
 
 // 267:105
-[com_105]
+[pest_points_total]
 type=text
 x=207
 y=288
@@ -1516,7 +1516,7 @@ textshadow=yes
 colour=0xff981f
 
 // 267:106
-[com_106]
+[tl_border]
 type=graphic
 x=22
 y=3
@@ -1526,7 +1526,7 @@ graphic="v2_stone_borders,4"
 colour=0x000000
 
 // 267:107
-[com_107]
+[tr_border]
 type=graphic
 x=460
 y=3
@@ -1557,7 +1557,7 @@ graphic="v2_stone_borders,9"
 colour=0x000000
 
 // 267:110
-[com_110]
+[unsubscribe_county]
 type=graphic
 x=50
 y=248
@@ -1609,13 +1609,13 @@ graphic="v2_stone_borders,10"
 colour=0x000000
 
 // 267:115
-[com_115]
+[div1]
 type=rectangle
 x=52
 y=163
 width=339
 height=1
-layer=com_87
+layer=menu
 colour=0xff6600
 fill=yes
 trans=200
@@ -1627,19 +1627,19 @@ x=53
 y=162
 width=337
 height=3
-layer=com_87
+layer=menu
 colour=0x000000
 fill=yes
 trans=200
 
 // 267:117
-[com_117]
+[div2]
 type=rectangle
 x=52
 y=264
 width=339
 height=1
-layer=com_87
+layer=menu
 colour=0xff6600
 fill=yes
 trans=200
@@ -1651,19 +1651,19 @@ x=53
 y=263
 width=337
 height=3
-layer=com_87
+layer=menu
 colour=0x000000
 fill=yes
 trans=200
 
 // 267:119
-[com_119]
+[div3]
 type=rectangle
 x=52
 y=440
 width=339
 height=1
-layer=com_87
+layer=menu
 colour=0xff6600
 fill=yes
 trans=200
@@ -1675,7 +1675,7 @@ x=53
 y=439
 width=337
 height=3
-layer=com_87
+layer=menu
 colour=0x000000
 fill=yes
 trans=200

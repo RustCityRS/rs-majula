@@ -1,20 +1,20 @@
 // 2314
 [clientscript,script2314]
-if (if_gethide(chatbox_background:com_78) = true) {
-    if_setvflip(true, chatbox_background:com_131);
-    if_sethide(false, chatbox_background:com_78);
-    if_sethide(false, chatbox_background:com_77);
-    if_sethide(false, chatbox_background:com_79);
-    if_sethide(false, chatbox_background:com_69);
+if (if_gethide(chatdefault:monthddlist) = true) {
+    if_setvflip(true, chatdefault:montharrow);
+    if_sethide(false, chatdefault:monthddlist);
+    if_sethide(false, chatdefault:monthddlistborder);
+    if_sethide(false, chatdefault:monthddscroll);
+    if_sethide(false, chatdefault:monthddback);
 } else {
-    if_setvflip(false, chatbox_background:com_131);
-    if_sethide(true, chatbox_background:com_78);
-    if_sethide(true, chatbox_background:com_77);
-    if_sethide(true, chatbox_background:com_79);
-    if_sethide(true, chatbox_background:com_69);
+    if_setvflip(false, chatdefault:montharrow);
+    if_sethide(true, chatdefault:monthddlist);
+    if_sethide(true, chatdefault:monthddlistborder);
+    if_sethide(true, chatdefault:monthddscroll);
+    if_sethide(true, chatdefault:monthddback);
 }
-if_setvflip(false, chatbox_background:com_146);
-if_sethide(true, chatbox_background:com_75);
-if_sethide(true, chatbox_background:com_74);
-if_sethide(true, chatbox_background:com_76);
-if_sethide(true, chatbox_background:com_68);
+if_setvflip(false, chatdefault:dayarrow);
+if_sethide(true, chatdefault:dayddlist);
+if_sethide(true, chatdefault:dayddlistborder);
+if_sethide(true, chatdefault:dayddscroll);
+if_sethide(true, chatdefault:dayddback);

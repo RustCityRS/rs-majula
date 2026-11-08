@@ -1,5 +1,5 @@
 // 923:0
-[com_0]
+[main_layer]
 type=layer
 width=16391
 height=16391
@@ -8,25 +8,25 @@ heightmode=proportion
 onload=fishcomp_side_load
 
 // 923:1
-[com_1]
+[tackle_box_layer]
 type=layer
 width=190
 height=173
-layer=com_0
+layer=main_layer
 
 // 923:2
-[com_2]
+[tackle_box_background_layer]
 type=layer
 width=190
 height=261
-layer=com_1
+layer=tackle_box_layer
 
 // 923:3
 [com_3]
 type=layer
 width=190
 height=261
-layer=com_0
+layer=main_layer
 
 // 923:4
 [com_4]
@@ -39,22 +39,22 @@ fill=yes
 trans=212
 
 // 923:5
-[com_5]
+[line_layer]
 type=layer
 x=4
 y=44
 width=190
 height=89
-layer=com_0
+layer=main_layer
 
 // 923:6
-[com_6]
+[selected_hook_layer]
 type=layer
 x=4
 y=43
 width=86
 height=40
-layer=com_5
+layer=line_layer
 
 // 923:7
 [com_7]
@@ -64,7 +64,7 @@ y=2
 width=86
 height=42
 xmode=abs_centre
-layer=com_5
+layer=line_layer
 transmitop=10
 op10= 
 
@@ -76,7 +76,7 @@ y=41
 width=96
 height=57
 xmode=abs_centre
-layer=com_5
+layer=line_layer
 transmitop=10
 op10=  
 
@@ -93,7 +93,7 @@ trans=255
 transmitop=1
 op1=Add worm
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Worm", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Worm", 25, 128)
 
 // 923:10
 [com_10]
@@ -109,7 +109,7 @@ transmitop=1,10
 op1=Add maggot
 op10= 
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Maggot", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Maggot", 25, 128)
 
 // 923:11
 [com_11]
@@ -125,7 +125,7 @@ transmitop=1,10
 op1=Add locust
 op10= 
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Locust", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Locust", 25, 128)
 
 // 923:12
 [com_12]
@@ -141,7 +141,7 @@ transmitop=1,10
 op1=Add cricket
 op10= 
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Cricket", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Cricket", 25, 128)
 
 // 923:13
 [com_13]
@@ -157,7 +157,7 @@ transmitop=1,10
 op1=Add crayfish
 op10=  
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Crayfish", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Crayfish", 25, 128)
 
 // 923:14
 [com_14]
@@ -173,7 +173,7 @@ transmitop=1,10
 op1=Add shrimp
 op10=   
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Shrimp", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Shrimp", 25, 128)
 
 // 923:15
 [com_15]
@@ -189,7 +189,7 @@ transmitop=1,10
 op1=Add green moth
 op10=   
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Green moth", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Green moth", 25, 128)
 
 // 923:16
 [com_16]
@@ -205,7 +205,7 @@ transmitop=1,10
 op1=Add grey moth
 op10=    
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Grey moth", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Grey moth", 25, 128)
 
 // 923:17
 [com_17]
@@ -221,7 +221,7 @@ transmitop=1,10
 op1=Add standard hook
 op10=     
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Standard hook", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Standard hook", 25, 128)
 
 // 923:18
 [com_18]
@@ -237,7 +237,7 @@ transmitop=1,10
 op1=Add large hook
 op10=      
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Large hook", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Large hook", 25, 128)
 
 // 923:19
 [com_19]
@@ -253,7 +253,7 @@ transmitop=1,10
 op1=Add slim hook
 op10=      
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Slim hook", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Slim hook", 25, 128)
 
 // 923:20
 [com_20]
@@ -269,7 +269,7 @@ transmitop=1,10
 op1=Add wooden hook
 op10=      
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Wooden hook", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Wooden hook", 25, 128)
 
 // 923:21
 [com_21]
@@ -285,7 +285,7 @@ transmitop=1,10
 op1=Add bone hook
 op10=      
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Bone hook", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Bone hook", 25, 128)
 
 // 923:22
 [com_22]
@@ -301,7 +301,7 @@ transmitop=1,10
 op1=Add double hook
 op10=      
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Double hook", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Double hook", 25, 128)
 
 // 923:23
 [com_23]
@@ -317,7 +317,7 @@ transmitop=1,10
 op1=Add small weight
 op10=       
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Small weight", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Small weight", 25, 128)
 
 // 923:24
 [com_24]
@@ -333,10 +333,10 @@ transmitop=1,10
 op1=Add medium weight
 op10=        
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Medium weight", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Medium weight", 25, 128)
 
 // 923:25
-[com_25]
+[mesbox_godfather]
 type=rectangle
 x=156
 y=128
@@ -349,7 +349,7 @@ transmitop=1,10
 op1=Add large weight
 op10=        
 onmouseleave=script259(event_com)
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "Large weight", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Large weight", 25, 128)
 
 // 923:26
 [com_26]
@@ -364,7 +364,7 @@ trans=255
 transmitop=1,10
 op1=Remove weight
 op10=         
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "", 25, 128)
 
 // 923:27
 [com_27]
@@ -379,7 +379,7 @@ trans=255
 transmitop=1,10
 op1=Remove weight
 op10=          
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "", 25, 128)
 
 // 923:28
 [com_28]
@@ -394,10 +394,10 @@ trans=255
 transmitop=1,10
 op1=Remove weight
 op10=           
-onmouserepeat=addtooltip(fishcomp_side:com_89, fishcomp_side:com_88, "", 25, 128)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "", 25, 128)
 
 // 923:29
-[com_29]
+[hook_model_layer]
 type=layer
 x=74
 y=7
@@ -594,7 +594,7 @@ transmitop=10
 op10= 
 
 // 923:45
-[com_45]
+[selected_panel]
 type=layer
 x=-2
 y=162
@@ -610,7 +610,7 @@ x=67
 y=5
 width=1
 height=71
-layer=com_45
+layer=selected_panel
 colour=0x5b5547
 transmitop=10
 op10= 
@@ -622,7 +622,7 @@ x=130
 y=5
 width=1
 height=71
-layer=com_45
+layer=selected_panel
 colour=0x5b5547
 transmitop=10
 op10= 
@@ -634,7 +634,7 @@ x=4
 y=7
 width=63
 height=17
-layer=com_45
+layer=selected_panel
 textfont=p12_full
 text=Bait
 textalignh=centre
@@ -650,7 +650,7 @@ x=67
 y=7
 width=63
 height=17
-layer=com_45
+layer=selected_panel
 textfont=p12_full
 text=Hook
 textalignh=centre
@@ -666,7 +666,7 @@ x=130
 y=7
 width=63
 height=17
-layer=com_45
+layer=selected_panel
 textfont=p12_full
 text=Weights
 textalignh=centre
@@ -682,7 +682,7 @@ x=4
 y=27
 width=63
 height=49
-layer=com_45
+layer=selected_panel
 textfont=p11_full
 text=None
 textalignh=centre
@@ -699,7 +699,7 @@ x=67
 y=27
 width=63
 height=49
-layer=com_45
+layer=selected_panel
 textfont=p11_full
 text=None
 textalignh=centre
@@ -710,13 +710,13 @@ transmitop=10
 op10= 
 
 // 923:53
-[com_53]
+[selected_weights_small_txt]
 type=text
 x=131
 y=30
 width=59
 height=14
-layer=com_45
+layer=selected_panel
 textfont=p11_full
 text=Small x 0
 textalignh=centre
@@ -728,13 +728,13 @@ onmouseover=text_colour_swapper(event_com, 0xeeeeee)
 onmouseleave=text_colour_swapper(event_com, 0xa4a467)
 
 // 923:54
-[com_54]
+[selected_weights_medium_txt]
 type=text
 x=131
 y=44
 width=59
 height=14
-layer=com_45
+layer=selected_panel
 textfont=p11_full
 text=Medium x 0
 textalignh=centre
@@ -746,13 +746,13 @@ onmouseover=text_colour_swapper(event_com, 0xeeeeee)
 onmouseleave=text_colour_swapper(event_com, 0xa4a467)
 
 // 923:55
-[com_55]
+[selected_weights_large_txt]
 type=text
 x=131
 y=58
 width=59
 height=14
-layer=com_45
+layer=selected_panel
 textfont=p11_full
 text=Large x 0
 textalignh=centre
@@ -764,7 +764,7 @@ onmouseover=text_colour_swapper(event_com, 0xeeeeee)
 onmouseleave=text_colour_swapper(event_com, 0xa4a467)
 
 // 923:56
-[com_56]
+[fish_button]
 type=text
 x=7
 y=241
@@ -802,7 +802,7 @@ x=10
 y=5
 width=35
 height=43
-layer=com_29
+layer=hook_model_layer
 model=model_52739
 modelorigin=-16,21
 modelangle=250,1831,1820
@@ -815,7 +815,7 @@ x=10
 y=7
 width=35
 height=43
-layer=com_29
+layer=hook_model_layer
 model=model_52739
 modelorigin=-16,21
 modelangle=250,1831,1820
@@ -830,7 +830,7 @@ x=9
 y=6
 width=35
 height=43
-layer=com_29
+layer=hook_model_layer
 model=model_52739
 modelorigin=-16,21
 modelangle=250,1831,1820
@@ -845,7 +845,7 @@ x=10
 y=5
 width=35
 height=43
-layer=com_29
+layer=hook_model_layer
 model=model_52739
 modelorigin=-16,21
 modelangle=250,1831,1820
@@ -860,7 +860,7 @@ x=7
 y=55
 width=35
 height=44
-layer=com_29
+layer=hook_model_layer
 model=model_52741
 modelorigin=-15,21
 modelangle=250,1831,1820
@@ -875,7 +875,7 @@ x=8
 y=56
 width=35
 height=44
-layer=com_29
+layer=hook_model_layer
 model=model_52741
 modelorigin=-15,21
 modelangle=250,1831,1820
@@ -890,7 +890,7 @@ x=7
 y=55
 width=35
 height=44
-layer=com_29
+layer=hook_model_layer
 model=model_52741
 modelorigin=-15,21
 modelangle=250,1831,1820
@@ -905,7 +905,7 @@ x=1
 y=105
 width=38
 height=45
-layer=com_29
+layer=hook_model_layer
 model=model_52737
 modelorigin=-14,21
 modelangle=250,1831,1820
@@ -920,7 +920,7 @@ x=2
 y=106
 width=38
 height=45
-layer=com_29
+layer=hook_model_layer
 model=model_52737
 modelorigin=-14,21
 modelangle=250,1831,1820
@@ -935,7 +935,7 @@ x=1
 y=105
 width=38
 height=45
-layer=com_29
+layer=hook_model_layer
 model=model_52737
 modelorigin=-14,21
 modelangle=250,1831,1820
@@ -950,7 +950,7 @@ x=45
 y=3
 width=38
 height=46
-layer=com_29
+layer=hook_model_layer
 model=model_52742
 modelorigin=-14,20
 modelangle=250,1831,1820
@@ -965,7 +965,7 @@ x=46
 y=4
 width=38
 height=46
-layer=com_29
+layer=hook_model_layer
 model=model_52742
 modelorigin=-14,20
 modelangle=250,1831,1820
@@ -980,7 +980,7 @@ x=45
 y=3
 width=38
 height=46
-layer=com_29
+layer=hook_model_layer
 model=model_52742
 modelorigin=-14,20
 modelangle=250,1831,1820
@@ -995,7 +995,7 @@ x=41
 y=54
 width=35
 height=44
-layer=com_29
+layer=hook_model_layer
 model=model_52744
 modelorigin=-15,21
 modelangle=250,1831,1820
@@ -1010,7 +1010,7 @@ x=42
 y=55
 width=35
 height=44
-layer=com_29
+layer=hook_model_layer
 model=model_52744
 modelorigin=-15,21
 modelangle=250,1831,1820
@@ -1025,7 +1025,7 @@ x=41
 y=54
 width=35
 height=44
-layer=com_29
+layer=hook_model_layer
 model=model_52744
 modelorigin=-15,21
 modelangle=250,1831,1820
@@ -1040,7 +1040,7 @@ x=41
 y=107
 width=35
 height=44
-layer=com_29
+layer=hook_model_layer
 model=model_52743
 modelorigin=-15,21
 modelangle=250,1831,1820
@@ -1055,7 +1055,7 @@ x=40
 y=106
 width=35
 height=44
-layer=com_29
+layer=hook_model_layer
 model=model_52743
 modelorigin=-15,21
 modelangle=250,1831,1820
@@ -1070,7 +1070,7 @@ x=40
 y=106
 width=35
 height=44
-layer=com_29
+layer=hook_model_layer
 model=model_52743
 modelorigin=-15,21
 modelangle=250,1831,1820
@@ -1116,7 +1116,7 @@ transmitop=10
 op10= 
 
 // 923:80
-[com_80]
+[bait_model_1]
 type=graphic
 x=6
 y=7
@@ -1126,7 +1126,7 @@ outline=1
 colour=0xffffffff
 
 // 923:81
-[com_81]
+[bait_model_2]
 type=graphic
 x=6
 y=49
@@ -1138,7 +1138,7 @@ transmitop=10
 op10= 
 
 // 923:82
-[com_82]
+[bait_model_3]
 type=graphic
 x=6
 y=88
@@ -1150,7 +1150,7 @@ transmitop=10
 op10= 
 
 // 923:83
-[com_83]
+[bait_model_4]
 type=graphic
 x=6
 y=126
@@ -1162,7 +1162,7 @@ transmitop=10
 op10= 
 
 // 923:84
-[com_84]
+[bait_model_5]
 type=graphic
 x=45
 y=7
@@ -1174,7 +1174,7 @@ transmitop=10
 op10= 
 
 // 923:85
-[com_85]
+[bait_model_6]
 type=graphic
 x=45
 y=49
@@ -1186,7 +1186,7 @@ transmitop=10
 op10= 
 
 // 923:86
-[com_86]
+[bait_model_7]
 type=graphic
 x=45
 y=88
@@ -1198,7 +1198,7 @@ transmitop=10
 op10= 
 
 // 923:87
-[com_87]
+[bait_model_8]
 type=graphic
 x=45
 y=126
@@ -1210,7 +1210,7 @@ transmitop=10
 op10= 
 
 // 923:88
-[com_88]
+[tooltip_area]
 type=layer
 x=35
 y=51
@@ -1218,8 +1218,8 @@ width=120
 height=69
 
 // 923:89
-[com_89]
+[tooltip_layer]
 type=layer
 width=10
 height=10
-layer=com_88
+layer=tooltip_area

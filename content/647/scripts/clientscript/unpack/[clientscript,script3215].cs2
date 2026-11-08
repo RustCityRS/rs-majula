@@ -1,9 +1,9 @@
 // 3215
 [clientscript,script3215](int $int0)
 if ($int0 = 1) {
-    if_setop(1, "Microtutorial", toplevel:com_98);
-    if_setop(1, "Microtutorial", toplevel_fullscreen:com_44);
+    if_setop(1, "Microtutorial", toplevel:stone8);
+    if_setop(1, "Microtutorial", toplevel_fullscreen:stone8);
 } else {
-    if_setop(1, "", toplevel:com_98);
-    if_setop(1, "", toplevel_fullscreen:com_44);
+    if_setop(1, "", toplevel:stone8);
+    if_setop(1, "", toplevel_fullscreen:stone8);
 }

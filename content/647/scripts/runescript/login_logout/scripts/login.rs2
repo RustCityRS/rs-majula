@@ -79,33 +79,33 @@ if (map_members = ^true) {
 }
 
 if (getwindowmode = 1) {
-    if_opensub(health_orb, toplevel:com_orb_health, ^true)
-    if_opensub(topstat_prayer, toplevel:com_orb_prayer, ^true)
-    if_opensub(topstat_run, toplevel:com_orb_energy, ^true)
+    if_opensub(topstat_hitpoints, toplevel:topstat_hitpoints, ^true)
+    if_opensub(topstat_prayer, toplevel:topstat_prayer, ^true)
+    if_opensub(topstat_run, toplevel:topstat_run, ^true)
     if ($summoning = ^true) {
-        if_opensub(summoning_orb, toplevel:com_orb_summoning, ^true)
+        if_opensub(topstat_lore, toplevel:topstat_lore, ^true)
     }
-    if_opensub(chatbox_tabs, toplevel:com_chatbox_tabs, ^true)
-    if_opensub(chatbox, toplevel:com_chatbox, ^true)
+    if_opensub(filterbuttons, toplevel:filterbuttons, ^true)
+    if_opensub(chattop, toplevel:chattop, ^true)
     // split/private chat overlay (matches void rev-634 gameframe); sits in the
     // 512x69 slot just below the chatbox
-    if_opensub(private_chat, toplevel:com_private_chat, ^true)
+    if_opensub(pmchat, toplevel:pmchat, ^true)
     // status icons such as multiway combat, in the slot sized for them
-    if_opensub(interface_745, toplevel:com_14, ^true)
+    if_opensub(statusicons, toplevel:statusicons, ^true)
 } else {
-    if_opensub(health_orb, toplevel_fullscreen:com_orb_health, ^true)
-    if_opensub(topstat_prayer, toplevel_fullscreen:com_orb_prayer, ^true)
-    if_opensub(topstat_run, toplevel_fullscreen:com_orb_energy, ^true)
+    if_opensub(topstat_hitpoints, toplevel_fullscreen:topstat_hitpoints, ^true)
+    if_opensub(topstat_prayer, toplevel_fullscreen:topstat_prayer, ^true)
+    if_opensub(topstat_run, toplevel_fullscreen:topstat_run, ^true)
     if ($summoning = ^true) {
-        if_opensub(summoning_orb, toplevel_fullscreen:com_orb_summoning, ^true)
+        if_opensub(topstat_lore, toplevel_fullscreen:topstat_lore, ^true)
     }
-    if_opensub(chatbox_tabs, toplevel_fullscreen:com_chatbox_tabs, ^true)
-    if_opensub(chatbox, toplevel_fullscreen:com_chatbox, ^true)
-    if_opensub(private_chat, toplevel_fullscreen:com_private_chat, ^true)
-    if_opensub(interface_745, toplevel_fullscreen:com_12, ^true)
+    if_opensub(filterbuttons, toplevel_fullscreen:filterbuttons, ^true)
+    if_opensub(chattop, toplevel_fullscreen:chattop, ^true)
+    if_opensub(pmchat, toplevel_fullscreen:pmchat, ^true)
+    if_opensub(statusicons, toplevel_fullscreen:statusicons, ^true)
 }
 
-if_opensub(chatbox_background, chatbox:com_chatbox_background, ^true)
+if_opensub(chatdefault, chattop:chatdefault, ^true)
 
 // The prayer orb's quick prayers, selecting (varc 181) and on (182), which
 // void-634's server sends as the orb opens (PrayerList.kt). The client
@@ -117,7 +117,7 @@ if_opensub(chatbox_background, chatbox:com_chatbox_background, ^true)
 
 [proc,initalltabs]()
 inv_transmit(inv, inventory:inv)
-inv_transmit(worn, wornitems:worn)
+inv_transmit(worn, wornitems:hat_container)
 
 // Worn equipment needs no if_setevents: interface 387's slot components have
 // their ops (active_properties) and per-slot inv-94 binding (oninvtransmit /
@@ -125,40 +125,40 @@ inv_transmit(worn, wornitems:worn)
 // above is enough — same as void, which uses no if_setevents for it either.
 
 if (getwindowmode = 1) {
-    if_opensub(combat_side, toplevel:com_tab0, ^true)
-    if_opensub(task_side, toplevel:com_tab1, ^true)
+    if_opensub(combat_side, toplevel:side0, ^true)
+    if_opensub(task_side, toplevel:side1, ^true)
     // The Task System's popup (void-634's task_overlay: 548:20, 746:79).
-    if_opensub(interface_1055, toplevel:com_20, ^true)
-    if_opensub(stats, toplevel:com_tab2, ^true)
-    if_opensub(questlist_v4, toplevel:com_tab3, ^true)
-    if_opensub(inventory, toplevel:com_tab4, ^true)
-    if_opensub(wornitems, toplevel:com_tab5, ^true)
-    if_opensub(prayer, toplevel:com_tab6, ^true)
-    if_opensub(magic, toplevel:com_tab7, ^true)
-    if_opensub(friends2, toplevel:com_tab9, ^true)
-    if_opensub(friends_chat, toplevel:com_tab10, ^true)
-    if_opensub(clan_chat, toplevel:com_tab11, ^true)
-    if_opensub(options, toplevel:com_tab12, ^true)
-    if_opensub(emotes, toplevel:com_tab13, ^true)
-    if_opensub(music_v3, toplevel:com_tab14, ^true)
-    if_opensub(notes, toplevel:com_tab15, ^true)
+    if_opensub(interface_1055, toplevel:graphics_confirm_layer, ^true)
+    if_opensub(stats, toplevel:side2, ^true)
+    if_opensub(questlist_v4, toplevel:side3, ^true)
+    if_opensub(inventory, toplevel:side4, ^true)
+    if_opensub(wornitems, toplevel:side5, ^true)
+    if_opensub(prayer, toplevel:side6, ^true)
+    if_opensub(magic, toplevel:side7, ^true)
+    if_opensub(friends2, toplevel:side9, ^true)
+    if_opensub(interface_1109, toplevel:side10, ^true)
+    if_opensub(clan_chat, toplevel:side11, ^true)
+    if_opensub(options, toplevel:side12, ^true)
+    if_opensub(emotes, toplevel:side13, ^true)
+    if_opensub(music_v3, toplevel:side14, ^true)
+    if_opensub(notes, toplevel:side15, ^true)
 } else {
-    if_opensub(combat_side, toplevel_fullscreen:com_tab0, ^true)
-    if_opensub(task_side, toplevel_fullscreen:com_tab1, ^true)
-    if_opensub(interface_1055, toplevel_fullscreen:com_79, ^true)
-    if_opensub(stats, toplevel_fullscreen:com_tab2, ^true)
-    if_opensub(questlist_v4, toplevel_fullscreen:com_tab3, ^true)
-    if_opensub(inventory, toplevel_fullscreen:com_tab4, ^true)
-    if_opensub(wornitems, toplevel_fullscreen:com_tab5, ^true)
-    if_opensub(prayer, toplevel_fullscreen:com_tab6, ^true)
-    if_opensub(magic, toplevel_fullscreen:com_tab7, ^true)
-    if_opensub(friends2, toplevel_fullscreen:com_tab9, ^true)
-    if_opensub(friends_chat, toplevel_fullscreen:com_tab10, ^true)
-    if_opensub(clan_chat, toplevel_fullscreen:com_tab11, ^true)
-    if_opensub(options, toplevel_fullscreen:com_tab12, ^true)
-    if_opensub(emotes, toplevel_fullscreen:com_tab13, ^true)
-    if_opensub(music_v3, toplevel_fullscreen:com_tab14, ^true)
-    if_opensub(notes, toplevel_fullscreen:com_tab15, ^true)
+    if_opensub(combat_side, toplevel_fullscreen:side0, ^true)
+    if_opensub(task_side, toplevel_fullscreen:side1, ^true)
+    if_opensub(interface_1055, toplevel_fullscreen:no_displayname_layer, ^true)
+    if_opensub(stats, toplevel_fullscreen:side2, ^true)
+    if_opensub(questlist_v4, toplevel_fullscreen:side3, ^true)
+    if_opensub(inventory, toplevel_fullscreen:side4, ^true)
+    if_opensub(wornitems, toplevel_fullscreen:side5, ^true)
+    if_opensub(prayer, toplevel_fullscreen:side6, ^true)
+    if_opensub(magic, toplevel_fullscreen:side7, ^true)
+    if_opensub(friends2, toplevel_fullscreen:side9, ^true)
+    if_opensub(interface_1109, toplevel_fullscreen:side10, ^true)
+    if_opensub(clan_chat, toplevel_fullscreen:side11, ^true)
+    if_opensub(options, toplevel_fullscreen:side12, ^true)
+    if_opensub(emotes, toplevel_fullscreen:side13, ^true)
+    if_opensub(music_v3, toplevel_fullscreen:side14, ^true)
+    if_opensub(notes, toplevel_fullscreen:side15, ^true)
 }
 
 // The Task System's tab: the set for where the player stands, and its six slots.
@@ -195,16 +195,16 @@ if_setevents(inventory:inv, 28, 55, ^no_op, ^no_op, 0, ^true, ^false)
 // names them from the weapon, and the server lets op1 through, as void-634's
 // unlockAll does. They are static components, whose events the client keys at
 // slot -1 (client.get_active_properties: child_id is -1).
-if_setevents(combat_side:style1, -1, -1, ^if_op1, 0, 0, ^false, ^false)
-if_setevents(combat_side:style2, -1, -1, ^if_op1, 0, 0, ^false, ^false)
-if_setevents(combat_side:style3, -1, -1, ^if_op1, 0, 0, ^false, ^false)
-if_setevents(combat_side:style4, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(combat_side:button1, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(combat_side:button2, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(combat_side:button3, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(combat_side:button4, -1, -1, ^if_op1, 0, 0, ^false, ^false)
 
 // The quest tab's list (questlist_v4, 190) is a row per 2011 quest id; View is
 // op1 on rows 0-300, as void-634 unlocks it (QuestJournals.kt). Points:
 // void-634's total, 311 (varp 904; quests.toml); the wiki's is 316 (see
 // general/configs/quest_interface.constant).
-if_setevents(questlist_v4:com_18, 0, 300, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(questlist_v4:quests, 0, 300, ^if_op1, 0, 0, ^false, ^false)
 %quest_points_total = ^quest_points_total;
 ~update_questlist;
 
@@ -212,15 +212,15 @@ if_setevents(questlist_v4:com_18, 0, 300, ^if_op1, 0, 0, ^false, ^false)
 // slot in enum 2279's order (clientscript 1236); Activate is op1. 2011's
 // client offers it on all thirty (void-634 unlocks 0-29): here on 289's
 // fifteen, as 2011's own are not ported.
-if_setevents(prayer:com_8, 0, 2, ^if_op1, 0, 0, ^false, ^false)
-if_setevents(prayer:com_8, 5, 10, ^if_op1, 0, 0, ^false, ^false)
-if_setevents(prayer:com_8, 13, 15, ^if_op1, 0, 0, ^false, ^false)
-if_setevents(prayer:com_8, 17, 19, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:prayer_buttons, 0, 2, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:prayer_buttons, 5, 10, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:prayer_buttons, 13, 15, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:prayer_buttons, 17, 19, ^if_op1, 0, 0, ^false, ^false)
 
 // The music player's list (music_v3, 187) is com1's children, two a track
 // for its 980 places (clientscript 828: the name at index * 2, the playlist
 // button at index * 2 + 1). Play (op1) and Unlock hint (op2) are a name's
 // (clientscripts 3680, 3681); the playlist's ops are not ported.
-if_setevents(music_v3:com_1, 0, 1959, or(^if_op1, ^if_op2), 0, 0, ^false, ^false)
+if_setevents(music_v3:jukebox, 0, 1959, or(^if_op1, ^if_op2), 0, 0, ^false, ^false)
 
 ~update_all(inv_getobj(worn, ^wearpos_rhand));

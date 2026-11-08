@@ -1,5 +1,5 @@
 // 911:0
-[com_0]
+[universe]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -7,41 +7,41 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 911:1
-[com_1]
+[contents]
 type=layer
 width=501
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=universe
 
 // 911:2
-[com_2]
+[options_client_if]
 type=layer
 height=307
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=contents
 
 // 911:3
-[com_3]
+[back_button]
 type=layer
 width=52
 height=22
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=options_client_if
 hide=yes
 
 // 911:4
-[com_4]
+[back_button_text]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=back_button
 textfont=verdana_13pt_regular
 text=Back
 textalignh=centre
@@ -52,13 +52,13 @@ onmouseover=text_colour_swapper(event_com, 0xfafafa)
 onmouseleave=text_colour_swapper(event_com, 0xebe0bc)
 
 // 911:5
-[com_5]
+[sound_layer]
 type=layer
 width=476
 height=106
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=options_client_if
 
 // 911:6
 [com_6]
@@ -68,7 +68,7 @@ y=5
 width=10
 height=16
 widthmode=minus
-layer=com_5
+layer=sound_layer
 textfont=verdana_13pt_regular
 text=Volume
 textalignv=centre
@@ -83,10 +83,10 @@ width=476
 height=81
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_5
+layer=sound_layer
 
 // 911:8
-[com_8]
+[sound_bg]
 type=layer
 width=365
 height=81
@@ -135,7 +135,7 @@ colour=0xebe0bc
 op10=  
 
 // 911:12
-[com_12]
+[music_container]
 type=layer
 x=98
 y=11
@@ -146,7 +146,7 @@ noclickthrough=yes
 op10=   
 
 // 911:13
-[com_13]
+[sound_container]
 type=layer
 x=98
 y=34
@@ -157,7 +157,7 @@ noclickthrough=yes
 op10=  
 
 // 911:14
-[com_14]
+[bgsound_container]
 type=layer
 x=98
 y=56
@@ -187,7 +187,7 @@ layer=com_7
 op10= 
 
 // 911:17
-[com_17]
+[stereo_text]
 type=text
 x=269
 y=21
@@ -201,7 +201,7 @@ colour=0xebe0bc
 op10=  
 
 // 911:18
-[com_18]
+[stereo_button]
 type=graphic
 x=317
 y=22
@@ -211,10 +211,10 @@ layer=com_7
 graphic=graphic_2533
 colour=0xffffffff
 op10=          
-onclick=loginscreen_stereo(1, lobbyscreen_pane_options:com_20, lobbyscreen_pane_options:com_18)
+onclick=loginscreen_stereo(1, lobbyscreen_pane_options:mono_button, lobbyscreen_pane_options:stereo_button)
 
 // 911:19
-[com_19]
+[mono_text]
 type=text
 x=269
 y=44
@@ -228,7 +228,7 @@ colour=0xebe0bc
 op10=  
 
 // 911:20
-[com_20]
+[mono_button]
 type=graphic
 x=317
 y=45
@@ -238,7 +238,7 @@ layer=com_7
 graphic=graphic_2533
 colour=0xffffffff
 op10=           
-onclick=loginscreen_stereo(0, lobbyscreen_pane_options:com_20, lobbyscreen_pane_options:com_18)
+onclick=loginscreen_stereo(0, lobbyscreen_pane_options:mono_button, lobbyscreen_pane_options:stereo_button)
 
 // 911:21
 [com_21]
@@ -393,31 +393,31 @@ width=128
 height=16
 xmode=abs_centre
 ymode=abs_centre
-layer=com_14
+layer=bgsound_container
 graphic=login_lobby_sliderbase
 colour=0xffffffff
 op10=   
 
 // 911:33
-[com_33]
+[bgsound_min]
 type=layer
 width=32
 heightmode=minus
-layer=com_14
+layer=bgsound_container
 noclickthrough=yes
 op10= 
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_35, lobbyscreen_pane_options:com_36, 0, 2)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_35, lobbyscreen_pane_options:bgsound_slider, 0, 2)
 
 // 911:34
-[com_34]
+[bgsound_max]
 type=layer
 width=32
 heightmode=minus
 xmode=abs_right
-layer=com_14
+layer=bgsound_container
 noclickthrough=yes
 op10=   
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_35, lobbyscreen_pane_options:com_36, -1, 2)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_35, lobbyscreen_pane_options:bgsound_slider, -1, 2)
 
 // 911:35
 [com_35]
@@ -425,13 +425,13 @@ type=layer
 width=112
 heightmode=minus
 xmode=abs_centre
-layer=com_14
+layer=bgsound_container
 noclickthrough=yes
 op10=   
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_35, lobbyscreen_pane_options:com_36, event_mousex, 2)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_35, lobbyscreen_pane_options:bgsound_slider, event_mousex, 2)
 
 // 911:36
-[com_36]
+[bgsound_slider]
 type=layer
 width=16
 height=16
@@ -449,7 +449,7 @@ width=16
 height=16
 xmode=abs_centre
 ymode=abs_centre
-layer=com_36
+layer=bgsound_slider
 graphic=login_lobby_sliderbutton
 colour=0xffffffff
 op10=  
@@ -461,53 +461,53 @@ width=128
 height=16
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=sound_container
 graphic=login_lobby_sliderbase
 colour=0xffffffff
 op10=  
 
 // 911:39
-[com_39]
+[sound_min]
 type=layer
 width=32
 heightmode=minus
-layer=com_13
+layer=sound_container
 noclickthrough=yes
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_41, lobbyscreen_pane_options:com_42, 0, 0)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:sound_dragzone, lobbyscreen_pane_options:sound_slider, 0, 0)
 
 // 911:40
-[com_40]
+[sound_max]
 type=layer
 width=32
 heightmode=minus
 xmode=abs_right
-layer=com_13
+layer=sound_container
 noclickthrough=yes
 op10=  
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_41, lobbyscreen_pane_options:com_42, -1, 0)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:sound_dragzone, lobbyscreen_pane_options:sound_slider, -1, 0)
 
 // 911:41
-[com_41]
+[sound_dragzone]
 type=layer
 width=112
 heightmode=minus
 xmode=abs_centre
-layer=com_13
+layer=sound_container
 noclickthrough=yes
 op10=  
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_41, lobbyscreen_pane_options:com_42, event_mousex, 0)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:sound_dragzone, lobbyscreen_pane_options:sound_slider, event_mousex, 0)
 
 // 911:42
-[com_42]
+[sound_slider]
 type=layer
 width=16
 height=16
 ymode=abs_centre
-layer=com_41
+layer=sound_dragzone
 noclickthrough=yes
 op10= 
 dragdeadtime=2
-ondragcomplete=loginscreen_slider_drag(lobbyscreen_pane_options:com_41, event_com, event_mousex, 0)
+ondragcomplete=loginscreen_slider_drag(lobbyscreen_pane_options:sound_dragzone, event_com, event_mousex, 0)
 
 // 911:43
 [com_43]
@@ -516,7 +516,7 @@ width=16
 height=16
 xmode=abs_centre
 ymode=abs_centre
-layer=com_42
+layer=sound_slider
 graphic=login_lobby_sliderbutton
 colour=0xffffffff
 op10= 
@@ -528,54 +528,54 @@ width=128
 height=16
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=music_container
 graphic=login_lobby_sliderbase
 colour=0xffffffff
 op10=   
 
 // 911:45
-[com_45]
+[music_min]
 type=layer
 width=32
 heightmode=minus
-layer=com_12
+layer=music_container
 noclickthrough=yes
 op10= 
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_47, lobbyscreen_pane_options:com_48, 0, 1)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:music_dragzone, lobbyscreen_pane_options:music_slider, 0, 1)
 
 // 911:46
-[com_46]
+[music_max]
 type=layer
 width=32
 heightmode=minus
 xmode=abs_right
-layer=com_12
+layer=music_container
 noclickthrough=yes
 op10=   
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_47, lobbyscreen_pane_options:com_48, -1, 1)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:music_dragzone, lobbyscreen_pane_options:music_slider, -1, 1)
 
 // 911:47
-[com_47]
+[music_dragzone]
 type=layer
 width=112
 heightmode=minus
 xmode=abs_centre
-layer=com_12
+layer=music_container
 noclickthrough=yes
 op10=   
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_47, lobbyscreen_pane_options:com_48, event_mousex, 1)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:music_dragzone, lobbyscreen_pane_options:music_slider, event_mousex, 1)
 
 // 911:48
-[com_48]
+[music_slider]
 type=layer
 width=16
 height=16
 ymode=abs_centre
-layer=com_47
+layer=music_dragzone
 noclickthrough=yes
 op10=  
 dragdeadtime=2
-ondragcomplete=loginscreen_slider_drag(lobbyscreen_pane_options:com_47, event_com, event_mousex, 1)
+ondragcomplete=loginscreen_slider_drag(lobbyscreen_pane_options:music_dragzone, event_com, event_mousex, 1)
 
 // 911:49
 [com_49]
@@ -584,7 +584,7 @@ width=16
 height=16
 xmode=abs_centre
 ymode=abs_centre
-layer=com_48
+layer=music_slider
 graphic=login_lobby_sliderbutton
 colour=0xffffffff
 op10=  
@@ -598,7 +598,7 @@ width=16
 height=16
 widthmode=minus
 heightmode=minus
-layer=com_8
+layer=sound_bg
 hide=yes
 colour=0x443f39
 fill=yes
@@ -609,7 +609,7 @@ op10=
 type=graphic
 width=8
 height=8
-layer=com_8
+layer=sound_bg
 graphic="lobby_smlframe,0"
 colour=0xffffffff
 op10=   
@@ -621,7 +621,7 @@ x=8
 width=16
 height=8
 widthmode=minus
-layer=com_8
+layer=sound_bg
 graphic="lobby_smlframe,1"
 tiling=yes
 colour=0xffffffff
@@ -634,7 +634,7 @@ width=8
 height=8
 xmode=abs_right
 ymode=abs_bottom
-layer=com_8
+layer=sound_bg
 graphic="lobby_smlframe,0"
 vflip=yes
 hflip=yes
@@ -648,7 +648,7 @@ y=8
 width=8
 height=16
 heightmode=minus
-layer=com_8
+layer=sound_bg
 graphic="lobby_smlframe,2"
 tiling=yes
 colour=0xffffffff
@@ -660,7 +660,7 @@ type=graphic
 width=8
 height=8
 ymode=abs_bottom
-layer=com_8
+layer=sound_bg
 graphic="lobby_smlframe,0"
 vflip=yes
 colour=0xffffffff
@@ -672,7 +672,7 @@ type=graphic
 width=8
 height=8
 xmode=abs_right
-layer=com_8
+layer=sound_bg
 graphic="lobby_smlframe,0"
 hflip=yes
 colour=0xffffffff
@@ -686,7 +686,7 @@ width=8
 height=16
 heightmode=minus
 xmode=abs_right
-layer=com_8
+layer=sound_bg
 graphic="lobby_smlframe,2"
 tiling=yes
 hflip=yes
@@ -701,7 +701,7 @@ width=16
 height=8
 widthmode=minus
 ymode=abs_bottom
-layer=com_8
+layer=sound_bg
 graphic="lobby_smlframe,1"
 tiling=yes
 vflip=yes
@@ -709,7 +709,7 @@ colour=0xffffffff
 op10=   
 
 // 911:59
-[com_59]
+[dropdown]
 type=layer
 width=100
 height=50
@@ -724,7 +724,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_59
+layer=dropdown
 colour=0x2e2b26
 fill=yes
 op10= 
@@ -734,7 +734,7 @@ op10=
 type=rectangle
 width=1
 heightmode=minus
-layer=com_59
+layer=dropdown
 colour=0xb2aa9f
 
 // 911:62
@@ -743,7 +743,7 @@ type=rectangle
 width=1
 heightmode=minus
 xmode=abs_right
-layer=com_59
+layer=dropdown
 colour=0xb2aa9f
 
 // 911:63
@@ -752,27 +752,27 @@ type=rectangle
 height=1
 widthmode=minus
 ymode=abs_bottom
-layer=com_59
+layer=dropdown
 colour=0xb2aa9f
 
 // 911:64
-[com_64]
+[dropdown_list]
 type=layer
 x=1
 width=18
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_59
+layer=dropdown
 op10= 
 
 // 911:65
-[com_65]
+[dropdown_scrollbar]
 type=layer
 x=1
 width=16
 height=1
 heightmode=minus
 xmode=abs_right
-layer=com_59
+layer=dropdown
 op10= 

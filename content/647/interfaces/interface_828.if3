@@ -1,5 +1,5 @@
 // 828:0
-[com_0]
+[layer_1]
 type=layer
 width=512
 height=334
@@ -13,20 +13,20 @@ x=2
 y=-24
 width=506
 height=366
-layer=com_0
+layer=layer_1
 model=model_44564
 modelorigin=1,2
 modelangle=519,2047,0
 modelzoom=335
 
 // 828:2
-[com_2]
+[close_button]
 type=graphic
 x=479
 y=14
 width=16
 height=16
-layer=com_0
+layer=layer_1
 graphic="v2_stone_close_button,0"
 colour=0x000000
 onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")

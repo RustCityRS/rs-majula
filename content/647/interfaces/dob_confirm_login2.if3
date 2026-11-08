@@ -1,5 +1,5 @@
 // 1051:0
-[com_0]
+[layer_1]
 type=layer
 y=1
 width=761
@@ -8,7 +8,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 1051:1
-[com_1]
+[borders_6]
 type=layer
 width=765
 height=503
@@ -16,7 +16,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 1051:2
-[com_2]
+[baselayer]
 type=layer
 x=-5
 y=4
@@ -33,16 +33,16 @@ x=-99
 y=-2
 width=542
 height=240
-layer=com_7
+layer=border
 graphic=login_background_alpha
 
 // 1051:4
-[com_4]
+[controls]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_2
+layer=baselayer
 
 // 1051:5
 [com_5]
@@ -53,7 +53,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_4
+layer=controls
 colour=0x000000
 fill=yes
 
@@ -64,39 +64,39 @@ x=-50
 y=-4
 width=530
 height=246
-layer=com_4
+layer=controls
 colour=0x1f0c00
 fill=yes
 
 // 1051:7
-[com_7]
+[border]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_4
+layer=controls
 
 // 1051:8
-[com_8]
+[topmes]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_4
+layer=controls
 transmitop=10
 op10= 
 
 // 1051:9
-[com_9]
+[titletext]
 type=text
 y=49
 width=22
 height=27
 widthmode=minus
 xmode=abs_centre
-layer=com_8
+layer=topmes
 textfont=b12_full
 text=You have entered your date of birth as:
 textalignh=centre
@@ -106,14 +106,14 @@ transmitop=10
 op10= 
 
 // 1051:10
-[com_10]
+[titletext_1]
 type=text
 y=104
 width=22
 height=68
 widthmode=minus
 xmode=abs_centre
-layer=com_8
+layer=topmes
 textfont=b12_full
 text=You cannot change your date of birth<br>once it has been submitted.<br>Are you sure?
 textlineheight=17
@@ -124,14 +124,14 @@ transmitop=10
 op10=  
 
 // 1051:11
-[com_11]
+[date_text]
 type=text
 y=76
 width=22
 height=27
 widthmode=minus
 xmode=abs_centre
-layer=com_8
+layer=topmes
 textfont=welcome_font_small
 text=30 September 8888
 textalignh=centre
@@ -141,14 +141,14 @@ transmitop=10
 op10=  
 
 // 1051:12
-[com_12]
+[maintitle]
 type=text
 y=1
 width=15
 height=48
 widthmode=minus
 xmode=abs_centre
-layer=com_8
+layer=topmes
 textfont=welcome_font_small
 text=Date of Birth Entry
 textalignh=centre
@@ -157,50 +157,50 @@ textshadow=yes
 colour=0xffda97
 
 // 1051:13
-[com_13]
+[cancelbutton]
 type=layer
 x=100
 y=175
 width=156
 height=32
 xmode=abs_centre
-layer=com_8
+layer=topmes
 transmitop=1,10
 op1=Cancel
 op10= 
 
 // 1051:14
-[com_14]
+[confirmbutton]
 type=layer
 x=-100
 y=175
 width=156
 height=32
 xmode=abs_centre
-layer=com_8
+layer=topmes
 transmitop=1
 op1=Confirm
 
 // 1051:15
-[com_15]
+[rightbutton2]
 type=graphic
 width=18
 height=31
 xmode=abs_right
-layer=com_14
+layer=confirmbutton
 graphic="login_lobby_button,0"
 tiling=yes
 hflip=yes
 colour=0xffffffff
 
 // 1051:16
-[com_16]
+[middlebutton2]
 type=graphic
 x=6
 width=18
 height=31
 widthmode=minus
-layer=com_14
+layer=confirmbutton
 graphic="login_lobby_button,1"
 tiling=yes
 hflip=yes
@@ -209,11 +209,11 @@ transmitop=10
 op10= 
 
 // 1051:17
-[com_17]
+[leftbutton2]
 type=graphic
 width=18
 height=31
-layer=com_14
+layer=confirmbutton
 graphic="login_lobby_button,0"
 tiling=yes
 colour=0xffffffff
@@ -229,7 +229,7 @@ width=22
 height=8
 widthmode=minus
 heightmode=minus
-layer=com_14
+layer=confirmbutton
 textfont=welcome_font_small
 text=Confirm
 textalignh=centre
@@ -237,12 +237,12 @@ textalignv=centre
 colour=0x000000
 
 // 1051:19
-[com_19]
+[rightbutton1]
 type=graphic
 width=18
 height=31
 xmode=abs_right
-layer=com_13
+layer=cancelbutton
 graphic="login_lobby_button,0"
 tiling=yes
 hflip=yes
@@ -251,13 +251,13 @@ transmitop=10
 op10= 
 
 // 1051:20
-[com_20]
+[middlebutton1]
 type=graphic
 x=6
 width=18
 height=31
 widthmode=minus
-layer=com_13
+layer=cancelbutton
 graphic="login_lobby_button,1"
 tiling=yes
 hflip=yes
@@ -266,11 +266,11 @@ transmitop=10
 op10=  
 
 // 1051:21
-[com_21]
+[leftbutton1]
 type=graphic
 width=18
 height=31
-layer=com_13
+layer=cancelbutton
 graphic="login_lobby_button,0"
 tiling=yes
 colour=0xffffffff
@@ -286,7 +286,7 @@ width=30
 height=8
 widthmode=minus
 heightmode=minus
-layer=com_13
+layer=cancelbutton
 textfont=welcome_font_small
 text=Cancel
 textalignh=centre
@@ -301,7 +301,7 @@ type=graphic
 width=16
 height=16
 ymode=abs_bottom
-layer=com_7
+layer=border
 graphic="login_lobby_border,3"
 vflip=yes
 colour=0xffffffff
@@ -313,7 +313,7 @@ width=16
 height=16
 xmode=abs_right
 ymode=abs_bottom
-layer=com_7
+layer=border
 graphic="login_lobby_border,3"
 vflip=yes
 hflip=yes
@@ -329,7 +329,7 @@ width=16
 height=16
 widthmode=minus
 ymode=abs_bottom
-layer=com_7
+layer=border
 graphic="login_lobby_border,4"
 vflip=yes
 colour=0xffffffff
@@ -341,7 +341,7 @@ op10=
 type=graphic
 width=16
 height=16
-layer=com_7
+layer=border
 graphic="login_lobby_border,0"
 colour=0xffffffff
 transmitop=10
@@ -353,7 +353,7 @@ type=graphic
 width=16
 height=16
 xmode=abs_right
-layer=com_7
+layer=border
 graphic="login_lobby_border,0"
 hflip=yes
 colour=0xffffffff
@@ -367,7 +367,7 @@ x=4
 width=8
 height=16
 widthmode=minus
-layer=com_7
+layer=border
 graphic="login_lobby_border,1"
 colour=0xffffffff
 transmitop=10
@@ -380,7 +380,7 @@ y=4
 width=16
 height=8
 heightmode=minus
-layer=com_7
+layer=border
 graphic="login_lobby_border,5"
 colour=0xffffffff
 
@@ -392,7 +392,7 @@ width=16
 height=8
 heightmode=minus
 xmode=abs_right
-layer=com_7
+layer=border
 graphic="login_lobby_border,5"
 hflip=yes
 colour=0xffffffff
@@ -406,7 +406,7 @@ x=384
 y=254
 width=384
 height=253
-layer=com_0
+layer=layer_1
 graphic=graphic_3784
 
 // 1051:32
@@ -415,7 +415,7 @@ type=graphic
 y=254
 width=384
 height=253
-layer=com_0
+layer=layer_1
 graphic=graphic_3783
 
 // 1051:33
@@ -423,7 +423,7 @@ graphic=graphic_3783
 type=graphic
 width=384
 height=254
-layer=com_0
+layer=layer_1
 graphic=graphic_3785
 
 // 1051:34
@@ -432,7 +432,7 @@ type=graphic
 x=384
 width=384
 height=254
-layer=com_0
+layer=layer_1
 graphic=graphic_3786
 
 // 1051:35
@@ -440,7 +440,7 @@ graphic=graphic_3786
 type=graphic
 width=16
 height=16
-layer=com_1
+layer=borders_6
 graphic="login_lobby_border,0"
 
 // 1051:36
@@ -449,7 +449,7 @@ type=graphic
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=borders_6
 graphic="login_lobby_border,0"
 hflip=yes
 
@@ -459,7 +459,7 @@ type=graphic
 width=16
 height=16
 ymode=abs_bottom
-layer=com_1
+layer=borders_6
 graphic="login_lobby_border,3"
 vflip=yes
 
@@ -470,7 +470,7 @@ width=16
 height=16
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=borders_6
 graphic="login_lobby_border,3"
 vflip=yes
 hflip=yes
@@ -482,7 +482,7 @@ x=8
 width=16
 height=16
 widthmode=minus
-layer=com_1
+layer=borders_6
 graphic="login_lobby_border,1"
 tiling=yes
 
@@ -494,7 +494,7 @@ width=16
 height=16
 widthmode=minus
 ymode=abs_bottom
-layer=com_1
+layer=borders_6
 graphic="login_lobby_border,4"
 tiling=yes
 vflip=yes
@@ -506,7 +506,7 @@ y=8
 width=16
 height=16
 heightmode=minus
-layer=com_1
+layer=borders_6
 graphic="login_lobby_border,5"
 
 // 1051:42
@@ -517,6 +517,6 @@ width=16
 height=16
 heightmode=minus
 xmode=abs_right
-layer=com_1
+layer=borders_6
 graphic="login_lobby_border,5"
 hflip=yes

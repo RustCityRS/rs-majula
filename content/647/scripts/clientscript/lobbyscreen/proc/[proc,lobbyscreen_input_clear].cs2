@@ -1,19 +1,19 @@
 // 3018
 [proc,lobbyscreen_input_clear]
-if_settext("", lobbyscreen:com_138);
-if_settext("", lobbyscreen:com_140);
-if_setonkey(null, lobbyscreen:com_140);
-if_setonop(null, lobbyscreen:com_144);
-if_settext("Ok", lobbyscreen:com_148);
-if_setop(1, "Ok", lobbyscreen:com_148);
-if_settext("Close", lobbyscreen:com_150);
-if_setop(1, "Close", lobbyscreen:com_150);
-if_setsize(265, 136, ^setsize_abs, ^setsize_abs, lobbyscreen:com_136);
-if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:com_140);
-if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:com_144);
-if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:com_148);
-if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:com_149);
-if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:com_150);
-if_sethide(false, lobbyscreen:com_149);
-if_sethide(false, lobbyscreen:com_150);
+if_settext("", lobbyscreen:input_title);
+if_settext("", lobbyscreen:input_text);
+if_setonkey(null, lobbyscreen:input_text);
+if_setonop(null, lobbyscreen:input_ok);
+if_settext("Ok", lobbyscreen:input_ok_text);
+if_setop(1, "Ok", lobbyscreen:input_ok_text);
+if_settext("Close", lobbyscreen:input_close_text);
+if_setop(1, "Close", lobbyscreen:input_close_text);
+if_setsize(265, 136, ^setsize_abs, ^setsize_abs, lobbyscreen:input_window);
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:input_text);
+if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:input_ok);
+if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:input_ok_text);
+if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:input_close);
+if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:input_close_text);
+if_sethide(false, lobbyscreen:input_close);
+if_sethide(false, lobbyscreen:input_close_text);
 %varclient_1796 = "";

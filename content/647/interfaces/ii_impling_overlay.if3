@@ -1,17 +1,17 @@
 // 169:0
-[com_0]
+[base_container]
 type=layer
 width=95
 height=334
 xmode=abs_right
 
 // 169:1
-[com_1]
+[container]
 type=layer
 width=95
 height=334
 xmode=abs_right
-layer=com_0
+layer=base_container
 transmitop=10
 op10= 
 
@@ -24,7 +24,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=container
 colour=0x53533d
 fill=yes
 trans=180
@@ -39,7 +39,7 @@ y=23
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -47,19 +47,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, baby_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, baby_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Baby implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Baby implings", 25, 512)
 
 // 169:4
-[com_4]
+[impling_01]
 type=graphic
 x=48
 y=23
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,1"
 colour=0xffffffff
 transmitop=10
@@ -73,7 +73,7 @@ y=23
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -81,19 +81,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, nature_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, nature_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Nature implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Nature implings", 25, 512)
 
 // 169:6
-[com_6]
+[impling_08]
 type=graphic
 x=2
 y=23
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,3"
 colour=0xffffffff
 transmitop=10
@@ -107,7 +107,7 @@ y=67
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -115,19 +115,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, young_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, young_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Young implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Young implings", 25, 512)
 
 // 169:8
-[com_8]
+[impling_02]
 type=graphic
 x=48
 y=67
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,6"
 colour=0xffffffff
 transmitop=10
@@ -141,7 +141,7 @@ y=67
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -149,19 +149,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, magpie_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, magpie_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Magpie implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Magpie implings", 25, 512)
 
 // 169:10
-[com_10]
+[impling_09]
 type=graphic
 x=2
 y=67
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,7"
 colour=0xffffffff
 transmitop=10
@@ -175,7 +175,7 @@ y=111
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -183,19 +183,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, gourm__impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, gourm__impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Gourmet implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Gourmet implings", 25, 512)
 
 // 169:12
-[com_12]
+[impling_03]
 type=graphic
 x=48
 y=111
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -209,7 +209,7 @@ y=111
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -217,19 +217,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, ninja_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, ninja_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Ninja implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Ninja implings", 25, 512)
 
 // 169:14
-[com_14]
+[impling_10]
 type=graphic
 x=2
 y=111
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,10"
 colour=0xffffffff
 transmitop=10
@@ -243,7 +243,7 @@ y=155
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -251,19 +251,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, earth_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, earth_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Earth implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Earth implings", 25, 512)
 
 // 169:16
-[com_16]
+[impling_04]
 type=graphic
 x=48
 y=155
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,9"
 colour=0xffffffff
 transmitop=10
@@ -277,7 +277,7 @@ y=155
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -285,19 +285,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, pirate_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, pirate_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Pirate implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Pirate implings", 25, 512)
 
 // 169:18
-[com_18]
+[impling_11]
 type=graphic
 x=2
 y=155
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,11"
 colour=0xffffffff
 transmitop=10
@@ -311,7 +311,7 @@ y=199
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -319,19 +319,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, ess__impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, ess__impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Essence implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Essence implings", 25, 512)
 
 // 169:20
-[com_20]
+[impling_05]
 type=graphic
 x=48
 y=199
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,8"
 colour=0xffffffff
 transmitop=10
@@ -345,7 +345,7 @@ y=199
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -353,19 +353,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, dragon_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, dragon_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Dragon implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Dragon implings", 25, 512)
 
 // 169:22
-[com_22]
+[impling_12]
 type=graphic
 x=2
 y=199
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -379,7 +379,7 @@ y=243
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -387,19 +387,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, eclectic_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, eclectic_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Eclectic implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Eclectic implings", 25, 512)
 
 // 169:24
-[com_24]
+[impling_06]
 type=graphic
 x=48
 y=243
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,4"
 colour=0xffffffff
 transmitop=10
@@ -413,7 +413,7 @@ y=243
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -421,19 +421,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, zombie_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, zombie_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Zombie implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Zombie implings", 25, 512)
 
 // 169:26
-[com_26]
+[impling_13]
 type=graphic
 x=2
 y=243
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,13"
 colour=0xffffffff
 transmitop=10
@@ -447,7 +447,7 @@ y=287
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -455,19 +455,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, spirit_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, spirit_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Spirit implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Spirit implings", 25, 512)
 
 // 169:28
-[com_28]
+[impling_07]
 type=graphic
 x=48
 y=287
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,14"
 colour=0xffffffff
 transmitop=10
@@ -481,7 +481,7 @@ y=287
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p12_full
 textalignh=right
 textshadow=yes
@@ -489,19 +489,19 @@ colour=0xb5b54a
 transmitop=10
 op10= 
 onload=script1091(event_com, kingly_impling_jar)
-onmouseleave=deltooltip(ii_impling_overlay:com_32)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
 oninvtransmit=script1091(event_com, kingly_impling_jar){inv}
-onmouserepeat=addtooltip(event_com, ii_impling_overlay:com_32, "Kingly implings", 25, 512)
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Kingly implings", 25, 512)
 
 // 169:30
-[com_30]
+[impling_14]
 type=graphic
 x=2
 y=287
 width=45
 height=45
 xmode=abs_right
-layer=com_1
+layer=container
 graphic="ii_impling_icons,12"
 colour=0xffffffff
 transmitop=10
@@ -516,7 +516,7 @@ width=4
 height=20
 widthmode=minus
 xmode=abs_right
-layer=com_1
+layer=container
 textfont=p11_full
 text=Hide
 textalignh=centre
@@ -525,21 +525,21 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Hide
-onop=script2910(ii_impling_overlay:com_1, event_com)
+onop=script2910(ii_impling_overlay:container, event_com)
 
 // 169:32
-[com_32]
+[tooltip]
 type=layer
 x=2
 y=23
 width=32
 height=32
-layer=com_1
+layer=container
 transmitop=10
 op10= 
 
 // 169:33
-[com_33]
+[fa_timer]
 type=layer
 x=96
 y=2
@@ -553,7 +553,7 @@ onload=ii_timer_display(event_com)
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_33
+layer=fa_timer
 colour=0x53533d
 fill=yes
 trans=180
@@ -567,23 +567,23 @@ width=49
 height=13
 xmode=abs_right
 ymode=abs_bottom
-layer=com_33
+layer=fa_timer
 textfont=p11_full
 text=30 min
 textalignh=right
 textalignv=centre
 textshadow=yes
 colour=0xffff00
-onvartransmit=ii_timer_update(ii_impling_overlay:com_33, event_com){varplayer_1018}
+onvartransmit=ii_timer_update(ii_impling_overlay:fa_timer, event_com){varplayer_1018}
 
 // 169:36
-[com_36]
+[time]
 type=text
 y=-2
 height=26
 widthmode=minus
 xmode=abs_right
-layer=com_33
+layer=fa_timer
 textfont=p11_full
 text=Farmer's affinity bonus left:
 textalignh=right

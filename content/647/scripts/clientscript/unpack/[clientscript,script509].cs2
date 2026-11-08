@@ -1,20 +1,20 @@
 // 509
 [clientscript,script509](component $component0)
 def_string $string0 = "";
-if ($component0 = pog_coin_machine:com_9) {
+if ($component0 = pog_coin_machine:pog_coin_display1_1) {
     $string0 = oc_name(%varplayer_1065);
     if (%varplayer_1065 = null) {
         $string0 = "Empty";
     }
-} else if ($component0 = pog_coin_machine:com_10) {
+} else if ($component0 = pog_coin_machine:pog_coin_display2_1) {
     $string0 = oc_name(%varplayer_1066);
     if (%varplayer_1066 = null) {
         $string0 = "Empty";
     }
-} else if ($component0 = pog_coin_machine:com_11) {
+} else if ($component0 = pog_coin_machine:pog_coin_display2_2) {
     $string0 = oc_name(%varplayer_1067);
     if (%varplayer_1067 = null) {
         $string0 = "Empty";
     }
 }
-~addtooltip_action($component0, pog_coin_machine:com_24, $string0, 25, 199);
+~addtooltip_action($component0, pog_coin_machine:tooltip_input, $string0, 25, 199);

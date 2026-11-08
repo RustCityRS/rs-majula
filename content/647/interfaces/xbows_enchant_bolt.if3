@@ -1,5 +1,5 @@
 // 432:0
-[com_0]
+[content_layer]
 type=layer
 x=7
 width=512
@@ -14,140 +14,140 @@ x=14
 y=17
 width=484
 height=315
-layer=com_0
+layer=content_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
 opbase=  
 
 // 432:2
-[com_2]
+[left_side]
 type=graphic
 y=21
 width=30
 height=309
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
 opbase= 
 
 // 432:3
-[com_3]
+[right_side]
 type=graphic
 x=479
 y=20
 width=32
 height=309
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
 opbase= 
 
 // 432:4
-[com_4]
+[bottom]
 type=graphic
 x=14
 y=313
 width=483
 height=29
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
 
 // 432:5
-[com_5]
+[bottom_right]
 type=graphic
 x=467
 y=301
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 opbase= 
 
 // 432:6
-[com_6]
+[bottom_left]
 type=graphic
 x=13
 y=301
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 
 // 432:7
-[com_7]
+[top_left]
 type=graphic
 x=13
 y=16
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 opbase= 
 
 // 432:8
-[com_8]
+[top_right]
 type=graphic
 x=467
 y=16
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 opbase= 
 
 // 432:9
-[com_9]
+[title_bar]
 type=graphic
 x=16
 y=33
 width=478
 height=31
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
 
 // 432:10
-[com_10]
+[left_joint]
 type=graphic
 x=13
 y=35
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,9"
 tiling=yes
 colour=0xffffffff
 
 // 432:11
-[com_11]
+[right_joint]
 type=graphic
 x=467
 y=35
 width=32
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,10"
 tiling=yes
 colour=0xffffffff
 
 // 432:12
-[com_12]
+[close_button]
 type=graphic
 x=471
 y=27
 width=16
 height=16
-layer=com_0
+layer=content_layer
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -157,13 +157,13 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 432:13
-[com_13]
+[title]
 type=text
 x=43
 y=28
 width=421
 height=13
-layer=com_0
+layer=content_layer
 textfont=b12_full
 text=Enchant Crossbow Bolt
 textalignh=centre
@@ -172,13 +172,13 @@ textshadow=yes
 colour=0xff981f
 
 // 432:14
-[com_14]
+[layera]
 type=layer
 x=37
 y=96
 width=40
 height=40
-layer=com_0
+layer=content_layer
 transmitop=1,2,3
 opbase=<col=ff9040>Bolts
 op1=Enchant 1 stack of 
@@ -186,13 +186,13 @@ op2=Enchant 5 stacks  of
 op3=Enchant 10 stacks of 
 
 // 432:15
-[com_15]
+[opal]
 type=text
 x=26
 y=77
 width=60
 height=14
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Magic 4
 textalignh=centre
@@ -202,13 +202,13 @@ onload=xbows_level(event_com, 4)
 onvartransmit=xbows_level(event_com, 4){varplayer_1092}
 
 // 432:16
-[com_16]
+[opal_1]
 type=text
 x=26
 y=61
 width=60
 height=14
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Opal
 textalignh=centre
@@ -217,26 +217,26 @@ colour=0xff981f
 onload=xbows_bolts(event_com, opal_bolts)
 
 // 432:17
-[com_17]
+[model1]
 type=model
 x=34
 y=97
 width=40
 height=44
-layer=com_0
+layer=content_layer
 model=model_16871
 modelorigin=3,-4
 modelangle=483,135,0
 modelzoom=500
 
 // 432:18
-[com_18]
+[layerb]
 type=layer
 x=229
 y=96
 width=40
 height=40
-layer=com_0
+layer=content_layer
 transmitop=1,2,3
 opbase=<col=ff9040>Bolts
 op1=Enchant 1 stack of 
@@ -244,13 +244,13 @@ op2=Enchant 5 stacks  of
 op3=Enchant 10 stacks of 
 
 // 432:19
-[com_19]
+[jade_1]
 type=text
 x=231
 y=60
 width=49
 height=13
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Jade
 textalignh=centre
@@ -259,13 +259,13 @@ colour=0xff981f
 onload=xbows_bolts(event_com, jade_bolts)
 
 // 432:20
-[com_20]
+[jade]
 type=text
 x=220
 y=77
 width=69
 height=14
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Magic 14
 textalignh=centre
@@ -275,26 +275,26 @@ onload=xbows_level(event_com, 14)
 onvartransmit=xbows_level(event_com, 14){varplayer_1092}
 
 // 432:21
-[com_21]
+[model2]
 type=model
 x=227
 y=97
 width=40
 height=44
-layer=com_0
+layer=content_layer
 model=model_16871
 modelorigin=3,-4
 modelangle=483,135,0
 modelzoom=500
 
 // 432:22
-[com_22]
+[layerc]
 type=layer
 x=328
 y=95
 width=40
 height=40
-layer=com_0
+layer=content_layer
 transmitop=1,2,3
 opbase=<col=ff9040>Bolts
 op1=Enchant 1 stack of 
@@ -302,13 +302,13 @@ op2=Enchant 5 stacks  of
 op3=Enchant 10 stacks of 
 
 // 432:23
-[com_23]
+[pearl_1]
 type=text
 x=326
 y=60
 width=47
 height=13
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Pearl
 textalignh=centre
@@ -317,13 +317,13 @@ colour=0xff981f
 onload=xbows_bolts(event_com, pearl_bolts)
 
 // 432:24
-[com_24]
+[pearl]
 type=text
 x=320
 y=77
 width=62
 height=13
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Magic 24
 textalignh=centre
@@ -333,26 +333,26 @@ onload=xbows_level(event_com, 24)
 onvartransmit=xbows_level(event_com, 24){varplayer_1092}
 
 // 432:25
-[com_25]
+[model3]
 type=model
 x=326
 y=96
 width=40
 height=44
-layer=com_0
+layer=content_layer
 model=model_16871
 modelorigin=3,-4
 modelangle=483,135,0
 modelzoom=500
 
 // 432:26
-[com_26]
+[layerd]
 type=layer
 x=47
 y=226
 width=40
 height=40
-layer=com_0
+layer=content_layer
 transmitop=1,2,3
 opbase=<col=ff9040>Bolts
 op1=Enchant 1 stack of 
@@ -360,13 +360,13 @@ op2=Enchant 5 stacks  of
 op3=Enchant 10 stacks of 
 
 // 432:27
-[com_27]
+[red_topaz]
 type=text
 x=35
 y=207
 width=76
 height=13
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Magic 29
 textalignh=centre
@@ -376,26 +376,26 @@ onload=xbows_level(event_com, 29)
 onvartransmit=xbows_level(event_com, 29){varplayer_1092}
 
 // 432:28
-[com_28]
+[model4]
 type=model
 x=45
 y=227
 width=40
 height=44
-layer=com_0
+layer=content_layer
 model=model_16871
 modelorigin=3,-4
 modelangle=483,135,0
 modelzoom=500
 
 // 432:29
-[com_29]
+[layere]
 type=layer
 x=131
 y=96
 width=40
 height=40
-layer=com_0
+layer=content_layer
 transmitop=1,2,3
 opbase=<col=ff9040>Bolts
 op1=Enchant 1 stack of 
@@ -403,13 +403,13 @@ op2=Enchant 5 stacks  of
 op3=Enchant 10 stacks of 
 
 // 432:30
-[com_30]
+[sapphire]
 type=text
 x=120
 y=77
 width=72
 height=13
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Magic 7
 textalignh=centre
@@ -419,26 +419,26 @@ onload=xbows_level(event_com, 7)
 onvartransmit=xbows_level(event_com, 7){varplayer_1092}
 
 // 432:31
-[com_31]
+[model5]
 type=model
 x=128
 y=97
 width=40
 height=44
-layer=com_0
+layer=content_layer
 model=model_16871
 modelorigin=3,-4
 modelangle=483,135,0
 modelzoom=500
 
 // 432:32
-[com_32]
+[layerf]
 type=layer
 x=421
 y=96
 width=40
 height=40
-layer=com_0
+layer=content_layer
 transmitop=1,2,3
 opbase=<col=ff9040>Bolts
 op1=Enchant 1 stack of 
@@ -446,13 +446,13 @@ op2=Enchant 5 stacks  of
 op3=Enchant 10 stacks of 
 
 // 432:33
-[com_33]
+[emerald]
 type=text
 x=411
 y=76
 width=62
 height=14
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Magic 27
 textalignh=centre
@@ -462,26 +462,26 @@ onload=xbows_level(event_com, 27)
 onvartransmit=xbows_level(event_com, 27){varplayer_1092}
 
 // 432:34
-[com_34]
+[model6]
 type=model
 x=418
 y=97
 width=40
 height=44
-layer=com_0
+layer=content_layer
 model=model_16871
 modelorigin=3,-4
 modelangle=483,135,0
 modelzoom=500
 
 // 432:35
-[com_35]
+[layerg]
 type=layer
 x=133
 y=226
 width=40
 height=40
-layer=com_0
+layer=content_layer
 transmitop=1,2,3
 opbase=<col=ff9040>Bolts
 op1=Enchant 1 stack of 
@@ -489,13 +489,13 @@ op2=Enchant 5 stacks  of
 op3=Enchant 10 stacks of 
 
 // 432:36
-[com_36]
+[ruby]
 type=text
 x=120
 y=206
 width=67
 height=15
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Magic 49
 textalignh=centre
@@ -505,26 +505,26 @@ onload=xbows_level(event_com, 49)
 onvartransmit=xbows_level(event_com, 49){varplayer_1092}
 
 // 432:37
-[com_37]
+[model7]
 type=model
 x=131
 y=227
 width=40
 height=44
-layer=com_0
+layer=content_layer
 model=model_16871
 modelorigin=3,-4
 modelangle=483,135,0
 modelzoom=500
 
 // 432:38
-[com_38]
+[layerh]
 type=layer
 x=227
 y=226
 width=40
 height=40
-layer=com_0
+layer=content_layer
 transmitop=1,2,3
 opbase=<col=ff9040>Bolts
 op1=Enchant 1 stack of 
@@ -532,13 +532,13 @@ op2=Enchant 5 stacks  of
 op3=Enchant 10 stacks of 
 
 // 432:39
-[com_39]
+[diamond]
 type=text
 x=215
 y=206
 width=70
 height=13
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Magic 57
 textalignh=centre
@@ -548,26 +548,26 @@ onload=xbows_level(event_com, 57)
 onvartransmit=xbows_level(event_com, 57){varplayer_1092}
 
 // 432:40
-[com_40]
+[model8]
 type=model
 x=224
 y=227
 width=40
 height=44
-layer=com_0
+layer=content_layer
 model=model_16871
 modelorigin=3,-4
 modelangle=483,135,0
 modelzoom=500
 
 // 432:41
-[com_41]
+[layeri]
 type=layer
 x=321
 y=226
 width=40
 height=40
-layer=com_0
+layer=content_layer
 transmitop=1,2,3
 opbase=<col=ff9040>Bolts
 op1=Enchant 1 stack of 
@@ -575,13 +575,13 @@ op2=Enchant 5 stacks  of
 op3=Enchant 10 stacks of 
 
 // 432:42
-[com_42]
+[dragonstone]
 type=text
 x=300
 y=206
 width=95
 height=15
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Magic 68
 textalignh=centre
@@ -591,26 +591,26 @@ onload=xbows_level(event_com, 68)
 onvartransmit=xbows_level(event_com, 68){varplayer_1092}
 
 // 432:43
-[com_43]
+[model9]
 type=model
 x=319
 y=227
 width=40
 height=44
-layer=com_0
+layer=content_layer
 model=model_16871
 modelorigin=3,-4
 modelangle=483,135,0
 modelzoom=500
 
 // 432:44
-[com_44]
+[layerj]
 type=layer
 x=420
 y=226
 width=40
 height=40
-layer=com_0
+layer=content_layer
 transmitop=1,2,3
 opbase=<col=ff9040>Bolts
 op1=Enchant 1 stack of 
@@ -618,13 +618,13 @@ op2=Enchant 5 stacks  of
 op3=Enchant 10 stacks of 
 
 // 432:45
-[com_45]
+[onyx]
 type=text
 x=406
 y=206
 width=73
 height=11
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Magic 87
 textalignh=centre
@@ -634,13 +634,13 @@ onload=xbows_level(event_com, 87)
 onvartransmit=xbows_level(event_com, 87){varplayer_1092}
 
 // 432:46
-[com_46]
+[model10]
 type=model
 x=418
 y=227
 width=40
 height=44
-layer=com_0
+layer=content_layer
 model=model_16871
 modelorigin=3,-4
 modelangle=483,135,0
@@ -653,7 +653,7 @@ x=28
 y=167
 width=23
 height=11
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -667,7 +667,7 @@ x=30
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2735
 modelangle=512,1024,0
 modelzoom=900
@@ -679,7 +679,7 @@ x=220
 y=167
 width=23
 height=11
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -693,7 +693,7 @@ x=222
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2735
 modelangle=512,1024,0
 modelzoom=900
@@ -705,7 +705,7 @@ x=318
 y=167
 width=23
 height=11
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -713,13 +713,13 @@ colour=0xc00000
 onload=xbows_init(event_com, cosmic_rune, 1)
 
 // 432:52
-[com_52]
+[observation_colors]
 type=model
 x=320
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2735
 modelangle=512,1024,0
 modelzoom=900
@@ -731,7 +731,7 @@ x=30
 y=297
 width=23
 height=11
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -745,7 +745,7 @@ x=32
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2735
 modelangle=512,1024,0
 modelzoom=900
@@ -757,7 +757,7 @@ x=111
 y=167
 width=23
 height=11
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -771,7 +771,7 @@ x=113
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2735
 modelangle=512,1024,0
 modelzoom=900
@@ -783,7 +783,7 @@ x=402
 y=167
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -797,7 +797,7 @@ x=404
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2735
 modelangle=512,1024,0
 modelzoom=900
@@ -809,7 +809,7 @@ x=106
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -823,7 +823,7 @@ x=108
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2735
 modelangle=512,1024,0
 modelzoom=900
@@ -835,7 +835,7 @@ x=206
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -849,7 +849,7 @@ x=208
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2735
 modelangle=512,1024,0
 modelzoom=900
@@ -861,7 +861,7 @@ x=302
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -875,7 +875,7 @@ x=305
 y=274
 width=21
 height=21
-layer=com_0
+layer=content_layer
 model=model_2735
 modelangle=512,1024,0
 modelzoom=1028
@@ -887,7 +887,7 @@ x=399
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -901,7 +901,7 @@ x=401
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2735
 modelangle=512,1024,0
 modelzoom=900
@@ -913,7 +913,7 @@ x=61
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2405
 modelangle=512,1024,0
 modelzoom=900
@@ -925,7 +925,7 @@ x=59
 y=167
 width=23
 height=11
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -939,7 +939,7 @@ x=333
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2737
 modelangle=512,1024,0
 modelzoom=900
@@ -951,7 +951,7 @@ x=331
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -965,7 +965,7 @@ x=254
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2737
 modelangle=512,1024,0
 modelzoom=900
@@ -977,7 +977,7 @@ x=252
 y=167
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -991,7 +991,7 @@ x=352
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2652
 modelangle=512,1024,0
 modelzoom=900
@@ -1003,7 +1003,7 @@ x=350
 y=167
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1017,7 +1017,7 @@ x=64
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2399
 modelangle=512,1024,0
 modelzoom=900
@@ -1029,7 +1029,7 @@ x=63
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1043,7 +1043,7 @@ x=173
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2481
 modelangle=512,1024,0
 modelzoom=900
@@ -1055,7 +1055,7 @@ x=172
 y=167
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1069,7 +1069,7 @@ x=143
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2652
 modelangle=512,1024,0
 modelzoom=900
@@ -1081,7 +1081,7 @@ x=141
 y=167
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1095,7 +1095,7 @@ x=168
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2665
 modelangle=512,1024,0
 modelzoom=900
@@ -1107,7 +1107,7 @@ x=167
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1121,7 +1121,7 @@ x=138
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2399
 modelangle=512,1024,0
 modelzoom=900
@@ -1133,7 +1133,7 @@ x=136
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1147,7 +1147,7 @@ x=435
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2405
 modelangle=512,1024,0
 modelzoom=900
@@ -1159,7 +1159,7 @@ x=434
 y=167
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1173,7 +1173,7 @@ x=267
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2382
 modelangle=512,1024,0
 modelzoom=900
@@ -1185,7 +1185,7 @@ x=265
 y=297
 width=23
 height=11
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1199,7 +1199,7 @@ x=462
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2645
 modelangle=512,1024,0
 modelzoom=900
@@ -1211,7 +1211,7 @@ x=460
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1225,7 +1225,7 @@ x=362
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2434
 modelangle=512,1024,0
 modelzoom=900
@@ -1237,7 +1237,7 @@ x=360
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1251,7 +1251,7 @@ x=464
 y=143
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2734
 modelangle=512,1024,0
 modelzoom=900
@@ -1263,7 +1263,7 @@ x=463
 y=167
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1277,7 +1277,7 @@ x=50
 y=299
 width=400
 height=32
-layer=com_0
+layer=content_layer
 textfont=p11_full
 text=Right click on the bolts required to enchant more than one stack of 10.
 textalignh=centre
@@ -1292,7 +1292,7 @@ x=34
 y=189
 width=78
 height=14
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Red Topaz
 textalignh=centre
@@ -1301,13 +1301,13 @@ colour=0xff981f
 onload=xbows_bolts(event_com, topaz_bolts)
 
 // 432:97
-[com_97]
+[sapphire_1]
 type=text
 x=124
 y=60
 width=66
 height=14
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Sapphire
 textalignh=centre
@@ -1316,13 +1316,13 @@ colour=0xff981f
 onload=xbows_bolts(event_com, sapphire_bolts)
 
 // 432:98
-[com_98]
+[emerald_1]
 type=text
 x=411
 y=60
 width=62
 height=13
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Emerald
 textalignh=centre
@@ -1331,13 +1331,13 @@ colour=0xff981f
 onload=xbows_bolts(event_com, emerald_bolts)
 
 // 432:99
-[com_99]
+[ruby_1]
 type=text
 x=131
 y=189
 width=50
 height=13
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Ruby
 textalignh=centre
@@ -1346,13 +1346,13 @@ colour=0xff981f
 onload=xbows_bolts(event_com, ruby_bolts)
 
 // 432:100
-[com_100]
+[diamond_1]
 type=text
 x=217
 y=189
 width=67
 height=13
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Diamond
 textalignh=centre
@@ -1361,13 +1361,13 @@ colour=0xff981f
 onload=xbows_bolts(event_com, diamond_bolts)
 
 // 432:101
-[com_101]
+[dragonstone_1]
 type=text
 x=300
 y=189
 width=95
 height=15
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Dragonstone
 textalignh=centre
@@ -1376,13 +1376,13 @@ colour=0xff981f
 onload=xbows_bolts(event_com, dragon_bolts)
 
 // 432:102
-[com_102]
+[onyx_1]
 type=text
 x=406
 y=189
 width=73
 height=13
-layer=com_0
+layer=content_layer
 textfont=p12_full
 text=Onyx
 textalignh=centre
@@ -1397,7 +1397,7 @@ x=237
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2737
 modelangle=512,1024,0
 modelzoom=900
@@ -1409,7 +1409,7 @@ x=235
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1423,7 +1423,7 @@ x=431
 y=273
 width=23
 height=23
-layer=com_0
+layer=content_layer
 model=model_2399
 modelangle=512,1024,0
 modelzoom=900
@@ -1435,7 +1435,7 @@ x=429
 y=297
 width=23
 height=12
-layer=com_0
+layer=content_layer
 textfont=p11_full
 textalignh=centre
 textshadow=yes
@@ -1443,13 +1443,13 @@ colour=0xc00000
 onload=xbows_init(event_com, fire_rune, 20)
 
 // 432:107
-[com_107]
+[top]
 type=graphic
 x=45
 y=3
 width=422
 height=32
-layer=com_0
+layer=content_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff

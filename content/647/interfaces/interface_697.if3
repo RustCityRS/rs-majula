@@ -1,5 +1,5 @@
 // 697:0
-[com_0]
+[content_layer]
 type=layer
 x=7
 y=7
@@ -9,7 +9,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 697:1
-[com_1]
+[page_bg]
 type=model
 x=39
 y=7
@@ -17,7 +17,7 @@ width=487
 height=335
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 model=model_32409
 modelorigin=-5,-12
 modelzoom=618
@@ -31,13 +31,13 @@ width=193
 height=151
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 model=model_32406
 modelorigin=1,222
 modelzoom=115
 
 // 697:3
-[com_3]
+[sops_box1]
 type=model
 x=5543
 y=2950
@@ -45,7 +45,7 @@ width=33
 height=34
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 model=null
 modelorigin=-1,-1
 modelangle=431,1912,0
@@ -58,7 +58,7 @@ onmouseleave=model_swapper(event_com, null)
 onclick=script872(event_com)
 
 // 697:4
-[com_4]
+[sops_box2]
 type=model
 x=5607
 y=4618
@@ -66,7 +66,7 @@ width=31
 height=34
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 model=null
 modelorigin=-1,-1
 modelangle=539,1921,206
@@ -79,7 +79,7 @@ onmouseleave=model_swapper(event_com, null)
 onclick=script873(event_com)
 
 // 697:5
-[com_5]
+[sops_box3]
 type=model
 x=5543
 y=6285
@@ -87,7 +87,7 @@ width=39
 height=29
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 model=null
 modelangle=81,1686,206
 modelzoom=1730
@@ -99,7 +99,7 @@ onmouseleave=model_swapper(event_com, null)
 onclick=script874(event_com)
 
 // 697:6
-[com_6]
+[sops_title]
 type=text
 x=-4121
 y=-1317
@@ -107,13 +107,13 @@ width=175
 height=14
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 textfont=b12_full
 text=Question:
 colour=0x1e1e2d
 
 // 697:7
-[com_7]
+[sops_header]
 type=text
 x=3495
 y=-4751
@@ -121,13 +121,13 @@ width=300
 height=65
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 textfont=quill_oblique_large
 text=Player Safety Test
 colour=0x232330
 
 // 697:8
-[com_8]
+[duel_close_button]
 type=graphic
 x=7239
 y=-7203
@@ -135,7 +135,7 @@ width=26
 height=23
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 graphic="close_buttons,3"
 colour=0x000000
 transmitop=1
@@ -145,7 +145,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,3")
 onop=closebutton_click
 
 // 697:9
-[com_9]
+[sops_question]
 type=text
 x=-569
 y=-140
@@ -153,7 +153,7 @@ width=397
 height=32
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 textfont=q8_full
 text=A player has just asked you for your personal details, including your phone number, home address and email address. What should you do?
 colour=0x242330
@@ -167,7 +167,7 @@ width=363
 height=32
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 textfont=q8_full
 text=Give them my personal details
 colour=0x191930
@@ -181,7 +181,7 @@ width=363
 height=32
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 textfont=q8_full
 text=Say "No" or ignore them
 colour=0x191930
@@ -195,13 +195,13 @@ width=363
 height=32
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 textfont=q8_full
 text=Say "No" and ask for their details instead
 colour=0x191930
 
 // 697:13
-[com_13]
+[box1]
 type=line
 x=5543
 y=2410
@@ -209,24 +209,24 @@ width=19
 height=1
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:14
-[com_14]
+[box2]
 type=line
 x=5255
 y=2852
 height=19
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:15
-[com_15]
+[box3]
 type=line
 x=5511
 y=3293
@@ -234,24 +234,24 @@ width=19
 height=1
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:16
-[com_16]
+[box4]
 type=line
 x=5831
 y=2901
 height=20
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:17
-[com_17]
+[box5]
 type=line
 x=5543
 y=4078
@@ -259,24 +259,24 @@ width=19
 height=1
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:18
-[com_18]
+[box6]
 type=line
 x=5255
 y=4519
 height=19
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:19
-[com_19]
+[box7]
 type=line
 x=5511
 y=4961
@@ -284,24 +284,24 @@ width=19
 height=1
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:20
-[com_20]
+[box8]
 type=line
 x=5831
 y=4569
 height=20
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:21
-[com_21]
+[box9]
 type=line
 x=5543
 y=5795
@@ -309,24 +309,24 @@ width=19
 height=1
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:22
-[com_22]
+[box10]
 type=line
 x=5255
 y=6236
 height=19
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:23
-[com_23]
+[box11]
 type=line
 x=5511
 y=6678
@@ -334,35 +334,35 @@ width=19
 height=1
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:24
-[com_24]
+[box12]
 type=line
 x=5831
 y=6285
 height=20
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 linewid=2
 colour=0x0e0e17
 
 // 697:25
-[com_25]
+[underline]
 type=line
 x=1959
 y=-4996
 width=248
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 colour=0x0e0e17
 
 // 697:26
-[com_26]
+[answer_layer]
 type=layer
 x=7
 y=7
@@ -370,7 +370,7 @@ width=513
 height=335
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 hide=yes
 noclickthrough=yes
 
@@ -379,7 +379,7 @@ noclickthrough=yes
 type=rectangle
 width=512
 height=334
-layer=com_26
+layer=answer_layer
 colour=0x46341d
 fill=yes
 trans=160
@@ -391,7 +391,7 @@ x=32
 y=79
 width=449
 height=230
-layer=com_26
+layer=answer_layer
 graphic=tradebacking
 tiling=yes
 colour=0x000000
@@ -403,7 +403,7 @@ x=19
 y=111
 width=25
 height=172
-layer=com_26
+layer=answer_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0x000000
@@ -415,7 +415,7 @@ x=32
 y=79
 width=32
 height=32
-layer=com_26
+layer=answer_layer
 graphic="v2_stone_borders,4"
 colour=0x000000
 
@@ -426,7 +426,7 @@ x=451
 y=79
 width=32
 height=32
-layer=com_26
+layer=answer_layer
 graphic="v2_stone_borders,5"
 tiling=yes
 colour=0x000000
@@ -438,7 +438,7 @@ x=63
 y=66
 width=391
 height=32
-layer=com_26
+layer=answer_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0x000000
@@ -450,7 +450,7 @@ x=463
 y=110
 width=32
 height=173
-layer=com_26
+layer=answer_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0x000000
@@ -462,7 +462,7 @@ x=451
 y=282
 width=32
 height=32
-layer=com_26
+layer=answer_layer
 graphic="v2_stone_borders,7"
 tiling=yes
 colour=0x000000
@@ -474,7 +474,7 @@ x=32
 y=282
 width=32
 height=32
-layer=com_26
+layer=answer_layer
 graphic="v2_stone_borders,6"
 tiling=yes
 colour=0x000000
@@ -486,7 +486,7 @@ x=64
 y=294
 width=387
 height=25
-layer=com_26
+layer=answer_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0x000000
@@ -498,7 +498,7 @@ x=55
 y=94
 width=389
 height=160
-layer=com_26
+layer=answer_layer
 hide=yes
 
 // 697:38
@@ -534,7 +534,7 @@ x=55
 y=94
 width=389
 height=160
-layer=com_26
+layer=answer_layer
 hide=yes
 
 // 697:41
@@ -570,7 +570,7 @@ x=55
 y=94
 width=389
 height=160
-layer=com_26
+layer=answer_layer
 hide=yes
 
 // 697:44
@@ -606,7 +606,7 @@ x=375
 y=255
 width=97
 height=42
-layer=com_26
+layer=answer_layer
 
 // 697:47
 [com_47]
@@ -631,7 +631,7 @@ transmitop=1
 op1=Next
 
 // 697:49
-[com_49]
+[next]
 type=text
 width=97
 height=42
@@ -644,7 +644,7 @@ textshadow=yes
 colour=0x909061
 
 // 697:50
-[com_50]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -654,7 +654,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 697:51
-[com_51]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -662,7 +662,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_50
+layer=fsborder_main_layer
 
 // 697:52
 [com_52]
@@ -765,7 +765,7 @@ tiling=yes
 colour=0x000000
 
 // 697:60
-[com_60]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -773,30 +773,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_51
+layer=fsborder_resizing_layer
 
 // 697:61
-[com_61]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_51
+layer=fsborder_resizing_layer
 
 // 697:62
-[com_62]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_51
+layer=fsborder_resizing_layer
 
 // 697:63
-[com_63]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -804,16 +804,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_51
+layer=fsborder_resizing_layer
 
 // 697:64
-[com_64]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_51
+layer=fsborder_resizing_layer
 
 // 697:65
 [com_65]
@@ -823,7 +823,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_61
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -838,7 +838,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_60
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -852,7 +852,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_62
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -867,7 +867,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_63
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

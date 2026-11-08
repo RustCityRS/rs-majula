@@ -1,5 +1,5 @@
 // 874:0
-[com_0]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -19,7 +19,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=layer_1
 model=model_48034
 modelorigin=3,9
 modelangle=519,2041,0
@@ -36,7 +36,7 @@ width=16
 height=16
 xmode=proportion_right
 ymode=proportion_top
-layer=com_0
+layer=layer_1
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -46,12 +46,12 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 874:3
-[com_3]
+[tablettext]
 type=text
 x=160
 y=58
 width=185
 height=250
-layer=com_0
+layer=layer_1
 textfont=q8_full
 colour=0x201e1c

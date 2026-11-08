@@ -7,22 +7,22 @@ if (%varclient_1468 > 100 & %varclient_1468 <= 150) {
     if_setposition(calc(-35 + (%varclient_1468 - 100)), 122, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com_4);
 }
 if (%varclient_1468 > 200 & %varclient_1468 <= 455) {
-    if_setposition(calc(-255 + (%varclient_1468 - 200)), 70, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com_1);
+    if_setposition(calc(-255 + (%varclient_1468 - 200)), 70, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:line_1);
 }
 if (%varclient_1468 > 250 & %varclient_1468 <= 505) {
-    if_setposition(calc(-255 + (%varclient_1468 - 250)), 85, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com_2);
+    if_setposition(calc(-255 + (%varclient_1468 - 250)), 85, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:line_2);
 }
 if (%varclient_1468 > 300 & %varclient_1468 <= 555) {
-    if_setposition(calc(-255 + (%varclient_1468 - 300)), 100, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com_3);
+    if_setposition(calc(-255 + (%varclient_1468 - 300)), 100, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:line_3);
 }
 if (%varclient_1468 > 500 & %varclient_1468 <= 755) {
-    if_setposition(calc(0 - (%varclient_1468 - 500)), 70, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com_1);
+    if_setposition(calc(0 - (%varclient_1468 - 500)), 70, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:line_1);
 }
 if (%varclient_1468 > 550 & %varclient_1468 <= 805) {
-    if_setposition(calc(0 - (%varclient_1468 - 550)), 85, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com_2);
+    if_setposition(calc(0 - (%varclient_1468 - 550)), 85, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:line_2);
 }
 if (%varclient_1468 > 600 & %varclient_1468 <= 855) {
-    if_setposition(calc(0 - (%varclient_1468 - 600)), 100, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com_3);
+    if_setposition(calc(0 - (%varclient_1468 - 600)), 100, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:line_3);
 }
 if (%varclient_1468 = 700) {
     if_setmodelangle(0, 0, 0, 210, 0, 1750, acs_shanty_overlay:com_4);

@@ -4,9 +4,9 @@ def_int $int1 = calc($int0 / 10 * 44);
 if (calc($int0 % 10) ! 0) {
     $int1 = calc($int1 + 44);
 }
-if_setscrollsize(if_getwidth(bank_v2_main:com_93), $int1, bank_v2_main:com_93);
+if_setscrollsize(if_getwidth(bank_v2_main:bank_v2_inv), $int1, bank_v2_main:bank_v2_inv);
 cc_deleteall(bank_v2_main:com_114);
-if ($int1 > if_getheight(bank_v2_main:com_93)) {
-    ~scrollbar_vertical(bank_v2_main:com_114, bank_v2_main:com_93, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if ($int1 > if_getheight(bank_v2_main:bank_v2_inv)) {
+    ~scrollbar_vertical(bank_v2_main:com_114, bank_v2_main:bank_v2_inv, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 }
-~scrollbar_ondrag_doscroll(bank_v2_main:com_114, bank_v2_main:com_93, if_getscrolly(bank_v2_main:com_93), 1);
+~scrollbar_ondrag_doscroll(bank_v2_main:com_114, bank_v2_main:bank_v2_inv, if_getscrolly(bank_v2_main:bank_v2_inv), 1);

@@ -7,7 +7,7 @@ width=593
 height=411
 xmode=abs_centre
 ymode=abs_centre
-layer=com_10
+layer=content_layer
 model=model_58170
 modelorigin=0,-2
 modelangle=512,0,0
@@ -16,39 +16,39 @@ transmitop=10
 op10=  
 
 // 998:1
-[com_1]
+[puzzleback]
 type=model
 x=99
 y=26
 width=296
 height=297
-layer=com_10
+layer=content_layer
 model=model_3437
 modelorigin=3,24
 modelangle=512,0,0
 modelzoom=293
 
 // 998:2
-[com_2]
+[puzzle_complete_layer2]
 type=layer
 x=49
 y=281
 width=42
 height=44
-layer=com_10
+layer=content_layer
 transmitop=10
 op10= 
-onmouseover=script3629(trail_puzzleelite:com_7, trail_puzzleelite:com_4, ^white)
-onmouseleave=script3630(trail_puzzleelite:com_7, trail_puzzleelite:com_4, 0xfad782)
+onmouseover=script3629(trail_puzzleelite:puzzle_complete_layer1, trail_puzzleelite:puzzle_hint_text, ^white)
+onmouseleave=script3630(trail_puzzleelite:puzzle_complete_layer1, trail_puzzleelite:puzzle_hint_text, 0xfad782)
 
 // 998:3
-[com_3]
+[puzzle_hint_scroll]
 type=model
 y=3
 width=30
 height=27
 xmode=abs_centre
-layer=com_2
+layer=puzzle_complete_layer2
 model=model_3374
 modelorigin=0,2
 modelangle=360,672,0
@@ -57,13 +57,13 @@ transmitop=10
 op10= 
 
 // 998:4
-[com_4]
+[puzzle_hint_text]
 type=text
 width=41
 height=17
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=puzzle_complete_layer2
 textfont=p11_full
 text=Hint
 textalignh=centre
@@ -74,60 +74,60 @@ transmitop=10
 op10= 
 
 // 998:5
-[com_5]
+[puzzletop]
 type=model
 x=93
 y=19
 width=311
 height=311
-layer=com_10
+layer=content_layer
 model=model_3438
 modelorigin=3,24
 modelangle=512,0,0
 modelzoom=299
 
 // 998:6
-[com_6]
+[puzzle_layer]
 type=layer
 x=109
 y=35
 width=275
 height=275
-layer=com_10
+layer=content_layer
 oninvtransmit=trail_puzzle_generation(event_com){trail_puzzleinv}
 
 // 998:7
-[com_7]
+[puzzle_complete_layer1]
 type=layer
 x=109
 y=35
 width=275
 height=275
-layer=com_10
+layer=content_layer
 hide=yes
 oninvtransmit=script3501(event_com){trail_puzzlehintinv}
 
 // 998:8
-[com_8]
+[puzzleback_1]
 type=model
 x=-10
 y=-9
 width=296
 height=297
-layer=com_7
+layer=puzzle_complete_layer1
 model=model_3437
 modelorigin=3,24
 modelangle=512,0,0
 modelzoom=293
 
 // 998:9
-[com_9]
+[puzzletop_1]
 type=model
 x=-16
 y=-16
 width=311
 height=311
-layer=com_7
+layer=puzzle_complete_layer1
 model=model_3438
 modelorigin=3,24
 modelangle=512,0,0
@@ -136,7 +136,7 @@ transmitop=10
 op10= 
 
 // 998:10
-[com_10]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -146,7 +146,7 @@ height=334
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_10
+layer=content_layer
 transmitop=10
 op10=   
 
@@ -253,7 +253,7 @@ transmitop=10
 op10=    
 
 // 998:20
-[com_20]
+[trail_close]
 type=graphic
 x=10
 y=3

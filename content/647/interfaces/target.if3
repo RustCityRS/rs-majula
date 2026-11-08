@@ -7,7 +7,7 @@ transmitop=10
 op10= 
 
 // 325:1
-[com_1]
+[board]
 type=model
 x=157
 y=33
@@ -21,7 +21,7 @@ onload=script2044
 onvartransmit=script2044{varplayer_158, varplayer_156}
 
 // 325:2
-[com_2]
+[dart_bull]
 type=model
 x=251
 y=197
@@ -34,7 +34,7 @@ modelangle=100,150,0
 modelzoom=400
 
 // 325:3
-[com_3]
+[dart_1]
 type=model
 x=254
 y=156
@@ -47,7 +47,7 @@ modelangle=100,150,0
 modelzoom=400
 
 // 325:4
-[com_4]
+[dart_4]
 type=model
 x=288
 y=218
@@ -60,7 +60,7 @@ modelangle=100,150,0
 modelzoom=400
 
 // 325:5
-[com_5]
+[dart_6]
 type=model
 x=245
 y=258
@@ -73,7 +73,7 @@ modelangle=100,150,0
 modelzoom=400
 
 // 325:6
-[com_6]
+[dart_5]
 type=model
 x=191
 y=214
@@ -86,7 +86,7 @@ modelangle=100,150,0
 modelzoom=400
 
 // 325:7
-[com_7]
+[dart_9]
 type=model
 x=189
 y=115
@@ -99,7 +99,7 @@ modelangle=100,150,0
 modelzoom=400
 
 // 325:8
-[com_8]
+[dart_3]
 type=model
 x=213
 y=151
@@ -112,7 +112,7 @@ modelangle=100,150,0
 modelzoom=400
 
 // 325:9
-[com_9]
+[dart_8]
 type=model
 x=296
 y=126
@@ -125,7 +125,7 @@ modelangle=100,150,0
 modelzoom=400
 
 // 325:10
-[com_10]
+[dart_2]
 type=model
 x=292
 y=169
@@ -138,7 +138,7 @@ modelangle=100,150,0
 modelzoom=400
 
 // 325:11
-[com_11]
+[dart_7]
 type=model
 x=326
 y=188
@@ -151,7 +151,7 @@ modelangle=100,150,0
 modelzoom=400
 
 // 325:12
-[com_12]
+[dart_10]
 type=model
 x=273
 y=86
@@ -177,7 +177,7 @@ textshadow=yes
 colour=0xffaa44
 
 // 325:14
-[com_14]
+[score_title]
 type=text
 x=387
 y=147
@@ -190,7 +190,7 @@ textshadow=yes
 colour=0xffaa44
 
 // 325:15
-[com_15]
+[score_text]
 type=text
 x=420
 y=169
@@ -276,7 +276,7 @@ textshadow=yes
 colour=0xff0000
 
 // 325:22
-[com_22]
+[left10]
 type=model
 x=63
 y=114
@@ -289,7 +289,7 @@ modelangle=150,1200,0
 modelzoom=800
 
 // 325:23
-[com_23]
+[left9]
 type=model
 x=93
 y=114
@@ -302,7 +302,7 @@ modelangle=150,1200,0
 modelzoom=800
 
 // 325:24
-[com_24]
+[left8]
 type=model
 x=63
 y=145
@@ -315,7 +315,7 @@ modelangle=150,1200,0
 modelzoom=800
 
 // 325:25
-[com_25]
+[left7]
 type=model
 x=93
 y=145
@@ -328,7 +328,7 @@ modelangle=150,1200,0
 modelzoom=800
 
 // 325:26
-[com_26]
+[left6]
 type=model
 x=63
 y=175
@@ -341,7 +341,7 @@ modelangle=150,1200,0
 modelzoom=800
 
 // 325:27
-[com_27]
+[left5]
 type=model
 x=93
 y=175
@@ -354,7 +354,7 @@ modelangle=150,1200,0
 modelzoom=800
 
 // 325:28
-[com_28]
+[left4]
 type=model
 x=63
 y=205
@@ -367,7 +367,7 @@ modelangle=150,1200,0
 modelzoom=800
 
 // 325:29
-[com_29]
+[left3]
 type=model
 x=93
 y=205
@@ -380,7 +380,7 @@ modelangle=150,1200,0
 modelzoom=800
 
 // 325:30
-[com_30]
+[left2]
 type=model
 x=63
 y=235
@@ -393,7 +393,7 @@ modelangle=150,1200,0
 modelzoom=800
 
 // 325:31
-[com_31]
+[left1]
 type=model
 x=93
 y=235
@@ -406,7 +406,7 @@ modelangle=150,1200,0
 modelzoom=800
 
 // 325:32
-[com_32]
+[dart_hitmiss]
 type=text
 x=209
 y=133
@@ -517,7 +517,7 @@ transmitop=10
 op10= 
 
 // 325:40
-[com_40]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -613,7 +613,7 @@ transmitop=10
 op10= 
 
 // 325:47
-[com_47]
+[title]
 type=text
 x=143
 y=25

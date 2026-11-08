@@ -134,7 +134,7 @@ graphic="v2_stone_borders,10"
 colour=0xffffffff
 
 // 300:13
-[com_13]
+[closebutton]
 type=graphic
 x=486
 y=30
@@ -149,7 +149,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onclick=closebutton_click
 
 // 300:14
-[com_14]
+[title]
 type=text
 x=139
 y=30
@@ -162,7 +162,7 @@ textshadow=yes
 colour=0xff991f
 
 // 300:15
-[com_15]
+[scrolling_layer]
 type=layer
 x=6
 y=55
@@ -172,65 +172,65 @@ scrollwidth=366
 scrollheight=375
 
 // 300:16
-[com_16]
+[scrollbar_layer]
 type=layer
 x=487
 y=55
 width=16
 height=264
 opbase= 
-onload=script870(event_com, smithing_new:com_15, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=script870(event_com, smithing_new:scrolling_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 300:17
-[com_17]
+[smith_dagger]
 type=layer
 x=4
 y=5
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:18
-[com_18]
+[smith_dagger_pic]
 type=graphic
 width=36
 height=32
-layer=com_17
+layer=smith_dagger
 outline=1
 colour=0xffffffff
 
 // 300:19
-[com_19]
+[smith_dagger_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_17
+layer=smith_dagger
 textfont=p11_full
 text=Dagger
 textalignv=centre
 colour=0x000000
 
 // 300:20
-[com_20]
+[smith_dagger_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_17
+layer=smith_dagger
 textfont=p11_full
 text=1 Bar
 textshadow=yes
 colour=0xe8981f
 
 // 300:21
-[com_21]
+[smith_dagger_all]
 type=text
 width=109
 height=32
-layer=com_17
+layer=smith_dagger
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -239,11 +239,11 @@ transmitop=1
 op1=Make All Daggers
 
 // 300:22
-[com_22]
+[smith_dagger_x]
 type=text
 width=109
 height=32
-layer=com_17
+layer=smith_dagger
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -252,11 +252,11 @@ transmitop=1
 op1=Make X Daggers
 
 // 300:23
-[com_23]
+[smith_dagger_5]
 type=text
 width=109
 height=32
-layer=com_17
+layer=smith_dagger
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -265,11 +265,11 @@ transmitop=1
 op1=Make 5 Daggers
 
 // 300:24
-[com_24]
+[smith_dagger_1]
 type=text
 width=109
 height=32
-layer=com_17
+layer=smith_dagger
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -278,44 +278,44 @@ transmitop=1
 op1=Make 1 Dagger
 
 // 300:25
-[com_25]
+[smith_axe]
 type=layer
 x=121
 y=5
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:26
-[com_26]
+[smith_axe_pic]
 type=graphic
 width=36
 height=32
-layer=com_25
+layer=smith_axe
 outline=1
 colour=0xffffffff
 
 // 300:27
-[com_27]
+[smith_axe_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_25
+layer=smith_axe
 textfont=p11_full
 text=Hatchet
 textalignv=centre
 colour=0x000000
 
 // 300:28
-[com_28]
+[smith_axe_bars]
 type=text
 x=36
 y=20
 width=45
 height=12
-layer=com_25
+layer=smith_axe
 textfont=p11_full
 text=1 Bar
 textalignv=centre
@@ -323,11 +323,11 @@ textshadow=yes
 colour=0xe8981f
 
 // 300:29
-[com_29]
+[smith_axe_all]
 type=text
 width=109
 height=32
-layer=com_25
+layer=smith_axe
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -336,11 +336,11 @@ transmitop=1
 op1=Make All Hatchets
 
 // 300:30
-[com_30]
+[smith_axe_x]
 type=text
 width=109
 height=32
-layer=com_25
+layer=smith_axe
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -349,11 +349,11 @@ transmitop=1
 op1=Make X Hatchets
 
 // 300:31
-[com_31]
+[smith_axe_5]
 type=text
 width=109
 height=32
-layer=com_25
+layer=smith_axe
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -362,11 +362,11 @@ transmitop=1
 op1=Make 5 Hatchets
 
 // 300:32
-[com_32]
+[smith_axe_1]
 type=text
 width=109
 height=32
-layer=com_25
+layer=smith_axe
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -375,44 +375,44 @@ transmitop=1
 op1=Make 1 Hatchet
 
 // 300:33
-[com_33]
+[smith_mace]
 type=layer
 x=238
 y=5
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:34
-[com_34]
+[smith_mace_pic]
 type=graphic
 width=36
 height=32
-layer=com_33
+layer=smith_mace
 outline=1
 colour=0xffffffff
 
 // 300:35
-[com_35]
+[smith_mace_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_33
+layer=smith_mace
 textfont=p11_full
 text=Mace
 textalignv=centre
 colour=0x000000
 
 // 300:36
-[com_36]
+[smith_mace_bars]
 type=text
 x=36
 y=20
 width=45
 height=12
-layer=com_33
+layer=smith_mace
 textfont=p11_full
 text=1 Bar
 textalignv=centre
@@ -420,11 +420,11 @@ textshadow=yes
 colour=0xe8981f
 
 // 300:37
-[com_37]
+[smith_mace_all]
 type=text
 width=109
 height=32
-layer=com_33
+layer=smith_mace
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -433,11 +433,11 @@ transmitop=1
 op1=Make All Maces
 
 // 300:38
-[com_38]
+[smith_mace_x]
 type=text
 width=109
 height=32
-layer=com_33
+layer=smith_mace
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -446,11 +446,11 @@ transmitop=1
 op1=Make X Maces
 
 // 300:39
-[com_39]
+[smith_mace_5]
 type=text
 width=109
 height=32
-layer=com_33
+layer=smith_mace
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -459,11 +459,11 @@ transmitop=1
 op1=Make 5 Maces
 
 // 300:40
-[com_40]
+[smith_mace_1]
 type=text
 width=109
 height=32
-layer=com_33
+layer=smith_mace
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -478,7 +478,7 @@ x=368
 y=5
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:42
 [com_42]
@@ -569,55 +569,55 @@ transmitop=1
 op1=Make 1 Medium helm
 
 // 300:49
-[com_49]
+[smith_bolts]
 type=layer
 x=4
 y=57
 width=114
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:50
-[com_50]
+[smith_bolts_pic]
 type=graphic
 width=36
 height=32
-layer=com_49
+layer=smith_bolts
 outline=1
 colour=0xffffffff
 
 // 300:51
-[com_51]
+[smith_bolts_name]
 type=text
 x=35
 y=-1
 width=78
 height=21
-layer=com_49
+layer=smith_bolts
 textfont=p11_full
 text=Crossbow bolts
 textalignv=centre
 colour=0x000000
 
 // 300:52
-[com_52]
+[smith_bolts_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_49
+layer=smith_bolts
 textfont=p11_full
 text=1 Bar
 textshadow=yes
 colour=0xe8981f
 
 // 300:53
-[com_53]
+[smith_bolts_all]
 type=text
 width=114
 height=32
-layer=com_49
+layer=smith_bolts
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -626,11 +626,11 @@ transmitop=1
 op1=Make All Bolts
 
 // 300:54
-[com_54]
+[smith_bolts_x]
 type=text
 width=114
 height=32
-layer=com_49
+layer=smith_bolts
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -639,11 +639,11 @@ transmitop=1
 op1=Make X Bolts
 
 // 300:55
-[com_55]
+[smith_bolts_5]
 type=text
 width=114
 height=32
-layer=com_49
+layer=smith_bolts
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -652,11 +652,11 @@ transmitop=1
 op1=Make 5 Bolts
 
 // 300:56
-[com_56]
+[smith_bolts_1]
 type=text
 width=114
 height=32
-layer=com_49
+layer=smith_bolts
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -665,55 +665,55 @@ transmitop=1
 op1=Make 1 Bolt
 
 // 300:57
-[com_57]
+[smith_sword]
 type=layer
 x=121
 y=57
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:58
-[com_58]
+[smith_sword_pic]
 type=graphic
 width=36
 height=32
-layer=com_57
+layer=smith_sword
 outline=1
 colour=0xffffffff
 
 // 300:59
-[com_59]
+[smith_sword_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_57
+layer=smith_sword
 textfont=p11_full
 text=Sword
 textalignv=centre
 colour=0x000000
 
 // 300:60
-[com_60]
+[smith_sword_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_57
+layer=smith_sword
 textfont=p11_full
 text=1 Bar
 textshadow=yes
 colour=0xe8981f
 
 // 300:61
-[com_61]
+[smith_sword_all]
 type=text
 width=109
 height=32
-layer=com_57
+layer=smith_sword
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -722,11 +722,11 @@ transmitop=1
 op1=Make All Swords
 
 // 300:62
-[com_62]
+[smith_sword_x]
 type=text
 width=109
 height=32
-layer=com_57
+layer=smith_sword
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -735,11 +735,11 @@ transmitop=1
 op1=Make X Swords
 
 // 300:63
-[com_63]
+[smith_sword_5]
 type=text
 width=109
 height=32
-layer=com_57
+layer=smith_sword
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -748,11 +748,11 @@ transmitop=1
 op1=Make 5 Swords
 
 // 300:64
-[com_64]
+[smith_sword_1]
 type=text
 width=109
 height=32
-layer=com_57
+layer=smith_sword
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -761,13 +761,13 @@ transmitop=1
 op1=Make 1 Sword
 
 // 300:65
-[com_65]
+[pathcourse]
 type=layer
 x=238
 y=57
 width=124
 height=32
-layer=com_15
+layer=scrolling_layer
 hide=yes
 
 // 300:66
@@ -775,7 +775,7 @@ hide=yes
 type=graphic
 width=36
 height=32
-layer=com_65
+layer=pathcourse
 outline=1
 colour=0xffffffff
 
@@ -786,7 +786,7 @@ x=35
 y=-1
 width=90
 height=21
-layer=com_65
+layer=pathcourse
 textfont=p11_full
 text=Dart tips
 textalignv=centre
@@ -799,7 +799,7 @@ x=36
 y=20
 width=55
 height=12
-layer=com_65
+layer=pathcourse
 textfont=p11_full
 text=1 Bar
 textshadow=yes
@@ -810,7 +810,7 @@ colour=0xe8981f
 type=text
 width=124
 height=32
-layer=com_65
+layer=pathcourse
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -823,7 +823,7 @@ op1=Make All Dart tips
 type=text
 width=124
 height=32
-layer=com_65
+layer=pathcourse
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -832,11 +832,11 @@ transmitop=1
 op1=Make X Dart tips
 
 // 300:71
-[com_71]
+[pathcourse_5]
 type=text
 width=124
 height=32
-layer=com_65
+layer=pathcourse
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -845,11 +845,11 @@ transmitop=1
 op1=Make 5 Dart tips
 
 // 300:72
-[com_72]
+[pathcourse_1]
 type=text
 width=124
 height=32
-layer=com_65
+layer=pathcourse
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -858,55 +858,55 @@ transmitop=1
 op1=Make 1 Dart tip
 
 // 300:73
-[com_73]
+[smith_nails]
 type=layer
 x=368
 y=57
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:74
-[com_74]
+[smith_nails_pic]
 type=graphic
 width=36
 height=32
-layer=com_73
+layer=smith_nails
 outline=1
 colour=0xffffffff
 
 // 300:75
-[com_75]
+[smith_nails_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_73
+layer=smith_nails
 textfont=p11_full
 text=Nails
 textalignv=centre
 colour=0x000000
 
 // 300:76
-[com_76]
+[smith_nails_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_73
+layer=smith_nails
 textfont=p11_full
 text=1 Bar
 textshadow=yes
 colour=0xe8981f
 
 // 300:77
-[com_77]
+[smith_nails_all]
 type=text
 width=109
 height=32
-layer=com_73
+layer=smith_nails
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -915,11 +915,11 @@ transmitop=1
 op1=Make All Nails
 
 // 300:78
-[com_78]
+[smith_nails_x]
 type=text
 width=109
 height=32
-layer=com_73
+layer=smith_nails
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -928,11 +928,11 @@ transmitop=1
 op1=Make X Nails
 
 // 300:79
-[com_79]
+[smith_nails_5]
 type=text
 width=109
 height=32
-layer=com_73
+layer=smith_nails
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -941,11 +941,11 @@ transmitop=1
 op1=Make 5 Nails
 
 // 300:80
-[com_80]
+[smith_nails_1]
 type=text
 width=109
 height=32
-layer=com_73
+layer=smith_nails
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -954,56 +954,56 @@ transmitop=1
 op1=Make 1 Nail
 
 // 300:81
-[com_81]
+[smith_wire]
 type=layer
 x=4
 y=109
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 hide=yes
 
 // 300:82
-[com_82]
+[smith_wire_pic]
 type=graphic
 width=36
 height=32
-layer=com_81
+layer=smith_wire
 outline=1
 colour=0xffffffff
 
 // 300:83
-[com_83]
+[smith_wire_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_81
+layer=smith_wire
 textfont=p11_full
 text=Bronze wire
 textalignv=centre
 colour=0x000000
 
 // 300:84
-[com_84]
+[smith_wire_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_81
+layer=smith_wire
 textfont=p11_full
 text=1 Bar
 textshadow=yes
 colour=0xe8981f
 
 // 300:85
-[com_85]
+[smith_wire_all]
 type=text
 width=109
 height=32
-layer=com_81
+layer=smith_wire
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1012,11 +1012,11 @@ transmitop=1
 op1=Make All Wires
 
 // 300:86
-[com_86]
+[smith_wire_x]
 type=text
 width=109
 height=32
-layer=com_81
+layer=smith_wire
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1025,11 +1025,11 @@ transmitop=1
 op1=Make X Wires
 
 // 300:87
-[com_87]
+[smith_wire_5]
 type=text
 width=109
 height=32
-layer=com_81
+layer=smith_wire
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1038,11 +1038,11 @@ transmitop=1
 op1=Make 5 Wires
 
 // 300:88
-[com_88]
+[smith_wire_1]
 type=text
 width=109
 height=32
-layer=com_81
+layer=smith_wire
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1057,7 +1057,7 @@ x=4
 y=109
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 hide=yes
 
 // 300:90
@@ -1148,56 +1148,56 @@ transmitop=1
 op1=Make 1 Iron spit
 
 // 300:97
-[com_97]
+[smith_studs]
 type=layer
 x=4
 y=109
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 hide=yes
 
 // 300:98
-[com_98]
+[smith_studs_pic]
 type=graphic
 width=36
 height=32
-layer=com_97
+layer=smith_studs
 outline=1
 colour=0xffffffff
 
 // 300:99
-[com_99]
+[smith_studs_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_97
+layer=smith_studs
 textfont=p11_full
 text=Studs
 textalignv=centre
 colour=0x000000
 
 // 300:100
-[com_100]
+[smith_studs_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_97
+layer=smith_studs
 textfont=p11_full
 text=1 Bar
 textshadow=yes
 colour=0xe8981f
 
 // 300:101
-[com_101]
+[smith_studs_all]
 type=text
 width=109
 height=32
-layer=com_97
+layer=smith_studs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1206,11 +1206,11 @@ transmitop=1
 op1=Make All Studs
 
 // 300:102
-[com_102]
+[smith_studs_x]
 type=text
 width=109
 height=32
-layer=com_97
+layer=smith_studs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1219,11 +1219,11 @@ transmitop=1
 op1=Make X Studs
 
 // 300:103
-[com_103]
+[smith_studs_5]
 type=text
 width=109
 height=32
-layer=com_97
+layer=smith_studs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1232,11 +1232,11 @@ transmitop=1
 op1=Make 5 Studs
 
 // 300:104
-[com_104]
+[smith_studs_1]
 type=text
 width=109
 height=32
-layer=com_97
+layer=smith_studs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1251,7 +1251,7 @@ x=121
 y=109
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:106
 [com_106]
@@ -1341,55 +1341,55 @@ transmitop=1
 op1=Make 1 Arrow tip
 
 // 300:113
-[com_113]
+[smith_scimitar]
 type=layer
 x=238
 y=109
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:114
-[com_114]
+[smith_scimitar_pic]
 type=graphic
 width=36
 height=32
-layer=com_113
+layer=smith_scimitar
 outline=1
 colour=0xffffffff
 
 // 300:115
-[com_115]
+[smith_scimitar_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_113
+layer=smith_scimitar
 textfont=p11_full
 text=Scimitar
 textalignv=centre
 colour=0x000000
 
 // 300:116
-[com_116]
+[smith_scimitar_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_113
+layer=smith_scimitar
 textfont=p11_full
 text=2 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:117
-[com_117]
+[smith_scimitar_all]
 type=text
 width=109
 height=32
-layer=com_113
+layer=smith_scimitar
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1398,11 +1398,11 @@ transmitop=1
 op1=Make All Scimitars
 
 // 300:118
-[com_118]
+[smith_scimitar_x]
 type=text
 width=109
 height=32
-layer=com_113
+layer=smith_scimitar
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1411,11 +1411,11 @@ transmitop=1
 op1=Make X Scimitars
 
 // 300:119
-[com_119]
+[smith_scimitar_5]
 type=text
 width=109
 height=32
-layer=com_113
+layer=smith_scimitar
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1424,11 +1424,11 @@ transmitop=1
 op1=Make 5 Scimitars
 
 // 300:120
-[com_120]
+[smith_scimitar_1]
 type=text
 width=109
 height=32
-layer=com_113
+layer=smith_scimitar
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1437,55 +1437,55 @@ transmitop=1
 op1=Make 1 Scimitar
 
 // 300:121
-[com_121]
+[smith_limbs]
 type=layer
 x=368
 y=109
 width=112
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:122
-[com_122]
+[smith_limbs_pic]
 type=graphic
 width=36
 height=32
-layer=com_121
+layer=smith_limbs
 outline=1
 colour=0xffffffff
 
 // 300:123
-[com_123]
+[smith_limbs_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_121
+layer=smith_limbs
 textfont=p11_full
 text=Crossbow limbs
 textalignv=centre
 colour=0x000000
 
 // 300:124
-[com_124]
+[smith_limbs_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_121
+layer=smith_limbs
 textfont=p11_full
 text=1 Bar
 textshadow=yes
 colour=0xe8981f
 
 // 300:125
-[com_125]
+[smith_limbs_all]
 type=text
 width=112
 height=32
-layer=com_121
+layer=smith_limbs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1494,11 +1494,11 @@ transmitop=1
 op1=Make All Crossbow limbs
 
 // 300:126
-[com_126]
+[smith_limbs_x]
 type=text
 width=112
 height=32
-layer=com_121
+layer=smith_limbs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1507,11 +1507,11 @@ transmitop=1
 op1=Make X Crossbow limbs
 
 // 300:127
-[com_127]
+[smith_limbs_5]
 type=text
 width=112
 height=32
-layer=com_121
+layer=smith_limbs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1520,11 +1520,11 @@ transmitop=1
 op1=Make 5 Crossbow limbs
 
 // 300:128
-[com_128]
+[smith_limbs_1]
 type=text
 width=112
 height=32
-layer=com_121
+layer=smith_limbs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1533,55 +1533,55 @@ transmitop=1
 op1=Make 1 Crossbow limb
 
 // 300:129
-[com_129]
+[smith_longsword]
 type=layer
 x=4
 y=161
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:130
-[com_130]
+[smith_longsword_pic]
 type=graphic
 width=36
 height=32
-layer=com_129
+layer=smith_longsword
 outline=1
 colour=0xffffffff
 
 // 300:131
-[com_131]
+[smith_longsword_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_129
+layer=smith_longsword
 textfont=p11_full
 text=Longsword
 textalignv=centre
 colour=0x000000
 
 // 300:132
-[com_132]
+[smith_longsword_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_129
+layer=smith_longsword
 textfont=p11_full
 text=2 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:133
-[com_133]
+[smith_longsword_all]
 type=text
 width=109
 height=32
-layer=com_129
+layer=smith_longsword
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1590,11 +1590,11 @@ transmitop=1
 op1=Make All Longswords
 
 // 300:134
-[com_134]
+[smith_longsword_x]
 type=text
 width=109
 height=32
-layer=com_129
+layer=smith_longsword
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1603,11 +1603,11 @@ transmitop=1
 op1=Make X Longswords
 
 // 300:135
-[com_135]
+[smith_longsword_5]
 type=text
 width=109
 height=32
-layer=com_129
+layer=smith_longsword
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1616,11 +1616,11 @@ transmitop=1
 op1=Make 5 Longswords
 
 // 300:136
-[com_136]
+[smith_longsword_1]
 type=text
 width=109
 height=32
-layer=com_129
+layer=smith_longsword
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1635,7 +1635,7 @@ x=121
 y=161
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:138
 [com_138]
@@ -1731,7 +1731,7 @@ x=238
 y=161
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:146
 [com_146]
@@ -1827,7 +1827,7 @@ x=368
 y=161
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:154
 [com_154]
@@ -1917,13 +1917,13 @@ transmitop=1
 op1=Make 1 Square shield
 
 // 300:161
-[com_161]
+[train_test]
 type=layer
 x=4
 y=213
 width=118
 height=32
-layer=com_15
+layer=scrolling_layer
 hide=yes
 
 // 300:162
@@ -1931,7 +1931,7 @@ hide=yes
 type=graphic
 width=36
 height=32
-layer=com_161
+layer=train_test
 outline=1
 colour=0xffffffff
 
@@ -1942,7 +1942,7 @@ x=35
 y=-1
 width=82
 height=21
-layer=com_161
+layer=train_test
 textfont=p11_full
 text=Bullseye lantern
 textalignv=centre
@@ -1955,7 +1955,7 @@ x=36
 y=20
 width=55
 height=12
-layer=com_161
+layer=train_test
 textfont=p11_full
 text=1 Bar
 textshadow=yes
@@ -1966,7 +1966,7 @@ colour=0xe8981f
 type=text
 width=109
 height=32
-layer=com_161
+layer=train_test
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1979,7 +1979,7 @@ op1=Make All Lanterns
 type=text
 width=109
 height=32
-layer=com_161
+layer=train_test
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1992,7 +1992,7 @@ op1=Make X Lanterns
 type=text
 width=109
 height=32
-layer=com_161
+layer=train_test
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2005,7 +2005,7 @@ op1=Make 5 Lanterns
 type=text
 width=109
 height=32
-layer=com_161
+layer=train_test
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2020,7 +2020,7 @@ x=121
 y=213
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 hide=yes
 
 // 300:170
@@ -2111,55 +2111,55 @@ transmitop=1
 op1=Make 1 Grapple tip
 
 // 300:177
-[com_177]
+[smith_warhammer]
 type=layer
 x=238
 y=213
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:178
-[com_178]
+[smith_warhammer_pic]
 type=graphic
 width=36
 height=32
-layer=com_177
+layer=smith_warhammer
 outline=1
 colour=0xffffffff
 
 // 300:179
-[com_179]
+[smith_warhammer_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_177
+layer=smith_warhammer
 textfont=p11_full
 text=Warhammer
 textalignv=centre
 colour=0x000000
 
 // 300:180
-[com_180]
+[smith_warhammer_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_177
+layer=smith_warhammer
 textfont=p11_full
 text=3 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:181
-[com_181]
+[smith_warhammer_all]
 type=text
 width=109
 height=32
-layer=com_177
+layer=smith_warhammer
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2168,11 +2168,11 @@ transmitop=1
 op1=Make All Warhammers
 
 // 300:182
-[com_182]
+[smith_warhammer_x]
 type=text
 width=109
 height=32
-layer=com_177
+layer=smith_warhammer
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2181,11 +2181,11 @@ transmitop=1
 op1=Make X Warhammers
 
 // 300:183
-[com_183]
+[smith_warhammer_5]
 type=text
 width=109
 height=32
-layer=com_177
+layer=smith_warhammer
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2194,11 +2194,11 @@ transmitop=1
 op1=Make 5 Warhammers
 
 // 300:184
-[com_184]
+[smith_warhammer_1]
 type=text
 width=109
 height=32
-layer=com_177
+layer=smith_warhammer
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2207,55 +2207,55 @@ transmitop=1
 op1=Make 1 Warhammer
 
 // 300:185
-[com_185]
+[smith_battleaxe]
 type=layer
 x=368
 y=213
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:186
-[com_186]
+[smith_battleaxe_pic]
 type=graphic
 width=36
 height=32
-layer=com_185
+layer=smith_battleaxe
 outline=1
 colour=0xffffffff
 
 // 300:187
-[com_187]
+[smith_battleaxe_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_185
+layer=smith_battleaxe
 textfont=p11_full
 text=Battleaxe
 textalignv=centre
 colour=0x000000
 
 // 300:188
-[com_188]
+[smith_battleaxe_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_185
+layer=smith_battleaxe
 textfont=p11_full
 text=3 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:189
-[com_189]
+[smith_battleaxe_all]
 type=text
 width=109
 height=32
-layer=com_185
+layer=smith_battleaxe
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2264,11 +2264,11 @@ transmitop=1
 op1=Make All Battleaxes
 
 // 300:190
-[com_190]
+[smith_battleaxe_x]
 type=text
 width=109
 height=32
-layer=com_185
+layer=smith_battleaxe
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2277,11 +2277,11 @@ transmitop=1
 op1=Make X Battleaxes
 
 // 300:191
-[com_191]
+[smith_battleaxe_5]
 type=text
 width=109
 height=32
-layer=com_185
+layer=smith_battleaxe
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2290,11 +2290,11 @@ transmitop=1
 op1=Make 5 Battleaxes
 
 // 300:192
-[com_192]
+[smith_battleaxe_1]
 type=text
 width=109
 height=32
-layer=com_185
+layer=smith_battleaxe
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2303,55 +2303,55 @@ transmitop=1
 op1=Make 1 Battleaxe
 
 // 300:193
-[com_193]
+[smith_chainbody]
 type=layer
 x=4
 y=265
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:194
-[com_194]
+[smith_chainbody_pic]
 type=graphic
 width=36
 height=32
-layer=com_193
+layer=smith_chainbody
 outline=1
 colour=0xffffffff
 
 // 300:195
-[com_195]
+[smith_chainbody_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_193
+layer=smith_chainbody
 textfont=p11_full
 text=Chainbody
 textalignv=centre
 colour=0x000000
 
 // 300:196
-[com_196]
+[smith_chainbody_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_193
+layer=smith_chainbody
 textfont=p11_full
 text=3 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:197
-[com_197]
+[smith_chainbody_all]
 type=text
 width=109
 height=32
-layer=com_193
+layer=smith_chainbody
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2360,11 +2360,11 @@ transmitop=1
 op1=Make All Chainbodies
 
 // 300:198
-[com_198]
+[smith_chainbody_x]
 type=text
 width=109
 height=32
-layer=com_193
+layer=smith_chainbody
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2373,11 +2373,11 @@ transmitop=1
 op1=Make X Chainbodies
 
 // 300:199
-[com_199]
+[smith_chainbody_5]
 type=text
 width=109
 height=32
-layer=com_193
+layer=smith_chainbody
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2386,11 +2386,11 @@ transmitop=1
 op1=Make 5 Chainbodies
 
 // 300:200
-[com_200]
+[smith_chainbody_1]
 type=text
 width=109
 height=32
-layer=com_193
+layer=smith_chainbody
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2399,55 +2399,55 @@ transmitop=1
 op1=Make 1 Chainbody
 
 // 300:201
-[com_201]
+[smith_kiteshield]
 type=layer
 x=121
 y=265
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:202
-[com_202]
+[smith_kiteshield_pic]
 type=graphic
 width=36
 height=32
-layer=com_201
+layer=smith_kiteshield
 outline=1
 colour=0xffffffff
 
 // 300:203
-[com_203]
+[smith_kiteshield_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_201
+layer=smith_kiteshield
 textfont=p11_full
 text=Kiteshield
 textalignv=centre
 colour=0x000000
 
 // 300:204
-[com_204]
+[smith_kiteshield_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_201
+layer=smith_kiteshield
 textfont=p11_full
 text=3 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:205
-[com_205]
+[smith_kiteshield_all]
 type=text
 width=109
 height=32
-layer=com_201
+layer=smith_kiteshield
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2456,11 +2456,11 @@ transmitop=1
 op1=Make All Kite shields
 
 // 300:206
-[com_206]
+[smith_kiteshield_x]
 type=text
 width=109
 height=32
-layer=com_201
+layer=smith_kiteshield
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2469,11 +2469,11 @@ transmitop=1
 op1=Make X Kite shields
 
 // 300:207
-[com_207]
+[smith_kiteshield_5]
 type=text
 width=109
 height=32
-layer=com_201
+layer=smith_kiteshield
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2482,11 +2482,11 @@ transmitop=1
 op1=Make 5 Kite shields
 
 // 300:208
-[com_208]
+[smith_kiteshield_1]
 type=text
 width=109
 height=32
-layer=com_201
+layer=smith_kiteshield
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2495,56 +2495,56 @@ transmitop=1
 op1=Make 1 Kite shield
 
 // 300:209
-[com_209]
+[smith_claws]
 type=layer
 x=238
 y=265
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 hide=yes
 
 // 300:210
-[com_210]
+[smith_claws_pic]
 type=graphic
 width=36
 height=32
-layer=com_209
+layer=smith_claws
 outline=1
 colour=0xffffffff
 
 // 300:211
-[com_211]
+[smith_claws_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_209
+layer=smith_claws
 textfont=p11_full
 text=Claws
 textalignv=centre
 colour=0x000000
 
 // 300:212
-[com_212]
+[smith_claws_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_209
+layer=smith_claws
 textfont=p11_full
 text=2 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:213
-[com_213]
+[smith_claws_all]
 type=text
 width=109
 height=32
-layer=com_209
+layer=smith_claws
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2553,11 +2553,11 @@ transmitop=1
 op1=Make All Claws
 
 // 300:214
-[com_214]
+[smith_claws_x]
 type=text
 width=109
 height=32
-layer=com_209
+layer=smith_claws
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2566,11 +2566,11 @@ transmitop=1
 op1=Make X Claws
 
 // 300:215
-[com_215]
+[smith_claws_5]
 type=text
 width=109
 height=32
-layer=com_209
+layer=smith_claws
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2579,11 +2579,11 @@ transmitop=1
 op1=Make 5 Claws
 
 // 300:216
-[com_216]
+[smith_claws_1]
 type=text
 width=109
 height=32
-layer=com_209
+layer=smith_claws
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2598,7 +2598,7 @@ x=364
 y=265
 width=118
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:218
 [com_218]
@@ -2623,7 +2623,7 @@ textalignv=centre
 colour=0x000000
 
 // 300:220
-[com_220]
+[ogre_bottoms]
 type=text
 x=36
 y=20
@@ -2688,55 +2688,55 @@ transmitop=1
 op1=Make 1 2-handed sword
 
 // 300:225
-[com_225]
+[smith_plateskirt]
 type=layer
 x=4
 y=317
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:226
-[com_226]
+[smith_plateskirt_pic]
 type=graphic
 width=36
 height=32
-layer=com_225
+layer=smith_plateskirt
 outline=1
 colour=0xffffffff
 
 // 300:227
-[com_227]
+[smith_plateskirt_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_225
+layer=smith_plateskirt
 textfont=p11_full
 text=Plateskirt
 textalignv=centre
 colour=0x000000
 
 // 300:228
-[com_228]
+[smith_plateskirt_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_225
+layer=smith_plateskirt
 textfont=p11_full
 text=3 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:229
-[com_229]
+[smith_plateskirt_all]
 type=text
 width=109
 height=32
-layer=com_225
+layer=smith_plateskirt
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2745,11 +2745,11 @@ transmitop=1
 op1=Make All Plateskirts
 
 // 300:230
-[com_230]
+[smith_plateskirt_x]
 type=text
 width=109
 height=32
-layer=com_225
+layer=smith_plateskirt
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2758,11 +2758,11 @@ transmitop=1
 op1=Make X Plateskirts
 
 // 300:231
-[com_231]
+[smith_plateskirt_5]
 type=text
 width=109
 height=32
-layer=com_225
+layer=smith_plateskirt
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2771,11 +2771,11 @@ transmitop=1
 op1=Make 5 Plateskirts
 
 // 300:232
-[com_232]
+[smith_plateskirt_1]
 type=text
 width=109
 height=32
-layer=com_225
+layer=smith_plateskirt
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2784,55 +2784,55 @@ transmitop=1
 op1=Make 1 Plateskirt
 
 // 300:233
-[com_233]
+[smith_platelegs]
 type=layer
 x=116
 y=317
 width=190
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:234
-[com_234]
+[smith_platelegs_pic]
 type=graphic
 width=36
 height=32
-layer=com_233
+layer=smith_platelegs
 outline=1
 colour=0xffffffff
 
 // 300:235
-[com_235]
+[smith_platelegs_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_233
+layer=smith_platelegs
 textfont=p11_full
 text=Platelegs
 textalignv=centre
 colour=0x000000
 
 // 300:236
-[com_236]
+[smith_platelegs_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_233
+layer=smith_platelegs
 textfont=p11_full
 text=3 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:237
-[com_237]
+[smith_platelegs_all]
 type=text
 width=109
 height=32
-layer=com_233
+layer=smith_platelegs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2841,11 +2841,11 @@ transmitop=1
 op1=Make All Platelegs
 
 // 300:238
-[com_238]
+[smith_platelegs_x]
 type=text
 width=109
 height=32
-layer=com_233
+layer=smith_platelegs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2854,11 +2854,11 @@ transmitop=1
 op1=Make X Platelegs
 
 // 300:239
-[com_239]
+[smith_platelegs_5]
 type=text
 width=109
 height=32
-layer=com_233
+layer=smith_platelegs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2867,11 +2867,11 @@ transmitop=1
 op1=Make 5 Platelegs
 
 // 300:240
-[com_240]
+[smith_platelegs_1]
 type=text
 width=109
 height=32
-layer=com_233
+layer=smith_platelegs
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2880,55 +2880,55 @@ transmitop=1
 op1=Make 1 Platelegs
 
 // 300:241
-[com_241]
+[smith_platebody]
 type=layer
 x=238
 y=317
 width=109
 height=32
-layer=com_15
+layer=scrolling_layer
 
 // 300:242
-[com_242]
+[smith_platebody_pic]
 type=graphic
 width=36
 height=32
-layer=com_241
+layer=smith_platebody
 outline=1
 colour=0xffffffff
 
 // 300:243
-[com_243]
+[smith_platebody_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_241
+layer=smith_platebody
 textfont=p11_full
 text=Platebody
 textalignv=centre
 colour=0x000000
 
 // 300:244
-[com_244]
+[smith_platebody_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_241
+layer=smith_platebody
 textfont=p11_full
 text=5 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:245
-[com_245]
+[smith_platebody_all]
 type=text
 width=109
 height=32
-layer=com_241
+layer=smith_platebody
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2937,11 +2937,11 @@ transmitop=1
 op1=Make All Platebodies
 
 // 300:246
-[com_246]
+[smith_platebody_x]
 type=text
 width=109
 height=32
-layer=com_241
+layer=smith_platebody
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2950,11 +2950,11 @@ transmitop=1
 op1=Make X Platebodies
 
 // 300:247
-[com_247]
+[smith_platebody_5]
 type=text
 width=109
 height=32
-layer=com_241
+layer=smith_platebody
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2963,11 +2963,11 @@ transmitop=1
 op1=Make 5 Platebodies
 
 // 300:248
-[com_248]
+[smith_platebody_1]
 type=text
 width=109
 height=32
-layer=com_241
+layer=smith_platebody
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2976,7 +2976,7 @@ transmitop=1
 op1=Make 1 Platebody
 
 // 300:249
-[com_249]
+[blurite_layer]
 type=layer
 x=6
 y=55
@@ -2991,7 +2991,7 @@ x=4
 y=5
 width=109
 height=32
-layer=com_249
+layer=blurite_layer
 
 // 300:251
 [com_251]
@@ -3087,7 +3087,7 @@ x=121
 y=5
 width=109
 height=32
-layer=com_249
+layer=blurite_layer
 
 // 300:259
 [com_259]
@@ -3177,55 +3177,55 @@ transmitop=1
 op1=Make 1 Crossbow limb
 
 // 300:266
-[com_266]
+[smith_pickaxe]
 type=layer
 x=364
 y=317
 width=109
 height=42
-layer=com_15
+layer=scrolling_layer
 hide=yes
 
 // 300:267
-[com_267]
+[smith_pickaxe_pic]
 type=graphic
 width=36
 height=32
-layer=com_266
+layer=smith_pickaxe
 outline=1
 colour=0xffffffff
 
 // 300:268
-[com_268]
+[smith_pickaxe_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_266
+layer=smith_pickaxe
 textfont=p11_full
 text=Pickaxe
 colour=0x000000
 
 // 300:269
-[com_269]
+[smith_pickaxe_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_266
+layer=smith_pickaxe
 textfont=p11_full
 text=2 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:270
-[com_270]
+[smith_pickaxe_all]
 type=text
 width=109
 height=32
-layer=com_266
+layer=smith_pickaxe
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -3234,11 +3234,11 @@ transmitop=1
 op1=Make All Pickaxes
 
 // 300:271
-[com_271]
+[smith_pickaxe_x]
 type=text
 width=109
 height=32
-layer=com_266
+layer=smith_pickaxe
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -3247,11 +3247,11 @@ transmitop=1
 op1=Make X Pickaxes
 
 // 300:272
-[com_272]
+[smith_pickaxe_5]
 type=text
 width=109
 height=32
-layer=com_266
+layer=smith_pickaxe
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -3260,11 +3260,11 @@ transmitop=1
 op1=Make 5 Pickaxes
 
 // 300:273
-[com_273]
+[smith_pickaxe_1]
 type=text
 width=109
 height=32
-layer=com_266
+layer=smith_pickaxe
 textfont=q8_full
 textalignh=centre
 textshadow=yes

@@ -11,17 +11,17 @@ if (~script3999($int0) = 0) {
     if_setonmouserepeat(null, $component1);
 }
 switch_component ($component1) {
-    case task_side:com_64 :
+    case task_side:task_1 :
         %varplayerbit_8577 = 1;
-    case task_side:com_144 :
+    case task_side:task_2 :
         %varplayerbit_8577 = 2;
-    case task_side:com_149 :
+    case task_side:task_3 :
         %varplayerbit_8577 = 3;
-    case task_side:com_154 :
+    case task_side:task_4 :
         %varplayerbit_8577 = 4;
-    case task_side:com_159 :
+    case task_side:task_5 :
         %varplayerbit_8577 = 5;
-    case task_side:com_165 :
+    case task_side:task_6 :
         %varplayerbit_8577 = 6;
 }
 ~script3975;

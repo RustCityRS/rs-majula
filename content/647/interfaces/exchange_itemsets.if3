@@ -75,7 +75,7 @@ tiling=yes
 colour=0xffffffff
 
 // 645:7
-[com_7]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -162,7 +162,7 @@ tiling=yes
 colour=0xffffffff
 
 // 645:15
-[com_15]
+[title]
 type=text
 x=18
 y=27
@@ -176,7 +176,7 @@ textshadow=yes
 colour=0xff981f
 
 // 645:16
-[com_16]
+[stock_lay]
 type=layer
 x=31
 y=62
@@ -198,13 +198,13 @@ textshadow=yes
 colour=0xc8ab4a
 
 // 645:18
-[com_18]
+[scrollbar_lay]
 type=layer
 x=474
 y=62
 width=16
 height=225
-onload=scrollbar_vertical_graphics(event_com, exchange_itemsets:com_16, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, exchange_itemsets:stock_lay, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 645:19
 [com_19]

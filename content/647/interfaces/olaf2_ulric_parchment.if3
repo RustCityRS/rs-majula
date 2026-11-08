@@ -1,5 +1,5 @@
 // 255:0
-[com_0]
+[olaf2_scroll_backing]
 type=model
 x=240
 y=155
@@ -10,7 +10,7 @@ modelangle=512,1024,0
 modelzoom=480
 
 // 255:1
-[com_1]
+[olaf2_close]
 type=graphic
 x=478
 y=6
@@ -18,12 +18,12 @@ width=26
 height=23
 graphic="close_buttons,2"
 colour=0x000000
-onmouseover=graphic_swapper(olaf2_ulric_parchment:com_1, "close_buttons,3")
-onmouseleave=graphic_swapper(olaf2_ulric_parchment:com_1, "close_buttons,2")
+onmouseover=graphic_swapper(olaf2_ulric_parchment:olaf2_close, "close_buttons,3")
+onmouseleave=graphic_swapper(olaf2_ulric_parchment:olaf2_close, "close_buttons,2")
 onclick=closebutton_click
 
 // 255:2
-[com_2]
+[olaf2_close_button]
 type=layer
 x=475
 y=2
@@ -32,7 +32,7 @@ height=32
 hide=yes
 
 // 255:3
-[com_3]
+[olaf2_parchment_text]
 type=text
 x=124
 y=88

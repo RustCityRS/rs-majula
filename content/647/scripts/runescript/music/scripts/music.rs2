@@ -19,77 +19,13 @@
 //   289's %musicplay and %musicloop are gone: an area's track plays when
 //   nothing else is (music_end).
 
-[proc,music_getvar](int $var)(int)
-if ($var = 1) {
-    return(%musicmulti_1);
-} else if ($var = 2) {
-    return(%musicmulti_2);
-} else if ($var = 3) {
-    return(%musicmulti_3);
-} else if ($var = 4) {
-    return(%musicmulti_4);
-} else if ($var = 5) {
-    return(%musicmulti_5);
-} else if ($var = 6) {
-    return(%musicmulti_6);
-} else if ($var = 7) {
-    return(%musicmulti_7);
-} else if ($var = 8) {
-    return(%musicmulti_8);
-} else if ($var = 9) {
-    return(%musicmulti_9);
-} else if ($var = 10) {
-    return(%musicmulti_10);
-} else if ($var = 11) {
-    return(%musicmulti_11);
-} else if ($var = 12) {
-    return(%musicmulti_12);
-} else if ($var = 13) {
-    return(%musicmulti_13);
-} else if ($var = 14) {
-    return(%musicmulti_14);
-} else if ($var = 15) {
-    return(%musicmulti_15);
-} else if ($var = 16) {
-    return(%musicmulti_16);
-} else if ($var = 17) {
-    return(%musicmulti_17);
-} else if ($var = 18) {
-    return(%musicmulti_18);
-} else if ($var = 19) {
-    return(%musicmulti_19);
-} else if ($var = 20) {
-    return(%musicmulti_20);
-} else if ($var = 21) {
-    return(%musicmulti_21);
-} else if ($var = 22) {
-    return(%musicmulti_22);
-} else if ($var = 23) {
-    return(%musicmulti_23);
-} else if ($var = 24) {
-    return(%musicmulti_24);
-} else if ($var = 25) {
-    return(%musicmulti_25);
-} else if ($var = 26) {
-    return(%musicmulti_26);
-} else if ($var = 27) {
-    return(%musicmulti_27);
-} else if ($var = 29) {
-    return(%musicmulti_29);
-} else if ($var = 30) {
-    return(%musicmulti_30);
-} else if ($var = 31) {
-    return(%musicmulti_31);
-}
-return(null);
-
 // Adapt the server's (bitfield, bit) coordinates to the shared track index.
 // Missing bitfields historically return -1, so every bit reads as unlocked.
 [proc,music_unlockbit](int $var, int $bit)(int)
 if ($var < 1 | $var > 31 | $var = 28) {
     return(1);
 }
-return(~music_track_unlocked(calc(($var - 1) * 32 + and($bit, 31))));
+return(~music_getvar(calc(($var - 1) * 32 + and($bit, 31))));
 
 [proc,music_setvar](int $var, int $bit)
 if ($var = 1) {
@@ -169,12 +105,12 @@ def_int $unlock;
 def_int $bit;
 $unlock, $bit = db_getfield($song, music:unlock, 0);
 if ($unlock ! null) {
-    if (testbit(~music_getvar($unlock), $bit) = ^false) {
+    if (~music_unlockbit($unlock, $bit) = ^false) {
         ~music_setvar($unlock, $bit);
         mes("@red@You have unlocked a new music track: <db_getfield($song, music:name, 0)>.");
     }
 }
-if_settext(music_v3:com_4, db_getfield($song, music:name, 0));
+if_settext(music_v3:now_playing_text, db_getfield($song, music:name, 0));
 %currentsong = db_getfield($song, music:track, 0);
 %musicstart = map_clock;
 %musiclength = midi_length(%currentsong);
@@ -211,7 +147,7 @@ if ($unlock ! null) {
 
 // 289: %musicplay = 0, its Manual mode. 2011 has none: the track plays to
 // its end, and then the area's (header).
-if_settext(music_v3:com_4, db_getfield($song, music:name, 0));
+if_settext(music_v3:now_playing_text, db_getfield($song, music:name, 0));
 @music_play(db_getfield($song, music:track, 0));
 
 [label,music_playbyregion](coord $coord)
@@ -242,7 +178,7 @@ if ($unlock ! null) {
 
 // 289: if (%musicplay ! 0), its Auto mode. 2011: when nothing is playing.
 if (%currentsong = null) {
-    if_settext(music_v3:com_4, db_getfield($song, music:name, 0));
+    if_settext(music_v3:now_playing_text, db_getfield($song, music:name, 0));
     @music_play(db_getfield($song, music:track, 0));
 }
 

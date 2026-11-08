@@ -136,7 +136,7 @@ graphic="v2_stone_borders_alt,10"
 colour=0x000000
 
 // 157:13
-[com_13]
+[closebutton]
 type=graphic
 x=473
 y=30
@@ -152,7 +152,7 @@ onop=closebutton_click
 onclick=closebutton_click
 
 // 157:14
-[com_14]
+[title]
 type=text
 x=21
 y=30
@@ -181,12 +181,12 @@ x=22
 y=8
 width=20
 height=20
-layer=com_17
+layer=pagecontrols
 graphic=graphic_1161
 colour=0x000000
 
 // 157:17
-[com_17]
+[pagecontrols]
 type=layer
 x=176
 y=287
@@ -201,7 +201,7 @@ x=42
 y=8
 width=93
 height=20
-layer=com_17
+layer=pagecontrols
 graphic=graphic_1162
 tiling=yes
 colour=0x000000
@@ -213,19 +213,19 @@ x=124
 y=8
 width=20
 height=20
-layer=com_17
+layer=pagecontrols
 graphic=graphic_1163
 tiling=yes
 colour=0x000000
 
 // 157:20
-[com_20]
+[pagecount]
 type=text
 x=18
 y=10
 width=136
 height=16
-layer=com_17
+layer=pagecontrols
 textfont=b12_full
 text=Page 1 of 7
 textalignh=centre
@@ -233,13 +233,13 @@ textshadow=yes
 colour=0xffa861
 
 // 157:21
-[com_21]
+[button_next]
 type=graphic
 x=147
 y=9
 width=16
 height=16
-layer=com_17
+layer=pagecontrols
 graphic="catcon_catapult_arrows,2"
 colour=0x000000
 transmitop=1
@@ -248,13 +248,13 @@ onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,3")
 onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,2")
 
 // 157:22
-[com_22]
+[button_back]
 type=graphic
 x=3
 y=9
 width=16
 height=16
-layer=com_17
+layer=pagecontrols
 graphic="catcon_catapult_arrows,0"
 colour=0x000000
 transmitop=1
@@ -279,7 +279,7 @@ width=16
 height=235
 
 // 157:25
-[com_25]
+[text]
 type=layer
 x=19
 y=54
@@ -294,7 +294,7 @@ x=139
 y=5
 width=9
 height=24
-layer=com_35
+layer=buttoncontrol
 graphic="v2_stone_button,6"
 colour=0x000000
 
@@ -305,7 +305,7 @@ x=26
 y=20
 width=122
 height=9
-layer=com_35
+layer=buttoncontrol
 graphic="v2_stone_button,7"
 colour=0x000000
 
@@ -316,7 +316,7 @@ x=26
 y=5
 width=122
 height=9
-layer=com_35
+layer=buttoncontrol
 graphic="v2_stone_button,5"
 colour=0x000000
 
@@ -327,18 +327,18 @@ x=26
 y=5
 width=9
 height=24
-layer=com_35
+layer=buttoncontrol
 graphic="v2_stone_button,4"
 colour=0x000000
 
 // 157:30
-[com_30]
+[button]
 type=text
 x=26
 y=5
 width=123
 height=24
-layer=com_35
+layer=buttoncontrol
 textfont=p11_full
 text=Shortcut keys
 textalignh=centre
@@ -354,7 +354,7 @@ x=26
 y=5
 width=9
 height=9
-layer=com_35
+layer=buttoncontrol
 graphic="v2_stone_button,0"
 colour=0x000000
 
@@ -365,7 +365,7 @@ x=139
 y=5
 width=9
 height=9
-layer=com_35
+layer=buttoncontrol
 graphic="v2_stone_button,1"
 colour=0x000000
 
@@ -376,7 +376,7 @@ x=26
 y=20
 width=9
 height=9
-layer=com_35
+layer=buttoncontrol
 graphic="v2_stone_button,2"
 colour=0x000000
 
@@ -387,12 +387,12 @@ x=139
 y=20
 width=9
 height=9
-layer=com_35
+layer=buttoncontrol
 graphic="v2_stone_button,3"
 colour=0x000000
 
 // 157:35
-[com_35]
+[buttoncontrol]
 type=layer
 x=344
 y=288

@@ -3,19 +3,19 @@
 if (%varclient_1363 = $int0) {
     return;
 }
-if_setonvarctransmit("conq_update_turn(%varclient_1363){varclient_1363}", conq_scroll_overlay:com_1);
+if_setonvarctransmit("conq_update_turn(%varclient_1363){varclient_1363}", conq_scroll_overlay:turn_control_layer);
 %varclient_1389 = 0;
 if (%varclient_1363 = %varplayerbit_7510) {
-    if_sethide(false, conq_side_turn:com_33);
-    if_sethide(true, conq_side_turn:com_32);
-    if_sethide(true, conq_side_turn:com_24);
-    if_settext("Your Turn", conq_scroll_overlay:com_26);
+    if_sethide(false, conq_side_turn:your_turn_layer);
+    if_sethide(true, conq_side_turn:opponents_turn_layer);
+    if_sethide(true, conq_side_turn:confirm_end_layer);
+    if_settext("Your Turn", conq_scroll_overlay:whose_turn_text);
     sound_vorbis_volume(vorbis_3439, 1, 0, 255);
 } else {
-    if_sethide(true, conq_side_turn:com_33);
-    if_sethide(true, conq_side_turn:com_24);
-    if_settext("Opponent's Turn", conq_scroll_overlay:com_26);
-    if (if_gethide(conq_side_turn:com_7) = true) {
-        if_sethide(false, conq_side_turn:com_32);
+    if_sethide(true, conq_side_turn:your_turn_layer);
+    if_sethide(true, conq_side_turn:confirm_end_layer);
+    if_settext("Opponent's Turn", conq_scroll_overlay:whose_turn_text);
+    if (if_gethide(conq_side_turn:commorb_layer) = true) {
+        if_sethide(false, conq_side_turn:opponents_turn_layer);
     }
 }

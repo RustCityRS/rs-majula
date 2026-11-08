@@ -6,14 +6,14 @@ def_int $int5 = scale(detailget_loginvol, 255, $int4);
 if_setposition($int5, 0, ^setpos_abs_left, ^setpos_abs_top, $component1);
 if (detailget_loginvol > 0) {
     if ($int3 = 1) {
-        if_setgraphic(graphic_4123, loginscreen:com_107);
+        if_setgraphic(graphic_4123, loginscreen:tool_bar_vol_button);
     } else {
-        if_setgraphic(graphic_4118, loginscreen:com_107);
+        if_setgraphic(graphic_4118, loginscreen:tool_bar_vol_button);
     }
 } else if ($int3 = 1) {
-    if_setgraphic(graphic_4124, loginscreen:com_107);
+    if_setgraphic(graphic_4124, loginscreen:tool_bar_vol_button);
 } else {
-    if_setgraphic(graphic_4119, loginscreen:com_107);
+    if_setgraphic(graphic_4119, loginscreen:tool_bar_vol_button);
 }
 if ($int2 = 1) {
     %varclient_1394 = detailget_loginvol;

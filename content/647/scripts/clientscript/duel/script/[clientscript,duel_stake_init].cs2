@@ -5,7 +5,7 @@ def_int $int1 = 5;
 def_int $int2 = 0;
 while ($int0 < 125) {
     while ($int1 < 120) {
-        cc_create(interface_631:com_47, ^iftype_graphic, $int2);
+        cc_create(interface_631:your_stake, ^iftype_graphic, $int2);
         cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
         cc_setposition($int1, $int0, ^setpos_abs_left, ^setpos_abs_top);
         if (inv_getobj(inv_134, $int2) ! null) {
@@ -20,7 +20,7 @@ while ($int0 < 125) {
             cc_setgraphicshadow(0x302020);
             cc_setoutline(1);
         }
-        cc_create(interface_631:com_49, ^iftype_graphic, $int2);
+        cc_create(interface_631:opponent_stake, ^iftype_graphic, $int2);
         cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
         cc_setposition($int1, $int0, ^setpos_abs_left, ^setpos_abs_top);
         if (invother_getobj(inv_134, $int2) ! null) {

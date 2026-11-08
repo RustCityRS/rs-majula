@@ -8,16 +8,16 @@ if (%varclient_11 = true) {
     return;
 }
 if (getwindowmode >= 2) {
-    if_sethide(false, toplevel_fullscreen:com_chatbox);
+    if_sethide(false, toplevel_fullscreen:chattop);
 }
 %varclient_1542 = $string0;
-if_sethide(false, chatbox:com_3);
-if_sethide(true, chatbox:com_7);
-if_sethide(true, chatbox:com_8);
-if_settext("Enter message to send to <%varclient_1542>", chatbox:com_4);
+if_sethide(false, chattop:mes_layer);
+if_sethide(true, chattop:mes_layer_large);
+if_sethide(true, chattop:mes_layer_hide);
+if_settext("Enter message to send to <%varclient_1542>", chattop:mes_text);
 %varclient_5 = 6;
 ~meslayer_setupinput("");
-if_setonclick(null, chatbox:com_3);
+if_setonclick(null, chattop:mes_layer);
 ~script2026;
-if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chatbox:com_5);
+if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chattop:mes_text2);
 ~opt_header;

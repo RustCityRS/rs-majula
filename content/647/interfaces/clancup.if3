@@ -1,5 +1,5 @@
 // 205:0
-[com_0]
+[background_layer]
 type=layer
 width=512
 height=334
@@ -11,7 +11,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=background_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -28,7 +28,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=proportion_centre
-layer=com_0
+layer=background_layer
 graphic=km_middlefillcolour
 tiling=yes
 colour=0x000000
@@ -42,7 +42,7 @@ width=16391
 height=70
 widthmode=proportion
 xmode=abs_centre
-layer=com_0
+layer=background_layer
 graphic=graphic_2045
 tiling=yes
 colour=0x000000
@@ -57,7 +57,7 @@ height=46
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=background_layer
 graphic=graphic_2044
 tiling=yes
 colour=0x000000
@@ -69,7 +69,7 @@ op10=
 type=graphic
 width=32
 height=32
-layer=com_0
+layer=background_layer
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 transmitop=10
@@ -83,7 +83,7 @@ width=64
 height=34
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=background_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -96,7 +96,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_0
+layer=background_layer
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 transmitop=10
@@ -111,7 +111,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=background_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -124,7 +124,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_0
+layer=background_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -139,7 +139,7 @@ height=64
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_0
+layer=background_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -153,7 +153,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=background_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -167,7 +167,7 @@ width=32
 height=64
 heightmode=minus
 ymode=abs_centre
-layer=com_0
+layer=background_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -175,30 +175,30 @@ transmitop=10
 op10=  
 
 // 205:13
-[com_13]
+[divider_layer]
 type=layer
 width=549
 height=189
 
 // 205:14
-[com_14]
+[filler_left]
 type=graphic
 x=6
 y=3
 width=4
 height=53
-layer=com_13
+layer=divider_layer
 graphic=graphic_2037
 colour=0x000000
 
 // 205:15
-[com_15]
+[filler_right]
 type=graphic
 x=501
 y=3
 width=3
 height=53
-layer=com_13
+layer=divider_layer
 graphic=graphic_2037
 hflip=yes
 colour=0x000000
@@ -206,18 +206,18 @@ transmitop=10
 op10= 
 
 // 205:16
-[com_16]
+[filler_main]
 type=graphic
 x=10
 y=7
 width=491
 height=46
-layer=com_13
+layer=divider_layer
 graphic=graphic_3750
 colour=0x000000
 
 // 205:17
-[com_17]
+[gold_layer]
 type=layer
 x=6
 y=61
@@ -231,19 +231,19 @@ x=16
 y=250
 width=467
 height=14
-layer=com_17
+layer=gold_layer
 graphic=clan_cup_side
 vflip=yes
 colour=0x000000
 
 // 205:19
-[com_19]
+[r_side]
 type=graphic
 x=483
 y=15
 width=13
 height=238
-layer=com_17
+layer=gold_layer
 graphic=graphic_3754
 colour=0x000000
 
@@ -254,18 +254,18 @@ x=16
 y=2
 width=468
 height=14
-layer=com_17
+layer=gold_layer
 graphic=clan_cup_side
 colour=0x000000
 
 // 205:21
-[com_21]
+[l_side]
 type=graphic
 x=2
 y=15
 width=13
 height=236
-layer=com_17
+layer=gold_layer
 graphic=graphic_3753
 colour=0x000000
 
@@ -276,7 +276,7 @@ x=482
 y=250
 width=14
 height=14
-layer=com_17
+layer=gold_layer
 graphic=graphic_3752
 vflip=yes
 colour=0x000000
@@ -288,7 +288,7 @@ x=482
 y=2
 width=14
 height=14
-layer=com_17
+layer=gold_layer
 graphic=graphic_3752
 colour=0x000000
 
@@ -299,7 +299,7 @@ x=2
 y=250
 width=14
 height=14
-layer=com_17
+layer=gold_layer
 graphic=graphic_3751
 vflip=yes
 colour=0x000000
@@ -311,23 +311,23 @@ x=2
 y=2
 width=14
 height=14
-layer=com_17
+layer=gold_layer
 graphic=graphic_3751
 colour=0x000000
 
 // 205:26
-[com_26]
+[gold_main]
 type=graphic
 x=14
 y=5
 width=470
 height=255
-layer=com_17
+layer=gold_layer
 graphic=clan_cup_fill
 colour=0x000000
 
 // 205:27
-[com_27]
+[backgroundlayer]
 type=layer
 width=509
 height=338
@@ -340,19 +340,19 @@ x=9
 y=21
 width=15
 height=294
-layer=com_27
+layer=backgroundlayer
 graphic=graphic_3753
 tiling=yes
 colour=0x000000
 
 // 205:29
-[com_29]
+[top_border_gold]
 type=graphic
 x=23
 y=9
 width=470
 height=14
-layer=com_27
+layer=backgroundlayer
 graphic=clan_cup_side
 tiling=yes
 colour=0x000000
@@ -364,7 +364,7 @@ x=23
 y=314
 width=470
 height=13
-layer=com_27
+layer=backgroundlayer
 graphic=clan_cup_side
 vflip=yes
 colour=0x000000
@@ -376,7 +376,7 @@ x=20
 y=12
 width=478
 height=312
-layer=com_27
+layer=backgroundlayer
 graphic=clan_cup_fill
 colour=0x000000
 
@@ -387,7 +387,7 @@ x=9
 y=9
 width=14
 height=14
-layer=com_27
+layer=backgroundlayer
 graphic=graphic_3751
 colour=0x000000
 
@@ -398,7 +398,7 @@ x=9
 y=314
 width=14
 height=14
-layer=com_27
+layer=backgroundlayer
 graphic=graphic_3751
 2dangle=16384
 colour=0x000000
@@ -410,7 +410,7 @@ x=491
 y=9
 width=14
 height=14
-layer=com_27
+layer=backgroundlayer
 graphic=graphic_3752
 colour=0x000000
 
@@ -421,7 +421,7 @@ x=491
 y=314
 width=14
 height=14
-layer=com_27
+layer=backgroundlayer
 graphic=graphic_3752
 2dangle=49152
 colour=0x000000
@@ -429,13 +429,13 @@ transmitop=10
 op10= 
 
 // 205:36
-[com_36]
+[right_border_gold]
 type=graphic
 x=491
 y=22
 width=13
 height=293
-layer=com_27
+layer=backgroundlayer
 graphic=graphic_3754
 tiling=yes
 colour=0x000000
@@ -449,7 +449,7 @@ width=16211
 height=31
 widthmode=proportion
 xmode=abs_centre
-layer=com_13
+layer=divider_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -462,7 +462,7 @@ type=graphic
 y=43
 width=32
 height=32
-layer=com_13
+layer=divider_layer
 graphic="v2_stone_borders,9"
 tiling=yes
 colour=0xffffffff
@@ -476,7 +476,7 @@ x=480
 y=43
 width=25
 height=33
-layer=com_13
+layer=divider_layer
 graphic="v2_stone_borders,9"
 tiling=yes
 hflip=yes
@@ -490,7 +490,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_13
+layer=divider_layer
 graphic="v2_stone_borders,10"
 tiling=yes
 colour=0xffffffff
@@ -498,7 +498,7 @@ transmitop=10
 op10=   
 
 // 205:41
-[com_41]
+[buttonlayer]
 type=layer
 x=-1
 y=-2
@@ -512,7 +512,7 @@ x=9
 y=2
 width=512
 height=334
-layer=com_41
+layer=buttonlayer
 
 // 205:43
 [com_43]
@@ -521,7 +521,7 @@ x=15
 y=2
 width=512
 height=334
-layer=com_41
+layer=buttonlayer
 
 // 205:44
 [com_44]
@@ -529,7 +529,7 @@ type=layer
 x=11
 width=512
 height=334
-layer=com_41
+layer=buttonlayer
 
 // 205:45
 [com_45]
@@ -537,7 +537,7 @@ type=layer
 x=10
 width=512
 height=334
-layer=com_41
+layer=buttonlayer
 
 // 205:46
 [com_46]
@@ -583,7 +583,7 @@ onmouseover=script343
 onmouseleave=script344
 
 // 205:49
-[com_49]
+[combinedbuttontext]
 type=text
 x=367
 y=21
@@ -645,7 +645,7 @@ onmouseover=script341
 onmouseleave=script342
 
 // 205:53
-[com_53]
+[skillbuttontext]
 type=text
 x=253
 y=21
@@ -703,7 +703,7 @@ onmouseover=script339
 onmouseleave=script340
 
 // 205:57
-[com_57]
+[combatbuttontext]
 type=text
 x=139
 y=19
@@ -765,7 +765,7 @@ onmouseover=script345
 onmouseleave=script346
 
 // 205:61
-[com_61]
+[currentbuttontext]
 type=text
 x=34
 y=19
@@ -785,13 +785,13 @@ onmouseover=text_colour_swapper(event_com, 0xeeeeee)
 onmouseleave=text_colour_swapper(event_com, 0xcccccc)
 
 // 205:62
-[com_62]
+[close_button]
 type=graphic
 x=483
 y=9
 width=26
 height=23
-layer=com_41
+layer=buttonlayer
 graphic="close_buttons,0"
 colour=0x000000
 transmitop=1
@@ -801,7 +801,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,0")
 onop=closebutton_click
 
 // 205:63
-[com_63]
+[textlayer]
 type=layer
 x=-2
 y=11
@@ -809,13 +809,13 @@ width=512
 height=334
 
 // 205:64
-[com_64]
+[winnertext]
 type=text
 x=27
 y=94
 width=462
 height=211
-layer=com_63
+layer=textlayer
 textfont=welcome_font_small
 text=test test test test test test test test
 textalignh=centre
@@ -824,13 +824,13 @@ textshadow=yes
 colour=0xffffcc
 
 // 205:65
-[com_65]
+[typetext]
 type=text
 x=27
 y=58
 width=463
 height=34
-layer=com_63
+layer=textlayer
 textfont=welcome_font_large
 text=test test test test 
 textalignh=centre

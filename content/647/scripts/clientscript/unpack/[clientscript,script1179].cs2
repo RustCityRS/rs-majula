@@ -2,16 +2,16 @@
 [clientscript,script1179]
 if (%doublexp_setupflag = 1) {
     if (map_lang = 1) {
-        if_setgraphic("xp_token_with_plus,3", toplevel:xp_orb);
-        if_setgraphic("xp_token_with_plus,3", toplevel_fullscreen:xp_orb);
+        if_setgraphic("xp_token_with_plus,3", toplevel:xpx2smallbutton);
+        if_setgraphic("xp_token_with_plus,3", toplevel_fullscreen:xpx2smallbutton);
     } else {
-        if_setgraphic("xp_token_with_plus,1", toplevel:xp_orb);
-        if_setgraphic("xp_token_with_plus,1", toplevel_fullscreen:xp_orb);
+        if_setgraphic("xp_token_with_plus,1", toplevel:xpx2smallbutton);
+        if_setgraphic("xp_token_with_plus,1", toplevel_fullscreen:xpx2smallbutton);
     }
 } else if (map_lang = 1) {
-    if_setgraphic("xp_token,3", toplevel:xp_orb);
-    if_setgraphic("xp_token,3", toplevel_fullscreen:xp_orb);
+    if_setgraphic("xp_token,3", toplevel:xpx2smallbutton);
+    if_setgraphic("xp_token,3", toplevel_fullscreen:xpx2smallbutton);
 } else {
-    if_setgraphic("xp_token,1", toplevel:xp_orb);
-    if_setgraphic("xp_token,1", toplevel_fullscreen:xp_orb);
+    if_setgraphic("xp_token,1", toplevel:xpx2smallbutton);
+    if_setgraphic("xp_token,1", toplevel_fullscreen:xpx2smallbutton);
 }

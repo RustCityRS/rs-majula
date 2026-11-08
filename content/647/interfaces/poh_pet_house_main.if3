@@ -1,5 +1,5 @@
 // 879:0
-[com_0]
+[main_layer]
 type=layer
 width=512
 height=334
@@ -20,7 +20,7 @@ transmitop=10
 op10= 
 
 // 879:2
-[com_2]
+[top]
 type=graphic
 y=-5
 width=80
@@ -34,7 +34,7 @@ transmitop=10
 op10= 
 
 // 879:3
-[com_3]
+[left]
 type=graphic
 x=-5
 width=32
@@ -48,7 +48,7 @@ transmitop=10
 op10= 
 
 // 879:4
-[com_4]
+[bottom]
 type=graphic
 y=-4
 width=80
@@ -63,7 +63,7 @@ transmitop=10
 op10= 
 
 // 879:5
-[com_5]
+[right]
 type=graphic
 x=-4
 width=32
@@ -78,7 +78,7 @@ transmitop=10
 op10= 
 
 // 879:6
-[com_6]
+[top_left]
 type=graphic
 x=8
 y=8
@@ -90,7 +90,7 @@ transmitop=10
 op10= 
 
 // 879:7
-[com_7]
+[top_right]
 type=graphic
 x=8
 y=8
@@ -103,7 +103,7 @@ transmitop=10
 op10= 
 
 // 879:8
-[com_8]
+[bottom_left]
 type=graphic
 x=8
 y=8
@@ -116,7 +116,7 @@ transmitop=10
 op10= 
 
 // 879:9
-[com_9]
+[bottom_right]
 type=graphic
 x=8
 y=8
@@ -130,7 +130,7 @@ transmitop=10
 op10= 
 
 // 879:10
-[com_10]
+[title]
 type=text
 x=-5
 y=15
@@ -146,7 +146,7 @@ transmitop=10
 op10= 
 
 // 879:11
-[com_11]
+[exit_button]
 type=graphic
 x=16
 y=16
@@ -177,7 +177,7 @@ transmitop=10
 op10= 
 
 // 879:13
-[com_13]
+[build_layer]
 type=layer
 x=27
 y=47

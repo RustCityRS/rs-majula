@@ -7,7 +7,7 @@ transmitop=10
 op10=  
 
 // 32:1
-[com_1]
+[game_data]
 type=layer
 width=512
 height=334
@@ -15,30 +15,30 @@ transmitop=10
 op10=  
 
 // 32:2
-[com_2]
+[name_player1]
 type=text
 x=43
 y=58
 width=140
 height=25
-layer=com_1
+layer=game_data
 textfont=p12_full
 text=Insert a very long name here!
 textshadow=yes
 colour=0xffaa44
 transmitop=10
 op10=  
-onload=boardgames_names(boardgames_draughts:com_2, boardgames_draughts:com_3, boardgames_draughts:com_21)
-onvarcstrtransmit=boardgames_names(boardgames_draughts:com_2, boardgames_draughts:com_3, boardgames_draughts:com_21){varclient_1649}
+onload=boardgames_names(boardgames_draughts:name_player1, boardgames_draughts:name_player2, boardgames_draughts:tooltip)
+onvarcstrtransmit=boardgames_names(boardgames_draughts:name_player1, boardgames_draughts:name_player2, boardgames_draughts:tooltip){varclient_1649}
 
 // 32:3
-[com_3]
+[name_player2]
 type=text
 x=43
 y=89
 width=140
 height=25
-layer=com_1
+layer=game_data
 textfont=p12_full
 text=Insert a very long name here!
 textshadow=yes
@@ -47,13 +47,13 @@ transmitop=10
 op10=  
 
 // 32:4
-[com_4]
+[vs]
 type=text
 x=100
 y=75
 width=14
 height=14
-layer=com_1
+layer=game_data
 textfont=p12_full
 text=vs
 textshadow=yes
@@ -62,7 +62,7 @@ transmitop=10
 op10=  
 
 // 32:5
-[com_5]
+[name_turn]
 type=text
 x=85
 y=127
@@ -74,16 +74,16 @@ textshadow=yes
 colour=0xaaaaaa
 transmitop=10
 op10=  
-onvarcstrtransmit=boardgames_turn_name(event_com, boardgames_draughts:com_21){varclient_1666}
+onvarcstrtransmit=boardgames_turn_name(event_com, boardgames_draughts:tooltip){varclient_1666}
 
 // 32:6
-[com_6]
+[turn]
 type=text
 x=38
 y=127
 width=44
 height=31
-layer=com_1
+layer=game_data
 textfont=p12_full
 text=Turn:
 textalignh=right
@@ -93,13 +93,13 @@ transmitop=10
 op10=  
 
 // 32:7
-[com_7]
+[game_title]
 type=text
 x=21
 y=29
 width=176
 height=17
-layer=com_1
+layer=game_data
 textfont=b12_full
 text=Game Name
 textshadow=yes
@@ -109,13 +109,13 @@ op10=
 onvarcstrtransmit=boardgames_game_name(event_com){varclient_1665}
 
 // 32:8
-[com_8]
+[status1]
 type=text
 x=23
 y=173
 width=169
 height=11
-layer=com_1
+layer=game_data
 textfont=p11_full
 text=status 1
 textalignh=centre
@@ -123,17 +123,17 @@ textshadow=yes
 colour=0xaaaaaa
 transmitop=10
 op10=    
-onload=boardgames_status(boardgames_draughts:com_8, boardgames_draughts:com_9, boardgames_draughts:com_10, boardgames_draughts:com_21)
-onvarcstrtransmit=boardgames_status(boardgames_draughts:com_8, boardgames_draughts:com_9, boardgames_draughts:com_10, boardgames_draughts:com_21){varclient_1662, varclient_1663, varclient_1664}
+onload=boardgames_status(boardgames_draughts:status1, boardgames_draughts:status2, boardgames_draughts:status3, boardgames_draughts:tooltip)
+onvarcstrtransmit=boardgames_status(boardgames_draughts:status1, boardgames_draughts:status2, boardgames_draughts:status3, boardgames_draughts:tooltip){varclient_1662, varclient_1663, varclient_1664}
 
 // 32:9
-[com_9]
+[status2]
 type=text
 x=23
 y=188
 width=169
 height=11
-layer=com_1
+layer=game_data
 textfont=p11_full
 text=status 2
 textalignh=centre
@@ -143,13 +143,13 @@ transmitop=10
 op10=    
 
 // 32:10
-[com_10]
+[status3]
 type=text
 x=27
 y=157
 width=160
 height=14
-layer=com_1
+layer=game_data
 textfont=b12_full
 text=status 3
 textalignh=centre
@@ -159,13 +159,13 @@ transmitop=10
 op10=    
 
 // 32:11
-[com_11]
+[game_piece_player1]
 type=model
 x=20
 y=58
 width=20
 height=19
-layer=com_1
+layer=game_data
 model=model_2399
 modelangle=512,1024,0
 modelzoom=1024
@@ -174,13 +174,13 @@ op10=
 onvarctransmit=script2427(event_com){varclient_809}
 
 // 32:12
-[com_12]
+[game_piece_player2]
 type=model
 x=20
 y=88
 width=20
 height=19
-layer=com_1
+layer=game_data
 model=model_2652
 modelangle=512,1024,0
 modelzoom=1024
@@ -189,7 +189,7 @@ op10=
 onvarctransmit=script2428(event_com){varclient_810}
 
 // 32:13
-[com_13]
+[close_layer]
 type=layer
 x=26
 y=265
@@ -202,7 +202,7 @@ op10=
 onop=closebutton_click
 
 // 32:14
-[com_14]
+[draw_layer]
 type=layer
 x=26
 y=215
@@ -214,7 +214,7 @@ op10=
 opcursor0=cursor_46
 
 // 32:15
-[com_15]
+[resign_layer]
 type=layer
 x=26
 y=265
@@ -227,41 +227,41 @@ opcursor0=cursor_46
 onop=closebutton_click
 
 // 32:16
-[com_16]
+[board]
 type=model
 x=211
 y=33
 width=275
 height=274
-layer=com_18
+layer=draughts_board
 model=model_4607
 modelangle=512,0,0
 modelzoom=400
 
 // 32:17
-[com_17]
+[board_back]
 type=rectangle
 x=219
 y=41
 width=258
 height=258
-layer=com_18
+layer=draughts_board
 colour=0x000000
 
 // 32:18
-[com_18]
+[draughts_board]
 type=layer
 width=512
 height=334
 
 // 32:19
-[com_19]
+[boardgames_draughts_runeflash]
 type=model
 x=236
 y=58
 width=1
 height=1
-layer=com_18
+layer=draughts_board
 model=model_4611
 modelangle=512,0,0
 modelzoom=768
@@ -270,7 +270,7 @@ transmitop=10
 op10= 
 
 // 32:20
-[com_20]
+[draughts_inv]
 type=layer
 x=219
 y=41
@@ -279,7 +279,7 @@ height=258
 onvarctransmit=draughts_inv_init(event_com, inv_215, 8, 8){varclient_807}
 
 // 32:21
-[com_21]
+[tooltip]
 type=layer
 x=118
 y=105
@@ -287,7 +287,7 @@ width=59
 height=14
 
 // 32:22
-[com_22]
+[tradeback]
 type=graphic
 x=12
 y=20
@@ -437,13 +437,13 @@ transmitop=10
 op10=  
 
 // 32:33
-[com_33]
+[sandtimer]
 type=model
 x=158
 y=215
 width=33
 height=91
-layer=com_1
+layer=game_data
 model=model_4612
 modelorigin=0,45
 modelzoom=2048
@@ -452,26 +452,26 @@ op10=
 onvarctransmit=boardgames_sandtimer(event_com){varclient_811}
 
 // 32:34
-[com_34]
+[resign_box]
 type=rectangle
 x=6
 y=6
 width=110
 height=31
-layer=com_15
+layer=resign_layer
 colour=0x000000
 fill=yes
 transmitop=10
 op10=  
 
 // 32:35
-[com_35]
+[resign_txt]
 type=text
 x=6
 y=6
 width=110
 height=31
-layer=com_15
+layer=resign_layer
 textfont=p12_full
 text=Resign
 textalignh=centre
@@ -491,7 +491,7 @@ x=21
 y=-15
 width=79
 height=32
-layer=com_15
+layer=resign_layer
 graphic="steelborder2,0"
 tiling=yes
 colour=0xffffffff
@@ -503,7 +503,7 @@ op10=
 type=graphic
 width=25
 height=30
-layer=com_15
+layer=resign_layer
 graphic="steelborder,0"
 colour=0xffffffff
 transmitop=10
@@ -515,7 +515,7 @@ type=graphic
 x=97
 width=25
 height=30
-layer=com_15
+layer=resign_layer
 graphic="steelborder,1"
 colour=0xffffffff
 transmitop=10
@@ -527,7 +527,7 @@ type=graphic
 y=12
 width=25
 height=30
-layer=com_15
+layer=resign_layer
 graphic="steelborder,2"
 colour=0xffffffff
 transmitop=10
@@ -540,7 +540,7 @@ x=97
 y=12
 width=25
 height=30
-layer=com_15
+layer=resign_layer
 graphic="steelborder,3"
 colour=0xffffffff
 transmitop=10
@@ -553,7 +553,7 @@ x=21
 y=21
 width=80
 height=33
-layer=com_15
+layer=resign_layer
 graphic="miscgraphics,3"
 tiling=yes
 colour=0xffffffff
@@ -561,26 +561,26 @@ transmitop=10
 op10=  
 
 // 32:42
-[com_42]
+[boardgames_runelink_draw]
 type=rectangle
 x=6
 y=6
 width=110
 height=31
-layer=com_14
+layer=draw_layer
 colour=0x000000
 fill=yes
 transmitop=10
 op10=  
 
 // 32:43
-[com_43]
+[draw_txt]
 type=text
 x=5
 y=6
 width=111
 height=31
-layer=com_14
+layer=draw_layer
 textfont=p12_full
 text=Offer draw
 textlineheight=11
@@ -601,7 +601,7 @@ x=21
 y=-15
 width=85
 height=34
-layer=com_14
+layer=draw_layer
 graphic="steelborder2,0"
 tiling=yes
 colour=0xffffffff
@@ -615,7 +615,7 @@ x=22
 y=21
 width=79
 height=37
-layer=com_14
+layer=draw_layer
 graphic="miscgraphics,3"
 tiling=yes
 colour=0xffffffff
@@ -627,7 +627,7 @@ op10=
 type=graphic
 width=25
 height=30
-layer=com_14
+layer=draw_layer
 graphic="steelborder,0"
 colour=0xffffffff
 transmitop=10
@@ -639,7 +639,7 @@ type=graphic
 x=97
 width=25
 height=30
-layer=com_14
+layer=draw_layer
 graphic="steelborder,1"
 colour=0xffffffff
 transmitop=10
@@ -651,7 +651,7 @@ type=graphic
 y=12
 width=25
 height=30
-layer=com_14
+layer=draw_layer
 graphic="steelborder,2"
 colour=0xffffffff
 transmitop=10
@@ -664,33 +664,33 @@ x=97
 y=12
 width=25
 height=30
-layer=com_14
+layer=draw_layer
 graphic="steelborder,3"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 32:50
-[com_50]
+[close_box]
 type=rectangle
 x=6
 y=6
 width=66
 height=31
-layer=com_13
+layer=close_layer
 colour=0x000000
 fill=yes
 transmitop=10
 op10=  
 
 // 32:51
-[com_51]
+[close_txt]
 type=text
 x=6
 y=6
 width=66
 height=30
-layer=com_13
+layer=close_layer
 textfont=p12_full
 text=Close
 textalignh=centre
@@ -707,7 +707,7 @@ x=21
 y=-15
 width=36
 height=36
-layer=com_13
+layer=close_layer
 graphic="steelborder2,0"
 colour=0xffffffff
 transmitop=10
@@ -718,7 +718,7 @@ op10=
 type=graphic
 width=25
 height=30
-layer=com_13
+layer=close_layer
 graphic="steelborder,0"
 colour=0xffffffff
 transmitop=10
@@ -730,7 +730,7 @@ type=graphic
 x=53
 width=25
 height=30
-layer=com_13
+layer=close_layer
 graphic="steelborder,1"
 colour=0xffffffff
 transmitop=10
@@ -742,7 +742,7 @@ type=graphic
 y=12
 width=25
 height=30
-layer=com_13
+layer=close_layer
 graphic="steelborder,2"
 colour=0xffffffff
 transmitop=10
@@ -755,7 +755,7 @@ x=53
 y=12
 width=25
 height=30
-layer=com_13
+layer=close_layer
 graphic="steelborder,3"
 colour=0xffffffff
 transmitop=10
@@ -768,7 +768,7 @@ x=21
 y=21
 width=36
 height=36
-layer=com_13
+layer=close_layer
 graphic="miscgraphics,3"
 colour=0xffffffff
 transmitop=10

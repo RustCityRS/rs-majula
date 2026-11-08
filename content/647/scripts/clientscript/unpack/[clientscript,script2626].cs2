@@ -1,14 +1,14 @@
 // 2626
 [clientscript,script2626]
-if_settargetcursors(cursor_0, cursor_1, mob_side_command:com_13);
-if_settargetcursors(cursor_2, cursor_3, mob_side_command:com_14);
+if_settargetcursors(cursor_0, cursor_1, mob_side_command:button1);
+if_settargetcursors(cursor_2, cursor_3, mob_side_command:button2);
 if (%varplayerbit_6357 = 2) {
-    if_settargetcursors(cursor_4, cursor_5, mob_side_command:com_16);
-    if_settargetcursors(cursor_12, cursor_13, mob_side_command:com_17);
+    if_settargetcursors(cursor_4, cursor_5, mob_side_command:button4);
+    if_settargetcursors(cursor_12, cursor_13, mob_side_command:button5);
 } else if (%varplayerbit_6357 = 3) {
-    if_settargetcursors(cursor_6, cursor_7, mob_side_command:com_16);
+    if_settargetcursors(cursor_6, cursor_7, mob_side_command:button4);
 } else if (%varplayerbit_6357 = 4) {
-    if_settargetcursors(cursor_10, cursor_11, mob_side_command:com_16);
-    if_settargetcursors(cursor_8, cursor_9, mob_side_command:com_17);
+    if_settargetcursors(cursor_10, cursor_11, mob_side_command:button4);
+    if_settargetcursors(cursor_8, cursor_9, mob_side_command:button5);
 }
 ~mob_side_command_status_icon;

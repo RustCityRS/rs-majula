@@ -10,7 +10,7 @@ fill=yes
 trans=200
 
 // 378:1
-[com_1]
+[background_graphic]
 type=graphic
 x=14
 y=25
@@ -74,7 +74,7 @@ tiling=yes
 colour=0xffffffff
 
 // 378:7
-[com_7]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -84,8 +84,8 @@ graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(smki_learn2:com_7, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(smki_learn2:com_7, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(smki_learn2:close_button, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(smki_learn2:close_button, "v2_stone_close_button,0")
 onop=closebutton_click
 onclick=closebutton_click
 
@@ -151,7 +151,7 @@ graphic="v2_stone_borders,10"
 colour=0xffffffff
 
 // 378:14
-[com_14]
+[assignment_tab]
 type=graphic
 x=182
 y=29
@@ -161,11 +161,11 @@ graphic="tabs,1"
 colour=0xffffffff
 transmitop=1
 op1=Assignment
-onmouseleave=deltooltip(smki_learn2:com_113)
-onmouserepeat=addtooltip(event_com, smki_learn2:com_113, "Manage Slayer assignments", 25, 150)
+onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Manage Slayer assignments", 25, 150)
 
 // 378:15
-[com_15]
+[buy_tab]
 type=graphic
 x=22
 y=29
@@ -175,11 +175,11 @@ graphic="tabs,1"
 colour=0xffffffff
 transmitop=1
 op1=Buy
-onmouseleave=deltooltip(smki_learn2:com_113)
-onmouserepeat=addtooltip(event_com, smki_learn2:com_113, "Buy Slayer equipment", 25, 150)
+onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Buy Slayer equipment", 25, 150)
 
 // 378:16
-[com_16]
+[learn_tab]
 type=graphic
 x=99
 y=29
@@ -189,7 +189,7 @@ graphic="tabs,0"
 colour=0xffffffff
 
 // 378:17
-[com_17]
+[background_layers]
 type=layer
 width=512
 height=334
@@ -201,7 +201,7 @@ x=264
 y=251
 width=60
 height=60
-layer=com_17
+layer=background_layers
 graphic=tradebacking_light
 colour=0xffffffff
 
@@ -212,7 +212,7 @@ x=264
 y=183
 width=60
 height=60
-layer=com_17
+layer=background_layers
 graphic=tradebacking_light
 colour=0xffffffff
 transmitop=10
@@ -225,7 +225,7 @@ x=295
 y=214
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -238,7 +238,7 @@ x=263
 y=182
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,4"
 colour=0xffffffff
 transmitop=10
@@ -251,7 +251,7 @@ x=37
 y=183
 width=60
 height=60
-layer=com_17
+layer=background_layers
 graphic=tradebacking_light
 colour=0xffffffff
 transmitop=10
@@ -264,7 +264,7 @@ x=68
 y=214
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -277,7 +277,7 @@ x=36
 y=182
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,4"
 colour=0xffffffff
 transmitop=10
@@ -290,7 +290,7 @@ x=68
 y=182
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -303,7 +303,7 @@ x=221
 y=214
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -316,7 +316,7 @@ x=221
 y=182
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -329,7 +329,7 @@ x=99
 y=169
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,0"
 tiling=yes
 colour=0xffffffff
@@ -343,7 +343,7 @@ x=99
 y=226
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,2"
 tiling=yes
 colour=0xffffffff
@@ -357,7 +357,7 @@ x=36
 y=214
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,6"
 colour=0xffffffff
 transmitop=10
@@ -370,7 +370,7 @@ x=295
 y=182
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -383,7 +383,7 @@ x=448
 y=214
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -396,7 +396,7 @@ x=448
 y=182
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -409,7 +409,7 @@ x=326
 y=169
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,0"
 tiling=yes
 colour=0xffffffff
@@ -423,7 +423,7 @@ x=326
 y=226
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,2"
 tiling=yes
 colour=0xffffffff
@@ -437,7 +437,7 @@ x=263
 y=214
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,6"
 colour=0xffffffff
 transmitop=10
@@ -450,7 +450,7 @@ x=264
 y=115
 width=60
 height=60
-layer=com_17
+layer=background_layers
 graphic=tradebacking_light
 colour=0xffffffff
 transmitop=10
@@ -463,7 +463,7 @@ x=295
 y=146
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -476,7 +476,7 @@ x=263
 y=114
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,4"
 colour=0xffffffff
 transmitop=10
@@ -489,7 +489,7 @@ x=37
 y=115
 width=60
 height=60
-layer=com_17
+layer=background_layers
 graphic=tradebacking_light
 colour=0xffffffff
 transmitop=10
@@ -502,7 +502,7 @@ x=68
 y=146
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -515,7 +515,7 @@ x=36
 y=114
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,4"
 colour=0xffffffff
 transmitop=10
@@ -528,7 +528,7 @@ x=68
 y=114
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -541,7 +541,7 @@ x=221
 y=146
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -554,7 +554,7 @@ x=221
 y=114
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -567,7 +567,7 @@ x=99
 y=101
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,0"
 tiling=yes
 colour=0xffffffff
@@ -581,7 +581,7 @@ x=99
 y=158
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,2"
 tiling=yes
 colour=0xffffffff
@@ -595,7 +595,7 @@ x=36
 y=146
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,6"
 colour=0xffffffff
 transmitop=10
@@ -608,7 +608,7 @@ x=295
 y=114
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -621,7 +621,7 @@ x=448
 y=146
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -634,7 +634,7 @@ x=448
 y=114
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -647,7 +647,7 @@ x=326
 y=101
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,0"
 tiling=yes
 colour=0xffffffff
@@ -661,7 +661,7 @@ x=326
 y=158
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,2"
 tiling=yes
 colour=0xffffffff
@@ -675,7 +675,7 @@ x=263
 y=146
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,6"
 colour=0xffffffff
 transmitop=10
@@ -688,7 +688,7 @@ x=295
 y=282
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 
@@ -699,7 +699,7 @@ x=263
 y=250
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,4"
 colour=0xffffffff
 
@@ -710,7 +710,7 @@ x=37
 y=251
 width=60
 height=60
-layer=com_17
+layer=background_layers
 graphic=tradebacking_light
 colour=0xffffffff
 transmitop=10
@@ -723,7 +723,7 @@ x=68
 y=282
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -736,7 +736,7 @@ x=36
 y=250
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,4"
 colour=0xffffffff
 transmitop=10
@@ -749,7 +749,7 @@ x=68
 y=250
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -762,7 +762,7 @@ x=221
 y=282
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -775,7 +775,7 @@ x=221
 y=250
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -788,7 +788,7 @@ x=99
 y=237
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,0"
 tiling=yes
 colour=0xffffffff
@@ -802,7 +802,7 @@ x=99
 y=294
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,2"
 tiling=yes
 colour=0xffffffff
@@ -816,7 +816,7 @@ x=36
 y=282
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,6"
 colour=0xffffffff
 transmitop=10
@@ -829,7 +829,7 @@ x=295
 y=250
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 
@@ -840,7 +840,7 @@ x=448
 y=282
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,7"
 colour=0xffffffff
 transmitop=10
@@ -853,7 +853,7 @@ x=448
 y=250
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,5"
 colour=0xffffffff
 transmitop=10
@@ -866,7 +866,7 @@ x=326
 y=237
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,0"
 tiling=yes
 colour=0xffffffff
@@ -878,7 +878,7 @@ x=326
 y=294
 width=122
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,2"
 tiling=yes
 colour=0xffffffff
@@ -892,7 +892,7 @@ x=263
 y=282
 width=32
 height=32
-layer=com_17
+layer=background_layers
 graphic="v2_borders_slim,6"
 colour=0xffffffff
 
@@ -949,7 +949,7 @@ onmouseover=graphic_swapper(event_com, tradebacking_light)
 onmouseleave=graphic_swapper(event_com, tradebacking_dark)
 
 // 378:76
-[com_76]
+[missiles_button]
 type=graphic
 x=99
 y=116
@@ -963,7 +963,7 @@ onmouseover=graphic_swapper(event_com, tradebacking_light)
 onmouseleave=graphic_swapper(event_com, tradebacking_dark)
 
 // 378:77
-[com_77]
+[ring_button]
 type=graphic
 x=99
 y=184
@@ -977,7 +977,7 @@ onmouseover=graphic_swapper(event_com, tradebacking_light)
 onmouseleave=graphic_swapper(event_com, tradebacking_dark)
 
 // 378:78
-[com_78]
+[helmet_button]
 type=graphic
 x=99
 y=252
@@ -991,7 +991,7 @@ onmouseover=graphic_swapper(event_com, tradebacking_light)
 onmouseleave=graphic_swapper(event_com, tradebacking_dark)
 
 // 378:79
-[com_79]
+[xxxx]
 type=text
 x=165
 y=77
@@ -1004,7 +1004,7 @@ textshadow=yes
 colour=0xd7b011
 
 // 378:80
-[com_80]
+[buy]
 type=text
 x=35
 y=33
@@ -1016,7 +1016,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 378:81
-[com_81]
+[learn]
 type=text
 x=112
 y=34
@@ -1028,7 +1028,7 @@ textshadow=yes
 colour=0xff981f
 
 // 378:82
-[com_82]
+[assignment]
 type=text
 x=193
 y=34
@@ -1040,7 +1040,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 378:83
-[com_83]
+[ability_missiles]
 type=text
 x=101
 y=120
@@ -1092,7 +1092,7 @@ textshadow=yes
 colour=0xd7b011
 
 // 378:87
-[com_87]
+[ability_ring]
 type=text
 x=103
 y=187
@@ -1105,7 +1105,7 @@ textshadow=yes
 colour=0xd7b011
 
 // 378:88
-[com_88]
+[ability_helm]
 type=text
 x=103
 y=257
@@ -1130,7 +1130,7 @@ textshadow=yes
 colour=0xd7b011
 
 // 378:90
-[com_90]
+[missile_points]
 type=text
 x=143
 y=152
@@ -1166,11 +1166,11 @@ model=model_48181
 modelorigin=-1,14
 modelangle=199,176,0
 modelzoom=2500
-onmouseleave=deltooltip(smki_learn2:com_113)
-onmouserepeat=addtooltip(event_com, smki_learn2:com_113, "Ask Kuradal to add Aquanites to her assignment list  (with 78 Slayer).", 25, 150)
+onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Ask Kuradal to add Aquanites to her assignment list  (with 78 Slayer).", 25, 150)
 
 // 378:93
-[com_93]
+[ice_cooler]
 type=model
 x=300
 y=216
@@ -1180,8 +1180,8 @@ model=model_9827
 modelorigin=0,6
 modelangle=227,199,0
 modelzoom=1800
-onmouseleave=deltooltip(smki_learn2:com_113)
-onmouserepeat=addtooltip(event_com, smki_learn2:com_113, "Learn how to deliver killing blows quicker  (with 75 Slayer).", 25, 150)
+onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Learn how to deliver killing blows quicker  (with 75 Slayer).", 25, 150)
 
 // 378:94
 [com_94]
@@ -1194,11 +1194,11 @@ model=model_5048
 modelorigin=-1,-1
 modelangle=318,0,0
 modelzoom=600
-onmouseleave=deltooltip(smki_learn2:com_113)
-onmouserepeat=addtooltip(event_com, smki_learn2:com_113, "Learn how to deliver killing blows quicker  (with 75 Slayer).", 25, 150)
+onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Learn how to deliver killing blows quicker  (with 75 Slayer).", 25, 150)
 
 // 378:95
-[com_95]
+[slayer_hammer]
 type=model
 x=291
 y=190
@@ -1208,11 +1208,11 @@ model=model_5059
 modelorigin=0,1
 modelangle=438,551,0
 modelzoom=1500
-onmouseleave=deltooltip(smki_learn2:com_113)
-onmouserepeat=addtooltip(event_com, smki_learn2:com_113, "Learn how to deliver killing blows quicker  (with 75 Slayer).", 25, 150)
+onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Learn how to deliver killing blows quicker  (with 75 Slayer).", 25, 150)
 
 // 378:96
-[com_96]
+[pump]
 type=model
 x=269
 y=212
@@ -1222,8 +1222,8 @@ model=model_12638
 modelorigin=1,4
 modelangle=284,824,0
 modelzoom=900
-onmouseleave=deltooltip(smki_learn2:com_113)
-onmouserepeat=addtooltip(event_com, smki_learn2:com_113, "Learn how to deliver killing blows quicker  (with 75 Slayer).", 25, 150)
+onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Learn how to deliver killing blows quicker  (with 75 Slayer).", 25, 150)
 
 // 378:97
 [com_97]
@@ -1252,7 +1252,7 @@ textshadow=yes
 colour=0xff981f
 
 // 378:99
-[com_99]
+[ring_points]
 type=text
 x=145
 y=223
@@ -1265,7 +1265,7 @@ textshadow=yes
 colour=0xff9800
 
 // 378:100
-[com_100]
+[helm_points]
 type=text
 x=143
 y=291
@@ -1278,7 +1278,7 @@ textshadow=yes
 colour=0xff981f
 
 // 378:101
-[com_101]
+[helm]
 type=model
 x=54
 y=256
@@ -1288,8 +1288,8 @@ model=model_34411
 modelorigin=0,11
 modelangle=162,0,0
 modelzoom=600
-onmouseleave=deltooltip(smki_learn2:com_113)
-onmouserepeat=addtooltip(event_com, smki_learn2:com_113, "Learn how to combine the nosepeg, earmuffs, spiny helm, facemask and uncharged black mask (with 55 Crafting).", 25, 150)
+onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Learn how to combine the nosepeg, earmuffs, spiny helm, facemask and uncharged black mask (with 55 Crafting).", 25, 150)
 
 // 378:102
 [com_102]
@@ -1302,8 +1302,8 @@ model=model_51847
 modelorigin=1,17
 modelangle=273,227,0
 modelzoom=4000
-onmouseleave=deltooltip(smki_learn2:com_113)
-onmouserepeat=addtooltip(event_com, smki_learn2:com_113, "Learn an ancient technique to attack Ice strykewyrms without a firey item (with 93 Slayer).", 25, 150)
+onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Learn an ancient technique to attack Ice strykewyrms without a firey item (with 93 Slayer).", 25, 150)
 
 // 378:103
 [com_103]
@@ -1316,11 +1316,11 @@ model=model_34408
 modelorigin=-2,-2
 modelangle=420,1774,0
 modelzoom=400
-onmouseleave=deltooltip(smki_learn2:com_113)
-onmouserepeat=addtooltip(event_com, smki_learn2:com_113, "Learn how to fletch broad arrows (with 52 Fletching) and bolts (with 55 Fletching).", 25, 150)
+onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Learn how to fletch broad arrows (with 52 Fletching) and bolts (with 55 Fletching).", 25, 150)
 
 // 378:104
-[com_104]
+[missiles]
 type=model
 x=45
 y=126
@@ -1332,7 +1332,7 @@ modelangle=228,216,0
 modelzoom=700
 
 // 378:105
-[com_105]
+[ring]
 type=model
 x=56
 y=200
@@ -1342,8 +1342,8 @@ model=model_34414
 modelorigin=-2,5
 modelangle=255,210,0
 modelzoom=600
-onmouseleave=deltooltip(smki_learn2:com_113)
-onmouserepeat=addtooltip(event_com, smki_learn2:com_113, "Learn how to craft rings of slaying (with 75 Crafting).", 25, 150)
+onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Learn how to craft rings of slaying (with 75 Crafting).", 25, 150)
 
 // 378:106
 [com_106]
@@ -1406,16 +1406,16 @@ graphic="v2_stone_borders,2"
 colour=0xffffffff
 
 // 378:112
-[com_112]
+[tooltip_bounding_box]
 type=layer
 width=512
 height=334
 
 // 378:113
-[com_113]
+[tool_tip_build_layer]
 type=layer
 x=-10
 y=10
 width=512
 height=334
-layer=com_112
+layer=tooltip_bounding_box

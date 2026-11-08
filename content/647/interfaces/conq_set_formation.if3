@@ -3,7 +3,7 @@
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=grid_border_layer
 colour=0x201c17
 
 // 1017:1
@@ -15,30 +15,30 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=grid_border_layer
 colour=0x595143
 
 // 1017:2
-[com_2]
+[clear_button_graphic]
 type=graphic
 x=126
 y=259
 width=110
 height=43
-layer=com_232
+layer=buttons_layer
 graphic=graphic_3259
 colour=0x000000
 transmitop=10
 op10= 
 
 // 1017:3
-[com_3]
+[clear_button_text]
 type=text
 x=126
 y=259
 width=110
 height=43
-layer=com_232
+layer=buttons_layer
 textfont=welcome_font_small
 text=Reset
 textalignh=centre
@@ -114,7 +114,7 @@ graphic=km_middlefillcolour
 colour=0xffffffff
 
 // 1017:10
-[com_10]
+[bottom_left_corner]
 type=graphic
 x=5
 y=291
@@ -125,7 +125,7 @@ graphic="v2_stone_borders,6"
 colour=0xffffffff
 
 // 1017:11
-[com_11]
+[top_left_corner]
 type=graphic
 x=5
 y=20
@@ -136,7 +136,7 @@ graphic="v2_stone_borders,35"
 colour=0xffffffff
 
 // 1017:12
-[com_12]
+[top_right_corner]
 type=graphic
 x=5
 y=20
@@ -148,7 +148,7 @@ graphic="v2_stone_borders,37"
 colour=0xffffffff
 
 // 1017:13
-[com_13]
+[bottom_right_corner]
 type=graphic
 x=5
 y=291
@@ -160,7 +160,7 @@ graphic="v2_stone_borders,7"
 colour=0xffffffff
 
 // 1017:14
-[com_14]
+[left_side]
 type=graphic
 x=-8
 y=52
@@ -172,7 +172,7 @@ tiling=yes
 colour=0xffffffff
 
 // 1017:15
-[com_15]
+[right_side]
 type=graphic
 x=-7
 y=52
@@ -185,7 +185,7 @@ tiling=yes
 colour=0xffffffff
 
 // 1017:16
-[com_16]
+[top_side]
 type=graphic
 x=37
 y=20
@@ -197,7 +197,7 @@ tiling=yes
 colour=0xffffffff
 
 // 1017:17
-[com_17]
+[bottom_side]
 type=graphic
 y=303
 width=444
@@ -209,7 +209,7 @@ tiling=yes
 colour=0xffffffff
 
 // 1017:18
-[com_18]
+[border_shadow]
 type=rectangle
 x=11
 y=41
@@ -219,7 +219,7 @@ layer=com_4
 colour=0x000000
 
 // 1017:19
-[com_19]
+[border_shadow_3]
 type=rectangle
 x=12
 y=6
@@ -230,7 +230,7 @@ hide=yes
 colour=0x000000
 
 // 1017:20
-[com_20]
+[border_shadow_2]
 type=rectangle
 x=13
 y=43
@@ -241,7 +241,7 @@ colour=0x000000
 trans=192
 
 // 1017:21
-[com_21]
+[border_shadow_1]
 type=rectangle
 x=12
 y=42
@@ -252,7 +252,7 @@ colour=0x000000
 trans=64
 
 // 1017:22
-[com_22]
+[close_button]
 type=graphic
 x=481
 y=23
@@ -318,7 +318,7 @@ transmitop=10
 op10= 
 
 // 1017:27
-[com_27]
+[main_title_text]
 type=text
 x=12
 y=23
@@ -335,7 +335,7 @@ transmitop=10
 op10= 
 
 // 1017:28
-[com_28]
+[grid_main_layer]
 type=layer
 x=23
 y=53
@@ -345,1648 +345,1648 @@ transmitop=10
 op10= 
 
 // 1017:29
-[com_29]
+[grid_border_layer]
 type=layer
 x=94
 width=94
 height=204
 widthmode=minus
-layer=com_28
+layer=grid_main_layer
 
 // 1017:30
-[com_30]
+[grid_boxes_layer]
 type=layer
 x=90
 y=-4
 width=375
 height=204
-layer=com_28
+layer=grid_main_layer
 
 // 1017:31
-[com_31]
+[grid_text_layer]
 type=layer
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_28
+layer=grid_main_layer
 onload=script504
 onvartransmit=script503{varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
 
 // 1017:32
-[com_32]
+[backing_rect_1]
 type=rectangle
 x=9
 y=47
 width=361
 height=18
-layer=com_30
+layer=grid_boxes_layer
 colour=0x23201a
 fill=yes
 
 // 1017:33
-[com_33]
+[backing_rect_2]
 type=rectangle
 x=9
 y=65
 width=361
 height=18
-layer=com_30
+layer=grid_boxes_layer
 colour=0x2d2922
 fill=yes
 transmitop=10
 op10= 
 
 // 1017:34
-[com_34]
+[backing_rect_3]
 type=rectangle
 x=9
 y=83
 width=361
 height=18
-layer=com_30
+layer=grid_boxes_layer
 colour=0x383633
 fill=yes
 transmitop=10
 op10= 
 
 // 1017:35
-[com_35]
+[backing_rect_4]
 type=rectangle
 x=9
 y=101
 width=361
 height=55
-layer=com_30
+layer=grid_boxes_layer
 colour=0x423c32
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:36
-[com_36]
+[dummy_rect_1]
 type=rectangle
 x=10
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 
 // 1017:37
-[com_37]
+[dummy_rect_2]
 type=rectangle
 x=28
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10= 
 
 // 1017:38
-[com_38]
+[dummy_rect_3]
 type=rectangle
 x=46
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10= 
 
 // 1017:39
-[com_39]
+[dummy_rect_4]
 type=rectangle
 x=64
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:40
-[com_40]
+[dummy_rect_5]
 type=rectangle
 x=82
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10= 
 
 // 1017:41
-[com_41]
+[dummy_rect_6]
 type=rectangle
 x=100
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:42
-[com_42]
+[dummy_rect_7]
 type=rectangle
 x=118
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:43
-[com_43]
+[dummy_rect_8]
 type=rectangle
 x=136
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:44
-[com_44]
+[dummy_rect_9]
 type=rectangle
 x=154
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10= 
 
 // 1017:45
-[com_45]
+[dummy_rect_10]
 type=rectangle
 x=172
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:46
-[com_46]
+[dummy_rect_11]
 type=rectangle
 x=190
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:47
-[com_47]
+[dummy_rect_12]
 type=rectangle
 x=208
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:48
-[com_48]
+[dummy_rect_13]
 type=rectangle
 x=226
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:49
-[com_49]
+[dummy_rect_14]
 type=rectangle
 x=244
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:50
-[com_50]
+[dummy_rect_15]
 type=rectangle
 x=262
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:51
-[com_51]
+[dummy_rect_16]
 type=rectangle
 x=280
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:52
-[com_52]
+[dummy_rect_17]
 type=rectangle
 x=298
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:53
-[com_53]
+[dummy_rect_18]
 type=rectangle
 x=316
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:54
-[com_54]
+[dummy_rect_19]
 type=rectangle
 x=334
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:55
-[com_55]
+[dummy_rect_20]
 type=rectangle
 x=352
 y=48
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x171510
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:56
-[com_56]
+[dummy_rect_21]
 type=rectangle
 x=10
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10= 
 
 // 1017:57
-[com_57]
+[dummy_rect_22]
 type=rectangle
 x=28
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:58
-[com_58]
+[dummy_rect_23]
 type=rectangle
 x=46
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:59
-[com_59]
+[dummy_rect_24]
 type=rectangle
 x=64
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:60
-[com_60]
+[dummy_rect_25]
 type=rectangle
 x=82
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:61
-[com_61]
+[dummy_rect_26]
 type=rectangle
 x=100
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:62
-[com_62]
+[dummy_rect_27]
 type=rectangle
 x=118
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:63
-[com_63]
+[dummy_rect_28]
 type=rectangle
 x=136
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:64
-[com_64]
+[dummy_rect_29]
 type=rectangle
 x=154
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:65
-[com_65]
+[dummy_rect_30]
 type=rectangle
 x=172
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:66
-[com_66]
+[dummy_rect_31]
 type=rectangle
 x=190
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:67
-[com_67]
+[dummy_rect_32]
 type=rectangle
 x=208
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:68
-[com_68]
+[dummy_rect_33]
 type=rectangle
 x=226
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:69
-[com_69]
+[dummy_rect_34]
 type=rectangle
 x=244
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:70
-[com_70]
+[dummy_rect_35]
 type=rectangle
 x=262
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:71
-[com_71]
+[dummy_rect_36]
 type=rectangle
 x=280
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:72
-[com_72]
+[dummy_rect_37]
 type=rectangle
 x=298
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:73
-[com_73]
+[dummy_rect_38]
 type=rectangle
 x=316
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:74
-[com_74]
+[dummy_rect_39]
 type=rectangle
 x=334
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:75
-[com_75]
+[dummy_rect_40]
 type=rectangle
 x=352
 y=66
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x191612
 fill=yes
 transmitop=10
 op10=      
 
 // 1017:76
-[com_76]
+[dummy_rect_41]
 type=rectangle
 x=10
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10= 
 
 // 1017:77
-[com_77]
+[dummy_rect_42]
 type=rectangle
 x=28
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:78
-[com_78]
+[dummy_rect_43]
 type=rectangle
 x=46
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:79
-[com_79]
+[dummy_rect_44]
 type=rectangle
 x=64
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:80
-[com_80]
+[dummy_rect_45]
 type=rectangle
 x=82
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:81
-[com_81]
+[dummy_rect_46]
 type=rectangle
 x=100
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:82
-[com_82]
+[dummy_rect_47]
 type=rectangle
 x=118
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:83
-[com_83]
+[dummy_rect_48]
 type=rectangle
 x=136
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:84
-[com_84]
+[dummy_rect_49]
 type=rectangle
 x=154
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:85
-[com_85]
+[dummy_rect_50]
 type=rectangle
 x=172
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:86
-[com_86]
+[dummy_rect_51]
 type=rectangle
 x=190
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:87
-[com_87]
+[dummy_rect_52]
 type=rectangle
 x=208
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:88
-[com_88]
+[dummy_rect_53]
 type=rectangle
 x=226
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:89
-[com_89]
+[dummy_rect_54]
 type=rectangle
 x=244
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:90
-[com_90]
+[dummy_rect_55]
 type=rectangle
 x=262
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:91
-[com_91]
+[dummy_rect_56]
 type=rectangle
 x=280
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:92
-[com_92]
+[dummy_rect_57]
 type=rectangle
 x=298
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:93
-[com_93]
+[dummy_rect_58]
 type=rectangle
 x=316
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:94
-[com_94]
+[dummy_rect_59]
 type=rectangle
 x=334
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:95
-[com_95]
+[dummy_rect_60]
 type=rectangle
 x=352
 y=84
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1b1713
 fill=yes
 transmitop=10
 op10=      
 
 // 1017:96
-[com_96]
+[dummy_rect_61_b]
 type=rectangle
 x=10
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10= 
 
 // 1017:97
-[com_97]
+[dummy_rect_62]
 type=rectangle
 x=28
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:98
-[com_98]
+[dummy_rect_63]
 type=rectangle
 x=46
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:99
-[com_99]
+[dummy_rect_64]
 type=rectangle
 x=64
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:100
-[com_100]
+[dummy_rect_65]
 type=rectangle
 x=82
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:101
-[com_101]
+[dummy_rect_66]
 type=rectangle
 x=100
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:102
-[com_102]
+[dummy_rect_67]
 type=rectangle
 x=118
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:103
-[com_103]
+[dummy_rect_68]
 type=rectangle
 x=136
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:104
-[com_104]
+[dummy_rect_69]
 type=rectangle
 x=154
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:105
-[com_105]
+[dummy_rect_70]
 type=rectangle
 x=172
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:106
-[com_106]
+[dummy_rect_71]
 type=rectangle
 x=190
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:107
-[com_107]
+[dummy_rect_72]
 type=rectangle
 x=208
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:108
-[com_108]
+[dummy_rect_73]
 type=rectangle
 x=226
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:109
-[com_109]
+[dummy_rect_74]
 type=rectangle
 x=244
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:110
-[com_110]
+[dummy_rect_75]
 type=rectangle
 x=262
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:111
-[com_111]
+[dummy_rect_76]
 type=rectangle
 x=280
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:112
-[com_112]
+[dummy_rect_77]
 type=rectangle
 x=298
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:113
-[com_113]
+[dummy_rect_78]
 type=rectangle
 x=316
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:114
-[com_114]
+[dummy_rect_79]
 type=rectangle
 x=334
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:115
-[com_115]
+[dummy_rect_80]
 type=rectangle
 x=352
 y=102
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=      
 
 // 1017:116
-[com_116]
+[dummy_rect_81]
 type=rectangle
 x=10
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:117
-[com_117]
+[dummy_rect_82]
 type=rectangle
 x=28
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:118
-[com_118]
+[dummy_rect_83]
 type=rectangle
 x=46
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:119
-[com_119]
+[dummy_rect_84]
 type=rectangle
 x=64
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:120
-[com_120]
+[dummy_rect_85]
 type=rectangle
 x=82
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:121
-[com_121]
+[dummy_rect_86]
 type=rectangle
 x=100
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:122
-[com_122]
+[dummy_rect_87]
 type=rectangle
 x=118
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:123
-[com_123]
+[dummy_rect_88]
 type=rectangle
 x=136
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:124
-[com_124]
+[dummy_rect_89]
 type=rectangle
 x=154
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:125
-[com_125]
+[dummy_rect_90]
 type=rectangle
 x=172
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:126
-[com_126]
+[dummy_rect_91]
 type=rectangle
 x=190
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:127
-[com_127]
+[dummy_rect_92]
 type=rectangle
 x=208
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:128
-[com_128]
+[dummy_rect_93]
 type=rectangle
 x=226
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:129
-[com_129]
+[dummy_rect_94]
 type=rectangle
 x=244
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:130
-[com_130]
+[dummy_rect_95]
 type=rectangle
 x=262
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:131
-[com_131]
+[dummy_rect_96]
 type=rectangle
 x=280
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=      
 
 // 1017:132
-[com_132]
+[dummy_rect_97]
 type=rectangle
 x=298
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:133
-[com_133]
+[dummy_rect_98]
 type=rectangle
 x=316
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=      
 
 // 1017:134
-[com_134]
+[dummy_rect_99]
 type=rectangle
 x=334
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=      
 
 // 1017:135
-[com_135]
+[dummy_rect_101]
 type=rectangle
 x=10
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:136
-[com_136]
+[dummy_rect_100]
 type=rectangle
 x=352
 y=120
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=       
 
 // 1017:137
-[com_137]
+[dummy_rect_102]
 type=rectangle
 x=28
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:138
-[com_138]
+[dummy_rect_103]
 type=rectangle
 x=46
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:139
-[com_139]
+[dummy_rect_104]
 type=rectangle
 x=64
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:140
-[com_140]
+[dummy_rect_105]
 type=rectangle
 x=82
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:141
-[com_141]
+[dummy_rect_106]
 type=rectangle
 x=100
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:142
-[com_142]
+[dummy_rect_107]
 type=rectangle
 x=118
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:143
-[com_143]
+[dummy_rect_108]
 type=rectangle
 x=136
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:144
-[com_144]
+[dummy_rect_109]
 type=rectangle
 x=154
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=   
 
 // 1017:145
-[com_145]
+[dummy_rect_110]
 type=rectangle
 x=172
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:146
-[com_146]
+[dummy_rect_111]
 type=rectangle
 x=190
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:147
-[com_147]
+[dummy_rect_112]
 type=rectangle
 x=208
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:148
-[com_148]
+[dummy_rect_113]
 type=rectangle
 x=226
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=    
 
 // 1017:149
-[com_149]
+[dummy_rect_114]
 type=rectangle
 x=244
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:150
-[com_150]
+[dummy_rect_115]
 type=rectangle
 x=262
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:151
-[com_151]
+[dummy_rect_116]
 type=rectangle
 x=280
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=      
 
 // 1017:152
-[com_152]
+[dummy_rect_117]
 type=rectangle
 x=298
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=     
 
 // 1017:153
-[com_153]
+[dummy_rect_118]
 type=rectangle
 x=316
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=      
 
 // 1017:154
-[com_154]
+[dummy_rect_119]
 type=rectangle
 x=334
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=      
 
 // 1017:155
-[com_155]
+[dummy_rect_120]
 type=rectangle
 x=352
 y=138
 width=17
 height=17
-layer=com_30
+layer=grid_boxes_layer
 colour=0x1e1923
 fill=yes
 transmitop=10
 op10=       
 
 // 1017:156
-[com_156]
+[unit_1_text]
 type=text
 width=92
 height=25
-layer=com_31
+layer=grid_text_layer
 textfont=welcome_font_tiny
 text=Troop 1
 textlineheight=12
@@ -1997,12 +1997,12 @@ colour=0xff991f
 ondragcomplete=script502(event_com, event_com2)
 
 // 1017:157
-[com_157]
+[unit_2_text]
 type=text
 y=25
 width=92
 height=25
-layer=com_31
+layer=grid_text_layer
 textfont=welcome_font_tiny
 text=Troop 2
 textlineheight=12
@@ -2015,12 +2015,12 @@ op10=
 ondragcomplete=script502(event_com, event_com2)
 
 // 1017:158
-[com_158]
+[unit_3_text]
 type=text
 y=50
 width=92
 height=25
-layer=com_31
+layer=grid_text_layer
 textfont=welcome_font_tiny
 text=Troop 3
 textlineheight=12
@@ -2033,12 +2033,12 @@ op10=
 ondragcomplete=script502(event_com, event_com2)
 
 // 1017:159
-[com_159]
+[unit_4_text]
 type=text
 y=75
 width=92
 height=25
-layer=com_31
+layer=grid_text_layer
 textfont=welcome_font_tiny
 text=Troop 4
 textlineheight=12
@@ -2051,12 +2051,12 @@ op10=
 ondragcomplete=script502(event_com, event_com2)
 
 // 1017:160
-[com_160]
+[unit_5_text]
 type=text
 y=100
 width=92
 height=25
-layer=com_31
+layer=grid_text_layer
 textfont=welcome_font_tiny
 text=Troop 5
 textlineheight=12
@@ -2069,12 +2069,12 @@ op10=
 ondragcomplete=script502(event_com, event_com2)
 
 // 1017:161
-[com_161]
+[unit_6_text]
 type=text
 y=125
 width=92
 height=25
-layer=com_31
+layer=grid_text_layer
 textfont=welcome_font_tiny
 text=Troop 6
 textlineheight=12
@@ -2087,12 +2087,12 @@ op10=
 ondragcomplete=script502(event_com, event_com2)
 
 // 1017:162
-[com_162]
+[unit_7_text]
 type=text
 y=150
 width=92
 height=25
-layer=com_31
+layer=grid_text_layer
 textfont=welcome_font_tiny
 text=Troop 7
 textlineheight=12
@@ -2105,12 +2105,12 @@ op10=
 ondragcomplete=script502(event_com, event_com2)
 
 // 1017:163
-[com_163]
+[unit_8_text]
 type=text
 y=175
 width=92
 height=25
-layer=com_31
+layer=grid_text_layer
 textfont=welcome_font_tiny
 text=Troop 8
 textlineheight=12
@@ -2123,12 +2123,12 @@ op10=
 ondragcomplete=script502(event_com, event_com2)
 
 // 1017:164
-[com_164]
+[unit_9_text]
 type=text
 y=200
 width=92
 height=25
-layer=com_31
+layer=grid_text_layer
 textfont=welcome_font_tiny
 text=Troop 9
 textlineheight=12
@@ -2141,12 +2141,12 @@ op10=
 ondragcomplete=script502(event_com, event_com2)
 
 // 1017:165
-[com_165]
+[unit_10_text]
 type=text
 y=225
 width=92
 height=25
-layer=com_31
+layer=grid_text_layer
 textfont=welcome_font_tiny
 text=Troop 10
 textlineheight=12
@@ -2159,13 +2159,13 @@ op10=
 ondragcomplete=script502(event_com, event_com2)
 
 // 1017:166
-[com_166]
+[tile_text_1]
 type=text
 x=100
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2182,13 +2182,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:167
-[com_167]
+[tile_text_2]
 type=text
 x=118
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2205,13 +2205,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:168
-[com_168]
+[tile_text_3]
 type=text
 x=136
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2228,13 +2228,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:169
-[com_169]
+[tile_text_4]
 type=text
 x=154
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2251,13 +2251,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:170
-[com_170]
+[tile_text_5]
 type=text
 x=172
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2274,13 +2274,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:171
-[com_171]
+[tile_text_6]
 type=text
 x=190
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2297,13 +2297,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:172
-[com_172]
+[tile_text_7]
 type=text
 x=208
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2320,13 +2320,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:173
-[com_173]
+[tile_text_8]
 type=text
 x=226
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2343,13 +2343,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:174
-[com_174]
+[tile_text_9]
 type=text
 x=244
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2366,13 +2366,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:175
-[com_175]
+[tile_text_10]
 type=text
 x=262
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2389,13 +2389,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:176
-[com_176]
+[tile_text_11]
 type=text
 x=280
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2412,13 +2412,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:177
-[com_177]
+[tile_text_12]
 type=text
 x=298
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2435,13 +2435,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:178
-[com_178]
+[tile_text_13]
 type=text
 x=316
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2458,13 +2458,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:179
-[com_179]
+[tile_text_14]
 type=text
 x=334
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2481,13 +2481,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:180
-[com_180]
+[tile_text_15]
 type=text
 x=352
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2504,13 +2504,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:181
-[com_181]
+[tile_text_16]
 type=text
 x=370
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2527,13 +2527,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:182
-[com_182]
+[tile_text_17]
 type=text
 x=388
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2550,13 +2550,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:183
-[com_183]
+[tile_text_18]
 type=text
 x=406
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2573,13 +2573,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:184
-[com_184]
+[tile_text_19]
 type=text
 x=424
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2596,13 +2596,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:185
-[com_185]
+[tile_text_20]
 type=text
 x=442
 y=98
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2619,13 +2619,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:186
-[com_186]
+[tile_text_21]
 type=text
 x=100
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2642,13 +2642,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:187
-[com_187]
+[tile_text_22]
 type=text
 x=118
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2665,13 +2665,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:188
-[com_188]
+[tile_text_23]
 type=text
 x=136
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2688,13 +2688,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:189
-[com_189]
+[tile_text_24]
 type=text
 x=154
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2711,13 +2711,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:190
-[com_190]
+[tile_text_25]
 type=text
 x=172
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2734,13 +2734,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:191
-[com_191]
+[tile_text_26]
 type=text
 x=190
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2757,13 +2757,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:192
-[com_192]
+[tile_text_27]
 type=text
 x=208
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2780,13 +2780,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:193
-[com_193]
+[tile_text_28]
 type=text
 x=226
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2803,13 +2803,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:194
-[com_194]
+[tile_text_29]
 type=text
 x=244
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2826,13 +2826,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:195
-[com_195]
+[tile_text_30]
 type=text
 x=262
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2849,13 +2849,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:196
-[com_196]
+[tile_text_31]
 type=text
 x=280
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2872,13 +2872,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:197
-[com_197]
+[tile_text_32]
 type=text
 x=298
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2895,13 +2895,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:198
-[com_198]
+[tile_text_33]
 type=text
 x=316
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2918,13 +2918,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:199
-[com_199]
+[tile_text_34]
 type=text
 x=334
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2941,13 +2941,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:200
-[com_200]
+[tile_text_35]
 type=text
 x=352
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2964,13 +2964,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:201
-[com_201]
+[tile_text_36]
 type=text
 x=370
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -2987,13 +2987,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:202
-[com_202]
+[tile_text_37]
 type=text
 x=388
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3010,13 +3010,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:203
-[com_203]
+[tile_text_38]
 type=text
 x=406
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3033,13 +3033,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:204
-[com_204]
+[tile_text_39]
 type=text
 x=424
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3056,13 +3056,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:205
-[com_205]
+[tile_text_40]
 type=text
 x=442
 y=116
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3079,13 +3079,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:206
-[com_206]
+[tile_text_41]
 type=text
 x=100
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3102,13 +3102,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:207
-[com_207]
+[tile_text_42]
 type=text
 x=118
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3125,13 +3125,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:208
-[com_208]
+[tile_text_43]
 type=text
 x=136
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3148,13 +3148,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:209
-[com_209]
+[tile_text_44]
 type=text
 x=154
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3171,13 +3171,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:210
-[com_210]
+[tile_text_45]
 type=text
 x=172
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3194,13 +3194,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:211
-[com_211]
+[tile_text_46]
 type=text
 x=190
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3217,13 +3217,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:212
-[com_212]
+[tile_text_47]
 type=text
 x=208
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3240,13 +3240,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:213
-[com_213]
+[tile_text_48]
 type=text
 x=226
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3263,13 +3263,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:214
-[com_214]
+[tile_text_49]
 type=text
 x=244
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3286,13 +3286,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:215
-[com_215]
+[tile_text_50]
 type=text
 x=262
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3309,13 +3309,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:216
-[com_216]
+[tile_text_51]
 type=text
 x=280
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3332,13 +3332,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:217
-[com_217]
+[tile_text_52]
 type=text
 x=298
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3355,13 +3355,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:218
-[com_218]
+[tile_text_53]
 type=text
 x=316
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3378,13 +3378,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:219
-[com_219]
+[tile_text_54]
 type=text
 x=334
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3401,13 +3401,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:220
-[com_220]
+[tile_text_55]
 type=text
 x=352
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3424,13 +3424,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:221
-[com_221]
+[tile_text_56]
 type=text
 x=370
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3447,13 +3447,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:222
-[com_222]
+[tile_text_57]
 type=text
 x=388
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3470,13 +3470,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:223
-[com_223]
+[tile_text_58]
 type=text
 x=406
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3493,13 +3493,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:224
-[com_224]
+[tile_text_59]
 type=text
 x=424
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3516,13 +3516,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:225
-[com_225]
+[tile_text_60]
 type=text
 x=442
 y=134
 width=17
 height=17
-layer=com_31
+layer=grid_text_layer
 textfont=graphic_3237
 textalignh=centre
 textalignv=centre
@@ -3537,13 +3537,13 @@ onmouserepeat=script1417(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
 // 1017:226
-[com_226]
+[tooltip_content_layer]
 type=layer
 x=218
 y=81
 width=116
 height=20
-layer=com_31
+layer=grid_text_layer
 hide=yes
 
 // 1017:227
@@ -3555,44 +3555,44 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=grid_border_layer
 colour=0x161410
 fill=yes
 transmitop=10
 op10=  
 
 // 1017:228
-[com_228]
+[left_arrow]
 type=graphic
 x=85
 y=14
 width=21
 height=14
-layer=com_29
+layer=grid_border_layer
 graphic="conq_arrow,1"
 colour=0x000000
 
 // 1017:229
-[com_229]
+[right_arrow]
 type=graphic
 x=264
 y=14
 width=21
 height=14
-layer=com_29
+layer=grid_border_layer
 graphic="conq_arrow,0"
 colour=0x000000
 transmitop=10
 op10= 
 
 // 1017:230
-[com_230]
+[enemy_this_way_text]
 type=text
 y=2
 width=16384
 height=45
 widthmode=proportion
-layer=com_29
+layer=grid_border_layer
 textfont=welcome_font_tiny
 text=Opponent's Squad
 textalignh=centre
@@ -3601,13 +3601,13 @@ textshadow=yes
 colour=0xff981f
 
 // 1017:231
-[com_231]
+[instruction_text]
 type=text
 y=156
 width=300
 height=46
 xmode=abs_centre
-layer=com_29
+layer=grid_border_layer
 textfont=p11_full
 text=Choose the starting position of your troops by dragging and dropping them onto a square.<br>You may place troops in the squares shaded blue.
 textalignh=centre
@@ -3618,30 +3618,30 @@ transmitop=10
 op10= 
 
 // 1017:232
-[com_232]
+[buttons_layer]
 type=layer
 width=512
 height=334
 
 // 1017:233
-[com_233]
+[default_button_graphic]
 type=graphic
 x=247
 y=259
 width=110
 height=43
-layer=com_232
+layer=buttons_layer
 graphic=graphic_3259
 colour=0x000000
 
 // 1017:234
-[com_234]
+[default_button_text]
 type=text
 x=247
 y=259
 width=110
 height=43
-layer=com_232
+layer=buttons_layer
 textfont=welcome_font_small
 text=Default
 textalignh=centre
@@ -3655,13 +3655,13 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1017:235
-[com_235]
+[tool_shadow]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_226
+layer=tooltip_content_layer
 colour=0x000000
 fill=yes
 
@@ -3674,25 +3674,25 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_226
+layer=tooltip_content_layer
 colour=0x423a2f
 fill=yes
 
 // 1017:237
-[com_237]
+[left_5]
 type=graphic
 x=-16
 y=1
 width=32
 height=3
 heightmode=minus
-layer=com_226
+layer=tooltip_content_layer
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
 
 // 1017:238
-[com_238]
+[bot_5]
 type=graphic
 x=1
 y=-15
@@ -3700,13 +3700,13 @@ width=2
 height=32
 widthmode=minus
 ymode=abs_bottom
-layer=com_226
+layer=tooltip_content_layer
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
 
 // 1017:239
-[com_239]
+[right_5]
 type=graphic
 x=-12
 y=1
@@ -3714,33 +3714,33 @@ width=32
 height=3
 heightmode=minus
 xmode=abs_right
-layer=com_226
+layer=tooltip_content_layer
 graphic="v2_borders_slim,12"
 hflip=yes
 colour=0x000000
 
 // 1017:240
-[com_240]
+[top_5]
 type=graphic
 x=2
 y=-13
 width=5
 height=32
 widthmode=minus
-layer=com_226
+layer=tooltip_content_layer
 graphic="v2_borders_slim,11"
 vflip=yes
 colour=0x000000
 
 // 1017:241
-[com_241]
+[tooltip_name]
 type=text
 y=-1
 width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_226
+layer=tooltip_content_layer
 textfont=welcome_font_tiny
 textalignh=centre
 textalignv=centre
@@ -3748,24 +3748,24 @@ textshadow=yes
 colour=0xff991f
 
 // 1017:242
-[com_242]
+[accept_button_graphic]
 type=graphic
 x=368
 y=259
 width=110
 height=43
-layer=com_232
+layer=buttons_layer
 graphic=graphic_3259
 colour=0x000000
 
 // 1017:243
-[com_243]
+[accept_button_text]
 type=text
 x=368
 y=259
 width=110
 height=43
-layer=com_232
+layer=buttons_layer
 textfont=welcome_font_small
 text=Accept
 textalignh=centre

@@ -1,0 +1,2521 @@
+// 288:0
+[com_0]
+type=rectangle
+width=512
+height=334
+colour=0x0f622c0c
+fill=yes
+
+// 288:1
+[com_1]
+type=rectangle
+y=150
+width=511
+height=19
+colour=0x000000
+fill=yes
+
+// 288:2
+[com_2]
+type=rectangle
+x=5
+y=89
+width=86
+height=145
+colour=0x0f303030
+fill=yes
+
+// 288:3
+[com_3]
+type=rectangle
+x=470
+y=90
+width=86
+height=145
+colour=0x0f303030
+fill=yes
+
+// 288:4
+[com_4]
+type=rectangle
+x=99
+width=359
+height=334
+colour=0x0f303030
+fill=yes
+
+// 288:5
+[com_5]
+type=rectangle
+x=107
+width=343
+height=334
+colour=0x0f585858
+fill=yes
+
+// 288:6
+[com_6]
+type=rectangle
+x=12
+y=98
+width=71
+height=130
+colour=0x0f585858
+fill=yes
+
+// 288:7
+[com_7]
+type=rectangle
+x=479
+y=99
+width=71
+height=130
+colour=0x0f585858
+fill=yes
+
+// 288:8
+[com_8]
+type=rectangle
+x=7
+y=53
+width=84
+height=24
+colour=0x0f312314
+fill=yes
+
+// 288:9
+[rogue_tb_open]
+type=text
+x=5
+y=54
+width=86
+height=26
+textfont=p12_full
+text=open casket
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Open Casket
+oninvtransmit=script1231{inv_308}
+
+// 288:10
+[rogue_tbr1c1]
+type=rectangle
+x=114
+y=4
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:11
+[rogue_tsr1]
+type=model
+x=114
+y=4
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:12
+[rogue_tbr1c2]
+type=rectangle
+x=151
+y=4
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:13
+[rogue_tsr2]
+type=model
+x=151
+y=4
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:14
+[rogue_tbr1c3]
+type=rectangle
+x=188
+y=4
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:15
+[rogue_tsr3]
+type=model
+x=188
+y=4
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:16
+[rogue_tbr1c4]
+type=rectangle
+x=225
+y=4
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:17
+[rogue_tsr4]
+type=model
+x=224
+y=5
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:18
+[rogue_tbr1c5]
+type=rectangle
+x=262
+y=4
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:19
+[rogue_tsr5]
+type=model
+x=262
+y=4
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:20
+[rogue_tbr1c6]
+type=rectangle
+x=299
+y=4
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:21
+[rogue_tsr6]
+type=model
+x=299
+y=4
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:22
+[rogue_tbr1c7]
+type=rectangle
+x=336
+y=4
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:23
+[rogue_tsr7]
+type=model
+x=336
+y=4
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:24
+[rogue_tbr1c8]
+type=rectangle
+x=373
+y=4
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:25
+[rogue_tsr8]
+type=model
+x=373
+y=4
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:26
+[rogue_tbr1c9]
+type=rectangle
+x=410
+y=4
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:27
+[rogue_tsr9]
+type=model
+x=410
+y=4
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:28
+[rogue_tbr2c1]
+type=rectangle
+x=114
+y=41
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:29
+[rogue_tsr10]
+type=model
+x=114
+y=41
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:30
+[rogue_tbr2c2]
+type=rectangle
+x=151
+y=41
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:31
+[rogue_tsr11]
+type=model
+x=151
+y=41
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:32
+[rogue_tbr2c3]
+type=rectangle
+x=188
+y=41
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:33
+[rogue_tsr12]
+type=model
+x=188
+y=41
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:34
+[rogue_tbr2c4]
+type=rectangle
+x=225
+y=41
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:35
+[rogue_tsr13]
+type=model
+x=225
+y=41
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:36
+[rogue_tbr2c5]
+type=rectangle
+x=262
+y=41
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:37
+[rogue_tsr14]
+type=model
+x=262
+y=41
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:38
+[rogue_tbr2c6]
+type=rectangle
+x=299
+y=41
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:39
+[rogue_tsr15]
+type=model
+x=299
+y=41
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:40
+[rogue_tbr2c7]
+type=rectangle
+x=336
+y=41
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:41
+[rogue_tsr16]
+type=model
+x=336
+y=41
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:42
+[rogue_tbr2c8]
+type=rectangle
+x=373
+y=41
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:43
+[rogue_tsr17]
+type=model
+x=373
+y=42
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:44
+[rogue_tbr2c9]
+type=rectangle
+x=410
+y=41
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:45
+[rogue_tsr18]
+type=model
+x=410
+y=41
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:46
+[rogue_tbr3c1]
+type=rectangle
+x=114
+y=78
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:47
+[rogue_tsr19]
+type=model
+x=114
+y=78
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:48
+[rogue_tbr3c2]
+type=rectangle
+x=151
+y=78
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:49
+[rogue_tsr20]
+type=model
+x=151
+y=78
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:50
+[rogue_tbr3c3]
+type=rectangle
+x=188
+y=78
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:51
+[rogue_tsr21]
+type=model
+x=188
+y=78
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:52
+[rogue_tbr3c4]
+type=rectangle
+x=225
+y=78
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:53
+[rogue_tsr22]
+type=model
+x=225
+y=78
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:54
+[rogue_tbr3c5]
+type=rectangle
+x=262
+y=78
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:55
+[rogue_tsr23]
+type=model
+x=262
+y=78
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:56
+[rogue_tbr3c6]
+type=rectangle
+x=299
+y=78
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:57
+[rogue_tsr24]
+type=model
+x=299
+y=78
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:58
+[rogue_tbr3c7]
+type=rectangle
+x=336
+y=78
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:59
+[rogue_tsr25]
+type=model
+x=336
+y=78
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:60
+[rogue_tbr3c8]
+type=rectangle
+x=373
+y=78
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:61
+[rogue_tsr26]
+type=model
+x=373
+y=78
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:62
+[rogue_tbr3c9]
+type=rectangle
+x=410
+y=78
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:63
+[rogue_tsr27]
+type=model
+x=410
+y=78
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:64
+[rogue_tbr4c1]
+type=rectangle
+x=114
+y=115
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:65
+[rogue_tsr28]
+type=model
+x=114
+y=114
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:66
+[rogue_tbr4c2]
+type=rectangle
+x=151
+y=115
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:67
+[rogue_tsr29]
+type=model
+x=151
+y=115
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:68
+[rogue_tbr4c3]
+type=rectangle
+x=188
+y=115
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:69
+[rogue_tsr30]
+type=model
+x=188
+y=115
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:70
+[rogue_tbr4c4]
+type=rectangle
+x=225
+y=115
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:71
+[rogue_tsr31]
+type=model
+x=225
+y=115
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:72
+[rogue_tbr4c5]
+type=rectangle
+x=262
+y=115
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:73
+[rogue_tsr32]
+type=model
+x=262
+y=114
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:74
+[rogue_tbr4c6]
+type=rectangle
+x=299
+y=115
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:75
+[rogue_tsr33]
+type=model
+x=298
+y=114
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:76
+[rogue_tbr4c7]
+type=rectangle
+x=336
+y=115
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:77
+[rogue_tsr34]
+type=model
+x=336
+y=115
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:78
+[rogue_tbr4c8]
+type=rectangle
+x=373
+y=115
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:79
+[rogue_tsr35]
+type=model
+x=373
+y=115
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:80
+[rogue_tbr4c9]
+type=rectangle
+x=410
+y=115
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:81
+[rogue_tsr36]
+type=model
+x=410
+y=115
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:82
+[rogue_tbr5c1]
+type=rectangle
+x=114
+y=152
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:83
+[rogue_tsr37]
+type=model
+x=114
+y=152
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:84
+[rogue_tbr5c2]
+type=rectangle
+x=151
+y=152
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:85
+[rogue_tsr38]
+type=model
+x=151
+y=152
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:86
+[rogue_tbr5c3]
+type=rectangle
+x=188
+y=152
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:87
+[rogue_tsr39]
+type=model
+x=188
+y=152
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:88
+[rogue_tbr5c4]
+type=rectangle
+x=225
+y=152
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:89
+[rogue_tsr40]
+type=model
+x=225
+y=152
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:90
+[rogue_tbr5c5]
+type=rectangle
+x=262
+y=152
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:91
+[rogue_tsr41]
+type=model
+x=262
+y=152
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:92
+[rogue_tbr5c6]
+type=rectangle
+x=299
+y=152
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:93
+[rogue_tsr42]
+type=model
+x=299
+y=152
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:94
+[rogue_tbr5c7]
+type=rectangle
+x=336
+y=152
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:95
+[rogue_tsr43]
+type=model
+x=336
+y=152
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:96
+[rogue_tbr5c8]
+type=rectangle
+x=373
+y=152
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:97
+[rogue_tsr44]
+type=model
+x=373
+y=152
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:98
+[rogue_tbr5c9]
+type=rectangle
+x=410
+y=152
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:99
+[rogue_tsr45]
+type=model
+x=410
+y=152
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:100
+[rogue_tbr6c1]
+type=rectangle
+x=114
+y=189
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:101
+[rogue_tsr46]
+type=model
+x=114
+y=188
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:102
+[rogue_tbr6c2]
+type=rectangle
+x=151
+y=189
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:103
+[rogue_tsr47]
+type=model
+x=151
+y=189
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:104
+[rogue_tbr6c3]
+type=rectangle
+x=188
+y=189
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:105
+[rogue_tsr48]
+type=model
+x=188
+y=189
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:106
+[rogue_tbr6c4]
+type=rectangle
+x=225
+y=189
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:107
+[rogue_tsr49]
+type=model
+x=225
+y=189
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:108
+[rogue_tbr6c5]
+type=rectangle
+x=262
+y=189
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:109
+[rogue_tsr50]
+type=model
+x=262
+y=189
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:110
+[rogue_tbr6c6]
+type=rectangle
+x=299
+y=189
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:111
+[rogue_tsr51]
+type=model
+x=299
+y=189
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:112
+[rogue_tbr6c7]
+type=rectangle
+x=336
+y=189
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:113
+[rogue_tsr52]
+type=model
+x=336
+y=189
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:114
+[rogue_tbr6c8]
+type=rectangle
+x=373
+y=189
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:115
+[rogue_tsr53]
+type=model
+x=373
+y=189
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:116
+[rogue_tbr6c9]
+type=rectangle
+x=410
+y=189
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:117
+[rogue_tsr54]
+type=model
+x=410
+y=189
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:118
+[rogue_tbr7c1]
+type=rectangle
+x=114
+y=226
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:119
+[rogue_tsr55]
+type=model
+x=114
+y=226
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:120
+[rogue_tbr7c2]
+type=rectangle
+x=151
+y=226
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:121
+[rogue_tsr56]
+type=model
+x=151
+y=226
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:122
+[rogue_tbr7c3]
+type=rectangle
+x=188
+y=226
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:123
+[rogue_tsr57]
+type=model
+x=188
+y=226
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:124
+[rogue_tbr7c4]
+type=rectangle
+x=225
+y=226
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:125
+[rogue_tsr58]
+type=model
+x=225
+y=226
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:126
+[rogue_tbr7c5]
+type=rectangle
+x=262
+y=226
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:127
+[rogue_tsr59]
+type=model
+x=262
+y=226
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:128
+[rogue_tbr7c6]
+type=rectangle
+x=299
+y=226
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:129
+[rogue_tsr60]
+type=model
+x=299
+y=226
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:130
+[rogue_tbr7c7]
+type=rectangle
+x=336
+y=226
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:131
+[rogue_tsr61]
+type=model
+x=336
+y=226
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:132
+[rogue_tbr7c8]
+type=rectangle
+x=373
+y=226
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:133
+[rogue_tsr62]
+type=model
+x=373
+y=226
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:134
+[rogue_tbr7c9]
+type=rectangle
+x=410
+y=226
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:135
+[rogue_tsr63]
+type=model
+x=410
+y=226
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:136
+[rogue_tbr8c1]
+type=rectangle
+x=114
+y=263
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:137
+[rogue_tsr64]
+type=model
+x=114
+y=263
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:138
+[rogue_tbr8c2]
+type=rectangle
+x=151
+y=263
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:139
+[rogue_tsr65]
+type=model
+x=151
+y=263
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:140
+[rogue_tbr8c3]
+type=rectangle
+x=188
+y=263
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:141
+[rogue_tsr66]
+type=model
+x=188
+y=263
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:142
+[rogue_tbr8c4]
+type=rectangle
+x=225
+y=263
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:143
+[rogue_tsr67]
+type=model
+x=225
+y=263
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:144
+[rogue_tbr8c5]
+type=rectangle
+x=262
+y=263
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:145
+[rogue_tsr68]
+type=model
+x=262
+y=263
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:146
+[rogue_tbr8c6]
+type=rectangle
+x=299
+y=263
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:147
+[rogue_tsr69]
+type=model
+x=299
+y=263
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:148
+[rogue_tbr8c7]
+type=rectangle
+x=336
+y=263
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:149
+[rogue_tsr70]
+type=model
+x=336
+y=263
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:150
+[rogue_tbr8c8]
+type=rectangle
+x=373
+y=263
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:151
+[rogue_tsr71]
+type=model
+x=373
+y=263
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:152
+[rogue_tbr8c9]
+type=rectangle
+x=410
+y=263
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:153
+[rogue_tsr72]
+type=model
+x=410
+y=264
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:154
+[rogue_tbr9c1]
+type=rectangle
+x=115
+y=300
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:155
+[rogue_tsr73]
+type=model
+x=115
+y=300
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:156
+[rogue_tbr9c2]
+type=rectangle
+x=151
+y=300
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:157
+[rogue_tsr74]
+type=model
+x=150
+y=300
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:158
+[rogue_tbr9c3]
+type=rectangle
+x=189
+y=300
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:159
+[rogue_tsr75]
+type=model
+x=189
+y=300
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:160
+[rogue_tbr9c4]
+type=rectangle
+x=225
+y=300
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:161
+[rogue_tsr76]
+type=model
+x=225
+y=300
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:162
+[rogue_tbr9c5]
+type=rectangle
+x=262
+y=300
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:163
+[rogue_tsr77]
+type=model
+x=262
+y=300
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:164
+[rogue_tbr9c6]
+type=rectangle
+x=299
+y=300
+width=32
+height=32
+colour=0x0fe9c001
+fill=yes
+
+// 288:165
+[rogue_tsr78]
+type=model
+x=299
+y=300
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:166
+[rogue_tbr9c7]
+type=rectangle
+x=336
+y=300
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:167
+[rogue_tsr79]
+type=model
+x=336
+y=300
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:168
+[rogue_tbr9c8]
+type=rectangle
+x=373
+y=300
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:169
+[rogue_tsr80]
+type=model
+x=373
+y=300
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:170
+[rogue_tbr9c9]
+type=rectangle
+x=410
+y=300
+width=32
+height=32
+colour=0xfa9907
+fill=yes
+
+// 288:171
+[rogue_tsr81]
+type=model
+x=410
+y=301
+width=32
+height=32
+model=null
+modelangle=512,1024,0
+modelzoom=700
+transmitop=1,10
+op1=Place Rune
+op10= 
+
+// 288:172
+[rogue_tb_earth_lyr]
+type=layer
+x=4
+y=284
+width=47
+height=48
+
+// 288:173
+[rogue_tb_water_lyr]
+type=layer
+x=3
+y=234
+width=47
+height=48
+
+// 288:174
+[rogue_tb_air_lyr]
+type=layer
+x=3
+y=184
+width=47
+height=48
+
+// 288:175
+[jc_layer3]
+type=layer
+x=3
+y=134
+width=47
+height=48
+
+// 288:176
+[rogue_tb_mind_lyr]
+type=layer
+x=3
+y=84
+width=47
+height=48
+
+// 288:177
+[rogue_tb_body_lyr]
+type=layer
+x=52
+y=134
+width=47
+height=48
+
+// 288:178
+[rogue_tb_death_lyr]
+type=layer
+x=52
+y=184
+width=47
+height=48
+
+// 288:179
+[rogue_tb_chaos_lyr]
+type=layer
+x=52
+y=234
+width=47
+height=48
+
+// 288:180
+[rogue_tb_law_lyr]
+type=layer
+x=53
+y=284
+width=47
+height=48
+
+// 288:181
+[rogue_tb_delete_lyr]
+type=layer
+x=52
+y=84
+width=47
+height=48
+
+// 288:182
+[selectone]
+type=model
+x=1
+y=3
+width=45
+height=44
+layer=rogue_tb_earth_lyr
+model=model_8986
+modelorigin=1,-1
+modelangle=500,0,0
+modelzoom=600
+
+// 288:183
+[selecttwo]
+type=model
+x=1
+y=3
+width=45
+height=44
+layer=rogue_tb_water_lyr
+model=model_8986
+modelorigin=1,-1
+modelangle=500,0,0
+modelzoom=600
+
+// 288:184
+[selectthree]
+type=model
+x=1
+y=3
+width=45
+height=44
+layer=rogue_tb_air_lyr
+model=model_8986
+modelorigin=1,-1
+modelangle=500,0,0
+modelzoom=600
+
+// 288:185
+[selectfour]
+type=model
+x=1
+y=3
+width=45
+height=44
+layer=jc_layer3
+model=model_8986
+modelorigin=1,-1
+modelangle=500,0,0
+modelzoom=600
+
+// 288:186
+[selectfive]
+type=model
+x=1
+y=3
+width=45
+height=44
+layer=rogue_tb_mind_lyr
+model=model_8986
+modelorigin=1,-1
+modelangle=500,0,0
+modelzoom=600
+
+// 288:187
+[selectsix]
+type=model
+x=1
+y=3
+width=45
+height=44
+layer=rogue_tb_body_lyr
+model=model_8986
+modelorigin=1,-1
+modelangle=500,0,0
+modelzoom=600
+
+// 288:188
+[selectseven]
+type=model
+x=1
+y=3
+width=45
+height=44
+layer=rogue_tb_death_lyr
+model=model_8986
+modelorigin=1,-1
+modelangle=500,0,0
+modelzoom=600
+
+// 288:189
+[selecteight]
+type=model
+x=1
+y=3
+width=45
+height=44
+layer=rogue_tb_chaos_lyr
+model=model_8986
+modelorigin=1,-1
+modelangle=500,0,0
+modelzoom=600
+
+// 288:190
+[selectnine]
+type=model
+x=1
+y=3
+width=45
+height=44
+layer=rogue_tb_law_lyr
+model=model_8986
+modelorigin=1,-1
+modelangle=500,0,0
+modelzoom=600
+
+// 288:191
+[selectten]
+type=model
+x=1
+y=3
+width=45
+height=44
+layer=rogue_tb_delete_lyr
+model=model_8986
+modelorigin=1,-1
+modelangle=500,0,0
+modelzoom=600
+
+// 288:192
+[selectonemo]
+type=model
+x=8
+y=8
+width=32
+height=32
+layer=rogue_tb_earth_lyr
+model=null
+modelangle=500,0,0
+modelzoom=600
+
+// 288:193
+[select2mo]
+type=model
+x=8
+y=8
+width=32
+height=32
+layer=rogue_tb_water_lyr
+model=null
+modelangle=500,0,0
+modelzoom=600
+
+// 288:194
+[selcectthreemo]
+type=model
+x=8
+y=8
+width=32
+height=32
+layer=rogue_tb_air_lyr
+model=null
+modelangle=500,0,0
+modelzoom=600
+
+// 288:195
+[selectfourmo]
+type=model
+x=8
+y=8
+width=32
+height=32
+layer=jc_layer3
+model=null
+modelangle=500,0,0
+modelzoom=600
+
+// 288:196
+[select5mo]
+type=model
+x=8
+y=8
+width=32
+height=32
+layer=rogue_tb_mind_lyr
+model=null
+modelangle=500,0,0
+modelzoom=600
+
+// 288:197
+[selectsixmo]
+type=model
+x=8
+y=8
+width=32
+height=32
+layer=rogue_tb_body_lyr
+model=null
+modelangle=500,0,0
+modelzoom=600
+
+// 288:198
+[selectsevenmo]
+type=model
+x=8
+y=8
+width=32
+height=32
+layer=rogue_tb_death_lyr
+model=null
+modelangle=500,0,0
+modelzoom=600
+
+// 288:199
+[selecteightmo]
+type=model
+x=8
+y=8
+width=32
+height=32
+layer=rogue_tb_chaos_lyr
+model=null
+modelangle=500,0,0
+modelzoom=600
+
+// 288:200
+[selectninemo]
+type=model
+x=8
+y=8
+width=32
+height=32
+layer=rogue_tb_law_lyr
+model=null
+modelangle=500,0,0
+modelzoom=600
+
+// 288:201
+[selecttenmo]
+type=model
+x=8
+y=8
+width=32
+height=32
+layer=rogue_tb_delete_lyr
+model=null
+modelangle=500,0,0
+modelzoom=600
+
+// 288:202
+[rogue_tb_earth_btn]
+type=model
+x=10
+y=290
+width=36
+height=36
+model=model_8979
+modelangle=500,1050,0
+modelzoom=600
+transmitop=1
+op1=Select Earth
+
+// 288:203
+[rogue_tb_water_btn]
+type=model
+x=9
+y=240
+width=36
+height=36
+model=model_8987
+modelangle=500,1050,0
+modelzoom=600
+transmitop=1
+op1=Select Water
+
+// 288:204
+[rogue_tb_air_btn]
+type=model
+x=7
+y=191
+width=36
+height=36
+model=model_8975
+modelangle=500,1050,0
+modelzoom=600
+transmitop=1
+op1=Select Air
+
+// 288:205
+[rogue_tb_mind_btn]
+type=model
+x=7
+y=90
+width=36
+height=36
+model=model_8982
+modelangle=500,1050,0
+modelzoom=600
+transmitop=1
+op1=Select Mind
+
+// 288:206
+[rogue_tb_fire_btn]
+type=model
+x=8
+y=140
+width=36
+height=36
+model=model_8980
+modelangle=500,1050,0
+modelzoom=600
+transmitop=1
+op1=Select Fire
+
+// 288:207
+[rogue_tb_body_btn]
+type=model
+x=57
+y=141
+width=36
+height=36
+model=model_8976
+modelangle=500,1050,0
+modelzoom=600
+transmitop=1
+op1=Select Body
+
+// 288:208
+[rogue_tb_death_btn]
+type=model
+x=57
+y=191
+width=36
+height=36
+model=model_8978
+modelangle=500,1050,0
+modelzoom=600
+transmitop=1
+op1=Select Death
+
+// 288:209
+[rogue_tb_chaos_btn]
+type=model
+x=58
+y=240
+width=36
+height=36
+model=model_8977
+modelangle=500,1050,0
+modelzoom=600
+transmitop=1
+op1=Select Chaos
+
+// 288:210
+[rogue_tb_law_btn]
+type=model
+x=59
+y=290
+width=36
+height=36
+model=model_8981
+modelangle=500,1050,0
+modelzoom=600
+transmitop=1
+op1=Select Law
+
+// 288:211
+[rogue_tb_delete_btn]
+type=model
+x=55
+y=89
+width=41
+height=40
+model=model_8985
+modelorigin=1,-1
+modelangle=500,0,0
+modelzoom=600
+transmitop=1
+op1=Remove Rune
+
+// 288:212
+[close_button]
+type=graphic
+x=5
+y=6
+width=26
+height=23
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=10
+op10= 
+onmouseover=graphic_swapper(rogue_trader_casket_big:close_button, "close_buttons,4")
+onmouseleave=graphic_swapper(rogue_trader_casket_big:close_button, "close_buttons,5")
+onclick=closebutton_click

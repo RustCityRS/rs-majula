@@ -75,7 +75,7 @@ tiling=yes
 colour=0x000000
 
 // 785:7
-[com_7]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -151,7 +151,7 @@ graphic="v2_stone_borders,10"
 colour=0x000000
 
 // 785:14
-[com_14]
+[shop_title]
 type=text
 x=18
 y=27
@@ -165,7 +165,7 @@ textshadow=yes
 colour=0xff981f
 
 // 785:15
-[com_15]
+[main_inv]
 type=layer
 x=60
 y=70
@@ -181,4 +181,4 @@ x=452
 y=70
 width=16
 height=210
-onload=scrollbar_vertical_graphics(event_com, crcs_rewards:com_15, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, crcs_rewards:main_inv, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")

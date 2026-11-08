@@ -7,21 +7,21 @@ if ($chatphrase1 = null | chatphrase_getautoresponsecount($chatphrase1) = 0) {
 %varclient_1546 = $string0;
 %varclient_127 = true;
 if (getwindowmode >= 2) {
-    if_setgraphic(chat_background, chatbox:com_1);
-    if_setalpha(false, chatbox:com_1);
-    if_sethide(false, chatbox:com_1);
-    if_sethide(false, chatbox:com_2);
+    if_setgraphic(chat_background, chattop:chat_graphic);
+    if_setalpha(false, chattop:chat_graphic);
+    if_sethide(false, chattop:chat_graphic);
+    if_sethide(false, chattop:chat_border);
     ~chatbox_resize_reset(0);
-    if_sethide(true, toplevel_fullscreen:com_72);
+    if_sethide(true, toplevel_fullscreen:chatbox_resize_dragger);
 }
-if_sethide(true, chatbox_background:com_50);
-if_setonkey(null, chatbox_background:com_55);
-if_sethide(false, chatbox_background:com_0);
-if_sethide(true, chatbox_background:com_7);
-if_sethide(true, chatbox_background:com_9);
-if_sethide(true, chatbox_background:com_13);
-if_sethide(false, chatbox_background:com_17);
-if_sethide(false, chatbox_background:com_1);
-if_sethide(true, chatbox_background:com_3);
-if_setscrollpos(0, 0, chatbox_background:com_17);
-~quickchat_response_add(chatbox_background:com_1, $chatphrase1);
+if_sethide(true, chatdefault:chat);
+if_setonkey(null, chatdefault:input);
+if_sethide(false, chatdefault:quickchat);
+if_sethide(true, chatdefault:quickchat_countdialog);
+if_sethide(true, chatdefault:quickchat_listdialog);
+if_sethide(true, chatdefault:quickchat_objdialog);
+if_sethide(false, chatdefault:quickchat_menu);
+if_sethide(false, chatdefault:quickchat_path);
+if_sethide(true, chatdefault:quickchat_title);
+if_setscrollpos(0, 0, chatdefault:quickchat_menu);
+~quickchat_response_add(chatdefault:quickchat_path, $chatphrase1);

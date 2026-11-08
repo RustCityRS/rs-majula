@@ -1,5 +1,5 @@
 // 1943
 [clientscript,script1943]
-if_sethide(false, sc_tutorial_overlay:com_19);
-if_settext(%varclient_1562, sc_tutorial_overlay:com_16);
+if_sethide(false, sc_tutorial_overlay:title_layer);
+if_settext(%varclient_1562, sc_tutorial_overlay:title_text);
 %varclient_581 = 1;

@@ -19,5 +19,5 @@ if ($int0 > 100 & %varclient_85 > 2045222520) {
     }
 }
 %varclient_85 = $int1;
-if_settext("<tostring_localised(%varclient_85, true)> gp", stockmarket:com_153);
+if_settext("<tostring_localised(%varclient_85, true)> gp", stockmarket:offerprice);
 ~sm_offerprice_settimer;

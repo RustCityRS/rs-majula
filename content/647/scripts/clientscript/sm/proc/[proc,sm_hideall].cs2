@@ -1,17 +1,17 @@
 // 622
 [proc,sm_hideall]
 if (%varplayer_1118 = 1) {
-    if_sethide(false, stockmarket:com_17);
-    if_sethide(false, stockmarket:com_127);
-    if_sethide(false, stockmarket:com_154);
-    if_sethide(false, stockmarket:com_188);
-    if_sethide(false, stockmarket:com_193);
-    if_sethide(false, stockmarket:com_197);
+    if_sethide(false, stockmarket:summarylayer);
+    if_sethide(false, stockmarket:offerlayer);
+    if_sethide(false, stockmarket:newofferlayer);
+    if_sethide(false, stockmarket:buylayer);
+    if_sethide(false, stockmarket:selllayer);
+    if_sethide(false, stockmarket:runninglayer);
 } else {
-    if_sethide(true, stockmarket:com_17);
-    if_sethide(true, stockmarket:com_127);
-    if_sethide(true, stockmarket:com_154);
-    if_sethide(true, stockmarket:com_188);
-    if_sethide(true, stockmarket:com_193);
-    if_sethide(true, stockmarket:com_197);
+    if_sethide(true, stockmarket:summarylayer);
+    if_sethide(true, stockmarket:offerlayer);
+    if_sethide(true, stockmarket:newofferlayer);
+    if_sethide(true, stockmarket:buylayer);
+    if_sethide(true, stockmarket:selllayer);
+    if_sethide(true, stockmarket:runninglayer);
 }

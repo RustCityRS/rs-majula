@@ -1,7 +1,7 @@
 // 2190
 [proc,lobbyscreen_input_full](string $string0, string $string1, int $int0, int $int1, string $string2, string $string3, int $int2)
 ~lobbyscreen_input_clear;
-if_settext($string0, lobbyscreen:com_138);
+if_settext($string0, lobbyscreen:input_title);
 if (compare($string1, "") ! 0) {
     if ($int1 ! -1 & $int1 ! 6) {
         %varclient_1796 = $string1;
@@ -9,27 +9,27 @@ if (compare($string1, "") ! 0) {
         %varclient_1796 = $string1;
     }
     if ($int0 = 1) {
-        if_settext(escape(%varclient_1796), lobbyscreen:com_140);
+        if_settext(escape(%varclient_1796), lobbyscreen:input_text);
     } else {
-        if_settext(%varclient_1796, lobbyscreen:com_140);
+        if_settext(%varclient_1796, lobbyscreen:input_text);
     }
 }
 if ($int1 = 6) {
-    if_settext("Yes", lobbyscreen:com_148);
-    if_setop(1, "Yes", lobbyscreen:com_148);
-    if_settext("No", lobbyscreen:com_150);
-    if_setop(1, "No", lobbyscreen:com_150);
+    if_settext("Yes", lobbyscreen:input_ok_text);
+    if_setop(1, "Yes", lobbyscreen:input_ok_text);
+    if_settext("No", lobbyscreen:input_close_text);
+    if_setop(1, "No", lobbyscreen:input_close_text);
 } else if ($int1 = 0) {
-    if_setsize(386, 136, ^setsize_abs, ^setsize_abs, lobbyscreen:com_136);
-    if_setsize(0, 12, ^setsize_minus, ^setsize_abs, lobbyscreen:com_140);
+    if_setsize(386, 136, ^setsize_abs, ^setsize_abs, lobbyscreen:input_window);
+    if_setsize(0, 12, ^setsize_minus, ^setsize_abs, lobbyscreen:input_text);
 }
 if ($int2 = 0) {
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:com_144);
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:com_148);
-    if_sethide(true, lobbyscreen:com_149);
-    if_sethide(true, lobbyscreen:com_150);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:input_ok);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:input_ok_text);
+    if_sethide(true, lobbyscreen:input_close);
+    if_sethide(true, lobbyscreen:input_close_text);
 }
-if_sethide(false, lobbyscreen:com_30);
+if_sethide(false, lobbyscreen:input);
 def_int $int3 = 0;
 switch_int ($int1) {
     case 0 :
@@ -42,32 +42,32 @@ if (if_gethide(enum(int, component, enum_941, 5)) = false) {
 } else if (if_gethide(enum(int, component, enum_941, 3)) = false) {
     ~script4556(0);
 }
-if_setonkey("lobbyscreen_input_keyboard(event_keycode, event_keychar, event_com, $int3, $int1, $string2)", lobbyscreen:com_140);
-if_setonop("lobbyscreen_input_ok($int1, $string2)", lobbyscreen:com_144);
+if_setonkey("lobbyscreen_input_keyboard(event_keycode, event_keychar, event_com, $int3, $int1, $string2)", lobbyscreen:input_text);
+if_setonop("lobbyscreen_input_ok($int1, $string2)", lobbyscreen:input_ok);
 def_int $int4 = 0;
 if ($int1 ! -1 & $int1 ! 6) {
     %varclient_1097 = string_length(%varclient_1796);
-    if_setonclick("script1874(event_mousex, lobbyscreen:com_140, lobbyscreen:com_141)", lobbyscreen:com_140);
-    ~script1875(lobbyscreen:com_140, lobbyscreen:com_141, %varclient_1796);
-    if_sethide(true, lobbyscreen:com_141);
-    if_setsize(if_getwidth(lobbyscreen:com_136), 136, ^setsize_abs, ^setsize_abs, lobbyscreen:com_136);
-    if_setonclick(null, lobbyscreen:com_142);
-    if_setonmouseover(null, lobbyscreen:com_142);
-    if_setonmouseleave(null, lobbyscreen:com_142);
-    if_sethide(true, lobbyscreen:com_142);
+    if_setonclick("script1874(event_mousex, lobbyscreen:input_text, lobbyscreen:input_caret)", lobbyscreen:input_text);
+    ~script1875(lobbyscreen:input_text, lobbyscreen:input_caret, %varclient_1796);
+    if_sethide(true, lobbyscreen:input_caret);
+    if_setsize(if_getwidth(lobbyscreen:input_window), 136, ^setsize_abs, ^setsize_abs, lobbyscreen:input_window);
+    if_setonclick(null, lobbyscreen:input_link);
+    if_setonmouseover(null, lobbyscreen:input_link);
+    if_setonmouseleave(null, lobbyscreen:input_link);
+    if_sethide(true, lobbyscreen:input_link);
 } else {
     %varclient_1097 = 0;
-    if_sethide(true, lobbyscreen:com_141);
+    if_sethide(true, lobbyscreen:input_caret);
     if (string_length($string3) > 0 & string_length(%varclient_1796) > 0) {
-        $int4 = max(44, calc(paraheight(%varclient_1796, if_getwidth(lobbyscreen:com_139), p11_full) * 13));
-        if_setsize(if_getwidth(lobbyscreen:com_139), $int4, ^setsize_abs, ^setsize_abs, lobbyscreen:com_139);
-        if_setsize(if_getwidth(lobbyscreen:com_136), calc($int4 + 95), ^setsize_abs, ^setsize_abs, lobbyscreen:com_136);
-        if_setposition(if_getx(lobbyscreen:com_142), calc(if_gety(lobbyscreen:com_139) + $int4 + 5), ^setpos_abs_left, ^setpos_abs_top, lobbyscreen:com_142);
-        if_setsize(if_getwidth(lobbyscreen:com_142), 13, ^setsize_abs, ^setsize_abs, lobbyscreen:com_142);
-        if_settext("<u=2c6ff8><$string3></u>", lobbyscreen:com_142);
-        if_setcolour(0x2c6ff8, lobbyscreen:com_142);
-        if_setonmouseover("lobbyscreen_input_link_highlight(lobbyscreen:com_142, $string3, true)", lobbyscreen:com_142);
-        if_setonmouseleave("lobbyscreen_input_link_highlight(lobbyscreen:com_142, $string3, false)", lobbyscreen:com_142);
-        if_sethide(false, lobbyscreen:com_142);
+        $int4 = max(44, calc(paraheight(%varclient_1796, if_getwidth(lobbyscreen:wipe_button_player_member_0), p11_full) * 13));
+        if_setsize(if_getwidth(lobbyscreen:wipe_button_player_member_0), $int4, ^setsize_abs, ^setsize_abs, lobbyscreen:wipe_button_player_member_0);
+        if_setsize(if_getwidth(lobbyscreen:input_window), calc($int4 + 95), ^setsize_abs, ^setsize_abs, lobbyscreen:input_window);
+        if_setposition(if_getx(lobbyscreen:input_link), calc(if_gety(lobbyscreen:wipe_button_player_member_0) + $int4 + 5), ^setpos_abs_left, ^setpos_abs_top, lobbyscreen:input_link);
+        if_setsize(if_getwidth(lobbyscreen:input_link), 13, ^setsize_abs, ^setsize_abs, lobbyscreen:input_link);
+        if_settext("<u=2c6ff8><$string3></u>", lobbyscreen:input_link);
+        if_setcolour(0x2c6ff8, lobbyscreen:input_link);
+        if_setonmouseover("lobbyscreen_input_link_highlight(lobbyscreen:input_link, $string3, true)", lobbyscreen:input_link);
+        if_setonmouseleave("lobbyscreen_input_link_highlight(lobbyscreen:input_link, $string3, false)", lobbyscreen:input_link);
+        if_sethide(false, lobbyscreen:input_link);
     }
 }

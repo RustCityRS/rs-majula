@@ -1,14 +1,14 @@
 // 1593
 [proc,script1593](int $int0)
-def_component $component1 = friends_chat:com_11;
-def_component $component2 = friends_chat:com_10;
-def_component $component3 = friends_chat:com_5;
-def_component $component4 = friends_chat:com_6;
-def_component $component5 = friends_chat:com_8;
-def_component $component6 = friends_chat:com_7;
+def_component $component1 = interface_1109:drag_layer;
+def_component $component2 = interface_1109:clanlist_drag;
+def_component $component3 = interface_1109:clanlist;
+def_component $component4 = interface_1109:com_6;
+def_component $component5 = interface_1109:com_8;
+def_component $component6 = interface_1109:com_7;
 def_int $int7 = 72679428;
-def_component $component8 = friends_chat:com_3;
-def_component $component9 = friends_chat:com_9;
+def_component $component8 = interface_1109:scrolling_layer;
+def_component $component9 = interface_1109:clanlistscrollbar;
 def_int $int10 = if_getwidth($component1);
 if ($int0 <= -1) {
     $int0 = if_getx($component1);
@@ -42,7 +42,7 @@ def_int $int23 = calc(if_getheight($component8) / $int17);
 def_int $int24 = 0;
 def_int $int25 = clan_getchatcount;
 if ($int25 > 0) {
-    if_sethide(true, friends_chat:com_15);
+    if_sethide(true, interface_1109:info_layer);
     while ($int11 < $int25) {
         $int16 = $int11;
         $int22 = calc($int11 * $int17);
@@ -64,8 +64,8 @@ if ($int25 > 0) {
                 $string0 = substring($string0, 0, calc(string_length($string0) - 1));
             }
             $string0 = "<$string0>...";
-            cc_setonmouserepeat("script1594(friends_chat:com_36, event_com, event_comsubid, $string1, event_mousex, event_mousey)");
-            cc_setonmouseleave("deltooltip(friends_chat:com_36)");
+            cc_setonmouserepeat("script1594(interface_1109:tooltip, event_com, event_comsubid, $string1, event_mousex, event_mousey)");
+            cc_setonmouseleave("deltooltip(interface_1109:tooltip)");
         }
         cc_settext($string0);
         ~script1595($int11, $string1, $string2);
@@ -98,16 +98,16 @@ if ($int25 > 0) {
                 cc_setgraphic(graphic_2173);
                 cc_setsize(24, 12, ^setsize_abs, ^setsize_abs);
                 cc_setposition(2, calc($int22 + 3), ^setpos_abs_left, ^setpos_abs_top);
-                cc_setonmouserepeat("script1594(friends_chat:com_36, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
-                cc_setonmouseleave("deltooltip(friends_chat:com_36)");
+                cc_setonmouserepeat("script1594(interface_1109:tooltip, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
+                cc_setonmouseleave("deltooltip(interface_1109:tooltip)");
             }
         } else {
             $int18 = 0;
         }
         if ($int14 >= $int19) {
         } else {
-            cc_setonmouserepeat("script1594(friends_chat:com_36, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
-            cc_setonmouseleave("deltooltip(friends_chat:com_36)");
+            cc_setonmouserepeat("script1594(interface_1109:tooltip, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
+            cc_setonmouseleave("deltooltip(interface_1109:tooltip)");
             $string3 = "...";
         }
         cc_create($component5, ^iftype_text, if_getnextsubid($component5));
@@ -124,8 +124,8 @@ if ($int25 > 0) {
         } else {
             cc_setcolour(0xffff64);
         }
-        cc_setonmouserepeat("script1594(friends_chat:com_36, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
-        cc_setonmouseleave("deltooltip(friends_chat:com_36)");
+        cc_setonmouserepeat("script1594(interface_1109:tooltip, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(interface_1109:tooltip)");
         cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
         cc_setposition(1, calc($int11 * $int17 + 5), ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize(9, 9, ^setsize_abs, ^setsize_abs);
@@ -134,7 +134,7 @@ if ($int25 > 0) {
     }
     $string3 = "Talking in: <col=ffff64><clan_getchatdisplayname>";
     $string1 = "Owner: <col=ffff64><clan_getchatownername>";
-    $int12 = if_getwidth(friends_chat:com_1);
+    $int12 = if_getwidth(interface_1109:com_1);
     if (stringwidth($string3, p11_full) > $int12) {
         while (stringwidth("<$string3>...", p11_full) > $int12 & string_length($string3) > 0) {
             $string3 = substring($string3, 0, calc(string_length($string3) - 1));
@@ -149,27 +149,27 @@ if ($int25 > 0) {
         }
         $string1 = "<$string1>...";
     }
-    if_settext("<$string3><br><$string1>", friends_chat:com_1);
+    if_settext("<$string3><br><$string1>", interface_1109:com_1);
     if ($int24 = 1) {
         $string3 = "Talking in: <clan_getchatdisplayname><br>Owner: <clan_getchatownername>";
-        if_setonmouserepeat("aif_tooltip(friends_chat:com_36, event_com, -1, $string3, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)", friends_chat:com_1);
-        if_setonmouseleave("deltooltip(friends_chat:com_36)", friends_chat:com_1);
+        if_setonmouserepeat("aif_tooltip(interface_1109:tooltip, event_com, -1, $string3, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)", interface_1109:com_1);
+        if_setonmouseleave("deltooltip(interface_1109:tooltip)", interface_1109:com_1);
     } else {
-        if_setonmouserepeat(null, friends_chat:com_1);
-        if_setonmouseleave(null, friends_chat:com_1);
+        if_setonmouserepeat(null, interface_1109:com_1);
+        if_setonmouseleave(null, interface_1109:com_1);
     }
-    if_setop(1, "Leave chat", friends_chat:com_27);
-    if_setgraphic("aif_clanchat_icons,3", friends_chat:com_28);
+    if_setop(1, "Leave chat", interface_1109:com_27);
+    if_setgraphic("aif_clanchat_icons,3", interface_1109:com_28);
     if_sethide(false, $component1);
 } else {
-    if_sethide(false, friends_chat:com_15);
-    if_settext("Talking in: Not in chat", friends_chat:com_1);
-    if_setop(1, "Join chat", friends_chat:com_27);
-    if_setgraphic("aif_clanchat_icons,2", friends_chat:com_28);
+    if_sethide(false, interface_1109:info_layer);
+    if_settext("Talking in: Not in chat", interface_1109:com_1);
+    if_setop(1, "Join chat", interface_1109:com_27);
+    if_setgraphic("aif_clanchat_icons,2", interface_1109:com_28);
     if_sethide(true, $component1);
     if_clearops($component1);
-    if_setonmouserepeat(null, friends_chat:com_1);
-    if_setonmouseleave(null, friends_chat:com_1);
+    if_setonmouserepeat(null, interface_1109:com_1);
+    if_setonmouseleave(null, interface_1109:com_1);
 }
 def_int $int26 = if_getscrolly($component8);
 def_int $int27 = calc(max($int11, $int23) * $int17);

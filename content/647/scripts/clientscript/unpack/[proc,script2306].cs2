@@ -8,4 +8,4 @@ if (runenergy_visible >= 100) {
 } else {
     $int1 = calc($int0 - $int0 * runenergy_visible / 100);
 }
-if_setsize($int2, $int1, ^setsize_abs, ^setsize_abs, topstat_run:com_4);
+if_setsize($int2, $int1, ^setsize_abs, ^setsize_abs, topstat_run:run_hide);

@@ -1,11 +1,11 @@
 // 527
 [clientscript,assist_display_icon]
-~assist_set_icon(%varplayerbit_4090, "staticons2,0", "staticons2_off,0", assister_interface:com_63, assister_interface:com_14);
-~assist_set_icon(%varplayerbit_4091, "staticons,10", "staticons_off,10", assister_interface:com_64, assister_interface:com_16);
-~assist_set_icon(%varplayerbit_4093, "staticons,11", "staticons_off,11", assister_interface:com_65, assister_interface:com_18);
-~assist_set_icon(%varplayerbit_4095, "staticons2,6", "staticons2_off,6", assister_interface:com_66, assister_interface:com_20);
-~assist_set_icon(%varplayerbit_4096, "staticons2,2", "staticons2_off,2", assister_interface:com_67, assister_interface:com_22);
-~assist_set_icon(%varplayerbit_4098, "staticons,5", "staticons_off,5", assister_interface:com_68, assister_interface:com_24);
-~assist_set_icon(%varplayerbit_4100, "staticons,13", "staticons_off,13", assister_interface:com_69, assister_interface:com_26);
-~assist_set_icon(%varplayerbit_4101, "staticons,15", "staticons_off,15", assister_interface:com_70, assister_interface:com_28);
-~assist_set_icon(%varplayerbit_4102, "staticons,8", "staticons_off,8", assister_interface:com_71, assister_interface:com_30);
+~assist_set_icon(%varplayerbit_4090, "staticons2,0", "staticons2_off,0", assister_interface:runecrafting_icon, assister_interface:checker_collect);
+~assist_set_icon(%varplayerbit_4091, "staticons,10", "staticons_off,10", assister_interface:crafting_icon_on, assister_interface:crafting_selected_box);
+~assist_set_icon(%varplayerbit_4093, "staticons,11", "staticons_off,11", assister_interface:fletching_icon_on, assister_interface:fletching_selected_box);
+~assist_set_icon(%varplayerbit_4095, "staticons2,6", "staticons2_off,6", assister_interface:construction_icon_on, assister_interface:construction_selected_box);
+~assist_set_icon(%varplayerbit_4096, "staticons2,2", "staticons2_off,2", assister_interface:farming_icon_on, assister_interface:farming_selected_box);
+~assist_set_icon(%varplayerbit_4098, "staticons,5", "staticons_off,5", assister_interface:magic_icon_on, assister_interface:magic_selected_box);
+~assist_set_icon(%varplayerbit_4100, "staticons,13", "staticons_off,13", assister_interface:smithing_icon_on, assister_interface:smithing_selected_box);
+~assist_set_icon(%varplayerbit_4101, "staticons,15", "staticons_off,15", assister_interface:cooking_icon_on, assister_interface:cooking_selected_box);
+~assist_set_icon(%varplayerbit_4102, "staticons,8", "staticons_off,8", assister_interface:herblore_icon_on, assister_interface:herblore_selected_box);

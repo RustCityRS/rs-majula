@@ -1,37 +1,37 @@
 // 1198
 [clientscript,ra3_package_update_interface]
 if (inv_total(inv, rod) > 0 | inv_total(bank, rod) > 0 | %varplayerbit_6471 >= 44) {
-    if_sethide(true, interface_887:com_5);
+    if_sethide(true, ra3_package:handled_rod);
 } else {
-    if_sethide(false, interface_887:com_5);
+    if_sethide(false, ra3_package:handled_rod);
 }
 if (inv_total(inv, turnscrew) > 0 | inv_total(bank, turnscrew) > 0) {
-    if_sethide(true, interface_887:com_6);
+    if_sethide(true, ra3_package:turn_screw);
 } else {
-    if_sethide(false, interface_887:com_6);
+    if_sethide(false, ra3_package:turn_screw);
 }
 if (inv_total(inv, bowl_15248) > 0 | inv_total(bank, bowl_15248) > 0 | %varplayerbit_6471 = 42) {
-    if_sethide(true, interface_887:com_2);
+    if_sethide(true, ra3_package:bowl);
 } else {
-    if_sethide(false, interface_887:com_2);
+    if_sethide(false, ra3_package:bowl);
 }
 if (inv_total(inv, boot) > 0 | inv_total(bank, boot) > 0) {
-    if_sethide(true, interface_887:com_4);
+    if_sethide(true, ra3_package:boot);
 } else {
-    if_sethide(false, interface_887:com_4);
+    if_sethide(false, ra3_package:boot);
 }
 if (inv_total(inv, green_stone) > 0 | inv_total(bank, green_stone) > 0 | %varplayerbit_6471 >= 52 | %varplayerbit_6481 = 1) {
-    if_sethide(true, interface_887:com_8);
+    if_sethide(true, ra3_package:green_stone);
 } else {
-    if_sethide(false, interface_887:com_8);
+    if_sethide(false, ra3_package:green_stone);
 }
 if (inv_total(inv, yellow_stone) > 0 | inv_total(bank, yellow_stone) > 0 | %varplayerbit_6471 >= 52 | %varplayerbit_6481 = 2) {
-    if_sethide(true, interface_887:com_7);
+    if_sethide(true, ra3_package:yellow_stone);
 } else {
-    if_sethide(false, interface_887:com_7);
+    if_sethide(false, ra3_package:yellow_stone);
 }
 if (inv_total(inv, metal_rectangle) > 0 | inv_total(bank, metal_rectangle) > 0) {
-    if_sethide(true, interface_887:com_3);
+    if_sethide(true, ra3_package:sheet);
 } else {
-    if_sethide(false, interface_887:com_3);
+    if_sethide(false, ra3_package:sheet);
 }

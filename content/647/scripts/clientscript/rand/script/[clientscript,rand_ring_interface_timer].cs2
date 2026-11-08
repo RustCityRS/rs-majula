@@ -6,158 +6,158 @@ if (%varclient_1186 < 17) {
     switch_int (%varclient_1184) {
         case 1 :
             if (%varplayerbit_8053 = 10) {
-                if_sethide(true, rand_ring_interface:com_139);
+                if_sethide(true, rand_ring_interface:upgrade_ring_a);
             } else {
-                if_sethide(false, rand_ring_interface:com_139);
+                if_sethide(false, rand_ring_interface:upgrade_ring_a);
             }
             if (%varplayerbit_8054 = 10) {
-                if_sethide(true, rand_ring_interface:com_46);
+                if_sethide(true, rand_ring_interface:upgrade_ring_b);
             } else {
-                if_sethide(false, rand_ring_interface:com_46);
+                if_sethide(false, rand_ring_interface:upgrade_ring_b);
             }
             if (%varplayerbit_8055 = 10) {
-                if_sethide(true, rand_ring_interface:com_88);
+                if_sethide(true, rand_ring_interface:upgrade_ring_c);
             } else {
-                if_sethide(false, rand_ring_interface:com_88);
+                if_sethide(false, rand_ring_interface:upgrade_ring_c);
             }
         case 2 :
             if (%varplayerbit_8056 = 10) {
-                if_sethide(true, rand_ring_interface:com_139);
+                if_sethide(true, rand_ring_interface:upgrade_ring_a);
             } else {
-                if_sethide(false, rand_ring_interface:com_139);
+                if_sethide(false, rand_ring_interface:upgrade_ring_a);
             }
             if (%varplayerbit_8057 = 10) {
-                if_sethide(true, rand_ring_interface:com_46);
+                if_sethide(true, rand_ring_interface:upgrade_ring_b);
             } else {
-                if_sethide(false, rand_ring_interface:com_46);
+                if_sethide(false, rand_ring_interface:upgrade_ring_b);
             }
             if (%varplayerbit_8058 = 10) {
-                if_sethide(true, rand_ring_interface:com_88);
+                if_sethide(true, rand_ring_interface:upgrade_ring_c);
             } else {
-                if_sethide(false, rand_ring_interface:com_88);
+                if_sethide(false, rand_ring_interface:upgrade_ring_c);
             }
         case 3 :
             if (%varplayerbit_8059 = 10) {
-                if_sethide(true, rand_ring_interface:com_139);
+                if_sethide(true, rand_ring_interface:upgrade_ring_a);
             } else {
-                if_sethide(false, rand_ring_interface:com_139);
+                if_sethide(false, rand_ring_interface:upgrade_ring_a);
             }
             if (%varplayerbit_8060 = 10) {
-                if_sethide(true, rand_ring_interface:com_46);
+                if_sethide(true, rand_ring_interface:upgrade_ring_b);
             } else {
-                if_sethide(false, rand_ring_interface:com_46);
+                if_sethide(false, rand_ring_interface:upgrade_ring_b);
             }
             if (%varplayerbit_8061 = 10) {
-                if_sethide(true, rand_ring_interface:com_88);
+                if_sethide(true, rand_ring_interface:upgrade_ring_c);
             } else {
-                if_sethide(false, rand_ring_interface:com_88);
+                if_sethide(false, rand_ring_interface:upgrade_ring_c);
             }
         case 4 :
             if (%varplayerbit_8062 = 10) {
-                if_sethide(true, rand_ring_interface:com_139);
+                if_sethide(true, rand_ring_interface:upgrade_ring_a);
             } else {
-                if_sethide(false, rand_ring_interface:com_139);
+                if_sethide(false, rand_ring_interface:upgrade_ring_a);
             }
             if (%varplayerbit_8063 = 10) {
-                if_sethide(true, rand_ring_interface:com_46);
+                if_sethide(true, rand_ring_interface:upgrade_ring_b);
             } else {
-                if_sethide(false, rand_ring_interface:com_46);
+                if_sethide(false, rand_ring_interface:upgrade_ring_b);
             }
             if (%varplayerbit_8064 = 10) {
-                if_sethide(true, rand_ring_interface:com_88);
+                if_sethide(true, rand_ring_interface:upgrade_ring_c);
             } else {
-                if_sethide(false, rand_ring_interface:com_88);
+                if_sethide(false, rand_ring_interface:upgrade_ring_c);
             }
     }
-    if_setposition(if_getx(rand_ring_interface:com_112), calc(if_gety(rand_ring_interface:com_112) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_112);
-    if_setposition(if_getx(rand_ring_interface:com_27), calc(if_gety(rand_ring_interface:com_27) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_27);
-    if_setposition(if_getx(rand_ring_interface:com_26), calc(if_gety(rand_ring_interface:com_26) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_26);
+    if_setposition(if_getx(rand_ring_interface:ring_a_layer), calc(if_gety(rand_ring_interface:ring_a_layer) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_a_layer);
+    if_setposition(if_getx(rand_ring_interface:ring_b_layer), calc(if_gety(rand_ring_interface:ring_b_layer) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_b_layer);
+    if_setposition(if_getx(rand_ring_interface:ring_c_layer), calc(if_gety(rand_ring_interface:ring_c_layer) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_c_layer);
     %varclient_1186 = calc(1 + %varclient_1186);
 } else if (%varclient_1186 < 33) {
-    if_setposition(if_getx(rand_ring_interface:com_27), calc(if_gety(rand_ring_interface:com_27) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_27);
-    if_setposition(if_getx(rand_ring_interface:com_26), calc(if_gety(rand_ring_interface:com_26) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_26);
+    if_setposition(if_getx(rand_ring_interface:ring_b_layer), calc(if_gety(rand_ring_interface:ring_b_layer) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_b_layer);
+    if_setposition(if_getx(rand_ring_interface:ring_c_layer), calc(if_gety(rand_ring_interface:ring_c_layer) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_c_layer);
     %varclient_1186 = calc(1 + %varclient_1186);
 } else if (%varclient_1186 < 49) {
-    if_setposition(if_getx(rand_ring_interface:com_26), calc(if_gety(rand_ring_interface:com_26) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_26);
+    if_setposition(if_getx(rand_ring_interface:ring_c_layer), calc(if_gety(rand_ring_interface:ring_c_layer) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_c_layer);
     %varclient_1186 = calc(1 + %varclient_1186);
 } else if (%varclient_1186 < 69) {
     $int1 = scale(calc(%varclient_1186 - 48), 20, 100);
     switch_int (%varclient_1184) {
         case 1 :
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8053 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_160);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8053 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_a_bar_actual);
             if (%varplayerbit_8053 = 10) {
-                if_sethide(true, rand_ring_interface:com_139);
+                if_sethide(true, rand_ring_interface:upgrade_ring_a);
             } else {
-                if_sethide(false, rand_ring_interface:com_139);
+                if_sethide(false, rand_ring_interface:upgrade_ring_a);
             }
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8054 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_67);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8054 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_b_bar_actual);
             if (%varplayerbit_8054 = 10) {
-                if_sethide(true, rand_ring_interface:com_46);
+                if_sethide(true, rand_ring_interface:upgrade_ring_b);
             } else {
-                if_sethide(false, rand_ring_interface:com_46);
+                if_sethide(false, rand_ring_interface:upgrade_ring_b);
             }
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8055 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_109);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8055 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_c_bar_actual);
             if (%varplayerbit_8055 = 10) {
-                if_sethide(true, rand_ring_interface:com_88);
+                if_sethide(true, rand_ring_interface:upgrade_ring_c);
             } else {
-                if_sethide(false, rand_ring_interface:com_88);
+                if_sethide(false, rand_ring_interface:upgrade_ring_c);
             }
         case 2 :
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8056 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_160);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8056 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_a_bar_actual);
             if (%varplayerbit_8056 = 10) {
-                if_sethide(true, rand_ring_interface:com_139);
+                if_sethide(true, rand_ring_interface:upgrade_ring_a);
             } else {
-                if_sethide(false, rand_ring_interface:com_139);
+                if_sethide(false, rand_ring_interface:upgrade_ring_a);
             }
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8057 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_67);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8057 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_b_bar_actual);
             if (%varplayerbit_8057 = 10) {
-                if_sethide(true, rand_ring_interface:com_46);
+                if_sethide(true, rand_ring_interface:upgrade_ring_b);
             } else {
-                if_sethide(false, rand_ring_interface:com_46);
+                if_sethide(false, rand_ring_interface:upgrade_ring_b);
             }
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8058 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_109);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8058 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_c_bar_actual);
             if (%varplayerbit_8058 = 10) {
-                if_sethide(true, rand_ring_interface:com_88);
+                if_sethide(true, rand_ring_interface:upgrade_ring_c);
             } else {
-                if_sethide(false, rand_ring_interface:com_88);
+                if_sethide(false, rand_ring_interface:upgrade_ring_c);
             }
         case 3 :
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8059 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_160);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8059 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_a_bar_actual);
             if (%varplayerbit_8059 = 10) {
-                if_sethide(true, rand_ring_interface:com_139);
+                if_sethide(true, rand_ring_interface:upgrade_ring_a);
             } else {
-                if_sethide(false, rand_ring_interface:com_139);
+                if_sethide(false, rand_ring_interface:upgrade_ring_a);
             }
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8060 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_67);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8060 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_b_bar_actual);
             if (%varplayerbit_8060 = 10) {
-                if_sethide(true, rand_ring_interface:com_46);
+                if_sethide(true, rand_ring_interface:upgrade_ring_b);
             } else {
-                if_sethide(false, rand_ring_interface:com_46);
+                if_sethide(false, rand_ring_interface:upgrade_ring_b);
             }
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8061 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_109);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8061 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_c_bar_actual);
             if (%varplayerbit_8061 = 10) {
-                if_sethide(true, rand_ring_interface:com_88);
+                if_sethide(true, rand_ring_interface:upgrade_ring_c);
             } else {
-                if_sethide(false, rand_ring_interface:com_88);
+                if_sethide(false, rand_ring_interface:upgrade_ring_c);
             }
         case 4 :
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8062 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_160);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8062 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_a_bar_actual);
             if (%varplayerbit_8062 = 10) {
-                if_sethide(true, rand_ring_interface:com_139);
+                if_sethide(true, rand_ring_interface:upgrade_ring_a);
             } else {
-                if_sethide(false, rand_ring_interface:com_139);
+                if_sethide(false, rand_ring_interface:upgrade_ring_a);
             }
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8063 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_67);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8063 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_b_bar_actual);
             if (%varplayerbit_8063 = 10) {
-                if_sethide(true, rand_ring_interface:com_46);
+                if_sethide(true, rand_ring_interface:upgrade_ring_b);
             } else {
-                if_sethide(false, rand_ring_interface:com_46);
+                if_sethide(false, rand_ring_interface:upgrade_ring_b);
             }
-            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8064 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_109);
+            if_setsize(scale(scale(16384, 100, calc(%varplayerbit_8064 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_c_bar_actual);
             if (%varplayerbit_8064 = 10) {
-                if_sethide(true, rand_ring_interface:com_88);
+                if_sethide(true, rand_ring_interface:upgrade_ring_c);
             } else {
-                if_sethide(false, rand_ring_interface:com_88);
+                if_sethide(false, rand_ring_interface:upgrade_ring_c);
             }
     }
     %varclient_1186 = calc(1 + %varclient_1186);

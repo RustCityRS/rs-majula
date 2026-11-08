@@ -1,8 +1,0 @@
-// 2873
-[clientscript,setintminimenu]
-if (%varplayerbit_7078 = 0) {
-    if_setgraphic("music_header_icons,3", music_v3:com_10);
-} else {
-    if_setgraphic("music_header_icons,2", music_v3:com_10);
-}
-%varclient_2 = 0;

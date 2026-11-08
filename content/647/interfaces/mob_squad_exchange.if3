@@ -9,7 +9,7 @@ transmitop=10
 op10=  
 
 // 292:1
-[com_1]
+[background_1]
 type=graphic
 x=17
 y=26
@@ -24,7 +24,7 @@ opbase=
 op10=   
 
 // 292:2
-[com_2]
+[left_side]
 type=graphic
 y=26
 width=39
@@ -38,7 +38,7 @@ opbase=
 op10=   
 
 // 292:3
-[com_3]
+[right_side]
 type=graphic
 x=479
 y=26
@@ -53,7 +53,7 @@ opbase=
 op10=   
 
 // 292:4
-[com_4]
+[bottom]
 type=graphic
 x=16
 y=331
@@ -67,7 +67,7 @@ transmitop=10
 op10=   
 
 // 292:5
-[com_5]
+[top]
 type=graphic
 x=14
 y=10
@@ -82,7 +82,7 @@ opbase=
 op10=   
 
 // 292:6
-[com_6]
+[bottom_right]
 type=graphic
 x=467
 y=319
@@ -96,7 +96,7 @@ opbase=
 op10=   
 
 // 292:7
-[com_7]
+[bottom_left]
 type=graphic
 x=13
 y=319
@@ -109,7 +109,7 @@ transmitop=10
 op10=   
 
 // 292:8
-[com_8]
+[top_left]
 type=graphic
 x=13
 y=23
@@ -123,7 +123,7 @@ opbase=
 op10=   
 
 // 292:9
-[com_9]
+[top_right]
 type=graphic
 x=467
 y=23
@@ -137,7 +137,7 @@ opbase=
 op10=   
 
 // 292:10
-[com_10]
+[title_bar]
 type=graphic
 x=16
 y=38
@@ -151,7 +151,7 @@ transmitop=10
 op10=   
 
 // 292:11
-[com_11]
+[left_joint]
 type=graphic
 x=13
 y=40
@@ -165,7 +165,7 @@ transmitop=10
 op10=   
 
 // 292:12
-[com_12]
+[right_joint]
 type=graphic
 x=467
 y=40
@@ -179,7 +179,7 @@ transmitop=10
 op10=   
 
 // 292:13
-[com_13]
+[close_button]
 type=graphic
 x=471
 y=32
@@ -196,7 +196,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 292:14
-[com_14]
+[title]
 type=text
 x=23
 y=32
@@ -213,7 +213,7 @@ transmitop=10
 op10=  
 
 // 292:15
-[com_15]
+[content]
 type=layer
 x=17
 y=39
@@ -223,26 +223,26 @@ scrollheight=500
 onload=script2569
 
 // 292:16
-[com_16]
+[squad1]
 type=layer
 x=2
 y=1
 width=135
 height=40
-layer=com_15
+layer=content
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 onop=script2571(0)
 
 // 292:17
-[com_17]
+[squad2]
 type=layer
 x=2
 y=44
 width=135
 height=40
-layer=com_15
+layer=content
 transmitop=1,10
 op1=Select
 op10= 
@@ -250,13 +250,13 @@ opcursor0=cursor_46
 onop=script2571(1)
 
 // 292:18
-[com_18]
+[squad3]
 type=layer
 x=2
 y=87
 width=135
 height=40
-layer=com_15
+layer=content
 transmitop=1,10
 op1=Select
 op10= 
@@ -264,13 +264,13 @@ opcursor0=cursor_46
 onop=script2571(2)
 
 // 292:19
-[com_19]
+[squad4]
 type=layer
 x=2
 y=130
 width=135
 height=40
-layer=com_15
+layer=content
 transmitop=1,10
 op1=Select
 op10= 
@@ -278,13 +278,13 @@ opcursor0=cursor_46
 onop=script2571(3)
 
 // 292:20
-[com_20]
+[squad5]
 type=layer
 x=2
 y=173
 width=135
 height=40
-layer=com_15
+layer=content
 transmitop=1,10
 op1=Select
 op10= 
@@ -292,13 +292,13 @@ opcursor0=cursor_46
 onop=script2571(4)
 
 // 292:21
-[com_21]
+[squad6]
 type=layer
 x=140
 y=1
 width=135
 height=40
-layer=com_15
+layer=content
 transmitop=1,10
 op1=Select
 op10= 
@@ -306,13 +306,13 @@ opcursor0=cursor_46
 onop=script2571(5)
 
 // 292:22
-[com_22]
+[squad7]
 type=layer
 x=140
 y=44
 width=135
 height=40
-layer=com_15
+layer=content
 transmitop=1,10
 op1=Select
 op10= 
@@ -320,13 +320,13 @@ opcursor0=cursor_46
 onop=script2571(6)
 
 // 292:23
-[com_23]
+[squad8]
 type=layer
 x=140
 y=87
 width=135
 height=40
-layer=com_15
+layer=content
 transmitop=1,10
 op1=Select
 op10= 
@@ -334,13 +334,13 @@ opcursor0=cursor_46
 onop=script2571(7)
 
 // 292:24
-[com_24]
+[squad9]
 type=layer
 x=140
 y=130
 width=135
 height=40
-layer=com_15
+layer=content
 transmitop=1,10
 op1=Select
 op10= 
@@ -348,13 +348,13 @@ opcursor0=cursor_46
 onop=script2571(8)
 
 // 292:25
-[com_25]
+[squad10]
 type=layer
 x=140
 y=173
 width=135
 height=40
-layer=com_15
+layer=content
 transmitop=1,10
 op1=Select
 op10= 
@@ -362,37 +362,37 @@ opcursor0=cursor_46
 onop=script2571(9)
 
 // 292:26
-[com_26]
+[button_back1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_16
+layer=squad1
 colour=0x000000
 fill=yes
 trans=196
 
 // 292:27
-[com_27]
+[list_squad1]
 type=text
 x=4
 y=3
 width=80
 height=20
-layer=com_16
+layer=squad1
 textfont=p12_full
 textshadow=yes
 colour=0xff9935
 
 // 292:28
-[com_28]
+[squad_cost1]
 type=text
 x=4
 y=22
 width=80
 height=20
-layer=com_16
+layer=squad1
 textfont=p11_full
 text=Cost: 999999
 textshadow=yes
@@ -405,7 +405,7 @@ x=113
 y=4
 width=16
 height=16
-layer=com_16
+layer=squad1
 graphic=graphic_2016
 colour=0xffffffff
 
@@ -416,38 +416,38 @@ x=90
 y=1
 width=20
 height=20
-layer=com_16
+layer=squad1
 graphic=graphic_2023
 colour=0xffffffff
 
 // 292:31
-[com_31]
+[list_outer1]
 type=rectangle
 width=23065
 height=24992
 widthmode=proportion
 heightmode=proportion
-layer=com_16
+layer=squad1
 colour=0x000000
 
 // 292:32
-[com_32]
+[border1]
 type=rectangle
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_16
+layer=squad1
 colour=0xff0033
 
 // 292:33
-[com_33]
+[button_back10]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_25
+layer=squad10
 colour=0x000000
 fill=yes
 trans=196
@@ -455,13 +455,13 @@ transmitop=10
 op10= 
 
 // 292:34
-[com_34]
+[list_squad10]
 type=text
 x=4
 y=3
 width=80
 height=20
-layer=com_25
+layer=squad10
 textfont=p12_full
 textshadow=yes
 colour=0xff9935
@@ -469,13 +469,13 @@ transmitop=10
 op10= 
 
 // 292:35
-[com_35]
+[squad_cost10]
 type=text
 x=4
 y=22
 width=80
 height=20
-layer=com_25
+layer=squad10
 textfont=p11_full
 text=Cost: 999999
 textshadow=yes
@@ -490,7 +490,7 @@ x=113
 y=4
 width=16
 height=16
-layer=com_25
+layer=squad10
 graphic=graphic_2016
 colour=0xffffffff
 transmitop=10
@@ -503,44 +503,44 @@ x=90
 y=1
 width=20
 height=20
-layer=com_25
+layer=squad10
 graphic=graphic_2023
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 292:38
-[com_38]
+[list_outer10]
 type=rectangle
 width=23065
 height=24992
 widthmode=proportion
 heightmode=proportion
-layer=com_25
+layer=squad10
 colour=0x000000
 transmitop=10
 op10= 
 
 // 292:39
-[com_39]
+[border10]
 type=rectangle
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_25
+layer=squad10
 colour=0x666666
 transmitop=10
 op10= 
 
 // 292:40
-[com_40]
+[button_back9]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_24
+layer=squad9
 colour=0x000000
 fill=yes
 trans=196
@@ -548,13 +548,13 @@ transmitop=10
 op10= 
 
 // 292:41
-[com_41]
+[list_squad9]
 type=text
 x=4
 y=3
 width=80
 height=20
-layer=com_24
+layer=squad9
 textfont=p12_full
 textshadow=yes
 colour=0xff9935
@@ -562,13 +562,13 @@ transmitop=10
 op10= 
 
 // 292:42
-[com_42]
+[squad_cost9]
 type=text
 x=4
 y=22
 width=80
 height=20
-layer=com_24
+layer=squad9
 textfont=p11_full
 text=Cost: 999999
 textshadow=yes
@@ -583,7 +583,7 @@ x=113
 y=4
 width=16
 height=16
-layer=com_24
+layer=squad9
 graphic=graphic_2016
 colour=0xffffffff
 transmitop=10
@@ -596,44 +596,44 @@ x=90
 y=1
 width=20
 height=20
-layer=com_24
+layer=squad9
 graphic=graphic_2023
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 292:45
-[com_45]
+[list_outer9]
 type=rectangle
 width=23065
 height=24992
 widthmode=proportion
 heightmode=proportion
-layer=com_24
+layer=squad9
 colour=0x000000
 transmitop=10
 op10= 
 
 // 292:46
-[com_46]
+[border9]
 type=rectangle
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_24
+layer=squad9
 colour=0x666666
 transmitop=10
 op10= 
 
 // 292:47
-[com_47]
+[button_back8]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=squad8
 colour=0x000000
 fill=yes
 trans=196
@@ -641,13 +641,13 @@ transmitop=10
 op10= 
 
 // 292:48
-[com_48]
+[list_squad8]
 type=text
 x=4
 y=3
 width=80
 height=20
-layer=com_23
+layer=squad8
 textfont=p12_full
 textshadow=yes
 colour=0xff9935
@@ -655,13 +655,13 @@ transmitop=10
 op10= 
 
 // 292:49
-[com_49]
+[squad_cost8]
 type=text
 x=4
 y=22
 width=80
 height=20
-layer=com_23
+layer=squad8
 textfont=p11_full
 text=Cost: 999999
 textshadow=yes
@@ -676,7 +676,7 @@ x=113
 y=4
 width=16
 height=16
-layer=com_23
+layer=squad8
 graphic=graphic_2016
 colour=0xffffffff
 transmitop=10
@@ -689,44 +689,44 @@ x=90
 y=1
 width=20
 height=20
-layer=com_23
+layer=squad8
 graphic=graphic_2023
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 292:52
-[com_52]
+[list_outer8]
 type=rectangle
 width=23065
 height=24992
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=squad8
 colour=0x000000
 transmitop=10
 op10= 
 
 // 292:53
-[com_53]
+[border8]
 type=rectangle
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_23
+layer=squad8
 colour=0x666666
 transmitop=10
 op10= 
 
 // 292:54
-[com_54]
+[button_back7]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_22
+layer=squad7
 colour=0x000000
 fill=yes
 trans=196
@@ -734,13 +734,13 @@ transmitop=10
 op10= 
 
 // 292:55
-[com_55]
+[list_squad7]
 type=text
 x=4
 y=3
 width=80
 height=20
-layer=com_22
+layer=squad7
 textfont=p12_full
 textshadow=yes
 colour=0xff9935
@@ -748,13 +748,13 @@ transmitop=10
 op10= 
 
 // 292:56
-[com_56]
+[squad_cost7]
 type=text
 x=4
 y=22
 width=80
 height=20
-layer=com_22
+layer=squad7
 textfont=p11_full
 text=Cost: 999999
 textshadow=yes
@@ -769,7 +769,7 @@ x=113
 y=4
 width=16
 height=16
-layer=com_22
+layer=squad7
 graphic=graphic_2016
 colour=0xffffffff
 transmitop=10
@@ -782,44 +782,44 @@ x=90
 y=1
 width=20
 height=20
-layer=com_22
+layer=squad7
 graphic=graphic_2023
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 292:59
-[com_59]
+[list_outer7]
 type=rectangle
 width=23065
 height=24992
 widthmode=proportion
 heightmode=proportion
-layer=com_22
+layer=squad7
 colour=0x000000
 transmitop=10
 op10= 
 
 // 292:60
-[com_60]
+[border7]
 type=rectangle
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_22
+layer=squad7
 colour=0x666666
 transmitop=10
 op10= 
 
 // 292:61
-[com_61]
+[button_back6]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_21
+layer=squad6
 colour=0x000000
 fill=yes
 trans=196
@@ -827,13 +827,13 @@ transmitop=10
 op10= 
 
 // 292:62
-[com_62]
+[list_squad6]
 type=text
 x=4
 y=3
 width=80
 height=20
-layer=com_21
+layer=squad6
 textfont=p12_full
 textshadow=yes
 colour=0xff9935
@@ -841,13 +841,13 @@ transmitop=10
 op10= 
 
 // 292:63
-[com_63]
+[squad_cost6]
 type=text
 x=4
 y=22
 width=80
 height=20
-layer=com_21
+layer=squad6
 textfont=p11_full
 text=Cost: 999999
 textshadow=yes
@@ -862,7 +862,7 @@ x=113
 y=4
 width=16
 height=16
-layer=com_21
+layer=squad6
 graphic=graphic_2016
 colour=0xffffffff
 transmitop=10
@@ -875,44 +875,44 @@ x=90
 y=1
 width=20
 height=20
-layer=com_21
+layer=squad6
 graphic=graphic_2023
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 292:66
-[com_66]
+[list_outer6]
 type=rectangle
 width=23065
 height=24992
 widthmode=proportion
 heightmode=proportion
-layer=com_21
+layer=squad6
 colour=0x000000
 transmitop=10
 op10= 
 
 // 292:67
-[com_67]
+[border6]
 type=rectangle
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=squad6
 colour=0x666666
 transmitop=10
 op10= 
 
 // 292:68
-[com_68]
+[button_back5]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_20
+layer=squad5
 colour=0x000000
 fill=yes
 trans=196
@@ -920,13 +920,13 @@ transmitop=10
 op10= 
 
 // 292:69
-[com_69]
+[list_squad5]
 type=text
 x=4
 y=3
 width=80
 height=20
-layer=com_20
+layer=squad5
 textfont=p12_full
 textshadow=yes
 colour=0xff9935
@@ -934,13 +934,13 @@ transmitop=10
 op10= 
 
 // 292:70
-[com_70]
+[squad_cost5]
 type=text
 x=4
 y=22
 width=80
 height=20
-layer=com_20
+layer=squad5
 textfont=p11_full
 text=Cost: 999999
 textshadow=yes
@@ -955,7 +955,7 @@ x=113
 y=4
 width=16
 height=16
-layer=com_20
+layer=squad5
 graphic=graphic_2016
 colour=0xffffffff
 transmitop=10
@@ -968,44 +968,44 @@ x=90
 y=1
 width=20
 height=20
-layer=com_20
+layer=squad5
 graphic=graphic_2023
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 292:73
-[com_73]
+[list_outer5]
 type=rectangle
 width=23065
 height=24992
 widthmode=proportion
 heightmode=proportion
-layer=com_20
+layer=squad5
 colour=0x000000
 transmitop=10
 op10= 
 
 // 292:74
-[com_74]
+[border5]
 type=rectangle
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_20
+layer=squad5
 colour=0x666666
 transmitop=10
 op10= 
 
 // 292:75
-[com_75]
+[button_back4]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_19
+layer=squad4
 colour=0x000000
 fill=yes
 trans=196
@@ -1013,13 +1013,13 @@ transmitop=10
 op10= 
 
 // 292:76
-[com_76]
+[list_squad4]
 type=text
 x=4
 y=3
 width=80
 height=20
-layer=com_19
+layer=squad4
 textfont=p12_full
 textshadow=yes
 colour=0xff9935
@@ -1027,13 +1027,13 @@ transmitop=10
 op10= 
 
 // 292:77
-[com_77]
+[squad_cost4]
 type=text
 x=4
 y=22
 width=80
 height=20
-layer=com_19
+layer=squad4
 textfont=p11_full
 text=Cost: 999999
 textshadow=yes
@@ -1048,57 +1048,57 @@ x=113
 y=4
 width=16
 height=16
-layer=com_19
+layer=squad4
 graphic=graphic_2016
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 292:79
-[com_79]
+[databox_reports]
 type=graphic
 x=90
 y=1
 width=20
 height=20
-layer=com_19
+layer=squad4
 graphic=graphic_2023
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 292:80
-[com_80]
+[list_outer4]
 type=rectangle
 width=23065
 height=24992
 widthmode=proportion
 heightmode=proportion
-layer=com_19
+layer=squad4
 colour=0x000000
 transmitop=10
 op10= 
 
 // 292:81
-[com_81]
+[border4]
 type=rectangle
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_19
+layer=squad4
 colour=0x666666
 transmitop=10
 op10= 
 
 // 292:82
-[com_82]
+[button_back3]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_18
+layer=squad3
 colour=0x000000
 fill=yes
 trans=196
@@ -1106,13 +1106,13 @@ transmitop=10
 op10= 
 
 // 292:83
-[com_83]
+[list_squad3]
 type=text
 x=4
 y=3
 width=80
 height=20
-layer=com_18
+layer=squad3
 textfont=p12_full
 textshadow=yes
 colour=0xff9935
@@ -1120,13 +1120,13 @@ transmitop=10
 op10= 
 
 // 292:84
-[com_84]
+[squad_cost3]
 type=text
 x=4
 y=22
 width=80
 height=20
-layer=com_18
+layer=squad3
 textfont=p11_full
 text=Cost: 999999
 textshadow=yes
@@ -1141,7 +1141,7 @@ x=113
 y=4
 width=16
 height=16
-layer=com_18
+layer=squad3
 graphic=graphic_2016
 colour=0xffffffff
 transmitop=10
@@ -1154,44 +1154,44 @@ x=90
 y=1
 width=20
 height=20
-layer=com_18
+layer=squad3
 graphic=graphic_2023
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 292:87
-[com_87]
+[list_outer3]
 type=rectangle
 width=23065
 height=24992
 widthmode=proportion
 heightmode=proportion
-layer=com_18
+layer=squad3
 colour=0x000000
 transmitop=10
 op10= 
 
 // 292:88
-[com_88]
+[border3]
 type=rectangle
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_18
+layer=squad3
 colour=0x666666
 transmitop=10
 op10= 
 
 // 292:89
-[com_89]
+[button_back2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_17
+layer=squad2
 colour=0x000000
 fill=yes
 trans=196
@@ -1199,13 +1199,13 @@ transmitop=10
 op10= 
 
 // 292:90
-[com_90]
+[list_squad2]
 type=text
 x=4
 y=3
 width=80
 height=20
-layer=com_17
+layer=squad2
 textfont=p12_full
 textshadow=yes
 colour=0xff9935
@@ -1213,13 +1213,13 @@ transmitop=10
 op10= 
 
 // 292:91
-[com_91]
+[squad_cost2]
 type=text
 x=4
 y=22
 width=80
 height=20
-layer=com_17
+layer=squad2
 textfont=p11_full
 text=Cost: 999999
 textshadow=yes
@@ -1234,7 +1234,7 @@ x=113
 y=4
 width=16
 height=16
-layer=com_17
+layer=squad2
 graphic=graphic_2016
 colour=0xffffffff
 transmitop=10
@@ -1247,75 +1247,75 @@ x=90
 y=1
 width=20
 height=20
-layer=com_17
+layer=squad2
 graphic=graphic_2023
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 292:94
-[com_94]
+[list_outer2]
 type=rectangle
 width=23065
 height=24992
 widthmode=proportion
 heightmode=proportion
-layer=com_17
+layer=squad2
 colour=0x000000
 transmitop=10
 op10= 
 
 // 292:95
-[com_95]
+[border2]
 type=rectangle
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=squad2
 colour=0x666666
 transmitop=10
 op10= 
 
 // 292:96
-[com_96]
+[squad]
 type=layer
 x=2
 y=1
 width=190
 height=212
 xmode=abs_right
-layer=com_15
+layer=content
 onvartransmit=script2572{varplayer_1452, varplayer_1453, varplayer_1454, varplayer_1455}
 
 // 292:97
-[com_97]
+[outer]
 type=rectangle
 width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_96
+layer=squad
 colour=0x000000
 
 // 292:98
-[com_98]
+[inner]
 type=rectangle
 width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_96
+layer=squad
 colour=0x666666
 
 // 292:99
-[com_99]
+[squad_name]
 type=text
 x=42
 y=3
 width=146
 height=33
-layer=com_96
+layer=squad
 textfont=b12_full
 text=Squad Name
 textalignv=centre
@@ -1323,13 +1323,13 @@ textshadow=yes
 colour=0xff9935
 
 // 292:100
-[com_100]
+[total_text]
 type=text
 x=11
 y=187
 width=100
 height=18
-layer=com_96
+layer=squad
 textfont=p12_full
 text=Squad changes cost:
 textalignv=centre
@@ -1337,13 +1337,13 @@ textshadow=yes
 colour=0xff9935
 
 // 292:101
-[com_101]
+[total]
 type=text
 x=131
 y=187
 width=50
 height=18
-layer=com_96
+layer=squad
 textfont=p11_full
 text=9999
 textalignh=right
@@ -1358,7 +1358,7 @@ x=21
 y=91
 width=15
 height=15
-layer=com_96
+layer=squad
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -1372,7 +1372,7 @@ x=49
 y=91
 width=15
 height=15
-layer=com_96
+layer=squad
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -1386,7 +1386,7 @@ x=76
 y=91
 width=15
 height=15
-layer=com_96
+layer=squad
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -1400,51 +1400,51 @@ x=48
 y=70
 width=16
 height=16
-layer=com_96
+layer=squad
 graphic=graphic_2017
 colour=0xffffffff
 
 // 292:106
-[com_106]
+[race_dwarf]
 type=graphic
 x=20
 y=70
 width=16
 height=16
-layer=com_96
+layer=squad
 graphic=graphic_2016
 colour=0xffffffff
 
 // 292:107
-[com_107]
+[race_goblin]
 type=graphic
 x=75
 y=70
 width=16
 height=16
-layer=com_96
+layer=squad
 graphic=graphic_2018
 colour=0xffffffff
 
 // 292:108
-[com_108]
+[class_light]
 type=graphic
 x=118
 y=67
 width=20
 height=20
-layer=com_96
+layer=squad
 graphic=graphic_2023
 colour=0xffffffff
 
 // 292:109
-[com_109]
+[class_heavy]
 type=graphic
 x=151
 y=67
 width=20
 height=20
-layer=com_96
+layer=squad
 graphic=graphic_2022
 colour=0xffffffff
 
@@ -1455,7 +1455,7 @@ x=120
 y=91
 width=15
 height=15
-layer=com_96
+layer=squad
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -1469,7 +1469,7 @@ x=152
 y=91
 width=15
 height=15
-layer=com_96
+layer=squad
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -1477,24 +1477,24 @@ op1=Select Heavy
 onop=script2589(event_com)
 
 // 292:112
-[com_112]
+[squad_graphic]
 type=graphic
 x=7
 y=1
 width=36
 height=32
-layer=com_96
+layer=squad
 graphic=graphic_1892
 colour=0xffffffff
 
 // 292:113
-[com_113]
+[resupply]
 type=graphic
 x=57
 y=124
 width=19
 height=19
-layer=com_96
+layer=squad
 graphic="warning_icons,1"
 colour=0xffffffff
 transmitop=1
@@ -1502,13 +1502,13 @@ op1=Select Resupply
 onop=script2592(event_com)
 
 // 292:114
-[com_114]
+[resupply_text]
 type=text
 x=77
 y=124
 width=65
 height=20
-layer=com_96
+layer=squad
 textfont=p12_full
 text=Resupply
 textalignv=centre
@@ -1516,22 +1516,22 @@ textshadow=yes
 colour=0xff9935
 
 // 292:115
-[com_115]
+[divider]
 type=line
 x=10
 y=174
 width=167
-layer=com_96
+layer=squad
 colour=0x000000
 
 // 292:116
-[com_116]
+[class_text]
 type=text
 x=113
 y=50
 width=60
 height=20
-layer=com_96
+layer=squad
 textfont=p12_full
 text=Class
 textalignv=centre
@@ -1539,13 +1539,13 @@ textshadow=yes
 colour=0xff9935
 
 // 292:117
-[com_117]
+[race_text]
 type=text
 x=20
 y=50
 width=80
 height=20
-layer=com_96
+layer=squad
 textfont=p12_full
 text=Race
 textalignv=centre
@@ -1553,7 +1553,7 @@ textshadow=yes
 colour=0xff9935
 
 // 292:118
-[com_118]
+[bottom_bar]
 type=layer
 x=17
 y=285
@@ -1561,13 +1561,13 @@ width=474
 height=39
 
 // 292:119
-[com_119]
+[resupply_all]
 type=layer
 x=2
 y=1
 width=110
 height=36
-layer=com_118
+layer=bottom_bar
 transmitop=1
 op1=Resupply All
 onload=v2_stone_button(event_com)
@@ -1576,13 +1576,13 @@ onmouseleave=v2_stone_button(event_com)
 onop=script2603
 
 // 292:120
-[com_120]
+[reset]
 type=layer
 x=380
 y=1
 width=40
 height=36
-layer=com_118
+layer=bottom_bar
 transmitop=1
 op1=Reset
 onload=v2_stone_button(event_com)
@@ -1591,24 +1591,24 @@ onmouseleave=v2_stone_button(event_com)
 onop=script2604
 
 // 292:121
-[com_121]
+[reset_graphic]
 type=graphic
 width=28
 height=28
 xmode=abs_centre
 ymode=abs_centre
-layer=com_120
+layer=reset
 graphic="mob_exchange_tick,2"
 colour=0xffffffff
 
 // 292:122
-[com_122]
+[apply]
 type=layer
 x=428
 y=1
 width=40
 height=36
-layer=com_118
+layer=bottom_bar
 transmitop=1
 op1=Apply Changes
 onload=v2_stone_button(event_com)
@@ -1617,18 +1617,18 @@ onmouseleave=v2_stone_button(event_com)
 onop=script2605
 
 // 292:123
-[com_123]
+[apply_graphic]
 type=graphic
 width=28
 height=28
 xmode=abs_centre
 ymode=abs_centre
-layer=com_122
+layer=apply
 graphic="mob_exchange_tick,0"
 colour=0xffffffff
 
 // 292:124
-[com_124]
+[resupply_all_text]
 type=text
 width=16384
 height=16384
@@ -1636,7 +1636,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_119
+layer=resupply_all
 textfont=b12_full
 text=Resupply All
 textalignh=centre
@@ -1645,7 +1645,7 @@ textshadow=yes
 colour=0xff9935
 
 // 292:125
-[com_125]
+[total_layer]
 type=layer
 x=16
 y=258
@@ -1654,13 +1654,13 @@ height=23
 onvartransmit=script2598{varplayer_1452, varplayer_1453, varplayer_1454, varplayer_1455, varplayer_1445}
 
 // 292:126
-[com_126]
+[grand_total_text]
 type=text
 x=10
 width=150
 height=20
 xmode=abs_right
-layer=com_125
+layer=total_layer
 textfont=p12_full
 text=99999
 textalignh=right
@@ -1669,13 +1669,13 @@ textshadow=yes
 colour=0xff9935
 
 // 292:127
-[com_127]
+[grand_total_title]
 type=text
 x=35
 width=150
 height=20
 xmode=abs_right
-layer=com_125
+layer=total_layer
 textfont=p12_full
 text=Total changes cost:
 textalignv=centre
@@ -1683,12 +1683,12 @@ textshadow=yes
 colour=0xff9935
 
 // 292:128
-[com_128]
+[investment_total_text]
 type=text
 x=5
 width=150
 height=20
-layer=com_125
+layer=total_layer
 textfont=p12_full
 text=Remaining investment credits: 9999999
 textalignv=centre
@@ -1696,16 +1696,16 @@ textshadow=yes
 colour=0xff9935
 
 // 292:129
-[com_129]
+[divider_totals]
 type=line
 x=4
 y=22
 width=465
-layer=com_125
+layer=total_layer
 colour=0x000000
 
 // 292:130
-[com_130]
+[confirm_layer]
 type=layer
 x=16
 y=37
@@ -1715,13 +1715,13 @@ hide=yes
 noclickthrough=yes
 
 // 292:131
-[com_131]
+[confirm_back]
 type=graphic
 width=16459
 height=18035
 widthmode=proportion
 heightmode=proportion
-layer=com_130
+layer=confirm_layer
 graphic=tradebacking
 tiling=yes
 trans=25
@@ -1731,13 +1731,13 @@ opbase=
 op10=   
 
 // 292:132
-[com_132]
+[confirm_text]
 type=text
 y=77
 width=326
 height=50
 xmode=abs_centre
-layer=com_130
+layer=confirm_layer
 textfont=b12_full
 textlineheight=15
 textalignh=centre
@@ -1746,27 +1746,27 @@ textshadow=yes
 colour=0xff9935
 
 // 292:133
-[com_133]
+[cancel_layer]
 type=layer
 x=-70
 y=167
 width=125
 height=36
 xmode=abs_centre
-layer=com_130
+layer=confirm_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 292:134
-[com_134]
+[confirm_reset_layer]
 type=layer
 x=70
 y=167
 width=125
 height=36
 xmode=abs_centre
-layer=com_130
+layer=confirm_layer
 transmitop=1
 op1=Reset All
 onload=v2_stone_button(event_com)
@@ -1782,7 +1782,7 @@ y=167
 width=125
 height=36
 xmode=abs_centre
-layer=com_130
+layer=confirm_layer
 transmitop=1
 op1=Resupply All
 onload=v2_stone_button(event_com)
@@ -1791,7 +1791,7 @@ onmouseleave=v2_stone_button(event_com)
 onop=script2600
 
 // 292:136
-[com_136]
+[confirm_resupply_all_text]
 type=text
 width=16391
 height=16384
@@ -1807,14 +1807,14 @@ colour=0xff9935
 onclick=script2600
 
 // 292:137
-[com_137]
+[confirm_apply]
 type=layer
 x=70
 y=167
 width=125
 height=36
 xmode=abs_centre
-layer=com_130
+layer=confirm_layer
 transmitop=1
 op1=Apply Changes
 onload=v2_stone_button(event_com)
@@ -1822,13 +1822,13 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 292:138
-[com_138]
+[confirm_apply_text]
 type=text
 width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_137
+layer=confirm_apply
 textfont=b12_full
 text=Apply Changes
 textalignh=centre
@@ -1844,7 +1844,7 @@ width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_134
+layer=confirm_reset_layer
 textfont=b12_full
 text=Reset All
 textalignh=centre
@@ -1854,13 +1854,13 @@ colour=0xff9935
 onclick=script2600
 
 // 292:140
-[com_140]
+[cancel_text]
 type=text
 width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_133
+layer=cancel_layer
 textfont=b12_full
 text=Cancel
 textalignh=centre

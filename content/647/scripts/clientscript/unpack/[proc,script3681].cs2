@@ -11,12 +11,12 @@ if ($int0 = %varplayerbit_7081 | $int0 = %varplayerbit_7082 | $int0 = %varplayer
     .cc_setgraphic("music_icons_new,1");
     .cc_setop(4, $string1);
     cc_setop(4, $string1);
-    .cc_setonmouserepeat("script1160(music_v3:com_1, event_comsubid, music_v3:com_16, $string1, 25, 189)");
-    .cc_setonmouseleave("deltooltip(music_v3:com_16)");
+    .cc_setonmouserepeat("script1160(music_v3:jukebox, event_comsubid, music_v3:music_tooltip_layer, $string1, 25, 189)");
+    .cc_setonmouseleave("deltooltip(music_v3:music_tooltip_layer)");
 } else {
     cc_setop(3, $string0);
     .cc_setop(3, $string0);
     .cc_setgraphic("music_icons_new,0");
-    .cc_setonmouserepeat("script1160(music_v3:com_1, event_comsubid, music_v3:com_16, $string0, 25, 189)");
-    .cc_setonmouseleave("deltooltip(music_v3:com_16)");
+    .cc_setonmouserepeat("script1160(music_v3:jukebox, event_comsubid, music_v3:music_tooltip_layer, $string0, 25, 189)");
+    .cc_setonmouseleave("deltooltip(music_v3:music_tooltip_layer)");
 }

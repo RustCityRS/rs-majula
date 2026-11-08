@@ -1,4 +1,4 @@
-[if_button,magic:charge]
+[if_button,magic:com_83]
 if_close;
 if (p_finduid(uid) = true) {
     if (%magearena < ^mage_arena_staff_given) {

@@ -7,13 +7,13 @@ if (%varclient_766 = 1) {
         if (if_gety($component0) < 170) {
             switch_int (%varclient_765) {
                 case 1 :
-                    if_setposition(if_getx(easter09_nuts:com_6), calc(if_gety(easter09_nuts:com_6) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_6);
+                    if_setposition(if_getx(easter09_nuts:model1), calc(if_gety(easter09_nuts:model1) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model1);
                 case 2 :
-                    if_setposition(if_getx(easter09_nuts:com_7), calc(if_gety(easter09_nuts:com_7) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_7);
+                    if_setposition(if_getx(easter09_nuts:model2), calc(if_gety(easter09_nuts:model2) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model2);
                 case 3 :
-                    if_setposition(if_getx(easter09_nuts:com_8), calc(if_gety(easter09_nuts:com_8) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_8);
+                    if_setposition(if_getx(easter09_nuts:model3), calc(if_gety(easter09_nuts:model3) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model3);
                 case 4 :
-                    if_setposition(if_getx(easter09_nuts:com_9), calc(if_gety(easter09_nuts:com_9) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_9);
+                    if_setposition(if_getx(easter09_nuts:model4), calc(if_gety(easter09_nuts:model4) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model4);
             }
         }
     } else {

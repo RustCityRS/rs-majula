@@ -24,11 +24,11 @@ if (add(%lastcombat, 8) > map_clock) {
     return;
 }
 ~random_event_gift_fill;
-inv_transmit(ame_rewards, ame_rewards:com_15);
+inv_transmit(ame_rewards, ame_rewards:menu);
 if_openmain(ame_rewards);
 // The choices are clientscript-built children of com_15 (choice * 7); the
 // client sends their ops only on the slots the server grants.
-if_setevents(ame_rewards:com_15, 0, 195, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
+if_setevents(ame_rewards:menu, 0, 195, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
 
 // "members are given a choice of 6-14 random items to choose from.
 // Non-members are given a choice of 4-11 items to choose from." 2011 offers
@@ -133,7 +133,7 @@ if ($event = ^macro_mime) {
 }
 return(false);
 
-[if_button1,ame_rewards:com_15]
+[if_button1,ame_rewards:menu]
 def_int $choice = divide(last_slot, 7);
 if ($choice < 0 | $choice >= inv_size(ame_rewards) | inv_getnum(ame_rewards, $choice) <= 0) {
     return;
@@ -176,7 +176,7 @@ if ($count > 1 & oc_stackable($reward) = false) {
 }
 inv_add(inv, $reward, $count);
 
-[if_button10,ame_rewards:com_15]
+[if_button10,ame_rewards:menu]
 def_int $choice = divide(last_slot, 7);
 if ($choice < 0 | $choice >= inv_size(ame_rewards) | inv_getnum(ame_rewards, $choice) <= 0) {
     return;

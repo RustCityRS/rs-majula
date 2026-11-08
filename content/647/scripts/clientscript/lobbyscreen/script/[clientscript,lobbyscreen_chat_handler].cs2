@@ -7,11 +7,11 @@ $int3, $int4, $int5 = ~lobbyscreen_chat_count;
 ~lobbyscreen_pane_friendslist_chat_build($component0);
 ~lobbyscreen_pane_clanchat_chat_build($component1);
 ~lobbyscreen_pane_friendschat_chat_build($component2);
-if (if_gethide(lobbyscreen:com_176) = true & $int3 > %varclient_1275) {
-    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:com_176, event_com)", lobbyscreen:com_190);
+if (if_gethide(lobbyscreen:friendslist_panel) = true & $int3 > %varclient_1275) {
+    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:friendslist_panel, event_com)", lobbyscreen:friendslist_tab);
 }
-if (if_gethide(lobbyscreen:com_178) = true & $int4 > %varclient_1276) {
-    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:com_178, event_com)", lobbyscreen:com_192);
+if (if_gethide(lobbyscreen:clanchat_panel) = true & $int4 > %varclient_1276) {
+    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:clanchat_panel, event_com)", lobbyscreen:clanchat_tab);
 }
 if (if_gethide(lobbyscreen:com_177) = true & $int5 > %varclient_1510) {
     if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:com_177, event_com)", lobbyscreen:com_191);

@@ -1,9 +1,9 @@
 // 2324
 [proc,script2324]
-def_component $component0 = easter09_nuts:com_9;
+def_component $component0 = easter09_nuts:model4;
 %varclient_764 = enum(int, model, enum_208, random(enum_getoutputcount(enum_208)));
 if (%varclient_764 ! null) {
     if_setmodel(%varclient_764, $component0);
 }
 if_setposition(calc(0 - if_getwidth($component0)), 120, ^setpos_abs_left, ^setpos_abs_top, $component0);
-if_setontimer(null, easter09_nuts:com_22);
+if_setontimer(null, easter09_nuts:control4);

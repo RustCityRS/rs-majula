@@ -5,7 +5,7 @@ width=141
 height=28
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=layer_1
 colour=0x000000
 fill=yes
 trans=160
@@ -19,7 +19,7 @@ width=140
 height=18
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=layer_1
 textfont=b12_full
 text=Windspeed:
 textalignh=right
@@ -27,7 +27,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 10:2
-[com_2]
+[int_deathmatch]
 type=text
 x=72
 y=1
@@ -35,14 +35,14 @@ width=50
 height=18
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=layer_1
 textfont=p12_full
 text=high
 textshadow=yes
 colour=0xe1981f
 
 // 10:3
-[com_3]
+[layer_1]
 type=layer
 x=-21
 width=190

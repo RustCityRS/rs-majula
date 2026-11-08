@@ -2,13 +2,13 @@
 [proc,bank_cert_button]
 def_string $string0 = "";
 if (%bankcert = 0) {
-    if_setgraphic("bank_buttons_new2,0", bank_v2_main:com_19);
-    if_setgraphic("bank_buttons_new1,4", bank_v2_main:com_20);
+    if_setgraphic("bank_buttons_new2,0", bank_v2_main:bank_cert_button);
+    if_setgraphic("bank_buttons_new1,4", bank_v2_main:bank_cert_icon);
     $string0 = "Switch to note withdrawal mode";
 } else {
-    if_setgraphic("bank_buttons_new2,2", bank_v2_main:com_19);
-    if_setgraphic("bank_buttons_new1,5", bank_v2_main:com_20);
+    if_setgraphic("bank_buttons_new2,2", bank_v2_main:bank_cert_button);
+    if_setgraphic("bank_buttons_new1,5", bank_v2_main:bank_cert_icon);
     $string0 = "Switch to item withdrawal mode";
 }
-if_setop(1, $string0, bank_v2_main:com_19);
-if_setonmouserepeat("addtooltip(event_com, bank_v2_main:com_119, $string0, 25, 150)", bank_v2_main:com_19);
+if_setop(1, $string0, bank_v2_main:bank_cert_button);
+if_setonmouserepeat("addtooltip(event_com, bank_v2_main:tooltip, $string0, 25, 150)", bank_v2_main:bank_cert_button);

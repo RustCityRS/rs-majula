@@ -1,5 +1,5 @@
 // 320:0
-[com_0]
+[bg_rect]
 type=rectangle
 widthmode=minus
 heightmode=minus
@@ -10,7 +10,7 @@ transmitop=10
 op10= 
 
 // 320:1
-[com_1]
+[attack]
 type=layer
 x=3
 y=5
@@ -18,7 +18,7 @@ width=60
 height=27
 
 // 320:2
-[com_2]
+[hitpoints]
 type=layer
 x=65
 y=5
@@ -28,7 +28,7 @@ transmitop=10
 op10= 
 
 // 320:3
-[com_3]
+[mining]
 type=layer
 x=127
 y=5
@@ -38,7 +38,7 @@ transmitop=10
 op10=  
 
 // 320:4
-[com_4]
+[strength]
 type=layer
 x=3
 y=33
@@ -48,23 +48,23 @@ transmitop=10
 op10= 
 
 // 320:5
-[com_5]
+[bg_strength]
 type=graphic
 width=60
 height=27
-layer=com_4
+layer=strength
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 320:6
-[com_6]
+[lvl_icon_strength]
 type=graphic
 x=1
 width=25
 height=25
-layer=com_4
+layer=strength
 graphic="staticons,1"
 colour=0xffffffff
 transmitop=10
@@ -73,13 +73,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:7
-[com_7]
+[stat_strength]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_4
+layer=strength
 textfont=p11_full
 text=50
 textalignh=centre
@@ -91,13 +91,13 @@ op10=
 onstattransmit=stats_stat(event_com, strength){strength}
 
 // 320:8
-[com_8]
+[statbase_strength]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_4
+layer=strength
 textfont=p11_full
 text=50
 textalignh=centre
@@ -115,7 +115,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_4
+layer=strength
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -128,18 +128,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_4
+layer=strength
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=  
 
 // 320:11
-[strength]
+[strength_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_4
+layer=strength
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -150,11 +150,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10= 
-onmouseover=stats_mouseover(event_com, strength, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, strength, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:12
-[com_12]
+[agility]
 type=layer
 x=65
 y=33
@@ -164,23 +164,23 @@ transmitop=10
 op10=  
 
 // 320:13
-[com_13]
+[bg_agility]
 type=graphic
 width=60
 height=27
-layer=com_12
+layer=agility
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 320:14
-[com_14]
+[lvl_icon_agility]
 type=graphic
 x=2
 width=25
 height=25
-layer=com_12
+layer=agility
 graphic="staticons,7"
 colour=0xffffffff
 transmitop=10
@@ -189,13 +189,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:15
-[com_15]
+[stat_agility]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_12
+layer=agility
 textfont=p11_full
 text=111
 textalignh=centre
@@ -207,13 +207,13 @@ op10=
 onstattransmit=stats_stat(event_com, agility){agility}
 
 // 320:16
-[com_16]
+[statbase_agility]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_12
+layer=agility
 textfont=p11_full
 text=111
 textalignh=centre
@@ -231,7 +231,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_12
+layer=agility
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -244,18 +244,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_12
+layer=agility
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=   
 
 // 320:19
-[agility]
+[agility_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_12
+layer=agility
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -266,11 +266,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=  
-onmouseover=stats_mouseover(event_com, agility, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, agility, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:20
-[com_20]
+[smithing]
 type=layer
 x=127
 y=33
@@ -280,7 +280,7 @@ transmitop=10
 op10=   
 
 // 320:21
-[com_21]
+[defence]
 type=layer
 x=3
 y=61
@@ -290,22 +290,22 @@ transmitop=10
 op10=  
 
 // 320:22
-[com_22]
+[bg_defence]
 type=graphic
 width=60
 height=27
-layer=com_21
+layer=defence
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 320:23
-[com_23]
+[lvl_icon_defence]
 type=graphic
 width=25
 height=25
-layer=com_21
+layer=defence
 graphic="staticons,2"
 colour=0xffffffff
 transmitop=10
@@ -314,13 +314,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:24
-[com_24]
+[stat_defence]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_21
+layer=defence
 textfont=p11_full
 text=1
 textalignh=centre
@@ -332,13 +332,13 @@ op10=
 onstattransmit=stats_stat(event_com, defence){defence}
 
 // 320:25
-[com_25]
+[statbase_defence]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_21
+layer=defence
 textfont=p11_full
 text=50
 textalignh=centre
@@ -356,7 +356,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_21
+layer=defence
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -369,18 +369,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_21
+layer=defence
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=   
 
 // 320:28
-[defence]
+[defence_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=defence
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -391,11 +391,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=  
-onmouseover=stats_mouseover(event_com, defence, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, defence, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:29
-[com_29]
+[herblore]
 type=layer
 x=65
 y=61
@@ -405,24 +405,24 @@ transmitop=10
 op10=   
 
 // 320:30
-[com_30]
+[bg_herblore]
 type=graphic
 width=60
 height=27
-layer=com_29
+layer=herblore
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 320:31
-[com_31]
+[lvl_icon_herblore]
 type=graphic
 x=1
 y=1
 width=25
 height=25
-layer=com_29
+layer=herblore
 graphic="staticons,8"
 colour=0xffffffff
 transmitop=10
@@ -431,13 +431,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:32
-[com_32]
+[stat_herblore]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_29
+layer=herblore
 textfont=p11_full
 text=5
 textalignh=centre
@@ -449,13 +449,13 @@ op10=
 onstattransmit=stats_stat(event_com, herblore){herblore}
 
 // 320:33
-[com_33]
+[statbase_herblore]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_29
+layer=herblore
 textfont=p11_full
 text=120
 textalignh=centre
@@ -473,7 +473,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_29
+layer=herblore
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -486,18 +486,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_29
+layer=herblore
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=    
 
 // 320:36
-[herblore]
+[herblore_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=herblore
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -508,8 +508,8 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=   
-onmouseover=stats_mouseover(event_com, herblore, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, herblore, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:37
 [com_37]
@@ -522,7 +522,7 @@ transmitop=10
 op10=    
 
 // 320:38
-[com_38]
+[bg_fishing]
 type=graphic
 width=60
 height=27
@@ -533,7 +533,7 @@ transmitop=10
 op10=    
 
 // 320:39
-[com_39]
+[lvl_icon_fishing]
 type=graphic
 x=3
 width=25
@@ -547,7 +547,7 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:40
-[com_40]
+[stat_fishing]
 type=text
 x=25
 y=2
@@ -565,7 +565,7 @@ op10=
 onstattransmit=stats_stat(event_com, fishing){fishing}
 
 // 320:41
-[com_41]
+[statbase_fishing]
 type=text
 x=40
 y=14
@@ -609,7 +609,7 @@ transmitop=10
 op10=     
 
 // 320:44
-[fishing]
+[fishing_button]
 type=text
 widthmode=minus
 heightmode=minus
@@ -624,11 +624,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=    
-onmouseover=stats_mouseover(event_com, fishing, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, fishing, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:45
-[com_45]
+[ranged]
 type=layer
 x=3
 y=89
@@ -638,23 +638,23 @@ transmitop=10
 op10=  
 
 // 320:46
-[com_46]
+[bg_ranged]
 type=graphic
 width=60
 height=27
-layer=com_45
+layer=ranged
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 320:47
-[com_47]
+[lvl_icon_ranged]
 type=graphic
 x=2
 width=25
 height=25
-layer=com_45
+layer=ranged
 graphic="staticons,3"
 colour=0xffffffff
 transmitop=10
@@ -663,13 +663,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:48
-[com_48]
+[stat_ranged]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_45
+layer=ranged
 textfont=p11_full
 text=120
 textalignh=centre
@@ -681,13 +681,13 @@ op10=
 onstattransmit=stats_stat(event_com, ranged){ranged}
 
 // 320:49
-[com_49]
+[statbase_ranged]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_45
+layer=ranged
 textfont=p11_full
 text=120
 textalignh=centre
@@ -705,7 +705,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_45
+layer=ranged
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -718,18 +718,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_45
+layer=ranged
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=   
 
 // 320:52
-[ranged]
+[ranged_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_45
+layer=ranged
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -740,11 +740,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=  
-onmouseover=stats_mouseover(event_com, ranged, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, ranged, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:53
-[com_53]
+[thieving]
 type=layer
 x=65
 y=89
@@ -754,24 +754,24 @@ transmitop=10
 op10=   
 
 // 320:54
-[com_54]
+[bg_thieving]
 type=graphic
 width=60
 height=27
-layer=com_53
+layer=thieving
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 320:55
-[com_55]
+[lvl_icon_thieving]
 type=graphic
 x=1
 y=-1
 width=25
 height=25
-layer=com_53
+layer=thieving
 graphic="staticons,9"
 colour=0xffffffff
 transmitop=10
@@ -780,13 +780,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:56
-[com_56]
+[stat_thieving]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_53
+layer=thieving
 textfont=p11_full
 text=120
 textalignh=centre
@@ -798,13 +798,13 @@ op10=
 onstattransmit=stats_stat(event_com, thieving){thieving}
 
 // 320:57
-[com_57]
+[statbase_thieving]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_53
+layer=thieving
 textfont=p11_full
 text=120
 textalignh=centre
@@ -822,7 +822,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_53
+layer=thieving
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -835,18 +835,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_53
+layer=thieving
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=    
 
 // 320:60
-[thieving]
+[thieving_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_53
+layer=thieving
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -857,11 +857,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=   
-onmouseover=stats_mouseover(event_com, thieving, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, thieving, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:61
-[com_61]
+[cooking]
 type=layer
 x=127
 y=89
@@ -871,24 +871,24 @@ transmitop=10
 op10=    
 
 // 320:62
-[com_62]
+[bg_cooking]
 type=graphic
 width=60
 height=27
-layer=com_61
+layer=cooking
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 320:63
-[com_63]
+[lvl_icon_cooking]
 type=graphic
 x=2
 y=1
 width=25
 height=25
-layer=com_61
+layer=cooking
 graphic="staticons,15"
 colour=0xffffffff
 transmitop=10
@@ -897,13 +897,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:64
-[com_64]
+[stat_cooking]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_61
+layer=cooking
 textfont=p11_full
 text=120
 textalignh=centre
@@ -915,13 +915,13 @@ op10=
 onstattransmit=stats_stat(event_com, cooking){cooking}
 
 // 320:65
-[com_65]
+[statbase_cooking]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_61
+layer=cooking
 textfont=p11_full
 text=120
 textalignh=centre
@@ -939,7 +939,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_61
+layer=cooking
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -952,18 +952,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_61
+layer=cooking
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=     
 
 // 320:68
-[cooking]
+[cooking_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_61
+layer=cooking
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -974,11 +974,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=    
-onmouseover=stats_mouseover(event_com, cooking, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, cooking, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:69
-[com_69]
+[prayer]
 type=layer
 x=3
 y=117
@@ -988,24 +988,24 @@ transmitop=10
 op10=  
 
 // 320:70
-[com_70]
+[bg_prayer]
 type=graphic
 width=60
 height=27
-layer=com_69
+layer=prayer
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 320:71
-[com_71]
+[lvl_icon_prayer]
 type=graphic
 x=1
 y=1
 width=25
 height=25
-layer=com_69
+layer=prayer
 graphic="staticons,4"
 colour=0xffffffff
 transmitop=10
@@ -1014,13 +1014,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:72
-[com_72]
+[stat_prayer]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_69
+layer=prayer
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1032,13 +1032,13 @@ op10=
 onstattransmit=stats_stat(event_com, prayer){prayer}
 
 // 320:73
-[com_73]
+[statbase_prayer]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_69
+layer=prayer
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1056,7 +1056,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_69
+layer=prayer
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -1069,18 +1069,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_69
+layer=prayer
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=   
 
 // 320:76
-[prayer]
+[prayer_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_69
+layer=prayer
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -1091,11 +1091,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=  
-onmouseover=stats_mouseover(event_com, prayer, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, prayer, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:77
-[com_77]
+[crafting]
 type=layer
 x=65
 y=117
@@ -1105,24 +1105,24 @@ transmitop=10
 op10=   
 
 // 320:78
-[com_78]
+[bg_crafting]
 type=graphic
 width=60
 height=27
-layer=com_77
+layer=crafting
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 320:79
-[com_79]
+[lvl_icon_crafting]
 type=graphic
 x=2
 y=1
 width=25
 height=25
-layer=com_77
+layer=crafting
 graphic="staticons,10"
 colour=0xffffffff
 transmitop=10
@@ -1131,13 +1131,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:80
-[com_80]
+[stat_crafting]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_77
+layer=crafting
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1149,13 +1149,13 @@ op10=
 onstattransmit=stats_stat(event_com, crafting){crafting}
 
 // 320:81
-[com_81]
+[statbase_crafting]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_77
+layer=crafting
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1173,7 +1173,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_77
+layer=crafting
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -1186,18 +1186,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_77
+layer=crafting
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=    
 
 // 320:84
-[crafting]
+[crafting_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_77
+layer=crafting
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -1208,11 +1208,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=   
-onmouseover=stats_mouseover(event_com, crafting, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, crafting, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:85
-[com_85]
+[firemaking]
 type=layer
 x=127
 y=117
@@ -1222,7 +1222,7 @@ transmitop=10
 op10=    
 
 // 320:86
-[com_86]
+[magic]
 type=layer
 x=3
 y=145
@@ -1232,23 +1232,23 @@ transmitop=10
 op10=   
 
 // 320:87
-[com_87]
+[bg_magic]
 type=graphic
 width=60
 height=27
-layer=com_86
+layer=magic
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 320:88
-[com_88]
+[lvl_icon_magic]
 type=graphic
 x=1
 width=25
 height=25
-layer=com_86
+layer=magic
 graphic="staticons,5"
 colour=0xffffffff
 transmitop=10
@@ -1257,13 +1257,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:89
-[com_89]
+[stat_magic]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_86
+layer=magic
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1275,13 +1275,13 @@ op10=
 onstattransmit=stats_stat(event_com, magic){magic}
 
 // 320:90
-[com_90]
+[statbase_magic]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_86
+layer=magic
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1299,7 +1299,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_86
+layer=magic
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -1312,18 +1312,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_86
+layer=magic
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=    
 
 // 320:93
-[magic]
+[magic_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_86
+layer=magic
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -1334,11 +1334,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=   
-onmouseover=stats_mouseover(event_com, magic, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, magic, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:94
-[com_94]
+[fletching]
 type=layer
 x=65
 y=145
@@ -1348,23 +1348,23 @@ transmitop=10
 op10=    
 
 // 320:95
-[com_95]
+[bg_fletching]
 type=graphic
 width=60
 height=27
-layer=com_94
+layer=fletching
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 320:96
-[com_96]
+[lvl_icon_fletching]
 type=graphic
 x=2
 width=25
 height=25
-layer=com_94
+layer=fletching
 graphic="staticons,11"
 colour=0xffffffff
 transmitop=10
@@ -1373,13 +1373,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:97
-[com_97]
+[stat_fletching]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_94
+layer=fletching
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1391,13 +1391,13 @@ op10=
 onstattransmit=stats_stat(event_com, fletching){fletching}
 
 // 320:98
-[com_98]
+[statbase_fletching]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_94
+layer=fletching
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1415,7 +1415,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_94
+layer=fletching
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -1428,18 +1428,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_94
+layer=fletching
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=     
 
 // 320:101
-[fletching]
+[fletching_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_94
+layer=fletching
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -1450,11 +1450,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=    
-onmouseover=stats_mouseover(event_com, fletching, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, fletching, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:102
-[com_102]
+[woodcutting]
 type=layer
 x=127
 y=145
@@ -1464,7 +1464,7 @@ transmitop=10
 op10=     
 
 // 320:103
-[com_103]
+[runecrafting]
 type=layer
 x=3
 y=173
@@ -1474,24 +1474,24 @@ transmitop=10
 op10=    
 
 // 320:104
-[com_104]
+[bg_runecraft]
 type=graphic
 width=60
 height=27
-layer=com_103
+layer=runecrafting
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 320:105
-[com_105]
+[lvl_icon_runecraft]
 type=graphic
 x=1
 y=1
 width=25
 height=25
-layer=com_103
+layer=runecrafting
 graphic="staticons2,0"
 colour=0xffffffff
 transmitop=10
@@ -1500,13 +1500,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:106
-[com_106]
+[stat_runecraft]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_103
+layer=runecrafting
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1518,13 +1518,13 @@ op10=
 onstattransmit=stats_stat(event_com, runecraft){runecraft}
 
 // 320:107
-[com_107]
+[statbase_runecraft]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_103
+layer=runecrafting
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1542,7 +1542,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_103
+layer=runecrafting
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -1555,18 +1555,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_103
+layer=runecrafting
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=     
 
 // 320:110
-[runecrafting]
+[runecraft_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_103
+layer=runecrafting
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -1577,11 +1577,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=    
-onmouseover=stats_mouseover(event_com, runecraft, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, runecraft, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:111
-[com_111]
+[slayer]
 type=layer
 x=65
 y=173
@@ -1591,24 +1591,24 @@ transmitop=10
 op10=     
 
 // 320:112
-[com_112]
+[bg_slayer]
 type=graphic
 width=60
 height=27
-layer=com_111
+layer=slayer
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 320:113
-[com_113]
+[lvl_icon_slayer]
 type=graphic
 x=1
 y=1
 width=25
 height=25
-layer=com_111
+layer=slayer
 graphic="staticons2,1"
 colour=0xffffffff
 transmitop=10
@@ -1617,13 +1617,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:114
-[com_114]
+[stat_slayer]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_111
+layer=slayer
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1635,13 +1635,13 @@ op10=
 onstattransmit=stats_stat(event_com, slayer){slayer}
 
 // 320:115
-[com_115]
+[statbase_slayer]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_111
+layer=slayer
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1659,7 +1659,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_111
+layer=slayer
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -1672,18 +1672,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_111
+layer=slayer
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=      
 
 // 320:118
-[slayer]
+[slayer_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_111
+layer=slayer
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -1694,11 +1694,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=     
-onmouseover=stats_mouseover(event_com, slayer, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, slayer, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:119
-[com_119]
+[farming]
 type=layer
 x=127
 y=173
@@ -1708,23 +1708,23 @@ transmitop=10
 op10=      
 
 // 320:120
-[com_120]
+[bg_farming]
 type=graphic
 width=60
 height=27
-layer=com_119
+layer=farming
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 320:121
-[com_121]
+[lvl_icon_farming]
 type=graphic
 x=2
 width=25
 height=25
-layer=com_119
+layer=farming
 graphic="staticons2,2"
 colour=0xffffffff
 transmitop=10
@@ -1733,13 +1733,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:122
-[com_122]
+[stat_farming]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_119
+layer=farming
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1751,13 +1751,13 @@ op10=
 onstattransmit=stats_stat(event_com, farming){farming}
 
 // 320:123
-[com_123]
+[statbase_farming]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_119
+layer=farming
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1775,7 +1775,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_119
+layer=farming
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -1788,18 +1788,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_119
+layer=farming
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=       
 
 // 320:126
-[farming]
+[farming_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_119
+layer=farming
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -1810,11 +1810,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=      
-onmouseover=stats_mouseover(event_com, farming, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, farming, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:127
-[com_127]
+[construction]
 type=layer
 x=3
 y=201
@@ -1824,24 +1824,24 @@ transmitop=10
 op10=    
 
 // 320:128
-[com_128]
+[bg_construction]
 type=graphic
 width=60
 height=27
-layer=com_127
+layer=construction
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 320:129
-[com_129]
+[lvl_icon_construction]
 type=graphic
 x=2
 y=-1
 width=25
 height=25
-layer=com_127
+layer=construction
 graphic="staticons2,6"
 colour=0xffffffff
 transmitop=10
@@ -1850,13 +1850,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:130
-[com_130]
+[stat_construction]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_127
+layer=construction
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1868,13 +1868,13 @@ op10=
 onstattransmit=stats_stat(event_com, construction){construction}
 
 // 320:131
-[com_131]
+[statbase_construction]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_127
+layer=construction
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1892,7 +1892,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_127
+layer=construction
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -1905,18 +1905,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_127
+layer=construction
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=     
 
 // 320:134
-[construction]
+[construction_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_127
+layer=construction
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -1927,11 +1927,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=    
-onmouseover=stats_mouseover(event_com, construction, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, construction, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:135
-[com_135]
+[hunter]
 type=layer
 x=65
 y=201
@@ -1941,23 +1941,23 @@ transmitop=10
 op10=     
 
 // 320:136
-[com_136]
+[bg_hunter]
 type=graphic
 width=60
 height=27
-layer=com_135
+layer=hunter
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 320:137
-[com_137]
+[lvl_icon_hunter]
 type=graphic
 x=1
 width=25
 height=25
-layer=com_135
+layer=hunter
 graphic="staticons2,5"
 colour=0xffffffff
 transmitop=10
@@ -1966,13 +1966,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:138
-[com_138]
+[stat_hunter]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_135
+layer=hunter
 textfont=p11_full
 text=120
 textalignh=centre
@@ -1984,13 +1984,13 @@ op10=
 onstattransmit=stats_stat(event_com, hunter){hunter}
 
 // 320:139
-[com_139]
+[statbase_hunter]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_135
+layer=hunter
 textfont=p11_full
 text=120
 textalignh=centre
@@ -2008,7 +2008,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_135
+layer=hunter
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -2021,18 +2021,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_135
+layer=hunter
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=      
 
 // 320:142
-[hunter]
+[hunter_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_135
+layer=hunter
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -2043,11 +2043,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=     
-onmouseover=stats_mouseover(event_com, hunter, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, hunter, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:143
-[com_143]
+[summoning]
 type=layer
 x=127
 y=201
@@ -2057,11 +2057,11 @@ transmitop=10
 op10=      
 
 // 320:144
-[com_144]
+[dear_wear]
 type=graphic
 width=60
 height=27
-layer=com_143
+layer=summoning
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
@@ -2073,7 +2073,7 @@ type=graphic
 x=3
 width=25
 height=25
-layer=com_143
+layer=summoning
 graphic="staticons2,7"
 colour=0xffffffff
 transmitop=10
@@ -2088,7 +2088,7 @@ x=25
 y=2
 width=18
 height=11
-layer=com_143
+layer=summoning
 textfont=p11_full
 text=120
 textalignh=centre
@@ -2106,7 +2106,7 @@ x=40
 y=14
 width=18
 height=11
-layer=com_143
+layer=summoning
 textfont=p11_full
 text=120
 textalignh=centre
@@ -2124,7 +2124,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_143
+layer=summoning
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -2137,18 +2137,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_143
+layer=summoning
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=       
 
 // 320:150
-[summoning]
+[com_150]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_143
+layer=summoning
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -2159,11 +2159,11 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=      
-onmouseover=stats_mouseover(event_com, summoning, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, summoning, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:151
-[com_151]
+[dungeoneering]
 type=layer
 x=3
 y=229
@@ -2173,24 +2173,24 @@ transmitop=10
 op10=    
 
 // 320:152
-[com_152]
+[bg_dungeoneering]
 type=graphic
 width=60
 height=27
-layer=com_151
+layer=dungeoneering
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 320:153
-[com_153]
+[lvl_icon_dungeoneering]
 type=graphic
 x=1
 y=1
 width=25
 height=25
-layer=com_151
+layer=dungeoneering
 graphic="staticons2,13"
 colour=0xffffffff
 transmitop=10
@@ -2199,13 +2199,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:154
-[com_154]
+[stat_dungeoneering]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_151
+layer=dungeoneering
 textfont=p11_full
 text=120
 textalignh=centre
@@ -2217,13 +2217,13 @@ op10=
 onstattransmit=stats_stat(event_com, dungeoneering){dungeoneering}
 
 // 320:155
-[com_155]
+[statbase_dungeoneering]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_151
+layer=dungeoneering
 textfont=p11_full
 text=120
 textalignh=centre
@@ -2241,7 +2241,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_151
+layer=dungeoneering
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -2254,18 +2254,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_151
+layer=dungeoneering
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=     
 
 // 320:158
-[dungeoneering]
+[dungeoneering_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_151
+layer=dungeoneering
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -2276,28 +2276,28 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=    
-onmouseover=stats_mouseover(event_com, dungeoneering, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, dungeoneering, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:159
-[com_159]
+[bg_woodcutting]
 type=graphic
 width=60
 height=27
-layer=com_102
+layer=woodcutting
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 320:160
-[com_160]
+[lvl_icon_woodcutting]
 type=graphic
 x=1
 y=1
 width=25
 height=25
-layer=com_102
+layer=woodcutting
 graphic="staticons,17"
 colour=0xffffffff
 transmitop=10
@@ -2306,13 +2306,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:161
-[com_161]
+[stat_woodcutting]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_102
+layer=woodcutting
 textfont=p11_full
 text=120
 textalignh=centre
@@ -2324,13 +2324,13 @@ op10=
 onstattransmit=stats_stat(event_com, woodcutting){woodcutting}
 
 // 320:162
-[com_162]
+[statbase_woodcutting]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_102
+layer=woodcutting
 textfont=p11_full
 text=120
 textalignh=centre
@@ -2348,7 +2348,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_102
+layer=woodcutting
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -2361,18 +2361,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_102
+layer=woodcutting
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=      
 
 // 320:165
-[woodcutting]
+[woodcutting_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_102
+layer=woodcutting
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -2383,28 +2383,28 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=     
-onmouseover=stats_mouseover(event_com, woodcutting, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, woodcutting, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:166
-[com_166]
+[bg_firemaking]
 type=graphic
 width=60
 height=27
-layer=com_85
+layer=firemaking
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 320:167
-[com_167]
+[lvl_icon_firemaking]
 type=graphic
 x=1
 y=1
 width=25
 height=25
-layer=com_85
+layer=firemaking
 graphic="staticons,16"
 colour=0xffffffff
 transmitop=10
@@ -2413,13 +2413,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:168
-[com_168]
+[stat_firemaking]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_85
+layer=firemaking
 textfont=p11_full
 text=120
 textalignh=centre
@@ -2431,13 +2431,13 @@ op10=
 onstattransmit=stats_stat(event_com, firemaking){firemaking}
 
 // 320:169
-[com_169]
+[statbase_firemaking]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_85
+layer=firemaking
 textfont=p11_full
 text=120
 textalignh=centre
@@ -2455,7 +2455,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_85
+layer=firemaking
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -2468,18 +2468,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_85
+layer=firemaking
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=     
 
 // 320:172
-[firemaking]
+[firemaking_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_85
+layer=firemaking
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -2490,27 +2490,27 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=    
-onmouseover=stats_mouseover(event_com, firemaking, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, firemaking, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:173
-[com_173]
+[bg_smithing]
 type=graphic
 width=60
 height=27
-layer=com_20
+layer=smithing
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 320:174
-[com_174]
+[lvl_icon_smithing]
 type=graphic
 x=2
 width=25
 height=25
-layer=com_20
+layer=smithing
 graphic="staticons,13"
 colour=0xffffffff
 transmitop=10
@@ -2519,13 +2519,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:175
-[com_175]
+[stat_smithing]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_20
+layer=smithing
 textfont=p11_full
 text=120
 textalignh=centre
@@ -2537,13 +2537,13 @@ op10=
 onstattransmit=stats_stat(event_com, smithing){smithing}
 
 // 320:176
-[com_176]
+[statbase_smithing]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_20
+layer=smithing
 textfont=p11_full
 text=120
 textalignh=centre
@@ -2561,7 +2561,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_20
+layer=smithing
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -2574,18 +2574,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_20
+layer=smithing
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=    
 
 // 320:179
-[smithing]
+[smithing_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_20
+layer=smithing
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -2596,28 +2596,28 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=   
-onmouseover=stats_mouseover(event_com, smithing, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, smithing, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:180
-[com_180]
+[bg_mining]
 type=graphic
 width=60
 height=27
-layer=com_3
+layer=mining
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 320:181
-[com_181]
+[lvl_icon_mining]
 type=graphic
 x=2
 y=-1
 width=25
 height=25
-layer=com_3
+layer=mining
 graphic="staticons,12"
 colour=0xffffffff
 transmitop=10
@@ -2626,13 +2626,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:182
-[com_182]
+[stat_mining]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_3
+layer=mining
 textfont=p11_full
 text=10
 textalignh=centre
@@ -2644,13 +2644,13 @@ op10=
 onstattransmit=stats_stat(event_com, mining){mining}
 
 // 320:183
-[com_183]
+[statbase_mining]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_3
+layer=mining
 textfont=p11_full
 text=10
 textalignh=centre
@@ -2668,7 +2668,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_3
+layer=mining
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -2681,18 +2681,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_3
+layer=mining
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=   
 
 // 320:186
-[mining]
+[mining_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=mining
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -2703,28 +2703,28 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10=  
-onmouseover=stats_mouseover(event_com, mining, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, mining, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:187
-[com_187]
+[bg_hitpoints]
 type=graphic
 width=60
 height=27
-layer=com_2
+layer=hitpoints
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 320:188
-[com_188]
+[lvl_icon_hitpoints]
 type=graphic
 x=1
 y=-1
 width=25
 height=25
-layer=com_2
+layer=hitpoints
 graphic="staticons,6"
 colour=0xffffffff
 transmitop=10
@@ -2733,13 +2733,13 @@ op10=
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:189
-[com_189]
+[stat_hitpoints]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_2
+layer=hitpoints
 textfont=p11_full
 text=5
 textalignh=centre
@@ -2751,13 +2751,13 @@ op10=
 onstattransmit=stats_stat(event_com, hitpoints){hitpoints}
 
 // 320:190
-[com_190]
+[statbase_hitpoints]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_2
+layer=hitpoints
 textfont=p11_full
 text=5
 textalignh=centre
@@ -2775,7 +2775,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_2
+layer=hitpoints
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -2788,18 +2788,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_2
+layer=hitpoints
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10=  
 
 // 320:193
-[hitpoints]
+[hitpoints_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=hitpoints
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -2810,39 +2810,39 @@ op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
 op10= 
-onmouseover=stats_mouseover(event_com, hitpoints, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, hitpoints, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:194
-[com_194]
+[bg_attack]
 type=graphic
 width=60
 height=27
-layer=com_1
+layer=attack
 graphic=graphic_3030
 colour=0xffffffff
 
 // 320:195
-[com_195]
+[lvl_icon_attack]
 type=graphic
 x=1
 y=-1
 width=25
 height=25
-layer=com_1
+layer=attack
 graphic="staticons,0"
 colour=0xffffffff
 opbase=  
 onvartransmit=script968(event_com){skill_stat_flash}
 
 // 320:196
-[com_196]
+[stat_attack]
 type=text
 x=25
 y=2
 width=18
 height=11
-layer=com_1
+layer=attack
 textfont=p11_full
 text=1
 textalignh=centre
@@ -2852,13 +2852,13 @@ colour=0xffff00
 onstattransmit=stats_stat(event_com, attack){attack}
 
 // 320:197
-[com_197]
+[statbase_attack]
 type=text
 x=40
 y=14
 width=18
 height=11
-layer=com_1
+layer=attack
 textfont=p11_full
 text=1
 textalignh=centre
@@ -2874,7 +2874,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_1
+layer=attack
 colour=0x373228
 linedirection=yes
 
@@ -2885,18 +2885,18 @@ x=31
 y=4
 width=20
 height=19
-layer=com_1
+layer=attack
 colour=0x373228
 linedirection=yes
 transmitop=10
 op10= 
 
 // 320:200
-[attack]
+[attack_button]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=attack
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -2906,11 +2906,11 @@ op1=View
 op2=Set Level Target
 op3=Set XP Target
 op4=Clear Target
-onmouseover=stats_mouseover(event_com, attack, stats:com_202)
-onmouseleave=stats_mouseoff(stats:com_202)
+onmouseover=stats_mouseover(event_com, attack, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:201
-[com_201]
+[skilltotal]
 type=text
 x=65
 y=231
@@ -2925,13 +2925,13 @@ colour=0xffff00
 onstattransmit=stats_skilltotal(event_com)
 
 // 320:202
-[com_202]
+[tips]
 type=layer
 widthmode=minus
 heightmode=minus
 
 // 320:203
-[com_203]
+[advice_layer]
 type=layer
 width=190
 height=261
@@ -2943,18 +2943,18 @@ noclickthrough=yes
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_203
+layer=advice_layer
 graphic=window_texture
 trans=25
 
 // 320:205
-[com_205]
+[advice_close]
 type=layer
 y=237
 width=84
 height=19
 xmode=abs_centre
-layer=com_203
+layer=advice_layer
 transmitop=1
 op1=Close
 onmouseover=script4102(0)
@@ -2966,7 +2966,7 @@ onop=script4103
 type=graphic
 width=6
 height=19
-layer=com_205
+layer=advice_close
 graphic=graphic_4322
 
 // 320:207
@@ -2975,7 +2975,7 @@ type=graphic
 width=6
 height=19
 xmode=abs_right
-layer=com_205
+layer=advice_close
 graphic=graphic_4322
 hflip=yes
 
@@ -2986,7 +2986,7 @@ x=6
 width=12
 height=19
 widthmode=minus
-layer=com_205
+layer=advice_close
 graphic=graphic_4323
 
 // 320:209
@@ -2997,7 +2997,7 @@ width=14
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_205
+layer=advice_close
 textfont=verdana_11pt_regular
 text=Close
 textalignh=centre
@@ -3011,20 +3011,20 @@ x=4
 y=6
 width=15
 height=8
-layer=com_205
+layer=advice_close
 graphic="task_arrow,0"
 onmouseover=graphic_swapper(event_com, "task_arrow,1")
 onmouseleave=graphic_swapper(event_com, "task_arrow,0")
 
 // 320:211
-[com_211]
+[advice_where]
 type=text
 x=5
 y=162
 width=10
 height=72
 widthmode=minus
-layer=com_203
+layer=advice_layer
 textfont=verdana_11pt_regular
 text=You can also right-click for a menu which will let you assign level or experience targets for each skill.
 textlineheight=14
@@ -3033,14 +3033,14 @@ textalignv=centre
 textshadow=yes
 
 // 320:212
-[com_212]
+[advice_why]
 type=text
 x=5
 y=88
 width=10
 height=72
 widthmode=minus
-layer=com_203
+layer=advice_layer
 textfont=verdana_11pt_regular
 text=Left-clicking on a box will show a guide explaining the benefits of gaining levels in that skill.
 textlineheight=14
@@ -3049,14 +3049,14 @@ textalignv=centre
 textshadow=yes
 
 // 320:213
-[com_213]
+[advice_what]
 type=text
 x=5
 y=6
 width=10
 height=79
 widthmode=minus
-layer=com_203
+layer=advice_layer
 textfont=verdana_11pt_regular
 text=This screen shows you the current and maximum level of each of your skills. Hover your mouse over one for more information.
 textlineheight=14

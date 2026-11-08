@@ -1,13 +1,13 @@
 // [opheldt,magic:enchant_lvl1]@magic_spell_enchant(^enchant_lvl1, last_slot);
-[opheldt,magic:lvl_1_enchant]@magic_spell_enchant(^enchant_lvl1, last_slot);
+[opheldt,magic:sb3]@magic_spell_enchant(^enchant_lvl1, last_slot);
 // [opheldt,magic:enchant_lvl2]@magic_spell_enchant(^enchant_lvl2, last_slot);
-[opheldt,magic:lvl_2_enchant]@magic_spell_enchant(^enchant_lvl2, last_slot);
+[opheldt,magic:sb13]@magic_spell_enchant(^enchant_lvl2, last_slot);
 // [opheldt,magic:enchant_lvl3]@magic_spell_enchant(^enchant_lvl3, last_slot);
-[opheldt,magic:lvl_3_enchant]@magic_spell_enchant(^enchant_lvl3, last_slot);
+[opheldt,magic:sb24]@magic_spell_enchant(^enchant_lvl3, last_slot);
 // [opheldt,magic:enchant_lvl4]@magic_spell_enchant(^enchant_lvl4, last_slot);
-[opheldt,magic:lvl_4_enchant]@magic_spell_enchant(^enchant_lvl4, last_slot);
+[opheldt,magic:sb30]@magic_spell_enchant(^enchant_lvl4, last_slot);
 // [opheldt,magic:enchant_lvl5]@magic_spell_enchant(^enchant_lvl5, last_slot);
-[opheldt,magic:lvl_5_enchant]@magic_spell_enchant(^enchant_lvl5, last_slot);
+[opheldt,magic:sb39]@magic_spell_enchant(^enchant_lvl5, last_slot);
 
 [label,magic_spell_enchant](int $spell, int $slot)
 if_settabactive(^tab_magic);

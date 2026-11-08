@@ -1,5 +1,5 @@
 // 252:0
-[com_0]
+[olaf2_lock_gate]
 type=model
 x=176
 y=189
@@ -10,7 +10,7 @@ modelangle=512,0,0
 modelzoom=550
 
 // 252:1
-[com_1]
+[olaf2_close]
 type=graphic
 x=478
 y=6
@@ -20,12 +20,12 @@ graphic="close_buttons,2"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(olaf2_lock_gate:com_1, "close_buttons,3")
-onmouseleave=graphic_swapper(olaf2_lock_gate:com_1, "close_buttons,2")
+onmouseover=graphic_swapper(olaf2_lock_gate:olaf2_close, "close_buttons,3")
+onmouseleave=graphic_swapper(olaf2_lock_gate:olaf2_close, "close_buttons,2")
 onclick=closebutton_click
 
 // 252:2
-[com_2]
+[olaf2_close_button]
 type=layer
 x=475
 y=2
@@ -34,7 +34,7 @@ height=32
 hide=yes
 
 // 252:3
-[com_3]
+[olaf2_square_lock]
 type=layer
 x=43
 y=142
@@ -42,7 +42,7 @@ width=52
 height=51
 
 // 252:4
-[com_4]
+[olaf2_cross_lock]
 type=layer
 x=106
 y=141
@@ -50,7 +50,7 @@ width=49
 height=52
 
 // 252:5
-[com_5]
+[olaf2_triangle_lock]
 type=layer
 x=166
 y=142
@@ -58,7 +58,7 @@ width=51
 height=50
 
 // 252:6
-[com_6]
+[olaf2_circle_lock]
 type=layer
 x=228
 y=144
@@ -66,7 +66,7 @@ width=48
 height=48
 
 // 252:7
-[com_7]
+[olaf2_star_lock]
 type=layer
 x=290
 y=143
@@ -74,7 +74,7 @@ width=50
 height=49
 
 // 252:8
-[com_8]
+[olaf2_dummy_key]
 type=model
 x=421
 y=149
@@ -85,7 +85,7 @@ modelangle=512,0,0
 modelzoom=300
 
 // 252:9
-[com_9]
+[olaf2_square_lock_button]
 type=model
 x=43
 y=142
@@ -98,7 +98,7 @@ op1=Open
 opcursor0=cursor_49
 
 // 252:10
-[com_10]
+[olaf2_cross_lock_button]
 type=model
 x=106
 y=141
@@ -111,7 +111,7 @@ op1=Open
 opcursor0=cursor_49
 
 // 252:11
-[com_11]
+[olaf2_triangle_lock_button]
 type=model
 x=166
 y=142
@@ -124,7 +124,7 @@ op1=Open
 opcursor0=cursor_49
 
 // 252:12
-[com_12]
+[olaf2_circle_lock_button]
 type=model
 x=228
 y=144
@@ -137,7 +137,7 @@ op1=Open
 opcursor0=cursor_49
 
 // 252:13
-[com_13]
+[olaf2_star_lock_button]
 type=model
 x=290
 y=143
@@ -150,7 +150,7 @@ op1=Open
 opcursor0=cursor_49
 
 // 252:14
-[com_14]
+[olaf_key_dummy]
 type=model
 x=414
 y=121

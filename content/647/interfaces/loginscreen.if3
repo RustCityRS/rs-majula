@@ -1,23 +1,23 @@
 // 744:0
-[com_0]
+[top_side]
 type=graphic
 x=38
 width=76
 height=8
 widthmode=minus
-layer=com_53
+layer=windowmode_confirm_border
 graphic="corner_frame_2,0"
 tiling=yes
 
 // 744:1
-[com_1]
+[bottom_side]
 type=graphic
 x=38
 width=76
 height=8
 widthmode=minus
 ymode=abs_bottom
-layer=com_53
+layer=windowmode_confirm_border
 graphic="corner_frame_2,0"
 tiling=yes
 
@@ -28,56 +28,56 @@ y=7
 height=14
 widthmode=minus
 heightmode=minus
-layer=com_53
+layer=windowmode_confirm_border
 graphic=window_texture
 tiling=yes
 alpha=yes
 
 // 744:3
-[com_3]
+[top_left]
 type=graphic
 width=38
 height=72
-layer=com_53
+layer=windowmode_confirm_border
 graphic="corner_frame_1,5"
 hflip=yes
 
 // 744:4
-[com_4]
+[bottom_left]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_53
+layer=windowmode_confirm_border
 hflip=yes
 
 // 744:5
-[com_5]
+[top_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_53
+layer=windowmode_confirm_border
 graphic="corner_frame_1,5"
 
 // 744:6
-[com_6]
+[bottom_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_53
+layer=windowmode_confirm_border
 
 // 744:7
-[com_7]
+[tool_bar_vol_slider]
 type=layer
 width=56
 widthmode=minus
 heightmode=minus
-layer=com_113
+layer=tool_bar_vol_dragzone
 ondrag=script2006(event_mousex)
-ondragcomplete=loginscreen_slider_drag(loginscreen:com_113, event_com, event_mousex, 4)
+ondragcomplete=loginscreen_slider_drag(loginscreen:tool_bar_vol_dragzone, event_com, event_mousex, 4)
 
 // 744:8
 [com_8]
@@ -124,7 +124,7 @@ ymode=abs_centre
 layer=com_21
 
 // 744:12
-[com_12]
+[telekinetic_push]
 type=graphic
 x=-120
 y=125
@@ -177,11 +177,11 @@ ymode=abs_centre
 layer=com_21
 
 // 744:17
-[com_17]
+[background_layer]
 type=layer
 widthmode=minus
 heightmode=minus
-onload=loginscreen_load(loginscreen:com_18, loginscreen:com_20, loginscreen:com_21)
+onload=loginscreen_load(loginscreen:com_18, loginscreen:fader, loginscreen:com_21)
 
 // 744:18
 [com_18]
@@ -190,7 +190,7 @@ clientcode=1407
 widthmode=minus
 heightmode=minus
 ymode=abs_centre
-layer=com_17
+layer=background_layer
 hide=yes
 transmitop=10
 op10= 
@@ -210,11 +210,11 @@ transmitop=10
 op10=  
 
 // 744:20
-[com_20]
+[fader]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=background_layer
 hide=yes
 colour=0x000000
 fill=yes
@@ -226,7 +226,7 @@ op10=
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=background_layer
 
 // 744:22
 [com_22]
@@ -243,7 +243,7 @@ y=26
 width=278
 height=90
 xmode=abs_centre
-layer=com_17
+layer=background_layer
 alpha=yes
 colour=0xffffffff
 transmitop=10
@@ -254,17 +254,17 @@ op10=
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=background_layer
 hide=yes
 
 // 744:25
-[com_25]
+[mode_select]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=background_layer
 hide=yes
 transmitop=10
 op10=  
@@ -274,7 +274,7 @@ op10=
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=background_layer
 hide=yes
 
 // 744:27
@@ -282,29 +282,29 @@ hide=yes
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=background_layer
 hide=yes
 
 // 744:28
-[com_28]
+[pvp_warning]
 type=layer
 width=337
 height=252
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=background_layer
 hide=yes
 transmitop=10
 op10= 
 
 // 744:29
-[com_29]
+[pvp_warning_border]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_28
+layer=pvp_warning
 transmitop=10
 op10=    
 
@@ -317,7 +317,7 @@ width=10
 height=10
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=pvp_warning_border
 colour=0x271c00
 fill=yes
 transmitop=10
@@ -331,7 +331,7 @@ y=5
 width=10
 height=360
 widthmode=minus
-layer=com_29
+layer=pvp_warning_border
 graphic=login_background_alpha
 tiling=yes
 alpha=yes
@@ -344,7 +344,7 @@ op10=
 type=graphic
 width=16
 height=16
-layer=com_29
+layer=pvp_warning_border
 graphic="login_lobby_border,0"
 colour=0xffffffff
 transmitop=10
@@ -356,7 +356,7 @@ type=graphic
 width=16
 height=16
 ymode=abs_bottom
-layer=com_29
+layer=pvp_warning_border
 graphic="login_lobby_border,3"
 vflip=yes
 colour=0xffffffff
@@ -371,7 +371,7 @@ width=16
 height=39
 heightmode=minus
 ymode=abs_bottom
-layer=com_29
+layer=pvp_warning_border
 graphic="login_lobby_border,5"
 tiling=yes
 colour=0xffffffff
@@ -387,7 +387,7 @@ height=39
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_29
+layer=pvp_warning_border
 graphic="login_lobby_border,5"
 tiling=yes
 hflip=yes
@@ -401,7 +401,7 @@ type=graphic
 y=16
 width=16
 height=7
-layer=com_29
+layer=pvp_warning_border
 graphic="login_lobby_border,2"
 tiling=yes
 colour=0xffffffff
@@ -415,7 +415,7 @@ y=16
 width=16
 height=7
 xmode=abs_right
-layer=com_29
+layer=pvp_warning_border
 graphic="login_lobby_border,2"
 tiling=yes
 hflip=yes
@@ -430,7 +430,7 @@ x=16
 width=32
 height=16
 widthmode=minus
-layer=com_29
+layer=pvp_warning_border
 graphic="login_lobby_border,1"
 tiling=yes
 colour=0xffffffff
@@ -445,7 +445,7 @@ width=32
 height=16
 widthmode=minus
 ymode=abs_bottom
-layer=com_29
+layer=pvp_warning_border
 graphic="login_lobby_border,4"
 tiling=yes
 vflip=yes
@@ -459,7 +459,7 @@ type=graphic
 width=16
 height=16
 xmode=abs_right
-layer=com_29
+layer=pvp_warning_border
 graphic="login_lobby_border,0"
 hflip=yes
 colour=0xffffffff
@@ -473,7 +473,7 @@ width=16
 height=16
 xmode=abs_right
 ymode=abs_bottom
-layer=com_29
+layer=pvp_warning_border
 graphic="login_lobby_border,3"
 vflip=yes
 hflip=yes
@@ -482,14 +482,14 @@ transmitop=10
 op10=      
 
 // 744:42
-[com_42]
+[pvp_warning_text_title]
 type=text
 y=8
 width=31
 height=28
 widthmode=minus
 xmode=abs_centre
-layer=com_28
+layer=pvp_warning
 textfont=menu_font_small
 text=PvP World
 textalignh=centre
@@ -498,13 +498,13 @@ transmitop=10
 op10= 
 
 // 744:43
-[com_43]
+[pvp_warning_text_main]
 type=text
 width=165
 height=152
 xmode=abs_centre
 ymode=abs_centre
-layer=com_28
+layer=pvp_warning
 textfont=b12_full
 text=Warning: This is a PvP World. Players can attack you throughout RuneScape.<br><br>If you die, you may lose all of your items.<br><br>You have been warned.
 textlineheight=16
@@ -514,7 +514,7 @@ transmitop=10
 op10= 
 
 // 744:44
-[com_44]
+[pvp_warning_continue]
 type=text
 x=72
 y=13
@@ -522,7 +522,7 @@ width=126
 height=20
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_28
+layer=pvp_warning
 textfont=menu_font_small
 text=Log In
 textalignh=centre
@@ -534,7 +534,7 @@ onmouseleave=text_colour_swapper(event_com, ^white)
 onclick=script2935(1)
 
 // 744:45
-[com_45]
+[pvp_warning_go_back]
 type=text
 x=-63
 y=13
@@ -542,7 +542,7 @@ width=126
 height=20
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_28
+layer=pvp_warning
 textfont=menu_font_small
 text=Go Back
 textalignh=centre
@@ -554,14 +554,14 @@ onmouseleave=text_colour_swapper(event_com, ^white)
 onclick=script2935(0)
 
 // 744:46
-[com_46]
+[skull_left]
 type=model
 x=-126
 width=54
 height=64
 xmode=abs_centre
 ymode=abs_centre
-layer=com_28
+layer=pvp_warning
 model=model_24207
 modelorigin=1,3
 modelzoom=2440
@@ -569,14 +569,14 @@ transmitop=10
 op10= 
 
 // 744:47
-[com_47]
+[skull_right]
 type=model
 x=126
 width=55
 height=64
 xmode=abs_centre
 ymode=abs_centre
-layer=com_28
+layer=pvp_warning
 model=model_24206
 modelorigin=1,3
 modelzoom=2440
@@ -584,76 +584,76 @@ transmitop=10
 op10= 
 
 // 744:48
-[com_48]
+[create]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=background_layer
 hide=yes
 
 // 744:49
-[com_49]
+[create_success]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=background_layer
 hide=yes
 
 // 744:50
-[com_50]
+[options]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=background_layer
 hide=yes
 transmitop=10
 op10= 
 
 // 744:51
-[com_51]
+[general_messages]
 type=layer
 width=256
 height=127
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=background_layer
 hide=yes
 transmitop=10
 op10= 
 
 // 744:52
-[com_52]
+[windowmode_confirm]
 type=layer
 width=239
 height=143
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=background_layer
 hide=yes
 transmitop=10
 op10= 
 
 // 744:53
-[com_53]
+[windowmode_confirm_border]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_52
+layer=windowmode_confirm
 transmitop=10
 op10=     
 
 // 744:54
-[com_54]
+[windowmode_confirm_countdown_text]
 type=text
 y=13
 width=180
 height=16
 xmode=abs_centre
-layer=com_52
+layer=windowmode_confirm
 textfont=verdana_11pt_regular
 text=15 seconds...
 textlineheight=14
@@ -665,13 +665,13 @@ transmitop=10
 op10= 
 
 // 744:55
-[com_55]
+[windowmode_confirm_text]
 type=text
 y=32
 width=182
 height=57
 xmode=abs_centre
-layer=com_52
+layer=windowmode_confirm
 textfont=verdana_11pt_regular
 text=Your display has been changed. Do you want to keep this setting?
 textlineheight=15
@@ -682,7 +682,7 @@ transmitop=10
 op10= 
 
 // 744:56
-[com_56]
+[windowmode_confirm_yes]
 type=layer
 x=-50
 y=20
@@ -690,12 +690,12 @@ width=90
 height=25
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_52
-onmouseover=loginscreen_button_highlight(loginscreen:com_62, "set_but_1,2", loginscreen:com_63, "set_but_fill_1,1", loginscreen:com_64, "set_but_1,2")
-onmouseleave=loginscreen_button_highlight(loginscreen:com_62, "set_but_1,0", loginscreen:com_63, "set_but_fill_1,0", loginscreen:com_64, "set_but_1,0")
+layer=windowmode_confirm
+onmouseover=loginscreen_button_highlight(loginscreen:windowmode_confirm_yes_left, "set_but_1,2", loginscreen:windowmode_confirm_yes_mid, "set_but_fill_1,1", loginscreen:windowmode_confirm_yes_right, "set_but_1,2")
+onmouseleave=loginscreen_button_highlight(loginscreen:windowmode_confirm_yes_left, "set_but_1,0", loginscreen:windowmode_confirm_yes_mid, "set_but_fill_1,0", loginscreen:windowmode_confirm_yes_right, "set_but_1,0")
 
 // 744:57
-[com_57]
+[windowmode_confirm_no]
 type=layer
 x=50
 y=20
@@ -703,43 +703,43 @@ width=90
 height=25
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_52
+layer=windowmode_confirm
 transmitop=10
 op10= 
-onmouseover=loginscreen_button_highlight(loginscreen:com_58, "set_but_1,2", loginscreen:com_59, "set_but_fill_1,1", loginscreen:com_60, "set_but_1,2")
-onmouseleave=loginscreen_button_highlight(loginscreen:com_58, "set_but_1,0", loginscreen:com_59, "set_but_fill_1,0", loginscreen:com_60, "set_but_1,0")
+onmouseover=loginscreen_button_highlight(loginscreen:windowmode_confirm_no_left, "set_but_1,2", loginscreen:windowmode_confirm_no_mid, "set_but_fill_1,1", loginscreen:windowmode_confirm_no_right, "set_but_1,2")
+onmouseleave=loginscreen_button_highlight(loginscreen:windowmode_confirm_no_left, "set_but_1,0", loginscreen:windowmode_confirm_no_mid, "set_but_fill_1,0", loginscreen:windowmode_confirm_no_right, "set_but_1,0")
 
 // 744:58
-[com_58]
+[windowmode_confirm_no_left]
 type=graphic
 width=25
 height=25
-layer=com_57
+layer=windowmode_confirm_no
 graphic="set_but_1,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 744:59
-[com_59]
+[windowmode_confirm_no_mid]
 type=graphic
 x=25
 width=50
 height=25
 widthmode=minus
-layer=com_57
+layer=windowmode_confirm_no
 graphic="set_but_fill_1,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 744:60
-[com_60]
+[windowmode_confirm_no_right]
 type=graphic
 width=25
 height=25
 xmode=abs_right
-layer=com_57
+layer=windowmode_confirm_no
 graphic="set_but_1,0"
 hflip=yes
 colour=0xffffffff
@@ -747,13 +747,13 @@ transmitop=10
 op10=  
 
 // 744:61
-[com_61]
+[windowmode_confirm_no_text]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_57
+layer=windowmode_confirm_no
 textfont=verdana_11pt_regular
 text=No
 textalignh=centre
@@ -764,34 +764,34 @@ transmitop=10
 op10=  
 
 // 744:62
-[com_62]
+[windowmode_confirm_yes_left]
 type=graphic
 width=25
 height=25
-layer=com_56
+layer=windowmode_confirm_yes
 graphic="set_but_1,0"
 colour=0xffffffff
 
 // 744:63
-[com_63]
+[windowmode_confirm_yes_mid]
 type=graphic
 x=25
 width=50
 height=25
 widthmode=minus
-layer=com_56
+layer=windowmode_confirm_yes
 graphic="set_but_fill_1,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 744:64
-[com_64]
+[windowmode_confirm_yes_right]
 type=graphic
 width=25
 height=25
 xmode=abs_right
-layer=com_56
+layer=windowmode_confirm_yes
 graphic="set_but_1,0"
 hflip=yes
 colour=0xffffffff
@@ -799,13 +799,13 @@ transmitop=10
 op10= 
 
 // 744:65
-[com_65]
+[windowmode_confirm_yes_text]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_56
+layer=windowmode_confirm_yes
 textfont=verdana_11pt_regular
 text=Yes
 textalignh=centre
@@ -816,13 +816,13 @@ transmitop=10
 op10= 
 
 // 744:66
-[com_66]
+[general_messages_border_1]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_51
+layer=general_messages
 transmitop=10
 op10=     
 
@@ -831,7 +831,7 @@ op10=
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_66
+layer=general_messages_border_1
 graphic=window_texture
 tiling=yes
 alpha=yes
@@ -844,7 +844,7 @@ op10=
 type=graphic
 width=38
 heightmode=minus
-layer=com_66
+layer=general_messages_border_1
 graphic="corner_frame_1,1"
 tiling=yes
 hflip=yes
@@ -855,16 +855,16 @@ type=graphic
 width=38
 heightmode=minus
 xmode=abs_right
-layer=com_66
+layer=general_messages_border_1
 graphic="corner_frame_1,1"
 tiling=yes
 
 // 744:70
-[com_70]
+[general_messages_top_left]
 type=graphic
 width=38
 height=72
-layer=com_66
+layer=general_messages_border_1
 vflip=yes
 hflip=yes
 colour=0xffffffff
@@ -872,12 +872,12 @@ transmitop=10
 op10=     
 
 // 744:71
-[com_71]
+[general_messages_bottom_left]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_66
+layer=general_messages_border_1
 graphic="corner_frame_1,5"
 vflip=yes
 hflip=yes
@@ -886,13 +886,13 @@ transmitop=10
 op10=      
 
 // 744:72
-[com_72]
+[general_messages_top]
 type=graphic
 x=38
 width=72
 height=8
 widthmode=minus
-layer=com_66
+layer=general_messages_border_1
 graphic="corner_frame_2,0"
 tiling=yes
 vflip=yes
@@ -901,14 +901,14 @@ transmitop=10
 op10=     
 
 // 744:73
-[com_73]
+[general_messages_bottom]
 type=graphic
 x=38
 width=76
 height=8
 widthmode=minus
 ymode=abs_bottom
-layer=com_66
+layer=general_messages_border_1
 graphic="corner_frame_2,0"
 tiling=yes
 vflip=yes
@@ -917,25 +917,25 @@ transmitop=10
 op10=      
 
 // 744:74
-[com_74]
+[general_messages_top_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_66
+layer=general_messages_border_1
 vflip=yes
 colour=0xffffffff
 transmitop=10
 op10=      
 
 // 744:75
-[com_75]
+[general_messages_bottom_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_66
+layer=general_messages_border_1
 graphic="corner_frame_1,5"
 vflip=yes
 colour=0xffffffff
@@ -943,14 +943,14 @@ transmitop=10
 op10=       
 
 // 744:76
-[com_76]
+[general_messages_text]
 type=text
 y=15
 width=52
 height=75
 widthmode=minus
 xmode=abs_centre
-layer=com_51
+layer=general_messages
 textfont=verdana_11pt_regular
 textlineheight=14
 textalignh=centre
@@ -965,7 +965,7 @@ type=layer
 width=200
 height=15
 xmode=abs_centre
-layer=com_51
+layer=general_messages
 hide=yes
 
 // 744:78
@@ -983,14 +983,14 @@ transmitop=10
 op10=      
 
 // 744:79
-[com_79]
+[general_messages_continue]
 type=text
 y=11
 width=200
 height=20
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_51
+layer=general_messages
 textfont=verdana_15pt_regular
 text=Continue
 textalignh=centre
@@ -1002,23 +1002,23 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xebe0bc)
 
 // 744:80
-[com_80]
+[tooltip]
 type=layer
 width=5
 height=5
-layer=com_17
+layer=background_layer
 transmitop=10
 op10= 
 
 // 744:81
-[com_81]
+[toolbar_layer]
 type=layer
 x=9
 y=9
 width=63
 height=16
 xmode=abs_right
-layer=com_17
+layer=background_layer
 
 // 744:82
 [com_82]
@@ -1026,7 +1026,7 @@ type=graphic
 width=63
 height=16
 xmode=abs_right
-layer=com_81
+layer=toolbar_layer
 graphic=graphic_4128
 
 // 744:83
@@ -1037,14 +1037,14 @@ y=1
 width=18
 height=14
 xmode=abs_right
-layer=com_81
+layer=toolbar_layer
 graphic=graphic_4121
 onmouseover=graphic_swapper(event_com, graphic_4126)
 onmouseleave=graphic_swapper(event_com, graphic_4121)
 onclick=loginscreen_quit
 
 // 744:84
-[com_84]
+[maindebug]
 type=layer
 clientcode=1405
 x=10
@@ -1052,12 +1052,12 @@ y=10
 width=145
 height=100
 xmode=abs_right
-layer=com_17
+layer=background_layer
 transmitop=10
 op10=  
 
 // 744:85
-[com_85]
+[preload_graphics_layer]
 type=layer
 x=16
 y=118
@@ -1072,7 +1072,7 @@ x=34
 y=34
 width=5
 height=5
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic=loadingbox_border_corner
 
@@ -1083,7 +1083,7 @@ x=34
 y=34
 width=5
 height=1
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic=loadingbox_border_side
 
@@ -1094,70 +1094,70 @@ x=34
 y=34
 width=88
 height=60
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic=tradebacking
 
 // 744:89
-[com_89]
+[loadingwheel_1]
 type=graphic
 width=111
 height=111
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="loading_wheel_1,0"
 
 // 744:90
-[com_90]
+[loadingwheel_2]
 type=graphic
 width=111
 height=111
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="loading_wheel_1,1"
 
 // 744:91
-[com_91]
+[loadingwheel_3]
 type=graphic
 width=111
 height=111
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="loading_wheel_1,2"
 
 // 744:92
-[com_92]
+[loadingwheel_4]
 type=graphic
 width=111
 height=111
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="loading_wheel_1,3"
 
 // 744:93
-[com_93]
+[loadingwheel_5]
 type=graphic
 width=111
 height=111
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="loading_wheel_1,4"
 
 // 744:94
-[com_94]
+[loadingwheel_6]
 type=graphic
 width=111
 height=111
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="loading_wheel_1,5"
 
 // 744:95
-[com_95]
+[loadingwheel_7]
 type=graphic
 width=111
 height=111
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="loading_wheel_1,6"
 
@@ -1240,11 +1240,11 @@ tiling=yes
 vflip=yes
 
 // 744:103
-[com_103]
+[loadingwheel_8]
 type=graphic
 width=111
 height=111
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="loading_wheel_1,7"
 
@@ -1253,7 +1253,7 @@ graphic="loading_wheel_1,7"
 type=graphic
 width=25
 height=25
-layer=com_85
+layer=preload_graphics_layer
 graphic="set_but_end_3,0"
 
 // 744:105
@@ -1261,7 +1261,7 @@ graphic="set_but_end_3,0"
 type=graphic
 width=25
 height=25
-layer=com_85
+layer=preload_graphics_layer
 graphic="set_but_fill_3,0"
 
 // 744:106
@@ -1272,24 +1272,24 @@ y=1
 width=18
 height=14
 xmode=abs_right
-layer=com_81
+layer=toolbar_layer
 graphic=graphic_4120
 onmouseover=graphic_swapper(event_com, graphic_4125)
 onmouseleave=graphic_swapper(event_com, graphic_4120)
 onclick=loginscreen_setactivemenu(6)
 
 // 744:107
-[com_107]
+[tool_bar_vol_button]
 type=graphic
 x=44
 y=1
 width=18
 height=14
 xmode=abs_right
-layer=com_81
+layer=toolbar_layer
 graphic=graphic_4118
 onload=script3956
-onclick=loginscreen_slider_click_icon(loginscreen:com_113, loginscreen:com_7)
+onclick=loginscreen_slider_click_icon(loginscreen:tool_bar_vol_dragzone, loginscreen:tool_bar_vol_slider)
 
 // 744:108
 [com_108]
@@ -1300,64 +1300,64 @@ width=44
 height=14
 widthmode=minus
 xmode=abs_right
-layer=com_81
-onmouseover=script3957(loginscreen:com_107)
-onmouseleave=script3959(loginscreen:com_107)
+layer=toolbar_layer
+onmouseover=script3957(loginscreen:tool_bar_vol_button)
+onmouseleave=script3959(loginscreen:tool_bar_vol_button)
 onmouserepeat=script3958
 
 // 744:109
-[com_109]
+[tool_bar_vol_layer]
 type=layer
 x=64
 y=1
 width=68
 height=14
 xmode=abs_right
-layer=com_81
+layer=toolbar_layer
 
 // 744:110
-[com_110]
+[tool_bar_vol_slider_backing]
 type=graphic
 width=68
 height=14
-layer=com_109
+layer=tool_bar_vol_layer
 graphic=graphic_4127
 
 // 744:111
-[com_111]
+[tool_bar_vol_min]
 type=layer
 y=2
 width=9
 height=11
-layer=com_109
-onclick=loginscreen_slider_click(loginscreen:com_113, loginscreen:com_7, 0, 4)
+layer=tool_bar_vol_layer
+onclick=loginscreen_slider_click(loginscreen:tool_bar_vol_dragzone, loginscreen:tool_bar_vol_slider, 0, 4)
 
 // 744:112
-[com_112]
+[tool_bar_vol_max]
 type=layer
 y=2
 width=9
 height=11
 xmode=abs_right
-layer=com_109
-onclick=loginscreen_slider_click(loginscreen:com_113, loginscreen:com_7, -1, 4)
+layer=tool_bar_vol_layer
+onclick=loginscreen_slider_click(loginscreen:tool_bar_vol_dragzone, loginscreen:tool_bar_vol_slider, -1, 4)
 
 // 744:113
-[com_113]
+[tool_bar_vol_dragzone]
 type=layer
 x=4
 y=2
 width=60
 height=11
-layer=com_109
-onclick=loginscreen_slider_click(loginscreen:com_113, loginscreen:com_7, event_mousex, 4)
+layer=tool_bar_vol_layer
+onclick=loginscreen_slider_click(loginscreen:tool_bar_vol_dragzone, loginscreen:tool_bar_vol_slider, event_mousex, 4)
 
 // 744:114
-[com_114]
+[tool_bar_vol_slider_graphic]
 type=graphic
 width=4
 height=11
-layer=com_7
+layer=tool_bar_vol_slider
 graphic=graphic_4116
 
 // 744:115
@@ -1365,7 +1365,7 @@ graphic=graphic_4116
 type=graphic
 width=16
 height=27
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic=graphic_3814
 
@@ -1374,7 +1374,7 @@ graphic=graphic_3814
 type=graphic
 width=16
 height=27
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic=graphic_3815
 
@@ -1383,7 +1383,7 @@ graphic=graphic_3815
 type=graphic
 width=16
 height=27
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic=graphic_3816
 
@@ -1392,7 +1392,7 @@ graphic=graphic_3816
 type=graphic
 width=38
 height=72
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="corner_frame_1,4"
 
@@ -1401,7 +1401,7 @@ graphic="corner_frame_1,4"
 type=graphic
 width=38
 height=38
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="corner_flourish,0"
 
@@ -1410,7 +1410,7 @@ graphic="corner_flourish,0"
 type=graphic
 width=100
 height=100
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic=window_texture
 
@@ -1419,7 +1419,7 @@ graphic=window_texture
 type=graphic
 width=38
 height=72
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="corner_frame_5,0"
 
@@ -1428,6 +1428,6 @@ graphic="corner_frame_5,0"
 type=graphic
 width=72
 height=8
-layer=com_85
+layer=preload_graphics_layer
 hide=yes
 graphic="corner_frame_2,0"

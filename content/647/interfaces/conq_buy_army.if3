@@ -1,10 +1,10 @@
 // 1015:0
-[com_0]
+[unit_type_text]
 type=text
 y=7
 height=16
 widthmode=minus
-layer=com_115
+layer=purchase_current_details_layer
 textfont=welcome_font_tiny
 text=Mage
 textalignh=centre
@@ -13,28 +13,28 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:1
-[com_1]
+[unit_type_underline]
 type=rectangle
 x=37
 y=22
 width=206
 height=1
-layer=com_115
+layer=purchase_current_details_layer
 colour=0xff991f
 
 // 1015:2
-[com_2]
+[current_unit_image]
 type=graphic
 x=20
 y=42
 width=50
 height=50
-layer=com_115
+layer=purchase_current_details_layer
 graphic="conq_unit_icons,3"
 colour=0x000000
 
 // 1015:3
-[com_3]
+[reset_abilities_button]
 type=graphic
 x=15
 y=23
@@ -48,7 +48,7 @@ onmouseover=script494(event_com, 1)
 onmouseleave=script494(event_com, 0)
 
 // 1015:4
-[com_4]
+[reset_units_button]
 type=graphic
 x=15
 y=23
@@ -68,7 +68,7 @@ width=512
 height=334
 
 // 1015:6
-[com_6]
+[points_left_layer]
 type=layer
 width=512
 height=334
@@ -80,7 +80,7 @@ x=341
 y=51
 width=149
 height=16
-layer=com_6
+layer=points_left_layer
 colour=0x5a5349
 fill=yes
 transmitop=10
@@ -93,7 +93,7 @@ x=341
 y=51
 width=148
 height=15
-layer=com_6
+layer=points_left_layer
 colour=0x403931
 fill=yes
 transmitop=10
@@ -106,7 +106,7 @@ x=340
 y=50
 width=151
 height=18
-layer=com_6
+layer=points_left_layer
 colour=0x16120f
 transmitop=10
 op10= 
@@ -118,20 +118,20 @@ x=342
 y=52
 width=147
 height=14
-layer=com_6
+layer=points_left_layer
 colour=0x474135
 fill=yes
 transmitop=10
 op10= 
 
 // 1015:11
-[com_11]
+[points_left_text]
 type=text
 x=343
 y=52
 width=117
 height=14
-layer=com_6
+layer=points_left_layer
 textfont=p11_full
 text=Squad Resources:
 textalignv=centre
@@ -139,13 +139,13 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:12
-[com_12]
+[points_left_number]
 type=text
 x=460
 y=52
 width=28
 height=14
-layer=com_6
+layer=points_left_layer
 textfont=p11_full
 text=1000
 textalignh=right
@@ -166,7 +166,7 @@ graphic=km_middlefillcolour
 colour=0xffffffff
 
 // 1015:14
-[com_14]
+[bottom_left_corner]
 type=graphic
 x=5
 y=291
@@ -177,7 +177,7 @@ graphic="v2_stone_borders,6"
 colour=0xffffffff
 
 // 1015:15
-[com_15]
+[top_left_corner]
 type=graphic
 x=5
 y=20
@@ -188,7 +188,7 @@ graphic="v2_stone_borders,35"
 colour=0xffffffff
 
 // 1015:16
-[com_16]
+[top_right_corner]
 type=graphic
 x=5
 y=20
@@ -200,7 +200,7 @@ graphic="v2_stone_borders,37"
 colour=0xffffffff
 
 // 1015:17
-[com_17]
+[bottom_right_corner]
 type=graphic
 x=5
 y=291
@@ -212,7 +212,7 @@ graphic="v2_stone_borders,7"
 colour=0xffffffff
 
 // 1015:18
-[com_18]
+[left_side]
 type=graphic
 x=-8
 y=52
@@ -224,7 +224,7 @@ tiling=yes
 colour=0xffffffff
 
 // 1015:19
-[com_19]
+[right_side]
 type=graphic
 x=-7
 y=52
@@ -237,7 +237,7 @@ tiling=yes
 colour=0xffffffff
 
 // 1015:20
-[com_20]
+[top_side]
 type=graphic
 x=37
 y=20
@@ -249,7 +249,7 @@ tiling=yes
 colour=0xffffffff
 
 // 1015:21
-[com_21]
+[bottom_side]
 type=graphic
 y=303
 width=444
@@ -261,7 +261,7 @@ tiling=yes
 colour=0xffffffff
 
 // 1015:22
-[com_22]
+[border_shadow]
 type=rectangle
 x=11
 y=41
@@ -271,7 +271,7 @@ layer=com_5
 colour=0x000000
 
 // 1015:23
-[com_23]
+[border_shadow_3]
 type=rectangle
 x=12
 y=6
@@ -282,7 +282,7 @@ hide=yes
 colour=0x000000
 
 // 1015:24
-[com_24]
+[border_shadow_2]
 type=rectangle
 x=13
 y=43
@@ -293,7 +293,7 @@ colour=0x000000
 trans=192
 
 // 1015:25
-[com_25]
+[border_shadow_1]
 type=rectangle
 x=12
 y=42
@@ -304,7 +304,7 @@ colour=0x000000
 trans=64
 
 // 1015:26
-[com_26]
+[close_button]
 type=graphic
 x=481
 y=23
@@ -370,7 +370,7 @@ transmitop=10
 op10= 
 
 // 1015:31
-[com_31]
+[main_title_text]
 type=text
 x=12
 y=23
@@ -412,7 +412,7 @@ op10=
 onvartransmit=script487{varplayer_1870}
 
 // 1015:35
-[com_35]
+[command_ability_1_layer]
 type=layer
 x=23
 y=79
@@ -422,7 +422,7 @@ layer=com_33
 onvartransmit=script490{varplayer_1874, varplayer_1874, varplayer_1874, varplayer_1874}
 
 // 1015:36
-[com_36]
+[command_ability_2_layer]
 type=layer
 x=23
 y=136
@@ -433,7 +433,7 @@ transmitop=10
 op10= 
 
 // 1015:37
-[com_37]
+[command_ability_3_layer]
 type=layer
 x=23
 y=193
@@ -444,7 +444,7 @@ transmitop=10
 op10= 
 
 // 1015:38
-[com_38]
+[command_ability_4_layer]
 type=layer
 x=23
 y=250
@@ -455,7 +455,7 @@ transmitop=10
 op10= 
 
 // 1015:39
-[com_39]
+[command_details_layer]
 type=layer
 x=207
 y=75
@@ -472,7 +472,7 @@ width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_39
+layer=command_details_layer
 
 // 1015:41
 [com_41]
@@ -517,21 +517,21 @@ transmitop=10
 op10= 
 
 // 1015:45
-[com_45]
+[no_ability_selected_layer]
 type=layer
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_39
+layer=command_details_layer
 
 // 1015:46
-[com_46]
+[no_ability_selected_text]
 type=text
 width=16391
 height=86
 widthmode=proportion
-layer=com_45
+layer=no_ability_selected_layer
 textfont=welcome_font_tiny
 text=No Command Selected
 textalignh=centre
@@ -540,13 +540,13 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:47
-[com_47]
+[no_ability_selected_desc_text]
 type=text
 y=86
 width=16391
 height=143
 widthmode=proportion
-layer=com_45
+layer=no_ability_selected_layer
 textfont=welcome_font_tiny
 text=Select A Command Slot To See What Commands Are Available
 textalignh=centre
@@ -557,21 +557,21 @@ transmitop=10
 op10= 
 
 // 1015:48
-[com_48]
+[active_ability_layer]
 type=layer
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_39
+layer=command_details_layer
 hide=yes
 
 // 1015:49
-[com_49]
+[no_ability_text]
 type=text
 width=281
 height=86
-layer=com_48
+layer=active_ability_layer
 hide=yes
 textfont=welcome_font_tiny
 text=No Command
@@ -581,24 +581,24 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:50
-[com_50]
+[command_details_icon]
 type=graphic
 x=21
 y=31
 width=25
 height=25
-layer=com_48
+layer=active_ability_layer
 graphic="conq_command_icon,0"
 colour=0x000000
 
 // 1015:51
-[com_51]
+[command_details_name]
 type=text
 y=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_48
+layer=active_ability_layer
 textfont=welcome_font_tiny
 text=Battle Cry
 textalignh=centre
@@ -607,14 +607,14 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:52
-[com_52]
+[command_details_desc]
 type=text
 x=20
 y=22
 width=195
 height=47
 xmode=abs_right
-layer=com_48
+layer=active_ability_layer
 textfont=p11_full
 text=A target troop you control gains +200 damage and +200 health until the start of your next turn
 textalignv=centre
@@ -622,13 +622,13 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:53
-[com_53]
+[command_details_cooldown]
 type=text
 x=6
 y=69
 width=111
 height=16
-layer=com_48
+layer=active_ability_layer
 textfont=p11_full
 text=Cooldown: 2 turns
 textalignv=centre
@@ -636,14 +636,14 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:54
-[com_54]
+[command_details_cost]
 type=text
 x=6
 y=69
 width=111
 height=16
 xmode=abs_right
-layer=com_48
+layer=active_ability_layer
 textfont=p11_full
 text=Cost: 200
 textalignh=right
@@ -654,13 +654,13 @@ transmitop=10
 op10= 
 
 // 1015:55
-[com_55]
+[replacement_abilities_layer]
 type=layer
 width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_39
+layer=command_details_layer
 hide=yes
 
 // 1015:56
@@ -670,7 +670,7 @@ y=87
 width=16391
 height=16
 widthmode=proportion
-layer=com_55
+layer=replacement_abilities_layer
 textfont=p11_full
 text=Select a Command to place in this slot:
 textalignh=centre
@@ -687,7 +687,7 @@ x=8
 y=112
 width=14
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:58
@@ -697,7 +697,7 @@ x=26
 y=111
 width=100
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 textfont=welcome_font_tiny
 text=Battle Cry
 textshadow=yes
@@ -708,13 +708,13 @@ onmouseover=script493(event_com, 1)
 onmouseleave=script493(event_com, 0)
 
 // 1015:59
-[com_59]
+[stoicism_tick]
 type=graphic
 x=8
 y=135
 width=14
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:60
@@ -724,7 +724,7 @@ x=26
 y=134
 width=100
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 textfont=welcome_font_tiny
 text=Stoicism
 textshadow=yes
@@ -736,13 +736,13 @@ onmouseover=script493(event_com, 1)
 onmouseleave=script493(event_com, 0)
 
 // 1015:61
-[com_61]
+[regenerate_tick]
 type=graphic
 x=8
 y=158
 width=14
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:62
@@ -752,7 +752,7 @@ x=26
 y=157
 width=100
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 textfont=welcome_font_tiny
 text=Regenerate
 textshadow=yes
@@ -764,13 +764,13 @@ onmouseover=script493(event_com, 1)
 onmouseleave=script493(event_com, 0)
 
 // 1015:63
-[com_63]
+[barrage_tick]
 type=graphic
 x=8
 y=181
 width=14
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:64
@@ -780,7 +780,7 @@ x=26
 y=180
 width=100
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 textfont=welcome_font_tiny
 text=Bombard
 textshadow=yes
@@ -798,7 +798,7 @@ x=8
 y=204
 width=14
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:66
@@ -808,7 +808,7 @@ x=26
 y=203
 width=120
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 textfont=welcome_font_tiny
 text=Winds Of Fate
 textlineheight=15
@@ -822,13 +822,13 @@ onmouseover=script493(event_com, 1)
 onmouseleave=script493(event_com, 0)
 
 // 1015:67
-[com_67]
+[bloodlust_tick]
 type=graphic
 x=150
 y=112
 width=14
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:68
@@ -838,7 +838,7 @@ x=168
 y=111
 width=100
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 textfont=welcome_font_tiny
 text=Charge
 textshadow=yes
@@ -850,13 +850,13 @@ onmouseover=script493(event_com, 1)
 onmouseleave=script493(event_com, 0)
 
 // 1015:69
-[com_69]
+[chastise_tick]
 type=graphic
 x=150
 y=135
 width=14
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:70
@@ -866,7 +866,7 @@ x=168
 y=134
 width=100
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 textfont=welcome_font_tiny
 text=Chastise
 textshadow=yes
@@ -878,13 +878,13 @@ onmouseover=script493(event_com, 1)
 onmouseleave=script493(event_com, 0)
 
 // 1015:71
-[com_71]
+[vigilance_tick]
 type=graphic
 x=150
 y=158
 width=14
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:72
@@ -894,7 +894,7 @@ x=168
 y=157
 width=100
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 textfont=welcome_font_tiny
 text=Vigilance
 textshadow=yes
@@ -912,7 +912,7 @@ x=150
 y=181
 width=14
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:74
@@ -922,7 +922,7 @@ x=168
 y=180
 width=100
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 textfont=welcome_font_tiny
 text=Shield Wall
 textshadow=yes
@@ -940,7 +940,7 @@ x=150
 y=204
 width=14
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:76
@@ -950,7 +950,7 @@ x=168
 y=203
 width=120
 height=14
-layer=com_55
+layer=replacement_abilities_layer
 textfont=welcome_font_tiny
 text=No Command
 textlineheight=15
@@ -968,7 +968,7 @@ onmouseleave=text_colour_swapper(event_com, 0xff981f)
 type=graphic
 width=180
 height=50
-layer=com_38
+layer=command_ability_4_layer
 graphic=graphic_3263
 colour=0x000000
 transmitop=1,10
@@ -982,13 +982,13 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_38
+layer=command_ability_4_layer
 hide=yes
 onmouseover=script491(event_com)
 onmouseleave=script492(event_com)
 
 // 1015:79
-[com_79]
+[command_ability_4_icon]
 type=graphic
 x=15
 width=25
@@ -1001,7 +1001,7 @@ transmitop=10
 op10= 
 
 // 1015:80
-[com_80]
+[command_ability_4_name]
 type=text
 x=50
 width=120
@@ -1025,7 +1025,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_38
+layer=command_ability_4_layer
 transmitop=10
 op10=    
 
@@ -1056,7 +1056,7 @@ onmouseleave=text_colour_swapper(event_com, 0x585042)
 type=graphic
 width=180
 height=50
-layer=com_37
+layer=command_ability_3_layer
 graphic=graphic_3263
 colour=0x000000
 transmitop=1,10
@@ -1070,13 +1070,13 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_37
+layer=command_ability_3_layer
 hide=yes
 onmouseover=script491(event_com)
 onmouseleave=script492(event_com)
 
 // 1015:85
-[com_85]
+[command_ability_3_icon]
 type=graphic
 x=15
 width=25
@@ -1089,7 +1089,7 @@ transmitop=10
 op10= 
 
 // 1015:86
-[com_86]
+[command_ability_3_name]
 type=text
 x=50
 width=120
@@ -1113,7 +1113,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_37
+layer=command_ability_3_layer
 transmitop=10
 op10=   
 
@@ -1144,7 +1144,7 @@ onmouseleave=text_colour_swapper(event_com, 0x585042)
 type=graphic
 width=180
 height=50
-layer=com_36
+layer=command_ability_2_layer
 graphic=graphic_3263
 colour=0x000000
 transmitop=1,10
@@ -1158,13 +1158,13 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_36
+layer=command_ability_2_layer
 hide=yes
 onmouseover=script491(event_com)
 onmouseleave=script492(event_com)
 
 // 1015:91
-[com_91]
+[command_ability_2_icon]
 type=graphic
 x=15
 width=25
@@ -1177,7 +1177,7 @@ transmitop=10
 op10= 
 
 // 1015:92
-[com_92]
+[command_ability_2_name]
 type=text
 x=50
 width=120
@@ -1201,7 +1201,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_36
+layer=command_ability_2_layer
 transmitop=10
 op10=  
 
@@ -1232,7 +1232,7 @@ onmouseleave=text_colour_swapper(event_com, 0x585042)
 type=graphic
 width=180
 height=50
-layer=com_35
+layer=command_ability_1_layer
 graphic=graphic_3263
 colour=0x000000
 transmitop=1
@@ -1245,7 +1245,7 @@ width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_35
+layer=command_ability_1_layer
 hide=yes
 onmouseover=script491(event_com)
 onmouseleave=script492(event_com)
@@ -1257,7 +1257,7 @@ width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_35
+layer=command_ability_1_layer
 transmitop=10
 op10= 
 
@@ -1284,7 +1284,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x585042)
 
 // 1015:99
-[com_99]
+[command_ability_1_icon]
 type=graphic
 x=15
 width=25
@@ -1295,7 +1295,7 @@ graphic="conq_command_icon,0"
 colour=0x000000
 
 // 1015:100
-[com_100]
+[command_ability_1_name]
 type=text
 x=50
 width=120
@@ -1381,7 +1381,7 @@ height=334
 layer=com_32
 
 // 1015:106
-[com_106]
+[left_tab]
 type=graphic
 x=19
 y=49
@@ -1407,7 +1407,7 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:108
-[com_108]
+[right_tab]
 type=graphic
 x=151
 y=49
@@ -1482,14 +1482,14 @@ graphic="v2_borders_slim,11"
 colour=0x000000
 
 // 1015:114
-[com_114]
+[unit_buttons_layer]
 type=layer
 width=512
 height=334
 layer=com_32
 
 // 1015:115
-[com_115]
+[purchase_current_details_layer]
 type=layer
 x=207
 y=75
@@ -1499,7 +1499,7 @@ layer=com_32
 hide=yes
 
 // 1015:116
-[com_116]
+[purchase_replace_details_layer]
 type=layer
 x=207
 y=190
@@ -1509,13 +1509,13 @@ layer=com_32
 hide=yes
 
 // 1015:117
-[com_117]
+[replace_title_text]
 type=text
 y=5
 width=16384
 height=16
 widthmode=proportion
-layer=com_116
+layer=purchase_replace_details_layer
 textfont=p11_full
 text=Select a troop to place in this slot:
 textalignh=centre
@@ -1523,23 +1523,23 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:118
-[com_118]
+[scout_tick]
 type=graphic
 x=22
 y=27
 width=14
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 graphic="conq_tick_box,1"
 
 // 1015:119
-[com_119]
+[scout_text]
 type=text
 x=40
 y=27
 width=85
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 textfont=welcome_font_tiny
 text=Scout
 textalignv=centre
@@ -1551,23 +1551,23 @@ onmouseover=script484(event_com)
 onmouseleave=script485(event_com)
 
 // 1015:120
-[com_120]
+[footman_tick]
 type=graphic
 x=22
 y=47
 width=14
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 graphic="conq_tick_box,1"
 
 // 1015:121
-[com_121]
+[footman_text]
 type=text
 x=40
 y=47
 width=85
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 textfont=welcome_font_tiny
 text=Foot Soldier
 textalignv=centre
@@ -1579,23 +1579,23 @@ onmouseover=script484(event_com)
 onmouseleave=script485(event_com)
 
 // 1015:122
-[com_122]
+[halbadier_tick]
 type=graphic
 x=22
 y=67
 width=14
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 graphic="conq_tick_box,1"
 
 // 1015:123
-[com_123]
+[halbadier_text]
 type=text
 x=40
 y=67
 width=85
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 textfont=welcome_font_tiny
 text=Halberdier
 textalignv=centre
@@ -1607,23 +1607,23 @@ onmouseover=script484(event_com)
 onmouseleave=script485(event_com)
 
 // 1015:124
-[com_124]
+[archer_tick]
 type=graphic
 x=22
 y=87
 width=14
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 graphic="conq_tick_box,1"
 
 // 1015:125
-[com_125]
+[archer_text]
 type=text
 x=40
 y=87
 width=85
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 textfont=welcome_font_tiny
 text=Archer
 textalignv=centre
@@ -1635,23 +1635,23 @@ onmouseover=script484(event_com)
 onmouseleave=script485(event_com)
 
 // 1015:126
-[com_126]
+[mage_tick]
 type=graphic
 x=161
 y=27
 width=14
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 graphic="conq_tick_box,1"
 
 // 1015:127
-[com_127]
+[mage_text]
 type=text
 x=179
 y=27
 width=85
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 textfont=welcome_font_tiny
 text=Mage
 textalignv=centre
@@ -1663,23 +1663,23 @@ onmouseover=script484(event_com)
 onmouseleave=script485(event_com)
 
 // 1015:128
-[com_128]
+[knight_tick]
 type=graphic
 x=161
 y=47
 width=14
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 graphic="conq_tick_box,1"
 
 // 1015:129
-[com_129]
+[knight_text]
 type=text
 x=179
 y=47
 width=85
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 textfont=welcome_font_tiny
 text=Knight
 textalignv=centre
@@ -1691,23 +1691,23 @@ onmouseover=script484(event_com)
 onmouseleave=script485(event_com)
 
 // 1015:130
-[com_130]
+[champion_tick]
 type=graphic
 x=161
 y=67
 width=14
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 graphic="conq_tick_box,1"
 
 // 1015:131
-[com_131]
+[champion_text]
 type=text
 x=179
 y=67
 width=85
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 textfont=welcome_font_tiny
 text=Champion
 textalignv=centre
@@ -1719,23 +1719,23 @@ onmouseover=script484(event_com)
 onmouseleave=script485(event_com)
 
 // 1015:132
-[com_132]
+[no_unit_tick]
 type=graphic
 x=161
 y=87
 width=14
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 graphic="conq_tick_box,1"
 
 // 1015:133
-[com_133]
+[no_unit_text]
 type=text
 x=179
 y=87
 width=85
 height=14
-layer=com_116
+layer=purchase_replace_details_layer
 textfont=welcome_font_tiny
 text=No Troop
 textalignv=centre
@@ -1747,7 +1747,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 1015:134
-[com_134]
+[no_unit_selected_layer]
 type=layer
 x=207
 y=75
@@ -1756,13 +1756,13 @@ height=229
 layer=com_32
 
 // 1015:135
-[com_135]
+[no_unit_selected_text]
 type=text
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
-layer=com_134
+layer=no_unit_selected_layer
 textfont=welcome_font_tiny
 text=No Troop Selected
 textalignh=centre
@@ -1771,13 +1771,13 @@ textshadow=yes
 colour=0xff981f
 
 // 1015:136
-[com_136]
+[select_a_unit_text]
 type=text
 width=275
 height=8163
 heightmode=proportion
 ymode=abs_bottom
-layer=com_134
+layer=no_unit_selected_layer
 textfont=welcome_font_tiny
 text=Select A Slot To See What Troops Are Available
 textalignh=centre
@@ -1786,21 +1786,21 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:137
-[com_137]
+[purchase_current_text_layer]
 type=layer
 x=88
 width=200
 height=116
-layer=com_115
+layer=purchase_current_details_layer
 
 // 1015:138
-[com_138]
+[unit_movement_text]
 type=text
 y=27
 width=19
 height=20
 widthmode=minus
-layer=com_137
+layer=purchase_current_text_layer
 textfont=welcome_font_tiny
 text=Movement: 4
 textalignv=centre
@@ -1808,13 +1808,13 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:139
-[com_139]
+[unit_damage_text]
 type=text
 y=42
 width=19
 height=20
 widthmode=minus
-layer=com_137
+layer=purchase_current_text_layer
 textfont=welcome_font_tiny
 text=Damage: 200
 textalignv=centre
@@ -1822,13 +1822,13 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:140
-[com_140]
+[unit_health_text]
 type=text
 y=57
 width=19
 height=20
 widthmode=minus
-layer=com_137
+layer=purchase_current_text_layer
 textfont=welcome_font_tiny
 text=Health: 200
 textalignv=centre
@@ -1836,13 +1836,13 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:141
-[com_141]
+[unit_range_text]
 type=text
 y=72
 width=19
 height=20
 widthmode=minus
-layer=com_137
+layer=purchase_current_text_layer
 textfont=welcome_font_tiny
 text=Range: 1
 textalignv=centre
@@ -1850,13 +1850,13 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:142
-[com_142]
+[unit_cost_text]
 type=text
 y=87
 width=19
 height=20
 widthmode=minus
-layer=com_137
+layer=purchase_current_text_layer
 textfont=welcome_font_tiny
 text=Cost: 200
 textalignv=centre
@@ -1870,7 +1870,7 @@ x=23
 y=76
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 graphic=graphic_3255
 colour=0x000000
 onvartransmit=script481{varplayer_1870}
@@ -1882,7 +1882,7 @@ x=23
 y=76
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 textfont=welcome_font_tiny
 text=No Troop
 textlineheight=15
@@ -1903,7 +1903,7 @@ x=115
 y=76
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 graphic=graphic_3255
 colour=0x000000
 
@@ -1914,7 +1914,7 @@ x=115
 y=76
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 textfont=welcome_font_tiny
 text=No Troop
 textlineheight=15
@@ -1934,7 +1934,7 @@ x=23
 y=122
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 graphic=graphic_3255
 colour=0x000000
 
@@ -1945,7 +1945,7 @@ x=23
 y=122
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 textfont=welcome_font_tiny
 text=No Troop
 textlineheight=15
@@ -1965,7 +1965,7 @@ x=115
 y=122
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 graphic=graphic_3255
 colour=0x000000
 
@@ -1976,7 +1976,7 @@ x=115
 y=122
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 textfont=welcome_font_tiny
 text=No Troop
 textlineheight=15
@@ -1996,7 +1996,7 @@ x=23
 y=168
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 graphic=graphic_3255
 colour=0x000000
 
@@ -2007,7 +2007,7 @@ x=23
 y=168
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 textfont=welcome_font_tiny
 text=No Troop
 textlineheight=15
@@ -2027,7 +2027,7 @@ x=115
 y=168
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 graphic=graphic_3255
 colour=0x000000
 
@@ -2038,7 +2038,7 @@ x=115
 y=168
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 textfont=welcome_font_tiny
 text=No Troop
 textlineheight=15
@@ -2058,7 +2058,7 @@ x=23
 y=214
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 graphic=graphic_3255
 colour=0x000000
 
@@ -2069,7 +2069,7 @@ x=23
 y=214
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 textfont=welcome_font_tiny
 text=No Troop
 textlineheight=15
@@ -2089,7 +2089,7 @@ x=115
 y=214
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 graphic=graphic_3255
 colour=0x000000
 
@@ -2100,7 +2100,7 @@ x=115
 y=214
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 textfont=welcome_font_tiny
 text=No Troop
 textlineheight=15
@@ -2120,7 +2120,7 @@ x=23
 y=260
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 graphic=graphic_3255
 colour=0x000000
 
@@ -2131,7 +2131,7 @@ x=23
 y=260
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 textfont=welcome_font_tiny
 text=No Troop
 textlineheight=15
@@ -2151,7 +2151,7 @@ x=115
 y=260
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 graphic=graphic_3255
 colour=0x000000
 
@@ -2162,7 +2162,7 @@ x=115
 y=260
 width=90
 height=43
-layer=com_114
+layer=unit_buttons_layer
 textfont=welcome_font_tiny
 text=No Troop
 textlineheight=15

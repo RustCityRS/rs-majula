@@ -3,10 +3,10 @@
 if (%varclient_181 = true) {
     if (%varplayerbit_6840 = 1) {
         if_setop(2, "Finish quick curse selection", $component0);
-        if_settext("Select your quick curses:", prayer:com_46);
+        if_settext("Select your quick curses:", prayer:custom_instructions);
     } else {
         if_setop(2, "Finish quick prayer selection", $component0);
-        if_settext("Select your quick prayers:", prayer:com_46);
+        if_settext("Select your quick prayers:", prayer:custom_instructions);
     }
 } else if (%varplayerbit_6840 = 1) {
     if_setop(2, "Select quick curses", $component0);

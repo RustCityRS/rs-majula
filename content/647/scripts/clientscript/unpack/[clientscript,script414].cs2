@@ -1,36 +1,36 @@
 // 414
 [clientscript,script414](component $component0)
-if_setcolour(^black, conq_scroll_overlay:com_19);
-if_setcolour(^black, conq_scroll_overlay:com_18);
-if_setcolour(^black, conq_scroll_overlay:com_20);
-if_setcolour(^black, conq_scroll_overlay:com_21);
-if_setcolour(^black, conq_scroll_overlay:com_17);
-if_setcolour(^black, conq_scroll_overlay:com_15);
-if_setcolour(^black, conq_scroll_overlay:com_16);
-if_setcolour(^black, conq_scroll_overlay:com_14);
+if_setcolour(^black, conq_scroll_overlay:arrow_top);
+if_setcolour(^black, conq_scroll_overlay:arrow_bottom);
+if_setcolour(^black, conq_scroll_overlay:arrow_left);
+if_setcolour(^black, conq_scroll_overlay:arrow_right);
+if_setcolour(^black, conq_scroll_overlay:arrow_top_right);
+if_setcolour(^black, conq_scroll_overlay:arrow_bottom_right);
+if_setcolour(^black, conq_scroll_overlay:arrow_top_left);
+if_setcolour(^black, conq_scroll_overlay:arrow_bottom_left);
 switch_component ($component0) {
-    case conq_scroll_overlay:com_3 :
-        if_sethide(false, conq_scroll_overlay:com_19);
-    case conq_scroll_overlay:com_5 :
-        if_sethide(false, conq_scroll_overlay:com_18);
-    case conq_scroll_overlay:com_2 :
-        if_sethide(false, conq_scroll_overlay:com_20);
-    case conq_scroll_overlay:com_4 :
-        if_sethide(false, conq_scroll_overlay:com_21);
-    case conq_scroll_overlay:com_10 :
-        if_sethide(false, conq_scroll_overlay:com_17);
-    case conq_scroll_overlay:com_11 :
-        if_sethide(false, conq_scroll_overlay:com_17);
-    case conq_scroll_overlay:com_12 :
-        if_sethide(false, conq_scroll_overlay:com_15);
-    case conq_scroll_overlay:com_13 :
-        if_sethide(false, conq_scroll_overlay:com_15);
-    case conq_scroll_overlay:com_6 :
-        if_sethide(false, conq_scroll_overlay:com_16);
-    case conq_scroll_overlay:com_7 :
-        if_sethide(false, conq_scroll_overlay:com_16);
-    case conq_scroll_overlay:com_8 :
-        if_sethide(false, conq_scroll_overlay:com_14);
-    case conq_scroll_overlay:com_9 :
-        if_sethide(false, conq_scroll_overlay:com_14);
+    case conq_scroll_overlay:top :
+        if_sethide(false, conq_scroll_overlay:arrow_top);
+    case conq_scroll_overlay:bottom :
+        if_sethide(false, conq_scroll_overlay:arrow_bottom);
+    case conq_scroll_overlay:left :
+        if_sethide(false, conq_scroll_overlay:arrow_left);
+    case conq_scroll_overlay:right :
+        if_sethide(false, conq_scroll_overlay:arrow_right);
+    case conq_scroll_overlay:top_right_r :
+        if_sethide(false, conq_scroll_overlay:arrow_top_right);
+    case conq_scroll_overlay:top_right_t :
+        if_sethide(false, conq_scroll_overlay:arrow_top_right);
+    case conq_scroll_overlay:bottom_right_r :
+        if_sethide(false, conq_scroll_overlay:arrow_bottom_right);
+    case conq_scroll_overlay:bottom_right_b :
+        if_sethide(false, conq_scroll_overlay:arrow_bottom_right);
+    case conq_scroll_overlay:top_left_l :
+        if_sethide(false, conq_scroll_overlay:arrow_top_left);
+    case conq_scroll_overlay:top_left_t :
+        if_sethide(false, conq_scroll_overlay:arrow_top_left);
+    case conq_scroll_overlay:bottom_left_l :
+        if_sethide(false, conq_scroll_overlay:arrow_bottom_left);
+    case conq_scroll_overlay:bottom_left_b :
+        if_sethide(false, conq_scroll_overlay:arrow_bottom_left);
 }

@@ -17,7 +17,7 @@ if_setcolour(0xebe0bc, lobbyscreen:com_202);
 if_setcolour(0xebe0bc, lobbyscreen:com_200);
 if_setcolour(0xebe0bc, lobbyscreen:com_198);
 if_setcolour(0xebe0bc, lobbyscreen:com_255);
-if_setcolour(0xebe0bc, lobbyscreen:com_196);
+if_setcolour(0xebe0bc, lobbyscreen:options_tab_text);
 if_setgraphic(graphic_4672, lobbyscreen:com_204);
 if_setgraphic(graphic_4672, lobbyscreen:com_12);
 if_setgraphic(graphic_4672, lobbyscreen:com_11);
@@ -26,16 +26,16 @@ if_setgraphic(graphic_4672, lobbyscreen:com_254);
 if_setgraphic(graphic_4672, lobbyscreen:com_9);
 if_setonmouseover("text_colour_swapper(lobbyscreen:com_205, 0xfafafa)", lobbyscreen:com_188);
 if_setonmouseover("text_colour_swapper(lobbyscreen:com_202, 0xfafafa)", lobbyscreen:com_189);
-if_setonmouseover("text_colour_swapper(lobbyscreen:com_200, 0xfafafa)", lobbyscreen:com_190);
-if_setonmouseover("text_colour_swapper(lobbyscreen:com_198, 0xfafafa)", lobbyscreen:com_192);
+if_setonmouseover("text_colour_swapper(lobbyscreen:com_200, 0xfafafa)", lobbyscreen:friendslist_tab);
+if_setonmouseover("text_colour_swapper(lobbyscreen:com_198, 0xfafafa)", lobbyscreen:clanchat_tab);
 if_setonmouseover("text_colour_swapper(lobbyscreen:com_255, 0xfafafa)", lobbyscreen:com_191);
-if_setonmouseover("text_colour_swapper(lobbyscreen:com_196, 0xfafafa)", lobbyscreen:com_193);
+if_setonmouseover("text_colour_swapper(lobbyscreen:options_tab_text, 0xfafafa)", lobbyscreen:options_tab);
 if_setonmouseleave("text_colour_swapper(lobbyscreen:com_205, 0xebe0bc)", lobbyscreen:com_188);
 if_setonmouseleave("text_colour_swapper(lobbyscreen:com_202, 0xebe0bc)", lobbyscreen:com_189);
-if_setonmouseleave("text_colour_swapper(lobbyscreen:com_200, 0xebe0bc)", lobbyscreen:com_190);
-if_setonmouseleave("text_colour_swapper(lobbyscreen:com_198, 0xebe0bc)", lobbyscreen:com_192);
+if_setonmouseleave("text_colour_swapper(lobbyscreen:com_200, 0xebe0bc)", lobbyscreen:friendslist_tab);
+if_setonmouseleave("text_colour_swapper(lobbyscreen:com_198, 0xebe0bc)", lobbyscreen:clanchat_tab);
 if_setonmouseleave("text_colour_swapper(lobbyscreen:com_255, 0xebe0bc)", lobbyscreen:com_191);
-if_setonmouseleave("text_colour_swapper(lobbyscreen:com_196, 0xebe0bc)", lobbyscreen:com_193);
+if_setonmouseleave("text_colour_swapper(lobbyscreen:options_tab_text, 0xebe0bc)", lobbyscreen:options_tab);
 if ($int0 ! 5) {
     ~script3161(0);
 }
@@ -43,12 +43,12 @@ if ($int0 ! 3) {
     ~script4556(0);
 }
 if ($int0 = 1) {
-    if_setposition(0, 3, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:com_18);
-    if_setsize(655, 26, ^setsize_abs, ^setsize_minus, lobbyscreen:com_17);
+    if_setposition(0, 3, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:update_timer);
+    if_setsize(655, 26, ^setsize_abs, ^setsize_minus, lobbyscreen:menu);
     worldlist_pingworlds(true);
 } else {
-    if_setposition(0, 241, ^setpos_abs_centre, ^setpos_abs_centre, lobbyscreen:com_18);
-    if_setsize(655, 477, ^setsize_abs, ^setsize_abs, lobbyscreen:com_17);
+    if_setposition(0, 241, ^setpos_abs_centre, ^setpos_abs_centre, lobbyscreen:update_timer);
+    if_setsize(655, 477, ^setsize_abs, ^setsize_abs, lobbyscreen:menu);
     worldlist_pingworlds(false);
 }
 if ($int0 = 4) {
@@ -70,14 +70,14 @@ switch_int ($int0) {
         cc_deleteall(lobbyscreen:com_189);
     case 2 :
         if_setgraphic(graphic_4671, lobbyscreen:com_11);
-        if_setonmouseover(null, lobbyscreen:com_190);
-        if_setonmouseleave(null, lobbyscreen:com_190);
-        cc_deleteall(lobbyscreen:com_190);
+        if_setonmouseover(null, lobbyscreen:friendslist_tab);
+        if_setonmouseleave(null, lobbyscreen:friendslist_tab);
+        cc_deleteall(lobbyscreen:friendslist_tab);
     case 5 :
         if_setgraphic(graphic_4671, lobbyscreen:com_10);
-        if_setonmouseover(null, lobbyscreen:com_192);
-        if_setonmouseleave(null, lobbyscreen:com_192);
-        cc_deleteall(lobbyscreen:com_192);
+        if_setonmouseover(null, lobbyscreen:clanchat_tab);
+        if_setonmouseleave(null, lobbyscreen:clanchat_tab);
+        cc_deleteall(lobbyscreen:clanchat_tab);
         ~script3161(1);
     case 3 :
         if_setgraphic(graphic_4671, lobbyscreen:com_254);
@@ -87,7 +87,7 @@ switch_int ($int0) {
         ~script4556(1);
     case 4 :
         if_setgraphic(graphic_4671, lobbyscreen:com_9);
-        if_setonmouseover(null, lobbyscreen:com_193);
-        if_setonmouseleave(null, lobbyscreen:com_193);
-        cc_deleteall(lobbyscreen:com_193);
+        if_setonmouseover(null, lobbyscreen:options_tab);
+        if_setonmouseleave(null, lobbyscreen:options_tab);
+        cc_deleteall(lobbyscreen:options_tab);
 }

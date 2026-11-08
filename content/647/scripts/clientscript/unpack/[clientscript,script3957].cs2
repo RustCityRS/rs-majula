@@ -11,5 +11,5 @@ switch_graphic ($graphic1) {
     case graphic_4119 :
         if_setgraphic(graphic_4124, $component0);
 }
-if_setsize(133, 16, ^setsize_abs, ^setsize_abs, loginscreen:com_81);
-if_setontimer("script3961(0, loginscreen:com_7)", loginscreen:com_7);
+if_setsize(133, 16, ^setsize_abs, ^setsize_abs, loginscreen:toolbar_layer);
+if_setontimer("script3961(0, loginscreen:tool_bar_vol_slider)", loginscreen:tool_bar_vol_slider);

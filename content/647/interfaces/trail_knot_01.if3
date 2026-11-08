@@ -1,5 +1,5 @@
 // 1003:0
-[com_0]
+[container]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -13,7 +13,7 @@ x=-968
 y=-665
 width=2451
 height=1698
-layer=com_0
+layer=container
 model=model_58567
 modelorigin=0,-9
 modelangle=512,0,0
@@ -26,7 +26,7 @@ x=-6
 y=-10
 width=518
 height=343
-layer=com_0
+layer=container
 transmitop=10
 op10=   
 onload=bank_v2_help_init
@@ -140,7 +140,7 @@ transmitop=10
 op10=    
 
 // 1003:11
-[com_11]
+[text]
 type=layer
 x=-31
 y=25
@@ -159,7 +159,7 @@ width=100
 height=24
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=container
 textfont=p12_full
 text=Paths interlace and intersect. May runes match where they meet.
 textshadow=yes
@@ -168,14 +168,14 @@ transmitop=10
 op10= 
 
 // 1003:13
-[com_13]
+[closebutton]
 type=graphic
 x=4
 y=4
 width=16
 height=16
 xmode=abs_right
-layer=com_0
+layer=container
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1,10
@@ -186,48 +186,48 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 1003:14
-[com_14]
+[knot]
 type=layer
 x=66
 y=31
 width=372
 height=277
-layer=com_0
+layer=container
 
 // 1003:15
-[com_15]
+[graphic10]
 type=graphic
 x=99
 y=280
 width=43
 height=39
-layer=com_0
+layer=container
 graphic=graphic_2545
 colour=0xffffffff
 transmitop=10
 op10=         
 
 // 1003:16
-[com_16]
+[graphic11]
 type=graphic
 x=81
 y=280
 width=30
 height=39
-layer=com_0
+layer=container
 graphic=graphic_2543
 colour=0xffffffff
 transmitop=10
 op10=         
 
 // 1003:17
-[com_17]
+[graphic12]
 type=graphic
 x=133
 y=280
 width=30
 height=39
-layer=com_0
+layer=container
 graphic=graphic_2543
 hflip=yes
 colour=0xffffffff
@@ -235,13 +235,13 @@ transmitop=10
 op10=         
 
 // 1003:18
-[com_18]
+[invert_layer]
 type=layer
 x=85
 y=284
 width=74
 height=32
-layer=com_0
+layer=container
 transmitop=10
 op10=    
 onmouseover=lobbyscreen_button_highlight(trail_knot_01:com_19, "lobby_buttons_sml,2", trail_knot_01:com_20, "lobby_buttons_sml,3", trail_knot_01:com_21, "lobby_buttons_sml,2")
@@ -252,7 +252,7 @@ onmouseleave=lobbyscreen_button_highlight(trail_knot_01:com_19, "lobby_buttons_s
 type=graphic
 width=16
 height=32
-layer=com_18
+layer=invert_layer
 graphic="lobby_buttons_sml,0"
 colour=0xffffffff
 transmitop=10
@@ -264,7 +264,7 @@ type=graphic
 x=15
 width=45
 height=32
-layer=com_18
+layer=invert_layer
 graphic="lobby_buttons_sml,1"
 colour=0xffffffff
 transmitop=10
@@ -276,7 +276,7 @@ type=graphic
 x=58
 width=16
 height=32
-layer=com_18
+layer=invert_layer
 graphic="lobby_buttons_sml,0"
 hflip=yes
 colour=0xffffffff
@@ -284,11 +284,11 @@ transmitop=10
 op10=          
 
 // 1003:22
-[com_22]
+[invert]
 type=text
 width=74
 height=32
-layer=com_18
+layer=invert_layer
 textfont=p12_full
 text= Invert  paths 
 textalignh=centre
@@ -296,52 +296,52 @@ textalignv=centre
 colour=0xcccccc
 transmitop=10
 op10=      
-onmouseover=script3629(trail_knot_01:com_154, event_com, ^white)
-onmouseleave=script3630(trail_knot_01:com_154, event_com, 0xcccccc)
+onmouseover=script3629(trail_knot_01:hiddenrunes, event_com, ^white)
+onmouseleave=script3630(trail_knot_01:hiddenrunes, event_com, 0xcccccc)
 
 // 1003:23
-[com_23]
+[unlock_layer]
 type=layer
 x=358
 y=280
 width=75
 height=39
-layer=com_0
+layer=container
 transmitop=10
 op10=   
-onmouseover=lobbyscreen_button_highlight(trail_knot_01:com_24, "lobby_buttons,2", trail_knot_01:com_25, "lobby_buttons,3", trail_knot_01:com_26, "lobby_buttons,2")
-onmouseleave=lobbyscreen_button_highlight(trail_knot_01:com_24, "lobby_buttons,0", trail_knot_01:com_25, "lobby_buttons,1", trail_knot_01:com_26, "lobby_buttons,0")
+onmouseover=lobbyscreen_button_highlight(trail_knot_01:unlock0, "lobby_buttons,2", trail_knot_01:unlock1, "lobby_buttons,3", trail_knot_01:unlock2, "lobby_buttons,2")
+onmouseleave=lobbyscreen_button_highlight(trail_knot_01:unlock0, "lobby_buttons,0", trail_knot_01:unlock1, "lobby_buttons,1", trail_knot_01:unlock2, "lobby_buttons,0")
 
 // 1003:24
-[com_24]
+[unlock0]
 type=graphic
 width=18
 height=39
-layer=com_23
+layer=unlock_layer
 graphic="lobby_buttons,0"
 colour=0xffffffff
 transmitop=10
 op10=        
 
 // 1003:25
-[com_25]
+[unlock1]
 type=graphic
 x=18
 width=39
 height=39
-layer=com_23
+layer=unlock_layer
 graphic="lobby_buttons,1"
 colour=0xffffffff
 transmitop=10
 op10=        
 
 // 1003:26
-[com_26]
+[unlock2]
 type=graphic
 x=57
 width=18
 height=39
-layer=com_23
+layer=unlock_layer
 graphic="lobby_buttons,0"
 hflip=yes
 colour=0xffffffff
@@ -349,11 +349,11 @@ transmitop=10
 op10=        
 
 // 1003:27
-[com_27]
+[confirm]
 type=text
 width=75
 height=39
-layer=com_23
+layer=unlock_layer
 textfont=b12_full
 text=Unlock
 textlineheight=1
@@ -365,13 +365,13 @@ op1=Unlock
 op10=      
 
 // 1003:28
-[com_28]
+[track_0_cw]
 type=graphic
 x=39
 y=130
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,9"
 colour=0xffffffff
 transmitop=1,10
@@ -384,13 +384,13 @@ onclick=graphic_swapper(event_com, "trail_puzzel_icons,17")
 onrelease=graphic_swapper(event_com, "trail_puzzel_icons,13")
 
 // 1003:29
-[com_29]
+[track_0_ccw]
 type=graphic
 x=39
 y=180
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,11"
 colour=0xffffffff
 transmitop=1,10
@@ -403,13 +403,13 @@ onclick=graphic_swapper(event_com, "trail_puzzel_icons,19")
 onrelease=graphic_swapper(event_com, "trail_puzzel_icons,15")
 
 // 1003:30
-[com_30]
+[track_2_ccw]
 type=graphic
 x=289
 y=130
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,10"
 colour=0xffffffff
 transmitop=1,10
@@ -422,13 +422,13 @@ onclick=graphic_swapper(event_com, "trail_puzzel_icons,18")
 onrelease=graphic_swapper(event_com, "trail_puzzel_icons,14")
 
 // 1003:31
-[com_31]
+[track_2_cw]
 type=graphic
 x=289
 y=180
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,8"
 colour=0xffffffff
 transmitop=1,10
@@ -441,13 +441,13 @@ onclick=graphic_swapper(event_com, "trail_puzzel_icons,16")
 onrelease=graphic_swapper(event_com, "trail_puzzel_icons,12")
 
 // 1003:32
-[com_32]
+[track_1_cw]
 type=graphic
 x=139
 y=230
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,10"
 colour=0xffffffff
 transmitop=1,10
@@ -460,13 +460,13 @@ onclick=graphic_swapper(event_com, "trail_puzzel_icons,18")
 onrelease=graphic_swapper(event_com, "trail_puzzel_icons,14")
 
 // 1003:33
-[com_33]
+[track_1_ccw]
 type=graphic
 x=189
 y=230
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,9"
 colour=0xffffffff
 transmitop=1,10
@@ -479,13 +479,13 @@ onclick=graphic_swapper(event_com, "trail_puzzel_icons,17")
 onrelease=graphic_swapper(event_com, "trail_puzzel_icons,13")
 
 // 1003:34
-[com_34]
+[track0_0]
 type=graphic
 x=114
 y=205
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,4"
 colour=0xffffffff
 transmitop=10
@@ -493,13 +493,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:35
-[com_35]
+[track0_1]
 type=graphic
 x=89
 y=180
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -507,13 +507,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:36
-[com_36]
+[track0_2]
 type=graphic
 x=64
 y=155
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,3"
 colour=0xffffffff
 transmitop=10
@@ -521,13 +521,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:37
-[com_37]
+[track0_3]
 type=graphic
 x=89
 y=130
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -535,13 +535,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:38
-[com_38]
+[track0_5]
 type=graphic
 x=139
 y=80
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -549,13 +549,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:39
-[com_39]
+[track0_6]
 type=graphic
 x=164
 y=55
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -563,13 +563,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:40
-[com_40]
+[track0_8]
 type=graphic
 x=214
 y=5
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,1"
 colour=0xffffffff
 transmitop=10
@@ -577,13 +577,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:41
-[com_41]
+[track0_9]
 type=graphic
 x=239
 y=30
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -591,13 +591,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:42
-[com_42]
+[track0_10]
 type=graphic
 x=264
 y=55
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,5"
 colour=0xffffffff
 transmitop=10
@@ -605,13 +605,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:43
-[com_43]
+[track0_11]
 type=graphic
 x=239
 y=80
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -619,13 +619,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:44
-[com_44]
+[track0_13]
 type=graphic
 x=189
 y=130
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -633,13 +633,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:45
-[com_45]
+[track0_14]
 type=graphic
 x=164
 y=155
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -647,13 +647,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:46
-[com_46]
+[track1_0]
 type=graphic
 x=64
 y=105
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,3"
 colour=0xffffffff
 transmitop=10
@@ -661,13 +661,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:47
-[com_47]
+[track1_1]
 type=graphic
 x=89
 y=80
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -675,13 +675,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:48
-[com_48]
+[track1_2]
 type=graphic
 x=114
 y=55
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -689,13 +689,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:49
-[com_49]
+[track1_4]
 type=graphic
 x=164
 y=5
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,1"
 colour=0xffffffff
 transmitop=10
@@ -703,13 +703,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:50
-[com_50]
+[track1_5]
 type=graphic
 x=189
 y=30
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -717,13 +717,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:51
-[com_51]
+[track1_6]
 type=graphic
 x=214
 y=55
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -731,13 +731,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:52
-[com_52]
+[track1_8]
 type=graphic
 x=264
 y=105
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,5"
 colour=0xffffffff
 transmitop=10
@@ -745,13 +745,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:53
-[com_53]
+[track1_9]
 type=graphic
 x=239
 y=130
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -759,13 +759,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:54
-[com_54]
+[track1_10]
 type=graphic
 x=214
 y=155
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -773,13 +773,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:55
-[com_55]
+[track1_12]
 type=graphic
 x=164
 y=205
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,4"
 colour=0xffffffff
 transmitop=10
@@ -787,13 +787,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:56
-[com_56]
+[track1_13]
 type=graphic
 x=139
 y=180
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -801,13 +801,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:57
-[com_57]
+[track1_14]
 type=graphic
 x=114
 y=155
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -815,13 +815,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:58
-[com_58]
+[track2_0]
 type=graphic
 x=64
 y=55
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,3"
 colour=0xffffffff
 transmitop=10
@@ -829,13 +829,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:59
-[com_59]
+[track2_1]
 type=graphic
 x=89
 y=30
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -843,13 +843,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:60
-[com_60]
+[track2_2]
 type=graphic
 x=114
 y=5
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,1"
 colour=0xffffffff
 transmitop=10
@@ -857,13 +857,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:61
-[com_61]
+[track2_3]
 type=graphic
 x=139
 y=30
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -871,13 +871,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:62
-[com_62]
+[track2_5]
 type=graphic
 x=189
 y=80
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -885,13 +885,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:63
-[com_63]
+[track2_6]
 type=graphic
 x=214
 y=105
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -899,13 +899,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:64
-[com_64]
+[track2_8]
 type=graphic
 x=264
 y=155
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,5"
 colour=0xffffffff
 transmitop=10
@@ -913,13 +913,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:65
-[com_65]
+[track2_9]
 type=graphic
 x=239
 y=180
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -927,13 +927,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:66
-[com_66]
+[track2_10]
 type=graphic
 x=214
 y=205
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,4"
 colour=0xffffffff
 transmitop=10
@@ -941,13 +941,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:67
-[com_67]
+[track2_11]
 type=graphic
 x=189
 y=180
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -955,13 +955,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:68
-[com_68]
+[track2_13]
 type=graphic
 x=139
 y=130
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -969,13 +969,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:69
-[com_69]
+[track2_14]
 type=graphic
 x=114
 y=105
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -983,13 +983,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:70
-[com_70]
+[rune_1_00]
 type=model
 x=77
 y=119
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -998,13 +998,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:71
-[com_71]
+[rune_1_01]
 type=model
 x=102
 y=94
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -1019,20 +1019,20 @@ x=89
 y=80
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 1003:73
-[com_73]
+[track2_15]
 type=graphic
 x=89
 y=80
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -1040,13 +1040,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:74
-[com_74]
+[x7_fill]
 type=graphic
 x=100
 y=91
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -1055,13 +1055,13 @@ onload=script3527(event_com)
 onvartransmit=human_combo_box7(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:75
-[com_75]
+[rune_1_08]
 type=model
 x=277
 y=119
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -1070,13 +1070,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:76
-[com_76]
+[rune_1_09]
 type=model
 x=252
 y=144
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -1091,20 +1091,20 @@ x=239
 y=130
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 1003:78
-[com_78]
+[track2_7]
 type=graphic
 x=239
 y=130
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -1112,13 +1112,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:79
-[com_79]
+[x12_fill]
 type=graphic
 x=250
 y=141
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -1127,13 +1127,13 @@ onload=script3542(event_com)
 onvartransmit=human_combo_box12(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:80
-[com_80]
+[rune_1_04]
 type=model
 x=177
 y=19
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -1142,13 +1142,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:81
-[com_81]
+[rune_1_05]
 type=model
 x=202
 y=44
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -1163,20 +1163,20 @@ x=189
 y=30
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 1003:83
-[com_83]
+[track0_7]
 type=graphic
 x=189
 y=30
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -1184,13 +1184,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:84
-[com_84]
+[x5_fill]
 type=graphic
 x=200
 y=41
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -1199,13 +1199,13 @@ onload=script3521(event_com)
 onvartransmit=human_combo_box5(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:85
-[com_85]
+[rune_0_03]
 type=model
 x=152
 y=94
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1214,13 +1214,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:86
-[com_86]
+[rune_0_04]
 type=model
 x=177
 y=69
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1235,20 +1235,20 @@ x=164
 y=55
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 1003:88
-[com_88]
+[track2_4]
 type=graphic
 x=164
 y=55
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -1256,13 +1256,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:89
-[com_89]
+[x2_fill]
 type=graphic
 x=175
 y=66
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -1271,13 +1271,13 @@ onload=script3512(event_com)
 onvartransmit=human_combo_box2(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:90
-[com_90]
+[rune_2_13]
 type=model
 x=152
 y=144
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1286,13 +1286,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:91
-[com_91]
+[rune_2_14]
 type=model
 x=127
 y=119
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1307,20 +1307,20 @@ x=114
 y=105
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 1003:93
-[com_93]
+[track0_4]
 type=graphic
 x=114
 y=105
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -1328,13 +1328,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:94
-[com_94]
+[x8_fill]
 type=graphic
 x=125
 y=116
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -1343,13 +1343,13 @@ onload=script3530(event_com)
 onvartransmit=human_combo_box8(event_com){varplayer_1856, varplayer_1856}
 
 // 1003:95
-[com_95]
+[rune_0_00]
 type=model
 x=77
 y=169
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1358,13 +1358,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:96
-[com_96]
+[rune_0_01]
 type=model
 x=102
 y=144
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1373,13 +1373,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:97
-[com_97]
+[rune_0_02]
 type=model
 x=127
 y=119
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1394,20 +1394,20 @@ x=89
 y=130
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 1003:99
-[com_99]
+[track1_15]
 type=graphic
 x=89
 y=130
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -1415,13 +1415,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:100
-[com_100]
+[x9_fill]
 type=graphic
 x=100
 y=141
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -1430,13 +1430,13 @@ onload=script3533(event_com)
 onvartransmit=human_combo_box9(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:101
-[com_101]
+[rune_2_04]
 type=model
 x=177
 y=69
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1445,13 +1445,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:102
-[com_102]
+[rune_2_05]
 type=model
 x=202
 y=94
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1460,13 +1460,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:103
-[com_103]
+[rune_2_06]
 type=model
 x=227
 y=119
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1481,20 +1481,20 @@ x=214
 y=105
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 1003:105
-[com_105]
+[track0_12]
 type=graphic
 x=214
 y=105
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -1502,13 +1502,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:106
-[com_106]
+[x11_fill]
 type=graphic
 x=225
 y=116
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -1517,13 +1517,13 @@ onload=script3539(event_com)
 onvartransmit=human_combo_box11(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:107
-[com_107]
+[rune_2_15]
 type=model
 x=102
 y=94
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1532,13 +1532,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:108
-[com_108]
+[rune_2_00]
 type=model
 x=77
 y=69
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1547,13 +1547,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:109
-[com_109]
+[rune_2_01]
 type=model
 x=102
 y=44
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1562,13 +1562,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:110
-[com_110]
+[rune_2_02]
 type=model
 x=127
 y=19
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1577,13 +1577,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:111
-[com_111]
+[rune_2_03]
 type=model
 x=152
 y=44
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1598,20 +1598,20 @@ x=139
 y=30
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 1003:113
-[com_113]
+[track1_3]
 type=graphic
 x=139
 y=30
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -1619,13 +1619,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:114
-[com_114]
+[x1_fill]
 type=graphic
 x=150
 y=41
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -1634,13 +1634,13 @@ onload=script3509(event_com)
 onvartransmit=human_combo_box1(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:115
-[com_115]
+[rune_1_02]
 type=model
 x=127
 y=69
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -1649,13 +1649,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:116
-[com_116]
+[rune_1_03]
 type=model
 x=152
 y=44
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -1664,13 +1664,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:117
-[com_117]
+[rune_1_12]
 type=model
 x=177
 y=219
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -1679,13 +1679,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:118
-[com_118]
+[rune_1_13]
 type=model
 x=152
 y=194
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -1700,20 +1700,20 @@ x=139
 y=180
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 1003:120
-[com_120]
+[track0_15]
 type=graphic
 x=139
 y=180
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -1721,13 +1721,13 @@ op10=
 onload=text_colour_swapper(event_com, 0xa04632)
 
 // 1003:121
-[com_121]
+[x4_fill]
 type=graphic
 x=150
 y=191
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -1736,13 +1736,13 @@ onload=script3518(event_com)
 onvartransmit=human_combo_box4(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:122
-[com_122]
+[rune_0_10]
 type=model
 x=227
 y=119
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1751,13 +1751,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:123
-[com_123]
+[rune_0_11]
 type=model
 x=202
 y=144
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1766,13 +1766,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:124
-[com_124]
+[rune_0_12]
 type=model
 x=177
 y=169
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1781,13 +1781,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:125
-[com_125]
+[rune_0_15]
 type=model
 x=102
 y=194
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1796,13 +1796,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:126
-[com_126]
+[rune_0_14]
 type=model
 x=127
 y=219
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1811,13 +1811,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:127
-[com_127]
+[rune_0_13]
 type=model
 x=152
 y=194
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1826,13 +1826,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:128
-[com_128]
+[rune_0_05]
 type=model
 x=202
 y=44
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1841,13 +1841,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:129
-[com_129]
+[rune_0_06]
 type=model
 x=227
 y=19
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1856,13 +1856,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:130
-[com_130]
+[rune_0_07]
 type=model
 x=252
 y=44
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -1877,20 +1877,20 @@ x=164
 y=155
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 1003:132
-[com_132]
+[track2_12]
 type=graphic
 x=164
 y=155
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -1898,13 +1898,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x958c77)
 
 // 1003:133
-[com_133]
+[x3_fill]
 type=graphic
 x=175
 y=166
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -1913,13 +1913,13 @@ onload=script3515(event_com)
 onvartransmit=human_combo_box3(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:134
-[com_134]
+[rune_2_07]
 type=model
 x=252
 y=144
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1928,13 +1928,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:135
-[com_135]
+[rune_2_08]
 type=model
 x=277
 y=169
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1943,13 +1943,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:136
-[com_136]
+[rune_2_09]
 type=model
 x=252
 y=194
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1958,13 +1958,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:137
-[com_137]
+[rune_2_10]
 type=model
 x=227
 y=219
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1973,13 +1973,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:138
-[com_138]
+[rune_2_11]
 type=model
 x=202
 y=194
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -1988,13 +1988,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:139
-[com_139]
+[rune_2_12]
 type=model
 x=177
 y=169
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -2009,20 +2009,20 @@ x=189
 y=180
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 1003:141
-[com_141]
+[track1_11]
 type=graphic
 x=189
 y=180
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -2030,13 +2030,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:142
-[com_142]
+[x6_fill]
 type=graphic
 x=200
 y=191
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2045,13 +2045,13 @@ onload=script3524(event_com)
 onvartransmit=human_combo_box6(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:143
-[com_143]
+[rune_1_10]
 type=model
 x=227
 y=169
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -2060,13 +2060,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:144
-[com_144]
+[rune_1_11]
 type=model
 x=202
 y=194
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -2075,13 +2075,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:145
-[com_145]
+[rune_0_08]
 type=model
 x=277
 y=69
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -2090,13 +2090,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:146
-[com_146]
+[rune_0_09]
 type=model
 x=252
 y=94
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_7516
 modelangle=512,1024,0
 modelzoom=825
@@ -2111,20 +2111,20 @@ x=239
 y=80
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 1003:148
-[com_148]
+[track1_7]
 type=graphic
 x=239
 y=80
 width=50
 height=50
-layer=com_14
+layer=knot
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -2132,13 +2132,13 @@ op10=
 onload=text_colour_swapper(event_com, 0x484879)
 
 // 1003:149
-[com_149]
+[x10_fill]
 type=graphic
 x=250
 y=91
 width=27
 height=27
-layer=com_14
+layer=knot
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2147,13 +2147,13 @@ onload=script3536(event_com)
 onvartransmit=human_combo_box10(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:150
-[com_150]
+[rune_1_06]
 type=model
 x=227
 y=69
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -2162,13 +2162,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:151
-[com_151]
+[rune_1_07]
 type=model
 x=252
 y=94
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -2177,13 +2177,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:152
-[com_152]
+[rune_1_14]
 type=model
 x=127
 y=169
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -2192,13 +2192,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:153
-[com_153]
+[rune_1_15]
 type=model
 x=102
 y=144
 width=24
 height=23
-layer=com_14
+layer=knot
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -2207,13 +2207,13 @@ op10=
 onload=script3631(event_com)
 
 // 1003:154
-[com_154]
+[hiddenrunes]
 type=layer
 x=-8
 y=12
 width=339
 height=230
-layer=com_14
+layer=knot
 hide=yes
 transmitop=10
 op10= 
@@ -2227,7 +2227,7 @@ x=247
 y=68
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
@@ -2240,7 +2240,7 @@ x=247
 y=68
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -2254,7 +2254,7 @@ x=97
 y=118
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
@@ -2267,7 +2267,7 @@ x=97
 y=118
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -2281,7 +2281,7 @@ x=197
 y=168
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
@@ -2294,7 +2294,7 @@ x=197
 y=168
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -2308,7 +2308,7 @@ x=122
 y=93
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
@@ -2321,7 +2321,7 @@ x=122
 y=93
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -2335,7 +2335,7 @@ x=222
 y=93
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
@@ -2348,7 +2348,7 @@ x=222
 y=93
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -2362,7 +2362,7 @@ x=147
 y=18
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
@@ -2375,7 +2375,7 @@ x=147
 y=18
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -2389,7 +2389,7 @@ x=172
 y=43
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
@@ -2402,7 +2402,7 @@ x=172
 y=43
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -2416,7 +2416,7 @@ x=172
 y=143
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
@@ -2429,7 +2429,7 @@ x=172
 y=143
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -2443,7 +2443,7 @@ x=147
 y=168
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
@@ -2456,7 +2456,7 @@ x=147
 y=168
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -2470,7 +2470,7 @@ x=197
 y=18
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,7"
 colour=0xffffffff
 transmitop=10
@@ -2483,7 +2483,7 @@ x=197
 y=18
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,2"
 colour=0xffffffff
 transmitop=10
@@ -2497,7 +2497,7 @@ x=247
 y=118
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
@@ -2510,7 +2510,7 @@ x=247
 y=118
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -2524,7 +2524,7 @@ x=97
 y=68
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,6"
 colour=0xffffffff
 transmitop=10
@@ -2537,7 +2537,7 @@ x=97
 y=68
 width=50
 height=50
-layer=com_154
+layer=hiddenrunes
 graphic="trail_puzzel_icons,0"
 colour=0xffffffff
 transmitop=10
@@ -2551,7 +2551,7 @@ x=158
 y=29
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2566,7 +2566,7 @@ x=183
 y=54
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2581,7 +2581,7 @@ x=183
 y=154
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2596,7 +2596,7 @@ x=158
 y=179
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2611,7 +2611,7 @@ x=208
 y=29
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2626,7 +2626,7 @@ x=208
 y=179
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2641,7 +2641,7 @@ x=108
 y=79
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2656,7 +2656,7 @@ x=133
 y=104
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2671,7 +2671,7 @@ x=108
 y=129
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2686,7 +2686,7 @@ x=258
 y=79
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2701,7 +2701,7 @@ x=233
 y=104
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2716,7 +2716,7 @@ x=258
 y=129
 width=27
 height=27
-layer=com_154
+layer=hiddenrunes
 graphic=compass_ring
 colour=0xffffffff
 transmitop=10
@@ -2725,13 +2725,13 @@ onload=script3542(event_com)
 onvartransmit=human_combo_box12(event_com){varplayer_1856, varplayer_1856, varplayer_1856}
 
 // 1003:191
-[com_191]
+[rune_x1]
 type=model
 x=160
 y=32
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2734
 modelangle=512,1024,0
 modelzoom=825
@@ -2739,13 +2739,13 @@ transmitop=10
 op10=    
 
 // 1003:192
-[com_192]
+[rune_x2]
 type=model
 x=185
 y=57
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -2753,13 +2753,13 @@ transmitop=10
 op10=       
 
 // 1003:193
-[com_193]
+[rune_x3]
 type=model
 x=185
 y=157
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -2767,13 +2767,13 @@ transmitop=10
 op10=       
 
 // 1003:194
-[com_194]
+[rune_x4]
 type=model
 x=160
 y=182
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -2781,13 +2781,13 @@ transmitop=10
 op10=      
 
 // 1003:195
-[com_195]
+[rune_x5]
 type=model
 x=210
 y=32
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -2795,13 +2795,13 @@ transmitop=10
 op10=   
 
 // 1003:196
-[com_196]
+[rune_x6]
 type=model
 x=210
 y=182
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -2809,13 +2809,13 @@ transmitop=10
 op10=       
 
 // 1003:197
-[com_197]
+[rune_x7]
 type=model
 x=110
 y=82
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -2823,13 +2823,13 @@ transmitop=10
 op10=    
 
 // 1003:198
-[com_198]
+[rune_x8]
 type=model
 x=135
 y=107
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -2837,13 +2837,13 @@ transmitop=10
 op10=  
 
 // 1003:199
-[com_199]
+[rune_x9]
 type=model
 x=110
 y=132
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -2851,13 +2851,13 @@ transmitop=10
 op10=      
 
 // 1003:200
-[com_200]
+[rune_x10]
 type=model
 x=260
 y=82
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -2865,13 +2865,13 @@ transmitop=10
 op10=      
 
 // 1003:201
-[com_201]
+[rune_x11]
 type=model
 x=235
 y=107
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825
@@ -2879,13 +2879,13 @@ transmitop=10
 op10=   
 
 // 1003:202
-[com_202]
+[rune_x12]
 type=model
 x=260
 y=132
 width=24
 height=23
-layer=com_154
+layer=hiddenrunes
 model=model_2735
 modelangle=512,1024,0
 modelzoom=825

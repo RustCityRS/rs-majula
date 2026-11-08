@@ -1,8 +1,8 @@
 // 1550
 [clientscript,script1550](component $component0)
-if (if_getx($component0) < calc(if_getwidth(easter09_nuts:com_1) - 1)) {
+if (if_getx($component0) < calc(if_getwidth(easter09_nuts:content) - 1)) {
     if (if_getx($component0) = calc(140 + if_getwidth($component0))) {
-        if_setontimer("script2321(easter09_nuts:com_8)", easter09_nuts:com_21);
+        if_setontimer("script2321(easter09_nuts:model3)", easter09_nuts:control3);
     }
     if_setposition(calc(1 + if_getx($component0)), if_gety($component0), ^setpos_abs_left, ^setpos_abs_top, $component0);
 } else {

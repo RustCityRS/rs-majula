@@ -1,16 +1,16 @@
 // 1773
 [proc,script1773]
 if (%varclient_249 = false) {
-    if_setcolour(^black, clanwars_setup:com_111);
-    if_setcolour(0xff981f, clanwars_setup:com_112);
-    if_sethide(true, clanwars_setup:com_114);
-    if_setcolour(0xff981f, clanwars_setup:com_115);
-    if_settext("...you keep<br>your items.", clanwars_setup:com_115);
+    if_setcolour(^black, clanwars_setup:itemloss_background);
+    if_setcolour(0xff981f, clanwars_setup:itemloss_title);
+    if_sethide(true, clanwars_setup:itemloss_indicator);
+    if_setcolour(0xff981f, clanwars_setup:itemloss_text);
+    if_settext("...you keep<br>your items.", clanwars_setup:itemloss_text);
 } else {
-    if_setcolour(^red, clanwars_setup:com_111);
-    if_setcolour(^yellow, clanwars_setup:com_112);
-    if_sethide(false, clanwars_setup:com_114);
-    if_setcolour(^yellow, clanwars_setup:com_115);
-    if_settext("...you DROP ALL your items.", clanwars_setup:com_115);
+    if_setcolour(^red, clanwars_setup:itemloss_background);
+    if_setcolour(^yellow, clanwars_setup:itemloss_title);
+    if_sethide(false, clanwars_setup:itemloss_indicator);
+    if_setcolour(^yellow, clanwars_setup:itemloss_text);
+    if_settext("...you DROP ALL your items.", clanwars_setup:itemloss_text);
 }
 ~clanwars_updateside;

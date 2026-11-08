@@ -1,8 +1,8 @@
 // 4089
 [proc,script4089]
-def_component $component0 = toplevel:com_overlay_tab;
+def_component $component0 = toplevel:sidemodal;
 if (getwindowmode >= 2) {
-    $component0 = toplevel_fullscreen:com_overlay_tab;
+    $component0 = toplevel_fullscreen:sidemodal;
 }
 if (if_hassuboverlay(~getsidelayer(1), task_side) = true & if_hassub($component0) = false & ~script2728 = 1 & %varplayerbit_8587 ! 419) {
     if_sethide(false, toplevel_fullscreen:com_127);

@@ -1,14 +1,14 @@
 // 4067
 [clientscript,script4067](component $component0)
 switch_component ($component0) {
-    case warguild_token_choice:com_22 :
+    case warguild_token_choice:balance_layer :
         if_setposition(-160, 13, ^setpos_abs_centre, ^setpos_abs_top, $component0);
-    case warguild_token_choice:com_23 :
+    case warguild_token_choice:strength_layer :
         if_setposition(-80, 13, ^setpos_abs_centre, ^setpos_abs_top, $component0);
-    case warguild_token_choice:com_24 :
+    case warguild_token_choice:combat_layer :
         if_setposition(0, 13, ^setpos_abs_centre, ^setpos_abs_top, $component0);
-    case warguild_token_choice:com_26 :
+    case warguild_token_choice:defence_layer :
         if_setposition(80, 13, ^setpos_abs_centre, ^setpos_abs_top, $component0);
-    case warguild_token_choice:com_25 :
+    case warguild_token_choice:attack_layer :
         if_setposition(160, 13, ^setpos_abs_centre, ^setpos_abs_top, $component0);
 }

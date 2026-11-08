@@ -5,9 +5,9 @@ def_int $int6 = calc($int2 + (if_getwidth(toplevel_fullscreen:com_127) - $int5) 
 def_int $int7 = 0;
 def_int $int8 = 0;
 if ($boolean4 = false) {
-    $int7 = calc($int6 + $int5 - ~if_getx_absolute(toplevel_fullscreen:com_83));
+    $int7 = calc($int6 + $int5 - ~if_getx_absolute(toplevel_fullscreen:side_border));
     if ($int7 > 0) {
-        $int8 = min($int7, calc(if_getwidth(toplevel_fullscreen:com_37) / 2));
+        $int8 = min($int7, calc(if_getwidth(toplevel_fullscreen:stone1) / 2));
         $int6 = calc($int6 - $int8);
         $int7 = calc($int7 - $int8);
         if ($int7 > 0) {

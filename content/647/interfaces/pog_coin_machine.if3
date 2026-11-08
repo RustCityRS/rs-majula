@@ -3,7 +3,7 @@
 type=rectangle
 width=515
 height=335
-layer=com_22
+layer=content_layer
 colour=0x000000
 fill=yes
 trans=100
@@ -15,32 +15,32 @@ x=184
 y=-84
 width=285
 height=425
-layer=com_22
+layer=content_layer
 model=model_28323
 modelorigin=0,-32
 modelzoom=1110
 
 // 613:2
-[com_2]
+[pog_operate_hand]
 type=model
 x=3
 y=115
 width=197
 height=259
-layer=com_22
+layer=content_layer
 model=model_17187
 modelorigin=-7,-18
 modelangle=244,125,0
 modelzoom=350
 
 // 613:3
-[com_3]
+[pog_operate_cancel]
 type=model
 x=317
 y=256
 width=65
 height=59
-layer=com_22
+layer=content_layer
 model=model_17222
 modelorigin=2,-5
 modelangle=74,49,0
@@ -49,13 +49,13 @@ transmitop=1
 op1=Cancel
 
 // 613:4
-[com_4]
+[pog_correct]
 type=model
 x=356
 y=236
 width=61
 height=50
-layer=com_22
+layer=content_layer
 model=model_17225
 modelorigin=0,-7
 modelangle=49,0,0
@@ -64,105 +64,105 @@ transmitop=1
 op1=Operate
 
 // 613:5
-[com_5]
+[pog_coinexit]
 type=model
 x=259
 y=265
 width=31
 height=25
-layer=com_22
+layer=content_layer
 model=model_17223
 modelorigin=52,-181
 modelzoom=1110
 
 // 613:6
-[com_6]
+[pog_coin_set_layer01]
 type=layer
 x=246
 y=39
 width=38
 height=38
-layer=com_22
+layer=content_layer
 
 // 613:7
-[com_7]
+[pog_coin_set_layer02]
 type=layer
 x=247
 y=122
 width=38
 height=38
-layer=com_22
+layer=content_layer
 
 // 613:8
-[com_8]
+[pog_windowset]
 type=model
 x=279
 y=40
 width=35
 height=144
-layer=com_22
+layer=content_layer
 model=model_28317
 modelorigin=30,-16
 modelzoom=1110
 
 // 613:9
-[com_9]
+[pog_coin_display1_1]
 type=graphic
 x=279
 y=42
 width=36
 height=32
-layer=com_22
+layer=content_layer
 colour=0x000000
-onmouseleave=deltooltip(pog_coin_machine:com_24)
+onmouseleave=deltooltip(pog_coin_machine:tooltip_input)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1065}
 onmouserepeat=script509(event_com)
 
 // 613:10
-[com_10]
+[pog_coin_display2_1]
 type=graphic
 x=279
 y=99
 width=36
 height=32
-layer=com_22
+layer=content_layer
 colour=0x000000
-onmouseleave=deltooltip(pog_coin_machine:com_24)
+onmouseleave=deltooltip(pog_coin_machine:tooltip_input)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1066}
 onmouserepeat=script509(event_com)
 
 // 613:11
-[com_11]
+[pog_coin_display2_2]
 type=graphic
 x=280
 y=151
 width=36
 height=32
-layer=com_22
+layer=content_layer
 colour=0x000000
-onmouseleave=deltooltip(pog_coin_machine:com_24)
+onmouseleave=deltooltip(pog_coin_machine:tooltip_input)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1067}
 onmouserepeat=script509(event_com)
 
 // 613:12
-[com_12]
+[pog_operate_current_coin]
 type=graphic
 x=75
 y=210
 width=36
 height=32
-layer=com_22
+layer=content_layer
 colour=0x000000
 onvartransmit=pog_machine_transmit(event_com){varplayer_856}
 
 // 613:13
-[com_13]
+[pog_gnome_machine_unloacked_close]
 type=graphic
 x=476
 y=8
 width=26
 height=23
-layer=com_22
+layer=content_layer
 graphic="close_buttons,4"
 colour=0x000000
 transmitop=1
@@ -172,101 +172,101 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,4")
 onop=closebutton_click
 
 // 613:14
-[com_14]
+[pog_gnome_machine_unlocked_close_button]
 type=layer
 x=343
 y=-214
 width=32
 height=32
-layer=com_22
+layer=content_layer
 hide=yes
 
 // 613:15
-[com_15]
+[pog_target_1_1]
 type=graphic
 x=323
 y=42
 width=36
 height=32
-layer=com_22
+layer=content_layer
 colour=0x000000
-onmouseleave=deltooltip(pog_coin_machine:com_23)
+onmouseleave=deltooltip(pog_coin_machine:tooltip_target)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1068}
 onmouserepeat=script136(event_com)
 
 // 613:16
-[com_16]
+[pog_target_1_2]
 type=graphic
 x=362
 y=42
 width=36
 height=32
-layer=com_22
+layer=content_layer
 colour=0x000000
-onmouseleave=deltooltip(pog_coin_machine:com_23)
+onmouseleave=deltooltip(pog_coin_machine:tooltip_target)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1069}
 onmouserepeat=script136(event_com)
 
 // 613:17
-[com_17]
+[pog_target_2]
 type=graphic
 x=342
 y=123
 width=36
 height=32
-layer=com_22
+layer=content_layer
 colour=0x000000
 opbase=m
-onmouseleave=deltooltip(pog_coin_machine:com_23)
+onmouseleave=deltooltip(pog_coin_machine:tooltip_target)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1070}
 onmouserepeat=script136(event_com)
 
 // 613:18
-[com_18]
+[tooltip_bounding_box_target]
 type=layer
 x=290
 y=20
 width=160
 height=227
-layer=com_22
+layer=content_layer
 
 // 613:19
-[com_19]
+[tooltip_bounding_box_input]
 type=layer
 x=202
 y=21
 width=160
 height=227
-layer=com_22
+layer=content_layer
 
 // 613:20
-[com_20]
+[pog_coin_set_01]
 type=model
 x=10
 y=1
 width=18
 height=37
-layer=com_6
+layer=pog_coin_set_layer01
 model=model_17224
 modelzoom=1110
 transmitop=1
 op1=Insert
 
 // 613:21
-[com_21]
+[pog_coin_set_02]
 type=model
 x=10
 y=1
 width=18
 height=37
-layer=com_7
+layer=pog_coin_set_layer02
 model=model_17224
 modelzoom=1110
 transmitop=1
 op1=Insert
 
 // 613:22
-[com_22]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -274,25 +274,25 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 613:23
-[com_23]
+[tooltip_target]
 type=layer
 x=96
 y=86
 width=10
 height=10
-layer=com_18
+layer=tooltip_bounding_box_target
 
 // 613:24
-[com_24]
+[tooltip_input]
 type=layer
 x=48
 y=97
 width=10
 height=10
-layer=com_19
+layer=tooltip_bounding_box_input
 
 // 613:25
-[com_25]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -302,7 +302,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 613:26
-[com_26]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -310,7 +310,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_25
+layer=fsborder_main_layer
 
 // 613:27
 [com_27]
@@ -413,7 +413,7 @@ tiling=yes
 colour=0x000000
 
 // 613:35
-[com_35]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -421,30 +421,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_26
+layer=fsborder_resizing_layer
 
 // 613:36
-[com_36]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_26
+layer=fsborder_resizing_layer
 
 // 613:37
-[com_37]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_26
+layer=fsborder_resizing_layer
 
 // 613:38
-[com_38]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -452,16 +452,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_26
+layer=fsborder_resizing_layer
 
 // 613:39
-[com_39]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_26
+layer=fsborder_resizing_layer
 
 // 613:40
 [com_40]
@@ -471,7 +471,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_36
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -486,7 +486,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_35
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -500,7 +500,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_37
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -515,7 +515,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_38
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

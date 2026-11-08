@@ -1,6 +1,6 @@
 // 6
 [clientscript,magic_init](component $component0, component $component1, graphic $graphic2, graphic $graphic3, int $int4, string $string0, string $string1, obj $obj5, int $int6, obj $obj7, int $int8, obj $obj9, int $int10, obj $obj11, int $int12)
-if (map_members = false & ($component0 = magic_zaros:com_48 | $component0 = magic_lunar:com_38)) {
+if (map_members = false & ($component0 = magic_zaros:teleport_home | $component0 = magic_lunar:home_teleport)) {
     $string0 = "Lumbridge Home Teleport";
 }
 if_setopbase("<col=00ff00><$string0>", $component0);

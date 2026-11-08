@@ -14,10 +14,10 @@ if ($int3 > 0) {
     }
     if_settext($string0, $component0);
     if (string_length($string0) > 0) {
-        if_setsize(calc(stringwidth("System update in: ", p11_full) + 40), if_getheight(lobbyscreen:com_20), ^setsize_abs, ^setsize_abs, lobbyscreen:com_20);
-        if_sethide(false, lobbyscreen:com_20);
+        if_setsize(calc(stringwidth("System update in: ", p11_full) + 40), if_getheight(lobbyscreen:update_timer_bg), ^setsize_abs, ^setsize_abs, lobbyscreen:update_timer_bg);
+        if_sethide(false, lobbyscreen:update_timer_bg);
     } else {
-        if_sethide(true, lobbyscreen:com_20);
+        if_sethide(true, lobbyscreen:update_timer_bg);
     }
 } else {
     if_setontimer(null, $component0);

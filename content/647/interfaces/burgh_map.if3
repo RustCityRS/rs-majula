@@ -8,7 +8,7 @@ fill=yes
 trans=1
 
 // 51:1
-[com_1]
+[map_model]
 type=model
 x=16
 y=5
@@ -20,7 +20,7 @@ modelangle=212,68,0
 modelzoom=424
 
 // 51:2
-[com_2]
+[temple_model]
 type=model
 x=113
 y=28
@@ -32,33 +32,33 @@ modelangle=212,68,0
 modelzoom=424
 
 // 51:3
-[com_3]
+[temple_hi_model_1]
 type=model
 x=146
 y=35
 width=100
 height=47
-layer=com_28
+layer=route1_hi_layer
 model=model_14055
 modelorigin=1,-2
 modelangle=212,68,0
 modelzoom=424
 
 // 51:4
-[com_4]
+[temple_hi_model_2]
 type=model
 x=146
 y=35
 width=100
 height=47
-layer=com_29
+layer=route2_hi_layer
 model=model_14055
 modelorigin=1,-2
 modelangle=212,68,0
 modelzoom=424
 
 // 51:5
-[com_5]
+[boat_model]
 type=model
 x=182
 y=29
@@ -70,20 +70,20 @@ modelangle=500,0,0
 modelzoom=414
 
 // 51:6
-[com_6]
+[boat_hi_model]
 type=model
 x=207
 y=65
 width=110
 height=127
-layer=com_29
+layer=route2_hi_layer
 model=model_14053
 modelorigin=16,-4
 modelangle=500,0,0
 modelzoom=414
 
 // 51:7
-[com_7]
+[route_1_model]
 type=model
 x=246
 y=59
@@ -95,20 +95,20 @@ modelangle=212,68,0
 modelzoom=414
 
 // 51:8
-[com_8]
+[route_1_model_hi]
 type=model
 x=228
 y=52
 width=87
 height=78
-layer=com_28
+layer=route1_hi_layer
 model=model_14060
 modelorigin=12,-12
 modelangle=212,68,0
 modelzoom=414
 
 // 51:9
-[com_9]
+[route_2_model]
 type=model
 x=229
 y=69
@@ -120,13 +120,13 @@ modelangle=212,68,0
 modelzoom=424
 
 // 51:10
-[com_10]
+[route_2_model_hi]
 type=model
 x=211
 y=62
 width=96
 height=126
-layer=com_29
+layer=route2_hi_layer
 model=model_14062
 modelorigin=3,-11
 modelangle=212,68,0
@@ -145,7 +145,7 @@ textalignh=right
 colour=0xa0a075
 
 // 51:12
-[com_12]
+[mort_myre_swamp]
 type=text
 x=181
 y=88
@@ -157,7 +157,7 @@ textalignh=centre
 colour=0xa0a075
 
 // 51:13
-[com_13]
+[hollows]
 type=text
 x=268
 y=99
@@ -168,7 +168,7 @@ text=Hollows
 colour=0xa0a075
 
 // 51:14
-[com_14]
+[mort_ton]
 type=text
 x=223
 y=162
@@ -204,7 +204,7 @@ textalignh=centre
 colour=0xa0a075
 
 // 51:17
-[com_17]
+[player_icon_model]
 type=model
 x=332
 y=100
@@ -216,7 +216,7 @@ modelangle=212,68,0
 modelzoom=424
 
 // 51:18
-[com_18]
+[npc_icon_model]
 type=model
 x=346
 y=126
@@ -228,7 +228,7 @@ modelangle=212,68,0
 modelzoom=424
 
 // 51:19
-[com_19]
+[route1scroll]
 type=model
 x=340
 y=60
@@ -240,11 +240,11 @@ modelangle=528,2047,0
 modelzoom=1189
 transmitop=1
 op1=Route 1
-onmouseover=comp_sethide(false, burgh_map:com_28)
-onmouseleave=comp_sethide(true, burgh_map:com_28)
+onmouseover=comp_sethide(false, burgh_map:route1_hi_layer)
+onmouseleave=comp_sethide(true, burgh_map:route1_hi_layer)
 
 // 51:20
-[com_20]
+[route1]
 type=text
 x=379
 y=65
@@ -256,19 +256,19 @@ textalignh=centre
 colour=0x341b10
 
 // 51:21
-[com_21]
+[route1_hi]
 type=text
 x=361
 y=58
 width=53
 height=17
-layer=com_28
+layer=route1_hi_layer
 textfont=q8_full
 text=Route 1
 textalignh=centre
 
 // 51:22
-[com_22]
+[route2scroll]
 type=model
 x=96
 y=151
@@ -280,11 +280,11 @@ modelangle=528,2047,0
 modelzoom=1189
 transmitop=1
 op1=Route 2
-onmouseover=comp_sethide(false, burgh_map:com_29)
-onmouseleave=comp_sethide(true, burgh_map:com_29)
+onmouseover=comp_sethide(false, burgh_map:route2_hi_layer)
+onmouseleave=comp_sethide(true, burgh_map:route2_hi_layer)
 
 // 51:23
-[com_23]
+[route2]
 type=text
 x=133
 y=155
@@ -296,13 +296,13 @@ textalignh=centre
 colour=0x341b10
 
 // 51:24
-[com_24]
+[route2_hi]
 type=text
 x=115
 y=148
 width=56
 height=17
-layer=com_29
+layer=route2_hi_layer
 textfont=q8_full
 text=Route 2
 textalignh=centre
@@ -320,31 +320,31 @@ modelangle=528,0,0
 modelzoom=618
 
 // 51:26
-[com_26]
+[route_1_desc]
 type=text
 x=302
 y=176
 width=158
 height=107
-layer=com_28
+layer=route1_hi_layer
 textfont=q8_full
 text=Route 1:<br><br>Take the route through<br>Canifis.<br><br>Shorter but potentially<br>more dangerous.
 colour=0x341b10
 
 // 51:27
-[com_27]
+[route_2_desc]
 type=text
 x=302
 y=176
 width=158
 height=107
-layer=com_29
+layer=route2_hi_layer
 textfont=q8_full
 text=Route 2:<br><br>Take the route through<br>Mort Myre Swamp.<br><br>Longer but less likely<br>to be attacked.
 colour=0x341b10
 
 // 51:28
-[com_28]
+[route1_hi_layer]
 type=layer
 x=18
 y=7
@@ -353,7 +353,7 @@ height=319
 hide=yes
 
 // 51:29
-[com_29]
+[route2_hi_layer]
 type=layer
 x=18
 y=7
@@ -374,7 +374,7 @@ modelangle=528,2047,0
 modelzoom=805
 
 // 51:31
-[com_31]
+[burgh_de_rott]
 type=text
 x=219
 y=212
@@ -386,7 +386,7 @@ textalignh=centre
 colour=0xa0a075
 
 // 51:32
-[com_32]
+[burgh_choose_text]
 type=text
 x=33
 y=27
@@ -399,7 +399,7 @@ textalignv=centre
 colour=0x341b10
 
 // 51:33
-[com_33]
+[close_button]
 type=graphic
 x=484
 y=3

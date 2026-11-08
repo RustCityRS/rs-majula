@@ -1,5 +1,5 @@
 // 762:0
-[com_0]
+[all]
 type=layer
 width=512
 heightmode=minus
@@ -13,7 +13,7 @@ y=25
 width=488
 height=29
 heightmode=minus
-layer=com_0
+layer=all
 colour=0x000000
 fill=yes
 trans=200
@@ -27,7 +27,7 @@ y=25
 width=485
 height=34
 heightmode=minus
-layer=com_0
+layer=all
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -40,7 +40,7 @@ y=79
 width=475
 height=124
 heightmode=minus
-layer=com_0
+layer=all
 colour=0x252222
 fill=yes
 trans=160
@@ -53,7 +53,7 @@ y=79
 width=3
 height=124
 heightmode=minus
-layer=com_0
+layer=all
 colour=0x000000
 fill=yes
 trans=170
@@ -65,7 +65,7 @@ y=52
 width=32
 height=92
 heightmode=minus
-layer=com_0
+layer=all
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -77,7 +77,7 @@ x=13
 y=20
 width=32
 height=32
-layer=com_0
+layer=all
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 
@@ -89,7 +89,7 @@ y=51
 width=32
 height=91
 heightmode=minus
-layer=com_0
+layer=all
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -101,7 +101,7 @@ x=44
 y=20
 width=424
 height=32
-layer=com_0
+layer=all
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -114,7 +114,7 @@ y=-4
 width=423
 height=32
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -127,7 +127,7 @@ y=8
 width=32
 height=32
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 
@@ -138,7 +138,7 @@ x=468
 y=20
 width=32
 height=32
-layer=com_0
+layer=all
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 
@@ -151,7 +151,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 
@@ -163,7 +163,7 @@ y=30
 width=473
 height=32
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="v2_borders_slim,11"
 tiling=yes
 colour=0xffffffff
@@ -175,136 +175,136 @@ x=19
 y=65
 width=474
 height=32
-layer=com_0
+layer=all
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
 
 // 762:15
-[com_15]
+[bank_sort_button]
 type=graphic
 x=26
 y=12
 width=35
 height=35
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_buttons_new2,0"
 colour=0xffffffff
 transmitop=1
 op1=Toggle swap/insert
 onmouseover=settrans(event_com, 100)
-onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:com_119)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
 onvartransmit=bank_sort_button{bankinsert}
 onop=bank_v2_swap_click
-onmouserepeat=addtooltip(event_com, bank_v2_main:com_119, "Toggle between swap and insert modes", 25, 150)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Toggle between swap and insert modes", 25, 150)
 
 // 762:16
-[com_16]
+[bank_sort_icon]
 type=graphic
 x=26
 y=12
 width=35
 height=35
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_buttons_new1,2"
 colour=0xffffffff
 
 // 762:17
-[com_17]
+[bank_search_button]
 type=graphic
 x=64
 y=12
 width=35
 height=35
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_buttons_new2,0"
 colour=0xffffffff
 transmitop=1
 op1=Search
 opcursor0=cursor_56
 onmouseover=settrans(event_com, 100)
-onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:com_119)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
 onop=bank_v2_search
-onmouserepeat=addtooltip(event_com, bank_v2_main:com_119, "Click here to search your bank", 25, 150)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Click here to search your bank", 25, 150)
 
 // 762:18
-[com_18]
+[bank_search_icon]
 type=graphic
 x=64
 y=12
 width=35
 height=35
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_buttons_new1,0"
 colour=0xffffffff
 
 // 762:19
-[com_19]
+[bank_cert_button]
 type=graphic
 y=12
 width=35
 height=35
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_buttons_new2,0"
 colour=0xffffffff
 transmitop=1
 op1=Toggle item/note withdrawl
 onmouseover=settrans(event_com, 100)
-onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:com_119)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
 onvartransmit=bank_cert_button{bankcert}
 onop=bank_v2_cert_click
-onmouserepeat=addtooltip(event_com, bank_v2_main:com_119, "Toggle between item and note withdrawal modes", 25, 150)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Toggle between item and note withdrawal modes", 25, 150)
 
 // 762:20
-[com_20]
+[bank_cert_icon]
 type=graphic
 y=12
 width=35
 height=35
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_buttons_new1,4"
 colour=0xffffffff
 
 // 762:21
-[com_21]
+[bank_space_layer]
 type=layer
 x=273
 y=10
 width=102
 height=42
 ymode=abs_bottom
-layer=com_0
+layer=all
 
 // 762:22
-[com_22]
+[bank_space]
 type=layer
 x=7
 y=7
 width=90
 height=25
 ymode=abs_bottom
-layer=com_21
+layer=bank_space_layer
 hide=yes
 transmitop=10
 op10= 
 
 // 762:23
-[com_23]
+[demo_bank_space]
 type=layer
 x=34
 y=4
 width=35
 height=33
 ymode=abs_bottom
-layer=com_21
+layer=bank_space_layer
 hide=yes
 transmitop=10
 op10=  
@@ -318,37 +318,37 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=demo_bank_space
 graphic="bank_buttons,7"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 762:25
-[com_25]
+[bank_space_demo_current]
 type=text
 y=5
 width=22
 height=16
 xmode=abs_centre
-layer=com_23
+layer=demo_bank_space
 textfont=p11_full
 text=-
 textalignv=centre
 colour=0xb4965a
 transmitop=10
 op10=         
-onmouseleave=deltooltip(bank_v2_main:com_119)
+onmouseleave=deltooltip(bank_v2_main:tooltip)
 
 // 762:26
-[com_26]
+[bank_space_demo_total]
 type=text
 y=3
 width=22
 height=16
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_23
+layer=demo_bank_space
 textfont=p11_full
 text=-
 textalignh=right
@@ -356,8 +356,8 @@ textalignv=centre
 colour=0xb4965a
 transmitop=10
 op10=         
-onmouseleave=deltooltip(bank_v2_main:com_119)
-onmouserepeat=script1160(event_com, -1, bank_v2_main:com_119, "Total amount of available <col=BA1626>Demo</col> bank space", 25, 150)
+onmouseleave=deltooltip(bank_v2_main:tooltip)
+onmouserepeat=script1160(event_com, -1, bank_v2_main:tooltip, "Total amount of available <col=BA1626>Demo</col> bank space", 25, 150)
 
 // 762:27
 [com_27]
@@ -368,7 +368,7 @@ width=10
 height=13
 xmode=abs_right
 ymode=abs_bottom
-layer=com_23
+layer=demo_bank_space
 colour=0x000000
 linedirection=yes
 
@@ -377,20 +377,20 @@ linedirection=yes
 type=graphic
 width=90
 height=25
-layer=com_22
+layer=bank_space
 graphic=bank_counter2
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 762:29
-[com_29]
+[bank_space_f2p_current]
 type=text
 x=5
 y=1
 width=15
 height=16
-layer=com_22
+layer=bank_space
 textfont=p11_full
 text=-
 textalignh=right
@@ -398,33 +398,33 @@ textalignv=centre
 colour=0xb4965a
 transmitop=10
 op10=       
-onmouseleave=deltooltip(bank_v2_main:com_119)
+onmouseleave=deltooltip(bank_v2_main:tooltip)
 
 // 762:30
-[com_30]
+[bank_space_f2p_total]
 type=text
 x=24
 y=9
 width=15
 height=16
-layer=com_22
+layer=bank_space
 textfont=p11_full
 text=-
 textalignv=centre
 colour=0xb4965a
 transmitop=10
 op10=       
-onmouseleave=deltooltip(bank_v2_main:com_119)
-onmouserepeat=script1160(event_com, -1, bank_v2_main:com_119, "Total amount of available <col=BA1626>free</col> bank space", 25, 150)
+onmouseleave=deltooltip(bank_v2_main:tooltip)
+onmouserepeat=script1160(event_com, -1, bank_v2_main:tooltip, "Total amount of available <col=BA1626>free</col> bank space", 25, 150)
 
 // 762:31
-[com_31]
+[bank_space_mem_current]
 type=text
 x=41
 y=1
 width=22
 height=16
-layer=com_22
+layer=bank_space
 textfont=p11_full
 text=-
 textalignh=right
@@ -432,27 +432,27 @@ textalignv=centre
 colour=0xb4965a
 transmitop=10
 op10=        
-onmouseleave=deltooltip(bank_v2_main:com_119)
+onmouseleave=deltooltip(bank_v2_main:tooltip)
 
 // 762:32
-[com_32]
+[bank_space_mem_total]
 type=text
 x=67
 y=9
 width=22
 height=16
-layer=com_22
+layer=bank_space
 textfont=p11_full
 text=-
 textalignv=centre
 colour=0xb4965a
 transmitop=10
 op10=        
-onmouseleave=deltooltip(bank_v2_main:com_119)
-onmouserepeat=script1160(event_com, -1, bank_v2_main:com_119, "Total amount of available <col=BA1626>members</col> bank space", 25, 150)
+onmouseleave=deltooltip(bank_v2_main:tooltip)
+onmouserepeat=script1160(event_com, -1, bank_v2_main:tooltip, "Total amount of available <col=BA1626>members</col> bank space", 25, 150)
 
 // 762:33
-[com_33]
+[bank_inv_button]
 type=graphic
 x=102
 y=12
@@ -460,19 +460,19 @@ width=35
 height=35
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_buttons_new2,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Deposit carried items
 op10= 
 onmouseover=settrans(event_com, 100)
-onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:com_119)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
 onop=script1722(event_com, event_comsubid, "bank_buttons_new2,2", "bank_buttons_new2,0", 10)
-onmouserepeat=addtooltip(event_com, bank_v2_main:com_119, "Empty your backpack into your bank", 25, 150)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Empty your backpack into your bank", 25, 150)
 
 // 762:34
-[com_34]
+[bank_inv_icon]
 type=graphic
 x=105
 y=18
@@ -480,14 +480,14 @@ width=29
 height=21
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_bob_button,1"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 762:35
-[com_35]
+[bank_worn_button]
 type=graphic
 x=64
 y=12
@@ -495,19 +495,19 @@ width=35
 height=35
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_buttons_new2,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Deposit worn items
 op10= 
 onmouseover=settrans(event_com, 100)
-onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:com_119)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
 onop=script1722(event_com, event_comsubid, "bank_buttons_new2,2", "bank_buttons_new2,0", 10)
-onmouserepeat=addtooltip(event_com, bank_v2_main:com_119, "Empty the items you are wearing into your bank", 25, 150)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Empty the items you are wearing into your bank", 25, 150)
 
 // 762:36
-[com_36]
+[bank_worn_icon]
 type=graphic
 x=67
 y=18
@@ -515,14 +515,14 @@ width=29
 height=21
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_bob_button,2"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 762:37
-[com_37]
+[bank_bob_button]
 type=graphic
 x=26
 y=12
@@ -530,18 +530,18 @@ width=35
 height=35
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_buttons_new2,0"
 colour=0xffffffff
 transmitop=1
 op1=Deposit beast of burden inventory
 onmouseover=settrans(event_com, 100)
-onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:com_119)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
 onop=script1722(event_com, event_comsubid, "bank_buttons_new2,2", "bank_buttons_new2,0", 10)
-onmouserepeat=addtooltip(event_com, bank_v2_main:com_119, "Empty your beast of burden's inventory into your bank", 25, 150)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Empty your beast of burden's inventory into your bank", 25, 150)
 
 // 762:38
-[com_38]
+[bank_bob_icon]
 type=graphic
 x=29
 y=18
@@ -549,42 +549,42 @@ width=29
 height=21
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=all
 graphic="bank_bob_button,3"
 colour=0xffffffff
 
 // 762:39
-[com_39]
+[bankpin]
 type=layer
 x=112
 y=17
 width=114
 height=25
 ymode=abs_bottom
-layer=com_0
-onload=bank_v2_bankpinshow(bank_v2_main:com_40, bank_v2_main:com_41, bank_v2_main:com_42)
-onvarctransmit=bank_v2_bankpinshow(bank_v2_main:com_40, bank_v2_main:com_41, bank_v2_main:com_42){varclient_169}
+layer=all
+onload=bank_v2_bankpinshow(bank_v2_main:bankpin_button, bank_v2_main:bankpin_model, bank_v2_main:bankpin_text)
+onvarctransmit=bank_v2_bankpinshow(bank_v2_main:bankpin_button, bank_v2_main:bankpin_model, bank_v2_main:bankpin_text){varclient_169}
 
 // 762:40
-[com_40]
+[bankpin_button]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_39
+layer=bankpin
 hide=yes
 transmitop=1
 op1=Set a Bank PIN
 
 // 762:41
-[com_41]
+[bankpin_model]
 type=model
 x=9
 width=21
 height=19
 ymode=abs_centre
-layer=com_39
+layer=bankpin
 hide=yes
 model=model_2372
 modelorigin=-2,0
@@ -592,14 +592,14 @@ modelangle=256,0,0
 modelzoom=900
 
 // 762:42
-[com_42]
+[bankpin_text]
 type=text
 width=30
 widthmode=minus
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_39
+layer=bankpin
 hide=yes
 textfont=p11_full
 text=Bank PIN
@@ -609,13 +609,13 @@ textshadow=yes
 colour=0xf2aa3e
 
 // 762:43
-[com_43]
+[close_button]
 type=graphic
 x=477
 y=23
 width=16
 height=16
-layer=com_0
+layer=all
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -625,13 +625,13 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=bank_v2_close
 
 // 762:44
-[com_44]
+[help_button]
 type=graphic
 x=459
 y=23
 width=16
 height=16
-layer=com_0
+layer=all
 graphic="v2_stone_close_button,4"
 colour=0xffffffff
 transmitop=1
@@ -640,13 +640,13 @@ onmouseover=graphic_swapper(event_com, "v2_stone_close_button,5")
 onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,4")
 
 // 762:45
-[com_45]
+[title]
 type=text
 x=118
 y=23
 width=273
 height=15
-layer=com_0
+layer=all
 textfont=b12_full
 text=Bank of RuneScape
 textalignh=centre
@@ -655,13 +655,13 @@ textshadow=yes
 colour=0xf2aa3e
 
 // 762:46
-[com_46]
+[tab_9]
 type=graphic
 x=405
 y=33
 width=48
 height=48
-layer=com_0
+layer=all
 hide=yes
 graphic="bank_tabs,1"
 colour=0xffffffff
@@ -672,23 +672,23 @@ op2=Collapse
 onop=tab_9_click(event_op)
 
 // 762:47
-[com_47]
+[tab_9_icon]
 type=graphic
 x=410
 y=46
 width=36
 height=32
-layer=com_0
+layer=all
 colour=0xffffffff
 
 // 762:48
-[com_48]
+[tab_8]
 type=graphic
 x=357
 y=33
 width=48
 height=48
-layer=com_0
+layer=all
 graphic="bank_tabs,1"
 colour=0xffffffff
 transmitop=1,2
@@ -698,23 +698,23 @@ op2=Collapse
 onop=tab_8_click(event_op)
 
 // 762:49
-[com_49]
+[tab_8_icon]
 type=graphic
 x=363
 y=46
 width=36
 height=32
-layer=com_0
+layer=all
 colour=0xffffffff
 
 // 762:50
-[com_50]
+[tab_7]
 type=graphic
 x=309
 y=33
 width=48
 height=48
-layer=com_0
+layer=all
 graphic="bank_tabs,1"
 colour=0xffffffff
 transmitop=1,2
@@ -724,23 +724,23 @@ op2=Collapse
 onop=tab_7_click(event_op)
 
 // 762:51
-[com_51]
+[tab_7_icon]
 type=graphic
 x=315
 y=46
 width=36
 height=32
-layer=com_0
+layer=all
 colour=0xffffffff
 
 // 762:52
-[com_52]
+[tab_6]
 type=graphic
 x=261
 y=33
 width=48
 height=48
-layer=com_0
+layer=all
 graphic="bank_tabs,1"
 colour=0xffffffff
 transmitop=1,2
@@ -750,23 +750,23 @@ op2=Collapse
 onop=tab_6_click(event_op)
 
 // 762:53
-[com_53]
+[tab_6_icon]
 type=graphic
 x=267
 y=46
 width=36
 height=32
-layer=com_0
+layer=all
 colour=0xffffffff
 
 // 762:54
-[com_54]
+[tab_5]
 type=graphic
 x=213
 y=33
 width=48
 height=48
-layer=com_0
+layer=all
 graphic="bank_tabs,1"
 colour=0xffffffff
 transmitop=1,2
@@ -776,23 +776,23 @@ op2=Collapse
 onop=tab_5_click(event_op)
 
 // 762:55
-[com_55]
+[tab_5_icon]
 type=graphic
 x=219
 y=46
 width=36
 height=32
-layer=com_0
+layer=all
 colour=0xffffffff
 
 // 762:56
-[com_56]
+[tab_4]
 type=graphic
 x=165
 y=33
 width=48
 height=48
-layer=com_0
+layer=all
 graphic="bank_tabs,1"
 colour=0xffffffff
 transmitop=1,2
@@ -808,17 +808,17 @@ x=171
 y=46
 width=36
 height=32
-layer=com_0
+layer=all
 colour=0xffffffff
 
 // 762:58
-[com_58]
+[tab_3]
 type=graphic
 x=117
 y=33
 width=48
 height=48
-layer=com_0
+layer=all
 graphic="bank_tabs,1"
 colour=0xffffffff
 transmitop=1,2
@@ -828,23 +828,23 @@ op2=Collapse
 onop=tab_3_click(event_op)
 
 // 762:59
-[com_59]
+[tab_3_icon]
 type=graphic
 x=123
 y=46
 width=36
 height=32
-layer=com_0
+layer=all
 colour=0xffffffff
 
 // 762:60
-[com_60]
+[tab_2]
 type=graphic
 x=69
 y=33
 width=48
 height=48
-layer=com_0
+layer=all
 graphic="bank_tabs,1"
 colour=0xffffffff
 transmitop=1,2
@@ -854,40 +854,40 @@ op2=Collapse
 onop=tab_2_click(event_op)
 
 // 762:61
-[com_61]
+[tab_2_icon]
 type=graphic
 x=75
 y=46
 width=36
 height=32
-layer=com_0
+layer=all
 colour=0xffffffff
 
 // 762:62
-[com_62]
+[tab_1]
 type=graphic
 x=21
 y=33
 width=48
 height=48
-layer=com_0
+layer=all
 graphic="bank_tabs,1"
 colour=0xffffffff
 transmitop=1
 candrop=yes
 op1=View all
-onmouseleave=deltooltip(bank_v2_main:com_119)
+onmouseleave=deltooltip(bank_v2_main:tooltip)
 onop=tab_1_click(event_op)
-onmouserepeat=addtooltip(event_com, bank_v2_main:com_119, "Click here to view the full contents of your bank", 25, 150)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Click here to view the full contents of your bank", 25, 150)
 
 // 762:63
-[com_63]
+[tab_1_icon]
 type=graphic
 x=27
 y=46
 width=36
 height=32
-layer=com_0
+layer=all
 graphic="bank_misc_graphics,0"
 colour=0xffffffff
 
@@ -896,169 +896,169 @@ colour=0xffffffff
 type=layer
 width=455
 height=20
-layer=com_93
+layer=bank_v2_inv
 
 // 762:65
 [com_65]
 type=layer
 width=455
 height=20
-layer=com_93
+layer=bank_v2_inv
 
 // 762:66
 [com_66]
 type=layer
 width=455
 height=20
-layer=com_93
+layer=bank_v2_inv
 
 // 762:67
 [com_67]
 type=layer
 width=455
 height=20
-layer=com_93
+layer=bank_v2_inv
 
 // 762:68
 [com_68]
 type=layer
 width=455
 height=20
-layer=com_93
+layer=bank_v2_inv
 
 // 762:69
 [com_69]
 type=layer
 width=455
 height=20
-layer=com_93
+layer=bank_v2_inv
 
 // 762:70
 [com_70]
 type=layer
 width=455
 height=20
-layer=com_93
+layer=bank_v2_inv
 
 // 762:71
 [com_71]
 type=layer
 width=455
 height=20
-layer=com_93
+layer=bank_v2_inv
 
 // 762:72
 [com_72]
 type=layer
 width=455
 height=20
-layer=com_93
+layer=bank_v2_inv
 
 // 762:73
 [com_73]
 type=layer
 width=455
 height=20
-layer=com_93
+layer=bank_v2_inv
 
 // 762:74
-[com_74]
+[drop_space_0]
 type=layer
 x=47
 y=46
 width=32
 height=32
-layer=com_93
+layer=bank_v2_inv
 hide=yes
 candrop=yes
 
 // 762:75
-[com_75]
+[drop_space_1]
 type=layer
 width=32
 height=32
-layer=com_93
+layer=bank_v2_inv
 hide=yes
 candrop=yes
 
 // 762:76
-[com_76]
+[drop_space_2]
 type=layer
 x=5
 y=5
 width=32
 height=32
-layer=com_93
+layer=bank_v2_inv
 candrop=yes
 
 // 762:77
-[com_77]
+[drop_space_3]
 type=layer
 x=10
 y=10
 width=32
 height=32
-layer=com_93
+layer=bank_v2_inv
 candrop=yes
 
 // 762:78
-[com_78]
+[drop_space_4]
 type=layer
 x=15
 y=15
 width=32
 height=32
-layer=com_93
+layer=bank_v2_inv
 candrop=yes
 
 // 762:79
-[com_79]
+[drop_space_5]
 type=layer
 x=20
 y=20
 width=32
 height=32
-layer=com_93
+layer=bank_v2_inv
 candrop=yes
 
 // 762:80
-[com_80]
+[drop_space_6]
 type=layer
 x=25
 y=25
 width=32
 height=32
-layer=com_93
+layer=bank_v2_inv
 candrop=yes
 
 // 762:81
-[com_81]
+[drop_space_7]
 type=layer
 x=30
 y=30
 width=32
 height=32
-layer=com_93
+layer=bank_v2_inv
 candrop=yes
 
 // 762:82
-[com_82]
+[drop_space_8]
 type=layer
 x=35
 y=35
 width=32
 height=32
-layer=com_93
+layer=bank_v2_inv
 candrop=yes
 
 // 762:83
-[com_83]
+[drop_space_9]
 type=layer
 x=41
 y=41
 width=32
 height=32
-layer=com_93
+layer=bank_v2_inv
 candrop=yes
 
 // 762:84
@@ -1066,7 +1066,7 @@ candrop=yes
 type=graphic
 width=36
 height=36
-layer=com_93
+layer=bank_v2_inv
 hide=yes
 graphic=graphic_1454
 colour=0xffffffff
@@ -1076,7 +1076,7 @@ colour=0xffffffff
 type=graphic
 width=36
 height=36
-layer=com_93
+layer=bank_v2_inv
 hide=yes
 graphic=graphic_1454
 colour=0xffffffff
@@ -1086,7 +1086,7 @@ colour=0xffffffff
 type=graphic
 width=36
 height=36
-layer=com_93
+layer=bank_v2_inv
 hide=yes
 graphic=graphic_1454
 colour=0xffffffff
@@ -1096,7 +1096,7 @@ colour=0xffffffff
 type=graphic
 width=36
 height=36
-layer=com_93
+layer=bank_v2_inv
 hide=yes
 graphic=graphic_1454
 colour=0xffffffff
@@ -1106,7 +1106,7 @@ colour=0xffffffff
 type=graphic
 width=36
 height=36
-layer=com_93
+layer=bank_v2_inv
 hide=yes
 graphic=graphic_1454
 colour=0xffffffff
@@ -1116,7 +1116,7 @@ colour=0xffffffff
 type=graphic
 width=36
 height=36
-layer=com_93
+layer=bank_v2_inv
 hide=yes
 graphic=graphic_1454
 colour=0xffffffff
@@ -1126,7 +1126,7 @@ colour=0xffffffff
 type=graphic
 width=36
 height=36
-layer=com_93
+layer=bank_v2_inv
 hide=yes
 graphic=graphic_1454
 colour=0xffffffff
@@ -1136,7 +1136,7 @@ colour=0xffffffff
 type=graphic
 width=36
 height=36
-layer=com_93
+layer=bank_v2_inv
 hide=yes
 graphic=graphic_1454
 colour=0xffffffff
@@ -1146,20 +1146,20 @@ colour=0xffffffff
 type=graphic
 width=36
 height=36
-layer=com_93
+layer=bank_v2_inv
 hide=yes
 graphic=graphic_1454
 colour=0xffffffff
 
 // 762:93
-[com_93]
+[bank_v2_inv]
 type=layer
 x=26
 y=83
 width=447
 height=129
 heightmode=minus
-layer=com_0
+layer=all
 scrollwidth=336
 scrollheight=1905
 onload=bank_v2_build_init
@@ -1177,7 +1177,7 @@ text=Tab 1
 colour=0x5b5346
 
 // 762:95
-[com_95]
+[separator_1]
 type=rectangle
 y=10
 width=455
@@ -1346,7 +1346,7 @@ transmitop=10
 op10= 
 
 // 762:111
-[com_111]
+[separator_4]
 type=rectangle
 y=10
 width=455
@@ -1358,7 +1358,7 @@ transmitop=10
 op10= 
 
 // 762:112
-[com_112]
+[separator_3]
 type=rectangle
 y=10
 width=455
@@ -1370,7 +1370,7 @@ transmitop=10
 op10= 
 
 // 762:113
-[com_113]
+[separator_2]
 type=rectangle
 y=10
 width=455
@@ -1389,16 +1389,16 @@ y=81
 width=16
 height=126
 heightmode=minus
-layer=com_0
+layer=all
 
 // 762:115
-[com_115]
+[message_nomatches]
 type=text
 width=200
 height=18
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=all
 hide=yes
 textfont=p12_full
 text=No matches found!
@@ -1407,13 +1407,13 @@ textshadow=yes
 colour=0x999999
 
 // 762:116
-[com_116]
+[message_nosearch]
 type=text
 width=200
 height=18
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=all
 hide=yes
 textfont=p12_full
 text=No search term entered!
@@ -1422,14 +1422,14 @@ textshadow=yes
 colour=0x999999
 
 // 762:117
-[com_117]
+[equipscreen_button]
 type=layer
 x=22
 y=43
 width=34
 height=34
 xmode=abs_right
-layer=com_0
+layer=all
 transmitop=1
 op1=Show Equipment Stats
 onload=v2_small_button_out_filled(event_com)
@@ -1445,19 +1445,19 @@ y=44
 width=32
 height=32
 xmode=abs_right
-layer=com_0
+layer=all
 graphic="options_icons,16"
-onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:com_119)
-onmouserepeat=addtooltip(event_com, bank_v2_main:com_119, "View equipment stats", 25, 250)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "View equipment stats", 25, 250)
 
 // 762:119
-[com_119]
+[tooltip]
 type=layer
 x=185
 y=246
 width=151
 height=15
-layer=com_0
+layer=all
 opbase=  
 
 // 762:120
@@ -1468,10 +1468,10 @@ y=83
 width=447
 height=129
 heightmode=minus
-layer=com_0
+layer=all
 
 // 762:121
-[com_121]
+[swapper]
 type=layer
 width=1
 height=1

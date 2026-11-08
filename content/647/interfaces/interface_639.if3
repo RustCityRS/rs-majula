@@ -1,5 +1,5 @@
 // 639:0
-[com_0]
+[shadow]
 type=rectangle
 x=17
 y=25
@@ -241,7 +241,7 @@ layer=com_20
 hide=yes
 
 // 639:23
-[com_23]
+[duel2status]
 type=text
 x=349
 y=303
@@ -253,7 +253,7 @@ textshadow=yes
 colour=0x77736a
 
 // 639:24
-[com_24]
+[accept_layer]
 type=layer
 x=168
 y=291
@@ -264,11 +264,11 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 639:25
-[com_25]
+[accept]
 type=text
 width=70
 height=24
-layer=com_24
+layer=accept_layer
 textfont=p12_full
 text=Accept
 textlineheight=12
@@ -283,7 +283,7 @@ onmouseover=text_colour_swapper(event_com, 0x00ab00)
 onmouseleave=text_colour_swapper(event_com, 0x00cc00)
 
 // 639:26
-[com_26]
+[decline_layer]
 type=layer
 x=269
 y=291
@@ -294,11 +294,11 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 639:27
-[com_27]
+[decline]
 type=text
 width=70
 height=24
-layer=com_26
+layer=decline_layer
 textfont=p12_full
 text=Decline
 textlineheight=12

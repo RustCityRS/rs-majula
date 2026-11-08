@@ -1,5 +1,5 @@
 // 954:0
-[com_0]
+[background_fill]
 type=graphic
 x=1
 y=1
@@ -15,7 +15,7 @@ transmitop=10
 op10=   
 
 // 954:1
-[com_1]
+[background_n]
 type=graphic
 y=20
 height=10
@@ -27,7 +27,7 @@ transmitop=10
 op10=   
 
 // 954:2
-[com_2]
+[scrollbar_surround]
 type=layer
 y=54
 width=160
@@ -42,10 +42,10 @@ x=190
 y=49
 width=16
 height=206
-onload=scrollbar_vertical_graphics(event_com, rand_inspect_worn:com_2, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, rand_inspect_worn:scrollbar_surround, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 954:4
-[com_4]
+[border_n]
 type=graphic
 y=-2
 width=190
@@ -57,7 +57,7 @@ transmitop=10
 op10=   
 
 // 954:5
-[com_5]
+[stat_name]
 type=text
 y=2
 width=163
@@ -70,7 +70,7 @@ textshadow=yes
 colour=0xc69b01
 
 // 954:6
-[com_6]
+[close_button]
 type=graphic
 x=170
 y=2
@@ -85,7 +85,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onclick=closebutton_click
 
 // 954:7
-[com_7]
+[player_close]
 type=layer
 x=166
 y=-2
@@ -98,12 +98,12 @@ hide=yes
 type=graphic
 width=26
 height=23
-layer=com_7
+layer=player_close
 graphic="close_buttons,1"
 colour=0xffffffff
 
 // 954:9
-[com_9]
+[tooltip_bounding_layer]
 type=layer
 width=16391
 height=16391
@@ -111,13 +111,13 @@ widthmode=proportion
 heightmode=proportion
 
 // 954:10
-[com_10]
+[tooltip]
 type=layer
 x=102
 y=39
 width=64
 height=18
-layer=com_9
+layer=tooltip_bounding_layer
 
 // 954:11
 [com_11]
@@ -190,7 +190,7 @@ transmitop=10
 op10= 
 
 // 954:16
-[com_16]
+[hat_container]
 type=layer
 y=60
 width=36
@@ -206,20 +206,20 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=hat_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:18
-[com_18]
+[hat]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=hat_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,10
 op1=*
@@ -230,7 +230,7 @@ op5=*
 op10=Examine
 
 // 954:19
-[com_19]
+[back_container]
 type=layer
 x=-41
 y=99
@@ -247,20 +247,20 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_19
+layer=back_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:21
-[com_21]
+[back]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_19
+layer=back_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,10
 op1=*
@@ -272,7 +272,7 @@ op10=Examine
 onload=wornitems_slot(event_com, 1)
 
 // 954:22
-[com_22]
+[front_container]
 type=layer
 y=99
 width=36
@@ -288,20 +288,20 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_22
+layer=front_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:24
-[com_24]
+[front]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_22
+layer=front_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,10
 op1=*
@@ -312,7 +312,7 @@ op5=*
 op10=Examine
 
 // 954:25
-[com_25]
+[rhand_container]
 type=layer
 x=-56
 y=138
@@ -329,20 +329,20 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_25
+layer=rhand_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:27
-[com_27]
+[rhand]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_25
+layer=rhand_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,10
 op1=*
@@ -353,7 +353,7 @@ op5=*
 op10=Examine
 
 // 954:28
-[com_28]
+[torso_container]
 type=layer
 y=138
 width=36
@@ -369,20 +369,20 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_28
+layer=torso_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:30
-[com_30]
+[torso]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_28
+layer=torso_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,10
 op1=*
@@ -393,7 +393,7 @@ op5=*
 op10=Examine
 
 // 954:31
-[com_31]
+[lhand_container]
 type=layer
 x=56
 y=138
@@ -410,20 +410,20 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=lhand_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:33
-[com_33]
+[lhand]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=lhand_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,10
 op1=*
@@ -434,7 +434,7 @@ op5=*
 op10=Examine
 
 // 954:34
-[com_34]
+[legs_container]
 type=layer
 y=178
 width=36
@@ -450,20 +450,20 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=legs_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:36
-[com_36]
+[legs]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=legs_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,10
 op1=*
@@ -474,7 +474,7 @@ op5=*
 op10=Examine
 
 // 954:37
-[com_37]
+[hands_container]
 type=layer
 x=-56
 y=218
@@ -491,20 +491,20 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_37
+layer=hands_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:39
-[com_39]
+[hands]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_37
+layer=hands_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,10
 op1=*
@@ -515,7 +515,7 @@ op5=*
 op10=Examine
 
 // 954:40
-[com_40]
+[feet_container]
 type=layer
 y=218
 width=36
@@ -531,20 +531,20 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_40
+layer=feet_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:42
-[com_42]
+[feet]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_40
+layer=feet_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,10
 op1=*
@@ -555,7 +555,7 @@ op5=*
 op10=Examine
 
 // 954:43
-[com_43]
+[ring_container]
 type=layer
 x=56
 y=218
@@ -572,20 +572,20 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_43
+layer=ring_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:45
-[com_45]
+[ring]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_43
+layer=ring_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,10
 op1=*
@@ -596,7 +596,7 @@ op5=*
 op10=Examine
 
 // 954:46
-[com_46]
+[quiver_container]
 type=layer
 x=41
 y=99
@@ -622,20 +622,20 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=quiver_container
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:49
-[com_49]
+[quiver]
 type=graphic
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=quiver_container
 colour=0xffffffff
 transmitop=1,2,3,4,5,10
 op1=*
@@ -646,7 +646,7 @@ op5=*
 op10=Examine
 
 // 954:50
-[com_50]
+[inv_button]
 type=layer
 y=24
 width=48
@@ -656,11 +656,11 @@ op1=View-Inventory
 op10= 
 
 // 954:51
-[com_51]
+[inv_button_bg]
 type=graphic
 width=48
 height=26
-layer=com_50
+layer=inv_button
 graphic="tab_but,0"
 colour=0xffffffff
 transmitop=10
@@ -670,20 +670,20 @@ onmouseleave=graphic_swapper(event_com, "tab_but,0")
 onclick=graphic_swapper(event_com, "tab_but,2")
 
 // 954:52
-[com_52]
+[inv_graphic]
 type=graphic
 width=22
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_50
+layer=inv_button
 graphic="stonemenusideicons,4"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 954:53
-[com_53]
+[worn_button]
 type=layer
 x=47
 y=24
@@ -694,33 +694,33 @@ op1=View-Worn
 op10= 
 
 // 954:54
-[com_54]
+[worn_button_bg]
 type=graphic
 y=1
 width=48
 height=26
-layer=com_53
+layer=worn_button
 graphic="tab_but,3"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 954:55
-[com_55]
+[worn_graphic]
 type=graphic
 y=1
 width=22
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_53
+layer=worn_button
 graphic="stonemenusideicons,5"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 954:56
-[com_56]
+[bob_button]
 type=layer
 x=94
 y=24
@@ -731,11 +731,11 @@ op1=View-Bob
 op10= 
 
 // 954:57
-[com_57]
+[bob_button_bg]
 type=graphic
 width=48
 height=26
-layer=com_56
+layer=bob_button
 graphic="tab_but,0"
 colour=0xffffffff
 transmitop=10
@@ -745,20 +745,20 @@ onmouseleave=graphic_swapper(event_com, "tab_but,0")
 onclick=graphic_swapper(event_com, "tab_but,2")
 
 // 954:58
-[com_58]
+[bob_graphic]
 type=graphic
 width=22
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_56
+layer=bob_button
 graphic="lore_icons,6"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 954:59
-[com_59]
+[stats_button]
 type=layer
 x=141
 y=24
@@ -769,11 +769,11 @@ op1=View-Stats
 op10= 
 
 // 954:60
-[com_60]
+[stats_button_bg]
 type=graphic
 width=48
 height=26
-layer=com_59
+layer=stats_button
 graphic="tab_but,0"
 colour=0xffffffff
 transmitop=10
@@ -783,13 +783,13 @@ onmouseleave=graphic_swapper(event_com, "tab_but,0")
 onclick=graphic_swapper(event_com, "tab_but,2")
 
 // 954:61
-[com_61]
+[stats_graphic]
 type=graphic
 width=22
 height=22
 xmode=abs_centre
 ymode=abs_centre
-layer=com_59
+layer=stats_button
 graphic="stonemenusideicons,1"
 colour=0xffffffff
 transmitop=10

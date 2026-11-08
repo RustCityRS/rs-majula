@@ -16,7 +16,7 @@ modelobjwidth=595
 modelobjheight=416
 
 // 525:1
-[com_1]
+[qip_soa_arrav_certificate_whole]
 type=model
 x=-3
 y=17
@@ -69,7 +69,7 @@ modelangle=512,0,0
 modelzoom=400
 
 // 525:5
-[com_5]
+[close]
 type=graphic
 x=239
 y=-150
@@ -81,6 +81,6 @@ graphic="close_buttons,6"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(end_t47_158:com_5, "close_buttons,7")
-onmouseleave=graphic_swapper(end_t47_158:com_5, "close_buttons,6")
+onmouseover=graphic_swapper(end_t47_158:close, "close_buttons,7")
+onmouseleave=graphic_swapper(end_t47_158:close, "close_buttons,6")
 onop=closebutton_click

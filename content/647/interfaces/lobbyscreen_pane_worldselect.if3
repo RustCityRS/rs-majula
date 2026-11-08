@@ -6,7 +6,7 @@ heightmode=minus
 onload=lobby_worldswitcher_load
 
 // 910:1
-[com_1]
+[please_wait]
 type=text
 y=50
 height=50
@@ -21,7 +21,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 910:2
-[com_2]
+[title]
 type=layer
 height=50
 widthmode=minus
@@ -38,13 +38,13 @@ layer=com_0
 colour=0xc9b997
 
 // 910:4
-[com_4]
+[refresh]
 type=layer
 x=10
 width=130
 height=25
 ymode=abs_centre
-layer=com_2
+layer=title
 opbase=World list
 op1=Refresh
 onmouseover=script3146
@@ -52,13 +52,13 @@ onmouseleave=script3147
 onop=script3112
 
 // 910:5
-[com_5]
+[refresh_text]
 type=text
 x=30
 width=100
 height=25
 ymode=abs_centre
-layer=com_4
+layer=refresh
 textfont=verdana_11pt_regular
 text=Refresh
 textalignv=centre
@@ -66,24 +66,24 @@ textshadow=yes
 colour=0xebe0bc
 
 // 910:6
-[com_6]
+[refresh_button]
 type=graphic
 width=25
 height=25
 ymode=abs_centre
-layer=com_4
+layer=refresh
 graphic="lobby_world_reset,1"
 colour=0xffffffff
 
 // 910:7
-[com_7]
+[title_text]
 type=text
 y=5
 width=300
 height=25
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=title
 textfont=verdana_15pt_regular
 text=Select a world
 textalignh=centre
@@ -92,7 +92,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 910:8
-[com_8]
+[status_text]
 type=text
 y=5
 width=300
@@ -100,7 +100,7 @@ height=11
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=title
 textfont=verdana_11pt_regular
 text=Please select a game world from the list
 textalignh=centre
@@ -109,22 +109,22 @@ textshadow=yes
 colour=0xebe0bc
 
 // 910:9
-[com_9]
+[current_world]
 type=layer
 x=10
 width=120
 height=30
 xmode=abs_right
 ymode=abs_centre
-layer=com_2
+layer=title
 
 // 910:10
-[com_10]
+[current_title]
 type=text
 width=120
 height=11
 xmode=abs_right
-layer=com_9
+layer=current_world
 textfont=verdana_11pt_regular
 text=Current world:
 textalignh=right
@@ -133,14 +133,14 @@ textshadow=yes
 colour=0xebe0bc
 
 // 910:11
-[com_11]
+[current_text]
 type=text
 y=2
 width=120
 height=13
 xmode=abs_right
 ymode=abs_bottom
-layer=com_9
+layer=current_world
 textfont=verdana_11pt_regular
 text=World Auto
 textalignh=right
@@ -150,19 +150,19 @@ colour=0xebe0bc
 op10= 
 
 // 910:12
-[com_12]
+[current_icon]
 type=graphic
 x=70
 width=19
 height=18
 xmode=abs_right
 ymode=abs_bottom
-layer=com_9
+layer=current_world
 graphic="world_select_stars,0"
 colour=0xffffffff
 
 // 910:13
-[com_13]
+[list_content]
 type=layer
 x=1
 y=51
@@ -175,7 +175,7 @@ hide=yes
 op10= 
 
 // 910:14
-[com_14]
+[tooltip]
 type=layer
 x=276
 y=229
@@ -186,16 +186,16 @@ hide=yes
 op10= 
 
 // 910:15
-[com_15]
+[tooltip_outer]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_14
+layer=tooltip
 colour=0x000000
 op10= 
 
 // 910:16
-[com_16]
+[tooltip_inner]
 type=rectangle
 x=1
 y=1
@@ -203,51 +203,51 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_14
+layer=tooltip
 colour=0xffffa0
 fill=yes
 op10= 
 
 // 910:17
-[com_17]
+[tooltip_text]
 type=text
 x=4
 y=1
 width=8
 widthmode=minus
 heightmode=minus
-layer=com_14
+layer=tooltip
 textfont=p12_full
 textalignv=centre
 colour=0x000000
 op10= 
 
 // 910:18
-[com_18]
+[fav_title]
 type=layer
 height=20
 widthmode=minus
-layer=com_13
+layer=list_content
 
 // 910:19
-[com_19]
+[troubleshooting_issued]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_18
+layer=fav_title
 hide=yes
 colour=0x0e0b09
 fill=yes
 op10= 
 
 // 910:20
-[com_20]
+[fav_title_text]
 type=text
 x=5
 width=10
 height=20
 widthmode=minus
-layer=com_18
+layer=fav_title
 textfont=verdana_11pt_regular
 text=Favourite worlds (2 max)
 textalignv=centre
@@ -255,57 +255,57 @@ textshadow=yes
 colour=0xebe0bc
 
 // 910:21
-[com_21]
+[list_fav1]
 type=layer
 y=20
 height=20
 widthmode=minus
-layer=com_13
+layer=list_content
 op10= 
 
 // 910:22
-[com_22]
+[list_fav2]
 type=layer
 y=40
 height=20
 widthmode=minus
-layer=com_13
+layer=list_content
 op10=  
 
 // 910:23
-[com_23]
+[ws_fav_divs]
 type=layer
 y=20
 height=40
 widthmode=minus
-layer=com_13
+layer=list_content
 op10=  
 
 // 910:24
-[com_24]
+[fav_div]
 type=rectangle
 y=60
 height=2
 widthmode=minus
-layer=com_13
+layer=list_content
 colour=0x0e0b09
 fill=yes
 
 // 910:25
-[com_25]
+[list_titles]
 type=layer
 y=62
 height=34
 widthmode=minus
-layer=com_13
+layer=list_content
 op10= 
 
 // 910:26
-[com_26]
+[list_header_bg]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_25
+layer=list_titles
 colour=0x382e22
 fill=yes
 
@@ -316,46 +316,46 @@ x=5
 width=17
 height=17
 ymode=abs_centre
-layer=com_25
+layer=list_titles
 colour=0xffffffff
 op10= 
 
 // 910:28
-[com_28]
+[world_title_main]
 type=layer
 x=25
 width=53
 height=2
 heightmode=minus
-layer=com_25
+layer=list_titles
 
 // 910:29
-[com_29]
+[player_title_main]
 type=layer
 x=80
 width=73
 height=2
 heightmode=minus
-layer=com_25
+layer=list_titles
 
 // 910:30
-[com_30]
+[player_title_sorts]
 type=layer
 y=2
 width=25
 height=11
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_29
+layer=player_title_main
 op10= 
 
 // 910:31
-[com_31]
+[player_title]
 type=text
 y=2
 height=16
 widthmode=minus
-layer=com_29
+layer=player_title_main
 textfont=verdana_11pt_regular
 text=Players
 textalignh=centre
@@ -365,53 +365,53 @@ colour=0xebe0bc
 op10=  
 
 // 910:32
-[com_32]
+[location_title_main]
 type=layer
 x=155
 width=330
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_25
+layer=list_titles
 
 // 910:33
-[com_33]
+[type_title_main]
 type=layer
 x=110
 width=63
 height=2
 heightmode=minus
 xmode=abs_right
-layer=com_25
+layer=list_titles
 op10= 
 
 // 910:34
-[com_34]
+[lootshare_title_main]
 type=layer
 x=68
 width=40
 height=2
 heightmode=minus
 xmode=abs_right
-layer=com_25
+layer=list_titles
 
 // 910:35
-[com_35]
+[ping_title_main]
 type=layer
 x=16
 width=50
 height=2
 heightmode=minus
 xmode=abs_right
-layer=com_25
+layer=list_titles
 
 // 910:36
-[com_36]
+[list_header_bottom]
 type=rectangle
 height=2
 widthmode=minus
 ymode=abs_bottom
-layer=com_25
+layer=list_titles
 colour=0x0e0b09
 fill=yes
 op10= 
@@ -422,7 +422,7 @@ type=layer
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_25
+layer=list_titles
 op10=   
 
 // 910:38
@@ -436,7 +436,7 @@ colour=0x453718
 op10=   
 
 // 910:39
-[com_39]
+[htmlstatuses]
 type=rectangle
 x=78
 width=2
@@ -489,13 +489,13 @@ colour=0x453718
 op10=    
 
 // 910:44
-[com_44]
+[ping_title]
 type=text
 y=2
 width=50
 height=16
 xmode=abs_right
-layer=com_35
+layer=ping_title_main
 textfont=verdana_11pt_regular
 text=Ping
 textalignh=centre
@@ -505,24 +505,24 @@ colour=0xebe0bc
 op10=  
 
 // 910:45
-[com_45]
+[ping_title_sorts]
 type=layer
 y=2
 width=25
 height=11
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_35
+layer=ping_title_main
 op10= 
 
 // 910:46
-[com_46]
+[volcano_gj]
 type=graphic
 y=2
 width=18
 height=16
 xmode=abs_centre
-layer=com_34
+layer=lootshare_title_main
 graphic=loot_login
 colour=0xffffffff
 op10=  
@@ -537,17 +537,17 @@ width=25
 height=11
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_34
+layer=lootshare_title_main
 op10= 
 
 // 910:48
-[com_48]
+[type_title]
 type=text
 y=2
 width=18
 height=16
 widthmode=minus
-layer=com_33
+layer=type_title_main
 textfont=verdana_11pt_regular
 text=Type
 textalignh=centre
@@ -557,25 +557,25 @@ colour=0xebe0bc
 op10=   
 
 // 910:49
-[com_49]
+[type_title_sorts]
 type=layer
 y=2
 width=25
 height=11
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_33
+layer=type_title_main
 op10=  
 
 // 910:50
-[com_50]
+[type_info]
 type=layer
 x=1
 y=2
 width=16
 height=16
 xmode=abs_right
-layer=com_33
+layer=type_title_main
 opbase=Information
 op1=More
 onmouseover=script3149(event_com, -1, "More information on members benefits")
@@ -583,12 +583,12 @@ onmouseleave=script3153(event_com, -1)
 onop=openurl_nologin("members/members.ws", true)
 
 // 910:51
-[com_51]
+[location_title]
 type=text
 y=2
 height=16
 widthmode=minus
-layer=com_32
+layer=location_title_main
 textfont=verdana_11pt_regular
 text=Location/Activity
 textalignh=centre
@@ -598,25 +598,25 @@ colour=0xebe0bc
 op10=  
 
 // 910:52
-[com_52]
+[location_title_sorts]
 type=layer
 y=2
 width=25
 height=11
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_32
+layer=location_title_main
 op10= 
 
 // 910:53
-[com_53]
+[location_info]
 type=layer
 x=73
 y=2
 width=16
 height=16
 xmode=abs_centre
-layer=com_32
+layer=location_title_main
 opbase=Information
 op1=More
 op10= 
@@ -625,12 +625,12 @@ onmouseleave=script3153(event_com, -1)
 onop=openurl_nologin("kbase/view.ws?guid=themed_worlds", true)
 
 // 910:54
-[com_54]
+[world_title]
 type=text
 y=2
 width=53
 height=16
-layer=com_28
+layer=world_title_main
 textfont=verdana_11pt_regular
 text=World
 textalignh=centre
@@ -640,102 +640,102 @@ colour=0xebe0bc
 op10= 
 
 // 910:55
-[com_55]
+[world_title_sorts]
 type=layer
 y=2
 width=25
 height=11
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_28
+layer=world_title_main
 
 // 910:56
-[com_56]
+[fav_main_div]
 type=rectangle
 x=23
 width=2
 heightmode=minus
-layer=com_23
+layer=ws_fav_divs
 colour=0x453718
 op10=  
 
 // 910:57
-[com_57]
+[world_main_div]
 type=rectangle
 x=78
 width=2
 heightmode=minus
-layer=com_23
+layer=ws_fav_divs
 colour=0x453718
 op10=   
 
 // 910:58
-[com_58]
+[players_main_div]
 type=rectangle
 x=153
 width=2
 heightmode=minus
-layer=com_23
+layer=ws_fav_divs
 colour=0x453718
 op10=   
 
 // 910:59
-[com_59]
+[location_main_div]
 type=rectangle
 x=173
 width=2
 heightmode=minus
 xmode=abs_right
-layer=com_23
+layer=ws_fav_divs
 colour=0x453718
 op10=   
 
 // 910:60
-[com_60]
+[type_main_div]
 type=rectangle
 x=108
 width=2
 heightmode=minus
 xmode=abs_right
-layer=com_23
+layer=ws_fav_divs
 colour=0x453718
 op10=    
 
 // 910:61
-[com_61]
+[qchat_main_div]
 type=rectangle
 x=66
 width=2
 heightmode=minus
 xmode=abs_right
-layer=com_23
+layer=ws_fav_divs
 colour=0x453718
 op10=   
 
 // 910:62
-[com_62]
+[list_area]
 type=layer
 y=96
 width=16
 height=96
 widthmode=minus
 heightmode=minus
-layer=com_13
+layer=list_content
 op10= 
 
 // 910:63
-[com_63]
+[list_main]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_62
+layer=list_area
 
 // 910:64
-[com_64]
+[ws_bg]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_63
+layer=list_main
 op10=  
 
 // 910:65
@@ -745,7 +745,7 @@ x=25
 width=25
 height=20
 widthmode=minus
-layer=com_63
+layer=list_main
 hide=yes
 colour=0x787878
 fill=yes
@@ -756,202 +756,202 @@ op10=
 type=rectangle
 width=23
 height=20
-layer=com_63
+layer=list_main
 hide=yes
 colour=0x505050
 fill=yes
 op10=  
 
 // 910:67
-[com_67]
+[ws_selected_bg]
 type=rectangle
 height=20
 widthmode=minus
-layer=com_63
+layer=list_main
 hide=yes
 colour=0xb24d00
 fill=yes
 
 // 910:68
-[com_68]
+[fav]
 type=layer
 width=23
 heightmode=minus
-layer=com_63
+layer=list_main
 op10= 
 
 // 910:69
-[com_69]
+[world]
 type=layer
 x=25
 width=53
 heightmode=minus
-layer=com_63
+layer=list_main
 op10=  
 
 // 910:70
-[com_70]
+[world_icon]
 type=layer
 x=25
 width=53
 heightmode=minus
-layer=com_63
+layer=list_main
 op10=   
 
 // 910:71
-[com_71]
+[players]
 type=layer
 x=80
 width=73
 heightmode=minus
-layer=com_63
+layer=list_main
 op10=  
 
 // 910:72
-[com_72]
+[location]
 type=layer
 x=154
 width=313
 widthmode=minus
 heightmode=minus
-layer=com_63
+layer=list_main
 op10=  
 
 // 910:73
-[com_73]
+[location_flag]
 type=layer
 x=155
 width=314
 widthmode=minus
 heightmode=minus
-layer=com_63
+layer=list_main
 op10=   
 
 // 910:74
-[com_74]
+[type]
 type=layer
 x=94
 width=63
 heightmode=minus
 xmode=abs_right
-layer=com_63
+layer=list_main
 op10=   
 
 // 910:75
-[com_75]
+[lootshare]
 type=layer
 x=52
 width=40
 heightmode=minus
 xmode=abs_right
-layer=com_63
+layer=list_main
 op10=  
 
 // 910:76
-[com_76]
+[ping]
 type=layer
 width=50
 heightmode=minus
 xmode=abs_right
-layer=com_63
+layer=list_main
 op10=   
 
 // 910:77
-[com_77]
+[ws_buttons_r]
 type=layer
 x=25
 width=25
 widthmode=minus
 heightmode=minus
-layer=com_63
+layer=list_main
 op10=   
 
 // 910:78
-[com_78]
+[ws_buttons_l]
 type=layer
 width=23
 heightmode=minus
-layer=com_63
+layer=list_main
 op10=    
 
 // 910:79
-[com_79]
+[ws_list_divs]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_63
+layer=list_main
 op10=   
 
 // 910:80
-[com_80]
+[fav_main_div_1]
 type=rectangle
 x=23
 width=2
 heightmode=minus
-layer=com_79
+layer=ws_list_divs
 colour=0x453718
 op10=   
 
 // 910:81
-[com_81]
+[world_main_div_1]
 type=rectangle
 x=78
 width=2
 heightmode=minus
-layer=com_79
+layer=ws_list_divs
 colour=0x453718
 op10=    
 
 // 910:82
-[com_82]
+[players_main_div_1]
 type=rectangle
 x=153
 width=2
 heightmode=minus
-layer=com_79
+layer=ws_list_divs
 colour=0x453718
 op10=    
 
 // 910:83
-[com_83]
+[location_main_div_1]
 type=rectangle
 x=157
 width=2
 heightmode=minus
 xmode=abs_right
-layer=com_79
+layer=ws_list_divs
 colour=0x453718
 op10=    
 
 // 910:84
-[com_84]
+[type_main_div_1]
 type=rectangle
 x=92
 width=2
 heightmode=minus
 xmode=abs_right
-layer=com_79
+layer=ws_list_divs
 colour=0x453718
 op10=     
 
 // 910:85
-[com_85]
+[qchat_main_div_1]
 type=rectangle
 x=50
 width=2
 heightmode=minus
 xmode=abs_right
-layer=com_79
+layer=ws_list_divs
 colour=0x453718
 op10=    
 
 // 910:86
-[com_86]
+[list_scroll]
 type=layer
 y=96
 width=16
 height=96
 heightmode=minus
 xmode=abs_right
-layer=com_13
+layer=list_content
 op10=   

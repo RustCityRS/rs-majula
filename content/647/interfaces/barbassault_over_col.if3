@@ -1,29 +1,29 @@
 // 486:0
-[com_0]
+[content_layer_1]
 type=layer
 width=512
 height=334
 xmode=abs_right
 
 // 486:1
-[com_1]
+[alert_insured]
 type=graphic
 x=492
 y=1
 width=17
 height=13
-layer=com_0
+layer=content_layer_1
 graphic="barbassault_icons,0"
 colour=0x000000
 
 // 486:2
-[com_2]
+[barbassault_collector_wave__text]
 type=text
 x=416
 y=-9
 width=70
 height=32
-layer=com_0
+layer=content_layer_1
 textfont=barbassault_font
 text=Wave 1
 textalignh=right
@@ -31,24 +31,24 @@ textshadow=yes
 colour=0xff981f
 
 // 486:3
-[com_3]
+[barbassault_collector_hear]
 type=graphic
 x=493
 y=24
 width=17
 height=13
-layer=com_0
+layer=content_layer_1
 graphic="barbassault_icons,1"
 colour=0x000000
 
 // 486:4
-[com_4]
+[barbassault_collector_hear_detail_text]
 type=text
 x=406
 y=11
 width=80
 height=32
-layer=com_0
+layer=content_layer_1
 textfont=barbassault_font
 text=Red eggs
 textalignh=right
@@ -56,24 +56,24 @@ textshadow=yes
 colour=0xff981f
 
 // 486:5
-[com_5]
+[barbassault_collector_shout]
 type=graphic
 x=491
 y=44
 width=17
 height=13
-layer=com_0
+layer=content_layer_1
 graphic="barbassault_icons,2"
 colour=0x000000
 
 // 486:6
-[com_6]
+[barbassault_collector_shout_text]
 type=text
 x=418
 y=32
 width=68
 height=32
-layer=com_0
+layer=content_layer_1
 textfont=barbassault_font
 text=Style 1
 textalignh=right
@@ -81,24 +81,24 @@ textshadow=yes
 colour=0xff981f
 
 // 486:7
-[com_7]
+[barbassault_collector_horn]
 type=graphic
 x=491
 y=64
 width=17
 height=13
-layer=com_0
+layer=content_layer_1
 graphic="barbassault_icons,3"
 colour=0x000000
 
 // 486:8
-[com_8]
+[barbassault_collector_horn_text]
 type=text
 x=408
 y=54
 width=78
 height=32
-layer=com_0
+layer=content_layer_1
 textfont=barbassault_font
 text=Attacker
 textalignh=right

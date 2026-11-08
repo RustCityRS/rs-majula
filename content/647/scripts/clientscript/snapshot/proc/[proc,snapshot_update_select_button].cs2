@@ -1,7 +1,7 @@
 // 217
 [proc,snapshot_update_select_button]
-if_settext("Reporting: <%varclient_1543>", snapshot_main_v2:com_106);
-if_settext(%varclient_1543, snapshot_main_v2:com_71);
+if_settext("Reporting: <%varclient_1543>", snapshot_main_v2:report_abuse_title_txt);
+if_settext(%varclient_1543, snapshot_main_v2:selected_name);
 if (compare(%varclient_1543, "") ! 0) {
     if_sethide(true, snapshot_main_v2:com_81);
 } else {

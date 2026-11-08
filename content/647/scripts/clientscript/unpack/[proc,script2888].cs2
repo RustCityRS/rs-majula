@@ -1,9 +1,9 @@
 // 2888
 [proc,script2888]
 if (getwindowmode >= 2) {
-    if_setposition(0, 287, ^setpos_abs_left, ^setpos_abs_top, interface_476:com_56);
-    if_setposition(0, 254, ^setpos_abs_left, ^setpos_abs_top, interface_476:com_55);
+    if_setposition(0, 287, ^setpos_abs_left, ^setpos_abs_top, sfa:shard_num);
+    if_setposition(0, 254, ^setpos_abs_left, ^setpos_abs_top, sfa:shard);
 } else {
-    if_setposition(18, 40, ^setpos_abs_right, ^setpos_abs_top, interface_476:com_56);
-    if_setposition(18, 7, ^setpos_abs_right, ^setpos_abs_top, interface_476:com_55);
+    if_setposition(18, 40, ^setpos_abs_right, ^setpos_abs_top, sfa:shard_num);
+    if_setposition(18, 7, ^setpos_abs_right, ^setpos_abs_top, sfa:shard);
 }

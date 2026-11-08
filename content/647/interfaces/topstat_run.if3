@@ -1,5 +1,5 @@
 // 750:0
-[com_0]
+[topstat_prayer]
 type=layer
 width=57
 height=34
@@ -7,11 +7,11 @@ transmitop=10
 op10= 
 
 // 750:1
-[com_1]
+[run_background]
 type=graphic
 width=57
 height=34
-layer=com_0
+layer=topstat_prayer
 graphic=graphic_1206
 colour=0xffffffff
 transmitop=1,2,10
@@ -22,36 +22,36 @@ onload=topstat_run_button_init(event_com)
 onvarctransmit=topstat_run_button_update(event_com){varclient_119}
 
 // 750:2
-[com_2]
+[titlescroll_onop_1]
 type=layer
 width=512
 height=334
-layer=com_0
+layer=topstat_prayer
 onload=script809
 onvartransmit=script809{varplayer_1160}
 onstattransmit=script815{summoning}
 
 // 750:3
-[com_3]
+[run_circle]
 type=graphic
 x=1
 y=1
 width=31
 height=31
-layer=com_0
+layer=topstat_prayer
 graphic="topstat_fill_full,2"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 750:4
-[com_4]
+[run_hide]
 type=graphic
 x=1
 y=1
 width=31
 height=31
-layer=com_0
+layer=topstat_prayer
 graphic="topstat_fill_full,4"
 tiling=yes
 colour=0xffffffff
@@ -59,13 +59,13 @@ transmitop=10
 op10= 
 
 // 750:5
-[com_5]
+[run_text]
 type=text
 x=31
 y=15
 width=24
 height=14
-layer=com_0
+layer=topstat_prayer
 textfont=p11_full
 textalignh=centre
 textalignv=centre
@@ -76,13 +76,13 @@ op10=
 onload=topstat_run_text_init(event_com)
 
 // 750:6
-[com_6]
+[run_graphic]
 type=graphic
 x=6
 y=7
 width=20
 height=20
-layer=com_0
+layer=topstat_prayer
 graphic="topstat_icon,2"
 colour=0xffffffff
 transmitop=10

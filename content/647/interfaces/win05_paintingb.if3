@@ -8,7 +8,7 @@ fill=yes
 trans=24
 
 // 383:1
-[com_1]
+[win05_paintbench]
 type=model
 x=-49
 y=123
@@ -20,7 +20,7 @@ modelangle=249,0,0
 modelzoom=340
 
 // 383:2
-[com_2]
+[win05_redpaint]
 type=model
 x=240
 y=121
@@ -32,20 +32,20 @@ modelangle=249,0,0
 modelzoom=340
 
 // 383:3
-[com_3]
+[win05_redpaint_hi]
 type=model
 x=11
 y=7
 width=40
 height=63
-layer=com_6
+layer=win05_red
 model=model_10426
 modelorigin=-8,183
 modelangle=249,0,0
 modelzoom=340
 
 // 383:4
-[com_4]
+[win05_brushes]
 type=model
 x=304
 y=120
@@ -57,7 +57,7 @@ modelangle=249,0,0
 modelzoom=340
 
 // 383:5
-[com_5]
+[win05_bauble]
 type=model
 x=292
 y=203
@@ -69,7 +69,7 @@ modelangle=228,2047,0
 modelzoom=400
 
 // 383:6
-[com_6]
+[win05_red]
 type=layer
 x=229
 y=114
@@ -78,7 +78,7 @@ height=279
 hide=yes
 
 // 383:7
-[com_7]
+[win05_yellowpaint]
 type=model
 x=154
 y=117
@@ -90,20 +90,20 @@ modelangle=249,0,0
 modelzoom=340
 
 // 383:8
-[com_8]
+[win05_yellowpaint_hi]
 type=model
 x=8
 y=10
 width=66
 height=84
-layer=com_9
+layer=win05_yellow
 model=model_10428
 modelorigin=65,176
 modelangle=249,0,0
 modelzoom=340
 
 // 383:9
-[com_9]
+[win05_yellow]
 type=layer
 x=146
 y=107
@@ -112,7 +112,7 @@ height=341
 hide=yes
 
 // 383:10
-[com_10]
+[win05_greenpaint]
 type=model
 x=65
 y=130
@@ -124,20 +124,20 @@ modelangle=249,0,0
 modelzoom=340
 
 // 383:11
-[com_11]
+[win05_greenpaint_hi]
 type=model
 x=7
 y=12
 width=91
 height=75
-layer=com_12
+layer=win05_green
 model=model_10415
 modelorigin=142,168
 modelangle=249,0,0
 modelzoom=340
 
 // 383:12
-[com_12]
+[win05_green]
 type=layer
 x=58
 y=118
@@ -146,7 +146,7 @@ height=288
 hide=yes
 
 // 383:13
-[com_13]
+[win05_pinkpaint]
 type=model
 x=47
 y=183
@@ -158,20 +158,20 @@ modelangle=249,0,0
 modelzoom=340
 
 // 383:14
-[com_14]
+[win05_pinkpaint_hi]
 type=model
 x=5
 y=9
 width=71
 height=69
-layer=com_15
+layer=win05_pink
 model=model_10424
 modelorigin=170,118
 modelangle=249,0,0
 modelzoom=340
 
 // 383:15
-[com_15]
+[win05_pink]
 type=layer
 x=42
 y=174
@@ -180,7 +180,7 @@ height=267
 hide=yes
 
 // 383:16
-[com_16]
+[win05_bluepaint]
 type=model
 x=129
 y=169
@@ -192,20 +192,20 @@ modelangle=249,0,0
 modelzoom=340
 
 // 383:17
-[com_17]
+[win05_bluepaint_hi]
 type=model
 x=12
 y=14
 width=80
 height=78
-layer=com_18
+layer=win05_blue
 model=model_10413
 modelorigin=83,127
 modelangle=249,0,0
 modelzoom=340
 
 // 383:18
-[com_18]
+[win05_blue]
 type=layer
 x=117
 y=155
@@ -214,7 +214,7 @@ height=266
 hide=yes
 
 // 383:19
-[com_19]
+[win05_y_hotspot1]
 type=rectangle
 x=154
 y=115
@@ -226,7 +226,7 @@ transmitop=1
 op1=Paint Yellow
 
 // 383:20
-[com_20]
+[win05_y_hotspot2]
 type=rectangle
 x=188
 y=171
@@ -238,7 +238,7 @@ transmitop=1
 op1=Paint Yellow
 
 // 383:21
-[com_21]
+[win05_r_hotspot]
 type=rectangle
 x=236
 y=118
@@ -250,7 +250,7 @@ transmitop=1
 op1=Paint Red
 
 // 383:22
-[com_22]
+[win05_g_hotspot]
 type=rectangle
 x=65
 y=125
@@ -262,7 +262,7 @@ transmitop=1
 op1=Paint Green
 
 // 383:23
-[com_23]
+[win05_p_hotspot]
 type=rectangle
 x=71
 y=181
@@ -274,7 +274,7 @@ transmitop=1
 op1=Paint Pink
 
 // 383:24
-[com_24]
+[win05_o_hotspot]
 type=rectangle
 x=127
 y=175
@@ -298,7 +298,7 @@ modelangle=524,0,0
 modelzoom=656
 
 // 383:26
-[com_26]
+[win05_instructions]
 type=text
 x=189
 y=54
@@ -310,72 +310,72 @@ textalignh=centre
 colour=0xffff00
 
 // 383:27
-[com_27]
+[win05_bauble_red]
 type=model
 x=63
 y=89
 width=42
 height=44
-layer=com_6
+layer=win05_red
 model=model_10420
 modelorigin=0,8
 modelangle=228,2047,0
 modelzoom=400
 
 // 383:28
-[com_28]
+[win05_bauble_yellow]
 type=model
 x=146
 y=96
 width=42
 height=44
-layer=com_9
+layer=win05_yellow
 model=model_10421
 modelorigin=0,8
 modelangle=228,2047,0
 modelzoom=400
 
 // 383:29
-[com_29]
+[win05_bauble_green]
 type=model
 x=234
 y=85
 width=42
 height=44
-layer=com_12
+layer=win05_green
 model=model_10418
 modelorigin=0,8
 modelangle=228,2047,0
 modelzoom=400
 
 // 383:30
-[com_30]
+[win05_bauble_pink]
 type=model
 x=250
 y=29
 width=42
 height=44
-layer=com_15
+layer=win05_pink
 model=model_10419
 modelorigin=0,8
 modelangle=228,2047,0
 modelzoom=400
 
 // 383:31
-[com_31]
+[win05_bauble_blue]
 type=model
 x=175
 y=48
 width=42
 height=44
-layer=com_18
+layer=win05_blue
 model=model_10417
 modelorigin=0,8
 modelangle=228,2047,0
 modelzoom=400
 
 // 383:32
-[com_32]
+[close_button]
 type=graphic
 x=475
 y=15

@@ -1,5 +1,5 @@
 // 1079:0
-[com_0]
+[listener]
 type=layer
 width=1
 height=1
@@ -14,18 +14,18 @@ opkey1=96,0,1
 opkey2=97,0,1
 opkey3=98,0,1
 opkey4=99,0,1
-onload=script2776(event_com, interface_1079:com_32, interface_1079:com_39)
-onop=script2773(event_op, interface_1079:com_22, interface_1079:com_24, interface_1079:com_21, interface_1079:com_23, interface_1079:com_26, interface_1079:com_28, interface_1079:com_25, interface_1079:com_27)
+onload=script2776(event_com, interface_1079:mouseglow1, interface_1079:mouseglow2)
+onop=script2773(event_op, interface_1079:left, interface_1079:right, interface_1079:up, interface_1079:down, interface_1079:left_arrow, interface_1079:right_arrow, interface_1079:up_arrow, interface_1079:down_arrow)
 
 // 1079:1
-[com_1]
+[universe]
 type=layer
 width=765
 height=503
 xmode=abs_centre
 ymode=abs_centre
 noclickthrough=yes
-onclick=script2774(interface_1079:com_41)
+onclick=script2774(interface_1079:instruction)
 
 // 1079:2
 [com_2]
@@ -36,7 +36,7 @@ width=300
 height=251
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 hide=yes
 colour=0x000000
 fill=yes
@@ -53,7 +53,7 @@ width=300
 height=251
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 hide=yes
 colour=0x000000
 fill=yes
@@ -70,7 +70,7 @@ width=300
 height=251
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 hide=yes
 colour=0x000000
 fill=yes
@@ -87,7 +87,7 @@ width=300
 height=251
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 hide=yes
 colour=0x000000
 fill=yes
@@ -96,13 +96,13 @@ transmitop=10
 op10=    
 
 // 1079:6
-[com_6]
+[contents]
 type=layer
 width=300
 height=251
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 
 // 1079:7
 [com_7]
@@ -113,7 +113,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=contents
 colour=0x453b2c
 fill=yes
 
@@ -125,7 +125,7 @@ width=2
 height=70
 widthmode=minus
 xmode=abs_centre
-layer=com_6
+layer=contents
 graphic=graphic_2045
 tiling=yes
 colour=0xffffffff
@@ -139,7 +139,7 @@ height=46
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_6
+layer=contents
 graphic=graphic_2044
 tiling=yes
 colour=0xffffffff
@@ -151,7 +151,7 @@ width=32
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_6
+layer=contents
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -165,7 +165,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_6
+layer=contents
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -178,7 +178,7 @@ width=32
 height=32
 heightmode=minus
 ymode=abs_centre
-layer=com_6
+layer=contents
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -192,7 +192,7 @@ height=32
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_6
+layer=contents
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -202,7 +202,7 @@ colour=0xffffffff
 type=graphic
 width=32
 height=32
-layer=com_6
+layer=contents
 graphic="v2_stone_borders,35"
 tiling=yes
 colour=0xffffffff
@@ -213,7 +213,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_6
+layer=contents
 graphic="v2_stone_borders,37"
 tiling=yes
 colour=0xffffffff
@@ -224,7 +224,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_6
+layer=contents
 graphic="v2_stone_borders,6"
 tiling=yes
 colour=0xffffffff
@@ -236,7 +236,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_6
+layer=contents
 graphic="v2_stone_borders,7"
 tiling=yes
 colour=0xffffffff
@@ -251,7 +251,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=contents
 colour=0x000000
 transmitop=10
 op10= 
@@ -262,7 +262,7 @@ type=text
 height=22
 widthmode=minus
 xmode=abs_centre
-layer=com_6
+layer=contents
 textfont=b12_full
 text=Controls
 textalignh=centre
@@ -271,50 +271,50 @@ textshadow=yes
 colour=0xff991f
 
 // 1079:20
-[com_20]
+[arrowkeys]
 type=layer
 x=14
 y=38
 width=120
 height=80
-layer=com_6
+layer=contents
 
 // 1079:21
-[com_21]
+[up]
 type=graphic
 width=32
 height=32
 xmode=abs_centre
-layer=com_20
+layer=arrowkeys
 graphic="km_camerakeys,0"
 colour=0xffffffff
 
 // 1079:22
-[com_22]
+[left]
 type=graphic
 x=11
 y=17
 width=32
 height=32
 ymode=abs_bottom
-layer=com_20
+layer=arrowkeys
 graphic="km_camerakeys,0"
 colour=0xffffffff
 
 // 1079:23
-[com_23]
+[down]
 type=graphic
 y=17
 width=32
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_20
+layer=arrowkeys
 graphic="km_camerakeys,0"
 colour=0xffffffff
 
 // 1079:24
-[com_24]
+[right]
 type=graphic
 x=11
 y=17
@@ -322,36 +322,36 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_20
+layer=arrowkeys
 graphic="km_camerakeys,0"
 colour=0xffffffff
 
 // 1079:25
-[com_25]
+[up_arrow]
 type=graphic
 x=-2
 y=-3
 width=32
 height=32
 xmode=abs_centre
-layer=com_20
+layer=arrowkeys
 graphic="km_camerakeys,3"
 colour=0xffffffff
 
 // 1079:26
-[com_26]
+[left_arrow]
 type=graphic
 x=12
 y=18
 width=32
 height=32
 ymode=abs_bottom
-layer=com_20
+layer=arrowkeys
 graphic="km_camerakeys,2"
 colour=0xffffffff
 
 // 1079:27
-[com_27]
+[down_arrow]
 type=graphic
 x=-2
 y=18
@@ -359,12 +359,12 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_20
+layer=arrowkeys
 graphic="km_camerakeys,4"
 colour=0xffffffff
 
 // 1079:28
-[com_28]
+[right_arrow]
 type=graphic
 x=10
 y=18
@@ -372,7 +372,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_20
+layer=arrowkeys
 graphic="km_camerakeys,1"
 colour=0xffffffff
 
@@ -385,7 +385,7 @@ width=156
 height=80
 widthmode=minus
 xmode=abs_right
-layer=com_6
+layer=contents
 textfont=p12_full
 text=Arrow keys rotate the camera.
 textalignh=centre
@@ -394,13 +394,13 @@ textshadow=yes
 colour=0xff991f
 
 // 1079:30
-[com_30]
+[click]
 type=layer
 x=14
 y=114
 width=120
 height=42
-layer=com_6
+layer=contents
 
 // 1079:31
 [com_31]
@@ -409,18 +409,18 @@ width=22
 height=38
 xmode=abs_centre
 ymode=abs_centre
-layer=com_30
+layer=click
 graphic="km_mousebuttonimages,3"
 colour=0xffffffff
 
 // 1079:32
-[com_32]
+[mouseglow1]
 type=graphic
 width=22
 height=38
 xmode=abs_centre
 ymode=abs_centre
-layer=com_30
+layer=click
 graphic="km_mousebuttonimages,4"
 trans=255
 colour=0xffffffff
@@ -436,7 +436,7 @@ width=156
 height=42
 widthmode=minus
 xmode=abs_right
-layer=com_6
+layer=contents
 textfont=p12_full
 text=Click on the ground or minimap to walk.
 textalignh=centre
@@ -445,13 +445,13 @@ textshadow=yes
 colour=0xff991f
 
 // 1079:34
-[com_34]
+[ctrl_click]
 type=layer
 x=24
 y=165
 width=100
 height=40
-layer=com_6
+layer=contents
 
 // 1079:35
 [com_35]
@@ -460,7 +460,7 @@ x=10
 width=32
 height=32
 ymode=abs_centre
-layer=com_34
+layer=ctrl_click
 graphic="km_camerakeys,0"
 colour=0xffffffff
 
@@ -471,7 +471,7 @@ x=10
 width=32
 height=32
 ymode=abs_centre
-layer=com_34
+layer=ctrl_click
 graphic="km_camerakeys,10"
 colour=0xffffffff
 transmitop=10
@@ -485,7 +485,7 @@ x=49
 width=15
 heightmode=minus
 ymode=abs_centre
-layer=com_34
+layer=ctrl_click
 textfont=b12_full
 text=+
 textalignh=centre
@@ -504,12 +504,12 @@ width=22
 height=38
 xmode=abs_right
 ymode=abs_centre
-layer=com_34
+layer=ctrl_click
 graphic="km_mousebuttonimages,3"
 colour=0xffffffff
 
 // 1079:39
-[com_39]
+[mouseglow2]
 type=graphic
 x=8
 y=-2
@@ -517,7 +517,7 @@ width=22
 height=38
 xmode=abs_right
 ymode=abs_centre
-layer=com_34
+layer=ctrl_click
 graphic="km_mousebuttonimages,4"
 trans=255
 colour=0xffffffff
@@ -533,7 +533,7 @@ width=156
 height=40
 widthmode=minus
 xmode=abs_right
-layer=com_6
+layer=contents
 textfont=p12_full
 text=CTRL + click to run.
 textalignh=centre
@@ -542,14 +542,14 @@ textshadow=yes
 colour=0xff991f
 
 // 1079:41
-[com_41]
+[instruction]
 type=text
 y=207
 width=28
 height=36
 widthmode=minus
 xmode=abs_centre
-layer=com_6
+layer=contents
 textfont=b12_full
 text=Please rotate the camera to begin.
 textalignh=centre

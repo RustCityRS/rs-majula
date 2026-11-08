@@ -3,7 +3,7 @@
 %varclient_1078 = %varplayerbit_7189;
 %varclient_1086 = 0;
 def_int $int0 = clientclock;
-if_setontimer("script2892(interface_476:com_24, $int0)", interface_476:com_24);
+if_setontimer("script2892(sfa:initial, $int0)", sfa:initial);
 sound_synth(synth_8641, 1, 0);
-if_setonresize("script2887", interface_476:com_0);
+if_setonresize("script2887", sfa:content_layer);
 ~script2888;

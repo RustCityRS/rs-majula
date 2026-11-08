@@ -193,7 +193,7 @@ if ($int0 = 1) {
     if ($int2 = 1) {
         $string1 = append($string1, " (reversed)");
     }
-    if_settext($string1, questlist_v4:com_8);
+    if_settext($string1, questlist_v4:label_status);
 }
 if (%varclient_695 = 1 | $int20 ! calc($int24 + 5) | $int2 = 1 & %varclient_694 = 0 | $int2 = 0 & %varclient_694 = 1) {
     if_setscrollsize(if_getwidth($component7), calc($int24 + 5), $component7);
@@ -208,9 +208,9 @@ if ($int0 = 1) {
     %varclient_1103 = $int4;
     %varclient_694 = $int2;
     if (%varclient_692 = 0) {
-        if_setgraphic("options_radio_buttons,2", questlist_v4:com_10);
+        if_setgraphic("options_radio_buttons,2", questlist_v4:radio_filter);
     } else {
-        if_setgraphic("options_radio_buttons,0", questlist_v4:com_10);
+        if_setgraphic("options_radio_buttons,0", questlist_v4:radio_filter);
     }
     if (%varclient_1103 = 1) {
         if_setgraphic("options_radio_buttons,2", questlist_v4:com_12);

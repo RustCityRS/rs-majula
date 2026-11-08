@@ -1,12 +1,12 @@
 // 2782
 [clientscript,equipscreen_comparison]
 if (string_length(%varclient_1840) <= 0) {
-    if_sethide(true, equip_screen2:com_51);
-    if_sethide(true, inventory_wear2:com_1);
-    if_sethide(true, bank_v2_side:com_3);
+    if_sethide(true, equip_screen2:popup);
+    if_sethide(true, inventory_wear2:popup);
+    if_sethide(true, bank_v2_side:popup);
     return;
 }
-cc_deleteall(equip_screen2:com_53);
+cc_deleteall(equip_screen2:popup_contents);
 def_int $int0 = stringwidth(%varclient_1840, b12_full);
 def_int $int1 = parawidth(%varclient_1841, ^max_32bit_int, p11_full);
 def_int $int2 = parawidth(%varclient_1842, ^max_32bit_int, p11_full);
@@ -25,26 +25,26 @@ if ($int4 > 0) {
     $int7 = max($int7, calc($int5 + 10));
 }
 $int7 = max($int7, $int1);
-def_int $int8 = max(max($int7, $int0), if_getwidth(equip_screen2:com_64));
+def_int $int8 = max(max($int7, $int0), if_getwidth(equip_screen2:popup_close));
 def_int $int9 = 0;
 if ($int8 > $int7) {
     $int9 = calc(($int8 - $int7) / 2);
 }
-cc_create(equip_screen2:com_53, ^iftype_text, if_getnextsubid(equip_screen2:com_53));
+cc_create(equip_screen2:popup_contents, ^iftype_text, if_getnextsubid(equip_screen2:popup_contents));
 cc_setposition(calc($int9 + 10), 25, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(cc_getx, $int6, ^setsize_minus, ^setsize_abs);
 cc_settextfont(p11_full);
 cc_settextshadow(true);
 cc_setcolour(0xff981f);
 cc_settext(%varclient_1841);
-cc_create(equip_screen2:com_53, ^iftype_text, if_getnextsubid(equip_screen2:com_53));
+cc_create(equip_screen2:popup_contents, ^iftype_text, if_getnextsubid(equip_screen2:popup_contents));
 cc_setposition(calc($int9 + 15), 25, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(cc_getx, $int6, ^setsize_minus, ^setsize_abs);
 cc_settextfont(p11_full);
 cc_settextshadow(true);
 cc_setcolour(0xff981f);
 cc_settext(%varclient_1842);
-cc_create(equip_screen2:com_53, ^iftype_text, if_getnextsubid(equip_screen2:com_53));
+cc_create(equip_screen2:popup_contents, ^iftype_text, if_getnextsubid(equip_screen2:popup_contents));
 cc_setposition(calc($int9 + 15 + $int2 + 5), 25, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize($int3, $int6, ^setsize_abs, ^setsize_abs);
 cc_settextfont(p11_full);
@@ -53,7 +53,7 @@ cc_setcolour(0xff981f);
 cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
 cc_settext(%varclient_1843);
 if ($int4 > 0) {
-    cc_create(equip_screen2:com_53, ^iftype_text, if_getnextsubid(equip_screen2:com_53));
+    cc_create(equip_screen2:popup_contents, ^iftype_text, if_getnextsubid(equip_screen2:popup_contents));
     cc_setposition(calc($int9 + 15 + $int2 + 5 + $int3 + 5), 25, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize($int4, $int6, ^setsize_abs, ^setsize_abs);
     cc_settextfont(p11_full);
@@ -61,7 +61,7 @@ if ($int4 > 0) {
     cc_setcolour(0xff981f);
     cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
     cc_settext(%varclient_1844);
-    cc_create(equip_screen2:com_53, ^iftype_text, if_getnextsubid(equip_screen2:com_53));
+    cc_create(equip_screen2:popup_contents, ^iftype_text, if_getnextsubid(equip_screen2:popup_contents));
     cc_setposition(0, calc(25 + $int6), ^setpos_abs_centre, ^setpos_abs_top);
     cc_setsize($int5, 12, ^setsize_abs, ^setsize_abs);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
@@ -71,8 +71,8 @@ if ($int4 > 0) {
     cc_settext($string0);
     $int6 = calc($int6 + cc_getheight);
 }
-if_setsize(calc($int8 + 20), calc($int6 + 60), ^setsize_abs, ^setsize_abs, equip_screen2:com_53);
-if_settext(%varclient_1840, equip_screen2:com_63);
-if_sethide(false, equip_screen2:com_51);
-if_sethide(false, inventory_wear2:com_1);
-if_sethide(false, bank_v2_side:com_3);
+if_setsize(calc($int8 + 20), calc($int6 + 60), ^setsize_abs, ^setsize_abs, equip_screen2:popup_contents);
+if_settext(%varclient_1840, equip_screen2:comparison_title);
+if_sethide(false, equip_screen2:popup);
+if_sethide(false, inventory_wear2:popup);
+if_sethide(false, bank_v2_side:popup);

@@ -2,59 +2,59 @@
 [clientscript,rand_ring_bar_tooltip](component $component0, int $int1)
 def_string $string0 = "";
 def_string $string1 = "";
-def_component $component2 = rand_ring_interface:com_302;
+def_component $component2 = rand_ring_interface:tooltip_layer;
 switch_int (%varclient_1184) {
     case 1 :
-        if ($component0 = rand_ring_interface:com_134) {
+        if ($component0 = rand_ring_interface:ring_a) {
             $string0 = enum(int, string, enum_3089, %varplayerbit_8053);
             $string1 = enum(int, string, enum_3089, calc(%varplayerbit_8053 + 1));
-        } else if ($component0 = rand_ring_interface:com_41) {
+        } else if ($component0 = rand_ring_interface:ring_b) {
             $string0 = enum(int, string, enum_3090, %varplayerbit_8054);
             $string1 = enum(int, string, enum_3090, calc(%varplayerbit_8054 + 1));
-            $component2 = rand_ring_interface:com_301;
-        } else if ($component0 = rand_ring_interface:com_83) {
+            $component2 = rand_ring_interface:tooltip_layer_b;
+        } else if ($component0 = rand_ring_interface:ring_c) {
             $string0 = enum(int, string, enum_3091, %varplayerbit_8055);
             $string1 = enum(int, string, enum_3091, calc(%varplayerbit_8055 + 1));
-            $component2 = rand_ring_interface:com_300;
+            $component2 = rand_ring_interface:tooltip_layer_c;
         }
     case 2 :
-        if ($component0 = rand_ring_interface:com_134) {
+        if ($component0 = rand_ring_interface:ring_a) {
             $string0 = enum(int, string, enum_3092, %varplayerbit_8056);
             $string1 = enum(int, string, enum_3092, calc(%varplayerbit_8056 + 1));
-        } else if ($component0 = rand_ring_interface:com_41) {
+        } else if ($component0 = rand_ring_interface:ring_b) {
             $string0 = enum(int, string, enum_3093, %varplayerbit_8057);
             $string1 = enum(int, string, enum_3093, calc(%varplayerbit_8057 + 1));
-            $component2 = rand_ring_interface:com_301;
-        } else if ($component0 = rand_ring_interface:com_83) {
+            $component2 = rand_ring_interface:tooltip_layer_b;
+        } else if ($component0 = rand_ring_interface:ring_c) {
             $string0 = enum(int, string, enum_3094, %varplayerbit_8058);
             $string1 = enum(int, string, enum_3094, calc(%varplayerbit_8058 + 1));
-            $component2 = rand_ring_interface:com_300;
+            $component2 = rand_ring_interface:tooltip_layer_c;
         }
     case 3 :
-        if ($component0 = rand_ring_interface:com_134) {
+        if ($component0 = rand_ring_interface:ring_a) {
             $string0 = enum(int, string, enum_3095, %varplayerbit_8059);
             $string1 = enum(int, string, enum_3095, calc(%varplayerbit_8059 + 1));
-        } else if ($component0 = rand_ring_interface:com_41) {
+        } else if ($component0 = rand_ring_interface:ring_b) {
             $string0 = enum(int, string, enum_3096, %varplayerbit_8060);
             $string1 = enum(int, string, enum_3096, calc(%varplayerbit_8060 + 1));
-            $component2 = rand_ring_interface:com_301;
-        } else if ($component0 = rand_ring_interface:com_83) {
+            $component2 = rand_ring_interface:tooltip_layer_b;
+        } else if ($component0 = rand_ring_interface:ring_c) {
             $string0 = enum(int, string, enum_3097, %varplayerbit_8061);
             $string1 = enum(int, string, enum_3097, calc(%varplayerbit_8061 + 1));
-            $component2 = rand_ring_interface:com_300;
+            $component2 = rand_ring_interface:tooltip_layer_c;
         }
     case 4 :
-        if ($component0 = rand_ring_interface:com_134) {
+        if ($component0 = rand_ring_interface:ring_a) {
             $string0 = enum(int, string, enum_3098, %varplayerbit_8062);
             $string1 = enum(int, string, enum_3098, calc(%varplayerbit_8062 + 1));
-        } else if ($component0 = rand_ring_interface:com_41) {
+        } else if ($component0 = rand_ring_interface:ring_b) {
             $string0 = enum(int, string, enum_3099, %varplayerbit_8063);
             $string1 = enum(int, string, enum_3099, calc(%varplayerbit_8063 + 1));
-            $component2 = rand_ring_interface:com_301;
-        } else if ($component0 = rand_ring_interface:com_83) {
+            $component2 = rand_ring_interface:tooltip_layer_b;
+        } else if ($component0 = rand_ring_interface:ring_c) {
             $string0 = enum(int, string, enum_3100, %varplayerbit_8064);
             $string1 = enum(int, string, enum_3100, calc(%varplayerbit_8064 + 1));
-            $component2 = rand_ring_interface:com_300;
+            $component2 = rand_ring_interface:tooltip_layer_c;
         }
 }
 def_string $string2 = "Current - <$string0><br>Next - <$string1>";

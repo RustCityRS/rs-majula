@@ -24,7 +24,7 @@ fill=yes
 trans=233
 
 // 813:2
-[com_2]
+[main_layer]
 type=layer
 y=-10
 width=512
@@ -39,7 +39,7 @@ x=4
 y=4
 width=105
 height=148
-layer=com_34
+layer=clay_selection
 colour=0x000000
 fill=yes
 trans=177
@@ -51,7 +51,7 @@ x=8
 y=8
 width=103
 height=145
-layer=com_34
+layer=clay_selection
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -63,13 +63,13 @@ x=4
 y=4
 width=114
 height=156
-layer=com_34
+layer=clay_selection
 colour=0x000000
 fill=yes
 trans=197
 
 // 813:6
-[com_6]
+[tier_layer]
 type=layer
 x=-2
 y=-2
@@ -77,10 +77,10 @@ width=113
 height=156
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=clay_selection
 
 // 813:7
-[com_7]
+[info_bottom_6]
 type=graphic
 x=-56
 y=1
@@ -88,7 +88,7 @@ width=32
 height=99
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=clay_selection
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -96,7 +96,7 @@ transmitop=10
 op10=     
 
 // 813:8
-[com_8]
+[info_corner9]
 type=graphic
 x=-43
 y=64
@@ -104,14 +104,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=clay_selection
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 813:9
-[com_9]
+[info_bottom_7]
 type=graphic
 x=54
 y=3
@@ -119,7 +119,7 @@ width=30
 height=102
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=clay_selection
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -127,7 +127,7 @@ transmitop=10
 op10=      
 
 // 813:10
-[com_10]
+[info_corner10]
 type=graphic
 x=-43
 y=-64
@@ -135,14 +135,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=clay_selection
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 813:11
-[com_11]
+[info_corner11]
 type=graphic
 x=43
 y=-64
@@ -150,21 +150,21 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=clay_selection
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 813:12
-[com_12]
+[info_bottom_8]
 type=graphic
 y=75
 width=54
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=clay_selection
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -172,7 +172,7 @@ transmitop=10
 op10=   
 
 // 813:13
-[com_13]
+[info_corner12]
 type=graphic
 x=43
 y=64
@@ -180,14 +180,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=clay_selection
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 813:14
-[com_14]
+[info_2]
 type=graphic
 x=2
 y=-79
@@ -195,7 +195,7 @@ width=59
 height=29
 xmode=abs_centre
 ymode=abs_centre
-layer=com_34
+layer=clay_selection
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -203,14 +203,14 @@ transmitop=10
 op10=   
 
 // 813:15
-[com_15]
+[title_1]
 type=text
 y=-116
 width=94
 height=49
 xmode=abs_centre
 ymode=abs_centre
-layer=com_62
+layer=type_selection
 textfont=q8_full
 text=What would you like to make?
 textalignh=centre
@@ -219,7 +219,7 @@ textshadow=yes
 colour=0xc8aa64
 
 // 813:16
-[com_16]
+[weapons_button_highlight]
 type=rectangle
 y=70
 width=16384
@@ -227,14 +227,14 @@ height=270
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_62
+layer=type_selection
 hide=yes
 colour=0xffffff
 fill=yes
 trans=192
 
 // 813:17
-[com_17]
+[armour_button_highlight]
 type=rectangle
 y=109
 width=16384
@@ -242,7 +242,7 @@ height=270
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_62
+layer=type_selection
 hide=yes
 colour=0xffffff
 fill=yes
@@ -257,7 +257,7 @@ height=270
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_62
+layer=type_selection
 hide=yes
 colour=0xffffff
 fill=yes
@@ -272,7 +272,7 @@ height=270
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_62
+layer=type_selection
 hide=yes
 colour=0xffffff
 fill=yes
@@ -286,86 +286,86 @@ width=16384
 height=225
 widthmode=proportion
 xmode=abs_centre
-layer=com_62
+layer=type_selection
 
 // 813:21
-[com_21]
+[info_divider_4]
 type=graphic
 y=70
 width=107
 height=31
 xmode=abs_centre
 ymode=abs_centre
-layer=com_62
+layer=type_selection
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 813:22
-[com_22]
+[info_divider_3]
 type=graphic
 y=31
 width=107
 height=31
 xmode=abs_centre
 ymode=abs_centre
-layer=com_62
+layer=type_selection
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 813:23
-[com_23]
+[info_divider_2]
 type=graphic
 y=-8
 width=107
 height=31
 xmode=abs_centre
 ymode=abs_centre
-layer=com_62
+layer=type_selection
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 813:24
-[com_24]
+[info_divider_1]
 type=graphic
 y=-47
 width=107
 height=31
 xmode=abs_centre
 ymode=abs_centre
-layer=com_62
+layer=type_selection
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 813:25
-[com_25]
+[info_divider]
 type=graphic
 y=-86
 width=107
 height=31
 xmode=abs_centre
 ymode=abs_centre
-layer=com_62
+layer=type_selection
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 813:26
-[com_26]
+[init_rect]
 type=rectangle
 x=34
 y=34
 width=32
 height=32
-layer=com_2
+layer=main_layer
 colour=0xffff00
 trans=255
 onload=sc_processing_init
@@ -377,7 +377,7 @@ x=58
 y=58
 width=32
 height=32
-layer=com_2
+layer=main_layer
 colour=0xffff00
 trans=255
 onload=script1918
@@ -389,13 +389,13 @@ y=24
 width=470
 height=305
 xmode=abs_centre
-layer=com_2
+layer=main_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
 
 // 813:29
-[com_29]
+[weapons_button_text]
 type=text
 y=5
 width=16384
@@ -416,7 +416,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=script1910
 
 // 813:30
-[com_30]
+[armour_button_text]
 type=text
 y=44
 width=16384
@@ -437,7 +437,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=script1911
 
 // 813:31
-[com_31]
+[supplies_button_text]
 type=text
 y=83
 width=16384
@@ -458,7 +458,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=script1912
 
 // 813:32
-[com_32]
+[potions_button_text]
 type=text
 y=122
 width=16384
@@ -485,20 +485,20 @@ x=372
 y=36
 width=87
 height=121
-layer=com_2
+layer=main_layer
 model=model_42957
 modelorigin=0,35
 modelangle=199,261,0
 modelzoom=1853
 
 // 813:34
-[com_34]
+[clay_selection]
 type=layer
 x=355
 y=160
 width=120
 height=163
-layer=com_2
+layer=main_layer
 
 // 813:35
 [com_35]
@@ -509,17 +509,17 @@ width=104
 height=126
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=tier_layer
 
 // 813:36
-[com_36]
+[tier_title]
 type=text
 x=2
 y=5
 width=112
 height=30
 xmode=abs_centre
-layer=com_6
+layer=tier_layer
 textfont=q8_full
 text=Clay Quality
 textalignh=centre
@@ -534,7 +534,7 @@ y=56
 width=124
 height=19
 xmode=abs_centre
-layer=com_78
+layer=supplies_layer
 textfont=p11_full
 text=Hatchet
 textalignh=centre
@@ -558,7 +558,7 @@ y=80
 width=124
 height=19
 xmode=abs_centre
-layer=com_78
+layer=supplies_layer
 textfont=p11_full
 text=Pickaxe
 textalignh=centre
@@ -582,7 +582,7 @@ y=104
 width=124
 height=19
 xmode=abs_centre
-layer=com_78
+layer=supplies_layer
 textfont=p11_full
 text=Harpoon
 textalignh=centre
@@ -606,7 +606,7 @@ y=128
 width=124
 height=19
 xmode=abs_centre
-layer=com_78
+layer=supplies_layer
 textfont=p11_full
 text=Butterfly net
 textalignh=centre
@@ -630,7 +630,7 @@ y=152
 width=124
 height=19
 xmode=abs_centre
-layer=com_78
+layer=supplies_layer
 textfont=p11_full
 text=Barrier
 textalignh=centre
@@ -654,7 +654,7 @@ y=176
 width=124
 height=19
 xmode=abs_centre
-layer=com_78
+layer=supplies_layer
 textfont=p11_full
 text=Food
 textalignh=centre
@@ -678,7 +678,7 @@ y=20
 width=124
 height=19
 xmode=abs_centre
-layer=com_77
+layer=armour_layer
 textfont=p11_full
 text=Helm
 textalignh=centre
@@ -702,7 +702,7 @@ y=44
 width=124
 height=19
 xmode=abs_centre
-layer=com_77
+layer=armour_layer
 textfont=p11_full
 text=Platelegs
 textalignh=centre
@@ -726,7 +726,7 @@ y=68
 width=124
 height=19
 xmode=abs_centre
-layer=com_77
+layer=armour_layer
 textfont=p11_full
 text=Platebody
 textalignh=centre
@@ -744,13 +744,13 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:46
-[com_46]
+[make_coif_text]
 type=text
 y=92
 width=124
 height=19
 xmode=abs_centre
-layer=com_77
+layer=armour_layer
 textfont=p11_full
 text=Coif
 textalignh=centre
@@ -768,13 +768,13 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:47
-[com_47]
+[make_chaps_text]
 type=text
 y=116
 width=124
 height=19
 xmode=abs_centre
-layer=com_77
+layer=armour_layer
 textfont=p11_full
 text=Chaps
 textalignh=centre
@@ -798,7 +798,7 @@ y=140
 width=124
 height=19
 xmode=abs_centre
-layer=com_77
+layer=armour_layer
 textfont=p11_full
 text=Hardbody
 textalignh=centre
@@ -822,7 +822,7 @@ y=164
 width=124
 height=19
 xmode=abs_centre
-layer=com_77
+layer=armour_layer
 textfont=p11_full
 text=Mage hat
 textalignh=centre
@@ -846,7 +846,7 @@ y=188
 width=124
 height=19
 xmode=abs_centre
-layer=com_77
+layer=armour_layer
 textfont=p11_full
 text=Robe bottom
 textalignh=centre
@@ -870,7 +870,7 @@ y=212
 width=124
 height=19
 xmode=abs_centre
-layer=com_77
+layer=armour_layer
 textfont=p11_full
 text=Robe top
 textalignh=centre
@@ -895,7 +895,7 @@ width=125
 height=19
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=weapons_layer
 textfont=p11_full
 text=Dagger
 textalignh=centre
@@ -920,7 +920,7 @@ width=125
 height=19
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=weapons_layer
 textfont=p11_full
 text=Scimitar
 textalignh=centre
@@ -945,7 +945,7 @@ width=125
 height=19
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=weapons_layer
 textfont=p11_full
 text=Warhammer
 textalignh=centre
@@ -970,7 +970,7 @@ width=125
 height=19
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=weapons_layer
 textfont=p11_full
 text=Bow
 textalignh=centre
@@ -996,7 +996,7 @@ width=125
 height=19
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=weapons_layer
 textfont=p11_full
 text=Arrows
 textalignh=centre
@@ -1021,7 +1021,7 @@ width=125
 height=19
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=weapons_layer
 textfont=p11_full
 text=Elemental runes
 textalignh=centre
@@ -1046,7 +1046,7 @@ width=125
 height=19
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=weapons_layer
 textfont=p11_full
 text=Catalytic runes
 textalignh=centre
@@ -1071,7 +1071,7 @@ width=125
 height=19
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=weapons_layer
 textfont=p11_full
 text=Summoning pouch
 textalignh=centre
@@ -1096,7 +1096,7 @@ width=125
 height=19
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=weapons_layer
 textfont=p11_full
 text=Magic staff
 textalignh=centre
@@ -1121,7 +1121,7 @@ width=125
 height=19
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=weapons_layer
 textfont=p11_full
 text=Summoning scroll
 textalignh=centre
@@ -1139,22 +1139,22 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:62
-[com_62]
+[type_selection]
 type=layer
 x=27
 y=27
 width=127
 height=299
-layer=com_2
+layer=main_layer
 
 // 813:63
-[com_63]
+[item_selection]
 type=layer
 x=155
 y=28
 width=189
 height=297
-layer=com_2
+layer=main_layer
 
 // 813:64
 [com_64]
@@ -1163,7 +1163,7 @@ y=32
 width=124
 height=19
 xmode=abs_centre
-layer=com_79
+layer=potions_layer
 textfont=p11_full
 text=Prayer potion
 textalignh=centre
@@ -1187,7 +1187,7 @@ y=56
 width=124
 height=19
 xmode=abs_centre
-layer=com_79
+layer=potions_layer
 textfont=p11_full
 text=Energy potion
 textalignh=centre
@@ -1211,7 +1211,7 @@ y=80
 width=124
 height=19
 xmode=abs_centre
-layer=com_79
+layer=potions_layer
 textfont=p11_full
 text=Attack potion
 textalignh=centre
@@ -1235,7 +1235,7 @@ y=104
 width=124
 height=19
 xmode=abs_centre
-layer=com_79
+layer=potions_layer
 textfont=p11_full
 text=Strength potion
 textalignh=centre
@@ -1259,7 +1259,7 @@ y=128
 width=124
 height=19
 xmode=abs_centre
-layer=com_79
+layer=potions_layer
 textfont=p11_full
 text=Ranging potion
 textalignh=centre
@@ -1283,7 +1283,7 @@ y=152
 width=124
 height=19
 xmode=abs_centre
-layer=com_79
+layer=potions_layer
 textfont=p11_full
 text=Defence potion
 textalignh=centre
@@ -1307,7 +1307,7 @@ y=176
 width=124
 height=19
 xmode=abs_centre
-layer=com_79
+layer=potions_layer
 textfont=p11_full
 text=Magic potion
 textalignh=centre
@@ -1331,7 +1331,7 @@ y=200
 width=124
 height=19
 xmode=abs_centre
-layer=com_79
+layer=potions_layer
 textfont=p11_full
 text=Summoning potion
 textalignh=centre
@@ -1357,7 +1357,7 @@ width=15003
 height=13908
 widthmode=proportion
 heightmode=proportion
-layer=com_63
+layer=item_selection
 colour=0x000000
 fill=yes
 trans=177
@@ -1371,7 +1371,7 @@ width=15073
 height=13762
 widthmode=proportion
 heightmode=proportion
-layer=com_63
+layer=item_selection
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -1383,80 +1383,80 @@ x=4
 y=30
 width=182
 height=261
-layer=com_63
+layer=item_selection
 colour=0x000000
 fill=yes
 trans=197
 
 // 813:75
-[com_75]
+[highlight_rect]
 type=rectangle
 y=43
 width=125
 height=278
 heightmode=minus
 xmode=abs_centre
-layer=com_63
+layer=item_selection
 hide=yes
 colour=0xffffff
 fill=yes
 trans=192
 
 // 813:76
-[com_76]
+[weapons_layer]
 type=layer
 y=35
 width=174
 height=254
 xmode=abs_centre
-layer=com_63
+layer=item_selection
 transmitop=10
 op10= 
 
 // 813:77
-[com_77]
+[armour_layer]
 type=layer
 y=35
 width=174
 height=254
 xmode=abs_centre
-layer=com_63
+layer=item_selection
 hide=yes
 transmitop=10
 op10= 
 
 // 813:78
-[com_78]
+[supplies_layer]
 type=layer
 y=35
 width=174
 height=254
 xmode=abs_centre
-layer=com_63
+layer=item_selection
 hide=yes
 transmitop=10
 op10=  
 
 // 813:79
-[com_79]
+[potions_layer]
 type=layer
 y=35
 width=174
 height=254
 xmode=abs_centre
-layer=com_63
+layer=item_selection
 hide=yes
 transmitop=10
 op10=  
 
 // 813:80
-[com_80]
+[title_text]
 type=text
 y=-7
 width=376
 height=42
 xmode=abs_centre
-layer=com_63
+layer=item_selection
 textfont=quill_oblique_large
 text=Creation Kiln
 textalignh=centre
@@ -1465,7 +1465,7 @@ textshadow=yes
 colour=0xc8aa64
 
 // 813:81
-[com_81]
+[info_bottom_1]
 type=graphic
 x=-90
 y=16
@@ -1473,7 +1473,7 @@ width=32
 height=207
 xmode=abs_centre
 ymode=abs_centre
-layer=com_63
+layer=item_selection
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -1481,7 +1481,7 @@ transmitop=10
 op10=    
 
 // 813:82
-[com_82]
+[info_bottom_2]
 type=graphic
 x=90
 y=15
@@ -1489,7 +1489,7 @@ width=32
 height=205
 xmode=abs_centre
 ymode=abs_centre
-layer=com_63
+layer=item_selection
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -1497,7 +1497,7 @@ transmitop=10
 op10=     
 
 // 813:83
-[com_83]
+[info_corner2]
 type=graphic
 x=-77
 y=129
@@ -1505,14 +1505,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_63
+layer=item_selection
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 813:84
-[com_84]
+[info_corner1]
 type=graphic
 x=-77
 y=-103
@@ -1520,14 +1520,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_63
+layer=item_selection
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 813:85
-[com_85]
+[info_corner3]
 type=graphic
 x=78
 y=-103
@@ -1535,14 +1535,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_63
+layer=item_selection
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 813:86
-[com_86]
+[info_corner4]
 type=graphic
 x=78
 y=129
@@ -1550,14 +1550,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_63
+layer=item_selection
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 813:87
-[com_87]
+[info_bottom]
 type=graphic
 x=2
 y=141
@@ -1565,7 +1565,7 @@ width=127
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_63
+layer=item_selection
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -1573,7 +1573,7 @@ transmitop=10
 op10=  
 
 // 813:88
-[com_88]
+[info_top]
 type=graphic
 x=3
 y=-116
@@ -1581,7 +1581,7 @@ width=131
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_63
+layer=item_selection
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -1589,13 +1589,13 @@ transmitop=10
 op10=  
 
 // 813:89
-[com_89]
+[close_button]
 type=graphic
 x=469
 y=29
 width=16
 height=16
-layer=com_2
+layer=main_layer
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -1605,7 +1605,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 813:90
-[com_90]
+[info_bottom_3]
 type=graphic
 x=-234
 y=11
@@ -1613,7 +1613,7 @@ width=32
 height=255
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=main_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -1621,7 +1621,7 @@ transmitop=10
 op10=     
 
 // 813:91
-[com_91]
+[info_bottom_4]
 type=graphic
 x=234
 y=10
@@ -1629,7 +1629,7 @@ width=32
 height=256
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=main_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -1637,7 +1637,7 @@ transmitop=10
 op10=      
 
 // 813:92
-[com_92]
+[info_corner8]
 type=graphic
 x=-221
 y=149
@@ -1645,14 +1645,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=main_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 813:93
-[com_93]
+[info_corner5]
 type=graphic
 x=-221
 y=-130
@@ -1660,14 +1660,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=main_layer
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 813:94
-[com_94]
+[info_corner7]
 type=graphic
 x=222
 y=-130
@@ -1675,14 +1675,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=main_layer
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 813:95
-[com_95]
+[info_corner6]
 type=graphic
 x=222
 y=149
@@ -1690,14 +1690,14 @@ width=32
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=main_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 813:96
-[com_96]
+[info_bottom_5]
 type=graphic
 x=2
 y=161
@@ -1705,7 +1705,7 @@ width=418
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=main_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -1713,7 +1713,7 @@ transmitop=10
 op10=   
 
 // 813:97
-[com_97]
+[info_1]
 type=graphic
 x=1
 y=-143
@@ -1721,7 +1721,7 @@ width=415
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=main_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff

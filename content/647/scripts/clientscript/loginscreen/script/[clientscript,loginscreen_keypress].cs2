@@ -37,19 +37,19 @@ switch_int (%varclient_174) {
                 %varclient_174 = 4;
                 %varclient_175 = clientclock;
                 %varclient_1099 = string_length(~script2949(%varclient_1552));
-                ~script3237(login:com_70, login:com_71, login:com_72, ~script2949(%varclient_1552), 4);
+                ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%varclient_1552), 4);
                 return;
             case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
                 %varclient_1099 = ~script1553($key0, %varclient_1099, %varclient_1551);
-                ~script3237(login:com_64, login:com_65, login:com_66, %varclient_1551, 3);
+                ~script3237(login:username_layer, login:username, login:username_caret, %varclient_1551, 3);
                 return;
         }
         if (string_length(%varclient_1551) >= 320 & $key0 ! ^key_backspace & $key0 ! ^key_del | string_length(removetags(append_char("", $char1))) = 0) {
             return;
         }
         %varclient_1551, %varclient_1099 = ~script802(%varclient_1099, %varclient_1551, 0, $key0, $char1);
-        if_settext(%varclient_1551, login:com_65);
-        ~script3237(login:com_64, login:com_65, login:com_66, %varclient_1551, 3);
+        if_settext(%varclient_1551, login:username);
+        ~script3237(login:username_layer, login:username, login:username_caret, %varclient_1551, 3);
         return;
     case 4 :
         switch_int ($int2) {
@@ -71,19 +71,19 @@ switch_int (%varclient_174) {
                 %varclient_174 = 3;
                 %varclient_175 = clientclock;
                 %varclient_1099 = string_length(%varclient_1551);
-                ~script3237(login:com_64, login:com_65, login:com_66, %varclient_1551, 3);
+                ~script3237(login:username_layer, login:username, login:username_caret, %varclient_1551, 3);
                 return;
             case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
                 %varclient_1099 = ~script1553($key0, %varclient_1099, ~script2949(%varclient_1552));
-                ~script3237(login:com_70, login:com_71, login:com_72, ~script2949(%varclient_1552), 4);
+                ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%varclient_1552), 4);
                 return;
         }
         if (string_length(%varclient_1552) >= 20 & $key0 ! ^key_backspace & $key0 ! ^key_del) {
             return;
         }
         %varclient_1552, %varclient_1099 = ~script802(%varclient_1099, %varclient_1552, 0, $key0, $char1);
-        if_settext(~script2949(%varclient_1552), login:com_71);
-        ~script3237(login:com_70, login:com_71, login:com_72, ~script2949(%varclient_1552), 4);
+        if_settext(~script2949(%varclient_1552), login:password);
+        ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%varclient_1552), 4);
         return;
     case 5 :
         switch_int ($int2) {

@@ -1,20 +1,20 @@
 // 3058
 [proc,lobbyscreen_loadpanels]
-if_opensubclient(lobbyscreen:com_174, interface_907);
+if_opensubclient(lobbyscreen:playerinfo_panel, lobbyscreen_pane_playerinfo);
 ~script2998;
-if_opensubclient(lobbyscreen:com_175, lobbyscreen_pane_worldselect);
+if_opensubclient(lobbyscreen:worldselect_panel, lobbyscreen_pane_worldselect);
 ~script3103;
-if_opensubclient(lobbyscreen:com_176, lobbyscreen_pane_friendslist);
+if_opensubclient(lobbyscreen:friendslist_panel, lobbyscreen_pane_friendslist);
 ~script3023;
-~lobbyscreen_pane_friendslist_chat_load(lobbyscreen_pane_friendslist:com_49);
-~script3043(lobbyscreen_pane_friendslist:com_66);
-if_opensubclient(lobbyscreen:com_178, lobbyscreen_pane_clanchat);
+~lobbyscreen_pane_friendslist_chat_load(lobbyscreen_pane_friendslist:chat);
+~script3043(lobbyscreen_pane_friendslist:pm_button_text);
+if_opensubclient(lobbyscreen:clanchat_panel, lobbyscreen_pane_clanchat);
 ~lobbyscreen_pane_clanchat_load(59768841);
-~lobbyscreen_pane_clanchat_chat_load(lobbyscreen_pane_clanchat:com_10);
+~lobbyscreen_pane_clanchat_chat_load(lobbyscreen_pane_clanchat:chat);
 if_opensubclient(lobbyscreen:com_177, lobbyscreen_pane_friendschat);
 ~lobbyscreen_pane_friendschat_load(38600715);
-~lobbyscreen_pane_friendschat_chat_load(lobbyscreen_pane_friendschat:com_12);
-if_opensubclient(lobbyscreen:com_179, lobbyscreen_pane_options);
+~lobbyscreen_pane_friendschat_chat_load(lobbyscreen_pane_friendschat:chat);
+if_opensubclient(lobbyscreen:options_panel, lobbyscreen_pane_options);
 ~lobbyscreen_options_load;
-if_setonchattransmit("lobbyscreen_chat_handler(lobbyscreen_pane_friendslist:com_49, lobbyscreen_pane_clanchat:com_10, lobbyscreen_pane_friendschat:com_12)", lobbyscreen:com_13);
+if_setonchattransmit("lobbyscreen_chat_handler(lobbyscreen_pane_friendslist:chat, lobbyscreen_pane_clanchat:chat, lobbyscreen_pane_friendschat:chat)", lobbyscreen:base);
 %varclient_1275, %varclient_1276, %varclient_1510 = ~lobbyscreen_chat_count;

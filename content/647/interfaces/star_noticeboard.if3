@@ -1,5 +1,5 @@
 // 787:0
-[com_0]
+[drop_shadow]
 type=rectangle
 x=69
 y=141
@@ -12,7 +12,7 @@ transmitop=10
 op10= 
 
 // 787:1
-[com_1]
+[notice_board]
 type=model
 y=8
 width=563
@@ -26,7 +26,7 @@ transmitop=10
 op10= 
 
 // 787:2
-[com_2]
+[layer_1]
 type=layer
 x=32
 y=26
@@ -38,13 +38,13 @@ transmitop=10
 op10= 
 
 // 787:3
-[com_3]
+[close_button]
 type=graphic
 x=472
 y=8
 width=26
 height=23
-layer=com_2
+layer=layer_1
 graphic="close_buttons,6"
 colour=0x000000
 transmitop=1,10
@@ -55,7 +55,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,6")
 onop=closebutton_click
 
 // 787:4
-[com_4]
+[star_discovered_by]
 type=text
 x=278
 y=122
@@ -67,7 +67,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 787:5
-[com_5]
+[star_landing_time]
 type=text
 x=68
 y=122
@@ -79,7 +79,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 787:6
-[com_6]
+[star_time_1]
 type=text
 x=68
 y=162
@@ -89,7 +89,7 @@ textfont=p12_full
 colour=0xbf751d
 
 // 787:7
-[com_7]
+[star_time_2]
 type=text
 x=68
 y=192
@@ -99,7 +99,7 @@ textfont=p12_full
 colour=0xbf751d
 
 // 787:8
-[com_8]
+[star_time_3]
 type=text
 x=68
 y=222
@@ -109,7 +109,7 @@ textfont=p12_full
 colour=0xbf751d
 
 // 787:9
-[com_9]
+[star_time_4]
 type=text
 x=68
 y=252
@@ -119,7 +119,7 @@ textfont=p12_full
 colour=0xbf751d
 
 // 787:10
-[com_10]
+[star_time_5]
 type=text
 x=68
 y=282
@@ -129,7 +129,7 @@ textfont=p12_full
 colour=0xbf751d
 
 // 787:11
-[com_11]
+[star_finder_1]
 type=text
 x=278
 y=162
@@ -139,7 +139,7 @@ textfont=p12_full
 colour=0xbf751d
 
 // 787:12
-[com_12]
+[star_finder_2]
 type=text
 x=278
 y=192
@@ -149,7 +149,7 @@ textfont=p12_full
 colour=0xbf751d
 
 // 787:13
-[com_13]
+[star_finder_3]
 type=text
 x=278
 y=222
@@ -159,7 +159,7 @@ textfont=p12_full
 colour=0xbf751d
 
 // 787:14
-[com_14]
+[star_finder_4]
 type=text
 x=278
 y=252
@@ -169,7 +169,7 @@ textfont=p12_full
 colour=0xbf751d
 
 // 787:15
-[com_15]
+[star_finder_5]
 type=text
 x=278
 y=282

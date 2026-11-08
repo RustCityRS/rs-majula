@@ -5,4 +5,4 @@ if (%varclient_82 <= 0) {
 } else {
     %varclient_82 = calc(%varclient_82 + 10);
 }
-if_setontimer("script603", stockmarket:com_148);
+if_setontimer("script603", stockmarket:offercount);

@@ -14,9 +14,9 @@ if (%varclient_1407 < 9) {
     }
 }
 %varclient_174 = 17;
-if_sethide(true, account_create:com_44);
-if_sethide(true, account_create:com_43);
-if_sethide(false, account_create:com_45);
+if_sethide(true, account_create:create_layer);
+if_sethide(true, account_create:border);
+if_sethide(false, account_create:u13_layer);
 if_setgraphic("corner_flourish,0", account_create:com_8);
 if_setgraphic("corner_flourish,0", account_create:com_5);
 if_setgraphic("corner_flourish,0", account_create:com_7);

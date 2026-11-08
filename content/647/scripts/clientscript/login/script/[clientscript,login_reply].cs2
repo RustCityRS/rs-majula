@@ -1,14 +1,14 @@
 // 2946
 [clientscript,login_reply]
 def_int $int0 = ~login_getreply;
-def_component $component1 = login:com_52;
+def_component $component1 = login:login_button_text;
 def_component $component2 = login:com_51;
-def_component $component3 = login:com_42;
-def_component $component4 = login:com_5;
+def_component $component3 = login:login_button;
+def_component $component4 = login:popup;
 if (unknown_command_5623 = true) {
-    $component1 = south_progress9:com_54;
-    $component3 = south_progress9:com_50;
-    $component4 = south_progress9:com_29;
+    $component1 = south_progress9:login_button_text;
+    $component3 = south_progress9:login_button;
+    $component4 = south_progress9:popup;
 }
 if ($int0 = -3) {
     if_settext("Logging in...", $component1);
@@ -94,7 +94,7 @@ if (unknown_command_5623 = true) {
     if_settext("Log In", $component2);
 }
 if_setonclick("login_dologin", $component3);
-if_setontimer(null, login:com_5);
+if_setontimer(null, login:popup);
 def_string $string2 = "";
 def_int $int7 = 1;
 def_int $int8 = 0;

@@ -6,17 +6,17 @@ if (%varclient_1043 = null) {
 }
 switch_obj (%varclient_1043) {
     case obj_4761, obj_4762 :
-        $component0 = barrows_overlay:com_10;
+        $component0 = barrows_overlay:barrows_ahrim;
     case obj_4763, obj_4764 :
-        $component0 = barrows_overlay:com_8;
+        $component0 = barrows_overlay:barrows_dharok;
     case obj_4765, obj_4766 :
-        $component0 = barrows_overlay:com_9;
+        $component0 = barrows_overlay:barrows_guthan;
     case obj_4767, obj_4768 :
-        $component0 = barrows_overlay:com_11;
+        $component0 = barrows_overlay:barrows_karil;
     case obj_4769, obj_4770 :
-        $component0 = barrows_overlay:com_12;
+        $component0 = barrows_overlay:barrows_torag;
     case obj_4771, obj_4772 :
-        $component0 = barrows_overlay:com_13;
+        $component0 = barrows_overlay:barrows_verac;
 }
 if ($component0 = null) {
     return;

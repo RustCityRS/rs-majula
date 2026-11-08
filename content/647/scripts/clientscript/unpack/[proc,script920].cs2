@@ -7,8 +7,8 @@ if (%varclient_741 ! null) {
     if (compare(oc_iop(%varclient_741, 2), "Wear") = 0 | compare(oc_iop(%varclient_741, 2), "Wield") = 0) {
         $int1 = 1;
     }
-    if_setobject_nonum(%varclient_741, -1, obj_info:com_13);
-    if_setobject_nonum(%varclient_741, -1, obj_info:com_14);
+    if_setobject_nonum(%varclient_741, -1, obj_info:obj_graphic);
+    if_setobject_nonum(%varclient_741, -1, obj_info:obj_name);
     if (map_members = false & oc_members(%varclient_741) = 1) {
         ~script922("This is a members item. Additional information is not available on this world.", ^settextalign_centre, $int0);
     } else {

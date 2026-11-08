@@ -6,8 +6,8 @@ def_int $int2 = 0;
 def_int $int3 = 0;
 def_enum $enum4 = null;
 def_int $int5 = 5;
-$int1 = calc((if_getwidth(mob_rewards_quest_kit:com_17) - 36 * $int5) / ($int5 - 1));
-$int2 = calc((if_getheight(mob_rewards_quest_kit:com_17) - 128) / 3);
+$int1 = calc((if_getwidth(mob_rewards_quest_kit:content) - 36 * $int5) / ($int5 - 1));
+$int2 = calc((if_getheight(mob_rewards_quest_kit:content) - 128) / 3);
 if (inv_total(inv, quest_kit__basic) > 0) {
     $enum4 = enum_1991;
 } else if (inv_total(inv, quest_kit__medium) > 0) {
@@ -19,7 +19,7 @@ if (inv_total(inv, quest_kit__basic) > 0) {
 }
 while ($int3 = 0) {
     if (enum(int, namedobj, $enum4, $int0) ! logs) {
-        cc_create(mob_rewards_quest_kit:com_17, ^iftype_graphic, $int0);
+        cc_create(mob_rewards_quest_kit:content, ^iftype_graphic, $int0);
         cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc((36 + $int1) * ($int0 % $int5)), calc($int0 / $int5 * (32 + $int2)), ^setpos_abs_left, ^setpos_abs_top);
         cc_setobject(enum(int, namedobj, $enum4, $int0), -1);

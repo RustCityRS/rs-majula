@@ -9,10 +9,10 @@
 // 2011's page numbers, as void-634 writes them (BookPages.kt: the left page
 // %book_page * 2 + 1, the right one more); 289's book has none.
 [proc,book_page_numbers]
-if_settext(book:page_left_number, tostring(add(multiply(%book_page, 2), 1)));
-if_settext(book:page_right_number, tostring(add(multiply(%book_page, 2), 2)));
+if_settext(book_small:pagenum_left, tostring(add(multiply(%book_page, 2), 1)));
+if_settext(book_small:pagenum_right, tostring(add(multiply(%book_page, 2), 2)));
 
-[if_button,book:close]
+[if_button,book_small:close_btn]
 if_close();
 
 // [if_button,book:com_84]
@@ -97,438 +97,438 @@ while ($page < $pagetotal) {
 }
 
 [proc,book_page](string $title, int $page)
-if_settext(book:page_left_text_1, split_get($page, 0));
-if_sethide(book:page_left_model_1, true);
-if_settext(book:page_left_text_2, split_get($page, 1));
-if_sethide(book:page_left_model_2, true);
-if_settext(book:page_left_text_3, split_get($page, 2));
-if_sethide(book:page_left_model_3, true);
-if_settext(book:page_left_text_4, split_get($page, 3));
-if_sethide(book:page_left_model_4, true);
-if_settext(book:page_left_text_5, split_get($page, 4));
-if_sethide(book:page_left_model_5, true);
-if_settext(book:page_left_text_6, split_get($page, 5));
-if_sethide(book:page_left_model_6, true);
-if_settext(book:page_left_text_7, split_get($page, 6));
-if_sethide(book:page_left_model_7, true);
-if_settext(book:page_left_text_8, split_get($page, 7));
-if_sethide(book:page_left_model_8, true);
-if_settext(book:page_left_text_9, split_get($page, 8));
-if_sethide(book:page_left_model_9, true);
-if_settext(book:page_left_text_10, split_get($page, 9));
-if_sethide(book:page_left_model_10, true);
-if_settext(book:page_left_text_11, split_get($page, 10));
-if_sethide(book:page_left_model_11, true);
-if_settext(book:page_right_text_1, split_get($page, 11));
-if_sethide(book:page_right_model_1, true);
-if_settext(book:page_right_text_2, split_get($page, 12));
-if_sethide(book:page_right_model_2, true);
-if_settext(book:page_right_text_3, split_get($page, 13));
-if_sethide(book:page_right_model_3, true);
-if_settext(book:page_right_text_4, split_get($page, 14));
-if_sethide(book:page_right_model_4, true);
-if_settext(book:page_right_text_5, split_get($page, 15));
-if_sethide(book:page_right_model_5, true);
-if_settext(book:page_right_text_6, split_get($page, 16));
-if_sethide(book:page_right_model_6, true);
-if_settext(book:page_right_text_7, split_get($page, 17));
-if_sethide(book:page_right_model_7, true);
-if_settext(book:page_right_text_8, split_get($page, 18));
-if_sethide(book:page_right_model_8, true);
-if_settext(book:page_right_text_9, split_get($page, 19));
-if_sethide(book:page_right_model_9, true);
-if_settext(book:page_right_text_10, split_get($page, 20));
-if_sethide(book:page_right_model_10, true);
-if_settext(book:page_right_text_11, split_get($page, 21));
-if_sethide(book:page_right_model_11, true);
-if_settext(book:book_title, $title);
+if_settext(book_small:line1a, split_get($page, 0));
+if_sethide(book_small:pic1, true);
+if_settext(book_small:line1b, split_get($page, 1));
+if_sethide(book_small:pic2, true);
+if_settext(book_small:line1c, split_get($page, 2));
+if_sethide(book_small:pic3, true);
+if_settext(book_small:line1d, split_get($page, 3));
+if_sethide(book_small:pic4, true);
+if_settext(book_small:line1e, split_get($page, 4));
+if_sethide(book_small:pic5, true);
+if_settext(book_small:line1f, split_get($page, 5));
+if_sethide(book_small:pic6, true);
+if_settext(book_small:line1g, split_get($page, 6));
+if_sethide(book_small:pic7, true);
+if_settext(book_small:line1h, split_get($page, 7));
+if_sethide(book_small:pic8, true);
+if_settext(book_small:line1i, split_get($page, 8));
+if_sethide(book_small:pic9, true);
+if_settext(book_small:line1j, split_get($page, 9));
+if_sethide(book_small:pic10, true);
+if_settext(book_small:line1k, split_get($page, 10));
+if_sethide(book_small:pic11, true);
+if_settext(book_small:line1l, split_get($page, 11));
+if_sethide(book_small:pic12, true);
+if_settext(book_small:line1m, split_get($page, 12));
+if_sethide(book_small:pic13, true);
+if_settext(book_small:line1n, split_get($page, 13));
+if_sethide(book_small:pic14, true);
+if_settext(book_small:line31, split_get($page, 14));
+if_sethide(book_small:pic15, true);
+if_settext(book_small:line32, split_get($page, 15));
+if_sethide(book_small:pic16, true);
+if_settext(book_small:line33, split_get($page, 16));
+if_sethide(book_small:pic17, true);
+if_settext(book_small:line34, split_get($page, 17));
+if_sethide(book_small:pic18, true);
+if_settext(book_small:line35, split_get($page, 18));
+if_sethide(book_small:pic19, true);
+if_settext(book_small:line36, split_get($page, 19));
+if_sethide(book_small:pic20, true);
+if_settext(book_small:line37, split_get($page, 20));
+if_sethide(book_small:pic21, true);
+if_settext(book_small:line38, split_get($page, 21));
+if_sethide(book_small:pic22, true);
+if_settext(book_small:book_title, $title);
 ~book_page_numbers;
-if_openmain(book);
+if_openmain(book_small);
 
 // its written this way to perserve order that osrs sends them
 [proc,book_page_obj](string $title, component $obj_com, namedobj $obj, int $zoom, int $page)
-if_settext(book:page_left_text_1, split_get($page, 0));
-if ($obj_com = book:page_left_model_1) {
-    if_sethide(book:page_left_model_1, false);
-    if_setobject(book:page_left_model_1, $obj, $zoom);
+if_settext(book_small:line1a, split_get($page, 0));
+if ($obj_com = book_small:pic1) {
+    if_sethide(book_small:pic1, false);
+    if_setobject(book_small:pic1, $obj, $zoom);
 } else {
-    if_sethide(book:page_left_model_1, true);
+    if_sethide(book_small:pic1, true);
 }
-if_settext(book:page_left_text_2, split_get($page, 1));
-if ($obj_com = book:page_left_model_2) {
-    if_sethide(book:page_left_model_2, false);
-    if_setobject(book:page_left_model_2, $obj, $zoom);
+if_settext(book_small:line1b, split_get($page, 1));
+if ($obj_com = book_small:pic2) {
+    if_sethide(book_small:pic2, false);
+    if_setobject(book_small:pic2, $obj, $zoom);
 } else {
-    if_sethide(book:page_left_model_2, true);
+    if_sethide(book_small:pic2, true);
 }
-if_settext(book:page_left_text_3, split_get($page, 2));
-if ($obj_com = book:page_left_model_3) {
-    if_sethide(book:page_left_model_3, false);
-    if_setobject(book:page_left_model_3, $obj, $zoom);
+if_settext(book_small:line1c, split_get($page, 2));
+if ($obj_com = book_small:pic3) {
+    if_sethide(book_small:pic3, false);
+    if_setobject(book_small:pic3, $obj, $zoom);
 } else {
-    if_sethide(book:page_left_model_3, true);
+    if_sethide(book_small:pic3, true);
 }
-if_settext(book:page_left_text_4, split_get($page, 3));
-if ($obj_com = book:page_left_model_4) {
-    if_sethide(book:page_left_model_4, false);
-    if_setobject(book:page_left_model_4, $obj, $zoom);
+if_settext(book_small:line1d, split_get($page, 3));
+if ($obj_com = book_small:pic4) {
+    if_sethide(book_small:pic4, false);
+    if_setobject(book_small:pic4, $obj, $zoom);
 } else {
-    if_sethide(book:page_left_model_4, true);
+    if_sethide(book_small:pic4, true);
 }
-if_settext(book:page_left_text_5, split_get($page, 4));
-if ($obj_com = book:page_left_model_5) {
-    if_sethide(book:page_left_model_5, false);
-    if_setobject(book:page_left_model_5, $obj, $zoom);
+if_settext(book_small:line1e, split_get($page, 4));
+if ($obj_com = book_small:pic5) {
+    if_sethide(book_small:pic5, false);
+    if_setobject(book_small:pic5, $obj, $zoom);
 } else {
-    if_sethide(book:page_left_model_5, true);
+    if_sethide(book_small:pic5, true);
 }
-if_settext(book:page_left_text_6, split_get($page, 5));
-if ($obj_com = book:page_left_model_6) {
-    if_sethide(book:page_left_model_6, false);
-    if_setobject(book:page_left_model_6, $obj, $zoom);
+if_settext(book_small:line1f, split_get($page, 5));
+if ($obj_com = book_small:pic6) {
+    if_sethide(book_small:pic6, false);
+    if_setobject(book_small:pic6, $obj, $zoom);
 } else {
-    if_sethide(book:page_left_model_6, true);
+    if_sethide(book_small:pic6, true);
 }
-if_settext(book:page_left_text_7, split_get($page, 6));
-if ($obj_com = book:page_left_model_7) {
-    if_sethide(book:page_left_model_7, false);
-    if_setobject(book:page_left_model_7, $obj, $zoom);
+if_settext(book_small:line1g, split_get($page, 6));
+if ($obj_com = book_small:pic7) {
+    if_sethide(book_small:pic7, false);
+    if_setobject(book_small:pic7, $obj, $zoom);
 } else {
-    if_sethide(book:page_left_model_7, true);
+    if_sethide(book_small:pic7, true);
 }
-if_settext(book:page_left_text_8, split_get($page, 7));
-if ($obj_com = book:page_left_model_8) {
-    if_sethide(book:page_left_model_8, false);
-    if_setobject(book:page_left_model_8, $obj, $zoom);
+if_settext(book_small:line1h, split_get($page, 7));
+if ($obj_com = book_small:pic8) {
+    if_sethide(book_small:pic8, false);
+    if_setobject(book_small:pic8, $obj, $zoom);
 } else {
-    if_sethide(book:page_left_model_8, true);
+    if_sethide(book_small:pic8, true);
 }
-if_settext(book:page_left_text_9, split_get($page, 8));
-if ($obj_com = book:page_left_model_9) {
-    if_sethide(book:page_left_model_9, false);
-    if_setobject(book:page_left_model_9, $obj, $zoom);
+if_settext(book_small:line1i, split_get($page, 8));
+if ($obj_com = book_small:pic9) {
+    if_sethide(book_small:pic9, false);
+    if_setobject(book_small:pic9, $obj, $zoom);
 } else {
-    if_sethide(book:page_left_model_9, true);
+    if_sethide(book_small:pic9, true);
 }
-if_settext(book:page_left_text_10, split_get($page, 9));
-if ($obj_com = book:page_left_model_10) {
-    if_sethide(book:page_left_model_10, false);
-    if_setobject(book:page_left_model_10, $obj, $zoom);
+if_settext(book_small:line1j, split_get($page, 9));
+if ($obj_com = book_small:pic10) {
+    if_sethide(book_small:pic10, false);
+    if_setobject(book_small:pic10, $obj, $zoom);
 } else {
-    if_sethide(book:page_left_model_10, true);
+    if_sethide(book_small:pic10, true);
 }
-if_settext(book:page_left_text_11, split_get($page, 10));
-if ($obj_com = book:page_left_model_11) {
-    if_sethide(book:page_left_model_11, false);
-    if_setobject(book:page_left_model_11, $obj, $zoom);
+if_settext(book_small:line1k, split_get($page, 10));
+if ($obj_com = book_small:pic11) {
+    if_sethide(book_small:pic11, false);
+    if_setobject(book_small:pic11, $obj, $zoom);
 } else {
-    if_sethide(book:page_left_model_11, true);
+    if_sethide(book_small:pic11, true);
 }
-if_settext(book:page_right_text_1, split_get($page, 11));
-if ($obj_com = book:page_right_model_1) {
-    if_sethide(book:page_right_model_1, false);
-    if_setobject(book:page_right_model_1, $obj, $zoom);
+if_settext(book_small:line1l, split_get($page, 11));
+if ($obj_com = book_small:pic12) {
+    if_sethide(book_small:pic12, false);
+    if_setobject(book_small:pic12, $obj, $zoom);
 } else {
-    if_sethide(book:page_right_model_1, true);
+    if_sethide(book_small:pic12, true);
 }
-if_settext(book:page_right_text_2, split_get($page, 12));
-if ($obj_com = book:page_right_model_2) {
-    if_sethide(book:page_right_model_2, false);
-    if_setobject(book:page_right_model_2, $obj, $zoom);
+if_settext(book_small:line1m, split_get($page, 12));
+if ($obj_com = book_small:pic13) {
+    if_sethide(book_small:pic13, false);
+    if_setobject(book_small:pic13, $obj, $zoom);
 } else {
-    if_sethide(book:page_right_model_2, true);
+    if_sethide(book_small:pic13, true);
 }
-if_settext(book:page_right_text_3, split_get($page, 13));
-if ($obj_com = book:page_right_model_3) {
-    if_sethide(book:page_right_model_3, false);
-    if_setobject(book:page_right_model_3, $obj, $zoom);
+if_settext(book_small:line1n, split_get($page, 13));
+if ($obj_com = book_small:pic14) {
+    if_sethide(book_small:pic14, false);
+    if_setobject(book_small:pic14, $obj, $zoom);
 } else {
-    if_sethide(book:page_right_model_3, true);
+    if_sethide(book_small:pic14, true);
 }
-if_settext(book:page_right_text_4, split_get($page, 14));
-if ($obj_com = book:page_right_model_4) {
-    if_sethide(book:page_right_model_4, false);
-    if_setobject(book:page_right_model_4, $obj, $zoom);
+if_settext(book_small:line31, split_get($page, 14));
+if ($obj_com = book_small:pic15) {
+    if_sethide(book_small:pic15, false);
+    if_setobject(book_small:pic15, $obj, $zoom);
 } else {
-    if_sethide(book:page_right_model_4, true);
+    if_sethide(book_small:pic15, true);
 }
-if_settext(book:page_right_text_5, split_get($page, 15));
-if ($obj_com = book:page_right_model_5) {
-    if_sethide(book:page_right_model_5, false);
-    if_setobject(book:page_right_model_5, $obj, $zoom);
+if_settext(book_small:line32, split_get($page, 15));
+if ($obj_com = book_small:pic16) {
+    if_sethide(book_small:pic16, false);
+    if_setobject(book_small:pic16, $obj, $zoom);
 } else {
-    if_sethide(book:page_right_model_5, true);
+    if_sethide(book_small:pic16, true);
 }
-if_settext(book:page_right_text_6, split_get($page, 16));
-if ($obj_com = book:page_right_model_6) {
-    if_sethide(book:page_right_model_6, false);
-    if_setobject(book:page_right_model_6, $obj, $zoom);
+if_settext(book_small:line33, split_get($page, 16));
+if ($obj_com = book_small:pic17) {
+    if_sethide(book_small:pic17, false);
+    if_setobject(book_small:pic17, $obj, $zoom);
 } else {
-    if_sethide(book:page_right_model_6, true);
+    if_sethide(book_small:pic17, true);
 }
-if_settext(book:page_right_text_7, split_get($page, 17));
-if ($obj_com = book:page_right_model_7) {
-    if_sethide(book:page_right_model_7, false);
-    if_setobject(book:page_right_model_7, $obj, $zoom);
+if_settext(book_small:line34, split_get($page, 17));
+if ($obj_com = book_small:pic18) {
+    if_sethide(book_small:pic18, false);
+    if_setobject(book_small:pic18, $obj, $zoom);
 } else {
-    if_sethide(book:page_right_model_7, true);
+    if_sethide(book_small:pic18, true);
 }
-if_settext(book:page_right_text_8, split_get($page, 18));
-if ($obj_com = book:page_right_model_8) {
-    if_sethide(book:page_right_model_8, false);
-    if_setobject(book:page_right_model_8, $obj, $zoom);
+if_settext(book_small:line35, split_get($page, 18));
+if ($obj_com = book_small:pic19) {
+    if_sethide(book_small:pic19, false);
+    if_setobject(book_small:pic19, $obj, $zoom);
 } else {
-    if_sethide(book:page_right_model_8, true);
+    if_sethide(book_small:pic19, true);
 }
-if_settext(book:page_right_text_9, split_get($page, 19));
-if ($obj_com = book:page_right_model_9) {
-    if_sethide(book:page_right_model_9, false);
-    if_setobject(book:page_right_model_9, $obj, $zoom);
+if_settext(book_small:line36, split_get($page, 19));
+if ($obj_com = book_small:pic20) {
+    if_sethide(book_small:pic20, false);
+    if_setobject(book_small:pic20, $obj, $zoom);
 } else {
-    if_sethide(book:page_right_model_9, true);
+    if_sethide(book_small:pic20, true);
 }
-if_settext(book:page_right_text_10, split_get($page, 20));
-if ($obj_com = book:page_right_model_10) {
-    if_sethide(book:page_right_model_10, false);
-    if_setobject(book:page_right_model_10, $obj, $zoom);
+if_settext(book_small:line37, split_get($page, 20));
+if ($obj_com = book_small:pic21) {
+    if_sethide(book_small:pic21, false);
+    if_setobject(book_small:pic21, $obj, $zoom);
 } else {
-    if_sethide(book:page_right_model_10, true);
+    if_sethide(book_small:pic21, true);
 }
-if_settext(book:page_right_text_11, split_get($page, 21));
-if ($obj_com = book:page_right_model_11) {
-    if_sethide(book:page_right_model_11, false);
-    if_setobject(book:page_right_model_11, $obj, $zoom);
+if_settext(book_small:line38, split_get($page, 21));
+if ($obj_com = book_small:pic22) {
+    if_sethide(book_small:pic22, false);
+    if_setobject(book_small:pic22, $obj, $zoom);
 } else {
-    if_sethide(book:page_right_model_11, true);
+    if_sethide(book_small:pic22, true);
 }
-if_settext(book:book_title, $title);
+if_settext(book_small:book_title, $title);
 ~book_page_numbers;
-if_openmain(book);
+if_openmain(book_small);
 
 [proc,book_page_doubleobj](string $title, component $obj_com1, namedobj $obj1, int $zoom1, component $obj_com2, namedobj $obj2, int $zoom2, int $page)
-if_settext(book:page_left_text_1, split_get($page, 0));
-if ($obj_com1 = book:page_left_model_1) {
-    if_sethide(book:page_left_model_1, false);
-    if_setobject(book:page_left_model_1, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_left_model_1) {
-    if_sethide(book:page_left_model_1, false);
-    if_setobject(book:page_left_model_1, $obj2, $zoom2);
+if_settext(book_small:line1a, split_get($page, 0));
+if ($obj_com1 = book_small:pic1) {
+    if_sethide(book_small:pic1, false);
+    if_setobject(book_small:pic1, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic1) {
+    if_sethide(book_small:pic1, false);
+    if_setobject(book_small:pic1, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_left_model_1, true);
+    if_sethide(book_small:pic1, true);
 }
-if_settext(book:page_left_text_2, split_get($page, 1));
-if ($obj_com1 = book:page_left_model_2) {
-    if_sethide(book:page_left_model_2, false);
-    if_setobject(book:page_left_model_2, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_left_model_2) {
-    if_sethide(book:page_left_model_2, false);
-    if_setobject(book:page_left_model_2, $obj2, $zoom2);
+if_settext(book_small:line1b, split_get($page, 1));
+if ($obj_com1 = book_small:pic2) {
+    if_sethide(book_small:pic2, false);
+    if_setobject(book_small:pic2, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic2) {
+    if_sethide(book_small:pic2, false);
+    if_setobject(book_small:pic2, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_left_model_2, true);
+    if_sethide(book_small:pic2, true);
 }
-if_settext(book:page_left_text_3, split_get($page, 2));
-if ($obj_com1 = book:page_left_model_3) {
-    if_sethide(book:page_left_model_3, false);
-    if_setobject(book:page_left_model_3, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_left_model_3) {
-    if_sethide(book:page_left_model_3, false);
-    if_setobject(book:page_left_model_3, $obj2, $zoom2);
+if_settext(book_small:line1c, split_get($page, 2));
+if ($obj_com1 = book_small:pic3) {
+    if_sethide(book_small:pic3, false);
+    if_setobject(book_small:pic3, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic3) {
+    if_sethide(book_small:pic3, false);
+    if_setobject(book_small:pic3, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_left_model_3, true);
+    if_sethide(book_small:pic3, true);
 }
-if_settext(book:page_left_text_4, split_get($page, 3));
-if ($obj_com1 = book:page_left_model_4) {
-    if_sethide(book:page_left_model_4, false);
-    if_setobject(book:page_left_model_4, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_left_model_4) {
-    if_sethide(book:page_left_model_4, false);
-    if_setobject(book:page_left_model_4, $obj2, $zoom2);
+if_settext(book_small:line1d, split_get($page, 3));
+if ($obj_com1 = book_small:pic4) {
+    if_sethide(book_small:pic4, false);
+    if_setobject(book_small:pic4, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic4) {
+    if_sethide(book_small:pic4, false);
+    if_setobject(book_small:pic4, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_left_model_4, true);
+    if_sethide(book_small:pic4, true);
 }
-if_settext(book:page_left_text_5, split_get($page, 4));
-if ($obj_com1 = book:page_left_model_5) {
-    if_sethide(book:page_left_model_5, false);
-    if_setobject(book:page_left_model_5, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_left_model_5) {
-    if_sethide(book:page_left_model_5, false);
-    if_setobject(book:page_left_model_5, $obj2, $zoom2);
+if_settext(book_small:line1e, split_get($page, 4));
+if ($obj_com1 = book_small:pic5) {
+    if_sethide(book_small:pic5, false);
+    if_setobject(book_small:pic5, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic5) {
+    if_sethide(book_small:pic5, false);
+    if_setobject(book_small:pic5, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_left_model_5, true);
+    if_sethide(book_small:pic5, true);
 }
-if_settext(book:page_left_text_6, split_get($page, 5));
-if ($obj_com1 = book:page_left_model_6) {
-    if_sethide(book:page_left_model_6, false);
-    if_setobject(book:page_left_model_6, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_left_model_6) {
-    if_sethide(book:page_left_model_6, false);
-    if_setobject(book:page_left_model_6, $obj2, $zoom2);
+if_settext(book_small:line1f, split_get($page, 5));
+if ($obj_com1 = book_small:pic6) {
+    if_sethide(book_small:pic6, false);
+    if_setobject(book_small:pic6, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic6) {
+    if_sethide(book_small:pic6, false);
+    if_setobject(book_small:pic6, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_left_model_6, true);
+    if_sethide(book_small:pic6, true);
 }
-if_settext(book:page_left_text_7, split_get($page, 6));
-if ($obj_com1 = book:page_left_model_7) {
-    if_sethide(book:page_left_model_7, false);
-    if_setobject(book:page_left_model_7, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_left_model_7) {
-    if_sethide(book:page_left_model_7, false);
-    if_setobject(book:page_left_model_7, $obj2, $zoom2);
+if_settext(book_small:line1g, split_get($page, 6));
+if ($obj_com1 = book_small:pic7) {
+    if_sethide(book_small:pic7, false);
+    if_setobject(book_small:pic7, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic7) {
+    if_sethide(book_small:pic7, false);
+    if_setobject(book_small:pic7, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_left_model_7, true);
+    if_sethide(book_small:pic7, true);
 }
-if_settext(book:page_left_text_8, split_get($page, 7));
-if ($obj_com1 = book:page_left_model_8) {
-    if_sethide(book:page_left_model_8, false);
-    if_setobject(book:page_left_model_8, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_left_model_8) {
-    if_sethide(book:page_left_model_8, false);
-    if_setobject(book:page_left_model_8, $obj2, $zoom2);
+if_settext(book_small:line1h, split_get($page, 7));
+if ($obj_com1 = book_small:pic8) {
+    if_sethide(book_small:pic8, false);
+    if_setobject(book_small:pic8, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic8) {
+    if_sethide(book_small:pic8, false);
+    if_setobject(book_small:pic8, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_left_model_8, true);
+    if_sethide(book_small:pic8, true);
 }
-if_settext(book:page_left_text_9, split_get($page, 8));
-if ($obj_com1 = book:page_left_model_9) {
-    if_sethide(book:page_left_model_9, false);
-    if_setobject(book:page_left_model_9, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_left_model_9) {
-    if_sethide(book:page_left_model_9, false);
-    if_setobject(book:page_left_model_9, $obj2, $zoom2);
+if_settext(book_small:line1i, split_get($page, 8));
+if ($obj_com1 = book_small:pic9) {
+    if_sethide(book_small:pic9, false);
+    if_setobject(book_small:pic9, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic9) {
+    if_sethide(book_small:pic9, false);
+    if_setobject(book_small:pic9, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_left_model_9, true);
+    if_sethide(book_small:pic9, true);
 }
-if_settext(book:page_left_text_10, split_get($page, 9));
-if ($obj_com1 = book:page_left_model_10) {
-    if_sethide(book:page_left_model_10, false);
-    if_setobject(book:page_left_model_10, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_left_model_10) {
-    if_sethide(book:page_left_model_10, false);
-    if_setobject(book:page_left_model_10, $obj2, $zoom2);
+if_settext(book_small:line1j, split_get($page, 9));
+if ($obj_com1 = book_small:pic10) {
+    if_sethide(book_small:pic10, false);
+    if_setobject(book_small:pic10, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic10) {
+    if_sethide(book_small:pic10, false);
+    if_setobject(book_small:pic10, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_left_model_10, true);
+    if_sethide(book_small:pic10, true);
 }
-if_settext(book:page_left_text_11, split_get($page, 10));
-if ($obj_com1 = book:page_left_model_11) {
-    if_sethide(book:page_left_model_11, false);
-    if_setobject(book:page_left_model_11, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_left_model_11) {
-    if_sethide(book:page_left_model_11, false);
-    if_setobject(book:page_left_model_11, $obj2, $zoom2);
+if_settext(book_small:line1k, split_get($page, 10));
+if ($obj_com1 = book_small:pic11) {
+    if_sethide(book_small:pic11, false);
+    if_setobject(book_small:pic11, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic11) {
+    if_sethide(book_small:pic11, false);
+    if_setobject(book_small:pic11, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_left_model_11, true);
+    if_sethide(book_small:pic11, true);
 }
-if_settext(book:page_right_text_1, split_get($page, 11));
-if ($obj_com1 = book:page_right_model_1) {
-    if_sethide(book:page_right_model_1, false);
-    if_setobject(book:page_right_model_1, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_right_model_1) {
-    if_sethide(book:page_right_model_1, false);
-    if_setobject(book:page_right_model_1, $obj2, $zoom2);
+if_settext(book_small:line1l, split_get($page, 11));
+if ($obj_com1 = book_small:pic12) {
+    if_sethide(book_small:pic12, false);
+    if_setobject(book_small:pic12, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic12) {
+    if_sethide(book_small:pic12, false);
+    if_setobject(book_small:pic12, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_right_model_1, true);
+    if_sethide(book_small:pic12, true);
 }
-if_settext(book:page_right_text_2, split_get($page, 12));
-if ($obj_com1 = book:page_right_model_2) {
-    if_sethide(book:page_right_model_2, false);
-    if_setobject(book:page_right_model_2, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_right_model_2) {
-    if_sethide(book:page_right_model_2, false);
-    if_setobject(book:page_right_model_2, $obj2, $zoom2);
+if_settext(book_small:line1m, split_get($page, 12));
+if ($obj_com1 = book_small:pic13) {
+    if_sethide(book_small:pic13, false);
+    if_setobject(book_small:pic13, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic13) {
+    if_sethide(book_small:pic13, false);
+    if_setobject(book_small:pic13, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_right_model_2, true);
+    if_sethide(book_small:pic13, true);
 }
-if_settext(book:page_right_text_3, split_get($page, 13));
-if ($obj_com1 = book:page_right_model_3) {
-    if_sethide(book:page_right_model_3, false);
-    if_setobject(book:page_right_model_3, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_right_model_3) {
-    if_sethide(book:page_right_model_3, false);
-    if_setobject(book:page_right_model_3, $obj2, $zoom2);
+if_settext(book_small:line1n, split_get($page, 13));
+if ($obj_com1 = book_small:pic14) {
+    if_sethide(book_small:pic14, false);
+    if_setobject(book_small:pic14, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic14) {
+    if_sethide(book_small:pic14, false);
+    if_setobject(book_small:pic14, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_right_model_3, true);
+    if_sethide(book_small:pic14, true);
 }
-if_settext(book:page_right_text_4, split_get($page, 14));
-if ($obj_com1 = book:page_right_model_4) {
-    if_sethide(book:page_right_model_4, false);
-    if_setobject(book:page_right_model_4, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_right_model_4) {
-    if_sethide(book:page_right_model_4, false);
-    if_setobject(book:page_right_model_4, $obj2, $zoom2);
+if_settext(book_small:line31, split_get($page, 14));
+if ($obj_com1 = book_small:pic15) {
+    if_sethide(book_small:pic15, false);
+    if_setobject(book_small:pic15, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic15) {
+    if_sethide(book_small:pic15, false);
+    if_setobject(book_small:pic15, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_right_model_4, true);
+    if_sethide(book_small:pic15, true);
 }
-if_settext(book:page_right_text_5, split_get($page, 15));
-if ($obj_com1 = book:page_right_model_5) {
-    if_sethide(book:page_right_model_5, false);
-    if_setobject(book:page_right_model_5, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_right_model_5) {
-    if_sethide(book:page_right_model_5, false);
-    if_setobject(book:page_right_model_5, $obj2, $zoom2);
+if_settext(book_small:line32, split_get($page, 15));
+if ($obj_com1 = book_small:pic16) {
+    if_sethide(book_small:pic16, false);
+    if_setobject(book_small:pic16, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic16) {
+    if_sethide(book_small:pic16, false);
+    if_setobject(book_small:pic16, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_right_model_5, true);
+    if_sethide(book_small:pic16, true);
 }
-if_settext(book:page_right_text_6, split_get($page, 16));
-if ($obj_com1 = book:page_right_model_6) {
-    if_sethide(book:page_right_model_6, false);
-    if_setobject(book:page_right_model_6, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_right_model_6) {
-    if_sethide(book:page_right_model_6, false);
-    if_setobject(book:page_right_model_6, $obj2, $zoom2);
+if_settext(book_small:line33, split_get($page, 16));
+if ($obj_com1 = book_small:pic17) {
+    if_sethide(book_small:pic17, false);
+    if_setobject(book_small:pic17, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic17) {
+    if_sethide(book_small:pic17, false);
+    if_setobject(book_small:pic17, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_right_model_6, true);
+    if_sethide(book_small:pic17, true);
 }
-if_settext(book:page_right_text_7, split_get($page, 17));
-if ($obj_com1 = book:page_right_model_7) {
-    if_sethide(book:page_right_model_7, false);
-    if_setobject(book:page_right_model_7, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_right_model_7) {
-    if_sethide(book:page_right_model_7, false);
-    if_setobject(book:page_right_model_7, $obj2, $zoom2);
+if_settext(book_small:line34, split_get($page, 17));
+if ($obj_com1 = book_small:pic18) {
+    if_sethide(book_small:pic18, false);
+    if_setobject(book_small:pic18, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic18) {
+    if_sethide(book_small:pic18, false);
+    if_setobject(book_small:pic18, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_right_model_7, true);
+    if_sethide(book_small:pic18, true);
 }
-if_settext(book:page_right_text_8, split_get($page, 18));
-if ($obj_com1 = book:page_right_model_8) {
-    if_sethide(book:page_right_model_8, false);
-    if_setobject(book:page_right_model_8, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_right_model_8) {
-    if_sethide(book:page_right_model_8, false);
-    if_setobject(book:page_right_model_8, $obj2, $zoom2);
+if_settext(book_small:line35, split_get($page, 18));
+if ($obj_com1 = book_small:pic19) {
+    if_sethide(book_small:pic19, false);
+    if_setobject(book_small:pic19, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic19) {
+    if_sethide(book_small:pic19, false);
+    if_setobject(book_small:pic19, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_right_model_8, true);
+    if_sethide(book_small:pic19, true);
 }
-if_settext(book:page_right_text_9, split_get($page, 19));
-if ($obj_com1 = book:page_right_model_9) {
-    if_sethide(book:page_right_model_9, false);
-    if_setobject(book:page_right_model_9, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_right_model_9) {
-    if_sethide(book:page_right_model_9, false);
-    if_setobject(book:page_right_model_9, $obj2, $zoom2);
+if_settext(book_small:line36, split_get($page, 19));
+if ($obj_com1 = book_small:pic20) {
+    if_sethide(book_small:pic20, false);
+    if_setobject(book_small:pic20, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic20) {
+    if_sethide(book_small:pic20, false);
+    if_setobject(book_small:pic20, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_right_model_9, true);
+    if_sethide(book_small:pic20, true);
 }
-if_settext(book:page_right_text_10, split_get($page, 20));
-if ($obj_com1 = book:page_right_model_10) {
-    if_sethide(book:page_right_model_10, false);
-    if_setobject(book:page_right_model_10, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_right_model_10) {
-    if_sethide(book:page_right_model_10, false);
-    if_setobject(book:page_right_model_10, $obj2, $zoom2);
+if_settext(book_small:line37, split_get($page, 20));
+if ($obj_com1 = book_small:pic21) {
+    if_sethide(book_small:pic21, false);
+    if_setobject(book_small:pic21, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic21) {
+    if_sethide(book_small:pic21, false);
+    if_setobject(book_small:pic21, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_right_model_10, true);
+    if_sethide(book_small:pic21, true);
 }
-if_settext(book:page_right_text_11, split_get($page, 21));
-if ($obj_com1 = book:page_right_model_11) {
-    if_sethide(book:page_right_model_11, false);
-    if_setobject(book:page_right_model_11, $obj1, $zoom1);
-} else if ($obj_com2 = book:page_right_model_11) {
-    if_sethide(book:page_right_model_11, false);
-    if_setobject(book:page_right_model_11, $obj2, $zoom2);
+if_settext(book_small:line38, split_get($page, 21));
+if ($obj_com1 = book_small:pic22) {
+    if_sethide(book_small:pic22, false);
+    if_setobject(book_small:pic22, $obj1, $zoom1);
+} else if ($obj_com2 = book_small:pic22) {
+    if_sethide(book_small:pic22, false);
+    if_setobject(book_small:pic22, $obj2, $zoom2);
 } else {
-    if_sethide(book:page_right_model_11, true);
+    if_sethide(book_small:pic22, true);
 }
-if_settext(book:book_title, $title);
+if_settext(book_small:book_title, $title);
 ~book_page_numbers;
-if_openmain(book);
+if_openmain(book_small);
 
 [label,book_flip_page](int $page_direction, int $min_page, int $max_page, proc $proc)
 %book_page = add(%book_page, $page_direction);
@@ -539,15 +539,15 @@ if (%book_page > $max_page) {
 }
 
 if (%book_page = $min_page) {
-    if_sethide(book:page_left_button, true);
+    if_sethide(book_small:left_arrow, true);
 } else {
-    if_sethide(book:page_left_button, false);
+    if_sethide(book_small:left_arrow, false);
 }
 
 if (%book_page = $max_page) {
-    if_sethide(book:page_right_button, true);
+    if_sethide(book_small:right_arrow, true);
 } else {
-    if_sethide(book:page_right_button, false);
+    if_sethide(book_small:right_arrow, false);
 }
 
 gosub($proc);
@@ -558,6 +558,6 @@ gosub($proc);
 // for one, and turns from here with the same proc and pages.
 p_pausebutton;
 switch_component (last_com) {
-    case book:page_left_button : @book_flip_page(^book_direction_backward, $min_page, $max_page, $proc);
-    case book:page_right_button : @book_flip_page(^book_direction_forward, $min_page, $max_page, $proc);
+    case book_small:left_arrow : @book_flip_page(^book_direction_backward, $min_page, $max_page, $proc);
+    case book_small:right_arrow : @book_flip_page(^book_direction_forward, $min_page, $max_page, $proc);
 }

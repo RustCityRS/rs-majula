@@ -1,12 +1,12 @@
 // 114
 [clientscript,switchside_init]
-if_setonvarctransmit("switchside_varc{varclient_168, varclient_747}", toplevel:com_194);
-if_setonvarctransmit("switchside_varc{varclient_168, varclient_747}", toplevel_fullscreen:com_76);
+if_setonvarctransmit("switchside_varc{varclient_168, varclient_747}", toplevel:side);
+if_setonvarctransmit("switchside_varc{varclient_168, varclient_747}", toplevel_fullscreen:side);
 if (getwindowmode >= 2) {
-    if_setonvartransmit("flashside_vartransmit{varplayer_1021}", toplevel_fullscreen:com_19);
+    if_setonvartransmit("flashside_vartransmit{varplayer_1021}", toplevel_fullscreen:stones_on);
     ~script1309(1);
 } else {
-    if_setonvartransmit("flashside_vartransmit{varplayer_1021}", toplevel:com_127);
+    if_setonvartransmit("flashside_vartransmit{varplayer_1021}", toplevel:backhmid1_hide);
     ~flashside_arrow;
     ~script1312(1);
 }

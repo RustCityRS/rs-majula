@@ -1,5 +1,5 @@
 // 453:0
-[com_0]
+[myq3_blackout_layer]
 type=layer
 width=16384
 height=16384
@@ -7,7 +7,7 @@ widthmode=proportion
 heightmode=proportion
 
 // 453:1
-[com_1]
+[myq3_blackout_model]
 type=model
 x=-30
 y=-1
@@ -15,7 +15,7 @@ width=18279
 height=16685
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=myq3_blackout_layer
 model=model_18140
 modelangle=516,0,0
 modelzoom=580
@@ -23,13 +23,13 @@ modelobjwidth=571
 modelobjheight=340
 
 // 453:2
-[com_2]
+[myq3_blackout_rec]
 type=rectangle
 width=17607
 height=19628
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=myq3_blackout_layer
 colour=0x666666
 fill=yes
 trans=255

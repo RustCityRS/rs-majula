@@ -7,7 +7,7 @@ transmitop=10
 op10= 
 
 // 60:1
-[com_1]
+[decorative_armour_button]
 type=layer
 x=27
 y=48
@@ -16,43 +16,43 @@ height=30
 transmitop=1,10
 op1=Decorative armour rewards
 op10=  
-onmouseover=script3429(castlewars_trade:com_2, castlewars_trade:com_3, castlewars_trade:com_4, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
-onmouseleave=script3429(castlewars_trade:com_2, castlewars_trade:com_3, castlewars_trade:com_4, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onmouseover=script3429(castlewars_trade:graphic1, castlewars_trade:graphic2, castlewars_trade:graphic3, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=script3429(castlewars_trade:graphic1, castlewars_trade:graphic2, castlewars_trade:graphic3, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
 onop=settingpopovers
 
 // 60:2
-[com_2]
+[graphic1]
 type=graphic
 width=18
 height=16384
 heightmode=proportion
-layer=com_1
+layer=decorative_armour_button
 graphic="lobby_buttons,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:3
-[com_3]
+[graphic2]
 type=graphic
 x=17
 width=113
 height=16384
 heightmode=proportion
-layer=com_1
+layer=decorative_armour_button
 graphic="lobby_buttons,1"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:4
-[com_4]
+[graphic3]
 type=graphic
 width=18
 height=16384
 heightmode=proportion
 xmode=abs_right
-layer=com_1
+layer=decorative_armour_button
 graphic="lobby_buttons,0"
 hflip=yes
 colour=0xffffffff
@@ -60,7 +60,7 @@ transmitop=10
 op10=  
 
 // 60:5
-[com_5]
+[deleteditemcontract]
 type=layer
 y=48
 width=144
@@ -69,43 +69,43 @@ xmode=abs_centre
 transmitop=1,10
 op1=Consumable rewards
 op10=   
-onmouseover=script3429(castlewars_trade:com_6, castlewars_trade:com_7, castlewars_trade:com_8, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
-onmouseleave=script3429(castlewars_trade:com_6, castlewars_trade:com_7, castlewars_trade:com_8, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onmouseover=script3429(castlewars_trade:graphic4, castlewars_trade:graphic5, castlewars_trade:graphic6, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=script3429(castlewars_trade:graphic4, castlewars_trade:graphic5, castlewars_trade:graphic6, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
 onop=script3420
 
 // 60:6
-[com_6]
+[graphic4]
 type=graphic
 width=18
 height=16391
 heightmode=proportion
-layer=com_5
+layer=deleteditemcontract
 graphic="lobby_buttons,0"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 60:7
-[com_7]
+[graphic5]
 type=graphic
 x=16
 width=113
 height=16391
 heightmode=proportion
-layer=com_5
+layer=deleteditemcontract
 graphic="lobby_buttons,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 60:8
-[com_8]
+[graphic6]
 type=graphic
 width=18
 height=16384
 heightmode=proportion
 xmode=abs_right
-layer=com_5
+layer=deleteditemcontract
 graphic="lobby_buttons,0"
 hflip=yes
 colour=0xffffffff
@@ -113,7 +113,7 @@ transmitop=10
 op10=   
 
 // 60:9
-[com_9]
+[misc_button]
 type=layer
 x=340
 y=48
@@ -122,43 +122,43 @@ height=30
 transmitop=1,10
 op1=Misc rewards
 op10=   
-onmouseover=script3429(castlewars_trade:com_10, castlewars_trade:com_11, castlewars_trade:com_12, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
-onmouseleave=script3429(castlewars_trade:com_10, castlewars_trade:com_11, castlewars_trade:com_12, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onmouseover=script3429(castlewars_trade:graphic7, castlewars_trade:graphic8, castlewars_trade:graphic9, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=script3429(castlewars_trade:graphic7, castlewars_trade:graphic8, castlewars_trade:graphic9, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
 onop=castlewars_misc_button
 
 // 60:10
-[com_10]
+[graphic7]
 type=graphic
 width=18
 height=16384
 heightmode=proportion
-layer=com_9
+layer=misc_button
 graphic="lobby_buttons,0"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 60:11
-[com_11]
+[graphic8]
 type=graphic
 x=16
 width=113
 height=16384
 heightmode=proportion
-layer=com_9
+layer=misc_button
 graphic="lobby_buttons,1"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 60:12
-[com_12]
+[graphic9]
 type=graphic
 width=18
 height=16384
 heightmode=proportion
 xmode=abs_right
-layer=com_9
+layer=misc_button
 graphic="lobby_buttons,0"
 hflip=yes
 colour=0xffffffff
@@ -166,7 +166,7 @@ transmitop=10
 op10=   
 
 // 60:13
-[com_13]
+[text_misc]
 type=text
 width=15564
 height=15564
@@ -174,7 +174,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=misc_button
 textfont=p12_full
 text=Miscellaneous
 textalignh=centre
@@ -184,25 +184,25 @@ transmitop=10
 op10=   
 
 // 60:14
-[com_14]
+[misc_button_line]
 type=layer
 y=23
 width=92
 height=7
 xmode=abs_centre
-layer=com_9
+layer=misc_button
 hide=yes
 transmitop=10
 op10=  
 
 // 60:15
-[com_15]
+[line_misc]
 type=line
 y=4
 width=4096
 widthmode=proportion
 xmode=abs_centre
-layer=com_14
+layer=misc_button_line
 linewid=2
 colour=0x000000
 transmitop=10
@@ -217,7 +217,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=deleteditemcontract
 textfont=p12_full
 text=Consumables
 textalignh=centre
@@ -233,13 +233,13 @@ y=23
 width=92
 height=7
 xmode=abs_centre
-layer=com_5
+layer=deleteditemcontract
 hide=yes
 transmitop=10
 op10=  
 
 // 60:18
-[com_18]
+[line_game]
 type=line
 y=4
 width=4096
@@ -260,7 +260,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=decorative_armour_button
 textfont=p12_full
 text=Decorative Armour
 textalignh=centre
@@ -270,31 +270,31 @@ transmitop=10
 op10=  
 
 // 60:20
-[com_20]
+[dec_armour_button_line]
 type=layer
 y=23
 width=92
 height=7
 xmode=abs_centre
-layer=com_1
+layer=decorative_armour_button
 transmitop=10
 op10= 
 
 // 60:21
-[com_21]
+[line_dec]
 type=line
 y=4
 width=4096
 widthmode=proportion
 xmode=abs_centre
-layer=com_20
+layer=dec_armour_button_line
 linewid=2
 colour=0x000000
 transmitop=10
 op10= 
 
 // 60:22
-[com_22]
+[background_1]
 type=graphic
 x=9
 y=42
@@ -336,7 +336,7 @@ transmitop=10
 op10= 
 
 // 60:25
-[com_25]
+[right_side]
 type=graphic
 x=489
 y=25
@@ -351,7 +351,7 @@ opbase=
 op10=  
 
 // 60:26
-[com_26]
+[bottom]
 type=graphic
 x=15
 y=312
@@ -365,7 +365,7 @@ transmitop=10
 op10=  
 
 // 60:27
-[com_27]
+[top]
 type=graphic
 x=35
 y=22
@@ -380,7 +380,7 @@ opbase=
 op10=  
 
 // 60:28
-[com_28]
+[bottom_right]
 type=graphic
 x=477
 y=300
@@ -394,7 +394,7 @@ opbase=
 op10=  
 
 // 60:29
-[com_29]
+[bottom_left]
 type=graphic
 x=3
 y=300
@@ -407,7 +407,7 @@ transmitop=10
 op10=  
 
 // 60:30
-[com_30]
+[left_side]
 type=graphic
 x=-10
 y=25
@@ -422,7 +422,7 @@ opbase=
 op10=  
 
 // 60:31
-[com_31]
+[top_left]
 type=graphic
 x=3
 y=22
@@ -436,7 +436,7 @@ opbase=
 op10=  
 
 // 60:32
-[com_32]
+[top_right]
 type=graphic
 x=477
 y=22
@@ -450,7 +450,7 @@ opbase=
 op10=  
 
 // 60:33
-[com_33]
+[close_button]
 type=graphic
 x=483
 y=26
@@ -467,7 +467,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 60:34
-[com_34]
+[title]
 type=text
 x=-10
 y=26
@@ -601,7 +601,7 @@ textshadow=yes
 colour=0xccccff
 
 // 60:45
-[com_45]
+[decorative_armour_layer]
 type=layer
 x=84
 y=74
@@ -610,7 +610,7 @@ height=229
 onload=script3422
 
 // 60:46
-[com_46]
+[consumables_layer]
 type=layer
 x=84
 y=74
@@ -620,13 +620,13 @@ hide=yes
 onload=script3423
 
 // 60:47
-[com_47]
+[ballista_base_layer]
 type=layer
 x=57
 y=20
 width=37
 height=75
-layer=com_46
+layer=consumables_layer
 transmitop=1,2,10
 opbase=Ballista base
 op1=Buy
@@ -636,13 +636,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:48
-[com_48]
+[ballista_bolt_stack_layer]
 type=layer
 x=103
 y=20
 width=37
 height=75
-layer=com_46
+layer=consumables_layer
 transmitop=1,2,10
 opbase=Ballista bolt stack
 op1=Buy
@@ -652,13 +652,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:49
-[com_49]
+[ballista_bow_layer]
 type=layer
 x=149
 y=20
 width=37
 height=75
-layer=com_46
+layer=consumables_layer
 transmitop=1,2,10
 opbase=Ballista bow
 op1=Buy
@@ -668,13 +668,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:50
-[com_50]
+[rect_ballista_bow_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_49
+layer=ballista_bow_layer
 colour=0x333300
 transmitop=10
 op10=   
@@ -682,13 +682,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:51
-[com_51]
+[rect_ballista_bow_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_49
+layer=ballista_bow_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -696,14 +696,14 @@ transmitop=10
 op10=   
 
 // 60:52
-[com_52]
+[ballista_bow_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_49
+layer=ballista_bow_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -715,27 +715,27 @@ transmitop=10
 op10= 
 
 // 60:53
-[com_53]
+[ballista_bow]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_49
+layer=ballista_bow_layer
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 60:54
-[com_54]
+[ballista_chamber_layer]
 type=layer
 x=6
 y=20
 width=37
 height=75
 xmode=abs_centre
-layer=com_46
+layer=consumables_layer
 transmitop=1,2,10
 opbase=Ballista chamber
 op1=Buy
@@ -745,13 +745,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:55
-[com_55]
+[comparative_skill_layer]
 type=layer
 x=241
 y=20
 width=37
 height=75
-layer=com_46
+layer=consumables_layer
 transmitop=1,2,10
 opbase=Ballista ammo
 op1=Buy
@@ -761,13 +761,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:56
-[com_56]
+[potion_set_1_layer]
 type=layer
 x=58
 y=122
 width=37
 height=75
-layer=com_46
+layer=consumables_layer
 transmitop=1,2,10
 opbase=Melee potion set
 op1=Buy
@@ -777,14 +777,14 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:57
-[com_57]
+[potion_set_2_layer]
 type=layer
 x=-39
 y=122
 width=37
 height=75
 xmode=abs_centre
-layer=com_46
+layer=consumables_layer
 transmitop=1,2,10
 opbase=Ranged potion set
 op1=Buy
@@ -794,13 +794,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:58
-[com_58]
+[potion_set_3_layer]
 type=layer
 x=242
 y=122
 width=37
 height=75
-layer=com_46
+layer=consumables_layer
 transmitop=1,2,10
 opbase=Magic potion set
 op1=Buy
@@ -810,13 +810,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:59
-[com_59]
+[rect_potion_set_3_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_58
+layer=potion_set_3_layer
 colour=0x333300
 transmitop=10
 op10=   
@@ -824,13 +824,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:60
-[com_60]
+[rect_potion_set_3_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_58
+layer=potion_set_3_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -838,14 +838,14 @@ transmitop=10
 op10=   
 
 // 60:61
-[com_61]
+[potion_set_3_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_58
+layer=potion_set_3_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -857,26 +857,26 @@ transmitop=10
 op10= 
 
 // 60:62
-[com_62]
+[potion_set_3]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_58
+layer=potion_set_3_layer
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 60:63
-[com_63]
+[rect_potion_set_2_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_57
+layer=potion_set_2_layer
 colour=0x333300
 transmitop=10
 op10=   
@@ -884,13 +884,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:64
-[com_64]
+[rect_potion_set_2_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_57
+layer=potion_set_2_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -898,14 +898,14 @@ transmitop=10
 op10=   
 
 // 60:65
-[com_65]
+[potion_set_2_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_57
+layer=potion_set_2_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -917,26 +917,26 @@ transmitop=10
 op10= 
 
 // 60:66
-[com_66]
+[potion_set_2]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_57
+layer=potion_set_2_layer
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 60:67
-[com_67]
+[rect_potion_set_1_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_56
+layer=potion_set_1_layer
 colour=0x333300
 transmitop=10
 op10=   
@@ -944,13 +944,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:68
-[com_68]
+[rect_potion_set_1_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_56
+layer=potion_set_1_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -958,14 +958,14 @@ transmitop=10
 op10=   
 
 // 60:69
-[com_69]
+[potion_set_1_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_56
+layer=potion_set_1_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -977,26 +977,26 @@ transmitop=10
 op10= 
 
 // 60:70
-[com_70]
+[potion_set_1]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_56
+layer=potion_set_1_layer
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 60:71
-[com_71]
+[rect_ballista_ammo_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_55
+layer=comparative_skill_layer
 colour=0x333300
 transmitop=10
 op10=   
@@ -1004,13 +1004,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:72
-[com_72]
+[rect_ballista_ammo_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_55
+layer=comparative_skill_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1018,14 +1018,14 @@ transmitop=10
 op10=   
 
 // 60:73
-[com_73]
+[comparative_skill_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_55
+layer=comparative_skill_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1037,26 +1037,26 @@ transmitop=10
 op10= 
 
 // 60:74
-[com_74]
+[comparative_skill]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_55
+layer=comparative_skill_layer
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 60:75
-[com_75]
+[rect_ballista_chamber_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_54
+layer=ballista_chamber_layer
 colour=0x333300
 transmitop=10
 op10=   
@@ -1064,13 +1064,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:76
-[com_76]
+[rect_ballista_chamber_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_54
+layer=ballista_chamber_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1078,14 +1078,14 @@ transmitop=10
 op10=   
 
 // 60:77
-[com_77]
+[ballista_chamber_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_54
+layer=ballista_chamber_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1097,26 +1097,26 @@ transmitop=10
 op10= 
 
 // 60:78
-[com_78]
+[ballista_chamber]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_54
+layer=ballista_chamber_layer
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 60:79
-[com_79]
+[rect_ballista_bolt_stack_props_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_48
+layer=ballista_bolt_stack_layer
 colour=0x333300
 transmitop=10
 op10=   
@@ -1124,13 +1124,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:80
-[com_80]
+[rect_ballista_bolt_stack_props_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_48
+layer=ballista_bolt_stack_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1138,14 +1138,14 @@ transmitop=10
 op10=   
 
 // 60:81
-[com_81]
+[ballista_bolt_stack_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_48
+layer=ballista_bolt_stack_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1157,26 +1157,26 @@ transmitop=10
 op10= 
 
 // 60:82
-[com_82]
+[ballista_bolt_stack]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_48
+layer=ballista_bolt_stack_layer
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 60:83
-[com_83]
+[rect_ballista_base_1]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_47
+layer=ballista_base_layer
 colour=0x333300
 transmitop=10
 op10=   
@@ -1184,13 +1184,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:84
-[com_84]
+[rect_ballista_base_2]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_47
+layer=ballista_base_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1198,14 +1198,14 @@ transmitop=10
 op10=   
 
 // 60:85
-[com_85]
+[ballista_base_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_47
+layer=ballista_base_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1217,20 +1217,20 @@ transmitop=10
 op10= 
 
 // 60:86
-[com_86]
+[ballista_base]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_47
+layer=ballista_base_layer
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 60:87
-[com_87]
+[misc_layer]
 type=layer
 x=84
 y=74
@@ -1240,7 +1240,7 @@ hide=yes
 onload=script3424
 
 // 60:88
-[com_88]
+[description_layer]
 type=layer
 x=14
 y=284
@@ -1248,18 +1248,18 @@ width=484
 height=39
 
 // 60:89
-[com_89]
+[darker]
 type=rectangle
 width=1
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_88
+layer=description_layer
 colour=0x000000
 trans=40
 
 // 60:90
-[com_90]
+[lighter]
 type=rectangle
 x=1
 y=2
@@ -1267,12 +1267,12 @@ width=1
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_88
+layer=description_layer
 colour=0x999999
 trans=36
 
 // 60:91
-[com_91]
+[colour]
 type=rectangle
 x=1
 y=1
@@ -1280,19 +1280,19 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_88
+layer=description_layer
 colour=0x333333
 fill=yes
 
 // 60:92
-[com_92]
+[description_text]
 type=text
 x=4
 width=7
 height=16384
 widthmode=minus
 heightmode=proportion
-layer=com_88
+layer=description_layer
 textfont=p11_full
 text=-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 textalignh=centre
@@ -1302,13 +1302,13 @@ colour=0xccccff
 onload=script3427
 
 // 60:93
-[com_93]
+[sara_cape_layer]
 type=layer
 x=4
 y=20
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Saradomin team cape
 op1=Buy
@@ -1318,13 +1318,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:94
-[com_94]
+[rect_sara_cape_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_93
+layer=sara_cape_layer
 colour=0x333300
 transmitop=10
 op10=      
@@ -1332,13 +1332,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:95
-[com_95]
+[rect_sara_cape_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_93
+layer=sara_cape_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1346,14 +1346,14 @@ transmitop=10
 op10=      
 
 // 60:96
-[com_96]
+[sara_cape_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_93
+layer=sara_cape_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1365,26 +1365,26 @@ transmitop=10
 op10=    
 
 // 60:97
-[com_97]
+[sara_cape]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_93
+layer=sara_cape_layer
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 60:98
-[com_98]
+[zam_cape_layer]
 type=layer
 x=50
 y=20
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Zamorak team cape
 op1=Buy
@@ -1394,13 +1394,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:99
-[com_99]
+[rect_zam_cape_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_98
+layer=zam_cape_layer
 colour=0x333300
 transmitop=10
 op10=     
@@ -1408,13 +1408,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:100
-[com_100]
+[rect_zam_cape_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_98
+layer=zam_cape_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1422,14 +1422,14 @@ transmitop=10
 op10=     
 
 // 60:101
-[com_101]
+[zam_cape_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_98
+layer=zam_cape_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1441,26 +1441,26 @@ transmitop=10
 op10=   
 
 // 60:102
-[com_102]
+[zam_cape]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_98
+layer=zam_cape_layer
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 60:103
-[com_103]
+[sara_hood_layer]
 type=layer
 x=95
 y=20
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Saradomin team hood
 op1=Buy
@@ -1470,13 +1470,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:104
-[com_104]
+[rect_sara_hood_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_103
+layer=sara_hood_layer
 colour=0x333300
 transmitop=10
 op10=     
@@ -1484,13 +1484,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:105
-[com_105]
+[rect_sara_hood_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_103
+layer=sara_hood_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1498,14 +1498,14 @@ transmitop=10
 op10=     
 
 // 60:106
-[com_106]
+[sara_hood_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_103
+layer=sara_hood_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1517,26 +1517,26 @@ transmitop=10
 op10=   
 
 // 60:107
-[com_107]
+[sara_hood]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_103
+layer=sara_hood_layer
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 60:108
-[com_108]
+[zam_hood_layer]
 type=layer
 x=140
 y=20
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Zamorak team hood
 op1=Buy
@@ -1546,13 +1546,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:109
-[com_109]
+[flag_cape_layer]
 type=layer
 x=184
 y=20
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Castle Wars flag cape
 op1=Buy
@@ -1562,13 +1562,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:110
-[com_110]
+[kills_cape_layer]
 type=layer
 x=230
 y=20
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Castle Wars kills cape
 op1=Buy
@@ -1578,13 +1578,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:111
-[com_111]
+[500_cape_layer]
 type=layer
 x=278
 y=20
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Castle Wars hobbyist cape
 op1=Buy
@@ -1594,13 +1594,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:112
-[com_112]
+[1000_cape_layer]
 type=layer
 x=323
 y=20
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Castle Wars enthusiast cape
 op1=Buy
@@ -1610,13 +1610,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:113
-[com_113]
+[5000_cape_layer]
 type=layer
 x=366
 y=20
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Castle Wars professional cape
 op1=Buy
@@ -1626,13 +1626,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:114
-[com_114]
+[halo_guthix_layer]
 type=layer
 x=2
 y=122
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Guthix halo
 op1=Buy
@@ -1642,13 +1642,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:115
-[com_115]
+[halo_sara_layer]
 type=layer
 x=92
 y=122
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Saradomin halo
 op1=Buy
@@ -1658,13 +1658,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:116
-[com_116]
+[halo_zam_layer]
 type=layer
 x=182
 y=122
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Zamorak halo
 op1=Buy
@@ -1674,13 +1674,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:117
-[com_117]
+[shield_layer]
 type=layer
 x=276
 y=122
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Faithful shield
 op1=Buy
@@ -1690,13 +1690,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:118
-[com_118]
+[book_layer]
 type=layer
 x=364
 y=122
 width=37
 height=75
-layer=com_87
+layer=misc_layer
 transmitop=1,2,10
 opbase=Castle Wars Manual
 op1=Buy
@@ -1706,13 +1706,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:119
-[com_119]
+[rect_book_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_118
+layer=book_layer
 colour=0x333300
 transmitop=10
 op10=    
@@ -1720,13 +1720,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:120
-[com_120]
+[rect_book_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_118
+layer=book_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1734,14 +1734,14 @@ transmitop=10
 op10=    
 
 // 60:121
-[com_121]
+[book_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_118
+layer=book_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1753,26 +1753,26 @@ transmitop=10
 op10=  
 
 // 60:122
-[com_122]
+[book]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_118
+layer=book_layer
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:123
-[com_123]
+[rect_shield_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_117
+layer=shield_layer
 colour=0x333300
 transmitop=10
 op10=    
@@ -1780,13 +1780,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:124
-[com_124]
+[rect_shield_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_117
+layer=shield_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1794,14 +1794,14 @@ transmitop=10
 op10=    
 
 // 60:125
-[com_125]
+[shield_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_117
+layer=shield_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1813,26 +1813,26 @@ transmitop=10
 op10=  
 
 // 60:126
-[com_126]
+[shield]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_117
+layer=shield_layer
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:127
-[com_127]
+[rect_halo_zam_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_116
+layer=halo_zam_layer
 colour=0x333300
 transmitop=10
 op10=    
@@ -1840,13 +1840,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:128
-[com_128]
+[rect_halo_zam_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_116
+layer=halo_zam_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1854,14 +1854,14 @@ transmitop=10
 op10=    
 
 // 60:129
-[com_129]
+[halo_zam_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_116
+layer=halo_zam_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1873,26 +1873,26 @@ transmitop=10
 op10=  
 
 // 60:130
-[com_130]
+[halo_zam]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_116
+layer=halo_zam_layer
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:131
-[com_131]
+[rect_halo_sara_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_115
+layer=halo_sara_layer
 colour=0x333300
 transmitop=10
 op10=    
@@ -1900,13 +1900,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:132
-[com_132]
+[rect_halo_sara_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_115
+layer=halo_sara_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1914,14 +1914,14 @@ transmitop=10
 op10=    
 
 // 60:133
-[com_133]
+[halo_sara_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_115
+layer=halo_sara_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1933,26 +1933,26 @@ transmitop=10
 op10=  
 
 // 60:134
-[com_134]
+[halo_sara]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_115
+layer=halo_sara_layer
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:135
-[com_135]
+[rect_halo_guthix_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_114
+layer=halo_guthix_layer
 colour=0x333300
 transmitop=10
 op10=    
@@ -1960,13 +1960,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:136
-[com_136]
+[rect_halo_guthix_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_114
+layer=halo_guthix_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -1974,14 +1974,14 @@ transmitop=10
 op10=    
 
 // 60:137
-[com_137]
+[halo_guthix_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_114
+layer=halo_guthix_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -1993,26 +1993,26 @@ transmitop=10
 op10=  
 
 // 60:138
-[com_138]
+[halo_guthix]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_114
+layer=halo_guthix_layer
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:139
-[com_139]
+[revealed_breakdown]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_113
+layer=5000_cape_layer
 colour=0x333300
 transmitop=10
 op10=    
@@ -2020,13 +2020,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:140
-[com_140]
+[rect_5000_cape_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_113
+layer=5000_cape_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2034,14 +2034,14 @@ transmitop=10
 op10=    
 
 // 60:141
-[com_141]
+[5000_cape_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_113
+layer=5000_cape_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2053,26 +2053,26 @@ transmitop=10
 op10=  
 
 // 60:142
-[com_142]
+[5000_cape]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_113
+layer=5000_cape_layer
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:143
-[com_143]
+[rect_1000_cape_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_112
+layer=1000_cape_layer
 colour=0x333300
 transmitop=10
 op10=    
@@ -2080,13 +2080,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:144
-[com_144]
+[rect_1000_cape_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_112
+layer=1000_cape_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2094,14 +2094,14 @@ transmitop=10
 op10=    
 
 // 60:145
-[com_145]
+[1000_cape_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_112
+layer=1000_cape_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2113,26 +2113,26 @@ transmitop=10
 op10=  
 
 // 60:146
-[com_146]
+[1000_cape]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_112
+layer=1000_cape_layer
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:147
-[com_147]
+[rect_500_cape_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_111
+layer=500_cape_layer
 colour=0x333300
 transmitop=10
 op10=    
@@ -2140,13 +2140,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:148
-[com_148]
+[rect_500_cape_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_111
+layer=500_cape_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2154,14 +2154,14 @@ transmitop=10
 op10=    
 
 // 60:149
-[com_149]
+[500_cape_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_111
+layer=500_cape_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2173,26 +2173,26 @@ transmitop=10
 op10=  
 
 // 60:150
-[com_150]
+[500_cape]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_111
+layer=500_cape_layer
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:151
-[com_151]
+[rect_kills_cape_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_110
+layer=kills_cape_layer
 colour=0x333300
 transmitop=10
 op10=    
@@ -2200,13 +2200,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:152
-[com_152]
+[rect_kills_cape_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_110
+layer=kills_cape_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2214,14 +2214,14 @@ transmitop=10
 op10=    
 
 // 60:153
-[com_153]
+[kills_cape_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_110
+layer=kills_cape_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2233,26 +2233,26 @@ transmitop=10
 op10=  
 
 // 60:154
-[com_154]
+[kills_cape]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_110
+layer=kills_cape_layer
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:155
-[com_155]
+[rect_flag_cape_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_109
+layer=flag_cape_layer
 colour=0x333300
 transmitop=10
 op10=    
@@ -2260,13 +2260,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:156
-[com_156]
+[rect_flag_cape_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_109
+layer=flag_cape_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2274,14 +2274,14 @@ transmitop=10
 op10=    
 
 // 60:157
-[com_157]
+[flag_cape_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_109
+layer=flag_cape_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2293,26 +2293,26 @@ transmitop=10
 op10=  
 
 // 60:158
-[com_158]
+[flag_cape]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_109
+layer=flag_cape_layer
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:159
-[com_159]
+[rect_zam_hood_1]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_108
+layer=zam_hood_layer
 colour=0x333300
 transmitop=10
 op10=    
@@ -2320,13 +2320,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:160
-[com_160]
+[rect_zam_hood_2]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_108
+layer=zam_hood_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2334,14 +2334,14 @@ transmitop=10
 op10=    
 
 // 60:161
-[com_161]
+[zam_hood_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_108
+layer=zam_hood_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2353,25 +2353,25 @@ transmitop=10
 op10=  
 
 // 60:162
-[com_162]
+[zam_hood]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_108
+layer=zam_hood_layer
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 60:163
-[com_163]
+[lvl3_helm_layer]
 type=layer
 y=122
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Intricate decorative helm
 op1=Buy
@@ -2380,13 +2380,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:164
-[com_164]
+[lvl3_torso_layer]
 type=layer
 x=41
 y=122
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Intricate decorative platebody
 op1=Buy
@@ -2395,13 +2395,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:165
-[com_165]
+[lvl3_legs_layer]
 type=layer
 x=83
 y=122
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Intricate decorative platelegs
 op1=Buy
@@ -2410,13 +2410,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:166
-[com_166]
+[lvl3_shield_layer]
 type=layer
 x=125
 y=122
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Intricate decorative shield
 op1=Buy
@@ -2425,13 +2425,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:167
-[com_167]
+[lvl3_sword_layer]
 type=layer
 x=167
 y=122
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Intricate decorative sword
 op1=Buy
@@ -2440,13 +2440,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:168
-[com_168]
+[lvl4_helm_layer]
 type=layer
 x=208
 y=122
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Profound decorative helm
 op1=Buy
@@ -2455,13 +2455,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:169
-[com_169]
+[lvl4_torso_layer]
 type=layer
 x=250
 y=122
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Profound decorative platebody
 op1=Buy
@@ -2470,13 +2470,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:170
-[com_170]
+[lvl4_legs_layer]
 type=layer
 x=291
 y=122
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Profound decorative platelegs
 op1=Buy
@@ -2485,13 +2485,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:171
-[com_171]
+[lvl4_shield_layer]
 type=layer
 x=332
 y=122
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Profound decorative shield
 op1=Buy
@@ -2500,13 +2500,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:172
-[com_172]
+[lvl4_sword_layer]
 type=layer
 x=373
 y=122
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Profound decorative sword
 op1=Buy
@@ -2515,12 +2515,12 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:173
-[com_173]
+[lvl1_helm_layer]
 type=layer
 y=20
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Basic decorative helm
 op1=Buy
@@ -2529,13 +2529,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:174
-[com_174]
+[rect1a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_173
+layer=lvl1_helm_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -2543,13 +2543,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:175
-[com_175]
+[rect1b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_173
+layer=lvl1_helm_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2557,14 +2557,14 @@ transmitop=10
 op10=  
 
 // 60:176
-[com_176]
+[lvl_1_helm_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_173
+layer=lvl1_helm_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2574,24 +2574,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:177
-[com_177]
+[lvl_1_helm]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_173
+layer=lvl1_helm_layer
 colour=0xffffffff
 
 // 60:178
-[com_178]
+[lvl1_torso_layer]
 type=layer
 x=41
 y=20
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Basic decorative platebody
 op1=Buy
@@ -2600,13 +2600,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:179
-[com_179]
+[rect2a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_178
+layer=lvl1_torso_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -2614,13 +2614,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:180
-[com_180]
+[rect2b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_178
+layer=lvl1_torso_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2628,14 +2628,14 @@ transmitop=10
 op10=  
 
 // 60:181
-[com_181]
+[lvl_1_torso_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_178
+layer=lvl1_torso_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2645,24 +2645,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:182
-[com_182]
+[lvl_1_torso]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_178
+layer=lvl1_torso_layer
 colour=0xffffffff
 
 // 60:183
-[com_183]
+[lvl1_legs_layer]
 type=layer
 x=83
 y=20
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Basic decorative platelegs
 op1=Buy
@@ -2671,13 +2671,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:184
-[com_184]
+[rect3a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_183
+layer=lvl1_legs_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -2685,13 +2685,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:185
-[com_185]
+[rect3b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_183
+layer=lvl1_legs_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2699,14 +2699,14 @@ transmitop=10
 op10=  
 
 // 60:186
-[com_186]
+[lvl_1_legs_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_183
+layer=lvl1_legs_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2716,24 +2716,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:187
-[com_187]
+[lvl_1_legs]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_183
+layer=lvl1_legs_layer
 colour=0xffffffff
 
 // 60:188
-[com_188]
+[lvl1_shield_layer]
 type=layer
 x=125
 y=20
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Basic decorative shield
 op1=Buy
@@ -2742,13 +2742,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:189
-[com_189]
+[rect4a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_188
+layer=lvl1_shield_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -2756,13 +2756,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:190
-[com_190]
+[rect4b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_188
+layer=lvl1_shield_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2770,14 +2770,14 @@ transmitop=10
 op10=  
 
 // 60:191
-[com_191]
+[lvl_1_shield_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_188
+layer=lvl1_shield_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2787,24 +2787,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:192
-[com_192]
+[lvl_1_shield]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_188
+layer=lvl1_shield_layer
 colour=0xffffffff
 
 // 60:193
-[com_193]
+[lvl1_sword_layer]
 type=layer
 x=167
 y=20
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Basic decorative sword
 op1=Buy
@@ -2813,13 +2813,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:194
-[com_194]
+[rect5a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_193
+layer=lvl1_sword_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -2827,13 +2827,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:195
-[com_195]
+[rect5b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_193
+layer=lvl1_sword_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2841,14 +2841,14 @@ transmitop=10
 op10=  
 
 // 60:196
-[com_196]
+[lvl_1_sword_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_193
+layer=lvl1_sword_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2858,24 +2858,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:197
-[com_197]
+[lvl_1_sword]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_193
+layer=lvl1_sword_layer
 colour=0xffffffff
 
 // 60:198
-[com_198]
+[lvl2_helm_layer]
 type=layer
 x=208
 y=20
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Detailed decorative helm
 op1=Buy
@@ -2884,13 +2884,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:199
-[com_199]
+[rect6a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_198
+layer=lvl2_helm_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -2898,13 +2898,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:200
-[com_200]
+[rect6b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_198
+layer=lvl2_helm_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2912,14 +2912,14 @@ transmitop=10
 op10=  
 
 // 60:201
-[com_201]
+[lvl_2_helm_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_198
+layer=lvl2_helm_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -2929,24 +2929,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:202
-[com_202]
+[lvl_2_helm]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_198
+layer=lvl2_helm_layer
 colour=0xffffffff
 
 // 60:203
-[com_203]
+[lvl2_torso_layer]
 type=layer
 x=250
 y=20
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Detailed decorative platebody
 op1=Buy
@@ -2955,13 +2955,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:204
-[com_204]
+[rect7a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_203
+layer=lvl2_torso_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -2969,13 +2969,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:205
-[com_205]
+[recrub]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_203
+layer=lvl2_torso_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -2983,14 +2983,14 @@ transmitop=10
 op10=  
 
 // 60:206
-[com_206]
+[lvl_2_torso_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_203
+layer=lvl2_torso_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3000,24 +3000,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:207
-[com_207]
+[lvl_2_torso]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_203
+layer=lvl2_torso_layer
 colour=0xffffffff
 
 // 60:208
-[com_208]
+[lvl2_legs_layer]
 type=layer
 x=291
 y=20
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Detailed decorative platelegs
 op1=Buy
@@ -3026,13 +3026,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:209
-[com_209]
+[rect8a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_208
+layer=lvl2_legs_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3040,13 +3040,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:210
-[com_210]
+[tumbler_limb]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_208
+layer=lvl2_legs_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3054,14 +3054,14 @@ transmitop=10
 op10=  
 
 // 60:211
-[com_211]
+[quir_recite]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_208
+layer=lvl2_legs_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3071,24 +3071,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:212
-[com_212]
+[lvl_2_legs]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_208
+layer=lvl2_legs_layer
 colour=0xffffffff
 
 // 60:213
-[com_213]
+[lvl2_shield_layer]
 type=layer
 x=332
 y=20
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Detailed decorative shield
 op1=Buy
@@ -3097,13 +3097,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:214
-[com_214]
+[rect9a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_213
+layer=lvl2_shield_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3111,13 +3111,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:215
-[com_215]
+[rect9b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_213
+layer=lvl2_shield_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3125,14 +3125,14 @@ transmitop=10
 op10=  
 
 // 60:216
-[com_216]
+[lvl_2_shield_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_213
+layer=lvl2_shield_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3142,24 +3142,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:217
-[com_217]
+[lvl_2_shield]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_213
+layer=lvl2_shield_layer
 colour=0xffffffff
 
 // 60:218
-[com_218]
+[lvl2_sword_layer]
 type=layer
 x=372
 y=20
 width=37
 height=75
-layer=com_45
+layer=decorative_armour_layer
 transmitop=1,2
 opbase=Detailed decorative sword
 op1=Buy
@@ -3168,13 +3168,13 @@ onmouseover=script3426(event_com)
 onmouseleave=script3427
 
 // 60:219
-[com_219]
+[rect10a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_218
+layer=lvl2_sword_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3182,13 +3182,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:220
-[com_220]
+[rect10b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_218
+layer=lvl2_sword_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3196,14 +3196,14 @@ transmitop=10
 op10=  
 
 // 60:221
-[com_221]
+[lvl_2_sword_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_218
+layer=lvl2_sword_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3213,24 +3213,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:222
-[com_222]
+[lvl_2_sword]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_218
+layer=lvl2_sword_layer
 colour=0xffffffff
 
 // 60:223
-[com_223]
+[rect20a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_172
+layer=lvl4_sword_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3238,13 +3238,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:224
-[com_224]
+[rect20b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_172
+layer=lvl4_sword_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3252,14 +3252,14 @@ transmitop=10
 op10=  
 
 // 60:225
-[com_225]
+[lvl_4_sword_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_172
+layer=lvl4_sword_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3269,24 +3269,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:226
-[com_226]
+[lvl_4_sword]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_172
+layer=lvl4_sword_layer
 colour=0xffffffff
 
 // 60:227
-[com_227]
+[rect19a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_171
+layer=lvl4_shield_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3294,13 +3294,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:228
-[com_228]
+[rect19b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_171
+layer=lvl4_shield_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3308,14 +3308,14 @@ transmitop=10
 op10=  
 
 // 60:229
-[com_229]
+[lvl_4_shield_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_171
+layer=lvl4_shield_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3325,24 +3325,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:230
-[com_230]
+[v2_stone_borders_157]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_171
+layer=lvl4_shield_layer
 colour=0xffffffff
 
 // 60:231
-[com_231]
+[rect18a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_170
+layer=lvl4_legs_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3350,13 +3350,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:232
-[com_232]
+[rect18b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_170
+layer=lvl4_legs_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3364,14 +3364,14 @@ transmitop=10
 op10=  
 
 // 60:233
-[com_233]
+[lvl_4_legs_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_170
+layer=lvl4_legs_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3381,24 +3381,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:234
-[com_234]
+[lvl_4_legs]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_170
+layer=lvl4_legs_layer
 colour=0xffffffff
 
 // 60:235
-[com_235]
+[rect17a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_169
+layer=lvl4_torso_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3406,13 +3406,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:236
-[com_236]
+[rect17b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_169
+layer=lvl4_torso_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3420,14 +3420,14 @@ transmitop=10
 op10=  
 
 // 60:237
-[com_237]
+[lvl_4_torso_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_169
+layer=lvl4_torso_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3437,24 +3437,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:238
-[com_238]
+[lvl_4_torso]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_169
+layer=lvl4_torso_layer
 colour=0xffffffff
 
 // 60:239
-[com_239]
+[rect16a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_168
+layer=lvl4_helm_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3462,13 +3462,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:240
-[com_240]
+[rect16b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_168
+layer=lvl4_helm_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3476,14 +3476,14 @@ transmitop=10
 op10=  
 
 // 60:241
-[com_241]
+[lvl_4_helm_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_168
+layer=lvl4_helm_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3493,24 +3493,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:242
-[com_242]
+[lvl_4_helm]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_168
+layer=lvl4_helm_layer
 colour=0xffffffff
 
 // 60:243
-[com_243]
+[rect15a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_167
+layer=lvl3_sword_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3518,13 +3518,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:244
-[com_244]
+[rect15b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_167
+layer=lvl3_sword_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3532,14 +3532,14 @@ transmitop=10
 op10=  
 
 // 60:245
-[com_245]
+[lvl_3_sword_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_167
+layer=lvl3_sword_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3549,24 +3549,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:246
-[com_246]
+[lvl_3_sword]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_167
+layer=lvl3_sword_layer
 colour=0xffffffff
 
 // 60:247
-[com_247]
+[rect14a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_166
+layer=lvl3_shield_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3574,13 +3574,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:248
-[com_248]
+[rect14b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_166
+layer=lvl3_shield_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3588,14 +3588,14 @@ transmitop=10
 op10=  
 
 // 60:249
-[com_249]
+[lvl_3_shield_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_166
+layer=lvl3_shield_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3605,24 +3605,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:250
-[com_250]
+[lvl_3_shield]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_166
+layer=lvl3_shield_layer
 colour=0xffffffff
 
 // 60:251
-[com_251]
+[rect13a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_165
+layer=lvl3_legs_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3630,13 +3630,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:252
-[com_252]
+[rect13b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_165
+layer=lvl3_legs_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3644,14 +3644,14 @@ transmitop=10
 op10=  
 
 // 60:253
-[com_253]
+[lvl_3_legs_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_165
+layer=lvl3_legs_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3661,24 +3661,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:254
-[com_254]
+[lvl_3_legs]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_165
+layer=lvl3_legs_layer
 colour=0xffffffff
 
 // 60:255
-[com_255]
+[rect12a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_164
+layer=lvl3_torso_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3686,13 +3686,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:256
-[com_256]
+[rect12b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_164
+layer=lvl3_torso_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3700,14 +3700,14 @@ transmitop=10
 op10=  
 
 // 60:257
-[com_257]
+[lvl_3_torso_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_164
+layer=lvl3_torso_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3717,24 +3717,24 @@ textshadow=yes
 colour=0xccccff
 
 // 60:258
-[com_258]
+[lvl_3_torso]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_164
+layer=lvl3_torso_layer
 colour=0xffffffff
 
 // 60:259
-[com_259]
+[rect11a]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_163
+layer=lvl3_helm_layer
 colour=0x333300
 transmitop=10
 op10=  
@@ -3742,13 +3742,13 @@ onmouseover=text_colour_swapper(event_com, 0xff9933)
 onmouseleave=text_colour_swapper(event_com, 0x333300)
 
 // 60:260
-[com_260]
+[rect11b]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_163
+layer=lvl3_helm_layer
 colour=0x000000
 fill=yes
 trans=185
@@ -3756,14 +3756,14 @@ transmitop=10
 op10=  
 
 // 60:261
-[com_261]
+[lvl_3_helm_cost]
 type=text
 width=16384
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_163
+layer=lvl3_helm_layer
 textfont=p11_full
 text=XXXX
 textlineheight=16
@@ -3773,12 +3773,12 @@ textshadow=yes
 colour=0xccccff
 
 // 60:262
-[com_262]
+[lvl_3_helm]
 type=graphic
 x=1
 y=3
 width=32
 height=32
 xmode=abs_centre
-layer=com_163
+layer=lvl3_helm_layer
 colour=0xffffffff

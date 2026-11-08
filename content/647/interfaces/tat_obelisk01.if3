@@ -1,76 +1,76 @@
 // 456:0
-[com_0]
+[myq3_castle_sketch_01_1]
 type=model
 x=50
 y=6
 width=414
 height=323
-layer=com_7
+layer=layer_1
 model=model_18151
 modelorigin=15,-41
 modelangle=495,0,0
 modelzoom=570
 
 // 456:1
-[com_1]
+[myq3_castle_sketch_01_1_1]
 type=model
 x=4
 y=78
 width=175
 height=224
-layer=com_7
+layer=layer_1
 model=model_18145
 modelorigin=181,-64
 modelangle=495,0,0
 modelzoom=570
 
 // 456:2
-[com_2]
+[myq3_castle_sketch_01_1_2]
 type=model
 x=288
 y=47
 width=194
 height=232
-layer=com_7
+layer=layer_1
 model=model_18147
 modelorigin=-113,-37
 modelangle=495,0,0
 modelzoom=570
 
 // 456:3
-[com_3]
+[myq3_castle_sketch_01_1_3]
 type=model
 x=173
 y=44
 width=199
 height=250
-layer=com_7
+layer=layer_1
 model=model_18148
 modelorigin=0,-43
 modelangle=495,0,0
 modelzoom=570
 
 // 456:4
-[com_4]
+[myq3_castle_sketch_01_1_4]
 type=model
 x=184
 y=17
 width=176
 height=277
-layer=com_7
+layer=layer_1
 model=model_18149
 modelorigin=0,-29
 modelangle=495,0,0
 modelzoom=570
 
 // 456:5
-[com_5]
+[myq3_castle_sketch_01_1_5]
 type=model
 x=328
 y=36
 width=189
 height=293
-layer=com_7
+layer=layer_1
 model=model_18150
 modelorigin=-150,-56
 modelangle=495,0,0
@@ -83,7 +83,7 @@ x=426
 y=14
 width=26
 height=23
-layer=com_7
+layer=layer_1
 graphic="close_buttons,2"
 colour=0x000000
 transmitop=1
@@ -93,7 +93,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,2")
 onop=closebutton_click
 
 // 456:7
-[com_7]
+[layer_1]
 type=layer
 width=512
 height=334

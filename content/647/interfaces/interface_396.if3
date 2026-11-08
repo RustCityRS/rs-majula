@@ -1,5 +1,5 @@
 // 396:0
-[com_0]
+[window]
 type=layer
 width=512
 height=334
@@ -13,7 +13,7 @@ width=62
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=window
 graphic=tradebacking
 tiling=yes
 outline=1
@@ -22,11 +22,11 @@ transmitop=10
 op10= 
 
 // 396:2
-[com_2]
+[border_layer]
 type=layer
 width=512
 height=334
-layer=com_0
+layer=window
 
 // 396:3
 [com_3]
@@ -35,7 +35,7 @@ x=17
 y=52
 width=32
 height=241
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -49,7 +49,7 @@ x=462
 y=52
 width=32
 height=241
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -63,7 +63,7 @@ x=61
 y=21
 width=390
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -77,7 +77,7 @@ x=61
 y=304
 width=390
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -91,7 +91,7 @@ x=30
 y=292
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -104,7 +104,7 @@ x=450
 y=21
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -117,7 +117,7 @@ x=450
 y=292
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -130,14 +130,14 @@ x=30
 y=21
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 396:11
-[com_11]
+[inventory_layer]
 type=layer
 x=93
 y=55
@@ -169,7 +169,7 @@ textshadow=yes
 colour=0xff981f
 
 // 396:14
-[com_14]
+[7_furniture1]
 type=text
 x=139
 y=55
@@ -179,8 +179,8 @@ textfont=p11_full
 text=Wooden Chair
 textshadow=yes
 colour=0xff981f
-onload=script2676(interface_396:com_49, 1)
-onvartransmit=script2676(interface_396:com_49, 1){varplayer_1485}
+onload=script2676(interface_396:7_furniture1_build, 1)
+onvartransmit=script2676(interface_396:7_furniture1_build, 1){varplayer_1485}
 
 // 396:15
 [com_15]
@@ -231,7 +231,7 @@ textshadow=yes
 colour=0xccccff
 
 // 396:19
-[com_19]
+[7_furniture2]
 type=text
 x=139
 y=120
@@ -241,8 +241,8 @@ textfont=p11_full
 text=Wooden Chair
 textshadow=yes
 colour=0xff981f
-onload=script2676(interface_396:com_50, 2)
-onvartransmit=script2676(interface_396:com_50, 2){varplayer_1486}
+onload=script2676(interface_396:7_furniture2_build, 2)
+onvartransmit=script2676(interface_396:7_furniture2_build, 2){varplayer_1486}
 
 // 396:20
 [com_20]
@@ -293,7 +293,7 @@ textshadow=yes
 colour=0xccccff
 
 // 396:24
-[com_24]
+[7_furniture3]
 type=text
 x=139
 y=185
@@ -303,8 +303,8 @@ textfont=p11_full
 text=Wooden Chair
 textshadow=yes
 colour=0xff981f
-onload=script2676(interface_396:com_51, 3)
-onvartransmit=script2676(interface_396:com_51, 3){varplayer_1487}
+onload=script2676(interface_396:7_furniture3_build, 3)
+onvartransmit=script2676(interface_396:7_furniture3_build, 3){varplayer_1487}
 
 // 396:25
 [com_25]
@@ -355,7 +355,7 @@ textshadow=yes
 colour=0xccccff
 
 // 396:29
-[com_29]
+[7_furniture4]
 type=text
 x=139
 y=252
@@ -365,8 +365,8 @@ textfont=p11_full
 text=Wooden Chair
 textshadow=yes
 colour=0xff981f
-onload=script2676(interface_396:com_52, 4)
-onvartransmit=script2676(interface_396:com_52, 4){varplayer_1488}
+onload=script2676(interface_396:7_furniture4_build, 4)
+onvartransmit=script2676(interface_396:7_furniture4_build, 4){varplayer_1488}
 
 // 396:30
 [com_30]
@@ -417,7 +417,7 @@ textshadow=yes
 colour=0xccccff
 
 // 396:34
-[com_34]
+[7_furniture5]
 type=text
 x=335
 y=55
@@ -427,8 +427,8 @@ textfont=p11_full
 text=Wooden Chair
 textshadow=yes
 colour=0xff981f
-onload=script2676(interface_396:com_53, 5)
-onvartransmit=script2676(interface_396:com_53, 5){varplayer_1489}
+onload=script2676(interface_396:7_furniture5_build, 5)
+onvartransmit=script2676(interface_396:7_furniture5_build, 5){varplayer_1489}
 
 // 396:35
 [com_35]
@@ -479,7 +479,7 @@ textshadow=yes
 colour=0xccccff
 
 // 396:39
-[com_39]
+[7_furniture6]
 type=text
 x=335
 y=120
@@ -489,8 +489,8 @@ textfont=p11_full
 text=Wooden Chair
 textshadow=yes
 colour=0xff981f
-onload=script2676(interface_396:com_54, 6)
-onvartransmit=script2676(interface_396:com_54, 6){varplayer_1490}
+onload=script2676(interface_396:7_furniture6_build, 6)
+onvartransmit=script2676(interface_396:7_furniture6_build, 6){varplayer_1490}
 
 // 396:40
 [com_40]
@@ -541,7 +541,7 @@ textshadow=yes
 colour=0xccccff
 
 // 396:44
-[com_44]
+[7_furniture7]
 type=text
 x=335
 y=185
@@ -551,8 +551,8 @@ textfont=p11_full
 text=Wooden Chair
 textshadow=yes
 colour=0xff981f
-onload=script2676(interface_396:com_55, 7)
-onvartransmit=script2676(interface_396:com_55, 7){varplayer_1491}
+onload=script2676(interface_396:7_furniture7_build, 7)
+onvartransmit=script2676(interface_396:7_furniture7_build, 7){varplayer_1491}
 
 // 396:45
 [com_45]
@@ -603,7 +603,7 @@ textshadow=yes
 colour=0xccccff
 
 // 396:49
-[com_49]
+[7_furniture1_build]
 type=graphic
 x=93
 y=55
@@ -613,7 +613,7 @@ graphic="cross_interface,5"
 colour=0xffffffff
 
 // 396:50
-[com_50]
+[7_furniture2_build]
 type=graphic
 x=93
 y=120
@@ -623,7 +623,7 @@ graphic="cross_interface,5"
 colour=0xffffffff
 
 // 396:51
-[com_51]
+[7_furniture3_build]
 type=graphic
 x=93
 y=185
@@ -633,7 +633,7 @@ graphic="cross_interface,5"
 colour=0xffffffff
 
 // 396:52
-[com_52]
+[7_furniture4_build]
 type=graphic
 x=93
 y=250
@@ -643,7 +643,7 @@ graphic="cross_interface,5"
 colour=0xffffffff
 
 // 396:53
-[com_53]
+[7_furniture5_build]
 type=graphic
 x=289
 y=55
@@ -653,7 +653,7 @@ graphic="cross_interface,5"
 colour=0xffffffff
 
 // 396:54
-[com_54]
+[7_furniture6_build]
 type=graphic
 x=289
 y=120
@@ -663,7 +663,7 @@ graphic="cross_interface,5"
 colour=0xffffffff
 
 // 396:55
-[com_55]
+[7_furniture7_build]
 type=graphic
 x=289
 y=185
@@ -764,7 +764,7 @@ textshadow=yes
 colour=0xff981f
 
 // 396:63
-[com_63]
+[close_button]
 type=graphic
 x=460
 y=25

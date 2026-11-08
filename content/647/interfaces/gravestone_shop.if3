@@ -315,7 +315,7 @@ textshadow=yes
 colour=0xff981f
 
 // 652:29
-[com_29]
+[info_title]
 type=text
 x=61
 y=87
@@ -327,7 +327,7 @@ textshadow=yes
 colour=0xff981f
 
 // 652:30
-[com_30]
+[info_text]
 type=text
 x=61
 y=116
@@ -339,14 +339,14 @@ textshadow=yes
 colour=0xff981f
 
 // 652:31
-[com_31]
+[menu_layer]
 type=layer
 x=251
 y=80
 width=176
 height=205
-onload=gravestone_shop_setup(event_com, gravestone_shop:com_32, gravestone_shop:com_34, gravestone_shop:com_35, gravestone_shop:com_29, gravestone_shop:com_30)
-onvartransmit=gravestone_shop_setup(event_com, gravestone_shop:com_32, gravestone_shop:com_34, gravestone_shop:com_35, gravestone_shop:com_29, gravestone_shop:com_30){varplayer_1146}
+onload=gravestone_shop_setup(event_com, gravestone_shop:com_32, gravestone_shop:confirm_layer, gravestone_shop:confirm_text, gravestone_shop:info_title, gravestone_shop:info_text)
+onvartransmit=gravestone_shop_setup(event_com, gravestone_shop:com_32, gravestone_shop:confirm_layer, gravestone_shop:confirm_text, gravestone_shop:info_title, gravestone_shop:info_text){varplayer_1146}
 
 // 652:32
 [com_32]
@@ -361,12 +361,12 @@ height=207
 type=graphic
 width=90
 height=56
-layer=com_34
+layer=confirm_layer
 graphic="wild_ditch_sign_button,2"
 colour=0x000000
 
 // 652:34
-[com_34]
+[confirm_layer]
 type=layer
 x=83
 y=230
@@ -374,7 +374,7 @@ width=90
 height=56
 
 // 652:35
-[com_35]
+[confirm_text]
 type=text
 x=83
 y=230
@@ -386,11 +386,11 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xbf751d
-onmouseover=text_colour_swapper(gravestone_shop:com_35, 0xe1981f)
-onmouseleave=text_colour_swapper(gravestone_shop:com_35, 0xbf751d)
+onmouseover=text_colour_swapper(gravestone_shop:confirm_text, 0xe1981f)
+onmouseleave=text_colour_swapper(gravestone_shop:confirm_text, 0xbf751d)
 
 // 652:36
-[com_36]
+[closebutton]
 type=graphic
 x=463
 y=33

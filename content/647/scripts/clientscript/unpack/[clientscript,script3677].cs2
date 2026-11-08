@@ -2,38 +2,38 @@
 [clientscript,script3677](component $component0, int $int1)
 def_int $int2 = 0;
 switch_component ($component0) {
-    case rand_herbburner:com_14 :
+    case rand_herbburner:herb_text_1 :
         $int2 = %varclient_1336;
-    case rand_herbburner:com_15 :
+    case rand_herbburner:herb_text_2 :
         $int2 = %varclient_1337;
-    case rand_herbburner:com_16 :
+    case rand_herbburner:herb_text_3 :
         $int2 = %varclient_1338;
-    case rand_herbburner:com_17 :
+    case rand_herbburner:herb_text_4 :
         $int2 = %varclient_1339;
-    case rand_herbburner:com_18 :
+    case rand_herbburner:herb_text_5 :
         $int2 = %varclient_1340;
-    case rand_herbburner:com_19 :
+    case rand_herbburner:herb_text_6 :
         $int2 = %varclient_1341;
-    case rand_herbburner:com_20 :
+    case rand_herbburner:herb_text_7 :
         $int2 = %varclient_1342;
-    case rand_herbburner:com_21 :
+    case rand_herbburner:herb_text_8 :
         $int2 = %varclient_1343;
-    case rand_herbburner:com_22 :
+    case rand_herbburner:herb_text_9 :
         $int2 = %varclient_1344;
-    case rand_herbburner:com_23 :
+    case rand_herbburner:herb_text_10 :
         $int2 = %varclient_1345;
-    case rand_herbburner:com_24 :
+    case rand_herbburner:herb_text_11 :
         $int2 = %varclient_1346;
-    case rand_herbburner:com_25 :
+    case rand_herbburner:herb_text_12 :
         $int2 = %varclient_1347;
-    case rand_herbburner:com_26 :
+    case rand_herbburner:herb_text_13 :
         $int2 = %varclient_1348;
-    case rand_herbburner:com_27 :
+    case rand_herbburner:herb_text_14 :
         $int2 = %varclient_1349;
-    case rand_herbburner:com_28 :
+    case rand_herbburner:herb_text_15 :
         $int2 = %varclient_1350;
-    case rand_herbburner:com_29 :
+    case rand_herbburner:herb_text_16 :
         $int2 = %varclient_1351;
 }
 def_string $string0 = "Current price: <~tostring_shortform($int2)> gp";
-~addtooltip_action_dynamic($component0, $int1, rand_herbburner:com_48, $string0, 25, if_getwidth(if_getlayer(rand_herbburner:com_48)));
+~addtooltip_action_dynamic($component0, $int1, rand_herbburner:tooltip_layer, $string0, 25, if_getwidth(if_getlayer(rand_herbburner:tooltip_layer)));

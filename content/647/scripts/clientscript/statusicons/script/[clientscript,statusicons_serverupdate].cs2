@@ -1,9 +1,9 @@
 // 1951
 [clientscript,statusicons_serverupdate]
 if (%varclient_616 = true) {
-    if_sethide(false, interface_745:com_1);
+    if_sethide(false, statusicons:multiway_icon);
 } else {
     %varclient_616 = false;
-    if_sethide(true, interface_745:com_1);
+    if_sethide(true, statusicons:multiway_icon);
     ~statusicons_deltooltip;
 }

@@ -1,5 +1,5 @@
 // 884:0
-[com_0]
+[title]
 type=text
 x=4
 y=4
@@ -14,7 +14,7 @@ onload=combat_side_title(event_com)
 oninvtransmit=combat_side_title(event_com){worn}
 
 // 884:1
-[com_1]
+[combat_level]
 type=text
 x=4
 y=25
@@ -31,29 +31,29 @@ onstattransmit=combat_side_comlevel(event_com){hitpoints, summoning, defence, at
 onvarctransmit=combat_side_comlevel(event_com){varclient_1000}
 
 // 884:2
-[com_2]
+[sp_attack_layer]
 type=layer
 width=190
 height=261
-onload=combat_side_special(combat_side:com_3)
-oninvtransmit=combat_side_special(combat_side:com_3){worn}
+onload=combat_side_special(combat_side:sp_attack)
+oninvtransmit=combat_side_special(combat_side:sp_attack){worn}
 
 // 884:3
-[com_3]
+[sp_attack]
 type=layer
 x=19
 y=205
 width=158
 height=64
-layer=com_2
+layer=sp_attack_layer
 
 // 884:4
-[special_attack_bar]
+[sp_attack_button]
 type=graphic
 x=2
 width=150
 height=26
-layer=com_3
+layer=sp_attack
 graphic=combatboxes_special_attack
 colour=0xffffffff
 transmitop=1
@@ -68,7 +68,7 @@ x=6
 y=7
 width=143
 height=13
-layer=com_3
+layer=sp_attack
 colour=0xff0000
 fill=yes
 
@@ -79,7 +79,7 @@ x=6
 y=7
 width=143
 height=13
-layer=com_3
+layer=sp_attack
 colour=0x2f7630
 fill=yes
 transmitop=10
@@ -92,21 +92,21 @@ x=6
 y=7
 width=143
 height=13
-layer=com_3
+layer=sp_attack
 colour=0x333333
 transmitop=10
 op10=  
-onload=combat_side_special_level(combat_side:com_6, combat_side:com_8)
-onvartransmit=combat_side_special_level(combat_side:com_6, combat_side:com_8){sa_energy}
+onload=combat_side_special_level(combat_side:com_6, combat_side:sa_text)
+onvartransmit=combat_side_special_level(combat_side:com_6, combat_side:sa_text){sa_energy}
 
 // 884:8
-[com_8]
+[sa_text]
 type=text
 x=7
 y=8
 width=141
 height=11
-layer=com_3
+layer=sp_attack
 textfont=p11_full
 text=S P E C I A L  A T T A C K
 textalignh=centre
@@ -115,99 +115,99 @@ onload=combat_side_special_highlight(event_com)
 onvartransmit=combat_side_special_highlight(event_com){sa_attack}
 
 // 884:9
-[com_9]
+[tooltip_bound]
 type=layer
 width=190
 height=261
 
 // 884:10
-[com_10]
+[buttons]
 type=layer
 x=4
 y=40
 width=182
 height=219
-layer=com_9
+layer=tooltip_bound
 onload=combat_side_setup
 oninvtransmit=combat_side_setup{worn}
 
 // 884:11
-[style1]
+[button1]
 type=layer
 x=16
 y=5
 width=70
 height=46
-layer=com_10
+layer=buttons
 
 // 884:12
-[style2]
+[button2]
 type=layer
 x=100
 y=5
 width=70
 height=46
-layer=com_10
+layer=buttons
 
 // 884:13
-[style3]
+[button3]
 type=layer
 x=16
 y=58
 width=70
 height=46
-layer=com_10
+layer=buttons
 
 // 884:14
-[style4]
+[button4]
 type=layer
 x=99
 y=58
 width=70
 height=46
-layer=com_10
+layer=buttons
 
 // 884:15
-[retaliate]
+[auto_retaliate]
 type=layer
 x=17
 y=112
 width=150
 height=46
-layer=com_10
+layer=buttons
 transmitop=1
 op1=Auto Retaliate
 
 // 884:16
-[com_16]
+[optnodef]
 type=graphic
 width=150
 height=46
-layer=retaliate
+layer=auto_retaliate
 graphic="combatboxes_very_large,0"
 colour=0xffffffff
 onload=combat_side_auto_retaliate_graphic(event_com)
 onvartransmit=combat_side_auto_retaliate_graphic(event_com){option_nodef}
 
 // 884:17
-[com_17]
+[auto_icon]
 type=graphic
 x=7
 y=4
 width=26
 height=39
-layer=retaliate
+layer=auto_retaliate
 graphic=graphic_1410
 colour=0xffffffff
 
 // 884:18
-[com_18]
+[auto_text]
 type=text
 x=36
 y=2
 width=112
 height=42
-layer=retaliate
+layer=auto_retaliate
 textfont=p12_full
 text=Auto Retaliate <br>(Off)
 textalignh=centre
@@ -218,142 +218,142 @@ onload=combat_side_auto_retaliate(event_com)
 onvartransmit=combat_side_auto_retaliate(event_com){option_nodef}
 
 // 884:19
-[com_19]
+[tooltip]
 type=layer
 x=-4
 y=-40
 width=50
 height=50
-layer=com_10
+layer=buttons
 
 // 884:20
-[com_20]
+[button4_back]
 type=graphic
 width=70
 height=46
-layer=style4
+layer=button4
 graphic="combatboxes_large,0"
 colour=0xffffffff
 onload=combat_side_button_highlight(event_com, 3)
 onvartransmit=combat_side_button_highlight(event_com, 3){com_mode}
 
 // 884:21
-[com_21]
+[icon4]
 type=graphic
 x=19
 y=5
 width=34
 height=24
-layer=style4
+layer=button4
 colour=0xffffffff
 
 // 884:22
-[com_22]
+[text4]
 type=text
 y=30
 width=70
 height=13
-layer=style4
+layer=button4
 textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xff981f
 
 // 884:23
-[com_23]
+[button3_back]
 type=graphic
 width=70
 height=46
-layer=style3
+layer=button3
 graphic="combatboxes_large,0"
 colour=0xffffffff
 onload=combat_side_button_highlight(event_com, 2)
 onvartransmit=combat_side_button_highlight(event_com, 2){com_mode}
 
 // 884:24
-[com_24]
+[icon3]
 type=graphic
 x=20
 y=5
 width=34
 height=24
-layer=style3
+layer=button3
 colour=0xffffffff
 
 // 884:25
-[com_25]
+[text3]
 type=text
 y=30
 width=70
 height=13
-layer=style3
+layer=button3
 textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xff981f
 
 // 884:26
-[com_26]
+[button2_back]
 type=graphic
 width=70
 height=46
-layer=style2
+layer=button2
 graphic="combatboxes_large,0"
 colour=0xffffffff
 onload=combat_side_button_highlight(event_com, 1)
 onvartransmit=combat_side_button_highlight(event_com, 1){com_mode}
 
 // 884:27
-[com_27]
+[text2]
 type=text
 y=30
 width=70
 height=13
-layer=style2
+layer=button2
 textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xff981f
 
 // 884:28
-[com_28]
+[icon2]
 type=graphic
 x=18
 y=5
 width=34
 height=24
-layer=style2
+layer=button2
 colour=0xffffffff
 
 // 884:29
-[com_29]
+[button1_back]
 type=graphic
 width=70
 height=46
-layer=style1
+layer=button1
 graphic="combatboxes_large,0"
 colour=0xffffffff
 onload=combat_side_button_highlight(event_com, 0)
-onmouseleave=deltooltip(combat_side:com_19)
+onmouseleave=deltooltip(combat_side:tooltip)
 onvartransmit=combat_side_button_highlight(event_com, 0){com_mode}
 
 // 884:30
-[com_30]
+[icon1]
 type=graphic
 x=20
 y=5
 width=34
 height=24
-layer=style1
+layer=button1
 colour=0xffffffff
 
 // 884:31
-[com_31]
+[text1]
 type=text
 y=30
 width=70
 height=13
-layer=style1
+layer=button1
 textfont=p11_full
 textalignh=centre
 textshadow=yes

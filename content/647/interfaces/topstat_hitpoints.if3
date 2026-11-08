@@ -1,0 +1,102 @@
+// 748:0
+[topstat_hitpoints_layer]
+type=layer
+width=57
+height=34
+onload=topstat_hitpoints_updatehealth(topstat_hitpoints:com_1, topstat_hitpoints:background_op, topstat_hitpoints:health, topstat_hitpoints:cap_health, topstat_hitpoints:com_6, topstat_hitpoints:text)
+onvartransmit=topstat_hitpoints_updatehealth(topstat_hitpoints:com_1, topstat_hitpoints:background_op, topstat_hitpoints:health, topstat_hitpoints:cap_health, topstat_hitpoints:com_6, topstat_hitpoints:text){poison, varplayer_456, varplayer_1240}
+onstattransmit=topstat_hitpoints_updatehealth(topstat_hitpoints:com_1, topstat_hitpoints:background_op, topstat_hitpoints:health, topstat_hitpoints:cap_health, topstat_hitpoints:com_6, topstat_hitpoints:text){hitpoints}
+
+// 748:1
+[com_1]
+type=graphic
+width=57
+height=34
+layer=topstat_hitpoints_layer
+graphic=graphic_1206
+colour=0xffffffff
+
+// 748:2
+[background_op]
+type=graphic
+width=57
+height=34
+layer=topstat_hitpoints_layer
+graphic=graphic_1206
+colour=0xffffffff
+transmitop=1,10
+op1=Use Cure
+op10= 
+onmouseover=topstat_hitpoints_button_mouseover(event_com)
+onmouseleave=topstat_hitpoints_button_mouseleave(event_com)
+
+// 748:3
+[globe]
+type=layer
+x=1
+y=1
+width=31
+height=31
+layer=topstat_hitpoints_layer
+
+// 748:4
+[health]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=globe
+graphic="topstat_fill_full,0"
+colour=0x000000
+
+// 748:5
+[cap_health]
+type=graphic
+height=8192
+widthmode=minus
+heightmode=proportion
+xmode=abs_centre
+layer=globe
+graphic="topstat_fill_full,0"
+tiling=yes
+colour=0x323232
+
+// 748:6
+[com_6]
+type=graphic
+height=4096
+widthmode=minus
+heightmode=proportion
+xmode=abs_centre
+layer=globe
+graphic="topstat_fill_full,4"
+tiling=yes
+colour=0x000000
+
+// 748:7
+[icon]
+type=graphic
+width=19
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=globe
+graphic="topstat_icon,0"
+tiling=yes
+colour=0x000000
+ontimer=script808
+
+// 748:8
+[text]
+type=text
+x=31
+y=15
+width=24
+height=14
+layer=topstat_hitpoints_layer
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xca9800

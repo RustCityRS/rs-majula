@@ -163,7 +163,7 @@ session_log(^log_adventure, "Quest complete: The Restless Ghost");
 // 2011's scroll (2011-04-20 i7PABMV6o2k, 351s): "1 Quest Point," (a comma) over "125 Prayer XP and
 // five ancient bones", wrapped after "five".
 ~send_quest_complete2(^questlist_priest, muddy_skull, 220, ^priest_questpoints, "You have completed The Restless Ghost!", "125 Prayer XP and five ancient bones");
-if_settext(questscroll_ver3:com_10, "1 Quest Point,");
+if_settext(questscroll_ver3:quest_reward1_ver3, "1 Quest Point,");
 // The Task System's "The Restless Ghost" (task 347, a quest task), as Cook's Assistant's is shown
 // completing in 2011 (quest_cook.rs2).
 ~task_complete(347);

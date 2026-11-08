@@ -24,95 +24,95 @@
 // 2011's buttons, Make 1, 5, All and X on each item, where 289 had Make 1, 5
 // and 10 on each inv slot (inv_button1-3).
 // Gold ring
-[if_button1,crafting_gold:com_82] @craft_gold(gold_ring, 1);
-[if_button2,crafting_gold:com_82] @craft_gold(gold_ring, 5);
-[if_button3,crafting_gold:com_82] @craft_gold(gold_ring, ^crafting_make_all);
-[if_button4,crafting_gold:com_82] @craft_gold(gold_ring, ^crafting_make_x);
+[if_button1,crafting_gold:gold_ring] @craft_gold(gold_ring, 1);
+[if_button2,crafting_gold:gold_ring] @craft_gold(gold_ring, 5);
+[if_button3,crafting_gold:gold_ring] @craft_gold(gold_ring, ^crafting_make_all);
+[if_button4,crafting_gold:gold_ring] @craft_gold(gold_ring, ^crafting_make_x);
 // Sapphire ring
-[if_button1,crafting_gold:com_84] @craft_gold(sapphire_ring, 1);
-[if_button2,crafting_gold:com_84] @craft_gold(sapphire_ring, 5);
-[if_button3,crafting_gold:com_84] @craft_gold(sapphire_ring, ^crafting_make_all);
-[if_button4,crafting_gold:com_84] @craft_gold(sapphire_ring, ^crafting_make_x);
+[if_button1,crafting_gold:sapphire_ring] @craft_gold(sapphire_ring, 1);
+[if_button2,crafting_gold:sapphire_ring] @craft_gold(sapphire_ring, 5);
+[if_button3,crafting_gold:sapphire_ring] @craft_gold(sapphire_ring, ^crafting_make_all);
+[if_button4,crafting_gold:sapphire_ring] @craft_gold(sapphire_ring, ^crafting_make_x);
 // Emerald ring
-[if_button1,crafting_gold:com_86] @craft_gold(emerald_ring, 1);
-[if_button2,crafting_gold:com_86] @craft_gold(emerald_ring, 5);
-[if_button3,crafting_gold:com_86] @craft_gold(emerald_ring, ^crafting_make_all);
-[if_button4,crafting_gold:com_86] @craft_gold(emerald_ring, ^crafting_make_x);
+[if_button1,crafting_gold:emerald_ring] @craft_gold(emerald_ring, 1);
+[if_button2,crafting_gold:emerald_ring] @craft_gold(emerald_ring, 5);
+[if_button3,crafting_gold:emerald_ring] @craft_gold(emerald_ring, ^crafting_make_all);
+[if_button4,crafting_gold:emerald_ring] @craft_gold(emerald_ring, ^crafting_make_x);
 // Ruby ring
-[if_button1,crafting_gold:com_88] @craft_gold(ruby_ring, 1);
-[if_button2,crafting_gold:com_88] @craft_gold(ruby_ring, 5);
-[if_button3,crafting_gold:com_88] @craft_gold(ruby_ring, ^crafting_make_all);
-[if_button4,crafting_gold:com_88] @craft_gold(ruby_ring, ^crafting_make_x);
+[if_button1,crafting_gold:ruby_ring] @craft_gold(ruby_ring, 1);
+[if_button2,crafting_gold:ruby_ring] @craft_gold(ruby_ring, 5);
+[if_button3,crafting_gold:ruby_ring] @craft_gold(ruby_ring, ^crafting_make_all);
+[if_button4,crafting_gold:ruby_ring] @craft_gold(ruby_ring, ^crafting_make_x);
 // Diamond ring
-[if_button1,crafting_gold:com_90] @craft_gold(diamond_ring, 1);
-[if_button2,crafting_gold:com_90] @craft_gold(diamond_ring, 5);
-[if_button3,crafting_gold:com_90] @craft_gold(diamond_ring, ^crafting_make_all);
-[if_button4,crafting_gold:com_90] @craft_gold(diamond_ring, ^crafting_make_x);
+[if_button1,crafting_gold:diamond_ring] @craft_gold(diamond_ring, 1);
+[if_button2,crafting_gold:diamond_ring] @craft_gold(diamond_ring, 5);
+[if_button3,crafting_gold:diamond_ring] @craft_gold(diamond_ring, ^crafting_make_all);
+[if_button4,crafting_gold:diamond_ring] @craft_gold(diamond_ring, ^crafting_make_x);
 // Dragonstone ring
-[if_button1,crafting_gold:com_92] @craft_gold(dragonstone_ring, 1);
-[if_button2,crafting_gold:com_92] @craft_gold(dragonstone_ring, 5);
-[if_button3,crafting_gold:com_92] @craft_gold(dragonstone_ring, ^crafting_make_all);
-[if_button4,crafting_gold:com_92] @craft_gold(dragonstone_ring, ^crafting_make_x);
+[if_button1,crafting_gold:dragonstone_ring] @craft_gold(dragonstone_ring, 1);
+[if_button2,crafting_gold:dragonstone_ring] @craft_gold(dragonstone_ring, 5);
+[if_button3,crafting_gold:dragonstone_ring] @craft_gold(dragonstone_ring, ^crafting_make_all);
+[if_button4,crafting_gold:dragonstone_ring] @craft_gold(dragonstone_ring, ^crafting_make_x);
 // Gold necklace
-[if_button1,crafting_gold:com_68] @craft_gold(gold_necklace, 1);
-[if_button2,crafting_gold:com_68] @craft_gold(gold_necklace, 5);
-[if_button3,crafting_gold:com_68] @craft_gold(gold_necklace, ^crafting_make_all);
-[if_button4,crafting_gold:com_68] @craft_gold(gold_necklace, ^crafting_make_x);
+[if_button1,crafting_gold:gold_necklace] @craft_gold(gold_necklace, 1);
+[if_button2,crafting_gold:gold_necklace] @craft_gold(gold_necklace, 5);
+[if_button3,crafting_gold:gold_necklace] @craft_gold(gold_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:gold_necklace] @craft_gold(gold_necklace, ^crafting_make_x);
 // Sapphire necklace
-[if_button1,crafting_gold:com_70] @craft_gold(sapphire_necklace, 1);
-[if_button2,crafting_gold:com_70] @craft_gold(sapphire_necklace, 5);
-[if_button3,crafting_gold:com_70] @craft_gold(sapphire_necklace, ^crafting_make_all);
-[if_button4,crafting_gold:com_70] @craft_gold(sapphire_necklace, ^crafting_make_x);
+[if_button1,crafting_gold:sapphire_necklace] @craft_gold(sapphire_necklace, 1);
+[if_button2,crafting_gold:sapphire_necklace] @craft_gold(sapphire_necklace, 5);
+[if_button3,crafting_gold:sapphire_necklace] @craft_gold(sapphire_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:sapphire_necklace] @craft_gold(sapphire_necklace, ^crafting_make_x);
 // Emerald necklace
-[if_button1,crafting_gold:com_72] @craft_gold(emerald_necklace, 1);
-[if_button2,crafting_gold:com_72] @craft_gold(emerald_necklace, 5);
-[if_button3,crafting_gold:com_72] @craft_gold(emerald_necklace, ^crafting_make_all);
-[if_button4,crafting_gold:com_72] @craft_gold(emerald_necklace, ^crafting_make_x);
+[if_button1,crafting_gold:emerald_necklace] @craft_gold(emerald_necklace, 1);
+[if_button2,crafting_gold:emerald_necklace] @craft_gold(emerald_necklace, 5);
+[if_button3,crafting_gold:emerald_necklace] @craft_gold(emerald_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:emerald_necklace] @craft_gold(emerald_necklace, ^crafting_make_x);
 // Ruby necklace
-[if_button1,crafting_gold:com_74] @craft_gold(ruby_necklace, 1);
-[if_button2,crafting_gold:com_74] @craft_gold(ruby_necklace, 5);
-[if_button3,crafting_gold:com_74] @craft_gold(ruby_necklace, ^crafting_make_all);
-[if_button4,crafting_gold:com_74] @craft_gold(ruby_necklace, ^crafting_make_x);
+[if_button1,crafting_gold:ruby_necklace] @craft_gold(ruby_necklace, 1);
+[if_button2,crafting_gold:ruby_necklace] @craft_gold(ruby_necklace, 5);
+[if_button3,crafting_gold:ruby_necklace] @craft_gold(ruby_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:ruby_necklace] @craft_gold(ruby_necklace, ^crafting_make_x);
 // Diamond necklace
-[if_button1,crafting_gold:com_76] @craft_gold(diamond_necklace, 1);
-[if_button2,crafting_gold:com_76] @craft_gold(diamond_necklace, 5);
-[if_button3,crafting_gold:com_76] @craft_gold(diamond_necklace, ^crafting_make_all);
-[if_button4,crafting_gold:com_76] @craft_gold(diamond_necklace, ^crafting_make_x);
+[if_button1,crafting_gold:diamond_necklace] @craft_gold(diamond_necklace, 1);
+[if_button2,crafting_gold:diamond_necklace] @craft_gold(diamond_necklace, 5);
+[if_button3,crafting_gold:diamond_necklace] @craft_gold(diamond_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:diamond_necklace] @craft_gold(diamond_necklace, ^crafting_make_x);
 // Dragon necklace
-[if_button1,crafting_gold:com_78] @craft_gold(dragonstone_necklace, 1);
-[if_button2,crafting_gold:com_78] @craft_gold(dragonstone_necklace, 5);
-[if_button3,crafting_gold:com_78] @craft_gold(dragonstone_necklace, ^crafting_make_all);
-[if_button4,crafting_gold:com_78] @craft_gold(dragonstone_necklace, ^crafting_make_x);
+[if_button1,crafting_gold:dragonstone_necklace] @craft_gold(dragonstone_necklace, 1);
+[if_button2,crafting_gold:dragonstone_necklace] @craft_gold(dragonstone_necklace, 5);
+[if_button3,crafting_gold:dragonstone_necklace] @craft_gold(dragonstone_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:dragonstone_necklace] @craft_gold(dragonstone_necklace, ^crafting_make_x);
 // Gold amulet
-[if_button1,crafting_gold:com_53] @craft_gold(unstrung_gold_amulet, 1);
-[if_button2,crafting_gold:com_53] @craft_gold(unstrung_gold_amulet, 5);
-[if_button3,crafting_gold:com_53] @craft_gold(unstrung_gold_amulet, ^crafting_make_all);
-[if_button4,crafting_gold:com_53] @craft_gold(unstrung_gold_amulet, ^crafting_make_x);
+[if_button1,crafting_gold:gold_amulet] @craft_gold(unstrung_gold_amulet, 1);
+[if_button2,crafting_gold:gold_amulet] @craft_gold(unstrung_gold_amulet, 5);
+[if_button3,crafting_gold:gold_amulet] @craft_gold(unstrung_gold_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:gold_amulet] @craft_gold(unstrung_gold_amulet, ^crafting_make_x);
 // Sapphire amulet
-[if_button1,crafting_gold:com_55] @craft_gold(unstrung_sapphire_amulet, 1);
-[if_button2,crafting_gold:com_55] @craft_gold(unstrung_sapphire_amulet, 5);
-[if_button3,crafting_gold:com_55] @craft_gold(unstrung_sapphire_amulet, ^crafting_make_all);
-[if_button4,crafting_gold:com_55] @craft_gold(unstrung_sapphire_amulet, ^crafting_make_x);
+[if_button1,crafting_gold:sapphire_amulet] @craft_gold(unstrung_sapphire_amulet, 1);
+[if_button2,crafting_gold:sapphire_amulet] @craft_gold(unstrung_sapphire_amulet, 5);
+[if_button3,crafting_gold:sapphire_amulet] @craft_gold(unstrung_sapphire_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:sapphire_amulet] @craft_gold(unstrung_sapphire_amulet, ^crafting_make_x);
 // Emerald amulet
-[if_button1,crafting_gold:com_57] @craft_gold(unstrung_emerald_amulet, 1);
-[if_button2,crafting_gold:com_57] @craft_gold(unstrung_emerald_amulet, 5);
-[if_button3,crafting_gold:com_57] @craft_gold(unstrung_emerald_amulet, ^crafting_make_all);
-[if_button4,crafting_gold:com_57] @craft_gold(unstrung_emerald_amulet, ^crafting_make_x);
+[if_button1,crafting_gold:emerald_amulet] @craft_gold(unstrung_emerald_amulet, 1);
+[if_button2,crafting_gold:emerald_amulet] @craft_gold(unstrung_emerald_amulet, 5);
+[if_button3,crafting_gold:emerald_amulet] @craft_gold(unstrung_emerald_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:emerald_amulet] @craft_gold(unstrung_emerald_amulet, ^crafting_make_x);
 // Ruby amulet
-[if_button1,crafting_gold:com_59] @craft_gold(unstrung_ruby_amulet, 1);
-[if_button2,crafting_gold:com_59] @craft_gold(unstrung_ruby_amulet, 5);
-[if_button3,crafting_gold:com_59] @craft_gold(unstrung_ruby_amulet, ^crafting_make_all);
-[if_button4,crafting_gold:com_59] @craft_gold(unstrung_ruby_amulet, ^crafting_make_x);
+[if_button1,crafting_gold:ruby_amulet] @craft_gold(unstrung_ruby_amulet, 1);
+[if_button2,crafting_gold:ruby_amulet] @craft_gold(unstrung_ruby_amulet, 5);
+[if_button3,crafting_gold:ruby_amulet] @craft_gold(unstrung_ruby_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:ruby_amulet] @craft_gold(unstrung_ruby_amulet, ^crafting_make_x);
 // Diamond amulet
-[if_button1,crafting_gold:com_61] @craft_gold(unstrung_diamond_amulet, 1);
-[if_button2,crafting_gold:com_61] @craft_gold(unstrung_diamond_amulet, 5);
-[if_button3,crafting_gold:com_61] @craft_gold(unstrung_diamond_amulet, ^crafting_make_all);
-[if_button4,crafting_gold:com_61] @craft_gold(unstrung_diamond_amulet, ^crafting_make_x);
+[if_button1,crafting_gold:diamond_amulet] @craft_gold(unstrung_diamond_amulet, 1);
+[if_button2,crafting_gold:diamond_amulet] @craft_gold(unstrung_diamond_amulet, 5);
+[if_button3,crafting_gold:diamond_amulet] @craft_gold(unstrung_diamond_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:diamond_amulet] @craft_gold(unstrung_diamond_amulet, ^crafting_make_x);
 // Dragonstone amulet
-[if_button1,crafting_gold:com_63] @craft_gold(unstrung_dragonstone_amulet, 1);
-[if_button2,crafting_gold:com_63] @craft_gold(unstrung_dragonstone_amulet, 5);
-[if_button3,crafting_gold:com_63] @craft_gold(unstrung_dragonstone_amulet, ^crafting_make_all);
-[if_button4,crafting_gold:com_63] @craft_gold(unstrung_dragonstone_amulet, ^crafting_make_x);
+[if_button1,crafting_gold:dragonstone_amulet] @craft_gold(unstrung_dragonstone_amulet, 1);
+[if_button2,crafting_gold:dragonstone_amulet] @craft_gold(unstrung_dragonstone_amulet, 5);
+[if_button3,crafting_gold:dragonstone_amulet] @craft_gold(unstrung_dragonstone_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:dragonstone_amulet] @craft_gold(unstrung_dragonstone_amulet, ^crafting_make_x);
 
 // 289 stopped transmitting its three inv rows here; 2011's interface has none.
 // [if_close,crafting_jewelry]
@@ -144,43 +144,43 @@ if (inv_total(inv, ring_mould) > 0) {
     if_sethide(crafting_gold:com_18, false);
 
     // 289's gold ring always sat in its first slot (crafting_make_rings' stock)
-    if_setobject(crafting_gold:com_81, gold_ring, 1);
-    if_sethide(crafting_gold:com_82, false);
+    if_setobject(crafting_gold:gold_dark1, gold_ring, 1);
+    if_sethide(crafting_gold:gold_ring, false);
     // if they have one or more of corresponding gem, show corresponding ring
     if ($sapphire_total > 0) {
-        if_sethide(crafting_gold:com_84, false);
-        if_setobject(crafting_gold:com_83, sapphire_ring, 1);
+        if_sethide(crafting_gold:sapphire_ring, false);
+        if_setobject(crafting_gold:sapphire_dark1, sapphire_ring, 1);
     } else {
-        if_sethide(crafting_gold:com_84, true);
-        if_setobject(crafting_gold:com_83, black_ring, 1);
+        if_sethide(crafting_gold:sapphire_ring, true);
+        if_setobject(crafting_gold:sapphire_dark1, black_ring, 1);
     }
     if ($emerald_total > 0) {
-        if_sethide(crafting_gold:com_86, false);
-        if_setobject(crafting_gold:com_85, emerald_ring, 1);
+        if_sethide(crafting_gold:emerald_ring, false);
+        if_setobject(crafting_gold:emerald_dark1, emerald_ring, 1);
     } else {
-        if_sethide(crafting_gold:com_86, true);
-        if_setobject(crafting_gold:com_85, black_ring, 1);
+        if_sethide(crafting_gold:emerald_ring, true);
+        if_setobject(crafting_gold:emerald_dark1, black_ring, 1);
     }
     if ($ruby_total > 0) {
-        if_sethide(crafting_gold:com_88, false);
-        if_setobject(crafting_gold:com_87, ruby_ring, 1);
+        if_sethide(crafting_gold:ruby_ring, false);
+        if_setobject(crafting_gold:ruby_dark1, ruby_ring, 1);
     } else {
-        if_sethide(crafting_gold:com_88, true);
-        if_setobject(crafting_gold:com_87, black_ring, 1);
+        if_sethide(crafting_gold:ruby_ring, true);
+        if_setobject(crafting_gold:ruby_dark1, black_ring, 1);
     }
     if ($diamond_total > 0) {
-        if_sethide(crafting_gold:com_90, false);
-        if_setobject(crafting_gold:com_89, diamond_ring, 1);
+        if_sethide(crafting_gold:diamond_ring, false);
+        if_setobject(crafting_gold:diamond_dark1, diamond_ring, 1);
     } else {
-        if_sethide(crafting_gold:com_90, true);
-        if_setobject(crafting_gold:com_89, black_ring, 1);
+        if_sethide(crafting_gold:diamond_ring, true);
+        if_setobject(crafting_gold:diamond_dark1, black_ring, 1);
     }
     if ($dragonstone_total > 0) {
-        if_sethide(crafting_gold:com_92, false);
-        if_setobject(crafting_gold:com_91, dragonstone_ring, 1);
+        if_sethide(crafting_gold:dragonstone_ring, false);
+        if_setobject(crafting_gold:dragon_dark1, dragonstone_ring, 1);
     } else {
-        if_sethide(crafting_gold:com_92, true);
-        if_setobject(crafting_gold:com_91, black_ring, 1);
+        if_sethide(crafting_gold:dragonstone_ring, true);
+        if_setobject(crafting_gold:dragon_dark1, black_ring, 1);
     }
 } else {
     // normalize: show "You need a ring mould to craft rings." (default)
@@ -192,43 +192,43 @@ if (inv_total(inv, necklace_mould) > 0) {
     if_sethide(crafting_gold:com_21, true); // hide "You need a necklace mould to craft necklaces."
     if_sethide(crafting_gold:com_23, false);
 
-    if_setobject(crafting_gold:com_67, gold_necklace, 1);
-    if_sethide(crafting_gold:com_68, false);
+    if_setobject(crafting_gold:gold_dark2, gold_necklace, 1);
+    if_sethide(crafting_gold:gold_necklace, false);
     // if they have one or more of corresponding gem, show corresponding necklace
     if ($sapphire_total > 0) {
-        if_sethide(crafting_gold:com_70, false);
-        if_setobject(crafting_gold:com_69, sapphire_necklace, 1);
+        if_sethide(crafting_gold:sapphire_necklace, false);
+        if_setobject(crafting_gold:sapphire_dark2, sapphire_necklace, 1);
     } else {
-        if_sethide(crafting_gold:com_70, true);
-        if_setobject(crafting_gold:com_69, black_necklace, 1);
+        if_sethide(crafting_gold:sapphire_necklace, true);
+        if_setobject(crafting_gold:sapphire_dark2, black_necklace, 1);
     }
     if ($emerald_total > 0) {
-        if_sethide(crafting_gold:com_72, false);
-        if_setobject(crafting_gold:com_71, emerald_necklace, 1);
+        if_sethide(crafting_gold:emerald_necklace, false);
+        if_setobject(crafting_gold:emerald_dark2, emerald_necklace, 1);
     } else {
-        if_sethide(crafting_gold:com_72, true);
-        if_setobject(crafting_gold:com_71, black_necklace, 1);
+        if_sethide(crafting_gold:emerald_necklace, true);
+        if_setobject(crafting_gold:emerald_dark2, black_necklace, 1);
     }
     if ($ruby_total > 0) {
-        if_sethide(crafting_gold:com_74, false);
-        if_setobject(crafting_gold:com_73, ruby_necklace, 1);
+        if_sethide(crafting_gold:ruby_necklace, false);
+        if_setobject(crafting_gold:ruby_dark2, ruby_necklace, 1);
     } else {
-        if_sethide(crafting_gold:com_74, true);
-        if_setobject(crafting_gold:com_73, black_necklace, 1);
+        if_sethide(crafting_gold:ruby_necklace, true);
+        if_setobject(crafting_gold:ruby_dark2, black_necklace, 1);
     }
     if ($diamond_total > 0) {
-        if_sethide(crafting_gold:com_76, false);
-        if_setobject(crafting_gold:com_75, diamond_necklace, 1);
+        if_sethide(crafting_gold:diamond_necklace, false);
+        if_setobject(crafting_gold:diamond_dark2, diamond_necklace, 1);
     } else {
-        if_sethide(crafting_gold:com_76, true);
-        if_setobject(crafting_gold:com_75, black_necklace, 1);
+        if_sethide(crafting_gold:diamond_necklace, true);
+        if_setobject(crafting_gold:diamond_dark2, black_necklace, 1);
     }
     if ($dragonstone_total > 0) {
-        if_sethide(crafting_gold:com_78, false);
-        if_setobject(crafting_gold:com_77, dragon_necklace, 1);
+        if_sethide(crafting_gold:dragonstone_necklace, false);
+        if_setobject(crafting_gold:dragon_dark2, dragon_necklace, 1);
     } else {
-        if_sethide(crafting_gold:com_78, true);
-        if_setobject(crafting_gold:com_77, black_necklace, 1);
+        if_sethide(crafting_gold:dragonstone_necklace, true);
+        if_setobject(crafting_gold:dragon_dark2, black_necklace, 1);
     }
 } else {
     // normalize: show "You need a necklace mould to craft necklaces." (default)
@@ -240,44 +240,44 @@ if (inv_total(inv, amulet_mould) > 0) {
     if_sethide(crafting_gold:com_26, true); // hide "You need a amulet mould to craft amulets."
     if_sethide(crafting_gold:com_27, false);
 
-    if_setobject(crafting_gold:com_52, gold_amulet, 1);
-    if_sethide(crafting_gold:com_53, false);
+    if_setobject(crafting_gold:gold_dark3, gold_amulet, 1);
+    if_sethide(crafting_gold:gold_amulet, false);
     // if they have one or more of corresponding gem, show corresponding amulet
     if ($sapphire_total > 0) {
         //sets slot to the invisable amulet
-        if_sethide(crafting_gold:com_55, false);
-        if_setobject(crafting_gold:com_54, sapphire_amulet, 1);
+        if_sethide(crafting_gold:sapphire_amulet, false);
+        if_setobject(crafting_gold:sapphire_dark3, sapphire_amulet, 1);
     } else {
-        if_sethide(crafting_gold:com_55, true);
-        if_setobject(crafting_gold:com_54, black_amulet, 1);
+        if_sethide(crafting_gold:sapphire_amulet, true);
+        if_setobject(crafting_gold:sapphire_dark3, black_amulet, 1);
     }
     if ($emerald_total > 0) {
-        if_sethide(crafting_gold:com_57, false);
-        if_setobject(crafting_gold:com_56, emerald_amulet, 1);
+        if_sethide(crafting_gold:emerald_amulet, false);
+        if_setobject(crafting_gold:emerald_dark3, emerald_amulet, 1);
     } else {
-        if_sethide(crafting_gold:com_57, true);
-        if_setobject(crafting_gold:com_56, black_amulet, 1);
+        if_sethide(crafting_gold:emerald_amulet, true);
+        if_setobject(crafting_gold:emerald_dark3, black_amulet, 1);
     }
     if ($ruby_total > 0) {
-        if_sethide(crafting_gold:com_59, false);
-        if_setobject(crafting_gold:com_58, ruby_amulet, 1);
+        if_sethide(crafting_gold:ruby_amulet, false);
+        if_setobject(crafting_gold:ruby_dark3, ruby_amulet, 1);
     } else {
-        if_sethide(crafting_gold:com_59, true);
-        if_setobject(crafting_gold:com_58, black_amulet, 1);
+        if_sethide(crafting_gold:ruby_amulet, true);
+        if_setobject(crafting_gold:ruby_dark3, black_amulet, 1);
     }
     if ($diamond_total > 0) {
-        if_sethide(crafting_gold:com_61, false);
-        if_setobject(crafting_gold:com_60, diamond_amulet, 1);
+        if_sethide(crafting_gold:diamond_amulet, false);
+        if_setobject(crafting_gold:diamond_dark3, diamond_amulet, 1);
     } else {
-        if_sethide(crafting_gold:com_61, true);
-        if_setobject(crafting_gold:com_60, black_amulet, 1);
+        if_sethide(crafting_gold:diamond_amulet, true);
+        if_setobject(crafting_gold:diamond_dark3, black_amulet, 1);
     }
     if ($dragonstone_total > 0) {
-        if_sethide(crafting_gold:com_63, false);
-        if_setobject(crafting_gold:com_62, dragonstone_ammy, 1);
+        if_sethide(crafting_gold:dragonstone_amulet, false);
+        if_setobject(crafting_gold:dragon_dark3, dragonstone_ammy, 1);
     } else {
-        if_sethide(crafting_gold:com_63, true);
-        if_setobject(crafting_gold:com_62, black_amulet, 1);
+        if_sethide(crafting_gold:dragonstone_amulet, true);
+        if_setobject(crafting_gold:dragon_dark3, black_amulet, 1);
     }
 } else {
     // normalize: show "You need an amulet mould to craft amulets." (default)
@@ -288,19 +288,19 @@ if (inv_total(inv, amulet_mould) > 0) {
 // 2011's onyx items and slayer ring, and its bracelets' row (title, model,
 // "You need a bracelet mould", items), which 289 does not make. Its keys' row
 // is hidden in the cache.
-if_sethide(crafting_gold:com_93, true);
-if_sethide(crafting_gold:com_94, true);
-if_sethide(crafting_gold:com_95, true);
-if_sethide(crafting_gold:com_96, true);
-if_sethide(crafting_gold:com_97, true);
-if_sethide(crafting_gold:com_79, true);
-if_sethide(crafting_gold:com_80, true);
-if_sethide(crafting_gold:com_64, true);
-if_sethide(crafting_gold:com_65, true);
-if_sethide(crafting_gold:com_28, true);
+if_sethide(crafting_gold:onyx_dark1, true);
+if_sethide(crafting_gold:onyx_ring, true);
+if_sethide(crafting_gold:onyx_dark6, true);
+if_sethide(crafting_gold:slayer_dark1, true);
+if_sethide(crafting_gold:slayer_ring, true);
+if_sethide(crafting_gold:onyx_dark2, true);
+if_sethide(crafting_gold:onyx_necklace, true);
+if_sethide(crafting_gold:onyx_dark3, true);
+if_sethide(crafting_gold:onyx_amulet, true);
+if_sethide(crafting_gold:bracelet_title, true);
 if_sethide(crafting_gold:com_29, true);
-if_sethide(crafting_gold:com_30, true);
-if_sethide(crafting_gold:com_31, true);
+if_sethide(crafting_gold:need_bracelet_mould, true);
+if_sethide(crafting_gold:got_bracelet_mould, true);
 // open jewelry interface
 if_openmain(crafting_gold);
 //----------------------
@@ -441,17 +441,17 @@ p_delay(2);
 ~craft_silver_row(crafting_silver_casting:com_15, crafting_silver_casting:com_17, crafting_silver_casting:com_19, crafting_silver_casting:com_20, holy_mould, unstrung_symbol);
 ~craft_silver_row(crafting_silver_casting:com_22, crafting_silver_casting:com_24, crafting_silver_casting:com_26, crafting_silver_casting:com_27, unholy_mould, unstrung_emblem);
 if (map_members = ^true) {
-    ~craft_silver_row(crafting_silver_casting:com_29, crafting_silver_casting:com_31, crafting_silver_casting:com_33, crafting_silver_casting:com_34, sickle_mould, silver_sickle);
+    ~craft_silver_row(crafting_silver_casting:silvercast_sickle, crafting_silver_casting:com_31, crafting_silver_casting:com_33, crafting_silver_casting:com_34, sickle_mould, silver_sickle);
 } else {
-    if_sethide(crafting_silver_casting:com_29, true);
+    if_sethide(crafting_silver_casting:silvercast_sickle, true);
     if_sethide(crafting_silver_casting:com_33, true);
 }
 // 2011's rows that 289 does not make; their mould layers are hidden in the
 // cache.
-if_sethide(crafting_silver_casting:com_36, true);
-if_sethide(crafting_silver_casting:com_43, true);
-if_sethide(crafting_silver_casting:com_50, true);
-if_sethide(crafting_silver_casting:com_58, true);
+if_sethide(crafting_silver_casting:silvercast_lightning, true);
+if_sethide(crafting_silver_casting:silvercast_tiara, true);
+if_sethide(crafting_silver_casting:silvercast_commandrod, true);
+if_sethide(crafting_silver_casting:silvercast_agrith, true);
 if_sethide(crafting_silver_casting:com_65, true);
 if_sethide(crafting_silver_casting:com_72, true);
 if_sethide(crafting_silver_casting:com_78, true);
@@ -482,10 +482,10 @@ if (inv_total(inv, $mould) > 0) {
 [if_button3,crafting_silver_casting:com_23] @craft_silver_make(unstrung_emblem, ^crafting_make_all);
 [if_button4,crafting_silver_casting:com_23] @craft_silver_make(unstrung_emblem, ^crafting_make_x);
 // Silver sickle
-[if_button1,crafting_silver_casting:com_30] @craft_silver_make(silver_sickle, 1);
-[if_button2,crafting_silver_casting:com_30] @craft_silver_make(silver_sickle, 5);
-[if_button3,crafting_silver_casting:com_30] @craft_silver_make(silver_sickle, ^crafting_make_all);
-[if_button4,crafting_silver_casting:com_30] @craft_silver_make(silver_sickle, ^crafting_make_x);
+[if_button1,crafting_silver_casting:silver_sickle_x] @craft_silver_make(silver_sickle, 1);
+[if_button2,crafting_silver_casting:silver_sickle_x] @craft_silver_make(silver_sickle, 5);
+[if_button3,crafting_silver_casting:silver_sickle_x] @craft_silver_make(silver_sickle, ^crafting_make_all);
+[if_button4,crafting_silver_casting:silver_sickle_x] @craft_silver_make(silver_sickle, ^crafting_make_x);
 
 // 289's craft_silver from its choice on.
 [label,craft_silver_make](namedobj $product, int $count)

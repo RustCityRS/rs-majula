@@ -83,7 +83,7 @@ height=32
 graphic="v2_stone_borders,7"
 
 // 646:9
-[com_9]
+[sand_timer]
 type=model
 x=185
 y=31
@@ -120,7 +120,7 @@ textshadow=yes
 colour=0xff981f
 
 // 646:12
-[com_12]
+[continue_button]
 type=graphic
 x=472
 y=21
@@ -133,7 +133,7 @@ onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,3")
 onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,2")
 
 // 646:13
-[com_13]
+[continue_text]
 type=text
 x=42
 y=21

@@ -7,18 +7,18 @@
 %varclient_1854 = %varclient_1860;
 %varclient_1855 = %varclient_1861;
 if ($int0 = 1) {
-    if_settext(append("<u=ebe0bc>", %varclient_1850), playerdesign4:com_158);
-    if_settext(append("<u=ebe0bc>", %varclient_1851), playerdesign4:com_159);
-    if_settext(append("<u=ebe0bc>", %varclient_1852), playerdesign4:com_160);
-    if_settext(append("<u=ebe0bc>", %varclient_1853), playerdesign4:com_161);
-    if_settext(append("<u=ebe0bc>", %varclient_1854), playerdesign4:com_162);
-    if_settext(append("<u=ebe0bc>", %varclient_1855), playerdesign4:com_163);
+    if_settext(append("<u=ebe0bc>", %varclient_1850), playerdesign4:suggestion_1);
+    if_settext(append("<u=ebe0bc>", %varclient_1851), playerdesign4:suggestion_2);
+    if_settext(append("<u=ebe0bc>", %varclient_1852), playerdesign4:suggestion_3);
+    if_settext(append("<u=ebe0bc>", %varclient_1853), playerdesign4:suggestion_4);
+    if_settext(append("<u=ebe0bc>", %varclient_1854), playerdesign4:suggestion_5);
+    if_settext(append("<u=ebe0bc>", %varclient_1855), playerdesign4:suggestion_6);
 } else {
-    if_settext(append("<u=ebe0bc>", %varclient_1850), no_displayname:com_37);
-    if_settext(append("<u=ebe0bc>", %varclient_1851), no_displayname:com_38);
-    if_settext(append("<u=ebe0bc>", %varclient_1852), no_displayname:com_39);
-    if_settext(append("<u=ebe0bc>", %varclient_1853), no_displayname:com_40);
-    if_settext(append("<u=ebe0bc>", %varclient_1854), no_displayname:com_41);
-    if_settext(append("<u=ebe0bc>", %varclient_1855), no_displayname:com_42);
+    if_settext(append("<u=ebe0bc>", %varclient_1850), no_displayname:suggestion_1);
+    if_settext(append("<u=ebe0bc>", %varclient_1851), no_displayname:suggestion_2);
+    if_settext(append("<u=ebe0bc>", %varclient_1852), no_displayname:suggestion_3);
+    if_settext(append("<u=ebe0bc>", %varclient_1853), no_displayname:suggestion_4);
+    if_settext(append("<u=ebe0bc>", %varclient_1854), no_displayname:suggestion_5);
+    if_settext(append("<u=ebe0bc>", %varclient_1855), no_displayname:suggestion_6);
 }
 ~script3947(%varclient_1850, %varclient_1851, %varclient_1852, %varclient_1853, %varclient_1854, %varclient_1855, $int0);

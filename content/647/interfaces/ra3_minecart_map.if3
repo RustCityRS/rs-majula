@@ -1,0 +1,187 @@
+// 889:0
+[map_background]
+type=model
+x=-65
+y=-42
+width=641
+height=423
+model=model_48605
+modelorigin=6,-2
+modelzoom=530
+
+// 889:1
+[map_details]
+type=model
+x=-22
+y=-3
+width=564
+height=434
+model=model_48504
+modelorigin=5,33
+modelangle=22,0,0
+modelzoom=657
+
+// 889:2
+[map_compass]
+type=model
+x=-112
+y=-83
+width=619
+height=419
+model=model_48604
+modelorigin=56,38
+modelzoom=660
+
+// 889:3
+[ice_mountain_layer]
+type=layer
+x=218
+y=125
+width=99
+height=86
+pausebutton=yes
+opbase=Ice Mountain
+pausetext=Travel to Ice Mountain
+
+// 889:4
+[map_waves]
+type=model
+x=-33
+y=77
+width=481
+height=330
+model=model_48508
+modelorigin=48,-81
+modelzoom=660
+
+// 889:5
+[white_wolf_mountain_1]
+type=model
+x=31
+y=131
+width=86
+height=93
+model=model_48503
+modelorigin=165,64
+modelzoom=800
+
+// 889:6
+[white_wolf_mountain_layer]
+type=layer
+x=9
+y=104
+width=162
+height=127
+pausebutton=yes
+opbase=White Wolf Mountain
+pausetext=Travel to White Wolf Mountain
+
+// 889:7
+[ice_mountain_1]
+type=model
+x=268
+y=147
+width=47
+height=59
+model=model_48502
+modelorigin=-18,67
+modelzoom=800
+
+// 889:8
+[grand_exchange_1]
+type=model
+x=446
+y=153
+width=38
+height=38
+model=model_48506
+modelorigin=-184,72
+modelzoom=800
+
+// 889:9
+[tracks_1]
+type=model
+x=130
+y=171
+width=101
+height=14
+model=model_48509
+modelorigin=62,71
+modelzoom=800
+
+// 889:10
+[tracks_2]
+type=model
+x=333
+y=171
+width=101
+height=14
+model=model_48509
+modelorigin=62,71
+modelzoom=800
+transmitop=10
+op10= 
+
+// 889:11
+[grand_exchange]
+type=text
+x=419
+y=196
+width=99
+height=58
+textfont=luc2_font_scratch
+text=Grand Exchange
+textlineheight=15
+textalignh=centre
+colour=0x640c0c
+
+// 889:12
+[white_wolf_mountain]
+type=text
+x=40
+y=106
+width=96
+height=17
+textfont=luc2_font_scratch
+text=White Wolf Mountain
+textalignh=centre
+colour=0x640c0c
+
+// 889:13
+[ice_mountain]
+type=text
+x=221
+y=127
+width=88
+height=17
+textfont=luc2_font_scratch
+text=Ice Mountain
+colour=0x640c0c
+
+// 889:14
+[close_button]
+type=graphic
+x=492
+y=4
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+pausebutton=yes
+transmitop=10
+pausetext=Close
+op10= 
+onmouseover=graphic_swapper(ra3_minecart_map:close_button, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(ra3_minecart_map:close_button, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 889:15
+[grand_exchange_layer]
+type=layer
+x=431
+y=151
+width=76
+height=93
+pausebutton=yes
+opbase=Grand Exchange
+pausetext=Travel to the Grand Exchange

@@ -1,6 +1,6 @@
 // 654
 [clientscript,stockcollect_onload]
-if_setoninvtransmit("stockcollect_refresh{inv_523, inv_524, inv_525, inv_526, inv_527, inv_528, inv_540}", stockcollect:com_16);
-if_setonstocktransmit("stockcollect_refresh", stockcollect:com_16);
-if_setonvartransmit("stockcollect_refresh{varplayer_1267, varplayer_1269}", stockcollect:com_16);
+if_setoninvtransmit("stockcollect_refresh{inv_523, inv_524, inv_525, inv_526, inv_527, inv_528, inv_540}", stockcollect:title);
+if_setonstocktransmit("stockcollect_refresh", stockcollect:title);
+if_setonvartransmit("stockcollect_refresh{varplayer_1267, varplayer_1269}", stockcollect:title);
 ~stockcollect_refresh;

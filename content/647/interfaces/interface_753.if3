@@ -9,7 +9,7 @@ colour=0x000000
 fill=yes
 
 // 753:1
-[com_1]
+[fullscreen_interface]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -17,7 +17,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 753:2
-[com_2]
+[mainoverlay]
 type=layer
 x=-1
 y=-1
@@ -26,7 +26,7 @@ height=1
 hide=yes
 
 // 753:3
-[com_3]
+[mainoverlay_clipped]
 type=layer
 x=-1
 y=-1
@@ -35,7 +35,7 @@ height=1
 hide=yes
 
 // 753:4
-[com_4]
+[mainmodal]
 type=layer
 x=-1
 y=-1
@@ -44,7 +44,7 @@ height=1
 hide=yes
 
 // 753:5
-[com_5]
+[chattop]
 type=layer
 x=-1
 y=-1
@@ -53,7 +53,7 @@ height=1
 hide=yes
 
 // 753:6
-[com_6]
+[pmchat]
 type=layer
 x=-1
 y=-1
@@ -62,7 +62,7 @@ height=1
 hide=yes
 
 // 753:7
-[com_7]
+[filterbuttons]
 type=layer
 x=-1
 y=-1
@@ -71,7 +71,7 @@ height=1
 hide=yes
 
 // 753:8
-[com_8]
+[sidemodal]
 type=layer
 x=-1
 y=-1
@@ -80,7 +80,7 @@ height=1
 hide=yes
 
 // 753:9
-[com_9]
+[sidemodal2]
 type=layer
 x=-1
 y=-1
@@ -91,7 +91,7 @@ transmitop=10
 op10= 
 
 // 753:10
-[com_10]
+[side0]
 type=layer
 x=-1
 y=-1
@@ -100,7 +100,7 @@ height=1
 hide=yes
 
 // 753:11
-[com_11]
+[side1]
 type=layer
 x=-1
 y=-1
@@ -109,7 +109,7 @@ height=1
 hide=yes
 
 // 753:12
-[com_12]
+[side2]
 type=layer
 x=-1
 y=-1
@@ -118,7 +118,7 @@ height=1
 hide=yes
 
 // 753:13
-[com_13]
+[side3]
 type=layer
 x=-1
 y=-1
@@ -127,7 +127,7 @@ height=1
 hide=yes
 
 // 753:14
-[com_14]
+[side4]
 type=layer
 x=-1
 y=-1
@@ -136,7 +136,7 @@ height=1
 hide=yes
 
 // 753:15
-[com_15]
+[side5]
 type=layer
 x=-1
 y=-1
@@ -145,7 +145,7 @@ height=1
 hide=yes
 
 // 753:16
-[com_16]
+[side6]
 type=layer
 x=-1
 y=-1
@@ -154,7 +154,7 @@ height=1
 hide=yes
 
 // 753:17
-[com_17]
+[side7]
 type=layer
 x=-1
 y=-1
@@ -163,7 +163,7 @@ height=1
 hide=yes
 
 // 753:18
-[com_18]
+[side8]
 type=layer
 x=-1
 y=-1
@@ -172,7 +172,7 @@ height=1
 hide=yes
 
 // 753:19
-[com_19]
+[side9]
 type=layer
 x=-1
 y=-1
@@ -181,7 +181,7 @@ height=1
 hide=yes
 
 // 753:20
-[com_20]
+[side10]
 type=layer
 x=-1
 y=-1
@@ -190,7 +190,7 @@ height=1
 hide=yes
 
 // 753:21
-[com_21]
+[side11]
 type=layer
 x=-1
 y=-1
@@ -199,7 +199,7 @@ height=1
 hide=yes
 
 // 753:22
-[com_22]
+[side12]
 type=layer
 x=-1
 y=-1
@@ -208,7 +208,7 @@ height=1
 hide=yes
 
 // 753:23
-[com_23]
+[side13]
 type=layer
 x=-1
 y=-1
@@ -217,7 +217,7 @@ height=1
 hide=yes
 
 // 753:24
-[com_24]
+[side14]
 type=layer
 x=-1
 y=-1
@@ -228,7 +228,7 @@ transmitop=10
 op10= 
 
 // 753:25
-[com_25]
+[side15]
 type=layer
 x=-1
 y=-1
@@ -239,7 +239,7 @@ transmitop=10
 op10=  
 
 // 753:26
-[com_26]
+[side94]
 type=layer
 x=-1
 y=-1
@@ -250,7 +250,7 @@ transmitop=10
 op10= 
 
 // 753:27
-[com_27]
+[side95]
 type=layer
 x=-1
 y=-1
@@ -259,7 +259,7 @@ height=1
 hide=yes
 
 // 753:28
-[com_28]
+[side99]
 type=layer
 x=-1
 y=-1
@@ -268,7 +268,7 @@ height=1
 hide=yes
 
 // 753:29
-[com_29]
+[topstat_hitpoints]
 type=layer
 x=-1
 y=-1
@@ -277,7 +277,7 @@ height=1
 hide=yes
 
 // 753:30
-[com_30]
+[topstat_prayer]
 type=layer
 x=-1
 y=-1
@@ -286,7 +286,7 @@ height=1
 hide=yes
 
 // 753:31
-[com_31]
+[topstat_run]
 type=layer
 x=-1
 y=-1
@@ -295,7 +295,7 @@ height=1
 hide=yes
 
 // 753:32
-[com_32]
+[topstat_lore]
 type=layer
 x=-1
 y=-1
@@ -304,7 +304,7 @@ height=1
 hide=yes
 
 // 753:33
-[com_33]
+[statusicons]
 type=layer
 x=-1
 y=-1
@@ -321,7 +321,7 @@ heightmode=minus
 xmode=abs_centre
 
 // 753:35
-[com_35]
+[no_displayname_layer]
 type=layer
 widthmode=minus
 heightmode=minus

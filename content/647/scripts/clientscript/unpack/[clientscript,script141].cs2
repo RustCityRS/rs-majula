@@ -1,8 +1,8 @@
 // 141
 [clientscript,script141]
 if (%offer_modified = 1) {
-    if_sethide(false, trademain:com_39);
+    if_sethide(false, trademain:trade_removed_warning_left);
 }
 if (%other_offer_modified = 1) {
-    if_sethide(false, trademain:com_40);
+    if_sethide(false, trademain:trade_removed_warning_right);
 }

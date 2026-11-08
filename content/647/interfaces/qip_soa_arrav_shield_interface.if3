@@ -16,26 +16,26 @@ modelobjwidth=595
 modelobjheight=416
 
 // 526:1
-[com_1]
+[qip_soa_arrav_certificate_whole]
 type=model
 x=5
 y=3
 width=497
 height=363
-layer=com_5
+layer=layer_1
 model=model_25720
 modelorigin=0,-13
 modelangle=539,0,0
 modelzoom=451
 
 // 526:2
-[com_2]
+[qip_soa_arrav_certificate]
 type=text
 x=100
 y=77
 width=300
 height=151
-layer=com_5
+layer=layer_1
 textfont=q8_full
 text=This is an interface type test.
 colour=0x332208
@@ -47,12 +47,12 @@ x=34
 y=34
 width=32
 height=32
-layer=com_5
+layer=layer_1
 model=null
 modelzoom=400
 
 // 526:4
-[com_4]
+[close]
 type=graphic
 x=239
 y=-150
@@ -60,17 +60,17 @@ width=26
 height=23
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=layer_1
 graphic="close_buttons,6"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(qip_soa_arrav_shield_interface:com_4, "close_buttons,7")
-onmouseleave=graphic_swapper(qip_soa_arrav_shield_interface:com_4, "close_buttons,6")
+onmouseover=graphic_swapper(qip_soa_arrav_shield_interface:close, "close_buttons,7")
+onmouseleave=graphic_swapper(qip_soa_arrav_shield_interface:close, "close_buttons,6")
 onop=closebutton_click
 
 // 526:5
-[com_5]
+[layer_1]
 type=layer
 width=512
 height=334

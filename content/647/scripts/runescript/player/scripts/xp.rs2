@@ -72,7 +72,7 @@ runclientscript("script776()");
 if (%doublexp_setupflag = 0) {
     return(1000);
 }
-return(~doublexp_multiplier_for_stat(16));
+return(~script338(16));
 
 // Advance the Bonus-XP elapsed clock once per game-minute while the event is active.
 // Started/reset by [login] via settimer(doublexp_elapsed, 100) — 100 ticks = 1 min.
@@ -88,13 +88,13 @@ if (%doublexp_setupflag = 1) {
 
 // Orb "Reset XP Total" (op8 on the XP orb), one per gameframe. op1 "Toggle XP Total"
 // is handled entirely client-side (clientscript 811), so it needs no server trigger.
-[if_button8,toplevel:xp_orb]
+[if_button8,toplevel:xpx2smallbutton]
 if (p_finduid(uid) = false) {
     return;
 }
 %xp_counter = 0;
 
-[if_button8,toplevel_fullscreen:xp_orb]
+[if_button8,toplevel_fullscreen:xpx2smallbutton]
 if (p_finduid(uid) = false) {
     return;
 }

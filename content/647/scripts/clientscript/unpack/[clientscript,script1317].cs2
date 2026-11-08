@@ -1,14 +1,14 @@
 // 1317
 [clientscript,script1317]
-if_setmodel(model_18789, elem_magicpress_pipes:com_0);
-if_setmodel(model_18813, elem_magicpress_pipes:com_28);
-if_setmodel(model_18814, elem_magicpress_pipes:com_29);
+if_setmodel(model_18789, elem_magicpress_pipes:flashicontextures);
+if_setmodel(model_18813, elem_magicpress_pipes:sparepipe2m);
+if_setmodel(model_18814, elem_magicpress_pipes:sparepipe3m);
 if (%varplayerbit_4835 < 1) {
-    if_setmodel(null, elem_magicpress_pipes:com_29);
+    if_setmodel(null, elem_magicpress_pipes:sparepipe3m);
 }
 if (%varplayerbit_4835 < 2) {
-    if_setmodel(null, elem_magicpress_pipes:com_28);
+    if_setmodel(null, elem_magicpress_pipes:sparepipe2m);
 }
 if (%varplayerbit_4835 < 3) {
-    if_setmodel(null, elem_magicpress_pipes:com_0);
+    if_setmodel(null, elem_magicpress_pipes:flashicontextures);
 }

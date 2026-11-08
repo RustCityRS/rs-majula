@@ -1,247 +1,247 @@
 // 283:0
-[com_0]
+[ratcatcher_music_scroll]
 type=model
 x=16
 y=9
 width=488
 height=304
-layer=com_19
+layer=content_layer
 model=model_26397
 modelorigin=-2,31
 modelangle=495,2047,0
 modelzoom=1002
 
 // 283:1
-[com_1]
+[ratcatcher_flute_music1]
 type=model
 x=-39
 y=47
 width=257
 height=265
-layer=com_19
+layer=content_layer
 model=model_10098
 modelorigin=1,-6
 modelangle=512,0,0
 modelzoom=400
 
 // 283:2
-[com_2]
+[ratcatcher_flute_music2]
 type=model
 x=6
 y=53
 width=257
 height=265
-layer=com_19
+layer=content_layer
 model=model_10098
 modelorigin=1,-6
 modelangle=512,0,0
 modelzoom=400
 
 // 283:3
-[com_3]
+[ratcatcher_flute_music3]
 type=model
 x=55
 y=48
 width=257
 height=265
-layer=com_19
+layer=content_layer
 model=model_10098
 modelorigin=1,-6
 modelangle=512,0,0
 modelzoom=400
 
 // 283:4
-[com_4]
+[ratcatcher_flute_music4]
 type=model
 x=103
 y=42
 width=257
 height=265
-layer=com_19
+layer=content_layer
 model=model_10098
 modelorigin=1,-6
 modelangle=512,0,0
 modelzoom=400
 
 // 283:5
-[com_5]
+[ratcatcher_flute_music5]
 type=model
 x=153
 y=42
 width=257
 height=265
-layer=com_19
+layer=content_layer
 model=model_10098
 modelorigin=1,-6
 modelangle=512,0,0
 modelzoom=400
 
 // 283:6
-[com_6]
+[ratcatcher_flute_music6]
 type=model
 x=203
 y=47
 width=257
 height=265
-layer=com_19
+layer=content_layer
 model=model_10098
 modelorigin=1,-6
 modelangle=512,0,0
 modelzoom=400
 
 // 283:7
-[com_7]
+[ratcatcher_flute_music7]
 type=model
 x=246
 y=52
 width=257
 height=265
-layer=com_19
+layer=content_layer
 model=model_10098
 modelorigin=1,-6
 modelangle=512,0,0
 modelzoom=400
 
 // 283:8
-[com_8]
+[ratcatcher_flute_music8]
 type=model
 x=291
 y=55
 width=257
 height=265
-layer=com_19
+layer=content_layer
 model=model_10098
 modelorigin=1,-6
 modelangle=512,0,0
 modelzoom=400
 
 // 283:9
-[com_9]
+[rc_m1]
 type=model
 x=87
 y=139
 width=7
 height=79
-layer=com_19
+layer=content_layer
 model=model_10100
 modelangle=512,0,0
 modelzoom=400
 
 // 283:10
-[com_10]
+[rc_m2]
 type=model
 x=132
 y=145
 width=7
 height=79
-layer=com_19
+layer=content_layer
 model=model_10106
 modelangle=512,0,0
 modelzoom=400
 
 // 283:11
-[com_11]
+[rc_m3]
 type=model
 x=181
 y=141
 width=7
 height=79
-layer=com_19
+layer=content_layer
 model=model_10102
 modelangle=512,0,0
 modelzoom=400
 
 // 283:12
-[com_12]
+[rc_m4]
 type=model
 x=229
 y=134
 width=7
 height=79
-layer=com_19
+layer=content_layer
 model=model_10104
 modelangle=512,0,0
 modelzoom=400
 
 // 283:13
-[com_13]
+[rc_m5]
 type=model
 x=279
 y=135
 width=7
 height=79
-layer=com_19
+layer=content_layer
 model=model_10100
 modelangle=512,0,0
 modelzoom=400
 
 // 283:14
-[com_14]
+[rc_m6]
 type=model
 x=329
 y=139
 width=7
 height=79
-layer=com_19
+layer=content_layer
 model=model_10110
 modelangle=512,0,0
 modelzoom=400
 
 // 283:15
-[com_15]
+[rc_m7]
 type=model
 x=370
 y=141
 width=11
 height=83
-layer=com_19
+layer=content_layer
 model=model_10112
 modelangle=512,0,0
 modelzoom=400
 
 // 283:16
-[com_16]
+[rc_m8]
 type=model
 x=417
 y=147
 width=7
 height=79
-layer=com_19
+layer=content_layer
 model=model_10108
 modelangle=512,0,0
 modelzoom=400
 
 // 283:17
-[com_17]
+[rc_music_sharp]
 type=model
 x=263
 y=34
 width=45
 height=41
-layer=com_19
+layer=content_layer
 model=model_10116
 modelorigin=3,1
 modelangle=512,0,0
 modelzoom=541
 
 // 283:18
-[com_18]
+[close_button]
 type=graphic
 x=443
 y=40
 width=26
 height=23
-layer=com_19
+layer=content_layer
 graphic="close_buttons,6"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(ratcatcher_flute_music:com_18, "close_buttons,7")
-onmouseleave=graphic_swapper(ratcatcher_flute_music:com_18, "close_buttons,6")
+onmouseover=graphic_swapper(ratcatcher_flute_music:close_button, "close_buttons,7")
+onmouseleave=graphic_swapper(ratcatcher_flute_music:close_button, "close_buttons,6")
 onop=closebutton_click
 
 // 283:19
-[com_19]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -249,7 +249,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 283:20
-[com_20]
+[close_buttonb]
 type=graphic
 x=-260
 y=-4
@@ -259,8 +259,8 @@ graphic="close_buttons,6"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(ratcatcher_flute_music:com_18, "close_buttons,7")
-onmouseleave=graphic_swapper(ratcatcher_flute_music:com_18, "close_buttons,6")
+onmouseover=graphic_swapper(ratcatcher_flute_music:close_button, "close_buttons,7")
+onmouseleave=graphic_swapper(ratcatcher_flute_music:close_button, "close_buttons,6")
 onop=closebutton_click
 
 // 283:21
@@ -274,7 +274,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 283:22
-[com_22]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -385,7 +385,7 @@ tiling=yes
 colour=0xffffffff
 
 // 283:31
-[com_31]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -393,30 +393,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_22
+layer=fsborder_resizing_layer
 
 // 283:32
-[com_32]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_22
+layer=fsborder_resizing_layer
 
 // 283:33
-[com_33]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_22
+layer=fsborder_resizing_layer
 
 // 283:34
-[com_34]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -424,16 +424,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_22
+layer=fsborder_resizing_layer
 
 // 283:35
-[com_35]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_22
+layer=fsborder_resizing_layer
 
 // 283:36
 [com_36]
@@ -443,7 +443,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_32
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -458,7 +458,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_31
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -472,7 +472,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_33
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -487,7 +487,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_34
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

@@ -1,12 +1,12 @@
 // 134
 [clientscript,snapshot_mutetoggle]
 if (playermodlevel = 5 | playermodlevel = 6) {
-    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com_83);
-    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com_10);
+    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:mutetoggle);
+    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:mutetoggle_offence);
     if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com_60);
 } else {
-    if_settext("Mute this player for 48 hours", snapshot_main_v2:com_83);
-    if_settext("Mute this player for 48 hours", snapshot_main_v2:com_10);
+    if_settext("Mute this player for 48 hours", snapshot_main_v2:mutetoggle);
+    if_settext("Mute this player for 48 hours", snapshot_main_v2:mutetoggle_offence);
     if_settext("Mute this player for 48 hours", snapshot_main_v2:com_60);
 }
 if (%varclient_6 = true) {

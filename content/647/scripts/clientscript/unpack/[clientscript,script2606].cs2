@@ -45,16 +45,16 @@ switch_int (%varclient_929) {
         }
 }
 switch_component ($component0) {
-    case mob_squad_exchange:com_119 :
+    case mob_squad_exchange:resupply_all :
         if (inv_totalparam(inv, param_803) = 0) {
             mes("You have no squads that need resupplying.");
         } else {
             mes("You do not have sufficient investment credits to resupply all your squads.");
         }
-    case mob_squad_exchange:com_122 :
+    case mob_squad_exchange:apply :
         mes("You do not have sufficient investment credits to apply the selected changes.");
     case mob_squad_exchange:com_102, mob_squad_exchange:com_104, mob_squad_exchange:com_103, mob_squad_exchange:com_110, mob_squad_exchange:com_111 :
         mes("You must resupply this squad first.");
-    case mob_squad_exchange:com_113 :
+    case mob_squad_exchange:resupply :
         mes("This squad does not need resupplying.");
 }

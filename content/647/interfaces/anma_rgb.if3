@@ -1,32 +1,32 @@
 // 480:0
-[com_0]
+[anma_rect]
 type=rectangle
 width=513
 height=334
-layer=com_57
+layer=contents
 colour=0x736550
 fill=yes
 trans=50
 
 // 480:1
-[com_1]
+[anma_white_rect]
 type=rectangle
 x=81
 y=5
 width=361
 height=276
-layer=com_57
+layer=contents
 colour=0xe6d2a9
 fill=yes
 
 // 480:2
-[com_2]
+[exit]
 type=graphic
 x=468
 y=10
 width=26
 height=23
-layer=com_57
+layer=contents
 graphic="close_buttons,4"
 colour=0x000000
 transmitop=1
@@ -36,353 +36,353 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,4")
 onclick=closebutton_click
 
 // 480:3
-[com_3]
+[anma_complete_a_layer]
 type=layer
 x=84
 y=7
 width=356
 height=271
-layer=com_57
+layer=contents
 
 // 480:4
-[com_4]
+[anma_complete_b_layer]
 type=layer
 x=84
 y=7
 width=356
 height=271
-layer=com_57
+layer=contents
 
 // 480:5
-[com_5]
+[anma_complete_c_layer]
 type=layer
 x=84
 y=7
 width=356
 height=271
-layer=com_57
+layer=contents
 
 // 480:6
-[com_6]
+[anma_random_1_layer]
 type=layer
 x=84
 y=7
 width=356
 height=271
-layer=com_57
+layer=contents
 
 // 480:7
-[com_7]
+[anma_random_2_layer]
 type=layer
 x=84
 y=7
 width=356
 height=271
-layer=com_57
+layer=contents
 
 // 480:8
-[com_8]
+[anma_random_3_layer]
 type=layer
 x=84
 y=7
 width=356
 height=271
-layer=com_57
+layer=contents
 
 // 480:9
-[com_9]
+[anma_random_4_layer]
 type=layer
 x=84
 y=7
 width=356
 height=271
-layer=com_57
+layer=contents
 
 // 480:10
-[com_10]
+[anma_random_5_layer]
 type=layer
 x=84
 y=7
 width=356
 height=271
-layer=com_57
+layer=contents
 
 // 480:11
-[com_11]
+[anma_random_6_layer]
 type=layer
 x=84
 y=7
 width=356
 height=271
-layer=com_57
+layer=contents
 
 // 480:12
-[com_12]
+[anma_button_1_layer]
 type=layer
 x=46
 y=290
 width=32
 height=32
-layer=com_57
+layer=contents
 
 // 480:13
-[com_13]
+[anma_button_2_layer]
 type=layer
 x=94
 y=290
 width=32
 height=32
-layer=com_57
+layer=contents
 
 // 480:14
-[com_14]
+[anma_button_3_layer]
 type=layer
 x=142
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 
 // 480:15
-[com_15]
+[anma_button_4_layer]
 type=layer
 x=191
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 
 // 480:16
-[com_16]
+[anma_button_5_layer]
 type=layer
 x=238
 y=288
 width=32
 height=32
-layer=com_57
+layer=contents
 
 // 480:17
-[com_17]
+[anma_button_6_layer]
 type=layer
 x=285
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 
 // 480:18
-[com_18]
+[anma_button_7_layer]
 type=layer
 x=335
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 
 // 480:19
-[com_19]
+[anma_button_8_layer]
 type=layer
 x=381
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 
 // 480:20
-[com_20]
+[anma_button_9_layer]
 type=layer
 x=430
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 
 // 480:21
-[com_21]
+[anma_button_1_layer_1_off]
 type=layer
 x=46
 y=290
 width=32
 height=32
-layer=com_57
+layer=contents
 hide=yes
 
 // 480:22
-[com_22]
+[anma_button_2_layer_1_off]
 type=layer
 x=94
 y=290
 width=32
 height=32
-layer=com_57
+layer=contents
 hide=yes
 
 // 480:23
-[com_23]
+[anma_button_3_layer_1_off]
 type=layer
 x=142
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 hide=yes
 
 // 480:24
-[com_24]
+[anma_button_4_layer_1_off]
 type=layer
 x=191
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 hide=yes
 
 // 480:25
-[com_25]
+[anma_button_5_layer_1_off]
 type=layer
 x=238
 y=288
 width=32
 height=32
-layer=com_57
+layer=contents
 hide=yes
 
 // 480:26
-[com_26]
+[anma_button_6_layer_1_off]
 type=layer
 x=285
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 hide=yes
 
 // 480:27
-[com_27]
+[anma_button_7_layer_1_off]
 type=layer
 x=335
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 hide=yes
 
 // 480:28
-[com_28]
+[anma_button_8_layer_1_off]
 type=layer
 x=381
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 hide=yes
 
 // 480:29
-[com_29]
+[anma_button_9_layer_1_off]
 type=layer
 x=430
 y=289
 width=32
 height=32
-layer=com_57
+layer=contents
 hide=yes
 
 // 480:30
-[com_30]
+[anma_complete_a]
 type=model
 width=356
 height=273
-layer=com_3
+layer=anma_complete_a_layer
 model=model_20432
 modelorigin=1,-6
 modelzoom=1368
 
 // 480:31
-[com_31]
+[anma_complete_b]
 type=model
 width=356
 height=273
-layer=com_4
+layer=anma_complete_b_layer
 model=model_20433
 modelorigin=1,-6
 modelzoom=1368
 
 // 480:32
-[com_32]
+[anma_complete_c]
 type=model
 width=356
 height=273
-layer=com_5
+layer=anma_complete_c_layer
 model=model_20434
 modelorigin=1,-6
 modelzoom=1368
 
 // 480:33
-[com_33]
+[chat_bgbox_3]
 type=model
 width=356
 height=273
-layer=com_6
+layer=anma_random_1_layer
 model=model_20437
 modelorigin=1,-6
 modelzoom=1368
 
 // 480:34
-[com_34]
+[chat_bgbox_4]
 type=model
 width=356
 height=273
-layer=com_7
+layer=anma_random_2_layer
 model=model_20438
 modelorigin=1,-6
 modelzoom=1368
 
 // 480:35
-[com_35]
+[chat_bgbox_5]
 type=model
 width=356
 height=273
-layer=com_8
+layer=anma_random_3_layer
 model=model_20439
 modelorigin=1,-6
 modelzoom=1368
 
 // 480:36
-[com_36]
+[chat_bgbox_6]
 type=model
 width=356
 height=273
-layer=com_9
+layer=anma_random_4_layer
 model=model_20440
 modelorigin=1,-6
 modelzoom=1368
 
 // 480:37
-[com_37]
+[chat_bgbox_7]
 type=model
 width=356
 height=273
-layer=com_10
+layer=anma_random_5_layer
 model=model_20441
 modelorigin=1,-6
 modelzoom=1368
 
 // 480:38
-[com_38]
+[chat_bgbox_8]
 type=model
 width=356
 height=273
-layer=com_11
+layer=anma_random_6_layer
 model=model_20442
 modelorigin=1,-6
 modelzoom=1368
 
 // 480:39
-[com_39]
+[anma_buton_1_off]
 type=model
 width=32
 height=32
-layer=com_21
+layer=anma_button_1_layer_1_off
 model=model_20435
 modelangle=512,0,0
 modelzoom=2400
@@ -391,11 +391,11 @@ op1=Select
 opcursor0=cursor_46
 
 // 480:40
-[com_40]
+[anma_buton_1_on]
 type=model
 width=33
 height=33
-layer=com_12
+layer=anma_button_1_layer
 model=model_20436
 modelangle=512,0,0
 modelzoom=2400
@@ -403,11 +403,11 @@ transmitop=1
 op1=De-select
 
 // 480:41
-[com_41]
+[anma_buton_2_off]
 type=model
 width=32
 height=32
-layer=com_22
+layer=anma_button_2_layer_1_off
 model=model_20435
 modelangle=512,0,0
 modelzoom=2400
@@ -416,11 +416,11 @@ op1=Select
 opcursor0=cursor_46
 
 // 480:42
-[com_42]
+[anma_buton_2_on]
 type=model
 width=33
 height=33
-layer=com_13
+layer=anma_button_2_layer
 model=model_20436
 modelangle=512,0,0
 modelzoom=2400
@@ -428,11 +428,11 @@ transmitop=1
 op1=De-select
 
 // 480:43
-[com_43]
+[anma_buton_3_off]
 type=model
 width=32
 height=32
-layer=com_23
+layer=anma_button_3_layer_1_off
 model=model_20435
 modelangle=512,0,0
 modelzoom=2400
@@ -441,11 +441,11 @@ op1=Select
 opcursor0=cursor_46
 
 // 480:44
-[com_44]
+[anma_buton_3_on]
 type=model
 width=33
 height=33
-layer=com_14
+layer=anma_button_3_layer
 model=model_20436
 modelangle=512,0,0
 modelzoom=2400
@@ -453,11 +453,11 @@ transmitop=1
 op1=De-select
 
 // 480:45
-[com_45]
+[anma_buton_4_off]
 type=model
 width=32
 height=32
-layer=com_24
+layer=anma_button_4_layer_1_off
 model=model_20435
 modelangle=512,0,0
 modelzoom=2400
@@ -466,11 +466,11 @@ op1=Select
 opcursor0=cursor_46
 
 // 480:46
-[com_46]
+[anma_buton_4_on]
 type=model
 width=33
 height=33
-layer=com_15
+layer=anma_button_4_layer
 model=model_20436
 modelangle=512,0,0
 modelzoom=2400
@@ -478,12 +478,12 @@ transmitop=1
 op1=De-select
 
 // 480:47
-[com_47]
+[anma_buton_5_off]
 type=model
 y=1
 width=32
 height=32
-layer=com_25
+layer=anma_button_5_layer_1_off
 model=model_20435
 modelangle=512,0,0
 modelzoom=2400
@@ -492,12 +492,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 480:48
-[com_48]
+[anma_buton_5_on]
 type=model
 y=1
 width=33
 height=33
-layer=com_16
+layer=anma_button_5_layer
 model=model_20436
 modelangle=512,0,0
 modelzoom=2400
@@ -505,11 +505,11 @@ transmitop=1
 op1=De-select
 
 // 480:49
-[com_49]
+[anma_buton_6_off]
 type=model
 width=32
 height=32
-layer=com_26
+layer=anma_button_6_layer_1_off
 model=model_20435
 modelangle=512,0,0
 modelzoom=2400
@@ -518,11 +518,11 @@ op1=Select
 opcursor0=cursor_46
 
 // 480:50
-[com_50]
+[anma_buton_6_on]
 type=model
 width=33
 height=33
-layer=com_17
+layer=anma_button_6_layer
 model=model_20436
 modelangle=512,0,0
 modelzoom=2400
@@ -530,11 +530,11 @@ transmitop=1
 op1=De-select
 
 // 480:51
-[com_51]
+[anma_buton_7_off]
 type=model
 width=32
 height=32
-layer=com_27
+layer=anma_button_7_layer_1_off
 model=model_20435
 modelangle=512,0,0
 modelzoom=2400
@@ -543,11 +543,11 @@ op1=Select
 opcursor0=cursor_46
 
 // 480:52
-[com_52]
+[anma_buton_7_on]
 type=model
 width=33
 height=33
-layer=com_18
+layer=anma_button_7_layer
 model=model_20436
 modelangle=512,0,0
 modelzoom=2400
@@ -555,11 +555,11 @@ transmitop=1
 op1=De-select
 
 // 480:53
-[com_53]
+[anma_buton_8_off]
 type=model
 width=32
 height=32
-layer=com_28
+layer=anma_button_8_layer_1_off
 model=model_20435
 modelangle=512,0,0
 modelzoom=2400
@@ -568,11 +568,11 @@ op1=Select
 opcursor0=cursor_46
 
 // 480:54
-[com_54]
+[anma_buton_8_on]
 type=model
 width=33
 height=33
-layer=com_19
+layer=anma_button_8_layer
 model=model_20436
 modelangle=512,0,0
 modelzoom=2400
@@ -580,11 +580,11 @@ transmitop=1
 op1=De-select
 
 // 480:55
-[com_55]
+[anma_buton_9_off]
 type=model
 width=32
 height=32
-layer=com_29
+layer=anma_button_9_layer_1_off
 model=model_20435
 modelangle=512,0,0
 modelzoom=2400
@@ -593,11 +593,11 @@ op1=Select
 opcursor0=cursor_46
 
 // 480:56
-[com_56]
+[anma_buton_9_on]
 type=model
 width=33
 height=33
-layer=com_20
+layer=anma_button_9_layer
 model=model_20436
 modelangle=512,0,0
 modelzoom=2400
@@ -605,7 +605,7 @@ transmitop=1
 op1=De-select
 
 // 480:57
-[com_57]
+[contents]
 type=layer
 y=7
 width=512
@@ -614,7 +614,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 480:58
-[com_58]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -622,7 +622,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 480:59
-[com_59]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -632,7 +632,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 480:60
-[com_60]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -640,7 +640,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_59
+layer=fsborder_main_layer
 
 // 480:61
 [com_61]
@@ -743,7 +743,7 @@ tiling=yes
 colour=0x000000
 
 // 480:69
-[com_69]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -751,30 +751,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_60
+layer=fsborder_resizing_layer
 
 // 480:70
-[com_70]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_60
+layer=fsborder_resizing_layer
 
 // 480:71
-[com_71]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_60
+layer=fsborder_resizing_layer
 
 // 480:72
-[com_72]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -782,16 +782,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_60
+layer=fsborder_resizing_layer
 
 // 480:73
-[com_73]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_60
+layer=fsborder_resizing_layer
 
 // 480:74
 [com_74]
@@ -801,7 +801,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_70
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -816,7 +816,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_69
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -830,7 +830,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_71
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -845,7 +845,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_72
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

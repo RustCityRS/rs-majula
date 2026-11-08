@@ -1,11 +1,11 @@
 // 948:0
-[com_0]
+[main_layer]
 type=layer
 width=512
 height=334
 
 // 948:1
-[com_1]
+[confirm_close]
 type=graphic
 x=485
 y=3
@@ -25,10 +25,10 @@ onop=closebutton_click
 type=layer
 width=512
 height=334
-layer=com_0
+layer=main_layer
 
 // 948:3
-[com_3]
+[background_e]
 type=graphic
 x=7
 y=32
@@ -41,7 +41,7 @@ graphic="rand_smithing_edges,6"
 colour=0xffffffff
 
 // 948:4
-[com_4]
+[background_w]
 type=graphic
 x=7
 y=32
@@ -53,7 +53,7 @@ graphic="rand_smithing_edges,4"
 colour=0xffffffff
 
 // 948:5
-[com_5]
+[background_s]
 type=graphic
 x=17
 y=7
@@ -66,7 +66,7 @@ graphic="rand_smithing_edges,7"
 colour=0xffffffff
 
 // 948:6
-[com_6]
+[background_n]
 type=graphic
 x=17
 y=22
@@ -78,7 +78,7 @@ graphic="rand_smithing_edges,5"
 colour=0xffffffff
 
 // 948:7
-[com_7]
+[background_se]
 type=graphic
 x=7
 y=7
@@ -91,7 +91,7 @@ graphic="rand_smithing_edges,2"
 colour=0xffffffff
 
 // 948:8
-[com_8]
+[background_sw]
 type=graphic
 x=7
 y=7
@@ -103,7 +103,7 @@ graphic="rand_smithing_edges,3"
 colour=0xffffffff
 
 // 948:9
-[com_9]
+[background_ne]
 type=graphic
 x=7
 y=22
@@ -115,7 +115,7 @@ graphic="rand_smithing_edges,1"
 colour=0xffffffff
 
 // 948:10
-[com_10]
+[background_nw]
 type=graphic
 x=7
 y=22
@@ -126,7 +126,7 @@ graphic="rand_smithing_edges,0"
 colour=0xffffffff
 
 // 948:11
-[com_11]
+[background_image]
 type=graphic
 x=17
 y=32
@@ -137,7 +137,7 @@ graphic=rand_smithing_background_fill
 colour=0xffffffff
 
 // 948:12
-[com_12]
+[scroll_fill]
 type=graphic
 x=45
 y=58
@@ -151,7 +151,7 @@ tiling=yes
 colour=0xffffffff
 
 // 948:13
-[com_13]
+[scroll_n]
 type=graphic
 x=45
 y=26
@@ -164,7 +164,7 @@ tiling=yes
 colour=0xffffffff
 
 // 948:14
-[com_14]
+[scroll_s]
 type=graphic
 x=45
 y=13
@@ -178,7 +178,7 @@ tiling=yes
 colour=0xffffffff
 
 // 948:15
-[com_15]
+[scroll_1_nw]
 type=graphic
 x=13
 y=26
@@ -189,7 +189,7 @@ graphic="rand_journal_read,0"
 colour=0xffffffff
 
 // 948:16
-[com_16]
+[scroll_1_ne]
 type=graphic
 x=-16
 y=26
@@ -201,7 +201,7 @@ graphic="rand_journal_read,2"
 colour=0xffffffff
 
 // 948:17
-[com_17]
+[scroll_1_sw]
 type=graphic
 x=13
 y=289
@@ -212,7 +212,7 @@ graphic="rand_journal_read,6"
 colour=0xffffffff
 
 // 948:18
-[com_18]
+[scroll_1_se]
 type=graphic
 x=-16
 y=13
@@ -225,7 +225,7 @@ graphic="rand_journal_read,8"
 colour=0xffffffff
 
 // 948:19
-[com_19]
+[scroll_1_w]
 type=graphic
 x=13
 y=58
@@ -238,7 +238,7 @@ tiling=yes
 colour=0xffffffff
 
 // 948:20
-[com_20]
+[scroll_1_e]
 type=graphic
 x=-16
 y=58
@@ -252,7 +252,7 @@ tiling=yes
 colour=0xffffffff
 
 // 948:21
-[com_21]
+[scroll_2_se]
 type=graphic
 x=13
 y=291
@@ -268,7 +268,7 @@ transmitop=10
 op10= 
 
 // 948:22
-[com_22]
+[scroll_2_nw]
 type=graphic
 x=16
 y=26
@@ -283,7 +283,7 @@ transmitop=10
 op10= 
 
 // 948:23
-[com_23]
+[scroll_2_ne]
 type=graphic
 x=13
 y=275
@@ -300,7 +300,7 @@ transmitop=10
 op10= 
 
 // 948:24
-[com_24]
+[scroll_2_sw]
 type=graphic
 x=16
 y=13
@@ -316,7 +316,7 @@ transmitop=10
 op10= 
 
 // 948:25
-[com_25]
+[scroll_2_e]
 type=graphic
 x=13
 y=59
@@ -334,7 +334,7 @@ transmitop=10
 op10= 
 
 // 948:26
-[com_26]
+[scroll_2_w]
 type=graphic
 x=16
 y=58
@@ -351,7 +351,7 @@ transmitop=10
 op10= 
 
 // 948:27
-[com_27]
+[scroll_decal_1]
 type=graphic
 x=-17
 y=33
@@ -365,7 +365,7 @@ transmitop=10
 op10=  
 
 // 948:28
-[com_28]
+[scroll_decal_2]
 type=graphic
 x=174
 y=296
@@ -378,7 +378,7 @@ transmitop=10
 op10=  
 
 // 948:29
-[com_29]
+[scroll_decal_3]
 type=graphic
 x=460
 y=33
@@ -392,7 +392,7 @@ transmitop=10
 op10=  
 
 // 948:30
-[com_30]
+[scroll_decal_4]
 type=graphic
 x=345
 y=301
@@ -406,7 +406,7 @@ transmitop=10
 op10=  
 
 // 948:31
-[com_31]
+[scroll_decal_5]
 type=graphic
 x=316
 y=29
@@ -420,7 +420,7 @@ transmitop=10
 op10=  
 
 // 948:32
-[com_32]
+[scroll_2_alpha]
 type=graphic
 x=258
 y=33
@@ -435,7 +435,7 @@ transmitop=10
 op10=  
 
 // 948:33
-[com_33]
+[scroll_1_alpha]
 type=graphic
 x=68
 y=33
@@ -451,13 +451,13 @@ transmitop=10
 op10=   
 
 // 948:34
-[com_34]
+[border_title]
 type=text
 y=-4
 width=494
 height=32
 xmode=abs_centre
-layer=com_0
+layer=main_layer
 textfont=b12_full
 text=Dungeon Journal
 textalignh=centre
@@ -466,118 +466,118 @@ textshadow=yes
 colour=0xc69b01
 
 // 948:35
-[com_35]
+[bilrach_layer]
 type=layer
 x=32
 y=45
 width=214
 height=137
-layer=com_0
+layer=main_layer
 
 // 948:36
-[com_36]
+[bilrach_w]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
-layer=com_35
+layer=bilrach_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 
 // 948:37
-[com_37]
+[bilrach_e]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
 xmode=abs_right
-layer=com_35
+layer=bilrach_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
 
 // 948:38
-[com_38]
+[bilrach_s]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
 ymode=abs_bottom
-layer=com_35
+layer=bilrach_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 
 // 948:39
-[com_39]
+[bilrach_n]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
-layer=com_35
+layer=bilrach_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 
 // 948:40
-[com_40]
+[bilrach_se]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_35
+layer=bilrach_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
 
 // 948:41
-[com_41]
+[bilrach_sw]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_35
+layer=bilrach_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 
 // 948:42
-[com_42]
+[bilrach_ne]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_35
+layer=bilrach_layer
 graphic="rand_framea_edges,5"
 hflip=yes
 colour=0xffffffff
 
 // 948:43
-[com_43]
+[bilrach_nw]
 type=graphic
 width=15
 height=15
-layer=com_35
+layer=bilrach_layer
 graphic="rand_framea_edges,5"
 colour=0xffffffff
 
 // 948:44
-[com_44]
+[bilrach_divider]
 type=graphic
 x=2
 y=8
 width=4
 height=15
 widthmode=minus
-layer=com_35
+layer=bilrach_layer
 graphic="rand_framea_edges,6"
 vflip=yes
 colour=0xffffffff
 
 // 948:45
-[com_45]
+[bilrach_backdrop]
 type=rectangle
 x=2
 y=23
@@ -585,12 +585,12 @@ width=4
 height=38
 widthmode=minus
 heightmode=minus
-layer=com_35
+layer=bilrach_layer
 colour=0x221e18
 fill=yes
 
 // 948:46
-[com_46]
+[bilrach_alpha]
 type=graphic
 x=2
 y=23
@@ -598,126 +598,126 @@ width=4
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_35
+layer=bilrach_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
 
 // 948:47
-[com_47]
+[thorfin_torsteg_layer]
 type=layer
 x=265
 y=106
 width=214
 height=76
-layer=com_0
+layer=main_layer
 transmitop=10
 op10=    
 
 // 948:48
-[com_48]
+[thorfin_e]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
 xmode=abs_right
-layer=com_47
+layer=thorfin_torsteg_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
 
 // 948:49
-[com_49]
+[thorfin_w]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
-layer=com_47
+layer=thorfin_torsteg_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 
 // 948:50
-[com_50]
+[thorfin_s]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
 ymode=abs_bottom
-layer=com_47
+layer=thorfin_torsteg_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 
 // 948:51
-[com_51]
+[thorfin_n]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
-layer=com_47
+layer=thorfin_torsteg_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 
 // 948:52
-[com_52]
+[thorfin_se]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_47
+layer=thorfin_torsteg_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
 
 // 948:53
-[com_53]
+[thorfin_sw]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_47
+layer=thorfin_torsteg_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 
 // 948:54
-[com_54]
+[thorfin_ne]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_47
+layer=thorfin_torsteg_layer
 graphic="rand_framea_edges,5"
 2dangle=49152
 colour=0xffffffff
 
 // 948:55
-[com_55]
+[thorfin_nw]
 type=graphic
 width=15
 height=15
-layer=com_47
+layer=thorfin_torsteg_layer
 graphic="rand_framea_edges,5"
 colour=0xffffffff
 
 // 948:56
-[com_56]
+[thorfin_divider]
 type=graphic
 x=3
 y=8
 width=6
 height=15
 widthmode=minus
-layer=com_47
+layer=thorfin_torsteg_layer
 graphic="rand_framea_edges,6"
 vflip=yes
 colour=0xffffffff
 
 // 948:57
-[com_57]
+[thorfin_backdrop]
 type=rectangle
 x=3
 y=23
@@ -725,12 +725,12 @@ width=6
 height=38
 widthmode=minus
 heightmode=minus
-layer=com_47
+layer=thorfin_torsteg_layer
 colour=0x221e18
 fill=yes
 
 // 948:58
-[com_58]
+[thorfin_alpha]
 type=graphic
 x=2
 y=23
@@ -738,126 +738,126 @@ width=4
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_47
+layer=thorfin_torsteg_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
 
 // 948:59
-[com_59]
+[stalker_layer]
 type=layer
 x=32
 y=251
 width=214
 height=53
-layer=com_0
+layer=main_layer
 transmitop=10
 op10= 
 
 // 948:60
-[com_60]
+[stalker_e]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
 xmode=abs_right
-layer=com_59
+layer=stalker_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
 
 // 948:61
-[com_61]
+[stalker_w]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
-layer=com_59
+layer=stalker_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 
 // 948:62
-[com_62]
+[stalker_s]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
 ymode=abs_bottom
-layer=com_59
+layer=stalker_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 
 // 948:63
-[com_63]
+[stalker_n]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
-layer=com_59
+layer=stalker_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 
 // 948:64
-[com_64]
+[stalker_se]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_59
+layer=stalker_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
 
 // 948:65
-[com_65]
+[stalker_ne]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_59
+layer=stalker_layer
 graphic="rand_framea_edges,5"
 hflip=yes
 colour=0xffffffff
 
 // 948:66
-[com_66]
+[stalker_sw]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_59
+layer=stalker_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 
 // 948:67
-[com_67]
+[stalker_nw]
 type=graphic
 width=15
 height=15
-layer=com_59
+layer=stalker_layer
 graphic="rand_framea_edges,5"
 colour=0xffffffff
 
 // 948:68
-[com_68]
+[stalker_divider]
 type=graphic
 x=2
 y=8
 width=4
 height=15
 widthmode=minus
-layer=com_59
+layer=stalker_layer
 graphic="rand_framea_edges,6"
 vflip=yes
 colour=0xffffffff
 
 // 948:69
-[com_69]
+[stalker_backdrop]
 type=rectangle
 x=2
 y=23
@@ -865,12 +865,12 @@ width=4
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_59
+layer=stalker_layer
 colour=0x221e18
 fill=yes
 
 // 948:70
-[com_70]
+[stalker_alpha]
 type=graphic
 x=2
 y=23
@@ -878,31 +878,31 @@ width=4
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_59
+layer=stalker_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
 
 // 948:71
-[com_71]
+[behemoth_layer]
 type=layer
 x=265
 y=45
 width=214
 height=53
-layer=com_0
+layer=main_layer
 transmitop=10
 op10=  
 
 // 948:72
-[com_72]
+[behemoth_e]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
 xmode=abs_right
-layer=com_71
+layer=behemoth_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
@@ -910,53 +910,53 @@ transmitop=10
 op10= 
 
 // 948:73
-[com_73]
+[behemoth_w]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
-layer=com_71
+layer=behemoth_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 948:74
-[com_74]
+[behemoth_s]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
 ymode=abs_bottom
-layer=com_71
+layer=behemoth_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 948:75
-[com_75]
+[behemoth_n]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
-layer=com_71
+layer=behemoth_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 948:76
-[com_76]
+[behemoth_se]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_71
+layer=behemoth_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
@@ -964,12 +964,12 @@ transmitop=10
 op10= 
 
 // 948:77
-[com_77]
+[behemoth_ne]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_71
+layer=behemoth_layer
 graphic="rand_framea_edges,5"
 hflip=yes
 colour=0xffffffff
@@ -977,37 +977,37 @@ transmitop=10
 op10= 
 
 // 948:78
-[com_78]
+[behemoth_sw]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_71
+layer=behemoth_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 948:79
-[com_79]
+[behemoth_nw]
 type=graphic
 width=15
 height=15
-layer=com_71
+layer=behemoth_layer
 graphic="rand_framea_edges,5"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 948:80
-[com_80]
+[behemoth_divider]
 type=graphic
 x=2
 y=8
 width=4
 height=15
 widthmode=minus
-layer=com_71
+layer=behemoth_layer
 graphic="rand_framea_edges,6"
 vflip=yes
 colour=0xffffffff
@@ -1015,7 +1015,7 @@ transmitop=10
 op10= 
 
 // 948:81
-[com_81]
+[behemoth_backdrop]
 type=rectangle
 x=2
 y=23
@@ -1023,12 +1023,12 @@ width=4
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_71
+layer=behemoth_layer
 colour=0x221e18
 fill=yes
 
 // 948:82
-[com_82]
+[behemoth_alpha]
 type=graphic
 x=2
 y=23
@@ -1036,126 +1036,126 @@ width=4
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_71
+layer=behemoth_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
 
 // 948:83
-[com_83]
+[kalgerion_layer]
 type=layer
 x=32
 y=190
 width=214
 height=53
-layer=com_0
+layer=main_layer
 transmitop=10
 op10=   
 
 // 948:84
-[com_84]
+[kalgerion_e]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
 xmode=abs_right
-layer=com_83
+layer=kalgerion_layer
 graphic="rand_framea_edges,2"
 hflip=yes
 colour=0xffffffff
 
 // 948:85
-[com_85]
+[kalgerion_w]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
-layer=com_83
+layer=kalgerion_layer
 graphic="rand_framea_edges,2"
 colour=0xffffffff
 
 // 948:86
-[com_86]
+[kalgerion_s]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
 ymode=abs_bottom
-layer=com_83
+layer=kalgerion_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 
 // 948:87
-[com_87]
+[kalgerion_n]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
-layer=com_83
+layer=kalgerion_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 
 // 948:88
-[com_88]
+[kalgerion_se]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_83
+layer=kalgerion_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
 
 // 948:89
-[com_89]
+[kalgerion_sw]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_83
+layer=kalgerion_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 
 // 948:90
-[com_90]
+[kalgerion_ne]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_83
+layer=kalgerion_layer
 graphic="rand_framea_edges,5"
 2dangle=49152
 colour=0xffffffff
 
 // 948:91
-[com_91]
+[kalgerion_nw]
 type=graphic
 width=15
 height=15
-layer=com_83
+layer=kalgerion_layer
 graphic="rand_framea_edges,5"
 colour=0xffffffff
 
 // 948:92
-[com_92]
+[kalgerion_divider]
 type=graphic
 x=2
 y=8
 width=4
 height=15
 widthmode=minus
-layer=com_83
+layer=kalgerion_layer
 graphic="rand_framea_edges,6"
 vflip=yes
 colour=0xffffffff
 
 // 948:93
-[com_93]
+[kalgerion_backdrop]
 type=rectangle
 x=2
 y=23
@@ -1163,12 +1163,12 @@ width=4
 height=38
 widthmode=minus
 heightmode=minus
-layer=com_83
+layer=kalgerion_layer
 colour=0x221e18
 fill=yes
 
 // 948:94
-[com_94]
+[kalgerion_alpha]
 type=graphic
 x=2
 y=23
@@ -1176,126 +1176,126 @@ width=4
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_83
+layer=kalgerion_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
 
 // 948:95
-[com_95]
+[misc_layer]
 type=layer
 x=265
 y=190
 width=214
 height=114
-layer=com_0
+layer=main_layer
 transmitop=10
 op10= 
 
 // 948:96
-[com_96]
+[misc_s]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
 ymode=abs_bottom
-layer=com_95
+layer=misc_layer
 graphic="rand_framea_edges,4"
 colour=0xffffffff
 
 // 948:97
-[com_97]
+[misc_n]
 type=graphic
 x=15
 width=30
 height=15
 widthmode=minus
-layer=com_95
+layer=misc_layer
 graphic="rand_framea_edges,6"
 colour=0xffffffff
 
 // 948:98
-[com_98]
+[misc_e]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
 xmode=abs_right
-layer=com_95
+layer=misc_layer
 graphic="rand_framea_edges,7"
 hflip=yes
 colour=0xffffffff
 
 // 948:99
-[com_99]
+[misc_w]
 type=graphic
 y=15
 width=15
 height=30
 heightmode=minus
-layer=com_95
+layer=misc_layer
 graphic="rand_framea_edges,7"
 colour=0xffffffff
 
 // 948:100
-[com_100]
+[misc_sw]
 type=graphic
 width=15
 height=15
 ymode=abs_bottom
-layer=com_95
+layer=misc_layer
 graphic="rand_framea_edges,3"
 colour=0xffffffff
 
 // 948:101
-[com_101]
+[misc_se]
 type=graphic
 width=15
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_95
+layer=misc_layer
 graphic="rand_framea_edges,3"
 2dangle=16384
 colour=0xffffffff
 
 // 948:102
-[com_102]
+[misc_ne]
 type=graphic
 width=15
 height=15
 xmode=abs_right
-layer=com_95
+layer=misc_layer
 graphic="rand_framea_edges,5"
 2dangle=49152
 colour=0xffffffff
 
 // 948:103
-[com_103]
+[misc_nw]
 type=graphic
 width=15
 height=15
-layer=com_95
+layer=misc_layer
 graphic="rand_framea_edges,5"
 colour=0xffffffff
 
 // 948:104
-[com_104]
+[misc_divider]
 type=graphic
 x=2
 y=8
 width=4
 height=15
 widthmode=minus
-layer=com_95
+layer=misc_layer
 graphic="rand_framea_edges,6"
 vflip=yes
 colour=0xffffffff
 
 // 948:105
-[com_105]
+[misc_backdrop]
 type=rectangle
 x=2
 y=23
@@ -1303,12 +1303,12 @@ width=4
 height=38
 widthmode=minus
 heightmode=minus
-layer=com_95
+layer=misc_layer
 colour=0x221e18
 fill=yes
 
 // 948:106
-[com_106]
+[misc_alpha]
 type=graphic
 x=2
 y=23
@@ -1316,19 +1316,19 @@ width=4
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_95
+layer=misc_layer
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
 
 // 948:107
-[com_107]
+[misc_label]
 type=text
 y=4
 width=97
 height=18
 xmode=abs_centre
-layer=com_95
+layer=misc_layer
 textfont=p11_full
 text=Misc.
 textalignh=centre
@@ -1339,213 +1339,213 @@ transmitop=10
 op10= 
 
 // 948:108
-[com_108]
+[misc_buttons]
 type=layer
 x=2
 y=22
 width=4
 widthmode=minus
 heightmode=minus
-layer=com_95
+layer=misc_layer
 transmitop=10
 op10= 
 
 // 948:109
-[com_109]
+[astea_frostweb_button_layer]
 type=layer
 x=15
 y=4
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10= 
 
 // 948:110
-[com_110]
+[icy_bones_button_layer]
 type=layer
 x=41
 y=4
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:111
-[com_111]
+[environment_1_button_layer]
 type=layer
 x=67
 y=4
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:112
-[com_112]
+[antiboss_button_layer]
 type=layer
 x=93
 y=4
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:113
-[com_113]
+[hobgoblin_button_layer]
 type=layer
 x=119
 y=4
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:114
-[com_114]
+[unholy_cursebearer_button_layer]
 type=layer
 x=145
 y=4
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:115
-[com_115]
+[rammernaught_button_layer]
 type=layer
 x=171
 y=4
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:116
-[com_116]
+[lexicus_runewright_button_layer]
 type=layer
 x=15
 y=30
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:117
-[com_117]
+[sagittare_button_layer]
 type=layer
 x=41
 y=30
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:118
-[com_118]
+[skeletal_trio_button_label]
 type=layer
 x=67
 y=30
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:119
-[com_119]
+[armoured_zombie_button_layer]
 type=layer
 x=93
 y=30
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:120
-[com_120]
+[necrolord_button_layer]
 type=layer
 x=119
 y=30
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:121
-[com_121]
+[blink_button_layer]
 type=layer
 x=145
 y=30
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:122
-[com_122]
+[gulega_button_layer]
 type=layer
 x=171
 y=30
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:123
-[com_123]
+[warped_knight_button_layer]
 type=layer
 x=15
 y=56
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:124
-[com_124]
+[sow_seeds_god_letter_support]
 type=layer
 x=41
 y=56
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 
 // 948:125
-[com_125]
+[warped_knight_button]
 type=graphic
 width=24
 height=24
-layer=com_123
+layer=warped_knight_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1557,11 +1557,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:126
-[com_126]
+[warped_knight_text]
 type=text
 width=24
 height=24
-layer=com_123
+layer=warped_knight_button_layer
 textfont=p11_full
 text=15
 textalignh=centre
@@ -1572,11 +1572,11 @@ transmitop=10
 op10=      
 
 // 948:127
-[com_127]
+[gulega_button]
 type=graphic
 width=24
 height=24
-layer=com_122
+layer=gulega_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1588,11 +1588,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:128
-[com_128]
+[gulega_text]
 type=text
 width=24
 height=24
-layer=com_122
+layer=gulega_button_layer
 textfont=p11_full
 text=14
 textalignh=centre
@@ -1603,11 +1603,11 @@ transmitop=10
 op10=     
 
 // 948:129
-[com_129]
+[blink_button]
 type=graphic
 width=24
 height=24
-layer=com_121
+layer=blink_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1619,11 +1619,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:130
-[com_130]
+[blink_text]
 type=text
 width=24
 height=24
-layer=com_121
+layer=blink_button_layer
 textfont=p11_full
 text=13
 textalignh=centre
@@ -1634,11 +1634,11 @@ transmitop=10
 op10=    
 
 // 948:131
-[com_131]
+[necrolord_button]
 type=graphic
 width=24
 height=24
-layer=com_120
+layer=necrolord_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1650,11 +1650,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:132
-[com_132]
+[necrolord_text]
 type=text
 width=24
 height=24
-layer=com_120
+layer=necrolord_button_layer
 textfont=p11_full
 text=12
 textalignh=centre
@@ -1665,11 +1665,11 @@ transmitop=10
 op10=      
 
 // 948:133
-[com_133]
+[armoured_zombie_button]
 type=graphic
 width=24
 height=24
-layer=com_119
+layer=armoured_zombie_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1681,11 +1681,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:134
-[com_134]
+[armoured_zombie_text]
 type=text
 width=24
 height=24
-layer=com_119
+layer=armoured_zombie_button_layer
 textfont=p11_full
 text=11
 textalignh=centre
@@ -1696,11 +1696,11 @@ transmitop=10
 op10=     
 
 // 948:135
-[com_135]
+[skeletal_trio_button]
 type=graphic
 width=24
 height=24
-layer=com_118
+layer=skeletal_trio_button_label
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1712,11 +1712,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:136
-[com_136]
+[skeletal_trio_text]
 type=text
 width=24
 height=24
-layer=com_118
+layer=skeletal_trio_button_label
 textfont=p11_full
 text=10
 textalignh=centre
@@ -1727,11 +1727,11 @@ transmitop=10
 op10=    
 
 // 948:137
-[com_137]
+[sagittare_button]
 type=graphic
 width=24
 height=24
-layer=com_117
+layer=sagittare_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1743,11 +1743,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:138
-[com_138]
+[sagittare_text]
 type=text
 width=24
 height=24
-layer=com_117
+layer=sagittare_button_layer
 textfont=p11_full
 text=9
 textalignh=centre
@@ -1758,11 +1758,11 @@ transmitop=10
 op10=   
 
 // 948:139
-[com_139]
+[lexicus_runewright_button]
 type=graphic
 width=24
 height=24
-layer=com_116
+layer=lexicus_runewright_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1774,11 +1774,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:140
-[com_140]
+[lexicus_runewright_text]
 type=text
 width=24
 height=24
-layer=com_116
+layer=lexicus_runewright_button_layer
 textfont=p11_full
 text=8
 textalignh=centre
@@ -1789,11 +1789,11 @@ transmitop=10
 op10=      
 
 // 948:141
-[com_141]
+[rammernaught_button]
 type=graphic
 width=24
 height=24
-layer=com_115
+layer=rammernaught_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1805,11 +1805,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:142
-[com_142]
+[rammernaught_text]
 type=text
 width=24
 height=24
-layer=com_115
+layer=rammernaught_button_layer
 textfont=p11_full
 text=7
 textalignh=centre
@@ -1820,11 +1820,11 @@ transmitop=10
 op10=     
 
 // 948:143
-[com_143]
+[unholy_cursebearer_button]
 type=graphic
 width=24
 height=24
-layer=com_114
+layer=unholy_cursebearer_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1836,11 +1836,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:144
-[com_144]
+[unholy_cursebearer_text]
 type=text
 width=24
 height=24
-layer=com_114
+layer=unholy_cursebearer_button_layer
 textfont=p11_full
 text=6
 textalignh=centre
@@ -1851,11 +1851,11 @@ transmitop=10
 op10=    
 
 // 948:145
-[com_145]
+[hobgoblin_button]
 type=graphic
 width=24
 height=24
-layer=com_113
+layer=hobgoblin_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1867,11 +1867,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:146
-[com_146]
+[hobgoblin_text]
 type=text
 width=24
 height=24
-layer=com_113
+layer=hobgoblin_button_layer
 textfont=p11_full
 text=5
 textalignh=centre
@@ -1882,11 +1882,11 @@ transmitop=10
 op10=   
 
 // 948:147
-[com_147]
+[antiboss_button]
 type=graphic
 width=24
 height=24
-layer=com_112
+layer=antiboss_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1898,11 +1898,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:148
-[com_148]
+[antiboss_text]
 type=text
 width=24
 height=24
-layer=com_112
+layer=antiboss_button_layer
 textfont=p11_full
 text=4
 textalignh=centre
@@ -1913,11 +1913,11 @@ transmitop=10
 op10=     
 
 // 948:149
-[com_149]
+[environment_1_button]
 type=graphic
 width=24
 height=24
-layer=com_111
+layer=environment_1_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1929,11 +1929,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:150
-[com_150]
+[environment_1_text]
 type=text
 width=24
 height=24
-layer=com_111
+layer=environment_1_button_layer
 textfont=p11_full
 text=3
 textalignh=centre
@@ -1944,11 +1944,11 @@ transmitop=10
 op10=    
 
 // 948:151
-[com_151]
+[icy_bones_button]
 type=graphic
 width=24
 height=24
-layer=com_110
+layer=icy_bones_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1960,11 +1960,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:152
-[com_152]
+[icy_bones_text]
 type=text
 width=24
 height=24
-layer=com_110
+layer=icy_bones_button_layer
 textfont=p11_full
 text=2
 textalignh=centre
@@ -1975,11 +1975,11 @@ transmitop=10
 op10=   
 
 // 948:153
-[com_153]
+[astea_frostweb_button]
 type=graphic
 width=24
 height=24
-layer=com_109
+layer=astea_frostweb_button_layer
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -1991,11 +1991,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:154
-[com_154]
+[astea_frostweb_text]
 type=text
 width=24
 height=24
-layer=com_109
+layer=astea_frostweb_button_layer
 textfont=p11_full
 text=1
 textalignh=centre
@@ -2006,13 +2006,13 @@ transmitop=10
 op10=  
 
 // 948:155
-[com_155]
+[kalgerion_label]
 type=text
 y=4
 width=97
 height=18
 xmode=abs_centre
-layer=com_83
+layer=kalgerion_layer
 textfont=p11_full
 text=?????
 textalignh=centre
@@ -2023,81 +2023,81 @@ transmitop=10
 op10=   
 
 // 948:156
-[com_156]
+[kalgerion_buttons]
 type=layer
 x=2
 y=22
 width=4
 widthmode=minus
 heightmode=minus
-layer=com_83
+layer=kalgerion_layer
 
 // 948:157
-[com_157]
+[kalgerion_button_layer_1]
 type=layer
 x=39
 y=2
 width=24
 height=24
-layer=com_156
+layer=kalgerion_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:158
-[com_158]
+[kalgerion_button_layer_2]
 type=layer
 x=65
 y=2
 width=24
 height=24
-layer=com_156
+layer=kalgerion_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:159
-[com_159]
+[kalgerion_button_layer_3]
 type=layer
 x=91
 y=2
 width=24
 height=24
-layer=com_156
+layer=kalgerion_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:160
-[com_160]
+[kalgerion_button_layer_4]
 type=layer
 x=117
 y=2
 width=24
 height=24
-layer=com_156
+layer=kalgerion_buttons
 hide=yes
 transmitop=10
 op10=     
 
 // 948:161
-[com_161]
+[kalgerion_button_layer_5]
 type=layer
 x=143
 y=2
 width=24
 height=24
-layer=com_156
+layer=kalgerion_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:162
-[com_162]
+[kalgerion_button_5]
 type=graphic
 width=24
 height=24
-layer=com_161
+layer=kalgerion_button_layer_5
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2109,11 +2109,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:163
-[com_163]
+[kalgerion_text_5]
 type=text
 width=24
 height=24
-layer=com_161
+layer=kalgerion_button_layer_5
 textfont=p11_full
 text=5
 textalignh=centre
@@ -2124,11 +2124,11 @@ transmitop=10
 op10=     
 
 // 948:164
-[com_164]
+[kalgerion_button_4]
 type=graphic
 width=24
 height=24
-layer=com_160
+layer=kalgerion_button_layer_4
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2140,11 +2140,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:165
-[com_165]
+[kalgerion_text_4]
 type=text
 width=24
 height=24
-layer=com_160
+layer=kalgerion_button_layer_4
 textfont=p11_full
 text=4
 textalignh=centre
@@ -2155,11 +2155,11 @@ transmitop=10
 op10=       
 
 // 948:166
-[com_166]
+[kalgerion_button_3]
 type=graphic
 width=24
 height=24
-layer=com_159
+layer=kalgerion_button_layer_3
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2171,11 +2171,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:167
-[com_167]
+[kalgerion_text_3]
 type=text
 width=24
 height=24
-layer=com_159
+layer=kalgerion_button_layer_3
 textfont=p11_full
 text=3
 textalignh=centre
@@ -2186,11 +2186,11 @@ transmitop=10
 op10=      
 
 // 948:168
-[com_168]
+[kalgerion_button_2]
 type=graphic
 width=24
 height=24
-layer=com_158
+layer=kalgerion_button_layer_2
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2202,11 +2202,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:169
-[com_169]
+[kalgerion_text_2]
 type=text
 width=24
 height=24
-layer=com_158
+layer=kalgerion_button_layer_2
 textfont=p11_full
 text=2
 textalignh=centre
@@ -2217,11 +2217,11 @@ transmitop=10
 op10=     
 
 // 948:170
-[com_170]
+[kalgerion_button_1]
 type=graphic
 width=24
 height=24
-layer=com_157
+layer=kalgerion_button_layer_1
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2233,11 +2233,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:171
-[com_171]
+[kalgerion_text_1]
 type=text
 width=24
 height=24
-layer=com_157
+layer=kalgerion_button_layer_1
 textfont=p11_full
 text=1
 textalignh=centre
@@ -2248,13 +2248,13 @@ transmitop=10
 op10=    
 
 // 948:172
-[com_172]
+[behemoth_label]
 type=text
 y=4
 width=97
 height=18
 xmode=abs_centre
-layer=com_71
+layer=behemoth_layer
 textfont=p11_full
 text=?????
 textalignh=centre
@@ -2265,81 +2265,81 @@ transmitop=10
 op10=  
 
 // 948:173
-[com_173]
+[behemoth_buttons]
 type=layer
 x=2
 y=22
 width=4
 widthmode=minus
 heightmode=minus
-layer=com_71
+layer=behemoth_layer
 
 // 948:174
-[com_174]
+[behemoth_button_layer_1]
 type=layer
 x=38
 y=2
 width=24
 height=24
-layer=com_173
+layer=behemoth_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:175
-[com_175]
+[behemoth_button_layer_2]
 type=layer
 x=64
 y=2
 width=24
 height=24
-layer=com_173
+layer=behemoth_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:176
-[com_176]
+[behemoth_button_layer_3]
 type=layer
 x=90
 y=2
 width=24
 height=24
-layer=com_173
+layer=behemoth_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:177
-[com_177]
+[behemoth_button_layer_4]
 type=layer
 x=116
 y=2
 width=24
 height=24
-layer=com_173
+layer=behemoth_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:178
-[com_178]
+[behemoth_button_layer_5]
 type=layer
 x=142
 y=2
 width=24
 height=24
-layer=com_173
+layer=behemoth_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:179
-[com_179]
+[behemoth_button_5]
 type=graphic
 width=24
 height=24
-layer=com_178
+layer=behemoth_button_layer_5
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2351,11 +2351,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:180
-[com_180]
+[behemoth_text_5]
 type=text
 width=24
 height=24
-layer=com_178
+layer=behemoth_button_layer_5
 textfont=p11_full
 text=5
 textalignh=centre
@@ -2366,11 +2366,11 @@ transmitop=10
 op10=    
 
 // 948:181
-[com_181]
+[behemoth_button_4]
 type=graphic
 width=24
 height=24
-layer=com_177
+layer=behemoth_button_layer_4
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2382,11 +2382,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:182
-[com_182]
+[behemoth_text_4]
 type=text
 width=24
 height=24
-layer=com_177
+layer=behemoth_button_layer_4
 textfont=p11_full
 text=4
 textalignh=centre
@@ -2397,11 +2397,11 @@ transmitop=10
 op10=      
 
 // 948:183
-[com_183]
+[behemoth_button_3]
 type=graphic
 width=24
 height=24
-layer=com_176
+layer=behemoth_button_layer_3
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2413,11 +2413,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:184
-[com_184]
+[behemoth_text_3]
 type=text
 width=24
 height=24
-layer=com_176
+layer=behemoth_button_layer_3
 textfont=p11_full
 text=3
 textalignh=centre
@@ -2428,11 +2428,11 @@ transmitop=10
 op10=     
 
 // 948:185
-[com_185]
+[behemoth_button_2]
 type=graphic
 width=24
 height=24
-layer=com_175
+layer=behemoth_button_layer_2
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2444,11 +2444,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:186
-[com_186]
+[behemoth_text_2]
 type=text
 width=24
 height=24
-layer=com_175
+layer=behemoth_button_layer_2
 textfont=p11_full
 text=2
 textalignh=centre
@@ -2459,11 +2459,11 @@ transmitop=10
 op10=    
 
 // 948:187
-[com_187]
+[behemoth_button_1]
 type=graphic
 width=24
 height=24
-layer=com_174
+layer=behemoth_button_layer_1
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2475,11 +2475,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:188
-[com_188]
+[behemoth_text_1]
 type=text
 width=24
 height=24
-layer=com_174
+layer=behemoth_button_layer_1
 textfont=p11_full
 text=1
 textalignh=centre
@@ -2490,13 +2490,13 @@ transmitop=10
 op10=   
 
 // 948:189
-[com_189]
+[stalker_label]
 type=text
 y=4
 width=97
 height=18
 xmode=abs_centre
-layer=com_59
+layer=stalker_layer
 textfont=p11_full
 text=?????
 textalignh=centre
@@ -2507,81 +2507,81 @@ transmitop=10
 op10= 
 
 // 948:190
-[com_190]
+[stalker_buttons]
 type=layer
 x=2
 y=22
 width=4
 widthmode=minus
 heightmode=minus
-layer=com_59
+layer=stalker_layer
 
 // 948:191
-[com_191]
+[stalker_button_layer_1]
 type=layer
 x=38
 y=2
 width=24
 height=24
-layer=com_190
+layer=stalker_buttons
 hide=yes
 transmitop=10
 op10= 
 
 // 948:192
-[com_192]
+[stalker_button_layer_2]
 type=layer
 x=64
 y=2
 width=24
 height=24
-layer=com_190
+layer=stalker_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:193
-[com_193]
+[stalker_button_layer_3]
 type=layer
 x=90
 y=2
 width=24
 height=24
-layer=com_190
+layer=stalker_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:194
-[com_194]
+[stalker_button_layer_4]
 type=layer
 x=116
 y=2
 width=24
 height=24
-layer=com_190
+layer=stalker_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:195
-[com_195]
+[stalker_button_layer_5]
 type=layer
 x=142
 y=2
 width=24
 height=24
-layer=com_190
+layer=stalker_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:196
-[com_196]
+[stalker_button_5]
 type=graphic
 width=24
 height=24
-layer=com_195
+layer=stalker_button_layer_5
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2593,11 +2593,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:197
-[com_197]
+[stalker_text_5]
 type=text
 width=24
 height=24
-layer=com_195
+layer=stalker_button_layer_5
 textfont=p11_full
 text=5
 textalignh=centre
@@ -2608,11 +2608,11 @@ transmitop=10
 op10=   
 
 // 948:198
-[com_198]
+[stalker_button_4]
 type=graphic
 width=24
 height=24
-layer=com_194
+layer=stalker_button_layer_4
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2624,11 +2624,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:199
-[com_199]
+[stalker_text_4]
 type=text
 width=24
 height=24
-layer=com_194
+layer=stalker_button_layer_4
 textfont=p11_full
 text=4
 textalignh=centre
@@ -2639,11 +2639,11 @@ transmitop=10
 op10=     
 
 // 948:200
-[com_200]
+[stalker_button_3]
 type=graphic
 width=24
 height=24
-layer=com_193
+layer=stalker_button_layer_3
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2655,11 +2655,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:201
-[com_201]
+[stalker_text_3]
 type=text
 width=24
 height=24
-layer=com_193
+layer=stalker_button_layer_3
 textfont=p11_full
 text=3
 textalignh=centre
@@ -2670,11 +2670,11 @@ transmitop=10
 op10=    
 
 // 948:202
-[com_202]
+[stalker_button_2]
 type=graphic
 width=24
 height=24
-layer=com_192
+layer=stalker_button_layer_2
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2686,11 +2686,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:203
-[com_203]
+[stalker_text_2]
 type=text
 width=24
 height=24
-layer=com_192
+layer=stalker_button_layer_2
 textfont=p11_full
 text=2
 textalignh=centre
@@ -2701,11 +2701,11 @@ transmitop=10
 op10=   
 
 // 948:204
-[com_204]
+[stalker_button_1]
 type=graphic
 width=24
 height=24
-layer=com_191
+layer=stalker_button_layer_1
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2717,11 +2717,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:205
-[com_205]
+[stalker_text_1]
 type=text
 width=24
 height=24
-layer=com_191
+layer=stalker_button_layer_1
 textfont=p11_full
 text=1
 textalignh=centre
@@ -2732,13 +2732,13 @@ transmitop=10
 op10=  
 
 // 948:206
-[com_206]
+[thorfin_torsteg_label]
 type=text
 y=4
 width=97
 height=18
 xmode=abs_centre
-layer=com_47
+layer=thorfin_torsteg_layer
 textfont=p11_full
 text=?????
 textalignh=centre
@@ -2749,117 +2749,117 @@ transmitop=10
 op10=    
 
 // 948:207
-[com_207]
+[thorfin_buttons]
 type=layer
 x=2
 y=22
 width=4
 widthmode=minus
 heightmode=minus
-layer=com_47
+layer=thorfin_torsteg_layer
 
 // 948:208
-[com_208]
+[thorfin_torsteg_button_layer_1]
 type=layer
 x=40
 y=2
 width=24
 height=24
-layer=com_207
+layer=thorfin_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:209
-[com_209]
+[thorfin_torsteg_button_layer_2]
 type=layer
 x=66
 y=2
 width=24
 height=24
-layer=com_207
+layer=thorfin_buttons
 hide=yes
 transmitop=10
 op10=     
 
 // 948:210
-[com_210]
+[thorfin_torsteg_button_layer_3]
 type=layer
 x=92
 y=2
 width=24
 height=24
-layer=com_207
+layer=thorfin_buttons
 hide=yes
 transmitop=10
 op10=     
 
 // 948:211
-[com_211]
+[thorfin_torsteg_button_layer_4]
 type=layer
 x=118
 y=2
 width=24
 height=24
-layer=com_207
+layer=thorfin_buttons
 hide=yes
 transmitop=10
 op10=      
 
 // 948:212
-[com_212]
+[thorfin_torsteg_button_layer_5]
 type=layer
 x=144
 y=2
 width=24
 height=24
-layer=com_207
+layer=thorfin_buttons
 hide=yes
 transmitop=10
 op10=     
 
 // 948:213
-[com_213]
+[thorfin_torsteg_button_layer_6]
 type=layer
 x=40
 y=28
 width=24
 height=24
-layer=com_207
+layer=thorfin_buttons
 hide=yes
 transmitop=10
 op10=     
 
 // 948:214
-[com_214]
+[thorfin_torsteg_button_layer_7]
 type=layer
 x=66
 y=28
 width=24
 height=24
-layer=com_207
+layer=thorfin_buttons
 hide=yes
 transmitop=10
 op10=      
 
 // 948:215
-[com_215]
+[thorfin_torsteg_button_layer_8]
 type=layer
 x=92
 y=28
 width=24
 height=24
-layer=com_207
+layer=thorfin_buttons
 hide=yes
 transmitop=10
 op10=      
 
 // 948:216
-[com_216]
+[thorfin_torsteg_button_8]
 type=graphic
 width=24
 height=24
-layer=com_215
+layer=thorfin_torsteg_button_layer_8
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2871,11 +2871,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:217
-[com_217]
+[thorfin_torsteg_text_8]
 type=text
 width=24
 height=24
-layer=com_215
+layer=thorfin_torsteg_button_layer_8
 textfont=p11_full
 text=8
 textalignh=centre
@@ -2886,11 +2886,11 @@ transmitop=10
 op10=       
 
 // 948:218
-[com_218]
+[thorfin_torsteg_button_7]
 type=graphic
 width=24
 height=24
-layer=com_214
+layer=thorfin_torsteg_button_layer_7
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2902,11 +2902,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:219
-[com_219]
+[thorfin_torsteg_text_7]
 type=text
 width=24
 height=24
-layer=com_214
+layer=thorfin_torsteg_button_layer_7
 textfont=p11_full
 text=7
 textalignh=centre
@@ -2917,11 +2917,11 @@ transmitop=10
 op10=       
 
 // 948:220
-[com_220]
+[thorfin_torsteg_button_6]
 type=graphic
 width=24
 height=24
-layer=com_213
+layer=thorfin_torsteg_button_layer_6
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2933,11 +2933,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:221
-[com_221]
+[thorfin_torsteg_text_6]
 type=text
 width=24
 height=24
-layer=com_213
+layer=thorfin_torsteg_button_layer_6
 textfont=p11_full
 text=6
 textalignh=centre
@@ -2948,11 +2948,11 @@ transmitop=10
 op10=      
 
 // 948:222
-[com_222]
+[thorfin_torsteg_button_5]
 type=graphic
 width=24
 height=24
-layer=com_212
+layer=thorfin_torsteg_button_layer_5
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2964,11 +2964,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:223
-[com_223]
+[thorfin_torsteg_text_5]
 type=text
 width=24
 height=24
-layer=com_212
+layer=thorfin_torsteg_button_layer_5
 textfont=p11_full
 text=5
 textalignh=centre
@@ -2979,11 +2979,11 @@ transmitop=10
 op10=      
 
 // 948:224
-[com_224]
+[thorfin_torsteg_button_4]
 type=graphic
 width=24
 height=24
-layer=com_211
+layer=thorfin_torsteg_button_layer_4
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -2995,11 +2995,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:225
-[com_225]
+[thorfin_torsteg_text_4]
 type=text
 width=24
 height=24
-layer=com_211
+layer=thorfin_torsteg_button_layer_4
 textfont=p11_full
 text=4
 textalignh=centre
@@ -3010,11 +3010,11 @@ transmitop=10
 op10=        
 
 // 948:226
-[com_226]
+[thorfin_torsteg_button_3]
 type=graphic
 width=24
 height=24
-layer=com_210
+layer=thorfin_torsteg_button_layer_3
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -3026,11 +3026,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:227
-[com_227]
+[thorfin_torsteg_text_3]
 type=text
 width=24
 height=24
-layer=com_210
+layer=thorfin_torsteg_button_layer_3
 textfont=p11_full
 text=3
 textalignh=centre
@@ -3041,11 +3041,11 @@ transmitop=10
 op10=       
 
 // 948:228
-[com_228]
+[thorfin_torsteg_button_2]
 type=graphic
 width=24
 height=24
-layer=com_209
+layer=thorfin_torsteg_button_layer_2
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -3057,11 +3057,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:229
-[com_229]
+[thorfin_torsteg_text_2]
 type=text
 width=24
 height=24
-layer=com_209
+layer=thorfin_torsteg_button_layer_2
 textfont=p11_full
 text=2
 textalignh=centre
@@ -3072,11 +3072,11 @@ transmitop=10
 op10=      
 
 // 948:230
-[com_230]
+[thorfin_torsteg_button_1]
 type=graphic
 width=24
 height=24
-layer=com_208
+layer=thorfin_torsteg_button_layer_1
 graphic=rand_box_24x24
 colour=0xffffffff
 transmitop=1,10
@@ -3088,11 +3088,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:231
-[com_231]
+[thorfin_torsteg_text_1]
 type=text
 width=24
 height=24
-layer=com_208
+layer=thorfin_torsteg_button_layer_1
 textfont=p11_full
 text=1
 textalignh=centre
@@ -3103,13 +3103,13 @@ transmitop=10
 op10=     
 
 // 948:232
-[com_232]
+[bilrach_label]
 type=text
 y=4
 width=97
 height=18
 xmode=abs_centre
-layer=com_35
+layer=bilrach_layer
 textfont=p11_full
 text=?????
 textalignh=centre
@@ -3118,7 +3118,7 @@ textshadow=yes
 colour=0xc69b01
 
 // 948:233
-[com_233]
+[bilrach_buttons]
 type=layer
 x=2
 y=22
@@ -3126,396 +3126,396 @@ width=4
 height=27
 widthmode=minus
 heightmode=minus
-layer=com_35
+layer=bilrach_layer
 
 // 948:234
-[com_234]
+[bilrach_button_layer_1]
 type=layer
 x=2
 y=2
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 
 // 948:235
-[com_235]
+[bilrach_button_layer_2]
 type=layer
 x=28
 y=2
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10= 
 
 // 948:236
-[com_236]
+[bilrach_button_layer_3]
 type=layer
 x=54
 y=2
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10= 
 
 // 948:237
-[com_237]
+[bilrach_button_layer_4]
 type=layer
 x=80
 y=2
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:238
-[com_238]
+[bilrach_button_layer_5]
 type=layer
 x=106
 y=2
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10= 
 
 // 948:239
-[com_239]
+[bilrach_button_layer_6]
 type=layer
 x=132
 y=2
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:240
-[com_240]
+[bilrach_button_layer_7]
 type=layer
 x=158
 y=2
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:241
-[com_241]
+[bilrach_button_layer_8]
 type=layer
 x=184
 y=2
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:242
-[com_242]
+[bilrach_button_layer_9]
 type=layer
 x=2
 y=28
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10= 
 
 // 948:243
-[com_243]
+[bilrach_button_layer_10]
 type=layer
 x=28
 y=28
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:244
-[com_244]
+[bilrach_button_layer_11]
 type=layer
 x=54
 y=28
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:245
-[com_245]
+[bilrach_button_layer_12]
 type=layer
 x=80
 y=28
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:246
-[com_246]
+[bilrach_button_layer_13]
 type=layer
 x=106
 y=28
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:247
-[com_247]
+[bilrach_button_layer_14]
 type=layer
 x=132
 y=28
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:248
-[com_248]
+[bilrach_button_layer_15]
 type=layer
 x=158
 y=28
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:249
-[com_249]
+[bilrach_button_layer_16]
 type=layer
 x=184
 y=28
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:250
-[com_250]
+[bilrach_button_layer_17]
 type=layer
 x=2
 y=54
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10= 
 
 // 948:251
-[com_251]
+[bilrach_button_layer_18]
 type=layer
 x=28
 y=54
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:252
-[com_252]
+[bilrach_button_layer_19]
 type=layer
 x=54
 y=54
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:253
-[com_253]
+[bilrach_button_layer_20]
 type=layer
 x=80
 y=54
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:254
-[com_254]
+[bilrach_button_layer_21]
 type=layer
 x=106
 y=54
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:255
-[com_255]
+[bilrach_button_layer_22]
 type=layer
 x=132
 y=54
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:256
-[com_256]
+[bilrach_button_layer_23]
 type=layer
 x=158
 y=54
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:257
-[com_257]
+[bilrach_button_layer_24]
 type=layer
 x=184
 y=54
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:258
-[com_258]
+[bilrach_button_layer_25]
 type=layer
 x=2
 y=80
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=  
 
 // 948:259
-[com_259]
+[bilrach_button_layer_26]
 type=layer
 x=28
 y=80
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:260
-[com_260]
+[bilrach_button_layer_27]
 type=layer
 x=54
 y=80
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:261
-[com_261]
+[bilrach_button_layer_28]
 type=layer
 x=80
 y=80
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:262
-[com_262]
+[bilrach_button_layer_29]
 type=layer
 x=106
 y=80
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=   
 
 // 948:263
-[com_263]
+[bilrach_button_layer_30]
 type=layer
 x=132
 y=80
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:264
-[com_264]
+[bilrach_button_layer_31]
 type=layer
 x=158
 y=80
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=    
 
 // 948:265
-[com_265]
+[bilrach_button_layer_32]
 type=layer
 x=184
 y=80
 width=24
 height=24
-layer=com_233
+layer=bilrach_buttons
 hide=yes
 transmitop=10
 op10=     
 
 // 948:266
-[com_266]
+[bilrach_button_32]
 type=graphic
 width=24
 height=24
-layer=com_265
+layer=bilrach_button_layer_32
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3527,11 +3527,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:267
-[com_267]
+[bilrach_text_32]
 type=text
 width=24
 height=24
-layer=com_265
+layer=bilrach_button_layer_32
 textfont=p11_full
 text=32
 textalignh=centre
@@ -3542,11 +3542,11 @@ transmitop=10
 op10=       
 
 // 948:268
-[com_268]
+[bilrach_button_31]
 type=graphic
 width=24
 height=24
-layer=com_264
+layer=bilrach_button_layer_31
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3558,11 +3558,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:269
-[com_269]
+[bilrach_text_31]
 type=text
 width=24
 height=24
-layer=com_264
+layer=bilrach_button_layer_31
 textfont=p11_full
 text=31
 textalignh=centre
@@ -3573,11 +3573,11 @@ transmitop=10
 op10=      
 
 // 948:270
-[com_270]
+[bilrach_button_30]
 type=graphic
 width=24
 height=24
-layer=com_263
+layer=bilrach_button_layer_30
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3589,11 +3589,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:271
-[com_271]
+[bilrach_text_30]
 type=text
 width=24
 height=24
-layer=com_263
+layer=bilrach_button_layer_30
 textfont=p11_full
 text=30
 textalignh=centre
@@ -3604,11 +3604,11 @@ transmitop=10
 op10=     
 
 // 948:272
-[com_272]
+[bilrach_button_29]
 type=graphic
 width=24
 height=24
-layer=com_262
+layer=bilrach_button_layer_29
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3620,11 +3620,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:273
-[com_273]
+[bilrach_text_29]
 type=text
 width=24
 height=24
-layer=com_262
+layer=bilrach_button_layer_29
 textfont=p11_full
 text=29
 textalignh=centre
@@ -3635,11 +3635,11 @@ transmitop=10
 op10=    
 
 // 948:274
-[com_274]
+[bilrach_button_28]
 type=graphic
 width=24
 height=24
-layer=com_261
+layer=bilrach_button_layer_28
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3651,11 +3651,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:275
-[com_275]
+[bilrach_text_28]
 type=text
 width=24
 height=24
-layer=com_261
+layer=bilrach_button_layer_28
 textfont=p11_full
 text=28
 textalignh=centre
@@ -3666,11 +3666,11 @@ transmitop=10
 op10=      
 
 // 948:276
-[com_276]
+[bilrach_button_27]
 type=graphic
 width=24
 height=24
-layer=com_260
+layer=bilrach_button_layer_27
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3682,11 +3682,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:277
-[com_277]
+[bilrach_text_27]
 type=text
 width=24
 height=24
-layer=com_260
+layer=bilrach_button_layer_27
 textfont=p11_full
 text=27
 textalignh=centre
@@ -3697,11 +3697,11 @@ transmitop=10
 op10=     
 
 // 948:278
-[com_278]
+[bilrach_button_26]
 type=graphic
 width=24
 height=24
-layer=com_259
+layer=bilrach_button_layer_26
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3713,11 +3713,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:279
-[com_279]
+[bilrach_text_26]
 type=text
 width=24
 height=24
-layer=com_259
+layer=bilrach_button_layer_26
 textfont=p11_full
 text=26
 textalignh=centre
@@ -3728,11 +3728,11 @@ transmitop=10
 op10=    
 
 // 948:280
-[com_280]
+[bilrach_button_25]
 type=graphic
 width=24
 height=24
-layer=com_258
+layer=bilrach_button_layer_25
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3744,11 +3744,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:281
-[com_281]
+[bilrach_text_25]
 type=text
 width=24
 height=24
-layer=com_258
+layer=bilrach_button_layer_25
 textfont=p11_full
 text=25
 textalignh=centre
@@ -3759,11 +3759,11 @@ transmitop=10
 op10=   
 
 // 948:282
-[com_282]
+[bilrach_button_24]
 type=graphic
 width=24
 height=24
-layer=com_257
+layer=bilrach_button_layer_24
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3775,11 +3775,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:283
-[com_283]
+[bilrach_text_24]
 type=text
 width=24
 height=24
-layer=com_257
+layer=bilrach_button_layer_24
 textfont=p11_full
 text=24
 textalignh=centre
@@ -3790,11 +3790,11 @@ transmitop=10
 op10=      
 
 // 948:284
-[com_284]
+[bilrach_button_23]
 type=graphic
 width=24
 height=24
-layer=com_256
+layer=bilrach_button_layer_23
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3806,11 +3806,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:285
-[com_285]
+[bilrach_text_23]
 type=text
 width=24
 height=24
-layer=com_256
+layer=bilrach_button_layer_23
 textfont=p11_full
 text=23
 textalignh=centre
@@ -3821,11 +3821,11 @@ transmitop=10
 op10=     
 
 // 948:286
-[com_286]
+[bilrach_button_22]
 type=graphic
 width=24
 height=24
-layer=com_255
+layer=bilrach_button_layer_22
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3837,11 +3837,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:287
-[com_287]
+[bilrach_text_22]
 type=text
 width=24
 height=24
-layer=com_255
+layer=bilrach_button_layer_22
 textfont=p11_full
 text=22
 textalignh=centre
@@ -3852,11 +3852,11 @@ transmitop=10
 op10=    
 
 // 948:288
-[com_288]
+[bilrach_button_21]
 type=graphic
 width=24
 height=24
-layer=com_254
+layer=bilrach_button_layer_21
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3868,11 +3868,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:289
-[com_289]
+[bilrach_text_21]
 type=text
 width=24
 height=24
-layer=com_254
+layer=bilrach_button_layer_21
 textfont=p11_full
 text=21
 textalignh=centre
@@ -3883,11 +3883,11 @@ transmitop=10
 op10=   
 
 // 948:290
-[com_290]
+[bilrach_button_20]
 type=graphic
 width=24
 height=24
-layer=com_253
+layer=bilrach_button_layer_20
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3899,11 +3899,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:291
-[com_291]
+[bilrach_text_20]
 type=text
 width=24
 height=24
-layer=com_253
+layer=bilrach_button_layer_20
 textfont=p11_full
 text=20
 textalignh=centre
@@ -3914,11 +3914,11 @@ transmitop=10
 op10=     
 
 // 948:292
-[com_292]
+[bilrach_button_19]
 type=graphic
 width=24
 height=24
-layer=com_252
+layer=bilrach_button_layer_19
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3930,11 +3930,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:293
-[com_293]
+[bilrach_text_19]
 type=text
 width=24
 height=24
-layer=com_252
+layer=bilrach_button_layer_19
 textfont=p11_full
 text=19
 textalignh=centre
@@ -3945,11 +3945,11 @@ transmitop=10
 op10=    
 
 // 948:294
-[com_294]
+[bilrach_button_18]
 type=graphic
 width=24
 height=24
-layer=com_251
+layer=bilrach_button_layer_18
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3961,11 +3961,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:295
-[com_295]
+[bilrach_text_18]
 type=text
 width=24
 height=24
-layer=com_251
+layer=bilrach_button_layer_18
 textfont=p11_full
 text=18
 textalignh=centre
@@ -3976,11 +3976,11 @@ transmitop=10
 op10=   
 
 // 948:296
-[com_296]
+[bilrach_button_17]
 type=graphic
 width=24
 height=24
-layer=com_250
+layer=bilrach_button_layer_17
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -3992,11 +3992,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:297
-[com_297]
+[bilrach_text_17]
 type=text
 width=24
 height=24
-layer=com_250
+layer=bilrach_button_layer_17
 textfont=p11_full
 text=17
 textalignh=centre
@@ -4007,11 +4007,11 @@ transmitop=10
 op10=  
 
 // 948:298
-[com_298]
+[bilrach_button_16]
 type=graphic
 width=24
 height=24
-layer=com_249
+layer=bilrach_button_layer_16
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4023,11 +4023,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:299
-[com_299]
+[bilrach_text_16]
 type=text
 width=24
 height=24
-layer=com_249
+layer=bilrach_button_layer_16
 textfont=p11_full
 text=16
 textalignh=centre
@@ -4038,11 +4038,11 @@ transmitop=10
 op10=      
 
 // 948:300
-[com_300]
+[bilrach_button_15]
 type=graphic
 width=24
 height=24
-layer=com_248
+layer=bilrach_button_layer_15
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4054,11 +4054,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:301
-[com_301]
+[bilrach_text_15]
 type=text
 width=24
 height=24
-layer=com_248
+layer=bilrach_button_layer_15
 textfont=p11_full
 text=15
 textalignh=centre
@@ -4069,11 +4069,11 @@ transmitop=10
 op10=     
 
 // 948:302
-[com_302]
+[bilrach_button_14]
 type=graphic
 width=24
 height=24
-layer=com_247
+layer=bilrach_button_layer_14
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4085,11 +4085,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:303
-[com_303]
+[bilrach_text_14]
 type=text
 width=24
 height=24
-layer=com_247
+layer=bilrach_button_layer_14
 textfont=p11_full
 text=14
 textalignh=centre
@@ -4100,11 +4100,11 @@ transmitop=10
 op10=    
 
 // 948:304
-[com_304]
+[bilrach_button_13]
 type=graphic
 width=24
 height=24
-layer=com_246
+layer=bilrach_button_layer_13
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4116,11 +4116,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:305
-[com_305]
+[bilrach_text_13]
 type=text
 width=24
 height=24
-layer=com_246
+layer=bilrach_button_layer_13
 textfont=p11_full
 text=13
 textalignh=centre
@@ -4131,11 +4131,11 @@ transmitop=10
 op10=   
 
 // 948:306
-[com_306]
+[bilrach_button_12]
 type=graphic
 width=24
 height=24
-layer=com_245
+layer=bilrach_button_layer_12
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4147,11 +4147,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:307
-[com_307]
+[bilrach_text_12]
 type=text
 width=24
 height=24
-layer=com_245
+layer=bilrach_button_layer_12
 textfont=p11_full
 text=12
 textalignh=centre
@@ -4162,11 +4162,11 @@ transmitop=10
 op10=     
 
 // 948:308
-[com_308]
+[bilrach_button_11]
 type=graphic
 width=24
 height=24
-layer=com_244
+layer=bilrach_button_layer_11
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4178,11 +4178,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:309
-[com_309]
+[bilrach_text_11]
 type=text
 width=24
 height=24
-layer=com_244
+layer=bilrach_button_layer_11
 textfont=p11_full
 text=11
 textalignh=centre
@@ -4193,11 +4193,11 @@ transmitop=10
 op10=    
 
 // 948:310
-[com_310]
+[bilrach_button_10]
 type=graphic
 width=24
 height=24
-layer=com_243
+layer=bilrach_button_layer_10
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4209,11 +4209,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:311
-[com_311]
+[bilrach_text_10]
 type=text
 width=24
 height=24
-layer=com_243
+layer=bilrach_button_layer_10
 textfont=p11_full
 text=10
 textalignh=centre
@@ -4224,11 +4224,11 @@ transmitop=10
 op10=   
 
 // 948:312
-[com_312]
+[bilrach_button_9]
 type=graphic
 width=24
 height=24
-layer=com_242
+layer=bilrach_button_layer_9
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4240,11 +4240,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:313
-[com_313]
+[bilrach_text_9]
 type=text
 width=24
 height=24
-layer=com_242
+layer=bilrach_button_layer_9
 textfont=p11_full
 text=9
 textalignh=centre
@@ -4255,11 +4255,11 @@ transmitop=10
 op10=  
 
 // 948:314
-[com_314]
+[bilrach_button_8]
 type=graphic
 width=24
 height=24
-layer=com_241
+layer=bilrach_button_layer_8
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4271,11 +4271,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:315
-[com_315]
+[bilrach_text_8]
 type=text
 width=24
 height=24
-layer=com_241
+layer=bilrach_button_layer_8
 textfont=p11_full
 text=8
 textalignh=centre
@@ -4286,11 +4286,11 @@ transmitop=10
 op10=     
 
 // 948:316
-[com_316]
+[bilrach_button_7]
 type=graphic
 width=24
 height=24
-layer=com_240
+layer=bilrach_button_layer_7
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4302,11 +4302,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:317
-[com_317]
+[bilrach_text_7]
 type=text
 width=24
 height=24
-layer=com_240
+layer=bilrach_button_layer_7
 textfont=p11_full
 text=7
 textalignh=centre
@@ -4317,11 +4317,11 @@ transmitop=10
 op10=    
 
 // 948:318
-[com_318]
+[bilrach_button_6]
 type=graphic
 width=24
 height=24
-layer=com_239
+layer=bilrach_button_layer_6
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4333,11 +4333,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:319
-[com_319]
+[bilrach_text_6]
 type=text
 width=24
 height=24
-layer=com_239
+layer=bilrach_button_layer_6
 textfont=p11_full
 text=6
 textalignh=centre
@@ -4348,11 +4348,11 @@ transmitop=10
 op10=   
 
 // 948:320
-[com_320]
+[bilrach_button_5]
 type=graphic
 width=24
 height=24
-layer=com_238
+layer=bilrach_button_layer_5
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4364,11 +4364,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:321
-[com_321]
+[bilrach_text_5]
 type=text
 width=24
 height=24
-layer=com_238
+layer=bilrach_button_layer_5
 textfont=p11_full
 text=5
 textalignh=centre
@@ -4379,11 +4379,11 @@ transmitop=10
 op10=  
 
 // 948:322
-[com_322]
+[bilrach_button_4]
 type=graphic
 width=24
 height=24
-layer=com_237
+layer=bilrach_button_layer_4
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4395,11 +4395,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:323
-[com_323]
+[bilrach_text_4]
 type=text
 width=24
 height=24
-layer=com_237
+layer=bilrach_button_layer_4
 textfont=p11_full
 text=4
 textalignh=centre
@@ -4410,11 +4410,11 @@ transmitop=10
 op10=    
 
 // 948:324
-[com_324]
+[bilrach_button_3]
 type=graphic
 width=24
 height=24
-layer=com_236
+layer=bilrach_button_layer_3
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4426,11 +4426,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:325
-[com_325]
+[bilrach_text_3]
 type=text
 width=24
 height=24
-layer=com_236
+layer=bilrach_button_layer_3
 textfont=p11_full
 text=3
 textalignh=centre
@@ -4441,11 +4441,11 @@ transmitop=10
 op10=   
 
 // 948:326
-[com_326]
+[bilrach_button_2]
 type=graphic
 width=24
 height=24
-layer=com_235
+layer=bilrach_button_layer_2
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1,10
@@ -4457,11 +4457,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:327
-[com_327]
+[bilrach_text_2]
 type=text
 width=24
 height=24
-layer=com_235
+layer=bilrach_button_layer_2
 textfont=p11_full
 text=2
 textalignh=centre
@@ -4472,11 +4472,11 @@ transmitop=10
 op10=  
 
 // 948:328
-[com_328]
+[bilrach_button_1]
 type=graphic
 width=24
 height=24
-layer=com_234
+layer=bilrach_button_layer_1
 graphic="page_numbers,0"
 colour=0xffffffff
 transmitop=1
@@ -4487,11 +4487,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:329
-[com_329]
+[bilrach_text_1]
 type=text
 width=24
 height=24
-layer=com_234
+layer=bilrach_button_layer_1
 textfont=p11_full
 text=1
 textalignh=centre
@@ -4502,7 +4502,7 @@ transmitop=10
 op10= 
 
 // 948:330
-[com_330]
+[border_nw]
 type=graphic
 width=32
 height=32
@@ -4511,7 +4511,7 @@ graphic="v2_stone_borders,35"
 colour=0xffffffff
 
 // 948:331
-[com_331]
+[border_ne]
 type=graphic
 width=32
 height=32
@@ -4521,7 +4521,7 @@ graphic="v2_stone_borders,37"
 colour=0xffffffff
 
 // 948:332
-[com_332]
+[border_n]
 type=graphic
 x=32
 width=64
@@ -4533,7 +4533,7 @@ tiling=yes
 colour=0xffffffff
 
 // 948:333
-[com_333]
+[border_w]
 type=graphic
 x=-13
 y=32
@@ -4545,7 +4545,7 @@ graphic="v2_stone_borders,1"
 colour=0xffffffff
 
 // 948:334
-[com_334]
+[border_sw]
 type=graphic
 y=302
 width=32
@@ -4555,7 +4555,7 @@ graphic="v2_stone_borders,6"
 colour=0xffffffff
 
 // 948:335
-[com_335]
+[border_se]
 type=graphic
 x=480
 y=302
@@ -4566,7 +4566,7 @@ graphic="v2_stone_borders,7"
 colour=0xffffffff
 
 // 948:336
-[com_336]
+[border_e]
 type=graphic
 x=492
 y=32
@@ -4578,7 +4578,7 @@ graphic="v2_stone_borders,3"
 colour=0xffffffff
 
 // 948:337
-[com_337]
+[border_s]
 type=graphic
 x=32
 y=314
@@ -4590,21 +4590,21 @@ graphic="v2_stone_borders,2"
 colour=0xffffffff
 
 // 948:338
-[com_338]
+[thorfin_torsteg_button_layer_9]
 type=layer
 x=118
 y=28
 width=24
 height=24
-layer=com_207
+layer=thorfin_buttons
 hide=yes
 
 // 948:339
-[com_339]
+[thorfin_torsteg_button_9]
 type=graphic
 width=24
 height=24
-layer=com_338
+layer=thorfin_torsteg_button_layer_9
 graphic=rand_box_24x24
 transmitop=1
 op1=Read
@@ -4614,11 +4614,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:340
-[com_340]
+[thorfin_torsteg_text_9]
 type=text
 width=24
 height=24
-layer=com_338
+layer=thorfin_torsteg_button_layer_9
 textfont=p11_full
 text=9
 textalignh=centre
@@ -4627,21 +4627,21 @@ textshadow=yes
 colour=0xc69b01
 
 // 948:341
-[com_341]
+[thorfin_torsteg_button_layer_10]
 type=layer
 x=144
 y=28
 width=24
 height=24
-layer=com_207
+layer=thorfin_buttons
 hide=yes
 
 // 948:342
-[com_342]
+[thorfin_torsteg_button_10]
 type=graphic
 width=24
 height=24
-layer=com_341
+layer=thorfin_torsteg_button_layer_10
 graphic=rand_box_24x24
 transmitop=1
 op1=Read
@@ -4651,11 +4651,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:343
-[com_343]
+[thorfin_torsteg_text_10]
 type=text
 width=24
 height=24
-layer=com_341
+layer=thorfin_torsteg_button_layer_10
 textfont=p11_full
 text=10
 textalignh=centre
@@ -4664,21 +4664,21 @@ textshadow=yes
 colour=0xc69b01
 
 // 948:344
-[com_344]
+[sow_seeds_god_letter]
 type=layer
 x=67
 y=56
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 
 // 948:345
-[com_345]
+[sow_seeds_god_letter_button]
 type=graphic
 width=24
 height=24
-layer=com_344
+layer=sow_seeds_god_letter
 graphic=rand_box_24x24
 transmitop=1
 op1=Read
@@ -4688,11 +4688,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:346
-[com_346]
+[sow_seeds_god_letter_text]
 type=text
 width=24
 height=24
-layer=com_344
+layer=sow_seeds_god_letter
 textfont=p11_full
 text=17
 textalignh=centre
@@ -4701,11 +4701,11 @@ textshadow=yes
 colour=0xc69b01
 
 // 948:347
-[com_347]
+[sow_seeds_god_letter_support_button]
 type=graphic
 width=24
 height=24
-layer=com_124
+layer=sow_seeds_god_letter_support
 graphic=rand_box_24x24
 transmitop=1
 op1=Read
@@ -4715,11 +4715,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:348
-[com_348]
+[sow_seeds_god_letter_support_text]
 type=text
 width=24
 height=24
-layer=com_124
+layer=sow_seeds_god_letter_support
 textfont=p11_full
 text=16
 textalignh=centre
@@ -4728,21 +4728,21 @@ textshadow=yes
 colour=0xc69b01
 
 // 948:349
-[com_349]
+[sow_seeds_fog_letter]
 type=layer
 x=93
 y=56
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 
 // 948:350
-[com_350]
+[sow_seeds_fog_letter_button]
 type=graphic
 width=24
 height=24
-layer=com_349
+layer=sow_seeds_fog_letter
 graphic=rand_box_24x24
 transmitop=1
 op1=Read
@@ -4752,11 +4752,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:351
-[com_351]
+[sow_seeds_fog_letter_text]
 type=text
 width=24
 height=24
-layer=com_349
+layer=sow_seeds_fog_letter
 textfont=p11_full
 text=18
 textalignh=centre
@@ -4765,21 +4765,21 @@ textshadow=yes
 colour=0xc69b01
 
 // 948:352
-[com_352]
+[sow_seeds_brundt_letter]
 type=layer
 x=119
 y=56
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 
 // 948:353
-[com_353]
+[sow_seeds_brundt_letter_button]
 type=graphic
 width=24
 height=24
-layer=com_352
+layer=sow_seeds_brundt_letter
 graphic=rand_box_24x24
 transmitop=1
 op1=Read
@@ -4789,11 +4789,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:354
-[com_354]
+[sow_seeds_brundt_letter_text]
 type=text
 width=24
 height=24
-layer=com_352
+layer=sow_seeds_brundt_letter
 textfont=p11_full
 text=19
 textalignh=centre
@@ -4802,21 +4802,21 @@ textshadow=yes
 colour=0xc69b01
 
 // 948:355
-[com_355]
+[sow_seeds_token]
 type=layer
 x=145
 y=56
 width=24
 height=24
-layer=com_108
+layer=misc_buttons
 hide=yes
 
 // 948:356
-[com_356]
+[sow_seeds_token_button]
 type=graphic
 width=24
 height=24
-layer=com_355
+layer=sow_seeds_token
 graphic=rand_box_24x24
 transmitop=1
 op1=Read
@@ -4826,11 +4826,11 @@ onmouseleave=graphic_swapper(event_com, "page_numbers,0")
 onclick=graphic_swapper(event_com, "page_numbers,2")
 
 // 948:357
-[com_357]
+[sow_seeds_token_text]
 type=text
 width=24
 height=24
-layer=com_355
+layer=sow_seeds_token
 textfont=p11_full
 text=20
 textalignh=centre

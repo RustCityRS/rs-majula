@@ -1,5 +1,5 @@
 // 919:0
-[com_0]
+[main_layer]
 type=layer
 width=16391
 height=16391
@@ -9,15 +9,15 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 919:1
-[com_1]
+[content_layer]
 type=layer
 width=512
 height=75
 xmode=abs_right
-layer=com_0
+layer=main_layer
 
 // 919:2
-[com_2]
+[resize_layer]
 type=layer
 x=-1
 y=57
@@ -25,134 +25,134 @@ width=338
 height=69
 heightmode=minus
 xmode=abs_right
-layer=com_1
+layer=content_layer
 noclickthrough=yes
 
 // 919:3
-[com_3]
+[top_layer]
 type=layer
 width=512
 height=58
 xmode=abs_right
-layer=com_1
+layer=content_layer
 noclickthrough=yes
 
 // 919:4
-[com_4]
+[history_layer]
 type=layer
 x=183
 y=23
 width=322
 height=48
 heightmode=minus
-layer=com_1
+layer=content_layer
 
 // 919:5
-[com_5]
+[history_scrollbar]
 type=layer
 y=1
 width=16
 height=3
 heightmode=minus
 xmode=abs_right
-layer=com_4
+layer=history_layer
 
 // 919:6
-[com_6]
+[history_scrolllayer]
 type=layer
 width=16
 height=16384
 widthmode=minus
 heightmode=proportion
-layer=com_4
+layer=history_layer
 
 // 919:7
-[com_7]
+[history_habitat_layer]
 type=layer
 x=46
 width=43
 height=18
-layer=com_6
+layer=history_scrolllayer
 
 // 919:8
-[com_8]
+[history_species_layer]
 type=layer
 x=1
 width=43
 height=18
-layer=com_6
+layer=history_scrolllayer
 transmitop=10
 op10= 
 
 // 919:9
-[com_9]
+[history_weight_layer]
 type=layer
 x=92
 width=41
 height=18
-layer=com_6
+layer=history_scrolllayer
 transmitop=10
 op10= 
 
 // 919:10
-[com_10]
+[history_bait_layer]
 type=layer
 x=134
 width=52
 height=18
-layer=com_6
+layer=history_scrolllayer
 transmitop=10
 op10= 
 
 // 919:11
-[com_11]
+[history_hook_layer]
 type=layer
 x=184
 width=46
 height=18
-layer=com_6
+layer=history_scrolllayer
 transmitop=10
 op10= 
 
 // 919:12
-[com_12]
+[history_distance_layer]
 type=layer
 x=233
 width=38
 height=18
-layer=com_6
+layer=history_scrolllayer
 transmitop=10
 op10= 
 
 // 919:13
-[com_13]
+[history_rating_layer]
 type=layer
 x=277
 width=29
 height=18
-layer=com_6
+layer=history_scrolllayer
 transmitop=10
 op10= 
 
 // 919:14
-[com_14]
+[bottom_layer]
 type=layer
 x=178
 width=334
 height=27
 ymode=abs_bottom
-layer=com_1
+layer=content_layer
 noclickthrough=yes
 
 // 919:15
-[com_15]
+[bar_layer]
 type=layer
 x=172
 y=49
 width=11
 height=49
 heightmode=minus
-layer=com_1
+layer=content_layer
 
 // 919:16
 [com_16]
@@ -161,7 +161,7 @@ x=1
 y=1
 width=9
 height=9
-layer=com_15
+layer=bar_layer
 graphic=graphic_2743
 colour=0xffffffff
 transmitop=10
@@ -175,7 +175,7 @@ width=8
 height=8
 xmode=abs_right
 ymode=abs_bottom
-layer=com_15
+layer=bar_layer
 graphic=graphic_2738
 colour=0xffffffff
 transmitop=10
@@ -190,27 +190,27 @@ height=16
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_15
+layer=bar_layer
 graphic=graphic_2736
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 919:19
-[com_19]
+[bait_tooltip_bounds]
 type=layer
 x=296
 y=9
 width=99
 height=52
-layer=com_1
+layer=content_layer
 
 // 919:20
-[com_20]
+[bait_tooltip_layer]
 type=layer
 width=512
 height=334
-layer=com_19
+layer=bait_tooltip_bounds
 
 // 919:21
 [com_21]
@@ -219,7 +219,7 @@ x=5
 width=322
 height=8
 ymode=abs_bottom
-layer=com_14
+layer=bottom_layer
 graphic=graphic_2739
 colour=0xffffffff
 transmitop=10
@@ -233,21 +233,21 @@ y=5
 width=325
 height=40
 ymode=abs_bottom
-layer=com_14
+layer=bottom_layer
 colour=0x5b5547
 fill=yes
 transmitop=10
 op10= 
 
 // 919:23
-[com_23]
+[dropdown_button_layer]
 type=layer
 x=4
 y=4
 width=324
 height=22
 ymode=abs_bottom
-layer=com_14
+layer=bottom_layer
 transmitop=1
 op1=Toggle History
 onop=fishcomp_show_history
@@ -259,7 +259,7 @@ x=326
 width=8
 height=8
 ymode=abs_bottom
-layer=com_14
+layer=bottom_layer
 graphic=graphic_2740
 colour=0xffffffff
 transmitop=10
@@ -272,7 +272,7 @@ x=326
 y=15
 width=8
 height=4
-layer=com_14
+layer=bottom_layer
 graphic=graphic_2737
 tiling=yes
 colour=0xffffffff
@@ -285,7 +285,7 @@ type=graphic
 x=-1
 width=5
 height=21
-layer=com_23
+layer=dropdown_button_layer
 graphic=button_start
 colour=0xffffffff
 transmitop=10
@@ -297,7 +297,7 @@ type=graphic
 x=4
 width=316
 height=21
-layer=com_23
+layer=dropdown_button_layer
 graphic=button_body
 tiling=yes
 colour=0xffffffff
@@ -310,7 +310,7 @@ type=graphic
 x=320
 width=5
 height=21
-layer=com_23
+layer=dropdown_button_layer
 graphic=button_end
 tiling=yes
 colour=0xffffffff
@@ -318,13 +318,13 @@ transmitop=10
 op10= 
 
 // 919:29
-[com_29]
+[dropdown_arrow_left]
 type=graphic
 x=10
 y=5
 width=9
 height=9
-layer=com_23
+layer=dropdown_button_layer
 graphic=graphic_2755
 tiling=yes
 colour=0xffffffff
@@ -332,14 +332,14 @@ transmitop=10
 op10= 
 
 // 919:30
-[com_30]
+[dropdown_arrow_right]
 type=graphic
 x=10
 y=5
 width=9
 height=9
 xmode=abs_right
-layer=com_23
+layer=dropdown_button_layer
 graphic=graphic_2755
 tiling=yes
 colour=0xffffffff
@@ -353,7 +353,7 @@ x=6
 y=3
 width=313
 height=17
-layer=com_23
+layer=dropdown_button_layer
 textfont=p12_full
 text=Show all
 textalignh=centre
@@ -369,7 +369,7 @@ x=9
 y=6
 width=189
 height=48
-layer=com_3
+layer=top_layer
 colour=0x5b5547
 fill=yes
 transmitop=10
@@ -383,7 +383,7 @@ y=14
 width=310
 height=6
 heightmode=minus
-layer=com_3
+layer=top_layer
 colour=0x5b5547
 fill=yes
 transmitop=10
@@ -396,7 +396,7 @@ x=182
 y=23
 width=324
 height=128
-layer=com_3
+layer=top_layer
 graphic=graphic_2749
 tiling=yes
 colour=0xffffffff
@@ -409,7 +409,7 @@ type=graphic
 x=3
 width=8
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2719
 colour=0xffffffff
 transmitop=10
@@ -421,7 +421,7 @@ type=graphic
 x=11
 width=494
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2720
 tiling=yes
 colour=0xffffffff
@@ -435,7 +435,7 @@ x=2
 y=8
 width=8
 height=39
-layer=com_3
+layer=top_layer
 graphic=graphic_2736
 tiling=yes
 colour=0xffffffff
@@ -449,7 +449,7 @@ x=504
 y=6
 width=8
 height=52
-layer=com_3
+layer=top_layer
 graphic=graphic_2737
 tiling=yes
 colour=0xffffffff
@@ -463,7 +463,7 @@ x=132
 y=6
 width=3
 height=20
-layer=com_3
+layer=top_layer
 graphic=graphic_2756
 colour=0xffffffff
 transmitop=10
@@ -476,7 +476,7 @@ x=136
 y=6
 width=3
 height=20
-layer=com_3
+layer=top_layer
 graphic=graphic_2757
 colour=0xffffffff
 transmitop=10
@@ -489,7 +489,7 @@ x=9
 y=138
 width=3
 height=20
-layer=com_3
+layer=top_layer
 graphic=graphic_2759
 colour=0xffffffff
 transmitop=10
@@ -502,7 +502,7 @@ x=139
 y=6
 width=42
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2745
 tiling=yes
 colour=0xffffffff
@@ -516,7 +516,7 @@ x=139
 y=42
 width=42
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2745
 tiling=yes
 colour=0xffffffff
@@ -530,7 +530,7 @@ x=8
 y=6
 width=80
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2745
 colour=0xffffffff
 transmitop=10
@@ -543,7 +543,7 @@ x=182
 y=6
 width=324
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2745
 tiling=yes
 colour=0xffffffff
@@ -557,7 +557,7 @@ x=8
 y=14
 width=80
 height=36
-layer=com_3
+layer=top_layer
 graphic=graphic_2746
 colour=0xffffffff
 transmitop=10
@@ -570,7 +570,7 @@ x=136
 y=10
 width=45
 height=36
-layer=com_3
+layer=top_layer
 graphic=graphic_2746
 tiling=yes
 colour=0xffffffff
@@ -584,7 +584,7 @@ x=89
 y=13
 width=46
 height=30
-layer=com_3
+layer=top_layer
 graphic=graphic_2749
 tiling=yes
 colour=0xffffffff
@@ -598,7 +598,7 @@ x=89
 y=6
 width=43
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2748
 tiling=yes
 colour=0xffffffff
@@ -612,7 +612,7 @@ x=182
 y=14
 width=324
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2746
 tiling=yes
 colour=0xffffffff
@@ -626,7 +626,7 @@ x=148
 y=150
 width=48
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2747
 tiling=yes
 colour=0xffffffff
@@ -640,7 +640,7 @@ x=9
 y=6
 width=3
 height=20
-layer=com_3
+layer=top_layer
 graphic=graphic_2757
 colour=0xffffffff
 transmitop=10
@@ -653,7 +653,7 @@ x=12
 y=44
 width=72
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2747
 colour=0xffffffff
 transmitop=10
@@ -666,7 +666,7 @@ x=89
 y=43
 width=43
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2750
 tiling=yes
 colour=0xffffffff
@@ -680,7 +680,7 @@ x=132
 y=30
 width=3
 height=20
-layer=com_3
+layer=top_layer
 graphic=graphic_2758
 colour=0xffffffff
 transmitop=10
@@ -694,7 +694,7 @@ y=3
 width=8
 height=8
 ymode=abs_bottom
-layer=com_3
+layer=top_layer
 graphic=graphic_2738
 colour=0xffffffff
 transmitop=10
@@ -708,7 +708,7 @@ y=2
 width=170
 height=8
 ymode=abs_bottom
-layer=com_3
+layer=top_layer
 graphic=graphic_2739
 colour=0xffffffff
 transmitop=10
@@ -721,7 +721,7 @@ x=136
 y=30
 width=3
 height=20
-layer=com_3
+layer=top_layer
 graphic=graphic_2759
 colour=0xffffffff
 transmitop=10
@@ -733,7 +733,7 @@ type=graphic
 x=504
 width=8
 height=8
-layer=com_3
+layer=top_layer
 graphic=graphic_2735
 colour=0xffffffff
 transmitop=10
@@ -747,7 +747,7 @@ y=6
 width=1
 height=6
 heightmode=minus
-layer=com_3
+layer=top_layer
 colour=0x5b5547
 transmitop=10
 op10=  
@@ -760,7 +760,7 @@ y=6
 width=1
 height=6
 heightmode=minus
-layer=com_3
+layer=top_layer
 colour=0x5b5547
 transmitop=10
 op10=  
@@ -772,7 +772,7 @@ x=140
 y=11
 width=36
 height=35
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=Last catch:
 textalignh=right
@@ -790,7 +790,7 @@ y=6
 width=1
 height=6
 heightmode=minus
-layer=com_3
+layer=top_layer
 colour=0x5b5547
 transmitop=10
 op10=  
@@ -803,7 +803,7 @@ y=6
 width=1
 height=6
 heightmode=minus
-layer=com_3
+layer=top_layer
 colour=0x5b5547
 transmitop=10
 op10=  
@@ -815,7 +815,7 @@ x=6
 y=7
 width=80
 height=16
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=Heaviest:
 textalignh=right
@@ -831,7 +831,7 @@ x=6
 y=21
 width=80
 height=10
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=Total fish:
 textalignh=right
@@ -847,7 +847,7 @@ x=6
 y=34
 width=80
 height=14
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=Total weight:
 textalignh=right
@@ -857,13 +857,13 @@ transmitop=10
 op10=  
 
 // 919:68
-[com_68]
+[text_11]
 type=text
 x=225
 y=7
 width=53
 height=17
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=Habitat
 textalignh=centre
@@ -873,13 +873,13 @@ transmitop=10
 op10= 
 
 // 919:69
-[com_69]
+[text_12]
 type=text
 x=178
 y=7
 width=53
 height=17
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=Species
 textalignh=centre
@@ -895,7 +895,7 @@ x=271
 y=7
 width=49
 height=17
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=Weight
 textalignh=centre
@@ -911,7 +911,7 @@ x=311
 y=7
 width=58
 height=17
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=Bait
 textalignh=centre
@@ -927,7 +927,7 @@ x=370
 y=7
 width=43
 height=17
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=Hook
 textalignh=centre
@@ -943,7 +943,7 @@ x=415
 y=7
 width=39
 height=17
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=Range
 textalignh=centre
@@ -959,7 +959,7 @@ x=457
 y=7
 width=47
 height=17
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=Rating
 textalignh=centre
@@ -969,13 +969,13 @@ transmitop=10
 op10= 
 
 // 919:75
-[com_75]
+[heaviest_txt]
 type=text
 x=91
 y=8
 width=44
 height=17
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=0
 textshadow=yes
@@ -984,13 +984,13 @@ transmitop=10
 op10= 
 
 // 919:76
-[com_76]
+[total_fish_txt]
 type=text
 x=91
 y=21
 width=44
 height=17
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=0
 colour=0xa4a467
@@ -998,13 +998,13 @@ transmitop=10
 op10= 
 
 // 919:77
-[com_77]
+[total_weight_txt]
 type=text
 x=91
 y=35
 width=44
 height=17
-layer=com_3
+layer=top_layer
 textfont=p11_full
 text=0
 textshadow=yes
@@ -1020,7 +1020,7 @@ y=6
 width=1
 height=6
 heightmode=minus
-layer=com_3
+layer=top_layer
 colour=0x5b5547
 transmitop=10
 op10= 
@@ -1033,7 +1033,7 @@ y=6
 width=1
 height=6
 heightmode=minus
-layer=com_3
+layer=top_layer
 colour=0x5b5547
 transmitop=10
 op10=  
@@ -1046,7 +1046,7 @@ width=324
 height=16391
 heightmode=proportion
 xmode=abs_right
-layer=com_2
+layer=resize_layer
 graphic=graphic_2749
 tiling=yes
 colour=0xffffffff
@@ -1061,7 +1061,7 @@ width=1
 height=16391
 heightmode=proportion
 xmode=abs_right
-layer=com_2
+layer=resize_layer
 colour=0x5b5547
 transmitop=10
 op10=  
@@ -1074,7 +1074,7 @@ width=1
 height=16391
 heightmode=proportion
 xmode=abs_right
-layer=com_2
+layer=resize_layer
 colour=0x5b5547
 transmitop=10
 op10=   
@@ -1087,7 +1087,7 @@ width=1
 height=16391
 heightmode=proportion
 xmode=abs_right
-layer=com_2
+layer=resize_layer
 colour=0x5b5547
 transmitop=10
 op10= 
@@ -1100,7 +1100,7 @@ width=1
 height=16391
 heightmode=proportion
 xmode=abs_right
-layer=com_2
+layer=resize_layer
 colour=0x5b5547
 transmitop=10
 op10= 
@@ -1113,7 +1113,7 @@ width=1
 height=16391
 heightmode=proportion
 xmode=abs_right
-layer=com_2
+layer=resize_layer
 colour=0x5b5547
 transmitop=10
 op10= 
@@ -1126,7 +1126,7 @@ width=1
 height=16391
 heightmode=proportion
 xmode=abs_right
-layer=com_2
+layer=resize_layer
 colour=0x5b5547
 transmitop=10
 op10= 
@@ -1140,7 +1140,7 @@ width=8
 height=16391
 heightmode=proportion
 xmode=abs_right
-layer=com_2
+layer=resize_layer
 graphic=graphic_2737
 tiling=yes
 colour=0xffffffff

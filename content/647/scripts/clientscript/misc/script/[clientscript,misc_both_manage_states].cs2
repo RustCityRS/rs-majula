@@ -1,410 +1,410 @@
 // 1395
 [clientscript,misc_both_manage_states]
 if (%varplayerbit_2140 >= 30) {
-    if_sethide(false, misc_both_manage:com_22);
-    if_sethide(false, misc_both_manage:com_24);
+    if_sethide(false, misc_both_manage:miscb_if_rarewood);
+    if_sethide(false, misc_both_manage:miscb_if_farm);
 } else {
-    if_sethide(true, misc_both_manage:com_22);
-    if_sethide(true, misc_both_manage:com_24);
+    if_sethide(true, misc_both_manage:miscb_if_rarewood);
+    if_sethide(true, misc_both_manage:miscb_if_farm);
 }
-if_settext(tostring(%varplayerbit_74), misc_both_manage:com_115);
+if_settext(tostring(%varplayerbit_74), misc_both_manage:miscb_if_coffers_money);
 if (%varplayerbit_83 > 0) {
-    if_setcolour(^white, misc_both_manage:com_87);
+    if_setcolour(^white, misc_both_manage:miscb_if_fishing_bar1);
 } else {
-    if_setcolour(^black, misc_both_manage:com_87);
+    if_setcolour(^black, misc_both_manage:miscb_if_fishing_bar1);
 }
 if (%varplayerbit_83 > 1) {
-    if_setcolour(^white, misc_both_manage:com_88);
+    if_setcolour(^white, misc_both_manage:miscb_if_fishing_bar2);
 } else {
-    if_setcolour(^black, misc_both_manage:com_88);
+    if_setcolour(^black, misc_both_manage:miscb_if_fishing_bar2);
 }
 if (%varplayerbit_83 > 2) {
-    if_setcolour(^white, misc_both_manage:com_89);
+    if_setcolour(^white, misc_both_manage:miscb_if_fishing_bar3);
 } else {
-    if_setcolour(^black, misc_both_manage:com_89);
+    if_setcolour(^black, misc_both_manage:miscb_if_fishing_bar3);
 }
 if (%varplayerbit_83 > 3) {
-    if_setcolour(^white, misc_both_manage:com_91);
+    if_setcolour(^white, misc_both_manage:miscb_if_fishing_bar4);
 } else {
-    if_setcolour(^black, misc_both_manage:com_91);
+    if_setcolour(^black, misc_both_manage:miscb_if_fishing_bar4);
 }
 if (%varplayerbit_83 > 4) {
-    if_setcolour(^white, misc_both_manage:com_92);
+    if_setcolour(^white, misc_both_manage:miscb_if_fishing_bar5);
 } else {
-    if_setcolour(^black, misc_both_manage:com_92);
+    if_setcolour(^black, misc_both_manage:miscb_if_fishing_bar5);
 }
 if (%varplayerbit_83 > 5) {
-    if_setcolour(^white, misc_both_manage:com_93);
+    if_setcolour(^white, misc_both_manage:miscb_if_fishing_bar6);
 } else {
-    if_setcolour(^black, misc_both_manage:com_93);
+    if_setcolour(^black, misc_both_manage:miscb_if_fishing_bar6);
 }
 if (%varplayerbit_83 > 6) {
-    if_setcolour(^white, misc_both_manage:com_94);
+    if_setcolour(^white, misc_both_manage:miscb_if_fishing_bar7);
 } else {
-    if_setcolour(^black, misc_both_manage:com_94);
+    if_setcolour(^black, misc_both_manage:miscb_if_fishing_bar7);
 }
 if (%varplayerbit_83 > 7) {
-    if_setcolour(^white, misc_both_manage:com_95);
+    if_setcolour(^white, misc_both_manage:miscb_if_fishing_bar8);
 } else {
-    if_setcolour(^black, misc_both_manage:com_95);
+    if_setcolour(^black, misc_both_manage:miscb_if_fishing_bar8);
 }
 if (%varplayerbit_83 > 8) {
-    if_setcolour(^white, misc_both_manage:com_96);
+    if_setcolour(^white, misc_both_manage:miscb_if_fishing_bar9);
 } else {
-    if_setcolour(^black, misc_both_manage:com_96);
+    if_setcolour(^black, misc_both_manage:miscb_if_fishing_bar9);
 }
 if (%varplayerbit_83 > 9) {
-    if_setcolour(^white, misc_both_manage:com_97);
+    if_setcolour(^white, misc_both_manage:miscb_if_fishing_bar10);
 } else {
-    if_setcolour(^black, misc_both_manage:com_97);
+    if_setcolour(^black, misc_both_manage:miscb_if_fishing_bar10);
 }
 if (%varplayerbit_84 > 0) {
-    if_setcolour(^white, misc_both_manage:com_44);
+    if_setcolour(^white, misc_both_manage:miscb_if_mining_bar1);
 } else {
-    if_setcolour(^black, misc_both_manage:com_44);
+    if_setcolour(^black, misc_both_manage:miscb_if_mining_bar1);
 }
 if (%varplayerbit_84 > 1) {
-    if_setcolour(^white, misc_both_manage:com_45);
+    if_setcolour(^white, misc_both_manage:miscb_if_mining_bar2);
 } else {
-    if_setcolour(^black, misc_both_manage:com_45);
+    if_setcolour(^black, misc_both_manage:miscb_if_mining_bar2);
 }
 if (%varplayerbit_84 > 2) {
-    if_setcolour(^white, misc_both_manage:com_46);
+    if_setcolour(^white, misc_both_manage:miscb_if_mining_bar3);
 } else {
-    if_setcolour(^black, misc_both_manage:com_46);
+    if_setcolour(^black, misc_both_manage:miscb_if_mining_bar3);
 }
 if (%varplayerbit_84 > 3) {
-    if_setcolour(^white, misc_both_manage:com_47);
+    if_setcolour(^white, misc_both_manage:miscb_if_mining_bar4);
 } else {
-    if_setcolour(^black, misc_both_manage:com_47);
+    if_setcolour(^black, misc_both_manage:miscb_if_mining_bar4);
 }
 if (%varplayerbit_84 > 4) {
-    if_setcolour(^white, misc_both_manage:com_48);
+    if_setcolour(^white, misc_both_manage:miscb_if_mining_bar5);
 } else {
-    if_setcolour(^black, misc_both_manage:com_48);
+    if_setcolour(^black, misc_both_manage:miscb_if_mining_bar5);
 }
 if (%varplayerbit_84 > 5) {
-    if_setcolour(^white, misc_both_manage:com_49);
+    if_setcolour(^white, misc_both_manage:miscb_if_mining_bar6);
 } else {
-    if_setcolour(^black, misc_both_manage:com_49);
+    if_setcolour(^black, misc_both_manage:miscb_if_mining_bar6);
 }
 if (%varplayerbit_84 > 6) {
-    if_setcolour(^white, misc_both_manage:com_50);
+    if_setcolour(^white, misc_both_manage:miscb_if_mining_bar7);
 } else {
-    if_setcolour(^black, misc_both_manage:com_50);
+    if_setcolour(^black, misc_both_manage:miscb_if_mining_bar7);
 }
 if (%varplayerbit_84 > 7) {
-    if_setcolour(^white, misc_both_manage:com_51);
+    if_setcolour(^white, misc_both_manage:miscb_if_mining_bar8);
 } else {
-    if_setcolour(^black, misc_both_manage:com_51);
+    if_setcolour(^black, misc_both_manage:miscb_if_mining_bar8);
 }
 if (%varplayerbit_84 > 8) {
-    if_setcolour(^white, misc_both_manage:com_52);
+    if_setcolour(^white, misc_both_manage:miscb_if_mining_bar9);
 } else {
-    if_setcolour(^black, misc_both_manage:com_52);
+    if_setcolour(^black, misc_both_manage:miscb_if_mining_bar9);
 }
 if (%varplayerbit_84 > 9) {
-    if_setcolour(^white, misc_both_manage:com_53);
+    if_setcolour(^white, misc_both_manage:miscb_if_mining_bar10);
 } else {
-    if_setcolour(^black, misc_both_manage:com_53);
+    if_setcolour(^black, misc_both_manage:miscb_if_mining_bar10);
 }
 if (%varplayerbit_82 > 0) {
-    if_setcolour(^white, misc_both_manage:com_74);
+    if_setcolour(^white, misc_both_manage:miscb_if_herbs_bar1);
 } else {
-    if_setcolour(^black, misc_both_manage:com_74);
+    if_setcolour(^black, misc_both_manage:miscb_if_herbs_bar1);
 }
 if (%varplayerbit_82 > 1) {
-    if_setcolour(^white, misc_both_manage:com_75);
+    if_setcolour(^white, misc_both_manage:miscb_if_herbs_bar2);
 } else {
-    if_setcolour(^black, misc_both_manage:com_75);
+    if_setcolour(^black, misc_both_manage:miscb_if_herbs_bar2);
 }
 if (%varplayerbit_82 > 2) {
-    if_setcolour(^white, misc_both_manage:com_76);
+    if_setcolour(^white, misc_both_manage:miscb_if_herbs_bar3);
 } else {
-    if_setcolour(^black, misc_both_manage:com_76);
+    if_setcolour(^black, misc_both_manage:miscb_if_herbs_bar3);
 }
 if (%varplayerbit_82 > 3) {
-    if_setcolour(^white, misc_both_manage:com_77);
+    if_setcolour(^white, misc_both_manage:miscb_if_herbs_bar4);
 } else {
-    if_setcolour(^black, misc_both_manage:com_77);
+    if_setcolour(^black, misc_both_manage:miscb_if_herbs_bar4);
 }
 if (%varplayerbit_82 > 4) {
-    if_setcolour(^white, misc_both_manage:com_78);
+    if_setcolour(^white, misc_both_manage:miscb_if_herbs_bar5);
 } else {
-    if_setcolour(^black, misc_both_manage:com_78);
+    if_setcolour(^black, misc_both_manage:miscb_if_herbs_bar5);
 }
 if (%varplayerbit_82 > 5) {
-    if_setcolour(^white, misc_both_manage:com_79);
+    if_setcolour(^white, misc_both_manage:miscb_if_herbs_bar6);
 } else {
-    if_setcolour(^black, misc_both_manage:com_79);
+    if_setcolour(^black, misc_both_manage:miscb_if_herbs_bar6);
 }
 if (%varplayerbit_82 > 6) {
-    if_setcolour(^white, misc_both_manage:com_80);
+    if_setcolour(^white, misc_both_manage:miscb_if_herbs_bar7);
 } else {
-    if_setcolour(^black, misc_both_manage:com_80);
+    if_setcolour(^black, misc_both_manage:miscb_if_herbs_bar7);
 }
 if (%varplayerbit_82 > 7) {
-    if_setcolour(^white, misc_both_manage:com_81);
+    if_setcolour(^white, misc_both_manage:miscb_if_herbs_bar8);
 } else {
-    if_setcolour(^black, misc_both_manage:com_81);
+    if_setcolour(^black, misc_both_manage:miscb_if_herbs_bar8);
 }
 if (%varplayerbit_82 > 8) {
-    if_setcolour(^white, misc_both_manage:com_82);
+    if_setcolour(^white, misc_both_manage:miscb_if_herbs_bar9);
 } else {
-    if_setcolour(^black, misc_both_manage:com_82);
+    if_setcolour(^black, misc_both_manage:miscb_if_herbs_bar9);
 }
 if (%varplayerbit_82 > 9) {
-    if_setcolour(^white, misc_both_manage:com_83);
+    if_setcolour(^white, misc_both_manage:miscb_if_herbs_bar10);
 } else {
-    if_setcolour(^black, misc_both_manage:com_83);
+    if_setcolour(^black, misc_both_manage:miscb_if_herbs_bar10);
 }
 if (%varplayerbit_81 > 0) {
-    if_setcolour(^white, misc_both_manage:com_58);
+    if_setcolour(^white, misc_both_manage:miscb_if_wood_bar1);
 } else {
-    if_setcolour(^black, misc_both_manage:com_58);
+    if_setcolour(^black, misc_both_manage:miscb_if_wood_bar1);
 }
 if (%varplayerbit_81 > 1) {
-    if_setcolour(^white, misc_both_manage:com_59);
+    if_setcolour(^white, misc_both_manage:miscb_if_wood_bar2);
 } else {
-    if_setcolour(^black, misc_both_manage:com_59);
+    if_setcolour(^black, misc_both_manage:miscb_if_wood_bar2);
 }
 if (%varplayerbit_81 > 2) {
-    if_setcolour(^white, misc_both_manage:com_60);
+    if_setcolour(^white, misc_both_manage:miscb_if_wood_bar3);
 } else {
-    if_setcolour(^black, misc_both_manage:com_60);
+    if_setcolour(^black, misc_both_manage:miscb_if_wood_bar3);
 }
 if (%varplayerbit_81 > 3) {
-    if_setcolour(^white, misc_both_manage:com_61);
+    if_setcolour(^white, misc_both_manage:miscb_if_wood_bar4);
 } else {
-    if_setcolour(^black, misc_both_manage:com_61);
+    if_setcolour(^black, misc_both_manage:miscb_if_wood_bar4);
 }
 if (%varplayerbit_81 > 4) {
-    if_setcolour(^white, misc_both_manage:com_62);
+    if_setcolour(^white, misc_both_manage:miscb_if_wood_bar5);
 } else {
-    if_setcolour(^black, misc_both_manage:com_62);
+    if_setcolour(^black, misc_both_manage:miscb_if_wood_bar5);
 }
 if (%varplayerbit_81 > 5) {
-    if_setcolour(^white, misc_both_manage:com_63);
+    if_setcolour(^white, misc_both_manage:miscb_if_wood_bar6);
 } else {
-    if_setcolour(^black, misc_both_manage:com_63);
+    if_setcolour(^black, misc_both_manage:miscb_if_wood_bar6);
 }
 if (%varplayerbit_81 > 6) {
-    if_setcolour(^white, misc_both_manage:com_64);
+    if_setcolour(^white, misc_both_manage:miscb_if_wood_bar7);
 } else {
-    if_setcolour(^black, misc_both_manage:com_64);
+    if_setcolour(^black, misc_both_manage:miscb_if_wood_bar7);
 }
 if (%varplayerbit_81 > 7) {
-    if_setcolour(^white, misc_both_manage:com_65);
+    if_setcolour(^white, misc_both_manage:miscb_if_wood_bar8);
 } else {
-    if_setcolour(^black, misc_both_manage:com_65);
+    if_setcolour(^black, misc_both_manage:miscb_if_wood_bar8);
 }
 if (%varplayerbit_81 > 8) {
-    if_setcolour(^white, misc_both_manage:com_66);
+    if_setcolour(^white, misc_both_manage:miscb_if_wood_bar9);
 } else {
-    if_setcolour(^black, misc_both_manage:com_66);
+    if_setcolour(^black, misc_both_manage:miscb_if_wood_bar9);
 }
 if (%varplayerbit_81 > 9) {
-    if_setcolour(^white, misc_both_manage:com_70);
+    if_setcolour(^white, misc_both_manage:miscb_if_wood_bar10);
 } else {
-    if_setcolour(^black, misc_both_manage:com_70);
+    if_setcolour(^black, misc_both_manage:miscb_if_wood_bar10);
 }
 if (%varplayerbit_2131 > 0) {
-    if_setcolour(^white, misc_both_manage:com_124);
+    if_setcolour(^white, misc_both_manage:miscb_if_rarewood_bar1);
 } else {
-    if_setcolour(^black, misc_both_manage:com_124);
+    if_setcolour(^black, misc_both_manage:miscb_if_rarewood_bar1);
 }
 if (%varplayerbit_2131 > 1) {
-    if_setcolour(^white, misc_both_manage:com_125);
+    if_setcolour(^white, misc_both_manage:miscb_if_rarewood_bar2);
 } else {
-    if_setcolour(^black, misc_both_manage:com_125);
+    if_setcolour(^black, misc_both_manage:miscb_if_rarewood_bar2);
 }
 if (%varplayerbit_2131 > 2) {
-    if_setcolour(^white, misc_both_manage:com_126);
+    if_setcolour(^white, misc_both_manage:miscb_if_rarewood_bar3);
 } else {
-    if_setcolour(^black, misc_both_manage:com_126);
+    if_setcolour(^black, misc_both_manage:miscb_if_rarewood_bar3);
 }
 if (%varplayerbit_2131 > 3) {
-    if_setcolour(^white, misc_both_manage:com_127);
+    if_setcolour(^white, misc_both_manage:miscb_if_rarewood_bar4);
 } else {
-    if_setcolour(^black, misc_both_manage:com_127);
+    if_setcolour(^black, misc_both_manage:miscb_if_rarewood_bar4);
 }
 if (%varplayerbit_2131 > 4) {
-    if_setcolour(^white, misc_both_manage:com_128);
+    if_setcolour(^white, misc_both_manage:miscb_if_rarewood_bar5);
 } else {
-    if_setcolour(^black, misc_both_manage:com_128);
+    if_setcolour(^black, misc_both_manage:miscb_if_rarewood_bar5);
 }
 if (%varplayerbit_2131 > 5) {
-    if_setcolour(^white, misc_both_manage:com_129);
+    if_setcolour(^white, misc_both_manage:miscb_if_rarewood_bar6);
 } else {
-    if_setcolour(^black, misc_both_manage:com_129);
+    if_setcolour(^black, misc_both_manage:miscb_if_rarewood_bar6);
 }
 if (%varplayerbit_2131 > 6) {
-    if_setcolour(^white, misc_both_manage:com_130);
+    if_setcolour(^white, misc_both_manage:miscb_if_rarewood_bar7);
 } else {
-    if_setcolour(^black, misc_both_manage:com_130);
+    if_setcolour(^black, misc_both_manage:miscb_if_rarewood_bar7);
 }
 if (%varplayerbit_2131 > 7) {
-    if_setcolour(^white, misc_both_manage:com_131);
+    if_setcolour(^white, misc_both_manage:miscb_if_rarewood_bar8);
 } else {
-    if_setcolour(^black, misc_both_manage:com_131);
+    if_setcolour(^black, misc_both_manage:miscb_if_rarewood_bar8);
 }
 if (%varplayerbit_2131 > 8) {
-    if_setcolour(^white, misc_both_manage:com_132);
+    if_setcolour(^white, misc_both_manage:miscb_if_rarewood_bar9);
 } else {
-    if_setcolour(^black, misc_both_manage:com_132);
+    if_setcolour(^black, misc_both_manage:miscb_if_rarewood_bar9);
 }
 if (%varplayerbit_2131 > 9) {
-    if_setcolour(^white, misc_both_manage:com_133);
+    if_setcolour(^white, misc_both_manage:miscb_if_rarewood_bar10);
 } else {
-    if_setcolour(^black, misc_both_manage:com_133);
+    if_setcolour(^black, misc_both_manage:miscb_if_rarewood_bar10);
 }
 if (%varplayerbit_2132 > 0) {
-    if_setcolour(^white, misc_both_manage:com_145);
+    if_setcolour(^white, misc_both_manage:miscb_if_farm_bar1);
 } else {
-    if_setcolour(^black, misc_both_manage:com_145);
+    if_setcolour(^black, misc_both_manage:miscb_if_farm_bar1);
 }
 if (%varplayerbit_2132 > 1) {
-    if_setcolour(^white, misc_both_manage:com_146);
+    if_setcolour(^white, misc_both_manage:miscb_if_farm_bar2);
 } else {
-    if_setcolour(^black, misc_both_manage:com_146);
+    if_setcolour(^black, misc_both_manage:miscb_if_farm_bar2);
 }
 if (%varplayerbit_2132 > 2) {
-    if_setcolour(^white, misc_both_manage:com_147);
+    if_setcolour(^white, misc_both_manage:miscb_if_farm_bar3);
 } else {
-    if_setcolour(^black, misc_both_manage:com_147);
+    if_setcolour(^black, misc_both_manage:miscb_if_farm_bar3);
 }
 if (%varplayerbit_2132 > 3) {
-    if_setcolour(^white, misc_both_manage:com_148);
+    if_setcolour(^white, misc_both_manage:miscb_if_farm_bar4);
 } else {
-    if_setcolour(^black, misc_both_manage:com_148);
+    if_setcolour(^black, misc_both_manage:miscb_if_farm_bar4);
 }
 if (%varplayerbit_2132 > 4) {
-    if_setcolour(^white, misc_both_manage:com_149);
+    if_setcolour(^white, misc_both_manage:miscb_if_farm_bar5);
 } else {
-    if_setcolour(^black, misc_both_manage:com_149);
+    if_setcolour(^black, misc_both_manage:miscb_if_farm_bar5);
 }
 if (%varplayerbit_2132 > 5) {
-    if_setcolour(^white, misc_both_manage:com_150);
+    if_setcolour(^white, misc_both_manage:miscb_if_farm_bar6);
 } else {
-    if_setcolour(^black, misc_both_manage:com_150);
+    if_setcolour(^black, misc_both_manage:miscb_if_farm_bar6);
 }
 if (%varplayerbit_2132 > 6) {
-    if_setcolour(^white, misc_both_manage:com_151);
+    if_setcolour(^white, misc_both_manage:miscb_if_farm_bar7);
 } else {
-    if_setcolour(^black, misc_both_manage:com_151);
+    if_setcolour(^black, misc_both_manage:miscb_if_farm_bar7);
 }
 if (%varplayerbit_2132 > 7) {
-    if_setcolour(^white, misc_both_manage:com_152);
+    if_setcolour(^white, misc_both_manage:miscb_if_farm_bar8);
 } else {
-    if_setcolour(^black, misc_both_manage:com_152);
+    if_setcolour(^black, misc_both_manage:miscb_if_farm_bar8);
 }
 if (%varplayerbit_2132 > 8) {
-    if_setcolour(^white, misc_both_manage:com_153);
+    if_setcolour(^white, misc_both_manage:miscb_if_farm_bar9);
 } else {
-    if_setcolour(^black, misc_both_manage:com_153);
+    if_setcolour(^black, misc_both_manage:miscb_if_farm_bar9);
 }
 if (%varplayerbit_2132 > 9) {
-    if_setcolour(^white, misc_both_manage:com_154);
+    if_setcolour(^white, misc_both_manage:miscb_if_farm_bar10);
 } else {
-    if_setcolour(^black, misc_both_manage:com_154);
+    if_setcolour(^black, misc_both_manage:miscb_if_farm_bar10);
 }
 if (%varplayer_1888 > 0) {
-    if_setcolour(^white, misc_both_manage:com_98);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar1);
 } else {
-    if_setcolour(^black, misc_both_manage:com_98);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar1);
 }
 if (%varplayer_1888 > 1) {
-    if_setcolour(^white, misc_both_manage:com_99);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar2);
 } else {
-    if_setcolour(^black, misc_both_manage:com_99);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar2);
 }
 if (%varplayer_1888 > 2) {
-    if_setcolour(^white, misc_both_manage:com_100);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar3);
 } else {
-    if_setcolour(^black, misc_both_manage:com_100);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar3);
 }
 if (%varplayer_1888 > 3) {
-    if_setcolour(^white, misc_both_manage:com_101);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar4);
 } else {
-    if_setcolour(^black, misc_both_manage:com_101);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar4);
 }
 if (%varplayer_1888 > 4) {
-    if_setcolour(^white, misc_both_manage:com_104);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar5);
 } else {
-    if_setcolour(^black, misc_both_manage:com_104);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar5);
 }
 if (%varplayer_1888 > 5) {
-    if_setcolour(^white, misc_both_manage:com_105);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar6);
 } else {
-    if_setcolour(^black, misc_both_manage:com_105);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar6);
 }
 if (%varplayer_1888 > 6) {
-    if_setcolour(^white, misc_both_manage:com_106);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar7);
 } else {
-    if_setcolour(^black, misc_both_manage:com_106);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar7);
 }
 if (%varplayer_1888 > 7) {
-    if_setcolour(^white, misc_both_manage:com_107);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar8);
 } else {
-    if_setcolour(^black, misc_both_manage:com_107);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar8);
 }
 if (%varplayer_1888 > 8) {
-    if_setcolour(^white, misc_both_manage:com_108);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar9);
 } else {
-    if_setcolour(^black, misc_both_manage:com_108);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar9);
 }
 if (%varplayer_1888 > 9) {
-    if_setcolour(^white, misc_both_manage:com_109);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar10);
 } else {
-    if_setcolour(^black, misc_both_manage:com_109);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar10);
 }
 if (%varplayer_1888 > 10) {
-    if_setcolour(^white, misc_both_manage:com_110);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar11);
 } else {
-    if_setcolour(^black, misc_both_manage:com_110);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar11);
 }
 if (%varplayer_1888 > 11) {
-    if_setcolour(^white, misc_both_manage:com_111);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar12);
 } else {
-    if_setcolour(^black, misc_both_manage:com_111);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar12);
 }
 if (%varplayer_1888 > 12) {
-    if_setcolour(^white, misc_both_manage:com_112);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar13);
 } else {
-    if_setcolour(^black, misc_both_manage:com_112);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar13);
 }
 if (%varplayer_1888 > 13) {
-    if_setcolour(^white, misc_both_manage:com_113);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar14);
 } else {
-    if_setcolour(^black, misc_both_manage:com_113);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar14);
 }
 if (%varplayer_1888 > 14) {
-    if_setcolour(^white, misc_both_manage:com_114);
+    if_setcolour(^white, misc_both_manage:miscb_if_idle_bar15);
 } else {
-    if_setcolour(^black, misc_both_manage:com_114);
+    if_setcolour(^black, misc_both_manage:miscb_if_idle_bar15);
 }
 if (%varplayerbit_2134 = 1) {
-    if_setgraphic("miscgraphics,10", misc_both_manage:com_155);
-    if_setgraphic("miscgraphics,11", misc_both_manage:com_157);
+    if_setgraphic("miscgraphics,10", misc_both_manage:miscb_if_herbs_chooseherb);
+    if_setgraphic("miscgraphics,11", misc_both_manage:miscb_if_herbs_chooseflax);
 } else {
-    if_setgraphic("miscgraphics,11", misc_both_manage:com_155);
-    if_setgraphic("miscgraphics,10", misc_both_manage:com_157);
+    if_setgraphic("miscgraphics,11", misc_both_manage:miscb_if_herbs_chooseherb);
+    if_setgraphic("miscgraphics,10", misc_both_manage:miscb_if_herbs_chooseflax);
 }
 if (%varplayerbit_2133 = 0) {
-    if_setgraphic("miscgraphics,11", misc_both_manage:com_134);
-    if_setgraphic("miscgraphics,10", misc_both_manage:com_135);
-    if_setgraphic("miscgraphics,10", misc_both_manage:com_136);
+    if_setgraphic("miscgraphics,11", misc_both_manage:miscb_if_rarewood_choosemahogany);
+    if_setgraphic("miscgraphics,10", misc_both_manage:miscb_if_rarewood_chooseteak);
+    if_setgraphic("miscgraphics,10", misc_both_manage:miscb_if_rarewood_chooseboth);
 } else if (%varplayerbit_2133 = 1) {
-    if_setgraphic("miscgraphics,10", misc_both_manage:com_134);
-    if_setgraphic("miscgraphics,11", misc_both_manage:com_135);
-    if_setgraphic("miscgraphics,10", misc_both_manage:com_136);
+    if_setgraphic("miscgraphics,10", misc_both_manage:miscb_if_rarewood_choosemahogany);
+    if_setgraphic("miscgraphics,11", misc_both_manage:miscb_if_rarewood_chooseteak);
+    if_setgraphic("miscgraphics,10", misc_both_manage:miscb_if_rarewood_chooseboth);
 } else {
-    if_setgraphic("miscgraphics,10", misc_both_manage:com_134);
-    if_setgraphic("miscgraphics,10", misc_both_manage:com_135);
-    if_setgraphic("miscgraphics,11", misc_both_manage:com_136);
+    if_setgraphic("miscgraphics,10", misc_both_manage:miscb_if_rarewood_choosemahogany);
+    if_setgraphic("miscgraphics,10", misc_both_manage:miscb_if_rarewood_chooseteak);
+    if_setgraphic("miscgraphics,11", misc_both_manage:miscb_if_rarewood_chooseboth);
 }
 if (%varplayerbit_135 = 0) {
-    if_setgraphic("miscgraphics,10", misc_both_manage:com_120);
+    if_setgraphic("miscgraphics,10", misc_both_manage:miscb_if_fishing_cooked);
 } else {
-    if_setgraphic("miscgraphics,11", misc_both_manage:com_120);
+    if_setgraphic("miscgraphics,11", misc_both_manage:miscb_if_fishing_cooked);
 }

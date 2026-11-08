@@ -135,7 +135,7 @@ graphic="v2_stone_borders,10"
 colour=0xffffffff
 
 // 632:13
-[com_13]
+[last_fifty]
 type=text
 x=160
 y=60
@@ -148,7 +148,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 632:14
-[com_14]
+[title]
 type=text
 x=15
 y=30
@@ -168,10 +168,10 @@ y=75
 width=437
 height=229
 onload=duel2_scoreboard_init
-onvarcstrtransmit=duel2_scoreboard_update(event_com, duel2_scoreboard:com_16){varclient_1743, varclient_1744, varclient_1745, varclient_1746, varclient_1747, varclient_1748, varclient_1749, varclient_1750, varclient_1751, varclient_1752, varclient_1753, varclient_1754, varclient_1755, varclient_1756, varclient_1757, varclient_1758, varclient_1759, varclient_1760, varclient_1761, varclient_1762, varclient_1763, varclient_1764, varclient_1765, varclient_1766, varclient_1767, varclient_1768, varclient_1769, varclient_1770, varclient_1771, varclient_1772, varclient_1773, varclient_1774, varclient_1775, varclient_1776, varclient_1777, varclient_1778, varclient_1779, varclient_1780, varclient_1781, varclient_1782, varclient_1783, varclient_1784, varclient_1785, varclient_1786, varclient_1787, varclient_1788, varclient_1789, varclient_1790, varclient_1791, varclient_1792}
+onvarcstrtransmit=duel2_scoreboard_update(event_com, duel2_scoreboard:examine_prove1){varclient_1743, varclient_1744, varclient_1745, varclient_1746, varclient_1747, varclient_1748, varclient_1749, varclient_1750, varclient_1751, varclient_1752, varclient_1753, varclient_1754, varclient_1755, varclient_1756, varclient_1757, varclient_1758, varclient_1759, varclient_1760, varclient_1761, varclient_1762, varclient_1763, varclient_1764, varclient_1765, varclient_1766, varclient_1767, varclient_1768, varclient_1769, varclient_1770, varclient_1771, varclient_1772, varclient_1773, varclient_1774, varclient_1775, varclient_1776, varclient_1777, varclient_1778, varclient_1779, varclient_1780, varclient_1781, varclient_1782, varclient_1783, varclient_1784, varclient_1785, varclient_1786, varclient_1787, varclient_1788, varclient_1789, varclient_1790, varclient_1791, varclient_1792}
 
 // 632:16
-[com_16]
+[examine_prove1]
 type=layer
 x=472
 y=75
@@ -180,7 +180,7 @@ height=230
 onload=scrollbar_vertical_graphics(event_com, duel2_scoreboard:com_15, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 632:17
-[com_17]
+[duel_close_button]
 type=graphic
 x=474
 y=30

@@ -135,7 +135,7 @@ onmouseover=show_component(barbassault_turret:com_8)
 onmouseleave=hide_component(barbassault_turret:com_8)
 
 // 495:12
-[com_12]
+[barbassault_explosive_healer]
 type=text
 x=32
 y=50
@@ -153,7 +153,7 @@ onmouseover=show_component(barbassault_turret:com_9)
 onmouseleave=hide_component(barbassault_turret:com_9)
 
 // 495:13
-[com_13]
+[barbassault_stun_healer]
 type=text
 x=32
 y=80
@@ -278,7 +278,7 @@ height=32
 hide=yes
 
 // 495:24
-[com_24]
+[barbassault_poison_runner]
 type=text
 x=127
 y=21
@@ -296,7 +296,7 @@ onmouseover=show_component(barbassault_turret:com_21)
 onmouseleave=hide_component(barbassault_turret:com_21)
 
 // 495:25
-[com_25]
+[barbassault_explosive_runner]
 type=text
 x=127
 y=50
@@ -314,7 +314,7 @@ onmouseover=show_component(barbassault_turret:com_22)
 onmouseleave=hide_component(barbassault_turret:com_22)
 
 // 495:26
-[com_26]
+[barbassault_stun_runner]
 type=text
 x=127
 y=80
@@ -439,7 +439,7 @@ height=32
 hide=yes
 
 // 495:37
-[com_37]
+[barbassault_poison_fighter]
 type=text
 x=32
 y=104
@@ -457,7 +457,7 @@ onmouseover=show_component(barbassault_turret:com_34)
 onmouseleave=hide_component(barbassault_turret:com_34)
 
 // 495:38
-[com_38]
+[barbassault_explosive_fighter]
 type=text
 x=32
 y=133
@@ -475,7 +475,7 @@ onmouseover=show_component(barbassault_turret:com_35)
 onmouseleave=hide_component(barbassault_turret:com_35)
 
 // 495:39
-[com_39]
+[barbassault_stun_fighter]
 type=text
 x=32
 y=162
@@ -600,7 +600,7 @@ height=32
 hide=yes
 
 // 495:50
-[com_50]
+[barbassault_poison_ranger]
 type=text
 x=127
 y=104
@@ -618,7 +618,7 @@ onmouseover=show_component(barbassault_turret:com_47)
 onmouseleave=hide_component(barbassault_turret:com_47)
 
 // 495:51
-[com_51]
+[barbassault_explosive_ranger]
 type=text
 x=127
 y=133
@@ -636,7 +636,7 @@ onmouseover=show_component(barbassault_turret:com_48)
 onmouseleave=hide_component(barbassault_turret:com_48)
 
 // 495:52
-[com_52]
+[barbassault_stun_ranger]
 type=text
 x=127
 y=162
@@ -686,7 +686,7 @@ height=32
 hide=yes
 
 // 495:56
-[com_56]
+[barbassault_omega_queen]
 type=text
 x=75
 y=229
@@ -704,7 +704,7 @@ onmouseover=show_component(barbassault_turret:com_55)
 onmouseleave=hide_component(barbassault_turret:com_55)
 
 // 495:57
-[com_57]
+[owned_340]
 type=text
 x=2
 y=27
@@ -718,7 +718,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 495:58
-[com_58]
+[owned_341]
 type=text
 x=2
 y=56
@@ -732,7 +732,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 495:59
-[com_59]
+[owned_342]
 type=text
 x=2
 y=87
@@ -746,7 +746,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 495:60
-[com_60]
+[owned_343]
 type=text
 x=95
 y=25
@@ -760,7 +760,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 495:61
-[com_61]
+[owned_344]
 type=text
 x=95
 y=54
@@ -774,7 +774,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 495:62
-[com_62]
+[owned_345]
 type=text
 x=95
 y=85
@@ -788,7 +788,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 495:63
-[com_63]
+[owned_346]
 type=text
 x=1
 y=110
@@ -802,7 +802,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 495:64
-[com_64]
+[owned_347]
 type=text
 x=1
 y=139
@@ -816,7 +816,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 495:65
-[com_65]
+[owned_348]
 type=text
 x=1
 y=170
@@ -886,7 +886,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 495:70
-[com_70]
+[close_button]
 type=graphic
 x=171
 y=5

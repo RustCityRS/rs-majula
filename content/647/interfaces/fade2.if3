@@ -1,15 +1,15 @@
 // 89:0
-[com_0]
+[eventlayer]
 type=layer
 widthmode=minus
 heightmode=minus
 
 // 89:1
-[com_1]
+[flash]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=eventlayer
 colour=0x000000
 fill=yes
 trans=255
@@ -17,11 +17,11 @@ transmitop=10
 op10= 
 
 // 89:2
-[com_2]
+[black]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=eventlayer
 colour=0x000000
 fill=yes
 trans=255

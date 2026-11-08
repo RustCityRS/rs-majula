@@ -9,7 +9,7 @@ transmitop=10
 op10=  
 
 // 620:1
-[com_1]
+[drop_shadow]
 type=rectangle
 width=500
 height=316
@@ -21,7 +21,7 @@ opbase=
 op10=  
 
 // 620:2
-[com_2]
+[drop_shadow_1]
 type=rectangle
 x=1
 y=1
@@ -36,7 +36,7 @@ opbase=
 op10=   
 
 // 620:3
-[com_3]
+[drop_shadow_2]
 type=rectangle
 x=2
 y=2
@@ -51,7 +51,7 @@ opbase=
 op10=    
 
 // 620:4
-[com_4]
+[drop_shadow_3]
 type=rectangle
 x=3
 y=3
@@ -66,7 +66,7 @@ opbase=
 op10=     
 
 // 620:5
-[com_5]
+[drop_shadow_4]
 type=rectangle
 x=4
 y=4
@@ -81,7 +81,7 @@ opbase=
 op10=      
 
 // 620:6
-[com_6]
+[background_top]
 type=graphic
 x=8
 y=22
@@ -96,7 +96,7 @@ transmitop=10
 op10= 
 
 // 620:7
-[com_7]
+[background_mid]
 type=graphic
 x=8
 y=92
@@ -128,7 +128,7 @@ transmitop=10
 op10= 
 
 // 620:9
-[com_9]
+[background_border]
 type=rectangle
 x=7
 y=22
@@ -140,7 +140,7 @@ layer=com_0
 colour=0x000000
 
 // 620:10
-[com_10]
+[border_left]
 type=graphic
 x=-13
 y=32
@@ -155,7 +155,7 @@ transmitop=10
 op10=   
 
 // 620:11
-[com_11]
+[border_right]
 type=graphic
 x=-6
 y=32
@@ -171,7 +171,7 @@ transmitop=10
 op10=   
 
 // 620:12
-[com_12]
+[border_top]
 type=graphic
 x=32
 width=70
@@ -185,7 +185,7 @@ transmitop=10
 op10=       
 
 // 620:13
-[com_13]
+[border_bottom]
 type=graphic
 x=32
 y=-7
@@ -201,7 +201,7 @@ transmitop=10
 op10=   
 
 // 620:14
-[com_14]
+[border_top_left]
 type=graphic
 width=32
 height=32
@@ -212,7 +212,7 @@ transmitop=10
 op10=       
 
 // 620:15
-[com_15]
+[border_top_right]
 type=graphic
 x=6
 width=32
@@ -225,7 +225,7 @@ transmitop=10
 op10=       
 
 // 620:16
-[com_16]
+[border_bottom_left]
 type=graphic
 y=5
 width=32
@@ -238,7 +238,7 @@ transmitop=10
 op10=   
 
 // 620:17
-[com_17]
+[border_bottom_right]
 type=graphic
 x=6
 y=5
@@ -253,7 +253,7 @@ transmitop=10
 op10=   
 
 // 620:18
-[com_18]
+[close_button]
 type=graphic
 x=18
 y=2
@@ -281,11 +281,11 @@ layer=com_0
 hide=yes
 graphic=km_generalstoreicon
 colour=0xffffffff
-onmouseleave=deltooltip(shop_template:com_34)
-onmouserepeat=addtooltip(event_com, shop_template:com_34, "This is a General Store; it will buy most tradeable items from you.", 25, 200)
+onmouseleave=deltooltip(shop_template:tooltip)
+onmouserepeat=addtooltip(event_com, shop_template:tooltip, "This is a General Store; it will buy most tradeable items from you.", 25, 200)
 
 // 620:20
-[com_76]
+[shop_title]
 type=text
 y=4
 width=80
@@ -317,7 +317,7 @@ textshadow=yes
 colour=0xff981f
 
 // 620:22
-[com_22]
+[main_title]
 type=text
 x=20
 y=95
@@ -335,7 +335,7 @@ transmitop=10
 op10= 
 
 // 620:23
-[com_23]
+[key_title]
 type=text
 x=23
 y=24
@@ -354,7 +354,7 @@ transmitop=10
 op10=  
 
 // 620:24
-[com_24]
+[right_click_text]
 type=text
 y=14
 width=400
@@ -372,13 +372,13 @@ transmitop=10
 op10= 
 
 // 620:25
-[inv]
+[com_25]
 type=layer
 x=22
 y=46
 width=464
 height=255
-onvartransmit=script2716(event_com, shop_template:com_32){shop}
+onvartransmit=script2716(event_com, shop_template:main_scroll){shop}
 
 // 620:26
 [com_26]
@@ -390,7 +390,7 @@ height=52
 onvartransmit=script2717(event_com){shop_sample}
 
 // 620:27
-[com_27]
+[key_bg]
 type=graphic
 width=48
 height=52
@@ -401,7 +401,7 @@ graphic="km_shoptile,0"
 colour=0xffffffff
 
 // 620:28
-[com_28]
+[key_obj]
 type=graphic
 x=6
 y=4
@@ -413,7 +413,7 @@ hide=yes
 colour=0xffffffff
 
 // 620:29
-[com_29]
+[key_coin]
 type=graphic
 x=417
 y=39
@@ -456,7 +456,7 @@ textshadow=yes
 colour=0xffff00
 
 // 620:32
-[com_32]
+[main_scroll]
 type=layer
 x=474
 y=46
@@ -464,16 +464,16 @@ width=16
 height=255
 
 // 620:33
-[com_33]
+[tooltip_layer]
 type=layer
 width=512
 height=334
 
 // 620:34
-[com_34]
+[tooltip]
 type=layer
 x=30
 y=63
 width=85
 height=17
-layer=com_33
+layer=tooltip_layer

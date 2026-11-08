@@ -1,0 +1,34 @@
+// 1064:0
+[com_0]
+type=rectangle
+x=43
+y=43
+width=244
+height=11
+layer=base_layer
+colour=0xf9ebdd
+fill=yes
+trans=100
+
+// 1064:1
+[com_1]
+type=model
+x=4
+y=40
+width=65
+height=39
+layer=base_layer
+model=model_62380
+modelorigin=0,19
+modelzoom=800
+
+// 1064:2
+[base_layer]
+type=layer
+x=7
+y=7
+width=512
+height=334
+xmode=proportion_left
+ymode=proportion_top
+onvartransmit=script4078{varplayer_2034}

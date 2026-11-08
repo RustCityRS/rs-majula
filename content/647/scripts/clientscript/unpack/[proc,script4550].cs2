@@ -1,6 +1,6 @@
 // 4550
 [proc,script4550](interface $interface0)(boolean)
-if (if_hassubmodal(interface_753:com_4, $interface0) = true | if_hassubmodal(toplevel_fullscreen:com_main_screen, $interface0) = true | if_hassubmodal(toplevel:com_main_screen, $interface0) = true) {
+if (if_hassubmodal(interface_753:mainmodal, $interface0) = true | if_hassubmodal(toplevel_fullscreen:mainmodal, $interface0) = true | if_hassubmodal(toplevel:mainmodal, $interface0) = true) {
     return(true);
 }
 return(false);

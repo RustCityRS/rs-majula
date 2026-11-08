@@ -7,7 +7,7 @@ transmitop=10
 op10= 
 
 // 769:1
-[com_1]
+[tradeback]
 type=graphic
 x=12
 y=20
@@ -157,7 +157,7 @@ transmitop=10
 op10= 
 
 // 769:12
-[com_12]
+[game_data]
 type=layer
 width=512
 height=334
@@ -165,30 +165,30 @@ transmitop=10
 op10= 
 
 // 769:13
-[com_13]
+[name_player1]
 type=text
 x=43
 y=58
 width=140
 height=25
-layer=com_12
+layer=game_data
 textfont=p12_full
 text=Insert a very long name here!
 textshadow=yes
 colour=0xffaa44
 transmitop=10
 op10= 
-onload=boardgames_names(boardgames_view:com_13, boardgames_view:com_14, boardgames_view:com_148)
-onvarcstrtransmit=boardgames_names(boardgames_view:com_13, boardgames_view:com_14, boardgames_view:com_148){varclient_1649}
+onload=boardgames_names(boardgames_view:name_player1, boardgames_view:name_player2, boardgames_view:tooltip)
+onvarcstrtransmit=boardgames_names(boardgames_view:name_player1, boardgames_view:name_player2, boardgames_view:tooltip){varclient_1649}
 
 // 769:14
-[com_14]
+[name_player2]
 type=text
 x=43
 y=89
 width=140
 height=25
-layer=com_12
+layer=game_data
 textfont=p12_full
 text=Insert a very long name here!
 textshadow=yes
@@ -197,13 +197,13 @@ transmitop=10
 op10= 
 
 // 769:15
-[com_15]
+[vs]
 type=text
 x=100
 y=75
 width=14
 height=14
-layer=com_12
+layer=game_data
 textfont=p12_full
 text=vs
 textshadow=yes
@@ -212,13 +212,13 @@ transmitop=10
 op10= 
 
 // 769:16
-[com_16]
+[turn]
 type=text
 x=38
 y=127
 width=44
 height=31
-layer=com_12
+layer=game_data
 hide=yes
 textfont=p12_full
 text=Turn:
@@ -229,13 +229,13 @@ transmitop=10
 op10= 
 
 // 769:17
-[com_17]
+[game_title]
 type=text
 x=21
 y=29
 width=176
 height=17
-layer=com_12
+layer=game_data
 textfont=b12_full
 text=Game Name
 textshadow=yes
@@ -245,13 +245,13 @@ op10=
 onvarcstrtransmit=boardgames_game_name(event_com){varclient_1665}
 
 // 769:18
-[com_18]
+[name_turn]
 type=text
 x=85
 y=127
 width=111
 height=31
-layer=com_12
+layer=game_data
 hide=yes
 textfont=p12_full
 text=Name
@@ -261,13 +261,13 @@ transmitop=10
 op10= 
 
 // 769:19
-[com_19]
+[status1]
 type=text
 x=23
 y=173
 width=169
 height=11
-layer=com_12
+layer=game_data
 textfont=p11_full
 text=status 1
 textalignh=centre
@@ -275,17 +275,17 @@ textshadow=yes
 colour=0xaaaaaa
 transmitop=10
 op10=    
-onload=boardgames_status(boardgames_view:com_19, boardgames_view:com_20, boardgames_view:com_21, boardgames_view:com_148)
-onvarcstrtransmit=boardgames_status(boardgames_view:com_19, boardgames_view:com_20, boardgames_view:com_21, boardgames_view:com_148){varclient_1662, varclient_1663, varclient_1664}
+onload=boardgames_status(boardgames_view:status1, boardgames_view:status2, boardgames_view:status3, boardgames_view:tooltip)
+onvarcstrtransmit=boardgames_status(boardgames_view:status1, boardgames_view:status2, boardgames_view:status3, boardgames_view:tooltip){varclient_1662, varclient_1663, varclient_1664}
 
 // 769:20
-[com_20]
+[status2]
 type=text
 x=23
 y=188
 width=169
 height=11
-layer=com_12
+layer=game_data
 textfont=p11_full
 text=status 2
 textalignh=centre
@@ -295,13 +295,13 @@ transmitop=10
 op10=    
 
 // 769:21
-[com_21]
+[status3]
 type=text
 x=27
 y=157
 width=160
 height=14
-layer=com_12
+layer=game_data
 textfont=b12_full
 text=status3
 textalignh=centre
@@ -310,13 +310,13 @@ textshadow=yes
 colour=0xaaaaaa
 
 // 769:22
-[com_22]
+[status4]
 type=text
 x=27
 y=143
 width=160
 height=14
-layer=com_12
+layer=game_data
 textfont=b12_full
 textalignh=centre
 textalignv=bottom
@@ -324,16 +324,16 @@ textshadow=yes
 colour=0xaaaaaa
 transmitop=10
 op10=    
-onvarcstrtransmit=boardgames_status4(boardgames_view:com_22, boardgames_view:com_148){varclient_1737}
+onvarcstrtransmit=boardgames_status4(boardgames_view:status4, boardgames_view:tooltip){varclient_1737}
 
 // 769:23
-[com_23]
+[game_piece_player1]
 type=model
 x=20
 y=58
 width=20
 height=19
-layer=com_12
+layer=game_data
 model=model_2399
 modelangle=512,1024,0
 modelzoom=1024
@@ -342,13 +342,13 @@ op10=
 onvarctransmit=script2427(event_com){varclient_809}
 
 // 769:24
-[com_24]
+[game_piece_player2]
 type=model
 x=20
 y=88
 width=20
 height=19
-layer=com_12
+layer=game_data
 model=model_2652
 modelangle=512,1024,0
 modelzoom=1024
@@ -357,7 +357,7 @@ op10=
 onvarctransmit=script2428(event_com){varclient_810}
 
 // 769:25
-[com_25]
+[close_layer]
 type=layer
 x=26
 y=265
@@ -369,7 +369,7 @@ op10=
 onop=closebutton_click
 
 // 769:26
-[com_26]
+[runelink_board]
 type=layer
 width=512
 height=334
@@ -378,7 +378,7 @@ transmitop=10
 op10= 
 
 // 769:27
-[com_27]
+[runelink_inv]
 type=layer
 x=229
 y=57
@@ -389,7 +389,7 @@ transmitop=10
 op10= 
 
 // 769:28
-[com_28]
+[draughts_board]
 type=layer
 width=512
 height=334
@@ -398,13 +398,13 @@ transmitop=10
 op10= 
 
 // 769:29
-[com_29]
+[boardgames_draughts_runeflash]
 type=model
 x=236
 y=58
 width=1
 height=1
-layer=com_28
+layer=draughts_board
 model=model_4611
 modelangle=512,0,0
 modelzoom=768
@@ -413,13 +413,13 @@ transmitop=10
 op10= 
 
 // 769:30
-[com_30]
+[board]
 type=model
 x=211
 y=33
 width=275
 height=274
-layer=com_28
+layer=draughts_board
 model=model_4607
 modelangle=512,0,0
 modelzoom=400
@@ -427,19 +427,19 @@ transmitop=10
 op10= 
 
 // 769:31
-[com_31]
+[board_back]
 type=rectangle
 x=219
 y=41
 width=258
 height=258
-layer=com_28
+layer=draughts_board
 colour=0x000000
 transmitop=10
 op10= 
 
 // 769:32
-[com_32]
+[draughts_inv]
 type=layer
 x=219
 y=41
@@ -450,7 +450,7 @@ transmitop=10
 op10= 
 
 // 769:33
-[com_33]
+[runeversi_board]
 type=layer
 width=512
 height=334
@@ -459,7 +459,7 @@ transmitop=10
 op10= 
 
 // 769:34
-[com_34]
+[runeversi_inv]
 type=layer
 x=221
 y=40
@@ -470,769 +470,769 @@ transmitop=10
 op10= 
 
 // 769:35
-[com_35]
+[boardgames_runeversi_square0]
 type=rectangle
 x=221
 y=40
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:36
-[com_36]
+[boardgames_runeversi_square1]
 type=rectangle
 x=253
 y=40
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:37
-[com_37]
+[boardgames_runeversi_square2]
 type=rectangle
 x=285
 y=40
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:38
-[com_38]
+[boardgames_runeversi_square3]
 type=rectangle
 x=317
 y=40
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:39
-[com_39]
+[boardgames_runeversi_square4]
 type=rectangle
 x=349
 y=40
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:40
-[com_40]
+[boardgames_runeversi_square5]
 type=rectangle
 x=381
 y=40
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:41
-[com_41]
+[boardgames_runeversi_square6]
 type=rectangle
 x=413
 y=40
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:42
-[com_42]
+[boardgames_runeversi_square7]
 type=rectangle
 x=445
 y=40
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:43
-[com_43]
+[boardgames_runeversi_square8]
 type=rectangle
 x=221
 y=72
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:44
-[com_44]
+[boardgames_runeversi_square9]
 type=rectangle
 x=253
 y=72
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:45
-[com_45]
+[boardgames_runeversi_square10]
 type=rectangle
 x=285
 y=72
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:46
-[com_46]
+[boardgames_runeversi_square11]
 type=rectangle
 x=317
 y=72
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:47
-[com_47]
+[boardgames_runeversi_square12]
 type=rectangle
 x=349
 y=72
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:48
-[com_48]
+[boardgames_runeversi_square13]
 type=rectangle
 x=381
 y=72
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:49
-[com_49]
+[boardgames_runeversi_square14]
 type=rectangle
 x=413
 y=72
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:50
-[com_50]
+[boardgames_runeversi_square15]
 type=rectangle
 x=445
 y=72
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:51
-[com_51]
+[boardgames_runeversi_square16]
 type=rectangle
 x=221
 y=104
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:52
-[com_52]
+[boardgames_runeversi_square17]
 type=rectangle
 x=253
 y=104
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:53
-[com_53]
+[boardgames_runeversi_square18]
 type=rectangle
 x=285
 y=104
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:54
-[com_54]
+[boardgames_runeversi_square19]
 type=rectangle
 x=317
 y=104
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:55
-[com_55]
+[boardgames_runeversi_square20]
 type=rectangle
 x=349
 y=104
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:56
-[com_56]
+[boardgames_runeversi_square21]
 type=rectangle
 x=381
 y=104
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:57
-[com_57]
+[boardgames_runeversi_square22]
 type=rectangle
 x=413
 y=104
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:58
-[com_58]
+[boardgames_runeversi_square23]
 type=rectangle
 x=445
 y=104
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:59
-[com_59]
+[boardgames_runeversi_square24]
 type=rectangle
 x=221
 y=136
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:60
-[com_60]
+[boardgames_runeversi_square25]
 type=rectangle
 x=253
 y=136
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:61
-[com_61]
+[boardgames_runeversi_square26]
 type=rectangle
 x=285
 y=136
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:62
-[com_62]
+[boardgames_runeversi_square27]
 type=rectangle
 x=317
 y=136
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:63
-[com_63]
+[boardgames_runeversi_square28]
 type=rectangle
 x=349
 y=136
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:64
-[com_64]
+[boardgames_runeversi_square29]
 type=rectangle
 x=381
 y=136
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:65
-[com_65]
+[boardgames_runeversi_square30]
 type=rectangle
 x=413
 y=136
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:66
-[com_66]
+[boardgames_runeversi_square31]
 type=rectangle
 x=445
 y=136
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:67
-[com_67]
+[boardgames_runeversi_square32]
 type=rectangle
 x=221
 y=168
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:68
-[com_68]
+[boardgames_runeversi_square33]
 type=rectangle
 x=253
 y=168
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:69
-[com_69]
+[boardgames_runeversi_square34]
 type=rectangle
 x=285
 y=168
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:70
-[com_70]
+[boardgames_runeversi_square35]
 type=rectangle
 x=317
 y=168
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:71
-[com_71]
+[boardgames_runeversi_square36]
 type=rectangle
 x=349
 y=168
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:72
-[com_72]
+[boardgames_runeversi_square37]
 type=rectangle
 x=381
 y=168
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:73
-[com_73]
+[boardgames_runeversi_square38]
 type=rectangle
 x=413
 y=168
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:74
-[com_74]
+[boardgames_runeversi_square39]
 type=rectangle
 x=445
 y=168
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:75
-[com_75]
+[boardgames_runeversi_square40]
 type=rectangle
 x=221
 y=200
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:76
-[com_76]
+[boardgames_runeversi_square41]
 type=rectangle
 x=253
 y=200
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:77
-[com_77]
+[boardgames_runeversi_square42]
 type=rectangle
 x=285
 y=200
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:78
-[com_78]
+[boardgames_runeversi_square43]
 type=rectangle
 x=317
 y=200
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:79
-[com_79]
+[boardgames_runeversi_square44]
 type=rectangle
 x=349
 y=200
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:80
-[com_80]
+[boardgames_runeversi_square45]
 type=rectangle
 x=381
 y=200
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:81
-[com_81]
+[boardgames_runeversi_square46]
 type=rectangle
 x=413
 y=200
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:82
-[com_82]
+[boardgames_runeversi_square47]
 type=rectangle
 x=445
 y=200
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:83
-[com_83]
+[boardgames_runeversi_square48]
 type=rectangle
 x=221
 y=232
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:84
-[com_84]
+[boardgames_runeversi_square49]
 type=rectangle
 x=253
 y=232
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:85
-[com_85]
+[boardgames_runeversi_square50]
 type=rectangle
 x=285
 y=232
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:86
-[com_86]
+[boardgames_runeversi_square51]
 type=rectangle
 x=317
 y=232
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:87
-[com_87]
+[boardgames_runeversi_square52]
 type=rectangle
 x=349
 y=232
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:88
-[com_88]
+[boardgames_runeversi_square53]
 type=rectangle
 x=381
 y=232
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:89
-[com_89]
+[boardgames_runeversi_square54]
 type=rectangle
 x=413
 y=232
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:90
-[com_90]
+[boardgames_runeversi_square55]
 type=rectangle
 x=445
 y=232
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:91
-[com_91]
+[boardgames_runeversi_square56]
 type=rectangle
 x=221
 y=264
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:92
-[com_92]
+[boardgames_runeversi_square57]
 type=rectangle
 x=253
 y=264
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:93
-[com_93]
+[boardgames_runeversi_square58]
 type=rectangle
 x=285
 y=264
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:94
-[com_94]
+[boardgames_runeversi_square59]
 type=rectangle
 x=317
 y=264
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:95
-[com_95]
+[boardgames_runeversi_square60]
 type=rectangle
 x=349
 y=264
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:96
-[com_96]
+[boardgames_runeversi_square61]
 type=rectangle
 x=381
 y=264
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:97
-[com_97]
+[boardgames_runeversi_square62]
 type=rectangle
 x=413
 y=264
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
 
 // 769:98
-[com_98]
+[boardgames_runeversi_square63]
 type=rectangle
 x=445
 y=264
 width=32
 height=32
-layer=com_33
+layer=runeversi_board
 colour=0xffffff
 transmitop=10
 op10= 
@@ -1244,7 +1244,7 @@ x=444
 y=264
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1258,7 +1258,7 @@ x=444
 y=200
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1272,7 +1272,7 @@ x=381
 y=200
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1286,7 +1286,7 @@ x=253
 y=264
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1300,7 +1300,7 @@ x=413
 y=168
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1314,7 +1314,7 @@ x=381
 y=72
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1328,7 +1328,7 @@ x=252
 y=137
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1342,7 +1342,7 @@ x=380
 y=137
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1356,7 +1356,7 @@ x=317
 y=136
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1370,7 +1370,7 @@ x=317
 y=201
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1384,7 +1384,7 @@ x=284
 y=168
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1398,7 +1398,7 @@ x=413
 y=232
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1412,7 +1412,7 @@ x=445
 y=73
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1426,7 +1426,7 @@ x=222
 y=104
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1440,7 +1440,7 @@ x=285
 y=104
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1454,7 +1454,7 @@ x=317
 y=264
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1468,7 +1468,7 @@ x=221
 y=232
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1482,7 +1482,7 @@ x=222
 y=168
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1496,7 +1496,7 @@ x=349
 y=105
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1510,7 +1510,7 @@ x=381
 y=264
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1524,7 +1524,7 @@ x=412
 y=105
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1538,7 +1538,7 @@ x=317
 y=72
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1552,7 +1552,7 @@ x=349
 y=168
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1566,7 +1566,7 @@ x=284
 y=232
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1580,7 +1580,7 @@ x=252
 y=201
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1594,7 +1594,7 @@ x=444
 y=137
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1608,7 +1608,7 @@ x=348
 y=232
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1622,7 +1622,7 @@ x=253
 y=72
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1636,7 +1636,7 @@ x=349
 y=40
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1650,7 +1650,7 @@ x=413
 y=40
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1664,7 +1664,7 @@ x=285
 y=40
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1678,7 +1678,7 @@ x=221
 y=40
 width=33
 height=32
-layer=com_33
+layer=runeversi_board
 model=model_11103
 modelangle=512,0,0
 modelzoom=2000
@@ -1686,13 +1686,13 @@ transmitop=10
 op10= 
 
 // 769:131
-[com_131]
+[game_board]
 type=model
 x=201
 y=46
 width=299
 height=252
-layer=com_26
+layer=runelink_board
 model=model_4608
 modelorigin=2,97
 modelzoom=134
@@ -1700,97 +1700,97 @@ transmitop=10
 op10= 
 
 // 769:132
-[com_132]
+[boardgames_runelink_column0]
 type=graphic
 x=229
 y=57
 width=32
 height=207
-layer=com_26
+layer=runelink_board
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 769:133
-[com_133]
+[boardgames_runelink_column3]
 type=graphic
 x=334
 y=57
 width=32
 height=207
-layer=com_26
+layer=runelink_board
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 769:134
-[com_134]
+[boardgames_runelink_column4]
 type=graphic
 x=369
 y=57
 width=32
 height=207
-layer=com_26
+layer=runelink_board
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 769:135
-[com_135]
+[boardgames_runelink_column5]
 type=graphic
 x=404
 y=57
 width=32
 height=207
-layer=com_26
+layer=runelink_board
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 769:136
-[com_136]
+[boardgames_runelink_column2]
 type=graphic
 x=299
 y=57
 width=32
 height=207
-layer=com_26
+layer=runelink_board
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 769:137
-[com_137]
+[boardgames_runelink_column1]
 type=graphic
 x=264
 y=57
 width=32
 height=207
-layer=com_26
+layer=runelink_board
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 769:138
-[com_138]
+[boardgames_runelink_column6]
 type=graphic
 x=439
 y=57
 width=32
 height=207
-layer=com_26
+layer=runelink_board
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 769:139
-[com_139]
+[boardgames_runelink_runeflash]
 type=model
 x=245
 y=73
 width=1
 height=1
-layer=com_26
+layer=runelink_board
 model=model_4611
 modelangle=512,0,0
 modelzoom=768
@@ -1799,26 +1799,26 @@ transmitop=10
 op10= 
 
 // 769:140
-[com_140]
+[close_box]
 type=rectangle
 x=6
 y=6
 width=66
 height=31
-layer=com_25
+layer=close_layer
 colour=0x000000
 fill=yes
 transmitop=10
 op10= 
 
 // 769:141
-[com_141]
+[close_txt]
 type=text
 x=6
 y=6
 width=66
 height=30
-layer=com_25
+layer=close_layer
 textfont=p12_full
 text=Close
 textalignh=centre
@@ -1835,7 +1835,7 @@ x=21
 y=-15
 width=36
 height=36
-layer=com_25
+layer=close_layer
 graphic="steelborder2,0"
 colour=0xffffffff
 transmitop=10
@@ -1846,7 +1846,7 @@ op10=
 type=graphic
 width=25
 height=30
-layer=com_25
+layer=close_layer
 graphic="steelborder,0"
 colour=0xffffffff
 transmitop=10
@@ -1858,7 +1858,7 @@ type=graphic
 x=53
 width=25
 height=30
-layer=com_25
+layer=close_layer
 graphic="steelborder,1"
 colour=0xffffffff
 transmitop=10
@@ -1870,7 +1870,7 @@ type=graphic
 y=12
 width=25
 height=30
-layer=com_25
+layer=close_layer
 graphic="steelborder,2"
 colour=0xffffffff
 transmitop=10
@@ -1883,7 +1883,7 @@ x=53
 y=12
 width=25
 height=30
-layer=com_25
+layer=close_layer
 graphic="steelborder,3"
 colour=0xffffffff
 transmitop=10
@@ -1896,14 +1896,14 @@ x=21
 y=21
 width=36
 height=36
-layer=com_25
+layer=close_layer
 graphic="miscgraphics,3"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 769:148
-[com_148]
+[tooltip]
 type=layer
 x=118
 y=105

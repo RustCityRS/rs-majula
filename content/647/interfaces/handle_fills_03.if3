@@ -124,7 +124,7 @@ height=32
 graphic="v2_stone_borders_alt,10"
 
 // 110:13
-[com_13]
+[closebutton]
 type=graphic
 x=473
 y=30
@@ -181,7 +181,7 @@ graphic="v2_stone_borders,23"
 tiling=yes
 
 // 110:18
-[com_18]
+[box1]
 type=layer
 x=43
 y=60
@@ -200,7 +200,7 @@ graphic="v2_borders_slim,12"
 tiling=yes
 
 // 110:20
-[com_20]
+[box2]
 type=layer
 x=43
 y=152
@@ -269,7 +269,7 @@ height=14
 graphic="grand_exchange_misc_graphics,8"
 
 // 110:27
-[com_27]
+[offeritem_marketprice]
 type=text
 x=115
 y=131
@@ -283,7 +283,7 @@ textshadow=yes
 colour=0x999900
 
 // 110:28
-[com_28]
+[offeritem_name]
 type=text
 x=210
 y=66
@@ -338,7 +338,7 @@ graphic=graphic_1163
 tiling=yes
 
 // 110:33
-[com_33]
+[offercount]
 type=text
 x=83
 y=180
@@ -395,7 +395,7 @@ graphic=graphic_1163
 tiling=yes
 
 // 110:38
-[com_38]
+[offerprice]
 type=text
 x=295
 y=180
@@ -688,7 +688,7 @@ graphic=graphic_1163
 tiling=yes
 
 // 110:65
-[com_65]
+[totalvalue]
 type=text
 x=186
 y=239
@@ -702,7 +702,7 @@ textshadow=yes
 colour=0xebe573
 
 // 110:66
-[com_66]
+[makeofferbutton]
 type=layer
 x=200
 y=270
@@ -734,7 +734,7 @@ height=14
 graphic="grand_exchange_misc_graphics,4"
 
 // 110:69
-[com_69]
+[highlight]
 type=layer
 width=512
 height=334
@@ -746,7 +746,7 @@ x=43
 y=60
 width=158
 height=5
-layer=com_69
+layer=highlight
 colour=0xffcc33
 fill=yes
 
@@ -757,7 +757,7 @@ x=43
 y=60
 width=5
 height=94
-layer=com_69
+layer=highlight
 colour=0xffcc33
 fill=yes
 
@@ -768,7 +768,7 @@ x=196
 y=60
 width=5
 height=94
-layer=com_69
+layer=highlight
 colour=0xffcc33
 fill=yes
 
@@ -779,7 +779,7 @@ x=43
 y=149
 width=158
 height=5
-layer=com_69
+layer=highlight
 colour=0xffcc33
 fill=yes
 
@@ -905,7 +905,7 @@ outline=1
 graphicshadow=3153952
 
 // 110:86
-[com_86]
+[continue_button]
 type=graphic
 x=464
 y=150
@@ -918,7 +918,7 @@ onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,3")
 onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,2")
 
 // 110:87
-[com_87]
+[continue_button_txt]
 type=text
 x=166
 y=150

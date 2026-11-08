@@ -3,22 +3,22 @@
 %varclient_993 = 0;
 switch_component ($component0) {
     case magic:com_2 :
-        ~deltooltip_action(magic:com_96);
+        ~deltooltip_action(magic:tooltip2);
         if (%varplayerbit_2668 = 0) {
             if_setgraphic(graphic_1701, $component0);
         }
     case magic_zaros:com_18 :
-        ~deltooltip_action(magic_zaros:com_53);
+        ~deltooltip_action(magic_zaros:tooltip2);
         if (%varplayerbit_2668 = 0) {
             if_setgraphic(graphic_1701, $component0);
         }
     case magic_lunar:com_20 :
-        ~deltooltip_action(magic_lunar:com_64);
+        ~deltooltip_action(magic_lunar:tooltip2);
         if (%varplayerbit_2668 = 0) {
             if_setgraphic(graphic_1701, $component0);
         }
     case rand_magic:com_2 :
-        ~deltooltip_action(rand_magic:com_72);
+        ~deltooltip_action(rand_magic:tooltip2);
         if (%varplayerbit_2668 = 0) {
             if_setgraphic(graphic_1701, $component0);
         }

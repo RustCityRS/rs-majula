@@ -1,7 +1,7 @@
 // 3682
 [clientscript,script3682]
 if (string_length(%varclient_1715) = 0 & %varclient_5 ! 14) {
-    if_setgraphic("music_header_icons,8", music_v3:com_17);
+    if_setgraphic("music_header_icons,8", music_v3:music_search);
     ~meslayer_mode14;
 } else {
     ~music_search_close;

@@ -50,7 +50,7 @@ onmouseleave=model_swapper(event_com, model_14938)
 onop=script860
 
 // 682:4
-[com_4]
+[fire_tooltip]
 type=rectangle
 x=78
 y=156
@@ -59,8 +59,8 @@ height=34
 colour=0xffff00
 fill=yes
 trans=254
-onmouseleave=deltooltip(catcon_calibration_puzzle_control:com_38)
-onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:com_38, "Fire the catapult.", 25, 180)
+onmouseleave=deltooltip(catcon_calibration_puzzle_control:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:tooltip_layer, "Fire the catapult.", 25, 180)
 
 // 682:5
 [com_5]
@@ -120,7 +120,7 @@ onmouseleave=model_swapper(event_com, model_32196)
 onop=script858
 
 // 682:10
-[com_10]
+[left_tooltip]
 type=rectangle
 x=21
 y=160
@@ -129,8 +129,8 @@ height=29
 colour=0xffff00
 fill=yes
 trans=254
-onmouseleave=deltooltip(catcon_calibration_puzzle_control:com_38)
-onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:com_38, "Aim the catapult left.", 25, 180)
+onmouseleave=deltooltip(catcon_calibration_puzzle_control:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:tooltip_layer, "Aim the catapult left.", 25, 180)
 
 // 682:11
 [com_11]
@@ -150,7 +150,7 @@ onmouseleave=model_swapper(event_com, model_32196)
 onop=script859
 
 // 682:12
-[com_12]
+[right_tooltip]
 type=rectangle
 x=135
 y=160
@@ -159,8 +159,8 @@ height=29
 colour=0xffff00
 fill=yes
 trans=254
-onmouseleave=deltooltip(catcon_calibration_puzzle_control:com_38)
-onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:com_38, "Aim the catapult right.", 25, 180)
+onmouseleave=deltooltip(catcon_calibration_puzzle_control:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:tooltip_layer, "Aim the catapult right.", 25, 180)
 
 // 682:13
 [com_13]
@@ -172,11 +172,11 @@ height=16
 colour=0xffff00
 fill=yes
 trans=254
-onmouseleave=deltooltip(catcon_calibration_puzzle_control:com_38)
-onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:com_38, "Increase counterweight.", 25, 180)
+onmouseleave=deltooltip(catcon_calibration_puzzle_control:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:tooltip_layer, "Increase counterweight.", 25, 180)
 
 // 682:14
-[com_14]
+[lighter_tooltip]
 type=rectangle
 x=3
 y=53
@@ -185,8 +185,8 @@ height=16
 colour=0xffff00
 fill=yes
 trans=254
-onmouseleave=deltooltip(catcon_calibration_puzzle_control:com_38)
-onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:com_38, "Decrease counterweight.", 25, 180)
+onmouseleave=deltooltip(catcon_calibration_puzzle_control:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:tooltip_layer, "Decrease counterweight.", 25, 180)
 
 // 682:15
 [com_15]
@@ -276,7 +276,7 @@ tiling=yes
 colour=0x000000
 
 // 682:23
-[com_23]
+[divider]
 type=model
 model=null
 modelzoom=400
@@ -425,7 +425,7 @@ modelangle=500,0,0
 modelzoom=1153
 
 // 682:36
-[com_36]
+[catcon_power]
 type=text
 x=22
 y=16
@@ -451,13 +451,13 @@ textalignv=bottom
 colour=0xffffcc
 
 // 682:38
-[com_38]
+[tooltip_layer]
 type=layer
 x=-3
 y=-14
 width=203
 height=263
-layer=com_43
+layer=tooltip_area
 
 // 682:39
 [com_39]
@@ -501,7 +501,7 @@ model=model_32157
 modelzoom=2960
 
 // 682:43
-[com_43]
+[tooltip_area]
 type=layer
 x=12
 y=15

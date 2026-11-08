@@ -1,4 +1,4 @@
 // 1617
 [clientscript,champions_reward_xp]
-if_settext("<tostring(%varplayer_620)> Constitution XP", champions_scroll:com_8);
-if_settext("<tostring(%varplayer_621)> Slayer XP", champions_scroll:com_7);
+if_settext("<tostring(%varplayer_620)> Constitution XP", champions_scroll:champions_hp_text);
+if_settext("<tostring(%varplayer_621)> Slayer XP", champions_scroll:champions_slayer_text);

@@ -2,83 +2,83 @@
 [clientscript,script1307]
 def_component $component0 = null;
 if (%varplayerbit_1958 = 0) {
-    ~script1310(templetrek_map:com_22);
-    ~script1310(templetrek_map:com_23);
-    ~script1310(templetrek_map:com_24);
-    ~script1310(templetrek_map:com_26);
-    ~script1310(templetrek_map:com_27);
-    ~script1310(templetrek_map:com_28);
-    ~script1310(templetrek_map:com_29);
-    ~script1310(templetrek_map:com_30);
-    ~script1310(templetrek_map:com_31);
-    ~script1310(templetrek_map:com_25);
-    ~script1310(templetrek_map:com_32);
-    ~script1310(templetrek_map:com_33);
-    ~script1310(templetrek_map:com_34);
-    ~script1310(templetrek_map:com_35);
-    ~script1310(templetrek_map:com_36);
-    ~script1310(templetrek_map:com_37);
-    ~script1310(templetrek_map:com_38);
-    ~script1310(templetrek_map:com_39);
-    ~script1310(templetrek_map:com_40);
-    ~script1310(templetrek_map:com_41);
-    ~script1310(templetrek_map:com_42);
-    ~script1310(templetrek_map:com_43);
-    ~script1310(templetrek_map:com_44);
-    ~script1310(templetrek_map:com_45);
-    ~script1310(templetrek_map:com_46);
+    ~script1310(templetrek_map:templetrek_trip_route_all_event_1);
+    ~script1310(templetrek_map:templetrek_trip_route_one_and_two_event_2);
+    ~script1310(templetrek_map:templetrek_trip_route_one_and_two_event_3);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_4);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_5);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_6);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_7);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_8);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_9);
+    ~script1310(templetrek_map:templetrek_trip_route_one_and_two_event_10);
+    ~script1310(templetrek_map:templetrek_trip_route_two_event_4);
+    ~script1310(templetrek_map:templetrek_trip_route_two_event_5);
+    ~script1310(templetrek_map:templetrek_trip_route_two_event_6);
+    ~script1310(templetrek_map:templetrek_trip_route_two_event_7);
+    ~script1310(templetrek_map:templetrek_trip_route_two_event_8);
+    ~script1310(templetrek_map:worldsuntouchable);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_2);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_3);
+    ~script1310(templetrek_map:newspaper_alight_0);
+    ~script1310(templetrek_map:newspaper_alight_1);
+    ~script1310(templetrek_map:newspaper_alight_2);
+    ~script1310(templetrek_map:newspaper_alight_3);
+    ~script1310(templetrek_map:newspaper_alight_4);
+    ~script1310(templetrek_map:newspaper_alight_5);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_10);
     return;
 }
 if (%varplayerbit_1958 = 1) {
-    $component0 = templetrek_map:com_22;
+    $component0 = templetrek_map:templetrek_trip_route_all_event_1;
 } else if (%varplayerbit_1958 = 2) {
-    $component0 = templetrek_map:com_23;
+    $component0 = templetrek_map:templetrek_trip_route_one_and_two_event_2;
 } else if (%varplayerbit_1958 = 3) {
-    $component0 = templetrek_map:com_24;
+    $component0 = templetrek_map:templetrek_trip_route_one_and_two_event_3;
 } else if (%varplayerbit_1958 = 4) {
-    $component0 = templetrek_map:com_26;
+    $component0 = templetrek_map:templetrek_trip_route_one_event_4;
 } else if (%varplayerbit_1958 = 5) {
-    $component0 = templetrek_map:com_27;
+    $component0 = templetrek_map:templetrek_trip_route_one_event_5;
 } else if (%varplayerbit_1958 = 6) {
-    $component0 = templetrek_map:com_28;
+    $component0 = templetrek_map:templetrek_trip_route_one_event_6;
 } else if (%varplayerbit_1958 = 7) {
-    $component0 = templetrek_map:com_29;
+    $component0 = templetrek_map:templetrek_trip_route_one_event_7;
 } else if (%varplayerbit_1958 = 8) {
-    $component0 = templetrek_map:com_30;
+    $component0 = templetrek_map:templetrek_trip_route_one_event_8;
 } else if (%varplayerbit_1958 = 9) {
-    $component0 = templetrek_map:com_31;
+    $component0 = templetrek_map:templetrek_trip_route_one_event_9;
 } else if (%varplayerbit_1958 = 10) {
-    $component0 = templetrek_map:com_25;
+    $component0 = templetrek_map:templetrek_trip_route_one_and_two_event_10;
 } else if (%varplayerbit_1958 = 11) {
-    $component0 = templetrek_map:com_32;
+    $component0 = templetrek_map:templetrek_trip_route_two_event_4;
 } else if (%varplayerbit_1958 = 12) {
-    $component0 = templetrek_map:com_33;
+    $component0 = templetrek_map:templetrek_trip_route_two_event_5;
 } else if (%varplayerbit_1958 = 13) {
-    $component0 = templetrek_map:com_34;
+    $component0 = templetrek_map:templetrek_trip_route_two_event_6;
 } else if (%varplayerbit_1958 = 14) {
-    $component0 = templetrek_map:com_35;
+    $component0 = templetrek_map:templetrek_trip_route_two_event_7;
 } else if (%varplayerbit_1958 = 15) {
-    $component0 = templetrek_map:com_36;
+    $component0 = templetrek_map:templetrek_trip_route_two_event_8;
 } else if (%varplayerbit_1958 = 16) {
-    $component0 = templetrek_map:com_37;
+    $component0 = templetrek_map:worldsuntouchable;
 } else if (%varplayerbit_1958 = 17) {
-    $component0 = templetrek_map:com_38;
+    $component0 = templetrek_map:templetrek_trip_route_three_event_2;
 } else if (%varplayerbit_1958 = 18) {
-    $component0 = templetrek_map:com_39;
+    $component0 = templetrek_map:templetrek_trip_route_three_event_3;
 } else if (%varplayerbit_1958 = 19) {
-    $component0 = templetrek_map:com_40;
+    $component0 = templetrek_map:newspaper_alight_0;
 } else if (%varplayerbit_1958 = 20) {
-    $component0 = templetrek_map:com_41;
+    $component0 = templetrek_map:newspaper_alight_1;
 } else if (%varplayerbit_1958 = 21) {
-    $component0 = templetrek_map:com_42;
+    $component0 = templetrek_map:newspaper_alight_2;
 } else if (%varplayerbit_1958 = 22) {
-    $component0 = templetrek_map:com_43;
+    $component0 = templetrek_map:newspaper_alight_3;
 } else if (%varplayerbit_1958 = 23) {
-    $component0 = templetrek_map:com_44;
+    $component0 = templetrek_map:newspaper_alight_4;
 } else if (%varplayerbit_1958 = 24) {
-    $component0 = templetrek_map:com_45;
+    $component0 = templetrek_map:newspaper_alight_5;
 } else if (%varplayerbit_1958 = 25) {
-    $component0 = templetrek_map:com_46;
+    $component0 = templetrek_map:templetrek_trip_route_three_event_10;
 }
 if ($component0 = null) {
     return;

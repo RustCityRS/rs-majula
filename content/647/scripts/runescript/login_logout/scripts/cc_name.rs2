@@ -1,11 +1,11 @@
 [queue,cc_open_name]
-runclientscript("playerdesign4_open_name_entry()")
+runclientscript("script3943()")
 if_sethide(playerdesign4:com_155, false)
 if_sethide(playerdesign4:com_156, true)
 
-[if_button,playerdesign4:com_117]
+[if_button,playerdesign4:confirm]
 if (p_finduid(uid) = true) {
-    runclientscript("playerdesign4_open_name_entry()")
+    runclientscript("script3943()")
     if_sethide(playerdesign4:com_155, false)
     if_sethide(playerdesign4:com_156, true)
     @cc_name_loop;
@@ -25,9 +25,9 @@ if (~create_check_username($name) = false) {
     if_settext(playerdesign4:com_154, "Invalid Name")
     if_sethide(playerdesign4:com_155, true)
     if_sethide(playerdesign4:com_156, false)
-    if_sethide(playerdesign4:com_164, true)
+    if_sethide(playerdesign4:previous_suggestions, true)
     ~cc_send_suggestions();
-    runclientscript("playerdesign4_open_name_entry()")
+    runclientscript("script3943()")
     %varclient_1849 = ""
     %varclient_1099 = string_length("")
     runclientscript("script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, \"\", 16)")
@@ -43,9 +43,9 @@ if ($result = 1) {
     if_settext(playerdesign4:com_154, "'<$formatted>' is not available.")
     if_sethide(playerdesign4:com_155, true)
     if_sethide(playerdesign4:com_156, false)
-    if_sethide(playerdesign4:com_164, true)
+    if_sethide(playerdesign4:previous_suggestions, true)
     ~cc_send_suggestions();
-    runclientscript("playerdesign4_open_name_entry()")
+    runclientscript("script3943()")
     %varclient_1849 = $formatted
     %varclient_1099 = string_length($formatted)
     runclientscript("script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, $formatted, 16)")
@@ -53,19 +53,19 @@ if ($result = 1) {
 }
 
 //Continue button
-[if_button,playerdesign4:com_166]
+[if_button,playerdesign4:continue]
 if (p_finduid(uid) = true) {
-    runclientscript("playerdesign4_submit_name(0, 1, 1)");
+    runclientscript("script3945(0, 1, 1)");
 }
 
 // More suggestions button
-[if_button,playerdesign4:com_165]
+[if_button,playerdesign4:more_suggestions]
 if (p_finduid(uid) = true) {
     p_request_more_suggestions;
     queue(cc_more_suggestions, 1, 0);
 }
 // Previous suggestions button
-[if_button,playerdesign4:com_164]
+[if_button,playerdesign4:previous_suggestions]
 if (p_finduid(uid) = true) {
     p_prev_suggestions
     ~cc_send_suggestions();
@@ -74,21 +74,21 @@ if (p_finduid(uid) = true) {
 // Sending more suggestions
 [queue,cc_more_suggestions]
 ~cc_send_suggestions();
-if_sethide(playerdesign4:com_164, false)
+if_sethide(playerdesign4:previous_suggestions, false)
 
-[if_button,playerdesign4:com_158]
+[if_button,playerdesign4:suggestion_1]
 if (p_finduid(uid) = true) {
-    runclientscript("playerdesign4_submit_name(1, 1, 0)")
+    runclientscript("script3945(1, 1, 0)")
 }
 
-[if_button,playerdesign4:com_159]
+[if_button,playerdesign4:suggestion_2]
 if (p_finduid(uid) = true) {
-    runclientscript("playerdesign4_submit_name(2, 1, 0)")
+    runclientscript("script3945(2, 1, 0)")
 }
 
-[if_button,playerdesign4:com_160]
+[if_button,playerdesign4:suggestion_3]
 if (p_finduid(uid) = true) {
-    runclientscript("playerdesign4_submit_name(3, 1, 0)")
+    runclientscript("script3945(3, 1, 0)")
 }
 
 
@@ -104,9 +104,9 @@ def_string $s2 = p_get_suggestion(2);
 %varclient_1854 = ^string_empty
 %varclient_1855 = ^string_empty
 // display text immediately (if_settext is not delayed like a string varc)
-if_settext(playerdesign4:com_158, $s0)
-if_settext(playerdesign4:com_159, $s1)
-if_settext(playerdesign4:com_160, $s2)
+if_settext(playerdesign4:suggestion_1, $s0)
+if_settext(playerdesign4:suggestion_2, $s1)
+if_settext(playerdesign4:suggestion_3, $s2)
 // set button ops immediately via script params (not delayed)
 runclientscript("script3946(1, $s0, $s1, $s2, ^string_empty, ^string_empty, ^string_empty)")
 

@@ -1,8 +1,8 @@
 // 2334
 [clientscript,script2334](int $int0)
-if_settext(enum(int, string, enum_950, $int0), chatbox_background:com_125);
-if_setvflip(false, chatbox_background:com_131);
-if_sethide(true, chatbox_background:com_78);
-if_sethide(true, chatbox_background:com_79);
-if_sethide(true, chatbox_background:com_77);
-if_sethide(true, chatbox_background:com_69);
+if_settext(enum(int, string, enum_950, $int0), chatdefault:monthtext);
+if_setvflip(false, chatdefault:montharrow);
+if_sethide(true, chatdefault:monthddlist);
+if_sethide(true, chatdefault:monthddscroll);
+if_sethide(true, chatdefault:monthddlistborder);
+if_sethide(true, chatdefault:monthddback);

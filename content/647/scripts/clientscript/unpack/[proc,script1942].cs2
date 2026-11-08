@@ -11,19 +11,19 @@ if (%varclient_560 = 0) {
         %varclient_560 = 0;
     }
 }
-if_settrans(%varclient_559, sc_in_game_overlay:com_14);
+if_settrans(%varclient_559, sc_in_game_overlay:panic_highlight_rect);
 if (%varclient_561 < 4) {
-    if (if_gethide(sc_in_game_overlay:com_18) = true) {
+    if (if_gethide(sc_in_game_overlay:panic_text) = true) {
         %varclient_562 = min(20, calc(%varclient_562 + 1));
         if (%varclient_562 = 20) {
             %varclient_562 = 0;
-            if_sethide(false, sc_in_game_overlay:com_18);
+            if_sethide(false, sc_in_game_overlay:panic_text);
         }
     } else {
         %varclient_562 = min(35, calc(%varclient_562 + 1));
         if (%varclient_562 = 35) {
             %varclient_562 = 0;
-            if_sethide(true, sc_in_game_overlay:com_18);
+            if_sethide(true, sc_in_game_overlay:panic_text);
             %varclient_561 = min(4, calc(%varclient_561 + 1));
         }
     }

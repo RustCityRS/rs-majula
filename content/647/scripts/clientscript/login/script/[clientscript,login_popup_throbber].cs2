@@ -1,8 +1,8 @@
 // 2951
 [clientscript,login_popup_throbber]
-def_component $component0 = login:com_10;
+def_component $component0 = login:popup_throbber;
 if (unknown_command_5623 = true) {
-    $component0 = south_progress9:com_3;
+    $component0 = south_progress9:popup_throbber;
 }
 def_int $int1 = ~login_getreply;
 if ($int1 ! -3) {

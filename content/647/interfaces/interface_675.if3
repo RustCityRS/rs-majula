@@ -11,7 +11,7 @@ colour=0x000000
 opbase=  
 
 // 675:1
-[com_1]
+[left_side]
 type=graphic
 y=26
 width=37
@@ -22,7 +22,7 @@ colour=0x000000
 opbase= 
 
 // 675:2
-[com_2]
+[right_side]
 type=graphic
 x=479
 y=26
@@ -34,7 +34,7 @@ colour=0x000000
 opbase= 
 
 // 675:3
-[com_3]
+[bottom]
 type=graphic
 x=15
 y=302
@@ -45,7 +45,7 @@ tiling=yes
 colour=0x000000
 
 // 675:4
-[com_4]
+[top]
 type=graphic
 x=14
 y=10
@@ -57,7 +57,7 @@ colour=0x000000
 opbase= 
 
 // 675:5
-[com_5]
+[bottom_right]
 type=graphic
 x=467
 y=290
@@ -68,7 +68,7 @@ colour=0x000000
 opbase= 
 
 // 675:6
-[com_6]
+[bottom_left]
 type=graphic
 x=13
 y=290
@@ -78,7 +78,7 @@ graphic="v2_stone_borders,6"
 colour=0x000000
 
 // 675:7
-[com_7]
+[top_left]
 type=graphic
 x=13
 y=23
@@ -89,7 +89,7 @@ colour=0x000000
 opbase= 
 
 // 675:8
-[com_8]
+[top_right]
 type=graphic
 x=467
 y=23
@@ -100,7 +100,7 @@ colour=0x000000
 opbase= 
 
 // 675:9
-[com_9]
+[title_bar]
 type=graphic
 x=16
 y=38
@@ -111,7 +111,7 @@ tiling=yes
 colour=0x000000
 
 // 675:10
-[com_10]
+[left_joint]
 type=graphic
 x=13
 y=40
@@ -122,7 +122,7 @@ tiling=yes
 colour=0x000000
 
 // 675:11
-[com_11]
+[right_joint]
 type=graphic
 x=467
 y=40
@@ -133,7 +133,7 @@ tiling=yes
 colour=0x000000
 
 // 675:12
-[com_12]
+[close_button]
 type=graphic
 x=471
 y=32
@@ -148,7 +148,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 675:13
-[com_13]
+[title]
 type=text
 x=17
 y=29
@@ -182,7 +182,7 @@ modelangle=321,1833,0
 modelzoom=571
 
 // 675:16
-[com_16]
+[no_ring]
 type=text
 x=72
 y=24
@@ -195,7 +195,7 @@ textshadow=yes
 colour=0xff991f
 
 // 675:17
-[com_17]
+[ring_title]
 type=text
 x=80
 y=66
@@ -215,7 +215,7 @@ width=394
 height=60
 
 // 675:19
-[com_19]
+[gold_dark1]
 type=model
 x=32
 y=20
@@ -227,7 +227,7 @@ modelangle=268,180,0
 modelzoom=464
 
 // 675:20
-[com_20]
+[gold_ring]
 type=layer
 x=32
 y=20
@@ -239,7 +239,7 @@ opbase=<col=ff9040>Gold Ring
 op1=Make 1
 
 // 675:21
-[com_21]
+[sapphire_dark1]
 type=model
 x=82
 y=20
@@ -251,7 +251,7 @@ modelangle=268,180,0
 modelzoom=464
 
 // 675:22
-[com_22]
+[sapphire_ring]
 type=layer
 x=82
 y=20
@@ -263,7 +263,7 @@ opbase=<col=ff9040>Sapphire Ring
 op1=Make 1
 
 // 675:23
-[com_23]
+[emerald_dark1]
 type=model
 x=132
 y=20
@@ -275,7 +275,7 @@ modelangle=268,180,0
 modelzoom=464
 
 // 675:24
-[com_24]
+[emerald_ring]
 type=layer
 x=132
 y=20
@@ -287,7 +287,7 @@ opbase=<col=ff9040>Emerald Ring
 op1=Make 1
 
 // 675:25
-[com_25]
+[ruby_dark1]
 type=model
 x=182
 y=20
@@ -299,7 +299,7 @@ modelangle=268,180,0
 modelzoom=464
 
 // 675:26
-[com_26]
+[ruby_ring]
 type=layer
 x=181
 y=20
@@ -311,7 +311,7 @@ opbase=<col=ff9040>Ruby Ring
 op1=Make 1
 
 // 675:27
-[com_27]
+[diamond_dark1]
 type=model
 x=232
 y=20
@@ -323,7 +323,7 @@ modelangle=268,180,0
 modelzoom=464
 
 // 675:28
-[com_28]
+[diamond_ring]
 type=layer
 x=232
 y=20
@@ -335,7 +335,7 @@ opbase=<col=ff9040>Diamond Ring
 op1=Make 1
 
 // 675:29
-[com_29]
+[dragon_dark1]
 type=model
 x=282
 y=20
@@ -347,7 +347,7 @@ modelangle=268,180,0
 modelzoom=464
 
 // 675:30
-[com_30]
+[dragonstone_ring]
 type=layer
 x=282
 y=20
@@ -359,7 +359,7 @@ opbase=<col=ff9040>Dragonstone Ring
 op1=Make 1
 
 // 675:31
-[com_31]
+[onyx_dark1]
 type=model
 x=332
 y=20
@@ -371,7 +371,7 @@ modelangle=268,180,0
 modelzoom=464
 
 // 675:32
-[com_32]
+[onyx_ring]
 type=layer
 x=332
 y=20
@@ -404,7 +404,7 @@ modelangle=306,1797,0
 modelzoom=571
 
 // 675:35
-[com_35]
+[no_necklace]
 type=text
 x=72
 y=24
@@ -417,7 +417,7 @@ textshadow=yes
 colour=0xff991f
 
 // 675:36
-[com_36]
+[necklace_title]
 type=text
 x=80
 y=127
@@ -437,7 +437,7 @@ width=394
 height=60
 
 // 675:38
-[com_38]
+[gold_dark2]
 type=model
 x=32
 y=20
@@ -448,7 +448,7 @@ model=null
 modelzoom=400
 
 // 675:39
-[com_39]
+[gold_necklace]
 type=layer
 x=32
 y=20
@@ -460,7 +460,7 @@ opbase=<col=ff9040>Gold Necklace
 op1=Make 1
 
 // 675:40
-[com_40]
+[sapphire_dark2]
 type=model
 x=82
 y=20
@@ -471,7 +471,7 @@ model=null
 modelzoom=400
 
 // 675:41
-[com_41]
+[sapphire_necklace]
 type=layer
 x=82
 y=20
@@ -483,7 +483,7 @@ opbase=<col=ff9040>Sapphire Necklace
 op1=Make 1
 
 // 675:42
-[com_42]
+[emerald_dark2]
 type=model
 x=132
 y=20
@@ -494,7 +494,7 @@ model=null
 modelzoom=200
 
 // 675:43
-[com_43]
+[emerald_necklace]
 type=layer
 x=132
 y=20
@@ -506,7 +506,7 @@ opbase=<col=ff9040>Emerald Necklace
 op1=Make 1
 
 // 675:44
-[com_44]
+[ruby_dark2]
 type=model
 x=182
 y=20
@@ -517,7 +517,7 @@ model=null
 modelzoom=400
 
 // 675:45
-[com_45]
+[ruby_necklace]
 type=layer
 x=182
 y=20
@@ -529,7 +529,7 @@ opbase=<col=ff9040>Ruby Necklace
 op1=Make 1
 
 // 675:46
-[com_46]
+[diamond_dark2]
 type=model
 x=233
 y=20
@@ -540,7 +540,7 @@ model=null
 modelzoom=400
 
 // 675:47
-[com_47]
+[diamond_necklace]
 type=layer
 x=232
 y=20
@@ -552,7 +552,7 @@ opbase=<col=ff9040>Diamond Necklace
 op1=Make 1
 
 // 675:48
-[com_48]
+[dragon_dark2]
 type=model
 x=281
 y=20
@@ -563,7 +563,7 @@ model=null
 modelzoom=400
 
 // 675:49
-[com_49]
+[dragonstone_necklace]
 type=layer
 x=282
 y=20
@@ -575,7 +575,7 @@ opbase=<col=ff9040>Dragonstone Necklace
 op1=Make 1
 
 // 675:50
-[com_50]
+[onyx_dark2]
 type=model
 x=332
 y=20
@@ -586,7 +586,7 @@ model=null
 modelzoom=400
 
 // 675:51
-[com_51]
+[onyx_necklace]
 type=layer
 x=332
 y=20
@@ -618,7 +618,7 @@ modelangle=357,1764,0
 modelzoom=443
 
 // 675:54
-[com_54]
+[no_amulet]
 type=text
 x=72
 y=24
@@ -631,7 +631,7 @@ textshadow=yes
 colour=0xff991f
 
 // 675:55
-[com_55]
+[amulet_title]
 type=text
 x=80
 y=188
@@ -651,7 +651,7 @@ width=394
 height=60
 
 // 675:57
-[com_57]
+[gold_dark3]
 type=model
 x=32
 y=20
@@ -662,7 +662,7 @@ model=null
 modelzoom=400
 
 // 675:58
-[com_58]
+[gold_amulet]
 type=layer
 x=33
 y=20
@@ -674,7 +674,7 @@ opbase=<col=ff9040>Gold Amulet
 op1=Make 1
 
 // 675:59
-[com_59]
+[sapphire_dark3]
 type=model
 x=83
 y=20
@@ -685,7 +685,7 @@ model=null
 modelzoom=400
 
 // 675:60
-[com_60]
+[sapphire_amulet]
 type=layer
 x=83
 y=20
@@ -697,7 +697,7 @@ opbase=<col=ff9040>Sapphire Amulet
 op1=Make 1
 
 // 675:61
-[com_61]
+[emerald_dark3]
 type=model
 x=133
 y=20
@@ -708,7 +708,7 @@ model=null
 modelzoom=400
 
 // 675:62
-[com_62]
+[emerald_amulet]
 type=layer
 x=133
 y=20
@@ -720,7 +720,7 @@ opbase=<col=ff9040>Emerald Amulet
 op1=Make 1
 
 // 675:63
-[com_63]
+[ruby_dark3]
 type=model
 x=182
 y=20
@@ -731,7 +731,7 @@ model=null
 modelzoom=400
 
 // 675:64
-[com_64]
+[ruby_amulet]
 type=layer
 x=183
 y=20
@@ -743,7 +743,7 @@ opbase=<col=ff9040>Ruby Amulet
 op1=Make 1
 
 // 675:65
-[com_65]
+[diamond_dark3]
 type=model
 x=233
 y=20
@@ -754,7 +754,7 @@ model=null
 modelzoom=400
 
 // 675:66
-[com_66]
+[diamond_amulet]
 type=layer
 x=233
 y=20
@@ -766,7 +766,7 @@ opbase=<col=ff9040>Diamond Amulet
 op1=Make 1
 
 // 675:67
-[com_67]
+[dragon_dark3]
 type=model
 x=283
 y=20
@@ -777,7 +777,7 @@ model=null
 modelzoom=400
 
 // 675:68
-[com_68]
+[dragonstone_amulet]
 type=layer
 x=283
 y=20
@@ -789,7 +789,7 @@ opbase=<col=ff9040>Dragonestone Amulet
 op1=Make 1
 
 // 675:69
-[com_69]
+[onyx_dark3]
 type=model
 x=333
 y=20
@@ -800,7 +800,7 @@ model=null
 modelzoom=400
 
 // 675:70
-[com_70]
+[onyx_amulet]
 type=layer
 x=333
 y=20
@@ -812,7 +812,7 @@ opbase=<col=ff9040>Onyx Amulet
 op1=Make 1
 
 // 675:71
-[com_71]
+[need_bracelet_mould]
 type=layer
 x=24
 y=249
@@ -826,26 +826,26 @@ x=15
 y=10
 width=32
 height=32
-layer=com_71
+layer=need_bracelet_mould
 model=model_24565
 modelangle=294,1743,0
 modelzoom=443
 
 // 675:73
-[com_73]
+[no_bracelet]
 type=text
 x=72
 y=24
 width=378
 height=36
-layer=com_71
+layer=need_bracelet_mould
 textfont=p12_full
 text=You need a bracelet mould to craft bracelets.
 textshadow=yes
 colour=0xff991f
 
 // 675:74
-[com_74]
+[bracelet_title]
 type=text
 x=80
 y=249
@@ -857,7 +857,7 @@ textshadow=yes
 colour=0xff9900
 
 // 675:75
-[com_75]
+[got_bracelet_mould]
 type=layer
 x=80
 y=249
@@ -865,162 +865,162 @@ width=394
 height=60
 
 // 675:76
-[com_76]
+[gold_dark4]
 type=model
 x=32
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 model=null
 modelzoom=400
 
 // 675:77
-[com_77]
+[gold_bracelet]
 type=layer
 x=32
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 transmitop=1
 opbase=<col=ff9040>Gold Bracelet
 op1=Make 1
 
 // 675:78
-[com_78]
+[sapphire_dark4]
 type=model
 x=82
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 model=null
 modelzoom=400
 
 // 675:79
-[com_79]
+[sapphire_bracelet]
 type=layer
 x=82
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 transmitop=1
 opbase=<col=ff9040>Sapphire Bracelet
 op1=Make 1
 
 // 675:80
-[com_80]
+[emerald_dark4]
 type=model
 x=132
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 model=null
 modelzoom=400
 
 // 675:81
-[com_81]
+[emerald_bracelet]
 type=layer
 x=132
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 transmitop=1
 opbase=<col=ff9040>Emerald Bracelet
 op1=Make 1
 
 // 675:82
-[com_82]
+[ruby_dark4]
 type=model
 x=182
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 model=null
 modelzoom=400
 
 // 675:83
-[com_83]
+[ruby_bracelet]
 type=layer
 x=182
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 transmitop=1
 opbase=<col=ff9040>Ruby Bracelet
 op1=Make 1
 
 // 675:84
-[com_84]
+[diamond_dark4]
 type=model
 x=232
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 model=null
 modelzoom=400
 
 // 675:85
-[com_85]
+[diamond_bracelet]
 type=layer
 x=232
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 transmitop=1
 opbase=<col=ff9040>Diamond Bracelet
 op1=Make 1
 
 // 675:86
-[com_86]
+[dragon_dark4]
 type=model
 x=282
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 model=null
 modelzoom=400
 
 // 675:87
-[com_87]
+[dragonstone_bracelet]
 type=layer
 x=282
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 transmitop=1
 opbase=<col=ff9040>Dragonstone Bracelet
 op1=Make 1
 
 // 675:88
-[com_88]
+[onyx_dark4]
 type=model
 x=332
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 model=null
 modelzoom=400
 
 // 675:89
-[com_89]
+[onyx_bracelet]
 type=layer
 x=332
 y=20
 width=32
 height=32
-layer=com_75
+layer=got_bracelet_mould
 transmitop=1
 opbase=<col=ff9040>Onyx Bracelet
 op1=Make 1

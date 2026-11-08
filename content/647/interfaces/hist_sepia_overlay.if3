@@ -1,5 +1,5 @@
 // 777:0
-[com_0]
+[content_layer]
 type=layer
 width=16384
 height=16384
@@ -19,7 +19,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=content_layer
 model=model_41331
 modelangle=512,1024,0
 modelzoom=522
@@ -28,7 +28,7 @@ modelobjwidth=530
 modelobjheight=335
 
 // 777:2
-[com_2]
+[fade]
 type=model
 width=16807
 height=19088
@@ -36,7 +36,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=content_layer
 model=model_4835
 modelorigin=0,2
 modelangle=512,0,0

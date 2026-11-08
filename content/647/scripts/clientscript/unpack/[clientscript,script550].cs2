@@ -6,6 +6,6 @@ if (%varplayerbit_4109 = 0) {
 }
 %varplayerbit_4109 = calc(%varplayerbit_4109 - 1);
 def_int $int0 = calc((15 - %varplayerbit_4109) * 6);
-if_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_top, interface_624:com_15);
-if_settext(tostring(%varplayerbit_4109), interface_624:com_70);
+if_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_top, lotg_fairy_ring_power_interface:meter_1);
+if_settext(tostring(%varplayerbit_4109), lotg_fairy_ring_power_interface:counter1);
 sound_synth(synth_4026, 1, 0);

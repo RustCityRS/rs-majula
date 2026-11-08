@@ -1,6 +1,6 @@
 // 21
 [proc,magic_updateicon](component $component0, graphic $graphic1, graphic $graphic2, int $int3, obj $obj4, int $int5, obj $obj6, int $int7, obj $obj8, int $int9, obj $obj10, int $int11)
-if (stat(magic) < $int3 & (%varplayerbit_9071 = 0 | $component0 ! magic_lunar:com_24 & $component0 ! magic_lunar:com_27 & $component0 ! magic_lunar:com_33 & $component0 ! magic_lunar:com_44 & $component0 ! magic_lunar:com_41)) {
+if (stat(magic) < $int3 & (%varplayerbit_9071 = 0 | $component0 ! magic_lunar:fertile_soil & $component0 ! magic_lunar:energy_trans & $component0 ! magic_lunar:plank_make & $component0 ! magic_lunar:string_jewel & $component0 ! magic_lunar:vengeance_other)) {
     if (%varplayerbit_4089 = 1) {
         if (%varplayer_1092 < $int3 | enum(component, int, enum_1061, $component0) = 0) {
             if_setgraphic($graphic2, $component0);
@@ -27,7 +27,7 @@ if ($obj10 ! null & ~magic_runecount($obj10, $component0) < $int11) {
     if_setgraphic($graphic2, $component0);
     return;
 }
-if ($component0 = magic:enchant_crossbow_bolt & map_members = false) {
+if ($component0 = magic:xbows_enchant & map_members = false) {
     if_setgraphic($graphic2, $component0);
     return;
 }

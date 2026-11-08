@@ -1,23 +1,23 @@
 // 4589
 [proc,script4589]
-cc_deleteall(clan_chat:com_14);
+cc_deleteall(clan_chat:clanlist);
 cc_deleteall(clan_chat:com_12);
 cc_deleteall(clan_chat:com_15);
 cc_deleteall(clan_chat:com_17);
 cc_deleteall(clan_chat:com_18);
 cc_deleteall(clan_chat:com_16);
-if_sethide(true, clan_chat:com_27);
+if_sethide(true, clan_chat:drag_layer);
 if_sethide(false, clan_chat:com_67);
 if_settext("You are not currently in a Clan Chat channel.", clan_chat:com_62);
-if_sethide(true, clan_chat:com_29);
-if_sethide(false, clan_chat:com_22);
+if_sethide(true, clan_chat:clanlistscrollbar);
+if_sethide(false, clan_chat:kick_button_layer);
 ~script4469;
 if_setgraphic("aif_clanchat_icons,13", clan_chat:com_86);
 if_sethide(true, clan_chat:com_13);
 if_setsize(1, 19, ^setsize_abs, ^setsize_abs, clan_chat:com_20);
 %varclient_1518 = -1;
 %varclient_1645 = "";
-if_settext("", clan_chat:com_26);
+if_settext("", clan_chat:clan_name);
 def_string $string0 = "Join your clan chat channel.";
-if_setonmouserepeat("aif_tooltip(clan_chat:com_60, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)", clan_chat:com_85);
+if_setonmouserepeat("aif_tooltip(clan_chat:tooltip, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)", clan_chat:com_85);
 if_setop(1, "Join Clan Chat channel", clan_chat:com_85);

@@ -1,6 +1,6 @@
 // 4575
 [clientscript,lobbyscreen_pane_friendschat_kick]
 if (~script1891 = 1) {
-    ~deltooltip_action(lobbyscreen_pane_friendschat:com_35);
+    ~deltooltip_action(lobbyscreen_pane_friendschat:tooltip_layer);
     ~lobbyscreen_input("Kick/ban from chat channel", "", 9, "", "");
 }

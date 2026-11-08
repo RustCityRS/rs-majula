@@ -2,26 +2,26 @@
 [clientscript,barbassault_name_transmit](component $component0)
 def_string $string0 = "";
 def_fontmetrics $fontmetrics1 = p11_full;
-def_component $component2 = interface_492:com_49;
+def_component $component2 = barbassault_scroll_pl1_b:tooltip;
 switch_component ($component0) {
-    case interface_492:com_15, interface_493:com_27, barbassault_over_heal:com_3 :
+    case barbassault_scroll_pl1_b:barbassault_scroll_pl1_tn1, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn1, barbassault_over_heal:barbassault_healer_player1_name :
         $string0 = %varclient_1731;
-    case interface_492:com_16, interface_493:com_28, barbassault_over_heal:com_8 :
+    case barbassault_scroll_pl1_b:barbassault_scroll_pl1_tn2, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn2, barbassault_over_heal:barbassault_healer_player2_name :
         $string0 = %varclient_1732;
-    case interface_492:com_17, interface_493:com_29, barbassault_over_heal:com_13 :
+    case barbassault_scroll_pl1_b:barbassault_scroll_pl1_tn3, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn3, barbassault_over_heal:flickhover :
         $string0 = %varclient_1733;
-    case interface_492:com_18, interface_493:com_30, barbassault_over_heal:com_18 :
+    case barbassault_scroll_pl1_b:barbassault_scroll_pl1_tn4, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn4, barbassault_over_heal:barbassault_healer_player4_name :
         $string0 = %varclient_1734;
-    case interface_492:com_19, interface_493:com_31 :
+    case barbassault_scroll_pl1_b:barbassault_scroll_pl1_tn5, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn5 :
         $string0 = %varclient_1735;
 }
 switch_component ($component0) {
-    case interface_493:com_27, interface_493:com_28, interface_493:com_29, interface_493:com_30, interface_493:com_31 :
+    case barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn1, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn2, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn3, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn4, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn5 :
         $fontmetrics1 = p12_full;
-        $component2 = interface_493:com_56;
-    case barbassault_over_heal:com_3, barbassault_over_heal:com_8, barbassault_over_heal:com_13, barbassault_over_heal:com_18 :
+        $component2 = barbassault_scroll_pl2_b:tooltip;
+    case barbassault_over_heal:barbassault_healer_player1_name, barbassault_over_heal:barbassault_healer_player2_name, barbassault_over_heal:flickhover, barbassault_over_heal:barbassault_healer_player4_name :
         $fontmetrics1 = p12_full;
-        $component2 = barbassault_over_heal:com_27;
+        $component2 = barbassault_over_heal:tooltip;
 }
 def_string $string1 = $string0;
 def_int $int3 = if_getwidth($component0);
@@ -37,11 +37,11 @@ if (parawidth("<$string1> ", ^max_32bit_int, $fontmetrics1) > $int3) {
     if_setonmouseleave(null, $component0);
 }
 switch_component ($component0) {
-    case interface_492:com_15, interface_492:com_16, interface_492:com_17, interface_492:com_18, interface_492:com_19, interface_493:com_27, interface_493:com_28, interface_493:com_29, interface_493:com_30, interface_493:com_31 :
+    case barbassault_scroll_pl1_b:barbassault_scroll_pl1_tn1, barbassault_scroll_pl1_b:barbassault_scroll_pl1_tn2, barbassault_scroll_pl1_b:barbassault_scroll_pl1_tn3, barbassault_scroll_pl1_b:barbassault_scroll_pl1_tn4, barbassault_scroll_pl1_b:barbassault_scroll_pl1_tn5, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn1, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn2, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn3, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn4, barbassault_scroll_pl2_b:barbassault_scroll_pl2_tn5 :
         if (compare($string0, "") = 0 | compare($string0, null) = 0) {
             $string0 = "none set";
         }
-    case barbassault_over_heal:com_3, barbassault_over_heal:com_8, barbassault_over_heal:com_13, barbassault_over_heal:com_18 :
+    case barbassault_over_heal:barbassault_healer_player1_name, barbassault_over_heal:barbassault_healer_player2_name, barbassault_over_heal:flickhover, barbassault_over_heal:barbassault_healer_player4_name :
         if (compare($string0, "") = 0 | compare($string0, null) = 0) {
             $string0 = "---";
         }

@@ -1,11 +1,11 @@
 // 2756
 [proc,flashside_arrow]
 if (%varplayerbit_3756 = calc(16 + 1)) {
-    ~arrow_set(toplevel_fullscreen:com_orb_energy, -1, toplevel:com_orb_energy, -1);
+    ~arrow_set(toplevel_fullscreen:topstat_run, -1, toplevel:topstat_run, -1);
 } else if (%varplayerbit_3756 = calc(17 + 1)) {
-    ~arrow_set(toplevel_fullscreen:com_172, -1, toplevel:com_183, -1);
+    ~arrow_set(toplevel_fullscreen:advisorbutton, -1, toplevel:advisorbutton, -1);
 } else if (%varplayerbit_3756 = calc(18 + 1)) {
-    ~arrow_set(toplevel_fullscreen:com_178, -1, toplevel:com_179, -1);
+    ~arrow_set(toplevel_fullscreen:world_map_ring, -1, toplevel:worldmap_icon, -1);
 } else if (%varplayerbit_3756 = calc(19 + 1)) {
     ~arrow_set(toplevel_fullscreen:com_171, -1, toplevel:com_177, -1);
 } else {

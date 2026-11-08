@@ -12,7 +12,7 @@ fill=yes
 trans=220
 
 // 686:1
-[com_1]
+[universe]
 type=layer
 width=484
 height=315
@@ -29,7 +29,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 colour=0x453d32
 fill=yes
 
@@ -41,10 +41,10 @@ width=4
 height=70
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=universe
 
 // 686:4
-[com_4]
+[bottomgradient]
 type=layer
 y=5
 width=4
@@ -52,10 +52,10 @@ height=50
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=universe
 
 // 686:5
-[com_5]
+[items_container]
 type=layer
 y=26
 width=18
@@ -63,25 +63,25 @@ height=50
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_1
+layer=universe
 
 // 686:6
-[com_6]
+[items]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=items_container
 
 // 686:7
-[com_7]
+[items_scrollbar]
 type=layer
 width=16
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_5
+layer=items_container
 hide=yes
 
 // 686:8
@@ -92,7 +92,7 @@ height=12
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=universe
 textfont=p11_full
 text=Right-click on an item in the shop to see the available options.
 textalignh=centre
@@ -101,7 +101,7 @@ textshadow=yes
 colour=0xff981f
 
 // 686:9
-[com_9]
+[xp_container]
 type=layer
 width=4
 height=4
@@ -109,7 +109,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 hide=yes
 noclickthrough=yes
 
@@ -120,19 +120,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=xp_container
 colour=0x453d32
 fill=yes
 trans=150
 
 // 686:11
-[com_11]
+[xp]
 type=layer
 width=200
 height=150
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=xp_container
 
 // 686:12
 [com_12]
@@ -143,19 +143,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_11
+layer=xp
 colour=0x453d32
 fill=yes
 
 // 686:13
-[com_13]
+[xp_message]
 type=text
 y=25
 width=14
 height=55
 widthmode=minus
 xmode=abs_centre
-layer=com_11
+layer=xp
 textfont=p12_full
 textlineheight=20
 textalignh=centre
@@ -164,7 +164,7 @@ textshadow=yes
 colour=0xff981f
 
 // 686:14
-[com_14]
+[xp_confirm]
 type=layer
 y=40
 width=40
@@ -172,7 +172,7 @@ height=25
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_11
+layer=xp
 transmitop=1
 op1=Proceed
 
@@ -185,7 +185,7 @@ height=25
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_11
+layer=xp
 textfont=b12_full
 text=Proceed
 textalignh=centre
@@ -196,7 +196,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 686:16
-[com_16]
+[xp_cancel]
 type=layer
 y=10
 width=40
@@ -204,7 +204,7 @@ height=25
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_11
+layer=xp
 transmitop=1
 op1=Cancel
 
@@ -217,7 +217,7 @@ height=25
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_11
+layer=xp
 textfont=b12_full
 text=Cancel
 textalignh=centre
@@ -234,7 +234,7 @@ width=40
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_11
+layer=xp
 graphic="v2_stone_borders,36"
 tiling=yes
 
@@ -246,7 +246,7 @@ width=32
 height=40
 heightmode=minus
 ymode=abs_centre
-layer=com_11
+layer=xp
 graphic="v2_stone_borders,1"
 tiling=yes
 
@@ -259,7 +259,7 @@ height=40
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_11
+layer=xp
 graphic="v2_stone_borders,3"
 tiling=yes
 
@@ -272,7 +272,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_11
+layer=xp
 graphic="v2_stone_borders,2"
 tiling=yes
 
@@ -281,7 +281,7 @@ tiling=yes
 type=graphic
 width=32
 height=32
-layer=com_11
+layer=xp
 graphic="v2_stone_borders,35"
 
 // 686:23
@@ -290,7 +290,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_11
+layer=xp
 graphic="v2_stone_borders,37"
 
 // 686:24
@@ -299,7 +299,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_11
+layer=xp
 graphic="v2_stone_borders,6"
 
 // 686:25
@@ -309,7 +309,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_11
+layer=xp
 graphic="v2_stone_borders,7"
 
 // 686:26
@@ -319,7 +319,7 @@ width=40
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,36"
 tiling=yes
 
@@ -331,7 +331,7 @@ width=32
 height=40
 heightmode=minus
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,1"
 tiling=yes
 
@@ -344,7 +344,7 @@ height=40
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,3"
 tiling=yes
 
@@ -357,7 +357,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,2"
 tiling=yes
 
@@ -366,7 +366,7 @@ tiling=yes
 type=graphic
 width=32
 height=32
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,35"
 
 // 686:31
@@ -375,7 +375,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,37"
 
 // 686:32
@@ -384,7 +384,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,6"
 
 // 686:33
@@ -394,7 +394,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,7"
 
 // 686:34
@@ -403,7 +403,7 @@ type=text
 height=22
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=universe
 textfont=b12_full
 text=Mrs Winkin's World of Seeds
 textalignh=centre
@@ -419,7 +419,7 @@ y=3
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=universe
 graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close

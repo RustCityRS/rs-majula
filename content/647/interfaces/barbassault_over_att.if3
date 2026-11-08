@@ -1,29 +1,29 @@
 // 485:0
-[com_0]
+[content_layer_1]
 type=layer
 width=512
 height=334
 xmode=abs_right
 
 // 485:1
-[com_1]
+[barbassault_attacker_wave_]
 type=graphic
 x=492
 y=1
 width=17
 height=13
-layer=com_0
+layer=content_layer_1
 graphic="barbassault_icons,0"
 colour=0x000000
 
 // 485:2
-[com_2]
+[barbassault_attacker_wave__text]
 type=text
 x=422
 y=-9
 width=66
 height=32
-layer=com_0
+layer=content_layer_1
 textfont=barbassault_font
 text=Wave 1
 textalignh=right
@@ -31,24 +31,24 @@ textshadow=yes
 colour=0xff981f
 
 // 485:3
-[com_3]
+[barbassault_attacker_hear]
 type=graphic
 x=492
 y=28
 width=17
 height=13
-layer=com_0
+layer=content_layer_1
 graphic="barbassault_icons,1"
 colour=0x000000
 
 // 485:4
-[com_4]
+[barbassault_attacker_hear_text]
 type=text
 x=387
 y=10
 width=102
 height=32
-layer=com_0
+layer=content_layer_1
 textfont=barbassault_font
 text=Controlled/
 textalignh=right
@@ -56,13 +56,13 @@ textshadow=yes
 colour=0xff981f
 
 // 485:5
-[com_5]
+[barbassault_attacker_hear_detail_text]
 type=text
 x=377
 y=25
 width=112
 height=32
-layer=com_0
+layer=content_layer_1
 textfont=barbassault_font
 text=Bronze/Wind
 textalignh=right
@@ -70,24 +70,24 @@ textshadow=yes
 colour=0xff981f
 
 // 485:6
-[com_6]
+[barbassault_attacker_shout]
 type=graphic
 x=492
 y=56
 width=17
 height=13
-layer=com_0
+layer=content_layer_1
 graphic="barbassault_icons,2"
 colour=0x000000
 
 // 485:7
-[com_7]
+[barbassault_attacker_shout_text]
 type=text
 x=389
 y=45
 width=100
 height=32
-layer=com_0
+layer=content_layer_1
 textfont=barbassault_font
 text=Green eggs
 textalignh=right
@@ -95,24 +95,24 @@ textshadow=yes
 colour=0xff981f
 
 // 485:8
-[com_8]
+[barbassault_attacker_horn]
 type=graphic
 x=492
 y=75
 width=17
 height=13
-layer=com_0
+layer=content_layer_1
 graphic="barbassault_icons,5"
 colour=0x000000
 
 // 485:9
-[com_9]
+[barbassault_attacker_horn_text]
 type=text
 x=409
 y=66
 width=80
 height=32
-layer=com_0
+layer=content_layer_1
 textfont=barbassault_font
 text=Collector
 textalignh=right

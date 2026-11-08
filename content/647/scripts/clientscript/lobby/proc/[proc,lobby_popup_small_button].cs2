@@ -11,5 +11,5 @@ $graphic5 = "set_but_end_1,1";
 $graphic6 = "set_but_end_1,1";
 $graphic7 = "set_but_fill_1,1";
 if_setonmouseover("lobbyscreen_button_highlight($component1, $graphic5, $component2, $graphic7, $component3, $graphic6)", $component0);
-if_settext($string0, lobbyscreen:com_230);
-if_setop(1, $string1, lobbyscreen:com_225);
+if_settext($string0, lobbyscreen:popup_small_button_text);
+if_setop(1, $string1, lobbyscreen:popup_small_button);

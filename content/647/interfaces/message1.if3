@@ -1,5 +1,5 @@
 // 210:0
-[com_0]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -7,28 +7,28 @@ widthmode=proportion
 heightmode=proportion
 
 // 210:1
-[com_1]
+[mes1a]
 type=text
 y=-12
 width=441
 height=17
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Line1
 textalignh=centre
 colour=0x000000
 
 // 210:2
-[com_2]
+[mes1next]
 type=text
 y=1277
 width=350
 height=17
 xmode=abs_centre
 ymode=proportion_bottom
-layer=com_0
+layer=layer_1
 textfont=q8_full
 text=Click here to continue
 textalignh=centre

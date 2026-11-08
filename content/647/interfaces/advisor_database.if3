@@ -7,7 +7,7 @@ transmitop=10
 op10= 
 
 // 895:1
-[com_1]
+[drop_shadow]
 type=rectangle
 x=-5
 y=-4
@@ -22,7 +22,7 @@ opbase=
 op10= 
 
 // 895:2
-[com_2]
+[drop_shadow_1]
 type=rectangle
 x=-4
 y=-3
@@ -37,7 +37,7 @@ opbase=
 op10=  
 
 // 895:3
-[com_3]
+[drop_shadow_2]
 type=rectangle
 x=-3
 y=-2
@@ -52,7 +52,7 @@ opbase=
 op10=   
 
 // 895:4
-[com_4]
+[drop_shadow_3]
 type=rectangle
 x=-2
 y=-1
@@ -67,7 +67,7 @@ opbase=
 op10=    
 
 // 895:5
-[com_5]
+[drop_shadow_4]
 type=rectangle
 x=-1
 widthmode=minus
@@ -81,7 +81,7 @@ opbase=
 op10=     
 
 // 895:6
-[com_6]
+[background_top]
 type=graphic
 x=8
 y=22
@@ -96,7 +96,7 @@ transmitop=10
 op10=  
 
 // 895:7
-[com_7]
+[background_mid]
 type=graphic
 x=8
 y=92
@@ -128,7 +128,7 @@ transmitop=10
 op10=  
 
 // 895:9
-[com_9]
+[background_border]
 type=rectangle
 x=7
 y=22
@@ -142,7 +142,7 @@ transmitop=10
 op10= 
 
 // 895:10
-[com_10]
+[border_left]
 type=graphic
 x=-13
 y=32
@@ -157,7 +157,7 @@ transmitop=10
 op10=    
 
 // 895:11
-[com_11]
+[border_right]
 type=graphic
 x=-6
 y=32
@@ -173,7 +173,7 @@ transmitop=10
 op10=    
 
 // 895:12
-[com_12]
+[border_top]
 type=graphic
 x=32
 width=70
@@ -187,7 +187,7 @@ transmitop=10
 op10=        
 
 // 895:13
-[com_13]
+[border_bottom]
 type=graphic
 x=32
 y=5
@@ -204,7 +204,7 @@ transmitop=10
 op10=    
 
 // 895:14
-[com_14]
+[border_top_left]
 type=graphic
 width=32
 height=32
@@ -215,7 +215,7 @@ transmitop=10
 op10=        
 
 // 895:15
-[com_15]
+[border_top_right]
 type=graphic
 x=6
 width=32
@@ -228,7 +228,7 @@ transmitop=10
 op10=        
 
 // 895:16
-[com_16]
+[border_bottom_left]
 type=graphic
 y=5
 width=32
@@ -242,7 +242,7 @@ transmitop=10
 op10=    
 
 // 895:17
-[com_17]
+[border_bottom_right]
 type=graphic
 x=6
 y=5
@@ -258,7 +258,7 @@ transmitop=10
 op10=    
 
 // 895:18
-[com_18]
+[title]
 type=text
 x=91
 y=4
@@ -273,7 +273,7 @@ transmitop=10
 op10=     
 
 // 895:19
-[com_19]
+[closebutton]
 type=graphic
 x=483
 y=3
@@ -311,7 +311,7 @@ op10=
 onload=scrollbar_vertical_graphics(event_com, advisor_database:com_20, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 895:22
-[com_22]
+[forum_link]
 type=text
 x=388
 y=310
@@ -324,7 +324,7 @@ colour=0x64c8fa
 onload=script3409(event_com)
 
 // 895:23
-[com_23]
+[text1]
 type=text
 x=23
 width=448
@@ -336,7 +336,7 @@ transmitop=1
 op1=Ok
 
 // 895:24
-[com_24]
+[text2]
 type=text
 x=23
 y=15
@@ -349,7 +349,7 @@ transmitop=1
 op1=Ok
 
 // 895:25
-[com_25]
+[text3]
 type=text
 x=23
 y=30
@@ -362,7 +362,7 @@ transmitop=1
 op1=Ok
 
 // 895:26
-[com_26]
+[text4]
 type=text
 x=23
 y=45
@@ -375,7 +375,7 @@ transmitop=1
 op1=Ok
 
 // 895:27
-[com_27]
+[text5]
 type=text
 x=23
 y=60
@@ -388,7 +388,7 @@ transmitop=1
 op1=Ok
 
 // 895:28
-[com_28]
+[text6]
 type=text
 x=23
 y=75
@@ -401,7 +401,7 @@ transmitop=1
 op1=Ok
 
 // 895:29
-[com_29]
+[text7]
 type=text
 x=23
 y=90
@@ -414,7 +414,7 @@ transmitop=1
 op1=Ok
 
 // 895:30
-[com_30]
+[text8]
 type=text
 x=23
 y=105
@@ -427,7 +427,7 @@ transmitop=1
 op1=Ok
 
 // 895:31
-[com_31]
+[text9]
 type=text
 x=23
 y=120
@@ -440,7 +440,7 @@ transmitop=1
 op1=Ok
 
 // 895:32
-[com_32]
+[text10]
 type=text
 x=23
 y=135
@@ -453,7 +453,7 @@ transmitop=1
 op1=Ok
 
 // 895:33
-[com_33]
+[text11]
 type=text
 x=23
 y=150
@@ -466,7 +466,7 @@ transmitop=1
 op1=Ok
 
 // 895:34
-[com_34]
+[text12]
 type=text
 x=23
 y=165
@@ -479,7 +479,7 @@ transmitop=1
 op1=Ok
 
 // 895:35
-[com_35]
+[text13]
 type=text
 x=23
 y=180
@@ -492,7 +492,7 @@ transmitop=1
 op1=Ok
 
 // 895:36
-[com_36]
+[text14]
 type=text
 x=23
 y=195
@@ -505,7 +505,7 @@ transmitop=1
 op1=Ok
 
 // 895:37
-[com_37]
+[text15]
 type=text
 x=23
 y=210
@@ -518,7 +518,7 @@ transmitop=1
 op1=Ok
 
 // 895:38
-[com_38]
+[text16]
 type=text
 x=23
 y=225
@@ -531,7 +531,7 @@ transmitop=1
 op1=Ok
 
 // 895:39
-[com_39]
+[text17]
 type=text
 x=23
 y=240
@@ -544,7 +544,7 @@ transmitop=1
 op1=Ok
 
 // 895:40
-[com_40]
+[text18]
 type=text
 x=23
 y=255
@@ -557,7 +557,7 @@ transmitop=1
 op1=Ok
 
 // 895:41
-[com_41]
+[text19]
 type=text
 x=23
 y=270
@@ -570,7 +570,7 @@ transmitop=1
 op1=Ok
 
 // 895:42
-[com_42]
+[text20]
 type=text
 x=23
 y=285
@@ -583,7 +583,7 @@ transmitop=1
 op1=Ok
 
 // 895:43
-[com_43]
+[text21]
 type=text
 x=23
 y=300
@@ -596,7 +596,7 @@ transmitop=1
 op1=Ok
 
 // 895:44
-[com_44]
+[text22]
 type=text
 x=23
 y=315
@@ -609,7 +609,7 @@ transmitop=1
 op1=Ok
 
 // 895:45
-[com_45]
+[text23]
 type=text
 x=23
 y=330
@@ -622,7 +622,7 @@ transmitop=1
 op1=Ok
 
 // 895:46
-[com_46]
+[text24]
 type=text
 x=23
 y=345
@@ -635,7 +635,7 @@ transmitop=1
 op1=Ok
 
 // 895:47
-[com_47]
+[text25]
 type=text
 x=23
 y=360
@@ -648,7 +648,7 @@ transmitop=1
 op1=Ok
 
 // 895:48
-[com_48]
+[text26]
 type=text
 x=23
 y=375
@@ -661,7 +661,7 @@ transmitop=1
 op1=Ok
 
 // 895:49
-[com_49]
+[text27]
 type=text
 x=23
 y=390
@@ -674,7 +674,7 @@ transmitop=1
 op1=Ok
 
 // 895:50
-[com_50]
+[text28]
 type=text
 x=23
 y=405
@@ -687,7 +687,7 @@ transmitop=1
 op1=Ok
 
 // 895:51
-[com_51]
+[text29]
 type=text
 x=23
 y=420
@@ -700,7 +700,7 @@ transmitop=1
 op1=Ok
 
 // 895:52
-[com_52]
+[text30]
 type=text
 x=23
 y=435
@@ -713,7 +713,7 @@ transmitop=1
 op1=Ok
 
 // 895:53
-[com_53]
+[text31]
 type=text
 x=23
 y=450
@@ -726,7 +726,7 @@ transmitop=1
 op1=Ok
 
 // 895:54
-[com_54]
+[text32]
 type=text
 x=23
 y=465
@@ -739,7 +739,7 @@ transmitop=1
 op1=Ok
 
 // 895:55
-[com_55]
+[text33]
 type=text
 x=23
 y=480
@@ -752,7 +752,7 @@ transmitop=1
 op1=Ok
 
 // 895:56
-[com_56]
+[text34]
 type=text
 x=23
 y=495
@@ -765,7 +765,7 @@ transmitop=1
 op1=Ok
 
 // 895:57
-[com_57]
+[text35]
 type=text
 x=23
 y=510
@@ -778,7 +778,7 @@ transmitop=1
 op1=Ok
 
 // 895:58
-[com_58]
+[text36]
 type=text
 x=23
 y=525
@@ -791,7 +791,7 @@ transmitop=1
 op1=Ok
 
 // 895:59
-[com_59]
+[text37]
 type=text
 x=23
 y=540
@@ -804,7 +804,7 @@ transmitop=1
 op1=Ok
 
 // 895:60
-[com_60]
+[text38]
 type=text
 x=23
 y=555
@@ -817,7 +817,7 @@ transmitop=1
 op1=Ok
 
 // 895:61
-[com_61]
+[text39]
 type=text
 x=23
 y=570
@@ -830,7 +830,7 @@ transmitop=1
 op1=Ok
 
 // 895:62
-[com_62]
+[text40]
 type=text
 x=23
 y=585
@@ -843,7 +843,7 @@ transmitop=1
 op1=Ok
 
 // 895:63
-[com_63]
+[text41]
 type=text
 x=23
 y=600
@@ -856,7 +856,7 @@ transmitop=1
 op1=Ok
 
 // 895:64
-[com_64]
+[text42]
 type=text
 x=23
 y=615
@@ -869,7 +869,7 @@ transmitop=1
 op1=Ok
 
 // 895:65
-[com_65]
+[text43]
 type=text
 x=23
 y=630
@@ -882,7 +882,7 @@ transmitop=1
 op1=Ok
 
 // 895:66
-[com_66]
+[text44]
 type=text
 x=23
 y=645
@@ -895,7 +895,7 @@ transmitop=1
 op1=Ok
 
 // 895:67
-[com_67]
+[text45]
 type=text
 x=23
 y=660
@@ -908,7 +908,7 @@ transmitop=1
 op1=Ok
 
 // 895:68
-[com_68]
+[text46]
 type=text
 x=23
 y=675
@@ -921,7 +921,7 @@ transmitop=1
 op1=Ok
 
 // 895:69
-[com_69]
+[text47]
 type=text
 x=23
 y=690
@@ -934,7 +934,7 @@ transmitop=1
 op1=Ok
 
 // 895:70
-[com_70]
+[text48]
 type=text
 x=23
 y=705
@@ -947,7 +947,7 @@ transmitop=1
 op1=Ok
 
 // 895:71
-[com_71]
+[text49]
 type=text
 x=23
 y=720
@@ -960,7 +960,7 @@ transmitop=1
 op1=Ok
 
 // 895:72
-[com_72]
+[text50]
 type=text
 x=23
 y=735
@@ -973,7 +973,7 @@ transmitop=1
 op1=Ok
 
 // 895:73
-[com_73]
+[text51]
 type=text
 x=23
 y=750
@@ -986,7 +986,7 @@ transmitop=1
 op1=Ok
 
 // 895:74
-[com_74]
+[text52]
 type=text
 x=23
 y=765
@@ -999,7 +999,7 @@ transmitop=1
 op1=Ok
 
 // 895:75
-[com_75]
+[text53]
 type=text
 x=23
 y=780
@@ -1012,7 +1012,7 @@ transmitop=1
 op1=Ok
 
 // 895:76
-[com_76]
+[text54]
 type=text
 x=23
 y=795
@@ -1025,7 +1025,7 @@ transmitop=1
 op1=Ok
 
 // 895:77
-[com_77]
+[text55]
 type=text
 x=23
 y=810
@@ -1038,7 +1038,7 @@ transmitop=1
 op1=Ok
 
 // 895:78
-[com_78]
+[text56]
 type=text
 x=23
 y=825
@@ -1051,7 +1051,7 @@ transmitop=1
 op1=Ok
 
 // 895:79
-[com_79]
+[text57]
 type=text
 x=23
 y=840
@@ -1064,7 +1064,7 @@ transmitop=1
 op1=Ok
 
 // 895:80
-[com_80]
+[text58]
 type=text
 x=23
 y=855
@@ -1077,7 +1077,7 @@ transmitop=1
 op1=Ok
 
 // 895:81
-[com_81]
+[text59]
 type=text
 x=23
 y=870
@@ -1090,7 +1090,7 @@ transmitop=1
 op1=Ok
 
 // 895:82
-[com_82]
+[text60]
 type=text
 x=23
 y=885
@@ -1103,7 +1103,7 @@ transmitop=1
 op1=Ok
 
 // 895:83
-[com_83]
+[icon1]
 type=graphic
 x=2
 width=15
@@ -1115,7 +1115,7 @@ transmitop=10
 op10= 
 
 // 895:84
-[com_84]
+[icon2]
 type=graphic
 x=2
 y=15
@@ -1128,7 +1128,7 @@ transmitop=10
 op10= 
 
 // 895:85
-[com_85]
+[icon3]
 type=graphic
 x=2
 y=30
@@ -1141,7 +1141,7 @@ transmitop=10
 op10= 
 
 // 895:86
-[com_86]
+[icon4]
 type=graphic
 x=2
 y=45
@@ -1154,7 +1154,7 @@ transmitop=10
 op10= 
 
 // 895:87
-[com_87]
+[icon5]
 type=graphic
 x=2
 y=60
@@ -1167,7 +1167,7 @@ transmitop=10
 op10= 
 
 // 895:88
-[com_88]
+[icon6]
 type=graphic
 x=2
 y=75
@@ -1180,7 +1180,7 @@ transmitop=10
 op10= 
 
 // 895:89
-[com_89]
+[icon7]
 type=graphic
 x=2
 y=90
@@ -1193,7 +1193,7 @@ transmitop=10
 op10= 
 
 // 895:90
-[com_90]
+[icon8]
 type=graphic
 x=2
 y=105
@@ -1206,7 +1206,7 @@ transmitop=10
 op10= 
 
 // 895:91
-[com_91]
+[icon9]
 type=graphic
 x=2
 y=120
@@ -1219,7 +1219,7 @@ transmitop=10
 op10= 
 
 // 895:92
-[com_92]
+[icon10]
 type=graphic
 x=2
 y=135
@@ -1232,7 +1232,7 @@ transmitop=10
 op10= 
 
 // 895:93
-[com_93]
+[icon11]
 type=graphic
 x=2
 y=150
@@ -1245,7 +1245,7 @@ transmitop=10
 op10= 
 
 // 895:94
-[com_94]
+[icon12]
 type=graphic
 x=2
 y=165
@@ -1258,7 +1258,7 @@ transmitop=10
 op10= 
 
 // 895:95
-[com_95]
+[icon13]
 type=graphic
 x=2
 y=180
@@ -1271,7 +1271,7 @@ transmitop=10
 op10= 
 
 // 895:96
-[com_96]
+[icon14]
 type=graphic
 x=2
 y=195
@@ -1284,7 +1284,7 @@ transmitop=10
 op10= 
 
 // 895:97
-[com_97]
+[icon15]
 type=graphic
 x=2
 y=210
@@ -1297,7 +1297,7 @@ transmitop=10
 op10= 
 
 // 895:98
-[com_98]
+[icon16]
 type=graphic
 x=2
 y=225
@@ -1310,7 +1310,7 @@ transmitop=10
 op10= 
 
 // 895:99
-[com_99]
+[icon17]
 type=graphic
 x=2
 y=240
@@ -1323,7 +1323,7 @@ transmitop=10
 op10= 
 
 // 895:100
-[com_100]
+[icon18]
 type=graphic
 x=2
 y=255
@@ -1336,7 +1336,7 @@ transmitop=10
 op10= 
 
 // 895:101
-[com_101]
+[icon19]
 type=graphic
 x=2
 y=270
@@ -1349,7 +1349,7 @@ transmitop=10
 op10= 
 
 // 895:102
-[com_102]
+[icon20]
 type=graphic
 x=2
 y=285
@@ -1362,7 +1362,7 @@ transmitop=10
 op10= 
 
 // 895:103
-[com_103]
+[icon21]
 type=graphic
 x=2
 y=300
@@ -1375,7 +1375,7 @@ transmitop=10
 op10= 
 
 // 895:104
-[com_104]
+[icon22]
 type=graphic
 x=2
 y=315
@@ -1388,7 +1388,7 @@ transmitop=10
 op10= 
 
 // 895:105
-[com_105]
+[icon23]
 type=graphic
 x=2
 y=330
@@ -1401,7 +1401,7 @@ transmitop=10
 op10= 
 
 // 895:106
-[com_106]
+[icon24]
 type=graphic
 x=2
 y=345
@@ -1414,7 +1414,7 @@ transmitop=10
 op10= 
 
 // 895:107
-[com_107]
+[icon25]
 type=graphic
 x=2
 y=360
@@ -1427,7 +1427,7 @@ transmitop=10
 op10= 
 
 // 895:108
-[com_108]
+[icon26]
 type=graphic
 x=2
 y=375
@@ -1440,7 +1440,7 @@ transmitop=10
 op10= 
 
 // 895:109
-[com_109]
+[icon27]
 type=graphic
 x=2
 y=390
@@ -1453,7 +1453,7 @@ transmitop=10
 op10= 
 
 // 895:110
-[com_110]
+[icon28]
 type=graphic
 x=2
 y=405
@@ -1466,7 +1466,7 @@ transmitop=10
 op10= 
 
 // 895:111
-[com_111]
+[icon29]
 type=graphic
 x=2
 y=420
@@ -1479,7 +1479,7 @@ transmitop=10
 op10= 
 
 // 895:112
-[com_112]
+[icon30]
 type=graphic
 x=2
 y=435
@@ -1492,7 +1492,7 @@ transmitop=10
 op10= 
 
 // 895:113
-[com_113]
+[icon31]
 type=graphic
 x=2
 y=450
@@ -1505,7 +1505,7 @@ transmitop=10
 op10= 
 
 // 895:114
-[com_114]
+[icon32]
 type=graphic
 x=2
 y=465
@@ -1518,7 +1518,7 @@ transmitop=10
 op10= 
 
 // 895:115
-[com_115]
+[icon33]
 type=graphic
 x=2
 y=480
@@ -1531,7 +1531,7 @@ transmitop=10
 op10= 
 
 // 895:116
-[com_116]
+[icon34]
 type=graphic
 x=2
 y=495
@@ -1544,7 +1544,7 @@ transmitop=10
 op10= 
 
 // 895:117
-[com_117]
+[icon35]
 type=graphic
 x=2
 y=510
@@ -1557,7 +1557,7 @@ transmitop=10
 op10= 
 
 // 895:118
-[com_118]
+[icon36]
 type=graphic
 x=2
 y=525
@@ -1570,7 +1570,7 @@ transmitop=10
 op10= 
 
 // 895:119
-[com_119]
+[icon37]
 type=graphic
 x=2
 y=540
@@ -1583,7 +1583,7 @@ transmitop=10
 op10= 
 
 // 895:120
-[com_120]
+[icon38]
 type=graphic
 x=2
 y=555
@@ -1596,7 +1596,7 @@ transmitop=10
 op10= 
 
 // 895:121
-[com_121]
+[icon39]
 type=graphic
 x=2
 y=570
@@ -1609,7 +1609,7 @@ transmitop=10
 op10= 
 
 // 895:122
-[com_122]
+[icon40]
 type=graphic
 x=2
 y=585
@@ -1622,7 +1622,7 @@ transmitop=10
 op10= 
 
 // 895:123
-[com_123]
+[icon41]
 type=graphic
 x=2
 y=600
@@ -1635,7 +1635,7 @@ transmitop=10
 op10= 
 
 // 895:124
-[com_124]
+[icon42]
 type=graphic
 x=2
 y=615
@@ -1648,7 +1648,7 @@ transmitop=10
 op10= 
 
 // 895:125
-[com_125]
+[icon43]
 type=graphic
 x=2
 y=630
@@ -1661,7 +1661,7 @@ transmitop=10
 op10= 
 
 // 895:126
-[com_126]
+[icon44]
 type=graphic
 x=2
 y=645
@@ -1674,7 +1674,7 @@ transmitop=10
 op10= 
 
 // 895:127
-[com_127]
+[icon45]
 type=graphic
 x=2
 y=660
@@ -1687,7 +1687,7 @@ transmitop=10
 op10= 
 
 // 895:128
-[com_128]
+[icon46]
 type=graphic
 x=2
 y=675
@@ -1700,7 +1700,7 @@ transmitop=10
 op10= 
 
 // 895:129
-[com_129]
+[icon47]
 type=graphic
 x=2
 y=690
@@ -1713,7 +1713,7 @@ transmitop=10
 op10= 
 
 // 895:130
-[com_130]
+[icon48]
 type=graphic
 x=2
 y=705
@@ -1726,7 +1726,7 @@ transmitop=10
 op10= 
 
 // 895:131
-[com_131]
+[icon49]
 type=graphic
 x=2
 y=720
@@ -1739,7 +1739,7 @@ transmitop=10
 op10= 
 
 // 895:132
-[com_132]
+[icon50]
 type=graphic
 x=2
 y=735
@@ -1752,7 +1752,7 @@ transmitop=10
 op10= 
 
 // 895:133
-[com_133]
+[icon51]
 type=graphic
 x=2
 y=750
@@ -1765,7 +1765,7 @@ transmitop=10
 op10= 
 
 // 895:134
-[com_134]
+[icon52]
 type=graphic
 x=2
 y=765
@@ -1778,7 +1778,7 @@ transmitop=10
 op10= 
 
 // 895:135
-[com_135]
+[icon53]
 type=graphic
 x=2
 y=780
@@ -1791,7 +1791,7 @@ transmitop=10
 op10= 
 
 // 895:136
-[com_136]
+[icon54]
 type=graphic
 x=2
 y=795
@@ -1804,7 +1804,7 @@ transmitop=10
 op10= 
 
 // 895:137
-[com_137]
+[icon55]
 type=graphic
 x=2
 y=810
@@ -1817,7 +1817,7 @@ transmitop=10
 op10= 
 
 // 895:138
-[com_138]
+[icon56]
 type=graphic
 x=2
 y=825
@@ -1830,7 +1830,7 @@ transmitop=10
 op10= 
 
 // 895:139
-[com_139]
+[icon57]
 type=graphic
 x=2
 y=840
@@ -1843,7 +1843,7 @@ transmitop=10
 op10= 
 
 // 895:140
-[com_140]
+[icon58]
 type=graphic
 x=2
 y=855
@@ -1856,7 +1856,7 @@ transmitop=10
 op10= 
 
 // 895:141
-[com_141]
+[icon59]
 type=graphic
 x=2
 y=870
@@ -1869,7 +1869,7 @@ transmitop=10
 op10= 
 
 // 895:142
-[com_142]
+[icon60]
 type=graphic
 x=2
 y=885

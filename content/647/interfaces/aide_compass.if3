@@ -10,39 +10,39 @@ fill=yes
 trans=200
 
 // 135:1
-[com_1]
+[aide_scroll_north]
 type=model
 x=158
 y=1
 width=208
 height=111
-layer=com_14
+layer=main_layer
 model=model_18533
 modelorigin=-4,-8
 modelangle=515,513,0
 modelzoom=1418
 
 // 135:2
-[com_2]
+[aide_north_text_1]
 type=text
 x=171
 y=14
 width=180
 height=15
-layer=com_14
+layer=main_layer
 textfont=b12_full
 text=To the NORTH
 textalignh=centre
 colour=0x381f0a
 
 // 135:3
-[com_3]
+[aide_north_text_2]
 type=text
 x=171
 y=28
 width=180
 height=71
-layer=com_14
+layer=main_layer
 textfont=q8_full
 text=To the NORTH
 textalignh=centre
@@ -50,65 +50,65 @@ textalignv=centre
 colour=0x381f0a
 
 // 135:4
-[com_4]
+[aide_scroll_east]
 type=model
 x=367
 y=65
 width=147
 height=192
-layer=com_14
+layer=main_layer
 model=model_18530
 modelorigin=-6,-1
 modelangle=478,3,0
 modelzoom=1290
 
 // 135:5
-[com_5]
+[aide_scroll_south]
 type=model
 x=158
 y=216
 width=208
 height=111
-layer=com_14
+layer=main_layer
 model=model_18533
 modelorigin=-4,-8
 modelangle=515,513,0
 modelzoom=1418
 
 // 135:6
-[com_6]
+[aide_east_text_1]
 type=text
 x=382
 y=86
 width=118
 height=15
-layer=com_14
+layer=main_layer
 textfont=b12_full
 text=To the EAST
 textalignh=centre
 colour=0x381f0a
 
 // 135:7
-[com_7]
+[aide_south_text_1]
 type=text
 x=172
 y=238
 width=177
 height=15
-layer=com_14
+layer=main_layer
 textfont=b12_full
 text=To the SOUTH
 textalignh=centre
 colour=0x381f0a
 
 // 135:8
-[com_8]
+[aide_east_text_2]
 type=text
 x=382
 y=103
 width=118
 height=137
-layer=com_14
+layer=main_layer
 textfont=q8_full
 text=To the EAST
 textalignh=centre
@@ -116,13 +116,13 @@ textalignv=centre
 colour=0x381f0a
 
 // 135:9
-[com_9]
+[aide_south_text_2]
 type=text
 x=173
 y=253
 width=176
 height=66
-layer=com_14
+layer=main_layer
 textfont=q8_full
 text=To the SOUTH
 textalignh=centre
@@ -130,39 +130,39 @@ textalignv=centre
 colour=0x381f0a
 
 // 135:10
-[com_10]
+[aide_scroll_west]
 type=model
 x=2
 y=64
 width=147
 height=190
-layer=com_14
+layer=main_layer
 model=model_18530
 modelorigin=-7,-1
 modelangle=475,0,0
 modelzoom=1290
 
 // 135:11
-[com_11]
+[aide_west_text_1]
 type=text
 x=18
 y=86
 width=114
 height=14
-layer=com_14
+layer=main_layer
 textfont=b12_full
 text=To the WEST
 textalignh=centre
 colour=0x381f0a
 
 // 135:12
-[com_12]
+[aide_west_text_2]
 type=text
 x=17
 y=100
 width=115
 height=138
-layer=com_14
+layer=main_layer
 textfont=q8_full
 text=To the WEST
 textalignh=centre
@@ -170,13 +170,13 @@ textalignv=centre
 colour=0x381f0a
 
 // 135:13
-[com_13]
+[aide_big_sign_post]
 type=model
 x=186
 y=87
 width=145
 height=148
-layer=com_14
+layer=main_layer
 model=model_18535
 modelangle=517,0,0
 modelzoom=1162
@@ -184,7 +184,7 @@ onload=script314(event_com)
 onvarctransmit=script314(event_com){varclient_179}
 
 // 135:14
-[com_14]
+[main_layer]
 type=layer
 width=512
 height=334

@@ -6,10 +6,10 @@ def_component $component3 = friends2:com_5;
 def_component $component4 = friends2:com_1;
 def_component $component5 = friends2:com_11;
 def_component $component6 = friends2:com_12;
-def_component $component7 = friends2:com_18;
-def_component $component8 = friends2:com_46;
-def_component $component9 = friends2:com_14;
-def_component $component10 = friends2:com_13;
+def_component $component7 = friends2:friends_info;
+def_component $component8 = friends2:loadingmes;
+def_component $component9 = friends2:drag_layer;
+def_component $component10 = friends2:friendbox_drag;
 def_component $component11 = friends2:com_0;
 def_int $int12 = if_getwidth($component9);
 if ($int0 <= -1) {
@@ -114,8 +114,8 @@ while ($int14 < $int13) {
         } else {
             $string2 = $string0;
         }
-        cc_setonmouserepeat("script1594(friends2:com_52, event_com, event_comsubid, $string2, event_mousex, event_mousey)");
-        cc_setonmouseleave("deltooltip(friends2:com_52)");
+        cc_setonmouserepeat("script1594(friends2:tooltip_layer, event_com, event_comsubid, $string2, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(friends2:tooltip_layer)");
     } else {
         cc_settext($string1);
         if ($int19 = 1) {
@@ -124,8 +124,8 @@ while ($int14 < $int13) {
             } else {
                 $string2 = "Last known as: <$string3>";
             }
-            cc_setonmouserepeat("script1594(friends2:com_52, event_com, event_comsubid, $string2, event_mousex, event_mousey)");
-            cc_setonmouseleave("deltooltip(friends2:com_52)");
+            cc_setonmouserepeat("script1594(friends2:tooltip_layer, event_com, event_comsubid, $string2, event_mousex, event_mousey)");
+            cc_setonmouseleave("deltooltip(friends2:tooltip_layer)");
         }
     }
     cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
@@ -165,8 +165,8 @@ while ($int14 < $int13) {
     }
     if ($int17 >= $int26) {
     } else {
-        cc_setonmouserepeat("script1594(friends2:com_52, event_com, event_comsubid, $string5, event_mousex, event_mousey)");
-        cc_setonmouseleave("deltooltip(friends2:com_52)");
+        cc_setonmouserepeat("script1594(friends2:tooltip_layer, event_com, event_comsubid, $string5, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(friends2:tooltip_layer)");
         $string4 = "...";
     }
     cc_create($component3, ^iftype_text, if_getnextsubid($component3));
@@ -183,8 +183,8 @@ while ($int14 < $int13) {
     } else {
         cc_setcolour(0xffff64);
     }
-    cc_setonmouserepeat("script1594(friends2:com_52, event_com, event_comsubid, $string5, event_mousex, event_mousey)");
-    cc_setonmouseleave("deltooltip(friends2:com_52)");
+    cc_setonmouserepeat("script1594(friends2:tooltip_layer, event_com, event_comsubid, $string5, event_mousex, event_mousey)");
+    cc_setonmouseleave("deltooltip(friends2:tooltip_layer)");
     $int14 = calc($int14 + 1);
 }
 $int21 = calc($int21 + 15 + 5);

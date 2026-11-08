@@ -1,5 +1,5 @@
 // 182:0
-[com_0]
+[advice]
 type=text
 y=38
 width=10
@@ -15,7 +15,7 @@ colour=0xff981f
 onload=logout_init
 
 // 182:1
-[com_1]
+[button1_container]
 type=layer
 y=154
 width=155
@@ -30,7 +30,7 @@ height=36
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=button1_container
 graphic="miscgraphics,14"
 tiling=yes
 colour=0xffffffff
@@ -41,7 +41,7 @@ type=graphic
 width=36
 height=36
 ymode=abs_centre
-layer=com_1
+layer=button1_container
 graphic="miscgraphics,7"
 colour=0xffffffff
 
@@ -52,18 +52,18 @@ width=36
 height=36
 xmode=abs_right
 ymode=abs_centre
-layer=com_1
+layer=button1_container
 graphic="miscgraphics,8"
 colour=0xffffffff
 
 // 182:5
-[com_5]
+[button1]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=button1_container
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -75,7 +75,7 @@ onmouseover=text_colour_swapper(event_com, ^red)
 onmouseleave=text_colour_swapper(event_com, ^white)
 
 // 182:6
-[com_6]
+[button2_container]
 type=layer
 y=198
 width=155
@@ -90,7 +90,7 @@ height=36
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=button2_container
 graphic="miscgraphics,14"
 tiling=yes
 
@@ -100,7 +100,7 @@ type=graphic
 width=36
 height=36
 ymode=abs_centre
-layer=com_6
+layer=button2_container
 graphic="miscgraphics,7"
 
 // 182:9
@@ -110,17 +110,17 @@ width=36
 height=36
 xmode=abs_right
 ymode=abs_centre
-layer=com_6
+layer=button2_container
 graphic="miscgraphics,8"
 
 // 182:10
-[com_10]
+[button2]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=button2_container
 textfont=b12_full
 textalignh=centre
 textalignv=centre

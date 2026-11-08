@@ -14,7 +14,7 @@ cc_deleteall($component3);
 cc_deleteall($component6);
 if (activeclansettings_find_affined = true) {
     if_settext("", clan_chat:com_72);
-    if_sethide(true, clan_chat:com_42);
+    if_sethide(true, clan_chat:ignore_info_layer);
     $int1 = activeclansettings_getbannedcount;
     while ($int0 < $int1) {
         $int8 = calc($int0 * 19);
@@ -53,7 +53,7 @@ if (activeclansettings_find_affined = true) {
         $int0 = calc($int0 + 1);
     }
 } else {
-    if_sethide(false, clan_chat:com_42);
+    if_sethide(false, clan_chat:ignore_info_layer);
     if_settext("You must be part of a clan to<br>view the ban list.", clan_chat:com_72);
     cc_deleteall($component3);
     cc_deleteall($component6);

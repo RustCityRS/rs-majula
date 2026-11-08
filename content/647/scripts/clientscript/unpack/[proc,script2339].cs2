@@ -36,5 +36,5 @@ spline_addpoint(0, 12, movecoord($coord4, 32, 0, 29), $int3, movecoord($coord4, 
 spline_addpoint(1, 12, movecoord($coord4, 32, 0, 42), $int2, movecoord($coord4, 32, 0, 43), $int2, 0);
 spline_addpoint(0, 13, movecoord($coord4, 47, 0, 40), 778, movecoord($coord4, 47, 0, 46), 778, 0);
 spline_addpoint(1, 13, movecoord($coord4, 31, 0, 41), $int2, movecoord($coord4, 28, 0, 41), $int2, 0);
-if_setoncamfinished("script2344", interface_558:com_0);
+if_setoncamfinished("script2344", mah1_tutorialsplines:controller);
 cam_movealong(0, %varclient_770, 500, 900, 1, %varclient_770);

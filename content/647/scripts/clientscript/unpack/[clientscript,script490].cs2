@@ -35,8 +35,8 @@ if ($struct0 = null) {
 } else {
     if_sethide(false, conq_buy_army:com_96);
     if_sethide(true, conq_buy_army:com_97);
-    if_settext(struct_param($struct0, param_1150), conq_buy_army:com_100);
-    if_setgraphic(struct_param($struct0, param_1153), conq_buy_army:com_99);
+    if_settext(struct_param($struct0, param_1150), conq_buy_army:command_ability_1_name);
+    if_setgraphic(struct_param($struct0, param_1153), conq_buy_army:command_ability_1_icon);
 }
 if ($struct1 = null) {
     if_sethide(true, conq_buy_army:com_90);
@@ -44,8 +44,8 @@ if ($struct1 = null) {
 } else {
     if_sethide(false, conq_buy_army:com_90);
     if_sethide(true, conq_buy_army:com_93);
-    if_settext(struct_param($struct1, param_1150), conq_buy_army:com_92);
-    if_setgraphic(struct_param($struct1, param_1153), conq_buy_army:com_91);
+    if_settext(struct_param($struct1, param_1150), conq_buy_army:command_ability_2_name);
+    if_setgraphic(struct_param($struct1, param_1153), conq_buy_army:command_ability_2_icon);
 }
 if ($struct2 = null) {
     if_sethide(true, conq_buy_army:com_84);
@@ -53,8 +53,8 @@ if ($struct2 = null) {
 } else {
     if_sethide(false, conq_buy_army:com_84);
     if_sethide(true, conq_buy_army:com_87);
-    if_settext(struct_param($struct2, param_1150), conq_buy_army:com_86);
-    if_setgraphic(struct_param($struct2, param_1153), conq_buy_army:com_85);
+    if_settext(struct_param($struct2, param_1150), conq_buy_army:command_ability_3_name);
+    if_setgraphic(struct_param($struct2, param_1153), conq_buy_army:command_ability_3_icon);
 }
 if ($struct3 = null) {
     if_sethide(true, conq_buy_army:com_78);
@@ -62,6 +62,6 @@ if ($struct3 = null) {
 } else {
     if_sethide(false, conq_buy_army:com_78);
     if_sethide(true, conq_buy_army:com_81);
-    if_settext(struct_param($struct3, param_1150), conq_buy_army:com_80);
-    if_setgraphic(struct_param($struct3, param_1153), conq_buy_army:com_79);
+    if_settext(struct_param($struct3, param_1150), conq_buy_army:command_ability_4_name);
+    if_setgraphic(struct_param($struct3, param_1153), conq_buy_army:command_ability_4_icon);
 }

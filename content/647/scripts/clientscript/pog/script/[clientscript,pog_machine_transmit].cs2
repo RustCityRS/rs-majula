@@ -1,18 +1,18 @@
 // 1440
 [clientscript,pog_machine_transmit](component $component0)
 switch_component ($component0) {
-    case pog_coin_machine:com_15 :
-        if_setobject_nonum(%varplayer_1068, 1, pog_coin_machine:com_15);
-    case pog_coin_machine:com_16 :
-        if_setobject_nonum(%varplayer_1069, 1, pog_coin_machine:com_16);
-    case pog_coin_machine:com_17 :
-        if_setobject_nonum(%varplayer_1070, 1, pog_coin_machine:com_17);
-    case pog_coin_machine:com_9 :
-        if_setobject_nonum(%varplayer_1065, 1, pog_coin_machine:com_9);
-    case pog_coin_machine:com_10 :
-        if_setobject_nonum(%varplayer_1066, 1, pog_coin_machine:com_10);
-    case pog_coin_machine:com_11 :
-        if_setobject_nonum(%varplayer_1067, 1, pog_coin_machine:com_11);
-    case pog_coin_machine:com_12 :
-        if_setobject_nonum(%varplayer_856, 1, pog_coin_machine:com_12);
+    case pog_coin_machine:pog_target_1_1 :
+        if_setobject_nonum(%varplayer_1068, 1, pog_coin_machine:pog_target_1_1);
+    case pog_coin_machine:pog_target_1_2 :
+        if_setobject_nonum(%varplayer_1069, 1, pog_coin_machine:pog_target_1_2);
+    case pog_coin_machine:pog_target_2 :
+        if_setobject_nonum(%varplayer_1070, 1, pog_coin_machine:pog_target_2);
+    case pog_coin_machine:pog_coin_display1_1 :
+        if_setobject_nonum(%varplayer_1065, 1, pog_coin_machine:pog_coin_display1_1);
+    case pog_coin_machine:pog_coin_display2_1 :
+        if_setobject_nonum(%varplayer_1066, 1, pog_coin_machine:pog_coin_display2_1);
+    case pog_coin_machine:pog_coin_display2_2 :
+        if_setobject_nonum(%varplayer_1067, 1, pog_coin_machine:pog_coin_display2_2);
+    case pog_coin_machine:pog_operate_current_coin :
+        if_setobject_nonum(%varplayer_856, 1, pog_coin_machine:pog_operate_current_coin);
 }

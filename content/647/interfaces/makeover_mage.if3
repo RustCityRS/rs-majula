@@ -1,5 +1,5 @@
 // 900:0
-[com_0]
+[contents]
 type=layer
 width=475
 height=300
@@ -15,7 +15,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=contents
 graphic=tradebacking
 
 // 900:2
@@ -23,7 +23,7 @@ graphic=tradebacking
 type=graphic
 width=32
 height=32
-layer=com_0
+layer=contents
 graphic="v2_stone_borders,35"
 
 // 900:3
@@ -32,7 +32,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_0
+layer=contents
 graphic="v2_stone_borders,37"
 
 // 900:4
@@ -41,7 +41,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_0
+layer=contents
 graphic="v2_stone_borders,6"
 
 // 900:5
@@ -51,7 +51,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=contents
 graphic="v2_stone_borders,7"
 
 // 900:6
@@ -62,7 +62,7 @@ width=32
 height=64
 heightmode=minus
 ymode=abs_centre
-layer=com_0
+layer=contents
 graphic="v2_stone_borders,1"
 tiling=yes
 
@@ -75,7 +75,7 @@ height=64
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_0
+layer=contents
 graphic="v2_stone_borders,3"
 tiling=yes
 
@@ -86,7 +86,7 @@ width=64
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=contents
 graphic="v2_stone_borders,36"
 tiling=yes
 
@@ -99,7 +99,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=contents
 graphic="v2_stone_borders,2"
 tiling=yes
 
@@ -109,7 +109,7 @@ type=text
 height=22
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=contents
 textfont=b12_full
 text=Select skin colour and gender
 textalignh=centre
@@ -118,14 +118,14 @@ textshadow=yes
 colour=0xff981f
 
 // 900:11
-[com_11]
+[close]
 type=graphic
 x=9
 y=3
 width=16
 height=16
 xmode=abs_right
-layer=com_0
+layer=contents
 graphic="v2_stone_close_button,0"
 transmitop=1,10
 op1=Close
@@ -135,102 +135,102 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 900:12
-[com_12]
+[malehead]
 type=model
 x=80
 y=147
 width=32
 height=32
-layer=com_0
+layer=contents
 model=null
 modelangle=0,1800,0
 modelzoom=1550
 onload=makeover_headsetup(event_com, man_3915)
 
 // 900:13
-[com_13]
+[femalehead]
 type=model
 x=80
 y=148
 width=32
 height=32
 xmode=abs_right
-layer=com_0
+layer=contents
 model=null
 modelangle=0,200,0
 modelzoom=1400
 onload=makeover_headsetup(event_com, the_lady_of_the_lake)
 
 // 900:14
-[com_14]
+[choosemale]
 type=text
 x=40
 y=245
 width=115
 height=15
-layer=com_0
+layer=contents
 textfont=b12_full
 text=MALE
 textalignh=centre
 colour=0x000000
 transmitop=1
 op1=Select Male
-onload=makeover_gender_resynch(makeover_mage:com_14, makeover_mage:com_15)
-onvartransmit=makeover_gender_resynch(makeover_mage:com_14, makeover_mage:com_15){varplayer_1057}
-onop=makeover_gender_force(event_op, 0, makeover_mage:com_14, makeover_mage:com_15)
+onload=makeover_gender_resynch(makeover_mage:choosemale, makeover_mage:choosefemale)
+onvartransmit=makeover_gender_resynch(makeover_mage:choosemale, makeover_mage:choosefemale){varplayer_1057}
+onop=makeover_gender_force(event_op, 0, makeover_mage:choosemale, makeover_mage:choosefemale)
 
 // 900:15
-[com_15]
+[choosefemale]
 type=text
 x=40
 y=245
 width=115
 height=15
 xmode=abs_right
-layer=com_0
+layer=contents
 textfont=b12_full
 text=FEMALE
 textalignh=centre
 colour=0x000000
 transmitop=1
 op1=Select Female
-onop=makeover_gender_force(event_op, 1, makeover_mage:com_14, makeover_mage:com_15)
+onop=makeover_gender_force(event_op, 1, makeover_mage:choosemale, makeover_mage:choosefemale)
 
 // 900:16
-[com_16]
+[choosemale2]
 type=layer
 x=35
 y=70
 width=120
 height=160
-layer=com_0
+layer=contents
 transmitop=1
 op1=Select Male
-onop=makeover_gender_force(event_op, 0, makeover_mage:com_14, makeover_mage:com_15)
+onop=makeover_gender_force(event_op, 0, makeover_mage:choosemale, makeover_mage:choosefemale)
 
 // 900:17
-[com_17]
+[choosefemale2]
 type=layer
 x=35
 y=70
 width=120
 height=160
 xmode=abs_right
-layer=com_0
+layer=contents
 transmitop=1
 op1=Select Female
-onop=makeover_gender_force(event_op, 1, makeover_mage:com_14, makeover_mage:com_15)
+onop=makeover_gender_force(event_op, 1, makeover_mage:choosemale, makeover_mage:choosefemale)
 
 // 900:18
-[com_18]
+[colours]
 type=layer
 y=30
 width=34
 height=240
 xmode=abs_centre
-layer=com_0
-onload=makeover_colour_resynch(makeover_mage:com_32)
-onvartransmit=makeover_colour_resynch(makeover_mage:com_32){varplayer_1057}
+layer=contents
+onload=makeover_colour_resynch(makeover_mage:tick)
+onvartransmit=makeover_colour_resynch(makeover_mage:tick){varplayer_1057}
 
 // 900:19
 [com_19]
@@ -239,188 +239,188 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=colours
 colour=0x000000
 fill=yes
 
 // 900:20
-[com_20]
+[colour9]
 type=rectangle
 y=1
 width=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=colours
 colour=0xd9cec7
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 9)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 9)
 
 // 900:21
-[com_21]
+[colour8]
 type=rectangle
 y=21
 width=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=colours
 colour=0xceb4a1
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 8)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 8)
 
 // 900:22
-[com_22]
+[colour7]
 type=rectangle
 y=41
 width=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=colours
 colour=0xd5a985
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 7)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 7)
 
 // 900:23
-[com_23]
+[colour0]
 type=rectangle
 y=61
 width=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=colours
 colour=0xbb8f6a
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 0)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 0)
 
 // 900:24
-[com_24]
+[colour1]
 type=rectangle
 y=81
 width=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=colours
 colour=0xa47f5d
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 1)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 1)
 
 // 900:25
-[com_25]
+[colour2]
 type=rectangle
 y=101
 width=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=colours
 colour=0x9e7a49
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 2)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 2)
 
 // 900:26
-[com_26]
+[colour3]
 type=rectangle
 y=121
 width=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=colours
 colour=0x8e6e42
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 3)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 3)
 
 // 900:27
-[com_27]
+[colour4]
 type=rectangle
 y=141
 width=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=colours
 colour=0x79582a
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 4)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 4)
 
 // 900:28
-[com_28]
+[colour5]
 type=rectangle
 y=161
 width=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=colours
 colour=0x644e24
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 5)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 5)
 
 // 900:29
-[com_29]
+[colour6]
 type=rectangle
 y=181
 width=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=colours
 colour=0x4c3d09
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 6)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 6)
 
 // 900:30
-[com_30]
+[colour10]
 type=rectangle
 y=201
 width=2
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=colours
 colour=0x2e1c01
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 10)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 10)
 
 // 900:31
-[com_31]
+[colour11]
 type=rectangle
 y=1
 width=2
@@ -429,31 +429,31 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_18
+layer=colours
 colour=0x1c120b
 fill=yes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=makeover_colour_force(event_op, event_com, makeover_mage:com_32, 11)
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 11)
 
 // 900:32
-[com_32]
+[tick]
 type=graphic
 width=17
 height=17
-layer=com_18
+layer=colours
 hide=yes
 graphic=graphic_1584
 
 // 900:33
-[com_33]
+[confirm]
 type=text
 y=275
 width=300
 height=18
 xmode=abs_centre
-layer=com_0
+layer=contents
 textfont=b12_full
 text=CONFIRM (3000 Gold)
 textalignh=centre

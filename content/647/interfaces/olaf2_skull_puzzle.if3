@@ -1,105 +1,105 @@
 // 253:0
-[com_0]
+[olaf2_skull_background]
 type=model
 x=-14
 y=-28
 width=531
 height=369
-layer=com_17
+layer=content_layer
 model=model_24126
 modelorigin=1,0
 modelangle=512,0,0
 modelzoom=420
 
 // 253:1
-[com_1]
+[olaf2_close]
 type=graphic
 x=478
 y=6
 width=26
 height=23
-layer=com_17
+layer=content_layer
 graphic="close_buttons,6"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(olaf2_skull_puzzle:com_1, "close_buttons,7")
-onmouseleave=graphic_swapper(olaf2_skull_puzzle:com_1, "close_buttons,6")
+onmouseover=graphic_swapper(olaf2_skull_puzzle:olaf2_close, "close_buttons,7")
+onmouseleave=graphic_swapper(olaf2_skull_puzzle:olaf2_close, "close_buttons,6")
 onop=closebutton_click
 
 // 253:2
-[com_2]
+[olaf2_skull_bits]
 type=model
 x=84
 y=55
 width=169
 height=242
-layer=com_17
+layer=content_layer
 model=model_24137
 modelorigin=1,0
 modelangle=512,0,0
 modelzoom=400
 
 // 253:3
-[com_3]
+[olaf2_skull_right]
 type=model
 x=193
 y=105
 width=93
 height=91
-layer=com_17
+layer=content_layer
 model=model_24136
 modelorigin=0,1
 modelangle=512,0,0
 modelzoom=420
 
 // 253:4
-[com_4]
+[olaf2_skull_top]
 type=model
 x=123
 y=27
 width=93
 height=91
-layer=com_17
+layer=content_layer
 model=model_24138
 modelorigin=0,1
 modelangle=512,0,0
 modelzoom=420
 
 // 253:5
-[com_5]
+[olaf2_skull_left]
 type=model
 x=57
 y=104
 width=93
 height=91
-layer=com_17
+layer=content_layer
 model=model_24135
 modelorigin=0,1
 modelangle=512,0,0
 modelzoom=420
 
 // 253:6
-[com_6]
+[olaf2_skull_bottom]
 type=model
 x=124
 y=182
 width=93
 height=91
-layer=com_17
+layer=content_layer
 model=model_24134
 modelorigin=0,1
 modelangle=512,0,0
 modelzoom=420
 
 // 253:7
-[com_7]
+[olaf2_lever_right]
 type=model
 x=437
 y=102
 width=21
 height=40
-layer=com_17
+layer=content_layer
 model=model_24139
 modelangle=512,0,0
 modelzoom=400
@@ -107,13 +107,13 @@ transmitop=1
 op1=Pull
 
 // 253:8
-[com_8]
+[olaf2_lever_top]
 type=model
 x=401
 y=63
 width=21
 height=40
-layer=com_17
+layer=content_layer
 model=model_24139
 modelangle=512,0,0
 modelzoom=400
@@ -121,13 +121,13 @@ transmitop=1
 op1=Pull
 
 // 253:9
-[com_9]
+[olaf2_lever_left]
 type=model
 x=361
 y=101
 width=21
 height=40
-layer=com_17
+layer=content_layer
 model=model_24139
 modelangle=512,0,0
 modelzoom=400
@@ -135,13 +135,13 @@ transmitop=1
 op1=Pull
 
 // 253:10
-[com_10]
+[olaf2_lever_bottom]
 type=model
 x=400
 y=141
 width=21
 height=40
-layer=com_17
+layer=content_layer
 model=model_24139
 modelangle=512,0,0
 modelzoom=400
@@ -149,13 +149,13 @@ transmitop=1
 op1=Pull
 
 // 253:11
-[com_11]
+[olaf2_lever_confirm]
 type=model
 x=389
 y=218
 width=40
 height=19
-layer=com_17
+layer=content_layer
 model=model_24139
 modelangle=512,512,0
 modelzoom=400
@@ -163,52 +163,52 @@ transmitop=1
 op1=Confirm
 
 // 253:12
-[com_12]
+[olaf2_top_lever]
 type=layer
 x=400
 y=61
 width=23
 height=40
-layer=com_17
+layer=content_layer
 
 // 253:13
-[com_13]
+[olaf2_right_lever]
 type=layer
 x=438
 y=102
 width=21
 height=40
-layer=com_17
+layer=content_layer
 
 // 253:14
-[com_14]
+[olaf2_bottom_lever]
 type=layer
 x=399
 y=141
 width=23
 height=39
-layer=com_17
+layer=content_layer
 
 // 253:15
-[com_15]
+[olaf2_left_lever]
 type=layer
 x=360
 y=99
 width=24
 height=43
-layer=com_17
+layer=content_layer
 
 // 253:16
-[com_16]
+[olaf2_confirm_lever]
 type=layer
 x=387
 y=215
 width=42
 height=23
-layer=com_17
+layer=content_layer
 
 // 253:17
-[com_17]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -216,7 +216,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 253:18
-[com_18]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -226,7 +226,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 253:19
-[com_19]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -234,7 +234,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=fsborder_main_layer
 
 // 253:20
 [com_20]
@@ -337,7 +337,7 @@ tiling=yes
 colour=0x000000
 
 // 253:28
-[com_28]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -345,30 +345,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_19
+layer=fsborder_resizing_layer
 
 // 253:29
-[com_29]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_19
+layer=fsborder_resizing_layer
 
 // 253:30
-[com_30]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_19
+layer=fsborder_resizing_layer
 
 // 253:31
-[com_31]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -376,16 +376,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_19
+layer=fsborder_resizing_layer
 
 // 253:32
-[com_32]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_19
+layer=fsborder_resizing_layer
 
 // 253:33
 [com_33]
@@ -395,7 +395,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_29
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -410,7 +410,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_28
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -424,7 +424,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_30
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -439,7 +439,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_31
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

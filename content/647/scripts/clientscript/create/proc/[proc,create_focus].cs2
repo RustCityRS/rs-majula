@@ -20,12 +20,12 @@ switch_int ($int0) {
     case 7 :
         if ($int1 = 1) {
             %varclient_1099 = string_length(%varclient_1643);
-            ~script3218(account_create:com_77, account_create:com_78, account_create:com_79, ~script2949(%varclient_1643), 7);
+            ~script3218(account_create:com_77, account_create:password_input_text, account_create:com_79, ~script2949(%varclient_1643), 7);
         }
     case 8 :
         if ($int1 = 1) {
             %varclient_1099 = string_length(%varclient_1644);
-            ~script3218(account_create:com_67, account_create:com_68, account_create:com_69, ~script2949(%varclient_1644), 8);
+            ~script3218(account_create:com_67, account_create:password2_input_text, account_create:com_69, ~script2949(%varclient_1644), 8);
         }
     case 15 :
         if ($int1 = 1) {

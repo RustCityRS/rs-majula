@@ -224,7 +224,7 @@ hint_stop();
 hint_stop();
 ~tutorialstep("", "Wielding weapons.|You now have access to a new interface. Click on the flashing icon of a man, the one to the right of your backpack icon.");
 ~update_bonuses; // update bonuses if
-inv_transmit(worn, wornitems:worn);
+inv_transmit(worn, wornitems:hat_container);
 if_settab(wornitems, ^tab_equipment);
 tut_flash(^tab_equipment);
 

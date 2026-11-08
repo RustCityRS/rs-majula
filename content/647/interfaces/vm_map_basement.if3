@@ -1,5 +1,5 @@
 // 81:0
-[com_0]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -11,7 +11,7 @@ transmitop=10
 op10= 
 
 // 81:1
-[com_1]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -19,12 +19,12 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=fsborder_main_layer
 transmitop=10
 op10= 
 
 // 81:2
-[com_2]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -32,36 +32,36 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_1
+layer=fsborder_resizing_layer
 transmitop=10
 op10= 
 
 // 81:3
-[com_3]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_1
+layer=fsborder_resizing_layer
 transmitop=10
 op10= 
 
 // 81:4
-[com_4]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_1
+layer=fsborder_resizing_layer
 transmitop=10
 op10= 
 
 // 81:5
-[com_5]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -69,18 +69,18 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=fsborder_resizing_layer
 transmitop=10
 op10= 
 
 // 81:6
-[com_6]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=fsborder_resizing_layer
 transmitop=10
 op10= 
 
@@ -93,7 +93,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_2
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -109,7 +109,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_3
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -125,7 +125,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_4
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -142,7 +142,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_5
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -151,7 +151,7 @@ transmitop=10
 op10= 
 
 // 81:11
-[com_11]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -273,13 +273,13 @@ transmitop=10
 op10= 
 
 // 81:20
-[com_20]
+[vm_museum_map_scroll]
 type=model
 x=-18
 y=-133
 width=550
 height=537
-layer=com_11
+layer=content_layer
 model=model_25513
 modelorigin=0,-2
 modelzoom=655
@@ -287,13 +287,13 @@ transmitop=10
 op10= 
 
 // 81:21
-[com_21]
+[vm_map_close]
 type=graphic
 x=478
 y=8
 width=26
 height=23
-layer=com_11
+layer=content_layer
 graphic="close_buttons,2"
 colour=0xffffffff
 transmitop=1,10
@@ -304,22 +304,22 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,2")
 onop=closebutton_click
 
 // 81:22
-[com_22]
+[vm_level_basement_layer]
 type=layer
 width=512
 height=334
-layer=com_11
+layer=content_layer
 transmitop=10
 op10= 
 
 // 81:23
-[com_23]
+[vm_museum_map_level_basement]
 type=model
 x=50
 y=8
 width=395
 height=316
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25516
 modelorigin=0,39
 modelzoom=1039
@@ -327,252 +327,252 @@ transmitop=10
 op10= 
 
 // 81:24
-[com_24]
+[vm_map_terror_bird]
 type=model
 x=185
 y=260
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Terror Bird display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Terror Bird display", 25, 180)
 
 // 81:25
-[com_25]
+[vm_map_kalphite_queen]
 type=model
 x=278
 y=260
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Kalphite Queen display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Kalphite Queen display", 25, 180)
 
 // 81:26
-[com_26]
+[vm_map_mole]
 type=model
 x=64
 y=197
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Mole display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Mole display", 25, 180)
 
 // 81:27
-[com_27]
+[vm_map_penguin]
 type=model
 x=119
 y=197
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Penguin display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Penguin display", 25, 180)
 
 // 81:28
-[com_28]
+[vm_map_camel]
 type=model
 x=64
 y=90
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Camel display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Camel display", 25, 180)
 
 // 81:29
-[com_29]
+[vm_map_leech]
 type=model
 x=119
 y=90
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Leech display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Leech display", 25, 180)
 
 // 81:30
-[com_30]
+[vm_map_monkey]
 type=model
 x=341
 y=197
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Monkey display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Monkey display", 25, 180)
 
 // 81:31
-[com_31]
+[vm_map_seaslug]
 type=model
 x=396
 y=197
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Seaslug display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Seaslug display", 25, 180)
 
 // 81:32
-[com_32]
+[vm_map_snail]
 type=model
 x=341
 y=90
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Snail display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Snail display", 25, 180)
 
 // 81:33
-[com_33]
+[vm_map_snake]
 type=model
 x=396
 y=90
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Snake display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Snake display", 25, 180)
 
 // 81:34
-[com_34]
+[vm_map_lizard]
 type=model
 x=115
 y=20
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Lizard display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Lizard display", 25, 180)
 
 // 81:35
-[com_35]
+[vm_map_battle_tortoise]
 type=model
 x=188
 y=20
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Battle Tortoise display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Battle Tortoise display", 25, 180)
 
 // 81:36
-[com_36]
+[vm_map_dragon]
 type=model
 x=279
 y=20
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Dragon display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Dragon display", 25, 180)
 
 // 81:37
-[com_37]
+[vm_map_battle_wyvern]
 type=model
 x=347
 y=20
 width=35
 height=44
-layer=com_22
+layer=vm_level_basement_layer
 model=model_25514
 modelorigin=0,-1
 modelangle=80,1807,0
 modelzoom=2660
 transmitop=10
 op10= 
-onmouseleave=deltooltip(vm_map_basement:com_40)
-onmouserepeat=addtooltip(event_com, vm_map_basement:com_40, "Wyvern display", 25, 180)
+onmouseleave=deltooltip(vm_map_basement:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_basement:tooltip, "Wyvern display", 25, 180)
 
 // 81:38
-[com_38]
+[basement_level_up_1]
 type=text
 x=5
 width=101
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_22
+layer=vm_level_basement_layer
 textfont=b12_full
 text=Level up
 textalignh=right
@@ -586,13 +586,13 @@ onmouseover=text_colour_swapper(event_com, 0xe1981f)
 onmouseleave=text_colour_swapper(event_com, 0xbf751d)
 
 // 81:39
-[com_39]
+[basement_level_up_1_1]
 type=text
 x=204
 y=139
 width=91
 height=49
-layer=com_22
+layer=vm_level_basement_layer
 textfont=b12_full
 text=Stairs to<br>Dig Site<br>exhibit
 textalignh=centre
@@ -606,10 +606,10 @@ onmouseover=text_colour_swapper(event_com, 0xe1981f)
 onmouseleave=text_colour_swapper(event_com, 0xbf751d)
 
 // 81:40
-[com_40]
+[tooltip]
 type=layer
 x=157
 y=103
 width=167
 height=125
-layer=com_11
+layer=content_layer

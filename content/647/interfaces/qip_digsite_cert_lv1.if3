@@ -1,5 +1,5 @@
 // 440:0
-[com_0]
+[qip_digsite_rectangle_lv1]
 type=rectangle
 x=4
 y=33
@@ -14,7 +14,7 @@ fill=yes
 trans=64
 
 // 440:1
-[com_1]
+[qip_digsite_scroll_lv1]
 type=model
 x=4
 y=-7
@@ -28,7 +28,7 @@ modelangle=456,2041,0
 modelzoom=594
 
 // 440:2
-[com_2]
+[qip_digsite_roset_lv1]
 type=model
 x=74
 y=106
@@ -70,7 +70,7 @@ textalignh=centre
 colour=0x000000
 
 // 440:5
-[com_5]
+[examname]
 type=text
 x=3
 y=-7
@@ -83,7 +83,7 @@ text=<name>
 textalignh=centre
 textalignv=centre
 colour=0x000000
-onvarcstrtransmit=script1577(event_com, qip_digsite_cert_lv1:com_10){varclient_1729}
+onvarcstrtransmit=script1577(event_com, qip_digsite_cert_lv1:tooltip){varclient_1729}
 
 // 440:6
 [com_6]
@@ -112,7 +112,7 @@ graphic="close_buttons,4"
 colour=0xffffffff
 
 // 440:8
-[com_8]
+[qip_digsite_close_lv1]
 type=graphic
 x=240
 y=-151
@@ -127,7 +127,7 @@ op1=Close
 onop=closebutton_click
 
 // 440:9
-[com_9]
+[tooltip_bounding_box]
 type=layer
 width=16391
 height=16391
@@ -135,10 +135,10 @@ widthmode=proportion
 heightmode=proportion
 
 // 440:10
-[com_10]
+[tooltip]
 type=layer
 x=228
 y=150
 width=62
 height=19
-layer=com_9
+layer=tooltip_bounding_box

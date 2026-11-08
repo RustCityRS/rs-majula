@@ -11,4 +11,4 @@ if (~create_check_email(%varclient_1641) = false) {
 }
 ~create_please_wait(1);
 unknown_command_5604(%varclient_1641);
-if_setontimer("script2284($boolean0, $boolean1)", account_create:com_11);
+if_setontimer("script2284($boolean0, $boolean1)", account_create:email_group);

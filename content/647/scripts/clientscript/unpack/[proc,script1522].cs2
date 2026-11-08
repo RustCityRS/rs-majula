@@ -11,7 +11,7 @@ if (%learning_the_ropes = 1000) {
     return;
 } else {
     switch_component ($component0) {
-        case interface_761:com_10 :
+        case interface_761:chap1 :
             if (%learning_the_ropes >= 90) {
                 if_setcolour(0x99ff00, $component0);
             } else if (%learning_the_ropes = 0) {
@@ -19,7 +19,7 @@ if (%learning_the_ropes = 1000) {
             } else {
                 if_setcolour(0xffff66, $component0);
             }
-        case interface_761:com_11 :
+        case interface_761:chap2 :
             if (%learning_the_ropes >= 180) {
                 if_setcolour(0x99ff00, $component0);
             } else if (%learning_the_ropes < 100) {
@@ -27,7 +27,7 @@ if (%learning_the_ropes = 1000) {
             } else {
                 if_setcolour(0xffff66, $component0);
             }
-        case interface_761:com_12 :
+        case interface_761:chap3 :
             if (%varplayerbit_4926 >= 50) {
                 if_setcolour(0x99ff00, $component0);
             } else if (%varplayerbit_4926 = 0) {
@@ -35,7 +35,7 @@ if (%learning_the_ropes = 1000) {
             } else {
                 if_setcolour(0xffff66, $component0);
             }
-        case interface_761:com_13 :
+        case interface_761:chap4 :
             if (%varplayerbit_4927 >= 20) {
                 if_setcolour(0x99ff00, $component0);
             } else if (%varplayerbit_4927 = 0) {
@@ -43,7 +43,7 @@ if (%learning_the_ropes = 1000) {
             } else {
                 if_setcolour(0xffff66, $component0);
             }
-        case interface_761:com_14 :
+        case interface_761:chap5 :
             if (%varplayerbit_4928 >= 25) {
                 if_setcolour(0x99ff00, $component0);
             } else if (%varplayerbit_4928 = 0) {
@@ -51,7 +51,7 @@ if (%learning_the_ropes = 1000) {
             } else {
                 if_setcolour(0xffff66, $component0);
             }
-        case interface_761:com_15 :
+        case interface_761:chap6 :
             if (%varplayerbit_4929 >= 25) {
                 if_setcolour(0x99ff00, $component0);
             } else if (%varplayerbit_4929 = 0) {
@@ -59,7 +59,7 @@ if (%learning_the_ropes = 1000) {
             } else {
                 if_setcolour(0xffff66, $component0);
             }
-        case interface_761:com_19 :
+        case interface_761:chap12 :
             if (%varplayerbit_4935 >= 15) {
                 if_setcolour(0x99ff00, $component0);
             } else if (%varplayerbit_4935 = 0) {
@@ -67,7 +67,7 @@ if (%learning_the_ropes = 1000) {
             } else {
                 if_setcolour(0xffff66, $component0);
             }
-        case interface_761:com_20 :
+        case interface_761:chap13 :
             if (%varplayerbit_4936 >= 20) {
                 if_setcolour(0x99ff00, $component0);
             } else if (%varplayerbit_4936 = 0) {
@@ -75,7 +75,7 @@ if (%learning_the_ropes = 1000) {
             } else {
                 if_setcolour(0xffff66, $component0);
             }
-        case interface_761:com_21 :
+        case interface_761:finale :
             if (%learning_the_ropes = 1000) {
                 if_setcolour(0x99ff00, $component0);
             } else if (%learning_the_ropes < 190) {

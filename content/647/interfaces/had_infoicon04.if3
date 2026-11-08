@@ -10,22 +10,22 @@ fill=yes
 trans=100
 
 // 598:1
-[com_1]
+[killcounts]
 type=layer
 x=10
 y=10
 width=100
 height=75
 xmode=abs_right
-onload=godwars_overlay_init(event_com, had_infoicon04:com_2, had_infoicon04:com_3, had_infoicon04:com_4, had_infoicon04:com_5, had_infoicon04:com_6, had_infoicon04:com_7, had_infoicon04:com_8, had_infoicon04:com_9, had_infoicon04:com_10, had_infoicon04:com_9, had_infoicon04:com_9)
+onload=godwars_overlay_init(event_com, had_infoicon04:title, had_infoicon04:armadyl, had_infoicon04:bandos, had_infoicon04:saradomin, had_infoicon04:zamorak, had_infoicon04:armadyl_total, had_infoicon04:bandos_total, had_infoicon04:saradomin_total, had_infoicon04:zamorak_total, had_infoicon04:saradomin_total, had_infoicon04:saradomin_total)
 
 // 598:2
-[com_2]
+[title]
 type=text
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=killcounts
 textfont=p11_full
 text=Killcounts
 textalignh=centre
@@ -34,13 +34,13 @@ textshadow=yes
 colour=0xff981f
 
 // 598:3
-[com_3]
+[armadyl]
 type=text
 y=15
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=killcounts
 textfont=p11_full
 text=Armadyl kills:
 textalignv=centre
@@ -48,13 +48,13 @@ textshadow=yes
 colour=0xff981f
 
 // 598:4
-[com_4]
+[bandos]
 type=text
 y=30
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=killcounts
 textfont=p11_full
 text=Bandos kills:
 textalignv=centre
@@ -62,13 +62,13 @@ textshadow=yes
 colour=0xff981f
 
 // 598:5
-[com_5]
+[saradomin]
 type=text
 y=45
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=killcounts
 textfont=p11_full
 text=Saradomin kills:
 textalignv=centre
@@ -76,13 +76,13 @@ textshadow=yes
 colour=0xff981f
 
 // 598:6
-[com_6]
+[zamorak]
 type=text
 y=60
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=killcounts
 textfont=p11_full
 text=Zamorak kills:
 textalignv=centre
@@ -90,13 +90,13 @@ textshadow=yes
 colour=0xff981f
 
 // 598:7
-[com_7]
+[armadyl_total]
 type=text
 y=15
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_1
+layer=killcounts
 textfont=p11_full
 textalignh=right
 textalignv=centre
@@ -104,13 +104,13 @@ textshadow=yes
 colour=0x66ffff
 
 // 598:8
-[com_8]
+[bandos_total]
 type=text
 y=30
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_1
+layer=killcounts
 textfont=p11_full
 textalignh=right
 textalignv=centre
@@ -118,13 +118,13 @@ textshadow=yes
 colour=0x66ffff
 
 // 598:9
-[com_9]
+[saradomin_total]
 type=text
 y=45
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_1
+layer=killcounts
 textfont=p11_full
 textalignh=right
 textalignv=centre
@@ -132,13 +132,13 @@ textshadow=yes
 colour=0x66ffff
 
 // 598:10
-[com_10]
+[zamorak_total]
 type=text
 y=60
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_1
+layer=killcounts
 textfont=p11_full
 textalignh=right
 textalignv=centre

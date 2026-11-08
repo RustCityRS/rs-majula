@@ -371,7 +371,7 @@ layer=com_32
 hide=yes
 
 // 626:35
-[com_35]
+[duel2status]
 type=text
 x=251
 y=303
@@ -384,31 +384,31 @@ textshadow=yes
 colour=0x77736a
 
 // 626:36
-[com_36]
+[stake_text]
 type=text
 x=4
 y=4
 width=188
 height=200
-layer=com_38
+layer=minigamefools
 textfont=p11_full
 textshadow=yes
 colour=0xaaaaaa
 
 // 626:37
-[com_37]
+[opponent_text]
 type=text
 x=4
 y=4
 width=188
 height=200
-layer=com_39
+layer=opponent_text_layer
 textfont=p11_full
 textshadow=yes
 colour=0xaaaaaa
 
 // 626:38
-[com_38]
+[minigamefools]
 type=layer
 x=26
 y=67
@@ -418,7 +418,7 @@ scrollheight=300
 oninvtransmit=duel_confirm_text{inv_134}
 
 // 626:39
-[com_39]
+[opponent_text_layer]
 type=layer
 x=26
 y=206
@@ -428,25 +428,25 @@ scrollheight=300
 oninvtransmit=duel_confirm_text{inv_134}
 
 // 626:40
-[com_40]
+[stake_scroll_layer]
 type=layer
 x=224
 y=70
 width=16
 height=108
-onload=scrollbar_vertical_graphics(event_com, interface_626:com_38, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, interface_626:minigamefools, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 626:41
-[com_41]
+[opponent_scroll_layer]
 type=layer
 x=224
 y=206
 width=16
 height=108
-onload=scrollbar_vertical_graphics(event_com, interface_626:com_39, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, interface_626:opponent_text_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 626:42
-[com_42]
+[accept_layer]
 type=layer
 x=287
 y=281
@@ -458,11 +458,11 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 626:43
-[com_43]
+[accept]
 type=text
 width=70
 height=18
-layer=com_42
+layer=accept_layer
 textfont=p12_full
 text=Accept
 textlineheight=12
@@ -478,7 +478,7 @@ onmouseover=text_colour_swapper(event_com, 0x00ab00)
 onmouseleave=text_colour_swapper(event_com, 0x00cc00)
 
 // 626:44
-[com_44]
+[decline_layer]
 type=layer
 x=388
 y=281
@@ -490,11 +490,11 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 626:45
-[com_45]
+[decline]
 type=text
 width=70
 height=18
-layer=com_44
+layer=decline_layer
 textfont=p12_full
 text=Decline
 textlineheight=12

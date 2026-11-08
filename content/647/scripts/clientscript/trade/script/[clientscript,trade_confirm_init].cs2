@@ -1,29 +1,29 @@
 // 142
 [clientscript,trade_confirm_init]
 if (map_lang = 0) {
-    if_settextfont(p12_full, tradeconfirm:com_50);
-    if_settextfont(p12_full, tradeconfirm:com_52);
-    if_settextalign(^settextalign_centre, ^settextalign_centre, 17, tradeconfirm:com_50);
-    if_settextalign(^settextalign_centre, ^settextalign_centre, 17, tradeconfirm:com_52);
+    if_settextfont(p12_full, tradeconfirm:out_loan);
+    if_settextfont(p12_full, tradeconfirm:in_loan);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 17, tradeconfirm:out_loan);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 17, tradeconfirm:in_loan);
 } else {
-    if_settextfont(p11_full, tradeconfirm:com_50);
-    if_settextfont(p11_full, tradeconfirm:com_52);
-    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, tradeconfirm:com_50);
-    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, tradeconfirm:com_52);
+    if_settextfont(p11_full, tradeconfirm:out_loan);
+    if_settextfont(p11_full, tradeconfirm:in_loan);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, tradeconfirm:out_loan);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, tradeconfirm:in_loan);
 }
-cc_deleteall(tradeconfirm:com_38);
-cc_deleteall(tradeconfirm:com_39);
-cc_deleteall(tradeconfirm:com_40);
+cc_deleteall(tradeconfirm:out);
+cc_deleteall(tradeconfirm:out_left);
+cc_deleteall(tradeconfirm:out_right);
 def_int $int0 = 0;
 def_obj $obj1 = null;
 if (inv_getobj(tradeoffer, 14) ! null | inv_getobj(tradeoffer, 15) ! null | inv_getobj(tradeoffer, 16) ! null | inv_getobj(tradeoffer, 17) ! null | inv_getobj(tradeoffer, 18) ! null | inv_getobj(tradeoffer, 19) ! null | inv_getobj(tradeoffer, 20) ! null | inv_getobj(tradeoffer, 21) ! null | inv_getobj(tradeoffer, 22) ! null | inv_getobj(tradeoffer, 23) ! null | inv_getobj(tradeoffer, 24) ! null | inv_getobj(tradeoffer, 25) ! null | inv_getobj(tradeoffer, 26) ! null | inv_getobj(tradeoffer, 27) ! null) {
-    if_sethide(false, tradeconfirm:com_39);
-    if_sethide(false, tradeconfirm:com_40);
+    if_sethide(false, tradeconfirm:out_left);
+    if_sethide(false, tradeconfirm:out_right);
     if_sethide(false, tradeconfirm:com_41);
     while ($int0 < 14) {
         $obj1 = inv_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com_39, ^iftype_text, if_getnextsubid(tradeconfirm:com_39));
+            cc_create(tradeconfirm:out_left, ^iftype_text, if_getnextsubid(tradeconfirm:out_left));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_left, ^settextalign_top, 0);
@@ -37,7 +37,7 @@ if (inv_getobj(tradeoffer, 14) ! null | inv_getobj(tradeoffer, 15) ! null | inv_
     while ($int0 < 28) {
         $obj1 = inv_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com_40, ^iftype_text, if_getnextsubid(tradeconfirm:com_40));
+            cc_create(tradeconfirm:out_right, ^iftype_text, if_getnextsubid(tradeconfirm:out_right));
             cc_setposition(0, calc(($int0 - 14) * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_left, ^settextalign_top, 0);
@@ -48,18 +48,18 @@ if (inv_getobj(tradeoffer, 14) ! null | inv_getobj(tradeoffer, 15) ! null | inv_
         }
         $int0 = calc($int0 + 1);
     }
-    ~script4109(114, tradeconfirm:com_38, tradeconfirm:com_39, tradeconfirm:com_40, tradeconfirm:com_41, tradeconfirm:com_42);
-    if_setondrag("script4108(event_mousex, tradeconfirm:com_38, tradeconfirm:com_39, tradeconfirm:com_40, tradeconfirm:com_41, tradeconfirm:com_42)", tradeconfirm:com_42);
-    if_setondragcomplete("script4108(event_mousex, tradeconfirm:com_38, tradeconfirm:com_39, tradeconfirm:com_40, tradeconfirm:com_41, tradeconfirm:com_42)", tradeconfirm:com_42);
+    ~script4109(114, tradeconfirm:out, tradeconfirm:out_left, tradeconfirm:out_right, tradeconfirm:com_41, tradeconfirm:com_42);
+    if_setondrag("script4108(event_mousex, tradeconfirm:out, tradeconfirm:out_left, tradeconfirm:out_right, tradeconfirm:com_41, tradeconfirm:com_42)", tradeconfirm:com_42);
+    if_setondragcomplete("script4108(event_mousex, tradeconfirm:out, tradeconfirm:out_left, tradeconfirm:out_right, tradeconfirm:com_41, tradeconfirm:com_42)", tradeconfirm:com_42);
     if_setmouseovercursor(cursor_149, tradeconfirm:com_42);
 } else {
-    if_sethide(true, tradeconfirm:com_39);
-    if_sethide(true, tradeconfirm:com_40);
+    if_sethide(true, tradeconfirm:out_left);
+    if_sethide(true, tradeconfirm:out_right);
     if_sethide(true, tradeconfirm:com_41);
     while ($int0 < 14) {
         $obj1 = inv_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com_38, ^iftype_text, if_getnextsubid(tradeconfirm:com_38));
+            cc_create(tradeconfirm:out, ^iftype_text, if_getnextsubid(tradeconfirm:out));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
@@ -71,21 +71,21 @@ if (inv_getobj(tradeoffer, 14) ! null | inv_getobj(tradeoffer, 15) ! null | inv_
         $int0 = calc($int0 + 1);
     }
 }
-cc_deleteall(tradeconfirm:com_49);
-cc_deleteall(tradeconfirm:com_58);
-cc_deleteall(tradeconfirm:com_59);
+cc_deleteall(tradeconfirm:in);
+cc_deleteall(tradeconfirm:in_left);
+cc_deleteall(tradeconfirm:in_right);
 $int0 = 0;
 def_int $int2 = 0;
 if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! null | invother_getobj(tradeoffer, 16) ! null | invother_getobj(tradeoffer, 17) ! null | invother_getobj(tradeoffer, 18) ! null | invother_getobj(tradeoffer, 19) ! null | invother_getobj(tradeoffer, 20) ! null | invother_getobj(tradeoffer, 21) ! null | invother_getobj(tradeoffer, 22) ! null | invother_getobj(tradeoffer, 23) ! null | invother_getobj(tradeoffer, 24) ! null | invother_getobj(tradeoffer, 25) ! null | invother_getobj(tradeoffer, 26) ! null | invother_getobj(tradeoffer, 27) ! null) {
-    if_sethide(false, tradeconfirm:com_58);
-    if_sethide(false, tradeconfirm:com_59);
+    if_sethide(false, tradeconfirm:in_left);
+    if_sethide(false, tradeconfirm:in_right);
     if_sethide(false, tradeconfirm:com_60);
     while ($int0 < 14) {
         $int2 = ~script148($int0);
         if ($int2 > 0 & $int2 > calc(clientclock - 750)) {
-            if_sethide(false, tradeconfirm:com_55);
-            cc_create(tradeconfirm:com_58, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_58));
-            .cc_create(tradeconfirm:com_58, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_58));
+            if_sethide(false, tradeconfirm:trade_removed_warning_right);
+            cc_create(tradeconfirm:in_left, ^iftype_rectangle, if_getnextsubid(tradeconfirm:in_left));
+            .cc_create(tradeconfirm:in_left, ^iftype_rectangle, if_getnextsubid(tradeconfirm:in_left));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             .cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 13, ^setsize_minus, ^setsize_abs);
@@ -99,7 +99,7 @@ if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! n
         }
         $obj1 = invother_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com_58, ^iftype_text, if_getnextsubid(tradeconfirm:com_58));
+            cc_create(tradeconfirm:in_left, ^iftype_text, if_getnextsubid(tradeconfirm:in_left));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_left, ^settextalign_top, 0);
@@ -113,9 +113,9 @@ if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! n
     while ($int0 < 28) {
         $int2 = ~script148($int0);
         if ($int2 > 0 & $int2 > calc(clientclock - 750)) {
-            if_sethide(false, tradeconfirm:com_55);
-            cc_create(tradeconfirm:com_59, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_59));
-            .cc_create(tradeconfirm:com_59, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_59));
+            if_sethide(false, tradeconfirm:trade_removed_warning_right);
+            cc_create(tradeconfirm:in_right, ^iftype_rectangle, if_getnextsubid(tradeconfirm:in_right));
+            .cc_create(tradeconfirm:in_right, ^iftype_rectangle, if_getnextsubid(tradeconfirm:in_right));
             cc_setposition(0, calc(($int0 - 14) * 12), ^setpos_abs_centre, ^setpos_abs_top);
             .cc_setposition(0, calc(($int0 - 14) * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 13, ^setsize_minus, ^setsize_abs);
@@ -129,7 +129,7 @@ if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! n
         }
         $obj1 = invother_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com_59, ^iftype_text, if_getnextsubid(tradeconfirm:com_59));
+            cc_create(tradeconfirm:in_right, ^iftype_text, if_getnextsubid(tradeconfirm:in_right));
             cc_setposition(0, calc(($int0 - 14) * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_left, ^settextalign_top, 0);
@@ -140,20 +140,20 @@ if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! n
         }
         $int0 = calc($int0 + 1);
     }
-    ~script4109(114, tradeconfirm:com_49, tradeconfirm:com_58, tradeconfirm:com_59, tradeconfirm:com_60, tradeconfirm:com_61);
-    if_setondrag("script4108(event_mousex, tradeconfirm:com_49, tradeconfirm:com_58, tradeconfirm:com_59, tradeconfirm:com_60, tradeconfirm:com_61)", tradeconfirm:com_61);
-    if_setondragcomplete("script4108(event_mousex, tradeconfirm:com_49, tradeconfirm:com_58, tradeconfirm:com_59, tradeconfirm:com_60, tradeconfirm:com_61)", tradeconfirm:com_61);
+    ~script4109(114, tradeconfirm:in, tradeconfirm:in_left, tradeconfirm:in_right, tradeconfirm:com_60, tradeconfirm:com_61);
+    if_setondrag("script4108(event_mousex, tradeconfirm:in, tradeconfirm:in_left, tradeconfirm:in_right, tradeconfirm:com_60, tradeconfirm:com_61)", tradeconfirm:com_61);
+    if_setondragcomplete("script4108(event_mousex, tradeconfirm:in, tradeconfirm:in_left, tradeconfirm:in_right, tradeconfirm:com_60, tradeconfirm:com_61)", tradeconfirm:com_61);
     if_setmouseovercursor(cursor_149, tradeconfirm:com_61);
 } else {
-    if_sethide(true, tradeconfirm:com_58);
-    if_sethide(true, tradeconfirm:com_59);
+    if_sethide(true, tradeconfirm:in_left);
+    if_sethide(true, tradeconfirm:in_right);
     if_sethide(true, tradeconfirm:com_60);
     while ($int0 < 14) {
         $int2 = ~script148($int0);
         if ($int2 > 0 & $int2 > calc(clientclock - 750)) {
-            if_sethide(false, tradeconfirm:com_55);
-            cc_create(tradeconfirm:com_49, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_49));
-            .cc_create(tradeconfirm:com_49, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_49));
+            if_sethide(false, tradeconfirm:trade_removed_warning_right);
+            cc_create(tradeconfirm:in, ^iftype_rectangle, if_getnextsubid(tradeconfirm:in));
+            .cc_create(tradeconfirm:in, ^iftype_rectangle, if_getnextsubid(tradeconfirm:in));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             .cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 13, ^setsize_minus, ^setsize_abs);
@@ -167,7 +167,7 @@ if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! n
         }
         $obj1 = invother_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com_49, ^iftype_text, if_getnextsubid(tradeconfirm:com_49));
+            cc_create(tradeconfirm:in, ^iftype_text, if_getnextsubid(tradeconfirm:in));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
@@ -181,15 +181,15 @@ if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! n
 }
 $int2 = ~script148(-1);
 if ($int2 > 0) {
-    if_sethide(false, tradeconfirm:com_55);
-    cc_create(tradeconfirm:com_51, ^iftype_rectangle, 0);
+    if_sethide(false, tradeconfirm:trade_removed_warning_right);
+    cc_create(tradeconfirm:in_loan_layer, ^iftype_rectangle, 0);
     cc_sethide(false);
     cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
     cc_setcolour(^red);
     cc_setfill(true);
     cc_setontimer("interface_flash_fade(event_com, event_comsubid, $int2, calc($int2 + 750))");
-    cc_create(tradeconfirm:com_51, ^iftype_rectangle, 1);
+    cc_create(tradeconfirm:in_loan_layer, ^iftype_rectangle, 1);
     cc_sethide(false);
     cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);

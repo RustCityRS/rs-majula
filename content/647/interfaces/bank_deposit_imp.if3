@@ -139,7 +139,7 @@ textshadow=yes
 colour=0xff981f
 
 // 478:13
-[com_13]
+[imp_deposit_instructions]
 type=text
 x=89
 y=230
@@ -153,7 +153,7 @@ colour=0xff981f
 opbase=IFSEdit: ITEM:  @name imp_deposit_instructions @type 3 @x    88 @y    232 @wid  352 @hei  26 @lay   @lyid -1 @hide false @scrw 0 @scrh 0 @col  16777215 @fill false @tran 0 @swid 1 @idgr  @rot  0 @tile false @outl 0 @scol 0 @hfli false @vfli false @idmo  @x2of 0 @y2of 0 @2xan 0 @2yan 0 @2zan 0 @zoom 400 @anim  @orth false @font 1 @text Select an item or stack of items to deposit.<br><col=ff7000>You can deposit up to 2 items or stacks. @vspa 0 @hcen 1 @vcen 0 @shad true @opna  @tavb  @targ false @onlo  @oncl  @onho  @onre  @onmo  @onml  @ondr  @ontl  @onte  @onvt  @onit  @onst  @onti  @onop  @ondc  @onda  @oncr  @onmr  @oscr  @iscp false @drdz 0 @drdt 0 @op1   @op2   @op3   @op4   @op5   @op6   @op7   @op8   @op9   @op10  @drla  @drta false @paus false @tarm 0 @clie 0 @end
 
 // 478:14
-[com_14]
+[imp_deposit_layer]
 type=layer
 x=102
 y=69
@@ -162,7 +162,7 @@ height=165
 oninvtransmit=imp_bank_setup{inv}
 
 // 478:15
-[com_15]
+[close_button]
 type=graphic
 x=419
 y=28

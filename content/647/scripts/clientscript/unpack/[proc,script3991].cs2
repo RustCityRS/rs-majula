@@ -40,8 +40,8 @@ if ($struct1 ! null) {
     $string1 = "Couldn't find the Task's struct.";
     $string2 = "Couldn't find the Task's struct.";
 }
-if_settext($string0, task_main:com_34);
-if_settext($string1, task_main:com_63);
+if_settext($string0, task_main:summary_title);
+if_settext($string1, task_main:summary_details);
 def_string $string5 = "";
 if (compare($string2, "") = 0) {
     if (%varplayerbit_8601 < 10) {
@@ -57,33 +57,33 @@ if (compare($string2, "") = 0) {
     }
     $string2 = "Completing this Task will earn you <$string5> coins.";
 }
-if_settext($string2, task_main:com_50);
-if_settextfont(p12_full, task_main:com_50);
-if_settextalign(^settextalign_left, ^settextalign_centre, 0, task_main:com_50);
-if_setsize(if_getwidth(task_main:com_50), paraheight($string1, if_getwidth(task_main:com_50), p12_full), ^setsize_abs, ^setsize_abs, task_main:com_50);
-if_setgraphic($graphic6, task_main:com_37);
-if_setgraphic($graphic5, task_main:com_39);
+if_settext($string2, task_main:summary_reward);
+if_settextfont(p12_full, task_main:summary_reward);
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, task_main:summary_reward);
+if_setsize(if_getwidth(task_main:summary_reward), paraheight($string1, if_getwidth(task_main:summary_reward), p12_full), ^setsize_abs, ^setsize_abs, task_main:summary_reward);
+if_setgraphic($graphic6, task_main:task_icon);
+if_setgraphic($graphic5, task_main:area_icon);
 if_setgraphic($graphic4, task_main:com_36);
-if_settext($string3, task_main:com_35);
-if_settext($string4, task_main:com_38);
-if_sethide(true, task_main:com_155);
-if_sethide(true, task_main:com_156);
-if_sethide(true, task_main:com_157);
-if_sethide(true, task_main:com_158);
-if_sethide(true, task_main:com_159);
-if_sethide(true, task_main:com_160);
-if_sethide(true, task_main:com_161);
-if_sethide(true, task_main:com_162);
-if_sethide(true, task_main:com_163);
-if_sethide(true, task_main:com_164);
+if_settext($string3, task_main:summary_difficulty);
+if_settext($string4, task_main:summary_area);
+if_sethide(true, task_main:requirements_1);
+if_sethide(true, task_main:requirements_2);
+if_sethide(true, task_main:requirements_3);
+if_sethide(true, task_main:requirements_4);
+if_sethide(true, task_main:requirements_5);
+if_sethide(true, task_main:requirements_6);
+if_sethide(true, task_main:requirements_7);
+if_sethide(true, task_main:requirements_8);
+if_sethide(true, task_main:requirements_9);
+if_sethide(true, task_main:requirements_10);
 def_int $int9 = 0;
 def_string $string6 = "";
 def_int $rgb10 = ^black;
 $int9, $string6, $rgb10 = ~task_requirements($int0);
-if_settext($string6, task_main:com_1);
-if_setcolour($rgb10, task_main:com_1);
-if_setsize(if_getwidth(task_main:com_1), paraheight($string1, if_getwidth(task_main:com_1), p12_full), ^setsize_abs, ^setsize_abs, task_main:com_1);
-if_setposition(9, 16, ^setpos_abs_left, ^setpos_abs_top, task_main:com_1);
+if_settext($string6, task_main:summary_requirements);
+if_setcolour($rgb10, task_main:summary_requirements);
+if_setsize(if_getwidth(task_main:summary_requirements), paraheight($string1, if_getwidth(task_main:summary_requirements), p12_full), ^setsize_abs, ^setsize_abs, task_main:summary_requirements);
+if_setposition(9, 16, ^setpos_abs_left, ^setpos_abs_top, task_main:summary_requirements);
 if ($int9 = 1 & ~task_get_progress($int0) ! 2) {
     if_sethide(false, task_main:com_41);
 } else {
@@ -103,59 +103,59 @@ while ($int13 < 10) {
 }
 %varclient_1420 = calc($int11 + 3);
 def_int $int14 = 4094;
-if_sethide(true, task_main:com_2);
+if_sethide(true, task_main:summary_step_1);
 if_sethide(true, task_main:com_3);
-if_sethide(true, task_main:com_4);
-if_sethide(true, task_main:com_5);
-if_sethide(true, task_main:com_6);
+if_sethide(true, task_main:summary_step_2);
+if_sethide(true, task_main:worlds_runmode_1);
+if_sethide(true, task_main:summary_step_3);
 if_sethide(true, task_main:com_7);
-if_sethide(true, task_main:com_8);
+if_sethide(true, task_main:summary_step_4);
 if_sethide(true, task_main:com_9);
-if_sethide(true, task_main:com_10);
+if_sethide(true, task_main:summary_step_5);
 if_sethide(true, task_main:com_11);
-if_sethide(true, task_main:com_12);
+if_sethide(true, task_main:summary_step_6);
 if_sethide(true, task_main:com_13);
 $int11 = 10;
 if (compare(struct_param($struct1, param_1274), "") ! 0 & $int0 ! 4095) {
     if (struct_param($struct1, param_1282) ! null) {
         $int14 = $int0;
     }
-    $int11 = ~script3992(1, $int11, struct_param($struct1, param_1274), task_main:com_2, $int14, task_main:com_3, task_main:com_81);
+    $int11 = ~script3992(1, $int11, struct_param($struct1, param_1274), task_main:summary_step_1, $int14, task_main:com_3, task_main:summary_info);
 }
 $int14 = 4094;
 if (compare(struct_param($struct1, param_1275), "") ! 0 & $int0 ! 4095) {
     if (struct_param($struct1, param_1283) ! null) {
         $int14 = $int0;
     }
-    $int11 = ~script3992(2, $int11, struct_param($struct1, param_1275), task_main:com_4, $int14, task_main:com_5, task_main:com_81);
+    $int11 = ~script3992(2, $int11, struct_param($struct1, param_1275), task_main:summary_step_2, $int14, task_main:worlds_runmode_1, task_main:summary_info);
 }
 $int14 = 4094;
 if (compare(struct_param($struct1, param_1276), "") ! 0 & $int0 ! 4095) {
     if (struct_param($struct1, param_1284) ! null) {
         $int14 = $int0;
     }
-    $int11 = ~script3992(3, $int11, struct_param($struct1, param_1276), task_main:com_6, $int14, task_main:com_7, task_main:com_81);
+    $int11 = ~script3992(3, $int11, struct_param($struct1, param_1276), task_main:summary_step_3, $int14, task_main:com_7, task_main:summary_info);
 }
 $int14 = 4094;
 if (compare(struct_param($struct1, param_1277), "") ! 0 & $int0 ! 4095) {
     if (struct_param($struct1, param_1285) ! null) {
         $int14 = $int0;
     }
-    $int11 = ~script3992(4, $int11, struct_param($struct1, param_1277), task_main:com_8, $int14, task_main:com_9, task_main:com_81);
+    $int11 = ~script3992(4, $int11, struct_param($struct1, param_1277), task_main:summary_step_4, $int14, task_main:com_9, task_main:summary_info);
 }
 $int14 = 4094;
 if (compare(struct_param($struct1, param_1278), "") ! 0 & $int0 ! 4095) {
     if (struct_param($struct1, param_1286) ! null) {
         $int14 = $int0;
     }
-    $int11 = ~script3992(5, $int11, struct_param($struct1, param_1278), task_main:com_10, $int14, task_main:com_11, task_main:com_81);
+    $int11 = ~script3992(5, $int11, struct_param($struct1, param_1278), task_main:summary_step_5, $int14, task_main:com_11, task_main:summary_info);
 }
 $int14 = 4094;
 if (compare(struct_param($struct1, param_1279), "") ! 0 & $int0 ! 4095) {
     if (struct_param($struct1, param_1287) ! null) {
         $int14 = $int0;
     }
-    $int11 = ~script3992(6, $int11, struct_param($struct1, param_1279), task_main:com_12, $int14, task_main:com_13, task_main:com_81);
+    $int11 = ~script3992(6, $int11, struct_param($struct1, param_1279), task_main:summary_step_6, $int14, task_main:com_13, task_main:summary_info);
 }
 %varclient_1418 = calc($int11 + 3);
 if_sethide(true, task_main:com_51);
@@ -167,7 +167,7 @@ if_sethide(true, task_main:com_56);
 if_sethide(true, task_main:com_57);
 if_sethide(true, task_main:com_58);
 $int11 = 10;
-$int11 = ~script3992(0, $int11, $string2, task_main:com_50, 4094, null, task_main:com_85);
+$int11 = ~script3992(0, $int11, $string2, task_main:summary_reward, 4094, null, task_main:com_85);
 if ($struct3 ! null & $struct3 ! struct_1645) {
     $int11 = ~script3992(0, $int11, struct_param($struct3, param_1273), task_main:com_51, 4094, null, task_main:com_85);
     $int11 = ~script3992(0, $int11, struct_param($struct3, param_1292), task_main:com_52, 4094, null, task_main:com_85);
@@ -199,7 +199,7 @@ if ($struct3 ! null & $struct3 ! struct_1645) {
 %varclient_1419 = $int11;
 if (~script3999($int0) = 0) {
     ~script4019(0);
-    if_sethide(false, task_main:com_92);
+    if_sethide(false, task_main:summary);
     if_sethide(false, task_main:com_83);
     if_setgraphic("task_tab,4", task_main:com_26);
     if_setgraphic("task_tab,4", task_main:com_28);

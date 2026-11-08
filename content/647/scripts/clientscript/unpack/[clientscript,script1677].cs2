@@ -1,6 +1,6 @@
 // 1677
 [clientscript,script1677]
-if_setontimer("mah4_cutscene_update", mah4_cutscene_overlay:com_0);
+if_setontimer("mah4_cutscene_update", mah4_cutscene_overlay:main_layer);
 %varclient_1046 = 0;
 %varclient_1045 = 0;
 %varclient_1051 = 0;
@@ -11,4 +11,4 @@ spline_new(0, 0);
 spline_new(1, 0);
 ~script1678;
 cam_movealong(0, 0, 200, 200, 1, 0);
-if_setoncamfinished("script1679", mah4_cutscene_overlay:com_0);
+if_setoncamfinished("script1679", mah4_cutscene_overlay:main_layer);

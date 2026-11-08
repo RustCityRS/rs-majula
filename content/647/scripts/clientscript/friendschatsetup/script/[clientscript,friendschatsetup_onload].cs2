@@ -6,6 +6,6 @@ if_setscrollpos(0, 0, $component0);
 ~scrollbar_vertical($component1, $component0, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
 ~script1895($component0, $component1);
 if (userdetail_quickchat = true) {
-    if_settext("Friends Chat channel:", friendschatsetup:com_27);
-    if_setop(1, "Enable", friendschatsetup:com_22);
+    if_settext("Friends Chat channel:", friendschatsetup:opt_prefix_head);
+    if_setop(1, "Enable", friendschatsetup:opt_prefix);
 }

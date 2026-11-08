@@ -1,5 +1,5 @@
 // 54:0
-[com_0]
+[map_layer]
 type=layer
 x=2
 y=25
@@ -17,7 +17,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=map_layer
 model=model_4854
 modelangle=512,0,0
 modelzoom=414
@@ -25,20 +25,20 @@ modelobjwidth=159
 modelobjheight=158
 
 // 54:2
-[com_2]
+[background_layer]
 type=layer
 y=1
 width=190
 height=261
 
 // 54:3
-[com_3]
+[close_button]
 type=graphic
 x=165
 y=1
 width=26
 height=23
-layer=com_2
+layer=background_layer
 graphic="close_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -54,7 +54,7 @@ x=-8
 y=7
 width=198
 height=19
-layer=com_2
+layer=background_layer
 textfont=b12_full
 text=Catapult Controls
 textalignh=centre
@@ -62,7 +62,7 @@ textshadow=yes
 colour=0xff981f
 
 // 54:5
-[com_5]
+[controls_layer]
 type=layer
 x=-3
 y=194
@@ -70,13 +70,13 @@ width=198
 height=68
 
 // 54:6
-[com_6]
+[rocks]
 type=text
 x=113
 y=47
 width=70
 height=17
-layer=com_5
+layer=controls_layer
 textfont=p12_full
 text=Ammo: 
 textalignv=centre
@@ -84,63 +84,63 @@ textshadow=yes
 colour=0xbf751d
 
 // 54:7
-[com_7]
+[radio_buttons_layer]
 type=layer
 x=6
 y=5
 width=106
 height=55
-layer=com_5
+layer=controls_layer
 
 // 54:8
-[com_8]
+[fire_button]
 type=layer
 x=101
 y=1
 width=78
 height=42
-layer=com_5
+layer=controls_layer
 transmitop=1
 op1=Fire
 opcursor0=cursor_62
-onmouseover=script3429(castlewars_catapult:com_9, castlewars_catapult:com_10, castlewars_catapult:com_11, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
-onmouseleave=script3429(castlewars_catapult:com_9, castlewars_catapult:com_10, castlewars_catapult:com_11, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onmouseover=script3429(castlewars_catapult:graphic1, castlewars_catapult:graphic2, castlewars_catapult:graphic3, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=script3429(castlewars_catapult:graphic1, castlewars_catapult:graphic2, castlewars_catapult:graphic3, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
 onop=script3435
 
 // 54:9
-[com_9]
+[graphic1]
 type=graphic
 x=1
 y=2
 width=18
 height=39
-layer=com_8
+layer=fire_button
 graphic="lobby_buttons,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 54:10
-[com_10]
+[graphic2]
 type=graphic
 x=19
 y=2
 width=39
 height=39
-layer=com_8
+layer=fire_button
 graphic="lobby_buttons,1"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 54:11
-[com_11]
+[graphic3]
 type=graphic
 x=58
 y=2
 width=18
 height=39
-layer=com_8
+layer=fire_button
 graphic="lobby_buttons,0"
 hflip=yes
 colour=0xffffffff
@@ -156,7 +156,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_8
+layer=fire_button
 textfont=b12_full
 text=FIRE!
 textalignh=centre
@@ -164,14 +164,14 @@ textalignv=centre
 colour=0x000000
 
 // 54:13
-[com_13]
+[view_txt1]
 type=text
 x=15
 y=1
 width=62
 height=17
 xmode=abs_right
-layer=com_7
+layer=radio_buttons_layer
 textfont=p12_full
 text=View 1
 textalignv=centre
@@ -184,14 +184,14 @@ onmouseleave=text_colour_swapper(event_com, 0xbf751d)
 onop=castlewars_catapult_radio(1)
 
 // 54:14
-[com_14]
+[view_txt2]
 type=text
 x=15
 y=19
 width=62
 height=17
 xmode=abs_right
-layer=com_7
+layer=radio_buttons_layer
 textfont=p12_full
 text=View 2
 textalignv=centre
@@ -204,14 +204,14 @@ onmouseleave=text_colour_swapper(event_com, 0xbf751d)
 onop=castlewars_catapult_radio(2)
 
 // 54:15
-[com_15]
+[view_txt3]
 type=text
 x=15
 y=38
 width=62
 height=17
 xmode=abs_right
-layer=com_7
+layer=radio_buttons_layer
 textfont=p12_full
 text=View 3
 textalignv=centre
@@ -230,7 +230,7 @@ x=11
 y=2
 width=15
 height=15
-layer=com_7
+layer=radio_buttons_layer
 graphic="radio_buttons,1"
 colour=0xffffffff
 transmitop=1,10
@@ -245,7 +245,7 @@ x=11
 y=20
 width=15
 height=15
-layer=com_7
+layer=radio_buttons_layer
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1,10
@@ -260,7 +260,7 @@ x=11
 y=38
 width=15
 height=15
-layer=com_7
+layer=radio_buttons_layer
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1,10
@@ -269,13 +269,13 @@ op10=
 onop=castlewars_catapult_radio(3)
 
 // 54:19
-[com_19]
+[you_here_zam]
 type=layer
 x=13
 y=7
 width=41
 height=47
-layer=com_0
+layer=map_layer
 
 // 54:20
 [com_20]
@@ -284,7 +284,7 @@ x=6
 y=5
 width=32
 height=32
-layer=com_19
+layer=you_here_zam
 textfont=p11_full
 text=You are here!
 textalignh=centre
@@ -292,13 +292,13 @@ textshadow=yes
 colour=0xff9933
 
 // 54:21
-[com_21]
+[you_here_sara]
 type=layer
 x=130
 y=124
 width=40
 height=42
-layer=com_0
+layer=map_layer
 
 // 54:22
 [com_22]
@@ -307,7 +307,7 @@ x=4
 y=5
 width=33
 height=28
-layer=com_21
+layer=you_here_sara
 textfont=p11_full
 text=You are here!
 textalignh=centre
@@ -315,33 +315,33 @@ textshadow=yes
 colour=0xff9933
 
 // 54:23
-[com_23]
+[grid_layer]
 type=layer
 x=-2
 y=6
 width=160
 height=159
 xmode=abs_centre
-layer=com_0
+layer=map_layer
 onvartransmit=script3430{varplayer_379, varplayer_379}
 
 // 54:24
-[com_24]
+[layer_1_3]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:25
-[com_25]
+[1_3]
 type=rectangle
 x=40
 y=-1
 width=21
 height=21
-layer=com_24
+layer=layer_1_3
 colour=0xff3333
 trans=140
 transmitop=1
@@ -351,22 +351,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:26
-[com_26]
+[layer_1_4]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:27
-[com_27]
+[1_4]
 type=rectangle
 x=60
 y=-1
 width=21
 height=21
-layer=com_26
+layer=layer_1_4
 colour=0xff3333
 trans=140
 transmitop=1
@@ -376,22 +376,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:28
-[com_28]
+[layer_1_5]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:29
-[com_29]
+[1_5]
 type=rectangle
 x=80
 y=-1
 width=21
 height=21
-layer=com_28
+layer=layer_1_5
 colour=0xff3333
 trans=140
 transmitop=1
@@ -401,22 +401,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:30
-[com_30]
+[layer_1_6]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:31
-[com_31]
+[1_6]
 type=rectangle
 x=100
 y=-1
 width=21
 height=21
-layer=com_30
+layer=layer_1_6
 colour=0xff3333
 trans=140
 transmitop=1
@@ -426,22 +426,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:32
-[com_32]
+[layer_1_7]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:33
-[com_33]
+[1_7]
 type=rectangle
 x=120
 y=-1
 width=21
 height=21
-layer=com_32
+layer=layer_1_7
 colour=0xff3333
 trans=140
 transmitop=1
@@ -451,22 +451,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:34
-[com_34]
+[layer_1_8]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:35
-[com_35]
+[1_8]
 type=rectangle
 x=140
 y=-1
 width=21
 height=21
-layer=com_34
+layer=layer_1_8
 colour=0xff3333
 trans=140
 transmitop=1
@@ -476,22 +476,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:36
-[com_36]
+[layer_2_3]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:37
-[com_37]
+[2_3]
 type=rectangle
 x=40
 y=19
 width=21
 height=21
-layer=com_36
+layer=layer_2_3
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -502,22 +502,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:38
-[com_38]
+[layer_2_4]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:39
-[com_39]
+[2_4]
 type=rectangle
 x=60
 y=19
 width=21
 height=21
-layer=com_38
+layer=layer_2_4
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -528,22 +528,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:40
-[com_40]
+[layer_2_5]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:41
-[com_41]
+[2_5]
 type=rectangle
 x=80
 y=19
 width=21
 height=21
-layer=com_40
+layer=layer_2_5
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -554,22 +554,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:42
-[com_42]
+[layer_2_6]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:43
-[com_43]
+[2_6]
 type=rectangle
 x=100
 y=19
 width=21
 height=21
-layer=com_42
+layer=layer_2_6
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -580,22 +580,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:44
-[com_44]
+[layer_2_7]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:45
-[com_45]
+[2_7]
 type=rectangle
 x=120
 y=19
 width=21
 height=21
-layer=com_44
+layer=layer_2_7
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -606,22 +606,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:46
-[com_46]
+[layer_2_8]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:47
-[com_47]
+[2_8]
 type=rectangle
 x=140
 y=19
 width=21
 height=21
-layer=com_46
+layer=layer_2_8
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -632,21 +632,21 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:48
-[com_48]
+[layer_3_1]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:49
-[com_49]
+[3_1]
 type=rectangle
 y=39
 width=21
 height=21
-layer=com_48
+layer=layer_3_1
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -657,22 +657,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:50
-[com_50]
+[layer_3_2]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:51
-[com_51]
+[3_2]
 type=rectangle
 x=20
 y=39
 width=21
 height=21
-layer=com_50
+layer=layer_3_2
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -683,22 +683,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:52
-[com_52]
+[layer_3_3]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:53
-[com_53]
+[3_3]
 type=rectangle
 x=40
 y=39
 width=21
 height=21
-layer=com_52
+layer=layer_3_3
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -709,22 +709,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:54
-[com_54]
+[layer_3_4]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:55
-[com_55]
+[3_4]
 type=rectangle
 x=60
 y=39
 width=21
 height=21
-layer=com_54
+layer=layer_3_4
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -735,22 +735,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:56
-[com_56]
+[layer_3_5]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:57
-[com_57]
+[3_5]
 type=rectangle
 x=80
 y=39
 width=21
 height=21
-layer=com_56
+layer=layer_3_5
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -761,22 +761,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:58
-[com_58]
+[layer_3_6]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:59
-[com_59]
+[3_6]
 type=rectangle
 x=100
 y=39
 width=21
 height=21
-layer=com_58
+layer=layer_3_6
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -787,22 +787,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:60
-[com_60]
+[layer_3_7]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:61
-[com_61]
+[3_7]
 type=rectangle
 x=120
 y=39
 width=21
 height=21
-layer=com_60
+layer=layer_3_7
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -813,22 +813,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:62
-[com_62]
+[layer_3_8]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:63
-[com_63]
+[3_8]
 type=rectangle
 x=140
 y=39
 width=21
 height=21
-layer=com_62
+layer=layer_3_8
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -839,21 +839,21 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:64
-[com_64]
+[layer_4_1]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:65
-[com_65]
+[4_1]
 type=rectangle
 y=59
 width=21
 height=21
-layer=com_64
+layer=layer_4_1
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -864,22 +864,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:66
-[com_66]
+[layer_4_2]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:67
-[com_67]
+[4_2]
 type=rectangle
 x=20
 y=59
 width=21
 height=21
-layer=com_66
+layer=layer_4_2
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -890,22 +890,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:68
-[com_68]
+[layer_4_3]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:69
-[com_69]
+[4_3]
 type=rectangle
 x=40
 y=59
 width=21
 height=21
-layer=com_68
+layer=layer_4_3
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -916,22 +916,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:70
-[com_70]
+[layer_4_4]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:71
-[com_71]
+[4_4]
 type=rectangle
 x=60
 y=59
 width=21
 height=21
-layer=com_70
+layer=layer_4_4
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -942,22 +942,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:72
-[com_72]
+[layer_4_5]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:73
-[com_73]
+[4_5]
 type=rectangle
 x=80
 y=59
 width=21
 height=21
-layer=com_72
+layer=layer_4_5
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -968,22 +968,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:74
-[com_74]
+[layer_4_6]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:75
-[com_75]
+[4_6]
 type=rectangle
 x=100
 y=59
 width=21
 height=21
-layer=com_74
+layer=layer_4_6
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -994,22 +994,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:76
-[com_76]
+[layer_4_7]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:77
-[com_77]
+[4_7]
 type=rectangle
 x=120
 y=59
 width=21
 height=21
-layer=com_76
+layer=layer_4_7
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1020,22 +1020,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:78
-[com_78]
+[layer_4_8]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:79
-[com_79]
+[4_8]
 type=rectangle
 x=140
 y=59
 width=21
 height=21
-layer=com_78
+layer=layer_4_8
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1046,21 +1046,21 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:80
-[com_80]
+[layer_5_1]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:81
-[com_81]
+[5_1]
 type=rectangle
 y=79
 width=21
 height=21
-layer=com_80
+layer=layer_5_1
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1071,22 +1071,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:82
-[com_82]
+[layer_5_2]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:83
-[com_83]
+[5_2]
 type=rectangle
 x=20
 y=79
 width=21
 height=21
-layer=com_82
+layer=layer_5_2
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1097,22 +1097,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:84
-[com_84]
+[layer_5_3]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:85
-[com_85]
+[5_3]
 type=rectangle
 x=40
 y=79
 width=21
 height=21
-layer=com_84
+layer=layer_5_3
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1123,22 +1123,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:86
-[com_86]
+[layer_5_4]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:87
-[com_87]
+[5_4]
 type=rectangle
 x=60
 y=79
 width=21
 height=21
-layer=com_86
+layer=layer_5_4
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1149,22 +1149,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:88
-[com_88]
+[layer_5_5]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:89
-[com_89]
+[5_5]
 type=rectangle
 x=80
 y=79
 width=21
 height=21
-layer=com_88
+layer=layer_5_5
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1175,22 +1175,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:90
-[com_90]
+[layer_5_6]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:91
-[com_91]
+[5_6]
 type=rectangle
 x=100
 y=79
 width=21
 height=21
-layer=com_90
+layer=layer_5_6
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1201,22 +1201,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:92
-[com_92]
+[layer_5_7]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:93
-[com_93]
+[5_7]
 type=rectangle
 x=120
 y=79
 width=21
 height=21
-layer=com_92
+layer=layer_5_7
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1227,22 +1227,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:94
-[com_94]
+[layer_5_8]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:95
-[com_95]
+[5_8]
 type=rectangle
 x=140
 y=79
 width=21
 height=21
-layer=com_94
+layer=layer_5_8
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1253,21 +1253,21 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:96
-[com_96]
+[layer_6_1]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:97
-[com_97]
+[6_1]
 type=rectangle
 y=99
 width=21
 height=21
-layer=com_96
+layer=layer_6_1
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1278,22 +1278,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:98
-[com_98]
+[layer_6_2]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:99
-[com_99]
+[6_2]
 type=rectangle
 x=20
 y=99
 width=21
 height=21
-layer=com_98
+layer=layer_6_2
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1304,22 +1304,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:100
-[com_100]
+[layer_6_3]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:101
-[com_101]
+[6_3]
 type=rectangle
 x=40
 y=99
 width=21
 height=21
-layer=com_100
+layer=layer_6_3
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1330,22 +1330,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:102
-[com_102]
+[layer_6_4]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:103
-[com_103]
+[6_4]
 type=rectangle
 x=60
 y=99
 width=21
 height=21
-layer=com_102
+layer=layer_6_4
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1356,22 +1356,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:104
-[com_104]
+[layer_6_5]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:105
-[com_105]
+[6_5]
 type=rectangle
 x=80
 y=99
 width=21
 height=21
-layer=com_104
+layer=layer_6_5
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1382,22 +1382,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:106
-[com_106]
+[layer_6_6]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:107
-[com_107]
+[6_6]
 type=rectangle
 x=100
 y=99
 width=21
 height=21
-layer=com_106
+layer=layer_6_6
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1408,22 +1408,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:108
-[com_108]
+[layer_6_7]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:109
-[com_109]
+[6_7]
 type=rectangle
 x=120
 y=99
 width=21
 height=21
-layer=com_108
+layer=layer_6_7
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1434,22 +1434,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:110
-[com_110]
+[layer_6_8]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:111
-[com_111]
+[6_8]
 type=rectangle
 x=140
 y=99
 width=21
 height=21
-layer=com_110
+layer=layer_6_8
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1460,21 +1460,21 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:112
-[com_112]
+[layer_7_1]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:113
-[com_113]
+[7_1]
 type=rectangle
 y=119
 width=21
 height=21
-layer=com_112
+layer=layer_7_1
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1485,22 +1485,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:114
-[com_114]
+[layer_7_2]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:115
-[com_115]
+[7_2]
 type=rectangle
 x=20
 y=119
 width=21
 height=21
-layer=com_114
+layer=layer_7_2
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1511,22 +1511,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:116
-[com_116]
+[layer_7_3]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:117
-[com_117]
+[7_3]
 type=rectangle
 x=40
 y=119
 width=21
 height=21
-layer=com_116
+layer=layer_7_3
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1537,22 +1537,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:118
-[com_118]
+[layer_7_4]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:119
-[com_119]
+[7_4]
 type=rectangle
 x=60
 y=119
 width=21
 height=21
-layer=com_118
+layer=layer_7_4
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1563,22 +1563,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:120
-[com_120]
+[layer_7_5]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:121
-[com_121]
+[7_5]
 type=rectangle
 x=80
 y=119
 width=21
 height=21
-layer=com_120
+layer=layer_7_5
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1589,22 +1589,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:122
-[com_122]
+[layer_7_6]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:123
-[com_123]
+[7_6]
 type=rectangle
 x=100
 y=119
 width=21
 height=21
-layer=com_122
+layer=layer_7_6
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1615,21 +1615,21 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:124
-[com_124]
+[layer_8_1]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:125
-[com_125]
+[8_1]
 type=rectangle
 y=139
 width=21
 height=21
-layer=com_124
+layer=layer_8_1
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1640,22 +1640,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:126
-[com_126]
+[layer_8_2]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:127
-[com_127]
+[8_2]
 type=rectangle
 x=20
 y=139
 width=21
 height=21
-layer=com_126
+layer=layer_8_2
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1666,22 +1666,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:128
-[com_128]
+[layer_8_3]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:129
-[com_129]
+[8_3]
 type=rectangle
 x=40
 y=139
 width=21
 height=21
-layer=com_128
+layer=layer_8_3
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1692,22 +1692,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:130
-[com_130]
+[layer_8_4]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:131
-[com_131]
+[8_4]
 type=rectangle
 x=60
 y=139
 width=21
 height=21
-layer=com_130
+layer=layer_8_4
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1718,22 +1718,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:132
-[com_132]
+[layer_8_5]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:133
-[com_133]
+[8_5]
 type=rectangle
 x=80
 y=139
 width=21
 height=21
-layer=com_132
+layer=layer_8_5
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1744,22 +1744,22 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:134
-[com_134]
+[layer_8_6]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_23
+layer=grid_layer
 
 // 54:135
-[com_135]
+[8_6]
 type=rectangle
 x=100
 y=139
 width=21
 height=21
-layer=com_134
+layer=layer_8_6
 colour=0xff3333
 trans=140
 transmitop=1,10
@@ -1770,9 +1770,9 @@ onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
 // 54:136
-[com_136]
+[boarder]
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_23
+layer=grid_layer
 colour=0x000000

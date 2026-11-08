@@ -1,15 +1,15 @@
 // 2064
 [proc,gnomeglider_update](int $int0)
-if_sethide(true, glidermap:com_28);
-if_sethide(true, glidermap:com_37);
-if_sethide(true, glidermap:com_36);
-if_sethide(true, glidermap:com_31);
-if_sethide(true, glidermap:com_39);
-if_sethide(true, glidermap:com_38);
-if_sethide(true, glidermap:com_35);
-if_sethide(true, glidermap:com_34);
-if_sethide(true, glidermap:com_33);
-if_sethide(true, glidermap:com_32);
+if_sethide(true, glidermap:close);
+if_sethide(true, glidermap:mountaingo);
+if_sethide(true, glidermap:mountainback);
+if_sethide(true, glidermap:varrockgo);
+if_sethide(true, glidermap:desertgo);
+if_sethide(true, glidermap:desertback);
+if_sethide(true, glidermap:junglego);
+if_sethide(true, glidermap:jungleback);
+if_sethide(true, glidermap:crashgo);
+if_sethide(true, glidermap:crashback);
 if_sethide(true, glidermap:com_29);
 if_sethide(true, glidermap:com_30);
 if_sethide(true, glidermap:com_41);
@@ -27,34 +27,34 @@ if_sethide($boolean1, glidermap:com_21);
 if_sethide($boolean1, glidermap:com_12);
 switch_int ($int0) {
     case 0 :
-        if_sethide(false, glidermap:com_28);
+        if_sethide(false, glidermap:close);
     case 1 :
-        if_sethide(false, glidermap:com_37);
-        if_setmodelanim(seq_786, glidermap:com_37);
+        if_sethide(false, glidermap:mountaingo);
+        if_setmodelanim(seq_786, glidermap:mountaingo);
     case 2 :
-        if_sethide(false, glidermap:com_36);
-        if_setmodelanim(seq_786, glidermap:com_36);
+        if_sethide(false, glidermap:mountainback);
+        if_setmodelanim(seq_786, glidermap:mountainback);
     case 3 :
-        if_sethide(false, glidermap:com_31);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_31);
+        if_sethide(false, glidermap:varrockgo);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:varrockgo);
     case 4 :
-        if_sethide(false, glidermap:com_39);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_39);
+        if_sethide(false, glidermap:desertgo);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:desertgo);
     case 5 :
-        if_sethide(false, glidermap:com_38);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_38);
+        if_sethide(false, glidermap:desertback);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:desertback);
     case 6 :
-        if_sethide(false, glidermap:com_35);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_35);
+        if_sethide(false, glidermap:junglego);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:junglego);
     case 7 :
-        if_sethide(false, glidermap:com_34);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_34);
+        if_sethide(false, glidermap:jungleback);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:jungleback);
     case 8 :
-        if_sethide(false, glidermap:com_32);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_32);
+        if_sethide(false, glidermap:crashback);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:crashback);
     case 9 :
-        if_sethide(false, glidermap:com_33);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_33);
+        if_sethide(false, glidermap:crashgo);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:crashgo);
     case 10 :
         if_sethide(false, glidermap:com_29);
         if_setmodelanim(human_blown_end_getup_priority, glidermap:com_29);

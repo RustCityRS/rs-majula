@@ -1,17 +1,17 @@
 // 1921
 [clientscript,script1921]
 if (%varclient_551 > 0) {
-    if_settext(append(append_num(append(%varclient_1559, " ("), %varclient_551), ")"), interface_812:com_5);
+    if_settext(append(append_num(append(%varclient_1559, " ("), %varclient_551), ")"), sc_lobby_clan_overlay:clan_leader_text);
 } else {
-    if_settext(%varclient_1559, interface_812:com_5);
+    if_settext(%varclient_1559, sc_lobby_clan_overlay:clan_leader_text);
 }
 if (%varclient_552 > 0) {
-    if_settext(append(append_num(append(%varclient_1560, " ("), %varclient_552), ")"), interface_812:com_6);
+    if_settext(append(append_num(append(%varclient_1560, " ("), %varclient_552), ")"), sc_lobby_clan_overlay:ally_1_text);
 } else {
-    if_settext(%varclient_1560, interface_812:com_6);
+    if_settext(%varclient_1560, sc_lobby_clan_overlay:ally_1_text);
 }
 if (%varclient_553 > 0) {
-    if_settext(append(append_num(append(%varclient_1561, " ("), %varclient_553), ")"), interface_812:com_7);
+    if_settext(append(append_num(append(%varclient_1561, " ("), %varclient_553), ")"), sc_lobby_clan_overlay:ally_2_text);
 } else {
-    if_settext(%varclient_1561, interface_812:com_7);
+    if_settext(%varclient_1561, sc_lobby_clan_overlay:ally_2_text);
 }

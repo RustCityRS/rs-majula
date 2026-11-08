@@ -1,6 +1,6 @@
 // 724
 [clientscript,statusicons_addtooltip](component $component0, string $string0, int $int1, int $int2)
-if ($component0 = interface_745:com_1 & %varclient_616 = false) {
+if ($component0 = statusicons:multiway_icon & %varclient_616 = false) {
     return;
 }
 def_int $int3 = 0;
@@ -20,13 +20,13 @@ if (%varclient_1 < calc(clientclock + 25)) {
 if (%varclient_2 ! 1) {
     $int5 = calc(parawidth($string0, 1000, p12_full) + 8);
     if (getwindowmode < 2) {
-        $component6 = toplevel:com_15;
-        $component8 = toplevel:com_224;
-        $component7 = toplevel:com_14;
+        $component6 = toplevel:statusicon_tooltip;
+        $component8 = toplevel:statusicon_tooltip_text;
+        $component7 = toplevel:statusicons;
     } else {
-        $component6 = toplevel_fullscreen:com_13;
-        $component8 = toplevel_fullscreen:com_164;
-        $component7 = toplevel_fullscreen:com_12;
+        $component6 = toplevel_fullscreen:statusicon_tooltip;
+        $component8 = toplevel_fullscreen:statusicon_tooltip_text;
+        $component7 = toplevel_fullscreen:statusicons;
     }
     $int3 = calc(if_getx($component7) + if_getx($component0) + $int1 - $int5);
     $int4 = calc(if_gety($component7) + if_gety($component0) + $int2 - 17);

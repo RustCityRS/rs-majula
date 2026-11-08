@@ -2,13 +2,13 @@
 [proc,bank_sort_button]
 def_string $string0 = "";
 if (%bankinsert = 0) {
-    if_setgraphic("bank_buttons_new2,0", bank_v2_main:com_15);
-    if_setgraphic("bank_buttons_new1,2", bank_v2_main:com_16);
+    if_setgraphic("bank_buttons_new2,0", bank_v2_main:bank_sort_button);
+    if_setgraphic("bank_buttons_new1,2", bank_v2_main:bank_sort_icon);
     $string0 = "Switch to insert items mode";
 } else {
-    if_setgraphic("bank_buttons_new2,2", bank_v2_main:com_15);
-    if_setgraphic("bank_buttons_new1,3", bank_v2_main:com_16);
+    if_setgraphic("bank_buttons_new2,2", bank_v2_main:bank_sort_button);
+    if_setgraphic("bank_buttons_new1,3", bank_v2_main:bank_sort_icon);
     $string0 = "Switch to swap items mode";
 }
-if_setop(1, $string0, bank_v2_main:com_15);
-if_setonmouserepeat("addtooltip(event_com, bank_v2_main:com_119, $string0, 25, 150)", bank_v2_main:com_15);
+if_setop(1, $string0, bank_v2_main:bank_sort_button);
+if_setonmouserepeat("addtooltip(event_com, bank_v2_main:tooltip, $string0, 25, 150)", bank_v2_main:bank_sort_button);

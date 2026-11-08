@@ -1,7 +1,7 @@
 // 204
 [clientscript,friends_chat_minimenu_timer]
-if (minimenuopen(friends_chat:com_5, -1) = true) {
+if (minimenuopen(interface_1109:clanlist, -1) = true) {
     return;
 }
-if_setontimer(null, friends_chat:com_5);
+if_setontimer(null, interface_1109:clanlist);
 ~script518;

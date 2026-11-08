@@ -1,5 +1,5 @@
 // 559:0
-[com_0]
+[tol_background_color]
 type=rectangle
 width=16384
 height=16384
@@ -10,61 +10,61 @@ fill=yes
 trans=64
 
 // 559:1
-[com_1]
+[tol_background_shadow1]
 type=rectangle
 x=16
 y=327
 width=486
 height=4
-layer=com_87
+layer=layer_1
 colour=0x140b02
 fill=yes
 trans=64
 
 // 559:2
-[com_2]
+[tol_background_shadow2]
 type=rectangle
 x=498
 y=312
 width=4
 height=15
-layer=com_87
+layer=layer_1
 colour=0x140b02
 fill=yes
 trans=64
 
 // 559:3
-[com_3]
+[tol_background_shadow3]
 type=rectangle
 x=489
 y=6
 width=4
 height=305
-layer=com_87
+layer=layer_1
 colour=0x140b02
 fill=yes
 trans=64
 
 // 559:4
-[com_4]
+[blackboard]
 type=model
 x=13
 y=6
 width=486
 height=322
-layer=com_87
+layer=layer_1
 model=model_27109
 modelorigin=-14,24
 modelzoom=356
 
 // 559:5
-[com_5]
+[close_button]
 type=model
 x=438
 y=35
 width=32
 height=29
-layer=com_87
+layer=layer_1
 model=model_27105
 modelorigin=-1,-2
 modelzoom=400
@@ -75,41 +75,41 @@ onop=closebutton_click
 onmouserepeat=model_swapper(event_com, model_27108)
 
 // 559:6
-[com_6]
+[cardbglyr]
 type=layer
 width=412
 height=332
-layer=com_87
+layer=layer_1
 
 // 559:7
-[com_7]
+[objects]
 type=layer
 width=512
 height=334
-layer=com_87
+layer=layer_1
 
 // 559:8
-[com_8]
+[cardfglyr]
 type=layer
 width=412
 height=332
-layer=com_87
+layer=layer_1
 
 // 559:9
-[com_9]
+[cardselectedgraphics]
 type=layer
 width=512
 height=334
-layer=com_87
+layer=layer_1
 
 // 559:10
-[com_10]
+[pattern_button_1]
 type=graphic
 x=106
 y=28
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
@@ -117,208 +117,208 @@ opcursor0=cursor_46
 onvartransmit=pattern_cards_select{varplayer_1037}
 
 // 559:11
-[com_11]
+[pattern_button_2]
 type=graphic
 x=173
 y=28
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:12
-[com_12]
+[pattern_button_3]
 type=graphic
 x=240
 y=28
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:13
-[com_13]
+[pattern_button_4]
 type=graphic
 x=307
 y=28
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:14
-[com_14]
+[pattern_button_5]
 type=graphic
 x=39
 y=119
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:15
-[com_15]
+[pattern_button_6]
 type=graphic
 x=106
 y=119
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:16
-[com_16]
+[pattern_button_7]
 type=graphic
 x=173
 y=119
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:17
-[com_17]
+[pattern_button_8]
 type=graphic
 x=240
 y=119
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:18
-[com_18]
+[pattern_button_9]
 type=graphic
 x=307
 y=119
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:19
-[com_19]
+[pattern_button_10]
 type=graphic
 x=39
 y=209
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:20
-[com_20]
+[pattern_button_11]
 type=graphic
 x=106
 y=209
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:21
-[com_21]
+[pattern_button_12]
 type=graphic
 x=173
 y=209
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:22
-[com_22]
+[pattern_button_13]
 type=graphic
 x=240
 y=209
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:23
-[com_23]
+[pattern_button_14]
 type=graphic
 x=307
 y=209
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:24
-[com_24]
+[pattern_button_0]
 type=graphic
 x=39
 y=28
 width=64
 height=88
-layer=com_87
+layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 559:25
-[com_25]
+[pattern_cards_hint]
 type=text
 x=375
 y=69
 width=98
 height=180
-layer=com_87
+layer=layer_1
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xd1cdca
 
 // 559:26
-[com_26]
+[pattern_confirm_btn]
 type=graphic
 x=414
 y=255
 width=29
 height=29
-layer=com_87
+layer=layer_1
 graphic="ame_confirm_button,0"
 colour=0x000000
 transmitop=1
@@ -327,698 +327,698 @@ onmouseleave=graphic_swapper(event_com, "ame_confirm_button,0")
 onmouserepeat=graphic_swapper(event_com, "ame_confirm_button,1")
 
 // 559:27
-[com_27]
+[cardbg_0]
 type=model
 x=39
 y=28
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:28
-[com_28]
+[cardbg_1]
 type=model
 x=106
 y=28
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:29
-[com_29]
+[cardbg_2]
 type=model
 x=173
 y=28
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:30
-[com_30]
+[cardbg_3]
 type=model
 x=240
 y=28
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:31
-[com_31]
+[cardbg_4]
 type=model
 x=307
 y=28
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:32
-[com_32]
+[cardbg_5]
 type=model
 x=39
 y=119
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:33
-[com_33]
+[cardbg_6]
 type=model
 x=106
 y=119
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:34
-[com_34]
+[cardbg_7]
 type=model
 x=173
 y=119
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:35
-[com_35]
+[cardbg_8]
 type=model
 x=240
 y=119
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:36
-[com_36]
+[cardbg_9]
 type=model
 x=307
 y=119
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:37
-[com_37]
+[cardbg_10]
 type=model
 x=39
 y=210
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:38
-[com_38]
+[cardbg_11]
 type=model
 x=106
 y=210
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:39
-[com_39]
+[cardbg_12]
 type=model
 x=173
 y=210
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:40
-[com_40]
+[cardbg_13]
 type=model
 x=240
 y=210
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:41
-[com_41]
+[cardbg_14]
 type=model
 x=307
 y=210
 width=65
 height=89
-layer=com_6
+layer=cardbglyr
 model=model_27106
 modelzoom=720
 
 // 559:42
-[com_42]
+[pattern_obj_0]
 type=model
 x=51
 y=39
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:43
-[com_43]
+[pattern_obj_1]
 type=model
 x=118
 y=39
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:44
-[com_44]
+[pattern_obj_2]
 type=model
 x=185
 y=39
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:45
-[com_45]
+[pattern_obj_3]
 type=model
 x=252
 y=39
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:46
-[com_46]
+[pattern_obj_4]
 type=model
 x=319
 y=39
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:47
-[com_47]
+[pattern_obj_5]
 type=model
 x=51
 y=130
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:48
-[com_48]
+[pattern_obj_6]
 type=model
 x=118
 y=130
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:49
-[com_49]
+[pattern_obj_7]
 type=model
 x=185
 y=130
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:50
-[com_50]
+[pattern_obj_8]
 type=model
 x=252
 y=130
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:51
-[com_51]
+[pattern_obj_9]
 type=model
 x=319
 y=130
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:52
-[com_52]
+[pattern_obj_10]
 type=model
 x=51
 y=221
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:53
-[com_53]
+[pattern_obj_11]
 type=model
 x=118
 y=221
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:54
-[com_54]
+[pattern_obj_12]
 type=model
 x=185
 y=221
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:55
-[com_55]
+[pattern_obj_13]
 type=model
 x=252
 y=221
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:56
-[com_56]
+[pattern_obj_14]
 type=model
 x=319
 y=221
 width=41
 height=34
-layer=com_7
+layer=objects
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 559:57
-[com_57]
+[cardshn_0]
 type=model
 x=40
 y=28
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:58
-[com_58]
+[cardshn_1]
 type=model
 x=107
 y=28
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:59
-[com_59]
+[cardshn_2]
 type=model
 x=174
 y=28
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:60
-[com_60]
+[cardshn_3]
 type=model
 x=241
 y=28
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:61
-[com_61]
+[cardshn_4]
 type=model
 x=308
 y=28
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:62
-[com_62]
+[cardshn_5]
 type=model
 x=40
 y=119
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:63
-[com_63]
+[cardshn_6]
 type=model
 x=107
 y=119
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:64
-[com_64]
+[cardshn_7]
 type=model
 x=174
 y=119
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:65
-[com_65]
+[cardshn_8]
 type=model
 x=241
 y=119
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:66
-[com_66]
+[cardshn_9]
 type=model
 x=308
 y=119
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:67
-[com_67]
+[cardshn_10]
 type=model
 x=40
 y=210
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:68
-[com_68]
+[cardshn_11]
 type=model
 x=107
 y=210
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:69
-[com_69]
+[cardshn_12]
 type=model
 x=174
 y=210
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:70
-[com_70]
+[cardshn_13]
 type=model
 x=241
 y=210
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:71
-[com_71]
+[cardshn_14]
 type=model
 x=308
 y=210
 width=49
 height=89
-layer=com_8
+layer=cardfglyr
 model=model_27107
 modelorigin=7,0
 modelzoom=709
 
 // 559:72
-[com_72]
+[pattern_pick_card_1]
 type=graphic
 x=106
 y=28
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 onvartransmit=pattern_cards_select{varplayer_1037}
 
 // 559:73
-[com_73]
+[pattern_pick_card_2]
 type=graphic
 x=173
 y=28
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:74
-[com_74]
+[pattern_pick_card_3]
 type=graphic
 x=240
 y=28
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:75
-[com_75]
+[pattern_pick_card_4]
 type=graphic
 x=307
 y=28
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:76
-[com_76]
+[pattern_pick_card_5]
 type=graphic
 x=39
 y=119
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:77
-[com_77]
+[pattern_pick_card_6]
 type=graphic
 x=106
 y=119
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:78
-[com_78]
+[pattern_pick_card_7]
 type=graphic
 x=173
 y=119
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:79
-[com_79]
+[pattern_pick_card_8]
 type=graphic
 x=240
 y=119
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:80
-[com_80]
+[pattern_pick_card_9]
 type=graphic
 x=307
 y=119
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:81
-[com_81]
+[pattern_pick_card_10]
 type=graphic
 x=39
 y=209
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:82
-[com_82]
+[pattern_pick_card_11]
 type=graphic
 x=106
 y=209
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:83
-[com_83]
+[pattern_pick_card_12]
 type=graphic
 x=173
 y=209
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:84
-[com_84]
+[pattern_pick_card_13]
 type=graphic
 x=240
 y=209
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:85
-[com_85]
+[pattern_pick_card_14]
 type=graphic
 x=307
 y=209
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:86
-[com_86]
+[pattern_pick_card_0]
 type=graphic
 x=39
 y=28
 width=25
 height=25
-layer=com_9
+layer=cardselectedgraphics
 colour=0x000000
 
 // 559:87
-[com_87]
+[layer_1]
 type=layer
 width=518
 height=339

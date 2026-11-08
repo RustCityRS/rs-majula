@@ -11,7 +11,7 @@ def_int $int7 = 0;
 def_int $int8 = 0;
 while ($int0 < 270) {
     while ($int1 < 200) {
-        cc_create(conq_stake_options:com_19, ^iftype_graphic, $int2);
+        cc_create(conq_stake_options:your_stake, ^iftype_graphic, $int2);
         cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
         cc_setposition($int1, $int0, ^setpos_abs_left, ^setpos_abs_top);
         if (inv_getobj(inv_583, $int2) ! null) {
@@ -30,7 +30,7 @@ while ($int0 < 270) {
                 $int3 = 1;
             }
         }
-        cc_create(conq_stake_options:com_14, ^iftype_graphic, $int2);
+        cc_create(conq_stake_options:opponent_stake, ^iftype_graphic, $int2);
         cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
         cc_setposition($int1, $int0, ^setpos_abs_left, ^setpos_abs_top);
         if (invother_getobj(inv_583, $int2) ! null) {
@@ -51,24 +51,24 @@ while ($int0 < 270) {
     $int1 = 5;
 }
 $int7 = calc($int4 * 40 + 5);
-if ($int7 > if_getheight(conq_stake_options:com_19)) {
-    if_setscrollsize(0, $int7, conq_stake_options:com_19);
-    ~scrollbar_vertical(conq_stake_options:com_20, conq_stake_options:com_19, graphic_2598, graphic_2595, graphic_2596, graphic_2597, graphic_2593, graphic_2594);
-    if_setposition(6, if_gety(conq_stake_options:com_19), ^setpos_abs_left, ^setpos_abs_top, conq_stake_options:com_19);
+if ($int7 > if_getheight(conq_stake_options:your_stake)) {
+    if_setscrollsize(0, $int7, conq_stake_options:your_stake);
+    ~scrollbar_vertical(conq_stake_options:stake_scrollbar_layer, conq_stake_options:your_stake, graphic_2598, graphic_2595, graphic_2596, graphic_2597, graphic_2593, graphic_2594);
+    if_setposition(6, if_gety(conq_stake_options:your_stake), ^setpos_abs_left, ^setpos_abs_top, conq_stake_options:your_stake);
 } else {
-    if_setscrollsize(0, 0, conq_stake_options:com_19);
-    if_setscrollpos(0, 0, conq_stake_options:com_19);
-    cc_deleteall(conq_stake_options:com_20);
-    if_setposition(16, if_gety(conq_stake_options:com_19), ^setpos_abs_left, ^setpos_abs_top, conq_stake_options:com_19);
+    if_setscrollsize(0, 0, conq_stake_options:your_stake);
+    if_setscrollpos(0, 0, conq_stake_options:your_stake);
+    cc_deleteall(conq_stake_options:stake_scrollbar_layer);
+    if_setposition(16, if_gety(conq_stake_options:your_stake), ^setpos_abs_left, ^setpos_abs_top, conq_stake_options:your_stake);
 }
 $int8 = calc($int6 * 40 + 5);
-if ($int8 > if_getheight(conq_stake_options:com_14)) {
-    if_setscrollsize(0, $int8, conq_stake_options:com_14);
-    ~scrollbar_vertical(conq_stake_options:com_16, conq_stake_options:com_14, graphic_2598, graphic_2595, graphic_2596, graphic_2597, graphic_2593, graphic_2594);
-    if_setposition(6, if_gety(conq_stake_options:com_14), ^setpos_abs_left, ^setpos_abs_top, conq_stake_options:com_14);
+if ($int8 > if_getheight(conq_stake_options:opponent_stake)) {
+    if_setscrollsize(0, $int8, conq_stake_options:opponent_stake);
+    ~scrollbar_vertical(conq_stake_options:com_16, conq_stake_options:opponent_stake, graphic_2598, graphic_2595, graphic_2596, graphic_2597, graphic_2593, graphic_2594);
+    if_setposition(6, if_gety(conq_stake_options:opponent_stake), ^setpos_abs_left, ^setpos_abs_top, conq_stake_options:opponent_stake);
 } else {
-    if_setscrollsize(0, 0, conq_stake_options:com_14);
-    if_setscrollpos(0, 0, conq_stake_options:com_14);
+    if_setscrollsize(0, 0, conq_stake_options:opponent_stake);
+    if_setscrollpos(0, 0, conq_stake_options:opponent_stake);
     cc_deleteall(conq_stake_options:com_16);
-    if_setposition(16, if_gety(conq_stake_options:com_14), ^setpos_abs_left, ^setpos_abs_top, conq_stake_options:com_14);
+    if_setposition(16, if_gety(conq_stake_options:opponent_stake), ^setpos_abs_left, ^setpos_abs_top, conq_stake_options:opponent_stake);
 }

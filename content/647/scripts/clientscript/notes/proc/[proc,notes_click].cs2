@@ -7,13 +7,13 @@ while (cc_find(notes:com_9, $int1) = true) {
 }
 if (cc_find(notes:com_9, %varplayer_1439) = true) {
     cc_setop(1, "Unselect");
-    if (if_gethide(notes:com_10) = false) {
-        if_sethide(true, notes:com_14);
+    if (if_gethide(notes:dragger) = false) {
+        if_sethide(true, notes:selected);
         return;
     }
-    if_sethide(false, notes:com_14);
-    if_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top, notes:com_14);
-    if_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs, notes:com_14);
+    if_sethide(false, notes:selected);
+    if_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top, notes:selected);
+    if_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs, notes:selected);
     if ($int0 = 1) {
         if (cc_gety < if_getscrolly(notes:com_9)) {
             ~scrollbar_ondrag_doscroll(notes:com_15, notes:com_9, calc(cc_gety - 5), 1);
@@ -22,5 +22,5 @@ if (cc_find(notes:com_9, %varplayer_1439) = true) {
         }
     }
 } else {
-    if_sethide(true, notes:com_14);
+    if_sethide(true, notes:selected);
 }

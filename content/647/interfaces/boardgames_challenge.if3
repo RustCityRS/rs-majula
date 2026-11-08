@@ -21,7 +21,7 @@ tiling=yes
 colour=0x000000
 
 // 31:2
-[com_2]
+[boardgames_challenge_selectlayer]
 type=layer
 x=320
 y=220
@@ -32,7 +32,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 31:3
-[com_3]
+[boardgames_title]
 type=text
 x=97
 y=65
@@ -44,13 +44,13 @@ textshadow=yes
 colour=0xffaa44
 
 // 31:4
-[com_4]
+[boardgames_challenge_select]
 type=rectangle
 x=6
 y=6
 width=72
 height=33
-layer=com_2
+layer=boardgames_challenge_selectlayer
 colour=0x000000
 fill=yes
 
@@ -61,7 +61,7 @@ x=7
 y=7
 width=65
 height=30
-layer=com_2
+layer=boardgames_challenge_selectlayer
 textfont=p12_full
 text=Select
 textalignh=centre
@@ -72,7 +72,7 @@ onmouseover=text_colour_swapper(event_com, 0xe1981f)
 onmouseleave=text_colour_swapper(event_com, 0xbf751d)
 
 // 31:6
-[com_6]
+[boardgames_challenge_optionslayer]
 type=layer
 x=103
 y=102
@@ -80,45 +80,45 @@ width=295
 height=158
 
 // 31:7
-[com_7]
+[boardgames_challenge_draughts1]
 type=graphic
 x=2
 y=29
 width=15
 height=15
-layer=com_6
+layer=boardgames_challenge_optionslayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(event_com, boardgames_challenge:com_8, boardgames_challenge:com_15, boardgames_challenge:com_18)
+onclick=script1422(event_com, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:8
-[com_8]
+[boardgames_challenge_runelink1]
 type=graphic
 x=2
 y=59
 width=15
 height=15
-layer=com_6
+layer=boardgames_challenge_optionslayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(event_com, boardgames_challenge:com_7, boardgames_challenge:com_15, boardgames_challenge:com_18)
+onclick=script1422(event_com, boardgames_challenge:boardgames_challenge_draughts1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:9
-[com_9]
+[boardgames_challenge_draughts2]
 type=text
 x=24
 y=29
 width=80
 height=14
-layer=com_6
+layer=boardgames_challenge_optionslayer
 textfont=p12_full
 text=Draughts
 textshadow=yes
@@ -126,16 +126,16 @@ colour=0xffaa44
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_challenge:com_7, boardgames_challenge:com_8, boardgames_challenge:com_15, boardgames_challenge:com_18)
+onclick=script1422(boardgames_challenge:boardgames_challenge_draughts1, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:10
-[com_10]
+[boardgames_challenge_runelink2]
 type=text
 x=24
 y=59
 width=80
 height=14
-layer=com_6
+layer=boardgames_challenge_optionslayer
 textfont=p12_full
 text=Runelink
 textshadow=yes
@@ -143,84 +143,84 @@ colour=0xffaa44
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_challenge:com_8, boardgames_challenge:com_7, boardgames_challenge:com_15, boardgames_challenge:com_18)
+onclick=script1422(boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_draughts1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:11
-[com_11]
+[boardgames_challenge_draughtsranks]
 type=text
 x=117
 y=29
 width=80
 height=15
-layer=com_6
+layer=boardgames_challenge_optionslayer
 textfont=p12_full
 text=100 vs 100
 textshadow=yes
 colour=0xaaaaaa
 
 // 31:12
-[com_12]
+[boardgames_challenge_runelinkranks]
 type=text
 x=117
 y=59
 width=80
 height=14
-layer=com_6
+layer=boardgames_challenge_optionslayer
 textfont=p12_full
 text=100 vs 100
 textshadow=yes
 colour=0xaaaaaa
 
 // 31:13
-[com_13]
+[boardgames_game_column]
 type=text
 x=24
 y=4
 width=80
 height=15
-layer=com_6
+layer=boardgames_challenge_optionslayer
 textfont=p12_full
 text=Game:
 textshadow=yes
 colour=0xffaa44
 
 // 31:14
-[com_14]
+[boardgames_rank_column]
 type=text
 x=117
 y=4
 width=177
 height=17
-layer=com_6
+layer=boardgames_challenge_optionslayer
 textfont=p12_full
 text=Ranks (mine vs opponent's):
 textshadow=yes
 colour=0xffaa44
 
 // 31:15
-[com_15]
+[boardgames_challenge_runesquares1]
 type=graphic
 x=2
 y=89
 width=15
 height=15
-layer=com_6
+layer=boardgames_challenge_optionslayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(event_com, boardgames_challenge:com_8, boardgames_challenge:com_7, boardgames_challenge:com_18)
+onclick=script1422(event_com, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_draughts1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:16
-[com_16]
+[boardgames_challenge_runesquares2]
 type=text
 x=24
 y=89
 width=80
 height=14
-layer=com_6
+layer=boardgames_challenge_optionslayer
 textfont=p12_full
 text=Runesquares
 textshadow=yes
@@ -228,45 +228,45 @@ colour=0xffaa44
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_challenge:com_15, boardgames_challenge:com_8, boardgames_challenge:com_7, boardgames_challenge:com_18)
+onclick=script1422(boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_draughts1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:17
-[com_17]
+[boardgames_challenge_runesquaresranks]
 type=text
 x=117
 y=89
 width=80
 height=14
-layer=com_6
+layer=boardgames_challenge_optionslayer
 textfont=p12_full
 text=100 vs 100
 textshadow=yes
 colour=0xaaaaaa
 
 // 31:18
-[com_18]
+[boardgames_challenge_runeversi1]
 type=graphic
 x=2
 y=119
 width=15
 height=15
-layer=com_6
+layer=boardgames_challenge_optionslayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0x000000
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(event_com, boardgames_challenge:com_8, boardgames_challenge:com_15, boardgames_challenge:com_7)
+onclick=script1422(event_com, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_draughts1)
 
 // 31:19
-[com_19]
+[boardgames_challenge_runeversi2]
 type=text
 x=24
 y=119
 width=80
 height=14
-layer=com_6
+layer=boardgames_challenge_optionslayer
 textfont=p12_full
 text=Runeversi
 textshadow=yes
@@ -274,23 +274,23 @@ colour=0xffaa44
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_challenge:com_18, boardgames_challenge:com_8, boardgames_challenge:com_15, boardgames_challenge:com_7)
+onclick=script1422(boardgames_challenge:boardgames_challenge_runeversi1, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_draughts1)
 
 // 31:20
-[com_20]
+[boardgames_challenge_runeversiranks]
 type=text
 x=117
 y=119
 width=80
 height=14
-layer=com_6
+layer=boardgames_challenge_optionslayer
 textfont=p12_full
 text=100 vs 100
 textshadow=yes
 colour=0xaaaaaa
 
 // 31:21
-[com_21]
+[boardgames_challenge_close]
 type=graphic
 x=390
 y=64
@@ -404,7 +404,7 @@ colour=0x000000
 type=graphic
 width=32
 height=32
-layer=com_2
+layer=boardgames_challenge_selectlayer
 graphic="v2_stone_borders,18"
 tiling=yes
 colour=0x000000
@@ -415,7 +415,7 @@ type=graphic
 y=12
 width=32
 height=32
-layer=com_2
+layer=boardgames_challenge_selectlayer
 graphic="v2_stone_borders,20"
 tiling=yes
 colour=0x000000
@@ -426,7 +426,7 @@ type=graphic
 x=47
 width=32
 height=32
-layer=com_2
+layer=boardgames_challenge_selectlayer
 graphic="v2_stone_borders,19"
 tiling=yes
 colour=0x000000
@@ -438,7 +438,7 @@ x=47
 y=12
 width=32
 height=32
-layer=com_2
+layer=boardgames_challenge_selectlayer
 graphic="v2_stone_borders,21"
 tiling=yes
 colour=0x000000
@@ -450,7 +450,7 @@ x=25
 y=-14
 width=32
 height=32
-layer=com_2
+layer=boardgames_challenge_selectlayer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0x000000
@@ -462,7 +462,7 @@ x=24
 y=24
 width=32
 height=32
-layer=com_2
+layer=boardgames_challenge_selectlayer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0x000000

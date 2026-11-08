@@ -11,11 +11,11 @@ if ($int0 = 0) {
         if_setonmouseleave("script4030(1)", task_main:com_106);
     }
 } else if ($int1 = 1) {
-    if_setgraphic(graphic_4299, task_main:com_114);
-    if_setonmouseover("script4031(0)", task_main:com_114);
-    if_setonmouseleave("script4031(1)", task_main:com_114);
+    if_setgraphic(graphic_4299, task_main:filter_set_button);
+    if_setonmouseover("script4031(0)", task_main:filter_set_button);
+    if_setonmouseleave("script4031(1)", task_main:filter_set_button);
 } else {
-    if_setgraphic(graphic_4297, task_main:com_114);
-    if_setonmouseover("script4032(0)", task_main:com_114);
-    if_setonmouseleave("script4032(1)", task_main:com_114);
+    if_setgraphic(graphic_4297, task_main:filter_set_button);
+    if_setonmouseover("script4032(0)", task_main:filter_set_button);
+    if_setonmouseleave("script4032(1)", task_main:filter_set_button);
 }

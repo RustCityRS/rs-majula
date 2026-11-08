@@ -67,30 +67,30 @@ graphic="aif_checkbox_large,0"
 type=layer
 width=481
 height=312
-layer=com_93
+layer=layer_5
 
 // 1084:9
-[com_9]
+[layer_2]
 type=layer
 width=512
 height=334
-layer=com_93
+layer=layer_5
 
 // 1084:10
-[com_10]
+[layer_1]
 type=layer
 x=36
 y=36
 width=413
 height=279
-layer=com_93
+layer=layer_5
 
 // 1084:11
-[com_11]
+[layer_3]
 type=layer
 width=512
 height=334
-layer=com_93
+layer=layer_5
 
 // 1084:12
 [com_12]
@@ -99,18 +99,18 @@ x=255
 y=90
 width=25
 height=25
-layer=com_11
+layer=layer_3
 graphic="aif_search_icon,0"
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 
 // 1084:13
-[com_13]
+[layer_4]
 type=layer
 width=512
 height=334
-layer=com_93
+layer=layer_5
 
 // 1084:14
 [com_14]
@@ -119,7 +119,7 @@ x=36
 y=140
 width=107
 height=20
-layer=com_93
+layer=layer_5
 textfont=p11_full
 text=Invite by rank:
 textshadow=yes
@@ -132,7 +132,7 @@ x=180
 y=264
 width=130
 height=28
-layer=com_13
+layer=layer_4
 
 // 1084:16
 [com_16]
@@ -141,7 +141,7 @@ x=26
 y=60
 width=211
 height=68
-layer=com_9
+layer=layer_2
 
 // 1084:17
 [com_17]
@@ -150,7 +150,7 @@ x=26
 y=132
 width=425
 height=123
-layer=com_9
+layer=layer_2
 
 // 1084:18
 [com_18]
@@ -159,7 +159,7 @@ x=242
 y=60
 width=209
 height=68
-layer=com_9
+layer=layer_2
 
 // 1084:19
 [com_19]
@@ -168,7 +168,7 @@ x=11
 y=31
 width=458
 height=32
-layer=com_9
+layer=layer_2
 textfont=p11_full
 text=Invites will be sent to the selected players if they are in the Clan Camp on world x.
 textalignh=centre
@@ -182,7 +182,7 @@ x=3
 y=128
 width=16
 height=16
-layer=com_10
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -194,7 +194,7 @@ x=3
 y=149
 width=16
 height=16
-layer=com_10
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -206,7 +206,7 @@ x=3
 y=170
 width=16
 height=16
-layer=com_10
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -218,7 +218,7 @@ x=3
 y=191
 width=16
 height=16
-layer=com_10
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -230,7 +230,7 @@ x=150
 y=128
 width=16
 height=16
-layer=com_10
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -242,7 +242,7 @@ x=150
 y=149
 width=16
 height=16
-layer=com_10
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -254,7 +254,7 @@ x=150
 y=170
 width=16
 height=16
-layer=com_10
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -266,7 +266,7 @@ x=150
 y=191
 width=16
 height=16
-layer=com_10
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -278,7 +278,7 @@ x=281
 y=128
 width=16
 height=16
-layer=com_10
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -629,7 +629,7 @@ x=26
 y=130
 width=151
 height=18
-layer=com_10
+layer=layer_1
 textfont=p11_full
 text=Recruit
 textshadow=yes
@@ -642,7 +642,7 @@ x=26
 y=151
 width=151
 height=18
-layer=com_10
+layer=layer_1
 textfont=p11_full
 text=Corporal
 textshadow=yes
@@ -655,7 +655,7 @@ x=26
 y=172
 width=151
 height=18
-layer=com_10
+layer=layer_1
 textfont=p11_full
 text=Sergeant
 textshadow=yes
@@ -668,7 +668,7 @@ x=26
 y=193
 width=151
 height=18
-layer=com_10
+layer=layer_1
 textfont=p11_full
 text=Lieutenant
 textshadow=yes
@@ -681,7 +681,7 @@ x=173
 y=130
 width=151
 height=18
-layer=com_10
+layer=layer_1
 textfont=p11_full
 text=Captain
 textshadow=yes
@@ -982,7 +982,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 1084:93
-[com_93]
+[layer_5]
 type=layer
 x=551
 y=742
@@ -998,7 +998,7 @@ x=60
 y=91
 width=159
 height=36
-layer=com_11
+layer=layer_3
 textfont=p11_full
 text=Invite all clanmates to the private meeting room
 textshadow=yes
@@ -1148,7 +1148,7 @@ x=287
 y=92
 width=159
 height=36
-layer=com_11
+layer=layer_3
 textfont=p11_full
 text=Invite a specific player to the private meeting room
 textshadow=yes
@@ -1161,7 +1161,7 @@ x=36
 y=68
 width=107
 height=20
-layer=com_11
+layer=layer_3
 textfont=p11_full
 text=Invite all:
 textshadow=yes
@@ -1174,7 +1174,7 @@ x=252
 y=68
 width=134
 height=20
-layer=com_11
+layer=layer_3
 textfont=p11_full
 text=Invite individual:
 textshadow=yes
@@ -1187,7 +1187,7 @@ x=39
 y=91
 width=16
 height=16
-layer=com_11
+layer=layer_3
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1199,7 +1199,7 @@ x=173
 y=151
 width=151
 height=18
-layer=com_10
+layer=layer_1
 textfont=p11_full
 text=General
 textshadow=yes
@@ -1212,7 +1212,7 @@ x=173
 y=172
 width=151
 height=18
-layer=com_10
+layer=layer_1
 textfont=p11_full
 text=Admin
 textshadow=yes
@@ -1225,7 +1225,7 @@ x=173
 y=193
 width=151
 height=18
-layer=com_10
+layer=layer_1
 textfont=p11_full
 text=Deputy Owner
 textshadow=yes
@@ -1238,7 +1238,7 @@ x=304
 y=130
 width=151
 height=18
-layer=com_10
+layer=layer_1
 textfont=p11_full
 text=Owner
 textshadow=yes

@@ -5,7 +5,7 @@ if (%varclient_1 < calc(clientclock + 25)) {
     %varclient_1 = calc(%varclient_1 + 2);
     return;
 }
-def_component $component2 = worldmap:com_57;
+def_component $component2 = worldmap:tooltip;
 def_component $component3 = if_getlayer($component2);
 def_int $int4 = if_getwidth($component3);
 def_int $int5 = 0;

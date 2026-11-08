@@ -1,5 +1,5 @@
 // 952:0
-[com_0]
+[bind]
 type=layer
 width=496
 height=318
@@ -9,7 +9,7 @@ transmitop=10
 op10= 
 
 // 952:1
-[com_1]
+[bind_back]
 type=graphic
 width=2
 height=12
@@ -17,7 +17,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=bind
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -26,25 +26,25 @@ opbase=
 op10=   
 
 // 952:2
-[com_2]
+[bind_back_tl]
 type=graphic
 width=32
 height=32
-layer=com_0
+layer=bind
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 952:3
-[com_3]
+[bind_back_t]
 type=graphic
 y=-13
 width=64
 height=34
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=bind
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -52,26 +52,26 @@ transmitop=10
 op10=   
 
 // 952:4
-[com_4]
+[bind_back_tr]
 type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_0
+layer=bind
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 952:5
-[com_5]
+[bind_back_l]
 type=graphic
 x=-13
 width=32
 height=64
 heightmode=minus
 ymode=abs_centre
-layer=com_0
+layer=bind
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -79,7 +79,7 @@ transmitop=10
 op10=   
 
 // 952:6
-[com_6]
+[bind_back_r]
 type=graphic
 x=-12
 width=32
@@ -87,7 +87,7 @@ height=64
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_0
+layer=bind
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -95,19 +95,19 @@ transmitop=10
 op10=   
 
 // 952:7
-[com_7]
+[bind_back_bl]
 type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_0
+layer=bind
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 952:8
-[com_8]
+[bind_back_b]
 type=graphic
 y=-12
 width=64
@@ -115,7 +115,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=bind
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -123,27 +123,27 @@ transmitop=10
 op10=   
 
 // 952:9
-[com_9]
+[bind_back_br]
 type=graphic
 width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=bind
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
 op10=   
 
 // 952:10
-[com_10]
+[worn_items_layer]
 type=layer
 x=15
 y=-12
 width=163
 height=200
 ymode=abs_centre
-layer=com_0
+layer=bind
 transmitop=10
 op10= 
 
@@ -154,7 +154,7 @@ x=120
 y=116
 width=32
 height=50
-layer=com_10
+layer=worn_items_layer
 graphic="v2_stone_borders,13"
 tiling=yes
 colour=0xffffffff
@@ -168,7 +168,7 @@ x=66
 y=35
 width=32
 height=130
-layer=com_10
+layer=worn_items_layer
 graphic="v2_stone_borders,13"
 tiling=yes
 colour=0xffffffff
@@ -182,7 +182,7 @@ x=11
 y=116
 width=32
 height=50
-layer=com_10
+layer=worn_items_layer
 graphic="v2_stone_borders,13"
 tiling=yes
 colour=0xffffffff
@@ -196,7 +196,7 @@ x=59
 y=44
 width=48
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -210,7 +210,7 @@ x=43
 y=82
 width=82
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -218,443 +218,443 @@ transmitop=10
 op10= 
 
 // 952:16
-[com_16]
+[headslot]
 type=graphic
 x=64
 y=3
 width=36
 height=36
-layer=com_10
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script2246(bind:com_18, bind:com_17, worn, 0)
-oninvtransmit=script2246(bind:com_18, bind:com_17, worn, 0){worn}
+onload=script2246(bind:headmodel, bind:headback, worn, 0)
+oninvtransmit=script2246(bind:headmodel, bind:headback, worn, 0){worn}
 
 // 952:17
-[com_17]
+[headback]
 type=graphic
 x=66
 y=5
 width=32
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="wornicons,0"
 colour=0xffffffff
 
 // 952:18
-[com_18]
+[headmodel]
 type=graphic
 x=64
 y=5
 width=36
 height=32
-layer=com_10
+layer=worn_items_layer
 outline=1
 graphicshadow=1971220
 colour=0xffffffff
 
 // 952:19
-[com_19]
+[capeslot]
 type=graphic
 x=23
 y=42
 width=36
 height=36
-layer=com_10
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script2246(bind:com_21, bind:com_20, worn, 1)
-oninvtransmit=script2246(bind:com_21, bind:com_20, worn, 1){worn}
+onload=script2246(bind:capemodel, bind:capeback, worn, 1)
+oninvtransmit=script2246(bind:capemodel, bind:capeback, worn, 1){worn}
 
 // 952:20
-[com_20]
+[capeback]
 type=graphic
 x=25
 y=44
 width=32
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="wornicons,1"
 colour=0xffffffff
 
 // 952:21
-[com_21]
+[capemodel]
 type=graphic
 x=23
 y=44
 width=36
 height=32
-layer=com_10
+layer=worn_items_layer
 outline=1
 graphicshadow=1971220
 colour=0xffffffff
 
 // 952:22
-[com_22]
+[necklaceslot]
 type=graphic
 x=64
 y=42
 width=36
 height=36
-layer=com_10
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script2246(bind:com_24, bind:com_23, worn, 2)
-oninvtransmit=script2246(bind:com_24, bind:com_23, worn, 2){worn}
+onload=script2246(bind:necklacemodel, bind:necklaceback, worn, 2)
+oninvtransmit=script2246(bind:necklacemodel, bind:necklaceback, worn, 2){worn}
 
 // 952:23
-[com_23]
+[necklaceback]
 type=graphic
 x=66
 y=44
 width=32
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="wornicons,2"
 colour=0xffffffff
 
 // 952:24
-[com_24]
+[necklacemodel]
 type=graphic
 x=64
 y=44
 width=36
 height=32
-layer=com_10
+layer=worn_items_layer
 outline=1
 graphicshadow=1971220
 colour=0xffffffff
 
 // 952:25
-[com_25]
+[arrowslot]
 type=graphic
 x=105
 y=42
 width=36
 height=36
-layer=com_10
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script2246(bind:com_27, bind:com_26, worn, 13)
-oninvtransmit=script2246(bind:com_27, bind:com_26, worn, 13){worn}
+onload=script2246(bind:arrowmodel, bind:arrowback, worn, 13)
+oninvtransmit=script2246(bind:arrowmodel, bind:arrowback, worn, 13){worn}
 
 // 952:26
-[com_26]
+[arrowback]
 type=graphic
 x=107
 y=44
 width=32
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="wornicons,10"
 colour=0xffffffff
 
 // 952:27
-[com_27]
+[arrowmodel]
 type=graphic
 x=105
 y=44
 width=36
 height=32
-layer=com_10
+layer=worn_items_layer
 outline=1
 graphicshadow=1971220
 colour=0xffffffff
 
 // 952:28
-[com_28]
+[weaponslot]
 type=graphic
 x=10
 y=81
 width=36
 height=36
-layer=com_10
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 opbase=weaponslot
 op10= 
-onload=script2246(bind:com_30, bind:com_29, worn, 3)
-oninvtransmit=script2246(bind:com_30, bind:com_29, worn, 3){worn}
+onload=script2246(bind:weaponmodel, bind:weaponback, worn, 3)
+oninvtransmit=script2246(bind:weaponmodel, bind:weaponback, worn, 3){worn}
 
 // 952:29
-[com_29]
+[weaponback]
 type=graphic
 x=12
 y=83
 width=32
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="wornicons,3"
 colour=0xffffffff
 
 // 952:30
-[com_30]
+[weaponmodel]
 type=graphic
 x=10
 y=83
 width=36
 height=32
-layer=com_10
+layer=worn_items_layer
 outline=1
 graphicshadow=1971220
 colour=0xffffffff
 
 // 952:31
-[com_31]
+[bodyslot]
 type=graphic
 x=64
 y=81
 width=36
 height=36
-layer=com_10
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script2246(bind:com_33, bind:com_32, worn, 4)
-oninvtransmit=script2246(bind:com_33, bind:com_32, worn, 4){worn}
+onload=script2246(bind:bodymodel, bind:bodyback, worn, 4)
+oninvtransmit=script2246(bind:bodymodel, bind:bodyback, worn, 4){worn}
 
 // 952:32
-[com_32]
+[bodyback]
 type=graphic
 x=66
 y=83
 width=32
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="wornicons,5"
 colour=0xffffffff
 
 // 952:33
-[com_33]
+[bodymodel]
 type=graphic
 x=64
 y=83
 width=36
 height=32
-layer=com_10
+layer=worn_items_layer
 outline=1
 graphicshadow=1971220
 colour=0xffffffff
 
 // 952:34
-[com_34]
+[shieldslot]
 type=graphic
 x=118
 y=81
 width=36
 height=36
-layer=com_10
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script2246(bind:com_36, bind:com_35, worn, 5)
-oninvtransmit=script2246(bind:com_36, bind:com_35, worn, 5){worn}
+onload=script2246(bind:shieldmodel, bind:shieldback, worn, 5)
+oninvtransmit=script2246(bind:shieldmodel, bind:shieldback, worn, 5){worn}
 
 // 952:35
-[com_35]
+[shieldback]
 type=graphic
 x=120
 y=83
 width=32
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="wornicons,6"
 colour=0xffffffff
 
 // 952:36
-[com_36]
+[shieldmodel]
 type=graphic
 x=118
 y=83
 width=36
 height=32
-layer=com_10
+layer=worn_items_layer
 outline=1
 graphicshadow=1971220
 colour=0xffffffff
 
 // 952:37
-[com_37]
+[legslot]
 type=graphic
 x=64
 y=121
 width=36
 height=36
-layer=com_10
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script2246(bind:com_39, bind:com_38, worn, 7)
-oninvtransmit=script2246(bind:com_39, bind:com_38, worn, 7){worn}
+onload=script2246(bind:legmodel, bind:legback, worn, 7)
+oninvtransmit=script2246(bind:legmodel, bind:legback, worn, 7){worn}
 
 // 952:38
-[com_38]
+[legback]
 type=graphic
 x=66
 y=123
 width=32
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="wornicons,7"
 colour=0xffffffff
 
 // 952:39
-[com_39]
+[legmodel]
 type=graphic
 x=64
 y=123
 width=36
 height=32
-layer=com_10
+layer=worn_items_layer
 outline=1
 graphicshadow=1971220
 colour=0xffffffff
 
 // 952:40
-[com_40]
+[handslot]
 type=graphic
 x=10
 y=161
 width=36
 height=36
-layer=com_10
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script2246(bind:com_42, bind:com_41, worn, 9)
-oninvtransmit=script2246(bind:com_42, bind:com_41, worn, 9){worn}
+onload=script2246(bind:handmodel, bind:handback, worn, 9)
+oninvtransmit=script2246(bind:handmodel, bind:handback, worn, 9){worn}
 
 // 952:41
-[com_41]
+[handback]
 type=graphic
 x=12
 y=163
 width=32
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="wornicons,8"
 colour=0xffffffff
 
 // 952:42
-[com_42]
+[handmodel]
 type=graphic
 x=10
 y=163
 width=36
 height=32
-layer=com_10
+layer=worn_items_layer
 outline=1
 graphicshadow=1971220
 colour=0xffffffff
 
 // 952:43
-[com_43]
+[footslot]
 type=graphic
 x=64
 y=161
 width=36
 height=36
-layer=com_10
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script2246(bind:com_45, bind:com_44, worn, 10)
-oninvtransmit=script2246(bind:com_45, bind:com_44, worn, 10){worn}
+onload=script2246(bind:footmodel, bind:footback, worn, 10)
+oninvtransmit=script2246(bind:footmodel, bind:footback, worn, 10){worn}
 
 // 952:44
-[com_44]
+[footback]
 type=graphic
 x=66
 y=163
 width=32
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="wornicons,9"
 colour=0xffffffff
 
 // 952:45
-[com_45]
+[footmodel]
 type=graphic
 x=64
 y=163
 width=36
 height=32
-layer=com_10
+layer=worn_items_layer
 outline=1
 graphicshadow=1971220
 colour=0xffffffff
 
 // 952:46
-[com_46]
+[ringslot]
 type=graphic
 x=118
 y=161
 width=36
 height=36
-layer=com_10
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script2246(bind:com_48, bind:com_47, worn, 12)
-oninvtransmit=script2246(bind:com_48, bind:com_47, worn, 12){worn}
+onload=script2246(bind:ringmodel, bind:ringback, worn, 12)
+oninvtransmit=script2246(bind:ringmodel, bind:ringback, worn, 12){worn}
 
 // 952:47
-[com_47]
+[ringback]
 type=graphic
 x=120
 y=163
 width=32
 height=32
-layer=com_10
+layer=worn_items_layer
 graphic="wornicons,4"
 colour=0xffffffff
 
 // 952:48
-[com_48]
+[ringmodel]
 type=graphic
 x=118
 y=163
 width=36
 height=32
-layer=com_10
+layer=worn_items_layer
 outline=1
 graphicshadow=1971220
 colour=0xffffffff
 
 // 952:49
-[com_49]
+[inventory]
 type=layer
 x=313
 y=38
 width=162
 height=248
-layer=com_0
+layer=bind
 
 // 952:50
 [com_50]
 type=rectangle
 width=162
 height=248
-layer=com_49
+layer=inventory
 colour=0xffff00
 
 // 952:51
-[com_51]
+[safe_text]
 type=text
 y=23
 width=467
@@ -699,7 +699,7 @@ transmitop=10
 op10= 
 
 // 952:54
-[com_54]
+[destroy_text]
 type=text
 x=357
 y=274
@@ -718,7 +718,7 @@ op10=
 type=graphic
 width=36
 height=32
-layer=com_49
+layer=inventory
 colour=0xffffffff
 
 // 952:56
@@ -727,7 +727,7 @@ type=graphic
 x=126
 width=36
 height=32
-layer=com_49
+layer=inventory
 colour=0xffffffff
 
 // 952:57
@@ -736,7 +736,7 @@ type=graphic
 y=216
 width=36
 height=32
-layer=com_49
+layer=inventory
 colour=0xffffffff
 
 // 952:58
@@ -746,5 +746,5 @@ x=126
 y=216
 width=36
 height=32
-layer=com_49
+layer=inventory
 colour=0xffffffff

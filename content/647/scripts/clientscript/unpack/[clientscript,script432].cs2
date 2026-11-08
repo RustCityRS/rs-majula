@@ -1,29 +1,29 @@
 // 432
 [clientscript,script432](component $component0, int $int1)
 def_struct $struct2 = null;
-def_component $component3 = conq_side_command:com_85;
+def_component $component3 = conq_side_command:tooltip_content_layer;
 switch_component ($component0) {
     case default :
         return;
-    case conq_side_command:com_65 :
+    case conq_side_command:backing_1 :
         if (%varclient_1388 = 1) {
             $struct2 = struct_293;
         } else {
             $struct2 = ~script488(%varplayerbit_7539);
         }
-    case conq_side_command:com_48 :
+    case conq_side_command:backing_2 :
         if (%varclient_1388 = 1) {
             $struct2 = struct_300;
         } else {
             $struct2 = ~script488(%varplayerbit_7540);
         }
-    case conq_side_command:com_31 :
+    case conq_side_command:backing_3 :
         if (%varclient_1388 = 1) {
             $struct2 = struct_305;
         } else {
             $struct2 = ~script488(%varplayerbit_7541);
         }
-    case conq_side_command:com_14 :
+    case conq_side_command:backing_4 :
         if (%varclient_1388 = 1) {
             $struct2 = struct_1044;
         } else {
@@ -31,10 +31,10 @@ switch_component ($component0) {
         }
 }
 if ($struct2 ! null) {
-    if_settext(struct_param($struct2, param_1150), conq_side_command:com_92);
-    if_settext(struct_param($struct2, param_1151), conq_side_command:com_93);
-    if_settext("Cost: <tostring(struct_param($struct2, param_1154))>", conq_side_command:com_94);
-    if_settext("Cooldown: <tostring(struct_param($struct2, param_1155))>", conq_side_command:com_95);
+    if_settext(struct_param($struct2, param_1150), conq_side_command:tooltip_name);
+    if_settext(struct_param($struct2, param_1151), conq_side_command:tooltip_desc);
+    if_settext("Cost: <tostring(struct_param($struct2, param_1154))>", conq_side_command:tooltip_cost);
+    if_settext("Cooldown: <tostring(struct_param($struct2, param_1155))>", conq_side_command:tooltip_cooldown);
     if_setposition(if_getx($component3), $int1, ^setpos_abs_left, ^setpos_abs_top, $component3);
     if_sethide(false, $component3);
 } else {

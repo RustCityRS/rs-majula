@@ -1,5 +1,5 @@
 // 818:0
-[com_0]
+[image]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -8,14 +8,14 @@ ymode=abs_centre
 hide=yes
 
 // 818:1
-[com_1]
+[scenery]
 type=model
 x=-128
 width=266
 height=58474
 heightmode=proportion
 ymode=abs_centre
-layer=com_0
+layer=image
 model=model_44420
 modelorigin=-30,-278
 modelangle=0,1237,0
@@ -29,7 +29,7 @@ height=50
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=image
 colour=0x000000
 fill=yes
 trans=225
@@ -41,7 +41,7 @@ height=45
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=image
 colour=0x000000
 fill=yes
 trans=200
@@ -53,7 +53,7 @@ height=40
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=image
 colour=0x000000
 fill=yes
 trans=175
@@ -65,7 +65,7 @@ height=35
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=image
 colour=0x000000
 fill=yes
 trans=150
@@ -77,7 +77,7 @@ height=30
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=image
 colour=0x000000
 fill=yes
 trans=125
@@ -89,7 +89,7 @@ height=25
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=image
 colour=0x000000
 fill=yes
 trans=100
@@ -101,7 +101,7 @@ height=20
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=image
 colour=0x000000
 fill=yes
 trans=75
@@ -113,7 +113,7 @@ height=15
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=image
 colour=0x000000
 fill=yes
 trans=50
@@ -125,7 +125,7 @@ height=10
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=image
 colour=0x000000
 fill=yes
 trans=25
@@ -137,12 +137,12 @@ height=5
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=image
 colour=0x000000
 fill=yes
 
 // 818:12
-[com_12]
+[ambient_darkness]
 type=rectangle
 widthmode=minus
 heightmode=minus
@@ -153,12 +153,12 @@ fill=yes
 trans=150
 
 // 818:13
-[com_13]
+[fader]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-onload=script213(luc2_chasm_cutscene:com_0, luc2_chasm_cutscene:com_1, luc2_chasm_cutscene:com_12, luc2_chasm_cutscene:com_13)
-onvartransmit=script213(luc2_chasm_cutscene:com_0, luc2_chasm_cutscene:com_1, luc2_chasm_cutscene:com_12, luc2_chasm_cutscene:com_13){varplayer_425}
-onvarctransmit=script213(luc2_chasm_cutscene:com_0, luc2_chasm_cutscene:com_1, luc2_chasm_cutscene:com_12, luc2_chasm_cutscene:com_13){varclient_97}
+onload=script213(luc2_chasm_cutscene:image, luc2_chasm_cutscene:scenery, luc2_chasm_cutscene:ambient_darkness, luc2_chasm_cutscene:fader)
+onvartransmit=script213(luc2_chasm_cutscene:image, luc2_chasm_cutscene:scenery, luc2_chasm_cutscene:ambient_darkness, luc2_chasm_cutscene:fader){varplayer_425}
+onvarctransmit=script213(luc2_chasm_cutscene:image, luc2_chasm_cutscene:scenery, luc2_chasm_cutscene:ambient_darkness, luc2_chasm_cutscene:fader){varclient_97}

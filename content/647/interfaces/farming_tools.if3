@@ -12,7 +12,7 @@ fill=yes
 trans=192
 
 // 125:1
-[com_1]
+[contents]
 type=layer
 width=355
 height=240
@@ -21,12 +21,12 @@ ymode=abs_centre
 onload=script1087(event_com, 22)
 
 // 125:2
-[com_2]
+[supercompost_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_33
+layer=supercompost
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -34,13 +34,13 @@ textshadow=yes
 colour=0x870000
 
 // 125:3
-[com_3]
+[supercompost_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_33
+layer=supercompost
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -51,16 +51,16 @@ op2=Remove 5
 op3=Remove All
 op4=Remove X
 op10=Examine
-onload=farming_tools_main_update(event_com, supercompost, 255, farming_tools:com_2)
-onvartransmit=farming_tools_main_update(event_com, supercompost, 255, farming_tools:com_2){varplayer_615}
+onload=farming_tools_main_update(event_com, supercompost, 255, farming_tools:supercompost_name)
+onvartransmit=farming_tools_main_update(event_com, supercompost, 255, farming_tools:supercompost_name){varplayer_615}
 
 // 125:4
-[com_4]
+[compost_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_32
+layer=compost
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -68,13 +68,13 @@ textshadow=yes
 colour=0x872300
 
 // 125:5
-[com_5]
+[compost_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_32
+layer=compost
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -85,16 +85,16 @@ op2=Remove 5
 op3=Remove All
 op4=Remove X
 op10=Examine
-onload=farming_tools_main_update(event_com, compost, 255, farming_tools:com_4)
-onvartransmit=farming_tools_main_update(event_com, compost, 255, farming_tools:com_4){varplayer_615}
+onload=farming_tools_main_update(event_com, compost, 255, farming_tools:compost_name)
+onvartransmit=farming_tools_main_update(event_com, compost, 255, farming_tools:compost_name){varplayer_615}
 
 // 125:6
-[com_6]
+[buckets_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_31
+layer=buckets
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -102,13 +102,13 @@ textshadow=yes
 colour=0x870000
 
 // 125:7
-[com_7]
+[buckets_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_31
+layer=buckets
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -119,16 +119,16 @@ op2=Remove 5
 op3=Remove All
 op4=Remove X
 op10=Examine
-onload=farming_tools_main_update(event_com, bucket, 31, farming_tools:com_6)
-onvartransmit=farming_tools_main_update(event_com, bucket, 31, farming_tools:com_6){varplayer_615}
+onload=farming_tools_main_update(event_com, bucket, 31, farming_tools:buckets_name)
+onvartransmit=farming_tools_main_update(event_com, bucket, 31, farming_tools:buckets_name){varplayer_615}
 
 // 125:8
-[com_8]
+[scarecrow_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_30
+layer=scarecrow
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -136,13 +136,13 @@ textshadow=yes
 colour=0x872300
 
 // 125:9
-[com_9]
+[scarecrow_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_30
+layer=scarecrow
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -153,16 +153,16 @@ op2=Remove 5
 op3=Remove All
 op4=Remove X
 op10=Examine
-onload=farming_tools_main_update(event_com, scarecrow, 4, farming_tools:com_8)
-onvartransmit=farming_tools_main_update(event_com, scarecrow, 4, farming_tools:com_8){varplayer_1357}
+onload=farming_tools_main_update(event_com, scarecrow, 4, farming_tools:scarecrow_name)
+onvartransmit=farming_tools_main_update(event_com, scarecrow, 4, farming_tools:scarecrow_name){varplayer_1357}
 
 // 125:10
-[com_10]
+[wateringcan_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_29
+layer=wateringcan
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -170,13 +170,13 @@ textshadow=yes
 colour=0x872300
 
 // 125:11
-[com_11]
+[wateringcan_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_29
+layer=wateringcan
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -184,16 +184,16 @@ transmitop=1,10
 opbase=<col=ff9040>Watering Can
 op1=Remove
 op10=Examine
-onload=farming_tools_main_update(event_com, watering_can_6797, 1, farming_tools:com_10)
-onvartransmit=farming_tools_main_update(event_com, watering_can_6797, 1, farming_tools:com_10){varplayer_615}
+onload=farming_tools_main_update(event_com, watering_can_6797, 1, farming_tools:wateringcan_name)
+onvartransmit=farming_tools_main_update(event_com, watering_can_6797, 1, farming_tools:wateringcan_name){varplayer_615}
 
 // 125:12
-[com_12]
+[secateurs_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_28
+layer=secateurs
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -201,13 +201,13 @@ textshadow=yes
 colour=0x872300
 
 // 125:13
-[com_13]
+[secateurs_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_28
+layer=secateurs
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -215,16 +215,16 @@ transmitop=1,10
 opbase=<col=ff9040>Secateurs
 op1=Remove
 op10=Examine
-onload=farming_tools_main_update(event_com, secateurs, 1, farming_tools:com_12)
-onvartransmit=farming_tools_main_update(event_com, secateurs, 1, farming_tools:com_12){varplayer_615}
+onload=farming_tools_main_update(event_com, secateurs, 1, farming_tools:secateurs_name)
+onvartransmit=farming_tools_main_update(event_com, secateurs, 1, farming_tools:secateurs_name){varplayer_615}
 
 // 125:14
-[com_14]
+[trowel_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_27
+layer=trowel
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -232,13 +232,13 @@ textshadow=yes
 colour=0x872300
 
 // 125:15
-[com_15]
+[trowel_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_27
+layer=trowel
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -246,16 +246,16 @@ transmitop=1,10
 opbase=<col=ff9040>Trowel
 op1=Remove
 op10=Examine
-onload=farming_tools_main_update(event_com, gardening_trowel, 1, farming_tools:com_14)
-onvartransmit=farming_tools_main_update(event_com, gardening_trowel, 1, farming_tools:com_14){varplayer_615}
+onload=farming_tools_main_update(event_com, gardening_trowel, 1, farming_tools:trowel_name)
+onvartransmit=farming_tools_main_update(event_com, gardening_trowel, 1, farming_tools:trowel_name){varplayer_615}
 
 // 125:16
-[com_16]
+[spade_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_26
+layer=spade
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -263,13 +263,13 @@ textshadow=yes
 colour=0x872300
 
 // 125:17
-[com_17]
+[spade_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_26
+layer=spade
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -277,16 +277,16 @@ transmitop=1,10
 opbase=<col=ff9040>Spade
 op1=Remove
 op10=Examine
-onload=farming_tools_main_update(event_com, spade, 1, farming_tools:com_16)
-onvartransmit=farming_tools_main_update(event_com, spade, 1, farming_tools:com_16){varplayer_615}
+onload=farming_tools_main_update(event_com, spade, 1, farming_tools:spade_name)
+onvartransmit=farming_tools_main_update(event_com, spade, 1, farming_tools:spade_name){varplayer_615}
 
 // 125:18
-[com_18]
+[dibber_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_25
+layer=dibber
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -294,13 +294,13 @@ textshadow=yes
 colour=0x872300
 
 // 125:19
-[com_19]
+[dibber_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_25
+layer=dibber
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -308,16 +308,16 @@ transmitop=1,10
 opbase=<col=ff9040>Dibber
 op1=Remove
 op10=Examine
-onload=farming_tools_main_update(event_com, seed_dibber, 1, farming_tools:com_18)
-onvartransmit=farming_tools_main_update(event_com, seed_dibber, 1, farming_tools:com_18){varplayer_615}
+onload=farming_tools_main_update(event_com, seed_dibber, 1, farming_tools:dibber_name)
+onvartransmit=farming_tools_main_update(event_com, seed_dibber, 1, farming_tools:dibber_name){varplayer_615}
 
 // 125:20
-[com_20]
+[rake_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_24
+layer=rake
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -325,13 +325,13 @@ textshadow=yes
 colour=0x872300
 
 // 125:21
-[com_21]
+[rake_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_24
+layer=rake
 outline=1
 graphicshadow=1
 colour=0xffffffff
@@ -339,8 +339,8 @@ transmitop=1,10
 opbase=<col=ff9040>Rake
 op1=Remove
 op10=Examine
-onload=farming_tools_main_update(event_com, rake, 1, farming_tools:com_20)
-onvartransmit=farming_tools_main_update(event_com, rake, 1, farming_tools:com_20){varplayer_615}
+onload=farming_tools_main_update(event_com, rake, 1, farming_tools:rake_name)
+onvartransmit=farming_tools_main_update(event_com, rake, 1, farming_tools:rake_name){varplayer_615}
 
 // 125:22
 [com_22]
@@ -351,7 +351,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=contents
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -363,7 +363,7 @@ y=4
 width=320
 height=27
 xmode=abs_centre
-layer=com_1
+layer=contents
 textfont=b12_full
 text=Amazing Farming Equipment Store
 textalignh=centre
@@ -372,94 +372,94 @@ textshadow=yes
 colour=0xff9900
 
 // 125:24
-[com_24]
+[rake]
 type=layer
 x=10
 y=40
 width=80
 height=60
-layer=com_1
+layer=contents
 
 // 125:25
-[com_25]
+[dibber]
 type=layer
 x=95
 y=40
 width=80
 height=60
-layer=com_1
+layer=contents
 
 // 125:26
-[com_26]
+[spade]
 type=layer
 x=180
 y=40
 width=80
 height=60
-layer=com_1
+layer=contents
 
 // 125:27
-[com_27]
+[trowel]
 type=layer
 x=265
 y=40
 width=80
 height=60
-layer=com_1
+layer=contents
 
 // 125:28
-[com_28]
+[secateurs]
 type=layer
 x=10
 y=104
 width=90
 height=62
-layer=com_1
+layer=contents
 
 // 125:29
-[com_29]
+[wateringcan]
 type=layer
 x=115
 y=104
 width=126
 height=62
-layer=com_1
+layer=contents
 
 // 125:30
-[com_30]
+[scarecrow]
 type=layer
 x=255
 y=104
 width=90
 height=62
-layer=com_1
+layer=contents
 
 // 125:31
-[com_31]
+[buckets]
 type=layer
 x=20
 y=170
 width=110
 height=60
-layer=com_1
+layer=contents
 
 // 125:32
-[com_32]
+[compost]
 type=layer
 x=135
 y=170
 width=85
 height=60
-layer=com_1
+layer=contents
 
 // 125:33
-[com_33]
+[supercompost]
 type=layer
 x=225
 y=170
 width=110
 height=60
-layer=com_1
+layer=contents
 
 // 125:34
 [com_34]
@@ -469,7 +469,7 @@ y=9
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=contents
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1

@@ -1,7 +1,7 @@
 // 1784
 [proc,clanwars_updateside]
 def_int $int0 = 0;
-def_int $int1 = calc(if_getwidth(clanwars_setup_side:com_3) - 16);
+def_int $int1 = calc(if_getwidth(clanwars_setup_side:contents) - 16);
 def_int $int2 = 0;
 $int0, $int2 = ~clanwars_updateside_textbox("~ Winning ~", $int0, $int2, $int1, 1);
 $int0, $int2 = ~clanwars_updateside_textbox("Victory is awarded...", $int0, $int2, $int1, 0);
@@ -88,18 +88,18 @@ if (%varclient_255 = false) {
 $int0 = calc($int0 + 7);
 $int0, $int2 = ~clanwars_updateside_textbox("~ Arena ~", $int0, $int2, $int1, 1);
 $int0, $int2 = ~clanwars_updateside_textbox(struct_param(enum(int, struct, enum_1604, %varclient_257), param_555), $int0, $int2, $int1, 0);
-if ($int0 > if_getheight(clanwars_setup_side:com_3)) {
+if ($int0 > if_getheight(clanwars_setup_side:contents)) {
     if_sethide(false, clanwars_setup_side:com_4);
-    if_setposition(7, 46, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup_side:com_3);
-    if_setscrollsize(0, $int0, clanwars_setup_side:com_3);
-    ~scrollbar_vertical(clanwars_setup_side:com_4, clanwars_setup_side:com_3, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_setposition(7, 46, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup_side:contents);
+    if_setscrollsize(0, $int0, clanwars_setup_side:contents);
+    ~scrollbar_vertical(clanwars_setup_side:com_4, clanwars_setup_side:contents, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
     if (cc_find(clanwars_setup_side:com_4, 1) = true) {
-        ~scrollbar_vertical_doscroll(clanwars_setup_side:com_4, clanwars_setup_side:com_3, if_getscrolly(clanwars_setup_side:com_3), true);
+        ~scrollbar_vertical_doscroll(clanwars_setup_side:com_4, clanwars_setup_side:contents, if_getscrolly(clanwars_setup_side:contents), true);
     }
 } else {
     cc_deleteall(clanwars_setup_side:com_4);
     if_sethide(true, clanwars_setup_side:com_4);
-    if_setposition(15, 46, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup_side:com_3);
-    if_setscrollsize(0, 0, clanwars_setup_side:com_3);
-    if_setscrollpos(0, 0, clanwars_setup_side:com_3);
+    if_setposition(15, 46, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup_side:contents);
+    if_setscrollsize(0, 0, clanwars_setup_side:contents);
+    if_setscrollpos(0, 0, clanwars_setup_side:contents);
 }

@@ -1,7 +1,7 @@
 // [opheldt,magic:highlvl_alchemy]@magic_spell_high_alch(^highlvl_alchemy, last_item);
-[opheldt,magic:high_level_alchemy]@magic_spell_high_alch(^highlvl_alchemy, last_item);
+[opheldt,magic:sb28]@magic_spell_high_alch(^highlvl_alchemy, last_item);
 // [opheldt,magic:lowlvl_alchemy]@magic_spell_low_alch(^lowlvl_alchemy, last_item);
-[opheldt,magic:low_level_alchemy]@magic_spell_low_alch(^lowlvl_alchemy, last_item);
+[opheldt,magic:sb10]@magic_spell_low_alch(^lowlvl_alchemy, last_item);
 
 [label,magic_spell_high_alch](int $spell, obj $item)
 if_settabactive(^tab_magic);

@@ -1,0 +1,678 @@
+// 765:0
+[com_0]
+type=model
+x=-26
+y=25
+width=440
+height=306
+model=model_46955
+modelorigin=17,152
+modelzoom=566
+modelorthog=yes
+
+// 765:1
+[background_1]
+type=graphic
+x=383
+y=30
+width=127
+height=302
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+onvarctransmit=peng_rak_engine_update{varclient_806}
+
+// 765:2
+[border]
+type=layer
+width=512
+height=334
+
+// 765:3
+[normal_tools]
+type=layer
+x=-3
+y=2
+width=512
+height=334
+layer=bounding
+
+// 765:4
+[fish_tools]
+type=layer
+width=512
+height=334
+layer=bounding
+hide=yes
+
+// 765:5
+[wirebox]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=bounding
+model=model_46967
+modelorigin=4,-8
+modelzoom=433
+transmitop=1
+opbase=Wirebox
+op1=Inspect
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Wirebox", 50, 150)
+onvarctransmit=script2416(event_com){varclient_805}
+
+// 765:6
+[bellows_demo]
+type=model
+x=152
+y=220
+width=49
+height=100
+layer=bounding
+hide=yes
+model=model_46986
+modelorigin=1,3
+modelzoom=348
+transmitop=1,10
+opbase=Bellows
+op1=Pump
+op10=    
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Bellows", 50, 150)
+
+// 765:7
+[blowfish_demo]
+type=model
+x=161
+y=232
+width=39
+height=45
+layer=bounding
+hide=yes
+model=model_46985
+modelorigin=-13,-15
+modelangle=318,648,1359
+modelzoom=544
+transmitop=1,10
+opbase=Pufferfish
+op1=Pump
+op10=  
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Pufferfish", 50, 150)
+
+// 765:8
+[pipes]
+type=model
+x=161
+y=100
+width=39
+height=141
+layer=bounding
+model=model_46961
+modelorigin=-3,-3
+modelangle=0,0,2042
+modelzoom=604
+transmitop=1
+opbase=Pipe
+op1=Inspect
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Pipe", 50, 150)
+onvarctransmit=peng_rak_engine_ops(event_com){varclient_805}
+
+// 765:9
+[valve_wheel]
+type=model
+x=197
+y=164
+width=114
+height=124
+layer=bounding
+model=model_46998
+modelorigin=4,-7
+modelzoom=509
+transmitop=1
+opbase=Valve wheel
+op1=Turn
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Valve wheel", 50, 150)
+
+// 765:10
+[gauge]
+type=model
+x=210
+y=50
+width=138
+height=109
+layer=bounding
+model=model_46968
+modelorigin=0,6
+modelangle=2041,2041,0
+modelzoom=478
+transmitop=1,10
+opbase=Pressure guage
+op1=Read
+op10= 
+opcursor0=cursor_50
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Pressure gauge", 50, 150)
+
+// 765:11
+[wirebox_cover]
+type=model
+x=15
+y=69
+width=143
+height=196
+layer=bounding
+model=model_46960
+modelorigin=4,10
+modelzoom=400
+transmitop=1
+opbase=Wirebox Cover
+op1=Open
+opcursor0=cursor_49
+
+// 765:12
+[close]
+type=graphic
+x=486
+y=33
+width=16
+height=16
+layer=bounding
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 765:13
+[bounding]
+type=layer
+width=512
+height=334
+onload=script2414
+onvarctransmit=script2415{varclient_805}
+
+// 765:14
+[wrench]
+type=model
+x=396
+y=74
+width=23
+height=103
+layer=normal_tools
+model=model_46997
+modelorigin=0,-9
+modelzoom=348
+transmitop=1,10
+opbase=Wrench
+op1=Select
+op10=  
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46982)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Wrench", 50, 150)
+
+// 765:15
+[sparewire]
+type=model
+x=478
+y=80
+width=25
+height=77
+layer=normal_tools
+model=model_46974
+modelorigin=-1,0
+modelzoom=348
+transmitop=1,10
+opbase=Wire
+op1=Select
+op10=  
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46989)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Wire", 50, 150)
+
+// 765:16
+[wirecutter]
+type=model
+x=435
+y=60
+width=31
+height=108
+layer=normal_tools
+model=model_46976
+modelorigin=2,-11
+modelangle=0,3,0
+modelzoom=348
+transmitop=1,10
+opbase=Wire cutter
+op1=Select
+op10=  
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46979)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Wire cutter", 50, 150)
+
+// 765:17
+[tape]
+type=model
+x=394
+y=205
+width=41
+height=35
+layer=normal_tools
+model=model_46995
+modelorigin=-3,-1
+modelzoom=476
+transmitop=1,10
+opbase=Tape
+op1=Select
+op10=   
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46981)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Tape", 50, 150)
+
+// 765:18
+[bellows]
+type=model
+x=446
+y=190
+width=49
+height=100
+layer=normal_tools
+model=model_46986
+modelorigin=1,3
+modelzoom=348
+transmitop=1,10
+opbase=Bellows
+op1=Select
+op10=   
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46996)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Bellows", 50, 150)
+
+// 765:19
+[lever_down]
+type=model
+x=317
+y=162
+width=64
+height=130
+layer=normal_tools
+hide=yes
+model=model_46970
+modelorigin=-9,-2
+modelzoom=544
+transmitop=1,10
+opbase=Lever
+op1=Push
+op10= 
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Lever", 50, 150)
+
+// 765:20
+[lever_up]
+type=model
+x=317
+y=162
+width=64
+height=130
+layer=normal_tools
+model=model_46972
+modelorigin=-9,-2
+modelzoom=544
+transmitop=1
+opbase=Lever
+op1=Pull
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Lever", 50, 150)
+
+// 765:21
+[com_21]
+type=graphic
+y=24
+width=32
+height=32
+layer=border
+graphic="v2_stone_borders_alt,18"
+colour=0xffffffff
+
+// 765:22
+[com_22]
+type=graphic
+x=480
+y=24
+width=32
+height=32
+layer=border
+graphic="v2_stone_borders_alt,19"
+colour=0xffffffff
+
+// 765:23
+[com_23]
+type=graphic
+y=302
+width=32
+height=32
+layer=border
+graphic="v2_stone_borders_alt,20"
+colour=0xffffffff
+opbase= 
+
+// 765:24
+[com_24]
+type=graphic
+x=480
+y=302
+width=32
+height=32
+layer=border
+graphic="v2_stone_borders_alt,21"
+colour=0xffffffff
+
+// 765:25
+[com_25]
+type=graphic
+x=32
+y=24
+width=448
+height=30
+layer=border
+graphic="v2_stone_borders_alt,8"
+tiling=yes
+colour=0xffffffff
+
+// 765:26
+[right]
+type=graphic
+x=506
+y=56
+width=33
+height=247
+layer=border
+graphic="v2_stone_borders_alt,13"
+tiling=yes
+colour=0xffffffff
+opbase=mm  
+
+// 765:27
+[left]
+type=graphic
+x=380
+y=30
+width=31
+height=293
+layer=border
+graphic="v2_stone_borders_alt,13"
+tiling=yes
+colour=0xffffffff
+opbase=  
+
+// 765:28
+[left_far]
+type=graphic
+y=56
+width=32
+height=248
+layer=border
+graphic="v2_stone_borders_alt,13"
+tiling=yes
+colour=0xffffffff
+opbase=  
+
+// 765:29
+[com_29]
+type=graphic
+x=32
+y=328
+width=448
+height=37
+layer=border
+graphic="v2_stone_borders_alt,8"
+tiling=yes
+colour=0xffffffff
+
+// 765:30
+[com_30]
+type=graphic
+x=367
+y=302
+width=32
+height=32
+layer=border
+graphic="v2_stone_borders_alt,15"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 765:31
+[com_31]
+type=graphic
+x=367
+y=24
+width=32
+height=32
+layer=border
+graphic="v2_stone_borders_alt,14"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 765:32
+[tooltip]
+type=layer
+x=14
+y=252
+width=216
+height=66
+layer=bounding
+
+// 765:33
+[swordfish]
+type=model
+x=389
+y=40
+width=42
+height=99
+layer=fish_tools
+model=model_46987
+modelorigin=-2,3
+modelangle=2044,6,0
+modelzoom=544
+transmitop=1
+opbase=Swordfish
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46983)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Swordfish", 50, 150)
+
+// 765:34
+[crab]
+type=model
+x=432
+y=37
+width=31
+height=66
+layer=fish_tools
+model=model_46978
+modelorigin=3,-3
+modelzoom=544
+transmitop=1,10
+opbase=Crab claw
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46980)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Crab claw", 50, 150)
+
+// 765:35
+[sharktooth]
+type=model
+x=457
+y=87
+width=48
+height=38
+layer=fish_tools
+model=model_46990
+modelorigin=1,4
+modelzoom=672
+transmitop=1,10
+opbase=Shark tooth
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46984)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Shark tooth", 50, 150)
+
+// 765:36
+[eel]
+type=model
+x=470
+y=136
+width=28
+height=90
+layer=fish_tools
+model=model_46991
+modelorigin=0,-1
+modelangle=0,0,1558
+modelzoom=450
+transmitop=1,10
+opbase=Eel
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46992)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Electric eel", 50, 150)
+
+// 765:37
+[seaweed]
+type=model
+x=386
+y=141
+width=75
+height=106
+layer=fish_tools
+model=model_46993
+modelorigin=3,0
+modelzoom=544
+transmitop=1,10
+opbase=Seaweed
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46994)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Seaweed", 50, 150)
+
+// 765:38
+[blowfish]
+type=model
+x=455
+y=246
+width=47
+height=50
+layer=fish_tools
+model=model_46977
+modelorigin=0,22
+modelangle=113,0,0
+modelzoom=416
+transmitop=1,10
+opbase=Pufferfish
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46985)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Pufferfish", 50, 150)
+
+// 765:39
+[octopus]
+type=model
+x=396
+y=253
+width=60
+height=49
+layer=fish_tools
+model=model_46975
+modelorigin=1,-8
+modelzoom=544
+transmitop=1,10
+opbase=Octopus
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onop=model_swapper(event_com, model_46988)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Octopus", 50, 150)
+
+// 765:40
+[lever_down_fish]
+type=model
+x=314
+y=164
+width=69
+height=130
+layer=fish_tools
+model=model_46973
+modelorigin=-11,-2
+modelzoom=544
+transmitop=1,10
+opbase=Lever
+op1=Push
+op10=  
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Lever", 50, 150)
+
+// 765:41
+[lever_up_fish]
+type=model
+x=314
+y=164
+width=69
+height=130
+layer=fish_tools
+model=model_46971
+modelorigin=-11,-2
+modelzoom=544
+transmitop=1,10
+opbase=Lever
+op1=Pull
+op10= 
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Lever", 50, 150)
+
+// 765:42
+[no_lever]
+type=model
+x=314
+y=164
+width=52
+height=130
+layer=fish_tools
+model=model_46969
+modelorigin=-3,-2
+modelzoom=544
+transmitop=1,10
+opbase=Lever box
+op1=Inspect
+op10= 
+onmouseleave=deltooltip(peng_rak_engine:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Lever", 50, 150)
+onvarctransmit=script2418(event_com){varclient_805}

@@ -11,5 +11,5 @@ if_sethide(true, clan_chat:com_38);
 if_sethide(false, clan_chat:com_64);
 if_settext("", clan_chat:com_65);
 def_string $string0 = "Join another<br>clan's clanchat.";
-if_setonmouserepeat("aif_tooltip(clan_chat:com_60, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)", clan_chat:com_95);
+if_setonmouserepeat("aif_tooltip(clan_chat:tooltip, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)", clan_chat:com_95);
 if_setop(1, "Join Clan Chat channel", clan_chat:com_95);

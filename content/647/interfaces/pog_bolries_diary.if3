@@ -10,7 +10,7 @@ modelorigin=2,-13
 modelzoom=482
 
 // 617:1
-[com_1]
+[bookmacro_title_5]
 type=graphic
 x=82
 y=5
@@ -21,7 +21,7 @@ tiling=yes
 colour=0xffffffff
 
 // 617:2
-[com_2]
+[bookmacro_title]
 type=graphic
 x=43
 y=1
@@ -31,7 +31,7 @@ graphic="v2_book_arrows,0"
 colour=0xffffffff
 
 // 617:3
-[com_3]
+[bookmacro_title_3]
 type=graphic
 x=82
 y=2
@@ -42,7 +42,7 @@ tiling=yes
 colour=0xffffffff
 
 // 617:4
-[com_4]
+[bookmacro_title_4]
 type=graphic
 x=432
 y=1
@@ -52,7 +52,7 @@ graphic="v2_book_arrows,2"
 colour=0xffffffff
 
 // 617:5
-[com_5]
+[bm1]
 type=layer
 x=12
 y=20
@@ -60,7 +60,7 @@ width=487
 height=45
 
 // 617:6
-[com_6]
+[close_btn]
 type=graphic
 x=479
 y=5
@@ -75,7 +75,7 @@ onmouseleave=graphic_swapper(event_com, "v2_book_buttons,0")
 onop=closebutton_click
 
 // 617:7
-[com_7]
+[bookmacro1title]
 type=text
 x=18
 y=8
@@ -88,7 +88,7 @@ textalignv=centre
 colour=0x493217
 
 // 617:8
-[com_8]
+[chapter1]
 type=text
 x=38
 y=54
@@ -105,7 +105,7 @@ onmouseover=text_colour_swapper(event_com, 0x8c6414)
 onmouseleave=text_colour_swapper(event_com, 0x46320a)
 
 // 617:9
-[com_9]
+[bookmacro1b]
 type=text
 x=38
 y=108
@@ -116,7 +116,7 @@ text=In which Bolrie is advised by a mysterious stranger, and ambition is fed.
 colour=0x46320a
 
 // 617:10
-[com_10]
+[chapter2]
 type=text
 x=38
 y=172
@@ -133,7 +133,7 @@ onmouseover=text_colour_swapper(event_com, 0x8c6414)
 onmouseleave=text_colour_swapper(event_com, 0x46320a)
 
 // 617:11
-[com_11]
+[bookmacro1g]
 type=text
 x=38
 y=224
@@ -144,7 +144,7 @@ text=In which a great king dies and the search for a new one begins.
 colour=0x46320a
 
 // 617:12
-[com_12]
+[chapter3]
 type=text
 x=283
 y=54
@@ -161,7 +161,7 @@ onmouseover=text_colour_swapper(event_com, 0x8c6414)
 onmouseleave=text_colour_swapper(event_com, 0x46320a)
 
 // 617:13
-[com_13]
+[bookmacro1m]
 type=text
 x=283
 y=112
@@ -172,7 +172,7 @@ text=In which a secret is revealed, an old foe reappears and ambitions end.<br><
 colour=0x46320a
 
 // 617:14
-[com_14]
+[bookmacro1v]
 type=text
 x=429
 y=287

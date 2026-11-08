@@ -1,24 +1,24 @@
 // 891:0
-[com_0]
+[start_1]
 type=graphic
 x=150
 y=79
 width=19
 height=18
-layer=com_42
+layer=layer_2
 hide=yes
 graphic=blue_on
 onmouseleave=script4198(event_com)
 onmouserepeat=script4197(event_com)
 
 // 891:1
-[com_1]
+[start_2]
 type=graphic
 x=457
 y=98
 width=19
 height=18
-layer=com_42
+layer=layer_2
 hide=yes
 graphic=blue_on
 onmouseleave=script4198(event_com)
@@ -31,7 +31,7 @@ x=40
 y=34
 width=221
 height=237
-layer=com_41
+layer=layer_1
 graphic=graphic_5417
 
 // 891:3
@@ -41,7 +41,7 @@ x=276
 y=34
 width=221
 height=237
-layer=com_41
+layer=layer_1
 graphic=graphic_5418
 
 // 891:4
@@ -51,7 +51,7 @@ x=47
 y=40
 width=88
 height=28
-layer=com_41
+layer=layer_1
 textfont=p11_full
 text=Ground Floor
 textshadow=yes
@@ -64,7 +64,7 @@ x=286
 y=40
 width=92
 height=24
-layer=com_41
+layer=layer_1
 textfont=p11_full
 text=Underground
 textshadow=yes
@@ -77,7 +77,7 @@ x=40
 y=279
 width=457
 height=27
-layer=com_41
+layer=layer_1
 
 // 891:7
 [com_7]
@@ -86,7 +86,7 @@ x=38
 y=287
 width=105
 height=29
-layer=com_41
+layer=layer_1
 textfont=p11_full
 text=Hover over:
 textalignh=right
@@ -387,7 +387,7 @@ onclick=script4207(event_com, 0)
 onrelease=script4207(event_com, 1)
 
 // 891:35
-[com_35]
+[title_layer]
 type=layer
 width=16384
 height=23
@@ -404,7 +404,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_35
+layer=title_layer
 textfont=palatino_linotype_18pt_regular
 text=Artisans Workshop
 textalignh=centre
@@ -413,7 +413,7 @@ colour=0xebe0bc
 onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 891:37
-[com_37]
+[content_layer]
 type=layer
 x=8
 y=29
@@ -462,7 +462,7 @@ graphic=button_dropshadow_corner
 tiling=yes
 
 // 891:41
-[com_41]
+[layer_1]
 type=layer
 x=-14
 y=8
@@ -470,7 +470,7 @@ width=512
 height=334
 
 // 891:42
-[com_42]
+[layer_2]
 type=layer
 x=7
 y=7
@@ -486,7 +486,7 @@ x=170
 y=287
 width=73
 height=26
-layer=com_41
+layer=layer_1
 textfont=p11_full
 text=Your location
 textshadow=yes
@@ -499,7 +499,7 @@ x=270
 y=287
 width=73
 height=26
-layer=com_41
+layer=layer_1
 textfont=p11_full
 text=Passages
 textshadow=yes
@@ -512,7 +512,7 @@ x=370
 y=287
 width=73
 height=26
-layer=com_41
+layer=layer_1
 textfont=p11_full
 text=Room info
 textshadow=yes
@@ -525,7 +525,7 @@ x=150
 y=283
 width=19
 height=18
-layer=com_41
+layer=layer_1
 graphic=blue_on
 
 // 891:47
@@ -535,7 +535,7 @@ x=250
 y=283
 width=19
 height=18
-layer=com_41
+layer=layer_1
 graphic=green_on
 
 // 891:48
@@ -545,7 +545,7 @@ x=350
 y=283
 width=19
 height=18
-layer=com_41
+layer=layer_1
 graphic=graphic_5415
 
 // 891:49
@@ -555,7 +555,7 @@ x=150
 y=57
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=green_on
 onmouseleave=script4196(event_com)
 onmouserepeat=script4195(event_com)
@@ -567,7 +567,7 @@ x=333
 y=77
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=green_on
 onmouseleave=script4196(event_com)
 onmouserepeat=script4195(event_com)
@@ -579,7 +579,7 @@ x=111
 y=255
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=green_on
 onmouseleave=script4196(event_com)
 onmouserepeat=script4195(event_com)
@@ -591,7 +591,7 @@ x=146
 y=255
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=green_on
 onmouseleave=script4196(event_com)
 onmouserepeat=script4195(event_com)
@@ -603,7 +603,7 @@ x=457
 y=79
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=green_on
 onmouseleave=script4196(event_com)
 onmouserepeat=script4195(event_com)
@@ -615,7 +615,7 @@ x=343
 y=151
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=green_on
 onmouseleave=script4196(event_com)
 onmouserepeat=script4195(event_com)
@@ -627,7 +627,7 @@ x=324
 y=179
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=green_on
 onmouseleave=script4196(event_com)
 onmouserepeat=script4195(event_com)
@@ -639,7 +639,7 @@ x=314
 y=215
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=graphic_5415
 onmouseleave=script4200(event_com)
 onmouserepeat=script4199(event_com)
@@ -651,7 +651,7 @@ x=128
 y=212
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=graphic_5415
 onmouseleave=script4200(event_com)
 onmouserepeat=script4199(event_com)
@@ -663,7 +663,7 @@ x=128
 y=93
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=graphic_5415
 onmouseleave=script4200(event_com)
 onmouserepeat=script4199(event_com)
@@ -675,7 +675,7 @@ x=428
 y=88
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=graphic_5415
 onmouseleave=script4200(event_com)
 onmouserepeat=script4199(event_com)
@@ -687,7 +687,7 @@ x=368
 y=61
 width=19
 height=18
-layer=com_42
+layer=layer_2
 graphic=graphic_5415
 onmouseleave=script4200(event_com)
 onmouserepeat=script4199(event_com)
@@ -701,7 +701,7 @@ width=178
 height=19
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_42
+layer=layer_2
 hide=yes
 linewid=4
 colour=0x32b92a
@@ -715,7 +715,7 @@ width=344
 height=172
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_42
+layer=layer_2
 hide=yes
 linewid=4
 colour=0x32b92a
@@ -730,7 +730,7 @@ width=309
 height=171
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_42
+layer=layer_2
 hide=yes
 linewid=4
 colour=0x32b92a
@@ -745,7 +745,7 @@ width=12
 height=19
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_42
+layer=layer_2
 hide=yes
 linewid=4
 colour=0x32b92a
@@ -856,7 +856,7 @@ graphic="aif_overlay_frame_gold_corner_1,2"
 hflip=yes
 
 // 891:75
-[com_75]
+[title]
 type=text
 x=16
 y=10
@@ -891,7 +891,7 @@ textshadow=yes
 colour=0xffa600
 
 // 891:78
-[com_78]
+[description]
 type=text
 x=16
 y=51

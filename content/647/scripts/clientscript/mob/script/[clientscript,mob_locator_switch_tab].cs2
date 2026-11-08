@@ -1,14 +1,14 @@
 // 2487
 [clientscript,mob_locator_switch_tab](component $component0)
-if_sethide(true, mob_locator:com_10);
-if_sethide(true, mob_locator:com_11);
-if_setgraphic("bank_tabs,3", mob_locator:com_51);
-if_setgraphic("bank_tabs,3", mob_locator:com_49);
+if_sethide(true, mob_locator:ore_layer);
+if_sethide(true, mob_locator:wood_layer);
+if_setgraphic("bank_tabs,3", mob_locator:tab_1);
+if_setgraphic("bank_tabs,3", mob_locator:tab_2);
 switch_component ($component0) {
-    case mob_locator:com_51 :
-        if_sethide(false, mob_locator:com_10);
-        if_setgraphic("bank_tabs,2", mob_locator:com_51);
-    case mob_locator:com_49 :
-        if_sethide(false, mob_locator:com_11);
-        if_setgraphic("bank_tabs,2", mob_locator:com_49);
+    case mob_locator:tab_1 :
+        if_sethide(false, mob_locator:ore_layer);
+        if_setgraphic("bank_tabs,2", mob_locator:tab_1);
+    case mob_locator:tab_2 :
+        if_sethide(false, mob_locator:wood_layer);
+        if_setgraphic("bank_tabs,2", mob_locator:tab_2);
 }

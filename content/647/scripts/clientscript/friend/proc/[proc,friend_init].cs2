@@ -1,6 +1,6 @@
 // 4552
 [proc,friend_init]
-if_settext("Friends List<br>RuneScape <tostring(map_world)>", friends2:com_19);
+if_settext("Friends List<br>RuneScape <tostring(map_world)>", friends2:friends_title);
 if_setonfriendtransmit("friend_transmit", friends2:com_6);
 if_setscrollsize(0, 0, friends2:com_11);
 if_setscrollpos(0, 0, friends2:com_11);

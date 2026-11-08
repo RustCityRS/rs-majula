@@ -1,8 +1,8 @@
 // 4420
 [proc,script4420]
 if_settext("Event", clan_info:com_60);
-if_sethide(false, clan_info:com_58);
-if_sethide(false, clan_info:com_59);
+if_sethide(false, clan_info:arrow1);
+if_sethide(false, clan_info:arrow2);
 switch_int (%varclansetting_130) {
     case 1 :
         ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_98, %varclansetting_106, %varclansetting_82, %varclansetting_90, %varclansetting_74, %varclansetting_114, %varclansetting_65, %varclansetting_132, %varclansetting_122);
@@ -28,8 +28,8 @@ switch_int (%varclansetting_130) {
         if_setonmouseover(null, clan_info:com_56);
         if_setonmouseleave(null, clan_info:com_56);
         if_settext("Events (none)", clan_info:com_60);
-        if_sethide(true, clan_info:com_58);
-        if_sethide(true, clan_info:com_59);
+        if_sethide(true, clan_info:arrow1);
+        if_sethide(true, clan_info:arrow2);
         if_settext("", clan_info:com_50);
         if_settext("", clan_info:com_51);
         if_setonclick(null, clan_info:com_57);

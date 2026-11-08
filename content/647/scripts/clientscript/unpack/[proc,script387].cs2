@@ -5,8 +5,8 @@ def_string $string1 = "Select Style";
 def_string $string2 = "Style";
 def_int $int1 = 0;
 $int1 = max(max(calc(stringwidth($string0, welcome_font_small) + 40), stringwidth($string1, welcome_font_small)), stringwidth($string2, welcome_font_small));
-if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com_36);
-~script362(playerdesign4:com_36, $string0, $int1);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, playerdesign4:roles_header);
+~script362(playerdesign4:roles_header, $string0, $int1);
 ~script362(playerdesign4:com_37, $string1, $int1);
 def_int $int2 = if_getnextsubid(playerdesign4:com_37);
 if (cc_find(playerdesign4:com_37, calc($int2 - 1)) = true) {
@@ -21,46 +21,46 @@ cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 cc_settextshadow(false);
 cc_settext($string2);
 cc_sethide(true);
-$string0, $string1 = if_getop(1, playerdesign4:com_38), if_getop(1, playerdesign4:com_39);
+$string0, $string1 = if_getop(1, playerdesign4:male), if_getop(1, playerdesign4:female);
 def_int $int3 = enum_getoutputcount(enum_3280);
 def_int $int4 = 0;
 def_int $int5 = 0;
 def_int $int6 = 73;
 def_enum $enum7 = enum_3278;
-$int2 = calc(if_getx(playerdesign4:com_36) + $int1 + 20);
+$int2 = calc(if_getx(playerdesign4:roles_header) + $int1 + 20);
 $int1 = calc(max(stringwidth($string0, p12_full), stringwidth($string1, p12_full)) + 30);
-if_setposition($int2, if_gety(playerdesign4:com_38), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com_38);
-~playerdesign4_button(playerdesign4:com_38, $string0, $int1, "");
+if_setposition($int2, if_gety(playerdesign4:male), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:male);
+~playerdesign4_button(playerdesign4:male, $string0, $int1, "");
 $int2 = calc($int2 + $int1 + 10);
-if_setposition($int2, if_gety(playerdesign4:com_38), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com_39);
-~playerdesign4_button(playerdesign4:com_39, $string1, $int1, "");
+if_setposition($int2, if_gety(playerdesign4:male), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:female);
+~playerdesign4_button(playerdesign4:female, $string1, $int1, "");
 $int4 = min($int3, enum_getoutputcount($enum7));
 $int5 = calc(($int4 + 1) / 2);
 $int1 = max(calc($int5 * $int6 + (89 - $int6)), scale(4, 5, 765));
 if_setsize($int1, 26, ^setsize_abs, ^setsize_minus, playerdesign4:com_35);
-if_setsize($int1, if_getheight(playerdesign4:com_35), ^setsize_abs, ^setsize_abs, playerdesign4:com_114);
-if_setsize(0, 180, ^setsize_minus, ^setsize_abs, playerdesign4:com_47);
-if_setposition(0, 237, ^setpos_abs_centre, ^setpos_abs_top, playerdesign4:com_71);
-if_setsize(calc($int1 - ($int2 + if_getwidth(playerdesign4:com_39) + 42)), if_getheight(playerdesign4:com_40), ^setsize_abs, ^setsize_abs, playerdesign4:com_40);
-if_setposition(if_getx(playerdesign4:com_40), if_gety(playerdesign4:com_38), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com_40);
+if_setsize($int1, if_getheight(playerdesign4:com_35), ^setsize_abs, ^setsize_abs, playerdesign4:bottombuttons);
+if_setsize(0, 180, ^setsize_minus, ^setsize_abs, playerdesign4:roles);
+if_setposition(0, 237, ^setpos_abs_centre, ^setpos_abs_top, playerdesign4:no_role);
+if_setsize(calc($int1 - ($int2 + if_getwidth(playerdesign4:female) + 42)), if_getheight(playerdesign4:skincolours_container), ^setsize_abs, ^setsize_abs, playerdesign4:skincolours_container);
+if_setposition(if_getx(playerdesign4:skincolours_container), if_gety(playerdesign4:male), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:skincolours_container);
 ~script389;
 def_int $int8 = calc(%varclient_197 - 1);
 if ($int8 <= -1) {
     if_sethide(true, playerdesign4:com_37);
     if_sethide(true, playerdesign4:com_115);
-    if_sethide(true, playerdesign4:com_117);
-    if_sethide(true, playerdesign4:com_112);
-    if_sethide(true, playerdesign4:com_113);
+    if_sethide(true, playerdesign4:confirm);
+    if_sethide(true, playerdesign4:player);
+    if_sethide(true, playerdesign4:spotanim);
 } else {
     if_sethide(false, playerdesign4:com_37);
     if_sethide(false, playerdesign4:com_115);
     if (%character_creation_multipage = 1 & %character_creation_page = 0) {
-        if_sethide(true, playerdesign4:com_117);
+        if_sethide(true, playerdesign4:confirm);
     } else {
-        if_sethide(false, playerdesign4:com_117);
+        if_sethide(false, playerdesign4:confirm);
     }
-    if_sethide(false, playerdesign4:com_112);
-    if_sethide(false, playerdesign4:com_113);
+    if_sethide(false, playerdesign4:player);
+    if_sethide(false, playerdesign4:spotanim);
 }
 def_component $component9 = null;
 def_string $string3 = "";
@@ -69,7 +69,7 @@ def_int $int11 = 0;
 def_int $int12 = 1;
 def_struct $struct13 = enum(int, struct, $enum7, $int8);
 ~playerdesign4_backdrop($struct13);
-$int2 = calc(if_getheight(playerdesign4:com_47) - (89 + 17));
+$int2 = calc(if_getheight(playerdesign4:roles) - (89 + 17));
 while ($int11 < $int4) {
     $component9 = enum(int, component, enum_3280, $int11);
     if ($component9 ! null) {

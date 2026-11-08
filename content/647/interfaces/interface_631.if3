@@ -1,5 +1,5 @@
 // 631:0
-[com_0]
+[universe]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -12,7 +12,7 @@ x=8
 y=25
 width=497
 height=302
-layer=com_0
+layer=universe
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -24,7 +24,7 @@ x=-12
 y=51
 width=32
 height=252
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -36,7 +36,7 @@ x=1
 y=20
 width=32
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 
@@ -47,7 +47,7 @@ x=492
 y=51
 width=32
 height=251
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -59,7 +59,7 @@ x=33
 y=7
 width=447
 height=34
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -71,7 +71,7 @@ x=32
 y=314
 width=448
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -83,7 +83,7 @@ x=1
 y=302
 width=32
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 
@@ -94,7 +94,7 @@ x=480
 y=20
 width=32
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 
@@ -105,7 +105,7 @@ x=480
 y=302
 width=32
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 
@@ -116,7 +116,7 @@ x=149
 y=26
 width=32
 height=301
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,24"
 tiling=yes
 colour=0xffffffff
@@ -128,7 +128,7 @@ x=180
 y=34
 width=325
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -140,7 +140,7 @@ x=150
 y=34
 width=32
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,25"
 tiling=yes
 colour=0xffffffff
@@ -152,7 +152,7 @@ x=147
 y=162
 width=32
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,26"
 tiling=yes
 colour=0xffffffff
@@ -164,7 +164,7 @@ x=7
 y=162
 width=155
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -176,7 +176,7 @@ x=8
 y=25
 width=155
 height=32
-layer=com_0
+layer=universe
 graphic="v2_borders_slim,11"
 tiling=yes
 colour=0xffffffff
@@ -189,7 +189,7 @@ x=8
 y=182
 width=155
 height=32
-layer=com_0
+layer=universe
 graphic="v2_borders_slim,11"
 tiling=yes
 colour=0xffffffff
@@ -201,7 +201,7 @@ x=315
 y=50
 width=32
 height=213
-layer=com_0
+layer=universe
 graphic="v2_borders_slim,12"
 tiling=yes
 colour=0xffffffff
@@ -213,7 +213,7 @@ x=166
 y=275
 width=339
 height=32
-layer=com_0
+layer=universe
 graphic="v2_borders_slim,11"
 tiling=yes
 colour=0xffffffff
@@ -225,7 +225,7 @@ x=150
 y=249
 width=32
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,25"
 colour=0xffffffff
 
@@ -236,7 +236,7 @@ x=180
 y=249
 width=325
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -252,10 +252,10 @@ ymode=abs_centre
 layer=com_42
 transmitop=1
 op1=Toggle slot
-onload=script4170(event_com, interface_631:com_52, 0, "If selected, neither player can wear items on their heads.")
+onload=script4170(event_com, interface_631:tooltip, 0, "If selected, neither player can wear items on their heads.")
 
 // 631:22
-[com_22]
+[slot1]
 type=layer
 x=-40
 y=-40
@@ -266,10 +266,10 @@ ymode=abs_centre
 layer=com_42
 transmitop=1
 op1=Toggle slot
-onload=script4170(event_com, interface_631:com_52, 1, "If selected, neither player can wear items on their backs, such as capes.")
+onload=script4170(event_com, interface_631:tooltip, 1, "If selected, neither player can wear items on their backs, such as capes.")
 
 // 631:23
-[com_23]
+[slot2]
 type=layer
 y=-40
 width=36
@@ -279,10 +279,10 @@ ymode=abs_centre
 layer=com_42
 transmitop=1
 op1=Toggle slot
-onload=script4170(event_com, interface_631:com_52, 2, "If selected, neither player can wear items around their necks, such as amulets.")
+onload=script4170(event_com, interface_631:tooltip, 2, "If selected, neither player can wear items around their necks, such as amulets.")
 
 // 631:24
-[com_24]
+[slot3]
 type=layer
 x=-55
 width=36
@@ -292,10 +292,10 @@ ymode=abs_centre
 layer=com_42
 transmitop=1
 op1=Toggle slot
-onload=script4170(event_com, interface_631:com_52, 3, "If selected, neither player can wield weapons in their right hands.")
+onload=script4170(event_com, interface_631:tooltip, 3, "If selected, neither player can wield weapons in their right hands.")
 
 // 631:25
-[com_25]
+[slot4]
 type=layer
 width=36
 height=36
@@ -304,7 +304,7 @@ ymode=abs_centre
 layer=com_42
 transmitop=1
 op1=Toggle slot
-onload=script4170(event_com, interface_631:com_52, 4, "If selected, neither player can wear items on their torsos.")
+onload=script4170(event_com, interface_631:tooltip, 4, "If selected, neither player can wear items on their torsos.")
 
 // 631:26
 [com_26]
@@ -317,7 +317,7 @@ ymode=abs_centre
 layer=com_42
 transmitop=1
 op1=Toggle slot
-onload=script4170(event_com, interface_631:com_52, 5, "If selected, neither player can wield items in their left hands, such as shields, or 2-handed weapons such as bows.")
+onload=script4170(event_com, interface_631:tooltip, 5, "If selected, neither player can wield items in their left hands, such as shields, or 2-handed weapons such as bows.")
 
 // 631:27
 [com_27]
@@ -330,7 +330,7 @@ ymode=abs_centre
 layer=com_42
 transmitop=1
 op1=Toggle slot
-onload=script4170(event_com, interface_631:com_52, 7, "If selected, neither player can wear items on their legs.")
+onload=script4170(event_com, interface_631:tooltip, 7, "If selected, neither player can wear items on their legs.")
 
 // 631:28
 [com_28]
@@ -344,7 +344,7 @@ ymode=abs_centre
 layer=com_42
 transmitop=1
 op1=Toggle slot
-onload=script4170(event_com, interface_631:com_52, 9, "If selected, neither player can wear items on their hands.")
+onload=script4170(event_com, interface_631:tooltip, 9, "If selected, neither player can wear items on their hands.")
 
 // 631:29
 [com_29]
@@ -357,7 +357,7 @@ ymode=abs_centre
 layer=com_42
 transmitop=1
 op1=Toggle slot
-onload=script4170(event_com, interface_631:com_52, 10, "If selected, neither player can wear items on their feet.")
+onload=script4170(event_com, interface_631:tooltip, 10, "If selected, neither player can wear items on their feet.")
 
 // 631:30
 [com_30]
@@ -371,7 +371,7 @@ ymode=abs_centre
 layer=com_42
 transmitop=1
 op1=Toggle slot
-onload=script4170(event_com, interface_631:com_52, 12, "If selected, neither player can wear rings.")
+onload=script4170(event_com, interface_631:tooltip, 12, "If selected, neither player can wear rings.")
 
 // 631:31
 [com_31]
@@ -385,7 +385,7 @@ ymode=abs_centre
 layer=com_42
 transmitop=1
 op1=Toggle slot
-onload=script4170(event_com, interface_631:com_52, 13, "If selected, neither player can keep items in their quivers.")
+onload=script4170(event_com, interface_631:tooltip, 13, "If selected, neither player can keep items in their quivers.")
 
 // 631:32
 [com_32]
@@ -394,19 +394,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=duel_acceptlayer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 631:33
-[com_33]
+[accept]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_46
+layer=duel_acceptlayer
 textfont=p12_full
 text=Accept
 textlineheight=12
@@ -424,7 +424,7 @@ x=70
 y=160
 width=32
 height=32
-layer=com_0
+layer=universe
 graphic="v2_stone_borders,27"
 colour=0xffffffff
 
@@ -435,7 +435,7 @@ x=70
 y=161
 width=32
 height=32
-layer=com_0
+layer=universe
 textfont=p11_full
 text=VS
 textalignh=centre
@@ -450,7 +450,7 @@ x=486
 y=29
 width=16
 height=16
-layer=com_0
+layer=universe
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -466,7 +466,7 @@ x=167
 y=27
 width=76
 height=20
-layer=com_0
+layer=universe
 textfont=p12_full
 text=Opponent:
 textlineheight=12
@@ -475,28 +475,28 @@ textshadow=yes
 colour=0xe1981f
 
 // 631:38
-[com_38]
+[duelname]
 type=text
 x=243
 y=27
 width=105
 height=20
-layer=com_0
+layer=universe
 textfont=p12_full
 textlineheight=12
 textalignv=centre
 textshadow=yes
 colour=0xe1981f
-onvarcstrtransmit=script1640(event_com, interface_631:com_52, p12_full){varclient_1793}
+onvarcstrtransmit=script1640(event_com, interface_631:tooltip, p12_full){varclient_1793}
 
 // 631:39
-[com_39]
+[duel_withcombat]
 type=text
 x=350
 y=27
 width=110
 height=20
-layer=com_0
+layer=universe
 textfont=p12_full
 text=Opponent's Level:
 textlineheight=12
@@ -505,13 +505,13 @@ textshadow=yes
 colour=0xe1981f
 
 // 631:40
-[com_40]
+[duelcombat]
 type=text
 x=459
 y=27
 width=26
 height=20
-layer=com_0
+layer=universe
 textfont=p12_full
 textlineheight=12
 textalignv=centre
@@ -519,13 +519,13 @@ textshadow=yes
 colour=0xe1981f
 
 // 631:41
-[com_41]
+[duelstatus]
 type=text
 x=166
 y=293
 width=338
 height=33
-layer=com_0
+layer=universe
 textfont=p11_full
 textlineheight=12
 textalignh=centre
@@ -540,16 +540,16 @@ x=165
 y=50
 width=164
 height=212
-layer=com_0
+layer=universe
 
 // 631:43
-[com_43]
+[options]
 type=layer
 x=330
 y=50
 width=173
 height=212
-layer=com_0
+layer=universe
 
 // 631:44
 [com_44]
@@ -558,7 +558,7 @@ x=8
 y=27
 width=155
 height=15
-layer=com_0
+layer=universe
 textfont=p11_full
 text=Your stake:
 textlineheight=12
@@ -574,7 +574,7 @@ x=8
 y=183
 width=155
 height=15
-layer=com_0
+layer=universe
 textfont=p11_full
 text=Opponent's stake:
 textlineheight=12
@@ -585,24 +585,24 @@ colour=0xe1981f
 opbase= 
 
 // 631:46
-[com_46]
+[duel_acceptlayer]
 type=layer
 x=212
 y=266
 width=100
 height=24
-layer=com_0
+layer=universe
 transmitop=1
 op1=Accept
 
 // 631:47
-[com_47]
+[your_stake]
 type=layer
 x=21
 y=43
 width=130
 height=125
-layer=com_0
+layer=universe
 onload=duel_stake_init
 oninvtransmit=duel_stake_init{inv_134}
 
@@ -613,16 +613,16 @@ x=21
 y=43
 width=130
 height=125
-layer=com_0
+layer=universe
 
 // 631:49
-[com_49]
+[opponent_stake]
 type=layer
 x=21
 y=200
 width=130
 height=125
-layer=com_0
+layer=universe
 
 // 631:50
 [com_50]
@@ -631,7 +631,7 @@ x=21
 y=200
 width=130
 height=125
-layer=com_0
+layer=universe
 
 // 631:51
 [com_51]
@@ -640,17 +640,17 @@ x=358
 y=266
 width=100
 height=24
-layer=com_0
+layer=universe
 transmitop=1
 op1=Decline
 onop=closebutton_click
 
 // 631:52
-[com_52]
+[tooltip]
 type=layer
 width=1
 height=1
-layer=com_0
+layer=universe
 transmitop=10
 op10=   
 
@@ -667,7 +667,7 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 631:54
-[com_54]
+[decline]
 type=text
 widthmode=minus
 heightmode=minus
@@ -690,10 +690,10 @@ type=layer
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 4, "No Ranged", "Neither player is allowed to use ranged attacks.", 0)
+onload=script4166(event_com, interface_631:tooltip, 4, "No Ranged", "Neither player is allowed to use ranged attacks.", 0)
 
 // 631:56
 [com_56]
@@ -702,10 +702,10 @@ y=16
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 5, "No Melee", "Neither player is allowed to use melee attacks.", 0)
+onload=script4166(event_com, interface_631:tooltip, 5, "No Melee", "Neither player is allowed to use melee attacks.", 0)
 
 // 631:57
 [com_57]
@@ -714,10 +714,10 @@ y=32
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 6, "No Magic", "Neither player is allowed to use magic attacks.", 0)
+onload=script4166(event_com, interface_631:tooltip, 6, "No Magic", "Neither player is allowed to use magic attacks.", 0)
 
 // 631:58
 [com_58]
@@ -726,10 +726,10 @@ y=48
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 12, "Fun Weapons", "Both players will use a 'fun weapon', such as a rubber chicken.", 0)
+onload=script4166(event_com, interface_631:tooltip, 12, "Fun Weapons", "Both players will use a 'fun weapon', such as a rubber chicken.", 0)
 
 // 631:59
 [com_59]
@@ -738,10 +738,10 @@ y=64
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 0, "No Forfeit", "Neither player is allowed to forfeit the duel.", 0)
+onload=script4166(event_com, interface_631:tooltip, 0, "No Forfeit", "Neither player is allowed to forfeit the duel.", 0)
 
 // 631:60
 [com_60]
@@ -750,10 +750,10 @@ y=80
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 7, "No Drinks", "Neither player will be allowed to use drinks, such as Strength potions.", 0)
+onload=script4166(event_com, interface_631:tooltip, 7, "No Drinks", "Neither player will be allowed to use drinks, such as Strength potions.", 0)
 
 // 631:61
 [com_61]
@@ -762,10 +762,10 @@ y=96
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 8, "No Food", "Neither player will be allowed to use food.", 0)
+onload=script4166(event_com, interface_631:tooltip, 8, "No Food", "Neither player will be allowed to use food.", 0)
 
 // 631:62
 [com_62]
@@ -774,10 +774,10 @@ y=112
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 9, "No Prayer", "Neither player will be allowed to use prayers.", 0)
+onload=script4166(event_com, interface_631:tooltip, 9, "No Prayer", "Neither player will be allowed to use prayers.", 0)
 
 // 631:63
 [com_63]
@@ -786,22 +786,22 @@ y=128
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 1, "No Movement", "Players stand next to each other and aren't allowed to move or use holding spells.", 0)
+onload=script4166(event_com, interface_631:tooltip, 1, "No Movement", "Players stand next to each other and aren't allowed to move or use holding spells.", 0)
 
 // 631:64
-[com_64]
+[obstacles]
 type=layer
 y=144
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 10, "Obstacles", "The duel will be in an arena with obstacles.", 0)
+onload=script4166(event_com, interface_631:tooltip, 10, "Obstacles", "The duel will be in an arena with obstacles.", 0)
 
 // 631:65
 [com_65]
@@ -810,10 +810,10 @@ y=160
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 28, "Enable Summoning", "Players can summon familiars during the duel.", 1)
+onload=script4166(event_com, interface_631:tooltip, 28, "Enable Summoning", "Players can summon familiars during the duel.", 1)
 
 // 631:66
 [com_66]
@@ -822,10 +822,10 @@ y=176
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_43
+layer=options
 transmitop=1
 op1=Toggle
-onload=script4166(event_com, interface_631:com_52, 13, "No Special Attacks", "Neither player will be allowed to use special attacks.", 1)
+onload=script4166(event_com, interface_631:tooltip, 13, "No Special Attacks", "Neither player will be allowed to use special attacks.", 1)
 
 // 631:67
 [com_67]
@@ -835,7 +835,7 @@ height=20
 widthmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_43
+layer=options
 transmitop=1
 op1=Previous options
 onload=v2_stone_button(event_com)
@@ -850,7 +850,7 @@ height=20
 widthmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_43
+layer=options
 textfont=p11_full
 text=Previous options
 textalignh=centre

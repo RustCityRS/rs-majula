@@ -1,6 +1,6 @@
 // 1653
 [proc,script1653]()(boolean)
-if (if_gethide(chatbox:com_8) = true & (if_gethide(chatbox:com_3) = false | if_gethide(chatbox:com_7) = false) | if_hassub(chatbox:com_dialogue_box) = true | if_hassub(chatbox:com_dialogue_box_small) = true | if_hassub(chatbox:com_11) = true | if_hassub(chatbox:com_10) = true | if_gethide(chatbox_background:com_0) = false) {
+if (if_gethide(chattop:mes_layer_hide) = true & (if_gethide(chattop:mes_layer) = false | if_gethide(chattop:mes_layer_large) = false) | if_hassub(chattop:chatmodallarge) = true | if_hassub(chattop:chatmodal) = true | if_hassub(chattop:chatoverlaylarge) = true | if_hassub(chattop:chatoverlay) = true | if_gethide(chatdefault:quickchat) = false) {
     return(true);
 } else {
     return(false);

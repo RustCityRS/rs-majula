@@ -135,7 +135,7 @@ graphic="v2_stone_borders,10"
 colour=0xffffffff
 
 // 583:13
-[com_13]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -145,8 +145,8 @@ graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(cws_doomsayer:com_13, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(cws_doomsayer:com_13, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(cws_doomsayer:close_button, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(cws_doomsayer:close_button, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 583:14
@@ -175,7 +175,7 @@ textshadow=yes
 colour=0xff981f
 
 // 583:16
-[com_16]
+[scrolling_layer]
 type=layer
 x=23
 y=55
@@ -185,14 +185,14 @@ scrollwidth=336
 scrollheight=550
 
 // 583:17
-[com_17]
+[scrollbar_layer]
 type=layer
 x=474
 y=58
 width=16
 height=258
 opbase= 
-onload=scrollbar_vertical_graphics(event_com, cws_doomsayer:com_16, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, cws_doomsayer:scrolling_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 583:18
 [com_18]
@@ -201,7 +201,7 @@ x=8
 y=8
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 1){varplayer_1045}
@@ -213,7 +213,7 @@ x=122
 y=8
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 13){varplayer_1046}
@@ -225,7 +225,7 @@ x=235
 y=8
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 4){varplayer_1045}
@@ -237,7 +237,7 @@ x=348
 y=8
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 3){varplayer_1045}
@@ -249,7 +249,7 @@ x=8
 y=77
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 6){varplayer_1045}
@@ -261,7 +261,7 @@ x=122
 y=77
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 5){varplayer_1045}
@@ -273,7 +273,7 @@ x=235
 y=77
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 2){varplayer_1045}
@@ -285,7 +285,7 @@ x=348
 y=77
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 11){varplayer_1046}
@@ -297,7 +297,7 @@ x=8
 y=146
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 14){varplayer_1046}
@@ -309,7 +309,7 @@ x=122
 y=146
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 15){varplayer_1046}
@@ -321,7 +321,7 @@ x=348
 y=146
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 16){varplayer_1046}
@@ -333,7 +333,7 @@ x=8
 y=214
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 20){varplayer_1046}
@@ -345,7 +345,7 @@ x=122
 y=214
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 9){varplayer_1045}
@@ -357,7 +357,7 @@ x=235
 y=214
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 17){varplayer_1046}
@@ -369,7 +369,7 @@ x=348
 y=214
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 10){varplayer_1045}
@@ -381,7 +381,7 @@ x=8
 y=282
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 12){varplayer_1046}
@@ -393,7 +393,7 @@ x=235
 y=282
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 opbase=[if_button1,cws_doomsayer:King Black Dragon] @cws_toggle_reset(22);
@@ -406,7 +406,7 @@ x=348
 y=282
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 7){varplayer_1045}
@@ -418,7 +418,7 @@ x=8
 y=350
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 19){varplayer_1046}
@@ -430,7 +430,7 @@ x=122
 y=350
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 18){varplayer_1046}
@@ -442,7 +442,7 @@ x=122
 y=282
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 23){varplayer_1047}
@@ -454,7 +454,7 @@ x=235
 y=146
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 24){varplayer_1047}
@@ -466,7 +466,7 @@ x=235
 y=350
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 25){varplayer_1047}
@@ -478,7 +478,7 @@ x=348
 y=350
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 26){varplayer_1047}
@@ -490,7 +490,7 @@ x=122
 y=418
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 27){varplayer_1047}
@@ -502,7 +502,7 @@ x=235
 y=418
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 28){varplayer_1047}
@@ -514,7 +514,7 @@ x=348
 y=418
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 29){varplayer_1047}
@@ -526,7 +526,7 @@ x=8
 y=486
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 30){varplayer_1047}
@@ -538,7 +538,7 @@ x=122
 y=486
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 22){varplayer_1045}
@@ -550,7 +550,7 @@ x=235
 y=486
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 onvartransmit=cws_graphic_swap_2(event_com, 31){varplayer_1046}
@@ -562,7 +562,7 @@ x=8
 y=418
 width=90
 height=56
-layer=com_16
+layer=scrolling_layer
 graphic="wild_ditch_sign_button,0"
 colour=0xffffffff
 transmitop=10
@@ -570,13 +570,13 @@ op10=
 onvartransmit=cws_graphic_swap_2(event_com, 33){varplayer_1501}
 
 // 583:49
-[com_49]
+[dagganoth_kings_ladder]
 type=text
 x=10
 y=10
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Dagannoth Kings' Ladder
 textalignh=centre
@@ -587,13 +587,13 @@ transmitop=1
 op1=Toggle
 
 // 583:50
-[com_50]
+[goblin_cave_rope]
 type=text
 x=124
 y=10
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Lumbridge Swamp Cave Rope
 textalignh=centre
@@ -610,7 +610,7 @@ x=237
 y=10
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Stronghold of Security Ladders
 textalignh=centre
@@ -627,7 +627,7 @@ x=350
 y=10
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Falador Mole Lair
 textalignh=centre
@@ -644,7 +644,7 @@ x=10
 y=79
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Dropped Items in Random Events
 textalignh=centre
@@ -661,7 +661,7 @@ x=124
 y=79
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Player-Owned Houses
 textalignh=centre
@@ -678,7 +678,7 @@ x=237
 y=79
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Contact Dungeon Ladder
 textalignh=centre
@@ -695,7 +695,7 @@ x=350
 y=79
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Icy Path Area
 textalignh=centre
@@ -706,13 +706,13 @@ transmitop=1
 op1=Toggle
 
 // 583:57
-[com_57]
+[ham_tunnel]
 type=text
 x=10
 y=148
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=H.A.M. Tunnel from Mill
 textalignh=centre
@@ -723,13 +723,13 @@ transmitop=1
 op1=Toggle
 
 // 583:58
-[com_58]
+[fairy_rings]
 type=text
 x=124
 y=148
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Fairy Ring to Dorgesh-Kaan
 textalignh=centre
@@ -740,13 +740,13 @@ transmitop=1
 op1=Toggle
 
 // 583:59
-[com_59]
+[lumbridge_cellar]
 type=text
 x=350
 y=148
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Lumbridge Cellar
 textalignh=centre
@@ -757,13 +757,13 @@ transmitop=1
 op1=Toggle
 
 // 583:60
-[com_60]
+[mort_myre]
 type=text
 x=10
 y=216
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Mort Myre
 textalignh=centre
@@ -774,13 +774,13 @@ transmitop=1
 op1=Toggle
 
 // 583:61
-[com_61]
+[observatory_stairs]
 type=text
 x=124
 y=216
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Observatory Stairs
 textalignh=centre
@@ -791,13 +791,13 @@ transmitop=1
 op1=Toggle
 
 // 583:62
-[com_62]
+[shantay_pass]
 type=text
 x=350
 y=216
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Shantay Pass
 textalignh=centre
@@ -808,13 +808,13 @@ transmitop=1
 op1=Toggle
 
 // 583:63
-[com_63]
+[genie_cave]
 type=text
 x=237
 y=216
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Elid Genie Cave
 textalignh=centre
@@ -831,7 +831,7 @@ x=10
 y=284
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Watchtower Shaman Cave
 textalignh=centre
@@ -848,7 +848,7 @@ x=237
 y=284
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Trollheim Wilderness Entrance
 textalignh=centre
@@ -859,13 +859,13 @@ transmitop=1
 op1=Toggle
 
 // 583:66
-[com_66]
+[wilderness_wall]
 type=text
 x=350
 y=284
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Wilderness Wall
 textalignh=centre
@@ -876,13 +876,13 @@ transmitop=1
 op1=Toggle
 
 // 583:67
-[com_67]
+[193297_collector102]
 type=text
 x=10
 y=352
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Dorgesh-Kaan City Exit
 textalignh=centre
@@ -899,7 +899,7 @@ x=124
 y=352
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Dorgesh-Kaan Tunnel to Kalphites
 textalignh=centre
@@ -916,7 +916,7 @@ x=124
 y=284
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Ranging Guild Tower
 textalignh=centre
@@ -927,13 +927,13 @@ transmitop=1
 op1=Toggle
 
 // 583:70
-[com_70]
+[death_plateau]
 type=text
 x=237
 y=148
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Death Plateau
 textalignh=centre
@@ -944,13 +944,13 @@ transmitop=1
 op1=Toggle
 
 // 583:71
-[com_71]
+[godwars_area]
 type=text
 x=237
 y=352
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=God Wars Wilderness Agility Route
 textalignh=centre
@@ -961,13 +961,13 @@ transmitop=1
 op1=Toggle
 
 // 583:72
-[com_72]
+[duel_arena]
 type=text
 x=350
 y=352
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Duel Arena
 textalignh=centre
@@ -978,13 +978,13 @@ transmitop=1
 op1=Toggle
 
 // 583:73
-[com_73]
+[chaos_tunnels1]
 type=text
 x=124
 y=421
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Chaos Tunnels (East)
 textalignh=centre
@@ -995,13 +995,13 @@ transmitop=1
 op1=Toggle
 
 // 583:74
-[com_74]
+[chaos_tunnels2]
 type=text
 x=237
 y=421
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Chaos Tunnels (Central)
 textalignh=centre
@@ -1012,13 +1012,13 @@ transmitop=1
 op1=Toggle
 
 // 583:75
-[com_75]
+[chaos_tunnels3]
 type=text
 x=350
 y=421
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Chaos Tunnels (West)
 textalignh=centre
@@ -1035,7 +1035,7 @@ x=10
 y=488
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Corporeal Beast<br>(Dangerous)
 textalignh=centre
@@ -1052,7 +1052,7 @@ x=124
 y=488
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Clan Wars<br>Free-for-all<br>(Safe)
 textalignh=centre
@@ -1069,7 +1069,7 @@ x=237
 y=488
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Clan Wars<br>Free-for-all<br>(Dangerous)
 textalignh=centre
@@ -1080,13 +1080,13 @@ transmitop=1
 op1=Toggle
 
 // 583:79
-[com_79]
+[living_rock_caverns_text]
 type=text
 x=10
 y=421
 width=84
 height=52
-layer=com_16
+layer=scrolling_layer
 textfont=p11_full
 text=Living Rock Caverns
 textalignh=centre

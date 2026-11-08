@@ -3,41 +3,41 @@
 def_string $string0 = enum(int, string, enum_1711, %varplayerbit_5145);
 switch_int (%varplayerbit_5145) {
     case 1 :
-        if_sethide(false, firedup_beacon_map:com_17);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 130)", firedup_beacon_map:com_17);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_1);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 130)", firedup_beacon_map:firedup_player_icon_1);
     case 2 :
-        if_sethide(false, firedup_beacon_map:com_18);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 160)", firedup_beacon_map:com_18);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_2);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 160)", firedup_beacon_map:firedup_player_icon_2);
     case 3 :
-        if_sethide(false, firedup_beacon_map:com_19);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_19);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_3);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)", firedup_beacon_map:firedup_player_icon_3);
     case 4 :
-        if_sethide(false, firedup_beacon_map:com_20);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_20);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_4);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)", firedup_beacon_map:firedup_player_icon_4);
     case 5 :
-        if_sethide(false, firedup_beacon_map:com_21);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_21);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_5);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)", firedup_beacon_map:firedup_player_icon_5);
     case 6 :
-        if_sethide(false, firedup_beacon_map:com_22);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_22);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_6);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)", firedup_beacon_map:firedup_player_icon_6);
     case 7 :
-        if_sethide(false, firedup_beacon_map:com_23);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_23);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_7);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)", firedup_beacon_map:firedup_player_icon_7);
     case 8 :
-        if_sethide(false, firedup_beacon_map:com_24);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_24);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_8);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)", firedup_beacon_map:firedup_player_icon_8);
     case 9 :
-        if_sethide(false, firedup_beacon_map:com_25);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_25);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_9);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)", firedup_beacon_map:firedup_player_icon_9);
     case 10 :
-        if_sethide(false, firedup_beacon_map:com_26);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_26);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_10);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)", firedup_beacon_map:firedup_player_icon_10);
     case 11 :
-        if_sethide(false, firedup_beacon_map:com_27);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_27);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_11);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)", firedup_beacon_map:firedup_player_icon_11);
     case 12 :
-        if_sethide(false, firedup_beacon_map:com_28);
-        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_28);
+        if_sethide(false, firedup_beacon_map:firedup_player_icon_12);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)", firedup_beacon_map:firedup_player_icon_12);
     case default :
         return;
 }

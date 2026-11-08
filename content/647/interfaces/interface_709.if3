@@ -149,7 +149,7 @@ modelzoom=1252
 modelanim=seq_8806
 
 // 709:14
-[com_14]
+[sops_title]
 type=text
 x=173
 y=59
@@ -162,7 +162,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 709:15
-[com_15]
+[sops_header]
 type=text
 x=23
 y=30
@@ -174,7 +174,7 @@ textshadow=yes
 colour=0xe1981f
 
 // 709:16
-[com_16]
+[duel_close_button]
 type=graphic
 x=474
 y=30
@@ -189,7 +189,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onclick=closebutton_click
 
 // 709:17
-[com_17]
+[sops_question]
 type=text
 x=102
 y=159

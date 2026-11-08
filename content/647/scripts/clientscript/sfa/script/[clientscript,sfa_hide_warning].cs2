@@ -1,8 +1,8 @@
 // 2900
 [clientscript,sfa_hide_warning](int $int0)
 if (clientclock > calc($int0 + 200)) {
-    if_setontimer(null, interface_476:com_58);
-    if_sethide(true, interface_476:com_58);
+    if_setontimer(null, sfa:aggro_warning);
+    if_sethide(true, sfa:aggro_warning);
 } else if (clientclock > calc($int0 + 150)) {
-    if_settrans(min(calc(if_gettrans(interface_476:com_58) + 10), 255), interface_476:com_58);
+    if_settrans(min(calc(if_gettrans(sfa:aggro_warning) + 10), 255), sfa:aggro_warning);
 }

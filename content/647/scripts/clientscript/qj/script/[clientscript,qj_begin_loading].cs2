@@ -6,5 +6,5 @@ if (%varclient_771 = 1) {
     if_setontimer(null, $component0);
     if_settext("Saving your game and loading QuestHelp", $component0);
     if_sethide(true, $component0);
-    if_sethide(false, questjournal_scroll:com_14);
+    if_sethide(false, questjournal_scroll:help_link);
 }

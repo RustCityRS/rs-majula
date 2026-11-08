@@ -14,13 +14,13 @@
 //
 // inputtype=interface keys by the interface id (objbox/doubleobjbox resolve
 // via interface.pack). outputtype=component is the chatbox child the dialogue
-// mounts on, written symbolically: `chatbox:com_dialogue_box_small` resolves to
+// mounts on, written symbolically: `chattop:chatmodal` resolves to
 // the component hash (752<<16|12). The default dialogue_box slot
-// (chatbox:com_dialogue_box, 752:13) is implicit — only the small-slot
+// (chattop:chatmodallarge, 752:13) is implicit — only the small-slot
 // exceptions are listed here. Names follow void's gameframe types
 // (dialogue_box / dialogue_box_small); rs3 has no interface dump.
 [dialogue_slot_enum]
 inputtype=interface
 outputtype=component
-val=objbox,chatbox:com_dialogue_box_small
-val=doubleobjbox,chatbox:com_dialogue_box_small
+val=objbox,chattop:chatmodal
+val=doubleobjbox,chattop:chatmodal

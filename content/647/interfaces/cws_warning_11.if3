@@ -128,7 +128,7 @@ graphic="v2_stone_borders,10"
 colour=0x000000
 
 // 327:12
-[com_12]
+[cws_close]
 type=graphic
 x=405
 y=43
@@ -138,12 +138,12 @@ graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(cws_warning_11:com_12, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(cws_warning_11:com_12, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(cws_warning_11:cws_close, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(cws_warning_11:cws_close, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 327:13
-[com_13]
+[warning_text]
 type=text
 x=211
 y=41
@@ -157,7 +157,7 @@ textshadow=yes
 colour=0xff981f
 
 // 327:14
-[com_14]
+[cws_test_warning]
 type=text
 x=106
 y=102
@@ -191,13 +191,13 @@ graphic="warning_icons,0"
 colour=0x000000
 
 // 327:17
-[com_17]
+[warn3]
 type=text
 x=1
 y=2
 width=315
 height=15
-layer=com_19
+layer=cws_warning_layer
 textfont=p12_full
 text=Don't show me this again
 textalignh=centre
@@ -206,21 +206,21 @@ textshadow=yes
 colour=0xff981f
 
 // 327:18
-[com_18]
+[cws_toggle_button]
 type=graphic
 x=2
 width=19
 height=19
-layer=com_19
+layer=cws_warning_layer
 graphic="warning_icons,1"
 colour=0x000000
 transmitop=1
 op1=Off/On
-onvartransmit=cws_graphic_swap(cws_warning_11:com_18, 11){varplayer_1046}
-onclick=cws_toggle(cws_warning_11:com_18)
+onvartransmit=cws_graphic_swap(cws_warning_11:cws_toggle_button, 11){varplayer_1046}
+onclick=cws_toggle(cws_warning_11:cws_toggle_button)
 
 // 327:19
-[com_19]
+[cws_warning_layer]
 type=layer
 x=107
 y=220

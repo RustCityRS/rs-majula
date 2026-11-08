@@ -1,5 +1,5 @@
-[apnpct,magic:crumble_undead] ~pvm_crumble_undead;
-[opnpct,magic:crumble_undead] ~pvm_crumble_undead;
+[apnpct,magic:sb19] ~pvm_crumble_undead;
+[opnpct,magic:sb19] ~pvm_crumble_undead;
 
 [proc,pvm_crumble_undead]
 // order of these checks are from osrs:
@@ -10,7 +10,7 @@
 // - undead check
 // - attackable opt check
 if (map_clock < %action_delay) {
-    p_opnpct(magic:crumble_undead);
+    p_opnpct(magic:sb19);
     return;
 }
 def_dbrow $spell_data = ~get_spell_data(^crumble_undead);

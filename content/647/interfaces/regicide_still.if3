@@ -106,7 +106,7 @@ transmitop=10
 op10=        
 
 // 286:8
-[com_8]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -202,7 +202,7 @@ transmitop=10
 op10=        
 
 // 286:15
-[com_15]
+[title]
 type=text
 x=113
 y=30
@@ -216,7 +216,7 @@ textshadow=yes
 colour=0xff981f
 
 // 286:16
-[com_16]
+[right_dial_back]
 type=model
 x=363
 y=75
@@ -227,7 +227,7 @@ modelangle=512,0,0
 modelzoom=500
 
 // 286:17
-[com_17]
+[right_dial_text]
 type=text
 x=410
 y=103
@@ -239,7 +239,7 @@ textalignh=centre
 colour=0xff9935
 
 // 286:18
-[com_18]
+[left_dial_back]
 type=model
 x=27
 y=75
@@ -250,7 +250,7 @@ modelangle=512,0,0
 modelzoom=500
 
 // 286:19
-[com_19]
+[left_dial_text]
 type=text
 x=63
 y=103
@@ -262,7 +262,7 @@ textalignh=centre
 colour=0xff9935
 
 // 286:20
-[com_20]
+[pressure_needle]
 type=model
 x=42
 y=129
@@ -276,7 +276,7 @@ onload=regicide_still_pressure_needle(event_com)
 onvartransmit=regicide_still_pressure_needle(event_com){varplayer_331}
 
 // 286:21
-[com_21]
+[heat_needle]
 type=model
 x=378
 y=129
@@ -290,7 +290,7 @@ onload=regicide_still_heat_needle(event_com)
 onvartransmit=regicide_still_heat_needle(event_com){varplayer_331}
 
 // 286:22
-[com_22]
+[regicide_add_coal]
 type=model
 x=172
 y=109
@@ -304,7 +304,7 @@ transmitop=1
 op1=Add Coal
 
 // 286:23
-[com_23]
+[add_coal_text]
 type=text
 x=205
 y=130
@@ -316,7 +316,7 @@ textalignh=centre
 colour=0xff9935
 
 // 286:24
-[com_24]
+[left_wheel]
 type=model
 x=51
 y=226
@@ -330,7 +330,7 @@ onload=regicide_still_left_wheel(event_com)
 onvartransmit=regicide_still_left_wheel(event_com){varplayer_331}
 
 // 286:25
-[com_25]
+[right_wheel]
 type=model
 x=387
 y=226
@@ -344,7 +344,7 @@ onload=regicide_still_right_wheel(event_com)
 onvartransmit=regicide_still_right_wheel(event_com){varplayer_331}
 
 // 286:26
-[com_26]
+[bar_model]
 type=model
 x=165
 y=239
@@ -356,7 +356,7 @@ modelangle=512,512,0
 modelzoom=400
 
 // 286:27
-[com_27]
+[regicide_pressure_valve_down]
 type=text
 x=56
 y=224
@@ -369,7 +369,7 @@ transmitop=1
 op1=Decrease Pressure
 
 // 286:28
-[com_28]
+[regicide_pressure_valve_up]
 type=text
 x=88
 y=224
@@ -382,7 +382,7 @@ transmitop=1
 op1=Increase Pressure
 
 // 286:29
-[com_29]
+[regicide_tar_valve_down]
 type=text
 x=391
 y=224
@@ -395,7 +395,7 @@ transmitop=1
 op1=Decrease Tar
 
 // 286:30
-[com_30]
+[regicide_tar_valve_up]
 type=text
 x=423
 y=224
@@ -408,7 +408,7 @@ transmitop=1
 op1=Increase Tar
 
 // 286:31
-[com_31]
+[r1]
 type=rectangle
 x=172
 y=265
@@ -420,7 +420,7 @@ onload=script2029(event_com, 0)
 onvartransmit=script2029(event_com, 0){varplayer_330}
 
 // 286:32
-[com_32]
+[r2]
 type=rectangle
 x=179
 y=265
@@ -432,7 +432,7 @@ onload=script2029(event_com, 1)
 onvartransmit=script2029(event_com, 1){varplayer_330}
 
 // 286:33
-[com_33]
+[r3]
 type=rectangle
 x=186
 y=265
@@ -444,7 +444,7 @@ onload=script2029(event_com, 3)
 onvartransmit=script2029(event_com, 3){varplayer_330}
 
 // 286:34
-[com_34]
+[r4]
 type=rectangle
 x=193
 y=265
@@ -456,7 +456,7 @@ onload=script2029(event_com, 3)
 onvartransmit=script2029(event_com, 3){varplayer_330}
 
 // 286:35
-[com_35]
+[r5]
 type=rectangle
 x=200
 y=265
@@ -468,7 +468,7 @@ onload=script2029(event_com, 4)
 onvartransmit=script2029(event_com, 4){varplayer_330}
 
 // 286:36
-[com_36]
+[r6]
 type=rectangle
 x=207
 y=265
@@ -480,7 +480,7 @@ onload=script2029(event_com, 5)
 onvartransmit=script2029(event_com, 5){varplayer_330}
 
 // 286:37
-[com_37]
+[r7]
 type=rectangle
 x=214
 y=265
@@ -492,7 +492,7 @@ onload=script2029(event_com, 6)
 onvartransmit=script2029(event_com, 6){varplayer_330}
 
 // 286:38
-[com_38]
+[r8]
 type=rectangle
 x=221
 y=265
@@ -504,7 +504,7 @@ onload=script2029(event_com, 7)
 onvartransmit=script2029(event_com, 7){varplayer_330}
 
 // 286:39
-[com_39]
+[r9]
 type=rectangle
 x=228
 y=265
@@ -516,7 +516,7 @@ onload=script2029(event_com, 8)
 onvartransmit=script2029(event_com, 8){varplayer_330}
 
 // 286:40
-[com_40]
+[r10]
 type=rectangle
 x=235
 y=265
@@ -528,7 +528,7 @@ onload=script2029(event_com, 9)
 onvartransmit=script2029(event_com, 9){varplayer_330}
 
 // 286:41
-[com_41]
+[r11]
 type=rectangle
 x=242
 y=265
@@ -540,7 +540,7 @@ onload=script2029(event_com, 10)
 onvartransmit=script2029(event_com, 10){varplayer_330}
 
 // 286:42
-[com_42]
+[r12]
 type=rectangle
 x=249
 y=265
@@ -552,7 +552,7 @@ onload=script2029(event_com, 11)
 onvartransmit=script2029(event_com, 11){varplayer_330}
 
 // 286:43
-[com_43]
+[r13]
 type=rectangle
 x=256
 y=265
@@ -564,7 +564,7 @@ onload=script2029(event_com, 12)
 onvartransmit=script2029(event_com, 12){varplayer_330}
 
 // 286:44
-[com_44]
+[r14]
 type=rectangle
 x=263
 y=265
@@ -576,7 +576,7 @@ onload=script2029(event_com, 13)
 onvartransmit=script2029(event_com, 13){varplayer_330}
 
 // 286:45
-[com_45]
+[r15]
 type=rectangle
 x=270
 y=265
@@ -588,7 +588,7 @@ onload=script2029(event_com, 14)
 onvartransmit=script2029(event_com, 14){varplayer_330}
 
 // 286:46
-[com_46]
+[r16]
 type=rectangle
 x=277
 y=265
@@ -600,7 +600,7 @@ onload=script2029(event_com, 15)
 onvartransmit=script2029(event_com, 15){varplayer_330}
 
 // 286:47
-[com_47]
+[r17]
 type=rectangle
 x=284
 y=265
@@ -612,7 +612,7 @@ onload=script2029(event_com, 16)
 onvartransmit=script2029(event_com, 16){varplayer_330}
 
 // 286:48
-[com_48]
+[r18]
 type=rectangle
 x=291
 y=265
@@ -624,7 +624,7 @@ onload=script2029(event_com, 17)
 onvartransmit=script2029(event_com, 17){varplayer_330}
 
 // 286:49
-[com_49]
+[r19]
 type=rectangle
 x=298
 y=265
@@ -636,7 +636,7 @@ onload=script2029(event_com, 18)
 onvartransmit=script2029(event_com, 18){varplayer_330}
 
 // 286:50
-[com_50]
+[r20]
 type=rectangle
 x=305
 y=265
@@ -648,7 +648,7 @@ onload=script2029(event_com, 19)
 onvartransmit=script2029(event_com, 19){varplayer_330}
 
 // 286:51
-[com_51]
+[r21]
 type=rectangle
 x=312
 y=265
@@ -660,7 +660,7 @@ onload=script2029(event_com, 20)
 onvartransmit=script2029(event_com, 20){varplayer_330}
 
 // 286:52
-[com_52]
+[r22]
 type=rectangle
 x=319
 y=265
@@ -672,7 +672,7 @@ onload=script2029(event_com, 21)
 onvartransmit=script2029(event_com, 21){varplayer_330}
 
 // 286:53
-[com_53]
+[r23]
 type=rectangle
 x=326
 y=265
@@ -684,7 +684,7 @@ onload=script2029(event_com, 22)
 onvartransmit=script2029(event_com, 22){varplayer_330}
 
 // 286:54
-[com_54]
+[r24]
 type=rectangle
 x=333
 y=265
@@ -696,7 +696,7 @@ onload=script2029(event_com, 23)
 onvartransmit=script2029(event_com, 23){varplayer_330}
 
 // 286:55
-[com_55]
+[r25]
 type=rectangle
 x=340
 y=265
@@ -708,7 +708,7 @@ onload=script2029(event_com, 24)
 onvartransmit=script2029(event_com, 24){varplayer_330}
 
 // 286:56
-[com_56]
+[tar_regulator_text]
 type=text
 x=364
 y=289
@@ -720,7 +720,7 @@ textalignh=centre
 colour=0xff9935
 
 // 286:57
-[com_57]
+[pressure_valve_text]
 type=text
 x=20
 y=290
@@ -742,7 +742,7 @@ colour=0x000000
 fill=yes
 
 // 286:59
-[com_59]
+[total_text]
 type=text
 x=145
 y=294

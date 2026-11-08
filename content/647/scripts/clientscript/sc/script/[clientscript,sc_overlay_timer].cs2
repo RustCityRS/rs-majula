@@ -1,7 +1,7 @@
 // 1941
 [clientscript,sc_overlay_timer]
 def_int $int0 = calc(%varplayer_1332 + %varplayer_1334 + %varplayer_1337 + 2 * (%varplayer_1333 - %varplayer_1335));
-if_settext("Score: <tostring($int0)>", sc_in_game_overlay:com_17);
+if_settext("Score: <tostring($int0)>", sc_in_game_overlay:score);
 if (%varclient_556 = 0) {
     return;
 }
@@ -9,20 +9,20 @@ def_int $int1 = calc(%varclient_556 - clientclock);
 def_int $int2 = calc($int1 / 3000);
 def_int $int3 = calc($int1 / 50 % 60);
 if ($int2 < 0 | $int3 < 0) {
-    if_settext("Game ending", sc_in_game_overlay:com_15);
-    if_settextshadow(true, sc_in_game_overlay:com_15);
+    if_settext("Game ending", sc_in_game_overlay:time_remaining);
+    if_settextshadow(true, sc_in_game_overlay:time_remaining);
     ~script1942;
 } else if ($int2 = 0 & $int3 = 0) {
-    if_settext("Game ending", sc_in_game_overlay:com_15);
+    if_settext("Game ending", sc_in_game_overlay:time_remaining);
 } else if ($int3 < 10) {
-    if_settext("<tostring($int2)>:0<tostring($int3)>", sc_in_game_overlay:com_15);
+    if_settext("<tostring($int2)>:0<tostring($int3)>", sc_in_game_overlay:time_remaining);
 } else {
-    if_settext("<tostring($int2)>:<tostring($int3)>", sc_in_game_overlay:com_15);
+    if_settext("<tostring($int2)>:<tostring($int3)>", sc_in_game_overlay:time_remaining);
 }
 if ($int2 < 1) {
-    if_setcolour(^red, sc_in_game_overlay:com_15);
-    if_settextshadow(true, sc_in_game_overlay:com_15);
+    if_setcolour(^red, sc_in_game_overlay:time_remaining);
+    if_settextshadow(true, sc_in_game_overlay:time_remaining);
     ~script1942;
-} else if (if_gethide(sc_in_game_overlay:com_18) = false) {
-    if_sethide(true, sc_in_game_overlay:com_18);
+} else if (if_gethide(sc_in_game_overlay:panic_text) = false) {
+    if_sethide(true, sc_in_game_overlay:panic_text);
 }

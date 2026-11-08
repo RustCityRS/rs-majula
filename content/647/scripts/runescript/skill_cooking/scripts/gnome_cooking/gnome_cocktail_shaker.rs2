@@ -172,7 +172,7 @@ if ($bucket_milk_count > 0) {
     $string = append($string, "<~pluralise($bucket_milk_count, "bucket")> of Milk, ");
 }
 if ($dwellberry_count > 0) {
-    $string = append($string, "<~text_plural($dwellberry_count, "Dwellberry", "Dwellberries")>, ");
+    $string = append($string, "<tostring($dwellberry_count)> <~text_plural($dwellberry_count, "Dwellberry", "Dwellberries")>, ");
 }
 
 $string = ~string_removeright($string, 2);

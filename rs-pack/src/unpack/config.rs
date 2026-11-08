@@ -68,6 +68,8 @@ use rs_io::Packet;
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
 use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use runec::symbol::identifier_form;
 #[cfg(before_647)]
 use std::collections::hash_map::Entry;
 use std::collections::{BTreeSet, HashMap, HashSet};
@@ -443,9 +445,9 @@ impl UnpackedPacks {
                 let (interface, component) = ((value as u32) >> 16, (value as u32) & 0xffff);
                 let name = self
                     .config_name("interface", interface)
-                    .map_or_else(|| format!("interface_{interface}"), str::to_owned);
+                    .map_or_else(|| format!("interface_{interface}"), identifier_form);
                 match self.component_names.get(&(interface, component)) {
-                    Some(component) => format!("{name}:{component}"),
+                    Some(component) => format!("{name}:{}", identifier_form(component)),
                     None => format!("{name}:com_{component}"),
                 }
             }

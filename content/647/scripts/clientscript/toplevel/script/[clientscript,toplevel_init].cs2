@@ -1,16 +1,16 @@
 // 1433
 [clientscript,toplevel_init]
 if (getwindowmode >= 1) {
-    if_setonvarctransmit("toplevel_fovchange{varclient_184}", toplevel_fullscreen:com_wide_screen);
+    if_setonvarctransmit("toplevel_fovchange{varclient_184}", toplevel_fullscreen:mainoverlay);
     if_setonvarctransmit("toplevel_fovchange{varclient_184}", toplevel:com_3);
 }
-if_setonvarctransmit("meslayer_varc_update{varclient_5}", chatbox:com_3);
-if_setonresize("window_resize", toplevel_fullscreen:com_1);
+if_setonvarctransmit("meslayer_varc_update{varclient_5}", chattop:mes_layer);
+if_setonresize("window_resize", toplevel_fullscreen:maingame);
 if (getwindowmode >= 2) {
-    if_setonvartransmit("script1850(toplevel_fullscreen:com_172){learning_the_ropes, varplayer_1255}", toplevel_fullscreen:com_10);
-    ~script1886(toplevel_fullscreen:com_172);
+    if_setonvartransmit("script1850(toplevel_fullscreen:advisorbutton){learning_the_ropes, varplayer_1255}", toplevel_fullscreen:com_10);
+    ~script1886(toplevel_fullscreen:advisorbutton);
 } else {
-    if_setonvartransmit("script1850(toplevel:com_183){learning_the_ropes, varplayer_1255}", toplevel:com_65);
-    ~script1886(toplevel:com_183);
+    if_setonvartransmit("script1850(toplevel:advisorbutton){learning_the_ropes, varplayer_1255}", toplevel:minimap);
+    ~script1886(toplevel:advisorbutton);
 }
 ~toplevel_minimenu_setup;

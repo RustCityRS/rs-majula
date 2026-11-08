@@ -7,7 +7,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_8
+layer=layer_1
 colour=0x000000
 fill=yes
 
@@ -19,7 +19,7 @@ y=29
 width=534
 height=477
 ymode=abs_centre
-layer=com_8
+layer=layer_1
 model=model_44571
 modelorigin=-15,2
 modelangle=512,512,0
@@ -33,7 +33,7 @@ y=12
 width=16
 height=16
 xmode=abs_right
-layer=com_8
+layer=layer_1
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -43,13 +43,13 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 829:3
-[com_3]
+[luc2_rune_door_text_1]
 type=text
 x=185
 y=85
 width=155
 height=119
-layer=com_8
+layer=layer_1
 textfont=luc2_font_scratch_large
 text=FURTHER ACC0SS PR42IBIT13
 textalignh=centre
@@ -59,13 +59,13 @@ transmitop=10
 op10= 
 
 // 829:4
-[com_4]
+[luc2_rune_door_text_2]
 type=text
 x=185
 y=83
 width=155
 height=119
-layer=com_8
+layer=layer_1
 textfont=luc2_font_scratch_large
 text=FURTHER ACC0SS PR42IBIT13
 textalignh=centre
@@ -75,13 +75,13 @@ transmitop=10
 op10= 
 
 // 829:5
-[com_5]
+[luc2_rune_door_text_3]
 type=text
 x=183
 y=85
 width=155
 height=119
-layer=com_8
+layer=layer_1
 textfont=luc2_font_scratch_large
 text=FURTHER ACC0SS PR42IBIT13
 textalignh=centre
@@ -91,13 +91,13 @@ transmitop=10
 op10= 
 
 // 829:6
-[com_6]
+[luc2_rune_door_text_4]
 type=text
 x=183
 y=83
 width=155
 height=119
-layer=com_8
+layer=layer_1
 textfont=luc2_font_scratch_large
 text=FURTHER ACC0SS PR42IBIT13
 textalignh=centre
@@ -107,13 +107,13 @@ transmitop=10
 op10= 
 
 // 829:7
-[com_7]
+[luc2_rune_door_text]
 type=text
 x=184
 y=84
 width=155
 height=119
-layer=com_8
+layer=layer_1
 textfont=luc2_font_scratch_large
 text=FURTHER ACC0SS PR42IBIT13
 textalignh=centre
@@ -121,7 +121,7 @@ textshadow=yes
 colour=0x60543a
 
 // 829:8
-[com_8]
+[layer_1]
 type=layer
 width=512
 height=334
@@ -129,7 +129,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 829:9
-[com_9]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -137,7 +137,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 829:10
-[com_10]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -147,7 +147,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 829:11
-[com_11]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -155,7 +155,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_10
+layer=fsborder_main_layer
 
 // 829:12
 [com_12]
@@ -258,7 +258,7 @@ tiling=yes
 colour=0xffffffff
 
 // 829:20
-[com_20]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -266,30 +266,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_11
+layer=fsborder_resizing_layer
 
 // 829:21
-[com_21]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_11
+layer=fsborder_resizing_layer
 
 // 829:22
-[com_22]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_11
+layer=fsborder_resizing_layer
 
 // 829:23
-[com_23]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -297,16 +297,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_11
+layer=fsborder_resizing_layer
 
 // 829:24
-[com_24]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_11
+layer=fsborder_resizing_layer
 
 // 829:25
 [com_25]
@@ -316,7 +316,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_21
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -331,7 +331,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_20
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -345,7 +345,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_22
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -360,7 +360,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_23
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

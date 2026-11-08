@@ -8,18 +8,18 @@ if (gender = 1) {
     $enum0, $int2 = enum_2341, 7;
     $idkit3 = %varclient_1008;
 } else if (%varclient_774 = true) {
-    if_setgraphic("player_kit_fancy_off,4", player_kit_hair:com_6);
-    if_setgraphic("player_kit_fancy,3", player_kit_hair:com_7);
+    if_setgraphic("player_kit_fancy_off,4", player_kit_hair:hair_tab);
+    if_setgraphic("player_kit_fancy,3", player_kit_hair:beard_tab);
     $enum0, $int2 = enum_703, 1;
     $enum1 = enum_2340;
     $idkit3 = %varclient_1009;
 } else {
-    if_setgraphic("player_kit_fancy,4", player_kit_hair:com_6);
-    if_setgraphic("player_kit_fancy_off,3", player_kit_hair:com_7);
+    if_setgraphic("player_kit_fancy,4", player_kit_hair:hair_tab);
+    if_setgraphic("player_kit_fancy_off,3", player_kit_hair:beard_tab);
     $enum0, $int2 = enum_2338, 0;
     $idkit3 = %varclient_1008;
 }
-cc_deleteall(player_kit_hair:com_10);
+cc_deleteall(player_kit_hair:menu);
 def_int $int4 = 0;
 def_int $int5 = enum_getoutputcount($enum0);
 def_struct $struct6 = null;
@@ -36,10 +36,10 @@ while ($int4 < $int5) {
         $idkit7 = enum(int, idkit, $enum0, $int4);
         $string0 = enum(int, string, $enum1, $int4);
     }
-    cc_create(player_kit_hair:com_10, ^iftype_graphic, if_getnextsubid(player_kit_hair:com_10));
+    cc_create(player_kit_hair:menu, ^iftype_graphic, if_getnextsubid(player_kit_hair:menu));
     cc_setsize(17, 17, ^setsize_abs, ^setsize_abs);
     cc_setposition(0, calc($int8 + 1), ^setpos_abs_left, ^setpos_abs_top);
-    .cc_create(player_kit_hair:com_10, ^iftype_text, if_getnextsubid(player_kit_hair:com_10));
+    .cc_create(player_kit_hair:menu, ^iftype_text, if_getnextsubid(player_kit_hair:menu));
     .cc_setsize(20, 19, ^setsize_minus, ^setsize_abs);
     .cc_setposition(0, $int8, ^setpos_abs_right, ^setpos_abs_top);
     .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
@@ -63,28 +63,28 @@ while ($int4 < $int5) {
     $int4 = calc($int4 + 1);
     $int8 = calc($int8 + 19);
 }
-if ($int8 > if_getheight(player_kit_hair:com_10)) {
-    if_setsize(20, 4, ^setsize_minus, ^setsize_minus, player_kit_hair:com_10);
-    if_setscrollsize(0, $int8, player_kit_hair:com_10);
-    if ($int9 < if_getscrolly(player_kit_hair:com_10)) {
-        if_setscrollpos(0, calc($int9 - 5), player_kit_hair:com_10);
-    } else if (calc($int9 + 19) >= calc(if_getscrolly(player_kit_hair:com_10) + if_getheight(player_kit_hair:com_10))) {
-        if_setscrollpos(0, calc($int9 + 25 - if_getheight(player_kit_hair:com_10)), player_kit_hair:com_10);
+if ($int8 > if_getheight(player_kit_hair:menu)) {
+    if_setsize(20, 4, ^setsize_minus, ^setsize_minus, player_kit_hair:menu);
+    if_setscrollsize(0, $int8, player_kit_hair:menu);
+    if ($int9 < if_getscrolly(player_kit_hair:menu)) {
+        if_setscrollpos(0, calc($int9 - 5), player_kit_hair:menu);
+    } else if (calc($int9 + 19) >= calc(if_getscrolly(player_kit_hair:menu) + if_getheight(player_kit_hair:menu))) {
+        if_setscrollpos(0, calc($int9 + 25 - if_getheight(player_kit_hair:menu)), player_kit_hair:menu);
     }
-    if_sethide(false, player_kit_hair:com_11);
-    ~scrollbar_vertical(player_kit_hair:com_11, player_kit_hair:com_10, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_sethide(false, player_kit_hair:menu_scrollbar);
+    ~scrollbar_vertical(player_kit_hair:menu_scrollbar, player_kit_hair:menu, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 } else {
-    if_setsize(4, 4, ^setsize_minus, ^setsize_minus, player_kit_hair:com_10);
-    if_setscrollsize(0, 0, player_kit_hair:com_10);
-    if_setscrollpos(0, 0, player_kit_hair:com_10);
-    cc_deleteall(player_kit_hair:com_11);
-    if_sethide(true, player_kit_hair:com_11);
+    if_setsize(4, 4, ^setsize_minus, ^setsize_minus, player_kit_hair:menu);
+    if_setscrollsize(0, 0, player_kit_hair:menu);
+    if_setscrollpos(0, 0, player_kit_hair:menu);
+    cc_deleteall(player_kit_hair:menu_scrollbar);
+    if_sethide(true, player_kit_hair:menu_scrollbar);
 }
-cc_deleteall(player_kit_hair:com_16);
+cc_deleteall(player_kit_hair:colours);
 $int5 = enum_getoutputcount(enum_2345);
 def_int $int10 = 5;
 def_int $int11 = 0;
-if (calc((($int5 - 1) / $int10 + 1) * 21) > if_getheight(player_kit_hair:com_16)) {
+if (calc((($int5 - 1) / $int10 + 1) * 21) > if_getheight(player_kit_hair:colours)) {
     $int10, $int11 = 4, 2;
 }
 $int4 = 0;
@@ -95,14 +95,14 @@ def_int $int14 = 0;
 while ($int4 < $int5) {
     $int14 = enum(int, int, enum_2345, $int4);
     $string0 = enum(int, string, enum_2344, $int4);
-    cc_create(player_kit_hair:com_16, ^iftype_rectangle, if_getnextsubid(player_kit_hair:com_16));
+    cc_create(player_kit_hair:colours, ^iftype_rectangle, if_getnextsubid(player_kit_hair:colours));
     cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
     cc_setfill(true);
     cc_setposition(calc($int12 * cc_getwidth + $int11), $int8, ^setpos_abs_left, ^setpos_abs_top);
     cc_setcolour(enum(int, int, enum_2343, $int4));
-    cc_setonmouserepeat("script1160(event_com, event_comsubid, player_kit_hair:com_22, $string0, 0, 512)");
-    cc_setonmouseleave("deltooltip(player_kit_hair:com_22)");
-    .cc_create(player_kit_hair:com_16, ^iftype_graphic, if_getnextsubid(player_kit_hair:com_16));
+    cc_setonmouserepeat("script1160(event_com, event_comsubid, player_kit_hair:tooltip, $string0, 0, 512)");
+    cc_setonmouseleave("deltooltip(player_kit_hair:tooltip)");
+    .cc_create(player_kit_hair:colours, ^iftype_graphic, if_getnextsubid(player_kit_hair:colours));
     .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
     .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
     if ($int14 = %varclient_1015) {
@@ -128,20 +128,20 @@ while ($int4 < $int5) {
 if ($int12 ! 0) {
     $int8 = calc($int8 + 21);
 }
-if ($int8 > if_getheight(player_kit_hair:com_16) | $int10 < 5) {
-    if_setsize(20, 4, ^setsize_minus, ^setsize_minus, player_kit_hair:com_16);
-    if_setscrollsize(0, $int8, player_kit_hair:com_16);
-    if ($int9 < if_getscrolly(player_kit_hair:com_16)) {
-        if_setscrollpos(0, calc($int9 - 5), player_kit_hair:com_16);
-    } else if (calc($int9 + 21) >= calc(if_getscrolly(player_kit_hair:com_16) + if_getheight(player_kit_hair:com_16))) {
-        if_setscrollpos(0, calc($int9 + 25 - if_getheight(player_kit_hair:com_16)), player_kit_hair:com_16);
+if ($int8 > if_getheight(player_kit_hair:colours) | $int10 < 5) {
+    if_setsize(20, 4, ^setsize_minus, ^setsize_minus, player_kit_hair:colours);
+    if_setscrollsize(0, $int8, player_kit_hair:colours);
+    if ($int9 < if_getscrolly(player_kit_hair:colours)) {
+        if_setscrollpos(0, calc($int9 - 5), player_kit_hair:colours);
+    } else if (calc($int9 + 21) >= calc(if_getscrolly(player_kit_hair:colours) + if_getheight(player_kit_hair:colours))) {
+        if_setscrollpos(0, calc($int9 + 25 - if_getheight(player_kit_hair:colours)), player_kit_hair:colours);
     }
-    if_sethide(false, player_kit_hair:com_17);
-    ~scrollbar_vertical(player_kit_hair:com_17, player_kit_hair:com_16, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_sethide(false, player_kit_hair:colours_scrollbar);
+    ~scrollbar_vertical(player_kit_hair:colours_scrollbar, player_kit_hair:colours, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 } else {
-    if_setsize(4, 4, ^setsize_minus, ^setsize_minus, player_kit_hair:com_16);
-    if_setscrollsize(0, 0, player_kit_hair:com_16);
-    if_setscrollpos(0, 0, player_kit_hair:com_16);
-    cc_deleteall(player_kit_hair:com_17);
-    if_sethide(true, player_kit_hair:com_17);
+    if_setsize(4, 4, ^setsize_minus, ^setsize_minus, player_kit_hair:colours);
+    if_setscrollsize(0, 0, player_kit_hair:colours);
+    if_setscrollpos(0, 0, player_kit_hair:colours);
+    cc_deleteall(player_kit_hair:colours_scrollbar);
+    if_sethide(true, player_kit_hair:colours_scrollbar);
 }

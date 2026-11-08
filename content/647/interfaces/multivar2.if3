@@ -1,5 +1,5 @@
 // 236:0
-[com_0]
+[multivar2t]
 type=text
 y=4
 width=480
@@ -11,7 +11,7 @@ textalignh=centre
 colour=0x800000
 
 // 236:1
-[com_1]
+[multivar2a]
 type=text
 y=45
 width=480
@@ -26,7 +26,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 236:2
-[com_2]
+[multivar2b]
 type=text
 y=83
 width=480
@@ -46,7 +46,7 @@ type=graphic
 width=57
 height=13
 ymode=abs_centre
-layer=com_5
+layer=multivar2swords
 graphic="sworddecor,1"
 colour=0x000000
 
@@ -57,12 +57,12 @@ width=57
 height=13
 xmode=abs_right
 ymode=abs_centre
-layer=com_5
+layer=multivar2swords
 graphic="sworddecor,0"
 colour=0x000000
 
 // 236:5
-[com_5]
+[multivar2swords]
 type=layer
 y=6
 width=350

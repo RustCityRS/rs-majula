@@ -1,30 +1,30 @@
 // 798:0
-[com_0]
+[max_size]
 type=layer
 width=512
 height=69
 onload=script1205(event_com, 0, 0, 0)
 
 // 798:1
-[com_1]
+[bg]
 type=graphic
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=max_size
 graphic=chat_window
 tiling=yes
 colour=0x000000
 
 // 798:2
-[com_2]
+[warning_title]
 type=text
 y=5
 width=82
 height=17
 xmode=abs_centre
-layer=com_0
+layer=max_size
 textfont=tutorial_font_big
 text=WARNING
 textalignh=centre
@@ -32,13 +32,13 @@ textalignv=centre
 colour=0x990000
 
 // 798:3
-[com_3]
+[main_txt]
 type=text
 y=22
 width=462
 height=42
 xmode=abs_centre
-layer=com_0
+layer=max_size
 textfont=p12_full
 text=You are currently carrying a lot of items. You have been warned.
 textlineheight=15

@@ -31,28 +31,28 @@ if ($obj ! null) {
     mes(oc_desc($obj));
 }
 
-[if_button1,wornitems:hat_slot] ~handle_worn_button(1, ^hat_slot);
-[if_button10,wornitems:hat_slot] ~handle_worn_button(10, ^hat_slot);
-[if_button1,wornitems:cape_slot] ~handle_worn_button(1, ^cape_slot);
-[if_button10,wornitems:cape_slot] ~handle_worn_button(10, ^cape_slot);
-[if_button1,wornitems:amulet_slot] ~handle_worn_button(1, ^amulet_slot);
-[if_button10,wornitems:amulet_slot] ~handle_worn_button(10, ^amulet_slot);
-[if_button1,wornitems:weapon_slot] ~handle_worn_button(1, ^weapon_slot);
-[if_button10,wornitems:weapon_slot] ~handle_worn_button(10, ^weapon_slot);
-[if_button1,wornitems:chest_slot] ~handle_worn_button(1, ^chest_slot);
-[if_button10,wornitems:chest_slot] ~handle_worn_button(10, ^chest_slot);
-[if_button1,wornitems:shield_slot] ~handle_worn_button(1, ^shield_slot);
-[if_button10,wornitems:shield_slot] ~handle_worn_button(10, ^shield_slot);
-[if_button1,wornitems:legs_slot] ~handle_worn_button(1, ^legs_slot);
-[if_button10,wornitems:legs_slot] ~handle_worn_button(10, ^legs_slot);
-[if_button1,wornitems:hands_slot] ~handle_worn_button(1, ^hands_slot);
-[if_button10,wornitems:hands_slot] ~handle_worn_button(10, ^hands_slot);
-[if_button1,wornitems:feet_slot] ~handle_worn_button(1, ^feet_slot);
-[if_button10,wornitems:feet_slot] ~handle_worn_button(10, ^feet_slot);
-[if_button1,wornitems:ring_slot] ~handle_worn_button(1, ^ring_slot);
-[if_button10,wornitems:ring_slot] ~handle_worn_button(10, ^ring_slot);
-[if_button1,wornitems:ammo_slot] ~handle_worn_button(1, ^ammo_slot);
-[if_button10,wornitems:ammo_slot] ~handle_worn_button(10, ^ammo_slot);
+[if_button1,wornitems:hat] ~handle_worn_button(1, ^hat_slot);
+[if_button10,wornitems:hat] ~handle_worn_button(10, ^hat_slot);
+[if_button1,wornitems:back] ~handle_worn_button(1, ^cape_slot);
+[if_button10,wornitems:back] ~handle_worn_button(10, ^cape_slot);
+[if_button1,wornitems:front] ~handle_worn_button(1, ^amulet_slot);
+[if_button10,wornitems:front] ~handle_worn_button(10, ^amulet_slot);
+[if_button1,wornitems:rhand] ~handle_worn_button(1, ^weapon_slot);
+[if_button10,wornitems:rhand] ~handle_worn_button(10, ^weapon_slot);
+[if_button1,wornitems:torso] ~handle_worn_button(1, ^chest_slot);
+[if_button10,wornitems:torso] ~handle_worn_button(10, ^chest_slot);
+[if_button1,wornitems:lhand] ~handle_worn_button(1, ^shield_slot);
+[if_button10,wornitems:lhand] ~handle_worn_button(10, ^shield_slot);
+[if_button1,wornitems:legs] ~handle_worn_button(1, ^legs_slot);
+[if_button10,wornitems:legs] ~handle_worn_button(10, ^legs_slot);
+[if_button1,wornitems:hands] ~handle_worn_button(1, ^hands_slot);
+[if_button10,wornitems:hands] ~handle_worn_button(10, ^hands_slot);
+[if_button1,wornitems:feet] ~handle_worn_button(1, ^feet_slot);
+[if_button10,wornitems:feet] ~handle_worn_button(10, ^feet_slot);
+[if_button1,wornitems:ring] ~handle_worn_button(1, ^ring_slot);
+[if_button10,wornitems:ring] ~handle_worn_button(10, ^ring_slot);
+[if_button1,wornitems:quiver] ~handle_worn_button(1, ^ammo_slot);
+[if_button10,wornitems:quiver] ~handle_worn_button(10, ^ammo_slot);
 
 [proc,equip](int $slot)
 if (p_finduid(uid) = true) {
@@ -434,7 +434,7 @@ $rangebonus = ~equip_get_bonuses;
 // EquipmentBonuses, BankOpen, worn_equipment.ifaces.toml.
 // The worn tab is not a modal, so its button runs unprotected; it takes
 // protected access as the tab's own Remove does (~handle_worn_button).
-[if_button,wornitems:com_39]
+[if_button,wornitems:equipscreen_container]
 if (p_finduid(uid) = false) { return; }
 ~equip_screen_open(false);
 
@@ -449,14 +449,14 @@ if ($from_bank = true) {
     %equipment_bank_button = 0;
 }
 %bank_hidden = 1;
-inv_transmit(worn, equip_screen2:com_7);
-inv_transmit(inv, inventory_wear2:com_0);
+inv_transmit(worn, equip_screen2:worn_items_layer);
+inv_transmit(inv, inventory_wear2:layer_1);
 if_openmain_side(equip_screen2, inventory_wear2);
 // What is worn: Remove (op1), Examine (op10); the backpack: Equip (op1),
 // Examine (op10). 2011's Stats (op9 on both: clientscripts 2373, 2739) is not
 // ported.
-if_setevents(equip_screen2:com_7, 0, 15, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
-if_setevents(inventory_wear2:com_0, 0, 27, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
+if_setevents(equip_screen2:worn_items_layer, 0, 15, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
+if_setevents(inventory_wear2:layer_1, 0, 27, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^false);
 ~equip_screen_bonuses;
 // The screen's root starts hidden: clientscript 2319 shows it (and hides the
 // bank) by varbit 8348. From the bank, the bank's own var hook (762:121) runs
@@ -468,14 +468,14 @@ runclientscript("bank_v2_showequipscreen()");
 
 // The screen stays open through a change made on it, unlike the worn tab's
 // Remove (~handle_worn_button), which closes what is open as 289's did.
-[if_button1,equip_screen2:com_7]
+[if_button1,equip_screen2:worn_items_layer]
 ~unequip(last_slot);
 ~equip_screen_bonuses;
-[if_button10,equip_screen2:com_7] ~worn_examine(last_slot);
+[if_button10,equip_screen2:worn_items_layer] ~worn_examine(last_slot);
 
 // Equip is the item's own wear op (op2, [opheld2]), so an item's own trigger
 // still answers; an item that is not worn has none to run.
-[if_button1,inventory_wear2:com_0]
+[if_button1,inventory_wear2:layer_1]
 def_obj $obj = inv_getobj(inv, last_slot);
 if ($obj = null) {
     return;
@@ -485,9 +485,9 @@ if (oc_wearpos($obj) = null) {
 }
 p_opheld(2, inv, last_slot);
 ~equip_screen_bonuses;
-[if_button10,inventory_wear2:com_0] ~inv_examine(last_slot);
+[if_button10,inventory_wear2:layer_1] ~inv_examine(last_slot);
 
-[if_button,equip_screen2:com_48]
+[if_button,equip_screen2:bank_button]
 if (%equipment_bank_button = 1) {
     @openbank;
 }
@@ -526,24 +526,24 @@ $strengthbonus,
 $prayerbonus,
 $rangebonus = ~equip_get_bonuses;
 
-~update_bonus_text(equip_screen2:com_30, "Stab", $stabattack);
-~update_bonus_text(equip_screen2:com_31, "Slash", $slashattack);
-~update_bonus_text(equip_screen2:com_32, "Crush", $crushattack);
-~update_bonus_text(equip_screen2:com_33, "Magic", $magicattack);
-~update_bonus_text(equip_screen2:com_34, "Ranged", $rangeattack);
-~update_bonus_text(equip_screen2:com_35, "Stab", $stabdefence);
-~update_bonus_text(equip_screen2:com_36, "Slash", $slashdefence);
-~update_bonus_text(equip_screen2:com_37, "Crush", $crushdefence);
-~update_bonus_text(equip_screen2:com_38, "Magic", $magicdefence);
-~update_bonus_text(equip_screen2:com_39, "Ranged", $rangedefence);
-~update_bonus_text(equip_screen2:com_40, "Summoning", 0);
+~update_bonus_text(equip_screen2:stabatt, "Stab", $stabattack);
+~update_bonus_text(equip_screen2:slashatt, "Slash", $slashattack);
+~update_bonus_text(equip_screen2:crushatt, "Crush", $crushattack);
+~update_bonus_text(equip_screen2:magicatt, "Magic", $magicattack);
+~update_bonus_text(equip_screen2:rangeatt, "Ranged", $rangeattack);
+~update_bonus_text(equip_screen2:stabdef, "Stab", $stabdefence);
+~update_bonus_text(equip_screen2:slashdef, "Slash", $slashdefence);
+~update_bonus_text(equip_screen2:crushdef, "Crush", $crushdefence);
+~update_bonus_text(equip_screen2:magicdef, "Magic", $magicdefence);
+~update_bonus_text(equip_screen2:rangedef, "Ranged", $rangedefence);
+~update_bonus_text(equip_screen2:summoningdef, "Summoning", 0);
 // 2011's soak percents, worn head, body, legs and shield (damage.rs2).
 if_settext(equip_screen2:com_41, "Absorb Melee: +<tostring(~worn_absorb(^hitmark_melee))>%");
 if_settext(equip_screen2:com_42, "Absorb Magic: +<tostring(~worn_absorb(^hitmark_magic))>%");
 if_settext(equip_screen2:com_43, "Absorb Ranged: +<tostring(~worn_absorb(^hitmark_ranged))>%");
-~update_bonus_text(equip_screen2:com_44, "Strength", $strengthbonus);
+~update_bonus_text(equip_screen2:wearstrength, "Strength", $strengthbonus);
 ~update_bonus_text(equip_screen2:com_45, "Ranged Strength", $rangebonus);
-~update_bonus_text(equip_screen2:com_46, "Prayer", $prayerbonus);
+~update_bonus_text(equip_screen2:wearprayer, "Prayer", $prayerbonus);
 if_settext(equip_screen2:com_47, "Magic Damage: +0%");
 
 [proc,update_bonus_text](component $com, string $name, int $bonus)

@@ -1,12 +1,12 @@
 // 3064
 [proc,lobbyscreen_loginbutton_text](int $int0)
 if ($int0 = 1) {
-    if_settext("Play", lobbyscreen:com_173);
-    if_setop(1, "Play", lobbyscreen:com_160);
-    if_setonop("lobbyscreen_entergame(lobbyscreen:com_160)", lobbyscreen:com_160);
+    if_settext("Play", lobbyscreen:loginbutton_text);
+    if_setop(1, "Play", lobbyscreen:loginbutton);
+    if_setonop("lobbyscreen_entergame(lobbyscreen:loginbutton)", lobbyscreen:loginbutton);
 } else {
-    if_settext("Entering game...", lobbyscreen:com_173);
-    if_clearops(lobbyscreen:com_160);
-    if_setonop(null, lobbyscreen:com_160);
+    if_settext("Entering game...", lobbyscreen:loginbutton_text);
+    if_clearops(lobbyscreen:loginbutton);
+    if_setonop(null, lobbyscreen:loginbutton);
 }
 ~script3065($int0);

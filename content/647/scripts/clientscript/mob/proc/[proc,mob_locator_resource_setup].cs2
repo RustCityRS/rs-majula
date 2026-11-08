@@ -6,92 +6,92 @@ if (%varclient_826 < 0) {
 if (%varclient_827 < 0) {
     %varclient_827 = 1;
 }
-if_settext("Charges left: <tostring(%varclient_826)>", mob_locator:com_47);
-if_setobject_nonum(copper_ore, 1, mob_locator:com_29);
-if_setobject_nonum(tin_ore, 1, mob_locator:com_30);
-if_setobject_nonum(iron_ore, 1, mob_locator:com_31);
-if_setobject_nonum(silver_ore, 1, mob_locator:com_32);
-if_setobject_nonum(clay, 1, mob_locator:com_33);
-if_setobject_nonum(gold_ore, 1, mob_locator:com_34);
-if_setobject_nonum(mithril_ore, 1, mob_locator:com_35);
-if_setobject_nonum(adamantite_ore, 1, mob_locator:com_36);
-if_setobject_nonum(runite_ore, 1, mob_locator:com_37);
-if_settext(oc_name(copper_ore), mob_locator:com_38);
-if_settext(oc_name(tin_ore), mob_locator:com_39);
-if_settext(oc_name(iron_ore), mob_locator:com_40);
-if_settext(oc_name(silver_ore), mob_locator:com_41);
-if_settext(oc_name(clay), mob_locator:com_42);
-if_settext(oc_name(gold_ore), mob_locator:com_43);
-if_settext(oc_name(mithril_ore), mob_locator:com_44);
-if_settext(oc_name(adamantite_ore), mob_locator:com_45);
-if_settext(oc_name(runite_ore), mob_locator:com_46);
-if_setcolour(0xe1981f, mob_locator:com_38);
-if_setcolour(0xe1981f, mob_locator:com_39);
-if_setcolour(0xe1981f, mob_locator:com_40);
-if_setcolour(0x996600, mob_locator:com_41);
-if_setcolour(0x996600, mob_locator:com_42);
-if_setcolour(0x996600, mob_locator:com_43);
-if_setcolour(0x996600, mob_locator:com_44);
-if_setcolour(0x996600, mob_locator:com_45);
-if_setcolour(0x996600, mob_locator:com_46);
+if_settext("Charges left: <tostring(%varclient_826)>", mob_locator:charges);
+if_setobject_nonum(copper_ore, 1, mob_locator:ore1);
+if_setobject_nonum(tin_ore, 1, mob_locator:ore2);
+if_setobject_nonum(iron_ore, 1, mob_locator:ore3);
+if_setobject_nonum(silver_ore, 1, mob_locator:ore4);
+if_setobject_nonum(clay, 1, mob_locator:ore5);
+if_setobject_nonum(gold_ore, 1, mob_locator:ore6);
+if_setobject_nonum(mithril_ore, 1, mob_locator:ore7);
+if_setobject_nonum(adamantite_ore, 1, mob_locator:ore8);
+if_setobject_nonum(runite_ore, 1, mob_locator:ore9);
+if_settext(oc_name(copper_ore), mob_locator:oretext1);
+if_settext(oc_name(tin_ore), mob_locator:oretext2);
+if_settext(oc_name(iron_ore), mob_locator:oretext3);
+if_settext(oc_name(silver_ore), mob_locator:oretext4);
+if_settext(oc_name(clay), mob_locator:oretext5);
+if_settext(oc_name(gold_ore), mob_locator:oretext6);
+if_settext(oc_name(mithril_ore), mob_locator:oretext7);
+if_settext(oc_name(adamantite_ore), mob_locator:oretext8);
+if_settext(oc_name(runite_ore), mob_locator:oretext9);
+if_setcolour(0xe1981f, mob_locator:oretext1);
+if_setcolour(0xe1981f, mob_locator:oretext2);
+if_setcolour(0xe1981f, mob_locator:oretext3);
+if_setcolour(0x996600, mob_locator:oretext4);
+if_setcolour(0x996600, mob_locator:oretext5);
+if_setcolour(0x996600, mob_locator:oretext6);
+if_setcolour(0x996600, mob_locator:oretext7);
+if_setcolour(0x996600, mob_locator:oretext8);
+if_setcolour(0x996600, mob_locator:oretext9);
 if (%varclient_827 >= 2) {
-    if_setcolour(0xe1981f, mob_locator:com_41);
-    if_setcolour(0xe1981f, mob_locator:com_42);
+    if_setcolour(0xe1981f, mob_locator:oretext4);
+    if_setcolour(0xe1981f, mob_locator:oretext5);
 }
 if (%varclient_827 >= 3) {
-    if_setcolour(0xe1981f, mob_locator:com_43);
-    if_setcolour(0xe1981f, mob_locator:com_44);
+    if_setcolour(0xe1981f, mob_locator:oretext6);
+    if_setcolour(0xe1981f, mob_locator:oretext7);
 }
 if (%varclient_827 >= 4) {
-    if_setcolour(0xe1981f, mob_locator:com_45);
-    if_setcolour(0xe1981f, mob_locator:com_46);
+    if_setcolour(0xe1981f, mob_locator:oretext8);
+    if_setcolour(0xe1981f, mob_locator:oretext9);
 }
-if_setobject_nonum(oak_logs, 1, mob_locator:com_13);
+if_setobject_nonum(oak_logs, 1, mob_locator:wood1);
 if_setobject_nonum(willow_logs, 1, mob_locator:com_14);
-if_setobject_nonum(maple_logs, 1, mob_locator:com_15);
-if_setobject_nonum(eucalyptus_logs, 1, mob_locator:com_16);
-if_setobject_nonum(yew_logs, 1, mob_locator:com_17);
-if_setobject_nonum(magic_logs, 1, mob_locator:com_18);
-if_settext(oc_name(oak_logs), mob_locator:com_21);
-if_settext(oc_name(willow_logs), mob_locator:com_22);
-if_settext(oc_name(maple_logs), mob_locator:com_23);
-if_settext("Special logs", mob_locator:com_24);
-if_settext(oc_name(yew_logs), mob_locator:com_25);
-if_settext(oc_name(magic_logs), mob_locator:com_26);
-if_setcolour(0xe1981f, mob_locator:com_21);
-if_setcolour(0xe1981f, mob_locator:com_22);
-if_setcolour(0x996600, mob_locator:com_23);
-if_setcolour(0x996600, mob_locator:com_24);
-if_setcolour(0x996600, mob_locator:com_25);
-if_setcolour(0x996600, mob_locator:com_26);
+if_setobject_nonum(maple_logs, 1, mob_locator:wood3);
+if_setobject_nonum(eucalyptus_logs, 1, mob_locator:wood4);
+if_setobject_nonum(yew_logs, 1, mob_locator:wood5);
+if_setobject_nonum(magic_logs, 1, mob_locator:wood6);
+if_settext(oc_name(oak_logs), mob_locator:woodtext1);
+if_settext(oc_name(willow_logs), mob_locator:woodtext2);
+if_settext(oc_name(maple_logs), mob_locator:woodtext3);
+if_settext("Special logs", mob_locator:woodtext4);
+if_settext(oc_name(yew_logs), mob_locator:woodtext5);
+if_settext(oc_name(magic_logs), mob_locator:woodtext6);
+if_setcolour(0xe1981f, mob_locator:woodtext1);
+if_setcolour(0xe1981f, mob_locator:woodtext2);
+if_setcolour(0x996600, mob_locator:woodtext3);
+if_setcolour(0x996600, mob_locator:woodtext4);
+if_setcolour(0x996600, mob_locator:woodtext5);
+if_setcolour(0x996600, mob_locator:woodtext6);
 if (%varclient_827 >= 2) {
-    if_setcolour(0xe1981f, mob_locator:com_23);
-    if_setcolour(0xe1981f, mob_locator:com_24);
+    if_setcolour(0xe1981f, mob_locator:woodtext3);
+    if_setcolour(0xe1981f, mob_locator:woodtext4);
 }
 if (%varclient_827 >= 3) {
-    if_setcolour(0xe1981f, mob_locator:com_25);
+    if_setcolour(0xe1981f, mob_locator:woodtext5);
 }
 if (%varclient_827 >= 4) {
-    if_setcolour(0xe1981f, mob_locator:com_26);
+    if_setcolour(0xe1981f, mob_locator:woodtext6);
 }
-if_setobject_nonum(raw_shrimps, 1, mob_locator:com_6);
-if_setobject_nonum(raw_lobster, 1, mob_locator:com_8);
-if_settext("Fish 1", mob_locator:com_7);
-if_settext("Fish 2", mob_locator:com_9);
-if_setcolour(0xe1981f, mob_locator:com_7);
+if_setobject_nonum(raw_shrimps, 1, mob_locator:fish1);
+if_setobject_nonum(raw_lobster, 1, mob_locator:fish2);
+if_settext("Fish 1", mob_locator:fishtext1);
+if_settext("Fish 2", mob_locator:fishtext2);
+if_setcolour(0xe1981f, mob_locator:fishtext1);
 if (%varclient_827 >= 3) {
-    if_setcolour(0xe1981f, mob_locator:com_9);
+    if_setcolour(0xe1981f, mob_locator:fishtext2);
 } else {
-    if_setcolour(0x996600, mob_locator:com_9);
+    if_setcolour(0x996600, mob_locator:fishtext2);
 }
-if_setobject_nonum(toad_s_legs, 1, mob_locator:com_2);
-if_setobject_nonum(white_berries, 1, mob_locator:com_4);
-if_settext("Herblore<br>secondaries 1", mob_locator:com_3);
-if_settext("Herblore<br>secondaries 2", mob_locator:com_5);
-if_setcolour(0xe1981f, mob_locator:com_3);
-if_setcolour(0xe1981f, mob_locator:com_5);
+if_setobject_nonum(toad_s_legs, 1, mob_locator:herb1);
+if_setobject_nonum(white_berries, 1, mob_locator:herb2);
+if_settext("Herblore<br>secondaries 1", mob_locator:herbtext1);
+if_settext("Herblore<br>secondaries 2", mob_locator:herbtext2);
+if_setcolour(0xe1981f, mob_locator:herbtext1);
+if_setcolour(0xe1981f, mob_locator:herbtext2);
 if (%varclient_827 >= 3) {
-    if_setcolour(0xe1981f, mob_locator:com_5);
+    if_setcolour(0xe1981f, mob_locator:herbtext2);
 } else {
-    if_setcolour(0x996600, mob_locator:com_5);
+    if_setcolour(0x996600, mob_locator:herbtext2);
 }

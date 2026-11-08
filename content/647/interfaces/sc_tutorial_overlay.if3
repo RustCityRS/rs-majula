@@ -1,5 +1,5 @@
 // 802:0
-[com_0]
+[main_layer]
 type=layer
 width=16391
 height=16391
@@ -14,7 +14,7 @@ x=20
 y=12
 width=152
 height=32
-layer=com_0
+layer=main_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -29,7 +29,7 @@ x=20
 y=28
 width=150
 height=32
-layer=com_0
+layer=main_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -43,7 +43,7 @@ x=14
 y=7
 width=32
 height=32
-layer=com_0
+layer=main_layer
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 transmitop=10
@@ -57,7 +57,7 @@ x=20
 y=-6
 width=150
 height=32
-layer=com_0
+layer=main_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -72,7 +72,7 @@ x=146
 y=16
 width=32
 height=32
-layer=com_0
+layer=main_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -86,7 +86,7 @@ x=146
 y=7
 width=32
 height=32
-layer=com_0
+layer=main_layer
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 transmitop=10
@@ -100,20 +100,20 @@ x=14
 y=16
 width=32
 height=32
-layer=com_0
+layer=main_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 802:8
-[com_8]
+[score]
 type=text
 x=23
 y=21
 width=69
 height=11
-layer=com_0
+layer=main_layer
 textfont=p11_full
 text=Personal score: 
 colour=0xff981f
@@ -122,13 +122,13 @@ op10=
 ontimer=sc_tutorial_update_score
 
 // 802:9
-[com_9]
+[layer_3]
 type=graphic
 x=6
 y=6
 width=443
 height=34
-layer=com_19
+layer=title_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -142,7 +142,7 @@ x=423
 y=12
 width=32
 height=32
-layer=com_19
+layer=title_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -155,7 +155,7 @@ x=1
 y=12
 width=32
 height=32
-layer=com_19
+layer=title_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -168,7 +168,7 @@ x=12
 y=24
 width=423
 height=32
-layer=com_19
+layer=title_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -182,7 +182,7 @@ x=1
 y=1
 width=32
 height=32
-layer=com_19
+layer=title_layer
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 transmitop=10
@@ -195,7 +195,7 @@ x=423
 y=1
 width=32
 height=32
-layer=com_19
+layer=title_layer
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 transmitop=10
@@ -208,7 +208,7 @@ x=11
 y=-12
 width=424
 height=34
-layer=com_19
+layer=title_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -216,13 +216,13 @@ transmitop=10
 op10= 
 
 // 802:16
-[com_16]
+[title_text]
 type=text
 y=7
 width=432
 height=29
 xmode=abs_centre
-layer=com_19
+layer=title_layer
 textfont=welcome_font_large
 textalignh=centre
 textalignv=centre
@@ -233,24 +233,24 @@ op10=
 onvarcstrtransmit=sc_tutorial_update_score{varclient_1562}
 
 // 802:17
-[com_17]
+[layer_2]
 type=rectangle
 x=126
 y=21
 width=32
 height=32
-layer=com_19
+layer=title_layer
 colour=0xffff00
 trans=255
 
 // 802:18
-[com_18]
+[init_rect]
 type=rectangle
 x=34
 y=34
 width=32
 height=32
-layer=com_0
+layer=main_layer
 colour=0xffff00
 trans=255
 onload=script1944
@@ -258,11 +258,11 @@ onvarctransmit=script1944{varclient_581}
 onvarcstrtransmit=script1943{varclient_1562}
 
 // 802:19
-[com_19]
+[title_layer]
 type=layer
 y=74
 width=456
 height=45
 xmode=abs_centre
-layer=com_0
+layer=main_layer
 hide=yes

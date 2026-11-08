@@ -69,7 +69,7 @@ def_int $int18 = 0;
 def_string $string1 = "Scroll map";
 def_string $string2 = "";
 if (string_length($string0) > 0) {
-    if ($component0 = worldmap:com_36) {
+    if ($component0 = worldmap:you_are_here) {
         $string2 = "Your position";
     } else {
         $string2 = removetags(~find_and_replace($string0, "<br>", " "));

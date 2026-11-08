@@ -9,7 +9,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_1
+layer=backdrop_layer
 model=model_42526
 modelorigin=0,216
 modelzoom=328
@@ -18,7 +18,7 @@ modelobjwidth=749
 modelobjheight=433
 
 // 796:1
-[com_1]
+[backdrop_layer]
 type=layer
 width=16391
 height=16384
@@ -36,7 +36,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_3
+layer=white_backdrop
 model=model_42526
 modelorigin=0,183
 modelzoom=405
@@ -45,7 +45,7 @@ modelobjwidth=637
 modelobjheight=368
 
 // 796:3
-[com_3]
+[white_backdrop]
 type=layer
 width=16391
 height=16391
@@ -54,7 +54,7 @@ heightmode=proportion
 noclickthrough=yes
 
 // 796:4
-[com_4]
+[wise_old_man]
 type=model
 x=-1593
 y=3636

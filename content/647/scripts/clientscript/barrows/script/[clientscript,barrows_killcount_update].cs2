@@ -38,6 +38,6 @@ if (compare($string0, "") = 0) {
     $int0 = 1;
 }
 def_int $int2 = calc(52 + $int0 * 12);
-if_setsize(if_getwidth(barrows_overlay:com_1), $int2, ^setsize_abs, ^setsize_abs, barrows_overlay:com_1);
-if_settext($string0, barrows_overlay:com_3);
-if_settext(tostring(max(0, calc(%varplayerbit_464 - $int1))), barrows_overlay:com_6);
+if_setsize(if_getwidth(barrows_overlay:kills_layer), $int2, ^setsize_abs, ^setsize_abs, barrows_overlay:kills_layer);
+if_settext($string0, barrows_overlay:brother_kills);
+if_settext(tostring(max(0, calc(%varplayerbit_464 - $int1))), barrows_overlay:creature_kills);

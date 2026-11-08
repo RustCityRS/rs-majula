@@ -9,7 +9,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 19:1
-[com_1]
+[border]
 type=graphic
 width=60
 height=60
@@ -18,7 +18,7 @@ layer=com_18
 graphic="aif_bronze_icon_button_1,0"
 
 // 19:2
-[com_2]
+[sample]
 type=rectangle
 y=10
 width=40
@@ -45,7 +45,7 @@ x=28
 y=9
 width=204
 height=151
-layer=com_64
+layer=content_layer
 
 // 19:5
 [com_5]
@@ -152,8 +152,8 @@ x=44
 y=21
 width=128
 height=128
-layer=com_64
-onclick=script4606(event_com, 1245200, skillcape_colour:com_2, event_mousex, event_mousey)
+layer=content_layer
+onclick=script4606(event_com, 1245200, skillcape_colour:sample, event_mousex, event_mousey)
 
 // 19:15
 [com_15]
@@ -162,7 +162,7 @@ x=39
 y=16
 width=138
 height=138
-layer=com_64
+layer=content_layer
 
 // 19:16
 [com_16]
@@ -172,8 +172,8 @@ x=192
 y=21
 width=24
 height=128
-layer=com_64
-onclick=script4605(skillcape_colour:com_14, event_com, skillcape_colour:com_2, event_mousex, event_mousey)
+layer=content_layer
+onclick=script4605(skillcape_colour:com_14, event_com, skillcape_colour:sample, event_mousex, event_mousey)
 
 // 19:17
 [com_17]
@@ -182,7 +182,7 @@ x=188
 y=20
 width=32
 height=130
-layer=com_64
+layer=content_layer
 
 // 19:18
 [com_18]
@@ -191,7 +191,7 @@ y=168
 width=60
 height=60
 xmode=abs_centre
-layer=com_64
+layer=content_layer
 
 // 19:19
 [com_19]
@@ -209,13 +209,13 @@ layer=com_15
 graphic=plus_icon_1
 
 // 19:21
-[com_21]
+[ok_button]
 type=layer
 y=236
 width=120
 height=30
 xmode=abs_centre
-layer=com_64
+layer=content_layer
 transmitop=1
 op1=Accept
 onclick=script4607
@@ -227,7 +227,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_21
+layer=ok_button
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -239,7 +239,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_21
+layer=ok_button
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -251,7 +251,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_21
+layer=ok_button
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -262,7 +262,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=ok_button
 onload=script4201(event_com, struct_1736)
 
 // 19:26
@@ -370,7 +370,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=ok_button
 onload=script4201(event_com, struct_1737)
 
 // 19:36
@@ -380,7 +380,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=ok_button
 onload=script4201(event_com, struct_1738)
 
 // 19:37
@@ -390,7 +390,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=ok_button
 onload=script4201(event_com, struct_1739)
 
 // 19:38
@@ -400,7 +400,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=ok_button
 
 // 19:39
 [com_39]
@@ -409,7 +409,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=ok_button
 
 // 19:40
 [com_40]
@@ -435,7 +435,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=ok_button
 hide=yes
 noclickthrough=yes
 onload=script4201(event_com, struct_1740)
@@ -683,7 +683,7 @@ xmode=abs_right
 layer=com_43
 
 // 19:64
-[com_64]
+[content_layer]
 type=layer
 y=7
 width=260
@@ -691,10 +691,10 @@ height=280
 xmode=abs_centre
 ymode=abs_centre
 layer=com_43
-onvartransmit=skillcape_get_colour(skillcape_colour:com_14, skillcape_colour:com_16, skillcape_colour:com_2){varplayer_2174}
+onvartransmit=skillcape_get_colour(skillcape_colour:com_14, skillcape_colour:com_16, skillcape_colour:sample){varplayer_2174}
 
 // 19:65
-[com_65]
+[close_button]
 type=graphic
 width=15
 height=13

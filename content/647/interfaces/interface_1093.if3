@@ -1,13 +1,13 @@
 // 1093:0
-[com_0]
+[accept_button_layer]
 type=layer
 width=130
 height=28
 ymode=abs_centre
-layer=com_1
+layer=buttons_layer
 
 // 1093:1
-[com_1]
+[buttons_layer]
 type=layer
 y=6
 width=60
@@ -148,7 +148,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_0
+layer=accept_button_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -160,7 +160,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_0
+layer=accept_button_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -172,7 +172,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=accept_button_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -183,7 +183,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=accept_button_layer
 onload=script4201(event_com, struct_1773)
 
 // 1093:16
@@ -193,7 +193,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=accept_button_layer
 onload=script4201(event_com, struct_1774)
 
 // 1093:17
@@ -203,7 +203,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=accept_button_layer
 onload=script4201(event_com, struct_1775)
 
 // 1093:18
@@ -213,7 +213,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=accept_button_layer
 pausebutton=yes
 pausetext=Accept
 onload=script4213(event_com)
@@ -225,10 +225,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=accept_button_layer
 
 // 1093:20
-[com_20]
+[accept_button_text]
 type=text
 width=8
 height=4
@@ -245,13 +245,13 @@ colour=0xe1e1e1
 onload=script4151(event_com)
 
 // 1093:21
-[com_21]
+[decline_button_layer]
 type=layer
 width=130
 height=28
 xmode=abs_right
 ymode=abs_centre
-layer=com_1
+layer=buttons_layer
 
 // 1093:22
 [com_22]
@@ -260,7 +260,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_21
+layer=decline_button_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -272,7 +272,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_21
+layer=decline_button_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -284,7 +284,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_21
+layer=decline_button_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -295,7 +295,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=decline_button_layer
 onload=script4201(event_com, struct_1773)
 
 // 1093:26
@@ -305,7 +305,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=decline_button_layer
 onload=script4201(event_com, struct_1774)
 
 // 1093:27
@@ -315,7 +315,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=decline_button_layer
 onload=script4201(event_com, struct_1775)
 
 // 1093:28
@@ -325,7 +325,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=decline_button_layer
 transmitop=1
 op1=Decline
 onload=script4213(event_com)
@@ -338,7 +338,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_21
+layer=decline_button_layer
 
 // 1093:30
 [com_30]

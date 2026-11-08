@@ -20,5 +20,5 @@ if ($int2 > 100) {
 }
 $int0 = enum(int, int, enum_1090, $int2);
 $int1 = enum(int, int, enum_1091, $int2);
-if_setposition(91, $int0, ^setpos_abs_right, ^setpos_abs_top, trawler_game_overlay:com_11);
-if_setsize(18, $int1, ^setsize_abs, ^setsize_abs, trawler_game_overlay:com_11);
+if_setposition(91, $int0, ^setpos_abs_right, ^setpos_abs_top, trawler_game_overlay:water_bar_fill);
+if_setsize(18, $int1, ^setsize_abs, ^setsize_abs, trawler_game_overlay:water_bar_fill);

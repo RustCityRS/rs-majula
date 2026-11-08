@@ -7,10 +7,10 @@ height=334
 colour=0x404640
 fill=yes
 onvartransmit=fairyrings_vartransmit{varplayer_816}
-ontimer=fairyrings_rotate(interface_734:com_1, interface_734:com_2, interface_734:com_3, interface_734:com_4, interface_734:com_5, interface_734:com_6, interface_734:com_7, interface_734:com_8, interface_734:com_9, interface_734:com_10, interface_734:com_11, interface_734:com_12, interface_734:com_13, interface_734:com_14, interface_734:com_15, interface_734:com_21, interface_734:com_22)
+ontimer=fairyrings_rotate(interface_734:left_base, interface_734:left_south, interface_734:left_west, interface_734:left_north, interface_734:left_east, interface_734:middle_base, interface_734:middle_south, interface_734:middle_west, interface_734:middle_north, interface_734:middle_east, interface_734:right_base, interface_734:right_south, interface_734:right_west, interface_734:right_north, interface_734:right_east, interface_734:confirm_now, interface_734:confirm_slowly)
 
 // 734:1
-[com_1]
+[left_base]
 type=model
 x=-94
 y=-13
@@ -21,7 +21,7 @@ modelorigin=53,-3
 modelzoom=1000
 
 // 734:2
-[com_2]
+[left_south]
 type=model
 x=49
 y=166
@@ -32,7 +32,7 @@ modelorigin=4,-44
 modelzoom=1000
 
 // 734:3
-[com_3]
+[left_west]
 type=model
 x=7
 y=124
@@ -43,7 +43,7 @@ modelorigin=40,0
 modelzoom=1000
 
 // 734:4
-[com_4]
+[left_north]
 type=model
 x=47
 y=76
@@ -54,7 +54,7 @@ modelorigin=4,45
 modelzoom=1000
 
 // 734:5
-[com_5]
+[left_east]
 type=model
 x=72
 y=150
@@ -64,7 +64,7 @@ model=model_16255
 modelzoom=1000
 
 // 734:6
-[com_6]
+[middle_base]
 type=model
 x=242
 y=150
@@ -74,7 +74,7 @@ model=model_16240
 modelzoom=1000
 
 // 734:7
-[com_7]
+[middle_south]
 type=model
 x=217
 y=166
@@ -85,7 +85,7 @@ modelorigin=4,-45
 modelzoom=1000
 
 // 734:8
-[com_8]
+[middle_west]
 type=model
 x=242
 y=150
@@ -95,7 +95,7 @@ model=model_16263
 modelzoom=1000
 
 // 734:9
-[com_9]
+[middle_north]
 type=model
 x=216
 y=86
@@ -106,7 +106,7 @@ modelorigin=0,40
 modelzoom=1000
 
 // 734:10
-[com_10]
+[middle_east]
 type=model
 x=242
 y=150
@@ -116,7 +116,7 @@ model=model_16271
 modelzoom=1000
 
 // 734:11
-[com_11]
+[right_base]
 type=model
 x=243
 y=-13
@@ -127,7 +127,7 @@ modelorigin=53,-3
 modelzoom=1000
 
 // 734:12
-[com_12]
+[right_south]
 type=model
 x=384
 y=166
@@ -138,7 +138,7 @@ modelorigin=4,-45
 modelzoom=1000
 
 // 734:13
-[com_13]
+[right_west]
 type=model
 x=409
 y=150
@@ -148,7 +148,7 @@ model=model_16279
 modelzoom=1000
 
 // 734:14
-[com_14]
+[right_north]
 type=model
 x=409
 y=150
@@ -158,7 +158,7 @@ model=model_33844
 modelzoom=1000
 
 // 734:15
-[com_15]
+[right_east]
 type=model
 x=409
 y=150
@@ -230,7 +230,7 @@ textalignv=centre
 colour=0x402000
 
 // 734:21
-[com_21]
+[confirm_now]
 type=text
 x=172
 y=254
@@ -247,7 +247,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x402000)
 
 // 734:22
-[com_22]
+[confirm_slowly]
 type=text
 x=172
 y=254
@@ -265,7 +265,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x402000)
 
 // 734:23
-[com_23]
+[left_clockwise]
 type=layer
 x=86
 y=85
@@ -276,7 +276,7 @@ op1=Rotate clockwise
 onop=fairyrings_clockwise(48103425)
 
 // 734:24
-[com_24]
+[left_anticlockwise]
 type=layer
 x=3
 y=85
@@ -287,7 +287,7 @@ op1=Rotate anticlockwise
 onop=fairyrings_anticlockwise(48103425)
 
 // 734:25
-[com_25]
+[middle_clockwise]
 type=layer
 x=256
 y=85
@@ -298,7 +298,7 @@ op1=Rotate clockwise
 onop=fairyrings_clockwise(48103430)
 
 // 734:26
-[com_26]
+[middle_anticlockwise]
 type=layer
 x=173
 y=85
@@ -309,7 +309,7 @@ op1=Rotate anticlockwise
 onop=fairyrings_anticlockwise(48103430)
 
 // 734:27
-[com_27]
+[right_clockwise]
 type=layer
 x=425
 y=85
@@ -320,7 +320,7 @@ op1=Rotate clockwise
 onop=fairyrings_clockwise(48103435)
 
 // 734:28
-[com_28]
+[right_anticlockwise]
 type=layer
 x=342
 y=85

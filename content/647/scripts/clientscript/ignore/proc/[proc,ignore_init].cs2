@@ -1,7 +1,7 @@
 // 4551
 [proc,ignore_init]
-if_setonfriendtransmit("ignore_transmit", friends2:com_4);
-~scrollbar_vertical(friends2:com_31, friends2:com_3, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+if_setonfriendtransmit("ignore_transmit", friends2:ignorebox);
+~scrollbar_vertical(friends2:ignorescroll, friends2:com_3, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
 if_setscrollsize(0, 0, friends2:com_3);
 if_setscrollpos(0, 0, friends2:com_3);
 ~ignore_update;

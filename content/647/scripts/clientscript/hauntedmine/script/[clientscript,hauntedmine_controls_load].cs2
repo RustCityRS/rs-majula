@@ -1,58 +1,58 @@
 // 1294
 [clientscript,hauntedmine_controls_load]
 if (testbit(%varplayer_383, 1) = ^true) {
-    if_setmodel(model_4912, hauntedmine_controls:com_134);
+    if_setmodel(model_4912, hauntedmine_controls:hauntedmine_points1);
 }
 if (testbit(%varplayer_383, 2) = ^true) {
-    if_setmodel(model_4912, hauntedmine_controls:com_135);
+    if_setmodel(model_4912, hauntedmine_controls:hauntedmine_points2);
 }
 if (testbit(%varplayer_383, 3) = ^true) {
-    if_setmodel(model_4913, hauntedmine_controls:com_136);
+    if_setmodel(model_4913, hauntedmine_controls:hauntedmine_points3);
 }
 if (testbit(%varplayer_383, 4) = ^true) {
-    if_setmodel(model_4912, hauntedmine_controls:com_137);
+    if_setmodel(model_4912, hauntedmine_controls:hauntedmine_points4);
 }
 if (testbit(%varplayer_383, 5) = ^true) {
-    if_setmodel(model_4912, hauntedmine_controls:com_138);
+    if_setmodel(model_4912, hauntedmine_controls:hauntedmine_points5);
 }
 if (testbit(%varplayer_383, 6) = ^true) {
-    if_setmodel(model_4913, hauntedmine_controls:com_139);
+    if_setmodel(model_4913, hauntedmine_controls:hauntedmine_points6);
 }
 if (testbit(%varplayer_383, 7) = ^true) {
-    if_setmodel(model_4913, hauntedmine_controls:com_140);
+    if_setmodel(model_4913, hauntedmine_controls:hauntedmine_points7);
 }
 if (testbit(%varplayer_383, 8) = ^true) {
-    if_setmodel(model_4912, hauntedmine_controls:com_141);
+    if_setmodel(model_4912, hauntedmine_controls:hauntedmine_points8);
 }
 if (%varplayer_383 > 8191) {
-    if_sethide(true, hauntedmine_controls:com_186);
-    if_setgraphic("combatboxes,3", hauntedmine_controls:com_146);
+    if_sethide(true, hauntedmine_controls:hauntedmine_cart0);
+    if_setgraphic("combatboxes,3", hauntedmine_controls:start_button);
 }
 if (testbit(%varplayer_383, 14) = ^true) {
-    if_setmodel(model_4910, hauntedmine_controls:com_174);
-    if_setmodelanim(seq_1456, hauntedmine_controls:com_174);
+    if_setmodel(model_4910, hauntedmine_controls:hauntedmine_cart2);
+    if_setmodelanim(seq_1456, hauntedmine_controls:hauntedmine_cart2);
 }
 if (testbit(%varplayer_383, 15) = ^true) {
-    if_setmodel(model_4910, hauntedmine_controls:com_172);
-    if_setmodelanim(seq_1456, hauntedmine_controls:com_172);
+    if_setmodel(model_4910, hauntedmine_controls:hauntedmine_cart3);
+    if_setmodelanim(seq_1456, hauntedmine_controls:hauntedmine_cart3);
 }
 if (testbit(%varplayer_383, 16) = ^true) {
-    if_setmodel(model_4910, hauntedmine_controls:com_176);
-    if_setmodelanim(seq_1456, hauntedmine_controls:com_176);
+    if_setmodel(model_4910, hauntedmine_controls:hauntedmine_cart4);
+    if_setmodelanim(seq_1456, hauntedmine_controls:hauntedmine_cart4);
 }
 if (testbit(%varplayer_383, 17) = ^true) {
-    if_setmodel(model_4910, hauntedmine_controls:com_178);
-    if_setmodelanim(seq_1455, hauntedmine_controls:com_178);
+    if_setmodel(model_4910, hauntedmine_controls:hauntedmine_cart5);
+    if_setmodelanim(seq_1455, hauntedmine_controls:hauntedmine_cart5);
 }
 if (testbit(%varplayer_383, 18) = ^true) {
-    if_setmodel(model_4910, hauntedmine_controls:com_180);
-    if_setmodelanim(seq_1455, hauntedmine_controls:com_180);
+    if_setmodel(model_4910, hauntedmine_controls:hauntedmine_cart6);
+    if_setmodelanim(seq_1455, hauntedmine_controls:hauntedmine_cart6);
 }
 if (testbit(%varplayer_383, 19) = ^true) {
-    if_setmodel(model_4910, hauntedmine_controls:com_183);
-    if_setmodelanim(seq_1453, hauntedmine_controls:com_183);
+    if_setmodel(model_4910, hauntedmine_controls:hauntedmine_cart7);
+    if_setmodelanim(seq_1453, hauntedmine_controls:hauntedmine_cart7);
 }
 if (testbit(%varplayer_383, 20) = ^true) {
-    if_setmodel(model_4910, hauntedmine_controls:com_185);
-    if_setmodelanim(seq_1453, hauntedmine_controls:com_185);
+    if_setmodel(model_4910, hauntedmine_controls:hauntedmine_cart8);
+    if_setmodelanim(seq_1453, hauntedmine_controls:hauntedmine_cart8);
 }

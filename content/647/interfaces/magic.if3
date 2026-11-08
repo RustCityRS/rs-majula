@@ -1,12 +1,12 @@
 // 192:0
-[com_0]
+[spells_layer]
 type=layer
 width=190
 height=229
 onvartransmit=script1120{varplayer_108}
 
 // 192:1
-[com_1]
+[xp_button_layer]
 type=layer
 width=190
 height=261
@@ -21,7 +21,7 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_1
+layer=xp_button_layer
 graphic=graphic_1701
 colour=0xffffffff
 transmitop=1,10
@@ -40,7 +40,7 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_1
+layer=xp_button_layer
 graphic=graphic_2191
 colour=0xffffffff
 transmitop=10
@@ -59,7 +59,7 @@ width=190
 height=261
 
 // 192:6
-[com_6]
+[filter_buttons_layer]
 type=layer
 width=190
 height=261
@@ -72,7 +72,7 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_6
+layer=filter_buttons_layer
 graphic=graphic_1701
 colour=0xffffffff
 transmitop=1
@@ -90,7 +90,7 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_6
+layer=filter_buttons_layer
 graphic=graphic_2192
 colour=0xffffffff
 
@@ -102,7 +102,7 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_6
+layer=filter_buttons_layer
 graphic=graphic_1701
 colour=0xffffffff
 transmitop=1
@@ -120,19 +120,19 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_6
+layer=filter_buttons_layer
 graphic=graphic_2195
 colour=0xffffffff
 
 // 192:11
-[com_11]
+[filter_misc_button]
 type=graphic
 x=78
 y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_6
+layer=filter_buttons_layer
 graphic=graphic_1701
 colour=0xffffffff
 transmitop=1
@@ -150,7 +150,7 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_6
+layer=filter_buttons_layer
 graphic=graphic_2193
 colour=0xffffffff
 
@@ -162,7 +162,7 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_6
+layer=filter_buttons_layer
 graphic=graphic_1701
 colour=0xffffffff
 transmitop=1
@@ -180,12 +180,12 @@ y=5
 width=20
 height=20
 ymode=abs_bottom
-layer=com_6
+layer=filter_buttons_layer
 graphic=graphic_2194
 colour=0xffffffff
 
 // 192:15
-[com_15]
+[order0]
 type=graphic
 x=43
 y=5
@@ -205,7 +205,7 @@ onmouserepeat=script2061(event_com)
 onclick=script2058(0)
 
 // 192:16
-[com_16]
+[order1]
 type=graphic
 x=24
 y=5
@@ -224,7 +224,7 @@ onmouserepeat=script2061(event_com)
 onclick=script2058(1)
 
 // 192:17
-[com_17]
+[order2]
 type=graphic
 x=5
 y=5
@@ -243,7 +243,7 @@ onmouserepeat=script2061(event_com)
 onclick=script2058(2)
 
 // 192:18
-[com_18]
+[order_icon0]
 type=graphic
 x=43
 y=5
@@ -258,7 +258,7 @@ transmitop=10
 op10=   
 
 // 192:19
-[com_19]
+[order_icon1]
 type=graphic
 x=24
 y=5
@@ -273,7 +273,7 @@ transmitop=10
 op10=    
 
 // 192:20
-[com_20]
+[order_icon2]
 type=graphic
 x=5
 y=5
@@ -324,836 +324,836 @@ graphic="v2_stone_borders,24"
 colour=0xffffffff
 
 // 192:24
-[lumbridge_home_teleport]
+[sb48]
 type=graphic
 x=13
 y=12
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicon2,37"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,37", "magicoff2,37", 0, "Lumbridge Home Teleport", "Requires no runes. Warning: This spell takes a long time to cast and will be interrupted by combat.", null, 0, null, 0, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,37", "magicoff2,37", 0, "Lumbridge Home Teleport", "Requires no runes. Warning: This spell takes a long time to cast and will be interrupted by combat.", null, 0, null, 0, null, 0, null, 0)
 
 // 192:25
-[wind_strike]
+[sb0]
 type=graphic
 x=37
 y=12
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicon,0"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,0", "magicoff,0", 1, "Wind Strike", "A basic air missile", air_rune, 1, mind_rune, 1, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,0", "magicoff,0", 1, "Wind Strike", "A basic air missile", air_rune, 1, mind_rune, 1, null, 0, null, 0)
 onvarctransmit=script1359(event_com){varclient_1024}
 
 // 192:26
-[confuse]
+[sb1]
 type=graphic
 x=61
 y=12
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicon,1"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,1", "magicoff,1", 3, "Confuse", "Reduces your opponent's attack by 5%", water_rune, 3, earth_rune, 2, body_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,1", "magicoff,1", 3, "Confuse", "Reduces your opponent's attack by 5%", water_rune, 3, earth_rune, 2, body_rune, 1, null, 0)
 
 // 192:27
-[enchant_crossbow_bolt]
+[xbows_enchant]
 type=graphic
 x=85
 y=12
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicon2,39"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,39", "magicoff2,39", 4, "Enchant Crossbow Bolt", "Minimum level 4 Magic Multiple other requirements", null, 0, null, 0, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon2,39", "magicoff2,39", 4, "Enchant Crossbow Bolt", "Minimum level 4 Magic Multiple other requirements", null, 0, null, 0, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon2,39", "magicoff2,39", 4, "Enchant Crossbow Bolt", "Minimum level 4 Magic Multiple other requirements", null, 0, null, 0, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon2,39", "magicoff2,39", 4, "Enchant Crossbow Bolt", "Minimum level 4 Magic Multiple other requirements", null, 0, null, 0, null, 0, null, 0){varplayer_1092}
 
 // 192:28
-[water_strike]
+[sb2]
 type=graphic
 x=109
 y=12
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicon,2"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,2", "magicoff,2", 5, "Water Strike", "A basic water missile", water_rune, 1, air_rune, 1, mind_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,2", "magicoff,2", 5, "Water Strike", "A basic water missile", water_rune, 1, air_rune, 1, mind_rune, 1, null, 0)
 
 // 192:29
-[lvl_1_enchant]
+[sb3]
 type=graphic
 x=133
 y=12
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicon,3"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,3", "magicoff,3", 7, "Lvl-1 Enchant", "For use on sapphire jewellery", water_rune, 1, cosmic_rune, 1, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,3", "magicoff,3", 7, "Lvl-1 Enchant", "For use on sapphire jewellery", water_rune, 1, cosmic_rune, 1, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,3", "magicoff,3", 7, "Lvl-1 Enchant", "For use on sapphire jewellery", water_rune, 1, cosmic_rune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,3", "magicoff,3", 7, "Lvl-1 Enchant", "For use on sapphire jewellery", water_rune, 1, cosmic_rune, 1, null, 0, null, 0){varplayer_1092}
 
 // 192:30
-[earth_strike]
+[sb4]
 type=graphic
 x=157
 y=12
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicon,4"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,4", "magicoff,4", 9, "Earth Strike", "A basic earth missile", earth_rune, 2, air_rune, 1, mind_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,4", "magicoff,4", 9, "Earth Strike", "A basic earth missile", earth_rune, 2, air_rune, 1, mind_rune, 1, null, 0)
 
 // 192:31
-[weaken]
+[sb5]
 type=graphic
 x=37
 y=36
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,5"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,5", "magicoff,5", 11, "Weaken", "Reduces your opponent's<br>strength by 5%", water_rune, 3, earth_rune, 2, body_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,5", "magicoff,5", 11, "Weaken", "Reduces your opponent's<br>strength by 5%", water_rune, 3, earth_rune, 2, body_rune, 1, null, 0)
 
 // 192:32
-[fire_strike]
+[sb6]
 type=graphic
 x=61
 y=36
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,6"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,6", "magicoff,6", 13, "Fire Strike", "A basic fire missile", fire_rune, 3, air_rune, 2, mind_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,6", "magicoff,6", 13, "Fire Strike", "A basic fire missile", fire_rune, 3, air_rune, 2, mind_rune, 1, null, 0)
 
 // 192:33
-[bones_to_bananas]
+[sb7]
 type=graphic
 x=85
 y=36
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,7"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,7", "magicoff,7", 15, "Bones to Bananas", "Changes all held bones into bananas", earth_rune, 2, water_rune, 2, nature_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,7", "magicoff,7", 15, "Bones to Bananas", "Changes all held bones into bananas", earth_rune, 2, water_rune, 2, nature_rune, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,7", "magicoff,7", 15, "Bones to Bananas", "Changes all held bones into bananas", earth_rune, 2, water_rune, 2, nature_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,7", "magicoff,7", 15, "Bones to Bananas", "Changes all held bones into bananas", earth_rune, 2, water_rune, 2, nature_rune, 1, null, 0){varplayer_1092}
 
 // 192:34
-[wind_bolt]
+[sb8]
 type=graphic
 x=109
 y=36
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,8"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,8", "magicoff,8", 17, "Wind Bolt", "A low-level air missile", air_rune, 2, chaos_rune, 1, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,8", "magicoff,8", 17, "Wind Bolt", "A low-level air missile", air_rune, 2, chaos_rune, 1, null, 0, null, 0)
 
 // 192:35
-[curse]
+[sb9]
 type=graphic
 x=133
 y=36
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,9"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,9", "magicoff,9", 19, "Curse", "Reduces your opponent's<br>defence by 5%", water_rune, 2, earth_rune, 3, body_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,9", "magicoff,9", 19, "Curse", "Reduces your opponent's<br>defence by 5%", water_rune, 2, earth_rune, 3, body_rune, 1, null, 0)
 
 // 192:36
-[bind]
+[sb44]
 type=graphic
 x=157
 y=36
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,0"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,0", "magicoff2,0", 20, "Bind", "Holds your opponent for 5 seconds", earth_rune, 3, water_rune, 3, nature_rune, 2, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,0", "magicoff2,0", 20, "Bind", "Holds your opponent for 5 seconds", earth_rune, 3, water_rune, 3, nature_rune, 2, null, 0)
 
 // 192:37
-[mobilising_armies_teleport]
+[sb10a]
 type=graphic
 x=13
 y=36
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicon2,40"
 colour=0xffffffff
 transmitop=1,10
 op1=Cast
 op10= 
-onload=magic_init(event_com, magic:com_97, "magicon2,40", "magicoff2,40", 10, "Mobilising Armies Teleport", "Teleports you to Mobilising Armies", law_rune, 1, water_rune, 1, air_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,40", "magicoff2,40", 10, "Mobilising Armies Teleport", "Teleports you to Mobilising Armies", law_rune, 1, water_rune, 1, air_rune, 1, null, 0)
 
 // 192:38
-[low_level_alchemy]
+[sb10]
 type=graphic
 x=13
 y=59
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,10"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,10", "magicoff,10", 21, "Low Level Alchemy", "Converts an item into gold", fire_rune, 3, nature_rune, 1, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,10", "magicoff,10", 21, "Low Level Alchemy", "Converts an item into gold", fire_rune, 3, nature_rune, 1, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,10", "magicoff,10", 21, "Low Level Alchemy", "Converts an item into gold", fire_rune, 3, nature_rune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,10", "magicoff,10", 21, "Low Level Alchemy", "Converts an item into gold", fire_rune, 3, nature_rune, 1, null, 0, null, 0){varplayer_1092}
 onclick=closebutton_click
 
 // 192:39
-[water_bolt]
+[sb11]
 type=graphic
 x=37
 y=60
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,11"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,11", "magicoff,11", 23, "Water Bolt", "A low-level water missile", water_rune, 2, air_rune, 2, chaos_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,11", "magicoff,11", 23, "Water Bolt", "A low-level water missile", water_rune, 2, air_rune, 2, chaos_rune, 1, null, 0)
 
 // 192:40
-[varrock_teleport]
+[sb12]
 type=graphic
 x=61
 y=60
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,12"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,12", "magicoff,12", 25, "Varrock Teleport", "Teleports you to Varrock", fire_rune, 1, air_rune, 3, law_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,12", "magicoff,12", 25, "Varrock Teleport", "Teleports you to Varrock", fire_rune, 1, air_rune, 3, law_rune, 1, null, 0)
 
 // 192:41
-[lvl_2_enchant]
+[sb13]
 type=graphic
 x=85
 y=60
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,13"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,13", "magicoff,13", 27, "Lvl-2 Enchant", "For use on emerald jewellery", air_rune, 3, cosmic_rune, 1, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,13", "magicoff,13", 27, "Lvl-2 Enchant", "For use on emerald jewellery", air_rune, 3, cosmic_rune, 1, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,13", "magicoff,13", 27, "Lvl-2 Enchant", "For use on emerald jewellery", air_rune, 3, cosmic_rune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,13", "magicoff,13", 27, "Lvl-2 Enchant", "For use on emerald jewellery", air_rune, 3, cosmic_rune, 1, null, 0, null, 0){varplayer_1092}
 
 // 192:42
-[earth_bolt]
+[sb14]
 type=graphic
 x=109
 y=60
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,14"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,14", "magicoff,14", 29, "Earth Bolt", "A low-level earth missile", earth_rune, 3, air_rune, 2, chaos_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,14", "magicoff,14", 29, "Earth Bolt", "A low-level earth missile", earth_rune, 3, air_rune, 2, chaos_rune, 1, null, 0)
 
 // 192:43
-[lumbridge_teleport]
+[sb15]
 type=graphic
 x=133
 y=60
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,15"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,15", "magicoff,15", 31, "Lumbridge Teleport", "Teleports you to Lumbridge", earth_rune, 1, air_rune, 3, law_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,15", "magicoff,15", 31, "Lumbridge Teleport", "Teleports you to Lumbridge", earth_rune, 1, air_rune, 3, law_rune, 1, null, 0)
 
 // 192:44
-[telekinetic_grab]
+[sb16]
 type=graphic
 x=157
 y=60
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,16"
 colour=0xffffffff
 targetmask=obj,npc,loc
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,16", "magicoff,16", 33, "Telekinetic Grab", "Take an item you can see but can't reach", air_rune, 1, law_rune, 1, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,16", "magicoff,16", 33, "Telekinetic Grab", "Take an item you can see but can't reach", air_rune, 1, law_rune, 1, null, 0, null, 0)
 
 // 192:45
-[fire_bolt]
+[sb17]
 type=graphic
 x=13
 y=83
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,17"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,17", "magicoff,17", 35, "Fire Bolt", "A low-level fire missile", fire_rune, 4, air_rune, 3, chaos_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,17", "magicoff,17", 35, "Fire Bolt", "A low-level fire missile", fire_rune, 4, air_rune, 3, chaos_rune, 1, null, 0)
 
 // 192:46
-[falador_teleport]
+[sb18]
 type=graphic
 x=37
 y=83
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,18"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,18", "magicoff,18", 37, "Falador Teleport", "Teleports you to Falador", water_rune, 1, air_rune, 3, law_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,18", "magicoff,18", 37, "Falador Teleport", "Teleports you to Falador", water_rune, 1, air_rune, 3, law_rune, 1, null, 0)
 
 // 192:47
-[crumble_undead]
+[sb19]
 type=graphic
 x=61
 y=83
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,19"
 colour=0xffffffff
 transmitop=1
 targetmask=npc
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,19", "magicoff,19", 39, "Crumble Undead", "Hits skeletons, ghosts, shades & zombies hard", earth_rune, 2, air_rune, 2, chaos_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,19", "magicoff,19", 39, "Crumble Undead", "Hits skeletons, ghosts, shades & zombies hard", earth_rune, 2, air_rune, 2, chaos_rune, 1, null, 0)
 
 // 192:48
-[teleport_to_house]
+[teleport_to_your_house]
 type=graphic
 x=85
 y=83
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,36"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,36", "magicoff2,36", 40, "Teleport to House", "Teleports you to your house", law_rune, 1, air_rune, 1, earth_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,36", "magicoff2,36", 40, "Teleport to House", "Teleports you to your house", law_rune, 1, air_rune, 1, earth_rune, 1, null, 0)
 
 // 192:49
-[wind_blast]
+[sb20]
 type=graphic
 x=109
 y=83
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,20"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,20", "magicoff,20", 41, "Wind Blast", "A medium-level air missile", air_rune, 3, death_rune, 1, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,20", "magicoff,20", 41, "Wind Blast", "A medium-level air missile", air_rune, 3, death_rune, 1, null, 0, null, 0)
 
 // 192:50
-[superheat_item]
+[sb21]
 type=graphic
 x=133
 y=83
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,21"
 colour=0xffffffff
 targetmask=loc,com
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,21", "magicoff,21", 43, "Superheat Item", "Smelt ore without a furnace", fire_rune, 4, nature_rune, 1, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,21", "magicoff,21", 43, "Superheat Item", "Smelt ore without a furnace", fire_rune, 4, nature_rune, 1, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,21", "magicoff,21", 43, "Superheat Item", "Smelt ore without a furnace", fire_rune, 4, nature_rune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,21", "magicoff,21", 43, "Superheat Item", "Smelt ore without a furnace", fire_rune, 4, nature_rune, 1, null, 0, null, 0){varplayer_1092}
 onclick=closebutton_click
 
 // 192:51
-[camelot_teleport]
+[sb22]
 type=graphic
 x=157
 y=83
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,22"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,22", "magicoff,22", 45, "Camelot Teleport", "Teleports you to Camelot", air_rune, 5, law_rune, 1, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,22", "magicoff,22", 45, "Camelot Teleport", "Teleports you to Camelot", air_rune, 5, law_rune, 1, null, 0, null, 0)
 
 // 192:52
-[water_blast]
+[sb23]
 type=graphic
 x=13
 y=107
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,23"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,23", "magicoff,23", 47, "Water Blast", "A medium-level water missile", water_rune, 3, air_rune, 3, death_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,23", "magicoff,23", 47, "Water Blast", "A medium-level water missile", water_rune, 3, air_rune, 3, death_rune, 1, null, 0)
 
 // 192:53
-[lvl_3_enchant]
+[sb24]
 type=graphic
 x=37
 y=107
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,24"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,24", "magicoff,24", 49, "Lvl-3 Enchant", "For use on ruby jewellery", fire_rune, 5, cosmic_rune, 1, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,24", "magicoff,24", 49, "Lvl-3 Enchant", "For use on ruby jewellery", fire_rune, 5, cosmic_rune, 1, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,24", "magicoff,24", 49, "Lvl-3 Enchant", "For use on ruby jewellery", fire_rune, 5, cosmic_rune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,24", "magicoff,24", 49, "Lvl-3 Enchant", "For use on ruby jewellery", fire_rune, 5, cosmic_rune, 1, null, 0, null, 0){varplayer_1092}
 
 // 192:54
-[iban_blast]
+[sb25]
 type=graphic
 x=61
 y=107
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,38"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,38", "magicoff,38", 50, "Iban Blast", "Summons the wrath of Iban", fire_rune, 5, death_rune, 1, iban_s_staff, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,38", "magicoff,38", 50, "Iban Blast", "Summons the wrath of Iban", fire_rune, 5, death_rune, 1, iban_s_staff, 1, null, 0)
 
 // 192:55
-[snare]
+[sb45]
 type=graphic
 x=85
 y=107
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,1"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,1", "magicoff2,1", 50, "Snare", "Holds your opponent for 10 seconds", earth_rune, 4, water_rune, 4, nature_rune, 3, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,1", "magicoff2,1", 50, "Snare", "Holds your opponent for 10 seconds", earth_rune, 4, water_rune, 4, nature_rune, 3, null, 0)
 
 // 192:56
-[magic_dart]
+[com_56]
 type=graphic
 x=109
 y=107
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,5"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,5", "magicoff2,5", 50, "Magic Dart", "A magic dart of slaying", slayer_s_staff, 1, death_rune, 1, mind_rune, 4, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,5", "magicoff2,5", 50, "Magic Dart", "A magic dart of slaying", slayer_s_staff, 1, death_rune, 1, mind_rune, 4, null, 0)
 
 // 192:57
-[ardougne_teleport]
+[sb26]
 type=graphic
 x=133
 y=107
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,39"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,39", "magicoff,39", 51, "Ardougne Teleport", "Teleports you to Ardougne", water_rune, 2, law_rune, 2, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,39", "magicoff,39", 51, "Ardougne Teleport", "Teleports you to Ardougne", water_rune, 2, law_rune, 2, null, 0, null, 0)
 
 // 192:58
-[earth_blast]
+[sb27]
 type=graphic
 x=157
 y=107
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,25"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,25", "magicoff,25", 53, "Earth Blast", "A medium-level earth missile", earth_rune, 4, air_rune, 3, death_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,25", "magicoff,25", 53, "Earth Blast", "A medium-level earth missile", earth_rune, 4, air_rune, 3, death_rune, 1, null, 0)
 
 // 192:59
-[high_level_alchemy]
+[sb28]
 type=graphic
 x=13
 y=131
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,26"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,26", "magicoff,26", 55, "High Level Alchemy", "Converts an item into more gold", fire_rune, 5, nature_rune, 1, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,26", "magicoff,26", 55, "High Level Alchemy", "Converts an item into more gold", fire_rune, 5, nature_rune, 1, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,26", "magicoff,26", 55, "High Level Alchemy", "Converts an item into more gold", fire_rune, 5, nature_rune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,26", "magicoff,26", 55, "High Level Alchemy", "Converts an item into more gold", fire_rune, 5, nature_rune, 1, null, 0, null, 0){varplayer_1092}
 onclick=closebutton_click
 
 // 192:60
-[charge_water_orb]
+[sb29]
 type=graphic
 x=37
 y=131
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,27"
 colour=0xffffffff
 targetmask=loc
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,27", "magicoff,27", 56, "Charge Water Orb", "Needs to be cast on a water obelisk", water_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,27", "magicoff,27", 56, "Charge Water Orb", "Needs to be cast on a water obelisk", water_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,27", "magicoff,27", 56, "Charge Water Orb", "Needs to be cast on a water obelisk", water_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,27", "magicoff,27", 56, "Charge Water Orb", "Needs to be cast on a water obelisk", water_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0){varplayer_1092}
 
 // 192:61
-[lvl_4_enchant]
+[sb30]
 type=graphic
 x=61
 y=131
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,28"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,28", "magicoff,28", 57, "Lvl-4 Enchant", "For use on diamond jewellery", earth_rune, 10, cosmic_rune, 1, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,28", "magicoff,28", 57, "Lvl-4 Enchant", "For use on diamond jewellery", earth_rune, 10, cosmic_rune, 1, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,28", "magicoff,28", 57, "Lvl-4 Enchant", "For use on diamond jewellery", earth_rune, 10, cosmic_rune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,28", "magicoff,28", 57, "Lvl-4 Enchant", "For use on diamond jewellery", earth_rune, 10, cosmic_rune, 1, null, 0, null, 0){varplayer_1092}
 
 // 192:62
-[watchtower_teleport]
+[sb31]
 type=graphic
 x=85
 y=131
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,40"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,40", "magicoff,40", 58, "Watchtower Teleport", "Teleports you to the Watchtower", earth_rune, 2, law_rune, 2, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,40", "magicoff,40", 58, "Watchtower Teleport", "Teleports you to the Watchtower", earth_rune, 2, law_rune, 2, null, 0, null, 0)
 
 // 192:63
-[fire_blast]
+[sb32]
 type=graphic
 x=109
 y=131
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,29"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,29", "magicoff,29", 59, "Fire Blast", "A medium-level fire missile", fire_rune, 5, air_rune, 4, death_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,29", "magicoff,29", 59, "Fire Blast", "A medium-level fire missile", fire_rune, 5, air_rune, 4, death_rune, 1, null, 0)
 
 // 192:64
-[charge_earth_orb]
+[sb33]
 type=graphic
 x=133
 y=131
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,30"
 colour=0xffffffff
 targetmask=loc
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,30", "magicoff,30", 60, "Charge Earth Orb", "Needs to be cast on an earth obelisk", earth_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,30", "magicoff,30", 60, "Charge Earth Orb", "Needs to be cast on an earth obelisk", earth_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,30", "magicoff,30", 60, "Charge Earth Orb", "Needs to be cast on an earth obelisk", earth_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,30", "magicoff,30", 60, "Charge Earth Orb", "Needs to be cast on an earth obelisk", earth_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0){varplayer_1092}
 
 // 192:65
-[bones_to_peaches]
+[com_65]
 type=graphic
 x=157
 y=131
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,35"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,35", "magicoff2,35", 60, "Bones to Peaches", "Turns bones into peaches", nature_rune, 2, water_rune, 4, earth_rune, 4, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon2,35", "magicoff2,35", 60, "Bones to Peaches", "Turns Bones into Peaches", nature_rune, 2, water_rune, 4, earth_rune, 4, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon2,35", "magicoff2,35", 60, "Bones to Peaches", "Turns bones into peaches", nature_rune, 2, water_rune, 4, earth_rune, 4, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon2,35", "magicoff2,35", 60, "Bones to Peaches", "Turns Bones into Peaches", nature_rune, 2, water_rune, 4, earth_rune, 4, null, 0){varplayer_1092}
 
 // 192:66
-[saradomin_strike]
+[com_66]
 type=graphic
 x=13
 y=155
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,46"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,46", "magicoff,46", 60, "Saradomin Strike", "Summons the power of Saradomin", fire_rune, 2, blood_rune, 2, air_rune, 4, saradomin_staff, 1)
+onload=magic_init(event_com, magic:tooltip, "magicon,46", "magicoff,46", 60, "Saradomin Strike", "Summons the power of Saradomin", fire_rune, 2, blood_rune, 2, air_rune, 4, saradomin_staff, 1)
 
 // 192:67
-[claws_of_guthix]
+[com_67]
 type=graphic
 x=37
 y=155
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,45"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,45", "magicoff,45", 60, "Claws of Guthix", "Summons the power of Guthix", fire_rune, 1, blood_rune, 2, air_rune, 4, obj_8843, 1)
+onload=magic_init(event_com, magic:tooltip, "magicon,45", "magicoff,45", 60, "Claws of Guthix", "Summons the power of Guthix", fire_rune, 1, blood_rune, 2, air_rune, 4, obj_8843, 1)
 
 // 192:68
-[flames_of_zamorak]
+[com_68]
 type=graphic
 x=61
 y=155
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,44"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,44", "magicoff,44", 60, "Flames of Zamorak", "Summons the power of Zamorak", fire_rune, 4, blood_rune, 2, air_rune, 1, zamorak_staff, 1)
+onload=magic_init(event_com, magic:tooltip, "magicon,44", "magicoff,44", 60, "Flames of Zamorak", "Summons the power of Zamorak", fire_rune, 4, blood_rune, 2, air_rune, 1, zamorak_staff, 1)
 
 // 192:69
-[trollheim_teleport]
+[sb47]
 type=graphic
 x=85
 y=155
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,4"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,4", "magicoff2,4", 61, "Trollheim Teleport", "Teleports you to Trollheim", fire_rune, 2, law_rune, 2, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,4", "magicoff2,4", 61, "Trollheim Teleport", "Teleports you to Trollheim", fire_rune, 2, law_rune, 2, null, 0, null, 0)
 
 // 192:70
-[wind_wave]
+[sb34]
 type=graphic
 x=109
 y=155
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,31"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,31", "magicoff,31", 62, "Wind Wave", "A high-level air missile", air_rune, 5, blood_rune, 1, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,31", "magicoff,31", 62, "Wind Wave", "A high-level air missile", air_rune, 5, blood_rune, 1, null, 0, null, 0)
 
 // 192:71
-[charge_fire_orb]
+[sb35]
 type=graphic
 x=133
 y=155
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,32"
 colour=0xffffffff
 targetmask=loc
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,32", "magicoff,32", 63, "Charge Fire Orb", "Needs to be cast on a fire obelisk", fire_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,32", "magicoff,32", 63, "Charge Fire Orb", "Needs to be cast on a fire obelisk", fire_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,32", "magicoff,32", 63, "Charge Fire Orb", "Needs to be cast on a fire obelisk", fire_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,32", "magicoff,32", 63, "Charge Fire Orb", "Needs to be cast on a fire obelisk", fire_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0){varplayer_1092}
 
 // 192:72
-[teleport_to_ape_atoll]
+[ape_teleport]
 type=graphic
 x=157
 y=155
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,38"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,38", "magicoff2,38", 64, "Teleport to Ape Atoll", "Teleports you to Ape Atoll", fire_rune, 2, water_rune, 2, law_rune, 2, banana, 1)
+onload=magic_init(event_com, magic:tooltip, "magicon2,38", "magicoff2,38", 64, "Teleport to Ape Atoll", "Teleports you to Ape Atoll", fire_rune, 2, water_rune, 2, law_rune, 2, banana, 1)
 
 // 192:73
-[water_wave]
+[sb36]
 type=graphic
 x=13
 y=179
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,33"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,33", "magicoff,33", 65, "Water Wave", "A high-level water missile", water_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,33", "magicoff,33", 65, "Water Wave", "A high-level water missile", water_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
 
 // 192:74
-[charge_air_orb]
+[sb37]
 type=graphic
 x=37
 y=179
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,34"
 colour=0xffffffff
 targetmask=loc
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,34", "magicoff,34", 66, "Charge Air Orb", "Needs to be cast on an air obelisk", air_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,34", "magicoff,34", 66, "Charge Air Orb", "Needs to be cast on an air obelisk", air_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,34", "magicoff,34", 66, "Charge Air Orb", "Needs to be cast on an air obelisk", air_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,34", "magicoff,34", 66, "Charge Air Orb", "Needs to be cast on an air obelisk", air_rune, 30, cosmic_rune, 3, unpowered_orb, 1, null, 0){varplayer_1092}
 
 // 192:75
-[vulnerability]
+[sb38]
 type=graphic
 x=61
 y=179
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,41"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,41", "magicoff,41", 66, "Vulnerability", "Reduces your opponent's defence by 10%", earth_rune, 5, water_rune, 5, soul_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,41", "magicoff,41", 66, "Vulnerability", "Reduces your opponent's defence by 10%", earth_rune, 5, water_rune, 5, soul_rune, 1, null, 0)
 
 // 192:76
-[lvl_5_enchant]
+[sb39]
 type=graphic
 x=85
 y=179
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,35"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,35", "magicoff,35", 68, "Lvl-5 Enchant", "For use on dragonstone jewellery", water_rune, 15, earth_rune, 15, cosmic_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon,35", "magicoff,35", 68, "Lvl-5 Enchant", "For use on dragonstone jewellery", water_rune, 15, earth_rune, 15, cosmic_rune, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon,35", "magicoff,35", 68, "Lvl-5 Enchant", "For use on dragonstone jewellery", water_rune, 15, earth_rune, 15, cosmic_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon,35", "magicoff,35", 68, "Lvl-5 Enchant", "For use on dragonstone jewellery", water_rune, 15, earth_rune, 15, cosmic_rune, 1, null, 0){varplayer_1092}
 
 // 192:77
-[earth_wave]
+[sb40]
 type=graphic
 x=109
 y=179
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,36"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,36", "magicoff,36", 70, "Earth Wave", "A high-level earth missile", earth_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,36", "magicoff,36", 70, "Earth Wave", "A high-level earth missile", earth_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
 
 // 192:78
-[enfeeble]
+[sb41]
 type=graphic
 x=133
 y=179
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,42"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,42", "magicoff,42", 73, "Enfeeble", "Reduces your opponent's strength by 10%", earth_rune, 8, water_rune, 8, soul_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,42", "magicoff,42", 73, "Enfeeble", "Reduces your opponent's strength by 10%", earth_rune, 8, water_rune, 8, soul_rune, 1, null, 0)
 
 // 192:79
 [teleother_lumbridge]
@@ -1162,70 +1162,70 @@ x=157
 y=179
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,30"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,30", "magicoff2,30", 74, "Teleother Lumbridge", "Teleports target to Lumbridge", soul_rune, 1, law_rune, 1, earth_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,30", "magicoff2,30", 74, "Teleother Lumbridge", "Teleports target to Lumbridge", soul_rune, 1, law_rune, 1, earth_rune, 1, null, 0)
 
 // 192:80
-[fire_wave]
+[sb42]
 type=graphic
 x=13
 y=203
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,37"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,37", "magicoff,37", 75, "Fire Wave", "A high-level fire missile", fire_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,37", "magicoff,37", 75, "Fire Wave", "A high-level fire missile", fire_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
 
 // 192:81
-[entangle]
+[sb46]
 type=graphic
 x=37
 y=203
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,2"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,2", "magicoff2,2", 79, "Entangle", "Holds your opponent for 15 seconds", earth_rune, 5, water_rune, 5, nature_rune, 4, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,2", "magicoff2,2", 79, "Entangle", "Holds your opponent for 15 seconds", earth_rune, 5, water_rune, 5, nature_rune, 4, null, 0)
 
 // 192:82
-[stun]
+[sb43]
 type=graphic
 x=61
 y=203
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff,43"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,43", "magicoff,43", 80, "Stun", "Reduces your opponent's attack by 10%", earth_rune, 12, water_rune, 12, soul_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,43", "magicoff,43", 80, "Stun", "Reduces your opponent's attack by 10%", earth_rune, 12, water_rune, 12, soul_rune, 1, null, 0)
 
 // 192:83
-[charge]
+[com_83]
 type=graphic
 x=85
 y=203
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,3"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,3", "magicoff2,3", 80, "Charge", "Temporarily increases the power<br>of the three arena spells when wearing Mage Arena capes", fire_rune, 3, blood_rune, 3, air_rune, 3, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,3", "magicoff2,3", 80, "Charge", "Temporarily increases the power<br>of the three arena spells when wearing Mage Arena capes", fire_rune, 3, blood_rune, 3, air_rune, 3, null, 0)
 
 // 192:84
 [wind_surge]
@@ -1234,14 +1234,14 @@ x=109
 y=203
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,46"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,46", "magicoff2,46", 81, "Wind Surge", "A very high-level air missile", air_rune, 7, blood_rune, 1, death_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,46", "magicoff2,46", 81, "Wind Surge", "A very high-level air missile", air_rune, 7, blood_rune, 1, death_rune, 1, null, 0)
 
 // 192:85
 [teleother_falador]
@@ -1250,12 +1250,12 @@ x=133
 y=203
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,31"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,31", "magicoff2,31", 82, "Teleother Falador", "Teleports target to Falador", soul_rune, 1, water_rune, 1, law_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,31", "magicoff2,31", 82, "Teleother Falador", "Teleports target to Falador", soul_rune, 1, water_rune, 1, law_rune, 1, null, 0)
 
 // 192:86
 [teleport_block]
@@ -1264,14 +1264,14 @@ x=157
 y=203
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,41"
 colour=0xffffffff
 transmitop=10
 targetmask=npc,player
 op10= 
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,41", "magicoff2,41", 85, "Teleport Block", "Blocks target from teleporting", chaos_rune, 1, law_rune, 1, death_rune, 1, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,41", "magicoff2,41", 85, "Teleport Block", "Blocks target from teleporting", chaos_rune, 1, law_rune, 1, death_rune, 1, null, 0)
 
 // 192:87
 [water_surge]
@@ -1280,29 +1280,29 @@ x=13
 y=223
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,47"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,47", "magicoff2,47", 85, "Water Surge", "A very high-level water missile", water_rune, 10, air_rune, 7, blood_rune, 1, death_rune, 1)
+onload=magic_init(event_com, magic:tooltip, "magicon2,47", "magicoff2,47", 85, "Water Surge", "A very high-level water missile", water_rune, 10, air_rune, 7, blood_rune, 1, death_rune, 1)
 
 // 192:88
-[lvl_6_enchant]
+[com_88]
 type=graphic
 x=13
 y=223
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,34"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,34", "magicoff2,34", 87, "Lvl-6 Enchant", "For use on onyx jewellery", earth_rune, 20, fire_rune, 20, cosmic_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic:com_97, "magicon2,34", "magicoff2,34", 87, "Lvl-6 Enchant", "For use on onyx jewellery", earth_rune, 20, fire_rune, 20, cosmic_rune, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic:tooltip, "magicon2,34", "magicoff2,34", 87, "Lvl-6 Enchant", "For use on onyx jewellery", earth_rune, 20, fire_rune, 20, cosmic_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, "magicon2,34", "magicoff2,34", 87, "Lvl-6 Enchant", "For use on onyx jewellery", earth_rune, 20, fire_rune, 20, cosmic_rune, 1, null, 0){varplayer_1092}
 
 // 192:89
 [earth_surge]
@@ -1311,14 +1311,14 @@ x=61
 y=227
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,48"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,48", "magicoff2,48", 90, "Earth Surge", "A very high-level earth missile", earth_rune, 10, air_rune, 7, blood_rune, 1, death_rune, 1)
+onload=magic_init(event_com, magic:tooltip, "magicon2,48", "magicoff2,48", 90, "Earth Surge", "A very high-level earth missile", earth_rune, 10, air_rune, 7, blood_rune, 1, death_rune, 1)
 
 // 192:90
 [teleother_camelot]
@@ -1327,12 +1327,12 @@ x=85
 y=227
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,32"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,32", "magicoff2,32", 90, "Teleother Camelot", "Teleports target to Camelot", soul_rune, 2, law_rune, 1, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon2,32", "magicoff2,32", 90, "Teleother Camelot", "Teleports target to Camelot", soul_rune, 2, law_rune, 1, null, 0, null, 0)
 
 // 192:91
 [fire_surge]
@@ -1341,21 +1341,21 @@ x=109
 y=227
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicoff2,49"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon2,49", "magicoff2,49", 95, "Fire Surge", "A very high-level fire missile", fire_rune, 10, air_rune, 7, blood_rune, 1, death_rune, 1)
+onload=magic_init(event_com, magic:tooltip, "magicon2,49", "magicoff2,49", 95, "Fire Surge", "A very high-level fire missile", fire_rune, 10, air_rune, 7, blood_rune, 1, death_rune, 1)
 
 // 192:92
 [com_92]
 type=graphic
 width=28
 height=28
-layer=com_0
+layer=spells_layer
 hide=yes
 graphic="km_spellautoalpha,1"
 alpha=yes
@@ -1367,13 +1367,13 @@ ontimer=script1124(event_com)
 type=graphic
 width=28
 height=28
-layer=com_0
+layer=spells_layer
 hide=yes
 graphic="km_spellautoalpha,0"
 colour=0xffffffff
 
 // 192:94
-[com_94]
+[scrollbar_layer]
 type=layer
 x=1
 y=1
@@ -1384,7 +1384,7 @@ transmitop=10
 op10=  
 
 // 192:95
-[com_95]
+[tooltip2_bounds]
 type=layer
 y=25
 width=10
@@ -1396,35 +1396,35 @@ transmitop=10
 op10=  
 
 // 192:96
-[com_96]
+[tooltip2]
 type=layer
 x=3
 y=2
 width=42
 height=14
-layer=com_95
+layer=tooltip2_bounds
 transmitop=10
 op10=  
 
 // 192:97
-[com_97]
+[tooltip]
 type=layer
 width=190
 height=261
 
 // 192:98
-[wind_rush]
+[sb49]
 type=graphic
 x=37
 y=12
 width=24
 height=24
-layer=com_0
+layer=spells_layer
 graphic="magicon,50"
 colour=0xffffffff
 transmitop=1
 targetmask=npc,player
 op1=Autocast
 targetverb=Cast
-onload=magic_init(event_com, magic:com_97, "magicon,50", "magicoff,50", 1, "Wind Rush", "A very weak air missile", air_rune, 2, null, 0, null, 0, null, 0)
+onload=magic_init(event_com, magic:tooltip, "magicon,50", "magicoff,50", 1, "Wind Rush", "A very weak air missile", air_rune, 2, null, 0, null, 0, null, 0)
 onvarctransmit=script1359(event_com){varclient_1024}

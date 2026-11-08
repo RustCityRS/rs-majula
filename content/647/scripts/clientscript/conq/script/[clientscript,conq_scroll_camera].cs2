@@ -238,24 +238,24 @@ if (%varclient_1390 = 1) {
     $int7 = 17;
 }
 if (calc(coordx($coord3) % 64) > $int4 | calc(coordz($coord3) % 64) > $int6 | calc(coordx($coord3) % 64) < $int5 | calc(coordz($coord3) % 64) < $int7) {
-    if_setcolour(0x646464, conq_scroll_overlay:com_19);
-    if_setcolour(0x646464, conq_scroll_overlay:com_18);
-    if_setcolour(0x646464, conq_scroll_overlay:com_20);
-    if_setcolour(0x646464, conq_scroll_overlay:com_21);
-    if_setcolour(0x646464, conq_scroll_overlay:com_17);
-    if_setcolour(0x646464, conq_scroll_overlay:com_15);
-    if_setcolour(0x646464, conq_scroll_overlay:com_16);
-    if_setcolour(0x646464, conq_scroll_overlay:com_14);
+    if_setcolour(0x646464, conq_scroll_overlay:arrow_top);
+    if_setcolour(0x646464, conq_scroll_overlay:arrow_bottom);
+    if_setcolour(0x646464, conq_scroll_overlay:arrow_left);
+    if_setcolour(0x646464, conq_scroll_overlay:arrow_right);
+    if_setcolour(0x646464, conq_scroll_overlay:arrow_top_right);
+    if_setcolour(0x646464, conq_scroll_overlay:arrow_bottom_right);
+    if_setcolour(0x646464, conq_scroll_overlay:arrow_top_left);
+    if_setcolour(0x646464, conq_scroll_overlay:arrow_bottom_left);
     return;
 } else {
-    if_setcolour(^black, conq_scroll_overlay:com_19);
-    if_setcolour(^black, conq_scroll_overlay:com_18);
-    if_setcolour(^black, conq_scroll_overlay:com_20);
-    if_setcolour(^black, conq_scroll_overlay:com_21);
-    if_setcolour(^black, conq_scroll_overlay:com_17);
-    if_setcolour(^black, conq_scroll_overlay:com_15);
-    if_setcolour(^black, conq_scroll_overlay:com_16);
-    if_setcolour(^black, conq_scroll_overlay:com_14);
+    if_setcolour(^black, conq_scroll_overlay:arrow_top);
+    if_setcolour(^black, conq_scroll_overlay:arrow_bottom);
+    if_setcolour(^black, conq_scroll_overlay:arrow_left);
+    if_setcolour(^black, conq_scroll_overlay:arrow_right);
+    if_setcolour(^black, conq_scroll_overlay:arrow_top_right);
+    if_setcolour(^black, conq_scroll_overlay:arrow_bottom_right);
+    if_setcolour(^black, conq_scroll_overlay:arrow_top_left);
+    if_setcolour(^black, conq_scroll_overlay:arrow_bottom_left);
     %varclient_1353 = $coord3;
     cam_followcoord(%varclient_1353);
 }

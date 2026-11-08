@@ -4,5 +4,5 @@ if (%varplayer_1109 = null) {
     return;
 }
 %varclient_85 = max(calc(%varclient_85 - 1), 1);
-if_settext("<tostring_localised(%varclient_85, true)> gp", stockmarket:com_153);
+if_settext("<tostring_localised(%varclient_85, true)> gp", stockmarket:offerprice);
 ~sm_offerprice_settimer;

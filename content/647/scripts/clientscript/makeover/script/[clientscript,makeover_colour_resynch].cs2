@@ -3,28 +3,28 @@
 def_component $component1 = null;
 switch_int (%varplayerbit_6099) {
     case 0 :
-        $component1 = makeover_mage:com_23;
+        $component1 = makeover_mage:colour0;
     case 1 :
-        $component1 = makeover_mage:com_24;
+        $component1 = makeover_mage:colour1;
     case 2 :
-        $component1 = makeover_mage:com_25;
+        $component1 = makeover_mage:colour2;
     case 3 :
-        $component1 = makeover_mage:com_26;
+        $component1 = makeover_mage:colour3;
     case 4 :
-        $component1 = makeover_mage:com_27;
+        $component1 = makeover_mage:colour4;
     case 5 :
-        $component1 = makeover_mage:com_28;
+        $component1 = makeover_mage:colour5;
     case 6 :
-        $component1 = makeover_mage:com_29;
+        $component1 = makeover_mage:colour6;
     case 7 :
-        $component1 = makeover_mage:com_22;
+        $component1 = makeover_mage:colour7;
     case 8 :
-        $component1 = makeover_mage:com_21;
+        $component1 = makeover_mage:colour8;
     case 9 :
-        $component1 = makeover_mage:com_20;
+        $component1 = makeover_mage:colour9;
     case 10 :
-        $component1 = makeover_mage:com_30;
+        $component1 = makeover_mage:colour10;
     case 11 :
-        $component1 = makeover_mage:com_31;
+        $component1 = makeover_mage:colour11;
 }
 ~makeover_colour($component1, $component0);

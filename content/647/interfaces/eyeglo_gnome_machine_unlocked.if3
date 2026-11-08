@@ -3,434 +3,434 @@
 type=rectangle
 width=515
 height=335
-layer=com_40
+layer=content_layer
 colour=0x000000
 fill=yes
 trans=100
 
 // 172:1
-[com_1]
+[machine]
 type=model
 x=184
 y=-84
 width=285
 height=446
-layer=com_40
+layer=content_layer
 model=model_17212
 modelorigin=0,-43
 modelzoom=1110
 
 // 172:2
-[com_2]
+[digit_top_tens]
 type=model
 x=344
 y=50
 width=11
 height=20
-layer=com_40
+layer=content_layer
 model=model_17201
 modelorigin=0,1
 modelzoom=347
 
 // 172:3
-[com_3]
+[digit_top_units]
 type=model
 x=357
 y=50
 width=11
 height=20
-layer=com_40
+layer=content_layer
 model=model_17201
 modelorigin=0,1
 modelzoom=347
 
 // 172:4
-[com_4]
+[digit_middle_tens]
 type=model
 x=343
 y=117
 width=11
 height=20
-layer=com_40
+layer=content_layer
 model=model_17201
 modelorigin=0,1
 modelzoom=347
 
 // 172:5
-[com_5]
+[digit_middle_units]
 type=model
 x=357
 y=117
 width=11
 height=20
-layer=com_40
+layer=content_layer
 model=model_17201
 modelorigin=0,1
 modelzoom=347
 
 // 172:6
-[com_6]
+[digit_bottom_tens]
 type=model
 x=343
 y=202
 width=11
 height=20
-layer=com_40
+layer=content_layer
 model=model_17201
 modelorigin=0,1
 modelzoom=347
 
 // 172:7
-[com_7]
+[digit_bottom_units]
 type=model
 x=357
 y=202
 width=11
 height=20
-layer=com_40
+layer=content_layer
 model=model_17201
 modelorigin=0,1
 modelzoom=347
 
 // 172:8
-[com_8]
+[arrow_1_up]
 type=model
 x=377
 y=44
 width=11
 height=10
-layer=com_40
+layer=content_layer
 model=model_17221
 modelzoom=282
 
 // 172:9
-[com_9]
+[arrow_1_middle]
 type=model
 x=377
 y=54
 width=11
 height=10
-layer=com_40
+layer=content_layer
 model=model_17219
 modelorigin=0,-1
 modelzoom=301
 
 // 172:10
-[com_10]
+[arrow_1_down]
 type=model
 x=377
 y=64
 width=11
 height=8
-layer=com_40
+layer=content_layer
 model=model_17218
 modelorigin=0,-1
 modelzoom=296
 
 // 172:11
-[com_11]
+[arrow_2_up]
 type=model
 x=378
 y=112
 width=11
 height=10
-layer=com_40
+layer=content_layer
 model=model_17221
 modelzoom=282
 
 // 172:12
-[com_12]
+[arrow_2_middle]
 type=model
 x=378
 y=122
 width=11
 height=10
-layer=com_40
+layer=content_layer
 model=model_17219
 modelorigin=0,-1
 modelzoom=301
 
 // 172:13
-[com_13]
+[arrow_2_down]
 type=model
 x=378
 y=132
 width=11
 height=8
-layer=com_40
+layer=content_layer
 model=model_17218
 modelorigin=0,-1
 modelzoom=296
 
 // 172:14
-[com_14]
+[arrow_3_up]
 type=model
 x=378
 y=196
 width=11
 height=10
-layer=com_40
+layer=content_layer
 model=model_17221
 modelzoom=282
 
 // 172:15
-[com_15]
+[arrow_3_middle]
 type=model
 x=378
 y=206
 width=11
 height=10
-layer=com_40
+layer=content_layer
 model=model_17219
 modelorigin=0,-1
 modelzoom=301
 
 // 172:16
-[com_16]
+[arrow_3_down]
 type=model
 x=378
 y=216
 width=11
 height=8
-layer=com_40
+layer=content_layer
 model=model_17218
 modelorigin=0,-1
 modelzoom=296
 
 // 172:17
-[com_17]
+[glasspanels]
 type=model
 x=175
 y=10
 width=306
 height=296
-layer=com_40
+layer=content_layer
 model=model_17213
 modelorigin=-1,-50
 modelzoom=1150
 
 // 172:18
-[com_18]
+[coinslot_1]
 type=model
 x=267
 y=40
 width=18
 height=37
-layer=com_40
+layer=content_layer
 model=model_17224
 modelzoom=1110
-onload=script1325(eyeglo_gnome_machine_unlocked:com_2, eyeglo_gnome_machine_unlocked:com_3, eyeglo_gnome_machine_unlocked:com_8, eyeglo_gnome_machine_unlocked:com_9, eyeglo_gnome_machine_unlocked:com_10, eyeglo_gnome_machine_unlocked:com_29)
-onvartransmit=script1325(eyeglo_gnome_machine_unlocked:com_2, eyeglo_gnome_machine_unlocked:com_3, eyeglo_gnome_machine_unlocked:com_8, eyeglo_gnome_machine_unlocked:com_9, eyeglo_gnome_machine_unlocked:com_10, eyeglo_gnome_machine_unlocked:com_29){varplayer_845, varplayer_848, varplayer_850}
+onload=script1325(eyeglo_gnome_machine_unlocked:digit_top_tens, eyeglo_gnome_machine_unlocked:digit_top_units, eyeglo_gnome_machine_unlocked:arrow_1_up, eyeglo_gnome_machine_unlocked:arrow_1_middle, eyeglo_gnome_machine_unlocked:arrow_1_down, eyeglo_gnome_machine_unlocked:display1_1)
+onvartransmit=script1325(eyeglo_gnome_machine_unlocked:digit_top_tens, eyeglo_gnome_machine_unlocked:digit_top_units, eyeglo_gnome_machine_unlocked:arrow_1_up, eyeglo_gnome_machine_unlocked:arrow_1_middle, eyeglo_gnome_machine_unlocked:arrow_1_down, eyeglo_gnome_machine_unlocked:display1_1){varplayer_845, varplayer_848, varplayer_850}
 
 // 172:19
-[com_19]
+[coinslot_2]
 type=model
 x=267
 y=106
 width=18
 height=37
-layer=com_40
+layer=content_layer
 model=model_17224
 modelzoom=1110
-onload=script1326(eyeglo_gnome_machine_unlocked:com_4, eyeglo_gnome_machine_unlocked:com_5, eyeglo_gnome_machine_unlocked:com_11, eyeglo_gnome_machine_unlocked:com_12, eyeglo_gnome_machine_unlocked:com_13, eyeglo_gnome_machine_unlocked:com_30, eyeglo_gnome_machine_unlocked:com_31)
-onvartransmit=script1326(eyeglo_gnome_machine_unlocked:com_4, eyeglo_gnome_machine_unlocked:com_5, eyeglo_gnome_machine_unlocked:com_11, eyeglo_gnome_machine_unlocked:com_12, eyeglo_gnome_machine_unlocked:com_13, eyeglo_gnome_machine_unlocked:com_30, eyeglo_gnome_machine_unlocked:com_31){varplayer_845, varplayer_848, varplayer_851, varplayer_852}
+onload=script1326(eyeglo_gnome_machine_unlocked:digit_middle_tens, eyeglo_gnome_machine_unlocked:digit_middle_units, eyeglo_gnome_machine_unlocked:arrow_2_up, eyeglo_gnome_machine_unlocked:arrow_2_middle, eyeglo_gnome_machine_unlocked:arrow_2_down, eyeglo_gnome_machine_unlocked:display2_1, eyeglo_gnome_machine_unlocked:display2_2)
+onvartransmit=script1326(eyeglo_gnome_machine_unlocked:digit_middle_tens, eyeglo_gnome_machine_unlocked:digit_middle_units, eyeglo_gnome_machine_unlocked:arrow_2_up, eyeglo_gnome_machine_unlocked:arrow_2_middle, eyeglo_gnome_machine_unlocked:arrow_2_down, eyeglo_gnome_machine_unlocked:display2_1, eyeglo_gnome_machine_unlocked:display2_2){varplayer_845, varplayer_848, varplayer_851, varplayer_852}
 
 // 172:20
-[com_20]
+[coinslot_3]
 type=model
 x=267
 y=188
 width=18
 height=37
-layer=com_40
+layer=content_layer
 model=model_17224
 modelzoom=1110
-onload=script1327(eyeglo_gnome_machine_unlocked:com_6, eyeglo_gnome_machine_unlocked:com_7, eyeglo_gnome_machine_unlocked:com_14, eyeglo_gnome_machine_unlocked:com_15, eyeglo_gnome_machine_unlocked:com_16, eyeglo_gnome_machine_unlocked:com_32, eyeglo_gnome_machine_unlocked:com_33, eyeglo_gnome_machine_unlocked:com_34)
-onvartransmit=script1327(eyeglo_gnome_machine_unlocked:com_6, eyeglo_gnome_machine_unlocked:com_7, eyeglo_gnome_machine_unlocked:com_14, eyeglo_gnome_machine_unlocked:com_15, eyeglo_gnome_machine_unlocked:com_16, eyeglo_gnome_machine_unlocked:com_32, eyeglo_gnome_machine_unlocked:com_33, eyeglo_gnome_machine_unlocked:com_34){varplayer_845, varplayer_848, varplayer_853, varplayer_854, varplayer_855}
+onload=script1327(eyeglo_gnome_machine_unlocked:digit_bottom_tens, eyeglo_gnome_machine_unlocked:digit_bottom_units, eyeglo_gnome_machine_unlocked:arrow_3_up, eyeglo_gnome_machine_unlocked:arrow_3_middle, eyeglo_gnome_machine_unlocked:arrow_3_down, eyeglo_gnome_machine_unlocked:display3_1, eyeglo_gnome_machine_unlocked:display3_2, eyeglo_gnome_machine_unlocked:display3_3)
+onvartransmit=script1327(eyeglo_gnome_machine_unlocked:digit_bottom_tens, eyeglo_gnome_machine_unlocked:digit_bottom_units, eyeglo_gnome_machine_unlocked:arrow_3_up, eyeglo_gnome_machine_unlocked:arrow_3_middle, eyeglo_gnome_machine_unlocked:arrow_3_down, eyeglo_gnome_machine_unlocked:display3_1, eyeglo_gnome_machine_unlocked:display3_2, eyeglo_gnome_machine_unlocked:display3_3){varplayer_845, varplayer_848, varplayer_853, varplayer_854, varplayer_855}
 
 // 172:21
-[com_21]
+[coinslot_1_button]
 type=rectangle
 x=264
 y=41
 width=25
 height=36
-layer=com_40
+layer=content_layer
 colour=0xffff00
 trans=255
 transmitop=1
 op1=Insert coin
 
 // 172:22
-[com_22]
+[coinslot_2_button]
 type=rectangle
 x=263
 y=108
 width=25
 height=34
-layer=com_40
+layer=content_layer
 colour=0xffff00
 trans=255
 transmitop=1
 op1=Insert coin
 
 // 172:23
-[com_23]
+[coinslot_3_button]
 type=rectangle
 x=266
 y=189
 width=20
 height=34
-layer=com_40
+layer=content_layer
 colour=0xffff00
 trans=255
 transmitop=1
 op1=Insert coin
 
 // 172:24
-[com_24]
+[verify_1]
 type=rectangle
 x=370
 y=41
 width=32
 height=32
-layer=com_40
+layer=content_layer
 colour=0xffffff
 trans=255
 transmitop=1
 op1=Activate machine
 
 // 172:25
-[com_25]
+[verify_2]
 type=rectangle
 x=370
 y=111
 width=32
 height=32
-layer=com_40
+layer=content_layer
 colour=0xffffff
 trans=255
 transmitop=1
 op1=Activate machine
 
 // 172:26
-[com_26]
+[verify_3]
 type=rectangle
 x=372
 y=194
 width=32
 height=32
-layer=com_40
+layer=content_layer
 colour=0xffffff
 trans=255
 transmitop=1
 op1=Activate machine
 
 // 172:27
-[com_27]
+[hand]
 type=model
 x=-14
 y=174
 width=196
 height=90
-layer=com_40
+layer=content_layer
 model=model_17187
 modelorigin=12,7
 modelangle=34,375,0
 modelzoom=478
 
 // 172:28
-[com_28]
+[windowset]
 type=model
 x=295
 y=40
 width=34
 height=255
-layer=com_40
+layer=content_layer
 model=model_17227
 modelorigin=14,-71
 modelzoom=1110
 
 // 172:29
-[com_29]
+[display1_1]
 type=graphic
 x=295
 y=42
 width=36
 height=32
-layer=com_40
+layer=content_layer
 outline=1
 graphicshadow=2894892
 colour=0xffffffff
 
 // 172:30
-[com_30]
+[display2_1]
 type=graphic
 x=295
 y=89
 width=36
 height=32
-layer=com_40
+layer=content_layer
 outline=1
 graphicshadow=2894892
 colour=0xffffffff
 
 // 172:31
-[com_31]
+[display2_2]
 type=graphic
 x=295
 y=130
 width=36
 height=32
-layer=com_40
+layer=content_layer
 outline=1
 graphicshadow=2894892
 colour=0xffffffff
 
 // 172:32
-[com_32]
+[display3_1]
 type=graphic
 x=295
 y=174
 width=36
 height=32
-layer=com_40
+layer=content_layer
 outline=1
 graphicshadow=2894892
 colour=0xffffffff
 
 // 172:33
-[com_33]
+[display3_2]
 type=graphic
 x=295
 y=215
 width=36
 height=32
-layer=com_40
+layer=content_layer
 outline=1
 graphicshadow=2894892
 colour=0xffffffff
 
 // 172:34
-[com_34]
+[display3_3]
 type=graphic
 x=295
 y=259
 width=36
 height=32
-layer=com_40
+layer=content_layer
 outline=1
 graphicshadow=2894892
 colour=0xffffffff
 
 // 172:35
-[com_35]
+[cancel]
 type=model
 x=341
 y=270
 width=21
 height=21
-layer=com_40
+layer=content_layer
 model=model_17222
 modelangle=74,49,0
 modelzoom=1110
@@ -438,13 +438,13 @@ transmitop=1
 op1=Cancel
 
 // 172:36
-[com_36]
+[verify]
 type=model
 x=376
 y=244
 width=21
 height=21
-layer=com_40
+layer=content_layer
 model=model_17225
 modelangle=49,0,0
 modelzoom=1110
@@ -452,25 +452,25 @@ transmitop=1
 op1=Activate machine
 
 // 172:37
-[com_37]
+[coinexit]
 type=model
 x=259
 y=265
 width=31
 height=25
-layer=com_40
+layer=content_layer
 model=model_17223
 modelorigin=52,-181
 modelzoom=1110
 
 // 172:38
-[com_38]
+[current_coin]
 type=model
 x=79
 y=155
 width=54
 height=56
-layer=com_40
+layer=content_layer
 model=null
 modelorigin=-1,5
 modelangle=512,0,0
@@ -478,13 +478,13 @@ modelzoom=300
 onvartransmit=eyeglo_machine_transmit(event_com){varplayer_856}
 
 // 172:39
-[com_39]
+[close]
 type=graphic
 x=476
 y=8
 width=26
 height=23
-layer=com_40
+layer=content_layer
 graphic="close_buttons,4"
 colour=0xffffffff
 transmitop=1
@@ -494,7 +494,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,4")
 onop=closebutton_click
 
 // 172:40
-[com_40]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -502,7 +502,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 172:41
-[com_41]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -512,7 +512,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 172:42
-[com_42]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -520,7 +520,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=fsborder_main_layer
 
 // 172:43
 [com_43]
@@ -623,7 +623,7 @@ tiling=yes
 colour=0xffffffff
 
 // 172:51
-[com_51]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -631,30 +631,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_42
+layer=fsborder_resizing_layer
 
 // 172:52
-[com_52]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_42
+layer=fsborder_resizing_layer
 
 // 172:53
-[com_53]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_42
+layer=fsborder_resizing_layer
 
 // 172:54
-[com_54]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -662,16 +662,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_42
+layer=fsborder_resizing_layer
 
 // 172:55
-[com_55]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_42
+layer=fsborder_resizing_layer
 
 // 172:56
 [com_56]
@@ -681,7 +681,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_52
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -696,7 +696,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_51
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -710,7 +710,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_53
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -725,7 +725,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_54
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

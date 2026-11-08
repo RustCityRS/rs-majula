@@ -3,18 +3,18 @@
 type=rectangle
 width=512
 height=334
-layer=com_11
+layer=content_layer
 colour=0x302c27
 fill=yes
 
 // 409:1
-[com_1]
+[mcannon_tool1]
 type=model
 x=17
 y=41
 width=49
 height=238
-layer=com_11
+layer=content_layer
 model=model_15328
 modelorigin=4,26
 modelangle=51,2047,0
@@ -24,13 +24,13 @@ op1=Use
 opcursor0=cursor_46
 
 // 409:2
-[com_2]
+[mcannon_tool2]
 type=model
 x=72
 y=50
 width=66
 height=226
-layer=com_11
+layer=content_layer
 model=model_15330
 modelorigin=0,23
 modelangle=39,3,0
@@ -40,13 +40,13 @@ op1=Use
 opcursor0=cursor_46
 
 // 409:3
-[com_3]
+[mcannon_tool3]
 type=model
 x=144
 y=52
 width=40
 height=228
-layer=com_11
+layer=content_layer
 model=model_15332
 modelorigin=6,20
 modelangle=45,0,0
@@ -56,26 +56,26 @@ op1=Use
 opcursor0=cursor_46
 
 // 409:4
-[com_4]
+[mcannon_casing_for_mechanism]
 type=model
 x=323
 y=46
 width=154
 height=238
-layer=com_11
+layer=content_layer
 model=model_15322
 modelorigin=-56,58
 modelangle=102,1900,0
 modelzoom=700
 
 // 409:5
-[com_5]
+[mcannon_firing_mechanism]
 type=model
 x=218
 y=36
 width=213
 height=275
-layer=com_11
+layer=content_layer
 model=model_15323
 modelorigin=20,50
 modelangle=102,1900,0
@@ -88,7 +88,7 @@ x=7
 y=284
 width=203
 height=31
-layer=com_11
+layer=content_layer
 textfont=p12_full
 text=Choose a tool to use on each of the moving parts.
 textalignh=centre
@@ -96,62 +96,62 @@ textshadow=yes
 colour=0x73725a
 
 // 409:7
-[com_7]
+[mcannon_safety]
 type=model
 x=349
 y=228
 width=80
 height=83
-layer=com_11
+layer=content_layer
 model=null
 modelzoom=400
 transmitop=1
 op1=Safety Switch
 
 // 409:8
-[com_8]
+[mcannon_spring]
 type=model
 x=339
 y=109
 width=35
 height=120
-layer=com_11
+layer=content_layer
 model=null
 modelzoom=400
 transmitop=1
 op1=Spring
 
 // 409:9
-[com_9]
+[mcannon_gear]
 type=model
 x=275
 y=230
 width=66
 height=72
-layer=com_11
+layer=content_layer
 model=null
 modelzoom=400
 transmitop=1
 op1=Gear
 
 // 409:10
-[com_10]
+[close]
 type=graphic
 x=481
 y=6
 width=26
 height=23
-layer=com_11
+layer=content_layer
 graphic="close_buttons,4"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(mcannon_interface:com_10, "close_buttons,5")
-onmouseleave=graphic_swapper(mcannon_interface:com_10, "close_buttons,4")
+onmouseover=graphic_swapper(mcannon_interface:close, "close_buttons,5")
+onmouseleave=graphic_swapper(mcannon_interface:close, "close_buttons,4")
 onop=closebutton_click
 
 // 409:11
-[com_11]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -159,7 +159,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 409:12
-[com_12]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -169,7 +169,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 409:13
-[com_13]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -177,7 +177,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=fsborder_main_layer
 
 // 409:14
 [com_14]
@@ -280,7 +280,7 @@ tiling=yes
 colour=0x000000
 
 // 409:22
-[com_22]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -288,30 +288,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_13
+layer=fsborder_resizing_layer
 
 // 409:23
-[com_23]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_13
+layer=fsborder_resizing_layer
 
 // 409:24
-[com_24]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_13
+layer=fsborder_resizing_layer
 
 // 409:25
-[com_25]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -319,16 +319,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_13
+layer=fsborder_resizing_layer
 
 // 409:26
-[com_26]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=fsborder_resizing_layer
 
 // 409:27
 [com_27]
@@ -338,7 +338,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_23
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -353,7 +353,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_22
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -367,7 +367,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_24
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -382,7 +382,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_25
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

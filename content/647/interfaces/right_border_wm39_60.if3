@@ -121,7 +121,7 @@ graphic=button_dropshadow_corner
 tiling=yes
 
 // 1082:11
-[com_11]
+[explanation]
 type=text
 y=52
 width=409
@@ -505,7 +505,7 @@ text=Patch
 textshadow=yes
 
 // 1082:42
-[com_42]
+[status_title]
 type=text
 x=229
 y=15
@@ -1928,7 +1928,7 @@ onclick=script4207(event_com, 0)
 onrelease=script4207(event_com, 1)
 
 // 1082:158
-[com_158]
+[title_layer]
 type=layer
 width=16391
 height=23
@@ -1945,7 +1945,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_158
+layer=title_layer
 textfont=palatino_linotype_18pt_regular
 text=Farming Patch Status
 textalignh=centre
@@ -1954,7 +1954,7 @@ colour=0xebe0bc
 onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1082:160
-[com_160]
+[content_layer]
 type=layer
 x=8
 y=29

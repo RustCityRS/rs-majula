@@ -1,7 +1,7 @@
 // 1675
 [proc,updatemodel](int $int0)
 if ($int0 = 0) {
-    if_setmodel(enum(int, model, enum_839, %varplayerbit_6764), interface_84:com_19);
+    if_setmodel(enum(int, model, enum_839, %varplayerbit_6764), champions2_bannerselect:banner);
 } else {
-    if_setmodel(enum(int, model, enum_838, $int0), interface_84:com_19);
+    if_setmodel(enum(int, model, enum_838, $int0), champions2_bannerselect:banner);
 }

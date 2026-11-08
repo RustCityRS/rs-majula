@@ -5,31 +5,31 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_10
+layer=content_layer
 colour=0x2a1e06
 fill=yes
 
 // 758:1
-[com_1]
+[water2]
 type=model
 x=157
 y=40
 width=167
 height=299
-layer=com_10
+layer=content_layer
 model=model_12114
 modelangle=512,898,0
 modelzoom=1100
 modelanim=seq_3308
 
 // 758:2
-[com_2]
+[water1]
 type=model
 x=209
 y=23
 width=167
 height=299
-layer=com_10
+layer=content_layer
 model=model_12114
 modelangle=512,898,0
 modelzoom=1100
@@ -38,26 +38,26 @@ transmitop=10
 op10= 
 
 // 758:3
-[com_3]
+[boat]
 type=model
 x=31
 y=-56
 width=513
 height=456
-layer=com_10
+layer=content_layer
 model=model_40517
 modelorigin=42,22
 modelangle=364,1956,0
 modelzoom=700
 
 // 758:4
-[com_4]
+[lumb]
 type=text
 x=276
 y=272
 width=70
 height=27
-layer=com_10
+layer=content_layer
 textfont=p11_full
 text=Lumbridge
 textalignh=centre
@@ -66,13 +66,13 @@ textshadow=yes
 colour=0x999999
 
 // 758:5
-[com_5]
+[guild]
 type=text
 x=262
 y=206
 width=118
 height=31
-layer=com_10
+layer=content_layer
 textfont=p11_full
 text=Champion's Guild
 textalignh=centre
@@ -81,13 +81,13 @@ textshadow=yes
 colour=0x999999
 
 // 758:6
-[com_6]
+[barb]
 type=text
 x=128
 y=192
 width=94
 height=26
-layer=com_10
+layer=content_layer
 textfont=p11_full
 text=Barbarian Village
 textalignh=centre
@@ -96,13 +96,13 @@ textshadow=yes
 colour=0x999999
 
 // 758:7
-[com_7]
+[edge]
 type=text
 x=134
 y=120
 width=94
 height=31
-layer=com_10
+layer=content_layer
 textfont=p11_full
 text=Edgeville
 textalignh=centre
@@ -111,13 +111,13 @@ textshadow=yes
 colour=0x999999
 
 // 758:8
-[com_8]
+[wild]
 type=text
 x=225
 y=52
 width=81
 height=33
-layer=com_10
+layer=content_layer
 textfont=p11_full
 text=Wilderness
 textalignh=centre
@@ -126,13 +126,13 @@ textshadow=yes
 colour=0x999999
 
 // 758:9
-[com_9]
+[shipjourney_text]
 type=text
 x=59
 y=9
 width=302
 height=19
-layer=com_10
+layer=content_layer
 textfont=q8_full
 text=You Journey on the canoe....
 textshadow=yes
@@ -141,7 +141,7 @@ transmitop=10
 op10= 
 
 // 758:10
-[com_10]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -149,7 +149,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 758:11
-[com_11]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -159,7 +159,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 758:12
-[com_12]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -167,7 +167,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_11
+layer=fsborder_main_layer
 
 // 758:13
 [com_13]
@@ -270,7 +270,7 @@ tiling=yes
 colour=0xffffffff
 
 // 758:21
-[com_21]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -278,30 +278,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 758:22
-[com_22]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 758:23
-[com_23]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 758:24
-[com_24]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -309,16 +309,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 758:25
-[com_25]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=fsborder_resizing_layer
 
 // 758:26
 [com_26]
@@ -328,7 +328,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_22
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -343,7 +343,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_21
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -357,7 +357,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_23
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -372,7 +372,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_24
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

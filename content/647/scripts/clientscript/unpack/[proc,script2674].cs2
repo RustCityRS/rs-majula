@@ -1,39 +1,39 @@
 // 2674
 [proc,script2674](int $int0)
 if ($int0 ! 0) {
-    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:com_7);
+    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:details_radio);
 } else {
-    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:com_7);
+    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:details_radio);
 }
 if ($int0 ! 1) {
-    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:com_9);
+    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:spell_radio);
 } else {
-    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:com_9);
+    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:spell_radio);
 }
 if ($int0 ! 2) {
-    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:com_11);
+    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:attack_radio);
 } else {
-    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:com_11);
+    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:attack_radio);
 }
 if ($int0 ! 3) {
-    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:com_13);
+    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:call_radio);
 } else {
-    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:com_13);
+    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:call_radio);
 }
 if ($int0 ! 4) {
-    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:com_15);
+    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:dismiss_radio);
 } else {
-    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:com_15);
+    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:dismiss_radio);
 }
 if ($int0 ! 5) {
-    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:com_17);
+    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:bob_radio);
 } else {
-    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:com_17);
+    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:bob_radio);
 }
 if ($int0 ! 6) {
-    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:com_19);
+    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:renew_radio);
 } else {
-    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:com_19);
+    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:renew_radio);
 }
 if ($int0 ! 7) {
     if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:com_25);

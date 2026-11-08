@@ -122,7 +122,7 @@ graphic="v2_stone_borders,10"
 colour=0xffffffff
 
 // 335:12
-[com_12]
+[closebutton]
 type=graphic
 x=485
 y=30
@@ -159,7 +159,7 @@ tiling=yes
 colour=0xffffffff
 
 // 335:15
-[com_15]
+[tradetitle]
 type=text
 x=96
 y=30
@@ -174,7 +174,7 @@ onload=script172
 onvartransmit=script141{offer_modified, other_offer_modified}
 
 // 335:16
-[com_16]
+[accept_button]
 type=layer
 x=223
 y=124
@@ -187,7 +187,7 @@ onmouseover=v2_stone_button_out_filled(event_com)
 onmouseleave=v2_stone_button_filled(event_com)
 
 // 335:17
-[com_17]
+[accept_text]
 type=text
 x=223
 y=124
@@ -201,7 +201,7 @@ textshadow=yes
 colour=0x00c000
 
 // 335:18
-[com_18]
+[decline_button]
 type=layer
 x=223
 y=164
@@ -214,7 +214,7 @@ onmouseover=v2_stone_button_out_filled(event_com)
 onmouseleave=v2_stone_button_filled(event_com)
 
 // 335:19
-[com_19]
+[decline_text]
 type=text
 x=223
 y=164
@@ -238,7 +238,7 @@ colour=0x221717
 fill=yes
 
 // 335:21
-[com_21]
+[free_space_text]
 type=text
 x=215
 y=79
@@ -251,7 +251,7 @@ textshadow=yes
 colour=0xff981f
 
 // 335:22
-[com_22]
+[free_space_name]
 type=text
 x=215
 y=70
@@ -262,7 +262,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff9820
-onvarcstrtransmit=script1571(event_com, trademain:com_51, p11_full){varclient_1722}
+onvarcstrtransmit=script1571(event_com, trademain:tooltip_layer, p11_full){varclient_1722}
 
 // 335:23
 [com_23]
@@ -338,7 +338,7 @@ tiling=yes
 colour=0xffffffff
 
 // 335:30
-[com_30]
+[your_offer_layer]
 type=layer
 x=12
 y=72
@@ -346,7 +346,7 @@ width=177
 height=223
 
 // 335:31
-[com_31]
+[your_offer_layer_flashy]
 type=layer
 x=12
 y=72
@@ -354,7 +354,7 @@ width=177
 height=223
 
 // 335:32
-[com_32]
+[other_offer_layer_back]
 type=layer
 x=322
 y=72
@@ -363,7 +363,7 @@ height=223
 onload=script937
 
 // 335:33
-[com_33]
+[other_offer_layer]
 type=layer
 x=322
 y=72
@@ -371,7 +371,7 @@ width=177
 height=223
 
 // 335:34
-[com_34]
+[other_offer_layer_flashy]
 type=layer
 x=322
 y=72
@@ -407,7 +407,7 @@ textshadow=yes
 colour=0xff981f
 
 // 335:37
-[com_37]
+[tradestatus]
 type=text
 y=281
 width=400
@@ -419,7 +419,7 @@ textalignh=centre
 textshadow=yes
 
 // 335:38
-[com_38]
+[bowl_guests]
 type=layer
 x=466
 y=22
@@ -428,7 +428,7 @@ height=32
 hide=yes
 
 // 335:39
-[com_39]
+[trade_removed_warning_left]
 type=text
 x=10
 y=32
@@ -442,7 +442,7 @@ textshadow=yes
 colour=0xff0000
 
 // 335:40
-[com_40]
+[trade_removed_warning_right]
 type=text
 x=395
 y=32
@@ -464,11 +464,11 @@ height=27
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-onload=script4105(trademain:com_43, trademain:com_44, trademain:com_45, trademain:com_46, trademain:com_42)
-onvarctransmit=script4105(trademain:com_43, trademain:com_44, trademain:com_45, trademain:com_46, trademain:com_42){varclient_729, varclient_697}
+onload=script4105(trademain:com_43, trademain:com_44, trademain:com_45, trademain:arrow, trademain:header)
+onvarctransmit=script4105(trademain:com_43, trademain:com_44, trademain:com_45, trademain:arrow, trademain:header){varclient_729, varclient_697}
 
 // 335:42
-[com_42]
+[header]
 type=text
 widthmode=minus
 heightmode=minus
@@ -522,7 +522,7 @@ textshadow=yes
 colour=0xff981f
 
 // 335:46
-[com_46]
+[arrow]
 type=graphic
 width=16
 height=16
@@ -533,16 +533,16 @@ hide=yes
 graphic="catcon_catapult_arrows,0"
 
 // 335:47
-[com_47]
+[your_loan_offer_layer]
 type=layer
 x=191
 y=204
 width=60
 height=76
-onload=script507(trademain:com_47, trademain:com_56, trademain:com_57, trademain:com_55, trademain:com_48, trademain:com_52, trademain:com_53)
+onload=script507(trademain:your_loan_offer_layer, trademain:your_loan_offer_item, trademain:caminactive, trademain:your_loan_offer_fakebutton, trademain:other_loan_offer_layer, trademain:other_loan_offer_item, trademain:other_loan_offer_duration)
 
 // 335:48
-[com_48]
+[other_loan_offer_layer]
 type=layer
 x=261
 y=204
@@ -560,7 +560,7 @@ heightmode=minus
 type=text
 height=16
 widthmode=minus
-layer=com_48
+layer=other_loan_offer_layer
 textfont=p11_full
 text=Loan:
 textalignh=centre
@@ -569,7 +569,7 @@ textshadow=yes
 colour=0xff981f
 
 // 335:51
-[com_51]
+[tooltip_layer]
 type=layer
 x=10
 y=10
@@ -578,22 +578,22 @@ height=10
 layer=com_49
 
 // 335:52
-[com_52]
+[other_loan_offer_item]
 type=graphic
 y=14
 width=36
 height=32
 xmode=abs_centre
-layer=com_48
+layer=other_loan_offer_layer
 colour=0xffffffff
 
 // 335:53
-[com_53]
+[other_loan_offer_duration]
 type=text
 height=30
 widthmode=minus
 ymode=abs_bottom
-layer=com_48
+layer=other_loan_offer_layer
 textfont=p11_full
 textalignh=centre
 textalignv=centre
@@ -605,7 +605,7 @@ colour=0xff981f
 type=text
 height=16
 widthmode=minus
-layer=com_47
+layer=your_loan_offer_layer
 textfont=p11_full
 text=Loan:
 textalignh=centre
@@ -614,7 +614,7 @@ textshadow=yes
 colour=0xff981f
 
 // 335:55
-[com_55]
+[your_loan_offer_fakebutton]
 type=layer
 y=2
 width=4
@@ -622,26 +622,26 @@ height=28
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_47
+layer=your_loan_offer_layer
 
 // 335:56
-[com_56]
+[your_loan_offer_item]
 type=graphic
 y=14
 width=36
 height=32
 xmode=abs_centre
-layer=com_47
+layer=your_loan_offer_layer
 colour=0xffffffff
 
 // 335:57
-[com_57]
+[caminactive]
 type=text
 y=1
 height=30
 widthmode=minus
 ymode=abs_bottom
-layer=com_47
+layer=your_loan_offer_layer
 textfont=p11_full
 textalignh=centre
 textalignv=centre

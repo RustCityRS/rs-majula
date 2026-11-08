@@ -3,12 +3,12 @@
 if ($int2 ! 1) {
     return;
 }
-~deltooltip_action(task_side:com_163);
+~deltooltip_action(task_side:tasks_tooltip);
 %varclient_1416 = $int1;
-if_sethide(true, task_side:com_92);
-if_sethide(true, task_side:com_94);
-if_sethide(false, task_side:com_125);
-if_sethide(false, task_side:com_122);
+if_sethide(true, task_side:hints_layer);
+if_sethide(true, task_side:rewards_layer);
+if_sethide(false, task_side:details_layer);
+if_sethide(false, task_side:summary_layer);
 if (~script3999($int0) = 1) {
     if (%varplayerbit_8588 = 4094) {
         ~script3977(%varplayerbit_8587);

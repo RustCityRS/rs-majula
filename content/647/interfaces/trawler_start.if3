@@ -7,7 +7,7 @@ transmitop=10
 op10= 
 
 // 368:1
-[com_1]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -15,13 +15,13 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 368:2
-[com_2]
+[main_title_text]
 type=text
 y=4
 width=16391
 height=17
 widthmode=proportion
-layer=com_1
+layer=content_layer
 textfont=p12_full
 text=Trawler: How To Play
 textalignh=centre
@@ -29,26 +29,26 @@ textalignv=centre
 colour=0xff9900
 
 // 368:3
-[com_3]
+[rope_icon]
 type=model
 x=28
 y=159
 width=57
 height=36
-layer=com_1
+layer=content_layer
 model=model_1842
 modelorigin=-4,7
 modelangle=155,2037,0
 modelzoom=591
 
 // 368:4
-[com_4]
+[rope_text]
 type=text
 x=84
 y=152
 width=408
 height=49
-layer=com_1
+layer=content_layer
 textfont=p12_full
 text=If the Trawler's nets break, you can use rope to repair them.
 textalignh=centre
@@ -57,26 +57,26 @@ textshadow=yes
 colour=0xff9900
 
 // 368:5
-[com_5]
+[swamp_paste_icon]
 type=model
 x=28
 y=204
 width=56
 height=42
-layer=com_1
+layer=content_layer
 model=model_2386
 modelorigin=1,-2
 modelangle=218,115,0
 modelzoom=385
 
 // 368:6
-[com_6]
+[swamp_paste_text]
 type=text
 x=84
 y=200
 width=408
 height=49
-layer=com_1
+layer=content_layer
 textfont=p12_full
 text=If the Trawler springs a leak, you can use swamp paste to fix the hole.
 textlineheight=20
@@ -86,26 +86,26 @@ textshadow=yes
 colour=0xff9900
 
 // 368:7
-[com_7]
+[bailing_bucket_icon]
 type=model
 x=34
 y=252
 width=45
 height=63
-layer=com_1
+layer=content_layer
 model=model_2504
 modelorigin=0,24
 modelangle=148,1752,0
 modelzoom=478
 
 // 368:8
-[com_8]
+[bailing_bucket_text]
 type=text
 x=84
 y=254
 width=408
 height=47
-layer=com_1
+layer=content_layer
 textfont=p12_full
 text=If the Trawler starts to fill with water, you can use bailing buckets to reduce the water level.
 textlineheight=20
@@ -115,14 +115,14 @@ textshadow=yes
 colour=0xff9900
 
 // 368:9
-[com_9]
+[water_title]
 type=text
 x=55
 y=31
 width=70
 height=12
 xmode=abs_right
-layer=com_1
+layer=content_layer
 textfont=p11_full
 text=Water
 textalignh=centre
@@ -132,40 +132,40 @@ transmitop=10
 op10=  
 
 // 368:10
-[com_10]
+[water_bar_fill]
 type=rectangle
 x=80
 y=66
 width=18
 height=58
 xmode=abs_right
-layer=com_1
+layer=content_layer
 colour=0x0033cc
 fill=yes
 transmitop=10
 op10= 
 
 // 368:11
-[com_11]
+[water_bar_border]
 type=rectangle
 x=79
 y=45
 width=20
 height=80
 xmode=abs_right
-layer=com_1
+layer=content_layer
 colour=0x3366ff
 transmitop=10
 op10= 
 
 // 368:12
-[com_12]
+[water_bar_info_text]
 type=text
 x=22
 y=25
 width=377
 height=40
-layer=com_1
+layer=content_layer
 textfont=p12_full
 text=The blue "Water" bar shows much water the Trawler has taken on. Watch out! If the bar completely fills up you will sink!
 textalignh=centre
@@ -174,14 +174,14 @@ textshadow=yes
 colour=0xff9900
 
 // 368:13
-[com_13]
+[activity_title]
 type=text
 x=30
 y=31
 width=20
 height=12
 xmode=abs_right
-layer=com_1
+layer=content_layer
 textfont=p11_full
 text=Activity
 textalignh=centre
@@ -191,40 +191,40 @@ transmitop=10
 op10=  
 
 // 368:14
-[com_14]
+[activity_bar_fill]
 type=rectangle
 x=29
 y=81
 width=18
 height=43
 xmode=abs_right
-layer=com_1
+layer=content_layer
 colour=0x006600
 fill=yes
 transmitop=10
 op10= 
 
 // 368:15
-[com_15]
+[full_symbol1]
 type=rectangle
 x=28
 y=45
 width=20
 height=80
 xmode=abs_right
-layer=com_1
+layer=content_layer
 colour=0x009900
 transmitop=10
 op10= 
 
 // 368:16
-[com_16]
+[activity_bar_info_text]
 type=text
 x=22
 y=68
 width=377
 height=68
-layer=com_1
+layer=content_layer
 textfont=p12_full
 text=The green "Activity" bar shows much you have contributed to this Trawler trip. If the bar ever becomes empty, you will be removed from the Trawler. You can fill the bar up by performing the following actions:
 textalignh=centre
@@ -233,7 +233,7 @@ textshadow=yes
 colour=0xff9900
 
 // 368:17
-[com_17]
+[background_graphic]
 type=graphic
 x=7
 y=7
@@ -246,7 +246,7 @@ transmitop=10
 op10= 
 
 // 368:18
-[com_18]
+[top_left_corner]
 type=graphic
 x=1
 y=1
@@ -259,7 +259,7 @@ transmitop=10
 op10= 
 
 // 368:19
-[com_19]
+[top_right_corner]
 type=graphic
 x=479
 y=1
@@ -389,7 +389,7 @@ transmitop=10
 op10= 
 
 // 368:29
-[com_29]
+[right_border_2]
 type=graphic
 x=491
 y=173
@@ -402,7 +402,7 @@ transmitop=10
 op10= 
 
 // 368:30
-[com_30]
+[right_border_1]
 type=graphic
 x=491
 y=33
@@ -415,7 +415,7 @@ transmitop=10
 op10= 
 
 // 368:31
-[com_31]
+[left_border_2]
 type=graphic
 x=-12
 y=173
@@ -428,7 +428,7 @@ transmitop=10
 op10= 
 
 // 368:32
-[com_32]
+[left_border_1]
 type=graphic
 x=-12
 y=33
@@ -441,7 +441,7 @@ transmitop=10
 op10= 
 
 // 368:33
-[com_33]
+[bottom_left_corner]
 type=graphic
 x=1
 y=301
@@ -454,7 +454,7 @@ transmitop=10
 op10= 
 
 // 368:34
-[com_34]
+[bottom_right_corner]
 type=graphic
 x=479
 y=301
@@ -467,7 +467,7 @@ transmitop=10
 op10= 
 
 // 368:35
-[com_35]
+[close_button]
 type=graphic
 x=485
 y=4
@@ -479,6 +479,6 @@ colour=0xffffffff
 transmitop=1,10
 op1=Close
 op10= 
-onmouseover=graphic_swapper(trawler_start:com_35, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(trawler_start:com_35, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(trawler_start:close_button, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(trawler_start:close_button, "v2_stone_close_button,0")
 onop=closebutton_click

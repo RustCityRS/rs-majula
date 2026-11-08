@@ -27,9 +27,9 @@ def_int $int17 = 0;
 def_int $int18 = ~script4468;
 def_int $int19 = activeclanchannel_getuserrank(activeclanchannel_getuserslot(chat_playername_unfiltered));
 ~script1896;
-if_sethide(true, lobbyscreen_pane_clanchat:com_12);
-if_settext(activeclanchannel_getclanname, lobbyscreen_pane_clanchat:com_18);
-if_setsize(if_getwidth(lobbyscreen_pane_clanchat:com_39), 4, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_clanchat:com_39);
+if_sethide(true, lobbyscreen_pane_clanchat:info_layer);
+if_settext(activeclanchannel_getclanname, lobbyscreen_pane_clanchat:clan_detail_name_text);
+if_setsize(if_getwidth(lobbyscreen_pane_clanchat:clan_vdiv), 4, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_clanchat:clan_vdiv);
 while ($int8 < $int7) {
     $int16 = activeclanchannel_getuserrank($int8);
     $string1 = activeclanchannel_getuserdisplayname($int8);
@@ -99,15 +99,15 @@ if ($int14 > $int7) {
     $int15 = $int12;
 }
 if ($int14 <= $int7) {
-    $int17 = if_getscrolly(lobbyscreen_pane_clanchat:com_45);
-    if_setscrollsize(0, $int15, lobbyscreen_pane_clanchat:com_45);
+    $int17 = if_getscrolly(lobbyscreen_pane_clanchat:clan_main);
+    if_setscrollsize(0, $int15, lobbyscreen_pane_clanchat:clan_main);
     if ($int17 > $int15) {
         $int17 = $int15;
     }
-    ~scrollbar_resize(lobbyscreen_pane_clanchat:com_46, lobbyscreen_pane_clanchat:com_45, $int17);
+    ~scrollbar_resize(lobbyscreen_pane_clanchat:clan_build_layer_scroll, lobbyscreen_pane_clanchat:clan_main, $int17);
 } else {
-    if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:com_45);
-    if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:com_45);
-    ~scrollbar_resize(lobbyscreen_pane_clanchat:com_46, lobbyscreen_pane_clanchat:com_45, 0);
+    if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:clan_main);
+    if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:clan_main);
+    ~scrollbar_resize(lobbyscreen_pane_clanchat:clan_build_layer_scroll, lobbyscreen_pane_clanchat:clan_main, 0);
 }
 ~script1896;

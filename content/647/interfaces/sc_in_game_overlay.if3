@@ -190,7 +190,7 @@ transmitop=10
 op10=  
 
 // 809:14
-[com_14]
+[panic_highlight_rect]
 type=rectangle
 x=18
 y=16
@@ -202,7 +202,7 @@ fill=yes
 trans=255
 
 // 809:15
-[com_15]
+[time_remaining]
 type=text
 x=23
 y=23
@@ -229,7 +229,7 @@ trans=255
 onvarctransmit=script1939{varclient_558}
 
 // 809:17
-[com_17]
+[score]
 type=text
 x=23
 y=21
@@ -242,7 +242,7 @@ transmitop=10
 op10= 
 
 // 809:18
-[com_18]
+[panic_text]
 type=text
 width=470
 height=33

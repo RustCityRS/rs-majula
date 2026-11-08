@@ -1,5 +1,5 @@
 // 238:0
-[com_0]
+[multivar5t]
 type=text
 y=-1
 width=480
@@ -11,7 +11,7 @@ textalignh=centre
 colour=0x800000
 
 // 238:1
-[com_1]
+[multivar5a]
 type=text
 y=24
 width=480
@@ -26,7 +26,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 238:2
-[com_2]
+[multivar5b]
 type=text
 y=42
 width=480
@@ -41,7 +41,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 238:3
-[com_3]
+[multivar5c]
 type=text
 y=60
 width=480
@@ -56,7 +56,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 238:4
-[com_4]
+[multivar5d]
 type=text
 y=78
 width=480
@@ -71,7 +71,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 238:5
-[com_5]
+[multivar5e]
 type=text
 y=96
 width=480
@@ -90,7 +90,7 @@ onmouseleave=text_colour_swapper(event_com, ^black)
 type=graphic
 width=57
 height=13
-layer=com_8
+layer=multivar5swords
 graphic="sworddecor,1"
 colour=0x000000
 
@@ -100,12 +100,12 @@ type=graphic
 x=280
 width=57
 height=13
-layer=com_8
+layer=multivar5swords
 graphic="sworddecor,0"
 colour=0x000000
 
 // 238:8
-[com_8]
+[multivar5swords]
 type=layer
 y=6
 width=337

@@ -1,20 +1,20 @@
 // 2696
 [clientscript,graphics_options_canceldropdown](component $component0, int $int1, int $int2, int $int3, int $int4, struct $struct5, int $int6, int $int7, int $int8, int $int9, int $int10)
 if ($int10 = 1) {
-    cc_deleteall(graphics_options:com_21);
-    cc_deleteall(graphics_options:com_22);
-    if_sethide(true, graphics_options:com_20);
-    if_setonclick(null, graphics_options:com_4);
+    cc_deleteall(graphics_options:dropdown_list);
+    cc_deleteall(graphics_options:dropdown_scrollbar);
+    if_sethide(true, graphics_options:dropdown);
+    if_setonclick(null, graphics_options:universe);
 } else if ($int10 = 2) {
-    cc_deleteall(lobbyscreen_pane_options:com_64);
-    cc_deleteall(lobbyscreen_pane_options:com_65);
-    if_sethide(true, lobbyscreen_pane_options:com_59);
-    if_setonclick(null, lobbyscreen_pane_options:com_0);
+    cc_deleteall(lobbyscreen_pane_options:dropdown_list);
+    cc_deleteall(lobbyscreen_pane_options:dropdown_scrollbar);
+    if_sethide(true, lobbyscreen_pane_options:dropdown);
+    if_setonclick(null, lobbyscreen_pane_options:universe);
 } else {
-    cc_deleteall(loginscreen_graphics_options:com_6);
-    cc_deleteall(loginscreen_graphics_options:com_7);
-    if_sethide(true, loginscreen_graphics_options:com_5);
-    if_setonclick(null, loginscreen_graphics_options:com_4);
+    cc_deleteall(loginscreen_graphics_options:dropdown_list);
+    cc_deleteall(loginscreen_graphics_options:dropdown_scrollbar);
+    if_sethide(true, loginscreen_graphics_options:dropdown);
+    if_setonclick(null, loginscreen_graphics_options:universe);
 }
 if (cc_find($component0, $int2) = true) {
     cc_setgraphic(graphic_2554);

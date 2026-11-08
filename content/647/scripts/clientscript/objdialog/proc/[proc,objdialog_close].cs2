@@ -1,12 +1,12 @@
 // 573
 [proc,objdialog_close]
-cc_deleteall(objdialog:com_4);
-if_sethide(false, chatbox:com_8);
-if_sethide(true, chatbox:com_3);
-if_sethide(true, chatbox:com_7);
-if_setonkey(null, objdialog:com_9);
-if_setondialogabort(null, objdialog:com_9);
-if_setontimer(null, objdialog:com_9);
+cc_deleteall(objdialog:resultlist);
+if_sethide(false, chattop:mes_layer_hide);
+if_sethide(true, chattop:mes_layer);
+if_sethide(true, chattop:mes_layer_large);
+if_setonkey(null, objdialog:searchtext);
+if_setondialogabort(null, objdialog:searchtext);
+if_setontimer(null, objdialog:searchtext);
 if (getwindowmode >= 2) {
     ~subchanged;
 }

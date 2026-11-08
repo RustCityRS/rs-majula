@@ -29,7 +29,7 @@ width=54
 height=33
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_25
+layer=column_1
 model=null
 modelzoom=400
 transmitop=1
@@ -42,7 +42,7 @@ type=model
 width=54
 height=33
 xmode=abs_centre
-layer=com_25
+layer=column_1
 model=null
 modelzoom=400
 transmitop=1
@@ -55,7 +55,7 @@ type=model
 width=63
 height=319
 xmode=abs_centre
-layer=com_25
+layer=column_1
 model=model_7747
 modelorigin=-1,-7
 modelzoom=256
@@ -67,7 +67,7 @@ y=43
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_25
+layer=column_1
 model=null
 modelzoom=420
 modelobjwidth=85
@@ -80,7 +80,7 @@ y=126
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_25
+layer=column_1
 model=null
 modelzoom=420
 modelobjwidth=85
@@ -93,7 +93,7 @@ y=210
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_25
+layer=column_1
 model=null
 modelzoom=420
 modelobjwidth=85
@@ -106,7 +106,7 @@ y=-70
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_25
+layer=column_1
 model=null
 modelzoom=420
 modelobjwidth=85
@@ -120,7 +120,7 @@ width=54
 height=33
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_26
+layer=column_2
 model=null
 modelzoom=400
 transmitop=1
@@ -133,7 +133,7 @@ type=model
 width=54
 height=33
 xmode=abs_centre
-layer=com_26
+layer=column_2
 model=null
 modelzoom=400
 transmitop=1
@@ -146,7 +146,7 @@ type=model
 width=63
 height=319
 xmode=abs_centre
-layer=com_26
+layer=column_2
 model=model_7747
 modelorigin=-1,-7
 modelzoom=256
@@ -158,7 +158,7 @@ y=43
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_26
+layer=column_2
 model=null
 modelzoom=420
 modelobjwidth=90
@@ -171,7 +171,7 @@ y=126
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_26
+layer=column_2
 model=null
 modelzoom=420
 modelobjwidth=90
@@ -184,7 +184,7 @@ y=210
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_26
+layer=column_2
 model=null
 modelzoom=420
 modelobjwidth=90
@@ -197,7 +197,7 @@ y=-70
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_26
+layer=column_2
 model=null
 modelzoom=420
 modelobjwidth=90
@@ -211,12 +211,12 @@ width=54
 height=33
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_27
+layer=column_3
 model=null
 modelzoom=400
 transmitop=1
 op1=Down
-onop=macro_combilock_adjust(event_op, 3, -1, macro_combilock:com_19, macro_combilock:com_20, macro_combilock:com_21, macro_combilock:com_22)
+onop=macro_combilock_adjust(event_op, 3, -1, macro_combilock:back_know_1, macro_combilock:back_know_2, macro_combilock:back_know_3, macro_combilock:back_know_4)
 
 // 185:17
 [com_17]
@@ -224,12 +224,12 @@ type=model
 width=54
 height=33
 xmode=abs_centre
-layer=com_27
+layer=column_3
 model=null
 modelzoom=400
 transmitop=1
 op1=Up
-onop=macro_combilock_adjust(event_op, 3, 1, macro_combilock:com_19, macro_combilock:com_20, macro_combilock:com_21, macro_combilock:com_22)
+onop=macro_combilock_adjust(event_op, 3, 1, macro_combilock:back_know_1, macro_combilock:back_know_2, macro_combilock:back_know_3, macro_combilock:back_know_4)
 
 // 185:18
 [com_18]
@@ -237,58 +237,58 @@ type=model
 width=63
 height=319
 xmode=abs_centre
-layer=com_27
+layer=column_3
 model=model_7747
 modelorigin=-1,-7
 modelzoom=256
 
 // 185:19
-[com_19]
+[back_know_1]
 type=model
 y=43
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_27
+layer=column_3
 model=null
 modelzoom=420
 modelobjwidth=90
 onload=set_spinner(10, 14, 0, event_com)
 
 // 185:20
-[com_20]
+[back_know_2]
 type=model
 y=126
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_27
+layer=column_3
 model=null
 modelzoom=420
 modelobjwidth=90
 onload=set_spinner(13, 0, 5, event_com)
 
 // 185:21
-[com_21]
+[back_know_3]
 type=model
 y=210
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_27
+layer=column_3
 model=null
 modelzoom=420
 modelobjwidth=90
 onload=set_spinner(0, 5, 14, event_com)
 
 // 185:22
-[com_22]
+[back_know_4]
 type=model
 y=-70
 height=60
 widthmode=minus
 xmode=abs_centre
-layer=com_27
+layer=column_3
 model=null
 modelzoom=420
 modelobjwidth=90
@@ -318,7 +318,7 @@ modelzoom=256
 modelanim=seq_11224
 
 // 185:25
-[com_25]
+[column_1]
 type=layer
 x=80
 width=85
@@ -329,7 +329,7 @@ onload=macro_combilock_init(macro_combilock:com_5, macro_combilock:com_6, macro_
 onvartransmit=macro_combilock_update_1(macro_combilock:com_5, macro_combilock:com_6, macro_combilock:com_7, macro_combilock:com_8){varplayer_809}
 
 // 185:26
-[com_26]
+[column_2]
 type=layer
 x=165
 width=90
@@ -340,18 +340,18 @@ onload=macro_combilock_init(macro_combilock:com_12, macro_combilock:com_13, macr
 onvartransmit=macro_combilock_update_2(macro_combilock:com_12, macro_combilock:com_13, macro_combilock:com_14, macro_combilock:com_15){varplayer_809}
 
 // 185:27
-[com_27]
+[column_3]
 type=layer
 x=255
 width=90
 height=3
 heightmode=minus
 ymode=abs_bottom
-onload=macro_combilock_init(macro_combilock:com_19, macro_combilock:com_20, macro_combilock:com_21, macro_combilock:com_22)
-onvartransmit=macro_combilock_update_3(macro_combilock:com_19, macro_combilock:com_20, macro_combilock:com_21, macro_combilock:com_22){varplayer_809}
+onload=macro_combilock_init(macro_combilock:back_know_1, macro_combilock:back_know_2, macro_combilock:back_know_3, macro_combilock:back_know_4)
+onvartransmit=macro_combilock_update_3(macro_combilock:back_know_1, macro_combilock:back_know_2, macro_combilock:back_know_3, macro_combilock:back_know_4){varplayer_809}
 
 // 185:28
-[com_28]
+[unlock]
 type=text
 x=383
 y=231
@@ -398,7 +398,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,2")
 onop=closebutton_click
 
 // 185:31
-[com_31]
+[word_1]
 type=text
 y=-5
 width=69
@@ -411,7 +411,7 @@ textshadow=yes
 colour=0xceaf7e
 
 // 185:32
-[com_32]
+[word_2]
 type=text
 x=357
 y=-5

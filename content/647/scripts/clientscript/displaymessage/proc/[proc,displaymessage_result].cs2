@@ -1,0 +1,22 @@
+// 2513
+[proc,displaymessage_result]
+if (%varclient_847 < 0) {
+    %varclient_847 = 0;
+}
+if (%varclient_848 < 0) {
+    %varclient_848 = 0;
+}
+if (%varclient_849 < 0) {
+    %varclient_849 = 0;
+}
+if (%varclient_850 < 0) {
+    %varclient_850 = 0;
+}
+if (%varclient_851 < 0) {
+    %varclient_851 = 0;
+}
+if_settext(tostring(%varclient_847), mob_special_units:quantity_field1);
+if_settext(tostring(%varclient_848), mob_special_units:quantity_field2);
+if_settext(tostring(%varclient_849), mob_special_units:quantity_field3);
+if_settext(tostring(%varclient_850), mob_special_units:quantity_field4);
+if_settext(tostring(%varclient_851), mob_special_units:quantity_field5);

@@ -11,7 +11,7 @@ modelangle=527,0,0
 modelzoom=228
 
 // 794:1
-[com_1]
+[closebutton]
 type=graphic
 x=459
 y=3
@@ -27,7 +27,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,6")
 onop=closebutton_click
 
 // 794:2
-[com_2]
+[bookmacro_bigindex_right]
 type=graphic
 x=440
 y=290
@@ -39,7 +39,7 @@ transmitop=1
 op1=Next Page
 
 // 794:3
-[com_3]
+[bookmacro_bigindex_left]
 type=graphic
 x=31
 y=290
@@ -51,7 +51,7 @@ transmitop=1
 op1=Previous Page
 
 // 794:4
-[com_4]
+[textright]
 type=text
 x=299
 y=49
@@ -63,7 +63,7 @@ colour=0x333333
 onvartransmit=script1383{varplayer_1311}
 
 // 794:5
-[com_5]
+[textleft]
 type=text
 x=94
 y=48

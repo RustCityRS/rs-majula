@@ -5,18 +5,18 @@
 // 1453, void-634 bank.ifaces.toml; 289's ops 1-5 were 1, 5, 10, All, X). 289's two buttons
 // each for notes and for swap/insert are one toggle each at 2011 (com19 and
 // com15). 289's triggers follow, commented, where 2011's replace them.
-[if_button1,bank_v2_main:com_93] @bank_withdraw(last_slot, 1);
-[if_button2,bank_v2_main:com_93] @bank_withdraw(last_slot, 5);
-[if_button3,bank_v2_main:com_93] @bank_withdraw(last_slot, 10);
+[if_button1,bank_v2_main:bank_v2_inv] @bank_withdraw(last_slot, 1);
+[if_button2,bank_v2_main:bank_v2_inv] @bank_withdraw(last_slot, 5);
+[if_button3,bank_v2_main:bank_v2_inv] @bank_withdraw(last_slot, 10);
 // 2011: Withdraw-<the last X> (varp 1249 in clientscript 1453's op4, void-634
 // last_bank_amount).
-[if_button4,bank_v2_main:com_93] @bank_withdraw(last_slot, %last_bank_amount);
-[if_button5,bank_v2_main:com_93] @bank_withdraw(last_slot, null);
-[if_button6,bank_v2_main:com_93] @bank_withdraw(last_slot, ^max_32bit_int);
+[if_button4,bank_v2_main:bank_v2_inv] @bank_withdraw(last_slot, %last_bank_amount);
+[if_button5,bank_v2_main:bank_v2_inv] @bank_withdraw(last_slot, null);
+[if_button6,bank_v2_main:bank_v2_inv] @bank_withdraw(last_slot, ^max_32bit_int);
 // 2011: Withdraw-All but one (clientscript 1453's op7; wiki Bank, 2011-05-21;
 // void-634 BankWithdraw). With one of an item, the wiki's message: "You only
 // have one of this item, so withdrawing all but one does nothing."
-[if_button7,bank_v2_main:com_93]
+[if_button7,bank_v2_main:bank_v2_inv]
 def_int $number = inv_total(bank, inv_getobj(bank, last_slot));
 if ($number > 1) {
     @bank_withdraw(last_slot, calc($number - 1));
@@ -26,12 +26,12 @@ if ($number = 1) {
 }
 // 2011's examine is the server's (op10: clientscript 1453 gives it no
 // client-side handler).
-[if_button10,bank_v2_main:com_93]
+[if_button10,bank_v2_main:bank_v2_inv]
 def_obj $obj = inv_getobj(bank, last_slot);
 if ($obj ! null) {
     mes(oc_desc($obj));
 }
-[inv_buttond,bank_v2_main:com_93]
+[inv_buttond,bank_v2_main:bank_v2_inv]
 // 2011: dropped on a tab's button, the item goes into that tab
 // (bank_tabs.rs2); the buttons are drop targets in the cache.
 def_int $to_tab = ~bank_tab_of_com(last_targetcom);
@@ -52,8 +52,8 @@ if(%bankinsert = 1) {
 } else {
     inv_movetoslot(bank, bank, last_slot, last_targetslot);
 }
-[if_button,bank_v2_main:com_19] %bankcert = calc(1 - %bankcert);
-[if_button,bank_v2_main:com_15] %bankinsert = calc(1 - %bankinsert);
+[if_button,bank_v2_main:bank_cert_button] %bankcert = calc(1 - %bankcert);
+[if_button,bank_v2_main:bank_sort_button] %bankinsert = calc(1 - %bankinsert);
 [if_close,bank_v2_main] @closebank;
 
 // 2011's deposit buttons under the bank (the cache's bank_v2_main op1s,
@@ -61,17 +61,17 @@ if(%bankinsert = 1) {
 // beast of burden's pack (com37).
 // 289's bank has none; each item goes through 289's deposit, so its checks
 // and messages stand. Messages from void-634 (grade B).
-[if_button,bank_v2_main:com_33] @bank_deposit_all(inv, "You have no items in your inventory to deposit.");
-[if_button,bank_v2_main:com_35] @bank_deposit_all(worn, "You have no equipped items to deposit.");
+[if_button,bank_v2_main:bank_inv_button] @bank_deposit_all(inv, "You have no items in your inventory to deposit.");
+[if_button,bank_v2_main:bank_worn_button] @bank_deposit_all(worn, "You have no equipped items to deposit.");
 // No familiars are ported (summoning, post-289): there is no beast of burden
 // to empty. void-634's own message for this is a placeholder (a TODO in
 // BankDeposit.kt); no source found for this one (grade C).
-[if_button,bank_v2_main:com_37] mes("You do not have a beast of burden.");
+[if_button,bank_v2_main:bank_bob_button] mes("You do not have a beast of burden.");
 // 2011: "Show Equipment Stats" (com117) swaps the bank for the Equipment
 // Stats screen (player/scripts/equip.rs2), whose "Show bank" brings it back.
 // Its client hides the bank on the click (clientscript 2318); with no screen
 // sent, the ported bank stood blank.
-[if_button,bank_v2_main:com_117] ~equip_screen_open(true);
+[if_button,bank_v2_main:equipscreen_button] ~equip_screen_open(true);
 
 [label,bank_deposit_all](inv $inv, string $empty)
 if (inv_freespace($inv) = inv_size($inv)) {
@@ -127,15 +127,15 @@ if ($inv = worn) {
 // inv_transmit(inv, bank_side:inv);
 // inv_transmit(bank, bank_main:inv);
 // if_openmain_side(bank_main, bank_side);
-inv_transmit(inv, bank_v2_side:com_0);
-inv_transmit(bank, bank_v2_main:com_93);
+inv_transmit(inv, bank_v2_side:inventory_layer);
+inv_transmit(bank, bank_v2_main:bank_v2_inv);
 if_openmain_side(bank_v2_main, bank_v2_side);
 // 2011: the client sends an item's op only for slots the server enables
 // (IF_SETEVENTS; 289's inventories were interactable in their .if). The
 // bank: ops 1-7 and 10, dragged within itself (depth 2, its tabs); the
 // backpack beside it: ops 1-6 and 10 (void-634 BankOpen).
-if_setevents(bank_v2_main:com_93, 0, 515, calc(^if_op1 + ^if_op2 + ^if_op3 + ^if_op4 + ^if_op5 + ^if_op6 + ^if_op7 + ^if_op10), 0, 2, ^true, ^false);
-if_setevents(bank_v2_side:com_0, 0, 27, calc(^if_op1 + ^if_op2 + ^if_op3 + ^if_op4 + ^if_op5 + ^if_op6 + ^if_op10), 0, 0, ^false, ^false);
+if_setevents(bank_v2_main:bank_v2_inv, 0, 515, calc(^if_op1 + ^if_op2 + ^if_op3 + ^if_op4 + ^if_op5 + ^if_op6 + ^if_op7 + ^if_op10), 0, 2, ^true, ^false);
+if_setevents(bank_v2_side:inventory_layer, 0, 27, calc(^if_op1 + ^if_op2 + ^if_op3 + ^if_op4 + ^if_op5 + ^if_op6 + ^if_op10), 0, 0, ^false, ^false);
 // 2011's client writes the bank's slot counts below it (clientscript 1465,
 // void-634 update_bank_slots), and its search starts unset (varc
 // 190, void-634 bank_search_reset: the Search button's op, clientscript 1472;
@@ -148,8 +148,8 @@ runclientscript("script1465()");
 [label,closebank]
 // inv_stoptransmit(bank_side:inv);
 // inv_stoptransmit(bank_main:inv);
-inv_stoptransmit(bank_v2_side:com_0);
-inv_stoptransmit(bank_v2_main:com_93);
+inv_stoptransmit(bank_v2_side:inventory_layer);
+inv_stoptransmit(bank_v2_main:bank_v2_inv);
 queue(reorganize_bank, 0, 0); // confirmed queued
 
 // reorganize the bank like when you open the bank.

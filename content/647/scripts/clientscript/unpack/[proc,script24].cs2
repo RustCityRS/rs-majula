@@ -1,6 +1,6 @@
 // 24
 [proc,script24](int $int0, obj $obj1, graphic $graphic2, string $string0, int $int3, int $int4)(int)
-cc_create(skill_guide_v2:com_7, ^iftype_text, calc($int3 * 3));
+cc_create(skill_guide_v2:info, ^iftype_text, calc($int3 * 3));
 cc_setsize(26, 32, ^setsize_abs, ^setsize_abs);
 if ($int0 > 0) {
     cc_settext(tostring($int0));
@@ -12,7 +12,7 @@ cc_settextalign(^settextalign_right, ^settextalign_top, 0);
 cc_setcolour(0x46320a);
 cc_settextfont(q8_full);
 cc_settextshadow(false);
-cc_create(skill_guide_v2:com_7, ^iftype_graphic, calc($int3 * 3 + 1));
+cc_create(skill_guide_v2:info, ^iftype_graphic, calc($int3 * 3 + 1));
 cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
 if (~script1566(%varplayerbit_3288, %varplayerbit_3289) = 1) {
     if (%varplayerbit_3288 = 7) {
@@ -57,7 +57,7 @@ if (~script1566(%varplayerbit_3288, %varplayerbit_3289) = 1) {
     cc_setobject(silvthrill_rod, -1);
 }
 cc_setposition(28, $int4, ^setpos_abs_left, ^setpos_abs_top);
-cc_create(skill_guide_v2:com_7, ^iftype_text, calc($int3 * 3 + 2));
+cc_create(skill_guide_v2:info, ^iftype_text, calc($int3 * 3 + 2));
 def_int $int5 = paraheight($string0, 228, p12_full);
 cc_setsize(228, calc($int5 * 15), ^setsize_abs, ^setsize_abs);
 cc_settext($string0);

@@ -1,42 +1,42 @@
 // 2920
 [proc,script2920](string $string0, int $int0, int $int1)
-if_opensubclient(lobbyscreen:com_69, interface_914);
+if_opensubclient(lobbyscreen:com_69, lobbyscreen_report_abuse_stage1);
 ~lobbyscreen_report_abuse_stage1_clear;
 if (string_length($string0) > 0) {
     %varclient_1796 = removetags($string0);
 } else {
     %varclient_1796 = "";
 }
-if_settext(%varclient_1796, interface_914:com_27);
+if_settext(%varclient_1796, lobbyscreen_report_abuse_stage1:name);
 if (if_gethide(enum(int, component, enum_941, 5)) = false) {
     ~script3161(0);
 }
-if_setonkey("lobbyscreen_report_abuse_stage1_keyboard(event_keycode, event_keychar, event_com)", interface_914:com_27);
-if_setonop("lobbyscreen_report_abuse_stage1_next", interface_914:com_16);
+if_setonkey("lobbyscreen_report_abuse_stage1_keyboard(event_keycode, event_keychar, event_com)", lobbyscreen_report_abuse_stage1:name);
+if_setonop("lobbyscreen_report_abuse_stage1_next", lobbyscreen_report_abuse_stage1:next_button);
 %varclient_1097 = string_length(%varclient_1796);
-if_setonclick("script1878(event_mousex, interface_914:com_27, interface_914:com_28)", interface_914:com_27);
-~script1879(interface_914:com_27, interface_914:com_28, %varclient_1796);
-if_sethide(true, interface_914:com_28);
+if_setonclick("script1878(event_mousex, lobbyscreen_report_abuse_stage1:name, lobbyscreen_report_abuse_stage1:name_caret)", lobbyscreen_report_abuse_stage1:name);
+~script1879(lobbyscreen_report_abuse_stage1:name, lobbyscreen_report_abuse_stage1:name_caret, %varclient_1796);
+if_sethide(true, lobbyscreen_report_abuse_stage1:name_caret);
 if ($int0 = 1) {
     if (%varclient_6 = false) {
-        if_setgraphic("check_box_2,0", interface_914:com_23);
+        if_setgraphic("check_box_2,0", lobbyscreen_report_abuse_stage1:com_23);
     } else {
-        if_setgraphic("check_box_2,2", interface_914:com_23);
+        if_setgraphic("check_box_2,2", lobbyscreen_report_abuse_stage1:com_23);
     }
     if ($int1 = 5 | $int1 = 6) {
-        if_settext("Suggest to mute this player for 48 hours", interface_914:com_22);
+        if_settext("Suggest to mute this player for 48 hours", lobbyscreen_report_abuse_stage1:mute_text);
     } else {
-        if_settext("Mute this player for 48 hours", interface_914:com_22);
+        if_settext("Mute this player for 48 hours", lobbyscreen_report_abuse_stage1:mute_text);
     }
-    if_setsize(calc(stringwidth(if_gettext(interface_914:com_22), verdana_11pt_regular) + 18), if_getheight(interface_914:com_21), ^setsize_abs, ^setsize_abs, interface_914:com_21);
-    if_setposition(16, 32, ^setpos_abs_left, ^setpos_abs_top, interface_914:com_14);
-    if_setposition(21, 62, ^setpos_abs_left, ^setpos_abs_top, interface_914:com_15);
-    if_setposition(299, 60, ^setpos_abs_left, ^setpos_abs_top, interface_914:com_16);
-    if_sethide(false, interface_914:com_21);
+    if_setsize(calc(stringwidth(if_gettext(lobbyscreen_report_abuse_stage1:mute_text), verdana_11pt_regular) + 18), if_getheight(lobbyscreen_report_abuse_stage1:mute_layer), ^setsize_abs, ^setsize_abs, lobbyscreen_report_abuse_stage1:mute_layer);
+    if_setposition(16, 32, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_report_abuse_stage1:body_text);
+    if_setposition(21, 62, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_report_abuse_stage1:name_layer);
+    if_setposition(299, 60, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_report_abuse_stage1:next_button);
+    if_sethide(false, lobbyscreen_report_abuse_stage1:mute_layer);
 } else {
-    if_setposition(16, 42, ^setpos_abs_left, ^setpos_abs_top, interface_914:com_14);
-    if_setposition(21, 82, ^setpos_abs_left, ^setpos_abs_top, interface_914:com_15);
-    if_setposition(299, 80, ^setpos_abs_left, ^setpos_abs_top, interface_914:com_16);
-    if_sethide(true, interface_914:com_21);
+    if_setposition(16, 42, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_report_abuse_stage1:body_text);
+    if_setposition(21, 82, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_report_abuse_stage1:name_layer);
+    if_setposition(299, 80, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_report_abuse_stage1:next_button);
+    if_sethide(true, lobbyscreen_report_abuse_stage1:mute_layer);
 }
-if_sethide(false, lobbyscreen:com_34);
+if_sethide(false, lobbyscreen:report_abuse_stage1);

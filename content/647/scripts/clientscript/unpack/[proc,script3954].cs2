@@ -10,7 +10,7 @@ if (%varclient_1407 < 1) {
 }
 if_setgraphic("symbols_1,3", account_create:com_36);
 if_sethide(true, account_create:com_112);
-if_sethide(true, account_create:com_22);
+if_sethide(true, account_create:information_layer);
 if ($int0 = 1) {
     ~create_focus(6, 1);
 }

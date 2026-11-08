@@ -155,13 +155,13 @@ if ($cabbage_count > 0) {
     $string = append($string, "<~pluralise($cabbage_count, "Cabbage")>, ");
 }
 if ($dwellberry_count > 0) {
-    $string = append($string, "<~text_plural($dwellberry_count, "Dwellberry", "Dwellberries")>, ");
+    $string = append($string, "<tostring($dwellberry_count)> <~text_plural($dwellberry_count, "Dwellberry", "Dwellberries")>, ");
 }
 if ($potato_count > 0) {
     $string = append($string, "<~pluralise($potato_count, "Potato")>, ");
 }
 if ($gnome_spice_count > 0) {
-    $string = append($string, "<~text_plural($gnome_spice_count, "dash", "dashes")> of Gnome Spice, ");
+    $string = append($string, "<tostring($gnome_spice_count)> <~text_plural($gnome_spice_count, "dash", "dashes")> of Gnome Spice, ");
 }
 if ($chocolate_bar_count > 0) {
     $string = append($string, "<~pluralise($chocolate_bar_count, "Chocolate bar")>, ");

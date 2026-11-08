@@ -1,11 +1,11 @@
 // 853:0
-[com_0]
+[minus]
 type=text
 x=3
 y=-2
 width=23
 height=24
-layer=com_15
+layer=layer_7
 textfont=quill_oblique_large
 text=-
 textalignh=centre
@@ -16,13 +16,13 @@ transmitop=1
 op1=Decrease Zoom
 
 // 853:1
-[com_1]
+[plus]
 type=text
 x=3
 y=2
 width=23
 height=25
-layer=com_14
+layer=layer_6
 textfont=quill_oblique_large
 text=+
 textalignh=centre
@@ -33,13 +33,13 @@ transmitop=1
 op1=Increase Zoom
 
 // 853:2
-[com_2]
+[s]
 type=text
 x=3
 y=1
 width=32
 height=33
-layer=com_13
+layer=layer_5
 textfont=p11_full
 text=Back
 textalignh=centre
@@ -51,12 +51,12 @@ op1=View
 onop=script2614
 
 // 853:3
-[com_3]
+[w]
 type=text
 x=1
 width=36
 height=34
-layer=com_12
+layer=layer_4
 textfont=p11_full
 text=Left
 textalignh=centre
@@ -68,12 +68,12 @@ op1=View
 onop=script2615
 
 // 853:4
-[com_4]
+[e]
 type=text
 x=2
 width=34
 height=34
-layer=com_11
+layer=layer_3
 textfont=p11_full
 text=Right
 textalignh=centre
@@ -85,13 +85,13 @@ op1=View
 onop=script2616
 
 // 853:5
-[com_5]
+[n]
 type=text
 x=3
 y=2
 width=33
 height=29
-layer=com_10
+layer=layer_1
 textfont=p11_full
 text=Fwd
 textalignh=centre
@@ -103,13 +103,13 @@ op1=View
 onop=script2613
 
 // 853:6
-[com_6]
+[goto_text]
 type=text
 x=5
 y=6
 width=70
 height=20
-layer=com_16
+layer=goto_button
 textfont=p11_full
 text=Go to squad
 textalignh=centre
@@ -120,142 +120,142 @@ transmitop=1
 op1=Go to Squad
 
 // 853:7
-[com_7]
+[map_border]
 type=rectangle
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_22
+layer=map_layer
 colour=0xcccccc
 
 // 853:8
-[com_8]
+[player_location]
 type=graphic
 width=9
 height=9
-layer=com_22
+layer=map_layer
 graphic=graphic_1955
 colour=0xffffffff
 
 // 853:9
-[com_9]
+[content_layer]
 type=layer
 width=190
 height=261
 
 // 853:10
-[com_10]
+[layer_1]
 type=layer
 x=49
 y=50
 width=38
 height=34
-layer=com_9
+layer=content_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_camera:com_24, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:com_24, "Click here to move your camera forward (Up arrow).", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_camera:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:tooltip, "Click here to move your camera forward (Up arrow).", 50, 150)
 
 // 853:11
-[com_11]
+[layer_3]
 type=layer
 x=88
 y=84
 width=38
 height=34
-layer=com_9
+layer=content_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_camera:com_24, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:com_24, "Click here to move your camera right (Right arrow).", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_camera:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:tooltip, "Click here to move your camera right (Right arrow).", 50, 150)
 
 // 853:12
-[com_12]
+[layer_4]
 type=layer
 x=11
 y=84
 width=38
 height=34
-layer=com_9
+layer=content_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_camera:com_24, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:com_24, "Click here to move your camera left (Left arrow).", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_camera:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:tooltip, "Click here to move your camera left (Left arrow).", 50, 150)
 
 // 853:13
-[com_13]
+[layer_5]
 type=layer
 x=49
 y=118
 width=38
 height=34
-layer=com_9
+layer=content_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_camera:com_24, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:com_24, "Click here to move your camera backwards (Down arrow).", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_camera:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:tooltip, "Click here to move your camera backwards (Down arrow).", 50, 150)
 
 // 853:14
-[com_14]
+[layer_6]
 type=layer
 x=141
 y=46
 width=29
 height=30
-layer=com_9
+layer=content_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_camera:com_24, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:com_24, "Click here to zoom your camera in (SHIFT+ up arrow).", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_camera:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:tooltip, "Click here to zoom your camera in (SHIFT+ up arrow).", 50, 150)
 
 // 853:15
-[com_15]
+[layer_7]
 type=layer
 x=141
 y=80
 width=29
 height=30
-layer=com_9
+layer=content_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_camera:com_24, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:com_24, "Click here to zoom your camera out (SHIFT+ down arrow).", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_camera:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:tooltip, "Click here to zoom your camera out (SHIFT+ down arrow).", 50, 150)
 
 // 853:16
-[com_16]
+[goto_button]
 type=layer
 x=99
 y=134
 width=80
 height=32
-layer=com_9
+layer=content_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=v2_stone_button_deltooltip(mob_side_camera:com_24, event_com)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:com_24, "Click here to go to your currently selected squad.", 50, 150)
+onmouseleave=v2_stone_button_deltooltip(mob_side_camera:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:tooltip, "Click here to go to your currently selected squad.", 50, 150)
 
 // 853:17
-[com_17]
+[reset]
 type=graphic
 x=140
 y=214
 width=35
 height=35
-layer=com_9
+layer=content_layer
 graphic="mob_camera_icons,0"
 colour=0xffffffff
 transmitop=1
 op1=Reset view
 
 // 853:18
-[com_18]
+[title]
 type=text
 x=25
 y=27
 width=84
 height=16
-layer=com_9
+layer=content_layer
 textfont=p11_full
 text=Move camera
 textalignh=centre
@@ -264,13 +264,13 @@ textshadow=yes
 colour=0xff9900
 
 // 853:19
-[com_19]
+[title_main]
 type=text
 x=56
 y=3
 width=84
 height=16
-layer=com_9
+layer=content_layer
 textfont=b12_full
 text=Camera
 textalignh=centre
@@ -279,13 +279,13 @@ textshadow=yes
 colour=0xff9900
 
 // 853:20
-[com_20]
+[title_angle]
 type=text
 x=132
 y=26
 width=49
 height=17
-layer=com_9
+layer=content_layer
 textfont=p11_full
 text=Zoom
 textalignh=centre
@@ -294,13 +294,13 @@ textshadow=yes
 colour=0xff9900
 
 // 853:21
-[com_21]
+[map_title]
 type=text
 x=16
 y=169
 width=102
 height=16
-layer=com_9
+layer=content_layer
 textfont=p11_full
 text=My location
 textalignh=centre
@@ -309,25 +309,25 @@ textshadow=yes
 colour=0xff9933
 
 // 853:22
-[com_22]
+[map_layer]
 type=layer
 x=37
 y=189
 width=64
 height=64
-layer=com_9
-onmouseleave=deltooltip(mob_side_camera:com_24)
-onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:com_24, "Shows your camera position relative to the whole island.", 50, 150)
+layer=content_layer
+onmouseleave=deltooltip(mob_side_camera:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_camera:tooltip, "Shows your camera position relative to the whole island.", 50, 150)
 
 // 853:23
-[com_23]
+[tooltip_bound]
 type=layer
 width=190
 height=261
 
 // 853:24
-[com_24]
+[tooltip]
 type=layer
 width=190
 height=261
-layer=com_23
+layer=tooltip_bound

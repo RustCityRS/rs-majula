@@ -1,5 +1,5 @@
 // 37:0
-[com_0]
+[layer1]
 type=layer
 x=33
 y=1
@@ -14,7 +14,7 @@ x=-7
 y=-13
 width=176
 height=161
-layer=com_22
+layer=stats_layer
 model=model_46123
 modelorigin=-6,1
 modelangle=472,0,0
@@ -29,7 +29,7 @@ x=4
 y=4
 width=85
 height=85
-layer=com_42
+layer=camera
 model=model_47704
 modelangle=500,0,0
 modelzoom=1312
@@ -38,7 +38,7 @@ op1=Reset view
 op10= 
 
 // 37:3
-[com_3]
+[layer2]
 type=layer
 x=56
 y=1
@@ -47,7 +47,7 @@ height=25
 layer=com_21
 
 // 37:4
-[com_4]
+[layer3]
 type=layer
 x=80
 y=1
@@ -56,7 +56,7 @@ height=25
 layer=com_21
 
 // 37:5
-[com_5]
+[layer4]
 type=layer
 x=103
 y=1
@@ -71,7 +71,7 @@ x=38
 y=19
 width=15
 height=20
-layer=com_42
+layer=camera
 noclickthrough=yes
 
 // 37:7
@@ -81,7 +81,7 @@ x=53
 y=37
 width=15
 height=20
-layer=com_42
+layer=camera
 noclickthrough=yes
 
 // 37:8
@@ -91,7 +91,7 @@ x=22
 y=37
 width=15
 height=20
-layer=com_42
+layer=camera
 noclickthrough=yes
 
 // 37:9
@@ -101,7 +101,7 @@ x=37
 y=56
 width=15
 height=20
-layer=com_42
+layer=camera
 noclickthrough=yes
 
 // 37:10
@@ -111,7 +111,7 @@ x=9
 y=70
 width=15
 height=20
-layer=com_42
+layer=camera
 noclickthrough=yes
 
 // 37:11
@@ -121,7 +121,7 @@ x=9
 y=53
 width=15
 height=20
-layer=com_42
+layer=camera
 noclickthrough=yes
 
 // 37:12
@@ -131,17 +131,17 @@ x=53
 y=70
 width=34
 height=19
-layer=com_42
+layer=camera
 noclickthrough=yes
 
 // 37:13
-[com_13]
+[n]
 type=text
 x=37
 y=19
 width=15
 height=20
-layer=com_42
+layer=camera
 textfont=p11_full
 text=Fwd
 textalignh=centre
@@ -154,13 +154,13 @@ opkey1=98,8,20
 onop=script2613
 
 // 37:14
-[com_14]
+[e]
 type=text
 x=53
 y=38
 width=15
 height=20
-layer=com_42
+layer=camera
 textfont=p11_full
 text=Rt
 textalignh=centre
@@ -173,13 +173,13 @@ opkey1=97,8,20
 onop=script2616
 
 // 37:15
-[com_15]
+[w]
 type=text
 x=22
 y=38
 width=15
 height=20
-layer=com_42
+layer=camera
 textfont=p11_full
 text=Lt
 textalignh=centre
@@ -192,13 +192,13 @@ opkey1=96,8,20
 onop=script2615
 
 // 37:16
-[com_16]
+[s]
 type=text
 x=38
 y=56
 width=15
 height=20
-layer=com_42
+layer=camera
 textfont=p11_full
 text=Bk
 textalignh=centre
@@ -211,13 +211,13 @@ opkey1=99,8,20
 onop=script2614
 
 // 37:17
-[com_17]
+[plus]
 type=text
 x=9
 y=54
 width=15
 height=18
-layer=com_42
+layer=camera
 textfont=p11_full
 text=+
 textalignh=centre
@@ -229,13 +229,13 @@ op10=
 opkey1=98,4
 
 // 37:18
-[com_18]
+[minus]
 type=text
 x=9
 y=70
 width=15
 height=18
-layer=com_42
+layer=camera
 textfont=p11_full
 text=-
 textalignh=centre
@@ -247,13 +247,13 @@ op10=
 opkey1=99,4
 
 // 37:19
-[com_19]
+[goto_text]
 type=text
 x=52
 y=72
 width=37
 height=14
-layer=com_42
+layer=camera
 textfont=p11_full
 text=Go to
 textalignh=centre
@@ -265,13 +265,13 @@ op10=
 opkey1=83,1
 
 // 37:20
-[com_20]
+[keyboard_controller]
 type=graphic
 x=71
 y=8
 width=12
 height=13
-layer=com_42
+layer=camera
 colour=0xffffffff
 opkey1=98,1,1
 opkey2=99,1,1
@@ -286,12 +286,12 @@ x=18
 y=98
 width=128
 height=28
-layer=com_22
+layer=stats_layer
 hide=yes
 onvartransmit=mob_status_castle(event_com){varplayer_1451, varplayer_1445}
 
 // 37:22
-[com_22]
+[stats_layer]
 type=layer
 x=1
 y=1
@@ -300,161 +300,161 @@ height=179
 xmode=abs_right
 
 // 37:23
-[com_23]
+[text_layer]
 type=layer
 width=150
 height=130
-layer=com_22
+layer=stats_layer
 onload=mob_move_text(event_com)
 onvartransmit=mob_move_text(event_com){varplayer_1450}
 
 // 37:24
-[com_24]
+[title_time]
 type=text
 x=45
 y=26
 width=86
 height=14
 xmode=abs_right
-layer=com_23
+layer=text_layer
 textfont=p11_full
 text=Time remaining:
 textalignv=centre
 textshadow=yes
 
 // 37:25
-[com_25]
+[title_players]
 type=text
 x=45
 y=7
 width=86
 height=14
 xmode=abs_right
-layer=com_23
+layer=text_layer
 textfont=p11_full
 text=Players:
 textalignv=centre
 textshadow=yes
 
 // 37:26
-[com_26]
+[title_squads]
 type=text
 x=45
 y=44
 width=86
 height=14
 xmode=abs_right
-layer=com_23
+layer=text_layer
 textfont=p11_full
 text=Your squads:
 textalignv=centre
 textshadow=yes
 
 // 37:27
-[com_27]
+[title_team]
 type=text
 x=45
 y=62
 width=86
 height=14
 xmode=abs_right
-layer=com_23
+layer=text_layer
 textfont=p11_full
 text=Team:
 textalignv=centre
 textshadow=yes
 
 // 37:28
-[com_28]
+[title_spec]
 type=text
 x=19
 y=99
 width=86
 height=14
-layer=com_23
+layer=text_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
 
 // 37:29
-[com_29]
+[title_killcount]
 type=text
 x=45
 y=80
 width=86
 height=14
 xmode=abs_right
-layer=com_23
+layer=text_layer
 textfont=p11_full
 text=Squads defeated:
 textalignv=centre
 textshadow=yes
 
 // 37:30
-[com_30]
+[remaining_players]
 type=text
 x=11
 y=7
 width=31
 height=14
 xmode=abs_right
-layer=com_23
+layer=text_layer
 textfont=p11_full
 textalignh=right
 textalignv=centre
 textshadow=yes
 
 // 37:31
-[com_31]
+[remaining_squads]
 type=text
 x=11
 y=44
 width=31
 height=14
 xmode=abs_right
-layer=com_23
+layer=text_layer
 textfont=p11_full
 textalignh=right
 textalignv=centre
 textshadow=yes
 
 // 37:32
-[com_32]
+[remaining_time]
 type=text
 x=11
 y=26
 width=31
 height=14
 xmode=abs_right
-layer=com_23
+layer=text_layer
 textfont=p11_full
 textalignh=right
 textalignv=centre
 textshadow=yes
 
 // 37:33
-[com_33]
+[team]
 type=text
 x=11
 y=62
 width=31
 height=14
 xmode=abs_right
-layer=com_23
+layer=text_layer
 textfont=p11_full
 textalignh=right
 textalignv=centre
 textshadow=yes
 
 // 37:34
-[com_34]
+[killcount]
 type=text
 x=11
 y=80
 width=31
 height=14
 xmode=abs_right
-layer=com_23
+layer=text_layer
 textfont=p11_full
 textalignh=right
 textalignv=centre
@@ -462,75 +462,75 @@ textshadow=yes
 onvartransmit=mob_status_killcount(event_com){varplayer_1453}
 
 // 37:35
-[com_35]
+[tally_spec]
 type=text
 x=10
 y=99
 width=38
 height=14
 xmode=abs_right
-layer=com_23
+layer=text_layer
 textfont=p11_full
 textalignh=right
 textalignv=centre
 textshadow=yes
 
 // 37:36
-[com_36]
+[graphic1]
 type=graphic
 width=25
 height=25
-layer=com_0
+layer=layer1
 graphic=graphic_1986
 colour=0xffffffff
 
 // 37:37
-[com_37]
+[graphic4]
 type=graphic
 width=25
 height=25
-layer=com_5
+layer=layer4
 graphic=graphic_1984
 colour=0xffffffff
 
 // 37:38
-[com_38]
+[graphic3]
 type=graphic
 width=25
 height=25
-layer=com_4
+layer=layer3
 graphic=graphic_1983
 colour=0xffffffff
 
 // 37:39
-[com_39]
+[graphic2]
 type=graphic
 width=25
 height=25
-layer=com_3
+layer=layer2
 graphic=graphic_1981
 colour=0xffffffff
 
 // 37:40
-[com_40]
+[tooltip_bound]
 type=layer
 x=3
 y=96
 width=151
 height=85
-layer=com_22
+layer=stats_layer
 
 // 37:41
-[com_41]
+[tooltip]
 type=layer
 x=49
 y=32
 width=50
 height=50
-layer=com_40
+layer=tooltip_bound
 
 // 37:42
-[com_42]
+[camera]
 type=layer
 x=9
 y=24
@@ -538,19 +538,19 @@ width=95
 height=92
 
 // 37:43
-[com_43]
+[mobile]
 type=graphic
 x=1
 width=35
 height=35
-layer=com_42
+layer=camera
 graphic="mob_camera_icons,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 37:44
-[com_44]
+[tutorial_layer]
 type=layer
 width=16391
 height=16391
@@ -563,7 +563,7 @@ hide=yes
 type=rectangle
 width=320
 height=160
-layer=com_46
+layer=box
 colour=0xff9933
 fill=yes
 trans=200
@@ -572,13 +572,13 @@ opbase=
 op10=  
 
 // 37:46
-[com_46]
+[box]
 type=layer
 width=330
 height=168
 xmode=abs_right
 ymode=abs_bottom
-layer=com_44
+layer=tutorial_layer
 transmitop=10
 op10= 
 
@@ -589,7 +589,7 @@ x=5
 y=5
 width=320
 height=159
-layer=com_46
+layer=box
 colour=0xff9933
 fill=yes
 trans=200
@@ -604,7 +604,7 @@ x=7
 y=6
 width=310
 height=139
-layer=com_46
+layer=box
 textfont=tutorial_font
 text=Instructions:
 colour=0x000000
@@ -612,13 +612,13 @@ transmitop=10
 op10=  
 
 // 37:49
-[com_49]
+[terrain_images]
 type=layer
 x=9
 y=110
 width=303
 height=52
-layer=com_46
+layer=box
 hide=yes
 
 // 37:50
@@ -628,7 +628,7 @@ x=14
 y=9
 width=44
 height=38
-layer=com_49
+layer=terrain_images
 model=model_47710
 modelorigin=0,-1
 modelangle=333,48,0
@@ -641,7 +641,7 @@ x=91
 y=8
 width=45
 height=38
-layer=com_49
+layer=terrain_images
 model=model_47708
 modelorigin=0,-1
 modelangle=333,48,0
@@ -654,7 +654,7 @@ x=172
 y=8
 width=45
 height=38
-layer=com_49
+layer=terrain_images
 model=model_47709
 modelorigin=0,-1
 modelangle=333,48,0
@@ -667,14 +667,14 @@ x=250
 y=8
 width=40
 height=35
-layer=com_49
+layer=terrain_images
 model=model_47707
 modelorigin=-1,0
 modelangle=333,48,0
 modelzoom=4256
 
 // 37:54
-[com_54]
+[combat_triangle]
 type=layer
 x=9
 y=118
@@ -688,7 +688,7 @@ x=14
 y=2
 width=16
 height=16
-layer=com_54
+layer=combat_triangle
 graphic=graphic_2016
 colour=0xffffffff
 
@@ -699,7 +699,7 @@ x=2
 y=29
 width=16
 height=16
-layer=com_54
+layer=combat_triangle
 graphic=graphic_2017
 colour=0xffffffff
 
@@ -710,7 +710,7 @@ x=30
 y=29
 width=16
 height=16
-layer=com_54
+layer=combat_triangle
 graphic=graphic_2018
 colour=0xffffffff
 
@@ -721,7 +721,7 @@ x=15
 y=29
 width=16
 height=16
-layer=com_54
+layer=combat_triangle
 graphic=graphic_2019
 colour=0xffffffff
 
@@ -732,7 +732,7 @@ x=3
 y=15
 width=16
 height=16
-layer=com_54
+layer=combat_triangle
 graphic=graphic_2020
 colour=0xffffffff
 
@@ -743,6 +743,6 @@ x=27
 y=15
 width=16
 height=16
-layer=com_54
+layer=combat_triangle
 graphic=graphic_2021
 colour=0xffffffff

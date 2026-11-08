@@ -41,8 +41,8 @@ if (%varclient_1367 ! null) {
     } else {
         $string3 = "Range: <tostring(%varclient_1371)>/<tostring($int3)>";
     }
-    if_settext($string0, interface_1012:com_8);
-    if_settext($string1, interface_1012:com_9);
-    if_settext($string2, interface_1012:com_10);
-    if_settext($string3, interface_1012:com_11);
+    if_settext($string0, conq_side_unit_details:unit_movement_text);
+    if_settext($string1, conq_side_unit_details:unit_damage_text);
+    if_settext($string2, conq_side_unit_details:unit_health_text);
+    if_settext($string3, conq_side_unit_details:unit_range_text);
 }

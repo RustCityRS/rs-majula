@@ -12,7 +12,7 @@ fill=yes
 trans=200
 
 // 309:1
-[com_1]
+[universe]
 type=layer
 width=480
 height=300
@@ -29,7 +29,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic=tradebacking
 tiling=yes
 colour=0x000000
@@ -40,7 +40,7 @@ type=text
 height=36
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=universe
 textfont=b12_full
 text=Hairdresser's Salon
 textalignh=centre
@@ -56,7 +56,7 @@ y=10
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=universe
 graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1
@@ -66,44 +66,44 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 309:5
-[com_5]
+[tabs]
 type=layer
 x=10
 y=40
 width=42
 height=100
-layer=com_1
+layer=universe
 
 // 309:6
-[com_6]
+[hair_tab]
 type=graphic
 y=-22
 width=42
 height=42
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=tabs
 graphic="player_kit_fancy_off,4"
 colour=0x000000
 transmitop=1
 op1=Hairstyle
 
 // 309:7
-[com_7]
+[beard_tab]
 type=graphic
 y=22
 width=42
 height=42
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=tabs
 graphic="player_kit_fancy_off,3"
 colour=0x000000
 transmitop=1
 op1=Facial hair
 
 // 309:8
-[com_8]
+[menu_container]
 type=layer
 x=10
 y=10
@@ -111,19 +111,19 @@ width=200
 height=155
 heightmode=minus
 ymode=abs_bottom
-layer=com_1
+layer=universe
 
 // 309:9
-[com_9]
+[menu_graphics]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_8
+layer=menu_container
 
 // 309:10
-[com_10]
+[menu]
 type=layer
 x=2
 width=20
@@ -131,10 +131,10 @@ height=4
 widthmode=minus
 heightmode=minus
 ymode=abs_centre
-layer=com_8
+layer=menu_container
 
 // 309:11
-[com_11]
+[menu_scrollbar]
 type=layer
 x=2
 width=16
@@ -142,31 +142,31 @@ height=4
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_8
+layer=menu_container
 hide=yes
 
 // 309:12
-[com_12]
+[player_container]
 type=layer
 x=215
 y=10
 width=141
 height=250
 ymode=abs_bottom
-layer=com_1
+layer=universe
 
 // 309:13
-[com_13]
+[chathead_container]
 type=layer
 x=270
 y=40
 width=200
 height=100
 xmode=abs_right
-layer=com_1
+layer=universe
 
 // 309:14
-[com_14]
+[colours_container]
 type=layer
 x=10
 y=40
@@ -174,19 +174,19 @@ width=371
 height=200
 widthmode=minus
 xmode=abs_right
-layer=com_1
+layer=universe
 
 // 309:15
-[com_15]
+[colours_graphics]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_14
+layer=colours_container
 
 // 309:16
-[com_16]
+[colours]
 type=layer
 x=2
 width=4
@@ -194,10 +194,10 @@ height=4
 widthmode=minus
 heightmode=minus
 ymode=abs_centre
-layer=com_14
+layer=colours_container
 
 // 309:17
-[com_17]
+[colours_scrollbar]
 type=layer
 x=2
 width=16
@@ -205,11 +205,11 @@ height=4
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_14
+layer=colours_container
 hide=yes
 
 // 309:18
-[com_18]
+[confirm]
 type=layer
 x=10
 y=10
@@ -219,30 +219,30 @@ widthmode=minus
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=universe
 transmitop=1
 op1=Confirm
 
 // 309:19
-[com_19]
+[confirm_graphics]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=confirm
 onload=v2_stone_button_filled(event_com)
 onmouseover=v2_stone_button_in_filled(event_com)
 onmouseleave=v2_stone_button_filled(event_com)
 
 // 309:20
-[com_20]
+[confirm_text]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=confirm
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -252,7 +252,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 309:21
-[com_21]
+[tooltip_container]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -260,6 +260,6 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 309:22
-[com_22]
+[tooltip]
 type=layer
-layer=com_21
+layer=tooltip_container

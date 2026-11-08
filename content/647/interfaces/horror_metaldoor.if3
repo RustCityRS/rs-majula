@@ -21,7 +21,7 @@ modelangle=0,1536,0
 modelzoom=304
 
 // 142:2
-[com_2]
+[horror_fire]
 type=model
 x=65
 y=117
@@ -33,7 +33,7 @@ modelangle=512,0,0
 modelzoom=381
 
 // 142:3
-[com_3]
+[horror_air]
 type=model
 x=140
 y=15
@@ -45,7 +45,7 @@ modelangle=512,0,0
 modelzoom=437
 
 // 142:4
-[com_4]
+[horror_earth]
 type=model
 x=291
 y=1
@@ -57,7 +57,7 @@ modelangle=512,0,0
 modelzoom=412
 
 // 142:5
-[com_5]
+[horror_water]
 type=model
 x=380
 y=134
@@ -69,7 +69,7 @@ modelangle=512,0,0
 modelzoom=380
 
 // 142:6
-[com_6]
+[horror_ranging]
 type=model
 x=296
 y=254
@@ -81,7 +81,7 @@ modelangle=489,1986,0
 modelzoom=426
 
 // 142:7
-[com_7]
+[horror_melee]
 type=model
 x=156
 y=252
@@ -112,12 +112,12 @@ x=3
 y=5
 width=26
 height=23
-layer=com_10
+layer=horror_metaldoor_close
 graphic="close_buttons,5"
 colour=0x000000
 
 // 142:10
-[com_10]
+[horror_metaldoor_close]
 type=layer
 x=461
 y=11

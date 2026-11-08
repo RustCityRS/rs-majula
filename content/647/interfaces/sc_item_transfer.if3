@@ -122,7 +122,7 @@ graphic="v2_stone_borders,10"
 colour=0xffffffff
 
 // 805:12
-[com_12]
+[closebutton]
 type=graphic
 x=485
 y=30
@@ -159,7 +159,7 @@ tiling=yes
 colour=0xffffffff
 
 // 805:15
-[com_15]
+[tradetitle]
 type=text
 x=19
 y=30
@@ -173,7 +173,7 @@ colour=0xff981f
 onvartransmit=script141{offer_modified, other_offer_modified}
 
 // 805:16
-[com_16]
+[accept_button]
 type=layer
 x=223
 y=146
@@ -186,7 +186,7 @@ onmouseover=v2_stone_button_out_filled(event_com)
 onmouseleave=v2_stone_button_filled(event_com)
 
 // 805:17
-[com_17]
+[accept_text]
 type=text
 x=223
 y=146
@@ -200,7 +200,7 @@ textshadow=yes
 colour=0x00c000
 
 // 805:18
-[com_18]
+[decline_button]
 type=layer
 x=223
 y=199
@@ -213,7 +213,7 @@ onmouseover=v2_stone_button_out_filled(event_com)
 onmouseleave=v2_stone_button_filled(event_com)
 
 // 805:19
-[com_19]
+[decline_text]
 type=text
 x=223
 y=199
@@ -237,7 +237,7 @@ colour=0x221717
 fill=yes
 
 // 805:21
-[com_21]
+[free_space_text]
 type=text
 x=215
 y=90
@@ -250,7 +250,7 @@ textshadow=yes
 colour=0xff981f
 
 // 805:22
-[com_22]
+[free_space_name]
 type=text
 x=215
 y=83
@@ -262,7 +262,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff981f
-onvarcstrtransmit=sc_output_name(event_com, sc_item_transfer:com_38, p11_full){varclient_1738}
+onvarcstrtransmit=sc_output_name(event_com, sc_item_transfer:tooltip, p11_full){varclient_1738}
 
 // 805:23
 [com_23]
@@ -338,7 +338,7 @@ tiling=yes
 colour=0xffffffff
 
 // 805:30
-[com_30]
+[no]
 type=layer
 x=7
 y=26
@@ -347,7 +347,7 @@ height=301
 onload=script172
 
 // 805:31
-[com_31]
+[your_offer_layer]
 type=layer
 x=21
 y=72
@@ -355,7 +355,7 @@ width=185
 height=223
 
 // 805:32
-[com_32]
+[your_offer_layer_flashy]
 type=layer
 x=21
 y=72
@@ -377,7 +377,7 @@ textshadow=yes
 colour=0xff981f
 
 // 805:34
-[com_34]
+[bowl_guests]
 type=layer
 x=466
 y=22
@@ -386,7 +386,7 @@ height=32
 hide=yes
 
 // 805:35
-[com_35]
+[divider1]
 type=model
 width=1
 height=1
@@ -394,7 +394,7 @@ model=null
 modelzoom=400
 
 // 805:36
-[com_36]
+[tooltip_layer]
 type=layer
 x=10
 y=10
@@ -409,7 +409,7 @@ width=512
 height=334
 
 // 805:38
-[com_38]
+[tooltip]
 type=layer
 x=232
 y=89

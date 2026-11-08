@@ -1,3 +1,3 @@
 // 3335
 [clientscript,rand_party_update_previous]
-if_settext(tostring(%varclient_1182), rand_party_side:com_84);
+if_settext(tostring(%varclient_1182), rand_party_side:last_reset);

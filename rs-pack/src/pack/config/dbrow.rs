@@ -301,17 +301,10 @@ mod tests {
     fn components_coords_and_sounds_resolve() {
         let registry = registry();
         assert_eq!(
-            lookup_typed("chatbox:com_dialogue_box_small", b'I', &registry),
-            registry
-                .component_hashes
-                .get("chatbox:com_dialogue_box_small")
-                .copied()
+            lookup_typed("chattop:chatmodal", b'I', &registry),
+            registry.component_hashes.get("chattop:chatmodal").copied()
         );
-        assert!(
-            registry
-                .component_hashes
-                .contains_key("chatbox:com_dialogue_box_small")
-        );
+        assert!(registry.component_hashes.contains_key("chattop:chatmodal"));
         assert_eq!(
             lookup_typed("0_48_155_48_44", b'c', &registry),
             Some((48 * 64 + 48) << 14 | (155 * 64 + 44))

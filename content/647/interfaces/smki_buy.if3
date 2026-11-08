@@ -10,7 +10,7 @@ fill=yes
 trans=200
 
 // 164:1
-[com_1]
+[background_graphic]
 type=graphic
 x=14
 y=25
@@ -74,7 +74,7 @@ tiling=yes
 colour=0x000000
 
 // 164:7
-[com_7]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -84,8 +84,8 @@ graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(smki_buy:com_7, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(smki_buy:com_7, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(smki_buy:close_button, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(smki_buy:close_button, "v2_stone_close_button,0")
 onop=closebutton_click
 onclick=closebutton_click
 
@@ -151,7 +151,7 @@ graphic="v2_stone_borders,10"
 colour=0x000000
 
 // 164:14
-[com_14]
+[assignment_tab]
 type=graphic
 x=182
 y=29
@@ -159,11 +159,11 @@ width=97
 height=20
 graphic="tabs,1"
 colour=0x000000
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Manage Slayer assignments", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Manage Slayer assignments", 25, 150)
 
 // 164:15
-[com_15]
+[learn_tab]
 type=graphic
 x=99
 y=29
@@ -171,11 +171,11 @@ width=102
 height=20
 graphic="tabs,1"
 colour=0x000000
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Learn new abilities", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Learn new abilities", 25, 150)
 
 // 164:16
-[com_16]
+[learn_layer]
 type=layer
 x=107
 y=29
@@ -185,7 +185,7 @@ transmitop=1
 op1=Learn
 
 // 164:17
-[com_17]
+[assign_layer]
 type=layer
 x=190
 y=29
@@ -195,7 +195,7 @@ transmitop=1
 op1=Assignments
 
 // 164:18
-[com_18]
+[buy_tab]
 type=graphic
 x=22
 y=29
@@ -205,7 +205,7 @@ graphic="tabs,0"
 colour=0x000000
 
 // 164:19
-[com_19]
+[current_box]
 type=rectangle
 x=75
 y=78
@@ -215,7 +215,7 @@ colour=0x484038
 fill=yes
 
 // 164:20
-[com_20]
+[xxxx]
 type=text
 x=198
 y=87
@@ -228,7 +228,7 @@ textshadow=yes
 colour=0xd7b011
 
 // 164:21
-[com_21]
+[buy]
 type=text
 x=35
 y=33
@@ -240,7 +240,7 @@ textshadow=yes
 colour=0xff981f
 
 // 164:22
-[com_22]
+[learn]
 type=text
 x=112
 y=34
@@ -252,7 +252,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 164:23
-[com_23]
+[assignment]
 type=text
 x=193
 y=34
@@ -264,7 +264,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 164:24
-[com_24]
+[buy_xp]
 type=text
 x=118
 y=138
@@ -276,11 +276,11 @@ textshadow=yes
 colour=0xd7b011
 transmitop=1
 op1=Buy XP
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy 10,000 Slayer XP.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy 10,000 Slayer XP.", 25, 150)
 
 // 164:25
-[com_25]
+[xp]
 type=graphic
 x=80
 y=132
@@ -290,10 +290,10 @@ graphic="staticons2,1"
 colour=0x000000
 transmitop=1
 op1=Buy XP
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy 10,000 Slayer XP.", 25, 150)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy 10,000 Slayer XP.", 25, 150)
 
 // 164:26
-[com_26]
+[buy_ring]
 type=text
 x=118
 y=171
@@ -305,11 +305,11 @@ textshadow=yes
 colour=0xd7b011
 transmitop=1
 op1=Buy Ring
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy a ring which enables teleports to Slayer locations (8 charges).", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy a ring which enables teleports to Slayer locations (8 charges).", 25, 150)
 
 // 164:27
-[com_27]
+[ring]
 type=model
 x=77
 y=165
@@ -321,11 +321,11 @@ modelangle=243,192,0
 modelzoom=528
 transmitop=1
 op1=Buy Ring
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy a ring which enables teleports to Slayer locations (8 charges).", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy a ring which enables teleports to Slayer locations (8 charges).", 25, 150)
 
 // 164:28
-[com_28]
+[buy_runes]
 type=text
 x=118
 y=202
@@ -337,11 +337,11 @@ textshadow=yes
 colour=0xd7b011
 transmitop=1
 op1=Buy Runes
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy runes for 250 casts of Slayer Dart.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy runes for 250 casts of Slayer Dart.", 25, 150)
 
 // 164:29
-[com_29]
+[runes1]
 type=model
 x=59
 y=199
@@ -353,11 +353,11 @@ modelangle=258,1128,0
 modelzoom=912
 transmitop=1
 op1=Buy Runes
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy runes for 250 casts of Slayer Dart.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy runes for 250 casts of Slayer Dart.", 25, 150)
 
 // 164:30
-[com_30]
+[runes2]
 type=model
 x=82
 y=196
@@ -369,11 +369,11 @@ modelangle=306,1131,0
 modelzoom=912
 transmitop=1
 op1=Buy Runes
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy runes for 250 casts of Slayer Dart.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy runes for 250 casts of Slayer Dart.", 25, 150)
 
 // 164:31
-[com_31]
+[current_pts]
 type=text
 x=95
 y=87
@@ -385,7 +385,7 @@ textshadow=yes
 colour=0xd7b011
 
 // 164:32
-[com_32]
+[xp_points]
 type=text
 x=341
 y=139
@@ -397,11 +397,11 @@ textshadow=yes
 colour=0xff981f
 transmitop=1
 op1=Buy XP
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy 10,000 Slayer XP.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy 10,000 Slayer XP.", 25, 150)
 
 // 164:33
-[com_33]
+[ring_points]
 type=text
 x=341
 y=169
@@ -413,11 +413,11 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Buy Ring
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy a ring which enables teleports to Slayer locations(8 charges).", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy a ring which enables teleports to Slayer locations(8 charges).", 25, 150)
 
 // 164:34
-[com_34]
+[bolts_points]
 type=text
 x=340
 y=233
@@ -429,11 +429,11 @@ textshadow=yes
 colour=0xff981f
 transmitop=1
 op1=Buy Bolts
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy 250 Slayer bolts.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy 250 Slayer bolts.", 25, 150)
 
 // 164:35
-[com_35]
+[arrows_points]
 type=text
 x=341
 y=261
@@ -445,11 +445,11 @@ textshadow=yes
 colour=0xff981f
 transmitop=1
 op1=Buy Arrows
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy 250 broad arrows.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy 250 broad arrows.", 25, 150)
 
 // 164:36
-[com_36]
+[runes_points]
 type=text
 x=341
 y=203
@@ -461,11 +461,11 @@ textshadow=yes
 colour=0xff981f
 transmitop=1
 op1=Buy Runes
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy runes for 250 casts of Slayer Dart.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy runes for 250 casts of Slayer Dart.", 25, 150)
 
 // 164:37
-[com_37]
+[buy_bolts]
 type=text
 x=118
 y=233
@@ -477,11 +477,11 @@ textshadow=yes
 colour=0xd7b011
 transmitop=1
 op1=Buy Bolts
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy 250 broad bolts.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy 250 broad bolts.", 25, 150)
 
 // 164:38
-[com_38]
+[bolts]
 type=model
 x=76
 y=229
@@ -493,11 +493,11 @@ modelangle=234,1261,0
 modelzoom=528
 transmitop=1
 op1=Buy Bolts
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy 250 broad bolts.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy 250 broad bolts.", 25, 150)
 
 // 164:39
-[com_39]
+[buy_arrows]
 type=text
 x=118
 y=261
@@ -509,11 +509,11 @@ textshadow=yes
 colour=0xd7b011
 transmitop=1
 op1=Buy Arrows
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy 250 broad arrows.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy 250 broad arrows.", 25, 150)
 
 // 164:40
-[com_40]
+[arrows]
 type=model
 x=70
 y=258
@@ -525,8 +525,8 @@ modelangle=249,1273,0
 modelzoom=1168
 transmitop=1
 op1=Buy Arrows
-onmouseleave=deltooltip(smki_buy:com_48)
-onmouserepeat=addtooltip(event_com, smki_buy:com_48, "Buy 250 broad arrows.", 25, 150)
+onmouseleave=deltooltip(smki_buy:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_buy:tool_tip_build_layer, "Buy 250 broad arrows.", 25, 150)
 
 // 164:41
 [com_41]
@@ -589,14 +589,14 @@ graphic="v2_stone_borders,2"
 colour=0x000000
 
 // 164:47
-[com_47]
+[tooltip_bounding_box]
 type=layer
 width=512
 height=334
 
 // 164:48
-[com_48]
+[tool_tip_build_layer]
 type=layer
 width=512
 height=334
-layer=com_47
+layer=tooltip_bounding_box

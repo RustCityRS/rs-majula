@@ -1,26 +1,26 @@
 // 1328
 [clientscript,script1328](int $key0)
-if (if_gethide(lobbyscreen:com_30) = false | if_gethide(lobbyscreen:com_31) = false | if_gethide(lobbyscreen:com_32) = false | if_gethide(lobbyscreen:com_19) = false | if_gethide(lobbyscreen:com_34) = false | if_gethide(lobbyscreen:com_44) = false | if_gethide(lobbyscreen:com_45) = false) {
+if (if_gethide(lobbyscreen:input) = false | if_gethide(lobbyscreen:windowmode_confirm) = false | if_gethide(lobbyscreen:pvp_warning) = false | if_gethide(lobbyscreen:popup_body) = false | if_gethide(lobbyscreen:report_abuse_stage1) = false | if_gethide(lobbyscreen:report_abuse_stage2) = false | if_gethide(lobbyscreen:report_abuse_ignore) = false) {
     return;
 }
 def_int $int1 = -1;
 if ($key0 = ^key_tab) {
-    if (if_gethide(lobbyscreen:com_174) = false) {
+    if (if_gethide(lobbyscreen:playerinfo_panel) = false) {
         $int1 = 0;
     }
-    if (if_gethide(lobbyscreen:com_175) = false) {
+    if (if_gethide(lobbyscreen:worldselect_panel) = false) {
         $int1 = 1;
     }
-    if (if_gethide(lobbyscreen:com_176) = false) {
+    if (if_gethide(lobbyscreen:friendslist_panel) = false) {
         $int1 = 2;
     }
     if (if_gethide(lobbyscreen:com_177) = false) {
         $int1 = 3;
     }
-    if (if_gethide(lobbyscreen:com_178) = false) {
+    if (if_gethide(lobbyscreen:clanchat_panel) = false) {
         $int1 = 5;
     }
-    if (if_gethide(lobbyscreen:com_179) = false) {
+    if (if_gethide(lobbyscreen:options_panel) = false) {
         $int1 = 4;
     }
     if (keyheld_shift = false) {
@@ -76,7 +76,7 @@ if ($key0 = ^key_tab) {
 def_int $int2 = 0;
 def_string $string0 = "";
 def_string $string1 = "";
-if ($key0 = ^key_return & if_gethide(lobbyscreen:com_176) = false) {
+if ($key0 = ^key_return & if_gethide(lobbyscreen:friendslist_panel) = false) {
     if (string_length(%varclient_1795) > 0) {
         $int2 = friend_getslotfromname(%varclient_1795);
         if ($int2 ! -1 & userdetail_quickchat = false) {

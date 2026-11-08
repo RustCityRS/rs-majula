@@ -4,6 +4,6 @@
 %varclient_1150 = 0;
 %varclient_1151 = 0;
 %varclient_1152 = 0;
-cc_deleteall(rand_dungeon_map:com_3);
-cc_deleteall(rand_dungeon_map:com_5);
-cc_deleteall(rand_dungeon_map:com_4);
+cc_deleteall(rand_dungeon_map:room_layer);
+cc_deleteall(rand_dungeon_map:player_layer);
+cc_deleteall(rand_dungeon_map:door_layer);

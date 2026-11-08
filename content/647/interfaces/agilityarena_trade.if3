@@ -7,31 +7,31 @@ transmitop=10
 op10= 
 
 // 6:1
-[com_1]
+[content_layer]
 type=layer
 width=512
 height=334
 
 // 6:2
-[com_2]
+[hook_model]
 type=model
 x=13
 y=21
 width=54
 height=55
-layer=com_13
+layer=hook_layer
 model=model_3664
 modelorigin=-4,5
 modelangle=197,1913,0
 modelzoom=335
 
 // 6:3
-[com_3]
+[hook_text]
 type=text
 x=3
 width=70
 height=21
-layer=com_13
+layer=hook_layer
 textfont=p11_full
 text=Pirate's hook (800)
 textalignh=centre
@@ -41,24 +41,24 @@ onload=agilityarena_colour(event_com, 800)
 oninvtransmit=agilityarena_colour(event_com, 800){inv}
 
 // 6:4
-[com_4]
+[herb2_model]
 type=model
 x=4
 y=22
 width=58
 height=49
-layer=com_9
+layer=herb_layer2
 model=model_2364
 modelorigin=12,5
 modelangle=539,1735,0
 modelzoom=400
 
 // 6:5
-[com_5]
+[herb2_text]
 type=text
 width=70
 height=21
-layer=com_9
+layer=herb_layer2
 textfont=p11_full
 text=Snapdragon (10)
 textalignh=centre
@@ -68,25 +68,25 @@ onload=agilityarena_colour(event_com, 10)
 oninvtransmit=agilityarena_colour(event_com, 10){inv}
 
 // 6:6
-[com_6]
+[herb1_model]
 type=model
 x=2
 y=21
 width=58
 height=49
-layer=com_8
+layer=herb_layer1
 model=model_2364
 modelorigin=12,5
 modelangle=539,1735,0
 modelzoom=400
 
 // 6:7
-[com_7]
+[herb1_text]
 type=text
 x=6
 width=54
 height=20
-layer=com_8
+layer=herb_layer1
 textfont=p11_full
 text=Toadflax (3)
 textalignh=centre
@@ -96,44 +96,44 @@ onload=agilityarena_colour(event_com, 3)
 oninvtransmit=agilityarena_colour(event_com, 3){inv}
 
 // 6:8
-[com_8]
+[herb_layer1]
 type=layer
 x=64
 y=208
 width=65
 height=72
-layer=com_1
+layer=content_layer
 transmitop=1
 op1=Buy
 
 // 6:9
-[com_9]
+[herb_layer2]
 type=layer
 x=227
 y=208
 width=65
 height=72
-layer=com_1
+layer=content_layer
 transmitop=1
 op1=Buy
 
 // 6:10
-[com_10]
+[herb_layer3]
 type=layer
 x=146
 y=208
 width=65
 height=72
-layer=com_1
+layer=content_layer
 transmitop=1
 op1=Buy
 
 // 6:11
-[com_11]
+[herb3_text]
 type=text
 width=69
 height=21
-layer=com_10
+layer=herb_layer3
 textfont=p11_full
 text=Wergali<br>(5)
 textalignh=centre
@@ -143,13 +143,13 @@ onload=agilityarena_colour(event_com, 5)
 oninvtransmit=agilityarena_colour(event_com, 5){inv}
 
 // 6:12
-[com_12]
+[herb3_model]
 type=model
 x=4
 y=22
 width=58
 height=49
-layer=com_10
+layer=herb_layer3
 model=model_2364
 modelorigin=12,5
 modelangle=539,1735,0
@@ -157,24 +157,24 @@ modelzoom=400
 onload=agilityarena_set_model(event_com)
 
 // 6:13
-[com_13]
+[hook_layer]
 type=layer
 x=344
 y=211
 width=76
 height=76
-layer=com_1
+layer=content_layer
 transmitop=1
 op1=Buy
 
 // 6:14
-[com_14]
+[text5]
 type=text
 x=2
 y=1
 width=70
 height=21
-layer=com_28
+layer=layer5
 textfont=p11_full
 text=Experience (1000)
 textalignh=centre
@@ -184,26 +184,26 @@ onload=agilityarena_colour(event_com, 1000)
 oninvtransmit=agilityarena_colour(event_com, 1000){inv}
 
 // 6:15
-[com_15]
+[model5]
 type=model
 x=13
 y=26
 width=52
 height=68
-layer=com_28
+layer=layer5
 model=model_3328
 modelorigin=-3,-2
 modelangle=526,2042,0
 modelzoom=704
 
 // 6:16
-[com_16]
+[text4]
 type=text
 x=2
 y=1
 width=70
 height=21
-layer=com_27
+layer=layer4
 textfont=p11_full
 text=Experience (100)
 textalignh=centre
@@ -213,39 +213,39 @@ onload=agilityarena_colour(event_com, 100)
 oninvtransmit=agilityarena_colour(event_com, 100){inv}
 
 // 6:17
-[com_17]
+[model4]
 type=model
 x=13
 y=26
 width=52
 height=68
-layer=com_27
+layer=layer4
 model=model_3328
 modelorigin=-3,-2
 modelangle=526,2042,0
 modelzoom=704
 
 // 6:18
-[com_18]
+[model3]
 type=model
 x=12
 y=26
 width=52
 height=68
-layer=com_26
+layer=layer3
 model=model_3328
 modelorigin=-3,-2
 modelangle=526,2042,0
 modelzoom=704
 
 // 6:19
-[com_19]
+[text3]
 type=text
 x=1
 y=1
 width=70
 height=21
-layer=com_26
+layer=layer3
 textfont=p11_full
 text=Experience (25)
 textalignh=centre
@@ -255,12 +255,12 @@ onload=agilityarena_colour(event_com, 25)
 oninvtransmit=agilityarena_colour(event_com, 25){inv}
 
 // 6:20
-[com_20]
+[text2]
 type=text
 x=2
 width=70
 height=21
-layer=com_25
+layer=layer2
 textfont=p11_full
 text=Experience (10)
 textalignh=centre
@@ -270,24 +270,24 @@ onload=agilityarena_colour(event_com, 10)
 oninvtransmit=agilityarena_colour(event_com, 10){inv}
 
 // 6:21
-[com_21]
+[model2]
 type=model
 x=13
 y=25
 width=52
 height=68
-layer=com_25
+layer=layer2
 model=model_3328
 modelorigin=-3,-2
 modelangle=526,2042,0
 modelzoom=704
 
 // 6:22
-[com_22]
+[text1]
 type=text
 width=70
 height=21
-layer=com_24
+layer=layer1
 textfont=p11_full
 text=Experience (1)
 textalignh=centre
@@ -297,70 +297,70 @@ onload=agilityarena_colour(event_com, 1)
 oninvtransmit=agilityarena_colour(event_com, 1){inv}
 
 // 6:23
-[com_23]
+[model1]
 type=model
 x=11
 y=25
 width=52
 height=68
-layer=com_24
+layer=layer1
 model=model_3328
 modelorigin=-3,-2
 modelangle=526,2042,0
 modelzoom=704
 
 // 6:24
-[com_24]
+[layer1]
 type=layer
 x=30
 y=79
 width=73
 height=95
-layer=com_1
+layer=content_layer
 transmitop=1
 op1=Buy
 
 // 6:25
-[com_25]
+[layer2]
 type=layer
 x=120
 y=79
 width=73
 height=95
-layer=com_1
+layer=content_layer
 transmitop=1
 op1=Buy
 
 // 6:26
-[com_26]
+[layer3]
 type=layer
 x=213
 y=78
 width=73
 height=95
-layer=com_1
+layer=content_layer
 transmitop=1
 op1=Buy
 
 // 6:27
-[com_27]
+[layer4]
 type=layer
 x=304
 y=78
 width=73
 height=95
-layer=com_1
+layer=content_layer
 transmitop=1
 op1=Buy
 
 // 6:28
-[com_28]
+[layer5]
 type=layer
 x=396
 y=78
 width=73
 height=95
-layer=com_1
+layer=content_layer
 transmitop=1
 op1=Buy
 
@@ -462,7 +462,7 @@ transmitop=10
 op10= 
 
 // 6:36
-[com_36]
+[close_button]
 type=graphic
 x=474
 y=30

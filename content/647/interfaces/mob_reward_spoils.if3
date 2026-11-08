@@ -7,25 +7,25 @@ transmitop=10
 op10= 
 
 // 848:1
-[com_1]
+[items]
 type=layer
 y=71
 width=437
 height=101
 xmode=abs_centre
-layer=com_17
+layer=content
 
 // 848:2
-[com_2]
+[spoils]
 type=layer
 y=10
 width=392
 height=36
 xmode=abs_centre
-layer=com_1
+layer=items
 
 // 848:3
-[com_3]
+[background_1]
 type=graphic
 x=17
 y=26
@@ -40,7 +40,7 @@ opbase=
 op10=  
 
 // 848:4
-[com_4]
+[left_side]
 type=graphic
 y=26
 width=37
@@ -54,7 +54,7 @@ opbase=
 op10=  
 
 // 848:5
-[com_5]
+[right_side]
 type=graphic
 x=479
 y=26
@@ -69,7 +69,7 @@ opbase=
 op10=  
 
 // 848:6
-[com_6]
+[bottom]
 type=graphic
 x=15
 y=302
@@ -83,7 +83,7 @@ transmitop=10
 op10=  
 
 // 848:7
-[com_7]
+[top]
 type=graphic
 x=14
 y=10
@@ -98,7 +98,7 @@ opbase=
 op10=  
 
 // 848:8
-[com_8]
+[bottom_right]
 type=graphic
 x=467
 y=290
@@ -112,7 +112,7 @@ opbase=
 op10=  
 
 // 848:9
-[com_9]
+[bottom_left]
 type=graphic
 x=13
 y=290
@@ -125,7 +125,7 @@ transmitop=10
 op10=  
 
 // 848:10
-[com_10]
+[top_left]
 type=graphic
 x=13
 y=23
@@ -139,7 +139,7 @@ opbase=
 op10=  
 
 // 848:11
-[com_11]
+[top_right]
 type=graphic
 x=467
 y=23
@@ -153,7 +153,7 @@ opbase=
 op10=  
 
 // 848:12
-[com_12]
+[title_bar]
 type=graphic
 x=16
 y=38
@@ -167,7 +167,7 @@ transmitop=10
 op10=  
 
 // 848:13
-[com_13]
+[left_joint]
 type=graphic
 x=13
 y=40
@@ -181,7 +181,7 @@ transmitop=10
 op10=  
 
 // 848:14
-[com_14]
+[right_joint]
 type=graphic
 x=467
 y=40
@@ -195,7 +195,7 @@ transmitop=10
 op10=  
 
 // 848:15
-[com_15]
+[close_button]
 type=graphic
 x=471
 y=32
@@ -212,7 +212,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 848:16
-[com_16]
+[title]
 type=text
 x=23
 y=32
@@ -230,97 +230,97 @@ op10=
 onvarctransmit=script2521{varclient_875}
 
 // 848:17
-[com_17]
+[content]
 type=layer
 width=512
 height=334
 
 // 848:18
-[com_18]
+[names]
 type=layer
 width=437
 height=35
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=items
 
 // 848:19
-[com_19]
+[text1]
 type=text
 x=-175
 width=75
 height=34
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_18
+layer=names
 textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xff9935
 
 // 848:20
-[com_20]
+[text2]
 type=text
 x=-90
 width=75
 height=34
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_18
+layer=names
 textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xff9935
 
 // 848:21
-[com_21]
+[text3]
 type=text
 width=75
 height=34
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_18
+layer=names
 textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xff9935
 
 // 848:22
-[com_22]
+[text4]
 type=text
 x=90
 width=75
 height=34
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_18
+layer=names
 textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xff9935
 
 // 848:23
-[com_23]
+[text5]
 type=text
 x=175
 width=75
 height=34
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_18
+layer=names
 textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xff9935
 
 // 848:24
-[com_24]
+[radio]
 type=layer
 y=47
 width=406
 height=15
 xmode=abs_centre
-layer=com_1
+layer=items
 
 // 848:25
 [com_25]
@@ -329,17 +329,17 @@ width=435
 height=99
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=items
 colour=0x000000
 
 // 848:26
-[com_26]
+[radio1]
 type=graphic
 x=-7077
 width=15
 height=15
 xmode=proportion_centre
-layer=com_24
+layer=radio
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -348,13 +348,13 @@ opcursor0=cursor_46
 onvartransmit=script2522(event_com){varplayer_1451}
 
 // 848:27
-[com_27]
+[radio2]
 type=graphic
 x=-3683
 width=15
 height=15
 xmode=proportion_centre
-layer=com_24
+layer=radio
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -363,13 +363,13 @@ opcursor0=cursor_46
 onvartransmit=script2523(event_com){varplayer_1451}
 
 // 848:28
-[com_28]
+[radio3]
 type=graphic
 x=7
 width=15
 height=15
 xmode=proportion_centre
-layer=com_24
+layer=radio
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -378,13 +378,13 @@ opcursor0=cursor_46
 onvartransmit=script2524(event_com){varplayer_1451}
 
 // 848:29
-[com_29]
+[radio4]
 type=graphic
 x=3598
 width=15
 height=15
 xmode=proportion_centre
-layer=com_24
+layer=radio
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -393,13 +393,13 @@ opcursor0=cursor_46
 onvartransmit=script2525(event_com){varplayer_1451}
 
 // 848:30
-[com_30]
+[radio5]
 type=graphic
 x=7091
 width=15
 height=15
 xmode=proportion_centre
-layer=com_24
+layer=radio
 graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -408,13 +408,13 @@ opcursor0=cursor_46
 onvartransmit=script2526(event_com){varplayer_1451}
 
 // 848:31
-[com_31]
+[buy_text]
 type=text
 width=105
 height=20
 xmode=abs_centre
 ymode=abs_centre
-layer=com_37
+layer=buy_button
 textfont=b12_full
 text=Buy Spoils
 textalignh=centre
@@ -425,13 +425,13 @@ transmitop=10
 op10= 
 
 // 848:32
-[com_32]
+[explanation]
 type=text
 x=178
 y=174
 width=161
 height=30
-layer=com_17
+layer=content
 textfont=p11_full
 text=Please pick 3 of the 5 items.
 textalignh=centre
@@ -440,13 +440,13 @@ textshadow=yes
 colour=0xff9933
 
 // 848:33
-[com_33]
+[glory_points]
 type=text
 x=145
 y=238
 width=26
 height=14
-layer=com_17
+layer=content
 textfont=p11_full
 text=0
 textalignh=centre
@@ -455,13 +455,13 @@ textshadow=yes
 colour=0xff9933
 
 // 848:34
-[com_34]
+[points_title]
 type=text
 x=108
 y=214
 width=98
 height=21
-layer=com_17
+layer=content
 textfont=b12_full
 text=Current reward credits:
 textalignh=centre
@@ -470,13 +470,13 @@ textshadow=yes
 colour=0xff9933
 
 // 848:35
-[com_35]
+[cost_glory]
 type=text
 x=353
 y=238
 width=26
 height=14
-layer=com_17
+layer=content
 textfont=p11_full
 text=0
 textalignh=centre
@@ -485,13 +485,13 @@ textshadow=yes
 colour=0xff9933
 
 // 848:36
-[com_36]
+[cost_title]
 type=text
 x=316
 y=214
 width=98
 height=21
-layer=com_17
+layer=content
 textfont=b12_full
 text=Cost  (in reward credits):
 textalignh=centre
@@ -500,13 +500,13 @@ textshadow=yes
 colour=0xff9933
 
 // 848:37
-[com_37]
+[buy_button]
 type=layer
 x=177
 y=266
 width=151
 height=29
-layer=com_17
+layer=content
 transmitop=1
 op1=Buy spoils
 onload=v2_stone_button(event_com)

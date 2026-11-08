@@ -11,7 +11,7 @@ transmitop=10
 op10= 
 
 // 865:1
-[com_1]
+[accept_button]
 type=layer
 x=4
 y=203
@@ -24,11 +24,11 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 865:2
-[com_2]
+[accept_text]
 type=text
 width=90
 height=20
-layer=com_1
+layer=accept_button
 textfont=b12_full
 text=Change
 textalignh=centre
@@ -37,7 +37,7 @@ textshadow=yes
 colour=0xff9935
 
 // 865:3
-[com_3]
+[close_button]
 type=layer
 x=96
 y=203
@@ -51,11 +51,11 @@ onmouseleave=v2_stone_button(event_com)
 onop=closebutton_click
 
 // 865:4
-[com_4]
+[close_text]
 type=text
 width=90
 height=20
-layer=com_3
+layer=close_button
 textfont=b12_full
 text=Cancel
 textalignh=centre
@@ -66,7 +66,7 @@ transmitop=1
 op1=Cancel
 
 // 865:5
-[com_5]
+[title]
 type=text
 x=4
 y=2
@@ -79,7 +79,7 @@ textshadow=yes
 colour=0xff9935
 
 // 865:6
-[com_6]
+[current_title]
 type=text
 y=20
 width=182
@@ -93,7 +93,7 @@ textshadow=yes
 colour=0xff9935
 
 // 865:7
-[com_7]
+[current_prefix]
 type=text
 y=4
 width=182
@@ -110,7 +110,7 @@ onmouseleave=player_prefix_current(event_com)
 onvartransmit=player_prefix_current(event_com){varplayer_1442}
 
 // 865:8
-[com_8]
+[scroll_bar]
 type=layer
 x=3
 y=26
@@ -119,7 +119,7 @@ height=173
 xmode=abs_right
 
 // 865:9
-[com_9]
+[prefix_list]
 type=layer
 x=5
 y=26

@@ -1,18 +1,18 @@
 // 313:0
-[com_0]
+[tooltip]
 type=layer
 width=512
 height=334
-layer=com_2
+layer=tooltip_bound
 
 // 313:1
-[com_1]
+[layer_1]
 type=layer
 width=512
 height=334
 
 // 313:2
-[com_2]
+[tooltip_bound]
 type=layer
 width=512
 height=334
@@ -22,7 +22,7 @@ height=334
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=layer_1
 graphic=window_texture
 tiling=yes
 
@@ -31,7 +31,7 @@ tiling=yes
 type=graphic
 width=38
 height=72
-layer=com_1
+layer=layer_1
 graphic="corner_frame_5,2"
 hflip=yes
 
@@ -41,7 +41,7 @@ type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_1
+layer=layer_1
 graphic="corner_frame_5,2"
 
 // 313:6
@@ -51,7 +51,7 @@ x=17
 y=25
 width=158
 height=256
-layer=com_1
+layer=layer_1
 
 // 313:7
 [com_7]
@@ -73,8 +73,8 @@ height=7
 layer=com_6
 colour=0xffffff
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "Coin colour: ")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
 
 // 313:9
 [com_9]
@@ -170,8 +170,8 @@ y=25
 width=31
 height=30
 layer=com_6
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=script2473(event_com, event_comsubid, glo3_puzzle:com_0)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script2473(event_com, event_comsubid, glo3_puzzle:tooltip)
 
 // 313:17
 [com_17]
@@ -214,8 +214,8 @@ height=7
 layer=com_6
 colour=0xffffff
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "Coin colour: ")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
 
 // 313:21
 [com_21]
@@ -311,8 +311,8 @@ y=25
 width=31
 height=30
 layer=com_6
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=script2474(event_com, event_comsubid, glo3_puzzle:com_0)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script2474(event_com, event_comsubid, glo3_puzzle:tooltip)
 
 // 313:29
 [com_29]
@@ -355,8 +355,8 @@ height=25
 layer=com_6
 colour=0x00ffff
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:com_0, "Target colour: Pure cyan", 0, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:tooltip, "Target colour: Pure cyan", 0, 180)
 
 // 313:33
 [com_33]
@@ -457,8 +457,8 @@ model=model_17201
 modelorigin=0,1
 modelzoom=349
 modelorthog=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=addtooltip(event_com, glo3_puzzle:com_0, "Target intensity", 0, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
 
 // 313:41
 [com_41]
@@ -472,8 +472,8 @@ model=model_17201
 modelorigin=0,1
 modelzoom=349
 modelorthog=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=addtooltip(event_com, glo3_puzzle:com_0, "Target intensity", 0, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
 
 // 313:42
 [com_42]
@@ -553,8 +553,8 @@ height=25
 layer=com_6
 colour=0xffffff
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "Current output colour: ")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Current output colour: ")
 
 // 313:49
 [com_49]
@@ -740,8 +740,8 @@ width=20
 height=20
 layer=com_6
 graphic="glo3_octagons,0"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=addtooltip(event_com, glo3_puzzle:com_0, "Target colour: Pure cyan", 50, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target colour: Pure cyan", 50, 180)
 
 // 313:65
 [com_65]
@@ -773,8 +773,8 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_66
 graphic="glo3_diamonds,1"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
 
 // 313:68
 [com_68]
@@ -805,8 +805,8 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_69
 graphic="glo3_diamonds,1"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
 
 // 313:71
 [com_71]
@@ -836,8 +836,8 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_72
 graphic="glo3_diamonds,3"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
 
 // 313:74
 [com_74]
@@ -942,7 +942,7 @@ x=177
 y=25
 width=158
 height=256
-layer=com_1
+layer=layer_1
 
 // 313:83
 [com_83]
@@ -964,8 +964,8 @@ height=7
 layer=com_82
 colour=0xffffff
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "Coin colour: ")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
 
 // 313:85
 [com_85]
@@ -1061,8 +1061,8 @@ y=25
 width=31
 height=30
 layer=com_82
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=script3722(event_com, event_comsubid, glo3_puzzle:com_0)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script3722(event_com, event_comsubid, glo3_puzzle:tooltip)
 
 // 313:93
 [com_93]
@@ -1105,8 +1105,8 @@ height=7
 layer=com_82
 colour=0xffffff
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "Coin colour: ")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
 
 // 313:97
 [com_97]
@@ -1202,8 +1202,8 @@ y=25
 width=31
 height=30
 layer=com_82
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=script4122(event_com, event_comsubid, glo3_puzzle:com_0)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script4122(event_com, event_comsubid, glo3_puzzle:tooltip)
 
 // 313:105
 [com_105]
@@ -1246,8 +1246,8 @@ height=25
 layer=com_82
 colour=0xff00ff
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:com_0, "Target colour: Pure magenta", 0, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:tooltip, "Target colour: Pure magenta", 0, 180)
 
 // 313:109
 [com_109]
@@ -1348,8 +1348,8 @@ model=model_17201
 modelorigin=0,1
 modelzoom=349
 modelorthog=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=addtooltip(event_com, glo3_puzzle:com_0, "Target intensity", 0, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
 
 // 313:117
 [com_117]
@@ -1363,8 +1363,8 @@ model=model_17201
 modelorigin=0,1
 modelzoom=349
 modelorthog=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=addtooltip(event_com, glo3_puzzle:com_0, "Target intensity", 0, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
 
 // 313:118
 [com_118]
@@ -1444,8 +1444,8 @@ height=25
 layer=com_82
 colour=0xffffff
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "Current output colour: ")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Current output colour: ")
 
 // 313:125
 [com_125]
@@ -1642,8 +1642,8 @@ width=20
 height=20
 layer=com_82
 graphic="glo3_octagons,2"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=addtooltip(event_com, glo3_puzzle:com_0, "Target colour: Pure magenta", 50, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target colour: Pure magenta", 50, 180)
 
 // 313:142
 [com_142]
@@ -1675,8 +1675,8 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_143
 graphic="glo3_diamonds,1"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
 
 // 313:145
 [com_145]
@@ -1707,8 +1707,8 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_146
 graphic="glo3_diamonds,1"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
 
 // 313:148
 [com_148]
@@ -1738,8 +1738,8 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_149
 graphic="glo3_diamonds,3"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
 
 // 313:151
 [com_151]
@@ -1838,13 +1838,13 @@ colour=0xd9d2a0
 trans=129
 
 // 313:159
-[com_159]
+[yellow]
 type=layer
 x=337
 y=25
 width=158
 height=256
-layer=com_1
+layer=layer_1
 
 // 313:160
 [com_160]
@@ -1853,7 +1853,7 @@ x=1
 y=1
 width=156
 height=254
-layer=com_159
+layer=yellow
 graphic=glo3_bg2
 
 // 313:161
@@ -1863,11 +1863,11 @@ x=6
 y=57
 width=31
 height=7
-layer=com_159
+layer=yellow
 colour=0xffffff
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "Coin colour: ")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
 
 // 313:162
 [com_162]
@@ -1876,7 +1876,7 @@ x=6
 y=57
 width=31
 height=7
-layer=com_159
+layer=yellow
 
 // 313:163
 [com_163]
@@ -1962,9 +1962,9 @@ x=6
 y=25
 width=31
 height=30
-layer=com_159
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=script4123(event_com, event_comsubid, glo3_puzzle:com_0)
+layer=yellow
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script4123(event_com, event_comsubid, glo3_puzzle:tooltip)
 
 // 313:170
 [com_170]
@@ -2004,11 +2004,11 @@ x=121
 y=57
 width=31
 height=7
-layer=com_159
+layer=yellow
 colour=0xffffff
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "Coin colour: ")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
 
 // 313:174
 [com_174]
@@ -2017,7 +2017,7 @@ x=121
 y=57
 width=31
 height=7
-layer=com_159
+layer=yellow
 
 // 313:175
 [com_175]
@@ -2103,9 +2103,9 @@ x=121
 y=25
 width=31
 height=30
-layer=com_159
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=script4124(event_com, event_comsubid, glo3_puzzle:com_0)
+layer=yellow
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script4124(event_com, event_comsubid, glo3_puzzle:tooltip)
 
 // 313:182
 [com_182]
@@ -2145,11 +2145,11 @@ x=54
 y=51
 width=51
 height=25
-layer=com_159
+layer=yellow
 colour=0xffff00
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:com_0, "Target colour: Pure yellow", 0, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:tooltip, "Target colour: Pure yellow", 0, 180)
 
 // 313:186
 [com_186]
@@ -2158,7 +2158,7 @@ x=54
 y=51
 width=51
 height=25
-layer=com_159
+layer=yellow
 
 // 313:187
 [com_187]
@@ -2245,13 +2245,13 @@ x=69
 y=28
 width=11
 height=20
-layer=com_159
+layer=yellow
 model=model_17201
 modelorigin=0,1
 modelzoom=349
 modelorthog=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=addtooltip(event_com, glo3_puzzle:com_0, "Target intensity", 0, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
 
 // 313:194
 [com_194]
@@ -2260,13 +2260,13 @@ x=81
 y=28
 width=11
 height=20
-layer=com_159
+layer=yellow
 model=model_17201
 modelorigin=0,1
 modelzoom=349
 modelorthog=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=addtooltip(event_com, glo3_puzzle:com_0, "Target intensity", 0, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
 
 // 313:195
 [com_195]
@@ -2275,7 +2275,7 @@ x=54
 y=25
 width=51
 height=25
-layer=com_159
+layer=yellow
 
 // 313:196
 [com_196]
@@ -2323,7 +2323,7 @@ x=92
 y=36
 width=15
 height=15
-layer=com_159
+layer=yellow
 graphic="glo3_right_wrong,1"
 
 // 313:200
@@ -2333,7 +2333,7 @@ x=92
 y=63
 width=15
 height=15
-layer=com_159
+layer=yellow
 graphic="glo3_right_wrong,1"
 
 // 313:201
@@ -2343,11 +2343,11 @@ x=54
 y=87
 width=51
 height=25
-layer=com_159
+layer=yellow
 colour=0xffffff
 fill=yes
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "Current output colour: ")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Current output colour: ")
 
 // 313:202
 [com_202]
@@ -2356,7 +2356,7 @@ x=54
 y=87
 width=51
 height=25
-layer=com_159
+layer=yellow
 
 // 313:203
 [com_203]
@@ -2443,7 +2443,7 @@ x=37
 y=196
 width=1
 height=1
-layer=com_159
+layer=yellow
 hide=yes
 colour=0xff0000
 
@@ -2454,7 +2454,7 @@ x=31
 y=173
 width=1
 height=1
-layer=com_159
+layer=yellow
 hide=yes
 colour=0xff8000
 
@@ -2465,7 +2465,7 @@ x=37
 y=149
 width=1
 height=1
-layer=com_159
+layer=yellow
 hide=yes
 colour=0xffff00
 
@@ -2476,7 +2476,7 @@ x=79
 y=124
 width=1
 height=1
-layer=com_159
+layer=yellow
 hide=yes
 colour=0x00ff00
 
@@ -2487,7 +2487,7 @@ x=121
 y=196
 width=1
 height=1
-layer=com_159
+layer=yellow
 hide=yes
 colour=0x0000ff
 
@@ -2498,7 +2498,7 @@ x=113
 y=207
 width=1
 height=1
-layer=com_159
+layer=yellow
 hide=yes
 colour=0x4000ff
 
@@ -2509,7 +2509,7 @@ x=103
 y=214
 width=1
 height=1
-layer=com_159
+layer=yellow
 hide=yes
 colour=0x8000ff
 
@@ -2520,7 +2520,7 @@ x=79
 y=173
 width=1
 height=1
-layer=com_159
+layer=yellow
 hide=yes
 colour=0xffffff
 
@@ -2531,10 +2531,10 @@ x=26
 y=138
 width=20
 height=20
-layer=com_159
+layer=yellow
 graphic="glo3_octagons,1"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=addtooltip(event_com, glo3_puzzle:com_0, "Target colour: Pure yellow", 50, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target colour: Pure yellow", 50, 180)
 
 // 313:218
 [com_218]
@@ -2542,7 +2542,7 @@ type=line
 x=37
 y=196
 width=84
-layer=com_159
+layer=yellow
 hide=yes
 linewid=2
 colour=0x000000
@@ -2554,7 +2554,7 @@ x=27
 y=186
 width=20
 height=20
-layer=com_159
+layer=yellow
 hide=yes
 
 // 313:220
@@ -2566,8 +2566,8 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_219
 graphic="glo3_diamonds,1"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
 
 // 313:221
 [com_221]
@@ -2586,7 +2586,7 @@ x=111
 y=186
 width=20
 height=20
-layer=com_159
+layer=yellow
 hide=yes
 
 // 313:223
@@ -2598,8 +2598,8 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_222
 graphic="glo3_diamonds,1"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
 
 // 313:224
 [com_224]
@@ -2618,7 +2618,7 @@ x=69
 y=163
 width=20
 height=20
-layer=com_159
+layer=yellow
 
 // 313:226
 [com_226]
@@ -2629,8 +2629,8 @@ xmode=abs_centre
 ymode=abs_centre
 layer=com_225
 graphic="glo3_diamonds,3"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:com_0, "")
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
 
 // 313:227
 [com_227]
@@ -2649,7 +2649,7 @@ x=90
 y=232
 width=18
 height=18
-layer=com_159
+layer=yellow
 graphic="glo3_cancel_button,0"
 transmitop=1
 op1=Return-coins
@@ -2663,7 +2663,7 @@ x=4
 y=3
 width=35
 height=54
-layer=com_159
+layer=yellow
 transmitop=1
 op1=Insert-coin
 onmouseover=script867(glo3_puzzle:com_230, "aif_coin_button_1,1", glo3_puzzle:com_231, false)
@@ -2700,7 +2700,7 @@ x=119
 y=3
 width=35
 height=54
-layer=com_159
+layer=yellow
 transmitop=1
 op1=Insert-coin
 onmouseover=script867(glo3_puzzle:com_233, "aif_coin_button_1,1", glo3_puzzle:com_234, false)
@@ -2729,13 +2729,13 @@ colour=0xd9d2a0
 trans=129
 
 // 313:235
-[com_235]
+[verify]
 type=layer
 y=292
 width=158
 height=24
 xmode=abs_centre
-layer=com_1
+layer=layer_1
 transmitop=1
 op1=Calibrate
 onmouseover=graphic_swapper3(glo3_puzzle:com_238, "glo3_button_end,1", glo3_puzzle:com_237, "glo3_button_mid,1", glo3_puzzle:com_236, "glo3_button_end,1")
@@ -2747,7 +2747,7 @@ type=graphic
 width=10
 heightmode=minus
 xmode=abs_right
-layer=com_235
+layer=verify
 graphic="glo3_button_end,0"
 hflip=yes
 
@@ -2758,27 +2758,27 @@ x=10
 width=20
 widthmode=minus
 heightmode=minus
-layer=com_235
+layer=verify
 graphic="glo3_button_mid,0"
-onmouseleave=deltooltip(glo3_puzzle:com_0)
-onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:com_0, "Click here to validate your calibration attempt.", 0, 180)
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:tooltip, "Click here to validate your calibration attempt.", 0, 180)
 
 // 313:238
 [com_238]
 type=graphic
 width=10
 heightmode=minus
-layer=com_235
+layer=verify
 graphic="glo3_button_end,0"
 
 // 313:239
-[com_239]
+[tick]
 type=graphic
 width=14
 height=13
 xmode=abs_centre
 ymode=abs_centre
-layer=com_235
+layer=verify
 graphic="glo3_x_thick,1"
 
 // 313:240
@@ -2788,18 +2788,18 @@ width=30
 height=7
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=layer_1
 graphic=frame_border_horizontal
 tiling=yes
 
 // 313:241
-[com_241]
+[current_coin]
 type=model
 x=94
 y=273
 width=38
 height=39
-layer=com_1
+layer=layer_1
 model=null
 modelorigin=1,2
 modelangle=512,648,0
@@ -2807,13 +2807,13 @@ modelzoom=400
 onvartransmit=eyeglo_machine_transmit(event_com){varplayer_856}
 
 // 313:242
-[com_242]
+[hand]
 type=model
 x=27
 y=273
 width=149
 height=65
-layer=com_1
+layer=layer_1
 model=model_17187
 modelorigin=9,6
 modelangle=0,329,0
@@ -2828,7 +2828,7 @@ height=7
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=layer_1
 graphic=frame_border_horizontal
 tiling=yes
 
@@ -2840,7 +2840,7 @@ width=7
 height=22
 heightmode=minus
 xmode=abs_right
-layer=com_1
+layer=layer_1
 graphic=frame_border_vertical
 tiling=yes
 
@@ -2851,7 +2851,7 @@ y=7
 width=7
 height=22
 heightmode=minus
-layer=com_1
+layer=layer_1
 graphic=frame_border_vertical
 tiling=yes
 hflip=yes
@@ -2863,7 +2863,7 @@ width=38
 height=38
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=layer_1
 graphic="corner_flourish,1"
 
 // 313:247
@@ -2872,7 +2872,7 @@ type=graphic
 width=38
 height=38
 ymode=abs_bottom
-layer=com_1
+layer=layer_1
 graphic="corner_flourish,1"
 hflip=yes
 
@@ -2886,7 +2886,7 @@ height=1
 widthmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=layer_1
 colour=0x37342f
 fill=yes
 
@@ -2897,11 +2897,11 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=layer_1
 colour=0x000000
 
 // 313:250
-[com_250]
+[close]
 type=graphic
 x=486
 y=8

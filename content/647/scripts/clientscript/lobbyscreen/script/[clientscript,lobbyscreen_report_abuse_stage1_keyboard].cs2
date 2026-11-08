@@ -9,7 +9,7 @@ switch_int ($key0) {
         return;
     case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
         %varclient_1097 = ~script1553($key0, %varclient_1097, %varclient_1796);
-        ~script1879(interface_914:com_27, interface_914:com_28, %varclient_1796);
+        ~script1879(lobbyscreen_report_abuse_stage1:name, lobbyscreen_report_abuse_stage1:name_caret, %varclient_1796);
         return;
     case null, ^key_backspace, ^key_del :
         if (char_isprintable($char1) = true | $key0 = ^key_backspace | $key0 = ^key_del) {
@@ -18,6 +18,6 @@ switch_int ($key0) {
             }
             %varclient_1796, %varclient_1097 = ~script802(%varclient_1097, %varclient_1796, 2, $key0, $char1);
             if_settext(%varclient_1796, $component2);
-            ~script1879(interface_914:com_27, interface_914:com_28, %varclient_1796);
+            ~script1879(lobbyscreen_report_abuse_stage1:name, lobbyscreen_report_abuse_stage1:name_caret, %varclient_1796);
         }
 }

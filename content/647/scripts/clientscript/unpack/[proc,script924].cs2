@@ -2,7 +2,7 @@
 [proc,script924](string $string0, int $int0, int $settextalignh1, int $int2, graphic $graphic3)
 def_int $int4 = calc(6 + %varclient_742 * 11);
 if (compare($string0, "") ! 0) {
-    cc_create(obj_info:com_8, ^iftype_text, if_getnextsubid(obj_info:com_8));
+    cc_create(obj_info:info, ^iftype_text, if_getnextsubid(obj_info:info));
     cc_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(16384, calc(11 * $int0), ^setsize_rel, ^setsize_abs);
     cc_settextfont($graphic3);

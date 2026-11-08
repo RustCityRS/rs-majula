@@ -1,11 +1,11 @@
 // 2550
 [clientscript,script2550]
 if (%varclient_920 = 1) {
-    if_setgraphic("mob_cross_icon,0", mob_side_units:com_51);
+    if_setgraphic("mob_cross_icon,0", mob_side_units:unit3_cross);
 } else if (%varclient_920 = 2) {
-    if_setgraphic("trh168_reverted,0", mob_side_units:com_51);
+    if_setgraphic("trh168_reverted,0", mob_side_units:unit3_cross);
 } else if (%varclient_920 = 3) {
-    if_setgraphic("trh168_reverted,1", mob_side_units:com_51);
+    if_setgraphic("trh168_reverted,1", mob_side_units:unit3_cross);
 } else if (%varclient_920 = 4) {
-    if_setgraphic("mob_cross_icon,1", mob_side_units:com_51);
+    if_setgraphic("mob_cross_icon,1", mob_side_units:unit3_cross);
 }

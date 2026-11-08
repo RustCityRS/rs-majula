@@ -135,7 +135,7 @@ graphic="v2_stone_borders,10"
 colour=0x000000
 
 // 518:13
-[com_13]
+[trek_follower_inv_layer]
 type=layer
 x=20
 y=91
@@ -144,7 +144,7 @@ height=220
 oninvtransmit=follower_inv_create{inv}
 
 // 518:14
-[com_14]
+[trek_follower_text_layer]
 type=layer
 x=20
 y=91
@@ -152,7 +152,7 @@ width=472
 height=220
 
 // 518:15
-[com_15]
+[shoptitle]
 type=text
 x=83
 y=31
@@ -165,7 +165,7 @@ textshadow=yes
 colour=0xe1981f
 
 // 518:16
-[com_16]
+[space_var]
 type=text
 x=396
 y=131
@@ -191,7 +191,7 @@ textshadow=yes
 colour=0xe1981f
 
 // 518:18
-[com_18]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -206,7 +206,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 518:19
-[com_19]
+[message_text]
 type=text
 x=28
 y=290

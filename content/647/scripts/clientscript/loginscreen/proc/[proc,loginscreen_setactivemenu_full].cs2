@@ -5,12 +5,12 @@ if ($boolean1 = false & ($int3 = -3 | $int3 = 21 | $int3 = 1)) {
     return;
 }
 %varclient_175 = clientclock;
-~deltooltip_action(loginscreen:com_80);
+~deltooltip_action(loginscreen:tooltip);
 %varclient_1 = 0;
 %varclient_174 = 1;
 if (%varclient_1090 ! 6) {
     %varclient_1091 = %varclient_1090;
-    if_setonclick("loginscreen_setactivemenu(%varclient_1091)", loginscreen_graphics_options:com_20);
+    if_setonclick("loginscreen_setactivemenu(%varclient_1091)", loginscreen_graphics_options:cancel);
 }
 if ($int0 = 0) {
     %varclient_174 = 0;
@@ -42,19 +42,19 @@ if ($int0 = 11 | $int0 = 12) {
     if_sethide(true, loginscreen:com_26);
 }
 if ($int0 = 7) {
-    if_opensubclient(loginscreen:com_48, account_create);
+    if_opensubclient(loginscreen:create, account_create);
     ~create_setup;
-    if_sethide(false, loginscreen:com_48);
+    if_sethide(false, loginscreen:create);
 } else {
-    if_closesubclient(loginscreen:com_48);
-    if_sethide(true, loginscreen:com_48);
+    if_closesubclient(loginscreen:create);
+    if_sethide(true, loginscreen:create);
 }
 if ($int0 = 8) {
     %varclient_174 = 10;
-    if_sethide(false, loginscreen:com_49);
+    if_sethide(false, loginscreen:create_success);
 } else {
-    if_closesubclient(loginscreen:com_49);
-    if_sethide(true, loginscreen:com_49);
+    if_closesubclient(loginscreen:create_success);
+    if_sethide(true, loginscreen:create_success);
 }
 if ($int0 = 7 | $int0 = 8) {
     if_sethide(true, loginscreen:com_23);
@@ -79,26 +79,26 @@ if ($int0 = 6) {
     if ($boolean2 = true) {
         ~graphics_options_rebuild_advanced(detailget_toolkit, getwindowmode, ~graphics_options_reviewoptions(detailget_toolkit), 0);
     }
-    if_sethide(false, loginscreen:com_50);
+    if_sethide(false, loginscreen:options);
     %varclient_174 = 13;
 } else {
     if (%varclient_1090 = 6 & $int0 ! 5) {
         if_sethide(false, loginscreen:com_23);
     }
-    if_sethide(true, loginscreen:com_50);
-    if_setonresize(null, loginscreen:com_50);
-    if_setonresize(null, loginscreen_graphics_options:com_4);
+    if_sethide(true, loginscreen:options);
+    if_setonresize(null, loginscreen:options);
+    if_setonresize(null, loginscreen_graphics_options:universe);
 }
 def_int $int6 = 0;
 def_int $int7 = 0;
 def_string $string0 = "";
 def_fontmetrics $fontmetrics8 = verdana_11pt_regular;
 if ($int0 = 9) {
-    $int6 = if_getwidth(loginscreen:com_76);
-    $int7 = calc(paraheight(if_gettext(loginscreen:com_76), $int6, verdana_11pt_regular) * 14 + 5);
-    if_setsize($int6, $int7, ^setsize_abs, ^setsize_abs, loginscreen:com_76);
+    $int6 = if_getwidth(loginscreen:general_messages_text);
+    $int7 = calc(paraheight(if_gettext(loginscreen:general_messages_text), $int6, verdana_11pt_regular) * 14 + 5);
+    if_setsize($int6, $int7, ^setsize_abs, ^setsize_abs, loginscreen:general_messages_text);
     $string0 = if_gettext(loginscreen:com_78);
-    $int7 = calc(if_gety(loginscreen:com_76) + $int7 + 6);
+    $int7 = calc(if_gety(loginscreen:general_messages_text) + $int7 + 6);
     if (string_length($string0) > 0) {
         if_setposition(0, $int7, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:com_77);
         if_setsize(stringwidth($string0, $fontmetrics8), if_getheight(loginscreen:com_77), ^setsize_abs, ^setsize_abs, loginscreen:com_77);
@@ -115,27 +115,27 @@ if ($int0 = 9) {
         if_sethide(true, loginscreen:com_77);
         if_settext("", loginscreen:com_78);
     }
-    if_setsize(stringwidth(if_gettext(loginscreen:com_79), verdana_15pt_regular), if_getheight(loginscreen:com_79), ^setsize_abs, ^setsize_abs, loginscreen:com_79);
-    if_setsize(if_getwidth(loginscreen:com_51), calc($int7 + if_getheight(loginscreen:com_79) + 11), ^setsize_abs, ^setsize_abs, loginscreen:com_51);
-    if_sethide(false, loginscreen:com_51);
+    if_setsize(stringwidth(if_gettext(loginscreen:general_messages_continue), verdana_15pt_regular), if_getheight(loginscreen:general_messages_continue), ^setsize_abs, ^setsize_abs, loginscreen:general_messages_continue);
+    if_setsize(if_getwidth(loginscreen:general_messages), calc($int7 + if_getheight(loginscreen:general_messages_continue) + 11), ^setsize_abs, ^setsize_abs, loginscreen:general_messages);
+    if_sethide(false, loginscreen:general_messages);
 } else {
-    if_sethide(true, loginscreen:com_51);
+    if_sethide(true, loginscreen:general_messages);
     if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:com_77);
     if_setonmouseover(null, loginscreen:com_77);
     if_setonmouseleave(null, loginscreen:com_77);
     if_setonclick(null, loginscreen:com_77);
     if_sethide(true, loginscreen:com_77);
     if_settext("", loginscreen:com_78);
-    if_settext("", loginscreen:com_76);
-    if_setonclick(null, loginscreen:com_79);
+    if_settext("", loginscreen:general_messages_text);
+    if_setonclick(null, loginscreen:general_messages_continue);
 }
 if ($int0 = 10) {
     %varclient_174 = 11;
-    if_sethide(false, loginscreen:com_52);
+    if_sethide(false, loginscreen:windowmode_confirm);
 } else {
-    if_sethide(true, loginscreen:com_52);
-    if_setonclick(null, loginscreen:com_56);
-    if_setonclick(null, loginscreen:com_57);
+    if_sethide(true, loginscreen:windowmode_confirm);
+    if_setonclick(null, loginscreen:windowmode_confirm_yes);
+    if_setonclick(null, loginscreen:windowmode_confirm_no);
 }
 if ($int0 ! 9 & $int0 ! 10) {
     %varclient_1090 = $int0;
@@ -146,12 +146,12 @@ if ($int0 = 12) {
     %varclient_1641 = "";
     %varclient_1643 = "";
     %varclient_1644 = "";
-    if_settext(%varclient_1551, login:com_65);
-    if_settext(~script2949(%varclient_1552), login:com_71);
+    if_settext(%varclient_1551, login:username);
+    if_settext(~script2949(%varclient_1552), login:password);
     %varclient_174 = 4;
     %varclient_175 = clientclock;
     %varclient_1099 = string_length(~script2949(%varclient_1552));
-    ~script3237(login:com_64, login:com_65, login:com_66, %varclient_1551, 3);
-    ~script3237(login:com_70, login:com_71, login:com_72, ~script2949(%varclient_1552), 4);
+    ~script3237(login:username_layer, login:username, login:username_caret, %varclient_1551, 3);
+    ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%varclient_1552), 4);
     ~login_dologin;
 }

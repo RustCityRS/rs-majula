@@ -14,8 +14,8 @@
 //   and search (com16): 289 has neither, so their ops are not offered
 //   (login.rs2) and their buttons do nothing.
 
-[if_button1,music_v3:com_1] @music_playbybutton(divide(last_slot, 2));
+[if_button1,music_v3:jukebox] @music_playbybutton(divide(last_slot, 2));
 
 // Unlock hint: the client says where the track unlocks (clientscript 833,
 // enums 1349 and 952) and asks nothing of the server.
-[if_button2,music_v3:com_1]
+[if_button2,music_v3:jukebox]

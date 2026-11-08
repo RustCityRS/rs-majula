@@ -1,8 +1,8 @@
 // 3235
 [proc,login_hop_abort]
-def_component $component0 = login:com_42;
+def_component $component0 = login:login_button;
 if (unknown_command_5623 = true) {
-    $component0 = south_progress9:com_50;
+    $component0 = south_progress9:login_button;
 }
 if (%varclient_200 > 0) {
     if_setonclick("login_dologin", $component0);

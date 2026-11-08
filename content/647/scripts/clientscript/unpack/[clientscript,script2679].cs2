@@ -1,4 +1,4 @@
 // 2679
 [clientscript,script2679]
-if_setscrollsize(250, 981, poh_furniture_creation_menu:com_11);
-~scrollbar_vertical(poh_furniture_creation_menu:com_64, poh_furniture_creation_menu:com_11, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollsize(250, 981, poh_furniture_creation_menu:poh_furnituremenu);
+~scrollbar_vertical(poh_furniture_creation_menu:scrollbar_layer, poh_furniture_creation_menu:poh_furnituremenu, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

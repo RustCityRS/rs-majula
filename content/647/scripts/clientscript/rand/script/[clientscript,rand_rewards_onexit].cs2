@@ -1,5 +1,5 @@
 // 2249
 [clientscript,rand_rewards_onexit](int $int0)
-if (cc_find(rand_rewards_interface:com_2, $int0) = true) {
+if (cc_find(rand_rewards_interface:scrolling_layer, $int0) = true) {
     cc_sethide(true);
 }

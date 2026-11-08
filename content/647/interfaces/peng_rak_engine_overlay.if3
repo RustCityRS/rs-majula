@@ -1,0 +1,459 @@
+// 674:0
+[com_0]
+type=graphic
+width=516
+height=341
+xmode=abs_centre
+ymode=abs_centre
+graphic=tradebacking
+colour=0xffffffff
+onload=peng_rak_tutorial_load
+onvarctransmit=peng_rak_tutorial{varclient_737}
+
+// 674:1
+[com_1]
+type=model
+x=-70
+width=440
+height=307
+xmode=abs_centre
+ymode=abs_centre
+model=model_46955
+modelorigin=18,154
+modelangle=2038,3,0
+modelzoom=566
+modelorthog=yes
+
+// 674:2
+[toolback_1]
+type=rectangle
+x=187
+width=127
+height=253
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=155
+
+// 674:3
+[border]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 674:4
+[normal_tools]
+type=layer
+x=-3
+y=2
+width=512
+height=334
+layer=bounding
+
+// 674:5
+[bellows_demo]
+type=model
+x=155
+y=223
+width=57
+height=106
+layer=normal_tools
+hide=yes
+model=model_46996
+modelorigin=1,4
+modelzoom=348
+
+// 674:6
+[wirebox]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=bounding
+model=model_46967
+modelorigin=4,-8
+modelzoom=433
+
+// 674:7
+[pipes]
+type=model
+x=161
+y=100
+width=39
+height=141
+layer=bounding
+model=model_46961
+modelorigin=-3,-3
+modelangle=0,0,2042
+modelzoom=604
+onmouseleave=deltooltip(peng_rak_engine_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine_overlay:tooltip, "Pipe", 50, 150)
+
+// 674:8
+[valve_wheel]
+type=model
+x=197
+y=164
+width=114
+height=124
+layer=bounding
+model=model_46998
+modelorigin=4,-7
+modelzoom=509
+onmouseleave=deltooltip(peng_rak_engine_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine_overlay:tooltip, "Valve wheel", 50, 150)
+
+// 674:9
+[gauge]
+type=model
+x=210
+y=42
+width=138
+height=109
+layer=bounding
+model=model_46968
+modelorigin=0,6
+modelangle=2041,2041,0
+modelzoom=478
+transmitop=10
+op10= 
+onmouseleave=deltooltip(peng_rak_engine_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine_overlay:tooltip, "Pressure gauge", 50, 150)
+
+// 674:10
+[wirebox_cover]
+type=model
+x=15
+y=69
+width=143
+height=196
+layer=bounding
+model=model_46960
+modelorigin=4,10
+modelzoom=400
+
+// 674:11
+[wire_box]
+type=layer
+width=512
+height=334
+layer=bounding
+hide=yes
+
+// 674:12
+[bounding]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 674:13
+[wrench]
+type=model
+x=392
+y=73
+width=22
+height=102
+layer=normal_tools
+model=model_46997
+modelorigin=0,-8
+modelangle=51,2047,0
+modelzoom=348
+transmitop=10
+op10=  
+onmouseleave=deltooltip(peng_rak_engine_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine_overlay:tooltip, "Wrench", 50, 150)
+
+// 674:14
+[sparewire]
+type=model
+x=478
+y=85
+width=23
+height=78
+layer=normal_tools
+model=model_46974
+modelorigin=17,-3
+modelangle=22,78,11
+modelzoom=348
+transmitop=10
+op10=  
+onmouseleave=deltooltip(peng_rak_engine_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine_overlay:tooltip, "Wire", 50, 150)
+
+// 674:15
+[wirecutter]
+type=model
+x=435
+y=58
+width=31
+height=110
+layer=normal_tools
+model=model_46976
+modelorigin=2,-10
+modelangle=39,3,0
+modelzoom=348
+transmitop=10
+op10=  
+onmouseleave=deltooltip(peng_rak_engine_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine_overlay:tooltip, "Wire cutter", 50, 150)
+
+// 674:16
+[tape]
+type=model
+x=394
+y=205
+width=41
+height=35
+layer=normal_tools
+model=model_46995
+modelorigin=-3,-1
+modelzoom=476
+transmitop=10
+op10=   
+onmouseleave=deltooltip(peng_rak_engine_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine_overlay:tooltip, "Tape", 50, 150)
+
+// 674:17
+[bellows]
+type=model
+x=442
+y=166
+width=50
+height=103
+layer=normal_tools
+model=model_46986
+modelorigin=0,6
+modelangle=45,0,0
+modelzoom=348
+transmitop=10
+op10=   
+onmouseleave=deltooltip(peng_rak_engine_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine_overlay:tooltip, "Bellows", 50, 150)
+
+// 674:18
+[lever_down]
+type=model
+x=317
+y=162
+width=64
+height=130
+layer=normal_tools
+hide=yes
+model=model_46970
+modelorigin=-9,-2
+modelzoom=544
+transmitop=10
+op10= 
+onmouseleave=deltooltip(peng_rak_engine_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine_overlay:tooltip, "Lever", 50, 150)
+
+// 674:19
+[lever_up]
+type=model
+x=317
+y=162
+width=64
+height=130
+layer=normal_tools
+model=model_46972
+modelorigin=-9,-2
+modelzoom=544
+onmouseleave=deltooltip(peng_rak_engine_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, peng_rak_engine_overlay:tooltip, "Lever", 50, 150)
+
+// 674:20
+[com_20]
+type=graphic
+x=375
+y=37
+width=32
+height=32
+layer=border
+graphic="v2_stone_borders_alt,18"
+colour=0xffffffff
+
+// 674:21
+[com_21]
+type=graphic
+x=480
+y=37
+width=32
+height=32
+layer=border
+graphic="v2_stone_borders_alt,19"
+colour=0xffffffff
+
+// 674:22
+[com_22]
+type=graphic
+x=375
+y=268
+width=32
+height=32
+layer=border
+graphic="v2_stone_borders_alt,20"
+colour=0xffffffff
+opbase= 
+
+// 674:23
+[com_23]
+type=graphic
+x=480
+y=268
+width=32
+height=32
+layer=border
+graphic="v2_stone_borders_alt,21"
+colour=0xffffffff
+
+// 674:24
+[com_24]
+type=graphic
+x=407
+y=37
+width=72
+height=32
+layer=border
+graphic="v2_stone_borders_alt,8"
+tiling=yes
+colour=0xffffffff
+
+// 674:25
+[right]
+type=graphic
+x=506
+y=69
+width=32
+height=199
+layer=border
+graphic="v2_stone_borders_alt,13"
+tiling=yes
+colour=0xffffffff
+opbase=mm  
+
+// 674:26
+[left]
+type=graphic
+x=375
+y=69
+width=32
+height=199
+layer=border
+graphic="v2_stone_borders_alt,13"
+tiling=yes
+colour=0xffffffff
+opbase=  
+
+// 674:27
+[com_27]
+type=graphic
+x=407
+y=294
+width=73
+height=32
+layer=border
+graphic="v2_stone_borders_alt,8"
+tiling=yes
+colour=0xffffffff
+
+// 674:28
+[wires_cut]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=wire_box
+model=model_46964
+modelorigin=4,-8
+modelzoom=433
+transmitop=10
+op10= 
+
+// 674:29
+[wires_wired]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=wire_box
+model=model_46956
+modelorigin=4,-8
+modelzoom=433
+transmitop=10
+op10=  
+
+// 674:30
+[wires_tape]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=wire_box
+model=model_46965
+modelorigin=4,-8
+modelzoom=433
+transmitop=10
+op10=   
+
+// 674:31
+[wires_eel]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=wire_box
+model=model_46966
+modelorigin=4,-8
+modelzoom=433
+transmitop=10
+op10=    
+
+// 674:32
+[peng_rak_panel_wires_seaweed]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=wire_box
+model=model_46966
+modelorigin=4,-8
+modelzoom=433
+transmitop=10
+op10=     
+
+// 674:33
+[tooltip]
+type=layer
+x=14
+y=252
+width=216
+height=66
+layer=bounding
+
+// 674:34
+[close]
+type=graphic
+x=485
+y=10
+width=16
+height=16
+layer=bounding
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=  
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

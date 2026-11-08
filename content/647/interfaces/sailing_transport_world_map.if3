@@ -1,0 +1,428 @@
+// 95:0
+[sailing_transport_world_map]
+type=model
+x=246
+y=96
+width=32
+height=32
+model=model_17361
+modelangle=363,0,0
+modelzoom=600
+
+// 95:1
+[sailing_transport_tyras_marker]
+type=model
+x=7
+y=1
+width=17
+height=14
+layer=sailing_transport_go_tyras
+model=model_17360
+modelorigin=1,0
+modelangle=355,0,0
+modelzoom=400
+
+// 95:2
+[sailing_transport_phantasmys_marker]
+type=model
+x=98
+y=3
+width=17
+height=14
+layer=sailing_transport_go_phantasmys
+model=model_17360
+modelorigin=1,0
+modelangle=355,0,0
+modelzoom=400
+
+// 95:3
+[sailing_transport_catherby_marker]
+type=model
+x=53
+width=17
+height=14
+layer=sailing_transport_go_catherby
+model=model_17360
+modelorigin=1,0
+modelangle=355,0,0
+modelzoom=400
+
+// 95:4
+[sailing_transport_shipyard_marker]
+type=model
+width=17
+height=14
+layer=sailing_transport_go_shipyard
+model=model_17360
+modelorigin=1,0
+modelangle=355,0,0
+modelzoom=400
+
+// 95:5
+[sailing_transport_karamja_marker]
+type=model
+width=17
+height=14
+layer=sailing_transport_go_karamja
+model=model_17360
+modelorigin=1,0
+modelangle=355,0,0
+modelzoom=400
+
+// 95:6
+[sailing_transport_brimhaven_marker]
+type=model
+x=60
+y=3
+width=17
+height=14
+layer=sailing_transport_go_brimhaven
+model=model_17360
+modelorigin=1,0
+modelangle=355,0,0
+modelzoom=400
+
+// 95:7
+[sailing_transport_khazard_marker]
+type=model
+x=2
+y=3
+width=17
+height=14
+layer=sailing_transport_go_khazard
+model=model_17360
+modelorigin=1,0
+modelangle=355,0,0
+modelzoom=400
+
+// 95:8
+[sailing_transport_sarim_marker]
+type=model
+x=1
+y=1
+width=17
+height=14
+layer=sailing_transport_go_sarim
+model=model_17360
+modelorigin=1,0
+modelangle=355,0,0
+modelzoom=400
+
+// 95:9
+[sailing_transport_harmless_marker]
+type=model
+x=95
+y=3
+width=17
+height=14
+layer=sailing_transport_go_harmless
+model=model_17360
+modelorigin=1,0
+modelangle=355,0,0
+modelzoom=400
+
+// 95:10
+[sailing_transport_crandor_marker]
+type=model
+x=44
+y=1
+width=17
+height=14
+layer=sailing_transport_go_crandor
+model=model_17360
+modelorigin=1,0
+modelangle=355,0,0
+modelzoom=400
+
+// 95:11
+[sailing_transport_ogress_marker]
+type=model
+x=7
+y=1
+width=17
+height=14
+layer=sailing_transport_go_ogress
+model=model_17360
+modelorigin=1,0
+modelangle=355,0,0
+modelzoom=400
+
+// 95:12
+[sailing_transport_tyras]
+type=text
+x=25
+width=76
+height=14
+layer=sailing_transport_go_tyras
+textfont=p12_full
+text=Port Tyras
+textshadow=yes
+colour=0xff981f
+
+// 95:13
+[sailing_transport_phantasmys]
+type=text
+width=90
+height=14
+layer=sailing_transport_go_phantasmys
+textfont=p12_full
+text=Port Phasmatys
+textshadow=yes
+colour=0xff981f
+
+// 95:14
+[sailing_transport_catherby]
+type=text
+width=52
+height=14
+layer=sailing_transport_go_catherby
+textfont=p12_full
+text=Catherby
+textshadow=yes
+colour=0xff981f
+
+// 95:15
+[sailing_transport_shipyard]
+type=text
+x=15
+y=-2
+width=85
+height=20
+layer=sailing_transport_go_shipyard
+textfont=p12_full
+text=Shipyard
+textshadow=yes
+colour=0xff981f
+
+// 95:16
+[sailing_transport_karamja]
+type=text
+x=16
+width=109
+height=17
+layer=sailing_transport_go_karamja
+textfont=p12_full
+text= Karamja
+textshadow=yes
+colour=0xff981f
+
+// 95:17
+[sailing_transport_brimhaven]
+type=text
+y=1
+width=59
+height=14
+layer=sailing_transport_go_brimhaven
+textfont=p12_full
+text=Brimhaven
+textshadow=yes
+colour=0xff981f
+
+// 95:18
+[sailing_transport_khazard]
+type=text
+x=18
+y=2
+width=74
+height=14
+layer=sailing_transport_go_khazard
+textfont=p12_full
+text=Port Khazard
+textshadow=yes
+colour=0xff981f
+
+// 95:19
+[sailing_transport_sarim]
+type=text
+x=18
+width=119
+height=15
+layer=sailing_transport_go_sarim
+textfont=p12_full
+text=Port Sarim
+textshadow=yes
+colour=0xff981f
+
+// 95:20
+[sailing_transport_harmless]
+type=text
+x=1
+y=1
+width=92
+height=14
+layer=sailing_transport_go_harmless
+textfont=p12_full
+text=Mos Le'Harmless
+textshadow=yes
+colour=0xff981f
+
+// 95:21
+[sailing_transport_crandor]
+type=text
+width=61
+height=14
+layer=sailing_transport_go_crandor
+textfont=p12_full
+text=Crandor
+textshadow=yes
+colour=0xff981f
+
+// 95:22
+[sailing_transport_ogress]
+type=text
+x=25
+width=76
+height=14
+layer=sailing_transport_go_ogress
+textfont=p12_full
+text=Oo'glog
+textshadow=yes
+colour=0xff981f
+
+// 95:23
+[sailing_transport_go_tyras]
+type=layer
+x=68
+y=182
+width=101
+height=14
+transmitop=1
+op1=Ok
+onmouseover=model_swapper(sailing_transport_world_map:sailing_transport_tyras_marker, model_17359)
+onmouseleave=model_swapper(sailing_transport_world_map:sailing_transport_tyras_marker, model_17360)
+
+// 95:24
+[sailing_transport_go_phantasmys]
+type=layer
+x=308
+y=116
+width=117
+height=16
+transmitop=1
+op1=Ok
+onmouseover=model_swapper(sailing_transport_world_map:sailing_transport_phantasmys_marker, model_17359)
+onmouseleave=model_swapper(sailing_transport_world_map:sailing_transport_phantasmys_marker, model_17360)
+
+// 95:25
+[sailing_transport_go_catherby]
+type=layer
+x=171
+y=118
+width=69
+height=17
+transmitop=1
+op1=Ok
+onmouseover=model_swapper(sailing_transport_world_map:sailing_transport_catherby_marker, model_17359)
+onmouseleave=model_swapper(sailing_transport_world_map:sailing_transport_catherby_marker, model_17360)
+
+// 95:26
+[sailing_transport_go_shipyard]
+type=layer
+x=253
+y=205
+width=100
+height=15
+transmitop=1
+op1=Ok
+onmouseover=model_swapper(sailing_transport_world_map:sailing_transport_shipyard_marker, model_17359)
+onmouseleave=model_swapper(sailing_transport_world_map:sailing_transport_shipyard_marker, model_17360)
+
+// 95:27
+[sailing_transport_go_karamja]
+type=layer
+x=247
+y=178
+width=128
+height=17
+transmitop=1
+op1=Ok
+onmouseover=model_swapper(sailing_transport_world_map:sailing_transport_karamja_marker, model_17359)
+onmouseleave=model_swapper(sailing_transport_world_map:sailing_transport_karamja_marker, model_17360)
+
+// 95:28
+[sailing_transport_go_brimhaven]
+type=layer
+x=154
+y=156
+width=76
+height=18
+transmitop=1
+op1=Ok
+onmouseover=model_swapper(sailing_transport_world_map:sailing_transport_brimhaven_marker, model_17359)
+onmouseleave=model_swapper(sailing_transport_world_map:sailing_transport_brimhaven_marker, model_17360)
+
+// 95:29
+[sailing_transport_go_khazard]
+type=layer
+x=174
+y=191
+width=93
+height=16
+transmitop=1
+op1=Ok
+onmouseover=model_swapper(sailing_transport_world_map:sailing_transport_khazard_marker, model_17359)
+onmouseleave=model_swapper(sailing_transport_world_map:sailing_transport_khazard_marker, model_17360)
+
+// 95:30
+[sailing_transport_go_sarim]
+type=layer
+x=281
+y=162
+width=136
+height=15
+transmitop=1
+op1=Ok
+onmouseover=model_swapper(sailing_transport_world_map:sailing_transport_sarim_marker, model_17359)
+onmouseleave=model_swapper(sailing_transport_world_map:sailing_transport_sarim_marker, model_17360)
+
+// 95:31
+[sailing_transport_go_harmless]
+type=layer
+x=321
+y=220
+width=114
+height=17
+transmitop=1
+op1=Ok
+onmouseover=model_swapper(sailing_transport_world_map:sailing_transport_harmless_marker, model_17359)
+onmouseleave=model_swapper(sailing_transport_world_map:sailing_transport_harmless_marker, model_17360)
+
+// 95:32
+[sailing_transport_go_crandor]
+type=layer
+x=186
+y=144
+width=61
+height=15
+transmitop=1
+op1=Ok
+onmouseover=model_swapper(sailing_transport_world_map:sailing_transport_crandor_marker, model_17359)
+onmouseleave=model_swapper(sailing_transport_world_map:sailing_transport_crandor_marker, model_17360)
+
+// 95:33
+[sailing_transport_go_ogress]
+type=layer
+x=162
+y=233
+width=101
+height=19
+transmitop=1
+op1=Ok
+onmouseover=model_swapper(sailing_transport_world_map:sailing_transport_ogress_marker, model_17359)
+onmouseleave=model_swapper(sailing_transport_world_map:sailing_transport_ogress_marker, model_17360)
+
+// 95:34
+[close_button]
+type=graphic
+x=483
+y=6
+width=26
+height=23
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onop=closebutton_click
+onclick=closebutton_click

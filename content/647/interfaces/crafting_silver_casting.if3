@@ -11,7 +11,7 @@ colour=0xffffffff
 opbase=  
 
 // 438:1
-[com_1]
+[left_side]
 type=graphic
 y=26
 width=33
@@ -22,7 +22,7 @@ colour=0xffffffff
 opbase= 
 
 // 438:2
-[com_2]
+[right_side]
 type=graphic
 x=479
 y=26
@@ -34,7 +34,7 @@ colour=0xffffffff
 opbase= 
 
 // 438:3
-[com_3]
+[bottom]
 type=graphic
 x=15
 y=302
@@ -45,7 +45,7 @@ tiling=yes
 colour=0xffffffff
 
 // 438:4
-[com_4]
+[top]
 type=graphic
 x=14
 y=10
@@ -57,7 +57,7 @@ colour=0xffffffff
 opbase= 
 
 // 438:5
-[com_5]
+[bottom_right]
 type=graphic
 x=467
 y=290
@@ -68,7 +68,7 @@ colour=0xffffffff
 opbase= 
 
 // 438:6
-[com_6]
+[bottom_left]
 type=graphic
 x=13
 y=290
@@ -78,7 +78,7 @@ graphic="v2_stone_borders,6"
 colour=0xffffffff
 
 // 438:7
-[com_7]
+[top_left]
 type=graphic
 x=13
 y=23
@@ -89,7 +89,7 @@ colour=0xffffffff
 opbase= 
 
 // 438:8
-[com_8]
+[top_right]
 type=graphic
 x=467
 y=23
@@ -100,7 +100,7 @@ colour=0xffffffff
 opbase= 
 
 // 438:9
-[com_9]
+[title_bar]
 type=graphic
 x=16
 y=38
@@ -111,7 +111,7 @@ tiling=yes
 colour=0xffffffff
 
 // 438:10
-[com_10]
+[left_joint]
 type=graphic
 x=13
 y=40
@@ -122,7 +122,7 @@ tiling=yes
 colour=0xffffffff
 
 // 438:11
-[com_11]
+[right_joint]
 type=graphic
 x=467
 y=40
@@ -133,7 +133,7 @@ tiling=yes
 colour=0xffffffff
 
 // 438:12
-[com_12]
+[close_button]
 type=graphic
 x=471
 y=32
@@ -148,7 +148,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 438:13
-[com_13]
+[title]
 type=text
 x=20
 y=33
@@ -342,7 +342,7 @@ textshadow=yes
 colour=0xffaa44
 
 // 438:29
-[com_29]
+[silvercast_sickle]
 type=layer
 x=96
 y=5
@@ -351,13 +351,13 @@ height=115
 layer=com_14
 
 // 438:30
-[com_30]
+[silver_sickle_x]
 type=text
 x=10
 y=1
 width=60
 height=60
-layer=com_29
+layer=silvercast_sickle
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -377,7 +377,7 @@ x=26
 y=1
 width=32
 height=32
-layer=com_29
+layer=silvercast_sickle
 model=null
 modelzoom=300
 
@@ -387,7 +387,7 @@ type=text
 y=32
 width=84
 height=84
-layer=com_29
+layer=silvercast_sickle
 textfont=p11_full
 text=Make<br>Silver<br>Sickle
 textalignh=centre
@@ -431,7 +431,7 @@ textshadow=yes
 colour=0xffaa44
 
 // 438:36
-[com_36]
+[silvercast_lightning]
 type=layer
 x=95
 y=120
@@ -446,7 +446,7 @@ x=9
 y=1
 width=60
 height=60
-layer=com_36
+layer=silvercast_lightning
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -466,7 +466,7 @@ x=22
 y=1
 width=32
 height=32
-layer=com_36
+layer=silvercast_lightning
 model=null
 modelzoom=300
 
@@ -477,7 +477,7 @@ x=-1
 y=32
 width=89
 height=80
-layer=com_36
+layer=silvercast_lightning
 textfont=p11_full
 text=Make<br>Lightning<br>Rod
 textalignh=centre
@@ -521,7 +521,7 @@ textshadow=yes
 colour=0xffaa44
 
 // 438:43
-[com_43]
+[silvercast_tiara]
 type=layer
 x=179
 y=5
@@ -536,7 +536,7 @@ x=10
 y=1
 width=60
 height=60
-layer=com_43
+layer=silvercast_tiara
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -556,7 +556,7 @@ x=26
 y=1
 width=32
 height=32
-layer=com_43
+layer=silvercast_tiara
 model=null
 modelzoom=300
 
@@ -567,7 +567,7 @@ x=-2
 y=32
 width=86
 height=83
-layer=com_43
+layer=silvercast_tiara
 textfont=p11_full
 text=Make<br>Tiara
 textalignh=centre
@@ -610,7 +610,7 @@ textshadow=yes
 colour=0xffaa44
 
 // 438:50
-[com_50]
+[silvercast_commandrod]
 type=layer
 x=179
 y=120
@@ -625,7 +625,7 @@ x=23
 y=1
 width=32
 height=32
-layer=com_50
+layer=silvercast_commandrod
 model=null
 modelzoom=400
 opbase=C
@@ -637,7 +637,7 @@ x=12
 y=1
 width=60
 height=60
-layer=com_50
+layer=silvercast_commandrod
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -657,7 +657,7 @@ x=23
 y=1
 width=32
 height=32
-layer=com_50
+layer=silvercast_commandrod
 model=null
 modelzoom=300
 
@@ -668,7 +668,7 @@ x=-2
 y=32
 width=88
 height=80
-layer=com_50
+layer=silvercast_commandrod
 textfont=p11_full
 text=Make <br>Silvthril <br>Rod
 textalignh=centre
@@ -711,7 +711,7 @@ textshadow=yes
 colour=0xffaa44
 
 // 438:58
-[com_58]
+[silvercast_agrith]
 type=layer
 x=263
 y=5
@@ -725,7 +725,7 @@ type=text
 x=9
 width=60
 height=60
-layer=com_58
+layer=silvercast_agrith
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -744,7 +744,7 @@ type=model
 x=24
 width=32
 height=32
-layer=com_58
+layer=silvercast_agrith
 model=null
 modelzoom=300
 
@@ -755,7 +755,7 @@ x=-2
 y=32
 width=86
 height=84
-layer=com_58
+layer=silvercast_agrith
 textfont=p11_full
 text=Make<br> Demonic<br>Sigil
 textalignh=centre

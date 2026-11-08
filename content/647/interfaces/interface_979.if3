@@ -8,7 +8,7 @@ ymode=abs_centre
 op10=   
 
 // 979:1
-[com_1]
+[bg]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -16,7 +16,7 @@ layer=com_0
 op10=     
 
 // 979:2
-[com_2]
+[namelist_desc_txt]
 type=text
 x=11
 y=22
@@ -60,7 +60,7 @@ colour=0xdbd7c1
 op10= 
 
 // 979:5
-[com_5]
+[list_layer]
 type=layer
 x=10
 y=71
@@ -71,7 +71,7 @@ layer=com_0
 op10=   
 
 // 979:6
-[com_6]
+[scroll_layer]
 type=layer
 x=465
 y=71
@@ -81,7 +81,7 @@ layer=com_0
 op10=  
 
 // 979:7
-[com_7]
+[mute_layer]
 type=layer
 x=18
 y=257
@@ -94,7 +94,7 @@ op10=
 onop=script3178(interface_979:com_20)
 
 // 979:8
-[com_8]
+[select_player_layer]
 type=layer
 x=18
 y=266
@@ -103,7 +103,7 @@ height=24
 layer=com_0
 
 // 979:9
-[com_9]
+[next_button]
 type=layer
 x=10
 y=10
@@ -122,7 +122,7 @@ onmouseleave=lobbyscreen_button_highlight(interface_979:com_10, "login_lobby_but
 type=graphic
 width=18
 height=31
-layer=com_9
+layer=next_button
 graphic="login_lobby_button,8"
 trans=100
 colour=0xfdd4a2
@@ -135,7 +135,7 @@ x=18
 width=36
 height=31
 widthmode=minus
-layer=com_9
+layer=next_button
 graphic="login_lobby_button,9"
 trans=100
 colour=0xfdd4a2
@@ -147,7 +147,7 @@ type=graphic
 width=18
 height=31
 xmode=abs_right
-layer=com_9
+layer=next_button
 graphic="login_lobby_button,8"
 trans=100
 hflip=yes
@@ -155,11 +155,11 @@ colour=0xfdd4a2
 op10=   
 
 // 979:13
-[com_13]
+[next_button_text]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_9
+layer=next_button
 textfont=welcome_font_small
 text=Next
 textalignh=centre
@@ -168,11 +168,11 @@ textshadow=yes
 op10=   
 
 // 979:14
-[com_14]
+[select_player]
 type=text
 width=302
 height=24
-layer=com_8
+layer=select_player_layer
 textfont=p11_full
 text=Select player:
 textlineheight=12
@@ -187,7 +187,7 @@ x=103
 y=3
 width=188
 height=16
-layer=com_8
+layer=select_player_layer
 colour=0x292016
 fill=yes
 op10=    
@@ -199,7 +199,7 @@ x=102
 y=2
 width=190
 height=18
-layer=com_8
+layer=select_player_layer
 colour=0x000000
 op10=     
 
@@ -210,29 +210,29 @@ x=101
 y=1
 width=192
 height=20
-layer=com_8
+layer=select_player_layer
 colour=0xc9b997
 op10=      
 
 // 979:18
-[com_18]
+[selected_name]
 type=text
 x=106
 y=5
 width=183
 height=14
-layer=com_8
+layer=select_player_layer
 textfont=p11_full
 op10= 
 
 // 979:19
-[com_19]
+[mute_text]
 type=text
 y=2
 width=18
 height=14
 widthmode=minus
-layer=com_7
+layer=mute_layer
 textfont=p11_full
 text=Suggest to mute this player for 48 hours
 textshadow=yes
@@ -246,7 +246,7 @@ y=-1
 width=17
 height=17
 xmode=abs_right
-layer=com_7
+layer=mute_layer
 graphic="options_radio_buttons_boxed,0"
 colour=0xffffffff
 op10=     
@@ -260,7 +260,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_5
+layer=list_layer
 colour=0x292016
 fill=yes
 op10=   
@@ -270,7 +270,7 @@ op10=
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_5
+layer=list_layer
 colour=0xc9b997
 op10=  
 
@@ -283,42 +283,42 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_5
+layer=list_layer
 colour=0x000000
 op10=   
 
 // 979:24
-[com_24]
+[scrolled_layer]
 type=layer
 y=3
 height=5
 widthmode=minus
 heightmode=minus
-layer=com_5
+layer=list_layer
 op10= 
 
 // 979:25
-[com_25]
+[selected_name_layer]
 type=layer
 height=1400
 widthmode=minus
-layer=com_24
+layer=scrolled_layer
 op10= 
 
 // 979:26
-[com_26]
+[highlight_name_layer]
 type=layer
 height=1400
 widthmode=minus
-layer=com_24
+layer=scrolled_layer
 op10= 
 
 // 979:27
-[com_27]
+[build_layer]
 type=layer
 height=1400
 widthmode=minus
-layer=com_24
+layer=scrolled_layer
 scrollheight=24
 op10=  
 
@@ -331,7 +331,7 @@ width=10
 height=26
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=bg
 colour=0x645b52
 fill=yes
 op10=   
@@ -341,7 +341,7 @@ op10=
 type=graphic
 width=16
 height=22
-layer=com_1
+layer=bg
 graphic="login_lobby_window_border,0"
 colour=0xffffffff
 op10=   
@@ -352,7 +352,7 @@ type=graphic
 width=16
 height=16
 ymode=abs_bottom
-layer=com_1
+layer=bg
 graphic="login_lobby_border,3"
 vflip=yes
 colour=0xffffffff
@@ -365,7 +365,7 @@ y=23
 width=16
 height=39
 heightmode=minus
-layer=com_1
+layer=bg
 graphic="login_lobby_border,5"
 tiling=yes
 colour=0xffffffff
@@ -377,7 +377,7 @@ type=graphic
 y=22
 width=16
 height=1
-layer=com_1
+layer=bg
 graphic="login_lobby_border,2"
 tiling=yes
 colour=0xffffffff
@@ -391,7 +391,7 @@ width=16
 height=39
 heightmode=minus
 xmode=abs_right
-layer=com_1
+layer=bg
 graphic="login_lobby_border,5"
 tiling=yes
 hflip=yes
@@ -405,7 +405,7 @@ y=22
 width=16
 height=1
 xmode=abs_right
-layer=com_1
+layer=bg
 graphic="login_lobby_border,2"
 tiling=yes
 hflip=yes
@@ -420,7 +420,7 @@ width=32
 height=16
 widthmode=minus
 ymode=abs_bottom
-layer=com_1
+layer=bg
 graphic="login_lobby_border,4"
 tiling=yes
 vflip=yes
@@ -433,7 +433,7 @@ type=graphic
 width=16
 height=22
 xmode=abs_right
-layer=com_1
+layer=bg
 graphic="login_lobby_window_border,0"
 hflip=yes
 colour=0xffffffff
@@ -446,7 +446,7 @@ width=16
 height=16
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=bg
 graphic="login_lobby_border,3"
 vflip=yes
 hflip=yes
@@ -460,19 +460,19 @@ x=16
 width=32
 height=22
 widthmode=minus
-layer=com_1
+layer=bg
 graphic="login_lobby_window_border,1"
 colour=0xffffffff
 op10=   
 
 // 979:39
-[com_39]
+[page_text]
 type=text
 x=5
 y=1
 width=60
 height=22
-layer=com_1
+layer=bg
 textfont=p11_full
 text=Page 1/2
 textalignv=centre
@@ -481,13 +481,13 @@ colour=0x989898
 op10=   
 
 // 979:40
-[com_40]
+[title_text]
 type=text
 y=1
 width=198
 height=22
 xmode=abs_centre
-layer=com_1
+layer=bg
 textfont=b12_full
 text=Report Abuse: Select Player
 textalignh=centre
@@ -496,31 +496,31 @@ textshadow=yes
 op10=   
 
 // 979:41
-[com_41]
+[help_button]
 type=graphic
 x=21
 y=3
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=bg
 graphic="login_lobby_close_help,2"
 colour=0x000000
 op1=Help
 op10=  
 onmouseover=graphic_swapper(event_com, "login_lobby_close_help,3")
 onmouseleave=graphic_swapper(event_com, "login_lobby_close_help,2")
-onop=lobbyscreen_report_abuse_help(2, interface_979:com_64, interface_979:com_65, interface_979:com_51, interface_979:com_43, interface_979:com_0)
+onop=lobbyscreen_report_abuse_help(2, interface_979:help_title_text, interface_979:help_body_text, interface_979:help_body, interface_979:help_layer, interface_979:com_0)
 
 // 979:42
-[com_42]
+[close_button]
 type=graphic
 x=4
 y=3
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=bg
 graphic="login_lobby_close_help,0"
 colour=0x000000
 op1=Close
@@ -530,7 +530,7 @@ onmouseleave=graphic_swapper(event_com, "login_lobby_close_help,0")
 onop=script2922
 
 // 979:43
-[com_43]
+[help_layer]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -546,7 +546,7 @@ op10=
 type=graphic
 width=3
 height=3
-layer=com_43
+layer=help_layer
 graphic=lobby_input_corner
 trans=43
 colour=0xffffffff
@@ -558,7 +558,7 @@ type=graphic
 width=3
 height=3
 ymode=abs_bottom
-layer=com_43
+layer=help_layer
 graphic=lobby_input_corner
 trans=43
 vflip=yes
@@ -571,7 +571,7 @@ type=graphic
 width=3
 height=3
 xmode=abs_right
-layer=com_43
+layer=help_layer
 graphic=lobby_input_corner
 trans=43
 hflip=yes
@@ -585,7 +585,7 @@ width=3
 height=3
 xmode=abs_right
 ymode=abs_bottom
-layer=com_43
+layer=help_layer
 graphic=lobby_input_corner
 trans=43
 vflip=yes
@@ -600,7 +600,7 @@ y=3
 height=6
 widthmode=minus
 heightmode=minus
-layer=com_43
+layer=help_layer
 colour=0x000000
 fill=yes
 trans=43
@@ -613,7 +613,7 @@ x=3
 width=6
 height=3
 widthmode=minus
-layer=com_43
+layer=help_layer
 colour=0x000000
 fill=yes
 trans=43
@@ -627,20 +627,20 @@ width=6
 height=3
 widthmode=minus
 ymode=abs_bottom
-layer=com_43
+layer=help_layer
 colour=0x000000
 fill=yes
 trans=43
 op10=        
 
 // 979:51
-[com_51]
+[help_body]
 type=layer
 width=453
 height=274
 xmode=abs_centre
 ymode=abs_centre
-layer=com_43
+layer=help_layer
 op10=     
 
 // 979:52
@@ -652,7 +652,7 @@ width=10
 height=26
 widthmode=minus
 heightmode=minus
-layer=com_51
+layer=help_body
 colour=0x645b52
 fill=yes
 op10=   
@@ -662,7 +662,7 @@ op10=
 type=graphic
 width=16
 height=22
-layer=com_51
+layer=help_body
 graphic="login_lobby_window_border,0"
 colour=0xffffffff
 op10=   
@@ -673,7 +673,7 @@ type=graphic
 width=16
 height=16
 ymode=abs_bottom
-layer=com_51
+layer=help_body
 graphic="login_lobby_border,3"
 vflip=yes
 colour=0xffffffff
@@ -686,7 +686,7 @@ y=23
 width=16
 height=39
 heightmode=minus
-layer=com_51
+layer=help_body
 graphic="login_lobby_border,5"
 tiling=yes
 colour=0xffffffff
@@ -698,7 +698,7 @@ type=graphic
 y=22
 width=16
 height=1
-layer=com_51
+layer=help_body
 graphic="login_lobby_border,2"
 tiling=yes
 colour=0xffffffff
@@ -712,7 +712,7 @@ width=16
 height=39
 heightmode=minus
 xmode=abs_right
-layer=com_51
+layer=help_body
 graphic="login_lobby_border,5"
 tiling=yes
 hflip=yes
@@ -726,7 +726,7 @@ y=22
 width=16
 height=1
 xmode=abs_right
-layer=com_51
+layer=help_body
 graphic="login_lobby_border,2"
 tiling=yes
 hflip=yes
@@ -741,7 +741,7 @@ width=32
 height=16
 widthmode=minus
 ymode=abs_bottom
-layer=com_51
+layer=help_body
 graphic="login_lobby_border,4"
 tiling=yes
 vflip=yes
@@ -754,7 +754,7 @@ type=graphic
 width=16
 height=22
 xmode=abs_right
-layer=com_51
+layer=help_body
 graphic="login_lobby_window_border,0"
 hflip=yes
 colour=0xffffffff
@@ -767,7 +767,7 @@ width=16
 height=16
 xmode=abs_right
 ymode=abs_bottom
-layer=com_51
+layer=help_body
 graphic="login_lobby_border,3"
 vflip=yes
 hflip=yes
@@ -781,36 +781,36 @@ x=16
 width=32
 height=22
 widthmode=minus
-layer=com_51
+layer=help_body
 graphic="login_lobby_window_border,1"
 colour=0xffffffff
 op10=   
 
 // 979:63
-[com_63]
+[help_close_button]
 type=graphic
 x=4
 y=3
 width=16
 height=16
 xmode=abs_right
-layer=com_51
+layer=help_body
 graphic="login_lobby_close_help,0"
 colour=0x000000
 op1=Close
 op10=  
 onmouseover=graphic_swapper(event_com, "login_lobby_close_help,1")
 onmouseleave=graphic_swapper(event_com, "login_lobby_close_help,0")
-onop=lobbyscreen_report_abuse_help_close(interface_979:com_64, interface_979:com_65, interface_979:com_51, interface_979:com_43, interface_979:com_0)
+onop=lobbyscreen_report_abuse_help_close(interface_979:help_title_text, interface_979:help_body_text, interface_979:help_body, interface_979:help_layer, interface_979:com_0)
 
 // 979:64
-[com_64]
+[help_title_text]
 type=text
 y=1
 width=250
 height=22
 xmode=abs_centre
-layer=com_51
+layer=help_body
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -818,13 +818,13 @@ textshadow=yes
 op10=   
 
 // 979:65
-[com_65]
+[help_body_text]
 type=text
 y=31
 width=427
 height=43
 heightmode=minus
 xmode=abs_centre
-layer=com_51
+layer=help_body
 textfont=p11_full
 op10= 

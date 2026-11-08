@@ -3,4 +3,4 @@
 if (%varplayerbit_4393 = 1 | %varplayerbit_542 = 1) {
     return;
 }
-~addtooltip_action(music_v3:com_10, music_v3:com_16, "Click here to search for a song", 25, 189);
+~addtooltip_action(music_v3:playlist_on, music_v3:music_tooltip_layer, "Click here to search for a song", 25, 189);

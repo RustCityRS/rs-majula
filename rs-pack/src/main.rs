@@ -1,8 +1,11 @@
 use anyhow::Result;
 use clap::{ArgAction, Parser, Subcommand};
+use rs_io::jag::JagFile;
+use rs_io::js5::java_string_hash;
 #[cfg(before_647)]
 use rs_pack::pyxel;
 use rs_pack::unpack;
+use std::io::{BufRead, stdin};
 use std::path::PathBuf;
 use tracing_subscriber::EnvFilter;
 
@@ -89,6 +92,12 @@ enum Commands {
         /// Content directory holding the .pyxel docs
         #[arg(short, long, default_value = rs_pack::CONTENT_DIR)]
         source: PathBuf,
+    },
+    /// Print the cache name hash of each string (stdin lines if none are given)
+    Namehash {
+        #[arg(long)]
+        jag: bool,
+        names: Vec<String>,
     },
 }
 
@@ -179,6 +188,17 @@ fn main() -> Result<()> {
         } => {
             let pack = pack.unwrap_or_else(|| output.join("pack"));
             unpack::unpack_all(&expected, &output, &pack)?;
+        }
+        Commands::Namehash { jag, names } => {
+            let hash = if jag { JagFile::hash } else { java_string_hash };
+            let print = |name: &str| println!("{}	{name}", hash(name));
+            if names.is_empty() {
+                for line in stdin().lock().lines() {
+                    print(&line?);
+                }
+            } else {
+                names.iter().for_each(|name| print(name));
+            }
         }
     }
 

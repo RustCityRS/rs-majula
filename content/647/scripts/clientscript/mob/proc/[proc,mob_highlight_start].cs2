@@ -5,42 +5,42 @@ def_graphic $graphic2 = null;
 %varclient_905 = $component0;
 %varclient_904 = 1;
 switch_component ($component0) {
-    case mob_side_command:com_13 :
-        $component0 = mob_side_command:com_2;
+    case mob_side_command:button1 :
+        $component0 = mob_side_command:attack;
         $graphic1 = graphic_1914;
         $graphic2 = graphic_1922;
-    case mob_side_command:com_14 :
-        $component0 = mob_side_command:com_8;
+    case mob_side_command:button2 :
+        $component0 = mob_side_command:move;
         $graphic1 = graphic_1915;
         $graphic2 = graphic_1923;
-    case mob_side_command:com_15 :
-        $component0 = mob_side_command:com_7;
+    case mob_side_command:button3 :
+        $component0 = mob_side_command:explore;
         $graphic1 = graphic_1916;
         $graphic2 = graphic_1924;
-    case mob_side_command:com_16 :
+    case mob_side_command:button4 :
         if (%varplayerbit_6357 = 2) {
-            $component0 = mob_side_command:com_22;
+            $component0 = mob_side_command:attack_wall;
             $graphic1 = graphic_1917;
             $graphic2 = graphic_1925;
         }
         if (%varplayerbit_6357 = 3) {
-            $component0 = mob_side_command:com_6;
+            $component0 = mob_side_command:cave_collect;
             $graphic1 = graphic_1918;
             $graphic2 = graphic_1926;
         }
         if (%varplayerbit_6357 = 4) {
-            $component0 = mob_side_command:com_23;
+            $component0 = mob_side_command:rescue;
             $graphic1 = graphic_1921;
             $graphic2 = graphic_1929;
         }
-    case mob_side_command:com_17 :
+    case mob_side_command:button5 :
         if (%varplayerbit_6357 = 2) {
-            $component0 = mob_side_command:com_21;
+            $component0 = mob_side_command:collect;
             $graphic1 = graphic_1920;
             $graphic2 = graphic_1928;
         }
         if (%varplayerbit_6357 = 4) {
-            $component0 = mob_side_command:com_20;
+            $component0 = mob_side_command:steal;
             $graphic1 = graphic_1919;
             $graphic2 = graphic_1927;
         }

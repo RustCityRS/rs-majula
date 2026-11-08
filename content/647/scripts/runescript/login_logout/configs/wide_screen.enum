@@ -1,5 +1,5 @@
 // Main-screen interfaces 2011 opens in the toplevel's full-size slot,
-// `toplevel:com_wide_screen` (548:8) / `toplevel_fullscreen:com_wide_screen`
+// `toplevel:mainoverlay_clipped` (548:8) / `toplevel_fullscreen:mainoverlay`
 // (746:6), not the 512x334 main slot: void-634's `wide_screen` type. The
 // engine's if_open_main reads this (rs-pack startup `wide_screen_ifaces`).
 // 2011's skill guide (499) draws its own backdrop across its slot: a

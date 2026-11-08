@@ -22,7 +22,7 @@ if ($int2 = -2) {
     return;
 }
 def_int $int3 = 0;
-def_int $int4 = calc(if_getx(friendschatsetup:com_12) + if_getx(friendschatsetup:com_7) + 14 - parawidth(" ", ^max_32bit_int, b12_full) - if_getx(friendschatsetup:com_13));
+def_int $int4 = calc(if_getx(friendschatsetup:com_12) + if_getx(friendschatsetup:sep) + 14 - parawidth(" ", ^max_32bit_int, b12_full) - if_getx(friendschatsetup:clanscroll));
 def_string $string0 = "";
 def_string $string1 = "";
 def_string $string2 = "";
@@ -67,8 +67,8 @@ while ($int3 < $int2) {
         } else {
             $string2 = $string0;
         }
-        cc_setonmouserepeat("aif_tooltip(friendschatsetup:com_34, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
-        cc_setonmouseleave("deltooltip(friendschatsetup:com_34)");
+        cc_setonmouserepeat("aif_tooltip(friendschatsetup:tooltip_layer, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(friendschatsetup:tooltip_layer)");
     } else if ($int6 = 1) {
         cc_settext($string1);
         $int5 = calc(parawidth("Last known as: <$string3>", ^max_32bit_int, b12_full) + 8);
@@ -77,8 +77,8 @@ while ($int3 < $int2) {
         } else {
             $string2 = "Last known as: <$string3>";
         }
-        cc_setonmouserepeat("aif_tooltip(friendschatsetup:com_34, event_com, $int3, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
-        cc_setonmouseleave("deltooltip(friendschatsetup:com_34)");
+        cc_setonmouserepeat("aif_tooltip(friendschatsetup:tooltip_layer, event_com, $int3, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(friendschatsetup:tooltip_layer)");
     } else {
         cc_settext($string0);
     }

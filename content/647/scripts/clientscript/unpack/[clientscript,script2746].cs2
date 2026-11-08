@@ -1,26 +1,26 @@
 // 2746
 [clientscript,script2746]
-if (if_gethide(dob_confirm_login:com_98) = true) {
-    if_setvflip(true, dob_confirm_login:com_60);
-    if_sethide(false, dob_confirm_login:com_98);
-    if_sethide(false, dob_confirm_login:com_89);
-    if_sethide(false, dob_confirm_login:com_99);
-    if_sethide(false, dob_confirm_login:com_27);
+if (if_gethide(dob_confirm_login:monthddlist) = true) {
+    if_setvflip(true, dob_confirm_login:montharrow);
+    if_sethide(false, dob_confirm_login:monthddlist);
+    if_sethide(false, dob_confirm_login:monthddlistborder);
+    if_sethide(false, dob_confirm_login:monthddscroll);
+    if_sethide(false, dob_confirm_login:monthddback);
 } else {
-    if_setvflip(false, dob_confirm_login:com_60);
-    if_sethide(true, dob_confirm_login:com_98);
-    if_sethide(true, dob_confirm_login:com_89);
-    if_sethide(true, dob_confirm_login:com_99);
-    if_sethide(true, dob_confirm_login:com_27);
+    if_setvflip(false, dob_confirm_login:montharrow);
+    if_sethide(true, dob_confirm_login:monthddlist);
+    if_sethide(true, dob_confirm_login:monthddlistborder);
+    if_sethide(true, dob_confirm_login:monthddscroll);
+    if_sethide(true, dob_confirm_login:monthddback);
 }
-if_setvflip(false, dob_confirm_login:com_44);
-if_sethide(true, dob_confirm_login:com_86);
-if_sethide(true, dob_confirm_login:com_77);
-if_sethide(true, dob_confirm_login:com_87);
-if_sethide(true, dob_confirm_login:com_26);
-if_setvflip(false, dob_confirm_login:com_76);
-if_sethide(true, dob_confirm_login:com_110);
-if_sethide(true, dob_confirm_login:com_101);
-if_sethide(true, dob_confirm_login:com_111);
-if_sethide(true, dob_confirm_login:com_28);
-if_sethide(true, dob_confirm_login:com_113);
+if_setvflip(false, dob_confirm_login:dayarrow);
+if_sethide(true, dob_confirm_login:dayddlist);
+if_sethide(true, dob_confirm_login:dayddlistborder);
+if_sethide(true, dob_confirm_login:dayddscroll);
+if_sethide(true, dob_confirm_login:dayddback);
+if_setvflip(false, dob_confirm_login:yeararrow);
+if_sethide(true, dob_confirm_login:yearddlist);
+if_sethide(true, dob_confirm_login:yearddlistborder);
+if_sethide(true, dob_confirm_login:yearddscroll);
+if_sethide(true, dob_confirm_login:yearddback);
+if_sethide(true, dob_confirm_login:warningtext);

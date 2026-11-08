@@ -303,7 +303,7 @@ onclick=script4207(event_com, 0)
 onrelease=script4207(event_com, 1)
 
 // 825:28
-[com_28]
+[title_layer]
 type=layer
 width=16384
 height=23
@@ -320,7 +320,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_28
+layer=title_layer
 textfont=palatino_linotype_18pt_regular
 text=Elof`s Reward Shop
 textalignh=centre
@@ -329,7 +329,7 @@ colour=0xebe0bc
 onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 825:30
-[com_30]
+[content_layer]
 type=layer
 x=8
 y=29
@@ -613,7 +613,7 @@ textshadow=yes
 colour=0x047f06
 
 // 825:56
-[com_56]
+[description_layer]
 type=layer
 x=359
 y=93
@@ -627,7 +627,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_56
+layer=description_layer
 graphic=window_texture_2
 
 // 825:58
@@ -635,7 +635,7 @@ graphic=window_texture_2
 type=graphic
 width=10
 height=10
-layer=com_56
+layer=description_layer
 graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
@@ -645,7 +645,7 @@ type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_56
+layer=description_layer
 graphic="aif_overlay_frame_gold_corner_2,1"
 
 // 825:60
@@ -654,7 +654,7 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_56
+layer=description_layer
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 hflip=yes
@@ -666,7 +666,7 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_56
+layer=description_layer
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 
@@ -678,7 +678,7 @@ height=10
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_56
+layer=description_layer
 graphic="aif_overlay_frame_gold_corner_2,0"
 vflip=yes
 hflip=yes
@@ -690,7 +690,7 @@ width=20
 height=10
 widthmode=minus
 xmode=abs_centre
-layer=com_56
+layer=description_layer
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 825:64
@@ -701,7 +701,7 @@ height=20
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_56
+layer=description_layer
 graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
@@ -712,42 +712,42 @@ width=10
 height=20
 heightmode=minus
 ymode=abs_centre
-layer=com_56
+layer=description_layer
 graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 825:66
-[com_66]
+[name]
 type=text
 x=10
 y=9
 width=145
 height=33
-layer=com_56
+layer=description_layer
 textfont=p12_full
 text=Reward Shop
 textshadow=yes
 
 // 825:67
-[com_67]
+[description]
 type=text
 x=9
 y=39
 width=115
 height=96
-layer=com_56
+layer=description_layer
 textfont=p11_full
 text=Click on a reward to find out more about it.
 textshadow=yes
 
 // 825:68
-[com_68]
+[sword]
 type=model
 x=9
 y=131
 width=115
 height=22
-layer=com_56
+layer=description_layer
 hide=yes
 model=model_63892
 modelorigin=2,0
@@ -761,7 +761,7 @@ x=10
 y=156
 width=115
 height=22
-layer=com_56
+layer=description_layer
 textfont=verdana_13pt_regular
 textalignh=centre
 textalignv=centre
@@ -775,7 +775,7 @@ x=12
 y=183
 width=115
 height=33
-layer=com_56
+layer=description_layer
 hide=yes
 
 // 825:71
@@ -1013,7 +1013,7 @@ fill=yes
 trans=100
 
 // 825:92
-[com_92]
+[layer_1]
 type=layer
 x=19
 y=39
@@ -1021,13 +1021,13 @@ width=332
 height=279
 
 // 825:93
-[com_93]
+[tab_1]
 type=layer
 x=8
 y=20
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1037,7 +1037,7 @@ opcursor0=cursor_46
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_93
+layer=tab_1
 graphic=graphic_5455
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
@@ -1050,7 +1050,7 @@ y=5
 width=8
 height=32
 widthmode=minus
-layer=com_93
+layer=tab_1
 textfont=p11_full
 text=Quick Repairs
 textalignh=centre
@@ -1058,12 +1058,12 @@ textalignv=centre
 textshadow=yes
 
 // 825:96
-[com_96]
+[cost_1]
 type=text
 y=39
 height=32
 widthmode=minus
-layer=com_93
+layer=tab_1
 textfont=p12_full
 text=5%
 textalignh=centre
@@ -1071,13 +1071,13 @@ textalignv=centre
 textshadow=yes
 
 // 825:97
-[com_97]
+[tab_2]
 type=layer
 x=88
 y=20
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1087,7 +1087,7 @@ opcursor0=cursor_46
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_97
+layer=tab_2
 graphic=graphic_5455
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
@@ -1100,7 +1100,7 @@ y=5
 width=8
 height=32
 widthmode=minus
-layer=com_97
+layer=tab_2
 textfont=p11_full
 text=Repair Expert
 textalignh=centre
@@ -1108,12 +1108,12 @@ textalignv=centre
 textshadow=yes
 
 // 825:100
-[com_100]
+[cost_2]
 type=text
 y=39
 height=32
 widthmode=minus
-layer=com_97
+layer=tab_2
 textfont=p12_full
 text=15%
 textalignh=centre
@@ -1121,13 +1121,13 @@ textalignv=centre
 textshadow=yes
 
 // 825:101
-[com_101]
+[tab_3]
 type=layer
 x=168
 y=20
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1137,7 +1137,7 @@ opcursor0=cursor_46
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_101
+layer=tab_3
 graphic=graphic_5455
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
@@ -1150,7 +1150,7 @@ y=5
 width=8
 height=32
 widthmode=minus
-layer=com_101
+layer=tab_3
 textfont=p11_full
 text=Quick Learner
 textalignh=centre
@@ -1158,12 +1158,12 @@ textalignv=centre
 textshadow=yes
 
 // 825:104
-[com_104]
+[cost_3]
 type=text
 y=39
 height=32
 widthmode=minus
-layer=com_101
+layer=tab_3
 textfont=p12_full
 text=20%
 textalignh=centre
@@ -1171,13 +1171,13 @@ textalignv=centre
 textshadow=yes
 
 // 825:105
-[com_105]
+[tab_4]
 type=layer
 x=248
 y=20
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1187,7 +1187,7 @@ opcursor0=cursor_46
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_105
+layer=tab_4
 graphic=graphic_5455
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
@@ -1200,7 +1200,7 @@ y=5
 width=4
 height=32
 widthmode=minus
-layer=com_105
+layer=tab_4
 textfont=p11_full
 text=Budding Student
 textalignh=centre
@@ -1208,12 +1208,12 @@ textalignv=centre
 textshadow=yes
 
 // 825:108
-[com_108]
+[cost_4]
 type=text
 y=39
 height=32
 widthmode=minus
-layer=com_105
+layer=tab_4
 textfont=p12_full
 text=40%
 textalignh=centre
@@ -1221,13 +1221,13 @@ textalignv=centre
 textshadow=yes
 
 // 825:109
-[com_109]
+[tab_5]
 type=layer
 x=8
 y=103
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1237,7 +1237,7 @@ opcursor0=cursor_46
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_109
+layer=tab_5
 graphic=graphic_5455
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
@@ -1250,7 +1250,7 @@ y=5
 width=4
 height=32
 widthmode=minus
-layer=com_109
+layer=tab_5
 textfont=p11_full
 text=Master Student
 textalignh=centre
@@ -1263,7 +1263,7 @@ type=text
 y=39
 height=32
 widthmode=minus
-layer=com_109
+layer=tab_5
 textfont=p12_full
 text=60%
 textalignh=centre
@@ -1271,13 +1271,13 @@ textalignv=centre
 textshadow=yes
 
 // 825:113
-[com_113]
+[tab_6]
 type=layer
 x=88
 y=103
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1287,7 +1287,7 @@ opcursor0=cursor_46
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_113
+layer=tab_6
 graphic=graphic_5455
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
@@ -1300,7 +1300,7 @@ y=5
 width=4
 height=32
 widthmode=minus
-layer=com_113
+layer=tab_6
 textfont=p11_full
 text=Ceremonial Sword I
 textalignh=centre
@@ -1313,7 +1313,7 @@ type=text
 y=39
 height=32
 widthmode=minus
-layer=com_113
+layer=tab_6
 textfont=p12_full
 text=30%
 textalignh=centre
@@ -1321,13 +1321,13 @@ textalignv=centre
 textshadow=yes
 
 // 825:117
-[com_117]
+[tab_7]
 type=layer
 x=168
 y=103
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1337,7 +1337,7 @@ opcursor0=cursor_46
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_117
+layer=tab_7
 graphic=graphic_5455
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
@@ -1350,7 +1350,7 @@ y=5
 width=4
 height=32
 widthmode=minus
-layer=com_117
+layer=tab_7
 textfont=p11_full
 text=Ceremonial Sword II
 textalignh=centre
@@ -1363,7 +1363,7 @@ type=text
 y=39
 height=32
 widthmode=minus
-layer=com_117
+layer=tab_7
 textfont=p12_full
 text=30%
 textalignh=centre
@@ -1371,13 +1371,13 @@ textalignv=centre
 textshadow=yes
 
 // 825:121
-[com_121]
+[tab_8]
 type=layer
 x=248
 y=103
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1387,7 +1387,7 @@ opcursor0=cursor_46
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_121
+layer=tab_8
 graphic=graphic_5455
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
@@ -1400,7 +1400,7 @@ y=5
 width=4
 height=32
 widthmode=minus
-layer=com_121
+layer=tab_8
 textfont=p11_full
 text=Ceremonial Sword III
 textalignh=centre
@@ -1413,7 +1413,7 @@ type=text
 y=39
 height=32
 widthmode=minus
-layer=com_121
+layer=tab_8
 textfont=p12_full
 text=30%
 textalignh=centre
@@ -1421,13 +1421,13 @@ textalignv=centre
 textshadow=yes
 
 // 825:125
-[com_125]
+[tab_9]
 type=layer
 x=8
 y=187
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1437,7 +1437,7 @@ opcursor0=cursor_46
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_125
+layer=tab_9
 graphic=graphic_5455
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
@@ -1450,7 +1450,7 @@ y=5
 width=4
 height=32
 widthmode=minus
-layer=com_125
+layer=tab_9
 textfont=p11_full
 text=Ceremonial Sword IV
 textalignh=centre
@@ -1463,7 +1463,7 @@ type=text
 y=39
 height=32
 widthmode=minus
-layer=com_125
+layer=tab_9
 textfont=p12_full
 text=30%
 textalignh=centre
@@ -1477,7 +1477,7 @@ x=88
 y=187
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1527,7 +1527,7 @@ x=168
 y=187
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -1568,7 +1568,7 @@ x=248
 y=187
 width=74
 height=71
-layer=com_92
+layer=layer_1
 transmitop=1
 op1=Select
 opcursor0=cursor_46

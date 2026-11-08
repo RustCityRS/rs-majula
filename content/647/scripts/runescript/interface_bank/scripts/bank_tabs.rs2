@@ -9,24 +9,24 @@
 // The tab buttons, from the right: com62 is all of the bank, com60 tab 1 ..
 // com46 tab 8. View Tab (op1) and View all are the client's own (clientscripts
 // 1491-1500 set varbit 4893); the server keeps the same.
-[if_button1,bank_v2_main:com_62] %open_bank_tab = 1;
-[if_button1,bank_v2_main:com_60] ~bank_tab_view(1);
-[if_button1,bank_v2_main:com_58] ~bank_tab_view(2);
-[if_button1,bank_v2_main:com_56] ~bank_tab_view(3);
-[if_button1,bank_v2_main:com_54] ~bank_tab_view(4);
-[if_button1,bank_v2_main:com_52] ~bank_tab_view(5);
-[if_button1,bank_v2_main:com_50] ~bank_tab_view(6);
-[if_button1,bank_v2_main:com_48] ~bank_tab_view(7);
-[if_button1,bank_v2_main:com_46] ~bank_tab_view(8);
+[if_button1,bank_v2_main:tab_1] %open_bank_tab = 1;
+[if_button1,bank_v2_main:tab_2] ~bank_tab_view(1);
+[if_button1,bank_v2_main:tab_3] ~bank_tab_view(2);
+[if_button1,bank_v2_main:tab_4] ~bank_tab_view(3);
+[if_button1,bank_v2_main:tab_5] ~bank_tab_view(4);
+[if_button1,bank_v2_main:tab_6] ~bank_tab_view(5);
+[if_button1,bank_v2_main:tab_7] ~bank_tab_view(6);
+[if_button1,bank_v2_main:tab_8] ~bank_tab_view(7);
+[if_button1,bank_v2_main:tab_9] ~bank_tab_view(8);
 // Collapse (op2) puts a tab's items back with the rest.
-[if_button2,bank_v2_main:com_60] ~bank_tab_collapse(1);
-[if_button2,bank_v2_main:com_58] ~bank_tab_collapse(2);
-[if_button2,bank_v2_main:com_56] ~bank_tab_collapse(3);
-[if_button2,bank_v2_main:com_54] ~bank_tab_collapse(4);
-[if_button2,bank_v2_main:com_52] ~bank_tab_collapse(5);
-[if_button2,bank_v2_main:com_50] ~bank_tab_collapse(6);
-[if_button2,bank_v2_main:com_48] ~bank_tab_collapse(7);
-[if_button2,bank_v2_main:com_46] ~bank_tab_collapse(8);
+[if_button2,bank_v2_main:tab_2] ~bank_tab_collapse(1);
+[if_button2,bank_v2_main:tab_3] ~bank_tab_collapse(2);
+[if_button2,bank_v2_main:tab_4] ~bank_tab_collapse(3);
+[if_button2,bank_v2_main:tab_5] ~bank_tab_collapse(4);
+[if_button2,bank_v2_main:tab_6] ~bank_tab_collapse(5);
+[if_button2,bank_v2_main:tab_7] ~bank_tab_collapse(6);
+[if_button2,bank_v2_main:tab_8] ~bank_tab_collapse(7);
+[if_button2,bank_v2_main:tab_9] ~bank_tab_collapse(8);
 
 [proc,bank_tab_view](int $tab)
 // An empty tab has nothing to show (clientscript 1500 checks the same).
@@ -36,15 +36,15 @@ if (~bank_tab_size($tab) > 0) {
 
 // The tab a button stands for: 0 for all of the bank, 1-8, or -1.
 [proc,bank_tab_of_com](component $com)(int)
-if ($com = bank_v2_main:com_62) return(0);
-if ($com = bank_v2_main:com_60) return(1);
-if ($com = bank_v2_main:com_58) return(2);
-if ($com = bank_v2_main:com_56) return(3);
-if ($com = bank_v2_main:com_54) return(4);
-if ($com = bank_v2_main:com_52) return(5);
-if ($com = bank_v2_main:com_50) return(6);
-if ($com = bank_v2_main:com_48) return(7);
-if ($com = bank_v2_main:com_46) return(8);
+if ($com = bank_v2_main:tab_1) return(0);
+if ($com = bank_v2_main:tab_2) return(1);
+if ($com = bank_v2_main:tab_3) return(2);
+if ($com = bank_v2_main:tab_4) return(3);
+if ($com = bank_v2_main:tab_5) return(4);
+if ($com = bank_v2_main:tab_6) return(5);
+if ($com = bank_v2_main:tab_7) return(6);
+if ($com = bank_v2_main:tab_8) return(7);
+if ($com = bank_v2_main:tab_9) return(8);
 return(-1);
 
 [proc,bank_tab_size](int $tab)(int)

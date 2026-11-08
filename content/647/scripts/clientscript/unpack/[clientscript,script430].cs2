@@ -8,34 +8,34 @@ def_int $int6 = 0;
 switch_component ($component0) {
     case default :
         return;
-    case conq_side_command:com_8 :
+    case conq_side_command:ability_layer_1 :
         if (%varclient_1388 = 1) {
             $int2 = 1;
         } else {
             $int2 = %varplayerbit_7539;
         }
-        $component5 = conq_side_command:com_75;
-    case conq_side_command:com_9 :
+        $component5 = conq_side_command:name_1;
+    case conq_side_command:ability_layer_2 :
         if (%varclient_1388 = 1) {
             $int2 = 3;
         } else {
             $int2 = %varplayerbit_7540;
         }
-        $component5 = conq_side_command:com_58;
-    case conq_side_command:com_10 :
+        $component5 = conq_side_command:name_2;
+    case conq_side_command:ability_layer_3 :
         if (%varclient_1388 = 1) {
             $int2 = 5;
         } else {
             $int2 = %varplayerbit_7541;
         }
-        $component5 = conq_side_command:com_41;
-    case conq_side_command:com_11 :
+        $component5 = conq_side_command:name_3;
+    case conq_side_command:ability_layer_4 :
         if (%varclient_1388 = 1) {
             $int2 = 6;
         } else {
             $int2 = %varplayerbit_7542;
         }
-        $component5 = conq_side_command:com_24;
+        $component5 = conq_side_command:name_4;
 }
 switch_int ($int2) {
     case default :

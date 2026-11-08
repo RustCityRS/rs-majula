@@ -88,12 +88,12 @@ if ($key0 = ^key_backspace) {
         ~quickchat_close;
     } else {
         %varclient_128 = -1;
-        if_sethide(true, chatbox_background:com_7);
-        if_sethide(true, chatbox_background:com_9);
-        if_sethide(true, chatbox_background:com_13);
-        if_sethide(false, chatbox_background:com_17);
-        if_sethide(false, chatbox_background:com_1);
-        if_sethide(true, chatbox_background:com_3);
+        if_sethide(true, chatdefault:quickchat_countdialog);
+        if_sethide(true, chatdefault:quickchat_listdialog);
+        if_sethide(true, chatdefault:quickchat_objdialog);
+        if_sethide(false, chatdefault:quickchat_menu);
+        if_sethide(false, chatdefault:quickchat_path);
+        if_sethide(true, chatdefault:quickchat_title);
         ~quickchat_return($component2, 0);
         return;
     }

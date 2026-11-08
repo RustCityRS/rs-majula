@@ -2,9 +2,9 @@
 [clientscript,script1199]
 switch_int (%varclient_1401) {
     case 0 :
-        if_setcolour(0xffb400, rand_dungeon_rewards_v2:com_327);
+        if_setcolour(0xffb400, rand_dungeon_rewards_v2:readyborder_player5);
     case 1 :
-        if_setcolour(^green, rand_dungeon_rewards_v2:com_327);
+        if_setcolour(^green, rand_dungeon_rewards_v2:readyborder_player5);
     case 2 :
-        if_setcolour(^red, rand_dungeon_rewards_v2:com_327);
+        if_setcolour(^red, rand_dungeon_rewards_v2:readyborder_player5);
 }

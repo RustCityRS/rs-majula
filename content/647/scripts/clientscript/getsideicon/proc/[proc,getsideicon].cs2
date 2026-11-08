@@ -5,41 +5,41 @@ if (getwindowmode >= 2) {
 } else {
     switch_int ($int0) {
         case 0 :
-            return(toplevel:com_137);
+            return(toplevel:icon0);
         case 1 :
-            return(toplevel:com_138);
+            return(toplevel:icon1);
         case 2 :
-            return(toplevel:com_139);
+            return(toplevel:icon2);
         case 3 :
-            return(toplevel:com_140);
+            return(toplevel:icon3);
         case 4 :
-            return(toplevel:com_141);
+            return(toplevel:icon4);
         case 5 :
-            return(toplevel:com_142);
+            return(toplevel:icon5);
         case 6 :
-            return(toplevel:com_143);
+            return(toplevel:icon6);
         case 7 :
-            return(toplevel:com_144);
+            return(toplevel:icon7);
         case 8 :
-            return(toplevel:com_106);
+            return(toplevel:icon8);
         case 9 :
-            return(toplevel:com_107);
+            return(toplevel:icon9);
         case 10 :
-            return(toplevel:com_108);
+            return(toplevel:icon10);
         case 11 :
-            return(toplevel:com_109);
+            return(toplevel:icon11);
         case 12 :
-            return(toplevel:com_110);
+            return(toplevel:icon12);
         case 13 :
-            return(toplevel:com_111);
+            return(toplevel:icon13);
         case 14 :
-            return(toplevel:com_112);
+            return(toplevel:icon14);
         case 15 :
-            return(toplevel:com_113);
+            return(toplevel:icon15);
         case 95 :
-            return(summoning_orb:com_8);
+            return(topstat_lore:main_ops);
         case 99 :
-            return(toplevel:com_181);
+            return(toplevel:logoutbutton);
     }
 }
 return(null);

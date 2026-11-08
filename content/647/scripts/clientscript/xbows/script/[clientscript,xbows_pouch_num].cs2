@@ -1,26 +1,26 @@
 // 396
 [clientscript,xbows_pouch_num]
-if_settext(tostring(%varplayerbit_2469), xbows_pouch:com_11);
-if_settext(tostring(%varplayerbit_2470), xbows_pouch:com_12);
-if_settext(tostring(%varplayerbit_2471), xbows_pouch:com_13);
-if_settext(tostring(%varplayerbit_2472), xbows_pouch:com_14);
+if_settext(tostring(%varplayerbit_2469), xbows_pouch:num1);
+if_settext(tostring(%varplayerbit_2470), xbows_pouch:num2);
+if_settext(tostring(%varplayerbit_2471), xbows_pouch:num3);
+if_settext(tostring(%varplayerbit_2472), xbows_pouch:num4);
 if (%varplayerbit_2469 = 0) {
-    if_setcolour(0xff0033, xbows_pouch:com_11);
+    if_setcolour(0xff0033, xbows_pouch:num1);
 } else {
-    if_setcolour(0x00c000, xbows_pouch:com_11);
+    if_setcolour(0x00c000, xbows_pouch:num1);
 }
 if (%varplayerbit_2470 = 0) {
-    if_setcolour(0xff0033, xbows_pouch:com_12);
+    if_setcolour(0xff0033, xbows_pouch:num2);
 } else {
-    if_setcolour(0x00c000, xbows_pouch:com_12);
+    if_setcolour(0x00c000, xbows_pouch:num2);
 }
 if (%varplayerbit_2471 = 0) {
-    if_setcolour(0xff0033, xbows_pouch:com_13);
+    if_setcolour(0xff0033, xbows_pouch:num3);
 } else {
-    if_setcolour(0x00c000, xbows_pouch:com_13);
+    if_setcolour(0x00c000, xbows_pouch:num3);
 }
 if (%varplayerbit_2472 = 0) {
-    if_setcolour(0xff0033, xbows_pouch:com_14);
+    if_setcolour(0xff0033, xbows_pouch:num4);
 } else {
-    if_setcolour(0x00c000, xbows_pouch:com_14);
+    if_setcolour(0x00c000, xbows_pouch:num4);
 }

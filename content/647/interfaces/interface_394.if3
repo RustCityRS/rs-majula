@@ -1,5 +1,5 @@
 // 394:0
-[com_0]
+[window]
 type=layer
 width=512
 height=334
@@ -13,7 +13,7 @@ width=62
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=window
 graphic=tradebacking
 tiling=yes
 outline=1
@@ -22,11 +22,11 @@ transmitop=10
 op10= 
 
 // 394:2
-[com_2]
+[border_layer]
 type=layer
 width=512
 height=334
-layer=com_0
+layer=window
 
 // 394:3
 [com_3]
@@ -35,7 +35,7 @@ x=17
 y=52
 width=32
 height=241
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -49,7 +49,7 @@ x=462
 y=52
 width=32
 height=241
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -63,7 +63,7 @@ x=61
 y=21
 width=390
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -77,7 +77,7 @@ x=61
 y=304
 width=390
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -91,7 +91,7 @@ x=30
 y=292
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -104,7 +104,7 @@ x=450
 y=21
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -117,7 +117,7 @@ x=450
 y=292
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -130,14 +130,14 @@ x=30
 y=21
 width=32
 height=32
-layer=com_2
+layer=border_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 394:11
-[com_11]
+[inventory_layer]
 type=layer
 x=93
 y=55
@@ -147,7 +147,7 @@ transmitop=10
 op10= 
 
 // 394:12
-[com_12]
+[close_button]
 type=graphic
 x=460
 y=25
@@ -178,7 +178,7 @@ transmitop=10
 op10= 
 
 // 394:14
-[com_14]
+[3_furniture1]
 type=text
 x=139
 y=55
@@ -190,8 +190,8 @@ textshadow=yes
 colour=0xff981f
 transmitop=10
 op10= 
-onload=script2676(interface_394:com_29, 1)
-onvartransmit=script2676(interface_394:com_29, 1){varplayer_1485}
+onload=script2676(interface_394:3_furniture1_build, 1)
+onvartransmit=script2676(interface_394:3_furniture1_build, 1){varplayer_1485}
 
 // 394:15
 [com_15]
@@ -250,7 +250,7 @@ transmitop=10
 op10= 
 
 // 394:19
-[com_19]
+[3_furniture2]
 type=text
 x=139
 y=120
@@ -262,8 +262,8 @@ textshadow=yes
 colour=0xff981f
 transmitop=10
 op10= 
-onload=script2676(interface_394:com_30, 2)
-onvartransmit=script2676(interface_394:com_30, 2){varplayer_1486}
+onload=script2676(interface_394:3_furniture2_build, 2)
+onvartransmit=script2676(interface_394:3_furniture2_build, 2){varplayer_1486}
 
 // 394:20
 [com_20]
@@ -322,7 +322,7 @@ transmitop=10
 op10= 
 
 // 394:24
-[com_24]
+[3_furniture3]
 type=text
 x=139
 y=185
@@ -334,8 +334,8 @@ textshadow=yes
 colour=0xff981f
 transmitop=10
 op10= 
-onload=script2676(interface_394:com_31, 3)
-onvartransmit=script2676(interface_394:com_31, 3){varplayer_1487}
+onload=script2676(interface_394:3_furniture3_build, 3)
+onvartransmit=script2676(interface_394:3_furniture3_build, 3){varplayer_1487}
 
 // 394:25
 [com_25]
@@ -394,7 +394,7 @@ transmitop=10
 op10= 
 
 // 394:29
-[com_29]
+[3_furniture1_build]
 type=graphic
 x=93
 y=55
@@ -406,7 +406,7 @@ transmitop=10
 op10= 
 
 // 394:30
-[com_30]
+[3_furniture2_build]
 type=graphic
 x=93
 y=120
@@ -418,7 +418,7 @@ transmitop=10
 op10= 
 
 // 394:31
-[com_31]
+[3_furniture3_build]
 type=graphic
 x=93
 y=185

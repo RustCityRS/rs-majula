@@ -17,51 +17,51 @@ if (~check_spell_requirements($spell_data) = false) {
 p_opnpct(db_getfield($spell_data, magic_spell_table:spellcom, 0));
 
 // osrs's opnpct triggers are unused
-[apnpct,magic:wind_strike]
+[apnpct,magic:sb0]
 if (~in_tutorial_island(coord) = true) {
    ~pvm_tutorial_spell(^wind_strike);
 } else {
    ~pvm_default_spell(^wind_strike);
 }
-[apnpct,magic:water_strike] ~pvm_default_spell(^water_strike);
-[apnpct,magic:earth_strike] ~pvm_default_spell(^earth_strike);
-[apnpct,magic:fire_strike] ~pvm_default_spell(^fire_strike);
-[apnpct,magic:wind_bolt] ~pvm_default_spell(^wind_bolt);
-[apnpct,magic:water_bolt] ~pvm_default_spell(^water_bolt);
-[apnpct,magic:earth_bolt] ~pvm_default_spell(^earth_bolt);
-[apnpct,magic:fire_bolt] ~pvm_default_spell(^fire_bolt);
-[apnpct,magic:wind_blast] ~pvm_default_spell(^wind_blast);
-[apnpct,magic:water_blast] ~pvm_default_spell(^water_blast);
-[apnpct,magic:earth_blast] ~pvm_default_spell(^earth_blast);
-[apnpct,magic:fire_blast] ~pvm_default_spell(^fire_blast);
-[apnpct,magic:wind_wave] ~pvm_default_spell(^wind_wave);
-[apnpct,magic:water_wave] ~pvm_default_spell(^water_wave);
-[apnpct,magic:earth_wave] ~pvm_default_spell(^earth_wave);
-[apnpct,magic:fire_wave] ~pvm_default_spell(^fire_wave);
-[apnpct,magic:curse] 
+[apnpct,magic:sb2] ~pvm_default_spell(^water_strike);
+[apnpct,magic:sb4] ~pvm_default_spell(^earth_strike);
+[apnpct,magic:sb6] ~pvm_default_spell(^fire_strike);
+[apnpct,magic:sb8] ~pvm_default_spell(^wind_bolt);
+[apnpct,magic:sb11] ~pvm_default_spell(^water_bolt);
+[apnpct,magic:sb14] ~pvm_default_spell(^earth_bolt);
+[apnpct,magic:sb17] ~pvm_default_spell(^fire_bolt);
+[apnpct,magic:sb20] ~pvm_default_spell(^wind_blast);
+[apnpct,magic:sb23] ~pvm_default_spell(^water_blast);
+[apnpct,magic:sb27] ~pvm_default_spell(^earth_blast);
+[apnpct,magic:sb32] ~pvm_default_spell(^fire_blast);
+[apnpct,magic:sb34] ~pvm_default_spell(^wind_wave);
+[apnpct,magic:sb36] ~pvm_default_spell(^water_wave);
+[apnpct,magic:sb40] ~pvm_default_spell(^earth_wave);
+[apnpct,magic:sb42] ~pvm_default_spell(^fire_wave);
+[apnpct,magic:sb9] 
 if (npc_type = ungadulu) {
    ~legends_spell_usage(^curse);
 } else {
    ~pvm_default_spell(^curse);
 }
-[apnpct,magic:weaken]
+[apnpct,magic:sb5]
 if (npc_type = ungadulu) {
    ~legends_spell_usage(^weaken);
 } else {
    ~pvm_default_spell(^weaken);
 }
-[apnpct,magic:confuse]
+[apnpct,magic:sb1]
 if (npc_type = ungadulu) {
    ~legends_spell_usage(^confuse);
 } else {
    ~pvm_default_spell(^confuse);
 }
-[apnpct,magic:bind] ~pvm_default_spell(^bind);
-[apnpct,magic:snare] ~pvm_default_spell(^snare);
-[apnpct,magic:entangle] ~pvm_default_spell(^entangle);
-[apnpct,magic:vulnerability] ~pvm_default_spell(^vulnerability);
-[apnpct,magic:enfeeble] ~pvm_default_spell(^enfeeble);
-[apnpct,magic:stun] ~pvm_default_spell(^stun);
+[apnpct,magic:sb44] ~pvm_default_spell(^bind);
+[apnpct,magic:sb45] ~pvm_default_spell(^snare);
+[apnpct,magic:sb46] ~pvm_default_spell(^entangle);
+[apnpct,magic:sb38] ~pvm_default_spell(^vulnerability);
+[apnpct,magic:sb41] ~pvm_default_spell(^enfeeble);
+[apnpct,magic:sb43] ~pvm_default_spell(^stun);
 
 [proc,pvm_default_spell](int $spell)
 def_dbrow $spell_data = ~get_spell_data($spell);

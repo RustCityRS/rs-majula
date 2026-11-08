@@ -1,6 +1,6 @@
 // 398
 [clientscript,easter09_nuts_start]
-if_clearops(easter09_nuts:com_29);
+if_clearops(easter09_nuts:end);
 %varclient_767 = 0;
 %varclient_761 = null;
 %varclient_762 = null;
@@ -8,36 +8,36 @@ if_clearops(easter09_nuts:com_29);
 %varclient_764 = null;
 %varclient_765 = 0;
 %varclient_766 = 0;
-if_setontimer(null, easter09_nuts:com_19);
-if_setontimer(null, easter09_nuts:com_20);
-if_setontimer(null, easter09_nuts:com_21);
-if_setontimer(null, easter09_nuts:com_22);
-if_setontimer(null, easter09_nuts:com_10);
-if_setontimer(null, easter09_nuts:com_25);
-if_settext("Correct: <tostring(%varclient_767)>/<tostring(10)>", easter09_nuts:com_3);
+if_setontimer(null, easter09_nuts:control1);
+if_setontimer(null, easter09_nuts:control2);
+if_setontimer(null, easter09_nuts:control3);
+if_setontimer(null, easter09_nuts:control4);
+if_setontimer(null, easter09_nuts:bar);
+if_setontimer(null, easter09_nuts:result);
+if_settext("Correct: <tostring(%varclient_767)>/<tostring(10)>", easter09_nuts:correct_count);
 %varclient_761 = enum(int, model, enum_208, 1);
 if (%varclient_761 ! null) {
-    if_setmodel(%varclient_761, easter09_nuts:com_6);
-    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:com_6);
+    if_setmodel(%varclient_761, easter09_nuts:model1);
+    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:model1);
 }
 %varclient_762 = enum(int, model, enum_208, 2);
 if (%varclient_762 ! null) {
-    if_setmodel(%varclient_762, easter09_nuts:com_7);
-    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:com_7);
+    if_setmodel(%varclient_762, easter09_nuts:model2);
+    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:model2);
 }
 %varclient_763 = enum(int, model, enum_208, 3);
 if (%varclient_763 ! null) {
-    if_setmodel(%varclient_763, easter09_nuts:com_8);
-    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:com_8);
+    if_setmodel(%varclient_763, easter09_nuts:model3);
+    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:model3);
 }
 %varclient_764 = enum(int, model, enum_208, 4);
 if (%varclient_764 ! null) {
-    if_setmodel(%varclient_764, easter09_nuts:com_9);
-    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:com_9);
+    if_setmodel(%varclient_764, easter09_nuts:model4);
+    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:model4);
 }
-if_setposition(calc(0 - if_getwidth(easter09_nuts:com_6)), if_gety(easter09_nuts:com_6), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_6);
-if_setposition(calc(0 - if_getwidth(easter09_nuts:com_7)), if_gety(easter09_nuts:com_7), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_7);
-if_setposition(calc(0 - if_getwidth(easter09_nuts:com_8)), if_gety(easter09_nuts:com_8), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_8);
-if_setposition(calc(0 - if_getwidth(easter09_nuts:com_9)), if_gety(easter09_nuts:com_9), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_9);
-if_setposition(if_getx(easter09_nuts:com_5), 200, ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_10);
-if_setontimer("apply_zoom_item_text1(easter09_nuts:com_6)", easter09_nuts:com_19);
+if_setposition(calc(0 - if_getwidth(easter09_nuts:model1)), if_gety(easter09_nuts:model1), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model1);
+if_setposition(calc(0 - if_getwidth(easter09_nuts:model2)), if_gety(easter09_nuts:model2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model2);
+if_setposition(calc(0 - if_getwidth(easter09_nuts:model3)), if_gety(easter09_nuts:model3), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model3);
+if_setposition(calc(0 - if_getwidth(easter09_nuts:model4)), if_gety(easter09_nuts:model4), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model4);
+if_setposition(if_getx(easter09_nuts:band), 200, ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:bar);
+if_setontimer("apply_zoom_item_text1(easter09_nuts:model1)", easter09_nuts:control1);

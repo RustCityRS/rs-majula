@@ -8,7 +8,7 @@ heightmode=proportion
 xmode=abs_right
 
 // 837:1
-[com_1]
+[snp_text_layer]
 type=layer
 width=16391
 height=16391
@@ -17,14 +17,14 @@ heightmode=proportion
 xmode=abs_right
 
 // 837:2
-[com_2]
+[text_blueteam]
 type=text
 x=56
 y=45
 width=32
 height=15
 xmode=abs_right
-layer=com_1
+layer=snp_text_layer
 textfont=p11_full
 text=Blue:
 textalignh=right
@@ -32,14 +32,14 @@ textshadow=yes
 colour=0x3366ff
 
 // 837:3
-[com_3]
+[text_blueteam_count]
 type=text
 x=40
 y=45
 width=15
 height=15
 xmode=abs_right
-layer=com_1
+layer=snp_text_layer
 textfont=p11_full
 text=-
 textshadow=yes
@@ -47,14 +47,14 @@ colour=0x3366ff
 onvarctransmit=script2075{varclient_633}
 
 // 837:4
-[com_4]
+[text_redteam]
 type=text
 x=56
 y=60
 width=32
 height=15
 xmode=abs_right
-layer=com_1
+layer=snp_text_layer
 textfont=p11_full
 text=Red:
 textalignh=right
@@ -62,14 +62,14 @@ textshadow=yes
 colour=0xe12323
 
 // 837:5
-[com_5]
+[text_redteam_count]
 type=text
 x=40
 y=60
 width=15
 height=15
 xmode=abs_right
-layer=com_1
+layer=snp_text_layer
 textfont=p11_full
 text=-
 textshadow=yes
@@ -77,34 +77,34 @@ colour=0xe12323
 onvarctransmit=script2076{varclient_634}
 
 // 837:6
-[com_6]
+[top_divider_line]
 type=line
 x=15
 y=39
 width=94
 xmode=abs_right
-layer=com_1
+layer=snp_text_layer
 colour=0x333333
 
 // 837:7
-[com_7]
+[bottom_divider_line]
 type=line
 x=15
 y=75
 width=94
 xmode=abs_right
-layer=com_1
+layer=snp_text_layer
 colour=0x333333
 
 // 837:8
-[com_8]
+[text_title]
 type=text
 x=21
 y=24
 width=80
 height=15
 xmode=abs_right
-layer=com_1
+layer=snp_text_layer
 textfont=p11_full
 text=Players needed
 textalignh=centre
@@ -113,14 +113,14 @@ colour=0xff9900
 onvarctransmit=script2074{varclient_632}
 
 // 837:9
-[com_9]
+[text_next_game_count]
 type=text
 x=23
 y=80
 width=80
 height=15
 xmode=abs_right
-layer=com_1
+layer=snp_text_layer
 textfont=p11_full
 text=New game: - mins
 textalignh=centre
@@ -129,7 +129,7 @@ colour=0xff9900
 onvarctransmit=script2077{varclient_636}
 
 // 837:10
-[com_10]
+[waiting_bottomleft]
 type=graphic
 x=84
 y=67
@@ -142,7 +142,7 @@ trans=100
 colour=0x000000
 
 // 837:11
-[com_11]
+[waiting_bottom]
 type=graphic
 x=40
 y=79
@@ -155,7 +155,7 @@ trans=100
 colour=0x000000
 
 // 837:12
-[com_12]
+[waiting_top]
 type=graphic
 x=40
 y=3
@@ -168,7 +168,7 @@ trans=100
 colour=0x000000
 
 // 837:13
-[com_13]
+[waiting_left]
 type=graphic
 x=97
 y=48
@@ -181,7 +181,7 @@ trans=100
 colour=0x000000
 
 // 837:14
-[com_14]
+[waiting_right]
 type=graphic
 x=-4
 y=48
@@ -194,7 +194,7 @@ trans=100
 colour=0x000000
 
 // 837:15
-[com_15]
+[waiting_bottomright]
 type=graphic
 x=8
 y=67
@@ -207,7 +207,7 @@ trans=100
 colour=0x000000
 
 // 837:16
-[com_16]
+[waiting_topright]
 type=graphic
 x=8
 y=16
@@ -220,7 +220,7 @@ trans=100
 colour=0x000000
 
 // 837:17
-[com_17]
+[waiting_topleft]
 type=graphic
 x=84
 y=16

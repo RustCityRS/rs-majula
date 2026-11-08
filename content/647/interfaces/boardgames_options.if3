@@ -1,5 +1,5 @@
 // 756:0
-[com_0]
+[background_transparent]
 type=rectangle
 x=91
 y=66
@@ -21,7 +21,7 @@ tiling=yes
 colour=0xffffffff
 
 // 756:2
-[com_2]
+[challenge_box]
 type=rectangle
 x=312
 y=204
@@ -52,7 +52,7 @@ transmitop=1
 op1=Challenge
 
 // 756:5
-[com_5]
+[challenge_8]
 type=text
 x=6
 y=6
@@ -80,7 +80,7 @@ transmitop=1
 op1=Challenge
 
 // 756:7
-[com_7]
+[challenge_4]
 type=text
 x=6
 y=6
@@ -108,7 +108,7 @@ transmitop=1
 op1=Challenge
 
 // 756:9
-[com_9]
+[challenge_6]
 type=text
 x=6
 y=6
@@ -125,7 +125,7 @@ onmouseover=text_colour_swapper(event_com, 0xe1981f)
 onmouseleave=text_colour_swapper(event_com, 0xbf751d)
 
 // 756:10
-[com_10]
+[options_title]
 type=text
 x=97
 y=64
@@ -137,7 +137,7 @@ textshadow=yes
 colour=0xffaa44
 
 // 756:11
-[com_11]
+[challenge_txt]
 type=text
 x=6
 y=6
@@ -154,39 +154,39 @@ onmouseover=text_colour_swapper(event_com, 0xe1981f)
 onmouseleave=text_colour_swapper(event_com, 0xbf751d)
 
 // 756:12
-[com_12]
+[15seconds1]
 type=graphic
 x=10
 y=20
 width=15
 height=15
-layer=com_14
+layer=timepermovelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_options:com_12, boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_16)
+onclick=script1422(boardgames_options:15seconds1, boardgames_options:1minute1, boardgames_options:30seconds1, boardgames_options:2minutes1)
 
 // 756:13
-[com_13]
+[30seconds1]
 type=graphic
 x=10
 y=40
 width=15
 height=15
-layer=com_14
+layer=timepermovelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_options:com_13, boardgames_options:com_12, boardgames_options:com_15, boardgames_options:com_16)
+onclick=script1422(boardgames_options:30seconds1, boardgames_options:15seconds1, boardgames_options:1minute1, boardgames_options:2minutes1)
 
 // 756:14
-[com_14]
+[timepermovelayer]
 type=layer
 x=296
 y=95
@@ -195,45 +195,45 @@ height=100
 onvartransmit=boardgames_options_time{boardgames_varbit}
 
 // 756:15
-[com_15]
+[1minute1]
 type=graphic
 x=10
 y=60
 width=15
 height=15
-layer=com_14
+layer=timepermovelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_12, boardgames_options:com_16)
+onclick=script1422(boardgames_options:1minute1, boardgames_options:30seconds1, boardgames_options:15seconds1, boardgames_options:2minutes1)
 
 // 756:16
-[com_16]
+[2minutes1]
 type=graphic
 x=10
 y=80
 width=15
 height=15
-layer=com_14
+layer=timepermovelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_options:com_16, boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_12)
+onclick=script1422(boardgames_options:2minutes1, boardgames_options:1minute1, boardgames_options:30seconds1, boardgames_options:15seconds1)
 
 // 756:17
-[com_17]
+[30seconds2]
 type=text
 x=32
 y=40
 width=80
 height=14
-layer=com_14
+layer=timepermovelayer
 textfont=p12_full
 text=30 seconds
 textshadow=yes
@@ -241,16 +241,16 @@ colour=0xaa8822
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_options:com_13, boardgames_options:com_12, boardgames_options:com_15, boardgames_options:com_16)
+onclick=script1422(boardgames_options:30seconds1, boardgames_options:15seconds1, boardgames_options:1minute1, boardgames_options:2minutes1)
 
 // 756:18
-[com_18]
+[1minute2]
 type=text
 x=32
 y=60
 width=80
 height=14
-layer=com_14
+layer=timepermovelayer
 textfont=p12_full
 text=1 minute
 textshadow=yes
@@ -258,16 +258,16 @@ colour=0xaa8822
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_12, boardgames_options:com_16)
+onclick=script1422(boardgames_options:1minute1, boardgames_options:30seconds1, boardgames_options:15seconds1, boardgames_options:2minutes1)
 
 // 756:19
-[com_19]
+[2minutes2]
 type=text
 x=32
 y=80
 width=80
 height=14
-layer=com_14
+layer=timepermovelayer
 textfont=p12_full
 text=2 minutes
 textshadow=yes
@@ -275,16 +275,16 @@ colour=0xaa8822
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_options:com_16, boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_12)
+onclick=script1422(boardgames_options:2minutes1, boardgames_options:1minute1, boardgames_options:30seconds1, boardgames_options:15seconds1)
 
 // 756:20
-[com_20]
+[15seconds2]
 type=text
 x=32
 y=20
 width=80
 height=14
-layer=com_14
+layer=timepermovelayer
 textfont=p12_full
 text=15 seconds
 textshadow=yes
@@ -292,23 +292,23 @@ colour=0xaa8822
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=script1422(boardgames_options:com_12, boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_16)
+onclick=script1422(boardgames_options:15seconds1, boardgames_options:1minute1, boardgames_options:30seconds1, boardgames_options:2minutes1)
 
 // 756:21
-[com_21]
+[timepermove_txt]
 type=text
 x=11
 y=1
 width=82
 height=14
-layer=com_14
+layer=timepermovelayer
 textfont=p12_full
 text=Time per move:
 textshadow=yes
 colour=0xaa8822
 
 // 756:22
-[com_22]
+[pickrunelayer]
 type=layer
 x=97
 y=90
@@ -317,410 +317,410 @@ height=179
 onvartransmit=boardgames_options_pick_piece{boardgames_varbit}
 
 // 756:23
-[com_23]
+[choose_piece_txt]
 type=text
 x=10
 y=3
 width=182
 height=15
-layer=com_22
+layer=pickrunelayer
 textfont=p12_full
 text=Choose piece:
 textshadow=yes
 colour=0xaa8822
 
 // 756:24
-[com_24]
+[firerune2]
 type=model
 x=30
 y=25
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2399
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_36, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:firerune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:25
-[com_25]
+[waterrune2]
 type=model
 x=30
 y=65
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2652
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_37, boardgames_options:com_36, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:waterrune1, boardgames_options:firerune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:26
-[com_26]
+[earthrune2]
 type=model
 x=30
 y=105
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2737
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_38, boardgames_options:com_37, boardgames_options:com_36, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:earthrune1, boardgames_options:waterrune1, boardgames_options:firerune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:27
-[com_27]
+[airrune2]
 type=model
 x=30
 y=145
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2405
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_39, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_36, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:airrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:firerune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:28
-[com_28]
+[mindrune2]
 type=model
 x=93
 y=25
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2481
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_40, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_36, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:mindrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:firerune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:29
-[com_29]
+[bodyrune2]
 type=model
 x=93
 y=65
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2340
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_41, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_36, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:bodyrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:firerune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:30
-[com_30]
+[naturerune2]
 type=model
 x=93
 y=105
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2734
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_42, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_36, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:naturerune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:firerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:31
-[com_31]
+[chaosrune2]
 type=model
 x=93
 y=145
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2707
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_43, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_36, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:chaosrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:firerune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:32
-[com_32]
+[lawrune2]
 type=model
 x=156
 y=24
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2382
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_44, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_36, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:lawrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:firerune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:33
-[com_33]
+[cosmicrune2]
 type=model
 x=156
 y=64
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2735
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_45, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_36, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:cosmicrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:firerune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:34
-[com_34]
+[bloodrune2]
 type=model
 x=156
 y=105
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2665
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_46, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_36, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:bloodrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:firerune1, boardgames_options:soulrune1)
 
 // 756:35
-[com_35]
+[soulrune2]
 type=model
 x=156
 y=145
 width=32
 height=33
-layer=com_22
+layer=pickrunelayer
 model=model_2434
 modelangle=452,1024,0
 modelzoom=622
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_47, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_36)
+onclick=upgrade_membership_button_engage(boardgames_options:soulrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:firerune1)
 
 // 756:36
-[com_36]
+[firerune1]
 type=graphic
 x=10
 y=34
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_36, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:firerune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:37
-[com_37]
+[waterrune1]
 type=graphic
 x=10
 y=74
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_37, boardgames_options:com_36, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:waterrune1, boardgames_options:firerune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:38
-[com_38]
+[earthrune1]
 type=graphic
 x=10
 y=114
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_38, boardgames_options:com_37, boardgames_options:com_36, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:earthrune1, boardgames_options:waterrune1, boardgames_options:firerune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:39
-[com_39]
+[airrune1]
 type=graphic
 x=10
 y=154
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_39, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_36, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:airrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:firerune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:40
-[com_40]
+[mindrune1]
 type=graphic
 x=73
 y=34
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_40, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_36, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:mindrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:firerune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:41
-[com_41]
+[bodyrune1]
 type=graphic
 x=73
 y=74
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_41, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_36, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:bodyrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:firerune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:42
-[com_42]
+[naturerune1]
 type=graphic
 x=73
 y=114
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_42, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_36, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:naturerune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:firerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:43
-[com_43]
+[chaosrune1]
 type=graphic
 x=73
 y=154
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_43, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_36, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:chaosrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:firerune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:44
-[com_44]
+[lawrune1]
 type=graphic
 x=136
 y=34
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_44, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_36, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:lawrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:firerune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:45
-[com_45]
+[cosmicrune1]
 type=graphic
 x=136
 y=74
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_45, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_36, boardgames_options:com_46, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:cosmicrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:firerune1, boardgames_options:bloodrune1, boardgames_options:soulrune1)
 
 // 756:46
-[com_46]
+[bloodrune1]
 type=graphic
 x=136
 y=114
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_46, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_36, boardgames_options:com_47)
+onclick=upgrade_membership_button_engage(boardgames_options:bloodrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:firerune1, boardgames_options:soulrune1)
 
 // 756:47
-[com_47]
+[soulrune1]
 type=graphic
 x=136
 y=154
 width=15
 height=15
-layer=com_22
+layer=pickrunelayer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onclick=upgrade_membership_button_engage(boardgames_options:com_47, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_36)
+onclick=upgrade_membership_button_engage(boardgames_options:soulrune1, boardgames_options:waterrune1, boardgames_options:earthrune1, boardgames_options:airrune1, boardgames_options:mindrune1, boardgames_options:bodyrune1, boardgames_options:naturerune1, boardgames_options:chaosrune1, boardgames_options:lawrune1, boardgames_options:cosmicrune1, boardgames_options:bloodrune1, boardgames_options:firerune1)
 
 // 756:48
-[com_48]
+[ranked2]
 type=text
 x=329
 y=249
 width=80
 height=14
-layer=com_49
+layer=ranked_layer
 textfont=p12_full
 text=Ranked
 textshadow=yes
@@ -730,20 +730,20 @@ op1=Select
 opcursor0=cursor_46
 
 // 756:49
-[com_49]
+[ranked_layer]
 type=layer
 width=512
 height=334
 onvartransmit=boardgames_options_ranked{boardgames_varbit2}
 
 // 756:50
-[com_50]
+[ranked1]
 type=graphic
 x=307
 y=249
 width=15
 height=15
-layer=com_49
+layer=ranked_layer
 graphic="miscgraphics,10"
 tiling=yes
 colour=0xffffffff
@@ -752,7 +752,7 @@ op1=Select
 opcursor0=cursor_46
 
 // 756:51
-[com_51]
+[close_btn]
 type=graphic
 x=390
 y=64

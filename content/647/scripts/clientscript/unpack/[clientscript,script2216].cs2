@@ -5,7 +5,7 @@ if (%varplayer_1700 = 2) {
         sound_synth(synth_8731, 1, 0);
     }
     %varclient_1137 = 1;
-    if_setontimer("script2214", interface_932:com_1);
+    if_setontimer("script2214", easter10_nuts:content);
 } else {
     mes("There is nothing to push off!");
 }

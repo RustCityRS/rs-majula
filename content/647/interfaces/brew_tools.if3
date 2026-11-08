@@ -1,5 +1,5 @@
 // 417:0
-[com_0]
+[layer_1]
 type=layer
 width=512
 height=334
@@ -7,39 +7,39 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 417:1
-[com_1]
+[game_brew_backing]
 type=model
 x=-7
 y=-25
 width=527
 height=381
-layer=com_0
+layer=layer_1
 model=model_15707
 modelorigin=4,4
 modelangle=512,0,0
 modelzoom=400
 
 // 417:2
-[com_2]
+[game_brew_table]
 type=model
 x=22
 y=54
 width=465
 height=227
-layer=com_0
+layer=layer_1
 model=model_15716
 modelorigin=0,1
 modelangle=512,0,0
 modelzoom=380
 
 // 417:3
-[com_3]
+[game_brew_bamboo]
 type=model
 x=44
 y=94
 width=43
 height=74
-layer=com_0
+layer=layer_1
 model=model_15708
 modelangle=514,0,0
 modelzoom=650
@@ -47,13 +47,13 @@ transmitop=1
 op1=Take Pipe
 
 // 417:4
-[com_4]
+[game_brew_bridge]
 type=model
 x=105
 y=98
 width=69
 height=68
-layer=com_0
+layer=layer_1
 model=model_15709
 modelangle=514,0,0
 modelzoom=950
@@ -61,13 +61,13 @@ transmitop=1
 op1=Take Bridge Section
 
 // 417:5
-[com_5]
+[game_brew_bucket]
 type=model
 x=187
 y=104
 width=61
 height=57
-layer=com_0
+layer=layer_1
 model=model_15712
 modelorigin=-1,0
 modelangle=514,0,0
@@ -76,13 +76,13 @@ transmitop=1
 op1=Take Bucket
 
 // 417:6
-[com_6]
+[game_brew_torch]
 type=model
 x=27
 y=232
 width=70
 height=14
-layer=com_0
+layer=layer_1
 model=model_15713
 modelorigin=5,22
 modelangle=514,512,0
@@ -91,13 +91,13 @@ transmitop=1
 op1=Take Torch
 
 // 417:7
-[com_7]
+[game_brew_sheets]
 type=model
 x=337
 y=95
 width=67
 height=77
-layer=com_0
+layer=layer_1
 model=model_15718
 modelorigin=-1,0
 modelangle=512,0,0
@@ -106,13 +106,13 @@ transmitop=1
 op1=Take Lumber Patch
 
 // 417:8
-[com_8]
+[game_brew_jar]
 type=model
 x=427
 y=105
 width=40
 height=50
-layer=com_0
+layer=layer_1
 model=model_26324
 modelorigin=1,26
 modelangle=0,0,1874
@@ -121,13 +121,13 @@ transmitop=1
 op1=Take Jar
 
 // 417:9
-[com_9]
+[game_brew_bowl_blue]
 type=model
 x=115
 y=214
 width=49
 height=49
-layer=com_0
+layer=layer_1
 model=model_15685
 modelangle=514,0,0
 modelzoom=600
@@ -135,13 +135,13 @@ transmitop=1
 op1=Take Bowl
 
 // 417:10
-[com_10]
+[game_brew_tinderbox]
 type=model
 x=191
 y=214
 width=51
 height=50
-layer=com_0
+layer=layer_1
 model=model_15717
 modelorigin=1,1
 modelangle=512,0,0
@@ -150,13 +150,13 @@ transmitop=1
 op1=Take Tinderbox
 
 // 417:11
-[com_11]
+[game_brew_meat]
 type=model
 x=277
 y=215
 width=31
 height=51
-layer=com_0
+layer=layer_1
 model=model_15715
 modelorigin=0,2
 modelangle=512,0,0
@@ -165,13 +165,13 @@ transmitop=1
 op1=Take Meat
 
 // 417:12
-[com_12]
+[game_brew_knife]
 type=model
 x=364
 y=215
 width=14
 height=49
-layer=com_0
+layer=layer_1
 model=model_15714
 modelorigin=6,-13
 modelangle=512,0,0
@@ -180,13 +180,13 @@ transmitop=1
 op1=Take Knife
 
 // 417:13
-[com_13]
+[game_brew_net]
 type=model
 x=414
 y=214
 width=64
 height=62
-layer=com_0
+layer=layer_1
 model=model_26326
 modelorigin=-4,2
 modelangle=512,0,0
@@ -195,13 +195,13 @@ transmitop=1
 op1=Take Net
 
 // 417:14
-[com_14]
+[game_brew_axe]
 type=model
 x=270
 y=104
 width=50
 height=57
-layer=com_0
+layer=layer_1
 model=model_15663
 modelorigin=2,15
 modelangle=512,786,0
@@ -210,13 +210,13 @@ transmitop=1
 op1=Take Axe
 
 // 417:15
-[com_15]
+[game_brew_bamboo_text]
 type=text
 x=25
 y=68
 width=75
 height=29
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Bamboo pipe
 textalignv=centre
@@ -224,13 +224,13 @@ textshadow=yes
 colour=0xb99116
 
 // 417:16
-[com_16]
+[game_brew_bridge_text]
 type=text
 x=102
 y=68
 width=75
 height=29
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Bridge section
 textalignh=centre
@@ -239,13 +239,13 @@ textshadow=yes
 colour=0xb99116
 
 // 417:17
-[com_17]
+[game_brew_bucket_text]
 type=text
 x=179
 y=68
 width=75
 height=29
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Bucket
 textalignh=centre
@@ -254,13 +254,13 @@ textshadow=yes
 colour=0xb99116
 
 // 417:18
-[com_18]
+[game_brew_torch_text]
 type=text
 x=25
 y=185
 width=75
 height=30
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Torch
 textalignh=centre
@@ -269,13 +269,13 @@ textshadow=yes
 colour=0xb99116
 
 // 417:19
-[com_19]
+[game_brew_sheet_text]
 type=text
 x=333
 y=68
 width=75
 height=29
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Lumber patch
 textalignh=centre
@@ -284,13 +284,13 @@ textshadow=yes
 colour=0xb99116
 
 // 417:20
-[com_20]
+[game_brew_jar_text]
 type=text
 x=410
 y=68
 width=75
 height=29
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Jar
 textalignh=centre
@@ -299,13 +299,13 @@ textshadow=yes
 colour=0xb99116
 
 // 417:21
-[com_21]
+[game_brew_bowl_blue_text]
 type=text
 x=102
 y=185
 width=75
 height=30
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Bowl
 textalignh=centre
@@ -314,13 +314,13 @@ textshadow=yes
 colour=0xb99116
 
 // 417:22
-[com_22]
+[game_brew_tinder_text]
 type=text
 x=179
 y=185
 width=75
 height=30
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Tinderbox
 textalignh=centre
@@ -329,13 +329,13 @@ textshadow=yes
 colour=0xb99116
 
 // 417:23
-[com_23]
+[game_brew_meat_text]
 type=text
 x=256
 y=185
 width=75
 height=30
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Meat
 textalignh=centre
@@ -344,13 +344,13 @@ textshadow=yes
 colour=0xb99116
 
 // 417:24
-[com_24]
+[game_brew_knife_text]
 type=text
 x=333
 y=185
 width=75
 height=30
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Knife
 textalignh=centre
@@ -359,13 +359,13 @@ textshadow=yes
 colour=0xb99116
 
 // 417:25
-[com_25]
+[game_brew_net_text]
 type=text
 x=410
 y=185
 width=75
 height=30
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Net
 textalignh=centre
@@ -374,13 +374,13 @@ textshadow=yes
 colour=0xb99116
 
 // 417:26
-[com_26]
+[game_brew_axe_text]
 type=text
 x=256
 y=68
 width=75
 height=29
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=Hatchet
 textalignh=centre
@@ -389,39 +389,39 @@ textshadow=yes
 colour=0xb99116
 
 // 417:27
-[com_27]
+[game_brew_bamboo_counter]
 type=text
 x=72
 y=145
 width=8
 height=14
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=0
 textshadow=yes
 colour=0xb99116
 
 // 417:28
-[com_28]
+[game_brew_bridge_counter]
 type=text
 x=158
 y=144
 width=8
 height=14
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=0
 textshadow=yes
 colour=0xb99116
 
 // 417:29
-[com_29]
+[game_brew_patch_counter]
 type=text
 x=389
 y=145
 width=8
 height=14
-layer=com_0
+layer=layer_1
 textfont=p12_full
 text=0
 textshadow=yes
@@ -434,7 +434,7 @@ x=483
 y=6
 width=26
 height=23
-layer=com_0
+layer=layer_1
 graphic="close_buttons,4"
 colour=0x000000
 transmitop=1
@@ -444,7 +444,7 @@ onmouseleave=graphic_swapper(brew_tools:com_30, "close_buttons,4")
 onop=closebutton_click
 
 // 417:31
-[com_31]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -452,7 +452,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 417:32
-[com_32]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -462,7 +462,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 417:33
-[com_33]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -470,7 +470,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_32
+layer=fsborder_main_layer
 
 // 417:34
 [com_34]
@@ -573,7 +573,7 @@ tiling=yes
 colour=0x000000
 
 // 417:42
-[com_42]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -581,30 +581,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_33
+layer=fsborder_resizing_layer
 
 // 417:43
-[com_43]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_33
+layer=fsborder_resizing_layer
 
 // 417:44
-[com_44]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_33
+layer=fsborder_resizing_layer
 
 // 417:45
-[com_45]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -612,16 +612,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_33
+layer=fsborder_resizing_layer
 
 // 417:46
-[com_46]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_33
+layer=fsborder_resizing_layer
 
 // 417:47
 [com_47]
@@ -631,7 +631,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_43
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -646,7 +646,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_42
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -660,7 +660,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_44
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -675,7 +675,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_45
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

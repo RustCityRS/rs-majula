@@ -99,7 +99,7 @@ textshadow=yes
 colour=0x8ccc39
 
 // 197:8
-[com_8]
+[magictraining_shop_telepts]
 type=text
 x=200
 y=296
@@ -111,7 +111,7 @@ textshadow=yes
 colour=0x66ccff
 
 // 197:9
-[com_9]
+[magictraining_shop_enchanpts]
 type=text
 x=200
 y=312
@@ -123,7 +123,7 @@ textshadow=yes
 colour=0xcc6600
 
 // 197:10
-[com_10]
+[magictraining_shop_alchempts]
 type=text
 x=424
 y=312
@@ -135,7 +135,7 @@ textshadow=yes
 colour=0x33cc00
 
 // 197:11
-[com_11]
+[magictraining_shop_gravepts]
 type=text
 x=424
 y=296
@@ -147,7 +147,7 @@ textshadow=yes
 colour=0xcccccc
 
 // 197:12
-[com_12]
+[magictraining_shop_upgrade1]
 type=text
 x=86
 y=108
@@ -161,7 +161,7 @@ textshadow=yes
 colour=0xcc99ff
 
 // 197:13
-[com_13]
+[magictraining_shop_upgrade3]
 type=text
 x=155
 y=106
@@ -175,7 +175,7 @@ textshadow=yes
 colour=0xcc99ff
 
 // 197:14
-[com_14]
+[magictraining_shop_upgrade2]
 type=text
 x=226
 y=107
@@ -204,7 +204,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,4")
 onop=closebutton_click
 
 // 197:16
-[com_16]
+[shop_items_layer]
 type=layer
 x=8
 y=63

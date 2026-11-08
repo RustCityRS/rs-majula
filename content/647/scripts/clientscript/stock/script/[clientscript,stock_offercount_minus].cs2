@@ -4,6 +4,6 @@ def_string $string0 = null;
 if (%varclient_84 > 0) {
     %varclient_84 = calc(%varclient_84 - 1);
     $string0 = tostring_localised(%varclient_84, true);
-    if_settext($string0, stockmarket:com_148);
+    if_settext($string0, stockmarket:offercount);
     ~sm_offercount_settimer;
 }

@@ -1,12 +1,12 @@
 // 3494
 [clientscript,rand_ring_button_click](component $component0)
 sound_synth(synth_9499, 1, 0);
-if_setposition(if_getx(rand_ring_interface:com_112), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_112);
-if_setposition(if_getx(rand_ring_interface:com_27), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_27);
-if_setposition(if_getx(rand_ring_interface:com_26), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_26);
-if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_160);
-if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_67);
-if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com_109);
+if_setposition(if_getx(rand_ring_interface:ring_a_layer), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_a_layer);
+if_setposition(if_getx(rand_ring_interface:ring_b_layer), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_b_layer);
+if_setposition(if_getx(rand_ring_interface:ring_c_layer), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_c_layer);
+if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_a_bar_actual);
+if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_b_bar_actual);
+if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_c_bar_actual);
 if_sethide(true, rand_ring_interface:com_254);
 if_sethide(true, rand_ring_interface:com_239);
 if_sethide(true, rand_ring_interface:com_224);
@@ -15,112 +15,112 @@ if_settrans(255, rand_ring_interface:com_257);
 if_settrans(255, rand_ring_interface:com_242);
 if_settrans(255, rand_ring_interface:com_227);
 if_settrans(255, rand_ring_interface:com_212);
-if_sethide(true, rand_ring_interface:com_194);
-if_sethide(true, rand_ring_interface:com_195);
-if_sethide(true, rand_ring_interface:com_196);
-if_sethide(true, rand_ring_interface:com_197);
-if_sethide(true, rand_ring_interface:com_261);
+if_sethide(true, rand_ring_interface:melee_link);
+if_sethide(true, rand_ring_interface:ranged_link);
+if_sethide(true, rand_ring_interface:magic_link);
+if_sethide(true, rand_ring_interface:skiller_link);
+if_sethide(true, rand_ring_interface:confirm_upgrade_layer);
 switch_int (%varclient_1184) {
     case 1 :
         if (%varplayerbit_8065 = 1) {
-            if_settext("In use", rand_ring_interface:com_139);
+            if_settext("In use", rand_ring_interface:upgrade_ring_a);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_139);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_a);
         }
         if (%varplayerbit_8065 = 2) {
-            if_settext("In use", rand_ring_interface:com_46);
+            if_settext("In use", rand_ring_interface:upgrade_ring_b);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_46);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_b);
         }
         if (%varplayerbit_8065 = 3) {
-            if_settext("In use", rand_ring_interface:com_88);
+            if_settext("In use", rand_ring_interface:upgrade_ring_c);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_88);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_c);
         }
     case 2 :
         if (%varplayerbit_8065 = 4) {
-            if_settext("In use", rand_ring_interface:com_139);
+            if_settext("In use", rand_ring_interface:upgrade_ring_a);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_139);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_a);
         }
         if (%varplayerbit_8065 = 5) {
-            if_settext("In use", rand_ring_interface:com_46);
+            if_settext("In use", rand_ring_interface:upgrade_ring_b);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_46);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_b);
         }
         if (%varplayerbit_8065 = 6) {
-            if_settext("In use", rand_ring_interface:com_88);
+            if_settext("In use", rand_ring_interface:upgrade_ring_c);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_88);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_c);
         }
     case 3 :
         if (%varplayerbit_8065 = 7) {
-            if_settext("In use", rand_ring_interface:com_139);
+            if_settext("In use", rand_ring_interface:upgrade_ring_a);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_139);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_a);
         }
         if (%varplayerbit_8065 = 8) {
-            if_settext("In use", rand_ring_interface:com_46);
+            if_settext("In use", rand_ring_interface:upgrade_ring_b);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_46);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_b);
         }
         if (%varplayerbit_8065 = 9) {
-            if_settext("In use", rand_ring_interface:com_88);
+            if_settext("In use", rand_ring_interface:upgrade_ring_c);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_88);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_c);
         }
     case 4 :
         if (%varplayerbit_8065 = 10) {
-            if_settext("In use", rand_ring_interface:com_139);
+            if_settext("In use", rand_ring_interface:upgrade_ring_a);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_139);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_a);
         }
         if (%varplayerbit_8065 = 11) {
-            if_settext("In use", rand_ring_interface:com_46);
+            if_settext("In use", rand_ring_interface:upgrade_ring_b);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_46);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_b);
         }
         if (%varplayerbit_8065 = 12) {
-            if_settext("In use", rand_ring_interface:com_88);
+            if_settext("In use", rand_ring_interface:upgrade_ring_c);
         } else {
-            if_settext("Switch-to", rand_ring_interface:com_88);
+            if_settext("Switch-to", rand_ring_interface:upgrade_ring_c);
         }
 }
 switch_component ($component0) {
     case rand_ring_interface:com_257 :
         if_sethide(false, rand_ring_interface:com_254);
-        if_sethide(false, rand_ring_interface:com_194);
+        if_sethide(false, rand_ring_interface:melee_link);
         %varclient_1184 = 1;
-        if_setcolour(0xff3264, rand_ring_interface:com_134);
-        if_setcolour(0xff3264, rand_ring_interface:com_41);
-        if_setcolour(0xff3264, rand_ring_interface:com_83);
+        if_setcolour(0xff3264, rand_ring_interface:ring_a);
+        if_setcolour(0xff3264, rand_ring_interface:ring_b);
+        if_setcolour(0xff3264, rand_ring_interface:ring_c);
     case rand_ring_interface:com_242 :
         if_sethide(false, rand_ring_interface:com_239);
-        if_sethide(false, rand_ring_interface:com_195);
+        if_sethide(false, rand_ring_interface:ranged_link);
         %varclient_1184 = 2;
-        if_setcolour(0x96ff96, rand_ring_interface:com_134);
-        if_setcolour(0x96ff96, rand_ring_interface:com_41);
-        if_setcolour(0x96ff96, rand_ring_interface:com_83);
+        if_setcolour(0x96ff96, rand_ring_interface:ring_a);
+        if_setcolour(0x96ff96, rand_ring_interface:ring_b);
+        if_setcolour(0x96ff96, rand_ring_interface:ring_c);
     case rand_ring_interface:com_227 :
         if_sethide(false, rand_ring_interface:com_224);
-        if_sethide(false, rand_ring_interface:com_196);
+        if_sethide(false, rand_ring_interface:magic_link);
         %varclient_1184 = 3;
-        if_setcolour(0x00c8ff, rand_ring_interface:com_134);
-        if_setcolour(0x00c8ff, rand_ring_interface:com_41);
-        if_setcolour(0x00c8ff, rand_ring_interface:com_83);
+        if_setcolour(0x00c8ff, rand_ring_interface:ring_a);
+        if_setcolour(0x00c8ff, rand_ring_interface:ring_b);
+        if_setcolour(0x00c8ff, rand_ring_interface:ring_c);
     case rand_ring_interface:com_212 :
         if_sethide(false, rand_ring_interface:com_209);
-        if_sethide(false, rand_ring_interface:com_197);
+        if_sethide(false, rand_ring_interface:skiller_link);
         %varclient_1184 = 4;
-        if_setcolour(^white, rand_ring_interface:com_134);
-        if_setcolour(^white, rand_ring_interface:com_41);
-        if_setcolour(^white, rand_ring_interface:com_83);
+        if_setcolour(^white, rand_ring_interface:ring_a);
+        if_setcolour(^white, rand_ring_interface:ring_b);
+        if_setcolour(^white, rand_ring_interface:ring_c);
 }
 def_enum $enum1 = enum(int, enum, enum_3088, %varclient_1184);
-if_settext(struct_param(enum(int, struct, $enum1, 1), param_1089), rand_ring_interface:com_132);
-if_settext(struct_param(enum(int, struct, $enum1, 1), param_1090), rand_ring_interface:com_133);
-if_settext(struct_param(enum(int, struct, $enum1, 2), param_1089), rand_ring_interface:com_39);
-if_settext(struct_param(enum(int, struct, $enum1, 2), param_1090), rand_ring_interface:com_40);
-if_settext(struct_param(enum(int, struct, $enum1, 3), param_1089), rand_ring_interface:com_81);
-if_settext(struct_param(enum(int, struct, $enum1, 3), param_1090), rand_ring_interface:com_82);
+if_settext(struct_param(enum(int, struct, $enum1, 1), param_1089), rand_ring_interface:ring_a_name);
+if_settext(struct_param(enum(int, struct, $enum1, 1), param_1090), rand_ring_interface:ring_a_description);
+if_settext(struct_param(enum(int, struct, $enum1, 2), param_1089), rand_ring_interface:ring_b_name);
+if_settext(struct_param(enum(int, struct, $enum1, 2), param_1090), rand_ring_interface:ring_b_description);
+if_settext(struct_param(enum(int, struct, $enum1, 3), param_1089), rand_ring_interface:ring_c_name);
+if_settext(struct_param(enum(int, struct, $enum1, 3), param_1090), rand_ring_interface:ring_c_description);
 %varclient_1186 = 0;

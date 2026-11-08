@@ -1,6 +1,6 @@
 // 3167
 [clientscript,script3167](component $component0, int $int1, int $int2)
-def_component $component3 = lobbyscreen_pane_clanchat:com_48;
+def_component $component3 = lobbyscreen_pane_clanchat:clan_active_bg;
 if (cc_find($component0, $int1) = true) {
     if_sethide(false, $component3);
     if_setposition(if_getx($component3), cc_gety, ^setpos_abs_left, ^setpos_abs_top, $component3);

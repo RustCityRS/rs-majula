@@ -69,7 +69,7 @@ fill=yes
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_40
+layer=round_time_background_layer
 colour=0x201c17
 
 // 1022:7
@@ -81,7 +81,7 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_40
+layer=round_time_background_layer
 colour=0x595143
 
 // 1022:8
@@ -93,7 +93,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_40
+layer=round_time_background_layer
 colour=0x161410
 fill=yes
 
@@ -156,7 +156,7 @@ textshadow=yes
 colour=0xff991f
 
 // 1022:14
-[com_14]
+[opponent_stake]
 type=layer
 x=16
 y=30
@@ -213,7 +213,7 @@ textshadow=yes
 colour=0xff991f
 
 // 1022:19
-[com_19]
+[your_stake]
 type=layer
 x=16
 y=30
@@ -223,7 +223,7 @@ layer=com_10
 oninvtransmit=script443{inv_583}
 
 // 1022:20
-[com_20]
+[stake_scrollbar_layer]
 type=layer
 x=213
 y=31
@@ -247,7 +247,7 @@ transmitop=10
 op10=  
 
 // 1022:22
-[com_22]
+[bottom_left_corner]
 type=graphic
 x=5
 y=291
@@ -260,7 +260,7 @@ transmitop=10
 op10=  
 
 // 1022:23
-[com_23]
+[top_left_corner]
 type=graphic
 x=5
 y=20
@@ -273,7 +273,7 @@ transmitop=10
 op10=  
 
 // 1022:24
-[com_24]
+[top_right_corner]
 type=graphic
 x=5
 y=20
@@ -287,7 +287,7 @@ transmitop=10
 op10=  
 
 // 1022:25
-[com_25]
+[bottom_right_corner]
 type=graphic
 x=5
 y=291
@@ -301,7 +301,7 @@ transmitop=10
 op10=  
 
 // 1022:26
-[com_26]
+[left_side]
 type=graphic
 x=-8
 y=52
@@ -315,7 +315,7 @@ transmitop=10
 op10=  
 
 // 1022:27
-[com_27]
+[right_side]
 type=graphic
 x=-7
 y=52
@@ -330,7 +330,7 @@ transmitop=10
 op10=  
 
 // 1022:28
-[com_28]
+[top_side]
 type=graphic
 x=37
 y=20
@@ -344,7 +344,7 @@ transmitop=10
 op10=  
 
 // 1022:29
-[com_29]
+[bottom_side]
 type=graphic
 y=303
 width=444
@@ -358,7 +358,7 @@ transmitop=10
 op10=  
 
 // 1022:30
-[com_30]
+[border_shadow]
 type=rectangle
 x=11
 y=41
@@ -370,7 +370,7 @@ transmitop=10
 op10=  
 
 // 1022:31
-[com_31]
+[border_shadow_3]
 type=rectangle
 x=12
 y=6
@@ -383,7 +383,7 @@ transmitop=10
 op10=  
 
 // 1022:32
-[com_32]
+[border_shadow_2]
 type=rectangle
 x=13
 y=43
@@ -396,7 +396,7 @@ transmitop=10
 op10=  
 
 // 1022:33
-[com_33]
+[border_shadow_1]
 type=rectangle
 x=12
 y=42
@@ -409,7 +409,7 @@ transmitop=10
 op10=  
 
 // 1022:34
-[com_34]
+[close_button]
 type=graphic
 x=481
 y=23
@@ -476,7 +476,7 @@ transmitop=10
 op10=   
 
 // 1022:39
-[com_39]
+[main_title_text]
 type=text
 x=12
 y=23
@@ -493,7 +493,7 @@ transmitop=10
 op10=   
 
 // 1022:40
-[com_40]
+[round_time_background_layer]
 type=layer
 x=23
 y=188
@@ -504,13 +504,13 @@ op10=
 onvartransmit=script437{varplayer_1877}
 
 // 1022:41
-[com_41]
+[round_time_title]
 type=text
 y=3
 width=16391
 height=15
 widthmode=proportion
-layer=com_40
+layer=round_time_background_layer
 textfont=welcome_font_tiny
 text=Maximum Turn Time
 textlineheight=15
@@ -527,7 +527,7 @@ x=26
 y=19
 width=15
 height=15
-layer=com_40
+layer=round_time_background_layer
 graphic="radio_buttons,0"
 tiling=yes
 colour=0xffffffff
@@ -541,7 +541,7 @@ x=101
 y=19
 width=15
 height=15
-layer=com_40
+layer=round_time_background_layer
 graphic="radio_buttons,0"
 tiling=yes
 colour=0xffffffff
@@ -555,7 +555,7 @@ x=175
 y=19
 width=15
 height=15
-layer=com_40
+layer=round_time_background_layer
 graphic="radio_buttons,0"
 tiling=yes
 colour=0xffffffff
@@ -569,7 +569,7 @@ x=248
 y=19
 width=15
 height=15
-layer=com_40
+layer=round_time_background_layer
 graphic="radio_buttons,0"
 tiling=yes
 colour=0xffffffff
@@ -583,7 +583,7 @@ x=322
 y=19
 width=15
 height=15
-layer=com_40
+layer=round_time_background_layer
 graphic="radio_buttons,0"
 tiling=yes
 colour=0xffffffff
@@ -597,7 +597,7 @@ x=395
 y=19
 width=15
 height=15
-layer=com_40
+layer=round_time_background_layer
 graphic="radio_buttons,0"
 tiling=yes
 colour=0xffffffff
@@ -612,7 +612,7 @@ y=6
 width=44
 height=15
 ymode=abs_bottom
-layer=com_40
+layer=round_time_background_layer
 textfont=welcome_font_tiny
 text=0:30
 textlineheight=15
@@ -632,7 +632,7 @@ y=6
 width=43
 height=15
 ymode=abs_bottom
-layer=com_40
+layer=round_time_background_layer
 textfont=welcome_font_tiny
 text=1:00
 textlineheight=15
@@ -652,7 +652,7 @@ y=6
 width=43
 height=15
 ymode=abs_bottom
-layer=com_40
+layer=round_time_background_layer
 textfont=welcome_font_tiny
 text=1:30
 textlineheight=15
@@ -672,7 +672,7 @@ y=6
 width=43
 height=15
 ymode=abs_bottom
-layer=com_40
+layer=round_time_background_layer
 textfont=welcome_font_tiny
 text=2:00
 textlineheight=15
@@ -692,7 +692,7 @@ y=6
 width=43
 height=15
 ymode=abs_bottom
-layer=com_40
+layer=round_time_background_layer
 textfont=welcome_font_tiny
 text=2:30
 textlineheight=15
@@ -712,7 +712,7 @@ y=6
 width=43
 height=15
 ymode=abs_bottom
-layer=com_40
+layer=round_time_background_layer
 textfont=welcome_font_tiny
 text=3:00
 textlineheight=15
@@ -725,7 +725,7 @@ op10=
 onop=script438(event_com)
 
 // 1022:54
-[com_54]
+[accept_layer]
 type=layer
 x=4096
 y=230
@@ -737,11 +737,11 @@ opbase=
 op10= 
 
 // 1022:55
-[com_55]
+[accept_graphic]
 type=graphic
 width=90
 height=43
-layer=com_54
+layer=accept_layer
 graphic=graphic_3255
 tiling=yes
 colour=0x000000
@@ -750,13 +750,13 @@ opbase=
 op10=    
 
 // 1022:56
-[com_56]
+[accept_text]
 type=text
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_54
+layer=accept_layer
 textfont=welcome_font_tiny
 text=Accept
 textalignh=centre
@@ -771,7 +771,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1022:57
-[com_57]
+[decline_layer]
 type=layer
 x=4103
 y=230
@@ -783,7 +783,7 @@ opbase=
 op10= 
 
 // 1022:58
-[com_58]
+[duelstatus]
 type=text
 y=27
 width=42
@@ -799,11 +799,11 @@ textshadow=yes
 colour=0xaaaaaa
 
 // 1022:59
-[com_59]
+[decline_graphic]
 type=graphic
 width=90
 height=43
-layer=com_57
+layer=decline_layer
 graphic=graphic_3255
 tiling=yes
 colour=0x000000
@@ -812,13 +812,13 @@ opbase=
 op10=   
 
 // 1022:60
-[com_60]
+[decline_text]
 type=text
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_57
+layer=decline_layer
 textfont=welcome_font_tiny
 text=Decline
 textalignh=centre

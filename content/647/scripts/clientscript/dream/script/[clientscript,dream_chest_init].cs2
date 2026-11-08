@@ -2,7 +2,7 @@
 [clientscript,dream_chest_init]
 def_int $int0 = 0;
 while ($int0 < 5) {
-    cc_create(dream_armour:com_45, ^iftype_graphic, $int0);
+    cc_create(dream_armour:chest_layer, ^iftype_graphic, $int0);
     cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
     if ($int0 = 0) {
         cc_setposition(0, 43, ^setpos_abs_left, ^setpos_abs_top);
@@ -26,35 +26,35 @@ while ($int0 < 5) {
         cc_setgraphicshadow(0x111111);
         cc_setoutline(1);
         if ($int0 = 0) {
-            if_setgraphic(null, dream_armour:com_40);
+            if_setgraphic(null, dream_armour:inv_icon_weapon);
         }
         if ($int0 = 1) {
-            if_setgraphic(null, dream_armour:com_36);
+            if_setgraphic(null, dream_armour:inv_icon_helm);
         }
         if ($int0 = 2) {
-            if_setgraphic(null, dream_armour:com_37);
+            if_setgraphic(null, dream_armour:inv_icon_chest);
         }
         if ($int0 = 3) {
-            if_setgraphic(null, dream_armour:com_38);
+            if_setgraphic(null, dream_armour:inv_icon_leggings);
         }
         if ($int0 = 4) {
-            if_setgraphic(null, dream_armour:com_39);
+            if_setgraphic(null, dream_armour:inv_icon_boots);
         }
     } else {
         if ($int0 = 0) {
-            if_setgraphic("wornicons,3", dream_armour:com_40);
+            if_setgraphic("wornicons,3", dream_armour:inv_icon_weapon);
         }
         if ($int0 = 1) {
-            if_setgraphic("wornicons,0", dream_armour:com_36);
+            if_setgraphic("wornicons,0", dream_armour:inv_icon_helm);
         }
         if ($int0 = 2) {
-            if_setgraphic("wornicons,5", dream_armour:com_37);
+            if_setgraphic("wornicons,5", dream_armour:inv_icon_chest);
         }
         if ($int0 = 3) {
-            if_setgraphic("wornicons,7", dream_armour:com_38);
+            if_setgraphic("wornicons,7", dream_armour:inv_icon_leggings);
         }
         if ($int0 = 4) {
-            if_setgraphic("wornicons,9", dream_armour:com_39);
+            if_setgraphic("wornicons,9", dream_armour:inv_icon_boots);
         }
     }
     $int0 = calc($int0 + 1);

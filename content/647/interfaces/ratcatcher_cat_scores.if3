@@ -1,5 +1,5 @@
 // 281:0
-[com_0]
+[ratpits_name_p1]
 type=text
 x=61
 y=24
@@ -12,7 +12,7 @@ textshadow=yes
 colour=0xff981f
 
 // 281:1
-[com_1]
+[ratpits_name_p2]
 type=text
 x=61
 y=74
@@ -25,7 +25,7 @@ textshadow=yes
 colour=0xff981f
 
 // 281:2
-[com_2]
+[ratpits_cathead_p1]
 type=model
 x=7
 y=5
@@ -39,7 +39,7 @@ modelzoom=3213
 modelanim=seq_8581
 
 // 281:3
-[com_3]
+[ratpits_cathead_p2]
 type=model
 x=7
 y=64
@@ -53,7 +53,7 @@ modelzoom=3213
 modelanim=seq_8581
 
 // 281:4
-[com_4]
+[ratpits_scores_p1]
 type=text
 x=55
 y=43
@@ -66,7 +66,7 @@ textshadow=yes
 colour=0xff981f
 
 // 281:5
-[com_5]
+[ratpits_scores_p2]
 type=text
 x=56
 y=93
@@ -90,7 +90,7 @@ graphic="staticons2,4"
 colour=0xffffffff
 
 // 281:7
-[com_7]
+[ratpits_credits_layer]
 type=layer
 width=268
 height=121
@@ -99,42 +99,42 @@ ymode=abs_centre
 hide=yes
 
 // 281:8
-[com_8]
+[ratpits_credits_banner]
 type=model
 y=-4
 width=263
 height=77
 xmode=abs_centre
 ymode=abs_centre
-layer=com_7
+layer=ratpits_credits_layer
 model=model_10119
 modelorigin=0,-8
 modelangle=512,0,0
 modelzoom=576
 
 // 281:9
-[com_9]
+[ratpits_credit_name]
 type=text
 y=-24
 height=17
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_7
+layer=ratpits_credits_layer
 textfont=q8_full
 text=Your cat has been
 textalignh=centre
 colour=0x000000
 
 // 281:10
-[com_10]
+[ratpits_credits_winner]
 type=text
 y=-3
 height=17
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_7
+layer=ratpits_credits_layer
 textfont=q8_full
 text=Defeated
 textalignh=centre

@@ -10,13 +10,13 @@ fill=yes
 trans=200
 
 // 662:1
-[com_1]
+[lore_chathead]
 type=model
 x=53
 y=13
 width=78
 height=86
-layer=com_4
+layer=lore_chathead_1
 model=null
 modelangle=2033,1833,0
 modelzoom=2168
@@ -45,7 +45,7 @@ fill=yes
 trans=200
 
 // 662:4
-[com_4]
+[lore_chathead_1]
 type=layer
 x=5
 y=26
@@ -173,7 +173,7 @@ graphic=graphic_1196
 colour=0xffffffff
 
 // 662:16
-[com_16]
+[lore_magic_button]
 type=rectangle
 width=146
 height=14
@@ -188,20 +188,20 @@ x=21
 y=5
 width=146
 height=14
-layer=com_72
+layer=lore_familairs
 
 // 662:18
-[com_18]
+[points_icon]
 type=graphic
 x=149
 y=213
 width=25
 height=25
-layer=com_72
+layer=lore_familairs
 graphic="lore_icons,6"
 colour=0xffffffff
-onmouseleave=deltooltip(lore_stats_side:com_73)
-onmouserepeat=script779(event_com, lore_stats_side:com_73, 43384905, 1, "Summoning points remaining")
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Summoning points remaining")
 
 // 662:19
 [com_19]
@@ -455,7 +455,7 @@ modelangle=500,0,0
 modelzoom=1153
 
 // 662:40
-[com_40]
+[lore_magic]
 type=text
 y=-1
 width=146
@@ -466,19 +466,19 @@ text=S P E C I A L   M O V E
 textalignh=centre
 textalignv=bottom
 colour=0xffffcc
-onmouseleave=deltooltip(lore_stats_side:com_73)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
 onvartransmit=script756{varplayer_1177}
 onstattransmit=script756{summoning}
-onmouserepeat=script777(event_com, lore_stats_side:com_73, 43384905, 1)
+onmouserepeat=script777(event_com, lore_stats_side:build_layer, 43384905, 1)
 
 // 662:41
-[com_41]
+[points_left]
 type=text
 x=146
 y=240
 width=32
 height=15
-layer=com_72
+layer=lore_familairs
 textfont=p11_full
 text=9999
 textalignh=centre
@@ -488,26 +488,26 @@ colour=0xc4b074
 onstattransmit=lore_points_update{summoning}
 
 // 662:42
-[com_42]
+[time_icon]
 type=graphic
 x=149
 y=169
 width=25
 height=25
-layer=com_72
+layer=lore_familairs
 graphic="lore_icons,2"
 colour=0xffffffff
-onmouseleave=deltooltip(lore_stats_side:com_73)
-onmouserepeat=script779(event_com, lore_stats_side:com_73, 43384905, 1, "Familiar time remaining")
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Familiar time remaining")
 
 // 662:43
-[com_43]
+[animal_time_left]
 type=text
 x=146
 y=196
 width=32
 height=15
-layer=com_72
+layer=lore_familairs
 textfont=p11_full
 text=9999
 textalignh=centre
@@ -517,26 +517,26 @@ colour=0xc4b074
 onvartransmit=script752{varplayer_1176}
 
 // 662:44
-[com_44]
+[size_icon]
 type=graphic
 x=149
 y=169
 width=25
 height=25
-layer=com_71
+layer=lore_pets
 graphic="lore_icons,1"
 colour=0xffffffff
-onmouseleave=deltooltip(lore_stats_side:com_73)
-onmouserepeat=script779(event_com, lore_stats_side:com_73, 43384905, 1, "Pet size percentage")
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Pet size percentage")
 
 // 662:45
-[com_45]
+[size_percentage]
 type=text
 x=146
 y=196
 width=32
 height=15
-layer=com_71
+layer=lore_pets
 textfont=p11_full
 text=100%
 textalignh=centre
@@ -548,13 +548,13 @@ op10=
 onvartransmit=script753{varplayer_1175}
 
 // 662:46
-[com_46]
+[size_percent]
 type=text
 x=146
 y=196
 width=32
 height=15
-layer=com_71
+layer=lore_pets
 textfont=p11_full
 text=100%
 textalignh=centre
@@ -563,26 +563,26 @@ textshadow=yes
 colour=0xc4b074
 
 // 662:47
-[com_47]
+[hunger_icon]
 type=graphic
 x=149
 y=213
 width=25
 height=25
-layer=com_71
+layer=lore_pets
 graphic="lore_icons,0"
 colour=0xffffffff
-onmouseleave=deltooltip(lore_stats_side:com_73)
-onmouserepeat=script779(event_com, lore_stats_side:com_73, 43384905, 1, "Pet hunger percentage")
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Pet hunger percentage")
 
 // 662:48
-[com_48]
+[hunger]
 type=text
 x=146
 y=240
 width=32
 height=15
-layer=com_71
+layer=lore_pets
 textfont=p11_full
 text=9999
 textalignh=centre
@@ -591,55 +591,55 @@ textshadow=yes
 colour=0xc4b074
 
 // 662:49
-[com_49]
+[call_animal_button]
 type=layer
 x=23
 y=216
 width=38
 height=38
-layer=com_75
+layer=lore_bounding_box
 transmitop=1
 op1=Call Follower
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=script475(event_com, lore_stats_side:com_73)
-onmouserepeat=script779(event_com, lore_stats_side:com_73, 43384905, 1, "Call familiar")
+onmouseleave=script475(event_com, lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Call familiar")
 
 // 662:50
-[com_50]
+[call_animal_button_graphic]
 type=graphic
 x=29
 y=223
 width=25
 height=25
-layer=com_75
+layer=lore_bounding_box
 graphic="lore_icons,3"
 colour=0xffffffff
 
 // 662:51
-[com_51]
+[dismiss_button]
 type=layer
 x=76
 y=216
 width=38
 height=38
-layer=com_75
+layer=lore_bounding_box
 transmitop=1,2
 op1=Dismiss Familiar
 op2=Dismiss Now
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=script475(event_com, lore_stats_side:com_73)
-onmouserepeat=script779(event_com, lore_stats_side:com_73, 43384905, 1, "Dismiss familiar")
+onmouseleave=script475(event_com, lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Dismiss familiar")
 
 // 662:52
-[com_52]
+[dismiss_button_graphic]
 type=graphic
 x=83
 y=223
 width=25
 height=25
-layer=com_75
+layer=lore_bounding_box
 graphic="lore_icons,5"
 colour=0xffffffff
 
@@ -654,13 +654,13 @@ graphic=graphic_1196
 colour=0xffffffff
 
 // 662:54
-[com_54]
+[lore_name]
 type=text
 x=15
 y=145
 width=165
 height=20
-layer=com_75
+layer=lore_bounding_box
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -673,7 +673,7 @@ x=8
 y=28
 width=32
 height=45
-layer=com_72
+layer=lore_familairs
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -685,7 +685,7 @@ x=26
 y=26
 width=32
 height=32
-layer=com_72
+layer=lore_familairs
 graphic="v2_stone_borders,24"
 colour=0xffffffff
 
@@ -696,7 +696,7 @@ x=11
 y=44
 width=32
 height=32
-layer=com_72
+layer=lore_familairs
 graphic="v2_stone_borders,31"
 colour=0xffffffff
 opbase= 
@@ -708,7 +708,7 @@ x=-8
 y=60
 width=32
 height=32
-layer=com_72
+layer=lore_familairs
 graphic="v2_stone_borders,25"
 colour=0xffffffff
 
@@ -719,18 +719,18 @@ x=7
 y=43
 width=32
 height=32
-layer=com_72
+layer=lore_familairs
 graphic="v2_borders_slim,11"
 colour=0xffffffff
 opbase= 
 
 // 662:60
-[com_60]
+[attack_layer]
 type=layer
 x=113
 width=75
 height=93
-layer=com_72
+layer=lore_familairs
 
 // 662:61
 [com_61]
@@ -739,7 +739,7 @@ x=34
 y=28
 width=32
 height=45
-layer=com_60
+layer=attack_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -753,7 +753,7 @@ x=16
 y=26
 width=32
 height=32
-layer=com_60
+layer=attack_layer
 graphic="v2_stone_borders,24"
 hflip=yes
 colour=0xffffffff
@@ -767,7 +767,7 @@ x=31
 y=44
 width=32
 height=32
-layer=com_60
+layer=attack_layer
 graphic="v2_stone_borders,31"
 hflip=yes
 colour=0xffffffff
@@ -782,7 +782,7 @@ x=50
 y=60
 width=32
 height=32
-layer=com_60
+layer=attack_layer
 graphic="v2_stone_borders,25"
 hflip=yes
 colour=0xffffffff
@@ -790,115 +790,115 @@ transmitop=10
 op10= 
 
 // 662:65
-[com_65]
+[attack_button]
 type=graphic
 x=35
 y=26
 width=32
 height=45
-layer=com_60
+layer=attack_layer
 graphic=graphic_2033
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Attack
-onmouseleave=deltooltip(lore_stats_side:com_73)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
 ontargetleave=magic_leavetargetmode(event_com)
 ontargetenter=magic_entertargetmode(event_com)
-onmouserepeat=script779(event_com, lore_stats_side:com_73, 43384905, 1, "Order your familiar to attack a target")
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Order your familiar to attack a target")
 
 // 662:66
-[com_66]
+[lore_pouch_counter]
 type=text
 x=7
 y=62
 width=32
 height=13
-layer=com_72
+layer=lore_familairs
 textfont=p11_full
 text=9999
 textalignh=centre
 textshadow=yes
 colour=0xff9933
-onmouseleave=deltooltip(lore_stats_side:com_73)
+onmouseleave=deltooltip(lore_stats_side:build_layer)
 oninvtransmit=lore_pouch_counter{inv}
-onmouserepeat=script779(event_com, lore_stats_side:com_73, 43384905, 1, "Scrolls remaining")
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Scrolls remaining")
 
 // 662:67
-[com_67]
+[bobdump]
 type=layer
 x=23
 y=170
 width=38
 height=38
-layer=com_72
+layer=lore_familairs
 transmitop=1
 op1=Take BoB
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=script475(event_com, lore_stats_side:com_73)
-onmouserepeat=script779(event_com, lore_stats_side:com_73, 43384905, 1, "Take Beast of Burden items")
+onmouseleave=script475(event_com, lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Take Beast of Burden items")
 
 // 662:68
-[com_68]
+[bobdump_graphic]
 type=graphic
 x=28
 y=179
 width=29
 height=21
-layer=com_72
+layer=lore_familairs
 graphic="bank_bob_button,0"
 colour=0xffffffff
 
 // 662:69
-[com_69]
+[lore_renew_button]
 type=layer
 x=76
 y=170
 width=38
 height=38
-layer=com_72
+layer=lore_familairs
 transmitop=1,10
 op1=Renew Familiar
 op10= 
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
-onmouseleave=script475(event_com, lore_stats_side:com_73)
-onmouserepeat=script779(event_com, lore_stats_side:com_73, 43384905, 1, "Renew familiar")
+onmouseleave=script475(event_com, lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Renew familiar")
 
 // 662:70
-[com_70]
+[lore_renew_button_graphic]
 type=graphic
 x=82
 y=177
 width=25
 height=25
-layer=com_72
+layer=lore_familairs
 graphic="lore_icons,7"
 colour=0xffffffff
 
 // 662:71
-[com_71]
+[lore_pets]
 type=layer
 width=190
 height=261
-layer=com_75
+layer=lore_bounding_box
 hide=yes
 onvartransmit=script753{varplayer_1175}
 
 // 662:72
-[com_72]
+[lore_familairs]
 type=layer
 width=190
 height=261
-layer=com_75
+layer=lore_bounding_box
 hide=yes
 
 // 662:73
-[com_73]
+[build_layer]
 type=layer
 width=189
 height=260
-layer=com_75
+layer=lore_bounding_box
 
 // 662:74
 [com_74]
@@ -907,13 +907,13 @@ x=6
 y=26
 width=32
 height=36
-layer=com_72
+layer=lore_familairs
 onload=script211
 onvartransmit=script211{varplayer_448}
 onvarcstrtransmit=script211{varclient_1724}
 
 // 662:75
-[com_75]
+[lore_bounding_box]
 type=layer
 width=190
 height=261

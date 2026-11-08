@@ -30,7 +30,7 @@ colour=0x0f0f0f
 type=graphic
 width=16
 height=15
-layer=com_19
+layer=close_layer
 graphic="aif_bronze_close_button_1,0"
 
 // 1076:3
@@ -40,7 +40,7 @@ x=89
 y=13
 width=44
 height=44
-layer=com_28
+layer=controls
 
 // 1076:4
 [com_4]
@@ -101,7 +101,7 @@ graphic="aif_arrow1,2"
 onload=script4231(event_com)
 
 // 1076:10
-[com_10]
+[north]
 type=layer
 width=16384
 height=16384
@@ -119,7 +119,7 @@ y=118
 width=32
 height=32
 ymode=abs_bottom
-layer=com_28
+layer=controls
 
 // 1076:12
 [com_12]
@@ -128,7 +128,7 @@ x=143
 y=67
 width=44
 height=44
-layer=com_28
+layer=controls
 
 // 1076:13
 [com_13]
@@ -137,7 +137,7 @@ x=143
 y=121
 width=32
 height=32
-layer=com_28
+layer=controls
 
 // 1076:14
 [com_14]
@@ -146,7 +146,7 @@ x=89
 y=121
 width=44
 height=44
-layer=com_28
+layer=controls
 
 // 1076:15
 [com_15]
@@ -156,7 +156,7 @@ y=121
 width=32
 height=32
 xmode=abs_right
-layer=com_28
+layer=controls
 
 // 1076:16
 [com_16]
@@ -165,7 +165,7 @@ x=35
 y=67
 width=44
 height=44
-layer=com_28
+layer=controls
 
 // 1076:17
 [com_17]
@@ -176,7 +176,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_28
+layer=controls
 
 // 1076:18
 [com_18]
@@ -185,23 +185,23 @@ x=78
 y=56
 width=66
 height=66
-layer=com_28
+layer=controls
 
 // 1076:19
-[com_19]
+[close_layer]
 type=layer
 x=198
 y=14
 width=16
 height=16
-layer=com_28
+layer=controls
 
 // 1076:20
 [com_20]
 type=graphic
 width=16
 height=15
-layer=com_19
+layer=close_layer
 graphic="aif_bronze_close_button_1,1"
 onload=script4232(event_com)
 
@@ -210,7 +210,7 @@ onload=script4232(event_com)
 type=graphic
 width=16
 height=15
-layer=com_19
+layer=close_layer
 graphic="aif_bronze_close_button_1,2"
 onload=script4231(event_com)
 
@@ -221,7 +221,7 @@ width=16391
 height=14343
 widthmode=proportion
 heightmode=proportion
-layer=com_19
+layer=close_layer
 transmitop=1
 op1=Quit
 
@@ -233,7 +233,7 @@ y=19
 width=209
 height=168
 ymode=abs_bottom
-layer=com_27
+layer=bg
 
 // 1076:24
 [com_24]
@@ -242,7 +242,7 @@ x=182
 y=159
 width=74
 height=149
-layer=com_27
+layer=bg
 graphic=aif_round_bg
 
 // 1076:25
@@ -252,7 +252,7 @@ x=256
 y=159
 width=74
 height=149
-layer=com_27
+layer=bg
 graphic=aif_round_bg
 hflip=yes
 
@@ -263,11 +263,11 @@ x=325
 y=261
 width=44
 height=52
-layer=com_27
+layer=bg
 graphic=syringe_compass_icon
 
 // 1076:27
-[com_27]
+[bg]
 type=layer
 x=-136
 y=-136
@@ -276,7 +276,7 @@ height=334
 layer=com_29
 
 // 1076:28
-[com_28]
+[controls]
 type=layer
 x=11
 y=7

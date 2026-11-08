@@ -4,7 +4,7 @@ if (%varplayerbit_305 = 1) {
     return;
 }
 if (%varplayer_263 = 0) {
-    if_setgraphic("miscgraphics,10", dwarf_rock_schematics_control:com_26);
+    if_setgraphic("miscgraphics,10", dwarf_rock_schematics_control:f4_select3);
 } else {
-    if_setgraphic("miscgraphics,11", dwarf_rock_schematics_control:com_26);
+    if_setgraphic("miscgraphics,11", dwarf_rock_schematics_control:f4_select3);
 }

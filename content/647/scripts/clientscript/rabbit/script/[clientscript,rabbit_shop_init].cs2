@@ -1,16 +1,16 @@
 // 960
 [clientscript,rabbit_shop_init]
 ~verticalgradient(rabbit_shop:com_3, 0, 4537650, 0, 0);
-~verticalgradient(rabbit_shop:com_4, 4537650, 6052707, 0, 0);
-if_sethide(true, rabbit_shop:com_9);
-~v2_stone_button_filled(rabbit_shop:com_14);
-if_setonmouseover("v2_stone_button_in_filled(event_com)", rabbit_shop:com_14);
-if_setonmouseleave("v2_stone_button_filled(event_com)", rabbit_shop:com_14);
-if_setonop("comp_sethide(true, rabbit_shop:com_9)", rabbit_shop:com_14);
-~v2_stone_button_filled(rabbit_shop:com_16);
-if_setonmouseover("v2_stone_button_in_filled(event_com)", rabbit_shop:com_16);
-if_setonmouseleave("v2_stone_button_filled(event_com)", rabbit_shop:com_16);
-if_setonop("comp_sethide(true, rabbit_shop:com_9)", rabbit_shop:com_16);
+~verticalgradient(rabbit_shop:bottomgradient, 4537650, 6052707, 0, 0);
+if_sethide(true, rabbit_shop:xp_container);
+~v2_stone_button_filled(rabbit_shop:xp_confirm);
+if_setonmouseover("v2_stone_button_in_filled(event_com)", rabbit_shop:xp_confirm);
+if_setonmouseleave("v2_stone_button_filled(event_com)", rabbit_shop:xp_confirm);
+if_setonop("comp_sethide(true, rabbit_shop:xp_container)", rabbit_shop:xp_confirm);
+~v2_stone_button_filled(rabbit_shop:xp_cancel);
+if_setonmouseover("v2_stone_button_in_filled(event_com)", rabbit_shop:xp_cancel);
+if_setonmouseleave("v2_stone_button_filled(event_com)", rabbit_shop:xp_cancel);
+if_setonop("comp_sethide(true, rabbit_shop:xp_container)", rabbit_shop:xp_cancel);
 ~rabbit_shop_pointsupdate;
-if_setonvartransmit("rabbit_shop_pointsupdate{varplayer_1195}", rabbit_shop:com_1);
-if_setonstattransmit("rabbit_shop_pointsupdate{farming}", rabbit_shop:com_1);
+if_setonvartransmit("rabbit_shop_pointsupdate{varplayer_1195}", rabbit_shop:universe);
+if_setonstattransmit("rabbit_shop_pointsupdate{farming}", rabbit_shop:universe);

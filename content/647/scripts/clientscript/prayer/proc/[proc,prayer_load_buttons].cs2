@@ -46,14 +46,14 @@ while ($int4 < $int14) {
     cc_setgraphic($graphic12);
     if (%varclient_181 = false) {
         cc_setop(1, "Activate<col=ff9040>");
-        cc_setonvartransmit("prayer_varupdate(event_com, prayer:com_7, $int4){activated_prayers, varplayer_1582}");
-        cc_setonmouserepeat("script1160(event_com, event_comsubid, prayer:com_49, $string0, 25, 190)");
+        cc_setonvartransmit("prayer_varupdate(event_com, prayer:glow, $int4){activated_prayers, varplayer_1582}");
+        cc_setonmouserepeat("script1160(event_com, event_comsubid, prayer:tooltips, $string0, 25, 190)");
         if ($int4 = 0 & %varplayerbit_6521 = 10) {
             cc_setonvarctransmit("script1428(event_com, event_comsubid){varclient_1024}");
         }
     }
     cc_setonstattransmit("prayer_statupdate($int13, $graphic12, $graphic11, event_com, event_comsubid){prayer}");
-    cc_setonmouseleave("deltooltip(prayer:com_49)");
+    cc_setonmouseleave("deltooltip(prayer:tooltips)");
     $int4 = calc($int4 + 1);
     if (calc($int4 % $int1) = 0) {
         $int6 = $int5;

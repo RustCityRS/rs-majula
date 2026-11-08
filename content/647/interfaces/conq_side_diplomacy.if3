@@ -1,5 +1,5 @@
 // 1019:0
-[com_0]
+[resign_instructions]
 type=text
 y=18
 width=6
@@ -7,7 +7,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_13
+layer=resign_control_layer
 textfont=p11_full
 text=If you resign, the Conquest will end immediately.
 textalignh=centre
@@ -16,13 +16,13 @@ textshadow=yes
 colour=0xff981f
 
 // 1019:1
-[com_1]
+[resign_button_layer]
 type=layer
 y=175
 width=130
 height=30
 xmode=abs_centre
-layer=com_13
+layer=resign_control_layer
 transmitop=10
 op10=  
 onload=v2_stone_button(event_com)
@@ -30,19 +30,19 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 1019:2
-[com_2]
+[background_components_layer]
 type=layer
 width=190
 height=261
 
 // 1019:3
-[com_3]
+[main_title_text]
 type=text
 y=5
 width=16391
 height=14
 widthmode=proportion
-layer=com_2
+layer=background_components_layer
 textfont=b12_full
 text=Diplomacy
 textalignh=centre
@@ -58,7 +58,7 @@ type=graphic
 y=9
 width=190
 height=32
-layer=com_2
+layer=background_components_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -71,7 +71,7 @@ type=graphic
 y=107
 width=190
 height=32
-layer=com_2
+layer=background_components_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -84,7 +84,7 @@ type=graphic
 y=145
 width=190
 height=32
-layer=com_2
+layer=background_components_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -97,7 +97,7 @@ type=graphic
 y=236
 width=190
 height=32
-layer=com_2
+layer=background_components_layer
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -105,14 +105,14 @@ transmitop=10
 op10=   
 
 // 1019:8
-[com_8]
+[truce_instructions]
 type=text
 y=75
 width=6
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=background_components_layer
 textfont=p11_full
 text=If you offer a truce and your opponent accepts, the Conquest will end in a draw.
 textalignh=centre
@@ -121,12 +121,12 @@ textshadow=yes
 colour=0xff981f
 
 // 1019:9
-[com_9]
+[ignore_truce_layer]
 type=layer
 y=133
 width=190
 height=15
-layer=com_2
+layer=background_components_layer
 transmitop=1
 op1=Toggle
 onmouseover=script450
@@ -134,32 +134,32 @@ onmouseleave=script451
 onvartransmit=script448{varplayer_1874}
 
 // 1019:10
-[com_10]
+[ignore_truce_check]
 type=graphic
 x=9
 width=14
 height=14
-layer=com_9
+layer=ignore_truce_layer
 graphic="km_tickbox,0"
 colour=0x000000
 transmitop=10
 op10= 
 
 // 1019:11
-[com_11]
+[ignore_truce_text]
 type=text
 x=28
 y=1
 width=150
 height=16
-layer=com_9
+layer=ignore_truce_layer
 textfont=p11_full
 text=Ignore opponent's truce offers
 textshadow=yes
 colour=0xff981f
 
 // 1019:12
-[com_12]
+[offer_truce_button_layer]
 type=layer
 x=2
 y=35
@@ -173,13 +173,13 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 1019:13
-[com_13]
+[resign_control_layer]
 type=layer
 width=190
 height=261
 
 // 1019:14
-[com_14]
+[confirm_resign_layer]
 type=layer
 width=190
 height=261
@@ -192,7 +192,7 @@ width=27985
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_1
+layer=resign_button_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -201,7 +201,7 @@ opbase=
 op10= 
 
 // 1019:16
-[com_16]
+[resign_text]
 type=text
 width=16391
 height=16391
@@ -209,7 +209,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=resign_button_layer
 textfont=b12_full
 text=Resign
 textalignh=centre
@@ -229,7 +229,7 @@ width=27985
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_12
+layer=offer_truce_button_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -238,7 +238,7 @@ opbase=
 op10= 
 
 // 1019:18
-[com_18]
+[offer_truce_text]
 type=text
 width=16391
 height=16391
@@ -246,7 +246,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=offer_truce_button_layer
 textfont=b12_full
 text=Offer Truce
 textalignh=centre
@@ -267,7 +267,7 @@ y=24
 width=70
 height=30
 ymode=abs_bottom
-layer=com_14
+layer=confirm_resign_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
@@ -312,7 +312,7 @@ y=24
 width=70
 height=30
 ymode=abs_bottom
-layer=com_14
+layer=confirm_resign_layer
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
@@ -350,7 +350,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 1019:25
-[com_25]
+[confirm_resign_text]
 type=text
 x=4
 y=55
@@ -358,7 +358,7 @@ width=8
 height=45
 widthmode=minus
 ymode=abs_bottom
-layer=com_14
+layer=confirm_resign_layer
 textfont=p11_full
 text=Are you sure you wish to resign from the Conquest?
 textalignh=centre

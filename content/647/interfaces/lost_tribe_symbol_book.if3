@@ -1,5 +1,5 @@
 // 183:0
-[com_0]
+[lost_tribe_book_cover]
 type=model
 x=17
 y=24
@@ -11,7 +11,7 @@ modelangle=420,0,0
 modelzoom=204
 
 // 183:1
-[com_1]
+[lost_tribe_pages]
 type=model
 x=27
 y=24
@@ -29,7 +29,7 @@ x=59
 y=57
 width=55
 height=33
-layer=com_14
+layer=lost_tribe_symbols
 model=model_6858
 modelorigin=0,-2
 modelangle=434,15,0
@@ -42,7 +42,7 @@ x=51
 y=141
 width=44
 height=43
-layer=com_14
+layer=lost_tribe_symbols
 model=model_6859
 modelorigin=1,-3
 modelangle=374,26,0
@@ -55,7 +55,7 @@ x=40
 y=237
 width=49
 height=45
-layer=com_14
+layer=lost_tribe_symbols
 model=model_6860
 modelorigin=0,-1
 modelangle=446,22,0
@@ -68,7 +68,7 @@ x=403
 y=59
 width=49
 height=26
-layer=com_14
+layer=lost_tribe_symbols
 model=model_6861
 modelorigin=1,-2
 modelangle=333,19,0
@@ -81,7 +81,7 @@ x=415
 y=142
 width=43
 height=41
-layer=com_14
+layer=lost_tribe_symbols
 model=model_6862
 modelorigin=2,-12
 modelangle=460,2035,0
@@ -94,7 +94,7 @@ x=411
 y=240
 width=65
 height=47
-layer=com_14
+layer=lost_tribe_symbols
 model=model_6868
 modelorigin=1,-10
 modelangle=500,0,0
@@ -107,7 +107,7 @@ x=61
 y=55
 width=48
 height=40
-layer=com_15
+layer=lost_tribe_directions
 model=model_6867
 modelorigin=2,-6
 modelangle=343,2023,0
@@ -120,7 +120,7 @@ x=51
 y=144
 width=51
 height=34
-layer=com_15
+layer=lost_tribe_directions
 model=model_6863
 modelorigin=0,-4
 modelangle=455,0,0
@@ -133,7 +133,7 @@ x=47
 y=234
 width=41
 height=42
-layer=com_15
+layer=lost_tribe_directions
 model=model_6865
 modelorigin=-1,-9
 modelangle=584,2016,0
@@ -146,7 +146,7 @@ x=413
 y=51
 width=34
 height=46
-layer=com_15
+layer=lost_tribe_directions
 model=model_6864
 modelorigin=1,-5
 modelangle=325,2032,0
@@ -159,7 +159,7 @@ x=421
 y=147
 width=36
 height=33
-layer=com_15
+layer=lost_tribe_directions
 model=model_6866
 modelorigin=0,-9
 modelangle=435,2014,0
@@ -172,54 +172,54 @@ x=416
 y=221
 width=54
 height=67
-layer=com_15
+layer=lost_tribe_directions
 model=model_6869
 modelorigin=2,-3
 modelangle=604,15,0
 modelzoom=424
 
 // 183:14
-[com_14]
+[lost_tribe_symbols]
 type=layer
 width=512
 height=334
 hide=yes
 
 // 183:15
-[com_15]
+[lost_tribe_directions]
 type=layer
 width=512
 height=334
 hide=yes
 
 // 183:16
-[com_16]
+[lost_tribe_right_arrow]
 type=graphic
 x=11
 y=10
 width=45
 height=36
-layer=com_18
+layer=lost_tribe_r_arrow_layer
 graphic=rightarrow
 colour=0x000000
 transmitop=1
 op1=Next page
 
 // 183:17
-[com_17]
+[lost_tribe_left_arrow]
 type=graphic
 x=8
 y=12
 width=45
 height=36
-layer=com_19
+layer=content_upper
 graphic=leftarrow
 colour=0x000000
 transmitop=1
 op1=Previous page
 
 // 183:18
-[com_18]
+[lost_tribe_r_arrow_layer]
 type=layer
 x=349
 y=282
@@ -227,7 +227,7 @@ width=63
 height=52
 
 // 183:19
-[com_19]
+[content_upper]
 type=layer
 x=107
 y=279
@@ -241,7 +241,7 @@ x=111
 y=38
 width=138
 height=71
-layer=com_14
+layer=lost_tribe_symbols
 textfont=q8_full
 text=-Drogokishuun-<br>Goblins of the<br>Fierce Blades
 textalignh=centre
@@ -255,7 +255,7 @@ x=103
 y=113
 width=148
 height=88
-layer=com_14
+layer=lost_tribe_symbols
 textfont=q8_full
 text=-Huzamogaarb-<br>Live-Flesh Eaters<br>of the Chaos God
 textalignh=centre
@@ -269,7 +269,7 @@ x=94
 y=198
 width=145
 height=88
-layer=com_14
+layer=lost_tribe_symbols
 textfont=q8_full
 text=-Saragorgak-<br>Footsoldiers of<br>Holy Wrath
 textalignh=centre
@@ -283,7 +283,7 @@ x=271
 y=38
 width=132
 height=73
-layer=com_14
+layer=lost_tribe_symbols
 textfont=q8_full
 text=-Dorgeshuun-<br>Goblins of the<br>Strong Spears
 textalignh=centre
@@ -297,7 +297,7 @@ x=274
 y=114
 width=130
 height=85
-layer=com_14
+layer=lost_tribe_symbols
 textfont=q8_full
 text=-Horogothgar-<br>Eaters of<br>Manflesh
 textalignh=centre
@@ -311,7 +311,7 @@ x=277
 y=208
 width=128
 height=70
-layer=com_14
+layer=lost_tribe_symbols
 textfont=q8_full
 text=-Yurkolgokh-<br>The Flatulent
 textalignh=centre
@@ -325,7 +325,7 @@ x=104
 y=41
 width=138
 height=73
-layer=com_15
+layer=lost_tribe_directions
 textfont=q8_full
 text=-Thorobshuun-<br>Goblins of the<br>Hills
 textalignh=centre
@@ -339,7 +339,7 @@ x=101
 y=126
 width=146
 height=80
-layer=com_15
+layer=lost_tribe_directions
 textfont=q8_full
 text=-Garagorshuun-<br>Goblins of the<br>Sea
 textalignh=centre
@@ -353,7 +353,7 @@ x=92
 y=207
 width=149
 height=73
-layer=com_15
+layer=lost_tribe_directions
 textfont=q8_full
 text=-Rekeshuun-<br>Goblins of the<br>North
 textalignh=centre
@@ -367,7 +367,7 @@ x=278
 y=39
 width=132
 height=83
-layer=com_15
+layer=lost_tribe_directions
 textfont=q8_full
 text=-Ekeleshuun-<br>Goblins of the<br>East
 textalignh=centre
@@ -381,7 +381,7 @@ x=283
 y=126
 width=127
 height=78
-layer=com_15
+layer=lost_tribe_directions
 textfont=q8_full
 text=-Idithuun-<br>Goblins of the<br>South
 textalignh=centre
@@ -395,7 +395,7 @@ x=284
 y=204
 width=129
 height=76
-layer=com_15
+layer=lost_tribe_directions
 textfont=q8_full
 text=-Narogoshuun-<br>Goblins of the<br>West
 textalignh=centre
@@ -403,20 +403,20 @@ textalignv=centre
 colour=0x000000
 
 // 183:32
-[com_32]
+[a_history]
 type=text
 x=311
 y=43
 width=119
 height=245
-layer=com_33
+layer=lost_tribe_titles
 textfont=quill_oblique_large
 text=A History of the Goblin Race
 textalignh=centre
 colour=0x343422
 
 // 183:33
-[com_33]
+[lost_tribe_titles]
 type=layer
 width=512
 height=388
@@ -428,7 +428,7 @@ x=56
 y=40
 width=187
 height=116
-layer=com_38
+layer=lost_tribe_page_1
 textfont=q8_full
 text=Goblin tradition holds that<br>their race was created by<br>a war-god in order to<br>fight a war against other<br>gods.
 textalignv=centre
@@ -441,7 +441,7 @@ x=54
 y=159
 width=191
 height=131
-layer=com_38
+layer=lost_tribe_page_1
 textfont=q8_full
 text=(They never name their<br>god, so whether it is the<br>same as any of the gods<br>worshipped by the other<br>races is unknown.)
 textalignv=centre
@@ -454,7 +454,7 @@ x=275
 y=39
 width=183
 height=128
-layer=com_38
+layer=lost_tribe_page_1
 textfont=q8_full
 text=The legends also speak<br>of goblins fighting<br>against goblins during<br>the wars, so it is likely<br>that gods other than<br>their creators used<br>them as footsoldiers.
 textalignv=centre
@@ -467,14 +467,14 @@ x=275
 y=166
 width=191
 height=123
-layer=com_38
+layer=lost_tribe_page_1
 textfont=q8_full
 text=Although goblins are still<br>warlike, it is probable<br>that in earlier ages<br>they were more<br>organised than they<br>are now,
 textalignv=centre
 colour=0x000000
 
 // 183:38
-[com_38]
+[lost_tribe_page_1]
 type=layer
 width=512
 height=388
@@ -487,7 +487,7 @@ x=61
 y=35
 width=174
 height=96
-layer=com_42
+layer=lost_tribe_page_2
 textfont=q8_full
 text=especially if they were<br>under the direct<br>command of one or<br>more gods.
 textalignh=centre
@@ -501,7 +501,7 @@ x=47
 y=144
 width=199
 height=133
-layer=com_42
+layer=lost_tribe_page_2
 textfont=q8_full
 text=This is corroborated<br>by finds unearthed<br>at various<br>archaeological sites,<br>including the large<br>excavation east of<br>Varrock.
 textalignh=centre
@@ -515,7 +515,7 @@ x=278
 y=39
 width=176
 height=132
-layer=com_42
+layer=lost_tribe_page_2
 textfont=q8_full
 text=Armour and weapons<br>have been found,<br>obviously made to fit<br>goblins but far more<br>well-made than their<br>current equipment.
 textalignh=centre
@@ -523,7 +523,7 @@ textalignv=centre
 colour=0x000000
 
 // 183:42
-[com_42]
+[lost_tribe_page_2]
 type=layer
 width=512
 height=388
@@ -536,7 +536,7 @@ x=60
 y=43
 width=184
 height=235
-layer=com_46
+layer=lost_tribe_page_3
 textfont=q8_full
 text=Almost every piece of<br>ancient goblin equipment<br>has one of a number<br>of symbols on it,<br>and by correlating these<br>symbols with the<br>sketchy records that<br>survive from the<br>Third Age it has been<br>possible to identify<br>twelve distinct goblin tribes<br>or regiments.
 colour=0x000000
@@ -548,7 +548,7 @@ x=277
 y=44
 width=182
 height=148
-layer=com_46
+layer=lost_tribe_page_3
 textfont=q8_full
 text=The separate identities of<br>the tribes have long<br>since dissolved and<br>no goblins remember the<br>symbols, although their<br>generals may still<br>recognize the ancient<br>tribal names.
 colour=0x000000
@@ -560,13 +560,13 @@ x=277
 y=192
 width=192
 height=89
-layer=com_46
+layer=lost_tribe_page_3
 textfont=q8_full
 text=In the following pages<br>I present a list of<br>the tribes and their<br>symbols.
 colour=0x000000
 
 // 183:46
-[com_46]
+[lost_tribe_page_3]
 type=layer
 width=512
 height=334
@@ -592,12 +592,12 @@ x=2
 y=5
 width=26
 height=23
-layer=com_49
+layer=lost_tribe_symbol__book_close
 graphic="close_buttons,5"
 colour=0x000000
 
 // 183:49
-[com_49]
+[lost_tribe_symbol__book_close]
 type=layer
 x=471
 y=9
@@ -612,7 +612,7 @@ x=285
 y=161
 width=139
 height=74
-layer=com_33
+layer=lost_tribe_titles
 textfont=p12_full
 textalignh=centre
 textalignv=centre

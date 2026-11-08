@@ -1,5 +1,5 @@
 // 890:0
-[com_0]
+[prevent_clickthrough_layer]
 type=layer
 width=512
 height=334
@@ -18,7 +18,7 @@ ymode=abs_centre
 onload=create_no_displayname_onload
 
 // 890:2
-[com_2]
+[border]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -30,145 +30,145 @@ type=graphic
 y=6
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:4
-[com_4]
+[background_texture_1]
 type=graphic
 x=100
 y=6
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:5
-[com_5]
+[background_texture_2]
 type=graphic
 x=200
 y=6
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:6
-[com_6]
+[background_texture_3]
 type=graphic
 x=300
 y=6
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:7
-[com_7]
+[background_texture_4]
 type=graphic
 x=400
 y=6
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:8
-[com_8]
+[background_texture_5]
 type=graphic
 y=106
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:9
-[com_9]
+[background_texture_6]
 type=graphic
 x=100
 y=106
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:10
-[com_10]
+[background_texture_7]
 type=graphic
 x=200
 y=106
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:11
-[com_11]
+[background_texture_8]
 type=graphic
 x=300
 y=106
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:12
-[com_12]
+[background_texture_9]
 type=graphic
 x=400
 y=106
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:13
-[com_13]
+[background_texture_10]
 type=graphic
 y=206
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:14
-[com_14]
+[background_texture_11]
 type=graphic
 x=100
 y=206
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:15
-[com_15]
+[background_texture_12]
 type=graphic
 x=200
 y=206
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:16
-[com_16]
+[background_texture_13]
 type=graphic
 x=300
 y=206
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:17
-[com_17]
+[background_texture_14]
 type=graphic
 x=400
 y=206
 width=100
 height=100
-layer=com_2
+layer=border
 graphic=window_texture
 
 // 890:18
@@ -179,116 +179,116 @@ y=8
 width=76
 height=27
 widthmode=minus
-layer=com_2
+layer=border
 colour=0x000000
 fill=yes
 trans=200
 
 // 890:19
-[com_19]
+[bottom_left_corner]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_2
+layer=border
 graphic="corner_frame_1,2"
 hflip=yes
 
 // 890:20
-[com_20]
+[left_side]
 type=graphic
 width=38
 height=144
 heightmode=minus
 ymode=abs_centre
-layer=com_2
+layer=border
 graphic="corner_frame_1,1"
 tiling=yes
 hflip=yes
 
 // 890:21
-[com_21]
+[right_side]
 type=graphic
 y=72
 width=38
 height=144
 heightmode=minus
 xmode=abs_right
-layer=com_2
+layer=border
 graphic="corner_frame_1,1"
 tiling=yes
 
 // 890:22
-[com_22]
+[upper_top_side]
 type=graphic
 width=76
 height=8
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=border
 graphic="corner_frame_2,0"
 tiling=yes
 
 // 890:23
-[com_23]
+[bottom_2]
 type=graphic
 width=76
 height=8
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=border
 graphic="corner_frame_2,2"
 tiling=yes
 
 // 890:24
-[com_24]
+[bottom_right_corner]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_2
+layer=border
 graphic="corner_frame_1,2"
 
 // 890:25
-[com_25]
+[top_left_corner]
 type=graphic
 width=38
 height=72
-layer=com_2
+layer=border
 graphic="corner_frame_1,0"
 hflip=yes
 
 // 890:26
-[com_26]
+[top_right_corner]
 type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_2
+layer=border
 graphic="corner_frame_1,0"
 
 // 890:27
-[com_27]
+[lower_top_side]
 type=graphic
 y=35
 width=76
 height=8
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=border
 graphic="corner_frame_2,1"
 tiling=yes
 
 // 890:28
-[com_28]
+[title]
 type=text
 y=6
 height=29
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=border
 textfont=verdana_15pt_regular
 text=New Character Name
 textalignh=centre
@@ -303,7 +303,7 @@ y=92
 width=466
 height=1
 xmode=abs_centre
-layer=com_2
+layer=border
 colour=0x161513
 
 // 890:30
@@ -313,7 +313,7 @@ y=93
 width=466
 height=1
 xmode=abs_centre
-layer=com_2
+layer=border
 colour=0x2d2d2d
 
 // 890:31
@@ -323,7 +323,7 @@ y=247
 width=466
 height=1
 xmode=abs_centre
-layer=com_2
+layer=border
 colour=0x161513
 
 // 890:32
@@ -333,7 +333,7 @@ y=248
 width=466
 height=1
 xmode=abs_centre
-layer=com_2
+layer=border
 colour=0x2d2d2d
 
 // 890:33
@@ -344,7 +344,7 @@ width=70
 height=50
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=border
 textfont=verdana_11pt_regular
 text=Unfortunately, your character name is no longer available for use.<br>Please enter a new character name in the box below.
 textlineheight=14
@@ -361,7 +361,7 @@ width=70
 height=92
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=border
 textfont=verdana_11pt_regular
 text=Characters names can be up to 12 characters long and may contain letters, numbers, spaces, underscores and dashes only.
 textlineheight=14
@@ -376,7 +376,7 @@ y=145
 width=466
 height=102
 xmode=abs_centre
-layer=com_2
+layer=border
 hide=yes
 
 // 890:36
@@ -396,7 +396,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 890:37
-[com_37]
+[suggestion_1]
 type=text
 y=32
 width=100
@@ -414,7 +414,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 890:38
-[com_38]
+[suggestion_2]
 type=text
 y=32
 width=100
@@ -433,7 +433,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 890:39
-[com_39]
+[suggestion_3]
 type=text
 y=32
 width=100
@@ -452,7 +452,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 890:40
-[com_40]
+[suggestion_4]
 type=text
 y=59
 width=100
@@ -470,7 +470,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 890:41
-[com_41]
+[suggestion_5]
 type=text
 y=59
 width=100
@@ -489,7 +489,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 890:42
-[com_42]
+[suggestion_6]
 type=text
 y=59
 width=100
@@ -508,7 +508,7 @@ onmouseover=script3949(event_com, 1)
 onmouseleave=script3949(event_com, 0)
 
 // 890:43
-[com_43]
+[previous_suggestions]
 type=text
 width=130
 height=16
@@ -527,7 +527,7 @@ onmouseover=script3950(event_com, 1)
 onmouseleave=script3950(event_com, 0)
 
 // 890:44
-[com_44]
+[more_suggestions]
 type=text
 width=110
 height=16
@@ -547,18 +547,18 @@ onmouseover=script3950(event_com, 1)
 onmouseleave=script3950(event_com, 0)
 
 // 890:45
-[com_45]
+[continue]
 type=layer
 y=265
 width=101
 height=26
 xmode=abs_centre
-layer=com_2
+layer=border
 transmitop=1
 op1=Continue
 opkey1=84,0
-onmouseover=script3937(no_displayname:com_47, "set_but_1,2", no_displayname:com_48, "set_but_1,3", no_displayname:com_49, "set_but_1,3", no_displayname:com_50, "set_but_1,2")
-onmouseleave=script3937(no_displayname:com_47, "set_but_1,0", no_displayname:com_48, "set_but_1,1", no_displayname:com_49, "set_but_1,1", no_displayname:com_50, "set_but_1,0")
+onmouseover=script3937(no_displayname:continue_left, "set_but_1,2", no_displayname:com_48, "set_but_1,3", no_displayname:com_49, "set_but_1,3", no_displayname:continue_right, "set_but_1,2")
+onmouseleave=script3937(no_displayname:continue_left, "set_but_1,0", no_displayname:com_48, "set_but_1,1", no_displayname:com_49, "set_but_1,1", no_displayname:continue_right, "set_but_1,0")
 
 // 890:46
 [com_46]
@@ -569,16 +569,16 @@ width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_45
+layer=continue
 colour=0x000000
 fill=yes
 
 // 890:47
-[com_47]
+[continue_left]
 type=graphic
 width=25
 height=25
-layer=com_45
+layer=continue
 graphic="set_but_1,0"
 
 // 890:48
@@ -587,7 +587,7 @@ type=graphic
 x=25
 width=25
 height=25
-layer=com_45
+layer=continue
 graphic="set_but_1,1"
 tiling=yes
 
@@ -597,31 +597,31 @@ type=graphic
 x=50
 width=25
 height=25
-layer=com_45
+layer=continue
 graphic="set_but_1,1"
 tiling=yes
 hflip=yes
 
 // 890:50
-[com_50]
+[continue_right]
 type=graphic
 x=1
 width=25
 height=25
 xmode=abs_right
-layer=com_45
+layer=continue
 graphic="set_but_1,0"
 hflip=yes
 
 // 890:51
-[com_51]
+[continue_text]
 type=text
 y=-1
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_45
+layer=continue
 textfont=verdana_11pt_regular
 text=Continue
 textalignh=centre

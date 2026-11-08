@@ -6,7 +6,7 @@ y=-1
 width=356
 height=168
 xmode=abs_centre
-layer=com_10
+layer=layer_2
 
 // 1090:1
 [com_1]
@@ -15,7 +15,7 @@ x=20
 y=20
 width=81
 height=12
-layer=com_10
+layer=layer_2
 textfont=p11_full
 text=Name:
 textshadow=yes
@@ -28,7 +28,7 @@ x=106
 y=16
 width=169
 height=21
-layer=com_10
+layer=layer_2
 
 // 1090:3
 [com_3]
@@ -37,7 +37,7 @@ x=20
 y=44
 width=81
 height=12
-layer=com_10
+layer=layer_2
 textfont=p11_full
 text=Total level:
 textshadow=yes
@@ -50,7 +50,7 @@ x=106
 y=41
 width=169
 height=21
-layer=com_10
+layer=layer_2
 
 // 1090:5
 [com_5]
@@ -59,7 +59,7 @@ x=20
 y=70
 width=81
 height=12
-layer=com_10
+layer=layer_2
 textfont=p11_full
 text=Total XP:
 textshadow=yes
@@ -72,18 +72,18 @@ x=106
 y=66
 width=169
 height=21
-layer=com_10
+layer=layer_2
 
 // 1090:7
-[com_7]
+[accept_button_layer]
 type=layer
 width=130
 height=28
 ymode=abs_centre
-layer=com_8
+layer=buttons_layer
 
 // 1090:8
-[com_8]
+[buttons_layer]
 type=layer
 y=10
 width=150
@@ -109,7 +109,7 @@ textshadow=yes
 colour=0xaca88f
 
 // 1090:10
-[com_10]
+[layer_2]
 type=layer
 x=1
 y=-11
@@ -120,7 +120,7 @@ ymode=abs_centre
 layer=com_14
 
 // 1090:11
-[com_11]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -342,7 +342,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_7
+layer=accept_button_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -354,7 +354,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_7
+layer=accept_button_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -366,7 +366,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_7
+layer=accept_button_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -377,7 +377,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_7
+layer=accept_button_layer
 onload=script4201(event_com, struct_1773)
 
 // 1090:34
@@ -387,7 +387,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_7
+layer=accept_button_layer
 onload=script4201(event_com, struct_1774)
 
 // 1090:35
@@ -397,7 +397,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_7
+layer=accept_button_layer
 onload=script4201(event_com, struct_1775)
 
 // 1090:36
@@ -407,7 +407,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_7
+layer=accept_button_layer
 pausebutton=yes
 transmitop=1
 op1=Accept
@@ -420,10 +420,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_7
+layer=accept_button_layer
 
 // 1090:38
-[com_38]
+[accept_button_text]
 type=text
 width=8
 height=4
@@ -440,13 +440,13 @@ colour=0xe1e1e1
 onload=script4151(event_com)
 
 // 1090:39
-[com_39]
+[decline_button_layer]
 type=layer
 width=130
 height=28
 xmode=abs_right
 ymode=abs_centre
-layer=com_8
+layer=buttons_layer
 
 // 1090:40
 [com_40]
@@ -455,7 +455,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_39
+layer=decline_button_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -467,7 +467,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_39
+layer=decline_button_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -479,7 +479,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_39
+layer=decline_button_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -490,7 +490,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_39
+layer=decline_button_layer
 onload=script4201(event_com, struct_1773)
 
 // 1090:44
@@ -500,7 +500,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_39
+layer=decline_button_layer
 onload=script4201(event_com, struct_1774)
 
 // 1090:45
@@ -510,7 +510,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_39
+layer=decline_button_layer
 onload=script4201(event_com, struct_1775)
 
 // 1090:46
@@ -520,7 +520,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_39
+layer=decline_button_layer
 transmitop=1
 op1=Decline
 onload=script4213(event_com)
@@ -533,7 +533,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_39
+layer=decline_button_layer
 
 // 1090:48
 [com_48]
@@ -596,7 +596,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_2
-textfont=graphic_5631
+textfont=verdana_11pt_regular_multiline
 textalignv=centre
 textshadow=yes
 colour=0xebe0bc
@@ -645,7 +645,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_4
-textfont=graphic_5631
+textfont=verdana_11pt_regular_multiline
 text=Test text
 textalignv=centre
 textshadow=yes
@@ -695,7 +695,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_6
-textfont=graphic_5631
+textfont=verdana_11pt_regular_multiline
 text=Test text
 textalignv=centre
 textshadow=yes

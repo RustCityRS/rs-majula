@@ -6,12 +6,12 @@ if(inv_freespace(trail_puzzleinv) > 1) {
     ~init_trail_puzzle($puzzle);
 }
 // 2011: the puzzle's layer is com4, the hint's com5 (they transmit invs 140 and 207).
-inv_transmit(trail_puzzleinv, trail_puzzle:com_4);
-inv_transmit(trail_puzzlehintinv, trail_puzzle:com_5);
+inv_transmit(trail_puzzleinv, trail_puzzle:puzzle_layer);
+inv_transmit(trail_puzzlehintinv, trail_puzzle:puzzle_complete_layer1);
 if_openmain(trail_puzzle);
 // 2011: the client sends a piece's Move only for slots the server enables
 // (IF_SETEVENTS); 289's puzzle inventory was interactable in its .if.
-if_setevents(trail_puzzle:com_4, 0, 24, ^if_op1, 0, 0, ^false, ^false);
+if_setevents(trail_puzzle:puzzle_layer, 0, 24, ^if_op1, 0, 0, ^false, ^false);
 
 [proc,init_trail_puzzle](obj $puzzle)
 def_int $puztype = oc_param($puzzle, trail_puzzle);
@@ -333,7 +333,7 @@ return (false);
 // pieces are client-script children of com4 (clientscript 80), each given op1
 // "Move", so the click is IF_BUTTON1 on com4 with the piece's slot.
 // [opheld5,_trail_puzzle_piece]
-[if_button1,trail_puzzle:com_4]
+[if_button1,trail_puzzle:puzzle_layer]
 def_int $slot = last_slot;
 def_int $open_slot = -1;
     

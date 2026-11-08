@@ -30,8 +30,8 @@ while ($int4 < $int15) {
     cc_setgraphic(enum(int, graphic, enum_3721, $int4));
     cc_setop(1, "Select");
     cc_setonop("clan_flag_highlight($int4, $component2, $int15)");
-    cc_setonmouserepeat("addtooltip_dynamic($component3, $int4, clan_flag_selection:com_37, enum(int, string, enum_3722, $int4), 20, 350)");
-    cc_setonmouseleave("deltooltip(clan_flag_selection:com_37)");
+    cc_setonmouserepeat("addtooltip_dynamic($component3, $int4, clan_flag_selection:tooltip, enum(int, string, enum_3722, $int4), 20, 350)");
+    cc_setonmouseleave("deltooltip(clan_flag_selection:tooltip)");
     $int4 = calc($int4 + 1);
     if (calc($int4 % $int12) = 0) {
         $int5 = calc($int5 + 1);

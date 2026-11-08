@@ -1,4 +1,4 @@
-[opheldt,magic:superheat_item]@magic_spell_superheat(^superheat_item, last_item);
+[opheldt,magic:sb21]@magic_spell_superheat(^superheat_item, last_item);
 
 [label,magic_spell_superheat](int $spell, obj $ore1)
 if_settabactive(^tab_magic); // osrs sets tab back no matter what

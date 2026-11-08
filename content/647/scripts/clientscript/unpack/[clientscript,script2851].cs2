@@ -1,6 +1,6 @@
 // 2851
 [clientscript,script2851](component $component0, int $key1, int $int2)
-if (if_gethide(interface_475:com_55) = false) {
+if (if_gethide(machinima_livecamera:chattop) = false) {
     if ($key1 = ^key_f2) {
         ~script835(true);
     }
@@ -44,78 +44,78 @@ if (clientclock > calc($int2 + 5) | %varclient_1074 = 2) {
                     ~script3455;
                     if (%varclient_1074 = 0) {
                         %varclient_1074 = 1;
-                        if_setgraphic(graphic_1233, interface_475:com_28);
-                        if_settext("You are now in Focus Mode", interface_475:com_29);
-                        if (if_gethide(interface_475:com_54) = false) {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(false, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(false, interface_475:com_58);
+                        if_setgraphic(graphic_1233, machinima_livecamera:mode_icon);
+                        if_settext("You are now in Focus Mode", machinima_livecamera:message_text);
+                        if (if_gethide(machinima_livecamera:com_54) = false) {
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(false, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(false, machinima_livecamera:storemovie);
                         }
                     } else if (%varclient_1074 = 2) {
                         %varclient_1074 = 0;
-                        if_setgraphic(graphic_1232, interface_475:com_28);
-                        if_settext("You are now in Aim Mode", interface_475:com_29);
-                        if (if_gethide(interface_475:com_100) = false) {
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(false, interface_475:com_54);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(false, interface_475:com_58);
+                        if_setgraphic(graphic_1232, machinima_livecamera:mode_icon);
+                        if_settext("You are now in Aim Mode", machinima_livecamera:message_text);
+                        if (if_gethide(machinima_livecamera:com_100) = false) {
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(false, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(false, machinima_livecamera:storemovie);
                         }
                     } else {
                         %varclient_1074 = 2;
-                        if_setgraphic(graphic_1231, interface_475:com_28);
-                        if_settext("You are now in Fine Control Mode", interface_475:com_29);
-                        if (if_gethide(interface_475:com_33) = false) {
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(false, interface_475:com_100);
-                            if_sethide(true, interface_475:com_58);
+                        if_setgraphic(graphic_1231, machinima_livecamera:mode_icon);
+                        if_settext("You are now in Fine Control Mode", machinima_livecamera:message_text);
+                        if (if_gethide(machinima_livecamera:com_33) = false) {
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(false, machinima_livecamera:com_100);
+                            if_sethide(true, machinima_livecamera:storemovie);
                         }
                     }
                     if_setontimer("script2853($component0, clientclock)", $component0);
                 case ^key_space :
                     if (%varclient_1074 = 0) {
-                        if (if_gethide(interface_475:com_54) = true) {
-                            if_sethide(false, interface_475:com_54);
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(false, interface_475:com_7);
-                            if_sethide(false, interface_475:com_58);
+                        if (if_gethide(machinima_livecamera:com_54) = true) {
+                            if_sethide(false, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(false, machinima_livecamera:compasslayer);
+                            if_sethide(false, machinima_livecamera:storemovie);
                         } else {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(true, interface_475:com_7);
-                            if_sethide(true, interface_475:com_58);
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(true, machinima_livecamera:compasslayer);
+                            if_sethide(true, machinima_livecamera:storemovie);
                         }
                     } else if (%varclient_1074 = 1) {
-                        if (if_gethide(interface_475:com_33) = true) {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(false, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(false, interface_475:com_7);
-                            if_sethide(false, interface_475:com_58);
+                        if (if_gethide(machinima_livecamera:com_33) = true) {
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(false, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(false, machinima_livecamera:compasslayer);
+                            if_sethide(false, machinima_livecamera:storemovie);
                         } else {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(true, interface_475:com_7);
-                            if_sethide(true, interface_475:com_58);
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(true, machinima_livecamera:compasslayer);
+                            if_sethide(true, machinima_livecamera:storemovie);
                         }
                     } else if (%varclient_1074 = 2) {
-                        if (if_gethide(interface_475:com_100) = true) {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(false, interface_475:com_100);
-                            if_sethide(false, interface_475:com_7);
-                            if_sethide(true, interface_475:com_58);
+                        if (if_gethide(machinima_livecamera:com_100) = true) {
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(false, machinima_livecamera:com_100);
+                            if_sethide(false, machinima_livecamera:compasslayer);
+                            if_sethide(true, machinima_livecamera:storemovie);
                         } else {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(true, interface_475:com_7);
-                            if_sethide(true, interface_475:com_58);
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(true, machinima_livecamera:compasslayer);
+                            if_sethide(true, machinima_livecamera:storemovie);
                         }
                     }
                 case default :
@@ -157,78 +157,78 @@ if (clientclock > calc($int2 + 5) | %varclient_1074 = 2) {
                     ~script3455;
                     if (%varclient_1074 = 0) {
                         %varclient_1074 = 1;
-                        if_setgraphic(graphic_1233, interface_475:com_28);
-                        if_settext("You are now in Focus Mode", interface_475:com_29);
-                        if (if_gethide(interface_475:com_54) = false) {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(false, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(false, interface_475:com_58);
+                        if_setgraphic(graphic_1233, machinima_livecamera:mode_icon);
+                        if_settext("You are now in Focus Mode", machinima_livecamera:message_text);
+                        if (if_gethide(machinima_livecamera:com_54) = false) {
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(false, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(false, machinima_livecamera:storemovie);
                         }
                     } else if (%varclient_1074 = 2) {
                         %varclient_1074 = 0;
-                        if_setgraphic(graphic_1232, interface_475:com_28);
-                        if_settext("You are now in Aim Mode", interface_475:com_29);
-                        if (if_gethide(interface_475:com_100) = false) {
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(false, interface_475:com_54);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(false, interface_475:com_58);
+                        if_setgraphic(graphic_1232, machinima_livecamera:mode_icon);
+                        if_settext("You are now in Aim Mode", machinima_livecamera:message_text);
+                        if (if_gethide(machinima_livecamera:com_100) = false) {
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(false, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(false, machinima_livecamera:storemovie);
                         }
                     } else {
                         %varclient_1074 = 2;
-                        if_setgraphic(graphic_1231, interface_475:com_28);
-                        if_settext("You are now in Fine Control Mode", interface_475:com_29);
-                        if (if_gethide(interface_475:com_33) = false) {
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(false, interface_475:com_100);
-                            if_sethide(true, interface_475:com_58);
+                        if_setgraphic(graphic_1231, machinima_livecamera:mode_icon);
+                        if_settext("You are now in Fine Control Mode", machinima_livecamera:message_text);
+                        if (if_gethide(machinima_livecamera:com_33) = false) {
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(false, machinima_livecamera:com_100);
+                            if_sethide(true, machinima_livecamera:storemovie);
                         }
                     }
                     if_setontimer("script2853($component0, clientclock)", $component0);
                 case ^key_space :
                     if (%varclient_1074 = 0) {
-                        if (if_gethide(interface_475:com_54) = true) {
-                            if_sethide(false, interface_475:com_54);
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(false, interface_475:com_7);
-                            if_sethide(false, interface_475:com_58);
+                        if (if_gethide(machinima_livecamera:com_54) = true) {
+                            if_sethide(false, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(false, machinima_livecamera:compasslayer);
+                            if_sethide(false, machinima_livecamera:storemovie);
                         } else {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(true, interface_475:com_7);
-                            if_sethide(true, interface_475:com_58);
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(true, machinima_livecamera:compasslayer);
+                            if_sethide(true, machinima_livecamera:storemovie);
                         }
                     } else if (%varclient_1074 = 1) {
-                        if (if_gethide(interface_475:com_33) = true) {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(false, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(false, interface_475:com_7);
-                            if_sethide(false, interface_475:com_58);
+                        if (if_gethide(machinima_livecamera:com_33) = true) {
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(false, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(false, machinima_livecamera:compasslayer);
+                            if_sethide(false, machinima_livecamera:storemovie);
                         } else {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(true, interface_475:com_7);
-                            if_sethide(true, interface_475:com_58);
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(true, machinima_livecamera:compasslayer);
+                            if_sethide(true, machinima_livecamera:storemovie);
                         }
                     } else if (%varclient_1074 = 2) {
-                        if (if_gethide(interface_475:com_100) = true) {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(false, interface_475:com_100);
-                            if_sethide(false, interface_475:com_7);
-                            if_sethide(true, interface_475:com_58);
+                        if (if_gethide(machinima_livecamera:com_100) = true) {
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(false, machinima_livecamera:com_100);
+                            if_sethide(false, machinima_livecamera:compasslayer);
+                            if_sethide(true, machinima_livecamera:storemovie);
                         } else {
-                            if_sethide(true, interface_475:com_54);
-                            if_sethide(true, interface_475:com_33);
-                            if_sethide(true, interface_475:com_100);
-                            if_sethide(true, interface_475:com_7);
-                            if_sethide(true, interface_475:com_58);
+                            if_sethide(true, machinima_livecamera:com_54);
+                            if_sethide(true, machinima_livecamera:com_33);
+                            if_sethide(true, machinima_livecamera:com_100);
+                            if_sethide(true, machinima_livecamera:compasslayer);
+                            if_sethide(true, machinima_livecamera:storemovie);
                         }
                     }
                 case default :

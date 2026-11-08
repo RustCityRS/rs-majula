@@ -1,12 +1,12 @@
 // 1057:0
-[com_0]
+[keg_tag_text]
 type=text
 width=16391
 height=20
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_34
+layer=keg_tag_layer
 textfont=p11_full
 text=Tag the above locations in order for some extra strength xp!
 textalignh=centre
@@ -14,188 +14,188 @@ textalignv=bottom
 textshadow=yes
 
 // 1057:1
-[com_1]
+[tag_layer_1]
 type=layer
 width=65
 height=65
 xmode=abs_centre
-layer=com_34
+layer=keg_tag_layer
 
 // 1057:2
-[com_2]
+[gfc1]
 type=graphic
 width=50
 height=50
 xmode=abs_centre
-layer=com_1
+layer=tag_layer_1
 graphic="warguild_icons_large,0"
 
 // 1057:3
-[com_3]
+[tag_layer_2]
 type=layer
 x=-65
 width=65
 height=65
 xmode=abs_centre
-layer=com_34
+layer=keg_tag_layer
 
 // 1057:4
-[com_4]
+[gfc2]
 type=graphic
 width=50
 height=50
 xmode=abs_centre
-layer=com_3
+layer=tag_layer_2
 graphic="warguild_icons_large,4"
 
 // 1057:5
-[com_5]
+[tag_layer_3]
 type=layer
 x=65
 width=65
 height=65
 xmode=abs_centre
-layer=com_34
+layer=keg_tag_layer
 
 // 1057:6
-[com_6]
+[gfc3]
 type=graphic
 width=50
 height=50
 xmode=abs_centre
-layer=com_5
+layer=tag_layer_3
 graphic="warguild_icons_large,1"
 
 // 1057:7
-[com_7]
+[tag_layer_4]
 type=layer
 x=-130
 width=65
 height=65
 xmode=abs_centre
-layer=com_34
+layer=keg_tag_layer
 
 // 1057:8
-[com_8]
+[gfc4]
 type=graphic
 width=50
 height=50
 xmode=abs_centre
-layer=com_7
+layer=tag_layer_4
 graphic="warguild_icons_large,3"
 
 // 1057:9
-[com_9]
+[tag_layer_5]
 type=layer
 x=130
 width=65
 height=65
 xmode=abs_centre
-layer=com_34
+layer=keg_tag_layer
 
 // 1057:10
-[com_10]
+[gfc5]
 type=graphic
 width=50
 height=50
 xmode=abs_centre
-layer=com_9
+layer=tag_layer_5
 graphic="warguild_icons_large,2"
 
 // 1057:11
-[com_11]
+[bal_token]
 type=graphic
 x=1
 y=1
 width=21
 height=21
-layer=com_32
+layer=bal_layer
 graphic="warguild_token_small_icons,4"
 
 // 1057:12
-[com_12]
+[bal_arrow]
 type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_32
+layer=bal_layer
 hide=yes
 graphic="red_green_arrows,1"
 
 // 1057:13
-[com_13]
+[keg_text]
 type=text
 x=24
 y=1
 width=40
 height=21
-layer=com_32
+layer=bal_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
 onvartransmit=script4048(event_com){varplayer_2030}
 
 // 1057:14
-[com_14]
+[str_token]
 type=graphic
 x=1
 y=1
 width=21
 height=21
-layer=com_31
+layer=str_layer
 graphic="warguild_token_small_icons,2"
 
 // 1057:15
-[com_15]
+[str_arrow]
 type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_31
+layer=str_layer
 hide=yes
 graphic="red_green_arrows,1"
 
 // 1057:16
-[com_16]
+[str_text]
 type=text
 x=24
 y=1
 width=40
 height=21
-layer=com_31
+layer=str_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
 onvartransmit=script4044(event_com){varplayer_788}
 
 // 1057:17
-[com_17]
+[com_token]
 type=graphic
 x=1
 y=1
 width=21
 height=21
-layer=com_30
+layer=com_layer
 graphic="warguild_token_small_icons,1"
 
 // 1057:18
-[com_18]
+[com_arrow]
 type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_30
+layer=com_layer
 hide=yes
 graphic="red_green_arrows,1"
 
 // 1057:19
-[com_19]
+[com_text]
 type=text
 x=24
 y=1
 width=40
 height=21
-layer=com_30
+layer=com_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
@@ -235,69 +235,69 @@ textshadow=yes
 onvartransmit=script4045(event_com){varplayer_787}
 
 // 1057:23
-[com_23]
+[att_token]
 type=graphic
 x=1
 y=1
 width=21
 height=21
-layer=com_28
+layer=att_layer
 graphic="warguild_token_small_icons,0"
 
 // 1057:24
-[com_24]
+[att_arrow]
 type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_28
+layer=att_layer
 hide=yes
 graphic="red_green_arrows,1"
 
 // 1057:25
-[com_25]
+[att_text]
 type=text
 x=24
 y=1
 width=40
 height=21
-layer=com_28
+layer=att_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
 onvartransmit=script4046(event_com){varplayer_787}
 
 // 1057:26
-[com_26]
+[token_type_text]
 type=text
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_27
+layer=token_type_layer
 textfont=p11_full
 text=Using all tokens
 textalignv=centre
 textshadow=yes
 
 // 1057:27
-[com_27]
+[token_type_layer]
 type=layer
 x=7
 y=245
 width=191
 height=20
-layer=com_33
+layer=content_layer
 onvartransmit=script4053{varplayer_788}
 
 // 1057:28
-[com_28]
+[att_layer]
 type=layer
 x=6
 y=211
 width=75
 height=32
-layer=com_33
+layer=content_layer
 
 // 1057:29
 [com_29]
@@ -306,108 +306,108 @@ x=6
 y=180
 width=75
 height=32
-layer=com_33
+layer=content_layer
 
 // 1057:30
-[com_30]
+[com_layer]
 type=layer
 x=6
 y=149
 width=75
 height=32
-layer=com_33
+layer=content_layer
 
 // 1057:31
-[com_31]
+[str_layer]
 type=layer
 x=6
 y=118
 width=75
 height=32
-layer=com_33
+layer=content_layer
 
 // 1057:32
-[com_32]
+[bal_layer]
 type=layer
 x=6
 y=86
 width=75
 height=32
-layer=com_33
+layer=content_layer
 
 // 1057:33
-[com_33]
+[content_layer]
 type=layer
 widthmode=minus
 heightmode=minus
 onvartransmit=warguild_tag_setup{varplayer_793, varplayer_793, varplayer_793, varplayer_793, varplayer_793}
 
 // 1057:34
-[com_34]
+[keg_tag_layer]
 type=layer
 y=11
 width=343
 height=65
 xmode=abs_centre
-layer=com_33
+layer=content_layer
 hide=yes
 onvartransmit=warguild_tag_tick{varplayer_793, varplayer_793, varplayer_793, varplayer_793, varplayer_793}
 
 // 1057:35
-[com_35]
+[tick_1]
 type=graphic
 x=-130
 y=5
 width=28
 height=28
 xmode=abs_centre
-layer=com_34
+layer=keg_tag_layer
 hide=yes
 graphic="mob_exchange_tick,0"
 
 // 1057:36
-[com_36]
+[tick_2]
 type=graphic
 x=-65
 y=5
 width=28
 height=28
 xmode=abs_centre
-layer=com_34
+layer=keg_tag_layer
 hide=yes
 graphic="mob_exchange_tick,0"
 
 // 1057:37
-[com_37]
+[tick_3]
 type=graphic
 y=5
 width=28
 height=28
 xmode=abs_centre
-layer=com_34
+layer=keg_tag_layer
 hide=yes
 graphic="mob_exchange_tick,0"
 
 // 1057:38
-[com_38]
+[tick_4]
 type=graphic
 x=65
 y=5
 width=28
 height=28
 xmode=abs_centre
-layer=com_34
+layer=keg_tag_layer
 hide=yes
 graphic="mob_exchange_tick,0"
 
 // 1057:39
-[com_39]
+[tick_5]
 type=graphic
 x=130
 y=5
 width=28
 height=28
 xmode=abs_centre
-layer=com_34
+layer=keg_tag_layer
 hide=yes
 graphic="mob_exchange_tick,0"

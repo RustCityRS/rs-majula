@@ -9,50 +9,50 @@ def_boolean $boolean9 = false;
 if ($component0 = null | $graphic1 = null | $graphic2 = null) {
     return;
 }
-if ($component0 = assister_interface:com_63) {
+if ($component0 = assister_interface:runecrafting_icon) {
     $int5 = ~assist_switch_var(%varplayerbit_4090);
-    $component7 = assister_interface:com_45;
-    $component8 = assister_interface:com_46;
+    $component7 = assister_interface:runecraft_text;
+    $component8 = assister_interface:runecraft_xp;
 }
-if ($component0 = assister_interface:com_64) {
+if ($component0 = assister_interface:crafting_icon_on) {
     $int5 = ~assist_switch_var(%varplayerbit_4091);
-    $component7 = assister_interface:com_47;
-    $component8 = assister_interface:com_48;
+    $component7 = assister_interface:crafting_text;
+    $component8 = assister_interface:crafting_xp;
 }
-if ($component0 = assister_interface:com_65) {
+if ($component0 = assister_interface:fletching_icon_on) {
     $int5 = ~assist_switch_var(%varplayerbit_4093);
-    $component7 = assister_interface:com_49;
-    $component8 = assister_interface:com_50;
+    $component7 = assister_interface:fletching_text;
+    $component8 = assister_interface:fletching_xp;
 }
-if ($component0 = assister_interface:com_66) {
+if ($component0 = assister_interface:construction_icon_on) {
     $int5 = ~assist_switch_var(%varplayerbit_4095);
-    $component7 = assister_interface:com_51;
-    $component8 = assister_interface:com_52;
+    $component7 = assister_interface:construction_text;
+    $component8 = assister_interface:construction_xp;
 }
-if ($component0 = assister_interface:com_67) {
+if ($component0 = assister_interface:farming_icon_on) {
     $int5 = ~assist_switch_var(%varplayerbit_4096);
-    $component7 = assister_interface:com_53;
-    $component8 = assister_interface:com_54;
+    $component7 = assister_interface:farming_text;
+    $component8 = assister_interface:farming_xp;
 }
-if ($component0 = assister_interface:com_68) {
+if ($component0 = assister_interface:magic_icon_on) {
     $int5 = ~assist_switch_var(%varplayerbit_4098);
-    $component7 = assister_interface:com_55;
-    $component8 = assister_interface:com_56;
+    $component7 = assister_interface:magic_text;
+    $component8 = assister_interface:magic_xp;
 }
-if ($component0 = assister_interface:com_69) {
+if ($component0 = assister_interface:smithing_icon_on) {
     $int5 = ~assist_switch_var(%varplayerbit_4100);
-    $component7 = assister_interface:com_57;
-    $component8 = assister_interface:com_58;
+    $component7 = assister_interface:smithing_text;
+    $component8 = assister_interface:smithing_xp;
 }
-if ($component0 = assister_interface:com_70) {
+if ($component0 = assister_interface:cooking_icon_on) {
     $int5 = ~assist_switch_var(%varplayerbit_4101);
-    $component7 = assister_interface:com_59;
-    $component8 = assister_interface:com_60;
+    $component7 = assister_interface:cooking_text;
+    $component8 = assister_interface:cooking_xp;
 }
-if ($component0 = assister_interface:com_71) {
+if ($component0 = assister_interface:herblore_icon_on) {
     $int5 = ~assist_switch_var(%varplayerbit_4102);
-    $component7 = assister_interface:com_61;
-    $component8 = assister_interface:com_62;
+    $component7 = assister_interface:herblore_text;
+    $component8 = assister_interface:herblore_xp;
 }
 if ($int5 = 1) {
     $graphic4 = $graphic1;

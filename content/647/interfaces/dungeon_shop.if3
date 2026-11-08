@@ -9,7 +9,7 @@ transmitop=10
 op10=  
 
 // 956:1
-[com_1]
+[drop_shadow]
 type=rectangle
 width=500
 height=316
@@ -21,7 +21,7 @@ opbase=
 op10=  
 
 // 956:2
-[com_2]
+[drop_shadow_1]
 type=rectangle
 x=1
 y=1
@@ -36,7 +36,7 @@ opbase=
 op10=   
 
 // 956:3
-[com_3]
+[drop_shadow_2]
 type=rectangle
 x=2
 y=2
@@ -51,7 +51,7 @@ opbase=
 op10=    
 
 // 956:4
-[com_4]
+[drop_shadow_3]
 type=rectangle
 x=3
 y=3
@@ -66,7 +66,7 @@ opbase=
 op10=     
 
 // 956:5
-[com_5]
+[drop_shadow_4]
 type=rectangle
 x=4
 y=4
@@ -81,7 +81,7 @@ opbase=
 op10=      
 
 // 956:6
-[com_6]
+[background_top]
 type=graphic
 x=8
 y=22
@@ -96,7 +96,7 @@ transmitop=10
 op10= 
 
 // 956:7
-[com_7]
+[background_mid]
 type=graphic
 x=8
 y=92
@@ -128,7 +128,7 @@ transmitop=10
 op10= 
 
 // 956:9
-[com_9]
+[background_border]
 type=rectangle
 x=7
 y=22
@@ -140,7 +140,7 @@ layer=com_0
 colour=0x000000
 
 // 956:10
-[com_10]
+[border_left]
 type=graphic
 x=-13
 y=32
@@ -155,7 +155,7 @@ transmitop=10
 op10=   
 
 // 956:11
-[com_11]
+[border_right]
 type=graphic
 x=-6
 y=32
@@ -171,7 +171,7 @@ transmitop=10
 op10=   
 
 // 956:12
-[com_12]
+[border_top]
 type=graphic
 x=32
 width=70
@@ -185,7 +185,7 @@ transmitop=10
 op10=       
 
 // 956:13
-[com_13]
+[border_bottom]
 type=graphic
 x=32
 y=-7
@@ -201,7 +201,7 @@ transmitop=10
 op10=   
 
 // 956:14
-[com_14]
+[border_top_left]
 type=graphic
 width=32
 height=32
@@ -212,7 +212,7 @@ transmitop=10
 op10=       
 
 // 956:15
-[com_15]
+[border_top_right]
 type=graphic
 x=6
 width=32
@@ -225,7 +225,7 @@ transmitop=10
 op10=       
 
 // 956:16
-[com_16]
+[border_bottom_left]
 type=graphic
 y=5
 width=32
@@ -238,7 +238,7 @@ transmitop=10
 op10=   
 
 // 956:17
-[com_17]
+[border_bottom_right]
 type=graphic
 x=6
 y=5
@@ -253,7 +253,7 @@ transmitop=10
 op10=   
 
 // 956:18
-[com_18]
+[close_button]
 type=graphic
 x=18
 y=2
@@ -271,7 +271,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 956:19
-[com_19]
+[shop_title]
 type=text
 y=4
 width=80
@@ -303,7 +303,7 @@ textshadow=yes
 colour=0xff981f
 
 // 956:21
-[com_21]
+[main_title]
 type=text
 x=20
 y=95
@@ -321,7 +321,7 @@ transmitop=10
 op10= 
 
 // 956:22
-[com_22]
+[key_title]
 type=text
 x=23
 y=24
@@ -340,7 +340,7 @@ transmitop=10
 op10=  
 
 // 956:23
-[com_23]
+[right_click_text]
 type=text
 y=14
 width=400
@@ -368,7 +368,7 @@ onload=rand_load_shop(event_com)
 onvarctransmit=rand_load_shop(event_com){varclient_1320}
 
 // 956:25
-[com_25]
+[main_scroll]
 type=layer
 x=474
 y=46

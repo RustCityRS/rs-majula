@@ -1,6 +1,6 @@
 // 2243
 [clientscript,rand_complete_interface](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)
-if_settext(tostring($int6), rand_complete:com_80);
-if_settext(tostring($int7), rand_complete:com_85);
-if_settext("<tostring(calc($int8 / 100))>.<tostring(calc($int8 % 100))>", rand_complete:com_101);
-if_setontimer("rand_complete_interface_timer(0, $int0, $int1, 0, $int2, $int3, 0, $int4, $int5, $int6, $int7, $int8)", rand_complete:com_0);
+if_settext(tostring($int6), rand_complete:bonus_number);
+if_settext(tostring($int7), rand_complete:collectibles_number);
+if_settext("<tostring(calc($int8 / 100))>.<tostring(calc($int8 % 100))>", rand_complete:modify_number);
+if_setontimer("rand_complete_interface_timer(0, $int0, $int1, 0, $int2, $int3, 0, $int4, $int5, $int6, $int7, $int8)", rand_complete:top);

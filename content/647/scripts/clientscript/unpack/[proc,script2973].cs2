@@ -1,37 +1,37 @@
 // 2973
 [proc,script2973]
 if (stat(construction) < 56) {
-    if_setcolour(0x868360, crosstiled:com_27);
+    if_setcolour(0x868360, crosstiled:boneyard_layer);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:com_27);
+    if_setcolour(0xeae7c4, crosstiled:boneyard_layer);
 }
 if (stat(construction) < 57) {
-    if_setcolour(0x868360, crosstiled:com_23);
+    if_setcolour(0x868360, crosstiled:house_text);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:com_23);
+    if_setcolour(0xeae7c4, crosstiled:house_text);
 }
 if (stat(construction) < 59) {
-    if_setcolour(0x868360, crosstiled:com_19);
+    if_setcolour(0x868360, crosstiled:vent_text);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:com_19);
+    if_setcolour(0xeae7c4, crosstiled:vent_text);
 }
 if (stat(construction) < 62) {
-    if_setcolour(0x868360, crosstiled:com_15);
+    if_setcolour(0x868360, crosstiled:grass_text);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:com_15);
+    if_setcolour(0xeae7c4, crosstiled:grass_text);
 }
 if (stat(construction) < 65) {
-    if_setcolour(0x868360, crosstiled:com_7);
+    if_setcolour(0x868360, crosstiled:pond_text);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:com_7);
+    if_setcolour(0xeae7c4, crosstiled:pond_text);
 }
 if (stat(construction) < 70) {
-    if_setcolour(0x868360, crosstiled:com_11);
+    if_setcolour(0x868360, crosstiled:stones_text);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:com_11);
+    if_setcolour(0xeae7c4, crosstiled:stones_text);
 }
 if (stat(construction) < 80) {
-    if_setcolour(0x868360, crosstiled:com_3);
+    if_setcolour(0x868360, crosstiled:pit_layer);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:com_3);
+    if_setcolour(0xeae7c4, crosstiled:pit_layer);
 }

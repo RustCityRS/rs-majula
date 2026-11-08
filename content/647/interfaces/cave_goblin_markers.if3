@@ -5,20 +5,20 @@ x=-135
 y=-259
 width=816
 height=702
-layer=com_3
+layer=content_layer
 model=model_6915
 modelorigin=33,194
 modelangle=123,1945,0
 modelzoom=321
 
 // 62:1
-[com_1]
+[symbol]
 type=model
 x=219
 y=197
 width=143
 height=120
-layer=com_3
+layer=content_layer
 model=model_6923
 modelorigin=3,30
 modelangle=123,1945,0
@@ -31,7 +31,7 @@ x=478
 y=6
 width=26
 height=23
-layer=com_3
+layer=content_layer
 graphic="close_buttons,4"
 colour=0x000000
 onmouseover=graphic_swapper(event_com, "close_buttons,5")
@@ -39,7 +39,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,4")
 onclick=closebutton_click
 
 // 62:3
-[com_3]
+[content_layer]
 type=layer
 width=512
 height=334
@@ -47,7 +47,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 62:4
-[com_4]
+[fsborder_main_layer]
 type=layer
 width=16391
 height=16391
@@ -57,7 +57,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 62:5
-[com_5]
+[fsborder_resizing_layer]
 type=layer
 width=16391
 height=16391
@@ -65,7 +65,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=fsborder_main_layer
 
 // 62:6
 [com_6]
@@ -168,7 +168,7 @@ tiling=yes
 colour=0x000000
 
 // 62:14
-[com_14]
+[fsborder_right_layer]
 type=layer
 width=8192
 height=16391
@@ -176,30 +176,30 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_5
+layer=fsborder_resizing_layer
 
 // 62:15
-[com_15]
+[fsborder_left_layer]
 type=layer
 width=8188
 height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_5
+layer=fsborder_resizing_layer
 
 // 62:16
-[com_16]
+[fsborder_upper_layer]
 type=layer
 width=16391
 height=8192
 widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
-layer=com_5
+layer=fsborder_resizing_layer
 
 // 62:17
-[com_17]
+[fsborder_lower_layer]
 type=layer
 width=16391
 height=8182
@@ -207,16 +207,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_5
+layer=fsborder_resizing_layer
 
 // 62:18
-[com_18]
+[fsborder_interface_layer]
 type=layer
 width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=fsborder_resizing_layer
 
 // 62:19
 [com_19]
@@ -226,7 +226,7 @@ height=16384
 widthmode=minus
 heightmode=proportion
 ymode=abs_centre
-layer=com_15
+layer=fsborder_left_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -241,7 +241,7 @@ widthmode=minus
 heightmode=proportion
 xmode=abs_right
 ymode=abs_centre
-layer=com_14
+layer=fsborder_right_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -255,7 +255,7 @@ height=167
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_16
+layer=fsborder_upper_layer
 graphic=tradebacking
 tiling=yes
 outline=2
@@ -270,7 +270,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_17
+layer=fsborder_lower_layer
 graphic=tradebacking
 tiling=yes
 outline=2

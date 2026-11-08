@@ -9,7 +9,7 @@ if_sethide(false, lunarfm_rewards_new:com_151);
 if_sethide(true, lunarfm_rewards_new:com_238);
 if_sethide(true, lunarfm_rewards_new:com_248);
 if_sethide(false, lunarfm_rewards_new:com_389);
-if_sethide(true, lunarfm_rewards_new:com_155);
+if_sethide(true, lunarfm_rewards_new:breakdown_layer);
 if_settext(tostring(calc(2 * 10)), lunarfm_rewards_new:com_410);
 if (stat_base(magic) < 83) {
     if_settext("<tostring(calc(2 / 2 * 10))> (halved)", lunarfm_rewards_new:com_411);

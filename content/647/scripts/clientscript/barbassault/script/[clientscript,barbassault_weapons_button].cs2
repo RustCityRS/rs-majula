@@ -1,10 +1,10 @@
 // 2843
 [clientscript,barbassault_weapons_button]
-if_sethide(true, barbassault_reward_shop_new:com_39);
-if_sethide(true, barbassault_reward_shop_new:com_68);
-if_sethide(false, barbassault_reward_shop_new:com_131);
-if_sethide(true, barbassault_reward_shop_new:com_176);
-if_sethide(true, barbassault_reward_shop_new:com_228);
-if_sethide(true, barbassault_reward_shop_new:com_225);
-if_sethide(false, barbassault_reward_shop_new:com_222);
-if_sethide(true, barbassault_reward_shop_new:com_37);
+if_sethide(true, barbassault_reward_shop_new:roles_layer);
+if_sethide(true, barbassault_reward_shop_new:armour_layer);
+if_sethide(false, barbassault_reward_shop_new:weapons_layer);
+if_sethide(true, barbassault_reward_shop_new:misc_layer);
+if_sethide(true, barbassault_reward_shop_new:roles_button_line);
+if_sethide(true, barbassault_reward_shop_new:armour_button_line);
+if_sethide(false, barbassault_reward_shop_new:weapons_button_line);
+if_sethide(true, barbassault_reward_shop_new:misc_button_line);

@@ -1,83 +1,83 @@
 // 281
 [clientscript,fishcomp_rewards_shop_refresh]
-if_setobject(%varclient_1118, %varclient_1119, fishcomp_rewards_shop:com_67);
-if_setopbase(oc_name(%varclient_1118), fishcomp_rewards_shop:com_67);
-if_setobject(%varclient_1120, %varclient_1121, fishcomp_rewards_shop:com_68);
-if_setopbase(oc_name(%varclient_1120), fishcomp_rewards_shop:com_68);
-if_settext(tostring(%varplayerbit_7295), fishcomp_rewards_shop:com_77);
+if_setobject(%varclient_1118, %varclient_1119, fishcomp_rewards_shop:fish_1_icon);
+if_setopbase(oc_name(%varclient_1118), fishcomp_rewards_shop:fish_1_icon);
+if_setobject(%varclient_1120, %varclient_1121, fishcomp_rewards_shop:fish_2_icon);
+if_setopbase(oc_name(%varclient_1120), fishcomp_rewards_shop:fish_2_icon);
+if_settext(tostring(%varplayerbit_7295), fishcomp_rewards_shop:tokens_txt);
 switch_obj (%varclient_1118) {
     case cert_raw_shark :
-        if_settext("Shark", fishcomp_rewards_shop:com_52);
+        if_settext("Shark", fishcomp_rewards_shop:species_name_1_txt);
     case cert_raw_swordfish :
-        if_settext("Swordfish", fishcomp_rewards_shop:com_52);
+        if_settext("Swordfish", fishcomp_rewards_shop:species_name_1_txt);
     case cert_raw_lobster :
-        if_settext("Lobster", fishcomp_rewards_shop:com_52);
+        if_settext("Lobster", fishcomp_rewards_shop:species_name_1_txt);
     case cert_raw_tuna :
-        if_settext("Tuna", fishcomp_rewards_shop:com_52);
+        if_settext("Tuna", fishcomp_rewards_shop:species_name_1_txt);
     case cert_raw_salmon :
-        if_settext("Salmon", fishcomp_rewards_shop:com_52);
+        if_settext("Salmon", fishcomp_rewards_shop:species_name_1_txt);
     case cert_raw_pike :
-        if_settext("Pike", fishcomp_rewards_shop:com_52);
+        if_settext("Pike", fishcomp_rewards_shop:species_name_1_txt);
     case cert_raw_trout :
-        if_settext("Trout", fishcomp_rewards_shop:com_52);
+        if_settext("Trout", fishcomp_rewards_shop:species_name_1_txt);
     case cert_raw_herring :
-        if_settext("Herring", fishcomp_rewards_shop:com_52);
+        if_settext("Herring", fishcomp_rewards_shop:species_name_1_txt);
     case cert_raw_sardine :
-        if_settext("Sardine", fishcomp_rewards_shop:com_52);
+        if_settext("Sardine", fishcomp_rewards_shop:species_name_1_txt);
     case cert_raw_shrimp :
-        if_settext("Shrimp", fishcomp_rewards_shop:com_52);
+        if_settext("Shrimp", fishcomp_rewards_shop:species_name_1_txt);
     case default :
-        if_settext("", fishcomp_rewards_shop:com_52);
+        if_settext("", fishcomp_rewards_shop:species_name_1_txt);
 }
 switch_obj (%varclient_1120) {
     case cert_raw_shark :
-        if_settext("Shark", fishcomp_rewards_shop:com_53);
+        if_settext("Shark", fishcomp_rewards_shop:species_name_2_txt);
     case cert_raw_swordfish :
-        if_settext("Swordfish", fishcomp_rewards_shop:com_53);
+        if_settext("Swordfish", fishcomp_rewards_shop:species_name_2_txt);
     case cert_raw_lobster :
-        if_settext("Lobster", fishcomp_rewards_shop:com_53);
+        if_settext("Lobster", fishcomp_rewards_shop:species_name_2_txt);
     case cert_raw_tuna :
-        if_settext("Tuna", fishcomp_rewards_shop:com_53);
+        if_settext("Tuna", fishcomp_rewards_shop:species_name_2_txt);
     case cert_raw_salmon :
-        if_settext("Salmon", fishcomp_rewards_shop:com_53);
+        if_settext("Salmon", fishcomp_rewards_shop:species_name_2_txt);
     case cert_raw_pike :
-        if_settext("Pike", fishcomp_rewards_shop:com_53);
+        if_settext("Pike", fishcomp_rewards_shop:species_name_2_txt);
     case cert_raw_trout :
-        if_settext("Trout", fishcomp_rewards_shop:com_53);
+        if_settext("Trout", fishcomp_rewards_shop:species_name_2_txt);
     case cert_raw_herring :
-        if_settext("Herring", fishcomp_rewards_shop:com_53);
+        if_settext("Herring", fishcomp_rewards_shop:species_name_2_txt);
     case cert_raw_sardine :
-        if_settext("Sardine", fishcomp_rewards_shop:com_53);
+        if_settext("Sardine", fishcomp_rewards_shop:species_name_2_txt);
     case cert_raw_shrimp :
-        if_settext("Shrimp", fishcomp_rewards_shop:com_53);
+        if_settext("Shrimp", fishcomp_rewards_shop:species_name_2_txt);
     case default :
-        if_settext("", fishcomp_rewards_shop:com_53);
+        if_settext("", fishcomp_rewards_shop:species_name_2_txt);
 }
 switch_int (%varplayerbit_7306) {
     case 0 :
-        if_settext("Cost: <tostring(110)> tokens", fishcomp_rewards_shop:com_25);
-        if_settext("(Requires <tostring(20)> medals)", fishcomp_rewards_shop:com_26);
-        if_setobject(beginner_s_tackle_box, -1, fishcomp_rewards_shop:com_41);
+        if_settext("Cost: <tostring(110)> tokens", fishcomp_rewards_shop:tackle_box_cost_txt);
+        if_settext("(Requires <tostring(20)> medals)", fishcomp_rewards_shop:tackle_box_req_txt);
+        if_setobject(beginner_s_tackle_box, -1, fishcomp_rewards_shop:box_icon);
     case 1 :
-        if_settext("Cost: <tostring(230)> tokens", fishcomp_rewards_shop:com_25);
-        if_settext("(Requires <tostring(50)> medals)", fishcomp_rewards_shop:com_26);
-        if_setobject(basic_tackle_box, -1, fishcomp_rewards_shop:com_41);
+        if_settext("Cost: <tostring(230)> tokens", fishcomp_rewards_shop:tackle_box_cost_txt);
+        if_settext("(Requires <tostring(50)> medals)", fishcomp_rewards_shop:tackle_box_req_txt);
+        if_setobject(basic_tackle_box, -1, fishcomp_rewards_shop:box_icon);
     case 2 :
-        if_settext("Cost: <tostring(470)> tokens", fishcomp_rewards_shop:com_25);
-        if_settext("(Requires <tostring(110)> medals)", fishcomp_rewards_shop:com_26);
-        if_setobject(standard_tackle_box, -1, fishcomp_rewards_shop:com_41);
+        if_settext("Cost: <tostring(470)> tokens", fishcomp_rewards_shop:tackle_box_cost_txt);
+        if_settext("(Requires <tostring(110)> medals)", fishcomp_rewards_shop:tackle_box_req_txt);
+        if_setobject(standard_tackle_box, -1, fishcomp_rewards_shop:box_icon);
     case 3 :
-        if_settext("Cost: <tostring(900)> tokens", fishcomp_rewards_shop:com_25);
-        if_settext("(Requires <tostring(230)> medals)", fishcomp_rewards_shop:com_26);
-        if_setobject(professional_tackle_box, -1, fishcomp_rewards_shop:com_41);
+        if_settext("Cost: <tostring(900)> tokens", fishcomp_rewards_shop:tackle_box_cost_txt);
+        if_settext("(Requires <tostring(230)> medals)", fishcomp_rewards_shop:tackle_box_req_txt);
+        if_setobject(professional_tackle_box, -1, fishcomp_rewards_shop:box_icon);
     case 4 :
-        if_settext("Cost: <tostring(1860)> tokens", fishcomp_rewards_shop:com_25);
-        if_settext("(Requires <tostring(500)> medals)", fishcomp_rewards_shop:com_26);
-        if_setobject(professional_tackle_box, -1, fishcomp_rewards_shop:com_41);
+        if_settext("Cost: <tostring(1860)> tokens", fishcomp_rewards_shop:tackle_box_cost_txt);
+        if_settext("(Requires <tostring(500)> medals)", fishcomp_rewards_shop:tackle_box_req_txt);
+        if_setobject(professional_tackle_box, -1, fishcomp_rewards_shop:box_icon);
     case 5 :
-        if_settext("You already own the best tackle box available.", fishcomp_rewards_shop:com_25);
-        if_settext("(Unavailable)", fishcomp_rewards_shop:com_26);
-        if_setobject(null, -1, fishcomp_rewards_shop:com_41);
+        if_settext("You already own the best tackle box available.", fishcomp_rewards_shop:tackle_box_cost_txt);
+        if_settext("(Unavailable)", fishcomp_rewards_shop:tackle_box_req_txt);
+        if_setobject(null, -1, fishcomp_rewards_shop:box_icon);
 }
-if_setmodelangle(0, 0, 250, 1666, 0, 1440, fishcomp_rewards_shop:com_41);
+if_setmodelangle(0, 0, 250, 1666, 0, 1440, fishcomp_rewards_shop:box_icon);
 return;

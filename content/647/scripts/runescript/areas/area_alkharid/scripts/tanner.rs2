@@ -67,77 +67,77 @@ if(npc_type = sbott) {
 }
 if_openmain(tanner);
 
-[if_button1,tanner:com_1] @tan_soft_leather(1);
-[if_button2,tanner:com_1] @tan_soft_leather(5);
-[if_button3,tanner:com_1] @tan_soft_leather(10);
-[if_button4,tanner:com_1]
+[if_button1,tanner:tanning_a] @tan_soft_leather(1);
+[if_button2,tanner:tanning_a] @tan_soft_leather(5);
+[if_button3,tanner:tanning_a] @tan_soft_leather(10);
+[if_button4,tanner:tanning_a]
 p_countdialog;
 if (last_int <= 0) return;
 @tan_soft_leather(last_int);
-[if_button5,tanner:com_1] @tan_soft_leather(inv_total(inv, cowhide));
+[if_button5,tanner:tanning_a] @tan_soft_leather(inv_total(inv, cowhide));
 
-[if_button1,tanner:com_2] @tan_hard_leather(1);
-[if_button2,tanner:com_2] @tan_hard_leather(5);
-[if_button3,tanner:com_2] @tan_hard_leather(10);
-[if_button4,tanner:com_2]
+[if_button1,tanner:tanning_b] @tan_hard_leather(1);
+[if_button2,tanner:tanning_b] @tan_hard_leather(5);
+[if_button3,tanner:tanning_b] @tan_hard_leather(10);
+[if_button4,tanner:tanning_b]
 p_countdialog;
 if (last_int <= 0) return;
 @tan_hard_leather(last_int);
-[if_button5,tanner:com_2] @tan_hard_leather(inv_total(inv, cowhide));
+[if_button5,tanner:tanning_b] @tan_hard_leather(inv_total(inv, cowhide));
 
-[if_button1,tanner:com_3] @tan_hide(snake_hide, snakeskin, 1);
-[if_button2,tanner:com_3] @tan_hide(snake_hide, snakeskin, 5);
-[if_button3,tanner:com_3] @tan_hide(snake_hide, snakeskin, 10);
-[if_button4,tanner:com_3]
+[if_button1,tanner:tanning_c] @tan_hide(snake_hide, snakeskin, 1);
+[if_button2,tanner:tanning_c] @tan_hide(snake_hide, snakeskin, 5);
+[if_button3,tanner:tanning_c] @tan_hide(snake_hide, snakeskin, 10);
+[if_button4,tanner:tanning_c]
 p_countdialog;
 if (last_int <= 0) return;
 @tan_hide(snake_hide, snakeskin, last_int);
-[if_button5,tanner:com_3] @tan_hide(snake_hide, snakeskin, inv_total(inv, snake_hide));
+[if_button5,tanner:tanning_c] @tan_hide(snake_hide, snakeskin, inv_total(inv, snake_hide));
 
-[if_button1,tanner:com_4] @tan_hide(snake_hide_7801, snakeskin, 1);
-[if_button2,tanner:com_4] @tan_hide(snake_hide_7801, snakeskin, 5);
-[if_button3,tanner:com_4] @tan_hide(snake_hide_7801, snakeskin, 10);
-[if_button4,tanner:com_4]
+[if_button1,tanner:tanning_d] @tan_hide(snake_hide_7801, snakeskin, 1);
+[if_button2,tanner:tanning_d] @tan_hide(snake_hide_7801, snakeskin, 5);
+[if_button3,tanner:tanning_d] @tan_hide(snake_hide_7801, snakeskin, 10);
+[if_button4,tanner:tanning_d]
 p_countdialog;
 if (last_int <= 0) return;
 @tan_hide(snake_hide_7801, snakeskin, last_int);
-[if_button5,tanner:com_4] @tan_hide(snake_hide_7801, snakeskin, inv_total(inv, snake_hide_7801));
+[if_button5,tanner:tanning_d] @tan_hide(snake_hide_7801, snakeskin, inv_total(inv, snake_hide_7801));
 
-[if_button1,tanner:com_5] @tan_dragonhide(green_dragonhide, green_dragon_leather, 1);
-[if_button2,tanner:com_5] @tan_dragonhide(green_dragonhide, green_dragon_leather, 5);
-[if_button3,tanner:com_5] @tan_dragonhide(green_dragonhide, green_dragon_leather, 10);
-[if_button4,tanner:com_5]
+[if_button1,tanner:tanning_e] @tan_dragonhide(green_dragonhide, green_dragon_leather, 1);
+[if_button2,tanner:tanning_e] @tan_dragonhide(green_dragonhide, green_dragon_leather, 5);
+[if_button3,tanner:tanning_e] @tan_dragonhide(green_dragonhide, green_dragon_leather, 10);
+[if_button4,tanner:tanning_e]
 p_countdialog;
 if (last_int <= 0) return;
 @tan_dragonhide(green_dragonhide, green_dragon_leather, last_int);
-[if_button5,tanner:com_5] @tan_dragonhide(green_dragonhide, green_dragon_leather, inv_total(inv, green_dragonhide));
+[if_button5,tanner:tanning_e] @tan_dragonhide(green_dragonhide, green_dragon_leather, inv_total(inv, green_dragonhide));
 
-[if_button1,tanner:com_6] @tan_dragonhide(blue_dragonhide, blue_dragon_leather, 1);
-[if_button2,tanner:com_6] @tan_dragonhide(blue_dragonhide, blue_dragon_leather, 5);
-[if_button3,tanner:com_6] @tan_dragonhide(blue_dragonhide, blue_dragon_leather, 10);
-[if_button4,tanner:com_6]
+[if_button1,tanner:tanning_f] @tan_dragonhide(blue_dragonhide, blue_dragon_leather, 1);
+[if_button2,tanner:tanning_f] @tan_dragonhide(blue_dragonhide, blue_dragon_leather, 5);
+[if_button3,tanner:tanning_f] @tan_dragonhide(blue_dragonhide, blue_dragon_leather, 10);
+[if_button4,tanner:tanning_f]
 p_countdialog;
 if (last_int <= 0) return;
 @tan_dragonhide(blue_dragonhide, blue_dragon_leather, last_int);
-[if_button5,tanner:com_6] @tan_dragonhide(blue_dragonhide, blue_dragon_leather, inv_total(inv, blue_dragonhide));
+[if_button5,tanner:tanning_f] @tan_dragonhide(blue_dragonhide, blue_dragon_leather, inv_total(inv, blue_dragonhide));
 
-[if_button1,tanner:com_7] @tan_dragonhide(red_dragonhide, red_dragon_leather, 1);
-[if_button2,tanner:com_7] @tan_dragonhide(red_dragonhide, red_dragon_leather, 5);
-[if_button3,tanner:com_7] @tan_dragonhide(red_dragonhide, red_dragon_leather, 10);
-[if_button4,tanner:com_7]
+[if_button1,tanner:tanning_g] @tan_dragonhide(red_dragonhide, red_dragon_leather, 1);
+[if_button2,tanner:tanning_g] @tan_dragonhide(red_dragonhide, red_dragon_leather, 5);
+[if_button3,tanner:tanning_g] @tan_dragonhide(red_dragonhide, red_dragon_leather, 10);
+[if_button4,tanner:tanning_g]
 p_countdialog;
 if (last_int <= 0) return;
 @tan_dragonhide(red_dragonhide, red_dragon_leather, last_int);
-[if_button5,tanner:com_7] @tan_dragonhide(red_dragonhide, red_dragon_leather, inv_total(inv, red_dragonhide));
+[if_button5,tanner:tanning_g] @tan_dragonhide(red_dragonhide, red_dragon_leather, inv_total(inv, red_dragonhide));
 
-[if_button1,tanner:com_8] @tan_dragonhide(black_dragonhide, black_dragon_leather, 1);
-[if_button2,tanner:com_8] @tan_dragonhide(black_dragonhide, black_dragon_leather, 5);
-[if_button3,tanner:com_8] @tan_dragonhide(black_dragonhide, black_dragon_leather, 10);
-[if_button4,tanner:com_8]
+[if_button1,tanner:tanning_h] @tan_dragonhide(black_dragonhide, black_dragon_leather, 1);
+[if_button2,tanner:tanning_h] @tan_dragonhide(black_dragonhide, black_dragon_leather, 5);
+[if_button3,tanner:tanning_h] @tan_dragonhide(black_dragonhide, black_dragon_leather, 10);
+[if_button4,tanner:tanning_h]
 p_countdialog;
 if (last_int <= 0) return;
 @tan_dragonhide(black_dragonhide, black_dragon_leather, last_int);
-[if_button5,tanner:com_8] @tan_dragonhide(black_dragonhide, black_dragon_leather, inv_total(inv, black_dragonhide));
+[if_button5,tanner:tanning_h] @tan_dragonhide(black_dragonhide, black_dragon_leather, inv_total(inv, black_dragonhide));
 
 [label,tan_soft_leather](int $hides)
 def_int $total_hides = min($hides, inv_total(inv, cowhide));

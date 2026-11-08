@@ -1,9 +1,9 @@
 // 1474
 [proc,bank_v2_searchmode_off]
-if_sethide(true, bank_v2_main:com_115);
-if_sethide(true, bank_v2_main:com_116);
-if_setgraphic("bank_buttons_new1,0", bank_v2_main:com_18);
-if_setgraphic("bank_buttons_new2,0", bank_v2_main:com_17);
+if_sethide(true, bank_v2_main:message_nomatches);
+if_sethide(true, bank_v2_main:message_nosearch);
+if_setgraphic("bank_buttons_new1,0", bank_v2_main:bank_search_icon);
+if_setgraphic("bank_buttons_new2,0", bank_v2_main:bank_search_button);
 if (%open_bank_tab = 0) {
     ~bank_v2_show_all;
 }
@@ -11,5 +11,5 @@ if (%open_bank_tab = 0) {
 %varclient_1657 = "";
 ~meslayer_close(11);
 %varclient_188 = false;
-if_settext("Bank of RuneScape", bank_v2_main:com_45);
-if_setontimer(null, bank_v2_main:com_17);
+if_settext("Bank of RuneScape", bank_v2_main:title);
+if_setontimer(null, bank_v2_main:bank_search_button);

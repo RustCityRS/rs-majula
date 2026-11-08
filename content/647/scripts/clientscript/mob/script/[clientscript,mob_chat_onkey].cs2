@@ -2,7 +2,7 @@
 [clientscript,mob_chat_onkey](int $key0, char $char1)
 if ($key0 = ^key_return) {
     ~mob_show_hide;
-} else if (if_gethide(mob_chat:com_1) = false) {
+} else if (if_gethide(mob_chat:button_layer) = false) {
     if (string_indexof_char("abcdefghijklmnopqrst", char_tolowercase($char1), 0) ! -1) {
         ~mob_show_hide;
     } else {

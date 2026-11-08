@@ -1,6 +1,6 @@
 // 2141
 [clientscript,spirittree_start]
-cc_deleteall(spirittree:com_7);
+cc_deleteall(spirittree:info);
 if (%varplayer_1469 = null) {
     return;
 }
@@ -17,7 +17,7 @@ while ($int2 ! -1) {
     }
     $int3 = calc($int3 + 1);
 }
-if_setscrollsize(296, $int1, spirittree:com_7);
+if_setscrollsize(296, $int1, spirittree:info);
 if ($int1 > 240) {
-    ~scrollbar_vertical(spirittree:com_8, spirittree:com_7, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");
+    ~scrollbar_vertical(spirittree:info_scrollbar, spirittree:info, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");
 }

@@ -11,50 +11,50 @@ def_component $component8 = null;
 switch_component ($component0) {
     case default :
         return;
-    case conq_side_command:com_78, conq_side_command:com_76 :
+    case conq_side_command:cooldown_1, conq_side_command:cost_1 :
         if (%varclient_1388 = 1) {
             $int1 = 1;
         } else {
             $int1 = %varplayerbit_7539;
         }
-        $component3 = conq_side_command:com_77;
-        $component4 = conq_side_command:com_79;
-        $component5 = conq_side_command:com_75;
-        $component6 = conq_side_command:com_76;
-        $component8 = conq_side_command:com_78;
-    case conq_side_command:com_61, conq_side_command:com_59 :
+        $component3 = conq_side_command:icon_1;
+        $component4 = conq_side_command:shading_rect_1;
+        $component5 = conq_side_command:name_1;
+        $component6 = conq_side_command:cost_1;
+        $component8 = conq_side_command:cooldown_1;
+    case conq_side_command:cooldown_2, conq_side_command:cost_2 :
         if (%varclient_1388 = 1) {
             $int1 = 3;
         } else {
             $int1 = %varplayerbit_7540;
         }
-        $component3 = conq_side_command:com_60;
-        $component4 = conq_side_command:com_62;
-        $component5 = conq_side_command:com_58;
-        $component6 = conq_side_command:com_59;
-        $component8 = conq_side_command:com_61;
-    case conq_side_command:com_44, conq_side_command:com_42 :
+        $component3 = conq_side_command:icon_2;
+        $component4 = conq_side_command:shading_rect_2;
+        $component5 = conq_side_command:name_2;
+        $component6 = conq_side_command:cost_2;
+        $component8 = conq_side_command:cooldown_2;
+    case conq_side_command:cooldown_3, conq_side_command:cost_3 :
         if (%varclient_1388 = 1) {
             $int1 = 5;
         } else {
             $int1 = %varplayerbit_7541;
         }
-        $component3 = conq_side_command:com_43;
-        $component4 = conq_side_command:com_45;
-        $component5 = conq_side_command:com_41;
-        $component6 = conq_side_command:com_42;
-        $component8 = conq_side_command:com_44;
-    case conq_side_command:com_27, conq_side_command:com_25 :
+        $component3 = conq_side_command:icon_3;
+        $component4 = conq_side_command:shading_rect_3;
+        $component5 = conq_side_command:name_3;
+        $component6 = conq_side_command:cost_3;
+        $component8 = conq_side_command:cooldown_3;
+    case conq_side_command:cooldown_4, conq_side_command:cost_4 :
         if (%varclient_1388 = 1) {
             $int1 = 6;
         } else {
             $int1 = %varplayerbit_7542;
         }
-        $component3 = conq_side_command:com_26;
-        $component4 = conq_side_command:com_28;
-        $component5 = conq_side_command:com_24;
-        $component6 = conq_side_command:com_25;
-        $component8 = conq_side_command:com_27;
+        $component3 = conq_side_command:icon_4;
+        $component4 = conq_side_command:shading_rect_4;
+        $component5 = conq_side_command:name_4;
+        $component6 = conq_side_command:cost_4;
+        $component8 = conq_side_command:cooldown_4;
 }
 switch_int ($int1) {
     case default :

@@ -1,5 +1,5 @@
 // 103:0
-[com_0]
+[tol_background_color]
 type=rectangle
 width=16384
 height=16384
@@ -10,61 +10,61 @@ fill=yes
 trans=64
 
 // 103:1
-[com_1]
+[tol_background_shadow1]
 type=rectangle
 x=16
 y=327
 width=486
 height=4
-layer=com_14
+layer=layer_1
 colour=0x140b02
 fill=yes
 trans=64
 
 // 103:2
-[com_2]
+[tol_background_shadow2]
 type=rectangle
 x=498
 y=312
 width=4
 height=15
-layer=com_14
+layer=layer_1
 colour=0x140b02
 fill=yes
 trans=64
 
 // 103:3
-[com_3]
+[tol_background_shadow3]
 type=rectangle
 x=489
 y=6
 width=4
 height=305
-layer=com_14
+layer=layer_1
 colour=0x140b02
 fill=yes
 trans=64
 
 // 103:4
-[com_4]
+[blackboard]
 type=model
 x=7
 y=6
 width=492
 height=322
-layer=com_14
+layer=layer_1
 model=model_27109
 modelorigin=-11,24
 modelzoom=356
 
 // 103:5
-[com_5]
+[close_button]
 type=model
 x=438
 y=35
 width=32
 height=29
-layer=com_14
+layer=layer_1
 model=model_27105
 modelorigin=-1,-2
 modelzoom=400
@@ -75,52 +75,52 @@ onop=closebutton_click
 onmouserepeat=model_swapper(event_com, model_27108)
 
 // 103:6
-[com_6]
+[pattern_01]
 type=model
 x=85
 y=60
 width=41
 height=34
-layer=com_14
+layer=layer_1
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 103:7
-[com_7]
+[pattern_02]
 type=model
 x=180
 y=60
 width=41
 height=34
-layer=com_14
+layer=layer_1
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 103:8
-[com_8]
+[pattern_03]
 type=model
 x=277
 y=60
 width=41
 height=34
-layer=com_14
+layer=layer_1
 model=model_2632
 modelorigin=0,16
 modelzoom=250
 onload=pattern_spin(event_com)
 
 // 103:9
-[com_9]
+[title]
 type=text
 x=37
 y=142
 width=437
 height=34
-layer=com_14
+layer=layer_1
 textfont=quill_oblique_large
 text=What comes next?
 textalignh=centre
@@ -128,13 +128,13 @@ textshadow=yes
 colour=0xdfdfc7
 
 // 103:10
-[com_10]
+[pattern_select_01]
 type=model
 x=84
 y=216
 width=41
 height=34
-layer=com_14
+layer=layer_1
 model=model_2632
 modelorigin=0,16
 modelzoom=250
@@ -144,13 +144,13 @@ opcursor0=cursor_46
 onload=pattern_spin(event_com)
 
 // 103:11
-[com_11]
+[pattern_select_02]
 type=model
 x=180
 y=216
 width=41
 height=34
-layer=com_14
+layer=layer_1
 model=model_2632
 modelorigin=0,16
 modelzoom=250
@@ -160,13 +160,13 @@ opcursor0=cursor_46
 onload=pattern_spin(event_com)
 
 // 103:12
-[com_12]
+[pattern_select_03]
 type=model
 x=276
 y=216
 width=41
 height=34
-layer=com_14
+layer=layer_1
 model=model_2632
 modelorigin=0,16
 modelzoom=250
@@ -176,13 +176,13 @@ opcursor0=cursor_46
 onload=pattern_spin(event_com)
 
 // 103:13
-[com_13]
+[pattern_select_04]
 type=model
 x=372
 y=216
 width=41
 height=34
-layer=com_14
+layer=layer_1
 model=model_2632
 modelorigin=0,16
 modelzoom=250
@@ -192,7 +192,7 @@ opcursor0=cursor_46
 onload=pattern_spin(event_com)
 
 // 103:14
-[com_14]
+[layer_1]
 type=layer
 width=506
 height=335

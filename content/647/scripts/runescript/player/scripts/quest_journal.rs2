@@ -2,10 +2,10 @@
 // interface 275), whose components keep 289's names (ifquestname, qj1-qj300)
 // as their text in the cache.
 [proc,quest_journal](string $quest_name, string $journal_text)
-if_setscrollpos(questjournal_scroll:scroll, 0);
+if_setscrollpos(questjournal_scroll:qj_layer1, 0);
 // 2011's journal lines draw in p12_full, 404 wide (questjournal_scroll, 275).
 split_init($journal_text, 404, 49, p12_full);
-if_settext(questjournal_scroll:ifquestname, "@dre@<$quest_name>");
+if_settext(questjournal_scroll:death_ifquestname, "@dre@<$quest_name>");
 if_settext(questjournal_scroll:qj1, split_get(0, 0));
 if_settext(questjournal_scroll:qj2, split_get(0, 1));
 if_settext(questjournal_scroll:qj3, split_get(0, 2));

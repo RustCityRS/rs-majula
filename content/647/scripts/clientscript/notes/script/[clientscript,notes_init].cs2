@@ -32,8 +32,8 @@
 %varclient_1697 = "";
 if_setonvarcstrtransmit("notes_update{varclient_1668, varclient_1669, varclient_1670, varclient_1671, varclient_1672, varclient_1673, varclient_1674, varclient_1675, varclient_1676, varclient_1677, varclient_1678, varclient_1679, varclient_1680, varclient_1681, varclient_1682, varclient_1683, varclient_1684, varclient_1685, varclient_1686, varclient_1687, varclient_1688, varclient_1689, varclient_1690, varclient_1691, varclient_1692, varclient_1693, varclient_1694, varclient_1695, varclient_1696, varclient_1697}", notes:com_9);
 if_setonvartransmit("notes_click{varplayer_1439}", notes:com_9);
-if_setonvartransmit("notes_update{varplayer_1440, varplayer_1441}", notes:com_6);
-if_sethide(true, notes:com_16);
+if_setonvartransmit("notes_update{varplayer_1440, varplayer_1441}", notes:drag);
+if_sethide(true, notes:colours);
 cc_deleteall(notes:com_15);
 if_setscrollpos(0, 0, notes:com_15);
 if_setscrollsize(0, 0, notes:com_15);

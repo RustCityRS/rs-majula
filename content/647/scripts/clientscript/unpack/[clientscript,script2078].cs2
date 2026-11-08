@@ -3,7 +3,7 @@
 def_int $int0 = 0;
 $int0 = calc(20 - %varclient_636);
 if ($int0 = 1) {
-    if_settext("<tostring($int0)> min", interface_836:com_27);
+    if_settext("<tostring($int0)> min", snp_game_overlay:time_left);
 } else {
-    if_settext("<tostring($int0)> mins", interface_836:com_27);
+    if_settext("<tostring($int0)> mins", snp_game_overlay:time_left);
 }

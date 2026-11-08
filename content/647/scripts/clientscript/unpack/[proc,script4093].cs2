@@ -29,4 +29,4 @@ cc_setsize(21, 11, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
 cc_setgraphic(tooltip_arrow_1);
 ~script4096($component1);
-~script4095($component0, $component1, ~if_getx_absolute(toplevel_fullscreen:com_127), ~if_gety_absolute(toplevel_fullscreen:com_127), if_gethide(toplevel_fullscreen:com_83));
+~script4095($component0, $component1, ~if_getx_absolute(toplevel_fullscreen:com_127), ~if_gety_absolute(toplevel_fullscreen:com_127), if_gethide(toplevel_fullscreen:side_border));

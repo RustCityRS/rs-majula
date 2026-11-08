@@ -4,5 +4,5 @@ if (clientclock >= $int0) {
     if (%varclient_5 = 11) {
         ~bank_v2_show_search(%varclient_1657);
     }
-    if_setontimer(null, bank_v2_main:com_17);
+    if_setontimer(null, bank_v2_main:bank_search_button);
 }

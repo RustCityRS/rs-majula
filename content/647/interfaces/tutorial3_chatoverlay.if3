@@ -1,0 +1,78 @@
+// 896:0
+[universe]
+type=layer
+width=6
+height=6
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=script2778(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:com_3)
+onvartransmit=script2778(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:com_3){option_mouse, learning_the_ropes, varplayer_1805}
+onvarctransmit=script2778(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:com_3){varclient_1003, varclient_1004, varclient_1005, varclient_1006}
+onvarcstrtransmit=script2778(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:com_3){varclient_1713, varclient_1714}
+
+// 896:1
+[display]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=universe
+
+// 896:2
+[text_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=display
+
+// 896:3
+[com_3]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=display
+
+// 896:4
+[skip]
+type=layer
+width=180
+height=22
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+hide=yes
+transmitop=1
+op1=Skip Tutorial
+onmouseover=graphic_swapper(tutorial3_chatoverlay:skip_graphic, "km_buttonlongtemp00,1")
+onmouseleave=graphic_swapper(tutorial3_chatoverlay:skip_graphic, "km_buttonlongtemp00,0")
+
+// 896:5
+[skip_graphic]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=skip
+graphic="km_buttonlongtemp00,0"
+colour=0x000000
+
+// 896:6
+[com_6]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=skip
+textfont=p12_full
+text=Skip Tutorial
+textalignh=centre
+textalignv=centre
+textshadow=yes

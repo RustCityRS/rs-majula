@@ -2,7 +2,7 @@
 [proc,mob_scenario_select_setup]
 def_int $int0 = 1;
 %varclient_838 = %varplayerbit_6347;
-while ($int0 <= 4 & enum(int, component, enum_2383, $int0) ! mob_scenario_select:com_20) {
+while ($int0 <= 4 & enum(int, component, enum_2383, $int0) ! mob_scenario_select:content_layer) {
     if ($int0 <= %varclient_838) {
         if_setcolour(0xe1981f, enum(int, component, enum_2384, $int0));
         if_setop(1, "Select", enum(int, component, enum_2383, $int0));

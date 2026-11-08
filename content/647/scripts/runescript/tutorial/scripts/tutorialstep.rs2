@@ -4,10 +4,10 @@
 //
 // 289 opens it with TUT_OPEN, which 2011's client does not have (647's server
 // prots, rs-protocol server_prot.rs; the engine's tut_open sends nothing at
-// 647). It goes on the chatbox's foreground slot, chatbox:com_7 (752:7, a
+// 647). It goes on the chatbox's foreground slot, chattop:mes_layer_large (752:7, a
 // 506x130 layer at 5,5), the size of 372's own root layer (506x129, com7),
 // and the slot void-634 mounts chatbox interfaces on (interface_types.toml,
-// chat_foreground). Dialogues go on another slot (chatbox:com_dialogue_box),
+// chat_foreground). Dialogues go on another slot (chattop:chatmodallarge),
 // so they leave it open. It opens before its text is set, the title too (289
 // sets the title before the pages): a reopened interface starts from the
 // cache's text.
@@ -21,31 +21,31 @@ if ($lines = 0) {
 }
 $interface = tutorial_text;
 tut_open($interface);
-if_opensub($interface, chatbox:com_7, ^true);
-if_settext(tutorial_text:com_0, $title);
+if_opensub($interface, chattop:mes_layer_large, ^true);
+if_settext(tutorial_text:tut2_title, $title);
 if ($lines = 1) {
-    if_settext(tutorial_text:com_1, split_get($page, 0));
-    if_settext(tutorial_text:com_2, "");
-    if_settext(tutorial_text:com_3, "");
-    if_settext(tutorial_text:com_4, "");
+    if_settext(tutorial_text:tut2_a, split_get($page, 0));
+    if_settext(tutorial_text:tut2_b, "");
+    if_settext(tutorial_text:tut2_c, "");
+    if_settext(tutorial_text:tut2_d, "");
 } else if ($lines = 2) {
-    if_settext(tutorial_text:com_1, split_get($page, 0));
-    if_settext(tutorial_text:com_2, split_get($page, 1));
-    if_settext(tutorial_text:com_3, "");
-    if_settext(tutorial_text:com_4, "");
+    if_settext(tutorial_text:tut2_a, split_get($page, 0));
+    if_settext(tutorial_text:tut2_b, split_get($page, 1));
+    if_settext(tutorial_text:tut2_c, "");
+    if_settext(tutorial_text:tut2_d, "");
 } else if ($lines = 3) {
-    if_settext(tutorial_text:com_1, split_get($page, 0));
-    if_settext(tutorial_text:com_2, split_get($page, 1));
-    if_settext(tutorial_text:com_3, split_get($page, 2));
-    if_settext(tutorial_text:com_4, "");
+    if_settext(tutorial_text:tut2_a, split_get($page, 0));
+    if_settext(tutorial_text:tut2_b, split_get($page, 1));
+    if_settext(tutorial_text:tut2_c, split_get($page, 2));
+    if_settext(tutorial_text:tut2_d, "");
 } else if ($lines = 4) {
-    if_settext(tutorial_text:com_1, split_get($page, 0));
-    if_settext(tutorial_text:com_2, split_get($page, 1));
-    if_settext(tutorial_text:com_3, split_get($page, 2));
-    if_settext(tutorial_text:com_4, split_get($page, 3));
+    if_settext(tutorial_text:tut2_a, split_get($page, 0));
+    if_settext(tutorial_text:tut2_b, split_get($page, 1));
+    if_settext(tutorial_text:tut2_c, split_get($page, 2));
+    if_settext(tutorial_text:tut2_d, split_get($page, 3));
 }
-if_settext(tutorial_text:com_5, "");
-if_settext(tutorial_text:com_6, "");
+if_settext(tutorial_text:tut2_e, "");
+if_settext(tutorial_text:tut2_f, "");
 
 // Updated the split init to match what's shown in this 2006 vid
 // https://youtu.be/Quwc_TfPW8Q?t=33

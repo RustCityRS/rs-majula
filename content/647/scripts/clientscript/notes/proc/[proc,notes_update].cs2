@@ -3,14 +3,14 @@
 if (%varplayer_1437 = 0) {
     return;
 }
-if (if_gethide(notes:com_10) = false) {
+if (if_gethide(notes:dragger) = false) {
     if_setontimer("notes_update", notes:com_9);
     return;
 } else {
     if_setontimer(null, notes:com_9);
 }
 ~meslayer_close(13);
-if_sethide(true, notes:com_16);
+if_sethide(true, notes:colours);
 %varclient_821 = 0;
 def_int $int0 = 0;
 def_int $int1 = 0;
@@ -18,12 +18,12 @@ def_int $int2 = 0;
 def_string $string0 = "";
 cc_deleteall(notes:com_9);
 if (userdetail_quickchat = true) {
-    if_settext("The notes system is not available for users restricted to quick-chat.", notes:com_13);
-    if_sethide(false, notes:com_13);
+    if_settext("The notes system is not available for users restricted to quick-chat.", notes:loading_mes);
+    if_sethide(false, notes:loading_mes);
     return;
 } else {
-    if_settext("", notes:com_13);
-    if_sethide(true, notes:com_13);
+    if_settext("", notes:loading_mes);
+    if_sethide(true, notes:loading_mes);
 }
 while ($int1 < 30) {
     $string0 = ~notes_get_note($int1);
@@ -34,22 +34,22 @@ while ($int1 < 30) {
     $int1 = calc($int1 + 1);
 }
 if ($int2 <= 0) {
-    if_settext("No notes", notes:com_13);
-    if_sethide(false, notes:com_13);
-    if_settext("Notes", notes:com_1);
+    if_settext("No notes", notes:loading_mes);
+    if_sethide(false, notes:loading_mes);
+    if_settext("Notes", notes:title);
 } else if ($int2 > 0 & $int2 <= 30) {
-    if_settext("Notes (<tostring($int2)>/<30>)", notes:com_1);
+    if_settext("Notes (<tostring($int2)>/<30>)", notes:title);
 } else {
-    if_settext("Notes", notes:com_1);
+    if_settext("Notes", notes:title);
 }
 if ($int0 > 0 & $int0 < 13) {
     if (cc_find(notes:com_9, calc($int2 - 1)) = true) {
-        if_setsize(cc_getwidth, calc(if_getheight(notes:com_9) - (cc_gety + cc_getheight)), ^setsize_abs, ^setsize_abs, notes:com_12);
-        if_setposition(cc_getx, calc(cc_gety + cc_getheight), ^setpos_abs_left, ^setpos_abs_top, notes:com_12);
-        if_sethide(false, notes:com_12);
+        if_setsize(cc_getwidth, calc(if_getheight(notes:com_9) - (cc_gety + cc_getheight)), ^setsize_abs, ^setsize_abs, notes:bottom);
+        if_setposition(cc_getx, calc(cc_gety + cc_getheight), ^setpos_abs_left, ^setpos_abs_top, notes:bottom);
+        if_sethide(false, notes:bottom);
     }
 } else {
-    if_sethide(true, notes:com_12);
+    if_sethide(true, notes:bottom);
 }
 if ($int0 < 1) {
     if_setscrollsize(0, 0, notes:com_9);
@@ -57,4 +57,4 @@ if ($int0 < 1) {
     if_setscrollsize(0, calc($int0 * 15 + 10), notes:com_9);
 }
 ~scrollbar_resize(notes:com_15, notes:com_9, if_getscrolly(notes:com_9));
-if_sethide(true, notes:com_44);
+if_sethide(true, notes:noclick);

@@ -5,7 +5,7 @@ x=15
 y=12
 width=483
 height=311
-layer=com_67
+layer=main_layer
 
 // 1096:1
 [com_1]
@@ -14,7 +14,7 @@ x=307
 y=46
 width=176
 height=21
-layer=com_67
+layer=main_layer
 
 // 1096:2
 [com_2]
@@ -228,8 +228,8 @@ height=16
 layer=com_14
 transmitop=1
 op1=Toggle
-onmouseleave=deltooltip(interface_1096:com_68)
-onmouserepeat=aif_tooltip(interface_1096:com_68, event_com, -1, "Allows this clanmate<br>to start rated Clan<br>Wars matches.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(interface_1096:tooltip_layer)
+onmouserepeat=aif_tooltip(interface_1096:tooltip_layer, event_com, -1, "Allows this clanmate<br>to start rated Clan<br>Wars matches.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1096:22
 [com_22]
@@ -243,8 +243,8 @@ textfont=p11_full
 text=Recruiter
 textshadow=yes
 colour=0xb59b84
-onmouseleave=deltooltip(interface_1096:com_68)
-onmouserepeat=aif_tooltip(interface_1096:com_68, event_com, -1, "Allows this clanmate<br>to start rated Clan<br>Wars matches.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(interface_1096:tooltip_layer)
+onmouserepeat=aif_tooltip(interface_1096:tooltip_layer, event_com, -1, "Allows this clanmate<br>to start rated Clan<br>Wars matches.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1096:23
 [com_23]
@@ -280,8 +280,8 @@ height=16
 layer=com_14
 transmitop=1
 op1=Toggle
-onmouseleave=deltooltip(interface_1096:com_68)
-onmouserepeat=aif_tooltip(interface_1096:com_68, event_com, -1, "Allows this clanmate<br>to start rated Clan<br>Wars matches.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(interface_1096:tooltip_layer)
+onmouserepeat=aif_tooltip(interface_1096:tooltip_layer, event_com, -1, "Allows this clanmate<br>to start rated Clan<br>Wars matches.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1096:26
 [com_26]
@@ -295,8 +295,8 @@ textfont=p11_full
 text=Rated Clan Wars Leader
 textshadow=yes
 colour=0xb59b84
-onmouseleave=deltooltip(interface_1096:com_68)
-onmouserepeat=aif_tooltip(interface_1096:com_68, event_com, -1, "Allows this clanmate<br>to start rated Clan<br>Wars matches.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+onmouseleave=deltooltip(interface_1096:tooltip_layer)
+onmouserepeat=aif_tooltip(interface_1096:tooltip_layer, event_com, -1, "Allows this clanmate<br>to start rated Clan<br>Wars matches.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
 
 // 1096:27
 [com_27]
@@ -541,7 +541,7 @@ y=14
 width=207
 height=45
 layer=com_41
-textfont=graphic_5631
+textfont=verdana_11pt_regular_multiline
 textalignh=centre
 textalignv=centre
 textshadow=yes
@@ -715,7 +715,7 @@ heightmode=minus
 layer=com_65
 
 // 1096:67
-[com_67]
+[main_layer]
 type=layer
 width=16391
 height=16391
@@ -726,7 +726,7 @@ ymode=abs_centre
 onload=clansettings_onload
 
 // 1096:68
-[com_68]
+[tooltip_layer]
 type=layer
 width=512
 height=334
@@ -2218,7 +2218,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 1096:205
-[com_205]
+[world_title]
 type=text
 x=232
 y=-31
@@ -2774,7 +2774,7 @@ ymode=abs_bottom
 layer=com_8
 
 // 1096:256
-[com_256]
+[background_2]
 type=graphic
 width=16
 height=16391
@@ -2918,7 +2918,7 @@ ymode=abs_bottom
 layer=com_7
 
 // 1096:270
-[com_270]
+[background_3]
 type=graphic
 width=16
 height=16391
@@ -3063,7 +3063,7 @@ ymode=abs_bottom
 layer=com_217
 
 // 1096:284
-[com_284]
+[background_4]
 type=graphic
 width=16
 height=16391
@@ -3288,7 +3288,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 layer=com_57
-textfont=graphic_5631
+textfont=verdana_11pt_regular_multiline
 text=WWWWWWWWWWWWW
 textalignv=centre
 textshadow=yes

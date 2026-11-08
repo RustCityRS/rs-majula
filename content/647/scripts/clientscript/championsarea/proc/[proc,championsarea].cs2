@@ -1,8 +1,0 @@
-// 2856
-[proc,championsarea]
-if (~script2869(movecoord(%varclient_1070, 1, 0, 0)) = true) {
-    return;
-}
-if (~machinima_distance(coord, movecoord(%varclient_1070, 1, 0, 0)) < 31) {
-    %varclient_1070 = movecoord(%varclient_1070, 1, 0, 0);
-}

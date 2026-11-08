@@ -1,11 +1,11 @@
 // 849:0
-[com_0]
+[options_layer]
 type=layer
 x=261
 y=61
 width=229
 height=251
-layer=com_27
+layer=base_layer
 
 // 849:1
 [com_1]
@@ -100,7 +100,7 @@ transmitop=10
 op10=         
 
 // 849:8
-[com_8]
+[background_1]
 type=graphic
 x=21
 y=46
@@ -159,7 +159,7 @@ opbase=
 op10=   
 
 // 849:12
-[com_12]
+[left_side]
 type=graphic
 y=26
 width=37
@@ -173,7 +173,7 @@ opbase=
 op10=  
 
 // 849:13
-[com_13]
+[right_side]
 type=graphic
 x=479
 y=26
@@ -188,7 +188,7 @@ opbase=
 op10=  
 
 // 849:14
-[com_14]
+[right_2]
 type=graphic
 x=241
 y=40
@@ -203,7 +203,7 @@ opbase=
 op10=  
 
 // 849:15
-[com_15]
+[bottom]
 type=graphic
 x=15
 y=302
@@ -217,7 +217,7 @@ transmitop=10
 op10=  
 
 // 849:16
-[com_16]
+[top]
 type=graphic
 y=23
 width=422
@@ -232,7 +232,7 @@ opbase=
 op10=  
 
 // 849:17
-[com_17]
+[bottom_right]
 type=graphic
 x=467
 y=290
@@ -246,7 +246,7 @@ opbase=
 op10=  
 
 // 849:18
-[com_18]
+[bottom_left]
 type=graphic
 x=13
 y=290
@@ -259,7 +259,7 @@ transmitop=10
 op10=  
 
 // 849:19
-[com_19]
+[top_left]
 type=graphic
 x=13
 y=23
@@ -273,7 +273,7 @@ opbase=
 op10=  
 
 // 849:20
-[com_20]
+[top_right]
 type=graphic
 x=467
 y=23
@@ -287,7 +287,7 @@ opbase=
 op10=  
 
 // 849:21
-[com_21]
+[title_3]
 type=graphic
 x=16
 y=167
@@ -301,7 +301,7 @@ transmitop=10
 op10=   
 
 // 849:22
-[com_22]
+[left_joint_1]
 type=graphic
 x=13
 y=169
@@ -315,7 +315,7 @@ transmitop=10
 op10=   
 
 // 849:23
-[com_23]
+[right_joint_1]
 type=graphic
 x=229
 y=169
@@ -329,7 +329,7 @@ transmitop=10
 op10=   
 
 // 849:24
-[com_24]
+[right_joint_2]
 type=graphic
 x=243
 y=290
@@ -343,7 +343,7 @@ transmitop=10
 op10=   
 
 // 849:25
-[com_25]
+[close_button]
 type=graphic
 x=471
 y=26
@@ -356,7 +356,7 @@ transmitop=10
 op10=  
 
 // 849:26
-[com_26]
+[title]
 type=text
 x=23
 y=26
@@ -373,7 +373,7 @@ transmitop=10
 op10= 
 
 // 849:27
-[com_27]
+[base_layer]
 type=layer
 width=512
 height=334
@@ -381,20 +381,20 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 849:28
-[com_28]
+[summary]
 type=text
 x=4
 y=5
 width=210
 height=65
-layer=com_49
+layer=summary_layer
 textfont=p11_full
 text=<col=FCAF61>Winning conditions:<br>Just one - kill all other opponents.<br><br><col=FCAF61>Special tasks:<br>None.
 textlineheight=17
 colour=0xff9900
 
 // 849:29
-[com_29]
+[back_text]
 type=text
 width=16391
 height=16384
@@ -402,7 +402,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_32
+layer=back_button
 textfont=b12_full
 text=Back
 textalignh=centre
@@ -411,7 +411,7 @@ textshadow=yes
 colour=0xff9900
 
 // 849:30
-[com_30]
+[next_text]
 type=text
 width=16391
 height=16384
@@ -419,7 +419,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=next_button
 textfont=b12_full
 text=Next
 textalignh=centre
@@ -428,33 +428,33 @@ textshadow=yes
 colour=0xff9900
 
 // 849:31
-[com_31]
+[next_button]
 type=layer
 x=120
 y=212
 width=105
 height=33
-layer=com_0
+layer=options_layer
 onload=v2_stone_button(event_com)
 
 // 849:32
-[com_32]
+[back_button]
 type=layer
 x=6
 y=212
 width=105
 height=33
-layer=com_0
+layer=options_layer
 onload=v2_stone_button(event_com)
 
 // 849:33
-[com_33]
+[formation_text]
 type=text
 x=26
 y=31
 width=77
 height=15
-layer=com_0
+layer=options_layer
 textfont=p12_full
 text=Wedge
 textshadow=yes
@@ -462,35 +462,35 @@ colour=0xff9900
 onvarctransmit=script2503{varclient_837}
 
 // 849:34
-[com_34]
+[formation_title]
 type=text
 x=25
 y=13
 width=96
 height=15
-layer=com_0
+layer=options_layer
 textfont=p11_full
 text=Current formation:
 textshadow=yes
 colour=0xff9900
 
 // 849:35
-[com_35]
+[map_layer]
 type=layer
 x=32
 y=55
 width=157
 height=157
-layer=com_0
+layer=options_layer
 
 // 849:36
-[com_36]
+[formation_button]
 type=layer
 x=144
 y=9
 width=48
 height=43
-layer=com_0
+layer=options_layer
 onload=v2_stone_button(event_com)
 
 // 849:37
@@ -539,16 +539,16 @@ modelzoom=4360
 type=layer
 width=157
 height=157
-layer=com_35
+layer=map_layer
 
 // 849:41
-[com_41]
+[right_1]
 type=graphic
 x=132
 y=13
 width=22
 height=132
-layer=com_35
+layer=map_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -557,13 +557,13 @@ opbase=
 op10=  
 
 // 849:42
-[com_42]
+[left_1]
 type=graphic
 x=-2
 y=12
 width=29
 height=131
-layer=com_35
+layer=map_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -572,13 +572,13 @@ opbase=
 op10=  
 
 // 849:43
-[com_43]
+[title_2]
 type=graphic
 x=22
 y=128
 width=114
 height=29
-layer=com_35
+layer=map_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -586,13 +586,13 @@ transmitop=10
 op10=   
 
 // 849:44
-[com_44]
+[title_1]
 type=graphic
 x=35
 y=-4
 width=90
 height=32
-layer=com_35
+layer=map_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -600,13 +600,13 @@ transmitop=10
 op10=  
 
 // 849:45
-[com_45]
+[top_1]
 type=graphic
 x=11
 y=9
 width=32
 height=32
-layer=com_35
+layer=map_layer
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 transmitop=10
@@ -614,26 +614,26 @@ opbase=
 op10=  
 
 // 849:46
-[com_46]
+[bottom_1]
 type=graphic
 x=11
 y=116
 width=32
 height=32
-layer=com_35
+layer=map_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 849:47
-[com_47]
+[top_right_1]
 type=graphic
 x=120
 y=9
 width=32
 height=32
-layer=com_35
+layer=map_layer
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 transmitop=10
@@ -641,13 +641,13 @@ opbase=
 op10=  
 
 // 849:48
-[com_48]
+[bottom_right_1]
 type=graphic
 x=120
 y=116
 width=32
 height=32
-layer=com_35
+layer=map_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -655,60 +655,60 @@ opbase=
 op10=  
 
 // 849:49
-[com_49]
+[summary_layer]
 type=layer
 x=20
 y=59
 width=215
 height=119
-layer=com_27
+layer=base_layer
 scrollheight=300
 
 // 849:50
-[com_50]
+[scroll_bar]
 type=layer
 x=237
 y=189
 width=15
 height=124
-layer=com_27
-onload=scrollbar_vertical(event_com, interface_849:com_52)
+layer=base_layer
+onload=scrollbar_vertical(event_com, interface_849:text_layer)
 
 // 849:51
-[com_51]
+[scroll_summary]
 type=layer
 x=237
 y=58
 width=15
 height=120
-layer=com_27
-onload=scrollbar_vertical(event_com, interface_849:com_49)
+layer=base_layer
+onload=scrollbar_vertical(event_com, interface_849:summary_layer)
 
 // 849:52
-[com_52]
+[text_layer]
 type=layer
 x=20
 y=189
 width=215
 height=124
-layer=com_27
+layer=base_layer
 scrollheight=300
 
 // 849:53
-[com_53]
+[text]
 type=text
 x=4
 y=4
 width=210
 height=60
-layer=com_52
+layer=text_layer
 textfont=p11_full
 text=<col=FCAF61>Story:<br>Friendly 'war-games' exercises have gone bad, with two commanders falling out over a bet. There's no time to move the command centres - fight for your lives!
 textlineheight=17
 colour=0xff9900
 
 // 849:54
-[com_54]
+[flash_layer]
 type=layer
 width=512
 height=334
@@ -717,13 +717,13 @@ ymode=abs_centre
 hide=yes
 
 // 849:55
-[com_55]
+[highlight_rect]
 type=rectangle
 x=281
 y=65
 width=178
 height=55
-layer=com_54
+layer=flash_layer
 colour=0xffff00
 transmitop=10
 op10= 

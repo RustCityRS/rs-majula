@@ -3,11 +3,11 @@
 %varclient_815 = 0;
 ~statusicons_deltooltip;
 if (getwindowmode < 2) {
-    if_setontimer(null, toplevel:com_11);
-    if_sethide(true, toplevel:com_13);
+    if_setontimer(null, toplevel:gravestone_layer);
+    if_sethide(true, toplevel:gravestone_timer);
     if_sethide(true, toplevel:com_12);
 } else {
-    if_setontimer(null, toplevel_fullscreen:com_11);
-    if_sethide(true, toplevel_fullscreen:com_166);
+    if_setontimer(null, toplevel_fullscreen:gravestone_layer);
+    if_sethide(true, toplevel_fullscreen:gravestone_timer);
     if_sethide(true, toplevel_fullscreen:com_165);
 }

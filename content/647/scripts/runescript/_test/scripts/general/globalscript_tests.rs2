@@ -1,11 +1,10 @@
 #testscript
 
-[label,test_globalscript_plural_keeps_server_quantity]
-assert_str_eq(~text_plural(1, "apple", "apples"), "1 apple")
-assert_str_eq(~text_plural(2, "apple", "apples"), "2 apples")
-assert_str_eq(~text_plural(0, "apple", "apples"), "0 apples")
-assert_str_eq(~text_plural_noun(1, "apple", "apples"), "apple")
-assert_str_eq(~text_plural_noun(2, "apple", "apples"), "apples")
+[label,test_globalscript_plural_picks_noun]
+assert_str_eq(~text_plural(1, "apple", "apples"), "apple")
+assert_str_eq(~text_plural(2, "apple", "apples"), "apples")
+assert_str_eq(~text_plural(0, "apple", "apples"), "apples")
+assert_str_eq("<tostring(2)> <~text_plural(2, "apple", "apples")>", "2 apples")
 
 [label,test_globalscript_bonus_xp_keeps_event_guard]
 setup_player("test_player")
@@ -20,7 +19,7 @@ assert_eq(~doublexp_multiplier, 2550)
 assert_eq(~doublexp_multiplier, 1125)
 %doublexp_timetotal = 600
 assert_eq(~doublexp_multiplier, 1100)
-assert_eq(~doublexp_multiplier_for_stat(23), 1100)
+assert_eq(~script338(23), 1100)
 
 [label,test_globalscript_bank_keeps_server_tab_numbers]
 setup_player("test_player")
@@ -59,4 +58,5 @@ assert_eq(~music_unlockbit(2, 1), 1)
 assert_eq(~music_unlockbit(2, 0), 0)
 assert_eq(~music_unlockbit(28, 0), 1)
 assert_eq(~music_unlockbit(0, 0), 1)
-assert_eq(~music_getvar(1), 5)
+assert_eq(~music_getvar(32), 0)
+assert_eq(~music_getvar(33), 1)

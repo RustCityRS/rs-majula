@@ -14,59 +14,59 @@ def_component $component10 = null;
 def_int $int11 = -1;
 def_int $int12 = 0;
 def_string $string0 = null;
-if_setgraphic(enum(int, graphic, enum_3491, %varplayerbit_8575), task_side:com_112);
+if_setgraphic(enum(int, graphic, enum_3491, %varplayerbit_8575), task_side:area_icon);
 if (%varplayerbit_9030 = 1) {
-    if_setgraphic("stonemenusideicons,3", task_side:com_112);
+    if_setgraphic("stonemenusideicons,3", task_side:area_icon);
 }
 while ($int2 < 6) {
     switch_int ($int2) {
         case 0 :
             $int1 = %varplayerbit_8587;
             $struct0 = enum(int, struct, enum_3483, %varplayerbit_8587);
-            $component4 = task_side:com_64;
+            $component4 = task_side:task_1;
             $component9 = task_side:com_101;
-            $component7 = task_side:com_100;
-            $component10 = task_side:com_99;
+            $component7 = task_side:task_set_1;
+            $component10 = task_side:task_layer_1;
             if_setonop("script3976(%varplayerbit_8587, 1, event_op)", $component10);
         case 1 :
             $int1 = %varplayerbit_8588;
             $struct0 = enum(int, struct, enum_3483, %varplayerbit_8588);
-            $component4 = task_side:com_144;
+            $component4 = task_side:task_2;
             $component9 = task_side:com_146;
-            $component7 = task_side:com_145;
-            $component10 = task_side:com_142;
+            $component7 = task_side:task_set_2;
+            $component10 = task_side:task_layer_2;
             if_setonop("script3976(%varplayerbit_8588, 2, event_op)", $component10);
         case 2 :
             $int1 = %varplayerbit_8589;
             $struct0 = enum(int, struct, enum_3483, %varplayerbit_8589);
-            $component4 = task_side:com_149;
+            $component4 = task_side:task_3;
             $component9 = task_side:com_151;
-            $component7 = task_side:com_150;
-            $component10 = task_side:com_147;
+            $component7 = task_side:task_set_3;
+            $component10 = task_side:task_layer_3;
             if_setonop("script3976(%varplayerbit_8589, 3, event_op)", $component10);
         case 3 :
             $int1 = %varplayerbit_8590;
             $struct0 = enum(int, struct, enum_3483, %varplayerbit_8590);
-            $component4 = task_side:com_154;
+            $component4 = task_side:task_4;
             $component9 = task_side:com_156;
-            $component7 = task_side:com_155;
-            $component10 = task_side:com_152;
+            $component7 = task_side:task_set_4;
+            $component10 = task_side:task_layer_4;
             if_setonop("script3976(%varplayerbit_8590, 4, event_op)", $component10);
         case 4 :
             $int1 = %varplayerbit_8591;
             $struct0 = enum(int, struct, enum_3483, %varplayerbit_8591);
-            $component4 = task_side:com_159;
+            $component4 = task_side:task_5;
             $component9 = task_side:com_161;
-            $component7 = task_side:com_160;
-            $component10 = task_side:com_157;
+            $component7 = task_side:task_set_5;
+            $component10 = task_side:task_layer_5;
             if_setonop("script3976(%varplayerbit_8591, 5, event_op)", $component10);
         case 5 :
             $int1 = %varplayerbit_8592;
             $struct0 = enum(int, struct, enum_3483, %varplayerbit_8592);
-            $component4 = task_side:com_165;
+            $component4 = task_side:task_6;
             $component9 = task_side:com_167;
-            $component7 = task_side:com_166;
-            $component10 = task_side:com_162;
+            $component7 = task_side:task_set_6;
+            $component10 = task_side:task_layer_6;
             if_setonop("script3976(%varplayerbit_8592, 6, event_op)", $component10);
     }
     $string0 = " -<br>";
@@ -122,15 +122,15 @@ while ($int2 < 6) {
     }
     $int2 = calc($int2 + 1);
 }
-if_sethide(false, task_side:com_111);
-if_sethide(false, task_side:com_112);
+if_sethide(false, task_side:progress_layer);
+if_sethide(false, task_side:area_icon);
 if (%varplayerbit_8575 = 61) {
-    if_settext("Quest Area", task_side:com_110);
-    if_sethide(true, task_side:com_111);
-    if_sethide(true, task_side:com_112);
+    if_settext("Quest Area", task_side:area_text);
+    if_sethide(true, task_side:progress_layer);
+    if_sethide(true, task_side:area_icon);
 } else if (%varplayerbit_9030 = 1) {
-    if_settext("Introductory Tasks", task_side:com_110);
+    if_settext("Introductory Tasks", task_side:area_text);
 } else {
-    if_settext(enum(int, string, enum_3487, %varplayerbit_8575), task_side:com_110);
+    if_settext(enum(int, string, enum_3487, %varplayerbit_8575), task_side:area_text);
 }
 ~script3975;

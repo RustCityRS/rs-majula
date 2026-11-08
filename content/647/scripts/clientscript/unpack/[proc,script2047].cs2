@@ -1,50 +1,50 @@
 // 2047
 [proc,script2047]
 if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
-    if_settext("All", skillmulti2010_numbers:com_17);
+    if_settext("All", skillmulti2010_numbers:number);
 } else {
-    if_settext(tostring(%skill_creation_amount), skillmulti2010_numbers:com_17);
+    if_settext(tostring(%skill_creation_amount), skillmulti2010_numbers:number);
 }
 def_string $string0 = ~script1111;
-if (if_gethide(skillmulti2010:com_14) = false) {
-    if_setpausetext($string0, skillmulti2010:com_14);
+if (if_gethide(skillmulti2010:a) = false) {
+    if_setpausetext($string0, skillmulti2010:a);
 }
-if (if_gethide(skillmulti2010:com_15) = false) {
-    if_setpausetext($string0, skillmulti2010:com_15);
+if (if_gethide(skillmulti2010:b) = false) {
+    if_setpausetext($string0, skillmulti2010:b);
 }
-if (if_gethide(skillmulti2010:com_16) = false) {
-    if_setpausetext($string0, skillmulti2010:com_16);
+if (if_gethide(skillmulti2010:c) = false) {
+    if_setpausetext($string0, skillmulti2010:c);
 }
-if (if_gethide(skillmulti2010:com_17) = false) {
-    if_setpausetext($string0, skillmulti2010:com_17);
+if (if_gethide(skillmulti2010:d) = false) {
+    if_setpausetext($string0, skillmulti2010:d);
 }
-if (if_gethide(skillmulti2010:com_18) = false) {
-    if_setpausetext($string0, skillmulti2010:com_18);
+if (if_gethide(skillmulti2010:e) = false) {
+    if_setpausetext($string0, skillmulti2010:e);
 }
-if (if_gethide(skillmulti2010:com_19) = false) {
-    if_setpausetext($string0, skillmulti2010:com_19);
+if (if_gethide(skillmulti2010:f) = false) {
+    if_setpausetext($string0, skillmulti2010:f);
 }
-if (if_gethide(skillmulti2010:com_20) = false) {
-    if_setpausetext($string0, skillmulti2010:com_20);
+if (if_gethide(skillmulti2010:g) = false) {
+    if_setpausetext($string0, skillmulti2010:g);
 }
-if (if_gethide(skillmulti2010:com_21) = false) {
-    if_setpausetext($string0, skillmulti2010:com_21);
+if (if_gethide(skillmulti2010:h) = false) {
+    if_setpausetext($string0, skillmulti2010:h);
 }
-if (if_gethide(skillmulti2010:com_22) = false) {
-    if_setpausetext($string0, skillmulti2010:com_22);
+if (if_gethide(skillmulti2010:i) = false) {
+    if_setpausetext($string0, skillmulti2010:i);
 }
-if (if_gethide(skillmulti2010:com_23) = false) {
-    if_setpausetext($string0, skillmulti2010:com_23);
+if (if_gethide(skillmulti2010:j) = false) {
+    if_setpausetext($string0, skillmulti2010:j);
 }
-if (if_gethide(skillmulti2010:com_24) = false) {
-    if_setpausetext($string0, skillmulti2010:com_24);
+if (if_gethide(skillmulti2010:k) = false) {
+    if_setpausetext($string0, skillmulti2010:k);
 }
-if (if_gethide(skillmulti2010:com_25) = false) {
-    if_setpausetext($string0, skillmulti2010:com_25);
+if (if_gethide(skillmulti2010:l) = false) {
+    if_setpausetext($string0, skillmulti2010:l);
 }
-if (if_gethide(skillmulti2010:com_26) = false) {
-    if_setpausetext($string0, skillmulti2010:com_26);
+if (if_gethide(skillmulti2010:m) = false) {
+    if_setpausetext($string0, skillmulti2010:m);
 }
-if (if_gethide(skillmulti2010:com_27) = false) {
-    if_setpausetext($string0, skillmulti2010:com_27);
+if (if_gethide(skillmulti2010:n) = false) {
+    if_setpausetext($string0, skillmulti2010:n);
 }

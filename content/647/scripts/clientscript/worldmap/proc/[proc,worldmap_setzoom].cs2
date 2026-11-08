@@ -1,4 +1,4 @@
 // 1372
 [proc,worldmap_setzoom]
 worldmap_setzoom(%varclient_172);
-if_settext("<tostring(%varclient_172)>%", worldmap:com_14);
+if_settext("<tostring(%varclient_172)>%", worldmap:zoom_level);

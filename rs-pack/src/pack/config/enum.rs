@@ -287,12 +287,9 @@ mod dialogue_slot_tests {
         let reg =
             PackRegistry::load(&Path::new("..").join(crate::PACK_DIR)).expect("load registry");
         let small = ((752u32 << 16) | 12) as i32;
+        assert_eq!(reg.component_hashes.get("chattop:chatmodal"), Some(&small));
         assert_eq!(
-            reg.component_hashes.get("chatbox:com_dialogue_box_small"),
-            Some(&small)
-        );
-        assert_eq!(
-            enum_value("component", &reg, "chatbox:com_dialogue_box_small")
+            enum_value("component", &reg, "chattop:chatmodal")
                 .and_then(|v| if let ParamValue::Int(v) = v {
                     Some(v)
                 } else {

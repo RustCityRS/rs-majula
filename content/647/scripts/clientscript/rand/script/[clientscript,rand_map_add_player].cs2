@@ -7,13 +7,13 @@ def_int $int4 = 0;
 def_int $int5 = 0;
 switch_int ($int3) {
     case 1 :
-        $int4 = calc(if_getwidth(rand_dungeon_map:com_3) / 4);
-        $int5 = calc(if_getheight(rand_dungeon_map:com_3) / 4);
+        $int4 = calc(if_getwidth(rand_dungeon_map:room_layer) / 4);
+        $int5 = calc(if_getheight(rand_dungeon_map:room_layer) / 4);
     case 2 :
-        $int4 = calc(if_getwidth(rand_dungeon_map:com_3) / 4);
+        $int4 = calc(if_getwidth(rand_dungeon_map:room_layer) / 4);
     case default :
 }
-cc_create(rand_dungeon_map:com_5, ^iftype_graphic, %varclient_1152);
+cc_create(rand_dungeon_map:player_layer, ^iftype_graphic, %varclient_1152);
 %varclient_1152 = calc(%varclient_1152 + 1);
 switch_int ($int2) {
     case 1 :
@@ -34,7 +34,7 @@ switch_int ($int2) {
     case default :
 }
 cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
-cc_setonmouserepeat("rand_map_tooltip(event_com, event_comsubid, rand_dungeon_map:com_7, $string0)");
-cc_setonmouseleave("deltooltip(rand_dungeon_map:com_7)");
+cc_setonmouserepeat("rand_map_tooltip(event_com, event_comsubid, rand_dungeon_map:tooltip_layer, $string0)");
+cc_setonmouseleave("deltooltip(rand_dungeon_map:tooltip_layer)");
 cc_setfill(true);
 cc_sethide(false);

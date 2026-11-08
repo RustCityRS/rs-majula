@@ -20,7 +20,7 @@ width=376
 height=31
 xmode=abs_centre
 ymode=abs_centre
-layer=com_10
+layer=layer_1
 textfont=b12_full
 text=Which is the next shape in the above sequence?
 textalignh=centre
@@ -28,7 +28,7 @@ textshadow=yes
 colour=0x7d7d4b
 
 // 25:2
-[com_2]
+[barrows_ansa]
 type=model
 x=-149
 y=101
@@ -36,7 +36,7 @@ width=93
 height=93
 xmode=abs_centre
 ymode=abs_centre
-layer=com_10
+layer=layer_1
 model=null
 modelangle=512,0,0
 modelzoom=500
@@ -44,7 +44,7 @@ transmitop=1
 op1=Choose
 
 // 25:3
-[com_3]
+[barrows_ansb]
 type=model
 x=-6
 y=101
@@ -52,7 +52,7 @@ width=93
 height=93
 xmode=abs_centre
 ymode=abs_centre
-layer=com_10
+layer=layer_1
 model=null
 modelangle=512,0,0
 modelzoom=500
@@ -60,7 +60,7 @@ transmitop=1
 op1=Choose
 
 // 25:4
-[com_4]
+[barrows_puzzle_layer]
 type=layer
 x=-7
 y=-55
@@ -68,10 +68,10 @@ width=355
 height=93
 xmode=abs_centre
 ymode=abs_centre
-layer=com_10
+layer=layer_1
 
 // 25:5
-[com_5]
+[barrows_ansc]
 type=model
 x=137
 y=101
@@ -79,7 +79,7 @@ width=93
 height=93
 xmode=abs_centre
 ymode=abs_centre
-layer=com_10
+layer=layer_1
 model=null
 modelangle=512,0,0
 modelzoom=500
@@ -87,40 +87,40 @@ transmitop=1
 op1=Choose
 
 // 25:6
-[com_6]
+[barrows_seq1]
 type=model
 x=-131
 width=93
 height=93
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=barrows_puzzle_layer
 model=null
 modelangle=512,0,0
 modelzoom=500
 
 // 25:7
-[com_7]
+[barrows_seq2]
 type=model
 x=-38
 width=93
 height=93
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=barrows_puzzle_layer
 model=null
 modelangle=512,0,0
 modelzoom=500
 
 // 25:8
-[com_8]
+[barrows_seq3]
 type=model
 x=55
 width=93
 height=93
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=barrows_puzzle_layer
 model=null
 modelangle=512,0,0
 modelzoom=500
@@ -134,13 +134,13 @@ width=201
 height=200
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=barrows_puzzle_layer
 model=model_4623
 modelangle=524,19,0
 modelzoom=1019
 
 // 25:10
-[com_10]
+[layer_1]
 type=layer
 width=16391
 height=16391
@@ -158,7 +158,7 @@ width=9
 height=14
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=barrows_puzzle_layer
 textfont=p12_full
 text=1.
 textshadow=yes
@@ -173,7 +173,7 @@ width=11
 height=14
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=barrows_puzzle_layer
 textfont=p12_full
 text=2.
 textshadow=yes
@@ -188,7 +188,7 @@ width=10
 height=14
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=barrows_puzzle_layer
 textfont=p12_full
 text=3.
 textshadow=yes
@@ -203,7 +203,7 @@ width=10
 height=14
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=barrows_puzzle_layer
 textfont=p12_full
 text=4.
 textshadow=yes

@@ -1,0 +1,154 @@
+// 752:0
+[chat]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+
+// 752:1
+[chat_graphic]
+type=graphic
+width=8
+height=10
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=chat
+graphic=chat_background
+tiling=yes
+colour=0xffffffff
+
+// 752:2
+[chat_border]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=chat
+onload=script1087(event_com, 0)
+onvartransmit=script1389{varplayer_466}
+
+// 752:3
+[mes_layer]
+type=layer
+x=20
+y=24
+width=479
+height=96
+layer=chat
+hide=yes
+noclickthrough=yes
+
+// 752:4
+[mes_text]
+type=text
+y=20
+width=20
+height=40
+widthmode=minus
+xmode=abs_centre
+layer=mes_layer
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 752:5
+[mes_text2]
+type=text
+y=60
+width=20
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=mes_layer
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+colour=0x000080
+
+// 752:6
+[caret]
+type=line
+y=63
+height=14
+layer=mes_layer
+hide=yes
+linewid=2
+colour=0x000000
+
+// 752:7
+[mes_layer_large]
+type=layer
+x=5
+y=5
+width=506
+height=130
+layer=chat
+hide=yes
+noclickthrough=yes
+
+// 752:8
+[mes_layer_hide]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=chat
+
+// 752:9
+[chatdefault]
+type=layer
+x=6
+y=7
+width=12
+height=12
+widthmode=minus
+heightmode=minus
+layer=mes_layer_hide
+
+// 752:10
+[chatoverlay]
+type=layer
+x=20
+y=24
+width=479
+height=96
+layer=mes_layer_hide
+noclickthrough=yes
+
+// 752:11
+[chatoverlaylarge]
+type=layer
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=mes_layer_hide
+noclickthrough=yes
+
+// 752:12
+[chatmodal]
+type=layer
+x=20
+y=24
+width=479
+height=96
+layer=mes_layer_hide
+
+// 752:13
+[chatmodallarge]
+type=layer
+width=15
+height=18
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=mes_layer_hide

@@ -1,6 +1,6 @@
 // 1296
 [clientscript,script1296]
 if (getwindowmode >= 2) {
-    if_setmodelangle(0, 0, 89, 67, 0, 300, kr_king_statue:com_2);
-    if_setmodelangle(0, 0, 89, 67, 0, 300, kr_king_statue:com_1);
+    if_setmodelangle(0, 0, 89, 67, 0, 300, kr_king_statue:statue);
+    if_setmodelangle(0, 0, 89, 67, 0, 300, kr_king_statue:rockwall);
 }

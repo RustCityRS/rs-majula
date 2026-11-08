@@ -1,5 +1,5 @@
 // 549:0
-[com_0]
+[bounding_box]
 type=layer
 width=512
 height=334
@@ -9,10 +9,10 @@ height=334
 type=layer
 width=512
 height=320
-layer=com_0
+layer=bounding_box
 
 // 549:2
-[com_2]
+[loc_lie]
 type=rectangle
 x=17
 y=25
@@ -26,7 +26,7 @@ fill=yes
 trans=200
 
 // 549:3
-[com_3]
+[bg]
 type=graphic
 x=14
 y=25
@@ -41,7 +41,7 @@ colour=0xffffffff
 opbase= 
 
 // 549:4
-[com_4]
+[border_l]
 type=graphic
 y=53
 width=32
@@ -64,7 +64,7 @@ graphic="v2_stone_borders,35"
 colour=0xffffffff
 
 // 549:6
-[com_6]
+[border_r]
 type=graphic
 x=480
 y=51
@@ -77,7 +77,7 @@ tiling=yes
 colour=0xffffffff
 
 // 549:7
-[com_7]
+[border_lower]
 type=graphic
 x=45
 y=-4
@@ -102,7 +102,7 @@ graphic="v2_stone_borders,37"
 colour=0xffffffff
 
 // 549:9
-[com_9]
+[border_top]
 type=graphic
 x=44
 y=20
@@ -138,21 +138,21 @@ graphic="v2_stone_borders,6"
 colour=0xffffffff
 
 // 549:12
-[com_12]
+[content_layer]
 type=layer
 y=-13
 width=512
 height=334
-layer=com_0
+layer=bounding_box
 
 // 549:13
-[com_13]
+[close_button]
 type=graphic
 x=474
 y=23
 width=16
 height=16
-layer=com_0
+layer=bounding_box
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -162,13 +162,13 @@ onop=closebutton_click
 onmouserepeat=graphic_swapper(event_com, "v2_stone_close_button,1")
 
 // 549:14
-[com_14]
+[title]
 type=text
 y=24
 width=469
 height=15
 xmode=abs_centre
-layer=com_0
+layer=bounding_box
 textfont=b12_full
 text=Photo Booth
 textalignh=centre
@@ -176,16 +176,16 @@ textshadow=yes
 colour=0xff9900
 
 // 549:15
-[com_15]
+[confirm_layer_container]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=bounding_box
 hide=yes
 noclickthrough=yes
 
 // 549:16
-[com_16]
+[confirm_layer]
 type=layer
 width=262
 height=134
@@ -193,7 +193,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_15
+layer=confirm_layer_container
 transmitop=10
 op10= 
 
@@ -206,7 +206,7 @@ width=25
 height=29
 widthmode=minus
 heightmode=minus
-layer=com_16
+layer=confirm_layer
 colour=0x000000
 fill=yes
 trans=200
@@ -214,7 +214,7 @@ transmitop=10
 op10= 
 
 // 549:18
-[com_18]
+[bg_1]
 type=graphic
 x=14
 y=24
@@ -222,7 +222,7 @@ width=27
 height=34
 widthmode=minus
 heightmode=minus
-layer=com_16
+layer=confirm_layer
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -231,13 +231,13 @@ opbase=
 op10= 
 
 // 549:19
-[com_19]
+[border_l_1]
 type=graphic
 y=52
 width=32
 height=93
 heightmode=minus
-layer=com_16
+layer=confirm_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -251,21 +251,21 @@ x=13
 y=19
 width=32
 height=32
-layer=com_16
+layer=confirm_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:21
-[com_21]
+[border_r_1]
 type=graphic
 y=50
 width=32
 height=91
 heightmode=minus
 xmode=abs_right
-layer=com_16
+layer=confirm_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -273,7 +273,7 @@ transmitop=10
 op10= 
 
 // 549:22
-[com_22]
+[border_lower_1]
 type=graphic
 x=45
 y=-3
@@ -281,7 +281,7 @@ width=89
 height=32
 widthmode=minus
 ymode=abs_bottom
-layer=com_16
+layer=confirm_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -297,21 +297,21 @@ y=19
 width=32
 height=32
 xmode=abs_right
-layer=com_16
+layer=confirm_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:24
-[com_24]
+[border_3]
 type=graphic
 x=44
 y=19
 width=76
 height=32
 widthmode=minus
-layer=com_16
+layer=confirm_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -327,28 +327,28 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_16
+layer=confirm_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:26
-[com_26]
+[slotmoved]
 type=graphic
 x=13
 y=9
 width=32
 height=32
 ymode=abs_bottom
-layer=com_16
+layer=confirm_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:27
-[com_27]
+[confirm_text]
 type=text
 y=45
 width=48
@@ -356,7 +356,7 @@ height=121
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_16
+layer=confirm_layer
 textfont=p12_full
 text=You will not be able to take another picture for the next two hours.<br><br> Are you sure you want to continue?
 textlineheight=13
@@ -366,30 +366,30 @@ textshadow=yes
 colour=0xff9900
 
 // 549:28
-[com_28]
+[position_layer_yes]
 type=layer
 width=8192
 widthmode=proportion
 heightmode=minus
-layer=com_16
+layer=confirm_layer
 
 // 549:29
-[com_29]
+[position_layer_no]
 type=layer
 width=8192
 widthmode=proportion
 heightmode=minus
 xmode=abs_right
-layer=com_16
+layer=confirm_layer
 
 // 549:30
-[com_30]
+[title_1]
 type=text
 y=24
 width=100
 height=15
 xmode=abs_centre
-layer=com_16
+layer=confirm_layer
 textfont=b12_full
 text=Confirm
 textalignh=centre
@@ -397,7 +397,7 @@ textshadow=yes
 colour=0xff9900
 
 // 549:31
-[com_31]
+[no_button]
 type=layer
 x=24
 y=21
@@ -407,7 +407,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_29
+layer=position_layer_no
 transmitop=1
 op1=No
 onload=v2_stone_button(event_com)
@@ -416,14 +416,14 @@ onmouseleave=v2_stone_button(event_com)
 onop=script1609
 
 // 549:32
-[com_32]
+[no_text]
 type=text
 width=84
 height=29
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=no_button
 textfont=b12_full
 text=No
 textalignh=centre
@@ -432,7 +432,7 @@ textshadow=yes
 colour=0xff9900
 
 // 549:33
-[com_33]
+[yes_button]
 type=layer
 x=24
 y=21
@@ -441,7 +441,7 @@ height=150
 widthmode=minus
 heightmode=minus
 ymode=abs_bottom
-layer=com_28
+layer=position_layer_yes
 transmitop=1
 op1=Yes
 onload=v2_stone_button(event_com)
@@ -449,14 +449,14 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 549:34
-[com_34]
+[yes_text]
 type=text
 width=84
 height=29
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_33
+layer=yes_button
 textfont=b12_full
 text=Yes
 textalignh=centre
@@ -465,7 +465,7 @@ textshadow=yes
 colour=0xff9900
 
 // 549:35
-[com_35]
+[confirm_button]
 type=layer
 x=-16
 y=91
@@ -473,7 +473,7 @@ width=131
 height=66
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=content_layer
 transmitop=1
 op1=Take picture
 onload=v2_stone_button(event_com)
@@ -482,48 +482,48 @@ onmouseleave=v2_stone_button(event_com)
 onop=script1610
 
 // 549:36
-[com_36]
+[worn_layer]
 type=layer
 x=318
 y=62
 width=169
 height=249
-layer=com_12
+layer=content_layer
 
 // 549:37
-[com_37]
+[playermodel_layer]
 type=layer
 x=27
 y=62
 width=136
 height=249
-layer=com_12
+layer=content_layer
 
 // 549:38
-[com_38]
+[chathead_layer]
 type=layer
 x=175
 y=62
 width=131
 height=131
-layer=com_12
+layer=content_layer
 
 // 549:39
 [com_39]
 type=rectangle
 width=131
 height=131
-layer=com_38
+layer=chathead_layer
 colour=0x332b25
 
 // 549:40
-[com_40]
+[chathead_background]
 type=layer
 x=2
 y=2
 width=127
 height=127
-layer=com_38
+layer=chathead_layer
 
 // 549:41
 [com_41]
@@ -531,7 +531,7 @@ type=rectangle
 x=-7
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x483f33
 fill=yes
 transmitop=10
@@ -544,7 +544,7 @@ x=-7
 y=10
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x473e33
 fill=yes
 transmitop=10
@@ -557,7 +557,7 @@ x=-7
 y=20
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x463d32
 fill=yes
 transmitop=10
@@ -570,7 +570,7 @@ x=-7
 y=30
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x453c32
 fill=yes
 transmitop=10
@@ -583,7 +583,7 @@ x=-7
 y=40
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x443b31
 fill=yes
 transmitop=10
@@ -596,7 +596,7 @@ x=-7
 y=50
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x433a31
 fill=yes
 transmitop=10
@@ -609,7 +609,7 @@ x=-7
 y=60
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x423930
 fill=yes
 transmitop=10
@@ -622,7 +622,7 @@ x=-7
 y=70
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x413830
 fill=yes
 transmitop=10
@@ -635,7 +635,7 @@ x=-7
 y=80
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x40372f
 fill=yes
 transmitop=10
@@ -648,7 +648,7 @@ x=-7
 y=90
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x3f362f
 fill=yes
 transmitop=10
@@ -661,7 +661,7 @@ x=-7
 y=100
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x3e352e
 fill=yes
 transmitop=10
@@ -674,7 +674,7 @@ x=-7
 y=110
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x3d342e
 fill=yes
 transmitop=10
@@ -687,14 +687,14 @@ x=-7
 y=120
 width=164
 height=10
-layer=com_40
+layer=chathead_background
 colour=0x3c332d
 fill=yes
 transmitop=10
 op10= 
 
 // 549:54
-[com_54]
+[chathead]
 type=model
 x=30
 y=-1
@@ -702,7 +702,7 @@ width=113
 height=117
 xmode=abs_right
 ymode=abs_centre
-layer=com_40
+layer=chathead_background
 model=model_39072
 modelorigin=23,5
 modelangle=0,1979,0
@@ -717,17 +717,17 @@ oninvtransmit=script1607{worn}
 type=rectangle
 width=136
 height=249
-layer=com_37
+layer=playermodel_layer
 colour=0x332b25
 
 // 549:56
-[com_56]
+[playermodel_background]
 type=layer
 x=2
 y=2
 width=132
 height=245
-layer=com_37
+layer=playermodel_layer
 
 // 549:57
 [com_57]
@@ -735,7 +735,7 @@ type=rectangle
 y=-5
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x483f33
 fill=yes
 
@@ -745,7 +745,7 @@ type=rectangle
 y=5
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x473e33
 fill=yes
 
@@ -755,7 +755,7 @@ type=rectangle
 y=15
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x463d32
 fill=yes
 
@@ -765,7 +765,7 @@ type=rectangle
 y=25
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x453c32
 fill=yes
 
@@ -775,7 +775,7 @@ type=rectangle
 y=35
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x443b31
 fill=yes
 
@@ -785,7 +785,7 @@ type=rectangle
 y=45
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x433a31
 fill=yes
 
@@ -795,7 +795,7 @@ type=rectangle
 y=55
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x423930
 fill=yes
 
@@ -805,7 +805,7 @@ type=rectangle
 y=65
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x413830
 fill=yes
 
@@ -815,7 +815,7 @@ type=rectangle
 y=75
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x40372f
 fill=yes
 
@@ -825,7 +825,7 @@ type=rectangle
 y=85
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x3f362f
 fill=yes
 
@@ -835,7 +835,7 @@ type=rectangle
 y=95
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x3e352e
 fill=yes
 
@@ -845,7 +845,7 @@ type=rectangle
 y=105
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x3d342e
 fill=yes
 
@@ -855,7 +855,7 @@ type=rectangle
 y=115
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x3c332d
 fill=yes
 
@@ -865,7 +865,7 @@ type=rectangle
 y=125
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x3b322d
 fill=yes
 
@@ -875,7 +875,7 @@ type=rectangle
 y=135
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x3a312c
 fill=yes
 
@@ -885,7 +885,7 @@ type=rectangle
 y=145
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x39302c
 fill=yes
 
@@ -895,7 +895,7 @@ type=rectangle
 y=155
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x382f2b
 fill=yes
 
@@ -905,7 +905,7 @@ type=rectangle
 y=165
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x372e29
 fill=yes
 
@@ -915,7 +915,7 @@ type=rectangle
 y=175
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x362d28
 fill=yes
 
@@ -925,7 +925,7 @@ type=rectangle
 y=185
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x352d27
 fill=yes
 
@@ -935,7 +935,7 @@ type=rectangle
 y=195
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x342c26
 fill=yes
 
@@ -945,7 +945,7 @@ type=rectangle
 y=205
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x332b25
 fill=yes
 
@@ -955,7 +955,7 @@ type=rectangle
 y=215
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x322a24
 fill=yes
 
@@ -965,7 +965,7 @@ type=rectangle
 y=225
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x312923
 fill=yes
 
@@ -975,18 +975,18 @@ type=rectangle
 y=235
 width=132
 height=10
-layer=com_56
+layer=playermodel_background
 colour=0x302922
 fill=yes
 
 // 549:82
-[com_82]
+[playermodel]
 type=model
 x=-12
 y=30
 width=129
 height=210
-layer=com_56
+layer=playermodel_background
 model=model_6675
 modelorigin=16,91
 modelangle=113,91,5
@@ -999,17 +999,17 @@ oninvtransmit=script1608{worn}
 type=rectangle
 width=168
 height=249
-layer=com_36
+layer=worn_layer
 colour=0x332b25
 
 // 549:84
-[com_84]
+[worn_background]
 type=layer
 x=2
 y=2
 width=165
 height=245
-layer=com_36
+layer=worn_layer
 
 // 549:85
 [com_85]
@@ -1017,7 +1017,7 @@ type=rectangle
 y=2
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x483f33
 fill=yes
 
@@ -1027,7 +1027,7 @@ type=rectangle
 y=12
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x473e33
 fill=yes
 
@@ -1037,7 +1037,7 @@ type=rectangle
 y=22
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x463d32
 fill=yes
 
@@ -1047,7 +1047,7 @@ type=rectangle
 y=32
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x453c32
 fill=yes
 
@@ -1057,7 +1057,7 @@ type=rectangle
 y=42
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x443b31
 fill=yes
 
@@ -1067,7 +1067,7 @@ type=rectangle
 y=52
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x433a31
 fill=yes
 
@@ -1077,7 +1077,7 @@ type=rectangle
 y=62
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x423930
 fill=yes
 
@@ -1087,7 +1087,7 @@ type=rectangle
 y=72
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x413830
 fill=yes
 
@@ -1097,7 +1097,7 @@ type=rectangle
 y=82
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x40372f
 fill=yes
 
@@ -1107,7 +1107,7 @@ type=rectangle
 y=92
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x3f362f
 fill=yes
 
@@ -1117,7 +1117,7 @@ type=rectangle
 y=102
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x3e352e
 fill=yes
 
@@ -1127,7 +1127,7 @@ type=rectangle
 y=112
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x3d342e
 fill=yes
 
@@ -1137,7 +1137,7 @@ type=rectangle
 y=122
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x3c332d
 fill=yes
 
@@ -1147,7 +1147,7 @@ type=rectangle
 y=132
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x3b322d
 fill=yes
 
@@ -1157,7 +1157,7 @@ type=rectangle
 y=142
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x3a312c
 fill=yes
 
@@ -1167,7 +1167,7 @@ type=rectangle
 y=152
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x39302c
 fill=yes
 
@@ -1177,7 +1177,7 @@ type=rectangle
 y=162
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x382f2b
 fill=yes
 
@@ -1187,7 +1187,7 @@ type=rectangle
 y=172
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x372e29
 fill=yes
 
@@ -1197,7 +1197,7 @@ type=rectangle
 y=182
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x362d28
 fill=yes
 
@@ -1207,7 +1207,7 @@ type=rectangle
 y=192
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x352d27
 fill=yes
 
@@ -1217,7 +1217,7 @@ type=rectangle
 y=202
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x342c26
 fill=yes
 
@@ -1227,7 +1227,7 @@ type=rectangle
 y=212
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x332b25
 fill=yes
 
@@ -1237,7 +1237,7 @@ type=rectangle
 y=222
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x322a24
 fill=yes
 
@@ -1247,7 +1247,7 @@ type=rectangle
 y=232
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x312923
 fill=yes
 
@@ -1257,19 +1257,19 @@ type=rectangle
 y=242
 width=164
 height=10
-layer=com_84
+layer=worn_background
 colour=0x302922
 fill=yes
 
 // 549:110
-[com_110]
+[worn_items_layer]
 type=layer
 x=-1
 y=20
 width=163
 height=209
 xmode=abs_centre
-layer=com_84
+layer=worn_background
 transmitop=10
 op10= 
 oninvtransmit=booth_init{worn}
@@ -1281,7 +1281,7 @@ x=120
 y=116
 width=32
 height=50
-layer=com_110
+layer=worn_items_layer
 graphic="v2_stone_borders,13"
 tiling=yes
 colour=0xffffffff
@@ -1295,7 +1295,7 @@ x=66
 y=35
 width=32
 height=130
-layer=com_110
+layer=worn_items_layer
 graphic="v2_stone_borders,13"
 tiling=yes
 colour=0xffffffff
@@ -1309,7 +1309,7 @@ x=11
 y=116
 width=32
 height=50
-layer=com_110
+layer=worn_items_layer
 graphic="v2_stone_borders,13"
 tiling=yes
 colour=0xffffffff
@@ -1323,7 +1323,7 @@ x=59
 y=44
 width=48
 height=32
-layer=com_110
+layer=worn_items_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -1337,7 +1337,7 @@ x=43
 y=82
 width=82
 height=32
-layer=com_110
+layer=worn_items_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -1345,65 +1345,65 @@ transmitop=10
 op10= 
 
 // 549:116
-[com_116]
+[headslot]
 type=graphic
 x=64
 y=3
 width=36
 height=36
-layer=com_110
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:117
-[com_117]
+[capeslot]
 type=graphic
 x=23
 y=42
 width=36
 height=36
-layer=com_110
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:118
-[com_118]
+[necklaceslot]
 type=graphic
 x=64
 y=42
 width=36
 height=36
-layer=com_110
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:119
-[com_119]
+[arrowslot]
 type=graphic
 x=105
 y=42
 width=36
 height=36
-layer=com_110
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:120
-[com_120]
+[weaponslot]
 type=graphic
 x=10
 y=81
 width=36
 height=36
-layer=com_110
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
@@ -1411,91 +1411,91 @@ opbase=weaponslot
 op10= 
 
 // 549:121
-[com_121]
+[bodyslot]
 type=graphic
 x=64
 y=81
 width=36
 height=36
-layer=com_110
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:122
-[com_122]
+[shieldslot]
 type=graphic
 x=118
 y=81
 width=36
 height=36
-layer=com_110
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:123
-[com_123]
+[legslot]
 type=graphic
 x=64
 y=121
 width=36
 height=36
-layer=com_110
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:124
-[com_124]
+[footslot]
 type=graphic
 x=64
 y=161
 width=36
 height=36
-layer=com_110
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:125
-[com_125]
+[handslot]
 type=graphic
 x=10
 y=161
 width=36
 height=36
-layer=com_110
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:126
-[com_126]
+[ringslot]
 type=graphic
 x=118
 y=161
 width=36
 height=36
-layer=com_110
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 549:127
-[com_127]
+[confirm]
 type=text
 width=84
 height=21
 xmode=abs_centre
 ymode=abs_centre
-layer=com_35
+layer=confirm_button
 textfont=b12_full
 text=Take picture
 textalignh=centre

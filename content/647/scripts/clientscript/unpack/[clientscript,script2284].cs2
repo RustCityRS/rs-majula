@@ -4,12 +4,12 @@ def_int $int2 = create_reply;
 if ($int2 = -3) {
     return;
 }
-if_setontimer(null, account_create:com_11);
+if_setontimer(null, account_create:email_group);
 ~create_please_wait(0);
 if ($int2 = 2) {
     if_setgraphic("symbols_1,3", account_create:com_81);
     if_sethide(true, account_create:com_86);
-    if_sethide(true, account_create:com_22);
+    if_sethide(true, account_create:information_layer);
     if ($boolean1 = true & string_length(%varclient_1845) > 0) {
         ~script3953(0);
     }

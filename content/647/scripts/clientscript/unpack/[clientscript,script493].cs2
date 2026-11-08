@@ -35,17 +35,17 @@ if (%varplayerbit_7539 ! $int2 & %varplayerbit_7540 ! $int2 & %varplayerbit_7541
     if ($int1 = 1) {
         $struct4 = ~script488($int2);
         if ($struct4 ! null) {
-            if_sethide(true, conq_buy_army:com_49);
-            if_sethide(false, conq_buy_army:com_50);
-            if_sethide(false, conq_buy_army:com_51);
-            if_sethide(false, conq_buy_army:com_52);
-            if_sethide(false, conq_buy_army:com_53);
-            if_sethide(false, conq_buy_army:com_54);
-            if_settext(struct_param($struct4, param_1150), conq_buy_army:com_51);
-            if_setgraphic(struct_param($struct4, param_1153), conq_buy_army:com_50);
-            if_settext(struct_param($struct4, param_1151), conq_buy_army:com_52);
-            if_settext(append("Cooldown: ", tostring(struct_param($struct4, param_1155))), conq_buy_army:com_53);
-            if_settext(append("Cost: ", tostring(struct_param($struct4, param_1154))), conq_buy_army:com_54);
+            if_sethide(true, conq_buy_army:no_ability_text);
+            if_sethide(false, conq_buy_army:command_details_icon);
+            if_sethide(false, conq_buy_army:command_details_name);
+            if_sethide(false, conq_buy_army:command_details_desc);
+            if_sethide(false, conq_buy_army:command_details_cooldown);
+            if_sethide(false, conq_buy_army:command_details_cost);
+            if_settext(struct_param($struct4, param_1150), conq_buy_army:command_details_name);
+            if_setgraphic(struct_param($struct4, param_1153), conq_buy_army:command_details_icon);
+            if_settext(struct_param($struct4, param_1151), conq_buy_army:command_details_desc);
+            if_settext(append("Cooldown: ", tostring(struct_param($struct4, param_1155))), conq_buy_army:command_details_cooldown);
+            if_settext(append("Cost: ", tostring(struct_param($struct4, param_1154))), conq_buy_army:command_details_cost);
         }
     } else {
         switch_int (%varplayerbit_7515) {
@@ -61,24 +61,24 @@ if (%varplayerbit_7539 ! $int2 & %varplayerbit_7540 ! $int2 & %varplayerbit_7541
                 $struct4 = ~script488(%varplayerbit_7542);
         }
         if ($struct4 = null) {
-            if_sethide(false, conq_buy_army:com_49);
-            if_sethide(true, conq_buy_army:com_50);
-            if_sethide(true, conq_buy_army:com_51);
-            if_sethide(true, conq_buy_army:com_52);
-            if_sethide(true, conq_buy_army:com_53);
-            if_sethide(true, conq_buy_army:com_54);
+            if_sethide(false, conq_buy_army:no_ability_text);
+            if_sethide(true, conq_buy_army:command_details_icon);
+            if_sethide(true, conq_buy_army:command_details_name);
+            if_sethide(true, conq_buy_army:command_details_desc);
+            if_sethide(true, conq_buy_army:command_details_cooldown);
+            if_sethide(true, conq_buy_army:command_details_cost);
         } else {
-            if_sethide(true, conq_buy_army:com_49);
-            if_sethide(false, conq_buy_army:com_50);
-            if_sethide(false, conq_buy_army:com_51);
-            if_sethide(false, conq_buy_army:com_52);
-            if_sethide(false, conq_buy_army:com_53);
-            if_sethide(false, conq_buy_army:com_54);
-            if_settext(struct_param($struct4, param_1150), conq_buy_army:com_51);
-            if_setgraphic(struct_param($struct4, param_1153), conq_buy_army:com_50);
-            if_settext(struct_param($struct4, param_1151), conq_buy_army:com_52);
-            if_settext(append("Cooldown: ", tostring(struct_param($struct4, param_1155))), conq_buy_army:com_53);
-            if_settext(append("Cost: ", tostring(struct_param($struct4, param_1154))), conq_buy_army:com_54);
+            if_sethide(true, conq_buy_army:no_ability_text);
+            if_sethide(false, conq_buy_army:command_details_icon);
+            if_sethide(false, conq_buy_army:command_details_name);
+            if_sethide(false, conq_buy_army:command_details_desc);
+            if_sethide(false, conq_buy_army:command_details_cooldown);
+            if_sethide(false, conq_buy_army:command_details_cost);
+            if_settext(struct_param($struct4, param_1150), conq_buy_army:command_details_name);
+            if_setgraphic(struct_param($struct4, param_1153), conq_buy_army:command_details_icon);
+            if_settext(struct_param($struct4, param_1151), conq_buy_army:command_details_desc);
+            if_settext(append("Cooldown: ", tostring(struct_param($struct4, param_1155))), conq_buy_army:command_details_cooldown);
+            if_settext(append("Cost: ", tostring(struct_param($struct4, param_1154))), conq_buy_army:command_details_cost);
         }
     }
 }

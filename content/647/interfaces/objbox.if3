@@ -1,5 +1,5 @@
 // 519:0
-[com_0]
+[objbox_graphic]
 type=model
 x=16
 y=16
@@ -9,7 +9,7 @@ model=null
 modelzoom=400
 
 // 519:1
-[com_1]
+[objbox_text]
 type=text
 x=96
 y=9
@@ -21,7 +21,7 @@ textalignv=centre
 colour=0x000000
 
 // 519:2
-[com_2]
+[objbox_pausebutton]
 type=text
 x=96
 y=80
@@ -36,7 +36,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, ^blue)
 
 // 519:3
-[com_3]
+[graphic_box]
 type=graphic
 x=32
 y=31

@@ -1,5 +1,5 @@
 // 1013:0
-[com_0]
+[main_layer]
 type=layer
 width=16391
 height=16391
@@ -9,14 +9,14 @@ onload=script413
 onvarctransmit=conq_action_cam{varclient_1354, varclient_1357, varclient_1358}
 
 // 1013:1
-[com_1]
+[turn_control_layer]
 type=layer
 width=512
 height=334
 onvarctransmit=conq_update_turn(-1){varclient_1363}
 
 // 1013:2
-[com_2]
+[left]
 type=rectangle
 x=7
 y=3195
@@ -26,7 +26,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_0
+layer=main_layer
 colour=0x330066
 fill=yes
 trans=255
@@ -35,7 +35,7 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(7)
 
 // 1013:3
-[com_3]
+[top]
 type=rectangle
 x=2087
 y=7
@@ -45,7 +45,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_0
+layer=main_layer
 colour=0x999900
 fill=yes
 trans=255
@@ -54,7 +54,7 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(1)
 
 // 1013:4
-[com_4]
+[right]
 type=rectangle
 x=7
 y=3195
@@ -64,7 +64,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_right
 ymode=proportion_top
-layer=com_0
+layer=main_layer
 colour=0xff0033
 fill=yes
 trans=255
@@ -73,7 +73,7 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(3)
 
 // 1013:5
-[com_5]
+[bottom]
 type=rectangle
 x=2087
 y=7
@@ -83,7 +83,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_bottom
-layer=com_0
+layer=main_layer
 colour=0x006600
 fill=yes
 trans=255
@@ -92,7 +92,7 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(5)
 
 // 1013:6
-[com_6]
+[top_left_l]
 type=rectangle
 x=7
 y=7
@@ -102,7 +102,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_0
+layer=main_layer
 colour=0x009999
 fill=yes
 trans=255
@@ -111,7 +111,7 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(8)
 
 // 1013:7
-[com_7]
+[top_left_t]
 type=rectangle
 x=647
 y=7
@@ -121,7 +121,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_top
-layer=com_0
+layer=main_layer
 colour=0x009999
 fill=yes
 trans=255
@@ -130,7 +130,7 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(8)
 
 // 1013:8
-[com_8]
+[bottom_left_l]
 type=rectangle
 x=7
 y=7
@@ -140,7 +140,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_bottom
-layer=com_0
+layer=main_layer
 colour=0x009999
 fill=yes
 trans=255
@@ -149,7 +149,7 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(6)
 
 // 1013:9
-[com_9]
+[bottom_left_b]
 type=rectangle
 x=647
 y=7
@@ -159,7 +159,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_left
 ymode=proportion_bottom
-layer=com_0
+layer=main_layer
 colour=0x009999
 fill=yes
 trans=255
@@ -168,7 +168,7 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(6)
 
 // 1013:10
-[com_10]
+[top_right_r]
 type=rectangle
 x=7
 y=7
@@ -178,7 +178,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_right
 ymode=proportion_top
-layer=com_0
+layer=main_layer
 colour=0x009999
 fill=yes
 trans=255
@@ -187,7 +187,7 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(2)
 
 // 1013:11
-[com_11]
+[top_right_t]
 type=rectangle
 x=647
 y=7
@@ -197,7 +197,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_right
 ymode=proportion_top
-layer=com_0
+layer=main_layer
 colour=0x009999
 fill=yes
 trans=255
@@ -206,7 +206,7 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(2)
 
 // 1013:12
-[com_12]
+[bottom_right_r]
 type=rectangle
 x=7
 y=7
@@ -216,7 +216,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_right
 ymode=proportion_bottom
-layer=com_0
+layer=main_layer
 colour=0x009999
 fill=yes
 trans=255
@@ -225,7 +225,7 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(4)
 
 // 1013:13
-[com_13]
+[bottom_right_b]
 type=rectangle
 x=647
 y=7
@@ -235,7 +235,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_right
 ymode=proportion_bottom
-layer=com_0
+layer=main_layer
 colour=0x009999
 fill=yes
 trans=255
@@ -244,12 +244,12 @@ onmouseleave=script415
 onmouserepeat=conq_scroll_camera(4)
 
 // 1013:14
-[com_14]
+[arrow_bottom_left]
 type=graphic
 width=52
 height=52
 ymode=abs_bottom
-layer=com_0
+layer=main_layer
 hide=yes
 graphic="you_are_here_icon,2"
 vflip=yes
@@ -257,122 +257,122 @@ hflip=yes
 colour=0x000000
 
 // 1013:15
-[com_15]
+[arrow_bottom_right]
 type=graphic
 width=52
 height=52
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=main_layer
 hide=yes
 graphic="you_are_here_icon,2"
 vflip=yes
 colour=0x000000
 
 // 1013:16
-[com_16]
+[arrow_top_left]
 type=graphic
 width=52
 height=52
-layer=com_0
+layer=main_layer
 hide=yes
 graphic="you_are_here_icon,2"
 hflip=yes
 colour=0x000000
 
 // 1013:17
-[com_17]
+[arrow_top_right]
 type=graphic
 width=52
 height=52
 xmode=abs_right
-layer=com_0
+layer=main_layer
 hide=yes
 graphic="you_are_here_icon,2"
 colour=0x000000
 
 // 1013:18
-[com_18]
+[arrow_bottom]
 type=graphic
 width=52
 height=52
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=main_layer
 hide=yes
 graphic="you_are_here_icon,1"
 2dangle=49152
 colour=0x000000
 
 // 1013:19
-[com_19]
+[arrow_top]
 type=graphic
 width=52
 height=52
 xmode=abs_centre
-layer=com_0
+layer=main_layer
 hide=yes
 graphic="you_are_here_icon,1"
 2dangle=16384
 colour=0x000000
 
 // 1013:20
-[com_20]
+[arrow_left]
 type=graphic
 width=52
 height=52
 ymode=abs_centre
-layer=com_0
+layer=main_layer
 hide=yes
 graphic="you_are_here_icon,1"
 hflip=yes
 colour=0x000000
 
 // 1013:21
-[com_21]
+[arrow_right]
 type=graphic
 width=52
 height=52
 xmode=abs_right
 ymode=abs_centre
-layer=com_0
+layer=main_layer
 hide=yes
 graphic="you_are_here_icon,1"
 colour=0x000000
 
 // 1013:22
-[com_22]
+[time_left_layer]
 type=layer
 x=-2
 y=23
 width=175
 height=50
 xmode=abs_centre
-layer=com_0
+layer=main_layer
 hide=yes
 onvarctransmit=conq_update_time_left{varclient_1362}
 
 // 1013:23
-[com_23]
+[black_rect]
 type=rectangle
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=main_layer
 colour=0x000000
 fill=yes
 ontimer=conq_fade_in(event_com)
 
 // 1013:24
-[com_24]
+[time_left_text]
 type=text
 x=14
 y=8
 width=25
 height=16
 xmode=abs_centre
-layer=com_22
+layer=time_left_layer
 textfont=welcome_font_tiny
 text=0:00
 textalignh=centre
@@ -381,26 +381,26 @@ textshadow=yes
 colour=0xff981f
 
 // 1013:25
-[com_25]
+[time_left_icon]
 type=graphic
 x=-13
 y=6
 width=27
 height=26
 xmode=abs_centre
-layer=com_22
+layer=time_left_layer
 graphic=ra_time
 colour=0x000000
 
 // 1013:26
-[com_26]
+[whose_turn_text]
 type=text
 x=1
 y=31
 width=16384
 height=16
 widthmode=proportion
-layer=com_22
+layer=time_left_layer
 textfont=welcome_font_tiny
 textalignh=centre
 textalignv=centre

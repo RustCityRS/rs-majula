@@ -1,5 +1,5 @@
 // 667:0
-[com_0]
+[universe]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -16,19 +16,19 @@ width=488
 height=324
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=universe
 colour=0x000000
 fill=yes
 trans=200
 
 // 667:2
-[com_2]
+[container]
 type=layer
 width=488
 height=324
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=universe
 
 // 667:3
 [com_3]
@@ -39,13 +39,13 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=container
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
 
 // 667:4
-[com_4]
+[contents]
 type=layer
 y=7
 width=14
@@ -53,16 +53,16 @@ height=292
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=container
 
 // 667:5
-[com_5]
+[player]
 type=layer
 width=160
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=contents
 
 // 667:6
 [com_6]
@@ -71,19 +71,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=player
 colour=0x000000
 fill=yes
 trans=225
 
 // 667:7
-[com_7]
+[worn_items_layer]
 type=layer
 width=157
 height=236
 xmode=abs_right
 ymode=abs_centre
-layer=com_4
+layer=contents
 
 // 667:8
 [com_8]
@@ -93,7 +93,7 @@ y=112
 width=32
 height=54
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="v2_stone_borders,13"
 tiling=yes
 colour=0xffffffff
@@ -105,7 +105,7 @@ y=35
 width=32
 height=130
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="v2_stone_borders,13"
 tiling=yes
 colour=0xffffffff
@@ -118,7 +118,7 @@ y=112
 width=32
 height=54
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="v2_stone_borders,13"
 tiling=yes
 colour=0xffffffff
@@ -130,7 +130,7 @@ y=44
 width=52
 height=32
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -142,136 +142,136 @@ y=82
 width=82
 height=32
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
 
 // 667:13
-[com_13]
+[headslot]
 type=graphic
 y=3
 width=36
 height=36
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 667:14
-[com_14]
+[capeslot]
 type=graphic
 x=-41
 y=42
 width=36
 height=36
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 667:15
-[com_15]
+[necklaceslot]
 type=graphic
 y=42
 width=36
 height=36
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 667:16
-[com_16]
+[arrowslot]
 type=graphic
 x=41
 y=42
 width=36
 height=36
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 667:17
-[com_17]
+[weaponslot]
 type=graphic
 x=-54
 y=81
 width=36
 height=36
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 opbase=weaponslot
 
 // 667:18
-[com_18]
+[bodyslot]
 type=graphic
 y=81
 width=36
 height=36
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 667:19
-[com_19]
+[shieldslot]
 type=graphic
 x=54
 y=81
 width=36
 height=36
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 667:20
-[com_20]
+[legslot]
 type=graphic
 y=121
 width=36
 height=36
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 667:21
-[com_21]
+[footslot]
 type=graphic
 y=161
 width=36
 height=36
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 667:22
-[com_22]
+[handslot]
 type=graphic
 x=-54
 y=161
 width=36
 height=36
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 
 // 667:23
-[com_23]
+[ringslot]
 type=graphic
 x=54
 y=161
 width=36
 height=36
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="miscgraphics,0"
 colour=0xffffffff
 
@@ -283,7 +283,7 @@ width=69
 height=17
 widthmode=minus
 xmode=abs_right
-layer=com_7
+layer=worn_items_layer
 textfont=p12_full
 textalignv=centre
 textshadow=yes
@@ -297,25 +297,25 @@ y=217
 width=17
 height=18
 xmode=abs_centre
-layer=com_7
+layer=worn_items_layer
 graphic="options_icons_small,0"
 colour=0xffffffff
 
 // 667:26
-[com_26]
+[equipmentbonuses]
 type=layer
 x=4
 width=153
 height=283
 ymode=abs_centre
-layer=com_4
+layer=contents
 
 // 667:27
 [com_27]
 type=text
 height=15
 widthmode=minus
-layer=com_26
+layer=equipmentbonuses
 textfont=b12_full
 text=Attack Bonuses
 textshadow=yes
@@ -327,7 +327,7 @@ type=text
 y=80
 height=15
 widthmode=minus
-layer=com_26
+layer=equipmentbonuses
 textfont=b12_full
 text=Defence Bonuses
 textshadow=yes
@@ -339,161 +339,161 @@ type=text
 y=212
 height=15
 widthmode=minus
-layer=com_26
+layer=equipmentbonuses
 textfont=b12_full
 text=Other Bonuses
 textshadow=yes
 colour=0xff981f
 
 // 667:30
-[com_30]
+[stabatt]
 type=text
 y=14
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Stab:
 textshadow=yes
 colour=0xff981f
 
 // 667:31
-[com_31]
+[slashatt]
 type=text
 y=27
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Slash:
 textshadow=yes
 colour=0xff981f
 
 // 667:32
-[com_32]
+[crushatt]
 type=text
 y=40
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Crush:
 textshadow=yes
 colour=0xff981f
 
 // 667:33
-[com_33]
+[magicatt]
 type=text
 y=53
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Magic:
 textshadow=yes
 colour=0xff981f
 
 // 667:34
-[com_34]
+[rangeatt]
 type=text
 y=66
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Ranged:
 textshadow=yes
 colour=0xff981f
 
 // 667:35
-[com_35]
+[stabdef]
 type=text
 y=94
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Stab:
 textshadow=yes
 colour=0xff981f
 
 // 667:36
-[com_36]
+[slashdef]
 type=text
 y=107
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Slash:
 textshadow=yes
 colour=0xff981f
 
 // 667:37
-[com_37]
+[crushdef]
 type=text
 y=120
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Crush:
 textshadow=yes
 colour=0xff981f
 
 // 667:38
-[com_38]
+[magicdef]
 type=text
 y=133
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Magic:
 textshadow=yes
 colour=0xff981f
 
 // 667:39
-[com_39]
+[rangedef]
 type=text
 y=146
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Ranged:
 textshadow=yes
 colour=0xff981f
 
 // 667:40
-[com_40]
+[summoningdef]
 type=text
 y=159
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Summoning:
 textshadow=yes
@@ -507,7 +507,7 @@ width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Absorb Melee:
 textshadow=yes
@@ -521,7 +521,7 @@ width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Absorb Magic:
 textshadow=yes
@@ -535,21 +535,21 @@ width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Absorb Ranged:
 textshadow=yes
 colour=0xff981f
 
 // 667:44
-[com_44]
+[wearstrength]
 type=text
 y=226
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Strength:
 textshadow=yes
@@ -563,7 +563,7 @@ width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Ranged Strength:
 textshadow=yes
@@ -572,14 +572,14 @@ transmitop=10
 op10= 
 
 // 667:46
-[com_46]
+[wearprayer]
 type=text
 y=252
 width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Prayer:
 textshadow=yes
@@ -593,36 +593,36 @@ width=5
 height=15
 widthmode=minus
 xmode=abs_right
-layer=com_26
+layer=equipmentbonuses
 textfont=p12_full
 text=Magic Damage:
 textshadow=yes
 colour=0xff981f
 
 // 667:48
-[com_48]
+[bank_button]
 type=layer
 x=5
 y=4
 width=34
 height=36
 xmode=abs_right
-layer=com_4
+layer=contents
 hide=yes
 transmitop=1
 op1=Show bank
-onmouseleave=deltooltip(equip_screen2:com_76)
+onmouseleave=deltooltip(equip_screen2:tooltip)
 onop=script2318(event_op)
-onmouserepeat=script1160(event_com, event_comsubid, equip_screen2:com_76, "Return to the bank", 25, 300)
+onmouserepeat=script1160(event_com, event_comsubid, equip_screen2:tooltip, "Return to the bank", 25, 300)
 
 // 667:49
-[com_49]
+[bank_button_graphics]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_48
+layer=bank_button
 
 // 667:50
 [com_50]
@@ -631,14 +631,14 @@ width=30
 height=31
 xmode=abs_centre
 ymode=abs_centre
-layer=com_48
+layer=bank_button
 model=model_7131
 modelorigin=-1,0
 modelangle=512,0,0
 modelzoom=2300
 
 // 667:51
-[com_51]
+[popup]
 type=layer
 y=8
 width=4
@@ -647,7 +647,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=container
 hide=yes
 noclickthrough=yes
 
@@ -658,19 +658,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_51
+layer=popup
 colour=0x000000
 fill=yes
 trans=175
 
 // 667:53
-[com_53]
+[popup_contents]
 type=layer
 width=200
 height=255
 xmode=abs_centre
 ymode=abs_centre
-layer=com_51
+layer=popup
 
 // 667:54
 [com_54]
@@ -681,7 +681,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_53
+layer=popup_contents
 graphic=tradebacking
 tiling=yes
 
@@ -692,7 +692,7 @@ width=40
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_53
+layer=popup_contents
 graphic="v2_stone_borders,36"
 tiling=yes
 
@@ -704,7 +704,7 @@ width=32
 height=40
 heightmode=minus
 ymode=abs_centre
-layer=com_53
+layer=popup_contents
 graphic="v2_stone_borders,1"
 tiling=yes
 
@@ -717,7 +717,7 @@ height=40
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_53
+layer=popup_contents
 graphic="v2_stone_borders,3"
 tiling=yes
 
@@ -730,7 +730,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_53
+layer=popup_contents
 graphic="v2_stone_borders,2"
 tiling=yes
 
@@ -739,7 +739,7 @@ tiling=yes
 type=graphic
 width=32
 height=32
-layer=com_53
+layer=popup_contents
 graphic="v2_stone_borders,35"
 
 // 667:60
@@ -748,7 +748,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_53
+layer=popup_contents
 graphic="v2_stone_borders,37"
 
 // 667:61
@@ -757,7 +757,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_53
+layer=popup_contents
 graphic="v2_stone_borders,6"
 
 // 667:62
@@ -767,16 +767,16 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_53
+layer=popup_contents
 graphic="v2_stone_borders,7"
 
 // 667:63
-[com_63]
+[comparison_title]
 type=text
 height=22
 widthmode=minus
 xmode=abs_centre
-layer=com_53
+layer=popup_contents
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -784,14 +784,14 @@ textshadow=yes
 colour=0xff981f
 
 // 667:64
-[com_64]
+[popup_close]
 type=layer
 y=8
 width=120
 height=25
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_53
+layer=popup_contents
 transmitop=1
 op1=Done
 onop=equipscreen_comparison_close
@@ -804,7 +804,7 @@ height=25
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_53
+layer=popup_contents
 textfont=b12_full
 text=Done
 textalignh=centre
@@ -819,7 +819,7 @@ width=40
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=container
 graphic="v2_stone_borders,36"
 tiling=yes
 
@@ -831,7 +831,7 @@ width=32
 height=20
 heightmode=minus
 ymode=abs_centre
-layer=com_2
+layer=container
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -845,7 +845,7 @@ height=20
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_2
+layer=container
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -859,7 +859,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=container
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -869,7 +869,7 @@ colour=0xffffffff
 type=graphic
 width=32
 height=32
-layer=com_2
+layer=container
 graphic="v2_stone_borders,35"
 
 // 667:71
@@ -878,7 +878,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_2
+layer=container
 graphic="v2_stone_borders,37"
 
 // 667:72
@@ -887,7 +887,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_2
+layer=container
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 
@@ -898,7 +898,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_2
+layer=container
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 
@@ -910,7 +910,7 @@ y=3
 width=16
 height=16
 xmode=abs_right
-layer=com_2
+layer=container
 graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
@@ -924,7 +924,7 @@ type=text
 height=22
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=container
 textfont=b12_full
 text=Equipment Bonuses
 textalignh=centre
@@ -933,8 +933,8 @@ textshadow=yes
 colour=0xff981f
 
 // 667:76
-[com_76]
+[tooltip]
 type=layer
 width=1
 height=1
-layer=com_0
+layer=universe

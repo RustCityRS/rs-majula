@@ -1,19 +1,19 @@
 // 291
 [proc,worldmap_showmenu](boolean $boolean0, component $component1, component $component2, component $component3, component $component4, component $component5)
-if_settext(worldmap_getmapname(worldmap_getcurrentmap), worldmap:com_20);
+if_settext(worldmap_getmapname(worldmap_getcurrentmap), worldmap:mapname);
 cc_deleteall($component2);
 cc_deleteall($component3);
 if ($boolean0 = false) {
     if_sethide(true, $component1);
-    if_setgraphic("scrollbar_v2,0", worldmap:com_21);
-    if_setonclick("worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)", worldmap:com_21);
-    if_setonclick("worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)", worldmap:com_20);
+    if_setgraphic("scrollbar_v2,0", worldmap:map_menu_arrow);
+    if_setonclick("worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)", worldmap:map_menu_arrow);
+    if_setonclick("worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)", worldmap:mapname);
     return;
 }
 if_sethide(false, $component1);
-if_setgraphic("scrollbar_v2,1", worldmap:com_21);
-if_setonclick("worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)", worldmap:com_21);
-if_setonclick("worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)", worldmap:com_20);
+if_setgraphic("scrollbar_v2,1", worldmap:map_menu_arrow);
+if_setonclick("worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)", worldmap:map_menu_arrow);
+if_setonclick("worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)", worldmap:mapname);
 def_int $intarray0(calc(40 + 1));
 $intarray0(0) = 0;
 def_int $int6 = 1;

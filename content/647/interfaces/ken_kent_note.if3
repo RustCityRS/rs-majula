@@ -11,7 +11,7 @@ modelangle=490,0,0
 modelzoom=800
 
 // 712:1
-[com_1]
+[messagescroll1]
 type=text
 x=73
 y=75
@@ -22,7 +22,7 @@ text=Dear friend,
 colour=0x362407
 
 // 712:2
-[com_2]
+[messagescroll2]
 type=text
 x=90
 y=135
@@ -33,7 +33,7 @@ text=Come and meet me at the entrance to the Legends' Guild as soon as possible.
 colour=0x362407
 
 // 712:3
-[com_3]
+[messagescroll3]
 type=text
 x=103
 y=246
@@ -66,12 +66,12 @@ x=4
 y=4
 width=26
 height=23
-layer=com_6
+layer=scroll_close
 graphic="close_buttons,3"
 colour=0x000000
 
 // 712:6
-[com_6]
+[scroll_close]
 type=layer
 x=417
 y=48

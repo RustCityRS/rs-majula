@@ -1,10 +1,10 @@
 // 4556
 [proc,script4556](int $int0)
 if ($int0 = 1 & userdetail_quickchat = false) {
-    if_setonkey("lobbyscreen_pane_friendschat_keyboard(event_keycode, event_keychar)", lobbyscreen_pane_friendschat:com_26);
-    if_setontimer("lobbyscreen_pane_friendschat_caret_flash(clientclock, lobbyscreen_pane_friendschat:com_28)", lobbyscreen_pane_friendschat:com_27);
+    if_setonkey("lobbyscreen_pane_friendschat_keyboard(event_keycode, event_keychar)", lobbyscreen_pane_friendschat:chat_input);
+    if_setontimer("lobbyscreen_pane_friendschat_caret_flash(clientclock, lobbyscreen_pane_friendschat:input_caret)", lobbyscreen_pane_friendschat:chat_input_text);
 } else {
-    if_setonkey(null, lobbyscreen_pane_friendschat:com_26);
-    if_setontimer(null, lobbyscreen_pane_friendschat:com_27);
-    if_settext(escape(%varclient_1868), lobbyscreen_pane_friendschat:com_27);
+    if_setonkey(null, lobbyscreen_pane_friendschat:chat_input);
+    if_setontimer(null, lobbyscreen_pane_friendschat:chat_input_text);
+    if_settext(escape(%varclient_1868), lobbyscreen_pane_friendschat:chat_input_text);
 }

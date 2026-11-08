@@ -11,30 +11,30 @@ switch_int (randominc(2)) {
         sound_synth(synth_7818, 1, 0);
 }
 switch_component ($component0) {
-    case interface_972:com_31 :
-        $component1 = interface_972:com_3;
-        $component2 = interface_972:com_4;
-    case interface_972:com_25 :
-        $component1 = interface_972:com_4;
-        $component2 = interface_972:com_5;
-    case interface_972:com_20 :
-        $component1 = interface_972:com_5;
-        $component2 = interface_972:com_6;
-    case interface_972:com_15 :
-        $component1 = interface_972:com_6;
-        $component2 = interface_972:com_7;
-    case interface_972:com_11 :
-        $component1 = interface_972:com_7;
-        $component2 = interface_972:com_6;
-    case interface_972:com_16 :
-        $component1 = interface_972:com_6;
-        $component2 = interface_972:com_5;
-    case interface_972:com_21 :
-        $component1 = interface_972:com_5;
-        $component2 = interface_972:com_4;
-    case interface_972:com_26 :
-        $component1 = interface_972:com_4;
-        $component2 = interface_972:com_3;
+    case ft3_dossier:com_31 :
+        $component1 = ft3_dossier:com_3;
+        $component2 = ft3_dossier:com_4;
+    case ft3_dossier:com_25 :
+        $component1 = ft3_dossier:com_4;
+        $component2 = ft3_dossier:com_5;
+    case ft3_dossier:com_20 :
+        $component1 = ft3_dossier:com_5;
+        $component2 = ft3_dossier:godfather;
+    case ft3_dossier:com_15 :
+        $component1 = ft3_dossier:godfather;
+        $component2 = ft3_dossier:com_7;
+    case ft3_dossier:com_11 :
+        $component1 = ft3_dossier:com_7;
+        $component2 = ft3_dossier:godfather;
+    case ft3_dossier:com_16 :
+        $component1 = ft3_dossier:godfather;
+        $component2 = ft3_dossier:com_5;
+    case ft3_dossier:com_21 :
+        $component1 = ft3_dossier:com_5;
+        $component2 = ft3_dossier:com_4;
+    case ft3_dossier:com_26 :
+        $component1 = ft3_dossier:com_4;
+        $component2 = ft3_dossier:com_3;
     case default :
         ~script675;
 }

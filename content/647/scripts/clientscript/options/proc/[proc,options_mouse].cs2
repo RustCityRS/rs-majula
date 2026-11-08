@@ -2,12 +2,12 @@
 [proc,options_mouse]
 def_string $string0 = null;
 if (%option_mouse = 0) {
-    if_setgraphic("options_boxes,1", options:com_6);
+    if_setgraphic("options_boxes,1", options:optmouse);
     $string0 = "Mouse buttons<br>(currently 2)";
-    if_setonmouserepeat("addtooltip(event_com, options:com_20, $string0, 25, 180)", options:com_6);
+    if_setonmouserepeat("addtooltip(event_com, options:options_tooltip, $string0, 25, 180)", options:optmouse);
 } else if (%option_mouse = 1) {
-    if_setgraphic("options_boxes,0", options:com_6);
+    if_setgraphic("options_boxes,0", options:optmouse);
     $string0 = "Mouse buttons<br>(currently 1)";
-    if_setonmouserepeat("addtooltip(event_com, options:com_20, $string0, 25, 180)", options:com_6);
+    if_setonmouserepeat("addtooltip(event_com, options:options_tooltip, $string0, 25, 180)", options:optmouse);
 }
 %varclient_2 = 0;

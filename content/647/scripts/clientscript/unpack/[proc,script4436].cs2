@@ -4,14 +4,14 @@ if (%varclient_1512 ! 1) {
     %varclient_1512 = 1;
     mes("To talk in your Clan Chat, start each line of chat with //.");
 }
-def_component $component2 = clan_chat:com_14;
+def_component $component2 = clan_chat:clanlist;
 def_component $component3 = clan_chat:com_15;
 def_component $component4 = clan_chat:com_17;
 def_component $component5 = clan_chat:com_18;
-def_component $component6 = clan_chat:com_27;
+def_component $component6 = clan_chat:drag_layer;
 def_component $component7 = clan_chat:com_19;
 def_component $component8 = clan_chat:com_25;
-def_component $component9 = clan_chat:com_29;
+def_component $component9 = clan_chat:clanlistscrollbar;
 def_component $component10 = clan_chat:com_16;
 def_int $int11 = if_getwidth($component6);
 if ($int1 <= -1) {
@@ -28,10 +28,10 @@ cc_deleteall($component4);
 cc_deleteall($component5);
 cc_deleteall($component10);
 if_setgraphic("aif_clanchat_icons,12", clan_chat:com_86);
-if_sethide(false, clan_chat:com_22);
+if_sethide(false, clan_chat:kick_button_layer);
 ~script4470;
 def_string $string0 = "Leave your clan chat channel.";
-if_setonmouserepeat("aif_tooltip(clan_chat:com_60, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)", clan_chat:com_85);
+if_setonmouserepeat("aif_tooltip(clan_chat:tooltip, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)", clan_chat:com_85);
 if_setop(1, "Leave Clan Chat channel", clan_chat:com_85);
 def_int $int12 = 0;
 def_int $int13 = 0;
@@ -53,7 +53,7 @@ if_setsize($int23, 0, ^setsize_abs, ^setsize_minus, $component4);
 if_setsize($int23, 0, ^setsize_abs, ^setsize_minus, $component5);
 if_sethide(false, $component9);
 if_setonclanchanneltransmit("clan_chat_list_refresh(-1)", $component0);
-if_settext(activeclanchannel_getclanname, clan_chat:com_26);
+if_settext(activeclanchannel_getclanname, clan_chat:clan_name);
 if_settext("", clan_chat:com_62);
 if_sethide(true, clan_chat:com_67);
 def_int $int24 = activeclanchannel_getuserslot(removetags(chat_playername));
@@ -96,8 +96,8 @@ while ($int12 < $int14) {
             $string1 = substring($string1, 0, calc(string_length($string1) - 1));
         }
         $string1 = "<$string1>...";
-        cc_setonmouserepeat("script1594(clan_chat:com_60, event_com, event_comsubid, $string2, event_mousex, event_mousey)");
-        cc_setonmouseleave("deltooltip(clan_chat:com_60)");
+        cc_setonmouserepeat("script1594(clan_chat:tooltip, event_com, event_comsubid, $string2, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(clan_chat:tooltip)");
     }
     cc_settext($string1);
     cc_settextshadow(true);
@@ -118,16 +118,16 @@ while ($int12 < $int14) {
             cc_setgraphic(graphic_2173);
             cc_setsize(24, 12, ^setsize_abs, ^setsize_abs);
             cc_setposition(2, calc($int13 + 1), ^setpos_abs_left, ^setpos_abs_top);
-            cc_setonmouserepeat("script1594(clan_chat:com_60, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
-            cc_setonmouseleave("deltooltip(clan_chat:com_60)");
+            cc_setonmouserepeat("script1594(clan_chat:tooltip, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
+            cc_setonmouseleave("deltooltip(clan_chat:tooltip)");
         }
     } else {
         $int18 = 0;
     }
     if ($int23 >= $int19) {
     } else {
-        cc_setonmouserepeat("script1594(clan_chat:com_60, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
-        cc_setonmouseleave("deltooltip(clan_chat:com_60)");
+        cc_setonmouserepeat("script1594(clan_chat:tooltip, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(clan_chat:tooltip)");
         $string3 = "...";
     }
     cc_create($component4, ^iftype_text, if_getnextsubid($component4));
@@ -142,8 +142,8 @@ while ($int12 < $int14) {
     } else {
         cc_setcolour(0xffff64);
     }
-    cc_setonmouserepeat("script1594(clan_chat:com_60, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
-    cc_setonmouseleave("deltooltip(clan_chat:com_60)");
+    cc_setonmouserepeat("script1594(clan_chat:tooltip, event_com, event_comsubid, $string4, event_mousex, event_mousey)");
+    cc_setonmouseleave("deltooltip(clan_chat:tooltip)");
     cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
     if ($int20 = 127) {
         cc_setposition(3, 3, ^setpos_abs_left, ^setpos_abs_top);
@@ -205,4 +205,4 @@ def_int $int29 = if_getscrolly($component8);
 if_setscrollsize(if_getwidth($component8), calc($int15 * max($int14, $int16)), $component8);
 $int29 = min($int29, if_getscrollheight($component8));
 if_setscrollpos(0, $int29, $component8);
-~scrollbar_vertical(clan_chat:com_29, $component8, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+~scrollbar_vertical(clan_chat:clanlistscrollbar, $component8, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");

@@ -4,7 +4,7 @@ def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
 while ($int0 < inv_size(inv)) {
-    cc_create(bank_deposit_imp:com_14, ^iftype_graphic, $int0);
+    cc_create(bank_deposit_imp:imp_deposit_layer, ^iftype_graphic, $int0);
     cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc(40 * $int1), calc(40 * $int2), ^setpos_abs_left, ^setpos_abs_top);
     if (inv_getobj(inv, $int0) ! null) {

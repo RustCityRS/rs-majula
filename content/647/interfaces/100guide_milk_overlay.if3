@@ -1,92 +1,92 @@
 // 3:0
-[com_0]
+[100_milk_q1]
 type=model
 x=71
 y=25
 width=42
 height=265
-layer=com_1
+layer=100_milk_q_anim1
 model=model_13369
 modelorigin=-3,143
 modelzoom=656
 modelanim=seq_3453
 
 // 3:1
-[com_1]
+[100_milk_q_anim1]
 type=layer
 x=-35
 y=-19
 width=164
 height=326
-layer=com_14
+layer=content_layer
 
 // 3:2
-[com_2]
+[100_milk_anim5]
 type=layer
 x=-35
 y=-27
 width=195
 height=334
-layer=com_14
+layer=content_layer
 hide=yes
 
 // 3:3
-[com_3]
+[100_milk_anim4]
 type=layer
 x=-35
 y=-31
 width=170
 height=338
-layer=com_14
+layer=content_layer
 hide=yes
 
 // 3:4
-[com_4]
+[100_milk_anim3]
 type=layer
 x=-35
 y=-23
 width=168
 height=330
-layer=com_14
+layer=content_layer
 hide=yes
 
 // 3:5
-[com_5]
+[100_milk_anim2]
 type=layer
 x=-35
 y=-22
 width=178
 height=329
-layer=com_14
+layer=content_layer
 hide=yes
 
 // 3:6
-[com_6]
+[100_milk_anim1]
 type=layer
 x=-35
 y=-24
 width=173
 height=331
-layer=com_14
+layer=content_layer
 hide=yes
 
 // 3:7
-[com_7]
+[100_milk_plain_layer]
 type=layer
 x=-35
 y=-26
 width=177
 height=333
-layer=com_14
+layer=content_layer
 
 // 3:8
-[com_8]
+[100_milk5]
 type=model
 x=39
 y=185
 width=101
 height=134
-layer=com_2
+layer=100_milk_anim5
 model=model_13366
 modelorigin=0,56
 modelangle=147,0,0
@@ -94,13 +94,13 @@ modelzoom=656
 modelanim=seq_3454
 
 // 3:9
-[com_9]
+[100_milk4]
 type=model
 x=38
 y=189
 width=100
 height=136
-layer=com_3
+layer=100_milk_anim4
 model=model_13365
 modelorigin=1,55
 modelangle=147,0,0
@@ -108,13 +108,13 @@ modelzoom=656
 modelanim=seq_3454
 
 // 3:10
-[com_10]
+[100_milk3]
 type=model
 x=39
 y=181
 width=101
 height=134
-layer=com_4
+layer=100_milk_anim3
 model=model_13364
 modelorigin=0,56
 modelangle=147,0,0
@@ -122,13 +122,13 @@ modelzoom=656
 modelanim=seq_3454
 
 // 3:11
-[com_11]
+[100_milk2]
 type=model
 x=40
 y=180
 width=100
 height=134
-layer=com_5
+layer=100_milk_anim2
 model=model_13363
 modelorigin=-1,56
 modelangle=147,0,0
@@ -136,13 +136,13 @@ modelzoom=656
 modelanim=seq_3454
 
 // 3:12
-[com_12]
+[100_milk1]
 type=model
 x=38
 y=182
 width=101
 height=134
-layer=com_6
+layer=100_milk_anim1
 model=model_13362
 modelorigin=1,56
 modelangle=147,0,0
@@ -150,20 +150,20 @@ modelzoom=656
 modelanim=seq_3455
 
 // 3:13
-[com_13]
+[100_milk_plain]
 type=model
 x=53
 y=184
 width=73
 height=134
-layer=com_7
+layer=100_milk_plain_layer
 model=model_13367
 modelorigin=0,56
 modelangle=147,0,0
 modelzoom=656
 
 // 3:14
-[com_14]
+[content_layer]
 type=layer
 x=655
 y=655

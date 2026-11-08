@@ -7,7 +7,7 @@ width=18279
 height=16734
 widthmode=proportion
 heightmode=proportion
-layer=com_1
+layer=background_layer
 model=model_18140
 modelangle=512,0,0
 modelzoom=577
@@ -15,7 +15,7 @@ modelobjwidth=571
 modelobjheight=341
 
 // 608:1
-[com_1]
+[background_layer]
 type=layer
 x=7
 y=7
@@ -27,7 +27,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 608:2
-[com_2]
+[pog_tree]
 type=model
 x=-5
 y=3
@@ -37,7 +37,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=foreground_layer
 model=model_28488
 modelorigin=-17,125
 modelzoom=1000
@@ -46,7 +46,7 @@ modelobjheight=252
 ontimer=spinner(0, 1, 0, event_com)
 
 // 608:3
-[com_3]
+[foreground_layer]
 type=layer
 x=18
 y=-28

@@ -10,7 +10,7 @@ fill=yes
 trans=200
 
 // 161:1
-[com_1]
+[background_graphic]
 type=graphic
 x=14
 y=25
@@ -74,7 +74,7 @@ tiling=yes
 colour=0xffffffff
 
 // 161:7
-[com_7]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -84,8 +84,8 @@ graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(smki_assignment:com_7, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(smki_assignment:com_7, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(smki_assignment:close_button, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(smki_assignment:close_button, "v2_stone_close_button,0")
 onop=closebutton_click
 onclick=closebutton_click
 
@@ -151,7 +151,7 @@ graphic="v2_stone_borders,10"
 colour=0xffffffff
 
 // 161:14
-[com_14]
+[learn_tab]
 type=graphic
 x=99
 y=29
@@ -161,11 +161,11 @@ graphic="tabs,1"
 colour=0xffffffff
 transmitop=1
 op1=Learn
-onmouseleave=deltooltip(smki_assignment:com_49)
-onmouserepeat=addtooltip(event_com, smki_assignment:com_49, "Learn new abilities", 25, 150)
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Learn new abilities", 25, 150)
 
 // 161:15
-[com_15]
+[buy_tab]
 type=graphic
 x=22
 y=29
@@ -175,11 +175,11 @@ graphic="tabs,1"
 colour=0xffffffff
 transmitop=1
 op1=Buy
-onmouseleave=deltooltip(smki_assignment:com_49)
-onmouserepeat=addtooltip(event_com, smki_assignment:com_49, "Buy Slayer equipment", 25, 150)
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Buy Slayer equipment", 25, 150)
 
 // 161:16
-[com_16]
+[assignment_tab]
 type=graphic
 x=182
 y=29
@@ -189,7 +189,7 @@ graphic="tabs,0"
 colour=0xffffffff
 
 // 161:17
-[com_17]
+[divider]
 type=line
 x=55
 y=190
@@ -198,7 +198,7 @@ linewid=2
 colour=0x342c24
 
 // 161:18
-[com_18]
+[current_box]
 type=rectangle
 x=75
 y=78
@@ -208,7 +208,7 @@ colour=0x484038
 fill=yes
 
 // 161:19
-[com_19]
+[xxxx]
 type=text
 x=198
 y=87
@@ -221,7 +221,7 @@ textshadow=yes
 colour=0xd7b011
 
 // 161:20
-[com_20]
+[buy]
 type=text
 x=35
 y=33
@@ -233,7 +233,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 161:21
-[com_21]
+[learn]
 type=text
 x=112
 y=34
@@ -245,7 +245,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 161:22
-[com_22]
+[assignment]
 type=text
 x=193
 y=34
@@ -257,7 +257,7 @@ textshadow=yes
 colour=0xff981f
 
 // 161:23
-[com_23]
+[reassign_current]
 type=text
 x=55
 y=133
@@ -269,11 +269,11 @@ textshadow=yes
 colour=0xd7b011
 transmitop=1
 op1=Reassign current task
-onmouseleave=deltooltip(smki_assignment:com_49)
-onmouserepeat=addtooltip(event_com, smki_assignment:com_49, "Cancel your current mission. You may be reassigned this mission in the future.", 25, 150)
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel your current mission. You may be reassigned this mission in the future.", 25, 150)
 
 // 161:24
-[com_24]
+[permanently_remove]
 type=text
 x=55
 y=156
@@ -285,8 +285,8 @@ textshadow=yes
 colour=0xd7b011
 transmitop=1
 op1=Permanently remove current task
-onmouseleave=deltooltip(smki_assignment:com_49)
-onmouserepeat=addtooltip(event_com, smki_assignment:com_49, "Cancel your current mission. You will never be assigned this mission in the future. Having 50 Quest Points allows you to ignore one mission, 100 QP for two, 150 QP for three, 200 QP for four and 250 QP for five.", 25, 150)
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel your current mission. You will never be assigned this mission in the future. Having 50 Quest Points allows you to ignore one mission, 100 QP for two, 150 QP for three, 200 QP for four and 250 QP for five.", 25, 150)
 
 // 161:25
 [com_25]
@@ -301,7 +301,7 @@ textshadow=yes
 colour=0xd7b011
 
 // 161:26
-[com_26]
+[reassign_points]
 type=text
 x=375
 y=133
@@ -313,11 +313,11 @@ textshadow=yes
 colour=0xff981f
 transmitop=1
 op1=Reassign Current
-onmouseleave=deltooltip(smki_assignment:com_49)
-onmouserepeat=addtooltip(event_com, smki_assignment:com_49, "Cancel your current mission. You may be reassigned this creature in the future.", 25, 150)
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel your current mission. You may be reassigned this creature in the future.", 25, 150)
 
 // 161:27
-[com_27]
+[permanent_points]
 type=text
 x=375
 y=154
@@ -329,8 +329,8 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Permanently Remove Current
-onmouseleave=deltooltip(smki_assignment:com_49)
-onmouserepeat=addtooltip(event_com, smki_assignment:com_49, "Cancel your current mission. You will never be assigned this creature in the future. Having 50 Quest Points allows you to ignore one creature, 100 QP for two, 150 QP for three and 200 QP for four", 25, 150)
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel your current mission. You will never be assigned this creature in the future. Having 50 Quest Points allows you to ignore one creature, 100 QP for two, 150 QP for three and 200 QP for four", 25, 150)
 
 // 161:28
 [com_28]
@@ -345,7 +345,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 161:29
-[com_29]
+[refund_points_]
 type=text
 x=364
 y=257
@@ -357,7 +357,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 161:30
-[com_30]
+[b]
 type=text
 x=56
 y=230
@@ -369,7 +369,7 @@ textshadow=yes
 colour=0xff981f
 
 // 161:31
-[com_31]
+[c]
 type=text
 x=56
 y=248
@@ -381,7 +381,7 @@ textshadow=yes
 colour=0xff981f
 
 // 161:32
-[com_32]
+[d]
 type=text
 x=56
 y=266
@@ -393,7 +393,7 @@ textshadow=yes
 colour=0xff981f
 
 // 161:33
-[com_33]
+[e]
 type=text
 x=56
 y=285
@@ -407,7 +407,7 @@ transmitop=10
 op10= 
 
 // 161:34
-[com_34]
+[cancel]
 type=text
 x=356
 y=225
@@ -419,7 +419,7 @@ textshadow=yes
 colour=0xff981f
 
 // 161:35
-[com_35]
+[removed]
 type=text
 x=131
 y=196
@@ -431,7 +431,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 161:36
-[com_36]
+[a]
 type=text
 x=56
 y=212
@@ -443,7 +443,7 @@ textshadow=yes
 colour=0xff981f
 
 // 161:37
-[com_37]
+[abox]
 type=graphic
 x=305
 y=212
@@ -453,13 +453,13 @@ graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Cancel Removal
-onmouseleave=deltooltip(smki_assignment:com_49)
-onmouserepeat=addtooltip(event_com, smki_assignment:com_49, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
-onclick=graphic_swapper(smki_assignment:com_37, "v2_stone_close_button,1")
-onrelease=graphic_swapper(smki_assignment:com_37, "v2_stone_close_button,0")
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
+onclick=graphic_swapper(smki_assignment:abox, "v2_stone_close_button,1")
+onrelease=graphic_swapper(smki_assignment:abox, "v2_stone_close_button,0")
 
 // 161:38
-[com_38]
+[bbox]
 type=graphic
 x=305
 y=230
@@ -469,13 +469,13 @@ graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Cancel Removal
-onmouseleave=deltooltip(smki_assignment:com_49)
-onmouserepeat=addtooltip(event_com, smki_assignment:com_49, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
-onclick=graphic_swapper(smki_assignment:com_38, "v2_stone_close_button,1")
-onrelease=graphic_swapper(smki_assignment:com_38, "v2_stone_close_button,0")
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
+onclick=graphic_swapper(smki_assignment:bbox, "v2_stone_close_button,1")
+onrelease=graphic_swapper(smki_assignment:bbox, "v2_stone_close_button,0")
 
 // 161:39
-[com_39]
+[cbox]
 type=graphic
 x=305
 y=248
@@ -485,13 +485,13 @@ graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Cancel Removal
-onmouseleave=deltooltip(smki_assignment:com_49)
-onmouserepeat=addtooltip(event_com, smki_assignment:com_49, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
-onclick=graphic_swapper(smki_assignment:com_39, "v2_stone_close_button,1")
-onrelease=graphic_swapper(smki_assignment:com_39, "v2_stone_close_button,0")
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
+onclick=graphic_swapper(smki_assignment:cbox, "v2_stone_close_button,1")
+onrelease=graphic_swapper(smki_assignment:cbox, "v2_stone_close_button,0")
 
 // 161:40
-[com_40]
+[dbox]
 type=graphic
 x=305
 y=266
@@ -501,13 +501,13 @@ graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
 op1=Cancel Removal
-onmouseleave=deltooltip(smki_assignment:com_49)
-onmouserepeat=addtooltip(event_com, smki_assignment:com_49, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
-onclick=graphic_swapper(smki_assignment:com_40, "v2_stone_close_button,1")
-onrelease=graphic_swapper(smki_assignment:com_40, "v2_stone_close_button,0")
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
+onclick=graphic_swapper(smki_assignment:dbox, "v2_stone_close_button,1")
+onrelease=graphic_swapper(smki_assignment:dbox, "v2_stone_close_button,0")
 
 // 161:41
-[com_41]
+[ebox]
 type=graphic
 x=305
 y=284
@@ -518,10 +518,10 @@ colour=0xffffffff
 transmitop=1,10
 op1=Cancel Removal
 op10= 
-onmouseleave=deltooltip(smki_assignment:com_49)
-onmouserepeat=addtooltip(event_com, smki_assignment:com_49, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
-onclick=graphic_swapper(smki_assignment:com_41, "v2_stone_close_button,1")
-onrelease=graphic_swapper(smki_assignment:com_41, "v2_stone_close_button,0")
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
+onclick=graphic_swapper(smki_assignment:ebox, "v2_stone_close_button,1")
+onrelease=graphic_swapper(smki_assignment:ebox, "v2_stone_close_button,0")
 
 // 161:42
 [com_42]
@@ -584,14 +584,14 @@ graphic="v2_stone_borders,2"
 colour=0xffffffff
 
 // 161:48
-[com_48]
+[tooltip_bounding_box]
 type=layer
 width=512
 height=334
 
 // 161:49
-[com_49]
+[tool_tip_build_layer]
 type=layer
 width=512
 height=334
-layer=com_48
+layer=tooltip_bounding_box

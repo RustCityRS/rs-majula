@@ -96,15 +96,15 @@ while ($int3 < inv_size(inv_583)) {
     $int3 = calc($int3 + 1);
 }
 if (string_length($string0) > 0) {
-    if_settext($string0, conq_confirm:com_14);
-    ~script447(conq_confirm:com_15, conq_confirm:com_13, conq_confirm:com_14);
+    if_settext($string0, conq_confirm:stake_text);
+    ~script447(conq_confirm:stake_scrollbar_layer, conq_confirm:minigamefools, conq_confirm:stake_text);
     if_sethide(true, conq_confirm:com_12);
 } else {
     if_sethide(false, conq_confirm:com_12);
 }
 if (string_length($string1) > 0) {
-    if_settext($string1, conq_confirm:com_21);
-    ~script447(conq_confirm:com_22, conq_confirm:com_20, conq_confirm:com_21);
+    if_settext($string1, conq_confirm:opponent_text);
+    ~script447(conq_confirm:opponent_scrollbar_layer, conq_confirm:opponent_text_layer, conq_confirm:opponent_text);
     if_sethide(true, conq_confirm:com_19);
 } else {
     if_sethide(false, conq_confirm:com_19);

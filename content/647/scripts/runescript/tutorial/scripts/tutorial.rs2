@@ -115,7 +115,7 @@ if (%tutorial > ^newbie_quest_instructor_open_menu) {
 
 if (%tutorial > ^newbie_combat_instructor_wielding_weapons) {
     ~update_bonuses; // update bonuses if
-    inv_transmit(worn, wornitems:worn);
+    inv_transmit(worn, wornitems:hat_container);
     if_settab(wornitems, ^tab_equipment);
 }
 
@@ -327,7 +327,7 @@ stat_advance($skill, $xp);
 [label,tutorial_complete]
 tut_close();
 // the instructions' slot (tutorialstep.rs2)
-if_closesub(chatbox:com_7);
+if_closesub(chattop:mes_layer_large);
 if_close;
 
 %tutorial = ^tutorial_complete;

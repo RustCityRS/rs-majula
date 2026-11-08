@@ -12,7 +12,7 @@ fill=yes
 trans=192
 
 // 513:1
-[com_1]
+[contents]
 type=layer
 width=355
 height=240
@@ -29,18 +29,18 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=contents
 graphic=tradebacking
 tiling=yes
 
 // 513:3
-[com_3]
+[title]
 type=text
 y=4
 width=320
 height=27
 xmode=abs_centre
-layer=com_1
+layer=contents
 textfont=b12_full
 text=Amazing Potion Storage
 textalignh=centre
@@ -49,14 +49,14 @@ textshadow=yes
 colour=0xff9900
 
 // 513:4
-[com_4]
+[close_button]
 type=graphic
 x=9
 y=9
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=contents
 graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
@@ -65,21 +65,21 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 513:5
-[com_5]
+[hunter]
 type=layer
 x=10
 y=40
 width=149
 height=61
-layer=com_1
+layer=contents
 
 // 513:6
-[com_6]
+[hunter_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_5
+layer=hunter
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -87,13 +87,13 @@ textshadow=yes
 colour=0xeae7c4
 
 // 513:7
-[com_7]
+[hunter_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_5
+layer=hunter
 outline=1
 graphicshadow=1
 transmitop=1,2,3,4,10
@@ -103,26 +103,26 @@ op2=Remove-5
 op3=Remove-All
 op4=Remove-X
 op10=Examine
-onload=script2958(event_com, juju_hunter_potion__3, 30, ecosystem_potion_storage:com_6)
+onload=script2958(event_com, juju_hunter_potion__3, 30, ecosystem_potion_storage:hunter_name)
 onmouseover=script2959(event_com)
-onvartransmit=script2958(event_com, juju_hunter_potion__3, 30, ecosystem_potion_storage:com_6){varplayer_1935}
+onvartransmit=script2958(event_com, juju_hunter_potion__3, 30, ecosystem_potion_storage:hunter_name){varplayer_1935}
 
 // 513:8
-[com_8]
+[farming]
 type=layer
 x=195
 y=40
 width=149
 height=61
-layer=com_1
+layer=contents
 
 // 513:9
-[com_9]
+[farming_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_8
+layer=farming
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -130,13 +130,13 @@ textshadow=yes
 colour=0xeae7c4
 
 // 513:10
-[com_10]
+[farming_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_8
+layer=farming
 outline=1
 graphicshadow=1
 transmitop=1,2,3,4,10
@@ -146,28 +146,28 @@ op2=Remove-5
 op3=Remove-All
 op4=Remove-X
 op10=Examine
-onload=script2958(event_com, juju_farming_potion__3, 30, ecosystem_potion_storage:com_9)
+onload=script2958(event_com, juju_farming_potion__3, 30, ecosystem_potion_storage:farming_name)
 onmouseover=script2959(event_com)
-onvartransmit=script2958(event_com, juju_farming_potion__3, 30, ecosystem_potion_storage:com_9){varplayer_1935}
+onvartransmit=script2958(event_com, juju_farming_potion__3, 30, ecosystem_potion_storage:farming_name){varplayer_1935}
 
 // 513:11
-[com_11]
+[saradomin]
 type=layer
 x=10
 y=104
 width=158
 height=61
-layer=com_1
+layer=contents
 
 // 513:12
-[com_12]
+[saradomin_name]
 type=text
 y=1
 width=1
 height=34
 widthmode=minus
 heightmode=minus
-layer=com_11
+layer=saradomin
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -175,7 +175,7 @@ textshadow=yes
 colour=0xeae7c4
 
 // 513:13
-[com_13]
+[saradomin_remove]
 type=graphic
 x=-5
 y=1
@@ -183,7 +183,7 @@ width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_11
+layer=saradomin
 outline=1
 graphicshadow=1
 transmitop=1,2,3,4,10
@@ -193,26 +193,26 @@ op2=Remove-5
 op3=Remove-All
 op4=Remove-X
 op10=Examine
-onload=script2958(event_com, saradomin_s_blessing__3, 30, ecosystem_potion_storage:com_12)
+onload=script2958(event_com, saradomin_s_blessing__3, 30, ecosystem_potion_storage:saradomin_name)
 onmouseover=script2959(event_com)
-onvartransmit=script2958(event_com, saradomin_s_blessing__3, 30, ecosystem_potion_storage:com_12){varplayer_1935}
+onvartransmit=script2958(event_com, saradomin_s_blessing__3, 30, ecosystem_potion_storage:saradomin_name){varplayer_1935}
 
 // 513:14
-[com_14]
+[guthix]
 type=layer
 x=195
 y=104
 width=149
 height=61
-layer=com_1
+layer=contents
 
 // 513:15
-[com_15]
+[guthix_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_14
+layer=guthix
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -220,13 +220,13 @@ textshadow=yes
 colour=0xeae7c4
 
 // 513:16
-[com_16]
+[guthix_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_14
+layer=guthix
 outline=1
 graphicshadow=1
 transmitop=1,2,3,4,10
@@ -236,27 +236,27 @@ op2=Remove-5
 op3=Remove-All
 op4=Remove-X
 op10=Examine
-onload=script2958(event_com, guthix_s_gift__3, 30, ecosystem_potion_storage:com_15)
+onload=script2958(event_com, guthix_s_gift__3, 30, ecosystem_potion_storage:guthix_name)
 onmouseover=script2959(event_com)
-onvartransmit=script2958(event_com, guthix_s_gift__3, 30, ecosystem_potion_storage:com_15){varplayer_1935}
+onvartransmit=script2958(event_com, guthix_s_gift__3, 30, ecosystem_potion_storage:guthix_name){varplayer_1935}
 
 // 513:17
-[com_17]
+[zamorak]
 type=layer
 x=10
 y=168
 width=149
 height=61
-layer=com_1
+layer=contents
 
 // 513:18
-[com_18]
+[zamorak_name]
 type=text
 width=1
 height=31
 widthmode=minus
 heightmode=minus
-layer=com_17
+layer=zamorak
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -264,13 +264,13 @@ textshadow=yes
 colour=0xeae7c4
 
 // 513:19
-[com_19]
+[zamorak_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_17
+layer=zamorak
 outline=1
 graphicshadow=1
 transmitop=1,2,3,4,10
@@ -280,26 +280,26 @@ op2=Remove-5
 op3=Remove-All
 op4=Remove-X
 op10=Examine
-onload=script2958(event_com, zamorak_s_favour__3, 30, ecosystem_potion_storage:com_18)
+onload=script2958(event_com, zamorak_s_favour__3, 30, ecosystem_potion_storage:zamorak_name)
 onmouseover=script2959(event_com)
-onvartransmit=script2958(event_com, zamorak_s_favour__3, 30, ecosystem_potion_storage:com_18){varplayer_1935}
+onvartransmit=script2958(event_com, zamorak_s_favour__3, 30, ecosystem_potion_storage:zamorak_name){varplayer_1935}
 
 // 513:20
-[com_20]
+[scentless]
 type=layer
 x=195
 y=168
 width=149
 height=61
-layer=com_1
+layer=contents
 
 // 513:21
-[com_21]
+[scentless_name]
 type=text
 height=32
 widthmode=minus
 heightmode=minus
-layer=com_20
+layer=scentless
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -307,13 +307,13 @@ textshadow=yes
 colour=0xeae7c4
 
 // 513:22
-[com_22]
+[scentless_remove]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_20
+layer=scentless
 outline=1
 graphicshadow=1
 transmitop=1,2,3,4,10
@@ -323,6 +323,6 @@ op2=Remove-5
 op3=Remove-All
 op4=Remove-X
 op10=Examine
-onload=script2958(event_com, scentless_potion__3, 30, ecosystem_potion_storage:com_21)
+onload=script2958(event_com, scentless_potion__3, 30, ecosystem_potion_storage:scentless_name)
 onmouseover=script2959(event_com)
-onvartransmit=script2958(event_com, scentless_potion__3, 30, ecosystem_potion_storage:com_21){varplayer_1935}
+onvartransmit=script2958(event_com, scentless_potion__3, 30, ecosystem_potion_storage:scentless_name){varplayer_1935}

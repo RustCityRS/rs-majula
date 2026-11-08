@@ -1,5 +1,5 @@
 // 779:0
-[com_0]
+[tradebacking_top]
 type=graphic
 width=470
 height=85
@@ -51,7 +51,7 @@ height=32
 hide=yes
 
 // 779:5
-[com_5]
+[scroll_main]
 type=layer
 x=26
 y=40
@@ -66,7 +66,7 @@ x=25
 y=46
 width=35
 height=29
-layer=com_5
+layer=scroll_main
 model=model_2441
 modelorigin=-1,-2
 modelangle=469,1748,2025
@@ -83,7 +83,7 @@ x=307
 y=88
 width=35
 height=29
-layer=com_5
+layer=scroll_main
 model=model_2785
 modelorigin=-1,-2
 modelangle=469,1748,2025
@@ -100,7 +100,7 @@ x=166
 y=130
 width=35
 height=29
-layer=com_5
+layer=scroll_main
 model=model_2563
 modelorigin=-1,-2
 modelangle=469,1748,2025
@@ -117,7 +117,7 @@ x=25
 y=130
 width=35
 height=29
-layer=com_5
+layer=scroll_main
 model=model_2502
 modelorigin=-1,-2
 modelangle=469,1748,2025
@@ -134,7 +134,7 @@ x=25
 y=88
 width=35
 height=29
-layer=com_5
+layer=scroll_main
 model=model_2806
 modelorigin=-1,-2
 modelangle=469,1748,2025
@@ -151,7 +151,7 @@ x=166
 y=88
 width=35
 height=29
-layer=com_5
+layer=scroll_main
 model=model_2624
 modelorigin=-1,-2
 modelangle=469,1748,2025
@@ -168,7 +168,7 @@ x=25
 y=172
 width=35
 height=29
-layer=com_5
+layer=scroll_main
 model=model_2712
 modelorigin=-1,-2
 modelangle=469,1748,2025
@@ -185,7 +185,7 @@ x=166
 y=46
 width=35
 height=29
-layer=com_5
+layer=scroll_main
 model=model_2685
 modelorigin=-1,-2
 modelangle=469,1748,2025
@@ -202,7 +202,7 @@ x=307
 y=130
 width=35
 height=29
-layer=com_5
+layer=scroll_main
 model=model_2346
 modelorigin=-1,-2
 modelangle=469,1748,2025
@@ -219,7 +219,7 @@ x=307
 y=46
 width=35
 height=29
-layer=com_5
+layer=scroll_main
 model=model_2514
 modelorigin=-1,-2
 modelangle=469,1748,2025
@@ -230,13 +230,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:16
-[com_16]
+[air_talisman]
 type=text
 x=65
 y=46
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Air
 textlineheight=12
@@ -244,26 +244,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:17
-[com_17]
+[air_cost]
 type=text
 x=69
 y=62
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:18
-[com_18]
+[body_talisman]
 type=text
 x=347
 y=88
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Body
 textlineheight=12
@@ -271,26 +271,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:19
-[com_19]
+[body_cost]
 type=text
 x=351
 y=104
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:20
-[com_20]
+[chaos_talisman]
 type=text
 x=206
 y=130
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Chaos
 textlineheight=12
@@ -298,26 +298,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:21
-[com_21]
+[chaos_cost]
 type=text
 x=210
 y=146
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:22
-[com_22]
+[cosmic_talisman]
 type=text
 x=65
 y=130
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Cosmic
 textlineheight=12
@@ -325,104 +325,104 @@ textshadow=yes
 colour=0xff981f
 
 // 779:23
-[com_23]
+[cosmic_cost]
 type=text
 x=69
 y=146
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:24
-[com_24]
+[earth_talisman]
 type=text
 x=65
 y=88
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Earth
 textshadow=yes
 colour=0xff981f
 
 // 779:25
-[com_25]
+[earth_cost]
 type=text
 x=69
 y=104
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:26
-[com_26]
+[fire_talisman]
 type=text
 x=206
 y=88
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Fire
 textshadow=yes
 colour=0xff981f
 
 // 779:27
-[com_27]
+[fire_cost]
 type=text
 x=210
 y=104
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:28
-[com_28]
+[law_talisman]
 type=text
 x=65
 y=172
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Law
 textshadow=yes
 colour=0xff981f
 
 // 779:29
-[com_29]
+[law_cost]
 type=text
 x=69
 y=188
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:30
-[com_30]
+[mind_talisman]
 type=text
 x=206
 y=46
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Mind
 textlineheight=12
@@ -430,26 +430,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:31
-[com_31]
+[mind_cost]
 type=text
 x=210
 y=62
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:32
-[com_32]
+[nature_talisman]
 type=text
 x=347
 y=130
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Nature
 textlineheight=12
@@ -457,26 +457,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:33
-[com_33]
+[nature_cost]
 type=text
 x=351
 y=146
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:34
-[com_34]
+[water_talisman]
 type=text
 x=347
 y=46
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Water
 textlineheight=12
@@ -484,26 +484,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:35
-[com_35]
+[water_cost]
 type=text
 x=351
 y=62
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:36
-[com_36]
+[hat_blue_model]
 type=model
 x=7
 y=264
 width=26
 height=17
-layer=com_5
+layer=scroll_main
 model=model_41570
 modelorigin=-1,8
 modelangle=0,0,2025
@@ -514,13 +514,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:37
-[com_37]
+[hat_yellow_model]
 type=model
 x=154
 y=264
 width=26
 height=17
-layer=com_5
+layer=scroll_main
 model=model_41568
 modelorigin=-1,8
 modelangle=0,0,2025
@@ -531,13 +531,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:38
-[com_38]
+[hat_green_model]
 type=model
 x=308
 y=264
 width=26
 height=17
-layer=com_5
+layer=scroll_main
 model=model_41571
 modelorigin=-1,8
 modelangle=0,0,2025
@@ -548,13 +548,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:39
-[com_39]
+[robe_blue_model]
 type=model
 x=7
 y=297
 width=16
 height=27
-layer=com_5
+layer=scroll_main
 model=model_41557
 modelorigin=0,-1
 modelangle=466,2042,2025
@@ -565,13 +565,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:40
-[com_40]
+[robe_yellow_model]
 type=model
 x=158
 y=297
 width=17
 height=27
-layer=com_5
+layer=scroll_main
 model=model_41561
 modelorigin=1,-1
 modelangle=466,2042,2025
@@ -582,13 +582,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:41
-[com_41]
+[robe_green_model]
 type=model
 x=310
 y=297
 width=20
 height=27
-layer=com_5
+layer=scroll_main
 model=model_41540
 modelorigin=0,-1
 modelangle=469,2047,2025
@@ -605,7 +605,7 @@ x=5
 y=339
 width=20
 height=42
-layer=com_5
+layer=scroll_main
 model=model_41563
 modelangle=469,2047,2025
 modelzoom=1265
@@ -621,7 +621,7 @@ x=157
 y=335
 width=20
 height=45
-layer=com_5
+layer=scroll_main
 model=model_41545
 modelorigin=0,2
 modelangle=469,2047,2025
@@ -638,7 +638,7 @@ x=310
 y=334
 width=20
 height=47
-layer=com_5
+layer=scroll_main
 model=model_41572
 modelorigin=0,3
 modelangle=469,2047,2025
@@ -649,13 +649,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:45
-[com_45]
+[gloves_blue_model]
 type=model
 x=5
 y=391
 width=27
 height=22
-layer=com_5
+layer=scroll_main
 model=model_41548
 modelorigin=-3,0
 modelangle=469,911,2025
@@ -666,13 +666,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:46
-[com_46]
+[gloves_yellow_model]
 type=model
 x=156
 y=391
 width=27
 height=22
-layer=com_5
+layer=scroll_main
 model=model_41550
 modelorigin=-3,0
 modelangle=469,911,2025
@@ -683,13 +683,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:47
-[com_47]
+[gloves_green_model]
 type=model
 x=310
 y=391
 width=27
 height=22
-layer=com_5
+layer=scroll_main
 model=model_41533
 modelorigin=-3,0
 modelangle=469,911,2025
@@ -700,13 +700,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:48
-[com_48]
+[hat_blue]
 type=text
 x=40
 y=262
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Blue hat
 textlineheight=12
@@ -714,26 +714,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:49
-[com_49]
+[hat_blue_cost]
 type=text
 x=44
 y=278
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:50
-[com_50]
+[hat_yellow]
 type=text
 x=187
 y=262
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Yellow hat
 textlineheight=12
@@ -741,26 +741,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:51
-[com_51]
+[hat_yellow_cost]
 type=text
 x=191
 y=278
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:52
-[com_52]
+[hat_green]
 type=text
 x=341
 y=262
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Green hat
 textlineheight=12
@@ -768,26 +768,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:53
-[com_53]
+[hat_green_cost]
 type=text
 x=345
 y=278
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:54
-[com_54]
+[robe_blue]
 type=text
 x=36
 y=304
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Blue Robe
 textlineheight=12
@@ -795,65 +795,65 @@ textshadow=yes
 colour=0xff981f
 
 // 779:55
-[com_55]
+[robe_blue_cost]
 type=text
 x=40
 y=320
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:56
-[com_56]
+[robe_yellow]
 type=text
 x=188
 y=304
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Yellow robe
 textshadow=yes
 colour=0xff981f
 
 // 779:57
-[com_57]
+[robe_yellow_cost]
 type=text
 x=192
 y=320
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:58
-[com_58]
+[robe_green]
 type=text
 x=341
 y=304
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Green Robe
 textshadow=yes
 colour=0xff981f
 
 // 779:59
-[com_59]
+[robe_green_cost]
 type=text
 x=345
 y=320
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
@@ -866,7 +866,7 @@ x=36
 y=346
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Blue bottoms
 textshadow=yes
@@ -879,7 +879,7 @@ x=40
 y=362
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
@@ -892,7 +892,7 @@ x=188
 y=345
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Yellow Bottoms
 textshadow=yes
@@ -905,7 +905,7 @@ x=192
 y=361
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
@@ -918,7 +918,7 @@ x=341
 y=346
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Green bottoms
 textlineheight=12
@@ -932,20 +932,20 @@ x=345
 y=362
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:66
-[com_66]
+[gloves_blue]
 type=text
 x=36
 y=388
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Blue gloves
 textlineheight=12
@@ -953,26 +953,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:67
-[com_67]
+[gloves_blue_cost]
 type=text
 x=40
 y=404
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:68
-[com_68]
+[gloves_yellow]
 type=text
 x=187
 y=388
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Yellow gloves
 textlineheight=12
@@ -980,26 +980,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:69
-[com_69]
+[gloves_yellow_cost]
 type=text
 x=191
 y=404
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:70
-[com_70]
+[gloves_green]
 type=text
 x=341
 y=388
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Green gloves
 textlineheight=12
@@ -1007,26 +1007,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:71
-[com_71]
+[gloves_green_cost]
 type=text
 x=345
 y=404
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:72
-[com_72]
+[air_teleport]
 type=model
 x=29
 y=485
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41543
 modelangle=324,1900,0
 modelzoom=500
@@ -1036,13 +1036,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:73
-[com_73]
+[body_teleport]
 type=model
 x=305
 y=527
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41541
 modelangle=324,1900,0
 modelzoom=500
@@ -1052,13 +1052,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:74
-[com_74]
+[chaos_teleport]
 type=model
 x=167
 y=569
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41518
 modelangle=324,1900,0
 modelzoom=500
@@ -1068,13 +1068,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:75
-[com_75]
+[cosmic_teleport]
 type=model
 x=29
 y=569
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41523
 modelangle=324,846,0
 modelzoom=500
@@ -1084,13 +1084,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:76
-[com_76]
+[death_teleport]
 type=model
 x=305
 y=611
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41555
 modelangle=324,1900,0
 modelzoom=500
@@ -1100,13 +1100,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:77
-[com_77]
+[earth_teleport]
 type=model
 x=29
 y=527
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41554
 modelangle=324,1900,0
 modelzoom=500
@@ -1116,13 +1116,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:78
-[com_78]
+[fire_teleport]
 type=model
 x=167
 y=527
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41531
 modelangle=324,1900,0
 modelzoom=500
@@ -1132,13 +1132,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:79
-[com_79]
+[law_teleport]
 type=model
 x=167
 y=611
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41535
 modelangle=324,1900,0
 modelzoom=500
@@ -1148,13 +1148,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:80
-[com_80]
+[mind_teleport]
 type=model
 x=167
 y=485
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41516
 modelangle=324,1900,0
 modelzoom=500
@@ -1164,13 +1164,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:81
-[com_81]
+[astral_teleport]
 type=model
 x=305
 y=569
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41524
 modelangle=324,1900,0
 modelzoom=500
@@ -1180,13 +1180,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:82
-[com_82]
+[nature_teleport]
 type=model
 x=29
 y=611
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41567
 modelangle=324,1900,0
 modelzoom=500
@@ -1196,13 +1196,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:83
-[com_83]
+[water_teleport]
 type=model
 x=305
 y=485
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41558
 modelangle=324,1900,0
 modelzoom=500
@@ -1212,13 +1212,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:84
-[com_84]
+[blood_teleport]
 type=model
 x=29
 y=650
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41526
 modelangle=324,1900,0
 modelzoom=500
@@ -1228,13 +1228,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:85
-[com_85]
+[guild_teleport]
 type=model
 x=167
 y=650
 width=30
 height=28
-layer=com_5
+layer=scroll_main
 model=model_41517
 modelangle=324,1900,0
 modelzoom=500
@@ -1244,13 +1244,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:86
-[com_86]
+[air_teleportation]
 type=text
 x=65
 y=485
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Air
 textlineheight=12
@@ -1258,26 +1258,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:87
-[com_87]
+[air_teleportation_cost]
 type=text
 x=69
 y=501
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:88
-[com_88]
+[body_teleportation]
 type=text
 x=341
 y=527
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Body
 textlineheight=12
@@ -1285,26 +1285,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:89
-[com_89]
+[body_teleportation_cost]
 type=text
 x=345
 y=543
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:90
-[com_90]
+[chaos_teleportation]
 type=text
 x=203
 y=569
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Chaos
 textlineheight=12
@@ -1312,26 +1312,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:91
-[com_91]
+[chaos_teleportation_cost]
 type=text
 x=207
 y=585
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:92
-[com_92]
+[cosmic_teleportation]
 type=text
 x=65
 y=569
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Cosmic
 textlineheight=12
@@ -1339,130 +1339,130 @@ textshadow=yes
 colour=0xff981f
 
 // 779:93
-[com_93]
+[cosmic_teleportation_cost]
 type=text
 x=69
 y=585
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:94
-[com_94]
+[death_teleportation]
 type=text
 x=341
 y=611
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Death
 textshadow=yes
 colour=0xff981f
 
 // 779:95
-[com_95]
+[death_teleportation_cost]
 type=text
 x=345
 y=627
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:96
-[com_96]
+[earth_teleportation]
 type=text
 x=65
 y=527
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Earth
 textshadow=yes
 colour=0xff981f
 
 // 779:97
-[com_97]
+[earth_teleportation_cost]
 type=text
 x=69
 y=543
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:98
-[com_98]
+[fire_teleportation]
 type=text
 x=203
 y=527
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Fire
 textshadow=yes
 colour=0xff981f
 
 // 779:99
-[com_99]
+[fire_teleportation_cost]
 type=text
 x=207
 y=543
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:100
-[com_100]
+[law_teleportation]
 type=text
 x=203
 y=611
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Law
 textshadow=yes
 colour=0xff981f
 
 // 779:101
-[com_101]
+[law_teleportation_cost]
 type=text
 x=207
 y=627
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:102
-[com_102]
+[mind_teleportation]
 type=text
 x=203
 y=485
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Mind
 textlineheight=12
@@ -1470,26 +1470,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:103
-[com_103]
+[mind_teleportation_cost]
 type=text
 x=207
 y=501
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:104
-[com_104]
+[nature_teleportation]
 type=text
 x=65
 y=611
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Nature
 textlineheight=12
@@ -1497,26 +1497,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:105
-[com_105]
+[nature_teleportation_cost]
 type=text
 x=69
 y=627
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:106
-[com_106]
+[astral_teleportation]
 type=text
 x=341
 y=569
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Astral
 textlineheight=12
@@ -1524,26 +1524,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:107
-[com_107]
+[astral_teleportation_cost]
 type=text
 x=345
 y=585
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:108
-[com_108]
+[water_teleportation]
 type=text
 x=341
 y=485
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Water
 textlineheight=12
@@ -1551,26 +1551,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:109
-[com_109]
+[water_teleportation_cost]
 type=text
 x=345
 y=501
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:110
-[com_110]
+[blood_teleportation]
 type=text
 x=65
 y=650
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Blood
 textlineheight=12
@@ -1578,26 +1578,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:111
-[com_111]
+[blood_teleportation_cost]
 type=text
 x=69
 y=666
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:112
-[com_112]
+[guild_teleportation]
 type=text
 x=203
 y=650
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Runecrafting Guild
 textlineheight=12
@@ -1605,26 +1605,26 @@ textshadow=yes
 colour=0xff981f
 
 // 779:113
-[com_113]
+[guild_teleportation_cost]
 type=text
 x=207
 y=666
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
 colour=0xbf751d
 
 // 779:114
-[com_114]
+[staff_blank_model]
 type=model
 x=143
 y=746
 width=27
 height=36
-layer=com_5
+layer=scroll_main
 model=model_41521
 modelorigin=1,0
 modelangle=0,0,309
@@ -1641,7 +1641,7 @@ x=140
 y=799
 width=31
 height=32
-layer=com_5
+layer=scroll_main
 model=model_2349
 modelorigin=-1,1
 modelangle=419,0,1913
@@ -1652,13 +1652,13 @@ op1=Buy 1
 op2=Buy X
 
 // 779:116
-[com_116]
+[staff_blank]
 type=text
 x=173
 y=752
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Talisman staff
 textlineheight=12
@@ -1666,13 +1666,13 @@ textshadow=yes
 colour=0xff981f
 
 // 779:117
-[com_117]
+[staff_blank_cost]
 type=text
 x=177
 y=768
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
@@ -1685,7 +1685,7 @@ x=176
 y=802
 width=80
 height=14
-layer=com_5
+layer=scroll_main
 textfont=p12_full
 text=Rune essence
 textlineheight=12
@@ -1699,7 +1699,7 @@ x=180
 y=818
 width=48
 height=12
-layer=com_5
+layer=scroll_main
 textfont=p11_full
 text=X Ticket(s)
 textlineheight=12
@@ -1714,7 +1714,7 @@ width=462
 height=31
 
 // 779:121
-[com_121]
+[title]
 type=text
 x=84
 y=16
@@ -1731,13 +1731,13 @@ onload=script729
 onvartransmit=script729{varplayer_1278}
 
 // 779:122
-[com_122]
+[talismans]
 type=text
 x=67
 y=7
 width=324
 height=15
-layer=com_5
+layer=scroll_main
 textfont=b12_full
 text=Talismans
 textlineheight=12
@@ -1747,13 +1747,13 @@ colour=0xff981f
 opbase=Teleport
 
 // 779:123
-[com_123]
+[clothing]
 type=text
 x=67
 y=227
 width=324
 height=15
-layer=com_5
+layer=scroll_main
 textfont=b12_full
 text=Runecrafting Robes, Hats and Gloves
 textlineheight=12
@@ -1763,13 +1763,13 @@ colour=0xff981f
 opbase=Teleport
 
 // 779:124
-[com_124]
+[teleportation]
 type=text
 x=67
 y=450
 width=324
 height=15
-layer=com_5
+layer=scroll_main
 textfont=b12_full
 text=Tablets of Teleportation
 textlineheight=12
@@ -1779,13 +1779,13 @@ colour=0xff981f
 opbase=Teleport
 
 // 779:125
-[com_125]
+[misc]
 type=text
 x=70
 y=716
 width=324
 height=15
-layer=com_5
+layer=scroll_main
 textfont=b12_full
 text=Miscellaneous
 textlineheight=12
@@ -1795,18 +1795,18 @@ colour=0xff981f
 opbase=Teleport
 
 // 779:126
-[com_126]
+[confirm_back]
 type=graphic
 x=3
 y=2
 width=182
 height=58
-layer=com_163
+layer=confirm_layer
 graphic=tradebacking
 colour=0x000000
 
 // 779:127
-[com_127]
+[close_button]
 type=graphic
 x=475
 y=13
@@ -1816,8 +1816,8 @@ graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(rcguild_rewards:com_127, "v2_stone_close_button,1")
-onmouseleave=graphic_swapper(rcguild_rewards:com_127, "v2_stone_close_button,0")
+onmouseover=graphic_swapper(rcguild_rewards:close_button, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(rcguild_rewards:close_button, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 779:128
@@ -1827,7 +1827,7 @@ x=2
 y=29
 width=32
 height=32
-layer=com_163
+layer=confirm_layer
 graphic="v2_stone_borders,6"
 colour=0x000000
 
@@ -1838,7 +1838,7 @@ x=155
 y=2
 width=32
 height=32
-layer=com_163
+layer=confirm_layer
 graphic="v2_stone_borders,5"
 colour=0x000000
 
@@ -1849,7 +1849,7 @@ x=2
 y=2
 width=32
 height=32
-layer=com_163
+layer=confirm_layer
 graphic="v2_stone_borders,4"
 colour=0x000000
 
@@ -1860,18 +1860,18 @@ x=155
 y=29
 width=32
 height=32
-layer=com_163
+layer=confirm_layer
 graphic="v2_stone_borders,7"
 colour=0x000000
 
 // 779:132
-[com_132]
+[confirm]
 type=text
 x=55
 y=9
 width=81
 height=20
-layer=com_163
+layer=confirm_layer
 textfont=p12_full
 text=Confirm:
 textlineheight=12
@@ -1887,7 +1887,7 @@ x=33
 y=41
 width=129
 height=45
-layer=com_163
+layer=confirm_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0x000000
@@ -1899,7 +1899,7 @@ x=26
 y=-11
 width=135
 height=25
-layer=com_163
+layer=confirm_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0x000000
@@ -1911,7 +1911,7 @@ x=55
 y=19
 width=81
 height=28
-layer=com_163
+layer=confirm_layer
 textfont=p11_full
 textlineheight=12
 textalignh=centre
@@ -1926,7 +1926,7 @@ x=55
 y=40
 width=81
 height=12
-layer=com_163
+layer=confirm_layer
 textfont=p11_full
 textlineheight=12
 textalignh=centre
@@ -1935,7 +1935,7 @@ textshadow=yes
 colour=0xff981f
 
 // 779:137
-[com_137]
+[tl_border]
 type=graphic
 x=4
 y=3
@@ -1945,7 +1945,7 @@ graphic="v2_stone_borders,4"
 colour=0x000000
 
 // 779:138
-[com_138]
+[tr_border]
 type=graphic
 x=473
 y=3
@@ -1976,7 +1976,7 @@ graphic="v2_stone_borders,9"
 colour=0x000000
 
 // 779:141
-[com_141]
+[unsubscribe_county]
 type=graphic
 x=34
 y=248
@@ -2028,13 +2028,13 @@ graphic="v2_stone_borders,10"
 colour=0x000000
 
 // 779:146
-[com_146]
+[div0]
 type=rectangle
 x=60
 y=4
 width=339
 height=1
-layer=com_5
+layer=scroll_main
 colour=0xff6600
 fill=yes
 trans=200
@@ -2046,19 +2046,19 @@ x=60
 y=4
 width=337
 height=3
-layer=com_5
+layer=scroll_main
 colour=0x000000
 fill=yes
 trans=200
 
 // 779:148
-[com_148]
+[div1]
 type=rectangle
 x=60
 y=23
 width=339
 height=1
-layer=com_5
+layer=scroll_main
 colour=0xff6600
 fill=yes
 trans=200
@@ -2070,19 +2070,19 @@ x=60
 y=23
 width=337
 height=3
-layer=com_5
+layer=scroll_main
 colour=0x000000
 fill=yes
 trans=200
 
 // 779:150
-[com_150]
+[div2]
 type=rectangle
 x=60
 y=224
 width=339
 height=1
-layer=com_5
+layer=scroll_main
 colour=0xff6600
 fill=yes
 trans=200
@@ -2094,19 +2094,19 @@ x=60
 y=224
 width=337
 height=3
-layer=com_5
+layer=scroll_main
 colour=0x000000
 fill=yes
 trans=200
 
 // 779:152
-[com_152]
+[div3]
 type=rectangle
 x=60
 y=243
 width=339
 height=1
-layer=com_5
+layer=scroll_main
 colour=0xff6600
 fill=yes
 trans=200
@@ -2118,19 +2118,19 @@ x=60
 y=243
 width=337
 height=3
-layer=com_5
+layer=scroll_main
 colour=0x000000
 fill=yes
 trans=200
 
 // 779:154
-[com_154]
+[div4]
 type=rectangle
 x=60
 y=448
 width=339
 height=1
-layer=com_5
+layer=scroll_main
 colour=0xff6600
 fill=yes
 trans=200
@@ -2142,19 +2142,19 @@ x=60
 y=448
 width=337
 height=3
-layer=com_5
+layer=scroll_main
 colour=0x000000
 fill=yes
 trans=200
 
 // 779:156
-[com_156]
+[div5]
 type=rectangle
 x=60
 y=467
 width=339
 height=1
-layer=com_5
+layer=scroll_main
 colour=0xff6600
 fill=yes
 trans=200
@@ -2166,19 +2166,19 @@ x=60
 y=467
 width=337
 height=3
-layer=com_5
+layer=scroll_main
 colour=0x000000
 fill=yes
 trans=200
 
 // 779:158
-[com_158]
+[div6]
 type=rectangle
 x=63
 y=713
 width=339
 height=1
-layer=com_5
+layer=scroll_main
 colour=0xff6600
 fill=yes
 trans=200
@@ -2190,19 +2190,19 @@ x=63
 y=713
 width=337
 height=3
-layer=com_5
+layer=scroll_main
 colour=0x000000
 fill=yes
 trans=200
 
 // 779:160
-[com_160]
+[div7]
 type=rectangle
 x=63
 y=732
 width=339
 height=1
-layer=com_5
+layer=scroll_main
 colour=0xff6600
 fill=yes
 trans=200
@@ -2214,7 +2214,7 @@ x=63
 y=732
 width=337
 height=3
-layer=com_5
+layer=scroll_main
 colour=0x000000
 fill=yes
 trans=200
@@ -2226,10 +2226,10 @@ x=481
 y=40
 width=16
 height=220
-onload=scrollbar_vertical_graphics(event_com, rcguild_rewards:com_5, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, rcguild_rewards:scroll_main, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 779:163
-[com_163]
+[confirm_layer]
 type=layer
 x=160
 y=269

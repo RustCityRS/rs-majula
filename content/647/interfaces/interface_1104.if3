@@ -5,7 +5,7 @@ width=200
 height=21
 xmode=abs_centre
 ymode=abs_centre
-layer=com_33
+layer=content_layer
 
 // 1104:1
 [com_1]
@@ -339,7 +339,7 @@ onclick=script4207(event_com, 0)
 onrelease=script4207(event_com, 1)
 
 // 1104:31
-[com_31]
+[title_layer]
 type=layer
 width=16384
 height=23
@@ -356,7 +356,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=title_layer
 textfont=palatino_linotype_18pt_regular
 text=Invitation
 textalignh=centre
@@ -365,7 +365,7 @@ colour=0xebe0bc
 onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1104:33
-[com_33]
+[content_layer]
 type=layer
 x=8
 y=29
@@ -382,7 +382,7 @@ y=4
 width=200
 height=20
 xmode=abs_centre
-layer=com_33
+layer=content_layer
 textfont=p11_full
 text=You have been invited by...
 textalignh=centre
@@ -434,7 +434,7 @@ y=53
 width=200
 height=20
 xmode=abs_centre
-layer=com_33
+layer=content_layer
 textfont=p11_full
 text=...to attend...
 textalignh=centre

@@ -1,5 +1,5 @@
 // 783:0
-[com_0]
+[emote_page_one]
 type=layer
 width=190
 height=260
@@ -8,176 +8,176 @@ scrollheight=552
 onload=crcs_agility_open
 
 // 783:1
-[com_1]
+[emote_small_hop]
 type=graphic
 x=9
 y=9
 width=48
 height=48
-layer=com_0
+layer=emote_page_one
 graphic="emotes_circus,1"
 colour=0xffffffff
 transmitop=1
 op1=Small Hop
-onmouseleave=deltooltip(crcs_tightrope:com_12)
-onmouserepeat=addtooltip(event_com, crcs_tightrope:com_12, "Small Hop (level 10 approx.)", 50, 150)
+onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "Small Hop (level 10 approx.)", 50, 150)
 
 // 783:2
-[com_2]
+[emote_1_leg_balance]
 type=graphic
 x=75
 y=10
 width=48
 height=48
-layer=com_0
+layer=emote_page_one
 graphic="emotes_circus,2"
 colour=0xffffffff
 transmitop=1
 op1=One Leg Balance
-onmouseleave=deltooltip(crcs_tightrope:com_12)
-onmouserepeat=addtooltip(event_com, crcs_tightrope:com_12, "One-leg Balance (level 20 approx.)", 50, 150)
+onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "One-leg Balance (level 20 approx.)", 50, 150)
 
 // 783:3
-[com_3]
+[emote_twirl]
 type=graphic
 x=133
 y=10
 width=48
 height=48
-layer=com_0
+layer=emote_page_one
 graphic="emotes_circus,3"
 colour=0xffffffff
 transmitop=1
 op1=Twirl
-onmouseleave=deltooltip(crcs_tightrope:com_12)
-onmouserepeat=addtooltip(event_com, crcs_tightrope:com_12, "Twirl (level 30 approx.)", 50, 150)
+onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "Twirl (level 30 approx.)", 50, 150)
 
 // 783:4
-[com_4]
+[emote_handstand]
 type=graphic
 x=9
 y=67
 width=48
 height=48
-layer=com_0
+layer=emote_page_one
 graphic="emotes_circus,4"
 colour=0xffffffff
 transmitop=1
 op1=Handstand
-onmouseleave=deltooltip(crcs_tightrope:com_12)
-onmouserepeat=addtooltip(event_com, crcs_tightrope:com_12, "Handstand (level 40 approx.)", 50, 150)
+onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "Handstand (level 40 approx.)", 50, 150)
 
 // 783:5
-[com_5]
+[emote_cartwheel]
 type=graphic
 x=74
 y=68
 width=48
 height=48
-layer=com_0
+layer=emote_page_one
 graphic="emotes_circus,5"
 colour=0xffffffff
 transmitop=1
 op1=Cartwheel
-onmouseleave=deltooltip(crcs_tightrope:com_12)
-onmouserepeat=addtooltip(event_com, crcs_tightrope:com_12, "Cartwheel (level 50 approx.)", 50, 150)
+onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "Cartwheel (level 50 approx.)", 50, 150)
 
 // 783:6
-[com_6]
+[emote_small_leap]
 type=graphic
 x=133
 y=68
 width=48
 height=48
-layer=com_0
+layer=emote_page_one
 graphic="emotes_circus,6"
 colour=0xffffffff
 transmitop=1
 op1=Small Leap
-onmouseleave=deltooltip(crcs_tightrope:com_12)
-onmouserepeat=addtooltip(event_com, crcs_tightrope:com_12, "Small Leap (level 60 approx.)", 50, 150)
+onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "Small Leap (level 60 approx.)", 50, 150)
 
 // 783:7
-[com_7]
+[emote_no_hand_cartwheel]
 type=graphic
 x=9
 y=126
 width=48
 height=48
-layer=com_0
+layer=emote_page_one
 graphic="emotes_circus,7"
 colour=0xffffffff
 transmitop=1
 op1=No-hand Cartwheel
-onmouseleave=deltooltip(crcs_tightrope:com_12)
-onmouserepeat=addtooltip(event_com, crcs_tightrope:com_12, "No-hand Cartwheel (level 70 approx.)", 50, 150)
+onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "No-hand Cartwheel (level 70 approx.)", 50, 150)
 
 // 783:8
-[com_8]
+[emote_tumble]
 type=graphic
 x=74
 y=127
 width=48
 height=48
-layer=com_0
+layer=emote_page_one
 graphic="emotes_circus,8"
 colour=0xffffffff
 transmitop=1
 op1=Forward Roll
-onmouseleave=deltooltip(crcs_tightrope:com_12)
-onmouserepeat=addtooltip(event_com, crcs_tightrope:com_12, "Forward Roll (level 80 approx.)", 50, 150)
+onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "Forward Roll (level 80 approx.)", 50, 150)
 
 // 783:9
-[com_9]
+[emote_large_leap]
 type=graphic
 x=132
 y=127
 width=48
 height=48
-layer=com_0
+layer=emote_page_one
 graphic="emotes_circus,9"
 colour=0xffffffff
 transmitop=1
 op1=Large Leap
-onmouseleave=deltooltip(crcs_tightrope:com_12)
-onmouserepeat=addtooltip(event_com, crcs_tightrope:com_12, "Large Leap (level 90 approx.)", 50, 150)
+onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "Large Leap (level 90 approx.)", 50, 150)
 
 // 783:10
-[com_10]
+[emote_backflip]
 type=graphic
 x=43
 y=187
 width=48
 height=48
-layer=com_0
+layer=emote_page_one
 graphic="emotes_circus,10"
 colour=0xffffffff
 transmitop=1
 op1=Backflip
-onmouseleave=deltooltip(crcs_tightrope:com_12)
-onmouserepeat=addtooltip(event_com, crcs_tightrope:com_12, "Backflip (level 99 approx.)", 50, 150)
+onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "Backflip (level 99 approx.)", 50, 150)
 
 // 783:11
-[com_11]
+[emote_juggle]
 type=graphic
 x=106
 y=190
 width=48
 height=48
-layer=com_0
+layer=emote_page_one
 graphic="emotes_circus,0"
 colour=0xffffffff
 targetmask=com
 targetverb=Juggle
-onmouseleave=deltooltip(crcs_tightrope:com_12)
-onmouserepeat=addtooltip(event_com, crcs_tightrope:com_12, "Juggle", 50, 150)
+onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "Juggle", 50, 150)
 onclick=script1768
 
 // 783:12
-[com_12]
+[emote_tool_tip]
 type=layer
 x=34
 y=119
 width=100
 height=50
-layer=com_0
+layer=emote_page_one

@@ -1,20 +1,20 @@
 // 819
 [clientscript,script819]
 if (%varplayer_1174 ! null & %varplayer_1174 ! hans) {
-    if_setnpchead(%varplayer_1174, lore_cats_side:com_3);
+    if_setnpchead(%varplayer_1174, lore_cats_side:lore_chathead);
 } else {
-    if_setmodel(null, lore_cats_side:com_3);
+    if_setmodel(null, lore_cats_side:lore_chathead);
 }
 if (%varplayerbit_1049 = 1) {
-    if_settext(~script821, lore_cats_side:com_25);
+    if_settext(~script821, lore_cats_side:lore_name);
 } else if (%varplayer_448 ! null) {
-    if_settext(oc_name(%varplayer_448), lore_cats_side:com_25);
+    if_settext(oc_name(%varplayer_448), lore_cats_side:lore_name);
 } else {
-    if_settext("", lore_cats_side:com_25);
+    if_settext("", lore_cats_side:lore_name);
 }
 if (%varplayerbit_4282 > 50) {
     %varplayerbit_4282 = calc(%varplayerbit_4282 - 50);
-    if_setmodelanim(enum(int, seq, enum_1275, %varplayerbit_4282), lore_cats_side:com_3);
+    if_setmodelanim(enum(int, seq, enum_1275, %varplayerbit_4282), lore_cats_side:lore_chathead);
 } else {
-    if_setmodelanim(enum(int, seq, enum_1276, %varplayerbit_4282), lore_cats_side:com_3);
+    if_setmodelanim(enum(int, seq, enum_1276, %varplayerbit_4282), lore_cats_side:lore_chathead);
 }

@@ -1,5 +1,5 @@
 // 596:0
-[com_0]
+[alpha_fade]
 type=graphic
 x=-1
 y=-1
@@ -21,7 +21,7 @@ width=14
 height=14
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=border
 graphic=window_texture
 tiling=yes
 
@@ -34,12 +34,12 @@ width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_12
+layer=popup_small_button
 colour=0x000000
 fill=yes
 
 // 596:3
-[com_3]
+[border]
 type=layer
 width=266
 height=265
@@ -58,7 +58,7 @@ ymode=abs_centre
 op10= 
 
 // 596:5
-[com_5]
+[popup]
 type=layer
 width=2000
 height=1000
@@ -68,7 +68,7 @@ hide=yes
 noclickthrough=yes
 
 // 596:6
-[com_6]
+[body]
 type=layer
 width=266
 height=265
@@ -79,26 +79,26 @@ noclickthrough=yes
 op10= 
 
 // 596:7
-[com_7]
+[popup_body]
 type=layer
 width=250
 height=154
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=popup
 
 // 596:8
-[com_8]
+[popup_border]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_7
+layer=popup_body
 op10=      
 
 // 596:9
-[com_9]
+[login_bg_gfx]
 type=graphic
 width=2
 height=2
@@ -106,31 +106,31 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_8
+layer=popup_border
 graphic=window_texture
 tiling=yes
 
 // 596:10
-[com_10]
+[popup_throbber]
 type=graphic
 y=7
 width=111
 height=111
 xmode=abs_centre
-layer=com_7
+layer=popup_body
 graphic="loading_wheel_1,0"
 alpha=yes
 colour=0xffffffff
 
 // 596:11
-[com_11]
+[popup_text]
 type=text
 y=105
 width=20
 height=42
 widthmode=minus
 xmode=abs_centre
-layer=com_7
+layer=popup_body
 textfont=verdana_11pt_regular
 text=Logging In - Please Wait
 textlineheight=16
@@ -140,7 +140,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 596:12
-[com_12]
+[popup_small_button]
 type=layer
 y=5
 width=80
@@ -148,53 +148,53 @@ height=26
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_7
+layer=popup_body
 hide=yes
 
 // 596:13
-[com_13]
+[popup_small_button_left]
 type=graphic
 width=25
 height=25
-layer=com_12
+layer=popup_small_button
 graphic="set_but_end_1,0"
 colour=0xffffffff
 
 // 596:14
-[com_14]
+[popup_small_button_mid]
 type=graphic
 x=25
 width=51
 height=25
 widthmode=minus
-layer=com_12
+layer=popup_small_button
 graphic="set_but_fill_1,0"
 tiling=yes
 colour=0xffffffff
 op10= 
 
 // 596:15
-[com_15]
+[popup_small_button_right]
 type=graphic
 x=1
 width=25
 height=25
 xmode=abs_right
-layer=com_12
+layer=popup_small_button
 graphic="set_but_end_1,0"
 hflip=yes
 colour=0xffffffff
 op10= 
 
 // 596:16
-[com_16]
+[popup_small_button_text]
 type=text
 y=-1
 height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_12
+layer=popup_small_button
 textfont=verdana_11pt_regular
 textalignh=centre
 textalignv=centre
@@ -202,35 +202,35 @@ textshadow=yes
 colour=0xebe0bc
 
 // 596:17
-[com_17]
+[popup_top_left]
 type=graphic
 width=38
 height=72
-layer=com_8
+layer=popup_border
 vflip=yes
 hflip=yes
 colour=0xffffffff
 op10=      
 
 // 596:18
-[com_18]
+[popup_bottom_left]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_8
+layer=popup_border
 hflip=yes
 colour=0xffffffff
 op10=       
 
 // 596:19
-[com_19]
+[popup_top_side]
 type=graphic
 x=38
 width=76
 height=8
 widthmode=minus
-layer=com_8
+layer=popup_border
 graphic="corner_frame_2,2"
 tiling=yes
 vflip=yes
@@ -238,152 +238,152 @@ colour=0xffffffff
 op10=      
 
 // 596:20
-[com_20]
+[popup_bottom_side]
 type=graphic
 x=38
 width=76
 height=8
 widthmode=minus
 ymode=abs_bottom
-layer=com_8
+layer=popup_border
 graphic="corner_frame_2,2"
 tiling=yes
 colour=0xffffffff
 op10=       
 
 // 596:21
-[com_21]
+[popup_top_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_8
+layer=popup_border
 vflip=yes
 colour=0xffffffff
 op10=       
 
 // 596:22
-[com_22]
+[popup_bottom_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_8
+layer=popup_border
 colour=0xffffffff
 op10=        
 
 // 596:23
-[com_23]
+[popup_left_side]
 type=graphic
 y=72
 width=38
 height=144
 heightmode=minus
-layer=com_8
+layer=popup_border
 graphic="corner_frame_1,1"
 hflip=yes
 
 // 596:24
-[com_24]
+[popup_right_side]
 type=graphic
 y=72
 width=38
 height=144
 heightmode=minus
 xmode=abs_right
-layer=com_8
+layer=popup_border
 graphic="corner_frame_1,1"
 
 // 596:25
-[com_25]
+[top_side]
 type=graphic
 x=38
 width=76
 height=8
 widthmode=minus
-layer=com_3
+layer=border
 graphic="corner_frame_2,0"
 tiling=yes
 colour=0xffffffff
 op10= 
 
 // 596:26
-[com_26]
+[bottom_side]
 type=graphic
 x=38
 width=76
 height=8
 widthmode=minus
 ymode=abs_bottom
-layer=com_3
+layer=border
 graphic="corner_frame_2,2"
 tiling=yes
 colour=0xffffffff
 op10=  
 
 // 596:27
-[com_27]
+[left_side]
 type=graphic
 y=72
 width=38
 height=144
 heightmode=minus
-layer=com_3
+layer=border
 graphic="corner_frame_5,0"
 tiling=yes
 hflip=yes
 
 // 596:28
-[com_28]
+[right_side]
 type=graphic
 y=72
 width=38
 height=144
 heightmode=minus
 xmode=abs_right
-layer=com_3
+layer=border
 graphic="corner_frame_5,0"
 tiling=yes
 
 // 596:29
-[com_29]
+[bottom_left]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_3
+layer=border
 hflip=yes
 colour=0xffffffff
 op10=  
 
 // 596:30
-[com_30]
+[bottom_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
+layer=border
 colour=0xffffffff
 op10=   
 
 // 596:31
-[com_31]
+[top_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_3
+layer=border
 colour=0xffffffff
 op10=  
 
 // 596:32
-[com_32]
+[top_left]
 type=graphic
 width=38
 height=72
-layer=com_3
+layer=border
 hflip=yes
 colour=0xffffffff
 op10= 
@@ -396,7 +396,7 @@ width=2
 height=25
 widthmode=minus
 xmode=abs_centre
-layer=com_6
+layer=body
 textfont=verdana_15pt_regular
 text=Login
 textalignh=centre
@@ -410,7 +410,7 @@ y=38
 width=219
 height=1
 xmode=abs_centre
-layer=com_6
+layer=body
 colour=0x161513
 
 // 596:35
@@ -420,18 +420,18 @@ y=39
 width=219
 height=1
 xmode=abs_centre
-layer=com_6
+layer=body
 colour=0x2d2d2d
 
 // 596:36
-[com_36]
+[username_title]
 type=text
 x=26
 y=41
 width=268
 height=19
 xmode=abs_centre
-layer=com_6
+layer=body
 textfont=verdana_11pt_regular
 text=Username/Email:
 textalignv=centre
@@ -440,26 +440,26 @@ colour=0xebe0bc
 op10= 
 
 // 596:37
-[com_37]
+[username_input_group]
 type=layer
 x=23
 y=59
 width=218
 height=27
-layer=com_6
-onmouseover=loginscreen_button_highlight(login:com_61, graphic_3817, login:com_62, graphic_3818, login:com_63, graphic_3819)
-onmouseleave=loginscreen_button_highlight(login:com_61, graphic_3814, login:com_62, graphic_3815, login:com_63, graphic_3816)
+layer=body
+onmouseover=loginscreen_button_highlight(login:username_bg_left, graphic_3817, login:username_bg_mid, graphic_3818, login:username_bg_right, graphic_3819)
+onmouseleave=loginscreen_button_highlight(login:username_bg_left, graphic_3814, login:username_bg_mid, graphic_3815, login:username_bg_right, graphic_3816)
 onclick=login_focus(3)
 
 // 596:38
-[com_38]
+[password_title]
 type=text
 x=26
 y=87
 width=268
 height=19
 xmode=abs_centre
-layer=com_6
+layer=body
 textfont=verdana_11pt_regular
 text=Password:
 textalignv=centre
@@ -468,15 +468,15 @@ colour=0xebe0bc
 op10=  
 
 // 596:39
-[com_39]
+[password_input_group]
 type=layer
 x=23
 y=105
 width=218
 height=27
-layer=com_6
-onmouseover=loginscreen_button_highlight(login:com_67, graphic_3817, login:com_68, graphic_3818, login:com_69, graphic_3819)
-onmouseleave=loginscreen_button_highlight(login:com_67, graphic_3814, login:com_68, graphic_3815, login:com_69, graphic_3816)
+layer=body
+onmouseover=loginscreen_button_highlight(login:password_bg_left, graphic_3817, login:password_bg_mid, graphic_3818, login:password_bg_right, graphic_3819)
+onmouseleave=loginscreen_button_highlight(login:password_bg_left, graphic_3814, login:password_bg_mid, graphic_3815, login:password_bg_right, graphic_3816)
 onclick=login_focus(4)
 
 // 596:40
@@ -486,7 +486,7 @@ y=146
 width=219
 height=1
 xmode=abs_centre
-layer=com_6
+layer=body
 colour=0x161513
 
 // 596:41
@@ -496,20 +496,20 @@ y=147
 width=219
 height=1
 xmode=abs_centre
-layer=com_6
+layer=body
 colour=0x2d2d2d
 
 // 596:42
-[com_42]
+[login_button]
 type=layer
 y=162
 width=180
 height=26
 xmode=abs_centre
-layer=com_6
+layer=body
 op10= 
-onmouseover=loginscreen_button_highlight(login:com_48, "set_but_end_3,1", login:com_49, "set_but_fill_3,1", login:com_50, "set_but_end_3,1")
-onmouseleave=loginscreen_button_highlight(login:com_48, "set_but_end_3,0", login:com_49, "set_but_fill_3,0", login:com_50, "set_but_end_3,0")
+onmouseover=loginscreen_button_highlight(login:login_button_left, "set_but_end_3,1", login:login_button_mid, "set_but_fill_3,1", login:login_button_right, "set_but_end_3,1")
+onmouseleave=loginscreen_button_highlight(login:login_button_left, "set_but_end_3,0", login:login_button_mid, "set_but_fill_3,0", login:login_button_right, "set_but_end_3,0")
 onclick=login_dologin
 
 // 596:43
@@ -521,21 +521,21 @@ width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_42
+layer=login_button
 colour=0x000000
 fill=yes
 
 // 596:44
-[com_44]
+[forgot_password_layer]
 type=layer
 y=195
 width=72
 height=15
 widthmode=minus
 xmode=abs_centre
-layer=com_6
-onmouseover=login_link_highlight(login:com_44, login:com_47, verdana_11pt_regular, 1)
-onmouseleave=login_link_highlight(login:com_44, login:com_47, verdana_11pt_regular, 0)
+layer=body
+onmouseover=login_link_highlight(login:forgot_password_layer, login:com_47, verdana_11pt_regular, 1)
+onmouseleave=login_link_highlight(login:forgot_password_layer, login:com_47, verdana_11pt_regular, 0)
 onclick=loginscreen_link("accountappeal", "passwordchoice.ws", true)
 
 // 596:45
@@ -545,17 +545,17 @@ y=220
 width=219
 height=1
 xmode=abs_centre
-layer=com_6
+layer=body
 colour=0x161513
 
 // 596:46
-[com_46]
+[complete_text10]
 type=rectangle
 y=221
 width=219
 height=1
 xmode=abs_centre
-layer=com_6
+layer=body
 colour=0x2d2d2d
 
 // 596:47
@@ -565,7 +565,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_44
+layer=forgot_password_layer
 textfont=verdana_11pt_regular
 text=<u=C8C8C8>Recover Your Password
 textalignh=centre
@@ -575,35 +575,35 @@ colour=0xc8c8c8
 op10= 
 
 // 596:48
-[com_48]
+[login_button_left]
 type=graphic
 width=25
 height=25
-layer=com_42
+layer=login_button
 graphic="set_but_end_3,0"
 colour=0xffffffff
 op10= 
 
 // 596:49
-[com_49]
+[login_button_mid]
 type=graphic
 x=25
 width=51
 height=25
 widthmode=minus
-layer=com_42
+layer=login_button
 graphic="set_but_fill_3,0"
 colour=0xffffffff
 op10=  
 
 // 596:50
-[com_50]
+[login_button_right]
 type=graphic
 x=1
 width=25
 height=25
 xmode=abs_right
-layer=com_42
+layer=login_button
 graphic="set_but_end_3,0"
 hflip=yes
 colour=0xffffffff
@@ -617,7 +617,7 @@ height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_42
+layer=login_button
 textfont=verdana_13pt_regular
 text=Log In
 textalignh=centre
@@ -625,14 +625,14 @@ textalignv=centre
 colour=0xc0b154
 
 // 596:52
-[com_52]
+[login_button_text]
 type=text
 y=-1
 height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_42
+layer=login_button
 textfont=verdana_13pt_regular
 text=Log In
 textalignh=centre
@@ -641,27 +641,27 @@ colour=0x000000
 op10= 
 
 // 596:53
-[com_53]
+[create_button]
 type=layer
 y=222
 width=71
 height=35
 widthmode=minus
 xmode=abs_centre
-layer=com_6
-onmouseover=login_link_highlight(login:com_53, login:com_54, verdana_11pt_regular, 1)
-onmouseleave=login_link_highlight(login:com_53, login:com_54, verdana_11pt_regular, 0)
+layer=body
+onmouseover=login_link_highlight(login:create_button, login:create_button_text, verdana_11pt_regular, 1)
+onmouseleave=login_link_highlight(login:create_button, login:create_button_text, verdana_11pt_regular, 0)
 onclick=login_register
 
 // 596:54
-[com_54]
+[create_button_text]
 type=text
 y=-1
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_53
+layer=create_button
 textfont=verdana_11pt_regular
 text=<u=C8C8C8>Create Account Now
 textalignh=centre
@@ -670,7 +670,7 @@ textshadow=yes
 colour=0xc8c8c8
 
 // 596:55
-[com_55]
+[popup_big_button]
 type=layer
 y=5
 width=80
@@ -678,7 +678,7 @@ height=26
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_7
+layer=popup_body
 hide=yes
 
 // 596:56
@@ -690,49 +690,49 @@ width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_55
+layer=popup_big_button
 colour=0x000000
 fill=yes
 
 // 596:57
-[com_57]
+[popup_big_button_left]
 type=graphic
 width=25
 height=25
-layer=com_55
+layer=popup_big_button
 graphic="set_but_end_1,0"
 
 // 596:58
-[com_58]
+[popup_big_button_mid]
 type=graphic
 x=25
 width=51
 height=25
 widthmode=minus
-layer=com_55
+layer=popup_big_button
 graphic="set_but_fill_1,0"
 tiling=yes
 
 // 596:59
-[com_59]
+[popup_big_button_right]
 type=graphic
 x=1
 width=25
 height=25
 xmode=abs_right
-layer=com_55
+layer=popup_big_button
 graphic="set_but_end_1,0"
 hflip=yes
 
 // 596:60
-[com_60]
+[popup_big_button_text]
 type=text
 y=-1
 height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_55
+layer=popup_big_button
 textfont=verdana_11pt_regular
 textalignh=centre
 textalignv=centre
@@ -740,123 +740,123 @@ textshadow=yes
 colour=0xebe0bc
 
 // 596:61
-[com_61]
+[username_bg_left]
 type=graphic
 width=16
 height=27
-layer=com_37
+layer=username_input_group
 graphic=graphic_3814
 
 // 596:62
-[com_62]
+[username_bg_mid]
 type=graphic
 x=16
 width=32
 height=27
 widthmode=minus
-layer=com_37
+layer=username_input_group
 graphic=graphic_3815
 tiling=yes
 
 // 596:63
-[com_63]
+[username_bg_right]
 type=graphic
 width=16
 height=27
 xmode=abs_right
-layer=com_37
+layer=username_input_group
 graphic=graphic_3816
 
 // 596:64
-[com_64]
+[username_layer]
 type=layer
 width=1
 widthmode=minus
 heightmode=minus
-layer=com_37
+layer=username_input_group
 
 // 596:65
-[com_65]
+[username]
 type=text
 x=6
 width=11
 widthmode=minus
 heightmode=minus
-layer=com_64
+layer=username_layer
 textfont=verdana_11pt_regular
 textalignv=centre
 colour=0xebe0bc
-onclick=script3236(event_mousex, login:com_65, login:com_66, 3, login:com_64)
+onclick=script3236(event_mousex, login:username, login:username_caret, 3, login:username_layer)
 
 // 596:66
-[com_66]
+[username_caret]
 type=rectangle
 x=6
 y=4
 width=1
 height=19
-layer=com_37
+layer=username_input_group
 hide=yes
 colour=0xebe0bc
 fill=yes
 
 // 596:67
-[com_67]
+[password_bg_left]
 type=graphic
 width=16
 height=27
-layer=com_39
+layer=password_input_group
 graphic=graphic_3814
 
 // 596:68
-[com_68]
+[password_bg_mid]
 type=graphic
 x=16
 width=32
 height=27
 widthmode=minus
-layer=com_39
+layer=password_input_group
 graphic=graphic_3815
 tiling=yes
 
 // 596:69
-[com_69]
+[password_bg_right]
 type=graphic
 width=16
 height=27
 xmode=abs_right
-layer=com_39
+layer=password_input_group
 graphic=graphic_3816
 
 // 596:70
-[com_70]
+[password_layer]
 type=layer
 width=1
 widthmode=minus
 heightmode=minus
-layer=com_39
+layer=password_input_group
 
 // 596:71
-[com_71]
+[password]
 type=text
 x=6
 width=11
 widthmode=minus
 heightmode=minus
-layer=com_70
+layer=password_layer
 textfont=verdana_11pt_regular
 textalignv=centre
 colour=0xebe0bc
-onclick=script3236(event_mousex, login:com_71, login:com_72, 4, login:com_70)
+onclick=script3236(event_mousex, login:password, login:password_caret, 4, login:password_layer)
 
 // 596:72
-[com_72]
+[password_caret]
 type=rectangle
 x=6
 y=4
 width=1
 height=19
-layer=com_39
+layer=password_input_group
 hide=yes
 colour=0xebe0bc
 fill=yes

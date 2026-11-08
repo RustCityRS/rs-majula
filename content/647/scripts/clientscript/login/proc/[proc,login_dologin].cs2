@@ -11,27 +11,27 @@ def_int $int2 = 0;
 def_int $int3 = 0;
 if (unknown_command_5420 = true & ~script2727 = true & %varclient_547 = 0) {
     %varclient_174 = 12;
-    if_sethide(false, loginscreen:com_28);
+    if_sethide(false, loginscreen:pvp_warning);
     sound_jingle(jingle_349, 0);
-    ~script3412(loginscreen:com_42, loginscreen:com_43);
-    $int2 = if_getwidth(loginscreen:com_43);
-    $int3 = if_getwidth(loginscreen:com_43);
-    $int0 = max(337, calc(stringwidth(if_gettext(loginscreen:com_42), menu_font_small) + 31));
-    $int3 = max(152, calc(paraheight(if_gettext(loginscreen:com_43), $int2, b12_full) * 16));
+    ~script3412(loginscreen:pvp_warning_text_title, loginscreen:pvp_warning_text_main);
+    $int2 = if_getwidth(loginscreen:pvp_warning_text_main);
+    $int3 = if_getwidth(loginscreen:pvp_warning_text_main);
+    $int0 = max(337, calc(stringwidth(if_gettext(loginscreen:pvp_warning_text_title), menu_font_small) + 31));
+    $int3 = max(152, calc(paraheight(if_gettext(loginscreen:pvp_warning_text_main), $int2, b12_full) * 16));
     $int1 = max(252, calc($int3 + 100));
-    if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, loginscreen:com_43);
-    if_setsize($int0, $int1, ^setsize_abs, ^setsize_abs, loginscreen:com_28);
+    if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, loginscreen:pvp_warning_text_main);
+    if_setsize($int0, $int1, ^setsize_abs, ^setsize_abs, loginscreen:pvp_warning);
     if_sethide(true, loginscreen:com_26);
     if_sethide(true, loginscreen:com_27);
     return;
 }
 %varclient_200 = 0;
 %varclient_201 = 0;
-def_component $component4 = login:com_52;
-def_component $component5 = login:com_42;
+def_component $component4 = login:login_button_text;
+def_component $component5 = login:login_button;
 if (unknown_command_5623 = true) {
-    $component4 = south_progress9:com_54;
-    $component5 = south_progress9:com_50;
+    $component4 = south_progress9:login_button_text;
+    $component5 = south_progress9:login_button;
 }
 if_settext("Logging in...", $component4);
 if_setonclick(null, $component5);
@@ -48,4 +48,4 @@ if (unknown_command_5420 = true) {
 } else {
     unknown_command_5615($string0, $string1);
 }
-if_setontimer("login_reply", login:com_5);
+if_setontimer("login_reply", login:popup);

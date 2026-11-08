@@ -1,5 +1,5 @@
 // 520:0
-[com_0]
+[couragebar1]
 type=layer
 x=58
 y=22
@@ -8,19 +8,19 @@ height=14
 hide=yes
 
 // 520:1
-[com_1]
+[courage1]
 type=rectangle
 x=1
 y=-4
 width=41
 height=41
-layer=com_0
+layer=couragebar1
 colour=0x9160a2
 fill=yes
 trans=10
 
 // 520:2
-[com_2]
+[couragebar2]
 type=layer
 x=93
 y=22
@@ -29,18 +29,18 @@ height=14
 hide=yes
 
 // 520:3
-[com_3]
+[courage2]
 type=rectangle
 y=-6
 width=41
 height=41
-layer=com_2
+layer=couragebar2
 colour=0x9160a2
 fill=yes
 trans=10
 
 // 520:4
-[com_4]
+[couragebar3]
 type=layer
 x=133
 y=22
@@ -49,18 +49,18 @@ height=14
 hide=yes
 
 // 520:5
-[com_5]
+[courage3]
 type=rectangle
 y=-6
 width=41
 height=41
-layer=com_4
+layer=couragebar3
 colour=0x9160a2
 fill=yes
 trans=10
 
 // 520:6
-[com_6]
+[couragebar4]
 type=layer
 x=173
 y=22
@@ -69,19 +69,19 @@ height=14
 hide=yes
 
 // 520:7
-[com_7]
+[courage4]
 type=rectangle
 x=1
 y=-4
 width=41
 height=41
-layer=com_6
+layer=couragebar4
 colour=0x9160a2
 fill=yes
 trans=10
 
 // 520:8
-[com_8]
+[couragebar5]
 type=layer
 x=213
 y=22
@@ -90,19 +90,19 @@ height=14
 hide=yes
 
 // 520:9
-[com_9]
+[courage5]
 type=rectangle
 x=1
 y=-2
 width=41
 height=41
-layer=com_8
+layer=couragebar5
 colour=0x9160a2
 fill=yes
 trans=10
 
 // 520:10
-[com_10]
+[couragebar6]
 type=layer
 x=253
 y=22
@@ -111,19 +111,19 @@ height=14
 hide=yes
 
 // 520:11
-[com_11]
+[courage6]
 type=rectangle
 x=1
 y=-1
 width=41
 height=41
-layer=com_10
+layer=couragebar6
 colour=0x9160a2
 fill=yes
 trans=10
 
 // 520:12
-[com_12]
+[couragebar7]
 type=layer
 x=293
 y=22
@@ -132,19 +132,19 @@ height=14
 hide=yes
 
 // 520:13
-[com_13]
+[courage7]
 type=rectangle
 x=1
 y=-3
 width=41
 height=41
-layer=com_12
+layer=couragebar7
 colour=0x9160a2
 fill=yes
 trans=10
 
 // 520:14
-[com_14]
+[couragebar8]
 type=layer
 x=332
 y=22
@@ -153,19 +153,19 @@ height=14
 hide=yes
 
 // 520:15
-[com_15]
+[courage8]
 type=rectangle
 x=1
 y=-2
 width=41
 height=41
-layer=com_14
+layer=couragebar8
 colour=0x9160a2
 fill=yes
 trans=10
 
 // 520:16
-[com_16]
+[couragebar9]
 type=layer
 x=372
 y=22
@@ -174,19 +174,19 @@ height=14
 hide=yes
 
 // 520:17
-[com_17]
+[courage9]
 type=rectangle
 x=1
 y=-1
 width=41
 height=41
-layer=com_16
+layer=couragebar9
 colour=0x9160a2
 fill=yes
 trans=10
 
 // 520:18
-[com_18]
+[couragebar10]
 type=layer
 x=411
 y=22
@@ -195,19 +195,19 @@ height=14
 hide=yes
 
 // 520:19
-[com_19]
+[courage10]
 type=rectangle
 x=1
 y=-3
 width=41
 height=41
-layer=com_18
+layer=couragebar10
 colour=0x9160a2
 fill=yes
 trans=10
 
 // 520:20
-[com_20]
+[borferleft]
 type=rectangle
 x=48
 y=22
@@ -218,7 +218,7 @@ fill=yes
 trans=50
 
 // 520:21
-[com_21]
+[borderbot]
 type=rectangle
 x=48
 y=36
@@ -229,7 +229,7 @@ fill=yes
 trans=50
 
 // 520:22
-[com_22]
+[borferright]
 type=rectangle
 x=447
 y=22
@@ -240,7 +240,7 @@ fill=yes
 trans=50
 
 // 520:23
-[com_23]
+[bordertop]
 type=rectangle
 x=48
 y=13

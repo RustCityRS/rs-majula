@@ -1,47 +1,47 @@
 // 2220
 [proc,script2220]
 if (%varplayerbit_7324 = 1) {
-    if_sethide(true, interface_931:com_121);
+    if_sethide(true, easter10_resourcegame:fc_repair_tick);
 } else {
-    if_sethide(false, interface_931:com_121);
+    if_sethide(false, easter10_resourcegame:fc_repair_tick);
 }
 if (%varplayerbit_7325 = 1) {
-    if_sethide(true, interface_931:com_122);
+    if_sethide(true, easter10_resourcegame:tegg_repair_tick);
 } else {
-    if_sethide(false, interface_931:com_122);
+    if_sethide(false, easter10_resourcegame:tegg_repair_tick);
 }
 if (%varplayerbit_7326 = 1) {
-    if_sethide(true, interface_931:com_123);
+    if_sethide(true, easter10_resourcegame:negg_repair_tick);
 } else {
-    if_sethide(false, interface_931:com_123);
+    if_sethide(false, easter10_resourcegame:negg_repair_tick);
 }
-if_settext(tostring(%varclient_1126), interface_931:com_154);
-if_settext(tostring(%varclient_1127), interface_931:com_148);
-if_settext(tostring(%varclient_1128), interface_931:com_142);
-if_settext(tostring(%varclient_1129), interface_931:com_112);
-if_settext(tostring(%varclient_1131), interface_931:com_136);
-if_settext(tostring(%varclient_1130), interface_931:com_130);
-if_settext("Total Workers: <tostring(%varclient_1135)>", interface_931:com_155);
-if_settext("<tostring(%varplayer_1687)>/15", interface_931:com_115);
-if_settext("<tostring(%varplayer_1688)>/15", interface_931:com_117);
-if_settext("<tostring(%varplayer_1686)>/15", interface_931:com_116);
-if_settext("<tostring(%varplayer_1689)>/7", interface_931:com_120);
-if_settext("<tostring(%varplayer_1690)>/7", interface_931:com_118);
-if_settext("<tostring(%varplayer_1691)>/7", interface_931:com_119);
+if_settext(tostring(%varclient_1126), easter10_resourcegame:nuts_workers_text);
+if_settext(tostring(%varclient_1127), easter10_resourcegame:playinglocal);
+if_settext(tostring(%varclient_1128), easter10_resourcegame:fruit_workers_text);
+if_settext(tostring(%varclient_1129), easter10_resourcegame:fc_workers_text);
+if_settext(tostring(%varclient_1131), easter10_resourcegame:tegg_workers_text);
+if_settext(tostring(%varclient_1130), easter10_resourcegame:negg_workers_text);
+if_settext("Total Workers: <tostring(%varclient_1135)>", easter10_resourcegame:totalworkers_text);
+if_settext("<tostring(%varplayer_1687)>/15", easter10_resourcegame:nut_stock_text);
+if_settext("<tostring(%varplayer_1688)>/15", easter10_resourcegame:fruit_stock_text);
+if_settext("<tostring(%varplayer_1686)>/15", easter10_resourcegame:choc_stock_text);
+if_settext("<tostring(%varplayer_1689)>/7", easter10_resourcegame:fc_stock_text);
+if_settext("<tostring(%varplayer_1690)>/7", easter10_resourcegame:tegg_stock_text);
+if_settext("<tostring(%varplayer_1691)>/7", easter10_resourcegame:negg_stock_text);
 ~script2221;
-if_settext("Turn <tostring(%varplayer_1674)>/15", interface_931:com_20);
+if_settext("Turn <tostring(%varplayer_1674)>/15", easter10_resourcegame:turn_text);
 if (%varclient_1132 = false) {
-    if_setgraphic("warning_icons,1", interface_931:com_121);
+    if_setgraphic("warning_icons,1", easter10_resourcegame:fc_repair_tick);
 } else {
-    if_setgraphic("warning_icons,2", interface_931:com_121);
+    if_setgraphic("warning_icons,2", easter10_resourcegame:fc_repair_tick);
 }
 if (%varclient_1134 = false) {
-    if_setgraphic("warning_icons,1", interface_931:com_122);
+    if_setgraphic("warning_icons,1", easter10_resourcegame:tegg_repair_tick);
 } else {
-    if_setgraphic("warning_icons,2", interface_931:com_122);
+    if_setgraphic("warning_icons,2", easter10_resourcegame:tegg_repair_tick);
 }
 if (%varclient_1133 = false) {
-    if_setgraphic("warning_icons,1", interface_931:com_123);
+    if_setgraphic("warning_icons,1", easter10_resourcegame:negg_repair_tick);
 } else {
-    if_setgraphic("warning_icons,2", interface_931:com_123);
+    if_setgraphic("warning_icons,2", easter10_resourcegame:negg_repair_tick);
 }

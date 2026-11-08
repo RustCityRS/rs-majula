@@ -5,7 +5,7 @@ width=512
 height=334
 
 // 725:1
-[com_1]
+[loc_lie]
 type=rectangle
 x=17
 y=25
@@ -17,7 +17,7 @@ fill=yes
 trans=200
 
 // 725:2
-[com_2]
+[bg]
 type=graphic
 x=14
 y=25
@@ -41,7 +41,7 @@ graphic="v2_stone_borders,4"
 colour=0xffffffff
 
 // 725:4
-[com_4]
+[border_l]
 type=graphic
 y=53
 width=32
@@ -63,7 +63,7 @@ graphic="v2_stone_borders,6"
 colour=0xffffffff
 
 // 725:6
-[com_6]
+[border_lower]
 type=graphic
 x=45
 y=306
@@ -76,7 +76,7 @@ colour=0xffffffff
 opbase= 
 
 // 725:7
-[com_7]
+[border_t_left]
 type=graphic
 x=13
 y=37
@@ -98,7 +98,7 @@ graphic="v2_stone_borders,5"
 colour=0xffffffff
 
 // 725:9
-[com_9]
+[border_mid]
 type=graphic
 x=24
 y=35
@@ -110,7 +110,7 @@ tiling=yes
 colour=0xffffffff
 
 // 725:10
-[com_10]
+[border_r]
 type=graphic
 x=480
 y=51
@@ -122,7 +122,7 @@ tiling=yes
 colour=0xffffffff
 
 // 725:11
-[com_11]
+[border_t_right]
 type=graphic
 x=468
 y=37
@@ -144,7 +144,7 @@ graphic="v2_stone_borders,7"
 colour=0xffffffff
 
 // 725:13
-[com_13]
+[border_top]
 type=graphic
 x=44
 y=7
@@ -156,7 +156,7 @@ tiling=yes
 colour=0xffffffff
 
 // 725:14
-[com_14]
+[playermodel_background]
 type=layer
 x=208
 y=62
@@ -183,118 +183,118 @@ height=334
 layer=com_0
 
 // 725:17
-[com_17]
+[line_layer]
 type=layer
 width=512
 height=334
 layer=com_0
 
 // 725:18
-[com_18]
+[line1]
 type=line
 x=23
 y=111
 width=176
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:19
-[com_19]
+[line2]
 type=line
 x=23
 y=112
 height=188
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:20
-[com_20]
+[line3]
 type=line
 x=199
 y=112
 height=188
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:21
-[com_21]
+[line4]
 type=line
 x=23
 y=301
 width=176
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:22
-[com_22]
+[line5]
 type=line
 x=345
 y=111
 width=143
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:23
-[com_23]
+[line6]
 type=line
 x=345
 y=112
 height=92
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:24
-[com_24]
+[line7]
 type=line
 x=488
 y=112
 height=92
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:25
-[com_25]
+[line8]
 type=line
 x=345
 y=205
 width=143
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:26
-[com_26]
+[line9]
 type=line
 x=206
 y=60
 width=133
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:27
-[com_27]
+[line10]
 type=line
 x=206
 y=61
 height=239
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:28
-[com_28]
+[line11]
 type=line
 x=339
 y=61
 height=239
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:29
-[com_29]
+[line12]
 type=line
 x=206
 y=301
 width=133
-layer=com_17
+layer=line_layer
 colour=0x332b25
 
 // 725:30
@@ -397,7 +397,7 @@ colour=0x3b322d
 fill=yes
 
 // 725:39
-[com_39]
+[listbg_1]
 type=rectangle
 y=40
 width=173
@@ -407,7 +407,7 @@ colour=0x433a31
 fill=yes
 
 // 725:40
-[com_40]
+[listbg_2]
 type=rectangle
 y=47
 width=173
@@ -417,7 +417,7 @@ colour=0x423930
 fill=yes
 
 // 725:41
-[com_41]
+[listbg_3]
 type=rectangle
 y=57
 width=173
@@ -427,7 +427,7 @@ colour=0x413830
 fill=yes
 
 // 725:42
-[com_42]
+[listbg_4]
 type=rectangle
 y=67
 width=173
@@ -437,7 +437,7 @@ colour=0x40372f
 fill=yes
 
 // 725:43
-[com_43]
+[listbg_5]
 type=rectangle
 y=77
 width=173
@@ -447,7 +447,7 @@ colour=0x3f362f
 fill=yes
 
 // 725:44
-[com_44]
+[listbg_6]
 type=rectangle
 y=87
 width=173
@@ -457,7 +457,7 @@ colour=0x3e352e
 fill=yes
 
 // 725:45
-[com_45]
+[listbg_7]
 type=rectangle
 y=97
 width=173
@@ -467,7 +467,7 @@ colour=0x3d342e
 fill=yes
 
 // 725:46
-[com_46]
+[listbg_8]
 type=rectangle
 y=107
 width=173
@@ -477,7 +477,7 @@ colour=0x3c332d
 fill=yes
 
 // 725:47
-[com_47]
+[listbg_9]
 type=rectangle
 y=117
 width=173
@@ -487,7 +487,7 @@ colour=0x3b322d
 fill=yes
 
 // 725:48
-[com_48]
+[listbg_10]
 type=rectangle
 y=127
 width=173
@@ -497,7 +497,7 @@ colour=0x3a312c
 fill=yes
 
 // 725:49
-[com_49]
+[listbg_11]
 type=rectangle
 y=137
 width=173
@@ -507,7 +507,7 @@ colour=0x39302c
 fill=yes
 
 // 725:50
-[com_50]
+[listbg_12]
 type=rectangle
 y=147
 width=173
@@ -517,7 +517,7 @@ colour=0x382f2b
 fill=yes
 
 // 725:51
-[com_51]
+[listbg_13]
 type=rectangle
 y=157
 width=173
@@ -527,7 +527,7 @@ colour=0x372e29
 fill=yes
 
 // 725:52
-[com_52]
+[listbg_14]
 type=rectangle
 y=167
 width=173
@@ -537,7 +537,7 @@ colour=0x362d28
 fill=yes
 
 // 725:53
-[com_53]
+[listbg_15]
 type=rectangle
 y=177
 width=173
@@ -547,7 +547,7 @@ colour=0x352d27
 fill=yes
 
 // 725:54
-[com_54]
+[listbg_16]
 type=rectangle
 y=187
 width=173
@@ -557,7 +557,7 @@ colour=0x342c26
 fill=yes
 
 // 725:55
-[com_55]
+[listbg_17]
 type=rectangle
 y=197
 width=173
@@ -567,7 +567,7 @@ colour=0x332b25
 fill=yes
 
 // 725:56
-[com_56]
+[listbg_18]
 type=rectangle
 y=207
 width=173
@@ -577,7 +577,7 @@ colour=0x322a24
 fill=yes
 
 // 725:57
-[com_57]
+[listbg_19]
 type=rectangle
 y=217
 width=173
@@ -592,7 +592,7 @@ type=rectangle
 y=-2
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x483f33
 fill=yes
 
@@ -602,7 +602,7 @@ type=rectangle
 y=8
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x473e33
 fill=yes
 
@@ -612,7 +612,7 @@ type=rectangle
 y=18
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x463d32
 fill=yes
 
@@ -622,7 +622,7 @@ type=rectangle
 y=28
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x453c32
 fill=yes
 
@@ -632,7 +632,7 @@ type=rectangle
 y=38
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x443b31
 fill=yes
 
@@ -642,7 +642,7 @@ type=rectangle
 y=48
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x433a31
 fill=yes
 
@@ -652,7 +652,7 @@ type=rectangle
 y=58
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x423930
 fill=yes
 
@@ -662,7 +662,7 @@ type=rectangle
 y=68
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x413830
 fill=yes
 
@@ -672,7 +672,7 @@ type=rectangle
 y=78
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x40372f
 fill=yes
 
@@ -682,7 +682,7 @@ type=rectangle
 y=88
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x3f362f
 fill=yes
 
@@ -692,7 +692,7 @@ type=rectangle
 y=98
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x3e352e
 fill=yes
 
@@ -702,7 +702,7 @@ type=rectangle
 y=108
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x3d342e
 fill=yes
 
@@ -712,7 +712,7 @@ type=rectangle
 y=118
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x3c332d
 fill=yes
 
@@ -722,7 +722,7 @@ type=rectangle
 y=128
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x3b322d
 fill=yes
 
@@ -732,7 +732,7 @@ type=rectangle
 y=138
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x3a312c
 fill=yes
 
@@ -742,7 +742,7 @@ type=rectangle
 y=148
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x39302c
 fill=yes
 
@@ -752,7 +752,7 @@ type=rectangle
 y=158
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x382f2b
 fill=yes
 
@@ -762,7 +762,7 @@ type=rectangle
 y=168
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x372e29
 fill=yes
 
@@ -772,7 +772,7 @@ type=rectangle
 y=178
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x362d28
 fill=yes
 
@@ -782,7 +782,7 @@ type=rectangle
 y=188
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x352d27
 fill=yes
 
@@ -792,7 +792,7 @@ type=rectangle
 y=198
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x342c26
 fill=yes
 
@@ -802,7 +802,7 @@ type=rectangle
 y=208
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x332b25
 fill=yes
 
@@ -812,7 +812,7 @@ type=rectangle
 y=218
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x322a24
 fill=yes
 
@@ -822,12 +822,12 @@ type=rectangle
 y=228
 width=130
 height=10
-layer=com_14
+layer=playermodel_background
 colour=0x312923
 fill=yes
 
 // 725:82
-[com_82]
+[bracedisplay]
 type=model
 x=352
 y=131
@@ -839,7 +839,7 @@ modelangle=156,2035,0
 modelzoom=528
 
 // 725:83
-[com_83]
+[bracemodel]
 type=model
 x=365
 y=117
@@ -851,7 +851,7 @@ modelangle=156,2035,0
 modelzoom=528
 
 // 725:84
-[com_84]
+[shop_title]
 type=text
 x=21
 y=31
@@ -864,7 +864,7 @@ textshadow=yes
 colour=0xc9800d
 
 // 725:85
-[com_85]
+[silver_layer]
 type=layer
 x=25
 y=111
@@ -874,7 +874,7 @@ onload=items_guide_line(event_com)
 onvarctransmit=script329(event_com){varclient_785}
 
 // 725:86
-[com_86]
+[gold_layer]
 type=layer
 x=25
 y=111
@@ -884,7 +884,7 @@ hide=yes
 onvarctransmit=script330(event_com){varclient_784}
 
 // 725:87
-[com_87]
+[silver_tab]
 type=graphic
 x=37
 y=62
@@ -895,12 +895,12 @@ colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=deltooltip(player_kit_jewel:com_94)
+onmouseleave=deltooltip(player_kit_jewel:tooltip)
 onop=script325
-onmouserepeat=addtooltip(event_com, player_kit_jewel:com_94, "Show Silver Selections", 25, 80)
+onmouserepeat=addtooltip(event_com, player_kit_jewel:tooltip, "Show Silver Selections", 25, 80)
 
 // 725:88
-[com_88]
+[gold_tab]
 type=graphic
 x=85
 y=62
@@ -911,12 +911,12 @@ colour=0xffffffff
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=deltooltip(player_kit_jewel:com_94)
+onmouseleave=deltooltip(player_kit_jewel:tooltip)
 onop=script326
-onmouserepeat=addtooltip(event_com, player_kit_jewel:com_94, "Show Gold Selections", 25, 80)
+onmouserepeat=addtooltip(event_com, player_kit_jewel:tooltip, "Show Gold Selections", 25, 80)
 
 // 725:89
-[com_89]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -931,7 +931,7 @@ onop=closebutton_click
 onmouserepeat=graphic_swapper(event_com, "v2_stone_close_button,1")
 
 // 725:90
-[com_90]
+[payment_layer]
 type=layer
 x=398
 y=241
@@ -940,16 +940,16 @@ height=59
 transmitop=1,10
 op1=Confirm Purchase
 op10= 
-onmouseleave=deltooltip(player_kit_jewel:com_94)
-onmouserepeat=addtooltip(event_com, player_kit_jewel:com_94, "Confirm Purchase", 25, 80)
+onmouseleave=deltooltip(player_kit_jewel:tooltip)
+onmouserepeat=addtooltip(event_com, player_kit_jewel:tooltip, "Confirm Purchase", 25, 80)
 
 // 725:91
-[com_91]
+[payment_coins]
 type=text
 y=41
 width=80
 height=32
-layer=com_90
+layer=payment_layer
 textfont=p12_full
 text=500 Coins
 textshadow=yes
@@ -958,11 +958,11 @@ transmitop=10
 op10= 
 
 // 725:92
-[com_92]
+[paybutton]
 type=graphic
 width=42
 height=42
-layer=com_90
+layer=payment_layer
 graphic="player_kit_fancy_off,6"
 colour=0xffffffff
 transmitop=10
@@ -977,17 +977,17 @@ x=45
 y=8
 width=23
 height=23
-layer=com_90
+layer=payment_layer
 graphic="ame_confirm_button_no_back,0"
 colour=0xffffffff
 transmitop=10
 opbase=  
 op10= 
-onmouseleave=graphic_swapper(player_kit_jewel:com_92, "player_kit_fancy_off,6")
-onmouserepeat=graphic_swapper(player_kit_jewel:com_92, "player_kit_fancy,6")
+onmouseleave=graphic_swapper(player_kit_jewel:paybutton, "player_kit_fancy_off,6")
+onmouserepeat=graphic_swapper(player_kit_jewel:paybutton, "player_kit_fancy,6")
 
 // 725:94
-[com_94]
+[tooltip]
 type=layer
 x=113
 y=111
@@ -997,7 +997,7 @@ transmitop=10
 op10= 
 
 // 725:95
-[com_95]
+[playermodel]
 type=model
 clientcode=328
 x=207

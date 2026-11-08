@@ -89,7 +89,7 @@ transmitop=10
 op10= 
 
 // 885:7
-[com_7]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -178,7 +178,7 @@ transmitop=10
 op10= 
 
 // 885:14
-[com_14]
+[title]
 type=text
 x=18
 y=27
@@ -208,7 +208,7 @@ transmitop=10
 op10= 
 
 // 885:16
-[com_16]
+[content]
 type=layer
 x=21
 y=55
@@ -216,373 +216,373 @@ width=455
 height=261
 
 // 885:17
-[com_17]
+[border0]
 type=layer
 x=62
 y=30
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:18
-[com_18]
+[border1]
 type=layer
 x=86
 y=54
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:19
-[com_19]
+[border2]
 type=layer
 x=86
 y=54
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:20
-[com_20]
+[border3]
 type=layer
 x=110
 y=78
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:21
-[com_21]
+[border4]
 type=layer
 x=86
 y=54
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:22
-[com_22]
+[border5]
 type=layer
 x=110
 y=78
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:23
-[com_23]
+[border6]
 type=layer
 x=110
 y=78
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:24
-[com_24]
+[border7]
 type=layer
 x=134
 y=102
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:25
-[com_25]
+[border8]
 type=layer
 x=86
 y=54
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:26
-[com_26]
+[border9]
 type=layer
 x=110
 y=78
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:27
-[com_27]
+[border10]
 type=layer
 x=110
 y=78
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:28
-[com_28]
+[border11]
 type=layer
 x=134
 y=102
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:29
-[com_29]
+[border12]
 type=layer
 x=110
 y=78
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:30
-[com_30]
+[border13]
 type=layer
 x=134
 y=102
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:31
-[com_31]
+[border14]
 type=layer
 x=134
 y=102
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:32
-[com_32]
+[border15]
 type=layer
 x=158
 y=126
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:33
-[com_33]
+[border16]
 type=layer
 x=134
 y=102
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:34
-[com_34]
+[border17]
 type=layer
 x=158
 y=126
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:35
-[com_35]
+[border18]
 type=layer
 x=134
 y=102
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:36
-[com_36]
+[border19]
 type=layer
 x=158
 y=126
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:37
-[com_37]
+[border20]
 type=layer
 x=158
 y=126
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:38
-[com_38]
+[border21]
 type=layer
 x=134
 y=102
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:39
-[com_39]
+[border22]
 type=layer
 x=158
 y=126
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:40
-[com_40]
+[border23]
 type=layer
 x=134
 y=102
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:41
-[com_41]
+[border24]
 type=layer
 x=158
 y=126
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:42
-[com_42]
+[border25]
 type=layer
 x=158
 y=126
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:43
-[com_43]
+[border26]
 type=layer
 x=182
 y=150
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:44
-[com_44]
+[border27]
 type=layer
 x=158
 y=126
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:45
-[com_45]
+[border28]
 type=layer
 x=182
 y=150
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:46
-[com_46]
+[border29]
 type=layer
 x=158
 y=126
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)
 
 // 885:47
-[com_47]
+[border30]
 type=layer
 x=182
 y=150
 width=53
 height=44
-layer=com_16
+layer=content
 transmitop=10
 op10= 
 onload=script100(event_com)

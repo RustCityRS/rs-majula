@@ -2,9 +2,9 @@
 [clientscript,rand_ring_interface_init]
 %varclient_1186 = 1337;
 %varclient_1184 = 0;
-if_setposition(if_getx(rand_ring_interface:com_112), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_112);
-if_setposition(if_getx(rand_ring_interface:com_27), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_27);
-if_setposition(if_getx(rand_ring_interface:com_26), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com_26);
+if_setposition(if_getx(rand_ring_interface:ring_a_layer), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_a_layer);
+if_setposition(if_getx(rand_ring_interface:ring_b_layer), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_b_layer);
+if_setposition(if_getx(rand_ring_interface:ring_c_layer), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:ring_c_layer);
 if_sethide(true, rand_ring_interface:com_254);
 if_sethide(true, rand_ring_interface:com_239);
 if_sethide(true, rand_ring_interface:com_224);
@@ -13,9 +13,9 @@ if_settrans(255, rand_ring_interface:com_257);
 if_settrans(255, rand_ring_interface:com_242);
 if_settrans(255, rand_ring_interface:com_227);
 if_settrans(255, rand_ring_interface:com_212);
-if_sethide(true, rand_ring_interface:com_194);
-if_sethide(true, rand_ring_interface:com_195);
-if_sethide(true, rand_ring_interface:com_196);
-if_sethide(true, rand_ring_interface:com_197);
-if_sethide(true, rand_ring_interface:com_261);
-if_sethide(true, rand_ring_interface:com_191);
+if_sethide(true, rand_ring_interface:melee_link);
+if_sethide(true, rand_ring_interface:ranged_link);
+if_sethide(true, rand_ring_interface:magic_link);
+if_sethide(true, rand_ring_interface:skiller_link);
+if_sethide(true, rand_ring_interface:confirm_upgrade_layer);
+if_sethide(true, rand_ring_interface:reset_interface);

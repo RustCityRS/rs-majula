@@ -1,11 +1,11 @@
 // 413:0
-[com_0]
+[universe]
 type=layer
 widthmode=minus
 heightmode=minus
 
 // 413:1
-[com_1]
+[sum1_spirit_overlay]
 type=model
 x=7
 y=7
@@ -15,7 +15,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=universe
 model=model_40952
 modelorigin=0,176
 modelzoom=320
@@ -25,7 +25,7 @@ modelobjwidth=515
 modelobjheight=353
 
 // 413:2
-[com_2]
+[sum1_spirit_overlay_flipped]
 type=model
 x=7
 y=7
@@ -35,7 +35,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=universe
 model=model_40952
 modelorigin=0,184
 modelzoom=305
@@ -55,13 +55,13 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_0
+layer=universe
 colour=0x000000
 fill=yes
 trans=128
 
 // 413:4
-[com_4]
+[fade]
 type=model
 width=16807
 height=19088
@@ -69,7 +69,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=universe
 model=model_4835
 modelorigin=0,2
 modelangle=512,0,0

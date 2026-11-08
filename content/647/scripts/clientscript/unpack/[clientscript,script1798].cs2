@@ -5,53 +5,53 @@ def_int $int3 = 0;
 while ($int2 < 12) {
     switch_int ($int2) {
         case 0 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_58);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_59);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_60);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:5mins_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:5mins_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:5mins_button);
         case 1 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_61);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_62);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_63);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:10mins_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:10mins_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:10mins_button);
         case 2 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_64);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_65);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_66);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:30mins_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:30mins_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:30mins_button);
         case 3 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_67);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_68);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_69);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:1hour_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:1hour_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:1hour_button);
         case 4 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_70);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_71);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_72);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:1hour30_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:1hour30_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:1hour30_button);
         case 5 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_73);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_74);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_75);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:2hours_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:2hours_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:2hours_button);
         case 6 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_76);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_77);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_78);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:2hours30_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:2hours30_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:2hours30_button);
         case 7 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_79);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_80);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_81);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:3hours_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:3hours_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:3hours_button);
         case 8 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_82);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_83);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_84);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:4hours_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:4hours_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:4hours_button);
         case 9 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_85);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_86);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_87);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:5hours_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:5hours_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:5hours_button);
         case 10 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_88);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_89);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_90);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:6hours_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:6hours_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:6hours_button);
         case 11 :
-            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_91);
-            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_92);
-            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:com_93);
+            if_setposition(25, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:8hours_text);
+            if_setposition(4, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:8hours_indicator);
+            if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup:8hours_button);
     }
     $int3 = calc($int3 + 17);
     $int2 = calc($int2 + 1);

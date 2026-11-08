@@ -4,6 +4,6 @@ if (calc(clientclock - $int1) >= 180) {
     %varclient_1086 = 1;
 }
 if (calc(clientclock - $int1) >= 1000) {
-    if_setontimer(null, interface_476:com_24);
-    if_sethide(true, interface_476:com_24);
+    if_setontimer(null, sfa:initial);
+    if_sethide(true, sfa:initial);
 }

@@ -24,5 +24,5 @@ if_setcolour(0xfff9eb, $component1);
 $component1 = enum(int, component, enum_3490, 0);
 if_setposition(1, calc(2 + ($int0 - 1) * if_getheight($component1)), ^setpos_abs_left, ^setpos_abs_top, $component1);
 def_int $int2 = calc($int0 * if_getheight($component1));
-if_setscrollsize(0, $int2, task_main:com_119);
-~scrollbar_vertical(task_main:com_115, task_main:com_119, graphic_4288, graphic_4286, graphic_4285, graphic_4287, graphic_4290, graphic_4289);
+if_setscrollsize(0, $int2, task_main:area_list);
+~scrollbar_vertical(task_main:area_scroll, task_main:area_list, graphic_4288, graphic_4286, graphic_4285, graphic_4287, graphic_4290, graphic_4289);

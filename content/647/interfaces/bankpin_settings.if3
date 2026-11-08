@@ -12,7 +12,7 @@ fill=yes
 trans=200
 
 // 14:1
-[com_1]
+[universe]
 type=layer
 width=500
 height=320
@@ -31,7 +31,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic=tradebacking
 tiling=yes
 
@@ -43,7 +43,7 @@ width=32
 height=20
 heightmode=minus
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,1"
 tiling=yes
 
@@ -56,7 +56,7 @@ height=20
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,3"
 tiling=yes
 
@@ -67,7 +67,7 @@ width=20
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,36"
 tiling=yes
 
@@ -80,7 +80,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,2"
 tiling=yes
 
@@ -89,7 +89,7 @@ tiling=yes
 type=graphic
 width=32
 height=32
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,35"
 
 // 14:8
@@ -98,7 +98,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,37"
 
 // 14:9
@@ -107,7 +107,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,6"
 
 // 14:10
@@ -117,7 +117,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_stone_borders,7"
 
 // 14:11
@@ -128,7 +128,7 @@ y=3
 width=16
 height=16
 xmode=abs_right
-layer=com_1
+layer=universe
 graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
@@ -142,7 +142,7 @@ type=text
 height=22
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=universe
 textfont=b12_full
 text=Bank PIN Settings
 textalignh=centre
@@ -160,7 +160,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=universe
 hide=yes
 
 // 14:14
@@ -210,7 +210,7 @@ fill=yes
 trans=200
 
 // 14:18
-[com_18]
+[button1]
 type=layer
 width=14
 height=30
@@ -222,7 +222,7 @@ hide=yes
 pausebutton=yes
 
 // 14:19
-[com_19]
+[button2]
 type=layer
 width=14
 height=30
@@ -234,7 +234,7 @@ hide=yes
 pausebutton=yes
 
 // 14:20
-[com_20]
+[button3]
 type=layer
 width=14
 height=30
@@ -348,7 +348,7 @@ textshadow=yes
 colour=0xff981f
 
 // 14:28
-[com_28]
+[message]
 type=layer
 x=7
 y=7
@@ -398,7 +398,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=universe
 hide=yes
 
 // 14:32

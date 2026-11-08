@@ -1,5 +1,5 @@
 // 876:0
-[com_0]
+[controller]
 type=text
 x=34
 y=34
@@ -21,7 +21,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_5
+layer=smokelayer
 model=model_34608
 modelorigin=0,176
 modelzoom=320
@@ -41,7 +41,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_5
+layer=smokelayer
 model=model_48075
 modelorigin=-28,0
 modelzoom=280
@@ -52,7 +52,7 @@ transmitop=10
 op10= 
 
 // 876:3
-[com_3]
+[layer_1]
 type=model
 x=7
 y=105
@@ -62,7 +62,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
-layer=com_5
+layer=smokelayer
 hide=yes
 model=model_48075
 modelorigin=-7,0
@@ -74,7 +74,7 @@ transmitop=10
 op10= 
 
 // 876:4
-[com_4]
+[blackout]
 type=rectangle
 width=16391
 height=16391
@@ -86,7 +86,7 @@ transmitop=10
 op10= 
 
 // 876:5
-[com_5]
+[smokelayer]
 type=layer
 width=16391
 height=16391

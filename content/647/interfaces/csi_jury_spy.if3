@@ -7,7 +7,7 @@ transmitop=10
 op10=  
 
 // 987:1
-[com_1]
+[close_button]
 type=graphic
 x=480
 y=3
@@ -22,7 +22,7 @@ onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
 onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 
 // 987:2
-[com_2]
+[background_top]
 type=graphic
 x=6
 y=22
@@ -37,7 +37,7 @@ transmitop=10
 op10=   
 
 // 987:3
-[com_3]
+[background_mid]
 type=graphic
 x=6
 y=92
@@ -69,7 +69,7 @@ transmitop=10
 op10=   
 
 // 987:5
-[com_5]
+[border_left]
 type=graphic
 x=-13
 y=32
@@ -84,7 +84,7 @@ transmitop=10
 op10=     
 
 // 987:6
-[com_6]
+[border_right]
 type=graphic
 x=-6
 y=32
@@ -100,7 +100,7 @@ transmitop=10
 op10=     
 
 // 987:7
-[com_7]
+[border_top]
 type=graphic
 x=32
 width=70
@@ -114,7 +114,7 @@ transmitop=10
 op10=         
 
 // 987:8
-[com_8]
+[border_bottom]
 type=graphic
 x=7
 y=-7
@@ -131,7 +131,7 @@ transmitop=10
 op10=     
 
 // 987:9
-[com_9]
+[border_top_left]
 type=graphic
 width=32
 height=32
@@ -142,7 +142,7 @@ transmitop=10
 op10=         
 
 // 987:10
-[com_10]
+[border_top_right]
 type=graphic
 x=6
 width=32
@@ -155,7 +155,7 @@ transmitop=10
 op10=         
 
 // 987:11
-[com_11]
+[border_bottom_left]
 type=graphic
 y=5
 width=32
@@ -168,7 +168,7 @@ transmitop=10
 op10=     
 
 // 987:12
-[com_12]
+[border_bottom_right]
 type=graphic
 x=6
 y=5
@@ -183,7 +183,7 @@ transmitop=10
 op10=     
 
 // 987:13
-[com_13]
+[confirm_layer]
 type=layer
 x=211
 y=293
@@ -197,36 +197,36 @@ onmouseleave=csi_jury_confirm_mouseleave
 onvartransmit=script3448{varplayer_1840}
 
 // 987:14
-[com_14]
+[confirm_m]
 type=graphic
 x=19
 y=3
 width=42
 height=22
-layer=com_13
+layer=confirm_layer
 graphic=graphic_3164
 tiling=yes
 colour=0x000000
 
 // 987:15
-[com_15]
+[confirm_l]
 type=graphic
 x=3
 y=3
 width=16
 height=22
-layer=com_13
+layer=confirm_layer
 graphic=graphic_3163
 colour=0x000000
 
 // 987:16
-[com_16]
+[confirm_r]
 type=graphic
 x=59
 y=3
 width=16
 height=22
-layer=com_13
+layer=confirm_layer
 graphic=graphic_3163
 hflip=yes
 colour=0x000000
@@ -234,205 +234,205 @@ transmitop=10
 op10= 
 
 // 987:17
-[com_17]
+[bounding]
 type=layer
 width=512
 height=334
 
 // 987:18
-[com_18]
+[jury_mem_2]
 type=layer
 x=95
 y=28
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1,10
 op1=Select
 op10= 
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 2)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 2)
 
 // 987:19
-[com_19]
+[jury_mem_1]
 type=layer
 x=16
 y=28
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 1)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 1)
 
 // 987:20
-[com_20]
+[jury_mem_3]
 type=layer
 x=174
 y=28
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1,10
 op1=Select
 op10=  
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 3)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 3)
 
 // 987:21
-[com_21]
+[jury_mem_4]
 type=layer
 x=253
 y=28
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1,10
 op1=Select
 op10=   
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 4)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 4)
 
 // 987:22
-[com_22]
+[jury_mem_5]
 type=layer
 x=332
 y=28
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1,10
 op1=Select
 op10=    
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 5)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 5)
 
 // 987:23
-[com_23]
+[jury_mem_6]
 type=layer
 x=411
 y=28
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1,10
 op1=Select
 op10=     
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 6)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 6)
 
 // 987:24
-[com_24]
+[jury_mem_7]
 type=layer
 x=16
 y=161
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1,10
 op1=Select
 op10= 
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 7)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 7)
 
 // 987:25
-[com_25]
+[jury_mem_8]
 type=layer
 x=95
 y=161
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1,10
 op1=Select
 op10=  
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 8)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 8)
 
 // 987:26
-[com_26]
+[jury_mem_9]
 type=layer
 x=174
 y=161
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1,10
 op1=Select
 op10=   
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 9)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 9)
 
 // 987:27
-[com_27]
+[jury_mem_10]
 type=layer
 x=253
 y=161
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1,10
 op1=Select
 op10=    
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 10)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 10)
 
 // 987:28
-[com_28]
+[jury_mem_11]
 type=layer
 x=332
 y=161
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1,10
 op1=Select
 op10=     
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 11)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 11)
 
 // 987:29
-[com_29]
+[jury_mem_12]
 type=layer
 x=411
 y=161
 width=82
 height=130
-layer=com_17
+layer=bounding
 transmitop=1,10
 op1=Select
 op10=      
 opcursor0=cursor_46
-onmouseleave=deltooltip(csi_jury_spy:com_94)
-onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:com_94, 12)
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 12)
 
 // 987:30
-[com_30]
+[selected]
 type=layer
 x=16
 y=28
 width=90
 height=140
-layer=com_17
+layer=bounding
 
 // 987:31
 [com_31]
 type=graphic
 width=8
 height=130
-layer=com_30
+layer=selected
 graphic=graphic_2285
 colour=0x000000
 
@@ -442,7 +442,7 @@ type=graphic
 x=8
 width=64
 height=130
-layer=com_30
+layer=selected
 graphic=graphic_2286
 tiling=yes
 colour=0x000000
@@ -453,7 +453,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_30
+layer=selected
 graphic=graphic_2285
 hflip=yes
 colour=0x000000
@@ -464,7 +464,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_29
+layer=jury_mem_12
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -477,7 +477,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_29
+layer=jury_mem_12
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -489,20 +489,20 @@ op10=
 type=graphic
 width=8
 height=130
-layer=com_29
+layer=jury_mem_12
 graphic=graphic_2283
 colour=0x000000
 transmitop=10
 op10=      
 
 // 987:37
-[com_37]
+[jury_model_12]
 type=model
 x=11
 y=25
 width=53
 height=74
-layer=com_29
+layer=jury_mem_12
 model=model_57730
 modelorigin=4,2
 modelangle=30,1999,0
@@ -514,13 +514,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:38
-[com_38]
+[jury_name_12]
 type=text
 x=6
 y=99
 width=64
 height=32
-layer=com_29
+layer=jury_mem_12
 textfont=p12_full
 text=Elderly Citizen
 textalignh=centre
@@ -537,7 +537,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_28
+layer=jury_mem_11
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -550,7 +550,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_28
+layer=jury_mem_11
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -562,20 +562,20 @@ op10=
 type=graphic
 width=8
 height=130
-layer=com_28
+layer=jury_mem_11
 graphic=graphic_2283
 colour=0x000000
 transmitop=10
 op10=     
 
 // 987:42
-[com_42]
+[jury_model_11]
 type=model
 x=10
 y=21
 width=57
 height=79
-layer=com_28
+layer=jury_mem_11
 model=model_57723
 modelorigin=3,4
 modelangle=30,1999,0
@@ -587,13 +587,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:43
-[com_43]
+[jury_name_11]
 type=text
 x=7
 y=99
 width=64
 height=32
-layer=com_28
+layer=jury_mem_11
 textfont=p12_full
 text=Desert Dweller
 textalignh=centre
@@ -610,7 +610,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_27
+layer=jury_mem_10
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -623,7 +623,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_27
+layer=jury_mem_10
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -635,20 +635,20 @@ op10=
 type=graphic
 width=8
 height=130
-layer=com_27
+layer=jury_mem_10
 graphic=graphic_2283
 colour=0x000000
 transmitop=10
 op10=    
 
 // 987:47
-[com_47]
+[jury_model_10]
 type=model
 x=15
 y=22
 width=48
 height=77
-layer=com_27
+layer=jury_mem_10
 model=model_57731
 modelorigin=2,4
 modelangle=30,1999,0
@@ -660,13 +660,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:48
-[com_48]
+[jury_name_10]
 type=text
 x=5
 y=100
 width=64
 height=32
-layer=com_27
+layer=jury_mem_10
 textfont=p12_full
 text=Shady Individual
 textalignh=centre
@@ -683,7 +683,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_26
+layer=jury_mem_9
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -696,7 +696,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_26
+layer=jury_mem_9
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -708,20 +708,20 @@ op10=
 type=graphic
 width=8
 height=130
-layer=com_26
+layer=jury_mem_9
 graphic=graphic_2283
 colour=0x000000
 transmitop=10
 op10=   
 
 // 987:52
-[com_52]
+[jury_model_9]
 type=model
 x=16
 y=24
 width=47
 height=75
-layer=com_26
+layer=jury_mem_9
 model=model_57724
 modelorigin=2,3
 modelangle=30,1999,0
@@ -733,13 +733,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:53
-[com_53]
+[jury_name_9]
 type=text
 x=5
 y=100
 width=64
 height=32
-layer=com_26
+layer=jury_mem_9
 textfont=p12_full
 text=Young Woman
 textalignh=centre
@@ -756,7 +756,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_25
+layer=jury_mem_8
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -769,7 +769,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_25
+layer=jury_mem_8
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -781,20 +781,20 @@ op10=
 type=graphic
 width=8
 height=130
-layer=com_25
+layer=jury_mem_8
 graphic=graphic_2283
 colour=0x000000
 transmitop=10
 op10=  
 
 // 987:57
-[com_57]
+[jury_model_8]
 type=model
 x=11
 y=25
 width=53
 height=74
-layer=com_25
+layer=jury_mem_8
 model=model_57729
 modelorigin=4,2
 modelangle=30,1999,0
@@ -806,13 +806,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:58
-[com_58]
+[jury_name_8]
 type=text
 x=5
 y=99
 width=64
 height=32
-layer=com_25
+layer=jury_mem_8
 textfont=p12_full
 text=Elderly Gentleman
 textalignh=centre
@@ -829,7 +829,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_24
+layer=jury_mem_7
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -842,7 +842,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_24
+layer=jury_mem_7
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -854,20 +854,20 @@ op10=
 type=graphic
 width=8
 height=130
-layer=com_24
+layer=jury_mem_7
 graphic=graphic_2283
 colour=0x000000
 transmitop=10
 op10= 
 
 // 987:62
-[com_62]
+[jury_model_7]
 type=model
 x=15
 y=25
 width=47
 height=74
-layer=com_24
+layer=jury_mem_7
 model=model_57725
 modelorigin=3,2
 modelangle=30,1999,0
@@ -879,13 +879,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:63
-[com_63]
+[jury_name_7]
 type=text
 x=5
 y=107
 width=64
 height=32
-layer=com_24
+layer=jury_mem_7
 textfont=p12_full
 text=Barbarian
 textalignh=centre
@@ -902,7 +902,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_23
+layer=jury_mem_6
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -915,7 +915,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_23
+layer=jury_mem_6
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -927,20 +927,20 @@ op10=
 type=graphic
 width=8
 height=130
-layer=com_23
+layer=jury_mem_6
 graphic=graphic_2283
 colour=0x000000
 transmitop=10
 op10=     
 
 // 987:67
-[com_67]
+[jury_model_6]
 type=model
 x=12
 y=22
 width=52
 height=77
-layer=com_23
+layer=jury_mem_6
 model=model_57734
 modelorigin=3,4
 modelangle=30,1999,0
@@ -952,13 +952,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:68
-[com_68]
+[jury_name_6]
 type=text
 x=5
 y=99
 width=64
 height=32
-layer=com_23
+layer=jury_mem_6
 textfont=p12_full
 text=Young Man
 textalignh=centre
@@ -975,7 +975,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_22
+layer=jury_mem_5
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -988,7 +988,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_22
+layer=jury_mem_5
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -1000,20 +1000,20 @@ op10=
 type=graphic
 width=8
 height=130
-layer=com_22
+layer=jury_mem_5
 graphic=graphic_2283
 colour=0x000000
 transmitop=10
 op10=    
 
 // 987:72
-[com_72]
+[jury_model_5]
 type=model
 x=1
 y=11
 width=75
 height=87
-layer=com_22
+layer=jury_mem_5
 model=model_57728
 modelorigin=3,5
 modelangle=30,1999,0
@@ -1025,13 +1025,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:73
-[com_73]
+[jury_name_5]
 type=text
 x=6
 y=99
 width=64
 height=32
-layer=com_22
+layer=jury_mem_5
 textfont=p12_full
 text=Shady Gentleman
 textalignh=centre
@@ -1048,7 +1048,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_21
+layer=jury_mem_4
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -1061,7 +1061,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_21
+layer=jury_mem_4
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -1073,20 +1073,20 @@ op10=
 type=graphic
 width=8
 height=130
-layer=com_21
+layer=jury_mem_4
 graphic=graphic_2283
 colour=0x000000
 transmitop=10
 op10=   
 
 // 987:77
-[com_77]
+[jury_model_4]
 type=model
 x=4
 y=-1
 width=73
 height=104
-layer=com_21
+layer=jury_mem_4
 model=model_57726
 modelorigin=1,17
 modelangle=30,1999,0
@@ -1098,13 +1098,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:78
-[com_78]
+[jury_name_4]
 type=text
 x=5
 y=107
 width=64
 height=32
-layer=com_21
+layer=jury_mem_4
 textfont=p12_full
 text=Cook
 textalignh=centre
@@ -1121,7 +1121,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_20
+layer=jury_mem_3
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -1134,7 +1134,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_20
+layer=jury_mem_3
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -1146,20 +1146,20 @@ op10=
 type=graphic
 width=8
 height=130
-layer=com_20
+layer=jury_mem_3
 graphic=graphic_2283
 colour=0x000000
 transmitop=10
 op10=  
 
 // 987:82
-[com_82]
+[jury_model_3]
 type=model
 x=12
 y=22
 width=51
 height=77
-layer=com_20
+layer=jury_mem_3
 model=model_57727
 modelorigin=4,4
 modelangle=30,1999,0
@@ -1171,13 +1171,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:83
-[com_83]
+[jury_name_3]
 type=text
 x=5
 y=107
 width=64
 height=32
-layer=com_20
+layer=jury_mem_3
 textfont=p12_full
 text=Miner
 textalignh=centre
@@ -1194,7 +1194,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_19
+layer=jury_mem_1
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -1205,7 +1205,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_19
+layer=jury_mem_1
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -1215,18 +1215,18 @@ colour=0x000000
 type=graphic
 width=8
 height=130
-layer=com_19
+layer=jury_mem_1
 graphic=graphic_2283
 colour=0x000000
 
 // 987:87
-[com_87]
+[jury_model_01]
 type=model
 x=11
 y=10
 width=59
 height=89
-layer=com_19
+layer=jury_mem_1
 model=model_57733
 modelorigin=1,10
 modelangle=30,1999,0
@@ -1236,13 +1236,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:88
-[com_88]
+[jury_name_01]
 type=text
 x=5
 y=107
 width=64
 height=32
-layer=com_19
+layer=jury_mem_1
 textfont=p12_full
 text=Ranger
 textalignh=centre
@@ -1257,7 +1257,7 @@ type=graphic
 x=68
 width=8
 height=130
-layer=com_18
+layer=jury_mem_2
 graphic=graphic_2283
 hflip=yes
 colour=0x000000
@@ -1270,7 +1270,7 @@ type=graphic
 x=8
 width=61
 height=130
-layer=com_18
+layer=jury_mem_2
 graphic=graphic_2284
 tiling=yes
 colour=0x000000
@@ -1282,20 +1282,20 @@ op10=
 type=graphic
 width=8
 height=130
-layer=com_18
+layer=jury_mem_2
 graphic=graphic_2283
 colour=0x000000
 transmitop=10
 op10= 
 
 // 987:92
-[com_92]
+[jury_model_2]
 type=model
 x=-15
 y=15
 width=112
 height=84
-layer=com_18
+layer=jury_mem_2
 model=model_57732
 modelorigin=0,7
 modelangle=30,1999,0
@@ -1307,13 +1307,13 @@ onmouseover=script3444(event_com)
 onmouseleave=script3445(event_com)
 
 // 987:93
-[com_93]
+[jury_name_2]
 type=text
 x=5
 y=107
 width=64
 height=32
-layer=com_18
+layer=jury_mem_2
 textfont=p12_full
 text=Wizard
 textalignh=centre
@@ -1325,22 +1325,22 @@ onmouseover=text_colour_swapper(event_com, 0xf1b670)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 987:94
-[com_94]
+[tooltip]
 type=layer
 x=88
 y=243
 width=151
 height=68
-layer=com_17
+layer=bounding
 
 // 987:95
-[com_95]
+[confirm]
 type=text
 x=5
 y=6
 width=70
 height=20
-layer=com_13
+layer=confirm_layer
 textfont=b12_full
 text=Confirm
 textalignh=centre
@@ -1352,7 +1352,7 @@ onmouseover=text_colour_swapper(event_com, 0xe1981f)
 onmouseleave=text_colour_swapper(event_com, 0xbf751d)
 
 // 987:96
-[com_96]
+[title]
 type=text
 x=79
 y=2

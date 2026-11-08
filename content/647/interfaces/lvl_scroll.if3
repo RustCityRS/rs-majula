@@ -10,57 +10,57 @@ fill=yes
 trans=160
 
 // 741:1
-[com_1]
+[background_scroll]
 type=model
 x=15
 y=14
 width=480
 height=301
-layer=com_12
+layer=content_layer
 model=model_26397
 modelorigin=-2,33
 modelangle=512,0,0
 modelzoom=1009
 
 // 741:2
-[com_2]
+[info]
 type=layer
 x=68
 y=117
 width=359
 height=160
-layer=com_12
+layer=content_layer
 
 // 741:3
-[com_3]
+[info_scrollbar]
 type=layer
 x=438
 y=117
 width=16
 height=160
-layer=com_12
+layer=content_layer
 
 // 741:4
-[com_4]
+[title]
 type=text
 x=109
 y=64
 width=340
 height=27
-layer=com_12
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 textalignv=centre
 colour=0x46320a
 
 // 741:5
-[com_5]
+[congratulations_]
 type=text
 x=150
 y=36
 width=239
 height=23
-layer=com_12
+layer=content_layer
 textfont=quill_oblique_large
 text=Congratulations!
 textalignh=centre
@@ -68,26 +68,26 @@ textalignv=centre
 colour=0x46320a
 
 // 741:6
-[com_6]
+[subsection_title]
 type=text
 x=136
 y=91
 width=286
 height=12
-layer=com_12
+layer=content_layer
 textfont=q8_full
 textalignh=centre
 textalignv=centre
 colour=0x46320a
 
 // 741:7
-[com_7]
+[icons]
 type=graphic
 x=46
 y=50
 width=55
 height=54
-layer=com_12
+layer=content_layer
 colour=0xffffffff
 
 // 741:8
@@ -97,36 +97,36 @@ x=101
 y=107
 width=331
 height=1
-layer=com_12
+layer=content_layer
 colour=0x46320a
 fill=yes
 trans=200
 
 // 741:9
-[com_9]
+[close_button]
 type=graphic
 x=432
 y=35
 width=26
 height=23
-layer=com_12
+layer=content_layer
 graphic="close_buttons,6"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(lvl_scroll:com_9, "close_buttons,7")
-onmouseleave=graphic_swapper(lvl_scroll:com_9, "close_buttons,6")
+onmouseover=graphic_swapper(lvl_scroll:close_button, "close_buttons,7")
+onmouseleave=graphic_swapper(lvl_scroll:close_button, "close_buttons,6")
 onop=closebutton_click
 onclick=closebutton_click
 
 // 741:10
-[com_10]
+[skill_guide]
 type=text
 x=332
 y=281
 width=135
 height=13
-layer=com_12
+layer=content_layer
 textfont=p11_full
 text=<u=0000FF>Open Skill Advance Guide</u>
 colour=0x0000ff
@@ -136,17 +136,17 @@ onmouseover=link_rollover(event_com, 0xfffffa, "<u=FFFFFA>Open Skill Advance Gui
 onmouseleave=link_rollover(event_com, ^blue, "<u=0000FF>Open Skill Advance Guide</u>")
 
 // 741:11
-[com_11]
+[layer_1]
 type=layer
 width=512
 height=334
-layer=com_12
+layer=content_layer
 opbase= 
 onload=script972
 onvartransmit=script972{level_up_details}
 
 // 741:12
-[com_12]
+[content_layer]
 type=layer
 width=512
 height=334

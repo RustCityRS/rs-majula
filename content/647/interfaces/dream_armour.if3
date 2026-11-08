@@ -21,7 +21,7 @@ fill=yes
 trans=200
 
 // 260:2
-[com_2]
+[bg_1]
 type=graphic
 x=24
 y=22
@@ -33,7 +33,7 @@ tiling=yes
 colour=0x000000
 
 // 260:3
-[com_3]
+[bg_16]
 type=graphic
 x=292
 y=16
@@ -45,7 +45,7 @@ tiling=yes
 colour=0x000000
 
 // 260:4
-[com_4]
+[brdrcrnr_1]
 type=graphic
 x=17
 y=15
@@ -56,7 +56,7 @@ graphic="v2_stone_borders,4"
 colour=0x000000
 
 // 260:5
-[com_5]
+[brdrcrnr_2]
 type=graphic
 x=17
 y=34
@@ -67,7 +67,7 @@ graphic="v2_stone_borders,9"
 colour=0x000000
 
 // 260:6
-[com_6]
+[brdrcrnr_3]
 type=graphic
 x=17
 y=293
@@ -78,7 +78,7 @@ graphic="v2_stone_borders,6"
 colour=0x000000
 
 // 260:7
-[com_7]
+[brdrcrnr_4]
 type=graphic
 x=255
 y=15
@@ -89,7 +89,7 @@ graphic="v2_stone_borders,5"
 colour=0x000000
 
 // 260:8
-[com_8]
+[brdrcrnr_5]
 type=graphic
 x=255
 y=34
@@ -100,7 +100,7 @@ graphic="v2_stone_borders,10"
 colour=0x000000
 
 // 260:9
-[com_9]
+[brdrcrnr_6]
 type=graphic
 x=255
 y=293
@@ -111,7 +111,7 @@ graphic="v2_stone_borders,7"
 colour=0x000000
 
 // 260:10
-[com_10]
+[brdrcrnr_7]
 type=graphic
 x=291
 y=15
@@ -122,7 +122,7 @@ graphic="v2_stone_borders,4"
 colour=0x000000
 
 // 260:11
-[com_11]
+[brdrcrnr_8]
 type=graphic
 x=291
 y=34
@@ -133,7 +133,7 @@ graphic="v2_stone_borders,9"
 colour=0x000000
 
 // 260:12
-[com_12]
+[brdrcrnr_9]
 type=graphic
 x=291
 y=293
@@ -144,7 +144,7 @@ graphic="v2_stone_borders,6"
 colour=0x000000
 
 // 260:13
-[com_13]
+[brdrcrnr_10]
 type=graphic
 x=481
 y=15
@@ -155,7 +155,7 @@ graphic="v2_stone_borders,5"
 colour=0x000000
 
 // 260:14
-[com_14]
+[brdrcrnr_11]
 type=graphic
 x=481
 y=34
@@ -166,7 +166,7 @@ graphic="v2_stone_borders,10"
 colour=0x000000
 
 // 260:15
-[com_15]
+[brdrcrnr_12]
 type=graphic
 x=481
 y=293
@@ -177,7 +177,7 @@ graphic="v2_stone_borders,7"
 colour=0x000000
 
 // 260:16
-[com_16]
+[l_brdr_1]
 type=graphic
 x=4
 y=54
@@ -190,7 +190,7 @@ colour=0x000000
 opbase= 
 
 // 260:17
-[com_17]
+[r_brdr_1]
 type=graphic
 x=267
 y=54
@@ -202,7 +202,7 @@ tiling=yes
 colour=0x000000
 
 // 260:18
-[com_18]
+[t1_brdr_1]
 type=graphic
 x=47
 y=2
@@ -214,7 +214,7 @@ tiling=yes
 colour=0x000000
 
 // 260:19
-[com_19]
+[t2_brdr_1]
 type=graphic
 x=27
 y=32
@@ -226,7 +226,7 @@ tiling=yes
 colour=0x000000
 
 // 260:20
-[com_20]
+[b_brdr_1]
 type=graphic
 x=48
 y=305
@@ -238,7 +238,7 @@ tiling=yes
 colour=0x000000
 
 // 260:21
-[com_21]
+[b_brdr_1_1]
 type=graphic
 x=323
 y=305
@@ -250,7 +250,7 @@ tiling=yes
 colour=0x000000
 
 // 260:22
-[com_22]
+[t1_brdr_1_1]
 type=graphic
 x=322
 y=2
@@ -262,7 +262,7 @@ tiling=yes
 colour=0x000000
 
 // 260:23
-[com_23]
+[t2_brdr_1_1]
 type=graphic
 x=300
 y=32
@@ -274,7 +274,7 @@ tiling=yes
 colour=0x000000
 
 // 260:24
-[com_24]
+[r_brdr_1_1]
 type=graphic
 x=493
 y=55
@@ -286,7 +286,7 @@ tiling=yes
 colour=0x000000
 
 // 260:25
-[com_25]
+[l_brdr_1_1]
 type=graphic
 x=278
 y=55
@@ -298,7 +298,7 @@ tiling=yes
 colour=0x000000
 
 // 260:26
-[com_26]
+[inv_bg]
 type=graphic
 x=314
 y=66
@@ -309,7 +309,7 @@ graphic=dream_inv_brdr
 colour=0x000000
 
 // 260:27
-[com_27]
+[inv_connection_1]
 type=graphic
 x=406
 y=123
@@ -320,7 +320,7 @@ graphic="v2_stone_borders,13"
 colour=0x000000
 
 // 260:28
-[com_28]
+[inv_connection_2]
 type=graphic
 x=406
 y=167
@@ -331,7 +331,7 @@ graphic="v2_stone_borders,13"
 colour=0x000000
 
 // 260:29
-[com_29]
+[inv_connection_2b]
 type=graphic
 x=385
 y=145
@@ -342,7 +342,7 @@ graphic="v2_stone_borders,8"
 colour=0x000000
 
 // 260:30
-[com_30]
+[inv_connection_3]
 type=graphic
 x=406
 y=208
@@ -353,7 +353,7 @@ graphic="v2_stone_borders,13"
 colour=0x000000
 
 // 260:31
-[com_31]
+[equipped_bg_1]
 type=graphic
 x=406
 y=104
@@ -364,7 +364,7 @@ graphic="miscgraphics,0"
 colour=0x000000
 
 // 260:32
-[com_32]
+[equipped_bg_2]
 type=graphic
 x=406
 y=145
@@ -375,7 +375,7 @@ graphic="miscgraphics,0"
 colour=0x000000
 
 // 260:33
-[com_33]
+[equipped_bg_3]
 type=graphic
 x=406
 y=186
@@ -386,7 +386,7 @@ graphic="miscgraphics,0"
 colour=0x000000
 
 // 260:34
-[com_34]
+[equipped_bg_4]
 type=graphic
 x=406
 y=227
@@ -397,7 +397,7 @@ graphic="miscgraphics,0"
 colour=0x000000
 
 // 260:35
-[com_35]
+[equipped_bg_5]
 type=graphic
 x=356
 y=145
@@ -408,7 +408,7 @@ graphic="miscgraphics,0"
 colour=0x000000
 
 // 260:36
-[com_36]
+[inv_icon_helm]
 type=graphic
 x=408
 y=106
@@ -419,7 +419,7 @@ graphic="wornicons,0"
 colour=0x000000
 
 // 260:37
-[com_37]
+[inv_icon_chest]
 type=graphic
 x=408
 y=147
@@ -430,7 +430,7 @@ graphic="wornicons,5"
 colour=0x000000
 
 // 260:38
-[com_38]
+[inv_icon_leggings]
 type=graphic
 x=408
 y=188
@@ -441,7 +441,7 @@ graphic="wornicons,7"
 colour=0x000000
 
 // 260:39
-[com_39]
+[inv_icon_boots]
 type=graphic
 x=408
 y=229
@@ -452,7 +452,7 @@ graphic="wornicons,9"
 colour=0x000000
 
 // 260:40
-[com_40]
+[inv_icon_weapon]
 type=graphic
 x=358
 y=147
@@ -463,7 +463,7 @@ graphic="wornicons,3"
 colour=0x000000
 
 // 260:41
-[com_41]
+[bank_title]
 type=text
 x=97
 y=26
@@ -476,7 +476,7 @@ textshadow=yes
 colour=0xff981f
 
 // 260:42
-[com_42]
+[bank_layer]
 type=layer
 x=32
 y=52
@@ -486,7 +486,7 @@ layer=com_44
 oninvtransmit=dream_bank_init{inv_514}
 
 // 260:43
-[com_43]
+[cyrisus_inv]
 type=text
 x=363
 y=26
@@ -508,7 +508,7 @@ width=513
 height=335
 
 // 260:45
-[com_45]
+[chest_layer]
 type=layer
 x=348
 y=105
@@ -517,7 +517,7 @@ height=158
 oninvtransmit=dream_chest_init{inv_515}
 
 // 260:46
-[com_46]
+[close_button]
 type=graphic
 x=476
 y=28
@@ -532,7 +532,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onclick=closebutton_click
 
 // 260:47
-[com_47]
+[close_button_lyr]
 type=layer
 x=473
 y=15

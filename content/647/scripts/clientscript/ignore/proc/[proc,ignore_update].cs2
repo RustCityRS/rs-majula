@@ -1,20 +1,20 @@
 // 129
 [proc,ignore_update]
-cc_deleteall(friends2:com_4);
+cc_deleteall(friends2:ignorebox);
 def_int $int0 = ignore_count;
 if ($int0 < 0) {
-    if_settext("Loading Ignore List.<br>Please wait.", friends2:com_46);
-    if_sethide(false, friends2:com_46);
-    if_settext("", friends2:com_35);
+    if_settext("Loading Ignore List.<br>Please wait.", friends2:loadingmes);
+    if_sethide(false, friends2:loadingmes);
+    if_settext("", friends2:ignore_info);
     return;
 }
-if_settext("<tostring($int0)> / <tostring(100)>", friends2:com_35);
-if_settext("", friends2:com_46);
-if_sethide(true, friends2:com_46);
-def_component $component1 = friends2:com_4;
+if_settext("<tostring($int0)> / <tostring(100)>", friends2:ignore_info);
+if_settext("", friends2:loadingmes);
+if_sethide(true, friends2:loadingmes);
+def_component $component1 = friends2:ignorebox;
 def_component $component2 = friends2:com_2;
 def_component $component3 = friends2:com_3;
-def_component $component4 = friends2:com_31;
+def_component $component4 = friends2:ignorescroll;
 def_int $int5 = 0;
 def_string $string0 = "";
 def_string $string1 = "";
@@ -42,7 +42,7 @@ while ($int5 < $int0) {
     } else {
         $string2 = $string0;
     }
-    cc_create(friends2:com_4, ^iftype_text, $int8);
+    cc_create(friends2:ignorebox, ^iftype_text, $int8);
     cc_setsize(168, $int10, ^setsize_abs, ^setsize_abs);
     cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
     cc_setcolour(0xa4997d);
@@ -60,15 +60,15 @@ while ($int5 < $int0) {
     cc_setonop("ignore_op(ignore_getname_unfiltered($int5))");
     if ($int6 = 1) {
         $int7 = calc(stringwidth("Last known as: <$string1>", verdana_11pt_regular) + 8);
-        if ($int7 > if_getwidth(friends2:com_4)) {
+        if ($int7 > if_getwidth(friends2:ignorebox)) {
             $string3 = "Last known as:<br><$string1>";
         } else {
             $string3 = "Last known as: <$string1>";
         }
-        cc_setonmouserepeat("script1594(friends2:com_52, event_com, event_comsubid, $string3, event_mousex, event_mousey)");
-        cc_setonmouseleave("deltooltip(friends2:com_52)");
+        cc_setonmouserepeat("script1594(friends2:tooltip_layer, event_com, event_comsubid, $string3, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(friends2:tooltip_layer)");
     }
-    cc_create(friends2:com_4, ^iftype_graphic, calc($int8 + 1));
+    cc_create(friends2:ignorebox, ^iftype_graphic, calc($int8 + 1));
     cc_setgraphic(friends_changed_name);
     cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
     cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);

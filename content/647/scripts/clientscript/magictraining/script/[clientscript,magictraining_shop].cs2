@@ -7,22 +7,22 @@ def_int $int3 = 20;
 def_int $int4 = 0;
 def_int $int5 = 0;
 def_int $int6 = 0;
-$int4 = calc((if_getwidth(magictraining_shop:com_16) - $int2) / ($int2 + 36));
+$int4 = calc((if_getwidth(magictraining_shop:shop_items_layer) - $int2) / ($int2 + 36));
 while ($int0 <= inv_size(inv_347)) {
-    cc_create(magictraining_shop:com_16, ^iftype_graphic, $int0);
+    cc_create(magictraining_shop:shop_items_layer, ^iftype_graphic, $int0);
     cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int2 + (36 + $int2) * ($int0 - $int1 * $int4)), calc($int3 + $int1 * (32 + $int3)), ^setpos_abs_left, ^setpos_abs_top);
     $int5 = calc($int2 + (36 + $int2) * ($int0 - $int1 * $int4));
     $int6 = calc($int3 + $int1 * (32 + $int3));
     if (inv_getobj(inv_347, $int0) ! null) {
         if (inv_getobj(inv_347, $int0) = apprentice_wand) {
-            if_setposition(calc($int5 - 8), calc($int6 + 94), ^setpos_abs_left, ^setpos_abs_top, magictraining_shop:com_12);
+            if_setposition(calc($int5 - 8), calc($int6 + 94), ^setpos_abs_left, ^setpos_abs_top, magictraining_shop:magictraining_shop_upgrade1);
         }
         if (inv_getobj(inv_347, $int0) = teacher_wand) {
-            if_setposition(calc($int5 - 8), calc($int6 + 94), ^setpos_abs_left, ^setpos_abs_top, magictraining_shop:com_14);
+            if_setposition(calc($int5 - 8), calc($int6 + 94), ^setpos_abs_left, ^setpos_abs_top, magictraining_shop:magictraining_shop_upgrade2);
         }
         if (inv_getobj(inv_347, $int0) = master_wand) {
-            if_setposition(calc($int5 - 8), calc($int6 + 94), ^setpos_abs_left, ^setpos_abs_top, magictraining_shop:com_13);
+            if_setposition(calc($int5 - 8), calc($int6 + 94), ^setpos_abs_left, ^setpos_abs_top, magictraining_shop:magictraining_shop_upgrade3);
         }
         cc_setobject(inv_getobj(inv_347, $int0), inv_getnum(inv_347, $int0));
         cc_setgraphicshadow(^black);

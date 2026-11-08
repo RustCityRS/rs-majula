@@ -1,10 +1,10 @@
 // 3054
 [proc,lobbyscreen_pane_friendslist_chat_build](component $component0)
-if (minimenuopen(lobbyscreen_pane_friendslist:com_52, -1) = true) {
+if (minimenuopen(lobbyscreen_pane_friendslist:chat_build, -1) = true) {
     if_setontimer("lobbyscreen_pane_friendslist_chat_build($component0)", $component0);
     return;
 }
-cc_deleteall(lobbyscreen_pane_friendslist:com_52);
+cc_deleteall(lobbyscreen_pane_friendslist:chat_build);
 def_string $string0 = "<col=ff5256>";
 def_int $int1 = 0;
 def_int $int2 = 0;
@@ -38,7 +38,7 @@ while ($int2 < 100) {
     }
     $int2 = calc($int2 + 1);
 }
-def_int $int4 = calc(if_getheight(lobbyscreen_pane_friendslist:com_52) / 15);
+def_int $int4 = calc(if_getheight(lobbyscreen_pane_friendslist:chat_build) / 15);
 $int2 = 0;
 def_int $int5 = 0;
 if ($int1 < $int4) {
@@ -49,13 +49,13 @@ if ($int1 < $int4) {
     }
 }
 def_int $int6 = max(calc($int1 * 15), calc($int4 * 15));
-if ($int6 > if_getheight(lobbyscreen_pane_friendslist:com_52)) {
-    if_setscrollsize(0, $int6, lobbyscreen_pane_friendslist:com_52);
-    ~scrollbar_resize(lobbyscreen_pane_friendslist:com_53, lobbyscreen_pane_friendslist:com_52, calc(%varclient_1122 + if_getscrollheight(lobbyscreen_pane_friendslist:com_52) - %varclient_1123));
+if ($int6 > if_getheight(lobbyscreen_pane_friendslist:chat_build)) {
+    if_setscrollsize(0, $int6, lobbyscreen_pane_friendslist:chat_build);
+    ~scrollbar_resize(lobbyscreen_pane_friendslist:chat_scroll, lobbyscreen_pane_friendslist:chat_build, calc(%varclient_1122 + if_getscrollheight(lobbyscreen_pane_friendslist:chat_build) - %varclient_1123));
 } else {
-    if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:com_52);
-    if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:com_52);
-    ~scrollbar_resize(lobbyscreen_pane_friendslist:com_53, lobbyscreen_pane_friendslist:com_52, 0);
+    if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:chat_build);
+    if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:chat_build);
+    ~scrollbar_resize(lobbyscreen_pane_friendslist:chat_scroll, lobbyscreen_pane_friendslist:chat_build, 0);
 }
-%varclient_1122 = if_getscrolly(lobbyscreen_pane_friendslist:com_52);
-%varclient_1123 = if_getscrollheight(lobbyscreen_pane_friendslist:com_52);
+%varclient_1122 = if_getscrolly(lobbyscreen_pane_friendslist:chat_build);
+%varclient_1123 = if_getscrollheight(lobbyscreen_pane_friendslist:chat_build);

@@ -12,14 +12,14 @@ fill=yes
 trans=200
 
 // 87:1
-[com_1]
+[universe]
 type=layer
 width=350
 height=300
 xmode=abs_centre
 ymode=abs_centre
-onload=poh_bookcase_build(poh_bookcase:com_17, poh_bookcase:com_18)
-onvarctransmit=poh_bookcase_build(poh_bookcase:com_17, poh_bookcase:com_18){varclient_1040, varclient_1041, varclient_1042}
+onload=poh_bookcase_build(poh_bookcase:contents, poh_bookcase:com_18)
+onvarctransmit=poh_bookcase_build(poh_bookcase:contents, poh_bookcase:com_18){varclient_1040, varclient_1041, varclient_1042}
 
 // 87:2
 [com_2]
@@ -28,7 +28,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic=wood_backing
 tiling=yes
 colour=0xffffffff
@@ -40,7 +40,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=universe
 colour=0x000000
 fill=yes
 trans=180
@@ -53,7 +53,7 @@ width=32
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_borders_slim,0"
 tiling=yes
 trans=64
@@ -68,7 +68,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_borders_slim,0"
 tiling=yes
 trans=64
@@ -82,7 +82,7 @@ width=32
 height=32
 heightmode=minus
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_borders_slim,1"
 tiling=yes
 trans=64
@@ -97,7 +97,7 @@ height=32
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_borders_slim,3"
 tiling=yes
 trans=64
@@ -108,7 +108,7 @@ colour=0xffffffff
 type=graphic
 width=32
 height=32
-layer=com_1
+layer=universe
 graphic="v2_borders_slim,4"
 tiling=yes
 trans=64
@@ -120,7 +120,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_1
+layer=universe
 graphic="v2_borders_slim,5"
 tiling=yes
 trans=64
@@ -132,7 +132,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_borders_slim,6"
 trans=64
 colour=0xffffffff
@@ -144,7 +144,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=universe
 graphic="v2_borders_slim,7"
 trans=64
 colour=0xffffffff
@@ -157,7 +157,7 @@ y=10
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=universe
 graphic="v2_borders_slim,8"
 tiling=yes
 trans=64
@@ -171,7 +171,7 @@ y=12
 width=32
 height=32
 xmode=abs_right
-layer=com_1
+layer=universe
 graphic="v2_borders_slim,9"
 trans=64
 colour=0xffffffff
@@ -183,18 +183,18 @@ y=12
 width=32
 height=32
 xmode=abs_right
-layer=com_1
+layer=universe
 graphic="v2_borders_slim,10"
 trans=64
 colour=0xffffffff
 
 // 87:15
-[com_15]
+[title]
 type=text
 height=30
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=universe
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -209,7 +209,7 @@ y=3
 width=26
 height=23
 xmode=abs_right
-layer=com_1
+layer=universe
 graphic="close_buttons,2"
 trans=20
 colour=0xffffffff
@@ -220,7 +220,7 @@ onmouseleave=graphic_swapper(event_com, "close_buttons,2")
 onop=closebutton_click
 
 // 87:17
-[com_17]
+[contents]
 type=layer
 y=3
 width=6
@@ -229,7 +229,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_1
+layer=universe
 
 // 87:18
 [com_18]
@@ -241,5 +241,5 @@ height=33
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=universe
 noclickthrough=yes

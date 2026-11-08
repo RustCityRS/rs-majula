@@ -2,13 +2,13 @@
 [clientscript,rand_ring_onhoverspin](component $component0)
 def_component $component1 = $component0;
 switch_component ($component0) {
-    case rand_ring_interface:com_184 :
+    case rand_ring_interface:melee_class_button :
         $component1 = rand_ring_interface:com_257;
-    case rand_ring_interface:com_185 :
+    case rand_ring_interface:ranged_class_button :
         $component1 = rand_ring_interface:com_242;
-    case rand_ring_interface:com_186 :
+    case rand_ring_interface:magic_class_button :
         $component1 = rand_ring_interface:com_227;
-    case rand_ring_interface:com_187 :
+    case rand_ring_interface:skiller_class_button :
         $component1 = rand_ring_interface:com_212;
 }
 if (if_gettrans($component1) > 220) {

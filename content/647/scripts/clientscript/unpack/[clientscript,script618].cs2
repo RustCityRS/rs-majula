@@ -1,4 +1,4 @@
 // 618
 [clientscript,script618](component $component0)
 if_setgraphic("grand_exchange_cancelled_buttons,0", $component0);
-~deltooltip_action(stockmarket:com_210);
+~deltooltip_action(stockmarket:offertooltip);

@@ -88,7 +88,7 @@ tiling=yes
 colour=0xffffffff
 
 // 860:8
-[com_8]
+[close_button]
 type=graphic
 x=474
 y=30
@@ -205,7 +205,7 @@ graphic="v2_stone_borders,10"
 colour=0xffffffff
 
 // 860:18
-[com_18]
+[title]
 type=text
 x=18
 y=25
@@ -219,7 +219,7 @@ textshadow=yes
 colour=0xff981f
 
 // 860:19
-[com_19]
+[title_1]
 type=text
 x=19
 y=47
@@ -234,7 +234,7 @@ textshadow=yes
 colour=0xff981f
 
 // 860:20
-[com_20]
+[next_prev]
 type=layer
 x=22
 y=295
@@ -246,10 +246,10 @@ op1=Change Page
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
-onop=script2644(interface_860:com_24)
+onop=script2644(interface_860:page)
 
 // 860:21
-[com_21]
+[bank]
 type=layer
 x=-8
 y=295
@@ -261,7 +261,7 @@ op1=Check bank and inventory
 onload=v2_stone_button(event_com)
 onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
-onop=script2646(interface_860:com_25)
+onop=script2646(interface_860:bank_text)
 
 // 860:22
 [com_22]
@@ -270,10 +270,10 @@ x=476
 y=86
 width=16
 height=200
-onload=scrollbar_vertical_graphics(event_com, interface_860:com_23, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+onload=scrollbar_vertical_graphics(event_com, interface_860:main_stock, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
 
 // 860:23
-[com_23]
+[main_stock]
 type=layer
 x=26
 y=86
@@ -283,13 +283,13 @@ scrollheight=1000
 onload=script2639
 
 // 860:24
-[com_24]
+[page]
 type=text
 width=16384
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_20
+layer=next_prev
 textfont=b12_full
 text=Next page
 textalignh=centre
@@ -298,13 +298,13 @@ textshadow=yes
 colour=0xff981f
 
 // 860:25
-[com_25]
+[bank_text]
 type=text
 width=16384
 height=17103
 widthmode=proportion
 heightmode=proportion
-layer=com_21
+layer=bank
 textfont=b12_full
 text=Check bank & inventory
 textalignh=centre
@@ -313,7 +313,7 @@ textshadow=yes
 colour=0xff981f
 
 // 860:26
-[com_26]
+[search]
 type=layer
 x=23
 y=295
@@ -327,24 +327,24 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 860:27
-[com_27]
+[search_graphic]
 type=graphic
 x=-3
 y=-5
 width=35
 height=35
-layer=com_26
+layer=search
 graphic="bank_buttons_new1,0"
 colour=0xffffffff
 
 // 860:28
-[com_28]
+[search_txt]
 type=text
 x=28
 y=2
 width=78
 height=21
-layer=com_26
+layer=search
 textfont=b12_full
 text=Search
 textalignv=centre

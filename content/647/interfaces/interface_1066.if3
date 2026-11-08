@@ -1,36 +1,36 @@
 // 1066:0
-[com_0]
+[mainimage]
 type=graphic
 y=78
 width=472
 height=126
 xmode=abs_centre
-layer=com_17
+layer=content
 graphic=graphic_4513
 
 // 1066:1
-[com_1]
+[upgrade_button]
 type=layer
 x=-100
 y=214
 width=180
 height=26
 xmode=abs_centre
-layer=com_17
+layer=content
 transmitop=1
 op1=Upgrade
-onmouseover=loginscreen_button_highlight(interface_1066:com_21, "set_but_end_3,1", interface_1066:com_22, "set_but_fill_3,1", interface_1066:com_23, "set_but_end_3,1")
-onmouseleave=loginscreen_button_highlight(interface_1066:com_21, "set_but_end_3,0", interface_1066:com_22, "set_but_fill_3,0", interface_1066:com_23, "set_but_end_3,0")
+onmouseover=loginscreen_button_highlight(interface_1066:login_button_left, "set_but_end_3,1", interface_1066:login_button_mid, "set_but_fill_3,1", interface_1066:login_button_right, "set_but_end_3,1")
+onmouseleave=loginscreen_button_highlight(interface_1066:login_button_left, "set_but_end_3,0", interface_1066:login_button_mid, "set_but_fill_3,0", interface_1066:login_button_right, "set_but_end_3,0")
 onclick=script4087
 
 // 1066:2
-[com_2]
+[border]
 type=layer
 width=489
 height=256
 xmode=abs_centre
 ymode=abs_centre
-layer=com_26
+layer=baselayer
 
 // 1066:3
 [com_3]
@@ -41,29 +41,29 @@ width=14
 height=14
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=border
 graphic=window_texture
 tiling=yes
 
 // 1066:4
-[com_4]
+[top_side]
 type=graphic
 x=38
 width=72
 height=8
 widthmode=minus
-layer=com_2
+layer=border
 graphic="corner_frame_2,0"
 tiling=yes
 
 // 1066:5
-[com_5]
+[top_1]
 type=graphic
 y=25
 height=8
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=border
 graphic="corner_frame_2,0"
 tiling=yes
 
@@ -74,94 +74,94 @@ x=7
 y=7
 width=473
 height=19
-layer=com_2
+layer=border
 colour=0x333333
 fill=yes
 
 // 1066:7
-[com_7]
+[bottom_side]
 type=graphic
 x=38
 width=76
 height=8
 widthmode=minus
 ymode=abs_bottom
-layer=com_2
+layer=border
 graphic="corner_frame_2,2"
 tiling=yes
 
 // 1066:8
-[com_8]
+[left_side]
 type=graphic
 y=72
 width=38
 height=144
 heightmode=minus
-layer=com_2
+layer=border
 graphic="corner_frame_5,0"
 tiling=yes
 hflip=yes
 
 // 1066:9
-[com_9]
+[right_side]
 type=graphic
 y=72
 width=38
 height=144
 heightmode=minus
 xmode=abs_right
-layer=com_2
+layer=border
 graphic="corner_frame_5,0"
 tiling=yes
 
 // 1066:10
-[com_10]
+[bottom_left]
 type=graphic
 width=38
 height=72
 ymode=abs_bottom
-layer=com_2
+layer=border
 graphic="corner_frame_5,1"
 hflip=yes
 
 // 1066:11
-[com_11]
+[bottom_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
 ymode=abs_bottom
-layer=com_2
+layer=border
 graphic="corner_frame_5,1"
 
 // 1066:12
-[com_12]
+[top_right]
 type=graphic
 width=38
 height=72
 xmode=abs_right
-layer=com_2
+layer=border
 graphic="corner_frame_5,2"
 
 // 1066:13
-[com_13]
+[closebutton]
 type=graphic
 x=8
 y=8
 width=19
 height=17
 xmode=abs_right
-layer=com_2
+layer=border
 graphic="intro_close_button,0"
 transmitop=1
 op1=Close
 
 // 1066:14
-[com_14]
+[top_left]
 type=graphic
 width=38
 height=72
-layer=com_2
+layer=border
 graphic="corner_frame_5,2"
 hflip=yes
 
@@ -172,7 +172,7 @@ width=38
 height=38
 xmode=abs_right
 ymode=abs_bottom
-layer=com_2
+layer=border
 graphic="corner_flourish,1"
 
 // 1066:16
@@ -181,26 +181,26 @@ type=graphic
 width=38
 height=38
 ymode=abs_bottom
-layer=com_2
+layer=border
 graphic="corner_flourish,1"
 hflip=yes
 
 // 1066:17
-[com_17]
+[content]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_2
+layer=border
 
 // 1066:18
-[com_18]
+[titletext]
 type=text
 x=1
 y=-1
 width=320
 height=32
 xmode=abs_centre
-layer=com_17
+layer=content
 textfont=verdana_15pt_regular
 text=You are Entering the Members' Game
 textalignh=centre
@@ -209,13 +209,13 @@ textshadow=yes
 colour=0xffcc00
 
 // 1066:19
-[com_19]
+[maintext]
 type=text
 x=15
 y=33
 width=452
 height=51
-layer=com_17
+layer=content
 textfont=p12_full
 text=Lorem Ipsum Sub Rosa Dolores Clairborne. Lorem Ipsum Sub Rosa Dolores Clairborne.Lorem Ipsum Sub Rosa Dolores Clairborne.Lorem Ipsum Sub Rosa Dolores Clairborne. Lorem Ipsum Sub Rosa Dolores Clairborne.
 textalignh=centre
@@ -231,36 +231,36 @@ width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=upgrade_button
 colour=0x000000
 fill=yes
 
 // 1066:21
-[com_21]
+[login_button_left]
 type=graphic
 width=25
 height=25
-layer=com_1
+layer=upgrade_button
 graphic="set_but_end_3,0"
 
 // 1066:22
-[com_22]
+[login_button_mid]
 type=graphic
 x=25
 width=51
 height=25
 widthmode=minus
-layer=com_1
+layer=upgrade_button
 graphic="set_but_fill_3,0"
 
 // 1066:23
-[com_23]
+[login_button_right]
 type=graphic
 x=1
 width=25
 height=25
 xmode=abs_right
-layer=com_1
+layer=upgrade_button
 graphic="set_but_end_3,0"
 hflip=yes
 
@@ -272,7 +272,7 @@ height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=upgrade_button
 textfont=verdana_13pt_regular
 text=Subscribe Now
 textalignh=centre
@@ -280,14 +280,14 @@ textalignv=centre
 colour=0xc0b154
 
 // 1066:25
-[com_25]
+[login_button_text]
 type=text
 y=-1
 height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=upgrade_button
 textfont=verdana_13pt_regular
 text=Subscribe Now
 textalignh=centre
@@ -295,20 +295,20 @@ textalignv=centre
 colour=0x000000
 
 // 1066:26
-[com_26]
+[baselayer]
 type=layer
 width=512
 height=334
 
 // 1066:27
-[com_27]
+[more_info_button]
 type=layer
 x=100
 y=214
 width=180
 height=26
 xmode=abs_centre
-layer=com_17
+layer=content
 transmitop=1
 op1=More Info
 onmouseover=loginscreen_button_highlight(interface_1066:com_29, "set_but_end_3,1", interface_1066:com_30, "set_but_fill_3,1", interface_1066:com_31, "set_but_end_3,1")
@@ -324,7 +324,7 @@ width=1
 height=1
 widthmode=minus
 heightmode=minus
-layer=com_27
+layer=more_info_button
 colour=0x000000
 fill=yes
 
@@ -333,7 +333,7 @@ fill=yes
 type=graphic
 width=25
 height=25
-layer=com_27
+layer=more_info_button
 graphic="set_but_end_3,0"
 
 // 1066:30
@@ -343,7 +343,7 @@ x=25
 width=51
 height=25
 widthmode=minus
-layer=com_27
+layer=more_info_button
 graphic="set_but_fill_3,0"
 
 // 1066:31
@@ -353,7 +353,7 @@ x=1
 width=25
 height=25
 xmode=abs_right
-layer=com_27
+layer=more_info_button
 graphic="set_but_end_3,0"
 hflip=yes
 
@@ -365,7 +365,7 @@ height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_27
+layer=more_info_button
 textfont=verdana_13pt_regular
 text=More Info
 textalignh=centre
@@ -373,14 +373,14 @@ textalignv=centre
 colour=0xc0b154
 
 // 1066:33
-[com_33]
+[login_button_text_1]
 type=text
 y=-1
 height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_27
+layer=more_info_button
 textfont=verdana_13pt_regular
 text=More Info
 textalignh=centre
