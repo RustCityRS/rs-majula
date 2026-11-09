@@ -441,7 +441,7 @@ p_delay(2);
 ~craft_silver_row(crafting_silver_casting:com_15, crafting_silver_casting:com_17, crafting_silver_casting:com_19, crafting_silver_casting:com_20, holy_mould, unstrung_symbol);
 ~craft_silver_row(crafting_silver_casting:com_22, crafting_silver_casting:com_24, crafting_silver_casting:com_26, crafting_silver_casting:com_27, unholy_mould, unstrung_emblem);
 if (map_members = ^true) {
-    ~craft_silver_row(crafting_silver_casting:silvercast_sickle, crafting_silver_casting:com_31, crafting_silver_casting:com_33, crafting_silver_casting:com_34, sickle_mould, silver_sickle);
+    ~craft_silver_row(crafting_silver_casting:silvercast_sickle, crafting_silver_casting:silvercast_sickle_model, crafting_silver_casting:com_33, crafting_silver_casting:com_34, sickle_mould, silver_sickle);
 } else {
     if_sethide(crafting_silver_casting:silvercast_sickle, true);
     if_sethide(crafting_silver_casting:com_33, true);

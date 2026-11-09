@@ -26,7 +26,7 @@ layer=windowmode_confirm_no
 graphic=graphic_4692
 
 // 906:3
-[com_3]
+[yes_left]
 type=graphic
 width=15
 height=31
@@ -34,7 +34,7 @@ layer=windowmode_confirm_yes
 graphic=graphic_4690
 
 // 906:4
-[com_4]
+[yes_mid]
 type=graphic
 x=15
 width=30
@@ -44,7 +44,7 @@ layer=windowmode_confirm_yes
 graphic=graphic_4691
 
 // 906:5
-[com_5]
+[yes_right]
 type=graphic
 width=15
 height=31
@@ -53,7 +53,7 @@ layer=windowmode_confirm_yes
 graphic=graphic_4692
 
 // 906:6
-[com_6]
+[input_close_button_left]
 type=graphic
 width=15
 height=31
@@ -61,7 +61,7 @@ layer=input_close
 graphic=graphic_4690
 
 // 906:7
-[com_7]
+[input_close_button_mid]
 type=graphic
 x=15
 width=30
@@ -71,7 +71,7 @@ layer=input_close
 graphic=graphic_4691
 
 // 906:8
-[com_8]
+[input_close_button_right]
 type=graphic
 width=15
 height=31
@@ -80,7 +80,7 @@ layer=input_close
 graphic=graphic_4692
 
 // 906:9
-[com_9]
+[options_tab_graphic]
 type=graphic
 height=30
 widthmode=minus
@@ -88,7 +88,7 @@ layer=options_tab
 graphic=graphic_4672
 
 // 906:10
-[com_10]
+[clanchat_tab_graphic]
 type=graphic
 height=30
 widthmode=minus
@@ -96,7 +96,7 @@ layer=clanchat_tab
 graphic=graphic_4672
 
 // 906:11
-[com_11]
+[friendslist_tab_graphic]
 type=graphic
 height=30
 widthmode=minus
@@ -108,7 +108,7 @@ graphic=graphic_4672
 type=graphic
 height=30
 widthmode=minus
-layer=com_189
+layer=worldselect_tab
 graphic=graphic_4672
 
 // 906:13
@@ -248,7 +248,7 @@ textalignv=centre
 colour=0xffff00
 
 // 906:25
-[com_25]
+[background_texture]
 type=graphic
 widthmode=minus
 heightmode=minus
@@ -290,7 +290,7 @@ heightmode=minus
 layer=menu
 
 // 906:29
-[com_29]
+[login]
 type=layer
 y=9
 width=23
@@ -358,7 +358,7 @@ transmitop=10
 op10=  
 
 // 906:35
-[com_35]
+[report_abuse_stage1_namelist]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -375,7 +375,7 @@ op10=
 type=graphic
 width=3
 height=3
-layer=com_35
+layer=report_abuse_stage1_namelist
 graphic=lobby_input_corner
 trans=43
 colour=0xffffffff
@@ -388,7 +388,7 @@ type=graphic
 width=3
 height=3
 ymode=abs_bottom
-layer=com_35
+layer=report_abuse_stage1_namelist
 graphic=lobby_input_corner
 trans=43
 vflip=yes
@@ -402,7 +402,7 @@ type=graphic
 width=3
 height=3
 xmode=abs_right
-layer=com_35
+layer=report_abuse_stage1_namelist
 graphic=lobby_input_corner
 trans=43
 hflip=yes
@@ -417,7 +417,7 @@ width=3
 height=3
 xmode=abs_right
 ymode=abs_bottom
-layer=com_35
+layer=report_abuse_stage1_namelist
 graphic=lobby_input_corner
 trans=43
 vflip=yes
@@ -433,7 +433,7 @@ y=3
 height=6
 widthmode=minus
 heightmode=minus
-layer=com_35
+layer=report_abuse_stage1_namelist
 colour=0x000000
 fill=yes
 trans=43
@@ -447,7 +447,7 @@ x=3
 width=6
 height=3
 widthmode=minus
-layer=com_35
+layer=report_abuse_stage1_namelist
 colour=0x000000
 fill=yes
 trans=43
@@ -462,7 +462,7 @@ width=6
 height=3
 widthmode=minus
 ymode=abs_bottom
-layer=com_35
+layer=report_abuse_stage1_namelist
 colour=0x000000
 fill=yes
 trans=43
@@ -476,7 +476,7 @@ width=492
 height=303
 xmode=abs_centre
 ymode=abs_centre
-layer=com_35
+layer=report_abuse_stage1_namelist
 transmitop=10
 op10= 
 
@@ -606,7 +606,7 @@ transmitop=10
 op10=        
 
 // 906:53
-[com_53]
+[report_abuse_ignore_body]
 type=layer
 width=453
 height=300
@@ -716,7 +716,7 @@ transmitop=10
 op10=       
 
 // 906:61
-[com_61]
+[report_abuse_stage2_body]
 type=layer
 width=487
 height=312
@@ -824,7 +824,7 @@ transmitop=10
 op10=      
 
 // 906:69
-[com_69]
+[report_abuse_stage1_body]
 type=layer
 width=418
 height=122
@@ -1485,8 +1485,8 @@ layer=qip_optext
 transmitop=1,10
 op1=Yes
 op10=  
-onmouseover=lobbyscreen_button_highlight(lobbyscreen:com_3, graphic_4693, lobbyscreen:com_4, graphic_4694, lobbyscreen:com_5, graphic_4695)
-onmouseleave=lobbyscreen_button_highlight(lobbyscreen:com_3, graphic_4690, lobbyscreen:com_4, graphic_4691, lobbyscreen:com_5, graphic_4692)
+onmouseover=lobbyscreen_button_highlight(lobbyscreen:yes_left, graphic_4693, lobbyscreen:yes_mid, graphic_4694, lobbyscreen:yes_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen:yes_left, graphic_4690, lobbyscreen:yes_mid, graphic_4691, lobbyscreen:yes_right, graphic_4692)
 
 // 906:117
 [com_117]
@@ -1535,7 +1535,7 @@ transmitop=10
 op10= 
 
 // 906:120
-[com_120]
+[confirm_background]
 type=graphic
 widthmode=minus
 heightmode=minus
@@ -1548,7 +1548,7 @@ transmitop=10
 op10= 
 
 // 906:121
-[com_121]
+[confirm_left_side]
 type=graphic
 y=72
 width=7
@@ -1561,7 +1561,7 @@ transmitop=10
 op10= 
 
 // 906:122
-[com_122]
+[confirm_bottom_left]
 type=graphic
 width=38
 height=72
@@ -1575,7 +1575,7 @@ transmitop=10
 op10= 
 
 // 906:123
-[com_123]
+[confirm_bottom_side]
 type=graphic
 x=38
 width=72
@@ -1590,7 +1590,7 @@ transmitop=10
 op10= 
 
 // 906:124
-[com_124]
+[confirm_right_side]
 type=graphic
 y=22
 width=7
@@ -1605,7 +1605,7 @@ transmitop=10
 op10= 
 
 // 906:125
-[com_125]
+[confirm_bottom_right]
 type=graphic
 width=38
 height=72
@@ -1619,7 +1619,7 @@ transmitop=10
 op10=  
 
 // 906:126
-[com_126]
+[confirm_top_side]
 type=graphic
 x=38
 width=72
@@ -1633,7 +1633,7 @@ transmitop=10
 op10= 
 
 // 906:127
-[com_127]
+[confirm_top_right]
 type=graphic
 width=38
 height=72
@@ -1645,7 +1645,7 @@ transmitop=10
 op10= 
 
 // 906:128
-[com_128]
+[confirm_top_left]
 type=graphic
 width=38
 height=72
@@ -1860,11 +1860,11 @@ layer=input_buttons
 transmitop=1,10
 op1=Ok
 op10= 
-onmouseover=lobbyscreen_button_highlight(lobbyscreen:com_145, graphic_4693, lobbyscreen:com_146, graphic_4694, lobbyscreen:com_147, graphic_4695)
-onmouseleave=lobbyscreen_button_highlight(lobbyscreen:com_145, graphic_4690, lobbyscreen:com_146, graphic_4691, lobbyscreen:com_147, graphic_4692)
+onmouseover=lobbyscreen_button_highlight(lobbyscreen:input_ok_button_left, graphic_4693, lobbyscreen:input_ok_button_mid, graphic_4694, lobbyscreen:input_ok_button_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen:input_ok_button_left, graphic_4690, lobbyscreen:input_ok_button_mid, graphic_4691, lobbyscreen:input_ok_button_right, graphic_4692)
 
 // 906:145
-[com_145]
+[input_ok_button_left]
 type=graphic
 width=15
 height=31
@@ -1872,7 +1872,7 @@ layer=input_ok
 graphic=graphic_4690
 
 // 906:146
-[com_146]
+[input_ok_button_mid]
 type=graphic
 x=15
 width=30
@@ -1882,7 +1882,7 @@ layer=input_ok
 graphic=graphic_4691
 
 // 906:147
-[com_147]
+[input_ok_button_right]
 type=graphic
 width=15
 height=31
@@ -1916,8 +1916,8 @@ xmode=abs_right
 layer=input_buttons
 transmitop=1
 op1=Close
-onmouseover=lobbyscreen_button_highlight(lobbyscreen:com_6, graphic_4693, lobbyscreen:com_7, graphic_4694, lobbyscreen:com_8, graphic_4695)
-onmouseleave=lobbyscreen_button_highlight(lobbyscreen:com_6, graphic_4690, lobbyscreen:com_7, graphic_4691, lobbyscreen:com_8, graphic_4692)
+onmouseover=lobbyscreen_button_highlight(lobbyscreen:input_close_button_left, graphic_4693, lobbyscreen:input_close_button_mid, graphic_4694, lobbyscreen:input_close_button_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen:input_close_button_left, graphic_4690, lobbyscreen:input_close_button_mid, graphic_4691, lobbyscreen:input_close_button_right, graphic_4692)
 onop=lobbyscreen_input_close
 
 // 906:150
@@ -1936,7 +1936,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 906:151
-[com_151]
+[input_background]
 type=graphic
 widthmode=minus
 heightmode=minus
@@ -1947,7 +1947,7 @@ alpha=yes
 colour=0xffffffff
 
 // 906:152
-[com_152]
+[input_left_side]
 type=graphic
 y=72
 width=7
@@ -1959,7 +1959,7 @@ hflip=yes
 colour=0xffffffff
 
 // 906:153
-[com_153]
+[input_bottom_left]
 type=graphic
 width=38
 height=72
@@ -1971,7 +1971,7 @@ hflip=yes
 colour=0xffffffff
 
 // 906:154
-[com_154]
+[input_bottom]
 type=graphic
 x=38
 width=72
@@ -1984,7 +1984,7 @@ vflip=yes
 colour=0xffffffff
 
 // 906:155
-[com_155]
+[input_right]
 type=graphic
 y=22
 width=16
@@ -1997,7 +1997,7 @@ hflip=yes
 colour=0xffffffff
 
 // 906:156
-[com_156]
+[input_bottom_right]
 type=graphic
 width=38
 height=72
@@ -2011,7 +2011,7 @@ transmitop=10
 op10= 
 
 // 906:157
-[com_157]
+[input_top]
 type=graphic
 x=38
 width=72
@@ -2023,7 +2023,7 @@ tiling=yes
 colour=0xffffffff
 
 // 906:158
-[com_158]
+[input_top_right]
 type=graphic
 width=38
 height=72
@@ -2033,7 +2033,7 @@ graphic="corner_frame_5,4"
 colour=0xffffffff
 
 // 906:159
-[com_159]
+[input_top_left]
 type=graphic
 width=38
 height=72
@@ -2049,7 +2049,7 @@ width=6553
 height=39
 widthmode=proportion
 xmode=abs_centre
-layer=com_29
+layer=login
 onmouseover=lobbyscreen_button_highlight(lobbyscreen:com_170, graphic_4664, lobbyscreen:button_tile, graphic_4666, lobbyscreen:com_172, graphic_4664)
 onmouseleave=lobbyscreen_button_highlight(lobbyscreen:com_170, graphic_4663, lobbyscreen:button_tile, graphic_4665, lobbyscreen:com_172, graphic_4663)
 
@@ -2060,10 +2060,10 @@ x=46
 width=121
 height=39
 xmode=abs_right
-layer=com_29
+layer=login
 
 // 906:162
-[com_162]
+[login_favs_l]
 type=graphic
 width=2
 height=37
@@ -2074,7 +2074,7 @@ onmouseover=script3082(event_com, -1, "Your selected favourite worlds")
 onmouseleave=script3086(event_com, -1)
 
 // 906:163
-[com_163]
+[login_favs_m]
 type=graphic
 x=2
 width=4
@@ -2086,14 +2086,14 @@ onmouseover=script3082(event_com, -1, "Your selected favourite worlds")
 onmouseleave=script3086(event_com, -1)
 
 // 906:164
-[com_164]
+[login_favs_icon]
 type=graphic
 x=1
 y=1
 width=30
 height=35
 layer=login_favs
-graphic=graphic_4667
+graphic=favorite_world_icon2
 onmouseover=script3082(event_com, -1, "Your selected favourite worlds")
 onmouseleave=script3086(event_com, -1)
 
@@ -2124,7 +2124,7 @@ op10=
 onmouseleave=script3086(event_com, -1)
 
 // 906:167
-[com_167]
+[login_favs_text1]
 type=text
 x=31
 y=1
@@ -2141,7 +2141,7 @@ transmitop=10
 op10= 
 
 // 906:168
-[com_168]
+[login_favs_text2]
 type=text
 x=75
 y=1
@@ -2158,7 +2158,7 @@ transmitop=10
 op10=  
 
 // 906:169
-[com_169]
+[login_favs_r]
 type=graphic
 width=2
 height=37
@@ -2253,7 +2253,7 @@ layer=panels
 hide=yes
 
 // 906:177
-[com_177]
+[friendschat_panel]
 type=layer
 height=50
 widthmode=minus
@@ -2395,7 +2395,7 @@ transmitop=10
 op10=    
 
 // 906:188
-[com_188]
+[playerinfo_tab]
 type=layer
 x=8
 y=6
@@ -2407,7 +2407,7 @@ op1=Player Info
 onop=lobbyscreen_tabswitch(0)
 
 // 906:189
-[com_189]
+[worldselect_tab]
 type=layer
 x=110
 y=6
@@ -2517,7 +2517,7 @@ transmitop=10
 op10=  
 
 // 906:197
-[com_197]
+[options_icon]
 type=graphic
 x=10
 y=5
@@ -2530,7 +2530,7 @@ transmitop=10
 op10= 
 
 // 906:198
-[com_198]
+[clanchat_tab_text]
 type=text
 x=32
 y=5
@@ -2549,7 +2549,7 @@ transmitop=10
 op10=  
 
 // 906:199
-[com_199]
+[clanchat_icon]
 type=graphic
 x=10
 y=5
@@ -2562,7 +2562,7 @@ transmitop=10
 op10= 
 
 // 906:200
-[com_200]
+[friendslist_tab_text]
 type=text
 x=32
 y=5
@@ -2581,7 +2581,7 @@ transmitop=10
 op10=  
 
 // 906:201
-[com_201]
+[friendslist_icon]
 type=graphic
 x=10
 y=5
@@ -2594,14 +2594,14 @@ transmitop=10
 op10= 
 
 // 906:202
-[com_202]
+[worldselect_tab_text]
 type=text
 x=32
 y=5
 width=34
 height=22
 widthmode=minus
-layer=com_189
+layer=worldselect_tab
 textfont=verdana_11pt_regular
 text=World<br>Select
 textlineheight=12
@@ -2613,35 +2613,35 @@ transmitop=10
 op10=  
 
 // 906:203
-[com_203]
+[worldselect_icon]
 type=graphic
 x=10
 y=5
 width=22
 height=22
-layer=com_189
+layer=worldselect_tab
 graphic=graphic_4438
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 906:204
-[com_204]
+[playerinfo_tab_graphic]
 type=graphic
 height=30
 widthmode=minus
-layer=com_188
+layer=playerinfo_tab
 graphic=graphic_4671
 
 // 906:205
-[com_205]
+[playerinfo_tab_text]
 type=text
 x=32
 y=5
 width=34
 height=22
 widthmode=minus
-layer=com_188
+layer=playerinfo_tab
 textfont=verdana_11pt_regular
 text=Player<br>Info
 textlineheight=12
@@ -2653,13 +2653,13 @@ transmitop=10
 op10=  
 
 // 906:206
-[com_206]
+[playerinfo_icon]
 type=graphic
 x=10
 y=5
 width=22
 height=22
-layer=com_188
+layer=playerinfo_tab
 graphic=graphic_4437
 colour=0xffffffff
 
@@ -2889,7 +2889,7 @@ layer=popup_body
 hide=yes
 
 // 906:226
-[com_226]
+[popup_small_button_shadow]
 type=rectangle
 x=1
 y=1
@@ -2959,7 +2959,7 @@ layer=popup_body
 hide=yes
 
 // 906:232
-[com_232]
+[popup_big_button_shadow]
 type=rectangle
 x=1
 y=1

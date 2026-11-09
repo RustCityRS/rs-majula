@@ -2,7 +2,7 @@
 [clientscript,toplevel_init]
 if (getwindowmode >= 1) {
     if_setonvarctransmit("toplevel_fovchange{varclient_184}", toplevel_fullscreen:mainoverlay);
-    if_setonvarctransmit("toplevel_fovchange{varclient_184}", toplevel:com_3);
+    if_setonvarctransmit("toplevel_fovchange{varclient_184}", toplevel:main);
 }
 if_setonvarctransmit("meslayer_varc_update{varclient_5}", chattop:mes_layer);
 if_setonresize("window_resize", toplevel_fullscreen:maingame);

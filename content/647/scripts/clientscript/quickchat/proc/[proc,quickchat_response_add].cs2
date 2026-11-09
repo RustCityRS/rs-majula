@@ -46,8 +46,8 @@ while ($int5 < $int4) {
     cc_setonop("quickchat_phrase($component0, $chatphrase9, 0)");
     cc_setopbase($string0);
     cc_setop(1, "Send: ");
-    cc_setonmouseover("script1082(0, $component3, $int6)");
-    cc_setonmouseleave("script1083(0, $component3, $int6)");
+    cc_setonmouseover("quickchat_menu_highlight_show(0, $component3, $int6)");
+    cc_setonmouseleave("quickchat_menu_highlight_hide(0, $component3, $int6)");
     if ($int5 < 10) {
         $string0 = "<col=555555><tostring(calc(($int5 + 1) % 10))>. <col=000000><$string0>";
     }

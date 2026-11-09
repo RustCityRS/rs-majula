@@ -2,8 +2,8 @@
 [clientscript,warguild_trans_off](component $component0)
 if ($component0 = warguild_token_choice:ok_button) {
     if_sethide(true, warguild_token_choice:ok_trans);
-} else if ($component0 = warguild_token_choice:com_2) {
+} else if ($component0 = warguild_token_choice:single_token_button) {
     if_sethide(true, warguild_token_choice:single_trans);
-} else if ($component0 = warguild_token_choice:com_3) {
+} else if ($component0 = warguild_token_choice:multi_token_button) {
     if_sethide(true, warguild_token_choice:multi_trans);
 }

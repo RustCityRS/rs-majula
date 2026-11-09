@@ -14,7 +14,7 @@ switch_int ($int0) {
     case 3 :
         ~lobbyscreen_input("Send message to <$string0>", "", 0, $string1, "");
     case 5 :
-        ~script3177($string0, false);
+        ~lobbyscreen_report_abuse_stage1($string0, false);
     case 10 :
         ~clan_chat_kick_find($string1);
 }

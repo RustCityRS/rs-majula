@@ -7,11 +7,11 @@ def_component $component5 = graphics_options_client:manual_setup_high;
 def_component $component6 = graphics_options_client:manual_setup_custom;
 def_component $component7 = graphics_options_client:autosetup_button;
 if ($boolean1 = true) {
-    $component2 = interface_977:manual_setup_min;
-    $component3 = interface_977:manual_setup_low;
-    $component4 = interface_977:manual_setup_mid;
-    $component5 = interface_977:manual_setup_high;
-    $component6 = interface_977:manual_setup_custom;
+    $component2 = graphics_options_advanced_client:manual_setup_min;
+    $component3 = graphics_options_advanced_client:manual_setup_low;
+    $component4 = graphics_options_advanced_client:manual_setup_mid;
+    $component5 = graphics_options_advanced_client:manual_setup_high;
+    $component6 = graphics_options_advanced_client:manual_setup_custom;
 }
 ~script3932($int0, $boolean1, $component2, 1, "MIN", calc(stringwidth("MIN", verdana_11pt_regular) + 30), "");
 ~script3932($int0, $boolean1, $component3, 2, "LOW", calc(stringwidth("LOW", verdana_11pt_regular) + 30), "");

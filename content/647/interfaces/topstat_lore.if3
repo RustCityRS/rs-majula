@@ -48,7 +48,7 @@ colour=0xffffffff
 onload=script815
 
 // 747:5
-[com_5]
+[topstat_text_lore]
 type=text
 x=31
 y=15
@@ -60,8 +60,8 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xca9800
-onload=script801(event_com, summoning)
-onstattransmit=script801(event_com, summoning){summoning}
+onload=topstat_set_text_skill(event_com, summoning)
+onstattransmit=topstat_set_text_skill(event_com, summoning){summoning}
 
 // 747:6
 [topstat_graphic_lore]
@@ -155,7 +155,7 @@ ontargetleave=magic_leavetargetmode(topstat_lore:topstat_graphic_lore)
 ontargetenter=magic_entertargetmode(topstat_lore:topstat_graphic_lore)
 
 // 747:15
-[com_15]
+[interact_layer]
 type=layer
 width=512
 height=334
@@ -172,7 +172,7 @@ layer=main_ops
 onvartransmit=lore_head_update{varplayer_1174}
 
 // 747:17
-[com_17]
+[spell_icon]
 type=layer
 width=57
 height=34
@@ -269,7 +269,7 @@ op1=Cast
 op10=  
 
 // 747:26
-[com_26]
+[interact_op1]
 type=layer
 width=512
 height=334

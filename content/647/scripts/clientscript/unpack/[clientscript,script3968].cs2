@@ -14,7 +14,7 @@ if (getwindowmode >= 2) {
     $int1 = 0;
 }
 if (%learning_the_ropes = 1000) {
-    if_setonop("script3976(%varclient_1425, 1, $int1)", interface_1055:com_2);
+    if_setonop("task_side_overview_populate(%varclient_1425, 1, $int1)", interface_1055:com_2);
 } else {
     if_setonop(null, interface_1055:com_2);
 }

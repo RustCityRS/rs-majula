@@ -1,6 +1,6 @@
 // 2186
 [proc,fishcomp_reward_tackle_box_refresh]
-def_component $component0 = deathkeep_constricted:main_layer;
+def_component $component0 = fishcomp_reward_tackle_box_side:main_layer;
 cc_deleteall($component0);
 def_int $int1 = 0;
 def_int $int2 = 0;

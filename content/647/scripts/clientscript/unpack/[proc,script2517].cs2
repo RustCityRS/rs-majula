@@ -18,4 +18,4 @@ $int1 = calc($int1 + $int5);
 $int1 = calc($int1 + $int6);
 if_settext(~tostring_spacer($int1, ","), mob_special_units:grand_total_qty);
 $int0 = calc(%varclient_839 - $int1);
-if_settext(~tostring_spacer($int0, ","), mob_special_units:com_77);
+if_settext(~tostring_spacer($int0, ","), mob_special_units:invest_remainder_qty);

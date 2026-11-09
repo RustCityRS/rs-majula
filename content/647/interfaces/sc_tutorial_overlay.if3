@@ -253,9 +253,9 @@ height=32
 layer=main_layer
 colour=0xffff00
 trans=255
-onload=script1944
-onvarctransmit=script1944{varclient_581}
-onvarcstrtransmit=script1943{varclient_1562}
+onload=sc_tutorial_hide_title
+onvarctransmit=sc_tutorial_hide_title{varclient_581}
+onvarcstrtransmit=sc_tutorial_show_title{varclient_1562}
 
 // 802:19
 [title_layer]

@@ -1,7 +1,7 @@
 // 2223
 [proc,create_complete]
 if_opensubclient(loginscreen:create_success, account_create_success);
-if_setgraphic(runescape_logo, account_create_success:com_27);
+if_setgraphic(runescape_logo, account_create_success:runescape_logo);
 if_setgraphic("corner_frame_1,0", account_create_success:top_left_corner);
 if_setvflip(false, account_create_success:top_left_corner);
 if_sethflip(true, account_create_success:top_left_corner);
@@ -32,12 +32,12 @@ if_setposition(calc(if_getx(account_create_success:terms_link_layer) + if_getwid
 if_setposition(calc(if_getx(account_create_success:and_text) + if_getwidth(account_create_success:and_text) + stringwidth(" ", verdana_11pt_regular)), if_gety(account_create_success:privacy_link_layer), ^setpos_abs_left, ^setpos_abs_top, account_create_success:privacy_link_layer);
 if (%varclient_1407 < 13) {
     if_sethide(true, account_create_success:contents);
-    if_sethide(true, account_create_success:com_27);
+    if_sethide(true, account_create_success:runescape_logo);
     if_sethide(false, account_create_success:u13_layer);
     if_settext("Congratulations, your account has been created successfully!", account_create_success:com_18);
 } else {
     if_sethide(false, account_create_success:contents);
-    if_sethide(false, account_create_success:com_27);
+    if_sethide(false, account_create_success:runescape_logo);
     if_sethide(true, account_create_success:u13_layer);
     if_settext("Congratulations, your account has been successfully created and your welcome email will arrive shortly!", account_create_success:com_18);
 }

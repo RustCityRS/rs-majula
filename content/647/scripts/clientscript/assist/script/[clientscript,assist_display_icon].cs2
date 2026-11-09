@@ -1,6 +1,6 @@
 // 527
 [clientscript,assist_display_icon]
-~assist_set_icon(%varplayerbit_4090, "staticons2,0", "staticons2_off,0", assister_interface:runecrafting_icon, assister_interface:checker_collect);
+~assist_set_icon(%varplayerbit_4090, "staticons2,0", "staticons2_off,0", assister_interface:runecrafting_icon, assister_interface:runecraft_selected_box);
 ~assist_set_icon(%varplayerbit_4091, "staticons,10", "staticons_off,10", assister_interface:crafting_icon_on, assister_interface:crafting_selected_box);
 ~assist_set_icon(%varplayerbit_4093, "staticons,11", "staticons_off,11", assister_interface:fletching_icon_on, assister_interface:fletching_selected_box);
 ~assist_set_icon(%varplayerbit_4095, "staticons2,6", "staticons2_off,6", assister_interface:construction_icon_on, assister_interface:construction_selected_box);

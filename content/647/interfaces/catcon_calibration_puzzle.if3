@@ -31,7 +31,7 @@ layer=content_layer
 colour=0x000000
 fill=yes
 trans=255
-ontimer=script1745
+ontimer=catcon_calib_update_fade_rect
 
 // 680:3
 [com_3]
@@ -250,7 +250,7 @@ colour=0x000000
 transmitop=1
 opbase= 
 op1=Close
-onload=script707
+onload=catcon_calib_init
 onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
 onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click

@@ -1,8 +1,0 @@
-// 2874
-[clientscript,script2874]
-if (%varplayerbit_7078 = 1) {
-    if_setgraphic("music_header_icons,3", music_v3:playlist_on);
-} else {
-    if_setgraphic("music_header_icons,2", music_v3:playlist_on);
-}
-%varclient_2 = 0;

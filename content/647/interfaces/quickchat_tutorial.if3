@@ -263,7 +263,7 @@ onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,1")
 onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,0")
 
 // 157:23
-[com_23]
+[main]
 type=layer
 width=512
 height=334
@@ -271,7 +271,7 @@ onload=quickchat_tutorial_init
 onvartransmit=quickchat_tutorial_loadcontent{varplayer_1231}
 
 // 157:24
-[com_24]
+[scrollbar]
 type=layer
 x=477
 y=54
@@ -285,7 +285,7 @@ x=19
 y=54
 width=474
 height=235
-layer=com_23
+layer=main
 
 // 157:26
 [com_26]

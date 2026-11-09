@@ -1,6 +1,6 @@
 // 1029
 [proc,script1029](enum $enum0, int $int1)
-cc_deleteall(quickchat_tutorial:com_23);
+cc_deleteall(quickchat_tutorial:main);
 cc_deleteall(quickchat_tutorial:text);
 if_settext("Quick-chat - Shortcut Reference", quickchat_tutorial:title);
 if_sethide(false, quickchat_tutorial:buttoncontrol);
@@ -37,5 +37,5 @@ while ($int2 < $int1) {
 }
 if ($int3 > if_getheight(quickchat_tutorial:text)) {
     if_setscrollsize(0, $int3, quickchat_tutorial:text);
-    ~scrollbar_vertical(quickchat_tutorial:com_24, quickchat_tutorial:text, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    ~scrollbar_vertical(quickchat_tutorial:scrollbar, quickchat_tutorial:text, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 }

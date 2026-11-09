@@ -236,7 +236,7 @@ alpha=yes
 colour=0xffffffff
 
 // 939:21
-[com_21]
+[background_fill_alpha_1]
 type=graphic
 x=4
 y=148
@@ -495,7 +495,7 @@ transmitop=10
 op10=  
 
 // 939:41
-[com_41]
+[rejoin_party]
 type=text
 widthmode=minus
 heightmode=minus
@@ -769,10 +769,10 @@ transmitop=1,2,3
 op1=Inspect
 op2=Kick
 op3=Promote
-onvarcstrtransmit=script3327{varclient_1811}
+onvarcstrtransmit=rand_party_update_mem1_name{varclient_1811}
 
 // 939:60
-[com_60]
+[mem1_xp_button]
 type=layer
 x=156
 y=24
@@ -784,18 +784,18 @@ transmitop=1,10
 op1=Toggle-shared-xp
 op10= 
 onmouseleave=deltooltip(rand_party_side:com_114)
-onmouserepeat=script3344
-onvarctransmit=script3339(rand_party_side:com_61){varclient_1175}
+onmouserepeat=rand_mem1_xp_tooltip
+onvarctransmit=rand_update_mem1_xp_off(rand_party_side:mem1_xp_graphic){varclient_1175}
 
 // 939:61
-[com_61]
+[mem1_xp_graphic]
 type=graphic
 width=25
 height=14
-layer=com_60
+layer=mem1_xp_button
 graphic="rand_xp_but,3"
 colour=0xffffffff
-onload=script3339(event_com)
+onload=rand_update_mem1_xp_off(event_com)
 
 // 939:62
 [mem2_name]
@@ -816,10 +816,10 @@ op1=Inspect
 op2=Kick
 op3=Promote
 op10= 
-onvarcstrtransmit=script3328{varclient_1812}
+onvarcstrtransmit=rand_party_update_mem2_name{varclient_1812}
 
 // 939:63
-[com_63]
+[mem2_xp_button]
 type=layer
 x=156
 y=39
@@ -831,20 +831,20 @@ transmitop=1,10
 op1=Toggle-shared-xp
 op10=  
 onmouseleave=deltooltip(rand_party_side:com_114)
-onmouserepeat=script3346
-onvarctransmit=script3340(rand_party_side:com_64){varclient_1176}
+onmouserepeat=rand_mem2_xp_tooltip
+onvarctransmit=rand_update_mem2_xp_off(rand_party_side:mem2_xp_graphic){varclient_1176}
 
 // 939:64
-[com_64]
+[mem2_xp_graphic]
 type=graphic
 width=25
 height=14
-layer=com_63
+layer=mem2_xp_button
 graphic="rand_xp_but,3"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script3340(event_com)
+onload=rand_update_mem2_xp_off(event_com)
 
 // 939:65
 [mem3_name]
@@ -865,10 +865,10 @@ op1=Inspect
 op2=Kick
 op3=Promote
 op10= 
-onvarcstrtransmit=script3329{varclient_1813}
+onvarcstrtransmit=rand_party_update_mem3_name{varclient_1813}
 
 // 939:66
-[com_66]
+[mem3_xp_button]
 type=layer
 x=156
 y=53
@@ -880,20 +880,20 @@ transmitop=1,10
 op1=Toggle-shared-xp
 op10=  
 onmouseleave=deltooltip(rand_party_side:com_114)
-onmouserepeat=script3348
-onvarctransmit=script3341(rand_party_side:com_67){varclient_1177}
+onmouserepeat=rand_mem3_xp_tooltip
+onvarctransmit=rand_update_mem3_xp_off(rand_party_side:mem3_xp_graphic){varclient_1177}
 
 // 939:67
-[com_67]
+[mem3_xp_graphic]
 type=graphic
 width=25
 height=14
-layer=com_66
+layer=mem3_xp_button
 graphic="rand_xp_but,3"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script3341(event_com)
+onload=rand_update_mem3_xp_off(event_com)
 
 // 939:68
 [mem4_name]
@@ -914,10 +914,10 @@ op1=Inspect
 op2=Kick
 op3=Promote
 op10= 
-onvarcstrtransmit=script3330{varclient_1814}
+onvarcstrtransmit=rand_party_update_mem4_name{varclient_1814}
 
 // 939:69
-[com_69]
+[mem4_xp_button]
 type=layer
 x=156
 y=67
@@ -929,20 +929,20 @@ transmitop=1,10
 op1=Toggle-shared-xp
 op10=  
 onmouseleave=deltooltip(rand_party_side:com_114)
-onmouserepeat=script3350
-onvarctransmit=script3342(rand_party_side:com_70){varclient_1178}
+onmouserepeat=rand_mem4_xp_tooltip
+onvarctransmit=rand_update_mem4_xp_off(rand_party_side:mem4_xp_graphic){varclient_1178}
 
 // 939:70
-[com_70]
+[mem4_xp_graphic]
 type=graphic
 width=24
 height=14
-layer=com_69
+layer=mem4_xp_button
 graphic="rand_xp_but,3"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script3342(event_com)
+onload=rand_update_mem4_xp_off(event_com)
 
 // 939:71
 [mem5_name]
@@ -963,10 +963,10 @@ op1=Inspect
 op2=Kick
 op3=Promote
 op10= 
-onvarcstrtransmit=script3331{varclient_1815}
+onvarcstrtransmit=rand_party_update_mem5_name{varclient_1815}
 
 // 939:72
-[com_72]
+[mem5_xp_button]
 type=layer
 x=156
 y=83
@@ -978,20 +978,20 @@ transmitop=1,10
 op1=Toggle-shared-xp
 op10=  
 onmouseleave=deltooltip(rand_party_side:com_114)
-onmouserepeat=script3352
-onvarctransmit=script3343(rand_party_side:com_73){varclient_1179}
+onmouserepeat=rand_mem5_xp_tooltip
+onvarctransmit=rand_update_mem5_xp_off(rand_party_side:mem5_xp_graphic){varclient_1179}
 
 // 939:73
-[com_73]
+[mem5_xp_graphic]
 type=graphic
 width=25
 height=14
-layer=com_72
+layer=mem5_xp_button
 graphic="rand_xp_but,3"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script3343(event_com)
+onload=rand_update_mem5_xp_off(event_com)
 
 // 939:74
 [party_leader_icon]
@@ -1237,7 +1237,7 @@ textshadow=yes
 colour=0xc69b01
 
 // 939:93
-[com_93]
+[exploration_mode_check]
 type=graphic
 x=72
 y=1
@@ -1338,7 +1338,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10= 
-onvarctransmit=script3333{varclient_1183}
+onvarctransmit=rand_party_update_complexity{varclient_1183}
 
 // 939:101
 [complexity_title]

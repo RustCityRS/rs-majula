@@ -1,37 +1,37 @@
 // 2973
 [proc,script2973]
 if (stat(construction) < 56) {
-    if_setcolour(0x868360, crosstiled:boneyard_layer);
+    if_setcolour(0x868360, ecosystem_environmental_feature:boneyard_layer);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:boneyard_layer);
+    if_setcolour(0xeae7c4, ecosystem_environmental_feature:boneyard_layer);
 }
 if (stat(construction) < 57) {
-    if_setcolour(0x868360, crosstiled:house_text);
+    if_setcolour(0x868360, ecosystem_environmental_feature:house_text);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:house_text);
+    if_setcolour(0xeae7c4, ecosystem_environmental_feature:house_text);
 }
 if (stat(construction) < 59) {
-    if_setcolour(0x868360, crosstiled:vent_text);
+    if_setcolour(0x868360, ecosystem_environmental_feature:vent_text);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:vent_text);
+    if_setcolour(0xeae7c4, ecosystem_environmental_feature:vent_text);
 }
 if (stat(construction) < 62) {
-    if_setcolour(0x868360, crosstiled:grass_text);
+    if_setcolour(0x868360, ecosystem_environmental_feature:grass_text);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:grass_text);
+    if_setcolour(0xeae7c4, ecosystem_environmental_feature:grass_text);
 }
 if (stat(construction) < 65) {
-    if_setcolour(0x868360, crosstiled:pond_text);
+    if_setcolour(0x868360, ecosystem_environmental_feature:pond_text);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:pond_text);
+    if_setcolour(0xeae7c4, ecosystem_environmental_feature:pond_text);
 }
 if (stat(construction) < 70) {
-    if_setcolour(0x868360, crosstiled:stones_text);
+    if_setcolour(0x868360, ecosystem_environmental_feature:stones_text);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:stones_text);
+    if_setcolour(0xeae7c4, ecosystem_environmental_feature:stones_text);
 }
 if (stat(construction) < 80) {
-    if_setcolour(0x868360, crosstiled:pit_layer);
+    if_setcolour(0x868360, ecosystem_environmental_feature:pit_layer);
 } else {
-    if_setcolour(0xeae7c4, crosstiled:pit_layer);
+    if_setcolour(0xeae7c4, ecosystem_environmental_feature:pit_layer);
 }

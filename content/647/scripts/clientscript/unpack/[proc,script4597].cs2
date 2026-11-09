@@ -6,7 +6,7 @@ def_int $int0 = 0;
 if (%varplayerbit_9226 >= 2) {
     if_sethide(true, deathkeep_info:com_28);
     if_setsize(16, 0, ^setsize_minus, ^setsize_minus, deathkeep_info:explanation);
-    if_setsize(16, 0, ^setsize_abs, ^setsize_minus, deathkeep_info:com_27);
+    if_setsize(16, 0, ^setsize_abs, ^setsize_minus, deathkeep_info:explanation_scrollbar);
 } else {
     $int0 = max(paraheight($string0, if_getwidth(deathkeep_info:com_30), p12_full), paraheight($string1, if_getwidth(deathkeep_info:com_30), p12_full));
     $int0 = calc($int0 * 12 + 10);
@@ -14,7 +14,7 @@ if (%varplayerbit_9226 >= 2) {
     if_sethide(false, deathkeep_info:com_28);
     $int0 = calc($int0 + 5);
     if_setsize(16, $int0, ^setsize_minus, ^setsize_minus, deathkeep_info:explanation);
-    if_setsize(16, $int0, ^setsize_abs, ^setsize_minus, deathkeep_info:com_27);
+    if_setsize(16, $int0, ^setsize_abs, ^setsize_minus, deathkeep_info:explanation_scrollbar);
     ~v2_stone_button_filled(deathkeep_info:com_29);
     if_setonmouseover("v2_stone_button_in_filled(deathkeep_info:com_29)", deathkeep_info:com_28);
     if_setonmouseleave("v2_stone_button_filled(deathkeep_info:com_29)", deathkeep_info:com_28);
@@ -36,12 +36,12 @@ cc_settextshadow(true);
 cc_settext(%varclient_1871);
 if ($int0 > if_getheight(deathkeep_info:explanation)) {
     if_setscrollsize(0, $int0, deathkeep_info:explanation);
-    ~scrollbar_vertical(deathkeep_info:com_27, deathkeep_info:explanation, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-    if_sethide(false, deathkeep_info:com_27);
+    ~scrollbar_vertical(deathkeep_info:explanation_scrollbar, deathkeep_info:explanation, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_sethide(false, deathkeep_info:explanation_scrollbar);
     if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, deathkeep_info:explanation);
 } else {
     if_setscrollsize(0, 0, deathkeep_info:explanation);
-    if_sethide(true, deathkeep_info:com_27);
+    if_sethide(true, deathkeep_info:explanation_scrollbar);
     if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:explanation);
     if_setscrollpos(0, 0, deathkeep_info:explanation);
 }

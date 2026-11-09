@@ -1,0 +1,4 @@
+// 4299
+[proc,clansettings_clanmate_tab_button_onop]
+if_sethide(false, clansettings:clanmate_tab_layer);
+if_sethide(true, clansettings:clan_tab_layer);

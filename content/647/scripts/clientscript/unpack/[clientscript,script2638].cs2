@@ -1,9 +1,0 @@
-// 2638
-[clientscript,script2638]
-if (%varclient_903 = 0) {
-    if_setgraphic(graphic_2023, mob_side_command:weight_graphic);
-    if_settext("Light", mob_side_command:weight_txt);
-} else if (%varclient_903 = 1) {
-    if_setgraphic(graphic_2022, mob_side_command:weight_graphic);
-    if_settext("Heavy", mob_side_command:weight_txt);
-}

@@ -1,0 +1,29 @@
+// 4272
+[proc,lunarfm_rewards_wishes_display]
+if_sethide(true, lunarfm_rewards_new:spells_list);
+if_sethide(false, lunarfm_rewards_new:wishes_list);
+if_sethide(true, lunarfm_rewards_new:spells_button_selected_layer);
+if_sethide(false, lunarfm_rewards_new:wishes_button_selected_layer);
+if_settext("Wishes", lunarfm_rewards_new:name);
+if_settext("Select a reward for more information.", lunarfm_rewards_new:description);
+if_settext("", lunarfm_rewards_new:extra_info);
+if_sethide(true, lunarfm_rewards_new:spell_icon_layer);
+if_sethide(true, lunarfm_rewards_new:spells_button_falador);
+if_sethide(true, lunarfm_rewards_new:spells_button_rune);
+if_sethide(true, lunarfm_rewards_new:spells_button_ardougne);
+if_sethide(true, lunarfm_rewards_new:spells_button_remote);
+if_sethide(true, lunarfm_rewards_new:spells_button_spiritualise);
+if_sethide(true, lunarfm_rewards_new:spells_button_leather);
+if_sethide(true, lunarfm_rewards_new:spells_button_shield);
+if_sethide(true, lunarfm_rewards_new:spells_button_vengeance);
+if_sethide(true, lunarfm_rewards_new:wishes_button_seeds);
+if_sethide(true, lunarfm_rewards_new:wishes_button_herbs);
+if_sethide(true, lunarfm_rewards_new:wishes_button_vials);
+if_sethide(true, lunarfm_rewards_new:wishes_button_runes);
+if_sethide(true, lunarfm_rewards_new:wishes_button_fish);
+if_sethide(true, lunarfm_rewards_new:wishes_button_planks);
+if_sethide(true, lunarfm_rewards_new:task_list);
+if_sethide(true, lunarfm_rewards_new:gold_frame_tasks);
+if_sethide(false, lunarfm_rewards_new:gold_frame_list);
+if_sethide(false, lunarfm_rewards_new:gold_frame_desc);
+if_sethide(false, lunarfm_rewards_new:breakdown_layer);

@@ -32,7 +32,7 @@ while ($int19 <= $int1) {
     cc_settextshadow(false);
     cc_settextfont($graphic10);
     cc_setop(1, "Select");
-    cc_setonop("script943($int0, event_comsubid, event_op, $rgb7)");
+    cc_setonop("ql4_sort_op_general($int0, event_comsubid, event_op, $rgb7)");
     if ($int19 >= $int1) {
         cc_setcolour($rgb8);
         cc_setonmouseleave("dropdownbox_mouseoutelement($component4, $int20, $rgb8)");

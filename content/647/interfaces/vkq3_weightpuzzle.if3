@@ -41,7 +41,7 @@ textshadow=yes
 colour=0xffff00
 
 // 1054:3
-[com_3]
+[try_label]
 type=text
 x=173
 y=272
@@ -56,7 +56,7 @@ textshadow=yes
 colour=0xffff00
 
 // 1054:4
-[com_4]
+[background]
 type=layer
 width=512
 height=334
@@ -66,7 +66,7 @@ height=334
 type=graphic
 width=32
 height=32
-layer=com_4
+layer=background
 graphic="v2_stone_borders,35"
 tiling=yes
 colour=0xffffffff
@@ -77,7 +77,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_4
+layer=background
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 
@@ -88,7 +88,7 @@ x=32
 width=64
 height=32
 widthmode=minus
-layer=com_4
+layer=background
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -99,7 +99,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_4
+layer=background
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 
@@ -110,7 +110,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_4
+layer=background
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 
@@ -123,7 +123,7 @@ width=64
 height=32
 widthmode=minus
 ymode=abs_bottom
-layer=com_4
+layer=background
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -136,7 +136,7 @@ y=32
 width=32
 height=64
 heightmode=minus
-layer=com_4
+layer=background
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -150,7 +150,7 @@ width=32
 height=64
 heightmode=minus
 xmode=abs_right
-layer=com_4
+layer=background
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -164,12 +164,12 @@ width=14
 height=29
 widthmode=minus
 heightmode=minus
-layer=com_4
+layer=background
 colour=0x333300
 fill=yes
 
 // 1054:14
-[com_14]
+[border_fill_alpha]
 type=graphic
 x=7
 y=21
@@ -177,7 +177,7 @@ width=14
 height=27
 widthmode=minus
 heightmode=minus
-layer=com_4
+layer=background
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 colour=0xffffffff
@@ -189,7 +189,7 @@ x=483
 y=1
 width=21
 height=19
-layer=com_4
+layer=background
 graphic="close_buttons,0"
 colour=0xffffffff
 transmitop=1
@@ -203,7 +203,7 @@ type=text
 height=24
 widthmode=minus
 xmode=abs_centre
-layer=com_4
+layer=background
 textfont=b12_full
 text=Weight Distribution
 textalignh=centre
@@ -219,7 +219,7 @@ y=21
 width=32
 height=28
 heightmode=minus
-layer=com_4
+layer=background
 graphic="v2_stone_borders,24"
 colour=0xffffffff
 
@@ -234,7 +234,7 @@ widthmode=minus
 heightmode=minus
 
 // 1054:19
-[smith_free_space]
+[weight2_label]
 type=text
 x=350
 y=7
@@ -391,7 +391,7 @@ modelangle=512,512,0
 modelzoom=1200
 
 // 1054:30
-[textinputkiln]
+[block1a]
 type=model
 x=20
 y=32

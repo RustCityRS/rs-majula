@@ -1,54 +1,54 @@
 // 4273
 [clientscript,lunarfm_rewards_xp_display]
-if_sethide(true, lunarfm_rewards_new:com_152);
-if_sethide(true, lunarfm_rewards_new:com_153);
-if_sethide(false, lunarfm_rewards_new:com_154);
-if_sethide(true, lunarfm_rewards_new:com_149);
-if_sethide(true, lunarfm_rewards_new:com_150);
-if_sethide(false, lunarfm_rewards_new:com_151);
-if_sethide(true, lunarfm_rewards_new:com_238);
-if_sethide(true, lunarfm_rewards_new:com_248);
-if_sethide(false, lunarfm_rewards_new:com_389);
+if_sethide(true, lunarfm_rewards_new:spells_list);
+if_sethide(true, lunarfm_rewards_new:wishes_list);
+if_sethide(false, lunarfm_rewards_new:task_list);
+if_sethide(true, lunarfm_rewards_new:gold_frame_list);
+if_sethide(true, lunarfm_rewards_new:gold_frame_desc);
+if_sethide(false, lunarfm_rewards_new:gold_frame_tasks);
+if_sethide(true, lunarfm_rewards_new:spells_button_selected_layer);
+if_sethide(true, lunarfm_rewards_new:wishes_button_selected_layer);
+if_sethide(false, lunarfm_rewards_new:xp_button_selected_layer);
 if_sethide(true, lunarfm_rewards_new:breakdown_layer);
-if_settext(tostring(calc(2 * 10)), lunarfm_rewards_new:com_410);
+if_settext(tostring(calc(2 * 10)), lunarfm_rewards_new:points_1);
 if (stat_base(magic) < 83) {
-    if_settext("<tostring(calc(2 / 2 * 10))> (halved)", lunarfm_rewards_new:com_411);
+    if_settext("<tostring(calc(2 / 2 * 10))> (halved)", lunarfm_rewards_new:points_2);
 } else {
-    if_settext(tostring(calc(2 * 10)), lunarfm_rewards_new:com_411);
+    if_settext(tostring(calc(2 * 10)), lunarfm_rewards_new:points_2);
 }
 if (stat_base(magic) < 80) {
-    if_settext("<tostring(calc(12 / 2 * 10))> (halved)", lunarfm_rewards_new:com_412);
+    if_settext("<tostring(calc(12 / 2 * 10))> (halved)", lunarfm_rewards_new:points_3);
 } else {
-    if_settext(tostring(calc(12 * 10)), lunarfm_rewards_new:com_412);
+    if_settext(tostring(calc(12 * 10)), lunarfm_rewards_new:points_3);
 }
 if (stat_base(magic) < 86) {
-    if_settext("<tostring(calc(2 / 2 * 10))> (halved)", lunarfm_rewards_new:com_413);
+    if_settext("<tostring(calc(2 / 2 * 10))> (halved)", lunarfm_rewards_new:points_4);
 } else {
-    if_settext(tostring(calc(2 * 10)), lunarfm_rewards_new:com_413);
+    if_settext(tostring(calc(2 * 10)), lunarfm_rewards_new:points_4);
 }
 if (stat_base(magic) < 91) {
-    if_settext("<tostring(calc(10 / 2 * 10))> (halved)", lunarfm_rewards_new:com_414);
+    if_settext("<tostring(calc(10 / 2 * 10))> (halved)", lunarfm_rewards_new:points_5);
 } else {
-    if_settext(tostring(calc(10 * 10)), lunarfm_rewards_new:com_414);
+    if_settext(tostring(calc(10 * 10)), lunarfm_rewards_new:points_5);
 }
-if_settext("Magic and Farming", lunarfm_rewards_new:com_415);
+if_settext("Magic and Farming", lunarfm_rewards_new:xp_1);
 if (stat_base(magic) < 83) {
-    if_settext("Farming (no Magic)", lunarfm_rewards_new:com_416);
+    if_settext("Farming (no Magic)", lunarfm_rewards_new:xp_2);
 } else {
-    if_settext("Magic and Farming", lunarfm_rewards_new:com_416);
+    if_settext("Magic and Farming", lunarfm_rewards_new:xp_2);
 }
 if (stat_base(magic) < 80) {
-    if_settext("Crafting (no Magic)", lunarfm_rewards_new:com_417);
+    if_settext("Crafting (no Magic)", lunarfm_rewards_new:xp_3);
 } else {
-    if_settext("Magic and Crafting", lunarfm_rewards_new:com_417);
+    if_settext("Magic and Crafting", lunarfm_rewards_new:xp_3);
 }
 if (stat_base(magic) < 86) {
-    if_settext("Construction (no Magic)", lunarfm_rewards_new:com_418);
+    if_settext("Construction (no Magic)", lunarfm_rewards_new:xp_4);
 } else {
-    if_settext("Magic and Construction", lunarfm_rewards_new:com_418);
+    if_settext("Magic and Construction", lunarfm_rewards_new:xp_4);
 }
 if (stat_base(magic) < 91) {
-    if_settext("Agility (no Magic)", lunarfm_rewards_new:com_419);
+    if_settext("Agility (no Magic)", lunarfm_rewards_new:xp_5);
 } else {
-    if_settext("Magic and Agility", lunarfm_rewards_new:com_419);
+    if_settext("Magic and Agility", lunarfm_rewards_new:xp_5);
 }

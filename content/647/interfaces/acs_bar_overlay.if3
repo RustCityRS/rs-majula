@@ -1,0 +1,1069 @@
+// 481:0
+[tooltip]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=tooltip_bounds
+
+// 481:1
+[tooltip_bounds]
+type=layer
+y=150
+width=353
+height=150
+
+// 481:2
+[bounds]
+type=layer
+y=19
+width=353
+height=132
+
+// 481:3
+[gold_frame_layer]
+type=layer
+y=2
+width=351
+height=130
+xmode=abs_centre
+ymode=abs_bottom
+layer=bounds
+
+// 481:4
+[com_4]
+type=text
+x=7
+y=12
+width=14
+height=16
+widthmode=minus
+layer=bounds
+textfont=p11_full
+text=Zombie Stress Level
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 481:5
+[progress_bar_wrapper]
+type=layer
+x=7
+y=30
+width=14
+height=29
+widthmode=minus
+layer=bounds
+onvartransmit=acs_update_progress_bar{varplayer_2081}
+onvarctransmit=acs_update_progress_bar{varclient_1494}
+
+// 481:6
+[wetwilly_layer]
+type=layer
+x=7
+y=61
+width=66
+height=66
+layer=bounds
+onmouseleave=deltooltip(acs_bar_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, acs_bar_overlay:tooltip, "Wet willy: Lick your finger and poke it in the zombie's ear. Greatly increases zombie's stress level. Long cooldown.", 10, 250)
+
+// 481:7
+[nosepinch_layer]
+type=layer
+x=75
+y=61
+width=66
+height=66
+layer=bounds
+onmouseleave=deltooltip(acs_bar_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, acs_bar_overlay:tooltip, "Nose pinch: Pinch the zombie's nose hard. Slightly increases zombie's stress level and makes his nose sore, doubling the effect of a pig nose attack if used a short time after.", 10, 250)
+
+// 481:8
+[pignose_layer]
+type=layer
+x=143
+y=61
+width=66
+height=66
+layer=bounds
+onmouseleave=deltooltip(acs_bar_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, acs_bar_overlay:tooltip, "Pig nose: Stick your fingers in the zombie's nose and pull up. Moderately increases stress level. Effect doubled if used immediately after a nose pinch.", 10, 250)
+
+// 481:9
+[shake_layer]
+type=layer
+x=211
+y=61
+width=66
+height=66
+layer=bounds
+onmouseleave=deltooltip(acs_bar_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, acs_bar_overlay:tooltip, "Shake: Shake the zombie. Slightly increases the zombie's stress level and prevents it from reducing for a short time.", 10, 250)
+
+// 481:10
+[intimidate_layer]
+type=layer
+x=280
+y=61
+width=66
+height=66
+layer=bounds
+onmouseleave=deltooltip(acs_bar_overlay:tooltip)
+onmouserepeat=addtooltip(event_com, acs_bar_overlay:tooltip, "Insult: Insult the zombie. Slightly increases the zombie's stress level. Short cooldown.", 10, 250)
+
+// 481:11
+[com_11]
+type=graphic
+width=12
+height=30
+ymode=abs_centre
+layer=progress_bar_wrapper
+graphic="aif_progress_bar_frame_2,0"
+
+// 481:12
+[com_12]
+type=graphic
+width=12
+height=30
+xmode=abs_right
+ymode=abs_centre
+layer=progress_bar_wrapper
+graphic="aif_progress_bar_frame_2,0"
+hflip=yes
+
+// 481:13
+[com_13]
+type=graphic
+width=12
+height=30
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=progress_bar_wrapper
+graphic="aif_progress_bar_frame_2,1"
+tiling=yes
+hflip=yes
+
+// 481:14
+[progress_bar_bounds]
+type=layer
+x=6
+width=12
+height=19
+widthmode=minus
+ymode=abs_centre
+layer=progress_bar_wrapper
+
+// 481:15
+[progress_bar]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=progress_bar_bounds
+onvartransmit=script4241{varplayer_2077}
+
+// 481:16
+[com_16]
+type=graphic
+width=6
+height=19
+ymode=abs_centre
+layer=progress_bar
+graphic="aif_progress_bar_red_fill_2,0"
+
+// 481:17
+[com_17]
+type=graphic
+width=6
+height=19
+xmode=abs_right
+ymode=abs_centre
+layer=progress_bar
+graphic="aif_progress_bar_red_fill_2,2"
+
+// 481:18
+[com_18]
+type=graphic
+width=6
+height=19
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=progress_bar
+graphic="aif_progress_bar_red_fill_2,1"
+tiling=yes
+
+// 481:19
+[wetwilly_resize_on_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=wetwilly_layer
+onload=script4205(event_com, struct_1746)
+
+// 481:20
+[wetwilly_resize_over_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=wetwilly_layer
+onload=script4205(event_com, struct_1747)
+
+// 481:21
+[wetwilly_resize_hit_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=wetwilly_layer
+onload=script4205(event_com, struct_1748)
+
+// 481:22
+[wetwilly_resize_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=wetwilly_layer
+onload=script4205(event_com, struct_1749)
+
+// 481:23
+[wetwilly_resize_disabled_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=wetwilly_layer
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 481:24
+[com_24]
+type=graphic
+x=8
+y=8
+width=50
+height=50
+layer=wetwilly_layer
+graphic="qlockwork_icons,1"
+
+// 481:25
+[com_25]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=wetwilly_resize_disabled_layer
+colour=0x000000
+fill=yes
+trans=150
+
+// 481:26
+[wetilly_cooldown_script_layer]
+type=layer
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=wetwilly_layer
+
+// 481:27
+[cooldown_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=wetilly_cooldown_script_layer
+
+// 481:28
+[cooldown_layer_l]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=cooldown_layer
+
+// 481:29
+[wetwilly_cooldown_l]
+type=graphic
+x=-25
+y=-25
+width=104
+height=104
+layer=cooldown_layer_l
+graphic=aif_timer_mask
+2dangle=32768
+trans=64
+colour=0x0f0f0f
+
+// 481:30
+[cooldown_layer_r]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=cooldown_layer
+
+// 481:31
+[wetwilly_cooldown_r]
+type=graphic
+x=-53
+y=-25
+width=104
+height=104
+layer=cooldown_layer_r
+graphic=aif_timer_mask
+2dangle=32768
+trans=64
+hflip=yes
+colour=0x0f0f0f
+
+// 481:32
+[wetwilly]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=wetwilly_layer
+transmitop=1
+op1=Attack!
+onop=script4233(event_com, acs_bar_overlay:wetwilly_cooldown_l, acs_bar_overlay:wetwilly_cooldown_r, 600)
+
+// 481:33
+[nosepinch_resize_on_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=nosepinch_layer
+onload=script4205(event_com, struct_1746)
+
+// 481:34
+[nosepinch_resize_over_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=nosepinch_layer
+onload=script4205(event_com, struct_1747)
+
+// 481:35
+[nosepinch_resize_hit_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=nosepinch_layer
+onload=script4205(event_com, struct_1748)
+
+// 481:36
+[nosepinch_resize_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=nosepinch_layer
+onload=script4205(event_com, struct_1749)
+
+// 481:37
+[nosepinch_resize_disabled_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=nosepinch_layer
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 481:38
+[com_38]
+type=graphic
+x=8
+y=8
+width=50
+height=50
+layer=nosepinch_layer
+graphic="qlockwork_icons,0"
+
+// 481:39
+[com_39]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=nosepinch_resize_disabled_layer
+colour=0x000000
+fill=yes
+trans=150
+
+// 481:40
+[nosepinch_cooldown_script_layer]
+type=layer
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=nosepinch_layer
+
+// 481:41
+[cooldown_layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=nosepinch_cooldown_script_layer
+
+// 481:42
+[cooldown_layer_l_1]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=cooldown_layer_1
+
+// 481:43
+[nosepinch_cooldown_l]
+type=graphic
+x=-25
+y=-25
+width=104
+height=104
+layer=cooldown_layer_l_1
+graphic=aif_timer_mask
+2dangle=32768
+trans=64
+colour=0x0f0f0f
+
+// 481:44
+[cooldown_layer_r_1]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=cooldown_layer_1
+
+// 481:45
+[nosepinch_cooldown_r]
+type=graphic
+x=-53
+y=-25
+width=104
+height=104
+layer=cooldown_layer_r_1
+graphic=aif_timer_mask
+2dangle=32768
+trans=64
+hflip=yes
+colour=0x0f0f0f
+
+// 481:46
+[nosepinch]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=nosepinch_layer
+transmitop=1
+op1=Attack!
+onop=script4233(event_com, acs_bar_overlay:nosepinch_cooldown_l, acs_bar_overlay:nosepinch_cooldown_r, 1350)
+
+// 481:47
+[pignose_resize_on_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=pignose_layer
+onload=script4205(event_com, struct_1746)
+
+// 481:48
+[pignose_resize_over_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=pignose_layer
+onload=script4205(event_com, struct_1747)
+
+// 481:49
+[pignose_resize_hit_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=pignose_layer
+onload=script4205(event_com, struct_1748)
+
+// 481:50
+[pignose_resize_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=pignose_layer
+onload=script4205(event_com, struct_1749)
+
+// 481:51
+[pignose_resize_disabled_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=pignose_layer
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 481:52
+[com_52]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=pignose_resize_disabled_layer
+colour=0x000000
+fill=yes
+trans=150
+
+// 481:53
+[com_53]
+type=graphic
+x=8
+y=8
+width=50
+height=50
+layer=pignose_layer
+graphic="qlockwork_icons,2"
+
+// 481:54
+[pignose_cooldown_script_layer]
+type=layer
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=pignose_layer
+
+// 481:55
+[cooldown_layer_2]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=pignose_cooldown_script_layer
+
+// 481:56
+[cooldown_layer_l_2]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=cooldown_layer_2
+
+// 481:57
+[pignose_cooldown_l]
+type=graphic
+x=-25
+y=-25
+width=104
+height=104
+layer=cooldown_layer_l_2
+graphic=aif_timer_mask
+2dangle=32768
+trans=64
+colour=0x0f0f0f
+
+// 481:58
+[cooldown_layer_r_2]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=cooldown_layer_2
+
+// 481:59
+[pignose_cooldown_r]
+type=graphic
+x=-53
+y=-25
+width=104
+height=104
+layer=cooldown_layer_r_2
+graphic=aif_timer_mask
+2dangle=32768
+trans=64
+hflip=yes
+colour=0x0f0f0f
+
+// 481:60
+[pignose]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=pignose_layer
+transmitop=1
+op1=Attack!
+onop=script4233(event_com, acs_bar_overlay:pignose_cooldown_l, acs_bar_overlay:pignose_cooldown_r, 450)
+
+// 481:61
+[shake_resize_on_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=shake_layer
+onload=script4205(event_com, struct_1746)
+
+// 481:62
+[shake_resize_over_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=shake_layer
+onload=script4205(event_com, struct_1747)
+
+// 481:63
+[shake_resize_hit_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=shake_layer
+onload=script4205(event_com, struct_1748)
+
+// 481:64
+[shake_resize_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=shake_layer
+onload=script4205(event_com, struct_1749)
+
+// 481:65
+[shake_resize_disabled_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=shake_layer
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 481:66
+[com_66]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=shake_resize_disabled_layer
+colour=0x000000
+fill=yes
+trans=150
+
+// 481:67
+[com_67]
+type=graphic
+x=8
+y=8
+width=50
+height=50
+layer=shake_layer
+graphic="qlockwork_icons,4"
+
+// 481:68
+[shake_cooldown_script_layer]
+type=layer
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=shake_layer
+
+// 481:69
+[cooldown_layer_3]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=shake_cooldown_script_layer
+
+// 481:70
+[cooldown_layer_l_3]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=cooldown_layer_3
+
+// 481:71
+[shake_cooldown_l]
+type=graphic
+x=-25
+y=-25
+width=104
+height=104
+layer=cooldown_layer_l_3
+graphic=aif_timer_mask
+2dangle=32768
+trans=64
+colour=0x0f0f0f
+
+// 481:72
+[cooldown_layer_r_3]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=cooldown_layer_3
+
+// 481:73
+[shake_cooldown_r]
+type=graphic
+x=-53
+y=-25
+width=104
+height=104
+layer=cooldown_layer_r_3
+graphic=aif_timer_mask
+2dangle=32768
+trans=64
+hflip=yes
+colour=0x0f0f0f
+
+// 481:74
+[shake]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=shake_layer
+transmitop=1
+op1=Attack!
+onop=script4233(event_com, acs_bar_overlay:shake_cooldown_l, acs_bar_overlay:shake_cooldown_r, 600)
+
+// 481:75
+[intimidate_resize_on_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=intimidate_layer
+onload=script4205(event_com, struct_1746)
+
+// 481:76
+[intimidate_resize_over_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=intimidate_layer
+onload=script4205(event_com, struct_1747)
+
+// 481:77
+[intimidate_resize_hit_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=intimidate_layer
+onload=script4205(event_com, struct_1748)
+
+// 481:78
+[intimidate_resize_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=intimidate_layer
+onload=script4205(event_com, struct_1749)
+
+// 481:79
+[intimidate_resize_disabled_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=intimidate_layer
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 481:80
+[com_80]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=intimidate_resize_disabled_layer
+colour=0x000000
+fill=yes
+trans=150
+
+// 481:81
+[com_81]
+type=graphic
+x=8
+y=8
+width=50
+height=50
+layer=intimidate_layer
+graphic="qlockwork_icons,3"
+
+// 481:82
+[intimidate_cooldown_script_layer]
+type=layer
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=intimidate_layer
+
+// 481:83
+[cooldown_layer_4]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=intimidate_cooldown_script_layer
+
+// 481:84
+[cooldown_layer_l_4]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=cooldown_layer_4
+
+// 481:85
+[intimidate_cooldown_l]
+type=graphic
+x=-25
+y=-25
+width=104
+height=104
+layer=cooldown_layer_l_4
+graphic=aif_timer_mask
+2dangle=32768
+trans=64
+colour=0x0f0f0f
+
+// 481:86
+[cooldown_layer_r_4]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=cooldown_layer_4
+
+// 481:87
+[intimidate_cooldown_r]
+type=graphic
+x=-53
+y=-25
+width=104
+height=104
+layer=cooldown_layer_r_4
+graphic=aif_timer_mask
+2dangle=32768
+trans=64
+hflip=yes
+colour=0x0f0f0f
+
+// 481:88
+[intimidate]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=intimidate_layer
+transmitop=1
+op1=Attack!
+onop=script4233(event_com, acs_bar_overlay:intimidate_cooldown_l, acs_bar_overlay:intimidate_cooldown_r, 150)
+
+// 481:89
+[com_89]
+type=graphic
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=gold_frame_layer
+graphic=window_texture_2
+tiling=yes
+trans=43
+
+// 481:90
+[com_90]
+type=graphic
+width=10
+height=10
+layer=gold_frame_layer
+graphic="aif_overlay_frame_gold_corner_1,1"
+hflip=yes
+
+// 481:91
+[com_91]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=gold_frame_layer
+graphic="aif_overlay_frame_gold_corner_1,1"
+
+// 481:92
+[com_92]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=gold_frame_layer
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+hflip=yes
+
+// 481:93
+[com_93]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=gold_frame_layer
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+
+// 481:94
+[com_94]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=gold_frame_layer
+graphic="aif_overlay_frame_gold_corner_1,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 481:95
+[com_95]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=gold_frame_layer
+graphic="aif_overlay_frame_gold_corner_1,0"
+
+// 481:96
+[com_96]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=gold_frame_layer
+graphic="aif_overlay_frame_gold_corner_1,2"
+
+// 481:97
+[com_97]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=gold_frame_layer
+graphic="aif_overlay_frame_gold_corner_1,2"
+hflip=yes

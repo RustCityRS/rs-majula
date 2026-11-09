@@ -19,7 +19,7 @@ layer=universe
 hide=yes
 
 // 16:2
-[com_2]
+[background]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -40,7 +40,7 @@ ymode=abs_centre
 layer=com_1
 
 // 16:4
-[com_4]
+[protected_container]
 type=layer
 width=162
 height=52
@@ -55,7 +55,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_4
+layer=protected_container
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -67,7 +67,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_4
+layer=protected_container
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -79,27 +79,27 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_4
+layer=protected_container
 graphic=button_dropshadow_corner
 alpha=yes
 
 // 16:8
-[com_8]
+[protected_graphics]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_4
+layer=protected_container
 
 // 16:9
-[com_9]
+[protected_backgrounds]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_4
+layer=protected_container
 
 // 16:10
 [com_10]
@@ -108,7 +108,7 @@ x=15
 width=36
 height=36
 ymode=abs_centre
-layer=com_9
+layer=protected_backgrounds
 graphic=graphic_6014
 
 // 16:11
@@ -118,7 +118,7 @@ x=61
 width=36
 height=36
 ymode=abs_centre
-layer=com_9
+layer=protected_backgrounds
 graphic=graphic_6014
 
 // 16:12
@@ -128,50 +128,50 @@ x=107
 width=36
 height=36
 ymode=abs_centre
-layer=com_9
+layer=protected_backgrounds
 graphic=graphic_6014
 
 // 16:13
-[com_13]
+[protected]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_4
+layer=protected_container
 onmouseleave=deltooltip(deathkeep_tutorial:tooltip)
 onmouserepeat=aif_tooltip(deathkeep_tutorial:tooltip, event_com, -1, "You can usually choose 3 items to protect.<br>This section shows the items that have been chosen.", 400, p12_full, p12_full, null, 12, 3, 2, event_mousex, event_mousey)
 
 // 16:14
-[com_14]
+[protected_0]
 type=graphic
 x=17
 width=36
 height=32
 ymode=abs_centre
-layer=com_13
+layer=protected
 outline=1
 graphicshadow=3153952
 
 // 16:15
-[com_15]
+[protected_1]
 type=graphic
 x=63
 width=36
 height=32
 ymode=abs_centre
-layer=com_13
+layer=protected
 outline=1
 graphicshadow=3153952
 
 // 16:16
-[com_16]
+[protected_2]
 type=graphic
 x=109
 width=36
 height=32
 ymode=abs_centre
-layer=com_13
+layer=protected
 outline=1
 graphicshadow=3153952
 
@@ -185,7 +185,7 @@ xmode=abs_centre
 layer=contents
 
 // 16:18
-[com_18]
+[available_container]
 type=layer
 height=93
 widthmode=minus
@@ -201,21 +201,21 @@ width=10
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_18
+layer=available_container
 textfont=p11_full
 text=Select 3 items to keep. The rest will be dropped.
 textalignv=centre
 textshadow=yes
 
 // 16:20
-[com_20]
+[available_box]
 type=layer
 height=20
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_18
+layer=available_container
 onmouseleave=deltooltip(deathkeep_tutorial:tooltip)
 onmouserepeat=aif_tooltip(deathkeep_tutorial:tooltip, event_com, -1, "This section shows the items that will be dropped if you don't choose to protect them.", 400, p12_full, p12_full, null, 12, 3, 2, event_mousex, event_mousey)
 
@@ -226,12 +226,12 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_20
+layer=available_box
 graphic=window_texture_2
 tiling=yes
 
 // 16:22
-[com_22]
+[available_scroller]
 type=layer
 width=22
 height=6
@@ -239,22 +239,22 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_20
+layer=available_box
 
 // 16:23
-[com_23]
+[available_backgrounds]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_22
+layer=available_scroller
 
 // 16:24
 [com_24]
 type=graphic
 width=36
 height=36
-layer=com_23
+layer=available_backgrounds
 graphic=graphic_6014
 
 // 16:25
@@ -263,7 +263,7 @@ type=graphic
 x=43
 width=36
 height=36
-layer=com_23
+layer=available_backgrounds
 graphic=graphic_6014
 
 // 16:26
@@ -272,7 +272,7 @@ type=graphic
 x=86
 width=36
 height=36
-layer=com_23
+layer=available_backgrounds
 graphic=graphic_6014
 
 // 16:27
@@ -281,7 +281,7 @@ type=graphic
 x=129
 width=36
 height=36
-layer=com_23
+layer=available_backgrounds
 graphic=graphic_6014
 
 // 16:28
@@ -290,7 +290,7 @@ type=graphic
 x=172
 width=36
 height=36
-layer=com_23
+layer=available_backgrounds
 graphic=graphic_6014
 
 // 16:29
@@ -299,85 +299,85 @@ type=graphic
 x=215
 width=36
 height=36
-layer=com_23
+layer=available_backgrounds
 graphic=graphic_6014
 
 // 16:30
-[com_30]
+[available]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_22
+layer=available_scroller
 
 // 16:31
-[com_31]
+[available_0]
 type=graphic
 x=2
 y=2
 width=36
 height=32
-layer=com_30
+layer=available
 outline=1
 graphicshadow=3153952
 
 // 16:32
-[com_32]
+[available_1]
 type=graphic
 x=45
 y=2
 width=36
 height=32
-layer=com_30
+layer=available
 outline=1
 graphicshadow=3153952
 
 // 16:33
-[com_33]
+[available_2]
 type=graphic
 x=88
 y=2
 width=36
 height=32
-layer=com_30
+layer=available
 outline=1
 graphicshadow=3153952
 
 // 16:34
-[com_34]
+[available_3]
 type=graphic
 x=131
 y=2
 width=36
 height=32
-layer=com_30
+layer=available
 outline=1
 graphicshadow=3153952
 
 // 16:35
-[com_35]
+[available_4]
 type=graphic
 x=174
 y=2
 width=36
 height=32
-layer=com_30
+layer=available
 outline=1
 graphicshadow=3153952
 
 // 16:36
-[com_36]
+[available_5]
 type=graphic
 x=217
 y=2
 width=36
 height=32
-layer=com_30
+layer=available
 outline=1
 graphicshadow=3153952
 
 // 16:37
-[com_37]
+[automatic_container]
 type=layer
 height=90
 widthmode=minus
@@ -393,21 +393,21 @@ width=10
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_37
+layer=automatic_container
 textfont=p11_full
 text=These items will be kept automatically.
 textalignv=centre
 textshadow=yes
 
 // 16:39
-[com_39]
+[automatic_box]
 type=layer
 height=20
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_37
+layer=automatic_container
 onmouseleave=deltooltip(deathkeep_tutorial:tooltip)
 onmouserepeat=aif_tooltip(deathkeep_tutorial:tooltip, event_com, -1, "Basic items are protected automatically, unless you're in a special place such as the Wilderness.", 400, p12_full, p12_full, null, 12, 3, 0, event_mousex, event_mousey)
 
@@ -418,12 +418,12 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_39
+layer=automatic_box
 graphic=window_texture_2
 tiling=yes
 
 // 16:41
-[com_41]
+[automatic_scroller]
 type=layer
 width=22
 height=6
@@ -431,22 +431,22 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_39
+layer=automatic_box
 
 // 16:42
-[com_42]
+[automatic_backgrounds]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_41
+layer=automatic_scroller
 
 // 16:43
 [com_43]
 type=graphic
 width=36
 height=36
-layer=com_42
+layer=automatic_backgrounds
 graphic=graphic_6014
 
 // 16:44
@@ -455,7 +455,7 @@ type=graphic
 x=43
 width=36
 height=36
-layer=com_42
+layer=automatic_backgrounds
 graphic=graphic_6014
 
 // 16:45
@@ -464,7 +464,7 @@ type=graphic
 x=86
 width=36
 height=36
-layer=com_42
+layer=automatic_backgrounds
 graphic=graphic_6014
 
 // 16:46
@@ -473,58 +473,58 @@ type=graphic
 x=129
 width=36
 height=36
-layer=com_42
+layer=automatic_backgrounds
 graphic=graphic_6014
 
 // 16:47
-[com_47]
+[automatic]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_41
+layer=automatic_scroller
 
 // 16:48
-[com_48]
+[automatic_0]
 type=graphic
 x=2
 y=2
 width=36
 height=32
-layer=com_47
+layer=automatic
 outline=1
 graphicshadow=3153952
 
 // 16:49
-[com_49]
+[automatic_1]
 type=graphic
 x=45
 y=2
 width=36
 height=32
-layer=com_47
+layer=automatic
 outline=1
 graphicshadow=3153952
 
 // 16:50
-[com_50]
+[automatic_2]
 type=graphic
 x=88
 y=2
 width=36
 height=32
-layer=com_47
+layer=automatic
 outline=1
 graphicshadow=3153952
 
 // 16:51
-[com_51]
+[automatic_3]
 type=graphic
 x=131
 y=2
 width=36
 height=32
-layer=com_47
+layer=automatic
 outline=1
 graphicshadow=3153952
 
@@ -611,7 +611,7 @@ textalignv=centre
 colour=0x282521
 
 // 16:59
-[com_59]
+[dropdown_container]
 type=layer
 y=43
 width=150
@@ -626,7 +626,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_59
+layer=dropdown_container
 graphic=window_texture_2
 
 // 16:61
@@ -638,7 +638,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_59
+layer=dropdown_container
 
 // 16:62
 [com_62]
@@ -663,7 +663,7 @@ textalignv=centre
 textshadow=yes
 
 // 16:64
-[com_64]
+[confirm_container]
 type=layer
 width=150
 height=26
@@ -679,7 +679,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_64
+layer=confirm_container
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -691,7 +691,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_64
+layer=confirm_container
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -703,7 +703,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_64
+layer=confirm_container
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -714,25 +714,25 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_64
+layer=confirm_container
 
 // 16:69
-[com_69]
+[confirm_graphics_mouseover]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_64
+layer=confirm_container
 
 // 16:70
-[com_70]
+[confirm_text_container]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_64
+layer=confirm_container
 onmouseleave=deltooltip(deathkeep_tutorial:tooltip)
 onmouserepeat=aif_tooltip(deathkeep_tutorial:tooltip, event_com, -1, "Close the menu when you've finished choosing.", 400, p12_full, p12_full, null, 12, 3, 0, event_mousex, event_mousey)
 
@@ -743,13 +743,13 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_70
+layer=confirm_text_container
 textfont=verdana_13pt_regular
 text=Confirm
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 16:72
 [frame]
@@ -763,7 +763,7 @@ ymode=abs_centre
 layer=com_1
 
 // 16:73
-[com_73]
+[title_container]
 type=layer
 y=4
 width=8
@@ -779,7 +779,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_73
+layer=title_container
 textfont=palatino_linotype_18pt_regular
 text=Get Ready to Respawn...
 textalignh=centre
@@ -793,7 +793,7 @@ type=layer
 layer=com_1
 
 // 16:76
-[com_76]
+[gravestone_container]
 type=layer
 width=150
 height=110
@@ -803,16 +803,16 @@ layer=universe
 hide=yes
 
 // 16:77
-[com_77]
+[gravestone_background]
 type=layer
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=gravestone_container
 
 // 16:78
-[com_78]
+[gravestone_contents]
 type=layer
 y=12
 width=32
@@ -821,7 +821,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=gravestone_container
 
 // 16:79
 [com_79]
@@ -830,7 +830,7 @@ width=52
 height=20
 xmode=abs_centre
 ymode=abs_centre
-layer=com_78
+layer=gravestone_contents
 graphic=gravestone_background
 
 // 16:80
@@ -840,7 +840,7 @@ width=46
 height=20
 xmode=abs_centre
 ymode=abs_centre
-layer=com_78
+layer=gravestone_contents
 textfont=p11_full
 text=5:00
 textalignh=right
@@ -849,7 +849,7 @@ textshadow=yes
 colour=0xff981f
 
 // 16:81
-[com_81]
+[gravestone_frame]
 type=layer
 width=8
 height=8
@@ -857,4 +857,4 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=gravestone_container

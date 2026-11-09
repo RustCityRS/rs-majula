@@ -1,0 +1,12 @@
+// 226
+[clientscript,snapshot_offence_help_open]
+~snapshot_hide_help;
+~snapshot_help_show_blackout;
+if_sethide(false, snapshot_main_v2:offence_help_layer);
+if (map_lang = 1) {
+    if_sethide(false, snapshot_main_v2:com_210);
+    if_sethide(true, snapshot_main_v2:com_212);
+} else {
+    if_sethide(true, snapshot_main_v2:com_210);
+    if_sethide(false, snapshot_main_v2:com_212);
+}

@@ -372,7 +372,7 @@ transmitop=10
 op10= 
 
 // 880:25
-[com_25]
+[interact_radio]
 type=graphic
 x=12
 y=195
@@ -382,11 +382,11 @@ graphic="km_radiobutton,0"
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_26, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_26, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:interact_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:interact_label, ^white)
 
 // 880:26
-[com_26]
+[interact_label]
 type=text
 x=43
 y=201
@@ -399,5 +399,5 @@ colour=0xff981f
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_26, 0xff981f)
-onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_26, ^white)
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:interact_label, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:interact_label, ^white)

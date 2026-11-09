@@ -1,6 +1,6 @@
 // 2941
 [proc,login_close]
-if_setonresize(null, loginscreen:com_26);
+if_setonresize(null, loginscreen:login);
 %varclient_1552 = "";
 %varclient_1099 = 0;
 login_resetreply;

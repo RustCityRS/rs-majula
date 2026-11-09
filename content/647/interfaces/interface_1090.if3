@@ -22,7 +22,7 @@ textshadow=yes
 colour=0xaca88f
 
 // 1090:2
-[com_2]
+[name_text_box_layer]
 type=layer
 x=106
 y=16
@@ -209,7 +209,7 @@ width=16
 height=15
 xmode=abs_right
 layer=com_12
-onload=script4256(event_com)
+onload=aif_build_close_button_layer(event_com)
 
 // 1090:19
 [com_19]
@@ -223,7 +223,7 @@ ymode=abs_centre
 layer=com_18
 transmitop=1
 op1=Close
-onload=script4257(event_com)
+onload=aif_build_close_button_on(event_com)
 
 // 1090:20
 [com_20]
@@ -235,7 +235,7 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_18
-onload=script4258(event_com)
+onload=aif_build_close_button_over(event_com)
 
 // 1090:21
 [com_21]
@@ -378,7 +378,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=accept_button_layer
-onload=script4201(event_com, struct_1773)
+onload=aif_build_button_layer(event_com, struct_1773)
 
 // 1090:34
 [com_34]
@@ -388,7 +388,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=accept_button_layer
-onload=script4201(event_com, struct_1774)
+onload=aif_build_button_layer(event_com, struct_1774)
 
 // 1090:35
 [com_35]
@@ -398,7 +398,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=accept_button_layer
-onload=script4201(event_com, struct_1775)
+onload=aif_build_button_layer(event_com, struct_1775)
 
 // 1090:36
 [com_36]
@@ -437,7 +437,7 @@ text=Accept
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4151(event_com)
+onload=aif_gold_button_text_onload(event_com)
 
 // 1090:39
 [decline_button_layer]
@@ -491,7 +491,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=decline_button_layer
-onload=script4201(event_com, struct_1773)
+onload=aif_build_button_layer(event_com, struct_1773)
 
 // 1090:44
 [com_44]
@@ -501,7 +501,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=decline_button_layer
-onload=script4201(event_com, struct_1774)
+onload=aif_build_button_layer(event_com, struct_1774)
 
 // 1090:45
 [com_45]
@@ -511,7 +511,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=decline_button_layer
-onload=script4201(event_com, struct_1775)
+onload=aif_build_button_layer(event_com, struct_1775)
 
 // 1090:46
 [com_46]
@@ -536,7 +536,7 @@ heightmode=minus
 layer=decline_button_layer
 
 // 1090:48
-[com_48]
+[decline_button_text]
 type=text
 width=8
 height=4
@@ -550,7 +550,7 @@ text=Decline
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4151(event_com)
+onload=aif_gold_button_text_onload(event_com)
 
 // 1090:49
 [com_49]
@@ -560,7 +560,7 @@ height=21
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=name_text_box_layer
 graphic="aif_text_input_1,1"
 tiling=yes
 
@@ -570,7 +570,7 @@ type=graphic
 width=6
 height=21
 ymode=abs_centre
-layer=com_2
+layer=name_text_box_layer
 graphic="aif_text_input_1,0"
 tiling=yes
 
@@ -581,12 +581,12 @@ width=6
 height=21
 xmode=abs_right
 ymode=abs_centre
-layer=com_2
+layer=name_text_box_layer
 graphic="aif_text_input_1,2"
 tiling=yes
 
 // 1090:52
-[com_52]
+[name_txt]
 type=text
 y=-1
 width=12
@@ -595,7 +595,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=name_text_box_layer
 textfont=verdana_11pt_regular_multiline
 textalignv=centre
 textshadow=yes

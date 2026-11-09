@@ -21,8 +21,8 @@ if (unknown_command_5420 = true & ~script2727 = true & %varclient_547 = 0) {
     $int1 = max(252, calc($int3 + 100));
     if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, loginscreen:pvp_warning_text_main);
     if_setsize($int0, $int1, ^setsize_abs, ^setsize_abs, loginscreen:pvp_warning);
-    if_sethide(true, loginscreen:com_26);
-    if_sethide(true, loginscreen:com_27);
+    if_sethide(true, loginscreen:login);
+    if_sethide(true, loginscreen:south_progress9);
     return;
 }
 %varclient_200 = 0;

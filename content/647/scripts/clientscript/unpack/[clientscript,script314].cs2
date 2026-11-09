@@ -1,7 +1,0 @@
-// 314
-[clientscript,script314](component $component0)
-if (%varclient_179 ! null) {
-    if_setmodel(%varclient_179, $component0);
-} else {
-    if_setmodel(model_18535, $component0);
-}

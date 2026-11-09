@@ -216,19 +216,19 @@ if (inv_total(inv, coins) > 94999) {
     if_setcolour(^green, barbassault_reward_shop_new:barbassault_granite_cost);
 }
 if (%varplayerbit_3245 = 1) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_95);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_legs_cost_queen);
     if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_torso_cost_queen);
     if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_healer_hat_cost_queen);
-    if_setcolour(^green, barbassault_reward_shop_new:com_116);
-    if_setcolour(^green, barbassault_reward_shop_new:com_123);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_runner_hat_cost_queen);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_ranger_hat_cost_queen);
     if_setcolour(^green, barbassault_reward_shop_new:barbassault_penance_fighter_hat_cost_queen);
-    if_setcolour(^green, barbassault_reward_shop_new:com_214);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_granite_cost_queen);
 }
 if (%varplayerbit_3256 > 9 | %varplayerbit_3263 > 9 | %varplayerbit_3261 > 9 | %varplayerbit_3262 > 9) {
     if_setcolour(^green, barbassault_reward_shop_new:barbassault_gamble_50_cost);
 }
 if (%varplayerbit_3256 > 19 | %varplayerbit_3263 > 19 | %varplayerbit_3261 > 19 | %varplayerbit_3262 > 19) {
-    if_setcolour(^green, barbassault_reward_shop_new:com_200);
+    if_setcolour(^green, barbassault_reward_shop_new:barbassault_gamble_150_cost);
 }
 if (%varplayerbit_3256 > 29 | %varplayerbit_3263 > 29 | %varplayerbit_3261 > 29 | %varplayerbit_3262 > 29) {
     if_setcolour(^green, barbassault_reward_shop_new:barbassault_gamble_250_cost);
@@ -286,7 +286,7 @@ if (%varplayerbit_7342 = 1) {
 }
 if (%varplayerbit_7344 = 1) {
     if_settext("Carrying a valid weapon", barbassault_reward_shop_new:barbassault_green_cost);
-    if_settext("Use Penance Egg Paint (Green)", barbassault_reward_shop_new:alchemist_jumped08);
+    if_settext("Use Penance Egg Paint (Green)", barbassault_reward_shop_new:barbassault_green_txt);
 }
 if (%varplayerbit_7343 = 1) {
     if_settext("Carrying a valid weapon", barbassault_reward_shop_new:barbassault_blue_cost);

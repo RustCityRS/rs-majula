@@ -17,6 +17,6 @@ if ($int7 < 10) {
     $string1 = tostring($int7);
 }
 if_settext("<$string0>:<$string1>", $component2);
-if_setontimer("clan_run_time($int6, $int7, $int1, clan_noticeboard:com_113, clan_noticeboard:com_112)", $component2);
+if_setontimer("clan_run_time($int6, $int7, $int1, clan_noticeboard:world_time_text, clan_noticeboard:clan_time_text)", $component2);
 $string0, $string1 = ~clan_time_tostring($int1, $int6, $int7);
 if_settext("<$string0>:<$string1>", $component3);

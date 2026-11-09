@@ -1,0 +1,12 @@
+// 1833
+[clientscript,clanwars_setup_arena_buttons](int $int0, int $int1)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (map_members = false & struct_param(enum(int, struct, enum_1604, $int1), param_557) = true) {
+    return;
+}
+if (%varclient_257 ! $int1) {
+    %varclient_257 = $int1;
+    ~script1781;
+}

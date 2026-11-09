@@ -72,9 +72,9 @@ width=101
 height=26
 xmode=abs_centre
 layer=u13_layer
-onmouseover=script3937(account_create_success:com_42, "set_but_end_3,1", account_create_success:com_43, "set_but_fill_3,1", account_create_success:com_44, "set_but_fill_3,1", account_create_success:com_45, "set_but_end_3,1")
-onmouseleave=script3937(account_create_success:com_42, "set_but_end_3,0", account_create_success:com_43, "set_but_fill_3,0", account_create_success:com_44, "set_but_fill_3,0", account_create_success:com_45, "set_but_end_3,0")
-onclick=script3942
+onmouseover=script3937(account_create_success:u13_continue_left, "set_but_end_3,1", account_create_success:com_43, "set_but_fill_3,1", account_create_success:com_44, "set_but_fill_3,1", account_create_success:u13_continue_right, "set_but_end_3,1")
+onmouseleave=script3937(account_create_success:u13_continue_left, "set_but_end_3,0", account_create_success:com_43, "set_but_fill_3,0", account_create_success:com_44, "set_but_fill_3,0", account_create_success:u13_continue_right, "set_but_end_3,0")
+onclick=create_u13_continue_button_click
 
 // 669:7
 [terms_link_layer]
@@ -117,7 +117,7 @@ onmouseleave=login_link_highlight(event_com, account_create_success:privacy_link
 onclick=script3212("privacy/privacy.ws")
 
 // 669:10
-[com_10]
+[u13_info_text]
 type=text
 y=74
 width=50
@@ -134,7 +134,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 669:11
-[com_11]
+[main]
 type=layer
 width=550
 height=400
@@ -147,7 +147,7 @@ op10=
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_11
+layer=main
 
 // 669:13
 [u13_layer]
@@ -156,7 +156,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_11
+layer=main
 hide=yes
 
 // 669:14
@@ -166,7 +166,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_11
+layer=main
 op10=    
 
 // 669:15
@@ -224,7 +224,7 @@ colour=0xebe0bc
 op10=    
 
 // 669:19
-[com_19]
+[background_texture]
 type=graphic
 width=2
 height=2
@@ -315,7 +315,7 @@ ymode=abs_bottom
 layer=border
 
 // 669:27
-[com_27]
+[runescape_logo]
 type=graphic
 y=35
 width=500
@@ -405,7 +405,7 @@ graphic="set_but_end_3,0"
 hflip=yes
 
 // 669:36
-[com_36]
+[continue_text_shadow]
 type=text
 x=1
 widthmode=minus
@@ -479,7 +479,7 @@ colour=0x000000
 fill=yes
 
 // 669:42
-[com_42]
+[u13_continue_left]
 type=graphic
 width=25
 height=25
@@ -508,7 +508,7 @@ tiling=yes
 hflip=yes
 
 // 669:45
-[com_45]
+[u13_continue_right]
 type=graphic
 x=1
 width=25
@@ -519,7 +519,7 @@ graphic="set_but_end_3,0"
 hflip=yes
 
 // 669:46
-[com_46]
+[u13_continue_text_shadow]
 type=text
 x=1
 widthmode=minus
@@ -534,7 +534,7 @@ textalignv=centre
 colour=0xc0b154
 
 // 669:47
-[com_47]
+[u13_continue_text]
 type=text
 y=-1
 widthmode=minus

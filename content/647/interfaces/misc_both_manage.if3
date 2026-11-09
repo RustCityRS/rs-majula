@@ -184,7 +184,7 @@ modelangle=512,0,0
 modelzoom=1350
 
 // 391:16
-[slow_lose]
+[miscb_if_bgcopy]
 type=model
 x=91
 y=93
@@ -315,8 +315,8 @@ layer=help_layer
 model=model_4623
 modelangle=515,18,0
 modelzoom=1850
-onmouseover=script1997
-onmouseleave=script1998
+onmouseover=misc_both_help_on
+onmouseleave=misc_both_help_off
 
 // 391:27
 [miscb_if_text_help]
@@ -1951,7 +1951,7 @@ ymode=abs_centre
 layer=fsborder_main_layer
 
 // 391:162
-[com_162]
+[fsborder_graphic_1]
 type=graphic
 x=-260
 width=32
@@ -1963,7 +1963,7 @@ tiling=yes
 colour=0xffffffff
 
 // 391:163
-[com_163]
+[fsborder_graphic_2]
 type=graphic
 y=-171
 width=462
@@ -1975,7 +1975,7 @@ tiling=yes
 colour=0xffffffff
 
 // 391:164
-[com_164]
+[fsborder_graphic_3]
 type=graphic
 y=170
 width=512
@@ -1987,7 +1987,7 @@ tiling=yes
 colour=0xffffffff
 
 // 391:165
-[com_165]
+[fsborder_graphic_4]
 type=graphic
 x=259
 width=32
@@ -1999,7 +1999,7 @@ tiling=yes
 colour=0xffffffff
 
 // 391:166
-[com_166]
+[fsborder_graphic_5]
 type=graphic
 x=-247
 y=-158
@@ -2012,7 +2012,7 @@ tiling=yes
 colour=0xffffffff
 
 // 391:167
-[com_167]
+[fsborder_graphic_6]
 type=graphic
 x=247
 y=-158
@@ -2025,7 +2025,7 @@ tiling=yes
 colour=0xffffffff
 
 // 391:168
-[com_168]
+[fsborder_graphic_7]
 type=graphic
 x=247
 y=158
@@ -2038,7 +2038,7 @@ tiling=yes
 colour=0xffffffff
 
 // 391:169
-[com_169]
+[fsborder_graphic_8]
 type=graphic
 x=-247
 y=158

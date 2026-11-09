@@ -1,35 +1,35 @@
 // 4267
 [proc,script4267]
 def_int $int0 = calc(%varplayerbit_9065 * 10);
-if_settext(~tostring_spacer($int0, ","), lunarfm_rewards_new:com_191);
+if_settext(~tostring_spacer($int0, ","), lunarfm_rewards_new:current_points);
 if (%varplayerbit_9067 > 0) {
-    if_setgraphic(null, lunarfm_rewards_new:com_131);
+    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_falador);
 }
 if (%varplayerbit_9067 > 1) {
-    if_setgraphic(null, lunarfm_rewards_new:com_127);
+    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_rune);
 }
 if (%varplayerbit_9067 > 2) {
-    if_setgraphic(null, lunarfm_rewards_new:com_123);
+    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_ardougne);
 }
 if (%varplayerbit_9067 > 3) {
-    if_setgraphic(null, lunarfm_rewards_new:com_119);
+    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_remote);
 }
 if (%varplayerbit_9067 > 4) {
-    if_setgraphic(null, lunarfm_rewards_new:com_115);
+    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_spirit);
 }
 if (%varplayerbit_9067 > 5) {
-    if_setgraphic(null, lunarfm_rewards_new:com_111);
+    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_leather);
 }
 if (%varplayerbit_9067 > 6) {
-    if_setgraphic(null, lunarfm_rewards_new:com_107);
+    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_shield);
 }
 if (%varplayerbit_9067 > 7) {
-    if_setgraphic(null, lunarfm_rewards_new:com_103);
-    if_setgraphic(null, lunarfm_rewards_new:com_127);
-    if_setgraphic(null, lunarfm_rewards_new:com_206);
-    if_setgraphic(null, lunarfm_rewards_new:com_211);
-    if_setgraphic(null, lunarfm_rewards_new:com_216);
-    if_setgraphic(null, lunarfm_rewards_new:com_221);
-    if_setgraphic(null, lunarfm_rewards_new:com_226);
-    if_setgraphic(null, lunarfm_rewards_new:com_231);
+    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_vengeance);
+    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_rune);
+    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_seeds);
+    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_herbs);
+    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_vials);
+    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_runes);
+    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_burn);
+    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_planks);
 }

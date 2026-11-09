@@ -2,7 +2,7 @@
 [clientscript,login_reply]
 def_int $int0 = ~login_getreply;
 def_component $component1 = login:login_button_text;
-def_component $component2 = login:com_51;
+def_component $component2 = login:login_button_text_shadow;
 def_component $component3 = login:login_button;
 def_component $component4 = login:popup;
 if (unknown_command_5623 = true) {

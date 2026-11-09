@@ -3,10 +3,10 @@
 switch_component ($component0) {
     case rand_start_room_construction:portal_button :
         if_sethide(true, rand_start_room_construction:portal_hover);
-    case rand_start_room_construction:those_large1 :
-        if_sethide(true, rand_start_room_construction:com_39);
+    case rand_start_room_construction:photo_booth_button :
+        if_sethide(true, rand_start_room_construction:photo_booth_hover);
     case rand_start_room_construction:farming_button :
-        if_sethide(true, rand_start_room_construction:com_107);
+        if_sethide(true, rand_start_room_construction:farming_patch_hover);
     case rand_start_room_construction:range_button :
         if_sethide(true, rand_start_room_construction:range_hover);
     case rand_start_room_construction:altar_button :

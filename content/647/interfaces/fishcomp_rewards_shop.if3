@@ -324,7 +324,7 @@ transmitop=10
 op10= 
 
 // 925:24
-[com_24]
+[tackle_box_icon_layer]
 type=layer
 y=3112
 width=16391
@@ -417,7 +417,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_24
+layer=tackle_box_icon_layer
 transmitop=10
 op10=  
 
@@ -681,7 +681,7 @@ transmitop=10
 op10=   
 
 // 925:48
-[com_48]
+[claim_fishcomp_claim_shop]
 type=layer
 width=16391
 height=5683
@@ -979,7 +979,7 @@ width=99
 height=26
 xmode=abs_centre
 ymode=proportion_bottom
-layer=com_48
+layer=claim_fishcomp_claim_shop
 transmitop=1
 op1=Claim
 
@@ -997,7 +997,7 @@ colour=0x302c22
 fill=yes
 
 // 925:72
-[com_72]
+[claim_fish_button_bkg]
 type=layer
 width=16391
 height=17021
@@ -1013,7 +1013,7 @@ onmouseover=v2_stone_button_out_filled(event_com)
 onmouseleave=v2_stone_button_filled(event_com)
 
 // 925:73
-[com_73]
+[claim_fish_button_txt]
 type=text
 width=16384
 height=20171

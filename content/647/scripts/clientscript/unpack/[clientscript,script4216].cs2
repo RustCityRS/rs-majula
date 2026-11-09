@@ -1,5 +1,5 @@
 // 4216
 [clientscript,script4216](seq $seq0)
-if (if_find(interface_1071:com_0) = true) {
+if (if_find(artisan_player_anim:player_model) = true) {
     cc_setmodelanim($seq0);
 }

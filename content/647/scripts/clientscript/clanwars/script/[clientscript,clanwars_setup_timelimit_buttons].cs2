@@ -1,0 +1,9 @@
+// 1822
+[clientscript,clanwars_setup_timelimit_buttons](int $int0, int $int1)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (%varclient_247 ! $int1) {
+    %varclient_247 = $int1;
+    ~togglebox_variablebits;
+}

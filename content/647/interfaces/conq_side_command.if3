@@ -3,7 +3,7 @@
 type=layer
 width=190
 height=261
-onload=script427(0)
+onload=conq_setup_command_side(0)
 
 // 1024:1
 [abilities_layer]
@@ -51,7 +51,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff991f
-onvartransmit=script428{varplayer_1870}
+onvartransmit=conq_update_command_points_side{varplayer_1870}
 
 // 1024:6
 [no_abilities_grey_rectangle]
@@ -90,8 +90,8 @@ height=45
 xmode=abs_centre
 layer=abilities_layer
 targetverb=Cast
-onmouseover=script430(event_com, 1)
-onmouseleave=script430(event_com, 0)
+onmouseover=conq_command_text_highlight(event_com, 1)
+onmouseleave=conq_command_text_highlight(event_com, 0)
 ontargetleave=script431(event_com, 0)
 ontargetenter=script431(event_com, 1)
 
@@ -106,8 +106,8 @@ layer=abilities_layer
 transmitop=10
 op10= 
 targetverb=Cast
-onmouseover=script430(event_com, 1)
-onmouseleave=script430(event_com, 0)
+onmouseover=conq_command_text_highlight(event_com, 1)
+onmouseleave=conq_command_text_highlight(event_com, 0)
 ontargetleave=script431(event_com, 0)
 ontargetenter=script431(event_com, 1)
 
@@ -122,8 +122,8 @@ layer=abilities_layer
 transmitop=10
 op10= 
 targetverb=Cast
-onmouseover=script430(event_com, 1)
-onmouseleave=script430(event_com, 0)
+onmouseover=conq_command_text_highlight(event_com, 1)
+onmouseleave=conq_command_text_highlight(event_com, 0)
 ontargetleave=script431(event_com, 0)
 ontargetenter=script431(event_com, 1)
 
@@ -138,8 +138,8 @@ layer=abilities_layer
 transmitop=10
 op10= 
 targetverb=Cast
-onmouseover=script430(event_com, 1)
-onmouseleave=script430(event_com, 0)
+onmouseover=conq_command_text_highlight(event_com, 1)
+onmouseleave=conq_command_text_highlight(event_com, 0)
 ontargetleave=script431(event_com, 0)
 ontargetenter=script431(event_com, 1)
 
@@ -291,7 +291,7 @@ transmitop=10
 op10=   
 
 // 1024:23
-[com_23]
+[cost_bot_4]
 type=graphic
 x=149
 y=19
@@ -539,7 +539,7 @@ transmitop=10
 op10=   
 
 // 1024:40
-[com_40]
+[cost_bot_3]
 type=graphic
 x=149
 y=19
@@ -787,7 +787,7 @@ transmitop=10
 op10=   
 
 // 1024:57
-[com_57]
+[cost_bot_2]
 type=graphic
 x=149
 y=19
@@ -1031,7 +1031,7 @@ transmitop=10
 op10=  
 
 // 1024:74
-[com_74]
+[cost_bot_1]
 type=graphic
 x=149
 y=19

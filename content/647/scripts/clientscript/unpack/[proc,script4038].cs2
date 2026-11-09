@@ -17,7 +17,7 @@ if (%varclient_1407 < 9) {
 if_sethide(true, account_create:create_layer);
 if_sethide(true, account_create:border);
 if_sethide(false, account_create:u13_layer);
-if_setgraphic("corner_flourish,0", account_create:com_8);
-if_setgraphic("corner_flourish,0", account_create:com_5);
-if_setgraphic("corner_flourish,0", account_create:com_7);
-if_setgraphic("corner_flourish,0", account_create:com_6);
+if_setgraphic("corner_flourish,0", account_create:u13_top_left);
+if_setgraphic("corner_flourish,0", account_create:u13_top_right);
+if_setgraphic("corner_flourish,0", account_create:u13_bottom_left);
+if_setgraphic("corner_flourish,0", account_create:u13_bottom_right);

@@ -4,7 +4,7 @@ if (string_length(%varclient_1796) <= 0) {
     return;
 }
 %varclient_1798 = %varclient_1796;
-~ondialogabort_clever;
+~lobbyscreen_report_abuse_stage1_close;
 if (string_length(%varclient_1798) > 0) {
-    ~script3190;
+    ~lobbyscreen_report_abuse_stage2;
 }

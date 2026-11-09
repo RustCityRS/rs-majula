@@ -1,28 +1,28 @@
 // 4358
 [proc,clan_noticeboard_event_edit_selection](component $component0)
-if_sethide(true, interface_1098:com_267);
-if_sethide(true, interface_1098:com_276);
-if_sethide(true, interface_1098:com_285);
-if_sethide(true, interface_1098:com_294);
-if_sethide(true, interface_1098:com_303);
-if_sethide(true, interface_1098:com_312);
-if_sethide(true, interface_1098:com_321);
-if_sethide(true, interface_1098:com_330);
+if_sethide(true, clan_noticeboard_event_edit:com_267);
+if_sethide(true, clan_noticeboard_event_edit:com_276);
+if_sethide(true, clan_noticeboard_event_edit:com_285);
+if_sethide(true, clan_noticeboard_event_edit:event_olr);
+if_sethide(true, clan_noticeboard_event_edit:com_303);
+if_sethide(true, clan_noticeboard_event_edit:com_312);
+if_sethide(true, clan_noticeboard_event_edit:com_321);
+if_sethide(true, clan_noticeboard_event_edit:com_330);
 switch_component ($component0) {
-    case interface_1098:com_268 :
-        if_sethide(false, interface_1098:com_267);
-    case interface_1098:com_277 :
-        if_sethide(false, interface_1098:com_276);
-    case interface_1098:com_286 :
-        if_sethide(false, interface_1098:com_285);
-    case interface_1098:com_295 :
-        if_sethide(false, interface_1098:com_294);
-    case interface_1098:com_304 :
-        if_sethide(false, interface_1098:com_303);
-    case interface_1098:com_313 :
-        if_sethide(false, interface_1098:com_312);
-    case interface_1098:com_322 :
-        if_sethide(false, interface_1098:com_321);
-    case interface_1098:com_331 :
-        if_sethide(false, interface_1098:com_330);
+    case clan_noticeboard_event_edit:event_1 :
+        if_sethide(false, clan_noticeboard_event_edit:com_267);
+    case clan_noticeboard_event_edit:event_2 :
+        if_sethide(false, clan_noticeboard_event_edit:com_276);
+    case clan_noticeboard_event_edit:event_3 :
+        if_sethide(false, clan_noticeboard_event_edit:com_285);
+    case clan_noticeboard_event_edit:event_4 :
+        if_sethide(false, clan_noticeboard_event_edit:event_olr);
+    case clan_noticeboard_event_edit:event_5 :
+        if_sethide(false, clan_noticeboard_event_edit:com_303);
+    case clan_noticeboard_event_edit:event_6 :
+        if_sethide(false, clan_noticeboard_event_edit:com_312);
+    case clan_noticeboard_event_edit:event_7 :
+        if_sethide(false, clan_noticeboard_event_edit:com_321);
+    case clan_noticeboard_event_edit:event_8 :
+        if_sethide(false, clan_noticeboard_event_edit:com_330);
 }

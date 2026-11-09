@@ -5,12 +5,12 @@ x=7
 y=22
 width=498
 height=305
-layer=com_96
+layer=background
 colour=0x333300
 fill=yes
 
 // 1053:1
-[com_1]
+[border_fill_alpha]
 type=graphic
 x=7
 y=21
@@ -18,7 +18,7 @@ width=14
 height=27
 widthmode=minus
 heightmode=minus
-layer=com_96
+layer=background
 graphic=rand_framea_centre_gradient_alpha
 alpha=yes
 
@@ -31,7 +31,7 @@ width=30
 height=30
 transmitop=1
 op1=Place
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:3
@@ -44,7 +44,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10= 
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:4
@@ -57,7 +57,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=  
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:5
@@ -70,7 +70,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10= 
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:6
@@ -83,7 +83,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=  
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:7
@@ -96,7 +96,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:8
@@ -109,7 +109,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=  
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:9
@@ -122,7 +122,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:10
@@ -135,7 +135,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:11
@@ -148,7 +148,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=  
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:12
@@ -161,7 +161,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:13
@@ -174,7 +174,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:14
@@ -187,7 +187,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=  
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:15
@@ -200,7 +200,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:16
@@ -213,7 +213,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:17
@@ -226,7 +226,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10= 
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:18
@@ -239,7 +239,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=  
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:19
@@ -252,7 +252,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:20
@@ -265,7 +265,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=  
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:21
@@ -278,7 +278,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:22
@@ -291,7 +291,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:23
@@ -304,7 +304,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:24
@@ -317,7 +317,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:25
@@ -330,7 +330,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=     
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:26
@@ -343,7 +343,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:27
@@ -356,7 +356,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:28
@@ -369,7 +369,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=     
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:29
@@ -382,7 +382,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:30
@@ -395,7 +395,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:31
@@ -408,7 +408,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=     
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:32
@@ -421,7 +421,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=  
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:33
@@ -434,7 +434,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:34
@@ -447,7 +447,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:35
@@ -460,7 +460,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:36
@@ -473,7 +473,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:37
@@ -486,7 +486,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=     
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:38
@@ -499,7 +499,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:39
@@ -512,7 +512,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:40
@@ -525,7 +525,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=     
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:41
@@ -538,7 +538,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:42
@@ -551,7 +551,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:43
@@ -564,7 +564,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=     
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:44
@@ -577,7 +577,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=   
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:45
@@ -590,7 +590,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=    
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:46
@@ -603,7 +603,7 @@ height=30
 transmitop=1,10
 op1=Place
 op10=     
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:47
@@ -1096,7 +1096,7 @@ layer=main_layer
 transmitop=1
 candrop=yes
 op1=Return
-onmouseover=script2357(event_com)
+onmouseover=vkq3_blockpuzzle_ghost(event_com)
 onmouseleave=script2358(event_com)
 
 // 1053:83
@@ -1280,7 +1280,7 @@ textshadow=yes
 colour=0xe4caa5
 
 // 1053:96
-[com_96]
+[background]
 type=layer
 x=115
 y=56
@@ -1297,7 +1297,7 @@ x=46
 y=65
 width=177
 height=43
-layer=com_96
+layer=background
 textfont=p11_full
 text=To deselect a piece, click on the Deselect button or select a different piece.
 textalignh=centre
@@ -1311,7 +1311,7 @@ x=46
 y=112
 width=177
 height=50
-layer=com_96
+layer=background
 textfont=p11_full
 text=To return a piece from the grid, right-click on it and select "Reset", or "Select" to pick it up again.
 textalignh=centre
@@ -1325,7 +1325,7 @@ x=29
 y=163
 width=214
 height=28
-layer=com_96
+layer=background
 textfont=p11_full
 text= The red 'RESET' button clears the grid.
 textalignh=centre
@@ -1339,7 +1339,7 @@ x=46
 y=23
 width=177
 height=40
-layer=com_96
+layer=background
 textfont=p11_full
 text=Click on a piece to select it, and again on the grid to place it.
 textalignh=centre
@@ -1351,7 +1351,7 @@ textshadow=yes
 type=graphic
 width=32
 height=32
-layer=com_96
+layer=background
 graphic="v2_stone_borders,35"
 
 // 1053:102
@@ -1360,7 +1360,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_96
+layer=background
 graphic="v2_stone_borders,37"
 
 // 1053:103
@@ -1370,7 +1370,7 @@ x=32
 width=64
 height=32
 widthmode=minus
-layer=com_96
+layer=background
 graphic="v2_stone_borders,36"
 tiling=yes
 
@@ -1380,7 +1380,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_96
+layer=background
 graphic="v2_stone_borders,6"
 
 // 1053:105
@@ -1390,7 +1390,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_96
+layer=background
 graphic="v2_stone_borders,7"
 
 // 1053:106
@@ -1402,7 +1402,7 @@ width=64
 height=32
 widthmode=minus
 ymode=abs_bottom
-layer=com_96
+layer=background
 graphic="v2_stone_borders,2"
 tiling=yes
 
@@ -1414,7 +1414,7 @@ y=32
 width=32
 height=64
 heightmode=minus
-layer=com_96
+layer=background
 graphic="v2_stone_borders,1"
 tiling=yes
 
@@ -1427,7 +1427,7 @@ width=32
 height=64
 heightmode=minus
 xmode=abs_right
-layer=com_96
+layer=background
 graphic="v2_stone_borders,3"
 tiling=yes
 
@@ -1436,7 +1436,7 @@ tiling=yes
 type=text
 height=24
 widthmode=minus
-layer=com_96
+layer=background
 textfont=b12_full
 text=Instructions (click to close)
 textalignh=centre

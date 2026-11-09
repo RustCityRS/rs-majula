@@ -103,9 +103,9 @@ layer=controls_layer
 transmitop=1
 op1=Fire
 opcursor0=cursor_62
-onmouseover=script3429(castlewars_catapult:graphic1, castlewars_catapult:graphic2, castlewars_catapult:graphic3, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
-onmouseleave=script3429(castlewars_catapult:graphic1, castlewars_catapult:graphic2, castlewars_catapult:graphic3, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
-onop=script3435
+onmouseover=castlewars_button_swapper(castlewars_catapult:graphic1, castlewars_catapult:graphic2, castlewars_catapult:graphic3, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=castlewars_button_swapper(castlewars_catapult:graphic1, castlewars_catapult:graphic2, castlewars_catapult:graphic3, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onop=castlewars_set_firing
 
 // 54:9
 [graphic1]

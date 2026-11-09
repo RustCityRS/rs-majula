@@ -27,7 +27,7 @@ while ($int2 < 6) {
             $component9 = task_side:com_101;
             $component7 = task_side:task_set_1;
             $component10 = task_side:task_layer_1;
-            if_setonop("script3976(%varplayerbit_8587, 1, event_op)", $component10);
+            if_setonop("task_side_overview_populate(%varplayerbit_8587, 1, event_op)", $component10);
         case 1 :
             $int1 = %varplayerbit_8588;
             $struct0 = enum(int, struct, enum_3483, %varplayerbit_8588);
@@ -35,7 +35,7 @@ while ($int2 < 6) {
             $component9 = task_side:com_146;
             $component7 = task_side:task_set_2;
             $component10 = task_side:task_layer_2;
-            if_setonop("script3976(%varplayerbit_8588, 2, event_op)", $component10);
+            if_setonop("task_side_overview_populate(%varplayerbit_8588, 2, event_op)", $component10);
         case 2 :
             $int1 = %varplayerbit_8589;
             $struct0 = enum(int, struct, enum_3483, %varplayerbit_8589);
@@ -43,7 +43,7 @@ while ($int2 < 6) {
             $component9 = task_side:com_151;
             $component7 = task_side:task_set_3;
             $component10 = task_side:task_layer_3;
-            if_setonop("script3976(%varplayerbit_8589, 3, event_op)", $component10);
+            if_setonop("task_side_overview_populate(%varplayerbit_8589, 3, event_op)", $component10);
         case 3 :
             $int1 = %varplayerbit_8590;
             $struct0 = enum(int, struct, enum_3483, %varplayerbit_8590);
@@ -51,7 +51,7 @@ while ($int2 < 6) {
             $component9 = task_side:com_156;
             $component7 = task_side:task_set_4;
             $component10 = task_side:task_layer_4;
-            if_setonop("script3976(%varplayerbit_8590, 4, event_op)", $component10);
+            if_setonop("task_side_overview_populate(%varplayerbit_8590, 4, event_op)", $component10);
         case 4 :
             $int1 = %varplayerbit_8591;
             $struct0 = enum(int, struct, enum_3483, %varplayerbit_8591);
@@ -59,7 +59,7 @@ while ($int2 < 6) {
             $component9 = task_side:com_161;
             $component7 = task_side:task_set_5;
             $component10 = task_side:task_layer_5;
-            if_setonop("script3976(%varplayerbit_8591, 5, event_op)", $component10);
+            if_setonop("task_side_overview_populate(%varplayerbit_8591, 5, event_op)", $component10);
         case 5 :
             $int1 = %varplayerbit_8592;
             $struct0 = enum(int, struct, enum_3483, %varplayerbit_8592);
@@ -67,7 +67,7 @@ while ($int2 < 6) {
             $component9 = task_side:com_167;
             $component7 = task_side:task_set_6;
             $component10 = task_side:task_layer_6;
-            if_setonop("script3976(%varplayerbit_8592, 6, event_op)", $component10);
+            if_setonop("task_side_overview_populate(%varplayerbit_8592, 6, event_op)", $component10);
     }
     $string0 = " -<br>";
     $string0 = append(struct_param($struct0, param_1266), $string0);
@@ -83,7 +83,7 @@ while ($int2 < 6) {
     $int12 = calc($int2 + 1);
     if (%varplayerbit_8577 = $int12 & ~script3999(%varplayerbit_8576) = 0) {
         $struct0 = enum(int, struct, enum_3483, %varplayerbit_8576);
-        if_setonop("script3976(%varplayerbit_8576, $int12, event_op)", $component10);
+        if_setonop("task_side_overview_populate(%varplayerbit_8576, $int12, event_op)", $component10);
         if (~script3999($int1) = 0) {
             if_setonmouserepeat("task_side_list_tooltip($component10, $string0)", $component10);
         } else {

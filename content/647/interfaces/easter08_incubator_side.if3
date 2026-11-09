@@ -41,7 +41,7 @@ model=model_32671
 modelorigin=0,1
 modelangle=2047,0,0
 modelzoom=365
-ontimer=script893
+ontimer=easter08_refresh_incubator
 
 // 717:4
 [demo_pointer]
@@ -53,7 +53,7 @@ height=103
 layer=layer_1
 model=model_32674
 modelzoom=388
-ontimer=script893
+ontimer=easter08_refresh_incubator
 
 // 717:5
 [com_5]
@@ -84,7 +84,7 @@ width=27
 height=116
 colour=0xff6666
 fill=yes
-onvartransmit=script895{varplayer_1205}
+onvartransmit=easter08_incubator_refresh_coal{varplayer_1205}
 
 // 717:8
 [water_indicator]
@@ -95,7 +95,7 @@ width=27
 height=116
 colour=0x3399ff
 fill=yes
-onvartransmit=script894{varplayer_1205}
+onvartransmit=easter08_incubator_refresh_water{varplayer_1205}
 
 // 717:9
 [dial_cap]
@@ -155,7 +155,7 @@ height=34
 model=model_32672
 modelorigin=2,0
 modelzoom=400
-onmouseover=script899
+onmouseover=easter08_highlight_coal_button
 onmouseleave=script900
 onclick=script903
 onrelease=script904
@@ -170,7 +170,7 @@ height=34
 model=model_32672
 modelorigin=2,0
 modelzoom=400
-onmouseover=script897
+onmouseover=easter08_highlight_water_button
 onmouseleave=script898
 onclick=script901
 onrelease=script902

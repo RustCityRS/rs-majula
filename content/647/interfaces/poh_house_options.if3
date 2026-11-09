@@ -197,7 +197,7 @@ textshadow=yes
 colour=0xff981f
 
 // 398:18
-[com_18]
+[number_of_rooms]
 type=text
 x=10
 y=244
@@ -208,8 +208,8 @@ text=Number Of Rooms: %1
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=script2681
-onvarctransmit=script2681{varclient_944}
+onload=poh_options_update_number_of_rooms
+onvarctransmit=poh_options_update_number_of_rooms{varclient_944}
 
 // 398:19
 [close_button]

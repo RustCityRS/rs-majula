@@ -19,4 +19,4 @@ switch_int (%varclient_1109) {
     case 8 :
         $string0 = "Grey moth";
 }
-if_settext($string0, fishcomp_side:com_51);
+if_settext($string0, fishcomp_side:selected_bait_txt);

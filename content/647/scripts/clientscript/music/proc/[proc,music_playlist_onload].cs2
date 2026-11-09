@@ -1,0 +1,32 @@
+// 2878
+[proc,music_playlist_onload]
+~deltooltip_action(music_v3:music_tooltip_layer);
+%varclient_1 = 0;
+cc_deleteall(music_v3:playlist);
+while (if_getnextsubid(music_v3:playlist) < 12) {
+    cc_create(music_v3:playlist, ^iftype_text, if_getnextsubid(music_v3:playlist));
+}
+while (if_getnextsubid(music_v3:playlist) < 24) {
+    cc_create(music_v3:playlist, ^iftype_graphic, if_getnextsubid(music_v3:playlist));
+}
+def_int $int0 = 5;
+$int0 = ~script2879(0, %varplayerbit_7081, $int0);
+$int0 = ~script2879(1, %varplayerbit_7082, $int0);
+$int0 = ~script2879(2, %varplayerbit_7083, $int0);
+$int0 = ~script2879(3, %varplayerbit_7084, $int0);
+$int0 = ~script2879(4, %varplayerbit_7085, $int0);
+$int0 = ~script2879(5, %varplayerbit_7086, $int0);
+$int0 = ~script2879(6, %varplayerbit_7087, $int0);
+$int0 = ~script2879(7, %varplayerbit_7088, $int0);
+$int0 = ~script2879(8, %varplayerbit_7089, $int0);
+$int0 = ~script2879(9, %varplayerbit_7090, $int0);
+$int0 = ~script2879(10, %varplayerbit_7091, $int0);
+$int0 = ~script2879(11, %varplayerbit_7092, $int0);
+if (%varplayerbit_7081 = 32767 & %varclient_1077 = true) {
+    if_sethide(false, music_v3:playlist_empty);
+} else {
+    if_sethide(true, music_v3:playlist_empty);
+}
+cc_create(music_v3:playlist, ^iftype_text, if_getnextsubid(music_v3:playlist));
+cc_setposition(15, $int0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(150, $int0, ^setsize_abs, ^setsize_minus);

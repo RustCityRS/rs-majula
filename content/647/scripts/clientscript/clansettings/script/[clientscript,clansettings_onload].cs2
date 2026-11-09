@@ -3,7 +3,7 @@
 if (activeclansettings_find_affined = true) {
     ~script4291;
 } else {
-    if_setonclansettingstransmit("script4290", interface_1096:com_124);
+    if_setonclansettingstransmit("script4290", clansettings:com_124);
 }
 if (%varclient_1516 = -1) {
     %varclient_1516 = 0;

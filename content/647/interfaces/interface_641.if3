@@ -67,7 +67,7 @@ textshadow=yes
 colour=0xcc9900
 
 // 641:5
-[com_5]
+[kval_txt]
 type=text
 x=27
 y=78
@@ -200,7 +200,7 @@ layer=boundingbox
 hide=yes
 
 // 641:16
-[com_16]
+[sum_lore_lay]
 type=layer
 width=16391
 height=16391
@@ -370,7 +370,7 @@ y=399
 width=25
 height=25
 ymode=proportion_centre
-layer=com_16
+layer=sum_lore_lay
 colour=0xffffffff
 onmouseleave=deltooltip(interface_641:tooltip)
 onmouserepeat=addtooltip(event_com, interface_641:tooltip, "Summoning Allowed", 50, 150)

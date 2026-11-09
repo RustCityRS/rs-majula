@@ -1,0 +1,5 @@
+// 2340
+[clientscript,mah1_tutorial_camera_west]
+%varclient_770 = 2;
+cam_movealong(0, %varclient_770, 500, 900, 1, %varclient_770);
+if_setoncamfinished("mah1_tutorial_camera_next", mah1_tutorialsplines:controller);

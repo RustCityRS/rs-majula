@@ -1,0 +1,9 @@
+// 2645
+[proc,mob_byprod_page](component $component0)
+if (%varclient_842 = 1) {
+    if_settext("Next page", $component0);
+    if_setonop("script2641", interface_860:next_prev);
+} else if (%varclient_842 = 2) {
+    if_settext("Previous page", $component0);
+    if_setonop("script2640", interface_860:next_prev);
+}

@@ -1,6 +1,0 @@
-// 738
-[proc,script738]
-def_string $string0 = tostring(calc(%varclient_105 / 10));
-def_string $string1 = tostring(calc(%varclient_105 % 10));
-if_settext($string0, wm54_61_weakness:counter_01);
-if_settext($string1, wm54_61_weakness:counter_02);

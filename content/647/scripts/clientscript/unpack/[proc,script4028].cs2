@@ -2,20 +2,20 @@
 [proc,script4028](int $int0, int $int1)
 if ($int0 = 0) {
     if ($int1 = 1) {
-        if_setgraphic(graphic_4302, task_main:com_106);
-        if_setonmouseover("script4029(0)", task_main:com_106);
-        if_setonmouseleave("script4029(1)", task_main:com_106);
+        if_setgraphic("task_filter_but,5", task_main:filter_done_button);
+        if_setonmouseover("task_main_filter_done_hover_on(0)", task_main:filter_done_button);
+        if_setonmouseleave("task_main_filter_done_hover_on(1)", task_main:filter_done_button);
     } else {
-        if_setgraphic(graphic_4300, task_main:com_106);
-        if_setonmouseover("script4030(0)", task_main:com_106);
-        if_setonmouseleave("script4030(1)", task_main:com_106);
+        if_setgraphic("task_filter_but,3", task_main:filter_done_button);
+        if_setonmouseover("task_main_filter_done_hover_off(0)", task_main:filter_done_button);
+        if_setonmouseleave("task_main_filter_done_hover_off(1)", task_main:filter_done_button);
     }
 } else if ($int1 = 1) {
-    if_setgraphic(graphic_4299, task_main:filter_set_button);
-    if_setonmouseover("script4031(0)", task_main:filter_set_button);
-    if_setonmouseleave("script4031(1)", task_main:filter_set_button);
+    if_setgraphic("task_filter_but,2", task_main:filter_set_button);
+    if_setonmouseover("task_main_filter_set_hover_on(0)", task_main:filter_set_button);
+    if_setonmouseleave("task_main_filter_set_hover_on(1)", task_main:filter_set_button);
 } else {
-    if_setgraphic(graphic_4297, task_main:filter_set_button);
-    if_setonmouseover("script4032(0)", task_main:filter_set_button);
-    if_setonmouseleave("script4032(1)", task_main:filter_set_button);
+    if_setgraphic("task_filter_but,0", task_main:filter_set_button);
+    if_setonmouseover("task_main_filter_set_hover_off(0)", task_main:filter_set_button);
+    if_setonmouseleave("task_main_filter_set_hover_off(1)", task_main:filter_set_button);
 }

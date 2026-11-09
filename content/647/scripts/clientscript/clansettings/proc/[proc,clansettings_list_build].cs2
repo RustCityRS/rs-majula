@@ -1,12 +1,12 @@
 // 4301
 [proc,clansettings_list_build]
-def_component $component0 = interface_1096:com_3;
-def_component $component1 = interface_1096:com_4;
-def_component $component2 = interface_1096:com_5;
-def_component $component3 = interface_1096:com_6;
+def_component $component0 = clansettings:list_name_layer;
+def_component $component1 = clansettings:list_job_layer;
+def_component $component2 = clansettings:list_rank_layer;
+def_component $component3 = clansettings:list_button_layer;
 def_int $int4 = 71827491;
 def_int $int5 = 71827492;
-def_component $component6 = interface_1096:com_349;
+def_component $component6 = clansettings:com_349;
 def_int $int7 = 218;
 def_int $int8 = calc(16384 / 2);
 def_int $int9 = 3;
@@ -77,8 +77,8 @@ while ($int23 < $int24) {
         cc_setsize($int19, $int20, ^setsize_abs, ^setsize_abs);
         cc_setgraphic(enum(int, graphic, enum_3712, $int31));
         $string1 = enum(int, string, enum_3714, $int31);
-        cc_setonmouserepeat("aif_tooltip(interface_1096:tooltip_layer, $component2, $int23, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
-        cc_setonmouseleave("deltooltip(interface_1096:tooltip_layer)");
+        cc_setonmouserepeat("aif_tooltip(clansettings:tooltip_layer, $component2, $int23, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(clansettings:tooltip_layer)");
     }
     cc_create($component6, ^iftype_graphic, $int23);
     if ($int32 = 0) {
@@ -86,8 +86,8 @@ while ($int23 < $int24) {
         if (activeclansettings_getaffinedextrainfo($int23, 30, 30) = 1 | $int31 >= 100) {
             cc_setgraphic("aif_clan_rank_icons,11");
             $string1 = "Rated Clan<br>Wars Leader";
-            cc_setonmouserepeat("aif_tooltip(interface_1096:tooltip_layer, $component6, $int23, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
-            cc_setonmouseleave("deltooltip(interface_1096:tooltip_layer)");
+            cc_setonmouserepeat("aif_tooltip(clansettings:tooltip_layer, $component6, $int23, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
+            cc_setonmouseleave("deltooltip(clansettings:tooltip_layer)");
         }
     }
     cc_create($component3, ^iftype_graphic, $int23);
@@ -95,7 +95,7 @@ while ($int23 < $int24) {
         cc_setsize($int25, $int26, ^setsize_abs, ^setsize_abs);
         cc_setgraphic("aif_browngrad_whole_btn,3");
         cc_setop(1, "Show details");
-        cc_setonop("script4303");
+        cc_setonop("clansettings_clanmate_details_onop");
     }
     $int23 = calc($int23 + 1);
 }
@@ -126,5 +126,5 @@ while ($int23 < $int24) {
     $int23 = calc($int23 + 1);
 }
 %varclient_1517 = $int34;
-~script4318;
+~clansettings_list_scrollbar_update;
 return;

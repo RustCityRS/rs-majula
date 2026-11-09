@@ -63,7 +63,7 @@ opbase=Wirebox
 op1=Inspect
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Wirebox", 50, 150)
-onvarctransmit=script2416(event_com){varclient_805}
+onvarctransmit=peng_rak_engine_ops_wirebox(event_com){varclient_805}
 
 // 765:6
 [bellows_demo]
@@ -198,8 +198,8 @@ onop=closebutton_click
 type=layer
 width=512
 height=334
-onload=script2414
-onvarctransmit=script2415{varclient_805}
+onload=peng_rak_eng_onload
+onvarctransmit=peng_rak_tools_update{varclient_805}
 
 // 765:14
 [wrench]

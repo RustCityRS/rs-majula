@@ -17,7 +17,7 @@ while ($int4 < $int7) {
     cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
     cc_settiling(true);
     cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
-    if (~script2297($int4) = 0) {
+    if (~prayer_topstat_getvar($int4) = 0) {
         cc_setop(1, "Select<col=ff9040>");
         cc_setgraphic("miscgraphics,10");
     } else {

@@ -33,36 +33,36 @@ def_int $intarray3(3);
 if (%varplayerbit_9227 > 0) {
     if (%varplayerbit_9226 = 0) {
         if (%varplayerbit_9229 = 1) {
-            $intarray0(0) = ~script4593("You may choose <tostring(%varplayerbit_9227)> of the following items to keep, and all others will be dropped.<br>The <col=bebe00>highlighted</col> items will be chosen by default.", deathkeep_info:com_16);
+            $intarray0(0) = ~script4593("You may choose <tostring(%varplayerbit_9227)> of the following items to keep, and all others will be dropped.<br>The <col=bebe00>highlighted</col> items will be chosen by default.", deathkeep_info:0_header);
         } else {
-            $intarray0(0) = ~script4593("You may choose <tostring(%varplayerbit_9227)> of the following items to keep, unless you become skulled, and all others will be dropped.<br>The <col=bebe00>highlighted</col> items are chosen by default.", deathkeep_info:com_16);
+            $intarray0(0) = ~script4593("You may choose <tostring(%varplayerbit_9227)> of the following items to keep, unless you become skulled, and all others will be dropped.<br>The <col=bebe00>highlighted</col> items are chosen by default.", deathkeep_info:0_header);
         }
     } else if (%varplayerbit_9229 = 1) {
-        $intarray0(0) = ~script4593("You will keep the following items:", deathkeep_info:com_16);
+        $intarray0(0) = ~script4593("You will keep the following items:", deathkeep_info:0_header);
     } else {
-        $intarray0(0) = ~script4593("You will keep the following items, unless you become skulled:", deathkeep_info:com_16);
+        $intarray0(0) = ~script4593("You will keep the following items, unless you become skulled:", deathkeep_info:0_header);
     }
 } else {
-    $intarray0(0) = ~script4593("You will drop the following items:", deathkeep_info:com_16);
+    $intarray0(0) = ~script4593("You will drop the following items:", deathkeep_info:0_header);
 }
 if (%varplayerbit_9226 = 0) {
-    $intarray0(1) = ~script4593("You will keep the following items automatically:", deathkeep_info:com_19);
+    $intarray0(1) = ~script4593("You will keep the following items automatically:", deathkeep_info:1_header);
 } else {
-    $intarray0(1) = ~script4593("You will drop the following items:", deathkeep_info:com_19);
+    $intarray0(1) = ~script4593("You will drop the following items:", deathkeep_info:1_header);
 }
-$intarray0(2) = ~script4593("The following items are always lost:", deathkeep_info:com_21);
+$intarray0(2) = ~script4593("The following items are always lost:", deathkeep_info:2_header);
 def_obj $objarray4(4);
 $objarray4(0) = ~script750(%varplayerbit_9222);
 $objarray4(1) = ~script750(%varplayerbit_9223);
 $objarray4(2) = ~script750(%varplayerbit_9224);
 $objarray4(3) = ~script750(%varplayerbit_9225);
 def_int $int4 = calc(inv_size(inv) + inv_size(worn));
-cc_deleteall(deathkeep_info:com_18);
+cc_deleteall(deathkeep_info:protected);
 def_int $int5 = 0;
 while ($int5 < %varplayerbit_9227 & $int5 < 4) {
     if ($objarray4($int5) ! null) {
-        cc_create(deathkeep_info:com_18, ^iftype_rectangle, if_getnextsubid(deathkeep_info:com_18));
-        .cc_create(deathkeep_info:com_18, ^iftype_rectangle, if_getnextsubid(deathkeep_info:com_18));
+        cc_create(deathkeep_info:protected, ^iftype_rectangle, if_getnextsubid(deathkeep_info:protected));
+        .cc_create(deathkeep_info:protected, ^iftype_rectangle, if_getnextsubid(deathkeep_info:protected));
         cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
         .cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($intarray1(0) + 1), calc($intarray2(0) + 1), ^setpos_abs_left, ^setpos_abs_top);
@@ -73,7 +73,7 @@ while ($int5 < %varplayerbit_9227 & $int5 < 4) {
         .cc_setfill(false);
         cc_settrans(150);
         .cc_settrans(0);
-        ~script4594($objarray4($int5), -1, $intarray1(0), $intarray2(0), deathkeep_info:com_18);
+        ~script4594($objarray4($int5), -1, $intarray1(0), $intarray2(0), deathkeep_info:protected);
         $intarray1(0) = calc($intarray1(0) + 36 + $int2);
         if (calc($intarray1(0) + 36) >= $int0) {
             $intarray1(0) = 0;
@@ -81,11 +81,11 @@ while ($int5 < %varplayerbit_9227 & $int5 < 4) {
         }
         $intarray3(0) = calc($intarray3(0) + 1);
     } else {
-        cc_create(deathkeep_info:com_18, ^iftype_rectangle, if_getnextsubid(deathkeep_info:com_18));
+        cc_create(deathkeep_info:protected, ^iftype_rectangle, if_getnextsubid(deathkeep_info:protected));
         cc_sethide(true);
-        cc_create(deathkeep_info:com_18, ^iftype_rectangle, if_getnextsubid(deathkeep_info:com_18));
+        cc_create(deathkeep_info:protected, ^iftype_rectangle, if_getnextsubid(deathkeep_info:protected));
         cc_sethide(true);
-        cc_create(deathkeep_info:com_18, ^iftype_rectangle, if_getnextsubid(deathkeep_info:com_18));
+        cc_create(deathkeep_info:protected, ^iftype_rectangle, if_getnextsubid(deathkeep_info:protected));
         cc_sethide(true);
     }
     $int5 = calc($int5 + 1);
@@ -171,29 +171,29 @@ if ($intarray1(2) > 0) {
     $intarray2(2) = 0;
 }
 def_int $int10 = 0;
-if_setsize(0, $intarray0(0), ^setsize_minus, ^setsize_abs, deathkeep_info:com_16);
-if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:com_16);
+if_setsize(0, $intarray0(0), ^setsize_minus, ^setsize_abs, deathkeep_info:0_header);
+if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:0_header);
 $int10 = calc($int10 + $intarray0(0));
 if_setsize(0, $intarray2(0), ^setsize_minus, ^setsize_abs, deathkeep_info:com_17);
 if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:com_17);
 $int10 = calc($int10 + $intarray2(0) + 5);
-if_setsize(0, $intarray0(1), ^setsize_minus, ^setsize_abs, deathkeep_info:com_19);
-if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:com_19);
+if_setsize(0, $intarray0(1), ^setsize_minus, ^setsize_abs, deathkeep_info:1_header);
+if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:1_header);
 $int10 = calc($int10 + $intarray0(1));
 if_setsize(0, $intarray2(1), ^setsize_minus, ^setsize_abs, deathkeep_info:com_20);
 if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:com_20);
 $int10 = calc($int10 + $intarray2(1) + 5);
-if_setsize(0, $intarray0(2), ^setsize_minus, ^setsize_abs, deathkeep_info:com_21);
-if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:com_21);
+if_setsize(0, $intarray0(2), ^setsize_minus, ^setsize_abs, deathkeep_info:2_header);
+if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:2_header);
 $int10 = calc($int10 + $intarray0(2));
 if_setsize(0, $intarray2(2), ^setsize_minus, ^setsize_abs, deathkeep_info:com_22);
 if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:com_22);
 $int10 = calc($int10 + $intarray2(2));
 if (inv_freespace(inv_530) < inv_size(inv_530) & map_members = true) {
-    $intarray0(3) = ~script4593("You have items stored on your <col=ffff00>beast of burden</col> that will be dropped if either of you dies.", deathkeep_info:com_23);
+    $intarray0(3) = ~script4593("You have items stored on your <col=ffff00>beast of burden</col> that will be dropped if either of you dies.", deathkeep_info:appendix);
 }
-if_setsize(0, $intarray0(3), ^setsize_minus, ^setsize_abs, deathkeep_info:com_23);
-if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:com_23);
+if_setsize(0, $intarray0(3), ^setsize_minus, ^setsize_abs, deathkeep_info:appendix);
+if_setposition(0, $int10, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:appendix);
 $int10 = calc($int10 + $intarray0(3));
 if_setscrollsize(0, $int10, deathkeep_info:items);
 if ($int10 > if_getheight(deathkeep_info:items)) {

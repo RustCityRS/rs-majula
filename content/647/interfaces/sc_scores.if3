@@ -245,7 +245,7 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:18
-[com_18]
+[result_description_text_1]
 type=text
 x=5
 y=31
@@ -260,7 +260,7 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:19
-[com_19]
+[result_description_text_2]
 type=text
 x=5
 y=56
@@ -466,7 +466,7 @@ height=32
 layer=main_layer
 colour=0xffff00
 trans=255
-onvarctransmit=script1946{varclient_590, varclient_591, varclient_592, varclient_593, varclient_594, varclient_588, varclient_589, varclient_596, varclient_597, varclient_598}
+onvarctransmit=sc_client_score_refresh{varclient_590, varclient_591, varclient_592, varclient_593, varclient_594, varclient_588, varclient_589, varclient_596, varclient_597, varclient_598}
 
 // 810:35
 [com_35]
@@ -838,7 +838,7 @@ textshadow=yes
 colour=0xc8aa64
 
 // 810:63
-[lesser_updatehud]
+[total_score_text]
 type=text
 x=143
 y=160

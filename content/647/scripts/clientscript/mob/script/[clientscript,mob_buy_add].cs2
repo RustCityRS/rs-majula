@@ -4,4 +4,4 @@ if (%varclient_846 < 10) {
     %varclient_846 = calc(%varclient_846 + 1);
 }
 if_settext(tostring(%varclient_846), mob_squad_buy:quantity_field);
-~script2565;
+~mob_buy_update_qty;

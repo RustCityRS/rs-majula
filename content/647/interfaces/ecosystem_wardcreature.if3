@@ -26,7 +26,7 @@ modelanim=seq_3288
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=script3436(model_62238, "Draconic Jadinko", ecosystem_wardcreature:draconic_ward, ecosystem_wardcreature:draconic_box)
+onop=ecosystem_big_model(model_62238, "Draconic Jadinko", ecosystem_wardcreature:draconic_ward, ecosystem_wardcreature:draconic_box)
 
 // 311:2
 [draconic_q]
@@ -61,7 +61,7 @@ textshadow=yes
 colour=0xeae7c4
 transmitop=1
 op1=Ward
-onmouseover=script3925
+onmouseover=ecosystem_button_swapper
 onmouseleave=script3926
 
 // 311:4
@@ -92,7 +92,7 @@ modelanim=seq_3288
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=script3436(model_62248, "Carrion Jadinko", ecosystem_wardcreature:carrion_ward, ecosystem_wardcreature:carrion_box)
+onop=ecosystem_big_model(model_62248, "Carrion Jadinko", ecosystem_wardcreature:carrion_ward, ecosystem_wardcreature:carrion_box)
 
 // 311:6
 [carrion_q]
@@ -127,7 +127,7 @@ textshadow=yes
 colour=0xeae7c4
 transmitop=1
 op1=Ward
-onmouseover=script3925
+onmouseover=ecosystem_button_swapper
 onmouseleave=script3926
 
 // 311:8
@@ -158,7 +158,7 @@ modelanim=seq_3288
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=script3436(model_62243, "Amphibious Jadinko", ecosystem_wardcreature:amphibious_ward, ecosystem_wardcreature:amphibious_box)
+onop=ecosystem_big_model(model_62243, "Amphibious Jadinko", ecosystem_wardcreature:amphibious_ward, ecosystem_wardcreature:amphibious_box)
 
 // 311:10
 [amphibious_q]
@@ -193,7 +193,7 @@ textshadow=yes
 colour=0xeae7c4
 transmitop=1
 op1=Ward
-onmouseover=script3925
+onmouseover=ecosystem_button_swapper
 onmouseleave=script3926
 
 // 311:12
@@ -224,7 +224,7 @@ modelanim=seq_3288
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=script3436(model_62250, "Aquatic Jadinko", ecosystem_wardcreature:aquatic_ward, ecosystem_wardcreature:aquatic_box)
+onop=ecosystem_big_model(model_62250, "Aquatic Jadinko", ecosystem_wardcreature:aquatic_ward, ecosystem_wardcreature:aquatic_box)
 
 // 311:14
 [aquatic_q]
@@ -259,7 +259,7 @@ textshadow=yes
 colour=0xeae7c4
 transmitop=1
 op1=Ward
-onmouseover=script3925
+onmouseover=ecosystem_button_swapper
 onmouseleave=script3926
 
 // 311:16
@@ -275,7 +275,7 @@ onmouseover=graphic_swapper(event_com, graphic_4042)
 onmouseleave=graphic_swapper(event_com, graphic_4041)
 
 // 311:17
-[com_17]
+[carnivorous]
 type=model
 x=232
 y=31
@@ -290,10 +290,10 @@ modelanim=seq_3288
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=script3436(model_62241, "Cannibal Jadinko", ecosystem_wardcreature:com_19, ecosystem_wardcreature:carnivorous_box)
+onop=ecosystem_big_model(model_62241, "Cannibal Jadinko", ecosystem_wardcreature:carnivorous_ward, ecosystem_wardcreature:carnivorous_box)
 
 // 311:18
-[com_18]
+[carnivorous_q]
 type=text
 x=262
 y=42
@@ -309,7 +309,7 @@ textshadow=yes
 colour=0xeae7c4
 
 // 311:19
-[com_19]
+[carnivorous_ward]
 type=text
 x=395
 y=260
@@ -325,7 +325,7 @@ textshadow=yes
 colour=0xeae7c4
 transmitop=1
 op1=Ward
-onmouseover=script3925
+onmouseover=ecosystem_button_swapper
 onmouseleave=script3926
 
 // 311:20
@@ -356,7 +356,7 @@ modelanim=seq_3288
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=script3436(model_62249, "Igneous Jadinko", ecosystem_wardcreature:igneous_ward, ecosystem_wardcreature:igneous_box)
+onop=ecosystem_big_model(model_62249, "Igneous Jadinko", ecosystem_wardcreature:igneous_ward, ecosystem_wardcreature:igneous_box)
 
 // 311:22
 [igneous_q]
@@ -391,7 +391,7 @@ textshadow=yes
 colour=0xeae7c4
 transmitop=1
 op1=Ward
-onmouseover=script3925
+onmouseover=ecosystem_button_swapper
 onmouseleave=script3926
 
 // 311:24
@@ -422,7 +422,7 @@ modelanim=seq_3288
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onop=script3436(model_62244, "Common Jadinko", ecosystem_wardcreature:basic_ward, ecosystem_wardcreature:basic_box)
+onop=ecosystem_big_model(model_62244, "Common Jadinko", ecosystem_wardcreature:basic_ward, ecosystem_wardcreature:basic_box)
 
 // 311:26
 [basic_q]
@@ -559,7 +559,7 @@ textshadow=yes
 colour=0xeae7c4
 transmitop=1
 op1=Ward
-onmouseover=script3925
+onmouseover=ecosystem_button_swapper
 onmouseleave=script3926
 
 // 311:40
@@ -747,7 +747,7 @@ layer=frame_layer
 graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close
-onload=script2992
+onload=ecosystem_critter_hide
 onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
 onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
@@ -795,7 +795,7 @@ text=
 textalignh=centre
 textalignv=centre
 textshadow=yes
-onmouseover=script3925
+onmouseover=ecosystem_button_swapper
 onmouseleave=script3926
 
 // 311:59

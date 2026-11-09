@@ -16,7 +16,7 @@ y=2
 width=4
 height=22
 widthmode=minus
-layer=com_88
+layer=summary_requirements_window
 textfont=verdana_11pt_regular
 text=Cannot pin this task
 textalignv=centre
@@ -40,7 +40,7 @@ textshadow=yes
 colour=0xdedede
 
 // 917:3
-[com_3]
+[summary_step_1_arrow]
 type=graphic
 x=8
 y=8
@@ -104,7 +104,7 @@ transmitop=10
 op10= 
 
 // 917:7
-[com_7]
+[summary_step_3_arrow]
 type=graphic
 x=8
 y=8
@@ -136,7 +136,7 @@ transmitop=10
 op10= 
 
 // 917:9
-[com_9]
+[summary_step_4_arrow]
 type=graphic
 x=8
 y=8
@@ -168,7 +168,7 @@ transmitop=10
 op10= 
 
 // 917:11
-[com_11]
+[summary_step_5_arrow]
 type=graphic
 x=8
 y=8
@@ -200,7 +200,7 @@ transmitop=10
 op10= 
 
 // 917:13
-[com_13]
+[summary_step_6_arrow]
 type=graphic
 x=8
 y=8
@@ -215,40 +215,40 @@ onmouseleave=deltooltip(task_main:summary_tooltip)
 onmouserepeat=addtooltip(event_com, task_main:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
 
 // 917:14
-[com_14]
+[summary_requirements_tab_l]
 type=graphic
 width=6
 heightmode=minus
-layer=com_33
+layer=summary_requirements_button
 graphic="task_tab,0"
 
 // 917:15
-[com_15]
+[summary_requirements_tab_m]
 type=graphic
 x=5
 width=10
 widthmode=minus
 heightmode=minus
-layer=com_33
+layer=summary_requirements_button
 graphic="task_tab,1"
 
 // 917:16
-[com_16]
+[summary_requirements_tab_r]
 type=graphic
 width=6
 heightmode=minus
 xmode=abs_right
-layer=com_33
+layer=summary_requirements_button
 graphic="task_tab,0"
 hflip=yes
 
 // 917:17
-[com_17]
+[summary_requirements_label]
 type=text
 width=129
 height=1
 heightmode=minus
-layer=com_33
+layer=summary_requirements_button
 textfont=verdana_11pt_regular
 text=Requirements
 textalignh=centre
@@ -257,39 +257,39 @@ textshadow=yes
 colour=0xdedede
 
 // 917:18
-[com_18]
+[summary_hints_tab_l]
 type=graphic
 width=6
 heightmode=minus
-layer=com_32
+layer=summary_hints_button
 graphic="task_tab,0"
 
 // 917:19
-[com_19]
+[summary_hints_tab_m]
 type=graphic
 x=5
 width=10
 widthmode=minus
 heightmode=minus
-layer=com_32
+layer=summary_hints_button
 graphic="task_tab,1"
 
 // 917:20
-[com_20]
+[summary_hints_tab_r]
 type=graphic
 width=6
 heightmode=minus
 xmode=abs_right
-layer=com_32
+layer=summary_hints_button
 graphic="task_tab,0"
 hflip=yes
 
 // 917:21
-[com_21]
+[summary_hints_label]
 type=text
 width=129
 heightmode=minus
-layer=com_32
+layer=summary_hints_button
 textfont=verdana_11pt_regular
 text=Hints
 textalignh=centre
@@ -298,40 +298,40 @@ textshadow=yes
 colour=0xdedede
 
 // 917:22
-[com_22]
+[summary_rewards_tab_l]
 type=graphic
 width=6
 heightmode=minus
-layer=com_31
+layer=summary_rewards_button
 graphic="task_tab,0"
 
 // 917:23
-[com_23]
+[summary_rewards_tab_m]
 type=graphic
 x=5
 width=10
 widthmode=minus
 heightmode=minus
-layer=com_31
+layer=summary_rewards_button
 graphic="task_tab,1"
 
 // 917:24
-[com_24]
+[summary_rewards_tab_r]
 type=graphic
 width=6
 heightmode=minus
 xmode=abs_right
-layer=com_31
+layer=summary_rewards_button
 graphic="task_tab,0"
 hflip=yes
 
 // 917:25
-[com_25]
+[summary_rewards_label]
 type=text
 width=129
 height=1
 heightmode=minus
-layer=com_31
+layer=summary_rewards_button
 textfont=verdana_11pt_regular
 text=Rewards
 textalignh=centre
@@ -393,10 +393,10 @@ transmitop=1
 op1=Description
 onmouseover=task_main_tab_hover(1)
 onmouseleave=task_main_tab_hover(0)
-onop=script4018(0)
+onop=task_main_summary_tab(0)
 
 // 917:31
-[com_31]
+[summary_rewards_button]
 type=layer
 x=128
 y=119
@@ -407,10 +407,10 @@ transmitop=1
 op1=Rewards
 onmouseover=task_main_tab_hover(2)
 onmouseleave=task_main_tab_hover(0)
-onop=script4018(1)
+onop=task_main_summary_tab(1)
 
 // 917:32
-[com_32]
+[summary_hints_button]
 type=layer
 x=256
 y=119
@@ -421,10 +421,10 @@ transmitop=1
 op1=Hints
 onmouseover=task_main_tab_hover(3)
 onmouseleave=task_main_tab_hover(0)
-onop=script4018(2)
+onop=task_main_summary_tab(2)
 
 // 917:33
-[com_33]
+[summary_requirements_button]
 type=layer
 x=384
 y=119
@@ -435,7 +435,7 @@ transmitop=1
 op1=Requirements
 onmouseover=task_main_tab_hover(4)
 onmouseleave=task_main_tab_hover(0)
-onop=script4018(3)
+onop=task_main_summary_tab(3)
 
 // 917:34
 [summary_title]
@@ -469,7 +469,7 @@ textshadow=yes
 colour=0xdedede
 
 // 917:36
-[com_36]
+[summary_difficulty_icon]
 type=graphic
 x=65
 y=97
@@ -535,7 +535,7 @@ onop=task_main_closesummary
 onmouserepeat=addtooltip(event_com, task_main:summary_tooltip, "Close this window and return to the list of Tasks.", 45, 220)
 
 // 917:41
-[com_41]
+[pin_button_layer]
 type=layer
 x=437
 y=91
@@ -559,35 +559,35 @@ layer=com_87
 colour=0x4e4d4d
 
 // 917:43
-[com_43]
+[close_bg_l]
 type=graphic
 width=6
 height=19
 layer=summary_close
-graphic=graphic_4322
+graphic="task_pin_but,0"
 
 // 917:44
-[com_44]
+[close_bg_m]
 type=graphic
 x=6
 width=12
 height=19
 widthmode=minus
 layer=summary_close
-graphic=graphic_4323
+graphic="task_pin_but,1"
 
 // 917:45
-[com_45]
+[close_bg_r]
 type=graphic
 width=6
 height=19
 xmode=abs_right
 layer=summary_close
-graphic=graphic_4322
+graphic="task_pin_but,0"
 hflip=yes
 
 // 917:46
-[com_46]
+[menu_bg_l]
 type=graphic
 width=6
 height=26
@@ -595,7 +595,7 @@ layer=menu_window
 graphic=graphic_4326
 
 // 917:47
-[com_47]
+[menu_bg_r]
 type=graphic
 width=6
 height=26
@@ -605,7 +605,7 @@ graphic=graphic_4326
 hflip=yes
 
 // 917:48
-[com_48]
+[menu_bg_m]
 type=graphic
 x=6
 width=6
@@ -802,7 +802,7 @@ width=35
 height=30
 widthmode=minus
 heightmode=minus
-layer=com_83
+layer=summary_details_layer
 textfont=p12_full
 textshadow=yes
 colour=0xdedede
@@ -810,7 +810,7 @@ transmitop=10
 op10= 
 
 // 917:64
-[com_64]
+[background]
 type=layer
 width=512
 height=314
@@ -871,7 +871,7 @@ textshadow=yes
 type=graphic
 width=6
 height=26
-layer=com_64
+layer=background
 graphic=graphic_4326
 colour=0xffffffff
 
@@ -881,7 +881,7 @@ type=graphic
 width=6
 height=26
 xmode=abs_right
-layer=com_64
+layer=background
 graphic=graphic_4326
 hflip=yes
 colour=0xffffffff
@@ -893,7 +893,7 @@ x=6
 width=6
 height=26
 widthmode=minus
-layer=com_64
+layer=background
 graphic=graphic_4327
 tiling=yes
 colour=0xffffffff
@@ -905,13 +905,13 @@ x=490
 y=4
 width=19
 height=18
-layer=com_64
-graphic=graphic_4344
+layer=background
+graphic="task_close_but,0"
 colour=0xffffffff
 transmitop=1
 op1=Close
-onmouseover=graphic_swapper(task_main:close_button, graphic_4345)
-onmouseleave=graphic_swapper(task_main:close_button, graphic_4344)
+onmouseover=graphic_swapper(task_main:close_button, "task_close_but,1")
+onmouseleave=graphic_swapper(task_main:close_button, "task_close_but,0")
 onop=closebutton_click
 
 // 917:74
@@ -919,7 +919,7 @@ onop=closebutton_click
 type=text
 height=24
 widthmode=minus
-layer=com_64
+layer=background
 textfont=b12_full
 text=Task List
 textalignh=centre
@@ -958,7 +958,7 @@ layer=summary
 colour=0x000000
 
 // 917:78
-[com_78]
+[summary_bg_fill]
 type=rectangle
 y=165
 height=135
@@ -979,7 +979,7 @@ layer=summary
 colour=0x000000
 
 // 917:80
-[com_80]
+[summary_bg_alpha]
 type=graphic
 y=165
 widthmode=minus
@@ -1007,7 +1007,7 @@ layer=summary_info
 hide=yes
 
 // 917:83
-[com_83]
+[summary_details_layer]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -1031,7 +1031,7 @@ heightmode=minus
 layer=com_84
 
 // 917:86
-[com_86]
+[summary_requirements_layer]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -1047,20 +1047,20 @@ heightmode=minus
 layer=summary
 
 // 917:88
-[com_88]
+[summary_requirements_window]
 type=layer
 width=16
 widthmode=minus
 heightmode=minus
-layer=com_86
+layer=summary_requirements_layer
 
 // 917:89
-[com_89]
+[summary_requirements_scroll]
 type=layer
 width=16
 heightmode=minus
 xmode=abs_right
-layer=com_86
+layer=summary_requirements_layer
 
 // 917:90
 [com_90]
@@ -1068,8 +1068,8 @@ type=graphic
 width=6
 height=19
 ymode=abs_centre
-layer=com_41
-graphic=graphic_4322
+layer=pin_button_layer
+graphic="task_pin_but,0"
 colour=0xffffffff
 
 // 917:91
@@ -1110,7 +1110,7 @@ widthmode=minus
 heightmode=minus
 
 // 917:95
-[com_95]
+[toggle_tooltip_layer]
 type=layer
 x=28
 y=20
@@ -1211,7 +1211,7 @@ height=19
 layer=menu_window
 onmouseleave=deltooltip(task_main:tooltip)
 onmouserepeat=addtooltip(task_main:tooltip_layer, task_main:tooltip, "Your overall progress.", 45, 150)
-onvarctransmit=script3997{varclient_1424}
+onvarctransmit=task_main_display_totals{varclient_1424}
 
 // 917:105
 [progress_layer]
@@ -1223,10 +1223,10 @@ height=19
 layer=menu_window
 onmouseleave=deltooltip(task_main:tooltip)
 onmouserepeat=addtooltip(task_main:tooltip_layer, task_main:tooltip, "Your progress in the current area.", 45, 150)
-onvarctransmit=script3997{varclient_1424}
+onvarctransmit=task_main_display_totals{varclient_1424}
 
 // 917:106
-[com_106]
+[filter_done_button]
 type=graphic
 x=3
 y=2
@@ -1234,7 +1234,7 @@ width=22
 height=23
 xmode=abs_right
 layer=menu_window
-graphic=graphic_4300
+graphic="task_filter_but,3"
 transmitop=1
 op1=Filter-done
 onmouseleave=deltooltip(task_main:tooltip)
@@ -1270,7 +1270,7 @@ width=4
 height=15
 widthmode=minus
 layer=progress_layer
-graphic=graphic_4313
+graphic="task_progbar,1"
 tiling=yes
 
 // 917:110
@@ -1286,7 +1286,7 @@ textalignh=centre
 textalignv=centre
 transmitop=10
 op10= 
-onvarctransmit=script3997{varclient_1424}
+onvarctransmit=task_main_display_totals{varclient_1424}
 
 // 917:111
 [outof]
@@ -1315,7 +1315,7 @@ textalignh=centre
 textalignv=centre
 transmitop=10
 op10= 
-onvarctransmit=script3997{varclient_1423}
+onvarctransmit=task_main_display_totals{varclient_1423}
 
 // 917:113
 [complete]
@@ -1338,7 +1338,7 @@ width=22
 height=23
 xmode=abs_right
 layer=menu_window
-graphic=graphic_4297
+graphic="task_filter_but,0"
 colour=0xffffffff
 transmitop=1
 op1=Filter-sets
@@ -1356,10 +1356,10 @@ height=18
 heightmode=minus
 xmode=abs_right
 layer=category_area
-onload=script3993
+onload=task_area_scroll_setup
 
 // 917:116
-[com_116]
+[area_selected_bg]
 type=graphic
 x=1
 width=18
@@ -1387,7 +1387,7 @@ onmouseleave=graphic_swapper(task_main:area_arrow, graphic_4276)
 onop=script4015
 
 // 917:118
-[com_118]
+[area_box_border]
 type=rectangle
 height=18
 widthmode=minus
@@ -1410,7 +1410,7 @@ transmitop=10
 op10= 
 
 // 917:120
-[com_120]
+[area_selected_icon]
 type=graphic
 x=2
 y=1
@@ -1704,7 +1704,7 @@ onmouseleave=task_area_highlight(63)
 onop=task_main_list_populate(7, 999, 999)
 
 // 917:137
-[com_137]
+[area_dungeoneering]
 type=text
 x=14
 y=128
@@ -1725,7 +1725,7 @@ onmouseleave=task_area_highlight(63)
 onop=task_main_list_populate(62, 999, 999)
 
 // 917:138
-[com_138]
+[icon_dungeoneering]
 type=graphic
 x=2
 y=128
@@ -1746,7 +1746,7 @@ y=1
 width=6
 height=21
 ymode=abs_bottom
-layer=com_64
+layer=background
 graphic=graphic_4328
 
 // 917:140
@@ -1757,7 +1757,7 @@ width=6
 height=21
 xmode=abs_right
 ymode=abs_bottom
-layer=com_64
+layer=background
 graphic=graphic_4328
 hflip=yes
 
@@ -1770,7 +1770,7 @@ width=12
 height=20
 widthmode=minus
 ymode=abs_bottom
-layer=com_64
+layer=background
 graphic=graphic_4329
 tiling=yes
 
@@ -1782,15 +1782,15 @@ y=4
 width=14
 height=14
 ymode=abs_bottom
-layer=com_64
+layer=background
 graphic="check_box_2,0"
 transmitop=1
 opbase=popups
 op1=Turn-off
-onmouseover=script4033(0, 0)
-onmouseleave=script4033(1, 0)
-onop=script4034
-onmouserepeat=addtooltip(task_main:com_95, task_main:toggle_tooltip, "Check to turn off 'Task Complete!' pop-ups.", 45, 250)
+onmouseover=task_main_popup_hover(0, 0)
+onmouseleave=task_main_popup_hover(1, 0)
+onop=task_toggle_popup
+onmouserepeat=addtooltip(task_main:toggle_tooltip_layer, task_main:toggle_tooltip, "Check to turn off 'Task Complete!' pop-ups.", 45, 250)
 
 // 917:143
 [com_143]
@@ -1801,36 +1801,36 @@ xmode=abs_right
 layer=com_84
 
 // 917:144
-[com_144]
+[pin_button_r]
 type=graphic
 width=6
 height=19
 xmode=abs_right
 ymode=abs_centre
-layer=com_41
-graphic=graphic_4322
+layer=pin_button_layer
+graphic="task_pin_but,0"
 hflip=yes
 
 // 917:145
-[com_145]
+[pin_button_m]
 type=graphic
 x=6
 width=12
 height=19
 widthmode=minus
 ymode=abs_centre
-layer=com_41
-graphic=graphic_4323
+layer=pin_button_layer
+graphic="task_pin_but,1"
 
 // 917:146
-[com_146]
+[pin_button_icon]
 type=graphic
 x=3
 y=5
 width=11
 height=11
-layer=com_41
-graphic=graphic_4295
+layer=pin_button_layer
+graphic="task_pin_symbol,0"
 
 // 917:147
 [pin_button_text]
@@ -1840,7 +1840,7 @@ y=1
 widthmode=minus
 heightmode=minus
 ymode=abs_bottom
-layer=com_41
+layer=pin_button_layer
 textfont=verdana_11pt_regular
 text=Pin
 textalignh=centre
@@ -1858,7 +1858,7 @@ textfont=p11_full
 text=999
 textalignh=centre
 textalignv=centre
-onvarctransmit=script3997{varclient_1424}
+onvarctransmit=task_main_display_totals{varclient_1424}
 
 // 917:149
 [com_149]
@@ -1883,7 +1883,7 @@ textfont=p11_full
 text=999
 textalignh=centre
 textalignv=centre
-onvarctransmit=script3997{varclient_1423}
+onvarctransmit=task_main_display_totals{varclient_1423}
 
 // 917:151
 [total_complete]
@@ -1902,7 +1902,7 @@ textalignv=centre
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_95
+layer=toggle_tooltip_layer
 
 // 917:153
 [area_meta]
@@ -1948,7 +1948,7 @@ y=24
 width=4
 height=30
 widthmode=minus
-layer=com_88
+layer=summary_requirements_window
 textfont=p11_full
 textalignv=centre
 colour=0xdedede
@@ -1961,7 +1961,7 @@ y=24
 width=4
 height=30
 widthmode=minus
-layer=com_88
+layer=summary_requirements_window
 textfont=p11_full
 textalignv=centre
 colour=0xdedede
@@ -1974,7 +1974,7 @@ y=24
 width=4
 height=30
 widthmode=minus
-layer=com_88
+layer=summary_requirements_window
 textfont=p11_full
 textalignv=centre
 colour=0xdedede
@@ -1987,7 +1987,7 @@ y=24
 width=4
 height=30
 widthmode=minus
-layer=com_88
+layer=summary_requirements_window
 textfont=p11_full
 textalignv=centre
 colour=0xdedede
@@ -2000,7 +2000,7 @@ y=24
 width=4
 height=30
 widthmode=minus
-layer=com_88
+layer=summary_requirements_window
 textfont=p11_full
 textalignv=centre
 colour=0xdedede
@@ -2013,7 +2013,7 @@ y=24
 width=4
 height=30
 widthmode=minus
-layer=com_88
+layer=summary_requirements_window
 textfont=p11_full
 textalignv=centre
 colour=0xdedede
@@ -2026,7 +2026,7 @@ y=24
 width=4
 height=30
 widthmode=minus
-layer=com_88
+layer=summary_requirements_window
 textfont=p11_full
 textalignv=centre
 colour=0xdedede
@@ -2039,7 +2039,7 @@ y=24
 width=4
 height=30
 widthmode=minus
-layer=com_88
+layer=summary_requirements_window
 textfont=p11_full
 textalignv=centre
 colour=0xdedede
@@ -2052,7 +2052,7 @@ y=24
 width=4
 height=30
 widthmode=minus
-layer=com_88
+layer=summary_requirements_window
 textfont=p11_full
 textalignv=centre
 colour=0xdedede
@@ -2065,7 +2065,7 @@ y=24
 width=4
 height=30
 widthmode=minus
-layer=com_88
+layer=summary_requirements_window
 textfont=p11_full
 textalignv=centre
 colour=0xdedede

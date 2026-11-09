@@ -1,5 +1,5 @@
 // 850:0
-[com_0]
+[background]
 type=layer
 width=506
 height=129
@@ -705,7 +705,7 @@ textalignv=centre
 colour=0x000000
 
 // 850:45
-[com_45]
+[scrollbar]
 type=layer
 x=2
 width=16
@@ -746,8 +746,8 @@ onop=mob_show_hide
 type=graphic
 width=515
 height=141
-layer=com_0
-graphic=graphic_2025
+layer=background
+graphic=mob_chat_window
 colour=0xffffffff
 
 // 850:50

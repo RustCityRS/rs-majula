@@ -1,0 +1,28 @@
+// 1689
+[proc,mah4_final_cutscene_update]
+%varclient_1047 = calc(%varclient_1047 + 1);
+if (%varclient_1047 >= calc(2 - 1)) {
+    %varclient_1047 = 0;
+    if (%varclient_1045 = 0) {
+        %varclient_1046 = min(calc(%varclient_1046 + 2), 255);
+    } else if (%varclient_1045 = 1) {
+        %varclient_1046 = max(calc(%varclient_1046 - 2), 0);
+    }
+    if_settrans(%varclient_1046, mah4_cutscene_overlay:black_rect);
+}
+%varclient_1050 = calc(%varclient_1050 + 1);
+if (%varclient_1050 >= calc(6 - 1)) {
+    %varclient_1050 = 0;
+    if (%varclient_1048 = 0) {
+        %varclient_1049 = min(calc(%varclient_1049 + 1), 255);
+        if (%varclient_1049 >= 255) {
+            %varclient_1048 = 1;
+        }
+    } else if (%varclient_1048 = 1 & %varclient_1051 = 1) {
+        %varclient_1049 = max(calc(%varclient_1049 - 3), 192);
+        if (%varclient_1049 <= 192) {
+            %varclient_1048 = 0;
+        }
+    }
+    if_settrans(%varclient_1049, mah4_cutscene_overlay:yellow_rect);
+}

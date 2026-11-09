@@ -13,8 +13,8 @@ if (if_gethide(lobbyscreen:friendslist_panel) = true & $int3 > %varclient_1275) 
 if (if_gethide(lobbyscreen:clanchat_panel) = true & $int4 > %varclient_1276) {
     if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:clanchat_panel, event_com)", lobbyscreen:clanchat_tab);
 }
-if (if_gethide(lobbyscreen:com_177) = true & $int5 > %varclient_1510) {
-    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:com_177, event_com)", lobbyscreen:com_191);
+if (if_gethide(lobbyscreen:friendschat_panel) = true & $int5 > %varclient_1510) {
+    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:friendschat_panel, event_com)", lobbyscreen:com_191);
 }
 %varclient_1275 = $int3;
 %varclient_1276 = $int4;

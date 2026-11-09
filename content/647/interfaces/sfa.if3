@@ -20,7 +20,7 @@ height=208
 layer=content_layer
 
 // 476:2
-[alp_front1]
+[bar_border_white]
 type=rectangle
 width=22
 height=206
@@ -752,7 +752,7 @@ text=60
 textalignh=centre
 textshadow=yes
 colour=0xffcc99
-onvartransmit=script2894(event_com){varplayer_1628}
+onvartransmit=sfa_shard_update(event_com){varplayer_1628}
 
 // 476:57
 [focus_frame]

@@ -3,7 +3,7 @@
 type=layer
 width=190
 height=231
-onvartransmit=script1120{attackstyle_magic}
+onvartransmit=autocast_highlight_spell{attackstyle_magic}
 
 // 950:1
 [xp_button_layer]
@@ -22,7 +22,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=xp_button_layer
-graphic=graphic_1701
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Defensive Casting
@@ -41,7 +41,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=xp_button_layer
-graphic=graphic_2191
+graphic="magic_icon_set,6"
 colour=0xffffffff
 transmitop=10
 op10=  
@@ -55,7 +55,7 @@ transmitop=10
 op10= 
 
 // 950:5
-[com_5]
+[order_buttons_layer]
 type=layer
 width=190
 height=261
@@ -79,7 +79,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_1701
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Filter
@@ -87,7 +87,7 @@ op10=
 onmouseover=script785(event_com)
 onmouseleave=script941(event_com)
 onvartransmit=script1118(event_com){varplayer_1376}
-onmouserepeat=script1117(event_com)
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
 
 // 950:8
 [com_8]
@@ -98,7 +98,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_2192
+graphic="magic_icon_set,7"
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -112,7 +112,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_1701
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Filter
@@ -120,7 +120,7 @@ op10=
 onmouseover=script785(event_com)
 onmouseleave=script941(event_com)
 onvartransmit=script1118(event_com){varplayer_1376}
-onmouserepeat=script1117(event_com)
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
 
 // 950:10
 [com_10]
@@ -131,7 +131,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_2195
+graphic="magic_icon_set,10"
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -145,7 +145,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_1701
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Filter
@@ -153,10 +153,10 @@ op10=
 onmouseover=script785(event_com)
 onmouseleave=script941(event_com)
 onvartransmit=script1118(event_com){varplayer_1376}
-onmouserepeat=script1117(event_com)
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
 
 // 950:12
-[com_12]
+[filter_misc_icon]
 type=graphic
 x=78
 y=5
@@ -164,7 +164,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_2193
+graphic="magic_icon_set,8"
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -178,7 +178,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_1701
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Filter
@@ -186,7 +186,7 @@ op10=
 onmouseover=script785(event_com)
 onmouseleave=script941(event_com)
 onvartransmit=script1118(event_com){varplayer_1376}
-onmouserepeat=script1117(event_com)
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
 
 // 950:14
 [com_14]
@@ -197,7 +197,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_2194
+graphic="magic_icon_set,9"
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -211,15 +211,15 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_5
-graphic=graphic_1701
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Sort
 op10=   
-onmouseleave=script2060(event_com)
-onvartransmit=script2057{varplayer_1376}
-onmouserepeat=script2061(event_com)
+onmouseleave=magre_button_restore(event_com)
+onvartransmit=magre_sort{varplayer_1376}
+onmouserepeat=magre_button_mouserepeat(event_com)
 onclick=script2058(0)
 
 // 950:16
@@ -231,14 +231,14 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_5
-graphic=graphic_1701
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Sort
 op10=    
-onmouseleave=script2060(event_com)
-onmouserepeat=script2061(event_com)
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
 onclick=script2058(1)
 
 // 950:17
@@ -250,14 +250,14 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_5
-graphic=graphic_1701
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Sort
 op10=    
-onmouseleave=script2060(event_com)
-onmouserepeat=script2061(event_com)
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
 onclick=script2058(2)
 
 // 950:18
@@ -269,8 +269,8 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_5
-graphic=graphic_1704
+layer=order_buttons_layer
+graphic="magic_icon_set,3"
 colour=0xffffffff
 transmitop=10
 op10=    
@@ -284,8 +284,8 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_5
-graphic=graphic_1705
+layer=order_buttons_layer
+graphic="magic_icon_set,4"
 colour=0xffffffff
 transmitop=10
 op10=     
@@ -299,8 +299,8 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_5
-graphic=graphic_1706
+layer=order_buttons_layer
+graphic="magic_icon_set,5"
 colour=0xffffffff
 transmitop=10
 op10=     
@@ -452,7 +452,7 @@ targetverb=Cast
 onload=magic_init(event_com, rand_magic:tooltip, "magicon,6", "magicoff,6", 13, "Fire Strike", "A basic fire missile", fire_rune, 3, air_rune, 2, mind_rune, 1, null, 0)
 
 // 950:31
-[com_31]
+[bones_to_bananas]
 type=graphic
 x=37
 y=36
@@ -998,7 +998,7 @@ op10=
 onload=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,21", "lunar_magic_off,21", 94, "Vengeance", "Rebound damage to an opponent", astral_rune, 4, death_rune, 2, earth_rune, 10, null, 0)
 
 // 950:66
-[com_66]
+[vengeance_group]
 type=graphic
 x=133
 y=156
@@ -1039,7 +1039,7 @@ alpha=yes
 colour=0xffffffff
 transmitop=10
 op10= 
-ontimer=script1124(event_com)
+ontimer=autocast_highlight_glow(event_com)
 
 // 950:69
 [com_69]

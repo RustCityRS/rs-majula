@@ -2,7 +2,7 @@
 [proc,script216]
 %varclient_790 = 1;
 if_sethide(true, snapshot_main_v2:name_list_layer);
-if_sethide(true, snapshot_main_v2:com_34);
+if_sethide(true, snapshot_main_v2:type_name_blackout_layer);
 if_sethide(true, snapshot_main_v2:type_name_layer);
 if_sethide(true, snapshot_main_v2:namelist_help_layer);
 if_sethide(true, snapshot_main_v2:offence_help_layer);
@@ -13,7 +13,7 @@ if_sethide(true, snapshot_main_v2:ignore_help_layer);
 if_sethide(true, snapshot_main_v2:offence_layer);
 if_sethide(true, snapshot_main_v2:ignore_layer);
 if_sethide(true, snapshot_main_v2:name_blackout_layer);
-if_sethide(true, snapshot_main_v2:com_117);
+if_sethide(true, snapshot_main_v2:offence_blackout_layer);
 if_sethide(true, snapshot_main_v2:ignore_blackout_layer);
 if (map_lang = 1) {
     if_sethide(false, snapshot_main_v2:name_list_layer);

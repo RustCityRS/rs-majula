@@ -236,7 +236,7 @@ transmitop=1
 op1=Accept
 
 // 334:22
-[dominiondice]
+[trade2decline]
 type=rectangle
 x=259
 y=295
@@ -449,7 +449,7 @@ ymode=abs_centre
 layer=out
 
 // 334:41
-[com_41]
+[out_dragzone]
 type=layer
 width=60
 widthmode=minus
@@ -460,13 +460,13 @@ layer=out
 candrop=yes
 
 // 334:42
-[com_42]
+[out_dragger]
 type=layer
 width=6
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=out_dragzone
 dragdepth=1
 
 // 334:43
@@ -476,7 +476,7 @@ width=2
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_42
+layer=out_dragger
 colour=0x000000
 fill=yes
 trans=175
@@ -488,7 +488,7 @@ x=1
 width=1
 height=4
 ymode=abs_centre
-layer=com_42
+layer=out_dragger
 colour=0xc8af96
 fill=yes
 trans=200
@@ -499,7 +499,7 @@ type=rectangle
 width=1
 height=2
 ymode=abs_centre
-layer=com_42
+layer=out_dragger
 colour=0xc8af96
 fill=yes
 trans=200
@@ -512,7 +512,7 @@ width=1
 height=4
 xmode=abs_right
 ymode=abs_centre
-layer=com_42
+layer=out_dragger
 colour=0xc8af96
 fill=yes
 trans=200
@@ -524,7 +524,7 @@ width=1
 height=2
 xmode=abs_right
 ymode=abs_centre
-layer=com_42
+layer=out_dragger
 colour=0xc8af96
 fill=yes
 trans=200
@@ -666,7 +666,7 @@ ymode=abs_centre
 layer=in
 
 // 334:60
-[com_60]
+[in_dragzone]
 type=layer
 width=60
 widthmode=minus
@@ -677,13 +677,13 @@ layer=in
 candrop=yes
 
 // 334:61
-[com_61]
+[in_dragger]
 type=layer
 width=6
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_60
+layer=in_dragzone
 dragdepth=1
 
 // 334:62
@@ -693,7 +693,7 @@ width=2
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_61
+layer=in_dragger
 colour=0x000000
 fill=yes
 trans=175
@@ -705,7 +705,7 @@ x=1
 width=1
 height=4
 ymode=abs_centre
-layer=com_61
+layer=in_dragger
 colour=0xc8af96
 fill=yes
 trans=200
@@ -716,7 +716,7 @@ type=rectangle
 width=1
 height=2
 ymode=abs_centre
-layer=com_61
+layer=in_dragger
 colour=0xc8af96
 fill=yes
 trans=200
@@ -729,7 +729,7 @@ width=1
 height=4
 xmode=abs_right
 ymode=abs_centre
-layer=com_61
+layer=in_dragger
 colour=0xc8af96
 fill=yes
 trans=200
@@ -741,7 +741,7 @@ width=1
 height=2
 xmode=abs_right
 ymode=abs_centre
-layer=com_61
+layer=in_dragger
 colour=0xc8af96
 fill=yes
 trans=200

@@ -201,7 +201,7 @@ layer=com_17
 colour=0xffffff
 
 // 19:20
-[com_20]
+[cross]
 type=graphic
 width=11
 height=11
@@ -218,7 +218,7 @@ xmode=abs_centre
 layer=content_layer
 transmitop=1
 op1=Accept
-onclick=script4607
+onclick=skillcape_colour_ok_click
 
 // 19:22
 [com_22]
@@ -263,7 +263,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=ok_button
-onload=script4201(event_com, struct_1736)
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 19:26
 [com_26]
@@ -371,7 +371,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=ok_button
-onload=script4201(event_com, struct_1737)
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 19:36
 [com_36]
@@ -381,7 +381,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=ok_button
-onload=script4201(event_com, struct_1738)
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 19:37
 [com_37]
@@ -391,7 +391,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=ok_button
-onload=script4201(event_com, struct_1739)
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 19:38
 [com_38]
@@ -426,7 +426,7 @@ text=Accept
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4210(event_com, verdana_13pt_regular, 0xebe0bc, 0x5a4e3a)
+onload=aif_text_layer_build(event_com, verdana_13pt_regular, 0xebe0bc, 0x5a4e3a)
 
 // 19:41
 [com_41]
@@ -438,7 +438,7 @@ heightmode=minus
 layer=ok_button
 hide=yes
 noclickthrough=yes
-onload=script4201(event_com, struct_1740)
+onload=aif_build_button_layer(event_com, struct_1740)
 
 // 19:42
 [com_42]
@@ -673,7 +673,7 @@ layer=com_43
 graphic=aif_window_stone_topr_corn
 
 // 19:63
-[com_63]
+[close_button_layer_2]
 type=layer
 x=5
 y=5
@@ -699,9 +699,9 @@ type=graphic
 width=15
 height=13
 xmode=abs_right
-layer=com_63
+layer=close_button_layer_2
 graphic="aif_bronze_close_button_1,0"
-onclick=script4608
+onclick=skillcape_colour_close_click
 
 // 19:66
 [com_66]
@@ -709,7 +709,7 @@ type=graphic
 width=15
 height=13
 xmode=abs_right
-layer=com_63
+layer=close_button_layer_2
 graphic="aif_bronze_close_button_1,1"
 trans=255
 onmouseover=script4209(event_com, 0)
@@ -721,7 +721,7 @@ type=graphic
 width=16
 height=15
 xmode=abs_right
-layer=com_63
+layer=close_button_layer_2
 graphic="aif_bronze_close_button_1,2"
 trans=255
 onclick=script4207(event_com, 0)

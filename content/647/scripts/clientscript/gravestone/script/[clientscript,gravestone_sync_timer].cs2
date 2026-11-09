@@ -4,12 +4,12 @@
 if (%varclient_815 > 0) {
     if (getwindowmode < 2) {
         if_setontimer("gravestone_update_timer", toplevel:gravestone_layer);
-        if_sethide(false, toplevel:com_12);
+        if_sethide(false, toplevel:gravestone_background);
         if_sethide(false, toplevel:gravestone_timer);
     } else {
         if_setontimer("gravestone_update_timer", toplevel_fullscreen:gravestone_layer);
         if_sethide(false, toplevel_fullscreen:gravestone_timer);
-        if_sethide(false, toplevel_fullscreen:com_165);
+        if_sethide(false, toplevel_fullscreen:gravestone_background);
     }
 } else {
     ~gravestone_stop_timer;

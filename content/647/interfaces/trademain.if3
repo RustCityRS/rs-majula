@@ -456,7 +456,7 @@ textshadow=yes
 colour=0xff0000
 
 // 335:41
-[com_41]
+[trade_balance_indicator]
 type=layer
 y=7
 width=14
@@ -464,8 +464,8 @@ height=27
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-onload=script4105(trademain:com_43, trademain:com_44, trademain:com_45, trademain:arrow, trademain:header)
-onvarctransmit=script4105(trademain:com_43, trademain:com_44, trademain:com_45, trademain:arrow, trademain:header){varclient_729, varclient_697}
+onload=trade_balance_indicator(trademain:myvalue, trademain:theirvalue, trademain:balance, trademain:arrow, trademain:header)
+onvarctransmit=trade_balance_indicator(trademain:myvalue, trademain:theirvalue, trademain:balance, trademain:arrow, trademain:header){varclient_729, varclient_697}
 
 // 335:42
 [header]
@@ -473,7 +473,7 @@ type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_41
+layer=trade_balance_indicator
 textfont=p11_full
 text=Wealth transfer:
 textalignh=centre
@@ -481,26 +481,26 @@ textshadow=yes
 colour=0xbebe5e
 
 // 335:43
-[com_43]
+[myvalue]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=trade_balance_indicator
 textfont=p11_full
 textalignv=bottom
 textshadow=yes
 colour=0xff981f
 
 // 335:44
-[com_44]
+[theirvalue]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=trade_balance_indicator
 textfont=p11_full
 textalignh=right
 textalignv=bottom
@@ -508,13 +508,13 @@ textshadow=yes
 colour=0xff981f
 
 // 335:45
-[com_45]
+[balance]
 type=text
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=trade_balance_indicator
 textfont=p12_full
 textalignh=centre
 textalignv=bottom
@@ -528,7 +528,7 @@ width=16
 height=16
 xmode=abs_centre
 ymode=abs_centre
-layer=com_41
+layer=trade_balance_indicator
 hide=yes
 graphic="catcon_catapult_arrows,0"
 
@@ -539,7 +539,7 @@ x=191
 y=204
 width=60
 height=76
-onload=script507(trademain:your_loan_offer_layer, trademain:your_loan_offer_item, trademain:caminactive, trademain:your_loan_offer_fakebutton, trademain:other_loan_offer_layer, trademain:other_loan_offer_item, trademain:other_loan_offer_duration)
+onload=script507(trademain:your_loan_offer_layer, trademain:your_loan_offer_item, trademain:your_loan_offer_duration, trademain:your_loan_offer_fakebutton, trademain:other_loan_offer_layer, trademain:other_loan_offer_item, trademain:other_loan_offer_duration)
 
 // 335:48
 [other_loan_offer_layer]
@@ -635,7 +635,7 @@ layer=your_loan_offer_layer
 colour=0xffffffff
 
 // 335:57
-[caminactive]
+[your_loan_offer_duration]
 type=text
 y=1
 height=30

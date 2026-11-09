@@ -69,7 +69,7 @@ Varp 281 is UF's progress varp (cache):
 | Source | What it shows |
 |---|---|
 | quest config 131 (`all.quest:669-672`) | `op1_str2=Unstable Foundations`, `op3_counted_g2_g4_g4=1,281,5,1000`: varp 281, started at 5, complete at 1000 (same layout as Cook's Assistant `1,29,1,2`, Dragon Slayer `1,176,1,10`). `op9_g1=1` (inference: quest points; it reads 1/2/3 for Cook's Assistant/Dragon Slayer/Desert Treasure, their QP). |
-| cs2 2193 (quest list) | `case 147: return(~script_2157(%varp281, 1000))` (cs2 2158: <1 not started, <1000 started, else done) |
+| cs2 2193 (quest list) | `case 147: return(~ql4_getprogress_basic(%varp281, 1000))` (cs2 2158 ql4_getprogress_detail: <1 not started, <1000 started, else done) |
 | cs2 4098 | maps varp 281 to the current tutorial Task id (table in 3.1); `case 1000 -> 3521`, `default -> 4094` |
 | cs2 3227 | Task completion thresholds on varp 281 (table in 3.1) |
 | loc 45604 (`all.loc`, multivarp=281) | varp 281 0..74 -> loc 45602, >=75 -> loc 45601 (the low-wall/ramp spot, section 2) |

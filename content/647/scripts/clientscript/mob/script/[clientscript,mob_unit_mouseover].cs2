@@ -1,0 +1,9 @@
+// 2558
+[clientscript,mob_unit_mouseover](component $component0)
+if (if_getgraphic($component0) = "mob_unit_heads,1") {
+    if_setgraphic("mob_unit_heads,6", $component0);
+} else if (if_getgraphic($component0) = "mob_unit_heads,2") {
+    if_setgraphic("mob_unit_heads,7", $component0);
+} else if (if_getgraphic($component0) = "mob_unit_heads,4") {
+    if_setgraphic("mob_unit_heads,9", $component0);
+}

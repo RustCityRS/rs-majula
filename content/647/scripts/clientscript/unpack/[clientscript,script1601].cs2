@@ -12,13 +12,13 @@ switch_int (randominc(2)) {
 }
 switch_component ($component0) {
     case ft3_dossier:com_31 :
-        $component1 = ft3_dossier:com_3;
+        $component1 = ft3_dossier:breegth;
         $component2 = ft3_dossier:com_4;
     case ft3_dossier:com_25 :
         $component1 = ft3_dossier:com_4;
-        $component2 = ft3_dossier:com_5;
+        $component2 = ft3_dossier:shredflesh;
     case ft3_dossier:com_20 :
-        $component1 = ft3_dossier:com_5;
+        $component1 = ft3_dossier:shredflesh;
         $component2 = ft3_dossier:godfather;
     case ft3_dossier:com_15 :
         $component1 = ft3_dossier:godfather;
@@ -28,13 +28,13 @@ switch_component ($component0) {
         $component2 = ft3_dossier:godfather;
     case ft3_dossier:com_16 :
         $component1 = ft3_dossier:godfather;
-        $component2 = ft3_dossier:com_5;
+        $component2 = ft3_dossier:shredflesh;
     case ft3_dossier:com_21 :
-        $component1 = ft3_dossier:com_5;
+        $component1 = ft3_dossier:shredflesh;
         $component2 = ft3_dossier:com_4;
     case ft3_dossier:com_26 :
         $component1 = ft3_dossier:com_4;
-        $component2 = ft3_dossier:com_3;
+        $component2 = ft3_dossier:breegth;
     case default :
         ~script675;
 }

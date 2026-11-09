@@ -8,7 +8,7 @@ heightmode=proportion
 noclickthrough=yes
 
 // 933:1
-[com_1]
+[main]
 type=layer
 width=512
 height=334
@@ -24,10 +24,10 @@ width=15623
 height=15066
 widthmode=proportion
 heightmode=proportion
-layer=com_1
+layer=main
 colour=0x000000
-onload=script2275
-ontimer=script3267
+onload=rand_interface_init_v2
+ontimer=rand_interface_update_v2
 
 // 933:3
 [frame_nw]
@@ -36,7 +36,7 @@ x=13
 y=20
 width=32
 height=32
-layer=com_1
+layer=main
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
@@ -49,7 +49,7 @@ x=468
 y=20
 width=32
 height=32
-layer=com_1
+layer=main
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -62,7 +62,7 @@ x=13
 y=294
 width=32
 height=32
-layer=com_1
+layer=main
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -75,7 +75,7 @@ x=468
 y=294
 width=32
 height=32
-layer=com_1
+layer=main
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -87,7 +87,7 @@ type=graphic
 y=52
 width=32
 height=242
-layer=com_1
+layer=main
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -101,7 +101,7 @@ x=480
 y=51
 width=32
 height=243
-layer=com_1
+layer=main
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -115,7 +115,7 @@ x=45
 y=20
 width=424
 height=26
-layer=com_1
+layer=main
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -129,7 +129,7 @@ x=45
 y=306
 width=423
 height=32
-layer=com_1
+layer=main
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -143,7 +143,7 @@ y=20
 width=384
 height=24
 xmode=abs_centre
-layer=com_1
+layer=main
 textfont=b12_full
 text=Congratulations! You have completed a Dungeon!
 textalignh=centre
@@ -154,22 +154,22 @@ transmitop=10
 op10= 
 
 // 933:12
-[com_12]
+[background]
 type=layer
 x=19
 y=41
 width=474
 height=278
-layer=com_1
+layer=main
 
 // 933:13
-[com_13]
+[skip_button_bg]
 type=graphic
 x=455
 y=19
 width=34
 height=24
-layer=com_1
+layer=main
 graphic="bank_buttons_large,0"
 colour=0x000000
 transmitop=1
@@ -185,7 +185,7 @@ x=470
 y=23
 width=16
 height=16
-layer=com_1
+layer=main
 graphic="catcon_catapult_arrows,3"
 trans=150
 transmitop=10
@@ -198,7 +198,7 @@ x=465
 y=23
 width=16
 height=16
-layer=com_1
+layer=main
 graphic="catcon_catapult_arrows,3"
 trans=100
 transmitop=10
@@ -211,7 +211,7 @@ x=460
 y=23
 width=16
 height=16
-layer=com_1
+layer=main
 graphic="catcon_catapult_arrows,3"
 colour=0x000000
 
@@ -222,7 +222,7 @@ x=22
 y=44
 width=334
 height=75
-layer=com_1
+layer=main
 
 // 933:18
 [stage_2]
@@ -231,7 +231,7 @@ x=21
 y=113
 width=337
 height=168
-layer=com_1
+layer=main
 
 // 933:19
 [stage_3]
@@ -240,7 +240,7 @@ x=21
 y=279
 width=338
 height=40
-layer=com_1
+layer=main
 
 // 933:20
 [totalflashbutton_layer]
@@ -249,7 +249,7 @@ x=192
 y=11
 width=200
 height=150
-layer=com_1
+layer=main
 
 // 933:21
 [com_21]
@@ -258,7 +258,7 @@ x=88
 y=11
 width=200
 height=150
-layer=com_1
+layer=main
 transmitop=10
 op10= 
 
@@ -269,7 +269,7 @@ x=-15
 y=11
 width=200
 height=150
-layer=com_1
+layer=main
 transmitop=10
 op10=  
 
@@ -1290,7 +1290,7 @@ transmitop=10
 op10=    
 
 // 933:94
-[com_94]
+[unbalanced_party_text]
 type=text
 x=4
 y=3
@@ -3062,7 +3062,7 @@ transmitop=10
 op10=  
 
 // 933:228
-[com_228]
+[prestige_xp_val]
 type=text
 y=27
 width=90
@@ -3259,7 +3259,7 @@ op10=
 type=graphic
 width=10
 height=10
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,0"
 colour=0xffffffff
 transmitop=10
@@ -3273,7 +3273,7 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,2"
 colour=0xffffffff
 transmitop=10
@@ -3285,7 +3285,7 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,3"
 colour=0xffffffff
 transmitop=10
@@ -3298,7 +3298,7 @@ y=10
 width=10
 height=20
 heightmode=minus
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,4"
 colour=0xffffffff
 transmitop=10
@@ -3311,7 +3311,7 @@ x=10
 width=19
 height=10
 widthmode=minus
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,5"
 colour=0xffffffff
 transmitop=10
@@ -3325,7 +3325,7 @@ width=19
 height=10
 widthmode=minus
 ymode=abs_bottom
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,7"
 colour=0xffffffff
 transmitop=10
@@ -3340,7 +3340,7 @@ width=10
 height=20
 heightmode=minus
 xmode=abs_right
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,6"
 colour=0xffffffff
 transmitop=10
@@ -3355,7 +3355,7 @@ width=20
 height=20
 widthmode=minus
 heightmode=minus
-layer=com_12
+layer=background
 graphic=rand_smithing_background_fill
 tiling=yes
 alpha=yes
@@ -3370,7 +3370,7 @@ x=-1
 width=10
 height=10
 xmode=abs_right
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,1"
 colour=0xffffffff
 transmitop=10
@@ -3561,7 +3561,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(61145353)
-onvarctransmit=script2277{varclient_1198}
+onvarctransmit=rand_interface_update_rand_exists_1{varclient_1198}
 
 // 933:266
 [player_2]
@@ -3575,7 +3575,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(61145354)
-onvarctransmit=script2288{varclient_1199}
+onvarctransmit=rand_interface_update_rand_exists_2{varclient_1199}
 
 // 933:267
 [player_2_name]
@@ -3591,7 +3591,7 @@ textshadow=yes
 colour=0xffff99
 transmitop=10
 op10= 
-onvarcstrtransmit=script2939{varclient_1830}
+onvarcstrtransmit=rand_interface_update_rand_name_2{varclient_1830}
 
 // 933:268
 [player_2_title_1]
@@ -3607,7 +3607,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10= 
-onvarctransmit=script2942{varclient_1209}
+onvarctransmit=rand_interface_update_rand_rand_award_2_1{varclient_1209}
 
 // 933:269
 [player_2_title_2]
@@ -3623,7 +3623,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10= 
-onvarctransmit=script2965{varclient_1210}
+onvarctransmit=rand_interface_update_rand_rand_award_2_2{varclient_1210}
 
 // 933:270
 [player_2_title_3]
@@ -3639,7 +3639,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10= 
-onvarctransmit=script2966{varclient_1211}
+onvarctransmit=rand_interface_update_rand_rand_award_2_3{varclient_1211}
 
 // 933:271
 [player_2_title_4]
@@ -3655,7 +3655,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10= 
-onvarctransmit=script3021{varclient_1212}
+onvarctransmit=rand_interface_update_rand_rand_award_2_4{varclient_1212}
 
 // 933:272
 [player_2_title_5]
@@ -3671,7 +3671,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10= 
-onvarctransmit=script3033{varclient_1213}
+onvarctransmit=rand_interface_update_rand_rand_award_2_5{varclient_1213}
 
 // 933:273
 [player_2_title_6]
@@ -3687,7 +3687,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10= 
-onvarctransmit=script3034{varclient_1214}
+onvarctransmit=rand_interface_update_rand_rand_award_2_6{varclient_1214}
 
 // 933:274
 [player_2_divider]
@@ -3723,7 +3723,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(61145364)
-onvarctransmit=script3162{varclient_1200}
+onvarctransmit=rand_interface_update_rand_exists_3{varclient_1200}
 
 // 933:277
 [player_3_name]
@@ -3739,7 +3739,7 @@ textshadow=yes
 colour=0xffff99
 transmitop=10
 op10=  
-onvarcstrtransmit=script3240{varclient_1831}
+onvarcstrtransmit=rand_interface_update_rand_name_3{varclient_1831}
 
 // 933:278
 [player_3_title_1]
@@ -3755,7 +3755,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=script3241{varclient_1215}
+onvarctransmit=rand_interface_update_rand_rand_award_3_1{varclient_1215}
 
 // 933:279
 [player_3_title_2]
@@ -3771,7 +3771,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=script3242{varclient_1216}
+onvarctransmit=rand_interface_update_rand_rand_award_3_2{varclient_1216}
 
 // 933:280
 [player_3_title_3]
@@ -3787,7 +3787,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=script3243{varclient_1217}
+onvarctransmit=rand_interface_update_rand_rand_award_3_3{varclient_1217}
 
 // 933:281
 [player_3_title_4]
@@ -3803,7 +3803,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=script3244{varclient_1218}
+onvarctransmit=rand_interface_update_rand_rand_award_3_4{varclient_1218}
 
 // 933:282
 [player_3_title_5]
@@ -3819,7 +3819,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=script3245{varclient_1219}
+onvarctransmit=rand_interface_update_rand_rand_award_3_5{varclient_1219}
 
 // 933:283
 [player_3_title_6]
@@ -3835,7 +3835,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=script3246{varclient_1220}
+onvarctransmit=rand_interface_update_rand_rand_award_3_6{varclient_1220}
 
 // 933:284
 [player_3_divider]
@@ -3873,7 +3873,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(61145374)
-onvarctransmit=script3247{varclient_1201}
+onvarctransmit=rand_interface_update_rand_exists_4{varclient_1201}
 
 // 933:287
 [player_4_name]
@@ -3889,7 +3889,7 @@ textshadow=yes
 colour=0xffff99
 transmitop=10
 op10=  
-onvarcstrtransmit=script3249{varclient_1832}
+onvarcstrtransmit=rand_interface_update_rand_name_4{varclient_1832}
 
 // 933:288
 [player_4_title_1]
@@ -3905,7 +3905,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop0{varclient_1221}
+onvarctransmit=rand_interface_update_rand_rand_award_4_1{varclient_1221}
 
 // 933:289
 [player_4_title_2]
@@ -3921,7 +3921,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop1{varclient_1222}
+onvarctransmit=rand_interface_update_rand_rand_award_4_2{varclient_1222}
 
 // 933:290
 [player_4_title_3]
@@ -3937,7 +3937,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop2{varclient_1223}
+onvarctransmit=rand_interface_update_rand_rand_award_4_3{varclient_1223}
 
 // 933:291
 [player_4_title_4]
@@ -3953,7 +3953,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop3{varclient_1224}
+onvarctransmit=rand_interface_update_rand_rand_award_4_4{varclient_1224}
 
 // 933:292
 [player_4_title_5]
@@ -3969,7 +3969,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop4{varclient_1225}
+onvarctransmit=rand_interface_update_rand_rand_award_4_5{varclient_1225}
 
 // 933:293
 [player_4_title_6]
@@ -3985,7 +3985,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop5{varclient_1226}
+onvarctransmit=rand_interface_update_rand_rand_award_4_6{varclient_1226}
 
 // 933:294
 [player_4_divider]
@@ -4023,7 +4023,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(61145384)
-onvarctransmit=script3256{varclient_1202}
+onvarctransmit=rand_interface_update_rand_exists_5{varclient_1202}
 
 // 933:297
 [title_hide_1]
@@ -4092,7 +4092,7 @@ textshadow=yes
 colour=0xffff99
 transmitop=10
 op10=  
-onvarcstrtransmit=script3258{varclient_1833}
+onvarcstrtransmit=rand_interface_update_rand_name_5{varclient_1833}
 
 // 933:302
 [player_5_title_1]
@@ -4108,7 +4108,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=script3259{varclient_1227}
+onvarctransmit=rand_interface_update_rand_rand_award_5_1{varclient_1227}
 
 // 933:303
 [player_5_title_2]
@@ -4124,7 +4124,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=rand_unlock_oh{varclient_1228}
+onvarctransmit=rand_interface_update_rand_rand_award_5_2{varclient_1228}
 
 // 933:304
 [player_5_title_3]
@@ -4140,7 +4140,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=script3261{varclient_1229}
+onvarctransmit=rand_interface_update_rand_rand_award_5_3{varclient_1229}
 
 // 933:305
 [player_5_title_4]
@@ -4156,7 +4156,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=script3262{varclient_1230}
+onvarctransmit=rand_interface_update_rand_rand_award_5_4{varclient_1230}
 
 // 933:306
 [player_5_title_5]
@@ -4172,7 +4172,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=rand_unlock_ok{varclient_1231}
+onvarctransmit=rand_interface_update_rand_rand_award_5_5{varclient_1231}
 
 // 933:307
 [player_5_title_6]
@@ -4188,7 +4188,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=script3264{varclient_1232}
+onvarctransmit=rand_interface_update_rand_rand_award_5_6{varclient_1232}
 
 // 933:308
 [player_5_button]
@@ -4214,7 +4214,7 @@ text=Mod Trick
 textalignv=centre
 textshadow=yes
 colour=0xffff99
-onvarcstrtransmit=script2279{varclient_1829}
+onvarcstrtransmit=rand_interface_update_rand_name_1{varclient_1829}
 
 // 933:310
 [player_1_title_1]
@@ -4228,7 +4228,7 @@ textfont=p12_full
 text=Battle Mage
 textshadow=yes
 colour=0x00cc33
-onvarctransmit=script2280{varclient_1203}
+onvarctransmit=rand_interface_update_rand_rand_award_1_1{varclient_1203}
 
 // 933:311
 [player_1_title_2]
@@ -4242,7 +4242,7 @@ textfont=p12_full
 text=Culinary Disaster
 textshadow=yes
 colour=0xcc0000
-onvarctransmit=script2281{varclient_1204}
+onvarctransmit=rand_interface_update_rand_rand_award_1_2{varclient_1204}
 
 // 933:312
 [player_1_title_3]
@@ -4256,7 +4256,7 @@ textfont=p12_full
 text=Master of None
 textshadow=yes
 colour=0xcc0000
-onvarctransmit=script2282{varclient_1205}
+onvarctransmit=rand_interface_update_rand_rand_award_1_3{varclient_1205}
 
 // 933:313
 [player_1_title_4]
@@ -4270,7 +4270,7 @@ textfont=p12_full
 text=MVP
 textshadow=yes
 colour=0x00cc33
-onvarctransmit=script2285{varclient_1206}
+onvarctransmit=rand_interface_update_rand_rand_award_1_4{varclient_1206}
 
 // 933:314
 [player_1_title_5]
@@ -4284,7 +4284,7 @@ textfont=p12_full
 text=Master Chef
 textshadow=yes
 colour=0x00cc33
-onvarctransmit=script2286{varclient_1207}
+onvarctransmit=rand_interface_update_rand_rand_award_1_5{varclient_1207}
 
 // 933:315
 [player_1_title_6]
@@ -4298,7 +4298,7 @@ textfont=p12_full
 text=Uneconomical Alcher
 textshadow=yes
 colour=0xcc0000
-onvarctransmit=script2287{varclient_1208}
+onvarctransmit=rand_interface_update_rand_rand_award_1_6{varclient_1208}
 
 // 933:316
 [player_1_divider]
@@ -4329,7 +4329,7 @@ x=476
 y=23
 width=15
 height=16
-layer=com_1
+layer=main
 graphic="rand_readyup_icons,8"
 transmitop=1,2
 op1=Ready
@@ -4346,7 +4346,7 @@ x=462
 y=23
 width=15
 height=16
-layer=com_1
+layer=main
 graphic="rand_readyup_icons,6"
 transmitop=1,2
 op1=Ready
@@ -4363,7 +4363,7 @@ x=448
 y=23
 width=15
 height=16
-layer=com_1
+layer=main
 graphic="rand_readyup_icons,4"
 transmitop=1,2
 op1=Ready
@@ -4380,7 +4380,7 @@ x=434
 y=23
 width=15
 height=16
-layer=com_1
+layer=main
 graphic="rand_readyup_icons,2"
 transmitop=1,2
 op1=Ready
@@ -4397,7 +4397,7 @@ x=420
 y=23
 width=15
 height=16
-layer=com_1
+layer=main
 graphic="rand_readyup_icons,0"
 transmitop=1,2
 op1=Ready
@@ -4414,7 +4414,7 @@ x=421
 y=24
 width=13
 height=14
-layer=com_1
+layer=main
 colour=0x646401
 
 // 933:324
@@ -4424,7 +4424,7 @@ x=435
 y=24
 width=13
 height=14
-layer=com_1
+layer=main
 colour=0x646401
 
 // 933:325
@@ -4434,7 +4434,7 @@ x=449
 y=24
 width=13
 height=14
-layer=com_1
+layer=main
 colour=0x646401
 
 // 933:326
@@ -4444,7 +4444,7 @@ x=463
 y=24
 width=13
 height=14
-layer=com_1
+layer=main
 colour=0x646401
 
 // 933:327
@@ -4454,50 +4454,50 @@ x=477
 y=24
 width=13
 height=14
-layer=com_1
+layer=main
 colour=0x646400
 
 // 933:328
-[com_328]
+[dungeon_final_time_bg]
 type=graphic
 x=28
 y=22
 width=63
 height=17
-layer=com_1
+layer=main
 graphic=rand_button_glow
 
 // 933:329
-[com_329]
+[winterface_time_hover]
 type=graphic
 x=15
 y=23
 width=21
 height=18
-layer=com_1
+layer=main
 graphic=ra_time
 colour=0x734f0f
 onmouseleave=script4224(event_com)
 
 // 933:330
-[com_330]
+[winterface_time]
 type=graphic
 x=15
 y=23
 width=21
 height=18
-layer=com_1
+layer=main
 graphic=ra_time
 onmouseover=script4224(event_com)
 
 // 933:331
-[com_331]
+[dungeon_final_time]
 type=text
 x=34
 y=22
 width=57
 height=21
-layer=com_1
+layer=main
 textfont=p11_full
 text=00:00:00
 textalignh=centre

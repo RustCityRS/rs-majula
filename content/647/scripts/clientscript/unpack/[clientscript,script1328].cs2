@@ -14,7 +14,7 @@ if ($key0 = ^key_tab) {
     if (if_gethide(lobbyscreen:friendslist_panel) = false) {
         $int1 = 2;
     }
-    if (if_gethide(lobbyscreen:com_177) = false) {
+    if (if_gethide(lobbyscreen:friendschat_panel) = false) {
         $int1 = 3;
     }
     if (if_gethide(lobbyscreen:clanchat_panel) = false) {

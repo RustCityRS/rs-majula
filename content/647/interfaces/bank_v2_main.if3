@@ -802,7 +802,7 @@ op2=Collapse
 onop=tab_4_click(event_op)
 
 // 762:57
-[com_57]
+[tab_4_icon]
 type=graphic
 x=171
 y=46
@@ -892,70 +892,70 @@ graphic="bank_misc_graphics,0"
 colour=0xffffffff
 
 // 762:64
-[com_64]
+[separator_layer_0]
 type=layer
 width=455
 height=20
 layer=bank_v2_inv
 
 // 762:65
-[com_65]
+[separator_layer_1]
 type=layer
 width=455
 height=20
 layer=bank_v2_inv
 
 // 762:66
-[com_66]
+[separator_layer_2]
 type=layer
 width=455
 height=20
 layer=bank_v2_inv
 
 // 762:67
-[com_67]
+[separator_layer_3]
 type=layer
 width=455
 height=20
 layer=bank_v2_inv
 
 // 762:68
-[com_68]
+[separator_layer_4]
 type=layer
 width=455
 height=20
 layer=bank_v2_inv
 
 // 762:69
-[com_69]
+[separator_layer_5]
 type=layer
 width=455
 height=20
 layer=bank_v2_inv
 
 // 762:70
-[com_70]
+[separator_layer_6]
 type=layer
 width=455
 height=20
 layer=bank_v2_inv
 
 // 762:71
-[com_71]
+[separator_layer_7]
 type=layer
 width=455
 height=20
 layer=bank_v2_inv
 
 // 762:72
-[com_72]
+[separator_layer_8]
 type=layer
 width=455
 height=20
 layer=bank_v2_inv
 
 // 762:73
-[com_73]
+[separator_layer_9]
 type=layer
 width=455
 height=20
@@ -1171,7 +1171,7 @@ oninvtransmit=bank_v2_rebuild{bank}
 type=text
 width=100
 height=32
-layer=com_65
+layer=separator_layer_1
 textfont=p11_full
 text=Tab 1
 colour=0x5b5346
@@ -1182,19 +1182,19 @@ type=rectangle
 y=10
 width=455
 height=1
-layer=com_65
+layer=separator_layer_1
 colour=0x595144
 fill=yes
 transmitop=10
 op10= 
 
 // 762:96
-[com_96]
+[separator_0]
 type=rectangle
 y=10
 width=455
 height=1
-layer=com_64
+layer=separator_layer_0
 colour=0x595144
 fill=yes
 
@@ -1210,7 +1210,7 @@ layer=com_120
 type=text
 width=100
 height=32
-layer=com_73
+layer=separator_layer_9
 textfont=p11_full
 text=Tab 9
 colour=0xf2aa3e
@@ -1220,7 +1220,7 @@ colour=0xf2aa3e
 type=text
 width=100
 height=32
-layer=com_72
+layer=separator_layer_8
 textfont=p11_full
 text=Tab 8
 colour=0xf2aa3e
@@ -1230,7 +1230,7 @@ colour=0xf2aa3e
 type=text
 width=100
 height=32
-layer=com_71
+layer=separator_layer_7
 textfont=p11_full
 text=Tab 7
 colour=0xf2aa3e
@@ -1240,7 +1240,7 @@ colour=0xf2aa3e
 type=text
 width=100
 height=32
-layer=com_70
+layer=separator_layer_6
 textfont=p11_full
 text=Tab 6
 colour=0xf2aa3e
@@ -1250,7 +1250,7 @@ colour=0xf2aa3e
 type=text
 width=100
 height=32
-layer=com_69
+layer=separator_layer_5
 textfont=p11_full
 text=Tab 5
 colour=0xf2aa3e
@@ -1260,7 +1260,7 @@ colour=0xf2aa3e
 type=text
 width=100
 height=32
-layer=com_68
+layer=separator_layer_4
 textfont=p11_full
 text=Tab 4
 colour=0xf2aa3e
@@ -1270,7 +1270,7 @@ colour=0xf2aa3e
 type=text
 width=100
 height=32
-layer=com_67
+layer=separator_layer_3
 textfont=p11_full
 text=Tab 3
 colour=0xf2aa3e
@@ -1280,66 +1280,66 @@ colour=0xf2aa3e
 type=text
 width=100
 height=32
-layer=com_66
+layer=separator_layer_2
 textfont=p11_full
 text=Tab 2
 colour=0xf2aa3e
 
 // 762:106
-[com_106]
+[separator_9]
 type=rectangle
 y=10
 width=455
 height=1
-layer=com_73
+layer=separator_layer_9
 colour=0x595144
 fill=yes
 transmitop=10
 op10= 
 
 // 762:107
-[com_107]
+[separator_8]
 type=rectangle
 y=10
 width=455
 height=1
-layer=com_72
+layer=separator_layer_8
 colour=0x595144
 fill=yes
 transmitop=10
 op10= 
 
 // 762:108
-[com_108]
+[separator_7]
 type=rectangle
 y=10
 width=455
 height=1
-layer=com_71
+layer=separator_layer_7
 colour=0x595144
 fill=yes
 transmitop=10
 op10= 
 
 // 762:109
-[com_109]
+[separator_6]
 type=rectangle
 y=10
 width=455
 height=1
-layer=com_70
+layer=separator_layer_6
 colour=0x595144
 fill=yes
 transmitop=10
 op10= 
 
 // 762:110
-[com_110]
+[separator_5]
 type=rectangle
 y=10
 width=455
 height=1
-layer=com_69
+layer=separator_layer_5
 colour=0x595144
 fill=yes
 transmitop=10
@@ -1351,7 +1351,7 @@ type=rectangle
 y=10
 width=455
 height=1
-layer=com_68
+layer=separator_layer_4
 colour=0x595144
 fill=yes
 transmitop=10
@@ -1363,7 +1363,7 @@ type=rectangle
 y=10
 width=455
 height=1
-layer=com_67
+layer=separator_layer_3
 colour=0x595144
 fill=yes
 transmitop=10
@@ -1375,14 +1375,14 @@ type=rectangle
 y=10
 width=455
 height=1
-layer=com_66
+layer=separator_layer_2
 colour=0x595144
 fill=yes
 transmitop=10
 op10= 
 
 // 762:114
-[com_114]
+[scrollbar]
 type=layer
 x=477
 y=81

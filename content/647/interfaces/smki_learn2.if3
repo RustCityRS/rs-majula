@@ -1,5 +1,5 @@
 // 378:0
-[com_0]
+[background]
 type=rectangle
 x=17
 y=25
@@ -1143,7 +1143,7 @@ textshadow=yes
 colour=0xff981f
 
 // 378:91
-[com_91]
+[aquanite_points]
 type=text
 x=375
 y=152
@@ -1156,7 +1156,7 @@ textshadow=yes
 colour=0xff981f
 
 // 378:92
-[com_92]
+[aquanite]
 type=model
 x=270
 y=122
@@ -1184,7 +1184,7 @@ onmouseleave=deltooltip(smki_learn2:tool_tip_build_layer)
 onmouserepeat=addtooltip(event_com, smki_learn2:tool_tip_build_layer, "Learn how to deliver killing blows quicker  (with 75 Slayer).", 25, 150)
 
 // 378:94
-[com_94]
+[bag_of_salt]
 type=model
 x=269
 y=189

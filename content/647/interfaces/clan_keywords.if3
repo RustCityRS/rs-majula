@@ -64,7 +64,7 @@ heightmode=minus
 layer=com_4
 
 // 1097:7
-[com_7]
+[dropdown_bounding_box]
 type=layer
 x=11
 y=33
@@ -131,7 +131,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_43
+layer=add_button_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -143,7 +143,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_43
+layer=add_button_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -155,7 +155,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_43
+layer=add_button_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -166,8 +166,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
-onload=script4201(event_com, struct_1736)
+layer=add_button_layer
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1097:16
 [com_16]
@@ -176,8 +176,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
-onload=script4201(event_com, struct_1737)
+layer=add_button_layer
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1097:17
 [com_17]
@@ -186,8 +186,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
-onload=script4201(event_com, struct_1738)
+layer=add_button_layer
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1097:18
 [com_18]
@@ -196,8 +196,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
-onload=script4201(event_com, struct_1739)
+layer=add_button_layer
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 1097:19
 [add_button]
@@ -206,7 +206,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
+layer=add_button_layer
 transmitop=1
 op1=Add
 onload=script4213(event_com)
@@ -218,10 +218,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
+layer=add_button_layer
 
 // 1097:21
-[com_21]
+[aif_bronze_button_text]
 type=text
 width=8
 height=4
@@ -235,7 +235,7 @@ text=Add
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1097:22
 [com_22]
@@ -244,10 +244,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_43
+layer=add_button_layer
 hide=yes
 noclickthrough=yes
-onload=script4201(event_com, struct_1740)
+onload=aif_build_button_layer(event_com, struct_1740)
 
 // 1097:23
 [com_23]
@@ -360,7 +360,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 1097:33
-[com_33]
+[label1]
 type=text
 x=6
 y=14
@@ -473,7 +473,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 1097:43
-[com_43]
+[add_button_layer]
 type=layer
 x=391
 y=6
@@ -524,7 +524,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=ok_button_layer
-onload=script4201(event_com, struct_1736)
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1097:48
 [com_48]
@@ -534,7 +534,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=ok_button_layer
-onload=script4201(event_com, struct_1737)
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1097:49
 [com_49]
@@ -544,7 +544,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=ok_button_layer
-onload=script4201(event_com, struct_1738)
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1097:50
 [com_50]
@@ -554,7 +554,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=ok_button_layer
-onload=script4201(event_com, struct_1739)
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 1097:51
 [ok_button]
@@ -579,7 +579,7 @@ heightmode=minus
 layer=ok_button_layer
 
 // 1097:53
-[com_53]
+[aif_bronze_button_text_1]
 type=text
 width=8
 height=4
@@ -593,7 +593,7 @@ text=Save & Quit
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1097:54
 [com_54]
@@ -605,7 +605,7 @@ heightmode=minus
 layer=ok_button_layer
 hide=yes
 noclickthrough=yes
-onload=script4201(event_com, struct_1740)
+onload=aif_build_button_layer(event_com, struct_1740)
 
 // 1097:55
 [com_55]
@@ -662,7 +662,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=cancel_button_layer
-onload=script4201(event_com, struct_1736)
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1097:60
 [com_60]
@@ -672,7 +672,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=cancel_button_layer
-onload=script4201(event_com, struct_1737)
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1097:61
 [com_61]
@@ -682,7 +682,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=cancel_button_layer
-onload=script4201(event_com, struct_1738)
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1097:62
 [com_62]
@@ -692,7 +692,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=cancel_button_layer
-onload=script4201(event_com, struct_1739)
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 1097:63
 [cancel_button]
@@ -718,7 +718,7 @@ heightmode=minus
 layer=cancel_button_layer
 
 // 1097:65
-[com_65]
+[aif_bronze_button_text_2]
 type=text
 width=8
 height=4
@@ -732,7 +732,7 @@ text=Cancel
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1097:66
 [com_66]
@@ -744,7 +744,7 @@ heightmode=minus
 layer=cancel_button_layer
 hide=yes
 noclickthrough=yes
-onload=script4201(event_com, struct_1740)
+onload=aif_build_button_layer(event_com, struct_1740)
 
 // 1097:67
 [com_67]
@@ -860,7 +860,7 @@ graphic="aif_lrgtxtinput_crntop,0"
 vflip=yes
 
 // 1097:77
-[com_77]
+[keyword1]
 type=text
 width=6
 widthmode=minus
@@ -874,7 +874,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 1097:78
-[com_78]
+[label2]
 type=text
 x=6
 y=44
@@ -990,7 +990,7 @@ graphic="aif_lrgtxtinput_crntop,0"
 vflip=yes
 
 // 1097:88
-[com_88]
+[keyword2]
 type=text
 width=6
 widthmode=minus
@@ -1004,7 +1004,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 1097:89
-[com_89]
+[label3]
 type=text
 x=6
 y=75
@@ -1120,7 +1120,7 @@ graphic="aif_lrgtxtinput_crntop,0"
 vflip=yes
 
 // 1097:99
-[com_99]
+[keyword3]
 type=text
 width=6
 widthmode=minus
@@ -1134,7 +1134,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 1097:100
-[com_100]
+[label4]
 type=text
 x=6
 y=107
@@ -1250,7 +1250,7 @@ graphic="aif_lrgtxtinput_crntop,0"
 vflip=yes
 
 // 1097:110
-[com_110]
+[keyword4]
 type=text
 width=6
 widthmode=minus
@@ -1264,7 +1264,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 1097:111
-[com_111]
+[label5]
 type=text
 x=6
 y=138
@@ -1380,7 +1380,7 @@ graphic="aif_lrgtxtinput_crntop,0"
 vflip=yes
 
 // 1097:121
-[com_121]
+[keyword5]
 type=text
 width=6
 widthmode=minus
@@ -1510,7 +1510,7 @@ graphic="aif_lrgtxtinput_crntop,0"
 vflip=yes
 
 // 1097:132
-[com_132]
+[keyword6]
 type=text
 width=6
 widthmode=minus
@@ -1640,7 +1640,7 @@ graphic="aif_lrgtxtinput_crntop,0"
 vflip=yes
 
 // 1097:143
-[com_143]
+[keyword7]
 type=text
 width=6
 widthmode=minus
@@ -1770,7 +1770,7 @@ graphic="aif_lrgtxtinput_crntop,0"
 vflip=yes
 
 // 1097:154
-[com_154]
+[keyword8]
 type=text
 width=6
 widthmode=minus
@@ -1900,7 +1900,7 @@ graphic="aif_lrgtxtinput_crntop,0"
 vflip=yes
 
 // 1097:165
-[com_165]
+[keyword9]
 type=text
 width=6
 widthmode=minus
@@ -2019,7 +2019,7 @@ height=16
 layer=main_layer
 
 // 1097:177
-[com_177]
+[remove_keyword1]
 type=graphic
 x=203
 y=16
@@ -2134,7 +2134,7 @@ graphic="aif_lrgtxtinput_crntop,0"
 vflip=yes
 
 // 1097:187
-[com_187]
+[keyword10]
 type=text
 width=6
 widthmode=minus
@@ -2148,7 +2148,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 1097:188
-[com_188]
+[remove_keyword2]
 type=graphic
 x=203
 y=45
@@ -2162,7 +2162,7 @@ onmouseover=graphic_swapper(event_com, graphic_6002)
 onmouseleave=graphic_swapper(event_com, graphic_6003)
 
 // 1097:189
-[com_189]
+[remove_keyword3]
 type=graphic
 x=204
 y=76
@@ -2176,7 +2176,7 @@ onmouseover=graphic_swapper(event_com, graphic_6002)
 onmouseleave=graphic_swapper(event_com, graphic_6003)
 
 // 1097:190
-[com_190]
+[remove_keyword4]
 type=graphic
 x=204
 y=108
@@ -2190,7 +2190,7 @@ onmouseover=graphic_swapper(event_com, graphic_6002)
 onmouseleave=graphic_swapper(event_com, graphic_6003)
 
 // 1097:191
-[com_191]
+[remove_keyword5]
 type=graphic
 x=204
 y=139
@@ -2204,7 +2204,7 @@ onmouseover=graphic_swapper(event_com, graphic_6002)
 onmouseleave=graphic_swapper(event_com, graphic_6003)
 
 // 1097:192
-[com_192]
+[remove_keyword6]
 type=graphic
 x=427
 y=15
@@ -2218,7 +2218,7 @@ onmouseover=graphic_swapper(event_com, graphic_6002)
 onmouseleave=graphic_swapper(event_com, graphic_6003)
 
 // 1097:193
-[com_193]
+[remove_keyword7]
 type=graphic
 x=427
 y=45
@@ -2232,7 +2232,7 @@ onmouseover=graphic_swapper(event_com, graphic_6002)
 onmouseleave=graphic_swapper(event_com, graphic_6003)
 
 // 1097:194
-[com_194]
+[remove_keyword8]
 type=graphic
 x=428
 y=77
@@ -2246,7 +2246,7 @@ onmouseover=graphic_swapper(event_com, graphic_6002)
 onmouseleave=graphic_swapper(event_com, graphic_6003)
 
 // 1097:195
-[com_195]
+[remove_keyword9]
 type=graphic
 x=428
 y=109
@@ -2260,7 +2260,7 @@ onmouseover=graphic_swapper(event_com, graphic_6002)
 onmouseleave=graphic_swapper(event_com, graphic_6003)
 
 // 1097:196
-[com_196]
+[remove_keyword10]
 type=graphic
 x=428
 y=139
@@ -2274,23 +2274,23 @@ onmouseover=graphic_swapper(event_com, graphic_6002)
 onmouseleave=graphic_swapper(event_com, graphic_6003)
 
 // 1097:197
-[com_197]
+[keyword_dropdown]
 type=layer
 x=175
 y=9
 width=200
 height=21
-layer=com_7
+layer=dropdown_bounding_box
 onvartransmit=script4347{varplayer_2136}
 
 // 1097:198
-[com_198]
+[category_dropdown]
 type=layer
 x=7
 y=9
 width=154
 height=21
-layer=com_7
+layer=dropdown_bounding_box
 
 // 1097:199
 [com_199]
@@ -2298,7 +2298,7 @@ type=layer
 width=16391
 height=20
 widthmode=proportion
-layer=com_198
+layer=category_dropdown
 
 // 1097:200
 [com_200]
@@ -2388,10 +2388,10 @@ height=20
 widthmode=proportion
 heightmode=minus
 ymode=abs_bottom
-layer=com_198
+layer=category_dropdown
 
 // 1097:208
-[com_208]
+[background]
 type=graphic
 width=16
 height=16391
@@ -2411,20 +2411,20 @@ xmode=abs_right
 layer=com_207
 
 // 1097:210
-[com_210]
+[category_list]
 type=layer
 width=16
 widthmode=minus
 heightmode=minus
 layer=com_207
-onload=script4498(enum_3702, "Select a Category", 7, 7, clan_keywords:com_199, clan_keywords:com_209, clan_keywords:com_211, event_com, clan_keywords:com_230)
+onload=aif_dropdownbox_setup_sorted(enum_3702, "Select a Category", 7, 7, clan_keywords:com_199, clan_keywords:com_209, clan_keywords:category_highlight, event_com, clan_keywords:com_230)
 
 // 1097:211
-[com_211]
+[category_highlight]
 type=rectangle
 height=15
 widthmode=minus
-layer=com_210
+layer=category_list
 colour=0x474237
 fill=yes
 
@@ -2443,7 +2443,7 @@ type=layer
 width=16391
 height=20
 widthmode=proportion
-layer=com_197
+layer=keyword_dropdown
 
 // 1097:214
 [com_214]
@@ -2532,7 +2532,7 @@ height=20
 widthmode=proportion
 heightmode=minus
 ymode=abs_bottom
-layer=com_197
+layer=keyword_dropdown
 
 // 1097:222
 [background_1]
@@ -2561,7 +2561,7 @@ width=16
 widthmode=minus
 heightmode=minus
 layer=com_221
-onload=script4498(enum_3706, "Select a keyword", 36, 3, clan_keywords:com_213, clan_keywords:com_223, clan_keywords:com_225, event_com, clan_keywords:com_230)
+onload=aif_dropdownbox_setup_sorted(enum_3706, "Select a keyword", 36, 3, clan_keywords:com_213, clan_keywords:com_223, clan_keywords:com_225, event_com, clan_keywords:com_230)
 
 // 1097:225
 [com_225]
@@ -2633,4 +2633,4 @@ height=40
 widthmode=minus
 heightmode=minus
 hide=yes
-onclick=script4475(event_com, clan_keywords:com_210, clan_keywords:com_224)
+onclick=script4475(event_com, clan_keywords:category_list, clan_keywords:com_224)

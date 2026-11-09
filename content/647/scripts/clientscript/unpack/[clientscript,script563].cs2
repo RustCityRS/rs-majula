@@ -54,10 +54,10 @@ if (%varplayerbit_4152 = 1) {
 if (%varplayerbit_4276 = 1) {
     if_setgraphic("staticons2,7", interface_641:sum_lore);
     if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_641:sum_lore);
-    if_sethide(false, interface_641:com_16);
+    if_sethide(false, interface_641:sum_lore_lay);
     $int1 = calc($int1 + 29);
 } else {
-    if_sethide(true, interface_641:com_16);
+    if_sethide(true, interface_641:sum_lore_lay);
 }
 $int0 = 8;
 $int1 = 45;

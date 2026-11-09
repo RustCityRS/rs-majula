@@ -1,0 +1,38 @@
+// 1121
+[proc,autocast_highlight_spell]
+def_component $component0 = enum(int, component, enum_729, %varplayerbit_276);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_component $component3 = null;
+def_component $component4 = null;
+switch_int (%varplayerbit_357) {
+    case 0 :
+        $component3 = magic:com_93;
+        $component4 = magic:com_92;
+    case 1 :
+        $component3 = magic_zaros:com_50;
+        $component4 = magic_zaros:com_49;
+    case 3 :
+        $component3 = rand_magic:com_69;
+        $component4 = rand_magic:com_68;
+    case default :
+        return;
+}
+if (%varplayerbit_276 = 1) {
+    if (%varplayerbit_6521 = 3) {
+        ~script948;
+    } else if (%varplayerbit_6521 = 28) {
+        ~script1331;
+    }
+}
+if ($component0 ! null & %varplayerbit_275 = 1) {
+    $int1 = calc(if_getx($component0) - 2);
+    $int2 = calc(if_gety($component0) - 2);
+    if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $component3);
+    if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $component4);
+    if_sethide(false, $component3);
+    if_sethide(false, $component4);
+    return;
+}
+if_sethide(true, $component3);
+if_sethide(true, $component4);

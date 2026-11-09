@@ -464,7 +464,7 @@ height=80
 layer=contents
 
 // 109:45
-[com_45]
+[lending_container]
 type=layer
 x=2
 y=12
@@ -484,19 +484,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_45
+layer=lending_container
 colour=0x000000
 fill=yes
 trans=200
 
 // 109:47
-[com_47]
+[lending]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_45
+layer=lending_container
 
 // 109:48
 [com_48]
@@ -507,7 +507,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_47
+layer=lending
 graphic=tradebacking
 tiling=yes
 
@@ -518,7 +518,7 @@ width=4
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_47
+layer=lending
 graphic="v2_stone_borders_alt,0"
 tiling=yes
 
@@ -530,7 +530,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_47
+layer=lending
 graphic="v2_stone_borders_alt,2"
 tiling=yes
 
@@ -541,7 +541,7 @@ width=32
 height=4
 heightmode=minus
 ymode=abs_centre
-layer=com_47
+layer=lending
 graphic="v2_stone_borders_alt,1"
 tiling=yes
 
@@ -553,7 +553,7 @@ height=4
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_47
+layer=lending
 graphic="v2_stone_borders_alt,3"
 tiling=yes
 
@@ -562,7 +562,7 @@ tiling=yes
 type=graphic
 width=32
 height=32
-layer=com_47
+layer=lending
 graphic="v2_stone_borders_alt,4"
 
 // 109:54
@@ -571,7 +571,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_47
+layer=lending
 graphic="v2_stone_borders_alt,5"
 
 // 109:55
@@ -580,7 +580,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_47
+layer=lending
 graphic="v2_stone_borders_alt,6"
 
 // 109:56
@@ -590,30 +590,30 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_47
+layer=lending
 graphic="v2_stone_borders_alt,7"
 
 // 109:57
-[com_57]
+[lending_title]
 type=text
 y=6
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_47
+layer=lending
 textfont=p12_full
 textalignh=centre
 textshadow=yes
 colour=0xff981f
 
 // 109:58
-[com_58]
+[lending_item]
 type=graphic
 width=36
 height=32
 xmode=abs_centre
 ymode=abs_centre
-layer=com_47
+layer=lending
 outline=1
 graphicshadow=3355443
 transmitop=1,10
@@ -621,14 +621,14 @@ op1=*
 op10=Examine
 
 // 109:59
-[com_59]
+[lending_indicator]
 type=text
 y=7
 height=12
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_47
+layer=lending
 textfont=p11_full
 textalignh=centre
 textalignv=centre

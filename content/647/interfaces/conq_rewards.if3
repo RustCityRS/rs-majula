@@ -55,7 +55,7 @@ layer=confirm_layer
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_25
+layer=melee_helm_layer
 colour=0x201c17
 
 // 1011:6
@@ -67,7 +67,7 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_25
+layer=melee_helm_layer
 colour=0x595143
 
 // 1011:7
@@ -79,7 +79,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_25
+layer=melee_helm_layer
 colour=0x161410
 fill=yes
 
@@ -91,18 +91,18 @@ y=3
 width=6
 height=16
 widthmode=minus
-layer=com_25
+layer=melee_helm_layer
 colour=0x3c312b
 fill=yes
 
 // 1011:9
-[com_9]
+[melee_helm_title]
 type=text
 x=7
 y=3
 width=100
 height=16
-layer=com_25
+layer=melee_helm_layer
 textfont=p11_full
 text=Void Knight Melee Helm
 textalignv=centre
@@ -110,13 +110,13 @@ textshadow=yes
 colour=0xe6ca98
 
 // 1011:10
-[com_10]
+[melee_helm_border]
 type=rectangle
 x=6
 y=20
 width=25
 height=25
-layer=com_25
+layer=melee_helm_layer
 colour=0x34322c
 
 // 1011:11
@@ -126,19 +126,19 @@ x=10
 y=23
 width=17
 height=21
-layer=com_25
+layer=melee_helm_layer
 model=model_27166
 modelorigin=0,10
 modelzoom=800
 
 // 1011:12
-[com_12]
+[melee_helm_value]
 type=text
 x=32
 y=21
 width=111
 height=25
-layer=com_25
+layer=melee_helm_layer
 textfont=p11_full
 text=200 Commendations
 textalignh=centre
@@ -156,7 +156,7 @@ x=2
 y=46
 width=142
 height=14
-layer=com_25
+layer=melee_helm_layer
 colour=0x100602
 fill=yes
 
@@ -167,7 +167,7 @@ x=3
 y=47
 width=140
 height=12
-layer=com_25
+layer=melee_helm_layer
 graphic=graphic_3309
 
 // 1011:15
@@ -177,7 +177,7 @@ x=3
 y=47
 width=140
 height=12
-layer=com_25
+layer=melee_helm_layer
 textfont=p11_full
 text=Exchange
 textalignh=centre
@@ -310,7 +310,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x8c5000)
 
 // 1011:25
-[com_25]
+[melee_helm_layer]
 type=layer
 x=29
 y=85
@@ -428,7 +428,7 @@ colour=0x3c312b
 fill=yes
 
 // 1011:34
-[com_34]
+[attack_xp_title]
 type=text
 x=7
 y=3
@@ -442,7 +442,7 @@ textshadow=yes
 colour=0xe6ca98
 
 // 1011:35
-[com_35]
+[attack_icon_border]
 type=rectangle
 x=6
 y=20
@@ -766,7 +766,7 @@ graphic="staticons,0"
 colour=0x000000
 
 // 1011:65
-[com_65]
+[attack_xp_value]
 type=text
 x=32
 y=21
@@ -805,7 +805,7 @@ layer=attack_layer
 graphic=graphic_3304
 
 // 1011:68
-[com_68]
+[buy_attack_1_text]
 type=text
 x=3
 y=48
@@ -1008,7 +1008,7 @@ layer=attack_layer
 graphic=graphic_3305
 
 // 1011:86
-[com_86]
+[buy_attack_10_text]
 type=text
 x=50
 y=48
@@ -1028,7 +1028,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:87
-[com_87]
+[buy_attack_100]
 type=graphic
 x=97
 y=47
@@ -1038,7 +1038,7 @@ layer=attack_layer
 graphic=graphic_3306
 
 // 1011:88
-[com_88]
+[buy_attack_100_text]
 type=text
 x=97
 y=48
@@ -1112,7 +1112,7 @@ colour=0x3c312b
 fill=yes
 
 // 1011:94
-[com_94]
+[strength_xp_title]
 type=text
 x=7
 y=3
@@ -1126,7 +1126,7 @@ textshadow=yes
 colour=0xe6ca98
 
 // 1011:95
-[com_95]
+[strength_icon_border]
 type=rectangle
 x=6
 y=20
@@ -1147,7 +1147,7 @@ graphic="staticons,1"
 colour=0x000000
 
 // 1011:97
-[com_97]
+[strength_xp_value]
 type=text
 x=32
 y=21
@@ -1186,7 +1186,7 @@ layer=strength_layer
 graphic=graphic_3304
 
 // 1011:100
-[com_100]
+[buy_strength_1_text]
 type=text
 x=3
 y=48
@@ -1216,7 +1216,7 @@ layer=strength_layer
 graphic=graphic_3305
 
 // 1011:102
-[com_102]
+[buy_strength_10_text]
 type=text
 x=50
 y=48
@@ -1236,7 +1236,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:103
-[com_103]
+[buy_strength_100]
 type=graphic
 x=97
 y=47
@@ -1246,7 +1246,7 @@ layer=strength_layer
 graphic=graphic_3306
 
 // 1011:104
-[com_104]
+[buy_strength_100_text]
 type=text
 x=97
 y=48
@@ -1320,7 +1320,7 @@ colour=0x3c312b
 fill=yes
 
 // 1011:110
-[com_110]
+[defence_xp_title]
 type=text
 x=7
 y=3
@@ -1334,7 +1334,7 @@ textshadow=yes
 colour=0xe6ca98
 
 // 1011:111
-[com_111]
+[defence_icon_border]
 type=rectangle
 x=6
 y=20
@@ -1355,7 +1355,7 @@ graphic="staticons,2"
 colour=0x000000
 
 // 1011:113
-[com_113]
+[defence_xp_value]
 type=text
 x=32
 y=21
@@ -1394,7 +1394,7 @@ layer=defence_layer
 graphic=graphic_3304
 
 // 1011:116
-[com_116]
+[buy_defence_1_text]
 type=text
 x=3
 y=48
@@ -1424,7 +1424,7 @@ layer=defence_layer
 graphic=graphic_3305
 
 // 1011:118
-[com_118]
+[buy_defence_10_text]
 type=text
 x=50
 y=48
@@ -1444,7 +1444,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:119
-[com_119]
+[buy_defence_100]
 type=graphic
 x=97
 y=47
@@ -1454,7 +1454,7 @@ layer=defence_layer
 graphic=graphic_3306
 
 // 1011:120
-[com_120]
+[buy_defence_100_text]
 type=text
 x=97
 y=48
@@ -1528,7 +1528,7 @@ colour=0x3c312b
 fill=yes
 
 // 1011:126
-[com_126]
+[constitution_xp_title]
 type=text
 x=7
 y=3
@@ -1542,7 +1542,7 @@ textshadow=yes
 colour=0xe6ca98
 
 // 1011:127
-[com_127]
+[constitution_icon_border]
 type=rectangle
 x=6
 y=20
@@ -1563,7 +1563,7 @@ graphic="staticons,6"
 colour=0x000000
 
 // 1011:129
-[com_129]
+[constitution_xp_value]
 type=text
 x=32
 y=21
@@ -1602,7 +1602,7 @@ layer=constitution_layer
 graphic=graphic_3304
 
 // 1011:132
-[com_132]
+[buy_constitution_1_text]
 type=text
 x=3
 y=48
@@ -1632,7 +1632,7 @@ layer=constitution_layer
 graphic=graphic_3305
 
 // 1011:134
-[com_134]
+[buy_constitution_10_text]
 type=text
 x=50
 y=48
@@ -1652,7 +1652,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:135
-[com_135]
+[buy_constitution_100]
 type=graphic
 x=97
 y=47
@@ -1662,7 +1662,7 @@ layer=constitution_layer
 graphic=graphic_3306
 
 // 1011:136
-[com_136]
+[buy_constitution_100_text]
 type=text
 x=97
 y=48
@@ -1736,7 +1736,7 @@ colour=0x3c312b
 fill=yes
 
 // 1011:142
-[com_142]
+[ranged_xp_title]
 type=text
 x=7
 y=3
@@ -1750,7 +1750,7 @@ textshadow=yes
 colour=0xe6ca98
 
 // 1011:143
-[com_143]
+[ranged_icon_border]
 type=rectangle
 x=6
 y=20
@@ -1771,7 +1771,7 @@ graphic="staticons,3"
 colour=0x000000
 
 // 1011:145
-[com_145]
+[ranged_xp_value]
 type=text
 x=32
 y=21
@@ -1810,7 +1810,7 @@ layer=ranged_layer
 graphic=graphic_3304
 
 // 1011:148
-[com_148]
+[buy_ranged_1_text]
 type=text
 x=3
 y=48
@@ -1840,7 +1840,7 @@ layer=ranged_layer
 graphic=graphic_3305
 
 // 1011:150
-[com_150]
+[buy_ranged_10_text]
 type=text
 x=50
 y=48
@@ -1860,7 +1860,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:151
-[com_151]
+[buy_ranged_100]
 type=graphic
 x=97
 y=47
@@ -1870,7 +1870,7 @@ layer=ranged_layer
 graphic=graphic_3306
 
 // 1011:152
-[com_152]
+[buy_ranged_100_text]
 type=text
 x=97
 y=48
@@ -1944,7 +1944,7 @@ colour=0x3c312b
 fill=yes
 
 // 1011:158
-[com_158]
+[magic_xp_title]
 type=text
 x=7
 y=3
@@ -1958,7 +1958,7 @@ textshadow=yes
 colour=0xe6ca98
 
 // 1011:159
-[com_159]
+[magic_icon_border]
 type=rectangle
 x=6
 y=20
@@ -1979,7 +1979,7 @@ graphic="staticons,5"
 colour=0x000000
 
 // 1011:161
-[com_161]
+[magic_xp_value]
 type=text
 x=32
 y=21
@@ -2018,7 +2018,7 @@ layer=magic_layer
 graphic=graphic_3304
 
 // 1011:164
-[com_164]
+[buy_magic_1_text]
 type=text
 x=3
 y=48
@@ -2048,7 +2048,7 @@ layer=magic_layer
 graphic=graphic_3305
 
 // 1011:166
-[com_166]
+[buy_magic_10_text]
 type=text
 x=50
 y=48
@@ -2068,7 +2068,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:167
-[com_167]
+[buy_magic_100]
 type=graphic
 x=97
 y=47
@@ -2078,7 +2078,7 @@ layer=magic_layer
 graphic=graphic_3306
 
 // 1011:168
-[com_168]
+[buy_magic_100_text]
 type=text
 x=97
 y=48
@@ -2152,7 +2152,7 @@ colour=0x3c312b
 fill=yes
 
 // 1011:174
-[com_174]
+[prayer_xp_title]
 type=text
 x=7
 y=3
@@ -2187,7 +2187,7 @@ graphic="staticons,4"
 colour=0x000000
 
 // 1011:177
-[com_177]
+[prayer_xp_value]
 type=text
 x=32
 y=21
@@ -2226,7 +2226,7 @@ layer=prayer_layer
 graphic=graphic_3304
 
 // 1011:180
-[com_180]
+[buy_prayer_1_text]
 type=text
 x=3
 y=48
@@ -2256,7 +2256,7 @@ layer=prayer_layer
 graphic=graphic_3305
 
 // 1011:182
-[com_182]
+[buy_prayer_10_text]
 type=text
 x=50
 y=48
@@ -2276,7 +2276,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:183
-[com_183]
+[buy_prayer_100]
 type=graphic
 x=97
 y=47
@@ -2286,7 +2286,7 @@ layer=prayer_layer
 graphic=graphic_3306
 
 // 1011:184
-[com_184]
+[buy_prayer_100_text]
 type=text
 x=97
 y=48
@@ -2306,7 +2306,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:185
-[com_185]
+[ranged_helm_layer]
 type=layer
 x=183
 y=85
@@ -2321,7 +2321,7 @@ onmouseleave=script478
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_185
+layer=ranged_helm_layer
 colour=0x201c17
 
 // 1011:187
@@ -2333,7 +2333,7 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_185
+layer=ranged_helm_layer
 colour=0x595143
 
 // 1011:188
@@ -2345,7 +2345,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_185
+layer=ranged_helm_layer
 colour=0x161410
 fill=yes
 
@@ -2357,18 +2357,18 @@ y=3
 width=6
 height=16
 widthmode=minus
-layer=com_185
+layer=ranged_helm_layer
 colour=0x3c312b
 fill=yes
 
 // 1011:190
-[com_190]
+[ranged_helm_title]
 type=text
 x=7
 y=3
 width=100
 height=16
-layer=com_185
+layer=ranged_helm_layer
 textfont=p11_full
 text=Void Knight Ranger Helm
 textalignv=centre
@@ -2376,13 +2376,13 @@ textshadow=yes
 colour=0xe6ca98
 
 // 1011:191
-[com_191]
+[ranged_helm_border]
 type=rectangle
 x=6
 y=20
 width=25
 height=25
-layer=com_185
+layer=ranged_helm_layer
 colour=0x34322c
 
 // 1011:192
@@ -2392,19 +2392,19 @@ x=9
 y=22
 width=21
 height=21
-layer=com_185
+layer=ranged_helm_layer
 model=model_27163
 modelorigin=0,10
 modelzoom=800
 
 // 1011:193
-[com_193]
+[ranged_helm_value]
 type=text
 x=32
 y=21
 width=111
 height=25
-layer=com_185
+layer=ranged_helm_layer
 textfont=p11_full
 text=200 Commendations
 textalignh=centre
@@ -2422,7 +2422,7 @@ x=2
 y=46
 width=142
 height=14
-layer=com_185
+layer=ranged_helm_layer
 colour=0x100602
 fill=yes
 
@@ -2433,7 +2433,7 @@ x=3
 y=47
 width=140
 height=12
-layer=com_185
+layer=ranged_helm_layer
 graphic=graphic_3309
 
 // 1011:196
@@ -2443,7 +2443,7 @@ x=3
 y=47
 width=140
 height=12
-layer=com_185
+layer=ranged_helm_layer
 textfont=p11_full
 text=Exchange
 textalignh=centre
@@ -2457,7 +2457,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:197
-[com_197]
+[mage_helm_layer]
 type=layer
 x=337
 y=85
@@ -2472,7 +2472,7 @@ onmouseleave=script478
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_197
+layer=mage_helm_layer
 colour=0x201c17
 
 // 1011:199
@@ -2484,7 +2484,7 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_197
+layer=mage_helm_layer
 colour=0x595143
 
 // 1011:200
@@ -2496,7 +2496,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_197
+layer=mage_helm_layer
 colour=0x161410
 fill=yes
 
@@ -2508,18 +2508,18 @@ y=3
 width=6
 height=16
 widthmode=minus
-layer=com_197
+layer=mage_helm_layer
 colour=0x3c312b
 fill=yes
 
 // 1011:202
-[com_202]
+[mage_helm_title]
 type=text
 x=7
 y=3
 width=100
 height=16
-layer=com_197
+layer=mage_helm_layer
 textfont=p11_full
 text=Void Knight Mage Helm
 textalignv=centre
@@ -2533,30 +2533,30 @@ x=9
 y=20
 width=21
 height=25
-layer=com_197
+layer=mage_helm_layer
 model=model_27164
 modelorigin=-1,-1
 modelangle=961,1388,1678
 modelzoom=1000
 
 // 1011:204
-[com_204]
+[mage_helm_border]
 type=rectangle
 x=6
 y=20
 width=25
 height=25
-layer=com_197
+layer=mage_helm_layer
 colour=0x34322c
 
 // 1011:205
-[com_205]
+[mage_helm_value]
 type=text
 x=32
 y=21
 width=111
 height=25
-layer=com_197
+layer=mage_helm_layer
 textfont=p11_full
 text=200 Commendations
 textalignh=centre
@@ -2574,7 +2574,7 @@ x=2
 y=46
 width=142
 height=14
-layer=com_197
+layer=mage_helm_layer
 colour=0x100602
 fill=yes
 
@@ -2585,7 +2585,7 @@ x=3
 y=47
 width=140
 height=12
-layer=com_197
+layer=mage_helm_layer
 graphic=graphic_3309
 
 // 1011:208
@@ -2595,7 +2595,7 @@ x=3
 y=47
 width=140
 height=12
-layer=com_197
+layer=mage_helm_layer
 textfont=p11_full
 text=Exchange
 textalignh=centre
@@ -2741,7 +2741,7 @@ layer=torso_layer
 graphic=graphic_3309
 
 // 1011:220
-[com_220]
+[buy_torso_text]
 type=text
 x=3
 y=47
@@ -2893,7 +2893,7 @@ layer=robes_layer
 graphic=graphic_3309
 
 // 1011:232
-[com_232]
+[buy_robes_text]
 type=text
 x=3
 y=47
@@ -3045,7 +3045,7 @@ layer=gloves_layer
 graphic=graphic_3309
 
 // 1011:244
-[com_244]
+[buy_gloves_text]
 type=text
 x=3
 y=47
@@ -3197,7 +3197,7 @@ layer=mace_layer
 graphic=graphic_3309
 
 // 1011:256
-[com_256]
+[buy_mace_text]
 type=text
 x=3
 y=47
@@ -3349,7 +3349,7 @@ layer=deflector_layer
 graphic=graphic_3309
 
 // 1011:268
-[com_268]
+[buy_deflector_text]
 type=text
 x=3
 y=47
@@ -3498,7 +3498,7 @@ layer=seal_layer
 graphic=graphic_3309
 
 // 1011:280
-[com_280]
+[buy_seal_text]
 type=text
 x=3
 y=47
@@ -3639,7 +3639,7 @@ layer=herb_layer
 graphic=graphic_3309
 
 // 1011:291
-[com_291]
+[buy_herb_text]
 type=text
 x=3
 y=47
@@ -3779,7 +3779,7 @@ layer=mineral_layer
 graphic=graphic_3309
 
 // 1011:302
-[com_302]
+[buy_mineral_text]
 type=text
 x=3
 y=47
@@ -3920,7 +3920,7 @@ layer=seed_layer
 graphic=graphic_3309
 
 // 1011:313
-[com_313]
+[buy_seed_text]
 type=text
 x=3
 y=47
@@ -4060,7 +4060,7 @@ layer=spinner_layer
 graphic=graphic_3304
 
 // 1011:324
-[com_324]
+[buy_spinner_1_text]
 type=text
 x=3
 y=48
@@ -4090,7 +4090,7 @@ layer=spinner_layer
 graphic=graphic_3305
 
 // 1011:326
-[com_326]
+[buy_spinner_10_text]
 type=text
 x=50
 y=48
@@ -4110,7 +4110,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:327
-[com_327]
+[buy_spinner_all]
 type=graphic
 x=97
 y=47
@@ -4120,7 +4120,7 @@ layer=spinner_layer
 graphic=graphic_3306
 
 // 1011:328
-[com_328]
+[buy_spinner_all_text]
 type=text
 x=97
 y=48
@@ -4260,7 +4260,7 @@ layer=torcher_layer
 graphic=graphic_3304
 
 // 1011:339
-[com_339]
+[buy_torcher_1_text]
 type=text
 x=3
 y=48
@@ -4290,7 +4290,7 @@ layer=torcher_layer
 graphic=graphic_3305
 
 // 1011:341
-[com_341]
+[buy_torcher_10_text]
 type=text
 x=50
 y=48
@@ -4310,7 +4310,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:342
-[com_342]
+[buy_torcher_all]
 type=graphic
 x=97
 y=47
@@ -4320,7 +4320,7 @@ layer=torcher_layer
 graphic=graphic_3306
 
 // 1011:343
-[com_343]
+[buy_torcher_all_text]
 type=text
 x=97
 y=48
@@ -4460,7 +4460,7 @@ layer=ravager_layer
 graphic=graphic_3304
 
 // 1011:354
-[com_354]
+[buy_ravager_1_text]
 type=text
 x=3
 y=48
@@ -4490,7 +4490,7 @@ layer=ravager_layer
 graphic=graphic_3305
 
 // 1011:356
-[com_356]
+[buy_ravager_10_text]
 type=text
 x=50
 y=48
@@ -4510,7 +4510,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:357
-[com_357]
+[buy_ravager_all]
 type=graphic
 x=97
 y=47
@@ -4520,7 +4520,7 @@ layer=ravager_layer
 graphic=graphic_3306
 
 // 1011:358
-[com_358]
+[buy_ravager_all_text]
 type=text
 x=97
 y=48
@@ -4660,7 +4660,7 @@ layer=shifter_layer
 graphic=graphic_3304
 
 // 1011:369
-[com_369]
+[buy_shifter_1_text]
 type=text
 x=3
 y=48
@@ -4690,7 +4690,7 @@ layer=shifter_layer
 graphic=graphic_3305
 
 // 1011:371
-[com_371]
+[buy_shifter_10_text]
 type=text
 x=50
 y=47
@@ -4710,7 +4710,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
 
 // 1011:372
-[com_372]
+[buy_shifter_all]
 type=graphic
 x=97
 y=47
@@ -4720,7 +4720,7 @@ layer=shifter_layer
 graphic=graphic_3306
 
 // 1011:373
-[com_373]
+[buy_shifter_all_text]
 type=text
 x=97
 y=48

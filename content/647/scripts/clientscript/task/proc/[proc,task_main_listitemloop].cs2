@@ -52,7 +52,7 @@ while ($int0 ! 450 & $int0 ! 4094) {
                 cc_setop(2, "Pin");
             }
             cc_setopbase($string0);
-            cc_setonop("script3990($int0, event_comsubid, event_op)");
+            cc_setonop("task_main_summary_populate($int0, event_comsubid, event_op)");
             if (~script3999($int0) = 0) {
                 $string1 = " -<br>";
                 $string1 = append(struct_param($struct3, param_1266), $string1);
@@ -76,7 +76,7 @@ while ($int0 ! 450 & $int0 ! 4094) {
             }
             cc_create(task_main:list_window, ^iftype_graphic, calc($int10 + 3));
             if (~script3994($int0) = 1) {
-                $graphic9 = graphic_4296;
+                $graphic9 = "task_pin_symbol,1";
                 cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
                 $int16 = 17;
             } else if (~task_requirements_quick($int0) = 0) {

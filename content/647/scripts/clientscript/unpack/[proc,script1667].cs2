@@ -2,13 +2,13 @@
 [proc,script1667]
 def_int $int0 = 0;
 if (activeclansettings_find_affined = true) {
-    ~script4310;
+    ~clansettings_clanmate_details_onclansettingstransmit;
     if (~script4292 = 1) {
-        if_sethide(true, interface_1096:com_267);
-        if_sethide(true, interface_1096:com_253);
+        if_sethide(true, clansettings:com_267);
+        if_sethide(true, clansettings:com_253);
     } else {
-        if_sethide(false, interface_1096:com_267);
-        if_sethide(false, interface_1096:com_253);
+        if_sethide(false, clansettings:com_267);
+        if_sethide(false, clansettings:com_253);
     }
 }
-~script4310;
+~clansettings_clanmate_details_onclansettingstransmit;

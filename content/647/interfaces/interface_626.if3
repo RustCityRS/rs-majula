@@ -209,9 +209,9 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff981f
-onload=script4179(interface_626:com_29, interface_626:com_30, interface_626:com_33, interface_626:com_34)
-onvartransmit=script4179(interface_626:com_29, interface_626:com_30, interface_626:com_33, interface_626:com_34){dueloptions}
-oninvtransmit=script4179(interface_626:com_29, interface_626:com_30, interface_626:com_33, interface_626:com_34){inv, worn}
+onload=duel2_confirm_options(interface_626:before, interface_626:before_scrollbar, interface_626:during, interface_626:during_scrollbar)
+onvartransmit=duel2_confirm_options(interface_626:before, interface_626:before_scrollbar, interface_626:during, interface_626:during_scrollbar){dueloptions}
+oninvtransmit=duel2_confirm_options(interface_626:before, interface_626:before_scrollbar, interface_626:during, interface_626:during_scrollbar){inv, worn}
 
 // 626:21
 [com_21]
@@ -301,7 +301,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 626:28
-[com_28]
+[before_container]
 type=layer
 x=251
 y=65
@@ -309,23 +309,23 @@ width=240
 height=66
 
 // 626:29
-[com_29]
+[before]
 type=layer
 width=16
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_28
+layer=before_container
 
 // 626:30
-[com_30]
+[before_scrollbar]
 type=layer
 width=16
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_28
+layer=before_container
 hide=yes
 
 // 626:31
@@ -343,7 +343,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 626:32
-[com_32]
+[during_container]
 type=layer
 x=251
 y=143
@@ -351,23 +351,23 @@ width=240
 height=130
 
 // 626:33
-[com_33]
+[during]
 type=layer
 width=16
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_32
+layer=during_container
 
 // 626:34
-[com_34]
+[during_scrollbar]
 type=layer
 width=16
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_32
+layer=during_container
 hide=yes
 
 // 626:35

@@ -9,7 +9,7 @@ textfont=p11_full
 textlineheight=14
 textshadow=yes
 colour=0xe2e2a2
-onvartransmit=script2251(event_com){varplayer_1774, varplayer_1775}
+onvartransmit=rand_update_dungeon_stats(event_com){varplayer_1774, varplayer_1775}
 
 // 945:1
 [deaths_icon]

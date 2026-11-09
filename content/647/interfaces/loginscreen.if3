@@ -22,7 +22,7 @@ graphic="corner_frame_2,0"
 tiling=yes
 
 // 744:2
-[com_2]
+[background_texture]
 type=graphic
 y=7
 height=14
@@ -237,7 +237,7 @@ layer=com_16
 hflip=yes
 
 // 744:23
-[com_23]
+[runescape_logo]
 type=graphic
 y=26
 width=278
@@ -250,7 +250,7 @@ transmitop=10
 op10=  
 
 // 744:24
-[com_24]
+[options_firstrun]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -270,7 +270,7 @@ transmitop=10
 op10=  
 
 // 744:26
-[com_26]
+[login]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -278,7 +278,7 @@ layer=background_layer
 hide=yes
 
 // 744:27
-[com_27]
+[south_progress9]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -531,7 +531,7 @@ transmitop=10
 op10= 
 onmouseover=text_colour_swapper(event_com, 0xf9da97)
 onmouseleave=text_colour_swapper(event_com, ^white)
-onclick=script2935(1)
+onclick=loginscreen_pvp_warning_unsigned(1)
 
 // 744:45
 [pvp_warning_go_back]
@@ -551,7 +551,7 @@ transmitop=10
 op10= 
 onmouseover=text_colour_swapper(event_com, 0xf9da97)
 onmouseleave=text_colour_swapper(event_com, ^white)
-onclick=script2935(0)
+onclick=loginscreen_pvp_warning_unsigned(0)
 
 // 744:46
 [skull_left]
@@ -827,7 +827,7 @@ transmitop=10
 op10=     
 
 // 744:67
-[com_67]
+[general_messages_backing]
 type=graphic
 widthmode=minus
 heightmode=minus
@@ -840,7 +840,7 @@ transmitop=10
 op10=      
 
 // 744:68
-[com_68]
+[general_messages_left_side]
 type=graphic
 width=38
 heightmode=minus
@@ -850,7 +850,7 @@ tiling=yes
 hflip=yes
 
 // 744:69
-[com_69]
+[general_messages_right_side]
 type=graphic
 width=38
 heightmode=minus
@@ -1021,7 +1021,7 @@ xmode=abs_right
 layer=background_layer
 
 // 744:82
-[com_82]
+[toolbar_backing]
 type=graphic
 width=63
 height=16
@@ -1066,7 +1066,7 @@ height=125
 hide=yes
 
 // 744:86
-[com_86]
+[loadingbox_border_corner]
 type=graphic
 x=34
 y=34
@@ -1077,7 +1077,7 @@ hide=yes
 graphic=loadingbox_border_corner
 
 // 744:87
-[com_87]
+[loadingbox_border_side]
 type=graphic
 x=34
 y=34
@@ -1088,7 +1088,7 @@ hide=yes
 graphic=loadingbox_border_side
 
 // 744:88
-[com_88]
+[tradebacking]
 type=graphic
 x=34
 y=34
@@ -1388,7 +1388,7 @@ hide=yes
 graphic=graphic_3816
 
 // 744:118
-[com_118]
+[corner_frame_1_4]
 type=graphic
 width=38
 height=72
@@ -1397,7 +1397,7 @@ hide=yes
 graphic="corner_frame_1,4"
 
 // 744:119
-[com_119]
+[corner_flourish]
 type=graphic
 width=38
 height=38
@@ -1406,7 +1406,7 @@ hide=yes
 graphic="corner_flourish,0"
 
 // 744:120
-[com_120]
+[window_texture]
 type=graphic
 width=100
 height=100
@@ -1415,7 +1415,7 @@ hide=yes
 graphic=window_texture
 
 // 744:121
-[com_121]
+[corner_frame_5_0]
 type=graphic
 width=38
 height=72
@@ -1424,7 +1424,7 @@ hide=yes
 graphic="corner_frame_5,0"
 
 // 744:122
-[com_122]
+[corner_frame_2_0]
 type=graphic
 width=72
 height=8

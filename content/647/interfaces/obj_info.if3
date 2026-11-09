@@ -1,5 +1,5 @@
 // 449:0
-[com_0]
+[main]
 type=layer
 width=16391
 height=16384
@@ -15,7 +15,7 @@ y=3
 width=16
 height=16
 xmode=abs_right
-layer=com_0
+layer=main
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -31,7 +31,7 @@ x=5
 y=5
 width=160
 height=14
-layer=com_0
+layer=main
 textfont=b12_full
 text=Item information
 textshadow=yes
@@ -45,7 +45,7 @@ type=rectangle
 y=25
 width=195
 height=34
-layer=com_0
+layer=main
 colour=0x000000
 fill=yes
 trans=200
@@ -58,7 +58,7 @@ type=graphic
 y=9
 width=190
 height=32
-layer=com_0
+layer=main
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -71,7 +71,7 @@ type=graphic
 y=45
 width=190
 height=32
-layer=com_0
+layer=main
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -85,7 +85,7 @@ y=60
 width=16384
 height=187
 widthmode=proportion
-layer=com_0
+layer=main
 
 // 449:7
 [com_7]
@@ -110,10 +110,10 @@ heightmode=minus
 layer=content
 transmitop=10
 op10= 
-onvarctransmit=script916{varclient_741, varclient_744}
+onvarctransmit=objreq_draw{varclient_741, varclient_744}
 
 // 449:9
-[com_9]
+[scrollbar]
 type=layer
 width=16
 height=3
@@ -161,7 +161,7 @@ x=7
 y=26
 width=36
 height=32
-layer=com_0
+layer=main
 outline=1
 graphicshadow=3153952
 colour=0xffffffff
@@ -173,7 +173,7 @@ x=47
 y=26
 width=136
 height=32
-layer=com_0
+layer=main
 textfont=p11_full
 textalignv=centre
 textshadow=yes
@@ -185,7 +185,7 @@ type=layer
 width=190
 height=236
 ymode=abs_bottom
-layer=com_0
+layer=main
 hide=yes
 
 // 449:16
@@ -311,7 +311,7 @@ graphicshadow=3153952
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=script918{varclient_744}
+onvarctransmit=objreq_buy{varclient_744}
 
 // 449:24
 [buy_text]
@@ -340,7 +340,7 @@ width=8
 height=12
 widthmode=minus
 ymode=abs_bottom
-layer=com_0
+layer=main
 textfont=p11_full
 text=You have X coin(s)
 textalignh=centre

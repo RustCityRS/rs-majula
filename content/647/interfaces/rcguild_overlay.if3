@@ -367,7 +367,7 @@ modelangle=568,1024,0
 modelzoom=856
 
 // 781:31
-[com_31]
+[green_tradeback]
 type=graphic
 x=424
 y=196
@@ -458,7 +458,7 @@ fill=yes
 transmitop=10
 op10= 
 onmouseleave=deltooltip(rcguild_overlay:tooltip_content_layer)
-onvartransmit=script2574{varplayer_1495}
+onvartransmit=rcguild_activity_bar_fill{varplayer_1495}
 onmouserepeat=rcguild_game_overlay_tooltips(event_com, rcguild_overlay:tooltip_content_layer)
 
 // 781:38
@@ -488,7 +488,7 @@ textshadow=yes
 colour=0xc4c4a4
 
 // 781:40
-[com_40]
+[yellow_tradeback]
 type=graphic
 x=424
 y=196
@@ -574,7 +574,7 @@ layer=yellow_layer
 colour=0x666600
 fill=yes
 onmouseleave=deltooltip(rcguild_overlay:tooltip_content_layer)
-onvartransmit=script2574{varplayer_1495}
+onvartransmit=rcguild_activity_bar_fill{varplayer_1495}
 onmouserepeat=rcguild_game_overlay_tooltips(event_com, rcguild_overlay:tooltip_content_layer)
 
 // 781:47
@@ -616,7 +616,7 @@ tiling=yes
 colour=0xffffffff
 
 // 781:50
-[com_50]
+[waiting_corner1]
 type=graphic
 x=9
 y=5
@@ -627,7 +627,7 @@ graphic="v2_stone_borders,4"
 colour=0xffffffff
 
 // 781:51
-[com_51]
+[waiting_corner2]
 type=graphic
 x=9
 y=14
@@ -638,7 +638,7 @@ graphic="v2_stone_borders,6"
 colour=0xffffffff
 
 // 781:52
-[com_52]
+[waiting_corner3]
 type=graphic
 x=175
 y=5
@@ -649,7 +649,7 @@ graphic="v2_stone_borders,5"
 colour=0xffffffff
 
 // 781:53
-[com_53]
+[waiting_corner4]
 type=graphic
 x=175
 y=14

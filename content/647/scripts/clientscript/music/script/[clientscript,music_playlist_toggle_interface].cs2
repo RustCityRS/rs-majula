@@ -1,0 +1,10 @@
+// 2871
+[clientscript,music_playlist_toggle_interface](int $int0)
+if ($int0 = 1) {
+    if (%varclient_1077 = true) {
+        %varclient_1077 = false;
+    } else {
+        %varclient_1077 = true;
+    }
+}
+~music_playlist_toggle_interface;

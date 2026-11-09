@@ -86,7 +86,7 @@ text=Tree
 colour=0x2d2406
 
 // 469:7
-[com_7]
+[varrock]
 type=text
 x=358
 y=27
@@ -98,7 +98,7 @@ text=Varrock
 colour=0x2d2406
 
 // 469:8
-[com_8]
+[entrana]
 type=text
 x=199
 y=119
@@ -110,7 +110,7 @@ text=Entrana
 colour=0x2d2406
 
 // 469:9
-[com_9]
+[taverley]
 type=text
 x=266
 y=54
@@ -228,8 +228,8 @@ layer=contents
 colour=0x000000
 transmitop=1
 op1=Entrana
-onmouseleave=zep_mouse_leave(zep_balloon_map:com_8, null)
-onmouserepeat=zep_mouse_over(zep_balloon_map:com_8, null)
+onmouseleave=zep_mouse_leave(zep_balloon_map:entrana, null)
+onmouserepeat=zep_mouse_over(zep_balloon_map:entrana, null)
 
 // 469:18
 [btn_tav]
@@ -242,8 +242,8 @@ layer=contents
 colour=0x000000
 transmitop=1
 op1=Taverley
-onmouseleave=zep_mouse_leave(zep_balloon_map:com_9, null)
-onmouserepeat=zep_mouse_over(zep_balloon_map:com_9, null)
+onmouseleave=zep_mouse_leave(zep_balloon_map:taverley, null)
+onmouserepeat=zep_mouse_over(zep_balloon_map:taverley, null)
 
 // 469:19
 [btn_varr]
@@ -256,8 +256,8 @@ layer=contents
 colour=0x000000
 transmitop=1
 op1=Varrock
-onmouseleave=zep_mouse_leave(zep_balloon_map:com_7, null)
-onmouserepeat=zep_mouse_over(zep_balloon_map:com_7, null)
+onmouseleave=zep_mouse_leave(zep_balloon_map:varrock, null)
+onmouserepeat=zep_mouse_over(zep_balloon_map:varrock, null)
 
 // 469:20
 [mod_craft]

@@ -472,7 +472,7 @@ transmitop=1
 op1=Make 1 Mace
 
 // 300:41
-[com_41]
+[smith_medhelm]
 type=layer
 x=368
 y=5
@@ -481,35 +481,35 @@ height=32
 layer=scrolling_layer
 
 // 300:42
-[com_42]
+[smith_medhelm_pic]
 type=graphic
 width=36
 height=32
-layer=com_41
+layer=smith_medhelm
 outline=1
 colour=0xffffffff
 
 // 300:43
-[com_43]
+[smith_medhelm_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_41
+layer=smith_medhelm
 textfont=p11_full
 text=Medium helm
 textalignv=centre
 colour=0x000000
 
 // 300:44
-[com_44]
+[smith_medhelm_bars]
 type=text
 x=36
 y=20
 width=45
 height=12
-layer=com_41
+layer=smith_medhelm
 textfont=p11_full
 text=1 Bar
 textalignv=centre
@@ -517,11 +517,11 @@ textshadow=yes
 colour=0xe8981f
 
 // 300:45
-[com_45]
+[smith_medhelm_all]
 type=text
 width=109
 height=32
-layer=com_41
+layer=smith_medhelm
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -530,11 +530,11 @@ transmitop=1
 op1=Make All Medium helms
 
 // 300:46
-[com_46]
+[smith_medhelm_x]
 type=text
 width=109
 height=32
-layer=com_41
+layer=smith_medhelm
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -543,11 +543,11 @@ transmitop=1
 op1=Make X Medium helms
 
 // 300:47
-[com_47]
+[smith_medhelm_5]
 type=text
 width=109
 height=32
-layer=com_41
+layer=smith_medhelm
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -556,11 +556,11 @@ transmitop=1
 op1=Make 5 Medium helms
 
 // 300:48
-[com_48]
+[smith_medhelm_1]
 type=text
 width=109
 height=32
-layer=com_41
+layer=smith_medhelm
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -761,7 +761,7 @@ transmitop=1
 op1=Make 1 Sword
 
 // 300:65
-[pathcourse]
+[smith_darttip]
 type=layer
 x=238
 y=57
@@ -771,46 +771,46 @@ layer=scrolling_layer
 hide=yes
 
 // 300:66
-[com_66]
+[smith_darttip_pic]
 type=graphic
 width=36
 height=32
-layer=pathcourse
+layer=smith_darttip
 outline=1
 colour=0xffffffff
 
 // 300:67
-[com_67]
+[smith_darttip_name]
 type=text
 x=35
 y=-1
 width=90
 height=21
-layer=pathcourse
+layer=smith_darttip
 textfont=p11_full
 text=Dart tips
 textalignv=centre
 colour=0x000000
 
 // 300:68
-[com_68]
+[smith_darttip_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=pathcourse
+layer=smith_darttip
 textfont=p11_full
 text=1 Bar
 textshadow=yes
 colour=0xe8981f
 
 // 300:69
-[com_69]
+[smith_darttip_all]
 type=text
 width=124
 height=32
-layer=pathcourse
+layer=smith_darttip
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -819,11 +819,11 @@ transmitop=1
 op1=Make All Dart tips
 
 // 300:70
-[com_70]
+[smith_darttip_x]
 type=text
 width=124
 height=32
-layer=pathcourse
+layer=smith_darttip
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -832,11 +832,11 @@ transmitop=1
 op1=Make X Dart tips
 
 // 300:71
-[pathcourse_5]
+[smith_darttip_5]
 type=text
 width=124
 height=32
-layer=pathcourse
+layer=smith_darttip
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -845,11 +845,11 @@ transmitop=1
 op1=Make 5 Dart tips
 
 // 300:72
-[pathcourse_1]
+[smith_darttip_1]
 type=text
 width=124
 height=32
-layer=pathcourse
+layer=smith_darttip
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1245,7 +1245,7 @@ transmitop=1
 op1=Make 1 Stud
 
 // 300:105
-[com_105]
+[smith_arrowtip]
 type=layer
 x=121
 y=109
@@ -1254,46 +1254,46 @@ height=32
 layer=scrolling_layer
 
 // 300:106
-[com_106]
+[smith_arrowtip_pic]
 type=graphic
 width=36
 height=32
-layer=com_105
+layer=smith_arrowtip
 outline=1
 colour=0xffffffff
 
 // 300:107
-[com_107]
+[smith_arrowtip_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_105
+layer=smith_arrowtip
 textfont=p11_full
 text=Arrow tips
 textalignv=centre
 colour=0x000000
 
 // 300:108
-[com_108]
+[smith_arrowtip_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_105
+layer=smith_arrowtip
 textfont=p11_full
 text=1 Bar
 textshadow=yes
 colour=0xe8981f
 
 // 300:109
-[com_109]
+[smith_arrowtip_all]
 type=text
 width=109
 height=32
-layer=com_105
+layer=smith_arrowtip
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1302,11 +1302,11 @@ transmitop=1
 op1=Make All Arrow tips
 
 // 300:110
-[com_110]
+[smith_arrowtip_x]
 type=text
 width=109
 height=32
-layer=com_105
+layer=smith_arrowtip
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1315,11 +1315,11 @@ transmitop=1
 op1=Make X Arrow tips
 
 // 300:111
-[com_111]
+[smith_arrowtip_5]
 type=text
 width=109
 height=32
-layer=com_105
+layer=smith_arrowtip
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1328,11 +1328,11 @@ transmitop=1
 op1=Make 5 Arrow tips
 
 // 300:112
-[com_112]
+[smith_arrowtip_1]
 type=text
 width=109
 height=32
-layer=com_105
+layer=smith_arrowtip
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1629,7 +1629,7 @@ transmitop=1
 op1=Make 1 Longsword
 
 // 300:137
-[com_137]
+[smith_throwingknife]
 type=layer
 x=121
 y=161
@@ -1638,46 +1638,46 @@ height=32
 layer=scrolling_layer
 
 // 300:138
-[com_138]
+[smith_throwingknife_pic]
 type=graphic
 width=36
 height=32
-layer=com_137
+layer=smith_throwingknife
 outline=1
 colour=0xffffffff
 
 // 300:139
-[com_139]
+[smith_throwingknife_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_137
+layer=smith_throwingknife
 textfont=p11_full
 text=Throwing knife
 textalignv=centre
 colour=0x000000
 
 // 300:140
-[com_140]
+[smith_throwingknife_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_137
+layer=smith_throwingknife
 textfont=p11_full
 text=1 Bar
 textshadow=yes
 colour=0xe8981f
 
 // 300:141
-[com_141]
+[smith_throwingknife_all]
 type=text
 width=109
 height=32
-layer=com_137
+layer=smith_throwingknife
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1686,11 +1686,11 @@ transmitop=1
 op1=Make All Throwing knives
 
 // 300:142
-[com_142]
+[smith_throwingknife_x]
 type=text
 width=109
 height=32
-layer=com_137
+layer=smith_throwingknife
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1699,11 +1699,11 @@ transmitop=1
 op1=Make X Throwing knives
 
 // 300:143
-[com_143]
+[smith_throwingknife_5]
 type=text
 width=109
 height=32
-layer=com_137
+layer=smith_throwingknife
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1712,11 +1712,11 @@ transmitop=1
 op1=Make 5 Throwing knives
 
 // 300:144
-[com_144]
+[smith_throwingknife_1]
 type=text
 width=109
 height=32
-layer=com_137
+layer=smith_throwingknife
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1725,7 +1725,7 @@ transmitop=1
 op1=Make 1 Throwing knife
 
 // 300:145
-[com_145]
+[smith_fullhelm]
 type=layer
 x=238
 y=161
@@ -1734,46 +1734,46 @@ height=32
 layer=scrolling_layer
 
 // 300:146
-[com_146]
+[smith_fullhelm_pic]
 type=graphic
 width=36
 height=32
-layer=com_145
+layer=smith_fullhelm
 outline=1
 colour=0xffffffff
 
 // 300:147
-[com_147]
+[smith_fullhelm_name]
 type=text
 x=35
 y=-1
 width=75
 height=21
-layer=com_145
+layer=smith_fullhelm
 textfont=p11_full
 text=Full helm
 textalignv=centre
 colour=0x000000
 
 // 300:148
-[com_148]
+[smith_fullhelm_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=com_145
+layer=smith_fullhelm
 textfont=p11_full
 text=2 Bars
 textshadow=yes
 colour=0xe8981f
 
 // 300:149
-[com_149]
+[smith_fullhelm_all]
 type=text
 width=109
 height=32
-layer=com_145
+layer=smith_fullhelm
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1782,11 +1782,11 @@ transmitop=1
 op1=Make All Full helms
 
 // 300:150
-[com_150]
+[smith_fullhelm_x]
 type=text
 width=109
 height=32
-layer=com_145
+layer=smith_fullhelm
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1795,11 +1795,11 @@ transmitop=1
 op1=Make X Full helms
 
 // 300:151
-[com_151]
+[smith_fullhelm_5]
 type=text
 width=109
 height=32
-layer=com_145
+layer=smith_fullhelm
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1808,11 +1808,11 @@ transmitop=1
 op1=Make 5 Full helms
 
 // 300:152
-[com_152]
+[smith_fullhelm_1]
 type=text
 width=109
 height=32
-layer=com_145
+layer=smith_fullhelm
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1917,7 +1917,7 @@ transmitop=1
 op1=Make 1 Square shield
 
 // 300:161
-[train_test]
+[smith_lanterns]
 type=layer
 x=4
 y=213
@@ -1927,46 +1927,46 @@ layer=scrolling_layer
 hide=yes
 
 // 300:162
-[com_162]
+[smith_lanterns_pic]
 type=graphic
 width=36
 height=32
-layer=train_test
+layer=smith_lanterns
 outline=1
 colour=0xffffffff
 
 // 300:163
-[com_163]
+[smith_lanterns_name]
 type=text
 x=35
 y=-1
 width=82
 height=21
-layer=train_test
+layer=smith_lanterns
 textfont=p11_full
 text=Bullseye lantern
 textalignv=centre
 colour=0x000000
 
 // 300:164
-[com_164]
+[smith_lanterns_bars]
 type=text
 x=36
 y=20
 width=55
 height=12
-layer=train_test
+layer=smith_lanterns
 textfont=p11_full
 text=1 Bar
 textshadow=yes
 colour=0xe8981f
 
 // 300:165
-[com_165]
+[smith_lanterns_all]
 type=text
 width=109
 height=32
-layer=train_test
+layer=smith_lanterns
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1975,11 +1975,11 @@ transmitop=1
 op1=Make All Lanterns
 
 // 300:166
-[com_166]
+[smith_lanterns_x]
 type=text
 width=109
 height=32
-layer=train_test
+layer=smith_lanterns
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -1988,11 +1988,11 @@ transmitop=1
 op1=Make X Lanterns
 
 // 300:167
-[com_167]
+[smith_lanterns_5]
 type=text
 width=109
 height=32
-layer=train_test
+layer=smith_lanterns
 textfont=q8_full
 textalignh=centre
 textshadow=yes
@@ -2001,11 +2001,11 @@ transmitop=1
 op1=Make 5 Lanterns
 
 // 300:168
-[com_168]
+[smith_lanterns_1]
 type=text
 width=109
 height=32
-layer=train_test
+layer=smith_lanterns
 textfont=q8_full
 textalignh=centre
 textshadow=yes

@@ -14,7 +14,7 @@ width=190
 height=261
 
 // 1078:2
-[com_2]
+[health_bar_wrapper]
 type=layer
 x=58
 y=107
@@ -28,7 +28,7 @@ type=graphic
 width=12
 height=18
 ymode=abs_centre
-layer=com_2
+layer=health_bar_wrapper
 graphic="aif_progress_bar_frame_3,0"
 
 // 1078:4
@@ -38,7 +38,7 @@ width=12
 height=18
 xmode=abs_right
 ymode=abs_centre
-layer=com_2
+layer=health_bar_wrapper
 graphic="aif_progress_bar_frame_3,0"
 hflip=yes
 
@@ -50,30 +50,30 @@ height=18
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=health_bar_wrapper
 graphic="aif_progress_bar_frame_3,1"
 tiling=yes
 hflip=yes
 
 // 1078:6
-[com_6]
+[health_bar_bounds]
 type=layer
 x=6
 width=12
 height=19
 widthmode=minus
 ymode=abs_centre
-layer=com_2
+layer=health_bar_wrapper
 
 // 1078:7
-[com_7]
+[health_bar]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_6
+layer=health_bar_bounds
 onvartransmit=script4241{varplayer_2077}
 
 // 1078:8
@@ -82,7 +82,7 @@ type=graphic
 width=6
 height=8
 ymode=abs_centre
-layer=com_7
+layer=health_bar
 graphic="aif_progress_bar_fill_3,0"
 
 // 1078:9
@@ -92,7 +92,7 @@ width=6
 height=8
 xmode=abs_right
 ymode=abs_centre
-layer=com_7
+layer=health_bar
 graphic="aif_progress_bar_fill_3,2"
 
 // 1078:10
@@ -103,7 +103,7 @@ height=8
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_7
+layer=health_bar
 graphic="aif_progress_bar_fill_3,1"
 tiling=yes
 
@@ -119,7 +119,7 @@ graphic="v2_borders_slim,11"
 tiling=yes
 
 // 1078:12
-[com_12]
+[fire_layer]
 type=layer
 x=62
 y=57
@@ -139,53 +139,53 @@ textalignh=centre
 textshadow=yes
 
 // 1078:14
-[com_14]
+[fire_button_on_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_12
+layer=fire_layer
 onload=script4205(event_com, struct_1746)
 
 // 1078:15
-[com_15]
+[fire_button_over_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_12
+layer=fire_layer
 onload=script4205(event_com, struct_1747)
 
 // 1078:16
-[com_16]
+[fire_button_hit_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_12
+layer=fire_layer
 onload=script4205(event_com, struct_1748)
 
 // 1078:17
-[com_17]
+[fire_button_selected_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_12
+layer=fire_layer
 onload=script4205(event_com, struct_1749)
 
 // 1078:18
-[com_18]
+[fire_button_content_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_12
+layer=fire_layer
 
 // 1078:19
 [com_19]
@@ -196,7 +196,7 @@ width=14
 height=14
 widthmode=minus
 heightmode=minus
-layer=com_18
+layer=fire_button_content_layer
 
 // 1078:20
 [com_20]
@@ -207,20 +207,20 @@ width=14
 height=14
 widthmode=minus
 heightmode=minus
-layer=com_18
+layer=fire_button_content_layer
 model=null
 modelzoom=1600
 modelobjwidth=52
 modelobjheight=52
 
 // 1078:21
-[com_21]
+[fire_button_disabled_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_12
+layer=fire_layer
 hide=yes
 noclickthrough=yes
 onload=script4205(event_com, struct_1750)
@@ -234,90 +234,90 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_21
+layer=fire_button_disabled_layer
 colour=0x000000
 fill=yes
 trans=150
 
 // 1078:23
-[com_23]
+[fire_button_graphic]
 type=graphic
 x=8
 y=8
 width=50
 height=50
-layer=com_12
+layer=fire_layer
 graphic="quest_icons_large3,3"
 
 // 1078:24
-[com_24]
+[cooldown_script_layer]
 type=layer
 x=7
 y=7
 width=52
 height=52
-layer=com_12
+layer=fire_layer
 onvartransmit=script4237{varplayer_2077}
-ontimer=script4238(70647832, acs_battleships_side:com_28, acs_battleships_side:com_30)
+ontimer=script4238(70647832, acs_battleships_side:cooldown_l, acs_battleships_side:cooldown_r)
 
 // 1078:25
 [fire_button]
 type=layer
 width=66
 height=66
-layer=com_12
+layer=fire_layer
 targetmask=obj,coord
 opbase=Cannon
 targetverb=Fire
 onload=script4236(event_com)
 
 // 1078:26
-[com_26]
+[cooldown_layer]
 type=layer
 width=52
 height=52
-layer=com_24
+layer=cooldown_script_layer
 
 // 1078:27
-[com_27]
+[cooldown_layer_l]
 type=layer
 width=8199
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_26
+layer=cooldown_layer
 
 // 1078:28
-[com_28]
+[cooldown_l]
 type=graphic
 x=-25
 y=-25
 width=104
 height=104
-layer=com_27
+layer=cooldown_layer_l
 graphic=aif_timer_mask
 2dangle=65353
 trans=64
 colour=0x0f0f0f
 
 // 1078:29
-[com_29]
+[cooldown_layer_r]
 type=layer
 width=8199
 height=16391
 widthmode=proportion
 heightmode=proportion
 xmode=abs_right
-layer=com_26
+layer=cooldown_layer
 
 // 1078:30
-[com_30]
+[cooldown_r]
 type=graphic
 x=-53
 y=-25
 width=104
 height=104
-layer=com_29
+layer=cooldown_layer_r
 graphic=aif_timer_mask
 2dangle=65353
 trans=64
@@ -325,7 +325,7 @@ hflip=yes
 colour=0x0f0f0f
 
 // 1078:31
-[com_31]
+[repair_layer]
 type=layer
 x=62
 y=158
@@ -333,66 +333,66 @@ width=66
 height=66
 
 // 1078:32
-[com_32]
+[repair_button_on_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_31
+layer=repair_layer
 onload=script4205(event_com, struct_1746)
 
 // 1078:33
-[com_33]
+[repair_button_over_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_31
+layer=repair_layer
 onload=script4205(event_com, struct_1747)
 
 // 1078:34
-[com_34]
+[repair_button_hit_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_31
+layer=repair_layer
 onload=script4205(event_com, struct_1748)
 
 // 1078:35
-[com_35]
+[repair_button_selected_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_31
+layer=repair_layer
 onload=script4205(event_com, struct_1749)
 
 // 1078:36
-[com_36]
+[repair_button_active_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_31
+layer=repair_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 onload=script4213(event_com)
 
 // 1078:37
-[com_37]
+[repair_button_content_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_31
+layer=repair_layer
 
 // 1078:38
 [com_38]
@@ -403,7 +403,7 @@ width=14
 height=14
 widthmode=minus
 heightmode=minus
-layer=com_37
+layer=repair_button_content_layer
 
 // 1078:39
 [com_39]
@@ -414,7 +414,7 @@ width=14
 height=14
 widthmode=minus
 heightmode=minus
-layer=com_37
+layer=repair_button_content_layer
 model=null
 modelzoom=1600
 modelobjwidth=52
@@ -429,38 +429,38 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_43
+layer=repair_button_disabled_layer
 colour=0x000000
 fill=yes
 trans=150
 
 // 1078:41
-[com_41]
+[repair_button_graphic]
 type=graphic
 x=8
 y=8
 width=50
 height=50
-layer=com_31
+layer=repair_layer
 graphic="quest_icons_large3,2"
 
 // 1078:42
-[com_42]
+[repair_button]
 type=layer
 width=66
 height=66
-layer=com_31
+layer=repair_layer
 transmitop=1
 op1=Repair-ship
 
 // 1078:43
-[com_43]
+[repair_button_disabled_layer]
 type=layer
 width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_31
+layer=repair_layer
 hide=yes
 noclickthrough=yes
 onload=script4205(event_com, struct_1750)
@@ -499,7 +499,7 @@ text=Zomboat Control
 textalignh=centre
 textalignv=centre
 colour=0x000000
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1078:47
 [com_47]
@@ -517,7 +517,7 @@ text=Zomboat Control
 textalignh=centre
 textalignv=centre
 colour=0x000000
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1078:48
 [com_48]
@@ -535,7 +535,7 @@ text=Zomboat Control
 textalignh=centre
 textalignv=centre
 colour=0x000000
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1078:49
 [com_49]
@@ -553,7 +553,7 @@ text=Zomboat Control
 textalignh=centre
 textalignv=centre
 colour=0x000000
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1078:50
 [com_50]
@@ -570,7 +570,7 @@ text=Zomboat Control
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1078:51
 [com_51]

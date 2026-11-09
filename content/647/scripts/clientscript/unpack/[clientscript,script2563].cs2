@@ -1,7 +1,0 @@
-// 2563
-[clientscript,script2563]
-if (%varclient_846 > 1) {
-    %varclient_846 = calc(%varclient_846 - 1);
-}
-if_settext(tostring(%varclient_846), mob_squad_buy:quantity_field);
-~script2565;

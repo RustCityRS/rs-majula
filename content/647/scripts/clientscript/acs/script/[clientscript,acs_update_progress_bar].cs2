@@ -3,4 +3,4 @@
 if (%varclient_1494 > 100) {
     %varclient_1494 = 100;
 }
-if_setsize(scale(%varclient_1494, 100, 16384), 16384, ^setsize_rel, ^setsize_rel, interface_481:progress_bar);
+if_setsize(scale(%varclient_1494, 100, 16384), 16384, ^setsize_rel, ^setsize_rel, acs_bar_overlay:progress_bar);

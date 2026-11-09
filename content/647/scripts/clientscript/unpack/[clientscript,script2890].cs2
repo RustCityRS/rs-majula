@@ -63,7 +63,7 @@ while ($int8 <= 6) {
                 if_setposition(if_getx($component10), if_gety($component10), ^setpos_abs_left, ^setpos_abs_top, sfa:alert);
                 ~component_flash_start(sfa:alert);
                 $int11 = calc(clientclock + 150);
-                if_setontimer("script2891($int11, $component10)", $component10);
+                if_setontimer("sfa_stop_alert($int11, $component10)", $component10);
             }
         }
     }

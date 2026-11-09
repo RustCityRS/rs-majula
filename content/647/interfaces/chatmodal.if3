@@ -9,9 +9,9 @@ heightmode=minus
 xmode=abs_centre
 transmitop=10
 op10= 
-onload=chatmodal_build(event_com, chatmodal:text_layer, chatmodal:com_2)
-onvartransmit=chatmodal_build(event_com, chatmodal:text_layer, chatmodal:com_2){option_mouse}
-onvarcstrtransmit=chatmodal_build(event_com, chatmodal:text_layer, chatmodal:com_2){varclient_1838, varclient_1839}
+onload=chatmodal_build(event_com, chatmodal:text_layer, chatmodal:scrollbar)
+onvartransmit=chatmodal_build(event_com, chatmodal:text_layer, chatmodal:scrollbar){option_mouse}
+onvarcstrtransmit=chatmodal_build(event_com, chatmodal:text_layer, chatmodal:scrollbar){varclient_1838, varclient_1839}
 
 // 200:1
 [text_layer]
@@ -25,7 +25,7 @@ transmitop=10
 op10= 
 
 // 200:2
-[com_2]
+[scrollbar]
 type=layer
 width=16
 heightmode=minus

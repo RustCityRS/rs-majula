@@ -1,27 +1,27 @@
 // 1919
 [proc,script1919]
 if (%varclient_583 > 0) {
-    if_setcolour(0xc8aa64, sc_processing:com_99);
+    if_setcolour(0xc8aa64, sc_processing:clay_1_text);
 } else {
-    if_setcolour(0x333333, sc_processing:com_99);
+    if_setcolour(0x333333, sc_processing:clay_1_text);
 }
 if (%varclient_584 > 0) {
-    if_setcolour(0xc8aa64, sc_processing:com_101);
+    if_setcolour(0xc8aa64, sc_processing:clay_2_text);
 } else {
-    if_setcolour(0x333333, sc_processing:com_101);
+    if_setcolour(0x333333, sc_processing:clay_2_text);
 }
 if (%varclient_585 > 0) {
-    if_setcolour(0xc8aa64, sc_processing:com_103);
+    if_setcolour(0xc8aa64, sc_processing:clay_3_text);
 } else {
-    if_setcolour(0x333333, sc_processing:com_103);
+    if_setcolour(0x333333, sc_processing:clay_3_text);
 }
 if (%varclient_586 > 0) {
-    if_setcolour(0xc8aa64, sc_processing:com_105);
+    if_setcolour(0xc8aa64, sc_processing:clay_4_text);
 } else {
-    if_setcolour(0x333333, sc_processing:com_105);
+    if_setcolour(0x333333, sc_processing:clay_4_text);
 }
 if (%varclient_587 > 0) {
-    if_setcolour(0xc8aa64, sc_processing:com_107);
+    if_setcolour(0xc8aa64, sc_processing:clay_5_text);
 } else {
-    if_setcolour(0x333333, sc_processing:com_107);
+    if_setcolour(0x333333, sc_processing:clay_5_text);
 }

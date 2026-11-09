@@ -161,7 +161,7 @@ transmitop=10
 op10= 
 
 // 594:12
-[com_12]
+[select_player_button_mid]
 type=graphic
 x=18
 y=5
@@ -427,7 +427,7 @@ transmitop=10
 op10=  
 
 // 594:34
-[com_34]
+[type_name_blackout_layer]
 type=layer
 width=512
 height=334
@@ -442,13 +442,13 @@ x=8
 y=20
 width=447
 height=208
-layer=com_34
+layer=type_name_blackout_layer
 noclickthrough=yes
 transmitop=10
 op10= 
 
 // 594:36
-[com_36]
+[type_name_blackout_rect]
 type=rectangle
 x=49
 y=88
@@ -714,7 +714,7 @@ op10=
 ontimer=snapshot_update_display
 
 // 594:54
-[com_54]
+[name_next_button_layer]
 type=layer
 x=309
 y=63
@@ -729,39 +729,39 @@ onmouseleave=snapshot_highlight_off(event_com)
 onop=script219
 
 // 594:55
-[com_55]
+[name_next_button_left]
 type=graphic
 x=6
 y=4
 width=18
 height=18
-layer=com_54
+layer=name_next_button_layer
 graphic="miscgraphics5,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 594:56
-[com_56]
+[name_next_button_mid]
 type=graphic
 x=21
 y=4
 width=18
 height=18
-layer=com_54
+layer=name_next_button_layer
 graphic="miscgraphics5,1"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 594:57
-[com_57]
+[name_next_button_right]
 type=graphic
 x=39
 y=4
 width=18
 height=18
-layer=com_54
+layer=name_next_button_layer
 graphic="miscgraphics5,2"
 colour=0xffffffff
 transmitop=10
@@ -774,7 +774,7 @@ x=6
 y=8
 width=50
 height=32
-layer=com_54
+layer=name_next_button_layer
 textfont=p11_full
 text=Next
 textalignh=centre
@@ -970,7 +970,7 @@ op1=Open-help
 op10=  
 onmouseover=graphic_swapper(event_com, "v2_stone_close_button,5")
 onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,4")
-onop=script225
+onop=snapshot_namelist_help_open
 
 // 594:74
 [title]
@@ -1116,7 +1116,7 @@ transmitop=10
 op10= 
 
 // 594:84
-[com_84]
+[background]
 type=graphic
 x=10
 y=21
@@ -1366,7 +1366,7 @@ transmitop=1
 op1=Help
 onmouseover=graphic_swapper(event_com, "v2_stone_close_button,5")
 onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,4")
-onop=script226
+onop=snapshot_offence_help_open
 
 // 594:104
 [offence_layer]
@@ -1511,7 +1511,7 @@ transmitop=1
 op1=View-advice
 onmouseover=graphic_swapper(event_com, "ra_icons,4")
 onmouseleave=graphic_swapper(event_com, "ra_icons,3")
-onop=script227
+onop=snapshot_honour_help_open
 
 // 594:115
 [rule_link_2]
@@ -1528,7 +1528,7 @@ op1=View-advice
 op10= 
 onmouseover=graphic_swapper(event_com, "ra_icons,4")
 onmouseleave=graphic_swapper(event_com, "ra_icons,3")
-onop=script228
+onop=snapshot_respect_help_open
 
 // 594:116
 [rule_link_3]
@@ -1545,10 +1545,10 @@ op1=View-advice
 op10= 
 onmouseover=graphic_swapper(event_com, "ra_icons,4")
 onmouseleave=graphic_swapper(event_com, "ra_icons,3")
-onop=script229
+onop=snapshot_security_help_open
 
 // 594:117
-[com_117]
+[offence_blackout_layer]
 type=layer
 width=512
 height=334
@@ -1561,11 +1561,11 @@ x=13
 y=20
 width=487
 height=307
-layer=com_117
+layer=offence_blackout_layer
 noclickthrough=yes
 
 // 594:119
-[com_119]
+[offence_blackout_rect]
 type=rectangle
 width=16391
 height=16337
@@ -1645,7 +1645,7 @@ onmouseover=snapshot_highlight_on(event_com)
 onmouseleave=snapshot_highlight_off(event_com)
 
 // 594:126
-[com_126]
+[ignore_yes_button_left]
 type=graphic
 width=18
 height=18
@@ -1657,7 +1657,7 @@ op1=Close
 op10=    
 
 // 594:127
-[com_127]
+[ignore_yes_button_mid]
 type=graphic
 x=14
 width=129
@@ -1671,7 +1671,7 @@ op1=Close
 op10=    
 
 // 594:128
-[com_128]
+[ignore_yes_button_right]
 type=graphic
 x=143
 width=18
@@ -1684,7 +1684,7 @@ op1=Close
 op10=    
 
 // 594:129
-[com_129]
+[ignore_yes_txt]
 type=text
 y=-2
 width=267
@@ -1714,7 +1714,7 @@ onmouseover=snapshot_highlight_on(event_com)
 onmouseleave=snapshot_highlight_off(event_com)
 
 // 594:131
-[com_131]
+[ignore_no_button_left]
 type=graphic
 width=18
 height=18
@@ -1726,7 +1726,7 @@ op1=Close
 op10=    
 
 // 594:132
-[com_132]
+[ignore_no_button_mid]
 type=graphic
 x=14
 width=129
@@ -1740,7 +1740,7 @@ op1=Close
 op10=    
 
 // 594:133
-[com_133]
+[ignore_no_button_right]
 type=graphic
 x=143
 width=18
@@ -1753,7 +1753,7 @@ op1=Close
 op10=    
 
 // 594:134
-[com_134]
+[ignore_no_txt]
 type=text
 y=-2
 width=266
@@ -1843,7 +1843,7 @@ transmitop=1
 op1=Help
 onmouseover=graphic_swapper(event_com, "v2_stone_close_button,5")
 onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,4")
-onop=script230
+onop=snapshot_ignore_help_open
 
 // 594:140
 [com_140]
@@ -1999,7 +1999,7 @@ transmitop=10
 op10=  
 
 // 594:152
-[com_152]
+[respect_help_background]
 type=graphic
 y=43
 width=55
@@ -2016,7 +2016,7 @@ transmitop=10
 op10=    
 
 // 594:153
-[com_153]
+[respect_help_border_layer]
 type=layer
 y=-26
 width=512
@@ -2044,7 +2044,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=snapshot_help_close
 
 // 594:155
-[com_155]
+[respect_help_title_txt]
 type=text
 x=91
 y=33
@@ -2060,13 +2060,13 @@ transmitop=10
 op10=    
 
 // 594:156
-[com_156]
+[respect_help_txt]
 type=text
 x=33
 y=87
 width=443
 height=169
-layer=com_153
+layer=respect_help_border_layer
 textfont=p11_full
 text=There's no need to report anyone for using the term 'noob', it simply means 'new player'.<br><br>Seriously offensive language includes racism and chat of a sexual nature.<br><br>You don't need to report players for using abbreviations such as 'lmao', 'wtf', 'gtfo'.<br><br>You shouldn't report any chat that has been starred out (like this: ****), as the censor has prevented anything that may have been offensive from being seen.<br><br>Solicitation includes asking for a boyfriend or girlfriend in-game.<br><br>Disruptive behaviour includes flooding the chat window with lines of unnecessary chat, but only if you feel it's impairing your gameplay.<br><br>Beware of context when reporting players for real-life threats: they could be talking about in-game combat!
 textshadow=yes
@@ -2081,7 +2081,7 @@ x=9
 y=76
 width=32
 height=234
-layer=com_153
+layer=respect_help_border_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -2095,7 +2095,7 @@ x=471
 y=87
 width=32
 height=219
-layer=com_153
+layer=respect_help_border_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -2109,7 +2109,7 @@ x=53
 y=56
 width=430
 height=32
-layer=com_153
+layer=respect_help_border_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -2124,7 +2124,7 @@ width=407
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_153
+layer=respect_help_border_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -2138,7 +2138,7 @@ x=22
 y=302
 width=32
 height=32
-layer=com_153
+layer=respect_help_border_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -2151,7 +2151,7 @@ x=459
 y=56
 width=32
 height=32
-layer=com_153
+layer=respect_help_border_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -2164,7 +2164,7 @@ x=459
 y=302
 width=32
 height=32
-layer=com_153
+layer=respect_help_border_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -2177,7 +2177,7 @@ x=22
 y=56
 width=32
 height=32
-layer=com_153
+layer=respect_help_border_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
@@ -2206,7 +2206,7 @@ transmitop=10
 op10=  
 
 // 594:167
-[com_167]
+[ignore_help_background]
 type=graphic
 width=55
 height=152
@@ -2223,7 +2223,7 @@ transmitop=10
 op10=   
 
 // 594:168
-[com_168]
+[ignore_help_border_layer]
 type=layer
 width=512
 height=334
@@ -2250,7 +2250,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=snapshot_help_close
 
 // 594:170
-[com_170]
+[ignore_help_title_txt]
 type=text
 x=86
 y=59
@@ -2272,7 +2272,7 @@ x=34
 y=83
 width=443
 height=169
-layer=com_168
+layer=ignore_help_border_layer
 textfont=p11_full
 text=Now that your report has been sent, you can choose whether or not to ignore the offender. This is a temporary measure, and will only last until you log out. To permanently ignore a player, make a note of their name and add them to your Ignore List once the 'Report Abuse' windows are closed.<br><br>You cannot ignore moderators or people on your Friends List.
 textshadow=yes
@@ -2287,7 +2287,7 @@ x=9
 y=76
 width=32
 height=182
-layer=com_168
+layer=ignore_help_border_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -2301,7 +2301,7 @@ x=471
 y=87
 width=32
 height=162
-layer=com_168
+layer=ignore_help_border_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -2315,7 +2315,7 @@ x=53
 y=56
 width=430
 height=32
-layer=com_168
+layer=ignore_help_border_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -2329,7 +2329,7 @@ x=53
 y=244
 width=407
 height=32
-layer=com_168
+layer=ignore_help_border_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -2343,7 +2343,7 @@ x=22
 y=232
 width=32
 height=32
-layer=com_168
+layer=ignore_help_border_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -2356,7 +2356,7 @@ x=459
 y=56
 width=32
 height=32
-layer=com_168
+layer=ignore_help_border_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -2369,7 +2369,7 @@ x=459
 y=232
 width=32
 height=32
-layer=com_168
+layer=ignore_help_border_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -2382,14 +2382,14 @@ x=22
 y=56
 width=32
 height=32
-layer=com_168
+layer=ignore_help_border_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 594:180
-[com_180]
+[security_help_background]
 type=graphic
 y=43
 width=55
@@ -2406,7 +2406,7 @@ transmitop=10
 op10=     
 
 // 594:181
-[com_181]
+[security_help_border_layer]
 type=layer
 y=-26
 width=512
@@ -2416,7 +2416,7 @@ transmitop=10
 op10=    
 
 // 594:182
-[com_182]
+[security_help_txt]
 type=text
 x=34
 y=58
@@ -2558,7 +2558,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=snapshot_help_close
 
 // 594:192
-[com_192]
+[security_help_title_txt]
 type=text
 x=91
 y=33
@@ -2574,7 +2574,7 @@ transmitop=10
 op10=     
 
 // 594:193
-[com_193]
+[honour_help_background]
 type=graphic
 y=69
 width=55
@@ -2591,7 +2591,7 @@ transmitop=10
 op10=   
 
 // 594:194
-[com_194]
+[honour_help_border_layer]
 type=layer
 width=512
 height=334
@@ -2608,10 +2608,10 @@ width=431
 height=248
 layer=honour_help_layer
 scrollheight=350
-onload=scrollbar_vertical(snapshot_main_v2:com_207, snapshot_main_v2:trh173_mosaic_crystal_prestige_counter)
+onload=scrollbar_vertical(snapshot_main_v2:honour_help_scroll_bar, snapshot_main_v2:trh173_mosaic_crystal_prestige_counter)
 
 // 594:196
-[com_196]
+[honour_help_title_txt]
 type=text
 x=91
 y=59
@@ -2627,7 +2627,7 @@ transmitop=10
 op10=   
 
 // 594:197
-[com_197]
+[honour_help_txt]
 type=text
 x=5
 y=5
@@ -2648,7 +2648,7 @@ x=9
 y=76
 width=32
 height=234
-layer=com_194
+layer=honour_help_border_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -2662,7 +2662,7 @@ x=471
 y=87
 width=32
 height=219
-layer=com_194
+layer=honour_help_border_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -2676,7 +2676,7 @@ x=53
 y=56
 width=430
 height=32
-layer=com_194
+layer=honour_help_border_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -2691,7 +2691,7 @@ width=407
 height=32
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_194
+layer=honour_help_border_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -2705,7 +2705,7 @@ x=22
 y=302
 width=32
 height=32
-layer=com_194
+layer=honour_help_border_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -2718,7 +2718,7 @@ x=459
 y=56
 width=32
 height=32
-layer=com_194
+layer=honour_help_border_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -2731,7 +2731,7 @@ x=459
 y=302
 width=32
 height=32
-layer=com_194
+layer=honour_help_border_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -2744,7 +2744,7 @@ x=22
 y=56
 width=32
 height=32
-layer=com_194
+layer=honour_help_border_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
@@ -2769,7 +2769,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=snapshot_help_close
 
 // 594:207
-[com_207]
+[honour_help_scroll_bar]
 type=layer
 x=463
 y=82
@@ -2780,7 +2780,7 @@ transmitop=10
 op10= 
 
 // 594:208
-[com_208]
+[offence_help_background]
 type=graphic
 width=55
 height=152
@@ -2797,7 +2797,7 @@ transmitop=10
 op10=   
 
 // 594:209
-[com_209]
+[offence_help_border_layer]
 type=layer
 width=512
 height=334
@@ -2810,7 +2810,7 @@ op10=
 type=layer
 width=512
 height=334
-layer=com_209
+layer=offence_help_border_layer
 hide=yes
 
 // 594:211
@@ -2833,7 +2833,7 @@ op10=
 type=layer
 width=512
 height=334
-layer=com_209
+layer=offence_help_border_layer
 hide=yes
 
 // 594:213
@@ -2858,7 +2858,7 @@ x=9
 y=76
 width=32
 height=182
-layer=com_209
+layer=offence_help_border_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -2872,7 +2872,7 @@ x=471
 y=87
 width=32
 height=162
-layer=com_209
+layer=offence_help_border_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -2886,7 +2886,7 @@ x=53
 y=56
 width=430
 height=32
-layer=com_209
+layer=offence_help_border_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -2900,7 +2900,7 @@ x=53
 y=244
 width=407
 height=32
-layer=com_209
+layer=offence_help_border_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -2914,7 +2914,7 @@ x=22
 y=232
 width=32
 height=32
-layer=com_209
+layer=offence_help_border_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -2927,7 +2927,7 @@ x=459
 y=56
 width=32
 height=32
-layer=com_209
+layer=offence_help_border_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -2940,7 +2940,7 @@ x=459
 y=232
 width=32
 height=32
-layer=com_209
+layer=offence_help_border_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -2953,14 +2953,14 @@ x=22
 y=56
 width=32
 height=32
-layer=com_209
+layer=offence_help_border_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 594:222
-[com_222]
+[offence_help_close_button]
 type=graphic
 x=32
 y=59
@@ -2978,7 +2978,7 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=snapshot_help_close
 
 // 594:223
-[com_223]
+[offence_help_title_txt]
 type=text
 x=91
 y=59
@@ -2994,7 +2994,7 @@ transmitop=10
 op10=   
 
 // 594:224
-[com_224]
+[namelist_help_background]
 type=graphic
 width=55
 height=152
@@ -3011,7 +3011,7 @@ transmitop=10
 op10=  
 
 // 594:225
-[com_225]
+[namelist_help_border_layer]
 type=layer
 width=512
 height=334
@@ -3020,7 +3020,7 @@ transmitop=10
 op10= 
 
 // 594:226
-[com_226]
+[namelist_help_close_button]
 type=graphic
 x=32
 y=59
@@ -3044,14 +3044,14 @@ x=34
 y=83
 width=443
 height=169
-layer=com_225
+layer=namelist_help_border_layer
 textfont=p11_full
 text=You can select a player to report from the chat list shown.<br><br>Chat from other players appears in black, while your chat is grey. You can't select your own chat.<br><br>To report a player, click on any line of their chat and click the 'Select' button to continue. You will then be shown a list of offences: choose the offence you are reporting the player for.<br><br>The list of offences has a 'Change player' button, so you can choose again if you select the wrong player.<br><br>Don't delay; once chat leaves the chat box, it can no longer be reported.
 textshadow=yes
 colour=0xffffc8
 
 // 594:228
-[com_228]
+[namelist_help_title_txt]
 type=text
 x=29
 y=59
@@ -3073,7 +3073,7 @@ x=9
 y=76
 width=32
 height=182
-layer=com_225
+layer=namelist_help_border_layer
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -3087,7 +3087,7 @@ x=471
 y=87
 width=32
 height=162
-layer=com_225
+layer=namelist_help_border_layer
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -3101,7 +3101,7 @@ x=53
 y=56
 width=430
 height=32
-layer=com_225
+layer=namelist_help_border_layer
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -3115,7 +3115,7 @@ x=53
 y=244
 width=407
 height=32
-layer=com_225
+layer=namelist_help_border_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -3129,7 +3129,7 @@ x=22
 y=232
 width=32
 height=32
-layer=com_225
+layer=namelist_help_border_layer
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -3142,7 +3142,7 @@ x=459
 y=56
 width=32
 height=32
-layer=com_225
+layer=namelist_help_border_layer
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -3155,7 +3155,7 @@ x=459
 y=232
 width=32
 height=32
-layer=com_225
+layer=namelist_help_border_layer
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -3168,7 +3168,7 @@ x=22
 y=56
 width=32
 height=32
-layer=com_225
+layer=namelist_help_border_layer
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
@@ -3185,7 +3185,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 594:238
-[com_238]
+[solicitation_button_mid]
 type=graphic
 x=29
 width=97
@@ -3234,7 +3234,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 594:242
-[com_242]
+[threats_button_mid]
 type=graphic
 x=29
 width=97
@@ -3334,7 +3334,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 594:250
-[com_250]
+[laws_button_mid]
 type=graphic
 x=29
 width=98
@@ -3384,7 +3384,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 594:254
-[com_254]
+[scamming_button_mid]
 type=graphic
 x=29
 width=98
@@ -3479,7 +3479,7 @@ transmitop=10
 op10= 
 
 // 594:261
-[com_261]
+[encouraging_button_mid]
 type=graphic
 x=28
 width=99
@@ -3492,7 +3492,7 @@ transmitop=10
 op10= 
 
 // 594:262
-[stopping_terrorism]
+[encouraging_button_right]
 type=graphic
 x=127
 width=28
@@ -3690,7 +3690,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 594:277
-[com_277]
+[bug_button_mid]
 type=graphic
 x=29
 width=98
@@ -3788,7 +3788,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 594:285
-[com_285]
+[buying_button_mid]
 type=graphic
 x=28
 width=99
@@ -3842,7 +3842,7 @@ onmouseleave=snapshot_highlight_off(event_com)
 onop=snapshot_report(18)
 
 // 594:289
-[com_289]
+[disruptive_button_layer]
 type=layer
 x=179
 y=198
@@ -3882,7 +3882,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 594:292
-[com_292]
+[name_button_mid]
 type=graphic
 x=29
 width=97
@@ -3927,17 +3927,17 @@ type=graphic
 x=1
 width=28
 height=28
-layer=com_289
+layer=disruptive_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 594:296
-[com_296]
+[disruptive_button_mid]
 type=graphic
 x=29
 width=97
 height=28
-layer=com_289
+layer=disruptive_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
@@ -3948,7 +3948,7 @@ type=graphic
 x=126
 width=28
 height=28
-layer=com_289
+layer=disruptive_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 
@@ -3959,7 +3959,7 @@ y=3
 width=145
 height=22
 xmode=abs_centre
-layer=com_289
+layer=disruptive_button_layer
 textfont=p11_full
 text=Disruptive behaviour
 textlineheight=10
@@ -4026,7 +4026,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 594:303
-[com_303]
+[websites_button_mid]
 type=graphic
 x=29
 width=98

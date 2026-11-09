@@ -1,5 +1,5 @@
 // 999:0
-[com_0]
+[background]
 type=layer
 width=512
 height=334
@@ -13,7 +13,7 @@ width=5
 height=70
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=background
 graphic=graphic_2042
 tiling=yes
 colour=0xffffffff
@@ -29,7 +29,7 @@ height=140
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_0
+layer=background
 graphic=km_middlefillcolour
 tiling=yes
 colour=0xffffffff
@@ -37,7 +37,7 @@ transmitop=10
 op10=   
 
 // 999:3
-[com_3]
+[background_bot]
 type=graphic
 y=2
 width=5
@@ -45,7 +45,7 @@ height=46
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=background
 graphic=graphic_2038
 tiling=yes
 colour=0xffffffff

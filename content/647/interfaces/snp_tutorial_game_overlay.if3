@@ -22,7 +22,7 @@ trans=100
 colour=0xffffffff
 
 // 834:2
-[com_2]
+[obelisk_bar_left_border]
 type=graphic
 x=214
 y=65
@@ -35,7 +35,7 @@ trans=100
 colour=0xffffffff
 
 // 834:3
-[com_3]
+[obelisk_bar_right_border]
 type=graphic
 x=96
 y=65
@@ -48,7 +48,7 @@ trans=100
 colour=0xffffffff
 
 // 834:4
-[com_4]
+[obelisk_bar_top_border]
 type=graphic
 x=112
 y=50
@@ -203,7 +203,7 @@ textshadow=yes
 colour=0xff2323
 onmouseleave=deltooltip(snp_tutorial_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_tutorial_tooltips(event_com, snp_tutorial_game_overlay:tooltip_content_layer)
-onvarctransmit=script2098{varclient_642}
+onvarctransmit=snp_tutorial_update_red_boss_level{varclient_642}
 
 // 834:14
 [red_health]
@@ -427,7 +427,7 @@ fill=yes
 trans=150
 onmouseleave=deltooltip(snp_tutorial_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_tutorial_tooltips(event_com, snp_tutorial_game_overlay:tooltip_content_layer)
-onvarctransmit=script2097{varclient_645}
+onvarctransmit=snp_tutorial_update_obelisk_icon_colour{varclient_645}
 
 // 834:29
 [west_icon_colour]
@@ -460,7 +460,7 @@ onmouseleave=deltooltip(snp_tutorial_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_tutorial_tooltips(event_com, snp_tutorial_game_overlay:tooltip_content_layer)
 
 // 834:31
-[com_31]
+[east_grave_top_border]
 type=graphic
 x=112
 y=3
@@ -486,7 +486,7 @@ trans=100
 colour=0xffffffff
 
 // 834:33
-[com_33]
+[east_grave_right_border]
 type=graphic
 x=96
 y=17
@@ -499,7 +499,7 @@ trans=100
 colour=0xffffffff
 
 // 834:34
-[com_34]
+[east_grave_left_border]
 type=graphic
 x=133
 y=17
@@ -512,7 +512,7 @@ trans=100
 colour=0xffffffff
 
 // 834:35
-[com_35]
+[obby_top_border]
 type=graphic
 x=152
 y=3
@@ -564,7 +564,7 @@ trans=100
 colour=0xffffffff
 
 // 834:39
-[com_39]
+[west_grave_top_border]
 type=graphic
 x=193
 y=3
@@ -590,7 +590,7 @@ trans=100
 colour=0xffffffff
 
 // 834:41
-[com_41]
+[west_grave_left_border]
 type=graphic
 x=214
 y=17
@@ -603,7 +603,7 @@ trans=100
 colour=0xffffffff
 
 // 834:42
-[com_42]
+[west_grave_right_border]
 type=graphic
 x=177
 y=17
@@ -664,10 +664,10 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 hide=yes
-onvarctransmit=wait_nightmare_0{varclient_645}
+onvarctransmit=snp_tutorial_update_obelisk_bar{varclient_645}
 
 // 834:47
-[com_47]
+[obelisk_pointer]
 type=graphic
 x=143
 y=56
@@ -832,7 +832,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 hide=yes
-ontimer=script2093
+ontimer=snp_tutorial_flash_bar
 
 // 834:62
 [icon_flash_control_layer]
@@ -844,7 +844,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 hide=yes
-ontimer=script2095
+ontimer=snp_tutorial_flash_icons
 
 // 834:63
 [obelisk_flash_control_layer]
@@ -856,7 +856,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 hide=yes
-ontimer=script2094
+ontimer=snp_tutorial_flash_obelisk_icon
 
 // 834:64
 [bar_flash_rect_outer]
@@ -901,7 +901,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 hide=yes
-ontimer=script2096
+ontimer=snp_tutorial_flash_red_level_text
 
 // 834:68
 [com_68]
@@ -957,7 +957,7 @@ transmitop=10
 op10=  
 
 // 834:72
-[com_72]
+[activity_top_border]
 type=graphic
 x=12
 width=20
@@ -1020,4 +1020,4 @@ width=512
 height=334
 xmode=abs_right
 layer=tooltip_boundary_layer
-onvarctransmit=script2092(snp_tutorial_game_overlay:tooltip_content_layer){varclient_655}
+onvarctransmit=snp_delete_tooltip(snp_tutorial_game_overlay:tooltip_content_layer){varclient_655}

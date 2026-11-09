@@ -1,0 +1,6 @@
+// 1296
+[clientscript,kr_statue_onload]
+if (getwindowmode >= 2) {
+    if_setmodelangle(0, 0, 89, 67, 0, 300, kr_king_statue:statue);
+    if_setmodelangle(0, 0, 89, 67, 0, 300, kr_king_statue:rockwall);
+}

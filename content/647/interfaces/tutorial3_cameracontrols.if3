@@ -14,8 +14,8 @@ opkey1=96,0,1
 opkey2=97,0,1
 opkey3=98,0,1
 opkey4=99,0,1
-onload=script2776(event_com, tutorial3_cameracontrols:mouseglow1, tutorial3_cameracontrols:mouseglow2)
-onop=script2773(event_op, tutorial3_cameracontrols:left, tutorial3_cameracontrols:right, tutorial3_cameracontrols:up, tutorial3_cameracontrols:down, tutorial3_cameracontrols:left_arrow, tutorial3_cameracontrols:right_arrow, tutorial3_cameracontrols:up_arrow, tutorial3_cameracontrols:down_arrow)
+onload=tutorial3_cameracontrols_init(event_com, tutorial3_cameracontrols:mouseglow1, tutorial3_cameracontrols:mouseglow2)
+onop=tutorial3_cameracontrols_rotate(event_op, tutorial3_cameracontrols:left, tutorial3_cameracontrols:right, tutorial3_cameracontrols:up, tutorial3_cameracontrols:down, tutorial3_cameracontrols:left_arrow, tutorial3_cameracontrols:right_arrow, tutorial3_cameracontrols:up_arrow, tutorial3_cameracontrols:down_arrow)
 
 // 897:1
 [universe]
@@ -25,7 +25,7 @@ height=503
 xmode=abs_centre
 ymode=abs_centre
 noclickthrough=yes
-onclick=script2774(tutorial3_cameracontrols:instruction)
+onclick=tutorial3_cameracontrols_click(tutorial3_cameracontrols:instruction)
 
 // 897:2
 [com_2]
@@ -476,7 +476,7 @@ graphic="km_camerakeys,10"
 colour=0xffffffff
 transmitop=10
 op10= 
-onload=script1568(event_com)
+onload=tutorial3_cameracontrols_ctrl(event_com)
 
 // 897:37
 [com_37]

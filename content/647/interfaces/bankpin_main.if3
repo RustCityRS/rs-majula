@@ -8,7 +8,7 @@ height=304
 graphic=tradebacking
 
 // 13:1
-[com_1]
+[digit_1]
 type=text
 x=424
 y=30
@@ -20,7 +20,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 13:2
-[com_2]
+[digit_2]
 type=text
 x=440
 y=30
@@ -32,7 +32,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 13:3
-[com_3]
+[digit_3]
 type=text
 x=456
 y=30
@@ -44,7 +44,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 13:4
-[com_4]
+[digit_4]
 type=text
 x=472
 y=30
@@ -56,7 +56,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 13:5
-[com_5]
+[numberbuttons]
 type=layer
 x=33
 y=103
@@ -68,7 +68,7 @@ height=208
 type=layer
 width=64
 height=64
-layer=com_5
+layer=numberbuttons
 pausebutton=yes
 pausetext=Select digit
 
@@ -77,7 +77,7 @@ pausetext=Select digit
 type=layer
 width=64
 height=64
-layer=com_5
+layer=numberbuttons
 pausebutton=yes
 pausetext=Select digit
 
@@ -86,7 +86,7 @@ pausetext=Select digit
 type=layer
 width=64
 height=64
-layer=com_5
+layer=numberbuttons
 pausebutton=yes
 pausetext=Select digit
 
@@ -95,7 +95,7 @@ pausetext=Select digit
 type=layer
 width=64
 height=64
-layer=com_5
+layer=numberbuttons
 pausebutton=yes
 pausetext=Select digit
 
@@ -104,7 +104,7 @@ pausetext=Select digit
 type=layer
 width=64
 height=64
-layer=com_5
+layer=numberbuttons
 pausebutton=yes
 pausetext=Select digit
 
@@ -113,7 +113,7 @@ pausetext=Select digit
 type=layer
 width=64
 height=64
-layer=com_5
+layer=numberbuttons
 pausebutton=yes
 pausetext=Select digit
 
@@ -122,7 +122,7 @@ pausetext=Select digit
 type=layer
 width=64
 height=64
-layer=com_5
+layer=numberbuttons
 pausebutton=yes
 pausetext=Select digit
 
@@ -131,7 +131,7 @@ pausetext=Select digit
 type=layer
 width=64
 height=64
-layer=com_5
+layer=numberbuttons
 pausebutton=yes
 pausetext=Select digit
 
@@ -140,7 +140,7 @@ pausetext=Select digit
 type=layer
 width=64
 height=64
-layer=com_5
+layer=numberbuttons
 pausebutton=yes
 pausetext=Select digit
 
@@ -149,7 +149,7 @@ pausetext=Select digit
 type=layer
 width=64
 height=64
-layer=com_5
+layer=numberbuttons
 pausebutton=yes
 pausetext=Select digit
 
@@ -162,8 +162,8 @@ width=170
 height=61
 xmode=abs_right
 ymode=abs_bottom
-onload=bankpin_buttonbox(bankpin_main:com_24, bankpin_main:cancel)
-onvarctransmit=bankpin_buttonbox(bankpin_main:com_24, bankpin_main:cancel){varclient_98}
+onload=bankpin_buttonbox(bankpin_main:forgotten, bankpin_main:cancel)
+onvarctransmit=bankpin_buttonbox(bankpin_main:forgotten, bankpin_main:cancel){varclient_98}
 
 // 13:17
 [com_17]
@@ -244,7 +244,7 @@ graphic="v2_stone_borders,20"
 tiling=yes
 
 // 13:24
-[com_24]
+[forgotten]
 type=text
 y=12
 width=12
@@ -311,7 +311,7 @@ textshadow=yes
 colour=0xaa0000
 
 // 13:28
-[com_28]
+[next_digit_instruction]
 type=text
 x=18
 y=80

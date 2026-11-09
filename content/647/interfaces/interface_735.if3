@@ -1,5 +1,5 @@
 // 735:0
-[com_0]
+[background]
 type=layer
 width=190
 height=261
@@ -9,7 +9,7 @@ height=261
 type=rectangle
 width=190
 height=261
-layer=com_0
+layer=background
 colour=0x46341d
 fill=yes
 trans=100
@@ -20,7 +20,7 @@ type=graphic
 y=30
 width=190
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,33"
 tiling=yes
 colour=0x000000
@@ -31,7 +31,7 @@ type=graphic
 x=16
 width=158
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,33"
 tiling=yes
 colour=0x000000
@@ -43,7 +43,7 @@ x=16
 y=258
 width=158
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,33"
 tiling=yes
 colour=0x000000
@@ -54,7 +54,7 @@ type=graphic
 y=16
 width=32
 height=229
-layer=com_0
+layer=background
 graphic="v2_stone_borders,34"
 tiling=yes
 colour=0x000000
@@ -66,7 +66,7 @@ x=187
 y=16
 width=32
 height=229
-layer=com_0
+layer=background
 graphic="v2_stone_borders,34"
 tiling=yes
 colour=0x000000
@@ -76,7 +76,7 @@ colour=0x000000
 type=graphic
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,28"
 colour=0x000000
 
@@ -86,7 +86,7 @@ type=graphic
 x=158
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,29"
 colour=0x000000
 
@@ -96,7 +96,7 @@ type=graphic
 y=229
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,30"
 colour=0x000000
 
@@ -107,7 +107,7 @@ x=158
 y=229
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,31"
 colour=0x000000
 
@@ -117,7 +117,7 @@ type=text
 y=2
 width=190
 height=28
-layer=com_0
+layer=background
 textfont=q8_full
 text=Travel Log
 textalignh=centre
@@ -132,14 +132,14 @@ x=170
 y=8
 width=16
 height=14
-layer=com_0
+layer=background
 graphic="grand_exchange_misc_graphics,6"
 colour=0x000000
 transmitop=1
 op1=Re-sort list
 onmouseover=settrans(event_com, 150)
 onmouseleave=settrans(event_com, 0)
-onop=fairyrings_log_shuffle(interface_735:text_layer, interface_735:com_80, interface_735:shuffle)
+onop=fairyrings_log_shuffle(interface_735:text_layer, interface_735:scrollbar, interface_735:shuffle)
 
 // 735:13
 [text_layer]
@@ -148,10 +148,10 @@ x=3
 y=32
 width=166
 height=226
-layer=com_0
+layer=background
 scrollheight=2000
-onload=fairyrings_log_init(event_com, interface_735:com_80, interface_735:shuffle)
-onvartransmit=fairyrings_log_init(event_com, interface_735:com_80, interface_735:shuffle){varplayer_816}
+onload=fairyrings_log_init(event_com, interface_735:scrollbar, interface_735:shuffle)
+onvartransmit=fairyrings_log_init(event_com, interface_735:scrollbar, interface_735:shuffle){varplayer_816}
 
 // 735:14
 [text_aip]
@@ -1145,10 +1145,10 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 735:80
-[com_80]
+[scrollbar]
 type=layer
 x=170
 y=32
 width=16
 height=226
-layer=com_0
+layer=background

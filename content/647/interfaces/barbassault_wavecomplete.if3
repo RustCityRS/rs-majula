@@ -1,5 +1,5 @@
 // 497:0
-[com_0]
+[background]
 type=layer
 width=512
 height=334
@@ -13,7 +13,7 @@ width=503
 height=285
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=background
 model=model_19339
 modelorigin=3,15
 modelangle=524,0,0
@@ -28,7 +28,7 @@ width=401
 height=246
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=background
 model=model_20733
 modelorigin=-14,-43
 modelangle=429,2035,0
@@ -43,7 +43,7 @@ width=111
 height=13
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=background
 textfont=b12_full
 text=Wave Complete!
 textalignh=centre
@@ -59,7 +59,7 @@ width=26
 height=23
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=background
 graphic="close_buttons,2"
 colour=0xffffffff
 transmitop=1
@@ -68,11 +68,11 @@ onmouseover=graphic_swapper(event_com, "close_buttons,3")
 onmouseleave=graphic_swapper(event_com, "close_buttons,2")
 
 // 497:5
-[com_5]
+[axe_icon_layer]
 type=layer
 width=512
 height=334
-layer=com_0
+layer=background
 
 // 497:6
 [barbassault_axe_icon]
@@ -83,7 +83,7 @@ width=117
 height=62
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=axe_icon_layer
 model=model_20620
 modelorigin=0,26
 modelzoom=713
@@ -336,7 +336,7 @@ textshadow=yes
 colour=0xff981f
 
 // 497:26
-[scoreboard_ordered_1]
+[barbassault_compl_p1]
 type=text
 x=217
 y=51
@@ -349,7 +349,7 @@ textshadow=yes
 colour=0xff981f
 
 // 497:27
-[scoreboard_ordered_2]
+[barbassault_compl_p2]
 type=text
 x=217
 y=67
@@ -362,7 +362,7 @@ textshadow=yes
 colour=0xff981f
 
 // 497:28
-[scoreboard_ordered_3]
+[barbassault_compl_p3]
 type=text
 x=217
 y=83
@@ -375,7 +375,7 @@ textshadow=yes
 colour=0xff981f
 
 // 497:29
-[scoreboard_ordered_4]
+[barbassault_compl_p4]
 type=text
 x=217
 y=98
@@ -388,7 +388,7 @@ textshadow=yes
 colour=0xff981f
 
 // 497:30
-[scoreboard_ordered_5]
+[barbassault_compl_p5]
 type=text
 x=217
 y=115
@@ -401,7 +401,7 @@ textshadow=yes
 colour=0xff991f
 
 // 497:31
-[scoreboard_ordered_6]
+[barbassault_compl_p6]
 type=text
 x=217
 y=131
@@ -414,7 +414,7 @@ textshadow=yes
 colour=0xff981f
 
 // 497:32
-[scoreboard_ordered_7]
+[barbassault_compl_p7]
 type=text
 x=217
 y=147
@@ -427,7 +427,7 @@ textshadow=yes
 colour=0xff981f
 
 // 497:33
-[scoreboard_ordered_9]
+[barbassault_compl_p9]
 type=text
 x=217
 y=164
@@ -440,7 +440,7 @@ textshadow=yes
 colour=0xff981f
 
 // 497:34
-[scoreboard_ordered_10]
+[barbassault_compl_p10]
 type=text
 x=217
 y=180

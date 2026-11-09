@@ -1,5 +1,5 @@
 // 308:0
-[com_0]
+[background]
 type=graphic
 x=13
 y=20
@@ -10,8 +10,8 @@ tiling=yes
 colour=0x000000
 transmitop=10
 op10= 
-onload=script1223
-onvartransmit=script1225{varplayer_1393}
+onload=chosen_statue_interface_open
+onvartransmit=chosen_statue_interface_choose_var{varplayer_1393}
 
 // 308:1
 [com_1]
@@ -297,7 +297,7 @@ model=model_46046
 modelorigin=-3,58
 modelangle=60,132,0
 modelzoom=1568
-onop=script1224(0)
+onop=chosen_statue_interface_choose(0)
 
 // 308:20
 [female_melee]
@@ -314,7 +314,7 @@ modelangle=60,132,0
 modelzoom=1568
 transmitop=10
 op10= 
-onop=script1224(0)
+onop=chosen_statue_interface_choose(0)
 
 // 308:21
 [male_wizard]
@@ -331,7 +331,7 @@ modelangle=60,132,0
 modelzoom=1568
 transmitop=10
 op10= 
-onop=script1224(1)
+onop=chosen_statue_interface_choose(1)
 
 // 308:22
 [female_wizard]
@@ -348,7 +348,7 @@ modelangle=60,132,0
 modelzoom=1568
 transmitop=10
 op10=  
-onop=script1224(1)
+onop=chosen_statue_interface_choose(1)
 
 // 308:23
 [male_ranger]
@@ -365,7 +365,7 @@ modelangle=60,132,0
 modelzoom=1568
 transmitop=10
 op10=  
-onop=script1224(2)
+onop=chosen_statue_interface_choose(2)
 
 // 308:24
 [female_ranger]
@@ -382,7 +382,7 @@ modelangle=60,132,0
 modelzoom=1568
 transmitop=10
 op10=   
-onop=script1224(2)
+onop=chosen_statue_interface_choose(2)
 
 // 308:25
 [com_25]
@@ -399,7 +399,7 @@ modelangle=105,1960,0
 modelzoom=1440
 transmitop=10
 op10=   
-onop=script1224(3)
+onop=chosen_statue_interface_choose(3)
 
 // 308:26
 [com_26]
@@ -416,7 +416,7 @@ modelangle=105,1960,0
 modelzoom=1440
 transmitop=10
 op10=    
-onop=script1224(3)
+onop=chosen_statue_interface_choose(3)
 
 // 308:27
 [com_27]
@@ -433,7 +433,7 @@ modelangle=165,1990,0
 modelzoom=1568
 transmitop=10
 op10=     
-onop=script1224(4)
+onop=chosen_statue_interface_choose(4)
 
 // 308:28
 [com_28]
@@ -450,7 +450,7 @@ modelangle=165,1990,0
 modelzoom=1568
 transmitop=10
 op10=      
-onop=script1224(4)
+onop=chosen_statue_interface_choose(4)
 
 // 308:29
 [male_feeding]
@@ -467,7 +467,7 @@ modelangle=159,156,0
 modelzoom=1696
 transmitop=10
 op10=    
-onop=script1224(5)
+onop=chosen_statue_interface_choose(5)
 
 // 308:30
 [female_feeding]
@@ -484,7 +484,7 @@ modelangle=159,156,0
 modelzoom=1696
 transmitop=10
 op10=     
-onop=script1224(5)
+onop=chosen_statue_interface_choose(5)
 
 // 308:31
 [com_31]
@@ -501,7 +501,7 @@ modelangle=186,24,0
 modelzoom=1696
 transmitop=10
 op10=      
-onop=script1224(6)
+onop=chosen_statue_interface_choose(6)
 
 // 308:32
 [com_32]
@@ -518,7 +518,7 @@ modelangle=186,24,0
 modelzoom=1696
 transmitop=10
 op10=       
-onop=script1224(6)
+onop=chosen_statue_interface_choose(6)
 
 // 308:33
 [com_33]
@@ -534,7 +534,7 @@ transmitop=1,10
 opbase=Statue 3
 op1=Choose
 op10= 
-onop=script1224(0)
+onop=chosen_statue_interface_choose(0)
 
 // 308:34
 [com_34]
@@ -550,7 +550,7 @@ transmitop=1,10
 opbase=Statue 2
 op1=Choose
 op10= 
-onop=script1224(1)
+onop=chosen_statue_interface_choose(1)
 
 // 308:35
 [com_35]
@@ -565,7 +565,7 @@ colour=0x000000
 transmitop=1
 opbase=Statue 1
 op1=Choose
-onop=script1224(2)
+onop=chosen_statue_interface_choose(2)
 
 // 308:36
 [com_36]
@@ -581,7 +581,7 @@ transmitop=1,10
 opbase=Statue 6
 op1=Choose
 op10=   
-onop=script1224(5)
+onop=chosen_statue_interface_choose(5)
 
 // 308:37
 [com_37]
@@ -597,7 +597,7 @@ transmitop=1,10
 opbase=Statue 5
 op1=Choose
 op10=  
-onop=script1224(4)
+onop=chosen_statue_interface_choose(4)
 
 // 308:38
 [com_38]
@@ -613,7 +613,7 @@ transmitop=1,10
 opbase=Statue 7
 op1=Choose
 op10=  
-onop=script1224(6)
+onop=chosen_statue_interface_choose(6)
 
 // 308:39
 [com_39]
@@ -629,7 +629,7 @@ transmitop=1,10
 opbase=Statue 4
 op1=Choose
 op10=  
-onop=script1224(3)
+onop=chosen_statue_interface_choose(3)
 
 // 308:40
 [com_40]

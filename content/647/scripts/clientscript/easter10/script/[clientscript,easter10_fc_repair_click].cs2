@@ -1,0 +1,9 @@
+// 2237
+[clientscript,easter10_fc_repair_click]
+sound_synth(synth_8729, 1, 0);
+if (%varclient_1132 = false) {
+    %varclient_1132 = true;
+} else {
+    %varclient_1132 = false;
+}
+~script2220;

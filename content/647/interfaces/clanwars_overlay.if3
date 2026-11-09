@@ -6,10 +6,10 @@ y=5
 width=256
 height=98
 xmode=abs_right
-onload=clanwars_overlay_status_init(event_com, clanwars_overlay:com_1, clanwars_overlay:vline, clanwars_overlay:myteam_name, clanwars_overlay:myteam_living_header, clanwars_overlay:myteam_living, clanwars_overlay:myteam_kills_header, clanwars_overlay:myteam_kills, clanwars_overlay:myteam_kills_target, clanwars_overlay:theirteam_name, clanwars_overlay:theirteam_living_header, clanwars_overlay:theirteam_living, clanwars_overlay:theirteam_kills_header, clanwars_overlay:theirteam_kills, clanwars_overlay:theirteam_kills_target, clanwars_overlay:time_header, clanwars_overlay:time)
+onload=clanwars_overlay_status_init(event_com, clanwars_overlay:background, clanwars_overlay:vline, clanwars_overlay:myteam_name, clanwars_overlay:myteam_living_header, clanwars_overlay:myteam_living, clanwars_overlay:myteam_kills_header, clanwars_overlay:myteam_kills, clanwars_overlay:myteam_kills_target, clanwars_overlay:theirteam_name, clanwars_overlay:theirteam_living_header, clanwars_overlay:theirteam_living, clanwars_overlay:theirteam_kills_header, clanwars_overlay:theirteam_kills, clanwars_overlay:theirteam_kills_target, clanwars_overlay:time_header, clanwars_overlay:time)
 
 // 265:1
-[com_1]
+[background]
 type=graphic
 width=256
 height=98
@@ -279,7 +279,7 @@ width=75
 height=50
 widthmode=minus
 ymode=proportion_centre
-onload=script1807(event_com, clanwars_overlay:caller_name, clanwars_overlay:caller_text)
+onload=clanwars_caller_init(event_com, clanwars_overlay:caller_name, clanwars_overlay:caller_text)
 
 // 265:23
 [caller_icon]

@@ -1,0 +1,12 @@
+// 2093
+[clientscript,snp_tutorial_flash_bar]
+if (%varclient_654 < 100) {
+    %varclient_654 = calc(%varclient_654 + 1);
+}
+if (%varclient_654 = 50) {
+    if_sethide(true, snp_tutorial_game_overlay:bar_flash_layer);
+}
+if (%varclient_654 = 100) {
+    if_sethide(false, snp_tutorial_game_overlay:bar_flash_layer);
+    %varclient_654 = 0;
+}

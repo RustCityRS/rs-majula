@@ -5,8 +5,8 @@ width=512
 height=334
 xmode=abs_centre
 ymode=abs_centre
-onload=valentine_setup(valentine:container, valentine:text, valentine:com_7)
-onvarcstrtransmit=valentine_setup(valentine:container, valentine:text, valentine:com_7){varclient_1862}
+onload=valentine_setup(valentine:container, valentine:text, valentine:scrollbar)
+onvarcstrtransmit=valentine_setup(valentine:container, valentine:text, valentine:scrollbar){varclient_1862}
 
 // 561:1
 [com_1]
@@ -91,7 +91,7 @@ textalignv=centre
 colour=0x502800
 
 // 561:7
-[com_7]
+[scrollbar]
 type=layer
 x=69
 y=30

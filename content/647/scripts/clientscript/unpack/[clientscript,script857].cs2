@@ -3,5 +3,5 @@
 sound_synth(fletch, 1, 0);
 if (%varplayerbit_4400 > 0) {
     %varclient_108 = calc(%varplayerbit_4400 - 1);
-    ~script861;
+    ~catcon_calib_refresh_powerbar;
 }

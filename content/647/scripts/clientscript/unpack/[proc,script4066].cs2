@@ -1,10 +1,10 @@
 // 4066
 [proc,script4066]
-if_setgraphic(graphic_4459, warguild_token_choice:com_19);
-if_setgraphic(graphic_4460, warguild_token_choice:com_17);
-if_setgraphic(graphic_4461, warguild_token_choice:com_15);
-if_setgraphic(graphic_4462, warguild_token_choice:com_13);
-if_setgraphic(graphic_4463, warguild_token_choice:com_11);
+if_setgraphic("warguild_token_unselected,0", warguild_token_choice:single_balance_token);
+if_setgraphic("warguild_token_unselected,1", warguild_token_choice:single_strength_token);
+if_setgraphic("warguild_token_unselected,2", warguild_token_choice:single_combat_token);
+if_setgraphic("warguild_token_unselected,3", warguild_token_choice:single_defence_token);
+if_setgraphic("warguild_token_unselected,4", warguild_token_choice:single_attack_token);
 if_setposition(-160, 18, ^setpos_abs_centre, ^setpos_abs_top, warguild_token_choice:balance_layer);
 if_setposition(-80, 18, ^setpos_abs_centre, ^setpos_abs_top, warguild_token_choice:strength_layer);
 if_setposition(0, 18, ^setpos_abs_centre, ^setpos_abs_top, warguild_token_choice:combat_layer);

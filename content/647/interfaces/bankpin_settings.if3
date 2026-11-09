@@ -151,7 +151,7 @@ textshadow=yes
 colour=0xff981f
 
 // 14:13
-[com_13]
+[settings]
 type=layer
 y=8
 width=40
@@ -164,13 +164,13 @@ layer=universe
 hide=yes
 
 // 14:14
-[com_14]
+[statusbox]
 type=layer
 x=35
 y=20
 width=200
 height=120
-layer=com_13
+layer=settings
 
 // 14:15
 [com_15]
@@ -181,19 +181,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_14
+layer=statusbox
 colour=0x000000
 fill=yes
 trans=200
 
 // 14:16
-[com_16]
+[buttonbox]
 type=layer
 y=25
 width=270
 height=75
 ymode=abs_bottom
-layer=com_13
+layer=settings
 
 // 14:17
 [com_17]
@@ -204,7 +204,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=buttonbox
 colour=0x000000
 fill=yes
 trans=200
@@ -217,7 +217,7 @@ height=30
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=buttonbox
 hide=yes
 pausebutton=yes
 
@@ -229,7 +229,7 @@ height=30
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=buttonbox
 hide=yes
 pausebutton=yes
 
@@ -241,19 +241,19 @@ height=30
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=buttonbox
 hide=yes
 pausebutton=yes
 
 // 14:21
-[com_21]
+[messagebox]
 type=layer
 width=180
 height=10
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_13
+layer=settings
 
 // 14:22
 [com_22]
@@ -263,7 +263,7 @@ width=12
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_14
+layer=statusbox
 textfont=b12_full
 text=Your Bank PIN status:
 textalignh=centre
@@ -271,14 +271,14 @@ textalignv=centre
 textshadow=yes
 
 // 14:23
-[com_23]
+[statusoutput]
 type=text
 y=26
 width=12
 height=34
 widthmode=minus
 xmode=abs_centre
-layer=com_14
+layer=statusbox
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -294,7 +294,7 @@ height=20
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_14
+layer=statusbox
 textfont=b12_full
 text=Recovery delay:
 textalignh=centre
@@ -302,7 +302,7 @@ textalignv=centre
 textshadow=yes
 
 // 14:25
-[com_25]
+[delayoutput]
 type=text
 y=6
 width=12
@@ -310,7 +310,7 @@ height=34
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_14
+layer=statusbox
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -326,7 +326,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_21
+layer=messagebox
 colour=0x000000
 fill=yes
 trans=200
@@ -339,7 +339,7 @@ width=12
 height=20
 widthmode=minus
 xmode=abs_centre
-layer=com_21
+layer=messagebox
 textfont=b12_full
 text=Messages
 textalignh=centre
@@ -357,10 +357,10 @@ height=40
 widthmode=minus
 heightmode=minus
 ymode=abs_bottom
-layer=com_21
+layer=messagebox
 
 // 14:29
-[com_29]
+[scrollbar]
 type=layer
 x=7
 y=7
@@ -369,7 +369,7 @@ height=40
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_21
+layer=messagebox
 hide=yes
 
 // 14:30
@@ -379,7 +379,7 @@ y=100
 width=270
 height=40
 ymode=abs_bottom
-layer=com_13
+layer=settings
 textfont=b12_full
 text=Use the buttons below to change<br>your PIN settings
 textlineheight=15
@@ -389,7 +389,7 @@ textshadow=yes
 colour=0xff981f
 
 // 14:31
-[com_31]
+[warnings]
 type=layer
 y=8
 width=16
@@ -402,14 +402,14 @@ layer=universe
 hide=yes
 
 // 14:32
-[com_32]
+[warning_text]
 type=text
 y=-75
 height=35
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=warnings
 textfont=b12_full
 textalignh=centre
 textalignv=centre
@@ -418,28 +418,28 @@ colour=0xff981f
 opbase= 
 
 // 14:33
-[com_33]
+[warning_yes]
 type=layer
 x=-100
 width=150
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=warnings
 pausebutton=yes
 pausetext=Proceed
 onmouseover=v2_stone_button_in_filled(event_com)
 onmouseleave=v2_stone_button_out_filled(event_com)
 
 // 14:34
-[com_34]
+[warning_yes_text]
 type=text
 x=-100
 width=146
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=warnings
 textfont=p12_full
 textalignh=centre
 textalignv=centre
@@ -449,28 +449,28 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 14:35
-[com_35]
+[warning_no]
 type=layer
 x=100
 width=150
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=warnings
 pausebutton=yes
 pausetext=Back
 onmouseover=v2_stone_button_in_filled(event_com)
 onmouseleave=v2_stone_button_out_filled(event_com)
 
 // 14:36
-[com_36]
+[warning_no_text]
 type=text
 x=100
 width=146
 height=75
 xmode=abs_centre
 ymode=abs_centre
-layer=com_31
+layer=warnings
 textfont=p12_full
 textalignh=centre
 textalignv=centre

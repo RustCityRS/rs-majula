@@ -1373,7 +1373,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Add
 op10=  
-onop=script2230
+onop=easter10_fc_up_arrow
 
 // 931:109
 [fc_down_arrow]
@@ -1388,7 +1388,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Remove
 op10=  
-onop=script2231
+onop=easter10_fc_down_arrow
 
 // 931:110
 [com_110]
@@ -1574,7 +1574,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Toggle
 op10=  
-onop=script2237
+onop=easter10_fc_repair_click
 
 // 931:122
 [tegg_repair_tick]
@@ -1589,7 +1589,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Toggle
 op10=   
-onop=script2238
+onop=easter10_tegg_repair_click
 
 // 931:123
 [negg_repair_tick]
@@ -1604,7 +1604,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Toggle
 op10=   
-onop=script2239
+onop=easter10_negg_repair_click
 
 // 931:124
 [tooltip_layer]
@@ -1637,7 +1637,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Add
 op10=  
-onop=script2234
+onop=easter10_negg_up_arrow
 
 // 931:127
 [negg_down_arrow]
@@ -1652,7 +1652,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Remove
 op10=  
-onop=script2235
+onop=easter10_negg_down_arrow
 
 // 931:128
 [com_128]
@@ -1713,7 +1713,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Add
 op10=  
-onop=script2232
+onop=easter10_tegg_up_arrow
 
 // 931:133
 [tegg_down_arrow]
@@ -1728,7 +1728,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Remove
 op10=  
-onop=script2233
+onop=easter10_tegg_down_arrow
 
 // 931:134
 [com_134]
@@ -1789,7 +1789,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Add
 op10=  
-onop=script2228
+onop=easter10_fruit_up_arrow
 
 // 931:139
 [fruit_down_arrow]
@@ -1804,7 +1804,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Remove
 op10=  
-onop=script2229
+onop=easter10_fruit_down_arrow
 
 // 931:140
 [com_140]
@@ -1865,7 +1865,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Add
 op10=  
-onop=script2226
+onop=easter10_choc_up_arrow
 
 // 931:145
 [choc_down_arrow]
@@ -1880,7 +1880,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Remove
 op10=  
-onop=script2227
+onop=easter10_choc_down_arrow
 
 // 931:146
 [com_146]
@@ -1903,7 +1903,7 @@ transmitop=10
 op10=  
 
 // 931:148
-[playinglocal]
+[choc_workers_text]
 type=text
 width=33
 height=33
@@ -1941,7 +1941,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Add
 op10=  
-onop=script2224
+onop=easter10_nuts_up_arrow
 
 // 931:151
 [nuts_down_arrow]
@@ -1956,7 +1956,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Remove
 op10=  
-onop=script2225
+onop=easter10_nuts_down_arrow
 
 // 931:152
 [com_152]

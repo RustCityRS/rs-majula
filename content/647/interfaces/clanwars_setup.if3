@@ -234,7 +234,7 @@ trans=255
 transmitop=1
 op1=Last team standing
 onmouseleave=deltooltip(clanwars_setup:tooltip)
-onop=script1821(event_op, 0)
+onop=clanwars_setup_victory_buttons(event_op, 0)
 onmouserepeat=script1160(event_com, -1, clanwars_setup:tooltip, "Victory conditions:<br>In knock-out mode, the arena is closed once the battle begins, and no-one may enter or re-enter the fight.<br>The last surviving clan wins.", 25, 250)
 
 // 791:21
@@ -296,7 +296,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=25 kills
-onop=script1821(event_op, 1)
+onop=clanwars_setup_victory_buttons(event_op, 1)
 
 // 791:26
 [50kills_text]
@@ -332,7 +332,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=50 kills
-onop=script1821(event_op, 2)
+onop=clanwars_setup_victory_buttons(event_op, 2)
 
 // 791:29
 [100kills_text]
@@ -368,7 +368,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=100 kills
-onop=script1821(event_op, 3)
+onop=clanwars_setup_victory_buttons(event_op, 3)
 
 // 791:32
 [200kills_text]
@@ -404,7 +404,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=200 kills
-onop=script1821(event_op, 4)
+onop=clanwars_setup_victory_buttons(event_op, 4)
 
 // 791:35
 [400kills_text]
@@ -440,7 +440,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=400 kills
-onop=script1821(event_op, 5)
+onop=clanwars_setup_victory_buttons(event_op, 5)
 
 // 791:38
 [750kills_text]
@@ -476,7 +476,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=750 kills
-onop=script1821(event_op, 6)
+onop=clanwars_setup_victory_buttons(event_op, 6)
 
 // 791:41
 [1000kills_text]
@@ -512,7 +512,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=1 000 kills
-onop=script1821(event_op, 7)
+onop=clanwars_setup_victory_buttons(event_op, 7)
 
 // 791:44
 [2500kills_text]
@@ -548,7 +548,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=2 500 kills
-onop=script1821(event_op, 8)
+onop=clanwars_setup_victory_buttons(event_op, 8)
 
 // 791:47
 [5000kills_text]
@@ -584,7 +584,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=5 000 kills
-onop=script1821(event_op, 9)
+onop=clanwars_setup_victory_buttons(event_op, 9)
 
 // 791:50
 [10000kills_text]
@@ -620,7 +620,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=10 000 kills
-onop=script1821(event_op, 10)
+onop=clanwars_setup_victory_buttons(event_op, 10)
 
 // 791:53
 [killcounts_scrollbar]
@@ -670,7 +670,7 @@ trans=255
 transmitop=1
 op1=Most kills at end
 onmouseleave=deltooltip(clanwars_setup:tooltip)
-onop=script1821(event_op, 15)
+onop=clanwars_setup_victory_buttons(event_op, 15)
 onmouserepeat=script1160(event_com, -1, clanwars_setup:tooltip, "Victory conditions:<br>Players may rejoin the fight after dying.<br>The battle will end when the time limit is reached, and the team with the highest kill-count will be declared victorious.", 25, 250)
 
 // 791:57
@@ -716,7 +716,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=0:05
-onop=script1822(event_op, 1)
+onop=clanwars_setup_timelimit_buttons(event_op, 1)
 
 // 791:61
 [10mins_text]
@@ -752,7 +752,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=0:10
-onop=script1822(event_op, 2)
+onop=clanwars_setup_timelimit_buttons(event_op, 2)
 
 // 791:64
 [30mins_text]
@@ -788,7 +788,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=0:30
-onop=script1822(event_op, 3)
+onop=clanwars_setup_timelimit_buttons(event_op, 3)
 
 // 791:67
 [1hour_text]
@@ -824,7 +824,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=1:00
-onop=script1822(event_op, 4)
+onop=clanwars_setup_timelimit_buttons(event_op, 4)
 
 // 791:70
 [1hour30_text]
@@ -860,7 +860,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=1:30
-onop=script1822(event_op, 5)
+onop=clanwars_setup_timelimit_buttons(event_op, 5)
 
 // 791:73
 [2hours_text]
@@ -896,7 +896,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=2:00
-onop=script1822(event_op, 6)
+onop=clanwars_setup_timelimit_buttons(event_op, 6)
 
 // 791:76
 [2hours30_text]
@@ -932,7 +932,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=2:30
-onop=script1822(event_op, 7)
+onop=clanwars_setup_timelimit_buttons(event_op, 7)
 
 // 791:79
 [3hours_text]
@@ -968,7 +968,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=3:00
-onop=script1822(event_op, 8)
+onop=clanwars_setup_timelimit_buttons(event_op, 8)
 
 // 791:82
 [4hours_text]
@@ -1004,7 +1004,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=4:00
-onop=script1822(event_op, 9)
+onop=clanwars_setup_timelimit_buttons(event_op, 9)
 
 // 791:85
 [5hours_text]
@@ -1040,7 +1040,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=5:00
-onop=script1822(event_op, 10)
+onop=clanwars_setup_timelimit_buttons(event_op, 10)
 
 // 791:88
 [6hours_text]
@@ -1076,7 +1076,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=6:00
-onop=script1822(event_op, 11)
+onop=clanwars_setup_timelimit_buttons(event_op, 11)
 
 // 791:91
 [8hours_text]
@@ -1112,7 +1112,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=8:00
-onop=script1822(event_op, 12)
+onop=clanwars_setup_timelimit_buttons(event_op, 12)
 
 // 791:94
 [com_94]
@@ -1194,7 +1194,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=No time limit
-onop=script1822(event_op, 0)
+onop=clanwars_setup_timelimit_buttons(event_op, 0)
 
 // 791:101
 [stragglers]
@@ -1306,7 +1306,7 @@ fill=yes
 trans=255
 transmitop=1
 op1=Ignore 5
-onop=script1824(event_op)
+onop=clanwars_setup_nostragglers_button(event_op)
 
 // 791:110
 [itemloss]
@@ -1396,7 +1396,7 @@ trans=255
 transmitop=1
 opbase=<col=ff9040>Item loss
 op1=Toggle
-onop=script1825(event_op)
+onop=clanwars_setup_itemloss_button(event_op)
 
 // 791:117
 [combatrules]

@@ -512,7 +512,7 @@ onmouseover=stats_mouseover(event_com, herblore, stats:tips)
 onmouseleave=stats_mouseoff(stats:tips)
 
 // 320:37
-[com_37]
+[fishing]
 type=layer
 x=127
 y=61
@@ -526,7 +526,7 @@ op10=
 type=graphic
 width=60
 height=27
-layer=com_37
+layer=fishing
 graphic=graphic_3030
 colour=0xffffffff
 transmitop=10
@@ -538,7 +538,7 @@ type=graphic
 x=3
 width=25
 height=25
-layer=com_37
+layer=fishing
 graphic="staticons,14"
 colour=0xffffffff
 transmitop=10
@@ -553,7 +553,7 @@ x=25
 y=2
 width=18
 height=11
-layer=com_37
+layer=fishing
 textfont=p11_full
 text=120
 textalignh=centre
@@ -571,7 +571,7 @@ x=40
 y=14
 width=18
 height=11
-layer=com_37
+layer=fishing
 textfont=p11_full
 text=50
 textalignh=centre
@@ -589,7 +589,7 @@ x=30
 y=3
 width=21
 height=20
-layer=com_37
+layer=fishing
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -602,7 +602,7 @@ x=31
 y=4
 width=20
 height=19
-layer=com_37
+layer=fishing
 colour=0x373228
 linedirection=yes
 transmitop=10
@@ -613,7 +613,7 @@ op10=
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_37
+layer=fishing
 textfont=p11_full
 textshadow=yes
 colour=0x000000
@@ -2962,35 +2962,35 @@ onmouseleave=script4102(1)
 onop=script4103
 
 // 320:206
-[com_206]
+[advice_close_l]
 type=graphic
 width=6
 height=19
 layer=advice_close
-graphic=graphic_4322
+graphic="task_pin_but,0"
 
 // 320:207
-[com_207]
+[advice_close_r]
 type=graphic
 width=6
 height=19
 xmode=abs_right
 layer=advice_close
-graphic=graphic_4322
+graphic="task_pin_but,0"
 hflip=yes
 
 // 320:208
-[com_208]
+[advice_close_m]
 type=graphic
 x=6
 width=12
 height=19
 widthmode=minus
 layer=advice_close
-graphic=graphic_4323
+graphic="task_pin_but,1"
 
 // 320:209
-[com_209]
+[advice_close_text]
 type=text
 x=14
 width=14
@@ -3005,7 +3005,7 @@ textalignv=centre
 textshadow=yes
 
 // 320:210
-[com_210]
+[advice_close_arrow]
 type=graphic
 x=4
 y=6

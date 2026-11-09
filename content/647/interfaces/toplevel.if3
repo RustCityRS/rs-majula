@@ -31,7 +31,7 @@ width=519
 height=23
 
 // 548:3
-[com_3]
+[main]
 type=layer
 x=4
 y=4
@@ -46,7 +46,7 @@ x=1
 y=1
 width=1
 height=1
-layer=com_3
+layer=main
 colour=0xffffffff
 opkey1=98,0,1
 opkey2=99,0,1
@@ -60,7 +60,7 @@ type=layer
 clientcode=1337
 width=512
 height=334
-layer=com_3
+layer=main
 
 // 548:6
 [maindebug]
@@ -70,7 +70,7 @@ x=364
 y=2
 width=145
 height=90
-layer=com_3
+layer=main
 
 // 548:7
 [mainoverlay]
@@ -79,7 +79,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_3
+layer=main
 
 // 548:8
 [mainoverlay_clipped]
@@ -88,7 +88,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_3
+layer=main
 
 // 548:9
 [com_9]
@@ -97,7 +97,7 @@ x=431
 y=301
 width=53
 height=19
-layer=com_3
+layer=main
 textfont=p12_full
 textalignh=centre
 textshadow=yes
@@ -111,7 +111,7 @@ x=431
 y=319
 width=53
 height=19
-layer=com_3
+layer=main
 textfont=p12_full
 textalignh=centre
 textshadow=yes
@@ -128,10 +128,10 @@ x=432
 y=258
 width=52
 height=20
-layer=com_3
+layer=main
 
 // 548:12
-[com_12]
+[gravestone_background]
 type=graphic
 width=52
 height=20
@@ -165,7 +165,7 @@ width=82
 height=25
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
+layer=main
 
 // 548:15
 [statusicon_tooltip]
@@ -174,7 +174,7 @@ x=414
 y=263
 width=84
 height=66
-layer=com_3
+layer=main
 hide=yes
 transmitop=10
 op10=  
@@ -185,7 +185,7 @@ type=layer
 width=512
 height=69
 ymode=abs_bottom
-layer=com_3
+layer=main
 
 // 548:17
 [pvp_warning]
@@ -193,14 +193,14 @@ type=layer
 width=512
 height=69
 ymode=abs_bottom
-layer=com_3
+layer=main
 
 // 548:18
 [mainmodal]
 type=layer
 width=512
 height=334
-layer=com_3
+layer=main
 
 // 548:19
 [no_displayname_layer]
@@ -209,7 +209,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=main
 hide=yes
 
 // 548:20
@@ -219,7 +219,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=main
 
 // 548:21
 [xpbaselayer]
@@ -228,7 +228,7 @@ y=46
 width=90
 height=106
 xmode=abs_right
-layer=com_3
+layer=main
 hide=yes
 transmitop=10
 op10= 
@@ -473,7 +473,7 @@ type=layer
 width=83
 height=90
 xmode=abs_right
-layer=com_3
+layer=main
 hide=yes
 onvarctransmit=script720{varclient_1096}
 
@@ -482,7 +482,7 @@ onvarctransmit=script720{varclient_1096}
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=main
 ontimer=script3970
 
 // 548:41
@@ -981,7 +981,7 @@ height=37
 layer=backbase2
 
 // 548:81
-[com_81]
+[backbase2_stonehighlight]
 type=layer
 x=-519
 y=-466
@@ -997,7 +997,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1841
 alpha=yes
 colour=0xffffffff
@@ -1012,7 +1012,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1840
 colour=0xffffffff
 transmitop=10
@@ -1026,7 +1026,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1841
 alpha=yes
 colour=0xffffffff
@@ -1041,7 +1041,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1840
 colour=0xffffffff
 transmitop=10
@@ -1055,7 +1055,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1841
 alpha=yes
 colour=0xffffffff
@@ -1070,7 +1070,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1840
 colour=0xffffffff
 transmitop=10
@@ -1084,7 +1084,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1841
 alpha=yes
 colour=0xffffffff
@@ -1099,7 +1099,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1840
 colour=0xffffffff
 transmitop=10
@@ -1113,7 +1113,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1841
 alpha=yes
 colour=0xffffffff
@@ -1128,7 +1128,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1840
 colour=0xffffffff
 transmitop=10
@@ -1142,7 +1142,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1841
 alpha=yes
 colour=0xffffffff
@@ -1157,7 +1157,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1840
 colour=0xffffffff
 transmitop=10
@@ -1171,7 +1171,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1841
 alpha=yes
 colour=0xffffffff
@@ -1186,7 +1186,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1840
 colour=0xffffffff
 transmitop=10
@@ -1200,7 +1200,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1841
 alpha=yes
 colour=0xffffffff
@@ -1215,7 +1215,7 @@ y=-7
 width=48
 height=48
 ymode=abs_bottom
-layer=com_81
+layer=backbase2_stonehighlight
 graphic=graphic_1840
 colour=0xffffffff
 transmitop=10
@@ -1451,8 +1451,8 @@ x=516
 y=168
 width=249
 height=37
-onload=script1765
-onvarctransmit=script1765{varclient_232, varclient_233, varclient_234, varclient_822, varclient_235, varclient_236, varclient_237, varclient_238, varclient_823, varclient_240, varclient_241, varclient_242, varclient_243, varclient_244, varclient_245, varclient_824}
+onload=if_side_stone_set
+onvarctransmit=if_side_stone_set{varclient_232, varclient_233, varclient_234, varclient_822, varclient_235, varclient_236, varclient_237, varclient_238, varclient_823, varclient_240, varclient_241, varclient_242, varclient_243, varclient_244, varclient_245, varclient_824}
 
 // 548:116
 [com_116]
@@ -2042,7 +2042,7 @@ hide=yes
 noclickthrough=yes
 
 // 548:163
-[com_163]
+[backleft1]
 type=layer
 y=4
 width=4
@@ -2056,7 +2056,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_163
+layer=backleft1
 graphic=backleft1
 colour=0xffffffff
 
@@ -2161,7 +2161,7 @@ graphic=mapmask
 colour=0xffffffff
 
 // 548:176
-[com_176]
+[compass]
 type=graphic
 clientcode=1339
 x=11
@@ -2173,7 +2173,7 @@ graphic=compassmask
 colour=0xffffffff
 
 // 548:177
-[com_177]
+[compass_clickzone]
 type=layer
 x=10
 y=7
@@ -2186,7 +2186,7 @@ op1=Face North
 onload=script2758(event_com)
 
 // 548:178
-[com_178]
+[mapback]
 type=graphic
 y=4
 width=249
@@ -2786,7 +2786,7 @@ y=26
 width=25
 height=24
 layer=com_195
-graphic=graphic_5613
+graphic=aif_tooltip_arrow_2
 
 // 548:238
 [com_238]
@@ -2796,5 +2796,5 @@ y=74
 width=25
 height=24
 layer=com_195
-graphic=graphic_5613
+graphic=aif_tooltip_arrow_2
 2dangle=49152

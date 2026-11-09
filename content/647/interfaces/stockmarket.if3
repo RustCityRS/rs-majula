@@ -336,8 +336,8 @@ height=46
 layer=offerchoosetype0
 transmitop=1
 op1=Make Buy Offer
-onmouseover=script635(stockmarket:choosebuy0_icon)
-onmouseleave=script637(stockmarket:choosebuy0_icon)
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy0_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy0_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip0, "Buy", 25, 100)
 onclick=deltooltip(stockmarket:tooltip0)
 
@@ -351,8 +351,8 @@ height=46
 layer=offerchoosetype0
 transmitop=1
 op1=Make Sell Offer
-onmouseover=script639(stockmarket:choosesell0_icon)
-onmouseleave=script641(stockmarket:choosesell0_icon)
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell0_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell0_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip0, "Sell", 25, 100)
 onclick=deltooltip(stockmarket:tooltip0)
 
@@ -511,8 +511,8 @@ height=46
 layer=offerchoosetype1
 transmitop=1
 op1=Make Buy Offer
-onmouseover=script635(stockmarket:choosebuy1_icon)
-onmouseleave=script637(stockmarket:choosebuy1_icon)
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy1_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy1_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip1, "Buy", 25, 100)
 onclick=deltooltip(stockmarket:tooltip1)
 
@@ -526,8 +526,8 @@ height=46
 layer=offerchoosetype1
 transmitop=1
 op1=Make Sell Offer
-onmouseover=script639(stockmarket:choosesell1_icon)
-onmouseleave=script641(stockmarket:choosesell1_icon)
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell1_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell1_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip1, "Sell", 25, 100)
 onclick=deltooltip(stockmarket:tooltip1)
 
@@ -686,8 +686,8 @@ height=46
 layer=offerchoosetype2
 transmitop=1
 op1=Make Buy Offer
-onmouseover=script635(stockmarket:choosebuy2_icon)
-onmouseleave=script637(stockmarket:choosebuy2_icon)
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy2_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy2_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip2, "Buy", 25, 100)
 onclick=deltooltip(stockmarket:tooltip2)
 
@@ -701,8 +701,8 @@ height=46
 layer=offerchoosetype2
 transmitop=1
 op1=Make Sell Offer
-onmouseover=script639(stockmarket:choosesell2_icon)
-onmouseleave=script641(stockmarket:choosesell2_icon)
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell2_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell2_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip2, "Sell", 25, 100)
 onclick=deltooltip(stockmarket:tooltip2)
 
@@ -890,8 +890,8 @@ height=46
 layer=offerchoosetype3
 transmitop=1
 op1=Make Buy Offer
-onmouseover=script635(stockmarket:choosebuy3_icon)
-onmouseleave=script637(stockmarket:choosebuy3_icon)
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy3_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy3_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip3, "Buy", 25, 100)
 onclick=deltooltip(stockmarket:tooltip3)
 
@@ -905,8 +905,8 @@ height=46
 layer=offerchoosetype3
 transmitop=1
 op1=Make Sell Offer
-onmouseover=script639(stockmarket:choosesell3_icon)
-onmouseleave=script641(stockmarket:choosesell3_icon)
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell3_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell3_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip3, "Sell", 25, 100)
 onclick=deltooltip(stockmarket:tooltip3)
 
@@ -1094,8 +1094,8 @@ height=46
 layer=offerchoosetype4
 transmitop=1
 op1=Make Buy Offer
-onmouseover=script635(stockmarket:choosebuy4_icon)
-onmouseleave=script637(stockmarket:choosebuy4_icon)
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy4_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy4_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip4, "Buy", 25, 100)
 onclick=deltooltip(stockmarket:tooltip4)
 
@@ -1109,8 +1109,8 @@ height=46
 layer=offerchoosetype4
 transmitop=1
 op1=Make Sell Offer
-onmouseover=script639(stockmarket:choosesell4_icon)
-onmouseleave=script641(stockmarket:choosesell4_icon)
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell4_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell4_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip4, "Sell", 25, 100)
 onclick=deltooltip(stockmarket:tooltip4)
 
@@ -1298,8 +1298,8 @@ height=46
 layer=offerchoosetype5
 transmitop=1
 op1=Make Buy Offer
-onmouseover=script635(stockmarket:choosebuy5_icon)
-onmouseleave=script637(stockmarket:choosebuy5_icon)
+onmouseover=stock_choosebuy_highlight_on(stockmarket:choosebuy5_icon)
+onmouseleave=stock_choosebuy_highlight_off(stockmarket:choosebuy5_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip5, "Buy", 25, 100)
 onclick=deltooltip(stockmarket:tooltip5)
 
@@ -1313,8 +1313,8 @@ height=46
 layer=offerchoosetype5
 transmitop=1
 op1=Make Sell Offer
-onmouseover=script639(stockmarket:choosesell5_icon)
-onmouseleave=script641(stockmarket:choosesell5_icon)
+onmouseover=stock_choosesell_highlight_on(stockmarket:choosesell5_icon)
+onmouseleave=stock_choosesell_highlight_off(stockmarket:choosesell5_icon)
 onmouserepeat=script647(event_com, stockmarket:tooltip5, "Sell", 25, 100)
 onclick=deltooltip(stockmarket:tooltip5)
 
@@ -1381,8 +1381,8 @@ layer=offerlayer
 graphic="bank_buttons,6"
 transmitop=1
 op1=Back
-onmouseover=script615(event_com)
-onmouseleave=script616(event_com)
+onmouseover=stock_backbutton_highlight_on(event_com)
+onmouseleave=stock_backbutton_highlight_off(event_com)
 onop=stockmarket_choosecancel
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Back to offer summary", 25, 300)
 
@@ -1696,8 +1696,8 @@ height=13
 layer=newofferlayer
 transmitop=1
 op1=Decrease Quantity
-onmouseover=script613(stockmarket:offercount_minus_gfx)
-onmouseleave=script614(stockmarket:offercount_minus_gfx)
+onmouseover=stock_minus_highlight_on(stockmarket:offercount_minus_gfx)
+onmouseleave=stock_minus_highlight_off(stockmarket:offercount_minus_gfx)
 onop=stock_offercount_minus
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Decrease quantity by 1", 25, 300)
 
@@ -1722,8 +1722,8 @@ layer=newofferlayer
 transmitop=1
 opbase= 
 op1=Increase Quantity
-onmouseover=script611(stockmarket:offercount_plus_gfx)
-onmouseleave=script612(stockmarket:offercount_plus_gfx)
+onmouseover=stock_plus_highlight_on(stockmarket:offercount_plus_gfx)
+onmouseleave=stock_plus_highlight_off(stockmarket:offercount_plus_gfx)
 onop=stock_offercount_plus
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Increase quantity by 1", 25, 300)
 
@@ -1897,8 +1897,8 @@ height=13
 layer=newofferlayer
 transmitop=1
 op1=Decrease Price
-onmouseover=script613(stockmarket:offerprice_minus_gfx)
-onmouseleave=script614(stockmarket:offerprice_minus_gfx)
+onmouseover=stock_minus_highlight_on(stockmarket:offerprice_minus_gfx)
+onmouseleave=stock_minus_highlight_off(stockmarket:offerprice_minus_gfx)
 onop=stock_offerprice_minus
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Decrease price by 1", 25, 300)
 
@@ -1922,8 +1922,8 @@ height=13
 layer=newofferlayer
 transmitop=1
 op1=Increase Price
-onmouseover=script611(stockmarket:offerprice_plus_gfx)
-onmouseleave=script612(stockmarket:offerprice_plus_gfx)
+onmouseover=stock_plus_highlight_on(stockmarket:offerprice_plus_gfx)
+onmouseleave=stock_plus_highlight_off(stockmarket:offerprice_plus_gfx)
 onop=stock_offerprice_plus
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Increase price by 1", 25, 300)
 
@@ -2008,7 +2008,7 @@ onmouseleave=script645(stockmarket:offerprice_set_gfx)
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Enter custom price", 25, 300)
 
 // 105:178
-[com_178]
+[offerprice_bigraise_gfx]
 type=graphic
 x=422
 y=200
@@ -2018,7 +2018,7 @@ layer=newofferlayer
 graphic="bank_buttons,5"
 
 // 105:179
-[com_179]
+[offerprice_bigraise]
 type=text
 x=422
 y=205
@@ -2033,13 +2033,13 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Increase Price
-onmouseover=script643(stockmarket:com_178)
-onmouseleave=script645(stockmarket:com_178)
+onmouseover=script643(stockmarket:offerprice_bigraise_gfx)
+onmouseleave=script645(stockmarket:offerprice_bigraise_gfx)
 onop=script4112(105)
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Raise your offer price by 5%", 25, 300)
 
 // 105:180
-[com_180]
+[offerprice_bigdecrease_gfx]
 type=graphic
 x=269
 y=200
@@ -2049,7 +2049,7 @@ layer=newofferlayer
 graphic="bank_buttons,5"
 
 // 105:181
-[com_181]
+[offerprice_bigdecrease]
 type=text
 x=269
 y=205
@@ -2064,8 +2064,8 @@ textshadow=yes
 colour=0xff9800
 transmitop=1
 op1=Decrease Price
-onmouseover=script643(stockmarket:com_180)
-onmouseleave=script645(stockmarket:com_180)
+onmouseover=script643(stockmarket:offerprice_bigdecrease_gfx)
+onmouseleave=script645(stockmarket:offerprice_bigdecrease_gfx)
 onop=script4112(95)
 onmouserepeat=sm_offer_addtooltip(event_com, stockmarket:offertooltip, "Decrease your offer price by 5%", 25, 300)
 
@@ -2233,7 +2233,7 @@ textshadow=yes
 colour=0xc1a875
 
 // 105:196
-[com_196]
+[warning_layer]
 type=layer
 x=46
 y=161
@@ -2393,7 +2393,7 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_196
+layer=warning_layer
 graphic=tradebacking
 tiling=yes
 
@@ -2403,7 +2403,7 @@ type=graphic
 width=7
 height=16384
 heightmode=proportion
-layer=com_196
+layer=warning_layer
 graphic="v2_stone_borders_alt,1"
 tiling=yes
 
@@ -2414,7 +2414,7 @@ width=32
 height=16384
 heightmode=proportion
 xmode=abs_right
-layer=com_196
+layer=warning_layer
 graphic="v2_stone_borders_alt,3"
 tiling=yes
 
@@ -2424,7 +2424,7 @@ type=graphic
 width=16384
 height=7
 widthmode=proportion
-layer=com_196
+layer=warning_layer
 graphic="v2_stone_borders_alt,0"
 tiling=yes
 
@@ -2435,7 +2435,7 @@ width=16384
 height=32
 widthmode=proportion
 ymode=abs_bottom
-layer=com_196
+layer=warning_layer
 graphic="v2_stone_borders_alt,2"
 tiling=yes
 
@@ -2444,7 +2444,7 @@ tiling=yes
 type=graphic
 width=32
 height=32
-layer=com_196
+layer=warning_layer
 graphic="v2_stone_borders_alt,4"
 
 // 105:217
@@ -2453,7 +2453,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_196
+layer=warning_layer
 graphic="v2_stone_borders_alt,5"
 
 // 105:218
@@ -2464,7 +2464,7 @@ width=13082
 height=24
 widthmode=proportion
 xmode=abs_centre
-layer=com_196
+layer=warning_layer
 textfont=b12_full
 text=Warning:
 textalignh=centre
@@ -2479,7 +2479,7 @@ width=9538
 height=34
 widthmode=proportion
 xmode=abs_centre
-layer=com_196
+layer=warning_layer
 textfont=p12_full
 text=You're trying to sell an item for far less than its guide price!
 textlineheight=16
@@ -2494,7 +2494,7 @@ y=100
 width=160
 height=35
 xmode=abs_centre
-layer=com_196
+layer=warning_layer
 transmitop=1
 op1=Ok
 onload=v2_stone_button(event_com)
@@ -2507,7 +2507,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_196
+layer=warning_layer
 graphic="v2_stone_borders_alt,6"
 
 // 105:222
@@ -2517,5 +2517,5 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_196
+layer=warning_layer
 graphic="v2_stone_borders_alt,7"

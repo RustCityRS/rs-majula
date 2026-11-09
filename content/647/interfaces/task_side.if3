@@ -1,19 +1,19 @@
 // 1056:0
-[com_0]
+[advice_close_l]
 type=graphic
 width=6
 height=19
 layer=advice_close
-graphic=graphic_4322
+graphic="task_pin_but,0"
 
 // 1056:1
-[com_1]
+[advice_close_r]
 type=graphic
 width=6
 height=19
 xmode=abs_right
 layer=advice_close
-graphic=graphic_4322
+graphic="task_pin_but,0"
 hflip=yes
 
 // 1056:2
@@ -681,7 +681,7 @@ width=11
 height=11
 xmode=abs_right
 layer=task_layer_1
-graphic=graphic_4296
+graphic="task_pin_symbol,1"
 
 // 1056:64
 [task_1]
@@ -711,7 +711,7 @@ textshadow=yes
 colour=0xdedede
 
 // 1056:66
-[com_66]
+[rewards_set_npc]
 type=text
 y=2
 height=20
@@ -722,7 +722,7 @@ textshadow=yes
 colour=0xdedede
 
 // 1056:67
-[com_67]
+[rewards_set_details]
 type=text
 y=2
 height=20
@@ -809,7 +809,7 @@ heightmode=minus
 layer=rewards_layer
 
 // 1056:75
-[com_75]
+[menu_bg_fill]
 type=rectangle
 widthmode=minus
 heightmode=minus
@@ -1013,7 +1013,7 @@ onmouseleave=deltooltip(task_side:summary_tooltip)
 onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
 
 // 1056:88
-[com_88]
+[pin_button_layer]
 type=layer
 x=81
 y=1
@@ -1028,14 +1028,14 @@ onop=script3974
 onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Pin this Task to refer to it later.", 45, 135)
 
 // 1056:89
-[com_89]
+[pin_button_m]
 type=graphic
 x=6
 width=12
 widthmode=minus
 heightmode=minus
-layer=com_88
-graphic=graphic_4323
+layer=pin_button_layer
+graphic="task_pin_but,1"
 
 // 1056:90
 [summary_close]
@@ -1210,7 +1210,7 @@ y=2
 width=6
 height=17
 layer=progress_layer
-graphic=graphic_4313
+graphic="task_progbar,1"
 tiling=yes
 
 // 1056:106
@@ -1320,7 +1320,7 @@ y=18
 width=6
 height=19
 layer=complete_layer
-graphic=graphic_4322
+graphic="task_pin_but,0"
 colour=0xffffffff
 
 // 1056:115
@@ -1331,7 +1331,7 @@ width=6
 height=19
 xmode=abs_right
 layer=complete_layer
-graphic=graphic_4322
+graphic="task_pin_but,0"
 hflip=yes
 
 // 1056:116
@@ -1343,10 +1343,10 @@ width=12
 height=19
 widthmode=minus
 layer=complete_layer
-graphic=graphic_4323
+graphic="task_pin_but,1"
 
 // 1056:117
-[com_117]
+[complete_ok]
 type=text
 y=17
 width=52
@@ -1365,8 +1365,8 @@ type=graphic
 width=6
 heightmode=minus
 ymode=abs_centre
-layer=com_88
-graphic=graphic_4322
+layer=pin_button_layer
+graphic="task_pin_but,0"
 
 // 1056:119
 [com_119]
@@ -1375,8 +1375,8 @@ width=6
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_88
-graphic=graphic_4322
+layer=pin_button_layer
+graphic="task_pin_but,0"
 hflip=yes
 
 // 1056:120
@@ -1387,7 +1387,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_right
 ymode=abs_bottom
-layer=com_88
+layer=pin_button_layer
 textfont=verdana_11pt_regular
 text=Pin
 textalignh=centre
@@ -1401,8 +1401,8 @@ x=5
 y=4
 width=11
 height=11
-layer=com_88
-graphic=graphic_4295
+layer=pin_button_layer
+graphic="task_pin_symbol,0"
 
 // 1056:122
 [summary_layer]
@@ -1581,7 +1581,7 @@ width=12
 widthmode=minus
 heightmode=minus
 layer=summary_close
-graphic=graphic_4323
+graphic="task_pin_but,1"
 
 // 1056:138
 [close_button_l]
@@ -1590,7 +1590,7 @@ width=6
 heightmode=minus
 ymode=abs_centre
 layer=summary_close
-graphic=graphic_4322
+graphic="task_pin_but,0"
 
 // 1056:139
 [close_button_r]
@@ -1600,7 +1600,7 @@ heightmode=minus
 xmode=abs_right
 ymode=abs_centre
 layer=summary_close
-graphic=graphic_4322
+graphic="task_pin_but,0"
 hflip=yes
 
 // 1056:140
@@ -1650,7 +1650,7 @@ width=11
 height=11
 xmode=abs_right
 layer=task_layer_2
-graphic=graphic_4296
+graphic="task_pin_symbol,1"
 
 // 1056:144
 [task_2]
@@ -1708,7 +1708,7 @@ width=11
 height=11
 xmode=abs_right
 layer=task_layer_3
-graphic=graphic_4296
+graphic="task_pin_symbol,1"
 
 // 1056:149
 [task_3]
@@ -1767,7 +1767,7 @@ width=11
 height=11
 xmode=abs_right
 layer=task_layer_4
-graphic=graphic_4296
+graphic="task_pin_symbol,1"
 
 // 1056:154
 [task_4]
@@ -1826,7 +1826,7 @@ width=11
 height=11
 xmode=abs_right
 layer=task_layer_5
-graphic=graphic_4296
+graphic="task_pin_symbol,1"
 
 // 1056:159
 [task_5]
@@ -1895,7 +1895,7 @@ width=11
 height=11
 xmode=abs_right
 layer=task_layer_6
-graphic=graphic_4296
+graphic="task_pin_symbol,1"
 
 // 1056:165
 [task_6]
@@ -2002,7 +2002,7 @@ transmitop=1
 op1=Toggle
 onmouseover=script4012(0, 0)
 onmouseleave=script4012(1, 0)
-onop=fulfilmouse_leave
+onop=task_hide_advice
 
 // 1056:174
 [advice_close]
@@ -2014,21 +2014,21 @@ xmode=abs_centre
 layer=advice_layer
 transmitop=1
 op1=Close
-onmouseover=script4005(0)
-onmouseleave=script4005(1)
+onmouseover=task_side_advice_hover(0)
+onmouseleave=task_side_advice_hover(1)
 
 // 1056:175
-[com_175]
+[advice_close_m]
 type=graphic
 x=6
 width=12
 height=19
 widthmode=minus
 layer=advice_close
-graphic=graphic_4323
+graphic="task_pin_but,1"
 
 // 1056:176
-[com_176]
+[advice_close_text]
 type=text
 x=14
 width=14
@@ -2043,7 +2043,7 @@ textalignv=centre
 textshadow=yes
 
 // 1056:177
-[com_177]
+[advice_close_arrow]
 type=graphic
 x=4
 y=6

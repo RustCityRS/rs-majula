@@ -27,14 +27,14 @@ if_settext($string0, $component1);
 if_settext($string1, $component2);
 if_setsize(if_getwidth($component3), calc(paraheight($string1, if_getwidth($component2), verdana_11pt_regular) * 12 + 48), ^setsize_abs, ^setsize_abs, $component3);
 switch_component ($component5) {
-    case lobbyscreen_report_abuse_ignore:com_0 :
-        $component6 = lobbyscreen:com_53;
-    case lobbyscreen_report_abuse_stage1:com_0 :
-        $component6 = lobbyscreen:com_69;
-    case interface_979:com_0 :
+    case lobbyscreen_report_abuse_ignore:main :
+        $component6 = lobbyscreen:report_abuse_ignore_body;
+    case lobbyscreen_report_abuse_stage1:main :
+        $component6 = lobbyscreen:report_abuse_stage1_body;
+    case lobbyscreen_report_abuse_stage1_namelist:main :
         $component6 = lobbyscreen:com_43;
-    case lobbyscreen_report_abuse_stage2:com_18 :
-        $component6 = lobbyscreen:com_61;
+    case lobbyscreen_report_abuse_stage2:main :
+        $component6 = lobbyscreen:report_abuse_stage2_body;
 }
 if ($component6 ! null) {
     if_setsize(if_getwidth($component6), if_getheight($component3), ^setsize_abs, ^setsize_abs, $component6);

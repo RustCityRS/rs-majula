@@ -2,7 +2,7 @@
 [clientscript,bank_v2_help_init]
 ~bank_v2_help_showpage(0);
 ~bank_v2_help_slotsused(bank_v2_help:bank_space_f2p_current, bank_v2_help:bank_space_f2p_total, bank_v2_help:bank_space_mem_current, bank_v2_help:bank_space_mem_total);
-~script2957(bank_v2_help:equipscreen_button);
-if_setonvarctransmit("bank_v2_help_slotsused(bank_v2_help:bank_space_f2p_current, bank_v2_help:bank_space_f2p_total, bank_v2_help:bank_space_mem_current, bank_v2_help:bank_space_mem_total){varclient_192, varclient_1038, varclient_1324}", bank_v2_help:com_13);
-if_setonvartransmit("script1655{varplayer_638}", bank_v2_help:com_13);
+~v2_small_button_out_filled(bank_v2_help:equipscreen_button);
+if_setonvarctransmit("bank_v2_help_slotsused(bank_v2_help:bank_space_f2p_current, bank_v2_help:bank_space_f2p_total, bank_v2_help:bank_space_mem_current, bank_v2_help:bank_space_mem_total){varclient_192, varclient_1038, varclient_1324}", bank_v2_help:main);
+if_setonvartransmit("script1655{varplayer_638}", bank_v2_help:main);
 ~script1656;

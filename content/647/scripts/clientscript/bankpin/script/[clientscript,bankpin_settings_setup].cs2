@@ -2,41 +2,41 @@
 [clientscript,bankpin_settings_setup]
 def_int $int0 = 0;
 if (testbit(%varclient_98, 31) = ^true) {
-    if_sethide(true, bankpin_settings:com_13);
-    if_sethide(false, bankpin_settings:com_31);
-    ~v2_stone_button_out_filled(bankpin_settings:com_33);
-    ~v2_stone_button_out_filled(bankpin_settings:com_35);
+    if_sethide(true, bankpin_settings:settings);
+    if_sethide(false, bankpin_settings:warnings);
+    ~v2_stone_button_out_filled(bankpin_settings:warning_yes);
+    ~v2_stone_button_out_filled(bankpin_settings:warning_no);
 } else {
-    if_sethide(false, bankpin_settings:com_13);
-    if_sethide(true, bankpin_settings:com_31);
-    ~script1088(bankpin_settings:com_14, 0);
-    ~script1298(bankpin_settings:com_16, 0, 0, 0);
-    ~script1088(bankpin_settings:com_21, 19);
-    $int0 = calc(if_getheight(bankpin_settings:com_16) - 14);
+    if_sethide(false, bankpin_settings:settings);
+    if_sethide(true, bankpin_settings:warnings);
+    ~script1088(bankpin_settings:statusbox, 0);
+    ~script1298(bankpin_settings:buttonbox, 0, 0, 0);
+    ~script1088(bankpin_settings:messagebox, 19);
+    $int0 = calc(if_getheight(bankpin_settings:buttonbox) - 14);
     switch_int (calc(%varclient_98 & 3)) {
         case 0 :
-            if_settext("No PIN set", bankpin_settings:com_23);
+            if_settext("No PIN set", bankpin_settings:statusoutput);
             $int0 = calc($int0 / 2);
             ~script4147(bankpin_settings:button1, $int0, calc((0 - $int0) / 2), "Set a PIN");
             ~script4147(bankpin_settings:button2, $int0, calc($int0 / 2), "Change recovery delay");
             if_sethide(true, bankpin_settings:button3);
         case default :
-            if_settext("You have a PIN", bankpin_settings:com_23);
+            if_settext("You have a PIN", bankpin_settings:statusoutput);
             $int0 = calc($int0 / 3);
             ~script4147(bankpin_settings:button1, $int0, calc(0 - $int0), "Change your PIN");
             ~script4147(bankpin_settings:button2, $int0, 0, "Delete your PIN");
             ~script4147(bankpin_settings:button3, $int0, $int0, "Change recovery delay");
         case 3 :
-            if_settext("PIN coming soon", bankpin_settings:com_23);
+            if_settext("PIN coming soon", bankpin_settings:statusoutput);
             $int0 = min($int0, 50);
             ~script4147(bankpin_settings:button1, $int0, 0, "Cancel the PIN");
             if_sethide(true, bankpin_settings:button2);
             if_sethide(true, bankpin_settings:button3);
     }
     if (testbit(%varclient_98, 10) = ^true) {
-        if_settext("7 days", bankpin_settings:com_25);
+        if_settext("7 days", bankpin_settings:delayoutput);
     } else {
-        if_settext("3 days", bankpin_settings:com_25);
+        if_settext("3 days", bankpin_settings:delayoutput);
     }
 }
 cc_deleteall(bankpin_settings:message);
@@ -51,7 +51,7 @@ if (calc(paraheight(%varclient_1863, calc(if_getwidth(if_getlayer(bankpin_settin
     if_setscrollsize(0, 0, bankpin_settings:message);
     cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
-    if_sethide(true, bankpin_settings:com_29);
+    if_sethide(true, bankpin_settings:scrollbar);
     return;
 }
 if_setsize(31, 40, ^setsize_minus, ^setsize_minus, bankpin_settings:message);
@@ -60,5 +60,5 @@ if_setscrollsize(0, $int0, bankpin_settings:message);
 if_setscrollpos(0, 0, bankpin_settings:message);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
 cc_setsize(0, $int0, ^setsize_minus, ^setsize_abs);
-if_sethide(false, bankpin_settings:com_29);
-~scrollbar_vertical(bankpin_settings:com_29, bankpin_settings:message, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_sethide(false, bankpin_settings:scrollbar);
+~scrollbar_vertical(bankpin_settings:scrollbar, bankpin_settings:message, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

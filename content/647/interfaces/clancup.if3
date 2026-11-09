@@ -277,7 +277,7 @@ y=250
 width=14
 height=14
 layer=gold_layer
-graphic=graphic_3752
+graphic="clan_cup_corners,1"
 vflip=yes
 colour=0x000000
 
@@ -289,7 +289,7 @@ y=2
 width=14
 height=14
 layer=gold_layer
-graphic=graphic_3752
+graphic="clan_cup_corners,1"
 colour=0x000000
 
 // 205:24
@@ -300,7 +300,7 @@ y=250
 width=14
 height=14
 layer=gold_layer
-graphic=graphic_3751
+graphic="clan_cup_corners,0"
 vflip=yes
 colour=0x000000
 
@@ -312,7 +312,7 @@ y=2
 width=14
 height=14
 layer=gold_layer
-graphic=graphic_3751
+graphic="clan_cup_corners,0"
 colour=0x000000
 
 // 205:26
@@ -370,7 +370,7 @@ vflip=yes
 colour=0x000000
 
 // 205:31
-[com_31]
+[gold_background_main]
 type=graphic
 x=20
 y=12
@@ -388,7 +388,7 @@ y=9
 width=14
 height=14
 layer=backgroundlayer
-graphic=graphic_3751
+graphic="clan_cup_corners,0"
 colour=0x000000
 
 // 205:33
@@ -399,7 +399,7 @@ y=314
 width=14
 height=14
 layer=backgroundlayer
-graphic=graphic_3751
+graphic="clan_cup_corners,0"
 2dangle=16384
 colour=0x000000
 
@@ -411,7 +411,7 @@ y=9
 width=14
 height=14
 layer=backgroundlayer
-graphic=graphic_3752
+graphic="clan_cup_corners,1"
 colour=0x000000
 
 // 205:35
@@ -422,7 +422,7 @@ y=314
 width=14
 height=14
 layer=backgroundlayer
-graphic=graphic_3752
+graphic="clan_cup_corners,1"
 2dangle=49152
 colour=0x000000
 transmitop=10

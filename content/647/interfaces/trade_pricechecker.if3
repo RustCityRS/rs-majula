@@ -158,12 +158,12 @@ y=42
 width=456
 height=248
 xmode=abs_centre
-onload=trade_pricechecker_init(event_com, trade_pricechecker:com_16, trade_pricechecker:total)
-oninvtransmit=trade_pricechecker_setup(event_com, trade_pricechecker:com_16, trade_pricechecker:total){tradeoffer}
-onvarctransmit=trade_pricechecker_setup(event_com, trade_pricechecker:com_16, trade_pricechecker:total){varclient_700, varclient_701, varclient_702, varclient_703, varclient_704, varclient_705, varclient_706, varclient_707, varclient_708, varclient_709, varclient_710, varclient_711, varclient_712, varclient_713, varclient_714, varclient_715, varclient_716, varclient_717, varclient_718, varclient_719, varclient_720, varclient_721, varclient_722, varclient_723, varclient_724, varclient_725, varclient_726, varclient_727, varclient_728}
+onload=trade_pricechecker_init(event_com, trade_pricechecker:scrollbar, trade_pricechecker:total)
+oninvtransmit=trade_pricechecker_setup(event_com, trade_pricechecker:scrollbar, trade_pricechecker:total){tradeoffer}
+onvarctransmit=trade_pricechecker_setup(event_com, trade_pricechecker:scrollbar, trade_pricechecker:total){varclient_700, varclient_701, varclient_702, varclient_703, varclient_704, varclient_705, varclient_706, varclient_707, varclient_708, varclient_709, varclient_710, varclient_711, varclient_712, varclient_713, varclient_714, varclient_715, varclient_716, varclient_717, varclient_718, varclient_719, varclient_720, varclient_721, varclient_722, varclient_723, varclient_724, varclient_725, varclient_726, varclient_727, varclient_728}
 
 // 206:16
-[com_16]
+[scrollbar]
 type=layer
 x=20
 y=42

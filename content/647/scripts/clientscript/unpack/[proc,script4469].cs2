@@ -4,7 +4,7 @@ def_int $int0 = 0;
 def_int $int1 = 0;
 if (~script4467 = 1) {
     if_sethide(false, clan_chat:kick_button_layer);
-    if_sethide(true, clan_chat:com_110);
+    if_sethide(true, clan_chat:kick_button_disabled_layer);
 } else {
     ~script4471;
 }

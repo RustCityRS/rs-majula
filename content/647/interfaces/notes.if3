@@ -92,7 +92,7 @@ widthmode=minus
 ymode=abs_bottom
 
 // 34:7
-[com_7]
+[del_button_noclick]
 type=layer
 x=166
 y=239
@@ -119,7 +119,7 @@ onrelease=notes_graphic_swapper(event_com, "notes_add_delete_icons,4")
 onhold=graphic_swapper(event_com, "notes_add_delete_icons,5")
 
 // 34:9
-[com_9]
+[main]
 type=layer
 width=16391
 height=201
@@ -175,7 +175,7 @@ width=10
 height=100
 widthmode=minus
 xmode=abs_centre
-layer=com_9
+layer=main
 hide=yes
 textfont=p12_full
 textlineheight=15
@@ -191,7 +191,7 @@ type=rectangle
 y=5
 height=14
 widthmode=minus
-layer=com_9
+layer=main
 hide=yes
 colour=0xffff00
 fill=yes
@@ -200,7 +200,7 @@ transmitop=10
 op10= 
 
 // 34:15
-[com_15]
+[scrollbar]
 type=layer
 y=30
 width=16
@@ -438,15 +438,15 @@ height=25
 xmode=abs_centre
 ymode=abs_bottom
 layer=menu_dialog
-graphic=graphic_1437
+graphic="player_id_button,0"
 colour=0xffffffff
 transmitop=1
 op1=White
-onmouseover=graphic_swapper(event_com, graphic_1438)
-onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, graphic_1437)
+onmouseover=graphic_swapper(event_com, "player_id_button,1")
+onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, "player_id_button,0")
 onmouserepeat=addtooltip(event_com, notes:colours_tooltip, "White", 25, 5000)
-onrelease=graphic_swapper(event_com, graphic_1438)
-onhold=graphic_swapper(event_com, graphic_1439)
+onrelease=graphic_swapper(event_com, "player_id_button,1")
+onhold=graphic_swapper(event_com, "player_id_button,2")
 
 // 34:36
 [com_36]
@@ -471,16 +471,16 @@ height=25
 xmode=abs_centre
 ymode=abs_bottom
 layer=menu_dialog
-graphic=graphic_1437
+graphic="player_id_button,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Green
 op10= 
-onmouseover=graphic_swapper(event_com, graphic_1438)
-onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, graphic_1437)
+onmouseover=graphic_swapper(event_com, "player_id_button,1")
+onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, "player_id_button,0")
 onmouserepeat=addtooltip(event_com, notes:colours_tooltip, "Green", 25, 5000)
-onrelease=graphic_swapper(event_com, graphic_1438)
-onhold=graphic_swapper(event_com, graphic_1439)
+onrelease=graphic_swapper(event_com, "player_id_button,1")
+onhold=graphic_swapper(event_com, "player_id_button,2")
 
 // 34:38
 [com_38]
@@ -505,16 +505,16 @@ height=25
 xmode=abs_centre
 ymode=abs_bottom
 layer=menu_dialog
-graphic=graphic_1437
+graphic="player_id_button,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Amber
 op10= 
-onmouseover=graphic_swapper(event_com, graphic_1438)
-onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, graphic_1437)
+onmouseover=graphic_swapper(event_com, "player_id_button,1")
+onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, "player_id_button,0")
 onmouserepeat=addtooltip(event_com, notes:colours_tooltip, "Amber", 25, 5000)
-onrelease=graphic_swapper(event_com, graphic_1438)
-onhold=graphic_swapper(event_com, graphic_1439)
+onrelease=graphic_swapper(event_com, "player_id_button,1")
+onhold=graphic_swapper(event_com, "player_id_button,2")
 
 // 34:40
 [com_40]
@@ -539,16 +539,16 @@ height=25
 xmode=abs_centre
 ymode=abs_bottom
 layer=menu_dialog
-graphic=graphic_1437
+graphic="player_id_button,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Red
 op10= 
-onmouseover=graphic_swapper(event_com, graphic_1438)
-onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, graphic_1437)
+onmouseover=graphic_swapper(event_com, "player_id_button,1")
+onmouseleave=deltooltip_graphic_swapper(notes:colours_tooltip, event_com, "player_id_button,0")
 onmouserepeat=addtooltip(event_com, notes:colours_tooltip, "Red", 25, 5000)
-onrelease=graphic_swapper(event_com, graphic_1438)
-onhold=graphic_swapper(event_com, graphic_1439)
+onrelease=graphic_swapper(event_com, "player_id_button,1")
+onhold=graphic_swapper(event_com, "player_id_button,2")
 
 // 34:42
 [colours_tooltip]

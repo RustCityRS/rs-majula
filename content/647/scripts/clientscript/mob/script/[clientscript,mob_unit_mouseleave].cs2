@@ -1,0 +1,10 @@
+// 2559
+[clientscript,mob_unit_mouseleave](component $component0, component $component1)
+if (if_getgraphic($component0) = "mob_unit_heads,6") {
+    if_setgraphic("mob_unit_heads,1", $component0);
+} else if (if_getgraphic($component0) = "mob_unit_heads,7") {
+    if_setgraphic("mob_unit_heads,2", $component0);
+} else if (if_getgraphic($component0) = "mob_unit_heads,9") {
+    if_setgraphic("mob_unit_heads,4", $component0);
+}
+~deltooltip_action($component1);

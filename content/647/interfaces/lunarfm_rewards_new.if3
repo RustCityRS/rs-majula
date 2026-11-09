@@ -1,11 +1,11 @@
 // 1083:0
-[com_0]
+[task_name]
 type=text
 x=57
 y=113
 width=100
 height=15
-layer=com_154
+layer=task_list
 textfont=p12_full
 text=Task
 textalignv=centre
@@ -19,8 +19,8 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_228
-onload=script4203(event_com, struct_1769)
+layer=plank_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:2
 [com_2]
@@ -29,19 +29,19 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_228
-onload=script4203(event_com, struct_1770)
+layer=plank_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:3
-[com_3]
+[plank_selected_layer]
 type=layer
 width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_228
+layer=plank_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:4
 [com_4]
@@ -50,8 +50,8 @@ width=16391
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_228
-onload=script4203(event_com, struct_1771)
+layer=plank_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:5
 [plank_button]
@@ -60,7 +60,7 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_228
+layer=plank_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -74,8 +74,8 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_223
-onload=script4203(event_com, struct_1769)
+layer=burn_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:7
 [com_7]
@@ -84,19 +84,19 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_223
-onload=script4203(event_com, struct_1770)
+layer=burn_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:8
-[com_8]
+[burn_selected_layer]
 type=layer
 width=16391
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_223
+layer=burn_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:9
 [com_9]
@@ -105,17 +105,17 @@ width=16391
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_223
-onload=script4203(event_com, struct_1771)
+layer=burn_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:10
-[com_10]
+[burn_button]
 type=layer
 width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_223
+layer=burn_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -129,8 +129,8 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_218
-onload=script4203(event_com, struct_1769)
+layer=runes_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:12
 [com_12]
@@ -139,19 +139,19 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_218
-onload=script4203(event_com, struct_1770)
+layer=runes_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:13
-[com_13]
+[runes_selected_layer]
 type=layer
 width=16391
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_218
+layer=runes_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:14
 [com_14]
@@ -160,17 +160,17 @@ width=16391
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_218
-onload=script4203(event_com, struct_1771)
+layer=runes_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:15
-[com_15]
+[runes_button]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_218
+layer=runes_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -184,8 +184,8 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_213
-onload=script4203(event_com, struct_1769)
+layer=vial_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:17
 [com_17]
@@ -194,19 +194,19 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_213
-onload=script4203(event_com, struct_1770)
+layer=vial_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:18
-[com_18]
+[vial_selected_layer]
 type=layer
 width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_213
+layer=vial_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:19
 [com_19]
@@ -215,17 +215,17 @@ width=16391
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_213
-onload=script4203(event_com, struct_1771)
+layer=vial_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:20
-[com_20]
+[vial_button]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_213
+layer=vial_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -239,8 +239,8 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_208
-onload=script4203(event_com, struct_1769)
+layer=herb_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:22
 [com_22]
@@ -249,19 +249,19 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_208
-onload=script4203(event_com, struct_1770)
+layer=herb_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:23
-[com_23]
+[herb_selected_layer]
 type=layer
 width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_208
+layer=herb_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:24
 [com_24]
@@ -270,17 +270,17 @@ width=16391
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_208
-onload=script4203(event_com, struct_1771)
+layer=herb_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:25
-[com_25]
+[herb_button]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_208
+layer=herb_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -294,8 +294,8 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_203
-onload=script4203(event_com, struct_1769)
+layer=seed_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:27
 [com_27]
@@ -304,19 +304,19 @@ width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_203
-onload=script4203(event_com, struct_1770)
+layer=seed_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:28
-[com_28]
+[seed_selected_layer]
 type=layer
 width=16384
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_203
+layer=seed_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:29
 [com_29]
@@ -325,17 +325,17 @@ width=16391
 height=20
 widthmode=proportion
 ymode=abs_centre
-layer=com_203
-onload=script4203(event_com, struct_1771)
+layer=seed_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:30
-[com_30]
+[seed_button]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_203
+layer=seed_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -350,8 +350,8 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_68
-onload=script4203(event_com, struct_1769)
+layer=vengeance_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:32
 [com_32]
@@ -361,20 +361,20 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_68
-onload=script4203(event_com, struct_1770)
+layer=vengeance_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:33
-[com_33]
+[vengeance_selected_layer]
 type=layer
 width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_68
+layer=vengeance_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:34
 [com_34]
@@ -384,17 +384,17 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_68
-onload=script4203(event_com, struct_1771)
+layer=vengeance_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:35
-[com_35]
+[vengeance_button]
 type=layer
 width=16391
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_68
+layer=vengeance_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -409,8 +409,8 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_69
-onload=script4203(event_com, struct_1769)
+layer=shield_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:37
 [com_37]
@@ -420,20 +420,20 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_69
-onload=script4203(event_com, struct_1770)
+layer=shield_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:38
-[com_38]
+[shield_selected_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_69
+layer=shield_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:39
 [com_39]
@@ -443,17 +443,17 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_69
-onload=script4203(event_com, struct_1771)
+layer=shield_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:40
-[com_40]
+[shield_button]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_69
+layer=shield_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -468,8 +468,8 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_70
-onload=script4203(event_com, struct_1769)
+layer=leather_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:42
 [com_42]
@@ -479,20 +479,20 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_70
-onload=script4203(event_com, struct_1770)
+layer=leather_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:43
-[com_43]
+[leather_selected_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_70
+layer=leather_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:44
 [com_44]
@@ -502,17 +502,17 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_70
-onload=script4203(event_com, struct_1771)
+layer=leather_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:45
-[com_45]
+[leather_button]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_70
+layer=leather_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -527,8 +527,8 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_71
-onload=script4203(event_com, struct_1769)
+layer=spirit_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:47
 [com_47]
@@ -538,20 +538,20 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_71
-onload=script4203(event_com, struct_1770)
+layer=spirit_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:48
-[com_48]
+[spirit_selected_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_71
+layer=spirit_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:49
 [com_49]
@@ -561,17 +561,17 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_71
-onload=script4203(event_com, struct_1771)
+layer=spirit_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:50
-[com_50]
+[spirit_button]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_71
+layer=spirit_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -586,8 +586,8 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_72
-onload=script4203(event_com, struct_1769)
+layer=remote_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:52
 [com_52]
@@ -597,20 +597,20 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_72
-onload=script4203(event_com, struct_1770)
+layer=remote_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:53
-[com_53]
+[remote_selected_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_72
+layer=remote_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:54
 [com_54]
@@ -620,17 +620,17 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_72
-onload=script4203(event_com, struct_1771)
+layer=remote_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:55
-[com_55]
+[remote_button]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_72
+layer=remote_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -645,8 +645,8 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_73
-onload=script4203(event_com, struct_1769)
+layer=ardougne_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:57
 [com_57]
@@ -656,20 +656,20 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_73
-onload=script4203(event_com, struct_1770)
+layer=ardougne_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:58
-[com_58]
+[ardougne_selected_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_73
+layer=ardougne_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:59
 [com_59]
@@ -679,17 +679,17 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_73
-onload=script4203(event_com, struct_1771)
+layer=ardougne_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:60
-[com_60]
+[ardougne_button]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_73
+layer=ardougne_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -704,8 +704,8 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_74
-onload=script4203(event_com, struct_1769)
+layer=rune_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:62
 [com_62]
@@ -715,20 +715,20 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_74
-onload=script4203(event_com, struct_1770)
+layer=rune_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:63
-[com_63]
+[rune_selected_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_74
+layer=rune_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:64
 [com_64]
@@ -738,17 +738,17 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_74
-onload=script4203(event_com, struct_1771)
+layer=rune_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:65
-[com_65]
+[rune_button]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_74
+layer=rune_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -763,7 +763,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_149
+layer=gold_frame_list
 graphic=window_texture_2
 tiling=yes
 
@@ -775,20 +775,20 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_150
+layer=gold_frame_desc
 graphic=window_texture_2
 tiling=yes
 
 // 1083:68
-[com_68]
+[vengeance_highlight]
 type=layer
 x=15
 width=220
 height=23
-layer=com_139
+layer=vengeance_layer
 
 // 1083:69
-[com_69]
+[shield_highlight]
 type=layer
 x=15
 width=220
@@ -796,52 +796,52 @@ height=23
 layer=shield_layer
 
 // 1083:70
-[com_70]
+[leather_highlight]
 type=layer
 x=15
 width=220
 height=23
-layer=com_137
+layer=leather_layer
 
 // 1083:71
-[com_71]
+[spirit_highlight]
 type=layer
 x=15
 width=220
 height=23
-layer=com_136
+layer=spiritualise_layer
 
 // 1083:72
-[com_72]
+[remote_highlight]
 type=layer
 x=15
 width=220
 height=23
-layer=com_135
+layer=remote_farm_layer
 
 // 1083:73
-[com_73]
+[ardougne_highlight]
 type=layer
 x=15
 width=220
 height=23
-layer=com_134
+layer=ardougne_layer
 
 // 1083:74
-[com_74]
+[rune_highlight]
 type=layer
 x=15
 width=220
 height=23
-layer=com_133
+layer=rune_pouch_layer
 
 // 1083:75
-[com_75]
+[falador_highlight]
 type=layer
 x=15
 width=220
 height=23
-layer=com_132
+layer=falador_layer
 
 // 1083:76
 [name]
@@ -895,7 +895,7 @@ colour=0x010000
 trans=182
 
 // 1083:80
-[com_80]
+[extra_info]
 type=text
 x=2
 y=111
@@ -909,7 +909,7 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:81
-[com_81]
+[spell_icon_layer]
 type=layer
 x=171
 y=3
@@ -924,7 +924,7 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_81
+layer=spell_icon_layer
 colour=0x000000
 fill=yes
 trans=204
@@ -936,21 +936,21 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_81
+layer=spell_icon_layer
 colour=0x000000
 trans=204
 
 // 1083:84
-[com_84]
+[spell_icon]
 type=graphic
 width=24
 height=24
 xmode=abs_centre
 ymode=abs_centre
-layer=com_81
+layer=spell_icon_layer
 
 // 1083:85
-[com_85]
+[spells_button_falador]
 type=layer
 y=7
 width=130
@@ -960,7 +960,7 @@ ymode=abs_bottom
 layer=breakdown_layer
 
 // 1083:86
-[com_86]
+[spells_button_rune]
 type=layer
 y=7
 width=130
@@ -971,7 +971,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:87
-[com_87]
+[spells_button_ardougne]
 type=layer
 y=7
 width=130
@@ -982,7 +982,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:88
-[com_88]
+[spells_button_remote]
 type=layer
 y=7
 width=130
@@ -993,7 +993,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:89
-[com_89]
+[spells_button_spiritualise]
 type=layer
 y=7
 width=130
@@ -1004,7 +1004,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:90
-[com_90]
+[spells_button_leather]
 type=layer
 y=7
 width=130
@@ -1015,7 +1015,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:91
-[com_91]
+[spells_button_shield]
 type=layer
 y=7
 width=130
@@ -1026,7 +1026,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:92
-[com_92]
+[spells_button_vengeance]
 type=layer
 y=7
 width=130
@@ -1037,7 +1037,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:93
-[com_93]
+[wishes_button_seeds]
 type=layer
 y=7
 width=130
@@ -1048,7 +1048,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:94
-[com_94]
+[wishes_button_herbs]
 type=layer
 y=7
 width=130
@@ -1059,7 +1059,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:95
-[com_95]
+[wishes_button_vials]
 type=layer
 y=7
 width=130
@@ -1070,7 +1070,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:96
-[com_96]
+[wishes_button_runes]
 type=layer
 y=7
 width=130
@@ -1081,7 +1081,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:97
-[com_97]
+[wishes_button_fish]
 type=layer
 y=7
 width=130
@@ -1092,7 +1092,7 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:98
-[com_98]
+[wishes_button_planks]
 type=layer
 y=7
 width=130
@@ -1103,23 +1103,23 @@ layer=breakdown_layer
 hide=yes
 
 // 1083:99
-[com_99]
+[wishes_seed]
 type=layer
 x=28
 y=110
 width=234
 height=23
-layer=com_153
+layer=wishes_list
 
 // 1083:100
-[com_100]
+[spell_name_vengeance]
 type=text
 x=21
 width=135
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_139
+layer=vengeance_layer
 textfont=p11_full
 text=Vengeance Group
 textalignv=centre
@@ -1127,14 +1127,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:101
-[com_101]
+[spell_points_vengeance]
 type=text
 x=155
 width=63
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_139
+layer=vengeance_layer
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -1143,14 +1143,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:102
-[com_102]
+[number_8]
 type=text
 x=3
 width=15
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_139
+layer=vengeance_layer
 textfont=p11_full
 text=8.
 textalignv=centre
@@ -1158,17 +1158,17 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:103
-[com_103]
+[spell_unlock_vengeance]
 type=graphic
 x=215
 width=14
 height=14
 ymode=abs_centre
-layer=com_139
+layer=vengeance_layer
 graphic=symbol_lock
 
 // 1083:104
-[com_104]
+[spell_name_shield]
 type=text
 x=21
 width=135
@@ -1183,7 +1183,7 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:105
-[com_105]
+[spell_points_shield]
 type=text
 x=155
 width=63
@@ -1199,7 +1199,7 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:106
-[com_106]
+[number_7]
 type=text
 x=3
 width=15
@@ -1214,7 +1214,7 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:107
-[com_107]
+[spell_unlock_shield]
 type=graphic
 x=215
 width=14
@@ -1224,14 +1224,14 @@ layer=shield_layer
 graphic=symbol_lock
 
 // 1083:108
-[com_108]
+[spell_name_leather]
 type=text
 x=21
 width=135
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_137
+layer=leather_layer
 textfont=p11_full
 text=Make Leather
 textalignv=centre
@@ -1239,14 +1239,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:109
-[com_109]
+[spell_points_leather]
 type=text
 x=155
 width=63
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_137
+layer=leather_layer
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -1255,14 +1255,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:110
-[com_110]
+[number_6]
 type=text
 x=3
 width=15
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_137
+layer=leather_layer
 textfont=p11_full
 text=6.
 textalignv=centre
@@ -1270,24 +1270,24 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:111
-[com_111]
+[spell_unlock_leather]
 type=graphic
 x=215
 width=14
 height=14
 ymode=abs_centre
-layer=com_137
+layer=leather_layer
 graphic=symbol_lock
 
 // 1083:112
-[com_112]
+[spell_name_spirit]
 type=text
 x=21
 width=135
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_136
+layer=spiritualise_layer
 textfont=p11_full
 text=Spiritualise Food
 textalignv=centre
@@ -1295,14 +1295,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:113
-[com_113]
+[spell_points_spirit]
 type=text
 x=155
 width=63
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_136
+layer=spiritualise_layer
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -1311,14 +1311,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:114
-[com_114]
+[number_5]
 type=text
 x=3
 width=15
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_136
+layer=spiritualise_layer
 textfont=p11_full
 text=5.
 textalignv=centre
@@ -1326,24 +1326,24 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:115
-[com_115]
+[spell_unlock_spirit]
 type=graphic
 x=215
 width=14
 height=14
 ymode=abs_centre
-layer=com_136
+layer=spiritualise_layer
 graphic=symbol_lock
 
 // 1083:116
-[com_116]
+[spell_name_remote]
 type=text
 x=21
 width=135
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_135
+layer=remote_farm_layer
 textfont=p11_full
 text=Remote Farming
 textalignv=centre
@@ -1351,14 +1351,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:117
-[com_117]
+[spell_points_remote]
 type=text
 x=155
 width=63
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_135
+layer=remote_farm_layer
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -1367,14 +1367,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:118
-[com_118]
+[number_4]
 type=text
 x=3
 width=15
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_135
+layer=remote_farm_layer
 textfont=p11_full
 text=4.
 textalignv=centre
@@ -1382,24 +1382,24 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:119
-[com_119]
+[spell_unlock_remote]
 type=graphic
 x=215
 width=14
 height=14
 ymode=abs_centre
-layer=com_135
+layer=remote_farm_layer
 graphic=symbol_lock
 
 // 1083:120
-[com_120]
+[spell_name_ardougne]
 type=text
 x=21
 width=143
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_134
+layer=ardougne_layer
 textfont=p11_full
 text=Teleport to North Ardougne
 textalignv=centre
@@ -1407,14 +1407,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:121
-[com_121]
+[spell_points_ardougne]
 type=text
 x=155
 width=63
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_134
+layer=ardougne_layer
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -1423,14 +1423,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:122
-[com_122]
+[number_3]
 type=text
 x=3
 width=15
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_134
+layer=ardougne_layer
 textfont=p11_full
 text=3.
 textalignv=centre
@@ -1438,24 +1438,24 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:123
-[com_123]
+[spell_unlock_ardougne]
 type=graphic
 x=215
 width=14
 height=14
 ymode=abs_centre
-layer=com_134
+layer=ardougne_layer
 graphic=symbol_lock
 
 // 1083:124
-[com_124]
+[spell_name_rune]
 type=text
 x=21
 width=135
 height=16384
 heightmode=proportion
 ymode=abs_centre
-layer=com_133
+layer=rune_pouch_layer
 textfont=p11_full
 text=Repair Rune Pouch
 textalignv=centre
@@ -1463,14 +1463,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:125
-[com_125]
+[spell_points_rune]
 type=text
 x=155
 width=63
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_133
+layer=rune_pouch_layer
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -1479,14 +1479,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:126
-[com_126]
+[number_2]
 type=text
 x=3
 width=20
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_133
+layer=rune_pouch_layer
 textfont=p11_full
 text=2.
 textalignv=centre
@@ -1494,24 +1494,24 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:127
-[com_127]
+[spell_unlock_rune]
 type=graphic
 x=215
 width=14
 height=14
 ymode=abs_centre
-layer=com_133
+layer=rune_pouch_layer
 graphic=symbol_lock
 
 // 1083:128
-[com_128]
+[spell_name_falador]
 type=text
 x=21
 width=135
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_132
+layer=falador_layer
 textfont=p11_full
 text=Teleport to South Falador
 textalignv=centre
@@ -1519,14 +1519,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:129
-[com_129]
+[spell_points_falador]
 type=text
 x=155
 width=63
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_132
+layer=falador_layer
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -1535,14 +1535,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:130
-[com_130]
+[number_1]
 type=text
 x=3
 width=15
 height=16391
 heightmode=proportion
 ymode=abs_centre
-layer=com_132
+layer=falador_layer
 textfont=p11_full
 text=1.
 textalignv=centre
@@ -1550,68 +1550,68 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:131
-[com_131]
+[spell_unlock_falador]
 type=graphic
 x=215
 width=14
 height=14
 ymode=abs_centre
-layer=com_132
+layer=falador_layer
 graphic=symbol_lock
 
 // 1083:132
-[com_132]
+[falador_layer]
 type=layer
 x=1
 y=2
 width=237
 height=23
-layer=com_152
+layer=spells_list
 
 // 1083:133
-[com_133]
+[rune_pouch_layer]
 type=layer
 x=1
 y=27
 width=237
 height=23
-layer=com_152
+layer=spells_list
 
 // 1083:134
-[com_134]
+[ardougne_layer]
 type=layer
 x=1
 y=52
 width=237
 height=23
-layer=com_152
+layer=spells_list
 
 // 1083:135
-[com_135]
+[remote_farm_layer]
 type=layer
 x=1
 y=77
 width=237
 height=23
-layer=com_152
+layer=spells_list
 
 // 1083:136
-[com_136]
+[spiritualise_layer]
 type=layer
 x=1
 y=102
 width=237
 height=23
-layer=com_152
+layer=spells_list
 
 // 1083:137
-[com_137]
+[leather_layer]
 type=layer
 x=1
 y=127
 width=237
 height=23
-layer=com_152
+layer=spells_list
 
 // 1083:138
 [shield_layer]
@@ -1620,16 +1620,16 @@ x=1
 y=152
 width=237
 height=23
-layer=com_152
+layer=spells_list
 
 // 1083:139
-[com_139]
+[vengeance_layer]
 type=layer
 x=1
 y=177
 width=237
 height=23
-layer=com_152
+layer=spells_list
 
 // 1083:140
 [com_140]
@@ -1640,7 +1640,7 @@ width=7
 height=24
 widthmode=minus
 heightmode=minus
-layer=com_145
+layer=background
 
 // 1083:141
 [com_141]
@@ -1649,7 +1649,7 @@ x=330
 y=60
 width=8
 height=23
-layer=com_145
+layer=background
 graphic="aif_info_display_brown_1,0"
 
 // 1083:142
@@ -1659,7 +1659,7 @@ x=482
 y=60
 width=8
 height=23
-layer=com_145
+layer=background
 graphic="aif_info_display_brown_1,2"
 
 // 1083:143
@@ -1669,17 +1669,17 @@ x=338
 y=60
 width=146
 height=23
-layer=com_145
+layer=background
 graphic="aif_info_display_brown_1,1"
 
 // 1083:144
-[com_144]
+[current_points_title]
 type=text
 x=336
 y=64
 width=91
 height=15
-layer=com_145
+layer=background
 textfont=p11_full
 text=Current produce
 textalignv=centre
@@ -1687,7 +1687,7 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:145
-[com_145]
+[background]
 type=layer
 width=512
 height=334
@@ -1696,7 +1696,7 @@ op10=
 onload=lunarfm_rewards_onload
 
 // 1083:146
-[com_146]
+[spells_button]
 type=layer
 x=22
 y=61
@@ -1704,7 +1704,7 @@ width=93
 height=28
 
 // 1083:147
-[com_147]
+[wishes_button]
 type=layer
 x=124
 y=61
@@ -1712,7 +1712,7 @@ width=93
 height=28
 
 // 1083:148
-[com_148]
+[xp_button]
 type=layer
 x=225
 y=61
@@ -1720,7 +1720,7 @@ width=93
 height=28
 
 // 1083:149
-[com_149]
+[gold_frame_list]
 type=layer
 x=21
 y=101
@@ -1729,7 +1729,7 @@ height=210
 hide=yes
 
 // 1083:150
-[com_150]
+[gold_frame_desc]
 type=layer
 x=270
 y=101
@@ -1738,7 +1738,7 @@ height=210
 hide=yes
 
 // 1083:151
-[com_151]
+[gold_frame_tasks]
 type=layer
 x=22
 y=101
@@ -1747,7 +1747,7 @@ height=210
 hide=yes
 
 // 1083:152
-[com_152]
+[spells_list]
 type=layer
 x=23
 y=105
@@ -1756,14 +1756,14 @@ height=207
 hide=yes
 
 // 1083:153
-[com_153]
+[wishes_list]
 type=layer
 width=512
 height=334
 hide=yes
 
 // 1083:154
-[com_154]
+[task_list]
 type=layer
 width=512
 height=334
@@ -2007,7 +2007,7 @@ layer=com_140
 graphic=aif_window_stone_close_corner_2
 
 // 1083:177
-[com_177]
+[dropshadow_side_graphic]
 type=graphic
 x=-4
 y=1
@@ -2020,7 +2020,7 @@ graphic=button_dropshadow_left
 tiling=yes
 
 // 1083:178
-[com_178]
+[dropshadow_bottom_graphic]
 type=graphic
 y=-4
 height=4
@@ -2031,7 +2031,7 @@ graphic=button_dropshadow_bottom
 tiling=yes
 
 // 1083:179
-[com_179]
+[dropshadow_corner_graphic]
 type=graphic
 x=-4
 y=-4
@@ -2119,39 +2119,39 @@ text=Rewards
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1083:186
-[com_186]
+[bot_left]
 type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_149
+layer=gold_frame_list
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 hflip=yes
 
 // 1083:187
-[com_187]
+[bot_right]
 type=graphic
 width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_149
+layer=gold_frame_list
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 
 // 1083:188
-[com_188]
+[bot]
 type=graphic
 x=8
 width=15564
 height=10
 widthmode=proportion
 ymode=abs_bottom
-layer=com_149
+layer=gold_frame_list
 graphic="aif_overlay_frame_gold_corner_2,0"
 vflip=yes
 hflip=yes
@@ -2163,7 +2163,7 @@ width=10
 height=200
 xmode=abs_right
 ymode=abs_centre
-layer=com_149
+layer=gold_frame_list
 graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
@@ -2173,18 +2173,18 @@ type=graphic
 width=10
 height=201
 ymode=abs_centre
-layer=com_149
+layer=gold_frame_list
 graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 1083:191
-[com_191]
+[current_points]
 type=text
 x=432
 y=64
 width=51
 height=15
-layer=com_145
+layer=background
 textfont=p11_full
 text=9999999
 textalignh=right
@@ -2199,7 +2199,7 @@ x=7
 width=15528
 height=10
 widthmode=proportion
-layer=com_149
+layer=gold_frame_list
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 1083:193
@@ -2207,7 +2207,7 @@ graphic="aif_overlay_frame_gold_corner_2,0"
 type=graphic
 width=10
 height=10
-layer=com_149
+layer=gold_frame_list
 graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
@@ -2217,7 +2217,7 @@ type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_149
+layer=gold_frame_list
 graphic="aif_overlay_frame_gold_corner_2,1"
 
 // 1083:195
@@ -2226,19 +2226,19 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_150
+layer=gold_frame_desc
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 hflip=yes
 
 // 1083:196
-[com_196]
+[bot_right_1]
 type=graphic
 width=12
 height=12
 xmode=abs_right
 ymode=abs_bottom
-layer=com_150
+layer=gold_frame_desc
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 
@@ -2250,7 +2250,7 @@ width=15564
 height=10
 widthmode=proportion
 ymode=abs_bottom
-layer=com_150
+layer=gold_frame_desc
 graphic="aif_overlay_frame_gold_corner_2,0"
 vflip=yes
 hflip=yes
@@ -2262,7 +2262,7 @@ width=10
 height=196
 xmode=abs_right
 ymode=abs_centre
-layer=com_150
+layer=gold_frame_desc
 graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
@@ -2272,7 +2272,7 @@ type=graphic
 width=10
 height=197
 ymode=abs_centre
-layer=com_150
+layer=gold_frame_desc
 graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
@@ -2284,7 +2284,7 @@ width=15564
 height=10
 widthmode=proportion
 xmode=abs_centre
-layer=com_150
+layer=gold_frame_desc
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 1083:201
@@ -2292,7 +2292,7 @@ graphic="aif_overlay_frame_gold_corner_2,0"
 type=graphic
 width=10
 height=10
-layer=com_150
+layer=gold_frame_desc
 graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
@@ -2302,27 +2302,27 @@ type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_150
+layer=gold_frame_desc
 graphic="aif_overlay_frame_gold_corner_2,1"
 
 // 1083:203
-[com_203]
+[seed_highlight]
 type=layer
 width=16384
 height=23
 widthmode=proportion
-layer=com_99
+layer=wishes_seed
 noclickthrough=yes
 
 // 1083:204
-[com_204]
+[wish_name_seeds]
 type=text
 x=6
 width=154
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_99
+layer=wishes_seed
 textfont=p11_full
 text=Let it Rain Seeds!
 textalignv=centre
@@ -2330,14 +2330,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:205
-[com_205]
+[wish_points_seeds]
 type=text
 x=161
 width=48
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_99
+layer=wishes_seed
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -2346,41 +2346,41 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:206
-[com_206]
+[wish_unlock_seeds]
 type=graphic
 x=212
 width=14
 height=14
 ymode=abs_centre
-layer=com_99
+layer=wishes_seed
 graphic=symbol_lock
 
 // 1083:207
-[com_207]
+[wishes_herb]
 type=layer
 x=27
 y=143
 width=234
 height=23
-layer=com_153
+layer=wishes_list
 
 // 1083:208
-[com_208]
+[herb_highlight]
 type=layer
 width=16384
 height=23
 widthmode=proportion
-layer=com_207
+layer=wishes_herb
 
 // 1083:209
-[com_209]
+[wish_name_herbs]
 type=text
 x=6
 width=154
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_207
+layer=wishes_herb
 textfont=p11_full
 text=Gimme Herbs!
 textalignv=centre
@@ -2388,14 +2388,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:210
-[com_210]
+[wish_points_herbs]
 type=text
 x=161
 width=48
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_207
+layer=wishes_herb
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -2404,41 +2404,41 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:211
-[com_211]
+[wish_unlock_herbs]
 type=graphic
 x=212
 width=14
 height=14
 ymode=abs_centre
-layer=com_207
+layer=wishes_herb
 graphic=symbol_lock
 
 // 1083:212
-[com_212]
+[wishes_vial]
 type=layer
 x=27
 y=177
 width=234
 height=23
-layer=com_153
+layer=wishes_list
 
 // 1083:213
-[com_213]
+[vial_highlight]
 type=layer
 width=16384
 height=23
 widthmode=proportion
-layer=com_212
+layer=wishes_vial
 
 // 1083:214
-[com_214]
+[wish_name_vial]
 type=text
 x=6
 width=154
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_212
+layer=wishes_vial
 textfont=p11_full
 text=Vial My Herbs!
 textalignv=centre
@@ -2446,14 +2446,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:215
-[com_215]
+[wish_points_vial]
 type=text
 x=161
 width=48
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_212
+layer=wishes_vial
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -2462,41 +2462,41 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:216
-[com_216]
+[wish_unlock_vials]
 type=graphic
 x=212
 width=14
 height=14
 ymode=abs_centre
-layer=com_212
+layer=wishes_vial
 graphic=symbol_lock
 
 // 1083:217
-[com_217]
+[wishes_runes]
 type=layer
 x=27
 y=212
 width=234
 height=23
-layer=com_153
+layer=wishes_list
 
 // 1083:218
-[com_218]
+[runes_highlight]
 type=layer
 width=16384
 height=23
 widthmode=proportion
-layer=com_217
+layer=wishes_runes
 
 // 1083:219
-[com_219]
+[wish_name_runes]
 type=text
 x=6
 width=154
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_217
+layer=wishes_runes
 textfont=p11_full
 text=Turn Lunar Lumber into Runes!
 textalignv=centre
@@ -2504,14 +2504,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:220
-[com_220]
+[wish_points_runes]
 type=text
 x=161
 width=48
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_217
+layer=wishes_runes
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -2520,41 +2520,41 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:221
-[com_221]
+[wish_unlock_runes]
 type=graphic
 x=212
 width=14
 height=14
 ymode=abs_centre
-layer=com_217
+layer=wishes_runes
 graphic=symbol_lock
 
 // 1083:222
-[com_222]
+[wishes_burn]
 type=layer
 x=27
 y=246
 width=234
 height=23
-layer=com_153
+layer=wishes_list
 
 // 1083:223
-[com_223]
+[burn_highlight]
 type=layer
 width=16384
 height=23
 widthmode=proportion
-layer=com_222
+layer=wishes_burn
 
 // 1083:224
-[com_224]
+[wish_name_burn]
 type=text
 x=6
 width=154
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_222
+layer=wishes_burn
 textfont=p11_full
 text=Reduce the Fish I Burn!
 textalignv=centre
@@ -2562,14 +2562,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:225
-[com_225]
+[wish_points_burn]
 type=text
 x=161
 width=48
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_222
+layer=wishes_burn
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -2578,41 +2578,41 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:226
-[com_226]
+[wish_unlock_burn]
 type=graphic
 x=212
 width=14
 height=14
 ymode=abs_centre
-layer=com_222
+layer=wishes_burn
 graphic=symbol_lock
 
 // 1083:227
-[com_227]
+[wishes_plank]
 type=layer
 x=27
 y=281
 width=234
 height=23
-layer=com_153
+layer=wishes_list
 
 // 1083:228
-[com_228]
+[plank_highlight]
 type=layer
 width=16384
 height=23
 widthmode=proportion
-layer=com_227
+layer=wishes_plank
 
 // 1083:229
-[com_229]
+[wish_name_planks]
 type=text
 x=6
 width=154
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_227
+layer=wishes_plank
 textfont=p11_full
 text=More Planks, Please!
 textalignv=centre
@@ -2620,14 +2620,14 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:230
-[com_230]
+[wish_points_planks]
 type=text
 x=161
 width=48
 height=49871
 heightmode=proportion
 ymode=abs_centre
-layer=com_227
+layer=wishes_plank
 textfont=p11_full
 text=99,999
 textalignh=centre
@@ -2636,13 +2636,13 @@ textshadow=yes
 colour=0xe9deb9
 
 // 1083:231
-[com_231]
+[wish_unlock_planks]
 type=graphic
 x=212
 width=14
 height=14
 ymode=abs_centre
-layer=com_227
+layer=wishes_plank
 graphic=symbol_lock
 
 // 1083:232
@@ -2652,7 +2652,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_146
+layer=spells_button
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -2664,7 +2664,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_146
+layer=spells_button
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -2676,7 +2676,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_146
+layer=spells_button
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -2687,8 +2687,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_146
-onload=script4201(event_com, struct_1736)
+layer=spells_button
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:236
 [com_236]
@@ -2697,8 +2697,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_146
-onload=script4201(event_com, struct_1737)
+layer=spells_button
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:237
 [com_237]
@@ -2707,44 +2707,44 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_146
-onload=script4201(event_com, struct_1738)
+layer=spells_button
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:238
-[com_238]
+[spells_button_selected_layer]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_146
-onload=script4201(event_com, struct_1739)
+layer=spells_button
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 1083:239
-[com_239]
+[spells_button_active]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_146
+layer=spells_button
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 onload=script4213(event_com)
-onop=script4269
+onop=lunarfm_rewards_spells_display
 
 // 1083:240
-[com_240]
+[aif_bronze_button_text_layer]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_146
+layer=spells_button
 
 // 1083:241
-[com_241]
+[aif_bronze_button_text]
 type=text
 width=8
 height=4
@@ -2752,13 +2752,13 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_240
+layer=aif_bronze_button_text_layer
 textfont=verdana_13pt_regular
 text=Spells
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:242
 [com_242]
@@ -2767,7 +2767,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_147
+layer=wishes_button
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -2779,7 +2779,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_147
+layer=wishes_button
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -2791,7 +2791,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_147
+layer=wishes_button
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -2802,8 +2802,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_147
-onload=script4201(event_com, struct_1736)
+layer=wishes_button
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:246
 [com_246]
@@ -2812,8 +2812,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_147
-onload=script4201(event_com, struct_1737)
+layer=wishes_button
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:247
 [com_247]
@@ -2822,32 +2822,32 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_147
-onload=script4201(event_com, struct_1738)
+layer=wishes_button
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:248
-[com_248]
+[wishes_button_selected_layer]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_147
-onload=script4201(event_com, struct_1739)
+layer=wishes_button
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 1083:249
-[com_249]
+[wishes_button_active]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_147
+layer=wishes_button
 transmitop=1
 op1=Select
 opcursor0=cursor_46
 onload=script4213(event_com)
-onop=script4271
+onop=lunarfm_rewards_wishes_display
 
 // 1083:250
 [com_250]
@@ -2856,10 +2856,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_147
+layer=wishes_button
 
 // 1083:251
-[com_251]
+[aif_bronze_button_text_1]
 type=text
 width=8
 height=4
@@ -2873,7 +2873,7 @@ text=Wishes
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:252
 [com_252]
@@ -2882,7 +2882,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_85
+layer=spells_button_falador
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -2894,7 +2894,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_85
+layer=spells_button_falador
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -2906,7 +2906,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_85
+layer=spells_button_falador
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -2917,8 +2917,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_85
-onload=script4201(event_com, struct_1736)
+layer=spells_button_falador
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:256
 [com_256]
@@ -2927,8 +2927,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_85
-onload=script4201(event_com, struct_1737)
+layer=spells_button_falador
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:257
 [com_257]
@@ -2937,17 +2937,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_85
-onload=script4201(event_com, struct_1738)
+layer=spells_button_falador
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:258
-[com_258]
+[unlock_falador]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_85
+layer=spells_button_falador
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -2960,10 +2960,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_85
+layer=spells_button_falador
 
 // 1083:260
-[com_260]
+[aif_bronze_button_text_2]
 type=text
 width=8
 height=4
@@ -2977,7 +2977,7 @@ text=Learn
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:261
 [com_261]
@@ -2986,7 +2986,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_86
+layer=spells_button_rune
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -2998,7 +2998,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_86
+layer=spells_button_rune
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -3010,7 +3010,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_86
+layer=spells_button_rune
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -3021,8 +3021,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_86
-onload=script4201(event_com, struct_1736)
+layer=spells_button_rune
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:265
 [com_265]
@@ -3031,8 +3031,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_86
-onload=script4201(event_com, struct_1737)
+layer=spells_button_rune
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:266
 [com_266]
@@ -3041,17 +3041,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_86
-onload=script4201(event_com, struct_1738)
+layer=spells_button_rune
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:267
-[com_267]
+[unlock_rune]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_86
+layer=spells_button_rune
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -3064,10 +3064,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_86
+layer=spells_button_rune
 
 // 1083:269
-[com_269]
+[aif_bronze_button_text_3]
 type=text
 width=8
 height=4
@@ -3081,7 +3081,7 @@ text=Learn
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:270
 [com_270]
@@ -3090,7 +3090,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_87
+layer=spells_button_ardougne
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -3102,7 +3102,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_87
+layer=spells_button_ardougne
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -3114,7 +3114,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_87
+layer=spells_button_ardougne
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -3125,8 +3125,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_87
-onload=script4201(event_com, struct_1736)
+layer=spells_button_ardougne
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:274
 [com_274]
@@ -3135,8 +3135,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_87
-onload=script4201(event_com, struct_1737)
+layer=spells_button_ardougne
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:275
 [com_275]
@@ -3145,17 +3145,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_87
-onload=script4201(event_com, struct_1738)
+layer=spells_button_ardougne
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:276
-[com_276]
+[unlock_ardougne]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_87
+layer=spells_button_ardougne
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -3168,10 +3168,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_87
+layer=spells_button_ardougne
 
 // 1083:278
-[com_278]
+[aif_bronze_button_text_4]
 type=text
 width=8
 height=4
@@ -3185,7 +3185,7 @@ text=Learn
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:279
 [com_279]
@@ -3194,7 +3194,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_88
+layer=spells_button_remote
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -3206,7 +3206,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_88
+layer=spells_button_remote
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -3218,7 +3218,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_88
+layer=spells_button_remote
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -3229,8 +3229,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_88
-onload=script4201(event_com, struct_1736)
+layer=spells_button_remote
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:283
 [com_283]
@@ -3239,8 +3239,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_88
-onload=script4201(event_com, struct_1737)
+layer=spells_button_remote
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:284
 [com_284]
@@ -3249,17 +3249,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_88
-onload=script4201(event_com, struct_1738)
+layer=spells_button_remote
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:285
-[com_285]
+[unlock_remote]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_88
+layer=spells_button_remote
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -3272,10 +3272,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_88
+layer=spells_button_remote
 
 // 1083:287
-[com_287]
+[aif_bronze_button_text_5]
 type=text
 width=8
 height=4
@@ -3289,7 +3289,7 @@ text=Learn
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:288
 [com_288]
@@ -3298,7 +3298,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_89
+layer=spells_button_spiritualise
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -3310,7 +3310,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_89
+layer=spells_button_spiritualise
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -3322,7 +3322,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_89
+layer=spells_button_spiritualise
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -3333,8 +3333,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_89
-onload=script4201(event_com, struct_1736)
+layer=spells_button_spiritualise
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:292
 [com_292]
@@ -3343,8 +3343,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_89
-onload=script4201(event_com, struct_1737)
+layer=spells_button_spiritualise
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:293
 [com_293]
@@ -3353,17 +3353,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_89
-onload=script4201(event_com, struct_1738)
+layer=spells_button_spiritualise
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:294
-[com_294]
+[unlock_spirit]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_89
+layer=spells_button_spiritualise
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -3376,10 +3376,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_89
+layer=spells_button_spiritualise
 
 // 1083:296
-[com_296]
+[aif_bronze_button_text_6]
 type=text
 width=8
 height=4
@@ -3393,7 +3393,7 @@ text=Learn
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:297
 [com_297]
@@ -3402,7 +3402,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_90
+layer=spells_button_leather
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -3414,7 +3414,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_90
+layer=spells_button_leather
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -3426,7 +3426,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_90
+layer=spells_button_leather
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -3437,8 +3437,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_90
-onload=script4201(event_com, struct_1736)
+layer=spells_button_leather
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:301
 [com_301]
@@ -3447,8 +3447,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_90
-onload=script4201(event_com, struct_1737)
+layer=spells_button_leather
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:302
 [com_302]
@@ -3457,17 +3457,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_90
-onload=script4201(event_com, struct_1738)
+layer=spells_button_leather
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:303
-[com_303]
+[unlock_leather]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_90
+layer=spells_button_leather
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -3480,10 +3480,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_90
+layer=spells_button_leather
 
 // 1083:305
-[com_305]
+[aif_bronze_button_text_7]
 type=text
 width=8
 height=4
@@ -3497,7 +3497,7 @@ text=Learn
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:306
 [com_306]
@@ -3506,7 +3506,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_91
+layer=spells_button_shield
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -3518,7 +3518,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_91
+layer=spells_button_shield
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -3530,7 +3530,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_91
+layer=spells_button_shield
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -3541,8 +3541,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_91
-onload=script4201(event_com, struct_1736)
+layer=spells_button_shield
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:310
 [com_310]
@@ -3551,8 +3551,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_91
-onload=script4201(event_com, struct_1737)
+layer=spells_button_shield
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:311
 [com_311]
@@ -3561,17 +3561,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_91
-onload=script4201(event_com, struct_1738)
+layer=spells_button_shield
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:312
-[com_312]
+[unlock_shield]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_91
+layer=spells_button_shield
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -3584,10 +3584,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_91
+layer=spells_button_shield
 
 // 1083:314
-[com_314]
+[aif_bronze_button_text_8]
 type=text
 width=8
 height=4
@@ -3601,7 +3601,7 @@ text=Learn
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:315
 [com_315]
@@ -3610,7 +3610,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_92
+layer=spells_button_vengeance
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -3622,7 +3622,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_92
+layer=spells_button_vengeance
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -3634,7 +3634,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_92
+layer=spells_button_vengeance
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -3645,8 +3645,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_92
-onload=script4201(event_com, struct_1736)
+layer=spells_button_vengeance
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:319
 [com_319]
@@ -3655,8 +3655,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_92
-onload=script4201(event_com, struct_1737)
+layer=spells_button_vengeance
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:320
 [com_320]
@@ -3665,17 +3665,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_92
-onload=script4201(event_com, struct_1738)
+layer=spells_button_vengeance
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:321
-[com_321]
+[unlock_vengeance]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_92
+layer=spells_button_vengeance
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -3688,10 +3688,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_92
+layer=spells_button_vengeance
 
 // 1083:323
-[com_323]
+[aif_bronze_button_text_9]
 type=text
 width=8
 height=4
@@ -3705,7 +3705,7 @@ text=Learn
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:324
 [com_324]
@@ -3714,7 +3714,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_93
+layer=wishes_button_seeds
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -3726,7 +3726,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_93
+layer=wishes_button_seeds
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -3738,7 +3738,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_93
+layer=wishes_button_seeds
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -3749,8 +3749,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_93
-onload=script4201(event_com, struct_1736)
+layer=wishes_button_seeds
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:328
 [com_328]
@@ -3759,8 +3759,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_93
-onload=script4201(event_com, struct_1737)
+layer=wishes_button_seeds
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:329
 [com_329]
@@ -3769,17 +3769,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_93
-onload=script4201(event_com, struct_1738)
+layer=wishes_button_seeds
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:330
-[com_330]
+[wish_button_seeds]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_93
+layer=wishes_button_seeds
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -3792,10 +3792,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_93
+layer=wishes_button_seeds
 
 // 1083:332
-[com_332]
+[aif_bronze_button_text_10]
 type=text
 width=8
 height=4
@@ -3809,7 +3809,7 @@ text=Wish
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:333
 [com_333]
@@ -3818,7 +3818,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_94
+layer=wishes_button_herbs
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -3830,7 +3830,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_94
+layer=wishes_button_herbs
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -3842,7 +3842,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_94
+layer=wishes_button_herbs
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -3853,8 +3853,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_94
-onload=script4201(event_com, struct_1736)
+layer=wishes_button_herbs
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:337
 [com_337]
@@ -3863,8 +3863,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_94
-onload=script4201(event_com, struct_1737)
+layer=wishes_button_herbs
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:338
 [com_338]
@@ -3873,17 +3873,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_94
-onload=script4201(event_com, struct_1738)
+layer=wishes_button_herbs
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:339
-[com_339]
+[wish_button_herbs]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_94
+layer=wishes_button_herbs
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -3896,10 +3896,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_94
+layer=wishes_button_herbs
 
 // 1083:341
-[com_341]
+[aif_bronze_button_text_11]
 type=text
 width=8
 height=4
@@ -3913,7 +3913,7 @@ text=Wish
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:342
 [com_342]
@@ -3922,7 +3922,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_95
+layer=wishes_button_vials
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -3934,7 +3934,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_95
+layer=wishes_button_vials
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -3946,7 +3946,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_95
+layer=wishes_button_vials
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -3957,8 +3957,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_95
-onload=script4201(event_com, struct_1736)
+layer=wishes_button_vials
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:346
 [com_346]
@@ -3967,8 +3967,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_95
-onload=script4201(event_com, struct_1737)
+layer=wishes_button_vials
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:347
 [com_347]
@@ -3977,17 +3977,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_95
-onload=script4201(event_com, struct_1738)
+layer=wishes_button_vials
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:348
-[com_348]
+[wish_button_vials]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_95
+layer=wishes_button_vials
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -4000,10 +4000,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_95
+layer=wishes_button_vials
 
 // 1083:350
-[com_350]
+[aif_bronze_button_text_12]
 type=text
 width=8
 height=4
@@ -4017,7 +4017,7 @@ text=Wish
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:351
 [com_351]
@@ -4026,7 +4026,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_96
+layer=wishes_button_runes
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -4038,7 +4038,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_96
+layer=wishes_button_runes
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -4050,7 +4050,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_96
+layer=wishes_button_runes
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -4061,8 +4061,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_96
-onload=script4201(event_com, struct_1736)
+layer=wishes_button_runes
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:355
 [com_355]
@@ -4071,8 +4071,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_96
-onload=script4201(event_com, struct_1737)
+layer=wishes_button_runes
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:356
 [com_356]
@@ -4081,17 +4081,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_96
-onload=script4201(event_com, struct_1738)
+layer=wishes_button_runes
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:357
-[com_357]
+[wish_button_runes]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_96
+layer=wishes_button_runes
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -4104,10 +4104,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_96
+layer=wishes_button_runes
 
 // 1083:359
-[com_359]
+[aif_bronze_button_text_13]
 type=text
 width=8
 height=4
@@ -4121,7 +4121,7 @@ text=Wish
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:360
 [com_360]
@@ -4130,7 +4130,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_97
+layer=wishes_button_fish
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -4142,7 +4142,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_97
+layer=wishes_button_fish
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -4154,7 +4154,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_97
+layer=wishes_button_fish
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -4165,8 +4165,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_97
-onload=script4201(event_com, struct_1736)
+layer=wishes_button_fish
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:364
 [com_364]
@@ -4175,8 +4175,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_97
-onload=script4201(event_com, struct_1737)
+layer=wishes_button_fish
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:365
 [com_365]
@@ -4185,17 +4185,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_97
-onload=script4201(event_com, struct_1738)
+layer=wishes_button_fish
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:366
-[com_366]
+[wish_button_burn]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_97
+layer=wishes_button_fish
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -4208,10 +4208,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_97
+layer=wishes_button_fish
 
 // 1083:368
-[com_368]
+[aif_bronze_button_text_14]
 type=text
 width=8
 height=4
@@ -4225,7 +4225,7 @@ text=Wish
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:369
 [com_369]
@@ -4234,7 +4234,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_98
+layer=wishes_button_planks
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -4246,7 +4246,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_98
+layer=wishes_button_planks
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -4258,7 +4258,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_98
+layer=wishes_button_planks
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -4269,8 +4269,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_98
-onload=script4201(event_com, struct_1736)
+layer=wishes_button_planks
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:373
 [com_373]
@@ -4279,8 +4279,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_98
-onload=script4201(event_com, struct_1737)
+layer=wishes_button_planks
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:374
 [com_374]
@@ -4289,17 +4289,17 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_98
-onload=script4201(event_com, struct_1738)
+layer=wishes_button_planks
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:375
-[com_375]
+[wish_button_planks]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_98
+layer=wishes_button_planks
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -4312,10 +4312,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_98
+layer=wishes_button_planks
 
 // 1083:377
-[com_377]
+[aif_bronze_button_text_15]
 type=text
 width=8
 height=4
@@ -4329,7 +4329,7 @@ text=Wish
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:378
 [com_378]
@@ -4339,8 +4339,8 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_75
-onload=script4203(event_com, struct_1769)
+layer=falador_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
 
 // 1083:379
 [com_379]
@@ -4350,20 +4350,20 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_75
-onload=script4203(event_com, struct_1770)
+layer=falador_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
 
 // 1083:380
-[com_380]
+[falador_selected_layer]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_75
+layer=falador_highlight
 hide=yes
-onload=script4203(event_com, struct_1772)
+onload=aif_build_tab_layer(event_com, struct_1772)
 
 // 1083:381
 [com_381]
@@ -4373,17 +4373,17 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_75
-onload=script4203(event_com, struct_1771)
+layer=falador_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
 
 // 1083:382
-[com_382]
+[falador_button]
 type=layer
 width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_75
+layer=falador_highlight
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -4397,7 +4397,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_148
+layer=xp_button
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -4409,7 +4409,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_148
+layer=xp_button
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -4421,7 +4421,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_148
+layer=xp_button
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -4432,8 +4432,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_148
-onload=script4201(event_com, struct_1736)
+layer=xp_button
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1083:387
 [com_387]
@@ -4442,8 +4442,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_148
-onload=script4201(event_com, struct_1737)
+layer=xp_button
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1083:388
 [com_388]
@@ -4452,27 +4452,27 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_148
-onload=script4201(event_com, struct_1738)
+layer=xp_button
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1083:389
-[com_389]
+[xp_button_selected_layer]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_148
-onload=script4201(event_com, struct_1739)
+layer=xp_button
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 1083:390
-[com_390]
+[xp_button_active]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_148
+layer=xp_button
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -4486,10 +4486,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_148
+layer=xp_button
 
 // 1083:392
-[com_392]
+[aif_bronze_button_text_16]
 type=text
 width=8
 height=4
@@ -4503,7 +4503,7 @@ text=Tasks
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1083:393
 [com_393]
@@ -4513,7 +4513,7 @@ height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_151
+layer=gold_frame_tasks
 graphic=window_texture_2
 tiling=yes
 
@@ -4523,19 +4523,19 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_151
+layer=gold_frame_tasks
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 hflip=yes
 
 // 1083:395
-[com_395]
+[bot_right_2]
 type=graphic
 width=12
 height=12
 xmode=abs_right
 ymode=abs_bottom
-layer=com_151
+layer=gold_frame_tasks
 graphic="aif_overlay_frame_gold_corner_2,1"
 vflip=yes
 
@@ -4547,7 +4547,7 @@ width=16056
 height=10
 widthmode=proportion
 ymode=abs_bottom
-layer=com_151
+layer=gold_frame_tasks
 graphic="aif_overlay_frame_gold_corner_2,0"
 vflip=yes
 hflip=yes
@@ -4559,7 +4559,7 @@ width=10
 height=196
 xmode=abs_right
 ymode=abs_centre
-layer=com_151
+layer=gold_frame_tasks
 graphic="aif_overlay_frame_gold_corner_2,2"
 tiling=yes
 
@@ -4569,7 +4569,7 @@ type=graphic
 width=10
 height=197
 ymode=abs_centre
-layer=com_151
+layer=gold_frame_tasks
 graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
@@ -4581,7 +4581,7 @@ width=16056
 height=10
 widthmode=proportion
 xmode=abs_centre
-layer=com_151
+layer=gold_frame_tasks
 graphic="aif_overlay_frame_gold_corner_2,0"
 
 // 1083:400
@@ -4589,7 +4589,7 @@ graphic="aif_overlay_frame_gold_corner_2,0"
 type=graphic
 width=10
 height=10
-layer=com_151
+layer=gold_frame_tasks
 graphic="aif_overlay_frame_gold_corner_2,1"
 hflip=yes
 
@@ -4599,7 +4599,7 @@ type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_151
+layer=gold_frame_tasks
 graphic="aif_overlay_frame_gold_corner_2,1"
 
 // 1083:402
@@ -4609,7 +4609,7 @@ x=214
 y=113
 width=100
 height=15
-layer=com_154
+layer=task_list
 textfont=p12_full
 text=Produce Earned
 textalignv=centre
@@ -4623,7 +4623,7 @@ x=336
 y=113
 width=100
 height=15
-layer=com_154
+layer=task_list
 textfont=p12_full
 text=XP
 textalignv=centre
@@ -4638,200 +4638,200 @@ width=13762
 height=2
 widthmode=proportion
 xmode=abs_centre
-layer=com_154
+layer=task_list
 colour=0x010000
 trans=182
 
 // 1083:405
-[com_405]
+[description_1]
 type=text
 x=57
 y=148
 width=150
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=Curing Livid
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:406
-[com_406]
+[description_2]
 type=text
 x=57
 y=169
 width=150
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=Fertilising Patches
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:407
-[com_407]
+[description_3]
 type=text
 x=57
 y=190
 width=150
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=Depositing Livid Bunches
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:408
-[com_408]
+[description_4]
 type=text
 x=57
 y=212
 width=150
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=Fixing Fences
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:409
-[com_409]
+[description_5]
 type=text
 x=57
 y=234
 width=150
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=Energising Pauline
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:410
-[com_410]
+[points_1]
 type=text
 x=214
 y=148
 width=100
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=x
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:411
-[com_411]
+[points_2]
 type=text
 x=214
 y=169
 width=100
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=x
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:412
-[com_412]
+[points_3]
 type=text
 x=214
 y=190
 width=100
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=x
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:413
-[com_413]
+[points_4]
 type=text
 x=214
 y=212
 width=100
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=x
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:414
-[com_414]
+[points_5]
 type=text
 x=214
 y=234
 width=100
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=x
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:415
-[com_415]
+[xp_1]
 type=text
 x=336
 y=147
 width=100
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=xx
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:416
-[com_416]
+[xp_2]
 type=text
 x=336
 y=169
 width=100
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=xx
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:417
-[com_417]
+[xp_3]
 type=text
 x=336
 y=190
 width=100
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=xx
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:418
-[com_418]
+[xp_4]
 type=text
 x=336
 y=212
 width=100
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=xx
 textshadow=yes
 colour=0xe9deb9
 
 // 1083:419
-[com_419]
+[xp_5]
 type=text
 x=336
 y=234
 width=100
 height=16
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=xx
 textshadow=yes
@@ -4845,7 +4845,7 @@ width=13767
 height=2
 widthmode=proportion
 xmode=abs_centre
-layer=com_154
+layer=task_list
 colour=0x010000
 trans=182
 
@@ -4857,7 +4857,7 @@ width=13434
 height=32
 widthmode=proportion
 xmode=abs_centre
-layer=com_154
+layer=task_list
 textfont=p11_full
 text=Each task helps Pauline make produce. If you don't have the Magic skill level to cast the spell used in a task, you won't get any Magic XP and you'll only assist in making half the produce.
 textalignh=centre

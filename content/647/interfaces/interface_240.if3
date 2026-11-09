@@ -35,7 +35,7 @@ modelangle=402,0,0
 modelzoom=2320
 
 // 240:3
-[com_3]
+[grab_evil_twin_panel_1]
 type=model
 x=-33
 y=-65
@@ -48,7 +48,7 @@ modelangle=505,0,0
 modelzoom=856
 
 // 240:4
-[com_4]
+[grab_evil_twin_arrows_1]
 type=model
 x=-25
 y=-21
@@ -61,7 +61,7 @@ modelangle=400,2047,0
 modelzoom=2192
 
 // 240:5
-[com_5]
+[grab_evil_twin_joystick_up]
 type=model
 x=24
 y=-3
@@ -91,7 +91,7 @@ height=101
 hide=yes
 
 // 240:8
-[com_8]
+[grab_evil_twin_panel_2]
 type=model
 x=-33
 y=-65
@@ -104,7 +104,7 @@ modelangle=505,0,0
 modelzoom=856
 
 // 240:9
-[com_9]
+[grab_evil_twin_arrows_2]
 type=model
 x=-25
 y=-21
@@ -117,7 +117,7 @@ modelangle=400,2047,0
 modelzoom=2192
 
 // 240:10
-[com_10]
+[grab_evil_twin_joystick_down]
 type=model
 x=24
 y=25
@@ -147,7 +147,7 @@ height=101
 hide=yes
 
 // 240:13
-[com_13]
+[grab_evil_twin_panel_3]
 type=model
 x=-33
 y=-65
@@ -160,7 +160,7 @@ modelangle=505,0,0
 modelzoom=856
 
 // 240:14
-[com_14]
+[grab_evil_twin_arrows_3]
 type=model
 x=-25
 y=-21
@@ -173,7 +173,7 @@ modelangle=400,2047,0
 modelzoom=2192
 
 // 240:15
-[com_15]
+[grab_evil_twin_joystick_left]
 type=model
 x=11
 y=14
@@ -203,7 +203,7 @@ height=101
 hide=yes
 
 // 240:18
-[com_18]
+[grab_evil_twin_panel_4]
 type=model
 x=-33
 y=-65
@@ -216,7 +216,7 @@ modelangle=505,0,0
 modelzoom=856
 
 // 240:19
-[com_19]
+[grab_evil_twin_arrows_4]
 type=model
 x=-25
 y=-21
@@ -229,7 +229,7 @@ modelangle=400,2047,0
 modelzoom=2192
 
 // 240:20
-[com_20]
+[grab_evil_twin_joystick_right]
 type=model
 x=24
 y=14
@@ -271,20 +271,20 @@ modelangle=400,2029,0
 modelzoom=2320
 
 // 240:24
-[com_24]
+[grab_evil_twin_button_pushed]
 type=model
 x=3
 y=2
 width=42
 height=40
-layer=com_26
+layer=grab_evil_twin_grab_button_layer
 model=model_14936
 modelorigin=0,-1
 modelangle=400,2029,0
 modelzoom=2320
 
 // 240:25
-[com_25]
+[grab_evil_twin_grab_button_button]
 type=layer
 x=129
 y=199
@@ -292,7 +292,7 @@ width=43
 height=45
 
 // 240:26
-[com_26]
+[grab_evil_twin_grab_button_layer]
 type=layer
 x=129
 y=199
@@ -313,7 +313,7 @@ textshadow=yes
 colour=0x909069
 
 // 240:28
-[com_28]
+[grab_evil_twin_grab_button_action]
 type=text
 x=129
 y=199

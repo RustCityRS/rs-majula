@@ -410,7 +410,7 @@ text=Artisans Workshop
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 891:37
 [content_layer]
@@ -424,7 +424,7 @@ heightmode=minus
 layer=com_9
 
 // 891:38
-[com_38]
+[dropshadow_side_graphic]
 type=graphic
 x=-1
 y=1
@@ -437,7 +437,7 @@ graphic=button_dropshadow_left
 tiling=yes
 
 // 891:39
-[com_39]
+[dropshadow_bottom_graphic]
 type=graphic
 y=-1
 width=3
@@ -449,7 +449,7 @@ graphic=button_dropshadow_bottom
 tiling=yes
 
 // 891:40
-[com_40]
+[dropshadow_corner_graphic]
 type=graphic
 x=-1
 y=-1
@@ -867,7 +867,7 @@ textfont=p11_full
 textshadow=yes
 
 // 891:76
-[com_76]
+[target]
 type=text
 x=16
 y=30
@@ -879,7 +879,7 @@ text=Smithing levels:
 textshadow=yes
 
 // 891:77
-[com_77]
+[level]
 type=text
 x=115
 y=31

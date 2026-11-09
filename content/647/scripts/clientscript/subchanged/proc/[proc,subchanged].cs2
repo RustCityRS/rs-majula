@@ -99,7 +99,7 @@ if (getwindowmode >= 2) {
             if_sethide(true, chatdefault:divider_line);
             if_sethide(false, chatdefault:divider_graphic);
             if_sethide(false, chatdefault:divider_graphic_top);
-            ~script1301(chatdefault:com_59, chatdefault:scrollarea);
+            ~script1301(chatdefault:scrollbar, chatdefault:scrollarea);
             while ($int0 < 100) {
                 if_settextshadow(true, enum(int, component, enum_579, $int0));
                 if_setcolour(^white, enum(int, component, enum_579, $int0));
@@ -137,7 +137,7 @@ if (getwindowmode >= 2) {
         } else {
             if_sethide(true, toplevel_fullscreen:side_border);
         }
-        if_setontimer("script2464(clientclock, event_com)", toplevel_fullscreen:chattop);
+        if_setontimer("subchanged_switchside_timer(clientclock, event_com)", toplevel_fullscreen:chattop);
     }
     if_sethide(true, toplevel:sidemodal2);
     $int1 = 0;
@@ -244,7 +244,7 @@ if (getwindowmode >= 2) {
         if_sethide(false, chatdefault:divider_line);
         if_sethide(true, chatdefault:divider_graphic);
         if_sethide(true, chatdefault:divider_graphic_top);
-        ~script1301(chatdefault:com_59, chatdefault:scrollarea);
+        ~script1301(chatdefault:scrollbar, chatdefault:scrollarea);
         while ($int0 < 100) {
             if_settextshadow(false, enum(int, component, enum_579, $int0));
             if_setcolour(^black, enum(int, component, enum_579, $int0));
@@ -257,7 +257,7 @@ if (getwindowmode >= 2) {
     }
     if (if_hassub(toplevel:sidemodal) = true) {
         if_sethide(true, toplevel:backbase2_hide);
-        if_sethide(true, toplevel:com_81);
+        if_sethide(true, toplevel:backbase2_stonehighlight);
         if_sethide(true, toplevel:backhmid1_hide);
         if_sethide(true, toplevel:com_145);
         if_sethide(false, toplevel:sidemodal);
@@ -266,7 +266,7 @@ if (getwindowmode >= 2) {
         if_sethide(true, toplevel:logoutbutton);
     } else {
         if_sethide(false, toplevel:backbase2_hide);
-        if_sethide(false, toplevel:com_81);
+        if_sethide(false, toplevel:backbase2_stonehighlight);
         if_sethide(false, toplevel:backhmid1_hide);
         if_sethide(false, toplevel:com_145);
         if_sethide(false, toplevel:side_hide);
@@ -276,7 +276,7 @@ if (getwindowmode >= 2) {
             if_sethide(true, toplevel:sidemodal2);
         }
         ~if_switchside(%varclient_168);
-        if_setontimer("script2464(clientclock, event_com)", toplevel:chattop);
+        if_setontimer("subchanged_switchside_timer(clientclock, event_com)", toplevel:chattop);
     }
     $int1 = 0;
     while ($int1 <= 15) {

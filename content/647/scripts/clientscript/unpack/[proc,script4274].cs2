@@ -1,16 +1,16 @@
 // 4274
 [proc,script4274]
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 0) * 10), ","), lunarfm_rewards_new:com_129);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 1) * 10), ","), lunarfm_rewards_new:com_125);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 2) * 10), ","), lunarfm_rewards_new:com_121);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 3) * 10), ","), lunarfm_rewards_new:com_117);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 4) * 10), ","), lunarfm_rewards_new:com_113);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 5) * 10), ","), lunarfm_rewards_new:com_109);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 6) * 10), ","), lunarfm_rewards_new:com_105);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 7) * 10), ","), lunarfm_rewards_new:com_101);
-if_settext(~tostring_spacer(calc(550 * 10), ","), lunarfm_rewards_new:com_215);
-if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:com_210);
-if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:com_205);
-if_settext(~tostring_spacer(calc(550 * 10), ","), lunarfm_rewards_new:com_220);
-if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:com_230);
-if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:com_225);
+if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 0) * 10), ","), lunarfm_rewards_new:spell_points_falador);
+if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 1) * 10), ","), lunarfm_rewards_new:spell_points_rune);
+if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 2) * 10), ","), lunarfm_rewards_new:spell_points_ardougne);
+if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 3) * 10), ","), lunarfm_rewards_new:spell_points_remote);
+if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 4) * 10), ","), lunarfm_rewards_new:spell_points_spirit);
+if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 5) * 10), ","), lunarfm_rewards_new:spell_points_leather);
+if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 6) * 10), ","), lunarfm_rewards_new:spell_points_shield);
+if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 7) * 10), ","), lunarfm_rewards_new:spell_points_vengeance);
+if_settext(~tostring_spacer(calc(550 * 10), ","), lunarfm_rewards_new:wish_points_vial);
+if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:wish_points_herbs);
+if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:wish_points_seeds);
+if_settext(~tostring_spacer(calc(550 * 10), ","), lunarfm_rewards_new:wish_points_runes);
+if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:wish_points_planks);
+if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:wish_points_burn);

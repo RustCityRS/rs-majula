@@ -4,11 +4,11 @@
 ~bank_cert_button;
 ~bank_sort_button;
 ~bank_v2_build_slots;
-~script1464;
+~bank_v2_tab_hide_separator;
 ~bank_v2_hide_all;
 ~bank_v2_build_tabs;
 ~bank_v2_tab_highlight(%open_bank_tab);
 if_setonvarctransmit("script1472{varclient_190}", bank_v2_main:bank_search_button);
 if_setonvarctransmit("script1465{varclient_192, varclient_1038, varclient_1324}", bank_v2_main:bank_space_layer);
 if_setscrollpos(0, ~bank_v2_get_tab_scrollpos(%open_bank_tab), bank_v2_main:bank_v2_inv);
-~scrollbar_ondrag_doscroll(bank_v2_main:com_114, bank_v2_main:bank_v2_inv, if_getscrolly(bank_v2_main:bank_v2_inv), 1);
+~scrollbar_ondrag_doscroll(bank_v2_main:scrollbar, bank_v2_main:bank_v2_inv, if_getscrolly(bank_v2_main:bank_v2_inv), 1);

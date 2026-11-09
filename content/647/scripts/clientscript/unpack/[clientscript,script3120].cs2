@@ -9,6 +9,6 @@ if (cc_find($component0, 2) = true) {
     cc_setcolour(0x404040);
 }
 if (cc_find($component0, 4) = true) {
-    cc_setgraphic(graphic_1542);
+    cc_setgraphic("world_select_hearts,3");
 }
 return;

@@ -3,7 +3,7 @@
 $string0 = escape($string0);
 ~deltooltip_action(bank_v2_main:com_97);
 %varclient_1 = 0;
-~script1464;
+~bank_v2_tab_hide_separator;
 if_sethide(true, bank_v2_main:message_nomatches);
 if (string_length($string0) = 0) {
     if_settext("Bank of RuneScape (no search entered)", bank_v2_main:title);

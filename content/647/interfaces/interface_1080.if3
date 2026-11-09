@@ -48,7 +48,7 @@ height=261
 noclickthrough=yes
 
 // 1080:5
-[com_5]
+[summary_bg_fill]
 type=graphic
 y=52
 height=52
@@ -276,7 +276,7 @@ widthmode=minus
 layer=summary_layer
 
 // 1080:27
-[com_27]
+[menu_bg_fill]
 type=rectangle
 widthmode=minus
 heightmode=minus
@@ -303,7 +303,7 @@ width=12
 widthmode=minus
 heightmode=minus
 layer=com_28
-graphic=graphic_4323
+graphic="task_pin_but,1"
 
 // 1080:30
 [com_30]
@@ -312,7 +312,7 @@ width=6
 heightmode=minus
 ymode=abs_centre
 layer=com_28
-graphic=graphic_4322
+graphic="task_pin_but,0"
 
 // 1080:31
 [com_31]
@@ -322,7 +322,7 @@ heightmode=minus
 xmode=abs_right
 ymode=abs_centre
 layer=com_28
-graphic=graphic_4322
+graphic="task_pin_but,0"
 hflip=yes
 
 // 1080:32
@@ -349,7 +349,7 @@ y=4
 width=11
 height=11
 layer=com_28
-graphic=graphic_4295
+graphic="task_pin_symbol,0"
 
 // 1080:34
 [summary_close]
@@ -370,7 +370,7 @@ width=12
 widthmode=minus
 heightmode=minus
 layer=summary_close
-graphic=graphic_4323
+graphic="task_pin_but,1"
 
 // 1080:36
 [close_button_l]
@@ -379,7 +379,7 @@ width=6
 heightmode=minus
 ymode=abs_centre
 layer=summary_close
-graphic=graphic_4322
+graphic="task_pin_but,0"
 
 // 1080:37
 [close_button_r]
@@ -389,7 +389,7 @@ heightmode=minus
 xmode=abs_right
 ymode=abs_centre
 layer=summary_close
-graphic=graphic_4322
+graphic="task_pin_but,0"
 hflip=yes
 
 // 1080:38
@@ -474,7 +474,7 @@ layer=menu_layer
 graphic="task_icons_lumbridge,61"
 
 // 1080:45
-[com_45]
+[label_hints]
 type=text
 x=11
 y=121
@@ -485,7 +485,7 @@ text=Select this tab to view any hints available for the current Task
 textshadow=yes
 
 // 1080:46
-[com_46]
+[border_hints]
 type=rectangle
 x=6
 y=117
@@ -494,7 +494,7 @@ height=40
 colour=0xffffff
 
 // 1080:47
-[com_47]
+[line_hints]
 type=line
 x=129
 y=111
@@ -504,7 +504,7 @@ colour=0xffffff
 linedirection=yes
 
 // 1080:48
-[com_48]
+[label_rewards]
 type=text
 x=11
 y=176
@@ -515,7 +515,7 @@ text=Select this tab to view any rewards this Task will give you.
 textshadow=yes
 
 // 1080:49
-[com_49]
+[border_rewards]
 type=rectangle
 x=7
 y=172
@@ -524,7 +524,7 @@ height=40
 colour=0xffffff
 
 // 1080:50
-[com_50]
+[line_rewards]
 type=line
 x=129
 y=125
@@ -534,7 +534,7 @@ colour=0xffffff
 linedirection=yes
 
 // 1080:51
-[com_51]
+[label_desc]
 type=text
 x=11
 y=231
@@ -545,7 +545,7 @@ text=Select this tab to view details of the current Task.
 textshadow=yes
 
 // 1080:52
-[com_52]
+[border_desc]
 type=rectangle
 x=7
 y=227
@@ -554,7 +554,7 @@ height=40
 colour=0xffffff
 
 // 1080:53
-[com_53]
+[line_desc]
 type=line
 x=129
 y=139
@@ -564,7 +564,7 @@ colour=0xffffff
 linedirection=yes
 
 // 1080:54
-[com_54]
+[label_pin]
 type=text
 x=375
 y=27
@@ -575,7 +575,7 @@ text=Once out of the cellar, you may 'pin' a Task and refer to it later with thi
 textshadow=yes
 
 // 1080:55
-[com_55]
+[border_pin]
 type=rectangle
 x=371
 y=24
@@ -584,7 +584,7 @@ height=49
 colour=0xffffff
 
 // 1080:56
-[com_56]
+[line_pin]
 type=line
 x=275
 y=34
@@ -594,7 +594,7 @@ colour=0xffffff
 linedirection=yes
 
 // 1080:57
-[com_57]
+[label_back]
 type=text
 x=379
 y=81
@@ -605,7 +605,7 @@ text=This button returns you to the view of all available Tasks, if more than on
 textshadow=yes
 
 // 1080:58
-[com_58]
+[border_back]
 type=rectangle
 x=377
 y=77
@@ -614,7 +614,7 @@ height=49
 colour=0xffffff
 
 // 1080:59
-[com_59]
+[line_back]
 type=line
 x=344
 y=67
@@ -623,7 +623,7 @@ height=32
 colour=0xffffff
 
 // 1080:60
-[com_60]
+[label_diff]
 type=text
 x=178
 y=16
@@ -634,7 +634,7 @@ text=Difficulty
 textshadow=yes
 
 // 1080:61
-[com_61]
+[line_diff]
 type=line
 x=214
 y=29
@@ -643,7 +643,7 @@ height=26
 colour=0xffffff
 
 // 1080:62
-[com_62]
+[label_location]
 type=text
 x=165
 y=33
@@ -654,7 +654,7 @@ text=Area
 textshadow=yes
 
 // 1080:63
-[com_63]
+[line_location]
 type=line
 x=193
 y=38
@@ -680,7 +680,7 @@ width=12
 widthmode=minus
 heightmode=minus
 layer=com_64
-graphic=graphic_4323
+graphic="task_pin_but,1"
 
 // 1080:66
 [com_66]
@@ -689,7 +689,7 @@ width=6
 heightmode=minus
 ymode=abs_centre
 layer=com_64
-graphic=graphic_4322
+graphic="task_pin_but,0"
 
 // 1080:67
 [com_67]
@@ -699,11 +699,11 @@ heightmode=minus
 xmode=abs_right
 ymode=abs_centre
 layer=com_64
-graphic=graphic_4322
+graphic="task_pin_but,0"
 hflip=yes
 
 // 1080:68
-[com_68]
+[close_1]
 type=text
 x=2
 y=-1

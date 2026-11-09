@@ -1,0 +1,9 @@
+// 1411
+[proc,easter09_nuts_reset_model1]
+def_component $component0 = easter09_nuts:model1;
+%varclient_761 = enum(int, model, enum_208, random(enum_getoutputcount(enum_208)));
+if (%varclient_761 ! null) {
+    if_setmodel(%varclient_761, $component0);
+}
+if_setposition(calc(0 - if_getwidth($component0)), 120, ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_setontimer(null, easter09_nuts:control1);

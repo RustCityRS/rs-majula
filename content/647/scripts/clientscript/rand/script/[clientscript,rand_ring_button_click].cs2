@@ -7,14 +7,14 @@ if_setposition(if_getx(rand_ring_interface:ring_c_layer), 52, ^setpos_abs_left, 
 if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_a_bar_actual);
 if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_b_bar_actual);
 if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:ring_c_bar_actual);
-if_sethide(true, rand_ring_interface:com_254);
-if_sethide(true, rand_ring_interface:com_239);
-if_sethide(true, rand_ring_interface:com_224);
-if_sethide(true, rand_ring_interface:com_209);
-if_settrans(255, rand_ring_interface:com_257);
-if_settrans(255, rand_ring_interface:com_242);
-if_settrans(255, rand_ring_interface:com_227);
-if_settrans(255, rand_ring_interface:com_212);
+if_sethide(true, rand_ring_interface:melee_class_clicked);
+if_sethide(true, rand_ring_interface:ranged_class_clicked);
+if_sethide(true, rand_ring_interface:magic_class_clicked);
+if_sethide(true, rand_ring_interface:skiller_class_clicked);
+if_settrans(255, rand_ring_interface:melee_class_onhover);
+if_settrans(255, rand_ring_interface:ranged_class_onhover);
+if_settrans(255, rand_ring_interface:magic_class_onhover);
+if_settrans(255, rand_ring_interface:skiller_class_onhover);
 if_sethide(true, rand_ring_interface:melee_link);
 if_sethide(true, rand_ring_interface:ranged_link);
 if_sethide(true, rand_ring_interface:magic_link);
@@ -87,29 +87,29 @@ switch_int (%varclient_1184) {
         }
 }
 switch_component ($component0) {
-    case rand_ring_interface:com_257 :
-        if_sethide(false, rand_ring_interface:com_254);
+    case rand_ring_interface:melee_class_onhover :
+        if_sethide(false, rand_ring_interface:melee_class_clicked);
         if_sethide(false, rand_ring_interface:melee_link);
         %varclient_1184 = 1;
         if_setcolour(0xff3264, rand_ring_interface:ring_a);
         if_setcolour(0xff3264, rand_ring_interface:ring_b);
         if_setcolour(0xff3264, rand_ring_interface:ring_c);
-    case rand_ring_interface:com_242 :
-        if_sethide(false, rand_ring_interface:com_239);
+    case rand_ring_interface:ranged_class_onhover :
+        if_sethide(false, rand_ring_interface:ranged_class_clicked);
         if_sethide(false, rand_ring_interface:ranged_link);
         %varclient_1184 = 2;
         if_setcolour(0x96ff96, rand_ring_interface:ring_a);
         if_setcolour(0x96ff96, rand_ring_interface:ring_b);
         if_setcolour(0x96ff96, rand_ring_interface:ring_c);
-    case rand_ring_interface:com_227 :
-        if_sethide(false, rand_ring_interface:com_224);
+    case rand_ring_interface:magic_class_onhover :
+        if_sethide(false, rand_ring_interface:magic_class_clicked);
         if_sethide(false, rand_ring_interface:magic_link);
         %varclient_1184 = 3;
         if_setcolour(0x00c8ff, rand_ring_interface:ring_a);
         if_setcolour(0x00c8ff, rand_ring_interface:ring_b);
         if_setcolour(0x00c8ff, rand_ring_interface:ring_c);
-    case rand_ring_interface:com_212 :
-        if_sethide(false, rand_ring_interface:com_209);
+    case rand_ring_interface:skiller_class_onhover :
+        if_sethide(false, rand_ring_interface:skiller_class_clicked);
         if_sethide(false, rand_ring_interface:skiller_link);
         %varclient_1184 = 4;
         if_setcolour(^white, rand_ring_interface:ring_a);

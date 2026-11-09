@@ -35,9 +35,9 @@
 [if_button,toplevel_fullscreen:stone13] ~tutorial_tab_clicked(^tab_emotes);
 [if_button,toplevel_fullscreen:stone14] ~tutorial_tab_clicked(^tab_music);
 
-// 289's ignore tab: 2011's friends tab's "Show ignore" (friends2:com_49, op1,
+// 289's ignore tab: 2011's friends tab's "Show ignore" (friends2:ignore_button, op1,
 // active_properties 2, cache 786).
-[if_button,friends2:com_49] ~tutorial_tab_clicked(^tab_tutorial_ignore);
+[if_button,friends2:ignore_button] ~tutorial_tab_clicked(^tab_tutorial_ignore);
 
 [proc,tutorial_tab_clicked](int $tab)
 if (%tutorial >= ^tutorial_complete | ~in_tutorial_island(coord) = false) {

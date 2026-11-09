@@ -1,5 +1,5 @@
 // 286:0
-[com_0]
+[background]
 type=layer
 x=-1
 y=-2
@@ -15,7 +15,7 @@ x=17
 y=25
 width=488
 height=305
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 trans=200
@@ -30,7 +30,7 @@ x=14
 y=25
 width=485
 height=300
-layer=com_0
+layer=background
 graphic=tradebacking
 tiling=yes
 colour=0x000000
@@ -43,7 +43,7 @@ type=graphic
 y=53
 width=32
 height=241
-layer=com_0
+layer=background
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0x000000
@@ -57,7 +57,7 @@ x=13
 y=20
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,4"
 colour=0x000000
 transmitop=10
@@ -70,7 +70,7 @@ x=480
 y=51
 width=32
 height=243
-layer=com_0
+layer=background
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0x000000
@@ -84,7 +84,7 @@ x=44
 y=7
 width=424
 height=34
-layer=com_0
+layer=background
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0x000000
@@ -98,7 +98,7 @@ x=45
 y=306
 width=423
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0x000000
@@ -112,7 +112,7 @@ x=474
 y=30
 width=16
 height=16
-layer=com_0
+layer=background
 graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1,10
@@ -129,7 +129,7 @@ x=13
 y=294
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,6"
 colour=0x000000
 transmitop=10
@@ -142,7 +142,7 @@ x=468
 y=20
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,5"
 colour=0x000000
 transmitop=10
@@ -155,7 +155,7 @@ x=468
 y=294
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,7"
 colour=0x000000
 transmitop=10
@@ -168,7 +168,7 @@ x=24
 y=35
 width=465
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0x000000
@@ -182,7 +182,7 @@ x=13
 y=37
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,9"
 colour=0x000000
 transmitop=10
@@ -195,7 +195,7 @@ x=468
 y=37
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,10"
 colour=0x000000
 transmitop=10
@@ -208,7 +208,7 @@ x=113
 y=30
 width=303
 height=15
-layer=com_0
+layer=background
 textfont=p12_full
 text=Fractional still
 textalignh=centre
@@ -416,8 +416,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 0)
-onvartransmit=script2029(event_com, 0){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 0)
+onvartransmit=regicide_still_total_bar(event_com, 0){regicide_still_total}
 
 // 286:32
 [r2]
@@ -428,8 +428,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 1)
-onvartransmit=script2029(event_com, 1){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 1)
+onvartransmit=regicide_still_total_bar(event_com, 1){regicide_still_total}
 
 // 286:33
 [r3]
@@ -440,8 +440,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 3)
-onvartransmit=script2029(event_com, 3){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 3)
+onvartransmit=regicide_still_total_bar(event_com, 3){regicide_still_total}
 
 // 286:34
 [r4]
@@ -452,8 +452,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 3)
-onvartransmit=script2029(event_com, 3){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 3)
+onvartransmit=regicide_still_total_bar(event_com, 3){regicide_still_total}
 
 // 286:35
 [r5]
@@ -464,8 +464,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 4)
-onvartransmit=script2029(event_com, 4){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 4)
+onvartransmit=regicide_still_total_bar(event_com, 4){regicide_still_total}
 
 // 286:36
 [r6]
@@ -476,8 +476,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 5)
-onvartransmit=script2029(event_com, 5){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 5)
+onvartransmit=regicide_still_total_bar(event_com, 5){regicide_still_total}
 
 // 286:37
 [r7]
@@ -488,8 +488,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 6)
-onvartransmit=script2029(event_com, 6){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 6)
+onvartransmit=regicide_still_total_bar(event_com, 6){regicide_still_total}
 
 // 286:38
 [r8]
@@ -500,8 +500,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 7)
-onvartransmit=script2029(event_com, 7){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 7)
+onvartransmit=regicide_still_total_bar(event_com, 7){regicide_still_total}
 
 // 286:39
 [r9]
@@ -512,8 +512,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 8)
-onvartransmit=script2029(event_com, 8){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 8)
+onvartransmit=regicide_still_total_bar(event_com, 8){regicide_still_total}
 
 // 286:40
 [r10]
@@ -524,8 +524,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 9)
-onvartransmit=script2029(event_com, 9){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 9)
+onvartransmit=regicide_still_total_bar(event_com, 9){regicide_still_total}
 
 // 286:41
 [r11]
@@ -536,8 +536,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 10)
-onvartransmit=script2029(event_com, 10){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 10)
+onvartransmit=regicide_still_total_bar(event_com, 10){regicide_still_total}
 
 // 286:42
 [r12]
@@ -548,8 +548,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 11)
-onvartransmit=script2029(event_com, 11){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 11)
+onvartransmit=regicide_still_total_bar(event_com, 11){regicide_still_total}
 
 // 286:43
 [r13]
@@ -560,8 +560,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 12)
-onvartransmit=script2029(event_com, 12){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 12)
+onvartransmit=regicide_still_total_bar(event_com, 12){regicide_still_total}
 
 // 286:44
 [r14]
@@ -572,8 +572,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 13)
-onvartransmit=script2029(event_com, 13){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 13)
+onvartransmit=regicide_still_total_bar(event_com, 13){regicide_still_total}
 
 // 286:45
 [r15]
@@ -584,8 +584,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 14)
-onvartransmit=script2029(event_com, 14){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 14)
+onvartransmit=regicide_still_total_bar(event_com, 14){regicide_still_total}
 
 // 286:46
 [r16]
@@ -596,8 +596,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 15)
-onvartransmit=script2029(event_com, 15){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 15)
+onvartransmit=regicide_still_total_bar(event_com, 15){regicide_still_total}
 
 // 286:47
 [r17]
@@ -608,8 +608,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 16)
-onvartransmit=script2029(event_com, 16){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 16)
+onvartransmit=regicide_still_total_bar(event_com, 16){regicide_still_total}
 
 // 286:48
 [r18]
@@ -620,8 +620,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 17)
-onvartransmit=script2029(event_com, 17){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 17)
+onvartransmit=regicide_still_total_bar(event_com, 17){regicide_still_total}
 
 // 286:49
 [r19]
@@ -632,8 +632,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 18)
-onvartransmit=script2029(event_com, 18){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 18)
+onvartransmit=regicide_still_total_bar(event_com, 18){regicide_still_total}
 
 // 286:50
 [r20]
@@ -644,8 +644,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 19)
-onvartransmit=script2029(event_com, 19){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 19)
+onvartransmit=regicide_still_total_bar(event_com, 19){regicide_still_total}
 
 // 286:51
 [r21]
@@ -656,8 +656,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 20)
-onvartransmit=script2029(event_com, 20){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 20)
+onvartransmit=regicide_still_total_bar(event_com, 20){regicide_still_total}
 
 // 286:52
 [r22]
@@ -668,8 +668,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 21)
-onvartransmit=script2029(event_com, 21){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 21)
+onvartransmit=regicide_still_total_bar(event_com, 21){regicide_still_total}
 
 // 286:53
 [r23]
@@ -680,8 +680,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 22)
-onvartransmit=script2029(event_com, 22){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 22)
+onvartransmit=regicide_still_total_bar(event_com, 22){regicide_still_total}
 
 // 286:54
 [r24]
@@ -692,8 +692,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 23)
-onvartransmit=script2029(event_com, 23){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 23)
+onvartransmit=regicide_still_total_bar(event_com, 23){regicide_still_total}
 
 // 286:55
 [r25]
@@ -704,8 +704,8 @@ width=7
 height=7
 colour=0x000000
 fill=yes
-onload=script2029(event_com, 24)
-onvartransmit=script2029(event_com, 24){regicide_still_total}
+onload=regicide_still_total_bar(event_com, 24)
+onvartransmit=regicide_still_total_bar(event_com, 24){regicide_still_total}
 
 // 286:56
 [tar_regulator_text]

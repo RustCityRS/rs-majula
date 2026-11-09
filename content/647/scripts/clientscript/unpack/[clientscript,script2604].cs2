@@ -3,6 +3,6 @@
 sound_synth(synth_6784, 1, 0);
 if_sethide(false, mob_squad_exchange:confirm_layer);
 if_settext("Are you sure you wish to reset all your squad contract selections?", mob_squad_exchange:confirm_text);
-if_sethide(true, mob_squad_exchange:com_135);
+if_sethide(true, mob_squad_exchange:confirm_resupply_all_layer);
 if_sethide(true, mob_squad_exchange:confirm_apply);
 if_sethide(false, mob_squad_exchange:confirm_reset_layer);

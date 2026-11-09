@@ -10,7 +10,7 @@ if (%varclient_1 < calc(clientclock + 25)) {
 %varclient_1 = calc(clientclock + 25 + 10);
 def_int $int12 = 0;
 def_int $int13 = 0;
-if (.cc_find($component0, calc(if_getnextsubid($component0) - 1)) = true & (cc_find($component1, $int2) = true | $int2 = -1 & if_find($component1) = true) & .cc_getgraphic = graphic_5613) {
+if (.cc_find($component0, calc(if_getnextsubid($component0) - 1)) = true & (cc_find($component1, $int2) = true | $int2 = -1 & if_find($component1) = true) & .cc_getgraphic = aif_tooltip_arrow_2) {
     switch_int ($int9) {
         case 3 :
             if (.cc_get2dangle = 0) {

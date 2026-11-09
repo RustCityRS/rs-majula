@@ -295,7 +295,7 @@ hide=yes
 graphic=rand_button_glow
 
 // 993:24
-[com_24]
+[reset_confirm_button_text]
 type=text
 x=30
 y=98
@@ -310,7 +310,7 @@ textshadow=yes
 colour=0xffff98
 
 // 993:25
-[com_25]
+[main]
 type=layer
 width=512
 height=334
@@ -2181,7 +2181,7 @@ width=15564
 height=15066
 widthmode=proportion
 heightmode=proportion
-layer=com_25
+layer=main
 colour=0x000000
 onload=rand_ring_interface_init
 ontimer=rand_ring_interface_timer
@@ -2193,7 +2193,7 @@ x=13
 y=20
 width=32
 height=32
-layer=com_25
+layer=main
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
@@ -2206,7 +2206,7 @@ x=468
 y=20
 width=32
 height=32
-layer=com_25
+layer=main
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -2219,7 +2219,7 @@ x=13
 y=294
 width=32
 height=32
-layer=com_25
+layer=main
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -2232,7 +2232,7 @@ x=468
 y=294
 width=32
 height=32
-layer=com_25
+layer=main
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -2244,7 +2244,7 @@ type=graphic
 y=52
 width=32
 height=242
-layer=com_25
+layer=main
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -2258,7 +2258,7 @@ x=480
 y=51
 width=32
 height=243
-layer=com_25
+layer=main
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -2272,7 +2272,7 @@ x=45
 y=20
 width=424
 height=26
-layer=com_25
+layer=main
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -2286,7 +2286,7 @@ x=45
 y=306
 width=423
 height=32
-layer=com_25
+layer=main
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -2300,7 +2300,7 @@ y=20
 width=384
 height=24
 xmode=abs_centre
-layer=com_25
+layer=main
 textfont=b12_full
 text=Ring of Kinship : Customisation
 textalignh=centre
@@ -2311,13 +2311,13 @@ transmitop=10
 op10= 
 
 // 993:173
-[com_173]
+[background]
 type=layer
 x=19
 y=41
 width=474
 height=278
-layer=com_25
+layer=main
 
 // 993:174
 [close_button]
@@ -2326,7 +2326,7 @@ x=470
 y=23
 width=16
 height=16
-layer=com_25
+layer=main
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1
@@ -2340,7 +2340,7 @@ onop=closebutton_click
 type=graphic
 width=10
 height=10
-layer=com_173
+layer=background
 graphic="rand_smithing_edges,0"
 colour=0xffffffff
 transmitop=10
@@ -2354,7 +2354,7 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_173
+layer=background
 graphic="rand_smithing_edges,2"
 colour=0xffffffff
 transmitop=10
@@ -2366,7 +2366,7 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_173
+layer=background
 graphic="rand_smithing_edges,3"
 colour=0xffffffff
 transmitop=10
@@ -2379,7 +2379,7 @@ y=10
 width=10
 height=20
 heightmode=minus
-layer=com_173
+layer=background
 graphic="rand_smithing_edges,4"
 colour=0xffffffff
 transmitop=10
@@ -2393,7 +2393,7 @@ width=19
 height=10
 widthmode=minus
 ymode=abs_bottom
-layer=com_173
+layer=background
 graphic="rand_smithing_edges,7"
 colour=0xffffffff
 transmitop=10
@@ -2408,7 +2408,7 @@ width=10
 height=20
 heightmode=minus
 xmode=abs_right
-layer=com_173
+layer=background
 graphic="rand_smithing_edges,6"
 colour=0xffffffff
 transmitop=10
@@ -2423,7 +2423,7 @@ width=19
 height=20
 widthmode=minus
 heightmode=minus
-layer=com_173
+layer=background
 graphic=rand_smithing_background_fill
 tiling=yes
 alpha=yes
@@ -2438,7 +2438,7 @@ x=-1
 width=10
 height=10
 xmode=abs_right
-layer=com_173
+layer=background
 graphic="rand_smithing_edges,1"
 colour=0xffffffff
 transmitop=10
@@ -2451,7 +2451,7 @@ x=10
 width=19
 height=10
 widthmode=minus
-layer=com_173
+layer=background
 graphic="rand_smithing_edges,5"
 colour=0xffffffff
 transmitop=10
@@ -2775,7 +2775,7 @@ transmitop=10
 op10=      
 
 // 993:209
-[com_209]
+[skiller_class_clicked]
 type=rectangle
 x=3
 y=3
@@ -2821,7 +2821,7 @@ transmitop=10
 op10=   
 
 // 993:212
-[com_212]
+[skiller_class_onhover]
 type=rectangle
 x=3
 y=3
@@ -2988,7 +2988,7 @@ transmitop=10
 op10=     
 
 // 993:224
-[com_224]
+[magic_class_clicked]
 type=rectangle
 x=3
 y=3
@@ -3033,7 +3033,7 @@ transmitop=10
 op10=  
 
 // 993:227
-[com_227]
+[magic_class_onhover]
 type=rectangle
 x=3
 y=3
@@ -3200,7 +3200,7 @@ transmitop=10
 op10=    
 
 // 993:239
-[com_239]
+[ranged_class_clicked]
 type=rectangle
 x=3
 y=3
@@ -3245,7 +3245,7 @@ transmitop=10
 op10= 
 
 // 993:242
-[com_242]
+[ranged_class_onhover]
 type=rectangle
 x=3
 y=3
@@ -3412,7 +3412,7 @@ transmitop=10
 op10=   
 
 // 993:254
-[com_254]
+[melee_class_clicked]
 type=rectangle
 x=3
 y=3
@@ -3451,7 +3451,7 @@ textshadow=yes
 colour=0xffff98
 
 // 993:257
-[com_257]
+[melee_class_onhover]
 type=rectangle
 x=3
 y=3

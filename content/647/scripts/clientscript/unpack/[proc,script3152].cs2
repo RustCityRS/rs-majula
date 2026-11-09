@@ -21,8 +21,8 @@ if (clientclock > $int2) {
     }
     $int5 = calc($int5 + $int3 + 3);
     $int6 = calc($int6 + $int4 - 3 - if_getheight(lobbyscreen_pane_worldselect:tooltip));
-    if (calc($int5 + if_getwidth(lobbyscreen_pane_worldselect:tooltip)) > if_getwidth(lobbyscreen_pane_worldselect:com_0)) {
-        $int5 = calc(if_getwidth(lobbyscreen_pane_worldselect:com_0) - if_getwidth(lobbyscreen_pane_worldselect:tooltip));
+    if (calc($int5 + if_getwidth(lobbyscreen_pane_worldselect:tooltip)) > if_getwidth(lobbyscreen_pane_worldselect:main)) {
+        $int5 = calc(if_getwidth(lobbyscreen_pane_worldselect:main) - if_getwidth(lobbyscreen_pane_worldselect:tooltip));
     }
     if ($int6 < 0) {
         $int6 = 0;

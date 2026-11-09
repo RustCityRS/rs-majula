@@ -362,7 +362,7 @@ text=Invitation
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1104:33
 [content_layer]
@@ -390,7 +390,7 @@ textalignv=centre
 colour=0xe5e2cf
 
 // 1104:35
-[com_35]
+[dropshadow_side_graphic]
 type=graphic
 x=-1
 y=1
@@ -403,7 +403,7 @@ graphic=button_dropshadow_left
 tiling=yes
 
 // 1104:36
-[com_36]
+[dropshadow_bottom_graphic]
 type=graphic
 y=-1
 width=3
@@ -415,7 +415,7 @@ graphic=button_dropshadow_bottom
 tiling=yes
 
 // 1104:37
-[com_37]
+[dropshadow_corner_graphic]
 type=graphic
 x=-1
 y=-1

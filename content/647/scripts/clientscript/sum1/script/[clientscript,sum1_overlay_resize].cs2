@@ -1,0 +1,7 @@
+// 709
+[clientscript,sum1_overlay_resize](component $component0)
+if (getwindowmode >= 2) {
+    if_setsize(if_getwidth(toplevel_fullscreen:mainoverlay), if_getheight(toplevel_fullscreen:mainoverlay), ^setsize_abs, ^setsize_abs, $component0);
+} else {
+    if_setsize(if_getwidth(toplevel:mainoverlay), if_getheight(toplevel:mainoverlay), ^setsize_abs, ^setsize_abs, $component0);
+}

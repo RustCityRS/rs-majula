@@ -7,6 +7,6 @@ if (cc_find($component0, 2) = true) {
     cc_sethide(true);
 }
 if (cc_find($component0, 4) = true) {
-    cc_setgraphic(graphic_1541);
+    cc_setgraphic("world_select_hearts,2");
 }
 return;

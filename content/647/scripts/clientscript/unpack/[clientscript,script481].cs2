@@ -1,36 +1,36 @@
 // 481
 [clientscript,script481]
-if_setgraphic(graphic_3255, conq_buy_army:com_143);
-if_setgraphic(graphic_3255, conq_buy_army:com_145);
-if_setgraphic(graphic_3255, conq_buy_army:com_147);
-if_setgraphic(graphic_3255, conq_buy_army:com_149);
-if_setgraphic(graphic_3255, conq_buy_army:com_151);
-if_setgraphic(graphic_3255, conq_buy_army:com_153);
-if_setgraphic(graphic_3255, conq_buy_army:com_155);
-if_setgraphic(graphic_3255, conq_buy_army:com_157);
-if_setgraphic(graphic_3255, conq_buy_army:com_159);
-if_setgraphic(graphic_3255, conq_buy_army:com_161);
+if_setgraphic(graphic_3255, conq_buy_army:unit_1_border);
+if_setgraphic(graphic_3255, conq_buy_army:unit_2_border);
+if_setgraphic(graphic_3255, conq_buy_army:unit_3_border);
+if_setgraphic(graphic_3255, conq_buy_army:unit_4_border);
+if_setgraphic(graphic_3255, conq_buy_army:unit_5_border);
+if_setgraphic(graphic_3255, conq_buy_army:unit_6_border);
+if_setgraphic(graphic_3255, conq_buy_army:unit_7_border);
+if_setgraphic(graphic_3255, conq_buy_army:unit_8_border);
+if_setgraphic(graphic_3255, conq_buy_army:unit_9_border);
+if_setgraphic(graphic_3255, conq_buy_army:unit_10_border);
 switch_int (%varplayerbit_7512) {
     case default :
         return;
     case 1 :
-        if_setgraphic(graphic_3257, conq_buy_army:com_143);
+        if_setgraphic(graphic_3257, conq_buy_army:unit_1_border);
     case 2 :
-        if_setgraphic(graphic_3257, conq_buy_army:com_145);
+        if_setgraphic(graphic_3257, conq_buy_army:unit_2_border);
     case 3 :
-        if_setgraphic(graphic_3257, conq_buy_army:com_147);
+        if_setgraphic(graphic_3257, conq_buy_army:unit_3_border);
     case 4 :
-        if_setgraphic(graphic_3257, conq_buy_army:com_149);
+        if_setgraphic(graphic_3257, conq_buy_army:unit_4_border);
     case 5 :
-        if_setgraphic(graphic_3257, conq_buy_army:com_151);
+        if_setgraphic(graphic_3257, conq_buy_army:unit_5_border);
     case 6 :
-        if_setgraphic(graphic_3257, conq_buy_army:com_153);
+        if_setgraphic(graphic_3257, conq_buy_army:unit_6_border);
     case 7 :
-        if_setgraphic(graphic_3257, conq_buy_army:com_155);
+        if_setgraphic(graphic_3257, conq_buy_army:unit_7_border);
     case 8 :
-        if_setgraphic(graphic_3257, conq_buy_army:com_157);
+        if_setgraphic(graphic_3257, conq_buy_army:unit_8_border);
     case 9 :
-        if_setgraphic(graphic_3257, conq_buy_army:com_159);
+        if_setgraphic(graphic_3257, conq_buy_army:unit_9_border);
     case 10 :
-        if_setgraphic(graphic_3257, conq_buy_army:com_161);
+        if_setgraphic(graphic_3257, conq_buy_army:unit_10_border);
 }

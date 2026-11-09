@@ -1,9 +1,9 @@
 // 56
 [clientscript,deathkeep_select_init](component $component0)
-cc_deleteall(deathkeep_select:com_13);
-~script4534(deathkeep_select:com_13);
-cc_deleteall(deathkeep_select:com_21);
-~script4534(deathkeep_select:com_21);
+cc_deleteall(deathkeep_select:available_box);
+~aif_gold_frame_2(deathkeep_select:available_box);
+cc_deleteall(deathkeep_select:automatic_box);
+~aif_gold_frame_2(deathkeep_select:automatic_box);
 cc_deleteall(deathkeep_select:com_29);
 cc_create(deathkeep_select:com_29, ^iftype_graphic, if_getnextsubid(deathkeep_select:com_29));
 cc_setsize(40, 0, ^setsize_minus, ^setsize_minus);
@@ -25,9 +25,9 @@ def_int $int1 = cc_getid;
 if_setonvartransmit("deathkeep_select_update($int1){varplayer_1747, varplayer_1737, varplayer_105, varplayer_496, varplayer_1050, varplayer_1600}", $component0);
 if_setoninvtransmit("deathkeep_select_update($int1){inv, worn}", $component0);
 ~deathkeep_select_update($int1);
-if_setposition(~if_getx_absolute(deathkeep_select:com_27), calc(~if_gety_absolute(deathkeep_select:com_27) + if_getheight(deathkeep_select:com_27) - 1), ^setpos_abs_left, ^setpos_abs_top, deathkeep_select:com_43);
-cc_deleteall(deathkeep_select:com_43);
-~script4535(deathkeep_select:com_43);
+if_setposition(~if_getx_absolute(deathkeep_select:com_27), calc(~if_gety_absolute(deathkeep_select:com_27) + if_getheight(deathkeep_select:com_27) - 1), ^setpos_abs_left, ^setpos_abs_top, deathkeep_select:dropdown_container);
+cc_deleteall(deathkeep_select:dropdown_container);
+~script4535(deathkeep_select:dropdown_container);
 ~deathkeep_select_dropdown(false);
 if_setonclick("deathkeep_select_dropdown(true)", deathkeep_select:com_29);
-if_setonclick("deathkeep_select_dropdown(false)", deathkeep_select:com_42);
+if_setonclick("deathkeep_select_dropdown(false)", deathkeep_select:dropdown_universe);

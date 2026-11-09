@@ -64,12 +64,12 @@ y=7
 width=35
 height=35
 layer=squad10
-graphic=graphic_1948
+graphic="mob_unit_heads,3"
 colour=0xffffffff
 transmitop=1
 op1=Go to and activate
-onmouseover=script2558(event_com)
-onmouseleave=script2559(event_com, mob_side_units:tooltip)
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
 onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
 onvarctransmit=mob_set_head_10{varclient_917}
 
@@ -112,7 +112,7 @@ layer=squad10
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=script2557{varclient_927}
+onvarctransmit=mob_set_cross_10{varclient_927}
 
 // 39:10
 [unit10_button]
@@ -152,12 +152,12 @@ y=7
 width=35
 height=35
 layer=squad8
-graphic=graphic_1947
+graphic="mob_unit_heads,2"
 colour=0xffffffff
 transmitop=1
 op1=Go to and activate
-onmouseover=script2558(event_com)
-onmouseleave=script2559(event_com, mob_side_units:tooltip)
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
 onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
 onvarctransmit=mob_set_head_8{varclient_915}
 
@@ -199,7 +199,7 @@ layer=squad8
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=script2555{varclient_925}
+onvarctransmit=mob_set_cross_8{varclient_925}
 
 // 39:16
 [unit8_button]
@@ -239,12 +239,12 @@ y=6
 width=35
 height=35
 layer=squad9
-graphic=graphic_1948
+graphic="mob_unit_heads,3"
 colour=0xffffffff
 transmitop=1
 op1=Go to and activate
-onmouseover=script2558(event_com)
-onmouseleave=script2559(event_com, mob_side_units:tooltip)
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
 onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
 onvarctransmit=mob_set_head_9{varclient_916}
 
@@ -286,7 +286,7 @@ layer=squad9
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=script2556{varclient_926}
+onvarctransmit=mob_set_cross_9{varclient_926}
 
 // 39:22
 [unit9_button]
@@ -326,12 +326,12 @@ y=7
 width=35
 height=35
 layer=squad7
-graphic=graphic_1949
+graphic="mob_unit_heads,4"
 colour=0xffffffff
 transmitop=1
 op1=Go to and activate
-onmouseover=script2558(event_com)
-onmouseleave=script2559(event_com, mob_side_units:tooltip)
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
 onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
 onvarctransmit=mob_set_head_7{varclient_914}
 
@@ -373,7 +373,7 @@ layer=squad7
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=script2554{varclient_924}
+onvarctransmit=mob_set_cross_7{varclient_924}
 
 // 39:28
 [unit7_button]
@@ -413,12 +413,12 @@ y=6
 width=35
 height=35
 layer=squad6
-graphic=graphic_1949
+graphic="mob_unit_heads,4"
 colour=0xffffffff
 transmitop=1
 op1=Go to and activate
-onmouseover=script2558(event_com)
-onmouseleave=script2559(event_com, mob_side_units:tooltip)
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
 onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
 onvarctransmit=mob_set_head_6{varclient_913}
 
@@ -460,7 +460,7 @@ layer=squad6
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=script2553{varclient_923}
+onvarctransmit=mob_set_cross_6{varclient_923}
 
 // 39:34
 [unit6_button]
@@ -500,12 +500,12 @@ y=6
 width=35
 height=35
 layer=squad4
-graphic=graphic_1946
+graphic="mob_unit_heads,1"
 colour=0xffffffff
 transmitop=1
 op1=Go to and activate
-onmouseover=script2558(event_com)
-onmouseleave=script2559(event_com, mob_side_units:tooltip)
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
 onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
 onvarctransmit=mob_set_head_4{varclient_911}
 
@@ -533,7 +533,7 @@ layer=squad4
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=script2551{varclient_921}
+onvarctransmit=mob_set_cross_4{varclient_921}
 
 // 39:39
 [race_4]
@@ -587,12 +587,12 @@ y=7
 width=35
 height=35
 layer=squad5
-graphic=graphic_1948
+graphic="mob_unit_heads,3"
 colour=0xffffffff
 transmitop=1
 op1=Go to and activate
-onmouseover=script2558(event_com)
-onmouseleave=script2559(event_com, mob_side_units:tooltip)
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
 onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
 onvarctransmit=mob_set_head_5{varclient_912}
 
@@ -634,7 +634,7 @@ layer=squad5
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=script2552{varclient_922}
+onvarctransmit=mob_set_cross_5{varclient_922}
 
 // 39:46
 [unit5_button]
@@ -674,12 +674,12 @@ y=6
 width=35
 height=35
 layer=squad3
-graphic=graphic_1946
+graphic="mob_unit_heads,1"
 colour=0xffffffff
 transmitop=1
 op1=Go to and activate
-onmouseover=script2558(event_com)
-onmouseleave=script2559(event_com, mob_side_units:tooltip)
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
 onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
 onvarctransmit=mob_set_head_3{varclient_910}
 
@@ -721,7 +721,7 @@ layer=squad3
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=script2550{varclient_920}
+onvarctransmit=mob_set_cross_3{varclient_920}
 
 // 39:52
 [unit3_button]
@@ -833,12 +833,12 @@ y=7
 width=35
 height=35
 layer=squad2
-graphic=graphic_1946
+graphic="mob_unit_heads,1"
 colour=0xffffffff
 transmitop=1
 op1=Go to and activate
-onmouseover=script2558(event_com)
-onmouseleave=script2559(event_com, mob_side_units:tooltip)
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
 onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
 onvarctransmit=mob_set_head_2{varclient_909}
 
@@ -880,7 +880,7 @@ layer=squad2
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=script2549{varclient_919}
+onvarctransmit=mob_set_cross_2{varclient_919}
 
 // 39:66
 [unit2_button]
@@ -920,12 +920,12 @@ y=6
 width=35
 height=35
 layer=squad1
-graphic=graphic_1946
+graphic="mob_unit_heads,1"
 colour=0xffffffff
 transmitop=1
 op1=Go to and activate
-onmouseover=script2558(event_com)
-onmouseleave=script2559(event_com, mob_side_units:tooltip)
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
 onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
 onvarctransmit=mob_set_head_1{varclient_908}
 
@@ -967,7 +967,7 @@ layer=squad1
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=script2548{varclient_918}
+onvarctransmit=mob_set_cross_1{varclient_918}
 
 // 39:72
 [unit1_button]

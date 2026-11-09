@@ -144,7 +144,7 @@ if (%varplayerbit_8601 = 428) {
     if_setgraphic("emotes_locked,32", emotes:emote_taskmaster);
 }
 if (%varplayerbit_9198 = 60) {
-    if_setgraphic("emotes,66", emotes:com_53);
+    if_setgraphic("emotes,66", emotes:emote_easter11);
 } else {
-    if_setgraphic("emotes_locked,46", emotes:com_53);
+    if_setgraphic("emotes_locked,46", emotes:emote_easter11);
 }

@@ -33,7 +33,7 @@ ymode=abs_centre
 layer=baselayer
 
 // 1066:3
-[com_3]
+[background]
 type=graphic
 x=7
 y=7
@@ -223,7 +223,7 @@ textalignv=centre
 textshadow=yes
 
 // 1066:20
-[com_20]
+[login_button_shadow]
 type=rectangle
 x=1
 y=1
@@ -265,7 +265,7 @@ graphic="set_but_end_3,0"
 hflip=yes
 
 // 1066:24
-[com_24]
+[login_button_text_shadow]
 type=text
 x=1
 height=21
@@ -311,12 +311,12 @@ xmode=abs_centre
 layer=content
 transmitop=1
 op1=More Info
-onmouseover=loginscreen_button_highlight(interface_1066:com_29, "set_but_end_3,1", interface_1066:com_30, "set_but_fill_3,1", interface_1066:com_31, "set_but_end_3,1")
-onmouseleave=loginscreen_button_highlight(interface_1066:com_29, "set_but_end_3,0", interface_1066:com_30, "set_but_fill_3,0", interface_1066:com_31, "set_but_end_3,0")
+onmouseover=loginscreen_button_highlight(interface_1066:login_button_left_1, "set_but_end_3,1", interface_1066:com_30, "set_but_fill_3,1", interface_1066:login_button_right_1, "set_but_end_3,1")
+onmouseleave=loginscreen_button_highlight(interface_1066:login_button_left_1, "set_but_end_3,0", interface_1066:com_30, "set_but_fill_3,0", interface_1066:login_button_right_1, "set_but_end_3,0")
 onclick=script4088
 
 // 1066:28
-[com_28]
+[login_button_shadow_1]
 type=rectangle
 x=1
 y=1
@@ -329,7 +329,7 @@ colour=0x000000
 fill=yes
 
 // 1066:29
-[com_29]
+[login_button_left_1]
 type=graphic
 width=25
 height=25
@@ -347,7 +347,7 @@ layer=more_info_button
 graphic="set_but_fill_3,0"
 
 // 1066:31
-[com_31]
+[login_button_right_1]
 type=graphic
 x=1
 width=25
@@ -358,7 +358,7 @@ graphic="set_but_end_3,0"
 hflip=yes
 
 // 1066:32
-[com_32]
+[login_button_text_shadow_1]
 type=text
 x=1
 height=21

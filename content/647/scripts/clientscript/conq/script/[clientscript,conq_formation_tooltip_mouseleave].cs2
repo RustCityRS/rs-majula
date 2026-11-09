@@ -1,0 +1,3 @@
+// 1418
+[clientscript,conq_formation_tooltip_mouseleave]
+if_sethide(true, conq_set_formation:tooltip_content_layer);

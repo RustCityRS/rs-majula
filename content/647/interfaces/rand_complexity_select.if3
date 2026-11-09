@@ -10,7 +10,7 @@ fill=yes
 trans=152
 
 // 938:1
-[com_1]
+[background]
 type=layer
 width=512
 height=334
@@ -26,7 +26,7 @@ width=10
 height=49
 heightmode=minus
 xmode=abs_right
-layer=com_1
+layer=background
 graphic="rand_smithing_edges,6"
 colour=0xffffffff
 transmitop=10
@@ -40,7 +40,7 @@ y=32
 width=10
 height=49
 heightmode=minus
-layer=com_1
+layer=background
 graphic="rand_smithing_edges,4"
 colour=0xffffffff
 transmitop=10
@@ -55,7 +55,7 @@ width=34
 height=10
 widthmode=minus
 ymode=abs_bottom
-layer=com_1
+layer=background
 graphic="rand_smithing_edges,7"
 colour=0xffffffff
 transmitop=10
@@ -69,7 +69,7 @@ y=22
 width=34
 height=10
 widthmode=minus
-layer=com_1
+layer=background
 graphic="rand_smithing_edges,5"
 colour=0xffffffff
 transmitop=10
@@ -84,7 +84,7 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_1
+layer=background
 graphic="rand_smithing_edges,2"
 colour=0xffffffff
 transmitop=10
@@ -98,7 +98,7 @@ y=7
 width=10
 height=10
 ymode=abs_bottom
-layer=com_1
+layer=background
 graphic="rand_smithing_edges,3"
 colour=0xffffffff
 transmitop=10
@@ -112,7 +112,7 @@ y=22
 width=10
 height=10
 xmode=abs_right
-layer=com_1
+layer=background
 graphic="rand_smithing_edges,1"
 colour=0xffffffff
 transmitop=10
@@ -125,7 +125,7 @@ x=7
 y=22
 width=10
 height=10
-layer=com_1
+layer=background
 graphic="rand_smithing_edges,0"
 colour=0xffffffff
 transmitop=10
@@ -138,7 +138,7 @@ x=17
 y=32
 width=482
 height=290
-layer=com_1
+layer=background
 graphic=rand_smithing_background_fill
 colour=0xffffffff
 transmitop=10
@@ -149,7 +149,7 @@ op10=
 type=graphic
 width=32
 height=32
-layer=com_1
+layer=background
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
@@ -161,7 +161,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_1
+layer=background
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -174,7 +174,7 @@ x=32
 width=64
 height=32
 widthmode=minus
-layer=com_1
+layer=background
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -189,7 +189,7 @@ y=32
 width=32
 height=64
 heightmode=minus
-layer=com_1
+layer=background
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -202,7 +202,7 @@ type=graphic
 y=302
 width=32
 height=32
-layer=com_1
+layer=background
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -215,7 +215,7 @@ x=480
 y=302
 width=32
 height=32
-layer=com_1
+layer=background
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -229,7 +229,7 @@ y=32
 width=32
 height=64
 heightmode=minus
-layer=com_1
+layer=background
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -244,7 +244,7 @@ y=314
 width=64
 height=32
 widthmode=minus
-layer=com_1
+layer=background
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -258,7 +258,7 @@ y=-4
 width=494
 height=32
 xmode=abs_centre
-layer=com_1
+layer=background
 textfont=b12_full
 text=Select Complexity
 textalignh=centre
@@ -275,7 +275,7 @@ x=487
 y=3
 width=16
 height=16
-layer=com_1
+layer=background
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1,10
@@ -345,7 +345,7 @@ transmitop=10
 op10= 
 
 // 938:27
-[com_27]
+[display_bg_nw]
 type=graphic
 x=-1
 y=-1
@@ -358,7 +358,7 @@ transmitop=10
 op10= 
 
 // 938:28
-[com_28]
+[display_bg_n]
 type=graphic
 x=13
 y=-1
@@ -371,7 +371,7 @@ transmitop=10
 op10=  
 
 // 938:29
-[com_29]
+[display_bg_ne]
 type=graphic
 x=233
 y=-1
@@ -385,7 +385,7 @@ transmitop=10
 op10=  
 
 // 938:30
-[com_30]
+[display_bg_w]
 type=graphic
 x=-1
 y=14
@@ -398,7 +398,7 @@ transmitop=10
 op10=  
 
 // 938:31
-[com_31]
+[display_bg_e]
 type=graphic
 x=233
 y=14
@@ -412,7 +412,7 @@ transmitop=10
 op10=   
 
 // 938:32
-[com_32]
+[display_bg_sw]
 type=graphic
 x=-1
 y=76
@@ -425,7 +425,7 @@ transmitop=10
 op10=  
 
 // 938:33
-[com_33]
+[display_bg_s]
 type=graphic
 x=13
 y=76
@@ -438,7 +438,7 @@ transmitop=10
 op10=   
 
 // 938:34
-[com_34]
+[display_bg_se]
 type=graphic
 x=233
 y=76
@@ -452,7 +452,7 @@ transmitop=10
 op10=   
 
 // 938:35
-[com_35]
+[display_bg_ce]
 type=rectangle
 x=1
 y=16
@@ -465,7 +465,7 @@ transmitop=10
 op10= 
 
 // 938:36
-[com_36]
+[display_bg_grad]
 type=graphic
 x=1
 y=14
@@ -583,7 +583,7 @@ transmitop=10
 op10= 
 
 // 938:44
-[com_44]
+[comp_bg_nw]
 type=graphic
 x=-1
 y=1
@@ -596,7 +596,7 @@ transmitop=10
 op10=  
 
 // 938:45
-[com_45]
+[comp_bg_n]
 type=graphic
 x=13
 y=1
@@ -609,7 +609,7 @@ transmitop=10
 op10=   
 
 // 938:46
-[com_46]
+[comp_bg_ne]
 type=graphic
 x=233
 y=1
@@ -623,7 +623,7 @@ transmitop=10
 op10=   
 
 // 938:47
-[com_47]
+[comp_bg_w]
 type=graphic
 x=-1
 y=16
@@ -636,7 +636,7 @@ transmitop=10
 op10=   
 
 // 938:48
-[com_48]
+[comp_bg_e]
 type=graphic
 x=233
 y=16
@@ -650,7 +650,7 @@ transmitop=10
 op10=    
 
 // 938:49
-[com_49]
+[comp_bg_sw]
 type=graphic
 x=-1
 y=196
@@ -663,7 +663,7 @@ transmitop=10
 op10=   
 
 // 938:50
-[com_50]
+[comp_bg_s]
 type=graphic
 x=13
 y=196
@@ -676,7 +676,7 @@ transmitop=10
 op10=    
 
 // 938:51
-[com_51]
+[comp_bg_se]
 type=graphic
 x=233
 y=196
@@ -690,7 +690,7 @@ transmitop=10
 op10=    
 
 // 938:52
-[com_52]
+[comp_bg_ce]
 type=rectangle
 x=1
 y=16
@@ -703,7 +703,7 @@ transmitop=10
 op10=  
 
 // 938:53
-[com_53]
+[comp_bg_grad]
 type=graphic
 x=1
 y=16
@@ -717,7 +717,7 @@ transmitop=10
 op10=  
 
 // 938:54
-[com_54]
+[comp_slider_layer]
 type=layer
 y=-17
 width=33696
@@ -734,8 +734,8 @@ x=24
 y=59
 width=199
 height=7
-layer=com_54
-graphic=graphic_2881
+layer=comp_slider_layer
+graphic=rand_complexity_select_slider_bar
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -747,7 +747,7 @@ x=19
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 graphic="rand_complexity_select_buttons,1"
 colour=0xffffffff
 transmitop=1,10
@@ -755,11 +755,11 @@ op1=Select-complexity
 op10= 
 
 // 938:57
-[com_57]
+[complexity_slider_layer_1]
 type=layer
 width=512
 height=334
-layer=com_54
+layer=comp_slider_layer
 hide=yes
 transmitop=10
 op10= 
@@ -771,7 +771,7 @@ x=19
 y=32
 width=20
 height=20
-layer=com_57
+layer=complexity_slider_layer_1
 graphic="rand_complexity_select_buttons,2"
 colour=0xffffffff
 transmitop=10
@@ -784,20 +784,20 @@ x=18
 y=30
 width=22
 height=38
-layer=com_57
-graphic=graphic_2880
+layer=complexity_slider_layer_1
+graphic=rand_complexity_select_slider
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 938:60
-[com_60]
+[complexity_label_1]
 type=text
 x=19
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 textfont=b12_full
 text=1
 textalignh=centre
@@ -815,7 +815,7 @@ x=57
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 graphic="rand_complexity_select_buttons,1"
 colour=0xffffffff
 transmitop=1,10
@@ -823,12 +823,12 @@ op1=Select-complexity
 op10=    
 
 // 938:62
-[com_62]
+[complexity_slider_layer_2]
 type=layer
 x=38
 width=512
 height=334
-layer=com_54
+layer=comp_slider_layer
 hide=yes
 transmitop=10
 op10=  
@@ -840,7 +840,7 @@ x=19
 y=32
 width=20
 height=20
-layer=com_62
+layer=complexity_slider_layer_2
 graphic="rand_complexity_select_buttons,2"
 colour=0xffffffff
 transmitop=10
@@ -853,20 +853,20 @@ x=18
 y=30
 width=22
 height=38
-layer=com_62
-graphic=graphic_2880
+layer=complexity_slider_layer_2
+graphic=rand_complexity_select_slider
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 938:65
-[com_65]
+[complexity_label_2]
 type=text
 x=57
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 textfont=b12_full
 text=2
 textalignh=centre
@@ -884,7 +884,7 @@ x=95
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 graphic="rand_complexity_select_buttons,1"
 colour=0xffffffff
 transmitop=1,10
@@ -892,12 +892,12 @@ op1=Select-complexity
 op10=     
 
 // 938:67
-[com_67]
+[complexity_slider_layer_3]
 type=layer
 x=76
 width=512
 height=334
-layer=com_54
+layer=comp_slider_layer
 hide=yes
 transmitop=10
 op10=  
@@ -909,7 +909,7 @@ x=19
 y=32
 width=20
 height=20
-layer=com_67
+layer=complexity_slider_layer_3
 graphic="rand_complexity_select_buttons,2"
 colour=0xffffffff
 transmitop=10
@@ -922,20 +922,20 @@ x=18
 y=30
 width=22
 height=38
-layer=com_67
-graphic=graphic_2880
+layer=complexity_slider_layer_3
+graphic=rand_complexity_select_slider
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 938:70
-[com_70]
+[complexity_label_3]
 type=text
 x=95
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 textfont=b12_full
 text=3
 textalignh=centre
@@ -953,7 +953,7 @@ x=133
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 graphic="rand_complexity_select_buttons,1"
 colour=0xffffffff
 transmitop=1,10
@@ -961,12 +961,12 @@ op1=Select-complexity
 op10=      
 
 // 938:72
-[com_72]
+[complexity_slider_layer_4]
 type=layer
 x=114
 width=512
 height=334
-layer=com_54
+layer=comp_slider_layer
 hide=yes
 transmitop=10
 op10=  
@@ -978,7 +978,7 @@ x=19
 y=32
 width=20
 height=20
-layer=com_72
+layer=complexity_slider_layer_4
 graphic="rand_complexity_select_buttons,2"
 colour=0xffffffff
 transmitop=10
@@ -991,20 +991,20 @@ x=18
 y=30
 width=22
 height=38
-layer=com_72
-graphic=graphic_2880
+layer=complexity_slider_layer_4
+graphic=rand_complexity_select_slider
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 938:75
-[com_75]
+[complexity_label_4]
 type=text
 x=133
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 textfont=b12_full
 text=4
 textalignh=centre
@@ -1022,7 +1022,7 @@ x=171
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 graphic="rand_complexity_select_buttons,1"
 colour=0xffffffff
 transmitop=1,10
@@ -1030,12 +1030,12 @@ op1=Select-complexity
 op10=       
 
 // 938:77
-[com_77]
+[complexity_slider_layer_5]
 type=layer
 x=152
 width=512
 height=334
-layer=com_54
+layer=comp_slider_layer
 hide=yes
 transmitop=10
 op10=  
@@ -1047,7 +1047,7 @@ x=19
 y=32
 width=20
 height=20
-layer=com_77
+layer=complexity_slider_layer_5
 graphic="rand_complexity_select_buttons,2"
 colour=0xffffffff
 transmitop=10
@@ -1060,20 +1060,20 @@ x=18
 y=30
 width=22
 height=38
-layer=com_77
-graphic=graphic_2880
+layer=complexity_slider_layer_5
+graphic=rand_complexity_select_slider
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 938:80
-[com_80]
+[complexity_label_5]
 type=text
 x=171
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 textfont=b12_full
 text=5
 textalignh=centre
@@ -1091,7 +1091,7 @@ x=209
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 graphic="rand_complexity_select_buttons,1"
 colour=0xffffffff
 transmitop=1,10
@@ -1099,12 +1099,12 @@ op1=Select-complexity
 op10=    
 
 // 938:82
-[com_82]
+[complexity_slider_layer_6]
 type=layer
 x=190
 width=512
 height=334
-layer=com_54
+layer=comp_slider_layer
 hide=yes
 transmitop=10
 op10=  
@@ -1116,7 +1116,7 @@ x=19
 y=32
 width=20
 height=20
-layer=com_82
+layer=complexity_slider_layer_6
 graphic="rand_complexity_select_buttons,2"
 colour=0xffffffff
 transmitop=10
@@ -1129,20 +1129,20 @@ x=18
 y=30
 width=22
 height=38
-layer=com_82
-graphic=graphic_2880
+layer=complexity_slider_layer_6
+graphic=rand_complexity_select_slider
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 938:85
-[com_85]
+[complexity_label_6]
 type=text
 x=209
 y=32
 width=20
 height=20
-layer=com_54
+layer=comp_slider_layer
 textfont=b12_full
 text=6
 textalignh=centre
@@ -1178,7 +1178,7 @@ transmitop=10
 op10= 
 
 // 938:88
-[creatureblast]
+[comp_combat_label]
 type=text
 x=27
 y=5

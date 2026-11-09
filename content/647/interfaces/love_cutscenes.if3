@@ -5,8 +5,8 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-onload=love_cutscenes(event_com, love_cutscenes:dummy_hud, love_cutscenes:instructions, love_cutscenes:text, love_cutscenes:com_4)
-onvarctransmit=love_cutscenes(event_com, love_cutscenes:dummy_hud, love_cutscenes:instructions, love_cutscenes:text, love_cutscenes:com_4){varclient_1007}
+onload=love_cutscenes(event_com, love_cutscenes:dummy_hud, love_cutscenes:instructions, love_cutscenes:text, love_cutscenes:clanwars)
+onvarctransmit=love_cutscenes(event_com, love_cutscenes:dummy_hud, love_cutscenes:instructions, love_cutscenes:text, love_cutscenes:clanwars){varclient_1007}
 
 // 990:1
 [dummy_hud]
@@ -46,7 +46,7 @@ ymode=abs_centre
 layer=dummy_hud
 
 // 990:4
-[com_4]
+[clanwars]
 type=layer
 x=5
 width=64
@@ -65,7 +65,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=clanwars
 tiling=yes
 trans=125
 colour=0x000000
@@ -79,7 +79,7 @@ y=15
 width=32
 height=32
 xmode=abs_centre
-layer=com_4
+layer=clanwars
 graphic="options_icons,18"
 colour=0x000000
 transmitop=10
@@ -91,7 +91,7 @@ type=text
 y=3
 height=13
 widthmode=minus
-layer=com_4
+layer=clanwars
 textfont=p11_full
 text=On death:
 textalignh=centre
@@ -106,7 +106,7 @@ type=text
 y=46
 height=23
 widthmode=minus
-layer=com_4
+layer=clanwars
 textfont=p11_full
 textalignh=centre
 textshadow=yes

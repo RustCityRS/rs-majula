@@ -8,7 +8,7 @@ height=21
 layer=content_layer_2
 
 // 1100:1
-[com_1]
+[left_gfx]
 type=graphic
 width=6
 height=21
@@ -31,7 +31,7 @@ textalignv=centre
 colour=0x1f2723
 
 // 1100:3
-[com_3]
+[window_1_no_title_layer]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -39,7 +39,7 @@ xmode=abs_centre
 ymode=abs_centre
 
 // 1100:4
-[com_4]
+[background_graphic_1]
 type=graphic
 x=4
 y=5
@@ -47,7 +47,7 @@ width=8
 height=10
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=window_1_no_title_layer
 hide=yes
 graphic=window_texture_1
 tiling=yes
@@ -61,7 +61,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=window_1_no_title_layer
 
 // 1100:6
 [com_6]
@@ -72,7 +72,7 @@ width=8
 height=8
 widthmode=minus
 heightmode=minus
-layer=com_3
+layer=window_1_no_title_layer
 hide=yes
 
 // 1100:7
@@ -320,7 +320,7 @@ width=8
 height=4
 widthmode=minus
 xmode=abs_centre
-layer=com_3
+layer=window_1_no_title_layer
 hide=yes
 graphic=button_dropshadow_bottom
 tiling=yes
@@ -334,7 +334,7 @@ height=4
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_3
+layer=window_1_no_title_layer
 hide=yes
 graphic=button_dropshadow_bottom
 tiling=yes
@@ -346,7 +346,7 @@ width=4
 height=8
 heightmode=minus
 ymode=abs_centre
-layer=com_3
+layer=window_1_no_title_layer
 hide=yes
 graphic=button_dropshadow_left
 tiling=yes
@@ -360,7 +360,7 @@ height=8
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_3
+layer=window_1_no_title_layer
 hide=yes
 graphic=button_dropshadow_left
 tiling=yes
@@ -370,7 +370,7 @@ tiling=yes
 type=graphic
 width=4
 height=4
-layer=com_3
+layer=window_1_no_title_layer
 hide=yes
 graphic=button_dropshadow_corner
 tiling=yes
@@ -383,7 +383,7 @@ type=graphic
 width=4
 height=4
 xmode=abs_right
-layer=com_3
+layer=window_1_no_title_layer
 hide=yes
 graphic=button_dropshadow_corner
 tiling=yes
@@ -395,7 +395,7 @@ type=graphic
 width=4
 height=4
 ymode=abs_bottom
-layer=com_3
+layer=window_1_no_title_layer
 hide=yes
 graphic=button_dropshadow_corner
 tiling=yes
@@ -408,13 +408,13 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
+layer=window_1_no_title_layer
 hide=yes
 graphic=button_dropshadow_corner
 tiling=yes
 
 // 1100:36
-[com_36]
+[middle_gfx]
 type=graphic
 width=12
 height=21
@@ -425,7 +425,7 @@ graphic="aif_text_input_3,1"
 tiling=yes
 
 // 1100:37
-[com_37]
+[right_gfx]
 type=graphic
 width=6
 height=21
@@ -434,7 +434,7 @@ layer=text_layer
 graphic="aif_text_input_3,2"
 
 // 1100:38
-[com_38]
+[text_box]
 type=text
 width=4
 height=4
@@ -487,7 +487,7 @@ ymode=abs_bottom
 layer=content_layer_2
 
 // 1100:42
-[com_42]
+[paste_button_layer]
 type=layer
 y=10
 width=100
@@ -550,7 +550,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=accept_button_layer
-onload=script4201(event_com, struct_1736)
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1100:48
 [com_48]
@@ -560,7 +560,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=accept_button_layer
-onload=script4201(event_com, struct_1737)
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1100:49
 [com_49]
@@ -570,7 +570,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=accept_button_layer
-onload=script4201(event_com, struct_1738)
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1100:50
 [com_50]
@@ -580,7 +580,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=accept_button_layer
-onload=script4201(event_com, struct_1739)
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 1100:51
 [ok_button]
@@ -594,7 +594,7 @@ onload=script4213(event_com)
 onclick=clan_qfc_return(1)
 
 // 1100:52
-[com_52]
+[aif_bronze_button_text_layer]
 type=layer
 width=4
 height=4
@@ -603,7 +603,7 @@ heightmode=minus
 layer=accept_button_layer
 
 // 1100:53
-[com_53]
+[aif_bronze_button_text]
 type=text
 width=8
 height=4
@@ -611,13 +611,13 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_52
+layer=aif_bronze_button_text_layer
 textfont=verdana_13pt_regular
 text=Accept
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1100:54
 [com_54]
@@ -629,7 +629,7 @@ heightmode=minus
 layer=accept_button_layer
 hide=yes
 noclickthrough=yes
-onload=script4201(event_com, struct_1740)
+onload=aif_build_button_layer(event_com, struct_1740)
 
 // 1100:55
 [com_55]
@@ -650,7 +650,7 @@ width=4
 height=4
 heightmode=minus
 xmode=abs_right
-layer=com_42
+layer=paste_button_layer
 graphic=button_dropshadow_left
 tiling=yes
 alpha=yes
@@ -662,7 +662,7 @@ width=4
 height=4
 widthmode=minus
 ymode=abs_bottom
-layer=com_42
+layer=paste_button_layer
 graphic=button_dropshadow_bottom
 tiling=yes
 alpha=yes
@@ -674,7 +674,7 @@ width=4
 height=4
 xmode=abs_right
 ymode=abs_bottom
-layer=com_42
+layer=paste_button_layer
 graphic=button_dropshadow_corner
 alpha=yes
 
@@ -685,8 +685,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_42
-onload=script4201(event_com, struct_1736)
+layer=paste_button_layer
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1100:60
 [com_60]
@@ -695,8 +695,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_42
-onload=script4201(event_com, struct_1737)
+layer=paste_button_layer
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1100:61
 [com_61]
@@ -705,8 +705,8 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_42
-onload=script4201(event_com, struct_1738)
+layer=paste_button_layer
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1100:62
 [com_62]
@@ -715,31 +715,31 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_42
-onload=script4201(event_com, struct_1739)
+layer=paste_button_layer
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 1100:63
-[com_63]
+[paste_button_1]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_42
+layer=paste_button_layer
 onload=script4213(event_com)
-onclick=script4366
+onclick=clan_paste_qfc
 
 // 1100:64
-[com_64]
+[aif_bronze_button_text_layer_1]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_42
+layer=paste_button_layer
 
 // 1100:65
-[com_65]
+[aif_bronze_button_text_1]
 type=text
 width=8
 height=4
@@ -747,13 +747,13 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_64
+layer=aif_bronze_button_text_layer_1
 textfont=verdana_13pt_regular
 text=Paste
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1100:66
 [com_66]
@@ -762,10 +762,10 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_42
+layer=paste_button_layer
 hide=yes
 noclickthrough=yes
-onload=script4201(event_com, struct_1740)
+onload=aif_build_button_layer(event_com, struct_1740)
 
 // 1100:67
 [com_67]
@@ -822,7 +822,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=cancel_button_layer
-onload=script4201(event_com, struct_1736)
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 1100:72
 [com_72]
@@ -832,7 +832,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=cancel_button_layer
-onload=script4201(event_com, struct_1737)
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 1100:73
 [com_73]
@@ -842,7 +842,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=cancel_button_layer
-onload=script4201(event_com, struct_1738)
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 1100:74
 [com_74]
@@ -852,7 +852,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=cancel_button_layer
-onload=script4201(event_com, struct_1739)
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 1100:75
 [cancel_button]
@@ -866,7 +866,7 @@ onload=script4213(event_com)
 onclick=clan_qfc_return(0)
 
 // 1100:76
-[com_76]
+[aif_bronze_button_text_layer_2]
 type=layer
 width=4
 height=4
@@ -875,7 +875,7 @@ heightmode=minus
 layer=cancel_button_layer
 
 // 1100:77
-[com_77]
+[aif_bronze_button_text_2]
 type=text
 width=8
 height=4
@@ -883,13 +883,13 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_76
+layer=aif_bronze_button_text_layer_2
 textfont=verdana_13pt_regular
 text=Cancel
 textalignh=centre
 textalignv=centre
 colour=0xe1e1e1
-onload=script4259(event_com)
+onload=aif_bronze_button_text_onload(event_com)
 
 // 1100:78
 [com_78]
@@ -901,7 +901,7 @@ heightmode=minus
 layer=cancel_button_layer
 hide=yes
 noclickthrough=yes
-onload=script4201(event_com, struct_1740)
+onload=aif_build_button_layer(event_com, struct_1740)
 
 // 1100:79
 [com_79]

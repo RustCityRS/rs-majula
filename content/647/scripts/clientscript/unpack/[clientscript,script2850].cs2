@@ -16,7 +16,7 @@ if_sethide(false, machinima_livecamera:com_54);
 if_sethide(false, machinima_livecamera:compasslayer);
 if_sethide(false, machinima_livecamera:storemovie);
 if_sethide(true, machinima_livecamera:com_33);
-if_setgraphic(graphic_1232, machinima_livecamera:mode_icon);
+if_setgraphic("catcon_catapult_icons,8", machinima_livecamera:mode_icon);
 if_settext("You are now in Aim Mode", machinima_livecamera:message_text);
 if_setontimer("script2853(machinima_livecamera:blockclick, clientclock)", machinima_livecamera:blockclick);
 if_setontimer("script2852(machinima_livecamera:compasslayer)", machinima_livecamera:compasslayer);

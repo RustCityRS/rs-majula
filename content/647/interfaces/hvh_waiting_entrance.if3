@@ -11,7 +11,7 @@ tiling=yes
 colour=0x000000
 
 // 731:1
-[com_1]
+[rating_corner1]
 type=graphic
 x=-1
 y=17
@@ -22,7 +22,7 @@ graphic="v2_stone_borders,4"
 colour=0x000000
 
 // 731:2
-[com_2]
+[rating_corner2]
 type=graphic
 x=-1
 y=25
@@ -33,7 +33,7 @@ graphic="v2_stone_borders,6"
 colour=0x000000
 
 // 731:3
-[com_3]
+[rating_corner3]
 type=graphic
 x=93
 y=17
@@ -44,7 +44,7 @@ graphic="v2_stone_borders,5"
 colour=0x000000
 
 // 731:4
-[com_4]
+[rating_corner4]
 type=graphic
 x=93
 y=25
@@ -115,7 +115,7 @@ tiling=yes
 colour=0x000000
 
 // 731:10
-[com_10]
+[people_corner1]
 type=graphic
 x=371
 y=17
@@ -126,7 +126,7 @@ graphic="v2_stone_borders,4"
 colour=0x000000
 
 // 731:11
-[com_11]
+[people_corner2]
 type=graphic
 x=371
 y=25
@@ -137,7 +137,7 @@ graphic="v2_stone_borders,6"
 colour=0x000000
 
 // 731:12
-[com_12]
+[people_corner3]
 type=graphic
 x=465
 y=17
@@ -213,7 +213,7 @@ x=17
 y=10
 width=475
 height=30
-layer=com_26
+layer=not_allowed_layer
 graphic=tradebacking
 tiling=yes
 colour=0x000000
@@ -225,7 +225,7 @@ x=10
 y=3
 width=32
 height=32
-layer=com_26
+layer=not_allowed_layer
 graphic="v2_stone_borders,4"
 colour=0x000000
 
@@ -236,7 +236,7 @@ x=10
 y=15
 width=32
 height=32
-layer=com_26
+layer=not_allowed_layer
 graphic="v2_stone_borders,6"
 colour=0x000000
 
@@ -247,7 +247,7 @@ x=467
 y=3
 width=32
 height=32
-layer=com_26
+layer=not_allowed_layer
 graphic="v2_stone_borders,5"
 colour=0x000000
 
@@ -258,7 +258,7 @@ x=467
 y=15
 width=32
 height=32
-layer=com_26
+layer=not_allowed_layer
 graphic="v2_stone_borders,7"
 colour=0x000000
 
@@ -269,7 +269,7 @@ x=33
 y=-10
 width=442
 height=32
-layer=com_26
+layer=not_allowed_layer
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0x000000
@@ -281,7 +281,7 @@ x=34
 y=27
 width=441
 height=32
-layer=com_26
+layer=not_allowed_layer
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0x000000
@@ -293,7 +293,7 @@ x=15
 y=9
 width=477
 height=20
-layer=com_26
+layer=not_allowed_layer
 textfont=b12_full
 text=The following item is not allowed in the arena:
 textalignh=centre
@@ -301,7 +301,7 @@ textshadow=yes
 colour=0xff0000
 
 // 731:26
-[com_26]
+[not_allowed_layer]
 type=layer
 x=1
 y=7

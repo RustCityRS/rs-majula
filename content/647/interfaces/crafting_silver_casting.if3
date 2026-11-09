@@ -1,5 +1,5 @@
 // 438:0
-[com_0]
+[background]
 type=graphic
 x=17
 y=26
@@ -161,7 +161,7 @@ textshadow=yes
 colour=0xff981f
 
 // 438:14
-[com_14]
+[silvercast_controllayer]
 type=layer
 x=33
 y=67
@@ -175,7 +175,7 @@ x=9
 y=5
 width=85
 height=115
-layer=com_14
+layer=silvercast_controllayer
 
 // 438:16
 [com_16]
@@ -228,7 +228,7 @@ x=9
 y=5
 width=85
 height=115
-layer=com_14
+layer=silvercast_controllayer
 hide=yes
 
 // 438:20
@@ -262,7 +262,7 @@ x=9
 y=120
 width=85
 height=113
-layer=com_14
+layer=silvercast_controllayer
 
 // 438:23
 [com_23]
@@ -315,7 +315,7 @@ x=9
 y=120
 width=85
 height=113
-layer=com_14
+layer=silvercast_controllayer
 hide=yes
 
 // 438:27
@@ -348,7 +348,7 @@ x=96
 y=5
 width=84
 height=115
-layer=com_14
+layer=silvercast_controllayer
 
 // 438:30
 [silver_sickle_x]
@@ -371,7 +371,7 @@ op4=Make X
 onload=crafting_level_hide(event_com, 18)
 
 // 438:31
-[com_31]
+[silvercast_sickle_model]
 type=model
 x=26
 y=1
@@ -382,7 +382,7 @@ model=null
 modelzoom=300
 
 // 438:32
-[com_32]
+[silvercast_sickle_make_text]
 type=text
 y=32
 width=84
@@ -402,7 +402,7 @@ x=96
 y=5
 width=84
 height=115
-layer=com_14
+layer=silvercast_controllayer
 hide=yes
 
 // 438:34
@@ -437,7 +437,7 @@ x=95
 y=120
 width=84
 height=112
-layer=com_14
+layer=silvercast_controllayer
 
 // 438:37
 [com_37]
@@ -460,7 +460,7 @@ op4=Make X
 onload=crafting_level_hide(event_com, 20)
 
 // 438:38
-[com_38]
+[silvercast_lightning_model]
 type=model
 x=22
 y=1
@@ -471,7 +471,7 @@ model=null
 modelzoom=300
 
 // 438:39
-[com_39]
+[silvercast_lightning_make_text]
 type=text
 x=-1
 y=32
@@ -492,7 +492,7 @@ x=95
 y=120
 width=84
 height=112
-layer=com_14
+layer=silvercast_controllayer
 hide=yes
 
 // 438:41
@@ -527,7 +527,7 @@ x=179
 y=5
 width=84
 height=115
-layer=com_14
+layer=silvercast_controllayer
 
 // 438:44
 [com_44]
@@ -550,7 +550,7 @@ op4=Make X
 onload=crafting_level_hide(event_com, 23)
 
 // 438:45
-[com_45]
+[silvercast_tiara_model]
 type=model
 x=26
 y=1
@@ -561,7 +561,7 @@ model=null
 modelzoom=300
 
 // 438:46
-[com_46]
+[silvercast_tiara_make_text]
 type=text
 x=-2
 y=32
@@ -582,7 +582,7 @@ x=179
 y=5
 width=84
 height=115
-layer=com_14
+layer=silvercast_controllayer
 hide=yes
 
 // 438:48
@@ -616,7 +616,7 @@ x=179
 y=120
 width=84
 height=112
-layer=com_14
+layer=silvercast_controllayer
 
 // 438:51
 [com_51]
@@ -651,7 +651,7 @@ op4=Make X
 onload=crafting_level_hide(event_com, 25)
 
 // 438:53
-[com_53]
+[silvercast_commandrod_model]
 type=model
 x=23
 y=1
@@ -662,7 +662,7 @@ model=null
 modelzoom=300
 
 // 438:54
-[com_54]
+[silvercast_commandrod_make_text]
 type=text
 x=-2
 y=32
@@ -683,7 +683,7 @@ x=179
 y=120
 width=84
 height=112
-layer=com_14
+layer=silvercast_controllayer
 hide=yes
 
 // 438:56
@@ -717,7 +717,7 @@ x=263
 y=5
 width=84
 height=115
-layer=com_14
+layer=silvercast_controllayer
 
 // 438:59
 [com_59]
@@ -739,7 +739,7 @@ op4=Make X
 onload=crafting_level_hide(event_com, 30)
 
 // 438:60
-[com_60]
+[silvercast_agrith_model]
 type=model
 x=24
 width=32
@@ -749,7 +749,7 @@ model=null
 modelzoom=300
 
 // 438:61
-[com_61]
+[silvercast_agrith_make_text]
 type=text
 x=-2
 y=32
@@ -770,7 +770,7 @@ x=263
 y=5
 width=84
 height=115
-layer=com_14
+layer=silvercast_controllayer
 hide=yes
 
 // 438:63
@@ -804,7 +804,7 @@ x=263
 y=120
 width=84
 height=112
-layer=com_14
+layer=silvercast_controllayer
 
 // 438:66
 [com_66]
@@ -856,7 +856,7 @@ x=263
 y=120
 width=84
 height=112
-layer=com_14
+layer=silvercast_controllayer
 hide=yes
 
 // 438:70
@@ -889,7 +889,7 @@ x=348
 y=5
 width=84
 height=115
-layer=com_14
+layer=silvercast_controllayer
 
 // 438:73
 [com_73]
@@ -952,7 +952,7 @@ x=348
 y=5
 width=84
 height=115
-layer=com_14
+layer=silvercast_controllayer
 hide=yes
 
 // 438:78
@@ -962,7 +962,7 @@ x=348
 y=120
 width=84
 height=112
-layer=com_14
+layer=silvercast_controllayer
 
 // 438:79
 [com_79]

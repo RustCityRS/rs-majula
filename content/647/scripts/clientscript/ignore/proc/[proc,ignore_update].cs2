@@ -12,8 +12,8 @@ if_settext("<tostring($int0)> / <tostring(100)>", friends2:ignore_info);
 if_settext("", friends2:loadingmes);
 if_sethide(true, friends2:loadingmes);
 def_component $component1 = friends2:ignorebox;
-def_component $component2 = friends2:com_2;
-def_component $component3 = friends2:com_3;
+def_component $component2 = friends2:ignorebox_rectangles;
+def_component $component3 = friends2:ignorebox_scrolling_layer;
 def_component $component4 = friends2:ignorescroll;
 def_int $int5 = 0;
 def_string $string0 = "";
@@ -76,7 +76,7 @@ while ($int5 < $int0) {
         cc_sethide(true);
     }
     if (calc($int5 % 2) ! 0) {
-        cc_create(friends2:com_2, ^iftype_rectangle, if_getnextsubid($component2));
+        cc_create(friends2:ignorebox_rectangles, ^iftype_rectangle, if_getnextsubid($component2));
         cc_setsize(16384, $int10, ^setsize_rel, ^setsize_abs);
         cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
         cc_setcolour(0x232220);
@@ -88,7 +88,7 @@ while ($int5 < $int0) {
 while ($int5 < $int11) {
     $int9 = calc($int5 * $int10);
     if (calc($int5 % 2) ! 0) {
-        cc_create(friends2:com_2, ^iftype_rectangle, if_getnextsubid($component2));
+        cc_create(friends2:ignorebox_rectangles, ^iftype_rectangle, if_getnextsubid($component2));
         cc_setsize(16384, $int10, ^setsize_rel, ^setsize_abs);
         cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
         cc_setcolour(0x232220);

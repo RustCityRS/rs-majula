@@ -7,7 +7,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 535:1
-[com_1]
+[background]
 type=rectangle
 x=-3
 y=-1
@@ -18,7 +18,7 @@ colour=0x2b2b14
 fill=yes
 
 // 535:2
-[pic21]
+[piano]
 type=model
 x=37
 y=16
@@ -583,7 +583,7 @@ ymode=abs_centre
 layer=fsborder_main_layer
 
 // 535:43
-[com_43]
+[fsborder_graphic_1]
 type=graphic
 x=-260
 width=32
@@ -595,7 +595,7 @@ tiling=yes
 colour=0x000000
 
 // 535:44
-[com_44]
+[fsborder_graphic_2]
 type=graphic
 y=-171
 width=462
@@ -607,7 +607,7 @@ tiling=yes
 colour=0x000000
 
 // 535:45
-[com_45]
+[fsborder_graphic_3]
 type=graphic
 y=170
 width=512
@@ -619,7 +619,7 @@ tiling=yes
 colour=0x000000
 
 // 535:46
-[com_46]
+[fsborder_graphic_4]
 type=graphic
 x=259
 width=32
@@ -631,7 +631,7 @@ tiling=yes
 colour=0x000000
 
 // 535:47
-[com_47]
+[fsborder_graphic_5]
 type=graphic
 x=-247
 y=-158
@@ -644,7 +644,7 @@ tiling=yes
 colour=0x000000
 
 // 535:48
-[com_48]
+[fsborder_graphic_6]
 type=graphic
 x=247
 y=-158
@@ -657,7 +657,7 @@ tiling=yes
 colour=0x000000
 
 // 535:49
-[com_49]
+[fsborder_graphic_7]
 type=graphic
 x=247
 y=158
@@ -670,7 +670,7 @@ tiling=yes
 colour=0x000000
 
 // 535:50
-[com_50]
+[fsborder_graphic_8]
 type=graphic
 x=-247
 y=158

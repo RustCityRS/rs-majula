@@ -126,7 +126,7 @@ switch_int (%varclient_1007) {
         spline_addpoint(1, 13, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
         spline_addpoint(0, 14, ~love_instance(41, 55, $coord1), 1500, ~love_instance(41, 55, $coord1), 1500, 0);
         spline_addpoint(1, 14, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        if_setoncamfinished("script3469($component0, 1)", $component0);
+        if_setoncamfinished("love_wizardstower_thingummywut($component0, 1)", $component0);
         cam_movealong(0, 0, 2500, 3200, 1, 0);
     case 117 :
         if_setoncamfinished(null, $component0);

@@ -10,7 +10,7 @@ switch_int ($int0) {
     case 6 :
         if ($int1 = 1) {
             %varclient_1099 = string_length(%varclient_1641);
-            ~script3218(account_create:com_87, account_create:com_31, account_create:com_88, %varclient_1641, 6);
+            ~script3218(account_create:email_input_layer, account_create:com_31, account_create:email_input_caret, %varclient_1641, 6);
         }
     case 14 :
         if ($int1 = 1) {
@@ -20,21 +20,21 @@ switch_int ($int0) {
     case 7 :
         if ($int1 = 1) {
             %varclient_1099 = string_length(%varclient_1643);
-            ~script3218(account_create:com_77, account_create:password_input_text, account_create:com_79, ~script2949(%varclient_1643), 7);
+            ~script3218(account_create:password_input_layer, account_create:password_input_text, account_create:password_input_caret, ~script2949(%varclient_1643), 7);
         }
     case 8 :
         if ($int1 = 1) {
             %varclient_1099 = string_length(%varclient_1644);
-            ~script3218(account_create:com_67, account_create:password2_input_text, account_create:com_69, ~script2949(%varclient_1644), 8);
+            ~script3218(account_create:password2_input_layer, account_create:password2_input_text, account_create:password2_input_caret, ~script2949(%varclient_1644), 8);
         }
     case 15 :
         if ($int1 = 1) {
             if (%varclient_1407 < 1) {
                 %varclient_1099 = 0;
-                ~script3218(account_create:com_113, account_create:com_30, account_create:com_114, "", 15);
+                ~script3218(account_create:com_113, account_create:age_input_text, account_create:com_114, "", 15);
             } else {
                 %varclient_1099 = string_length(tostring(%varclient_1407));
-                ~script3218(account_create:com_113, account_create:com_30, account_create:com_114, tostring(%varclient_1407), 15);
+                ~script3218(account_create:com_113, account_create:age_input_text, account_create:com_114, tostring(%varclient_1407), 15);
             }
         }
 }

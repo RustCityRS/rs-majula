@@ -278,7 +278,7 @@ op1=Decline
 onop=closebutton_click
 
 // 637:23
-[com_23]
+[wornitems]
 type=layer
 x=63
 y=52
@@ -296,7 +296,7 @@ transmitop=10
 op10=  
 
 // 637:25
-[com_25]
+[no_ranged]
 type=layer
 height=15
 widthmode=minus
@@ -307,7 +307,7 @@ op1=Toggle
 onload=script4166(event_com, interface_637:tooltip, 4, "No Ranged", "Neither player is allowed to use ranged attacks.", 0)
 
 // 637:26
-[com_26]
+[no_melee]
 type=layer
 y=16
 height=15
@@ -319,7 +319,7 @@ op1=Toggle
 onload=script4166(event_com, interface_637:tooltip, 5, "No Melee", "Neither player is allowed to use melee attacks.", 0)
 
 // 637:27
-[com_27]
+[no_magic]
 type=layer
 y=32
 height=15
@@ -331,7 +331,7 @@ op1=Toggle
 onload=script4166(event_com, interface_637:tooltip, 6, "No Magic", "Neither player is allowed to use magic attacks.", 0)
 
 // 637:28
-[com_28]
+[funweapons]
 type=layer
 y=48
 height=15
@@ -343,7 +343,7 @@ op1=Toggle
 onload=script4166(event_com, interface_637:tooltip, 12, "Fun Weapons", "Both players will use a 'fun weapon', such as a rubber chicken.", 0)
 
 // 637:29
-[com_29]
+[no_forfeit]
 type=layer
 y=64
 height=15
@@ -355,7 +355,7 @@ op1=Toggle
 onload=script4166(event_com, interface_637:tooltip, 0, "No Forfeit", "Neither player is allowed to forfeit the duel.", 0)
 
 // 637:30
-[com_30]
+[no_drinks]
 type=layer
 y=80
 height=15
@@ -367,7 +367,7 @@ op1=Toggle
 onload=script4166(event_com, interface_637:tooltip, 7, "No Drinks", "Neither player will be allowed to use drinks, such as Strength potions.", 0)
 
 // 637:31
-[com_31]
+[no_food]
 type=layer
 y=96
 height=15
@@ -379,7 +379,7 @@ op1=Toggle
 onload=script4166(event_com, interface_637:tooltip, 8, "No Food", "Neither player will be allowed to use food.", 0)
 
 // 637:32
-[com_32]
+[no_prayer]
 type=layer
 y=112
 height=15
@@ -391,7 +391,7 @@ op1=Toggle
 onload=script4166(event_com, interface_637:tooltip, 9, "No Prayer", "Neither player will be allowed to use prayers.", 0)
 
 // 637:33
-[com_33]
+[no_movement]
 type=layer
 y=128
 height=15
@@ -439,7 +439,7 @@ op1=Toggle
 onload=script4166(event_com, interface_637:tooltip, 13, "No Special Attacks", "Neither player will be allowed to use special attacks.", 1)
 
 // 637:37
-[com_37]
+[previous]
 type=layer
 height=17
 widthmode=minus
@@ -520,14 +520,14 @@ onmouseover=text_colour_swapper(event_com, 0xab0000)
 onmouseleave=text_colour_swapper(event_com, 0xcc0000)
 
 // 637:43
-[com_43]
+[slot0]
 type=layer
 y=-80
 width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=wornitems
 transmitop=1
 op1=Toggle slot
 onload=script4170(event_com, interface_637:tooltip, 0, "If selected, neither player can wear items on their heads.")
@@ -541,7 +541,7 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=wornitems
 transmitop=1
 op1=Toggle slot
 onload=script4170(event_com, interface_637:tooltip, 1, "If selected, neither player can wear items on their backs, such as capes.")
@@ -554,7 +554,7 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=wornitems
 transmitop=1
 op1=Toggle slot
 onload=script4170(event_com, interface_637:tooltip, 2, "If selected, neither player can wear items around their necks, such as amulets.")
@@ -567,7 +567,7 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=wornitems
 transmitop=1
 op1=Toggle slot
 onload=script4170(event_com, interface_637:tooltip, 3, "If selected, neither player can wield weapons in their right hands.")
@@ -579,39 +579,39 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=wornitems
 transmitop=1
 op1=Toggle slot
 onload=script4170(event_com, interface_637:tooltip, 4, "If selected, neither player can wear items on their torsos.")
 
 // 637:48
-[com_48]
+[slot5]
 type=layer
 x=55
 width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=wornitems
 transmitop=1
 op1=Toggle slot
 onload=script4170(event_com, interface_637:tooltip, 5, "If selected, neither player can wield items in their left hands, such as shields, or 2-handed weapons such as bows.")
 
 // 637:49
-[com_49]
+[slot7]
 type=layer
 y=40
 width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=wornitems
 transmitop=1
 op1=Toggle slot
 onload=script4170(event_com, interface_637:tooltip, 7, "If selected, neither player can wear items on their legs.")
 
 // 637:50
-[com_50]
+[slot9]
 type=layer
 x=-55
 y=80
@@ -619,26 +619,26 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=wornitems
 transmitop=1
 op1=Toggle slot
 onload=script4170(event_com, interface_637:tooltip, 9, "If selected, neither player can wear items on their hands.")
 
 // 637:51
-[com_51]
+[slot10]
 type=layer
 y=80
 width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=wornitems
 transmitop=1
 op1=Toggle slot
 onload=script4170(event_com, interface_637:tooltip, 10, "If selected, neither player can wear items on their feet.")
 
 // 637:52
-[com_52]
+[slot12]
 type=layer
 x=55
 y=80
@@ -646,13 +646,13 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=wornitems
 transmitop=1
 op1=Toggle slot
 onload=script4170(event_com, interface_637:tooltip, 12, "If selected, neither player can wear rings.")
 
 // 637:53
-[com_53]
+[slot13]
 type=layer
 x=40
 y=-40
@@ -660,7 +660,7 @@ width=36
 height=36
 xmode=abs_centre
 ymode=abs_centre
-layer=com_23
+layer=wornitems
 transmitop=1
 op1=Toggle slot
 onload=script4170(event_com, interface_637:tooltip, 13, "If selected, neither player can keep items in their quivers.")

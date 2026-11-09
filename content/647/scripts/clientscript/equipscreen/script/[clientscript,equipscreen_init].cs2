@@ -14,7 +14,7 @@ if (%equipment_bank_button = 1) {
 } else {
     if_sethide(true, equip_screen2:bank_button);
 }
-~script2957(equip_screen2:bank_button_graphics);
+~v2_small_button_out_filled(equip_screen2:bank_button_graphics);
 if_setonmouseover("v2_small_button_in_filled(event_com)", equip_screen2:bank_button_graphics);
 if_setonmouseleave("v2_small_button_out_filled(event_com)", equip_screen2:bank_button_graphics);
 if_setonvartransmit("script2371{varplayer_1248}", $component0);

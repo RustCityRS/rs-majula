@@ -3,7 +3,7 @@
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 5;
-while (cc_find(conq_stake_options:com_15, $int1) = true) {
+while (cc_find(conq_stake_options:opponent_stake_flash, $int1) = true) {
     $int1 = calc($int1 + 1);
 }
 if ($int0 > 4) {
@@ -13,9 +13,9 @@ if ($int0 > 4) {
     $int2 = calc($int0 * 40);
 }
 $int2 = calc($int2 + 17);
-cc_create(conq_stake_options:com_15, ^iftype_graphic, $int1);
+cc_create(conq_stake_options:opponent_stake_flash, ^iftype_graphic, $int1);
 cc_setgraphic(exclamation_mark);
 cc_setsize(10, 32, ^setsize_abs, ^setsize_abs);
 cc_setposition($int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
 cc_sethide(false);
-cc_setontimer("interface_flash_fade(conq_stake_options:com_15, $int1, clientclock, calc(clientclock + 750))");
+cc_setontimer("interface_flash_fade(conq_stake_options:opponent_stake_flash, $int1, clientclock, calc(clientclock + 750))");

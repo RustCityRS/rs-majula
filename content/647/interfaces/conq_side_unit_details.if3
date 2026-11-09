@@ -3,7 +3,7 @@
 type=layer
 width=190
 height=261
-onvarctransmit=script498(0, 0, 0, 0, 0, 0){varclient_1372, varclient_1373, varclient_1374, varclient_1375, varclient_1376, varclient_1377}
+onvarctransmit=conq_update_buff_icons(0, 0, 0, 0, 0, 0){varclient_1372, varclient_1373, varclient_1374, varclient_1375, varclient_1376, varclient_1377}
 
 // 1012:1
 [main_title_text]
@@ -57,7 +57,7 @@ widthmode=proportion
 heightmode=proportion
 transmitop=10
 op10= 
-onvarctransmit=script497{varclient_1371}
+onvarctransmit=conq_update_unit_details{varclient_1371}
 
 // 1012:5
 [unit_type_text]
@@ -88,8 +88,8 @@ colour=0x000000
 transmitop=1,10
 op1=View-unit
 op10= 
-onmouseover=script501(1)
-onmouseleave=script501(0)
+onmouseover=conq_unit_side_highlight(1)
+onmouseleave=conq_unit_side_highlight(0)
 
 // 1012:7
 [current_unit_image_highlight]

@@ -272,7 +272,7 @@ onmouseleave=ii_mouseleave(event_com, ii_elnock_storage:mouseover)
 onmouserepeat=text_swapper(ii_elnock_storage:mouseover, "Withdraw all")
 
 // 592:20
-[com_20]
+[background]
 type=layer
 y=22
 height=58
@@ -288,7 +288,7 @@ type=graphic
 height=70
 widthmode=minus
 xmode=abs_centre
-layer=com_20
+layer=background
 graphic=graphic_2042
 tiling=yes
 colour=0xffffffff
@@ -302,7 +302,7 @@ y=70
 height=116
 widthmode=minus
 heightmode=minus
-layer=com_20
+layer=background
 graphic=km_middlefillcolour
 tiling=yes
 colour=0xffffffff
@@ -310,12 +310,12 @@ transmitop=10
 op10=    
 
 // 592:23
-[com_23]
+[background_bot]
 type=graphic
 height=46
 widthmode=minus
 ymode=abs_bottom
-layer=com_20
+layer=background
 graphic=graphic_2038
 tiling=yes
 colour=0xffffffff

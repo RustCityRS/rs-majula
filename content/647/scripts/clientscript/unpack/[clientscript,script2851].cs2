@@ -29,7 +29,7 @@ if (clientclock > calc($int2 + 5) | %varclient_1074 = 2) {
                 case ^key_f :
                     ~machinima_camera_south;
                 case ^key_g :
-                    ~championsarea;
+                    ~machinima_camera_east;
                 case ^key_up :
                     ~script2860;
                 case ^key_down :
@@ -44,7 +44,7 @@ if (clientclock > calc($int2 + 5) | %varclient_1074 = 2) {
                     ~script3455;
                     if (%varclient_1074 = 0) {
                         %varclient_1074 = 1;
-                        if_setgraphic(graphic_1233, machinima_livecamera:mode_icon);
+                        if_setgraphic("catcon_catapult_icons,9", machinima_livecamera:mode_icon);
                         if_settext("You are now in Focus Mode", machinima_livecamera:message_text);
                         if (if_gethide(machinima_livecamera:com_54) = false) {
                             if_sethide(true, machinima_livecamera:com_54);
@@ -54,7 +54,7 @@ if (clientclock > calc($int2 + 5) | %varclient_1074 = 2) {
                         }
                     } else if (%varclient_1074 = 2) {
                         %varclient_1074 = 0;
-                        if_setgraphic(graphic_1232, machinima_livecamera:mode_icon);
+                        if_setgraphic("catcon_catapult_icons,8", machinima_livecamera:mode_icon);
                         if_settext("You are now in Aim Mode", machinima_livecamera:message_text);
                         if (if_gethide(machinima_livecamera:com_100) = false) {
                             if_sethide(true, machinima_livecamera:com_33);
@@ -64,7 +64,7 @@ if (clientclock > calc($int2 + 5) | %varclient_1074 = 2) {
                         }
                     } else {
                         %varclient_1074 = 2;
-                        if_setgraphic(graphic_1231, machinima_livecamera:mode_icon);
+                        if_setgraphic("catcon_catapult_icons,7", machinima_livecamera:mode_icon);
                         if_settext("You are now in Fine Control Mode", machinima_livecamera:message_text);
                         if (if_gethide(machinima_livecamera:com_33) = false) {
                             if_sethide(true, machinima_livecamera:com_33);
@@ -142,7 +142,7 @@ if (clientclock > calc($int2 + 5) | %varclient_1074 = 2) {
                 case ^key_s :
                     ~machinima_camera_south;
                 case ^key_d :
-                    ~championsarea;
+                    ~machinima_camera_east;
                 case ^key_up :
                     ~script2860;
                 case ^key_down :
@@ -157,7 +157,7 @@ if (clientclock > calc($int2 + 5) | %varclient_1074 = 2) {
                     ~script3455;
                     if (%varclient_1074 = 0) {
                         %varclient_1074 = 1;
-                        if_setgraphic(graphic_1233, machinima_livecamera:mode_icon);
+                        if_setgraphic("catcon_catapult_icons,9", machinima_livecamera:mode_icon);
                         if_settext("You are now in Focus Mode", machinima_livecamera:message_text);
                         if (if_gethide(machinima_livecamera:com_54) = false) {
                             if_sethide(true, machinima_livecamera:com_54);
@@ -167,7 +167,7 @@ if (clientclock > calc($int2 + 5) | %varclient_1074 = 2) {
                         }
                     } else if (%varclient_1074 = 2) {
                         %varclient_1074 = 0;
-                        if_setgraphic(graphic_1232, machinima_livecamera:mode_icon);
+                        if_setgraphic("catcon_catapult_icons,8", machinima_livecamera:mode_icon);
                         if_settext("You are now in Aim Mode", machinima_livecamera:message_text);
                         if (if_gethide(machinima_livecamera:com_100) = false) {
                             if_sethide(true, machinima_livecamera:com_33);
@@ -177,7 +177,7 @@ if (clientclock > calc($int2 + 5) | %varclient_1074 = 2) {
                         }
                     } else {
                         %varclient_1074 = 2;
-                        if_setgraphic(graphic_1231, machinima_livecamera:mode_icon);
+                        if_setgraphic("catcon_catapult_icons,7", machinima_livecamera:mode_icon);
                         if_settext("You are now in Fine Control Mode", machinima_livecamera:message_text);
                         if (if_gethide(machinima_livecamera:com_33) = false) {
                             if_sethide(true, machinima_livecamera:com_33);

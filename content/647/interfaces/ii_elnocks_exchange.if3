@@ -92,7 +92,7 @@ transmitop=10
 op10=  
 
 // 540:7
-[com_7]
+[background]
 type=layer
 y=22
 height=99
@@ -106,7 +106,7 @@ type=graphic
 height=70
 widthmode=minus
 xmode=abs_centre
-layer=com_7
+layer=background
 graphic=graphic_2042
 tiling=yes
 colour=0xffffffff
@@ -120,7 +120,7 @@ y=70
 height=116
 widthmode=minus
 heightmode=minus
-layer=com_7
+layer=background
 graphic=km_middlefillcolour
 tiling=yes
 colour=0xffffffff
@@ -128,12 +128,12 @@ transmitop=10
 op10=   
 
 // 540:10
-[com_10]
+[background_bot]
 type=graphic
 height=46
 widthmode=minus
 ymode=abs_bottom
-layer=com_7
+layer=background
 graphic=graphic_2038
 tiling=yes
 colour=0xffffffff
@@ -255,10 +255,10 @@ xmode=abs_centre
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseover=script2901(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Baby x 3, Young x 2, Gourmet x 1 for Imp repellent x 1.")
-onmouseleave=script2902(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, 1)
-onmouserepeat=script2901(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Baby x 3, Young x 2, Gourmet x 1 for Imp repellent x 1.")
-onclick=script2903(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:repellent_fill, ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:impling_jar_fill, 1)
+onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Baby x 3, Young x 2, Gourmet x 1 for Imp repellent x 1.")
+onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, 1)
+onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Baby x 3, Young x 2, Gourmet x 1 for Imp repellent x 1.")
+onclick=ii_exchange_onclick(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:repellent_fill, ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:impling_jar_fill, 1)
 
 // 540:21
 [repellent_highlight]
@@ -280,10 +280,10 @@ xmode=abs_centre
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseover=script2901(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Gourmet x 3, Earth x 2, Essence x 1 for Magic Butterfly Net x 1.")
-onmouseleave=script2902(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, 2)
-onmouserepeat=script2901(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Gourmet x 3, Earth x 2, Essence x 1 for Magic Butterfly Net x 1.")
-onclick=script2903(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:repellent_fill, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:impling_jar_fill, 2)
+onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Gourmet x 3, Earth x 2, Essence x 1 for Magic Butterfly Net x 1.")
+onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, 2)
+onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Gourmet x 3, Earth x 2, Essence x 1 for Magic Butterfly Net x 1.")
+onclick=ii_exchange_onclick(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:repellent_fill, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:impling_jar_fill, 2)
 
 // 540:23
 [magic_net_highlight]
@@ -305,10 +305,10 @@ xmode=abs_centre
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseover=script2901(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Essence x 3, Eclectic x 2, Nature x 1 for Jar Generator x 1.")
-onmouseleave=script2902(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, 3)
-onmouserepeat=script2901(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Essence x 3, Eclectic x 2, Nature x 1 for Jar Generator x 1.")
-onclick=script2903(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:repellent_fill, ii_elnocks_exchange:impling_jar_fill, 3)
+onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Essence x 3, Eclectic x 2, Nature x 1 for Jar Generator x 1.")
+onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, 3)
+onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Essence x 3, Eclectic x 2, Nature x 1 for Jar Generator x 1.")
+onclick=ii_exchange_onclick(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:repellent_fill, ii_elnocks_exchange:impling_jar_fill, 3)
 
 // 540:25
 [jar_generator_highlight]
@@ -330,10 +330,10 @@ xmode=abs_centre
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseover=script2901(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, "Exchange any jarred impling x 1 for Impling Jar x 3.")
-onmouseleave=script2902(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, 4)
-onmouserepeat=script2901(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, "Exchange any jarred impling x 1 for Impling Jar x 3.")
-onclick=script2903(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:impling_jar_fill, ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:repellent_fill, 4)
+onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, "Exchange any jarred impling x 1 for Impling Jar x 3.")
+onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, 4)
+onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, "Exchange any jarred impling x 1 for Impling Jar x 3.")
+onclick=ii_exchange_onclick(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:impling_jar_fill, ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:repellent_fill, 4)
 
 // 540:27
 [impling_jar_highlight]

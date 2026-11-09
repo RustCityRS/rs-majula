@@ -897,7 +897,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xe2e2a2
-onvarcstrtransmit=script3300{varclient_1803}
+onvarcstrtransmit=rand_invite_update_mem1_name{varclient_1803}
 
 // 949:73
 [mem1_combat]
@@ -915,7 +915,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10= 
-onvarctransmit=script3305{varclient_1153}
+onvarctransmit=rand_invite_update_mem1_combat{varclient_1153}
 
 // 949:74
 [mem1_dungeoneer]
@@ -933,7 +933,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=  
-onvarctransmit=script3320{varclient_1158}
+onvarctransmit=rand_invite_update_mem1_dungeoneer{varclient_1158}
 
 // 949:75
 [mem1_best]
@@ -951,7 +951,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=  
-onvarctransmit=script3310{varclient_1163}
+onvarctransmit=rand_invite_update_mem1_best{varclient_1163}
 
 // 949:76
 [mem1_total]
@@ -969,7 +969,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=   
-onvarctransmit=script3315{varclient_1168}
+onvarctransmit=rand_invite_update_mem1_total{varclient_1168}
 
 // 949:77
 [1_2_divider]
@@ -996,7 +996,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10= 
-onvarcstrtransmit=script3301{varclient_1804}
+onvarcstrtransmit=rand_invite_update_mem2_name{varclient_1804}
 
 // 949:79
 [mem2_combat]
@@ -1014,7 +1014,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=  
-onvarctransmit=script3306{varclient_1154}
+onvarctransmit=rand_invite_update_mem2_combat{varclient_1154}
 
 // 949:80
 [mem2_dungeoneer]
@@ -1032,7 +1032,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=   
-onvarctransmit=script3321{varclient_1159}
+onvarctransmit=rand_invite_update_mem2_dungeoneer{varclient_1159}
 
 // 949:81
 [mem2_best]
@@ -1050,7 +1050,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=   
-onvarctransmit=script3311{varclient_1164}
+onvarctransmit=rand_invite_update_mem2_best{varclient_1164}
 
 // 949:82
 [mem2_total]
@@ -1068,7 +1068,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=    
-onvarctransmit=script3316{varclient_1169}
+onvarctransmit=rand_invite_update_mem2_total{varclient_1169}
 
 // 949:83
 [2_3_divider]
@@ -1097,7 +1097,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10= 
-onvarcstrtransmit=script3302{varclient_1805}
+onvarcstrtransmit=rand_invite_update_mem3_name{varclient_1805}
 
 // 949:85
 [mem3_combat]
@@ -1115,7 +1115,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=  
-onvarctransmit=script3307{varclient_1155}
+onvarctransmit=rand_invite_update_mem3_combat{varclient_1155}
 
 // 949:86
 [mem3_dungeoneer]
@@ -1133,7 +1133,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=   
-onvarctransmit=script3322{varclient_1160}
+onvarctransmit=rand_invite_update_mem3_dungeoneer{varclient_1160}
 
 // 949:87
 [mem3_best]
@@ -1151,7 +1151,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=   
-onvarctransmit=script3312{varclient_1165}
+onvarctransmit=rand_invite_update_mem3_best{varclient_1165}
 
 // 949:88
 [mem3_total]
@@ -1169,7 +1169,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=    
-onvarctransmit=script3317{varclient_1170}
+onvarctransmit=rand_invite_update_mem3_total{varclient_1170}
 
 // 949:89
 [3_4_divider]
@@ -1198,7 +1198,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10= 
-onvarcstrtransmit=script3303{varclient_1806}
+onvarcstrtransmit=rand_invite_update_mem4_name{varclient_1806}
 
 // 949:91
 [mem4_combat]
@@ -1216,7 +1216,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=  
-onvarctransmit=script3308{varclient_1156}
+onvarctransmit=rand_invite_update_mem4_combat{varclient_1156}
 
 // 949:92
 [mem4_dungeoneer]
@@ -1234,7 +1234,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=   
-onvarctransmit=identifyautogrouping{varclient_1161}
+onvarctransmit=rand_invite_update_mem4_dungeoneer{varclient_1161}
 
 // 949:93
 [mem4_best]
@@ -1252,7 +1252,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=   
-onvarctransmit=script3313{varclient_1166}
+onvarctransmit=rand_invite_update_mem4_best{varclient_1166}
 
 // 949:94
 [mem4_total]
@@ -1270,7 +1270,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=    
-onvarctransmit=script3318{varclient_1171}
+onvarctransmit=rand_invite_update_mem4_total{varclient_1171}
 
 // 949:95
 [4_5_divider]
@@ -1299,7 +1299,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10= 
-onvarcstrtransmit=script3304{varclient_1807}
+onvarcstrtransmit=rand_invite_update_mem5_name{varclient_1807}
 
 // 949:97
 [mem5_combat]
@@ -1317,7 +1317,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=  
-onvarctransmit=script3309{varclient_1157}
+onvarctransmit=rand_invite_update_mem5_combat{varclient_1157}
 
 // 949:98
 [mem5_dungeoneer]
@@ -1335,7 +1335,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=   
-onvarctransmit=script3324{varclient_1162}
+onvarctransmit=rand_invite_update_mem5_dungeoneer{varclient_1162}
 
 // 949:99
 [mem5_best]
@@ -1353,7 +1353,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=   
-onvarctransmit=script3314{varclient_1167}
+onvarctransmit=rand_invite_update_mem5_best{varclient_1167}
 
 // 949:100
 [mem5_total]
@@ -1371,7 +1371,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=    
-onvarctransmit=script3319{varclient_1172}
+onvarctransmit=rand_invite_update_mem5_total{varclient_1172}
 
 // 949:101
 [floor_layer]
@@ -1449,7 +1449,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=  
-onvarctransmit=script3326{varclient_1174}
+onvarctransmit=rand_invite_update_complexity{varclient_1174}
 
 // 949:107
 [floor_title]
@@ -1483,4 +1483,4 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10= 
-onvarctransmit=script3325{varclient_1173}
+onvarctransmit=rand_invite_update_floor{varclient_1173}

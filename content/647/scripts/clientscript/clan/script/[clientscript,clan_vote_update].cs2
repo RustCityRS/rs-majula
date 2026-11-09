@@ -1,16 +1,16 @@
 // 4377
 [clientscript,clan_vote_update]
 if (%varplayer_2134 = %varclient_1499) {
-    if_settext("You have voted.", clan_voting:com_82);
+    if_settext("You have voted.", clan_voting:vote_status);
 } else {
-    if_settext("You have not yet voted.<br>How would you like to vote?", clan_voting:com_82);
+    if_settext("You have not yet voted.<br>How would you like to vote?", clan_voting:vote_status);
 }
 if (%varplayerbit_9151 = 0) {
-    if_settext("Results of last vote:", clan_voting:com_12);
+    if_settext("Results of last vote:", clan_voting:vote_time);
 } else if (%varplayerbit_9154 = 1 | %varplayerbit_9154 = 0) {
-    if_settext("Vote open for less than a minute.", clan_voting:com_12);
+    if_settext("Vote open for less than a minute.", clan_voting:vote_time);
 } else {
-    if_settext("Vote open for less than <tostring(%varplayerbit_9154)> minutes.", clan_voting:com_12);
+    if_settext("Vote open for less than <tostring(%varplayerbit_9154)> minutes.", clan_voting:vote_time);
 }
 def_int $int0 = calc(%varplayerbit_9149 + %varplayerbit_9150);
 def_int $int1 = 0;
@@ -29,7 +29,7 @@ if ($int0 > 0) {
         }
     }
 }
-if_settext(tostring(%varplayerbit_9149), clan_voting:com_7);
-if_settext(tostring(%varplayerbit_9150), clan_voting:com_8);
-~aif_progressbar_set($int1, clan_voting:com_59, clan_voting:com_64);
-~aif_progressbar_set($int2, clan_voting:com_69, clan_voting:com_74);
+if_settext(tostring(%varplayerbit_9149), clan_voting:vote_yes_total);
+if_settext(tostring(%varplayerbit_9150), clan_voting:vote_no_total);
+~aif_progressbar_set($int1, clan_voting:green_large_progress_value_layer, clan_voting:green_text);
+~aif_progressbar_set($int2, clan_voting:red_large_progress_value_layer, clan_voting:red_text);

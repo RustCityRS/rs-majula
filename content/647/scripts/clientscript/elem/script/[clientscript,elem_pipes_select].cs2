@@ -1,0 +1,51 @@
+// 1318
+[clientscript,elem_pipes_select](component $component0)
+if ($component0 = elem_magicpress_pipes:inletam) {
+    if (%varclient_163 = 0) {
+        if_setmodel(model_18796, elem_magicpress_pipes:inletam);
+        %varclient_163 = 1;
+    } else {
+        if_setmodel(model_18794, elem_magicpress_pipes:inletam);
+        %varclient_163 = 0;
+    }
+} else if ($component0 = elem_magicpress_pipes:inletbm) {
+    if (%varclient_164 = 0) {
+        if_setmodel(model_18796, elem_magicpress_pipes:inletbm);
+        %varclient_164 = 1;
+    } else {
+        if_setmodel(model_18794, elem_magicpress_pipes:inletbm);
+        %varclient_164 = 0;
+    }
+} else if ($component0 = elem_magicpress_pipes:inletcm) {
+    if (%varclient_162 = 0) {
+        if_setmodel(model_18796, elem_magicpress_pipes:inletcm);
+        %varclient_162 = 1;
+    } else {
+        if_setmodel(model_18794, elem_magicpress_pipes:inletcm);
+        %varclient_162 = 0;
+    }
+} else if ($component0 = elem_magicpress_pipes:inlet1m) {
+    if (%varclient_165 = 0) {
+        if_setmodel(model_18792, elem_magicpress_pipes:inlet1m);
+        %varclient_165 = 1;
+    } else {
+        if_setmodel(model_18790, elem_magicpress_pipes:inlet1m);
+        %varclient_165 = 0;
+    }
+} else if ($component0 = elem_magicpress_pipes:inlet2m) {
+    if (%varclient_166 = 0) {
+        if_setmodel(model_18792, elem_magicpress_pipes:inlet2m);
+        %varclient_166 = 1;
+    } else {
+        if_setmodel(model_18790, elem_magicpress_pipes:inlet2m);
+        %varclient_166 = 0;
+    }
+} else if ($component0 = elem_magicpress_pipes:inlet3m) {
+    if (%varclient_167 = 0) {
+        if_setmodel(model_18792, elem_magicpress_pipes:inlet3m);
+        %varclient_167 = 1;
+    } else {
+        if_setmodel(model_18790, elem_magicpress_pipes:inlet3m);
+        %varclient_167 = 0;
+    }
+}

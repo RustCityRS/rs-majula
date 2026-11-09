@@ -1,0 +1,11 @@
+// 2637
+[clientscript,mob_command_unit_icon]
+if (%varclient_902 = 1) {
+    if_setgraphic("mob_unit_heads,4", mob_side_command:unit_race);
+} else if (%varclient_902 = 2) {
+    if_setgraphic("mob_unit_heads,1", mob_side_command:unit_race);
+} else if (%varclient_902 = 3) {
+    if_setgraphic("mob_unit_heads,2", mob_side_command:unit_race);
+}
+if_settext("", mob_side_command:command_title);
+if_settext("", mob_side_command:command_desc);

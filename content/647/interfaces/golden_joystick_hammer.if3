@@ -8,7 +8,7 @@ ymode=abs_centre
 layer=baselayer
 
 // 1068:1
-[com_1]
+[background]
 type=graphic
 x=7
 y=7
@@ -213,8 +213,8 @@ xmode=abs_centre
 layer=content
 transmitop=1
 op1=More Info
-onmouseover=loginscreen_button_highlight(golden_joystick_hammer:com_21, "set_but_end_3,1", golden_joystick_hammer:com_22, "set_but_fill_3,1", golden_joystick_hammer:com_23, "set_but_end_3,1")
-onmouseleave=loginscreen_button_highlight(golden_joystick_hammer:com_21, "set_but_end_3,0", golden_joystick_hammer:com_22, "set_but_fill_3,0", golden_joystick_hammer:com_23, "set_but_end_3,0")
+onmouseover=loginscreen_button_highlight(golden_joystick_hammer:login_button_left_1, "set_but_end_3,1", golden_joystick_hammer:com_22, "set_but_fill_3,1", golden_joystick_hammer:login_button_right_1, "set_but_end_3,1")
+onmouseleave=loginscreen_button_highlight(golden_joystick_hammer:login_button_left_1, "set_but_end_3,0", golden_joystick_hammer:com_22, "set_but_fill_3,0", golden_joystick_hammer:login_button_right_1, "set_but_end_3,0")
 onclick=script4104
 
 // 1068:20
@@ -231,7 +231,7 @@ colour=0x000000
 fill=yes
 
 // 1068:21
-[com_21]
+[login_button_left_1]
 type=graphic
 width=25
 height=25
@@ -249,7 +249,7 @@ layer=more_info_button
 graphic="set_but_fill_3,0"
 
 // 1068:23
-[com_23]
+[login_button_right_1]
 type=graphic
 x=1
 width=25

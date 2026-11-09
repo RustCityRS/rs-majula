@@ -23,8 +23,8 @@ width=120
 height=40
 transmitop=1
 op1=Stop viewing
-onmouseover=script3429(castlewars_orb:graphic1, castlewars_orb:graphic2, castlewars_orb:graphic3, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
-onmouseleave=script3429(castlewars_orb:graphic1, castlewars_orb:graphic2, castlewars_orb:graphic3, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onmouseover=castlewars_button_swapper(castlewars_orb:graphic1, castlewars_orb:graphic2, castlewars_orb:graphic3, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=castlewars_button_swapper(castlewars_orb:graphic1, castlewars_orb:graphic2, castlewars_orb:graphic3, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
 
 // 983:2
 [graphic1]

@@ -2,18 +2,18 @@
 [proc,login_resize]
 def_int $int0 = 0;
 if (getwindowmode < 2) {
-    if_setposition(0, 16, ^setpos_abs_centre, ^setpos_abs_centre, login:com_4);
+    if_setposition(0, 16, ^setpos_abs_centre, ^setpos_abs_centre, login:main);
     if_setposition(0, 16, ^setpos_abs_centre, ^setpos_abs_centre, login:popup);
     if_setsize(0, 0, ^setsize_minus, ^setsize_minus, loginscreen:com_16);
-    if_setposition(0, 26, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:com_23);
+    if_setposition(0, 26, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:runescape_logo);
 } else {
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, login:com_4);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, login:main);
     if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, login:popup);
     if_setsize(956, 503, ^setsize_abs, ^setsize_abs, loginscreen:com_16);
     $int0 = if_gety(loginscreen:com_16);
-    $int0 = calc($int0 - if_getheight(loginscreen:com_23));
+    $int0 = calc($int0 - if_getheight(loginscreen:runescape_logo));
     $int0 = calc($int0 / 2);
-    if_setposition(0, max($int0, 0), ^setpos_abs_centre, ^setpos_abs_top, loginscreen:com_23);
+    if_setposition(0, max($int0, 0), ^setpos_abs_centre, ^setpos_abs_top, loginscreen:runescape_logo);
 }
 def_int $int1 = 0;
 def_int $int2 = 0;

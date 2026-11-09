@@ -18,7 +18,7 @@ width=500
 height=320
 xmode=abs_centre
 ymode=abs_centre
-onload=script1536(event_com)
+onload=deathkeep_info_init(event_com)
 
 // 17:2
 [com_2]
@@ -181,7 +181,7 @@ ymode=abs_centre
 layer=items_container
 
 // 17:16
-[com_16]
+[0_header]
 type=text
 height=20
 widthmode=minus
@@ -202,7 +202,7 @@ xmode=abs_centre
 layer=items
 
 // 17:18
-[com_18]
+[protected]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -211,7 +211,7 @@ ymode=abs_centre
 layer=com_17
 
 // 17:19
-[com_19]
+[1_header]
 type=text
 height=20
 widthmode=minus
@@ -232,7 +232,7 @@ xmode=abs_centre
 layer=items
 
 // 17:21
-[com_21]
+[2_header]
 type=text
 height=20
 widthmode=minus
@@ -253,7 +253,7 @@ xmode=abs_centre
 layer=items
 
 // 17:23
-[com_23]
+[appendix]
 type=text
 height=20
 widthmode=minus
@@ -276,7 +276,7 @@ layer=items_container
 hide=yes
 
 // 17:25
-[com_25]
+[explanation_container]
 type=layer
 x=8
 y=8
@@ -295,15 +295,15 @@ width=16
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_25
+layer=explanation_container
 
 // 17:27
-[com_27]
+[explanation_scrollbar]
 type=layer
 width=16
 heightmode=minus
 xmode=abs_right
-layer=com_25
+layer=explanation_container
 hide=yes
 
 // 17:28
@@ -314,7 +314,7 @@ height=30
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_25
+layer=explanation_container
 hide=yes
 transmitop=1
 op1=Toggle

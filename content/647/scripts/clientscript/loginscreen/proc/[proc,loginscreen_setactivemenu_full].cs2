@@ -15,31 +15,31 @@ if (%varclient_1090 ! 6) {
 if ($int0 = 0) {
     %varclient_174 = 0;
     ~firstrun;
-    if_sethide(false, loginscreen:com_24);
+    if_sethide(false, loginscreen:options_firstrun);
 } else {
-    if_sethide(true, loginscreen:com_24);
-    if_closesubclient(loginscreen:com_24);
+    if_sethide(true, loginscreen:options_firstrun);
+    if_closesubclient(loginscreen:options_firstrun);
 }
 if ($int0 = 5) {
-    if_opensubclient(loginscreen:com_27, south_progress9);
-    if_sethide(true, loginscreen:com_23);
-    if_sethide(false, loginscreen:com_27);
+    if_opensubclient(loginscreen:south_progress9, south_progress9);
+    if_sethide(true, loginscreen:runescape_logo);
+    if_sethide(false, loginscreen:south_progress9);
 } else {
-    if_closesubclient(loginscreen:com_27);
-    if_sethide(false, loginscreen:com_23);
-    if_sethide(true, loginscreen:com_27);
+    if_closesubclient(loginscreen:south_progress9);
+    if_sethide(false, loginscreen:runescape_logo);
+    if_sethide(true, loginscreen:south_progress9);
 }
 if ($int0 = 11 | $int0 = 12) {
     %varclient_547 = 0;
-    if_opensubclient(loginscreen:com_26, login);
+    if_opensubclient(loginscreen:login, login);
     ~login_load;
     ~login_open($int0);
-    if_sethide(false, login:com_4);
+    if_sethide(false, login:main);
     ~login_resize;
 } else {
     ~login_close;
-    if_closesubclient(loginscreen:com_26);
-    if_sethide(true, loginscreen:com_26);
+    if_closesubclient(loginscreen:login);
+    if_sethide(true, loginscreen:login);
 }
 if ($int0 = 7) {
     if_opensubclient(loginscreen:create, account_create);
@@ -57,9 +57,9 @@ if ($int0 = 8) {
     if_sethide(true, loginscreen:create_success);
 }
 if ($int0 = 7 | $int0 = 8) {
-    if_sethide(true, loginscreen:com_23);
+    if_sethide(true, loginscreen:runescape_logo);
 } else {
-    if_sethide(false, loginscreen:com_23);
+    if_sethide(false, loginscreen:runescape_logo);
 }
 def_graphic $graphic4 = graphic_4120;
 def_graphic $graphic5 = graphic_4125;
@@ -83,7 +83,7 @@ if ($int0 = 6) {
     %varclient_174 = 13;
 } else {
     if (%varclient_1090 = 6 & $int0 ! 5) {
-        if_sethide(false, loginscreen:com_23);
+        if_sethide(false, loginscreen:runescape_logo);
     }
     if_sethide(true, loginscreen:options);
     if_setonresize(null, loginscreen:options);

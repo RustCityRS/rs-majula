@@ -1,8 +1,8 @@
 // 2708
 [proc,loginscreen_load](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
 setup_messagebox(0, 0, 4, 3, 135, 30, loadingbox_border_corner, loadingbox_border_side, tradebacking, ^white, verdana_11pt_regular);
-if_setsize(278, 90, ^setsize_abs, ^setsize_abs, loginscreen:com_23);
-if_setgraphic(logo_alpha, loginscreen:com_23);
+if_setsize(278, 90, ^setsize_abs, ^setsize_abs, loginscreen:runescape_logo);
+if_setgraphic(logo_alpha, loginscreen:runescape_logo);
 if_setgraphic(battle_title_widescreen_2, loginscreen:com_8);
 if_setgraphic(battle_title_widescreen_1, loginscreen:com_9);
 if_setgraphic(battle_title_widescreen_3, loginscreen:com_10);
@@ -27,7 +27,7 @@ if (%varclient_176 <= 0) {
     %varclient_176 = calc((random(5) + 1) * 10);
 }
 if_setonresize("login_resize", loginscreen:background_layer);
-~script3964;
+~loginscreen_setup_login_text;
 %varclient_1551 = "";
 %varclient_1552 = "";
 %varclient_547 = 0;

@@ -1,5 +1,5 @@
 // 673:0
-[com_0]
+[u13_left_side]
 type=graphic
 y=38
 width=7
@@ -11,7 +11,7 @@ tiling=yes
 hflip=yes
 
 // 673:1
-[com_1]
+[u13_right_side]
 type=graphic
 y=38
 width=7
@@ -61,7 +61,7 @@ tiling=yes
 alpha=yes
 
 // 673:5
-[com_5]
+[u13_top_right]
 type=graphic
 width=38
 height=38
@@ -69,7 +69,7 @@ xmode=abs_right
 layer=u13_layer
 
 // 673:6
-[com_6]
+[u13_bottom_right]
 type=graphic
 width=38
 height=38
@@ -79,7 +79,7 @@ layer=u13_layer
 vflip=yes
 
 // 673:7
-[com_7]
+[u13_bottom_left]
 type=graphic
 width=38
 height=38
@@ -89,7 +89,7 @@ vflip=yes
 hflip=yes
 
 // 673:8
-[com_8]
+[u13_top_left]
 type=graphic
 width=38
 height=38
@@ -97,7 +97,7 @@ layer=u13_layer
 hflip=yes
 
 // 673:9
-[com_9]
+[u13_exclamation]
 type=graphic
 y=8
 width=76
@@ -182,7 +182,7 @@ onmouseover=script3937(account_create:continue_left, "set_but_end_3,1", account_
 onmouseleave=script3937(account_create:continue_left, "set_but_end_3,0", account_create:com_53, "set_but_fill_3,0", account_create:com_54, "set_but_fill_3,0", account_create:continue_right, "set_but_end_3,0")
 
 // 673:18
-[com_18]
+[bottom_text_layer]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -246,7 +246,7 @@ heightmode=minus
 layer=information_layer
 
 // 673:24
-[com_24]
+[main]
 type=layer
 width=550
 height=400
@@ -309,7 +309,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 673:30
-[com_30]
+[age_input_text]
 type=text
 x=6
 width=11
@@ -327,7 +327,7 @@ x=6
 width=11
 widthmode=minus
 heightmode=minus
-layer=com_87
+layer=email_input_layer
 textfont=verdana_11pt_regular
 textalignv=centre
 colour=0xebe0bc
@@ -340,7 +340,7 @@ x=23
 y=361
 width=504
 height=1
-layer=com_18
+layer=bottom_text_layer
 colour=0x161513
 
 // 673:33
@@ -350,7 +350,7 @@ x=23
 y=362
 width=504
 height=1
-layer=com_18
+layer=bottom_text_layer
 colour=0x2d2d2d
 
 // 673:34
@@ -360,7 +360,7 @@ y=276
 width=300
 height=32
 xmode=abs_centre
-layer=com_18
+layer=bottom_text_layer
 textfont=verdana_11pt_regular
 text=By clicking on the "Continue" button I agree to the:
 textalignh=centre
@@ -368,7 +368,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 673:35
-[com_35]
+[age_label_text]
 type=text
 x=117
 y=9
@@ -395,7 +395,7 @@ onmouseover=script3934(event_com)
 onmouseleave=script3935
 
 // 673:37
-[com_37]
+[age_input_group]
 type=layer
 x=225
 y=10
@@ -475,7 +475,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_24
+layer=main
 op10=   
 
 // 673:44
@@ -483,7 +483,7 @@ op10=
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_24
+layer=main
 
 // 673:45
 [u13_layer]
@@ -492,11 +492,11 @@ width=250
 height=150
 xmode=abs_centre
 ymode=abs_centre
-layer=com_24
+layer=main
 hide=yes
 
 // 673:46
-[com_46]
+[background_texture]
 type=graphic
 widthmode=minus
 heightmode=minus
@@ -525,7 +525,7 @@ y=289
 width=135
 height=18
 xmode=abs_right
-layer=com_18
+layer=bottom_text_layer
 onmouseover=login_link_highlight(event_com, account_create:terms_link, verdana_11pt_regular, 1)
 onmouseleave=login_link_highlight(event_com, account_create:terms_link, verdana_11pt_regular, 0)
 onclick=script3212("terms/terms.ws")
@@ -537,7 +537,7 @@ x=289
 y=289
 width=20
 height=18
-layer=com_18
+layer=bottom_text_layer
 textfont=verdana_11pt_regular
 text=and
 textalignh=centre
@@ -552,7 +552,7 @@ x=314
 y=289
 width=90
 height=18
-layer=com_18
+layer=bottom_text_layer
 onmouseover=login_link_highlight(event_com, account_create:privacy_link, verdana_11pt_regular, 1)
 onmouseleave=login_link_highlight(event_com, account_create:privacy_link, verdana_11pt_regular, 0)
 onclick=script3212("privacy/privacy.ws")
@@ -564,7 +564,7 @@ y=15
 height=16
 widthmode=minus
 ymode=abs_bottom
-layer=com_18
+layer=bottom_text_layer
 textfont=verdana_11pt_regular
 text=Already have an account? Click here to login!
 textalignh=centre
@@ -621,7 +621,7 @@ colour=0xffffffff
 op10= 
 
 // 673:56
-[com_56]
+[continue_text_shadow]
 type=text
 x=1
 widthmode=minus
@@ -677,7 +677,7 @@ colour=0xc8c8c8
 op10= 
 
 // 673:60
-[com_60]
+[password2_label_text]
 type=text
 x=117
 y=9
@@ -707,7 +707,7 @@ onmouseover=script3934(event_com)
 onmouseleave=script3935
 
 // 673:62
-[com_62]
+[password2_input_group]
 type=layer
 x=225
 y=10
@@ -715,40 +715,40 @@ width=231
 height=27
 layer=password2_group
 op10=      
-onmouseover=loginscreen_button_highlight(account_create:com_63, graphic_3817, account_create:com_64, graphic_3818, account_create:com_65, graphic_3819)
-onmouseleave=loginscreen_button_highlight(account_create:com_63, graphic_3814, account_create:com_64, graphic_3815, account_create:com_65, graphic_3816)
+onmouseover=loginscreen_button_highlight(account_create:password2_input_left, graphic_3817, account_create:password2_input_mid, graphic_3818, account_create:password2_input_right, graphic_3819)
+onmouseleave=loginscreen_button_highlight(account_create:password2_input_left, graphic_3814, account_create:password2_input_mid, graphic_3815, account_create:password2_input_right, graphic_3816)
 onclick=create_focus(8, 1)
 
 // 673:63
-[com_63]
+[password2_input_left]
 type=graphic
 width=16
 height=27
-layer=com_62
+layer=password2_input_group
 graphic=graphic_3814
 colour=0xffffffff
 op10=      
 
 // 673:64
-[com_64]
+[password2_input_mid]
 type=graphic
 x=16
 width=16
 height=27
 widthmode=minus
-layer=com_62
+layer=password2_input_group
 graphic=graphic_3815
 tiling=yes
 colour=0xffffffff
 op10=      
 
 // 673:65
-[com_65]
+[password2_input_right]
 type=graphic
 width=16
 height=27
 xmode=abs_right
-layer=com_62
+layer=password2_input_group
 graphic=graphic_3816
 colour=0xffffffff
 op10=      
@@ -758,18 +758,18 @@ op10=
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_62
+layer=password2_input_group
 hide=yes
 colour=0xc53d3d
 trans=50
 
 // 673:67
-[com_67]
+[password2_input_layer]
 type=layer
 width=1
 widthmode=minus
 heightmode=minus
-layer=com_62
+layer=password2_input_group
 
 // 673:68
 [password2_input_text]
@@ -778,27 +778,27 @@ x=6
 width=11
 widthmode=minus
 heightmode=minus
-layer=com_67
+layer=password2_input_layer
 textfont=verdana_11pt_regular
 textalignv=centre
 colour=0xebe0bc
 op10=     
 
 // 673:69
-[com_69]
+[password2_input_caret]
 type=rectangle
 x=6
 y=4
 width=1
 height=19
-layer=com_62
+layer=password2_input_group
 hide=yes
 colour=0xebe0bc
 fill=yes
 op10=   
 
 // 673:70
-[com_70]
+[password_label_text]
 type=text
 x=117
 y=9
@@ -836,12 +836,12 @@ width=231
 height=27
 layer=password_group
 op10=     
-onmouseover=loginscreen_button_highlight(account_create:com_73, graphic_3817, account_create:com_74, graphic_3818, account_create:com_75, graphic_3819)
-onmouseleave=loginscreen_button_highlight(account_create:com_73, graphic_3814, account_create:com_74, graphic_3815, account_create:com_75, graphic_3816)
+onmouseover=loginscreen_button_highlight(account_create:password_input_left, graphic_3817, account_create:password_input_mid, graphic_3818, account_create:password_input_right, graphic_3819)
+onmouseleave=loginscreen_button_highlight(account_create:password_input_left, graphic_3814, account_create:password_input_mid, graphic_3815, account_create:password_input_right, graphic_3816)
 onclick=create_focus(7, 1)
 
 // 673:73
-[com_73]
+[password_input_left]
 type=graphic
 width=16
 height=27
@@ -851,7 +851,7 @@ colour=0xffffffff
 op10=     
 
 // 673:74
-[com_74]
+[password_input_mid]
 type=graphic
 x=16
 width=32
@@ -864,7 +864,7 @@ colour=0xffffffff
 op10=     
 
 // 673:75
-[com_75]
+[password_input_right]
 type=graphic
 width=16
 height=27
@@ -885,7 +885,7 @@ colour=0xc53d3d
 trans=50
 
 // 673:77
-[com_77]
+[password_input_layer]
 type=layer
 width=1
 widthmode=minus
@@ -899,14 +899,14 @@ x=6
 width=11
 widthmode=minus
 heightmode=minus
-layer=com_77
+layer=password_input_layer
 textfont=verdana_11pt_regular
 textalignv=centre
 colour=0xebe0bc
 op10=    
 
 // 673:79
-[com_79]
+[password_input_caret]
 type=rectangle
 x=6
 y=4
@@ -919,7 +919,7 @@ fill=yes
 op10=   
 
 // 673:80
-[com_80]
+[email_label_text]
 type=text
 x=117
 y=9
@@ -949,7 +949,7 @@ onmouseover=script3934(event_com)
 onmouseleave=script3935
 
 // 673:82
-[com_82]
+[email_input_group]
 type=layer
 x=225
 y=10
@@ -957,40 +957,40 @@ width=231
 height=27
 layer=email_group
 op10=      
-onmouseover=loginscreen_button_highlight(account_create:com_83, graphic_3817, account_create:com_84, graphic_3818, account_create:com_85, graphic_3819)
-onmouseleave=loginscreen_button_highlight(account_create:com_83, graphic_3814, account_create:com_84, graphic_3815, account_create:com_85, graphic_3816)
+onmouseover=loginscreen_button_highlight(account_create:email_input_left, graphic_3817, account_create:email_input_mid, graphic_3818, account_create:email_input_right, graphic_3819)
+onmouseleave=loginscreen_button_highlight(account_create:email_input_left, graphic_3814, account_create:email_input_mid, graphic_3815, account_create:email_input_right, graphic_3816)
 onclick=create_focus(6, 1)
 
 // 673:83
-[com_83]
+[email_input_left]
 type=graphic
 width=16
 height=27
-layer=com_82
+layer=email_input_group
 graphic=graphic_3814
 colour=0xffffffff
 op10=      
 
 // 673:84
-[com_84]
+[email_input_mid]
 type=graphic
 x=16
 width=32
 height=27
 widthmode=minus
-layer=com_82
+layer=email_input_group
 graphic=graphic_3815
 tiling=yes
 colour=0xffffffff
 op10=      
 
 // 673:85
-[com_85]
+[email_input_right]
 type=graphic
 width=16
 height=27
 xmode=abs_right
-layer=com_82
+layer=email_input_group
 graphic=graphic_3816
 colour=0xffffffff
 op10=      
@@ -1000,27 +1000,27 @@ op10=
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_82
+layer=email_input_group
 hide=yes
 colour=0xc53d3d
 trans=50
 
 // 673:87
-[com_87]
+[email_input_layer]
 type=layer
 width=1
 widthmode=minus
 heightmode=minus
-layer=com_82
+layer=email_input_group
 
 // 673:88
-[com_88]
+[email_input_caret]
 type=rectangle
 x=6
 y=4
 width=1
 height=19
-layer=com_82
+layer=email_input_group
 hide=yes
 colour=0xebe0bc
 fill=yes
@@ -1263,7 +1263,7 @@ fill=yes
 type=graphic
 width=16
 height=27
-layer=com_37
+layer=age_input_group
 graphic=graphic_3814
 
 // 673:110
@@ -1273,7 +1273,7 @@ x=13
 width=16
 height=27
 widthmode=minus
-layer=com_37
+layer=age_input_group
 graphic=graphic_3815
 tiling=yes
 
@@ -1283,7 +1283,7 @@ type=graphic
 width=16
 height=27
 xmode=abs_right
-layer=com_37
+layer=age_input_group
 graphic=graphic_3816
 
 // 673:112
@@ -1291,7 +1291,7 @@ graphic=graphic_3816
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_37
+layer=age_input_group
 hide=yes
 colour=0xc53d3d
 trans=50
@@ -1302,7 +1302,7 @@ type=layer
 width=1
 widthmode=minus
 heightmode=minus
-layer=com_37
+layer=age_input_group
 
 // 673:114
 [com_114]
@@ -1311,7 +1311,7 @@ x=6
 y=4
 width=1
 height=19
-layer=com_37
+layer=age_input_group
 hide=yes
 colour=0xebe0bc
 fill=yes
@@ -1505,7 +1505,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 673:129
-[com_129]
+[u13_info_text]
 type=text
 y=59
 width=40
@@ -1532,7 +1532,7 @@ ymode=abs_bottom
 layer=u13_layer
 onmouseover=loginscreen_button_highlight(account_create:com_132, "set_but_end_3,1", account_create:com_133, "set_but_fill_3,1", account_create:com_134, "set_but_end_3,1")
 onmouseleave=loginscreen_button_highlight(account_create:com_132, "set_but_end_3,0", account_create:com_133, "set_but_fill_3,0", account_create:com_134, "set_but_end_3,0")
-onclick=script3214
+onclick=create_u13_exit_button_click
 
 // 673:131
 [com_131]

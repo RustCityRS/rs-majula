@@ -7,8 +7,8 @@ if (~script2709 = 0 & %learning_the_ropes = 1000) {
     if_sethide(true, chatdefault:caret);
     if_setposition(0, 72, ^setpos_abs_left, ^setpos_abs_top, chatdefault:scrollarea);
     if_setsize(488, 72, ^setsize_abs, ^setsize_minus, chatdefault:scrollarea);
-    if_setposition(0, 72, ^setpos_abs_right, ^setpos_abs_top, chatdefault:com_59);
-    if_setsize(16, 72, ^setsize_abs, ^setsize_minus, chatdefault:com_59);
+    if_setposition(0, 72, ^setpos_abs_right, ^setpos_abs_top, chatdefault:scrollbar);
+    if_setsize(16, 72, ^setsize_abs, ^setsize_minus, chatdefault:scrollbar);
     if_sethide(true, chatdefault:divider_line);
     if_sethide(true, chatdefault:divider_graphic);
     if_sethide(true, chatdefault:divider_graphic_top);
@@ -19,8 +19,8 @@ if (~script2709 = 0 & %learning_the_ropes = 1000) {
 if_sethide(false, chatdefault:caret);
 if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, chatdefault:scrollarea);
 if_setsize(488, 17, ^setsize_abs, ^setsize_minus, chatdefault:scrollarea);
-if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, chatdefault:com_59);
-if_setsize(16, 17, ^setsize_abs, ^setsize_minus, chatdefault:com_59);
+if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, chatdefault:scrollbar);
+if_setsize(16, 17, ^setsize_abs, ^setsize_minus, chatdefault:scrollbar);
 if_sethide(false, chatdefault:divider_line);
 if_sethide(false, chatdefault:divider_graphic);
 if_sethide(false, chatdefault:divider_graphic_top);

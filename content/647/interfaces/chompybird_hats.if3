@@ -1,0 +1,172 @@
+// 370:0
+[com_0]
+type=rectangle
+x=5
+y=5
+width=500
+height=320
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=200
+
+// 370:1
+[universe]
+type=layer
+width=500
+height=320
+xmode=abs_centre
+ymode=abs_centre
+onload=chompybird_hats_init(chompybird_hats:hats, chompybird_hats:scrollbar)
+
+// 370:2
+[com_2]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+graphic=tradebacking
+tiling=yes
+
+// 370:3
+[com_3]
+type=graphic
+width=40
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=universe
+graphic="v2_stone_borders,36"
+tiling=yes
+
+// 370:4
+[com_4]
+type=graphic
+y=-12
+width=40
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 370:5
+[com_5]
+type=graphic
+x=-13
+width=32
+height=40
+heightmode=minus
+ymode=abs_centre
+layer=universe
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 370:6
+[com_6]
+type=graphic
+x=-12
+width=32
+height=40
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=universe
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 370:7
+[com_7]
+type=graphic
+width=32
+height=32
+layer=universe
+graphic="v2_stone_borders,35"
+
+// 370:8
+[com_8]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=universe
+graphic="v2_stone_borders,37"
+
+// 370:9
+[com_9]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,6"
+
+// 370:10
+[com_10]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,7"
+
+// 370:11
+[com_11]
+type=text
+height=22
+widthmode=minus
+xmode=abs_centre
+layer=universe
+textfont=b12_full
+text=Chompy Hunter Hats
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 370:12
+[com_12]
+type=graphic
+x=10
+y=3
+width=16
+height=16
+xmode=abs_right
+layer=universe
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 370:13
+[hats]
+type=layer
+x=42
+y=8
+width=400
+height=32
+heightmode=minus
+ymode=abs_bottom
+layer=universe
+
+// 370:14
+[scrollbar]
+type=layer
+x=8
+y=8
+width=16
+height=32
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=universe

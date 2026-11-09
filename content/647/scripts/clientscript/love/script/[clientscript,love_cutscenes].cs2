@@ -31,7 +31,7 @@ if (%varclient_1007 <= 40) {
 }
 if (%varclient_1007 <= 100) {
     if_sethide(true, $component1);
-    ~script3472($component0, $component4);
+    ~love_flashback($component0, $component4);
     return;
 }
 if_sethide(true, $component1);

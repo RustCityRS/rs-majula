@@ -62,8 +62,8 @@ graphic="v2_stone_close_button,4"
 colour=0xffffffff
 transmitop=1
 op1=Quick Chat Help
-onmouseover=script1057(event_com)
-onmouseleave=script1058(event_com)
+onmouseover=quickchat_helpbutton_mouseover(event_com)
+onmouseleave=quickchat_helpbutton_mouseleave(event_com)
 
 // 137:6
 [com_6]
@@ -533,7 +533,7 @@ layer=chat
 scrollheight=999
 
 // 137:59
-[com_59]
+[scrollbar]
 type=layer
 x=3
 y=11
@@ -554,7 +554,7 @@ height=127
 widthmode=minus
 layer=chat
 hide=yes
-onload=script2312
+onload=dob_entry_setup
 
 // 137:61
 [blocklayer]
@@ -610,7 +610,7 @@ transmitop=10
 op10=   
 
 // 137:66
-[ownanywhere]
+[dobsubmitbutton]
 type=layer
 x=198
 y=32
@@ -690,7 +690,7 @@ transmitop=10
 op10= 
 onmouseover=graphic_swapper(chatdefault:dayarrow, "drop_down_arrow_scroll,0")
 onmouseleave=graphic_swapper(chatdefault:dayarrow, "drop_down_arrow_scroll,2")
-onclick=script2313
+onclick=dob_dayarrow_click
 
 // 137:72
 [month]
@@ -703,7 +703,7 @@ transmitop=10
 op10= 
 onmouseover=graphic_swapper(chatdefault:montharrow, "drop_down_arrow_scroll,0")
 onmouseleave=graphic_swapper(chatdefault:montharrow, "drop_down_arrow_scroll,2")
-onclick=script2314
+onclick=dob_montharrow_click
 
 // 137:73
 [year]
@@ -795,7 +795,7 @@ hide=yes
 noclickthrough=yes
 transmitop=10
 op10=  
-onload=script2312
+onload=dob_entry_setup
 
 // 137:80
 [yearddlistborder]
@@ -1428,7 +1428,7 @@ xmode=abs_right
 layer=month
 transmitop=10
 op10=  
-onop=script2314
+onop=dob_montharrow_click
 
 // 137:128
 [com_128]
@@ -1793,7 +1793,7 @@ type=graphic
 width=18
 height=31
 xmode=abs_right
-layer=ownanywhere
+layer=dobsubmitbutton
 graphic="login_lobby_button,0"
 tiling=yes
 hflip=yes
@@ -1808,7 +1808,7 @@ x=6
 width=18
 height=31
 widthmode=minus
-layer=ownanywhere
+layer=dobsubmitbutton
 graphic="login_lobby_button,1"
 tiling=yes
 hflip=yes
@@ -1821,7 +1821,7 @@ op10=
 type=graphic
 width=18
 height=31
-layer=ownanywhere
+layer=dobsubmitbutton
 graphic="login_lobby_button,0"
 tiling=yes
 colour=0xffffffff
@@ -1837,7 +1837,7 @@ height=6
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=ownanywhere
+layer=dobsubmitbutton
 textfont=welcome_font_small
 text=Submit
 textalignh=centre

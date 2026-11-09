@@ -1,0 +1,3 @@
+// 4047
+[clientscript,warguild_update_tokens_combat](component $component0)
+if_settext(tostring(%varplayerbit_8665), $component0);

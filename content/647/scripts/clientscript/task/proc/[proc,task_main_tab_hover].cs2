@@ -2,28 +2,28 @@
 [proc,task_main_tab_hover](int $int0)
 switch_int ($int0) {
     case 0 :
-        if (if_gethide(task_main:com_83) = true) {
+        if (if_gethide(task_main:summary_details_layer) = true) {
             if_setgraphic("task_tab,0", task_main:com_26);
             if_setgraphic("task_tab,0", task_main:com_28);
             if_setgraphic("task_tab,1", task_main:com_27);
         }
         if (if_gethide(task_main:com_84) = true) {
-            if_setgraphic("task_tab,0", task_main:com_22);
-            if_setgraphic("task_tab,0", task_main:com_24);
-            if_setgraphic("task_tab,1", task_main:com_23);
+            if_setgraphic("task_tab,0", task_main:summary_rewards_tab_l);
+            if_setgraphic("task_tab,0", task_main:summary_rewards_tab_r);
+            if_setgraphic("task_tab,1", task_main:summary_rewards_tab_m);
         }
         if (if_gethide(task_main:com_82) = true) {
-            if_setgraphic("task_tab,0", task_main:com_18);
-            if_setgraphic("task_tab,0", task_main:com_20);
-            if_setgraphic("task_tab,1", task_main:com_19);
+            if_setgraphic("task_tab,0", task_main:summary_hints_tab_l);
+            if_setgraphic("task_tab,0", task_main:summary_hints_tab_r);
+            if_setgraphic("task_tab,1", task_main:summary_hints_tab_m);
         }
-        if (if_gethide(task_main:com_86) = true) {
-            if_setgraphic("task_tab,0", task_main:com_14);
-            if_setgraphic("task_tab,0", task_main:com_16);
-            if_setgraphic("task_tab,1", task_main:com_15);
+        if (if_gethide(task_main:summary_requirements_layer) = true) {
+            if_setgraphic("task_tab,0", task_main:summary_requirements_tab_l);
+            if_setgraphic("task_tab,0", task_main:summary_requirements_tab_r);
+            if_setgraphic("task_tab,1", task_main:summary_requirements_tab_m);
         }
     case 1 :
-        if (if_gethide(task_main:com_83) = false) {
+        if (if_gethide(task_main:summary_details_layer) = false) {
             return;
         }
         if_setgraphic("task_tab,2", task_main:com_26);
@@ -33,21 +33,21 @@ switch_int ($int0) {
         if (if_gethide(task_main:com_84) = false) {
             return;
         }
-        if_setgraphic("task_tab,2", task_main:com_22);
-        if_setgraphic("task_tab,2", task_main:com_24);
-        if_setgraphic("task_tab,3", task_main:com_23);
+        if_setgraphic("task_tab,2", task_main:summary_rewards_tab_l);
+        if_setgraphic("task_tab,2", task_main:summary_rewards_tab_r);
+        if_setgraphic("task_tab,3", task_main:summary_rewards_tab_m);
     case 3 :
         if (if_gethide(task_main:com_82) = false) {
             return;
         }
-        if_setgraphic("task_tab,2", task_main:com_18);
-        if_setgraphic("task_tab,2", task_main:com_20);
-        if_setgraphic("task_tab,3", task_main:com_19);
+        if_setgraphic("task_tab,2", task_main:summary_hints_tab_l);
+        if_setgraphic("task_tab,2", task_main:summary_hints_tab_r);
+        if_setgraphic("task_tab,3", task_main:summary_hints_tab_m);
     case 4 :
-        if (if_gethide(task_main:com_86) = false) {
+        if (if_gethide(task_main:summary_requirements_layer) = false) {
             return;
         }
-        if_setgraphic("task_tab,2", task_main:com_14);
-        if_setgraphic("task_tab,2", task_main:com_16);
-        if_setgraphic("task_tab,3", task_main:com_15);
+        if_setgraphic("task_tab,2", task_main:summary_requirements_tab_l);
+        if_setgraphic("task_tab,2", task_main:summary_requirements_tab_r);
+        if_setgraphic("task_tab,3", task_main:summary_requirements_tab_m);
 }

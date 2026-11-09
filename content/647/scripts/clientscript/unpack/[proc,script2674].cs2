@@ -36,7 +36,7 @@ if ($int0 ! 6) {
     if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:renew_radio);
 }
 if ($int0 ! 7) {
-    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:com_25);
+    if_setgraphic("km_radiobutton,0", lore_topstat_confirmop:interact_radio);
 } else {
-    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:com_25);
+    if_setgraphic("km_radiobutton,1", lore_topstat_confirmop:interact_radio);
 }

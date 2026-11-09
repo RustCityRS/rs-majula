@@ -1,5 +1,5 @@
 // 419:0
-[com_0]
+[background]
 type=layer
 width=512
 height=334
@@ -9,7 +9,7 @@ height=334
 type=rectangle
 width=500
 height=316
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 transmitop=10
@@ -23,7 +23,7 @@ x=1
 y=1
 width=500
 height=316
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 trans=180
@@ -38,7 +38,7 @@ x=2
 y=2
 width=500
 height=316
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 trans=180
@@ -53,7 +53,7 @@ x=3
 y=3
 width=500
 height=316
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 trans=180
@@ -68,7 +68,7 @@ x=4
 y=4
 width=500
 height=316
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 trans=180
@@ -84,7 +84,7 @@ y=22
 width=22
 height=70
 widthmode=minus
-layer=com_0
+layer=background
 graphic=graphic_2042
 tiling=yes
 colour=0xffffffff
@@ -100,7 +100,7 @@ width=22
 height=150
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=background
 graphic=km_middlefillcolour
 tiling=yes
 colour=0xffffffff
@@ -108,7 +108,7 @@ transmitop=10
 op10=   
 
 // 419:8
-[com_8]
+[background_bot]
 type=graphic
 x=8
 y=12
@@ -116,7 +116,7 @@ width=22
 height=46
 widthmode=minus
 ymode=abs_bottom
-layer=com_0
+layer=background
 graphic=graphic_2038
 tiling=yes
 colour=0xffffffff
@@ -132,7 +132,7 @@ width=20
 height=34
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=background
 colour=0x000000
 transmitop=10
 op10= 
@@ -145,7 +145,7 @@ y=32
 width=32
 height=69
 heightmode=minus
-layer=com_0
+layer=background
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -161,7 +161,7 @@ width=32
 height=69
 heightmode=minus
 xmode=abs_right
-layer=com_0
+layer=background
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -175,7 +175,7 @@ x=32
 width=70
 height=32
 widthmode=minus
-layer=com_0
+layer=background
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -191,7 +191,7 @@ width=70
 height=32
 widthmode=minus
 ymode=abs_bottom
-layer=com_0
+layer=background
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -203,7 +203,7 @@ op10=
 type=graphic
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
@@ -216,7 +216,7 @@ x=6
 width=32
 height=32
 xmode=abs_right
-layer=com_0
+layer=background
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -229,7 +229,7 @@ y=5
 width=32
 height=32
 ymode=abs_bottom
-layer=com_0
+layer=background
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -244,7 +244,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=background
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -258,7 +258,7 @@ y=2
 width=16
 height=16
 xmode=abs_right
-layer=com_0
+layer=background
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1,10
@@ -276,7 +276,7 @@ width=80
 height=17
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=background
 textfont=b12_full
 text=Performance Equipment
 textalignh=centre
@@ -294,7 +294,7 @@ y=24
 width=80
 height=17
 widthmode=minus
-layer=com_0
+layer=background
 textfont=p12_full
 text=Hat and eye-patch
 textalignv=centre
@@ -304,14 +304,14 @@ transmitop=10
 op10=  
 
 // 419:21
-[com_21]
+[double_patch_title]
 type=text
 x=24
 y=95
 width=80
 height=17
 widthmode=minus
-layer=com_0
+layer=background
 textfont=p12_full
 text=Hat and double eye-patch
 textalignv=centre
@@ -321,14 +321,14 @@ transmitop=10
 op10=   
 
 // 419:22
-[com_22]
+[left_patch_title]
 type=text
 x=24
 y=166
 width=80
 height=17
 widthmode=minus
-layer=com_0
+layer=background
 textfont=p12_full
 text=Hat and left eye-patch
 textalignv=centre
@@ -345,7 +345,7 @@ y=237
 width=80
 height=17
 widthmode=minus
-layer=com_0
+layer=background
 textfont=p12_full
 text=Miscellaneous
 textalignv=centre
@@ -362,7 +362,7 @@ y=24
 width=44
 height=17
 widthmode=minus
-layer=com_0
+layer=background
 hide=yes
 textfont=b12_full
 text=Free sample items
@@ -380,7 +380,7 @@ y=95
 width=44
 height=17
 widthmode=minus
-layer=com_0
+layer=background
 hide=yes
 textfont=b12_full
 text=Main stock
@@ -398,7 +398,7 @@ y=24
 width=48
 height=17
 xmode=abs_right
-layer=com_0
+layer=background
 hide=yes
 textfont=b12_full
 text=Key
@@ -417,7 +417,7 @@ width=400
 height=13
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=background
 textfont=p11_full
 text=Ahoy! What would ye like to be sewn together, matey?
 textalignh=centre
@@ -428,7 +428,7 @@ transmitop=10
 op10=  
 
 // 419:28
-[com_28]
+[bandana_white_layer]
 type=layer
 y=5
 width=48
@@ -442,7 +442,7 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_28
+layer=bandana_white_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 onmouseover=script1189(patchy_interface:com_30, false)
@@ -453,7 +453,7 @@ onmouseleave=script1189(patchy_interface:com_30, true)
 type=graphic
 width=48
 height=52
-layer=com_28
+layer=bandana_white_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -461,26 +461,26 @@ transmitop=10
 op10= 
 
 // 419:31
-[com_31]
+[bandana_white_cost]
 type=text
 x=16
 y=39
 width=31
 height=12
-layer=com_28
+layer=bandana_white_layer
 textfont=p11_full
 text=500
 textalignh=centre
 textshadow=yes
 
 // 419:32
-[com_32]
+[bandana_white_coin]
 type=graphic
 x=3
 y=38
 width=12
 height=12
-layer=com_28
+layer=bandana_white_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 
@@ -491,7 +491,7 @@ x=10
 y=5
 width=41
 height=33
-layer=com_28
+layer=bandana_white_layer
 model=model_16003
 modelorigin=-9,-3
 modelangle=387,75,0
@@ -538,7 +538,7 @@ transmitop=10
 op10=  
 
 // 419:37
-[com_37]
+[bandana_red_cost]
 type=text
 x=16
 y=39
@@ -553,7 +553,7 @@ transmitop=10
 op10= 
 
 // 419:38
-[com_38]
+[bandana_red_coin]
 type=graphic
 x=3
 y=38
@@ -602,7 +602,7 @@ transmitop=10
 op10=   
 
 // 419:42
-[com_42]
+[bandana_blue_cost]
 type=text
 x=16
 y=39
@@ -617,7 +617,7 @@ transmitop=10
 op10=  
 
 // 419:43
-[com_43]
+[bandana_blue_coin]
 type=graphic
 x=3
 y=38
@@ -666,7 +666,7 @@ transmitop=10
 op10=    
 
 // 419:47
-[com_47]
+[bandana_brown_cost]
 type=text
 x=16
 y=39
@@ -681,7 +681,7 @@ transmitop=10
 op10=   
 
 // 419:48
-[com_48]
+[bandana_brown_coin]
 type=graphic
 x=3
 y=38
@@ -694,7 +694,7 @@ transmitop=10
 op10=   
 
 // 419:49
-[com_49]
+[bandana_grey_layer]
 type=layer
 x=208
 y=5
@@ -709,7 +709,7 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_49
+layer=bandana_grey_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
@@ -722,7 +722,7 @@ onmouseleave=script1189(patchy_interface:com_51, true)
 type=graphic
 width=48
 height=52
-layer=com_49
+layer=bandana_grey_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -730,13 +730,13 @@ transmitop=10
 op10=     
 
 // 419:52
-[com_52]
+[bandana_grey_cost]
 type=text
 x=16
 y=39
 width=31
 height=12
-layer=com_49
+layer=bandana_grey_layer
 textfont=p11_full
 text=500
 textalignh=centre
@@ -745,20 +745,20 @@ transmitop=10
 op10=    
 
 // 419:53
-[com_53]
+[bandana_grey_coin]
 type=graphic
 x=3
 y=38
 width=12
 height=12
-layer=com_49
+layer=bandana_grey_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
 op10=    
 
 // 419:54
-[com_54]
+[bandana_purple_layer]
 type=layer
 x=260
 y=5
@@ -773,7 +773,7 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_54
+layer=bandana_purple_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
@@ -786,7 +786,7 @@ onmouseleave=script1189(patchy_interface:com_56, true)
 type=graphic
 width=48
 height=52
-layer=com_54
+layer=bandana_purple_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -794,13 +794,13 @@ transmitop=10
 op10=      
 
 // 419:57
-[com_57]
+[bandana_purple_cost]
 type=text
 x=16
 y=39
 width=31
 height=12
-layer=com_54
+layer=bandana_purple_layer
 textfont=p11_full
 text=500
 textalignh=centre
@@ -809,20 +809,20 @@ transmitop=10
 op10=     
 
 // 419:58
-[com_58]
+[bandana_purple_coin]
 type=graphic
 x=3
 y=38
 width=12
 height=12
-layer=com_54
+layer=bandana_purple_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
 op10=     
 
 // 419:59
-[com_59]
+[bandana_orange_layer]
 type=layer
 x=312
 y=5
@@ -1241,7 +1241,7 @@ op10=
 type=graphic
 width=48
 height=52
-layer=com_59
+layer=bandana_orange_layer
 graphic="km_shoptile,0"
 colour=0xffffffff
 transmitop=10
@@ -1254,7 +1254,7 @@ onmouseleave=script1189(patchy_interface:com_91, true)
 type=graphic
 width=48
 height=52
-layer=com_59
+layer=bandana_orange_layer
 hide=yes
 graphic="km_shoptile,1"
 colour=0xffffffff
@@ -1268,7 +1268,7 @@ x=16
 y=39
 width=31
 height=12
-layer=com_59
+layer=bandana_orange_layer
 textfont=p11_full
 text=500
 textalignh=centre
@@ -1283,7 +1283,7 @@ x=3
 y=38
 width=12
 height=12
-layer=com_59
+layer=bandana_orange_layer
 graphic="km_shopitems,1"
 colour=0xffffffff
 transmitop=10
@@ -2255,7 +2255,7 @@ transmitop=10
 op10=                           
 
 // 419:169
-[com_169]
+[cavalier_cost]
 type=text
 x=16
 y=39
@@ -2270,7 +2270,7 @@ transmitop=10
 op10=                          
 
 // 419:170
-[com_170]
+[cavalier_coin]
 type=graphic
 x=3
 y=38
@@ -2407,13 +2407,13 @@ op2=Buy
 op10= 
 
 // 419:180
-[com_180]
+[patchy_bandana_grey]
 type=model
 x=10
 y=5
 width=41
 height=33
-layer=com_49
+layer=bandana_grey_layer
 model=model_34867
 modelorigin=-9,-3
 modelangle=387,75,0
@@ -2424,13 +2424,13 @@ op2=Buy
 op10= 
 
 // 419:181
-[com_181]
+[patchy_bandana_purple]
 type=model
 x=10
 y=5
 width=41
 height=33
-layer=com_54
+layer=bandana_purple_layer
 model=model_34855
 modelorigin=-9,-3
 modelangle=387,75,0
@@ -2441,13 +2441,13 @@ op2=Buy
 op10= 
 
 // 419:182
-[com_182]
+[patchy_bandana_orange]
 type=model
 x=10
 y=5
 width=41
 height=33
-layer=com_59
+layer=bandana_orange_layer
 model=model_34866
 modelorigin=-9,-3
 modelangle=387,75,0
@@ -2458,7 +2458,7 @@ op2=Buy
 op10= 
 
 // 419:183
-[com_183]
+[patchy_bandana_grey_double]
 type=model
 x=-2
 y=6
@@ -2475,7 +2475,7 @@ op2=Buy
 op10= 
 
 // 419:184
-[com_184]
+[patchy_bandana_purple_double]
 type=model
 x=-2
 y=6
@@ -2492,7 +2492,7 @@ op2=Buy
 op10= 
 
 // 419:185
-[com_185]
+[patchy_bandana_orange_double]
 type=model
 x=-2
 y=6

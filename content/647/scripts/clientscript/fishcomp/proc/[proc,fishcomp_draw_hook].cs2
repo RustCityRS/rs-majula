@@ -15,4 +15,4 @@ switch_int (%varclient_1110) {
     case 6 :
         $string0 = "Double";
 }
-if_settext($string0, fishcomp_side:com_52);
+if_settext($string0, fishcomp_side:selected_hook_txt);

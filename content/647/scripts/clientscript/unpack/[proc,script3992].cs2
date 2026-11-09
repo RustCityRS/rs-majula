@@ -21,12 +21,12 @@ if (~script3999($int3) = 0 & $component4 ! null) {
     if_setposition(16, calc($int1 + ($int8 - if_getheight($component4)) / 2), ^setpos_abs_right, ^setpos_abs_top, $component4);
     if (%varplayerbit_8578 = $int0 & %varplayerbit_8594 = $int3) {
         if_setgraphic("km_help_button,2", $component4);
-        if_setonmouseover("esc_hudop3(0, 1, $component4)", $component4);
-        if_setonmouseleave("esc_hudop3(1, 1, $component4)", $component4);
+        if_setonmouseover("task_hintarrow_hover(0, 1, $component4)", $component4);
+        if_setonmouseleave("task_hintarrow_hover(1, 1, $component4)", $component4);
     } else {
         if_setgraphic("km_help_button,0", $component4);
-        if_setonmouseover("esc_hudop3(0, 0, $component4)", $component4);
-        if_setonmouseleave("esc_hudop3(1, 0, $component4)", $component4);
+        if_setonmouseover("task_hintarrow_hover(0, 0, $component4)", $component4);
+        if_setonmouseleave("task_hintarrow_hover(1, 0, $component4)", $component4);
     }
 }
 return(calc($int1 + $int8));

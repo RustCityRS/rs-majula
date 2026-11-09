@@ -5,7 +5,7 @@
 // quest id (`^questlist_<quest>`, questlist.constant), and showing progress
 // asks the client to redraw the list (clientscript 2169). 2011 completes every
 // quest on one scroll (questscroll_ver3, interface 277; the cache's 380,
-// welcome_final_tex, is a twin of it), the custom scrolls of 289's
+// questscroll_ver3_big, is a twin of it), the custom scrolls of 289's
 // Observatory, Gertrude's Cat and Tai Bwo Wannai Trio being gone.
 
 [proc,send_quest_progress](int $quest, int $progress, int $complete_progress)
@@ -39,7 +39,7 @@ if ($questpoints = 1) {
 }
 if_settext(questscroll_ver3:quest_reward2_ver3, "");
 if_settext(questscroll_ver3:quest_reward3_ver3, "");
-if_settext(questscroll_ver3:skullduration_tab, "");
+if_settext(questscroll_ver3:quest_reward4_ver3, "");
 if_settext(questscroll_ver3:quest_reward5_ver3, "");
 if_settext(questscroll_ver3:quest_reward6_ver3, "");
 if_settext(questscroll_ver3:quest_reward7_ver3, "");
@@ -66,7 +66,7 @@ mes("Congratulations! Quest complete!");
 split_init($rewardtext, 170, 7, p12_full);
 if_settext(questscroll_ver3:quest_reward2_ver3, split_get(0, 0));
 if_settext(questscroll_ver3:quest_reward3_ver3, split_get(0, 1));
-if_settext(questscroll_ver3:skullduration_tab, split_get(0, 2));
+if_settext(questscroll_ver3:quest_reward4_ver3, split_get(0, 2));
 if_settext(questscroll_ver3:quest_reward5_ver3, split_get(0, 3));
 if_settext(questscroll_ver3:quest_reward6_ver3, split_get(0, 4));
 if_settext(questscroll_ver3:quest_reward7_ver3, split_get(0, 5));

@@ -2,4 +2,4 @@
 [clientscript,script4430](component $component0, component $component1)
 if_setgraphic("aif_clanchat_icons,2", $component1);
 if_setontargetleave(null, $component0);
-if_sethide(true, clan_chat:com_89);
+if_sethide(true, clan_chat:clan_invite_button_selected);

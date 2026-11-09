@@ -8,7 +8,7 @@ heightmode=proportion
 noclickthrough=yes
 
 // 951:1
-[com_1]
+[main]
 type=layer
 width=512
 height=334
@@ -24,7 +24,7 @@ width=15623
 height=15066
 widthmode=proportion
 heightmode=proportion
-layer=com_1
+layer=main
 colour=0x000000
 
 // 951:3
@@ -34,7 +34,7 @@ x=13
 y=20
 width=32
 height=32
-layer=com_1
+layer=main
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
@@ -47,7 +47,7 @@ x=468
 y=20
 width=32
 height=32
-layer=com_1
+layer=main
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -60,7 +60,7 @@ x=13
 y=294
 width=32
 height=32
-layer=com_1
+layer=main
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -73,7 +73,7 @@ x=468
 y=294
 width=32
 height=32
-layer=com_1
+layer=main
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -85,7 +85,7 @@ type=graphic
 y=52
 width=32
 height=242
-layer=com_1
+layer=main
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -99,7 +99,7 @@ x=480
 y=51
 width=32
 height=243
-layer=com_1
+layer=main
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -113,7 +113,7 @@ x=45
 y=20
 width=424
 height=26
-layer=com_1
+layer=main
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -127,7 +127,7 @@ x=45
 y=306
 width=423
 height=32
-layer=com_1
+layer=main
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -141,7 +141,7 @@ y=20
 width=384
 height=24
 xmode=abs_centre
-layer=com_1
+layer=main
 textfont=b12_full
 text=Congratulations! You have completed a dungeon!
 textalignh=centre
@@ -152,13 +152,13 @@ transmitop=10
 op10= 
 
 // 951:12
-[com_12]
+[background]
 type=layer
 x=19
 y=41
 width=474
 height=278
-layer=com_1
+layer=main
 
 // 951:13
 [skip_button]
@@ -167,7 +167,7 @@ x=470
 y=22
 width=20
 height=20
-layer=com_1
+layer=main
 graphic="lore_icons,4"
 colour=0x000000
 transmitop=1
@@ -180,7 +180,7 @@ onclick=script3276
 type=graphic
 width=10
 height=10
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,0"
 colour=0xffffffff
 transmitop=10
@@ -194,7 +194,7 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,2"
 colour=0xffffffff
 transmitop=10
@@ -206,7 +206,7 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,3"
 colour=0xffffffff
 transmitop=10
@@ -219,7 +219,7 @@ y=10
 width=10
 height=20
 heightmode=minus
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,4"
 colour=0xffffffff
 transmitop=10
@@ -232,7 +232,7 @@ x=10
 width=19
 height=10
 widthmode=minus
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,5"
 colour=0xffffffff
 transmitop=10
@@ -246,7 +246,7 @@ width=19
 height=10
 widthmode=minus
 ymode=abs_bottom
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,7"
 colour=0xffffffff
 transmitop=10
@@ -261,7 +261,7 @@ width=10
 height=20
 heightmode=minus
 xmode=abs_right
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,6"
 colour=0xffffffff
 transmitop=10
@@ -276,7 +276,7 @@ width=20
 height=20
 widthmode=minus
 heightmode=minus
-layer=com_12
+layer=background
 graphic=rand_smithing_background_fill
 tiling=yes
 alpha=yes
@@ -291,7 +291,7 @@ x=-1
 width=10
 height=10
 xmode=abs_right
-layer=com_12
+layer=background
 graphic="rand_smithing_edges,1"
 colour=0xffffffff
 transmitop=10
@@ -648,7 +648,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(62324786)
-onvarctransmit=script2277{varclient_1198}
+onvarctransmit=rand_interface_update_rand_exists_1{varclient_1198}
 
 // 951:51
 [player_2]
@@ -662,7 +662,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(62324787)
-onvarctransmit=script2288{varclient_1199}
+onvarctransmit=rand_interface_update_rand_exists_2{varclient_1199}
 
 // 951:52
 [player_2_name]
@@ -678,7 +678,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=10
 op10= 
-onvarcstrtransmit=script2939{varclient_1830}
+onvarcstrtransmit=rand_interface_update_rand_name_2{varclient_1830}
 
 // 951:53
 [player_2_title_1]
@@ -694,7 +694,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10= 
-onvarctransmit=script2942{varclient_1209}
+onvarctransmit=rand_interface_update_rand_rand_award_2_1{varclient_1209}
 
 // 951:54
 [player_2_title_2]
@@ -710,7 +710,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10= 
-onvarctransmit=script2965{varclient_1210}
+onvarctransmit=rand_interface_update_rand_rand_award_2_2{varclient_1210}
 
 // 951:55
 [player_2_title_3]
@@ -726,7 +726,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10= 
-onvarctransmit=script2966{varclient_1211}
+onvarctransmit=rand_interface_update_rand_rand_award_2_3{varclient_1211}
 
 // 951:56
 [player_2_title_4]
@@ -742,7 +742,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10= 
-onvarctransmit=script3021{varclient_1212}
+onvarctransmit=rand_interface_update_rand_rand_award_2_4{varclient_1212}
 
 // 951:57
 [player_2_title_5]
@@ -758,7 +758,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10= 
-onvarctransmit=script3033{varclient_1213}
+onvarctransmit=rand_interface_update_rand_rand_award_2_5{varclient_1213}
 
 // 951:58
 [player_2_title_6]
@@ -774,7 +774,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10= 
-onvarctransmit=script3034{varclient_1214}
+onvarctransmit=rand_interface_update_rand_rand_award_2_6{varclient_1214}
 
 // 951:59
 [player_2_divider]
@@ -809,7 +809,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(62324797)
-onvarctransmit=script3162{varclient_1200}
+onvarctransmit=rand_interface_update_rand_exists_3{varclient_1200}
 
 // 951:62
 [player_3_name]
@@ -825,7 +825,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=10
 op10=  
-onvarcstrtransmit=script3240{varclient_1831}
+onvarcstrtransmit=rand_interface_update_rand_name_3{varclient_1831}
 
 // 951:63
 [player_3_title_1]
@@ -841,7 +841,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=script3241{varclient_1215}
+onvarctransmit=rand_interface_update_rand_rand_award_3_1{varclient_1215}
 
 // 951:64
 [player_3_title_2]
@@ -857,7 +857,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=script3242{varclient_1216}
+onvarctransmit=rand_interface_update_rand_rand_award_3_2{varclient_1216}
 
 // 951:65
 [player_3_title_3]
@@ -873,7 +873,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=script3243{varclient_1217}
+onvarctransmit=rand_interface_update_rand_rand_award_3_3{varclient_1217}
 
 // 951:66
 [player_3_title_4]
@@ -889,7 +889,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=script3244{varclient_1218}
+onvarctransmit=rand_interface_update_rand_rand_award_3_4{varclient_1218}
 
 // 951:67
 [player_3_title_5]
@@ -905,7 +905,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=script3245{varclient_1219}
+onvarctransmit=rand_interface_update_rand_rand_award_3_5{varclient_1219}
 
 // 951:68
 [player_3_title_6]
@@ -921,7 +921,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=script3246{varclient_1220}
+onvarctransmit=rand_interface_update_rand_rand_award_3_6{varclient_1220}
 
 // 951:69
 [player_3_divider]
@@ -958,7 +958,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(62324807)
-onvarctransmit=script3247{varclient_1201}
+onvarctransmit=rand_interface_update_rand_exists_4{varclient_1201}
 
 // 951:72
 [player_4_name]
@@ -974,7 +974,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=10
 op10=  
-onvarcstrtransmit=script3249{varclient_1832}
+onvarcstrtransmit=rand_interface_update_rand_name_4{varclient_1832}
 
 // 951:73
 [player_4_title_1]
@@ -990,7 +990,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop0{varclient_1221}
+onvarctransmit=rand_interface_update_rand_rand_award_4_1{varclient_1221}
 
 // 951:74
 [player_4_title_2]
@@ -1006,7 +1006,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop1{varclient_1222}
+onvarctransmit=rand_interface_update_rand_rand_award_4_2{varclient_1222}
 
 // 951:75
 [player_4_title_3]
@@ -1022,7 +1022,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop2{varclient_1223}
+onvarctransmit=rand_interface_update_rand_rand_award_4_3{varclient_1223}
 
 // 951:76
 [player_4_title_4]
@@ -1038,7 +1038,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop3{varclient_1224}
+onvarctransmit=rand_interface_update_rand_rand_award_4_4{varclient_1224}
 
 // 951:77
 [player_4_title_5]
@@ -1054,7 +1054,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop4{varclient_1225}
+onvarctransmit=rand_interface_update_rand_rand_award_4_5{varclient_1225}
 
 // 951:78
 [player_4_title_6]
@@ -1070,7 +1070,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=set_buttons_indexop5{varclient_1226}
+onvarctransmit=rand_interface_update_rand_rand_award_4_6{varclient_1226}
 
 // 951:79
 [player_4_divider]
@@ -1107,7 +1107,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(62324817)
-onvarctransmit=script3256{varclient_1202}
+onvarctransmit=rand_interface_update_rand_exists_5{varclient_1202}
 
 // 951:82
 [title_hide_layer]
@@ -1256,7 +1256,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=10
 op10=  
-onvarcstrtransmit=script3258{varclient_1833}
+onvarcstrtransmit=rand_interface_update_rand_name_5{varclient_1833}
 
 // 951:93
 [player_5_title_1]
@@ -1272,7 +1272,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=script3259{varclient_1227}
+onvarctransmit=rand_interface_update_rand_rand_award_5_1{varclient_1227}
 
 // 951:94
 [player_5_title_2]
@@ -1288,7 +1288,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=rand_unlock_oh{varclient_1228}
+onvarctransmit=rand_interface_update_rand_rand_award_5_2{varclient_1228}
 
 // 951:95
 [player_5_title_3]
@@ -1304,7 +1304,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=script3261{varclient_1229}
+onvarctransmit=rand_interface_update_rand_rand_award_5_3{varclient_1229}
 
 // 951:96
 [player_5_title_4]
@@ -1320,7 +1320,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=script3262{varclient_1230}
+onvarctransmit=rand_interface_update_rand_rand_award_5_4{varclient_1230}
 
 // 951:97
 [player_5_title_5]
@@ -1336,7 +1336,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=rand_unlock_ok{varclient_1231}
+onvarctransmit=rand_interface_update_rand_rand_award_5_5{varclient_1231}
 
 // 951:98
 [player_5_title_6]
@@ -1352,7 +1352,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=script3264{varclient_1232}
+onvarctransmit=rand_interface_update_rand_rand_award_5_6{varclient_1232}
 
 // 951:99
 [player_5_button]
@@ -1378,7 +1378,7 @@ text=Mod Trick
 textalignv=centre
 textshadow=yes
 colour=0xffff00
-onvarcstrtransmit=script2279{varclient_1829}
+onvarcstrtransmit=rand_interface_update_rand_name_1{varclient_1829}
 
 // 951:101
 [player_1_title_1]
@@ -1392,7 +1392,7 @@ textfont=p12_full
 text=Battle Mage
 textshadow=yes
 colour=0x00cc33
-onvarctransmit=script2280{varclient_1203}
+onvarctransmit=rand_interface_update_rand_rand_award_1_1{varclient_1203}
 
 // 951:102
 [player_1_title_2]
@@ -1406,7 +1406,7 @@ textfont=p12_full
 text=Culinary Disaster
 textshadow=yes
 colour=0xcc0000
-onvarctransmit=script2281{varclient_1204}
+onvarctransmit=rand_interface_update_rand_rand_award_1_2{varclient_1204}
 
 // 951:103
 [player_1_title_3]
@@ -1420,7 +1420,7 @@ textfont=p12_full
 text=Master of None
 textshadow=yes
 colour=0xcc0000
-onvarctransmit=script2282{varclient_1205}
+onvarctransmit=rand_interface_update_rand_rand_award_1_3{varclient_1205}
 
 // 951:104
 [player_1_title_4]
@@ -1434,7 +1434,7 @@ textfont=p12_full
 text=MVP
 textshadow=yes
 colour=0x00cc33
-onvarctransmit=script2285{varclient_1206}
+onvarctransmit=rand_interface_update_rand_rand_award_1_4{varclient_1206}
 
 // 951:105
 [player_1_title_5]
@@ -1448,7 +1448,7 @@ textfont=p12_full
 text=Master Chef
 textshadow=yes
 colour=0x00cc33
-onvarctransmit=script2286{varclient_1207}
+onvarctransmit=rand_interface_update_rand_rand_award_1_5{varclient_1207}
 
 // 951:106
 [player_1_title_6]
@@ -1462,7 +1462,7 @@ textfont=p12_full
 text=Uneconomical Alcher
 textshadow=yes
 colour=0xcc0000
-onvarctransmit=script2287{varclient_1208}
+onvarctransmit=rand_interface_update_rand_rand_award_1_6{varclient_1208}
 
 // 951:107
 [player_1_divider]
@@ -1580,7 +1580,7 @@ textshadow=yes
 colour=0xffff99
 
 // 951:115
-[com_115]
+[combat_points_bar_container]
 type=layer
 x=103
 y=33
@@ -1620,7 +1620,7 @@ textshadow=yes
 colour=0xffff99
 
 // 951:118
-[com_118]
+[task_points_bar_container]
 type=layer
 x=103
 y=55
@@ -1636,7 +1636,7 @@ op10=
 type=graphic
 width=5
 height=5
-layer=com_118
+layer=task_points_bar_container
 graphic="rand_sml_framea,0"
 colour=0xffffffff
 transmitop=10
@@ -1648,7 +1648,7 @@ type=graphic
 x=183
 width=5
 height=5
-layer=com_118
+layer=task_points_bar_container
 graphic="rand_sml_framea,0"
 hflip=yes
 colour=0xffffffff
@@ -1661,7 +1661,7 @@ type=graphic
 x=5
 width=178
 height=5
-layer=com_118
+layer=task_points_bar_container
 graphic="rand_sml_framea,1"
 colour=0xffffffff
 transmitop=10
@@ -1673,7 +1673,7 @@ type=graphic
 y=12
 width=5
 height=5
-layer=com_118
+layer=task_points_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 colour=0xffffffff
@@ -1687,7 +1687,7 @@ x=183
 y=12
 width=5
 height=5
-layer=com_118
+layer=task_points_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 hflip=yes
@@ -1702,7 +1702,7 @@ x=5
 y=12
 width=178
 height=5
-layer=com_118
+layer=task_points_bar_container
 graphic="rand_sml_framea,1"
 vflip=yes
 colour=0xffffffff
@@ -1715,7 +1715,7 @@ type=graphic
 y=5
 width=5
 height=7
-layer=com_118
+layer=task_points_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 colour=0xffffffff
@@ -1729,7 +1729,7 @@ x=183
 y=5
 width=5
 height=7
-layer=com_118
+layer=task_points_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 hflip=yes
@@ -1744,7 +1744,7 @@ x=5
 y=5
 width=178
 height=10
-layer=com_118
+layer=task_points_bar_container
 colour=0x000000
 fill=yes
 transmitop=10
@@ -1756,7 +1756,7 @@ type=layer
 x=6
 width=180
 height=17
-layer=com_118
+layer=task_points_bar_container
 transmitop=10
 op10= 
 
@@ -1767,7 +1767,7 @@ x=2
 y=1
 width=7
 height=14
-layer=com_118
+layer=task_points_bar_container
 graphic="rand_grad_caps,0"
 colour=0xffffffff
 transmitop=10
@@ -1840,7 +1840,7 @@ textshadow=yes
 colour=0xffff99
 
 // 951:135
-[com_135]
+[total_points_bar_container]
 type=layer
 x=103
 y=77
@@ -1856,7 +1856,7 @@ op10=
 type=graphic
 width=5
 height=5
-layer=com_135
+layer=total_points_bar_container
 graphic="rand_sml_framea,0"
 colour=0xffffffff
 transmitop=10
@@ -1868,7 +1868,7 @@ type=graphic
 x=183
 width=5
 height=5
-layer=com_135
+layer=total_points_bar_container
 graphic="rand_sml_framea,0"
 hflip=yes
 colour=0xffffffff
@@ -1881,7 +1881,7 @@ type=graphic
 x=5
 width=178
 height=5
-layer=com_135
+layer=total_points_bar_container
 graphic="rand_sml_framea,1"
 colour=0xffffffff
 transmitop=10
@@ -1893,7 +1893,7 @@ type=graphic
 y=12
 width=5
 height=5
-layer=com_135
+layer=total_points_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 colour=0xffffffff
@@ -1907,7 +1907,7 @@ x=183
 y=12
 width=5
 height=5
-layer=com_135
+layer=total_points_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 hflip=yes
@@ -1922,7 +1922,7 @@ x=5
 y=12
 width=178
 height=5
-layer=com_135
+layer=total_points_bar_container
 graphic="rand_sml_framea,1"
 vflip=yes
 colour=0xffffffff
@@ -1935,7 +1935,7 @@ type=graphic
 y=5
 width=5
 height=7
-layer=com_135
+layer=total_points_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 colour=0xffffffff
@@ -1949,7 +1949,7 @@ x=183
 y=5
 width=5
 height=7
-layer=com_135
+layer=total_points_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 hflip=yes
@@ -1964,7 +1964,7 @@ x=5
 y=5
 width=178
 height=10
-layer=com_135
+layer=total_points_bar_container
 colour=0x000000
 fill=yes
 transmitop=10
@@ -1976,7 +1976,7 @@ type=layer
 x=6
 width=180
 height=17
-layer=com_135
+layer=total_points_bar_container
 transmitop=10
 op10= 
 
@@ -1987,7 +1987,7 @@ x=2
 y=1
 width=7
 height=14
-layer=com_135
+layer=total_points_bar_container
 graphic="rand_grad_caps,0"
 colour=0xffffffff
 transmitop=10
@@ -2074,7 +2074,7 @@ textshadow=yes
 colour=0xffff99
 
 // 951:153
-[com_153]
+[completion_bar_container]
 type=layer
 x=103
 y=103
@@ -2133,7 +2133,7 @@ op10=
 type=graphic
 width=5
 height=5
-layer=com_153
+layer=completion_bar_container
 graphic="rand_sml_framea,0"
 colour=0xffffffff
 transmitop=10
@@ -2145,7 +2145,7 @@ type=graphic
 x=183
 width=5
 height=5
-layer=com_153
+layer=completion_bar_container
 graphic="rand_sml_framea,0"
 hflip=yes
 colour=0xffffffff
@@ -2158,7 +2158,7 @@ type=graphic
 x=5
 width=178
 height=5
-layer=com_153
+layer=completion_bar_container
 graphic="rand_sml_framea,1"
 colour=0xffffffff
 transmitop=10
@@ -2170,7 +2170,7 @@ type=graphic
 y=12
 width=5
 height=5
-layer=com_153
+layer=completion_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 colour=0xffffffff
@@ -2184,7 +2184,7 @@ x=183
 y=12
 width=5
 height=5
-layer=com_153
+layer=completion_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 hflip=yes
@@ -2199,7 +2199,7 @@ x=5
 y=12
 width=178
 height=5
-layer=com_153
+layer=completion_bar_container
 graphic="rand_sml_framea,1"
 vflip=yes
 colour=0xffffffff
@@ -2212,7 +2212,7 @@ type=graphic
 y=5
 width=5
 height=7
-layer=com_153
+layer=completion_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 colour=0xffffffff
@@ -2226,7 +2226,7 @@ x=183
 y=5
 width=5
 height=7
-layer=com_153
+layer=completion_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 hflip=yes
@@ -2241,7 +2241,7 @@ x=5
 y=5
 width=178
 height=10
-layer=com_153
+layer=completion_bar_container
 colour=0x000000
 fill=yes
 transmitop=10
@@ -2253,7 +2253,7 @@ type=layer
 x=6
 width=180
 height=17
-layer=com_153
+layer=completion_bar_container
 transmitop=10
 op10= 
 
@@ -2264,7 +2264,7 @@ x=2
 y=1
 width=7
 height=14
-layer=com_153
+layer=completion_bar_container
 graphic="rand_grad_caps,0"
 colour=0xffffffff
 transmitop=10
@@ -2513,7 +2513,7 @@ graphic="options_radio_buttons,0"
 colour=0xffffffff
 
 // 951:185
-[com_185]
+[exploration_mode_val]
 type=text
 x=63
 y=182
@@ -2575,7 +2575,7 @@ textshadow=yes
 colour=0xb19900
 
 // 951:189
-[com_189]
+[party_size_mod_val]
 type=text
 x=175
 y=157
@@ -3165,7 +3165,7 @@ modelanim=seq_9357
 type=graphic
 width=5
 height=5
-layer=com_115
+layer=combat_points_bar_container
 graphic="rand_sml_framea,0"
 colour=0xffffffff
 transmitop=10
@@ -3177,7 +3177,7 @@ type=graphic
 x=183
 width=5
 height=5
-layer=com_115
+layer=combat_points_bar_container
 graphic="rand_sml_framea,0"
 hflip=yes
 colour=0xffffffff
@@ -3190,7 +3190,7 @@ type=graphic
 x=5
 width=178
 height=5
-layer=com_115
+layer=combat_points_bar_container
 graphic="rand_sml_framea,1"
 colour=0xffffffff
 transmitop=10
@@ -3202,7 +3202,7 @@ type=graphic
 y=12
 width=5
 height=5
-layer=com_115
+layer=combat_points_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 colour=0xffffffff
@@ -3216,7 +3216,7 @@ x=183
 y=12
 width=5
 height=5
-layer=com_115
+layer=combat_points_bar_container
 graphic="rand_sml_framea,0"
 vflip=yes
 hflip=yes
@@ -3231,7 +3231,7 @@ x=5
 y=12
 width=178
 height=5
-layer=com_115
+layer=combat_points_bar_container
 graphic="rand_sml_framea,1"
 vflip=yes
 colour=0xffffffff
@@ -3244,7 +3244,7 @@ type=graphic
 y=5
 width=5
 height=7
-layer=com_115
+layer=combat_points_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 colour=0xffffffff
@@ -3258,7 +3258,7 @@ x=183
 y=5
 width=5
 height=7
-layer=com_115
+layer=combat_points_bar_container
 graphic="rand_sml_framea,2"
 tiling=yes
 hflip=yes
@@ -3273,7 +3273,7 @@ x=5
 y=5
 width=178
 height=10
-layer=com_115
+layer=combat_points_bar_container
 colour=0x000000
 fill=yes
 transmitop=10
@@ -3285,7 +3285,7 @@ type=layer
 x=6
 width=180
 height=17
-layer=com_115
+layer=combat_points_bar_container
 
 // 951:242
 [progress_bar_s]
@@ -3294,7 +3294,7 @@ x=2
 y=1
 width=7
 height=14
-layer=com_115
+layer=combat_points_bar_container
 graphic="rand_grad_caps,0"
 colour=0xffffffff
 

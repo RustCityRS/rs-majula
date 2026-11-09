@@ -52,7 +52,7 @@ if (map_lang = 0) {
     }
 } else {
     if (map_lang = 1) {
-        $graphic9 = graphic_1517;
+        $graphic9 = "world_select_flags,7";
     } else if (map_lang = 2) {
         $graphic9 = enum(int, graphic, enum_1810, 74);
     } else if (map_lang = 3) {
@@ -86,17 +86,17 @@ if ($int14 = 1) {
 }
 if ($int0 = %varclient_998) {
     $rgb7 = 0x203211;
-    $graphic6 = graphic_1541;
+    $graphic6 = "world_select_hearts,2";
 } else if ($int0 = %varclient_999) {
     $rgb7 = 0x203c11;
-    $graphic6 = graphic_1541;
+    $graphic6 = "world_select_hearts,2";
 } else {
     if (calc($int2 % 2) = 0) {
         $rgb7 = 0x201911;
     } else {
         $rgb7 = 0x292016;
     }
-    $graphic6 = graphic_1545;
+    $graphic6 = "world_select_hearts,6";
 }
 if ($int3 >= 1980) {
     $string4 = "FULL";

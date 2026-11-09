@@ -1,10 +1,10 @@
 // 4222
 [clientscript,acs_shanty_overlay_timer]
 if (%varclient_1468 > 100 & %varclient_1468 <= 355) {
-    if_settrans(calc(255 - (%varclient_1468 - 100)), acs_shanty_overlay:com_0);
+    if_settrans(calc(255 - (%varclient_1468 - 100)), acs_shanty_overlay:background);
 }
 if (%varclient_1468 > 100 & %varclient_1468 <= 150) {
-    if_setposition(calc(-35 + (%varclient_1468 - 100)), 122, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com_4);
+    if_setposition(calc(-35 + (%varclient_1468 - 100)), 122, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:logo_1);
 }
 if (%varclient_1468 > 200 & %varclient_1468 <= 455) {
     if_setposition(calc(-255 + (%varclient_1468 - 200)), 70, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:line_1);
@@ -25,12 +25,12 @@ if (%varclient_1468 > 600 & %varclient_1468 <= 855) {
     if_setposition(calc(0 - (%varclient_1468 - 600)), 100, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:line_3);
 }
 if (%varclient_1468 = 700) {
-    if_setmodelangle(0, 0, 0, 210, 0, 1750, acs_shanty_overlay:com_4);
+    if_setmodelangle(0, 0, 0, 210, 0, 1750, acs_shanty_overlay:logo_1);
 }
 if (%varclient_1468 > 700 & %varclient_1468 <= 955) {
-    if_settrans(calc(%varclient_1468 - 700), acs_shanty_overlay:com_0);
+    if_settrans(calc(%varclient_1468 - 700), acs_shanty_overlay:background);
 }
 if (%varclient_1468 > 700 & %varclient_1468 <= 750) {
-    if_setposition(calc(0 - (%varclient_1468 - 700)), 122, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com_4);
+    if_setposition(calc(0 - (%varclient_1468 - 700)), 122, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:logo_1);
 }
 %varclient_1468 = calc(%varclient_1468 + 1);

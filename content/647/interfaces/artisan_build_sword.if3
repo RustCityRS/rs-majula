@@ -1,5 +1,5 @@
 // 1074:0
-[com_0]
+[demo16]
 type=graphic
 width=80
 height=40
@@ -7,7 +7,7 @@ layer=layer_8
 graphic=artisan_sword_back
 
 // 1074:1
-[com_1]
+[demo18]
 type=graphic
 x=80
 width=80
@@ -16,7 +16,7 @@ layer=layer_8
 graphic=artisan_sword_back
 
 // 1074:2
-[com_2]
+[demo20]
 type=graphic
 x=160
 width=80
@@ -25,7 +25,7 @@ layer=layer_8
 graphic=artisan_sword_back
 
 // 1074:3
-[com_3]
+[demo22]
 type=graphic
 x=240
 width=80
@@ -34,7 +34,7 @@ layer=layer_8
 graphic=artisan_sword_back
 
 // 1074:4
-[com_4]
+[demo24]
 type=graphic
 y=40
 width=80
@@ -44,7 +44,7 @@ graphic=artisan_sword_back
 vflip=yes
 
 // 1074:5
-[com_5]
+[demo26]
 type=graphic
 x=80
 y=40
@@ -55,7 +55,7 @@ graphic=artisan_sword_back
 vflip=yes
 
 // 1074:6
-[com_6]
+[demo29]
 type=graphic
 x=160
 y=40
@@ -66,7 +66,7 @@ graphic=artisan_sword_back
 vflip=yes
 
 // 1074:7
-[com_7]
+[demo30]
 type=graphic
 x=240
 y=40
@@ -191,12 +191,12 @@ height=18
 layer=layer_6
 
 // 1074:19
-[com_19]
+[background]
 type=graphic
 width=370
 height=134
 layer=layer_4
-graphic=graphic_4707
+graphic=artisan_down_sword_background
 outline=2
 graphicshadow=16776958
 colour=0xffffffff
@@ -342,7 +342,7 @@ linewid=2
 colour=0x010000
 
 // 1074:34
-[com_34]
+[point1]
 type=graphic
 x=15
 y=5
@@ -353,7 +353,7 @@ graphic="artisan_sword_hammer,0"
 colour=0xffffffff
 
 // 1074:35
-[com_35]
+[point2]
 type=graphic
 x=52
 y=5
@@ -366,7 +366,7 @@ transmitop=10
 op10= 
 
 // 1074:36
-[com_36]
+[point3]
 type=graphic
 x=92
 y=5
@@ -376,7 +376,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:37
-[com_37]
+[point4]
 type=graphic
 x=132
 y=5
@@ -386,7 +386,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:38
-[com_38]
+[point5]
 type=graphic
 x=172
 y=5
@@ -396,7 +396,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:39
-[com_39]
+[point6]
 type=graphic
 x=212
 y=5
@@ -406,7 +406,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:40
-[com_40]
+[point7]
 type=graphic
 x=252
 y=5
@@ -416,7 +416,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:41
-[com_41]
+[point8]
 type=graphic
 x=332
 y=5
@@ -426,7 +426,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:42
-[com_42]
+[point9]
 type=graphic
 x=15
 y=111
@@ -436,7 +436,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:43
-[com_43]
+[point10]
 type=graphic
 x=52
 y=111
@@ -446,7 +446,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:44
-[com_44]
+[point11]
 type=graphic
 x=92
 y=111
@@ -456,7 +456,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:45
-[com_45]
+[point12]
 type=graphic
 x=132
 y=111
@@ -466,7 +466,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:46
-[com_46]
+[point13]
 type=graphic
 x=172
 y=111
@@ -476,7 +476,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:47
-[com_47]
+[point14]
 type=graphic
 x=212
 y=111
@@ -486,7 +486,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:48
-[com_48]
+[point15]
 type=graphic
 x=252
 y=111
@@ -496,7 +496,7 @@ layer=layer_4
 graphic="artisan_sword_hammer,0"
 
 // 1074:49
-[com_49]
+[point16]
 type=graphic
 x=332
 y=111
@@ -573,7 +573,7 @@ layer=layer_2
 graphic=graphic_4704
 
 // 1074:57
-[com_57]
+[hard]
 type=text
 x=40
 y=181
@@ -585,7 +585,7 @@ text=Hard
 textshadow=yes
 
 // 1074:58
-[com_58]
+[med]
 type=text
 x=40
 y=211
@@ -597,7 +597,7 @@ text=Medium
 textshadow=yes
 
 // 1074:59
-[com_59]
+[soft]
 type=text
 x=40
 y=241
@@ -609,7 +609,7 @@ text=Soft
 textshadow=yes
 
 // 1074:60
-[com_60]
+[careful]
 type=text
 x=40
 y=271
@@ -630,7 +630,7 @@ height=121
 layer=layer_2
 
 // 1074:62
-[com_62]
+[hardhit]
 type=layer
 x=35
 y=175
@@ -645,7 +645,7 @@ onmouseover=script4188(event_com)
 onmouseleave=script4189(event_com)
 
 // 1074:63
-[com_63]
+[medhit]
 type=layer
 x=35
 y=208
@@ -660,7 +660,7 @@ onmouseover=script4188(event_com)
 onmouseleave=script4189(event_com)
 
 // 1074:64
-[com_64]
+[softhit]
 type=layer
 x=35
 y=240
@@ -675,7 +675,7 @@ onmouseover=script4188(event_com)
 onmouseleave=script4189(event_com)
 
 // 1074:65
-[com_65]
+[carefulhit]
 type=layer
 x=35
 y=270
@@ -735,7 +735,7 @@ height=334
 layer=layer_2
 
 // 1074:71
-[com_71]
+[display_demo_1]
 type=text
 x=145
 y=67
@@ -760,7 +760,7 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:73
-[com_73]
+[demo1]
 type=graphic
 width=40
 height=40
@@ -769,7 +769,7 @@ graphic="sword1b,0"
 colour=0xffffffff
 
 // 1074:74
-[com_74]
+[demo2]
 type=graphic
 x=40
 width=40
@@ -781,7 +781,7 @@ transmitop=10
 op10= 
 
 // 1074:75
-[com_75]
+[demo3]
 type=graphic
 x=80
 width=40
@@ -793,7 +793,7 @@ transmitop=10
 op10= 
 
 // 1074:76
-[com_76]
+[demo4]
 type=graphic
 x=120
 width=40
@@ -805,7 +805,7 @@ transmitop=10
 op10= 
 
 // 1074:77
-[com_77]
+[demo5]
 type=graphic
 x=160
 width=40
@@ -817,7 +817,7 @@ transmitop=10
 op10= 
 
 // 1074:78
-[com_78]
+[demo6]
 type=graphic
 x=200
 width=40
@@ -829,7 +829,7 @@ transmitop=10
 op10= 
 
 // 1074:79
-[com_79]
+[demo7]
 type=graphic
 x=240
 width=80
@@ -841,7 +841,7 @@ transmitop=10
 op10= 
 
 // 1074:80
-[com_80]
+[demo8]
 type=graphic
 y=40
 width=40
@@ -853,7 +853,7 @@ transmitop=10
 op10=  
 
 // 1074:81
-[com_81]
+[demo9]
 type=graphic
 x=40
 y=40
@@ -866,7 +866,7 @@ transmitop=10
 op10=   
 
 // 1074:82
-[com_82]
+[demo10]
 type=graphic
 x=80
 y=40
@@ -879,7 +879,7 @@ transmitop=10
 op10=    
 
 // 1074:83
-[com_83]
+[demo11]
 type=graphic
 x=120
 y=40
@@ -892,7 +892,7 @@ transmitop=10
 op10=     
 
 // 1074:84
-[com_84]
+[demo12]
 type=graphic
 x=160
 y=40
@@ -905,7 +905,7 @@ transmitop=10
 op10=     
 
 // 1074:85
-[com_85]
+[demo13]
 type=graphic
 x=200
 y=40
@@ -918,7 +918,7 @@ transmitop=10
 op10=     
 
 // 1074:86
-[com_86]
+[demo14]
 type=graphic
 x=240
 y=40
@@ -1060,7 +1060,7 @@ transmitop=10
 op10= 
 
 // 1074:99
-[com_99]
+[graphic13]
 type=graphic
 x=200
 y=40
@@ -1073,7 +1073,7 @@ transmitop=10
 op10= 
 
 // 1074:100
-[com_100]
+[graphic14]
 type=graphic
 x=240
 y=40
@@ -1288,7 +1288,7 @@ onmouseover=script4193(event_com)
 onmouseleave=script4194(event_com)
 
 // 1074:116
-[com_116]
+[demo15]
 type=graphic
 width=80
 height=40
@@ -1296,7 +1296,7 @@ layer=layer_5
 graphic=artisan_sword_back
 
 // 1074:117
-[com_117]
+[demo17]
 type=graphic
 x=80
 width=80
@@ -1305,7 +1305,7 @@ layer=layer_5
 graphic=artisan_sword_back
 
 // 1074:118
-[com_118]
+[demo19]
 type=graphic
 x=160
 width=80
@@ -1314,7 +1314,7 @@ layer=layer_5
 graphic=artisan_sword_back
 
 // 1074:119
-[com_119]
+[demo21]
 type=graphic
 x=240
 width=80
@@ -1323,7 +1323,7 @@ layer=layer_5
 graphic=artisan_sword_back
 
 // 1074:120
-[com_120]
+[demo23]
 type=graphic
 y=40
 width=80
@@ -1333,7 +1333,7 @@ graphic=artisan_sword_back
 vflip=yes
 
 // 1074:121
-[com_121]
+[demo25]
 type=graphic
 x=80
 y=40
@@ -1344,7 +1344,7 @@ graphic=artisan_sword_back
 vflip=yes
 
 // 1074:122
-[com_122]
+[demo27]
 type=graphic
 x=160
 y=40
@@ -1355,7 +1355,7 @@ graphic=artisan_sword_back
 vflip=yes
 
 // 1074:123
-[com_123]
+[demo28]
 type=graphic
 x=240
 y=40
@@ -1661,7 +1661,7 @@ text=Ceremonial Sword
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1074:151
 [content_layer]
@@ -1675,7 +1675,7 @@ heightmode=minus
 layer=com_124
 
 // 1074:152
-[com_152]
+[dropshadow_side_graphic]
 type=graphic
 x=-1
 y=1
@@ -1688,7 +1688,7 @@ graphic=button_dropshadow_left
 tiling=yes
 
 // 1074:153
-[com_153]
+[dropshadow_bottom_graphic]
 type=graphic
 y=-1
 width=3
@@ -1700,7 +1700,7 @@ graphic=button_dropshadow_bottom
 tiling=yes
 
 // 1074:154
-[com_154]
+[dropshadow_corner_graphic]
 type=graphic
 x=-1
 y=-1
@@ -1713,7 +1713,7 @@ graphic=button_dropshadow_corner
 tiling=yes
 
 // 1074:155
-[com_155]
+[display_demo_2]
 type=text
 x=185
 y=67
@@ -1726,7 +1726,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:156
-[com_156]
+[display_demo_3]
 type=text
 x=225
 y=67
@@ -1739,7 +1739,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:157
-[com_157]
+[display_demo_4]
 type=text
 x=265
 y=67
@@ -1752,7 +1752,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:158
-[com_158]
+[display_demo_5]
 type=text
 x=305
 y=67
@@ -1765,7 +1765,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:159
-[com_159]
+[display_demo_6]
 type=text
 x=345
 y=67
@@ -1778,7 +1778,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:160
-[com_160]
+[display_demo_7]
 type=text
 x=385
 y=67
@@ -1791,7 +1791,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:161
-[com_161]
+[display_demo_8]
 type=text
 x=454
 y=67
@@ -1804,7 +1804,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:162
-[com_162]
+[display_demo_9]
 type=text
 x=145
 y=133
@@ -1817,7 +1817,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:163
-[com_163]
+[display_demo_10]
 type=text
 x=185
 y=133
@@ -1830,7 +1830,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:164
-[com_164]
+[display_demo_11]
 type=text
 x=225
 y=133
@@ -1843,7 +1843,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:165
-[com_165]
+[display_demo_12]
 type=text
 x=265
 y=133
@@ -1856,7 +1856,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:166
-[com_166]
+[display_demo_13]
 type=text
 x=305
 y=133
@@ -1869,7 +1869,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:167
-[com_167]
+[display_demo_14]
 type=text
 x=345
 y=133
@@ -1882,7 +1882,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:168
-[com_168]
+[display_demo_15]
 type=text
 x=385
 y=133
@@ -1895,7 +1895,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:169
-[com_169]
+[display_demo_16]
 type=text
 x=454
 y=133
@@ -1908,7 +1908,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:170
-[com_170]
+[display_demo_17]
 type=text
 x=143
 y=207
@@ -1921,7 +1921,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:171
-[com_171]
+[display_demo_18]
 type=text
 x=183
 y=207
@@ -1934,7 +1934,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:172
-[com_172]
+[display_demo_19]
 type=text
 x=223
 y=207
@@ -1947,7 +1947,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:173
-[com_173]
+[display_demo_20]
 type=text
 x=263
 y=207
@@ -1960,7 +1960,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:174
-[com_174]
+[display_demo_21]
 type=text
 x=303
 y=207
@@ -1973,7 +1973,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:175
-[com_175]
+[display_demo_22]
 type=text
 x=343
 y=207
@@ -1986,7 +1986,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:176
-[com_176]
+[display_demo_23]
 type=text
 x=383
 y=207
@@ -1999,7 +1999,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:177
-[com_177]
+[display_demo_24]
 type=text
 x=453
 y=207
@@ -2012,7 +2012,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:178
-[com_178]
+[display_demo_25]
 type=text
 x=143
 y=271
@@ -2025,7 +2025,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:179
-[com_179]
+[display_demo_26]
 type=text
 x=183
 y=271
@@ -2038,7 +2038,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:180
-[com_180]
+[display_demo_27]
 type=text
 x=223
 y=271
@@ -2051,7 +2051,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:181
-[com_181]
+[display_demo_28]
 type=text
 x=263
 y=271
@@ -2064,7 +2064,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:182
-[com_182]
+[display_demo_29]
 type=text
 x=303
 y=271
@@ -2077,7 +2077,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:183
-[com_183]
+[display_demo_30]
 type=text
 x=343
 y=271
@@ -2090,7 +2090,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:184
-[com_184]
+[display_demo_31]
 type=text
 x=383
 y=271
@@ -2103,7 +2103,7 @@ textshadow=yes
 colour=0xff9603
 
 // 1074:185
-[com_185]
+[display_demo_32]
 type=text
 x=453
 y=271

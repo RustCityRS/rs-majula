@@ -2,8 +2,8 @@
 [clientscript,deathkeep_select_drag](component $component0, int $int1, component $component2, int $int3, int $int4)
 def_obj $obj5 = null;
 def_obj $obj6 = null;
-if ($component0 = deathkeep_select:com_9) {
-    if ($component2 = deathkeep_select:com_9) {
+if ($component0 = deathkeep_select:protected) {
+    if ($component2 = deathkeep_select:protected) {
         if (cc_find($component0, $int1) = true & .cc_find($component2, $int3) = true) {
             $obj5, $obj6 = cc_getinvobject, .cc_getinvobject;
             cc_setobject_nonum($obj6, 1);
@@ -13,13 +13,13 @@ if ($component0 = deathkeep_select:com_9) {
         }
         return;
     }
-    if ($component2 = deathkeep_select:com_17) {
+    if ($component2 = deathkeep_select:available) {
         ~script1535($int1, 0);
         ~deathkeep_select_update($int4);
     }
     return;
 }
-if ($component0 = deathkeep_select:com_17 & $component2 = deathkeep_select:com_9) {
+if ($component0 = deathkeep_select:available & $component2 = deathkeep_select:protected) {
     ~script1535($int3, $int1);
     ~deathkeep_select_update($int4);
 }

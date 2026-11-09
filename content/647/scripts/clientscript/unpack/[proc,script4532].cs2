@@ -8,4 +8,4 @@ if (if_find($component1) = true) {
     cc_setposition(0, 4, ^setpos_abs_centre, ^setpos_abs_top);
     cc_setsize(16384, 23, ^setsize_rel, ^setsize_abs);
 }
-~script4211($component0, palatino_linotype_18pt_regular, 0xebe0bc, ^black);
+~aif_text_layer_build($component0, palatino_linotype_18pt_regular, 0xebe0bc, ^black);

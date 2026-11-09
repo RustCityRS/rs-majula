@@ -265,7 +265,7 @@ op1=Select-reward
 op10=    
 onmouseover=script1925(event_com)
 onmouseleave=script1926(event_com)
-onop=script1936(event_com)
+onop=sc_set_selected_reward(event_com)
 
 // 811:22
 [tool_layer]
@@ -280,7 +280,7 @@ op1=Select-reward
 op10=   
 onmouseover=script1925(event_com)
 onmouseleave=script1926(event_com)
-onop=script1936(event_com)
+onop=sc_set_selected_reward(event_com)
 
 // 811:23
 [body_layer]
@@ -294,7 +294,7 @@ transmitop=1
 op1=Select-reward
 onmouseover=script1925(event_com)
 onmouseleave=script1926(event_com)
-onop=script1936(event_com)
+onop=sc_set_selected_reward(event_com)
 
 // 811:24
 [legs_layer]
@@ -309,7 +309,7 @@ op1=Select-reward
 op10= 
 onmouseover=script1925(event_com)
 onmouseleave=script1926(event_com)
-onop=script1936(event_com)
+onop=sc_set_selected_reward(event_com)
 
 // 811:25
 [head_layer]
@@ -324,7 +324,7 @@ op1=Select-reward
 op10=  
 onmouseover=script1925(event_com)
 onmouseleave=script1926(event_com)
-onop=script1936(event_com)
+onop=sc_set_selected_reward(event_com)
 
 // 811:26
 [weapon_layer]
@@ -339,7 +339,7 @@ op1=Select-reward
 op10=  
 onmouseover=script1925(event_com)
 onmouseleave=script1926(event_com)
-onop=script1936(event_com)
+onop=sc_set_selected_reward(event_com)
 
 // 811:27
 [title_text]
@@ -424,7 +424,7 @@ text=0
 textalignh=right
 textshadow=yes
 colour=0xc8aa64
-onvarctransmit=script1937{varclient_549}
+onvarctransmit=sc_shop_refresh_points{varclient_549}
 
 // 811:33
 [points_title_text]
@@ -479,7 +479,7 @@ trans=224
 opbase=    
 
 // 811:38
-[com_38]
+[body_highlight_rect]
 type=rectangle
 x=3
 y=2
@@ -839,7 +839,7 @@ transmitop=10
 op10=    
 
 // 811:65
-[com_65]
+[tool_cost_text]
 type=text
 x=-1
 y=190
@@ -867,7 +867,7 @@ opbase=
 op10=  
 
 // 811:67
-[com_67]
+[weapon_highlight_rect]
 type=rectangle
 x=3
 y=2
@@ -1021,7 +1021,7 @@ textshadow=yes
 colour=0xc8aa64
 
 // 811:78
-[com_78]
+[weapon_cost_text]
 type=text
 x=-1
 y=190
@@ -1216,7 +1216,7 @@ textshadow=yes
 colour=0xc8aa64
 
 // 811:92
-[com_92]
+[head_cost_text]
 type=text
 x=-1
 y=190
@@ -1411,7 +1411,7 @@ textshadow=yes
 colour=0xc8aa64
 
 // 811:106
-[com_106]
+[legs_cost_text]
 type=text
 x=-1
 y=190
@@ -1710,7 +1710,7 @@ textshadow=yes
 colour=0xc8aa64
 
 // 811:127
-[com_127]
+[volatile_cost_text]
 type=text
 x=-1
 y=191

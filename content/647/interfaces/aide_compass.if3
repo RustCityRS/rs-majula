@@ -180,8 +180,8 @@ layer=main_layer
 model=model_18535
 modelangle=517,0,0
 modelzoom=1162
-onload=script314(event_com)
-onvarctransmit=script314(event_com){varclient_179}
+onload=signpost_model(event_com)
+onvarctransmit=signpost_model(event_com){varclient_179}
 
 // 135:14
 [main_layer]

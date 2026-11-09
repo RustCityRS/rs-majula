@@ -53,7 +53,7 @@ mes("Please finish what you're doing first!");
 
 // 289's mouse buttons, com_8 (%option_mouse 0) and com_9 (1): 2011's toggle.
 // [if_button,options:houseoptions]
-// [if_button,options:com_9]
+// [if_button,options:optpm_gfx]
 [if_button,options:optmouse]
 if_close;
 if (%option_mouse = 0) {

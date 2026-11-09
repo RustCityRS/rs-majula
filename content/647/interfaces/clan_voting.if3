@@ -1,14 +1,14 @@
 // 1101:0
-[com_0]
+[gold_frame_layer]
 type=layer
 x=2
 y=6
 width=239
 height=100
-layer=com_2
+layer=content_layer5
 
 // 1101:1
-[com_1]
+[gold_window_layer]
 type=layer
 x=359
 y=791
@@ -18,7 +18,7 @@ xmode=proportion_centre
 ymode=proportion_centre
 
 // 1101:2
-[com_2]
+[content_layer5]
 type=layer
 x=263
 y=742
@@ -46,28 +46,28 @@ ymode=abs_centre
 layer=button_layer
 
 // 1101:5
-[com_5]
+[green_progress]
 type=layer
 x=9
 y=-25
 width=224
 height=29
 ymode=abs_centre
-layer=com_2
+layer=content_layer5
 onvartransmit=clan_vote_update{varplayer_2133}
 
 // 1101:6
-[com_6]
+[red_progress]
 type=layer
 x=9
 y=6
 width=224
 height=28
 ymode=abs_centre
-layer=com_2
+layer=content_layer5
 
 // 1101:7
-[com_7]
+[vote_yes_total]
 type=text
 x=50
 y=-25
@@ -76,7 +76,7 @@ height=31
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=content_layer5
 textfont=verdana_11pt_regular
 text=0
 textalignh=right
@@ -84,7 +84,7 @@ textalignv=centre
 colour=0xd5d9d3
 
 // 1101:8
-[com_8]
+[vote_no_total]
 type=text
 x=50
 y=5
@@ -93,7 +93,7 @@ height=31
 widthmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=content_layer5
 textfont=verdana_11pt_regular
 text=0
 textalignh=right
@@ -101,13 +101,13 @@ textalignv=centre
 colour=0xd5d9d3
 
 // 1101:9
-[com_9]
+[yes]
 type=text
 x=17
 y=47
 width=51
 height=17
-layer=com_2
+layer=content_layer5
 textfont=p11_full
 text=Yes
 textalignh=centre
@@ -120,35 +120,35 @@ x=17
 y=78
 width=51
 height=17
-layer=com_2
+layer=content_layer5
 textfont=p11_full
 text=No
 textalignh=centre
 textalignv=centre
 
 // 1101:11
-[com_11]
+[vote_1]
 type=text
 x=15
 y=47
 width=61
 height=17
 xmode=abs_centre
-layer=com_2
+layer=content_layer5
 textfont=p11_full
 text=Votes:
 textalignh=centre
 textalignv=centre
 
 // 1101:12
-[com_12]
+[vote_time]
 type=text
 x=-30
 y=24
 width=300
 height=16
 xmode=abs_centre
-layer=com_2
+layer=content_layer5
 textfont=p11_full
 text=Vote open for X minutes.
 textalignh=centre
@@ -190,14 +190,14 @@ graphic=button_dropshadow_corner
 alpha=yes
 
 // 1101:16
-[com_16]
+[aif_gold_button_on_layer]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
 layer=no_layer
-onload=script4201(event_com, struct_1773)
+onload=aif_build_button_layer(event_com, struct_1773)
 
 // 1101:17
 [com_17]
@@ -208,7 +208,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=aif_gold_button_on_layer
 graphic="golden_button_fill_1,0"
 tiling=yes
 
@@ -218,7 +218,7 @@ type=graphic
 width=12
 height=12
 xmode=abs_right
-layer=com_16
+layer=aif_gold_button_on_layer
 graphic="golden_button_1,1"
 
 // 1101:19
@@ -226,7 +226,7 @@ graphic="golden_button_1,1"
 type=graphic
 width=12
 height=12
-layer=com_16
+layer=aif_gold_button_on_layer
 graphic="golden_button_1,1"
 hflip=yes
 
@@ -238,7 +238,7 @@ height=12
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_16
+layer=aif_gold_button_on_layer
 graphic="golden_button_1,10"
 tiling=yes
 
@@ -249,7 +249,7 @@ width=24
 height=12
 widthmode=minus
 xmode=abs_centre
-layer=com_16
+layer=aif_gold_button_on_layer
 graphic="golden_button_1,0"
 tiling=yes
 
@@ -260,7 +260,7 @@ width=12
 height=12
 xmode=abs_right
 ymode=abs_bottom
-layer=com_16
+layer=aif_gold_button_on_layer
 graphic="golden_button_1,11"
 
 // 1101:23
@@ -269,7 +269,7 @@ type=graphic
 width=12
 height=12
 ymode=abs_bottom
-layer=com_16
+layer=aif_gold_button_on_layer
 graphic="golden_button_1,11"
 hflip=yes
 
@@ -281,7 +281,7 @@ height=24
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_16
+layer=aif_gold_button_on_layer
 graphic="golden_button_fill_1,1"
 tiling=yes
 
@@ -292,40 +292,40 @@ width=12
 height=24
 heightmode=minus
 ymode=abs_centre
-layer=com_16
+layer=aif_gold_button_on_layer
 graphic="golden_button_fill_1,1"
 tiling=yes
 hflip=yes
 
 // 1101:26
-[com_26]
+[aif_gold_button_over_layer]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
 layer=no_layer
-onload=script4201(event_com, struct_1774)
+onload=aif_build_button_layer(event_com, struct_1774)
 
 // 1101:27
-[com_27]
+[aif_gold_button_hit_layer]
 type=layer
 width=65390
 height=28
 widthmode=minus
 heightmode=minus
 layer=no_layer
-onload=script4201(event_com, struct_1775)
+onload=aif_build_button_layer(event_com, struct_1775)
 
 // 1101:28
-[com_28]
+[aif_gold_button_selected_layer]
 type=layer
 width=130
 height=28
 widthmode=minus
 heightmode=minus
 layer=no_layer
-onload=script4201(event_com, struct_1776)
+onload=aif_build_button_layer(event_com, struct_1776)
 
 // 1101:29
 [no_button]
@@ -340,7 +340,7 @@ op1=Vote No
 onop=clan_vote_cast
 
 // 1101:30
-[com_30]
+[aif_gold_button_text_layer]
 type=layer
 width=4
 height=4
@@ -357,23 +357,23 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_30
+layer=aif_gold_button_text_layer
 textfont=verdana_13pt_regular
 text=No
 textalignh=centre
 textalignv=centre
 colour=0x0e0d0a
-onload=script4151(event_com)
+onload=aif_gold_button_text_onload(event_com)
 
 // 1101:32
-[com_32]
+[disable_no]
 type=layer
 widthmode=minus
 heightmode=minus
 layer=no_layer
 hide=yes
 noclickthrough=yes
-onload=script4201(event_com, struct_1777)
+onload=aif_build_button_layer(event_com, struct_1777)
 
 // 1101:33
 [com_33]
@@ -382,7 +382,7 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_32
+layer=disable_no
 colour=0x000000
 fill=yes
 trans=100
@@ -423,14 +423,14 @@ graphic=button_dropshadow_corner
 alpha=yes
 
 // 1101:37
-[com_37]
+[aif_gold_button_on_layer_1]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
 layer=yes_layer
-onload=script4201(event_com, struct_1773)
+onload=aif_build_button_layer(event_com, struct_1773)
 
 // 1101:38
 [com_38]
@@ -441,7 +441,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_37
+layer=aif_gold_button_on_layer_1
 graphic="golden_button_fill_1,0"
 tiling=yes
 
@@ -451,7 +451,7 @@ type=graphic
 width=12
 height=12
 xmode=abs_right
-layer=com_37
+layer=aif_gold_button_on_layer_1
 graphic="golden_button_1,1"
 
 // 1101:40
@@ -459,7 +459,7 @@ graphic="golden_button_1,1"
 type=graphic
 width=12
 height=12
-layer=com_37
+layer=aif_gold_button_on_layer_1
 graphic="golden_button_1,1"
 hflip=yes
 
@@ -471,7 +471,7 @@ height=12
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_37
+layer=aif_gold_button_on_layer_1
 graphic="golden_button_1,10"
 tiling=yes
 
@@ -482,7 +482,7 @@ width=24
 height=12
 widthmode=minus
 xmode=abs_centre
-layer=com_37
+layer=aif_gold_button_on_layer_1
 graphic="golden_button_1,0"
 tiling=yes
 
@@ -493,7 +493,7 @@ width=12
 height=12
 xmode=abs_right
 ymode=abs_bottom
-layer=com_37
+layer=aif_gold_button_on_layer_1
 graphic="golden_button_1,11"
 
 // 1101:44
@@ -502,7 +502,7 @@ type=graphic
 width=12
 height=12
 ymode=abs_bottom
-layer=com_37
+layer=aif_gold_button_on_layer_1
 graphic="golden_button_1,11"
 hflip=yes
 
@@ -514,7 +514,7 @@ height=24
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_37
+layer=aif_gold_button_on_layer_1
 graphic="golden_button_fill_1,1"
 tiling=yes
 
@@ -525,40 +525,40 @@ width=12
 height=24
 heightmode=minus
 ymode=abs_centre
-layer=com_37
+layer=aif_gold_button_on_layer_1
 graphic="golden_button_fill_1,1"
 tiling=yes
 hflip=yes
 
 // 1101:47
-[com_47]
+[aif_gold_button_over_layer_1]
 type=layer
 width=4
 height=4
 widthmode=minus
 heightmode=minus
 layer=yes_layer
-onload=script4201(event_com, struct_1774)
+onload=aif_build_button_layer(event_com, struct_1774)
 
 // 1101:48
-[com_48]
+[aif_gold_button_hit_layer_1]
 type=layer
 width=65390
 height=28
 widthmode=minus
 heightmode=minus
 layer=yes_layer
-onload=script4201(event_com, struct_1775)
+onload=aif_build_button_layer(event_com, struct_1775)
 
 // 1101:49
-[com_49]
+[aif_gold_button_selected_layer_1]
 type=layer
 width=130
 height=28
 widthmode=minus
 heightmode=minus
 layer=yes_layer
-onload=script4201(event_com, struct_1776)
+onload=aif_build_button_layer(event_com, struct_1776)
 
 // 1101:50
 [yes_button]
@@ -573,7 +573,7 @@ op1=Vote Yes
 onop=clan_vote_cast
 
 // 1101:51
-[com_51]
+[aif_gold_button_text_layer_1]
 type=layer
 width=4
 height=4
@@ -590,23 +590,23 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_51
+layer=aif_gold_button_text_layer_1
 textfont=verdana_13pt_regular
 text=Yes
 textalignh=centre
 textalignv=centre
 colour=0x0e0d0a
-onload=script4151(event_com)
+onload=aif_gold_button_text_onload(event_com)
 
 // 1101:53
-[com_53]
+[disable_yes]
 type=layer
 widthmode=minus
 heightmode=minus
 layer=yes_layer
 hide=yes
 noclickthrough=yes
-onload=script4201(event_com, struct_1777)
+onload=aif_build_button_layer(event_com, struct_1777)
 
 // 1101:54
 [com_54]
@@ -615,7 +615,7 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_53
+layer=disable_yes
 colour=0x000000
 fill=yes
 trans=100
@@ -626,7 +626,7 @@ type=graphic
 width=12
 height=30
 ymode=abs_centre
-layer=com_5
+layer=green_progress
 graphic="aif_progress_bar_frame_2,0"
 
 // 1101:56
@@ -636,7 +636,7 @@ width=12
 height=30
 xmode=abs_right
 ymode=abs_centre
-layer=com_5
+layer=green_progress
 graphic="aif_progress_bar_frame_2,0"
 hflip=yes
 
@@ -648,29 +648,29 @@ height=30
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=green_progress
 graphic="aif_progress_bar_frame_2,1"
 tiling=yes
 hflip=yes
 
 // 1101:58
-[com_58]
+[green_large_progress_value_bounds_layer]
 type=layer
 x=6
 width=12
 height=19
 widthmode=minus
 ymode=abs_centre
-layer=com_5
+layer=green_progress
 
 // 1101:59
-[com_59]
+[green_large_progress_value_layer]
 type=layer
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_58
+layer=green_large_progress_value_bounds_layer
 
 // 1101:60
 [com_60]
@@ -678,7 +678,7 @@ type=graphic
 width=6
 height=19
 ymode=abs_centre
-layer=com_59
+layer=green_large_progress_value_layer
 graphic="aif_progress_bar_green_fill_2,0"
 
 // 1101:61
@@ -688,7 +688,7 @@ width=6
 height=19
 xmode=abs_right
 ymode=abs_centre
-layer=com_59
+layer=green_large_progress_value_layer
 graphic="aif_progress_bar_green_fill_2,2"
 
 // 1101:62
@@ -699,12 +699,12 @@ height=19
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_59
+layer=green_large_progress_value_layer
 graphic="aif_progress_bar_green_fill_2,1"
 tiling=yes
 
 // 1101:63
-[com_63]
+[green_large_progress_text_layer]
 type=layer
 width=16384
 height=16384
@@ -712,10 +712,10 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=green_progress
 
 // 1101:64
-[com_64]
+[green_text]
 type=text
 width=16384
 height=16384
@@ -723,13 +723,13 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_63
+layer=green_large_progress_text_layer
 textfont=verdana_11pt_regular
 text=0%
 textalignh=centre
 textalignv=centre
 colour=0xd5d9d3
-onload=script4210(event_com, verdana_11pt_regular, 0xd5d9d3, ^black)
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xd5d9d3, ^black)
 
 // 1101:65
 [com_65]
@@ -737,7 +737,7 @@ type=graphic
 width=12
 height=30
 ymode=abs_centre
-layer=com_6
+layer=red_progress
 graphic="aif_progress_bar_frame_2,0"
 
 // 1101:66
@@ -747,7 +747,7 @@ width=12
 height=30
 xmode=abs_right
 ymode=abs_centre
-layer=com_6
+layer=red_progress
 graphic="aif_progress_bar_frame_2,0"
 hflip=yes
 
@@ -759,29 +759,29 @@ height=30
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=red_progress
 graphic="aif_progress_bar_frame_2,1"
 tiling=yes
 hflip=yes
 
 // 1101:68
-[com_68]
+[red_large_progress_value_bounds_layer]
 type=layer
 x=6
 width=12
 height=19
 widthmode=minus
 ymode=abs_centre
-layer=com_6
+layer=red_progress
 
 // 1101:69
-[com_69]
+[red_large_progress_value_layer]
 type=layer
 height=16384
 widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
-layer=com_68
+layer=red_large_progress_value_bounds_layer
 
 // 1101:70
 [com_70]
@@ -789,7 +789,7 @@ type=graphic
 width=6
 height=19
 ymode=abs_centre
-layer=com_69
+layer=red_large_progress_value_layer
 graphic="aif_progress_bar_red_fill_2,0"
 
 // 1101:71
@@ -799,7 +799,7 @@ width=6
 height=19
 xmode=abs_right
 ymode=abs_centre
-layer=com_69
+layer=red_large_progress_value_layer
 graphic="aif_progress_bar_red_fill_2,2"
 
 // 1101:72
@@ -810,12 +810,12 @@ height=19
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_69
+layer=red_large_progress_value_layer
 graphic="aif_progress_bar_red_fill_2,1"
 tiling=yes
 
 // 1101:73
-[com_73]
+[red_large_progress_text_layer]
 type=layer
 width=16391
 height=16391
@@ -823,10 +823,10 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_6
+layer=red_progress
 
 // 1101:74
-[com_74]
+[red_text]
 type=text
 width=16391
 height=16391
@@ -834,16 +834,16 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_73
+layer=red_large_progress_text_layer
 textfont=verdana_11pt_regular
 text=0%
 textalignh=centre
 textalignv=centre
 colour=0xd5d9d3
-onload=script4210(event_com, verdana_11pt_regular, 0xd5d9d3, ^black)
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xd5d9d3, ^black)
 
 // 1101:75
-[com_75]
+[gold_window_background_layer]
 type=layer
 width=16384
 height=16384
@@ -851,12 +851,12 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=gold_window_layer
 noclickthrough=yes
 onload=script4260(event_com)
 
 // 1101:76
-[com_76]
+[gold_window_content_layer]
 type=layer
 x=12
 y=33
@@ -864,10 +864,10 @@ width=23
 height=43
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=gold_window_layer
 
 // 1101:77
-[com_77]
+[gold_window_frame_layer]
 type=layer
 width=8
 height=8
@@ -875,21 +875,21 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=gold_window_layer
 onload=script4261(event_com)
 
 // 1101:78
-[com_78]
+[gold_window_title_layer]
 type=layer
 y=4
 width=8
 height=23
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=gold_window_layer
 
 // 1101:79
-[com_79]
+[gold_window_title_text]
 type=text
 width=16391
 height=4
@@ -897,7 +897,7 @@ widthmode=proportion
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_78
+layer=gold_window_title_layer
 textfont=palatino_linotype_18pt_regular
 text=Clan Voting
 textalignh=centre
@@ -906,15 +906,15 @@ colour=0xebe0bc
 onload=script4262(event_com)
 
 // 1101:80
-[com_80]
+[close_button_layer]
 type=layer
 x=9
 y=9
 width=16
 height=15
 xmode=abs_right
-layer=com_1
-onload=script4256(event_com)
+layer=gold_window_layer
+onload=aif_build_close_button_layer(event_com)
 
 // 1101:81
 [button_layer]
@@ -923,16 +923,16 @@ y=73
 width=170
 height=37
 xmode=abs_centre
-layer=com_1
+layer=gold_window_layer
 
 // 1101:82
-[com_82]
+[vote_status]
 type=text
 y=41
 width=300
 height=32
 xmode=abs_centre
-layer=com_1
+layer=gold_window_layer
 textfont=p11_full
 text=You have not voted.
 textalignh=centre
@@ -947,13 +947,13 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_80
+layer=close_button_layer
 transmitop=1
 op1=Close
-onload=script4257(event_com)
+onload=aif_build_close_button_on(event_com)
 
 // 1101:84
-[com_84]
+[gold_window_close_button_over_graphic]
 type=graphic
 width=16384
 height=16384
@@ -961,18 +961,18 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_80
-onload=script4258(event_com)
+layer=close_button_layer
+onload=aif_build_close_button_over(event_com)
 
 // 1101:85
-[com_85]
+[vote_2]
 type=text
 x=15
 y=78
 width=61
 height=17
 xmode=abs_centre
-layer=com_2
+layer=content_layer5
 textfont=p11_full
 text=Votes:
 textalignh=centre
@@ -987,7 +987,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=gold_frame_layer
 graphic=window_texture_2
 tiling=yes
 trans=17
@@ -997,7 +997,7 @@ trans=17
 type=graphic
 width=10
 height=10
-layer=com_0
+layer=gold_frame_layer
 graphic="aif_overlay_frame_gold_corner_1,1"
 hflip=yes
 
@@ -1007,7 +1007,7 @@ type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_0
+layer=gold_frame_layer
 graphic="aif_overlay_frame_gold_corner_1,1"
 
 // 1101:89
@@ -1016,7 +1016,7 @@ type=graphic
 width=10
 height=10
 ymode=abs_bottom
-layer=com_0
+layer=gold_frame_layer
 graphic="aif_overlay_frame_gold_corner_1,1"
 vflip=yes
 hflip=yes
@@ -1028,7 +1028,7 @@ width=10
 height=10
 xmode=abs_right
 ymode=abs_bottom
-layer=com_0
+layer=gold_frame_layer
 graphic="aif_overlay_frame_gold_corner_1,1"
 vflip=yes
 
@@ -1040,7 +1040,7 @@ height=10
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_0
+layer=gold_frame_layer
 graphic="aif_overlay_frame_gold_corner_1,0"
 tiling=yes
 vflip=yes
@@ -1053,7 +1053,7 @@ width=20
 height=10
 widthmode=minus
 xmode=abs_centre
-layer=com_0
+layer=gold_frame_layer
 graphic="aif_overlay_frame_gold_corner_1,0"
 
 // 1101:93
@@ -1064,7 +1064,7 @@ height=20
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_0
+layer=gold_frame_layer
 graphic="aif_overlay_frame_gold_corner_1,2"
 
 // 1101:94
@@ -1074,19 +1074,19 @@ width=10
 height=20
 heightmode=minus
 ymode=abs_centre
-layer=com_0
+layer=gold_frame_layer
 graphic="aif_overlay_frame_gold_corner_1,2"
 hflip=yes
 
 // 1101:95
-[com_95]
+[vote_started]
 type=text
 x=-30
 y=11
 width=300
 height=16
 xmode=abs_centre
-layer=com_2
+layer=content_layer5
 textfont=p11_full
 text=Vote started by X.
 textalignh=centre

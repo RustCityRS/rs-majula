@@ -1,7 +1,0 @@
-// 2083
-[clientscript,script2083]
-if (%varclient_639 > 0) {
-    if_settext("<tostring(%varclient_639)>%", snp_game_overlay:blue_health);
-} else {
-    if_settext("---", snp_game_overlay:blue_health);
-}

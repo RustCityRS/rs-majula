@@ -54,7 +54,7 @@ if_setsize(calc(if_getx(skillmulti2010_numbers:text) * 2 + $int0), 0, ^setsize_m
 $string1 = "Show/Hide additional number buttons";
 def_graphic $graphic6 = graphic_3883;
 if_setonmouserepeat("script1160(event_com, -1, skillmulti2010:tooltip, $string1, 25, 519)", skillmulti2010_numbers:expander);
-if_setonmouseleave("deltooltip_graphic_swapper(skillmulti2010:tooltip, skillmulti2010_numbers:com_22, $graphic6)", skillmulti2010_numbers:expander);
+if_setonmouseleave("deltooltip_graphic_swapper(skillmulti2010:tooltip, skillmulti2010_numbers:expander_graphic, $graphic6)", skillmulti2010_numbers:expander);
 $int2 = calc((70 - 56) / 2);
 $int3 = 0;
 if (%varclient_755 ! null) {

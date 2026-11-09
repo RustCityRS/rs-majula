@@ -1,5 +1,5 @@
 // 908:0
-[com_0]
+[main]
 type=layer
 width=589
 height=127
@@ -14,7 +14,7 @@ width=587
 height=122
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=main
 
 // 908:2
 [com_2]
@@ -57,7 +57,7 @@ layer=centre
 hide=yes
 
 // 908:6
-[com_6]
+[humour]
 type=layer
 width=21359
 height=16391
@@ -267,7 +267,7 @@ x=6
 y=1
 width=110
 height=117
-layer=com_6
+layer=humour
 model=model_39761
 modelorigin=10,3
 modelangle=51,1888,34
@@ -321,7 +321,7 @@ modelanim=seq_10024
 op10= 
 
 // 908:27
-[com_27]
+[anti_virus_fly]
 type=model
 x=62
 y=57
@@ -370,7 +370,7 @@ op10=
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=main
 hide=yes
 
 // 908:31

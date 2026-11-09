@@ -3,10 +3,10 @@
 if_sethide(true, lobbyscreen_pane_worldselect:com_65);
 if_sethide(true, lobbyscreen_pane_worldselect:com_66);
 if (cc_find($component1, $int2) = true) {
-    if (cc_getgraphic = graphic_1542) {
-        cc_setgraphic(graphic_1541);
-    } else if (cc_getgraphic = graphic_1546) {
-        cc_setgraphic(graphic_1545);
+    if (cc_getgraphic = "world_select_hearts,3") {
+        cc_setgraphic("world_select_hearts,2");
+    } else if (cc_getgraphic = "world_select_hearts,7") {
+        cc_setgraphic("world_select_hearts,6");
     }
 }
 return;

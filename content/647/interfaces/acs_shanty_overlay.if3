@@ -1,10 +1,10 @@
 // 1075:0
-[com_0]
+[background]
 type=graphic
 y=64
 width=256
 height=58
-layer=com_5
+layer=parent
 graphic=artisan_all_background
 trans=255
 
@@ -15,7 +15,7 @@ x=-255
 y=70
 width=256
 height=16
-layer=com_5
+layer=parent
 textfont=p11_full
 text="Shanty Title"
 textshadow=yes
@@ -27,7 +27,7 @@ x=-255
 y=85
 width=256
 height=16
-layer=com_5
+layer=parent
 textfont=p11_full
 text=Bard Roberts and the Stanky Penguins
 textshadow=yes
@@ -39,19 +39,19 @@ x=-255
 y=100
 width=256
 height=16
-layer=com_5
+layer=parent
 textfont=p11_full
 text= Mos Le'Harmless Records
 textshadow=yes
 
 // 1075:4
-[com_4]
+[logo_1]
 type=model
 x=-35
 y=122
 width=37
 height=64
-layer=com_5
+layer=parent
 model=model_64096
 modelorigin=-2,31
 modelangle=0,1894,0
@@ -59,7 +59,7 @@ modelzoom=1750
 modelanim=seq_11809
 
 // 1075:5
-[com_5]
+[parent]
 type=layer
 width=16391
 height=16391

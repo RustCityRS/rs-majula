@@ -10,8 +10,8 @@ textfont=p11_full
 text=Zamorak = %1
 textalignh=centre
 textshadow=yes
-onload=script1368
-onvartransmit=script1368{varplayer_378, varplayer_377, varplayer_380}
+onload=castlewars_zamorak_update_status
+onvartransmit=castlewars_zamorak_update_status{varplayer_378, varplayer_377, varplayer_380}
 
 // 59:1
 [saradomin_score]
@@ -45,7 +45,7 @@ width=11
 height=11
 textfont=p11_full
 colour=0x55c855
-onvartransmit=script1368{varplayer_378, varplayer_377}
+onvartransmit=castlewars_zamorak_update_status{varplayer_378, varplayer_377}
 
 // 59:4
 [sara_flag]
@@ -90,7 +90,7 @@ textshadow=yes
 colour=0xffff00
 
 // 59:8
-[com_8]
+[castlewars_icon_zam]
 type=layer
 y=6
 width=153
@@ -104,7 +104,7 @@ x=33
 y=16
 width=90
 height=14
-layer=com_8
+layer=castlewars_icon_zam
 textfont=p11_full
 text=Health %1%
 colour=0x00ff00
@@ -112,13 +112,13 @@ transmitop=10
 op10= 
 
 // 59:10
-[com_10]
+[door]
 type=text
 x=33
 y=44
 width=90
 height=14
-layer=com_8
+layer=castlewars_icon_zam
 textfont=p11_full
 text=Locked
 colour=0x00ff00
@@ -132,7 +132,7 @@ x=33
 y=70
 width=90
 height=14
-layer=com_8
+layer=castlewars_icon_zam
 textfont=p11_full
 text=Collapsed
 colour=0x00ff00
@@ -146,7 +146,7 @@ x=33
 y=97
 width=90
 height=14
-layer=com_8
+layer=castlewars_icon_zam
 textfont=p11_full
 text=Collapsed
 colour=0x00ff00
@@ -160,7 +160,7 @@ x=33
 y=122
 width=90
 height=14
-layer=com_8
+layer=castlewars_icon_zam
 textfont=p11_full
 text=Operational
 colour=0x00ff00
@@ -174,7 +174,7 @@ x=2
 y=2
 width=32
 height=32
-layer=com_8
+layer=castlewars_icon_zam
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -186,7 +186,7 @@ x=2
 y=36
 width=32
 height=32
-layer=com_8
+layer=castlewars_icon_zam
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -198,7 +198,7 @@ x=2
 y=62
 width=32
 height=32
-layer=com_8
+layer=castlewars_icon_zam
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -210,7 +210,7 @@ x=1
 y=87
 width=32
 height=32
-layer=com_8
+layer=castlewars_icon_zam
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -222,7 +222,7 @@ x=2
 y=114
 width=32
 height=32
-layer=com_8
+layer=castlewars_icon_zam
 colour=0xffffffff
 transmitop=10
 op10= 

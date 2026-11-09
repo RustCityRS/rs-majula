@@ -12,4 +12,4 @@ switch_obj ($obj0) {
         return;
 }
 cc_setonvartransmit(null);
-~script2410(oc_iop($obj0, 1), oc_icursor($obj0, 1), oc_iop($obj0, 2), oc_icursor($obj0, 2), oc_iop($obj0, 3), oc_icursor($obj0, 3), oc_iop($obj0, 4), oc_icursor($obj0, 4), oc_iop($obj0, 5), oc_icursor($obj0, 5), oc_name($obj0));
+~inventory_setophelds_specified(oc_iop($obj0, 1), oc_icursor($obj0, 1), oc_iop($obj0, 2), oc_icursor($obj0, 2), oc_iop($obj0, 3), oc_icursor($obj0, 3), oc_iop($obj0, 4), oc_icursor($obj0, 4), oc_iop($obj0, 5), oc_icursor($obj0, 5), oc_name($obj0));

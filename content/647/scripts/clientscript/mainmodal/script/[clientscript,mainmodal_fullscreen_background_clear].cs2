@@ -1,0 +1,9 @@
+// 727
+[clientscript,mainmodal_fullscreen_background_clear](component $component0, component $component1)
+if (if_hassub($component1) = true & %varclient_199 ! null) {
+    return;
+}
+cc_deleteall($component0);
+%varclient_199 = null;
+if_setontimer(null, $component0);
+if_setonresize(null, $component0);

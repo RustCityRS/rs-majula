@@ -22,7 +22,7 @@ if (%varclient_101 = 0) {
         %varclient_101 = 0;
         %varclient_102 = calc(%varclient_102 + 1);
         %varclient_105 = calc(%varclient_105 - 1);
-        ~script738;
+        ~scab_tries_update;
     }
     return;
 }
@@ -33,4 +33,4 @@ if_setmodel(model_31025, enum(int, component, enum_1153, %varclient_101));
 %varclient_100 = 0;
 %varclient_101 = 0;
 %varclient_105 = calc(%varclient_105 - 1);
-~script738;
+~scab_tries_update;

@@ -5,15 +5,15 @@ if_sethide(true, task_side:rewards_layer);
 if_sethide(false, task_side:details_layer);
 if_sethide(false, task_side:summary_layer);
 if ($int0 = 1) {
-    ~script3977(%varclient_1425);
+    ~task_side_overview_populate(%varclient_1425);
 } else if (~script3999(%varplayerbit_8576) = 1) {
     if (~script3999(%varplayerbit_8588) = 1 & ~script3999(%varplayerbit_8587) = 0) {
-        ~script3977(%varplayerbit_8587);
+        ~task_side_overview_populate(%varplayerbit_8587);
     } else {
         if_sethide(true, task_side:summary_layer);
     }
 } else {
-    ~script3977(%varplayerbit_8576);
+    ~task_side_overview_populate(%varplayerbit_8576);
 }
 ~script3975;
 if (%varclient_1421 = 1) {

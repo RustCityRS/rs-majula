@@ -144,16 +144,16 @@ while ($int2 = 0 & $int23 < $int18 | $int2 = 1 & $int23 >= 0) {
                 cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
                 if ($intarray0($int10) = $int26) {
                     cc_setcolour(^cyan);
-                    cc_setonmouseleave("script1949(event_com, event_comsubid, ^cyan, $component9)");
+                    cc_setonmouseleave("ql4_item_mouseleave(event_com, event_comsubid, ^cyan, $component9)");
                 } else if ($intarray1($int10) = 0) {
                     cc_setcolour(^red);
-                    cc_setonmouseleave("script1949(event_com, event_comsubid, ^red, $component9)");
+                    cc_setonmouseleave("ql4_item_mouseleave(event_com, event_comsubid, ^red, $component9)");
                 } else if ($intarray1($int10) = 1) {
                     cc_setcolour(^yellow);
-                    cc_setonmouseleave("script1949(event_com, event_comsubid, ^yellow, $component9)");
+                    cc_setonmouseleave("ql4_item_mouseleave(event_com, event_comsubid, ^yellow, $component9)");
                 } else {
                     cc_setcolour(^green);
-                    cc_setonmouseleave("script1949(event_com, event_comsubid, ^green, $component9)");
+                    cc_setonmouseleave("ql4_item_mouseleave(event_com, event_comsubid, ^green, $component9)");
                 }
                 $int24 = calc($int24 + cc_getheight);
                 $int13 = calc($int13 + 1);

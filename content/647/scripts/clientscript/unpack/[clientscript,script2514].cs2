@@ -7,5 +7,5 @@ if_settext("0", mob_special_units:com_44);
 if_settext("0", mob_special_units:com_69);
 if_settext("0", mob_special_units:grand_total_qty);
 if (%varclient_839 >= 0) {
-    if_settext(~tostring_spacer(%varclient_839, ","), mob_special_units:com_77);
+    if_settext(~tostring_spacer(%varclient_839, ","), mob_special_units:invest_remainder_qty);
 }

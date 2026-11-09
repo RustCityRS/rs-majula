@@ -22,7 +22,7 @@ def_string $name = last_string;
 if (~create_check_username($name) = false) {
     p_prev_suggestions
     %varclient_1849 = ""
-    if_settext(playerdesign4:com_154, "Invalid Name")
+    if_settext(playerdesign4:please_enter_text, "Invalid Name")
     if_sethide(playerdesign4:com_155, true)
     if_sethide(playerdesign4:com_156, false)
     if_sethide(playerdesign4:previous_suggestions, true)
@@ -40,7 +40,7 @@ if ($result = 1) {
     queue(character_created, 0, 0);
 } else {
     %varclient_1849 = $formatted
-    if_settext(playerdesign4:com_154, "'<$formatted>' is not available.")
+    if_settext(playerdesign4:please_enter_text, "'<$formatted>' is not available.")
     if_sethide(playerdesign4:com_155, true)
     if_sethide(playerdesign4:com_156, false)
     if_sethide(playerdesign4:previous_suggestions, true)

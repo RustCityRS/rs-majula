@@ -44,8 +44,8 @@ layer=com_34
 graphic="gnome_copter_arrows,0"
 transmitop=1
 op1=Reset Commands
-onmouseover=script494(event_com, 1)
-onmouseleave=script494(event_com, 0)
+onmouseover=conq_highlight_reset_button(event_com, 1)
+onmouseleave=conq_highlight_reset_button(event_com, 0)
 
 // 1015:4
 [reset_units_button]
@@ -58,8 +58,8 @@ layer=com_105
 graphic="gnome_copter_arrows,0"
 transmitop=1
 op1=Reset Troops
-onmouseover=script494(event_com, 1)
-onmouseleave=script494(event_com, 0)
+onmouseover=conq_highlight_reset_button(event_com, 1)
+onmouseleave=conq_highlight_reset_button(event_com, 0)
 
 // 1015:5
 [com_5]
@@ -466,7 +466,7 @@ transmitop=10
 op10= 
 
 // 1015:40
-[com_40]
+[command_background_layer]
 type=layer
 width=16391
 height=16384
@@ -479,7 +479,7 @@ layer=command_details_layer
 type=rectangle
 width=281
 height=229
-layer=com_40
+layer=command_background_layer
 colour=0x201c17
 
 // 1015:42
@@ -489,17 +489,17 @@ x=1
 y=1
 width=279
 height=227
-layer=com_40
+layer=command_background_layer
 colour=0x595143
 
 // 1015:43
-[com_43]
+[command_details_background_rect]
 type=rectangle
 x=2
 y=2
 width=277
 height=225
-layer=com_40
+layer=command_background_layer
 colour=0x161410
 fill=yes
 
@@ -510,7 +510,7 @@ x=2
 y=69
 width=277
 height=32
-layer=com_40
+layer=command_background_layer
 graphic="v2_borders_slim,11"
 colour=0x000000
 transmitop=10
@@ -681,7 +681,7 @@ transmitop=10
 op10= 
 
 // 1015:57
-[com_57]
+[battle_cry_tick]
 type=graphic
 x=8
 y=112
@@ -691,7 +691,7 @@ layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:58
-[com_58]
+[battle_cry_name_text]
 type=text
 x=26
 y=111
@@ -718,7 +718,7 @@ layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:60
-[com_60]
+[stoicism_name_text]
 type=text
 x=26
 y=134
@@ -746,7 +746,7 @@ layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:62
-[com_62]
+[regenerate_name_text]
 type=text
 x=26
 y=157
@@ -774,7 +774,7 @@ layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:64
-[com_64]
+[barrage_name_text]
 type=text
 x=26
 y=180
@@ -832,7 +832,7 @@ layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:68
-[com_68]
+[bloodlust_name_text]
 type=text
 x=168
 y=111
@@ -860,7 +860,7 @@ layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:70
-[com_70]
+[chastise_name_text]
 type=text
 x=168
 y=134
@@ -888,7 +888,7 @@ layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:72
-[com_72]
+[vigilance_name_text]
 type=text
 x=168
 y=157
@@ -906,7 +906,7 @@ onmouseover=script493(event_com, 1)
 onmouseleave=script493(event_com, 0)
 
 // 1015:73
-[com_73]
+[shield_wall_tick]
 type=graphic
 x=150
 y=181
@@ -916,7 +916,7 @@ layer=replacement_abilities_layer
 graphic="conq_tick_box,1"
 
 // 1015:74
-[com_74]
+[shield_wall_name_text]
 type=text
 x=168
 y=180
@@ -964,7 +964,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 1015:77
-[com_77]
+[command_ability_4_background]
 type=graphic
 width=180
 height=50
@@ -976,7 +976,7 @@ op1=Select Slot
 op10= 
 
 // 1015:78
-[com_78]
+[command_ability_4_details_layer]
 type=layer
 width=16391
 height=16391
@@ -984,8 +984,8 @@ widthmode=proportion
 heightmode=proportion
 layer=command_ability_4_layer
 hide=yes
-onmouseover=script491(event_com)
-onmouseleave=script492(event_com)
+onmouseover=conq_highlight_ability_text_mouseover(event_com)
+onmouseleave=conq_highlight_ability_text_mouseleave(event_com)
 
 // 1015:79
 [command_ability_4_icon]
@@ -994,7 +994,7 @@ x=15
 width=25
 height=25
 ymode=abs_centre
-layer=com_78
+layer=command_ability_4_details_layer
 graphic="conq_command_icon,0"
 colour=0x000000
 transmitop=10
@@ -1007,7 +1007,7 @@ x=50
 width=120
 height=35
 ymode=abs_centre
-layer=com_78
+layer=command_ability_4_details_layer
 textfont=welcome_font_tiny
 text=Command 4
 textlineheight=15
@@ -1030,7 +1030,7 @@ transmitop=10
 op10=    
 
 // 1015:82
-[com_82]
+[command_ability_4_no_ability_text]
 type=text
 width=16384
 height=16384
@@ -1052,7 +1052,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x585042)
 
 // 1015:83
-[com_83]
+[command_ability_3_background]
 type=graphic
 width=180
 height=50
@@ -1064,7 +1064,7 @@ op1=Select Slot
 op10= 
 
 // 1015:84
-[com_84]
+[command_ability_3_details_layer]
 type=layer
 width=16391
 height=16391
@@ -1072,8 +1072,8 @@ widthmode=proportion
 heightmode=proportion
 layer=command_ability_3_layer
 hide=yes
-onmouseover=script491(event_com)
-onmouseleave=script492(event_com)
+onmouseover=conq_highlight_ability_text_mouseover(event_com)
+onmouseleave=conq_highlight_ability_text_mouseleave(event_com)
 
 // 1015:85
 [command_ability_3_icon]
@@ -1082,7 +1082,7 @@ x=15
 width=25
 height=25
 ymode=abs_centre
-layer=com_84
+layer=command_ability_3_details_layer
 graphic="conq_command_icon,0"
 colour=0x000000
 transmitop=10
@@ -1095,7 +1095,7 @@ x=50
 width=120
 height=35
 ymode=abs_centre
-layer=com_84
+layer=command_ability_3_details_layer
 textfont=welcome_font_tiny
 text=Command 3
 textlineheight=15
@@ -1118,7 +1118,7 @@ transmitop=10
 op10=   
 
 // 1015:88
-[com_88]
+[command_ability_3_no_ability_text]
 type=text
 width=16384
 height=16384
@@ -1140,7 +1140,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x585042)
 
 // 1015:89
-[com_89]
+[command_ability_2_background]
 type=graphic
 width=180
 height=50
@@ -1152,7 +1152,7 @@ op1=Select Slot
 op10= 
 
 // 1015:90
-[com_90]
+[command_ability_2_details_layer]
 type=layer
 width=16391
 height=16391
@@ -1160,8 +1160,8 @@ widthmode=proportion
 heightmode=proportion
 layer=command_ability_2_layer
 hide=yes
-onmouseover=script491(event_com)
-onmouseleave=script492(event_com)
+onmouseover=conq_highlight_ability_text_mouseover(event_com)
+onmouseleave=conq_highlight_ability_text_mouseleave(event_com)
 
 // 1015:91
 [command_ability_2_icon]
@@ -1170,7 +1170,7 @@ x=15
 width=25
 height=25
 ymode=abs_centre
-layer=com_90
+layer=command_ability_2_details_layer
 graphic="conq_command_icon,0"
 colour=0x000000
 transmitop=10
@@ -1183,7 +1183,7 @@ x=50
 width=120
 height=35
 ymode=abs_centre
-layer=com_90
+layer=command_ability_2_details_layer
 textfont=welcome_font_tiny
 text=Command 2
 textlineheight=15
@@ -1206,7 +1206,7 @@ transmitop=10
 op10=  
 
 // 1015:94
-[com_94]
+[command_ability_2_no_ability_text]
 type=text
 width=16384
 height=16384
@@ -1228,7 +1228,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x585042)
 
 // 1015:95
-[com_95]
+[command_ability_1_background]
 type=graphic
 width=180
 height=50
@@ -1239,7 +1239,7 @@ transmitop=1
 op1=Select Slot
 
 // 1015:96
-[com_96]
+[command_ability_1_details_layer]
 type=layer
 width=16391
 height=16384
@@ -1247,8 +1247,8 @@ widthmode=proportion
 heightmode=proportion
 layer=command_ability_1_layer
 hide=yes
-onmouseover=script491(event_com)
-onmouseleave=script492(event_com)
+onmouseover=conq_highlight_ability_text_mouseover(event_com)
+onmouseleave=conq_highlight_ability_text_mouseleave(event_com)
 
 // 1015:97
 [com_97]
@@ -1262,7 +1262,7 @@ transmitop=10
 op10= 
 
 // 1015:98
-[com_98]
+[command_ability_1_no_ability_text]
 type=text
 width=16384
 height=16384
@@ -1290,7 +1290,7 @@ x=15
 width=25
 height=25
 ymode=abs_centre
-layer=com_96
+layer=command_ability_1_details_layer
 graphic="conq_command_icon,0"
 colour=0x000000
 
@@ -1301,7 +1301,7 @@ x=50
 width=120
 height=35
 ymode=abs_centre
-layer=com_96
+layer=command_ability_1_details_layer
 textfont=welcome_font_tiny
 text=Command 1
 textlineheight=15
@@ -1311,14 +1311,14 @@ textshadow=yes
 colour=0xe6ca98
 
 // 1015:101
-[com_101]
+[command_left_tab]
 type=graphic
 x=19
 y=49
 width=131
 height=24
 layer=com_34
-graphic=graphic_3252
+graphic="conq_buy_tabs,1"
 colour=0x000000
 transmitop=10
 op10= 
@@ -1344,14 +1344,14 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0x8c5000)
 
 // 1015:103
-[com_103]
+[command_right_tab]
 type=graphic
 x=151
 y=49
 width=131
 height=24
 layer=com_34
-graphic=graphic_3251
+graphic="conq_buy_tabs,0"
 colour=0x000000
 transmitop=10
 op10= 
@@ -1388,7 +1388,7 @@ y=49
 width=131
 height=24
 layer=com_105
-graphic=graphic_3251
+graphic="conq_buy_tabs,0"
 colour=0x000000
 
 // 1015:107
@@ -1414,7 +1414,7 @@ y=49
 width=131
 height=24
 layer=com_105
-graphic=graphic_3252
+graphic="conq_buy_tabs,1"
 colour=0x000000
 
 // 1015:109
@@ -1457,7 +1457,7 @@ layer=com_105
 colour=0x595143
 
 // 1015:112
-[com_112]
+[unit_details_background_rect]
 type=rectangle
 x=209
 y=77
@@ -1864,7 +1864,7 @@ textshadow=yes
 colour=0xff991f
 
 // 1015:143
-[com_143]
+[unit_1_border]
 type=graphic
 x=23
 y=76
@@ -1892,12 +1892,12 @@ textshadow=yes
 colour=0x585042
 transmitop=1
 op1=Select Slot
-onmouseover=script496(event_com)
-onmouseleave=script495(event_com)
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
 onvartransmit=script480{varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873, varplayer_1873, varplayer_1873, varplayer_1873, varplayer_1874}
 
 // 1015:145
-[com_145]
+[unit_2_border]
 type=graphic
 x=115
 y=76
@@ -1924,11 +1924,11 @@ textshadow=yes
 colour=0x585042
 transmitop=1
 op1=Select Slot
-onmouseover=script496(event_com)
-onmouseleave=script495(event_com)
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
 
 // 1015:147
-[com_147]
+[unit_3_border]
 type=graphic
 x=23
 y=122
@@ -1955,11 +1955,11 @@ textshadow=yes
 colour=0x585042
 transmitop=1
 op1=Select Slot
-onmouseover=script496(event_com)
-onmouseleave=script495(event_com)
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
 
 // 1015:149
-[com_149]
+[unit_4_border]
 type=graphic
 x=115
 y=122
@@ -1986,11 +1986,11 @@ textshadow=yes
 colour=0x585042
 transmitop=1
 op1=Select Slot
-onmouseover=script496(event_com)
-onmouseleave=script495(event_com)
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
 
 // 1015:151
-[com_151]
+[unit_5_border]
 type=graphic
 x=23
 y=168
@@ -2017,11 +2017,11 @@ textshadow=yes
 colour=0x585042
 transmitop=1
 op1=Select Slot
-onmouseover=script496(event_com)
-onmouseleave=script495(event_com)
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
 
 // 1015:153
-[com_153]
+[unit_6_border]
 type=graphic
 x=115
 y=168
@@ -2048,11 +2048,11 @@ textshadow=yes
 colour=0x585042
 transmitop=1
 op1=Select Slot
-onmouseover=script496(event_com)
-onmouseleave=script495(event_com)
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
 
 // 1015:155
-[com_155]
+[unit_7_border]
 type=graphic
 x=23
 y=214
@@ -2079,11 +2079,11 @@ textshadow=yes
 colour=0x585042
 transmitop=1
 op1=Select Slot
-onmouseover=script496(event_com)
-onmouseleave=script495(event_com)
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
 
 // 1015:157
-[com_157]
+[unit_8_border]
 type=graphic
 x=115
 y=214
@@ -2110,11 +2110,11 @@ textshadow=yes
 colour=0x585042
 transmitop=1
 op1=Select Slot
-onmouseover=script496(event_com)
-onmouseleave=script495(event_com)
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
 
 // 1015:159
-[com_159]
+[unit_9_border]
 type=graphic
 x=23
 y=260
@@ -2141,11 +2141,11 @@ textshadow=yes
 colour=0x585042
 transmitop=1
 op1=Select Slot
-onmouseover=script496(event_com)
-onmouseleave=script495(event_com)
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
 
 // 1015:161
-[com_161]
+[unit_10_border]
 type=graphic
 x=115
 y=260
@@ -2172,5 +2172,5 @@ textshadow=yes
 colour=0x585042
 transmitop=1
 op1=Select Slot
-onmouseover=script496(event_com)
-onmouseleave=script495(event_com)
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)

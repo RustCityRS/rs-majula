@@ -23,9 +23,9 @@ while ($int1 < 10 & $int0 < 28) {
     if (oc_param($obj2, param_802) = 1 | oc_param($obj2, param_803) = 1) {
         if_settext("Squad <tostring(calc($int1 + 1))>", enum(int, component, enum_2423, $int1));
         if (oc_param($obj2, param_806) = 0) {
-            if_setgraphic(graphic_2023, enum(int, component, enum_2427, $int1));
+            if_setgraphic("mob_heavy_light_icons,1", enum(int, component, enum_2427, $int1));
         } else if (oc_param($obj2, param_806) = 1) {
-            if_setgraphic(graphic_2022, enum(int, component, enum_2427, $int1));
+            if_setgraphic("mob_heavy_light_icons,0", enum(int, component, enum_2427, $int1));
         }
         if (oc_param($obj2, param_805) = 1) {
             if_setgraphic(graphic_2016, enum(int, component, enum_2426, $int1));

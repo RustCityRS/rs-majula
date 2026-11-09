@@ -1,9 +1,9 @@
 // 606
 [proc,script606]
-cc_create(lore_stats_side:com_74, ^iftype_graphic, 0);
+cc_create(lore_stats_side:spell_icon, ^iftype_graphic, 0);
 cc_setsize(32, 36, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
-cc_create(topstat_lore:com_17, ^iftype_graphic, 0);
+cc_create(topstat_lore:spell_icon, ^iftype_graphic, 0);
 cc_setsize(57, 34, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
 def_graphic $graphic0 = "lore_stats_side_icons,0";

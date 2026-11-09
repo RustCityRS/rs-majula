@@ -2,10 +2,11 @@
 //!
 //! The 647 client decides each quest's state in clientscript 2193, a switch
 //! on the quest id that hands one var and its completion value to
-//! script_2157/2158. 289 content tracks a quest in a varp and finishes it at a
-//! `^<quest>_complete` value. Where the two agree -- same varp id, same
-//! completion value -- 647's registry names the varp as 289 does, so 289's
-//! quest content ports unchanged and the client's quest list follows it.
+//! ql4_getprogress_basic/detail (2157/2158). 289 content tracks a quest in a
+//! varp and finishes it at a `^<quest>_complete` value. Where the two agree --
+//! same varp id, same completion value -- 647's registry names the varp as 289
+//! does, so 289's quest content ports unchanged and the client's quest list
+//! follows it.
 //!
 //! `quest_varps_647.tsv` lists each such varp. This decompiles the client's
 //! own table from 786's clientscript 2193, unpacked into the repo

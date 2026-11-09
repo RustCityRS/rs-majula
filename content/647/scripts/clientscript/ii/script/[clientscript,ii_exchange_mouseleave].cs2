@@ -1,0 +1,6 @@
+// 2902
+[clientscript,ii_exchange_mouseleave](component $component0, component $component1, int $int2)
+if (%varclient_1087 ! $int2) {
+    if_sethide(true, $component0);
+}
+if_settext("", $component1);

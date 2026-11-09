@@ -5,7 +5,7 @@ width=512
 height=334
 
 // 467:1
-[com_1]
+[background]
 type=graphic
 x=30
 y=21
@@ -160,7 +160,7 @@ x=451
 y=58
 width=16
 height=245
-onload=script2677
+onload=poh_costume_room_interface_setup
 
 // 467:14
 [com_14]
@@ -1166,13 +1166,13 @@ x=3
 y=685
 width=405
 height=59
-layer=com_99
+layer=r_12_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 467:99
-[com_99]
+[r_12_layer]
 type=layer
 width=432
 height=3200
@@ -1246,13 +1246,13 @@ x=3
 y=933
 width=405
 height=59
-layer=com_107
+layer=r_16_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 467:107
-[com_107]
+[r_16_layer]
 type=layer
 width=432
 height=3200
@@ -1266,13 +1266,13 @@ x=3
 y=995
 width=405
 height=59
-layer=com_109
+layer=r_17_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 467:109
-[com_109]
+[r_17_layer]
 type=layer
 width=432
 height=3200
@@ -1328,13 +1328,13 @@ x=3
 y=182
 width=405
 height=59
-layer=com_115
+layer=r_20_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 467:115
-[com_115]
+[r_20_layer]
 type=layer
 y=999
 width=432
@@ -1433,13 +1433,13 @@ x=3
 y=492
 width=405
 height=59
-layer=com_125
+layer=r_25_layer
 colour=0x000000
 fill=yes
 trans=164
 
 // 467:125
-[com_125]
+[r_25_layer]
 type=layer
 y=999
 width=432

@@ -8,7 +8,7 @@ $string0 = "email-register";
 switch_int (userdetail_lobby_emailstatus) {
     case 0 :
         if_setgraphic(graphic_2672, lobbyscreen_pane_playerinfo:com_34);
-        ~script3010(~script3011(0));
+        ~script3010(~lobbyscreen_playerinfo_bar_layers(0));
         if_settext("Unregistered", lobbyscreen_pane_playerinfo:email_info_text);
         $string2 = "You do not currently have an email address registered. Click <col=0166ff><u=0166ff>here</u></col> to register.";
         $string3 = "You do not currently have an email address registered. Click <col=0296fe><u=0296fe>here</u></col> to register.";
@@ -18,7 +18,7 @@ switch_int (userdetail_lobby_emailstatus) {
         $string1 = "set_address.ws";
     case 1 :
         if_setgraphic(graphic_2672, lobbyscreen_pane_playerinfo:com_34);
-        ~script3010(~script3011(0));
+        ~script3010(~lobbyscreen_playerinfo_bar_layers(0));
         if_settext("Pending Parental Confirmation", lobbyscreen_pane_playerinfo:email_info_text);
         $string2 = "You have registered your email address. We are currently waiting for your parent to confirm their email address. Click <col=0166ff><u=0166ff>here</u></col> to submit a confirmation code.";
         $string3 = "You have registered your email address. We are currently waiting for your parent to confirm their email address. Click <col=0296fe><u=0296fe>here</u></col> to submit a confirmation code.";
@@ -28,7 +28,7 @@ switch_int (userdetail_lobby_emailstatus) {
         $string1 = "enter_code.ws";
     case 2 :
         if_setgraphic(graphic_2672, lobbyscreen_pane_playerinfo:com_34);
-        ~script3010(~script3011(0));
+        ~script3010(~lobbyscreen_playerinfo_bar_layers(0));
         if_settext("Pending Confirmation", lobbyscreen_pane_playerinfo:email_info_text);
         $string2 = "Your email address is currently pending confirmation. Click <col=0166ff><u=0166ff>here</u></col> to submit a confirmation code.";
         $string3 = "Your email address is currently pending confirmation. Click <col=0296fe><u=0296fe>here</u></col> to submit a confirmation code.";
@@ -38,7 +38,7 @@ switch_int (userdetail_lobby_emailstatus) {
         $string1 = "enter_code.ws";
     case 3 :
         if_setgraphic(graphic_2669, lobbyscreen_pane_playerinfo:com_34);
-        ~script3008(~script3011(0));
+        ~script3008(~lobbyscreen_playerinfo_bar_layers(0));
         if_settext("Registered", lobbyscreen_pane_playerinfo:email_info_text);
         $string2 = "Your email address is now registered. Click <col=0166ff><u=0166ff>here</u></col> to view or change your email preferences.";
         $string3 = "Your email address is now registered. Click <col=0296fe><u=0296fe>here</u></col> to view or change your email preferences.";
@@ -48,7 +48,7 @@ switch_int (userdetail_lobby_emailstatus) {
         $string1 = "change_settings.ws";
     case 4 :
         if_setgraphic(graphic_2669, lobbyscreen_pane_playerinfo:com_34);
-        ~script3008(~script3011(0));
+        ~script3008(~lobbyscreen_playerinfo_bar_layers(0));
         if_settext("No longer registered", lobbyscreen_pane_playerinfo:email_info_text);
         $string2 = "Your account no longer has a registered email address. Click <col=0166ff><u=0166ff>here</u></col> to register again.";
         $string3 = "Your account no longer has a registered email address. Click <col=0296fe><u=0296fe>here</u></col> to register again.";
@@ -63,7 +63,7 @@ def_int $int0 = userdetail_lobby_recoveryday;
 $string0 = "recovery_questions";
 if ($int0 = 0) {
     if_setgraphic(graphic_2672, lobbyscreen_pane_playerinfo:com_22);
-    ~script3010(~script3011(1));
+    ~script3010(~lobbyscreen_playerinfo_bar_layers(1));
     if_settext("Not Set", lobbyscreen_pane_playerinfo:recovery_info_text);
     $string2 = "You do not have any recovery questions set. It will be more difficult to recover your password if it gets stolen or you forget it. Click <col=0166ff><u=0166ff>here</u></col> to set your recovery questions.";
     $string3 = "You do not have any recovery questions set. It will be more difficult to recover your password if it gets stolen or you forget it. Click <col=0296fe><u=0296fe>here</u></col> to set your recovery questions.";
@@ -73,7 +73,7 @@ if ($int0 = 0) {
     $string1 = "add_recoveries.ws";
 } else if ($int0 < calc(date_runeday + 1)) {
     if_setgraphic(graphic_2669, lobbyscreen_pane_playerinfo:com_22);
-    ~script3008(~script3011(1));
+    ~script3008(~lobbyscreen_playerinfo_bar_layers(1));
     if_settext("Set", lobbyscreen_pane_playerinfo:recovery_info_text);
     $string2 = "Recovery questions last set: <fromdate($int0)>. Click <col=0166ff><u=0166ff>here</u></col> to change your recovery questions.";
     $string3 = "Recovery questions last set: <fromdate($int0)>. Click <col=0296fe><u=0296fe>here</u></col> to change your recovery questions.";
@@ -83,7 +83,7 @@ if ($int0 = 0) {
     $string1 = "add_recoveries.ws";
 } else {
     if_setgraphic(graphic_2672, lobbyscreen_pane_playerinfo:com_22);
-    ~script3010(~script3011(1));
+    ~script3010(~lobbyscreen_playerinfo_bar_layers(1));
     if_settext("Changed", lobbyscreen_pane_playerinfo:recovery_info_text);
     $string2 = "Your new recovery questions will become active on <fromdate($int0)>. If you didn't request this, cancel it and change your password immediately. Click <col=0166ff><u=0166ff>here</u></col> to cancel.";
     $string3 = "Your new recovery questions will become active on <fromdate($int0)>. If you didn't request this, cancel it and change your password immediately. Click <col=0296fe><u=0296fe>here</u></col> to cancel.";
@@ -97,7 +97,7 @@ if_setonclick("lobbyscreen_link($string0, $string1, true)", lobbyscreen_pane_pla
 def_int $int1 = userdetail_lobby_unreadmessages;
 if ($int1 = 0) {
     if_setgraphic(graphic_2669, lobbyscreen_pane_playerinfo:com_10);
-    ~script3008(~script3011(2));
+    ~script3008(~lobbyscreen_playerinfo_bar_layers(2));
     if_settext("<tostring($int1)> Unread", lobbyscreen_pane_playerinfo:messages_info_text);
     $string2 = "You have no unread messages. Click <col=0166ff><u=0166ff>here</u></col> to open your Message Centre.";
     $string3 = "You have no unread messages. Click <col=0296fe><u=0296fe>here</u></col> to open your Message Centre.";
@@ -106,7 +106,7 @@ if ($int1 = 0) {
     if_setonmouseleave("text_swapper(event_com, $string2)", lobbyscreen_pane_playerinfo:com_16);
 } else {
     if_setgraphic(graphic_2672, lobbyscreen_pane_playerinfo:com_10);
-    ~script3010(~script3011(2));
+    ~script3010(~lobbyscreen_playerinfo_bar_layers(2));
     if_settext("<tostring($int1)> Unread", lobbyscreen_pane_playerinfo:messages_info_text);
     if ($int1 = 1) {
         $string2 = "You have 1 unread message. Click <col=0166ff><u=0166ff>here</u></col> to open your Message Centre.";
@@ -131,7 +131,7 @@ def_int $int7 = 0;
 def_string $string5 = "";
 if ($boolean2 = true) {
     if_setgraphic(graphic_2669, lobbyscreen_pane_playerinfo:com_48);
-    ~script3008(~script3011(3));
+    ~script3008(~lobbyscreen_playerinfo_bar_layers(3));
     if_settext("Subscription Active", lobbyscreen_pane_playerinfo:credit_info_text);
     $string2 = "You have an active subscription. Click <col=0166ff><u=0166ff>here</u></col> to view your account information. Make sure you play on a members' world to enjoy all of your members' benefits.";
     $string3 = "You have an active subscription. Click <col=0296fe><u=0296fe>here</u></col> to view your account information. Make sure you play on a members' world to enjoy all of your members' benefits.";
@@ -148,7 +148,7 @@ if ($boolean2 = true) {
         $string5 = " (in <~date_tostring($int5, $int6, $int7)>)";
     }
     if_setgraphic(graphic_2669, lobbyscreen_pane_playerinfo:com_48);
-    ~script3008(~script3011(3));
+    ~script3008(~lobbyscreen_playerinfo_bar_layers(3));
     if_settext("Expires <$string4>", lobbyscreen_pane_playerinfo:credit_info_text);
     $string2 = "Your membership will expire on <$string4><$string5>. Renew now to avoid losing member status. Click <col=0166ff><u=0166ff>here</u></col> to renew.";
     $string3 = "Your membership will expire on <$string4><$string5>. Renew now to avoid losing member status. Click <col=0296fe><u=0296fe>here</u></col> to renew.";
@@ -159,7 +159,7 @@ if ($boolean2 = true) {
     $string1 = "set_members_dob.ws";
 } else {
     if_setgraphic(graphic_2672, lobbyscreen_pane_playerinfo:com_48);
-    ~script3010(~script3011(3));
+    ~script3010(~lobbyscreen_playerinfo_bar_layers(3));
     if_settext("Not a Member", lobbyscreen_pane_playerinfo:credit_info_text);
     $string2 = "You are not a member. Members get loads of extra benefits and features. Click <col=0166ff><u=0166ff>here</u></col> to become a member.";
     $string3 = "You are not a member. Members get loads of extra benefits and features. Click <col=0296fe><u=0296fe>here</u></col> to become a member.";

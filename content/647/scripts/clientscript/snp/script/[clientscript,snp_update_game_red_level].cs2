@@ -1,0 +1,7 @@
+// 2082
+[clientscript,snp_update_game_red_level]
+if (%varclient_640 > 0) {
+    if_settext(tostring(%varclient_642), snp_game_overlay:red_level);
+} else {
+    if_settext("---", snp_game_overlay:red_level);
+}

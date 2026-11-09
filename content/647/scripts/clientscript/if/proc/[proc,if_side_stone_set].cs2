@@ -1,0 +1,157 @@
+// 1766
+[proc,if_side_stone_set]
+if (%varclient_232 = 0) {
+    if_setgraphic("stonemenusideicons,0", toplevel:icon0);
+    if_setgraphic("stonemenusideicons,0", toplevel_fullscreen:icon0);
+    if_setop(1, "Combat Styles", toplevel:stone0);
+    if_setop(1, "Combat Styles", toplevel_fullscreen:stone0);
+}
+if (%varclient_822 = 0) {
+    ~script4089;
+    if_setgraphic("stonemenusideicons,3", toplevel:icon1);
+    if_setgraphic("stonemenusideicons,3", toplevel_fullscreen:icon1);
+    if_setop(1, "Task List", toplevel:stone1);
+    if_setop(1, "Task List", toplevel_fullscreen:stone1);
+} else if (%varclient_822 = 1) {
+    if_sethide(true, toplevel_fullscreen:com_127);
+    if_sethide(true, toplevel:com_136);
+    if_setgraphic(graphic_1812, toplevel:icon1);
+    if_setgraphic(graphic_1812, toplevel_fullscreen:icon1);
+    if_setop(1, "Camera", toplevel:stone1);
+    if_setop(1, "Camera", toplevel_fullscreen:stone1);
+}
+switch_int (%varclient_233) {
+    case default :
+        if_setgraphic("stonemenusideicons,1", toplevel:icon2);
+        if_setgraphic("stonemenusideicons,1", toplevel_fullscreen:icon2);
+        if_setop(1, "Stats", toplevel:stone2);
+        if_setop(1, "Stats", toplevel_fullscreen:stone2);
+    case 1 :
+        if_setgraphic(graphic_1815, toplevel:icon2);
+        if_setgraphic(graphic_1815, toplevel_fullscreen:icon2);
+        if_setop(1, "Squad Commands", toplevel:stone2);
+        if_setop(1, "Squad Commands", toplevel_fullscreen:stone2);
+    case 4 :
+        if_setgraphic("conq_side_icons,1", toplevel:icon2);
+        if_setgraphic("conq_side_icons,1", toplevel_fullscreen:icon2);
+        if_setop(1, "Turn Options", toplevel:stone2);
+        if_setop(1, "Turn Options", toplevel_fullscreen:stone2);
+    case 5 :
+        if_setgraphic("conq_side_icons,1", toplevel:icon2);
+        if_setgraphic("conq_side_icons,1", toplevel_fullscreen:icon2);
+        if_setop(1, "Command Options", toplevel:stone2);
+        if_setop(1, "Command Options", toplevel_fullscreen:stone2);
+}
+switch_int (%varclient_234) {
+    case default :
+        if_setgraphic("stonemenusideicons,2", toplevel:icon3);
+        if_setgraphic("stonemenusideicons,2", toplevel_fullscreen:icon3);
+        if_setop(1, "Quest Journals", toplevel:stone3);
+        if_setop(1, "Quest Journals", toplevel_fullscreen:stone3);
+    case 1 :
+        if_setgraphic(graphic_1813, toplevel:icon3);
+        if_setgraphic(graphic_1813, toplevel_fullscreen:icon3);
+        if_setop(1, "Special Units", toplevel:stone3);
+        if_setop(1, "Special Units", toplevel_fullscreen:stone3);
+    case 2 :
+        if_setgraphic("conq_side_icons,2", toplevel:icon3);
+        if_setgraphic("conq_side_icons,2", toplevel_fullscreen:icon3);
+        if_setop(1, "Troop Details", toplevel:stone3);
+        if_setop(1, "Troop Details", toplevel_fullscreen:stone3);
+    case 3 :
+        if_setgraphic("staticons2,13", toplevel:icon3);
+        if_setgraphic("staticons2,13", toplevel_fullscreen:icon3);
+        if_setop(1, "Party organiser", toplevel:stone3);
+        if_setop(1, "Party organiser", toplevel_fullscreen:stone3);
+    case 4 :
+        if_setgraphic("stonemenusideicons,17", toplevel:icon3);
+        if_setgraphic("stonemenusideicons,17", toplevel_fullscreen:icon3);
+        if_setop(1, "Book", toplevel:stone3);
+        if_setop(1, "Book", toplevel_fullscreen:stone3);
+}
+if (%varclient_235 = 0) {
+    if_setgraphic("stonemenusideicons,4", toplevel:icon4);
+    if_setgraphic("stonemenusideicons,4", toplevel_fullscreen:icon4);
+    if_setop(1, "Inventory", toplevel:stone4);
+    if_setop(1, "Inventory", toplevel_fullscreen:stone4);
+} else if (%varclient_235 = 1) {
+    if_setgraphic(graphic_1814, toplevel:icon4);
+    if_setgraphic(graphic_1814, toplevel_fullscreen:icon4);
+    if_setop(1, "My Squads", toplevel:stone4);
+    if_setop(1, "My Squads", toplevel_fullscreen:stone4);
+} else if (%varclient_235 = 2) {
+    if_setgraphic("conq_side_icons,0", toplevel:icon4);
+    if_setgraphic("conq_side_icons,0", toplevel_fullscreen:icon4);
+    if_setop(1, "Commands", toplevel:stone4);
+    if_setop(1, "Commands", toplevel_fullscreen:stone4);
+}
+if (%varclient_236 = 0) {
+    if_setgraphic("stonemenusideicons,5", toplevel:icon5);
+    if_setgraphic("stonemenusideicons,5", toplevel_fullscreen:icon5);
+    if_setop(1, "Worn Equipment", toplevel:stone5);
+    if_setop(1, "Worn Equipment", toplevel_fullscreen:stone5);
+} else if (%varclient_236 = 1) {
+    if_setgraphic("stonemenusideicons,16", toplevel:icon5);
+    if_setgraphic("stonemenusideicons,16", toplevel_fullscreen:icon5);
+    if_setop(1, "Acrobat Emotes", toplevel:stone5);
+    if_setop(1, "Acrobat Emotes", toplevel_fullscreen:stone5);
+} else if (%varclient_236 = 2) {
+    if_setgraphic(graphic_1816, toplevel:icon5);
+    if_setgraphic(graphic_1816, toplevel_fullscreen:icon5);
+    if_setop(1, "Forfeit", toplevel:stone5);
+    if_setop(1, "Forfeit", toplevel_fullscreen:stone5);
+} else if (%varclient_236 = 3) {
+    if_setgraphic("conq_side_icons,3", toplevel:icon5);
+    if_setgraphic("conq_side_icons,3", toplevel_fullscreen:icon5);
+    if_setop(1, "Diplomacy", toplevel:stone5);
+    if_setop(1, "Diplomacy", toplevel_fullscreen:stone5);
+} else if (%varclient_236 = 4) {
+    if_setgraphic("conq_side_icons,3", toplevel:icon5);
+    if_setgraphic("conq_side_icons,3", toplevel_fullscreen:icon5);
+    if_setop(1, "Retreat", toplevel:stone5);
+    if_setop(1, "Retreat", toplevel_fullscreen:stone5);
+}
+if (%varclient_237 = 0) {
+    if_setgraphic("stonemenusideicons,6", toplevel:icon6);
+    if_setgraphic("stonemenusideicons,6", toplevel_fullscreen:icon6);
+}
+if (%varclient_238 = 0) {
+    if_setgraphic("stonemenusideicons,7", toplevel:icon7);
+    if_setgraphic("stonemenusideicons,7", toplevel_fullscreen:icon7);
+    if_setop(1, "Magic Spellbook", toplevel:stone7);
+    if_setop(1, "Magic Spellbook", toplevel_fullscreen:stone7);
+}
+if (%varclient_823 = 0) {
+    if_setgraphic("stonemenusideicons,8", toplevel:icon8);
+    if_setgraphic("stonemenusideicons,8", toplevel_fullscreen:icon8);
+}
+if (%varclient_240 = 0) {
+    if_setgraphic("aif_clan_toplevel_icons,1", toplevel:icon9);
+    if_setgraphic("aif_clan_toplevel_icons,1", toplevel_fullscreen:icon9);
+}
+if (%varclient_241 = 0) {
+    if_setgraphic("aif_clan_toplevel_icons,0", toplevel:icon10);
+    if_setgraphic("aif_clan_toplevel_icons,0", toplevel_fullscreen:icon10);
+}
+if (%varclient_242 = 0) {
+    if_setgraphic("stonemenusideicons,11", toplevel:icon11);
+    if_setgraphic("stonemenusideicons,11", toplevel_fullscreen:icon11);
+}
+if (%varclient_243 = 0) {
+    if_setgraphic("stonemenusideicons,12", toplevel:icon12);
+    if_setgraphic("stonemenusideicons,12", toplevel_fullscreen:icon12);
+}
+if (%varclient_244 = 0) {
+    if_setgraphic("stonemenusideicons,13", toplevel:icon13);
+    if_setgraphic("stonemenusideicons,13", toplevel_fullscreen:icon13);
+    if_setop(1, "Emotes", toplevel:stone13);
+    if_setop(1, "Emotes", toplevel_fullscreen:stone13);
+}
+if (%varclient_245 = 0) {
+    if_setgraphic("stonemenusideicons,14", toplevel:icon14);
+    if_setgraphic("stonemenusideicons,14", toplevel_fullscreen:icon14);
+}
+if (%varclient_824 = 0) {
+    if_setgraphic("stonemenusideicons,15", toplevel:icon15);
+    if_setgraphic("stonemenusideicons,15", toplevel_fullscreen:icon15);
+}

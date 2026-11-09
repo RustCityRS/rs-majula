@@ -57,7 +57,7 @@ height=22
 layer=buttoncontainer
 
 // 751:7
-[com_7]
+[chat_friendschat]
 type=layer
 x=233
 y=1
@@ -406,11 +406,11 @@ textalignv=centre
 textshadow=yes
 
 // 751:33
-[com_33]
+[chat_friendschat_graphic]
 type=graphic
 width=56
 height=22
-layer=com_7
+layer=chat_friendschat
 graphic=small_button
 transmitop=1,2,3,4
 opbase=Friends Chat
@@ -423,11 +423,11 @@ onmouseleave=chat_button_deselect(4)
 onop=chat_button_onop(event_op, 4)
 
 // 751:34
-[com_34]
+[text_friendschat]
 type=text
 width=56
 height=11
-layer=com_7
+layer=chat_friendschat
 textfont=p11_full
 text=Friends
 textalignh=centre
@@ -435,12 +435,12 @@ textalignv=centre
 textshadow=yes
 
 // 751:35
-[com_35]
+[text_friendschat_setting]
 type=text
 y=11
 width=56
 height=11
-layer=com_7
+layer=chat_friendschat
 textfont=p11_full
 text=On
 textalignh=centre

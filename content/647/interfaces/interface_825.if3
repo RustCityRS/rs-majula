@@ -1,10 +1,10 @@
 // 825:0
-[com_0]
+[graphic_11]
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_133
-graphic=graphic_5455
+layer=tab_11
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -326,7 +326,7 @@ text=Elof`s Reward Shop
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 825:30
 [content_layer]
@@ -340,7 +340,7 @@ heightmode=minus
 layer=com_2
 
 // 825:31
-[com_31]
+[dropshadow_side_graphic]
 type=graphic
 x=-1
 y=1
@@ -353,7 +353,7 @@ graphic=button_dropshadow_left
 tiling=yes
 
 // 825:32
-[com_32]
+[dropshadow_bottom_graphic]
 type=graphic
 y=-1
 width=3
@@ -365,7 +365,7 @@ graphic=button_dropshadow_bottom
 tiling=yes
 
 // 825:33
-[com_33]
+[dropshadow_corner_graphic]
 type=graphic
 x=-1
 y=-1
@@ -586,7 +586,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 825:54
-[com_54]
+[respect]
 type=text
 x=9
 y=6
@@ -598,7 +598,7 @@ text=Your respect:
 textshadow=yes
 
 // 825:55
-[com_55]
+[respect_1]
 type=text
 x=10
 y=12
@@ -821,7 +821,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_70
-onload=script4201(event_com, struct_1736)
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 825:75
 [com_75]
@@ -929,7 +929,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_70
-onload=script4201(event_com, struct_1737)
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 825:85
 [com_85]
@@ -939,7 +939,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_70
-onload=script4201(event_com, struct_1738)
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 825:86
 [com_86]
@@ -949,7 +949,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=com_70
-onload=script4201(event_com, struct_1739)
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 825:87
 [com_87]
@@ -986,7 +986,7 @@ text=Buy
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4210(event_com, verdana_13pt_regular, 0xebe0bc, 0x5a4e3a)
+onload=aif_text_layer_build(event_com, verdana_13pt_regular, 0xebe0bc, 0x5a4e3a)
 
 // 825:90
 [com_90]
@@ -998,7 +998,7 @@ heightmode=minus
 layer=com_70
 hide=yes
 noclickthrough=yes
-onload=script4201(event_com, struct_1740)
+onload=aif_build_button_layer(event_com, struct_1740)
 
 // 825:91
 [com_91]
@@ -1033,12 +1033,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 825:94
-[com_94]
+[graphic_1]
 type=graphic
 widthmode=minus
 heightmode=minus
 layer=tab_1
-graphic=graphic_5455
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -1083,12 +1083,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 825:98
-[com_98]
+[graphic_2]
 type=graphic
 widthmode=minus
 heightmode=minus
 layer=tab_2
-graphic=graphic_5455
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -1133,12 +1133,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 825:102
-[com_102]
+[graphic_3]
 type=graphic
 widthmode=minus
 heightmode=minus
 layer=tab_3
-graphic=graphic_5455
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -1183,12 +1183,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 825:106
-[com_106]
+[graphic_4]
 type=graphic
 widthmode=minus
 heightmode=minus
 layer=tab_4
-graphic=graphic_5455
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -1233,12 +1233,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 825:110
-[com_110]
+[graphic_5]
 type=graphic
 widthmode=minus
 heightmode=minus
 layer=tab_5
-graphic=graphic_5455
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -1258,7 +1258,7 @@ textalignv=centre
 textshadow=yes
 
 // 825:112
-[com_112]
+[cost_5]
 type=text
 y=39
 height=32
@@ -1283,12 +1283,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 825:114
-[com_114]
+[graphic_6]
 type=graphic
 widthmode=minus
 heightmode=minus
 layer=tab_6
-graphic=graphic_5455
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -1308,7 +1308,7 @@ textalignv=centre
 textshadow=yes
 
 // 825:116
-[com_116]
+[cost_6]
 type=text
 y=39
 height=32
@@ -1333,12 +1333,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 825:118
-[com_118]
+[graphic_7]
 type=graphic
 widthmode=minus
 heightmode=minus
 layer=tab_7
-graphic=graphic_5455
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -1358,7 +1358,7 @@ textalignv=centre
 textshadow=yes
 
 // 825:120
-[com_120]
+[cost_7]
 type=text
 y=39
 height=32
@@ -1383,12 +1383,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 825:122
-[com_122]
+[graphic_8]
 type=graphic
 widthmode=minus
 heightmode=minus
 layer=tab_8
-graphic=graphic_5455
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -1408,7 +1408,7 @@ textalignv=centre
 textshadow=yes
 
 // 825:124
-[com_124]
+[cost_8]
 type=text
 y=39
 height=32
@@ -1433,12 +1433,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 825:126
-[com_126]
+[graphic_9]
 type=graphic
 widthmode=minus
 heightmode=minus
 layer=tab_9
-graphic=graphic_5455
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -1458,7 +1458,7 @@ textalignv=centre
 textshadow=yes
 
 // 825:128
-[com_128]
+[cost_9]
 type=text
 y=39
 height=32
@@ -1471,7 +1471,7 @@ textalignv=centre
 textshadow=yes
 
 // 825:129
-[com_129]
+[tab_10]
 type=layer
 x=88
 y=187
@@ -1483,12 +1483,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 825:130
-[com_130]
+[graphic_10]
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_129
-graphic=graphic_5455
+layer=tab_10
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -1500,7 +1500,7 @@ y=5
 width=4
 height=32
 widthmode=minus
-layer=com_129
+layer=tab_10
 textfont=p11_full
 text=Ceremonial Sword V
 textalignh=centre
@@ -1508,12 +1508,12 @@ textalignv=centre
 textshadow=yes
 
 // 825:132
-[com_132]
+[cost_10]
 type=text
 y=39
 height=32
 widthmode=minus
-layer=com_129
+layer=tab_10
 textfont=p12_full
 text=30%
 textalignh=centre
@@ -1521,7 +1521,7 @@ textalignv=centre
 textshadow=yes
 
 // 825:133
-[com_133]
+[tab_11]
 type=layer
 x=168
 y=187
@@ -1540,7 +1540,7 @@ y=5
 width=4
 height=32
 widthmode=minus
-layer=com_133
+layer=tab_11
 textfont=p11_full
 text=Golden Cannon
 textalignh=centre
@@ -1548,12 +1548,12 @@ textalignv=centre
 textshadow=yes
 
 // 825:135
-[com_135]
+[cost_11]
 type=text
 y=39
 height=32
 widthmode=minus
-layer=com_133
+layer=tab_11
 textfont=p12_full
 text=50%
 textalignh=centre
@@ -1562,7 +1562,7 @@ textshadow=yes
 colour=0xfffefe
 
 // 825:136
-[com_136]
+[tab_12]
 type=layer
 x=248
 y=187
@@ -1574,12 +1574,12 @@ op1=Select
 opcursor0=cursor_46
 
 // 825:137
-[com_137]
+[graphic_12]
 type=graphic
 widthmode=minus
 heightmode=minus
-layer=com_136
-graphic=graphic_5455
+layer=tab_12
+graphic="aif_bronze_icon_button_2,0"
 onmouseleave=script566(event_com)
 onmouserepeat=script562(event_com)
 
@@ -1591,7 +1591,7 @@ y=5
 width=4
 height=32
 widthmode=minus
-layer=com_136
+layer=tab_12
 textfont=p11_full
 text=Royale Cannon
 textalignh=centre
@@ -1599,12 +1599,12 @@ textalignv=centre
 textshadow=yes
 
 // 825:139
-[com_139]
+[cost_12]
 type=text
 y=39
 height=32
 widthmode=minus
-layer=com_136
+layer=tab_12
 textfont=p12_full
 text=100%
 textalignh=centre

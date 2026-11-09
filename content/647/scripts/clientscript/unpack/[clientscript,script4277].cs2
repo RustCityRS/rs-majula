@@ -7,9 +7,9 @@ if (string_length($string1) < 2) {
     $string1 = append("0", $string1);
 }
 if (%varplayerbit_9187 = 0) {
-    if_settext("Match Starts In:", interface_1088:com_12);
-    if_settext("<$string0>:<$string1>", interface_1088:time);
+    if_settext("Match Starts In:", clan_rcw_score:time_label);
+    if_settext("<$string0>:<$string1>", clan_rcw_score:time);
 } else {
-    if_settext("Time Remaining:", interface_1088:com_12);
-    if_settext("<$string0>:<$string1>", interface_1088:time);
+    if_settext("Time Remaining:", clan_rcw_score:time_label);
+    if_settext("<$string0>:<$string1>", clan_rcw_score:time);
 }

@@ -1,12 +1,12 @@
 // 1032
 [proc,quickchat_tutorial_showpage](enum $enum0, int $int1, int $int2)
 if_setscrollpos(0, 0, quickchat_tutorial:text);
-cc_deleteall(quickchat_tutorial:com_24);
+cc_deleteall(quickchat_tutorial:scrollbar);
 if_sethide(false, quickchat_tutorial:pagecontrols);
 if_sethide(false, quickchat_tutorial:buttoncontrol);
 if_setonclick("script1028", quickchat_tutorial:button);
 if_settext("Shortcut keys", quickchat_tutorial:button);
-cc_deleteall(quickchat_tutorial:com_23);
+cc_deleteall(quickchat_tutorial:main);
 cc_deleteall(quickchat_tutorial:text);
 ~quickchat_tutorial_displaydata(enum(int, string, $enum0, $int1));
 if_settext("Page <tostring(calc($int1 + 1))> of <tostring($int2)>", quickchat_tutorial:pagecount);

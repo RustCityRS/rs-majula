@@ -4,7 +4,7 @@ def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
 while ($int0 < inv_size(inv_482)) {
-    cc_create(hunting_customfurs:com_26, ^iftype_graphic, $int0);
+    cc_create(hunting_customfurs:hunting_customfurs, ^iftype_graphic, $int0);
     cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
     $int1 = ~script1425($int0);
     $int2 = ~script1426($int0);

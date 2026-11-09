@@ -1,28 +1,28 @@
 // 4291
 [proc,script4291]
-if_setonclansettingstransmit("clansettings_list_build", interface_1096:com_3);
-if_setonvarctransmit("clansettings_list_build{varclient_1516}", interface_1096:com_3);
-if_setontimer("script4319(0, 1)", interface_1096:com_16);
-if_setonclansettingstransmit("clansettings_interface_refresh", interface_1096:com_16);
-if_setonclanchanneltransmit("clansettings_interface_refresh", interface_1096:com_16);
-if_setonvarctransmit("script118{varclient_1500, varclient_1501, varclient_1502, varclient_1503}", interface_1096:com_16);
-if_setonvarcstrtransmit("script118{varclient_1866}", interface_1096:com_16);
+if_setonclansettingstransmit("clansettings_list_build", clansettings:list_name_layer);
+if_setonvarctransmit("clansettings_list_build{varclient_1516}", clansettings:list_name_layer);
+if_setontimer("script4319(0, 1)", clansettings:clanmate_settings_layer);
+if_setonclansettingstransmit("clansettings_interface_refresh", clansettings:clanmate_settings_layer);
+if_setonclanchanneltransmit("clansettings_interface_refresh", clansettings:clanmate_settings_layer);
+if_setonvarctransmit("script118{varclient_1500, varclient_1501, varclient_1502, varclient_1503}", clansettings:clanmate_settings_layer);
+if_setonvarcstrtransmit("script118{varclient_1866}", clansettings:clanmate_settings_layer);
 switch_int (map_lang) {
     case 1 :
-        ~script4499(enum_3727, 1, "", enum_getoutputcount(enum_3727), 10, interface_1096:com_247, interface_1096:com_257, interface_1096:com_259, interface_1096:com_258, interface_1096:com_350);
+        ~aif_dropdownbox_setup(enum_3727, 1, "", enum_getoutputcount(enum_3727), 10, clansettings:com_247, clansettings:com_257, clansettings:com_259, clansettings:com_258, clansettings:com_350);
     case 2 :
-        ~script4499(enum_3728, 1, "", enum_getoutputcount(enum_3727), 10, interface_1096:com_247, interface_1096:com_257, interface_1096:com_259, interface_1096:com_258, interface_1096:com_350);
+        ~aif_dropdownbox_setup(enum_3728, 1, "", enum_getoutputcount(enum_3727), 10, clansettings:com_247, clansettings:com_257, clansettings:com_259, clansettings:com_258, clansettings:com_350);
     case 3 :
-        ~script4499(enum_3729, 1, "", enum_getoutputcount(enum_3727), 10, interface_1096:com_247, interface_1096:com_257, interface_1096:com_259, interface_1096:com_258, interface_1096:com_350);
+        ~aif_dropdownbox_setup(enum_3729, 1, "", enum_getoutputcount(enum_3727), 10, clansettings:com_247, clansettings:com_257, clansettings:com_259, clansettings:com_258, clansettings:com_350);
     case default :
-        ~script4499(enum_3720, 1, "", enum_getoutputcount(enum_3720), 10, interface_1096:com_247, interface_1096:com_257, interface_1096:com_259, interface_1096:com_258, interface_1096:com_350);
+        ~aif_dropdownbox_setup(enum_3720, 1, "", enum_getoutputcount(enum_3720), 10, clansettings:com_247, clansettings:com_257, clansettings:com_259, clansettings:com_258, clansettings:com_350);
 }
-~script4328(interface_1096:com_361);
-if_settext(activeclansettings_getclanname, interface_1096:com_50);
-if_setsize(if_getwidth(interface_1096:com_16), 115, ^setsize_abs, ^setsize_abs, interface_1096:com_16);
-if_sethide(true, interface_1096:com_351);
-if_sethide(false, interface_1096:com_72);
-def_component $component0 = interface_1096:com_2;
+~script4328(clansettings:clan_flag_graphic);
+if_settext(activeclansettings_getclanname, clansettings:com_50);
+if_setsize(if_getwidth(clansettings:clanmate_settings_layer), 115, ^setsize_abs, ^setsize_abs, clansettings:clanmate_settings_layer);
+if_sethide(true, clansettings:clan_data_waiting);
+if_sethide(false, clansettings:com_72);
+def_component $component0 = clansettings:rectangle_layer;
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;

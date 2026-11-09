@@ -1,5 +1,5 @@
 // 929:0
-[com_0]
+[background]
 type=layer
 width=512
 height=334
@@ -13,7 +13,7 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_0
+layer=background
 colour=0xffff00
 fill=yes
 trans=255
@@ -25,7 +25,7 @@ x=13
 y=23
 width=486
 height=299
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 transmitop=10
@@ -38,7 +38,7 @@ x=14
 y=24
 width=486
 height=299
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 trans=120
@@ -52,7 +52,7 @@ x=15
 y=25
 width=486
 height=299
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 trans=150
@@ -66,7 +66,7 @@ x=16
 y=26
 width=486
 height=299
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 trans=180
@@ -80,7 +80,7 @@ x=17
 y=27
 width=486
 height=299
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 trans=210
@@ -94,7 +94,7 @@ x=21
 y=47
 width=470
 height=70
-layer=com_0
+layer=background
 graphic=graphic_2045
 tiling=yes
 colour=0xffffffff
@@ -109,7 +109,7 @@ x=21
 y=117
 width=470
 height=151
-layer=com_0
+layer=background
 graphic=km_middlefillcolour
 colour=0xffffffff
 
@@ -120,7 +120,7 @@ x=21
 y=268
 width=470
 height=46
-layer=com_0
+layer=background
 graphic=graphic_2044
 tiling=yes
 colour=0xffffffff
@@ -132,7 +132,7 @@ x=479
 y=26
 width=22
 height=281
-layer=com_0
+layer=background
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -147,7 +147,7 @@ x=15
 y=302
 width=468
 height=23
-layer=com_0
+layer=background
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -161,7 +161,7 @@ x=45
 y=23
 width=422
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -176,7 +176,7 @@ x=467
 y=290
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 transmitop=10
@@ -190,7 +190,7 @@ x=13
 y=290
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 transmitop=10
@@ -202,7 +202,7 @@ type=graphic
 y=26
 width=37
 height=276
-layer=com_0
+layer=background
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -217,7 +217,7 @@ x=13
 y=23
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
@@ -231,7 +231,7 @@ x=467
 y=23
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -245,7 +245,7 @@ x=471
 y=26
 width=16
 height=16
-layer=com_0
+layer=background
 graphic="v2_stone_close_button,0"
 colour=0xffffffff
 transmitop=1,10
@@ -262,7 +262,7 @@ y=27
 width=443
 height=17
 xmode=abs_centre
-layer=com_0
+layer=background
 textfont=b12_full
 text=End of Turn Report
 textalignh=centre
@@ -346,7 +346,7 @@ hflip=yes
 colour=0xffffffff
 
 // 929:27
-[com_27]
+[side_1_left]
 type=graphic
 x=23
 y=78
@@ -357,7 +357,7 @@ graphic="easter_frame,2"
 colour=0xffffffff
 
 // 929:28
-[com_28]
+[main_1_rect]
 type=rectangle
 x=35
 y=78
@@ -368,7 +368,7 @@ colour=0x221e18
 fill=yes
 
 // 929:29
-[com_29]
+[side_1_right]
 type=graphic
 x=178
 y=78
@@ -392,7 +392,7 @@ vflip=yes
 colour=0xffffffff
 
 // 929:31
-[com_31]
+[corner_bot_center]
 type=graphic
 x=35
 y=300
@@ -552,7 +552,7 @@ graphic="easter_frame,5"
 colour=0xffffffff
 
 // 929:47
-[com_47]
+[top_1_rect_1]
 type=rectangle
 x=203
 y=61
@@ -575,7 +575,7 @@ hflip=yes
 colour=0xffffffff
 
 // 929:49
-[com_49]
+[side_1_left_1]
 type=graphic
 x=191
 y=144
@@ -586,7 +586,7 @@ graphic="easter_frame,2"
 colour=0xffffffff
 
 // 929:50
-[com_50]
+[main_1_rect_1]
 type=rectangle
 x=203
 y=144
@@ -597,7 +597,7 @@ colour=0x221e18
 fill=yes
 
 // 929:51
-[com_51]
+[side_1_right_1]
 type=graphic
 x=477
 y=144
@@ -745,7 +745,7 @@ graphic="easter_frame,5"
 colour=0xffffffff
 
 // 929:65
-[com_65]
+[top_1_rect_2]
 type=rectangle
 x=203
 y=201
@@ -768,7 +768,7 @@ hflip=yes
 colour=0xffffffff
 
 // 929:67
-[com_67]
+[side_1_left_2]
 type=graphic
 x=191
 y=268
@@ -779,7 +779,7 @@ graphic="easter_frame,2"
 colour=0xffffffff
 
 // 929:68
-[com_68]
+[main_1_rect_2]
 type=rectangle
 x=203
 y=267
@@ -790,7 +790,7 @@ colour=0x221e18
 fill=yes
 
 // 929:69
-[com_69]
+[side_1_right_2]
 type=graphic
 x=300
 y=268
@@ -920,7 +920,7 @@ graphic="easter_frame,5"
 colour=0xffffffff
 
 // 929:81
-[com_81]
+[top_1_rect_3]
 type=rectangle
 x=326
 y=201
@@ -943,7 +943,7 @@ hflip=yes
 colour=0xffffffff
 
 // 929:83
-[com_83]
+[side_1_left_3]
 type=graphic
 x=314
 y=216
@@ -954,7 +954,7 @@ graphic="easter_frame,2"
 colour=0xffffffff
 
 // 929:84
-[com_84]
+[main_1_rect_3]
 type=rectangle
 x=326
 y=215
@@ -965,7 +965,7 @@ colour=0x221e18
 fill=yes
 
 // 929:85
-[com_85]
+[side_1_right_3]
 type=graphic
 x=477
 y=216

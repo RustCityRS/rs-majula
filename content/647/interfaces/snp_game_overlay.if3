@@ -22,7 +22,7 @@ trans=100
 colour=0xffffffff
 
 // 836:2
-[com_2]
+[obelisk_bar_left_border]
 type=graphic
 x=214
 y=65
@@ -35,7 +35,7 @@ trans=100
 colour=0xffffffff
 
 // 836:3
-[com_3]
+[obelisk_bar_right_border]
 type=graphic
 x=96
 y=65
@@ -48,7 +48,7 @@ trans=100
 colour=0xffffffff
 
 // 836:4
-[com_4]
+[obelisk_bar_top_border]
 type=graphic
 x=112
 y=50
@@ -133,7 +133,7 @@ textshadow=yes
 colour=0x3366ff
 onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
-onvarctransmit=script2079{varclient_643}
+onvarctransmit=snp_update_game_blue_kills{varclient_643}
 
 // 836:10
 [blue_level]
@@ -151,7 +151,7 @@ textshadow=yes
 colour=0x3366ff
 onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
-onvarctransmit=script2081{varclient_641}
+onvarctransmit=snp_update_game_blue_level{varclient_641}
 
 // 836:11
 [blue_health]
@@ -169,7 +169,7 @@ textshadow=yes
 colour=0x3366ff
 onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
-onvarctransmit=script2083{varclient_639}
+onvarctransmit=snp_update_game_blue_health{varclient_639}
 
 // 836:12
 [red_title]
@@ -204,7 +204,7 @@ textshadow=yes
 colour=0xff2323
 onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
-onvarctransmit=script2080{varclient_644}
+onvarctransmit=snp_update_game_red_kills{varclient_644}
 
 // 836:14
 [red_level]
@@ -222,7 +222,7 @@ textshadow=yes
 colour=0xff2323
 onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
-onvarctransmit=script2082{varclient_642}
+onvarctransmit=snp_update_game_red_level{varclient_642}
 
 // 836:15
 [red_health]
@@ -240,7 +240,7 @@ textshadow=yes
 colour=0xff2323
 onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
-onvarctransmit=script2084{varclient_640}
+onvarctransmit=snp_update_game_red_health{varclient_640}
 
 // 836:16
 [if_topright]
@@ -415,7 +415,7 @@ textshadow=yes
 colour=0xff9900
 onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
-onvarctransmit=script2078{varclient_636}
+onvarctransmit=snp_update_game_time{varclient_636}
 
 // 836:28
 [kills_title]
@@ -448,7 +448,7 @@ fill=yes
 trans=150
 onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
-onvarctransmit=script2085{varclient_645}
+onvarctransmit=snp_update_game_obelisk_icon_colour{varclient_645}
 
 // 836:30
 [west_icon_colour]
@@ -464,7 +464,7 @@ fill=yes
 trans=150
 onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
-onvarctransmit=script2087{varclient_649}
+onvarctransmit=snp_update_game_west_grave_icon_colour{varclient_649}
 
 // 836:31
 [east_icon_colour]
@@ -480,10 +480,10 @@ fill=yes
 trans=150
 onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
-onvarctransmit=script2086{varclient_647}
+onvarctransmit=snp_update_game_east_grave_icon_colour{varclient_647}
 
 // 836:32
-[com_32]
+[east_grave_top_border]
 type=graphic
 x=112
 y=3
@@ -509,7 +509,7 @@ trans=100
 colour=0xffffffff
 
 // 836:34
-[com_34]
+[east_grave_right_border]
 type=graphic
 x=96
 y=17
@@ -522,7 +522,7 @@ trans=100
 colour=0xffffffff
 
 // 836:35
-[com_35]
+[east_grave_left_border]
 type=graphic
 x=133
 y=17
@@ -535,7 +535,7 @@ trans=100
 colour=0xffffffff
 
 // 836:36
-[com_36]
+[obby_top_border]
 type=graphic
 x=152
 y=3
@@ -587,7 +587,7 @@ trans=100
 colour=0xffffffff
 
 // 836:40
-[com_40]
+[west_grave_top_border]
 type=graphic
 x=193
 y=3
@@ -613,7 +613,7 @@ trans=100
 colour=0xffffffff
 
 // 836:42
-[com_42]
+[west_grave_left_border]
 type=graphic
 x=214
 y=17
@@ -626,7 +626,7 @@ trans=100
 colour=0xffffffff
 
 // 836:43
-[com_43]
+[west_grave_right_border]
 type=graphic
 x=177
 y=17
@@ -687,10 +687,10 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 hide=yes
-onvarctransmit=script2088{varclient_645}
+onvarctransmit=snp_update_game_obelisk_bar{varclient_645}
 
 // 836:48
-[com_48]
+[obelisk_pointer]
 type=graphic
 x=143
 y=56
@@ -714,7 +714,7 @@ xmode=abs_right
 hide=yes
 transmitop=10
 op10= 
-onvarctransmit=script2089{varclient_647}
+onvarctransmit=snp_update_game_east_grave_bar{varclient_647}
 
 // 836:50
 [west_grave_bar_layer]
@@ -728,7 +728,7 @@ xmode=abs_right
 hide=yes
 transmitop=10
 op10=  
-onvarctransmit=script2090{varclient_649}
+onvarctransmit=snp_update_game_west_grave_bar{varclient_649}
 
 // 836:51
 [activity_bar_layer]
@@ -772,7 +772,7 @@ transmitop=10
 op10= 
 
 // 836:54
-[com_54]
+[activity_top_border]
 type=graphic
 x=12
 width=20
@@ -834,7 +834,7 @@ transmitop=10
 op10=  
 
 // 836:58
-[com_58]
+[west_grave_bar_left_border]
 type=graphic
 x=214
 y=65
@@ -849,7 +849,7 @@ transmitop=10
 op10=  
 
 // 836:59
-[com_59]
+[west_grave_bar_right_border]
 type=graphic
 x=96
 y=65
@@ -864,7 +864,7 @@ transmitop=10
 op10=  
 
 // 836:60
-[com_60]
+[west_grave_bar_top_border]
 type=graphic
 x=112
 y=50
@@ -908,7 +908,7 @@ onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
 
 // 836:63
-[com_63]
+[west_grave_pointer]
 type=graphic
 x=181
 y=56
@@ -936,7 +936,7 @@ transmitop=10
 op10= 
 
 // 836:65
-[com_65]
+[east_grave_bar_left_border]
 type=graphic
 x=214
 y=65
@@ -951,7 +951,7 @@ transmitop=10
 op10= 
 
 // 836:66
-[com_66]
+[east_grave_bar_right_border]
 type=graphic
 x=96
 y=65
@@ -1010,7 +1010,7 @@ onmouseleave=deltooltip(snp_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_game_overlay_tooltips(event_com, snp_game_overlay:tooltip_content_layer)
 
 // 836:70
-[com_70]
+[east_grave_pointer]
 type=graphic
 x=102
 y=56
@@ -1040,4 +1040,4 @@ width=215
 height=156
 xmode=abs_right
 layer=tooltip_bounding_layer
-onvarctransmit=script2092(snp_game_overlay:tooltip_content_layer){varclient_655}
+onvarctransmit=snp_delete_tooltip(snp_game_overlay:tooltip_content_layer){varclient_655}

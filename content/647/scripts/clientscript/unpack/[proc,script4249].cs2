@@ -54,7 +54,7 @@ if ($int0 = 1) {
 if (%varplayerbit_9030 = 0) {
     $string0 = "";
 }
-if (if_hassuboverlay(toplevel:mainoverlay, interface_1079) = true | if_hassuboverlay(toplevel_fullscreen:mainoverlay, interface_1079) = true) {
+if (if_hassuboverlay(toplevel:mainoverlay, tutorial4_cameracontrols) = true | if_hassuboverlay(toplevel_fullscreen:mainoverlay, tutorial4_cameracontrols) = true) {
     $string0 = "";
 }
 if ($int4 = 0) {

@@ -100,7 +100,7 @@ width=16
 height=15
 xmode=abs_right
 layer=com_1
-onload=script4256(event_com)
+onload=aif_build_close_button_layer(event_com)
 
 // 1092:9
 [com_9]
@@ -114,7 +114,7 @@ ymode=abs_centre
 layer=com_8
 transmitop=1
 op1=Close
-onload=script4257(event_com)
+onload=aif_build_close_button_on(event_com)
 
 // 1092:10
 [com_10]
@@ -126,4 +126,4 @@ heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
 layer=com_8
-onload=script4258(event_com)
+onload=aif_build_close_button_over(event_com)

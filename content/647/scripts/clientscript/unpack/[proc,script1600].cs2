@@ -3,9 +3,9 @@
 def_int $int0 = 0;
 def_int $int1 = 0;
 if (~script1891 = 1) {
-    if_sethide(false, interface_1109:kick_button_layer);
-    $int0 = if_gety(interface_1109:top_icons_layer);
-    if_setposition(134, $int0, ^setpos_abs_left, ^setpos_abs_top, interface_1109:top_icons_layer);
+    if_sethide(false, friendschat:kick_button_layer);
+    $int0 = if_gety(friendschat:top_icons_layer);
+    if_setposition(134, $int0, ^setpos_abs_left, ^setpos_abs_top, friendschat:top_icons_layer);
     return;
 }
 ~script1632;

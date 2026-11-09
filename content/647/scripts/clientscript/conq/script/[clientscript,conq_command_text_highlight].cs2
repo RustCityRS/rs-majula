@@ -1,0 +1,78 @@
+// 430
+[clientscript,conq_command_text_highlight](component $component0, int $int1)
+def_int $int2 = 0;
+def_int $rgb3 = ^black;
+def_int $int4 = 0;
+def_component $component5 = null;
+def_int $int6 = 0;
+switch_component ($component0) {
+    case default :
+        return;
+    case conq_side_command:ability_layer_1 :
+        if (%varclient_1388 = 1) {
+            $int2 = 1;
+        } else {
+            $int2 = %varplayerbit_7539;
+        }
+        $component5 = conq_side_command:name_1;
+    case conq_side_command:ability_layer_2 :
+        if (%varclient_1388 = 1) {
+            $int2 = 3;
+        } else {
+            $int2 = %varplayerbit_7540;
+        }
+        $component5 = conq_side_command:name_2;
+    case conq_side_command:ability_layer_3 :
+        if (%varclient_1388 = 1) {
+            $int2 = 5;
+        } else {
+            $int2 = %varplayerbit_7541;
+        }
+        $component5 = conq_side_command:name_3;
+    case conq_side_command:ability_layer_4 :
+        if (%varclient_1388 = 1) {
+            $int2 = 6;
+        } else {
+            $int2 = %varplayerbit_7542;
+        }
+        $component5 = conq_side_command:name_4;
+}
+switch_int ($int2) {
+    case default :
+        return;
+    case 1 :
+        $int4 = %varclient_1378;
+        $int6 = struct_param(struct_293, param_1154);
+    case 2 :
+        $int4 = %varclient_1379;
+        $int6 = struct_param(struct_299, param_1154);
+    case 3 :
+        $int4 = %varclient_1380;
+        $int6 = struct_param(struct_300, param_1154);
+    case 4 :
+        $int4 = %varclient_1386;
+        $int6 = struct_param(struct_301, param_1154);
+    case 5 :
+        $int4 = %varclient_1381;
+        $int6 = struct_param(struct_305, param_1154);
+    case 6 :
+        $int4 = %varclient_1383;
+        $int6 = struct_param(struct_1044, param_1154);
+    case 7 :
+        $int4 = %varclient_1384;
+        $int6 = struct_param(struct_1045, param_1154);
+    case 8 :
+        $int4 = %varclient_1385;
+        $int6 = struct_param(struct_1046, param_1154);
+    case 9 :
+        $int4 = %varclient_1382;
+        $int6 = struct_param(struct_1047, param_1154);
+}
+if ($int4 = 0 & %varplayerbit_7514 >= $int6) {
+    if ($int1 = 1) {
+        $rgb3 = ^white;
+    } else {
+        $rgb3 = 0xff981f;
+    }
+    if_setcolour($rgb3, $component5);
+}

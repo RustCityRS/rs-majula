@@ -1,9 +1,9 @@
 // 4224
 [clientscript,script4224](component $component0)
-if ($component0 = rand_dungeon_rewards_v2:com_329) {
-    if_sethide(true, rand_dungeon_rewards_v2:com_329);
-    if_sethide(false, rand_dungeon_rewards_v2:com_330);
+if ($component0 = rand_dungeon_rewards_v2:winterface_time_hover) {
+    if_sethide(true, rand_dungeon_rewards_v2:winterface_time_hover);
+    if_sethide(false, rand_dungeon_rewards_v2:winterface_time);
 } else {
-    if_sethide(true, rand_dungeon_rewards_v2:com_330);
-    if_sethide(false, rand_dungeon_rewards_v2:com_329);
+    if_sethide(true, rand_dungeon_rewards_v2:winterface_time);
+    if_sethide(false, rand_dungeon_rewards_v2:winterface_time_hover);
 }

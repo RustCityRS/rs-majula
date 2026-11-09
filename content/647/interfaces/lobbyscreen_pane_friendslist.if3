@@ -1,5 +1,5 @@
 // 909:0
-[com_0]
+[pm_button_left]
 type=graphic
 y=1
 width=15
@@ -8,7 +8,7 @@ layer=pm_button_bg
 graphic=graphic_4690
 
 // 909:1
-[com_1]
+[pm_button_mid]
 type=graphic
 x=15
 y=1
@@ -19,7 +19,7 @@ layer=pm_button_bg
 graphic=graphic_4691
 
 // 909:2
-[com_2]
+[pm_button_right]
 type=graphic
 y=1
 width=15
@@ -34,7 +34,7 @@ type=graphic
 y=1
 width=15
 height=31
-layer=com_27
+layer=friends_delete_bg
 graphic=graphic_4690
 
 // 909:4
@@ -45,7 +45,7 @@ y=1
 width=30
 height=31
 widthmode=minus
-layer=com_27
+layer=friends_delete_bg
 graphic=graphic_4691
 
 // 909:5
@@ -55,7 +55,7 @@ y=1
 width=15
 height=31
 xmode=abs_right
-layer=com_27
+layer=friends_delete_bg
 graphic=graphic_4692
 
 // 909:6
@@ -64,7 +64,7 @@ type=graphic
 y=1
 width=15
 height=31
-layer=com_25
+layer=friends_add_bg
 graphic=graphic_4690
 
 // 909:7
@@ -75,7 +75,7 @@ y=1
 width=30
 height=31
 widthmode=minus
-layer=com_25
+layer=friends_add_bg
 graphic=graphic_4691
 
 // 909:8
@@ -85,7 +85,7 @@ y=1
 width=15
 height=31
 xmode=abs_right
-layer=com_25
+layer=friends_add_bg
 graphic=graphic_4692
 
 // 909:9
@@ -94,7 +94,7 @@ type=graphic
 y=1
 width=15
 height=31
-layer=com_72
+layer=ignore_delete_bg
 graphic=graphic_4690
 
 // 909:10
@@ -105,7 +105,7 @@ y=1
 width=30
 height=31
 widthmode=minus
-layer=com_72
+layer=ignore_delete_bg
 graphic=graphic_4691
 
 // 909:11
@@ -115,11 +115,11 @@ y=1
 width=15
 height=31
 xmode=abs_right
-layer=com_72
+layer=ignore_delete_bg
 graphic=graphic_4692
 
 // 909:12
-[com_12]
+[ignore_add_left]
 type=graphic
 y=1
 width=15
@@ -128,7 +128,7 @@ layer=ignore_add_bg
 graphic=graphic_4690
 
 // 909:13
-[com_13]
+[main]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -140,7 +140,7 @@ x=10
 width=7864
 height=32
 widthmode=proportion
-layer=com_13
+layer=main
 textfont=verdana_15pt_regular
 text=Friends List
 textalignh=centre
@@ -156,7 +156,7 @@ y=29
 width=7864
 height=13
 widthmode=proportion
-layer=com_13
+layer=main
 textfont=p11_full
 text=Click on your friends to send them a private message.
 textlineheight=12
@@ -173,7 +173,7 @@ width=7864
 height=199
 widthmode=proportion
 heightmode=minus
-layer=com_13
+layer=main
 op10=  
 
 // 909:17
@@ -184,7 +184,7 @@ width=7867
 height=32
 widthmode=proportion
 xmode=abs_right
-layer=com_13
+layer=main
 textfont=verdana_15pt_regular
 text=Ignore List
 textalignh=centre
@@ -202,7 +202,7 @@ width=7867
 height=13
 widthmode=proportion
 xmode=abs_right
-layer=com_13
+layer=main
 textfont=p11_full
 text=Messages from players on this list will not be shown.
 textlineheight=12
@@ -265,10 +265,10 @@ ymode=abs_bottom
 layer=friends_lower
 op1=Add Friend
 op10= 
-onop=script3048
+onop=lobbyscreen_pane_friendslist_add_click
 
 // 909:25
-[com_25]
+[friends_add_bg]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -287,10 +287,10 @@ ymode=abs_bottom
 layer=friends_lower
 op1=Remove Friend
 op10=  
-onop=script3049
+onop=lobbyscreen_pane_friendslist_remove_click
 
 // 909:27
-[com_27]
+[friends_delete_bg]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -299,7 +299,7 @@ onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_3, gra
 onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_3, graphic_4690, lobbyscreen_pane_friendslist:com_4, graphic_4691, lobbyscreen_pane_friendslist:com_5, graphic_4692)
 
 // 909:28
-[com_28]
+[friends_delete_text]
 type=text
 widthmode=minus
 heightmode=minus
@@ -539,7 +539,7 @@ height=199
 widthmode=proportion
 heightmode=minus
 xmode=abs_right
-layer=com_13
+layer=main
 op10=   
 
 // 909:49
@@ -551,7 +551,7 @@ height=113
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_13
+layer=main
 op10= 
 
 // 909:50
@@ -642,7 +642,7 @@ width=4761
 height=32
 widthmode=proportion
 ymode=abs_bottom
-layer=com_13
+layer=main
 op1=Toggle
 op2=Everybody
 op3=Friends
@@ -658,22 +658,22 @@ width=36
 height=31
 xmode=abs_right
 ymode=abs_bottom
-layer=com_13
+layer=main
 op1=Report Abuse
 op10=   
-onmouseleave=deltooltip(lobbyscreen_pane_friendslist:com_59)
-onop=script3176("", false)
-onmouserepeat=addtooltip(event_com, lobbyscreen_pane_friendslist:com_59, "Report abuse", 25, 200)
+onmouseleave=deltooltip(lobbyscreen_pane_friendslist:report_abuse_tooltip)
+onop=lobbyscreen_report_abuse_stage1("", false)
+onmouserepeat=addtooltip(event_com, lobbyscreen_pane_friendslist:report_abuse_tooltip, "Report abuse", 25, 200)
 
 // 909:59
-[com_59]
+[report_abuse_tooltip]
 type=layer
 x=10
 width=100
 height=31
 xmode=abs_right
 ymode=abs_bottom
-layer=com_13
+layer=main
 
 // 909:60
 [com_60]
@@ -697,7 +697,7 @@ height=302
 heightmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_13
+layer=main
 op10= 
 
 // 909:62
@@ -711,14 +711,14 @@ noclickthrough=yes
 op10= 
 
 // 909:63
-[com_63]
+[chatbox_resize_arrow]
 type=graphic
 width=8
 height=13
 xmode=abs_centre
 ymode=abs_centre
 layer=chatbox_resize_dragger
-graphic=graphic_3130
+graphic=chatbox_resize_arrow_lobby
 alpha=yes
 colour=0xffffffff
 op10= 
@@ -729,8 +729,8 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=pm_button
-onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_0, graphic_4693, lobbyscreen_pane_friendslist:com_1, graphic_4694, lobbyscreen_pane_friendslist:com_2, graphic_4695)
-onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_0, graphic_4690, lobbyscreen_pane_friendslist:com_1, graphic_4691, lobbyscreen_pane_friendslist:com_2, graphic_4692)
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:pm_button_left, graphic_4693, lobbyscreen_pane_friendslist:pm_button_mid, graphic_4694, lobbyscreen_pane_friendslist:pm_button_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:pm_button_left, graphic_4690, lobbyscreen_pane_friendslist:pm_button_mid, graphic_4691, lobbyscreen_pane_friendslist:pm_button_right, graphic_4692)
 
 // 909:65
 [pm_button_text_title]
@@ -792,7 +792,7 @@ ymode=abs_bottom
 layer=ignore_lower
 op1=Add Name
 op10= 
-onop=script3050
+onop=lobbyscreen_pane_friendslist_ignore_add_click
 
 // 909:70
 [ignore_add_bg]
@@ -800,8 +800,8 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=ignore_add_button
-onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_12, graphic_4693, lobbyscreen_pane_friendslist:com_93, graphic_4694, lobbyscreen_pane_friendslist:com_94, graphic_4695)
-onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_12, graphic_4690, lobbyscreen_pane_friendslist:com_93, graphic_4691, lobbyscreen_pane_friendslist:com_94, graphic_4692)
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:ignore_add_left, graphic_4693, lobbyscreen_pane_friendslist:ignore_add_mid, graphic_4694, lobbyscreen_pane_friendslist:ignore_add_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:ignore_add_left, graphic_4690, lobbyscreen_pane_friendslist:ignore_add_mid, graphic_4691, lobbyscreen_pane_friendslist:ignore_add_right, graphic_4692)
 
 // 909:71
 [ignore_delete_button]
@@ -814,10 +814,10 @@ ymode=abs_bottom
 layer=ignore_lower
 op1=Remove Name
 op10=   
-onop=script3051
+onop=lobbyscreen_pane_friendslist_ignore_remove_click
 
 // 909:72
-[com_72]
+[ignore_delete_bg]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -826,7 +826,7 @@ onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_9, gra
 onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_9, graphic_4690, lobbyscreen_pane_friendslist:com_10, graphic_4691, lobbyscreen_pane_friendslist:com_11, graphic_4692)
 
 // 909:73
-[com_73]
+[ignore_delete_text]
 type=text
 widthmode=minus
 heightmode=minus
@@ -1047,7 +1047,7 @@ colour=0x000000
 op10=  
 
 // 909:93
-[com_93]
+[ignore_add_mid]
 type=graphic
 x=15
 y=1
@@ -1058,7 +1058,7 @@ layer=ignore_add_bg
 graphic=graphic_4691
 
 // 909:94
-[com_94]
+[ignore_add_right]
 type=graphic
 y=1
 width=15

@@ -1,0 +1,5 @@
+// 1943
+[clientscript,sc_tutorial_show_title]
+if_sethide(false, sc_tutorial_overlay:title_layer);
+if_settext(%varclient_1562, sc_tutorial_overlay:title_text);
+%varclient_581 = 1;

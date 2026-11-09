@@ -26,7 +26,7 @@ if ($int0 < $int7) {
     }
 }
 if_setscrollsize(463, calc($int0 * 14 + 2), chatdefault:scrollarea);
-~scrollbar_resize(chatdefault:com_59, chatdefault:scrollarea, calc(%varclient_7 + if_getscrollheight(chatdefault:scrollarea) - %varclient_8));
+~scrollbar_resize(chatdefault:scrollbar, chatdefault:scrollarea, calc(%varclient_7 + if_getscrollheight(chatdefault:scrollarea) - %varclient_8));
 %varclient_7 = if_getscrolly(chatdefault:scrollarea);
 %varclient_8 = if_getscrollheight(chatdefault:scrollarea);
 if ($int0 < 100) {

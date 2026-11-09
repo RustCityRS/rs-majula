@@ -1,5 +1,5 @@
 // 910:0
-[com_0]
+[main]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -12,7 +12,7 @@ y=50
 height=50
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=main
 textfont=verdana_11pt_regular
 text=Please wait...
 textalignh=centre
@@ -25,16 +25,16 @@ colour=0xebe0bc
 type=layer
 height=50
 widthmode=minus
-layer=com_0
+layer=main
 
 // 910:3
-[com_3]
+[content_border]
 type=rectangle
 y=50
 height=50
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=main
 colour=0xc9b997
 
 // 910:4
@@ -170,7 +170,7 @@ width=2
 height=52
 widthmode=minus
 heightmode=minus
-layer=com_0
+layer=main
 hide=yes
 op10= 
 
@@ -181,7 +181,7 @@ x=276
 y=229
 width=100
 height=17
-layer=com_0
+layer=main
 hide=yes
 op10= 
 
@@ -516,7 +516,7 @@ layer=ping_title_main
 op10= 
 
 // 910:46
-[volcano_gj]
+[lootshare_title]
 type=graphic
 y=2
 width=18
@@ -530,7 +530,7 @@ onmouseover=script3149(event_com, -1, "Loot share")
 onmouseleave=script3153(event_com, -1)
 
 // 910:47
-[com_47]
+[lootshare_title_sorts]
 type=layer
 y=2
 width=25

@@ -382,13 +382,13 @@ y=177
 width=25
 height=25
 layer=control_layer
-graphic=graphic_1228
+graphic="catcon_catapult_icons,4"
 colour=0x000000
 transmitop=1
 op1=Rotate-Left
-onmouseover=graphic_swapper(event_com, graphic_1229)
-onmouseleave=graphic_swapper(event_com, graphic_1228)
-onop=script847
+onmouseover=graphic_swapper(event_com, "catcon_catapult_icons,5")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_icons,4")
+onop=catcon_repair_puzzle_rotate_left
 
 // 683:35
 [catcon_rotate_right]
@@ -398,29 +398,29 @@ y=177
 width=25
 height=25
 layer=control_layer
-graphic=graphic_1230
+graphic="catcon_catapult_icons,6"
 colour=0x000000
 transmitop=1
 op1=Rotate-Right
-onmouseover=graphic_swapper(event_com, graphic_1231)
-onmouseleave=graphic_swapper(event_com, graphic_1230)
-onop=script848
+onmouseover=graphic_swapper(event_com, "catcon_catapult_icons,7")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_icons,6")
+onop=catcon_repair_puzzle_rotate_right
 
 // 683:36
-[com_36]
+[catcon_flip]
 type=graphic
 x=112
 y=212
 width=25
 height=25
 layer=control_layer
-graphic=graphic_1224
+graphic="catcon_catapult_icons,0"
 colour=0x000000
 transmitop=1
 op1=Flip-Side
-onmouseover=graphic_swapper(catcon_repair_puzzle_side:com_36, graphic_1225)
-onmouseleave=graphic_swapper(catcon_repair_puzzle_side:com_36, graphic_1224)
-onop=script839
+onmouseover=graphic_swapper(catcon_repair_puzzle_side:catcon_flip, "catcon_catapult_icons,1")
+onmouseleave=graphic_swapper(catcon_repair_puzzle_side:catcon_flip, "catcon_catapult_icons,0")
+onop=catcon_repair_puzzle_flip
 
 // 683:37
 [catcon_reset]
@@ -430,12 +430,12 @@ y=212
 width=25
 height=25
 layer=control_layer
-graphic=graphic_1232
+graphic="catcon_catapult_icons,8"
 colour=0x000000
 transmitop=1
 op1=Restart
-onmouseover=graphic_swapper(event_com, graphic_1233)
-onmouseleave=graphic_swapper(event_com, graphic_1232)
+onmouseover=graphic_swapper(event_com, "catcon_catapult_icons,9")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_icons,8")
 
 // 683:38
 [catcon_catapult_up_arrow]

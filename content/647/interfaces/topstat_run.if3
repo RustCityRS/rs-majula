@@ -27,8 +27,8 @@ type=layer
 width=512
 height=334
 layer=topstat_prayer
-onload=script809
-onvartransmit=script809{varplayer_1160}
+onload=topstat_set_graphic_lore
+onvartransmit=topstat_set_graphic_lore{varplayer_1160}
 onstattransmit=script815{summoning}
 
 // 750:3

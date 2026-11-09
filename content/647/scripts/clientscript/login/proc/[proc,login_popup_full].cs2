@@ -101,4 +101,4 @@ if_setsize(if_getwidth($component9), $int21, ^setsize_abs, ^setsize_abs, $compon
 if_setposition(0, $int22, ^setpos_abs_centre, ^setpos_abs_bottom, $component10);
 if_sethide(false, $component8);
 if_sethide(false, $component9);
-if_sethide(true, login:com_4);
+if_sethide(true, login:main);

@@ -23,7 +23,7 @@ modelangle=503,1,0
 modelzoom=585
 
 // 138:2
-[com_2]
+[grandtree]
 type=model
 x=54
 y=33
@@ -49,7 +49,7 @@ modelangle=424,8,0
 modelzoom=2073
 
 // 138:4
-[com_4]
+[varrock]
 type=model
 x=394
 y=40
@@ -62,7 +62,7 @@ modelangle=506,2043,0
 modelzoom=1438
 
 // 138:5
-[com_5]
+[al_kharid]
 type=model
 x=406
 y=149
@@ -114,7 +114,7 @@ modelangle=512,0,0
 modelzoom=2000
 
 // 138:9
-[com_9]
+[karamja]
 type=model
 x=219
 y=224
@@ -289,8 +289,8 @@ model=null
 modelzoom=400
 transmitop=1
 op1=Travel
-onmouseover=model_swapper(glidermap:com_9, model_3029)
-onmouseleave=model_swapper(glidermap:com_9, model_3047)
+onmouseover=model_swapper(glidermap:karamja, model_3029)
+onmouseleave=model_swapper(glidermap:karamja, model_3047)
 
 // 138:23
 [grandtree_button]
@@ -304,8 +304,8 @@ model=null
 modelzoom=400
 transmitop=1
 op1=Travel
-onmouseover=model_swapper(glidermap:com_2, model_3045)
-onmouseleave=model_swapper(glidermap:com_2, model_3043)
+onmouseover=model_swapper(glidermap:grandtree, model_3045)
+onmouseleave=model_swapper(glidermap:grandtree, model_3043)
 
 // 138:24
 [mountains_button]
@@ -335,8 +335,8 @@ modelorigin=45,14
 modelzoom=400
 transmitop=1
 op1=Travel
-onmouseover=model_swapper(glidermap:com_4, model_3026)
-onmouseleave=model_swapper(glidermap:com_4, model_3038)
+onmouseover=model_swapper(glidermap:varrock, model_3026)
+onmouseleave=model_swapper(glidermap:varrock, model_3038)
 
 // 138:26
 [desert_button]
@@ -350,8 +350,8 @@ model=null
 modelzoom=10
 transmitop=1
 op1=Travel
-onmouseover=model_swapper(glidermap:com_5, model_3027)
-onmouseleave=model_swapper(glidermap:com_5, model_3025)
+onmouseover=model_swapper(glidermap:al_kharid, model_3027)
+onmouseleave=model_swapper(glidermap:al_kharid, model_3025)
 
 // 138:27
 [com_27]

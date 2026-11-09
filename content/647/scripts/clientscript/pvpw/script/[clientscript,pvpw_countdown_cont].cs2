@@ -1,0 +1,7 @@
+// 1178
+[clientscript,pvpw_countdown_cont]
+%varclient_548 = max(0, calc(%varclient_548 - 1));
+if_settext(tostring(calc(%varclient_548 * 2 / 100)), statusicons:pvpw_countdown);
+if (%varclient_548 <= 0) {
+    if_setontimer(null, statusicons:pvpw_countdown);
+}

@@ -17,5 +17,5 @@ if_setsize(519, %varclient_1037, ^setsize_abs, ^setsize_abs, toplevel_fullscreen
 if_setposition(0, 23, ^setpos_abs_left, ^setpos_abs_bottom, toplevel_fullscreen:chattop);
 if_setposition(0, calc(if_gety(toplevel_fullscreen:chattop) - 94), ^setpos_abs_left, ^setpos_abs_top, toplevel_fullscreen:chatbox_resize_dragger);
 if_setposition(0, calc(if_gety(toplevel_fullscreen:chattop) - 69), ^setpos_abs_left, ^setpos_abs_top, toplevel_fullscreen:pmchat);
-~script1301(chatdefault:com_59, chatdefault:scrollarea);
+~script1301(chatdefault:scrollbar, chatdefault:scrollarea);
 ~rebuildchatbox;

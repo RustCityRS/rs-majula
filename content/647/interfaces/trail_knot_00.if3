@@ -22,7 +22,7 @@ transmitop=10
 op10= 
 
 // 1002:2
-[com_2]
+[main]
 type=layer
 x=-6
 y=-10
@@ -40,7 +40,7 @@ x=38
 y=312
 width=454
 height=32
-layer=com_2
+layer=main
 graphic="v2_stone_borders_alt,2"
 tiling=yes
 colour=0xffffffff
@@ -54,7 +54,7 @@ x=486
 y=42
 width=32
 height=274
-layer=com_2
+layer=main
 graphic="v2_stone_borders_alt,3"
 tiling=yes
 colour=0xffffffff
@@ -68,7 +68,7 @@ x=6
 y=42
 width=7
 height=276
-layer=com_2
+layer=main
 graphic="v2_stone_borders_alt,1"
 tiling=yes
 colour=0xffffffff
@@ -82,7 +82,7 @@ x=6
 y=312
 width=32
 height=32
-layer=com_2
+layer=main
 graphic="v2_stone_borders_alt,6"
 colour=0xffffffff
 transmitop=10
@@ -95,7 +95,7 @@ x=486
 y=10
 width=32
 height=32
-layer=com_2
+layer=main
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 transmitop=10
@@ -108,7 +108,7 @@ x=486
 y=312
 width=32
 height=32
-layer=com_2
+layer=main
 graphic="v2_stone_borders_alt,7"
 colour=0xffffffff
 transmitop=10
@@ -121,7 +121,7 @@ x=38
 y=10
 width=451
 height=32
-layer=com_2
+layer=main
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -135,7 +135,7 @@ x=6
 y=10
 width=32
 height=32
-layer=com_2
+layer=main
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 transmitop=10
@@ -148,7 +148,7 @@ x=-31
 y=25
 width=474
 height=235
-layer=com_2
+layer=main
 transmitop=10
 op10=  
 
@@ -778,7 +778,7 @@ op10=
 onload=script3631(event_com)
 
 // 1002:55
-[com_55]
+[track0_shade1]
 type=graphic
 x=164
 y=179
@@ -1239,7 +1239,7 @@ op10=
 onload=script3631(event_com)
 
 // 1002:87
-[com_87]
+[track2_shade1]
 type=graphic
 x=214
 y=179
@@ -1481,7 +1481,7 @@ op10=
 onload=script3631(event_com)
 
 // 1002:104
-[com_104]
+[track2_shade]
 type=graphic
 x=189
 y=54
@@ -1640,7 +1640,7 @@ op10=
 onload=script3631(event_com)
 
 // 1002:115
-[com_115]
+[track1_shade2]
 type=graphic
 x=164
 y=29

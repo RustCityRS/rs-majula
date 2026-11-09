@@ -16,4 +16,4 @@ if (if_getheight(lobbyscreen_pane_playerinfo:email) > 30) {
 if ($int0 = $int1) {
     return;
 }
-~script3004($int1, $int0);
+~lobbyscreen_playerinfo_bar_open($int1, $int0);

@@ -3,5 +3,5 @@
 if (activeclansettings_find_listened = true) {
     ~script4283;
 } else {
-    if_setonclansettingstransmit("script4282", interface_1095:content_layer);
+    if_setonclansettingstransmit("script4282", clan_join_invite:content_layer);
 }

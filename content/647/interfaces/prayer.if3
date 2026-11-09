@@ -93,7 +93,7 @@ height=19
 widthmode=proportion
 ymode=abs_bottom
 layer=base
-onload=script1698
+onload=prayer_if_stats_init
 
 // 271:10
 [com_10]
@@ -515,7 +515,7 @@ height=25
 layer=customise
 transmitop=1
 op1=Confirm Selection
-onmouseleave=clanwars_setup_side_gfx_icon(prayer:confirm_text, prayer:custom_confirm)
+onmouseleave=prayer_custom_confirm_mouseleave(prayer:confirm_text, prayer:custom_confirm)
 onmouserepeat=prayer_custom_confirm_mouseover(prayer:confirm_text, prayer:custom_confirm)
 
 // 271:44

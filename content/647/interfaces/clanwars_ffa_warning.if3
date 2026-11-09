@@ -128,11 +128,11 @@ layer=universe
 transmitop=1
 op1=Toggle warning
 onload=clanwars_setup_createbox(event_com, 0, 0, 0)
-onmouseover=settrans(clanwars_ffa_warning:com_10, 200)
-onmouseleave=settrans(clanwars_ffa_warning:com_10, 255)
+onmouseover=settrans(clanwars_ffa_warning:nomorewarnings_background, 200)
+onmouseleave=settrans(clanwars_ffa_warning:nomorewarnings_background, 255)
 
 // 793:10
-[com_10]
+[nomorewarnings_background]
 type=rectangle
 width=2
 height=2

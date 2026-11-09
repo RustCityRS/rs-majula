@@ -1,9 +1,0 @@
-// 2087
-[clientscript,script2087]
-if (%varclient_649 <= 5) {
-    if_setcolour(0x3366ff, snp_game_overlay:west_icon_colour);
-} else if (%varclient_649 >= 25) {
-    if_setcolour(0xe12323, snp_game_overlay:west_icon_colour);
-} else {
-    if_setcolour(0x666666, snp_game_overlay:west_icon_colour);
-}

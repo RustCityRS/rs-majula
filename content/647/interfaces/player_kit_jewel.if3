@@ -1,5 +1,5 @@
 // 725:0
-[com_0]
+[background]
 type=layer
 width=512
 height=334
@@ -11,7 +11,7 @@ x=17
 y=25
 width=488
 height=305
-layer=com_0
+layer=background
 colour=0x000000
 fill=yes
 trans=200
@@ -23,7 +23,7 @@ x=14
 y=25
 width=485
 height=300
-layer=com_0
+layer=background
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -36,7 +36,7 @@ x=13
 y=20
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,4"
 colour=0xffffffff
 
@@ -46,7 +46,7 @@ type=graphic
 y=53
 width=32
 height=241
-layer=com_0
+layer=background
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -58,7 +58,7 @@ x=13
 y=294
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 
@@ -69,7 +69,7 @@ x=45
 y=306
 width=423
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -82,7 +82,7 @@ x=13
 y=37
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,9"
 colour=0xffffffff
 
@@ -93,7 +93,7 @@ x=468
 y=20
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,5"
 colour=0xffffffff
 
@@ -104,7 +104,7 @@ x=24
 y=35
 width=465
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0xffffffff
@@ -116,7 +116,7 @@ x=480
 y=51
 width=32
 height=243
-layer=com_0
+layer=background
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -128,7 +128,7 @@ x=468
 y=37
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,10"
 colour=0xffffffff
 
@@ -139,7 +139,7 @@ x=468
 y=294
 width=32
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 
@@ -150,7 +150,7 @@ x=44
 y=7
 width=424
 height=32
-layer=com_0
+layer=background
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0xffffffff
@@ -162,7 +162,7 @@ x=208
 y=62
 width=130
 height=246
-layer=com_0
+layer=background
 
 // 725:15
 [com_15]
@@ -171,7 +171,7 @@ x=25
 y=73
 width=173
 height=235
-layer=com_0
+layer=background
 
 // 725:16
 [com_16]
@@ -180,14 +180,14 @@ x=-6
 y=12
 width=512
 height=334
-layer=com_0
+layer=background
 
 // 725:17
 [line_layer]
 type=layer
 width=512
 height=334
-layer=com_0
+layer=background
 
 // 725:18
 [line1]
@@ -870,8 +870,8 @@ x=25
 y=111
 width=173
 height=194
-onload=items_guide_line(event_com)
-onvarctransmit=script329(event_com){varclient_785}
+onload=player_kit_bracelet_load(event_com)
+onvarctransmit=player_kit_bracelet_silver_select_varc(event_com){varclient_785}
 
 // 725:86
 [gold_layer]
@@ -881,7 +881,7 @@ y=111
 width=173
 height=194
 hide=yes
-onvarctransmit=script330(event_com){varclient_784}
+onvarctransmit=player_kit_bracelet_gold_select_varc(event_com){varclient_784}
 
 // 725:87
 [silver_tab]
@@ -971,7 +971,7 @@ onmouseleave=graphic_swapper(event_com, "player_kit_fancy_off,6")
 onmouserepeat=graphic_swapper(event_com, "player_kit_fancy,6")
 
 // 725:93
-[com_93]
+[paybutton_thumb]
 type=graphic
 x=45
 y=8

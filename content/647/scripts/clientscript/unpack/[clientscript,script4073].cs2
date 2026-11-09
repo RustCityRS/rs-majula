@@ -2,8 +2,8 @@
 [clientscript,script4073]
 if (%varplayerbit_8669 = 0) {
     %varclient_1432 = 0;
-    ~warguild_show_single(warguild_token_choice:com_2);
+    ~warguild_show_single(warguild_token_choice:single_token_button);
 } else {
     %varclient_1432 = 0;
-    ~warguild_show_multi(warguild_token_choice:com_3);
+    ~warguild_show_multi(warguild_token_choice:multi_token_button);
 }

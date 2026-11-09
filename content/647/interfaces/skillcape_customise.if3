@@ -1,5 +1,5 @@
 // 20:0
-[com_0]
+[background]
 type=graphic
 x=4
 y=24
@@ -15,17 +15,17 @@ type=graphic
 width=60
 height=60
 xmode=abs_centre
-layer=com_34
+layer=skillcape_colour1
 graphic="aif_bronze_icon_button_1,0"
 
 // 20:2
-[com_2]
+[skillcape_colour_button_1]
 type=rectangle
 y=9
 width=40
 height=40
 xmode=abs_centre
-layer=com_34
+layer=skillcape_colour1
 colour=0xffffff
 fill=yes
 onmouseleave=deltooltip(skillcape_customise:com_204)
@@ -33,13 +33,13 @@ onvartransmit=script4614(event_com){varplayer_2172}
 onmouserepeat=aif_tooltip(skillcape_customise:com_204, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 20:3
-[com_3]
+[shiney1]
 type=graphic
 y=8
 width=42
 height=42
 xmode=abs_centre
-layer=com_34
+layer=skillcape_colour1
 graphic=aif_colour_display_1
 
 // 20:4
@@ -48,17 +48,17 @@ type=graphic
 width=60
 height=60
 xmode=abs_centre
-layer=com_95
+layer=skillcape_colour4
 graphic="aif_bronze_icon_button_1,0"
 
 // 20:5
-[com_5]
+[skillcape_colour_button_4]
 type=rectangle
 y=9
 width=40
 height=40
 xmode=abs_centre
-layer=com_95
+layer=skillcape_colour4
 colour=0xffffff
 fill=yes
 onmouseleave=deltooltip(skillcape_customise:com_204)
@@ -66,13 +66,13 @@ onvartransmit=script4614(event_com){varplayer_2173}
 onmouserepeat=aif_tooltip(skillcape_customise:com_204, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 20:6
-[com_6]
+[shiney4]
 type=graphic
 y=8
 width=42
 height=42
 xmode=abs_centre
-layer=com_95
+layer=skillcape_colour4
 graphic=aif_colour_display_1
 
 // 20:7
@@ -81,17 +81,17 @@ type=graphic
 width=60
 height=60
 xmode=abs_centre
-layer=com_71
+layer=skillcape_colour2
 graphic="aif_bronze_icon_button_1,0"
 
 // 20:8
-[com_8]
+[skillcape_colour_button_2]
 type=rectangle
 y=9
 width=40
 height=40
 xmode=abs_centre
-layer=com_71
+layer=skillcape_colour2
 colour=0xffffff
 fill=yes
 onmouseleave=deltooltip(skillcape_customise:com_204)
@@ -99,13 +99,13 @@ onvartransmit=script4614(event_com){varplayer_2172}
 onmouserepeat=aif_tooltip(skillcape_customise:com_204, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 20:9
-[com_9]
+[shiney2]
 type=graphic
 y=8
 width=42
 height=42
 xmode=abs_centre
-layer=com_71
+layer=skillcape_colour2
 graphic=aif_colour_display_1
 
 // 20:10
@@ -114,17 +114,17 @@ type=graphic
 width=60
 height=60
 xmode=abs_centre
-layer=com_83
+layer=skillcape_colour3
 graphic="aif_bronze_icon_button_1,0"
 
 // 20:11
-[com_11]
+[skillcape_colour_button_3]
 type=rectangle
 y=9
 width=40
 height=40
 xmode=abs_centre
-layer=com_83
+layer=skillcape_colour3
 colour=0xffffff
 fill=yes
 onmouseleave=deltooltip(skillcape_customise:com_204)
@@ -132,13 +132,13 @@ onvartransmit=script4614(event_com){varplayer_2173}
 onmouserepeat=aif_tooltip(skillcape_customise:com_204, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 20:12
-[com_12]
+[shiney3]
 type=graphic
 y=8
 width=42
 height=42
 xmode=abs_centre
-layer=com_83
+layer=skillcape_colour3
 graphic=aif_colour_display_1
 
 // 20:13
@@ -150,7 +150,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_39
+layer=picker_layer1
 graphic=window_texture_2
 tiling=yes
 
@@ -161,18 +161,18 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_39
+layer=picker_layer1
 colour=0x584c3c
 
 // 20:15
-[com_15]
+[picker_colour_top1]
 type=rectangle
 x=6
 y=-18
 width=15
 height=15
 ymode=abs_centre
-layer=com_39
+layer=picker_layer1
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -180,26 +180,26 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:16
-[com_16]
+[picker_border_top1]
 type=rectangle
 x=6
 y=-18
 width=15
 height=15
 ymode=abs_centre
-layer=com_39
+layer=picker_layer1
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:17
-[com_17]
+[picker_colour_middle1]
 type=rectangle
 x=6
 width=15
 height=15
 ymode=abs_centre
-layer=com_39
+layer=picker_layer1
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -207,26 +207,26 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:18
-[com_18]
+[picker_border_middle1]
 type=rectangle
 x=6
 width=15
 height=15
 ymode=abs_centre
-layer=com_39
+layer=picker_layer1
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:19
-[com_19]
+[picker_colour_bottom1]
 type=rectangle
 x=6
 y=18
 width=15
 height=15
 ymode=abs_centre
-layer=com_39
+layer=picker_layer1
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -234,44 +234,44 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:20
-[com_20]
+[picker_border_bottom1]
 type=rectangle
 x=6
 y=18
 width=15
 height=15
 ymode=abs_centre
-layer=com_39
+layer=picker_layer1
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:21
-[com_21]
+[popout_top1]
 type=graphic
 width=10
 height=9
-layer=com_40
+layer=popout_arrow_layer1
 graphic="aif_browngrad_topbot,0"
 
 // 20:22
-[com_22]
+[popout_middle1]
 type=graphic
 width=10
 height=18
 heightmode=minus
 ymode=abs_centre
-layer=com_40
+layer=popout_arrow_layer1
 graphic="aif_browngrad_fill,0"
 tiling=yes
 
 // 20:23
-[com_23]
+[popout_bottom1]
 type=graphic
 width=10
 height=9
 ymode=abs_bottom
-layer=com_40
+layer=popout_arrow_layer1
 graphic="aif_browngrad_topbot,0"
 vflip=yes
 
@@ -382,7 +382,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 20:34
-[com_34]
+[skillcape_colour1]
 type=layer
 y=7
 width=60
@@ -395,7 +395,7 @@ onmouseover=clan_colour_mouseover(skillcape_customise:border_1, "aif_bronze_icon
 onmouseleave=clan_colour_mouseover(skillcape_customise:border_1, "aif_bronze_icon_button_1,0")
 
 // 20:35
-[com_35]
+[motif_colour1_text]
 type=text
 y=59
 width=188
@@ -409,7 +409,7 @@ textalignv=centre
 colour=0x746e6e
 
 // 20:36
-[com_36]
+[colour_popout1]
 type=layer
 x=104
 y=7
@@ -418,13 +418,13 @@ height=60
 layer=colour1
 
 // 20:37
-[com_37]
+[colour_instructions]
 type=text
 y=-2
 width=220
 height=20
 xmode=abs_centre
-layer=com_61
+layer=colour_layer
 textfont=p11_full
 text=Select a colour to edit:
 textalignh=centre
@@ -437,38 +437,38 @@ x=11
 y=17
 width=146
 height=86
-layer=com_61
+layer=colour_layer
 
 // 20:39
-[com_39]
+[picker_layer1]
 type=layer
 x=10
 width=10
 widthmode=minus
 heightmode=minus
 xmode=abs_right
-layer=com_36
+layer=colour_popout1
 
 // 20:40
-[com_40]
+[popout_arrow_layer1]
 type=layer
 width=10
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_36
-onmouseover=script4588(skillcape_customise:com_21, "aif_browngrad_topbot,1", skillcape_customise:com_22, "aif_browngrad_fill,1", skillcape_customise:com_23, "aif_browngrad_topbot,1")
-onmouseleave=script4588(skillcape_customise:com_21, "aif_browngrad_topbot,0", skillcape_customise:com_22, "aif_browngrad_fill,0", skillcape_customise:com_23, "aif_browngrad_topbot,0")
-onclick=script4543(event_com, skillcape_customise:com_41, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
+layer=colour_popout1
+onmouseover=clan_colour_popout_mouseover(skillcape_customise:popout_top1, "aif_browngrad_topbot,1", skillcape_customise:popout_middle1, "aif_browngrad_fill,1", skillcape_customise:popout_bottom1, "aif_browngrad_topbot,1")
+onmouseleave=clan_colour_popout_mouseover(skillcape_customise:popout_top1, "aif_browngrad_topbot,0", skillcape_customise:popout_middle1, "aif_browngrad_fill,0", skillcape_customise:popout_bottom1, "aif_browngrad_topbot,0")
+onclick=script4543(event_com, skillcape_customise:popout_arrow1, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
 
 // 20:41
-[com_41]
+[popout_arrow1]
 type=graphic
 x=-5
 width=20
 height=20
 ymode=abs_centre
-layer=com_40
+layer=popout_arrow_layer1
 graphic="aif_symbol_set_1,3"
 
 // 20:42
@@ -478,7 +478,7 @@ x=163
 y=17
 width=146
 height=86
-layer=com_61
+layer=colour_layer
 
 // 20:43
 [colour3]
@@ -487,7 +487,7 @@ x=11
 y=106
 width=146
 height=86
-layer=com_61
+layer=colour_layer
 
 // 20:44
 [colour4]
@@ -496,7 +496,7 @@ x=163
 y=106
 width=146
 height=86
-layer=com_61
+layer=colour_layer
 
 // 20:45
 [com_45]
@@ -596,7 +596,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 20:54
-[com_54]
+[skillcape_cape]
 type=layer
 x=333
 y=1
@@ -606,13 +606,13 @@ layer=content_layer
 onload=skillcape_build_preview
 
 // 20:55
-[com_55]
+[cape]
 type=model
 width=101
 height=204
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_57
+layer=cape_model
 model=model_65297
 modelorigin=0,101
 modelangle=0,1024,0
@@ -625,10 +625,10 @@ width=16384
 height=16384
 widthmode=proportion
 heightmode=proportion
-layer=com_54
+layer=skillcape_cape
 
 // 20:57
-[com_57]
+[cape_model]
 type=layer
 width=8
 height=8
@@ -636,7 +636,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_54
+layer=skillcape_cape
 
 // 20:58
 [reset_graphic]
@@ -647,7 +647,7 @@ width=21
 height=21
 xmode=abs_right
 ymode=abs_bottom
-layer=com_54
+layer=skillcape_cape
 graphic="lobby_world_reset,0"
 colour=0x9ca370
 transmitop=1
@@ -656,7 +656,7 @@ onmouseover=graphic_swapper(event_com, "lobby_world_reset,1")
 onmouseleave=graphic_swapper(event_com, "lobby_world_reset,0")
 
 // 20:59
-[com_59]
+[customisation_layer]
 type=layer
 x=5
 y=3
@@ -674,12 +674,12 @@ xmode=abs_centre
 layer=content_layer
 
 // 20:61
-[com_61]
+[colour_layer]
 type=layer
 y=22
 width=323
 height=199
-layer=com_59
+layer=customisation_layer
 
 // 20:62
 [com_62]
@@ -779,7 +779,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 20:71
-[com_71]
+[skillcape_colour2]
 type=layer
 y=7
 width=60
@@ -792,7 +792,7 @@ onmouseover=clan_colour_mouseover(skillcape_customise:border_2, "aif_bronze_icon
 onmouseleave=clan_colour_mouseover(skillcape_customise:border_2, "aif_bronze_icon_button_1,0")
 
 // 20:72
-[com_72]
+[motif_colour2_text]
 type=text
 y=59
 width=188
@@ -806,7 +806,7 @@ textalignv=centre
 colour=0x746e6e
 
 // 20:73
-[com_73]
+[colour_popout2]
 type=layer
 x=104
 y=7
@@ -912,7 +912,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 20:83
-[com_83]
+[skillcape_colour3]
 type=layer
 y=7
 width=60
@@ -925,7 +925,7 @@ onmouseover=clan_colour_mouseover(skillcape_customise:border_3, "aif_bronze_icon
 onmouseleave=clan_colour_mouseover(skillcape_customise:border_3, "aif_bronze_icon_button_1,0")
 
 // 20:84
-[com_84]
+[colour1_text]
 type=text
 y=59
 width=188
@@ -939,7 +939,7 @@ textalignv=centre
 colour=0x746e6e
 
 // 20:85
-[com_85]
+[colour_popout3]
 type=layer
 x=104
 y=7
@@ -1045,7 +1045,7 @@ graphic="aif_overlay_frame_gold_corner_2,2"
 hflip=yes
 
 // 20:95
-[com_95]
+[skillcape_colour4]
 type=layer
 y=7
 width=60
@@ -1058,7 +1058,7 @@ onmouseover=clan_colour_mouseover(skillcape_customise:border_4, "aif_bronze_icon
 onmouseleave=clan_colour_mouseover(skillcape_customise:border_4, "aif_bronze_icon_button_1,0")
 
 // 20:96
-[com_96]
+[colour2_text]
 type=text
 y=59
 width=188
@@ -1072,7 +1072,7 @@ textalignv=centre
 colour=0x746e6e
 
 // 20:97
-[com_97]
+[colour_popout4]
 type=layer
 x=104
 y=7
@@ -1123,7 +1123,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=button_layer
-onload=script4201(event_com, struct_1736)
+onload=aif_build_button_layer(event_com, struct_1736)
 
 // 20:102
 [com_102]
@@ -1231,7 +1231,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=button_layer
-onload=script4201(event_com, struct_1737)
+onload=aif_build_button_layer(event_com, struct_1737)
 
 // 20:112
 [com_112]
@@ -1241,7 +1241,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=button_layer
-onload=script4201(event_com, struct_1738)
+onload=aif_build_button_layer(event_com, struct_1738)
 
 // 20:113
 [com_113]
@@ -1251,7 +1251,7 @@ height=4
 widthmode=minus
 heightmode=minus
 layer=button_layer
-onload=script4201(event_com, struct_1739)
+onload=aif_build_button_layer(event_com, struct_1739)
 
 // 20:114
 [ok_button]
@@ -1288,7 +1288,7 @@ text=Done
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4210(event_com, verdana_13pt_regular, 0xebe0bc, 0x5a4e3a)
+onload=aif_text_layer_build(event_com, verdana_13pt_regular, 0xebe0bc, 0x5a4e3a)
 
 // 20:117
 [com_117]
@@ -1300,7 +1300,7 @@ heightmode=minus
 layer=button_layer
 hide=yes
 noclickthrough=yes
-onload=script4201(event_com, struct_1740)
+onload=aif_build_button_layer(event_com, struct_1740)
 
 // 20:118
 [com_118]
@@ -1641,10 +1641,10 @@ text=Skillcape Customiser
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 20:149
-[com_149]
+[dropshadow_side_graphic]
 type=graphic
 x=-1
 y=1
@@ -1657,7 +1657,7 @@ graphic=button_dropshadow_left
 tiling=yes
 
 // 20:150
-[com_150]
+[dropshadow_bottom_graphic]
 type=graphic
 y=-1
 width=3
@@ -1669,7 +1669,7 @@ graphic=button_dropshadow_bottom
 tiling=yes
 
 // 20:151
-[com_151]
+[dropshadow_corner_graphic]
 type=graphic
 x=-1
 y=-1
@@ -1682,14 +1682,14 @@ graphic=button_dropshadow_corner
 tiling=yes
 
 // 20:152
-[com_152]
+[picker_layer2]
 type=layer
 x=10
 width=10
 widthmode=minus
 heightmode=minus
 xmode=abs_right
-layer=com_73
+layer=colour_popout2
 
 // 20:153
 [com_153]
@@ -1700,7 +1700,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_152
+layer=picker_layer2
 graphic=window_texture_2
 tiling=yes
 
@@ -1711,18 +1711,18 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_152
+layer=picker_layer2
 colour=0x584c3c
 
 // 20:155
-[com_155]
+[picker_colour_top2]
 type=rectangle
 x=6
 y=-18
 width=15
 height=15
 ymode=abs_centre
-layer=com_152
+layer=picker_layer2
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -1730,26 +1730,26 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:156
-[com_156]
+[picker_border_top2]
 type=rectangle
 x=6
 y=-18
 width=15
 height=15
 ymode=abs_centre
-layer=com_152
+layer=picker_layer2
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:157
-[com_157]
+[picker_colour_middle2]
 type=rectangle
 x=6
 width=15
 height=15
 ymode=abs_centre
-layer=com_152
+layer=picker_layer2
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -1757,26 +1757,26 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:158
-[com_158]
+[picker_border_middle2]
 type=rectangle
 x=6
 width=15
 height=15
 ymode=abs_centre
-layer=com_152
+layer=picker_layer2
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:159
-[com_159]
+[picker_colour_bottom2]
 type=rectangle
 x=6
 y=18
 width=15
 height=15
 ymode=abs_centre
-layer=com_152
+layer=picker_layer2
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -1784,78 +1784,78 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:160
-[com_160]
+[picker_border_bottom2]
 type=rectangle
 x=6
 y=18
 width=15
 height=15
 ymode=abs_centre
-layer=com_152
+layer=picker_layer2
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:161
-[com_161]
+[popout_arrow_layer2]
 type=layer
 width=10
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_73
-onmouseover=script4588(skillcape_customise:com_162, "aif_browngrad_topbot,1", skillcape_customise:com_163, "aif_browngrad_fill,1", skillcape_customise:com_164, "aif_browngrad_topbot,1")
-onmouseleave=script4588(skillcape_customise:com_162, "aif_browngrad_topbot,0", skillcape_customise:com_163, "aif_browngrad_fill,0", skillcape_customise:com_164, "aif_browngrad_topbot,0")
-onclick=script4543(event_com, skillcape_customise:com_165, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
+layer=colour_popout2
+onmouseover=clan_colour_popout_mouseover(skillcape_customise:popout_top2, "aif_browngrad_topbot,1", skillcape_customise:popout_middle2, "aif_browngrad_fill,1", skillcape_customise:popout_bottom2, "aif_browngrad_topbot,1")
+onmouseleave=clan_colour_popout_mouseover(skillcape_customise:popout_top2, "aif_browngrad_topbot,0", skillcape_customise:popout_middle2, "aif_browngrad_fill,0", skillcape_customise:popout_bottom2, "aif_browngrad_topbot,0")
+onclick=script4543(event_com, skillcape_customise:popout_arrow2, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
 
 // 20:162
-[com_162]
+[popout_top2]
 type=graphic
 width=10
 height=9
-layer=com_161
+layer=popout_arrow_layer2
 graphic="aif_browngrad_topbot,0"
 
 // 20:163
-[com_163]
+[popout_middle2]
 type=graphic
 width=10
 height=18
 heightmode=minus
 ymode=abs_centre
-layer=com_161
+layer=popout_arrow_layer2
 graphic="aif_browngrad_fill,0"
 tiling=yes
 
 // 20:164
-[com_164]
+[popout_bottom2]
 type=graphic
 width=10
 height=9
 ymode=abs_bottom
-layer=com_161
+layer=popout_arrow_layer2
 graphic="aif_browngrad_topbot,0"
 vflip=yes
 
 // 20:165
-[com_165]
+[popout_arrow2]
 type=graphic
 x=-5
 width=20
 height=20
 ymode=abs_centre
-layer=com_161
+layer=popout_arrow_layer2
 graphic="aif_symbol_set_1,3"
 
 // 20:166
-[com_166]
+[picker_layer3]
 type=layer
 x=10
 width=10
 widthmode=minus
 heightmode=minus
 xmode=abs_right
-layer=com_85
+layer=colour_popout3
 
 // 20:167
 [com_167]
@@ -1864,7 +1864,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_166
+layer=picker_layer3
 graphic=window_texture_1
 tiling=yes
 
@@ -1875,18 +1875,18 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_166
+layer=picker_layer3
 colour=0x584c3c
 
 // 20:169
-[com_169]
+[picker_colour_top3]
 type=rectangle
 x=6
 y=-18
 width=15
 height=15
 ymode=abs_centre
-layer=com_166
+layer=picker_layer3
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -1894,26 +1894,26 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:170
-[com_170]
+[picker_border_top3]
 type=rectangle
 x=6
 y=-18
 width=15
 height=15
 ymode=abs_centre
-layer=com_166
+layer=picker_layer3
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:171
-[com_171]
+[picker_colour_middle3]
 type=rectangle
 x=6
 width=15
 height=15
 ymode=abs_centre
-layer=com_166
+layer=picker_layer3
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -1921,26 +1921,26 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:172
-[com_172]
+[picker_border_middle3]
 type=rectangle
 x=6
 width=15
 height=15
 ymode=abs_centre
-layer=com_166
+layer=picker_layer3
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:173
-[com_173]
+[picker_colour_bottom3]
 type=rectangle
 x=6
 y=18
 width=15
 height=15
 ymode=abs_centre
-layer=com_166
+layer=picker_layer3
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -1948,78 +1948,78 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:174
-[com_174]
+[picker_border_bottom3]
 type=rectangle
 x=6
 y=18
 width=15
 height=15
 ymode=abs_centre
-layer=com_166
+layer=picker_layer3
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:175
-[com_175]
+[popout_arrow_layer3]
 type=layer
 width=10
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_85
-onmouseover=script4588(skillcape_customise:com_176, "aif_browngrad_topbot,1", skillcape_customise:com_177, "aif_browngrad_fill,1", skillcape_customise:com_178, "aif_browngrad_topbot,1")
-onmouseleave=script4588(skillcape_customise:com_176, "aif_browngrad_topbot,0", skillcape_customise:com_177, "aif_browngrad_fill,0", skillcape_customise:com_178, "aif_browngrad_topbot,0")
-onclick=script4543(event_com, skillcape_customise:com_179, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
+layer=colour_popout3
+onmouseover=clan_colour_popout_mouseover(skillcape_customise:popout_top3, "aif_browngrad_topbot,1", skillcape_customise:popout_middle3, "aif_browngrad_fill,1", skillcape_customise:popout_bottom3, "aif_browngrad_topbot,1")
+onmouseleave=clan_colour_popout_mouseover(skillcape_customise:popout_top3, "aif_browngrad_topbot,0", skillcape_customise:popout_middle3, "aif_browngrad_fill,0", skillcape_customise:popout_bottom3, "aif_browngrad_topbot,0")
+onclick=script4543(event_com, skillcape_customise:popout_arrow3, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
 
 // 20:176
-[com_176]
+[popout_top3]
 type=graphic
 width=10
 height=9
-layer=com_175
+layer=popout_arrow_layer3
 graphic="aif_browngrad_topbot,0"
 
 // 20:177
-[com_177]
+[popout_middle3]
 type=graphic
 width=10
 height=18
 heightmode=minus
 ymode=abs_centre
-layer=com_175
+layer=popout_arrow_layer3
 graphic="aif_browngrad_fill,0"
 tiling=yes
 
 // 20:178
-[com_178]
+[popout_bottom3]
 type=graphic
 width=10
 height=9
 ymode=abs_bottom
-layer=com_175
+layer=popout_arrow_layer3
 graphic="aif_browngrad_topbot,0"
 vflip=yes
 
 // 20:179
-[com_179]
+[popout_arrow3]
 type=graphic
 x=-5
 width=20
 height=20
 ymode=abs_centre
-layer=com_175
+layer=popout_arrow_layer3
 graphic="aif_symbol_set_1,3"
 
 // 20:180
-[com_180]
+[picker_layer4]
 type=layer
 x=10
 width=10
 widthmode=minus
 heightmode=minus
 xmode=abs_right
-layer=com_97
+layer=colour_popout4
 
 // 20:181
 [com_181]
@@ -2028,7 +2028,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_180
+layer=picker_layer4
 graphic=window_texture_1
 tiling=yes
 
@@ -2039,18 +2039,18 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_180
+layer=picker_layer4
 colour=0x584c3c
 
 // 20:183
-[com_183]
+[picker_colour_top4]
 type=rectangle
 x=6
 y=-18
 width=15
 height=15
 ymode=abs_centre
-layer=com_180
+layer=picker_layer4
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -2058,26 +2058,26 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:184
-[com_184]
+[picker_border_top4]
 type=rectangle
 x=6
 y=-18
 width=15
 height=15
 ymode=abs_centre
-layer=com_180
+layer=picker_layer4
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:185
-[com_185]
+[picker_colour_middle4]
 type=rectangle
 x=6
 width=15
 height=15
 ymode=abs_centre
-layer=com_180
+layer=picker_layer4
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -2085,26 +2085,26 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:186
-[com_186]
+[picker_border_middle4]
 type=rectangle
 x=6
 width=15
 height=15
 ymode=abs_centre
-layer=com_180
+layer=picker_layer4
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:187
-[com_187]
+[picker_colour_bottom4]
 type=rectangle
 x=6
 y=18
 width=15
 height=15
 ymode=abs_centre
-layer=com_180
+layer=picker_layer4
 colour=0xffffff
 fill=yes
 transmitop=1
@@ -2112,67 +2112,67 @@ op1=Apply
 onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
 
 // 20:188
-[com_188]
+[picker_border_bottom4]
 type=rectangle
 x=6
 y=18
 width=15
 height=15
 ymode=abs_centre
-layer=com_180
+layer=picker_layer4
 colour=0x000000
 onmouseover=text_colour_swapper(event_com, 0xf9dba9)
 onmouseleave=text_colour_swapper(event_com, ^black)
 
 // 20:189
-[com_189]
+[popout_arrow_layer4]
 type=layer
 width=10
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_97
-onmouseleave=script4588(skillcape_customise:com_190, "aif_browngrad_topbot,1", skillcape_customise:com_191, "aif_browngrad_fill,1", skillcape_customise:com_192, "aif_browngrad_topbot,1")
-onmouserepeat=script4588(skillcape_customise:com_190, "aif_browngrad_topbot,0", skillcape_customise:com_191, "aif_browngrad_fill,0", skillcape_customise:com_192, "aif_browngrad_topbot,0")
-onclick=script4543(event_com, skillcape_customise:com_193, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
+layer=colour_popout4
+onmouseleave=clan_colour_popout_mouseover(skillcape_customise:popout_top4, "aif_browngrad_topbot,1", skillcape_customise:popout_middle4, "aif_browngrad_fill,1", skillcape_customise:popout_bottom4, "aif_browngrad_topbot,1")
+onmouserepeat=clan_colour_popout_mouseover(skillcape_customise:popout_top4, "aif_browngrad_topbot,0", skillcape_customise:popout_middle4, "aif_browngrad_fill,0", skillcape_customise:popout_bottom4, "aif_browngrad_topbot,0")
+onclick=script4543(event_com, skillcape_customise:popout_arrow4, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
 
 // 20:190
-[com_190]
+[popout_top4]
 type=graphic
 width=10
 height=9
-layer=com_189
+layer=popout_arrow_layer4
 graphic="aif_browngrad_topbot,0"
 
 // 20:191
-[com_191]
+[popout_middle4]
 type=graphic
 width=10
 height=18
 heightmode=minus
 ymode=abs_centre
-layer=com_189
+layer=popout_arrow_layer4
 graphic="aif_browngrad_fill,0"
 tiling=yes
 
 // 20:192
-[com_192]
+[popout_bottom4]
 type=graphic
 width=10
 height=9
 ymode=abs_bottom
-layer=com_189
+layer=popout_arrow_layer4
 graphic="aif_browngrad_topbot,0"
 vflip=yes
 
 // 20:193
-[com_193]
+[popout_arrow4]
 type=graphic
 x=-5
 width=20
 height=20
 ymode=abs_centre
-layer=com_189
+layer=popout_arrow_layer4
 graphic="aif_symbol_set_1,3"
 
 // 20:194

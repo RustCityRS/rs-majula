@@ -15,7 +15,7 @@ switch_int ($key2) {
         }
     case default :
         if ($key2 = ^key_v & keyheld_ctrl = true) {
-            ~script4367;
+            ~clan_paste_qfc;
             return;
         }
         if (string_length(%varclient_1865) < 13) {

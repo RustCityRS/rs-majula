@@ -1,5 +1,5 @@
 // 913:0
-[com_0]
+[main]
 type=layer
 width=453
 height=300
@@ -14,7 +14,7 @@ width=296
 height=110
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=main
 
 // 913:2
 [help_layer]
@@ -23,7 +23,7 @@ width=453
 height=300
 xmode=abs_centre
 ymode=abs_centre
-layer=com_0
+layer=main
 hide=yes
 
 // 913:3
@@ -37,7 +37,7 @@ layer=help_layer
 op10=     
 
 // 913:4
-[com_4]
+[help_bg]
 type=graphic
 widthmode=minus
 heightmode=minus
@@ -46,7 +46,7 @@ graphic=window_texture
 tiling=yes
 
 // 913:5
-[com_5]
+[help_top_left]
 type=graphic
 width=38
 height=72
@@ -57,7 +57,7 @@ colour=0xffffffff
 op10=   
 
 // 913:6
-[com_6]
+[help_bottom_left]
 type=graphic
 width=38
 height=72
@@ -70,7 +70,7 @@ colour=0xffffffff
 op10=      
 
 // 913:7
-[com_7]
+[help_left_side]
 type=graphic
 y=72
 width=7
@@ -84,7 +84,7 @@ colour=0xffffffff
 op10=     
 
 // 913:8
-[com_8]
+[help_right_side]
 type=graphic
 y=38
 width=7
@@ -98,7 +98,7 @@ colour=0xffffffff
 op10=      
 
 // 913:9
-[com_9]
+[help_bottom_side]
 type=graphic
 x=38
 width=72
@@ -113,7 +113,7 @@ colour=0xffffffff
 op10=      
 
 // 913:10
-[com_10]
+[help_top_right]
 type=graphic
 width=38
 height=72
@@ -124,7 +124,7 @@ colour=0xffffffff
 op10=      
 
 // 913:11
-[com_11]
+[help_bottom_right]
 type=graphic
 width=38
 height=72
@@ -137,7 +137,7 @@ colour=0xffffffff
 op10=       
 
 // 913:12
-[com_12]
+[help_top_side]
 type=graphic
 x=38
 width=72
@@ -164,7 +164,7 @@ op1=Close
 op10=  
 onmouseover=graphic_swapper(event_com, "intro_close_button,1")
 onmouseleave=graphic_swapper(event_com, "intro_close_button,0")
-onop=lobbyscreen_report_abuse_help_close(lobbyscreen_report_abuse_ignore:help_title_text, lobbyscreen_report_abuse_ignore:help_body_text, lobbyscreen_report_abuse_ignore:help_body, lobbyscreen_report_abuse_ignore:help_layer, lobbyscreen_report_abuse_ignore:com_0)
+onop=lobbyscreen_report_abuse_help_close(lobbyscreen_report_abuse_ignore:help_title_text, lobbyscreen_report_abuse_ignore:help_body_text, lobbyscreen_report_abuse_ignore:help_body, lobbyscreen_report_abuse_ignore:help_layer, lobbyscreen_report_abuse_ignore:main)
 
 // 913:14
 [help_title_text]
@@ -206,7 +206,7 @@ layer=ignore_body
 op10=    
 
 // 913:17
-[com_17]
+[background]
 type=graphic
 widthmode=minus
 heightmode=minus
@@ -226,8 +226,8 @@ ymode=abs_bottom
 layer=ignore_body
 op1=Ignore Player
 op10= 
-onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_ignore:com_24, graphic_4693, lobbyscreen_report_abuse_ignore:com_25, graphic_4694, lobbyscreen_report_abuse_ignore:com_26, graphic_4695)
-onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_ignore:com_24, graphic_4690, lobbyscreen_report_abuse_ignore:com_25, graphic_4691, lobbyscreen_report_abuse_ignore:com_26, graphic_4692)
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_ignore:yes_bg_left, graphic_4693, lobbyscreen_report_abuse_ignore:yes_bg_mid, graphic_4694, lobbyscreen_report_abuse_ignore:yes_bg_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_ignore:yes_bg_left, graphic_4690, lobbyscreen_report_abuse_ignore:yes_bg_mid, graphic_4691, lobbyscreen_report_abuse_ignore:yes_bg_right, graphic_4692)
 onop=lobbyscreen_report_abuse_ignore_choose(1)
 
 // 913:19
@@ -294,7 +294,7 @@ colour=0xebe0bc
 op10= 
 
 // 913:24
-[com_24]
+[yes_bg_left]
 type=graphic
 width=15
 height=31
@@ -304,7 +304,7 @@ colour=0x000000
 op10= 
 
 // 913:25
-[com_25]
+[yes_bg_mid]
 type=graphic
 x=15
 width=15
@@ -316,7 +316,7 @@ colour=0x000000
 op10= 
 
 // 913:26
-[com_26]
+[yes_bg_right]
 type=graphic
 width=15
 height=31
@@ -474,7 +474,7 @@ op1=Help
 op10=  
 onmouseover=graphic_swapper(event_com, graphic_4697)
 onmouseleave=graphic_swapper(event_com, graphic_4696)
-onop=lobbyscreen_report_abuse_help(6, lobbyscreen_report_abuse_ignore:help_title_text, lobbyscreen_report_abuse_ignore:help_body_text, lobbyscreen_report_abuse_ignore:help_body, lobbyscreen_report_abuse_ignore:help_layer, lobbyscreen_report_abuse_ignore:com_0)
+onop=lobbyscreen_report_abuse_help(6, lobbyscreen_report_abuse_ignore:help_title_text, lobbyscreen_report_abuse_ignore:help_body_text, lobbyscreen_report_abuse_ignore:help_body, lobbyscreen_report_abuse_ignore:help_layer, lobbyscreen_report_abuse_ignore:main)
 
 // 913:38
 [close_button]

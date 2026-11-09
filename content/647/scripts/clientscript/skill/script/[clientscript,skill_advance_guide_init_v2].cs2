@@ -18,7 +18,7 @@ if ($int0 > 1) {
 if ($int0 >= 2) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 1);
     if_settext($string1, skill_guide_v2:subsection_button_2);
-    if_setposition(353, 78, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 78, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_2);
 } else {
     if_settext("", skill_guide_v2:subsection_button_2);
@@ -27,7 +27,7 @@ if ($int0 >= 2) {
 if ($int0 >= 3) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 2);
     if_settext($string1, skill_guide_v2:subsection_button_3);
-    if_setposition(353, 95, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 95, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_3);
 } else {
     if_settext("", skill_guide_v2:subsection_button_3);
@@ -36,7 +36,7 @@ if ($int0 >= 3) {
 if ($int0 >= 4) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 3);
     if_settext($string1, skill_guide_v2:subsection_button_4);
-    if_setposition(353, 114, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 114, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_4);
 } else {
     if_settext("", skill_guide_v2:subsection_button_4);
@@ -45,7 +45,7 @@ if ($int0 >= 4) {
 if ($int0 >= 5) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 4);
     if_settext($string1, skill_guide_v2:subsection_button_5);
-    if_setposition(353, 129, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 129, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_5);
 } else {
     if_settext("", skill_guide_v2:subsection_button_5);
@@ -54,7 +54,7 @@ if ($int0 >= 5) {
 if ($int0 >= 6) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 5);
     if_settext($string1, skill_guide_v2:subsection_button_6);
-    if_setposition(353, 146, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 146, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_6);
 } else {
     if_settext("", skill_guide_v2:subsection_button_6);
@@ -63,7 +63,7 @@ if ($int0 >= 6) {
 if ($int0 >= 7) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 6);
     if_settext($string1, skill_guide_v2:subsection_button_7);
-    if_setposition(353, 168, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 168, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_7);
 } else {
     if_settext("", skill_guide_v2:subsection_button_7);
@@ -72,7 +72,7 @@ if ($int0 >= 7) {
 if ($int0 >= 8) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 7);
     if_settext($string1, skill_guide_v2:subsection_button_8);
-    if_setposition(353, 180, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 180, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_8);
 } else {
     if_settext("", skill_guide_v2:subsection_button_8);
@@ -81,7 +81,7 @@ if ($int0 >= 8) {
 if ($int0 >= 9) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 8);
     if_settext($string1, skill_guide_v2:subsection_button_9);
-    if_setposition(353, 197, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 197, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_9);
 } else {
     if_settext("", skill_guide_v2:subsection_button_9);
@@ -90,7 +90,7 @@ if ($int0 >= 9) {
 if ($int0 >= 10) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 9);
     if_settext($string1, skill_guide_v2:subsection_button_10);
-    if_setposition(353, 214, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 214, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_10);
 } else {
     if_settext("", skill_guide_v2:subsection_button_10);
@@ -99,7 +99,7 @@ if ($int0 >= 10) {
 if ($int0 >= 11) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 10);
     if_settext($string1, skill_guide_v2:subsection_button_11);
-    if_setposition(353, 231, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 231, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_11);
 } else {
     if_settext("", skill_guide_v2:subsection_button_11);
@@ -108,7 +108,7 @@ if ($int0 >= 11) {
 if ($int0 >= 12) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 11);
     if_settext($string1, skill_guide_v2:subsection_button_12);
-    if_setposition(353, 248, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 248, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_12);
 } else {
     if_settext("", skill_guide_v2:subsection_button_12);
@@ -117,7 +117,7 @@ if ($int0 >= 12) {
 if ($int0 >= 13) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 12);
     if_settext($string1, skill_guide_v2:subsection_button_13);
-    if_setposition(353, 265, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 265, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_13);
 } else {
     if_settext("", skill_guide_v2:subsection_button_13);
@@ -126,7 +126,7 @@ if ($int0 >= 13) {
 if ($int0 >= 14) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 13);
     if_settext($string1, skill_guide_v2:subsection_button_14);
-    if_setposition(353, 282, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 282, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_14);
 } else {
     if_settext("", skill_guide_v2:subsection_button_14);
@@ -135,7 +135,7 @@ if ($int0 >= 14) {
 if ($int0 >= 15) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 14);
     if_settext($string1, skill_guide_v2:subsection_button_15);
-    if_setposition(353, 299, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 299, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_15);
 } else {
     if_settext("", skill_guide_v2:subsection_button_15);
@@ -144,51 +144,51 @@ if ($int0 >= 15) {
 if ($int0 >= 16) {
     $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, 15);
     if_settext($string1, skill_guide_v2:subsection_button_16);
-    if_setposition(353, 316, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:com_5);
+    if_setposition(353, 316, ^setpos_abs_left, ^setpos_abs_top, skill_guide_v2:skill_guide_v2_scroll_bottom);
     if_sethide(false, skill_guide_v2:subsection_button_16);
 } else {
     if_settext("", skill_guide_v2:subsection_button_16);
     if_sethide(true, skill_guide_v2:subsection_button_16);
 }
 if ($int0 < 2) {
-    if_sethide(true, skill_guide_v2:com_4);
-    if_sethide(true, skill_guide_v2:com_3);
-    if_sethide(true, skill_guide_v2:com_5);
+    if_sethide(true, skill_guide_v2:skill_guide_v2_scroll_top);
+    if_sethide(true, skill_guide_v2:skill_guide_v2_scroll_middle);
+    if_sethide(true, skill_guide_v2:skill_guide_v2_scroll_bottom);
 } else {
-    if_sethide(false, skill_guide_v2:com_4);
-    if_sethide(false, skill_guide_v2:com_3);
-    if_sethide(false, skill_guide_v2:com_5);
+    if_sethide(false, skill_guide_v2:skill_guide_v2_scroll_top);
+    if_sethide(false, skill_guide_v2:skill_guide_v2_scroll_middle);
+    if_sethide(false, skill_guide_v2:skill_guide_v2_scroll_bottom);
 }
 if ($int0 = 2) {
-    if_setmodel(model_20838, skill_guide_v2:com_3);
+    if_setmodel(model_20838, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 3) {
-    if_setmodel(model_20839, skill_guide_v2:com_3);
+    if_setmodel(model_20839, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 4) {
-    if_setmodel(model_20840, skill_guide_v2:com_3);
+    if_setmodel(model_20840, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 5) {
-    if_setmodel(model_20841, skill_guide_v2:com_3);
+    if_setmodel(model_20841, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 6) {
-    if_setmodel(model_20842, skill_guide_v2:com_3);
+    if_setmodel(model_20842, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 7) {
-    if_setmodel(model_20843, skill_guide_v2:com_3);
+    if_setmodel(model_20843, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 8) {
-    if_setmodel(model_20844, skill_guide_v2:com_3);
+    if_setmodel(model_20844, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 9) {
-    if_setmodel(model_20845, skill_guide_v2:com_3);
+    if_setmodel(model_20845, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 10) {
-    if_setmodel(model_20846, skill_guide_v2:com_3);
+    if_setmodel(model_20846, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 11) {
-    if_setmodel(model_20847, skill_guide_v2:com_3);
+    if_setmodel(model_20847, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 12) {
-    if_setmodel(model_20848, skill_guide_v2:com_3);
+    if_setmodel(model_20848, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 13) {
-    if_setmodel(model_20849, skill_guide_v2:com_3);
+    if_setmodel(model_20849, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 14) {
-    if_setmodel(model_20850, skill_guide_v2:com_3);
+    if_setmodel(model_20850, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 15) {
-    if_setmodel(model_43501, skill_guide_v2:com_3);
+    if_setmodel(model_43501, skill_guide_v2:skill_guide_v2_scroll_middle);
 } else if ($int0 = 16) {
-    if_setmodel(model_43500, skill_guide_v2:com_3);
+    if_setmodel(model_43500, skill_guide_v2:skill_guide_v2_scroll_middle);
 }
 $string1, $int1 = ~skill_advance_guide_subsection_title(%varplayerbit_3288, %varplayerbit_3289);
 if_settext($string1, skill_guide_v2:subsection_title);

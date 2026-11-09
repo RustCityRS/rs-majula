@@ -1,0 +1,3 @@
+// 2079
+[clientscript,snp_update_game_blue_kills]
+if_settext(tostring(%varclient_643), snp_game_overlay:blue_kills);

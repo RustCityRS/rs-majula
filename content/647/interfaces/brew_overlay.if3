@@ -432,8 +432,8 @@ textfont=b12_full
 text=0
 textshadow=yes
 colour=0x910000
-onload=script1753(brew_overlay:sweetgrub_model, brew_overlay:sweetgrub_count)
-onvarctransmit=script1753(brew_overlay:sweetgrub_model, brew_overlay:sweetgrub_count){varclient_224}
+onload=brew_sweetgrub(brew_overlay:sweetgrub_model, brew_overlay:sweetgrub_count)
+onvarctransmit=brew_sweetgrub(brew_overlay:sweetgrub_model, brew_overlay:sweetgrub_count){varclient_224}
 
 // 415:36
 [bucket_count]

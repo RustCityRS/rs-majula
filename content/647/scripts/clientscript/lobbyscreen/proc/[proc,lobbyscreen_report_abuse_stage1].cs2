@@ -1,0 +1,16 @@
+// 3177
+[proc,lobbyscreen_report_abuse_stage1](string $string0, boolean $boolean0)
+~deltooltip_action(lobbyscreen_pane_clanchat:report_abuse_tooltip);
+~deltooltip_action(lobbyscreen_pane_friendslist:report_abuse_tooltip);
+%varclient_1798 = "";
+%varclient_6 = $boolean0;
+%varclient_1094 = false;
+def_int $int1 = 0;
+if (playermod = 1 | staffmodlevel > 0) {
+    $int1 = 1;
+}
+if (map_lang = 1) {
+    ~lobbyscreen_report_abuse_stage1_namelist($string0, $int1, playermodlevel);
+} else {
+    ~script2920($string0, $int1, playermodlevel);
+}

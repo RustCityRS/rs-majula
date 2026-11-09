@@ -249,7 +249,7 @@ fill=yes
 trans=192
 
 // 813:18
-[com_18]
+[supplies_button_highlight]
 type=rectangle
 y=148
 width=16384
@@ -264,7 +264,7 @@ fill=yes
 trans=192
 
 // 813:19
-[com_19]
+[potions_button_highlight]
 type=rectangle
 y=187
 width=16384
@@ -380,7 +380,7 @@ height=32
 layer=main_layer
 colour=0xffff00
 trans=255
-onload=script1918
+onload=sc_tier_text_refresh
 
 // 813:28
 [com_28]
@@ -413,7 +413,7 @@ transmitop=1
 op1=Show-weapons
 onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
-onop=script1910
+onop=sc_processing_show_weapons
 
 // 813:30
 [armour_button_text]
@@ -434,7 +434,7 @@ transmitop=1
 op1=Show-armour
 onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
-onop=script1911
+onop=sc_processing_show_armour
 
 // 813:31
 [supplies_button_text]
@@ -455,7 +455,7 @@ transmitop=1
 op1=Show-equipment
 onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
-onop=script1912
+onop=sc_processing_show_supplies
 
 // 813:32
 [potions_button_text]
@@ -476,7 +476,7 @@ transmitop=1
 op1=Show-potions
 onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
-onop=script1913
+onop=sc_processing_show_potions
 
 // 813:33
 [com_33]
@@ -528,7 +528,7 @@ textshadow=yes
 colour=0xc8aa64
 
 // 813:37
-[com_37]
+[make_hatchet_text]
 type=text
 y=56
 width=124
@@ -552,7 +552,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:38
-[com_38]
+[make_pickaxe_text]
 type=text
 y=80
 width=124
@@ -648,7 +648,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:42
-[com_42]
+[make_food_text]
 type=text
 y=176
 width=124
@@ -696,7 +696,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:44
-[com_44]
+[make_platelegs_text]
 type=text
 y=44
 width=124
@@ -720,7 +720,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:45
-[com_45]
+[make_platebody_text]
 type=text
 y=68
 width=124
@@ -792,7 +792,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:48
-[com_48]
+[make_hardbody_text]
 type=text
 y=140
 width=124
@@ -816,7 +816,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:49
-[com_49]
+[make_hat_text]
 type=text
 y=164
 width=124
@@ -888,7 +888,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:52
-[com_52]
+[make_dagger_text]
 type=text
 y=-110
 width=125
@@ -913,7 +913,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:53
-[com_53]
+[make_scimitar_text]
 type=text
 y=-86
 width=125
@@ -938,7 +938,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:54
-[com_54]
+[make_warhammer_text]
 type=text
 y=-62
 width=125
@@ -988,7 +988,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:56
-[com_56]
+[make_arrows_text]
 type=text
 x=-3
 y=-12
@@ -1064,7 +1064,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:59
-[com_59]
+[make_pouch_text]
 type=text
 y=82
 width=125
@@ -1089,7 +1089,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:60
-[com_60]
+[make_staff_text]
 type=text
 y=10
 width=125
@@ -1114,7 +1114,7 @@ onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
 onop=sc_processing_select_item(event_com)
 
 // 813:61
-[com_61]
+[make_scroll_text]
 type=text
 y=106
 width=125
@@ -1744,7 +1744,7 @@ fill=yes
 trans=192
 
 // 813:99
-[com_99]
+[clay_1_text]
 type=text
 y=2
 width=86
@@ -1759,8 +1759,8 @@ textshadow=yes
 colour=0xc8aa64
 transmitop=1
 op1=Select clay
-onmouseover=script1916(event_com)
-onmouseleave=script1917(event_com)
+onmouseover=sc_tier_text_mouseover(event_com)
+onmouseleave=sc_tier_text_mouseleave(event_com)
 
 // 813:100
 [com_100]
@@ -1778,7 +1778,7 @@ fill=yes
 trans=192
 
 // 813:101
-[com_101]
+[clay_2_text]
 type=text
 y=26
 width=86
@@ -1793,8 +1793,8 @@ textshadow=yes
 colour=0xc8aa64
 transmitop=1
 op1=Select clay
-onmouseover=script1916(event_com)
-onmouseleave=script1917(event_com)
+onmouseover=sc_tier_text_mouseover(event_com)
+onmouseleave=sc_tier_text_mouseleave(event_com)
 
 // 813:102
 [com_102]
@@ -1812,7 +1812,7 @@ fill=yes
 trans=192
 
 // 813:103
-[com_103]
+[clay_3_text]
 type=text
 y=50
 width=86
@@ -1827,8 +1827,8 @@ textshadow=yes
 colour=0xc8aa64
 transmitop=1
 op1=Select clay
-onmouseover=script1916(event_com)
-onmouseleave=script1917(event_com)
+onmouseover=sc_tier_text_mouseover(event_com)
+onmouseleave=sc_tier_text_mouseleave(event_com)
 
 // 813:104
 [com_104]
@@ -1846,7 +1846,7 @@ fill=yes
 trans=192
 
 // 813:105
-[com_105]
+[clay_4_text]
 type=text
 y=74
 width=86
@@ -1861,8 +1861,8 @@ textshadow=yes
 colour=0xc8aa64
 transmitop=1
 op1=Select clay
-onmouseover=script1916(event_com)
-onmouseleave=script1917(event_com)
+onmouseover=sc_tier_text_mouseover(event_com)
+onmouseleave=sc_tier_text_mouseleave(event_com)
 
 // 813:106
 [com_106]
@@ -1880,7 +1880,7 @@ fill=yes
 trans=192
 
 // 813:107
-[com_107]
+[clay_5_text]
 type=text
 y=96
 width=86
@@ -1895,5 +1895,5 @@ textshadow=yes
 colour=0xc8aa64
 transmitop=1
 op1=Select clay
-onmouseover=script1916(event_com)
-onmouseleave=script1917(event_com)
+onmouseover=sc_tier_text_mouseover(event_com)
+onmouseleave=sc_tier_text_mouseleave(event_com)

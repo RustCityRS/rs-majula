@@ -1,7 +1,7 @@
 // 4283
 [proc,script4283]
-if_settext(activeclansettings_getclanname, interface_1095:clan_name);
-~script4332(interface_1095:com_50, interface_1095:com_60);
-~script4334(interface_1095:colour1, interface_1095:colour2);
-~script4329(interface_1095:com_29);
-if_sethide(true, interface_1095:com_5);
+if_settext(activeclansettings_getclanname, clan_join_invite:clan_name);
+~script4332(clan_join_invite:logo1_gfx, clan_join_invite:logo2_gfx);
+~script4334(clan_join_invite:colour1, clan_join_invite:colour2);
+~script4329(clan_join_invite:clan_qfc);
+if_sethide(true, clan_join_invite:clan_data_waiting);

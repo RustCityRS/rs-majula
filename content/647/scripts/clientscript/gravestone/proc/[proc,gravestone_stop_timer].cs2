@@ -5,9 +5,9 @@
 if (getwindowmode < 2) {
     if_setontimer(null, toplevel:gravestone_layer);
     if_sethide(true, toplevel:gravestone_timer);
-    if_sethide(true, toplevel:com_12);
+    if_sethide(true, toplevel:gravestone_background);
 } else {
     if_setontimer(null, toplevel_fullscreen:gravestone_layer);
     if_sethide(true, toplevel_fullscreen:gravestone_timer);
-    if_sethide(true, toplevel_fullscreen:com_165);
+    if_sethide(true, toplevel_fullscreen:gravestone_background);
 }

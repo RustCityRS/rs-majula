@@ -1,9 +1,0 @@
-// 707
-[clientscript,script707]
-if (getwindowmode >= 2) {
-    if_setposition(220, 11, ^setpos_abs_right, ^setpos_abs_top, catcon_calibration_puzzle:close_button);
-} else {
-    if_setposition(12, 11, ^setpos_abs_right, ^setpos_abs_top, catcon_calibration_puzzle:close_button);
-}
-%varclient_215 = 255;
-%varclient_216 = 0;

@@ -6,7 +6,7 @@ if (%varplayerbit_6840 = 1) {
 }
 def_int $int1 = 0;
 while ($int1 < $int0) {
-    if (cc_find(prayer:glow, $int1) = true & ~script2297($int1) = 1 & ~script2295($int1) = 1) {
+    if (cc_find(prayer:glow, $int1) = true & ~prayer_topstat_getvar($int1) = 1 & ~script2295($int1) = 1) {
         cc_setgraphic(prayerglow);
     }
     $int1 = calc($int1 + 1);

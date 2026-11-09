@@ -75,7 +75,7 @@ textshadow=yes
 colour=0xff981f
 
 // 493:6
-[com_6]
+[barbassault_scroll_pl2_dect]
 type=text
 x=401
 y=235
@@ -88,8 +88,8 @@ textshadow=yes
 colour=0xff981f
 transmitop=1
 op1=Decline
-onmouseover=text_colour_swapper(barbassault_scroll_pl2_b:com_6, ^white)
-onmouseleave=text_colour_swapper(barbassault_scroll_pl2_b:com_6, 0xff981f)
+onmouseover=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_dect, ^white)
+onmouseleave=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_dect, 0xff981f)
 
 // 493:7
 [barbassault_scroll_pl2_att]
@@ -221,7 +221,7 @@ onmouseover=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_
 onmouseleave=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_healt, 0xff981f)
 
 // 493:15
-[com_15]
+[barbassault_scroll_pl2_ok]
 type=model
 x=317
 y=187
@@ -234,11 +234,11 @@ modelangle=444,2020,0
 modelzoom=1168
 transmitop=1
 op1=Accept
-onmouseover=model_swapper(barbassault_scroll_pl2_b:com_15, model_20558)
-onmouseleave=model_swapper(barbassault_scroll_pl2_b:com_15, model_8685)
+onmouseover=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_ok, model_20558)
+onmouseleave=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_ok, model_8685)
 
 // 493:16
-[com_16]
+[barbassault_scroll_pl2_okt]
 type=text
 x=319
 y=234
@@ -251,11 +251,11 @@ textshadow=yes
 colour=0xff981f
 transmitop=1
 op1=Accept
-onmouseover=text_colour_swapper(barbassault_scroll_pl2_b:com_16, ^white)
-onmouseleave=text_colour_swapper(barbassault_scroll_pl2_b:com_16, 0xff981f)
+onmouseover=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_okt, ^white)
+onmouseleave=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_okt, 0xff981f)
 
 // 493:17
-[com_17]
+[barbassault_scroll_pl2_dec]
 type=model
 x=399
 y=187
@@ -267,8 +267,8 @@ modelangle=501,2014,0
 modelzoom=1296
 transmitop=1
 op1=Decline
-onmouseover=model_swapper(barbassault_scroll_pl2_b:com_17, model_20530)
-onmouseleave=model_swapper(barbassault_scroll_pl2_b:com_17, model_8684)
+onmouseover=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_dec, model_20530)
+onmouseleave=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_dec, model_8684)
 
 // 493:18
 [barbassault_scroll_pl2_rolename]
@@ -736,7 +736,7 @@ layer=content_layer_1
 hide=yes
 
 // 493:54
-[com_54]
+[def_highlight_layer]
 type=layer
 x=289
 y=100
@@ -752,7 +752,7 @@ x=5
 y=3
 width=49
 height=60
-layer=com_54
+layer=def_highlight_layer
 model=model_20568
 modelangle=585,0,0
 modelzoom=1074

@@ -36,7 +36,7 @@ while ($int2 <= 4) {
     .cc_setsize(8, calc(17 + cc_getheight), ^setsize_minus, ^setsize_abs);
     .cc_settrans(255);
     .cc_setop(1, struct_param($struct4, param_555));
-    .cc_setonop("script1833(event_op, $int2)");
+    .cc_setonop("clanwars_setup_arena_buttons(event_op, $int2)");
     $int3 = calc($int3 + .cc_getheight);
     if ($int2 < 4) {
         $int3 = calc($int3 + 3);

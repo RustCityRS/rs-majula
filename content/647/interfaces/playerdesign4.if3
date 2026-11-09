@@ -924,7 +924,7 @@ layer=universe
 hide=yes
 
 // 1028:90
-[com_90]
+[character_name_main_layer]
 type=layer
 x=16
 y=116
@@ -1341,10 +1341,10 @@ hide=yes
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_90
+layer=character_name_main_layer
 
 // 1028:127
-[com_127]
+[background_texture]
 type=graphic
 width=100
 height=100
@@ -1622,7 +1622,7 @@ layer=border
 colour=0x2d2d2d
 
 // 1028:154
-[com_154]
+[please_enter_text]
 type=text
 y=50
 width=25
@@ -1898,7 +1898,7 @@ graphic="set_but_end_3,0"
 hflip=yes
 
 // 1028:172
-[com_172]
+[continue_text_shadow]
 type=text
 x=1
 widthmode=minus
@@ -1928,22 +1928,22 @@ textalignv=centre
 colour=0x000000
 
 // 1028:174
-[com_174]
+[character_name_group]
 type=layer
 y=78
 height=50
 widthmode=minus
 xmode=abs_centre
-layer=com_90
+layer=character_name_main_layer
 
 // 1028:175
-[com_175]
+[character_name_label_text]
 type=text
 x=29
 y=9
 width=100
 height=27
-layer=com_174
+layer=character_name_group
 textfont=verdana_11pt_regular
 text=Character Name
 textalignh=right
@@ -1958,7 +1958,7 @@ x=325
 y=13
 width=22
 height=22
-layer=com_174
+layer=character_name_group
 hide=yes
 graphic="symbols_1,1"
 onmouseover=script3934(event_com)
@@ -1971,7 +1971,7 @@ x=137
 y=10
 width=180
 height=27
-layer=com_174
+layer=character_name_group
 onmouseover=loginscreen_button_highlight(playerdesign4:com_178, graphic_3817, playerdesign4:com_179, graphic_3818, playerdesign4:com_180, graphic_3819)
 onmouseleave=loginscreen_button_highlight(playerdesign4:com_178, graphic_3814, playerdesign4:com_179, graphic_3815, playerdesign4:com_180, graphic_3816)
 onclick=create_focus(6, 1)

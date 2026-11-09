@@ -1,0 +1,3 @@
+// 2166
+[clientscript,ql4_qp_update]
+if_settext("Quest Points: <tostring(%qp)> / <tostring(%quest_points_total)>", questlist_v4:com_2);

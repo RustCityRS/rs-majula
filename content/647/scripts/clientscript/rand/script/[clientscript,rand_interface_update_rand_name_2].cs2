@@ -1,0 +1,5 @@
+// 2939
+[clientscript,rand_interface_update_rand_name_2]
+if (%varclient_1199 = 1) {
+    if_settext(%varclient_1830, rand_dungeon_rewards_v2:player_2_name);
+}

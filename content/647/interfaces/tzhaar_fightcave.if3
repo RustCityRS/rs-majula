@@ -4,11 +4,11 @@ type=layer
 width=200
 height=100
 xmode=abs_right
-onload=tzhaar_fightcave_init(event_com, tzhaar_fightcave:com_1, tzhaar_fightcave:wavenumber)
-onvartransmit=tzhaar_fightcave_init(event_com, tzhaar_fightcave:com_1, tzhaar_fightcave:wavenumber){varplayer_639}
+onload=tzhaar_fightcave_init(event_com, tzhaar_fightcave:background, tzhaar_fightcave:wavenumber)
+onvartransmit=tzhaar_fightcave_init(event_com, tzhaar_fightcave:background, tzhaar_fightcave:wavenumber){varplayer_639}
 
 // 316:1
-[com_1]
+[background]
 type=model
 width=138
 height=89

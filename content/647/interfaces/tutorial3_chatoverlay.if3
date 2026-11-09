@@ -7,10 +7,10 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-onload=script2778(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:com_3)
-onvartransmit=script2778(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:com_3){option_mouse, learning_the_ropes, varplayer_1805}
-onvarctransmit=script2778(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:com_3){varclient_1003, varclient_1004, varclient_1005, varclient_1006}
-onvarcstrtransmit=script2778(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:com_3){varclient_1713, varclient_1714}
+onload=tutorial3_chatoverlay_build(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:scrollbar)
+onvartransmit=tutorial3_chatoverlay_build(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:scrollbar){option_mouse, learning_the_ropes, varplayer_1805}
+onvarctransmit=tutorial3_chatoverlay_build(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:scrollbar){varclient_1003, varclient_1004, varclient_1005, varclient_1006}
+onvarcstrtransmit=tutorial3_chatoverlay_build(tutorial3_chatoverlay:display, tutorial3_chatoverlay:skip, tutorial3_chatoverlay:text_layer, tutorial3_chatoverlay:scrollbar){varclient_1713, varclient_1714}
 
 // 896:1
 [display]
@@ -30,7 +30,7 @@ ymode=abs_centre
 layer=display
 
 // 896:3
-[com_3]
+[scrollbar]
 type=layer
 width=16
 heightmode=minus

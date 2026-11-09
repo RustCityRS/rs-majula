@@ -106,12 +106,12 @@ if ($enum17 ! null) {
     $int13 = 0;
     while ($int13 < $int18) {
         if ($int13 = $int3) {
-            if_setgraphic(graphic_1703, enum(int, component, $enum17, $int13));
+            if_setgraphic("magic_icon_set,2", enum(int, component, $enum17, $int13));
         } else {
-            if_setgraphic(graphic_1701, enum(int, component, $enum17, $int13));
+            if_setgraphic("magic_icon_set,0", enum(int, component, $enum17, $int13));
         }
         $int13 = calc($int13 + 1);
     }
 }
-~script1121;
+~autocast_highlight_spell;
 cc_deleteall(struct_param($struct1, param_688));

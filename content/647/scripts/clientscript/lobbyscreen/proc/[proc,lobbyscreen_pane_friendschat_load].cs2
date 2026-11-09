@@ -12,11 +12,11 @@ if_setonclantransmit("lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friend
 if_setonfriendtransmit("lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friendschat:clan_name, lobbyscreen_pane_friendschat:clan_namechange, lobbyscreen_pane_friendschat:clan_status, lobbyscreen_pane_friendschat:clan_bg, lobbyscreen_pane_friendschat:clan_main, lobbyscreen_pane_friendschat:clan_build_layer_scroll)", lobbyscreen_pane_friendschat:clan_main);
 ~lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friendschat:clan_name, lobbyscreen_pane_friendschat:clan_namechange, lobbyscreen_pane_friendschat:clan_status, lobbyscreen_pane_friendschat:clan_bg, lobbyscreen_pane_friendschat:clan_main, lobbyscreen_pane_friendschat:clan_build_layer_scroll);
 if (clan_getchatcount > 0) {
-    if_settext("Leave chat channel", lobbyscreen_pane_friendschat:com_41);
-    if_setop(1, "Leave chat channel", lobbyscreen_pane_friendschat:com_39);
+    if_settext("Leave chat channel", lobbyscreen_pane_friendschat:clan_join_button_text);
+    if_setop(1, "Leave chat channel", lobbyscreen_pane_friendschat:clan_join_button);
 } else {
-    if_settext("Join chat channel", lobbyscreen_pane_friendschat:com_41);
-    if_setop(1, "Join chat channel", lobbyscreen_pane_friendschat:com_39);
+    if_settext("Join chat channel", lobbyscreen_pane_friendschat:clan_join_button_text);
+    if_setop(1, "Join chat channel", lobbyscreen_pane_friendschat:clan_join_button);
 }
 %varclient_1868 = "";
 ~brown_cursebearer(lobbyscreen_pane_friendschat:chat_bg);

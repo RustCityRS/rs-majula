@@ -7,17 +7,17 @@ if_settext("", $component0);
 if_settext("", $component1);
 if_setsize(if_getwidth($component2), 300, ^setsize_abs, ^setsize_abs, $component2);
 switch_component ($component4) {
-    case lobbyscreen_report_abuse_ignore:com_0 :
-        $component5 = lobbyscreen:com_53;
+    case lobbyscreen_report_abuse_ignore:main :
+        $component5 = lobbyscreen:report_abuse_ignore_body;
         $int6 = 300;
-    case lobbyscreen_report_abuse_stage1:com_0 :
-        $component5 = lobbyscreen:com_69;
+    case lobbyscreen_report_abuse_stage1:main :
+        $component5 = lobbyscreen:report_abuse_stage1_body;
         $int6 = 122;
-    case interface_979:com_0 :
+    case lobbyscreen_report_abuse_stage1_namelist:main :
         $component5 = lobbyscreen:com_43;
         $int6 = 303;
-    case lobbyscreen_report_abuse_stage2:com_18 :
-        $component5 = lobbyscreen:com_61;
+    case lobbyscreen_report_abuse_stage2:main :
+        $component5 = lobbyscreen:report_abuse_stage2_body;
         $int6 = 312;
 }
 if ($component5 ! null) {

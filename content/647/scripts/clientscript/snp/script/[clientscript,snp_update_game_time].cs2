@@ -1,0 +1,9 @@
+// 2078
+[clientscript,snp_update_game_time]
+def_int $int0 = 0;
+$int0 = calc(20 - %varclient_636);
+if ($int0 = 1) {
+    if_settext("<tostring($int0)> min", snp_game_overlay:time_left);
+} else {
+    if_settext("<tostring($int0)> mins", snp_game_overlay:time_left);
+}

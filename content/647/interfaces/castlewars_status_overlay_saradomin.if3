@@ -10,8 +10,8 @@ textfont=p11_full
 text=Zamorak = %1
 textalignh=centre
 textshadow=yes
-onload=script1367
-onvartransmit=script1367{varplayer_378, varplayer_377, varplayer_380}
+onload=castlewars_saradomin_update_status
+onvartransmit=castlewars_saradomin_update_status{varplayer_378, varplayer_377, varplayer_380}
 
 // 58:1
 [saradomin_score]
@@ -111,7 +111,7 @@ text=Health %1%
 colour=0x00ff00
 
 // 58:10
-[com_10]
+[door]
 type=text
 x=33
 y=49

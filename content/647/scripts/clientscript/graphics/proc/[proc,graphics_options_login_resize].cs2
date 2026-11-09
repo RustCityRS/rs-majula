@@ -9,13 +9,13 @@ $int2 = 30;
 if (if_getheight(loginscreen_graphics_options:universe) < calc(if_getheight(loginscreen_graphics_options:contents) + 146)) {
     if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, loginscreen_graphics_options:border);
     if_setposition(0, calc(if_gety(loginscreen_graphics_options:border) + $int2), ^setpos_abs_centre, ^setpos_abs_top, loginscreen_graphics_options:contents);
-    if_sethide(true, loginscreen:com_23);
+    if_sethide(true, loginscreen:runescape_logo);
 } else {
-    $int1 = calc(if_gety(loginscreen:com_23) + if_getheight(loginscreen:com_23));
+    $int1 = calc(if_gety(loginscreen:runescape_logo) + if_getheight(loginscreen:runescape_logo));
     if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, loginscreen_graphics_options:border);
     if (calc(if_gety(loginscreen_graphics_options:border) - 2) < $int1) {
         if_setposition(0, calc($int1 + 2), ^setpos_abs_centre, ^setpos_abs_top, loginscreen_graphics_options:border);
     }
     if_setposition(0, calc(if_gety(loginscreen_graphics_options:border) + $int2), ^setpos_abs_centre, ^setpos_abs_top, loginscreen_graphics_options:contents);
-    if_sethide(false, loginscreen:com_23);
+    if_sethide(false, loginscreen:runescape_logo);
 }

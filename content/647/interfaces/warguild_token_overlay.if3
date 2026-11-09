@@ -133,7 +133,7 @@ layer=bal_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
-onvartransmit=script4048(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_balance(event_com){varplayer_2030}
 
 // 1057:14
 [str_token]
@@ -166,7 +166,7 @@ layer=str_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
-onvartransmit=script4044(event_com){varplayer_788}
+onvartransmit=warguild_update_tokens_strength(event_com){varplayer_788}
 
 // 1057:17
 [com_token]
@@ -199,40 +199,40 @@ layer=com_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
-onvartransmit=script4047(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_combat(event_com){varplayer_2030}
 
 // 1057:20
-[com_20]
+[def_token]
 type=graphic
 x=1
 y=1
 width=21
 height=21
-layer=com_29
+layer=def_layer
 graphic="warguild_token_small_icons,3"
 
 // 1057:21
-[com_21]
+[def_arrow]
 type=graphic
 width=10
 height=10
 xmode=abs_right
-layer=com_29
+layer=def_layer
 hide=yes
 graphic="red_green_arrows,1"
 
 // 1057:22
-[com_22]
+[def_text]
 type=text
 x=24
 y=1
 width=40
 height=21
-layer=com_29
+layer=def_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
-onvartransmit=script4045(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_defence(event_com){varplayer_787}
 
 // 1057:23
 [att_token]
@@ -265,7 +265,7 @@ layer=att_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
-onvartransmit=script4046(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_attack(event_com){varplayer_787}
 
 // 1057:26
 [token_type_text]
@@ -288,7 +288,7 @@ y=245
 width=191
 height=20
 layer=content_layer
-onvartransmit=script4053{varplayer_788}
+onvartransmit=warguild_update_multi_status{varplayer_788}
 
 // 1057:28
 [att_layer]
@@ -300,7 +300,7 @@ height=32
 layer=content_layer
 
 // 1057:29
-[com_29]
+[def_layer]
 type=layer
 x=6
 y=180

@@ -1,6 +1,6 @@
 // 828
 [clientscript,script828]
-~script2872;
+~music_playlist_toggle_interface;
 def_int $intarray0(calc(979 + 1));
 def_int $int0 = 0;
 if (%varclient_89 = false | %varclient_89 = null) {
@@ -43,5 +43,5 @@ while ($int1 <= 979) {
     }
     $int1 = calc($int1 + 1);
 }
-~scrollbar_vertical(music_v3:com_2, music_v3:jukebox, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+~scrollbar_vertical(music_v3:scrollbar, music_v3:jukebox, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 ~music_v3_refresh;

@@ -35,8 +35,8 @@ if ($int1 > 0) {
 cc_settext($string0);
 cc_settextshadow(false);
 cc_setsize(calc(parawidth($string0, if_getwidth($component0), p12_full) + 4), if_getheight($component0), ^setsize_abs, ^setsize_abs);
-cc_setonmouseover("script1080(chatdefault:quickchat_path_highlight, $int1)");
-cc_setonmouseleave("script1081(chatdefault:quickchat_path_highlight, $int1)");
+cc_setonmouseover("quickchat_path_highlight_show(chatdefault:quickchat_path_highlight, $int1)");
+cc_setonmouseleave("quickchat_path_highlight_hide(chatdefault:quickchat_path_highlight, $int1)");
 .cc_create(chatdefault:quickchat_path_highlight, ^iftype_rectangle, $int1);
 .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
 .cc_setcolour(0x577e45);
@@ -63,8 +63,8 @@ while ($int9 < $int7) {
     cc_setonop("quickchat_menu_select($component5, $component6, $int10, $component0, calc($int1 + 1), $chatcat13)");
     cc_setopbase($string0);
     cc_setop(1, "Select: ");
-    cc_setonmouseover("script1082($int1, $component6, $int10)");
-    cc_setonmouseleave("script1083($int1, $component6, $int10)");
+    cc_setonmouseover("quickchat_menu_highlight_show($int1, $component6, $int10)");
+    cc_setonmouseleave("quickchat_menu_highlight_hide($int1, $component6, $int10)");
     $char15 = char_touppercase(chatcat_getsubcatshortcut($chatcat2, $int9));
     if (char_isalphanumeric($char15) = true) {
         $string0 = "<col=555555><append_char("", $char15)>. <col=000000><$string0> <img=2>";
@@ -91,8 +91,8 @@ while ($int9 < $int8) {
     cc_setonop("quickchat_phrase($component0, $chatphrase14, $int1)");
     cc_setopbase($string0);
     cc_setop(1, "Send: ");
-    cc_setonmouseover("script1082($int1, $component6, $int10)");
-    cc_setonmouseleave("script1083($int1, $component6, $int10)");
+    cc_setonmouseover("quickchat_menu_highlight_show($int1, $component6, $int10)");
+    cc_setonmouseleave("quickchat_menu_highlight_hide($int1, $component6, $int10)");
     if ($int9 < 10) {
         $string0 = "<col=555555><tostring(calc(($int9 + 1) % 10))>. <col=000000><$string0>";
     }
@@ -114,8 +114,8 @@ if ($chatcat3 ! null) {
     cc_setonop("quickchat_menu_select($component5, $component6, $int10, $component0, calc($int1 + 1), $chatcat3)");
     cc_setopbase($string0);
     cc_setop(1, "Select: ");
-    cc_setonmouseover("script1082($int1, $component6, $int10)");
-    cc_setonmouseleave("script1083($int1, $component6, $int10)");
+    cc_setonmouseover("quickchat_menu_highlight_show($int1, $component6, $int10)");
+    cc_setonmouseleave("quickchat_menu_highlight_hide($int1, $component6, $int10)");
     $string0 = "<col=555555>X. <col=000000><$string0> <img=2>";
     cc_settext($string0);
     cc_settextshadow(false);
@@ -133,8 +133,8 @@ if ($int4 = 1) {
     cc_setonop("quickchat_enter_search($component5, $component6, $int10, $int1)");
     cc_setopbase("Search phrases");
     cc_setop(1, "Select: ");
-    cc_setonmouseover("script1082($int1, $component6, $int10)");
-    cc_setonmouseleave("script1083($int1, $component6, $int10)");
+    cc_setonmouseover("quickchat_menu_highlight_show($int1, $component6, $int10)");
+    cc_setonmouseleave("quickchat_menu_highlight_hide($int1, $component6, $int10)");
     cc_settext("<col=555555>Enter. <col=000000>Search <img=2>");
     cc_settextshadow(false);
     $int11 = parawidth($string0, if_getwidth($component0), p12_full);

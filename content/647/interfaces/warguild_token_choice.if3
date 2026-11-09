@@ -5,7 +5,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-layer=com_40
+layer=token_choice_layer
 colour=0x2d241b
 fill=yes
 
@@ -17,7 +17,7 @@ width=288
 height=20
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_40
+layer=token_choice_layer
 textfont=p11_full
 text=Please make a selection
 textalignh=centre
@@ -25,14 +25,14 @@ textalignv=centre
 colour=0xbcab8d
 
 // 1058:2
-[com_2]
+[single_token_button]
 type=layer
 x=107
 y=24
 width=171
 height=30
 xmode=abs_centre
-layer=com_40
+layer=token_choice_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -41,14 +41,14 @@ onop=warguild_select_single(event_com)
 onmouserepeat=warguild_trans(event_com)
 
 // 1058:3
-[com_3]
+[multi_token_button]
 type=layer
 x=-107
 y=24
 width=171
 height=30
 xmode=abs_centre
-layer=com_40
+layer=token_choice_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
@@ -109,7 +109,7 @@ xmode=abs_centre
 onload=script4073
 
 // 1058:9
-[com_9]
+[multi_token_layer]
 type=layer
 width=424
 height=168
@@ -118,7 +118,7 @@ layer=detail_layers
 hide=yes
 
 // 1058:10
-[com_10]
+[single_token_layer]
 type=layer
 width=424
 height=143
@@ -127,16 +127,16 @@ layer=detail_layers
 hide=yes
 
 // 1058:11
-[com_11]
+[single_attack_token]
 type=graphic
 width=64
 height=75
 xmode=abs_centre
 layer=attack_layer
-graphic=graphic_4463
+graphic="warguild_token_unselected,4"
 
 // 1058:12
-[com_12]
+[single_attack_token_text]
 type=text
 y=58
 width=50
@@ -148,19 +148,19 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=script4046(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_attack(event_com){varplayer_787}
 
 // 1058:13
-[com_13]
+[single_defence_token]
 type=graphic
 width=64
 height=75
 xmode=abs_centre
 layer=defence_layer
-graphic=graphic_4462
+graphic="warguild_token_unselected,3"
 
 // 1058:14
-[com_14]
+[single_defence_token_text]
 type=text
 y=58
 width=50
@@ -172,19 +172,19 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=script4045(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_defence(event_com){varplayer_787}
 
 // 1058:15
-[com_15]
+[single_combat_token]
 type=graphic
 width=64
 height=75
 xmode=abs_centre
 layer=combat_layer
-graphic=graphic_4461
+graphic="warguild_token_unselected,2"
 
 // 1058:16
-[com_16]
+[single_combat_token_text]
 type=text
 y=58
 width=50
@@ -196,19 +196,19 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=script4047(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_combat(event_com){varplayer_2030}
 
 // 1058:17
-[com_17]
+[single_strength_token]
 type=graphic
 width=64
 height=75
 xmode=abs_centre
 layer=strength_layer
-graphic=graphic_4460
+graphic="warguild_token_unselected,1"
 
 // 1058:18
-[com_18]
+[single_strength_token_text]
 type=text
 y=58
 width=50
@@ -220,19 +220,19 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=script4044(event_com){varplayer_788}
+onvartransmit=warguild_update_tokens_strength(event_com){varplayer_788}
 
 // 1058:19
-[com_19]
+[single_balance_token]
 type=graphic
 width=64
 height=75
 xmode=abs_centre
 layer=balance_layer
-graphic=graphic_4459
+graphic="warguild_token_unselected,0"
 
 // 1058:20
-[com_20]
+[single_balance_token_text]
 type=text
 y=58
 width=50
@@ -244,7 +244,7 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=script4048(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_balance(event_com){varplayer_2030}
 
 // 1058:21
 [back]
@@ -255,7 +255,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_10
+layer=single_token_layer
 colour=0x53442f
 fill=yes
 
@@ -267,13 +267,13 @@ y=18
 width=64
 height=75
 xmode=abs_centre
-layer=com_10
+layer=single_token_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=script4068(event_com)
-onop=script4064(event_com)
-onmouserepeat=script4067(event_com)
+onmouseleave=warguild_hover_leave_tokens(event_com)
+onop=warguild_select_token_type(event_com)
+onmouserepeat=warguild_hover_tokens(event_com)
 
 // 1058:23
 [strength_layer]
@@ -283,13 +283,13 @@ y=18
 width=64
 height=75
 xmode=abs_centre
-layer=com_10
+layer=single_token_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=script4068(event_com)
-onop=script4064(event_com)
-onmouserepeat=script4067(event_com)
+onmouseleave=warguild_hover_leave_tokens(event_com)
+onop=warguild_select_token_type(event_com)
+onmouserepeat=warguild_hover_tokens(event_com)
 
 // 1058:24
 [combat_layer]
@@ -298,13 +298,13 @@ y=18
 width=64
 height=75
 xmode=abs_centre
-layer=com_10
+layer=single_token_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=script4068(event_com)
-onop=script4064(event_com)
-onmouserepeat=script4067(event_com)
+onmouseleave=warguild_hover_leave_tokens(event_com)
+onop=warguild_select_token_type(event_com)
+onmouserepeat=warguild_hover_tokens(event_com)
 
 // 1058:25
 [attack_layer]
@@ -314,13 +314,13 @@ y=18
 width=64
 height=75
 xmode=abs_centre
-layer=com_10
+layer=single_token_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=script4068(event_com)
-onop=script4064(event_com)
-onmouserepeat=script4067(event_com)
+onmouseleave=warguild_hover_leave_tokens(event_com)
+onop=warguild_select_token_type(event_com)
+onmouserepeat=warguild_hover_tokens(event_com)
 
 // 1058:26
 [defence_layer]
@@ -330,13 +330,13 @@ y=18
 width=64
 height=75
 xmode=abs_centre
-layer=com_10
+layer=single_token_layer
 transmitop=1
 op1=Select
 opcursor0=cursor_46
-onmouseleave=script4068(event_com)
-onop=script4064(event_com)
-onmouserepeat=script4067(event_com)
+onmouseleave=warguild_hover_leave_tokens(event_com)
+onop=warguild_select_token_type(event_com)
+onmouserepeat=warguild_hover_tokens(event_com)
 
 // 1058:27
 [back_1]
@@ -347,7 +347,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=multi_token_layer
 colour=0x53442f
 fill=yes
 
@@ -401,7 +401,7 @@ width=2
 height=30
 widthmode=minus
 xmode=abs_centre
-layer=com_3
+layer=multi_token_button
 graphic=graphic_4465
 tiling=yes
 
@@ -410,7 +410,7 @@ tiling=yes
 type=graphic
 width=2
 height=30
-layer=com_3
+layer=multi_token_button
 graphic=graphic_2657
 
 // 1058:34
@@ -419,7 +419,7 @@ type=graphic
 width=2
 height=30
 xmode=abs_right
-layer=com_3
+layer=multi_token_button
 graphic=graphic_2657
 hflip=yes
 
@@ -430,7 +430,7 @@ width=169
 height=28
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=multi_token_button
 hide=yes
 colour=0xffffff
 fill=yes
@@ -443,7 +443,7 @@ width=2
 height=30
 widthmode=minus
 xmode=abs_centre
-layer=com_2
+layer=single_token_button
 graphic=graphic_4465
 tiling=yes
 
@@ -452,7 +452,7 @@ tiling=yes
 type=graphic
 width=2
 height=30
-layer=com_2
+layer=single_token_button
 graphic=graphic_2657
 
 // 1058:38
@@ -461,7 +461,7 @@ type=graphic
 width=2
 height=30
 xmode=abs_right
-layer=com_2
+layer=single_token_button
 graphic=graphic_2657
 hflip=yes
 
@@ -472,14 +472,14 @@ width=169
 height=28
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=single_token_button
 hide=yes
 colour=0xffffff
 fill=yes
 trans=205
 
 // 1058:40
-[com_40]
+[token_choice_layer]
 type=layer
 width=16391
 height=90
@@ -504,7 +504,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=single_token_button
 textfont=verdana_13pt_regular
 text=Single Type of Token
 textalignh=centre
@@ -520,7 +520,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
+layer=multi_token_button
 textfont=verdana_13pt_regular
 text=All Types of Tokens
 textalignh=centre
@@ -554,7 +554,7 @@ textlineheight=18
 textalignh=centre
 textalignv=centre
 colour=0x0d0000
-onvartransmit=script4060{varplayer_791, varplayer_791}
+onvartransmit=warguild_ok_text_server{varplayer_791, varplayer_791}
 
 // 1058:46
 [com_46]
@@ -563,7 +563,7 @@ y=94
 width=400
 height=46
 xmode=abs_centre
-layer=com_10
+layer=single_token_layer
 textfont=p11_full
 text=Currently selected: combat tokens - earned through the animator activity.
 textalignh=centre
@@ -571,47 +571,47 @@ textalignv=centre
 colour=0xbcab8d
 
 // 1058:47
-[com_47]
+[multi_balance_token]
 type=graphic
 x=-160
 y=18
 width=64
 height=75
 xmode=abs_centre
-layer=com_9
-graphic=graphic_4444
+layer=multi_token_layer
+graphic="warguild_token_selected,0"
 
 // 1058:48
-[com_48]
+[multi_strength_token]
 type=graphic
 x=-80
 y=18
 width=64
 height=75
 xmode=abs_centre
-layer=com_9
-graphic=graphic_4445
+layer=multi_token_layer
+graphic="warguild_token_selected,1"
 
 // 1058:49
-[com_49]
+[multi_combat_token]
 type=graphic
 y=18
 width=64
 height=75
 xmode=abs_centre
-layer=com_9
-graphic=graphic_4446
+layer=multi_token_layer
+graphic="warguild_token_selected,2"
 
 // 1058:50
-[com_50]
+[multi_defence_token]
 type=graphic
 x=80
 y=18
 width=64
 height=75
 xmode=abs_centre
-layer=com_9
-graphic=graphic_4447
+layer=multi_token_layer
+graphic="warguild_token_selected,3"
 
 // 1058:51
 [com_51]
@@ -621,8 +621,8 @@ y=18
 width=64
 height=75
 xmode=abs_centre
-layer=com_9
-graphic=graphic_4448
+layer=multi_token_layer
+graphic="warguild_token_selected,4"
 
 // 1058:52
 [com_52]
@@ -631,13 +631,13 @@ y=76
 width=50
 height=13
 xmode=abs_centre
-layer=com_9
+layer=multi_token_layer
 textfont=p11_full
 text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=script4047(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_combat(event_com){varplayer_2030}
 
 // 1058:53
 [com_53]
@@ -647,13 +647,13 @@ y=76
 width=50
 height=13
 xmode=abs_centre
-layer=com_9
+layer=multi_token_layer
 textfont=p11_full
 text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=script4044(event_com){varplayer_788}
+onvartransmit=warguild_update_tokens_strength(event_com){varplayer_788}
 
 // 1058:54
 [com_54]
@@ -663,13 +663,13 @@ y=76
 width=50
 height=13
 xmode=abs_centre
-layer=com_9
+layer=multi_token_layer
 textfont=p11_full
 text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=script4048(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_balance(event_com){varplayer_2030}
 
 // 1058:55
 [com_55]
@@ -679,13 +679,13 @@ y=76
 width=50
 height=13
 xmode=abs_centre
-layer=com_9
+layer=multi_token_layer
 textfont=p11_full
 text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=script4045(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_defence(event_com){varplayer_787}
 
 // 1058:56
 [com_56]
@@ -695,13 +695,13 @@ y=76
 width=50
 height=13
 xmode=abs_centre
-layer=com_9
+layer=multi_token_layer
 textfont=p11_full
 text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=script4046(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_attack(event_com){varplayer_787}
 
 // 1058:57
 [com_57]
@@ -710,7 +710,7 @@ y=93
 width=381
 height=15
 xmode=abs_centre
-layer=com_9
+layer=multi_token_layer
 textfont=p12_full
 text=Bonuses
 textalignv=centre
@@ -723,14 +723,14 @@ y=105
 width=366
 height=64
 xmode=abs_centre
-layer=com_9
+layer=multi_token_layer
 textfont=p11_full
 text=- Use fewer tokens per minute<br>- Small damage bonus<br>- Some drops certed<br>- Increased chance of defender drop<br>- Increased chance of confronting a cyclossus
 textalignv=centre
 colour=0xbcab8d
 
 // 1058:59
-[com_59]
+[background]
 type=layer
 width=512
 height=334
@@ -742,7 +742,7 @@ width=40
 height=32
 widthmode=minus
 xmode=abs_centre
-layer=com_59
+layer=background
 graphic="v2_stone_borders,36"
 tiling=yes
 
@@ -754,7 +754,7 @@ width=32
 height=40
 heightmode=minus
 ymode=abs_centre
-layer=com_59
+layer=background
 graphic="v2_stone_borders,1"
 tiling=yes
 
@@ -767,7 +767,7 @@ height=40
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_59
+layer=background
 graphic="v2_stone_borders,3"
 tiling=yes
 
@@ -780,7 +780,7 @@ height=32
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_59
+layer=background
 graphic="v2_stone_borders,2"
 tiling=yes
 
@@ -789,7 +789,7 @@ tiling=yes
 type=graphic
 width=32
 height=32
-layer=com_59
+layer=background
 graphic="v2_stone_borders,35"
 
 // 1058:65
@@ -798,7 +798,7 @@ type=graphic
 width=32
 height=32
 xmode=abs_right
-layer=com_59
+layer=background
 graphic="v2_stone_borders,37"
 
 // 1058:66
@@ -807,7 +807,7 @@ type=graphic
 width=32
 height=32
 ymode=abs_bottom
-layer=com_59
+layer=background
 graphic="v2_stone_borders,6"
 
 // 1058:67
@@ -817,7 +817,7 @@ width=32
 height=32
 xmode=abs_right
 ymode=abs_bottom
-layer=com_59
+layer=background
 graphic="v2_stone_borders,7"
 
 // 1058:68
@@ -826,14 +826,14 @@ type=text
 height=22
 widthmode=minus
 xmode=abs_centre
-layer=com_59
+layer=background
 textfont=b12_full
 text=Token Options
 textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xbcab8d
-onvartransmit=script4063{varplayer_791}
+onvartransmit=warguild_select_token_server{varplayer_791}
 
 // 1058:69
 [close_button]
@@ -843,7 +843,7 @@ y=3
 width=16
 height=16
 xmode=abs_right
-layer=com_59
+layer=background
 graphic="v2_stone_close_button,0"
 transmitop=1
 op1=Close

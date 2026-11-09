@@ -27,10 +27,10 @@ if ($int0 = 0) {
 }
 if (getwindowmode < 2) {
     if_sethide(false, toplevel:gravestone_timer);
-    if_sethide(false, toplevel:com_12);
+    if_sethide(false, toplevel:gravestone_background);
     if_settext("<$string0>:<$string1>", toplevel:gravestone_timer);
 } else {
     if_sethide(false, toplevel_fullscreen:gravestone_timer);
-    if_sethide(false, toplevel_fullscreen:com_165);
+    if_sethide(false, toplevel_fullscreen:gravestone_background);
     if_settext("<$string0>:<$string1>", toplevel_fullscreen:gravestone_timer);
 }

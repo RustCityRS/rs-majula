@@ -1,0 +1,12 @@
+// 3011
+[proc,lobbyscreen_playerinfo_bar_layers](int $int0)(component, component, component, component, component, component, component)
+switch_int ($int0) {
+    case 0 :
+        return(~script3012($int0), lobbyscreen_pane_playerinfo:com_30, lobbyscreen_pane_playerinfo:com_31, lobbyscreen_pane_playerinfo:com_33, ~script3013($int0), lobbyscreen_pane_playerinfo:com_35, lobbyscreen_pane_playerinfo:com_32);
+    case 1 :
+        return(~script3012($int0), lobbyscreen_pane_playerinfo:com_18, lobbyscreen_pane_playerinfo:com_19, lobbyscreen_pane_playerinfo:com_21, ~script3013($int0), lobbyscreen_pane_playerinfo:com_23, lobbyscreen_pane_playerinfo:com_20);
+    case 2 :
+        return(~script3012($int0), lobbyscreen_pane_playerinfo:com_6, lobbyscreen_pane_playerinfo:com_7, lobbyscreen_pane_playerinfo:com_9, ~script3013($int0), lobbyscreen_pane_playerinfo:com_11, lobbyscreen_pane_playerinfo:com_8);
+    case 3 :
+        return(~script3012($int0), lobbyscreen_pane_playerinfo:com_44, lobbyscreen_pane_playerinfo:com_45, lobbyscreen_pane_playerinfo:com_47, ~script3013($int0), lobbyscreen_pane_playerinfo:com_49, lobbyscreen_pane_playerinfo:com_46);
+}

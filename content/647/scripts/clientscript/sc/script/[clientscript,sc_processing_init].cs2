@@ -2,4 +2,4 @@
 [clientscript,sc_processing_init]
 if_sethide(true, sc_processing:highlight_rect);
 %varclient_582 = 0;
-if_setonvarctransmit("script1918{varclient_583, varclient_584, varclient_585, varclient_586, varclient_587}", sc_processing:com_27);
+if_setonvarctransmit("sc_tier_text_refresh{varclient_583, varclient_584, varclient_585, varclient_586, varclient_587}", sc_processing:com_27);

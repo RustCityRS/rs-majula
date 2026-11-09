@@ -1,0 +1,6 @@
+// 738
+[proc,scab_tries_update]
+def_string $string0 = tostring(calc(%varclient_105 / 10));
+def_string $string1 = tostring(calc(%varclient_105 % 10));
+if_settext($string0, scab_rune_game:counter_01);
+if_settext($string1, scab_rune_game:counter_02);

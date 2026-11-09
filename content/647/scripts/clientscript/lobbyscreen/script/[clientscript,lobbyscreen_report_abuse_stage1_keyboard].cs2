@@ -5,7 +5,7 @@ switch_int ($key0) {
         ~lobbyscreen_report_abuse_stage1_next;
         return;
     case ^key_escape :
-        ~ondialogabort_clever;
+        ~lobbyscreen_report_abuse_stage1_close;
         return;
     case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
         %varclient_1097 = ~script1553($key0, %varclient_1097, %varclient_1796);

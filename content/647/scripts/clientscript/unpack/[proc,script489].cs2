@@ -4,21 +4,21 @@ switch_int ($int0) {
     case default :
         return(null);
     case 1 :
-        return(conq_buy_army:com_58);
+        return(conq_buy_army:battle_cry_name_text);
     case 2 :
-        return(conq_buy_army:com_60);
+        return(conq_buy_army:stoicism_name_text);
     case 3 :
-        return(conq_buy_army:com_62);
+        return(conq_buy_army:regenerate_name_text);
     case 4 :
-        return(conq_buy_army:com_64);
+        return(conq_buy_army:barrage_name_text);
     case 5 :
-        return(conq_buy_army:com_68);
+        return(conq_buy_army:bloodlust_name_text);
     case 6 :
-        return(conq_buy_army:com_70);
+        return(conq_buy_army:chastise_name_text);
     case 7 :
-        return(conq_buy_army:com_72);
+        return(conq_buy_army:vigilance_name_text);
     case 8 :
-        return(conq_buy_army:com_74);
+        return(conq_buy_army:shield_wall_name_text);
     case 9 :
         return(conq_buy_army:com_66);
 }

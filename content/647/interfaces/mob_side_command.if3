@@ -8,8 +8,8 @@ height=46
 colour=0x000000
 fill=yes
 trans=136
-onmouseover=script2632(event_com)
-onmouseleave=script2633(event_com)
+onmouseover=mob_command_mouseover(event_com)
+onmouseleave=mob_command_mouseleave(event_com)
 
 // 859:1
 [com_1]
@@ -31,13 +31,13 @@ height=30
 xmode=abs_centre
 ymode=abs_centre
 layer=button1
-graphic=graphic_1914
+graphic="mob_command_icons,0"
 colour=0xffffffff
 transmitop=10
 op10= 
 
 // 859:3
-[com_3]
+[button4_icon_rescue]
 type=layer
 width=16391
 height=16384
@@ -47,7 +47,7 @@ layer=button4
 hide=yes
 
 // 859:4
-[com_4]
+[button4_icon_wall]
 type=layer
 width=16384
 height=16384
@@ -57,7 +57,7 @@ layer=button4
 hide=yes
 
 // 859:5
-[com_5]
+[button4_icon_cave_collect]
 type=layer
 width=16384
 height=16384
@@ -73,8 +73,8 @@ width=35
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
-graphic=graphic_1917
+layer=button4_icon_cave_collect
+graphic="mob_command_icons,3"
 colour=0xffffffff
 transmitop=10
 op10=    
@@ -87,7 +87,7 @@ height=30
 xmode=abs_centre
 ymode=abs_centre
 layer=button3
-graphic=graphic_1916
+graphic="mob_command_icons,2"
 colour=0xffffffff
 transmitop=10
 op10=   
@@ -100,7 +100,7 @@ height=30
 xmode=abs_centre
 ymode=abs_centre
 layer=button2
-graphic=graphic_1915
+graphic="mob_command_icons,1"
 colour=0xffffffff
 transmitop=10
 op10=  
@@ -161,7 +161,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xe79935
-onload=script2626
+onload=mob_command_onload
 onvarctransmit=mob_highlight_stop{varclient_904}
 
 // 859:13
@@ -174,8 +174,8 @@ height=46
 targetmask=npc
 targetverb=Attack
 onload=v2_stone_button(event_com)
-onmouseover=script2632(event_com)
-onmouseleave=script2633(event_com)
+onmouseover=mob_command_mouseover(event_com)
+onmouseleave=mob_command_mouseleave(event_com)
 ontargetleave=mob_highlight_stop
 onclick=mob_highlight_start(event_com)
 
@@ -189,8 +189,8 @@ height=46
 targetmask=coord
 targetverb=Move
 onload=v2_stone_button(event_com)
-onmouseover=script2632(event_com)
-onmouseleave=script2633(event_com)
+onmouseover=mob_command_mouseover(event_com)
+onmouseleave=mob_command_mouseleave(event_com)
 ontargetleave=mob_highlight_stop
 onclick=mob_highlight_start(event_com)
 
@@ -204,8 +204,8 @@ height=46
 transmitop=1
 op1=Explore
 onload=v2_stone_button(event_com)
-onmouseover=script2632(event_com)
-onmouseleave=script2633(event_com)
+onmouseover=mob_command_mouseover(event_com)
+onmouseleave=mob_command_mouseleave(event_com)
 ontargetleave=mob_highlight_stop
 onclick=mob_highlight_start(event_com)
 
@@ -218,8 +218,8 @@ width=51
 height=46
 targetmask=loc
 onload=v2_stone_button(event_com)
-onmouseover=script2632(event_com)
-onmouseleave=script2633(event_com)
+onmouseover=mob_command_mouseover(event_com)
+onmouseleave=mob_command_mouseleave(event_com)
 ontargetleave=mob_highlight_stop
 onclick=mob_highlight_start(event_com)
 
@@ -232,8 +232,8 @@ width=51
 height=46
 targetmask=loc
 onload=v2_stone_button(event_com)
-onmouseover=script2632(event_com)
-onmouseleave=script2633(event_com)
+onmouseover=mob_command_mouseover(event_com)
+onmouseleave=mob_command_mouseleave(event_com)
 ontargetleave=mob_highlight_stop
 onclick=mob_highlight_start(event_com)
 
@@ -265,7 +265,7 @@ height=30
 xmode=abs_centre
 ymode=abs_centre
 layer=button5_steal
-graphic=graphic_1919
+graphic="mob_command_icons,5"
 colour=0xffffffff
 transmitop=10
 op10=    
@@ -278,7 +278,7 @@ height=30
 xmode=abs_centre
 ymode=abs_centre
 layer=button5_collect
-graphic=graphic_1920
+graphic="mob_command_icons,6"
 colour=0xffffffff
 transmitop=10
 op10=    
@@ -290,8 +290,8 @@ width=35
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
-graphic=graphic_1917
+layer=button4_icon_wall
+graphic="mob_command_icons,3"
 colour=0xffffffff
 transmitop=10
 op10=    
@@ -303,8 +303,8 @@ width=35
 height=30
 xmode=abs_centre
 ymode=abs_centre
-layer=com_3
-graphic=graphic_1921
+layer=button4_icon_rescue
+graphic="mob_command_icons,7"
 colour=0xffffffff
 transmitop=10
 op10=     
@@ -316,11 +316,11 @@ x=80
 y=58
 width=35
 height=35
-graphic=graphic_1948
+graphic="mob_unit_heads,3"
 colour=0xffffffff
 transmitop=1
 op1=Go to
-onvarctransmit=script2637{varclient_902}
+onvarctransmit=mob_command_unit_icon{varclient_902}
 
 // 859:25
 [status_graphic]
@@ -331,7 +331,7 @@ width=51
 height=46
 graphic=graphic_1868
 colour=0xffffffff
-onvarctransmit=overlaymouseover{varclient_906, varclient_907}
+onvarctransmit=mob_side_command_status_icon{varclient_906, varclient_907}
 
 // 859:26
 [weight_graphic]
@@ -340,9 +340,9 @@ x=29
 y=61
 width=20
 height=20
-graphic=graphic_2022
+graphic="mob_heavy_light_icons,0"
 colour=0xffffffff
-onvarctransmit=script2638{varclient_903}
+onvarctransmit=mob_command_unit_weight_icon{varclient_903}
 
 // 859:27
 [text]

@@ -2,6 +2,6 @@
 [proc,script4628]
 %varclient_1518 = -1;
 %varclient_1645 = "";
-if (if_find(clan_chat:com_20) = true) {
+if (if_find(clan_chat:clan_list_button_popout_layer) = true) {
     cc_setontimer("script4629(0)");
 }

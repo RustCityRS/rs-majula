@@ -1,0 +1,7 @@
+// 3400
+[proc,lobbyscreen_report_abuse_stage1_namelist_next]
+if (string_length(%varclient_1798) <= 0) {
+    return;
+}
+~lobbyscreen_report_abuse_stage1_namelist_close;
+~lobbyscreen_report_abuse_stage2;

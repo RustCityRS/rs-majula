@@ -30,20 +30,20 @@
 [if_button,smithing_new:smith_mace_5] @smithing_anvil_button(smithing_new:smith_mace_pic, 5);
 [if_button,smithing_new:smith_mace_1] @smithing_anvil_button(smithing_new:smith_mace_pic, 1);
 // Medium helm
-[if_button,smithing_new:com_45] @smithing_anvil_button(smithing_new:com_42, ^smithing_make_all);
-[if_button,smithing_new:com_46] @smithing_anvil_button(smithing_new:com_42, ^smithing_make_x);
-[if_button,smithing_new:com_47] @smithing_anvil_button(smithing_new:com_42, 5);
-[if_button,smithing_new:com_48] @smithing_anvil_button(smithing_new:com_42, 1);
+[if_button,smithing_new:smith_medhelm_all] @smithing_anvil_button(smithing_new:smith_medhelm_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_medhelm_x] @smithing_anvil_button(smithing_new:smith_medhelm_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_medhelm_5] @smithing_anvil_button(smithing_new:smith_medhelm_pic, 5);
+[if_button,smithing_new:smith_medhelm_1] @smithing_anvil_button(smithing_new:smith_medhelm_pic, 1);
 // Sword
 [if_button,smithing_new:smith_sword_all] @smithing_anvil_button(smithing_new:smith_sword_pic, ^smithing_make_all);
 [if_button,smithing_new:smith_sword_x] @smithing_anvil_button(smithing_new:smith_sword_pic, ^smithing_make_x);
 [if_button,smithing_new:smith_sword_5] @smithing_anvil_button(smithing_new:smith_sword_pic, 5);
 [if_button,smithing_new:smith_sword_1] @smithing_anvil_button(smithing_new:smith_sword_pic, 1);
 // Dart tips
-[if_button,smithing_new:com_69] @smithing_anvil_button(smithing_new:com_66, ^smithing_make_all);
-[if_button,smithing_new:com_70] @smithing_anvil_button(smithing_new:com_66, ^smithing_make_x);
-[if_button,smithing_new:pathcourse_5] @smithing_anvil_button(smithing_new:com_66, 5);
-[if_button,smithing_new:pathcourse_1] @smithing_anvil_button(smithing_new:com_66, 1);
+[if_button,smithing_new:smith_darttip_all] @smithing_anvil_button(smithing_new:smith_darttip_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_darttip_x] @smithing_anvil_button(smithing_new:smith_darttip_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_darttip_5] @smithing_anvil_button(smithing_new:smith_darttip_pic, 5);
+[if_button,smithing_new:smith_darttip_1] @smithing_anvil_button(smithing_new:smith_darttip_pic, 1);
 // Nails
 [if_button,smithing_new:smith_nails_all] @smithing_anvil_button(smithing_new:smith_nails_pic, ^smithing_make_all);
 [if_button,smithing_new:smith_nails_x] @smithing_anvil_button(smithing_new:smith_nails_pic, ^smithing_make_x);
@@ -60,10 +60,10 @@
 [if_button,smithing_new:smith_studs_5] @smithing_anvil_button(smithing_new:smith_studs_pic, 5);
 [if_button,smithing_new:smith_studs_1] @smithing_anvil_button(smithing_new:smith_studs_pic, 1);
 // Arrow tips
-[if_button,smithing_new:com_109] @smithing_anvil_button(smithing_new:com_106, ^smithing_make_all);
-[if_button,smithing_new:com_110] @smithing_anvil_button(smithing_new:com_106, ^smithing_make_x);
-[if_button,smithing_new:com_111] @smithing_anvil_button(smithing_new:com_106, 5);
-[if_button,smithing_new:com_112] @smithing_anvil_button(smithing_new:com_106, 1);
+[if_button,smithing_new:smith_arrowtip_all] @smithing_anvil_button(smithing_new:smith_arrowtip_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_arrowtip_x] @smithing_anvil_button(smithing_new:smith_arrowtip_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_arrowtip_5] @smithing_anvil_button(smithing_new:smith_arrowtip_pic, 5);
+[if_button,smithing_new:smith_arrowtip_1] @smithing_anvil_button(smithing_new:smith_arrowtip_pic, 1);
 // Scimitar
 [if_button,smithing_new:smith_scimitar_all] @smithing_anvil_button(smithing_new:smith_scimitar_pic, ^smithing_make_all);
 [if_button,smithing_new:smith_scimitar_x] @smithing_anvil_button(smithing_new:smith_scimitar_pic, ^smithing_make_x);
@@ -75,15 +75,15 @@
 [if_button,smithing_new:smith_longsword_5] @smithing_anvil_button(smithing_new:smith_longsword_pic, 5);
 [if_button,smithing_new:smith_longsword_1] @smithing_anvil_button(smithing_new:smith_longsword_pic, 1);
 // Throwing knife
-[if_button,smithing_new:com_141] @smithing_anvil_button(smithing_new:com_138, ^smithing_make_all);
-[if_button,smithing_new:com_142] @smithing_anvil_button(smithing_new:com_138, ^smithing_make_x);
-[if_button,smithing_new:com_143] @smithing_anvil_button(smithing_new:com_138, 5);
-[if_button,smithing_new:com_144] @smithing_anvil_button(smithing_new:com_138, 1);
+[if_button,smithing_new:smith_throwingknife_all] @smithing_anvil_button(smithing_new:smith_throwingknife_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_throwingknife_x] @smithing_anvil_button(smithing_new:smith_throwingknife_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_throwingknife_5] @smithing_anvil_button(smithing_new:smith_throwingknife_pic, 5);
+[if_button,smithing_new:smith_throwingknife_1] @smithing_anvil_button(smithing_new:smith_throwingknife_pic, 1);
 // Full helm
-[if_button,smithing_new:com_149] @smithing_anvil_button(smithing_new:com_146, ^smithing_make_all);
-[if_button,smithing_new:com_150] @smithing_anvil_button(smithing_new:com_146, ^smithing_make_x);
-[if_button,smithing_new:com_151] @smithing_anvil_button(smithing_new:com_146, 5);
-[if_button,smithing_new:com_152] @smithing_anvil_button(smithing_new:com_146, 1);
+[if_button,smithing_new:smith_fullhelm_all] @smithing_anvil_button(smithing_new:smith_fullhelm_pic, ^smithing_make_all);
+[if_button,smithing_new:smith_fullhelm_x] @smithing_anvil_button(smithing_new:smith_fullhelm_pic, ^smithing_make_x);
+[if_button,smithing_new:smith_fullhelm_5] @smithing_anvil_button(smithing_new:smith_fullhelm_pic, 5);
+[if_button,smithing_new:smith_fullhelm_1] @smithing_anvil_button(smithing_new:smith_fullhelm_pic, 1);
 // Square shield
 [if_button,smithing_new:com_157] @smithing_anvil_button(smithing_new:com_154, ^smithing_make_all);
 [if_button,smithing_new:com_158] @smithing_anvil_button(smithing_new:com_154, ^smithing_make_x);
@@ -268,9 +268,9 @@ if(%death_equiproom < ^death_complete) {
 // darts slot is hidden until the server shows it (cache 786), and void-634's
 // Anvil.kt shows it after Tourist Trap.
 if (%desertrescue >= ^desertrescue_learned_darts) {
-    if_sethide(smithing_new:pathcourse, false);
+    if_sethide(smithing_new:smith_darttip, false);
 } else {
-    if_sethide(smithing_new:pathcourse, true);
+    if_sethide(smithing_new:smith_darttip, true);
 }
 // 2011's crossbow bolts and limbs show by default; 289 makes neither.
 if_sethide(smithing_new:smith_bolts, true);

@@ -18,8 +18,8 @@ width=350
 height=300
 xmode=abs_centre
 ymode=abs_centre
-onload=poh_bookcase_build(poh_bookcase:contents, poh_bookcase:com_18)
-onvarctransmit=poh_bookcase_build(poh_bookcase:contents, poh_bookcase:com_18){varclient_1040, varclient_1041, varclient_1042}
+onload=poh_bookcase_build(poh_bookcase:contents, poh_bookcase:scrollbar)
+onvarctransmit=poh_bookcase_build(poh_bookcase:contents, poh_bookcase:scrollbar){varclient_1040, varclient_1041, varclient_1042}
 
 // 87:2
 [com_2]
@@ -232,7 +232,7 @@ ymode=abs_bottom
 layer=universe
 
 // 87:18
-[com_18]
+[scrollbar]
 type=layer
 x=3
 y=3

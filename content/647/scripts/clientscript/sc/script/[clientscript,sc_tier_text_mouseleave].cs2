@@ -1,0 +1,37 @@
+// 1917
+[clientscript,sc_tier_text_mouseleave](component $component0)
+if ($component0 = sc_processing:clay_1_text) {
+    if (%varclient_583 > 0) {
+        if_setcolour(0xc8aa64, $component0);
+        return;
+    }
+    if_setcolour(0x333333, $component0);
+}
+if ($component0 = sc_processing:clay_2_text) {
+    if (%varclient_584 > 0) {
+        if_setcolour(0xc8aa64, $component0);
+        return;
+    }
+    if_setcolour(0x333333, $component0);
+}
+if ($component0 = sc_processing:clay_3_text) {
+    if (%varclient_585 > 0) {
+        if_setcolour(0xc8aa64, $component0);
+        return;
+    }
+    if_setcolour(0x333333, $component0);
+}
+if ($component0 = sc_processing:clay_4_text) {
+    if (%varclient_586 > 0) {
+        if_setcolour(0xc8aa64, $component0);
+        return;
+    }
+    if_setcolour(0x333333, $component0);
+}
+if ($component0 = sc_processing:clay_5_text) {
+    if (%varclient_587 > 0) {
+        if_setcolour(0xc8aa64, $component0);
+        return;
+    }
+    if_setcolour(0x333333, $component0);
+}

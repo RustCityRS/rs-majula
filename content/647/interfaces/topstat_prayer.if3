@@ -61,8 +61,8 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xca9800
-onload=script801(event_com, prayer)
-onstattransmit=script801(event_com, prayer){prayer}
+onload=topstat_set_text_skill(event_com, prayer)
+onstattransmit=topstat_set_text_skill(event_com, prayer){prayer}
 
 // 749:5
 [topstat_graphic_prayer]

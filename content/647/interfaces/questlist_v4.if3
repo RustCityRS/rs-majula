@@ -1,5 +1,5 @@
 // 190:0
-[com_0]
+[main]
 type=layer
 width=16391
 height=16384
@@ -18,7 +18,7 @@ x=5
 y=5
 width=170
 height=14
-layer=com_0
+layer=main
 textfont=b12_full
 text=Quests
 textshadow=yes
@@ -34,14 +34,14 @@ y=251
 width=8
 height=14
 widthmode=minus
-layer=com_0
+layer=main
 textfont=p11_full
 text=Quest Points: 0
 textshadow=yes
 colour=0xeb981f
 transmitop=10
 op10= 
-onvartransmit=script2166{qp, quest_points_total}
+onvartransmit=ql4_qp_update{qp, quest_points_total}
 
 // 190:3
 [com_3]
@@ -49,7 +49,7 @@ type=graphic
 y=9
 width=190
 height=32
-layer=com_0
+layer=main
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -62,7 +62,7 @@ type=graphic
 y=45
 height=32
 widthmode=minus
-layer=com_0
+layer=main
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -75,7 +75,7 @@ type=graphic
 y=61
 height=32
 widthmode=minus
-layer=com_0
+layer=main
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -88,7 +88,7 @@ type=graphic
 y=236
 width=190
 height=32
-layer=com_0
+layer=main
 graphic="v2_stone_borders,23"
 tiling=yes
 colour=0xffffffff
@@ -101,7 +101,7 @@ type=rectangle
 y=25
 width=190
 height=224
-layer=com_0
+layer=main
 colour=0x000000
 fill=yes
 trans=200
@@ -116,14 +116,14 @@ y=61
 width=8
 height=14
 widthmode=minus
-layer=com_0
+layer=main
 textfont=p11_full
 text=Showing X / Y quests
 textshadow=yes
 colour=0xeb981f
 transmitop=10
 op10=  
-onvartransmit=script2166{qp, quest_points_total}
+onvartransmit=ql4_qp_update{qp, quest_points_total}
 
 // 190:9
 [button_filter]
@@ -132,7 +132,7 @@ x=133
 y=28
 width=50
 height=12
-layer=com_0
+layer=main
 textfont=p11_full
 text=Filter
 textshadow=yes
@@ -140,7 +140,7 @@ colour=0xeb981f
 transmitop=1
 op1=Filter quests
 onmouseleave=deltooltip(questlist_v4:tooltip)
-onop=script2171(event_op)
+onop=ql4_button_filter_op(event_op)
 onmouserepeat=ql4_tooltip(event_com)
 
 // 190:10
@@ -150,13 +150,13 @@ x=114
 y=25
 width=17
 height=17
-layer=com_0
+layer=main
 graphic="options_radio_buttons,0"
 colour=0xffffffff
 transmitop=1
 op1=Filter quests
 onmouseleave=deltooltip(questlist_v4:tooltip)
-onop=script2171(event_op)
+onop=ql4_button_filter_op(event_op)
 onmouserepeat=ql4_tooltip(event_com)
 
 // 190:11
@@ -166,7 +166,7 @@ x=133
 y=44
 width=50
 height=12
-layer=com_0
+layer=main
 textfont=p11_full
 text=Hide done
 textshadow=yes
@@ -185,7 +185,7 @@ x=114
 y=41
 width=17
 height=17
-layer=com_0
+layer=main
 graphic="options_radio_buttons,0"
 colour=0xffffffff
 transmitop=1,10
@@ -204,7 +204,7 @@ width=4
 height=173
 widthmode=minus
 ymode=abs_bottom
-layer=com_0
+layer=main
 
 // 190:14
 [com_14]
@@ -213,7 +213,7 @@ x=3
 y=48
 width=107
 height=52
-layer=com_0
+layer=main
 hide=yes
 noclickthrough=yes
 transmitop=10
@@ -226,7 +226,7 @@ x=4
 y=50
 width=104
 height=48
-layer=com_0
+layer=main
 hide=yes
 transmitop=10
 op10=                              
@@ -239,14 +239,14 @@ x=3
 y=33
 width=107
 height=16
-layer=com_0
+layer=main
 transmitop=10
 op10=                              
 onload=dropdownbox_preselect_veryquick(enum_2243, 0, 2, event_com, questlist_v4:com_14, questlist_v4:com_15, null)
 onclick=script2168
 
 // 190:17
-[com_17]
+[scrollbar]
 type=layer
 width=16
 heightmode=minus

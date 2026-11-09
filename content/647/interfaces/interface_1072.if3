@@ -5,7 +5,7 @@ x=412
 y=197
 width=72
 height=15
-layer=com_91
+layer=rune_info
 textfont=p11_full
 text=Runite
 textshadow=yes
@@ -17,19 +17,19 @@ x=412
 y=212
 width=72
 height=15
-layer=com_91
+layer=rune_info
 textfont=p11_full
 text=Coal
 textshadow=yes
 
 // 1072:2
-[com_2]
+[rune_cost]
 type=text
 x=460
 y=197
 width=26
 height=15
-layer=com_91
+layer=rune_info
 textfont=p11_full
 text=1
 textshadow=yes
@@ -42,7 +42,7 @@ x=460
 y=212
 width=26
 height=15
-layer=com_91
+layer=rune_info
 textfont=p11_full
 text=1
 textshadow=yes
@@ -55,7 +55,7 @@ x=412
 y=181
 width=75
 height=17
-layer=com_91
+layer=rune_info
 textfont=p11_full
 text=Cost (ore):
 colour=0xfffefe
@@ -67,7 +67,7 @@ x=317
 y=212
 width=72
 height=15
-layer=com_86
+layer=adam_info
 textfont=p11_full
 text=Coal
 textshadow=yes
@@ -79,7 +79,7 @@ x=365
 y=197
 width=26
 height=15
-layer=com_86
+layer=adam_info
 textfont=p11_full
 text=1
 textshadow=yes
@@ -92,7 +92,7 @@ x=365
 y=212
 width=26
 height=15
-layer=com_86
+layer=adam_info
 textfont=p11_full
 text=1
 textshadow=yes
@@ -105,7 +105,7 @@ x=317
 y=197
 width=72
 height=15
-layer=com_86
+layer=adam_info
 textfont=p11_full
 text=Adamant
 textshadow=yes
@@ -117,7 +117,7 @@ x=317
 y=181
 width=75
 height=17
-layer=com_86
+layer=adam_info
 textfont=p11_full
 text=Cost (ore):
 colour=0xfffefe
@@ -129,7 +129,7 @@ x=222
 y=197
 width=72
 height=15
-layer=com_78
+layer=mithril_info
 textfont=p11_full
 text=Mithril
 textshadow=yes
@@ -141,7 +141,7 @@ x=222
 y=212
 width=72
 height=15
-layer=com_78
+layer=mithril_info
 textfont=p11_full
 text=Coal
 textshadow=yes
@@ -153,7 +153,7 @@ x=270
 y=197
 width=26
 height=15
-layer=com_78
+layer=mithril_info
 textfont=p11_full
 text=1
 textshadow=yes
@@ -166,7 +166,7 @@ x=270
 y=212
 width=26
 height=15
-layer=com_78
+layer=mithril_info
 textfont=p11_full
 text=1
 textshadow=yes
@@ -179,7 +179,7 @@ x=222
 y=181
 width=75
 height=17
-layer=com_78
+layer=mithril_info
 textfont=p11_full
 text=Cost (ore):
 colour=0xfffefe
@@ -331,7 +331,7 @@ y=6
 width=21
 height=19
 layer=layer_10
-graphic=graphic_3863
+graphic="sm_digit_bar_button_arrow,0"
 transmitop=1
 op1=+1
 onmouseover=script4185(event_com)
@@ -346,7 +346,7 @@ y=6
 width=21
 height=19
 layer=layer_10
-graphic=graphic_3864
+graphic="sm_digit_bar_button_arrow,1"
 transmitop=1
 op1=-1
 onmouseover=script4185(event_com)
@@ -354,7 +354,7 @@ onmouseleave=script4186(event_com)
 onop=script4184(1, -1)
 
 // 1072:33
-[com_33]
+[bar_count]
 type=text
 x=21
 y=5
@@ -847,7 +847,7 @@ text=Mithril
 colour=0xfffefe
 
 // 1072:77
-[com_77]
+[members_mithril]
 type=text
 x=20
 y=85
@@ -861,7 +861,7 @@ textshadow=yes
 colour=0xff0000
 
 // 1072:78
-[com_78]
+[mithril_info]
 type=layer
 x=-211
 y=-111
@@ -880,7 +880,7 @@ ymode=abs_centre
 layer=com_75
 
 // 1072:80
-[com_80]
+[mithril_model]
 type=model
 x=1
 y=11
@@ -933,7 +933,7 @@ text=Adamant
 colour=0xfffefe
 
 // 1072:85
-[com_85]
+[members_adam]
 type=text
 x=20
 y=85
@@ -947,7 +947,7 @@ textshadow=yes
 colour=0xff0000
 
 // 1072:86
-[com_86]
+[adam_info]
 type=layer
 x=-306
 y=-111
@@ -966,7 +966,7 @@ ymode=abs_centre
 layer=com_81
 
 // 1072:88
-[com_88]
+[adam_model]
 type=model
 x=1
 y=11
@@ -991,7 +991,7 @@ text=Rune
 colour=0xfffefe
 
 // 1072:90
-[com_90]
+[members_rune]
 type=text
 x=20
 y=85
@@ -1005,7 +1005,7 @@ textshadow=yes
 colour=0xff0000
 
 // 1072:91
-[com_91]
+[rune_info]
 type=layer
 x=-401
 y=-111
@@ -1024,7 +1024,7 @@ ymode=abs_centre
 layer=com_82
 
 // 1072:93
-[com_93]
+[rune_model]
 type=model
 x=1
 y=11
@@ -1373,7 +1373,7 @@ text=Workshop Furnace
 textalignh=centre
 textalignv=centre
 colour=0xebe0bc
-onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
 
 // 1072:125
 [content_layer]
@@ -1387,7 +1387,7 @@ heightmode=minus
 layer=com_97
 
 // 1072:126
-[com_126]
+[dropshadow_side_graphic]
 type=graphic
 x=-1
 y=1
@@ -1400,7 +1400,7 @@ graphic=button_dropshadow_left
 tiling=yes
 
 // 1072:127
-[com_127]
+[dropshadow_bottom_graphic]
 type=graphic
 y=-1
 width=3
@@ -1412,7 +1412,7 @@ graphic=button_dropshadow_bottom
 tiling=yes
 
 // 1072:128
-[com_128]
+[dropshadow_corner_graphic]
 type=graphic
 x=-1
 y=-1
@@ -1432,7 +1432,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_36
-onload=script4203(event_com, struct_1741)
+onload=aif_build_tab_layer(event_com, struct_1741)
 
 // 1072:130
 [com_130]
@@ -1473,7 +1473,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_36
-onload=script4203(event_com, struct_1742)
+onload=aif_build_tab_layer(event_com, struct_1742)
 
 // 1072:134
 [com_134]
@@ -1483,7 +1483,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_36
-onload=script4203(event_com, struct_1743)
+onload=aif_build_tab_layer(event_com, struct_1743)
 
 // 1072:135
 [com_135]
@@ -1493,10 +1493,10 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_36
-onload=script4203(event_com, struct_1744)
+onload=aif_build_tab_layer(event_com, struct_1744)
 
 // 1072:136
-[com_136]
+[tab_text_layer]
 type=layer
 width=16384
 height=16384
@@ -1505,7 +1505,7 @@ heightmode=proportion
 layer=com_36
 
 // 1072:137
-[com_137]
+[tab_text]
 type=text
 width=16384
 height=16384
@@ -1513,13 +1513,13 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_136
+layer=tab_text_layer
 textfont=verdana_11pt_regular
 text=I
 textalignh=centre
 textalignv=centre
 colour=0xe3cccf
-onload=script4210(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
 
 // 1072:138
 [com_138]
@@ -1542,7 +1542,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_36
-onload=script4203(event_com, struct_1745)
+onload=aif_build_tab_layer(event_com, struct_1745)
 
 // 1072:140
 [com_140]
@@ -1561,7 +1561,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_140
-onload=script4203(event_com, struct_1741)
+onload=aif_build_tab_layer(event_com, struct_1741)
 
 // 1072:142
 [com_142]
@@ -1602,7 +1602,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_140
-onload=script4203(event_com, struct_1742)
+onload=aif_build_tab_layer(event_com, struct_1742)
 
 // 1072:146
 [com_146]
@@ -1612,7 +1612,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_140
-onload=script4203(event_com, struct_1743)
+onload=aif_build_tab_layer(event_com, struct_1743)
 
 // 1072:147
 [com_147]
@@ -1622,10 +1622,10 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_140
-onload=script4203(event_com, struct_1744)
+onload=aif_build_tab_layer(event_com, struct_1744)
 
 // 1072:148
-[com_148]
+[tab_text_layer_1]
 type=layer
 width=16384
 height=16384
@@ -1642,13 +1642,13 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_148
+layer=tab_text_layer_1
 textfont=verdana_11pt_regular
 text=II
 textalignh=centre
 textalignv=centre
 colour=0xe3cccf
-onload=script4210(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
 
 // 1072:150
 [com_150]
@@ -1671,7 +1671,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_140
-onload=script4203(event_com, struct_1745)
+onload=aif_build_tab_layer(event_com, struct_1745)
 
 // 1072:152
 [com_152]
@@ -1690,7 +1690,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_152
-onload=script4203(event_com, struct_1741)
+onload=aif_build_tab_layer(event_com, struct_1741)
 
 // 1072:154
 [com_154]
@@ -1731,7 +1731,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_152
-onload=script4203(event_com, struct_1742)
+onload=aif_build_tab_layer(event_com, struct_1742)
 
 // 1072:158
 [com_158]
@@ -1741,7 +1741,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_152
-onload=script4203(event_com, struct_1743)
+onload=aif_build_tab_layer(event_com, struct_1743)
 
 // 1072:159
 [com_159]
@@ -1751,10 +1751,10 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_152
-onload=script4203(event_com, struct_1744)
+onload=aif_build_tab_layer(event_com, struct_1744)
 
 // 1072:160
-[com_160]
+[tab_text_layer_2]
 type=layer
 width=16384
 height=16384
@@ -1771,13 +1771,13 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_160
+layer=tab_text_layer_2
 textfont=verdana_11pt_regular
 text=III
 textalignh=centre
 textalignv=centre
 colour=0xe3cccf
-onload=script4210(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
 
 // 1072:162
 [com_162]
@@ -1800,7 +1800,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_152
-onload=script4203(event_com, struct_1745)
+onload=aif_build_tab_layer(event_com, struct_1745)
 
 // 1072:164
 [com_164]
@@ -1819,7 +1819,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_164
-onload=script4203(event_com, struct_1741)
+onload=aif_build_tab_layer(event_com, struct_1741)
 
 // 1072:166
 [com_166]
@@ -1860,7 +1860,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_164
-onload=script4203(event_com, struct_1742)
+onload=aif_build_tab_layer(event_com, struct_1742)
 
 // 1072:170
 [com_170]
@@ -1870,7 +1870,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_164
-onload=script4203(event_com, struct_1743)
+onload=aif_build_tab_layer(event_com, struct_1743)
 
 // 1072:171
 [com_171]
@@ -1880,10 +1880,10 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_164
-onload=script4203(event_com, struct_1744)
+onload=aif_build_tab_layer(event_com, struct_1744)
 
 // 1072:172
-[com_172]
+[tab_text_layer_3]
 type=layer
 width=16384
 height=16384
@@ -1900,13 +1900,13 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_172
+layer=tab_text_layer_3
 textfont=verdana_11pt_regular
 text=IV
 textalignh=centre
 textalignv=centre
 colour=0xe3cccf
-onload=script4210(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
 
 // 1072:174
 [com_174]
@@ -1929,7 +1929,7 @@ height=20
 widthmode=proportion
 ymode=abs_centre
 layer=com_164
-onload=script4203(event_com, struct_1745)
+onload=aif_build_tab_layer(event_com, struct_1745)
 
 // 1072:176
 [com_176]

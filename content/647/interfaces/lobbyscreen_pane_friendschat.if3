@@ -3,7 +3,7 @@
 type=graphic
 width=15
 height=31
-layer=com_40
+layer=clan_join_bg
 graphic=graphic_4690
 
 // 589:1
@@ -13,7 +13,7 @@ x=15
 width=30
 height=31
 widthmode=minus
-layer=com_40
+layer=clan_join_bg
 graphic=graphic_4691
 
 // 589:2
@@ -22,7 +22,7 @@ type=graphic
 width=15
 height=31
 xmode=abs_right
-layer=com_40
+layer=clan_join_bg
 graphic=graphic_4692
 
 // 589:3
@@ -47,7 +47,7 @@ fill=yes
 trans=215
 
 // 589:5
-[com_5]
+[main]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -59,7 +59,7 @@ width=4273
 height=148
 widthmode=proportion
 heightmode=minus
-layer=com_5
+layer=main
 
 // 589:7
 [banner_right]
@@ -69,7 +69,7 @@ height=148
 widthmode=proportion
 heightmode=minus
 xmode=abs_right
-layer=com_5
+layer=main
 op10= 
 
 // 589:8
@@ -110,7 +110,7 @@ width=7867
 height=32
 widthmode=proportion
 xmode=abs_centre
-layer=com_5
+layer=main
 textfont=verdana_15pt_regular
 text=Friends Chat Channel
 textalignh=centre
@@ -127,7 +127,7 @@ height=185
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_5
+layer=main
 op10=   
 
 // 589:12
@@ -139,7 +139,7 @@ width=20
 height=113
 widthmode=minus
 ymode=abs_bottom
-layer=com_5
+layer=main
 op10=  
 
 // 589:13
@@ -150,7 +150,7 @@ width=8192
 height=32
 widthmode=proportion
 ymode=abs_bottom
-layer=com_5
+layer=main
 
 // 589:14
 [report_abuse_button]
@@ -160,22 +160,22 @@ width=37
 height=31
 xmode=abs_right
 ymode=abs_bottom
-layer=com_5
+layer=main
 op1=Report Abuse
 op10=    
-onmouseleave=deltooltip(lobbyscreen_pane_friendschat:com_15)
-onop=script3176("", false)
-onmouserepeat=addtooltip(event_com, lobbyscreen_pane_friendschat:com_15, "Report abuse", 25, 200)
+onmouseleave=deltooltip(lobbyscreen_pane_friendschat:report_abuse_tooltip)
+onop=lobbyscreen_report_abuse_stage1("", false)
+onmouserepeat=addtooltip(event_com, lobbyscreen_pane_friendschat:report_abuse_tooltip, "Report abuse", 25, 200)
 
 // 589:15
-[com_15]
+[report_abuse_tooltip]
 type=layer
 x=10
 width=100
 height=31
 xmode=abs_right
 ymode=abs_bottom
-layer=com_5
+layer=main
 
 // 589:16
 [com_16]
@@ -205,7 +205,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 589:18
-[com_18]
+[clan_detail_owner_title]
 type=text
 width=75
 height=16
@@ -237,7 +237,7 @@ colour=0xebe0bc
 op10= 
 
 // 589:20
-[com_20]
+[clan_detail_owner_text]
 type=text
 x=80
 width=80
@@ -449,7 +449,7 @@ colour=0x000000
 op10=   
 
 // 589:39
-[com_39]
+[clan_join_button]
 type=layer
 height=32
 widthmode=minus
@@ -460,20 +460,20 @@ op10=
 onop=lobbyscreen_pane_friendschat_join
 
 // 589:40
-[com_40]
+[clan_join_bg]
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_39
+layer=clan_join_button
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendschat:com_0, graphic_4693, lobbyscreen_pane_friendschat:com_1, graphic_4694, lobbyscreen_pane_friendschat:com_2, graphic_4695)
 onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendschat:com_0, graphic_4690, lobbyscreen_pane_friendschat:com_1, graphic_4691, lobbyscreen_pane_friendschat:com_2, graphic_4692)
 
 // 589:41
-[com_41]
+[clan_join_button_text]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_39
+layer=clan_join_button
 textfont=verdana_13pt_regular
 text=Join Friends Chat Channel
 textlineheight=12

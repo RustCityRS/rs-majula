@@ -3,7 +3,7 @@
 type=layer
 width=190
 height=229
-onvartransmit=script1120{attackstyle_magic}
+onvartransmit=autocast_highlight_spell{attackstyle_magic}
 
 // 193:1
 [xp_button_layer]
@@ -22,7 +22,7 @@ transmitop=10
 op10= 
 
 // 193:3
-[com_3]
+[order_buttons_layer]
 type=layer
 width=190
 height=261
@@ -44,7 +44,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_1701
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Filter
@@ -52,7 +52,7 @@ op10=
 onmouseover=script785(event_com)
 onmouseleave=script941(event_com)
 onvartransmit=script1118(event_com){varplayer_1376}
-onmouserepeat=script1117(event_com)
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
 
 // 193:6
 [com_6]
@@ -63,7 +63,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_2192
+graphic="magic_icon_set,7"
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -77,7 +77,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_1701
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Filter
@@ -85,7 +85,7 @@ op10=
 onmouseover=script785(event_com)
 onmouseleave=script941(event_com)
 onvartransmit=script1118(event_com){varplayer_1376}
-onmouserepeat=script1117(event_com)
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
 
 // 193:8
 [com_8]
@@ -96,7 +96,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=filter_buttons_layer
-graphic=graphic_2195
+graphic="magic_icon_set,10"
 colour=0xffffffff
 transmitop=10
 op10= 
@@ -110,15 +110,15 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
-graphic=graphic_1701
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Sort
 op10= 
-onmouseleave=script2060(event_com)
-onvartransmit=script2057{varplayer_1376}
-onmouserepeat=script2061(event_com)
+onmouseleave=magre_button_restore(event_com)
+onvartransmit=magre_sort{varplayer_1376}
+onmouserepeat=magre_button_mouserepeat(event_com)
 onclick=script2058(0)
 
 // 193:10
@@ -130,14 +130,14 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
-graphic=graphic_1701
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Sort
 op10=  
-onmouseleave=script2060(event_com)
-onmouserepeat=script2061(event_com)
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
 onclick=script2058(1)
 
 // 193:11
@@ -149,14 +149,14 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
-graphic=graphic_1701
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Sort
 op10=  
-onmouseleave=script2060(event_com)
-onmouserepeat=script2061(event_com)
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
 onclick=script2058(2)
 
 // 193:12
@@ -168,8 +168,8 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
-graphic=graphic_1704
+layer=order_buttons_layer
+graphic="magic_icon_set,3"
 colour=0xffffffff
 transmitop=10
 op10=  
@@ -183,8 +183,8 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
-graphic=graphic_1705
+layer=order_buttons_layer
+graphic="magic_icon_set,4"
 colour=0xffffffff
 transmitop=10
 op10=   
@@ -198,8 +198,8 @@ width=20
 height=20
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
-graphic=graphic_1706
+layer=order_buttons_layer
+graphic="magic_icon_set,5"
 colour=0xffffffff
 transmitop=10
 op10=   
@@ -253,7 +253,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=xp_button_layer
-graphic=graphic_1701
+graphic="magic_icon_set,0"
 colour=0xffffffff
 transmitop=1,10
 op1=Defensive Casting
@@ -272,7 +272,7 @@ width=20
 height=20
 ymode=abs_bottom
 layer=xp_button_layer
-graphic=graphic_2191
+graphic="magic_icon_set,6"
 colour=0xffffffff
 transmitop=10
 op10=  
@@ -739,7 +739,7 @@ alpha=yes
 colour=0xffffffff
 transmitop=10
 op10= 
-ontimer=script1124(event_com)
+ontimer=autocast_highlight_glow(event_com)
 
 // 193:50
 [com_50]

@@ -2,9 +2,9 @@
 [clientscript,script3396](int $int0)
 def_string $string0 = "";
 def_int $int1 = -1;
-if (cc_find(interface_979:build_layer, $int0) = true) {
+if (cc_find(lobbyscreen_report_abuse_stage1_namelist:build_layer, $int0) = true) {
     %varclient_1798 = cc_getopbase;
     %varclient_792 = %varclient_791;
-    ~script3395;
-    ~script3397;
+    ~lobbyscreen_report_abuse_stage1_namelist_selected_highlight;
+    ~lobbyscreen_report_abuse_stage1_namelist_update_select_button;
 }

@@ -21,7 +21,7 @@ if (string_length(%varclient_1557) > 0) {
 }
 %varclient_5 = 12;
 ~meslayer_setupinput(%varclient_1557);
-if_setonclick("script1805", chattop:mes_layer);
+if_setonclick("clanwars_caller_click", chattop:mes_layer);
 ~script2026;
 if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chattop:mes_text2);
 ~opt_header;

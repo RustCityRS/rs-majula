@@ -1,0 +1,19 @@
+// 315
+[clientscript,playerdesign4_vartransmit]
+def_boolean $boolean0 = null;
+if (%character_creation_female ! %varclient_196 | %varclient_197 ! %character_creation_style) {
+    $boolean0 = ~int_to_bool(%character_creation_female);
+    %varclient_196 = %character_creation_female;
+    %varclient_197 = %character_creation_style;
+    ~script387($boolean0);
+    %varclient_86 = %character_creation_sub_style;
+    ~script390($boolean0);
+} else if (%varclient_86 ! %character_creation_sub_style) {
+    %varclient_86 = %character_creation_sub_style;
+    ~script390(~int_to_bool(%varclient_196));
+}
+if (%varclient_1020 ! %character_part) {
+    %varclient_1020 = %character_part;
+    ~playerdesign4_rebuildmenu;
+}
+~script2741;

@@ -11,7 +11,7 @@ if ($boolean1 = true) {
     if_setgraphic("login_lobby_button,11", $component3);
     if_setgraphic("login_lobby_button,10", $component4);
     if_setgraphic("login_lobby_button,10", $component5);
-    if_setgraphic(graphic_2614, $component6);
+    if_setgraphic("login_lobby_abuse,1", $component6);
 } else {
     if ($int7 > 38) {
         if_setsize(max(calc($int7 - 5), 38), 31, ^setsize_abs, ^setsize_abs, $component0);
@@ -22,5 +22,5 @@ if ($boolean1 = true) {
     if_setgraphic("login_lobby_button,9", $component3);
     if_setgraphic("login_lobby_button,8", $component4);
     if_setgraphic("login_lobby_button,8", $component5);
-    if_setgraphic(graphic_2613, $component6);
+    if_setgraphic("login_lobby_abuse,0", $component6);
 }

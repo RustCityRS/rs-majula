@@ -10,7 +10,7 @@ while ($int3 < $int1) {
     }
     $int3 = calc($int3 + 1);
 }
-~script1464;
+~bank_v2_tab_hide_separator;
 if_sethide(false, bank_v2_main:com_84);
 if_setposition(calc(8 - 2), calc(5 - 2), ^setpos_abs_left, ^setpos_abs_top, bank_v2_main:com_84);
 ~bank_v2_build_scrollbar($int2);

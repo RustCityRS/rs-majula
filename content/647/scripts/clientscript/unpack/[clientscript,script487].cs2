@@ -1,18 +1,18 @@
 // 487
 [clientscript,script487]
-if_setgraphic(graphic_3263, conq_buy_army:com_95);
-if_setgraphic(graphic_3263, conq_buy_army:com_89);
-if_setgraphic(graphic_3263, conq_buy_army:com_83);
-if_setgraphic(graphic_3263, conq_buy_army:com_77);
+if_setgraphic(graphic_3263, conq_buy_army:command_ability_1_background);
+if_setgraphic(graphic_3263, conq_buy_army:command_ability_2_background);
+if_setgraphic(graphic_3263, conq_buy_army:command_ability_3_background);
+if_setgraphic(graphic_3263, conq_buy_army:command_ability_4_background);
 switch_int (%varplayerbit_7515) {
     case default :
         return;
     case 1 :
-        if_setgraphic(graphic_3265, conq_buy_army:com_95);
+        if_setgraphic(graphic_3265, conq_buy_army:command_ability_1_background);
     case 2 :
-        if_setgraphic(graphic_3265, conq_buy_army:com_89);
+        if_setgraphic(graphic_3265, conq_buy_army:command_ability_2_background);
     case 3 :
-        if_setgraphic(graphic_3265, conq_buy_army:com_83);
+        if_setgraphic(graphic_3265, conq_buy_army:command_ability_3_background);
     case 4 :
-        if_setgraphic(graphic_3265, conq_buy_army:com_77);
+        if_setgraphic(graphic_3265, conq_buy_army:command_ability_4_background);
 }

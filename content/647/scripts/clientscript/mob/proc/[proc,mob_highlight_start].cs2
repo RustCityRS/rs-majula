@@ -7,42 +7,42 @@ def_graphic $graphic2 = null;
 switch_component ($component0) {
     case mob_side_command:button1 :
         $component0 = mob_side_command:attack;
-        $graphic1 = graphic_1914;
-        $graphic2 = graphic_1922;
+        $graphic1 = "mob_command_icons,0";
+        $graphic2 = "mob_command_icons,8";
     case mob_side_command:button2 :
         $component0 = mob_side_command:move;
-        $graphic1 = graphic_1915;
-        $graphic2 = graphic_1923;
+        $graphic1 = "mob_command_icons,1";
+        $graphic2 = "mob_command_icons,9";
     case mob_side_command:button3 :
         $component0 = mob_side_command:explore;
-        $graphic1 = graphic_1916;
-        $graphic2 = graphic_1924;
+        $graphic1 = "mob_command_icons,2";
+        $graphic2 = "mob_command_icons,10";
     case mob_side_command:button4 :
         if (%varplayerbit_6357 = 2) {
             $component0 = mob_side_command:attack_wall;
-            $graphic1 = graphic_1917;
-            $graphic2 = graphic_1925;
+            $graphic1 = "mob_command_icons,3";
+            $graphic2 = "mob_command_icons,11";
         }
         if (%varplayerbit_6357 = 3) {
             $component0 = mob_side_command:cave_collect;
-            $graphic1 = graphic_1918;
-            $graphic2 = graphic_1926;
+            $graphic1 = "mob_command_icons,4";
+            $graphic2 = "mob_command_icons,12";
         }
         if (%varplayerbit_6357 = 4) {
             $component0 = mob_side_command:rescue;
-            $graphic1 = graphic_1921;
-            $graphic2 = graphic_1929;
+            $graphic1 = "mob_command_icons,7";
+            $graphic2 = "mob_command_icons,15";
         }
     case mob_side_command:button5 :
         if (%varplayerbit_6357 = 2) {
             $component0 = mob_side_command:collect;
-            $graphic1 = graphic_1920;
-            $graphic2 = graphic_1928;
+            $graphic1 = "mob_command_icons,6";
+            $graphic2 = "mob_command_icons,14";
         }
         if (%varplayerbit_6357 = 4) {
             $component0 = mob_side_command:steal;
-            $graphic1 = graphic_1919;
-            $graphic2 = graphic_1927;
+            $graphic1 = "mob_command_icons,5";
+            $graphic2 = "mob_command_icons,13";
         }
 }
 if_setontimer("mob_highlight_timer($component0, $graphic1, $graphic2)", $component0);

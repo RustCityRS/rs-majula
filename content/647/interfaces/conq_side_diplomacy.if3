@@ -129,8 +129,8 @@ height=15
 layer=background_components_layer
 transmitop=1
 op1=Toggle
-onmouseover=script450
-onmouseleave=script451
+onmouseover=conq_ignore_truce_mouseover
+onmouseleave=conq_ignore_truce_mouseleave
 onvartransmit=script448{varplayer_1874}
 
 // 1019:10
@@ -186,7 +186,7 @@ height=261
 hide=yes
 
 // 1019:15
-[com_15]
+[resign_button_texture]
 type=graphic
 width=27985
 height=16384
@@ -223,7 +223,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 1019:17
-[com_17]
+[offer_truce_button_texture]
 type=graphic
 width=27985
 height=16384
@@ -260,7 +260,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 1019:19
-[com_19]
+[confirm_resign_yes_layer]
 type=layer
 x=15
 y=24
@@ -273,18 +273,18 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 1019:20
-[com_20]
+[confirm_resign_yes_tex]
 type=graphic
 width=27985
 height=15844
 widthmode=proportion
 heightmode=proportion
-layer=com_19
+layer=confirm_resign_yes_layer
 graphic=tradebacking
 tiling=yes
 
 // 1019:21
-[com_21]
+[confirm_resign_yes_text]
 type=text
 width=16391
 height=16391
@@ -292,7 +292,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_19
+layer=confirm_resign_yes_layer
 textfont=b12_full
 text=Yes
 textalignh=centre
@@ -305,7 +305,7 @@ onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 
 // 1019:22
-[com_22]
+[confirm_resign_no_layer]
 type=layer
 x=105
 y=24
@@ -318,18 +318,18 @@ onmouseover=v2_stone_button_in(event_com)
 onmouseleave=v2_stone_button(event_com)
 
 // 1019:23
-[com_23]
+[confirm_resign_no_tex]
 type=graphic
 width=27985
 height=15844
 widthmode=proportion
 heightmode=proportion
-layer=com_22
+layer=confirm_resign_no_layer
 graphic=tradebacking
 tiling=yes
 
 // 1019:24
-[com_24]
+[confirm_resign_no_text]
 type=text
 width=16391
 height=16391
@@ -337,7 +337,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_22
+layer=confirm_resign_no_layer
 textfont=b12_full
 text=No
 textalignh=centre

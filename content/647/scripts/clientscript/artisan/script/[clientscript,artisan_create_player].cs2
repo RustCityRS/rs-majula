@@ -1,0 +1,6 @@
+// 4215
+[clientscript,artisan_create_player]
+if (if_find(artisan_player_anim:player_model) = true) {
+    cc_setplayermodel_self;
+    cc_setmodelanim(seq_41);
+}

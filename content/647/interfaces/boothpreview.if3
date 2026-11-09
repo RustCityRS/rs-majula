@@ -5,7 +5,7 @@ width=512
 height=334
 
 // 549:1
-[com_1]
+[background]
 type=layer
 width=512
 height=320
@@ -20,7 +20,7 @@ width=25
 height=29
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=background
 colour=0x000000
 fill=yes
 trans=200
@@ -34,7 +34,7 @@ width=26
 height=34
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=background
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -47,7 +47,7 @@ y=53
 width=32
 height=93
 heightmode=minus
-layer=com_1
+layer=background
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0xffffffff
@@ -59,7 +59,7 @@ x=13
 y=20
 width=32
 height=32
-layer=com_1
+layer=background
 graphic="v2_stone_borders,35"
 colour=0xffffffff
 
@@ -71,7 +71,7 @@ y=51
 width=32
 height=91
 heightmode=minus
-layer=com_1
+layer=background
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0xffffffff
@@ -84,7 +84,7 @@ y=-4
 width=423
 height=32
 ymode=abs_bottom
-layer=com_1
+layer=background
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0xffffffff
@@ -97,7 +97,7 @@ x=468
 y=20
 width=32
 height=32
-layer=com_1
+layer=background
 graphic="v2_stone_borders,37"
 colour=0xffffffff
 
@@ -108,7 +108,7 @@ x=44
 y=20
 width=436
 height=32
-layer=com_1
+layer=background
 graphic="v2_stone_borders,36"
 tiling=yes
 colour=0xffffffff
@@ -121,7 +121,7 @@ y=8
 width=32
 height=32
 ymode=abs_bottom
-layer=com_1
+layer=background
 graphic="v2_stone_borders,7"
 colour=0xffffffff
 
@@ -133,7 +133,7 @@ y=8
 width=32
 height=32
 ymode=abs_bottom
-layer=com_1
+layer=background
 graphic="v2_stone_borders,6"
 colour=0xffffffff
 
@@ -709,8 +709,8 @@ modelangle=0,1979,0
 modelzoom=1700
 modelanim=seq_12411
 modelorthog=yes
-onload=script1607
-oninvtransmit=script1607{worn}
+onload=booth_chathead_update
+oninvtransmit=booth_chathead_update{worn}
 
 // 549:55
 [com_55]
@@ -992,7 +992,7 @@ modelorigin=16,91
 modelangle=113,91,5
 modelzoom=500
 modelorthog=yes
-oninvtransmit=script1608{worn}
+oninvtransmit=booth_playermodel_update{worn}
 
 // 549:83
 [com_83]

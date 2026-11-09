@@ -1,5 +1,5 @@
 // 882:0
-[com_0]
+[dropdown_background]
 type=rectangle
 widthmode=minus
 heightmode=minus
@@ -101,7 +101,7 @@ fill=yes
 op10=  
 
 // 882:10
-[com_10]
+[background]
 type=graphic
 x=5
 y=5
@@ -728,7 +728,7 @@ heightmode=minus
 layer=bgsound_container
 noclickthrough=yes
 op10=  
-onclick=loginscreen_slider_click(loginscreen_graphics_options:com_63, loginscreen_graphics_options:bgsound_slider, 0, 2)
+onclick=loginscreen_slider_click(loginscreen_graphics_options:bgsound_dragzone, loginscreen_graphics_options:bgsound_slider, 0, 2)
 
 // 882:62
 [bgsound_max]
@@ -739,10 +739,10 @@ xmode=abs_right
 layer=bgsound_container
 noclickthrough=yes
 op10=    
-onclick=loginscreen_slider_click(loginscreen_graphics_options:com_63, loginscreen_graphics_options:bgsound_slider, -1, 2)
+onclick=loginscreen_slider_click(loginscreen_graphics_options:bgsound_dragzone, loginscreen_graphics_options:bgsound_slider, -1, 2)
 
 // 882:63
-[com_63]
+[bgsound_dragzone]
 type=layer
 width=112
 heightmode=minus
@@ -750,7 +750,7 @@ xmode=abs_centre
 layer=bgsound_container
 noclickthrough=yes
 op10=    
-onclick=loginscreen_slider_click(loginscreen_graphics_options:com_63, loginscreen_graphics_options:bgsound_slider, event_mousex, 2)
+onclick=loginscreen_slider_click(loginscreen_graphics_options:bgsound_dragzone, loginscreen_graphics_options:bgsound_slider, event_mousex, 2)
 
 // 882:64
 [bgsound_slider]
@@ -758,11 +758,11 @@ type=layer
 width=16
 height=16
 ymode=abs_centre
-layer=com_63
+layer=bgsound_dragzone
 noclickthrough=yes
 op10=   
 dragdeadtime=2
-ondragcomplete=loginscreen_slider_drag(loginscreen_graphics_options:com_63, event_com, event_mousex, 2)
+ondragcomplete=loginscreen_slider_drag(loginscreen_graphics_options:bgsound_dragzone, event_com, event_mousex, 2)
 
 // 882:65
 [com_65]

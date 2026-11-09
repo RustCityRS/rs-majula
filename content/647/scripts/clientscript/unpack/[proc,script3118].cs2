@@ -30,7 +30,7 @@ if ($int3 = 0) {
     } else if ($int0 = %varclient_999) {
         $rgb15 = 0x203c11;
     }
-    $graphic13 = graphic_1541;
+    $graphic13 = "world_select_hearts,2";
     $rgb14 = 0xfcfc64;
     ~cc_add_rect($component1, 0, if_getwidth($component1), 20, 0, 0, $rgb15, true, 0);
     ~cc_add_rect($component1, 1, 23, 20, 0, 0, 0x606060, true, 0);

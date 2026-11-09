@@ -1,0 +1,8 @@
+// 4031
+[clientscript,task_main_filter_set_hover_on](int $int0)
+if ($int0 = 0) {
+    if_setgraphic("task_filter_but,6", task_main:filter_set_button);
+} else {
+    if_setgraphic("task_filter_but,2", task_main:filter_set_button);
+    ~deltooltip_action(task_main:tooltip);
+}

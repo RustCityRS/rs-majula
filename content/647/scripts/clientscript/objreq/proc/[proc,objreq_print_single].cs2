@@ -1,0 +1,4 @@
+// 921
+[proc,objreq_print_single](string $string0, int $settextalignh0, int $int1)
+def_int $int2 = paraheight($string0, $int1, p11_full);
+~objreq_print($string0, $int2, $settextalignh0, 1, p11_full);

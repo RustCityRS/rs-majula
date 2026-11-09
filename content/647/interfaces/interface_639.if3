@@ -152,9 +152,9 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff981f
-onload=script4179(interface_639:com_17, interface_639:com_18, interface_639:com_21, interface_639:com_22)
-onvartransmit=script4179(interface_639:com_17, interface_639:com_18, interface_639:com_21, interface_639:com_22){dueloptions}
-oninvtransmit=script4179(interface_639:com_17, interface_639:com_18, interface_639:com_21, interface_639:com_22){inv, worn}
+onload=duel2_confirm_options(interface_639:before, interface_639:before_scrollbar, interface_639:during, interface_639:during_scrollbar)
+onvartransmit=duel2_confirm_options(interface_639:before, interface_639:before_scrollbar, interface_639:during, interface_639:during_scrollbar){dueloptions}
+oninvtransmit=duel2_confirm_options(interface_639:before, interface_639:before_scrollbar, interface_639:during, interface_639:during_scrollbar){inv, worn}
 
 // 639:15
 [com_15]
@@ -171,7 +171,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 639:16
-[com_16]
+[before_container]
 type=layer
 y=66
 width=470
@@ -179,23 +179,23 @@ height=66
 xmode=abs_centre
 
 // 639:17
-[com_17]
+[before]
 type=layer
 width=16
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_16
+layer=before_container
 
 // 639:18
-[com_18]
+[before_scrollbar]
 type=layer
 width=16
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_16
+layer=before_container
 hide=yes
 
 // 639:19
@@ -213,7 +213,7 @@ textshadow=yes
 colour=0xbf751d
 
 // 639:20
-[com_20]
+[during_container]
 type=layer
 y=148
 width=470
@@ -221,23 +221,23 @@ height=138
 xmode=abs_centre
 
 // 639:21
-[com_21]
+[during]
 type=layer
 width=16
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_20
+layer=during_container
 
 // 639:22
-[com_22]
+[during_scrollbar]
 type=layer
 width=16
 heightmode=minus
 xmode=abs_right
 ymode=abs_centre
-layer=com_20
+layer=during_container
 hide=yes
 
 // 639:23

@@ -8,7 +8,7 @@ ymode=abs_centre
 noclickthrough=yes
 
 // 890:1
-[com_1]
+[character_name_main_layer]
 type=layer
 y=10
 width=512
@@ -22,10 +22,10 @@ onload=create_no_displayname_onload
 type=layer
 widthmode=minus
 heightmode=minus
-layer=com_1
+layer=character_name_main_layer
 
 // 890:3
-[com_3]
+[background_texture]
 type=graphic
 y=6
 width=100
@@ -337,7 +337,7 @@ layer=border
 colour=0x2d2d2d
 
 // 890:33
-[com_33]
+[please_enter_text]
 type=text
 y=42
 width=70
@@ -630,22 +630,22 @@ textshadow=yes
 colour=0xebe0bc
 
 // 890:52
-[com_52]
+[character_name_group]
 type=layer
 y=118
 height=50
 widthmode=minus
 xmode=abs_centre
-layer=com_1
+layer=character_name_main_layer
 
 // 890:53
-[com_53]
+[character_name_label_text]
 type=text
 x=100
 y=9
 width=100
 height=27
-layer=com_52
+layer=character_name_group
 textfont=verdana_11pt_regular
 text=Character name:
 textalignh=right
@@ -660,7 +660,7 @@ x=392
 y=13
 width=22
 height=22
-layer=com_52
+layer=character_name_group
 hide=yes
 graphic="symbols_1,1"
 onmouseover=script3934(event_com)
@@ -673,7 +673,7 @@ x=206
 y=10
 width=180
 height=27
-layer=com_52
+layer=character_name_group
 onclick=create_focus(6, 1)
 
 // 890:56

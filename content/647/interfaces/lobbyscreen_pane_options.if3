@@ -61,7 +61,7 @@ ymode=abs_bottom
 layer=options_client_if
 
 // 911:6
-[com_6]
+[volume_text]
 type=text
 x=5
 y=5
@@ -94,7 +94,7 @@ layer=com_7
 op10= 
 
 // 911:9
-[com_9]
+[music_text]
 type=text
 x=13
 y=11
@@ -107,7 +107,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 911:10
-[com_10]
+[sound_effects_text]
 type=text
 x=13
 y=34
@@ -121,7 +121,7 @@ colour=0xebe0bc
 op10= 
 
 // 911:11
-[com_11]
+[area_sounds_text]
 type=text
 x=13
 y=56
@@ -406,7 +406,7 @@ heightmode=minus
 layer=bgsound_container
 noclickthrough=yes
 op10= 
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_35, lobbyscreen_pane_options:bgsound_slider, 0, 2)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:bgsound_dragzone, lobbyscreen_pane_options:bgsound_slider, 0, 2)
 
 // 911:34
 [bgsound_max]
@@ -417,10 +417,10 @@ xmode=abs_right
 layer=bgsound_container
 noclickthrough=yes
 op10=   
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_35, lobbyscreen_pane_options:bgsound_slider, -1, 2)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:bgsound_dragzone, lobbyscreen_pane_options:bgsound_slider, -1, 2)
 
 // 911:35
-[com_35]
+[bgsound_dragzone]
 type=layer
 width=112
 heightmode=minus
@@ -428,7 +428,7 @@ xmode=abs_centre
 layer=bgsound_container
 noclickthrough=yes
 op10=   
-onclick=loginscreen_slider_click(lobbyscreen_pane_options:com_35, lobbyscreen_pane_options:bgsound_slider, event_mousex, 2)
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:bgsound_dragzone, lobbyscreen_pane_options:bgsound_slider, event_mousex, 2)
 
 // 911:36
 [bgsound_slider]
@@ -436,11 +436,11 @@ type=layer
 width=16
 height=16
 ymode=abs_centre
-layer=com_35
+layer=bgsound_dragzone
 noclickthrough=yes
 op10=  
 dragdeadtime=2
-ondragcomplete=loginscreen_slider_drag(lobbyscreen_pane_options:com_35, event_com, event_mousex, 2)
+ondragcomplete=loginscreen_slider_drag(lobbyscreen_pane_options:bgsound_dragzone, event_com, event_mousex, 2)
 
 // 911:37
 [com_37]
@@ -718,7 +718,7 @@ noclickthrough=yes
 op10= 
 
 // 911:60
-[com_60]
+[dropdown_background]
 type=rectangle
 widthmode=minus
 heightmode=minus

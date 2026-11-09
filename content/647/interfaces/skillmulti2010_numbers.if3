@@ -201,11 +201,11 @@ height=19
 xmode=abs_right
 ymode=abs_centre
 layer=number_container
-graphic=graphic_3863
+graphic="sm_digit_bar_button_arrow,0"
 transmitop=1
 op1=+1
-onmouseover=graphic_swapper(event_com, graphic_3865)
-onmouseleave=graphic_swapper(event_com, graphic_3863)
+onmouseover=graphic_swapper(event_com, "sm_digit_bar_button_arrow,2")
+onmouseleave=graphic_swapper(event_com, "sm_digit_bar_button_arrow,0")
 
 // 916:20
 [down]
@@ -216,11 +216,11 @@ height=19
 xmode=abs_right
 ymode=abs_centre
 layer=number_container
-graphic=graphic_3864
+graphic="sm_digit_bar_button_arrow,1"
 transmitop=1
 op1=-1
-onmouseover=graphic_swapper(event_com, graphic_3866)
-onmouseleave=graphic_swapper(event_com, graphic_3864)
+onmouseover=graphic_swapper(event_com, "sm_digit_bar_button_arrow,3")
+onmouseleave=graphic_swapper(event_com, "sm_digit_bar_button_arrow,1")
 
 // 916:21
 [expander]
@@ -230,10 +230,10 @@ heightmode=minus
 xmode=abs_right
 ymode=abs_centre
 layer=static_section
-onmouseover=graphic_swapper(skillmulti2010_numbers:com_22, graphic_3884)
+onmouseover=graphic_swapper(skillmulti2010_numbers:expander_graphic, graphic_3884)
 
 // 916:22
-[com_22]
+[expander_graphic]
 type=graphic
 width=9
 height=11

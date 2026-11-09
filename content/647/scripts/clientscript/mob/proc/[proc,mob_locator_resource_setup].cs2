@@ -47,7 +47,7 @@ if (%varclient_827 >= 4) {
     if_setcolour(0xe1981f, mob_locator:oretext9);
 }
 if_setobject_nonum(oak_logs, 1, mob_locator:wood1);
-if_setobject_nonum(willow_logs, 1, mob_locator:com_14);
+if_setobject_nonum(willow_logs, 1, mob_locator:wood2);
 if_setobject_nonum(maple_logs, 1, mob_locator:wood3);
 if_setobject_nonum(eucalyptus_logs, 1, mob_locator:wood4);
 if_setobject_nonum(yew_logs, 1, mob_locator:wood5);

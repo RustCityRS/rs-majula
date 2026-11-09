@@ -240,12 +240,12 @@ fn command_arguments_use_typed_names_without_changing_bytes() {
     )
     .unwrap();
     assert!(
-        generated.contains("if_setgraphic(\"options_boxes,1\", options:com_7);"),
+        generated.contains("if_setgraphic(\"options_boxes,1\", options:optaid);"),
         "{generated}"
     );
-    assert!(generated.contains("if_setonmouserepeat(addtooltip, event_com, options:com_20, \"Accept aid\", 25, 180, \"IIsii\", options:com_7);"), "{generated}");
-    assert!(generated.contains("if_settext(\"options_boxes,1\", options:com_7);"));
-    assert!(generated.contains("if_sethide(false, well_of_voyage_shift_click:com_1);"));
+    assert!(generated.contains("if_setonmouserepeat(addtooltip, event_com, options:options_tooltip, \"Accept aid\", 25, 180, \"IIsii\", options:optaid);"), "{generated}");
+    assert!(generated.contains("if_settext(\"options_boxes,1\", options:optaid);"));
+    assert!(generated.contains("if_sethide(false, lighttemple_piller:mirror_layer);"));
     assert!(
         generated
             .contains("cc_setonmouseover(cc_settrans, event_com, event_comsubid, 200, \"Iii\");")
@@ -279,7 +279,7 @@ fn structured_flow_and_typed_procedures_need_no_stack_helpers() {
         $a, $b = 11, 22;
         def_component $components();
         def_component $components(2);
-        $components(0) = options:com_7;
+        $components(0) = options:optaid;
         def_component $components(3);
         if ($state = false) {
             ~clientscript_100004(17104903, 762, 14483456);
@@ -338,7 +338,7 @@ fn structured_flow_and_typed_procedures_need_no_stack_helpers() {
         if id == 100005 {
             assert!(generated.contains("else if ($int0 = 1)"), "{generated}");
             assert!(
-                generated.contains("options:com_7, \"options_boxes,1\", 0xdd0000"),
+                generated.contains("options:optaid, \"options_boxes,1\", 0xdd0000"),
                 "{generated}"
             );
             assert!(generated.contains("~clientscript_100006;"));
@@ -655,16 +655,16 @@ fn typed_values_use_names_in_declarations_assignments_and_comparisons() {
     )
     .unwrap();
     for expected in [
-        "def_component $component1 = login:com_52;",
-        "$component1 = south_progress9:com_54;",
-        "if ($component1 = login:com_52 | $component1 = south_progress9:com_54)",
+        "def_component $component1 = login:login_button_text;",
+        "$component1 = south_progress9:login_button_text;",
+        "if ($component1 = login:login_button_text | $component1 = south_progress9:login_button_text)",
         "if_setmodel(model_41312, $component1);",
         "def_obj $obj2 = butterfly_net;",
         "if ($obj2 = butterfly_net)",
         "$obj2 = magic_butterfly_net;",
         "case butterfly_net :",
         "case null :",
-        "$componentarray0(0) = login:com_52;",
+        "$componentarray0(0) = login:login_button_text;",
         "def_coord $coord3 = 0_57_77_32_26;",
         "$coord3 = 0_0_0_0_0;",
         "if ($coord3 = 0_57_77_32_26)",

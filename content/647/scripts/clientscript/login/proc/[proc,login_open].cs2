@@ -18,6 +18,6 @@ if (%varclient_174 = 3) {
     %varclient_1099 = string_length(~script2949(%varclient_1552));
     ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%varclient_1552), 4);
 }
-if_sethide(false, loginscreen:com_26);
-if_sethide(false, login:com_4);
-~script3964;
+if_sethide(false, loginscreen:login);
+if_sethide(false, login:main);
+~loginscreen_setup_login_text;

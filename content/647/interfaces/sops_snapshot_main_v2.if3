@@ -149,7 +149,7 @@ transmitop=10
 op10= 
 
 // 593:12
-[com_12]
+[select_player_button_mid]
 type=graphic
 x=18
 y=5
@@ -639,7 +639,7 @@ transmitop=10
 op10=  
 
 // 593:50
-[com_50]
+[name_next_button_layer]
 type=layer
 x=309
 y=63
@@ -650,39 +650,39 @@ transmitop=10
 op10= 
 
 // 593:51
-[com_51]
+[name_next_button_left]
 type=graphic
 x=6
 y=4
 width=18
 height=18
-layer=com_50
+layer=name_next_button_layer
 graphic="miscgraphics5,0"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 593:52
-[com_52]
+[name_next_button_left_1]
 type=graphic
 x=21
 y=4
 width=18
 height=18
-layer=com_50
+layer=name_next_button_layer
 graphic="miscgraphics5,1"
 colour=0xffffffff
 transmitop=10
 op10=  
 
 // 593:53
-[com_53]
+[name_next_button_right]
 type=graphic
 x=39
 y=4
 width=18
 height=18
-layer=com_50
+layer=name_next_button_layer
 graphic="miscgraphics5,2"
 colour=0xffffffff
 transmitop=10
@@ -695,7 +695,7 @@ x=15
 y=8
 width=32
 height=32
-layer=com_50
+layer=name_next_button_layer
 textfont=p11_full
 text=Next
 textalignh=centre
@@ -997,7 +997,7 @@ transmitop=10
 op10= 
 
 // 593:77
-[com_77]
+[background]
 type=graphic
 x=10
 y=21
@@ -1445,7 +1445,7 @@ xmode=abs_centre
 layer=ignore_layer
 
 // 593:113
-[com_113]
+[ignore_yes_button_left]
 type=graphic
 width=18
 height=18
@@ -1456,7 +1456,7 @@ transmitop=10
 op10=    
 
 // 593:114
-[com_114]
+[ignore_yes_button_mid]
 type=graphic
 x=14
 width=129
@@ -1469,7 +1469,7 @@ transmitop=10
 op10=    
 
 // 593:115
-[com_115]
+[ignore_yes_button_right]
 type=graphic
 x=1
 width=18
@@ -1482,7 +1482,7 @@ transmitop=10
 op10=    
 
 // 593:116
-[com_116]
+[ignore_yes_txt]
 type=text
 y=-2
 width=267
@@ -1508,7 +1508,7 @@ xmode=abs_centre
 layer=ignore_layer
 
 // 593:118
-[com_118]
+[ignore_no_button_left]
 type=graphic
 width=18
 height=18
@@ -1519,7 +1519,7 @@ transmitop=10
 op10=    
 
 // 593:119
-[com_119]
+[ignore_no_button_mid]
 type=graphic
 x=14
 width=129
@@ -1532,7 +1532,7 @@ transmitop=10
 op10=    
 
 // 593:120
-[com_120]
+[ignore_no_button_right]
 type=graphic
 x=143
 width=18
@@ -1544,7 +1544,7 @@ transmitop=10
 op10=    
 
 // 593:121
-[com_121]
+[ignore_no_txt]
 type=text
 y=-2
 width=266
@@ -1745,7 +1745,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 593:136
-[com_136]
+[solicitation_button_mid]
 type=graphic
 x=29
 width=97
@@ -1794,7 +1794,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 593:140
-[com_140]
+[threats_button_mid]
 type=graphic
 x=29
 width=97
@@ -1894,7 +1894,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 593:148
-[com_148]
+[laws_button_mid]
 type=graphic
 x=29
 width=98
@@ -1944,7 +1944,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 593:152
-[com_152]
+[scamming_button_mid]
 type=graphic
 x=29
 width=98
@@ -2026,7 +2026,7 @@ transmitop=10
 op10= 
 
 // 593:159
-[com_159]
+[encouraging_button_mid]
 type=graphic
 x=28
 width=99
@@ -2039,7 +2039,7 @@ transmitop=10
 op10= 
 
 // 593:160
-[stopping_terrorism]
+[encouraging_button_right]
 type=graphic
 x=127
 width=28
@@ -2221,7 +2221,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 593:175
-[com_175]
+[bug_button_mid]
 type=graphic
 x=29
 width=98
@@ -2319,7 +2319,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 593:183
-[com_183]
+[buying_button_mid]
 type=graphic
 x=28
 width=99
@@ -2369,7 +2369,7 @@ transmitop=10
 op10= 
 
 // 593:187
-[com_187]
+[disruptive_button_layer]
 type=layer
 x=179
 y=198
@@ -2401,7 +2401,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 593:190
-[com_190]
+[name_button_mid]
 type=graphic
 x=29
 width=97
@@ -2446,17 +2446,17 @@ type=graphic
 x=1
 width=28
 height=28
-layer=com_187
+layer=disruptive_button_layer
 graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 593:194
-[com_194]
+[disruptive_button_mid]
 type=graphic
 x=29
 width=97
 height=28
-layer=com_187
+layer=disruptive_button_layer
 graphic="miscgraphics4,1"
 tiling=yes
 colour=0xffffffff
@@ -2467,7 +2467,7 @@ type=graphic
 x=126
 width=28
 height=28
-layer=com_187
+layer=disruptive_button_layer
 graphic="miscgraphics4,2"
 colour=0xffffffff
 
@@ -2478,7 +2478,7 @@ y=3
 width=145
 height=22
 xmode=abs_centre
-layer=com_187
+layer=disruptive_button_layer
 textfont=p11_full
 text=Disruptive behaviour
 textlineheight=10
@@ -2533,7 +2533,7 @@ graphic="miscgraphics4,0"
 colour=0xffffffff
 
 // 593:201
-[com_201]
+[websites_button_mid]
 type=graphic
 x=29
 width=98

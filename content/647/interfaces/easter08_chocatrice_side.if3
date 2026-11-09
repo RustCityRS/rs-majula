@@ -248,7 +248,7 @@ y=162
 width=166
 height=20
 layer=lore_bounding_box
-graphic=graphic_1196
+graphic=lore_stats_box
 colour=0x000000
 
 // 716:24
@@ -259,7 +259,7 @@ y=186
 width=166
 height=20
 layer=lore_bounding_box
-graphic=graphic_1196
+graphic=lore_stats_box
 colour=0x000000
 
 // 716:25
@@ -352,8 +352,8 @@ targetverb=Target
 onload=easter08_chocatrice_side_init
 onmouseover=easter08_toggle_mouseover
 onmouseleave=easter08_toggle_mouseleave
-ontargetleave=script907
-ontargetenter=script906
+ontargetleave=easter08_toggle_targeting_off
+ontargetenter=easter08_toggle_targeting_on
 ontimer=script910
 
 // 716:33

@@ -169,7 +169,7 @@ y=-2
 width=166
 height=20
 layer=com_17
-graphic=graphic_1196
+graphic=lore_stats_box
 colour=0xffffffff
 
 // 662:16
@@ -650,7 +650,7 @@ x=13
 y=145
 width=166
 height=20
-graphic=graphic_1196
+graphic=lore_stats_box
 colour=0xffffffff
 
 // 662:54
@@ -797,7 +797,7 @@ y=26
 width=32
 height=45
 layer=attack_layer
-graphic=graphic_2033
+graphic=lore_attack_icon
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Attack
@@ -901,7 +901,7 @@ height=260
 layer=lore_bounding_box
 
 // 662:74
-[com_74]
+[spell_icon]
 type=layer
 x=6
 y=26

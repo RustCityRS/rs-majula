@@ -1,5 +1,5 @@
 // 262:0
-[flashicontextures]
+[sparepipe1m]
 type=model
 x=5
 y=2
@@ -186,7 +186,7 @@ modelzoom=400
 transmitop=1
 op1=Attach/Detach Pipe
 onvartransmit=script1319{varplayer_898}
-onop=script1318(event_com)
+onop=elem_pipes_select(event_com)
 
 // 262:21
 [inlet1m]
@@ -202,7 +202,7 @@ modelangle=517,0,0
 modelzoom=400
 transmitop=1
 op1=Attach/Detach Pipe
-onop=script1318(event_com)
+onop=elem_pipes_select(event_com)
 
 // 262:22
 [inlet2m]
@@ -218,7 +218,7 @@ modelangle=517,0,0
 modelzoom=400
 transmitop=1
 op1=Attach/Detach Pipe
-onop=script1318(event_com)
+onop=elem_pipes_select(event_com)
 
 // 262:23
 [inlet3m]
@@ -234,7 +234,7 @@ modelangle=517,0,0
 modelzoom=400
 transmitop=1
 op1=Attach/Detach Pipe
-onop=script1318(event_com)
+onop=elem_pipes_select(event_com)
 
 // 262:24
 [inletam]
@@ -250,7 +250,7 @@ modelangle=512,0,0
 modelzoom=400
 transmitop=1
 op1=Attach/Detach Pipe
-onop=script1318(event_com)
+onop=elem_pipes_select(event_com)
 
 // 262:25
 [inletbm]
@@ -266,7 +266,7 @@ modelangle=512,0,0
 modelzoom=400
 transmitop=1
 op1=Attach/Detach Pipe
-onop=script1318(event_com)
+onop=elem_pipes_select(event_com)
 
 // 262:26
 [backgroundm]
@@ -294,7 +294,7 @@ colour=0x000000
 transmitop=1
 op1=Close
 onmouseleave=graphic_swapper(event_com, "close_buttons,1")
-onvartransmit=script1317{varplayer_898}
+onvartransmit=elem_pipes_spare{varplayer_898}
 onop=closebutton_click
 onmouserepeat=graphic_swapper(event_com, "close_buttons,0")
 
@@ -549,7 +549,7 @@ ymode=abs_centre
 layer=fsborder_main_layer
 
 // 262:48
-[com_48]
+[fsborder_graphic_1]
 type=graphic
 x=-260
 width=32
@@ -561,7 +561,7 @@ tiling=yes
 colour=0x000000
 
 // 262:49
-[com_49]
+[fsborder_graphic_2]
 type=graphic
 y=-171
 width=462
@@ -573,7 +573,7 @@ tiling=yes
 colour=0x000000
 
 // 262:50
-[com_50]
+[fsborder_graphic_3]
 type=graphic
 y=170
 width=512
@@ -585,7 +585,7 @@ tiling=yes
 colour=0x000000
 
 // 262:51
-[com_51]
+[fsborder_graphic_4]
 type=graphic
 x=259
 width=32
@@ -597,7 +597,7 @@ tiling=yes
 colour=0x000000
 
 // 262:52
-[com_52]
+[fsborder_graphic_5]
 type=graphic
 x=-247
 y=-158
@@ -610,7 +610,7 @@ tiling=yes
 colour=0x000000
 
 // 262:53
-[com_53]
+[fsborder_graphic_6]
 type=graphic
 x=247
 y=-158
@@ -623,7 +623,7 @@ tiling=yes
 colour=0x000000
 
 // 262:54
-[com_54]
+[fsborder_graphic_7]
 type=graphic
 x=247
 y=158
@@ -636,7 +636,7 @@ tiling=yes
 colour=0x000000
 
 // 262:55
-[com_55]
+[fsborder_graphic_8]
 type=graphic
 x=-247
 y=158

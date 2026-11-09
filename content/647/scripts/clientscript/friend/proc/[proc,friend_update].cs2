@@ -1,16 +1,16 @@
 // 125
 [proc,friend_update](int $int0)
-def_component $component1 = friends2:com_6;
-def_component $component2 = friends2:com_53;
-def_component $component3 = friends2:com_5;
-def_component $component4 = friends2:com_1;
-def_component $component5 = friends2:com_11;
-def_component $component6 = friends2:com_12;
+def_component $component1 = friends2:friend_name_layer;
+def_component $component2 = friends2:friend_name_change_icon_layer;
+def_component $component3 = friends2:friend_world_layer;
+def_component $component4 = friends2:friend_world_icon_layer;
+def_component $component5 = friends2:friend_scrolling_layer;
+def_component $component6 = friends2:friend_scrollbar_layer;
 def_component $component7 = friends2:friends_info;
 def_component $component8 = friends2:loadingmes;
 def_component $component9 = friends2:drag_layer;
 def_component $component10 = friends2:friendbox_drag;
-def_component $component11 = friends2:com_0;
+def_component $component11 = friends2:friend_rectangles;
 def_int $int12 = if_getwidth($component9);
 if ($int0 <= -1) {
     $int0 = if_getx($component9);

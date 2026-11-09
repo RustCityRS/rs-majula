@@ -1,9 +1,0 @@
-// 1821
-[clientscript,script1821](int $int0, int $int1)
-if (~clanwars_setup_clicktest($int0) = false) {
-    return;
-}
-if (%varclient_246 ! $int1) {
-    %varclient_246 = $int1;
-    ~script1770;
-}

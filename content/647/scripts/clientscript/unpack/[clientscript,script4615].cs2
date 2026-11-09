@@ -1,28 +1,28 @@
 // 4615
 [clientscript,script4615](component $component0)
 switch_component ($component0) {
-    case skillcape_customise:com_15 :
+    case skillcape_customise:picker_colour_top1 :
         if_setcolour(hsvtorgb(%varplayerbit_9255), $component0);
-    case skillcape_customise:com_155 :
+    case skillcape_customise:picker_colour_top2 :
         if_setcolour(hsvtorgb(%varplayerbit_9254), $component0);
-    case skillcape_customise:com_169 :
+    case skillcape_customise:picker_colour_top3 :
         if_setcolour(hsvtorgb(%varplayerbit_9254), $component0);
-    case skillcape_customise:com_183 :
+    case skillcape_customise:picker_colour_top4 :
         if_setcolour(hsvtorgb(%varplayerbit_9254), $component0);
-    case skillcape_customise:com_17 :
+    case skillcape_customise:picker_colour_middle1 :
         if_setcolour(hsvtorgb(%varplayerbit_9256), $component0);
-    case skillcape_customise:com_157 :
+    case skillcape_customise:picker_colour_middle2 :
         if_setcolour(hsvtorgb(%varplayerbit_9256), $component0);
-    case skillcape_customise:com_171 :
+    case skillcape_customise:picker_colour_middle3 :
         if_setcolour(hsvtorgb(%varplayerbit_9255), $component0);
-    case skillcape_customise:com_185 :
+    case skillcape_customise:picker_colour_middle4 :
         if_setcolour(hsvtorgb(%varplayerbit_9255), $component0);
-    case skillcape_customise:com_19 :
+    case skillcape_customise:picker_colour_bottom1 :
         if_setcolour(hsvtorgb(%varplayerbit_9257), $component0);
-    case skillcape_customise:com_159 :
+    case skillcape_customise:picker_colour_bottom2 :
         if_setcolour(hsvtorgb(%varplayerbit_9257), $component0);
-    case skillcape_customise:com_173 :
+    case skillcape_customise:picker_colour_bottom3 :
         if_setcolour(hsvtorgb(%varplayerbit_9257), $component0);
-    case skillcape_customise:com_187 :
+    case skillcape_customise:picker_colour_bottom4 :
         if_setcolour(hsvtorgb(%varplayerbit_9256), $component0);
 }

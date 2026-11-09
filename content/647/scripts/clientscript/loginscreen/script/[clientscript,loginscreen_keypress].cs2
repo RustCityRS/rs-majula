@@ -7,7 +7,7 @@ def_int $int2 = ~login_getreply;
 switch_int (%varclient_174) {
     case 12 :
         if ($key0 = ^key_escape) {
-            ~script2936(0);
+            ~loginscreen_pvp_warning_unsigned(0);
             return;
         }
         return;

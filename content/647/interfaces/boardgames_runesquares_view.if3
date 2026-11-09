@@ -2374,7 +2374,7 @@ transmitop=1
 op1=Ok
 
 // 43:205
-[runeswithdraw_9]
+[boardgames_runesquares_v40_1]
 type=rectangle
 x=409
 y=209
@@ -3382,7 +3382,7 @@ transmitop=1
 op1=Ok
 
 // 43:277
-[com_277]
+[background]
 type=layer
 width=512
 height=334
@@ -3396,7 +3396,7 @@ x=12
 y=20
 width=483
 height=297
-layer=com_277
+layer=background
 graphic=tradebacking
 tiling=yes
 colour=0xffffffff
@@ -3410,7 +3410,7 @@ x=479
 y=50
 width=34
 height=249
-layer=com_277
+layer=background
 graphic="steelborder2,1"
 tiling=yes
 colour=0xffffffff
@@ -3424,7 +3424,7 @@ x=12
 y=20
 width=25
 height=30
-layer=com_277
+layer=background
 graphic="steelborder,0"
 colour=0xffffffff
 transmitop=10
@@ -3437,7 +3437,7 @@ x=-3
 y=49
 width=43
 height=243
-layer=com_277
+layer=background
 graphic="miscgraphics,2"
 tiling=yes
 colour=0xffffffff
@@ -3451,7 +3451,7 @@ x=37
 y=5
 width=448
 height=42
-layer=com_277
+layer=background
 graphic="steelborder2,0"
 tiling=yes
 colour=0xffffffff
@@ -3465,7 +3465,7 @@ x=37
 y=299
 width=443
 height=42
-layer=com_277
+layer=background
 graphic="miscgraphics,3"
 tiling=yes
 colour=0xffffffff
@@ -3479,7 +3479,7 @@ x=475
 y=20
 width=25
 height=30
-layer=com_277
+layer=background
 graphic="steelborder,1"
 colour=0xffffffff
 transmitop=10
@@ -3492,7 +3492,7 @@ x=12
 y=290
 width=25
 height=30
-layer=com_277
+layer=background
 graphic="steelborder,2"
 colour=0xffffffff
 transmitop=10
@@ -3505,7 +3505,7 @@ x=17
 y=34
 width=181
 height=34
-layer=com_277
+layer=background
 graphic="steelborder2,0"
 tiling=yes
 colour=0xffffffff
@@ -3519,7 +3519,7 @@ x=475
 y=290
 width=25
 height=30
-layer=com_277
+layer=background
 graphic="steelborder,3"
 colour=0xffffffff
 transmitop=10
@@ -3532,7 +3532,7 @@ x=183
 y=26
 width=38
 height=289
-layer=com_277
+layer=background
 graphic="miscgraphics,2"
 tiling=yes
 colour=0xffffffff
@@ -3690,7 +3690,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10=  
-onvarctransmit=script2427(event_com){varclient_809}
+onvarctransmit=boardgames_piece1(event_com){varclient_809}
 
 // 43:299
 [game_piece_player2]
@@ -3705,7 +3705,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10=  
-onvarctransmit=script2428(event_com){varclient_810}
+onvarctransmit=boardgames_piece2(event_com){varclient_810}
 
 // 43:300
 [close_layer]

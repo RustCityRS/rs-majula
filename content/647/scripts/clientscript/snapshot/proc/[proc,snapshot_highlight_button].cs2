@@ -9,23 +9,23 @@ switch_component ($component0) {
         ~script675;
     case snapshot_main_v2:scamming_button_layer :
         $component2 = snapshot_main_v2:scamming_button_left;
-        $component3 = snapshot_main_v2:com_254;
+        $component3 = snapshot_main_v2:scamming_button_mid;
         $component4 = snapshot_main_v2:scamming_button_right;
     case snapshot_main_v2:buying_button_layer :
         $component2 = snapshot_main_v2:buying_button_left;
-        $component3 = snapshot_main_v2:com_285;
+        $component3 = snapshot_main_v2:buying_button_mid;
         $component4 = snapshot_main_v2:buying_button_right;
     case snapshot_main_v2:encouraging_button_layer :
         $component2 = snapshot_main_v2:encouraging_button_left;
-        $component3 = snapshot_main_v2:com_261;
-        $component4 = snapshot_main_v2:stopping_terrorism;
+        $component3 = snapshot_main_v2:encouraging_button_mid;
+        $component4 = snapshot_main_v2:encouraging_button_right;
     case snapshot_main_v2:staff_button_layer :
         $component2 = snapshot_main_v2:staff_button_left;
         $component3 = snapshot_main_v2:staff_button_mid;
         $component4 = snapshot_main_v2:staff_button_right;
     case snapshot_main_v2:bug_button_layer :
         $component2 = snapshot_main_v2:bug_button_left;
-        $component3 = snapshot_main_v2:com_277;
+        $component3 = snapshot_main_v2:bug_button_mid;
         $component4 = snapshot_main_v2:bug_button_right;
     case snapshot_main_v2:com_266 :
         $component2 = snapshot_main_v2:com_267;
@@ -37,19 +37,19 @@ switch_component ($component0) {
         $component4 = snapshot_main_v2:com_274;
     case snapshot_main_v2:solicitation_button_layer :
         $component2 = snapshot_main_v2:solicitation_button_left;
-        $component3 = snapshot_main_v2:com_238;
+        $component3 = snapshot_main_v2:solicitation_button_mid;
         $component4 = snapshot_main_v2:solicitation_button_right;
-    case snapshot_main_v2:com_289 :
+    case snapshot_main_v2:disruptive_button_layer :
         $component2 = snapshot_main_v2:disruptive_button_left;
-        $component3 = snapshot_main_v2:com_296;
+        $component3 = snapshot_main_v2:disruptive_button_mid;
         $component4 = snapshot_main_v2:disruptive_button_right;
     case snapshot_main_v2:name_button_layer :
         $component2 = snapshot_main_v2:name_button_left;
-        $component3 = snapshot_main_v2:com_292;
+        $component3 = snapshot_main_v2:name_button_mid;
         $component4 = snapshot_main_v2:name_button_right;
     case snapshot_main_v2:threats_button_layer :
         $component2 = snapshot_main_v2:threats_button_left;
-        $component3 = snapshot_main_v2:com_242;
+        $component3 = snapshot_main_v2:threats_button_mid;
         $component4 = snapshot_main_v2:threats_button_right;
     case snapshot_main_v2:com_300 :
         $component2 = snapshot_main_v2:com_245;
@@ -57,15 +57,15 @@ switch_component ($component0) {
         $component4 = snapshot_main_v2:com_247;
     case snapshot_main_v2:laws_button_layer :
         $component2 = snapshot_main_v2:laws_button_left;
-        $component3 = snapshot_main_v2:com_250;
+        $component3 = snapshot_main_v2:laws_button_mid;
         $component4 = snapshot_main_v2:laws_button_right;
     case snapshot_main_v2:websites_button_layer :
         $component2 = snapshot_main_v2:websites_button_left;
-        $component3 = snapshot_main_v2:com_303;
+        $component3 = snapshot_main_v2:websites_button_mid;
         $component4 = snapshot_main_v2:websites_button_right;
     case snapshot_main_v2:select_player_button_layer :
         $component2 = snapshot_main_v2:select_player_button_left;
-        $component3 = snapshot_main_v2:com_12;
+        $component3 = snapshot_main_v2:select_player_button_mid;
         $component4 = snapshot_main_v2:select_player_button_right;
         $int5 = 0;
     case snapshot_main_v2:com_76 :
@@ -78,20 +78,20 @@ switch_component ($component0) {
         $component3 = snapshot_main_v2:cancel_button_mid;
         $component4 = snapshot_main_v2:cancel_button_right;
         $int5 = 0;
-    case snapshot_main_v2:com_54 :
-        $component2 = snapshot_main_v2:com_55;
-        $component3 = snapshot_main_v2:com_56;
-        $component4 = snapshot_main_v2:com_57;
+    case snapshot_main_v2:name_next_button_layer :
+        $component2 = snapshot_main_v2:name_next_button_left;
+        $component3 = snapshot_main_v2:name_next_button_mid;
+        $component4 = snapshot_main_v2:name_next_button_right;
         $int5 = 0;
     case snapshot_main_v2:ignore_yes_button_layer :
-        $component2 = snapshot_main_v2:com_126;
-        $component3 = snapshot_main_v2:com_127;
-        $component4 = snapshot_main_v2:com_128;
+        $component2 = snapshot_main_v2:ignore_yes_button_left;
+        $component3 = snapshot_main_v2:ignore_yes_button_mid;
+        $component4 = snapshot_main_v2:ignore_yes_button_right;
         $int5 = 0;
     case snapshot_main_v2:ignore_no_button_layer :
-        $component2 = snapshot_main_v2:com_131;
-        $component3 = snapshot_main_v2:com_132;
-        $component4 = snapshot_main_v2:com_133;
+        $component2 = snapshot_main_v2:ignore_no_button_left;
+        $component3 = snapshot_main_v2:ignore_no_button_mid;
+        $component4 = snapshot_main_v2:ignore_no_button_right;
         $int5 = 0;
 }
 if ($int1 = 0) {

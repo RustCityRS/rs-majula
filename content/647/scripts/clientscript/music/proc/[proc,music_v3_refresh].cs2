@@ -54,7 +54,7 @@ while ($int0 ! -1) {
     }
 }
 if_setscrollsize(167, calc(5 + $int4), music_v3:jukebox);
-~scrollbar_resize(music_v3:com_2, music_v3:jukebox, %varclient_88);
+~scrollbar_resize(music_v3:scrollbar, music_v3:jukebox, %varclient_88);
 if_settext("Unlocked:<br><tostring($int1)> / <tostring($int2)>", music_v3:unlock_counter);
 if ($int4 = 5) {
     if_sethide(false, music_v3:music_search_empty);

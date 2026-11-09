@@ -26,7 +26,7 @@ colour=0xffffffff
 op10=    
 
 // 976:2
-[com_2]
+[main]
 type=layer
 width=382
 height=152
@@ -40,7 +40,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_2
+layer=main
 op10=   
 
 // 976:4
@@ -52,7 +52,7 @@ height=86
 widthmode=minus
 heightmode=minus
 xmode=abs_centre
-layer=com_2
+layer=main
 textfont=verdana_11pt_regular
 textlineheight=20
 textalignh=centre
@@ -69,7 +69,7 @@ height=25
 widthmode=minus
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=main
 onmouseover=loginscreen_button_highlight(options_firstrun:auto_button_left, "set_but_end_1,1", options_firstrun:auto_button_mid, "set_but_fill_1,1", options_firstrun:auto_button_right, "set_but_end_1,1")
 onmouseleave=loginscreen_button_highlight(options_firstrun:auto_button_left, "set_but_end_1,0", options_firstrun:auto_button_mid, "set_but_fill_1,0", options_firstrun:auto_button_right, "set_but_end_1,0")
 onclick=autosetup(3)
@@ -82,7 +82,7 @@ width=61
 height=11
 xmode=abs_centre
 ymode=abs_bottom
-layer=com_2
+layer=main
 textfont=verdana_11pt_regular
 text=Leave Alone
 textalignh=centre
@@ -128,7 +128,7 @@ colour=0xffffffff
 op10= 
 
 // 976:10
-[com_10]
+[auto_setup_text]
 type=text
 y=-1
 widthmode=minus
@@ -144,7 +144,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 976:11
-[com_11]
+[background_texture]
 type=graphic
 y=7
 height=14

@@ -1,6 +1,6 @@
 // 3403
 [proc,lobbyscreen_pane_friendslist_chatbox_resize](int $int0, boolean $boolean1)
-def_int $int2 = calc(if_getheight(lobbyscreen_pane_friendslist:com_13) - if_gety(lobbyscreen_pane_friendslist:chatbox_resize) - 35 - $int0 - 7);
+def_int $int2 = calc(if_getheight(lobbyscreen_pane_friendslist:main) - if_gety(lobbyscreen_pane_friendslist:chatbox_resize) - 35 - $int0 - 7);
 if ($boolean1 = true) {
     $int2 = calc($int2 - $int2 % 15);
 }

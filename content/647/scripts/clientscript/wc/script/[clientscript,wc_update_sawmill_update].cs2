@@ -1,0 +1,19 @@
+// 1477
+[clientscript,wc_update_sawmill_update]
+if (%varplayerbit_5007 = 0) {
+    if_settext("Quick task:", wc_update09_sawmill_overlay:title);
+} else {
+    if_settext("Large task:", wc_update09_sawmill_overlay:title);
+}
+if_settext(tostring(%varplayerbit_4216), wc_update09_sawmill_overlay:a1);
+if_settext(tostring(calc((%varplayerbit_4208 + 1) * 5)), wc_update09_sawmill_overlay:a2);
+if_settext(tostring(%varplayerbit_4217), wc_update09_sawmill_overlay:b1);
+if_settext(tostring(calc((%varplayerbit_4209 + 1) * 5)), wc_update09_sawmill_overlay:b2);
+if_settext(tostring(%varplayerbit_4218), wc_update09_sawmill_overlay:c1);
+if_settext(tostring(calc((%varplayerbit_4210 + 1) * 5)), wc_update09_sawmill_overlay:c2);
+if_settext(tostring(%varplayerbit_4219), wc_update09_sawmill_overlay:d1);
+if_settext(tostring(calc((%varplayerbit_4211 + 1) * 5)), wc_update09_sawmill_overlay:d2);
+if_settext(tostring(%varplayerbit_4220), wc_update09_sawmill_overlay:e1);
+if_settext(tostring(calc((%varplayerbit_4212 + 1) * 5)), wc_update09_sawmill_overlay:e2);
+if_settext(tostring(%varplayerbit_5008), wc_update09_sawmill_overlay:f1);
+if_settext(tostring(calc((%varplayerbit_4213 + 1) * 5)), wc_update09_sawmill_overlay:f2);

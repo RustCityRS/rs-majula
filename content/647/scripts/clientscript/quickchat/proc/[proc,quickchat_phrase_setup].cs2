@@ -6,7 +6,7 @@ if ($int2 > 0) {
     while (%varclient_134 < $int2 & %varclient_134 < 10) {
         $int3 = chatphrase_getdynamiccommand($chatphrase1, %varclient_134);
         if ($int3 = 0) {
-            ~script1044($chatphrase1);
+            ~quickchat_phrase_listdialog($chatphrase1);
             return;
         }
         if ($int3 = 1) {

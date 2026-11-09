@@ -16,5 +16,5 @@ switch_int (%varplayerbit_6352) {
     case 4 :
         if_setgraphic(graphic_1907, mob_chat:arrow_graphic);
 }
-~scrollbar_ondrag_doscroll(mob_chat:com_45, mob_chat:text, if_getscrollheight(mob_chat:text), 1);
+~scrollbar_ondrag_doscroll(mob_chat:scrollbar, mob_chat:text, if_getscrollheight(mob_chat:text), 1);
 if_setonkey("mob_chat_onkey(event_keycode, event_keychar)", mob_chat:arrowbutton);

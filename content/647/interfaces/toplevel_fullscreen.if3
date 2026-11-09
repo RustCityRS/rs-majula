@@ -84,7 +84,7 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-onload=script725(event_com, toplevel_fullscreen:mainmodal)
+onload=mainmodal_fullscreen_background_load(event_com, toplevel_fullscreen:mainmodal)
 
 // 746:9
 [mainmodal]
@@ -214,8 +214,8 @@ ymode=abs_bottom
 layer=backbase2
 transmitop=10
 op10= 
-onload=script1765
-onvarctransmit=script1765{varclient_232, varclient_233, varclient_234, varclient_822, varclient_235, varclient_236, varclient_237, varclient_238, varclient_823, varclient_240, varclient_241, varclient_242, varclient_243, varclient_244, varclient_245, varclient_824}
+onload=if_side_stone_set
+onvarctransmit=if_side_stone_set{varclient_232, varclient_233, varclient_234, varclient_822, varclient_235, varclient_236, varclient_237, varclient_238, varclient_823, varclient_240, varclient_241, varclient_242, varclient_243, varclient_244, varclient_245, varclient_824}
 
 // 746:21
 [icon0]
@@ -986,7 +986,7 @@ layer=chatbox_resize
 noclickthrough=yes
 
 // 746:73
-[com_73]
+[chatbox_resize_arrow]
 type=graphic
 width=8
 height=9
@@ -2059,7 +2059,7 @@ transmitop=10
 op10= 
 
 // 746:165
-[com_165]
+[gravestone_background]
 type=graphic
 width=52
 height=20
@@ -2111,7 +2111,7 @@ graphic=map_ring
 colour=0xffffffff
 
 // 746:169
-[com_169]
+[compass]
 type=graphic
 clientcode=1339
 x=150
@@ -2135,7 +2135,7 @@ graphic=compass_ring
 colour=0xffffffff
 
 // 746:171
-[com_171]
+[compass_clickzone]
 type=layer
 x=150
 y=5
@@ -3065,7 +3065,7 @@ y=26
 width=25
 height=24
 layer=com_182
-graphic=graphic_5613
+graphic=aif_tooltip_arrow_2
 
 // 746:241
 [com_241]
@@ -3075,5 +3075,5 @@ y=74
 width=25
 height=24
 layer=com_182
-graphic=graphic_5613
+graphic=aif_tooltip_arrow_2
 2dangle=49152

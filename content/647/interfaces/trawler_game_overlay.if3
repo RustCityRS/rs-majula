@@ -174,7 +174,7 @@ xmode=abs_right
 layer=bg_layer
 colour=0x0033cc
 fill=yes
-onvarctransmit=script2437{varclient_817}
+onvarctransmit=trawler_water_bar_fill{varclient_817}
 
 // 15:12
 [water_bar_border]
@@ -215,10 +215,10 @@ xmode=abs_right
 layer=bg_layer
 colour=0x006600
 fill=yes
-onvartransmit=script2438{varplayer_1436}
+onvartransmit=trawler_activity_bar_fill{varplayer_1436}
 
 // 15:15
-[full_symbol1]
+[activity_bar_border]
 type=rectangle
 x=39
 y=36

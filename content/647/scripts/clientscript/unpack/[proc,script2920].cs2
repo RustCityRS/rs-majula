@@ -1,6 +1,6 @@
 // 2920
 [proc,script2920](string $string0, int $int0, int $int1)
-if_opensubclient(lobbyscreen:com_69, lobbyscreen_report_abuse_stage1);
+if_opensubclient(lobbyscreen:report_abuse_stage1_body, lobbyscreen_report_abuse_stage1);
 ~lobbyscreen_report_abuse_stage1_clear;
 if (string_length($string0) > 0) {
     %varclient_1796 = removetags($string0);

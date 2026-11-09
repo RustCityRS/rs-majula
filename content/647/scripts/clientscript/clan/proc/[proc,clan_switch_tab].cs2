@@ -1,23 +1,23 @@
 // 4400
 [proc,clan_switch_tab](component $component0)
-if_sethide(true, interface_1105:com_64);
-if_sethide(true, interface_1105:com_67);
-if_sethide(true, interface_1105:com_68);
-if_sethide(true, interface_1105:com_69);
-if_sethide(true, interface_1105:com_70);
-if_sethide(true, interface_1105:com_167);
-if_sethide(true, interface_1105:com_179);
-if_sethide(true, interface_1105:com_191);
+if_sethide(true, clan_motif_chooser:top_icon_layer);
+if_sethide(true, clan_motif_chooser:scroll_bar1);
+if_sethide(true, clan_motif_chooser:bottom_icon_layer);
+if_sethide(true, clan_motif_chooser:scroll_bar2);
+if_sethide(true, clan_motif_chooser:colour_layer);
+if_sethide(true, clan_motif_chooser:com_167);
+if_sethide(true, clan_motif_chooser:com_179);
+if_sethide(true, clan_motif_chooser:com_191);
 switch_component ($component0) {
-    case interface_1105:com_170 :
-        if_sethide(false, interface_1105:com_64);
-        if_sethide(false, interface_1105:com_67);
-        if_sethide(false, interface_1105:com_167);
-    case interface_1105:com_182 :
-        if_sethide(false, interface_1105:com_68);
-        if_sethide(false, interface_1105:com_69);
-        if_sethide(false, interface_1105:com_179);
-    case interface_1105:com_194 :
-        if_sethide(false, interface_1105:com_70);
-        if_sethide(false, interface_1105:com_191);
+    case clan_motif_chooser:com_170 :
+        if_sethide(false, clan_motif_chooser:top_icon_layer);
+        if_sethide(false, clan_motif_chooser:scroll_bar1);
+        if_sethide(false, clan_motif_chooser:com_167);
+    case clan_motif_chooser:com_182 :
+        if_sethide(false, clan_motif_chooser:bottom_icon_layer);
+        if_sethide(false, clan_motif_chooser:scroll_bar2);
+        if_sethide(false, clan_motif_chooser:com_179);
+    case clan_motif_chooser:colour_tab :
+        if_sethide(false, clan_motif_chooser:colour_layer);
+        if_sethide(false, clan_motif_chooser:com_191);
 }

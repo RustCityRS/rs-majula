@@ -22,7 +22,7 @@ x=32
 width=249
 height=350
 ymode=abs_centre
-layer=com_23
+layer=key
 model=model_20836
 modelorigin=19,70
 modelangle=512,512,0
@@ -35,7 +35,7 @@ x=56
 y=14
 width=200
 height=30
-layer=com_23
+layer=key
 textfont=quill_oblique_large
 text=Menu
 textalignh=centre
@@ -50,7 +50,7 @@ y=25
 width=203
 height=265
 ymode=abs_bottom
-layer=com_23
+layer=key
 scrollheight=400
 
 // 297:5
@@ -73,7 +73,7 @@ y=25
 width=16
 height=265
 ymode=abs_bottom
-layer=com_23
+layer=key
 
 // 297:7
 [key_text]
@@ -83,7 +83,7 @@ width=200
 height=80
 xmode=abs_right
 ymode=abs_centre
-layer=com_23
+layer=key
 textfont=p12_full
 text=Look at the Sandwich Lady's stock.<br><br>Then return to the previous display and select the item she offered you.
 textalignh=centre
@@ -292,7 +292,7 @@ op1=Choose refreshment
 onload=script2105(event_com, sandwich_tray:model_6)
 
 // 297:23
-[com_23]
+[key]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -648,7 +648,7 @@ y=242
 width=45
 height=36
 xmode=abs_right
-layer=com_23
+layer=key
 graphic=leftarrow
 colour=0x000000
 transmitop=1

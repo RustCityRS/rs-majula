@@ -1,0 +1,7 @@
+// 3353
+[proc,rand_mem5_xp_tooltip]
+if (%varclient_1179 = 0) {
+    ~script1163(rand_party_side:mem5_xp_button, -1, rand_party_side:com_114, "P5: Shared XP is ON", 25, 200);
+} else {
+    ~script1163(rand_party_side:mem5_xp_button, -1, rand_party_side:com_114, "P5: Shared XP is OFF", 25, 200);
+}

@@ -43,7 +43,7 @@ while ($int0 < enum_getoutputcount($enum9)) {
             cc_setop(2, "Pin");
         }
         cc_setopbase($string0);
-        cc_setonop("script3990($int1, event_comsubid, event_op)");
+        cc_setonop("task_main_summary_populate($int1, event_comsubid, event_op)");
         if (~script3999($int1) = 0) {
             $string1 = " -<br>";
             $string1 = append(struct_param($struct3, param_1266), $string1);
@@ -72,7 +72,7 @@ while ($int0 < enum_getoutputcount($enum9)) {
         cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int13 + 70 - 17), calc($int14 + 39), ^setpos_abs_left, ^setpos_abs_top);
         if (~script3994($int1) = 1) {
-            cc_setgraphic(graphic_4296);
+            cc_setgraphic("task_pin_symbol,1");
         }
         $int8 = calc($int8 + 1);
         $int7 = calc($int8 * 4);
@@ -106,7 +106,7 @@ while ($int0 < enum_getoutputcount($enum9)) {
         cc_setposition(calc($int13 - 1), calc($int14 - 1), ^setpos_abs_left, ^setpos_abs_top);
         cc_setop(1, "Summary for");
         cc_setopbase($string0);
-        cc_setonop("script3990($int1, event_comsubid, event_op)");
+        cc_setonop("task_main_summary_populate($int1, event_comsubid, event_op)");
         if (~script3999($int1) = 0) {
             $string1 = " -<br>";
             $string1 = append(struct_param($struct3, param_1266), $string1);
@@ -135,7 +135,7 @@ while ($int0 < enum_getoutputcount($enum9)) {
         cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int13 + 70 - 17), calc($int14 + 39), ^setpos_abs_left, ^setpos_abs_top);
         if (~script3994($int1) = 1) {
-            cc_setgraphic(graphic_4296);
+            cc_setgraphic("task_pin_symbol,1");
         }
         $int8 = calc($int8 + 1);
         $int7 = calc($int8 * 4);

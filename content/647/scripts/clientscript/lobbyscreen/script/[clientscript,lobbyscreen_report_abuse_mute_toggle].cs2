@@ -1,0 +1,9 @@
+// 3178
+[clientscript,lobbyscreen_report_abuse_mute_toggle](component $component0)
+if (%varclient_6 = false) {
+    %varclient_6 = true;
+    if_setgraphic("check_box_2,2", $component0);
+} else {
+    %varclient_6 = false;
+    if_setgraphic("check_box_2,0", $component0);
+}

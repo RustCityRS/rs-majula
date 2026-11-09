@@ -18,9 +18,9 @@ if ($int3 >= $int5 & $int3 <= $int6) {
     if_setgraphic("notes_add_delete_icons,3", notes:del_button_graphic);
 }
 def_int $int7 = 0;
-def_int $int8 = if_gety(notes:com_9);
+def_int $int8 = if_gety(notes:main);
 def_int $int9 = calc($int8 + $int4);
-def_int $int10 = calc($int8 + if_getheight(notes:com_9));
+def_int $int10 = calc($int8 + if_getheight(notes:main));
 def_int $int11 = calc($int10 - $int4);
 if ($int3 >= $int8 & $int3 <= $int9) {
     $int7 = -4;
@@ -32,5 +32,5 @@ if ($int3 >= $int8 & $int3 <= $int9) {
 }
 %varclient_821 = calc(%varclient_821 + 1);
 if (%varclient_821 > 5) {
-    ~scrollbar_ondrag_doscroll(notes:com_15, notes:com_9, calc(if_getscrolly(notes:com_9) + $int7), 1);
+    ~scrollbar_ondrag_doscroll(notes:scrollbar, notes:main, calc(if_getscrolly(notes:main) + $int7), 1);
 }

@@ -9,7 +9,7 @@ fill=yes
 trans=100
 
 // 613:1
-[com_1]
+[pog_gnome_machine_unlocked]
 type=model
 x=184
 y=-84
@@ -116,7 +116,7 @@ layer=content_layer
 colour=0x000000
 onmouseleave=deltooltip(pog_coin_machine:tooltip_input)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1065}
-onmouserepeat=script509(event_com)
+onmouserepeat=pog_coin_tooltip_input(event_com)
 
 // 613:10
 [pog_coin_display2_1]
@@ -129,7 +129,7 @@ layer=content_layer
 colour=0x000000
 onmouseleave=deltooltip(pog_coin_machine:tooltip_input)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1066}
-onmouserepeat=script509(event_com)
+onmouserepeat=pog_coin_tooltip_input(event_com)
 
 // 613:11
 [pog_coin_display2_2]
@@ -142,7 +142,7 @@ layer=content_layer
 colour=0x000000
 onmouseleave=deltooltip(pog_coin_machine:tooltip_input)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1067}
-onmouserepeat=script509(event_com)
+onmouserepeat=pog_coin_tooltip_input(event_com)
 
 // 613:12
 [pog_operate_current_coin]
@@ -192,7 +192,7 @@ layer=content_layer
 colour=0x000000
 onmouseleave=deltooltip(pog_coin_machine:tooltip_target)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1068}
-onmouserepeat=script136(event_com)
+onmouserepeat=pog_coin_tooltip_target(event_com)
 
 // 613:16
 [pog_target_1_2]
@@ -205,7 +205,7 @@ layer=content_layer
 colour=0x000000
 onmouseleave=deltooltip(pog_coin_machine:tooltip_target)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1069}
-onmouserepeat=script136(event_com)
+onmouserepeat=pog_coin_tooltip_target(event_com)
 
 // 613:17
 [pog_target_2]
@@ -219,7 +219,7 @@ colour=0x000000
 opbase=m
 onmouseleave=deltooltip(pog_coin_machine:tooltip_target)
 onvartransmit=pog_machine_transmit(event_com){varplayer_1070}
-onmouserepeat=script136(event_com)
+onmouserepeat=pog_coin_tooltip_target(event_com)
 
 // 613:18
 [tooltip_bounding_box_target]
@@ -313,7 +313,7 @@ ymode=abs_centre
 layer=fsborder_main_layer
 
 // 613:27
-[com_27]
+[fsborder_graphic_1]
 type=graphic
 x=-260
 width=32
@@ -325,7 +325,7 @@ tiling=yes
 colour=0x000000
 
 // 613:28
-[com_28]
+[fsborder_graphic_2]
 type=graphic
 y=-171
 width=462
@@ -337,7 +337,7 @@ tiling=yes
 colour=0x000000
 
 // 613:29
-[com_29]
+[fsborder_graphic_3]
 type=graphic
 y=170
 width=512
@@ -349,7 +349,7 @@ tiling=yes
 colour=0x000000
 
 // 613:30
-[com_30]
+[fsborder_graphic_4]
 type=graphic
 x=259
 width=32
@@ -361,7 +361,7 @@ tiling=yes
 colour=0x000000
 
 // 613:31
-[com_31]
+[fsborder_graphic_5]
 type=graphic
 x=-247
 y=-158
@@ -374,7 +374,7 @@ tiling=yes
 colour=0x000000
 
 // 613:32
-[com_32]
+[fsborder_graphic_6]
 type=graphic
 x=247
 y=-158
@@ -387,7 +387,7 @@ tiling=yes
 colour=0x000000
 
 // 613:33
-[com_33]
+[fsborder_graphic_7]
 type=graphic
 x=247
 y=158
@@ -400,7 +400,7 @@ tiling=yes
 colour=0x000000
 
 // 613:34
-[com_34]
+[fsborder_graphic_8]
 type=graphic
 x=-247
 y=158

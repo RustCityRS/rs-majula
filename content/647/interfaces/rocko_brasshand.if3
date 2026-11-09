@@ -1,5 +1,5 @@
 // 159:0
-[com_0]
+[background]
 type=graphic
 width=520
 height=335
@@ -307,12 +307,12 @@ y=248
 width=25
 height=25
 layer=contents
-graphic=graphic_1228
+graphic="catcon_catapult_icons,4"
 colour=0x000000
 transmitop=1
 op1=Rotate-Left
-onmouseover=graphic_swapper(event_com, graphic_1229)
-onmouseleave=graphic_swapper(event_com, graphic_1228)
+onmouseover=graphic_swapper(event_com, "catcon_catapult_icons,5")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_icons,4")
 
 // 159:25
 [rotate_right]
@@ -322,12 +322,12 @@ y=248
 width=25
 height=25
 layer=contents
-graphic=graphic_1230
+graphic="catcon_catapult_icons,6"
 colour=0x000000
 transmitop=1
 op1=Rotate-Right
-onmouseover=graphic_swapper(event_com, graphic_1231)
-onmouseleave=graphic_swapper(event_com, graphic_1230)
+onmouseover=graphic_swapper(event_com, "catcon_catapult_icons,7")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_icons,6")
 
 // 159:26
 [reset]
@@ -337,12 +337,12 @@ y=283
 width=25
 height=25
 layer=contents
-graphic=graphic_1232
+graphic="catcon_catapult_icons,8"
 colour=0x000000
 transmitop=1
 op1=Restart
-onmouseover=graphic_swapper(event_com, graphic_1233)
-onmouseleave=graphic_swapper(event_com, graphic_1232)
+onmouseover=graphic_swapper(event_com, "catcon_catapult_icons,9")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_icons,8")
 
 // 159:27
 [arrow_up]
@@ -578,7 +578,7 @@ ymode=abs_centre
 layer=fsborder_main_layer
 
 // 159:46
-[com_46]
+[fsborder_graphic_1]
 type=graphic
 x=-260
 width=32
@@ -590,7 +590,7 @@ tiling=yes
 colour=0x000000
 
 // 159:47
-[com_47]
+[fsborder_graphic_2]
 type=graphic
 y=-171
 width=462
@@ -602,7 +602,7 @@ tiling=yes
 colour=0x000000
 
 // 159:48
-[com_48]
+[fsborder_graphic_3]
 type=graphic
 y=170
 width=512
@@ -614,7 +614,7 @@ tiling=yes
 colour=0x000000
 
 // 159:49
-[com_49]
+[fsborder_graphic_4]
 type=graphic
 x=259
 width=32
@@ -626,7 +626,7 @@ tiling=yes
 colour=0x000000
 
 // 159:50
-[com_50]
+[fsborder_graphic_5]
 type=graphic
 x=-247
 y=-158
@@ -639,7 +639,7 @@ tiling=yes
 colour=0x000000
 
 // 159:51
-[com_51]
+[fsborder_graphic_6]
 type=graphic
 x=247
 y=-158
@@ -652,7 +652,7 @@ tiling=yes
 colour=0x000000
 
 // 159:52
-[com_52]
+[fsborder_graphic_7]
 type=graphic
 x=247
 y=158
@@ -665,7 +665,7 @@ tiling=yes
 colour=0x000000
 
 // 159:53
-[com_53]
+[fsborder_graphic_8]
 type=graphic
 x=-247
 y=158

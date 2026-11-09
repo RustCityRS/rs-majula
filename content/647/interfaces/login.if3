@@ -7,13 +7,13 @@ width=320
 height=326
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=main
 graphic=alpha_dropshadow
 alpha=yes
 colour=0x010101
 
 // 596:1
-[com_1]
+[background]
 type=graphic
 x=7
 y=7
@@ -26,7 +26,7 @@ graphic=window_texture
 tiling=yes
 
 // 596:2
-[com_2]
+[popup_small_button_shadow]
 type=rectangle
 x=1
 y=1
@@ -45,11 +45,11 @@ width=266
 height=265
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=main
 op10= 
 
 // 596:4
-[com_4]
+[main]
 type=layer
 width=400
 height=400
@@ -74,7 +74,7 @@ width=266
 height=265
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=main
 noclickthrough=yes
 op10= 
 
@@ -513,7 +513,7 @@ onmouseleave=loginscreen_button_highlight(login:login_button_left, "set_but_end_
 onclick=login_dologin
 
 // 596:43
-[com_43]
+[login_button_shadow]
 type=rectangle
 x=1
 y=1
@@ -534,8 +534,8 @@ height=15
 widthmode=minus
 xmode=abs_centre
 layer=body
-onmouseover=login_link_highlight(login:forgot_password_layer, login:com_47, verdana_11pt_regular, 1)
-onmouseleave=login_link_highlight(login:forgot_password_layer, login:com_47, verdana_11pt_regular, 0)
+onmouseover=login_link_highlight(login:forgot_password_layer, login:forgot_password_text, verdana_11pt_regular, 1)
+onmouseleave=login_link_highlight(login:forgot_password_layer, login:forgot_password_text, verdana_11pt_regular, 0)
 onclick=loginscreen_link("accountappeal", "passwordchoice.ws", true)
 
 // 596:45
@@ -559,7 +559,7 @@ layer=body
 colour=0x2d2d2d
 
 // 596:47
-[com_47]
+[forgot_password_text]
 type=text
 widthmode=minus
 heightmode=minus
@@ -610,7 +610,7 @@ colour=0xffffffff
 op10=  
 
 // 596:51
-[com_51]
+[login_button_text_shadow]
 type=text
 x=1
 height=21
@@ -682,7 +682,7 @@ layer=popup_body
 hide=yes
 
 // 596:56
-[com_56]
+[popup_big_button_shadow]
 type=rectangle
 x=1
 y=1

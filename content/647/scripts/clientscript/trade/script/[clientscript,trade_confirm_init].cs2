@@ -19,7 +19,7 @@ def_obj $obj1 = null;
 if (inv_getobj(tradeoffer, 14) ! null | inv_getobj(tradeoffer, 15) ! null | inv_getobj(tradeoffer, 16) ! null | inv_getobj(tradeoffer, 17) ! null | inv_getobj(tradeoffer, 18) ! null | inv_getobj(tradeoffer, 19) ! null | inv_getobj(tradeoffer, 20) ! null | inv_getobj(tradeoffer, 21) ! null | inv_getobj(tradeoffer, 22) ! null | inv_getobj(tradeoffer, 23) ! null | inv_getobj(tradeoffer, 24) ! null | inv_getobj(tradeoffer, 25) ! null | inv_getobj(tradeoffer, 26) ! null | inv_getobj(tradeoffer, 27) ! null) {
     if_sethide(false, tradeconfirm:out_left);
     if_sethide(false, tradeconfirm:out_right);
-    if_sethide(false, tradeconfirm:com_41);
+    if_sethide(false, tradeconfirm:out_dragzone);
     while ($int0 < 14) {
         $obj1 = inv_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
@@ -48,14 +48,14 @@ if (inv_getobj(tradeoffer, 14) ! null | inv_getobj(tradeoffer, 15) ! null | inv_
         }
         $int0 = calc($int0 + 1);
     }
-    ~script4109(114, tradeconfirm:out, tradeconfirm:out_left, tradeconfirm:out_right, tradeconfirm:com_41, tradeconfirm:com_42);
-    if_setondrag("script4108(event_mousex, tradeconfirm:out, tradeconfirm:out_left, tradeconfirm:out_right, tradeconfirm:com_41, tradeconfirm:com_42)", tradeconfirm:com_42);
-    if_setondragcomplete("script4108(event_mousex, tradeconfirm:out, tradeconfirm:out_left, tradeconfirm:out_right, tradeconfirm:com_41, tradeconfirm:com_42)", tradeconfirm:com_42);
-    if_setmouseovercursor(cursor_149, tradeconfirm:com_42);
+    ~script4109(114, tradeconfirm:out, tradeconfirm:out_left, tradeconfirm:out_right, tradeconfirm:out_dragzone, tradeconfirm:out_dragger);
+    if_setondrag("script4108(event_mousex, tradeconfirm:out, tradeconfirm:out_left, tradeconfirm:out_right, tradeconfirm:out_dragzone, tradeconfirm:out_dragger)", tradeconfirm:out_dragger);
+    if_setondragcomplete("script4108(event_mousex, tradeconfirm:out, tradeconfirm:out_left, tradeconfirm:out_right, tradeconfirm:out_dragzone, tradeconfirm:out_dragger)", tradeconfirm:out_dragger);
+    if_setmouseovercursor(cursor_149, tradeconfirm:out_dragger);
 } else {
     if_sethide(true, tradeconfirm:out_left);
     if_sethide(true, tradeconfirm:out_right);
-    if_sethide(true, tradeconfirm:com_41);
+    if_sethide(true, tradeconfirm:out_dragzone);
     while ($int0 < 14) {
         $obj1 = inv_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
@@ -79,7 +79,7 @@ def_int $int2 = 0;
 if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! null | invother_getobj(tradeoffer, 16) ! null | invother_getobj(tradeoffer, 17) ! null | invother_getobj(tradeoffer, 18) ! null | invother_getobj(tradeoffer, 19) ! null | invother_getobj(tradeoffer, 20) ! null | invother_getobj(tradeoffer, 21) ! null | invother_getobj(tradeoffer, 22) ! null | invother_getobj(tradeoffer, 23) ! null | invother_getobj(tradeoffer, 24) ! null | invother_getobj(tradeoffer, 25) ! null | invother_getobj(tradeoffer, 26) ! null | invother_getobj(tradeoffer, 27) ! null) {
     if_sethide(false, tradeconfirm:in_left);
     if_sethide(false, tradeconfirm:in_right);
-    if_sethide(false, tradeconfirm:com_60);
+    if_sethide(false, tradeconfirm:in_dragzone);
     while ($int0 < 14) {
         $int2 = ~script148($int0);
         if ($int2 > 0 & $int2 > calc(clientclock - 750)) {
@@ -140,14 +140,14 @@ if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! n
         }
         $int0 = calc($int0 + 1);
     }
-    ~script4109(114, tradeconfirm:in, tradeconfirm:in_left, tradeconfirm:in_right, tradeconfirm:com_60, tradeconfirm:com_61);
-    if_setondrag("script4108(event_mousex, tradeconfirm:in, tradeconfirm:in_left, tradeconfirm:in_right, tradeconfirm:com_60, tradeconfirm:com_61)", tradeconfirm:com_61);
-    if_setondragcomplete("script4108(event_mousex, tradeconfirm:in, tradeconfirm:in_left, tradeconfirm:in_right, tradeconfirm:com_60, tradeconfirm:com_61)", tradeconfirm:com_61);
-    if_setmouseovercursor(cursor_149, tradeconfirm:com_61);
+    ~script4109(114, tradeconfirm:in, tradeconfirm:in_left, tradeconfirm:in_right, tradeconfirm:in_dragzone, tradeconfirm:in_dragger);
+    if_setondrag("script4108(event_mousex, tradeconfirm:in, tradeconfirm:in_left, tradeconfirm:in_right, tradeconfirm:in_dragzone, tradeconfirm:in_dragger)", tradeconfirm:in_dragger);
+    if_setondragcomplete("script4108(event_mousex, tradeconfirm:in, tradeconfirm:in_left, tradeconfirm:in_right, tradeconfirm:in_dragzone, tradeconfirm:in_dragger)", tradeconfirm:in_dragger);
+    if_setmouseovercursor(cursor_149, tradeconfirm:in_dragger);
 } else {
     if_sethide(true, tradeconfirm:in_left);
     if_sethide(true, tradeconfirm:in_right);
-    if_sethide(true, tradeconfirm:com_60);
+    if_sethide(true, tradeconfirm:in_dragzone);
     while ($int0 < 14) {
         $int2 = ~script148($int0);
         if ($int2 > 0 & $int2 > calc(clientclock - 750)) {

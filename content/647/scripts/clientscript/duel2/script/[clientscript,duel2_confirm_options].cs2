@@ -1,0 +1,117 @@
+// 4179
+[clientscript,duel2_confirm_options](component $component0, component $component1, component $component2, component $component3)
+def_int $int4 = ~script4180(0, $component0, "Boosted stats will be reset.", 0);
+if (%varplayerbit_642 > 0) {
+    $int4 = ~script4180($int4, $component0, "Some worn items will be taken off.", 0);
+}
+if (%varplayerbit_4166 = 1) {
+    $int4 = ~script4180($int4, $component0, "Existing prayers will be stopped.", 0);
+}
+if ($int4 > if_getheight($component0)) {
+    if_setscrollsize(0, $int4, $component0);
+    ~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_sethide(false, $component1);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, $component0);
+} else {
+    if_setscrollsize(0, 0, $component0);
+    cc_deleteall($component1);
+    if_sethide(true, $component1);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component0);
+}
+def_int $int5 = 0;
+if (map_members = true & (inv_total(inv, black_salamander) > 0 | inv_total(worn, black_salamander) > 0 | inv_total(inv, red_salamander) > 0 | inv_total(worn, red_salamander) > 0 | inv_total(inv, orange_salamander) > 0 | inv_total(worn, orange_salamander) > 0 | inv_total(inv, swamp_lizard) > 0 | inv_total(worn, swamp_lizard) > 0)) {
+    $int5 = 1;
+}
+$int4 = 0;
+if (%varplayerbit_4159 = 1) {
+    $int4 = ~script4180($int4, $component2, "You cannot forfeit the duel.", %varclient_1453);
+}
+if (%varplayerbit_4160 = 1) {
+    $int4 = ~script4180($int4, $component2, "You cannot move.", %varclient_1454);
+}
+if (%varplayerbit_4275 = 1) {
+    $int4 = ~script4180($int4, $component2, "You can summon familiars.", %varclient_1464);
+}
+def_string $string0 = "You cannot use Ranged attacks.";
+if (%varplayerbit_4161 = 1) {
+    if ($int5 = 1) {
+        $string0 = "You cannot use Ranged attacks <col=ffffff>or salamanders</col>.";
+    }
+    $int4 = ~script4180($int4, $component2, $string0, %varclient_1455);
+}
+$string0 = "You cannot use melee attacks.";
+if (%varplayerbit_4162 = 1) {
+    if ($int5 = 1) {
+        $string0 = "You cannot use melee attacks <col=ffffff>or salamanders</col>.";
+    }
+    $int4 = ~script4180($int4, $component2, $string0, %varclient_1456);
+}
+$string0 = "You cannot use Magic attacks.";
+if (%varplayerbit_4163 = 1) {
+    if ($int5 = 1) {
+        $string0 = "You cannot use Magic attacks <col=ffffff>or salamanders</col>.";
+    }
+    $int4 = ~script4180($int4, $component2, $string0, %varclient_1457);
+}
+if (%varplayerbit_4169 = 1) {
+    $int4 = ~script4180($int4, $component2, "You cannot use special attacks.", %varclient_1463);
+}
+if (%varplayerbit_4168 = 1) {
+    $int4 = ~script4180($int4, $component2, "You can only attack with 'fun' weapons.", %varclient_1462);
+}
+if (%varplayerbit_4164 = 1) {
+    $int4 = ~script4180($int4, $component2, "You cannot use drinks.", %varclient_1458);
+}
+if (%varplayerbit_4165 = 1) {
+    $int4 = ~script4180($int4, $component2, "You cannot use food.", %varclient_1459);
+}
+if (%varplayerbit_4166 = 1) {
+    $int4 = ~script4180($int4, $component2, "You cannot use Prayer.", %varclient_1460);
+}
+if (%varplayerbit_4167 = 1) {
+    $int4 = ~script4180($int4, $component2, "There will be obstacles in the arena.", %varclient_1461);
+}
+if (testbit(%varplayerbit_642, 0) = ^true) {
+    $int4 = ~script4180($int4, $component2, "You cannot wear items on your head.", %varclient_1465);
+}
+if (testbit(%varplayerbit_642, 1) = ^true) {
+    $int4 = ~script4180($int4, $component2, "You cannot wear items on your back, such as capes.", %varclient_1466);
+}
+if (testbit(%varplayerbit_642, 2) = ^true) {
+    $int4 = ~script4180($int4, $component2, "You cannot wear items on your front, such as amulets.", %varclient_1467);
+}
+if (testbit(%varplayerbit_642, 3) = ^true) {
+    $int4 = ~script4180($int4, $component2, "You cannot wield items in your right hand.", %varclient_740);
+}
+if (testbit(%varplayerbit_642, 4) = ^true) {
+    $int4 = ~script4180($int4, $component2, "You cannot wear items on your torso.", %varclient_745);
+}
+if (testbit(%varplayerbit_642, 5) = ^true) {
+    $int4 = ~script4180($int4, $component2, "You cannot wield items in your left hand or use 2-handed weapons.", %varclient_780);
+}
+if (testbit(%varplayerbit_642, 7) = ^true) {
+    $int4 = ~script4180($int4, $component2, "You cannot wear items on your legs.", %varclient_781);
+}
+if (testbit(%varplayerbit_642, 9) = ^true) {
+    $int4 = ~script4180($int4, $component2, "You cannot wear items on your hands.", %varclient_782);
+}
+if (testbit(%varplayerbit_642, 10) = ^true) {
+    $int4 = ~script4180($int4, $component2, "You cannot wear items on your feet.", %varclient_789);
+}
+if (testbit(%varplayerbit_642, 12) = ^true) {
+    $int4 = ~script4180($int4, $component2, "You cannot use your ring slot.", %varclient_1409);
+}
+if (testbit(%varplayerbit_642, 13) = ^true) {
+    $int4 = ~script4180($int4, $component2, "You cannot use your quiver.", %varclient_1410);
+}
+if ($int4 > if_getheight($component2)) {
+    if_setscrollsize(0, $int4, $component2);
+    ~scrollbar_vertical($component3, $component2, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_sethide(false, $component3);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre, $component2);
+} else {
+    if_setscrollsize(0, 0, $component2);
+    cc_deleteall($component3);
+    if_sethide(true, $component3);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component2);
+}

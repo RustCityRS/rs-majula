@@ -16,7 +16,7 @@ if (%varplayerbit_7326 = 1) {
     if_sethide(false, easter10_resourcegame:negg_repair_tick);
 }
 if_settext(tostring(%varclient_1126), easter10_resourcegame:nuts_workers_text);
-if_settext(tostring(%varclient_1127), easter10_resourcegame:playinglocal);
+if_settext(tostring(%varclient_1127), easter10_resourcegame:choc_workers_text);
 if_settext(tostring(%varclient_1128), easter10_resourcegame:fruit_workers_text);
 if_settext(tostring(%varclient_1129), easter10_resourcegame:fc_workers_text);
 if_settext(tostring(%varclient_1131), easter10_resourcegame:tegg_workers_text);

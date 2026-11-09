@@ -1,22 +1,22 @@
 // 438
 [clientscript,script438](component $component0)
-if_setgraphic("radio_buttons,0", conq_stake_options:com_42);
-if_setgraphic("radio_buttons,0", conq_stake_options:com_43);
-if_setgraphic("radio_buttons,0", conq_stake_options:com_44);
-if_setgraphic("radio_buttons,0", conq_stake_options:com_45);
-if_setgraphic("radio_buttons,0", conq_stake_options:com_46);
-if_setgraphic("radio_buttons,0", conq_stake_options:com_47);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_30_graphic);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_60_graphic);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_90_graphic);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_120_graphic);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_150_graphic);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_180_graphic);
 switch_component ($component0) {
-    case conq_stake_options:com_48 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_42);
-    case conq_stake_options:com_49 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_43);
-    case conq_stake_options:com_50 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_44);
-    case conq_stake_options:com_51 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_45);
-    case conq_stake_options:com_52 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_46);
-    case conq_stake_options:com_53 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_47);
+    case conq_stake_options:round_time_30 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_30_graphic);
+    case conq_stake_options:round_time_60 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_60_graphic);
+    case conq_stake_options:round_time_90 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_90_graphic);
+    case conq_stake_options:round_time_120 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_120_graphic);
+    case conq_stake_options:round_time_150 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_150_graphic);
+    case conq_stake_options:round_time_180 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_180_graphic);
 }

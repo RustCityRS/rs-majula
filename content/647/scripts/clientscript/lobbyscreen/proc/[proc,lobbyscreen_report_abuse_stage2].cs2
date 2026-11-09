@@ -1,0 +1,29 @@
+// 3190
+[proc,lobbyscreen_report_abuse_stage2]
+if_opensubclient(lobbyscreen:report_abuse_stage2_body, lobbyscreen_report_abuse_stage2);
+if_sethide(false, lobbyscreen:report_abuse_stage2);
+if (if_gethide(enum(int, component, enum_941, 5)) = false) {
+    ~script3161(0);
+}
+if (string_length(%varclient_1798) > 0) {
+    if_settext("Reporting: <%varclient_1798>", lobbyscreen_report_abuse_stage2:title_text);
+} else {
+    if_settext("Report Abuse", lobbyscreen_report_abuse_stage2:title_text);
+}
+if (playermod = 1 | staffmodlevel > 0) {
+    if (%varclient_6 = false) {
+        if_setgraphic("check_box_2,0", lobbyscreen_report_abuse_stage2:com_46);
+    } else {
+        if_setgraphic("check_box_2,2", lobbyscreen_report_abuse_stage2:com_46);
+    }
+    if (playermodlevel = 5 | playermodlevel = 6) {
+        if_settext("Suggest to mute this player for 48 hours", lobbyscreen_report_abuse_stage2:mute_text);
+    } else {
+        if_settext("Mute this player for 48 hours", lobbyscreen_report_abuse_stage2:mute_text);
+    }
+    if_setsize(calc(stringwidth(if_gettext(lobbyscreen_report_abuse_stage2:mute_text), verdana_11pt_regular) + 18), if_getheight(lobbyscreen_report_abuse_stage2:mute_layer), ^setsize_abs, ^setsize_abs, lobbyscreen_report_abuse_stage2:mute_layer);
+    if_sethide(false, lobbyscreen_report_abuse_stage2:mute_layer);
+} else {
+    if_sethide(true, lobbyscreen_report_abuse_stage2:mute_layer);
+}
+if_setonkey("lobbyscreen_report_abuse_stage2_keyboard(event_keycode)", lobbyscreen_report_abuse_stage2:main);

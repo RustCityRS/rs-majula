@@ -36,7 +36,7 @@ fill=yes
 type=rectangle
 widthmode=minus
 heightmode=minus
-layer=com_10
+layer=your_stake_background_layer
 colour=0x201c17
 
 // 1022:4
@@ -48,7 +48,7 @@ width=2
 height=2
 widthmode=minus
 heightmode=minus
-layer=com_10
+layer=your_stake_background_layer
 colour=0x595143
 
 // 1022:5
@@ -60,7 +60,7 @@ width=4
 height=4
 widthmode=minus
 heightmode=minus
-layer=com_10
+layer=your_stake_background_layer
 colour=0x161410
 fill=yes
 
@@ -106,7 +106,7 @@ transmitop=10
 op10=  
 
 // 1022:10
-[com_10]
+[your_stake_background_layer]
 type=layer
 x=23
 y=53
@@ -165,7 +165,7 @@ height=88
 layer=com_11
 
 // 1022:15
-[com_15]
+[opponent_stake_flash]
 type=layer
 x=16
 y=30
@@ -190,7 +190,7 @@ type=text
 width=16384
 height=30
 widthmode=proportion
-layer=com_10
+layer=your_stake_background_layer
 textfont=welcome_font_tiny
 text=Your Stake
 textlineheight=12
@@ -205,7 +205,7 @@ type=text
 height=16
 widthmode=minus
 ymode=abs_bottom
-layer=com_10
+layer=your_stake_background_layer
 textfont=p11_full
 textalignh=centre
 textalignv=centre
@@ -219,7 +219,7 @@ x=16
 y=30
 width=196
 height=88
-layer=com_10
+layer=your_stake_background_layer
 oninvtransmit=script443{inv_583}
 
 // 1022:20
@@ -229,7 +229,7 @@ x=213
 y=31
 width=16
 height=86
-layer=com_10
+layer=your_stake_background_layer
 transmitop=10
 op10= 
 
@@ -521,7 +521,7 @@ transmitop=10
 op10= 
 
 // 1022:42
-[com_42]
+[round_time_30_graphic]
 type=graphic
 x=26
 y=19
@@ -535,7 +535,7 @@ transmitop=10
 op10= 
 
 // 1022:43
-[com_43]
+[round_time_60_graphic]
 type=graphic
 x=101
 y=19
@@ -549,7 +549,7 @@ transmitop=10
 op10=  
 
 // 1022:44
-[com_44]
+[round_time_90_graphic]
 type=graphic
 x=175
 y=19
@@ -563,7 +563,7 @@ transmitop=10
 op10=  
 
 // 1022:45
-[com_45]
+[round_time_120_graphic]
 type=graphic
 x=248
 y=19
@@ -577,7 +577,7 @@ transmitop=10
 op10=  
 
 // 1022:46
-[com_46]
+[round_time_150_graphic]
 type=graphic
 x=322
 y=19
@@ -591,7 +591,7 @@ transmitop=10
 op10=  
 
 // 1022:47
-[com_47]
+[round_time_180_graphic]
 type=graphic
 x=395
 y=19
@@ -605,7 +605,7 @@ transmitop=10
 op10=  
 
 // 1022:48
-[com_48]
+[round_time_30]
 type=text
 x=26
 y=6
@@ -625,7 +625,7 @@ op10=
 onop=script438(event_com)
 
 // 1022:49
-[com_49]
+[round_time_60]
 type=text
 x=101
 y=6
@@ -645,7 +645,7 @@ op10=
 onop=script438(event_com)
 
 // 1022:50
-[com_50]
+[round_time_90]
 type=text
 x=175
 y=6
@@ -665,7 +665,7 @@ op10=
 onop=script438(event_com)
 
 // 1022:51
-[com_51]
+[round_time_120]
 type=text
 x=248
 y=6
@@ -685,7 +685,7 @@ op10=
 onop=script438(event_com)
 
 // 1022:52
-[com_52]
+[round_time_150]
 type=text
 x=322
 y=6
@@ -705,7 +705,7 @@ op10=
 onop=script438(event_com)
 
 // 1022:53
-[com_53]
+[round_time_180]
 type=text
 x=395
 y=6

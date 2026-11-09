@@ -1,0 +1,10 @@
+// 4367
+[proc,clan_paste_qfc]
+def_string $string0 = escape(getclipboard);
+if (string_length($string0) <= 13) {
+    %varclient_1865 = $string0;
+    %varclient_1498 = string_length(%varclient_1865);
+    %varclient_1498 = ~script1552(%varclient_1498, %varclient_1865, verdana_11pt_regular_multiline, clan_qfc_input:text_box, -1);
+    if_setposition(%varclient_1498, if_gety(clan_qfc_input:caret), ^setpos_abs_left, ^setpos_abs_top, clan_qfc_input:caret);
+    if_settext(%varclient_1865, clan_qfc_input:text_box);
+}

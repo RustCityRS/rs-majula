@@ -5,13 +5,13 @@ widthmode=minus
 heightmode=minus
 
 // 759:1
-[com_1]
+[0_container]
 type=layer
 width=64
 height=64
 layer=universe
-onmouseleave=comp_sethide(false, bankpin_numbers:com_3)
-onmouserepeat=comp_sethide(true, bankpin_numbers:com_3)
+onmouseleave=comp_sethide(false, bankpin_numbers:0_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:0_digit)
 
 // 759:2
 [com_2]
@@ -20,17 +20,17 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=0_container
 graphic=number_button
 
 // 759:3
-[com_3]
+[0_digit]
 type=text
 width=10
 height=15
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=0_container
 textfont=b12_full
 text=0
 textalignh=centre
@@ -45,19 +45,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_1
+layer=0_container
 transmitop=1
 op1=Select digit
 onop=bankpin_button(event_op)
 
 // 759:5
-[com_5]
+[1_container]
 type=layer
 width=64
 height=64
 layer=universe
-onmouseleave=comp_sethide(false, bankpin_numbers:com_7)
-onmouserepeat=comp_sethide(true, bankpin_numbers:com_7)
+onmouseleave=comp_sethide(false, bankpin_numbers:1_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:1_digit)
 
 // 759:6
 [com_6]
@@ -66,17 +66,17 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=1_container
 graphic=number_button
 
 // 759:7
-[com_7]
+[1_digit]
 type=text
 width=10
 height=15
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=1_container
 textfont=b12_full
 text=1
 textalignh=centre
@@ -91,19 +91,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_5
+layer=1_container
 transmitop=1
 op1=Select digit
 onop=bankpin_button(event_op)
 
 // 759:9
-[com_9]
+[2_container]
 type=layer
 width=64
 height=64
 layer=universe
-onmouseleave=comp_sethide(false, bankpin_numbers:com_11)
-onmouserepeat=comp_sethide(true, bankpin_numbers:com_11)
+onmouseleave=comp_sethide(false, bankpin_numbers:2_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:2_digit)
 
 // 759:10
 [com_10]
@@ -112,17 +112,17 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=2_container
 graphic=number_button
 
 // 759:11
-[com_11]
+[2_digit]
 type=text
 width=10
 height=15
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=2_container
 textfont=b12_full
 text=2
 textalignh=centre
@@ -137,19 +137,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_9
+layer=2_container
 transmitop=1
 op1=Select digit
 onop=bankpin_button(event_op)
 
 // 759:13
-[com_13]
+[3_container]
 type=layer
 width=64
 height=64
 layer=universe
-onmouseleave=comp_sethide(false, bankpin_numbers:com_15)
-onmouserepeat=comp_sethide(true, bankpin_numbers:com_15)
+onmouseleave=comp_sethide(false, bankpin_numbers:3_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:3_digit)
 
 // 759:14
 [com_14]
@@ -158,17 +158,17 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=3_container
 graphic=number_button
 
 // 759:15
-[com_15]
+[3_digit]
 type=text
 width=10
 height=15
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=3_container
 textfont=b12_full
 text=3
 textalignh=centre
@@ -183,19 +183,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_13
+layer=3_container
 transmitop=1
 op1=Select digit
 onop=bankpin_button(event_op)
 
 // 759:17
-[com_17]
+[4_container]
 type=layer
 width=64
 height=64
 layer=universe
-onmouseleave=comp_sethide(false, bankpin_numbers:com_19)
-onmouserepeat=comp_sethide(true, bankpin_numbers:com_19)
+onmouseleave=comp_sethide(false, bankpin_numbers:4_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:4_digit)
 
 // 759:18
 [com_18]
@@ -204,17 +204,17 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=4_container
 graphic=number_button
 
 // 759:19
-[com_19]
+[4_digit]
 type=text
 width=10
 height=15
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=4_container
 textfont=b12_full
 text=4
 textalignh=centre
@@ -229,19 +229,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_17
+layer=4_container
 transmitop=1
 op1=Select digit
 onop=bankpin_button(event_op)
 
 // 759:21
-[com_21]
+[5_container]
 type=layer
 width=64
 height=64
 layer=universe
-onmouseleave=comp_sethide(false, bankpin_numbers:com_23)
-onmouserepeat=comp_sethide(true, bankpin_numbers:com_23)
+onmouseleave=comp_sethide(false, bankpin_numbers:5_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:5_digit)
 
 // 759:22
 [com_22]
@@ -250,17 +250,17 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_21
+layer=5_container
 graphic=number_button
 
 // 759:23
-[com_23]
+[5_digit]
 type=text
 width=10
 height=15
 xmode=abs_centre
 ymode=abs_centre
-layer=com_21
+layer=5_container
 textfont=b12_full
 text=5
 textalignh=centre
@@ -275,19 +275,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_21
+layer=5_container
 transmitop=1
 op1=Select digit
 onop=bankpin_button(event_op)
 
 // 759:25
-[com_25]
+[6_container]
 type=layer
 width=64
 height=64
 layer=universe
-onmouseleave=comp_sethide(false, bankpin_numbers:com_27)
-onmouserepeat=comp_sethide(true, bankpin_numbers:com_27)
+onmouseleave=comp_sethide(false, bankpin_numbers:6_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:6_digit)
 
 // 759:26
 [com_26]
@@ -296,17 +296,17 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_25
+layer=6_container
 graphic=number_button
 
 // 759:27
-[com_27]
+[6_digit]
 type=text
 width=10
 height=15
 xmode=abs_centre
 ymode=abs_centre
-layer=com_25
+layer=6_container
 textfont=b12_full
 text=6
 textalignh=centre
@@ -321,19 +321,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_25
+layer=6_container
 transmitop=1
 op1=Select digit
 onop=bankpin_button(event_op)
 
 // 759:29
-[com_29]
+[7_container]
 type=layer
 width=64
 height=64
 layer=universe
-onmouseleave=comp_sethide(false, bankpin_numbers:com_31)
-onmouserepeat=comp_sethide(true, bankpin_numbers:com_31)
+onmouseleave=comp_sethide(false, bankpin_numbers:7_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:7_digit)
 
 // 759:30
 [com_30]
@@ -342,17 +342,17 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=7_container
 graphic=number_button
 
 // 759:31
-[com_31]
+[7_digit]
 type=text
 width=10
 height=15
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=7_container
 textfont=b12_full
 text=7
 textalignh=centre
@@ -367,19 +367,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_29
+layer=7_container
 transmitop=1
 op1=Select digit
 onop=bankpin_button(event_op)
 
 // 759:33
-[com_33]
+[8_container]
 type=layer
 width=64
 height=64
 layer=universe
-onmouseleave=comp_sethide(false, bankpin_numbers:com_35)
-onmouserepeat=comp_sethide(true, bankpin_numbers:com_35)
+onmouseleave=comp_sethide(false, bankpin_numbers:8_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:8_digit)
 
 // 759:34
 [com_34]
@@ -388,17 +388,17 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_33
+layer=8_container
 graphic=number_button
 
 // 759:35
-[com_35]
+[8_digit]
 type=text
 width=10
 height=15
 xmode=abs_centre
 ymode=abs_centre
-layer=com_33
+layer=8_container
 textfont=b12_full
 text=8
 textalignh=centre
@@ -413,19 +413,19 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_33
+layer=8_container
 transmitop=1
 op1=Select digit
 onop=bankpin_button(event_op)
 
 // 759:37
-[com_37]
+[9_container]
 type=layer
 width=64
 height=64
 layer=universe
-onmouseleave=comp_sethide(false, bankpin_numbers:com_39)
-onmouserepeat=comp_sethide(true, bankpin_numbers:com_39)
+onmouseleave=comp_sethide(false, bankpin_numbers:9_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:9_digit)
 
 // 759:38
 [com_38]
@@ -434,17 +434,17 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_37
+layer=9_container
 graphic=number_button
 
 // 759:39
-[com_39]
+[9_digit]
 type=text
 width=10
 height=15
 xmode=abs_centre
 ymode=abs_centre
-layer=com_37
+layer=9_container
 textfont=b12_full
 text=9
 textalignh=centre
@@ -459,7 +459,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_37
+layer=9_container
 transmitop=1
 op1=Select digit
 onop=bankpin_button(event_op)

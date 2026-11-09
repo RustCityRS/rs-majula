@@ -171,7 +171,7 @@ targetmask=com
 targetverb=Juggle
 onmouseleave=deltooltip(crcs_tightrope:emote_tool_tip)
 onmouserepeat=addtooltip(event_com, crcs_tightrope:emote_tool_tip, "Juggle", 50, 150)
-onclick=script1768
+onclick=crcs_agility_juggle
 
 // 783:12
 [emote_tool_tip]

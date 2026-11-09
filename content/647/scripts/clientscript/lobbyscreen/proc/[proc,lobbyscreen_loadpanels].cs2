@@ -1,7 +1,7 @@
 // 3058
 [proc,lobbyscreen_loadpanels]
 if_opensubclient(lobbyscreen:playerinfo_panel, lobbyscreen_pane_playerinfo);
-~script2998;
+~lobbyscreen_playerinfo_load;
 if_opensubclient(lobbyscreen:worldselect_panel, lobbyscreen_pane_worldselect);
 ~script3103;
 if_opensubclient(lobbyscreen:friendslist_panel, lobbyscreen_pane_friendslist);
@@ -11,7 +11,7 @@ if_opensubclient(lobbyscreen:friendslist_panel, lobbyscreen_pane_friendslist);
 if_opensubclient(lobbyscreen:clanchat_panel, lobbyscreen_pane_clanchat);
 ~lobbyscreen_pane_clanchat_load(59768841);
 ~lobbyscreen_pane_clanchat_chat_load(lobbyscreen_pane_clanchat:chat);
-if_opensubclient(lobbyscreen:com_177, lobbyscreen_pane_friendschat);
+if_opensubclient(lobbyscreen:friendschat_panel, lobbyscreen_pane_friendschat);
 ~lobbyscreen_pane_friendschat_load(38600715);
 ~lobbyscreen_pane_friendschat_chat_load(lobbyscreen_pane_friendschat:chat);
 if_opensubclient(lobbyscreen:options_panel, lobbyscreen_pane_options);

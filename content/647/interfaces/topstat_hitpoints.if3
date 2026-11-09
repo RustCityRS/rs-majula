@@ -3,12 +3,12 @@
 type=layer
 width=57
 height=34
-onload=topstat_hitpoints_updatehealth(topstat_hitpoints:com_1, topstat_hitpoints:background_op, topstat_hitpoints:health, topstat_hitpoints:cap_health, topstat_hitpoints:com_6, topstat_hitpoints:text)
-onvartransmit=topstat_hitpoints_updatehealth(topstat_hitpoints:com_1, topstat_hitpoints:background_op, topstat_hitpoints:health, topstat_hitpoints:cap_health, topstat_hitpoints:com_6, topstat_hitpoints:text){poison, varplayer_456, varplayer_1240}
-onstattransmit=topstat_hitpoints_updatehealth(topstat_hitpoints:com_1, topstat_hitpoints:background_op, topstat_hitpoints:health, topstat_hitpoints:cap_health, topstat_hitpoints:com_6, topstat_hitpoints:text){hitpoints}
+onload=topstat_hitpoints_updatehealth(topstat_hitpoints:background, topstat_hitpoints:background_op, topstat_hitpoints:health, topstat_hitpoints:cap_health, topstat_hitpoints:com_6, topstat_hitpoints:text)
+onvartransmit=topstat_hitpoints_updatehealth(topstat_hitpoints:background, topstat_hitpoints:background_op, topstat_hitpoints:health, topstat_hitpoints:cap_health, topstat_hitpoints:com_6, topstat_hitpoints:text){poison, varplayer_456, varplayer_1240}
+onstattransmit=topstat_hitpoints_updatehealth(topstat_hitpoints:background, topstat_hitpoints:background_op, topstat_hitpoints:health, topstat_hitpoints:cap_health, topstat_hitpoints:com_6, topstat_hitpoints:text){hitpoints}
 
 // 748:1
-[com_1]
+[background]
 type=graphic
 width=57
 height=34
@@ -85,7 +85,7 @@ layer=globe
 graphic="topstat_icon,0"
 tiling=yes
 colour=0x000000
-ontimer=script808
+ontimer=topstat_flash_hitpoints_icon
 
 // 748:8
 [text]

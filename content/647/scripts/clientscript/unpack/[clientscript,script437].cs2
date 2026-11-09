@@ -1,22 +1,22 @@
 // 437
 [clientscript,script437]
-if_setgraphic("radio_buttons,0", conq_stake_options:com_42);
-if_setgraphic("radio_buttons,0", conq_stake_options:com_43);
-if_setgraphic("radio_buttons,0", conq_stake_options:com_44);
-if_setgraphic("radio_buttons,0", conq_stake_options:com_45);
-if_setgraphic("radio_buttons,0", conq_stake_options:com_46);
-if_setgraphic("radio_buttons,0", conq_stake_options:com_47);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_30_graphic);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_60_graphic);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_90_graphic);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_120_graphic);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_150_graphic);
+if_setgraphic("radio_buttons,0", conq_stake_options:round_time_180_graphic);
 switch_int (%varplayerbit_8087) {
     case 0 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_42);
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_30_graphic);
     case 1 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_43);
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_60_graphic);
     case 2 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_44);
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_90_graphic);
     case 3 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_45);
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_120_graphic);
     case 4 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_46);
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_150_graphic);
     case 5 :
-        if_setgraphic("radio_buttons,1", conq_stake_options:com_47);
+        if_setgraphic("radio_buttons,1", conq_stake_options:round_time_180_graphic);
 }

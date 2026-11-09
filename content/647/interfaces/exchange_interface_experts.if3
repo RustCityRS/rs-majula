@@ -192,8 +192,8 @@ textshadow=yes
 colour=0xff981f
 transmitop=10
 op10= 
-onload=script1167
-onvarctransmit=script1167{varclient_1001}
+onload=exchange_expert_initialise
+onvarctransmit=exchange_expert_initialise{varclient_1001}
 
 // 885:15
 [com_15]
@@ -588,7 +588,7 @@ op10=
 onload=script100(event_com)
 
 // 885:48
-[com_48]
+[scrollbar]
 type=layer
 x=476
 y=55

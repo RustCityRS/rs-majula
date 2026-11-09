@@ -1,0 +1,12 @@
+// 425
+[clientscript,conq_update_resign_op_text]
+if (%varclient_1366 = 1) {
+    if_setop(1, "Accept Victory", conq_side_diplomacy:resign_text);
+    if_settext("Accept Victory", conq_side_diplomacy:resign_text);
+    if_settext("Your opponent has logged out. You may end the Conquest now and be declared the winner.", conq_side_diplomacy:resign_instructions);
+} else {
+    if_setop(1, "Resign", conq_side_diplomacy:resign_text);
+    if_settext("Resign", conq_side_diplomacy:resign_text);
+    if_settext("If you resign, the Conquest will end immediately.", conq_side_diplomacy:resign_instructions);
+    if_close;
+}

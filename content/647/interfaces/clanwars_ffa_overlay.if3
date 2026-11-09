@@ -179,7 +179,7 @@ widthmode=minus
 ymode=proportion_centre
 transmitop=10
 op10= 
-onload=script1807(event_com, clanwars_ffa_overlay:caller_name, clanwars_ffa_overlay:caller_text)
+onload=clanwars_caller_init(event_com, clanwars_ffa_overlay:caller_name, clanwars_ffa_overlay:caller_text)
 
 // 789:15
 [caller_icon]

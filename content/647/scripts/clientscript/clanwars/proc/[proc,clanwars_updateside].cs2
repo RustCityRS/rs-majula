@@ -89,16 +89,16 @@ $int0 = calc($int0 + 7);
 $int0, $int2 = ~clanwars_updateside_textbox("~ Arena ~", $int0, $int2, $int1, 1);
 $int0, $int2 = ~clanwars_updateside_textbox(struct_param(enum(int, struct, enum_1604, %varclient_257), param_555), $int0, $int2, $int1, 0);
 if ($int0 > if_getheight(clanwars_setup_side:contents)) {
-    if_sethide(false, clanwars_setup_side:com_4);
+    if_sethide(false, clanwars_setup_side:scrollbar);
     if_setposition(7, 46, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup_side:contents);
     if_setscrollsize(0, $int0, clanwars_setup_side:contents);
-    ~scrollbar_vertical(clanwars_setup_side:com_4, clanwars_setup_side:contents, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-    if (cc_find(clanwars_setup_side:com_4, 1) = true) {
-        ~scrollbar_vertical_doscroll(clanwars_setup_side:com_4, clanwars_setup_side:contents, if_getscrolly(clanwars_setup_side:contents), true);
+    ~scrollbar_vertical(clanwars_setup_side:scrollbar, clanwars_setup_side:contents, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if (cc_find(clanwars_setup_side:scrollbar, 1) = true) {
+        ~scrollbar_vertical_doscroll(clanwars_setup_side:scrollbar, clanwars_setup_side:contents, if_getscrolly(clanwars_setup_side:contents), true);
     }
 } else {
-    cc_deleteall(clanwars_setup_side:com_4);
-    if_sethide(true, clanwars_setup_side:com_4);
+    cc_deleteall(clanwars_setup_side:scrollbar);
+    if_sethide(true, clanwars_setup_side:scrollbar);
     if_setposition(15, 46, ^setpos_abs_left, ^setpos_abs_top, clanwars_setup_side:contents);
     if_setscrollsize(0, 0, clanwars_setup_side:contents);
     if_setscrollpos(0, 0, clanwars_setup_side:contents);

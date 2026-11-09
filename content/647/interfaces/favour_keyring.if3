@@ -251,7 +251,7 @@ textshadow=yes
 colour=0xa6a692
 
 // 127:19
-[com_19]
+[favour_remove_button]
 type=text
 x=207
 y=124
@@ -266,11 +266,11 @@ textshadow=yes
 colour=0xa6a692
 transmitop=1
 op1=Remove
-onmouseover=text_swapper(favour_keyring:com_20, "Remove this key")
-onmouseleave=text_swapper(favour_keyring:com_20, " ")
+onmouseover=text_swapper(favour_keyring:favour_remove_text_highlight, "Remove this key")
+onmouseleave=text_swapper(favour_keyring:favour_remove_text_highlight, " ")
 
 // 127:20
-[com_20]
+[favour_remove_text_highlight]
 type=text
 x=207
 y=124

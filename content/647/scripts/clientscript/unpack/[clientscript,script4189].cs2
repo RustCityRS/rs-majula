@@ -1,14 +1,14 @@
 // 4189
 [clientscript,script4189](component $component0)
-if ($component0 = artisan_build_sword:com_62) {
-    if_setcolour(^white, artisan_build_sword:com_57);
+if ($component0 = artisan_build_sword:hardhit) {
+    if_setcolour(^white, artisan_build_sword:hard);
 }
-if ($component0 = artisan_build_sword:com_63) {
-    if_setcolour(^white, artisan_build_sword:com_58);
+if ($component0 = artisan_build_sword:medhit) {
+    if_setcolour(^white, artisan_build_sword:med);
 }
-if ($component0 = artisan_build_sword:com_64) {
-    if_setcolour(^white, artisan_build_sword:com_59);
+if ($component0 = artisan_build_sword:softhit) {
+    if_setcolour(^white, artisan_build_sword:soft);
 }
-if ($component0 = artisan_build_sword:com_65) {
-    if_setcolour(^white, artisan_build_sword:com_60);
+if ($component0 = artisan_build_sword:carefulhit) {
+    if_setcolour(^white, artisan_build_sword:careful);
 }

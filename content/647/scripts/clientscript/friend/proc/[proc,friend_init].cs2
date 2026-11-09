@@ -1,11 +1,11 @@
 // 4552
 [proc,friend_init]
 if_settext("Friends List<br>RuneScape <tostring(map_world)>", friends2:friends_title);
-if_setonfriendtransmit("friend_transmit", friends2:com_6);
-if_setscrollsize(0, 0, friends2:com_11);
-if_setscrollpos(0, 0, friends2:com_11);
-~scrollbar_vertical(friends2:com_12, friends2:com_11, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
-def_component $component0 = friends2:com_0;
+if_setonfriendtransmit("friend_transmit", friends2:friend_name_layer);
+if_setscrollsize(0, 0, friends2:friend_scrolling_layer);
+if_setscrollpos(0, 0, friends2:friend_scrolling_layer);
+~scrollbar_vertical(friends2:friend_scrollbar_layer, friends2:friend_scrolling_layer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+def_component $component0 = friends2:friend_rectangles;
 cc_deleteall($component0);
 def_int $int1 = 0;
 def_int $int2 = 0;

@@ -2,8 +2,8 @@
 [proc,script2192](int $int0, int $int1)
 if ($int0 = 1) {
     if_setonclick("script2355(true, $int1)", skillmulti2010_numbers:expander);
-    if_sethflip(false, skillmulti2010_numbers:com_22);
+    if_sethflip(false, skillmulti2010_numbers:expander_graphic);
 } else {
     if_setonclick("script2355(false, $int1)", skillmulti2010_numbers:expander);
-    if_sethflip(true, skillmulti2010_numbers:com_22);
+    if_sethflip(true, skillmulti2010_numbers:expander_graphic);
 }

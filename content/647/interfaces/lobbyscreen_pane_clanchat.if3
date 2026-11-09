@@ -32,7 +32,7 @@ fill=yes
 trans=215
 
 // 912:3
-[com_3]
+[main]
 type=layer
 widthmode=minus
 heightmode=minus
@@ -44,7 +44,7 @@ width=4273
 height=148
 widthmode=proportion
 heightmode=minus
-layer=com_3
+layer=main
 
 // 912:5
 [banner_right]
@@ -54,7 +54,7 @@ height=148
 widthmode=proportion
 heightmode=minus
 xmode=abs_right
-layer=com_3
+layer=main
 op10= 
 
 // 912:6
@@ -95,7 +95,7 @@ width=7867
 height=32
 widthmode=proportion
 xmode=abs_centre
-layer=com_3
+layer=main
 textfont=verdana_15pt_regular
 text=Clan Chat Channel
 textalignh=centre
@@ -112,7 +112,7 @@ height=185
 widthmode=proportion
 heightmode=minus
 xmode=abs_centre
-layer=com_3
+layer=main
 op10=   
 
 // 912:10
@@ -124,7 +124,7 @@ width=20
 height=113
 widthmode=minus
 ymode=abs_bottom
-layer=com_3
+layer=main
 op10=  
 
 // 912:11
@@ -135,7 +135,7 @@ width=8192
 height=26
 widthmode=proportion
 ymode=abs_bottom
-layer=com_3
+layer=main
 
 // 912:12
 [info_layer]
@@ -147,7 +147,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=proportion_top
-layer=com_3
+layer=main
 
 // 912:13
 [info_txt]
@@ -171,22 +171,22 @@ width=37
 height=31
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
+layer=main
 op1=Report Abuse
 op10=    
-onmouseleave=deltooltip(lobbyscreen_pane_clanchat:com_15)
-onop=script3176("", false)
-onmouserepeat=addtooltip(event_com, lobbyscreen_pane_clanchat:com_15, "Report abuse", 25, 200)
+onmouseleave=deltooltip(lobbyscreen_pane_clanchat:report_abuse_tooltip)
+onop=lobbyscreen_report_abuse_stage1("", false)
+onmouserepeat=addtooltip(event_com, lobbyscreen_pane_clanchat:report_abuse_tooltip, "Report abuse", 25, 200)
 
 // 912:15
-[com_15]
+[report_abuse_tooltip]
 type=layer
 x=10
 width=100
 height=31
 xmode=abs_right
 ymode=abs_bottom
-layer=com_3
+layer=main
 
 // 912:16
 [com_16]
@@ -527,7 +527,7 @@ hide=yes
 op1=Kick/ban
 onmouseover=comp_sethide(false, lobbyscreen_pane_clanchat:com_2)
 onmouseleave=comp_sethide(true, lobbyscreen_pane_clanchat:com_2)
-onop=script2602
+onop=lobbyscreen_pane_clanchat_kick
 
 // 912:45
 [clan_main]

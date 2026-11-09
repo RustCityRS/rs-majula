@@ -12,7 +12,7 @@ if ($int2 = 999) {
     $int2 = %varplayerbit_8580;
 }
 ~script4017($int0);
-if_setgraphic(enum(int, graphic, enum_3491, $int0), task_main:com_120);
+if_setgraphic(enum(int, graphic, enum_3491, $int0), task_main:area_selected_icon);
 if_settext(enum(int, string, enum_3487, $int0), task_main:area_selected);
 if_sethide(false, task_main:area_selected);
 if (if_find(task_main:progress_layer) = true) {

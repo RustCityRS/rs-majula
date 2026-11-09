@@ -25,4 +25,4 @@ if_settext(if_gettext(mob_chat:string3), mob_chat:string4);
 if_settext(if_gettext(mob_chat:string2), mob_chat:string3);
 if_settext(if_gettext(mob_chat:string1), mob_chat:string2);
 if_settext(%varclient_1698, mob_chat:string1);
-~scrollbar_ondrag_doscroll(mob_chat:com_45, mob_chat:text, if_getscrollheight(mob_chat:text), 1);
+~scrollbar_ondrag_doscroll(mob_chat:scrollbar, mob_chat:text, if_getscrollheight(mob_chat:text), 1);

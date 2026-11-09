@@ -4,36 +4,36 @@ def_boolean $boolean1 = true;
 def_boolean $boolean2 = false;
 switch_int (%varplayerbit_1010) {
     case 0 :
-        if_settext("First click the FIRST digit.", bankpin_main:com_28);
-        if_settext("?", bankpin_main:com_1);
-        if_settext("?", bankpin_main:com_2);
-        if_settext("?", bankpin_main:com_3);
-        if_settext("?", bankpin_main:com_4);
+        if_settext("First click the FIRST digit.", bankpin_main:next_digit_instruction);
+        if_settext("?", bankpin_main:digit_1);
+        if_settext("?", bankpin_main:digit_2);
+        if_settext("?", bankpin_main:digit_3);
+        if_settext("?", bankpin_main:digit_4);
     case 1 :
-        if_settext("Now click the SECOND digit.", bankpin_main:com_28);
-        if_settext("*", bankpin_main:com_1);
-        if_settext("?", bankpin_main:com_2);
-        if_settext("?", bankpin_main:com_3);
-        if_settext("?", bankpin_main:com_4);
+        if_settext("Now click the SECOND digit.", bankpin_main:next_digit_instruction);
+        if_settext("*", bankpin_main:digit_1);
+        if_settext("?", bankpin_main:digit_2);
+        if_settext("?", bankpin_main:digit_3);
+        if_settext("?", bankpin_main:digit_4);
     case 2 :
-        if_settext("Time for the THIRD digit.", bankpin_main:com_28);
-        if_settext("*", bankpin_main:com_1);
-        if_settext("*", bankpin_main:com_2);
-        if_settext("?", bankpin_main:com_3);
-        if_settext("?", bankpin_main:com_4);
+        if_settext("Time for the THIRD digit.", bankpin_main:next_digit_instruction);
+        if_settext("*", bankpin_main:digit_1);
+        if_settext("*", bankpin_main:digit_2);
+        if_settext("?", bankpin_main:digit_3);
+        if_settext("?", bankpin_main:digit_4);
     case 3 :
-        if_settext("Finally, the FOURTH digit.", bankpin_main:com_28);
-        if_settext("*", bankpin_main:com_1);
-        if_settext("*", bankpin_main:com_2);
-        if_settext("*", bankpin_main:com_3);
-        if_settext("?", bankpin_main:com_4);
+        if_settext("Finally, the FOURTH digit.", bankpin_main:next_digit_instruction);
+        if_settext("*", bankpin_main:digit_1);
+        if_settext("*", bankpin_main:digit_2);
+        if_settext("*", bankpin_main:digit_3);
+        if_settext("?", bankpin_main:digit_4);
         $boolean1, $boolean2 = false, true;
     case default :
-        if_settext("Please wait...", bankpin_main:com_28);
-        if_settext("*", bankpin_main:com_1);
-        if_settext("*", bankpin_main:com_2);
-        if_settext("*", bankpin_main:com_3);
-        if_settext("*", bankpin_main:com_4);
+        if_settext("Please wait...", bankpin_main:next_digit_instruction);
+        if_settext("*", bankpin_main:digit_1);
+        if_settext("*", bankpin_main:digit_2);
+        if_settext("*", bankpin_main:digit_3);
+        if_settext("*", bankpin_main:digit_4);
         $boolean1, $boolean2 = true, true;
 }
 def_int $int3 = 0;
@@ -70,8 +70,8 @@ while ($int3 < 10) {
 }
 def_int $int6 = if_getwidth(bankpin_main:com_6);
 def_int $int7 = if_getheight(bankpin_main:com_6);
-def_int $int8 = calc((if_getwidth(bankpin_main:com_5) - $int6) / 3);
-def_int $int9 = calc((if_getheight(bankpin_main:com_5) - $int7) / 2);
+def_int $int8 = calc((if_getwidth(bankpin_main:numberbuttons) - $int6) / 3);
+def_int $int9 = calc((if_getheight(bankpin_main:numberbuttons) - $int7) / 2);
 def_int $int10 = calc($int8 * 2);
 def_int $int11 = calc($int9 * 2);
 def_int $int12 = calc($int8 * 3);

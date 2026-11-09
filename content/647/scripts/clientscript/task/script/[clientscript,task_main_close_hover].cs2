@@ -1,14 +1,14 @@
 // 4023
 [clientscript,task_main_close_hover](int $int0)
 if ($int0 = 0) {
-    if_setgraphic(graphic_4324, task_main:com_43);
-    if_setgraphic(graphic_4324, task_main:com_45);
-    if_setgraphic(graphic_4325, task_main:com_44);
+    if_setgraphic("task_pin_but,2", task_main:close_bg_l);
+    if_setgraphic("task_pin_but,2", task_main:close_bg_r);
+    if_setgraphic("task_pin_but,3", task_main:close_bg_m);
     if_setgraphic("task_arrow,1", task_main:close_arrow);
 } else {
     ~deltooltip_action(task_main:summary_tooltip);
-    if_setgraphic(graphic_4322, task_main:com_43);
-    if_setgraphic(graphic_4322, task_main:com_45);
-    if_setgraphic(graphic_4323, task_main:com_44);
+    if_setgraphic("task_pin_but,0", task_main:close_bg_l);
+    if_setgraphic("task_pin_but,0", task_main:close_bg_r);
+    if_setgraphic("task_pin_but,1", task_main:close_bg_m);
     if_setgraphic("task_arrow,0", task_main:close_arrow);
 }

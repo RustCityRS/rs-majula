@@ -169,12 +169,12 @@ x=20
 y=55
 width=457
 height=264
-onload=ame_costumes_init(event_com, ame_costumes:com_16)
-onvartransmit=ame_costumes_init(event_com, ame_costumes:com_16){varplayer_1383, varplayer_900, varplayer_903}
-oninvtransmit=ame_costumes_init(event_com, ame_costumes:com_16){inv, worn, bank, inv_530}
+onload=ame_costumes_init(event_com, ame_costumes:scrollbar)
+onvartransmit=ame_costumes_init(event_com, ame_costumes:scrollbar){varplayer_1383, varplayer_900, varplayer_903}
+oninvtransmit=ame_costumes_init(event_com, ame_costumes:scrollbar){inv, worn, bank, inv_530}
 
 // 201:16
-[com_16]
+[scrollbar]
 type=layer
 x=477
 y=55

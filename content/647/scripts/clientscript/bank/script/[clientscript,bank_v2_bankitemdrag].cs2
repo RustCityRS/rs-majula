@@ -14,5 +14,5 @@ if ($int0 > $int2 & $int0 < calc($int2 + 25)) {
 %varclient_189 = calc(%varclient_189 + 1);
 if (%varclient_189 > 5) {
     ~bank_v2_set_tab_scrollpos(%open_bank_tab, calc(if_getscrolly(bank_v2_main:bank_v2_inv) + $int1));
-    ~scrollbar_ondrag_doscroll(bank_v2_main:com_114, bank_v2_main:bank_v2_inv, calc(if_getscrolly(bank_v2_main:bank_v2_inv) + $int1), 1);
+    ~scrollbar_ondrag_doscroll(bank_v2_main:scrollbar, bank_v2_main:bank_v2_inv, calc(if_getscrolly(bank_v2_main:bank_v2_inv) + $int1), 1);
 }

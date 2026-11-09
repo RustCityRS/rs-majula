@@ -6,21 +6,21 @@ def_struct $struct4 = null;
 switch_component ($component0) {
     case default :
         return;
-    case conq_buy_army:com_58 :
+    case conq_buy_army:battle_cry_name_text :
         $int2 = 1;
-    case conq_buy_army:com_60 :
+    case conq_buy_army:stoicism_name_text :
         $int2 = 2;
-    case conq_buy_army:com_62 :
+    case conq_buy_army:regenerate_name_text :
         $int2 = 3;
-    case conq_buy_army:com_64 :
+    case conq_buy_army:barrage_name_text :
         $int2 = 4;
-    case conq_buy_army:com_68 :
+    case conq_buy_army:bloodlust_name_text :
         $int2 = 5;
-    case conq_buy_army:com_70 :
+    case conq_buy_army:chastise_name_text :
         $int2 = 6;
-    case conq_buy_army:com_72 :
+    case conq_buy_army:vigilance_name_text :
         $int2 = 7;
-    case conq_buy_army:com_74 :
+    case conq_buy_army:shield_wall_name_text :
         $int2 = 8;
     case conq_buy_army:com_66 :
         $int2 = 9;

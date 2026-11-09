@@ -1,5 +1,5 @@
 // 915:0
-[com_0]
+[help_bg]
 type=graphic
 widthmode=minus
 heightmode=minus
@@ -8,7 +8,7 @@ graphic=window_texture
 tiling=yes
 
 // 915:1
-[com_1]
+[help_top_left]
 type=graphic
 width=38
 height=72
@@ -17,7 +17,7 @@ graphic="corner_frame_5,4"
 hflip=yes
 
 // 915:2
-[com_2]
+[help_bottom_left]
 type=graphic
 width=38
 height=72
@@ -28,7 +28,7 @@ vflip=yes
 hflip=yes
 
 // 915:3
-[com_3]
+[help_left_side]
 type=graphic
 y=72
 width=7
@@ -40,7 +40,7 @@ tiling=yes
 hflip=yes
 
 // 915:4
-[com_4]
+[help_right_side]
 type=graphic
 y=38
 width=7
@@ -52,7 +52,7 @@ graphic=frame_border_vertical
 tiling=yes
 
 // 915:5
-[com_5]
+[help_bottom_side]
 type=graphic
 x=38
 width=72
@@ -65,7 +65,7 @@ tiling=yes
 vflip=yes
 
 // 915:6
-[com_6]
+[help_top_right]
 type=graphic
 width=38
 height=72
@@ -74,7 +74,7 @@ layer=help_body
 graphic="corner_frame_5,4"
 
 // 915:7
-[com_7]
+[help_bottom_right]
 type=graphic
 width=38
 height=72
@@ -85,7 +85,7 @@ graphic="corner_frame_5,4"
 vflip=yes
 
 // 915:8
-[com_8]
+[help_top_side]
 type=graphic
 x=38
 width=72
@@ -96,7 +96,7 @@ graphic=frame_border_horizontal
 tiling=yes
 
 // 915:9
-[com_9]
+[background]
 type=graphic
 widthmode=minus
 heightmode=minus
@@ -193,7 +193,7 @@ graphic=frame_border_horizontal
 tiling=yes
 
 // 915:18
-[com_18]
+[main]
 type=layer
 width=487
 height=312
@@ -206,7 +206,7 @@ op10=
 type=layer
 width=487
 height=312
-layer=com_18
+layer=main
 op10=   
 
 // 915:20
@@ -217,7 +217,7 @@ y=210
 width=157
 height=23
 ymode=abs_bottom
-layer=com_18
+layer=main
 textfont=verdana_13pt_regular
 text=Honour
 textalignh=centre
@@ -234,7 +234,7 @@ y=210
 width=154
 height=23
 ymode=abs_bottom
-layer=com_18
+layer=main
 textfont=verdana_13pt_regular
 text=Respect
 textalignh=centre
@@ -251,7 +251,7 @@ y=210
 width=157
 height=23
 ymode=abs_bottom
-layer=com_18
+layer=main
 textfont=verdana_13pt_regular
 text=Security
 textalignh=centre
@@ -268,7 +268,7 @@ y=204
 width=32
 height=32
 ymode=abs_bottom
-layer=com_18
+layer=main
 graphic="ra_icons,0"
 colour=0xffffffff
 op10=  
@@ -281,7 +281,7 @@ y=204
 width=32
 height=32
 ymode=abs_bottom
-layer=com_18
+layer=main
 graphic="ra_icons,1"
 colour=0xffffffff
 op10=  
@@ -294,7 +294,7 @@ y=204
 width=32
 height=32
 ymode=abs_bottom
-layer=com_18
+layer=main
 graphic="ra_icons,2"
 colour=0xffffffff
 op10=  
@@ -306,11 +306,11 @@ x=132
 y=80
 width=25
 height=25
-layer=com_18
+layer=main
 op1=View Advice
 onmouseover=graphic_swapper(lobbyscreen_report_abuse_stage2:com_27, "ra_icons,4")
 onmouseleave=graphic_swapper(lobbyscreen_report_abuse_stage2:com_27, "ra_icons,3")
-onop=lobbyscreen_report_abuse_help(3, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:com_18)
+onop=lobbyscreen_report_abuse_help(3, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:main)
 
 // 915:27
 [com_27]
@@ -332,11 +332,11 @@ x=292
 y=80
 width=25
 height=25
-layer=com_18
+layer=main
 op1=View Advice
 onmouseover=graphic_swapper(lobbyscreen_report_abuse_stage2:com_29, "ra_icons,4")
 onmouseleave=graphic_swapper(lobbyscreen_report_abuse_stage2:com_29, "ra_icons,3")
-onop=lobbyscreen_report_abuse_help(4, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:com_18)
+onop=lobbyscreen_report_abuse_help(4, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:main)
 
 // 915:29
 [com_29]
@@ -358,11 +358,11 @@ x=453
 y=80
 width=25
 height=25
-layer=com_18
+layer=main
 op1=View Advice
 onmouseover=graphic_swapper(lobbyscreen_report_abuse_stage2:com_31, "ra_icons,4")
 onmouseleave=graphic_swapper(lobbyscreen_report_abuse_stage2:com_31, "ra_icons,3")
-onop=lobbyscreen_report_abuse_help(5, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:com_18)
+onop=lobbyscreen_report_abuse_help(5, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:main)
 
 // 915:31
 [com_31]
@@ -384,7 +384,7 @@ x=10
 y=34
 width=357
 height=26
-layer=com_18
+layer=main
 textfont=verdana_11pt_regular
 text=Click on the most suitable option from the Rules of RuneScape. This will send a report to our Player Support team for investigation.
 textlineheight=12
@@ -401,10 +401,10 @@ x=373
 y=27
 width=105
 height=25
-layer=com_18
+layer=main
 op1=Change Player
-onmouseover=script3937(lobbyscreen_report_abuse_stage2:com_40, "set_but_1,2", lobbyscreen_report_abuse_stage2:com_41, "set_but_1,3", lobbyscreen_report_abuse_stage2:com_42, "set_but_1,3", lobbyscreen_report_abuse_stage2:com_43, "set_but_1,2")
-onmouseleave=script3937(lobbyscreen_report_abuse_stage2:com_40, "set_but_1,0", lobbyscreen_report_abuse_stage2:com_41, "set_but_1,1", lobbyscreen_report_abuse_stage2:com_42, "set_but_1,1", lobbyscreen_report_abuse_stage2:com_43, "set_but_1,0")
+onmouseover=script3937(lobbyscreen_report_abuse_stage2:change_player_bg_left, "set_but_1,2", lobbyscreen_report_abuse_stage2:com_41, "set_but_1,3", lobbyscreen_report_abuse_stage2:com_42, "set_but_1,3", lobbyscreen_report_abuse_stage2:change_player_bg_right, "set_but_1,2")
+onmouseleave=script3937(lobbyscreen_report_abuse_stage2:change_player_bg_left, "set_but_1,0", lobbyscreen_report_abuse_stage2:com_41, "set_but_1,1", lobbyscreen_report_abuse_stage2:com_42, "set_but_1,1", lobbyscreen_report_abuse_stage2:change_player_bg_right, "set_but_1,0")
 onop=lobbyscreen_report_abuse_stage2_back
 
 // 915:34
@@ -414,7 +414,7 @@ x=373
 y=53
 width=105
 height=25
-layer=com_18
+layer=main
 op1=Cancel Report
 op10= 
 onmouseover=script3937(lobbyscreen_report_abuse_stage2:cancel_left, "set_but_1,2", lobbyscreen_report_abuse_stage2:com_36, "set_but_1,3", lobbyscreen_report_abuse_stage2:com_37, "set_but_1,3", lobbyscreen_report_abuse_stage2:cancel_right, "set_but_1,2")
@@ -480,7 +480,7 @@ textshadow=yes
 colour=0xebe0bc
 
 // 915:40
-[com_40]
+[change_player_bg_left]
 type=graphic
 width=25
 height=25
@@ -511,7 +511,7 @@ hflip=yes
 colour=0x000000
 
 // 915:43
-[com_43]
+[change_player_bg_right]
 type=graphic
 width=25
 height=25
@@ -544,10 +544,10 @@ width=260
 height=15
 xmode=abs_right
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Toggle Mute
 op10=   
-onop=script3178(lobbyscreen_report_abuse_stage2:com_46)
+onop=lobbyscreen_report_abuse_mute_toggle(lobbyscreen_report_abuse_stage2:com_46)
 
 // 915:46
 [com_46]
@@ -620,7 +620,7 @@ op1=Help
 op10= 
 onmouseover=graphic_swapper(event_com, graphic_4697)
 onmouseleave=graphic_swapper(event_com, graphic_4696)
-onop=lobbyscreen_report_abuse_help(1, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:com_18)
+onop=lobbyscreen_report_abuse_help(1, lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:main)
 
 // 915:51
 [close_button]
@@ -646,7 +646,7 @@ y=172
 width=154
 height=31
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10= 
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_buying_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_buying_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_buying_right, graphic_4695)
@@ -661,7 +661,7 @@ y=139
 width=154
 height=31
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=  
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_encouraging_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_encouraging_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_encouraging_right, graphic_4695)
@@ -676,11 +676,11 @@ y=106
 width=154
 height=31
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=  
-onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_staff_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_staff_mid, graphic_4694, lobbyscreen_report_abuse_stage2:traders191_08, graphic_4695)
-onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_staff_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_staff_mid, graphic_4691, lobbyscreen_report_abuse_stage2:traders191_08, graphic_4692)
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_staff_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_staff_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_staff_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_staff_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_staff_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_staff_right, graphic_4692)
 onop=lobbyscreen_report_abuse_submit(6)
 
 // 915:55
@@ -706,7 +706,7 @@ colour=0x000000
 op10=  
 
 // 915:57
-[traders191_08]
+[button_staff_right]
 type=graphic
 width=15
 height=31
@@ -787,7 +787,7 @@ y=73
 width=154
 height=31
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=  
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_bots_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_bots_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_bots_right, graphic_4695)
@@ -802,7 +802,7 @@ y=40
 width=154
 height=31
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=  
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_scamming_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_scamming_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_scamming_right, graphic_4695)
@@ -817,7 +817,7 @@ y=7
 width=154
 height=31
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=  
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_bug_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_bug_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_bug_right, graphic_4695)
@@ -921,59 +921,59 @@ colour=0xebe0bc
 op10= 
 
 // 915:74
-[com_74]
+[button_offensive_language]
 type=layer
 x=166
 y=172
 width=154
 height=31
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=  
-onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:com_75, graphic_4693, lobbyscreen_report_abuse_stage2:com_76, graphic_4694, lobbyscreen_report_abuse_stage2:com_77, graphic_4695)
-onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:com_75, graphic_4690, lobbyscreen_report_abuse_stage2:com_76, graphic_4691, lobbyscreen_report_abuse_stage2:com_77, graphic_4692)
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_offensive_language_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_offensive_language_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_offensive_language_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_offensive_language_left, graphic_4690, lobbyscreen_report_abuse_stage2:button_offensive_language_mid, graphic_4691, lobbyscreen_report_abuse_stage2:button_offensive_language_right, graphic_4692)
 onop=lobbyscreen_report_abuse_submit(17)
 
 // 915:75
-[com_75]
+[button_offensive_language_left]
 type=graphic
 width=15
 height=31
-layer=com_74
+layer=button_offensive_language
 graphic=graphic_4690
 colour=0x000000
 op10=  
 
 // 915:76
-[com_76]
+[button_offensive_language_mid]
 type=graphic
 x=15
 width=30
 height=31
 widthmode=minus
-layer=com_74
+layer=button_offensive_language
 graphic=graphic_4691
 colour=0x000000
 op10=  
 
 // 915:77
-[com_77]
+[button_offensive_language_right]
 type=graphic
 width=15
 height=31
 xmode=abs_right
-layer=com_74
+layer=button_offensive_language
 graphic=graphic_4692
 colour=0x000000
 op10=  
 
 // 915:78
-[com_78]
+[button_offensive_language_text]
 type=text
 widthmode=minus
 heightmode=minus
-layer=com_74
+layer=button_offensive_language
 textfont=p11_full
 text=Seriously offensive language
 textlineheight=12
@@ -991,7 +991,7 @@ y=139
 width=154
 height=31
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=   
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_solicitation_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_solicitation_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_solicitation_right, graphic_4695)
@@ -1054,7 +1054,7 @@ y=106
 width=154
 height=31
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=   
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_disruptive_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_disruptive_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_disruptive_right, graphic_4695)
@@ -1117,7 +1117,7 @@ y=73
 width=154
 height=31
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=   
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_name_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_name_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_name_right, graphic_4695)
@@ -1180,7 +1180,7 @@ y=40
 width=154
 height=31
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=   
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_threats_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_threats_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_threats_right, graphic_4695)
@@ -1196,7 +1196,7 @@ width=154
 height=31
 xmode=abs_right
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=   
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:com_96, graphic_4693, lobbyscreen_report_abuse_stage2:com_97, graphic_4694, lobbyscreen_report_abuse_stage2:com_98, graphic_4695)
@@ -1260,7 +1260,7 @@ width=154
 height=31
 xmode=abs_right
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=    
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_laws_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_laws_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_laws_right, graphic_4695)
@@ -1276,7 +1276,7 @@ width=154
 height=31
 xmode=abs_right
 ymode=abs_bottom
-layer=com_18
+layer=main
 op1=Send Report
 op10=    
 onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage2:button_websites_left, graphic_4693, lobbyscreen_report_abuse_stage2:button_websites_mid, graphic_4694, lobbyscreen_report_abuse_stage2:button_websites_right, graphic_4695)
@@ -1290,7 +1290,7 @@ widthmode=minus
 heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_18
+layer=main
 hide=yes
 noclickthrough=yes
 
@@ -1411,7 +1411,7 @@ op1=Close
 op10= 
 onmouseover=graphic_swapper(event_com, "intro_close_button,1")
 onmouseleave=graphic_swapper(event_com, "intro_close_button,0")
-onop=lobbyscreen_report_abuse_help_close(lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:com_18)
+onop=lobbyscreen_report_abuse_help_close(lobbyscreen_report_abuse_stage2:help_title_text, lobbyscreen_report_abuse_stage2:help_body_text, lobbyscreen_report_abuse_stage2:help_body, lobbyscreen_report_abuse_stage2:help_layer, lobbyscreen_report_abuse_stage2:main)
 
 // 915:112
 [help_title_text]

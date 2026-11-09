@@ -423,7 +423,7 @@ if (.finduid(%tradepartner) = true) {
 }
 
 // 2011's confirm screen has a Decline and a close button (com6) too.
-[if_button,tradeconfirm:dominiondice] if_close;
+[if_button,tradeconfirm:trade2decline] if_close;
 [if_button,tradeconfirm:closebutton] if_close;
 
 [if_close,tradeconfirm]

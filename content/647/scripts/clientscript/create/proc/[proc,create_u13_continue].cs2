@@ -1,0 +1,5 @@
+// 2715
+[proc,create_u13_continue]
+if_sethide(false, account_create_success:contents);
+if_sethide(false, account_create_success:runescape_logo);
+if_sethide(true, account_create_success:u13_layer);

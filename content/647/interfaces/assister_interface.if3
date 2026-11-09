@@ -140,7 +140,7 @@ opbase=
 onmouserepeat=assist_tooltip(event_com)
 
 // 301:12
-[com_12]
+[assist_total_xp_backdrop_1]
 type=rectangle
 x=274
 y=208
@@ -161,7 +161,7 @@ height=27
 hide=yes
 
 // 301:14
-[checker_collect]
+[runecraft_selected_box]
 type=rectangle
 x=26
 y=84
@@ -887,7 +887,7 @@ op1=Toggle Skill On / Off
 onmouseover=assist_comp_sethide(false, assister_interface:runecraft_layer, null)
 onmouseleave=assist_comp_sethide(true, assister_interface:runecraft_layer, assister_interface:runecrafting_1)
 onmouserepeat=assist_tooltip(event_com)
-onclick=script531(assister_interface:runecrafting_icon, "staticons2,0", "staticons2_off,0", assister_interface:checker_collect)
+onclick=script531(assister_interface:runecrafting_icon, "staticons2,0", "staticons2_off,0", assister_interface:runecraft_selected_box)
 onrelease=assist_clear_button(assister_interface:runecrafting_1)
 onhold=assist_flash_button(assister_interface:runecrafting_1)
 

@@ -1,0 +1,20 @@
+// 3397
+[proc,lobbyscreen_report_abuse_stage1_namelist_update_select_button]
+if_settext(%varclient_1798, lobbyscreen_report_abuse_stage1_namelist:selected_name);
+def_graphic $graphic0 = "login_lobby_button,10";
+def_graphic $graphic1 = "login_lobby_button,11";
+if (compare(%varclient_1798, "") ! 0) {
+    if_settext("Reporting: <%varclient_1798>", lobbyscreen_report_abuse_stage1_namelist:title_text);
+    if_settrans(0, lobbyscreen_report_abuse_stage1_namelist:next_button_bg_left);
+    if_settrans(0, lobbyscreen_report_abuse_stage1_namelist:next_button_bg_mid);
+    if_settrans(0, lobbyscreen_report_abuse_stage1_namelist:next_button_bg_right);
+    if_settrans(0, lobbyscreen_report_abuse_stage1_namelist:next_button_text);
+    if_setonmouseover("lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage1_namelist:next_button_bg_left, $graphic0, lobbyscreen_report_abuse_stage1_namelist:next_button_bg_mid, $graphic1, lobbyscreen_report_abuse_stage1_namelist:next_button_bg_right, $graphic0)", lobbyscreen_report_abuse_stage1_namelist:next_button);
+} else {
+    if_settext("Report Abuse: Select Player", lobbyscreen_report_abuse_stage1_namelist:title_text);
+    if_settrans(100, lobbyscreen_report_abuse_stage1_namelist:next_button_bg_left);
+    if_settrans(100, lobbyscreen_report_abuse_stage1_namelist:next_button_bg_mid);
+    if_settrans(100, lobbyscreen_report_abuse_stage1_namelist:next_button_bg_right);
+    if_settrans(100, lobbyscreen_report_abuse_stage1_namelist:next_button_text);
+    if_setonmouseover(null, lobbyscreen_report_abuse_stage1_namelist:next_button);
+}

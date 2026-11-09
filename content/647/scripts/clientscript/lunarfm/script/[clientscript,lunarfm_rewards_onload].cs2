@@ -4,17 +4,17 @@
 ~script4274;
 if_settext("", lunarfm_rewards_new:name);
 if_settext("Select a reward for more information.", lunarfm_rewards_new:description);
-if_settext("", lunarfm_rewards_new:com_80);
-if_sethide(true, lunarfm_rewards_new:com_81);
-if_sethide(true, lunarfm_rewards_new:com_154);
-if_sethide(true, lunarfm_rewards_new:com_151);
-if_sethide(false, lunarfm_rewards_new:com_149);
-if_sethide(false, lunarfm_rewards_new:com_150);
+if_settext("", lunarfm_rewards_new:extra_info);
+if_sethide(true, lunarfm_rewards_new:spell_icon_layer);
+if_sethide(true, lunarfm_rewards_new:task_list);
+if_sethide(true, lunarfm_rewards_new:gold_frame_tasks);
+if_sethide(false, lunarfm_rewards_new:gold_frame_list);
+if_sethide(false, lunarfm_rewards_new:gold_frame_desc);
 if_sethide(false, lunarfm_rewards_new:breakdown_layer);
 if (%varplayerbit_9067 < 8) {
-    ~script4270;
+    ~lunarfm_rewards_spells_display;
     if_settext("Spells", lunarfm_rewards_new:name);
 } else {
-    ~script4272;
+    ~lunarfm_rewards_wishes_display;
     if_settext("Wishes", lunarfm_rewards_new:name);
 }

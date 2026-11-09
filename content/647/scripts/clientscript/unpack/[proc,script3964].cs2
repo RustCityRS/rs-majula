@@ -1,9 +1,0 @@
-// 3964
-[proc,script3964]
-if (%varclient_1414 = 1) {
-    if_settext("Username:", login:username_title);
-} else if (%varclient_1414 = 2) {
-    if_settext("Email:", login:username_title);
-} else {
-    if_settext("Login:", login:username_title);
-}

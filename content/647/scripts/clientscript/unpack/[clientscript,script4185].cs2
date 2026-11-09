@@ -1,7 +1,7 @@
 // 4185
 [clientscript,script4185](component $component0)
 if ($component0 = interface_1072:arrow_up) {
-    if_setgraphic(graphic_3865, interface_1072:arrow_up);
+    if_setgraphic("sm_digit_bar_button_arrow,2", interface_1072:arrow_up);
 } else if ($component0 = interface_1072:arrow_down) {
-    if_setgraphic(graphic_3866, interface_1072:arrow_down);
+    if_setgraphic("sm_digit_bar_button_arrow,3", interface_1072:arrow_down);
 }

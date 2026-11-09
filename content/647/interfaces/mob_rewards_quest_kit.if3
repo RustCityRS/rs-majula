@@ -5,7 +5,7 @@ x=71
 y=24
 width=362
 height=206
-layer=com_16
+layer=background
 graphic=tradebacking
 tiling=yes
 colour=0x000000
@@ -17,7 +17,7 @@ x=57
 y=52
 width=32
 height=152
-layer=com_16
+layer=background
 graphic="v2_stone_borders,1"
 tiling=yes
 colour=0x000000
@@ -30,7 +30,7 @@ x=70
 y=19
 width=32
 height=32
-layer=com_16
+layer=background
 graphic="v2_stone_borders,4"
 colour=0x000000
 
@@ -41,7 +41,7 @@ x=420
 y=50
 width=32
 height=152
-layer=com_16
+layer=background
 graphic="v2_stone_borders,3"
 tiling=yes
 colour=0x000000
@@ -53,7 +53,7 @@ x=101
 y=6
 width=307
 height=34
-layer=com_16
+layer=background
 graphic="v2_stone_borders,0"
 tiling=yes
 colour=0x000000
@@ -65,7 +65,7 @@ x=102
 y=214
 width=306
 height=32
-layer=com_16
+layer=background
 graphic="v2_stone_borders,2"
 tiling=yes
 colour=0x000000
@@ -77,7 +77,7 @@ x=70
 y=202
 width=32
 height=32
-layer=com_16
+layer=background
 graphic="v2_stone_borders,6"
 colour=0x000000
 
@@ -88,7 +88,7 @@ x=408
 y=19
 width=32
 height=32
-layer=com_16
+layer=background
 graphic="v2_stone_borders,5"
 colour=0x000000
 
@@ -99,7 +99,7 @@ x=408
 y=202
 width=32
 height=32
-layer=com_16
+layer=background
 graphic="v2_stone_borders,7"
 colour=0x000000
 
@@ -110,7 +110,7 @@ x=81
 y=34
 width=349
 height=32
-layer=com_16
+layer=background
 graphic="v2_stone_borders,8"
 tiling=yes
 colour=0x000000
@@ -122,7 +122,7 @@ x=70
 y=36
 width=32
 height=32
-layer=com_16
+layer=background
 graphic="v2_stone_borders,9"
 colour=0x000000
 
@@ -133,7 +133,7 @@ x=408
 y=36
 width=32
 height=32
-layer=com_16
+layer=background
 graphic="v2_stone_borders,10"
 colour=0x000000
 
@@ -144,7 +144,7 @@ x=413
 y=29
 width=16
 height=16
-layer=com_16
+layer=background
 graphic="v2_stone_close_button,0"
 colour=0x000000
 transmitop=1
@@ -154,26 +154,26 @@ onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
 onop=closebutton_click
 
 // 842:13
-[com_13]
+[quest_kit_title]
 type=text
 x=147
 y=28
 width=234
 height=13
-layer=com_16
+layer=background
 textfont=b12_full
 text=Quest Kit
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=script2567
+onload=mob_quest_kit_update
 
 // 842:14
 [divider]
 type=model
 x=51
 y=-11
-layer=com_16
+layer=background
 model=null
 modelangle=1874,559,0
 modelzoom=400
@@ -183,13 +183,13 @@ modelzoom=400
 type=model
 x=51
 y=-24
-layer=com_16
+layer=background
 model=null
 modelangle=1874,559,0
 modelzoom=400
 
 // 842:16
-[com_16]
+[background]
 type=layer
 y=46
 width=512
@@ -202,7 +202,7 @@ x=96
 y=105
 width=313
 height=135
-onvarctransmit=script2568{varclient_857}
+onvarctransmit=mob_quest_kit_cross{varclient_857}
 
 // 842:18
 [com_18]
