@@ -848,7 +848,7 @@ Every stage stops where its row says **gap**.
 
 | # | Stage | Test | Gaps |
 |---|---|---|---|
-| 0 | Engine decision on instancing (8.2 items 2-3): integrator/Jordan | | blocks stages 3+ in their 2011 form |
+| 0 | Engine decision on instancing (8.2 items 2-3): **done**, Jordan's regions and controllers (337f6e28e0: `region_create`, `region_copyarea`, `region_getcoord`, `region_del`, `controller_*`) | `_test/scripts/engine/region_tests.rs2` | |
 | 1 | varp 281 as UF's: character creation ends at UF's first stage, not 1001; UF's end sets 1000; varbit 4895 = 3 at creation (inference) | testscript: after `character_created`, varp281 = 5/6 (value 1-6 meaning: **gap**); at UF end = 1000; quest list cs2 2193 reads done | values 1-6, the exact first value |
 | 2 | UF configs: npc/loc/obj names for the ids in section 2; multiloc state helpers (varbits 6487, 6495, 6496, 6497) | runec lint; CRC gate if packs change | |
 | 3 | Start: place the player in the cellar (instance or static), open 1079/897 controls, Task tab; arrow-key ops -> varp281 7 | harness: login of a new account lands in the cellar, IF_BUTTON on 1079:0 sets 7 | start tile, overlay slot, whether ops are transmitted: **gap** |
@@ -862,12 +862,6 @@ Every stage stops where its row says **gap**.
 | 11 | Ladder 45784 -> Lumbridge, varp281 = 1000, Explorer Jack Task (varbit 6494 = 3) | harness: climb -> Lumbridge, 1000 | arrival tile, Jack's lines: **gap** (void-634's only) |
 | 12 | Music (Destiny, The Adventurer, The Mentor, Harmony) | testscript: midi per stage | exact switch points: wiki wording only |
 
-**Dialogue (all stages):** the seven 2011-quoted lines in 3.3, and for stage 11
-void-634's Explorer Jack lines (3.3), commented as void-634's. Nothing else:
-no 2011 source and no void-634 line exists for the cellar (Sir Vant, Squire,
-Goblin, Dragon, Roddeck), and 289 has no UF. Per the brief, no stage writes a
-line no source shows. Unless the integrator names another source (for
-example, transcribing UF's voice-over from the cache's vorbis archive once its
-ids are found), stages 4-10 can be built only as mechanics, Task text and
-camera, with every Sir Vant/Roddeck/Squire/Goblin conversation left as a
-`// no source found` stub.
+**Dialogue (all stages):** section 3.4 gives every line, with its first sighting and the
+branches, from 32 dated 2010-11 recordings. Recordings outrank the wiki for dialogue text (3.4's
+notes). A line no recording shows stays out, or keeps a `// no source found` stub.
