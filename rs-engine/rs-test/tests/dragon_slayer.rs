@@ -986,6 +986,8 @@ fn crandor_s_hole_rope_wall_and_secret_door() {
             "2011's line: {said:?}"
         );
         assert_eq!(at(engine, &client), (2847, 0, 9635), "over the wall");
+        // Out of her reach again, so she is no one's when elvarg_slain_gives_her_head runs.
+        tele(engine, &mut client, 2833, 0, 9658);
 
         // The wall runs along the door tile's south edge (angle 3): the tile itself and the
         // one south of it are its two sides. Only one finds the door.
@@ -1039,7 +1041,15 @@ fn elvarg_slain_gives_her_head() {
             player.vars.set(1240, VarValue::Int((lp & 1) | 990 << 1));
         }
         let (nid, sx, sz) = npc_near_on(engine, "elvarg", ELVARG.0, ELVARG.1, ELVARG.2);
-        engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 1;
+        // harness_reset puts the clock back to 0 but keeps her %npc_lastcombat from an earlier
+        // test's fight, which then reads as a fight 8 ticks from now: "Someone else is fighting
+        // that." until the clock catches up. Cleared here.
+        let lastcombat = *engine.cache.varns.debugnames.get("npc_lastcombat").unwrap();
+        {
+            let elvarg = &mut engine.get_npc_mut(nid).unwrap().npc;
+            elvarg.vars.set(lastcombat, VarValue::Int(0));
+            elvarg.stats.levels[NpcStat::Hitpoints as usize] = 1;
+        }
         tele(engine, &mut client, sx, 0, sz);
         let line = "You cut off Elvarg's head as proof of your victory!";
         let mut said = Vec::new();
