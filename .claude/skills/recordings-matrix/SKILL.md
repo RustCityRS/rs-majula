@@ -62,6 +62,13 @@ Windows' built-in one).
   - `cx,cy` are the player's dot in each video.
   - A ground item's tile is where the player stands as it enters the inventory.
   - Confirm the answer by recording ours at that tile: the shift comes back (0,0).
+- **Where npcs and items stand.** With the fit's theta and scale,
+  `python $S/minimap_dots.py <recording>@<s> <cx,cy> <theta> <scale> --tile x,z` turns the
+  recording's minimap north-up at our scale and lists each yellow (npc) dot's tile.
+  - Use offsets from the player's dot. Item dots (red) are drawn at tile corners, so check them
+    against an item whose tile you know.
+  - Fit the frame where the player stops beside an npc to talk: the npc is one tile away, and the
+    3D view shows which npc is which.
 - **Cutscene beats.**
   - `python $S/shots.py <video> <t0> <t1> <x0,y0,x1,y1> sheet.png` finds cuts and fades.
   - `python $S/frames_at.py out.png <video>@<s>@<label> ...` tiles chosen frames. Tile one

@@ -1726,6 +1726,70 @@ Recorded box lines (3.4) with no clip of their own:
 
 ---
 
+### 3.8 The arrival, read off the recordings and matched in our client (2026-11-09)
+
+**Where Sir Vant and his squire stand.**
+- Method: our client's minimap, north-up at local (30, 9), is the reference. The recordings-matrix
+  skill's `minimap_match.py` fits 4KO2h2xPtdM's minimap onto it: @8.5, score 0.815, scale 0.68,
+  turned 328 degrees, shift (0, 0). So 2011's player stands on (30, 9) exactly.
+- `minimap_dots.py` then reads the yellow npc dots in tiles from the player's dot.
+- As "Hello!" opens (@12.38) the player walks up and stops on (32, 15). The npcs are one tile
+  north and one tile east of that.
+- The 3D view @13.5 shows the knight in the gap of the start room's north wall line, and the
+  squire south of it.
+- Result: **Sir Vant on (32, 16)**, the doorway where loc 3550 inviswall_serverside sits, and
+  **the squire on (33, 15)**.
+- VwpdbjfigD4 @80 (north-up) agrees. Both stand still: the same tiles at 8.5 s and 80 s.
+
+**Which Sir Vant.**
+- Each of cache 786's six (8848-8853) was placed in our client on his tile and set beside
+  4KO2h2xPtdM @9-14.
+- 2011's knight holds his orange shield up in front, feet set wide: that is **8850**
+  (bas_1614).
+- 8848 and 8849 carry only a sword, 8851 holds the sword across, 8852 holds it raised, and 8853
+  holds the shield flat.
+
+**The side panel.** 4KO2h2xPtdM's tab rows were read every 10 s, and every second around the
+gear:
+- arrival to "Gather the Squire's Gear": only the task system and options tabs;
+- the gear picked up ("Equip Yourself", @79): inventory, with a yellow arrow at it;
+- the gear worn (@82-83): combat and worn equipment;
+- the quest journal step: quests;
+- the first practice xp: stats;
+- arrival in Lumbridge: prayer and magic, and friends, ignore, clan, emotes, music and notes.
+
+**The first seconds.** 8jKH_7To46o, 2011-05-11, @56-66, one frame a second:
+- **@56:**
+  - The game view shows the **Controls overlay**: cache 897 tutorial3_cameracontrols; 1079 is a
+    copy of it.
+  - The side panel shows **options**, with a **yellow arrow** pointing at the task system tab.
+  - The arrow is varbit 3756, the side tab to flash plus 1, which clientscripts 117 and 2756
+    draw. The client drops it while that tab is the one showing.
+- **@58:** the player opens the task system tab: "Rotate Your Camera" (Task 3522).
+- **@63:** the camera has turned. The panel goes on to "Talk to Sir Vant" and the overlay closes.
+- **@64-66:** the task system's popup (interface 1055, woken by varc 1425) shows "TASK
+  COMPLETE!" and "Rotate Your Camera".
+- The chat box stays empty: no "You have completed the Task" lines for the tutorial's Tasks.
+
+What the overlay does:
+- Its listener binds the four arrow keys to ops 1-4 and transmits them.
+- Its key lights wait for varp 281 to reach 6 (cs2 2773), so the overlay's stage is 6.
+- Quest config 131 gives 5 at creation.
+
+**Matched in our client** (local build, waiting on the rest of the tutorial):
+- character creation (Select Character, Select Style) into the cellar on (30, 9);
+- Sir Vant 8850 and the squire on their tiles;
+- the task system and options tabs only, options open, the arrow at the task tab;
+- the Controls overlay;
+- an arrow key closes the overlay and slides in TASK COMPLETE! for Rotate Your Camera, frame for
+  frame as 8jKH_7To46o @56-66.
+
+**Still open:**
+- 2011's arrival camera sits lower and closer.
+- 2011's minimap shows only the start room and a strip north of it, where ours also shows the
+  room to its west. Cache 786 places a second start room around (56..60, 3..9). Whether 2011
+  started players there: to be fitted.
+
 ## 4. Cutscenes and camera (cache 786: client-side camera paths)
 
 647 runs UF's cutscene camera in the client. Interface 899 (one layer,
