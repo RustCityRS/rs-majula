@@ -20,6 +20,10 @@ description: Decide what 2011 (cache 786, May 2011) did for a piece of RuneScape
    against a recording, character by character.
 7. **289**: the starting point, not proof of 2011.
 
+**Exception: dialogue text.** Dated 2011 recordings come first, then Void, then 289. The wiki
+often paraphrases, or keeps an older version of a line, so a wiki quote that no recording shows
+is a lead to check, not an answer.
+
 ## Per claim
 
 1. Find it, highest source first.

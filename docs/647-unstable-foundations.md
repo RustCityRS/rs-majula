@@ -378,8 +378,8 @@ Roddeck's Diary, "On The Care Of Dragons"). void-634 has no cellar dialogue:
 no Sir Vant, squire, goblin, dragon or in-cellar Roddeck (grep of
 `game/src/main/kotlin` and `data` for vant, roddeck, unstable).
 
-**Every other line of UF dialogue (Sir Vant, Squire, Goblin, Dragon, Roddeck
-in the cellar, the player, the narrator): no source found, 2011 or void-634.** The dialogue was voiced
+**Every other line of UF dialogue:** no 2011 page or void-634 source; section 3.4 gives them
+from 32 dated recordings. The dialogue was voiced
 (Update:Slayer Challenges, 21 April 2010: "Voices have been implemented for all
 NPCs (and the player) within the tutorial"), so cache 786's vorbis archive may
 hold the spoken lines; no cache table maps lines to vorbis ids (no enum or
@@ -388,6 +388,268 @@ which vorbis ids are UF's. The build must stop at the dialogue until a source
 is chosen.
 
 The quest journal's text (server-sent in 647): **no source found**.
+
+### 3.4 Dialogue from 32 dated recordings (2010-11-27 to 2011-07-28)
+
+Every dialogue state 2010-11 players saw, from every dated YouTube recording found.
+- 32 were decoded; 31 had readable dialogue (_HI5QDQYhrc is 322x240).
+- 16 more were checked and left out: other content, character creation only, or no cellar. Method: the `recordings-matrix` skill
+(`.claude/skills/recordings-matrix`). Each recording's dialogue box was cut into states, OCR'd,
+and matched to the lines below. What didn't match was read by eye and added, then the matrix
+was run again.
+
+Each line gives:
+- `n/N`: how many recordings show it;
+- the first sighting by upload date (YouTube id @ second, to open at that moment);
+- the states players went to next. A state with two or more common exits is a branch.
+
+Text is word for word as recorded, with breaks joined; `<br>` placement still needs a frame per
+line. Speakers are as the box names them (`PLAYER` is the player's name). This section
+supersedes 3.3's "no source found" for the cellar dialogue.
+
+- `s001` chatplayer 11/31 (first: 20101215 `kjgw48iBdc0` @72s): **PLAYER**: Hello!
+- `s001a` chatnpc 1/31 (first: 20101223 `7_neJ6mCLXc` @41s): **Squire**: Oh dear, oh dear, it's coming. You'd better talk to Sir Vant. He's in charge.
+- `s002` chatnpc 20/31 (first: 20101215 `kjgw48iBdc0` @75s): **Sir Vant**: Wait a moment - there's a dragon coming!
+  - next: `s003` x19; once: `s005`
+- `s003` chatnpc 23/31 (first: 20101127 `IwS6rBpkcyE` @39s): **Sir Vant**: I need some help over here!
+  - next: `s004` x19; `s007` x2; once: `s055`, `s005`
+- `s004` chatnpc 21/31 (first: 20101127 `IwS6rBpkcyE` @45s): **Sir Vant**: Thank goodness you're here! My squire's dead, and there's a goblin going through my bag!
+  - next: `s005` x19; `s007` x2
+- `s005` chatnpc 21/31 (first: 20101127 `IwS6rBpkcyE` @47s): **Sir Vant**: I can't turn my back on this dragon. I need you to take my squire's equipment and deal with the goblin!
+  - next: `s007` x15; `s006` x3; once: `s010`, `s005a`
+- `s005a` chatnpc 1/31 (first: 20110115 `E4MP65bl3sI` @200s): **Sir Vant**: Wait! You're not properly armed. Pick up the kit dropped by my squire, then attack the goblin when you've equipped it.
+- `s006` mesbox 11/31 (first: 20101215 `kjgw48iBdc0` @244s): We'll come back to that in a moment.
+  - next: `s013` x8; `s007` x3; once: `s016`, `s013b`, `s008`
+- `s007` chatnpc 25/31 (first: 20101127 `IwS6rBpkcyE` @75s): **Sir Vant**: Thank you! Now to deal with the dragon. Come here, and I'll tell you my plan.
+  - next: `s009` x21; once: `s016`, `s010`, `s008`, `s006`
+- `s008` chatnpc 2/31 (first: 20110123 `fE0GdVcmJ9E` @285s): **Sir Vant**: I don't believe I gave you permission to go through my bag.
+- `s009` chatnpc 23/31 (first: 20101127 `IwS6rBpkcyE` @81s): **Sir Vant**: This dragon's a tougher customer than I'd expected, but I know a way we can defeat it.
+  - next: `s010` x22; once: `s011`
+- `s010` chatnpc 24/31 (first: 20101212 `xqWnfqno_1M` @5s): **Sir Vant**: One corner of the ceiling is held up by wooden pillars. We're going to lure the dragon there and then collapse the roof on top of it.
+  - next: `s011` x23; once: `s012`
+- `s011` chatnpc 24/31 (first: 20101127 `IwS6rBpkcyE` @86s): **Sir Vant**: In my bag is some meat I've prepared with a sleeping potion. I need you to put the meat in the food bowl by the wooden pillars. The dragon will eat it and fall asleep.
+  - next: `s012` x23; once: `s016`
+- `s012` chatnpc 24/31 (first: 20101127 `IwS6rBpkcyE` @87s): **Sir Vant**: I'll keep the dragon's attention. Once you've got the drugged meat you'll need to climb over the wall next to me.
+  - next: `s006` x10; `s013` x9; `s016` x2; once: `s020`, `s015`
+- `s013` objbox 22/31 (first: 20101212 `xqWnfqno_1M` @31s): The bag contains several parcels of meat, all wrapped up in paper. You take one.
+  - next: `s016` x15; `s015` x2; once: `s023a`, `s019`, `s018`, `s017`, `s014`
+- `s013a` chatnpc 1/31 (first: 20110123 `fE0GdVcmJ9E` @328s): **Sir Vant**: Hey, don't just drop it on the floor! You're meant to be placing it in the food bowl.
+- `s013b` mesbox 3/31 (first: 20110117 `VwpdbjfigD4` @239s): You should take some meat from Sir Vant's bag before you venture out.
+- `s014` chatnpc 1/31 (first: 20110430 `4KO2h2xPtdM` @167s): **Sir Vant**: You'll never get over the wall there. Try going to the eastern end where it's lower.
+- `s014a` chatplayer 1/31 (first: 20110117 `VwpdbjfigD4` @264s): **PLAYER**: The wall is too high for me to climb over, so I can't get past you.
+- `s015` mesbox 4/31 (first: 20101127 `IwS6rBpkcyE` @140s): Even this low section of the wall is too high for you to climb over.
+  - next: `s016` x3; once: `s014a`
+- `s016` objbox 25/31 (first: 20101127 `IwS6rBpkcyE` @146s): You use the plank to construct a crude ramp.
+  - next: `s017` x13; `s019` x6; `s013` x2; once: `s020`, `s016a`, `s013b`, `s013a`
+- `s016a` chatplayer 1/31 (first: 20110115 `E4MP65bl3sI` @343s): **PLAYER**: There doesn't seem much point in messing around with this wall now that I've built a ramp.
+- `s017` hint 15/31 (first: 20101127 `IwS6rBpkcyE` @161s): Your character can run if they have sufficient energy. You can make your character run automatically by turning on run mode. Click the boot icon by the minimap. If you hold down the CTRL key while clicking on the floor or minimap, your character will run to their destination.
+  - next: `s019` x12; `s018` x3
+- `s018` chatnpc 5/31 (first: 20110115 `E4MP65bl3sI` @312s): **Sir Vant**: Are you mad? Don't eat that! It's raw, and it's covered in sleeping potion!
+  - next: `s019` x4; once: `s015`
+- `s019` chatnpc 24/31 (first: 20101127 `IwS6rBpkcyE` @169s): **Sir Vant**: It's smelled the meat! Hide!
+  - next: `s020` x22; once: `s022`
+- `s019a` chatnpc 1/31 (first: 20110115 `E4MP65bl3sI` @354s): **Sir Vant**: I really don't think you should do that.
+- `s020` chatnpc 25/31 (first: 20101212 `xqWnfqno_1M` @91s): **Sir Vant**: Well done. Come out of hiding and I'll tell you what we're doing next.
+  - next: `s021` x23; `s022` x2
+- `s021` chatnpc 23/31 (first: 20101212 `xqWnfqno_1M` @96s): **Sir Vant**: We need to destroy these pillars to collapse the ceiling on the dragon.
+  - next: `s022` x21; once: `s026`, `s023`
+- `s022` chatnpc 24/31 (first: 20101127 `IwS6rBpkcyE` @221s): **Sir Vant**: Could you get the rest of the supplies from my bag please?
+  - next: `s023` x20; `s027` x3; once: `s022a`
+- `s022a` chatplayer 1/31 (first: 20110117 `VwpdbjfigD4` @392s): **PLAYER**: I haven't searched it yet.
+- `s022b` chatnpc 1/31 (first: 20110117 `VwpdbjfigD4` @395s): **Sir Vant**: Oh. Well, search my bag and bring the supplies to me before the dragon wakes up!
+- `s023` objbox 23/31 (first: 20101127 `IwS6rBpkcyE` @234s): You search Sir Vant's bag and take a selection of supplies.
+  - next: `s027` x15; `s024` x7; once: `s035a`, `s033c`
+- `s023a` objbox 1/31 (first: 20101223 `7_neJ6mCLXc` @191s): The bag contains various supplies.
+- `s024` chatnpc 8/31 (first: 20110117 `VwpdbjfigD4` @411s): **Sir Vant**: Now we're going to burn these wooden pillars and bring the ceiling down on this fat old worm!
+- `s025` chatnpc 8/31 (first: 20110117 `VwpdbjfigD4` @417s): **Sir Vant**: First, we need to wrap the pillars in oily rags. There was a big cloth in my bag. Rip it in half, then soak the pieces in oil.
+  - next: `s026` x7; once: `s032`
+- `s026` chatnpc 8/31 (first: 20110117 `VwpdbjfigD4` @419s): **Sir Vant**: Wrap the oily rags around the pillars, then add a fuse to each one.
+  - next: `s027` x6; once: `s029`, `s023`
+- `s026a` chatnpc 1/31 (first: 20110128 `rX5vda5px3w` @66s): **Sir Vant**: How are you getting on?
+- `s026b` menu 1/31 (first: 20110128 `rX5vda5px3w` @68s): What would you like to say? What am I meant to be doing? I'm getting there. Why don't you do it yourself?
+- `s026c` chatnpc 1/31 (first: 20110128 `rX5vda5px3w` @73s): **Sir Vant**: Me? Touch oily rags? You've clearly never tried to clean oil off white armour!
+- `s026d` chatnpc 1/31 (first: 20110128 `rX5vda5px3w` @78s): **Sir Vant**: No, I'll let you have all the fun.
+- `s026e` menu 1/31 (first: 20110128 `rX5vda5px3w` @81s): What would you like to say? What am I meant to be doing? I'll get on with it.
+- `s026f` chatplayer 0/31: **PLAYER**: I'm getting there.
+- `s027` objbox 25/31 (first: 20101127 `IwS6rBpkcyE` @262s): You rip the cloth and end up with two rags.
+  - next: `s028` x17; `s032` x4; `s033c` x2; once: `s059`, `s033`
+- `s028` objbox 19/31 (first: 20101212 `xqWnfqno_1M` @115s): You soak the rag in oil.
+  - next: `s032` x16; `s031` x2; once: `s033c`
+- `s029` objbox 1/31 (first: 20110510 `Qh_-AMJpVd0` @308s): You soak the cloth in oil.
+- `s030` objbox 0/31: You rip the oily cloth and end up with two oily rags.
+- `s031` objbox 2/31 (first: 20110124 `Qzq-h8kLBHk` @186s): The rag has already been soaked in oil.
+  - next: ; once: `s032`, `s028`
+- `s031a` chatnpc 0/31: **Sir Vant**: You're supposed to soak the rag in oil first. Try using the rag with the oil can.
+- `s032` objbox 24/31 (first: 20101127 `IwS6rBpkcyE` @268s): You wrap the oily rag around the pillar.
+  - next: `s033` x39; once: `s033b`
+- `s033` objbox 25/31 (first: 20101127 `IwS6rBpkcyE` @279s): You attach the fuse to the pillar.
+  - next: `s032` x14; `s035` x13; `s034` x10; `s033b` x3; once: `s051`, `s035a`, `s034a`, `s026a`
+- `s033a` chatnpc 1/31 (first: 20110307 `p7ufqPwAXLg` @464s): **Sir Vant**: Wait a minute! You're supposed to get both pillars prepared before we light them.
+- `s033b` chatnpc 4/31 (first: 20101223 `7_neJ6mCLXc` @286s): **Sir Vant**: I don't think I need that just at the moment, thank you.
+  - next: ; once: `s033c`, `s033a`, `s033`, `s032`
+- `s033c` mesbox 5/31 (first: 20101223 `7_neJ6mCLXc` @267s): Nothing interesting happens.
+  - next: `s032` x2; once: `s033`, `s028`, `s027`
+- `s034` chatnpc 10/31 (first: 20101127 `IwS6rBpkcyE` @289s): **Sir Vant**: Thanks, that's perfect. Now, hand me a tinderbox.
+  - next: `s035` x8; once: `s036`, `s023`
+- `s034a` chatnpc 1/31 (first: 20101223 `7_neJ6mCLXc` @299s): **Sir Vant**: You'll need to give me a tinderbox first - otherwise, I can't light my pillar at the same time as you light yours.
+- `s035` objbox 24/31 (first: 20101127 `IwS6rBpkcyE` @296s): You offer Sir Vant a tinderbox.
+  - next: `s036` x23; once: `s037`
+- `s035a` chatnpc 2/31 (first: 20110115 `E4MP65bl3sI` @483s): **Sir Vant**: Just hand me one of the tinderboxes from my bag.
+- `s036` chatnpc 24/31 (first: 20101127 `IwS6rBpkcyE` @299s): **Sir Vant**: Thank you. When you're ready, set fire to the other pillar. I'll light this one at the same moment.
+  - next: `s037` x19; `s038` x5
+- `s037` chatnpc 20/31 (first: 20101212 `xqWnfqno_1M` @153s): **Sir Vant**: It's burning! Run!
+  - next: `s038` x15; `s041` x5
+- `s038` chatnpc 20/31 (first: 20101127 `IwS6rBpkcyE` @340s): **Sir Vant**: Ah, here you are, Roddeck. The White Knights got your message and sent me to slay your dragon.
+  - next: `s039` x19; once: `s041`
+- `s039` chatnpc 19/31 (first: 20101212 `xqWnfqno_1M` @184s): **Roddeck**: Thank you both very much! It's had me trapped in the cupboard for ages. I'd completely lost control of it.
+  - next: `s040` x16; `s041` x3
+- `s040` chatnpc 16/31 (first: 20101212 `xqWnfqno_1M` @185s): **Sir Vant**: Next time, get a puppy!
+  - next: `s041` x15; once: `s043`
+- `s041` chatnpc 24/31 (first: 20101127 `IwS6rBpkcyE` @357s): **Sir Vant**: Before we go any further, could I have my squire's kit back, please? I ought to return it to the poor chap's family. I'd like my tinderbox and oil can too.
+  - next: `s043` x14; `s044` x3; `s041b` x3; `s041c` x2; once: `s042`, `s041a`
+- `s041c` chatnpc 2/31 (first: 20101223 `7_neJ6mCLXc` @358s): **Sir Vant**: I'd like my squire's kit back so I can return it to the poor chap's family. Take it off and hand it to me, please. I'd like my tinderbox and oil can too.
+  - next: ; once: `s043`, `s041a`
+- `s041a` chatnpc 2/31 (first: 20101223 `7_neJ6mCLXc` @365s): **Sir Vant**: Thanks. Keep 'em coming, please.
+- `s041b` chatnpc 3/31 (first: 20110117 `VwpdbjfigD4` @560s): **Roddeck**: I think you should be returning that item to Sir Vant, not to me.
+  - next: `s042` x2; once: `s043`
+- `s042` chatnpc 3/31 (first: 20110128 `rX5vda5px3w` @227s): **Sir Vant**: Please hand over my squire's kit.
+- `s043` chatnpc 22/31 (first: 20101212 `xqWnfqno_1M` @218s): **Sir Vant**: Right, I think that's everything. Now we just need a new way out of the cellar.
+  - next: `s044` x21; once: `s046`
+- `s044` chatnpc 24/31 (first: 20101127 `IwS6rBpkcyE` @368s): **Sir Vant**: When the ceiling collapsed, it damaged that wall. It looks like there are two places where you could break through. One's blocked by rocks, the other by tree roots.
+- `s045` chatnpc 24/31 (first: 20101127 `IwS6rBpkcyE` @369s): **Sir Vant**: I'm sure Roddeck can teach you how to clear the rocks or the tree roots out of the way.
+  - next: `s046` x20; `s047` x2; once: `s048`
+- `s046` menu 22/31 (first: 20101212 `xqWnfqno_1M` @223s): What would you like to say? Okay, I'll get on with it. Why don't you do it yourself?
+  - next: `s047` x15; `s048` x6; once: `s055`, `s052`
+- `s047` chatplayer 21/31 (first: 20101212 `xqWnfqno_1M` @224s): **PLAYER**: Okay, I'll get on with it.
+  - next: `s052` x18; once: `s049`, `s046`, `s033`
+- `s048` chatplayer 7/31 (first: 20101127 `IwS6rBpkcyE` @370s): **PLAYER**: Why don't you do it yourself?
+  - next: `s048a` x4; `s052` x2; once: `s046`, `s026c`
+- `s048a` chatnpc 4/31 (first: 20110115 `E4MP65bl3sI` @583s): **Sir Vant**: Well, I would, but my armour is terribly hard to clean when it gets dirty.
+  - next: `s047` x3; once: `s052`
+- `s049` objbox 1/31 (first: 20110430 `4KO2h2xPtdM` @480s): You find a couple of books and take them.
+- `s050` objbox 1/31 (first: 20110430 `4KO2h2xPtdM` @514s): It's full of cabbages. You take one.
+- `s051` objbox 3/31 (first: 20101223 `H-yIvqLsEhg` @620s): You eat the cabbage.
+  - next: ; once: `s064`, `s052`, `s033`
+- `s052` chatnpc 23/31 (first: 20101127 `IwS6rBpkcyE` @375s): **Roddeck**: We need you to break through one of the damaged wall sections by clearing some rocks or tree roots.
+  - next: `s053` x21; once: `s061a`, `s054`
+- `s053` chatnpc 21/31 (first: 20101127 `IwS6rBpkcyE` @376s): **Roddeck**: The choice is yours: would you like to mine through the rocks or chop through the roots?
+  - next: `s054` x20; once: `s055`
+- `s054` menu 21/31 (first: 20101212 `xqWnfqno_1M` @232s): What would you like to say? I'll mine through the rocks. I'll chop through the roots.
+  - next: `s056` x11; `s055` x10; once: `s059`
+- `s055` chatplayer 13/31 (first: 20101127 `IwS6rBpkcyE` @390s): **PLAYER**: I'll mine through the rocks.
+  - next: `s057` x9; `s059` x2; once: `s051`, `s004`
+- `s056` chatplayer 11/31 (first: 20101212 `xqWnfqno_1M` @235s): **PLAYER**: I'll chop through the roots.
+  - next: `s058` x10; once: `s060`
+- `s057` objbox 9/31 (first: 20101127 `IwS6rBpkcyE` @393s): Roddeck gives you a pickaxe.
+  - next: `s059` x8; once: `s061`
+- `s058` objbox 10/31 (first: 20101212 `xqWnfqno_1M` @236s): Roddeck gives you a hatchet.
+- `s058a` chatnpc 1/31 (first: 20101215 `kjgw48iBdc0` @639s): **Roddeck**: Now you've got a hatchet, chop your way through the roots inside the damaged wall.
+- `s059` mesbox 13/31 (first: 20101127 `IwS6rBpkcyE` @450s): You attempt to mine through the rocks.
+  - next: `s061` x10; `s072` x9; `s074` x3; once: `s077`, `s054`
+- `s060` mesbox 11/31 (first: 20101212 `xqWnfqno_1M` @243s): You attempt to chop through the roots.
+  - next: `s062` x12; `s073` x9; once: `s083`, `s075a`, `s064`, `s062a`
+- `s061` mesbox 11/31 (first: 20101127 `IwS6rBpkcyE` @403s): You'll need a Mining level of 2 to clear the rocks. Your Mining level is 1.
+  - next: `s063` x6; `s061a` x3; `s061b` x2
+- `s061a` chatnpc 4/31 (first: 20110123 `fE0GdVcmJ9E` @550s): **Roddeck**: So, your aim is to get a Mining level of 2? Okay, I'll find you something to train on.
+- `s061b` chatnpc 6/31 (first: 20101127 `IwS6rBpkcyE` @422s): **Roddeck**: Ah, I have something! You can practice mining on the rocks that fell into my cellar when the roof collapsed.
+- `s062` mesbox 9/31 (first: 20101212 `xqWnfqno_1M` @248s): You find that you'll need a Woodcutting level of 2 to clear the roots. Your Woodcutting level is 1.
+  - next: `s064` x5; `s062a` x4; `s060` x3
+- `s062a` chatnpc 5/31 (first: 20101212 `xqWnfqno_1M` @259s): **Roddeck**: So, your aim is to get a Woodcutting level of 2? Okay, I'll find you something to train on.
+  - next: `s062b` x4; once: `s065`
+- `s062b` chatnpc 4/31 (first: 20101212 `xqWnfqno_1M` @261s): **Roddeck**: Ah, I have something! You can practice chopping those roots growing through the wall.
+- `s063` mesbox 12/31 (first: 20101127 `IwS6rBpkcyE` @426s): You swing your pick at the rock.
+  - next: `s068` x10; `s065m` x8; `s065a` x7; `s066` x3; once: `s059`
+- `s064` mesbox 12/31 (first: 20101212 `xqWnfqno_1M` @268s): You swing your hatchet at the root.
+  - next: `s069` x10; `s065` x7; `s065a` x5; `s067` x2; once: `s078`, `s068`
+- `s065` mesbox 8/31 (first: 20101212 `xqWnfqno_1M` @272s): You break off some bits of wood, gaining 42 Woodcutting experience. Once more should suffice.
+  - next: `s067` x7; once: `s064`
+- `s065m` mesbox 8/31 (first: 20110123 `fE0GdVcmJ9E` @559s): You break off some bits of rock, gaining 42 Mining experience. Once more should suffice.
+- `s065a` mesbox 7/31 (first: 20101212 `xqWnfqno_1M` @281s): You break off some more bits of rock.
+  - next: `s064` x5; `s063` x3; `s059` x3; once: `s075b`
+- `s066` chatnpc 11/31 (first: 20110115 `E4MP65bl3sI` @623s): **Roddeck**: You've mined a few stone chippings from that rock. The chippings are now in your inventory - they're not particularly useful, but you'll get more useful goods from mining once you're out of this cellar.
+  - next: `s063` x10; once: `s070`
+- `s067` chatnpc 9/31 (first: 20101223 `7_neJ6mCLXc` @427s): **Roddeck**: You've chopped off a few wood chippings from that root. The chippings are now in your inventory - they're not particularly useful, but you'll get more useful goods from cutting wood once you're out of this cellar.
+- `s068` mesbox 11/31 (first: 20110115 `E4MP65bl3sI` @634s): Congratulations: You have reached level 2 Mining.
+  - next: `s070` x4; `s077` x2; `s063` x2; `s059` x2; once: `s071`
+- `s069` mesbox 10/31 (first: 20101212 `xqWnfqno_1M` @300s): Congratulations: You have reached level 2 Woodcutting.
+  - next: `s071` x8; `s077` x2
+- `s070` chatnpc 5/31 (first: 20110115 `E4MP65bl3sI` @636s): **Roddeck**: Congratulations, you've reached level 2. You should now be able to mine through the rocks in the damaged wall.
+  - next: `s077` x2; `s063` x2; once: `s059`
+- `s071` chatnpc 9/31 (first: 20101212 `xqWnfqno_1M` @302s): **Roddeck**: Congratulations, you've reached level 2. You should now be able to chop through the tree roots in the damaged wall.
+  - next: `s060` x6; `s077` x3; once: `s075`
+- `s072` mesbox 9/31 (first: 20110123 `fE0GdVcmJ9E` @638s): You succeed in clearing the rocks from the hole.
+  - next: `s074` x5; `s075a` x4
+- `s073` mesbox 9/31 (first: 20101212 `xqWnfqno_1M` @317s): You succeed in clearing the roots from the hole.
+  - next: `s075` x5; `s075a` x3; once: `s071`
+- `s074` objbox 12/31 (first: 20101127 `IwS6rBpkcyE` @454s): Roddeck retrieves his pickaxe from you.
+  - next: `s078` x5; `s077` x4; once: `s082`, `s078b`, `s076a`
+- `s075` objbox 10/31 (first: 20101212 `xqWnfqno_1M` @320s): Roddeck retrieves his hatchet from you.
+  - next: `s078` x5; `s077` x2; `s076` x2; once: `s078b`
+- `s075a` chatnpc 8/31 (first: 20101215 `kjgw48iBdc0` @652s): **Sir Vant**: Oh, well done! Climb through the hole, and we can all get out of this cellar.
+  - next: `s074` x4; `s075` x3; once: `s077`
+- `s075b` chatnpc 1/31 (first: 20110123 `fE0GdVcmJ9E` @622s): **Sir Vant**: I think we've all been in this cellar long enough. Can we get on with the quest now, please?
+- `s076` chatnpc 3/31 (first: 20101223 `7_neJ6mCLXc` @478s): **Roddeck**: You're still carrying a few wooden chippings. It's best to drop them on the floor; they'll just take up space in your inventory.
+- `s076a` chatnpc 1/31 (first: 20110204 `WatjF4PlpfM` @364s): **Roddeck**: You're still carrying a few stone chippings. It's best to drop them on the floor; they'll just take up space in your inventory.
+- `s077` hint 23/31 (first: 20101212 `xqWnfqno_1M` @326s): When you drop items on the ground, they will eventually vanish. It's a good way to get rid of junk, but don't drop anything you want to keep.
+  - next: `s078` x9; `s059` x5; `s060` x4; once: `s086`, `s079`, `s075`, `s058a`
+- `s078` chatnpc 20/31 (first: 20101212 `xqWnfqno_1M` @327s): **Sir Vant**: Thank you again for your help with the dragon. You'll receive a little reward for completing the quest when you get outside.
+  - next: `s079` x6; `s082` x5; `s081` x3; once: `s087`
+- `s078a` chatnpc 0/31: **Roddeck**: I think this ladder leads to the house of my neighbour, Explorer Jack. He's an understanding chap; he won't mind us walking through his house.
+- `s078b` chatnpc 2/31 (first: 20101223 `7_neJ6mCLXc` @472s): **Sir Vant**: We've nearly finished the quest now. Once you climb that ladder, you'll be free to start exploring the world outside this cellar.
+  - next: ; once: `s077`, `s076`
+- `s079` chatnpc 7/31 (first: 20101223 `7_neJ6mCLXc` @503s): **Explorer Jack**: Good grief! Where did you three come from?
+- `s080` chatnpc 7/31 (first: 20101223 `7_neJ6mCLXc` @505s): **Roddeck**: I'll explain later, Jack.
+- `s081` chatnpc 3/31 (first: 20110510 `Qh_-AMJpVd0` @431s): **Roddeck**: At last, we're out! Now, Sir Vant has accomplished his mission - to rescue me from my pet dragon - so I suppose he'll be off.
+- `s082` chatnpc 15/31 (first: 20101127 `IwS6rBpkcyE` @488s): **Sir Vant**: Well, my mission is accomplished now: Roddeck's dragon is no longer a threat.
+  - next: `s083` x14; once: `s087`
+- `s083` chatnpc 15/31 (first: 20101212 `xqWnfqno_1M` @344s): **Sir Vant**: I'd better head back to Falador. My squire's family will need to be informed of his death. It's been a pleasure working with you.
+- `s084` chatnpc 15/31 (first: 20101212 `xqWnfqno_1M` @346s): **Roddeck**: Goodbye, Sir Vant, and thank you again!
+  - next: `s085` x14; once: `s087`
+- `s085` chatnpc 14/31 (first: 20101223 `7_neJ6mCLXc` @511s): **Explorer Jack**: Once you're out and about, you can use the Task System to suggest aims and endeavours to go for. Every one you do will get you a reward.
+- `s086` chatnpc 15/31 (first: 20101223 `7_neJ6mCLXc` @517s): **Explorer Jack**: You'll always earn some money, sometimes additional goodies, and often progress towards a piece of armour with special effects. Look at the Rewards tab for a Task to learn more.
+  - next: `s087` x10; `s087a` x5
+- `s087` mesbox 17/31 (first: 20101127 `IwS6rBpkcyE` @500s): As you leave, Roddeck wanders off home.
+- `s087a` chatnpc 5/31 (first: 20101223 `RUM_me2Dl9A` @392s): **Roddeck**: Thank you once again for your assistance.
+- `g001` game 3/31 (first: 20110123 `fE0GdVcmJ9E` @711s): You can't do this while in the tutorial.
+- `g002` game 4/31 (first: 20101224 `sJou6QLfVes` @412s): Please finish what you're doing before opening the world map.
+- `g003` game 3/31 (first: 20110409 `KYxDa0aq2q0` @492s): You have completed the Task 'How To Train and Level'!
+- `g004` game 16/31 (first: 20101212 `xqWnfqno_1M` @372s): Congratulations! Quest complete!
+- `g005` game 13/31 (first: 20101212 `xqWnfqno_1M` @336s): You have unlocked a new music track: Harmony.
+- `g006` game 8/31 (first: 20101127 `IwS6rBpkcyE` @483s): You've just advanced 2 Mining levels! You have reached level 4.
+- `g007` game 6/31 (first: 20101212 `xqWnfqno_1M` @338s): You've just advanced 2 Woodcutting levels! You have reached level 4.
+- `g008` game 2/31 (first: 20110430 `4KO2h2xPtdM` @677s): You have completed the Task 'On the Run'!
+- `g009` game 2/31 (first: 20101212 `xqWnfqno_1M` @385s): You have now completed 2 Tasks in total.
+- `g010` game 4/31 (first: 20101215 `kjgw48iBdc0` @82s): Please close the interface you have open before setting your audio options.
+
+Notes:
+- **Builds.** Four recordings are an older build: IwS6rBpkcyE (2010-11-27 upload), xqWnfqno_1M
+  (2010-12-12), kjgw48iBdc0 (2010-12-15) and H-yIvqLsEhg (2010-12-23).
+  - That build has step guides in the chatbox, and Roddeck adds an advisor button: "I'll add a
+    button to your display. Use it when you want my advice."
+  - Every other recording is the Task System build, which cache 786 holds (tasks 3500-3523).
+  - The dialogue lines are shared: no line is seen only in the old build. 55 are seen only in
+    the Task System build, including the whole exit talk with Explorer Jack.
+- **Read by eye where OCR missed:**
+  - `s030` (Qh_-AMJpVd0 @310);
+  - `s031a` and `s078a` (promi6pWj8k @627 and @978);
+  - `s058a` in 7_neJ6mCLXc @395.
+  - `s026f` is an option in `s026b`'s menu, not seen as a chosen line.
+  - `s001a`'s last full stop is unreadable.
+- **Wiki conflict on eating the meat.** Drugged meat @ 2011-04-23 gives "Are you mad? Don't eat that!
+  It smells vile, it's completely raw, and I'm sure I mentioned that it's been treated with
+  sleeping potion!" for eat or drop. The recordings disagree:
+  - eating gives `s018` (6 sightings, 2011-01-15 to 2011-05-21);
+  - dropping gives `s013a`;
+  - fE0GdVcmJ9E shows "Eat Drugged meat" and "Drop Drugged meat" hovered just before each.
+  The recordings win: for dialogue text, dated recordings are the authority. The wiki often
+  paraphrases, or keeps an older version of a line.
+- **Gone by late August 2011.** Bfg3ivxRmZ4 (2011-08-22) and KsJlgeXVtiE (2011-10-15) go from
+  character creation straight to Explorer Jack's house, with no cellar.
+- **Outputs kept locally, with the downloaded videos:** the list of excluded videos with
+  reasons, and the task-panel and option streams. All 24 tutorial tasks are seen in the panel
+  stream. None of these are in git.
+- **Rerunning:** the `recordings-matrix` skill's `matrix.sh` and `frames.sh` rebuild them from
+  the video list.
 
 ---
 
