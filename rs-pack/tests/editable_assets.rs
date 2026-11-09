@@ -5,11 +5,12 @@ use rs_pack::pack::{
     media,
     model::source,
     names::AssetNames,
-    other::{asset, shader, worldmap_source},
+    other::{asset, material, shader, worldmap_source},
     sound::{vorbis, vorbis_setup},
 };
 use rs_pack::unpack;
 use std::{
+    collections::BTreeMap,
     fs,
     path::{Path, PathBuf},
 };
@@ -123,6 +124,43 @@ fn model_coordinates_derive_delta_widths_and_reject_missing_vertices() {
         )
         .is_err()
     );
+}
+
+#[test]
+fn materials_pack_from_a_file_each_named_by_texture() {
+    let names = names();
+    let text = "highdetail=1\nlowmem=0\nlowdetail=0\nbrightness=0\nintensity=-1\neffect=0\n\
+        effect_param=0\naveragecolour=6547\nscroll_u=0\nscroll_v=0\ncombinealpha=0\nflag95=0\n\
+        mipmapping=2\nrepeat_s=1\nrepeat_t=1\nhdr=0\neffect_param2=0\neffect_param3=0\nalphamode=0\n";
+    let materials = BTreeMap::from([
+        (0, text.to_owned()),
+        (2, text.replace("intensity=-1", "intensity=5")),
+    ]);
+    let data = material::pack(&materials, &names).unwrap();
+    assert_eq!(data.len(), 5 + 2 * 23);
+    assert_eq!(&data[..5], &[0, 3, 1, 0, 1]);
+    assert_eq!(&data[13..15], &[255, 5]);
+    assert_eq!(material::unpack(&data, &names).unwrap(), materials);
+
+    let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
+        .join(format!("editable-materials-{}", std::process::id()));
+    fs::create_dir_all(&dir).unwrap();
+    let paths: Vec<_> = materials
+        .iter()
+        .map(|(id, text)| {
+            let path = dir.join(format!("{}.material", names.name("texture", *id)));
+            fs::write(&path, text).unwrap();
+            path
+        })
+        .collect();
+    assert_eq!(material::pack_files(&paths, &names).unwrap(), data);
+    let stray = dir.join("material_0.material");
+    fs::write(&stray, text).unwrap();
+    assert!(material::pack_files(&[stray], &names).is_err());
+    let mut missing = materials.clone();
+    missing.insert(1, "highdetail=1\n".to_owned());
+    assert!(material::pack(&missing, &names).is_err());
+    fs::remove_dir_all(dir).unwrap();
 }
 
 #[test]

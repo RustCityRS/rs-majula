@@ -45,6 +45,8 @@ fn save() -> PlayerSave {
         inv_slots: vec![0, 27, 3],
         inv_objs: vec![995, 1351, 1277],
         inv_counts: vec![i32::MAX, 1, 1],
+        exit_x: 3221,
+        exit_z: 3218,
         ..Default::default()
     }
 }

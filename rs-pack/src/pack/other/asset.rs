@@ -98,7 +98,6 @@ pub fn extension(aid: u8) -> Option<&'static str> {
         archive::BASES => "base",
         archive::BINARY => "huffman",
         archive::FONTMETRICS => "fontmetrics",
-        archive::MATERIALS => "material",
         archive::DEFAULTS => "defaults",
         archive::SYNTH => "synth",
         archive::INSTRUMENTS => "instrument",
@@ -114,14 +113,7 @@ pub fn unpack(aid: u8, gid: u32, data: &[u8], names: &AssetNames) -> Result<Stri
     }
     let mut codec = TextCodec::unpack(data, names);
     transcode(aid, gid, &mut codec)?;
-    let text = codec.finish()?.0;
-    if aid == archive::MATERIALS {
-        let mut lines: Vec<_> = text.lines().collect();
-        lines[2..].sort_by_key(|line| line.rsplit_once('.').map(|(name, _)| name));
-        Ok(lines.join("\n") + "\n")
-    } else {
-        Ok(text)
-    }
+    Ok(codec.finish()?.0)
 }
 
 pub fn pack(aid: u8, gid: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
@@ -141,7 +133,6 @@ fn transcode(aid: u8, gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
             Ok(())
         }
         archive::FONTMETRICS => font(c),
-        archive::MATERIALS => material(c),
         archive::SYNTH => synth(c),
         archive::INSTRUMENTS => instrument::transcode(c),
         archive::LOADING_SCREENS => loading::transcode(gid, c),
@@ -182,42 +173,6 @@ fn font(c: &mut TextCodec<'_>) -> Result<()> {
     c.array("padding", Number::U8, 2)?;
     c.number("baseline_adjust", Number::U8)?;
     c.number("ascent_adjust", Number::U8)?;
-    Ok(())
-}
-
-fn material(c: &mut TextCodec<'_>) -> Result<()> {
-    let count = c.number("count", Number::U16)? as usize;
-    let present = c.array("present", Number::U8, count)?;
-    for (name, kind) in [
-        ("highdetail", Number::U8),
-        ("lowmem", Number::U8),
-        ("lowdetail", Number::U8),
-        ("brightness", Number::I8),
-        ("intensity", Number::I8),
-        ("effect", Number::I8),
-        ("effect_param", Number::I8),
-        ("averagecolour", Number::U16),
-        ("scroll_u", Number::I8),
-        ("scroll_v", Number::I8),
-        ("combinealpha", Number::U8),
-        ("flag95", Number::U8),
-        ("mipmapping", Number::I8),
-        ("repeat_s", Number::U8),
-        ("repeat_t", Number::U8),
-        ("hdr", Number::U8),
-        ("effect_param2", Number::U8),
-        ("effect_param3", Number::U32),
-        ("alphamode", Number::U8),
-    ] {
-        for (i, &flag) in present.iter().enumerate() {
-            if flag == 1 {
-                c.number(
-                    &format!("{}.{name}", c.names.name("texture", i as u32)),
-                    kind,
-                )?;
-            }
-        }
-    }
     Ok(())
 }
 

@@ -13,7 +13,7 @@ use rs_pack::cache::CacheStore;
 use rs_pack::cache::hunt::{HuntType, check_hunt_condition};
 use rs_pack::types::*;
 use rs_vm::engine::{ScriptEngine, ScriptNpc};
-use rs_vm::state::{ExecutionState, ScriptArgument};
+use rs_vm::state::ExecutionState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_zone::zone_map::ZoneMap;
@@ -510,37 +510,26 @@ impl Engine {
                     .and_then(|t| t.category)
                     .map(|c| c as i32);
 
-                let last_int = request.args.as_ref().and_then(|args| {
-                    args.iter().find_map(|a| match a {
-                        ScriptArgument::Int(v) => Some(*v),
-                        _ => None,
-                    })
-                });
-
-                let trigger = ServerTriggerType::try_from(request.script_id as u8);
-                if let Ok(trigger) = trigger {
-                    if let Some(script) =
-                        engine().script_by_key(trigger, Some(type_id as i32), category)
+                let last_int = request.last_int();
+                if let Some(script) = engine().queued_script(&request, type_id, category) {
+                    let mut state = engine_mut().build_state(
+                        script,
+                        Some(ScriptSubject::Npc(uid)),
+                        None,
+                        request.args,
+                    );
+                    state.last_int = last_int;
+                    #[cfg(since_647)]
                     {
-                        let mut state = engine_mut().build_state(
-                            script,
-                            Some(ScriptSubject::Npc(uid)),
-                            None,
-                            request.args,
-                        );
-                        state.last_int = last_int;
-                        #[cfg(since_647)]
-                        {
-                            state.queue_source = request.source;
-                        }
-                        if let Err(e) = engine_mut().run_script_by_state(
-                            state,
-                            Some(ScriptSubject::Npc(uid)),
-                            None,
-                            None,
-                        ) {
-                            error!("error running queue script for npc {}: {e}", uid.nid());
-                        }
+                        state.queue_source = request.source;
+                    }
+                    if let Err(e) = engine_mut().run_script_by_state(
+                        state,
+                        Some(ScriptSubject::Npc(uid)),
+                        None,
+                        None,
+                    ) {
+                        error!("error running queue script for npc {}: {e}", uid.nid());
                     }
                 }
 

@@ -4373,7 +4373,6 @@ impl EnginePlayer for ActivePlayer {
             ZoneMessage::LocAddChange(m) => self.write(m.clone()),
             ZoneMessage::LocDel(m) => self.write(m.clone()),
             ZoneMessage::LocAnim(m) => self.write(m.clone()),
-            #[cfg(before_647)]
             ZoneMessage::LocMerge(m) => self.write(m.clone()),
             #[cfg(since_647)]
             ZoneMessage::LocPrefetch(m) => self.write(m.clone()),
@@ -4504,6 +4503,15 @@ impl EnginePlayer for ActivePlayer {
                                     id: loc.id(),
                                 });
                             }
+                        }
+
+                        #[cfg(since_647)]
+                        for merge in zone.loc_merges() {
+                            if !wrote_follows {
+                                self.write(UpdateZonePartialFollows { x, z, y });
+                                wrote_follows = true;
+                            }
+                            self.write(merge.clone());
                         }
                     } else {
                         if let Some(bytes) = zone.shared_bytes() {
@@ -4726,10 +4734,18 @@ impl EnginePlayer for ActivePlayer {
     /// * Sets `player.pathing.coord` and `player.pathing.tele = true`.
     /// * Sets `player.jump = true` when changing levels.
     /// * Moves the player's zone presence and collision there now.
+    /// * Rev-647: going from the map into region space, keeps the tile it
+    ///   left as the player's way back.
     fn tele(&mut self, coord: CoordGrid) {
+        #[cfg(since_647)]
+        let from = self.player.pathing.coord;
         match self.player.pathing.teleport(coord) {
             None => self.message_game("Invalid teleport!"),
             Some((look_x, look_z)) => {
+                #[cfg(since_647)]
+                if coord.x() >= REGION_X && from.x() < REGION_X {
+                    self.player.region_entry = Some(from);
+                }
                 self.player.info.focus(
                     FocusKind::Player,
                     CoordGrid::fine(look_x, self.player.pathing.size),

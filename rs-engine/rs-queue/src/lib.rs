@@ -75,6 +75,7 @@ impl ScriptQueue {
             script_id,
             delay,
             args,
+            named: false,
             #[cfg(since_647)]
             source: None,
         };
@@ -94,6 +95,26 @@ impl ScriptQueue {
             }
         }
         Ok(())
+    }
+
+    /// Queues an npc's `[npc_queue]` script `script_id`, which runs by id
+    /// with `args` as its params rather than through an `[ai_queueN]` trigger.
+    pub fn add_named(
+        &mut self,
+        script_id: i32,
+        delay: u16,
+        args: Vec<ScriptArgument>,
+        #[cfg_attr(before_647, allow(unused_variables))] source: Option<u16>,
+    ) {
+        self.queue.add_tail(QueuedScript {
+            priority: QueuePriority::Normal,
+            script_id,
+            delay,
+            args: Some(args),
+            named: true,
+            #[cfg(since_647)]
+            source,
+        });
     }
 
     /// [`add`](Self::add), remembering the player whose script queued it
@@ -116,6 +137,7 @@ impl ScriptQueue {
                 delay
             },
             args,
+            named: false,
             source,
         };
         match priority {

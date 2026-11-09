@@ -1,7 +1,7 @@
 #[cfg(all(since_244, before_647))]
 use crate::archive;
 #[cfg(since_647)]
-use crate::archive::{CONFIG, CONFIG_EMPTY_TABLES};
+use crate::archive::{self, CONFIG, CONFIG_EMPTY_TABLES};
 #[cfg(before_647)]
 use crate::archive::{JagArchive, JagSource};
 #[cfg(since_647)]
@@ -847,14 +847,27 @@ fn unpack_assets(
         song::unpack_songs(&mut store, pack_dir, output_dir)
             .map(|n| format!("{n} songs and jingles"))
     });
-    for aid in [1, 4, 10, 13, 15, 23, 26, 28, 33] {
-        let format = crate::archive::archive_format(aid).unwrap();
+    for aid in [
+        archive::BASES,
+        archive::SYNTH,
+        archive::BINARY,
+        archive::FONTMETRICS,
+        archive::INSTRUMENTS,
+        archive::WORLDMAP,
+        archive::DEFAULTS,
+        archive::LOADING_SCREENS,
+    ] {
+        let format = archive::archive_format(aid).unwrap();
         step(results, format.content_dir, || {
             let mut store = Js5Store::open(cache_dir)?;
             asset::unpack_archive(&mut store, aid, pack_dir, output_dir)
                 .map(|n| format!("{n} groups"))
         });
     }
+    step(results, "materials", || {
+        let mut store = Js5Store::open(cache_dir)?;
+        asset::unpack_materials(&mut store, pack_dir, output_dir).map(|n| format!("{n} materials"))
+    });
     step(results, "shaders", || {
         let mut store = Js5Store::open(cache_dir)?;
         shaders::unpack_shaders(&mut store, output_dir, pack_dir).map(|n| format!("{n} groups"))

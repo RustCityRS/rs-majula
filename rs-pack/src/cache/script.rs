@@ -342,6 +342,12 @@ pub const MAP_LOC: u16 = 1023;
 pub const SOUND_AREA: u16 = 1024;
 #[cfg(since_647)]
 pub const INAREA: u16 = 1025;
+#[cfg(since_647)]
+pub const PROJANIM_HALFSQ: u16 = 1026;
+#[cfg(since_647)]
+pub const SOUND_VORBIS_AREA: u16 = 1027;
+#[cfg(since_647)]
+pub const TEXT_COORD: u16 = 1028;
 
 // ── Player ops (2000-2499) ──────────────────────────────────────────────────
 
@@ -498,31 +504,31 @@ pub const HINT_STOP_SLOT: u16 = 5020;
 #[cfg(since_647)]
 pub const REGION_FINDBYCOORD: u16 = 5200;
 #[cfg(since_647)]
-pub const CONTROLLER_COORD: u16 = 5201;
+pub const REGION_GETCOORD: u16 = 5201;
 #[cfg(since_647)]
-pub const CONTROLLER_DEL: u16 = 5202;
+pub const REGION_CREATE: u16 = 5202;
 #[cfg(since_647)]
-pub const CONTROLLER_QUEUE: u16 = 5203;
+pub const REGION_SET: u16 = 5203;
 #[cfg(since_647)]
-pub const CONTROLLER_FINDEXACT: u16 = 5204;
+pub const REGION_UID: u16 = 5204;
 #[cfg(since_647)]
-pub const REGION_GETCOORD: u16 = 5205;
+pub const REGION_FINDBYUID: u16 = 5205;
 #[cfg(since_647)]
-pub const REGION_CREATE: u16 = 5206;
+pub const REGION_SETEXITCOORD: u16 = 5206;
 #[cfg(since_647)]
-pub const REGION_DEL: u16 = 5207;
+pub const CONTROLLER_COORD: u16 = 5300;
 #[cfg(since_647)]
-pub const REGION_COPYZONE: u16 = 5208;
+pub const CONTROLLER_DEL: u16 = 5301;
 #[cfg(since_647)]
-pub const REGION_COPYAREA: u16 = 5209;
+pub const CONTROLLER_QUEUE: u16 = 5302;
 #[cfg(since_647)]
-pub const REGION_UID: u16 = 5210;
+pub const CONTROLLER_FINDEXACT: u16 = 5303;
 #[cfg(since_647)]
-pub const REGION_FINDUID: u16 = 5211;
+pub const CONTROLLER_ADD: u16 = 5304;
 #[cfg(since_647)]
-pub const CONTROLLER_ADD: u16 = 5212;
+pub const CONTROLLER_SETTIMER: u16 = 5305;
 #[cfg(since_647)]
-pub const CONTROLLER_SETTIMER: u16 = 5213;
+pub const CONTROLLER_QUEUEVARARG: u16 = 5306;
 pub const SOFTTIMER: u16 = 2103;
 pub const SOUND_SYNTH: u16 = 2104;
 pub const SPOTANIM_PL: u16 = 2105;
@@ -574,6 +580,8 @@ pub const MINIMAP_TOGGLE: u16 = 2150;
 pub const SET_SKILL_LEVEL: u16 = 2151;
 pub const P_TRANSMOGRIFY: u16 = 2152;
 pub const P_TEMPRUN: u16 = 2153;
+#[cfg(since_647)]
+pub const P_PROJANIM_HALFSQ: u16 = 2154;
 
 // ── Npc ops (2500-2999) ─────────────────────────────────────────────────────
 
@@ -627,6 +635,9 @@ pub const PROJANIM_NPC: u16 = 2546;
 pub const SPOTANIM_NPC: u16 = 2547;
 pub const NPC_DESTINATION: u16 = 2548;
 pub const NPC_HUNTNEXT: u16 = 2549; // TODO
+#[cfg(since_647)]
+pub const NPC_PROJANIM_HALFSQ: u16 = 2550;
+pub const NPC_QUEUEVARARG: u16 = 2551;
 
 // ── Loc ops (3000-3499) ─────────────────────────────────────────────────────
 
@@ -648,6 +659,8 @@ pub const LOC_TYPE: u16 = 3013;
 pub const LOC_PREFETCH: u16 = 3014;
 #[cfg(since_647)]
 pub const LOC_PREFETCHALL: u16 = 3015;
+#[cfg(since_647)]
+pub const LOC_MERGE: u16 = 3016;
 
 // ── Obj ops (3500-3999) ─────────────────────────────────────────────────────
 

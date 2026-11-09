@@ -20,6 +20,13 @@ pub(crate) fn queue_source(s: &ScriptState) -> Option<u16> {
     s.active_player.map(|p| p.pid())
 }
 
+/// The player a queue made now carries: the running script's own, or else
+/// the one the queue it runs from carried, so a hit queued twice stays theirs.
+#[cfg(since_647)]
+pub(crate) fn carried_source(s: &ScriptState) -> Option<u16> {
+    queue_source(s).or(s.queue_source)
+}
+
 /// The player who dealt a hit painted on `victim` (a pid), if a player did:
 /// the running script's own player, or else the one whose script queued it
 /// ([`queue_source`]), whichever is not the victim. 2011 paints the hit bright
@@ -65,6 +72,7 @@ fn enqueue(
 ///   `IF_SETPLAYERHEAD`, `IF_SETPOSITION`, `IF_SETRESUMEBUTTONS`, `IF_SETTAB`, `IF_SETTEXT`
 /// - **Movement:** `FACESQUARE`, `P_WALK`, `P_TELEJUMP`, `P_TELEPORT`, `P_EXACTMOVE`,
 ///   `P_RUN`, `P_TEMPRUN`, `P_ARRIVEDELAY`, `WALKTRIGGER`, `GETWALKTRIGGER`
+/// - **Projectiles (647):** `P_PROJANIM_HALFSQ`
 /// - **Combat / hero:** `DAMAGE`, `BOTH_HEROPOINTS`, `FINDHERO`, `HEADICONS_GET`,
 ///   `HEADICONS_SET`, `P_ANIMPROTECT`
 /// - **Queues / timers:** `QUEUE`, `QUEUEVARARG`, `SETTIMER`, `CLEARTIMER`, `GETTIMER`
@@ -1833,6 +1841,26 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2153
         protected_active_player_mut!(m, P_TEMPRUN => |_s, player| {
             player.temprun();
+        });
+
+        // 2154
+        #[cfg(since_647)]
+        active_player!(m, P_PROJANIM_HALFSQ => |s, player| {
+            let tail = pop_projanim_tail::<E>(s)?;
+            let wearpos = pop_wearpos(s)?;
+            let uid = s.pop_int();
+            let nid = (uid & 0xFFFF) as u16;
+            let Some(npc) = engine::<E>()
+                .get_npc(nid)
+                .filter(|npc| npc.uid().packed() as i32 == uid)
+            else {
+                return Ok(());
+            };
+            let to = halfsq(npc.coord(), npc.size());
+            let target = nid.wrapping_add(1) as i16;
+            let from = halfsq(player.coord(), 1);
+            let source = -(player.uid().pid() as i16) - 1;
+            tail.send::<E>(player.coord().y(), from, to, source, target, wearpos)?;
         });
     }
 }

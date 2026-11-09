@@ -9,7 +9,7 @@ use crate::iterators::LocIteratorState;
 use crate::ops::test;
 use crate::register::OpsRegistry;
 #[cfg(since_647)]
-use crate::state::ScriptState;
+use crate::state::{LocRef, ScriptState};
 #[cfg(since_647)]
 use crate::util::pop_loc;
 use crate::util::{pop_coord, pop_param, pop_seq, set_active_loc};
@@ -31,6 +31,7 @@ use rs_pack::types::{LocAngle, LocShape};
 /// - **Animation:** `LOC_ANIM`
 /// - **Search / iterators:** `LOC_FIND`, `LOC_FINDALLZONE`, `LOC_FINDNEXT`
 /// - **Model prefetch (647):** `LOC_PREFETCH`, `LOC_PREFETCHALL`
+/// - **Look (647):** `LOC_MERGE`
 ///
 /// # Call Stack
 ///
@@ -189,6 +190,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let coord = pop_coord(s)?;
             engine_mut::<E>().loc_prefetchall(coord, id, shape);
         });
+
+        // 3016
+        #[cfg(since_647)]
+        active_loc!(m, LOC_MERGE => |s, loc| {
+            let look = s.pop_int();
+            let loc = engine::<E>().live_loc(loc);
+            let [models, recol, retex] = merge_look::<E>(loc, look)?;
+            engine_mut::<E>().loc_merge(loc, models, recol, retex);
+        });
     }
 }
 
@@ -203,13 +213,75 @@ fn pop_prefetch<E: ScriptEngine + 'static>(s: &mut ScriptState) -> crate::Result
     let loc = pop_loc::<E>(s)?;
     let shape = LocShape::try_from_primitive(shape)
         .map_err(|_| ScriptError::Runtime(format!("Invalid loc shape: {}", shape)))?;
-    let shape = match shape {
-        LocShape::CentrepieceDiagonal => LocShape::CentrepieceStraight,
-        LocShape::WallDecorStraightOffset
-        | LocShape::WallDecorDiagonalOffset
-        | LocShape::WallDecorDiagonalNoOffset
-        | LocShape::WallDecorDiagonalBoth => LocShape::WallDecorStraightNoOffset,
-        shape => shape,
+    Ok((loc.id, shape.model_shape() as u8))
+}
+
+/// The lists `LOC_MERGE` sends to make `loc` look like loc type `look`: each
+/// of its models for `loc`'s shape, recolours and retextures that `look` has
+/// as many of, where they differ. `null` resets it.
+///
+/// The client sizes each list by `loc`'s type and merges only a loc it draws
+/// animated, so neither a loc it would draw static nor a multiloc, which it
+/// draws as another type, can be merged. Nor can one whose model sets differ,
+/// as the client picks one by a detail option, or one with no models for its
+/// shape, which the client fails to look up.
+#[cfg(since_647)]
+fn merge_look<E: ScriptEngine + 'static>(
+    loc: LocRef,
+    look: i32,
+) -> crate::Result<[Option<Box<[u16]>>; 3]> {
+    if look == -1 {
+        return Ok([None, None, None]);
+    }
+    let locs = engine::<E>().locs();
+    let base = locs
+        .get_by_id(loc.id)
+        .ok_or(ScriptError::LocNotFound(loc.id as i32))?;
+    let refuse = |why: &str| {
+        let name = base
+            .debugname()
+            .map_or_else(|| loc.id.to_string(), str::to_owned);
+        ScriptError::Runtime(format!("loc_merge: {name} {why}"))
     };
-    Ok((loc.id, shape as u8))
+    let have = base.look();
+    let shape = loc.shape.model_shape();
+    if base.multiloc.is_some() {
+        return Err(refuse("is a multiloc"));
+    }
+    if !have.animated {
+        return Err(refuse("isn't animated, so the client draws it static"));
+    }
+    if have.two_model_sets {
+        return Err(refuse("has two model sets"));
+    }
+    if have.shapes && have.models(shape).is_none() {
+        return Err(refuse(&format!("has no models for shape {}", shape as u8)));
+    }
+    let id = u16::try_from(look).map_err(|_| ScriptError::LocNotFound(look))?;
+    let want = locs
+        .get_by_id(id)
+        .ok_or(ScriptError::LocNotFound(look))?
+        .look();
+    let models = have
+        .models(shape)
+        .zip(want.models(shape).filter(|_| !want.two_model_sets));
+    let lists = [
+        models,
+        Some((have.recol, want.recol)),
+        Some((have.retex, want.retex)),
+    ]
+    .map(|pair| pair.filter(|(have, want)| !have.is_empty() && have.len() == want.len()));
+    if id != loc.id && lists.iter().all(Option::is_none) {
+        return Err(refuse(&format!(
+            "has no models, recolours or retextures as many as {look}'s"
+        )));
+    }
+    let merge = lists.map(|pair| {
+        pair.filter(|(have, want)| have != want)
+            .map(|(_, want)| Box::<[u16]>::from(want))
+    });
+    if merge.iter().flatten().map(|list| list.len()).sum::<usize>() > 125 {
+        return Err(refuse(&format!("takes over 125 values from {look}")));
+    }
+    Ok(merge)
 }

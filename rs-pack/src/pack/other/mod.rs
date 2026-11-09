@@ -8,6 +8,8 @@ pub mod map;
 #[cfg(since_647)]
 pub mod map_references;
 #[cfg(since_647)]
+pub mod material;
+#[cfg(since_647)]
 pub mod shader;
 #[cfg(since_647)]
 mod shader_constants;

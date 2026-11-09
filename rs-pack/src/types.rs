@@ -204,6 +204,19 @@ impl LocShape {
         }
     }
 
+    /// The shape the 647 client files this shape's models under.
+    #[cfg(since_647)]
+    pub const fn model_shape(self) -> Self {
+        match self {
+            Self::CentrepieceDiagonal => Self::CentrepieceStraight,
+            Self::WallDecorStraightOffset
+            | Self::WallDecorDiagonalOffset
+            | Self::WallDecorDiagonalNoOffset
+            | Self::WallDecorDiagonalBoth => Self::WallDecorStraightNoOffset,
+            shape => shape,
+        }
+    }
+
     pub const fn is_roof(self) -> bool {
         matches!(
             self,

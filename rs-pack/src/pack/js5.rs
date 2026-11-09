@@ -3,7 +3,7 @@ use crate::cache::js5::PackedCache;
 use crate::pack::incremental::{self, Hash, Key, Registry, Stage, dir_key, files_under};
 use crate::pack::model::source as model_source;
 use crate::pack::names::{AssetNames, archive_name};
-use crate::pack::other::{asset, wma};
+use crate::pack::other::{asset, material, wma};
 use crate::pack::pack::collect_config_files;
 use crate::pack::pack_dir::PrivatePack;
 use crate::pack::pack_registry::PackFile;
@@ -354,6 +354,29 @@ pub fn pack_asset_archives(
                     versions,
                     prepared,
                     "from clientscript sources",
+                )?;
+                return Ok(cache);
+            }
+
+            // Every material is in the archive's one file.
+            if aid == archive::MATERIALS {
+                let stage =
+                    Stage::new(&format!("archive {aid}"), vec![versions_dep(versions, aid)]);
+                let sources = files_under(slice::from_ref(&dir));
+                let prepared = stage.unit_groups(names, 0, &sources, |names| {
+                    let data = material::pack_files(&sources, names)?;
+                    let mut group = PreparedGroup::new(aid, 0, &data, versions)?;
+                    group.set_files([0]);
+                    Ok(vec![group])
+                })?;
+                stage.finish(Vec::new());
+                insert_archive(
+                    &mut cache,
+                    aid,
+                    format,
+                    versions,
+                    prepared,
+                    "from material sources",
                 )?;
                 return Ok(cache);
             }

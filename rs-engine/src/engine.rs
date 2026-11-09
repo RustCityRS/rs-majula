@@ -5,16 +5,16 @@ use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap}
 use crate::clients::client_game::ClientHandle;
 #[cfg(since_647)]
 use crate::console::home_for;
-#[cfg(since_647)]
-use crate::controller::Controllers;
 use crate::controls::{Controls, DISABLED_MESSAGE};
 use crate::counters::{self, COUNTERS};
 use crate::game_map::{GameMap, apply_loc_collision};
 use crate::info::{NpcInfo, NpcSnapshot, PlayerInfo, PlayerSnapshots};
+#[cfg(since_647)]
+use crate::phases::controller::Controllers;
 use crate::phases::shared::panic_message;
 use crate::player_save::*;
 #[cfg(since_647)]
-use crate::region::{REGION_X, Regions};
+use crate::region::{REGION_X, Regions, place_returning};
 use crate::script_errors::{Context, ScriptErrors, Subject};
 use crate::watch::schedule::{self, End, Played, Schedule};
 use crate::watch::{ReplayRequest, Target, Watch};
@@ -70,16 +70,26 @@ use rs_protocol::login::{game_login_reply, reconnect_reply};
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 #[cfg(since_647)]
+use rs_protocol::network::game::server::loc_merge::LocMerge;
+#[cfg(since_647)]
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
 use rs_protocol::network::game::server::obj_count::ObjCount;
 #[cfg(since_289)]
 use rs_protocol::network::game::server::sound_area::SoundArea;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::sound_vorbis_area::SoundVorbisArea;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::text_coord::TextCoord;
 use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
 use rs_util::base37::to_raw_username;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
 #[cfg(since_647)]
 use rs_vm::ControllerUid;
+#[cfg(since_647)]
+use rs_vm::engine::ProjAnimHalfsq;
 pub use rs_vm::engine::with_engine;
 use rs_vm::engine::{
     ScriptEngine, ScriptFault, ScriptNpc, ScriptPlayer, engine_typed, engine_typed_mut,
@@ -861,15 +871,7 @@ impl Engine {
             zones_tracking: FxHashSet::default(),
             pending_zone_events: BTreeMap::new(),
             #[cfg(since_647)]
-            regions: Regions::new(
-                cache
-                    .locs
-                    .types
-                    .iter()
-                    .map(|loc| loc.width.max(loc.length))
-                    .max()
-                    .unwrap_or(1),
-            ),
+            regions: Regions::default(),
             #[cfg(since_647)]
             controllers: Controllers::default(),
             #[cfg(since_647)]
@@ -987,6 +989,8 @@ impl Engine {
             let _ = phase!("fence", engine.fence());
             let input = phase!("in", engine.inputs());
             let npcs = phase!("npcs", engine.npcs());
+            #[cfg(since_647)]
+            let _ = phase!("controllers", engine.process_controllers());
             let _ = phase!("fence", engine.fence());
             let players = phase!("players", engine.players());
             let logouts = phase!("logouts", engine.logouts());
@@ -1250,6 +1254,22 @@ impl Engine {
     /// bound. Resolving the script here lets callers skip a redundant
     /// `get_by_lookup` probe -- the helper would otherwise probe the map up to
     /// twice just to choose a key the caller then re-probed a third time.
+    /// The script a queue entry runs: its `[npc_queue]` or
+    /// `[controller_queue]` script, or else the subject type's script for
+    /// the trigger it holds.
+    pub(crate) fn queued_script(
+        &self,
+        request: &QueuedScript,
+        type_id: u16,
+        category: Option<i32>,
+    ) -> Option<Arc<Script>> {
+        if request.named {
+            return self.scripts.get_by_id(request.script_id).cloned();
+        }
+        let trigger = ServerTriggerType::try_from(request.script_id as u8).ok()?;
+        self.script_by_key(trigger, Some(type_id as i32), category)
+    }
+
     pub fn script_by_key(
         &self,
         trigger: ServerTriggerType,
@@ -2902,15 +2922,14 @@ impl Engine {
     /// # Call Stack
     ///
     /// **Called by:** `logouts`, `emergency_remove_player`.
-    /// The profile `active` saves: at its region's exit while it stands in
-    /// one, as no region outlives the world.
+    /// The profile `active` saves: where it stands and, in region space, the
+    /// exit it logs back in at, as no region outlives the world.
     pub(crate) fn profile_of(&self, active: &ActivePlayer) -> PlayerProfile {
         #[cfg_attr(before_647, allow(unused_mut))]
         let mut profile = extract_profile(&active.player, self.cache);
         #[cfg(since_647)]
         {
-            let coord = self.saved_coord(active.player.pathing.coord);
-            (profile.x, profile.y, profile.z) = (coord.x(), coord.y(), coord.z());
+            profile.exit = self.saved_exit(active.player.pathing.coord, active.player.region_entry);
         }
         profile
     }
@@ -3586,14 +3605,11 @@ impl Engine {
             return;
         }
 
+        // A player saved in region space comes back at the exit it saved,
+        // before any packet goes to it.
         #[cfg(since_647)]
-        if let Some(Some(profile)) = &self.pending_logins[idx].profile
-            && profile.x >= REGION_X
-        {
-            let coord = self.login_coord(CoordGrid::new(profile.x, profile.y, profile.z));
-            if let Some(Some(profile)) = self.pending_logins[idx].profile.as_mut() {
-                (profile.x, profile.y, profile.z) = (coord.x(), coord.y(), coord.z());
-            }
+        if let Some(Some(profile)) = self.pending_logins[idx].profile.as_mut() {
+            place_returning(profile);
         }
 
         // A free world cannot place a player saved inside a members area.
@@ -4158,7 +4174,9 @@ impl ScriptEngine for Engine {
     /// * `coord` - The packed coordinate where the NPC should appear.
     /// * `id` - The NPC type identifier.
     /// * `duration` - Ticks until the NPC despawns and fires `ai_despawn`. Like
-    ///   the reference engine's `setLifeCycle`, anything below 1 counts as 1.
+    ///   the reference engine's `setLifeCycle`, anything below 1 counts as 1,
+    ///   except that rev 647 keeps an npc added in region space with 0 until
+    ///   its region is freed, as Jagex's KBD instance adds its dragon.
     ///
     /// # Returns
     ///
@@ -4199,6 +4217,10 @@ impl ScriptEngine for Engine {
         let mut active = ActiveNpc::new(id, 0, coord, npc_type.size, vars, self.cache);
         active.npc.lifecycle = EntityLifeTime::Despawn;
         active.npc.lifecycle_at = Some(duration.max(1) as u32);
+        #[cfg(since_647)]
+        if duration == 0 && coord.x() >= REGION_X {
+            active.npc.lifecycle_at = None;
+        }
         Ok(self.add_npc(active))
     }
 
@@ -4611,6 +4633,43 @@ impl ScriptEngine for Engine {
         self.track_zone(x, y, z);
     }
 
+    /// Merges a look into the loc `loc` names, if it is still shown. The
+    /// client looks the lists' lengths up by the loc's type and the shape its
+    /// models are filed under.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Zone::loc_index`, `Zone::merge_loc`, `Engine::track_zone`
+    #[cfg(since_647)]
+    fn loc_merge(
+        &mut self,
+        loc: LocRef,
+        models: Option<Box<[u16]>>,
+        recol: Option<Box<[u16]>>,
+        retex: Option<Box<[u16]>>,
+    ) {
+        let (x, y, z) = (loc.coord.x(), loc.coord.y(), loc.coord.z());
+        let zone = self.zones.zone_mut(x, y, z);
+        let Some(idx) = zone.loc_index(x, z, loc.layer, loc.serial) else {
+            return;
+        };
+        let live = zone.locs[idx];
+        if !live.visible() {
+            return;
+        }
+        let merge = LocMerge {
+            coord: live.packed_zone_coord(),
+            id: live.id(),
+            shape_angle: (live.shape().model_shape() as u8) << 2 | live.angle() as u8,
+            models,
+            recol,
+            retex,
+        };
+        zone.merge_loc(idx, merge);
+        self.track_zone(x, y, z);
+    }
+
     /// Creates a projectile animation between two map positions.
     ///
     /// Computes relative deltas from source to destination and queues a
@@ -4710,6 +4769,79 @@ impl ScriptEngine for Engine {
                 #[cfg(since_647)]
                 speed: 256,
             }));
+        self.track_zone(x, y, z);
+    }
+
+    /// Plays a vorbis sample anchored to a tile, as `sound_area` plays a synth.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Zone::sound_area`, `Engine::track_zone`
+    #[cfg(since_647)]
+    fn sound_vorbis_area(&mut self, coord: CoordGrid, sound: u16, range: u8, loops: u8, delay: u8) {
+        let (x, y, z) = (coord.x(), coord.y(), coord.z());
+        let message = ZoneMessage::SoundVorbisArea(SoundVorbisArea {
+            coord: CoordGrid::packed_zone_coord(x, z),
+            sound,
+            info: ((range & 0xF) << 4) | (loops & 0x7),
+            delay,
+            volume: 255,
+            speed: 256,
+        });
+        self.zones.zone_mut(x, y, z).sound_area(message);
+        self.track_zone(x, y, z);
+    }
+
+    /// Shows text above a tile to every player observing its zone.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Zone::queue_event`, `Engine::track_zone`
+    #[cfg(since_647)]
+    fn text_coord(&mut self, coord: CoordGrid, text: &str, colour: i32, height: u8, duration: u16) {
+        let (x, y, z) = (coord.x(), coord.y(), coord.z());
+        let message = ZoneMessage::TextCoord(TextCoord {
+            coord: CoordGrid::packed_zone_coord(x, z),
+            duration,
+            height,
+            colour,
+            text: text.to_owned(),
+        });
+        self.zones
+            .zone_mut(x, y, z)
+            .queue_event(None, ZoneEventType::Enclosed, None, message);
+        self.track_zone(x, y, z);
+    }
+
+    /// Queues a half-square projectile in the zone holding its start, whose
+    /// 16 by 16 half squares the coord byte indexes.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Zone::map_proj_anim`, `Engine::track_zone`
+    #[cfg(since_647)]
+    fn map_proj_anim_halfsq(&mut self, projectile: ProjAnimHalfsq) {
+        let (x, y, z) = (projectile.x >> 1, projectile.level, projectile.z >> 1);
+        let message = ZoneMessage::MapProjAnimHalfsq(MapProjAnimHalfsq {
+            coord: ((projectile.x & 0xF) << 4 | projectile.z & 0xF) as u8,
+            ground: false,
+            wearpos: projectile.wearpos,
+            dx: projectile.dx,
+            dz: projectile.dz,
+            source: projectile.source,
+            target: projectile.target,
+            spotanim: projectile.spotanim,
+            src_height: projectile.src_height,
+            dst_height: projectile.dst_height,
+            start_delay: projectile.start,
+            end_delay: projectile.end,
+            peak: projectile.peak,
+            arc: projectile.arc,
+        });
+        self.zones.zone_mut(x, y, z).map_proj_anim(message);
         self.track_zone(x, y, z);
     }
 
@@ -4921,31 +5053,31 @@ impl ScriptEngine for Engine {
     }
 
     #[cfg(since_647)]
-    fn region_coord(&self, uid: u32, x: i32, y: i32, z: i32) -> rs_vm::Result<CoordGrid> {
-        Engine::region_coord(self, uid, x, y, z)
+    fn region_coord(&self, uid: u32, level: i32, x: i32, z: i32) -> rs_vm::Result<CoordGrid> {
+        Engine::region_coord(self, uid, level, x, z)
     }
 
     #[cfg(since_647)]
-    fn region_create(&mut self, size: i32) -> rs_vm::Result<Option<u32>> {
-        Engine::region_create(self, size)
+    fn region_create(&mut self, levels: i32, east: i32, north: i32) -> rs_vm::Result<u32> {
+        Engine::region_create(self, levels, east, north)
     }
 
     #[cfg(since_647)]
-    fn region_del(&mut self, uid: u32) -> rs_vm::Result<()> {
-        Engine::region_del(self, uid);
-        Ok(())
-    }
-
-    #[cfg(since_647)]
-    fn region_copy(
+    fn region_set(
         &mut self,
         uid: u32,
-        from_sw: CoordGrid,
-        from_ne: CoordGrid,
-        to_sw: CoordGrid,
+        level: i32,
+        east: i32,
+        north: i32,
+        source: CoordGrid,
         rotation: i32,
     ) -> rs_vm::Result<()> {
-        Engine::region_copy(self, uid, from_sw, from_ne, to_sw, rotation)
+        Engine::region_set(self, uid, level, east, north, source, rotation)
+    }
+
+    #[cfg(since_647)]
+    fn region_set_exit(&mut self, uid: u32, exit: CoordGrid) -> rs_vm::Result<()> {
+        Engine::region_set_exit(self, uid, exit)
     }
 
     #[cfg(since_647)]
@@ -4979,8 +5111,26 @@ impl ScriptEngine for Engine {
     }
 
     #[cfg(since_647)]
-    fn controller_queue(&mut self, uid: ControllerUid, arg: i32, delay: i32) -> rs_vm::Result<()> {
-        Engine::controller_queue(self, uid, arg, delay)
+    fn controller_queue(
+        &mut self,
+        uid: ControllerUid,
+        arg: i32,
+        delay: u16,
+        source: Option<u16>,
+    ) -> rs_vm::Result<()> {
+        Engine::controller_queue(self, uid, arg, delay, source)
+    }
+
+    #[cfg(since_647)]
+    fn controller_queue_script(
+        &mut self,
+        uid: ControllerUid,
+        script: i32,
+        args: Vec<ScriptArgument>,
+        delay: u16,
+        source: Option<u16>,
+    ) -> rs_vm::Result<()> {
+        Engine::controller_queue_script(self, uid, script, args, delay, source)
     }
 
     #[cfg(since_647)]
@@ -7494,6 +7644,19 @@ impl ScriptNpc for ActiveNpc {
             .state
             .queues
             .add_from(QueuePriority::Normal, script_id, delay, args, source)
+    }
+
+    fn queue_named(
+        &mut self,
+        script_id: i32,
+        delay: u16,
+        args: Vec<ScriptArgument>,
+        source: Option<u16>,
+    ) {
+        self.npc
+            .state
+            .queues
+            .add_named(script_id, delay, args, source);
     }
 
     #[cfg(since_647)]

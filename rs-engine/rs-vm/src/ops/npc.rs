@@ -1,7 +1,9 @@
+#[cfg(since_647)]
+use crate::engine::ScriptPlayer;
 use crate::engine::{ScriptEngine, ScriptNpc, engine, engine_mut};
 use crate::iterators::NpcIteratorState;
 #[cfg(since_647)]
-use crate::ops::player::queue_source;
+use crate::ops::player::{carried_source, queue_source};
 #[cfg(since_647)]
 use crate::ops::test;
 use crate::register::OpsRegistry;
@@ -29,7 +31,8 @@ use rs_util::bits::getbit_range;
 /// - **Identity / state:** `NPC_UID`, `NPC_TYPE`, `NPC_NAME`, `NPC_CATEGORY`,
 ///   `NPC_COORD`, `NPC_STAT`, `NPC_HASOP`, `NPC_GETMODE`, `NPC_RANGE`
 /// - **Movement:** `NPC_WALK`, `NPC_TELE`, `NPC_FACESQUARE`, `NPC_ARRIVEDELAY`
-/// - **Combat:** `NPC_ANIM`, `NPC_DAMAGE`, `NPC_HEROPOINTS`, `NPC_SAY`, `PROJANIM_NPC`
+/// - **Combat:** `NPC_ANIM`, `NPC_DAMAGE`, `NPC_HEROPOINTS`, `NPC_SAY`, `PROJANIM_NPC`,
+///   `NPC_PROJANIM_HALFSQ` (647)
 /// - **AI / behavior:** `NPC_SETMODE`, `NPC_SETHUNT`, `NPC_SETHUNTMODE`,
 ///   `NPC_SETTIMER`, `NPC_QUEUE`
 /// - **Searching / iterators:** `NPC_FIND`, `NPC_FINDALLANY`, `NPC_FINDNEXT`,
@@ -477,7 +480,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 trigger,
                 delay,
                 Some(vec![ScriptArgument::Int(arg)]),
-                queue_source(s),
+                carried_source(s),
             )?;
         });
 
@@ -723,6 +726,37 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             } else {
                 s.push_int(0);
             }
+        });
+
+        // 2550
+        #[cfg(since_647)]
+        active_npc!(m, NPC_PROJANIM_HALFSQ => |s, npc| {
+            let tail = pop_projanim_tail::<E>(s)?;
+            let wearpos = pop_wearpos(s)?;
+            let uid = s.pop_int();
+            let Some(player) = engine::<E>()
+                .get_player((uid & 0x7FF) as u16)
+                .filter(|player| player.uid().packed() as i32 == uid)
+            else {
+                return Ok(());
+            };
+            let to = halfsq(player.coord(), 1);
+            let target = -(player.uid().pid() as i16) - 1;
+            let from = halfsq(npc.coord(), npc.size());
+            let source = npc.uid().nid().wrapping_add(1) as i16;
+            tail.send::<E>(npc.coord().y(), from, to, source, target, wearpos)?;
+        });
+
+        // 2551
+        active_npc_mut!(m, NPC_QUEUEVARARG => |s, npc| {
+            let args = s.pop_script_args();
+            let delay = s.pop_int_as::<u16>()?;
+            let script = pop_script::<E>(s)?.id;
+            #[cfg(since_647)]
+            let source = carried_source(s);
+            #[cfg(before_647)]
+            let source = None;
+            npc.queue_named(script, delay, args, source);
         });
     }
 }

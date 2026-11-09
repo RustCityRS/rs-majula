@@ -13,7 +13,7 @@ use rustc_hash::FxHashMap;
 
 pub type LocTypeProvider = TypeProvider<LocType>;
 
-#[cfg_attr(since_647, derive(Debug, Clone))]
+#[cfg_attr(since_647, derive(Debug, Clone, PartialEq))]
 pub struct LocModelShape {
     #[cfg(before_647)]
     pub model: u16,
@@ -38,11 +38,60 @@ pub struct LocType {
     pub multiloc: Option<Box<[i32]>>,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
+    #[cfg(since_647)]
+    look: Option<Box<[u16]>>,
+}
+
+/// What a 647 LocMerge copies from a loc type or checks on the loc it merges.
+/// The client only merges a loc it builds `animated`, looks every merge's
+/// shape up in the model list when it has `shapes`, and picks one of
+/// `two_model_sets` by a detail option the server never sees.
+#[cfg(since_647)]
+#[derive(Default)]
+pub struct LocLook<'a> {
+    pub animated: bool,
+    pub shapes: bool,
+    pub two_model_sets: bool,
+    models: &'a [u16],
+    pub recol: &'a [u16],
+    pub retex: &'a [u16],
+}
+
+#[cfg(since_647)]
+impl<'a> LocLook<'a> {
+    pub fn models(&self, shape: LocShape) -> Option<&'a [u16]> {
+        let mut rest = self.models;
+        while let [group_shape, count, tail @ ..] = rest {
+            let (models, next) = tail.split_at(*count as usize);
+            if *group_shape == shape as u16 {
+                return Some(models);
+            }
+            rest = next;
+        }
+        None
+    }
 }
 
 impl LocType {
     pub fn debugname(&self) -> Option<&str> {
         self.debugname.as_deref()
+    }
+
+    #[cfg(since_647)]
+    pub fn look(&self) -> LocLook<'_> {
+        let Some(&[flags, models, recols, ref rest @ ..]) = self.look.as_deref() else {
+            return LocLook::default();
+        };
+        let (models, rest) = rest.split_at(models as usize);
+        let (recol, retex) = rest.split_at(recols as usize);
+        LocLook {
+            animated: flags & 1 != 0,
+            shapes: flags & 4 != 0,
+            two_model_sets: flags & 2 != 0,
+            models,
+            recol,
+            retex,
+        }
     }
 
     #[cfg(since_289)]
@@ -60,8 +109,40 @@ impl LocType {
     }
 }
 
+/// Packs [`LocLook`] as `[flags, models len, recols, (shape, count,
+/// models..).., recol_d.., retex_d..]`.
+#[cfg(since_647)]
+fn pack_look(raw: &LocTypeRaw) -> Option<Box<[u16]>> {
+    let animated =
+        raw.anim.is_some() || raw.random_anim_ids.is_some() || raw.unknown_98 || raw.unknown_177;
+    let two_model_sets = raw.hd_models.is_some() && raw.hd_models != raw.models;
+    let flags = animated as u16 | (two_model_sets as u16) << 1 | (raw.models.is_some() as u16) << 2;
+    let models: Vec<u16> = raw
+        .models
+        .iter()
+        .flatten()
+        .flat_map(|group| {
+            [group.shape as u16, group.models.len() as u16]
+                .into_iter()
+                .chain(group.models.iter().copied())
+        })
+        .collect();
+    let recol = raw.recol_d.as_deref().unwrap_or_default();
+    let retex = raw.retex_d.as_deref().unwrap_or_default();
+    if flags == 0 && recol.is_empty() && retex.is_empty() {
+        return None;
+    }
+    let mut look = vec![flags, models.len() as u16, recol.len() as u16];
+    look.extend(models);
+    look.extend_from_slice(recol);
+    look.extend_from_slice(retex);
+    Some(look.into_boxed_slice())
+}
+
 impl From<LocTypeRaw> for LocType {
     fn from(raw: LocTypeRaw) -> Self {
+        #[cfg(since_647)]
+        let look = pack_look(&raw);
         let op = raw.op;
         #[cfg(since_647)]
         let op = {
@@ -104,6 +185,8 @@ impl From<LocTypeRaw> for LocType {
             multiloc: None,
             params: raw.params,
             debugname: raw.debugname,
+            #[cfg(since_647)]
+            look,
         }
     }
 }

@@ -12,10 +12,12 @@
 //! flushes back.
 
 use crate::active_player::{ActivePlayer, EnginePlayer};
+use crate::clients::client_db::{profile_from_save, to_save};
 use crate::clients::client_game::create_io;
-use crate::controller::Controllers;
 use crate::engine::{Engine, LoginRequest, engine_mut};
-use crate::player_save::PlayerProfile;
+use crate::phases::controller::Controllers;
+use crate::player_save::{PlayerProfile, load_binary, save_binary};
+use crate::region::{login_coord, place_returning};
 use rs_crypto::isaac::{Isaac, IsaacPair};
 use rs_db::LoginDevice;
 use rs_entity::build::STAT_COUNT;
@@ -233,11 +235,34 @@ impl Engine {
         x: u16,
         z: u16,
     ) -> Option<HarnessClient> {
+        let profile = self.returning_profile(CoordGrid::new(x, 0, z), None)?;
+        self.harness_login_with(username, Some(profile))
+    }
+
+    /// A returning player whose save holds `coord` and `exit`, as one saved
+    /// inside a region does.
+    pub fn harness_login_saved_at(
+        &mut self,
+        username: &str,
+        coord: CoordGrid,
+        exit: Option<CoordGrid>,
+    ) -> Option<HarnessClient> {
+        let profile = self.returning_profile(coord, exit)?;
+        self.harness_login_with(username, Some(profile))
+    }
+
+    /// A save at `coord` with `exit`, of a player past the tutorial with
+    /// default appearance and empty inventories.
+    fn returning_profile(
+        &self,
+        coord: CoordGrid,
+        exit: Option<CoordGrid>,
+    ) -> Option<PlayerProfile> {
         let tutorial_done = *self.cache.varps.debugnames.get("learning_the_ropes")?;
-        let profile = PlayerProfile {
-            x,
-            z,
-            y: 0,
+        Some(PlayerProfile {
+            x: coord.x(),
+            z: coord.z(),
+            y: coord.y(),
             body: [0, 10, 18, 26, 33, 36, 42],
             colors: [0; 5],
             gender: 0,
@@ -254,16 +279,20 @@ impl Engine {
             private_chat: 0,
             trade_chat: 0,
             last_date: 0,
+            exit,
             display_name: None,
-        };
-        self.harness_login_with(username, Some(profile))
+        })
     }
 
     fn harness_login_with(
         &mut self,
         username: &str,
-        profile: Option<PlayerProfile>,
+        mut profile: Option<PlayerProfile>,
     ) -> Option<HarnessClient> {
+        // Placed as a login from the database is, before anything is sent.
+        if let Some(profile) = profile.as_mut() {
+            place_returning(profile);
+        }
         let pid = self.player_list.next_pid()?;
         let mut io = create_io(IsaacPair::new(&SEED, &SEED));
         let request = LoginRequest {
@@ -418,7 +447,7 @@ impl Engine {
             }
         }
         for uid in self.regions.uids() {
-            self.region_del(uid);
+            self.free_region(uid);
         }
         self.drop_region_zones();
         self.controllers = Controllers::default();
@@ -436,30 +465,42 @@ impl Engine {
     }
 
     /// Takes a region as `region_create` does.
-    pub fn harness_region_create(&mut self, size: i32) -> Option<u32> {
-        self.region_create(size).ok().flatten()
+    pub fn harness_region_create(&mut self, levels: i32, east: i32, north: i32) -> Option<u32> {
+        self.region_create(levels, east, north).ok()
     }
 
-    /// Copies zones onto region `uid` as `region_copyarea` does.
-    pub fn harness_region_copy(
+    /// Copies a zone onto region `uid` as `region_set` does.
+    pub fn harness_region_set(
         &mut self,
         uid: u32,
-        from_sw: CoordGrid,
-        from_ne: CoordGrid,
-        to_sw: CoordGrid,
+        level: i32,
+        east: i32,
+        north: i32,
+        source: CoordGrid,
         rotation: i32,
     ) -> Result<(), ScriptError> {
-        self.region_copy(uid, from_sw, from_ne, to_sw, rotation)
+        self.region_set(uid, level, east, north, source, rotation)
     }
 
-    /// The coord `x`, `y`, `z` from region `uid`'s south-west corner.
-    pub fn harness_region_coord(&self, uid: u32, x: i32, y: i32, z: i32) -> Option<CoordGrid> {
-        self.region_coord(uid, x, y, z).ok()
+    /// Sets region `uid`'s exit as `region_setexitcoord` does.
+    pub fn harness_region_set_exit(
+        &mut self,
+        uid: u32,
+        exit: CoordGrid,
+    ) -> Result<(), ScriptError> {
+        self.region_set_exit(uid, exit)
     }
 
-    /// Deletes region `uid` as `region_del` does.
-    pub fn harness_region_del(&mut self, uid: u32) {
-        self.region_del(uid);
+    /// The coord `x`, `z` tiles from region `uid`'s south-west corner on
+    /// `level`.
+    pub fn harness_region_coord(&self, uid: u32, level: i32, x: i32, z: i32) -> Option<CoordGrid> {
+        self.region_coord(uid, level, x, z).ok()
+    }
+
+    /// Frees region `uid` now, as the engine does once nobody has been in it
+    /// for a while.
+    pub fn harness_region_free(&mut self, uid: u32) {
+        self.free_region(uid);
     }
 
     /// Spawns controller `id` at `coord` as `controller_add` does.
@@ -467,10 +508,24 @@ impl Engine {
         self.controller_add(coord, id, 0).is_ok()
     }
 
-    /// What player `pid` would save now, and where that save logs in.
-    pub fn harness_saved_coord(&self, pid: u16) -> Option<(CoordGrid, CoordGrid)> {
-        let saved = self.saved_coord(self.get_player(pid)?.player.pathing.coord);
-        Some((saved, self.login_coord(saved)))
+    /// What player `pid` would save now, read back from its `player_saves`
+    /// row: the tile, the exit, and where a login puts that save.
+    pub fn harness_saved_coord(
+        &self,
+        pid: u16,
+    ) -> Option<(CoordGrid, Option<CoordGrid>, CoordGrid)> {
+        let profile = profile_from_save(to_save(&self.profile_of(self.get_player(pid)?)));
+        let saved = CoordGrid::new(profile.x, profile.y, profile.z);
+        Some((saved, profile.exit, login_coord(saved, profile.exit)))
+    }
+
+    /// Player `pid`'s saved exit, read back from its `player_saves` row and
+    /// from its `.sav` file.
+    pub fn harness_saved_exits(&self, pid: u16) -> Option<(Option<CoordGrid>, Option<CoordGrid>)> {
+        let profile = self.profile_of(self.get_player(pid)?);
+        let row = profile_from_save(to_save(&profile)).exit;
+        let file = load_binary(&save_binary(&profile, self.cache)).ok()?.exit;
+        Some((row, file))
     }
 }
 

@@ -492,6 +492,18 @@ pub trait ScriptEngine {
     #[cfg(since_647)]
     fn loc_prefetchall(&mut self, coord: CoordGrid, id: u16, shape: u8);
 
+    /// Merges a look into `loc` for everyone observing its zone: `models`
+    /// replace its models for its shape, `recol` and `retex` its recolour and
+    /// retexture destinations. With none of them it resets the loc.
+    #[cfg(since_647)]
+    fn loc_merge(
+        &mut self,
+        loc: LocRef,
+        models: Option<Box<[u16]>>,
+        recol: Option<Box<[u16]>>,
+        retex: Option<Box<[u16]>>,
+    );
+
     /// Creates a projectile animation between two map positions.
     ///
     /// # Arguments
@@ -552,6 +564,19 @@ pub trait ScriptEngine {
     ///   low bits of the wire info byte.
     #[cfg(since_289)]
     fn sound_area(&mut self, y: u8, x: u16, z: u16, sound: u16, range: u8, loops: u8, delay: u8);
+
+    /// Plays vorbis sample `sound` at `coord`, as [`sound_area`](Self::sound_area) plays a synth.
+    #[cfg(since_647)]
+    fn sound_vorbis_area(&mut self, coord: CoordGrid, sound: u16, range: u8, loops: u8, delay: u8);
+
+    /// Shows `text` in RGB `colour` above `coord`, `height` up, for
+    /// `duration` client cycles to everyone observing its zone.
+    #[cfg(since_647)]
+    fn text_coord(&mut self, coord: CoordGrid, text: &str, colour: i32, height: u8, duration: u16);
+
+    /// Casts a projectile at half-square precision.
+    #[cfg(since_647)]
+    fn map_proj_anim_halfsq(&mut self, projectile: ProjAnimHalfsq);
 
     /// Checks whether adding a location at the given coordinate is unsafe.
     ///
@@ -642,29 +667,33 @@ pub trait ScriptEngine {
     #[cfg(since_647)]
     fn region_exists(&self, uid: u32) -> bool;
 
-    /// The coord `x`, `y`, `z` from region `uid`'s south-west corner.
+    /// The coord `x`, `z` tiles from region `uid`'s south-west corner on
+    /// `level`.
     #[cfg(since_647)]
-    fn region_coord(&self, uid: u32, x: i32, y: i32, z: i32) -> crate::Result<CoordGrid>;
+    fn region_coord(&self, uid: u32, level: i32, x: i32, z: i32) -> crate::Result<CoordGrid>;
 
-    /// Takes a free region of `size`.
+    /// Takes a free region of `levels` levels and `east` x `north` zones.
     #[cfg(since_647)]
-    fn region_create(&mut self, size: i32) -> crate::Result<Option<u32>>;
+    fn region_create(&mut self, levels: i32, east: i32, north: i32) -> crate::Result<u32>;
 
-    /// Deletes region `uid` and everything in it.
+    /// Copies the zone holding `source` onto region `uid`'s zone `east`,
+    /// `north` on `level`, turned `rotation` quarter turns clockwise.
     #[cfg(since_647)]
-    fn region_del(&mut self, uid: u32) -> crate::Result<()>;
-
-    /// Copies the zones from `from_sw` to `from_ne` onto region `uid` from
-    /// `to_sw`, the whole area turned `rotation` quarter turns clockwise.
-    #[cfg(since_647)]
-    fn region_copy(
+    fn region_set(
         &mut self,
         uid: u32,
-        from_sw: CoordGrid,
-        from_ne: CoordGrid,
-        to_sw: CoordGrid,
+        level: i32,
+        east: i32,
+        north: i32,
+        source: CoordGrid,
         rotation: i32,
     ) -> crate::Result<()>;
+
+    /// Sets where the players of region `uid` go when they leave it, and
+    /// where one who left the game in it comes back, instead of the tile
+    /// each came from.
+    #[cfg(since_647)]
+    fn region_set_exit(&mut self, uid: u32, exit: CoordGrid) -> crate::Result<()>;
 
     /// Whether something at `from` may be put at `to`: a tile of region
     /// space must be in a live region, the one `from` is in or `selected`.
@@ -692,7 +721,26 @@ pub trait ScriptEngine {
 
     /// Queues the controller's `[ai_conqueue]` after `delay` ticks with `arg`.
     #[cfg(since_647)]
-    fn controller_queue(&mut self, uid: ControllerUid, arg: i32, delay: i32) -> crate::Result<()>;
+    fn controller_queue(
+        &mut self,
+        uid: ControllerUid,
+        arg: i32,
+        delay: u16,
+        source: Option<u16>,
+    ) -> crate::Result<()>;
+
+    /// Queues the controller's `[controller_queue,<script>]` after `delay`
+    /// ticks, run with `args` as its params. A hit either queue's script
+    /// paints is `source`'s.
+    #[cfg(since_647)]
+    fn controller_queue_script(
+        &mut self,
+        uid: ControllerUid,
+        script: i32,
+        args: Vec<ScriptArgument>,
+        delay: u16,
+        source: Option<u16>,
+    ) -> crate::Result<()>;
 
     /// Runs the controller's `[ai_contimer]` every `interval` ticks; -1 stops it.
     #[cfg(since_647)]
@@ -727,6 +775,30 @@ pub trait ScriptEngine {
 
     /// A script was aborted: `fault` says where, why and on whom, for staff.
     fn script_error(&mut self, fault: ScriptFault);
+}
+
+/// A projectile from half square `x`, `z` (`tile * 2 + 1` is a tile's
+/// centre) on `level`, launched by `source` and homing on `target` (an npc as
+/// `nid + 1`, a player as `-pid - 1`, or 0), from `wearpos` on the source's
+/// BAS when it has one.
+#[cfg(since_647)]
+#[derive(Debug, Clone)]
+pub struct ProjAnimHalfsq {
+    pub level: u8,
+    pub x: u16,
+    pub z: u16,
+    pub dx: i8,
+    pub dz: i8,
+    pub source: i16,
+    pub target: i16,
+    pub wearpos: Option<u8>,
+    pub spotanim: u16,
+    pub src_height: u8,
+    pub dst_height: u8,
+    pub start: u16,
+    pub end: u16,
+    pub peak: u8,
+    pub arc: u16,
 }
 
 /// A script that was aborted, as [`ScriptEngine::script_error`] hears of it.
@@ -2181,6 +2253,16 @@ pub trait ScriptNpc {
         args: Option<Vec<ScriptArgument>>,
         source: Option<u16>,
     ) -> crate::Result<()>;
+
+    /// Queues `[npc_queue]` script `script_id` on this NPC after `delay` ticks,
+    /// run with `args` as its params; at 647 its hits are `source`'s.
+    fn queue_named(
+        &mut self,
+        script_id: i32,
+        delay: u16,
+        args: Vec<ScriptArgument>,
+        source: Option<u16>,
+    );
 
     /// Credits the hit just painted on this npc to a player (`hit_source`).
     #[cfg(since_647)]

@@ -398,8 +398,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 80
         #[cfg(since_647)]
         none!(m, PUSH_VARCON => |s| {
-            let id = (s.int_operand() & 0xFFFF) as u16;
-            let value = engine::<E>().controller_var(active_controller(s)?, id)?;
+            let operand = s.int_operand();
+            let secondary = ((operand >> 16) & 0x1) != 0;
+            let id = (operand & 0xFFFF) as u16;
+            let value = engine::<E>().controller_var(active_controller(s, secondary)?, id)?;
             if let VarValue::String(v) = value {
                 s.push_string(&v);
             } else {
@@ -410,7 +412,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 81
         #[cfg(since_647)]
         none!(m, POP_VARCON => |s| {
-            let id = (s.int_operand() & 0xFFFF) as u16;
+            let operand = s.int_operand();
+            let secondary = ((operand >> 16) & 0x1) != 0;
+            let id = (operand & 0xFFFF) as u16;
             let varcon = engine::<E>()
                 .varcons()
                 .get_by_id(id)
@@ -420,7 +424,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             } else {
                 VarValue::from_int(varcon.var_type, s.pop_int())
             };
-            engine_mut::<E>().set_controller_var(active_controller(s)?, id, value)?;
+            engine_mut::<E>().set_controller_var(active_controller(s, secondary)?, id, value)?;
         });
 
         // 82

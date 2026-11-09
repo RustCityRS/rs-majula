@@ -64,7 +64,11 @@ pub struct ScriptState {
     #[cfg(since_647)]
     pub active_controller: Option<ControllerUid>,
     #[cfg(since_647)]
+    pub active_controller2: Option<ControllerUid>,
+    #[cfg(since_647)]
     pub active_region: Option<u32>,
+    #[cfg(since_647)]
+    pub active_region2: Option<u32>,
 
     pub last_int: Option<i32>,
     /// Rev-647: the string carried by RESUME_P_STRINGDIALOG (or a display-name
@@ -178,7 +182,11 @@ impl ScriptState {
             #[cfg(since_647)]
             active_controller: None,
             #[cfg(since_647)]
+            active_controller2: None,
+            #[cfg(since_647)]
             active_region: None,
+            #[cfg(since_647)]
+            active_region2: None,
             last_int: None,
             #[cfg(since_647)]
             last_string: None,
@@ -333,7 +341,9 @@ impl ScriptState {
         #[cfg(since_647)]
         {
             self.active_controller = None;
+            self.active_controller2 = None;
             self.active_region = None;
+            self.active_region2 = None;
         }
 
         // -- Bind subject and target --
@@ -1170,9 +1180,25 @@ pub struct QueuedScript {
     pub script_id: i32,
     pub delay: u16,
     pub args: Option<Vec<ScriptArgument>>,
+    // An `[npc_queue,<name>]` or `[controller_queue,<name>]`: `script_id` is
+    // a script, not the `[ai_queueN]` or `[ai_conqueue]` trigger otherwise held.
+    pub named: bool,
     // The pid of the player whose script queued it (ScriptState::queue_source).
     #[cfg(since_647)]
     pub source: Option<u16>,
+}
+
+impl QueuedScript {
+    /// The int an `[ai_queueN]` or `[ai_conqueue]` entry was queued with.
+    pub fn last_int(&self) -> Option<i32> {
+        if self.named {
+            return None;
+        }
+        self.args.as_ref()?.iter().find_map(|arg| match arg {
+            ScriptArgument::Int(v) => Some(*v),
+            _ => None,
+        })
+    }
 }
 
 /// Priority level for a [`TimedScript`], controlling how the timer interacts

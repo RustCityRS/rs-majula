@@ -1,6 +1,6 @@
 use crate::archive;
 use crate::pack::names::{AssetNames, archive_name};
-use crate::pack::other::{asset, wma, worldmap_source};
+use crate::pack::other::{asset, material, wma, worldmap_source};
 use anyhow::{Context, Result, ensure};
 use rs_io::js5::{Entry, Js5Store};
 use std::collections::BTreeMap;
@@ -148,6 +148,28 @@ pub fn unpack_archive(
         fs::write(path, text)?;
     }
     Ok(groups.len() as u32)
+}
+
+/// Writes a file for each material, once they read back to the archive's bytes.
+pub fn unpack_materials(store: &mut Js5Store, pack_dir: &Path, content_dir: &Path) -> Result<u32> {
+    let names = AssetNames::load(pack_dir)?;
+    let aid = archive::MATERIALS;
+    let format = archive::archive_format(aid).context("Unknown asset archive")?;
+    let dir = content_dir.join(format.content_dir);
+    fs::create_dir_all(&dir)?;
+    let original = store
+        .read_group_raw_decompressed(aid, 0)?
+        .context("Missing materials")?;
+    let materials = material::unpack(&original, &names)?;
+    ensure!(
+        material::pack(&materials, &names)? == original,
+        "Text round trip changed the materials"
+    );
+    for (&id, text) in &materials {
+        let name = names.name(material::KIND, id);
+        fs::write(dir.join(format!("{name}.{}", material::EXTENSION)), text)?;
+    }
+    Ok(materials.len() as u32)
 }
 
 /// Writes the `.wma` config and gives the groups it holds, once it reads back to their bytes.

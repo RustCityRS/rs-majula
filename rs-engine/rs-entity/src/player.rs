@@ -204,6 +204,10 @@ pub struct Player {
     /// sent in a MoveType block; `None` until one has gone out this session.
     #[cfg(since_647)]
     pub client_move_type: Option<u8>,
+    /// Rev-647: the tile of the map the player last left for region space,
+    /// where it goes back to from a region with no exit coord.
+    #[cfg(since_647)]
+    pub region_entry: Option<CoordGrid>,
     pub move_request: bool,
     pub modal_state: u8,
     pub modal_main: Option<u16>,
@@ -420,6 +424,8 @@ impl Player {
             temprun: false,
             #[cfg(since_647)]
             client_move_type: None,
+            #[cfg(since_647)]
+            region_entry: None,
             move_request: false,
             modal_state: MODAL_NONE,
             modal_main: None,

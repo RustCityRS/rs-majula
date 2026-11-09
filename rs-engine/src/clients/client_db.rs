@@ -9,6 +9,7 @@ use rs_db::{
     Claim, Db, DbConfig, LogBatch, LoginDevice, ModAction, NewPlayer, NewSnapshot, Passwords,
     PlayedSession, PlayerSave, SaveResult, check_new_password, refusal,
 };
+use rs_grid::CoordGrid;
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
 #[cfg(since_647)]
 use rs_util::random::JavaRandom;
@@ -1382,7 +1383,7 @@ fn millis(ms: i64) -> Duration {
 
 /// Flattens a [`PlayerProfile`] into its `player_saves` row. Inventory items
 /// are spread across the index-aligned `inv_*` arrays, grouped by inventory.
-fn to_save(profile: &PlayerProfile) -> PlayerSave {
+pub(crate) fn to_save(profile: &PlayerProfile) -> PlayerSave {
     let mut save = PlayerSave {
         x: profile.x as i16,
         z: profile.z as i16,
@@ -1402,6 +1403,9 @@ fn to_save(profile: &PlayerProfile) -> PlayerSave {
         last_date: profile.last_date,
         varp_ids: profile.varps.iter().map(|&(id, _)| id as i32).collect(),
         varp_values: profile.varps.iter().map(|&(_, v)| v).collect(),
+        exit_x: profile.exit.map_or(-1, |exit| exit.x() as i16),
+        exit_z: profile.exit.map_or(-1, |exit| exit.z() as i16),
+        exit_y: profile.exit.map_or(-1, |exit| exit.y() as i16),
         ..Default::default()
     };
     for inv in &profile.invs {
@@ -1486,6 +1490,8 @@ pub fn profile_from_save(save: PlayerSave) -> PlayerProfile {
         private_chat: save.private_chat as u8,
         trade_chat: save.trade_chat as u8,
         last_date: save.last_date,
+        exit: (save.exit_x > 0)
+            .then(|| CoordGrid::new(save.exit_x as u16, save.exit_y as u8, save.exit_z as u16)),
         // Rev 647: the account's display name, which isn't part of the
         // save; the load fills it in (`with_display_name`).
         #[cfg(since_647)]
@@ -1625,12 +1631,19 @@ mod tests {
             private_chat: 2,
             trade_chat: 3,
             last_date: 1_700_000_000,
+            exit: Some(CoordGrid::new(3221, 0, 3218)),
             #[cfg(since_647)]
             display_name: None,
         };
 
         let back = profile_from_save(to_save(&profile));
         assert_eq!((back.x, back.z, back.y), (3222, 3218, 1));
+        assert_eq!(back.exit, profile.exit);
+        let nowhere = PlayerProfile {
+            exit: None,
+            ..profile.clone()
+        };
+        assert_eq!(profile_from_save(to_save(&nowhere)).exit, None);
         assert_eq!(back.body, profile.body);
         assert_eq!(back.colors, profile.colors);
         assert_eq!(back.stats, profile.stats);

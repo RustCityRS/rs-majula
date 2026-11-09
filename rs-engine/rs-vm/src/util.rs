@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use crate::engine::ProjAnimHalfsq;
 use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::state::{LocRef, ObjRef, ScriptState};
 use crate::{NpcUid, ObjSerial, PlayerUid, Result, ScriptError};
@@ -576,14 +578,16 @@ pub(crate) fn pop_count(state: &mut ScriptState) -> Result<u32> {
 }
 
 /// Whether something at `from` may be put at `to`: see
-/// [`ScriptEngine::region_allows`], with the region the script selected.
+/// [`ScriptEngine::region_allows`], with either region the script selected.
 #[cfg(since_647)]
 pub(crate) fn region_allows<E: ScriptEngine + 'static>(
     state: &ScriptState,
     from: CoordGrid,
     to: CoordGrid,
 ) -> bool {
-    engine::<E>().region_allows(from, to, state.active_region)
+    let engine = engine::<E>();
+    engine.region_allows(from, to, state.active_region)
+        || state.active_region2.is_some() && engine.region_allows(from, to, state.active_region2)
 }
 
 #[cfg(before_647)]
@@ -927,6 +931,108 @@ pub(crate) fn pop_spotanim<E: ScriptEngine + 'static>(
         .spotanims()
         .get_by_id(id as u16)
         .ok_or(ScriptError::SpotanimNotFound(id))
+}
+
+/// The half square at the centre of a `size` square whose south-west tile
+/// is `coord`.
+#[cfg(since_647)]
+pub(crate) fn halfsq(coord: CoordGrid, size: u8) -> (u16, u16) {
+    (
+        (coord.x() << 1) + size as u16,
+        (coord.z() << 1) + size as u16,
+    )
+}
+
+/// Pops a BAS wearpos, or -1 for none.
+#[cfg(since_647)]
+pub(crate) fn pop_wearpos(state: &mut ScriptState) -> Result<Option<u8>> {
+    match state.pop_int() {
+        -1 => Ok(None),
+        wearpos @ 0..=63 => Ok(Some(wearpos as u8)),
+        wearpos => Err(ScriptError::Runtime(format!("Invalid wearpos: {wearpos}"))),
+    }
+}
+
+/// The spotanim, heights, delays, peak and arc every halfsq projanim command
+/// ends with, popped before the arguments that say where it flies.
+#[cfg(since_647)]
+pub(crate) struct ProjAnimTail {
+    spotanim: u16,
+    src_height: i32,
+    dst_height: u8,
+    start: u16,
+    end: u16,
+    peak: u8,
+    arc: u16,
+}
+
+#[cfg(since_647)]
+pub(crate) fn pop_projanim_tail<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<ProjAnimTail> {
+    let arc = state.pop_int_as::<u16>()?;
+    let peak = state.pop_int_as::<u8>()?;
+    let end = state.pop_int_as::<u16>()?;
+    let start = state.pop_int_as::<u16>()?;
+    let dst_height = state.pop_int_as::<u8>()?;
+    let src_height = state.pop_int();
+    let spotanim = pop_spotanim::<E>(state)?.id;
+    Ok(ProjAnimTail {
+        spotanim,
+        src_height,
+        dst_height,
+        start,
+        end,
+        peak,
+        arc,
+    })
+}
+
+#[cfg(since_647)]
+impl ProjAnimTail {
+    /// Casts the projectile from half square `from` to `to` on `level`. With
+    /// a wearpos the client takes the start height as a signed offset.
+    pub(crate) fn send<E: ScriptEngine + 'static>(
+        self,
+        level: u8,
+        from: (u16, u16),
+        to: (u16, u16),
+        source: i16,
+        target: i16,
+        wearpos: Option<u8>,
+    ) -> Result<()> {
+        let delta = |from: u16, to: u16| {
+            let delta = to as i32 - from as i32;
+            i8::try_from(delta).map_err(|_| {
+                ScriptError::Runtime(format!("Projectile too long: {delta} half squares"))
+            })
+        };
+        let src_height = match wearpos {
+            Some(_) => i8::try_from(self.src_height)
+                .map(|height| height as u8)
+                .ok(),
+            None => u8::try_from(self.src_height).ok(),
+        }
+        .ok_or_else(|| ScriptError::Runtime(format!("Invalid fromHeight: {}", self.src_height)))?;
+        engine_mut::<E>().map_proj_anim_halfsq(ProjAnimHalfsq {
+            level,
+            x: from.0,
+            z: from.1,
+            dx: delta(from.0, to.0)?,
+            dz: delta(from.1, to.1)?,
+            source,
+            target,
+            wearpos,
+            spotanim: self.spotanim,
+            src_height,
+            dst_height: self.dst_height,
+            start: self.start,
+            end: self.end,
+            peak: self.peak,
+            arc: self.arc,
+        });
+        Ok(())
+    }
 }
 
 /// Pops an integer from the script stack and looks up the corresponding [`StructType`] from the cache.

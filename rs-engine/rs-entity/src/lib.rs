@@ -1,4 +1,6 @@
 pub mod build;
+#[cfg(since_647)]
+pub mod controller;
 pub mod direction;
 pub mod interaction;
 pub mod lifetime;
@@ -11,6 +13,8 @@ pub mod state;
 pub mod waypoints;
 
 pub use build::{BuildArea, IdBitSet, MAX_NPCS, MAX_PLAYERS};
+#[cfg(since_647)]
+pub use controller::{Controller, ControllerUid};
 pub use direction::Direction;
 pub use interaction::InteractionState;
 pub use interaction::InteractionTarget;

@@ -180,10 +180,64 @@ pub(crate) struct MapLocEntry {
 }
 
 /// A mapsquare's tile flags and locs, decoded to copy its zones into regions.
+/// The locs are in map order within each zone, the zones in turn by level,
+/// x and z, so a copied zone reads only its own, and each zone keeps the
+/// longest side of its locs.
 #[cfg(since_647)]
 pub(crate) struct SquareTemplate {
     pub(crate) lands: Box<[u8; MAPSQUARE]>,
-    pub(crate) locs: Vec<MapLocEntry>,
+    locs: Vec<MapLocEntry>,
+    starts: Box<[u32; 257]>,
+    largest: Box<[u8; 256]>,
+}
+
+#[cfg(since_647)]
+impl SquareTemplate {
+    fn new(
+        lands: Box<[u8; MAPSQUARE]>,
+        mut locs: Vec<MapLocEntry>,
+        side: impl Fn(u16) -> u8,
+    ) -> SquareTemplate {
+        let zone = |entry: &MapLocEntry| {
+            let coord = MapsquareCoordGrid::from(entry.coord);
+            ((coord.y() as usize) << 6)
+                | ((coord.x() as usize >> 3) << 3)
+                | (coord.z() as usize >> 3)
+        };
+        locs.sort_by_key(zone);
+        let mut starts = Box::new([0; 257]);
+        let mut largest = Box::new([0; 256]);
+        for entry in &locs {
+            let zone = zone(entry);
+            starts[zone + 1] += 1;
+            largest[zone] = largest[zone].max(side(entry.id));
+        }
+        for zone in 0..256 {
+            starts[zone + 1] += starts[zone];
+        }
+        SquareTemplate {
+            lands,
+            locs,
+            starts,
+            largest,
+        }
+    }
+
+    fn zone(level: u8, zone_x: u8, zone_z: u8) -> usize {
+        ((level as usize) << 6) | ((zone_x as usize) << 3) | zone_z as usize
+    }
+
+    /// The longest side of the locs on `level` of the zone (`zone_x`,
+    /// `zone_z`) of the mapsquare.
+    pub(crate) fn largest(&self, level: u8, zone_x: u8, zone_z: u8) -> u8 {
+        self.largest[Self::zone(level, zone_x, zone_z)]
+    }
+
+    /// The locs on `level` of the zone (`zone_x`, `zone_z`) of the mapsquare.
+    pub(crate) fn zone_locs(&self, level: u8, zone_x: u8, zone_z: u8) -> &[MapLocEntry] {
+        let zone = Self::zone(level, zone_x, zone_z);
+        &self.locs[self.starts[zone] as usize..self.starts[zone + 1] as usize]
+    }
 }
 
 /// A decoded NPC spawn entry from an `n` mapsquare file.
@@ -593,7 +647,12 @@ impl GameMap {
         if let Some(data) = cache.mapsquares.get(&('l', mx, mz)) {
             Self::read_locs(&mut decompress_map(data), |entry| locs.push(entry));
         }
-        SquareTemplate { lands, locs }
+        SquareTemplate::new(lands, locs, |id| {
+            cache
+                .locs
+                .get_by_id(id)
+                .map_or(1, |loc| loc.width.max(loc.length))
+        })
     }
 
     /// Decodes NPC spawn entries from the mapsquare buffer into a buffered

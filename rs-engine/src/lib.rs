@@ -6,8 +6,6 @@ mod active_player;
 mod build;
 mod clients;
 pub mod console;
-#[cfg(since_647)]
-mod controller;
 pub mod controls;
 pub mod counters;
 mod engine;

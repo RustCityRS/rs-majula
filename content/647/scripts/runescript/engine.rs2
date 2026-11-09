@@ -72,6 +72,12 @@
 [command,projanim_npc](coord $from, npc_uid $to, spotanim $spotanim, int $fromHeight, int $toHeight, int $delay, int $duration, int $peak, int $arc)
 // info: Cast a projectile targeting a coord
 [command,projanim_map](coord $from, coord $to, spotanim $spotanim, int $fromHeight, int $toHeight, int $delay, int $duration, int $peak, int $arc)
+// info: Cast a projectile from the centre of a $fromSize square at $from to the centre of a $toSize square at $to, to the half tile
+[command,projanim_halfsq](coord $from, int $fromSize, coord $to, int $toSize, spotanim $spotanim, int $fromHeight, int $toHeight, int $delay, int $duration, int $peak, int $arc)
+// info: Play $sound to everyone within $range tiles of $coord, $loops times after $delay client cycles
+[command,sound_vorbis_area](coord $coord, int $range, vorbis $sound, int $loops, int $delay)
+// info: Show $text in RGB $colour, $height up, above $coord for $duration client cycles to everyone who can see it
+[command,text_coord](coord $coord, string $text, int $colour, int $height, int $duration)
 // info: Returns true if it's unsafe to spawn a loc on this tile
 [command,map_locaddunsafe](coord $coord)(boolean)
 // info: Get a random coord centered on $coord within $minradius and $maxradius, using ^map_findsquare_ constants for $type
@@ -564,6 +570,8 @@
 // info: Temporarily set player to run for 1 tick
 // (289's declaration: content ported from 289 calls it; the engine has the op)
 [command,p_temprun]
+// info: Cast a projectile from the player, from BAS $wearpos (-1 for none; with one, $fromHeight is a signed offset), homing on npc $to, to the half tile
+[command,p_projanim_halfsq](npc_uid $to, int $wearpos, spotanim $spotanim, int $fromHeight, int $toHeight, int $delay, int $duration, int $peak, int $arc)
 // info: Requires protected access - put the player into rest mode. If $near_musician != 0, uses the music-listening variant.
 [command,p_rest](int $near_musician)
 // info: Check player's membership status
@@ -725,6 +733,8 @@
 // info: Get the secondary npc's destination
 // (289's declaration: content ported from 289 calls it; the engine has the op)
 [command,.npc_destination]()(coord)
+// info: Cast a projectile from the npc's centre, from BAS $wearpos (-1 for none; with one, $fromHeight is a signed offset), homing on player $to, to the half tile
+[command,npc_projanim_halfsq](player_uid $to, int $wearpos, spotanim $spotanim, int $fromHeight, int $toHeight, int $delay, int $duration, int $peak, int $arc)
 
 // Loc ops (3000-3499)
 // info: Spawn a loc at $coord
@@ -780,6 +790,8 @@
 [command,loc_prefetch](loc $loc, locshape $shape)
 // info: Start every client that can see $coord's zone downloading $loc's models for $shape, a tick before they need them
 [command,loc_prefetchall](coord $coord, loc $loc, locshape $shape)
+// info: Make the loc look like $look for everyone, in its models for the loc's shape, recolours and retextures that match in count; null resets it
+[command,loc_merge](loc $look)
 
 // Obj ops (3500-4000)
 // info: Spawn an object at $coord for the current player
@@ -1101,35 +1113,61 @@
 // (289's declaration: content ported from 289 calls it; the engine has the op)
 [command,date_runeday]()(int)
 
-// Region and controller ops (5200-5299)
+// Region ops (5200-5299)
 // info: Get access to the region (instance) covering $coord
 [command,region_findbycoord](coord $coord)(boolean)
+// info: Get access to the region (instance) covering $coord as the secondary region
+[command,.region_findbycoord](coord $coord)(boolean)
+// info: Get the coord $xOffset, $zOffset tiles from the region's south-west corner on level $levelOffset
+[command,region_getcoord](int $levelOffset, int $xOffset, int $zOffset)(coord)
+// info: Get the coord $xOffset, $zOffset tiles from the secondary region's south-west corner on level $levelOffset
+[command,.region_getcoord](int $levelOffset, int $xOffset, int $zOffset)(coord)
+// info: Create a region of $levels levels and $zonesEast x $zonesNorth zones, get access to it and its south-west corner: a 128x128 slot if it fits (16x16 zones), else a 320x320 one (40x40). Once nobody has been in it for 50 ticks it is freed with everything in it
+[command,region_create](int $levels, int $zonesEast, int $zonesNorth)(coord)
+// info: Create a region as region_create does, as the secondary region
+[command,.region_create](int $levels, int $zonesEast, int $zonesNorth)(coord)
+// info: Copy the zone holding $sourceCoord onto the region's zone $destEast, $destNorth on level $destLevel, turned $rotation quarter turns clockwise
+[command,region_set](int $destLevel, int $destEast, int $destNorth, coord $sourceCoord, int $rotation)
+// info: Copy the zone holding $sourceCoord onto the secondary region's zone $destEast, $destNorth on level $destLevel, turned $rotation quarter turns clockwise
+[command,.region_set](int $destLevel, int $destEast, int $destNorth, coord $sourceCoord, int $rotation)
+// info: Get the region's uid, which no later region reuses
+[command,region_uid]()(region_uid)
+// info: Get the secondary region's uid
+[command,.region_uid]()(region_uid)
+// info: Get access to the region with $uid if it still exists
+[command,region_findbyuid](region_uid $uid)(boolean)
+// info: Get access to the region with $uid if it still exists as the secondary region
+[command,.region_findbyuid](region_uid $uid)(boolean)
+// info: Set where a player who leaves the game inside the region comes back, rather than the tile it came from
+[command,region_setexitcoord](coord $exitCoord)
+// info: Set the secondary region's exit coord
+[command,.region_setexitcoord](coord $exitCoord)
+
+// Controller ops (5300-5399)
 // info: Get the controller's coord
 [command,controller_coord]()(coord)
+// info: Get the secondary controller's coord
+[command,.controller_coord]()(coord)
 // info: Delete the controller
 [command,controller_del]
+// info: Delete the secondary controller
+[command,.controller_del]
 // info: Queue the controller's [ai_conqueue] script (queue 1) after $delay ticks, $arg in last_int
 [command,controller_queue](int $queue, int $arg, int $delay)
+// info: Queue the secondary controller's [ai_conqueue] script (queue 1) after $delay ticks, $arg in last_int
+[command,.controller_queue](int $queue, int $arg, int $delay)
 // info: Get access to the $controller at exactly $coord
 [command,controller_findexact](coord $coord, controller $controller)(boolean)
-// info: Get the coord $x, $y, $z from the region's south-west corner
-[command,region_getcoord](int $x, int $y, int $z)(coord)
-// info: Create a region of ^region_small (128x128) or ^region_large (320x320)
-[command,region_create](int $size)(boolean)
-// info: Delete the region: players inside go to its controller's exit, its npcs, controllers, objs and locs go
-[command,region_del]
-// info: Copy the zone holding $from onto the region's zone holding $to, turned $rotation quarter turns clockwise
-[command,region_copyzone](coord $from, coord $to, int $rotation)
-// info: Copy the zones from $from_sw to $from_ne onto the region from $to_sw, the whole area turned $rotation quarter turns clockwise
-[command,region_copyarea](coord $from_sw, coord $from_ne, coord $to_sw, int $rotation)
-// info: Get the region's uid, which no later region reuses
-[command,region_uid]()(int)
-// info: Get access to the region with $uid if it still exists
-[command,region_finduid](int $uid)(boolean)
+// info: Get access to the $controller at exactly $coord as the secondary controller
+[command,.controller_findexact](coord $coord, controller $controller)(boolean)
 // info: Spawn a controller at $coord for $duration ticks (0 = until deleted)
 [command,controller_add](coord $coord, controller $controller, int $duration)
+// info: Spawn a controller at $coord for $duration ticks (0 = until deleted) as the secondary controller
+[command,.controller_add](coord $coord, controller $controller, int $duration)
 // info: Run the controller's [ai_contimer] script every $interval ticks (-1 stops it)
 [command,controller_settimer](int $interval)
+// info: Run the secondary controller's [ai_contimer] script every $interval ticks (-1 stops it)
+[command,.controller_settimer](int $interval)
 
 // DB ops (7500-7599)
 [command,db_find_with_count]

@@ -1,18 +1,17 @@
 use crate::console::home_for;
 use crate::engine::{Engine, PendingZoneEvent};
 use crate::game_map::{
-    BLOCK_MAP_SQUARE, GameMap, LINK_BELOW, REMOVE_ROOFS, SquareTemplate, apply_loc_collision,
-    change_loc_collision,
+    BLOCK_MAP_SQUARE, GameMap, LINK_BELOW, MAPSQUARE, REMOVE_ROOFS, SquareTemplate,
+    apply_loc_collision, change_loc_collision,
 };
 use crate::phases::shared::EntityId;
+use crate::player_save::PlayerProfile;
 use num_enum::TryFromPrimitive;
 use rs_entity::{EntityLifeTime, Loc, LocSerial};
 use rs_grid::mapsquare_coord::MapsquareCoordGrid;
 use rs_grid::{CoordGrid, ZoneCoordGrid};
-use rs_pack::cache::ScriptVarType;
-use rs_pack::cache::controller::ControllerType;
-use rs_pack::cache::varcon::VarConTypeProvider;
-use rs_pack::types::{BlockWalk, LocAngle, LocShape, ParamValue, VarPlayerScope};
+use rs_pack::cache::CacheStore;
+use rs_pack::types::{BlockWalk, LocAngle, LocShape};
 use rs_vm::ScriptError;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::FxHashMap;
@@ -25,6 +24,10 @@ const LARGE_Z: u16 = 5248;
 const SMALL_SLOTS: usize = 51 * 27;
 const SLOTS: usize = SMALL_SLOTS + 25 * 28;
 const QUARANTINE: u32 = 500;
+/// How long a region stays with nobody in it, counting from its creation
+/// until someone comes, before it is freed: time for a script to build one
+/// and bring its players.
+pub(crate) const FREE_AFTER: u32 = 50;
 const NONE: u32 = u32::MAX;
 const SQUARES: usize = 64;
 
@@ -129,15 +132,15 @@ pub(crate) const fn template_square(template: u32) -> (u16, u16) {
     )
 }
 
-/// Tile (`x`, `z`) of a zone after turning the zone `rotation` quarter turns
-/// clockwise, as the client places it (`AClass13.method623`,
-/// `Class244.method1589`).
-const fn rotate_tile(x: u8, z: u8, rotation: u8) -> (u8, u8) {
+/// The tile of a zone that turning it `rotation` quarter turns clockwise puts
+/// on tile (`x`, `z`), undoing how the client places tiles
+/// (`AClass13.method623`, `Class244.method1589`).
+const fn unrotate_tile(x: u8, z: u8, rotation: u8) -> (u8, u8) {
     match rotation & 3 {
         0 => (x, z),
-        1 => (z, 7 - x),
+        1 => (7 - z, x),
         2 => (7 - x, 7 - z),
-        _ => (7 - z, x),
+        _ => (z, 7 - x),
     }
 }
 
@@ -159,13 +162,22 @@ const fn rotate_loc(x: u8, z: u8, width: u8, length: u8, angle: u8, rotation: u8
     }
 }
 
-/// A region: the zones copied onto its slot of region space and the active
-/// locs each zone column put on the map.
+/// A region: the levels and zones it was created with, where its players
+/// exit to, the zones copied onto its slot of region space, the active locs
+/// each zone column put on the map, how many zones past its own zone the
+/// longest loc copied so far can block, and the last tick a player was in it
+/// (its creation until one is).
 pub struct Region {
     pub uid: u32,
     zones: u16,
+    levels: u8,
+    east: u16,
+    north: u16,
+    exit: Option<CoordGrid>,
     templates: Box<[u32]>,
     statics: Box<[Vec<(CoordGrid, LocSerial)>]>,
+    spill: u16,
+    seen: u32,
 }
 
 impl Region {
@@ -182,6 +194,11 @@ impl Region {
     fn column(&self, zone_x: u16, zone_z: u16) -> usize {
         zone_x as usize * self.zones as usize + zone_z as usize
     }
+
+    /// The templates of column (`zone_x`, `zone_z`), by level.
+    fn templates_at(&self, zone_x: u16, zone_z: u16) -> [u32; 4] {
+        [0, 1, 2, 3].map(|level| self.template(level, zone_x, zone_z))
+    }
 }
 
 #[derive(Default)]
@@ -196,22 +213,20 @@ struct Slot {
 pub struct Regions {
     slots: Box<[Slot]>,
     cursors: [usize; 2],
-    spill: u16,
     squares: FxHashMap<(u16, u16), SquareTemplate>,
 }
 
-impl Regions {
-    /// `largest_loc` is the longest loc side, so a rebuild reaches every
-    /// zone a copied loc can put collision on.
-    pub fn new(largest_loc: u8) -> Regions {
+impl Default for Regions {
+    fn default() -> Regions {
         Regions {
             slots: (0..SLOTS).map(|_| Slot::default()).collect(),
             cursors: [0, 0],
-            spill: ((largest_loc.max(1) as u16 + 7) >> 3).max(1),
             squares: FxHashMap::default(),
         }
     }
+}
 
+impl Regions {
     /// Forgets the mapsquares decoded for copying, after the cache changed.
     pub fn forget_squares(&mut self) {
         self.squares.clear();
@@ -259,13 +274,7 @@ impl Regions {
         if template == NONE {
             return None;
         }
-        let (x, z) = ((lx & 7) as u8, (lz & 7) as u8);
-        let (x, z) = match template_rotation(template) {
-            0 => (x, z),
-            1 => (7 - z, x),
-            2 => (7 - x, 7 - z),
-            _ => (z, 7 - x),
-        };
+        let (x, z) = unrotate_tile((lx & 7) as u8, (lz & 7) as u8, template_rotation(template));
         Some(CoordGrid::new(
             (template_zone_x(template) << 3) + x as u16,
             template_level(template),
@@ -273,8 +282,11 @@ impl Regions {
         ))
     }
 
-    fn allocate(&mut self, large: bool, clock: u32) -> Option<u32> {
-        let (layout, cursor) = if large {
+    /// Takes a slot for a region of `levels` levels and `east` x `north`
+    /// zones: a small one if it fits, else a large one.
+    fn allocate(&mut self, levels: u8, east: u16, north: u16, clock: u32) -> Option<u32> {
+        let small = SMALL.tiles >> 3;
+        let (layout, cursor) = if east > small || north > small {
             (&LARGE, &mut self.cursors[1])
         } else {
             (&SMALL, &mut self.cursors[0])
@@ -296,10 +308,16 @@ impl Regions {
         slot.region = Some(Region {
             uid,
             zones,
+            levels,
+            east,
+            north,
+            exit: None,
             templates: vec![NONE; (zones as usize * zones as usize) << 2].into_boxed_slice(),
             statics: (0..zones as usize * zones as usize)
                 .map(|_| Vec::new())
                 .collect(),
+            spill: 1,
+            seen: clock,
         });
         Some(uid)
     }
@@ -312,50 +330,42 @@ impl Regions {
 }
 
 impl Engine {
-    /// What a player at `coord` saves: a tile of region space never, as no
-    /// region outlives the world, but the type of the controller managing
-    /// its region, at x [`REGION_X`] where no region lies, for
-    /// [`login_coord`](Self::login_coord) to place it by the type's config
-    /// on whichever day it comes back.
-    pub(crate) fn saved_coord(&self, coord: CoordGrid) -> CoordGrid {
+    /// The exit a player at `coord` saves with its tile: in region space,
+    /// its way out (see [`way_out`](Self::way_out)), which
+    /// [`place_returning`] puts it on when it comes back.
+    pub(crate) fn saved_exit(
+        &self,
+        coord: CoordGrid,
+        entry: Option<CoordGrid>,
+    ) -> Option<CoordGrid> {
         if coord.x() < REGION_X {
-            return coord;
+            return None;
         }
+        self.way_out(coord, entry)
+    }
+
+    /// Where a player in region space at `coord` leaves to: the exit coord
+    /// of the region it stands in, else `entry`, the map tile it came from,
+    /// if a player can stand there.
+    fn way_out(&self, coord: CoordGrid, entry: Option<CoordGrid>) -> Option<CoordGrid> {
         slot_at(coord.x(), coord.z())
-            .filter(|&slot| self.regions.slots[slot].region.is_some())
-            .and_then(|slot| self.region_type(slot))
-            .map_or(coord, |id| CoordGrid::new(REGION_X, 0, id))
+            .and_then(|slot| self.region_exit(slot))
+            .or_else(|| {
+                entry.filter(|entry| {
+                    entry.x() < REGION_X
+                        && rsmod::is_zone_allocated(entry.x(), entry.z(), entry.y())
+                })
+            })
     }
 
-    /// Where a player saved at `coord` logs in: a region's player at the
-    /// exit its controller type's config gives today, anything else in
-    /// region space home.
-    pub(crate) fn login_coord(&self, coord: CoordGrid) -> CoordGrid {
-        if coord.x() < REGION_X {
-            return coord;
-        }
-        (coord.x() == REGION_X)
-            .then(|| self.controller_exit(coord.z()))
-            .flatten()
-            .unwrap_or_else(|| home(coord))
-    }
-
-    /// The type of the controller managing the region in `slot`: the one on
-    /// its south-west tile, where content keeps it.
-    fn region_type(&self, slot: usize) -> Option<u16> {
-        let (x, z, _) = bounds(slot);
-        self.controllers
-            .first_at(CoordGrid::new(x, 0, z))
-            .map(|controller| controller.id)
-    }
-
-    /// Where the players of a region managed by controller type `id` leave
-    /// to: the coord its config gives its perm coord varcon, if a player can
-    /// stand there.
-    pub(crate) fn controller_exit(&self, id: u16) -> Option<CoordGrid> {
-        perm_coord(self.cache.controllers.get_by_id(id)?, &self.cache.varcons).filter(|coord| {
-            coord.x() < REGION_X && rsmod::is_zone_allocated(coord.x(), coord.z(), coord.y())
-        })
+    /// Where the players of the region in `slot` exit to, if it has an exit
+    /// a player can stand on.
+    fn region_exit(&self, slot: usize) -> Option<CoordGrid> {
+        self.regions.slots[slot]
+            .region
+            .as_ref()?
+            .exit
+            .filter(|exit| rsmod::is_zone_allocated(exit.x(), exit.z(), exit.y()))
     }
 
     /// The tile painted areas are read from for `coord`: a region tile's
@@ -369,7 +379,7 @@ impl Engine {
 
     /// Whether something at `from` may be put at `to`. A tile in a region
     /// slot needs a live region there, entered from inside it or by a script
-    /// that selected it: a coord kept from a deleted region never reaches the
+    /// that selected it: a coord kept from a freed region never reaches the
     /// region that took its slot, nor does an offset from another region.
     pub(crate) fn region_allows(
         &self,
@@ -386,135 +396,199 @@ impl Engine {
         selected == Some(region.uid) || slot_at(from.x(), from.z()) == Some(slot)
     }
 
-    pub(crate) fn region_create(&mut self, size: i32) -> Result<Option<u32>, ScriptError> {
-        let large = match size {
-            0 => false,
-            1 => true,
-            _ => {
-                return Err(ScriptError::Runtime(format!(
-                    "region_create: no region size {size}"
-                )));
-            }
-        };
-        Ok(self.regions.allocate(large, self.clock))
+    /// Takes a region of `levels` levels and `east` x `north` zones, built
+    /// from the south-west of a small slot if it fits one, else a large one.
+    pub(crate) fn region_create(
+        &mut self,
+        levels: i32,
+        east: i32,
+        north: i32,
+    ) -> Result<u32, ScriptError> {
+        let zones = (LARGE.tiles >> 3) as i32;
+        if !(1..=4).contains(&levels)
+            || !(1..=zones).contains(&east)
+            || !(1..=zones).contains(&north)
+        {
+            return Err(ScriptError::Runtime(format!(
+                "region_create: no region of {levels} levels and {east}x{north} zones"
+            )));
+        }
+        self.regions
+            .allocate(levels as u8, east as u16, north as u16, self.clock)
+            .ok_or_else(|| ScriptError::Runtime("region_create: no region is free".into()))
     }
 
+    /// The coord `x`, `z` tiles from region `uid`'s south-west corner on
+    /// `level`.
     pub(crate) fn region_coord(
         &self,
         uid: u32,
+        level: i32,
         x: i32,
-        y: i32,
         z: i32,
     ) -> Result<CoordGrid, ScriptError> {
         let (ox, oz, zones) = bounds(self.regions.live(uid)?);
         let tiles = (zones << 3) as i32;
-        if !(0..tiles).contains(&x) || !(0..4).contains(&y) || !(0..tiles).contains(&z) {
+        if !(0..4).contains(&level) || !(0..tiles).contains(&x) || !(0..tiles).contains(&z) {
             return Err(ScriptError::Runtime(format!(
-                "region_getcoord: {x}, {y}, {z} is outside the region"
+                "region_getcoord: {level}, {x}, {z} is outside the region"
             )));
         }
-        Ok(CoordGrid::new(ox + x as u16, y as u8, oz + z as u16))
+        Ok(CoordGrid::new(ox + x as u16, level as u8, oz + z as u16))
     }
 
-    /// Copies the zones from `from_sw` to `from_ne` onto region `uid` from
-    /// `to_sw`, the area turned `rotation` quarter turns clockwise, each with
-    /// its source zone's free-to-play mark, and rebuilds what the copy
+    /// Copies the zone holding `source` onto region `uid`'s zone `east`,
+    /// `north` on `level`, turned `rotation` quarter turns clockwise, with
+    /// the source zone's free-to-play mark, and rebuilds what the copy
     /// reaches.
-    pub(crate) fn region_copy(
+    pub(crate) fn region_set(
         &mut self,
         uid: u32,
-        from_sw: CoordGrid,
-        from_ne: CoordGrid,
-        to_sw: CoordGrid,
+        level: i32,
+        east: i32,
+        north: i32,
+        source: CoordGrid,
         rotation: i32,
     ) -> Result<(), ScriptError> {
         let slot = self.regions.live(uid)?;
-        let (ox, oz, zones) = bounds(slot);
-        let rotation = u8::try_from(rotation)
-            .ok()
-            .filter(|&rotation| rotation < 4)
-            .ok_or_else(|| ScriptError::Runtime(format!("region_copy: no rotation {rotation}")))?;
-        if from_ne.x() < from_sw.x()
-            || from_ne.z() < from_sw.z()
-            || from_ne.y() < from_sw.y()
-            || from_ne.x() >= REGION_X
+        let region = self.regions.slots[slot].region.as_ref().unwrap();
+        if !(0..region.levels as i32).contains(&level)
+            || !(0..region.east as i32).contains(&east)
+            || !(0..region.north as i32).contains(&north)
         {
             return Err(ScriptError::Runtime(format!(
-                "region_copy: {from_sw:?} to {from_ne:?} is not an area of the map"
+                "region_set: zone {east}, {north} on level {level} is outside the region"
             )));
         }
-        let (sx, sz) = (from_sw.x() >> 3, from_sw.z() >> 3);
-        let width = (from_ne.x() >> 3) - sx + 1;
-        let length = (from_ne.z() >> 3) - sz + 1;
-        let levels = from_ne.y() - from_sw.y() + 1;
-        let (turned_width, turned_length) = if rotation & 1 == 1 {
-            (length, width)
-        } else {
-            (width, length)
-        };
-        if to_sw.x() < ox
-            || to_sw.z() < oz
-            || ((to_sw.x() - ox) >> 3) + turned_width > zones
-            || ((to_sw.z() - oz) >> 3) + turned_length > zones
-            || to_sw.y() + levels > 4
-        {
+        if source.x() >= REGION_X {
             return Err(ScriptError::Runtime(format!(
-                "region_copy: the area has no room in the region from {to_sw:?}"
+                "region_set: {source:?} is not on the map"
             )));
         }
-        let (dx, dz) = ((to_sw.x() - ox) >> 3, (to_sw.z() - oz) >> 3);
-
-        let region = self.regions.slots[slot].region.as_mut().unwrap();
-        let mut changed = Vec::with_capacity((width * length) as usize);
-        for a in 0..width {
-            for b in 0..length {
-                let (i, j) = match rotation {
-                    0 => (a, b),
-                    1 => (b, width - 1 - a),
-                    2 => (width - 1 - a, length - 1 - b),
-                    _ => (length - 1 - b, a),
-                };
-                for level in 0..levels {
-                    *region.template_mut(to_sw.y() + level, dx + i, dz + j) =
-                        template(from_sw.y() + level, sx + a, sz + b, rotation);
-                    let free = rsmod::is_zone_flagged(
-                        (sx + a) << 3,
-                        (sz + b) << 3,
-                        from_sw.y() + level,
-                        ZoneFlag::Free as u8,
-                    );
-                    rsmod::change_zone(
-                        ox + ((dx + i) << 3),
-                        oz + ((dz + j) << 3),
-                        to_sw.y() + level,
-                        ZoneFlag::Free as u8,
-                        free,
-                    );
-                }
-                changed.push((dx + i, dz + j));
-            }
-        }
-        self.rebuild_region(slot, &changed);
+        let rotation = turns("region_set", rotation)?;
+        let (east, north) = (east as u16, north as u16);
+        let before = region.templates_at(east, north);
+        self.put_zone(
+            slot,
+            (level as u8, east, north),
+            (source.y(), source.x() >> 3, source.z() >> 3),
+            rotation,
+        );
+        self.rebuild_region(slot, &[(east, north, before)]);
         Ok(())
+    }
+
+    /// Sets where a player who leaves the game inside region `uid` comes
+    /// back, and where one left on no floor goes, rather than the tile each
+    /// came from.
+    pub(crate) fn region_set_exit(&mut self, uid: u32, exit: CoordGrid) -> Result<(), ScriptError> {
+        let slot = self.regions.live(uid)?;
+        if exit.x() >= REGION_X {
+            return Err(ScriptError::Runtime(format!(
+                "region_setexitcoord: {exit:?} is in region space"
+            )));
+        }
+        self.regions.slots[slot].region.as_mut().unwrap().exit = Some(exit);
+        Ok(())
+    }
+
+    /// Puts static zone `from` (level, zone x, zone z) turned `rotation` on
+    /// zone `to` of the region in `slot`, with the zone's free-to-play mark.
+    fn put_zone(&mut self, slot: usize, to: (u8, u16, u16), from: (u8, u16, u16), rotation: u8) {
+        let (ox, oz, _) = bounds(slot);
+        let ((level, zone_x, zone_z), (from_level, from_x, from_z)) = (to, from);
+        let region = self.regions.slots[slot].region.as_mut().unwrap();
+        *region.template_mut(level, zone_x, zone_z) =
+            template(from_level, from_x, from_z, rotation);
+        let free =
+            rsmod::is_zone_flagged(from_x << 3, from_z << 3, from_level, ZoneFlag::Free as u8);
+        rsmod::change_zone(
+            ox + (zone_x << 3),
+            oz + (zone_z << 3),
+            level,
+            ZoneFlag::Free as u8,
+            free,
+        );
     }
 
     /// Builds again, as the client builds them from the same templates, the
     /// zones of `slot` that the `changed` columns reach: their floor and roof
-    /// flags and the collision of every loc and entity on them, with the
-    /// active locs of the changed columns put back into their zones. Locs and
-    /// entities keep their state everywhere.
-    fn rebuild_region(&mut self, slot: usize, changed: &[(u16, u16)]) {
+    /// flags and the collision of every loc and entity on them. The active
+    /// locs standing on the zones cleared, and those of the zones the changed
+    /// columns gained wherever they stand, are put back as their templates
+    /// have them; a loc's south-west tile can lie in the zone beside the one
+    /// it came from. Other locs and entities keep their state. Each changed
+    /// column comes with its templates from before: a column that only
+    /// gained zones, none of them moving its other zones' locs a level down,
+    /// takes nothing away from the zones around it. Only zones as near the
+    /// changed columns as the region's locs reach are visited, so a region
+    /// set a zone at a time stays cheap.
+    fn rebuild_region(&mut self, slot: usize, changed: &[(u16, u16, [u32; 4])]) {
         let (ox, oz, zones) = bounds(slot);
-        let spill = self.regions.spill;
+        let cache = self.cache;
+        let mut region = self.regions.slots[slot].region.take().unwrap();
+        let mut squares = mem::take(&mut self.regions.squares);
+        if squares.len() > SQUARES {
+            squares.clear();
+        }
+        for &(zone_x, zone_z, _) in changed {
+            for level in 0..4 {
+                let template = region.template(level, zone_x, zone_z);
+                if template == NONE {
+                    continue;
+                }
+                let largest = square(cache, &mut squares, template).largest(
+                    template_level(template),
+                    (template_zone_x(template) & 7) as u8,
+                    (template_zone_z(template) & 7) as u8,
+                );
+                region.spill = region.spill.max((largest as u16 + 7) >> 3);
+            }
+        }
+
+        // A column only gained zones when every zone it had stays, and a
+        // gained level 1 bridges none of the column's older zones' tiles.
+        let gained = |zone_x: u16, zone_z: u16, before: &[u32; 4]| {
+            let now = region.templates_at(zone_x, zone_z);
+            let kept = (0..4).all(|level| before[level] == NONE || before[level] == now[level]);
+            let bridges = before[1] == NONE
+                && (0..4).any(|level| level != 1 && before[level] != NONE)
+                && zone_lands(&squares, now[1]).is_some_and(|lands| {
+                    (0..64).any(|tile| lands.at(tile & 7, tile >> 3) & LINK_BELOW != 0)
+                });
+            kept && !bridges
+        };
+        let spill = region.spill;
         let span = zones + (spill << 1);
         let at = |x: u16, z: u16| x as usize * span as usize + z as usize;
+        // Bit 1 marks the changed columns and bit 2 the zones cleared and
+        // built again: the changed columns and the zones their old locs
+        // reached. Each later bit reaches `spill` zones past the one before:
+        // the zones whose locs can block a cleared zone, then the zones those
+        // locs can block.
         let mut reach = vec![0u8; span as usize * span as usize];
-        for &(x, z) in changed {
-            reach[at(x + spill, z + spill)] = 1;
+        let (mut x0, mut z0, mut x1, mut z1) = (span, span, 0, 0);
+        for (zone_x, zone_z, before) in changed {
+            let (x, z) = (zone_x + spill, zone_z + spill);
+            reach[at(x, z)] |= 1;
+            let around = if gained(*zone_x, *zone_z, before) {
+                0
+            } else {
+                spill
+            };
+            for nx in x - around..=x + around {
+                for nz in z - around..=z + around {
+                    reach[at(nx, nz)] |= 2;
+                }
+            }
+            (x0, z0, x1, z1) = (x0.min(x), z0.min(z), x1.max(x), z1.max(z));
         }
-        for (from, to) in [(1, 2), (2, 4)] {
-            for x in 0..span {
-                for z in 0..span {
+        let far = spill * 3;
+        let (x0, z0) = (x0.saturating_sub(far), z0.saturating_sub(far));
+        let (x1, z1) = ((x1 + far).min(span - 1), (z1 + far).min(span - 1));
+        for (from, to) in [(2, 4), (4, 8)] {
+            for x in x0..=x1 {
+                for z in z0..=z1 {
                     if reach[at(x, z)] & from == 0 {
                         continue;
                     }
@@ -527,76 +601,56 @@ impl Engine {
             }
         }
         let tile = |x: u16, z: u16| (ox + (x << 3) - (spill << 3), oz + (z << 3) - (spill << 3));
+        let inside =
+            |x: u16, z: u16| x >= spill && z >= spill && x - spill < zones && z - spill < zones;
 
-        let mut region = self.regions.slots[slot].region.take().unwrap();
-        let mut squares = mem::take(&mut self.regions.squares);
-        if squares.len() > SQUARES {
-            squares.clear();
-        }
-        for &template in region.templates.iter() {
-            if template != NONE {
-                let (mx, mz) = template_square(template);
-                squares
-                    .entry((mx, mz))
-                    .or_insert_with(|| GameMap::decode_template(self.cache, mx as u8, mz as u8));
-            }
-        }
-
-        let tiles = (zones << 3) as usize;
-        let land = |level: usize, x: usize, z: usize| (level * tiles + x) * tiles + z;
-        let mut lands = vec![0; (tiles * tiles) << 2];
-        for level in 0..4 {
-            for zone_x in 0..zones {
-                for zone_z in 0..zones {
-                    let template = region.template(level, zone_x, zone_z);
-                    if template == NONE {
-                        continue;
-                    }
-                    let square = &squares[&template_square(template)];
-                    let base_x = ((template_zone_x(template) & 7) << 3) as u8;
-                    let base_z = ((template_zone_z(template) & 7) << 3) as u8;
-                    for x in 0..8 {
-                        for z in 0..8 {
-                            let source = MapsquareCoordGrid::new(
-                                base_x + x,
-                                template_level(template),
-                                base_z + z,
-                            );
-                            let (dx, dz) = rotate_tile(x, z, template_rotation(template));
-                            lands[land(
-                                level as usize,
-                                ((zone_x << 3) + dx as u16) as usize,
-                                ((zone_z << 3) + dz as u16) as usize,
-                            )] = square.lands[source.packed() as usize];
-                        }
+        for x in x0..=x1 {
+            for z in z0..=z1 {
+                if reach[at(x, z)] & 8 == 0 || !inside(x, z) {
+                    continue;
+                }
+                for level in 0..4 {
+                    let template = region.template(level, x - spill, z - spill);
+                    if template != NONE {
+                        square(cache, &mut squares, template);
                     }
                 }
             }
         }
 
-        for &(zone_x, zone_z) in changed {
-            let column = region.column(zone_x, zone_z);
-            for (coord, serial) in region.statics[column].drain(..) {
-                let (x, y, z) = (coord.x(), coord.y(), coord.z());
-                if let Some(zone) = self.zones.zones.get_mut(&ZoneCoordGrid::new(x, y, z))
-                    && let Some(index) = zone.locs.iter().position(|loc| loc.serial() == serial)
-                {
-                    zone.locs.remove(index);
+        // The active locs standing on the cleared zones go, to be put back.
+        for x in x0..=x1 {
+            for z in z0..=z1 {
+                if reach[at(x, z)] & 2 == 0 || !inside(x, z) {
+                    continue;
+                }
+                let column = region.column(x - spill, z - spill);
+                for (coord, serial) in region.statics[column].drain(..) {
+                    let (x, y, z) = (coord.x(), coord.y(), coord.z());
+                    if let Some(zone) = self.zones.zones.get_mut(&ZoneCoordGrid::new(x, y, z))
+                        && let Some(index) = zone.locs.iter().position(|loc| loc.serial() == serial)
+                    {
+                        zone.locs.remove(index);
+                    }
                 }
             }
         }
 
         let has = |level: i8, x: u16, z: u16| {
             level >= 0
-                && x >= spill
-                && z >= spill
-                && x - spill < zones
-                && z - spill < zones
+                && inside(x, z)
                 && has_ground(region.template(level as u8, x - spill, z - spill))
         };
+        // Whether region tiles `x0`, `z0` to `x1`, `z1` touch a zone whose
+        // collision was cleared, which only then needs what stands there.
+        let cleared = |x0: i32, z0: i32, x1: i32, z1: i32| {
+            let edge = (spill as i32) << 3;
+            let zone = |tile: i32| ((tile + edge).max(0) >> 3).min(span as i32 - 1) as u16;
+            (zone(x0)..=zone(x1)).any(|x| (zone(z0)..=zone(z1)).any(|z| reach[at(x, z)] & 2 != 0))
+        };
 
-        for x in 0..span {
-            for z in 0..span {
+        for x in x0..=x1 {
+            for z in z0..=z1 {
                 if reach[at(x, z)] & 2 == 0 {
                     continue;
                 }
@@ -610,28 +664,35 @@ impl Engine {
             }
         }
 
-        for x in 0..span {
-            for z in 0..span {
-                if reach[at(x, z)] & 2 == 0 {
+        for x in x0..=x1 {
+            for z in z0..=z1 {
+                if reach[at(x, z)] & 2 == 0 || !inside(x, z) {
                     continue;
                 }
                 let (tx, tz) = tile(x, z);
+                let (zone_x, zone_z) = (x - spill, z - spill);
+                let above = zone_lands(&squares, region.template(1, zone_x, zone_z));
                 for level in 0..4 {
                     if !has(level as i8, x, z) {
                         continue;
                     }
+                    let Some(here) = zone_lands(&squares, region.template(level, zone_x, zone_z))
+                    else {
+                        continue;
+                    };
                     for dx in 0..8 {
                         for dz in 0..8 {
-                            let lx = (((x - spill) << 3) + dx) as usize;
-                            let lz = (((z - spill) << 3) + dz) as usize;
-                            let flags = lands[land(level as usize, lx, lz)];
+                            let flags = here.at(dx as u8, dz as u8);
                             if flags & REMOVE_ROOFS != 0 {
                                 rsmod::change_roof(tx + dx, tz + dz, level, true);
                             }
                             if flags & BLOCK_MAP_SQUARE == 0 {
                                 continue;
                             }
-                            let bridge = if lands[land(1, lx, lz)] & LINK_BELOW != 0 {
+                            let link = above
+                                .as_ref()
+                                .map_or(0, |above| above.at(dx as u8, dz as u8));
+                            let bridge = if link & LINK_BELOW != 0 {
                                 level as i8 - 1
                             } else {
                                 level as i8
@@ -645,46 +706,39 @@ impl Engine {
             }
         }
 
-        let cache = self.cache;
+        let tiles = (zones << 3) as i32;
         let mut registered = Vec::new();
-        for x in spill..zones + spill {
-            for z in spill..zones + spill {
+        for x in x0.max(spill)..=x1.min(zones + spill - 1) {
+            for z in z0.max(spill)..=z1.min(zones + spill - 1) {
                 let reached = reach[at(x, z)];
                 if reached & 4 == 0 {
                     continue;
                 }
                 let (zone_x, zone_z) = (x - spill, z - spill);
-                let column = region.column(zone_x, zone_z);
                 for level in 0..4 {
                     let template = region.template(level, zone_x, zone_z);
                     if template == NONE {
                         continue;
                     }
-                    let square = &squares[&template_square(template)];
-                    let base_x = ((template_zone_x(template) & 7) << 3) as u8;
-                    let base_z = ((template_zone_z(template) & 7) << 3) as u8;
+                    let Some(square) = squares.get(&template_square(template)) else {
+                        continue;
+                    };
+                    let added = changed.iter().any(|(x, z, before)| {
+                        (*x, *z) == (zone_x, zone_z) && before[level as usize] != template
+                    });
+                    let from_x = (template_zone_x(template) & 7) as u8;
+                    let from_z = (template_zone_z(template) & 7) as u8;
                     let rotation = template_rotation(template);
-                    for entry in &square.locs {
+                    for entry in square.zone_locs(template_level(template), from_x, from_z) {
                         let source = MapsquareCoordGrid::from(entry.coord);
-                        if source.y() != template_level(template)
-                            || source.x() < base_x
-                            || source.x() >= base_x + 8
-                            || source.z() < base_z
-                            || source.z() >= base_z + 8
-                        {
-                            continue;
-                        }
                         let Some(loc_type) = cache.locs.get_by_id(entry.id) else {
                             continue;
                         };
                         let active = loc_type.active == Some(true);
-                        if active && reached & 1 == 0 {
-                            continue;
-                        }
                         let angle = entry.info & 0x3;
                         let (dx, dz) = rotate_loc(
-                            source.x() - base_x,
-                            source.z() - base_z,
+                            source.x() - (from_x << 3),
+                            source.z() - (from_z << 3),
                             loc_type.width,
                             loc_type.length,
                             angle,
@@ -692,11 +746,28 @@ impl Engine {
                         );
                         let lx = ((zone_x as i32) << 3) + dx;
                         let lz = ((zone_z as i32) << 3) + dz;
-                        if lx < 0 || lz < 0 || lx >= tiles as i32 || lz >= tiles as i32 {
+                        if lx < 0 || lz < 0 || lx >= tiles || lz >= tiles {
+                            continue;
+                        }
+                        let (width, length) = if (angle + rotation) & 1 == 1 {
+                            (loc_type.length as i32, loc_type.width as i32)
+                        } else {
+                            (loc_type.width as i32, loc_type.length as i32)
+                        };
+                        let anchor = ((lx >> 3) as u16, (lz >> 3) as u16);
+                        let wanted = if active {
+                            added || reach[at(anchor.0 + spill, anchor.1 + spill)] & 2 != 0
+                        } else {
+                            // A wall blocks the tile beyond it too.
+                            reached & 2 != 0 || cleared(lx - 1, lz - 1, lx + width, lz + length)
+                        };
+                        if !wanted {
                             continue;
                         }
                         let (lx, lz) = (lx as u16, lz as u16);
-                        let bridge = if lands[land(1, lx as usize, lz as usize)] & LINK_BELOW != 0 {
+                        let link = zone_lands(&squares, region.template(1, lx >> 3, lz >> 3))
+                            .map_or(0, |lands| lands.at((lx & 7) as u8, (lz & 7) as u8));
+                        let bridge = if link & LINK_BELOW != 0 {
                             level as i8 - 1
                         } else {
                             level as i8
@@ -736,15 +807,21 @@ impl Engine {
                             loc_type.length,
                         ));
                         let serial = zone.locs.last().unwrap().serial();
-                        registered.push((column, coord, serial));
+                        registered.push((region.column(anchor.0, anchor.1), coord, serial));
                     }
                 }
             }
         }
 
-        for x in 0..span {
-            for z in 0..span {
-                if reach[at(x, z)] & 4 == 0 {
+        let local = |coord: CoordGrid| (coord.x() as i32 - ox as i32, coord.z() as i32 - oz as i32);
+        let stands_cleared = |coord: CoordGrid, size: u8| {
+            let (x, z) = local(coord);
+            cleared(x, z, x + size as i32 - 1, z + size as i32 - 1)
+        };
+        for x in x0..=x1 {
+            for z in z0..=z1 {
+                let reached = reach[at(x, z)];
+                if reached & 4 == 0 {
                     continue;
                 }
                 let (tx, tz) = tile(x, z);
@@ -754,26 +831,45 @@ impl Engine {
                         continue;
                     };
                     for loc in zone.locs.iter().filter(|loc| loc.visible()) {
-                        apply_loc_collision(loc, loc.world_coord(zone.coord), true);
+                        let coord = loc.world_coord(zone.coord);
+                        if reached & 2 == 0 {
+                            let (width, length) = if loc.angle() as u8 & 1 == 1 {
+                                (loc.length() as i32, loc.width() as i32)
+                            } else {
+                                (loc.width() as i32, loc.length() as i32)
+                            };
+                            let (x, z) = local(coord);
+                            if !cleared(x - 1, z - 1, x + width, z + length) {
+                                continue;
+                            }
+                        }
+                        apply_loc_collision(loc, coord, true);
                     }
                     for &nid in &zone.npcs {
                         if let Some(active) = self.npc_list.get(nid) {
                             let pathing = &active.npc.pathing;
-                            occupy(pathing.presence, pathing.size, active.block_walk());
+                            if reached & 2 != 0 || stands_cleared(pathing.presence, pathing.size) {
+                                occupy(pathing.presence, pathing.size, active.block_walk());
+                            }
                         }
                     }
                     for &pid in &zone.players {
                         if let Some(active) = self.player_list.get(pid) {
                             let pathing = &active.player.pathing;
-                            occupy(pathing.presence, pathing.size, active.player.block_walk);
+                            if reached & 2 != 0 || stands_cleared(pathing.presence, pathing.size) {
+                                occupy(pathing.presence, pathing.size, active.player.block_walk);
+                            }
                         }
                     }
                 }
             }
         }
 
-        for x in 0..span {
-            for z in 0..span {
+        for x in x0..=x1 {
+            for z in z0..=z1 {
+                if reach[at(x, z)] & 8 == 0 {
+                    continue;
+                }
                 let (tx, tz) = tile(x, z);
                 for level in 0..4 {
                     if !has(level as i8, x, z) {
@@ -793,40 +889,52 @@ impl Engine {
 
     /// Sends every player in `slot`'s region its map again.
     fn rebuild_viewers(&mut self, slot: usize) {
-        let (ox, oz, zones) = bounds(slot);
-        for level in 0..4 {
-            for zone_x in 0..zones {
-                for zone_z in 0..zones {
-                    let coord = ZoneCoordGrid::new(ox + (zone_x << 3), level, oz + (zone_z << 3));
-                    let Some(zone) = self.zones.zones.get(&coord) else {
-                        continue;
-                    };
-                    for &pid in &zone.players {
-                        if let Some(active) = self.player_list.get_mut(pid) {
-                            active.player.build_area.rebuild = true;
-                        }
-                    }
-                }
+        for active in self.player_list.players.iter_mut().flatten() {
+            let coord = active.player.pathing.coord;
+            if slot_at(coord.x(), coord.z()) == Some(slot) {
+                active.player.build_area.rebuild = true;
             }
         }
     }
 
-    /// Deletes region `uid`: its players go to its controller type's exit,
-    /// or home, its npcs and controllers are deleted, its zones lose their
-    /// objs, locs, pending events and free-to-play marks, and its collision
-    /// goes now, so nothing later this tick can add, place or teleport
-    /// anything into it. Its zones go at cleanup. Its slot waits out
-    /// [`QUARANTINE`] before the next region.
+    /// Frees each region nobody has been in for [`FREE_AFTER`] ticks, a new
+    /// one counting from its creation.
+    pub(crate) fn free_empty_regions(&mut self) {
+        let clock = self.clock;
+        for active in self.player_list.players.iter().flatten() {
+            let coord = active.player.pathing.coord;
+            if let Some(region) = slot_at(coord.x(), coord.z())
+                .and_then(|slot| self.regions.slots[slot].region.as_mut())
+            {
+                region.seen = clock;
+            }
+        }
+        let empty: Vec<u32> = self
+            .regions
+            .slots
+            .iter()
+            .filter_map(|slot| slot.region.as_ref())
+            .filter(|region| clock.wrapping_sub(region.seen) >= FREE_AFTER)
+            .map(|region| region.uid)
+            .collect();
+        for uid in empty {
+            self.free_region(uid);
+        }
+    }
+
+    /// Frees region `uid`: any players in it leave by its way out, or home,
+    /// its npcs and controllers are deleted, its zones lose their objs, locs,
+    /// pending events and free-to-play marks, and its collision goes now, so
+    /// nothing later this tick can add, place or teleport anything into it.
+    /// Its zones go at cleanup. Its slot waits out [`QUARANTINE`] before the
+    /// next region.
     ///
     /// Zone presence moves with every step and teleport, so the zones' lists
     /// hold everything standing in the region.
-    pub(crate) fn region_del(&mut self, uid: u32) {
+    pub(crate) fn free_region(&mut self, uid: u32) {
         let Ok(slot) = self.regions.live(uid) else {
             return;
         };
-        let exit = self
-            .region_type(slot)
-            .and_then(|id| self.controller_exit(id));
         let (ox, oz, zones) = bounds(slot);
         let tiles = zones << 3;
         let inside = move |coord: CoordGrid| {
@@ -847,7 +955,7 @@ impl Engine {
             }
         }
         for pid in pids {
-            self.leave_region(pid, exit);
+            self.leave_region(pid);
         }
         for nid in nids {
             self.deactivate_npc(nid);
@@ -885,17 +993,21 @@ impl Engine {
         slot.freed = Some(self.clock);
     }
 
-    /// Moves player `pid` out of region space to `exit`, or home where there
-    /// is none or it can't be stood on, its zone and collision moving with it
-    /// now rather than on its turn.
-    fn leave_region(&mut self, pid: u16, exit: Option<CoordGrid>) {
-        let Some(active) = self.player_list.get_mut(pid) else {
+    /// Moves player `pid` out of region space by its way out, or home where
+    /// there is none or it can't be stood on, its zone and collision moving
+    /// with it now rather than on its turn.
+    fn leave_region(&mut self, pid: u16) {
+        let Some(active) = self.player_list.get(pid) else {
             return;
         };
         let from = active.player.pathing.coord;
+        let out = self.way_out(from, active.player.region_entry);
+        let Some(active) = self.player_list.get_mut(pid) else {
+            return;
+        };
         active.player.pathing.clear_waypoints();
-        if exit
-            .and_then(|exit| active.player.pathing.teleport(exit))
+        if out
+            .and_then(|out| active.player.pathing.teleport(out))
             .or_else(|| active.player.pathing.teleport(home(from)))
             .is_none()
         {
@@ -911,9 +1023,9 @@ impl Engine {
         );
     }
 
-    /// Sends a player standing in region space on no region's floor out: to
-    /// the exit of the region it stands in, or home. Nothing should leave
-    /// one there, but nothing may keep one there.
+    /// Sends a player standing in region space on no region's floor out by
+    /// its way out, or home. Nothing should leave one there, but nothing may
+    /// keep one there.
     pub(crate) fn fall_forward(&mut self, pid: u16) {
         let Some(active) = self.player_list.get(pid) else {
             return;
@@ -922,14 +1034,10 @@ impl Engine {
         if coord.x() < REGION_X || rsmod::is_zone_allocated(coord.x(), coord.z(), coord.y()) {
             return;
         }
-        let exit = slot_at(coord.x(), coord.z())
-            .filter(|&slot| self.regions.slots[slot].region.is_some())
-            .and_then(|slot| self.region_type(slot))
-            .and_then(|id| self.controller_exit(id));
-        self.leave_region(pid, exit);
+        self.leave_region(pid);
     }
 
-    /// Drops the zones of the regions deleted this tick, after the npcs
+    /// Drops the zones of the regions freed this tick, after the npcs
     /// despawned from them, freeing their collision again should anything
     /// have stood on it since.
     pub(crate) fn drop_region_zones(&mut self) {
@@ -940,20 +1048,59 @@ impl Engine {
     }
 }
 
-/// The coord `controller`'s config gives its perm coord varcon.
-fn perm_coord(controller: &ControllerType, varcons: &VarConTypeProvider) -> Option<CoordGrid> {
-    controller.vars.iter().find_map(|(varcon, value)| {
-        let varcon = varcons.get_by_id(*varcon)?;
-        match value {
-            ParamValue::Int(packed)
-                if *packed >= 0
-                    && varcon.var_type == ScriptVarType::Coord
-                    && varcon.scope == VarPlayerScope::Perm =>
-            {
-                Some(CoordGrid::from(*packed as u32))
-            }
-            _ => None,
-        }
+/// `rotation` as quarter turns, which `command` takes 0 to 3 of.
+fn turns(command: &str, rotation: i32) -> Result<u8, ScriptError> {
+    u8::try_from(rotation)
+        .ok()
+        .filter(|&rotation| rotation < 4)
+        .ok_or_else(|| ScriptError::Runtime(format!("{command}: no rotation {rotation}")))
+}
+
+/// The tile flags of the static zone a template copies, as the client lays
+/// them on the copy.
+struct ZoneLands<'a> {
+    lands: &'a [u8; MAPSQUARE],
+    x: u8,
+    z: u8,
+    level: u8,
+    rotation: u8,
+}
+
+impl ZoneLands<'_> {
+    /// The flags of tile (`x`, `z`) of the copy.
+    fn at(&self, x: u8, z: u8) -> u8 {
+        let (x, z) = unrotate_tile(x, z, self.rotation);
+        self.lands[MapsquareCoordGrid::new(self.x + x, self.level, self.z + z).packed() as usize]
+    }
+}
+
+/// The mapsquare `template` copies from, decoded into `squares` the first
+/// time.
+fn square<'a>(
+    cache: &CacheStore,
+    squares: &'a mut FxHashMap<(u16, u16), SquareTemplate>,
+    template: u32,
+) -> &'a SquareTemplate {
+    let (mx, mz) = template_square(template);
+    squares
+        .entry((mx, mz))
+        .or_insert_with(|| GameMap::decode_template(cache, mx as u8, mz as u8))
+}
+
+/// The tile flags `template` copies, from its mapsquare in `squares`.
+fn zone_lands(
+    squares: &FxHashMap<(u16, u16), SquareTemplate>,
+    template: u32,
+) -> Option<ZoneLands<'_>> {
+    if template == NONE {
+        return None;
+    }
+    Some(ZoneLands {
+        lands: &squares.get(&template_square(template))?.lands,
+        x: ((template_zone_x(template) & 7) << 3) as u8,
+        z: ((template_zone_z(template) & 7) << 3) as u8,
+        level: template_level(template),
+        rotation: template_rotation(template),
     })
 }
 
@@ -974,6 +1121,30 @@ fn home(coord: CoordGrid) -> CoordGrid {
     CoordGrid::new(x, y, z)
 }
 
+/// Where a player saved at `coord` with `exit` logs in: a tile of region
+/// space never, as no region outlives the world or keeps a player it lost,
+/// but the saved exit if a player can stand there, else home.
+pub(crate) fn login_coord(coord: CoordGrid, exit: Option<CoordGrid>) -> CoordGrid {
+    if coord.x() < REGION_X {
+        return coord;
+    }
+    exit.filter(|exit| {
+        exit.x() < REGION_X && rsmod::is_zone_allocated(exit.x(), exit.z(), exit.y())
+    })
+    .unwrap_or_else(|| home(coord))
+}
+
+/// Puts a returning player saved in region space at its saved exit, or home,
+/// before anything is sent to it.
+pub(crate) fn place_returning(profile: &mut PlayerProfile) {
+    let coord = login_coord(
+        CoordGrid::new(profile.x, profile.y, profile.z),
+        profile.exit,
+    );
+    (profile.x, profile.y, profile.z) = (coord.x(), coord.y(), coord.z());
+    profile.exit = None;
+}
+
 /// Blocks the tiles an entity of `size` is present on at `coord`, as moving
 /// there does.
 fn occupy(coord: CoordGrid, size: u8, block_walk: BlockWalk) {
@@ -990,8 +1161,17 @@ fn occupy(coord: CoordGrid, size: u8, block_walk: BlockWalk) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use rs_pack::cache::provider::{CacheType, TypeProvider};
-    use rs_pack::cache::varcon::VarConType;
+
+    /// Tile (`x`, `z`) of a zone after turning the zone `rotation` quarter
+    /// turns clockwise, as the client places it.
+    const fn rotate_tile(x: u8, z: u8, rotation: u8) -> (u8, u8) {
+        match rotation & 3 {
+            0 => (x, z),
+            1 => (z, 7 - x),
+            2 => (7 - x, 7 - z),
+            _ => (7 - z, x),
+        }
+    }
 
     #[test]
     fn slots_tile_region_space() {
@@ -1035,6 +1215,7 @@ mod tests {
                         _ => x,
                     };
                     assert_eq!(rotate_tile(x, z, rotation), (client_x, client_z));
+                    assert_eq!(unrotate_tile(client_x, client_z, rotation), (x, z));
                     assert_eq!(
                         rotate_loc(x, z, 1, 1, 0, rotation),
                         (client_x as i32, client_z as i32)
@@ -1050,8 +1231,8 @@ mod tests {
 
     #[test]
     fn source_inverts_the_rotation() {
-        let mut regions = Regions::new(1);
-        let uid = regions.allocate(false, 0).unwrap();
+        let mut regions = Regions::default();
+        let uid = regions.allocate(4, 16, 16, 0).unwrap();
         let slot = (uid & 0xFFF) as usize;
         let (ox, oz, _) = bounds(slot);
         for rotation in 0..4 {
@@ -1071,45 +1252,33 @@ mod tests {
     }
 
     #[test]
-    fn exits_come_from_a_perm_coord_varcon() {
-        let varcon = |id: u16, var_type, scope| {
-            let mut varcon = VarConType::new(id);
-            varcon.var_type = var_type;
-            varcon.scope = scope;
-            varcon
-        };
-        let varcons = TypeProvider::<VarConType>::from_types::<VarConType>(
-            vec![
-                varcon(0, ScriptVarType::Coord, VarPlayerScope::Temp),
-                varcon(1, ScriptVarType::Int, VarPlayerScope::Perm),
-                varcon(2, ScriptVarType::Coord, VarPlayerScope::Perm),
-            ],
-            (),
+    fn a_region_too_wide_for_a_small_slot_takes_a_large_one() {
+        let mut regions = Regions::default();
+        let small = regions.allocate(1, 16, 16, 0).unwrap();
+        assert!(((small & 0xFFF) as usize) < SMALL_SLOTS);
+        let wide = regions.allocate(1, 17, 1, 0).unwrap();
+        assert!(((wide & 0xFFF) as usize) >= SMALL_SLOTS);
+        let long = regions.allocate(4, 1, 40, 0).unwrap();
+        assert!(((long & 0xFFF) as usize) >= SMALL_SLOTS);
+        let region = regions.get(long).unwrap();
+        assert_eq!(
+            (region.levels, region.east, region.north, region.zones),
+            (4, 1, 40, 40)
         );
-        let exit = CoordGrid::new(3222, 0, 3218);
-        let mut controller = ControllerType::new(0);
-        controller.vars = Box::new([
-            (0, ParamValue::Int(CoordGrid::new(1, 0, 1).packed() as i32)),
-            (1, ParamValue::Int(5)),
-            (2, ParamValue::Int(exit.packed() as i32)),
-        ]);
-        assert_eq!(perm_coord(&controller, &varcons), Some(exit));
-        controller.vars = Box::new([(0, ParamValue::Int(exit.packed() as i32))]);
-        assert_eq!(perm_coord(&controller, &varcons), None);
     }
 
     #[test]
     fn freed_slots_wait_their_turn() {
-        let mut regions = Regions::new(1);
-        let first = regions.allocate(false, 0).unwrap();
+        let mut regions = Regions::default();
+        let first = regions.allocate(4, 16, 16, 0).unwrap();
         let slot = (first & 0xFFF) as usize;
         regions.slots[slot].region = None;
         regions.slots[slot].freed = Some(10);
         regions.cursors[0] = slot;
-        let second = regions.allocate(false, 20).unwrap();
+        let second = regions.allocate(4, 16, 16, 20).unwrap();
         assert_ne!(second & 0xFFF, first & 0xFFF);
         regions.cursors[0] = slot;
-        let third = regions.allocate(false, 10 + QUARANTINE).unwrap();
+        let third = regions.allocate(4, 16, 16, 10 + QUARANTINE).unwrap();
         assert_eq!(third & 0xFFF, first & 0xFFF);
         assert_ne!(third, first);
         assert!(regions.get(first).is_none());

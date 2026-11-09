@@ -29,9 +29,6 @@ impl Engine {
     pub(crate) fn world(&mut self) {
         // - world queue
         self.process_world_queue();
-        // - controllers
-        #[cfg(since_647)]
-        self.process_controllers();
         // - add objs delayed
         self.process_obj_delayed_queue();
         // - npc hunt players

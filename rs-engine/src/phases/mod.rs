@@ -1,5 +1,7 @@
 mod autosave;
 mod cleanup;
+#[cfg(since_647)]
+pub(crate) mod controller;
 mod ether;
 mod info;
 mod input;

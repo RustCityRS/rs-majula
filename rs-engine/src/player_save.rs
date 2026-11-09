@@ -18,7 +18,7 @@ use tracing::error;
 const SAV_MAGIC: u16 = 0x2004;
 
 /// Current save file format version. Incremented when the binary layout changes.
-const SAV_VERSION: u16 = 9;
+const SAV_VERSION: u16 = 10;
 
 /// Total number of player stats (skills).
 const STAT_COUNT: usize = build::STAT_COUNT;
@@ -58,6 +58,10 @@ pub struct PlayerProfile {
     pub private_chat: u8,
     pub trade_chat: u8,
     pub last_date: i64,
+    /// Rev-647: where a player saved inside a region (instance) logs back
+    /// in: the region's exit coord, else the map tile the player came from.
+    /// `None` outside region space, and always before 647.
+    pub exit: Option<CoordGrid>,
     /// Rev-647: display name claimed via `p_setdisplayname`. Loaded with the
     /// profile but written only by the claim itself (never by the profile
     /// save), and absent from the binary `.sav` fallback format.
@@ -137,6 +141,8 @@ pub fn extract_profile(player: &Player, cache: &CacheStore) -> PlayerProfile {
         private_chat: player.private as u8,
         trade_chat: player.trade as u8,
         last_date: player.last_date,
+        // The engine knows the regions, and fills it in (`profile_of`).
+        exit: None,
         #[cfg(since_647)]
         display_name: player.display_name.clone(),
     }
@@ -360,6 +366,14 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
 
     sav.p8(profile.last_date);
 
+    // v10: the exit a player saved in a region logs back in at.
+    let (exit_x, exit_z, exit_y) = profile
+        .exit
+        .map_or((u16::MAX, 0, 0), |exit| (exit.x(), exit.z(), exit.y()));
+    sav.p2(exit_x);
+    sav.p2(exit_z);
+    sav.p1(exit_y);
+
     let checksum = crc::getcrc(&sav.data, 0, sav.pos);
     sav.p4(checksum);
 
@@ -370,7 +384,7 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
 /// DeSerializes a [`PlayerProfile`] from raw binary `.sav` data.
 ///
 /// Validates the magic number, version, and CRC32 checksum before parsing.
-/// Supports forward-compatible reading of older save versions (v2..=v8).
+/// Supports forward-compatible reading of older save versions (v2 on).
 ///
 /// # Arguments
 /// * `data` - The raw binary save data.
@@ -514,6 +528,12 @@ pub fn load_binary(data: &[u8]) -> Result<PlayerProfile, &'static str> {
     if version == 7 {
         sav.g1();
     }
+    let exit = if version >= 10 {
+        let (x, z, y) = (sav.g2(), sav.g2(), sav.g1());
+        (x != u16::MAX).then(|| CoordGrid::new(x, y, z))
+    } else {
+        None
+    };
 
     Ok(PlayerProfile {
         x,
@@ -534,6 +554,7 @@ pub fn load_binary(data: &[u8]) -> Result<PlayerProfile, &'static str> {
         private_chat,
         trade_chat,
         last_date,
+        exit,
         // The binary .sav fallback predates display names; the DB column is
         // authoritative and re-applies on the next DB-backed login.
         #[cfg(since_647)]

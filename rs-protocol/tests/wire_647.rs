@@ -21,6 +21,7 @@
 use rs_io::Packet;
 use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
+use rs_protocol::network::game::server::loc_merge::LocMerge;
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
 use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
@@ -665,6 +666,51 @@ fn sound_areas_match_client() {
         assert_eq!(c.g2(), 256, "speed");
         c.done(8);
     }
+}
+
+/// `AClass17`'s `LOC_CUSTOMISE` branch reads flags (`g1_alt2`, 128 - v),
+/// coord, loc, shape (`g1_alt1`, -v), then a g2 list per flag, sized by the
+/// loc type. Flag 1 alone resets the loc.
+#[test]
+fn loc_merge_matches_client() {
+    assert_eq!(ZoneProt::LocMerge as u8, 0);
+    assert_eq!(LocMerge::PROT as u8, 20);
+
+    let merge = LocMerge {
+        coord: 0x35,
+        id: 0x1234,
+        shape_angle: 10 << 2 | 3,
+        models: None,
+        recol: Some(Box::new([960, 8353])),
+        retex: Some(Box::new([40])),
+    };
+    let bytes = encode(&merge);
+    assert_eq!(merge.sizeof(), bytes.len());
+    let mut c = ClientPacket::new(&bytes);
+    assert_eq!(c.g1_alt3(), 0x4 | 0x8, "recolours and retextures");
+    let coord = c.g1();
+    assert_eq!(coord >> 4 & 0x7, 3, "x within the zone");
+    assert_eq!(coord & 0x7, 5, "z within the zone");
+    assert_eq!(c.g2(), 0x1234, "loc");
+    assert_eq!(c.g1_alt2() >> 2, 10, "shape");
+    assert_eq!(c.g2(), 960, "recol 0");
+    assert_eq!(c.g2(), 8353, "recol 1");
+    assert_eq!(c.g2(), 40, "retex 0");
+    c.done(11);
+
+    let reset = LocMerge {
+        models: None,
+        recol: None,
+        retex: None,
+        ..merge
+    };
+    let bytes = encode(&reset);
+    let mut c = ClientPacket::new(&bytes);
+    assert_eq!(c.g1_alt3(), 1, "reset");
+    c.g1();
+    c.g2();
+    c.g1_alt2();
+    c.done(5);
 }
 
 // ---------------------------------------------------------------------------
