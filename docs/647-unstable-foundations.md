@@ -1415,6 +1415,300 @@ enums (the server content did), so when each line plays comes from its text, the
 | 3 | 1249 | 32.6 |  | It is essential, especially in the first days, to keep the dragon well fed. In the wild, a mother dragon will typically spend most of her time feeding her brood. Dragons require copious quantities of raw meat. For the first weeks, you should mince this into a fine paste, having removed all bones. But once your dragon has attained a size of approximately 18 inches, it should be able to consume meat on the bone. You will rapidly learn what form of sustenance your dragon prefers. |
 | 4 | 1252 | 10.8 |  | Dragon owners are strongly advised not to bring their dragons indoors once their flame ducts have developed, as this will typically lead to inconvenient house fires. |
 
+### 3.7 When each voiced line plays (2026-11-09)
+
+Every line of the voice enums (3.6), placed at its step of the quest and its trigger.
+
+**Line codes.** Each line is `<code><key>`, with its clip in brackets:
+- V = Sir Vant (3039), R = Roddeck / Explorer Jack (3040), Q = squire (3038);
+- P = player (3041 / 3042, same keys, two voices), G = goblin (3043);
+- N = message narrator (3037), U = guide narrator (3036).
+
+**Steps** are the cache's own (task ids 3500-3523, varp 281 bands, 3.1).
+
+**Evidence:**
+- **R**: a recording shows the line there, with its 3.4 id. The best kind.
+- **T**: the line's own text says when it plays.
+- **G**: my guess from its place in the story. Treat it as unproven.
+
+**Build:**
+- **old**: only the older Objectives / advisor build uses it: the guide narrator U, Roddeck's
+  advisor and objective lines, "So, Roddeck's offering to be an advisor". The 2011 Task build
+  doesn't play these. Their topics are gone: no recording from late December 2010 on shows them,
+  and their rewrites exist (R71-81).
+- **task**: the Task build only (R71-81).
+- Lines with no mark: both builds (seen in both, or no sign of either).
+
+The 2011 port uses the Task build. "Old" lines are listed so the table is complete.
+
+#### Start: Rotate Your Camera (3522), Talk to Sir Vant (3500); varp 281 5-9
+
+| Line | Trigger | Ev. | Build |
+|---|---|---|---|
+| P2 "Hello? Is anyone there?" [1801] | arriving in the cellar, before meeting anyone (inference) | G | |
+| P16 "This cellar's weird." [1803] | an early look around (examining the cellar?) | G | |
+| Q3 "Oh dear, oh dear, it's coming! You'd better talk to Sir Vant! He's in charge!" [1297] | talking to the squire before Sir Vant | R s001a | |
+| U5 / U58 "Rotate the camera using the arrow keys until you can see the knight, Sir Vant..." [1355, 1441] | the opening guide (two-button / one-button mouse) | T | old |
+| U51 "Talk to Sir Vant to find out what he wants." [1513] | the guide, after rotating | T | old |
+| P1 "Hello." [1850] | first talk to Sir Vant | R s001 | |
+| V84 "Wait a moment, there's a dragon coming!" [770] | Sir Vant's reply; the dragon cutscene follows | R s002 | |
+
+#### Assist Sir Vant (3501): the dragon cutscene; varp 10
+
+| Line | Trigger | Ev. | Build |
+|---|---|---|---|
+| Q2 "Help!" [1284] | cutscene, far off (4KO2h2xPtdM @22) | R overhead | |
+| Q4 "Uh oh." [1319] | cutscene, as the dragon turns on him | G | |
+| Q1 (scream) [1292] | cutscene, the squire burns (4KO2h2xPtdM @35, "Aaargh!") | R overhead | |
+| G1 "Ooh, shiny." [1215] | cutscene, the goblin at the bag (4KO2h2xPtdM @50) | R overhead | |
+| V33 "I need some help over here." [882] | after the cutscene | R s003 | |
+| V69 "Thank goodness you're here. My squire is dead, and there's a goblin going through my bag." [887] | talk | R s004 | |
+| V31 "I can't turn my back on this dragon. I need you to take my squire's equipment and deal with the goblin." [807] | talk | R s005 | |
+| V2 "Ahem, I'm over here." [1004] | trying the wall during this step (Kw7h2jY9ANQ @168-170) | R | |
+| V28 "Hey, I'm over here!" [701] | the same kind of nudge, another action (which, unknown) | G | |
+| U90 "We'll come back to that in a moment." [1502] | an action the step doesn't allow yet (examine menu, world map) | R s006 | |
+
+#### Gather the Squire's Gear (3502), Equip Yourself (3503), Kill the Goblin (3504); varp 15-40
+
+| Line | Trigger | Ev. | Build |
+|---|---|---|---|
+| V55 "My squire dropped his sword and armour when he died. You can pick them up and use them to defend my bag from the goblin." [811] | talking to Sir Vant before taking the gear | T | |
+| V85 "Wait, you're not properly armed. You should equip all the kit you've picked up." [758] | attacking the goblin holding but not wearing the kit | T | |
+| V86 "Wait! You're not properly armed! Pick up the kit dropped by my squire, then attack the goblin when you've equipped it!" [988] | attacking the goblin without the kit | R s005a | |
+| V94 / V95 "When you've got the rest of my squire's kit equipped, you'll be ready to deal with the goblin." [788, 846] | talking with part of the kit on | T | |
+| V12 "Excellent! You look ready to fight. You can deal with the goblin now." [978] | talking with all three worn | T | |
+| V21 "Go on, finish off the goblin. It's too weak to be a real threat." [729] | talking during the fight | T | |
+| G2-G8 "Hahahaha!", "LOOT", "me get rich.", "Mine. All mine.", "Oooooooh.", "ROW!", "NOOOOOOO!" [1207, 1197, 1178, 1248, 1231, 1234, 1891] | the goblin's overhead lines while it rummages (several seen: Kw7h2jY9ANQ @166-185, Qzq-h8kLBHk @101) and fights; "NOOOOOOO!" as it dies (inference) | R / G | |
+| V109 "I don't believe I gave you permission to go through my bag." [739] | searching the bag before allowed | R s008 | |
+| N8 "It would be rude to take that without permission." [1352] | taking something not yet allowed | T | |
+| U12, U61, U62, U64-U70, U79-U81, U16, U22, U23, U26, U83, U103, U109-U116 | the guide's pick-up / equip / attack steps | T | old |
+| N54 "You don't need to keep clicking..." [1460] | clicking the goblin again mid-fight (U103 is its guide twin) | T | |
+
+#### Find Out Sir Vant's Plan (3505); varp 45-49
+
+| Line | Trigger | Ev. | Build |
+|---|---|---|---|
+| V71 "Thank you. Now, to deal with the dragon. Come here and I'll tell you my plan." [730] | the goblin dies | R s007 | |
+| V81, V61, V49, V47 [732, 943, 806, 726] | the plan, in that order | R s009-s012 | |
+| V7 "Come behind the wall to talk to me please." [1008] | talking to him from the wrong side (inference: over the wall) | T | |
+| V30 "I appreciate your enthusiasm, but could you please wait until I finish telling you what to do?" [836] | an action mid-plan | T | |
+| V110 "I haven't finished explaining what you've got to do." [950] | as V30 | T | |
+| V46 "If you don't know what you're doing, perhaps you should ask me." [940] | a wrong action with no plan heard | T | |
+| P17 "What am I meant to be doing?" [1880] | a menu option when talking to him mid-quest | R s026b | |
+| P12 / P13 "So I've got to [get some meat from your bag,] climb over this wall, put this meat in the food bowl..." [1816, 1851] | the player's recap reply (before / after taking meat) | T | |
+| P10 "Okay, I'll do that." [1878] | the player's reply | G | |
+| U54, U55 "Sir Vant is trying to explain his plan..." [1372, 1485] | the guide, if the player walks away | T | old |
+
+#### Quest Journal (3506), World Map (3508), Realign Minimap (3509); varp 50-62
+
+Only the guide speaks here (U14, U27, U105-U107, U130, U131, U34, U71, U82, U31): old build. The
+Task build has the task panel and no voice. N52 "What would you like to say?" [1594] is the menu
+title read aloud (G: old build).
+
+#### Climb the Wall (3507), Make a Ramp (3523); varp 65-75
+
+| Line | Trigger | Ev. | Build |
+|---|---|---|---|
+| N26 "The bag contains several parcels of meat, all wrapped up in paper. You take one." [1608] | searching the bag | R s013 | |
+| N49 / N51 "You don't have enough (inventory) space ... to pick up the meat." [1406, 1511] | bag, full inventory | T | |
+| N50 "You won't need any more meat now." [1459] | bag, already holding meat | T | |
+| V102 "You'll never get over the wall there. Try going to the eastern end where it's lower." [755] | climbing the high wall section | R s014 | |
+| V26 "Hey, you'll land on the dragon if you climb over the wall there. Try going to the eastern end where the wall's lower." [1016] | climbing the section by the dragon | T | |
+| V99 "Yes, go to the eastern side of the cellar on my right and climb over the wall there. I mustn't move..." [772] | asking him how to get over | T | |
+| V80 "There must be some object in this cellar that could help you get over the wall. Talk to me again if you get stuck." [810] | asking him, no plank yet | T | |
+| V38 "I think I saw a plank over by the eastern wall. Maybe you'll be able to use that." [796] | asking him again (stuck) | T | |
+| V35 "I see you're holding a plank. You could use it against the wall to create a ramp." [859] | asking him, holding the plank | T | |
+| P14 "The wall is too high for me to climb over, so I can't get past you." [1817] | the player, trying to pass Sir Vant | R s014a | |
+| N30 "Even this low section of the wall is too high for you to climb over." [1769] | climbing the low wall without a ramp | R s015 | |
+| N35 "There are definitely easier ways of getting past this wall." [1596] | another wall section (G) | T | |
+| N34 "You use the plank to construct a crude ramp." [1401] | plank on the low wall | R s016 | |
+| N32 "You won't need another one of those." [1764] | taking a second plank | T | |
+| P15 "There doesn't seem much point in messing around with this wall now that I've built a ramp." [1828] | using something on the wall after the ramp | R s016a | |
+| P3 "I could just walk through the gap now that Sir Vant's moved away." [1874; Whisper heard "the events" / "Cervance"] | trying the wall later, when he has left the doorway (G: after the sleep cutscene) | T | |
+| V25 "Hey, don't walk in front of the dragon!" [880] | walking into the dragon's sight (the wiki: "you would automatically run away") | T | |
+| V3 "Are you mad? Don't eat that, it's raw and it's covered in sleeping potion." [930] | eating the meat | R s018 | |
+| V27 "Hey, don't just drop it on the floor. You're supposed to be placing it in a food bowl." [819] | dropping the meat | R s013a | |
+| V11 "Don't stick the meat on the pillar. You're meant to put it in a bowl for the dragon to eat." [834] | meat on a pillar | T | |
+| N48 "There's not much point in trying to feed that to the dragon." [1737] | an item on the dragon | T | |
+| V10 "Don't give stuff to the dragon. It won't thank you, you know." [977] | an item on the dragon (Sir Vant's version) | T | |
+| N31 "Well done. Now you just need to put the meat in the dragon's food bowl." [1439] | climbing the ramp with meat | T | |
+| U1-U2, U8-U11, U28, U44, U46-U48, U60, U122-U125 | the guide's meat / wall / ramp steps | T | old |
+| P9 "I've placed the meat in the bowl like you said." [1829] | the old build's "Yes, I've done it" reply (wiki transcript) | T | old |
+| V64 "Put that drugged meat in the food bowl by the wooden pillars, please." [773] | talking to him before it's placed | T | |
+| V20 "Get some more meat from my bag and put it in the food bowl by the wooden pillars, please." [966] | talking to him with no meat held or placed | T | |
+
+#### Put the Dragon to Sleep (3510): bowl and cutscene; varp 80-90
+
+| Line | Trigger | Ev. | Build |
+|---|---|---|---|
+| V52 "It's smelled the meat! Hide!" [715] | meat in the bowl | R s019 | |
+| V23 "Grub's up! Shoo!" [850] | the sleep cutscene, at the wall (4KO2h2xPtdM @204) | R overhead | |
+| V65 "Really? The dragon should have smelt it by now. Go back and search the bowl to make sure the meat's alright." [821] | talking to him before the cutscene runs (G: the old build's bowl check, U6 / U63) | T | old? |
+| V106 / V107 "You've already lured the dragon to the right place. [We don't need to mess around with its food anymore.]" [992, 703] | meat or bowl again after the cutscene | T | |
+| V34 "I really don't think you should do that." [1011] | attacking the dragon | R s019a | |
+| V88 "Well done. Come out of hiding and I'll tell you what we're doing next." [958] | the cutscene ends | R s020 | |
+
+#### Talk to Sir Vant Again (3511), Sabotage! (3512): pillars; varp 93-115
+
+| Line | Trigger | Ev. | Build |
+|---|---|---|---|
+| V87 "We need to destroy these pillars to collapse the ceiling on the dragon." [911] | talk | R s021 | |
+| V91 "We're going to burn down these wooden pillars to collapse the ceiling on the dragon." [724] | the same, other wording (G: old build) | T | old? |
+| V8 "Could you get the rest of the supplies from my bag, please?" [993] | talk | R s022 | |
+| P4 "I haven't searched it yet." [1819] | reply | R s022a | |
+| V60 "Oh? Well, search my bag and bring the supplies to me before the dragon wakes up." [932] | reply | R s022b | |
+| V24 "Have you got the stuff from my bag?" [870] | talking before searching | T | |
+| N28 "You search Sir Vant's bag, and take a selection of supplies." [1488] | the bag | R s023 | |
+| N25 "The bag contains various supplies." [1550] | the bag, examined / first look (old build: 7_neJ6mCLXc) | R s023a | |
+| N29 "You search Sir Vant's bag. It's full of miscellaneous supplies." [1451] | the bag, other wording | T | |
+| N27 "There's nothing useful left in the bag except for Sir Vant's spare underpants, which you leave well alone." [1739] | the bag, supplies taken | T | |
+| V58, V14, V98 [795, 876, 844] | the plan | R s024-s026 | |
+| V29 "How are you getting on?" [757] | talking mid-task | R s026a | |
+| P8 "I'm getting there." / P17 "What am I meant to be doing?" | menu replies | R s026b, s026f | |
+| V54 "Me? Touch oily rags? ... No, I'll let you have all the fun." [907] | "Why don't you do it yourself?" here | R s026c/d | |
+| V15-V19 "First you need to wrap both pillars in oily rags..." (five, by progress: none / ripped / oily / ...) [754, 938, 891, 800, 728] | "What am I meant to be doing?", by what the player has made | T | |
+| V13 "Finally attach a fuse to each pillar..." [820] | the same, rags on, fuses not | T | |
+| V37 "I see you've got both pillars nicely wrapped in oily rags now." [776] | the same, rags on | T | |
+| V108 "You've got the fuses sorted out too. Great. Now just hand me one of those tinderboxes from my bag." [939] | the same, fuses on | T | |
+| V36 "I see you finished preparing the pillars. Could you hand me one of the tinderboxes from my bag please?" [919] | the same, pillars done | T | |
+| N10-N16, N21-N23 | rip, soak, wrap, fuse messages (N10 s027, N11 s030, N12 s029, N13 s028, N14/N15 s031, N22 s032, N23 s033) | R / T | |
+| V103 "You're supposed to rip the cloth in half first." [791] | using the whole cloth on a pillar | T | |
+| V105 "You're supposed to soak the rag in oil first. Try using the rag with the oil can." [750] | a dry rag on a pillar | R s031a | |
+| V104 "You're supposed to rip the cloth into two rags, then soak the rags in oil before sticking them to the pillar." [852] | the cloth on a pillar (other wording) | T | |
+| V41 "I think you should wrap the oily rag around the pillar before adding the fuse..." [991] | a fuse before the rag | T | |
+| V77 / N21 "That pillar's already got an oil-soaked cloth around it." [786, 1773] | a second rag on one pillar | T | |
+| V79 "The pillar's already fully prepared for burning." [905] | more on a finished pillar | T | |
+| N16 "There's no need to put oil on the fuse." [1770] | the oil can on a fuse | T | |
+| V83 "Wait a minute! You're supposed to get both pillars prepared before we light them!" [833] | the tinderbox on a pillar too soon | R s033a | |
+| V101 "You'll need to give me a tinderbox first..." [913] | the tinderbox on a pillar before giving him one | R s034a | |
+| N20 "Perhaps you should wait until Sir Vant is ready." [1332] | lighting before he's in place (G) | T | |
+| V73 "Thanks, that's perfect. Now hand me a tinderbox." [931] | talking, pillars done | R s034 | |
+| V53 "Just hand me one of those tinderboxes from my bag." [860] | talking again, no tinderbox given | R s035a | |
+| N53 "You offer Sir Vant a tinderbox." [1556] | tinderbox on Sir Vant | R s035 | |
+| V72 "Thank you. When you're ready, set fire to the other pillar..." [893] | after the tinderbox | R s036 | |
+| V39 / V82 "I think it would be better if you lit the other pillar..." / "Use one of the tinderboxes from my bag to set light to the other pillar..." [799, 792] | lighting his pillar / talking without a tinderbox | T | |
+| V32 "I don't think I need that just at the moment, thank you." [798] | other items on Sir Vant | R s033b | |
+| V6 "Big boom coming up!" [998] | talking after both are lit (G) | T | |
+| V51 "It's burning. Run!" [881] | lighting the other pillar | R s037 | |
+| U57 "Run run run!" [1656] | the guide, the same moment | T | old |
+| V97 "Wow!" [782] | after the collapse (4KO2h2xPtdM @413) | R overhead | |
+| N18 "The pillar has been reduced to a stump..." [1683] | a pillar after the collapse | T | |
+
+#### Return the Squire's Gear (3513); Roddeck arrives; varp 120-127
+
+| Line | Trigger | Ev. | Build |
+|---|---|---|---|
+| V50 "It worked! I see the owner of this cellar has emerged. I think he owes you a word of thanks." [709] | talking to Sir Vant before Roddeck | T | |
+| V1, R43, V56 [763, 1102, 785] | Roddeck's arrival talk | R s038-s040 | |
+| R29, R54, R27, V68, R3, U45, U78, U86, U91-U94, U98-U100 | advisor introduction and screen | T | old |
+| V5 "Before we go any further, could I have my squire's kit back, please?..." [705] | talk | R s041 | |
+| V4 "I'd like my squire's kit back... Take it off and hand it to me, please..." [3169] | the same, still wearing it (newer clip id) | R s041c | |
+| V63 "Please hand over my squire's kit." [920] | talking again, kit not given | R s042 | |
+| V76 "Thanks. Keep 'em coming, please." [744] | each piece handed over | R s041a | |
+| V74 / V75 / V44 / V43 / V45 "(Thanks.) I'd like my oil can / tinderbox (and oil can) back too..." [838, 765, 778, 840, 780] | kit returned, his tools not | T | |
+| V9 "Could you possibly leave my squire's kit behind? ... Just drop it on the floor, or hand it to me." [890] | trying to leave with it (the ladder, later) | T | |
+| V57 "No thanks. Drop it on the floor if you don't need it." [908] | handing him something else | T | |
+| R22 "I think you should be returning that item to Sir Vant, not to me." [1027] | kit items on Roddeck | R s041b | |
+| R19 "I suppose you'd better return Sir Vant's stuff to him..." [1030] | asking Roddeck about armour (old: advisor topic) | T | old? |
+| V62 "Perhaps you shouldn't throw that away." [723] | dropping a tutorial item (the 2011 wiki item pages' destroy text) | T | |
+| N9 "You won't be needing that again." [1558] | picking a dropped quest item back up (wiki: Roddeck's diary) | T | |
+
+#### Discover an Exit (3514), Cutting a Path / Breaking Through (3515 / 3516); varp 128-165
+
+| Line | Trigger | Ev. | Build |
+|---|---|---|---|
+| V66, V93, V48 [861, 935, 837] | Sir Vant on the way out | R s043-s045 | |
+| V78 "The dragon destroyed the cellar ladder, so we'll need a new way out." [737] | the burned ladder | T | |
+| R50 "The dragon destroyed the ladder? That's a catastrophe..." [1049] | Roddeck, the same moment | T | |
+| P6 / P11 "(OK,) I'll get on with it." [1865, 1843] | menu reply | R s047 | |
+| P18 "Why don't you do it yourself?" [1859] | menu reply | R s048 | |
+| V89 "Well, I would, but my armour's terribly hard to clean when it gets dirty." [922] | Sir Vant's answer | R s048a | |
+| V67 "See if you can dig us out of this cellar. Roddeck will advise you on what to do. I'll just stand here and watch." [745] | talking to Sir Vant later in this step | T | |
+| V40 "I think we've all been in this cellar long enough..." [720] | Sir Vant, later still | R s075b | |
+| R52, R49 [1085, 1068] | Roddeck's choice | R s052-s053 | |
+| P5 / P7 "I'll chop through the roots." / "I'll mine through the rocks." [1844, 1886] | the choice | R s055-s056 | |
+| N74-N77 "Roddeck gives you (another) pickaxe / hatchet." | the tool | R s057-s058 | |
+| R34 / R35 "Now you've got a hatchet / pickaxe, ..." [1031, 1037] | talking, tool held (old build: kjgw48iBdc0) | R s058a | old? |
+| R59-R62 "You'll need a hatchet / pickaxe..." [1110, 1122, 1063, 1112] | the blockage without the tool | T | |
+| R36 / R37 "Oh dear, you seem to have lost the hatchet / pickaxe I gave you." [1071, 1091] | talking, tool lost | T | |
+| N59 / N62 "You attempt to mine / chop through the ..." | the blockage | R s059-s060 | |
+| N60 / N63 "You'll need a Mining level of 2 ... / You find that you'll need a Woodcutting level of 2 ..." | the blockage at level 1 | R s061-s062 | |
+| R46 / R47 "That bit of damaged wall is blocked by rocks / tree roots, not ..." [1097, 1046] | the wrong blockage | T | |
+| R23 / R24 "I thought you were meant to be learning mining / woodcutting, not ..." [1023, 1022] | the other skill's practice spot | T | |
+| R67 "You've already broken through the other section of damaged wall." [1138] | the other blockage after one is cleared | T | |
+| R71 / R72 "So, your aim is to get a Mining / Woodcutting level of 2?..." [3174, 3172] | talking after the level message | R s061a, s062a | task |
+| R41 / R42 "So, your objective is ..." [1145, 1133] | the same, old build | T | old |
+| R2 / R1 "Ah, I have something! You can practice mining on the rocks / chopping those roots..." [1067, 1101] | next | R s061b, s062b | |
+| R31 / R30 "Keep mining those rocks / chopping those roots until your level reaches 2." [1028, 1148] | talking while training | T | |
+| R57 "You won't be able to do that until you've trained your mining skill on the fallen rocks I showed you." [1043] | the blockage again, still level 1 | T | |
+| N2-N7, N1 | swing / break-off messages; inventory full of wood (N1) | R s063-s065a / T | |
+| R73 / R74 "You've mined / chopped a few chippings..." [3176, 3171] | the first chippings | R s066, s067 | task |
+| R68 / R69 the same, older wording [1021, 1081] | the same | T | old |
+| R65 / R66 "You're still carrying a few stone / wooden chippings..." [1061, 1149] | chippings held at the exit (G) | R s076a, s076 | |
+| R7 / R6 "Congratulations! You've reached level 2..." [1074, 1142] | level 2 | R s070, s071 | |
+| R75 / R76 "You should be able to mine / chop your way through the rubble / roots blocking that left / right-hand doorway now." [3179, 3175] | talking at level 2 | T | task |
+| U17, U21 "Your Woodcutting / Mining level is now high enough..." [1521, 1376] | the same, guide | R (kjgw48iBdc0) | old |
+| N61 / N64 "You succeed in clearing the rocks / roots from the hole." | the blockage at level 2 | R s072, s073 | |
+| N69 / N73 "Roddeck retrieves his pickaxe / hatchet from you." (N66-N72: with his diary / book) | the hole cleared | R s074, s075 | |
+| R70 / R10 / R26 / R25 "Could you possibly leave my pickaxe / hatchet behind? ..." / "I'd like my pickaxe / hatchet back too..." [1020, 1100, 1116, 1087] | leaving with his tool / book | T | |
+| V59 "Ah, well done. Climb through the hole, and we can all get out of this cellar." [947] | Sir Vant, the hole cleared | R s075a | |
+| R15 "Great! We can climb through the hole in the wall now. Thank you." [1065] | Roddeck, the same | T | |
+| R4, R33, R55, R58 | "What is mining / woodcutting for?" answers | T | old |
+| R39 / R40 "Perhaps you should concentrate on the objective you've already got..." | old advisor | T | old |
+| R8 / R9 "Could you perhaps come and (have a) chat with me before doing that?" [1131, 1141] | acting before talking to Roddeck | T | |
+| R12 "Excuse me, I hadn't finished talking to you." [1260] | walking off mid-talk | T | |
+| R28 "I'll take that if you don't mind." [1280] / R45 "Thanks." [1279] / R48 "That's junk..." [1281] | items handed to Roddeck | T | |
+| R44 "Thank you. If you want one of these, try Bob's Axe Shop in Lumbridge..." [1272] | his tool handed back (G) | T | |
+| R38 "Once we're out of this cellar, I'll be able to advise you about where to get useful items like those." [1079] | asking him about items (old: kjgw48iBdc0) | R | old |
+| R16 "I don't think I need that at the moment. Thank you." [1047] | other items on Roddeck | T | |
+| R63 "You're in my cellar, below the town of Lumbridge." [1055] | P "Where am I?" | T | old |
+| R17 "I love advising people. It makes me feel important." [1035] | old advisor | T | old |
+| R32 "Let's come back to that once we've got out of this cellar." [1054] | old advisor, an off-topic question | T | old |
+| Books: N42-N47 shelf messages; U-less readings: the diary (3044 1-10) and the manual (3045 1-4) | reading Roddeck's diary / the manual | T | |
+| N37-N41 the cabbage barrel and eating | the barrel in Roddeck's room | R s050-s051 | |
+| N36 "The door won't open. It feels like someone's holding it closed from inside." [1413] | the cupboard door before Roddeck comes out | T | |
+| N19 "This doesn't seem like a good time to mess with it." [1641] | a cellar loc out of turn (G) | T | |
+| N65 "There doesn't seem much point in going back in there." [1754] | the hole back (G) | T | |
+
+#### To Freedom! (3519), Lumbridge (3520, 3521); varp 170-1000
+
+| Line | Trigger | Ev. | Build |
+|---|---|---|---|
+| V70 "Thank you again for your help with the dragon. You'll receive a little reward..." [704] | talking to Sir Vant before the ladder | R s078 | |
+| V92 "We've nearly finished the quest now. Once you climb that ladder, you'll be free to start exploring the world outside this cellar." [804] | the same, later | R s078b | |
+| R20 "Hmm, I think this ladder leads to the house of my neighbour, Explorer Jack..." [1094] | Roddeck, at the ladder | R s078a | |
+| N55 / N56 / N57 "Congratulations, quest complete." / "You have completed Unstable Foundations. You gain one quest point and level four mining / woodcutting." [1692, 1514, 1579] | the quest scroll on arrival (4KO2h2xPtdM @607) | R | |
+| N79 / N80 "You've just advanced a Mining / Woodcutting level..." [1560, 1638] | the reward's level-up | R | |
+| R81 "Good grief, where did you three come from?" [3180] | Explorer Jack, on arrival | R s079 | task |
+| R78 "I'll explain later, Jack." [3173] | Roddeck | R s080 | task |
+| R5 "At last we're out. Now Sir Vant has accomplished his mission..." [1282] | Roddeck (the other recorded opening) | R s081 | |
+| V90 "Well, my mission is accomplished now. Roddeck's dragon is no longer a threat." [688] | Sir Vant | R s082 | |
+| V42 "I'd better head back to Falador..." [687] | Sir Vant | R s083 | |
+| R14 "Goodbye, Sir Vant, and thank you again." [1253] | Roddeck | R s084 | |
+| R80 "Begging your pardon, I need a quick word with you before you go." [3178] | Explorer Jack, if the player heads for the door (G) | T | task |
+| R79 "Once you're out and about, you can use the Task System... You'll always earn some money... Look at the Rewards tab for a Task to learn more." [3177] | Explorer Jack: one clip for both boxes | R s085, s086 | task |
+| R77 "Thank you once again for your assistance." [3170] | Roddeck, talked to again after | R s087a | task |
+| N58 "As you leave, Roddeck wanders off home." [1653] | the scene ends | R s087 | |
+| R18, R64, R51, R53, R56, R13, R11, U36, U49, U59, U101, U29 "You may now leave via the door." | the old build's exit: Roddeck's Lumbridge advice and the objective screen | T | old |
+
+#### Any step
+
+| Line | Trigger | Ev. | Build |
+|---|---|---|---|
+| V100 "You can leave that alone now." [706] | an item or loc already used (G) | T | |
+| V96 "Wonderful!" [845] | a short reply (G) | G | |
+
+Recorded box lines (3.4) with no clip of their own:
+- s026d and s086 share a clip with the line before them (V54; R79 [3177]).
+- s013b ("You should take some meat from Sir Vant's bag before you venture out.") and s065 / s065m
+  ("...gaining 42 ... experience. Once more should suffice.") are Task-build wordings with no
+  clip. The cache voices only the older "gain a little ... experience" lines (N3, N6), so these
+  were silent in 2011 (inference).
+- s033c "Nothing interesting happens." and s068 / s069 "Congratulations: You have reached
+  level 2 ..." are the engine's generic boxes, unvoiced.
+- Menus (s046, s054) have none. The hint boxes s017 and s077 have clips in the guide's enum
+  (U104, U108); whether the Task build played them: unknown.
+
 ---
 
 ## 4. Cutscenes and camera (cache 786: client-side camera paths)
