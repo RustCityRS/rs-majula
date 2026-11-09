@@ -1,12 +1,14 @@
 #[cfg(since_647)]
+use Prefetch::{Archive, Group};
+#[cfg(since_647)]
 use rs_crypto::rsa::RsaKey;
 use rs_io::Packet;
 #[cfg(since_647)]
-use rs_io::crc::getcrc;
-#[cfg(since_647)]
 use rs_io::js5::compression::Container;
 #[cfg(since_647)]
-use rs_io::js5::reference::encode_master_index;
+use rs_io::js5::java_string_hash;
+#[cfg(since_647)]
+use rs_io::js5::reference::{ReferenceTable, encode_master_index};
 #[cfg(since_647)]
 use std::collections::HashMap;
 #[cfg(since_647)]
@@ -76,16 +78,55 @@ impl Js5Response<'_> {
 }
 
 #[cfg(since_647)]
+enum Prefetch {
+    Archive(u8),
+    Group(u8, &'static str),
+}
+
+#[cfg(since_647)]
+const PREFETCHES: [Prefetch; 27] = [
+    Archive(28),
+    Group(30, "windows/x86/jaclib.dll"),
+    Group(30, "windows/x86/jaggl.dll"),
+    Group(30, "windows/x86/jagdx.dll"),
+    Group(30, "windows/x86/jagmisc.dll"),
+    Group(30, "windows/x86/sw3d.dll"),
+    Group(30, "windows/x86/hw3d.dll"),
+    Group(30, "windows/x86/jagtheora.dll"),
+    Archive(31),
+    Archive(26),
+    Archive(2),
+    Archive(16),
+    Archive(17),
+    Archive(18),
+    Archive(19),
+    Archive(20),
+    Archive(21),
+    Archive(22),
+    Archive(24),
+    Archive(25),
+    Archive(27),
+    Archive(29),
+    Group(10, "huffman"),
+    Archive(3),
+    Archive(12),
+    Archive(13),
+    Group(23, "details"),
+];
+
+#[cfg(since_647)]
 #[derive(Clone)]
 pub struct Js5Cache {
     groups: Arc<HashMap<(u8, u32), Range<usize>>>,
     data: Arc<Vec<u8>>,
+    prefetches: [i32; 27],
 }
 
 #[cfg(since_647)]
 impl Js5Cache {
     pub fn new(
         mut groups: HashMap<(u8, u32), Vec<u8>>,
+        tables: &HashMap<u8, ReferenceTable>,
         private_key: &RsaKey,
     ) -> anyhow::Result<Self> {
         let archive_count = groups
@@ -117,10 +158,31 @@ impl Js5Cache {
                 (id, start..data.len())
             })
             .collect();
+        let mut archive_bytes = [0; 255];
+        for (&(archive, _), range) in &groups {
+            if archive != 255 {
+                archive_bytes[archive as usize] += range.len();
+            }
+        }
+        let len = |archive: u8, group: u32| groups.get(&(archive, group)).map_or(0, Range::len);
+        let prefetches = PREFETCHES.map(|prefetch| {
+            let size = match prefetch {
+                Archive(archive) => len(255, archive as u32) + archive_bytes[archive as usize],
+                Group(archive, name) => {
+                    let hash = java_string_hash(name);
+                    tables
+                        .get(&archive)
+                        .and_then(|table| table.groups.iter().find(|group| group.name_hash == hash))
+                        .map_or(0, |group| len(archive, group.id))
+                }
+            };
+            size as i32
+        });
         info!("JS5 cache ready: {} groups in memory", groups.len());
         Ok(Self {
             groups: Arc::new(groups),
             data: Arc::new(data),
+            prefetches,
         })
     }
 
@@ -130,14 +192,8 @@ impl Js5Cache {
             .map(|range| &self.data[range.clone()])
     }
 
-    pub fn prefetch_crcs(&self) -> [i32; 27] {
-        let mut crcs = [0; 27];
-        for (archive, crc) in crcs.iter_mut().enumerate() {
-            if let Some(data) = self.get(255, archive as u32) {
-                *crc = getcrc(data, 0, data.len());
-            }
-        }
-        crcs
+    pub fn prefetches(&self) -> [i32; 27] {
+        self.prefetches
     }
 }
 
@@ -148,6 +204,8 @@ mod tests {
     use rs_crypto::rsa::load_rsa_key;
     #[cfg(since_647)]
     use rs_io::js5::compression::{CompressionType, compress};
+    #[cfg(since_647)]
+    use rs_io::js5::reference::GroupInfo;
     #[cfg(since_647)]
     use std::ptr;
 
@@ -169,6 +227,7 @@ mod tests {
                 ((255, 2), reference.clone()),
                 ((2, 7), versioned),
             ]),
+            &HashMap::new(),
             &key,
         )
         .unwrap();
@@ -178,12 +237,61 @@ mod tests {
         let master = cache.get(255, 255).unwrap();
         assert_eq!(Container::parse(master).unwrap().data.len(), master.len());
         assert_eq!(master[5], 3);
-        assert_eq!(
-            &cache.prefetch_crcs()[..3],
-            &[getcrc(&reference, 0, reference.len()); 3]
-        );
         let shared = cache.clone();
         assert!(ptr::eq(cache.get(2, 7).unwrap(), shared.get(2, 7).unwrap()));
+    }
+
+    #[cfg(since_647)]
+    #[test]
+    fn prefetches_weigh_each_loading_requirement_by_its_download_bytes() {
+        let key = load_rsa_key(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../.keys/private-647.pem"
+        ))
+        .unwrap();
+        let table = vec![0, 0, 0, 0, 4, 5, 1, 0, 0];
+        let first = compress(&[1; 600], CompressionType::Gzip).unwrap();
+        let second = compress(&[2; 40], CompressionType::Gzip).unwrap();
+        let huffman = compress(&[3; 20], CompressionType::None).unwrap();
+        let mut versioned = huffman.clone();
+        versioned.extend_from_slice(&[0, 7]);
+        let binary = ReferenceTable {
+            archive_id: 10,
+            format: 5,
+            version: 0,
+            named: true,
+            whirlpooled: false,
+            groups: vec![GroupInfo {
+                id: 4,
+                name_hash: java_string_hash("huffman"),
+                crc: 0,
+                whirlpool: None,
+                version: 7,
+                size: 0,
+                file_count: 1,
+                files: Vec::new(),
+            }],
+        };
+        let cache = Js5Cache::new(
+            HashMap::from([
+                ((255, 2), table.clone()),
+                ((255, 10), table.clone()),
+                ((2, 0), first.clone()),
+                ((2, 1), second.clone()),
+                ((10, 4), versioned),
+            ]),
+            &HashMap::from([(10, binary)]),
+            &key,
+        )
+        .unwrap();
+        let prefetches = cache.prefetches();
+        assert_eq!(
+            prefetches[10] as usize,
+            table.len() + first.len() + second.len()
+        );
+        assert_eq!(prefetches[22] as usize, huffman.len());
+        assert_eq!(prefetches[0], 0);
+        assert_eq!(prefetches[26], 0);
     }
 
     #[cfg(before_647)]

@@ -217,11 +217,11 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                         .read()
                         .unwrap_or_else(PoisonError::into_inner)
                         .clone();
-                    let crcs = client.server_io.js5.prefetch_crcs();
-                    let mut reply = Packet::new(1 + size_of_val(&crcs));
+                    let prefetches = client.server_io.js5.prefetches();
+                    let mut reply = Packet::new(1 + size_of_val(&prefetches));
                     reply.p1(0);
-                    for crc in crcs {
-                        reply.p4(crc);
+                    for size in prefetches {
+                        reply.p4(size);
                     }
                     client.write(&reply.data).await?;
                 }

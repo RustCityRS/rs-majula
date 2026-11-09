@@ -777,7 +777,7 @@ async fn bootstrap(
     // Rev-647 cache delivery: archive-255 reference tables + signed master
     // index and group containers are served from memory.
     #[cfg(since_647)]
-    let js5 = Js5Cache::new(js5_cache.groups, rsa)?;
+    let js5 = Js5Cache::new(js5_cache.groups, &js5_cache.tables, rsa)?;
     #[cfg(since_647)]
     drop(js5_cache.tables);
     #[cfg(since_647)]
@@ -1297,7 +1297,7 @@ async fn reload_coordinator(
                 layout,
                 cache,
             })) => {
-                match Js5Cache::new(cache.groups, rsa) {
+                match Js5Cache::new(cache.groups, &cache.tables, rsa) {
                     Ok(cache) => *js5.write().unwrap_or_else(PoisonError::into_inner) = cache,
                     Err(e) => error!("Hot-reload: the new JS5 cache failed: {e:#}"),
                 }
