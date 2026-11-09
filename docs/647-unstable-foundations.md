@@ -698,7 +698,7 @@ the ramp crosses (Sir Vant: "Try going to the eastern end where it's lower.").
 | t | Shot |
 |---|---|
 | 17-20 | behind the player, at Sir Vant in the doorway |
-| 21-24 | low across the dark main cellar; a distant "Help!" overhead at 22-23 (Roddeck in his cupboard, inference) |
+| 21-24 | low across the dark main cellar; a distant "Help!" overhead at 22-23 (the squire, voice enum 3038) |
 | 25 | the dragon's face, close |
 | 26-33 | Sir Vant at the wall, the dragon breathing over it at his shield |
 | 34-35 | the start room: the squire is hit, "Aaargh!" overhead |
@@ -830,11 +830,13 @@ Forced breaks (the recording breaks where the next word would still fit; all at 
 Old build only (kjgw48iBdc0, 2010-12-15), a message box not in the Task build's matrix: "Your
 Woodcutting level is now high enough for you to chop through the roots in the damaged wall."
 
-#### 9. "Hey, I'm over here" is "Ahem! I'm over here."
+#### 9. "Ahem! I'm over here." and "Hey, I'm over here!" are both real
 
-Kw7h2jY9ANQ (2011-05-13) @170, Sir Vant (chatnpc). The player is in "Assist Sir Vant" (after
-the dragon cutscene, before talking to him) and has just tried "Climb-over Wall" by the door
-(@168). One sighting. The wiki's Speech page caption "Hey, I'm over here" is its audio, misheard.
+- Kw7h2jY9ANQ (2011-05-13) @170 shows Sir Vant's chatnpc "Ahem! I'm over here." The player is in
+  "Assist Sir Vant" and has just tried "Climb-over Wall" (@168).
+- The cache's voice set (3.6) has both lines as separate entries. So the wiki's Speech caption
+  "Hey, I'm over here" is a second line, not a mishearing (corrected 2026-11-09). Which situation
+  plays "Hey": no recording shows it.
 
 #### 10. The advisor button is in the 2011 build
 
@@ -859,9 +861,559 @@ From whole-frame OCR, checked on the frame:
 | Goblin | "Ooh!" | rummaging (Qzq-h8kLBHk @101) |
 | Dragon | "Roargh!" | the opening cutscene (7_neJ6mCLXc @74) |
 | Squire | "Aaargh!" | hit by the dragon's breath (4KO2h2xPtdM @35, Qzq-h8kLBHk @80) |
-| Roddeck (inference) | "Help!" | far off, in the dragon cutscene (4KO2h2xPtdM @22-23, dSHLzIzwXq4 @24) |
+| Squire | "Help!" | far off, in the dragon cutscene (4KO2h2xPtdM @22-23, dSHLzIzwXq4 @24); the squire's voice enum 3038 (3.6) |
 | Sir Vant | "Grub's up! Shoo!" | sending the dragon to the bowl (4KO2h2xPtdM @204-205) |
 | Sir Vant | "Wow!" | after the collapse (4KO2h2xPtdM @413-414) |
+
+### 3.6 Voice-over: every voiced line in cache 786 (2026-11-09)
+
+The quest is voiced (since 21 April 2010, Update:Slayer Challenges). Cache 786 holds every voiced
+line as a vorbis clip, and ten enums with vorbis output (3036-3045) say which clip each speaker
+uses for each line:
+- one enum per speaker;
+- keys 1..N follow the lines in alphabetical order;
+- one clip per line.
+
+The vorbis archive also holds alternate takes no enum uses: "Wait a moment - there's a dragon
+coming!" has six clips. The enums settle which take the game played. No cache script reads these
+enums (the server content did), so when each line plays comes from its text, the step order
+(3.1) and the recordings.
+
+- **Transcripts:** Whisper (openai/whisper-small.en) on every clip; near word-perfect, with
+  names sometimes misspelt ("Roddick", "Zavant").
+- **canon:** the column marks lines also seen in the recordings' dialogue boxes (3.4).
+- **Box text versus speech:** box text is the recordings' (3.4); the speech can differ in small
+  ways ("Ahem! I'm over here." in the box, "Ahem, I'm over here." spoken).
+- **No recording has audible voices.** The client plays speech only when the player's
+  voice-over volume isn't 0.
+- **Playing a line:** the client's VORBIS_SPEECH_SOUND (server prot 7, 6 bytes: g2 clip
+  (65535 = none), g1 loops, g2 delay, g1 volume) and VORBIS_SPEECH_STOP (66, empty). The 647
+  server has encoders for neither yet.
+
+| Enum | Lines | Clips | Speaker |
+|---|---|---|---|
+| 3036 | 131 | 1325-1784 | the guide narrator: the step-guide texts read aloud, mostly in pairs ("Right-click it and select..." / "Click it and select...": two- and one-button mouse). The older build's chatbox guide; the Task build replaced it with the task panel, which isn't voiced. |
+| 3037 | 78 | 1332-1783 | the narrator for game messages and message boxes ("You swing your pick at the rock.") |
+| 3038 | 4 | 1284-1319 | the squire: a scream, "Help!", "Oh dear, oh dear, it's coming! You'd better talk to Sir Vant! He's in charge!", "Uh oh." |
+| 3039 | 110 | 687-1016 | Sir Vant |
+| 3040 | 81 | 1020-3180 | Roddeck, and Explorer Jack at the end. Entries 1-70 are the older Objectives build's lines ("So, your objective is to get a mining level of 2"). Entries 71-81 (clips 3170-3180, the newest ids) are the Task build's rewrites and additions: "So, your aim is..." (as the 2011 boxes read, s061a/s062a), the chippings lines, "You should be able to mine / chop your way through ... doorway now.", "Thank you once again for your assistance.", "I'll explain later, Jack.", and Explorer Jack's "Good grief, where did you three come from?", "Begging your pardon, I need a quick word with you before you go." and the Task System line. Sir Vant's farewell at the exit is in his own enum, 3039 (clips 687, 688). |
+| 3041 | 18 | 1801-1886 | the player, one voice |
+| 3042 | 18 | 373-683 | the player, the other voice: the same 18 lines (inference: male and female) |
+| 3043 | 8 | 1178-1248 | the goblin ("Ooh, shiny.", "LOOT", "Mine. All mine.") |
+| 3044 | 10 | 691-700 | Roddeck's diary, read aloud |
+| 3045 | 4 | 1249-1252 | the "On the Care of Dragons" manual, read aloud |
+
+##### enum 3036 (131 lines)
+
+| # | clip | s | canon | transcript (Whisper) |
+|---|---|---|---|---|
+| 1 | 1327 | 4.5 |  | You'll need to climb over the wall. Right click it and select climb over. |
+| 2 | 1618 | 4.0 |  | You'll need to climb over the wall. Click it and select climb over. |
+| 3 | 1384 | 7.9 |  | You need to raise your wood cutting level to 2. We'll set that as your objective. Click on the flashing icon to see your objective screen. |
+| 4 | 1735 | 7.9 |  | You need to raise your mining level to 2. We'll set that as your objective. Click on the flashing icon to see your objective screen. |
+| 5 | 1355 | 8.1 |  | Rotate the camera using the arrow keys until you can see the knight, Sir Vant. Right-click on him and select Talk to to get started. |
+| 6 | 1335 | 6.8 |  | Return to the food bowl and search it to make sure the meat is alright. Click on the food bowl and choose search. |
+| 7 | 1415 | 5.8 |  | Now that you're equipped for battle, click on the goblin and select Attack to begin fighting it. |
+| 8 | 1454 | 6.4 |  | For a start, you'll need to get some meat from Savant's bag. Right-click on the bag and select Search. |
+| 9 | 1633 | 6.2 |  | For a start, you'll need to get some meat from Savant's bag. Click on the bag and select Search. |
+| 10 | 1408 | 16.5 |  | Explore the cellar until you find the wooden pillars. When you find them, you can put the meat in the nearby food bowl by clicking on the meat and selecting Use, then clicking on the bowl. Check the Quest Journal if you wish to remind yourself of Savant's instructions. |
+| 11 | 1663 | 7.3 |  | Click on the plank in your inventory and select Use. Then click on the lowest section of the wall to use the plank on the wall. |
+| 12 | 1369 | 4.1 |  | Click on the items on the floor, and select take, to pick up each one. |
+| 13 | 1333 | 4.9 |  | You've got to prepare the two pillars for destruction using the supplies from Zavant's bag. |
+| 14 | 1540 | 6.1 |  | You've embarked on the unstable foundations quest. Click on the flashing icon to view the quest journal. |
+| 15 | 1774 | 3.2 |  | You're out. So Vann would like to say farewell now. |
+| 16 | 1438 | 3.1 |  | Your worn items screen shows you the items you've got equipped. |
+| 17 | 1521 | 4.7 |  | Your wood cutting level is now high enough for you to chop through the roots in the damaged wall. |
+| 18 | 1602 | 19.1 |  | Your stats screen shows your level in each skill, and you can hover your mouse over the icons to see how much experience, or XP, you have in the skill. When you train a skill, you'll gain more XP, letting you advance to higher levels in that skill. At higher levels, you can perform more advanced actions. |
+| 19 | 1681 | 2.9 |  | Your objective is to raise your wood cutting level to 2. |
+| 20 | 1713 | 3.0 |  | Your objective is to raise your mining level to 2. |
+| 21 | 1376 | 3.8 |  | Your mining level is now high enough for you to mine through the damaged wall. |
+| 22 | 1395 | 4.7 |  | Your inventory shows the items you're carrying. Pick up the rest of the Squires kit. |
+| 23 | 1480 | 4.3 |  | Your inventory shows the items you're carrying. Pick up the remaining item. |
+| 24 | 1627 | 17.1 |  | Your current objective is to raise your wood cutting level to 2. The Objectives screen will track your progress towards this objective, and the Stats screen will show how much experience XP you've got. Use the Advisor button when you want RODex advice. |
+| 25 | 1418 | 15.3 |  | Your current objective is to raise your mining level to 2. The objective screen will track your progress towards this objective and the stats screen will show how much experience XP you've got. Use the Advisor button when you want RODEX advice. |
+| 26 | 1759 | 5.0 |  | Your character will keep fighting, until one of you dies, or decides to walk away. |
+| 27 | 1748 | 8.8 |  | You'll see that Unstable Foundations is listed in yellow to indicate that you've started the quest. Click on it now to open the quest's journal. |
+| 28 | 1599 | 8.6 |  | You'll need some meat from Savant's bag. Click on the bag to search it. Check the Quest Journal if you wish to remind yourself of Savant's instructions. |
+| 29 | 1433 | 2.0 |  | You may now leave via the door. |
+| 30 | 1631 | 5.7 |  | You didn't have the required skill level to do that. Click on the flashing icon to see your stats screen. |
+| 31 | 1634 | 4.8 |  | You can check the Quest Journal at any time to remind yourself of Savant's instructions. |
+| 32 | 1767 | 11.6 |  | While you've got a pickaxe, you can select the Damaged Walls Mine option to mine your way through the rocks. Pickaxes can be carried in your inventory and you can also wield them as weapons. |
+| 33 | 1645 | 11.2 |  | While you've got a hatchet, you select the damage to walls chop option to chop through the roots that are blocking it. Hatchets can be carried in your inventory and you can also wield them as weapons. |
+| 34 | 1340 | 13.2 |  | When you're using the world map to help you navigate, it helps if you rotate the camera so that north is at the top of your screen. The compass helps you find north. Click on the compass now to point the camera northwards. |
+| 35 | 1651 | 4.2 |  | Use your tinderbox on the pillar to light the fuse, then run away. |
+| 36 | 1374 | 11.2 |  | Use the objective screen to set yourself an objective. The random objective button will help you pick one. Once you have an objective, use the advisor button to consult RODEC. |
+| 37 | 1657 | 6.0 |  | To wrap oily rags around the pillars, click on the oily rags in your inventory, then click on a pillar. |
+| 38 | 1448 | 6.3 |  | to soak a rag in oil, click on the rag in your inventory to select Use, then click on the oil can. |
+| 39 | 1517 | 5.1 |  | To rip the cloth into rags, click the rip option on the cloth in your inventory. |
+| 40 | 1444 | 7.2 |  | To give Savant an item, right-click on it in your inventory and select Use. Then click on Savant. |
+| 41 | 1736 | 6.9 |  | To give Savant an item, click on it in your inventory and select Use. Then click on Savant. |
+| 42 | 1378 | 7.4 |  | To give Savant a tinderbox, click on a tinderbox in your inventory to select Use. Then click on Savant. |
+| 43 | 1766 | 5.3 |  | To attach a fuse to a pillar, click on the fuse in your inventory. Then click on the pillar. |
+| 44 | 1356 | 1.5 |  | Time to get on with the quest. |
+| 45 | 1504 | 7.4 |  | This is the advisor screen. You can use it to get advice from RODEC at any time. Close the screen when you're ready to proceed. |
+| 46 | 1490 | 5.6 |  | The wall is too high for you to climb. There must be something in this cellar that you could use to get over it. |
+| 47 | 1416 | 7.7 |  | The wall is too high for you to climb. So Vance suggests that you try picking up the plank that he saw by the eastern wall of the cellar. |
+| 48 | 1626 | 2.8 |  | The ramp should make it possible for you to climb over the wall. |
+| 49 | 1705 | 14.2 |  | The objective screen recommends activities to you. It's a handy resource if you're ever looking for something to do. Now you've got an objective, Rodick can advise you on how to achieve it. Click the Advisor button to seek his advice. |
+| 50 | 1731 | 2.4 |  | Talk to Savant to see how you're getting on. |
+| 51 | 1513 | 2.5 |  | Talk to Zavant to find out what he wants. |
+| 52 | 1782 | 3.8 |  | Speak to Roddick, your advisor, about breaking through the damaged wall. |
+| 53 | 1350 | 12.7 |  | Savant wants his Squires kit back. To remove items that you're wearing, go to your worn items screen and click the items remove option. The item will be moved to your inventory. |
+| 54 | 1372 | 4.6 |  | Savant is trying to explain his plan. Talk to him to hear the rest of it. |
+| 55 | 1485 | 5.1 |  | Zavant is explaining how to kill the dragon. Talk to him to continue the conversation. |
+| 56 | 1742 | 7.0 |  | Savantas pointed out that you're all stuck down the cellar. See if he or Rodic has a suggestion for how to escape. |
+| 57 | 1656 | 1.1 |  | Run run run! |
+| 58 | 1441 | 8.0 |  | Rotate the camera using the arrow keys until you can see the night servant. Click on him and select Talk to to get started. |
+| 59 | 1473 | 2.6 |  | Rodic would like to offer you some parting advice. |
+| 60 | 1571 | 8.6 |  | Right click on the plank in your inventory and select Use. Then click on the lowest section of the wall to use the plank on the wall. |
+| 61 | 1506 | 4.3 |  | Right click on the items on the floor and select Take to pick up each one. |
+| 62 | 1543 | 5.4 |  | Right click on an item in your inventory and select wheeled or where to equip it. |
+| 63 | 1696 | 7.3 |  | Return to the food bowl and search it to make sure the meat is all right. Right click on the food bowl and choose search. |
+| 64 | 1690 | 4.2 |  | Now, pick up the rest of the Squires Kit, by clicking its Take option. |
+| 65 | 1398 | 4.9 |  | Now, pick up the final item and equip it. Then you'll be ready to fight the goblin. |
+| 66 | 1710 | 7.3 |  | Now, equip the other two items by clicking their wheeled or wear options. You'll need to be viewing your inventory to do this. |
+| 67 | 1461 | 7.7 |  | Now equip the items by right clicking on them and selecting wheeled or wear. You'll need to be viewing your inventory to do this. |
+| 68 | 1412 | 7.4 |  | Now equip the items by clicking on them and selecting wheeled or wear. You'll need to be viewing your inventory to do this. |
+| 69 | 1607 | 3.9 |  | Now equip the final item and you'll be ready to fight the goblin. |
+| 70 | 1424 | 5.6 |  | Now that you're equipped for battle, right-click on the goblin and select Attack to begin fighting it. |
+| 71 | 1699 | 3.6 |  | Now click on the World Map button to see a map of this seller. |
+| 72 | 1443 | 6.1 |  | Great, you've got the dragon in the right place. Talk to Savant to find out the next part of his plan. |
+| 73 | 1664 | 17.3 |  | Explore the cellar until you find the wooden pillars. When you find them, you can put the meat in the nearby food bowl by right-clicking on the meat and selecting Use, then clicking on the bowl. Check the Quest Journal if you wish to remind yourself of Savant's instructions. |
+| 74 | 1562 | 4.4 |  | Excellent. You can click on the stumps of the roots to climb through the hole now. |
+| 75 | 1650 | 3.9 |  | Excellent, you can click on the remaining rubble to climb through the hole now. |
+| 76 | 1498 | 1.8 |  | Escape up the ladder to freedom. |
+| 77 | 1325 | 6.2 |  | Congratulations, the dragon's dead. Speak to Rodic, the man who's just emerged from the cupboard. |
+| 78 | 1362 | 7.4 |  | Click on the question mark button at the top right of your screen to see the advisor screen. You can use it to get advice from RODEC at any time. |
+| 79 | 1700 | 3.4 |  | Click on the flashing icon to view your worn items screen. |
+| 80 | 1409 | 2.8 |  | Click on the flashing icon to view your inventory. |
+| 81 | 1569 | 4.7 |  | Click on an item in your inventory and select wheeled or where to equip it. |
+| 82 | 1732 | 4.1 |  | Check the Quest Journal, if you wish to remind yourself of Savant's instructions. |
+| 83 | 1547 | 8.7 |  | As you get more familiar with RuneScape, you'll learn other forms of combat and meet tougher creatures. Talk to Savant to find out what he wants now. |
+| 84 | 1361 | 2.5 |  | You've successfully levelled up in wood cutting. |
+| 85 | 1525 | 2.8 |  | you've successfully leveled up in mining. |
+| 86 | 1544 | 2.9 |  | You can use it to seek RODEX advice at any time. |
+| 87 | 1337 | 0.8 |  | Where am I? |
+| 88 | 1619 | 1.7 |  | What is wood cutting for? |
+| 89 | 1538 | 1.2 |  | What is mining for? |
+| 90 | 1502 | 1.5 | s006 | We'll come back to that in a moment. |
+| 91 | 1354 | 3.4 |  | This is the advisor screen. |
+| 92 | 1414 | 2.7 |  | Rodek will then be able to offer you advice about it. |
+| 93 | 1491 | 3.0 |  | Rodek will offer more advice once you finish this quest. |
+| 94 | 1329 | 3.0 |  | Rodek looks at your inventory and your surroundings. |
+| 95 | 1553 | 1.8 |  | Please set yourself an objective. |
+| 96 | 1589 | 2.0 |  | How can I raise my wood cutting level? |
+| 98 | 1588 | 1.1 |  | General advice. |
+| 99 | 1784 | 3.3 |  | From this, he tries to work out what advice you might want. |
+| 100 | 1637 | 2.2 |  | Close the screen when you're ready to continue. |
+| 101 | 1483 | 3.8 |  | Use the Advisor button for help on completing your objective. |
+| 102 | 1653 | 2.9 | s087 | As you leave, Rodek wanders off home. |
+| 103 | 1474 | 5.5 |  | You don't need to keep clicking. Once you've started, your character will keep fighting automatically. |
+| 104 | 1716 | 16.8 | s017 | Your character can run if they have sufficient energy. You can make your character run automatically by turning on run mode. Click the boot icon by the minimap. If you hold down the control key while clicking on the floor or minimap, your character will run to their destination. |
+| 105 | 1661 | 7.0 |  | If you ever forget what you were asked to do, take a look in the journal to remind yourself. Close the journal when you've finished reading it. |
+| 106 | 1756 | 7.2 |  | You can also click the Get Quest Help link to get hints for how to proceed with the quest. Close the journal when you've finished reading it. |
+| 107 | 1704 | 3.5 |  | Quest journals record what you're supposed to be doing in each quest. |
+| 108 | 1669 | 7.7 | s077 | When you drop items on the ground, they will eventually vanish. It's a good way to get rid of junk, but don't drop anything you want to keep. |
+| 109 | 1572 | 11.5 |  | Your worn items screen shows you the items you've got equipped. Now, equip the items by right-clicking on them and selecting wheeled or wear. You'll need to be viewing your inventory to do this. |
+| 110 | 1600 | 10.9 |  | Your worn items screen shows you the items you've got equipped. Now, equip the items by clicking on them and selecting wheeled or wear. You'll need to be viewing your inventory to do this. |
+| 111 | 1702 | 7.6 |  | Your worn items screen shows you the items you've got equipped. Now, pick up the rest of the Squires kit, by clicking its take option. |
+| 112 | 1654 | 10.3 |  | Your worn items screen shows you the items you've got equipped. Now, equip the other two items by clicking their wheeled or wear options. You'll need to be viewing your inventory to do this. |
+| 113 | 1604 | 7.5 |  | Your worn items screen shows you the items you've got equipped. Now, equip the final item, and you'll be ready to fight the goblin. |
+| 114 | 1545 | 8.0 |  | Your worn items screen shows you the items you've got equipped. Now, pick up the final item and equip it. Then you'll be ready to fight the goblin. |
+| 115 | 1673 | 9.3 |  | Your worn items screen shows you the items you've got equipped. Now that you're equipped for battle, right-click on the goblin and select Attack to begin fighting it. |
+| 116 | 1472 | 8.8 |  | Your worn items screen shows you the items you've got equipped. Now that you're equipped for battle, click on the goblin and select Attack to begin fighting it. |
+| 117 | 1747 | 11.3 |  | To soak a rag in oil, click on the rag in your inventory to select Use, then click on the oil can. You can check the Quest Journal at any time to remind yourself of Savant's instructions. |
+| 118 | 1649 | 10.1 |  | to rip the cloth into rags, click the rip option on the cloth in your inventory. You can check the Quest Journal at any time to remind yourself of Savannah's instructions. |
+| 119 | 1360 | 10.3 |  | You've got to prepare the two pillars for destruction using the supplies from Savant's bag. You can check the Quest Journal at any time to remind yourself of Savant's instructions. |
+| 120 | 1373 | 10.9 |  | To wrap oily rags around the pillars, click on the oily rags in your inventory, then click on a pillar. You can check the Quest Journal at any time to remind yourself of Savant's instructions. |
+| 121 | 1730 | 10.8 |  | To attach a fuse to a pillar, click on the fuse in your inventory, then click on the pillar. You can check the Quest Journal at any time to remind yourself of Savant's instructions. |
+| 122 | 1622 | 6.0 |  | time to get on with the quest. You'll need to climb over the wall, right click it and select climb over. |
+| 123 | 1682 | 6.2 |  | Time to get on with the quest. You'll need to climb over the wall. Click it, and select, climb over. |
+| 124 | 1476 | 8.3 |  | time to get on with the quest. For a start, you'll need to get some meat from Savant's bag. Right-click on the bag and select Search. |
+| 125 | 1331 | 8.5 |  | time to get on with the quest. For a start, you'll need to get some meat from Savant's bag. Click on the bag and select Search. |
+| 126 | 1697 | 27.5 |  | Your stats screen shows your level in each skill and you can hover your mouse over the icons to see how much experience or XP you have in the skill. When you train a skill, you'll gain more XP, letting you advance to higher levels in that skill. At higher levels, you can perform more advanced actions. You need to raise your mining level to 2. We'll set that as your objective. Click on the flashing icon to see your objective screen. |
+| 127 | 1436 | 26.5 |  | Your stats screen shows your level in each skill and you can hover your mouse over the icons to see how much experience or XP you have in the skill. When you train a skill, you'll gain more XP, letting you advance to higher levels in that skill. At higher levels, you can perform more advanced actions. You need to raise your wood cutting level to 2. We'll set that as your objective. Click on the flashing icon to see your objective screen. |
+| 128 | 1587 | 16.4 |  | Your objective is to raise your mining level to 2. The objective screen recommends activities to you. It's a handy resource if you're ever looking for something to do. Now you've got an objective, Rodick can advise you on how to achieve it. Click the advisor button to seek his advice. |
+| 129 | 1533 | 17.1 |  | Your objective is to raise your wood cutting level to 2. The objective screen recommends activities to you. It's a handy resource if you're ever looking for something to do. Now you've got an objective, Rodick can advise you on how to achieve it. Click the Advisor button to seek his advice. |
+| 130 | 1400 | 11.1 |  | Quest journals record what you're supposed to be doing in each quest. If you ever forget what you are asked to do, take a look in the journal to remind yourself. Close the journal when you've finished reading it. |
+| 131 | 1603 | 16.3 |  | Quest journals record what you're supposed to be doing in each quest. If you ever forget what you are asked to do, take a look in the journal to remind yourself. You can also click the Get Quest Help link to get hints for how to proceed with the quest. Close the journal when you've finished reading it. |
+| 132 | 1395 | 4.7 |  | Your inventory shows the items you're carrying. Pick up the rest of the Squires kit. |
+
+##### enum 3037 (78 lines)
+
+| # | clip | s | canon | transcript (Whisper) |
+|---|---|---|---|---|
+| 1 | 1555 | 5.9 |  | Your inventory is too full to hold any more wood. Free up some space by dropping things you don't need. |
+| 2 | 1431 | 1.7 | s063 | You swing your pick at the rock. |
+| 3 | 1515 | 3.6 |  | You break off some bits of rock and gain a little mining experience. |
+| 4 | 1482 | 1.7 | s065a | You break off some more bits of rock. |
+| 5 | 1684 | 2.0 | s064 | You swing your hatchet at the root. |
+| 6 | 1526 | 3.9 |  | You break off some little bits of wood, gaining a little wood cutting experience. |
+| 7 | 1777 | 1.8 | s065a | You break off some more bits of wood. |
+| 8 | 1352 | 2.5 |  | It would be rude to take that without permission. |
+| 9 | 1558 | 1.4 |  | You won't be needing that again. |
+| 10 | 1382 | 2.8 | s027 | You rip the cloth and end up with two rags. |
+| 11 | 1452 | 3.5 | s030 | You rip the oily cloth and end up with two oily rags. |
+| 12 | 1541 | 1.5 | s029 | You soak the cloth in oil. |
+| 13 | 1379 | 1.4 | s028 | You soak the rag in oil. |
+| 14 | 1344 | 1.9 | s031 | The cloth has already been soaked in oil. |
+| 15 | 1598 | 1.9 | s031 | The rag has already been soaked in oil. |
+| 16 | 1770 | 2.1 |  | There's no need to put oil on the fuse. |
+| 18 | 1683 | 3.7 |  | The pillar has been reduced to a stump. There's nothing more to be done with it. |
+| 19 | 1641 | 2.3 |  | This doesn't seem like a good time to mess with it. |
+| 20 | 1332 | 2.3 |  | Perhaps you should wait until Savant is ready. |
+| 21 | 1773 | 2.7 |  | That pill has already got an oil soaked cloth around it. |
+| 22 | 1698 | 1.9 | s032 | You wrap the oily rag around the pillar. |
+| 23 | 1621 | 1.6 | s033 | You attach the fuse to the pillar. |
+| 25 | 1550 | 2.2 | s023a | The bag contains various supplies. |
+| 26 | 1608 | 4.8 | s013 | The bag contains several parcels of meat, all wrapped up in paper. You take one. |
+| 27 | 1739 | 6.5 |  | There's nothing useful left in the bag except for savants spare underpants, which you leave well alone. |
+| 28 | 1488 | 3.4 | s023 | You search Savant's bag, and take a selection of supplies. |
+| 29 | 1451 | 3.7 |  | You search Savant's bag. It's full of miscellaneous supplies. |
+| 30 | 1769 | 3.8 | s015 | Even this low section of the wall is too high for you to climb over. |
+| 31 | 1439 | 4.7 |  | Well done. Now you just need to put the meat in the dragon's food bowl. |
+| 32 | 1764 | 1.8 |  | You won't need another one of those. |
+| 33 | 1364 | 1.1 |  | That'll come later. |
+| 34 | 1401 | 2.4 | s016 | You use the plank to construct a crude ramp. |
+| 35 | 1596 | 3.3 |  | There are definitely easier ways of getting past this wall. |
+| 36 | 1413 | 4.6 |  | The door won't open. It feels like someone's holding it closed from inside. |
+| 37 | 1381 | 2.4 |  | It's full of cabbages. You've already got one. |
+| 38 | 1701 | 4.1 |  | It's full of cabbages. Your inventory is too full for you to take one. |
+| 39 | 1561 | 2.4 | s050 | It's full of cabbages. You take one. |
+| 40 | 1615 | 3.2 |  | You eat the cabbage. It restores some of your life points. |
+| 41 | 1595 | 1.0 | s051 | You eat the cabbage. |
+| 42 | 1345 | 1.9 | s049 | You find a couple of books and take them. |
+| 43 | 1592 | 4.9 |  | There are a couple of interesting looking books on the shelf, but you only have room to take one of them. |
+| 44 | 1385 | 4.8 |  | There are a couple of interesting looking books on the shelf, but you don't have room to hold them. |
+| 45 | 1419 | 1.4 |  | You take a book from the shelf. |
+| 46 | 1530 | 4.0 |  | There's an interesting looking book on the shelf, but you don't have room to hold it. |
+| 47 | 1668 | 2.2 |  | There's nothing particularly interesting here. |
+| 48 | 1737 | 3.1 |  | There's not much point in trying to feed that to the dragon. |
+| 49 | 1406 | 2.6 |  | You don't have enough inventory space to pick up the meat. |
+| 50 | 1459 | 1.7 |  | You won't need any more meat now. |
+| 51 | 1511 | 3.0 |  | You don't have enough space in your inventory to pick up the meat. |
+| 52 | 1594 | 1.1 |  | What would you like to say? |
+| 53 | 1556 | 1.8 |  | You offers a vent at tinderbox. |
+| 54 | 1460 | 5.5 |  | You don't need to keep clicking. Once you've started, your character will keep fighting automatically. |
+| 55 | 1692 | 3.3 | g004 | Congratulations, Quest Complete. |
+| 56 | 1514 | 6.3 |  | You have completed unstable foundations. You gain one quest point and level four mining. |
+| 57 | 1579 | 6.8 |  | You have completed unstable foundations. You gain one quest point and level four wood cutting. |
+| 58 | 1653 | 2.9 | s087 | As you leave, Rodek wanders off home. |
+| 59 | 1680 | 1.9 | s059 | You attempt to mine through the rocks. |
+| 60 | 1531 | 4.0 | s061 | You'll need a mining level of 2 to clear the rocks. Your mining level is 1. |
+| 61 | 1586 | 2.5 | s072 | you succeed in clearing the rocks from the hole. |
+| 62 | 1420 | 1.9 | s060 | You attempt to chop through the roots. |
+| 63 | 1353 | 5.5 | s062 | You find that you'll need a wood cutting level of 2 to clear the roots. Your wood cutting level is 1. |
+| 64 | 1629 | 2.4 | s073 | You succeed in clearing the roots from the hole. |
+| 65 | 1754 | 2.2 |  | There doesn't seem much point in going back in there. |
+| 66 | 1776 | 3.7 |  | Roddick retrieves his pickaxe, his diary and his book from you. |
+| 67 | 1725 | 2.9 |  | Rodek retrieves his pickaxe and his diary from you. |
+| 68 | 1647 | 2.8 | s074 | Rodic retrieves his pickaxe and his book from you. |
+| 69 | 1632 | 2.0 | s074 | Roddick retrieves his pickaxe from you. |
+| 70 | 1447 | 3.4 |  | Rodek retrieves his hatchet, his diary and his book from you. |
+| 71 | 1783 | 3.0 |  | Rodek retrieves his hatchet and his diary from you. |
+| 72 | 1758 | 2.7 |  | Rodek retrieves his hatchet and his book from you. |
+| 73 | 1484 | 2.1 | s075 | Rodic retrieves his hatchet from you. |
+| 74 | 1509 | 1.6 | s057 | Rodic gives you a pickaxe. |
+| 75 | 1341 | 1.6 | s058 | Rodic gives you a hatchet. |
+| 76 | 1628 | 1.8 | s057 | Rodic gives you another pickaxe. |
+| 77 | 1590 | 1.7 | s058 | Rodic gives you another hatchet. |
+| 78 | 1457 | 3.4 |  | Congratulations! You have completed your objective. |
+| 79 | 1560 | 5.0 | g006 | You've just advanced a mining level. You have reached level 4. |
+| 80 | 1638 | 5.1 |  | You've just advanced a wood cutting level. You have reached level four. |
+
+##### enum 3038 (4 lines)
+
+| # | clip | s | canon | transcript (Whisper) |
+|---|---|---|---|---|
+| 1 | 1292 | 1.4 |  | AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH ––Tick ––Tick–Tick–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T–T |
+| 2 | 1284 | 1.4 |  | Help! |
+| 3 | 1297 | 6.3 | s001a | Oh dear, oh dear, it's coming! You'd better talk to Sir Van! He's in charge! |
+| 4 | 1319 | 1.1 |  | Uh oh. |
+
+##### enum 3039 (110 lines)
+
+| # | clip | s | canon | transcript (Whisper) |
+|---|---|---|---|---|
+| 1 | 763 | 5.7 | s038 | Ah, here you are, Roddick. The White Knights got your message and sent me to slay your dragon. |
+| 2 | 1004 | 2.1 |  | Ahem, I'm over here. |
+| 3 | 930 | 4.6 | s018 | Are you mad? Don't eat that, it's raw and it's covered in sleeping potion. |
+| 4 | 3169 | 9.1 | s041c | I'd like my Squire's kit back so I can return it to the Porchaps family. Take it off and hand it to me, please. I'd like my tinderbox and oil can, too. |
+| 5 | 705 | 9.7 | s041 | Before we go any further, could I have my squires kit back, please? I ought to return it to the poor chap's family. I'd like my tinderbox and oil can, too. |
+| 6 | 998 | 1.9 |  | Big boom coming up! |
+| 7 | 1008 | 2.1 |  | Come behind the wall to talk to me please. |
+| 8 | 993 | 2.5 | s022 | Could you get the rest of the supplies for my bag, please? |
+| 9 | 890 | 7.9 |  | Could you possibly leave my squire's kid behind? I ought to return it to his family. Just drop it on the floor, or hand it to me. |
+| 10 | 977 | 3.6 |  | Don't give stuff to the dragon. It won't thank you, you know. |
+| 11 | 834 | 4.7 |  | Don't stick the meat on the pillar. You're meant to put it in a bowl for the dragon to eat. |
+| 12 | 978 | 4.4 |  | Excellent! You look ready to fight. You can deal with the goblin now. |
+| 13 | 820 | 5.0 |  | Finally attach a fuse to each pillar. That'll give us time to run away when we light them. |
+| 14 | 876 | 7.6 | s025 | First we need to wrap the pillars in oily rags. There was a big cloth in my bag. Rip it in half, then soak the pieces in oil. |
+| 15 | 754 | 3.0 |  | First you need to get both pillars wrapped in oily rags. |
+| 16 | 938 | 5.7 |  | First you need to wrap both pillars in oily rags. I see you've worked out how to make oily rags. |
+| 17 | 891 | 6.1 |  | First you need to wrap both pillars in oily rags. You can make oily rags by ripping up that big oily cloth you've got. |
+| 18 | 800 | 8.1 |  | First you need to wrap both pillars in oily rags. You can make oily rags by ripping up the big cloth from my bag and using my can of oil on the rags. |
+| 19 | 728 | 6.8 |  | First you need to wrap both pillars in oily rags. You can make oily rags by using my can of oil with rags of cloth. |
+| 20 | 966 | 4.2 |  | Get some more meat from my bag and put it in the food bowl by the wooden pillars, please. |
+| 21 | 729 | 4.3 |  | Go on, finish off the goblin. It's too weak to be a real threat. |
+| 22 | 784 | 3.7 |  | Great! We can climb through the hole in the wall now. Thank you. |
+| 23 | 850 | 2.6 |  | Grubs up, shoo! |
+| 24 | 870 | 1.8 |  | Have you got the stuff from my bag? |
+| 25 | 880 | 2.1 |  | Hey, don't walk in front of the dragon! |
+| 26 | 1016 | 6.6 |  | Hey, you'll land on the dragon if you climb over the wall there. Try going to the eastern end where the walls lower. |
+| 27 | 819 | 4.3 | s013a | Hey, don't just drop it on the floor. You're supposed to be placing it in a food bowl. |
+| 28 | 701 | 2.2 |  | Hey, I'm over here! |
+| 29 | 757 | 1.2 | s026a | How are you getting on? |
+| 30 | 836 | 4.9 |  | I appreciate your enthusiasm, but could you please wait until I finish telling you what to do? |
+| 31 | 807 | 5.3 | s005 | I can't turn my back on this dragon. I need you to take my squire's equipment and deal with the goblin. |
+| 32 | 798 | 2.1 | s033b | I don't think I need that just at the moment, thank you. |
+| 33 | 882 | 1.7 | s003 | I need some help over here. |
+| 34 | 1011 | 1.8 | s019a | I really don't think you should do that. |
+| 35 | 859 | 4.3 |  | I see you're holding a plank. You could use it against the wall to create a ramp. |
+| 36 | 919 | 5.1 |  | I see you finished preparing the pillars. Could you hand me one of the tinder boxes for my bag please? |
+| 37 | 776 | 3.2 |  | I see you've got both pillars nicely wrapped in oily rags now. |
+| 38 | 796 | 4.4 |  | I think I saw a plank over by the Eastern Wall. Maybe you'll be able to use that. |
+| 39 | 799 | 4.7 |  | I think it would be better if you lit the other pillar. I'll light this one at the same time. |
+| 40 | 720 | 4.7 | s075b | I think we've all been in this cellar long enough. Can we get on with the quest now please? |
+| 41 | 991 | 5.8 |  | I think you should wrap the oily rag around the pillar before adding the fuse. I'm sure it'll work better that way. |
+| 42 | 687 | 7.0 | s083 | I'd better head back to Falador. My squire's family will need to be informed of his death. It's been a pleasure working with you. |
+| 43 | 840 | 3.1 |  | I'd like my oil can back too, now that you've finished with it. |
+| 44 | 778 | 3.7 |  | I'd like my tinderbox and oil can back too, now that you've finished with them. |
+| 45 | 780 | 3.5 |  | I'd like my tinderbox back too, now that you've finished with it. |
+| 46 | 940 | 2.8 |  | If you don't know what you're doing, perhaps you should ask me. |
+| 47 | 726 | 5.1 | s012 | I'll keep the dragon's attention. Once you've got the drugged meat, you'll need to climb over the wall next to me. |
+| 48 | 837 | 3.9 | s045 | I'm sure Rodda can teach you how to clear the rocks or the tree roots out of the way. |
+| 49 | 806 | 8.3 | s011 | In my bag is some meat I prepared with a sleeping potion. I need you to put the meat in a food bowl by the wooden pillars. The dragon will eat it and fall asleep. |
+| 50 | 709 | 5.8 |  | It worked! I see the owner of this cellar has emerged. I think he owes you a word of thanks. |
+| 51 | 881 | 1.6 | s037 | It's burning. Run! |
+| 52 | 715 | 1.9 | s019 | It's not the meat. Hide! |
+| 53 | 860 | 2.5 | s035a | Just hand me one of those tinder boxes from my bag. |
+| 54 | 907 | 9.7 | s026c | Me? Touch oily rags? You've clearly never tried to clean oil off white armor. No, I'll let you have all the fun. |
+| 55 | 811 | 6.0 |  | My squire dropped his sword and armor when he died. You can pick them up and use them to defend my bag from the goblin. |
+| 56 | 785 | 1.8 | s040 | Next time, get a puppy. |
+| 57 | 908 | 2.8 |  | No thanks. Drop it on the floor if you don't need it. |
+| 58 | 795 | 5.6 | s024 | Now, we're going to burn these wooden pillars and bring the ceiling down on this fat old worm. |
+| 59 | 947 | 4.9 | s075a | Ah, well done. Climb through the hole, and we can all get out of this cellar. |
+| 60 | 932 | 5.1 | s022b | Oh? Well, search my bag and bring the supplies to me before the dragon wakes up. |
+| 61 | 943 | 6.3 | s010 | One corner of the ceiling is held up by wooden pillars. We're going to lure the dragon there and then collapse the roof on top of it. |
+| 62 | 723 | 2.1 |  | Perhaps you shouldn't throw that away. |
+| 63 | 920 | 1.8 | s042 | Please hand over my Squires kit. |
+| 64 | 773 | 3.1 |  | Put that drug meat in the food bowl by the wooden pillars, please. |
+| 65 | 821 | 6.2 |  | Really? The dragon should have smelted by now. Go back and search the bowl to make sure the meat's alright. |
+| 66 | 861 | 4.9 | s043 | Right, I think that's everything. Now we just need a new way out of the cellar. |
+| 67 | 745 | 6.4 |  | See if you can dig us out of this cellar. Rodek will advise you on what to do. I'll just stand here and watch. |
+| 68 | 854 | 6.7 |  | So, Rodic's offering to be an advisor for you. That might be useful. It's a big world out there and he can teach you a lot. |
+| 69 | 887 | 5.3 | s004 | Thank goodness you're here. My squire is dead, and there's a goblin going through my bag. |
+| 70 | 704 | 6.7 | s078 | Thank you again for your help with the dragon. You'll receive a little reward for completing the quest when you get outside. |
+| 71 | 730 | 5.5 | s007 | Thank you. Now, to deal with the dragon. Come here and I'll tell you my plan. |
+| 72 | 893 | 5.1 | s036 | Thank you. When you're ready, set fire to the other pillar. I'll light this one at the same moment. |
+| 73 | 931 | 4.0 | s034 | Thanks, that's perfect. Now hand me a tinderbox. |
+| 74 | 838 | 3.1 |  | Thanks. I'd like my oil can back too, please. |
+| 75 | 765 | 3.2 |  | Thanks. I'd like my tinderbox back too, please. |
+| 76 | 744 | 2.4 | s041a | Thanks. Keep them coming, please. |
+| 77 | 786 | 2.8 |  | That pillar's already got an oil-soaked cloth around it. |
+| 78 | 737 | 3.9 |  | The dragon destroyed the Selalandar, so we'll need a new way out. |
+| 79 | 905 | 2.6 |  | The pillars already fully prepared for burning. |
+| 80 | 810 | 5.4 |  | There must be some object in this cellar that could help you get over the wall. Talk to me again if you get stuck. |
+| 81 | 732 | 4.6 | s009 | This dragon's a tougher customer than I'd expected, but I know a way we can defeat it. |
+| 82 | 792 | 5.3 |  | Use one of the tinder boxes from my bag to set light to the other pillar. I light this one at the same time. |
+| 83 | 833 | 4.5 | s033a | Wait a minute! You're supposed to get both pillars prepared before we light them! |
+| 84 | 770 | 2.1 | s002 | Wait a moment, there's a dragon coming! |
+| 85 | 758 | 4.5 |  | Wait, you're not properly armed. You should equip all the kit you've picked up. |
+| 86 | 988 | 6.0 | s005a | Wait! You're not properly armed! Pick up the kit dropped by my squire, then attack the goblin when you've equipped it! |
+| 87 | 911 | 3.5 | s021 | We need to destroy these pillars to collapse the ceiling on the dragon. |
+| 88 | 958 | 3.4 | s020 | Well done. Come out of hiding and I'll tell you what we're doing next. |
+| 89 | 922 | 3.6 | s048a | Well, I would, but my armor's terribly hard to clean when it gets dirty. |
+| 90 | 688 | 4.3 | s082 | Well, my mission is accomplished now. Rodex Dragon is no longer a threat. |
+| 91 | 724 | 4.2 |  | We're going to burn down these wooden pillars to collapse the ceiling on the dragon. |
+| 92 | 804 | 7.2 | s078b | We've nearly finished the quest now. Once you climb that ladder, you'll be free to start exploring the world outside this cellar. |
+| 93 | 935 | 8.8 | s044 | When the ceiling collapsed, it damaged that wall. It looks like there are two places where you could break through. One's blocked by rocks, the other by tree roots. |
+| 94 | 788 | 4.1 |  | When you've got the rest of my squire's kit equipped, you'll be ready to deal with the goblin. |
+| 95 | 846 | 4.1 |  | When you've got the rest of my squire's kit equipped, you'll be ready to deal with the goblin. |
+| 96 | 845 | 1.3 |  | Wonderful! |
+| 97 | 782 | 1.2 |  | Wow! |
+| 98 | 844 | 3.8 | s026 | Wrap the oily rags around the pillars then add a fuse to each one. |
+| 99 | 772 | 7.3 |  | Yes, go to the eastern side of the cellar on my right and climb over the wall there. I mustn't move or I'll lose the dragon's attention. |
+| 100 | 706 | 1.6 |  | You can leave that alone now. |
+| 101 | 913 | 5.8 | s034a | You'll need to give me a tinderbox first. Otherwise, I can't light my pillar at the same time as you like yours. |
+| 102 | 755 | 4.0 | s014 | You'll never get over the wall there. Try going to the eastern end where it's lower. |
+| 103 | 791 | 2.5 |  | You're supposed to rip the cloth in half first. |
+| 104 | 852 | 5.5 |  | You're supposed to rip the cloth into two rags, then soak the rags in oil before sticking them to the pillar. |
+| 105 | 750 | 4.7 | s031a | You're supposed to soak the rag in oil first. Try using the rag with the oil can. |
+| 106 | 992 | 2.6 |  | You've already lured the dragon to the right place. |
+| 107 | 703 | 5.1 |  | You've already lured the dragon to the right place. We don't need to mess around with its food anymore. |
+| 108 | 939 | 5.7 |  | You've got the fuses sorted out too. Great. Now just hand me one of those tinder boxes from my bag. |
+| 109 | 739 | 2.8 | s008 | I don't believe I gave you permission to go through my bag. |
+| 110 | 950 | 2.8 |  | I haven't finished explaining what you've got to do. |
+
+##### enum 3040 (81 lines)
+
+| # | clip | s | canon | transcript (Whisper) |
+|---|---|---|---|---|
+| 1 | 1101 | 6.3 | s062b | Ah, I have something. You can practice chopping those roots growing through the wall. |
+| 2 | 1067 | 8.6 | s061b | Ah, I have something. You can practice mining on the rocks that fell into my cellar when the roof collapsed. |
+| 3 | 1095 | 7.8 |  | Ah, I see you've run into a little difficulty. In a moment, I'll have some advice for you. |
+| 4 | 1098 | 8.7 |  | As your mining level increases, you'll be able to mine for more valuable ores. You'll also get ores much faster. |
+| 5 | 1282 | 9.8 | s081 | At last we're out. Now Savant has accomplished his mission to rescue me for my pet dragon, so I suppose he'll be off. |
+| 6 | 1142 | 9.9 | s071 | Congratulations! You've reached level 2. You should now be able to chop through the tree roots in the damaged wall. |
+| 7 | 1074 | 8.8 | s070 | Congratulations! You've reached level 2. You should now be able to mine through the rocks in the damaged wall. |
+| 8 | 1131 | 3.7 |  | Could you perhaps come and chat with me before doing that? |
+| 9 | 1141 | 3.9 |  | Could you perhaps come and have a chat with me before doing that? |
+| 10 | 1100 | 7.1 |  | Could you possibly leave my hatchet behind? Just drop it on the floor or hand it to me. |
+| 11 | 1127 | 4.1 |  | Don't forget to use my advisor button to get my advice. |
+| 12 | 1260 | 5.8 |  | Excuse me, I hadn't finished talking to you. |
+| 13 | 1129 | 4.2 |  | Go on, use the button to call me for advice. |
+| 14 | 1253 | 4.4 | s084 | Goodbye, Savant, and thank you again. |
+| 15 | 1065 | 5.6 |  | Great! We can climb through the hole in the wall now. Thank you. |
+| 16 | 1047 | 3.5 | s033b | I don't think I need that at the moment. Thank you. |
+| 17 | 1035 | 4.7 |  | I love advising people. It makes me feel important. |
+| 18 | 1258 | 6.9 |  | I suppose this must be your first visit to Lumbridge, so I'll give you some advice before you go. |
+| 19 | 1030 | 9.0 |  | I suppose you'd better return Zavant's stuff to him. Don't worry. I can tell you where to buy your own armour later. |
+| 20 | 1094 | 10.8 | s078a | Hmm, I think this ladder leads to the house of my neighbor. Explorer Jack. He's an understanding chap. He won't mind us walking through his house. |
+| 21 | 1274 | 3.4 |  | I think we've all had quite enough action down there. |
+| 22 | 1027 | 3.9 | s041b | I think you should be returning that item to Savant, not to me. |
+| 23 | 1023 | 4.0 |  | I thought you were meant to be learning mining, not wood cutting. |
+| 24 | 1022 | 5.4 |  | I thought you were meant to be learning wood cutting, not mining. |
+| 25 | 1087 | 6.3 |  | I'd like my hatchet back too. Just drop it on the floor or hand it to me. |
+| 26 | 1116 | 6.1 |  | I'd like my pickaxe back too. Just drop it on the floor or hand it to me. |
+| 27 | 1084 | 5.7 |  | I'll add a button to your display. Use it when you want my advice. |
+| 28 | 1280 | 2.5 |  | I'll take that if you don't mind. |
+| 29 | 1134 | 9.4 |  | I am incredibly grateful to you for disposing of the Dragon. In thanks, allow me to offer my services as your advisor. |
+| 30 | 1148 | 3.8 |  | Keep chopping those roots until your wood cutting level reaches 2. |
+| 31 | 1028 | 4.0 |  | Keep mining those rocks until your mining level reaches 2. |
+| 32 | 1054 | 3.5 |  | Let's come back to that once we've got out of this cellar. |
+| 33 | 1072 | 6.5 |  | Mining is used for breaking up rocks and extracting valuable ores from inside them. |
+| 34 | 1031 | 5.9 | s058a | Now you've got a hatchet, chop your way through the roots inside the damaged wall. |
+| 35 | 1037 | 6.4 | s058a | Now you've got a pickaxe. Mine your way through the rocks inside the damaged wall. |
+| 36 | 1071 | 4.5 |  | Oh dear, you seem to have lost the hatchet I gave you. |
+| 37 | 1091 | 5.4 |  | Oh dear, you seem to have lost the pickaxe I gave you. |
+| 38 | 1079 | 7.1 |  | Once we're out of this cellar, I'll be able to advise you about where to get useful items like those. |
+| 39 | 1029 | 13.1 |  | Perhaps you should concentrate on the objective you've already got. Remember, we can't get out of this cellar until you've raised your mining level to two and mined through the damaged wall. |
+| 40 | 1136 | 13.2 |  | Perhaps you should concentrate on the objective you've already got. Remember, we can't get out of this cellar until you've raised your wood cutting level to two and chopped through the damaged wall. |
+| 41 | 1145 | 7.9 | s061a | So, your objective is to get a mining level of 2. Okay, I'll find you something to train on. |
+| 42 | 1133 | 8.1 | s061a | So, your objective is to get a wood cutting level of 2. Okay, I'll find you something to train on. |
+| 43 | 1102 | 8.5 | s039 | Thank you both very much. It's had me trapped in the cupboard for ages. I'd completely lost control of it. |
+| 44 | 1272 | 8.0 |  | Thank you. If you want one of these, try Bob's Axe Shop in Lumbridge, near the exit of this cellar. |
+| 45 | 1279 | 1.1 |  | Thanks. |
+| 46 | 1097 | 14.5 |  | That bit of damaged wall is blocked by rocks, not tree roots. I gave you a hatchet, so you should try chopping the other section of damaged wall. The bit that's blocked by tree roots. |
+| 47 | 1046 | 14.6 |  | That bit of damaged wall is blocked by tree roots, not rocks. I gave you a pickaxe, so you should try mining the other section of damaged wall, the bit that's blocked by rocks. |
+| 48 | 1281 | 4.7 |  | That's junk. Just drop it on the floor. I don't want it. |
+| 49 | 1068 | 6.4 | s053 | The choice is yours. Would you like to mine through the rocks or chop through the roots? |
+| 50 | 1049 | 8.5 |  | The dragon destroyed the ladder? That's a catastrophe. Why should never have tried rearing a dragon in here? |
+| 51 | 1254 | 10.9 |  | Use the objective system to pick yourself an objective. When you've got one that you like, use my advisor button to ask me for advice. |
+| 52 | 1085 | 7.3 | s052 | We need you to break through one of the damaged wall sections by clearing some rocks or tree roots. |
+| 53 | 1261 | 6.6 |  | When you've got an objective that you like, use my advisor button to ask me for advice. |
+| 54 | 1059 | 10.2 |  | Wherever you are, you can call on me for advice. I can teach you how to train your skills, how to make money, and much more besides. |
+| 55 | 1105 | 12.9 |  | Wood cutting is used for chopping down trees. As your wood cutting level increases, you'll be able to cut down more variety of trees, getting increasingly valuable types of wood. |
+| 56 | 1256 | 7.1 |  | You can leave the house now. Don't forget to use my advisor button to help you complete your objective. |
+| 57 | 1043 | 6.9 |  | You won't be able to do that until you've trained your mining skill on the fallen rocks I showed you. |
+| 58 | 1093 | 3.1 |  | You'll also be able to chop down trees much faster. |
+| 59 | 1110 | 5.2 |  | You'll need a hatchet to chop through the roots. Come here and I'll give you one. |
+| 60 | 1122 | 3.8 |  | You'll need a hatchet. Come and get one from me. |
+| 61 | 1063 | 6.1 |  | You'll need a pickaxe to mine the rocks out of the way. Come here and I'll give you one. |
+| 62 | 1112 | 3.9 |  | You'll need a pickaxe. Come and get one from me. |
+| 63 | 1055 | 3.2 |  | You're in my cellar, below the town of Lumbridge. |
+| 64 | 1255 | 8.8 |  | You're in the town of Lumbridge. South of us is Lumbridge Castle. The city of Varrock lies to the north. |
+| 65 | 1061 | 9.1 | s076a | You're still carrying a few stone chippings. It's best to drop them on the floor. They'll just take up space in your inventory. |
+| 66 | 1149 | 10.0 | s076 | You're still carrying a few wooden chippings. It's best to drop them on the floor. They'll just take up space in your inventory. |
+| 67 | 1138 | 3.8 |  | You've already broken through the other section of damaged wall. |
+| 68 | 1021 | 11.3 |  | You've mined a few stone chippings from that rock. The chippings are now in your inventory. Since they're not particularly useful, you should drop them on the floor. |
+| 69 | 1081 | 11.2 |  | You've chopped off a few wood chippings from that root. The chippings are now in your inventory. Since they're not particularly useful, you should drop them on the floor. |
+| 70 | 1020 | 7.2 |  | Could you possibly leave my pickaxe behind? Just drop it on the floor or hand it to me. |
+| 71 | 3174 | 7.2 | s061a | So, your aim is to get a mining level of two. Okay, I'll find you something to train on. |
+| 72 | 3172 | 7.2 | s062a | So, your aim is to get a wood-cutting level of two. Okay, I'll find you something to trade on. |
+| 73 | 3176 | 12.0 | s066 | You'll mind a few stone chippings from that rock. The chippings are now in your inventory. They're not particularly useful, but you'll get more useful goods from mining once you're out of this cellar. |
+| 74 | 3171 | 12.0 | s067 | You've chopped off a few wood chippings from that root. The chippings are now in your inventory. They're not particularly useful, but you'll get more useful goods from cutting wood once you're out of this cellar. |
+| 75 | 3179 | 4.7 |  | You should be able to mine your way through the rubble blocking that left-hand doorway now. |
+| 76 | 3175 | 4.7 |  | You should be able to chop your way through the roots blocking that right hand doorway now. |
+| 77 | 3170 | 2.8 | s087a | Thank you once again for your assistance. |
+| 78 | 3173 | 1.6 | s080 | I'll explain later, Jack. |
+| 79 | 3177 | 16.3 |  | Once you're out and about, you can use the task system to suggest aims and endeavors to gopher. Everyone you do will get your reward. You'll always earn some money, sometimes additional goodies, and often progress towards a piece of armour with special effects. Look at the rewards tab for a task to learn more. |
+| 80 | 3178 | 2.7 |  | Make your pardon, I need a quick word in you before you go. |
+| 81 | 3180 | 1.7 | s079 | Good grief, where did you three come from? |
+
+##### enum 3041 (18 lines)
+
+| # | clip | s | canon | transcript (Whisper) |
+|---|---|---|---|---|
+| 1 | 1850 | 1.0 | s001 | Hello. |
+| 2 | 1801 | 2.6 |  | Hello? Is anyone there? |
+| 3 | 1874 | 3.1 |  | I could just walk through the gap now that the events moved away. |
+| 4 | 1819 | 1.4 | s022a | I haven't searched it yet. |
+| 5 | 1844 | 1.4 | s056 | I'll chop through the roots. |
+| 6 | 1865 | 1.2 | s047 | I'll get on with it. |
+| 7 | 1886 | 1.4 |  | our minds through the rocks. |
+| 8 | 1839 | 1.3 | s026f | I'm getting there. |
+| 9 | 1829 | 2.2 |  | I've placed the meat in the bowl like you said. |
+| 10 | 1878 | 1.2 |  | Okay, I'll do that. |
+| 11 | 1843 | 1.6 | s047 | OK, I'll get on with it. |
+| 12 | 1816 | 6.5 |  | So I've got to climb over this wall, put this meat in the food bowl near the two wooden pillars and then tell you when I've finished. |
+| 13 | 1851 | 6.5 |  | So I've got to get some meat from your bag. Climb over this wall and put this meat in the food bowl near the two wooden pillars. |
+| 14 | 1817 | 3.9 | s014a | The wall is too high for me to climb over, so I can't get past you. |
+| 15 | 1828 | 3.8 | s016a | It doesn't seem much point in messing around with this wall now that I've built a ramp. |
+| 16 | 1803 | 1.6 |  | This seller's weird. |
+| 17 | 1880 | 1.5 |  | What am I meant to be doing? |
+| 18 | 1859 | 1.6 | s048 | Why don't you do it yourself? |
+
+##### enum 3042 (18 lines)
+
+| # | clip | s | canon | transcript (Whisper) |
+|---|---|---|---|---|
+| 1 | 373 | 1.0 | s001 | Hello! |
+| 2 | 646 | 2.2 |  | Hello? Is anyone in there? |
+| 3 | 656 | 3.5 |  | I could just walk through the gap now that Cervance moved away. |
+| 4 | 640 | 1.7 | s022a | I haven't searched it yet. |
+| 5 | 655 | 1.6 | s056 | I'll chop through the roots. |
+| 6 | 430 | 1.5 |  | I'll get home with it. |
+| 7 | 683 | 1.7 | s055 | I'll mine through the rocks. |
+| 8 | 414 | 1.3 | s026f | I'm getting there. |
+| 9 | 543 | 2.4 |  | I've placed the meat in the bowl like you said. |
+| 10 | 675 | 1.7 |  | Okay, I'll do that. |
+| 11 | 677 | 1.9 | s047 | Okay, I'll get on with it. |
+| 12 | 576 | 7.6 |  | So, I've got to climb over this wall, put this meat in the food bowl near the two wooden pillars, and then tell you when I finished. |
+| 13 | 670 | 6.9 |  | So, I've got to get some meat from your bag, climb over this wall and put this meat in the food bowl near the two wooden pillars. |
+| 14 | 673 | 4.1 | s014a | The wall is too high for me to climb over, so I can't get past you. |
+| 15 | 649 | 4.2 | s016a | There doesn't seem to be much point in messing around with this wall now that I've built a ramp. |
+| 16 | 639 | 1.7 |  | The cell is weird. |
+| 17 | 661 | 1.6 |  | What am I meant to be doing? |
+| 18 | 578 | 1.7 | s048 | Why don't you do it yourself? |
+
+##### enum 3043 (8 lines)
+
+| # | clip | s | canon | transcript (Whisper) |
+|---|---|---|---|---|
+| 1 | 1215 | 2.4 |  | Ooh, shiny. |
+| 2 | 1207 | 2.0 |  | Hahahaha! |
+| 3 | 1197 | 1.6 |  | LOOT |
+| 4 | 1178 | 2.3 |  | me get rich. |
+| 5 | 1248 | 3.6 |  | Mine. All mine. |
+| 6 | 1231 | 2.1 |  | Oooooooh. |
+| 7 | 1234 | 0.6 |  | ROW! |
+| 8 | 1891 | 3.1 |  | NOOOOOOO! |
+
+##### enum 3044 (10 lines)
+
+| # | clip | s | canon | transcript (Whisper) |
+|---|---|---|---|---|
+| 1 | 691 | 30.9 |  | Roddick's Diary, 3rd Ractuba. Yet again it's raining. Just when I wanted to go for a walk to Drainer Village with my gorgeous new walking-stick and maybe pop him for tea with a wise old man. How typical. Oh well, I'm sure I can find some way to pass the time. Maybe I'll leaf through some of those old books that belong to my late uncle. He had such strange interests. Saradomin rest his soul. |
+| 2 | 693 | 24.4 |  | 4th Ractuba I believe I found a marvelous new hobby. One of those old books was a manual for rearing pet dragons. I don't have a garden, but I'm sure I can do just as well keeping it in my cellar. There's plenty of space down there, and it'll be out of the rain. I've written to the Taverly Pet Shop to order an egg and some supplies. |
+| 3 | 697 | 16.5 |  | Fifth Raktuba. No sign of my egg yet, and it's still raining. Never mind. I shall brave the rain and take a walk after all. Sixth Raktuba. Oh dear. I have such a terrible cold. |
+| 4 | 694 | 37.9 |  | 9th Raktuba At last I'm feeling well enough to resume my diary. Furthermore, my delivery has arrived far sooner than I had hoped. That postman is a curious little chap, but he certainly knows his trade. Now, to unpack the egg and get started. 11th Raktuba Apparently it takes ages for these eggs to hatch. How disappointing. I think I shall name it Sottlepot if it's a boy dragon and Pitypins if it's a girl dragon. |
+| 5 | 700 | 22.9 |  | Fourteenth Raktuba, little subtle pot has hatched. These dragons really are marvellous creatures. Thirty-second Raktuba, I've had no time for this diary recently. I seem to find myself constantly busy preparing minced meat and bringing him water. He's growing so fast. |
+| 6 | 696 | 28.5 |  | 15th PENTEMBA I must admit that I am starting to have second thoughts about this little project of mine. Sottlepot has grown so large that I am not entirely sure he will fit through the trap-door of the cellar any more. Furthermore, no matter how much I feed him, he keeps, well, salivating when he looks at me. He was a lot sweeter when he was smaller. I wonder if parenthood is like this. |
+| 7 | 692 | 22.3 |  | 20th Pentember. I'm becoming seriously concerned about Sottlepot. He's completely smashed the pillars of my cellar. Fortunately, I was able to shore up the ceiling with some bits of wood before the whole cellar caved in. Hmm, perhaps I should have taken up carpentry instead of raising a dragon. |
+| 8 | 698 | 28.3 |  | 21st Pentember. That blasted dragon almost managed to break the chains that were holding it to the wall. If he gets loose, there's no way I'm going to be able to restrain him again. At the risk of looking like a complete nincompoop, I think I'm going to have to call someone to sort him out before I lose control of him completely. The White Knights might be able to help. |
+| 9 | 699 | 29.5 |  | Post-scriptum. Saved at last. The White Knight sent an agent in response to my message. He couldn't have arrived at a better time. I'd completely lost control of the dragon and it had me cornered in a cupboard in my own cellar. With the aid of a passing adventurer, he managed to kill the dragon, and then we tumbled out of the cellar into Jack's house because the blasted dragon had burnt my ladder. |
+| 10 | 695 | 13.4 |  | I've agreed to act as an advisor for the adventurer, since they are unfamiliar with this country. Still, now all that excitement is over, I should try to find myself a new hobby. |
+
+##### enum 3045 (4 lines)
+
+| # | clip | s | canon | transcript (Whisper) |
+|---|---|---|---|---|
+| 1 | 1250 | 24.9 |  | On the care of dragons. Dragons are the noblest of creatures. While it requires considerable skill to keep them as pets, this simple guide will help you grasp the essentials. Firstly, you must ensure you have adequate space for the dragon. A large garden or menagerie is ideal. There should be some shelter from the elements and a plentiful supply of food and water. |
+| 2 | 1251 | 33.9 |  | Once you are prepared, obtain a dragon's egg and place it in a warm, dry place. A dedicated incubator is preferred as the temperature of a cooking range is unlikely to be suitable. After a few days of this treatment, your egg will hatch. Do not leave your dragon outside except in warm weather until it has attained a size of approximately 12 inches. When it is ready to be introduced to its outdoor habitat, keep a close eye on its health to ensure it does not develop scale rot or lung damp. |
+| 3 | 1249 | 32.6 |  | It is essential, especially in the first days, to keep the dragon well fed. In the wild, a mother dragon will typically spend most of her time feeding her brood. Dragons require copious quantities of raw meat. For the first weeks, you should mince this into a fine paste, having removed all bones. But once your dragon has attained a size of approximately 18 inches, it should be able to consume meat on the bone. You will rapidly learn what form of sustenance your dragon prefers. |
+| 4 | 1252 | 10.8 |  | Dragon owners are strongly advised not to bring their dragons indoors once their flame ducts have developed, as this will typically lead to inconvenient house fires. |
 
 ---
 

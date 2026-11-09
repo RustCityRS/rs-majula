@@ -73,6 +73,16 @@ Windows' built-in one).
   - Self-test first: each reference against itself should score about 0.9.
   - Expect many recordings to carry the uploader's own music. Use one where character creation
     or another known track scores high.
+- **Voice-over.**
+  - The cache's vorbis clips (`content/647/vorbis/vorbis_<id>.ogg`) are the voiced lines.
+  - Enums with `outputtype=vorbis` list each speaker's lines alphabetically, one clip each: the
+    take the game used.
+  - Transcribe with `python $S/whisper_clips.py <wav dir> <out.tsv>`: Whisper through
+    transformers. The model download needs the user's go-ahead.
+  - `python $S/voice_table.py <all.enum> <canon.tsv> <out.md> <transcripts...>` lays out every
+    enum with its transcripts and the matching recorded lines.
+  - Recordings rarely carry the voices: the client plays speech only when the player's voice
+    volume is on.
 - **Forced line breaks.** Run `python $S/br_check.py <q8_full.fontmetrics> <canon.tsv> <states.tsv>
   <high-res labels>`, and check every line it can't settle by eye. A break where the next word
   would still fit is a `<br>`.
