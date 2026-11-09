@@ -1036,12 +1036,28 @@ fn elvarg_slain_gives_her_head() {
                 player.stats.base_levels[skill] = 99;
                 player.stats.xp[skill] = 130_344_310;
             }
-            // Life points live in varp 1240 (bits 1-15): 990, to outlast her fire (up to 600).
+            // Life points live in varp 1240 (bits 1-15): 990.
             let lp = player.vars.get(1240).as_int();
             player.vars.set(1240, VarValue::Int((lp & 1) | 990 << 1));
         }
+        // The anti-dragon shield worn, as a player fights her: her fire then reaches 120, not
+        // 600, so a swing or two that miss her 1 life point can't let her kill the player first
+        // (which a full run's dice once did: "Oh dear, you are dead!").
+        let shield = id(engine, "obj", "anti_dragon_shield");
+        let worn = *engine.cache.invs.debugnames.get("worn").unwrap();
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .invs
+            .get_mut(&worn)
+            .unwrap()
+            .set(5, shield, 1);
         let (nid, sx, sz) = npc_near_on(engine, "elvarg", ELVARG.0, ELVARG.1, ELVARG.2);
-        engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 1;
+        // 1 life point, and defence 1 so an unarmed swing lands: the test is her death's
+        // trigger, not the fight's dice.
+        let stats = &mut engine.get_npc_mut(nid).unwrap().npc.stats.levels;
+        stats[NpcStat::Hitpoints as usize] = 1;
+        stats[NpcStat::Defence as usize] = 1;
         tele(engine, &mut client, sx, 0, sz);
         let line = "You cut off Elvarg's head as proof of your victory!";
         let mut said = Vec::new();
