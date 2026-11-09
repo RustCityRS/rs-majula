@@ -20,7 +20,9 @@ use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_test::talk::{converse, talk_to};
 use rs_vm::subject::ScriptSubject;
 
 /// Square 57_77's south-west tile.
@@ -186,6 +188,41 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             "Talk to Sir Vant"
         );
         assert_eq!(varbit(engine, &client, FLASH_SIDE), 0, "no arrow after");
+
+        // Talk to Sir Vant: "Hello!" and his warning, each with its voiced take (s001, s002).
+        let vant = *engine.cache.npcs.debugnames.get("sir_vant_8850").unwrap();
+        let nid = engine
+            .npc_list
+            .npcs
+            .iter()
+            .flatten()
+            .find(|n| n.npc.uid.id() == vant)
+            .map(|n| n.npc.uid.nid())
+            .expect("Sir Vant in the cellar");
+        talk_to(&mut client, nid);
+        let talk = converse(engine, &mut client, &[], 80);
+        assert!(talk.said("Hello!"), "{:?}", talk.texts);
+        assert!(
+            talk.said("Wait a moment - there's a dragon coming!"),
+            "{:?}",
+            talk.texts
+        );
+        let clips: Vec<u16> = talk
+            .packets
+            .iter()
+            .filter(|(op, _)| *op == ServerProt::VorbisSpeechSound as u16)
+            .map(|(_, body)| u16::from_be_bytes([body[0], body[1]]))
+            .collect();
+        assert_eq!(
+            clips,
+            vec![1850, 770],
+            "the male voice's Hello. and Sir Vant's line"
+        );
+        assert_eq!(
+            progress(engine, &client),
+            9,
+            "talked; the dragon cutscene's stage"
+        );
 
         for _ in 0..60 {
             engine.cycle();

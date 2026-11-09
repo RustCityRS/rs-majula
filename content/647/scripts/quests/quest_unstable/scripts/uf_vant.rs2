@@ -1,0 +1,24 @@
+// Sir Vant in Unstable Foundations (design note 3.4, 3.7, 3.8; refs GAPS 16).
+
+// "Talk to Sir Vant" (Task 3500, varp 281 7): 2011's lines (s001, s002) and chatheads, matched
+// against 4KO2h2xPtdM frame by frame, with the voiced takes cache 786's enums give.
+// - Varp 6, the Controls overlay still up: what talking did then, no recording shows.
+// - After the talk, 9: cs2 4098 still pins Talk to Sir Vant at 9, as 2011's panel shows it while
+//   the dragon cutscene plays (8jKH_7To46o @88); 10 (Assist Sir Vant) comes with the cutscene's end.
+[opnpc1,sir_vant_8850]
+if (%learning_the_ropes = 7) {
+    ~uf_vant_hello;
+}
+
+[proc,uf_vant_hello]
+// "Hello." in the player's voice: enum 3041 is the male one, 3042 the female (median pitch
+// 115-160 Hz against 263-309 Hz).
+if (compare(text_gender("m", "f"), "m") = 0) {
+    sound_speech_volume(vorbis_1850, 1, 0, 255);
+} else {
+    sound_speech_volume(vorbis_373, 1, 0, 255);
+}
+~chatplayer("<p,neutral>Hello!");
+sound_speech_volume(vorbis_770, 1, 0, 255);
+~chatnpc("<p,shock>Wait a moment - there's a dragon coming!");
+%learning_the_ropes = 9;

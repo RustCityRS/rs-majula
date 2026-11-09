@@ -97,6 +97,37 @@ if (region_findbycoord(coord) = false) {
 }
 npc_add(~uf_cellar_coord($x, $z), $npc, 0);
 
+// ::ufhead <n> shows Sir Vant's first line with chathead expression n, and ::ufheadp <n> the
+// player's "Hello!", to match each against the 2011 recordings frame by frame. n: 1 neutral,
+// 2 shock, 3 scared, 4 confused, 5 angry, 6 quiz, 7 happy, 8 sad, 9 bored.
+[debugproc,ufhead](int $n)
+if (p_finduid(uid) = false) { return; }
+switch_int ($n) {
+    case 1 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Wait a moment - there's a dragon coming!");
+    case 2 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,shock>Wait a moment - there's a dragon coming!");
+    case 3 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,scared>Wait a moment - there's a dragon coming!");
+    case 4 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,confused>Wait a moment - there's a dragon coming!");
+    case 5 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,angry>Wait a moment - there's a dragon coming!");
+    case 6 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,quiz>Wait a moment - there's a dragon coming!");
+    case 7 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,happy>Wait a moment - there's a dragon coming!");
+    case 8 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,sad>Wait a moment - there's a dragon coming!");
+    case 9 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,bored>Wait a moment - there's a dragon coming!");
+}
+
+[debugproc,ufheadp](int $n)
+if (p_finduid(uid) = false) { return; }
+switch_int ($n) {
+    case 1 : ~chatplayer("<p,neutral>Hello!");
+    case 2 : ~chatplayer("<p,shock>Hello!");
+    case 3 : ~chatplayer("<p,scared>Hello!");
+    case 4 : ~chatplayer("<p,confused>Hello!");
+    case 5 : ~chatplayer("<p,angry>Hello!");
+    case 6 : ~chatplayer("<p,quiz>Hello!");
+    case 7 : ~chatplayer("<p,happy>Hello!");
+    case 8 : ~chatplayer("<p,sad>Hello!");
+    case 9 : ~chatplayer("<p,bored>Hello!");
+}
+
 // ::ufcreated, with character creation open, queues what an accepted name queues (cc_name.rs2's
 // cc_name_loop): for a test account that already owns its name, which the name page refuses.
 [debugproc,ufcreated]
