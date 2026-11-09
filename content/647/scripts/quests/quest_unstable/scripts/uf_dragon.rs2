@@ -1,0 +1,52 @@
+// Unstable Foundations' dragon cutscene, after Sir Vant's "Wait a moment - there's a dragon
+// coming!" (refs GAPS 17b). The client runs the camera: interface 899 tutorial3_cutscenes runs
+// cs2 2765 whenever varc 1007 changes, and each value 1-10 is one of cs2 2770's camera paths
+// (design note 4). The order and each shot's length are 4KO2h2xPtdM's (2011-04-30), cut at 0.1 s
+// (16.98-53.72) and matched shot by shot against our client: 6, 6, 3, 13, 6, 7, 4, 4, 9 and 3
+// ticks. The minimap goes black for it (8jKH_7To46o @88).
+// Not yet: the dragon, the squire's death and the goblin at the bag; Sir Vant's s003 (51.9, under
+// shot 10).
+[proc,uf_dragon_cutscene]
+minimap_toggle(2);
+~uf_cutscene_open;
+%varclient_1007 = 1;
+p_delay(5);
+%varclient_1007 = 2;
+p_delay(5);
+%varclient_1007 = 3;
+p_delay(2);
+%varclient_1007 = 4;
+p_delay(12);
+%varclient_1007 = 5;
+p_delay(5);
+%varclient_1007 = 6;
+p_delay(6);
+%varclient_1007 = 7;
+p_delay(3);
+%varclient_1007 = 8;
+p_delay(3);
+%varclient_1007 = 9;
+p_delay(8);
+%varclient_1007 = 10;
+p_delay(2);
+~uf_cutscene_close;
+// Assist Sir Vant (Task 3501; cs2 4098: 10).
+%learning_the_ropes = 10;
+~uf_task_pin;
+
+// Interface 899's slot: no source found; the game view's overlay slot, as the Controls overlay.
+[proc,uf_cutscene_open]
+if (getwindowmode = 1) {
+    if_opensub(tutorial3_cutscenes, toplevel:mainoverlay);
+} else {
+    if_opensub(tutorial3_cutscenes, toplevel_fullscreen:mainoverlay);
+}
+
+[proc,uf_cutscene_close]
+%varclient_1007 = 0;
+if (getwindowmode = 1) {
+    if_closesub(toplevel:mainoverlay);
+} else {
+    if_closesub(toplevel_fullscreen:mainoverlay);
+}
+minimap_toggle(0);

@@ -31,6 +31,9 @@ const NONE: i32 = 0xFFFF;
 const INVENTORY: u16 = 149;
 const OPTIONS: u16 = 261;
 const CONTROLS: u16 = 897;
+const CUTSCENES: u16 = 899;
+/// The cutscene camera's shot (cs2 2765, on interface 899).
+const SHOT: u16 = 1007;
 const TASK_SIDE: u16 = 1056;
 /// The task system's pinned Task (cs2 3973 draws it).
 const PINNED_TASK: u16 = 8576;
@@ -222,6 +225,46 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             progress(engine, &client),
             9,
             "talked; the dragon cutscene's stage"
+        );
+
+        // The dragon cutscene: the client's camera shots 1-10 in 2011's order and lengths
+        // (4KO2h2xPtdM 16.98-53.72, GAPS 17b), then back to play. Shot 1 began during the talk.
+        let mut shots: Vec<(i32, u32)> = Vec::new();
+        for _ in 0..80 {
+            let shot = engine
+                .harness_player(client.pid)
+                .unwrap()
+                .varcs
+                .get(&SHOT)
+                .copied()
+                .unwrap_or(0);
+            match shots.last_mut() {
+                Some((last, n)) if *last == shot => *n += 1,
+                _ => shots.push((shot, 1)),
+            }
+            if shot == 0 && shots.len() > 1 {
+                break;
+            }
+            assert!(
+                is_open(engine, &client, CUTSCENES),
+                "interface 899 runs the camera"
+            );
+            engine.cycle();
+            client.packets();
+        }
+        let order: Vec<i32> = shots.iter().map(|(shot, _)| *shot).collect();
+        assert_eq!(order, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0], "{shots:?}");
+        let lengths: Vec<u32> = shots[1..10].iter().map(|(_, n)| *n).collect();
+        assert_eq!(lengths, vec![6, 3, 13, 6, 7, 4, 4, 9, 3], "{shots:?}");
+        assert!(
+            !is_open(engine, &client, CUTSCENES),
+            "the camera is the player's again"
+        );
+        assert_eq!(progress(engine, &client), 10, "Assist Sir Vant");
+        assert_eq!(
+            varbit(engine, &client, PINNED_TASK),
+            3501,
+            "Assist Sir Vant pinned"
         );
 
         for _ in 0..60 {

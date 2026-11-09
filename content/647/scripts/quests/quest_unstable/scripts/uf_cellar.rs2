@@ -128,6 +128,19 @@ switch_int ($n) {
     case 9 : ~chatplayer("<p,bored>Hello!");
 }
 
+// ::ufshot <n> runs the client's cutscene camera shot n: interface 899 tutorial3_cutscenes runs
+// cs2 2765 whenever varc 1007 changes (design note 4): 1-10 the dragon, 101-107, 201-204 and
+// 301-303 the later scenes, 0 back to the player's camera. Which slot 2011 opened 899 into: no
+// source found; the game view's overlay slot here.
+[debugproc,ufshot](int $n)
+if (p_finduid(uid) = false) { return; }
+if (getwindowmode = 1) {
+    if_opensub(tutorial3_cutscenes, toplevel:mainoverlay);
+} else {
+    if_opensub(tutorial3_cutscenes, toplevel_fullscreen:mainoverlay);
+}
+%varclient_1007 = $n;
+
 // ::ufcreated, with character creation open, queues what an accepted name queues (cc_name.rs2's
 // cc_name_loop): for a test account that already owns its name, which the name page refuses.
 [debugproc,ufcreated]

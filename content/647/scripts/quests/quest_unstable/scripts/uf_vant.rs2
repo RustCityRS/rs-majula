@@ -22,3 +22,4 @@ if (compare(text_gender("m", "f"), "m") = 0) {
 sound_speech_volume(vorbis_770, 1, 0, 255);
 ~chatnpc("<p,shock>Wait a moment - there's a dragon coming!");
 %learning_the_ropes = 9;
+~uf_dragon_cutscene;
