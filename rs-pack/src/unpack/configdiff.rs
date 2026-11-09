@@ -1,6 +1,7 @@
 use super::config::{
     UnpackedPacks, build_reverse_hsl_table, config_decoders, decode_records, read_entries,
 };
+use crate::archive::config_jag_name;
 use crate::pack::pack_registry::PackedFile;
 use rs_io::jag::JagFile;
 use std::collections::{HashMap, HashSet};
@@ -51,9 +52,10 @@ impl ConfigDiffReport {
         names_seed.load_existing_names(pack_dir);
 
         for (name, decoder) in config_decoders() {
+            let wire_name = config_jag_name(name);
             let (Some(cache_dat), Some(cache_idx)) = (
-                jag.read(&format!("{name}.dat")),
-                jag.read(&format!("{name}.idx")),
+                jag.read(&format!("{wire_name}.dat")),
+                jag.read(&format!("{wire_name}.idx")),
             ) else {
                 continue;
             };

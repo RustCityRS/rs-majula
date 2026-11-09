@@ -9,6 +9,8 @@ use super::texture::TEXTURE_NAMES;
 use crate::PACK_DIR;
 #[cfg(since_647)]
 use crate::archive;
+#[cfg(before_647)]
+use crate::archive::config_jag_name;
 #[cfg(since_647)]
 use crate::cache::bas::BasType;
 #[cfg(since_647)]
@@ -169,8 +171,14 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         ("varp", |buf, id, hsl, packs| {
             decode_record::<VarPlayerTypeRaw>(buf, id, hsl, packs, varp::emit_varp_props)
         }),
+        #[cfg(since_647)]
+        ("varpstr", |buf, _, _, _| {
+            let mut props = decode_empty_record("varpstr", buf);
+            props.push(("type".to_owned(), "string".to_owned()));
+            props
+        }),
         #[cfg(since_254)]
-        ("varbit", varbit::decode_varbit),
+        ("varpbit", varbit::decode_varbit),
         #[cfg(since_647)]
         ("param", |buf, id, hsl, packs| {
             decode_record::<ParamTypeRaw>(buf, id, hsl, packs, param::emit_param_props)
@@ -207,6 +215,12 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         ("varobj", |buf, _, _, _| decode_empty_record("varobj", buf)),
         #[cfg(since_647)]
         ("vars", |buf, _, _, _| decode_empty_record("vars", buf)),
+        #[cfg(since_647)]
+        ("varsstr", |buf, _, _, _| {
+            let mut props = decode_empty_record("varsstr", buf);
+            props.push(("type".to_owned(), "string".to_owned()));
+            props
+        }),
         #[cfg(since_647)]
         ("varn", |buf, _, _, _| decode_empty_record("varn", buf)),
         #[cfg(since_647)]
@@ -290,7 +304,7 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         #[cfg(since_647)]
         ("varc", |buf, _, _, _| varc::decode_varc(buf)),
         #[cfg(since_647)]
-        ("varcs", |buf, _, _, _| varc::decode_varc_string(buf)),
+        ("varcstr", |buf, _, _, _| varc::decode_varc_string(buf)),
         #[cfg(since_647)]
         ("varclansetting", |buf, _, _, packs| {
             varclansetting::decode_varclansetting(buf, packs)
@@ -601,7 +615,7 @@ fn multi_lines(
         lines.push((
             code,
             "multivar".to_owned(),
-            packs.reference("varbit", varbit as u16),
+            packs.reference("varpbit", varbit as u16),
         ));
     }
     if varp != -1 {
@@ -725,8 +739,9 @@ pub fn unpack_config(
     let types = config_decoders();
 
     for (name, decoder) in &types {
-        let dat_name = format!("{name}.dat");
-        let idx_name = format!("{name}.idx");
+        let wire_name = config_jag_name(name);
+        let dat_name = format!("{wire_name}.dat");
+        let idx_name = format!("{wire_name}.idx");
 
         let Some(dat) = jag.read(&dat_name) else {
             continue;
@@ -866,7 +881,7 @@ fn loc_ref(id: u16, packs: &UnpackedPacks) -> String {
 #[cfg(since_289)]
 #[cfg(before_647)]
 fn varbit_ref(id: u16, packs: &UnpackedPacks) -> String {
-    entry_name("varbit", id, packs)
+    entry_name("varpbit", id, packs)
 }
 
 #[cfg(before_647)]
@@ -1017,7 +1032,7 @@ pub(super) fn unpack_config(
                 "obj" => (archive::CONFIG_OBJ, 256),
                 "seq" => (archive::CONFIG_SEQ, 128),
                 "spotanim" => (archive::CONFIG_SPOTANIM, 256),
-                "varbit" => (archive::CONFIG_VARBIT, 1024),
+                "varpbit" => (archive::CONFIG_VARBIT, 1024),
                 "billboard" => (archive::BILLBOARDS, 256),
                 "particleemitter" | "particleeffector" => (archive::PARTICLES, 0),
                 "quickchatcat" | "quickchatphrase" => (archive::QUICKCHAT, 0),
@@ -1040,11 +1055,16 @@ pub(super) fn unpack_config(
                 0..store.group_count(archive_id).unwrap_or(0)
             };
             let mut seen = HashSet::new();
-            // String varcs follow the other varcs in `.varc`.
-            let mut file = BufWriter::new(if name == "varcs" {
+            let merged = match name {
+                "varcstr" => Some("varc"),
+                "varpstr" => Some("varp"),
+                "varsstr" => Some("vars"),
+                _ => None,
+            };
+            let mut file = BufWriter::new(if let Some(kind) = merged {
                 File::options()
                     .append(true)
-                    .open(output_dir.join("all.varc"))?
+                    .open(output_dir.join(format!("all.{kind}")))?
             } else {
                 File::create(output_dir.join(format!("all.{name}")))?
             });
@@ -1287,7 +1307,7 @@ mod tests {
     #[test]
     fn varbit_zero_values_and_legacy_debugname_are_preserved() {
         let props = unpack(
-            "varbit",
+            "varpbit",
             vec![1, 0, 0, 0, 0, 10, b'x', STRING_TERMINATOR, 0],
             &mut UnpackedPacks::new(),
             &HashMap::new(),

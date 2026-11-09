@@ -23,8 +23,13 @@ borrowed containers without disk reads or a cache mutex.
 Appending group versions reserves only the two required bytes. Reference tables used
 for packing and validation are released before engine initialization.
 
-The script compiler uses the same private registry copy as older revisions to protect
-`script.pack` when multiple worlds start together. Compiled bytecode stays in memory.
+Server script IDs are generated in memory from sorted trigger/name pairs. Each world
+retains assigned and retired IDs for hot reloads, so queued and suspended scripts keep
+their references. There is no server script registry file to commit or write during
+startup. Parallel worlds compile against private snapshots of the config registries.
+The incremental cache reuses script bytecode only when its IDs agree with the running
+world, and restores the ID mapping on a cache hit. Client script IDs still come from
+`clientscript.pack` because they are part of the client cache.
 
 CRC verification covers all 36 archives and every group payload at startup. Reference
 containers must match fixed CRCs, their metadata must match the in-memory tables, and each

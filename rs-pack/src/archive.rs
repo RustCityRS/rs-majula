@@ -46,6 +46,11 @@ pub enum JagArchive {
 }
 
 #[cfg(before_647)]
+pub(crate) fn config_jag_name(kind: &str) -> &str {
+    if kind == "varpbit" { "varbit" } else { kind }
+}
+
+#[cfg(before_647)]
 pub const JAG_ARCHIVES: &[JagArchive] = &[
     JagArchive::Title,
     JagArchive::Config,
@@ -291,12 +296,14 @@ pub const CONFIG_GROUPS: &[(&str, u32)] = &[
     ("inv", CONFIG_GROUP_INV),
     ("mesanim", CONFIG_GROUP_MESANIM),
     ("param", CONFIG_GROUP_PARAM),
-    ("varcs", CONFIG_GROUP_VARCSTR),
+    ("varcstr", CONFIG_GROUP_VARCSTR),
     ("varp", CONFIG_GROUP_VARP),
     ("area", CONFIG_GROUP_AREA),
     ("varc", CONFIG_GROUP_VARC),
     ("varobj", CONFIG_GROUP_VAROBJ),
+    ("varpstr", CONFIG_GROUP_VARPSTR),
     ("vars", CONFIG_GROUP_VARS),
+    ("varsstr", CONFIG_GROUP_VARSSTR),
     ("varn", CONFIG_GROUP_VARN),
     ("struct", CONFIG_GROUP_STRUCT),
     ("light", CONFIG_GROUP_LIGHT),
@@ -312,12 +319,9 @@ pub const CONFIG_GROUPS: &[(&str, u32)] = &[
 ];
 
 /// Tables the cache holds empty, packed from their files: extension, group,
-/// the name a section takes, and the packed table's CRC. Groups 21 and 23 are
-/// the string var tables; 37, 38, 39 and 45 have no known name.
+/// the name a section takes, and the packed table's CRC.
 #[cfg(since_647)]
 pub const CONFIG_EMPTY_TABLES: &[(&str, u32, &str, i32)] = &[
-    ("config21", CONFIG_GROUP_VARPSTR, "config21", -1751999962),
-    ("config23", CONFIG_GROUP_VARSSTR, "config23", -1095511195),
     ("varnbit", CONFIG_GROUP_VARNBIT, "varnpcbit", -1298439089),
     ("config37", 37, "config37", 477744615),
     ("config38", 38, "config38", -430249901),
@@ -329,7 +333,7 @@ pub const CONFIG_EMPTY_TABLES: &[(&str, u32, &str, i32)] = &[
         -1179041704,
     ),
     ("varcon", CONFIG_GROUP_VARCON, "config43", 1930184948),
-    ("config44", CONFIG_GROUP_CONFIG44, "config44", 812315341),
+    ("varconbit", CONFIG_GROUP_VARCONBIT, "varconbit", 812315341),
     ("config45", 45, "config45", 260531396),
     ("varclan", CONFIG_GROUP_VARCLAN, "varclan", -1864459835),
     ("itemcode", CONFIG_GROUP_ITEMCODE, "itemcode", -430249901),

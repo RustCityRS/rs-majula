@@ -9,6 +9,7 @@ pub type ControllerTypeProvider = TypeProvider<ControllerType>;
 pub struct ControllerType {
     pub id: u16,
     pub vars: Box<[(u16, ParamValue)]>,
+    pub varbits: Box<[(u16, i32)]>,
     debugname: Option<Box<str>>,
 }
 
@@ -19,6 +20,7 @@ impl CacheType for ControllerType {
         ControllerType {
             id,
             vars: Box::new([]),
+            varbits: Box::new([]),
             debugname: None,
         }
     }
@@ -43,6 +45,10 @@ impl CacheType for ControllerType {
                         vars.push((id, value));
                     }
                     self.vars = vars.into_boxed_slice();
+                }
+                2 => {
+                    let count = buf.g1() as usize;
+                    self.varbits = (0..count).map(|_| (buf.g2(), buf.g4s())).collect();
                 }
                 250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
                 _ => crate::unknown_opcode!("controller", code),

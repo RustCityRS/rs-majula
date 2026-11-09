@@ -213,7 +213,7 @@ fn load_cache(
     let seqs = load_config::<SeqTypeRaw, _>(assets, "seq", ())?;
     let enums = load_config::<EnumTypeRaw, _>(assets, "enum", ())?;
     let structs = load_config::<StructTypeRaw, _>(assets, "struct", ())?;
-    let varbits = load_config::<VarbitType, _>(assets, "varbit", ())?;
+    let varbits = load_config::<VarbitType, _>(assets, "varpbit", ())?;
     let varps = load_config::<VarPlayerTypeRaw, _>(assets, "varp", ())?;
     let idks = load_config::<IdkTypeRaw, _>(assets, "idk", ())?;
     let hunts = load_config::<HuntType, _>(assets, "hunt", ())?;
@@ -229,6 +229,7 @@ fn load_cache(
     let areas: TypeProvider<AreaType> = load_config::<AreaType, _>(assets, "area", ())?;
     let varobjs: TypeProvider<VarObjType> = load_config::<VarObjType, _>(assets, "varobj", ())?;
     let varcons = load_config::<VarConType, _>(assets, "varcon", ())?;
+    let varconbits = load_config::<VarbitType, _>(assets, "varconbit", ())?;
     let controllers = load_config::<ControllerType, _>(assets, "controller", ())?;
 
     let locs = load_config::<LocTypeRaw, LocType>(assets, "loc", ())?;
@@ -288,6 +289,7 @@ fn load_cache(
         area_map,
         varobjs,
         varcons,
+        varconbits,
         controllers,
     }))
 }

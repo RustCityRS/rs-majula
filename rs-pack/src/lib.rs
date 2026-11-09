@@ -57,9 +57,11 @@ use crate::cache::varp::{VarPlayerType, VarPlayerTypeRaw};
 use crate::cache::vars::VarsType;
 #[cfg(before_647)]
 use crate::cache::wordenc::WordEncProvider;
-use crate::pack::incremental::{self, Session, Stage, dir_key, files_under};
+use crate::pack::incremental::{self, Session};
 #[cfg(before_647)]
 use crate::pack::incremental::{Hash, Key, remember};
+#[cfg(before_647)]
+use crate::pack::incremental::{Stage, files_under};
 #[cfg(before_647)]
 use crate::pack::media::pack_media_jag;
 #[cfg(before_647)]
@@ -72,9 +74,9 @@ use crate::pack::other::map::pack_maps;
 use crate::pack::other::song::pack_midis;
 #[cfg(before_647)]
 use crate::pack::pack::{ConfigFiles, check_configs, pack_config_files};
-use crate::pack::pack_dir::PrivatePack;
 #[cfg(before_647)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
+use crate::pack::script::compile as compile_runescript;
 #[cfg(before_647)]
 use crate::pack::sound::pack_sounds;
 #[cfg(before_647)]
@@ -105,10 +107,11 @@ use std::path::PathBuf;
 #[cfg(before_647)]
 use std::sync::Arc;
 use std::thread;
-use std::time::Instant;
 #[cfg(all(since_244, before_274))]
 use std::time::{SystemTime, UNIX_EPOCH};
-use tracing::{debug, warn};
+#[cfg(before_647)]
+use tracing::debug;
+use tracing::warn;
 
 pub mod archive;
 pub mod back;
@@ -254,6 +257,7 @@ pub(crate) mod config_crc {
     pub const NPC: i32 = -1000029806;
     pub const IDK: i32 = 50920008;
     pub const VARP: i32 = 1704792051;
+    pub const VARPSTR: i32 = -1751999962;
     pub const VARBIT: i32 = 763651066;
     pub const PARAM: i32 = 1671102909;
     pub const ENUM: i32 = -2002672615;
@@ -263,6 +267,7 @@ pub(crate) mod config_crc {
     pub const HUNT: i32 = 1389808433;
     pub const MESANIM: i32 = -1012851422;
     pub const VARS: i32 = -1236602203;
+    pub const VARSSTR: i32 = -1095511195;
     pub const VARN: i32 = 2129060492;
     pub const DBTABLE: i32 = 1145177955;
     pub const DBROW: i32 = 2013865111;
@@ -277,7 +282,7 @@ pub(crate) mod config_crc {
     pub const MSI: i32 = 390525203;
     pub const QUEST: i32 = -824626290;
     pub const VARC: i32 = 57638886;
-    pub const VARCS: i32 = -1218318004;
+    pub const VARCSTR: i32 = -1218318004;
     pub const VARCLANSETTING: i32 = -904846536;
     pub const AREA: i32 = 402829966;
     pub const VAROBJ: i32 = -1949850762;
@@ -293,7 +298,7 @@ pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("idk", config_crc::IDK),
     ("varp", config_crc::VARP),
     #[cfg(since_254)]
-    ("varbit", config_crc::VARBIT),
+    ("varpbit", config_crc::VARBIT),
     #[cfg(since_274)]
     ("mesanim", config_crc::MESANIM),
     #[cfg(all(since_274, before_647))]
@@ -312,6 +317,10 @@ pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("flu", config_crc::FLU),
     #[cfg(since_647)]
     ("vars", config_crc::VARS),
+    #[cfg(since_647)]
+    ("varpstr", config_crc::VARPSTR),
+    #[cfg(since_647)]
+    ("varsstr", config_crc::VARSSTR),
     #[cfg(since_647)]
     ("varn", config_crc::VARN),
     #[cfg(since_647)]
@@ -341,7 +350,7 @@ pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     #[cfg(since_647)]
     ("varc", config_crc::VARC),
     #[cfg(since_647)]
-    ("varcs", config_crc::VARCS),
+    ("varcstr", config_crc::VARCSTR),
     #[cfg(since_647)]
     ("varclansetting", config_crc::VARCLANSETTING),
     #[cfg(since_647)]
@@ -408,30 +417,6 @@ fn unwrap_thread<T>(name: &str, result: thread::Result<T>) -> T {
 pub fn compile_scripts(source: &Path, pack: &Path) -> anyhow::Result<ScriptProvider> {
     let (dat, idx) = compile_runescript(source, pack)?;
     Ok(ScriptProvider::from_bytes(&dat, &idx))
-}
-
-fn compile_runescript(source: &Path, pack: &Path) -> anyhow::Result<(Vec<u8>, Vec<u8>)> {
-    let start = Instant::now();
-    let private = PrivatePack::copy(pack)?;
-    debug!(
-        "Prepared script registries in {:.3}s",
-        start.elapsed().as_secs_f64()
-    );
-    let start = Instant::now();
-    let scripts = source.join("scripts/runescript");
-    let stage = Stage::new(
-        "scripts",
-        vec![("pack".to_owned(), dir_key(private.path(), &[]))],
-    );
-    let bytes = stage.unit(0, &files_under(&runec::sources::roots(&scripts)), || {
-        runec::compile_memory(&scripts, Some(private.path()), false)
-            .map_err(|e| anyhow::anyhow!("{e}"))
-    })?;
-    debug!("Compiled scripts in {:.2}s", start.elapsed().as_secs_f64());
-    private.pin(pack, "script.pack", false)?;
-    // Compiling gives new scripts ids, which the pack dir keeps from now on.
-    stage.finish(vec![("pack".to_owned(), dir_key(private.path(), &[]))]);
-    Ok(bytes)
 }
 
 /// Packs `source` for the server. With a `cache` directory, what an earlier
@@ -670,7 +655,7 @@ pub fn pack_all(
     let invs = build_type_provider_into::<InvTypeRaw, InvType>(&assets, "inv", ());
     let varps = build_type_provider_into::<VarPlayerTypeRaw, VarPlayerType>(&assets, "varp", ());
     #[cfg(since_254)]
-    let varbits = build_type_provider::<VarbitType>(&assets, "varbit", ());
+    let varbits = build_type_provider::<VarbitType>(&assets, "varpbit", ());
     let dbrows = build_type_provider::<DbRowType>(&assets, "dbrow", ());
     let dbtables = build_type_provider::<DbTableType>(&assets, "dbtable", ());
     let db_index = DbTableIndex::build(&dbtables, &dbrows);
@@ -921,8 +906,9 @@ fn assemble_config_jag(assets: &mut HashMap<String, PackedFile>, pack_dir: &Path
     let mut clients: HashMap<&str, _> = HashMap::new();
     for entry in &order {
         let kind = entry.split_once('.').map_or(entry.as_str(), |(k, _)| k);
+        let config = if kind == "varbit" { "varpbit" } else { kind };
         if !clients.contains_key(kind)
-            && let Some(client) = assets.get_mut(kind).and_then(|pf| pf.client.take())
+            && let Some(client) = assets.get_mut(config).and_then(|pf| pf.client.take())
         {
             clients.insert(kind, client);
         }

@@ -211,6 +211,10 @@ pub enum ScriptError {
     VarbitNotFound(i32),
 
     #[cfg(since_647)]
+    #[error("Varconbit not found: {0}")]
+    VarConBitNotFound(i32),
+
+    #[cfg(since_647)]
     #[error("Varobj not found: {0}")]
     VarObjNotFound(i32),
 

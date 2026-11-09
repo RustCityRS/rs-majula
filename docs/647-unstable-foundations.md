@@ -86,13 +86,13 @@ end; character creation sets UF's first stage instead of 1001 (stage values in
 3.1). Whether any 647 content relies on 1001: grep finds only `cc_name.rs2:116`
 and the `< 1000` checks in `login.rs2:40` and `character_creation.rs2:6`.
 
-Other UF vars (cache, `all.varbit`):
+Other UF vars (cache, `all.varpbit`):
 
 | var | bits | used by |
 |---|---|---|
 | varbit 4895 | varp 1255 bits 0-1 | npc 8854 multinpc: value 3 -> `sir_vant_8848`, else hidden (Falador Sir Vant, spawn below); cs2 1886, 1661, 3971 test `= 3`; cs2 1522/1523 test `= 2` for interface 761 "Sir Vant's Requests" (Learning the Ropes, `761.if` text "This quest was originally known as 'Learning the Ropes'."). Inference: 3 marks an account that took UF, 2 a Learning the Ropes account. |
 | varbit 6487 | varp 1254 bits 22-23 | loc 45795 (dragon's food bowl): 0 -> loc 1758 (no op), else -> loc 1761 (op1 Search) |
-| varbit 6494 | varp 1261 bits 0-2 | cs2 3227: Task 3520 "Introducing...Explorer Jack" done when `> 2`. void-634 names it `introducing_explorer_jack_task`, 3 = completed (`data/achievement/achievement_task.varbits.toml:87`) |
+| varbit 6494 | varp 1261 bits 0-2 | cs2 3227: Task 3520 "Introducing...Explorer Jack" done when `> 2`. void-634 names it `introducing_explorer_jack_task`, 3 = completed (`data/achievement/achievement_task.varpbits.toml:87`) |
 | varbit 6495 | varp 1261 bits 3-4 | locs 45571/45574/45577/45580/45583 (rocks): 0 -> none, 1 -> mineable rock, else -> plain rock; locs 45586/45589/45592 (tree roots): 0-2 -> none, 3 -> choppable root, else plain. Inference: the escape-route choice (1 = mining, 3 = woodcutting). void-634's Tasks.kt:154-157 tests it the same way. |
 | varbit 6496 | varp 1261 bits 14-16 | loc 45564 (pillar 1) state 0-4 -> locs 45566-45570 |
 | varbit 6497 | varp 1261 bits 17-19 | loc 45565 (pillar 2) state 0-4 -> locs 45566-45570 |
@@ -221,7 +221,7 @@ Sir vant's oil can page says "Bronze longsword") and tinderboxes: which obj ids
 
 The client's Task System shows the tutorial as Tasks of area 60
 (`param_1267=60` in structs 1702-1725; void-634 names area 60
-`unstable_foundations`, `achievement_task.varbits.toml:49`). cs2 4098 picks the
+`unstable_foundations`, `achievement_task.varpbits.toml:49`). cs2 4098 picks the
 current Task from varp 281; cs2 3224 decides which are shown, cs2 3227 when each
 is done. Titles and texts are word for word from the structs (`all.struct`,
 `param_1266` title, `param_1273` text, `param_1274..1278` hints); the varp 281

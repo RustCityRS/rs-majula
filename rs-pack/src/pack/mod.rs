@@ -15,6 +15,7 @@ pub mod pack;
 pub(crate) mod pack_dir;
 pub mod pack_registry;
 pub mod packed_data;
+pub(crate) mod script;
 pub mod sound;
 #[cfg(since_647)]
 pub mod text;

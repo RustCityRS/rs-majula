@@ -31,7 +31,7 @@ use tracing::debug;
 /// The registries config packing resolves names through: all but the script
 /// ids, which no config names.
 fn registry_key(pack_dir: &Path) -> Key {
-    dir_key(pack_dir, &["script.pack", "clientscript.pack"])
+    dir_key(pack_dir, &["clientscript.pack"])
 }
 
 /// The registry a kind reads whole: it packs an entry for every id in it.
@@ -62,9 +62,12 @@ fn config_inputs(kind: &str) -> Vec<&str> {
         "category" => vec![],
         "dbrow" => vec!["dbrow", "dbtable"],
         "obj" => vec!["obj", "varobj"],
-        "controller" => vec!["controller", "varcon"],
+        "controller" => vec!["controller", "varcon", "varconbit"],
+        "varconbit" => vec!["varconbit", "varcon"],
         "mes" => vec!["mesanim"],
-        "varcs" => vec!["varc"],
+        "varcstr" => vec!["varc"],
+        "varpstr" => vec!["varp"],
+        "varsstr" => vec!["vars"],
         "interface" => vec!["if"],
         kind => vec![kind],
     };
@@ -117,7 +120,7 @@ fn pack_cached_assets(
         #[cfg(before_647)]
         "interface",
         #[cfg(since_254)]
-        "varbit",
+        "varpbit",
         #[cfg(all(since_274, before_647))]
         "mes",
         #[cfg(since_647)]
@@ -149,7 +152,11 @@ fn pack_cached_assets(
         #[cfg(since_647)]
         "varc",
         #[cfg(since_647)]
-        "varcs",
+        "varcstr",
+        #[cfg(since_647)]
+        "varpstr",
+        #[cfg(since_647)]
+        "varsstr",
         #[cfg(since_647)]
         "varclansetting",
         #[cfg(since_647)]
@@ -158,6 +165,8 @@ fn pack_cached_assets(
         "varobj",
         #[cfg(since_647)]
         "varcon",
+        #[cfg(since_647)]
+        "varconbit",
         #[cfg(since_647)]
         "controller",
     ];
@@ -205,7 +214,7 @@ fn pack_cached_assets(
                     #[cfg(before_647)]
                     "interface" => interface::pack_interfaces(files.dir(), registry, verify)?,
                     #[cfg(since_254)]
-                    "varbit" => varbit::pack_varbits(fc, registry, constants)?,
+                    "varpbit" => varbit::pack_varbits(fc, registry, constants)?,
                     #[cfg(all(since_274, before_647))]
                     "mes" => mes::pack_mes(fc, constants)?,
                     #[cfg(since_647)]
@@ -243,7 +252,11 @@ fn pack_cached_assets(
                     #[cfg(since_647)]
                     "varc" => varc::pack_varcs(fc, &registry.varc, constants)?,
                     #[cfg(since_647)]
-                    "varcs" => varc::pack_varc_strings(fc, &registry.varcs, constants)?,
+                    "varcstr" => varc::pack_varc_strings(fc, &registry.varcstr, constants)?,
+                    #[cfg(since_647)]
+                    "varpstr" => vars::pack_string_vars(fc, &registry.varpstr, "varp", constants)?,
+                    #[cfg(since_647)]
+                    "varsstr" => vars::pack_string_vars(fc, &registry.varsstr, "vars", constants)?,
                     #[cfg(since_647)]
                     "varclansetting" => varclansetting::pack_varclansettings(
                         fc,
@@ -257,6 +270,11 @@ fn pack_cached_assets(
                     #[cfg(since_647)]
                     "varcon" => PackedFile {
                         server: varcon::pack_varcons(fc, registry, constants)?,
+                        client: None,
+                    },
+                    #[cfg(since_647)]
+                    "varconbit" => PackedFile {
+                        server: varconbit::pack_varconbits(fc, registry, constants)?,
                         client: None,
                     },
                     #[cfg(since_647)]
@@ -320,7 +338,7 @@ impl FileCache {
         "constant",
         "if",
         #[cfg(since_254)]
-        "varbit",
+        "varpbit",
         #[cfg(since_647)]
         "bas",
         #[cfg(since_647)]
@@ -357,7 +375,26 @@ impl FileCache {
         "controller",
         #[cfg(since_647)]
         "varcon",
+        #[cfg(since_647)]
+        "varconbit",
+        #[cfg(since_647)]
+        "varnbit",
+        #[cfg(since_647)]
+        "varclan",
+        #[cfg(since_647)]
+        "itemcode",
+        #[cfg(since_647)]
+        "config37",
+        #[cfg(since_647)]
+        "config38",
+        #[cfg(since_647)]
+        "config39",
+        #[cfg(since_647)]
+        "config45",
+        #[cfg(since_647)]
+        "wma",
     ];
+
     pub fn new(source_dir: &Path) -> Self {
         Self::from_files(source_files(source_dir))
     }
@@ -694,7 +731,10 @@ pub fn pack_config_files(
                 if files.with_ext(&[name]).is_empty() && !verify {
                     return Ok(None);
                 }
-                let client = pack_empty_table(files.dir(), name, registry.file(name))?;
+                let pack = registry
+                    .file(name)
+                    .with_context(|| format!("No pack registry for .{name} configs"))?;
+                let client = pack_empty_table(files.dir(), name, pack)?;
                 if verify {
                     verify_crc(name, &client.dat, expected);
                 }

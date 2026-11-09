@@ -702,7 +702,7 @@ pub fn pack_locs(
                     .varbit
                     .get_by_debugname(varbit_name)
                     .unwrap_or_else(|| {
-                        panic!("{debugname}: unknown multivar varbit '{varbit_name}'")
+                        panic!("{debugname}: unknown multivar varpbit '{varbit_name}'")
                     });
                 let count = multiloc.iter().map(|(i, _)| *i).max().unwrap_or(0);
                 client.p1(77);

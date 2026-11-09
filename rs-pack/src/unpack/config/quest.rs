@@ -31,7 +31,7 @@ pub fn emit_quest_props(
         p.push((3, "masterquestvarp".into(), format!("{var},{start},{end}")));
     }
     for (var, start, end) in &def.progressvarbit {
-        let var = packs.reference("varbit", *var);
+        let var = packs.reference("varpbit", *var);
         p.push((
             4,
             "masterquestvarbit".into(),
@@ -102,7 +102,7 @@ pub fn emit_quest_props(
         p.push((18, "varpreq".into(), value));
     }
     for requirement in &def.varbitrequirement {
-        let value = var_requirement(requirement, "varbit", packs);
+        let value = var_requirement(requirement, "varpbit", packs);
         p.push((19, "varbitreq".into(), value));
     }
     p.extend(super::emit_param_list(&def.params, packs));

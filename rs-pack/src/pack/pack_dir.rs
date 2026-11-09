@@ -1,4 +1,6 @@
-use anyhow::{Context, Result, bail};
+#[cfg(any(since_647, test))]
+use anyhow::bail;
+use anyhow::{Context, Result};
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -8,8 +10,7 @@ use tracing::warn;
 static NEXT: AtomicU64 = AtomicU64::new(0);
 
 /// A copy of the pack dir for one compile alone, so worlds packing at once
-/// never compile against each other's half-written files. The ids a compile
-/// gives go back to the pack dir with [`pin`](Self::pin).
+/// never compile against each other's half-written files.
 pub struct PrivatePack {
     dir: PathBuf,
 }
@@ -35,6 +36,7 @@ impl PrivatePack {
         &self.dir
     }
 
+    #[cfg(any(since_647, test))]
     pub fn check_unchanged(&self, pack: &Path, name: &str) -> Result<()> {
         let original = fs::read_to_string(pack.join(name))?;
         let compiled = fs::read_to_string(self.dir.join(name))?;
@@ -52,6 +54,7 @@ impl PrivatePack {
     }
 
     /// Swaps file `name` into `pack` as the compile left it, if it changed.
+    #[cfg(any(since_647, test))]
     pub fn pin(&self, pack: &Path, name: &str, verify: bool) -> Result<()> {
         if verify {
             return self.check_unchanged(pack, name);

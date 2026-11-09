@@ -1,3 +1,4 @@
+use super::is_string_var;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackFile, PackedFile};
 use crate::pack::packed_data::PackedData;
@@ -33,7 +34,7 @@ fn pack_table(
     let configs = parse_config_sections_cached(file_cache, "varc", constants)?;
     let mut entries = BTreeMap::new();
     for (name, props) in &configs {
-        if props.iter().any(|(k, v)| k == "type" && v == "string") == strings {
+        if is_string_var(props) == strings {
             let id = pack
                 .get_by_debugname(name)
                 .with_context(|| format!("No varc id for [{name}]"))?;

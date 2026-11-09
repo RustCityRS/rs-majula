@@ -16,7 +16,7 @@ fn command(name: &str) -> Option<(u16, &'static [&'static str])> {
         "enum_string" => (6, &["enum", "varp"]),
         "enum_string_clan" => (7, &["enum"]),
         "tostring_varp" => (8, &["varp"]),
-        "tostring_varbit" => (9, &["varbit"]),
+        "tostring_varbit" => (9, &["varpbit"]),
         "objtradedialog" => (10, &[]),
         "enum_string_statbase" => (11, &["enum", "stat"]),
         "acc_getcount_world" => (12, &[]),
@@ -32,7 +32,7 @@ fn parameter(registry: &PackRegistry, kind: &str, value: &str) -> u16 {
         "enum" => &registry.r#enum,
         "stat" => &registry.stat,
         "varp" => &registry.varp,
-        "varbit" => &registry.varbit,
+        "varpbit" => &registry.varbit,
         "vars" => &registry.vars,
         _ => unreachable!(),
     };

@@ -3,7 +3,7 @@ use crate::archive;
 #[cfg(since_647)]
 use crate::archive::{self, CONFIG, CONFIG_EMPTY_TABLES};
 #[cfg(before_647)]
-use crate::archive::{JagArchive, JagSource};
+use crate::archive::{JagArchive, JagSource, config_jag_name};
 #[cfg(since_647)]
 use crate::pack::pack::FileCache;
 #[cfg(before_647)]
@@ -168,7 +168,8 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
             let packs = config::unpack_config(jag, &config_dir, pack_dir, model_textures.clone())?;
 
             for (name, expected) in CONFIG_TYPE_CRCS {
-                if let Some(dat) = jag.read(&format!("{name}.dat")) {
+                let wire_name = config_jag_name(name);
+                if let Some(dat) = jag.read(&format!("{wire_name}.dat")) {
                     crc_report.config(name, &dat.data, *expected);
                 }
             }

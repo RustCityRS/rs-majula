@@ -589,7 +589,7 @@ pub const fn hook_transmit_list(hook: usize) -> Option<(usize, &'static str)> {
         6 => Some((1, "inv")),
         7 => Some((2, "stat")),
         18 => Some((3, "varc")),
-        19 => Some((4, "varcs")),
+        19 => Some((4, "varcstr")),
         _ => None,
     }
 }

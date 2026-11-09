@@ -91,7 +91,7 @@ pub fn pack_quests(
 
                     // 4
                     "masterquestvarbit" if first => {
-                        write_progress(client, &registry.varbit, "varbit", 4, rows(props, key));
+                        write_progress(client, &registry.varbit, "varpbit", 4, rows(props, key));
                     }
 
                     // 5
@@ -195,7 +195,7 @@ pub fn pack_quests(
                     // 19
                     "varbitreq" if first => {
                         let rows = rows(props, key);
-                        write_var_requirements(client, &registry.varbit, "varbit", 19, rows);
+                        write_var_requirements(client, &registry.varbit, "varpbit", 19, rows);
                     }
 
                     // 249

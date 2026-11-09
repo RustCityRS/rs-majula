@@ -13,7 +13,7 @@ fn command_text(command: &QuickChatCommand, packs: &UnpackedPacks) -> String {
         6 => format!("enum_string({},{})", param(0, "enum"), param(1, "varp")),
         7 => format!("enum_string_clan({})", param(0, "enum")),
         8 => format!("tostring_varp({})", param(0, "varp")),
-        9 => format!("tostring_varbit({})", param(0, "varbit")),
+        9 => format!("tostring_varbit({})", param(0, "varpbit")),
         10 => "objtradedialog()".to_owned(),
         11 => format!(
             "enum_string_statbase({},{})",

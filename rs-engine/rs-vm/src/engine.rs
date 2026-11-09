@@ -82,6 +82,8 @@ pub trait ScriptEngine {
     fn varobjs(&self) -> &VarObjTypeProvider;
     #[cfg(since_647)]
     fn varcons(&self) -> &VarConTypeProvider;
+    #[cfg(since_647)]
+    fn varconbits(&self) -> &VarbitTypeProvider;
     fn dbrows(&self) -> &DbRowTypeProvider;
     fn dbtables(&self) -> &DbTableTypeProvider;
     fn dbindex(&self) -> &DbTableIndex;

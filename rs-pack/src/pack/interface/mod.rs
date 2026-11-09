@@ -483,7 +483,7 @@ pub fn pack_interfaces(
                                 registry.varbit.get_by_debugname(arg(1)).unwrap_or_else(|| {
                                     panic!(
                                         "Error packing interfaces
-{} references unknown varbit '{}'",
+{} references unknown varpbit '{}'",
                                         describe(),
                                         arg(1)
                                     )
@@ -817,7 +817,7 @@ pub fn pack_archive(
                 "clientscripts".to_owned(),
                 stats_key(&files_under(&roots(&scripts))),
             ),
-            ("pack".to_owned(), dir_key(pack_dir, &["script.pack"])),
+            ("pack".to_owned(), dir_key(pack_dir, &[])),
         ],
     );
     let registry = OnceLock::new();

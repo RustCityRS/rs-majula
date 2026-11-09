@@ -1,4 +1,6 @@
 use super::config_entry;
+#[cfg(since_647)]
+use super::is_string_var;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
@@ -17,7 +19,9 @@ pub fn pack_varps(
     let configs = parse_config_sections_cached(file_cache, "varp", constants)?;
 
     #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("varp", pack, constants)?;
+    let mut client_configs = file_cache.client_configs("varp", pack, constants)?;
+    #[cfg(since_647)]
+    client_configs.retain(|_, props| !is_string_var(props));
     let mut server = PackedData::new(pack.max);
     #[cfg(before_647)]
     let client_count = pack.max;

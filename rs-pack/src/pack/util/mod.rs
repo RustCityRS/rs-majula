@@ -75,14 +75,14 @@ pub fn placeholder_prefix(kind: &str) -> &str {
         "quickchatphrase" => "chatphrase",
         "sprites" => "graphic",
         "texture" => "material",
-        "varbit" => "varplayerbit",
-        "varc" | "varcs" => "varclient",
+        "varpbit" => "varplayerbit",
+        "varc" | "varcstr" => "varclient",
         "varcon" => "config43",
         "varn" => "varnpc",
         "varnbit" => "varnpcbit",
         "varobj" => "varobject",
-        "varp" => "varplayer",
-        "vars" => "varworld",
+        "varp" | "varpstr" => "varplayer",
+        "vars" | "varsstr" => "varworld",
         _ => kind,
     }
 }
@@ -415,7 +415,7 @@ pub fn pack_multi(
             let bit = registry
                 .varbit
                 .get_by_debugname(value)
-                .or_else(|| placeholder_number("varbit", value));
+                .or_else(|| placeholder_number("varpbit", value));
             let var = registry
                 .varp
                 .get_by_debugname(value)

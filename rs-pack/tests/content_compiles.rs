@@ -1,6 +1,6 @@
 //! Compile and lint every revision listed in `rs_ver::REVS`.
-//! The compiler returns bytecode in memory, but its registry generation can
-//! still update `script.pack`. Trigger headers and arity have separate tests.
+//! The compiler generates script IDs and bytecode in memory.
+//! Trigger headers and arity have separate tests.
 
 use std::path::{Path, PathBuf};
 

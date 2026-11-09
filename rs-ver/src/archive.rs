@@ -134,7 +134,7 @@ pub const CONFIG_GROUP_CONTROLLER: u32 = 42;
 #[cfg(since_647)]
 pub const CONFIG_GROUP_VARCON: u32 = 43;
 #[cfg(since_647)]
-pub const CONFIG_GROUP_CONFIG44: u32 = 44;
+pub const CONFIG_GROUP_VARCONBIT: u32 = 44;
 #[cfg(since_647)]
 pub const CONFIG_GROUP_HITMARK: u32 = 46;
 #[cfg(since_647)]

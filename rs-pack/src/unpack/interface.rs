@@ -85,7 +85,7 @@ impl Ctx<'_> {
         self.registry
             .varbit
             .get_by_id(id)
-            .unwrap_or_else(|| panic!("No varbit name for id {id} referenced by interface"))
+            .unwrap_or_else(|| panic!("No varpbit name for id {id} referenced by interface"))
     }
 
     fn model(&self, id: u16) -> &str {

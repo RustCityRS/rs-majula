@@ -38,7 +38,7 @@ pub(super) fn decode_varbit(
             250 => {
                 buf.gjstr(STRING_TERMINATOR);
             }
-            _ => panic!("Unrecognized varbit config code: {code}"),
+            _ => panic!("Unrecognized varpbit config code: {code}"),
         }
     }
     props

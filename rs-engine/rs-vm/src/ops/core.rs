@@ -451,6 +451,43 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             Err(ScriptError::Runtime("Not implemented".to_string()))?;
         });
 
+        #[cfg(since_647)]
+        none!(m, PUSH_VARCONBIT => |s| {
+            let operand = s.int_operand();
+            let secondary = ((operand >> 16) & 0x1) != 0;
+            let id = (operand & 0xFFFF) as u16;
+            let varbit = engine::<E>()
+                .varconbits()
+                .get_by_id(id)
+                .ok_or(ScriptError::VarConBitNotFound(id as i32))?;
+            let base = engine::<E>()
+                .controller_var(active_controller(s, secondary)?, varbit.basevar)?
+                .as_int();
+            s.push_int(getbit_range(base, varbit.start_bit as i32, varbit.end_bit as i32));
+        });
+
+        #[cfg(since_647)]
+        none!(m, POP_VARCONBIT => |s| {
+            let operand = s.int_operand();
+            let secondary = ((operand >> 16) & 0x1) != 0;
+            let id = (operand & 0xFFFF) as u16;
+            let varbit = engine::<E>()
+                .varconbits()
+                .get_by_id(id)
+                .ok_or(ScriptError::VarConBitNotFound(id as i32))?;
+            let varcon = engine::<E>()
+                .varcons()
+                .get_by_id(varbit.basevar)
+                .ok_or_else(|| ScriptError::Runtime(format!("Varcon not found: {}", varbit.basevar)))?;
+            let uid = active_controller(s, secondary)?;
+            let base = engine::<E>().controller_var(uid, varbit.basevar)?.as_int();
+            let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
+            let value = s.pop_int();
+            let value = if fits_bit_range(value, start, end) { value } else { 0 };
+            let value = VarValue::from_int(varcon.var_type, setbit_range_toint(base, value, start, end));
+            engine_mut::<E>().set_controller_var(uid, varbit.basevar, value)?;
+        });
+
         // 112
         #[cfg(since_647)]
         none!(m, PUSH_CLANSETTING_INT => |_s| {

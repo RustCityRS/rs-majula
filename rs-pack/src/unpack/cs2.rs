@@ -165,7 +165,7 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
         if let SymbolKind::GameVar {
             category, var_id, ..
         } = &symbol.kind
-            && matches!(category.as_str(), "varc" | "varcs")
+            && matches!(category.as_str(), "varc" | "varcstr")
         {
             variables.insert((category.as_str(), *var_id), name);
         }
@@ -181,7 +181,7 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
         .collect();
     for ((category, id), name) in variables {
         if !existing.contains(name) {
-            let props = if category == "varcs" {
+            let props = if category == "varcstr" {
                 "type=string\n"
             } else {
                 ""

@@ -305,6 +305,10 @@ pub const POP_CLANSETTING_LONG: u16 = 84;
 #[cfg(since_647)]
 pub const POP_CLANSETTING_STRING: u16 = 85;
 #[cfg(since_647)]
+pub const PUSH_VARCONBIT: u16 = 88;
+#[cfg(since_647)]
+pub const POP_VARCONBIT: u16 = 89;
+#[cfg(since_647)]
 pub const PUSH_CLANSETTING_INT: u16 = 112;
 #[cfg(since_647)]
 pub const PUSH_CLANSETTING_VARBIT: u16 = 113;

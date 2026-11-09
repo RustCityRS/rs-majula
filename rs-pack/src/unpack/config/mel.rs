@@ -4,7 +4,7 @@ use std::collections::HashMap;
 
 fn condition(var: &ShowVar, packs: &UnpackedPacks) -> String {
     let name = if var.varbit != u16::MAX {
-        packs.reference("varbit", var.varbit)
+        packs.reference("varpbit", var.varbit)
     } else {
         packs.reference("varp", var.varp)
     };

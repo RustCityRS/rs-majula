@@ -26,7 +26,7 @@ use crate::archive;
 use crate::cache::loader;
 #[cfg(since_647)]
 use crate::pack::util::placeholder_prefix;
-use anyhow::Result;
+use anyhow::{Result, ensure};
 use rs_io::js5::Js5Store;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::fs::{self, File};
@@ -187,7 +187,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
 
     // Game vars.
     report.record("varp", generate_varp_pack(&mut cache, pack_dir)?);
-    report.record("varbit", generate_varbit_pack(&mut cache, pack_dir)?);
+    report.record("varpbit", generate_varbit_pack(&mut cache, pack_dir)?);
 
     // Hardcoded enums.
     report.record("stat", generate_stat_pack(pack_dir)?);
@@ -219,9 +219,13 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         ("area", "area", archive::CONFIG_GROUP_AREA),
         ("varobj", "varobject", archive::CONFIG_GROUP_VAROBJ),
         ("varnbit", "varnpcbit", archive::CONFIG_GROUP_VARNBIT),
+        ("config37", "config37", 37),
+        ("config38", "config38", 38),
+        ("config39", "config39", 39),
         ("controller", "controller", archive::CONFIG_GROUP_CONTROLLER),
         ("varcon", "config43", archive::CONFIG_GROUP_VARCON),
-        ("config44", "config44", archive::CONFIG_GROUP_CONFIG44),
+        ("varconbit", "varconbit", archive::CONFIG_GROUP_VARCONBIT),
+        ("config45", "config45", 45),
         ("varclan", "varclan", archive::CONFIG_GROUP_VARCLAN),
         ("itemcode", "itemcode", archive::CONFIG_GROUP_ITEMCODE),
         (
@@ -274,24 +278,47 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         );
     }
 
-    // String varcs carry on the int varcs' names, by their own ids.
-    let next_varc = cache
-        .read_group(archive::CONFIG, archive::CONFIG_GROUP_VARC)?
-        .and_then(|group| group.entries.iter().map(|entry| entry.id + 1).max())
-        .unwrap_or(0);
-    report.record(
-        "varcs",
-        generate_auto_pack_named(
-            &mut cache,
-            pack_dir,
-            "varcs",
-            placeholder_prefix("varc"),
-            next_varc,
-            archive::CONFIG,
+    for (kind, strings, group, string_group) in [
+        (
+            "varc",
+            "varcstr",
+            archive::CONFIG_GROUP_VARC,
             archive::CONFIG_GROUP_VARCSTR,
-            force,
-        )?,
-    );
+        ),
+        (
+            "varp",
+            "varpstr",
+            archive::CONFIG_GROUP_VARP,
+            archive::CONFIG_GROUP_VARPSTR,
+        ),
+        (
+            "vars",
+            "varsstr",
+            archive::CONFIG_GROUP_VARS,
+            archive::CONFIG_GROUP_VARSSTR,
+        ),
+    ] {
+        let first = cache
+            .read_group(archive::CONFIG, group)?
+            .and_then(|group| group.entries.iter().map(|entry| entry.id + 1).max())
+            .unwrap_or(0);
+        report.record(
+            strings,
+            generate_auto_pack_named(
+                &mut cache,
+                pack_dir,
+                strings,
+                placeholder_prefix(kind),
+                first,
+                archive::CONFIG,
+                string_group,
+                force,
+            )?,
+        );
+        if kind != "varc" {
+            merge_string_vars(pack_dir, kind, strings, first)?;
+        }
+    }
 
     // Synth (sound effects). Archive 4 holds one sound per group (file 0 only),
     // and the wire id sent by SOUND_SYNTH is the raw group id as a u16 — so the
@@ -923,6 +950,25 @@ fn generate_empty_pack(pack_dir: &Path, type_name: &str) -> Result<()> {
 
 // ── game var pack generators ────────────────────────────────────────────
 
+fn merge_string_vars(pack_dir: &Path, kind: &str, strings: &str, first: u32) -> Result<()> {
+    let path = pack_dir.join(format!("{kind}.pack"));
+    let mut names = load_existing_pack(&path);
+    for (id, name) in load_existing_pack(&pack_dir.join(format!("{strings}.pack"))) {
+        let id = first + id;
+        ensure!(
+            names.get(&id).is_none_or(|existing| existing == &name),
+            "{kind}.pack: string variable [{name}] conflicts with id {id}"
+        );
+        names.insert(id, name);
+    }
+    let mut file = File::create(path)?;
+    writeln!(file, "// client_count={first}")?;
+    for (id, name) in names {
+        writeln!(file, "{id}={name}")?;
+    }
+    Ok(())
+}
+
 fn generate_varp_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
     let varps = loader::load_all_varps(cache)?;
     let path = pack_dir.join("varp.pack");
@@ -938,8 +984,8 @@ fn generate_varp_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeRepor
 
 fn generate_varbit_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
     let varbits = loader::load_all_varbits(cache)?;
-    let path = pack_dir.join("varbit.pack");
-    let prefix = placeholder_prefix("varbit");
+    let path = pack_dir.join("varpbit.pack");
+    let prefix = placeholder_prefix("varpbit");
     let entries: Vec<(u32, String)> = (0..varbits.count() as u32)
         .map(|id| (id, format!("{prefix}_{id}")))
         .collect();

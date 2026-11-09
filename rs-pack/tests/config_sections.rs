@@ -89,8 +89,9 @@ fn every_revision_defines_each_config_once() {
         let cache = FileCache::new(&root.join(rev).join("scripts"));
         let mut count = 0;
         for kind in [
-            "loc", "npc", "obj", "seq", "varp", "varbit", "flo", "flu", "idk", "spotanim", "param",
-            "dbrow", "dbtable", "enum", "struct", "hunt", "varn", "vars", "inv", "mesanim",
+            "loc", "npc", "obj", "seq", "varp", "varpbit", "flo", "flu", "idk", "spotanim",
+            "param", "dbrow", "dbtable", "enum", "struct", "hunt", "varn", "vars", "inv",
+            "mesanim",
         ] {
             count += parse_config_sections(cache.collect(kind), &HashMap::new())
                 .unwrap_or_else(|error| panic!("REV={rev}: {error}"))

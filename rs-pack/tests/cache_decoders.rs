@@ -760,27 +760,25 @@ fn billboards_keep_their_keys_in_cache_order() {
 
 #[cfg(since_647)]
 #[test]
-fn empty_tables_come_from_their_files() {
+fn empty_tables_use_registered_ids() {
     let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("empty_tables");
     let _ = fs::remove_dir_all(&path);
     fs::create_dir_all(&path).unwrap();
-    fs::write(
-        path.join("all.controller"),
-        "// 0\n[controller_0]\n\n// 2\n[controller_2]\n",
-    )
-    .unwrap();
-    fs::write(path.join("all.varcon"), "[config43_0]\nfoo=1\n").unwrap();
-    let controller = pack_empty_table(&path, "controller", None).unwrap();
+    fs::write(path.join("all.controller"), "[controller_99]\n\n[named]\n").unwrap();
+    let pack = PackFile::parse("0=controller_99\n1=unused\n2=named\n");
+    let controller = pack_empty_table(&path, "controller", &pack).unwrap();
     let entries: Vec<_> = PackedData::entries(&controller.dat, &controller.idx)
         .unwrap()
         .map(|(id, data)| (id, data.to_vec()))
         .collect();
     assert_eq!(entries, [(0, vec![0]), (1, vec![]), (2, vec![0])]);
     assert_eq!(
-        pack_empty_table(&path, "varnbit", None).unwrap().dat,
+        pack_empty_table(&path, "varnbit", &PackFile::empty())
+            .unwrap()
+            .dat,
         [0, 0]
     );
-    assert!(pack_empty_table(&path, "varcon", None).is_err());
+    assert!(pack_empty_table(&path, "controller", &PackFile::empty()).is_err());
 
     fs::write(
         path.join("all.varcon"),
@@ -788,14 +786,14 @@ fn empty_tables_come_from_their_files() {
     )
     .unwrap();
     let pack = PackFile::parse("0=config43_0\n1=config43_1\n2=tob_wavenumber\n");
-    let varcon = pack_empty_table(&path, "varcon", Some(&pack)).unwrap();
+    let varcon = pack_empty_table(&path, "varcon", &pack).unwrap();
     let entries: Vec<_> = PackedData::entries(&varcon.dat, &varcon.idx)
         .unwrap()
         .map(|(id, data)| (id, data.to_vec()))
         .collect();
     assert_eq!(entries, [(0, vec![0]), (1, vec![]), (2, vec![0])]);
-    fs::write(path.join("all.varcon"), "[unknown]\n").unwrap();
-    assert!(pack_empty_table(&path, "varcon", Some(&pack)).is_err());
+    fs::write(path.join("all.varcon"), "[config43_3]\n").unwrap();
+    assert!(pack_empty_table(&path, "varcon", &pack).is_err());
 }
 
 #[cfg(since_647)]
@@ -804,7 +802,7 @@ fn client_var_tables_write_their_opcodes() {
     let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("client_var_tables");
     fs::create_dir_all(path.join("_unpack")).unwrap();
     fs::write(path.join("varc.pack"), "0=varc_0\n2=named\n").unwrap();
-    fs::write(path.join("varcs.pack"), "0=varc_3\n1=varc_4\n").unwrap();
+    fs::write(path.join("varcstr.pack"), "0=varc_3\n1=varc_4\n").unwrap();
     fs::write(
         path.join("_unpack/all.varc"),
         "// 0\n[varc_0]\ntype=int\nscope=perm\n\n// 2\n[named]\ntype=namedobj\n\n\
@@ -831,7 +829,7 @@ fn client_var_tables_write_their_opcodes() {
         bytes(varcs.client.unwrap()),
         [vec![1, 105, 2, 0], Vec::new(), vec![1, b'O', 0]]
     );
-    let strings = pack_varc_strings(&cache, &registry.varcs, &constants).unwrap();
+    let strings = pack_varc_strings(&cache, &registry.varcstr, &constants).unwrap();
     assert_eq!(bytes(strings.client.unwrap()), [vec![0], vec![2, 0]]);
     let settings = pack_varclansettings(&cache, &registry.varclansetting, &constants).unwrap();
     assert_eq!(

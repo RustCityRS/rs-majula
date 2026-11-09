@@ -4,6 +4,7 @@ use rs_entity::Controller;
 use rs_grid::CoordGrid;
 use rs_pack::cache::VarValue;
 use rs_pack::types::ParamValue;
+use rs_util::bits::{fits_bit_range, setbit_range_toint};
 use rs_var::VarSet;
 use rs_vm::state::{QueuePriority, ScriptArgument};
 use rs_vm::trigger::ServerTriggerType;
@@ -137,6 +138,23 @@ impl Engine {
                         ParamValue::String(value) => VarValue::String(value.to_string()),
                     },
                 );
+            }
+            for (id, value) in controller.varbits.iter() {
+                let Some(varbit) = self.cache.varconbits.get_by_id(*id) else {
+                    continue;
+                };
+                let Some(varcon) = self.cache.varcons.get_by_id(varbit.basevar) else {
+                    continue;
+                };
+                let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
+                let value = if fits_bit_range(*value, start, end) {
+                    *value
+                } else {
+                    0
+                };
+                let base = vars.get(varbit.basevar).as_int();
+                let value = setbit_range_toint(base, value, start, end);
+                vars.set(varbit.basevar, VarValue::from_int(varcon.var_type, value));
             }
         }
         self.controllers

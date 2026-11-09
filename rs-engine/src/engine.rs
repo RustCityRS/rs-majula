@@ -3807,6 +3807,11 @@ impl ScriptEngine for Engine {
         &self.cache.varcons
     }
 
+    #[cfg(since_647)]
+    fn varconbits(&self) -> &VarbitTypeProvider {
+        &self.cache.varconbits
+    }
+
     fn dbrows(&self) -> &DbRowTypeProvider {
         &self.cache.dbrows
     }

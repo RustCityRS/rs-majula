@@ -186,6 +186,8 @@ pub struct CacheStore {
     #[cfg(since_647)]
     pub varcons: VarConTypeProvider,
     #[cfg(since_647)]
+    pub varconbits: VarbitTypeProvider,
+    #[cfg(since_647)]
     pub controllers: ControllerTypeProvider,
 }
 

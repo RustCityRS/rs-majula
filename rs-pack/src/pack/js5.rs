@@ -327,7 +327,7 @@ pub fn pack_asset_archives(
                     vec![
                         versions_dep(versions, aid),
                         ("verify".to_owned(), Key::from(verify)),
-                        ("pack".to_owned(), dir_key(private.path(), &["script.pack"])),
+                        ("pack".to_owned(), dir_key(private.path(), &[])),
                     ],
                 );
                 let sources = files_under(&roots(&dir));
@@ -342,10 +342,7 @@ pub fn pack_asset_archives(
                         .collect()
                 })?;
                 private.pin(pack_dir, "clientscript.pack", verify)?;
-                stage.finish(vec![(
-                    "pack".to_owned(),
-                    dir_key(private.path(), &["script.pack"]),
-                )]);
+                stage.finish(vec![("pack".to_owned(), dir_key(private.path(), &[]))]);
                 let ids: Vec<_> = prepared.iter().map(|group| group.id).collect();
                 let hashes = load_name_hashes(pack_dir, aid, &ids);
                 for group in &mut prepared {

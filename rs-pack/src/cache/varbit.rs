@@ -38,7 +38,7 @@ impl CacheType for VarbitType {
                     self.end_bit = buf.g1();
                 }
                 250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
-                _ => crate::unknown_opcode!("varbit", code),
+                _ => crate::unknown_opcode!("varpbit", code),
             }
         }
     }

@@ -15,9 +15,9 @@ fn write_condition(client: &mut PackedData, registry: &PackRegistry, value: &str
         client.p2(u16::MAX);
         client.p2(u16::MAX);
     } else if registry.varbit.get_by_debugname(var).is_some()
-        || var.starts_with(placeholder_prefix("varbit"))
+        || var.starts_with(placeholder_prefix("varpbit"))
     {
-        parse_ref(&registry.varbit, "varbit", var, |v| client.p2(v));
+        parse_ref(&registry.varbit, "varpbit", var, |v| client.p2(v));
         client.p2(u16::MAX);
     } else {
         client.p2(u16::MAX);

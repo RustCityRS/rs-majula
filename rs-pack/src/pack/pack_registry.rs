@@ -220,7 +220,11 @@ pub struct PackRegistry {
     #[cfg(since_647)]
     pub varc: PackFile,
     #[cfg(since_647)]
-    pub varcs: PackFile,
+    pub varcstr: PackFile,
+    #[cfg(since_647)]
+    pub varpstr: PackFile,
+    #[cfg(since_647)]
+    pub varsstr: PackFile,
     #[cfg(since_647)]
     pub varclansetting: PackFile,
     #[cfg(since_647)]
@@ -233,6 +237,24 @@ pub struct PackRegistry {
     pub controller: PackFile,
     #[cfg(since_647)]
     pub varcon: PackFile,
+    #[cfg(since_647)]
+    pub varconbit: PackFile,
+    #[cfg(since_647)]
+    pub varnbit: PackFile,
+    #[cfg(since_647)]
+    pub varclan: PackFile,
+    #[cfg(since_647)]
+    pub itemcode: PackFile,
+    #[cfg(since_647)]
+    pub config37: PackFile,
+    #[cfg(since_647)]
+    pub config38: PackFile,
+    #[cfg(since_647)]
+    pub config39: PackFile,
+    #[cfg(since_647)]
+    pub config45: PackFile,
+    #[cfg(since_647)]
+    pub wma: PackFile,
     #[cfg(since_647)]
     pub component_hashes: Arc<HashMap<String, i32>>,
     pack_dir: PathBuf,
@@ -322,7 +344,7 @@ registry_files! {
     "anim" => anim,
     "midi" => midi,
     #[cfg(since_254)]
-    "varbit" => varbit,
+    "varpbit" => varbit,
     #[cfg(since_647)]
     "flu" => flu,
     #[cfg(since_647)]
@@ -356,7 +378,11 @@ registry_files! {
     #[cfg(since_647)]
     "varc" => varc,
     #[cfg(since_647)]
-    "varcs" => varcs,
+    "varcstr" => varcstr,
+    #[cfg(since_647)]
+    "varpstr" => varpstr,
+    #[cfg(since_647)]
+    "varsstr" => varsstr,
     #[cfg(since_647)]
     "varclansetting" => varclansetting,
     #[cfg(since_647)]
@@ -369,6 +395,24 @@ registry_files! {
     "controller" => controller,
     #[cfg(since_647)]
     "varcon" => varcon,
+    #[cfg(since_647)]
+    "varconbit" => varconbit,
+    #[cfg(since_647)]
+    "varnbit" => varnbit,
+    #[cfg(since_647)]
+    "varclan" => varclan,
+    #[cfg(since_647)]
+    "itemcode" => itemcode,
+    #[cfg(since_647)]
+    "config37" => config37,
+    #[cfg(since_647)]
+    "config38" => config38,
+    #[cfg(since_647)]
+    "config39" => config39,
+    #[cfg(since_647)]
+    "config45" => config45,
+    #[cfg(since_647)]
+    "wma" => wma,
 }
 
 impl PackRegistry {
@@ -405,7 +449,7 @@ impl PackRegistry {
         let anim = load("anim")?;
         let midi = load("midi")?;
         #[cfg(since_254)]
-        let varbit = load("varbit")?;
+        let varbit = load("varpbit")?;
 
         debug!(
             "PackRegistry: npc={} obj={} loc={} hunt={} param={} cat={} seq={} varp={} varn={} model={} interface={} dbrow={} synth={} flo={} texture={} spotanim={} anim={} idk={} midi={}",
@@ -490,7 +534,11 @@ impl PackRegistry {
             #[cfg(since_647)]
             varc: load("varc")?,
             #[cfg(since_647)]
-            varcs: load("varcs")?,
+            varcstr: load("varcstr")?,
+            #[cfg(since_647)]
+            varpstr: load("varpstr")?,
+            #[cfg(since_647)]
+            varsstr: load("varsstr")?,
             #[cfg(since_647)]
             varclansetting: load("varclansetting")?,
             #[cfg(since_647)]
@@ -503,6 +551,24 @@ impl PackRegistry {
             controller: load("controller")?,
             #[cfg(since_647)]
             varcon: load("varcon")?,
+            #[cfg(since_647)]
+            varconbit: load("varconbit")?,
+            #[cfg(since_647)]
+            varnbit: load("varnbit")?,
+            #[cfg(since_647)]
+            varclan: load("varclan")?,
+            #[cfg(since_647)]
+            itemcode: load("itemcode")?,
+            #[cfg(since_647)]
+            config37: load("config37")?,
+            #[cfg(since_647)]
+            config38: load("config38")?,
+            #[cfg(since_647)]
+            config39: load("config39")?,
+            #[cfg(since_647)]
+            config45: load("config45")?,
+            #[cfg(since_647)]
+            wma: load("wma")?,
             #[cfg(since_647)]
             component_hashes: Arc::new(component_hashes),
             pack_dir: pack_dir.to_path_buf(),
@@ -548,14 +614,27 @@ impl PackRegistry {
     pub fn check_client_ids(&self) -> Result<()> {
         for (kind, pack) in [
             ("varp", &self.varp),
+            #[cfg(since_647)]
+            ("varpstr", &self.varpstr),
             #[cfg(since_254)]
-            ("varbit", &self.varbit),
+            ("varpbit", &self.varbit),
         ] {
             if let Some(count) = pack.client_count {
                 let mut added: Vec<_> = pack
                     .id_to_debugname
                     .iter()
-                    .filter(|&(&id, _)| id >= count)
+                    .filter(|&(&id, _name)| {
+                        #[cfg(since_647)]
+                        if kind == "varp"
+                            && self
+                                .varpstr
+                                .get_by_debugname(_name)
+                                .is_some_and(|id| id < self.varpstr.client_count())
+                        {
+                            return false;
+                        }
+                        id >= count
+                    })
                     .collect();
                 added.sort();
                 if !added.is_empty() {
@@ -600,7 +679,7 @@ impl PackRegistry {
                         if pack.debugname_to_id.contains_key(name)
                             || (ext == "varc"
                                 && self
-                                    .file("varcs")
+                                    .file("varcstr")
                                     .is_some_and(|pack| pack.debugname_to_id.contains_key(name)))
                         {
                             continue;
@@ -625,10 +704,10 @@ impl PackRegistry {
                         let (value, resolves, label) = match key {
                             "multivar" => (
                                 value,
-                                self.file("varbit")
+                                self.file("varpbit")
                                     .is_some_and(|pack| pack.get_by_debugname(value).is_some())
                                     || self.varp.get_by_debugname(value).is_some(),
-                                "varbit",
+                                "varpbit",
                             ),
                             "multinpc" => {
                                 let target = value.rsplit(',').next().unwrap_or(value).trim();
@@ -707,9 +786,32 @@ const AUTO_REGISTER: &[&str] = &[
     "dbtable", "dbrow",
 ];
 
-/// Register new server config names only when verification is disabled.
+/// Require pack files, then register new server names when verification is disabled.
 pub fn validate_config_packs(fc: &FileCache, pack_dir: &Path, verify: bool) -> Result<()> {
     let mut errors = Vec::new();
+    for &ext in FileCache::TEXT_EXTS {
+        let kind = match ext {
+            "constant" => continue,
+            "if" => "interface",
+            "quickchatcat" => "chatcat",
+            "quickchatphrase" => "chatphrase",
+            ext => ext,
+        };
+        let Some(source) = fc.collect(ext).first() else {
+            continue;
+        };
+        let pack_path = pack_dir.join(format!("{kind}.pack"));
+        if !pack_path.is_file() {
+            errors.push(format!(
+                "{}: missing {} for .{ext} configs",
+                source.display(),
+                pack_path.display()
+            ));
+        }
+    }
+    if !errors.is_empty() {
+        bail!("missing config pack files:\n{}", errors.join("\n"));
+    }
     for &ext in AUTO_REGISTER {
         let pack_path = pack_dir.join(format!("{ext}.pack"));
         let mut pack = PackFile::load(&pack_path)?;
@@ -884,6 +986,45 @@ mod tests {
     }
 
     #[test]
+    fn configs_require_pack_files_before_registering_names() {
+        let dir = env::temp_dir().join(format!("rs-majula-missing-packs-{}", process::id()));
+        let scripts = dir.join("scripts");
+        fs::create_dir_all(&scripts).unwrap();
+        let kinds: Vec<_> = FileCache::TEXT_EXTS
+            .iter()
+            .copied()
+            .filter(|ext| *ext != "constant")
+            .collect();
+        for ext in &kinds {
+            fs::write(scripts.join(format!("all.{ext}")), "[first]\n").unwrap();
+        }
+        fs::write(scripts.join("all.constant"), "value=1\n").unwrap();
+        let files = ConfigFiles::new(&scripts);
+        for verify in [false, true] {
+            let error = check_configs(&files, &dir, verify).unwrap_err().to_string();
+            assert!(error.contains("missing config pack files"), "{error}");
+            for ext in &kinds {
+                assert!(error.contains(&format!("for .{ext} configs")), "{error}");
+            }
+            assert_eq!(fs::read_dir(&dir).unwrap().count(), 1);
+        }
+        for ext in kinds {
+            let kind = match ext {
+                "if" => "interface",
+                "quickchatcat" => "chatcat",
+                "quickchatphrase" => "chatphrase",
+                ext => ext,
+            };
+            fs::write(dir.join(format!("{kind}.pack")), "0=first\n").unwrap();
+        }
+        check_configs(&files, &dir, false).unwrap();
+        fs::remove_file(dir.join("varp.pack")).unwrap();
+        let error = check_configs(&files, &dir, false).unwrap_err().to_string();
+        assert!(error.contains("for .varp configs"), "{error}");
+        fs::remove_dir_all(&dir).unwrap();
+    }
+
+    #[test]
     fn new_config_ids_require_verify_false() {
         let dir = env::temp_dir().join(format!("rs-majula-config-ids-{}", process::id()));
         let scripts = dir.join("scripts");
@@ -921,6 +1062,7 @@ mod tests {
                 "0=existing\n1=new_name\n"
             );
         }
+        fs::write(dir.join("npc.pack"), "").unwrap();
         fs::write(scripts.join("custom.npc"), "[missing_npc]\n").unwrap();
         let error = check_configs(&ConfigFiles::new(&scripts), &dir, false)
             .unwrap_err()

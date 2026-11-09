@@ -35,7 +35,9 @@ fn every_script_var_is_registered() {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let pack = root.join("content/647/pack");
     let mut registered = BTreeSet::new();
-    for kind in ["varp", "varbit", "vars", "varn", "varc", "varcs", "varcon"] {
+    for kind in [
+        "varp", "varpbit", "vars", "varn", "varc", "varcstr", "varcon",
+    ] {
         registered.extend(names(&pack.join(format!("{kind}.pack"))));
     }
 

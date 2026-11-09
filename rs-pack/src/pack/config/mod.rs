@@ -15,7 +15,7 @@ use crate::pack::pack_registry::{PackFile, PackId};
 #[cfg(since_647)]
 use crate::pack::packed_data::PackedData;
 #[cfg(since_647)]
-use anyhow::{Context, Result, ensure};
+use anyhow::{Context, Result};
 #[cfg(since_647)]
 use rayon::prelude::*;
 #[cfg(since_647)]
@@ -82,33 +82,31 @@ pub mod varclansetting;
 #[cfg(since_647)]
 pub mod varcon;
 #[cfg(since_647)]
+pub mod varconbit;
+#[cfg(since_647)]
 pub mod varobj;
 pub mod varp;
 pub mod vars;
 
-/// A table the cache holds empty: an entry per section, numbered by its name,
-/// or by `pack` for a table only the server reads, whose sections keep their
-/// properties to the server.
 #[cfg(since_647)]
-pub fn pack_empty_table(
-    source_dir: &Path,
-    type_name: &str,
-    pack: Option<&PackFile>,
-) -> Result<PackedData> {
+pub(super) fn is_string_var(props: &ConfigProperties) -> bool {
+    props
+        .iter()
+        .rev()
+        .find(|(key, _)| key == "type")
+        .is_some_and(|(_, value)| value == "string")
+}
+
+/// A table the cache holds empty, with section IDs from its pack registry.
+#[cfg(since_647)]
+pub fn pack_empty_table(source_dir: &Path, type_name: &str, pack: &PackFile) -> Result<PackedData> {
     let files = collect_config_files(source_dir, type_name);
     let sections = parse_config_sections(&files, &HashMap::new())?;
     let mut ids = BTreeSet::new();
-    for (name, props) in &sections {
-        let id = match pack {
-            Some(pack) => pack
-                .get_by_debugname(name)
-                .with_context(|| format!("[{name}]: no {type_name}.pack id"))?,
-            None => {
-                ensure!(props.is_empty(), "[{name}]: {type_name} entries are empty");
-                let id = name.rsplit('_').next().unwrap_or(name);
-                id.parse::<u32>().expect("Invalid config section id")
-            }
-        };
+    for name in sections.keys() {
+        let id = pack
+            .get_by_debugname(name)
+            .with_context(|| format!("[{name}]: no {type_name}.pack id"))?;
         ids.insert(id);
     }
     let count = ids.last().map_or(0, |id| id + 1);
@@ -185,7 +183,7 @@ pub fn pack_archives(
         (archive::CONFIG_OBJ, "obj", 256),
         (archive::CONFIG_SEQ, "seq", 128),
         (archive::CONFIG_SPOTANIM, "spotanim", 256),
-        (archive::CONFIG_VARBIT, "varbit", 1024),
+        (archive::CONFIG_VARBIT, "varpbit", 1024),
     ] {
         let entries = read_config_entries(config, name)?;
         if entries.is_empty() {
