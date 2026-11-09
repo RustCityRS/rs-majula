@@ -357,6 +357,7 @@ pub struct PlayerCold {
     pub transmog: Option<u16>,
     pub body: [i32; 7],
     pub colours: [u8; 5],
+    pub bot_home: CoordGrid,
 }
 
 impl Deref for Player {
@@ -527,6 +528,7 @@ impl Player {
                 transmog: None,
                 body: [0, 10, 18, 26, 33, 36, 42],
                 colours: [0; 5],
+                bot_home: coord,
             }),
         }
     }

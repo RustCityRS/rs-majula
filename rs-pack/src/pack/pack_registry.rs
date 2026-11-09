@@ -231,6 +231,10 @@ pub struct PackRegistry {
     #[cfg(since_647)]
     pub varobj: PackFile,
     #[cfg(since_647)]
+    pub controller: PackFile,
+    #[cfg(since_647)]
+    pub varcon: PackFile,
+    #[cfg(since_647)]
     pub component_hashes: Arc<HashMap<String, i32>>,
     pack_dir: PathBuf,
     lookups: Option<Arc<Lookups>>,
@@ -268,7 +272,7 @@ impl Registry for PackRegistry {
 macro_rules! registry_files {
     ($($(#[$cfg:meta])* $kind:literal => $field:ident,)*) => {
         impl PackRegistry {
-            fn file(&self, kind: &str) -> Option<&PackFile> {
+            pub(crate) fn file(&self, kind: &str) -> Option<&PackFile> {
                 match kind {
                     $($(#[$cfg])* $kind => Some(&self.$field),)*
                     _ => None,
@@ -362,6 +366,10 @@ registry_files! {
     "area" => area,
     #[cfg(since_647)]
     "varobj" => varobj,
+    #[cfg(since_647)]
+    "controller" => controller,
+    #[cfg(since_647)]
+    "varcon" => varcon,
 }
 
 impl PackRegistry {
@@ -493,6 +501,10 @@ impl PackRegistry {
             #[cfg(since_647)]
             varobj: load("varobj")?,
             #[cfg(since_647)]
+            controller: load("controller")?,
+            #[cfg(since_647)]
+            varcon: load("varcon")?,
+            #[cfg(since_647)]
             component_hashes: Arc::new(component_hashes),
             pack_dir: pack_dir.to_path_buf(),
             lookups: None,
@@ -571,6 +583,8 @@ impl PackRegistry {
             ("quickchatphrase", &self.chatphrase),
             ("area", &self.area),
             ("varobj", &self.varobj),
+            ("controller", &self.controller),
+            ("varcon", &self.varcon),
         ] {
             for path in fc.collect(ext) {
                 let Some(text) = fc.read(path) else {

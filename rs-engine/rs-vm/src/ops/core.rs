@@ -1,4 +1,6 @@
 use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
+#[cfg(since_647)]
+use crate::ops::controller::active_controller;
 use crate::register::OpsRegistry;
 use crate::state::{ExecutionState, ScriptState};
 use crate::util::*;
@@ -23,7 +25,8 @@ use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
 /// - **Shared variables:** `PUSH_VARS`, `POP_VARS`
 /// - **Client variables (647):** `PUSH_VARC_INT`, `POP_VARC_INT`, `PUSH_VARC_STRING`,
 ///   `POP_VARC_STRING`: a write transmits, a read gets what was sent last
-/// - **Clan, obj, npc-bit and controller variables (647):** `PUSH_VARCLAN` ...
+/// - **Controller variables (647):** `PUSH_VARCON`, `POP_VARCON`, on the active controller
+/// - **Clan, obj and npc-bit variables (647):** `PUSH_VARCLAN` ...
 ///   `PUSH_CLANSETTING_STRING` (stubs; the server keeps no owner for them yet)
 /// - **Branching:** `BRANCH`, `BRANCH_NOT`, `BRANCH_EQUALS`, `BRANCH_LESS_THAN`,
 ///   `BRANCH_GREATER_THAN`, `BRANCH_LESS_THAN_OR_EQUALS`, `BRANCH_GREATER_THAN_OR_EQUALS`
@@ -394,14 +397,30 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 80
         #[cfg(since_647)]
-        none!(m, PUSH_VARCON => |_s| {
-            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        none!(m, PUSH_VARCON => |s| {
+            let id = (s.int_operand() & 0xFFFF) as u16;
+            let value = engine::<E>().controller_var(active_controller(s)?, id)?;
+            if let VarValue::String(v) = value {
+                s.push_string(&v);
+            } else {
+                s.push_int(value.as_int());
+            }
         });
 
         // 81
         #[cfg(since_647)]
-        none!(m, POP_VARCON => |_s| {
-            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        none!(m, POP_VARCON => |s| {
+            let id = (s.int_operand() & 0xFFFF) as u16;
+            let varcon = engine::<E>()
+                .varcons()
+                .get_by_id(id)
+                .ok_or_else(|| ScriptError::Runtime(format!("Varcon not found: {id}")))?;
+            let value = if varcon.var_type == ScriptVarType::String {
+                VarValue::String(s.pop_string())
+            } else {
+                VarValue::from_int(varcon.var_type, s.pop_int())
+            };
+            engine_mut::<E>().set_controller_var(active_controller(s)?, id, value)?;
         });
 
         // 82

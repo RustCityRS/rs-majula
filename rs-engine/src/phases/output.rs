@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use crate::active_player::ActivePlayer;
 use crate::active_player::EnginePlayer;
 use crate::engine::Engine;
 use crate::phases::shared::panic_message;
@@ -99,12 +101,19 @@ impl Engine {
             }
         }
 
+        let mut receivers: Vec<u16> = Vec::new();
         for (sender_pid, sender_coord, effects, rights, char_count, huffman_data) in chats {
-            let receivers: Vec<u16> = match self.player_list.players[sender_pid as usize].as_ref() {
-                Some(sender) => sender.player.build_area.players.iter().to_vec(),
-                None => continue,
+            let Some(packet) =
+                ActivePlayer::public_chat(sender_pid, effects, rights, char_count, &huffman_data)
+            else {
+                continue;
             };
-            for recv_pid in receivers {
+            receivers.clear();
+            match self.player_list.players[sender_pid as usize].as_ref() {
+                Some(sender) => receivers.extend(sender.player.build_area.players.iter()),
+                None => continue,
+            }
+            for &recv_pid in &receivers {
                 if let Some(receiver) = self.player_list.players[recv_pid as usize].as_mut() {
                     let in_range = CoordGrid::in_distance(
                         &receiver.player.pathing.coord,
@@ -112,13 +121,7 @@ impl Engine {
                         receiver.player.build_area.view_distance,
                     );
                     if in_range {
-                        receiver.message_public(
-                            sender_pid,
-                            effects,
-                            rights,
-                            char_count,
-                            huffman_data.clone(),
-                        );
+                        receiver.message_public(&packet.data);
                     }
                 }
             }
@@ -143,7 +146,7 @@ impl Engine {
         let player_info = self.player_info.encode(
             &mut self.player_renderer,
             others,
-            &self.player_snapshots[..],
+            &self.player_snapshots,
             &self.zones,
             active,
             dx,

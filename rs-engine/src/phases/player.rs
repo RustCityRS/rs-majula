@@ -51,7 +51,7 @@ impl Engine {
     /// **Called by:** `Engine::cycle`
     /// **Calls:** `process_queues`, `process_timers`, `process_engine_queue`,
     ///   `process_interaction`, `process_movement`, `update_energy`,
-    ///   `check_zones_and_collision`
+    ///   `refresh_presence`
     pub(crate) fn players(&mut self) {
         let pids = self.player_list.take_pids();
         let mut start = 0;
@@ -96,6 +96,8 @@ impl Engine {
 
     #[inline(always)]
     fn process_player(&mut self, pid: u16) {
+        #[cfg(since_647)]
+        self.fall_forward(pid);
         let Some(active) = self.player_list.players[pid as usize].as_mut() else {
             return;
         };
@@ -156,13 +158,12 @@ impl Engine {
             active.sync_run();
         }
 
-        Engine::check_zones_and_collision(
+        let block_walk = active.player.block_walk;
+        Engine::refresh_presence(
             &mut self.zones,
-            prev_coord,
-            active.player.pathing.coord,
+            &mut active.player.pathing,
             EntityId::Player(active.player.uid.pid()),
-            active.player.pathing.size,
-            active.player.block_walk,
+            block_walk,
         );
     }
 

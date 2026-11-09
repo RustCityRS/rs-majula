@@ -23,16 +23,16 @@ const Y: usize = 4;
 /// Mapsquare height in tiles.
 const Z: usize = 64;
 /// Total number of tiles per mapsquare (X * Y * Z = 1 << 14).
-const MAPSQUARE: usize = 1 << 14;
+pub(crate) const MAPSQUARE: usize = 1 << 14;
 
 /// Tile flag: no special flags set.
 const OPEN: u8 = 0x0;
 /// Tile flag: tile is blocked (floor collision).
-const BLOCK_MAP_SQUARE: u8 = 0x1;
+pub(crate) const BLOCK_MAP_SQUARE: u8 = 0x1;
 /// Tile flag: entities on this tile are rendered one level below (bridge).
-const LINK_BELOW: u8 = 0x2;
+pub(crate) const LINK_BELOW: u8 = 0x2;
 /// Tile flag: roofs above this tile are removed when viewing.
-const REMOVE_ROOFS: u8 = 0x4;
+pub(crate) const REMOVE_ROOFS: u8 = 0x4;
 /// Tile flag: the tile below is visible through the floor.
 #[allow(unused)]
 const VISIBLE_BELOW: u8 = 0x8;
@@ -173,10 +173,17 @@ fn loc_zone_rect(shape: LocShape, x: u16, z: u16, extent: u16) -> (u16, u16, u16
 
 /// A decoded loc entry from an `l` mapsquare file, buffered between the
 /// decode and apply passes.
-struct MapLocEntry {
-    id: u16,
-    coord: u16,
-    info: u8,
+pub(crate) struct MapLocEntry {
+    pub(crate) id: u16,
+    pub(crate) coord: u16,
+    pub(crate) info: u8,
+}
+
+/// A mapsquare's tile flags and locs, decoded to copy its zones into regions.
+#[cfg(since_647)]
+pub(crate) struct SquareTemplate {
+    pub(crate) lands: Box<[u8; MAPSQUARE]>,
+    pub(crate) locs: Vec<MapLocEntry>,
 }
 
 /// A decoded NPC spawn entry from an `n` mapsquare file.
@@ -427,30 +434,7 @@ impl GameMap {
     ) {
         let mut overlays = [0; MAPSQUARE];
         let mut underlays = [0; MAPSQUARE];
-
-        for y in 0..Y {
-            for x in 0..X {
-                for z in 0..Z {
-                    let coord = MapsquareCoordGrid::new(x as u8, y as u8, z as u8);
-                    loop {
-                        let opcode = buf.g1();
-                        if opcode == 0 {
-                            break;
-                        } else if opcode == 1 {
-                            buf.pos += 1;
-                            break;
-                        }
-                        if opcode <= 49 {
-                            overlays[coord.packed() as usize] = buf.g1();
-                        } else if opcode <= 81 {
-                            lands[coord.packed() as usize] = opcode - 49;
-                        } else {
-                            underlays[coord.packed() as usize] = opcode - 81;
-                        }
-                    }
-                }
-            }
-        }
+        Self::read_ground(lands, &mut overlays, &mut underlays, buf);
 
         for y in 0..Y {
             for x in 0..X {
@@ -507,6 +491,68 @@ impl GameMap {
         originz: u16,
         out: &mut Vec<MapLocEntry>,
     ) {
+        Self::read_locs(buf, |entry| {
+            let (id, packed, info) = (entry.id, entry.coord, entry.info);
+            out.push(entry);
+
+            let Some(loc_type) = cache.locs.get_by_id(id) else {
+                return;
+            };
+
+            let shape = LocShape::try_from_primitive(info >> 2).unwrap();
+            if shape.is_roof() {
+                return;
+            }
+
+            let coord = MapsquareCoordGrid::from(packed);
+            let bridge = Self::bridge_level(lands, coord.x(), coord.y(), coord.z());
+            if bridge < 0 {
+                return;
+            }
+
+            let extent = loc_type.width.max(loc_type.length).max(1) as u16;
+            let absolute_x = originx + coord.x() as u16;
+            let absolute_z = originz + coord.z() as u16;
+            let (x0, z0, x1, z1) = loc_zone_rect(shape, absolute_x, absolute_z, extent);
+            marks.mark_rect(x0, z0, x1, z1, bridge as u8);
+        });
+    }
+
+    /// Reads a mapsquare's ground file: its tile flags into `lands`, its
+    /// overlay and underlay ids into theirs.
+    fn read_ground(
+        lands: &mut [u8; MAPSQUARE],
+        overlays: &mut [u8; MAPSQUARE],
+        underlays: &mut [u8; MAPSQUARE],
+        buf: &mut Packet,
+    ) {
+        for y in 0..Y {
+            for x in 0..X {
+                for z in 0..Z {
+                    let coord = MapsquareCoordGrid::new(x as u8, y as u8, z as u8);
+                    loop {
+                        let opcode = buf.g1();
+                        if opcode == 0 {
+                            break;
+                        } else if opcode == 1 {
+                            buf.pos += 1;
+                            break;
+                        }
+                        if opcode <= 49 {
+                            overlays[coord.packed() as usize] = buf.g1();
+                        } else if opcode <= 81 {
+                            lands[coord.packed() as usize] = opcode - 49;
+                        } else {
+                            underlays[coord.packed() as usize] = opcode - 81;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /// Reads a mapsquare's loc file, entry by entry in file order.
+    fn read_locs(buf: &mut Packet, mut visit: impl FnMut(MapLocEntry)) {
         let mut id: i32 = -1;
         let mut id_offset = read_loc_id_offset(buf);
         while id_offset != 0 {
@@ -517,40 +563,37 @@ impl GameMap {
 
             while coord_offset != 0 {
                 coord += coord_offset - 1;
-                let packed = coord as u16;
-
                 let info = buf.g1();
                 coord_offset = buf.gsmart1or2();
-
-                out.push(MapLocEntry {
+                visit(MapLocEntry {
                     id: id as u16,
-                    coord: packed,
+                    coord: coord as u16,
                     info,
                 });
-
-                let Some(loc_type) = cache.locs.get_by_id(id as u16) else {
-                    continue;
-                };
-
-                let shape = LocShape::try_from_primitive(info >> 2).unwrap();
-                if shape.is_roof() {
-                    continue;
-                }
-
-                let coord = MapsquareCoordGrid::from(packed);
-                let bridge = Self::bridge_level(lands, coord.x(), coord.y(), coord.z());
-                if bridge < 0 {
-                    continue;
-                }
-
-                let extent = loc_type.width.max(loc_type.length).max(1) as u16;
-                let absolute_x = originx + coord.x() as u16;
-                let absolute_z = originz + coord.z() as u16;
-                let (x0, z0, x1, z1) = loc_zone_rect(shape, absolute_x, absolute_z, extent);
-                marks.mark_rect(x0, z0, x1, z1, bridge as u8);
             }
             id_offset = read_loc_id_offset(buf);
         }
+    }
+
+    /// Decodes mapsquare (`mx`, `mz`) for copying its zones into a region.
+    #[cfg(since_647)]
+    pub(crate) fn decode_template(cache: &CacheStore, mx: u8, mz: u8) -> SquareTemplate {
+        let mut lands = Box::new([0; MAPSQUARE]);
+        if let Some(data) = cache.mapsquares.get(&('m', mx, mz)) {
+            let mut overlays = [0; MAPSQUARE];
+            let mut underlays = [0; MAPSQUARE];
+            Self::read_ground(
+                &mut lands,
+                &mut overlays,
+                &mut underlays,
+                &mut decompress_map(data),
+            );
+        }
+        let mut locs = Vec::new();
+        if let Some(data) = cache.mapsquares.get(&('l', mx, mz)) {
+            Self::read_locs(&mut decompress_map(data), |entry| locs.push(entry));
+        }
+        SquareTemplate { lands, locs }
     }
 
     /// Decodes NPC spawn entries from the mapsquare buffer into a buffered

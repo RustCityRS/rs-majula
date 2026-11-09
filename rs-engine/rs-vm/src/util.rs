@@ -575,6 +575,27 @@ pub(crate) fn pop_count(state: &mut ScriptState) -> Result<u32> {
     Ok(count.clamp(0, i32::MAX) as u32)
 }
 
+/// Whether something at `from` may be put at `to`: see
+/// [`ScriptEngine::region_allows`], with the region the script selected.
+#[cfg(since_647)]
+pub(crate) fn region_allows<E: ScriptEngine + 'static>(
+    state: &ScriptState,
+    from: CoordGrid,
+    to: CoordGrid,
+) -> bool {
+    engine::<E>().region_allows(from, to, state.active_region)
+}
+
+#[cfg(before_647)]
+#[allow(clippy::extra_unused_type_parameters)]
+pub(crate) fn region_allows<E: ScriptEngine + 'static>(
+    _state: &ScriptState,
+    _from: CoordGrid,
+    _to: CoordGrid,
+) -> bool {
+    true
+}
+
 pub(crate) fn pop_coord(state: &mut ScriptState) -> Result<CoordGrid> {
     let coord = state.pop_int();
     if coord < 0 {

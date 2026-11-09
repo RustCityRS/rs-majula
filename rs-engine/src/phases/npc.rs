@@ -67,7 +67,7 @@ impl Engine {
     /// **Called by:** `Engine::cycle`
     /// **Calls:** `npc_process_hunt`, `npc_consume_hunt_target`,
     ///   `npc_process_regen`, `npc_process_timers`, `npc_process_queue`,
-    ///   `npc_process_movement_interaction`, `check_zones_and_collision`
+    ///   `npc_process_movement_interaction`, `refresh_presence`
     pub(crate) fn npcs(&mut self) {
         // - npc events (ai_spawn, ai_despawn)
         self.process_npc_events();
@@ -269,14 +269,15 @@ impl Engine {
             active.npc.pathing.last_movement = self.clock + 1;
         }
 
-        Engine::check_zones_and_collision(
-            &mut self.zones,
-            prev_coord,
-            active.npc.pathing.coord,
-            EntityId::Npc(nid),
-            active.npc.pathing.size,
-            active.block_walk(),
-        );
+        if active.npc.active {
+            let block_walk = active.block_walk();
+            Engine::refresh_presence(
+                &mut self.zones,
+                &mut active.npc.pathing,
+                EntityId::Npc(nid),
+                block_walk,
+            );
+        }
     }
 
     // ----
@@ -305,6 +306,7 @@ impl Engine {
     fn respawn_npc(zones: &mut ZoneMap, active: *mut ActiveNpc, cache: &CacheStore) {
         let active = unsafe { &mut *active };
         active.npc.pathing.coord = active.npc.spawn_coord;
+        active.npc.pathing.presence = active.npc.spawn_coord;
         active.npc.active = true;
         active.npc.lifecycle_at = None;
         active.npc.state.delayed = false;

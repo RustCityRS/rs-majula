@@ -1014,6 +1014,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let begin = s.pop_int();
             let end = pop_coord(s)?;
             let start = pop_coord(s)?;
+            if !region_allows::<E>(s, player.coord(), end) {
+                player.mes("Invalid teleport!");
+                return Ok(());
+            }
             player.clear_waypoints();
             player.exactmove(
                 start.x(),
@@ -1288,14 +1292,24 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2087
         // https://x.com/JagexAsh/status/1697517518007541917
         protected_active_player_mut!(m, P_TELEJUMP => |s, player| {
-            player.telejump(pop_coord(s)?);
+            let coord = pop_coord(s)?;
+            if region_allows::<E>(s, player.coord(), coord) {
+                player.telejump(coord);
+            } else {
+                player.mes("Invalid teleport!");
+            }
         });
 
         // 2088
         // https://x.com/JagexAsh/status/1697517518007541917
         // https://x.com/JagexAsh/status/1790684996480442796
         protected_active_player_mut!(m, P_TELEPORT => |s, player| {
-            player.teleport(pop_coord(s)?);
+            let coord = pop_coord(s)?;
+            if region_allows::<E>(s, player.coord(), coord) {
+                player.teleport(coord);
+            } else {
+                player.mes("Invalid teleport!");
+            }
         });
 
         // 2089

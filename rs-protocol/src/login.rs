@@ -1,4 +1,6 @@
 use crate::LoginResponse;
+#[cfg(since_647)]
+use crate::network::game::server::player_info::player_info_init;
 use rs_crypto::rsa::RsaKey;
 #[cfg(since_647)]
 use rs_crypto::xtea::Xtea;
@@ -279,6 +281,18 @@ pub fn game_login_reply(staffmodlevel: u8, pid: u16) -> Vec<u8> {
     buf.data
 }
 
+/// A reconnecting 647 client resumes its session from its `PLAYER_INFO`
+/// state again: the reply code, then that state behind a two-byte length.
+#[cfg(since_647)]
+pub fn reconnect_reply(pid: u16, x: u16, z: u16, level: u8, regions: &[u32]) -> Vec<u8> {
+    let init = player_info_init(pid, x, z, level, regions);
+    let mut buf = Packet::new(1 + 2 + init.pos);
+    buf.p1(LoginResponse::Reconnect as u8);
+    buf.p2(init.pos as u16);
+    buf.pdata(&init.data, 0, init.pos);
+    buf.data
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -510,5 +524,44 @@ Az5KOlJPE6c=
                 [2, 13, level, 0, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 1]
             );
         }
+    }
+
+    #[cfg(since_647)]
+    #[test]
+    fn reconnect_reply_is_the_state_the_client_resumes_from() {
+        let mut regions = vec![0u32; 2048];
+        regions[7] = (1 << 16) | (50 << 8) | 51;
+        regions[2047] = (3 << 16) | (255 << 8) | 254;
+        let reply = reconnect_reply(9, 3222, 3218, 2, &regions);
+        assert_eq!(reply[0], 15);
+        let len = u16::from_be_bytes([reply[1], reply[2]]) as usize;
+        assert_eq!(
+            reply.len(),
+            3 + len,
+            "the client checks it read exactly the block"
+        );
+        let block = &reply[3..];
+        let mut pos = 0;
+        let mut gbit = |n: usize| {
+            let mut v = 0u32;
+            for _ in 0..n {
+                v = (v << 1) | ((block[pos >> 3] >> (7 - (pos & 7))) & 1) as u32;
+                pos += 1;
+            }
+            v
+        };
+        let own = gbit(30);
+        assert_eq!(
+            (own >> 28, (own >> 14) & 0x3FFF, own & 0x3FFF),
+            (2, 3222, 3218)
+        );
+        let mut read = vec![0u32; 2048];
+        for (slot, region) in read.iter_mut().enumerate().skip(1) {
+            if slot != 9 {
+                *region = gbit(18);
+            }
+        }
+        assert_eq!(read, regions);
+        assert_eq!((pos + 7) >> 3, len);
     }
 }

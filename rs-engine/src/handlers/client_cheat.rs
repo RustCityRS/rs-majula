@@ -10,6 +10,8 @@ use rs_db::{ModAction, log_type, transfer};
 use rs_entity::StaffModLevel;
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
+#[cfg(since_647)]
+use rs_io::cp1252::encode_string;
 use rs_pack::cache::category::CategoryType;
 use rs_pack::cache::r#enum::EnumType;
 use rs_pack::cache::idk::IdkType;
@@ -27,8 +29,14 @@ use rs_pack::cache::varp::VarPlayerType;
 use rs_pack::cache::{ScriptVarType, VarValue};
 use rs_pack::types::{DummyItem, LocAngle, LocShape, NpcStat, PlayerStat};
 use rs_protocol::network::game::client::client_cheat::ClientCheat;
+use rs_protocol::network::game::client::message_public::MessagePublic;
+use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
+#[cfg(before_647)]
+use rs_protocol::network::game::client::pack_coord;
 use rs_stat::get_exp_by_level;
 use rs_util::base37::{is_valid_userhash, to_screen_name, to_userhash};
+#[cfg(before_647)]
+use rs_util::wordpack::pack;
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::ScriptArgument;
@@ -698,6 +706,7 @@ fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
 
         bot.player.pathing.coord = CoordGrid::new(x, center.y(), z);
         bot.player.pathing.last_coord = bot.player.pathing.coord;
+        bot.player.bot_home = center;
         bot.player.pathing.tele = true;
         bot.player.pathing.jump = true;
 
@@ -725,6 +734,58 @@ fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
         center.y()
     );
     spawned
+}
+
+/// The side of the square around their spawn centre that bots walk about in.
+const BOT_SQUARE: i32 = 50;
+
+/// `emote_wave`, the same seq in every revision.
+const EMOTE_WAVE: u16 = 863;
+
+/// A bot's tick: a walk click to a random tile of the [`BOT_SQUARE`] square
+/// around its spawn centre, its appearance, a wave facing that tile and its
+/// name in public chat, each through the handler a client's packet takes.
+pub(crate) fn bot_tick(active: &mut ActivePlayer) -> Result<(), ScriptError> {
+    let home = active.player.bot_home;
+    let random = &mut engine_mut().random;
+    let half = BOT_SQUARE >> 1;
+    let x = (home.x() as i32 + random.next_int_bound(BOT_SQUARE) - half).clamp(0, 0x3FFF) as u16;
+    let z = (home.z() as i32 + random.next_int_bound(BOT_SQUARE) - half).clamp(0, 0x3FFF) as u16;
+    #[cfg(before_647)]
+    MoveGameClick {
+        path: vec![pack_coord(x, z)],
+        ctrl: false,
+    }
+    .handle(active)?;
+    #[cfg(since_647)]
+    MoveGameClick { x, z, ctrl: false }.handle(active)?;
+
+    let inv = active.player.info.appearance.unwrap_or(0);
+    active.buildappearance(inv);
+    active.anim(Some(EMOTE_WAVE), 0);
+    active.facesquare(CoordGrid::new(x, active.player.pathing.coord.y(), z));
+
+    let name = active.player.uid.screen_name();
+    #[cfg(before_647)]
+    let chat = MessagePublic {
+        colour: 0,
+        effect: 0,
+        bytes: pack(&name),
+    };
+    #[cfg(since_647)]
+    let chat = {
+        let text = encode_string(&name);
+        let mut bytes = vec![0; text.len() << 2];
+        let len = engine().cache.huffman.encode(&text, &mut bytes);
+        bytes.truncate(len);
+        MessagePublic {
+            colour: 0,
+            effect: 0,
+            chars: text.len() as u16,
+            bytes,
+        }
+    };
+    chat.handle(active)
 }
 
 /// Sets the player's visibility -- `0` = default, `1` = soft-hide, `2` = hard-hide --

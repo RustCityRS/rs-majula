@@ -1,9 +1,12 @@
 use crate::clients::client_db::{AUTO_BAN_HOURS, DbRequest};
 use crate::clients::client_game::{ClientHandle, MAX_UNSENT};
 use crate::counters::{self, AutoBan, COUNTERS};
-use crate::engine::{OtherPlayers, engine, engine_mut};
+use crate::engine::{Engine, OtherPlayers, engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use crate::phases::logout::TIMEOUT_NO_RESPONSE;
+use crate::phases::shared::EntityId;
+#[cfg(since_647)]
+use crate::region::{REGION_X, template_square};
 #[cfg(before_274)]
 use crate::watch::TRACKING_TICKS;
 use crate::watch::menu::InvOp;
@@ -284,10 +287,10 @@ use rs_protocol::network::game::server::obj_add::ObjAdd;
 #[cfg(before_647)]
 use rs_protocol::network::game::server::p_countdialog::PCountDialog;
 use rs_protocol::network::game::server::player_info::PlayerInfo;
-#[cfg(since_647)]
-use rs_protocol::network::game::server::rebuild_normal::MAX_PLAYERS;
 #[cfg(any(rev = "225", since_244))]
 use rs_protocol::network::game::server::rebuild_normal::RebuildNormal;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::rebuild_region::RebuildRegion;
 #[cfg(before_647)]
 use rs_protocol::network::game::server::reset_anims::ResetAnims;
 #[cfg(before_647)]
@@ -377,7 +380,8 @@ type FullInvUpdate = Vec<Option<(u16, i32)>>;
 pub struct ActivePlayer {
     pub player: Player,
     pub handle: Box<ClientHandle>,
-    pub buffered: Vec<Packet>,
+    pub buffered: Packet,
+    pub buffered_starts: Vec<u32>,
     pub client_limit: u8,
     pub user_limit: u8,
     pub restricted_limit: u8,
@@ -435,7 +439,8 @@ impl ActivePlayer {
         ActivePlayer {
             player,
             handle: Box::new(handle),
-            buffered: Vec::new(),
+            buffered: Packet::new(0),
+            buffered_starts: Vec::new(),
             client_limit: 0,
             user_limit: 0,
             restricted_limit: 0,
@@ -499,17 +504,82 @@ impl ActivePlayer {
     where
         M: ServerProtMessage,
     {
-        let Some(buf) = Self::plaintext(message) else {
+        let start = self.buffered.pos;
+        if !Self::encode_into(&mut self.buffered, message) {
             return;
-        };
+        }
+        self.buffered_starts.push(start as u32);
+        let rest = &self.buffered.data[start + 1..self.buffered.pos];
+        self.watch.remember(M::PROT as u8, M::FRAME as usize, rest);
+    }
+
+    /// Queues `packet`, a [`plaintext`](Self::plaintext) `M`, as
+    /// [`write`](Self::write) queues the message itself.
+    #[cfg(since_647)]
+    pub(crate) fn queue_plaintext<M>(&mut self, packet: &[u8])
+    where
+        M: ServerProtMessage,
+    {
+        if let Some(capture) = &mut self.capture {
+            capture.push(packet.to_vec());
+            return;
+        }
+        let start = self.buffered.pos;
+        let end = start + packet.len();
+        if self.buffered.data.len() < end {
+            self.buffered.data.resize(end, 0);
+        }
+        self.buffered.data[start..end].copy_from_slice(packet);
+        self.buffered.pos = end;
+        self.buffered_starts.push(start as u32);
         self.watch
-            .remember(M::PROT as u8, M::FRAME as usize, &buf.data[1..]);
-        self.buffered.push(buf);
+            .remember(M::PROT as u8, M::FRAME as usize, &packet[1..]);
+    }
+
+    /// [`plaintext`](Self::plaintext) written at the end of `out`, which
+    /// grows to fit. Whether it fit in a packet.
+    fn encode_into<M>(out: &mut Packet, message: M) -> bool
+    where
+        M: ServerProtMessage,
+    {
+        let frame = M::FRAME as usize;
+        #[cfg(before_647)]
+        let opcode_bytes = 1;
+        #[cfg(since_647)]
+        let opcode_bytes = if (M::PROT as u16) < 128 { 1 } else { 2 };
+        let len = opcode_bytes + frame + message.sizeof();
+        if len > MAX_PACKET_SIZE {
+            return false;
+        }
+        if out.data.len() < out.pos + len {
+            out.data.resize(out.pos + len, 0);
+        }
+        #[cfg(before_647)]
+        out.p1(M::PROT as u8);
+        #[cfg(since_647)]
+        {
+            let opcode = M::PROT as u16;
+            if opcode < 128 {
+                out.p1(opcode as u8);
+            } else {
+                out.p1((opcode >> 8) as u8 + 128);
+                out.p1(opcode as u8);
+            }
+        }
+        out.pos += frame;
+        let start = out.pos;
+        message.encode(out);
+        match M::FRAME {
+            PacketFrame::Fixed => {}
+            PacketFrame::VarByte => out.psize1((out.pos - start) as u8),
+            PacketFrame::VarShort => out.psize2((out.pos - start) as u16),
+        }
+        true
     }
 
     /// A message as a packet: opcode (unciphered), frame and body. `None`
     /// past [`MAX_PACKET_SIZE`].
-    fn plaintext<M>(message: M) -> Option<Packet>
+    pub(crate) fn plaintext<M>(message: M) -> Option<Packet>
     where
         M: ServerProtMessage,
     {
@@ -561,29 +631,39 @@ impl ActivePlayer {
     fn write_buffered(&mut self) {
         let handle = &mut self.handle;
         let clock = engine().clock;
-        for mut buf in self.buffered.drain(..) {
-            self.watch.server(clock, buf.data[0], &buf.data[1..]);
-            // Packet::new pre-sizes `data` from sizeof(); send only the bytes
-            // actually encoded so a sizeof over-estimate can't leak zero
-            // padding into the ISAAC stream.
-            #[cfg(since_647)]
-            buf.data.truncate(buf.pos);
+        let watched = cfg!(before_274) || self.watch.recording();
+        let end = self.buffered.pos;
+        let data = &mut self.buffered.data;
+        for (i, &start) in self.buffered_starts.iter().enumerate() {
+            let start = start as usize;
+            let next = self
+                .buffered_starts
+                .get(i + 1)
+                .map_or(end, |&next| next as usize);
+            if watched {
+                self.watch
+                    .server(clock, data[start], &data[start + 1..next]);
+            }
             // Rev-647 opcodes were queued as plaintext SMART: a first byte
             // >= 128 marks a 2-byte opcode, which consumes two ISAAC values.
             // ISAAC is applied here (at flush) rather than at queue time so
             // the cipher stays in wire order relative to immediate packets.
             #[cfg(since_647)]
-            if buf.data[0] >= 128 {
+            if data[start] >= 128 {
                 let i0 = handle.isaac_encode.next_int();
                 let i1 = handle.isaac_encode.next_int();
-                buf.data[0] = (buf.data[0] as u32 + i0) as u8;
-                buf.data[1] = (buf.data[1] as u32 + i1) as u8;
-                handle.gather(&buf.data);
+                data[start] = (data[start] as u32 + i0) as u8;
+                data[start + 1] = (data[start + 1] as u32 + i1) as u8;
                 continue;
             }
-            buf.data[0] = (buf.data[0] as u32 + handle.isaac_encode.next_int()) as u8;
-            handle.gather(&buf.data);
+            data[start] = (data[start] as u32 + handle.isaac_encode.next_int()) as u8;
         }
+        if end > 0 {
+            handle.gather(&data[..end]);
+            data[..end].fill(0);
+        }
+        self.buffered.pos = 0;
+        self.buffered_starts.clear();
         handle.flush();
     }
 
@@ -941,7 +1021,9 @@ impl ActivePlayer {
     /// longer has, then `[area,...]` for each it gained.
     #[cfg(since_647)]
     fn trigger_areas(&mut self, coord: CoordGrid) {
-        let areas = engine().cache.area_map.get(coord.y(), coord.x(), coord.z());
+        let engine = engine();
+        let tile = engine.area_tile(coord);
+        let areas = engine.cache.area_map.get(tile.y(), tile.x(), tile.z());
         if areas == self.player.areas {
             return;
         }
@@ -2359,21 +2441,26 @@ impl ActivePlayer {
     /// nearby hearer (including the speaker), written by the broadcast step
     /// of the output phase.
     #[cfg(since_647)]
-    pub fn message_public(
-        &mut self,
+    pub fn message_public(&mut self, packet: &[u8]) {
+        self.queue_plaintext::<message_public::MessagePublic>(packet);
+    }
+
+    /// Rev-647 public chat as a plaintext packet, the same for every hearer.
+    #[cfg(since_647)]
+    pub fn public_chat(
         from_index: u16,
         effects: u16,
         staffmodlevel: u8,
         char_count: usize,
-        huffman_data: Vec<u8>,
-    ) {
-        self.write(message_public::MessagePublic {
+        huffman_data: &[u8],
+    ) -> Option<Packet> {
+        Self::plaintext(message_public::MessagePublic {
             from_index,
             effects,
             staffmodlevel,
             char_count,
             huffman_data,
-        });
+        })
     }
 
     /// Sends the pre-encoded NPC info update payload to the client.
@@ -2455,15 +2542,16 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Updates the player's build area origin and mapsquare list.
     pub fn rebuild_normal(&mut self, reconnecting: bool) {
-        if !self
-            .player
-            .build_area
-            .needs_rebuild(&self.player.pathing.coord)
-            && !reconnecting
-        {
+        let coord = self.player.pathing.coord;
+        #[cfg(since_647)]
+        let dynamic = coord.x() >= REGION_X;
+        #[cfg(since_647)]
+        let forced = self.player.build_area.rebuild || dynamic != self.player.build_area.dynamic;
+        #[cfg(before_647)]
+        let forced = false;
+        if !self.player.build_area.needs_rebuild(&coord) && !reconnecting && !forced {
             return;
         }
-        let coord = self.player.pathing.coord;
         self.player.build_area.rebuild_normal(&coord);
         let base = self.map_base();
         self.watch.anticheat.rebuilt(base, engine().clock);
@@ -2498,10 +2586,18 @@ impl ActivePlayer {
         // the XTEA key blocks for every mapsquare covering the build area.
         #[cfg(since_647)]
         {
-            let _ = (zone_x, zone_z);
+            self.player.build_area.rebuild = false;
+            if dynamic != self.player.build_area.dynamic {
+                self.forget_npcs();
+                self.player.build_area.dynamic = dynamic;
+            }
+            if dynamic {
+                self.rebuild_region(zone_x, zone_z, coord);
+                return;
+            }
             let first_login = self.player.pending_login;
             let player_regions = if first_login {
-                vec![0u32; MAX_PLAYERS]
+                engine().player_renderer.regions().to_vec()
             } else {
                 Vec::new()
             };
@@ -2521,6 +2617,59 @@ impl ActivePlayer {
                 self.player.pending_login = false;
             }
         }
+    }
+
+    /// Sends the zones copied onto the 13x13 zones around `zone_x`, `zone_z`,
+    /// on every level, with the XTEA keys of the mapsquares they come from in
+    /// the order the client first meets them. A rebuild between this and
+    /// REBUILD_NORMAL empties the client's npc list.
+    #[cfg(since_647)]
+    fn rebuild_region(&mut self, zone_x: u16, zone_z: u16, coord: CoordGrid) {
+        let regions = &engine().regions;
+        let mut templates = Vec::with_capacity((13 * 13) << 2);
+        let mut squares: Vec<(u16, u16)> = Vec::new();
+        for level in 0..4 {
+            for x in zone_x - 6..=zone_x + 6 {
+                for z in zone_z - 6..=zone_z + 6 {
+                    let template = regions.template_at(x, level, z);
+                    if let Some(square) = template.map(template_square)
+                        && !squares.contains(&square)
+                    {
+                        squares.push(square);
+                    }
+                    templates.push(template);
+                }
+            }
+        }
+        let xtea_keys = XteaKeyStore::global()
+            .map(|store| {
+                squares
+                    .iter()
+                    .map(|&(mx, mz)| store.get(mx as u32, mz as u32))
+                    .collect()
+            })
+            .unwrap_or_default();
+        self.write(RebuildRegion {
+            player_x: coord.x(),
+            player_z: coord.z(),
+            size: 0,
+            map_type: 2,
+            force: true,
+            templates,
+            xtea_keys,
+        });
+    }
+
+    /// Stops tracking every npc, as the client's npc list was emptied.
+    #[cfg(since_647)]
+    fn forget_npcs(&mut self) {
+        let npcs = &mut engine_mut().npc_list;
+        for &nid in self.player.build_area.npcs.iter() {
+            if let Some(npc) = npcs.get_mut(nid) {
+                npc.npc.observers = npc.npc.observers.saturating_sub(1);
+            }
+        }
+        self.player.build_area.npcs.clear();
     }
 
     /// Sends an animation reset packet to the client, clearing all playing
@@ -4188,8 +4337,6 @@ impl EnginePlayer for ActivePlayer {
     fn on_reconnect(&mut self) -> Result<(), ScriptError> {
         self.reset_client_varcache();
         self.sync_varps();
-        // A reconnecting client resets every player's move type to walk
-        // (`AClass5_Sub1.method2354`), so ours has to be sent again.
         #[cfg(since_647)]
         {
             self.player.client_move_type = None;
@@ -4578,6 +4725,7 @@ impl EnginePlayer for ActivePlayer {
     /// # Side Effects
     /// * Sets `player.pathing.coord` and `player.pathing.tele = true`.
     /// * Sets `player.jump = true` when changing levels.
+    /// * Moves the player's zone presence and collision there now.
     fn tele(&mut self, coord: CoordGrid) {
         match self.player.pathing.teleport(coord) {
             None => self.message_game("Invalid teleport!"),
@@ -4587,6 +4735,13 @@ impl EnginePlayer for ActivePlayer {
                     CoordGrid::fine(look_x, self.player.pathing.size),
                     CoordGrid::fine(look_z, self.player.pathing.size),
                     false,
+                );
+                let block_walk = self.player.block_walk;
+                Engine::refresh_presence(
+                    &mut engine_mut().zones,
+                    &mut self.player.pathing,
+                    EntityId::Player(self.player.uid.pid()),
+                    block_walk,
                 );
             }
         }

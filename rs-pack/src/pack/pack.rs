@@ -72,6 +72,7 @@ fn config_inputs(kind: &str) -> Vec<&str> {
         "category" => vec![],
         "dbrow" => vec!["dbrow", "dbtable"],
         "obj" => vec!["obj", "varobj"],
+        "controller" => vec!["controller", "varcon"],
         "mes" => vec!["mesanim"],
         "varcs" => vec!["varc"],
         "interface" => vec!["if"],
@@ -165,6 +166,10 @@ fn pack_cached_assets(
         "area",
         #[cfg(since_647)]
         "varobj",
+        #[cfg(since_647)]
+        "varcon",
+        #[cfg(since_647)]
+        "controller",
     ];
     let results: HashMap<String, PackedFile> = kinds
         .par_iter()
@@ -259,6 +264,16 @@ fn pack_cached_assets(
                     "area" => area::pack_areas(fc, registry, constants)?,
                     #[cfg(since_647)]
                     "varobj" => varobj::pack_varobjs(fc, registry, constants)?,
+                    #[cfg(since_647)]
+                    "varcon" => PackedFile {
+                        server: varcon::pack_varcons(fc, registry, constants)?,
+                        client: None,
+                    },
+                    #[cfg(since_647)]
+                    "controller" => PackedFile {
+                        server: controller::pack_controllers(fc, registry, constants)?,
+                        client: None,
+                    },
                     _ => unreachable!(),
                 })
             })?;
@@ -699,20 +714,22 @@ pub fn pack_config_files(
             if files.with_ext(&[name]).is_empty() && !verify {
                 return Ok(None);
             }
-            let client = pack_empty_table(files.dir(), name)?;
+            let client = pack_empty_table(files.dir(), name, registry.file(name))?;
             if verify {
                 verify_crc(name, &client.dat, expected);
             }
-            Ok(Some((
-                name.to_owned(),
-                PackedFile {
-                    server: Default::default(),
-                    client: Some(client),
-                },
-            )))
+            Ok(Some((name.to_owned(), client)))
         })
         .collect::<Result<Vec<_>>>()?;
-    assets.extend(empty.into_iter().flatten());
+    for (name, client) in empty.into_iter().flatten() {
+        assets
+            .entry(name)
+            .or_insert_with(|| PackedFile {
+                server: Default::default(),
+                client: None,
+            })
+            .client = Some(client);
+    }
     Ok(assets)
 }
 

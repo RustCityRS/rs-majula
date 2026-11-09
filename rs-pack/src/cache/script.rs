@@ -495,6 +495,34 @@ pub const IF_OPENTOP_MODE: u16 = 5018;
 pub const HINT_COORD_SLOT: u16 = 5019;
 #[cfg(since_647)]
 pub const HINT_STOP_SLOT: u16 = 5020;
+#[cfg(since_647)]
+pub const REGION_FINDBYCOORD: u16 = 5200;
+#[cfg(since_647)]
+pub const CONTROLLER_COORD: u16 = 5201;
+#[cfg(since_647)]
+pub const CONTROLLER_DEL: u16 = 5202;
+#[cfg(since_647)]
+pub const CONTROLLER_QUEUE: u16 = 5203;
+#[cfg(since_647)]
+pub const CONTROLLER_FINDEXACT: u16 = 5204;
+#[cfg(since_647)]
+pub const REGION_GETCOORD: u16 = 5205;
+#[cfg(since_647)]
+pub const REGION_CREATE: u16 = 5206;
+#[cfg(since_647)]
+pub const REGION_DEL: u16 = 5207;
+#[cfg(since_647)]
+pub const REGION_COPYZONE: u16 = 5208;
+#[cfg(since_647)]
+pub const REGION_COPYAREA: u16 = 5209;
+#[cfg(since_647)]
+pub const REGION_UID: u16 = 5210;
+#[cfg(since_647)]
+pub const REGION_FINDUID: u16 = 5211;
+#[cfg(since_647)]
+pub const CONTROLLER_ADD: u16 = 5212;
+#[cfg(since_647)]
+pub const CONTROLLER_SETTIMER: u16 = 5213;
 pub const SOFTTIMER: u16 = 2103;
 pub const SOUND_SYNTH: u16 = 2104;
 pub const SPOTANIM_PL: u16 = 2105;

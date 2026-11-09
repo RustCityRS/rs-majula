@@ -1,6 +1,7 @@
 use crate::cache::CacheStore;
 use crate::cache::area::{AreaMap, AreaType, MULTIWAY};
 use crate::cache::category::CategoryType;
+use crate::cache::controller::ControllerType;
 use crate::cache::dbrow::DbRowType;
 use crate::cache::dbtable::{DbTableIndex, DbTableType};
 use crate::cache::r#enum::{EnumType, EnumTypeRaw};
@@ -25,6 +26,7 @@ use crate::cache::seq::SeqTypeRaw;
 use crate::cache::spotanim::SpotAnimTypeRaw;
 use crate::cache::r#struct::StructTypeRaw;
 use crate::cache::varbit::VarbitType;
+use crate::cache::varcon::VarConType;
 use crate::cache::varn::VarnType;
 use crate::cache::varobj::VarObjType;
 use crate::cache::varp::VarPlayerTypeRaw;
@@ -226,6 +228,8 @@ fn load_cache(
     let categories = load_config::<CategoryType, _>(assets, "category", ())?;
     let areas: TypeProvider<AreaType> = load_config::<AreaType, _>(assets, "area", ())?;
     let varobjs: TypeProvider<VarObjType> = load_config::<VarObjType, _>(assets, "varobj", ())?;
+    let varcons = load_config::<VarConType, _>(assets, "varcon", ())?;
+    let controllers = load_config::<ControllerType, _>(assets, "controller", ())?;
 
     let locs = load_config::<LocTypeRaw, LocType>(assets, "loc", ())?;
 
@@ -283,6 +287,8 @@ fn load_cache(
         areas,
         area_map,
         varobjs,
+        varcons,
+        controllers,
     }))
 }
 

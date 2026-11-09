@@ -1,0 +1,120 @@
+#testscript
+
+// controller_0's queue keeps the int it was queued with; its timer counts.
+[ai_conqueue,controller_0]
+%config43_0 = last_int;
+
+[ai_contimer,controller_0]
+%config43_1 = calc(%config43_1 + 1);
+
+// A region is found by any of its tiles and by its uid, until deleted.
+[label,test_region_find_and_delete]
+assert_true(region_create(^region_small))
+def_int $uid = region_uid
+def_coord $origin = region_getcoord(0, 0, 0)
+assert_gte(coordx($origin), 6400)
+assert_true(region_findbycoord(movecoord($origin, 127, 0, 127)))
+assert_eq(region_uid, $uid)
+assert_false(region_findbycoord(movecoord($origin, 128, 0, 0)))
+assert_true(region_finduid($uid))
+region_del
+assert_false(region_finduid($uid))
+assert_false(region_findbycoord($origin))
+
+// Its own region lets a player in; once deleted, the player goes home and
+// its old tiles stay out of reach.
+[label,test_region_teleports_need_their_region]
+setup_player("test_player")
+p_telejump(0_50_50_20_20)
+assert_true(region_create(^region_small))
+region_copyarea(0_50_50_0_0, 0_50_50_31_31, region_getcoord(16, 0, 16), 0)
+def_coord $inside = region_getcoord(30, 0, 30)
+p_telejump($inside)
+assert_true(coord = $inside)
+region_del
+assert_eq(coordx(coord), 3221)
+p_telejump($inside)
+assert_eq(coordx(coord), 3221)
+
+// A tile of another region is reached only once a script selects it.
+[label,test_region_teleports_never_reach_another_region]
+setup_player("test_player")
+p_telejump(0_50_50_20_20)
+assert_true(region_create(^region_small))
+region_copyarea(0_50_50_0_0, 0_50_50_31_31, region_getcoord(0, 0, 0), 0)
+def_coord $first = region_getcoord(20, 0, 20)
+assert_true(region_create(^region_small))
+region_copyarea(0_50_50_0_0, 0_50_50_31_31, region_getcoord(0, 0, 0), 1)
+def_coord $second = region_getcoord(20, 0, 20)
+assert_true(region_findbycoord($first))
+p_telejump($first)
+assert_true(coord = $first)
+p_telejump($second)
+assert_true(coord = $first)
+assert_true(region_findbycoord($second))
+p_telejump($second)
+assert_true(coord = $second)
+region_del
+assert_true(region_findbycoord($first))
+region_del
+
+// A controller keeps its vars, runs its queue and its timer, and goes when
+// deleted.
+[label,test_controller_queue_timer_and_vars]
+controller_add(0_50_50_20_21, controller_0, 0)
+%config43_0 = 7;
+assert_eq(%config43_0, 7)
+controller_queue(1, 42, 1)
+controller_settimer(1)
+test_tick(3)
+assert_true(controller_findexact(0_50_50_20_21, controller_0))
+assert_eq(%config43_0, 42)
+assert_gte(%config43_1, 2)
+assert_true(controller_coord = 0_50_50_20_21)
+controller_del
+assert_false(controller_findexact(0_50_50_20_21, controller_0))
+
+// Deleting a region deletes the controllers in it.
+[label,test_region_del_deletes_its_controllers]
+assert_true(region_create(^region_small))
+region_copyzone(0_50_50_8_8, region_getcoord(0, 0, 0), 0)
+def_coord $origin = region_getcoord(0, 0, 0)
+controller_add($origin, controller_0, 0)
+region_del
+assert_false(controller_findexact($origin, controller_0))
+
+// A region's controller can stand on a tile no zone was copied to.
+[label,test_controller_stands_anywhere_in_its_region]
+assert_true(region_create(^region_small))
+region_copyzone(0_50_50_8_8, region_getcoord(64, 0, 64), 0)
+def_coord $origin = region_getcoord(0, 0, 0)
+controller_add($origin, controller_0, 0)
+assert_true(controller_findexact($origin, controller_0))
+region_del
+assert_false(controller_findexact($origin, controller_0))
+
+// An npc teleported by another script is in its new zone at once, as the
+// reference engine moves zone presence with every teleport.
+[label,test_npc_tele_moves_its_zone_at_once]
+npc_add(0_50_50_10_10, man, 50)
+def_npc_uid $man = npc_uid;
+npc_tele(0_50_50_40_40)
+def_boolean $old = false;
+npc_findallzone(0_50_50_10_10)
+while (npc_findnext = true) {
+    if (npc_uid = $man) {
+        $old = true;
+    }
+}
+assert_false($old)
+def_boolean $new = false;
+npc_findallzone(0_50_50_40_40)
+while (npc_findnext = true) {
+    if (npc_uid = $man) {
+        $new = true;
+    }
+}
+assert_true($new)
+if (npc_finduid($man) = true) {
+    npc_del;
+}

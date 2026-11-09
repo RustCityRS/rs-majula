@@ -3,12 +3,18 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{DB_FENCE, DbRequest, DbResponse};
 use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap};
 use crate::clients::client_game::ClientHandle;
+#[cfg(since_647)]
+use crate::console::home_for;
+#[cfg(since_647)]
+use crate::controller::Controllers;
 use crate::controls::{Controls, DISABLED_MESSAGE};
 use crate::counters::{self, COUNTERS};
 use crate::game_map::{GameMap, apply_loc_collision};
-use crate::info::{NpcInfo, NpcSnapshot, PlayerInfo, PlayerSnapshot};
+use crate::info::{NpcInfo, NpcSnapshot, PlayerInfo, PlayerSnapshots};
 use crate::phases::shared::panic_message;
 use crate::player_save::*;
+#[cfg(since_647)]
+use crate::region::{REGION_X, Regions};
 use crate::script_errors::{Context, ScriptErrors, Subject};
 use crate::watch::schedule::{self, End, Played, Schedule};
 use crate::watch::{ReplayRequest, Target, Watch};
@@ -46,6 +52,8 @@ use rs_pack::cache::spotanim::SpotAnimTypeProvider;
 use rs_pack::cache::r#struct::StructTypeProvider;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitTypeProvider;
+#[cfg(since_647)]
+use rs_pack::cache::varcon::VarConTypeProvider;
 use rs_pack::cache::varn::VarnTypeProvider;
 #[cfg(since_647)]
 use rs_pack::cache::varobj::VarObjTypeProvider;
@@ -58,7 +66,7 @@ use rs_pack::startup::InterfaceLayout;
 use rs_pack::types::{BlockWalk, LocAngle, LocLayer, LocShape, NpcMode, NpcStat, PlayerStat};
 use rs_protocol::LoginResponse;
 #[cfg(since_647)]
-use rs_protocol::login::game_login_reply;
+use rs_protocol::login::{game_login_reply, reconnect_reply};
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_protocol::network::game::server::obj_count::ObjCount;
@@ -68,6 +76,8 @@ use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
 use rs_util::base37::to_raw_username;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
+#[cfg(since_647)]
+use rs_vm::ControllerUid;
 pub use rs_vm::engine::with_engine;
 use rs_vm::engine::{
     ScriptEngine, ScriptFault, ScriptNpc, ScriptPlayer, engine_typed, engine_typed_mut,
@@ -663,12 +673,18 @@ pub struct Engine {
     pub npc_renderer: NpcRenderer,
     pub player_info: PlayerInfo,
     pub npc_info: NpcInfo,
-    pub player_snapshots: Box<[PlayerSnapshot; MAX_PLAYERS]>,
+    pub player_snapshots: PlayerSnapshots,
     pub npc_snapshots: Box<[NpcSnapshot; MAX_NPCS]>,
     pub invs: FxHashMap<u16, Inventory>,
     pub ops: OpsRegistry,
     pub zones_tracking: FxHashSet<ZoneCoordGrid>,
     pub pending_zone_events: BTreeMap<u32, Vec<PendingZoneEvent>>,
+    #[cfg(since_647)]
+    pub regions: Regions,
+    #[cfg(since_647)]
+    pub controllers: Controllers,
+    #[cfg(since_647)]
+    pub(crate) dropped_zones: Vec<ZoneCoordGrid>,
     pub obj_appeared: FxHashMap<(CoordGrid, u16), Instant>,
     pub world_queue: LinkList<ScriptState>,
     pub npc_events: LinkList<NpcEvent>,
@@ -836,12 +852,26 @@ impl Engine {
             npc_renderer: NpcRenderer::new(),
             player_info: PlayerInfo::new(),
             npc_info: NpcInfo::new(),
-            player_snapshots: Box::new([PlayerSnapshot::ABSENT; MAX_PLAYERS]),
+            player_snapshots: PlayerSnapshots::new(),
             npc_snapshots: Box::new([NpcSnapshot::ABSENT; MAX_NPCS]),
             invs: FxHashMap::default(),
             ops,
             zones_tracking: FxHashSet::default(),
             pending_zone_events: BTreeMap::new(),
+            #[cfg(since_647)]
+            regions: Regions::new(
+                cache
+                    .locs
+                    .types
+                    .iter()
+                    .map(|loc| loc.width.max(loc.length))
+                    .max()
+                    .unwrap_or(1),
+            ),
+            #[cfg(since_647)]
+            controllers: Controllers::default(),
+            #[cfg(since_647)]
+            dropped_zones: Vec::new(),
             obj_appeared: FxHashMap::default(),
             world_queue: LinkList::new(),
             npc_events: LinkList::new(),
@@ -1190,6 +1220,7 @@ impl Engine {
         return rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Multi as u8);
         #[cfg(since_647)]
         return self.cache.multiway_area.is_some_and(|area| {
+            let coord = self.area_tile(coord);
             self.cache
                 .area_map
                 .get(coord.y(), coord.x(), coord.z())
@@ -1306,6 +1337,7 @@ impl Engine {
         #[cfg(since_647)]
         {
             self.layout = layout;
+            self.regions.forget_squares();
         }
         self.controls.refresh(&self.scripts);
         let count = self.scripts.count();
@@ -2540,7 +2572,8 @@ impl Engine {
 // -----------------------------------------------------------------------
 
 impl Engine {
-    pub fn add_player(&mut self, pid: u16, active: ActivePlayer, key: i64) {
+    pub fn add_player(&mut self, pid: u16, mut active: ActivePlayer, key: i64) {
+        active.player.pathing.presence = active.player.pathing.coord;
         self.player_list.add(pid, active, key);
         if let Some(active) = self.get_player(pid) {
             self.zones
@@ -2558,9 +2591,9 @@ impl Engine {
         // Mark absent in the hot-field snapshot so any observer still processed
         // later this tick encodes a remove for this pid (mirrors the slot going
         // `None`). Harmless outside the info/output phases; refilled next tick.
-        self.player_snapshots[pid as usize].clear();
+        self.player_snapshots.clear(pid);
         if let Some(active) = self.player_list.get(pid) {
-            let coord = active.player.pathing.coord;
+            let coord = active.player.pathing.presence;
             let nids: Vec<u16> = active.player.build_area.npcs.iter().to_vec();
             self.zones
                 .zone_mut(coord.x(), coord.y(), coord.z())
@@ -2608,6 +2641,7 @@ impl Engine {
         let uid = active.npc.uid;
         let type_id = active.npc.base_type;
         let key = active.npc.pathing.coord.packed() as i64;
+        active.npc.pathing.presence = active.npc.pathing.coord;
         self.npc_list.add(nid, active, key);
         if let Some(active) = self.get_npc(nid) {
             self.zones
@@ -2736,16 +2770,12 @@ impl Engine {
         active.npc.state.delayed = false;
         active.npc.state.delayed_until = 0;
 
+        let coord = active.npc.pathing.presence;
         self.zones
-            .zone_mut(
-                active.npc.pathing.coord.x(),
-                active.npc.pathing.coord.y(),
-                active.npc.pathing.coord.z(),
-            )
+            .zone_mut(coord.x(), coord.y(), coord.z())
             .remove_npc(nid);
 
         let block_walk = active.block_walk();
-        let coord = active.npc.pathing.coord;
         let size = active.npc.pathing.size;
         match block_walk {
             BlockWalk::Npc => {
@@ -2812,12 +2842,9 @@ impl Engine {
         self.npc_renderer.remove_permanent(nid);
         self.npc_snapshots[nid as usize].clear();
         if let Some(active) = self.get_npc(nid) {
+            let coord = active.npc.pathing.presence;
             self.zones
-                .zone_mut(
-                    active.npc.pathing.coord.x(),
-                    active.npc.pathing.coord.y(),
-                    active.npc.pathing.coord.z(),
-                )
+                .zone_mut(coord.x(), coord.y(), coord.z())
                 .remove_npc(nid);
         }
         self.npc_list.remove(nid)
@@ -2873,6 +2900,19 @@ impl Engine {
     /// # Call Stack
     ///
     /// **Called by:** `logouts`, `emergency_remove_player`.
+    /// The profile `active` saves: at its region's exit while it stands in
+    /// one, as no region outlives the world.
+    pub(crate) fn profile_of(&self, active: &ActivePlayer) -> PlayerProfile {
+        #[cfg_attr(before_647, allow(unused_mut))]
+        let mut profile = extract_profile(&active.player, self.cache);
+        #[cfg(since_647)]
+        {
+            let coord = self.saved_coord(active.player.pathing.coord);
+            (profile.x, profile.y, profile.z) = (coord.x(), coord.y(), coord.z());
+        }
+        profile
+    }
+
     pub(crate) fn save_logout(&mut self, pid: u16) {
         let Some(active) = self.player_list.players[pid as usize].as_ref() else {
             return;
@@ -2885,7 +2925,7 @@ impl Engine {
             self.release_logout(user37);
             return;
         }
-        let profile = extract_profile(&active.player, self.cache);
+        let profile = self.profile_of(active);
         let username = active.uid().username();
         self.logout_saves.insert(
             user37,
@@ -3152,10 +3192,8 @@ impl Engine {
         #[cfg(since_647)]
         let reply = {
             active.player.window_mode = request.display_mode;
-            active
-                .player
-                .build_area
-                .init_nsn_state(pid, active.player.pathing.coord);
+            active.player.pathing.last_coord = active.player.pathing.coord;
+            active.player.build_area.init_nsn_state(pid);
             game_login_reply(level, pid)
         };
         #[cfg(before_254)]
@@ -3331,7 +3369,16 @@ impl Engine {
         #[cfg(before_647)]
         let reply = vec![LoginResponse::Reconnect as u8];
         #[cfg(since_647)]
-        let reply = game_login_reply(active.staffmodlevel().min(2), pid);
+        let reply = {
+            let last = active.player.pathing.last_coord;
+            reconnect_reply(
+                pid,
+                last.x(),
+                last.z(),
+                last.y(),
+                self.player_renderer.regions(),
+            )
+        };
         active.watch.reconnect(clock, &reply);
         request.handle.send(reply);
 
@@ -3365,7 +3412,10 @@ impl Engine {
         for pid in active.player.build_area.players.iter().to_vec() {
             active.watch.anticheat.lost(Target::Player(pid), clock);
         }
+        #[cfg(before_647)]
         active.player.build_area.players.clear();
+        #[cfg(since_647)]
+        active.player.build_area.init_nsn_state(pid);
         active.player.build_area.npcs.clear();
         active.player.build_area.appearances.fill(0);
 
@@ -3534,6 +3584,16 @@ impl Engine {
             return;
         }
 
+        #[cfg(since_647)]
+        if let Some(Some(profile)) = &self.pending_logins[idx].profile
+            && profile.x >= REGION_X
+        {
+            let coord = self.login_coord(CoordGrid::new(profile.x, profile.y, profile.z));
+            if let Some(Some(profile)) = self.pending_logins[idx].profile.as_mut() {
+                (profile.x, profile.y, profile.z) = (coord.x(), coord.y(), coord.z());
+            }
+        }
+
         // A free world cannot place a player saved inside a members area.
         if !self.members
             && let Some(Some(profile)) = &self.pending_logins[idx].profile
@@ -3541,6 +3601,13 @@ impl Engine {
         {
             self.reject_pending_login(idx, LoginResponse::MembersArea);
             return;
+        }
+
+        #[cfg(since_647)]
+        if let Some(Some(profile)) = self.pending_logins[idx].profile.as_mut()
+            && !rsmod::is_zone_allocated(profile.x, profile.z, profile.y)
+        {
+            (profile.x, profile.z, profile.y) = home_for(profile.x, profile.z);
         }
 
         let pending = self.pending_logins.swap_remove(idx);
@@ -3715,6 +3782,11 @@ impl ScriptEngine for Engine {
     #[cfg(since_647)]
     fn varobjs(&self) -> &VarObjTypeProvider {
         &self.cache.varobjs
+    }
+
+    #[cfg(since_647)]
+    fn varcons(&self) -> &VarConTypeProvider {
+        &self.cache.varcons
     }
 
     fn dbrows(&self) -> &DbRowTypeProvider {
@@ -4811,12 +4883,108 @@ impl ScriptEngine for Engine {
 
     #[cfg(since_647)]
     fn inarea(&self, area: u16, coord: CoordGrid) -> bool {
+        let coord = self.area_tile(coord);
         area != u16::MAX
             && self
                 .cache
                 .area_map
                 .get(coord.y(), coord.x(), coord.z())
                 .contains(&area)
+    }
+
+    #[cfg(since_647)]
+    fn region_find(&self, coord: CoordGrid) -> Option<u32> {
+        self.regions
+            .find(coord.x(), coord.z())
+            .map(|region| region.uid)
+    }
+
+    #[cfg(since_647)]
+    fn region_exists(&self, uid: u32) -> bool {
+        self.regions.get(uid).is_some()
+    }
+
+    #[cfg(since_647)]
+    fn region_coord(&self, uid: u32, x: i32, y: i32, z: i32) -> rs_vm::Result<CoordGrid> {
+        Engine::region_coord(self, uid, x, y, z)
+    }
+
+    #[cfg(since_647)]
+    fn region_create(&mut self, size: i32) -> rs_vm::Result<Option<u32>> {
+        Engine::region_create(self, size)
+    }
+
+    #[cfg(since_647)]
+    fn region_del(&mut self, uid: u32) -> rs_vm::Result<()> {
+        Engine::region_del(self, uid);
+        Ok(())
+    }
+
+    #[cfg(since_647)]
+    fn region_copy(
+        &mut self,
+        uid: u32,
+        from_sw: CoordGrid,
+        from_ne: CoordGrid,
+        to_sw: CoordGrid,
+        rotation: i32,
+    ) -> rs_vm::Result<()> {
+        Engine::region_copy(self, uid, from_sw, from_ne, to_sw, rotation)
+    }
+
+    #[cfg(since_647)]
+    fn region_allows(&self, from: CoordGrid, to: CoordGrid, selected: Option<u32>) -> bool {
+        Engine::region_allows(self, from, to, selected)
+    }
+
+    #[cfg(since_647)]
+    fn controller_add(
+        &mut self,
+        coord: CoordGrid,
+        id: u16,
+        duration: i32,
+    ) -> rs_vm::Result<ControllerUid> {
+        Engine::controller_add(self, coord, id, duration)
+    }
+
+    #[cfg(since_647)]
+    fn controller_coord(&self, uid: ControllerUid) -> rs_vm::Result<CoordGrid> {
+        Ok(self.controller(uid)?.coord)
+    }
+
+    #[cfg(since_647)]
+    fn controller_del(&mut self, uid: ControllerUid) {
+        self.controllers.remove(uid);
+    }
+
+    #[cfg(since_647)]
+    fn controller_findexact(&self, coord: CoordGrid, id: u16) -> Option<ControllerUid> {
+        self.controllers.find_exact(coord, id)
+    }
+
+    #[cfg(since_647)]
+    fn controller_queue(&mut self, uid: ControllerUid, arg: i32, delay: i32) -> rs_vm::Result<()> {
+        Engine::controller_queue(self, uid, arg, delay)
+    }
+
+    #[cfg(since_647)]
+    fn controller_settimer(&mut self, uid: ControllerUid, interval: i32) -> rs_vm::Result<()> {
+        Engine::controller_settimer(self, uid, interval)
+    }
+
+    #[cfg(since_647)]
+    fn controller_var(&self, uid: ControllerUid, id: u16) -> rs_vm::Result<VarValue> {
+        Engine::controller_var(self, uid, id)
+    }
+
+    #[cfg(since_647)]
+    fn set_controller_var(
+        &mut self,
+        uid: ControllerUid,
+        id: u16,
+        value: VarValue,
+    ) -> rs_vm::Result<()> {
+        Engine::set_controller_var(self, uid, id, value)
     }
 
     /// Reads a shared variable (vars) by its definition ID.
@@ -5143,7 +5311,8 @@ impl ScriptPlayer for ActivePlayer {
     /// Consumes and returns the pending AFK event flag.
     ///
     /// Returns `true` if the player triggered an AFK event since the last check;
-    /// the flag is cleared after this call.
+    /// the flag is cleared after this call. Never in a region: a random event
+    /// keeps the coord it returns the player to, which no region outlives.
     ///
     /// # Call Stack
     ///
@@ -5152,6 +5321,10 @@ impl ScriptPlayer for ActivePlayer {
     fn afk_event(&mut self) -> bool {
         let ready = self.player.afk_event_ready;
         self.player.afk_event_ready = false;
+        #[cfg(since_647)]
+        if self.player.pathing.coord.x() >= REGION_X {
+            return false;
+        }
         ready
     }
 
@@ -5198,16 +5371,15 @@ impl ScriptPlayer for ActivePlayer {
     /// Reports whether the buffered-packet queue has reached the soft
     /// bandwidth limit of [`MAX_PACKET_SIZE`].
     ///
-    /// Each queued [`Packet`]'s backing buffer is exactly its on-wire size
-    /// (opcode byte + frame header + payload), so summing their lengths yields
-    /// the total bytes pending for this player.
+    /// The queue holds each packet's on-wire bytes (opcode, frame header,
+    /// payload) back to back, so its length is the total pending for this
+    /// player.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** sums `Packet::len` over `self.buffered`
     fn buffer_full(&self) -> bool {
-        self.buffered.iter().map(|p| p.len()).sum::<usize>() >= MAX_PACKET_SIZE
+        self.buffered.pos >= MAX_PACKET_SIZE
     }
 
     /// Makes the player say a message as overhead forced chat.
@@ -7519,6 +7691,11 @@ pub fn register_ops() -> OpsRegistry {
     ops.extend(ops::server::build::<Engine>());
     ops.extend(ops::string::build::<Engine>());
     ops.extend(ops::r#struct::build::<Engine>());
+    #[cfg(since_647)]
+    {
+        ops.extend(ops::region::build::<Engine>());
+        ops.extend(ops::controller::build::<Engine>());
+    }
     ops
 }
 

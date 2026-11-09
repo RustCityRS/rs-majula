@@ -33,6 +33,8 @@ pub mod bas;
 pub mod billboard;
 pub mod category;
 #[cfg(since_647)]
+pub mod controller;
+#[cfg(since_647)]
 pub mod cursor;
 pub mod dbrow;
 pub mod dbtable;
@@ -78,20 +80,36 @@ pub mod varc;
 #[cfg(since_647)]
 pub mod varclansetting;
 #[cfg(since_647)]
+pub mod varcon;
+#[cfg(since_647)]
 pub mod varobj;
 pub mod varp;
 pub mod vars;
 
-/// A table the cache holds empty: an entry per section, numbered by its name.
+/// A table the cache holds empty: an entry per section, numbered by its name,
+/// or by `pack` for a table only the server reads, whose sections keep their
+/// properties to the server.
 #[cfg(since_647)]
-pub fn pack_empty_table(source_dir: &Path, type_name: &str) -> Result<PackedData> {
+pub fn pack_empty_table(
+    source_dir: &Path,
+    type_name: &str,
+    pack: Option<&PackFile>,
+) -> Result<PackedData> {
     let files = collect_config_files(source_dir, type_name);
     let sections = parse_config_sections(&files, &HashMap::new())?;
     let mut ids = BTreeSet::new();
     for (name, props) in &sections {
-        ensure!(props.is_empty(), "[{name}]: {type_name} entries are empty");
-        let id = name.rsplit('_').next().unwrap_or(name);
-        ids.insert(id.parse::<u32>().expect("Invalid config section id"));
+        let id = match pack {
+            Some(pack) => pack
+                .get_by_debugname(name)
+                .with_context(|| format!("[{name}]: no {type_name}.pack id"))?,
+            None => {
+                ensure!(props.is_empty(), "[{name}]: {type_name} entries are empty");
+                let id = name.rsplit('_').next().unwrap_or(name);
+                id.parse::<u32>().expect("Invalid config section id")
+            }
+        };
+        ids.insert(id);
     }
     let count = ids.last().map_or(0, |id| id + 1);
     let mut packed = PackedData::new(count);

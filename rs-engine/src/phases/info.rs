@@ -1,10 +1,11 @@
 use crate::engine::Engine;
 use crate::info::{NpcSnapshot, PlayerSnapshot};
 use crate::phases::shared::panic_message;
-use rs_entity::InteractionTarget;
 #[cfg(since_647)]
-use rs_entity::MoveSpeed;
+use rs_entity::BuildArea;
+use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
+#[cfg(since_647)]
 use rs_info::Visibility;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use std::panic::{AssertUnwindSafe, catch_unwind};
@@ -17,22 +18,11 @@ impl Engine {
     /// and NPCs, which the output phase will encode into client packets.
     ///
     /// Returns early if no players are online.
-    ///
-    /// # Side Effects
-    ///
-    /// * Rebuilds player appearance data when the appearance mask is set.
-    /// * Writes computed info into `self.player_renderer` and
-    ///   `self.npc_renderer`.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `Engine::cycle`
-    /// **Calls:** `process_player_info`, `process_npc_info`
     pub(crate) fn infos(&mut self) {
         if self.player_list.count() == 0 {
             return;
         }
-        self.player_snapshots.fill(PlayerSnapshot::ABSENT);
+        self.player_snapshots.reset();
         self.npc_snapshots.fill(NpcSnapshot::ABSENT);
         self.process_player_info();
         self.process_npc_info();
@@ -77,7 +67,13 @@ impl Engine {
 
         active.player.reorient(pathing_face);
         #[cfg(since_647)]
-        active.player.sync_move_types();
+        {
+            active.player.sync_move_types();
+            if active.player.info.vis != Visibility::Hard {
+                self.player_renderer
+                    .track_region(pid, BuildArea::pack_mapsquare(active.player.pathing.coord));
+            }
+        }
         active.rebuild_normal(false);
         if active.player.info.masks & PlayerInfoProt::Appearance as u16 != 0 {
             active.generateappearance(self.clock);
@@ -87,35 +83,12 @@ impl Engine {
             &active.player.info,
             active.player.pathing.coord,
         );
+        self.player_renderer
+            .cache_low(pid, &active.player.info, active.player.pathing.coord);
 
-        // Snapshot exactly the fields `PlayerInfo::write_players` branches on.
-        // Movement/visibility are finalized before the info phase and unchanged
-        // through the output phase, so these copies are value-identical.
         let len = self.player_renderer.highdefinitions(pid) as u16;
-        let p = &active.player;
-        let mut flags = PlayerSnapshot::PRESENT;
-        if p.active {
-            flags |= PlayerSnapshot::ACTIVE;
-        }
-        if p.pathing.tele {
-            flags |= PlayerSnapshot::TELE;
-        }
-        if p.info.vis == Visibility::Hard {
-            flags |= PlayerSnapshot::VIS_HARD;
-        }
-        // Record whether an ExactMove block is present so write_players can
-        // skip the cold ActivePlayer deref unless the tail must be appended.
-        // Read from the same final masks write_players' highdefinition tests.
-        if p.info.masks & PlayerInfoProt::ExactMove as u16 != 0 {
-            flags |= PlayerSnapshot::HAS_EXACTMOVE;
-        }
-        self.player_snapshots[pid as usize] = PlayerSnapshot {
-            coord: p.pathing.coord.packed(),
-            len,
-            run_dir: p.pathing.run_dir,
-            walk_dir: p.pathing.walk_dir,
-            flags,
-        };
+        self.player_snapshots
+            .set(pid, PlayerSnapshot::new(&active.player, len));
     }
 
     #[inline(always)]
@@ -158,28 +131,15 @@ impl Engine {
         active.npc.reorient(pathing_face);
         self.npc_renderer
             .compute_info(active.npc.uid.nid() as usize, &active.npc.info);
+        self.npc_renderer.cache_low(
+            nid,
+            &active.npc.info,
+            active.npc.pathing.coord,
+            active.npc.pathing.size,
+        );
 
-        // Snapshot exactly the fields `NpcInfo::write_npcs` branches on.
         let len = self.npc_renderer.highdefinitions(nid) as u16;
-        let n = &active.npc;
-        let mut flags = NpcSnapshot::PRESENT;
-        if n.active {
-            flags |= NpcSnapshot::ACTIVE;
-        }
-        if n.pathing.tele {
-            flags |= NpcSnapshot::TELE;
-        }
-        #[cfg(since_647)]
-        if n.pathing.move_speed == MoveSpeed::Crawl {
-            flags |= NpcSnapshot::CRAWL;
-        }
-        self.npc_snapshots[nid as usize] = NpcSnapshot {
-            coord: n.pathing.coord.packed(),
-            len,
-            run_dir: n.pathing.run_dir,
-            walk_dir: n.pathing.walk_dir,
-            flags,
-        };
+        self.npc_snapshots[nid as usize] = NpcSnapshot::new(&active.npc, len);
     }
 
     /// Resolves the live fine (sub-tile) coordinate of a pathing-entity interaction

@@ -59,6 +59,8 @@ use rs_pack::pack::config::varc::{pack_varc_strings, pack_varcs};
 #[cfg(since_647)]
 use rs_pack::pack::config::varclansetting::pack_varclansettings;
 use rs_pack::pack::pack::FileCache;
+#[cfg(since_647)]
+use rs_pack::pack::pack_registry::PackFile;
 use rs_pack::pack::pack_registry::PackRegistry;
 use rs_pack::pack::packed_data::PackedData;
 use rs_pack::types::HuntCheckAfk;
@@ -768,14 +770,32 @@ fn empty_tables_come_from_their_files() {
     )
     .unwrap();
     fs::write(path.join("all.varcon"), "[config43_0]\nfoo=1\n").unwrap();
-    let controller = pack_empty_table(&path, "controller").unwrap();
+    let controller = pack_empty_table(&path, "controller", None).unwrap();
     let entries: Vec<_> = PackedData::entries(&controller.dat, &controller.idx)
         .unwrap()
         .map(|(id, data)| (id, data.to_vec()))
         .collect();
     assert_eq!(entries, [(0, vec![0]), (1, vec![]), (2, vec![0])]);
-    assert_eq!(pack_empty_table(&path, "varnbit").unwrap().dat, [0, 0]);
-    assert!(pack_empty_table(&path, "varcon").is_err());
+    assert_eq!(
+        pack_empty_table(&path, "varnbit", None).unwrap().dat,
+        [0, 0]
+    );
+    assert!(pack_empty_table(&path, "varcon", None).is_err());
+
+    fs::write(
+        path.join("all.varcon"),
+        "[config43_0]\n\n[tob_wavenumber]\ntype=int\n",
+    )
+    .unwrap();
+    let pack = PackFile::parse("0=config43_0\n1=config43_1\n2=tob_wavenumber\n");
+    let varcon = pack_empty_table(&path, "varcon", Some(&pack)).unwrap();
+    let entries: Vec<_> = PackedData::entries(&varcon.dat, &varcon.idx)
+        .unwrap()
+        .map(|(id, data)| (id, data.to_vec()))
+        .collect();
+    assert_eq!(entries, [(0, vec![0]), (1, vec![]), (2, vec![0])]);
+    fs::write(path.join("all.varcon"), "[unknown]\n").unwrap();
+    assert!(pack_empty_table(&path, "varcon", Some(&pack)).is_err());
 }
 
 #[cfg(since_647)]

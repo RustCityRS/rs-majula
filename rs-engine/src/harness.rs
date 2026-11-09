@@ -13,8 +13,8 @@
 
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_game::create_io;
+use crate::controller::Controllers;
 use crate::engine::{Engine, LoginRequest, engine_mut};
-use crate::phases::shared::EntityId;
 use crate::player_save::PlayerProfile;
 use rs_crypto::isaac::{Isaac, IsaacPair};
 use rs_db::LoginDevice;
@@ -316,33 +316,13 @@ impl Engine {
 
     /// Moves a player as `p_telejump` does: placed, not walked, and the
     /// client's scene rebuilt around the new tile on the next tick.
-    ///
-    /// The game moves a player inside the input or player phase, which then
-    /// moves it between zones (`check_zones_and_collision`); this runs outside
-    /// both, so it does that itself. Without it the player stayed in its old
-    /// zone, where a zone scan (an npc's hunt) never found it.
     pub fn harness_telejump(&mut self, pid: u16, x: u16, y: u8, z: u16) {
         let engine = self as *mut Engine;
         with_engine(self, || {
             let engine = unsafe { &mut *engine };
-            let Some(active) = engine.get_player_mut(pid) else {
-                return;
-            };
-            let prev = active.player.pathing.coord;
-            active.tele_jump(CoordGrid::new(x, y, z));
-            let (next, size, block_walk) = (
-                active.player.pathing.coord,
-                active.player.pathing.size,
-                active.player.block_walk,
-            );
-            Engine::check_zones_and_collision(
-                &mut engine.zones,
-                prev,
-                next,
-                EntityId::Player(pid),
-                size,
-                block_walk,
-            );
+            if let Some(active) = engine.get_player_mut(pid) {
+                active.tele_jump(CoordGrid::new(x, y, z));
+            }
         });
     }
 
@@ -427,6 +407,11 @@ impl Engine {
         for npc in self.npc_list.npcs.iter_mut().flatten() {
             npc.npc.state.active_script = None;
         }
+        for uid in self.regions.uids() {
+            self.region_del(uid);
+        }
+        self.drop_region_zones();
+        self.controllers = Controllers::default();
         self.clock = 0;
     }
 
@@ -438,6 +423,44 @@ impl Engine {
     /// Mutable entity state of a logged-in player, for test setup.
     pub fn harness_player_mut(&mut self, pid: u16) -> Option<&mut Player> {
         self.get_player_mut(pid).map(|active| &mut active.player)
+    }
+
+    /// Takes a region as `region_create` does.
+    pub fn harness_region_create(&mut self, size: i32) -> Option<u32> {
+        self.region_create(size).ok().flatten()
+    }
+
+    /// Copies zones onto region `uid` as `region_copyarea` does.
+    pub fn harness_region_copy(
+        &mut self,
+        uid: u32,
+        from_sw: CoordGrid,
+        from_ne: CoordGrid,
+        to_sw: CoordGrid,
+        rotation: i32,
+    ) -> Result<(), ScriptError> {
+        self.region_copy(uid, from_sw, from_ne, to_sw, rotation)
+    }
+
+    /// The coord `x`, `y`, `z` from region `uid`'s south-west corner.
+    pub fn harness_region_coord(&self, uid: u32, x: i32, y: i32, z: i32) -> Option<CoordGrid> {
+        self.region_coord(uid, x, y, z).ok()
+    }
+
+    /// Deletes region `uid` as `region_del` does.
+    pub fn harness_region_del(&mut self, uid: u32) {
+        self.region_del(uid);
+    }
+
+    /// Spawns controller `id` at `coord` as `controller_add` does.
+    pub fn harness_controller_add(&mut self, coord: CoordGrid, id: u16) -> bool {
+        self.controller_add(coord, id, 0).is_ok()
+    }
+
+    /// What player `pid` would save now, and where that save logs in.
+    pub fn harness_saved_coord(&self, pid: u16) -> Option<(CoordGrid, CoordGrid)> {
+        let saved = self.saved_coord(self.get_player(pid)?.player.pathing.coord);
+        Some((saved, self.login_coord(saved)))
     }
 }
 

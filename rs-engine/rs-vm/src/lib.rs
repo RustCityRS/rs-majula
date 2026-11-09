@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+pub mod controller_uid;
 pub mod engine;
 pub mod iterators;
 pub mod loc_serial;
@@ -14,6 +16,8 @@ pub mod trigger;
 pub mod util;
 pub mod vm;
 
+#[cfg(since_647)]
+pub use controller_uid::ControllerUid;
 pub use loc_serial::LocSerial;
 pub use npc_uid::NpcUid;
 pub use obj_serial::ObjSerial;

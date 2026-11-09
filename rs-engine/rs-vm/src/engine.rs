@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use crate::ControllerUid;
 use crate::state::{LocRef, NpcRef, ObjRef, QueuePriority, ScriptArgument, TimerPriority};
 use crate::{ObjSerial, PlayerUid};
 use rs_grid::CoordGrid;
@@ -26,6 +28,8 @@ use rs_pack::cache::spotanim::SpotAnimTypeProvider;
 use rs_pack::cache::r#struct::StructTypeProvider;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitTypeProvider;
+#[cfg(since_647)]
+use rs_pack::cache::varcon::VarConTypeProvider;
 use rs_pack::cache::varn::VarnTypeProvider;
 #[cfg(since_647)]
 use rs_pack::cache::varobj::VarObjTypeProvider;
@@ -76,6 +80,8 @@ pub trait ScriptEngine {
     fn varbits(&self) -> &VarbitTypeProvider;
     #[cfg(since_647)]
     fn varobjs(&self) -> &VarObjTypeProvider;
+    #[cfg(since_647)]
+    fn varcons(&self) -> &VarConTypeProvider;
     fn dbrows(&self) -> &DbRowTypeProvider;
     fn dbtables(&self) -> &DbTableTypeProvider;
     fn dbindex(&self) -> &DbTableIndex;
@@ -617,6 +623,81 @@ pub trait ScriptEngine {
     /// Indicates if `area` is painted on this coord's tile.
     #[cfg(since_647)]
     fn inarea(&self, area: u16, coord: CoordGrid) -> bool;
+
+    /// The uid of the region covering `coord`.
+    #[cfg(since_647)]
+    fn region_find(&self, coord: CoordGrid) -> Option<u32>;
+
+    /// Whether region `uid` still exists.
+    #[cfg(since_647)]
+    fn region_exists(&self, uid: u32) -> bool;
+
+    /// The coord `x`, `y`, `z` from region `uid`'s south-west corner.
+    #[cfg(since_647)]
+    fn region_coord(&self, uid: u32, x: i32, y: i32, z: i32) -> crate::Result<CoordGrid>;
+
+    /// Takes a free region of `size`.
+    #[cfg(since_647)]
+    fn region_create(&mut self, size: i32) -> crate::Result<Option<u32>>;
+
+    /// Deletes region `uid` and everything in it.
+    #[cfg(since_647)]
+    fn region_del(&mut self, uid: u32) -> crate::Result<()>;
+
+    /// Copies the zones from `from_sw` to `from_ne` onto region `uid` from
+    /// `to_sw`, the whole area turned `rotation` quarter turns clockwise.
+    #[cfg(since_647)]
+    fn region_copy(
+        &mut self,
+        uid: u32,
+        from_sw: CoordGrid,
+        from_ne: CoordGrid,
+        to_sw: CoordGrid,
+        rotation: i32,
+    ) -> crate::Result<()>;
+
+    /// Whether something at `from` may be put at `to`: a tile of region
+    /// space must be in a live region, the one `from` is in or `selected`.
+    #[cfg(since_647)]
+    fn region_allows(&self, from: CoordGrid, to: CoordGrid, selected: Option<u32>) -> bool;
+
+    /// Spawns controller `id` at `coord`, deleted after `duration` ticks
+    /// unless that's 0.
+    #[cfg(since_647)]
+    fn controller_add(
+        &mut self,
+        coord: CoordGrid,
+        id: u16,
+        duration: i32,
+    ) -> crate::Result<ControllerUid>;
+
+    #[cfg(since_647)]
+    fn controller_coord(&self, uid: ControllerUid) -> crate::Result<CoordGrid>;
+
+    #[cfg(since_647)]
+    fn controller_del(&mut self, uid: ControllerUid);
+
+    #[cfg(since_647)]
+    fn controller_findexact(&self, coord: CoordGrid, id: u16) -> Option<ControllerUid>;
+
+    /// Queues the controller's `[ai_conqueue]` after `delay` ticks with `arg`.
+    #[cfg(since_647)]
+    fn controller_queue(&mut self, uid: ControllerUid, arg: i32, delay: i32) -> crate::Result<()>;
+
+    /// Runs the controller's `[ai_contimer]` every `interval` ticks; -1 stops it.
+    #[cfg(since_647)]
+    fn controller_settimer(&mut self, uid: ControllerUid, interval: i32) -> crate::Result<()>;
+
+    #[cfg(since_647)]
+    fn controller_var(&self, uid: ControllerUid, id: u16) -> crate::Result<VarValue>;
+
+    #[cfg(since_647)]
+    fn set_controller_var(
+        &mut self,
+        uid: ControllerUid,
+        id: u16,
+        value: VarValue,
+    ) -> crate::Result<()>;
 
     /// Reads a shared variable (vars) by its definition ID.
     ///

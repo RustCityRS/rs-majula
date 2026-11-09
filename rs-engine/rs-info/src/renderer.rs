@@ -2,6 +2,8 @@ use crate::EntityMasks;
 use rs_grid::CoordGrid;
 use rs_io::Packet;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
+#[cfg(since_647)]
+use rs_protocol::network::game::server::npc_info::add_direction;
 use std::mem;
 
 const MAX_PLAYERS: usize = 2048;
@@ -52,15 +54,6 @@ impl Slot {
     ///
     /// A slot is considered set when its `len` field is greater than zero,
     /// meaning one of the `set_*` methods has been called to store a value.
-    ///
-    /// # Returns
-    ///
-    /// `true` if this slot holds data (`len > 0`), `false` otherwise.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `PlayerRenderer::has`, `NpcRenderer::has` for
-    /// fixed-size protocol fields.
     #[inline(always)]
     const fn is_set(&self) -> bool {
         self.len > 0
@@ -81,17 +74,6 @@ impl Slot {
     /// `buf` via `Packet::pdata`. This should only be called on slots where
     /// `is_set()` returns `true`; calling it on an empty slot writes zero
     /// bytes harmlessly.
-    ///
-    /// # Arguments
-    ///
-    /// * `buf` - The target packet buffer to append data into.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `PlayerRenderer::write`, `NpcRenderer::write` when
-    /// dispatching fixed-size protocol fields.
-    ///
-    /// **Calls:** `Packet::pdata`.
     #[inline(always)]
     fn write_to(&self, buf: &mut Packet) {
         buf.pdata(&self.data, 0, self.len as usize);
@@ -101,24 +83,6 @@ impl Slot {
     ///
     /// Sets `len` to 2 and writes the big-endian representation of `a` into
     /// `data[0..2]`.
-    ///
-    /// # Arguments
-    ///
-    /// * `a` - The 16-bit unsigned value to serialize.
-    ///
-    /// # Side Effects
-    ///
-    /// Overwrites the first 2 bytes of `data` and sets `len` to 2.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `PlayerRenderer::compute_info` (FaceEntity),
-    /// `NpcRenderer::compute_info` (FaceEntity, ChangeType),
-    /// `PlayerRenderer::cache_face_entity`, `NpcRenderer::cache_face_entity`.
-    /// # Safety
-    ///
-    /// The `data` buffer is 8 bytes and all writes stay within bounds (max 6 bytes).
-    /// `#[repr(C)]` guarantees `data` is at offset 0 so pointer arithmetic is valid.
     #[inline(always)]
     fn set_p2(&mut self, a: u16) {
         let mut buf = Packet::from(&mut self.data[..]);
@@ -127,15 +91,6 @@ impl Slot {
     }
 
     /// Stores a 2-byte big-endian value followed by a 1-byte value into the slot.
-    ///
-    /// # Arguments
-    ///
-    /// * `a` - The 16-bit unsigned value to serialize first (e.g. animation id).
-    /// * `b` - The 8-bit unsigned value to serialize second (e.g. animation delay).
-    ///
-    /// # Safety
-    ///
-    /// All writes are within the 8-byte `data` buffer.
     #[inline(always)]
     #[cfg(before_647)]
     fn set_p2_p1(&mut self, a: u16, b: u8) {
@@ -146,17 +101,6 @@ impl Slot {
     }
 
     /// Stores four individual bytes into the slot.
-    ///
-    /// # Arguments
-    ///
-    /// * `a` - First byte (e.g. damage taken).
-    /// * `b` - Second byte (e.g. damage type).
-    /// * `c` - Third byte (e.g. current hitpoints).
-    /// * `d` - Fourth byte (e.g. base hitpoints).
-    ///
-    /// # Safety
-    ///
-    /// All writes are within the 8-byte `data` buffer.
     #[inline(always)]
     #[cfg(before_647)]
     fn set_p1_p1_p1_p1(&mut self, a: u8, b: u8, c: u8, d: u8) {
@@ -169,15 +113,6 @@ impl Slot {
     }
 
     /// Stores two 2-byte big-endian values into the slot.
-    ///
-    /// # Arguments
-    ///
-    /// * `a` - First 16-bit value (e.g. face x coordinate).
-    /// * `b` - Second 16-bit value (e.g. face z coordinate).
-    ///
-    /// # Safety
-    ///
-    /// All writes are within the 8-byte `data` buffer.
     #[inline(always)]
     #[cfg(before_647)]
     fn set_p2_p2(&mut self, a: u16, b: u16) {
@@ -188,15 +123,6 @@ impl Slot {
     }
 
     /// Stores a 2-byte big-endian value followed by a 4-byte big-endian value.
-    ///
-    /// # Arguments
-    ///
-    /// * `a` - The 16-bit unsigned value (e.g. spot-anim id).
-    /// * `b` - The 32-bit signed value (e.g. packed spot-anim height and delay).
-    ///
-    /// # Safety
-    ///
-    /// All writes are within the 8-byte `data` buffer.
     #[inline(always)]
     #[cfg(before_647)]
     fn set_p2_p4(&mut self, a: u16, b: i32) {
@@ -415,6 +341,54 @@ fn put_hit<T: AsRef<[u8]> + AsMut<[u8]>>(buf: &mut Packet<T>, hit: &Hit, bright:
     buf.p1(hit.health_percent);
 }
 
+/// Where an entity's update block sits in this tick's block buffer.
+#[derive(Clone, Copy, Default)]
+struct Span {
+    start: u32,
+    end: u32,
+}
+
+impl Span {
+    const fn new(start: usize, end: usize) -> Span {
+        Span {
+            start: start as u32,
+            end: end as u32,
+        }
+    }
+}
+
+/// Which way an entity faces for an observer that adds it: the entity it
+/// faces, if any, and the tile it faces (this tick's, else its orientation,
+/// else its own), noted in the info phase.
+#[derive(Clone, Copy, Default)]
+struct LowFace {
+    entity: Option<u16>,
+    x: u16,
+    z: u16,
+    #[cfg(since_647)]
+    coord: CoordGrid,
+}
+
+impl LowFace {
+    fn of(info: &EntityMasks, coord: CoordGrid, size: u8) -> LowFace {
+        let (x, z) = info
+            .face_x
+            .zip(info.face_z)
+            .or_else(|| info.orientation_x.zip(info.orientation_z))
+            .unwrap_or((
+                CoordGrid::fine(coord.x(), size),
+                CoordGrid::fine(coord.z(), size),
+            ));
+        LowFace {
+            entity: info.face_entity,
+            x,
+            z,
+            #[cfg(since_647)]
+            coord,
+        }
+    }
+}
+
 /// An entity's hits this tick and who sees each bright (its receiver, if a
 /// player, and its dealer, if a player), with where the hits sit in the
 /// entity's high block, so a bright view can be written in their place.
@@ -519,14 +493,6 @@ fn hits(info: &EntityMasks, first: bool, second: bool) -> ([Hit; 2], usize) {
 /// Two accumulated byte-size counters (`highs` and `lows`) track the total
 /// serialized size of high-definition and low-definition updates per player,
 /// enabling the info output phase to perform capacity checks before writing.
-///
-/// # Call Stack
-///
-/// **Called by:** Owned by `PlayerInfo` in `rs-engine/src/info.rs`. Methods
-/// are invoked during the info phase (`rs-engine/src/phases/info.rs`),
-/// player info output (`rs-engine/src/info.rs`), cleanup phase
-/// (`rs-engine/src/phases/cleanup.rs`), and player logout
-/// (`rs-engine/src/engine.rs`).
 pub struct PlayerRenderer {
     fixed: Box<[[Slot; MAX_PLAYERS]; PLAYER_PROT_COUNT]>,
     appearances: Vec<Option<Vec<u8>>>,
@@ -537,9 +503,19 @@ pub struct PlayerRenderer {
     move_types: Box<[u8; MAX_PLAYERS]>,
     #[cfg(since_647)]
     hit_views: Vec<HitView>,
-    high_blocks: Vec<Vec<u8>>,
+    #[cfg(since_647)]
+    regions: Box<[u32; MAX_PLAYERS]>,
+    #[cfg(since_647)]
+    next_regions: Box<[u32; MAX_PLAYERS]>,
+    #[cfg(since_647)]
+    region_moves: Box<[u64; MAX_PLAYERS >> 6]>,
+    blocks: Vec<u8>,
+    spans: Box<[Span; MAX_PLAYERS]>,
     highs: Box<[u16; MAX_PLAYERS]>,
     lows: Box<[u16; MAX_PLAYERS]>,
+    low_masks: Box<[u16; MAX_PLAYERS]>,
+    low_faces: Box<[LowFace; MAX_PLAYERS]>,
+    appearance_clocks: Box<[Option<u32>; MAX_PLAYERS]>,
     written: Vec<u16>,
 }
 
@@ -550,14 +526,6 @@ impl PlayerRenderer {
     /// initializes the variable-length appearance, say, and chat vectors
     /// with `None` for all 2048 player indices. All high-def and low-def
     /// byte-size counters start at zero.
-    ///
-    /// # Returns
-    ///
-    /// A fully initialized `PlayerRenderer` with no pre-computed data.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `Engine` constructor in `rs-engine/src/engine.rs`.
     #[inline]
     pub fn new() -> PlayerRenderer {
         PlayerRenderer {
@@ -570,11 +538,109 @@ impl PlayerRenderer {
             move_types: Box::new([DEFAULT_MOVE_TYPE; MAX_PLAYERS]),
             #[cfg(since_647)]
             hit_views: vec![HitView::default(); MAX_PLAYERS],
-            high_blocks: vec![Vec::new(); MAX_PLAYERS],
+            #[cfg(since_647)]
+            regions: Box::new([0; MAX_PLAYERS]),
+            #[cfg(since_647)]
+            next_regions: Box::new([0; MAX_PLAYERS]),
+            #[cfg(since_647)]
+            region_moves: Box::new([0; MAX_PLAYERS >> 6]),
+            blocks: Vec::new(),
+            spans: Box::new([Span::default(); MAX_PLAYERS]),
             highs: Box::new([0; MAX_PLAYERS]),
             lows: Box::new([0; MAX_PLAYERS]),
+            low_masks: Box::new([0; MAX_PLAYERS]),
+            low_faces: Box::new([LowFace::default(); MAX_PLAYERS]),
+            appearance_clocks: Box::new([None; MAX_PLAYERS]),
             written: Vec::new(),
         }
+    }
+
+    /// Notes what an observer adding player `pid` this tick gets besides its
+    /// appearance: this tick's blocks, which way it faces and, on 647, its
+    /// move type. Once a tick in the info phase, so an add doesn't read the
+    /// player; [`ready_low`](Self::ready_low) writes the blocks it caches.
+    #[inline(always)]
+    pub fn cache_low(&mut self, pid: u16, info: &EntityMasks, coord: CoordGrid) {
+        let face = LowFace::of(info, coord, 1);
+        let mut masks = info.masks | PlayerInfoProt::FaceCoord as u16;
+        if face.entity.is_some() {
+            masks |= PlayerInfoProt::FaceEntity as u16;
+        }
+        #[cfg(since_647)]
+        {
+            masks |= PlayerInfoProt::MoveType as u16;
+        }
+        self.low_masks[pid as usize] = masks;
+        self.low_faces[pid as usize] = face;
+        self.appearance_clocks[pid as usize] = info.last_appearance;
+    }
+
+    /// Caches the facing blocks (and on 647 the move type) that
+    /// [`cache_low`](Self::cache_low) noted for player `pid`, for its adds.
+    #[inline(always)]
+    pub fn ready_low(&mut self, pid: u16) {
+        self.cache_face(pid, self.low_faces[pid as usize]);
+        #[cfg(since_647)]
+        self.cache_move_type(pid);
+    }
+
+    /// The blocks [`cache_low`](Self::cache_low) noted for player `pid`.
+    #[inline(always)]
+    pub fn low_masks(&self, pid: u16) -> u16 {
+        self.low_masks[pid as usize]
+    }
+
+    /// Which appearance player `pid` has this tick, if it has one.
+    #[inline(always)]
+    pub fn appearance_clock(&self, pid: u16) -> Option<u32> {
+        self.appearance_clocks[pid as usize]
+    }
+
+    /// Records the 18-bit region (`level << 16 | x >> 6 << 8 | z >> 6`)
+    /// player `pid` is in this tick. Every client keeps a region for each slot
+    /// it doesn't track, so one that moved is sent to all of them this tick.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn track_region(&mut self, pid: u16, region: u32) {
+        let idx = pid as usize;
+        if region != self.regions[idx] {
+            self.next_regions[idx] = region;
+            self.region_moves[idx >> 6] |= 1 << (idx & 63);
+        }
+    }
+
+    /// The region every client has for slot `pid`, as of last tick.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn last_region(&self, pid: u16) -> u32 {
+        self.regions[pid as usize]
+    }
+
+    /// The region slot `pid` is in this tick.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn region(&self, pid: u16) -> u32 {
+        let idx = pid as usize;
+        if (self.region_moves[idx >> 6] >> (idx & 63)) & 1 != 0 {
+            self.next_regions[idx]
+        } else {
+            self.regions[idx]
+        }
+    }
+
+    /// The slots whose region moved this tick, one bit each.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn region_moves(&self) -> &[u64] {
+        &self.region_moves[..]
+    }
+
+    /// Every slot's region as of last tick, for a new client's first
+    /// `PLAYER_INFO` state.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn regions(&self) -> &[u32] {
+        &self.regions[..]
     }
 
     /// Pre-computes and serializes all active info masks for a player.
@@ -586,36 +652,6 @@ impl PlayerRenderer {
     /// header) into `self.highs[pid]` and `self.lows[pid]`.
     ///
     /// Returns immediately if `info.masks` is zero (no updates pending).
-    ///
-    /// # Arguments
-    ///
-    /// * `pid` - The player index (0..2048) identifying which slot to populate.
-    /// * `info` - The entity masks containing the raw field values to serialize.
-    ///
-    /// # Side Effects
-    ///
-    /// Writes serialized data into the fixed slots and/or variable-length
-    /// buffers for `pid`. Updates `self.highs[pid]` and `self.lows[pid]`
-    /// with the total byte sizes. Variable-length buffers (appearance, say,
-    /// chat) are reused if already allocated, avoiding repeated heap
-    /// allocation.
-    ///
-    /// # Panics
-    ///
-    /// Panics if required `Option` fields in `info` are `None` when their
-    /// corresponding mask bit is set (e.g. `info.anim_delay` when Anim mask
-    /// is active).
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Info phase in `rs-engine/src/phases/info.rs`.
-    ///
-    /// **Calls:** `Slot::set_p2`, `Slot::set_p2_p1`, `Slot::set_p1_p1_p1_p1`,
-    /// `Slot::set_p2_p2`, `Slot::set_p2_p4`, `Self::header`.
-    /// # Safety
-    ///
-    /// `pid` must be < `MAX_PLAYERS` (2048). This is guaranteed by the engine
-    /// which only passes valid player indices from `active_players`.
     #[inline]
     pub fn compute_info(
         &mut self,
@@ -828,8 +864,7 @@ impl PlayerRenderer {
                 }
             }
 
-            let block = self.high_blocks.get_unchecked_mut(pid);
-            block.clear();
+            let start = self.blocks.len();
             #[cfg(before_647)]
             {
                 let wire = if masks > 0xff {
@@ -837,12 +872,13 @@ impl PlayerRenderer {
                 } else {
                     masks
                 };
-                block.extend_from_slice(&wire.to_le_bytes()[..Self::header(masks) as usize]);
+                self.blocks
+                    .extend_from_slice(&wire.to_le_bytes()[..Self::header(masks) as usize]);
             }
             #[cfg(since_647)]
             if active != 0 {
                 let (header, len) = PlayerInfoProt::header(PlayerInfoProt::mask(masks));
-                block.extend_from_slice(&header[..len]);
+                self.blocks.extend_from_slice(&header[..len]);
             }
             for index in 0..PLAYER_PROT_COUNT {
                 if active & (1 << index) == 0 {
@@ -866,14 +902,14 @@ impl PlayerRenderer {
                 #[cfg(since_647)]
                 if index == PlayerInfoProt::Damage.to_index() {
                     let view = self.hit_views.get_unchecked_mut(pid);
-                    view.offset = block.len() as u16;
+                    view.offset = (self.blocks.len() - start) as u16;
                     view.len = bytes.len() as u16;
                 }
-                block.extend_from_slice(bytes);
+                self.blocks.extend_from_slice(bytes);
             }
             #[cfg(before_647)]
             if active != 0 || masks & PlayerInfoProt::ExactMove as u16 != 0 {
-                self.highs[pid] = block.len() as u16
+                self.highs[pid] = (self.blocks.len() - start) as u16
                     + if masks & PlayerInfoProt::ExactMove as u16 != 0 {
                         9
                     } else {
@@ -882,8 +918,10 @@ impl PlayerRenderer {
             }
             #[cfg(since_647)]
             {
-                self.highs[pid] = block.len() as u16;
+                self.highs[pid] = (self.blocks.len() - start) as u16;
             }
+
+            self.spans[pid] = Span::new(start, self.blocks.len());
 
             if masks
                 & (PlayerInfoProt::Appearance as u16
@@ -905,7 +943,11 @@ impl PlayerRenderer {
     /// Before 647, the encoder appends observer-relative `ExactMove` data.
     #[inline(always)]
     pub fn high_block(&self, id: u16) -> &[u8] {
-        unsafe { self.high_blocks.get_unchecked(id as usize) }
+        unsafe {
+            let span = *self.spans.get_unchecked(id as usize);
+            self.blocks
+                .get_unchecked(span.start as usize..span.end as usize)
+        }
     }
 
     /// Writes a player's high block as `observer` (a pid) sees it: the block
@@ -930,26 +972,6 @@ impl PlayerRenderer {
     /// buffers for Appearance, Say, and Chat, or the inline fixed slot for
     /// all other protocol types. The raw bytes are copied directly into
     /// `buf` without further encoding.
-    ///
-    /// # Arguments
-    ///
-    /// * `buf` - The target packet buffer to write into.
-    /// * `id` - The player index identifying which slot to read from.
-    /// * `prot` - The protocol field type to write.
-    ///
-    /// # Side Effects
-    ///
-    /// Appends bytes to `buf`. Does not modify any renderer state.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player info output in `rs-engine/src/info.rs`
-    /// (`write_blocks`).
-    ///
-    /// **Calls:** `Packet::pdata`, `Slot::write_to`.
-    /// # Safety
-    ///
-    /// `id` must be < `MAX_PLAYERS` and `prot.to_index()` < `PLAYER_PROT_COUNT`.
     #[inline(always)]
     pub fn write(&self, buf: &mut Packet, id: u16, prot: PlayerInfoProt) {
         let idx = id as usize;
@@ -989,28 +1011,6 @@ impl PlayerRenderer {
     /// slot because its 9-byte payload exceeds the 8-byte `Slot` capacity.
     /// Instead, the caller provides all values and they are written directly
     /// into the packet using individual `p1` and `p2` calls.
-    ///
-    /// # Arguments
-    ///
-    /// * `buf` - The target packet buffer to write into.
-    /// * `start_x` - Starting x coordinate delta (1 byte).
-    /// * `start_z` - Starting z coordinate delta (1 byte).
-    /// * `end_x` - Ending x coordinate delta (1 byte).
-    /// * `end_z` - Ending z coordinate delta (1 byte).
-    /// * `begin` - Start tick of the movement (2 bytes).
-    /// * `finish` - End tick of the movement (2 bytes).
-    /// * `dir` - Direction/angle of movement (1 byte).
-    ///
-    /// # Side Effects
-    ///
-    /// Appends 9 bytes to `buf`. Does not modify any renderer state.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player info output in `rs-engine/src/info.rs`
-    /// (`write_blocks`).
-    ///
-    /// **Calls:** `Packet::p1`, `Packet::p2`.
     #[allow(clippy::too_many_arguments)]
     #[inline]
     #[cfg(before_647)]
@@ -1039,23 +1039,6 @@ impl PlayerRenderer {
     /// For variable-length fields (Appearance, Say, Chat), checks that the
     /// `Option<Vec<u8>>` is `Some` and non-empty. For fixed-size fields,
     /// delegates to `Slot::is_set`.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to check.
-    /// * `prot` - The protocol field type to check.
-    ///
-    /// # Returns
-    ///
-    /// `true` if serialized data is available for the given player and
-    /// protocol, `false` otherwise.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player info output in `rs-engine/src/info.rs`
-    /// (low-definition update checks).
-    ///
-    /// **Calls:** `Slot::is_set`.
     #[inline(always)]
     pub fn has(&self, id: u16, prot: PlayerInfoProt) -> bool {
         unsafe {
@@ -1087,28 +1070,41 @@ impl PlayerRenderer {
         }
     }
 
+    /// The blocks a new observer gets for which way player `pid` faces: its
+    /// face entity, if it has one, and always a face coord (this tick's,
+    /// else its orientation, else south), each cached for the tick.
+    #[inline(always)]
+    pub fn cache_facing(&mut self, pid: u16, info: &EntityMasks, coord: CoordGrid) -> u16 {
+        let face = LowFace::of(info, coord, 1);
+        self.cache_face(pid, face);
+        if face.entity.is_some() {
+            PlayerInfoProt::FaceCoord as u16 | PlayerInfoProt::FaceEntity as u16
+        } else {
+            PlayerInfoProt::FaceCoord as u16
+        }
+    }
+
+    #[inline(always)]
+    fn cache_face(&mut self, pid: u16, face: LowFace) {
+        if let Some(entity) = face.entity
+            && !self.has(pid, PlayerInfoProt::FaceEntity)
+        {
+            self.cache_face_entity(pid, entity);
+        }
+        if !self.has(pid, PlayerInfoProt::FaceCoord) {
+            #[cfg(before_647)]
+            self.cache_face_coord(pid, face.x, face.z);
+            #[cfg(since_647)]
+            self.cache_face_coord(pid, face.x, face.z, face.coord);
+        }
+    }
+
     /// Caches a face-entity value for low-definition updates.
     ///
     /// Writes the entity target into the FaceEntity slot so it persists
     /// across ticks for players entering the viewport who need the cached
     /// low-definition state. This is separate from `compute_info`, which
     /// handles the per-tick high-definition update.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to update.
-    /// * `entity` - The entity id the player is facing, or `u16::MAX` for none.
-    ///
-    /// # Side Effects
-    ///
-    /// Overwrites the FaceEntity slot for the given player.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player info low-definition output in
-    /// `rs-engine/src/info.rs`.
-    ///
-    /// **Calls:** `Slot::set_p2`.
     #[inline(always)]
     pub fn cache_face_entity(&mut self, id: u16, entity: u16) {
         self.written.push(id);
@@ -1120,16 +1116,6 @@ impl PlayerRenderer {
     }
 
     /// Caches face-coordinate values for low-definition updates.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to update.
-    /// * `x` - The x coordinate the player is facing toward.
-    /// * `z` - The z coordinate the player is facing toward.
-    ///
-    /// # Safety
-    ///
-    /// `id` must be < `MAX_PLAYERS`.
     #[inline(always)]
     #[cfg(before_647)]
     pub fn cache_face_coord(&mut self, id: u16, x: u16, z: u16) {
@@ -1162,14 +1148,6 @@ impl PlayerRenderer {
     }
 
     /// Returns the total pre-computed high-definition byte size for a player.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to query.
-    ///
-    /// # Returns
-    ///
-    /// The total byte count for a high-definition update, or zero if none pending.
     #[inline(always)]
     pub const fn highdefinitions(&self, id: u16) -> usize {
         unsafe { *self.highs.as_ptr().add(id as usize) as usize }
@@ -1180,20 +1158,6 @@ impl PlayerRenderer {
     /// This includes the mask header plus Appearance, FaceEntity, and
     /// FaceCoord field sizes. A return value of zero means no low-definition
     /// update is pending for this player.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to query.
-    ///
-    /// # Returns
-    ///
-    /// The total byte count that would be written for a low-definition
-    /// update, or zero if none is pending.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player info output in `rs-engine/src/info.rs`
-    /// (capacity checks before writing low-def blocks).
     #[inline(always)]
     pub const fn lowdefinitions(&self, id: u16) -> usize {
         unsafe { *self.lows.as_ptr().add(id as usize) as usize }
@@ -1209,17 +1173,6 @@ impl PlayerRenderer {
     /// buffers. Appearance data and low-definition counters are preserved
     /// because they persist across ticks. Players that were never written
     /// this tick cost nothing.
-    ///
-    /// # Side Effects
-    ///
-    /// Zeroes `self.highs` and resets fixed slots and variable-length
-    /// buffers for every written index; empties `self.written`. Does not
-    /// deallocate variable-length buffers; they are cleared in place for
-    /// reuse.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Cleanup phase in `rs-engine/src/phases/cleanup.rs`.
     #[inline]
     pub fn remove_temporary(&mut self) {
         let written = mem::take(&mut self.written);
@@ -1266,11 +1219,20 @@ impl PlayerRenderer {
                 if let Some(v) = self.chats.get_unchecked_mut(idx) {
                     v.clear();
                 }
-                self.high_blocks.get_unchecked_mut(idx).clear();
+                *self.spans.get_unchecked_mut(idx) = Span::default();
             }
         }
+        self.blocks.clear();
         self.written = written;
         self.written.clear();
+        #[cfg(since_647)]
+        for (w, bits) in self.region_moves.iter_mut().enumerate() {
+            while *bits != 0 {
+                let idx = (w << 6) | bits.trailing_zeros() as usize;
+                self.regions[idx] = self.next_regions[idx];
+                *bits &= *bits - 1;
+            }
+        }
     }
 
     /// Performs a full cleanup of all renderer data for a player.
@@ -1279,19 +1241,6 @@ impl PlayerRenderer {
     /// from the game. Resets both byte-size counters to zero and drops
     /// the appearance buffer by setting it to `None`, freeing its heap
     /// allocation.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to fully clean up.
-    ///
-    /// # Side Effects
-    ///
-    /// Zeroes `self.highs[id]` and `self.lows[id]`. Drops the appearance
-    /// `Vec` for the given index.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player logout handling in `rs-engine/src/engine.rs`.
     #[inline]
     pub fn remove_permanent(&mut self, id: u16) {
         let idx = id as usize;
@@ -1302,6 +1251,7 @@ impl PlayerRenderer {
         unsafe {
             *self.highs.get_unchecked_mut(idx) = 0;
             *self.lows.get_unchecked_mut(idx) = 0;
+            *self.spans.get_unchecked_mut(idx) = Span::default();
             *self.appearances.get_unchecked_mut(idx) = None;
         }
     }
@@ -1310,18 +1260,6 @@ impl PlayerRenderer {
     ///
     /// If the mask value fits in a single byte (0x00..0xFF), the header is
     /// 1 byte. Otherwise, 2 bytes are needed to encode the full mask.
-    ///
-    /// # Arguments
-    ///
-    /// * `masks` - The combined bitmask of all active protocol flags.
-    ///
-    /// # Returns
-    ///
-    /// `1` if `masks` fits in a single byte, `2` otherwise.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `Self::compute_info` when computing total byte sizes.
     #[inline(always)]
     #[cfg(before_647)]
     const fn header(masks: u16) -> u16 {
@@ -1354,21 +1292,18 @@ impl PlayerRenderer {
 ///
 /// This mirrors [`PlayerRenderer`] but with NPC-specific protocol types
 /// and a larger index space.
-///
-/// # Call Stack
-///
-/// **Called by:** Owned by `NpcInfo` in `rs-engine/src/info.rs`. Methods
-/// are invoked during the info phase (`rs-engine/src/phases/info.rs`),
-/// NPC info output (`rs-engine/src/info.rs`), cleanup phase
-/// (`rs-engine/src/phases/cleanup.rs`), and NPC despawn/removal
-/// (`rs-engine/src/engine.rs`).
 pub struct NpcRenderer {
     fixed: Box<[[Slot; MAX_NPCS]; NPC_PROT_COUNT]>,
     says: Vec<Option<Vec<u8>>>,
     #[cfg(since_647)]
     hit_views: Vec<HitView>,
-    high_blocks: Vec<Vec<u8>>,
+    blocks: Vec<u8>,
+    spans: Box<[Span; MAX_NPCS]>,
     highs: Box<[u16; MAX_NPCS]>,
+    low_masks: Box<[u16; MAX_NPCS]>,
+    low_faces: Box<[LowFace; MAX_NPCS]>,
+    #[cfg(since_647)]
+    add_directions: Box<[u8; MAX_NPCS]>,
     written: Vec<u16>,
 }
 
@@ -1378,14 +1313,6 @@ impl NpcRenderer {
     /// Allocates the fixed-size slot arrays on the heap via `Box`, and
     /// initializes the variable-length say vector with `None` for all
     /// NPC indices. All high-def byte-size counters start at zero.
-    ///
-    /// # Returns
-    ///
-    /// A fully initialized `NpcRenderer` with no pre-computed data.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `Engine` constructor in `rs-engine/src/engine.rs`.
     #[inline]
     pub fn new() -> NpcRenderer {
         NpcRenderer {
@@ -1393,10 +1320,72 @@ impl NpcRenderer {
             says: vec![None; MAX_NPCS],
             #[cfg(since_647)]
             hit_views: vec![HitView::default(); MAX_NPCS],
-            high_blocks: vec![Vec::new(); MAX_NPCS],
+            blocks: Vec::new(),
+            spans: Box::new([Span::default(); MAX_NPCS]),
             highs: Box::new([0; MAX_NPCS]),
+            low_masks: Box::new([0; MAX_NPCS]),
+            low_faces: Box::new([LowFace::default(); MAX_NPCS]),
+            #[cfg(since_647)]
+            add_directions: Box::new([0; MAX_NPCS]),
             written: Vec::new(),
         }
+    }
+
+    /// Notes what an observer adding NPC `nid` this tick gets: this tick's
+    /// blocks and which way it faces, and on 647 the facing its add entry
+    /// carries. Once a tick in the info phase, so an add doesn't read the
+    /// NPC; [`ready_low`](Self::ready_low) writes the blocks it caches.
+    #[inline(always)]
+    pub fn cache_low(
+        &mut self,
+        nid: u16,
+        info: &EntityMasks,
+        coord: CoordGrid,
+        #[cfg_attr(before_647, allow(unused_variables))] size: u8,
+    ) {
+        #[cfg(before_647)]
+        let size = 1;
+        let face = LowFace::of(info, coord, size);
+        let mut masks = info.masks | NpcInfoProt::FaceCoord as u16;
+        if face.entity.is_some() {
+            masks |= NpcInfoProt::FaceEntity as u16;
+        }
+        self.low_masks[nid as usize] = masks;
+        self.low_faces[nid as usize] = face;
+        #[cfg(since_647)]
+        {
+            let facing = info
+                .face_x
+                .zip(info.face_z)
+                .or_else(|| info.orientation_x.zip(info.orientation_z))
+                .map(|(fx, fz)| {
+                    (
+                        CoordGrid::fine(coord.x(), size) as i32 - fx as i32,
+                        CoordGrid::fine(coord.z(), size) as i32 - fz as i32,
+                    )
+                });
+            self.add_directions[nid as usize] = add_direction(facing) as u8;
+        }
+    }
+
+    /// Caches the facing blocks [`cache_low`](Self::cache_low) noted for NPC
+    /// `nid`, for its adds.
+    #[inline(always)]
+    pub fn ready_low(&mut self, nid: u16) {
+        self.cache_face(nid, self.low_faces[nid as usize]);
+    }
+
+    /// The blocks [`cache_low`](Self::cache_low) noted for NPC `nid`.
+    #[inline(always)]
+    pub fn low_masks(&self, nid: u16) -> u16 {
+        self.low_masks[nid as usize]
+    }
+
+    /// Which way NPC `nid` faces in its add entry this tick.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn add_direction(&self, nid: u16) -> u8 {
+        self.add_directions[nid as usize]
     }
 
     /// Pre-computes and serializes all active info masks for an NPC.
@@ -1408,35 +1397,6 @@ impl NpcRenderer {
     /// `self.highs[nid]`.
     ///
     /// Returns immediately if `info.masks` is zero (no updates pending).
-    ///
-    /// # Arguments
-    ///
-    /// * `nid` - The NPC index identifying which slot to populate.
-    /// * `info` - The entity masks containing the raw field values to serialize.
-    ///
-    /// # Side Effects
-    ///
-    /// Writes serialized data into the fixed slots and/or variable-length
-    /// buffers for `nid`. Updates `self.highs[nid]` with the total
-    /// byte size. The say buffer is reused if already
-    /// allocated, avoiding repeated heap allocation.
-    ///
-    /// # Panics
-    ///
-    /// Panics if required `Option` fields in `info` are `None` when their
-    /// corresponding mask bit is set (e.g. `info.anim_delay` when Anim mask
-    /// is active).
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Info phase in `rs-engine/src/phases/info.rs`.
-    ///
-    /// **Calls:** `Slot::set_p2`, `Slot::set_p2_p1`, `Slot::set_p1_p1_p1_p1`,
-    /// `Slot::set_p2_p2`, `Slot::set_p2_p4`, `Self::header`.
-    /// # Safety
-    ///
-    /// `nid` must be < `MAX_NPCS`. This is guaranteed by the engine
-    /// which only passes valid NPC indices from `active_npcs`.
     #[inline]
     pub fn compute_info(&mut self, nid: usize, info: &EntityMasks) {
         let masks = info.masks;
@@ -1574,14 +1534,13 @@ impl NpcRenderer {
                 }
             }
 
-            let block = self.high_blocks.get_unchecked_mut(nid);
-            block.clear();
+            let start = self.blocks.len();
             #[cfg(before_647)]
-            block.push(masks as u8);
+            self.blocks.push(masks as u8);
             #[cfg(since_647)]
             if active != 0 {
                 let (header, len) = NpcInfoProt::header(NpcInfoProt::mask(masks));
-                block.extend_from_slice(&header[..len]);
+                self.blocks.extend_from_slice(&header[..len]);
             }
             for index in 0..NPC_PROT_COUNT {
                 if active & (1 << index) == 0 {
@@ -1595,14 +1554,15 @@ impl NpcRenderer {
                 #[cfg(since_647)]
                 if index == NpcInfoProt::Damage.to_index() {
                     let view = self.hit_views.get_unchecked_mut(nid);
-                    view.offset = block.len() as u16;
+                    view.offset = (self.blocks.len() - start) as u16;
                     view.len = bytes.len() as u16;
                 }
-                block.extend_from_slice(bytes);
+                self.blocks.extend_from_slice(bytes);
             }
             if active != 0 {
-                *self.highs.get_unchecked_mut(nid) = block.len() as u16;
+                *self.highs.get_unchecked_mut(nid) = (self.blocks.len() - start) as u16;
             }
+            *self.spans.get_unchecked_mut(nid) = Span::new(start, self.blocks.len());
         }
     }
 
@@ -1611,7 +1571,11 @@ impl NpcRenderer {
     /// See [`compute_info`](Self::compute_info).
     #[inline(always)]
     pub fn high_block(&self, id: u16) -> &[u8] {
-        unsafe { self.high_blocks.get_unchecked(id as usize) }
+        unsafe {
+            let span = *self.spans.get_unchecked(id as usize);
+            self.blocks
+                .get_unchecked(span.start as usize..span.end as usize)
+        }
     }
 
     /// Writes an npc's high block as `observer` (a pid) sees it: the hits
@@ -1634,23 +1598,6 @@ impl NpcRenderer {
     /// Dispatches on `prot` to select the correct storage: the variable-length
     /// buffer for Say, or the inline fixed slot for all other protocol types.
     /// The raw bytes are copied directly into `buf` without further encoding.
-    ///
-    /// # Arguments
-    ///
-    /// * `buf` - The target packet buffer to write into.
-    /// * `id` - The NPC index identifying which slot to read from.
-    /// * `prot` - The protocol field type to write.
-    ///
-    /// # Side Effects
-    ///
-    /// Appends bytes to `buf`. Does not modify any renderer state.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** NPC info output in `rs-engine/src/info.rs`
-    /// (`write_blocks`).
-    ///
-    /// **Calls:** `Packet::pdata`, `Slot::write_to`.
     #[inline(always)]
     pub fn write(&self, buf: &mut Packet, id: u16, prot: NpcInfoProt) {
         unsafe {
@@ -1677,23 +1624,6 @@ impl NpcRenderer {
     /// For the variable-length Say field, checks that the `Option<Vec<u8>>`
     /// is `Some` and non-empty. For all fixed-size fields, delegates to
     /// `Slot::is_set`.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The NPC index to check.
-    /// * `prot` - The protocol field type to check.
-    ///
-    /// # Returns
-    ///
-    /// `true` if serialized data is available for the given NPC and
-    /// protocol, `false` otherwise.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** NPC info output in `rs-engine/src/info.rs`
-    /// (low-definition update checks).
-    ///
-    /// **Calls:** `Slot::is_set`.
     #[inline(always)]
     pub fn has(&self, id: u16, prot: NpcInfoProt) -> bool {
         unsafe {
@@ -1714,28 +1644,42 @@ impl NpcRenderer {
         }
     }
 
+    /// [`PlayerRenderer::cache_facing`] for an NPC of `size` tiles.
+    #[inline(always)]
+    pub fn cache_facing(
+        &mut self,
+        nid: u16,
+        info: &EntityMasks,
+        coord: CoordGrid,
+        size: u8,
+    ) -> u16 {
+        let face = LowFace::of(info, coord, size);
+        self.cache_face(nid, face);
+        if face.entity.is_some() {
+            NpcInfoProt::FaceCoord as u16 | NpcInfoProt::FaceEntity as u16
+        } else {
+            NpcInfoProt::FaceCoord as u16
+        }
+    }
+
+    #[inline(always)]
+    fn cache_face(&mut self, nid: u16, face: LowFace) {
+        if let Some(entity) = face.entity
+            && !self.has(nid, NpcInfoProt::FaceEntity)
+        {
+            self.cache_face_entity(nid, entity);
+        }
+        if !self.has(nid, NpcInfoProt::FaceCoord) {
+            self.cache_face_coord(nid, face.x, face.z);
+        }
+    }
+
     /// Caches a face-entity value for low-definition updates.
     ///
     /// Writes the entity target into the FaceEntity slot so it persists
     /// across ticks for NPCs entering the viewport who need the cached
     /// low-definition state. This is separate from `compute_info`, which
     /// handles the per-tick high-definition update.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The NPC index to update.
-    /// * `entity` - The entity id the NPC is facing, or `u16::MAX` for none.
-    ///
-    /// # Side Effects
-    ///
-    /// Overwrites the FaceEntity slot for the given NPC.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** NPC info low-definition output in
-    /// `rs-engine/src/info.rs`.
-    ///
-    /// **Calls:** `Slot::set_p2`.
     #[inline(always)]
     pub fn cache_face_entity(&mut self, id: u16, entity: u16) {
         self.written.push(id);
@@ -1747,22 +1691,6 @@ impl NpcRenderer {
     }
 
     /// Caches face-coordinate values for low-definition NPC updates.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The NPC index to update.
-    /// * `x` - The x coordinate the NPC is facing toward.
-    /// * `z` - The z coordinate the NPC is facing toward.
-    ///
-    /// # Side Effects
-    ///
-    /// Overwrites the FaceCoord slot for the given NPC.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** NPC info low-definition output in
-    /// `rs-engine/src/info.rs`.
-    ///
     #[inline(always)]
     pub fn cache_face_coord(&mut self, id: u16, x: u16, z: u16) {
         self.written.push(id);
@@ -1791,17 +1719,6 @@ impl NpcRenderer {
     /// protocol slot (Anim, FaceEntity, Damage, ChangeType, SpotAnim,
     /// FaceCoord) back to `Slot::EMPTY`. Also clears the variable-length
     /// Say buffer. NPCs that were never written this tick cost nothing.
-    ///
-    /// # Side Effects
-    ///
-    /// Zeroes `self.highs` and resets fixed slots and variable-length
-    /// buffers for every written index; empties `self.written`. Does not
-    /// deallocate variable-length buffers; they are cleared in place for
-    /// reuse.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Cleanup phase in `rs-engine/src/phases/cleanup.rs`.
     #[inline]
     pub fn remove_temporary(&mut self) {
         let written = mem::take(&mut self.written);
@@ -1840,9 +1757,10 @@ impl NpcRenderer {
                     .fixed
                     .get_unchecked_mut(NpcInfoProt::FaceCoord.to_index())
                     .get_unchecked_mut(idx) = Slot::EMPTY;
-                self.high_blocks.get_unchecked_mut(idx).clear();
+                *self.spans.get_unchecked_mut(idx) = Span::default();
             }
         }
+        self.blocks.clear();
         self.written = written;
         self.written.clear();
     }
@@ -1854,19 +1772,6 @@ impl NpcRenderer {
     /// `PlayerRenderer::remove_permanent`, no variable-length buffer
     /// is dropped here because NPCs do not have persistent appearance
     /// data.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The NPC index to fully clean up.
-    ///
-    /// # Side Effects
-    ///
-    /// Zeroes `self.highs[id]`.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** NPC despawn/removal handling in
-    /// `rs-engine/src/engine.rs`.
     #[inline]
     pub fn remove_permanent(&mut self, id: u16) {
         let idx = id as usize;
@@ -1876,6 +1781,7 @@ impl NpcRenderer {
         }
         unsafe {
             *self.highs.get_unchecked_mut(idx) = 0;
+            *self.spans.get_unchecked_mut(idx) = Span::default();
         }
     }
 }

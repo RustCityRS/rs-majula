@@ -618,7 +618,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2541
         active_npc_mut!(m, NPC_TELE => |s, npc| {
-            npc.tele(pop_coord(s)?);
+            let coord = pop_coord(s)?;
+            if region_allows::<E>(s, npc.coord(), coord) {
+                npc.tele(coord);
+            }
         });
 
         // 2542

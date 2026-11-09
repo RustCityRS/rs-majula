@@ -1,4 +1,5 @@
-use crate::engine::engine;
+use crate::engine::{Engine, engine, engine_mut};
+use crate::phases::shared::EntityId;
 use rs_entity::{EntityLifeTime, Npc, NpcUid};
 use rs_grid::CoordGrid;
 use rs_info::FocusKind;
@@ -342,6 +343,15 @@ impl ActiveNpc {
                     CoordGrid::fine(look_z, self.npc.pathing.size),
                     false,
                 );
+                if self.npc.active {
+                    let block_walk = self.block_walk();
+                    Engine::refresh_presence(
+                        &mut engine_mut().zones,
+                        &mut self.npc.pathing,
+                        EntityId::Npc(self.npc.uid.nid()),
+                        block_walk,
+                    );
+                }
             }
         }
     }

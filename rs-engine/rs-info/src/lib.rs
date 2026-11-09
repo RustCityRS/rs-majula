@@ -20,16 +20,6 @@ pub enum FocusKind {
 impl FocusKind {
     /// Returns the protocol bitmask for a `FaceEntity` info update
     /// corresponding to this entity kind.
-    ///
-    /// # Returns
-    ///
-    /// * `NpcInfoProt::FaceEntity as u16` when `self` is [`FocusKind::Npc`].
-    /// * `PlayerInfoProt::FaceEntity as u16` when `self` is [`FocusKind::Player`].
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** [`EntityMasks::set_face_entity_check`],
-    /// [`EntityMasks::mark_face_entity`], [`EntityMasks::clear_face_entity`].
     pub const fn face_entity_mask(self) -> u16 {
         match self {
             FocusKind::Npc => NpcInfoProt::FaceEntity as u16,
@@ -39,15 +29,6 @@ impl FocusKind {
 
     /// Returns the protocol bitmask for a `FaceCoord` info update
     /// corresponding to this entity kind.
-    ///
-    /// # Returns
-    ///
-    /// * `NpcInfoProt::FaceCoord as u16` when `self` is [`FocusKind::Npc`].
-    /// * `PlayerInfoProt::FaceCoord as u16` when `self` is [`FocusKind::Player`].
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** [`EntityMasks::focus`].
     pub const fn face_coord_mask(self) -> u16 {
         match self {
             FocusKind::Npc => NpcInfoProt::FaceCoord as u16,
@@ -82,23 +63,6 @@ pub enum Visibility {
 /// sends them to observing clients. At the end of the tick the cleanup
 /// phase calls [`EntityMasks::reset`] to clear all *temporary* fields
 /// while preserving *persistent* state.
-///
-/// # Field categories
-///
-/// **Persistent** (survive [`reset`](EntityMasks::reset)):
-/// `appearance`, `last_appearance`, `last_appearance_info`, `readyanim`,
-/// `turnanim`, `walkanim`, `walkanim_b`, `walkanim_l`, `walkanim_r`,
-/// `runanim`, `face_entity`, `orientation_x`, `orientation_z`,
-/// `anim_protect`, `vis`.
-///
-/// **Temporary** (cleared by [`reset`](EntityMasks::reset)):
-/// `masks`, `face_x`, `face_z`, `anim_id`, `anim_delay`, `say`,
-/// `damage_taken`, `damage_type`, `damage_current`, `damage_base`,
-/// `chat_bytes`, `chat_colour`, `chat_effects`, `chat_ignored`,
-/// `spotanim`, `spotanim_height`, `spotanim_delay`,
-/// `exactmove_start_x`, `exactmove_start_z`, `exactmove_end_x`,
-/// `exactmove_end_z`, `exactmove_begin`, `exactmove_finish`,
-/// `exactmove_dir`, `changetype`.
 pub struct EntityMasks {
     pub masks: u16,
     pub face_entity: Option<u16>,
@@ -186,17 +150,6 @@ impl EntityMasks {
     ///
     /// All `Option` fields are `None`, `masks` is `0`, `anim_protect` is
     /// `false`, and `vis` is [`Visibility::Default`].
-    ///
-    /// This is a `const fn` so it can be used in static or const contexts
-    /// (e.g., initializing entity pool entries at compile time).
-    ///
-    /// # Returns
-    ///
-    /// A fully zeroed `EntityMasks` instance ready for use.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `Player::new`, `Npc::new` (rs-entity).
     pub fn new() -> Self {
         Self {
             masks: 0,
@@ -335,25 +288,6 @@ impl EntityMasks {
     /// When the animation is accepted, `anim_id` and `anim_delay` are
     /// written and the given `mask_bit` is OR-ed into `masks` so the info
     /// renderer knows to encode this update.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The animation sequence ID to play, or `None` to clear.
-    /// * `delay` - Client-side delay (in ticks) before the animation begins.
-    /// * `mask_bit` - The protocol-specific bitmask for the Anim info update
-    ///   (differs between `NpcInfoProt::Anim` and `PlayerInfoProt::Anim`).
-    /// * `current_priority` - Priority of the currently playing animation, if
-    ///   any.
-    /// * `new_priority` - Priority of the animation being requested, if any.
-    ///
-    /// # Side Effects
-    ///
-    /// * Sets `self.anim_id` and `self.anim_delay` when accepted.
-    /// * OR-s `mask_bit` into `self.masks`.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `ScriptPlayer::anim` and `ScriptNpc::anim` (rs-script).
     pub fn set_anim(
         &mut self,
         id: Option<u16>,
@@ -398,14 +332,6 @@ impl EntityMasks {
     /// This keeps the per-tick reset from dirtying cache lines on idle
     /// entities. The invariant is checked by a `debug_assert` in dev
     /// builds; any new setter of a temporary field must set a mask bit.
-    ///
-    /// # Side Effects
-    ///
-    /// * All temporary fields are set to `None` or `0`.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** The engine cleanup phase at the end of each tick.
     pub fn reset(&mut self) {
         if self.masks == 0 {
             debug_assert!(self.transients_clear());
@@ -511,24 +437,6 @@ impl EntityMasks {
     ///
     /// This avoids sending redundant `FaceEntity` updates to the client
     /// when the entity is already facing the same target.
-    ///
-    /// # Arguments
-    ///
-    /// * `kind` - Whether this entity is an NPC or Player, used to select
-    ///   the correct protocol mask bit via [`FocusKind::face_entity_mask`].
-    /// * `id` - The entity index to face.
-    ///
-    /// # Side Effects
-    ///
-    /// * Sets `self.face_entity` to `Some(id)` when the value differs.
-    /// * OR-s the `FaceEntity` mask bit into `self.masks` when changed.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** [`EntityMasks::set_face_entity_player_check`],
-    /// [`EntityMasks::set_face_entity_npc_check`].
-    ///
-    /// **Calls:** [`FocusKind::face_entity_mask`].
     pub fn set_face_entity_check(&mut self, kind: FocusKind, id: u16) {
         if self.face_entity != Some(id) {
             self.face_entity = Some(id);
@@ -542,22 +450,6 @@ impl EntityMasks {
     /// This is used when the entity must re-broadcast its existing
     /// `face_entity` value (e.g., when a new observer enters the viewport
     /// and needs the current facing state).
-    ///
-    /// # Arguments
-    ///
-    /// * `kind` - Whether this entity is an NPC or Player, used to select
-    ///   the correct protocol mask bit via [`FocusKind::face_entity_mask`].
-    ///
-    /// # Side Effects
-    ///
-    /// * OR-s the `FaceEntity` mask bit into `self.masks`.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** [`EntityMasks::face_entity_player`],
-    /// [`EntityMasks::face_entity_npc`].
-    ///
-    /// **Calls:** [`FocusKind::face_entity_mask`].
     pub fn mark_face_entity(&mut self, kind: FocusKind) {
         self.masks |= kind.face_entity_mask();
     }
@@ -565,23 +457,6 @@ impl EntityMasks {
     /// Clears the face-entity target and marks the `FaceEntity` protocol
     /// mask bit so the client is notified that the entity is no longer
     /// facing anything.
-    ///
-    /// # Arguments
-    ///
-    /// * `kind` - Whether this entity is an NPC or Player, used to select
-    ///   the correct protocol mask bit via [`FocusKind::face_entity_mask`].
-    ///
-    /// # Side Effects
-    ///
-    /// * Sets `self.face_entity` to `None`.
-    /// * OR-s the `FaceEntity` mask bit into `self.masks`.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** [`EntityMasks::clear_face_entity_player`],
-    /// [`EntityMasks::clear_face_entity_npc`].
-    ///
-    /// **Calls:** [`FocusKind::face_entity_mask`].
     pub fn clear_face_entity(&mut self, kind: FocusKind) {
         self.face_entity = None;
         self.masks |= kind.face_entity_mask();
@@ -595,29 +470,6 @@ impl EntityMasks {
     /// When `client` is `true`, `face_x` / `face_z` are additionally set
     /// and the `FaceCoord` mask bit is OR-ed into `masks`, causing the
     /// info renderer to encode and transmit the coordinate update.
-    ///
-    /// # Arguments
-    ///
-    /// * `kind` - Whether this entity is an NPC or Player, used to select
-    ///   the correct `FaceCoord` mask bit via [`FocusKind::face_coord_mask`].
-    /// * `fine_x` - The X coordinate (in fine / sub-tile units) to face.
-    /// * `fine_z` - The Z coordinate (in fine / sub-tile units) to face.
-    /// * `client` - If `true`, the facing change is broadcast to clients via
-    ///   the `FaceCoord` info update. If `false`, only the server-side
-    ///   orientation is updated.
-    ///
-    /// # Side Effects
-    ///
-    /// * Always sets `self.orientation_x` and `self.orientation_z`.
-    /// * When `client` is `true`: also sets `self.face_x`, `self.face_z`,
-    ///   and OR-s the `FaceCoord` mask bit into `self.masks`.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** [`EntityMasks::focus_player`],
-    /// [`EntityMasks::focus_npc`].
-    ///
-    /// **Calls:** [`FocusKind::face_coord_mask`].
     pub fn focus(&mut self, kind: FocusKind, fine_x: u16, fine_z: u16, client: bool) {
         self.orientation_x = Some(fine_x);
         self.orientation_z = Some(fine_z);
@@ -631,16 +483,6 @@ impl EntityMasks {
     /// Player-specific convenience wrapper for [`EntityMasks::set_face_entity_check`].
     ///
     /// Delegates to `set_face_entity_check` with [`FocusKind::Player`].
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The entity index for the Player to face.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `ScriptPlayer` face-entity logic (rs-script).
-    ///
-    /// **Calls:** [`EntityMasks::set_face_entity_check`].
     pub fn set_face_entity_player_check(&mut self, id: u16) {
         self.set_face_entity_check(FocusKind::Player, id);
     }
@@ -650,12 +492,6 @@ impl EntityMasks {
     /// Marks the Player `FaceEntity` protocol mask bit without changing
     /// the current face-entity target. Used to re-broadcast the existing
     /// facing target to newly observing clients.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `ScriptPlayer` face-entity logic (rs-script).
-    ///
-    /// **Calls:** [`EntityMasks::mark_face_entity`].
     pub fn face_entity_player(&mut self) {
         self.mark_face_entity(FocusKind::Player);
     }
@@ -664,12 +500,6 @@ impl EntityMasks {
     ///
     /// Clears the Player's face-entity target and marks the `FaceEntity`
     /// mask bit so observers are notified.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `ScriptPlayer` face-entity logic (rs-script).
-    ///
-    /// **Calls:** [`EntityMasks::clear_face_entity`].
     pub fn clear_face_entity_player(&mut self) {
         self.clear_face_entity(FocusKind::Player);
     }
@@ -677,16 +507,6 @@ impl EntityMasks {
     /// NPC-specific convenience wrapper for [`EntityMasks::set_face_entity_check`].
     ///
     /// Delegates to `set_face_entity_check` with [`FocusKind::Npc`].
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The entity index for the NPC to face.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `ScriptNpc` face-entity logic (rs-script).
-    ///
-    /// **Calls:** [`EntityMasks::set_face_entity_check`].
     pub fn set_face_entity_npc_check(&mut self, id: u16) {
         self.set_face_entity_check(FocusKind::Npc, id);
     }
@@ -696,12 +516,6 @@ impl EntityMasks {
     /// Marks the NPC `FaceEntity` protocol mask bit without changing
     /// the current face-entity target. Used to re-broadcast the existing
     /// facing target to newly observing clients.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `ScriptNpc` face-entity logic (rs-script).
-    ///
-    /// **Calls:** [`EntityMasks::mark_face_entity`].
     pub fn face_entity_npc(&mut self) {
         self.mark_face_entity(FocusKind::Npc);
     }
@@ -710,12 +524,6 @@ impl EntityMasks {
     ///
     /// Clears the NPC's face-entity target and marks the `FaceEntity`
     /// mask bit so observers are notified.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `ScriptNpc` face-entity logic (rs-script).
-    ///
-    /// **Calls:** [`EntityMasks::clear_face_entity`].
     pub fn clear_face_entity_npc(&mut self) {
         self.clear_face_entity(FocusKind::Npc);
     }
@@ -724,18 +532,6 @@ impl EntityMasks {
     ///
     /// Sets the Player's orientation and optionally broadcasts a `FaceCoord`
     /// update to observing clients.
-    ///
-    /// # Arguments
-    ///
-    /// * `fine_x` - The X coordinate (in fine / sub-tile units) to face.
-    /// * `fine_z` - The Z coordinate (in fine / sub-tile units) to face.
-    /// * `client` - If `true`, the facing change is broadcast to clients.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `ScriptPlayer` focus logic (rs-script), pathing system.
-    ///
-    /// **Calls:** [`EntityMasks::focus`].
     pub fn focus_player(&mut self, fine_x: u16, fine_z: u16, client: bool) {
         self.focus(FocusKind::Player, fine_x, fine_z, client);
     }
@@ -744,18 +540,6 @@ impl EntityMasks {
     ///
     /// Sets the NPC's orientation and optionally broadcasts a `FaceCoord`
     /// update to observing clients.
-    ///
-    /// # Arguments
-    ///
-    /// * `fine_x` - The X coordinate (in fine / sub-tile units) to face.
-    /// * `fine_z` - The Z coordinate (in fine / sub-tile units) to face.
-    /// * `client` - If `true`, the facing change is broadcast to clients.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `ScriptNpc` focus logic (rs-script), pathing system.
-    ///
-    /// **Calls:** [`EntityMasks::focus`].
     pub fn focus_npc(&mut self, fine_x: u16, fine_z: u16, client: bool) {
         self.focus(FocusKind::Npc, fine_x, fine_z, client);
     }

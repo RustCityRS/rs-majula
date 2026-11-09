@@ -25,6 +25,8 @@ use crate::types::OndemandBlobs;
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
 #[cfg(since_647)]
 use area::{AreaMap, AreaTypeProvider};
+#[cfg(since_647)]
+use controller::ControllerTypeProvider;
 use dbtable::DbTableIndex;
 use font::FontTypeProvider;
 use midi::MidiProvider;
@@ -35,6 +37,8 @@ use seq_frame::SeqFrameProvider;
 use std::collections::HashMap;
 #[cfg(before_647)]
 use std::sync::Arc;
+#[cfg(since_647)]
+use varcon::VarConTypeProvider;
 #[cfg(since_647)]
 use varobj::VarObjTypeProvider;
 use wordenc::WordEncProvider;
@@ -49,6 +53,8 @@ pub mod bas;
 #[cfg(since_647)]
 pub mod billboard;
 pub mod category;
+#[cfg(since_647)]
+pub mod controller;
 #[cfg(since_647)]
 pub mod cursor;
 pub mod dbrow;
@@ -103,6 +109,8 @@ pub mod r#struct;
 pub mod texture;
 #[cfg(since_254)]
 pub mod varbit;
+#[cfg(since_647)]
+pub mod varcon;
 pub mod varn;
 #[cfg(since_647)]
 pub mod varobj;
@@ -175,6 +183,10 @@ pub struct CacheStore {
     pub multiway_area: Option<u16>,
     #[cfg(since_647)]
     pub varobjs: VarObjTypeProvider,
+    #[cfg(since_647)]
+    pub varcons: VarConTypeProvider,
+    #[cfg(since_647)]
+    pub controllers: ControllerTypeProvider,
 }
 
 pub use crate::types::ScriptVarType;

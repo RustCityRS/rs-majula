@@ -27,6 +27,7 @@ pub struct PathingEntity {
     pub last_movement: u32,
     pub waypoints: Waypoints,
     pub coord: CoordGrid,
+    pub presence: CoordGrid,
     pub walk_step: Option<Direction>,
     pub move_restrict: MoveRestrict,
     pub move_strategy: MoveStrategy,
@@ -62,6 +63,7 @@ impl PathingEntity {
     ) -> Self {
         Self {
             coord,
+            presence: coord,
             walk_dir: -1,
             run_dir: -1,
             walk_step: None,

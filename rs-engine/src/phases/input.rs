@@ -2,6 +2,7 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 #[cfg(since_647)]
 use crate::engine::engine;
 use crate::engine::{Engine, engine_mut};
+use crate::handlers::client_cheat::bot_tick;
 use crate::phases::shared::{EntityId, panic_message};
 use rs_vm::engine::ScriptPlayer;
 use std::panic::{AssertUnwindSafe, catch_unwind};
@@ -27,7 +28,7 @@ impl Engine {
     /// 4. Post-processes the decoded input, potentially pathing toward an
     ///    interaction target ([`post_process`]).
     /// 5. Updates zone membership and collision maps via
-    ///    [`check_zones_and_collision`].
+    ///    [`refresh_presence`].
     ///
     /// If any player panics during processing, that player is
     /// emergency-removed to prevent cascading failures.
@@ -44,7 +45,7 @@ impl Engine {
     ///
     /// **Called by:** `Engine::cycle`
     /// **Calls:** `check_afk`, `ActivePlayer::decode`, `post_process`,
-    ///   `check_zones_and_collision`
+    ///   `refresh_presence`
     pub(crate) fn inputs(&mut self) {
         let pids = self.player_list.take_pids();
         let mut start = 0;
@@ -75,8 +76,6 @@ impl Engine {
             return;
         };
 
-        let prev_coord = active.player.pathing.coord;
-
         Self::check_afk(self.clock, active);
         if active.decode() {
             active.player.last_response = self.clock;
@@ -84,15 +83,19 @@ impl Engine {
         if active.user_limit > 0 {
             active.player.last_active = self.clock;
         }
+        if active.player.bot
+            && let Err(e) = bot_tick(active)
+        {
+            error!("bot {pid} tick: {e}");
+        }
         Self::post_process(active);
 
-        Engine::check_zones_and_collision(
+        let block_walk = active.player.block_walk;
+        Engine::refresh_presence(
             &mut self.zones,
-            prev_coord,
-            active.player.pathing.coord,
+            &mut active.player.pathing,
             EntityId::Player(active.player.uid.pid()),
-            active.player.pathing.size,
-            active.player.block_walk,
+            block_walk,
         );
     }
 

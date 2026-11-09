@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use crate::ControllerUid;
 pub use crate::iterators::*;
 use crate::pointer::{ScriptPointer, ScriptPointerSet};
 use crate::subject::ScriptSubject;
@@ -59,6 +61,10 @@ pub struct ScriptState {
     pub active_loc2: Option<LocRef>,
     pub active_obj: Option<ObjRef>,
     pub active_obj2: Option<ObjRef>,
+    #[cfg(since_647)]
+    pub active_controller: Option<ControllerUid>,
+    #[cfg(since_647)]
+    pub active_region: Option<u32>,
 
     pub last_int: Option<i32>,
     /// Rev-647: the string carried by RESUME_P_STRINGDIALOG (or a display-name
@@ -169,6 +175,10 @@ impl ScriptState {
             active_loc2: None,
             active_obj: None,
             active_obj2: None,
+            #[cfg(since_647)]
+            active_controller: None,
+            #[cfg(since_647)]
+            active_region: None,
             last_int: None,
             #[cfg(since_647)]
             last_string: None,
@@ -320,6 +330,11 @@ impl ScriptState {
         self.active_loc2 = None;
         self.active_obj = None;
         self.active_obj2 = None;
+        #[cfg(since_647)]
+        {
+            self.active_controller = None;
+            self.active_region = None;
+        }
 
         // -- Bind subject and target --
         self.bind_subject_target(subject, target);

@@ -706,6 +706,26 @@ impl Engine {
             BlockWalk::None => {}
         }
     }
+
+    /// Moves an entity's zone presence and collision from where they are to
+    /// its coord, as the reference engine's `refreshZonePresence` does after
+    /// every step and teleport.
+    pub(crate) fn refresh_presence(
+        zones: &mut ZoneMap,
+        pathing: &mut PathingEntity,
+        entity: EntityId,
+        block_walk: BlockWalk,
+    ) {
+        Self::check_zones_and_collision(
+            zones,
+            pathing.presence,
+            pathing.coord,
+            entity,
+            pathing.size,
+            block_walk,
+        );
+        pathing.presence = pathing.coord;
+    }
 }
 
 /// Extracts a human-readable message from a caught panic payload.

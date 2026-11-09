@@ -148,6 +148,10 @@ impl ClientHandle {
 
     /// Hands the gathered output to the socket task as one write.
     pub fn flush(&mut self) {
+        if self.outbox.is_closed() {
+            self.gathered.clear();
+            return;
+        }
         if !self.gathered.is_empty() {
             let bytes = mem::take(&mut self.gathered);
             self.push(bytes);

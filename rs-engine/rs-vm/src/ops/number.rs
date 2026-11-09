@@ -207,7 +207,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let c = s.pop_int();
             let b = s.pop_int();
             let a = s.pop_int();
-            s.push_int(clearbit_range(c, b, a));
+            s.push_int(clearbit_range(a, b, c));
         });
 
         // 4623

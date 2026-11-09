@@ -1097,6 +1097,36 @@
 // (289's declaration: content ported from 289 calls it; the engine has the op)
 [command,date_runeday]()(int)
 
+// Region and controller ops (5200-5299)
+// info: Get access to the region (instance) covering $coord
+[command,region_findbycoord](coord $coord)(boolean)
+// info: Get the controller's coord
+[command,controller_coord]()(coord)
+// info: Delete the controller
+[command,controller_del]
+// info: Queue the controller's [ai_conqueue] script (queue 1) after $delay ticks, $arg in last_int
+[command,controller_queue](int $queue, int $arg, int $delay)
+// info: Get access to the $controller at exactly $coord
+[command,controller_findexact](coord $coord, controller $controller)(boolean)
+// info: Get the coord $x, $y, $z from the region's south-west corner
+[command,region_getcoord](int $x, int $y, int $z)(coord)
+// info: Create a region of ^region_small (128x128) or ^region_large (320x320)
+[command,region_create](int $size)(boolean)
+// info: Delete the region: players inside go to its controller's exit, its npcs, controllers, objs and locs go
+[command,region_del]
+// info: Copy the zone holding $from onto the region's zone holding $to, turned $rotation quarter turns clockwise
+[command,region_copyzone](coord $from, coord $to, int $rotation)
+// info: Copy the zones from $from_sw to $from_ne onto the region from $to_sw, the whole area turned $rotation quarter turns clockwise
+[command,region_copyarea](coord $from_sw, coord $from_ne, coord $to_sw, int $rotation)
+// info: Get the region's uid, which no later region reuses
+[command,region_uid]()(int)
+// info: Get access to the region with $uid if it still exists
+[command,region_finduid](int $uid)(boolean)
+// info: Spawn a controller at $coord for $duration ticks (0 = until deleted)
+[command,controller_add](coord $coord, controller $controller, int $duration)
+// info: Run the controller's [ai_contimer] script every $interval ticks (-1 stops it)
+[command,controller_settimer](int $interval)
+
 // DB ops (7500-7599)
 [command,db_find_with_count]
 [command,db_findnext]()(dbrow)
@@ -1124,13 +1154,7 @@
 
 // [command,inv_setvar](inv $inv, int $slot, obj $obj, int $value)
 // [command,inv_getvar](inv $inv, int $slot, obj $obj)(int)
-// [command,region_findbycoord](coord $coord)(boolean)
-// [command,controller_coord]()(coord)
-// [command,controller_del]
 // [command,mes_typed](int $type, string $message)
-// [command,controller_queue](int $id, int $type, int $delay)
-// [command,controller_findexact](regioncoord $coord, int $type)(boolean)
-// [command,region_getcoord](int $int1, int $int2, int $int3)(regioncoord)
 // [command,sound_area](coord $coord, int $int1, synth $sound, int $int2, int $int3)
 // [command,p_transmogrify](npc $npc)
 // [command,if_setevents](component $component, int $int1, int $int2, boolean $boolean1, int $int3, int $int4, int $int5, boolean $boolean2, boolean $boolean3)
