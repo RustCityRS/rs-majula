@@ -620,6 +620,13 @@ fn delrith_is_banished_with_the_player_s_incantation() {
         let nid = find(engine, delrith).expect("Delrith rises");
         assert_eq!(demon(engine, &client).summoned, 1, "the table is shattered");
 
+        // 1 life point and defence 1, so the first swing that lands weakens him: the test is the
+        // weakening's trigger, not the fight's dice (a full run once died to him first, "Oh
+        // dear, you are dead!", with him on 23 life points).
+        let stats = &mut engine.get_npc_mut(nid).unwrap().npc.stats.levels;
+        stats[NpcStat::Hitpoints as usize] = 1;
+        stats[NpcStat::Defence as usize] = 1;
+
         let fight = |engine: &mut Engine, client: &mut HarnessClient, nid: u16, which: &str| {
             let mut p = ClientPacket::new();
             p.p1_alt2(0).p2_alt3(nid as i32);
@@ -661,6 +668,12 @@ fn delrith_is_banished_with_the_player_s_incantation() {
         );
         let nid = find(engine, delrith).expect("Delrith revives");
         assert_eq!(demon(engine, &client).stage, 2);
+
+        // 1 life point and defence 1, so the first swing that lands weakens him: the test is the
+        // weakening's trigger, not the fight's dice (as in the first fight).
+        let stats = &mut engine.get_npc_mut(nid).unwrap().npc.stats.levels;
+        stats[NpcStat::Hitpoints as usize] = 1;
+        stats[NpcStat::Defence as usize] = 1;
 
         fight(
             engine,
