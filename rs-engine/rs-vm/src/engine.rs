@@ -1,6 +1,6 @@
-#[cfg(since_647)]
-use crate::ControllerUid;
 use crate::state::{LocRef, NpcRef, ObjRef, QueuePriority, ScriptArgument, TimerPriority};
+#[cfg(since_647)]
+use crate::{ControllerUid, RegionUid};
 use crate::{ObjSerial, PlayerUid};
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, Item};
@@ -661,27 +661,27 @@ pub trait ScriptEngine {
 
     /// The uid of the region covering `coord`.
     #[cfg(since_647)]
-    fn region_find(&self, coord: CoordGrid) -> Option<u32>;
+    fn region_find(&self, coord: CoordGrid) -> Option<RegionUid>;
 
     /// Whether region `uid` still exists.
     #[cfg(since_647)]
-    fn region_exists(&self, uid: u32) -> bool;
+    fn region_exists(&self, uid: RegionUid) -> bool;
 
     /// The coord `x`, `z` tiles from region `uid`'s south-west corner on
     /// `level`.
     #[cfg(since_647)]
-    fn region_coord(&self, uid: u32, level: i32, x: i32, z: i32) -> crate::Result<CoordGrid>;
+    fn region_coord(&self, uid: RegionUid, level: i32, x: i32, z: i32) -> crate::Result<CoordGrid>;
 
     /// Takes a free region of `levels` levels and `east` x `north` zones.
     #[cfg(since_647)]
-    fn region_create(&mut self, levels: i32, east: i32, north: i32) -> crate::Result<u32>;
+    fn region_create(&mut self, levels: i32, east: i32, north: i32) -> crate::Result<RegionUid>;
 
     /// Copies the zone holding `source` onto region `uid`'s zone `east`,
     /// `north` on `level`, turned `rotation` quarter turns clockwise.
     #[cfg(since_647)]
     fn region_set(
         &mut self,
-        uid: u32,
+        uid: RegionUid,
         level: i32,
         east: i32,
         north: i32,
@@ -693,12 +693,12 @@ pub trait ScriptEngine {
     /// where one who left the game in it comes back, instead of the tile
     /// each came from.
     #[cfg(since_647)]
-    fn region_set_exit(&mut self, uid: u32, exit: CoordGrid) -> crate::Result<()>;
+    fn region_set_exit(&mut self, uid: RegionUid, exit: CoordGrid) -> crate::Result<()>;
 
     /// Whether something at `from` may be put at `to`: a tile of region
     /// space must be in a live region, the one `from` is in or `selected`.
     #[cfg(since_647)]
-    fn region_allows(&self, from: CoordGrid, to: CoordGrid, selected: Option<u32>) -> bool;
+    fn region_allows(&self, from: CoordGrid, to: CoordGrid, selected: Option<RegionUid>) -> bool;
 
     /// Spawns controller `id` at `coord`, deleted after `duration` ticks
     /// unless that's 0.

@@ -29,7 +29,6 @@ use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::server_prot::ServerProt;
 #[cfg(since_647)]
 use rs_var::VarSet;
-use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptPlayer, with_engine};
 use rs_vm::ops::test;
 use rs_vm::pointer::ScriptPointer;
@@ -37,6 +36,7 @@ use rs_vm::register::OpsRegistry;
 use rs_vm::state::{LocRef, ScriptState};
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
+use rs_vm::{RegionUid, ScriptError};
 use std::cell::RefCell;
 use std::net::{Ipv4Addr, SocketAddr};
 use std::time::Instant;
@@ -465,14 +465,19 @@ impl Engine {
     }
 
     /// Takes a region as `region_create` does.
-    pub fn harness_region_create(&mut self, levels: i32, east: i32, north: i32) -> Option<u32> {
+    pub fn harness_region_create(
+        &mut self,
+        levels: i32,
+        east: i32,
+        north: i32,
+    ) -> Option<RegionUid> {
         self.region_create(levels, east, north).ok()
     }
 
     /// Copies a zone onto region `uid` as `region_set` does.
     pub fn harness_region_set(
         &mut self,
-        uid: u32,
+        uid: RegionUid,
         level: i32,
         east: i32,
         north: i32,
@@ -485,7 +490,7 @@ impl Engine {
     /// Sets region `uid`'s exit as `region_setexitcoord` does.
     pub fn harness_region_set_exit(
         &mut self,
-        uid: u32,
+        uid: RegionUid,
         exit: CoordGrid,
     ) -> Result<(), ScriptError> {
         self.region_set_exit(uid, exit)
@@ -493,13 +498,19 @@ impl Engine {
 
     /// The coord `x`, `z` tiles from region `uid`'s south-west corner on
     /// `level`.
-    pub fn harness_region_coord(&self, uid: u32, level: i32, x: i32, z: i32) -> Option<CoordGrid> {
+    pub fn harness_region_coord(
+        &self,
+        uid: RegionUid,
+        level: i32,
+        x: i32,
+        z: i32,
+    ) -> Option<CoordGrid> {
         self.region_coord(uid, level, x, z).ok()
     }
 
     /// Frees region `uid` now, as the engine does once nobody has been in it
     /// for a while.
-    pub fn harness_region_free(&mut self, uid: u32) {
+    pub fn harness_region_free(&mut self, uid: RegionUid) {
         self.free_region(uid);
     }
 

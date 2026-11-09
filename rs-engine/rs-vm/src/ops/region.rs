@@ -2,12 +2,12 @@ use crate::engine::{ScriptEngine, engine, engine_mut};
 use crate::register::OpsRegistry;
 use crate::state::ScriptState;
 use crate::util::pop_coord;
-use crate::{ScriptError, handlers, none};
+use crate::{RegionUid, ScriptError, handlers, none};
 use rs_pack::cache::script::*;
 
 /// The active region, or with `secondary` the `.active_region` a
 /// dot-prefixed command names, as npcs and controllers have.
-fn active_region(s: &ScriptState, secondary: bool) -> crate::Result<u32> {
+fn active_region(s: &ScriptState, secondary: bool) -> crate::Result<RegionUid> {
     if secondary {
         s.active_region2
             .ok_or_else(|| ScriptError::Runtime("no .active_region".into()))
@@ -17,7 +17,7 @@ fn active_region(s: &ScriptState, secondary: bool) -> crate::Result<u32> {
     }
 }
 
-fn set_active_region(s: &mut ScriptState, uid: u32, secondary: bool) {
+fn set_active_region(s: &mut ScriptState, uid: RegionUid, secondary: bool) {
     if secondary {
         s.active_region2 = Some(uid);
     } else {
@@ -76,12 +76,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 5204
         none!(m, REGION_UID => |s| {
             let uid = active_region(s, s.int_operand() != 0)?;
-            s.push_int(uid as i32);
+            s.push_int(uid.packed() as i32);
         });
 
         // 5205
         none!(m, REGION_FINDBYUID => |s| {
-            let uid = s.pop_int() as u32;
+            let uid = RegionUid::from_packed(s.pop_int() as u32);
             let found = engine::<E>().region_exists(uid);
             if found {
                 set_active_region(s, uid, s.int_operand() != 0);

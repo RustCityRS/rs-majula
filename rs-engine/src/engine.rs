@@ -87,8 +87,6 @@ use rs_util::base37::to_raw_username;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
 #[cfg(since_647)]
-use rs_vm::ControllerUid;
-#[cfg(since_647)]
 use rs_vm::engine::ProjAnimHalfsq;
 pub use rs_vm::engine::with_engine;
 use rs_vm::engine::{
@@ -100,6 +98,8 @@ use rs_vm::state::*;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_vm::{ComId, ScriptError, ops, vm};
+#[cfg(since_647)]
+use rs_vm::{ControllerUid, RegionUid};
 use rs_zone::zone_map::ZoneMap;
 use rs_zone::{ZoneEventType, ZoneMessage};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
@@ -5041,31 +5041,31 @@ impl ScriptEngine for Engine {
     }
 
     #[cfg(since_647)]
-    fn region_find(&self, coord: CoordGrid) -> Option<u32> {
+    fn region_find(&self, coord: CoordGrid) -> Option<RegionUid> {
         self.regions
             .find(coord.x(), coord.z())
             .map(|region| region.uid)
     }
 
     #[cfg(since_647)]
-    fn region_exists(&self, uid: u32) -> bool {
+    fn region_exists(&self, uid: RegionUid) -> bool {
         self.regions.get(uid).is_some()
     }
 
     #[cfg(since_647)]
-    fn region_coord(&self, uid: u32, level: i32, x: i32, z: i32) -> rs_vm::Result<CoordGrid> {
+    fn region_coord(&self, uid: RegionUid, level: i32, x: i32, z: i32) -> rs_vm::Result<CoordGrid> {
         Engine::region_coord(self, uid, level, x, z)
     }
 
     #[cfg(since_647)]
-    fn region_create(&mut self, levels: i32, east: i32, north: i32) -> rs_vm::Result<u32> {
+    fn region_create(&mut self, levels: i32, east: i32, north: i32) -> rs_vm::Result<RegionUid> {
         Engine::region_create(self, levels, east, north)
     }
 
     #[cfg(since_647)]
     fn region_set(
         &mut self,
-        uid: u32,
+        uid: RegionUid,
         level: i32,
         east: i32,
         north: i32,
@@ -5076,12 +5076,12 @@ impl ScriptEngine for Engine {
     }
 
     #[cfg(since_647)]
-    fn region_set_exit(&mut self, uid: u32, exit: CoordGrid) -> rs_vm::Result<()> {
+    fn region_set_exit(&mut self, uid: RegionUid, exit: CoordGrid) -> rs_vm::Result<()> {
         Engine::region_set_exit(self, uid, exit)
     }
 
     #[cfg(since_647)]
-    fn region_allows(&self, from: CoordGrid, to: CoordGrid, selected: Option<u32>) -> bool {
+    fn region_allows(&self, from: CoordGrid, to: CoordGrid, selected: Option<RegionUid>) -> bool {
         Engine::region_allows(self, from, to, selected)
     }
 

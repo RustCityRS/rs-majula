@@ -12,7 +12,7 @@ use rs_grid::mapsquare_coord::MapsquareCoordGrid;
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_pack::cache::CacheStore;
 use rs_pack::types::{BlockWalk, LocAngle, LocShape};
-use rs_vm::ScriptError;
+use rs_vm::{RegionUid, ScriptError};
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::FxHashMap;
 use std::mem;
@@ -168,7 +168,7 @@ const fn rotate_loc(x: u8, z: u8, width: u8, length: u8, angle: u8, rotation: u8
 /// longest loc copied so far can block, and the last tick a player was in it
 /// (its creation until one is).
 pub struct Region {
-    pub uid: u32,
+    pub uid: RegionUid,
     zones: u16,
     levels: u8,
     east: u16,
@@ -233,7 +233,7 @@ impl Regions {
     }
 
     /// Every live region's uid.
-    pub fn uids(&self) -> Vec<u32> {
+    pub fn uids(&self) -> Vec<RegionUid> {
         self.slots
             .iter()
             .filter_map(|slot| slot.region.as_ref().map(|region| region.uid))
@@ -241,9 +241,9 @@ impl Regions {
     }
 
     /// The region `uid` names, if it still exists.
-    pub fn get(&self, uid: u32) -> Option<&Region> {
+    pub fn get(&self, uid: RegionUid) -> Option<&Region> {
         self.slots
-            .get((uid & 0xFFF) as usize)
+            .get(uid.slot() as usize)
             .and_then(|slot| slot.region.as_ref())
             .filter(|region| region.uid == uid)
     }
@@ -284,7 +284,7 @@ impl Regions {
 
     /// Takes a slot for a region of `levels` levels and `east` x `north`
     /// zones: a small one if it fits, else a large one.
-    fn allocate(&mut self, levels: u8, east: u16, north: u16, clock: u32) -> Option<u32> {
+    fn allocate(&mut self, levels: u8, east: u16, north: u16, clock: u32) -> Option<RegionUid> {
         let small = SMALL.tiles >> 3;
         let (layout, cursor) = if east > small || north > small {
             (&LARGE, &mut self.cursors[1])
@@ -304,7 +304,7 @@ impl Regions {
         let slot = &mut self.slots[id];
         slot.generation = (slot.generation + 1) & 0xFFFFF;
         let zones = layout.tiles >> 3;
-        let uid = (slot.generation << 12) | id as u32;
+        let uid = RegionUid::new(id as u16, slot.generation);
         slot.region = Some(Region {
             uid,
             zones,
@@ -322,9 +322,9 @@ impl Regions {
         Some(uid)
     }
 
-    fn live(&self, uid: u32) -> Result<usize, ScriptError> {
+    fn live(&self, uid: RegionUid) -> Result<usize, ScriptError> {
         self.get(uid)
-            .map(|_| (uid & 0xFFF) as usize)
+            .map(|_| uid.slot() as usize)
             .ok_or_else(|| ScriptError::Runtime("region no longer exists".into()))
     }
 }
@@ -385,7 +385,7 @@ impl Engine {
         &self,
         from: CoordGrid,
         to: CoordGrid,
-        selected: Option<u32>,
+        selected: Option<RegionUid>,
     ) -> bool {
         let Some(slot) = slot_at(to.x(), to.z()) else {
             return true;
@@ -403,7 +403,7 @@ impl Engine {
         levels: i32,
         east: i32,
         north: i32,
-    ) -> Result<u32, ScriptError> {
+    ) -> Result<RegionUid, ScriptError> {
         let zones = (LARGE.tiles >> 3) as i32;
         if !(1..=4).contains(&levels)
             || !(1..=zones).contains(&east)
@@ -422,7 +422,7 @@ impl Engine {
     /// `level`.
     pub(crate) fn region_coord(
         &self,
-        uid: u32,
+        uid: RegionUid,
         level: i32,
         x: i32,
         z: i32,
@@ -443,7 +443,7 @@ impl Engine {
     /// reaches.
     pub(crate) fn region_set(
         &mut self,
-        uid: u32,
+        uid: RegionUid,
         level: i32,
         east: i32,
         north: i32,
@@ -481,7 +481,11 @@ impl Engine {
     /// Sets where a player who leaves the game inside region `uid` comes
     /// back, and where one left on no floor goes, rather than the tile each
     /// came from.
-    pub(crate) fn region_set_exit(&mut self, uid: u32, exit: CoordGrid) -> Result<(), ScriptError> {
+    pub(crate) fn region_set_exit(
+        &mut self,
+        uid: RegionUid,
+        exit: CoordGrid,
+    ) -> Result<(), ScriptError> {
         let slot = self.regions.live(uid)?;
         if exit.x() >= REGION_X {
             return Err(ScriptError::Runtime(format!(
@@ -909,7 +913,7 @@ impl Engine {
                 region.seen = clock;
             }
         }
-        let empty: Vec<u32> = self
+        let empty: Vec<RegionUid> = self
             .regions
             .slots
             .iter()
@@ -931,7 +935,7 @@ impl Engine {
     ///
     /// Zone presence moves with every step and teleport, so the zones' lists
     /// hold everything standing in the region.
-    pub(crate) fn free_region(&mut self, uid: u32) {
+    pub(crate) fn free_region(&mut self, uid: RegionUid) {
         let Ok(slot) = self.regions.live(uid) else {
             return;
         };
@@ -1233,7 +1237,7 @@ mod tests {
     fn source_inverts_the_rotation() {
         let mut regions = Regions::default();
         let uid = regions.allocate(4, 16, 16, 0).unwrap();
-        let slot = (uid & 0xFFF) as usize;
+        let slot = uid.slot() as usize;
         let (ox, oz, _) = bounds(slot);
         for rotation in 0..4 {
             let region = regions.slots[slot].region.as_mut().unwrap();
@@ -1255,11 +1259,11 @@ mod tests {
     fn a_region_too_wide_for_a_small_slot_takes_a_large_one() {
         let mut regions = Regions::default();
         let small = regions.allocate(1, 16, 16, 0).unwrap();
-        assert!(((small & 0xFFF) as usize) < SMALL_SLOTS);
+        assert!((small.slot() as usize) < SMALL_SLOTS);
         let wide = regions.allocate(1, 17, 1, 0).unwrap();
-        assert!(((wide & 0xFFF) as usize) >= SMALL_SLOTS);
+        assert!((wide.slot() as usize) >= SMALL_SLOTS);
         let long = regions.allocate(4, 1, 40, 0).unwrap();
-        assert!(((long & 0xFFF) as usize) >= SMALL_SLOTS);
+        assert!((long.slot() as usize) >= SMALL_SLOTS);
         let region = regions.get(long).unwrap();
         assert_eq!(
             (region.levels, region.east, region.north, region.zones),
@@ -1271,15 +1275,15 @@ mod tests {
     fn freed_slots_wait_their_turn() {
         let mut regions = Regions::default();
         let first = regions.allocate(4, 16, 16, 0).unwrap();
-        let slot = (first & 0xFFF) as usize;
+        let slot = first.slot() as usize;
         regions.slots[slot].region = None;
         regions.slots[slot].freed = Some(10);
         regions.cursors[0] = slot;
         let second = regions.allocate(4, 16, 16, 20).unwrap();
-        assert_ne!(second & 0xFFF, first & 0xFFF);
+        assert_ne!(second.slot(), first.slot());
         regions.cursors[0] = slot;
         let third = regions.allocate(4, 16, 16, 10 + QUARANTINE).unwrap();
-        assert_eq!(third & 0xFFF, first & 0xFFF);
+        assert_eq!(third.slot(), first.slot());
         assert_ne!(third, first);
         assert!(regions.get(first).is_none());
         assert!(regions.get(third).is_some());

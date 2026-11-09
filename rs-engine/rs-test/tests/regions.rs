@@ -15,6 +15,7 @@ use rs_grid::CoordGrid;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_vm::RegionUid;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 
 /// Lumbridge castle: a 4x4 zone area of mapsquare 50_50, walls, doors and
@@ -139,7 +140,7 @@ fn turned_zone(a: u16, b: u16, rotation: usize) -> (u16, u16) {
 
 /// Sets the zones of the area from `from`, on `levels`, onto region `uid`
 /// from its zone (2, 2), the area turned `rotation`, a level at a time.
-fn fill(engine: &mut Engine, uid: u32, from: (u16, u16), levels: &[u8], rotation: usize) {
+fn fill(engine: &mut Engine, uid: RegionUid, from: (u16, u16), levels: &[u8], rotation: usize) {
     let zones = TILES >> 3;
     for &level in levels {
         for a in 0..zones {
@@ -163,7 +164,7 @@ fn fill(engine: &mut Engine, uid: u32, from: (u16, u16), levels: &[u8], rotation
 
 /// A region with the area's ground copied onto it from tile 16, 16, turned
 /// `rotation`.
-fn copy(engine: &mut Engine, rotation: usize) -> (u32, CoordGrid) {
+fn copy(engine: &mut Engine, rotation: usize) -> (RegionUid, CoordGrid) {
     let uid = engine
         .harness_region_create(4, 16, 16)
         .expect("a free region");

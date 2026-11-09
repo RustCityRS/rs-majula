@@ -1,9 +1,9 @@
-#[cfg(since_647)]
-use crate::ControllerUid;
 pub use crate::iterators::*;
 use crate::pointer::{ScriptPointer, ScriptPointerSet};
 use crate::subject::ScriptSubject;
 use crate::trigger::ServerTriggerType;
+#[cfg(since_647)]
+use crate::{ControllerUid, RegionUid};
 use crate::{LocSerial, NpcUid, ObjSerial, PlayerUid, ScriptError};
 use num_enum::TryFromPrimitive;
 use rs_grid::CoordGrid;
@@ -66,9 +66,9 @@ pub struct ScriptState {
     #[cfg(since_647)]
     pub active_controller2: Option<ControllerUid>,
     #[cfg(since_647)]
-    pub active_region: Option<u32>,
+    pub active_region: Option<RegionUid>,
     #[cfg(since_647)]
-    pub active_region2: Option<u32>,
+    pub active_region2: Option<RegionUid>,
 
     pub last_int: Option<i32>,
     /// Rev-647: the string carried by RESUME_P_STRINGDIALOG (or a display-name

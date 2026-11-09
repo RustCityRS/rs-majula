@@ -9,6 +9,8 @@ pub mod obj_serial;
 pub mod ops;
 pub mod player_uid;
 pub mod pointer;
+#[cfg(since_647)]
+pub mod region_uid;
 pub mod register;
 pub mod state;
 pub mod subject;
@@ -31,6 +33,8 @@ pub type ComId = u16;
 #[cfg(since_647)]
 pub type ComId = i32;
 pub use player_uid::PlayerUid;
+#[cfg(since_647)]
+pub use region_uid::RegionUid;
 
 use crate::trigger::ServerTriggerType;
 use std::io;
