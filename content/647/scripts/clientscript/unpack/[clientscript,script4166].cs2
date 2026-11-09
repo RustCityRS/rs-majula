@@ -17,7 +17,7 @@ cc_create($component0, ^iftype_graphic, 1);
 cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
 cc_setposition(10, 0, ^setpos_abs_left, ^setpos_abs_centre);
 ~script4169($int2);
-if_setonvartransmit("script4168(event_com, cc_getid, $int2){varplayer_286}", $component0);
+if_setonvartransmit("script4168(event_com, cc_getid, $int2){dueloptions}", $component0);
 cc_create($component0, ^iftype_text, 2);
 cc_setsize(35, 0, ^setsize_minus, ^setsize_minus);
 cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);

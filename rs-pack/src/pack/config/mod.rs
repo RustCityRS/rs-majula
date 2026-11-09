@@ -251,7 +251,7 @@ fn write_config_archive(
 }
 
 /// The cache's table for a type whose bodies only the server reads: one empty
-/// entry per `_unpack` section, at the ids the cache has them.
+/// entry per registered client section.
 #[cfg(since_647)]
 pub(super) fn client_table(
     file_cache: &FileCache,
@@ -284,7 +284,7 @@ pub(super) fn mark_client_params(
         .collect()
 }
 
-/// The cache's table with each `_unpack` property written by `write`.
+/// The cache's table with each client property written by `write`.
 #[cfg(since_647)]
 pub(super) fn client_table_with(
     file_cache: &FileCache,
@@ -293,8 +293,8 @@ pub(super) fn client_table_with(
     constants: &HashMap<String, String>,
     mut write: impl FnMut(&mut PackedData, &str, &str),
 ) -> Result<PackedData> {
-    let configs = file_cache.client_configs(kind, constants)?;
-    let count = file_cache.client_count(kind, pack, constants)?.unwrap_or(0);
+    let configs = file_cache.client_configs(kind, pack, constants)?;
+    let count = pack.client_count();
     let mut client = PackedData::new(count);
     for id in 0..count {
         if let Some(props) = pack.get_by_id(id).and_then(|name| configs.get(name)) {

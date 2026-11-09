@@ -140,7 +140,9 @@ clippy.derivable_impls = "allow"
 clippy.new_without_default = "allow"
 clippy.too_many_arguments = "allow"
 
-# rs-runec 0.5.10 (region_uid, controller_queue*, npc_queue*) until it is
-# published: then drop this and `cargo update -p rs-runec`.
+# rs-runec 0.5.10 (region_uid, controller_queue*, npc_queue*) and
+# rs-pathfinder 0.1.7 (add leaves absent zones absent) until they are
+# published: then drop these and `cargo update -p rs-runec -p rs-pathfinder`.
 [patch.crates-io]
 rs-runec = { path = "../rs-compiler" }
+rs-pathfinder = { path = "../rs-pathfinder" }

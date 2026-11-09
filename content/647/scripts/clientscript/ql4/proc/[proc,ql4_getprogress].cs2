@@ -30,7 +30,7 @@ switch_int ($int0) {
     case 13 :
         return(~script2157(%runemysteries, 6));
     case 15 :
-        return(~script2159(%varplayer_145, 7, %varplayer_146, 4));
+        return(~script2159(%blackarmgang, 7, %phoenixgang, 4));
     case 16 :
         return(~script2157(%varplayerbit_6914, 3));
     case 18 :
@@ -44,7 +44,7 @@ switch_int ($int0) {
     case 22 :
         return(~script2157(%varplayer_655, 140));
     case 23 :
-        return(~script2157(%varplayer_10, 8));
+        return(~script2157(%cogquest, 8));
     case 24 :
         return(~script2157(%varplayerbit_3274, 130));
     case 25 :
@@ -78,9 +78,9 @@ switch_int ($int0) {
     case 36 :
         return(~script2157(%varplayerbit_2780, 40));
     case 37 :
-        if (testbit(%varplayer_299, 20) = ^true) {
+        if (testbit(%elemental_workshop_bits, 20) = ^true) {
             return(2);
-        } else if (testbit(%varplayer_299, 1) = ^false) {
+        } else if (testbit(%elemental_workshop_bits, 1) = ^false) {
             return(0);
         } else {
             return(1);
@@ -134,7 +134,7 @@ switch_int ($int0) {
     case 61 :
         return(~script2157(%grail, 10));
     case 62 :
-        return(~script2157(%varplayerbit_34, 10));
+        return(~script2157(%horrorquest, 10));
     case 63 :
         return(~script2157(%varplayerbit_418, 26));
     case 64 :
@@ -222,7 +222,7 @@ switch_int ($int0) {
     case 105 :
         return(~script2157(%varplayerbit_451, 2));
     case 106 :
-        return(~script2157(%varplayer_26, 80));
+        return(~script2157(%ikov, 80));
     case 107 :
         return(~script2157(%varplayer_359, 100));
     case 108 :
@@ -238,10 +238,10 @@ switch_int ($int0) {
     case 113 :
         return(~script2157(%troll_quest, 50));
     case 114 :
-        if (%varplayer_161 = 10) {
+        if (%upass = 10) {
             return(2);
         }
-        if (testbit(%varplayer_162, 11) = ^false) {
+        if (testbit(%ibanmulti, 11) = ^false) {
             return(0);
         }
         return(1);

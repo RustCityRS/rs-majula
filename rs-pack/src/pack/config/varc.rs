@@ -1,4 +1,4 @@
-use crate::pack::pack::FileCache;
+use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackFile, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_script_var_type;
@@ -30,7 +30,7 @@ fn pack_table(
     constants: &HashMap<String, String>,
     strings: bool,
 ) -> Result<PackedFile> {
-    let configs = file_cache.client_configs("varc", constants)?;
+    let configs = parse_config_sections_cached(file_cache, "varc", constants)?;
     let mut entries = BTreeMap::new();
     for (name, props) in &configs {
         if props.iter().any(|(k, v)| k == "type" && v == "string") == strings {

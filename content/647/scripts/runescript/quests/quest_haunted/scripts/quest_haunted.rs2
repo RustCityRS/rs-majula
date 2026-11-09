@@ -221,7 +221,7 @@ p_teleport($beyond);
 // stops seeing it once done. 289 turned it into Ernest for everyone; so does
 // this, until a 2011 source shows the other.
 [proc,change_ernest]
-if(npc_find(coord, npc_3290, 8, 0) = true) {
+if(npc_find(coord, questchicken, 8, 0) = true) {
     npc_changetype_keepall(ernest, 100);
 }
 

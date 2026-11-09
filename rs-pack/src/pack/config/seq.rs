@@ -17,8 +17,6 @@ pub fn pack_seqs(
 
     let configs = parse_config_sections_cached(file_cache, "seq", constants)?;
 
-    #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("seq", constants)?;
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
 
@@ -26,14 +24,12 @@ pub fn pack_seqs(
         server.start_entry();
         client.start_entry();
 
-        let Some((debugname, _props)) = config_entry("seq", pack, &configs, id) else {
+        let Some((debugname, props)) = config_entry("seq", pack, &configs, id) else {
             server.skip_entry();
             client.skip_entry();
             continue;
         };
 
-        #[cfg(before_647)]
-        let props = _props;
         let mut frames: Vec<(usize, u16, u16, u16)> = Vec::new();
         let mut iframes: Vec<(usize, u16, u16)> = Vec::new();
         #[cfg(before_647)]
@@ -41,11 +37,6 @@ pub fn pack_seqs(
 
         #[cfg(since_647)]
         let mut sounds = Vec::new();
-        #[cfg(since_647)]
-        let props = client_configs
-            .get(debugname)
-            .map(Vec::as_slice)
-            .unwrap_or_default();
 
         for (key, value) in props {
             #[cfg(since_647)]

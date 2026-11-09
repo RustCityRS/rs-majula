@@ -21,7 +21,7 @@ pub fn pack_enums(
 
     let mut server = PackedData::new(pack.max);
     #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("enum", constants)?;
+    let client_configs = file_cache.client_configs("enum", pack, constants)?;
     #[cfg(since_647)]
     let client_count = client_configs
         .keys()

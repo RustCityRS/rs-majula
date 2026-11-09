@@ -17,14 +17,12 @@ pub fn pack_varps(
     let configs = parse_config_sections_cached(file_cache, "varp", constants)?;
 
     #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("varp", constants)?;
+    let client_configs = file_cache.client_configs("varp", pack, constants)?;
     let mut server = PackedData::new(pack.max);
     #[cfg(before_647)]
     let client_count = pack.max;
     #[cfg(since_647)]
-    let client_count = file_cache
-        .client_count("varp", pack, constants)?
-        .unwrap_or(pack.max);
+    let client_count = pack.client_count();
     let mut client = PackedData::new(client_count);
 
     for id in 0..pack.max {

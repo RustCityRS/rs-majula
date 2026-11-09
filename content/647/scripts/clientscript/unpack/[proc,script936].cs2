@@ -4,7 +4,7 @@ def_string $string0 = "";
 def_int $int1 = oc_param($obj0, param_763);
 switch_int (oc_param($obj0, param_762)) {
     case 1 :
-        return(~script913(%varplayer_322, 10, "Part of quest: Tai Bwo Wannai Trio"));
+        return(~script913(%tbwt_tinsay, 10, "Part of quest: Tai Bwo Wannai Trio"));
     case 2 :
         return(~script913(%varplayerbit_4310, 10, "Complete: Chaos Tunnels"));
     case default :

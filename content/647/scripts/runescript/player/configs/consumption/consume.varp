@@ -1,9 +1,0 @@
-// Server-only consumption vars. eat_delay is the eat-throttle clock (compared
-// against map_clock in [label,player_consume_item]) — mirrors action_delay
-// (varp 58) but is hand-authored beyond the cache varp range (id 2182), so it
-// never touches the client cache (no archive-2 CRC impact). See display_mode
-// (login_logout/configs/client.varp) for the same server-only varp pattern.
-[eat_delay]
-transmit=no
-scope=temp
-protect=no

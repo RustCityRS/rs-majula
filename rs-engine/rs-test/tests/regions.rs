@@ -12,10 +12,12 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
 use rs_grid::CoordGrid;
+use rs_pack::types::{LocAngle, LocShape};
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rs_vm::RegionUid;
+use rs_vm::engine::ScriptEngine;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 
 /// Lumbridge castle: a 4x4 zone area of mapsquare 50_50, walls, doors and
@@ -25,6 +27,12 @@ const TILES: u16 = 32;
 
 /// The npc and player blocking flags, which stand for whoever is there.
 const ENTITIES: u32 = 0x80000 | 0x100000;
+
+/// The flag of a loc blocking its tiles.
+const LOC: u32 = 0x100;
+
+/// The flag of a wall on a tile's west side.
+const WALL_WEST: u32 = 0x80;
 
 /// Each directional collision flag family, clockwise from north (and from
 /// north-east for the corners).
@@ -609,5 +617,147 @@ fn regions_keep_to_the_size_they_were_created_with() {
         assert!(origin.z() >= 5248, "a 320x320 slot");
         assert!(engine.harness_region_coord(large, 0, 319, 319).is_some());
         engine.harness_region_free(large);
+    });
+}
+
+/// A blocking active loc on the ground of mapsquare 50_50 that crosses its
+/// zone's east edge but not its north one, as `(id, x, z, angle, width,
+/// length)`, its width and length as it lies.
+fn crossing_loc(engine: &Engine) -> (u16, u16, u16, u8, u16, u16) {
+    for x0 in (3200..3264).step_by(8) {
+        for z0 in (3200..3264).step_by(8) {
+            let Some(zone) = engine.zones.zone(x0, 0, z0) else {
+                continue;
+            };
+            for loc in &zone.locs {
+                let coord = loc.world_coord(zone.coord);
+                let (width, length) = if loc.angle() as u8 & 1 == 1 {
+                    (loc.length() as u16, loc.width() as u16)
+                } else {
+                    (loc.width() as u16, loc.length() as u16)
+                };
+                if (coord.x() & 7) + width > 8
+                    && (coord.z() & 7) + length <= 8
+                    && flags(coord.x(), coord.z(), 0) & LOC != 0
+                {
+                    let angle = loc.angle() as u8;
+                    return (loc.id(), coord.x(), coord.z(), angle, width, length);
+                }
+            }
+        }
+    }
+    panic!("no loc of 50_50 crosses its zone's east edge");
+}
+
+#[test]
+fn turned_locs_off_the_copy_lie_where_the_client_puts_them() {
+    runner::on_loaded_engine(|engine| {
+        let (id, x, z, angle, width, length) = crossing_loc(engine);
+        let (sx, sz) = ((x & 7) as i32, (z & 7) as i32);
+        let source = CoordGrid::new(x & !7, 0, z & !7);
+        for rotation in [1, 2] {
+            let uid = engine.harness_region_create(1, 16, 16).unwrap();
+            engine
+                .harness_region_set(uid, 0, 0, 0, source, rotation)
+                .unwrap();
+            let origin = engine.harness_region_coord(uid, 0, 0, 0).unwrap();
+            let (dx, dz) = if rotation == 1 {
+                (sz, 8 - sx - width as i32)
+            } else {
+                (8 - sx - width as i32, 8 - sz - length as i32)
+            };
+            assert!(dx < 0 || dz < 0, "the loc is turned off the zone");
+            let anchor = CoordGrid::new(
+                (origin.x() as i32 + dx) as u16,
+                0,
+                (origin.z() as i32 + dz) as u16,
+            );
+            let turned = (angle + rotation as u8) & 3;
+            assert!(
+                engine
+                    .zones
+                    .zone(anchor.x(), 0, anchor.z())
+                    .is_some_and(|zone| zone.locs.iter().any(|loc| {
+                        loc.id() == id
+                            && loc.world_coord(zone.coord) == anchor
+                            && loc.angle() as u8 == turned
+                    })),
+                "rotation {rotation}: loc {id} at {anchor:?}"
+            );
+            for tx in sx..8 {
+                for tz in sz..sz + length as i32 {
+                    let (rx, rz) = if rotation == 1 {
+                        (tz, 7 - tx)
+                    } else {
+                        (7 - tx, 7 - tz)
+                    };
+                    assert_ne!(
+                        flags(origin.x() + rx as u16, origin.z() + rz as u16, 0) & LOC,
+                        0,
+                        "rotation {rotation}: tile {tx},{tz} turned onto {rx},{rz}"
+                    );
+                }
+            }
+
+            engine.harness_region_free(uid);
+            engine.cycle();
+            assert!(engine.zones.zone(anchor.x(), 0, anchor.z()).is_none());
+        }
+    });
+}
+
+#[test]
+fn collision_by_a_copys_edge_leaves_the_void_beside_it() {
+    runner::on_loaded_engine(|engine| {
+        let uid = engine.harness_region_create(1, 16, 16).unwrap();
+        let source = CoordGrid::new(SOURCE.0, 0, SOURCE.1);
+        for (east, north) in [(1, 0), (0, 1)] {
+            engine
+                .harness_region_set(uid, 0, east, north, source, 0)
+                .unwrap();
+        }
+        let origin = engine.harness_region_coord(uid, 0, 0, 0).unwrap();
+        let at = |x: i32, z: i32| {
+            CoordGrid::new(
+                (origin.x() as i32 + x) as u16,
+                0,
+                (origin.z() as i32 + z) as u16,
+            )
+        };
+        for (wall, beside) in [(at(8, 3), at(7, 3)), (at(0, 11), at(-1, 11))] {
+            engine.add_or_change_loc(
+                wall,
+                1,
+                LocShape::WallStraight,
+                LocAngle::West,
+                1,
+                1,
+                true,
+                false,
+                0,
+            );
+            assert_ne!(flags(wall.x(), wall.z(), 0) & WALL_WEST, 0);
+            assert!(
+                !rsmod::is_zone_allocated(beside.x(), beside.z(), 0),
+                "a wall at {wall:?} made the zone beside it"
+            );
+        }
+
+        let inside = at(1, 11);
+        assert!(ScriptEngine::region_allows(
+            &*engine,
+            inside,
+            inside,
+            Some(uid)
+        ));
+        assert!(!ScriptEngine::region_allows(
+            &*engine,
+            inside,
+            at(-1, 11),
+            Some(uid)
+        ));
+
+        engine.harness_region_free(uid);
+        engine.cycle();
     });
 }

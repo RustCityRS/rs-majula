@@ -11,7 +11,11 @@ use rs_test::runner;
 #[test]
 fn the_make_x_amount_is_saved_and_varp_1363_is_not() {
     runner::on_loaded_engine(|engine| {
-        let saved = engine.cache.varps.get_by_id(2235).expect("varp 2235");
+        let saved = engine
+            .cache
+            .varps
+            .get_by_debugname("skill_creation_saved")
+            .expect("skill_creation_saved");
         assert_eq!(
             saved.scope,
             VarPlayerScope::Perm,

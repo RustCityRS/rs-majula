@@ -44,9 +44,7 @@ pub fn pack_locs(
     }
 
     #[cfg(since_647)]
-    let client_params = file_cache
-        .client_count("param", &registry.param, constants)?
-        .unwrap_or(0);
+    let client_params = registry.param.client_count();
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

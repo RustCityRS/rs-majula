@@ -18,11 +18,9 @@ pub fn pack_structs(
 
     let mut server = PackedData::new(r#struct.max);
     #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("struct", constants)?;
+    let client_configs = file_cache.client_configs("struct", r#struct, constants)?;
     #[cfg(since_647)]
-    let client_count = file_cache
-        .client_count("struct", r#struct, constants)?
-        .unwrap_or(0);
+    let client_count = r#struct.client_count();
     #[cfg(since_647)]
     let mut client = PackedData::new(client_count);
 

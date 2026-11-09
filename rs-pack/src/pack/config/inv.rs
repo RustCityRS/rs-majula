@@ -18,9 +18,7 @@ pub fn pack_invs(
 
     let mut server = PackedData::new(pack.max);
     #[cfg(since_647)]
-    let client_count = file_cache
-        .client_count("inv", pack, constants)?
-        .unwrap_or(pack.max);
+    let client_count = pack.client_count();
     #[cfg(since_647)]
     let mut client = PackedData::new(client_count);
 

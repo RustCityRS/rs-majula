@@ -44,7 +44,10 @@ Both scripts are in this skill's `scripts/` folder.
 
 ## Vars
 
-- **No new varp ids.** Reuse cache 786's server-only varps, 289's id first when it is free.
+- **No new varp or varbit ids.** Every var is one of cache 786's, its keys on its section in
+  `_unpack/all.varp`. Take 289's id when 786 leaves it free (no clientscript, interface, quest,
+  multiloc or varbit reads it another way), else an empty `varplayer_N`. The pack fails on a
+  `.varp` or `.varbit` outside `_unpack`.
 - **Read what the cache expects of a var** (quest config, clientscripts, multilocs) before choosing
   its values. Unstable Foundations, for example, completes at exactly 1000.
 - **Never transmit a varp the client doesn't define.** It breaks login.

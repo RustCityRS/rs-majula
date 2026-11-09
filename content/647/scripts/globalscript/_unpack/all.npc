@@ -3892,6 +3892,23 @@ model1=model_18884
 unknown119=3
 cursorattack=cursor_42
 desc=Eek! A bear!
+wanderrange=13
+maxrange=15
+respawnrate=100
+hitpoints=270
+attack=17
+strength=18
+defence=15
+param=damagetype,^slash_style
+param=attack_anim,bear_attack
+param=defend_anim,bear_block
+param=death_anim,bear_death
+param=attack_sound,bear_attack
+param=defend_sound,bear_hit
+param=death_sound,bear_death
+category=bear
+huntmode=cowardly
+huntrange=1
 
 // 106
 [black_bear]
@@ -3904,6 +3921,23 @@ model1=model_18882
 unknown119=3
 cursorattack=cursor_42
 desc=Eek! A bear!
+wanderrange=8
+maxrange=10
+respawnrate=100
+hitpoints=250
+attack=15
+strength=16
+defence=13
+param=damagetype,^slash_style
+param=attack_anim,bear_attack
+param=defend_anim,bear_block
+param=death_anim,bear_death
+param=attack_sound,bear_attack
+param=defend_sound,bear_hit
+param=death_sound,bear_death
+category=bear
+huntmode=cowardly
+huntrange=1
 
 // 107
 [scorpion]
@@ -4408,7 +4442,7 @@ param=attack_sound,warhammer_crush
 param=defend_sound,dwarf_hit
 param=death_sound,dwarf_death
 // osrs stats and Vislvl match 1:1
-// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_292
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc plaguesheep_1
 
 // 121
 [dwarf_mountain2]
@@ -5329,6 +5363,21 @@ name=Pelican
 model1=model_26846
 unknown119=3
 desc=A sea bird.
+hitpoints=320
+attack=22
+strength=22
+defence=17
+param=stabdefence,12
+param=slashdefence,10
+param=crushdefence,16
+param=magicdefence,8
+param=damagetype,^stab_style
+param=attack_anim,bird_attack
+param=defend_anim,bird_block
+param=death_anim,bird_death
+param=attack_sound,bird_attack
+param=defend_sound,bird_hit
+param=death_sound,bird_death
 
 // 149
 [gull1]
@@ -5424,7 +5473,7 @@ huntrange=1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2852
 
 // 152
-[npc_152]
+[nasty_tree]
 vislevel=85
 multivar=varplayerbit_3185
 multinpc=0,tree_5207
@@ -5458,6 +5507,22 @@ unknown119=1
 desc=Its bark is worse than its swipe.
 // cache 786 walk mode 1: stands
 wanderrange=0
+defaultmode=none
+moverestrict=nomove
+blockwalk=all
+hitpoints=2500
+attack=20
+strength=20
+defence=40
+param=stabdefence,40
+param=slashdefence,10
+param=crushdefence,60
+param=magicdefence,10
+param=damagetype,^crush_style
+param=attack_anim,deadtree_attack
+param=attack_sound,nasty_tree_attack
+huntmode=aggressive_melee
+huntrange=1
 
 // 153
 [butterfly]
@@ -10287,7 +10352,7 @@ desc=A farmer who's seen happier times.
 wanderrange=3
 
 // 292
-[npc_292]
+[plaguesheep_1]
 bas=bas_64
 size=1
 alwaysontop=yes
@@ -10297,6 +10362,10 @@ multinpc=0,sick_looking_sheep__1
 multinpc=1,sick_looking_sheep__1_2377
 unknown119=3
 desc=Even from here you can see this sheep's not well.
+wanderrange=3
+param=death_anim,sheep_death
+timer=25
+category=diseased_sheep
 
 // 293
 [npc_293]
@@ -10311,7 +10380,7 @@ unknown119=3
 desc=Even from here you can see this sheep's not well.
 
 // 294
-[npc_294]
+[plaguesheep_3]
 bas=bas_64
 size=1
 alwaysontop=yes
@@ -10321,6 +10390,10 @@ multinpc=0,sick_looking_sheep__3
 multinpc=1,sick_looking_sheep__3_2379
 unknown119=3
 desc=Even from here you can see this sheep's not well.
+wanderrange=3
+param=death_anim,sheep_death
+timer=25
+category=diseased_sheep
 
 // 295
 [npc_295]
@@ -11489,7 +11562,7 @@ wanderrange=0
 moverestrict=nomove
 
 // 335
-[npc_335]
+[elena2]
 bas=bas_4
 size=1
 vislevel=0
@@ -15035,6 +15108,21 @@ magic=10
 defence=7
 attackrange=5
 param=undead,^true
+wanderrange=3
+maxrange=5
+attack=10
+strength=11
+param=stabdefence,5
+param=slashdefence,5
+param=crushdefence,-5
+param=rangedefence,5
+param=damagetype,^crush_style
+param=attack_anim,skeleton_attack
+param=defend_anim,skeleton_block
+param=death_anim,skeleton_death
+param=attack_sound,skeleton_attack
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 460
 [wizard_frumscone]
@@ -15509,7 +15597,7 @@ unknown119=3
 desc=It's a tree gnome.
 
 // 474
-[npc_474]
+[elkoy_village]
 bas=bas_108
 size=1
 ambient=20
@@ -15520,6 +15608,9 @@ multinpc=default,elkoy_5182
 multinpc=0,elkoy
 unknown119=3
 desc=It's a tree gnome.
+wanderrange=3
+param=death_anim,midget_death
+param=death_sound,gnome_death
 
 // 475
 [khazard_trooper]
@@ -15796,6 +15887,8 @@ head1=model_63358
 unknown119=3
 cursor1=1,cursor_44
 desc=It's a gnome who specialises in covert operations.
+param=death_anim,midget_death
+param=death_sound,gnome_death
 
 // 482
 [tracker_gnome_2]
@@ -15824,6 +15917,8 @@ head1=model_63353
 unknown119=3
 cursor1=1,cursor_44
 desc=It's a gnome who specialises in covert operations.
+param=death_anim,midget_death
+param=death_sound,gnome_death
 
 // 483
 [tracker_gnome_3]
@@ -15854,6 +15949,8 @@ head2=model_63369
 unknown119=3
 cursor1=1,cursor_44
 desc=It's a gnome who specialises in covert operations.
+param=death_anim,midget_death
+param=death_sound,gnome_death
 
 // 484
 [local_gnome]
@@ -21417,6 +21514,7 @@ head3=model_39452
 unknown119=3
 cursor1=1,cursor_44
 desc=Looks down on his luck.
+wanderrange=2
 
 // 642
 [katrine]
@@ -23090,7 +23188,7 @@ param=shop_title,Authentic throwing weapons.
 // https://web.archive.org/web/20060521172929/http://runehq.com/images/otherguides/Throwing_weapons.jpg (Authentic throwing weapons.)
 
 // 693
-[npc_693]
+[ranging_guild_competition_judge]
 size=1
 vislevel=0
 multivar=varplayer_156
@@ -23098,6 +23196,7 @@ multinpc=default,competition_judge
 multinpc=0,competition_judge_8524
 unknown119=3
 desc=Overseer of the Archery competition.
+wanderrange=1
 
 // 694
 [ticket_merchant]
@@ -23801,7 +23900,7 @@ cursor1=1,cursor_44
 desc=A local civilian.
 
 // 715
-[npc_715]
+[elenap]
 bas=bas_4
 size=1
 vislevel=0
@@ -28189,6 +28288,9 @@ head2=model_42660
 unknown119=3
 cursor1=1,cursor_44
 desc=The famous tree gnome chef.
+wanderrange=3
+param=death_anim,midget_death
+param=death_sound,gnome_death
 
 // 851
 [gnome_waiter]
@@ -31911,6 +32013,8 @@ head3=model_38797
 unknown119=3
 cursor1=1,cursor_44
 desc=This nurse really knows her stuff.
+moverestrict=indoors
+category=healer
 
 // 962
 [jaraah]
@@ -32970,6 +33074,8 @@ unknown119=3
 cursor1=1,cursor_45
 cursor2=3,cursor_44
 desc=Curiosity is yet to kill this one...
+respawnrate=100
+param=death_anim,cat_death
 
 // 994
 [niloof]
@@ -39977,6 +40083,7 @@ param=defend_sound,bear_hit
 param=death_sound,synth_301
 huntmode=cowardly
 category=bear
+huntrange=1
 
 // 1196
 [grizzly_bear_cub]
@@ -44941,6 +45048,23 @@ model1=model_26265
 unknown119=3
 cursorattack=cursor_42
 desc=Fearsome predator found only in the Fremennik Province, renowned for its fur.
+wanderrange=6
+maxrange=8
+respawnrate=180
+hitpoints=690
+attack=50
+strength=55
+defence=52
+param=damagetype,^stab_style
+param=attack_anim,dog_attack
+param=defend_anim,dog_block
+param=death_anim,dog_death
+param=attack_sound,wolf_attack
+param=defend_sound,wolf_hit
+param=death_sound,wolf_death
+param=death_drop,wolf_bones
+huntmode=cowardly
+huntrange=1
 
 // 1331
 [0_41_57_saltfish]
@@ -54601,6 +54725,11 @@ param=death_anim,terrorbird_death
 param=attack_sound,terrorbird_attack
 param=defend_sound,terrorbird_hit
 param=death_sound,terrorbird_death
+param=stabdefence,16
+param=slashdefence,16
+param=crushdefence,18
+param=magicdefence,15
+param=rangedefence,10
 
 // 1754
 [crow]
@@ -65649,6 +65778,25 @@ model7=model_185
 model8=model_540
 unknown119=3
 cursorattack=cursor_42
+wanderrange=8
+maxrange=10
+hitpoints=220
+attack=17
+strength=16
+defence=13
+param=attackrate,6
+param=attackbonus,8
+param=strengthbonus,10
+param=stabdefence,25
+param=slashdefence,25
+param=crushdefence,22
+param=magicdefence,-7
+param=rangedefence,-25
+param=damagetype,^stab_style
+param=attack_anim,human_spear_lunge
+param=defend_anim,human_spear_def
+param=attack_sound,staff_stab
+param=defend_sound,blade5
 
 // 2247
 [gnome_troop_2247]
@@ -67850,6 +67998,7 @@ head3=model_39223
 unknown119=3
 cursor1=1,cursor_44
 desc=The hat is a dead give away.
+moverestrict=indoors
 
 // 2329
 [muncher]
@@ -71089,13 +71238,20 @@ multinpc=5,tamayu
 unknown119=3
 
 // 2488
-[npc_2488]
+[tbwt_tamayu_final]
 bas=bas_4
 size=1
 vislevel=0
 multivar=tbwt_main
 multinpc=6,tamayu
 unknown119=3
+wanderrange=5
+category=shop_keeper
+param=owned_shop,tbwt_tamayu_final_inventory
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,750
+param=shop_delta,10
+param=shop_title,Tamayu's Spear Stall
 
 // 2489
 [bush_snake]
@@ -87903,6 +88059,7 @@ category=guard
 param=defend_anim,human_unarmedblock
 param=death_anim,human_death
 param=attack_sound,crossbow
+param=proj_launch,crossbowbolt_launch
 
 // 3230
 [guard_3230]
@@ -89685,6 +89842,26 @@ head1=model_51654
 unknown119=3
 cursorattack=cursor_42
 desc=A dwarven worker.
+wanderrange=5
+maxrange=12
+hitpoints=160
+attack=8
+strength=6
+defence=9
+param=attackbonus,5
+param=strengthbonus,7
+param=stabdefence,3
+param=slashdefence,4
+param=crushdefence,4
+param=magicdefence,2
+param=rangedefence,3
+param=damagetype,^stab_style
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
+param=attack_sound,gnome_hit
+param=defend_sound,brassclash2
+param=death_sound,gnome_death
 
 // 3269
 [dwarf_3269]
@@ -89707,6 +89884,26 @@ model6=model_2985
 head1=model_51666
 unknown119=3
 cursorattack=cursor_42
+wanderrange=5
+maxrange=12
+hitpoints=160
+attack=8
+strength=6
+defence=9
+param=attackbonus,5
+param=strengthbonus,7
+param=stabdefence,3
+param=slashdefence,4
+param=crushdefence,4
+param=magicdefence,2
+param=rangedefence,3
+param=damagetype,^stab_style
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
+param=attack_sound,gnome_hit
+param=defend_sound,brassclash2
+param=death_sound,gnome_death
 
 // 3270
 [dwarf_3270]
@@ -89745,6 +89942,26 @@ model6=model_2985
 head1=model_51660
 unknown119=3
 cursorattack=cursor_42
+wanderrange=5
+maxrange=12
+hitpoints=160
+attack=8
+strength=6
+defence=9
+param=attackbonus,5
+param=strengthbonus,7
+param=stabdefence,3
+param=slashdefence,4
+param=crushdefence,4
+param=magicdefence,2
+param=rangedefence,3
+param=damagetype,^stab_style
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
+param=attack_sound,gnome_hit
+param=defend_sound,brassclash2
+param=death_sound,gnome_death
 
 // 3272
 [dwarf_3272]
@@ -89831,6 +90048,26 @@ model5=model_2985
 head1=model_51654
 unknown119=3
 cursorattack=cursor_42
+wanderrange=5
+maxrange=12
+hitpoints=160
+attack=8
+strength=6
+defence=9
+param=attackbonus,5
+param=strengthbonus,7
+param=stabdefence,3
+param=slashdefence,4
+param=crushdefence,4
+param=magicdefence,2
+param=rangedefence,3
+param=damagetype,^stab_style
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
+param=attack_sound,gnome_hit
+param=defend_sound,brassclash2
+param=death_sound,gnome_death
 
 // 3275
 [dwarf_3275]
@@ -90208,7 +90445,7 @@ multinpc=3,ernest
 unknown119=3
 
 // 3290
-[npc_3290]
+[questchicken]
 bas=bas_50
 vislevel=0
 multivar=haunted
@@ -90216,6 +90453,8 @@ multinpc=0,chicken_288
 multinpc=1,chicken_288
 multinpc=2,chicken_288
 unknown119=3
+param=death_anim,chicken_death
+param=death_sound,chicken_death
 
 // 3291
 [skeleton_3291]
@@ -100741,6 +100980,8 @@ cursor1=1,cursor_44
 desc=Tally Ho!
 // cache 786 walk mode 1: stands
 wanderrange=0
+param=death_anim,midget_death
+param=death_sound,gnome_death
 
 // 3810
 [captain_bleemadge]
@@ -100830,6 +101071,8 @@ cursor1=1,cursor_44
 desc=Up up and away!
 // cache 786 walk mode 1: stands
 wanderrange=0
+param=death_anim,midget_death
+param=death_sound,gnome_death
 
 // 3813
 [npc_3813]
@@ -126941,6 +127184,28 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=He looks a bit aggressive.
+wanderrange=3
+maxrange=40
+huntrange=1
+hitpoints=600
+attack=32
+strength=32
+defence=32
+magic=0
+ranged=0
+param=attackbonus,9
+param=strengthbonus,14
+param=stabdefence,17
+param=slashdefence,15
+param=crushdefence,19
+param=magicdefence,-3
+param=rangedefence,19
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+param=defend_sound,blade2_mail
+huntmode=cowardly
 
 // 4994
 [guard_4994]
@@ -127119,6 +127384,28 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=He looks a bit aggressive.
+wanderrange=3
+maxrange=40
+huntrange=1
+hitpoints=600
+attack=32
+strength=32
+defence=32
+magic=0
+ranged=0
+param=attackbonus,9
+param=strengthbonus,14
+param=stabdefence,17
+param=slashdefence,15
+param=crushdefence,19
+param=magicdefence,-3
+param=rangedefence,19
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+param=defend_sound,blade2_mail
+huntmode=cowardly
 
 // 4999
 [guard_4999]
@@ -127150,6 +127437,27 @@ head2=model_39275
 unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
+wanderrange=1
+maxrange=1
+respawnrate=100
+hitpoints=600
+attack=32
+strength=32
+defence=39
+magic=0
+ranged=0
+param=attackbonus,9
+param=strengthbonus,14
+param=stabdefence,17
+param=slashdefence,15
+param=crushdefence,19
+param=magicdefence,-3
+param=rangedefence,19
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+param=defend_sound,blade2_mail
 
 // 5000
 [guard_5000]
@@ -127183,6 +127491,27 @@ head3=model_39799
 unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
+wanderrange=1
+maxrange=1
+respawnrate=100
+hitpoints=600
+attack=32
+strength=32
+defence=39
+magic=0
+ranged=0
+param=attackbonus,9
+param=strengthbonus,14
+param=stabdefence,17
+param=slashdefence,15
+param=crushdefence,19
+param=magicdefence,-3
+param=rangedefence,19
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+param=defend_sound,blade2_mail
 
 // 5001
 [guard_5001]
@@ -127217,6 +127546,27 @@ head2=model_39630
 unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
+wanderrange=1
+maxrange=1
+respawnrate=100
+hitpoints=600
+attack=32
+strength=32
+defence=39
+magic=0
+ranged=0
+param=attackbonus,9
+param=strengthbonus,14
+param=stabdefence,17
+param=slashdefence,15
+param=crushdefence,19
+param=magicdefence,-3
+param=rangedefence,19
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+param=defend_sound,blade2_mail
 
 // 5002
 [guard_5002]
@@ -127248,6 +127598,28 @@ head2=model_39275
 unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
+wanderrange=3
+maxrange=40
+huntrange=1
+hitpoints=600
+attack=32
+strength=32
+defence=32
+magic=0
+ranged=0
+param=attackbonus,9
+param=strengthbonus,14
+param=stabdefence,17
+param=slashdefence,15
+param=crushdefence,19
+param=magicdefence,-3
+param=rangedefence,19
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+param=defend_sound,blade2_mail
+huntmode=cowardly
 
 // 5003
 [npc_5003]
@@ -131981,6 +132353,8 @@ cursor1=1,cursor_44
 desc=He looks embarrassed
 // cache 786 walk mode 1: stands
 wanderrange=0
+param=death_anim,midget_death
+param=death_sound,gnome_death
 
 // 5250
 [scarab_mage]
@@ -149780,6 +150154,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=A traveling man. Are those fleas?
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_man2
+param=death_drop,wolf_bones
 
 // 6027
 [imre]
@@ -149800,6 +150192,24 @@ unknown119=3
 cursor1=3,cursor_44
 cursorattack=cursor_42
 desc=A well organised shop keeper.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_man2
+param=death_drop,wolf_bones
 
 // 6028
 [yuri]
@@ -149820,6 +150230,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=He's staring at the moon.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_man1
+param=death_drop,wolf_bones
 
 // 6029
 [joseph]
@@ -149842,6 +150270,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=He keeps calling me comrade.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_man2
+param=death_drop,wolf_bones
 
 // 6030
 [nikolai]
@@ -149902,6 +150348,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=A tough looking villager.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_man3
+param=death_drop,wolf_bones
 
 // 6033
 [georgy]
@@ -149922,6 +150386,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=A simple villager.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_man1
+param=death_drop,wolf_bones
 
 // 6034
 [svetlana]
@@ -149940,6 +150422,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=Seems a bit of a drama queen.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_man1
+param=death_drop,wolf_bones
 
 // 6035
 [irina]
@@ -149976,6 +150476,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=She doesn't say much.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_woman1
+param=death_drop,wolf_bones
 
 // 6037
 [milla]
@@ -150014,6 +150532,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=She seems light on her feet.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_woman2
+param=death_drop,wolf_bones
 
 // 6039
 [sofiya]
@@ -150032,6 +150568,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=A wise villager.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_woman3
+param=death_drop,wolf_bones
 
 // 6040
 [ksenia]
@@ -150050,6 +150604,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=Not exactly a warrior princess.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_man3
+param=death_drop,wolf_bones
 
 // 6041
 [yadviga]
@@ -150068,6 +150640,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=A well off villager.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_man3
+param=death_drop,wolf_bones
 
 // 6042
 [nikita]
@@ -150086,6 +150676,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=The woman.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_man1
+param=death_drop,wolf_bones
 
 // 6043
 [vera]
@@ -150106,6 +150714,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=She seems sure of herself.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_man3
+param=death_drop,wolf_bones
 
 // 6044
 [zoja]
@@ -150142,6 +150768,24 @@ unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
 desc=She's looking for flowers.
+attack=10
+defence=10
+strength=10
+hitpoints=600
+respawnrate=50
+wanderrange=5
+maxrange=20
+category=canafis_citizen
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=attack_sound,half_werewolf_attack
+param=defend_sound,half_werewolf_hit
+param=death_sound,half_werewolf_death
+param=next_npc_type,canafis_werewolf_woman3
+param=death_drop,wolf_bones
 
 // 6046
 [big_wolf_6046]
@@ -150933,6 +151577,23 @@ model3=model_18894
 unknown119=3
 cursorattack=cursor_42
 desc=Overgrown undead vermin.
+wanderrange=6
+maxrange=8
+respawnrate=60
+hitpoints=100
+attack=6
+strength=5
+defence=2
+param=damagetype,^stab_style
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
+huntmode=cowardly
+huntrange=1
+category=giantrat
 
 // 6089
 [zombie_rat_6089]
@@ -151175,6 +151836,29 @@ head1=model_21394
 unknown119=3
 cursor1=1,cursor_44
 cursorattack=cursor_42
+wanderrange=8
+maxrange=10
+respawnrate=80
+hitpoints=250
+attack=13
+strength=13
+defence=18
+param=stabdefence,5
+param=slashdefence,5
+param=crushdefence,5
+param=magicdefence,-5
+param=rangedefence,5
+param=damagetype,^crush_style
+param=attack_anim,ghost_attack
+param=defend_anim,ghost_block
+param=death_anim,ghost_death
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
+param=death_drop,null
+param=undead,^true
+huntmode=cowardly
+huntrange=1
 
 // 6095
 [ghost_6095]
@@ -151491,6 +152175,24 @@ model1=model_26853
 unknown119=3
 cursorattack=cursor_42
 desc=Probably not a chicken.
+wanderrange=15
+maxrange=17
+respawnrate=70
+hitpoints=50
+param=attackbonus,-31
+param=strengthbonus,-26
+param=stabdefence,-26
+param=slashdefence,-26
+param=crushdefence,-26
+param=magicdefence,-26
+param=rangedefence,-26
+param=damagetype,^stab_style
+param=attack_anim,firebird_attack
+param=defend_anim,firebird_block
+param=death_anim,firebird_death
+param=attack_sound,terrorbird_attack
+param=defend_sound,terrorbird_hit
+param=death_sound,terrorbird_death
 
 // 6109
 [mounted_terrorbird_gnome_6109]
@@ -151505,6 +152207,26 @@ model1=model_63412
 unknown119=3
 cursorattack=cursor_42
 desc=These gnomes know how to get around!
+wanderrange=12
+maxrange=14
+respawnrate=60
+hitpoints=550
+attack=40
+strength=40
+defence=40
+param=rangebonus,2
+param=stabdefence,16
+param=slashdefence,16
+param=crushdefence,18
+param=magicdefence,15
+param=rangedefence,10
+param=damagetype,^stab_style
+param=attack_anim,terrorbird_mounted_attack_spear
+param=defend_anim,terrorbird_mounted_block
+param=death_anim,terrorbird_mounted_death
+param=attack_sound,terrorbird_attack
+param=defend_sound,terrorbird_hit
+param=death_sound,terrorbird_death
 
 // 6110
 [mounted_terrorbird_gnome_6110]
@@ -151522,6 +152244,26 @@ name=Mounted terrorbird gnome
 model1=model_63412
 unknown119=3
 cursorattack=cursor_42
+wanderrange=12
+maxrange=14
+respawnrate=60
+hitpoints=550
+attack=40
+strength=40
+defence=40
+param=rangebonus,2
+param=stabdefence,16
+param=slashdefence,16
+param=crushdefence,18
+param=magicdefence,15
+param=rangedefence,10
+param=damagetype,^stab_style
+param=attack_anim,terrorbird_mounted_attack_spear
+param=defend_anim,terrorbird_mounted_block
+param=death_anim,terrorbird_mounted_death
+param=attack_sound,terrorbird_attack
+param=defend_sound,terrorbird_hit
+param=death_sound,terrorbird_death
 
 // 6111
 [mounted_terrorbird_gnome_6111]
@@ -151543,6 +152285,26 @@ name=Mounted terrorbird gnome
 model1=model_63412
 unknown119=3
 cursorattack=cursor_42
+wanderrange=12
+maxrange=14
+respawnrate=60
+hitpoints=550
+attack=40
+strength=40
+defence=40
+param=rangebonus,2
+param=stabdefence,16
+param=slashdefence,16
+param=crushdefence,18
+param=magicdefence,15
+param=rangedefence,10
+param=damagetype,^stab_style
+param=attack_anim,terrorbird_mounted_attack_spear
+param=defend_anim,terrorbird_mounted_block
+param=death_anim,terrorbird_mounted_death
+param=attack_sound,terrorbird_attack
+param=defend_sound,terrorbird_hit
+param=death_sound,terrorbird_death
 
 // 6112
 [ducklings]
@@ -171036,6 +171798,7 @@ head1=model_39630
 unknown119=3
 cursor1=1,cursor_44
 desc=One of King Tyras's men.
+wanderrange=3
 
 // 7121
 [general_hining]
@@ -171053,6 +171816,7 @@ head2=model_39281
 unknown119=3
 cursor1=1,cursor_44
 desc=Leader of King Tyras's men.
+wanderrange=5
 
 // 7122
 [githan]
@@ -182839,6 +183603,9 @@ head1=model_34053
 unknown119=1
 // cache 786 walk mode 1: stands
 wanderrange=0
+members=yes
+param=attack_anim,cat_attack
+param=death_anim,cat_death
 
 // 7744
 [npc_7744]
@@ -211446,6 +212213,7 @@ cursor1=1,cursor_44
 desc=A fortune-teller.
 // cache 786 walk mode 1: stands
 wanderrange=0
+moverestrict=indoors
 
 // 9363
 [ebenezer_scourge]

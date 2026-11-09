@@ -4,9 +4,7 @@ use crate::archive;
 #[cfg(since_647)]
 use crate::cache::js5::PackedCache;
 use crate::pack::config::*;
-#[cfg(since_647)]
-use crate::pack::incremental::dir_key;
-use crate::pack::incremental::{Key, Stage};
+use crate::pack::incremental::{Key, Stage, dir_key};
 #[cfg(before_647)]
 use crate::pack::interface;
 #[cfg(since_647)]
@@ -14,8 +12,8 @@ use crate::pack::names::AssetNames;
 #[cfg(since_647)]
 use crate::pack::other::{map, shader, song};
 #[cfg(since_647)]
-use crate::pack::pack_registry::{PackFile, PackId, validate_config_packs};
-use crate::pack::pack_registry::{PackRegistry, PackedFile};
+use crate::pack::pack_registry::PackFile;
+use crate::pack::pack_registry::{PackRegistry, PackedFile, validate_config_packs};
 use crate::pack::util::verify_crc;
 #[cfg(since_647)]
 use crate::pack::{config, interface, js5, media, model, sound, texture};
@@ -30,17 +28,8 @@ use std::sync::OnceLock;
 use std::time::Instant;
 use tracing::debug;
 
-pub fn pack_assets(
-    registry: &PackRegistry,
-    source_dir: &Path,
-    verify: bool,
-) -> anyhow::Result<HashMap<String, PackedFile>> {
-    pack_cached_assets(registry, &ConfigFiles::new(source_dir), verify)
-}
-
 /// The registries config packing resolves names through: all but the script
 /// ids, which no config names.
-#[cfg(since_647)]
 fn registry_key(pack_dir: &Path) -> Key {
     dir_key(pack_dir, &["script.pack", "clientscript.pack"])
 }
@@ -61,6 +50,7 @@ fn read_registries(kind: &str) -> &'static [&'static str] {
     match kind {
         "dbrow" | "dbtable" => &["dbtable.pack"],
         "interface" => &["interface.order"],
+        "mesanim" => &["mesanim.order"],
         _ => &[],
     }
 }
@@ -363,6 +353,10 @@ impl FileCache {
         "area",
         #[cfg(since_647)]
         "varobj",
+        #[cfg(since_647)]
+        "controller",
+        #[cfg(since_647)]
+        "varcon",
     ];
     pub fn new(source_dir: &Path) -> Self {
         Self::from_files(source_files(source_dir))
@@ -389,30 +383,13 @@ impl FileCache {
     pub fn client_configs(
         &self,
         ext: &str,
-        constants: &HashMap<String, String>,
-    ) -> Result<ConfigSections> {
-        parse_sections(
-            self.collect(ext)
-                .iter()
-                .filter(|path| is_unpacked(path))
-                .filter_map(|path| self.read(path).map(|text| (path.as_path(), text))),
-            constants,
-        )
-    }
-
-    #[cfg(since_647)]
-    pub fn client_count(
-        &self,
-        ext: &str,
         pack: &PackFile,
         constants: &HashMap<String, String>,
-    ) -> Result<Option<PackId>> {
-        Ok(self
-            .client_configs(ext, constants)?
-            .keys()
-            .filter_map(|name| pack.get_by_debugname(name))
-            .max()
-            .map(|id| id + 1))
+    ) -> Result<ConfigSections> {
+        let count = pack.client_count();
+        let mut configs = parse_config_sections_cached(self, ext, constants)?;
+        configs.retain(|name, _| pack.get_by_debugname(name).is_some_and(|id| id < count));
+        Ok(configs)
     }
 
     pub fn collect(&self, ext: &str) -> &[PathBuf] {
@@ -630,10 +607,6 @@ pub(super) fn parse_sections<'a>(
     Ok(configs)
 }
 
-pub fn is_unpacked(path: &Path) -> bool {
-    path.components().any(|part| part.as_os_str() == "_unpack")
-}
-
 #[cfg(since_647)]
 fn find_comment_start(line: &str) -> Option<usize> {
     let bytes = line.as_bytes();
@@ -669,30 +642,35 @@ fn substitute_constants(value: &str, constants: &HashMap<String, String>) -> Str
     result
 }
 
-#[cfg(since_647)]
 pub fn pack_configs(
     source_dir: &Path,
     pack_dir: &Path,
     verify: bool,
 ) -> Result<HashMap<String, PackedFile>> {
     let files = ConfigFiles::new(source_dir);
-    check_configs(&files, pack_dir)?;
+    check_configs(&files, pack_dir, verify)?;
     pack_config_files(&files, pack_dir, verify)
 }
 
 /// Checks the config names against the registries, registering the new names
 /// of server-only types. Everything that reads the registries runs after.
-#[cfg(since_647)]
-pub fn check_configs(files: &ConfigFiles, pack_dir: &Path) -> Result<()> {
+pub fn check_configs(files: &ConfigFiles, pack_dir: &Path, verify: bool) -> Result<()> {
     // Registering names rewrites registries, so the check is recorded against
     // them as it leaves them.
     let check = Stage::new(
         "config names",
-        vec![("pack".to_owned(), registry_key(pack_dir))],
+        vec![
+            ("pack".to_owned(), registry_key(pack_dir)),
+            ("verify".to_owned(), Key::from(verify)),
+        ],
     );
     check.unit(0, &files.with_ext(FileCache::TEXT_EXTS), || {
-        PackRegistry::load(pack_dir)?.check_content(files.read())?;
-        validate_config_packs(files.read(), pack_dir)?;
+        validate_config_packs(files.read(), pack_dir, verify)?;
+        let registry = PackRegistry::load(pack_dir)?;
+        registry.check_content(files.read())?;
+        if verify {
+            registry.check_client_ids()?;
+        }
         Ok(Vec::new())
     })?;
     check.finish(vec![("pack".to_owned(), registry_key(pack_dir))]);
@@ -700,36 +678,40 @@ pub fn check_configs(files: &ConfigFiles, pack_dir: &Path) -> Result<()> {
 }
 
 /// [`pack_configs`] once [`check_configs`] has run.
-#[cfg(since_647)]
 pub fn pack_config_files(
     files: &ConfigFiles,
     pack_dir: &Path,
     verify: bool,
 ) -> Result<HashMap<String, PackedFile>> {
     let registry = PackRegistry::load(pack_dir)?;
-    let mut assets = pack_cached_assets(&registry, files, verify)?;
-    let empty = archive::CONFIG_EMPTY_TABLES
-        .par_iter()
-        .map(|&(name, _, _, expected)| {
-            if files.with_ext(&[name]).is_empty() && !verify {
-                return Ok(None);
-            }
-            let client = pack_empty_table(files.dir(), name, registry.file(name))?;
-            if verify {
-                verify_crc(name, &client.dat, expected);
-            }
-            Ok(Some((name.to_owned(), client)))
-        })
-        .collect::<Result<Vec<_>>>()?;
-    for (name, client) in empty.into_iter().flatten() {
-        assets
-            .entry(name)
-            .or_insert_with(|| PackedFile {
-                server: Default::default(),
-                client: None,
+    let assets = pack_cached_assets(&registry, files, verify)?;
+    #[cfg(since_647)]
+    let assets = {
+        let mut assets = assets;
+        let empty = archive::CONFIG_EMPTY_TABLES
+            .par_iter()
+            .map(|&(name, _, _, expected)| {
+                if files.with_ext(&[name]).is_empty() && !verify {
+                    return Ok(None);
+                }
+                let client = pack_empty_table(files.dir(), name, registry.file(name))?;
+                if verify {
+                    verify_crc(name, &client.dat, expected);
+                }
+                Ok(Some((name.to_owned(), client)))
             })
-            .client = Some(client);
-    }
+            .collect::<Result<Vec<_>>>()?;
+        for (name, client) in empty.into_iter().flatten() {
+            assets
+                .entry(name)
+                .or_insert_with(|| PackedFile {
+                    server: Default::default(),
+                    client: None,
+                })
+                .client = Some(client);
+        }
+        assets
+    };
     Ok(assets)
 }
 
@@ -785,6 +767,7 @@ pub fn pack_cache(
                             pack_dir,
                             &versions,
                             names,
+                            verify,
                         )?,
                         "synth" => sound::pack_archive(&mut cache, content_dir, &versions, names)?,
                         "shaders" => shader::pack_archive(

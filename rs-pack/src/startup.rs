@@ -132,7 +132,7 @@ pub fn pack_all(
     // Checking config names registers new ones, so everything that reads the
     // registries starts after it, from names loaded once.
     let config_files = pack::ConfigFiles::new(&content_dir.join("scripts"));
-    pack::check_configs(&config_files, pack_dir)?;
+    pack::check_configs(&config_files, pack_dir, verify)?;
     let asset_names = names::AssetNames::load(pack_dir)?;
     let (packed, scripts) = thread::scope(|scope| {
         let scripts = scope.spawn(|| compile_scripts(content_dir, pack_dir));

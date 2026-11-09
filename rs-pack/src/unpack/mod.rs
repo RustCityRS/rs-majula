@@ -7,7 +7,7 @@ use crate::archive::{JagArchive, JagSource};
 #[cfg(since_647)]
 use crate::pack::pack::FileCache;
 #[cfg(before_647)]
-use crate::pack::pack::pack_assets;
+use crate::pack::pack::pack_configs;
 #[cfg(before_647)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 #[cfg(before_647)]
@@ -409,8 +409,11 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
 
 #[cfg(before_647)]
 fn pack_committed_configs() -> anyhow::Result<HashMap<String, PackedFile>> {
-    let registry = PackRegistry::load(Path::new(PACK_DIR))?;
-    pack_assets(&registry, &Path::new(CONTENT_DIR).join("scripts"), false)
+    pack_configs(
+        &Path::new(CONTENT_DIR).join("scripts"),
+        Path::new(PACK_DIR),
+        false,
+    )
 }
 
 #[cfg(before_647)]

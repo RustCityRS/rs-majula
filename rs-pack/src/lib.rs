@@ -71,7 +71,7 @@ use crate::pack::other::map::pack_maps;
 #[cfg(before_647)]
 use crate::pack::other::song::pack_midis;
 #[cfg(before_647)]
-use crate::pack::pack::pack_assets;
+use crate::pack::pack::{ConfigFiles, check_configs, pack_config_files};
 use crate::pack::pack_dir::PrivatePack;
 #[cfg(before_647)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -428,7 +428,7 @@ fn compile_runescript(source: &Path, pack: &Path) -> anyhow::Result<(Vec<u8>, Ve
             .map_err(|e| anyhow::anyhow!("{e}"))
     })?;
     debug!("Compiled scripts in {:.2}s", start.elapsed().as_secs_f64());
-    private.pin(pack, "script.pack");
+    private.pin(pack, "script.pack", false)?;
     // Compiling gives new scripts ids, which the pack dir keeps from now on.
     stage.finish(vec![("pack".to_owned(), dir_key(private.path(), &[]))]);
     Ok(bytes)
@@ -470,6 +470,8 @@ pub fn pack_all(
         debug!("  mode:   VERIFY (strict)");
     }
 
+    let config_files = ConfigFiles::new(&source.join("scripts"));
+    check_configs(&config_files, pack, verify)?;
     let registry = PackRegistry::load(pack)?;
 
     // Run independent packing tasks in parallel using scoped threads.
@@ -504,7 +506,7 @@ pub fn pack_all(
                 Err(e) => panic!("RuneScript compilation failed: {}", e),
             }
         });
-        let h_assets = s.spawn(|| pack_assets(&registry, &source.join("scripts"), verify));
+        let h_assets = s.spawn(|| pack_config_files(&config_files, pack, verify));
         let h_media = s.spawn(|| {
             let sources = files_under(&[source.join("sprites")]);
             cached("media", sources, Vec::new(), || pack_media_jag(source))

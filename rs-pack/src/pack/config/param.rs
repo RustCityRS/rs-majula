@@ -25,7 +25,7 @@ pub fn pack_params(
 
     let mut server = PackedData::new(pack.max);
     #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("param", constants)?;
+    let client_configs = file_cache.client_configs("param", pack, constants)?;
     #[cfg(since_647)]
     let client_count = client_configs
         .keys()

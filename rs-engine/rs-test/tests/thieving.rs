@@ -35,6 +35,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::ParamValue;
 use rs_pack::cache::VarValue;
+use rs_pack::types::MoveRestrict;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use std::fs;
@@ -195,6 +196,12 @@ fn the_bakers_stall_hides_a_thief_from_the_baker() {
             }
             engine.cycle();
         }
+        for active in engine.npc_list.npcs.iter_mut().flatten() {
+            if watchers.contains(&active.npc.uid.id()) {
+                active.npc.pathing.move_restrict = MoveRestrict::NoMove;
+                active.npc.pathing.clear_waypoints();
+            }
+        }
         op_loc(&mut client, ClientProt::OpLoc2, BAKERS_STALL);
         let said = run(engine, &mut client, 12, |e, pid| xp(e, pid) > 0);
         let goods: u32 = ["cake", "bread", "chocolate_slice"]
@@ -347,7 +354,7 @@ fn a_stunned_player_cannot_walk() {
             .get_by_name("[walktrigger,stunned]")
             .map(|s| s.id)
             .expect("[walktrigger,stunned] is defined");
-        let stunned = 2193; // `stunned`, a server-only varp (varp.pack)
+        let stunned = engine.cache.varps.debugnames["stunned"];
         let until = engine.clock as i32 + 20;
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.vars.set(stunned, VarValue::Int(until));

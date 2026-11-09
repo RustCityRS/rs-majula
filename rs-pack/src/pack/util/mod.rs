@@ -63,7 +63,6 @@ where
 }
 
 /// What the dumps call an unnamed config of a table.
-#[cfg(since_647)]
 pub fn placeholder_prefix(kind: &str) -> &str {
     match kind {
         "flo" => "overlay",

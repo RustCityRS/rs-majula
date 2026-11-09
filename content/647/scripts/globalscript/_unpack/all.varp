@@ -4,16 +4,21 @@ transmit=yes
 scope=perm
 
 // 1
-[varplayer_1]
+[mcannonmulti]
+scope=perm
 
 // 2
-[varplayer_2]
+[dropcannon]
+scope=perm
 
 // 3
-[varplayer_3]
+[rockthrower]
+scope=perm
 
 // 4
-[varplayer_4]
+[ownedmcannon]
+scope=perm
+type=coord
 
 // 5
 [grail]
@@ -33,8 +38,9 @@ scope=perm
 [varplayer_9]
 
 // 10
-[varplayer_10]
+[cogquest]
 transmit=yes
+scope=perm
 
 // 11
 [fishingcompo]
@@ -42,10 +48,13 @@ transmit=yes
 scope=perm
 
 // 12
-[varplayer_12]
+[hemenster_comp_stage]
+scope=perm
 
 // 13
-[varplayer_13]
+[hemenster_pipe_stashed]
+type=boolean
+scope=perm
 
 // 14
 [arthur]
@@ -53,10 +62,13 @@ transmit=yes
 scope=perm
 
 // 15
-[varplayer_15]
+[excalibur_components_progress]
+scope=perm
 
 // 16
-[varplayer_16]
+[arhein_crate_coord]
+type=coord
+scope=perm
 
 // 17
 [arenaquest]
@@ -106,14 +118,18 @@ scope=perm
 protect=no
 
 // 26
-[varplayer_26]
+[ikov]
 transmit=yes
+scope=perm
 
 // 27
-[varplayer_27]
+[ikov_dungeon]
+scope=perm
 
 // 28
-[varplayer_28]
+[ikov_icearrowchest_coord]
+type=coord
+scope=perm
 
 // 29
 [cookquest]
@@ -173,7 +189,10 @@ protect=no
 protect=no
 
 // 40
-[varplayer_40]
+[eat_delay]
+transmit=no
+scope=temp
+protect=no
 
 // 41
 [aggressive_npc]
@@ -267,7 +286,8 @@ transmit=yes
 scope=perm
 
 // 61
-[varplayer_61]
+[sheepherdervar]
+scope=perm
 
 // 62
 [varplayer_62]
@@ -279,7 +299,9 @@ transmit=yes
 scope=perm
 
 // 64
-[varplayer_64]
+[exit_essence_mine_coord]
+scope=perm
+type=coord
 
 // 65
 [waterfall_quest]
@@ -304,10 +326,12 @@ transmit=yes
 scope=perm
 
 // 69
-[varplayer_69]
+[bioerrand]
+scope=perm
 
 // 70
-[varplayer_70]
+[biodummy]
+scope=perm
 
 // 71
 [hunt]
@@ -500,7 +524,7 @@ transmit=yes
 scope=perm
 
 // 103
-[varplayer_103]
+[stunned]
 
 // 104
 [varplayer_104]
@@ -523,8 +547,9 @@ scope=perm
 // coffin (15061) and rocks (47713) read as multilocs (cache 786); void-634
 // keeps both (persist = true).
 // 108
-[varplayer_108]
+[attackstyle_magic]
 transmit=yes
+protect=no
 
 // 109
 [varplayer_109]
@@ -543,7 +568,8 @@ transmit=yes
 scope=perm
 
 // 113
-[varplayer_113]
+[itkeepgatelock]
+scope=perm
 
 // 114
 [varplayer_114]
@@ -604,13 +630,19 @@ type=player_uid
 [varplayer_126]
 
 // 127
-[varplayer_127]
+[shop_buy]
+type=int
+scope=temp
 
 // 128
-[varplayer_128]
+[shop_sell]
+type=int
+scope=temp
 
 // 129
-[varplayer_129]
+[shop_haggle]
+type=int
+scope=temp
 
 // 130
 [spy]
@@ -623,10 +655,12 @@ transmit=yes
 scope=perm
 
 // 132
-[varplayer_132]
+[itexam_errands]
+scope=perm
 
 // 133
-[varplayer_133]
+[itexam_bits]
+scope=perm
 
 // 134
 [varplayer_134]
@@ -661,15 +695,18 @@ transmit=yes
 transmit=yes
 
 // 144
-[varplayer_144]
+[rjquest]
+scope=perm
 
 // 145
-[varplayer_145]
+[blackarmgang]
 transmit=yes
+scope=perm
 
 // 146
-[varplayer_146]
+[phoenixgang]
 transmit=yes
+scope=perm
 
 // 147
 [zanaris]
@@ -690,10 +727,12 @@ transmit=yes
 scope=perm
 
 // 151
-[varplayer_151]
+[daconia_rock_root]
+scope=perm
 
 // 152
-[varplayer_152]
+[femi_help]
+scope=perm
 
 // 153
 [varplayer_153]
@@ -728,18 +767,21 @@ transmit=yes
 scope=perm
 
 // 161
-[varplayer_161]
+[upass]
 transmit=yes
+scope=perm
 
 // 162
-[varplayer_162]
+[ibanmulti]
 transmit=yes
+scope=perm
 
 // 163
-[varplayer_163]
+[open_book]
+type=obj
 
 // 164
-[varplayer_164]
+[book_page]
 
 // 165
 [elenaquest]
@@ -843,7 +885,9 @@ transmit=yes
 scope=perm
 
 // 181
-[varplayer_181]
+[fluffs_crate]
+type=coord
+scope=perm
 
 // 182
 [cat_growth]
@@ -924,13 +968,16 @@ transmit=yes
 scope=perm
 
 // 193
-[varplayer_193]
+[murder_poisonproof_progress]
+scope=perm
 
 // 194
-[varplayer_194]
+[murder_evidence]
+scope=perm
 
 // 195
-[varplayer_195]
+[murdersus]
+scope=perm
 
 // 196
 [varplayer_196]
@@ -941,7 +988,8 @@ transmit=yes
 scope=perm
 
 // 198
-[varplayer_198]
+[desertrescue_map_mechanisms]
+scope=perm
 
 // 199
 [dragon_ship_planks]
@@ -958,31 +1006,38 @@ transmit=yes
 scope=perm
 
 // 201
-[varplayer_201]
+[handelmort_traps_disabled]
+scope=perm
 
 // 202
-[varplayer_202]
+[hopper_full]
+scope=perm
 
 // 203
 [varplayer_203]
 
 // 204
-[varplayer_204]
+[macro_event]
+protect=no
 
 // 205
-[varplayer_205]
+[macro_event_uid]
+protect=no
+type=npc_uid
 
 // 206
-[varplayer_206]
+[macro_whirlpool_counter]
 
 // 207
-[varplayer_207]
+[macro_gas_counter]
 
 // 208
-[varplayer_208]
+[macro_ent_counter]
 
 // 209
-[varplayer_209]
+[macro_event_target_coord]
+type=coord
+scope=perm
 
 // 210
 [varplayer_210]
@@ -1000,7 +1055,8 @@ scope=perm
 scope=perm
 
 // 214
-[varplayer_214]
+[gutanoth_gold]
+scope=perm
 
 // 215
 [varplayer_215]
@@ -1045,10 +1101,12 @@ transmit=yes
 scope=perm
 
 // 224
-[varplayer_224]
+[hazeelcult_valves]
+scope=perm
 
 // 225
-[varplayer_225]
+[hazeelcult_side]
+scope=perm
 
 // 226
 [ballquest]
@@ -1143,7 +1201,8 @@ scope=perm
 [varplayer_255]
 
 // 256
-[varplayer_256]
+[thread_used]
+scope=perm
 
 // 257
 [tradepartner]
@@ -1166,7 +1225,9 @@ protect=no
 transmit=yes
 
 // 260
-[varplayer_260]
+[temp]
+scope=temp
+protect=no
 
 // 261
 [xplamp_stat]
@@ -1228,7 +1289,8 @@ transmit=yes
 scope=perm
 
 // 274
-[varplayer_274]
+[prince_keystatus]
+scope=perm
 
 // 275
 [follower_obj]
@@ -1241,7 +1303,8 @@ type=npc_uid
 scope=temp
 
 // 277
-[varplayer_277]
+[dragonresist]
+scope=perm
 
 // 278
 [varplayer_278]
@@ -1268,15 +1331,20 @@ type=int
 transmit=yes
 
 // 284
-[varplayer_284]
+[duel2accept]
+type=player_uid
+protect=no
 
 // 285
-[varplayer_285]
+[duelstatus]
 transmit=yes
+type=int
+protect=no
 
 // 286
-[varplayer_286]
+[dueloptions]
 transmit=yes
+protect=no
 
 // 287
 [option_pm]
@@ -1296,10 +1364,12 @@ scope=perm
 scope=perm
 
 // 291
-[varplayer_291]
+[ring_of_forging]
+scope=perm
 
 // 292
-[varplayer_292]
+[trail_status]
+scope=perm
 
 // 293
 [chompybird]
@@ -1313,10 +1383,15 @@ transmit=yes
 scope=perm
 
 // 295
-[varplayer_295]
+[currentsong]
+type=midi
+scope=temp
+protect=no
 
 // 296
-[varplayer_296]
+[musicstart]
+scope=temp
+protect=no
 
 // 297
 [varplayer_297]
@@ -1329,8 +1404,9 @@ scope=perm
 protect=no
 
 // 299
-[varplayer_299]
+[elemental_workshop_bits]
 transmit=yes
+scope=perm
 
 // 300
 [sa_energy]
@@ -1356,10 +1432,11 @@ clientcode=9
 transmit=yes
 
 // 305
-[varplayer_305]
+[ghast_delay]
+protect=no
 
 // 306
-[varplayer_306]
+[mortmyre]
 
 // 307
 [druidspirit]
@@ -1367,7 +1444,8 @@ transmit=yes
 scope=perm
 
 // 308
-[varplayer_308]
+[druidspirit_bits]
+scope=perm
 
 // 309
 [varplayer_309]
@@ -1398,10 +1476,12 @@ transmit=yes
 scope=perm
 
 // 315
-[varplayer_315]
+[death_map]
+scope=perm
 
 // 316
-[varplayer_316]
+[death_bits]
+scope=perm
 
 // 317
 [troll_quest]
@@ -1425,17 +1505,21 @@ transmit=yes
 // ids are not known, so these are server-only (2181 up), and a server-only
 // varp is never sent: the client has 2181 varps.
 // 321
-[varplayer_321]
+[tbwt_tiadeche]
+scope=perm
 
 // 322
-[varplayer_322]
+[tbwt_tinsay]
 transmit=yes
+scope=perm
 
 // 323
-[varplayer_323]
+[tbwt_tamayu]
+scope=perm
 
 // 324
-[varplayer_324]
+[tbwt_lubufu]
+scope=perm
 
 // 325
 [varplayer_325]
@@ -1452,21 +1536,27 @@ transmit=yes
 scope=perm
 
 // 329
-[varplayer_329]
+[regicide_bits]
+scope=perm
 
 // 330
-[varplayer_330]
+[regicide_still_total]
 transmit=yes
+protect=no
 
 // 331
-[varplayer_331]
+[regicide_still_settings]
 transmit=yes
+protect=no
 
 // 332
 [varplayer_332]
 
 // 333
-[varplayer_333]
+[skill_guide_skill]
+type=stat
+scope=temp
+protect=no
 
 // 334
 [varplayer_334]
@@ -1481,10 +1571,12 @@ scope=perm
 scope=perm
 
 // 337
-[varplayer_337]
+[eadgar_grain]
+scope=perm
 
 // 338
-[varplayer_338]
+[eadgar_chickens]
+scope=perm
 
 // 339
 [morttonquest]
@@ -1498,22 +1590,28 @@ scope=perm
 protect=no
 
 // 341
-[varplayer_341]
+[mortton_current_shade]
+protect=no
+type=obj
 
 // 342
-[varplayer_342]
+[temple_sanctity]
+protect=no
 
 // 343
-[varplayer_343]
+[temple_repaired_p]
 transmit=yes
+protect=no
 
 // 344
-[varplayer_344]
+[temple_resources_p]
 transmit=yes
+protect=no
 
 // 345
-[varplayer_345]
+[temple_sanctity_p]
 transmit=yes
+protect=no
 
 // 346
 [musicmulti_9]
@@ -1527,17 +1625,21 @@ transmit=yes
 scope=perm
 
 // 348
-[varplayer_348]
+[viking_bits]
+scope=perm
 
 // 349
-[varplayer_349]
+[draugen_butterfly_uid]
+type=npc_uid
 
 // 350
-[varplayer_350]
+[godbook_multi]
+scope=perm
 
 // 351
-[varplayer_351]
+[deephorror]
 transmit=yes
+scope=perm
 
 // 352
 [varplayer_352]
@@ -1617,7 +1719,9 @@ transmit=yes
 [varplayer_374]
 
 // 375
-[varplayer_375]
+[armourhitsound]
+protect=no
+type=synth
 
 // 376
 [varplayer_376]
@@ -1693,10 +1797,14 @@ transmit=yes
 [varplayer_396]
 
 // 397
-[varplayer_397]
+[display_mode]
+transmit=no
+scope=temp
+protect=no
 
 // 398
-[varplayer_398]
+[vampire_count_slain]
+scope=perm
 
 // 399
 [varplayer_399]
@@ -1707,7 +1815,8 @@ transmit=yes
 transmit=yes
 
 // 401
-[varplayer_401]
+[demon_slayer_bones]
+scope=perm
 
 // 402
 [varplayer_402]
@@ -1717,36 +1826,45 @@ transmit=yes
 [varplayer_403]
 
 // 404
-[varplayer_404]
+[random_event_gift_event]
+scope=perm
 
 // 405
-[varplayer_405]
+[macro_mime_costume_points]
+scope=perm
 
 // 406
 [varplayer_406]
 transmit=yes
 
 // 407
-[varplayer_407]
+[cookquest_milk]
+scope=perm
 
 // 408
 [varplayer_408]
 transmit=yes
 
 // 409
-[varplayer_409]
+[cookquest_flour]
+scope=perm
 
 // 410
-[varplayer_410]
+[cookquest_egg]
+scope=perm
 
 // 411
-[varplayer_411]
+[cookquest_millie]
+scope=perm
 
 // 412
-[varplayer_412]
+[tbwt_bits]
+scope=perm
 
 // 413
-[varplayer_413]
+[smithing_bar]
+scope=temp
+type=obj
 
 // 414
 [musicmulti_10]
@@ -1755,7 +1873,9 @@ scope=perm
 protect=no
 
 // 415
-[varplayer_415]
+[musiclength]
+scope=temp
+protect=no
 
 // 416
 [varplayer_416]
@@ -1765,16 +1885,21 @@ transmit=yes
 [varplayer_417]
 
 // 418
-[varplayer_418]
+[skill_creation_saved]
+scope=perm
+protect=no
 
 // 419
-[varplayer_419]
+[tutorial]
+scope=perm
 
 // 420
-[varplayer_420]
+[the_thing_interacted]
+scope=perm
 
 // 421
-[varplayer_421]
+[priestperil_mausoleum]
+scope=perm
 
 // 422
 [varplayer_422]

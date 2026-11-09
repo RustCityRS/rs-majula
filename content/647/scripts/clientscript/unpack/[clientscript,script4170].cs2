@@ -16,7 +16,7 @@ cc_setoninvtransmit("script4171(event_com, event_comsubid, $int2){worn}");
 .cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
 .cc_setgraphic(duel_misc_graphic);
 ~script4174($int2);
-cc_setonvartransmit("script4173(event_com, .cc_getid, $int2){varplayer_286}");
+cc_setonvartransmit("script4173(event_com, .cc_getid, $int2){dueloptions}");
 .cc_create($component0, ^iftype_graphic, 3);
 .cc_setsize(10, 32, ^setsize_abs, ^setsize_abs);
 .cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);

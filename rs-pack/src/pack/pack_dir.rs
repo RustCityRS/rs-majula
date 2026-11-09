@@ -1,4 +1,4 @@
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, bail};
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -35,18 +35,38 @@ impl PrivatePack {
         &self.dir
     }
 
+    pub fn check_unchanged(&self, pack: &Path, name: &str) -> Result<()> {
+        let original = fs::read_to_string(pack.join(name))?;
+        let compiled = fs::read_to_string(self.dir.join(name))?;
+        if original != compiled {
+            let added: Vec<_> = compiled
+                .lines()
+                .filter(|line| !original.lines().any(|old| old == *line))
+                .collect();
+            bail!(
+                "{name} changed during compilation with --verify true:\n{}",
+                added.join("\n")
+            );
+        }
+        Ok(())
+    }
+
     /// Swaps file `name` into `pack` as the compile left it, if it changed.
-    pub fn pin(&self, pack: &Path, name: &str) {
+    pub fn pin(&self, pack: &Path, name: &str, verify: bool) -> Result<()> {
+        if verify {
+            return self.check_unchanged(pack, name);
+        }
         let Ok(pinned) = fs::read(self.dir.join(name)) else {
-            return;
+            return Ok(());
         };
         let shipped = pack.join(name);
         if fs::read(&shipped).is_ok_and(|old| old == pinned) {
-            return;
+            return Ok(());
         }
         if let Err(e) = replace(&shipped, &pinned) {
             warn!("Couldn't update {}: {e}", shipped.display());
         }
+        Ok(())
     }
 }
 
@@ -87,4 +107,46 @@ fn copy_files(pack: &Path, to: &Path) -> io::Result<()> {
         fs::copy(entry.path(), to.join(name))?;
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use runec::clientscript;
+
+    #[test]
+    fn clientscript_growth_is_rejected_before_pinning() {
+        let dir = env::temp_dir().join(format!("rs-majula-clientscript-ids-{}", process::id()));
+        let scripts = dir.join("scripts/clientscript");
+        let pack = dir.join("pack");
+        fs::create_dir_all(&scripts).unwrap();
+        fs::create_dir_all(&pack).unwrap();
+        fs::write(pack.join("clientscript.pack"), "0=[proc,existing]\n").unwrap();
+        fs::write(
+            pack.join("cs2_command.pack"),
+            "0=PushConstantInt\n21=Return\n",
+        )
+        .unwrap();
+        fs::write(scripts.join("engine.cs2"), "").unwrap();
+        fs::write(
+            scripts.join("new.cs2"),
+            "[proc,new_script]()(int) return(1);\n",
+        )
+        .unwrap();
+        let private = PrivatePack::copy(&pack).unwrap();
+        private.check_unchanged(&pack, "clientscript.pack").unwrap();
+        clientscript::compile_directory(&scripts, private.path()).unwrap();
+        let error = private
+            .pin(&pack, "clientscript.pack", true)
+            .unwrap_err()
+            .to_string();
+        assert!(error.contains("1=[proc,new_script]"), "{error}");
+        assert_eq!(
+            fs::read_to_string(pack.join("clientscript.pack")).unwrap(),
+            "0=[proc,existing]\n"
+        );
+        private.pin(&pack, "clientscript.pack", false).unwrap();
+        private.check_unchanged(&pack, "clientscript.pack").unwrap();
+        fs::remove_dir_all(&dir).unwrap();
+    }
 }

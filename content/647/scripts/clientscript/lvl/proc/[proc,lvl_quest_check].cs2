@@ -165,7 +165,7 @@ switch_int ($int1) {
         if ($stat0 = smithing & stat_base($stat0) = 20) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (testbit(%varplayer_299, 20) = ^true) {
+        if (testbit(%elemental_workshop_bits, 20) = ^true) {
             $int4 = 0;
         }
     case 13 :
@@ -333,7 +333,7 @@ switch_int ($int1) {
         if ($stat0 = agility & stat_base($stat0) = 35) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varplayerbit_34 > 9) {
+        if (%horrorquest > 9) {
             $int4 = 0;
         }
     case 28 :
@@ -644,7 +644,7 @@ switch_int ($int1) {
         if ($stat0 = thieving & stat_base($stat0) = 42) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varplayer_26 = 80 | %varplayer_26 = 90) {
+        if (%ikov = 80 | %ikov = 90) {
             $int4 = 0;
         }
     case 54 :
@@ -682,7 +682,7 @@ switch_int ($int1) {
         if ($stat0 = ranged & stat_base($stat0) = 25) {
             $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varplayer_161 = 10) {
+        if (%upass = 10) {
             $int4 = 0;
         }
     case 59 :

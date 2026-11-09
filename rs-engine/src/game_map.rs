@@ -316,6 +316,7 @@ impl GameMap {
     /// [`decode_locations`](Self::decode_locations),
     /// [`decode_npcs`](Self::decode_npcs), [`decode_objs`](Self::decode_objs),
     /// [`mark_config_coords`](Self::mark_config_coords),
+    /// [`allocate_zones`](Self::allocate_zones),
     /// [`apply_ground`](Self::apply_ground),
     /// [`apply_locations`](Self::apply_locations),
     /// [`spawn_npcs`](Self::spawn_npcs), [`spawn_objs`](Self::spawn_objs)
@@ -390,6 +391,10 @@ impl GameMap {
         }
 
         Self::mark_config_coords(cache, &mut marks);
+
+        for square in &squares {
+            Self::allocate_zones(members, &marks, square.originx, square.originz);
+        }
 
         let mut spawned_npcs = Vec::new();
         for square in &squares {
@@ -926,17 +931,49 @@ impl GameMap {
         }
     }
 
+    /// Allocates a mapsquare's zones marked as holding content, each at the
+    /// tile it is sampled at (every seventh tile, which each zone holds one
+    /// of), before any collision is applied: collision written to an absent
+    /// zone is dropped, so an unmarked zone stays absent and reads back
+    /// blocked.
+    ///
+    /// On a free-to-play world, a zone whose sampled tile is neither
+    /// free-to-play nor bordering free-to-play land stays absent.
+    ///
+    /// # Arguments
+    /// * `members` - Whether this world loads members-only areas.
+    /// * `marks` - The world zone marks computed by the decode pass.
+    /// * `originx` - The mapsquare origin X in absolute tile coordinates.
+    /// * `originz` - The mapsquare origin Z in absolute tile coordinates.
+    ///
+    /// # Call Stack
+    /// **Called by:** [`load`](Self::load)
+    fn allocate_zones(members: bool, marks: &ZoneMarks, originx: u16, originz: u16) {
+        for y in 0..Y as u8 {
+            for x in (0..X as u16).step_by(7) {
+                for z in (0..Z as u16).step_by(7) {
+                    let (x, z) = (originx + x, originz + z);
+                    if marks.is_marked(x, z, y)
+                        && (members
+                            || rsmod::is_zone_flagged(x, z, y, ZoneFlag::Free as u8)
+                            || rsmod::borders_zone_flag(x, z, y, ZoneFlag::Free as u8))
+                    {
+                        rsmod::allocate_if_absent(x, z, y);
+                    }
+                }
+            }
+        }
+    }
+
     /// Applies floor and roof collision for a mapsquare to the `rsmod`
-    /// collision system, allocating only zones marked as holding content.
+    /// collision system, on the zones [`allocate_zones`](Self::allocate_zones)
+    /// allocated.
     ///
     /// Blocked tiles get floor collision, and tiles with the `LINK_BELOW`
-    /// flag shift their collision down one level (bridge logic). Writes into
-    /// unmarked zones are suppressed: an unallocated zone already reads back
-    /// blocked, and letting a write through would allocate the zone filled
-    /// with `Open`, turning the rest of it walkable.
+    /// flag shift their collision down one level (bridge logic).
     ///
-    /// On a free-to-play world, collision and zone allocation are skipped for
-    /// tiles that are neither free-to-play nor bordering free-to-play land.
+    /// On a free-to-play world, collision is skipped for tiles that are
+    /// neither free-to-play nor bordering free-to-play land.
     ///
     /// # Arguments
     /// * `members` - Whether this world loads members-only areas.
@@ -946,7 +983,7 @@ impl GameMap {
     /// * `originz` - The mapsquare origin Z in absolute tile coordinates.
     ///
     /// # Side Effects
-    /// * Allocates zones and sets floor/roof collision via `rsmod`.
+    /// * Sets floor/roof collision via `rsmod`.
     ///
     /// # Call Stack
     /// **Called by:** [`load`](Self::load)
@@ -969,10 +1006,6 @@ impl GameMap {
                         && !rsmod::borders_zone_flag(coordx, coordz, y as u8, ZoneFlag::Free as u8)
                     {
                         continue;
-                    }
-
-                    if x % 7 == 0 && z % 7 == 0 && marks.is_marked(coordx, coordz, y as u8) {
-                        rsmod::allocate_if_absent(coordx, coordz, y as u8);
                     }
 
                     let land = lands[coord.packed() as usize];

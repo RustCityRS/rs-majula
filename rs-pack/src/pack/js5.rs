@@ -310,6 +310,7 @@ pub fn pack_asset_archives(
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
     names: &AssetNames,
+    verify: bool,
 ) -> Result<()> {
     let cache = SIMPLE_ARCHIVES
         .par_iter()
@@ -325,19 +326,22 @@ pub fn pack_asset_archives(
                     "clientscript",
                     vec![
                         versions_dep(versions, aid),
+                        ("verify".to_owned(), Key::from(verify)),
                         ("pack".to_owned(), dir_key(private.path(), &["script.pack"])),
                     ],
                 );
                 let sources = files_under(&roots(&dir));
                 let mut prepared = stage.unit_groups(&(), 0, &sources, |_| {
-                    clientscript::compile_directory(&dir, private.path())?
+                    let compiled = clientscript::compile_directory(&dir, private.path())?;
+                    if verify {
+                        private.check_unchanged(pack_dir, "clientscript.pack")?;
+                    }
+                    compiled
                         .into_iter()
                         .map(|(id, data)| PreparedGroup::new(aid, id, &data, versions))
                         .collect()
                 })?;
-                // Compiling gives new clientscripts ids, which the pack dir
-                // keeps from now on.
-                private.pin(pack_dir, "clientscript.pack");
+                private.pin(pack_dir, "clientscript.pack", verify)?;
                 stage.finish(vec![(
                     "pack".to_owned(),
                     dir_key(private.path(), &["script.pack"]),
