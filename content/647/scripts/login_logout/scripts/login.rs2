@@ -37,12 +37,19 @@ settimer(general_macro_events, 500);
 queue(macro_event_login, 0, 0);
 // so antifire persists after logging back in
 ~set_antifire_login;
-if (%tutorial < 1000) {
+// Varp 281 is Unstable Foundations' (quest config 131): 0 is an account still to design its
+// character, 5 to 999 one mid-tutorial, 1000 one done.
+if (%tutorial = 0) {
     ~cc_open_interface();
     return;
 }
 ~open_game_frame()
 ~login_finish()
+if (%learning_the_ropes < 1000) {
+    // Where 2011 put a player who logged out mid-tutorial: no source found. A fresh cellar.
+    ~uf_start;
+    return;
+}
 // 289's resume of its Tutorial Island (tutorial/). 289 resumed any unfinished
 // island; here only one the player entered (%tutorial past 0): 2011's new
 // players spawn on the island without entering it (tutorial.rs2).
@@ -116,6 +123,8 @@ if_opensub(chatdefault, chattop:chatdefault)
 %topstat_prayer_button_client = false
 
 [proc,initalltabs]()
+// A side tab is open once it is unlocked and shut until then: all are open, except during
+// Unstable Foundations (quest_unstable/uf_tabs.rs2).
 inv_transmit(inv, inventory:inv)
 inv_transmit(worn, wornitems:hat_container)
 
@@ -125,40 +134,40 @@ inv_transmit(worn, wornitems:hat_container)
 // above is enough — same as void, which uses no if_setevents for it either.
 
 if (getwindowmode = 1) {
-    if_opensub(combat_side, toplevel:side0)
-    if_opensub(task_side, toplevel:side1)
+    if (~tab_unlocked(0) = true) { if_opensub(combat_side, toplevel:side0) } else { if_closesub(toplevel:side0) }
+    if (~tab_unlocked(1) = true) { if_opensub(task_side, toplevel:side1) } else { if_closesub(toplevel:side1) }
     // The Task System's popup (void-634's task_overlay: graphics_confirm_layer, 548:20, 746:80).
     if_opensub(interface_1055, toplevel:graphics_confirm_layer)
-    if_opensub(stats, toplevel:side2)
-    if_opensub(questlist_v4, toplevel:side3)
-    if_opensub(inventory, toplevel:side4)
-    if_opensub(wornitems, toplevel:side5)
-    if_opensub(prayer, toplevel:side6)
-    if_opensub(magic, toplevel:side7)
-    if_opensub(friends2, toplevel:side9)
-    if_opensub(friendschat, toplevel:side10)
-    if_opensub(clan_chat, toplevel:side11)
-    if_opensub(options, toplevel:side12)
-    if_opensub(emotes, toplevel:side13)
-    if_opensub(music_v3, toplevel:side14)
-    if_opensub(notes, toplevel:side15)
+    if (~tab_unlocked(2) = true) { if_opensub(stats, toplevel:side2) } else { if_closesub(toplevel:side2) }
+    if (~tab_unlocked(3) = true) { if_opensub(questlist_v4, toplevel:side3) } else { if_closesub(toplevel:side3) }
+    if (~tab_unlocked(4) = true) { if_opensub(inventory, toplevel:side4) } else { if_closesub(toplevel:side4) }
+    if (~tab_unlocked(5) = true) { if_opensub(wornitems, toplevel:side5) } else { if_closesub(toplevel:side5) }
+    if (~tab_unlocked(6) = true) { if_opensub(prayer, toplevel:side6) } else { if_closesub(toplevel:side6) }
+    if (~tab_unlocked(7) = true) { if_opensub(magic, toplevel:side7) } else { if_closesub(toplevel:side7) }
+    if (~tab_unlocked(9) = true) { if_opensub(friends2, toplevel:side9) } else { if_closesub(toplevel:side9) }
+    if (~tab_unlocked(10) = true) { if_opensub(friendschat, toplevel:side10) } else { if_closesub(toplevel:side10) }
+    if (~tab_unlocked(11) = true) { if_opensub(clan_chat, toplevel:side11) } else { if_closesub(toplevel:side11) }
+    if (~tab_unlocked(12) = true) { if_opensub(options, toplevel:side12) } else { if_closesub(toplevel:side12) }
+    if (~tab_unlocked(13) = true) { if_opensub(emotes, toplevel:side13) } else { if_closesub(toplevel:side13) }
+    if (~tab_unlocked(14) = true) { if_opensub(music_v3, toplevel:side14) } else { if_closesub(toplevel:side14) }
+    if (~tab_unlocked(15) = true) { if_opensub(notes, toplevel:side15) } else { if_closesub(toplevel:side15) }
 } else {
-    if_opensub(combat_side, toplevel_fullscreen:side0)
-    if_opensub(task_side, toplevel_fullscreen:side1)
+    if (~tab_unlocked(0) = true) { if_opensub(combat_side, toplevel_fullscreen:side0) } else { if_closesub(toplevel_fullscreen:side0) }
+    if (~tab_unlocked(1) = true) { if_opensub(task_side, toplevel_fullscreen:side1) } else { if_closesub(toplevel_fullscreen:side1) }
     if_opensub(interface_1055, toplevel_fullscreen:graphics_confirm_layer)
-    if_opensub(stats, toplevel_fullscreen:side2)
-    if_opensub(questlist_v4, toplevel_fullscreen:side3)
-    if_opensub(inventory, toplevel_fullscreen:side4)
-    if_opensub(wornitems, toplevel_fullscreen:side5)
-    if_opensub(prayer, toplevel_fullscreen:side6)
-    if_opensub(magic, toplevel_fullscreen:side7)
-    if_opensub(friends2, toplevel_fullscreen:side9)
-    if_opensub(friendschat, toplevel_fullscreen:side10)
-    if_opensub(clan_chat, toplevel_fullscreen:side11)
-    if_opensub(options, toplevel_fullscreen:side12)
-    if_opensub(emotes, toplevel_fullscreen:side13)
-    if_opensub(music_v3, toplevel_fullscreen:side14)
-    if_opensub(notes, toplevel_fullscreen:side15)
+    if (~tab_unlocked(2) = true) { if_opensub(stats, toplevel_fullscreen:side2) } else { if_closesub(toplevel_fullscreen:side2) }
+    if (~tab_unlocked(3) = true) { if_opensub(questlist_v4, toplevel_fullscreen:side3) } else { if_closesub(toplevel_fullscreen:side3) }
+    if (~tab_unlocked(4) = true) { if_opensub(inventory, toplevel_fullscreen:side4) } else { if_closesub(toplevel_fullscreen:side4) }
+    if (~tab_unlocked(5) = true) { if_opensub(wornitems, toplevel_fullscreen:side5) } else { if_closesub(toplevel_fullscreen:side5) }
+    if (~tab_unlocked(6) = true) { if_opensub(prayer, toplevel_fullscreen:side6) } else { if_closesub(toplevel_fullscreen:side6) }
+    if (~tab_unlocked(7) = true) { if_opensub(magic, toplevel_fullscreen:side7) } else { if_closesub(toplevel_fullscreen:side7) }
+    if (~tab_unlocked(9) = true) { if_opensub(friends2, toplevel_fullscreen:side9) } else { if_closesub(toplevel_fullscreen:side9) }
+    if (~tab_unlocked(10) = true) { if_opensub(friendschat, toplevel_fullscreen:side10) } else { if_closesub(toplevel_fullscreen:side10) }
+    if (~tab_unlocked(11) = true) { if_opensub(clan_chat, toplevel_fullscreen:side11) } else { if_closesub(toplevel_fullscreen:side11) }
+    if (~tab_unlocked(12) = true) { if_opensub(options, toplevel_fullscreen:side12) } else { if_closesub(toplevel_fullscreen:side12) }
+    if (~tab_unlocked(13) = true) { if_opensub(emotes, toplevel_fullscreen:side13) } else { if_closesub(toplevel_fullscreen:side13) }
+    if (~tab_unlocked(14) = true) { if_opensub(music_v3, toplevel_fullscreen:side14) } else { if_closesub(toplevel_fullscreen:side14) }
+    if (~tab_unlocked(15) = true) { if_opensub(notes, toplevel_fullscreen:side15) } else { if_closesub(toplevel_fullscreen:side15) }
 }
 
 // The Task System's tab: the set for where the player stands, and its six slots.

@@ -112,9 +112,12 @@ runclientscript("script3946(1, $s0, $s1, $s2, ^string_empty, ^string_empty, ^str
 
 [queue,character_created]
 allowdesign(^false)
-%tutorial = 1001;
+// Unstable Foundations starts: quest config 131 (all.quest) starts varp 281 at 5 and completes it
+// at 1000 (docs/647-unstable-foundations.md 1.2). 1001, set before, is no value the cache reads.
+%tutorial = 5;
 setgender(%character_creation_female);
 applydesign;
 buildappearance(worn)
 ~open_game_frame()
 ~login_finish()
+~uf_start;

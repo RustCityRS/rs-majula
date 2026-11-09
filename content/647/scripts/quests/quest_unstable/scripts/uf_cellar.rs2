@@ -1,0 +1,116 @@
+// Unstable Foundations, 2011's tutorial (cache 786; docs/647-unstable-foundations.md). Progress is
+// %learning_the_ropes (varp 281): quest config 131 starts the quest at 5 and completes it at 1000;
+// cs2 4098 picks the Task panel's Task from it (section 3.1).
+
+// Character creation's end (cc_name.rs2) and a login mid-tutorial (login.rs2) start here: the
+// player in a fresh cellar on local (30, 9) (design note 3.5 #1), the plank on local (35, 15)
+// (3.5 #2), and the cellar's track, The Mentor (3.5 #6; the 2011 wiki's "Tutorial Cellar").
+[proc,uf_start]
+~uf_cellar_enter_at(30, 9);
+// Sir Vant in the start room's north doorway and his squire south of it: the 2011 minimaps put
+// them on (32, 16) and (33, 15) (4KO2h2xPtdM and VwpdbjfigD4, fitted against ours), and the 3D
+// view shows the knight in the doorway. Of cache 786's six Sir Vants, 8850 (bas_1614) is the one
+// holding his orange shield up in front, feet wide, as 2011's does (4KO2h2xPtdM 9-14 s). Which
+// way each faces: not yet matched.
+npc_add(~uf_cellar_coord(32, 16), sir_vant_8850, 0);
+npc_add(~uf_cellar_coord(33, 15), squire_8857, 0);
+// The side panel opens on the options tab, as 2011's first frame in the cellar shows it
+// (8jKH_7To46o @56, a yellow arrow pointing at the task system tab: not built yet); the other
+// tabs stay shut until unlocked (uf_tabs.rs2).
+if_settabactive(12);
+if (%learning_the_ropes < 7) {
+    ~uf_controls_open;
+}
+~uf_task_pin;
+// How long 2011 left the plank on the floor: no source found. Players pick it up minutes in
+// (Kw7h2jY9ANQ @265 s), so it stays for the cellar's life.
+obj_add(~uf_cellar_coord(35, 15), plank_15276, 1, ^uf_cellar_obj_duration);
+// The Mentor plays without being unlocked: no recording shows an unlock message in the cellar
+// (only Harmony's, on arrival in Lumbridge), and the 2011 wiki unlocks it "after defeating the
+// dragon". As music.rs2's music_play, without its jump.
+if_settext(music_v3:now_playing_text, db_getfield(music_The_Mentor, music:name, 0));
+%currentsong = db_getfield(music_The_Mentor, music:track, 0);
+%musicstart = map_clock;
+%musiclength = midi_length(%currentsong);
+midi_song(%currentsong);
+
+// Each player gets their own copy of the cellar, map square 57_77, every level. Cache 786's
+// l57_77.jm2 places its bag, bowl, pillars, walls, cupboard and ladder, and the square is not part
+// of the static world. The copy's (0,0) is the region's (16,16): the client's cutscene camera paths
+// (cs2 2764) add 16 to every point (design note 8.2), so the square's 8x8 zones sit two zones in.
+// A region nobody has been in for 50 ticks is freed; a player who logs out in it comes back to the
+// tile they came from, and login builds them a fresh cellar.
+[proc,uf_cellar_enter_at](int $x, int $z)
+region_create(4, 10, 10);
+def_int $level = 0;
+def_int $a = 0;
+def_int $b = 0;
+while ($level < 4) {
+    $a = 0;
+    while ($a < 8) {
+        $b = 0;
+        while ($b < 8) {
+            // Not yet the square's south-west 24x24 (zones x 0-2, z 0-2): the room west of the
+            // start room (the practice rocks) and Explorer Jack's cellar. 2011's minimap shows
+            // nothing west of the start room until the exit stage (4KO2h2xPtdM, sampled every
+            // 15 s); our copy of the whole square showed a room there from the start. The
+            // boundary is read off our own minimap (that room spans about x 12-24, z 5-16).
+            if ($a > 2 | $b > 2) {
+                region_set($level, calc(2 + $a), calc(2 + $b), movecoord(0_57_77_0_0, calc($a * 8), $level, calc($b * 8)), 0);
+            }
+            $b = calc($b + 1);
+        }
+        $a = calc($a + 1);
+    }
+    $level = calc($level + 1);
+}
+p_telejump(~uf_cellar_coord($x, $z));
+
+// The region tile of local tile ($x, $z) of square 57_77, in the region selected last.
+[proc,uf_cellar_coord](int $x, int $z)(coord)
+return(region_getcoord(0, calc(16 + $x), calc(16 + $z)));
+
+// ::ufcellar <x> <z> builds a cellar and puts you on its local tile (<x>, <z>); ::ufcellarleave
+// puts you back in Lumbridge (the copy goes 50 ticks later). For matching 2011's recordings tile
+// by tile.
+[debugproc,ufcellar](int $x, int $z)
+if_close;
+if (p_finduid(uid) = false) { return; }
+if (region_findbycoord(coord) = true) {
+    mes("You are in a region already: ::ufcellarleave first.");
+    return;
+}
+~uf_cellar_enter_at($x, $z);
+mes("Cellar <tostring(region_uid)>, local <tostring($x)>,<tostring($z)>.");
+
+[debugproc,ufcellarleave]
+if_close;
+if (p_finduid(uid) = false) { return; }
+p_telejump(0_50_50_22_18);
+
+// ::ufnpc <npc> <x> <z> adds an npc on local tile (<x>, <z>) of the cellar you stand in, to match
+// the cache's npc variants (six Sir Vants) against the 2011 recordings.
+[debugproc,ufnpc](npc $npc, int $x, int $z)
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+npc_add(~uf_cellar_coord($x, $z), $npc, 0);
+
+// ::ufcreated, with character creation open, queues what an accepted name queues (cc_name.rs2's
+// cc_name_loop): for a test account that already owns its name, which the name page refuses.
+[debugproc,ufcreated]
+queue(character_created, 0, 0);
+
+// ::ufsong <n> plays the tutorial's tracks the 2011 wiki names, to match against recordings'
+// audio: 1 Destiny, 2 The Mentor, 3 The Adventurer, 4 Harmony.
+[debugproc,ufsong](int $n)
+def_dbrow $song = music_Destiny;
+if ($n = 2) {
+    $song = music_The_Mentor;
+} else if ($n = 3) {
+    $song = music_The_Adventurer;
+} else if ($n = 4) {
+    $song = music_Harmony;
+}
+midi_song(db_getfield($song, music:track, 0));

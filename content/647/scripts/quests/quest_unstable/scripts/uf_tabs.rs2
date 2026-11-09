@@ -1,0 +1,21 @@
+// Unstable Foundations unlocks the side panel's tabs as the tutorial goes (4KO2h2xPtdM,
+// 2011-04-30, its tab rows read every second: refs GAPS.md 13). From arrival only the task
+// system and the options tab show; the inventory comes with the squire's gear, combat and worn
+// equipment once it is worn, the quest list at the quest journal step, stats with the first
+// practice xp, and the rest on arrival in Lumbridge. Each stage's unlock joins this list as
+// the stage is built; until then a tab past the start stays as it was (all open).
+//
+// ~initalltabs opens a side slot only when this says so. Outside the tutorial every tab is open.
+[proc,tab_unlocked](int $slot)(boolean)
+if (%learning_the_ropes < 5 | %learning_the_ropes >= 1000) {
+    return(true);
+}
+// The start, "Rotate Your Camera" to "Gather the Squire's Gear" (varp 281 5-15): the task
+// system (slot 1) and options (slot 12) only.
+if (%learning_the_ropes <= 15) {
+    if ($slot = 1 | $slot = 12) {
+        return(true);
+    }
+    return(false);
+}
+return(true);

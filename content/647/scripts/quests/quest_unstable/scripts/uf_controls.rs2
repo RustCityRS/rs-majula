@@ -1,0 +1,60 @@
+// Unstable Foundations' first Task, "Rotate Your Camera" (3522; struct 1702: done when varp 281
+// >= 7, cs2 3227). 2011's arrival (8jKH_7To46o @56-66):
+// - the Controls overlay in the game view: cache 897 tutorial3_cameracontrols (1079 is a copy);
+// - its listener binds the four arrow keys to ops 1-4 (opkey1-4 96-99) and transmits them;
+// - turning the camera closes it, the panel goes on to "Talk to Sir Vant", and the task system's
+//   popup shows "TASK COMPLETE!" for Rotate Your Camera, with nothing in the chat box.
+// Varp 281 is 6 while the overlay is up: its key lights wait for 6 (cs2 2773 returns below it);
+// what else 6 meant: no source found.
+
+[proc,uf_controls_open]
+%learning_the_ropes = 6;
+if (getwindowmode = 1) {
+    if_opensub(tutorial3_cameracontrols, toplevel:mainoverlay);
+} else {
+    if_opensub(tutorial3_cameracontrols, toplevel_fullscreen:mainoverlay);
+}
+if_setevents(tutorial3_cameracontrols:listener, 0, 0, calc(^if_op1 | ^if_op2 | ^if_op3 | ^if_op4), 0, 0, false, false);
+// The yellow arrow at the task system tab, flashing it while another tab shows (8jKH_7To46o @56,
+// options open): varbit 3756 is the tab to flash, + 1 (cs2 117 flashside_vartransmit, 2756
+// flashside_arrow); the client drops the arrow while that tab is the one showing.
+%varplayerbit_3756 = 2;
+
+[proc,uf_controls_close]
+if (getwindowmode = 1) {
+    if_closesub(toplevel:mainoverlay);
+} else {
+    if_closesub(toplevel_fullscreen:mainoverlay);
+}
+
+[if_button1,tutorial3_cameracontrols:listener] ~uf_camera_turned;
+[if_button2,tutorial3_cameracontrols:listener] ~uf_camera_turned;
+[if_button3,tutorial3_cameracontrols:listener] ~uf_camera_turned;
+[if_button4,tutorial3_cameracontrols:listener] ~uf_camera_turned;
+
+[proc,uf_camera_turned]
+if (p_finduid(uid) = false) {
+    return;
+}
+if (%learning_the_ropes ! 6) {
+    return;
+}
+%learning_the_ropes = 7;
+~uf_controls_close;
+// No arrow shows after this (8jKH_7To46o @63-70, the task tab open): when 2011 cleared it, no
+// source shows; here with the Task.
+%varplayerbit_3756 = 0;
+// Interface 1055 wakes on varc 1425 (cs2 3968) and shows the Task's title under "TASK COMPLETE!".
+%varclient_1425 = 3522;
+~uf_task_pin;
+
+// The task system's panel shows the tutorial's current Task (cs2 3973 draws varbit 8576's when
+// varc 1428 arrives): Rotate Your Camera while the overlay is up, then cs2 4098's Task for the
+// stage (Talk to Sir Vant at 7).
+[proc,uf_task_pin]
+if (%learning_the_ropes < 7) {
+    %varplayerbit_8576 = 3522;
+} else {
+    %varplayerbit_8576 = ~script4098;
+}
+%varclient_1428 = 0;
