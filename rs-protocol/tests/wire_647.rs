@@ -393,6 +393,42 @@ fn minimap_toggle_matches_client() {
     p.done(1);
 }
 
+/// Client VORBIS_SPEECH_SOUND (`ServerProt.java`: id 7, size 6; `MapAreaConfig.java:1921`):
+/// `g2 clip` (65535 is -1), `g1 loops`, `g2 delay`, `g1 volume`, handed to
+/// `AClass55.method3670(volume, 256, delay, true, loops, clip)`, which queues it on the
+/// voice-over channel.
+#[test]
+fn vorbis_speech_sound_matches_client() {
+    use rs_protocol::network::game::server::vorbis_speech_sound::VorbisSpeechSound;
+    use rs_protocol::network::game::server_prot::ServerProt;
+    assert_eq!(ServerProt::VorbisSpeechSound as u8, 7);
+    let message = VorbisSpeechSound {
+        vorbis: 0x0d8d,
+        loops: 1,
+        delay: 0x0102,
+        volume: 255,
+    };
+    let bytes = encode(&message);
+    assert_eq!(message.sizeof(), 6);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g2(), 0x0d8d, "clip");
+    assert_eq!(p.g1(), 1, "loops");
+    assert_eq!(p.g2(), 0x0102, "delay");
+    assert_eq!(p.g1(), 255, "volume");
+    p.done(6);
+}
+
+/// Client VORBIS_SPEECH_STOP (`ServerProt.java`: id 66, size 0; `MapAreaConfig.java:401`):
+/// reads nothing and stops every queued voice-over clip.
+#[test]
+fn vorbis_speech_stop_matches_client() {
+    use rs_protocol::network::game::server::vorbis_speech_stop::VorbisSpeechStop;
+    use rs_protocol::network::game::server_prot::ServerProt;
+    assert_eq!(ServerProt::VorbisSpeechStop as u8, 66);
+    assert!(encode(&VorbisSpeechStop).is_empty());
+    assert_eq!(VorbisSpeechStop.sizeof(), 0);
+}
+
 /// Client IF_SETGRAPHIC (`MapAreaConfig.java`): `ig4 hash` (little-endian, this reader's
 /// `g4s_alt1`), then `g2_alt1 graphic` (high byte, low byte + 128: this reader's `g2_alt2`).
 #[test]

@@ -334,6 +334,10 @@ use rs_protocol::network::game::server::varc_small::VarcSmall;
 use rs_protocol::network::game::server::varc_str_small::VarcStrSmall;
 use rs_protocol::network::game::server::varp_large::VarpLarge;
 use rs_protocol::network::game::server::varp_small::VarpSmall;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::vorbis_speech_sound::VorbisSpeechSound;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::vorbis_speech_stop::VorbisSpeechStop;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_protocol::network::game::server_prot_priority::ServerProtPriority;
 #[cfg(since_254)]
@@ -2704,6 +2708,23 @@ impl ActivePlayer {
             volume: 255,
             speed: 256,
         });
+    }
+
+    /// Plays a voice-over clip on the client's voice channel. 65535 is no clip.
+    #[cfg(since_647)]
+    pub fn speech_sound(&mut self, vorbis: u16, loops: u8, delay: u16, volume: u8) {
+        self.write(VorbisSpeechSound {
+            vorbis,
+            loops,
+            delay,
+            volume,
+        });
+    }
+
+    /// Stops every voice-over clip the client is playing or has queued.
+    #[cfg(since_647)]
+    pub fn speech_stop(&mut self) {
+        self.write(VorbisSpeechStop);
     }
 
     /// Clears the destination map flag (red minimap marker) on the client.

@@ -225,6 +225,14 @@
 [command,sound_synth](synth $sound, int $loops, int $delay)
 // info: Play a $sound for the secondary player
 [command,.sound_synth](synth $sound, int $loops, int $delay)
+// info: Play voice-over $clip at $volume, heard only with voice-over volume on
+[command,sound_speech_volume](vorbis $clip, int $loops, int $delay, int $volume)
+// info: Play voice-over $clip at $volume for the secondary player
+[command,.sound_speech_volume](vorbis $clip, int $loops, int $delay, int $volume)
+// info: Stop the player's voice-over clips
+[command,sound_speech_stop]
+// info: Stop the secondary player's voice-over clips
+[command,.sound_speech_stop]
 // info: Get the permissions level the player has
 [command,staffmodlevel]()(int)
 // info: Get the permissions level the secondary player has

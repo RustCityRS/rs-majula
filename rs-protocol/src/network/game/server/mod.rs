@@ -212,6 +212,10 @@ pub mod varp_large;
 pub mod varp_small;
 #[cfg(since_647)]
 pub mod vorbis_sound;
+#[cfg(since_647)]
+pub mod vorbis_speech_sound;
+#[cfg(since_647)]
+pub mod vorbis_speech_stop;
 
 pub use crate::network::game::server_prot_message::ServerProtMessage;
 

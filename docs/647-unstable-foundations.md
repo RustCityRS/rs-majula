@@ -887,8 +887,23 @@ enums (the server content did), so when each line plays comes from its text, the
 - **No recording has audible voices.** The client plays speech only when the player's
   voice-over volume isn't 0.
 - **Playing a line:** the client's VORBIS_SPEECH_SOUND (server prot 7, 6 bytes: g2 clip
-  (65535 = none), g1 loops, g2 delay, g1 volume) and VORBIS_SPEECH_STOP (66, empty). The 647
-  server has encoders for neither yet.
+  (65535 = none), g1 loops, g2 delay, g1 volume) and VORBIS_SPEECH_STOP (66, empty). Content
+  sends them with `sound_speech_volume(vorbis, loops, delay, volume)` and `sound_speech_stop`.
+  The dev cheats `~speech <clip>` and `~speechstop` audition a clip.
+- **Command names.**
+  - `sound_speech_volume` is Jagex's name for this operation on the client. The NXT beta
+    client's clientscript command names list it, as `sound_speech_volume(vorbis, int, int,
+    int)`: Pazaz/RT4-Client `ref/cs2-names.txt` (headed "NXT Beta"), zwyz/rs3-cache
+    `data/commands/audio.txt`, and skillbert/rsmv `opnames.ts` (RS3 opcode 10559).
+  - In the 647 client it is clientscript opcode 3207. That opcode pops clip, loops, delay and
+    volume, then calls the same `AClass55.method3670(volume, 256, delay, true, loops, clip)`
+    as VORBIS_SPEECH_SOUND. Its neighbours match the same list: 3206 `sound_vorbis_volume`
+    (`true` -> `false`, the effects channel) and 3209 `sound_vorbis_rate`.
+  - No source names Jagex's server-side command. We give it the client command's name,
+    since `sound_synth` has one name on both sides (the server's in the RuneStar leaks, the
+    client's at clientscript 3200).
+  - No source names a speech stop either. `sound_speech_stop` is ours, after the list's
+    `sound_synth_stop`, `sound_vorbis_stop` and `sound_song_stop`.
 
 | Enum | Lines | Clips | Speaker |
 |---|---|---|---|

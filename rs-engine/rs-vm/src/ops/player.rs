@@ -80,7 +80,8 @@ fn enqueue(
 /// - **Player search:** `FINDUID`, `P_FINDUID`, `HUNTALL`, `HUNTNEXT`
 /// - **Interactions:** `P_OPLOC`, `P_OPNPC`, `P_OPOBJ`, `P_STOPACTION`,
 ///   `P_CLEARPENDINGACTION`, `P_LOCMERGE`
-/// - **Audio:** `MES`, `MIDI_JINGLE`, `MIDI_SONG`, `SOUND_SYNTH`
+/// - **Audio:** `MES`, `MIDI_JINGLE`, `MIDI_SONG`, `SOUND_SYNTH`, `SOUND_SPEECH_VOLUME`,
+///   `SOUND_SPEECH_STOP`
 /// - **Misc:** `AFK_EVENT`, `BUILDAPPEARANCE`, `CAM_RESET`, `LAST_COM`, `LAST_INT`,
 ///   `LAST_ITEM`, `LAST_SLOT`, `LAST_TARGETSLOT`, `LAST_USEITEM`, `LAST_USESLOT`,
 ///   `P_LOGOUT`, `P_PREVENTLOGOUT`, `P_APRANGE`, `SESSION_LOG`, `WEALTH_EVENT`
@@ -1463,6 +1464,22 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 test::record_call(SOUND_SYNTH, "sound_synth", &arg);
             }
             player.sound_synth(synth as u16, loops, delay);
+        });
+
+        // 5021
+        #[cfg(since_647)]
+        active_player_mut!(m, SOUND_SPEECH_VOLUME => |s, player| {
+            let volume = s.pop_int_as::<u8>()?;
+            let delay = s.pop_int_as::<u16>()?;
+            let loops = s.pop_int_as::<u8>()?;
+            let vorbis = s.pop_int();
+            player.sound_speech_volume(vorbis as u16, loops, delay, volume);
+        });
+
+        // 5022
+        #[cfg(since_647)]
+        active_player_mut!(m, SOUND_SPEECH_STOP => |_s, player| {
+            player.sound_speech_stop();
         });
 
         // 2105

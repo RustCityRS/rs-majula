@@ -1705,6 +1705,20 @@ pub trait ScriptPlayer {
     /// * `delay` - The delay in client ticks before playback starts.
     fn sound_synth(&mut self, synth: u16, loops: u8, delay: u16);
 
+    /// Plays a voice-over clip for the player.
+    ///
+    /// # Arguments
+    /// * `vorbis` - The vorbis clip identifier (65535 for none).
+    /// * `loops` - The number of times to play the clip.
+    /// * `delay` - The delay in client ticks before playback starts.
+    /// * `volume` - The clip's volume, 0-255.
+    #[cfg(since_647)]
+    fn sound_speech_volume(&mut self, vorbis: u16, loops: u8, delay: u16, volume: u8);
+
+    /// Stops every voice-over clip the player's client is playing or has queued.
+    #[cfg(since_647)]
+    fn sound_speech_stop(&mut self);
+
     /// Starts the player's client downloading the models loc type `id` has
     /// for `shape`.
     ///

@@ -6762,6 +6762,28 @@ impl ScriptPlayer for ActivePlayer {
         self.synth_sound(synth, loops, delay);
     }
 
+    /// Plays a voice-over clip for the player.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::speech_sound`
+    #[cfg(since_647)]
+    fn sound_speech_volume(&mut self, vorbis: u16, loops: u8, delay: u16, volume: u8) {
+        self.speech_sound(vorbis, loops, delay, volume);
+    }
+
+    /// Stops the player's voice-over clips.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::speech_stop`
+    #[cfg(since_647)]
+    fn sound_speech_stop(&mut self) {
+        self.speech_stop();
+    }
+
     /// Starts the player's client downloading the models loc type `id` has
     /// for `shape`. The standalone packet needs no zone header: the client
     /// never reads a coordinate for it.
