@@ -651,6 +651,218 @@ Notes:
 - **Rerunning:** the `recordings-matrix` skill's `matrix.sh` and `frames.sh` rebuild them from
   the video list.
 
+### 3.5 Gaps closed from the recordings (2026-11-09)
+
+Video ids are YouTube ids; times are seconds into the video. Local tiles are of square
+57_77 (the cellar copy's (16,16) is its (0,0)).
+
+#### 1. Start tile: local (30, 9) of square 57_77 (confirmed)
+
+Method: each 2011 minimap is fitted against our client's minimap at a known tile by rotation,
+scale and shift (the recordings-matrix skill's `minimap_match.py`). The whole room lines up: door line, ladder icon and walls.
+
+| Recording | t | Fit score | Tile |
+|---|---|---|---|
+| 4KO2h2xPtdM (2011-04-30) | 8.5 | 0.82 | (29.8, 9.0) |
+| VwpdbjfigD4 (2011-01-17) | 80 | 0.84 | (30.5, 9.2) |
+| uHpgIVCC66Y (2011-02-04) | 5 | 0.82 | (29.8, 9.2) |
+| i9o_EiHokhQ (2011-01-31) | 18 | 0.82 | (30.0, 12.5): already walking to Sir Vant |
+
+The player stands south of the ladder icon (ladder 45785 at (32,12)), in the south-west part of
+the start room. Sir Vant is at the room's north door.
+
+#### 2. The plank: ground obj 15276 (plank_15276) on local (35, 15)
+
+"Take Plank" (a ground item's option) in 7 recordings. The player stands on the plank's tile as it
+enters the inventory:
+- Kw7h2jY9ANQ @265-266: (35.2, 15.2);
+- Qzq-h8kLBHk @135.5-136: (35.2, 15.0).
+
+That is the start room's north-east corner, against the low wall's east section (35, 16), which
+the ramp crosses (Sir Vant: "Try going to the eastern end where it's lower.").
+
+#### 3. The squire's gear: bronze platebody 1117, bronze sq shield 1173, bronze sword 1277 on (32, 13)
+
+- **Ids.** Cache 786 has no tutorial copies: one obj each by those names. The right-click menu
+  (Qzq-h8kLBHk @98) lists "Take Bronze platebody / sq shield / sword", all three on one tile.
+- **Tile.** The player stands on it as the gear enters the inventory:
+  - Kw7h2jY9ANQ @187: (32.0, 13.5);
+  - Qzq-h8kLBHk @100: (32.2, 13.2).
+  That is just north of the burned ladder (32, 12), by the stone pillar where the squire stood.
+- **Smoke.** In the cutscene the pile smokes (4KO2h2xPtdM @36-37).
+
+#### 4. Cutscene timelines (4KO2h2xPtdM, 2011-04-30; one frame a second)
+
+**The dragon (s002 shown 14.0, dismissed ~17.0; s003 at 51.9):**
+
+| t | Shot |
+|---|---|
+| 17-20 | behind the player, at Sir Vant in the doorway |
+| 21-24 | low across the dark main cellar; a distant "Help!" overhead at 22-23 (Roddeck in his cupboard, inference) |
+| 25 | the dragon's face, close |
+| 26-33 | Sir Vant at the wall, the dragon breathing over it at his shield |
+| 34-35 | the start room: the squire is hit, "Aaargh!" overhead |
+| 36-37 | his gear smoking by the pillar |
+| 38-41 | Sir Vant and the dragon at the wall |
+| 42-44 | the player recoiling, arms up, by the fireplace |
+| 45-46 | the dragon, close |
+| 47-51 | the goblin at Sir Vant's bag, "Ooh, shiny!" |
+| 52 | back to play, s003 |
+
+Fastest players across the four recordings: 14.8-19.3 s from s002 shown to s003 shown.
+
+**Sleep (s019 "Hide!" at 199.1; s020 at 237.1):**
+
+| t | Shot |
+|---|---|
+| 197-201 | the player puts the meat in the bowl |
+| 202 | the player runs to hide |
+| 203-206 | Sir Vant at the wall: "Grub's up! Shoo!" overhead (204-205) |
+| 207-211 | the dragon goes over the wall (camera behind it) |
+| 212-216 | the dragon crosses the cellar to its nest |
+| 217-230 | the dragon at the bowl, eating |
+| 231-232 | the dragon lies down asleep on the nest |
+| 233-234 | black, "Please wait..." |
+| 235 | Sir Vant by the pillars, play resumes; s020 at 237.1 |
+
+Hide! to s020: 18.9-19.8 s in four Task-build recordings, a fixed length.
+
+**Collapse (s037 "It's burning! Run!" at 392.1; s038 at 419.3):**
+
+| t | Shot |
+|---|---|
+| 390-394 | the player lights the right pillar's fuse; Sir Vant lights his |
+| 395-396 | the player runs south |
+| 397-405 | fixed shot on the nest: both pillars burning, the dragon asleep |
+| 406 | the roof falls |
+| 407-410 | black ("Please wait..." at 407); the advisor button appears at ~408 |
+| 411-415 | rubble over the nest; the player stands, Sir Vant on the right: "Wow!" overhead (413-414) |
+| 416-418 | Roddeck walks out of his cupboard door |
+| 419 | s038 |
+
+#### 5. Quest journal (seen at "Check your Quest Journal" only)
+
+Every recording that opens the journal (12) does so at varp 281 ~ 50-57. It opens scrolled to
+the bottom, and nobody scrolls up. 4KO2h2xPtdM @124 reads:
+- (struck through, the earlier entries above it unseen) "Once his bag of supplies was safe, Sir
+  Vant asked me to help him kill the dragon."
+- (navy) "Quest journals record what needs to be done next in each quest. If you ever forget what
+  you have been asked to do, take a look in the journal to remind yourself. You can also click
+  the <red>Get QuestHelp</red> link to receive more detailed hints for how to proceed with the
+  quest."
+- (navy, red keywords) "Sir Vant asked me to take some <red>drugged meat</red> from his <red>bag
+  of supplies</red> and place it in a food bowl near <red>two wooden pillars</red>."
+- "Get QuestHelp" link, bottom right.
+
+The old build (xqWnfqno_1M @12) says the same entry; its explanation is in the chatbox guide
+instead. Entries before the struck line, and all later entries: no recording shows them.
+
+#### 6. Music: Destiny (creation), The Mentor (cellar), Harmony (Lumbridge)
+
+Method: our client played each track (`::ufsong 1-4`), recorded audio-only from the virtual cable.
+Each 10 s window of a recording was matched to the tracks by chroma (the recordings-matrix skill's `music_match.py`); each
+reference picks itself at 0.89-0.94 against 0.28-0.43 for the others.
+
+Only Qh_-AMJpVd0 (2011-05-10) has clean game audio. 4KO2h2xPtdM and Kw7h2jY9ANQ carry the
+uploaders' own music (Kw7h's scores repeat with a ~318 s period); 8jKH_7To46o is mostly
+inconclusive.
+
+| Qh_-AMJpVd0 t | Track | Score |
+|---|---|---|
+| 40-159 (character creation, Continue at 157.8) | Destiny | 0.53-0.74 |
+| 169-397 (the cellar) | The Mentor / The Adventurer (one tune) | 0.30-0.67 |
+| 447-468 (Lumbridge, after the exit) | Harmony | 0.40-0.52 |
+
+- **The Mentor or The Adventurer?** Their chroma is the same tune. A 64-band spectrum (timbre)
+  favours The Mentor in 21 of 27 cellar windows. The 2011 wiki puts The Mentor in the "Tutorial
+  Cellar" and Destiny in character creation (The Mentor @ 2011-05-18, Destiny @ 2011-05-07). So
+  the cellar plays The Mentor.
+- **The Adventurer** is never heard distinctly. The wiki says every player has it after
+  completing the tutorial (The Adventurer @ 2011-05-22), so it is unlocked, not played: when, no
+  source shows.
+- **Harmony.** 8jKH_7To46o also hears Harmony at its end (616-636). It plays on arriving in
+  Lumbridge, square 50_50, where musicregion_50_50 already gives Harmony. "You have unlocked a
+  new music track: Harmony." shows at the same moment (4KO2h2xPtdM ~607).
+- **Switch points.** Destiny to The Mentor between 159 and 169 (entering the cellar); The Mentor
+  to Harmony on arrival (431-447; the 437 window is mixed).
+
+#### 7. Arrival in Lumbridge: (3207, 3240), with the quest scroll
+
+4KO2h2xPtdM's minimap after the ladder (607.5, 610, 612) fits ours at (3207,3240), one tile north
+of Explorer Jack's trapdoor (3207,3239), with shift (0,-1) px. The fit scores only 0.54 (npc dots
+everywhere), but the house outlines and icons line up by eye. The 2011 camera faces south
+(theta 178).
+
+On arrival the quest-complete scroll is open (4KO2h2xPtdM @607.5): "Congratulations! You have
+completed Unstable Foundations!", "You gain:", "1 Quest Point", "Level 4 Mining" (the chosen
+skill), a pickaxe on the left, "Quest Points: 1". Then the game messages:
+- "You have completed the Task 'How To Train and Level'!"
+- "Congratulations! Quest complete!"
+- "You have unlocked a new music track: Harmony."
+- "You've just advanced 2 Mining levels! You have reached level 4."
+
+#### 8. Line breaks: 14 forced <br>, everything else the client's own wrap
+
+Each line's natural wrap is computed from q8_full's advances: 380 px for chat and item boxes, 470
+for message boxes. The item box's width is bounded to 380-394 by the bag's two lines, so 380.
+Every line was compared with its recorded break points: high-resolution sightings for 67 lines
+(agreeing in 2+ sightings), and by eye on the clearest crop for the other 53.
+
+Forced breaks (the recording breaks where the next word would still fit; all at a sentence end):
+- s001a "Oh dear, oh dear, it's coming.<br>You'd better talk to Sir Vant. He's in charge."
+- s005a "Wait! You're not properly armed.<br>Pick up the kit dropped by my squire, then attack the
+  goblin when you've equipped it."
+- s014 "You'll never get over the wall there.<br>Try going to the eastern end where it's lower."
+- s031a "You're supposed to soak the rag in oil first.<br>Try using the rag with the oil can."
+- s034 "Thanks, that's perfect.<br>Now, hand me a tinderbox."
+- s061 "You'll need a Mining level of 2 to clear the rocks.<br>Your Mining level is 1."
+- s062 "You find that you'll need a Woodcutting level of 2 to clear the roots.<br>Your Woodcutting
+  level is 1." (the natural wrap breaks there too)
+- s061a / s062a "So, your aim is to get a Mining / Woodcutting level of 2?<br>Okay, I'll find you
+  something to train on."
+- s065 / s065m "You break off some bits of wood / rock, gaining 42 Woodcutting / Mining
+  experience.<br>Once more should suffice." (the natural wrap breaks there too)
+- s070 / s071 "Congratulations, you've reached level 2.<br>You should now be able to mine through
+  the rocks / chop through the tree roots in the damaged wall."
+- s075b "I think we've all been in this cellar long enough.<br>Can we get on with the quest now,
+  please?"
+
+Old build only (kjgw48iBdc0, 2010-12-15), a message box not in the Task build's matrix: "Your
+Woodcutting level is now high enough for you to chop through the roots in the damaged wall."
+
+#### 9. "Hey, I'm over here" is "Ahem! I'm over here."
+
+Kw7h2jY9ANQ (2011-05-13) @170, Sir Vant (chatnpc). The player is in "Assist Sir Vant" (after
+the dragon cutscene, before talking to him) and has just tried "Climb-over Wall" by the door
+(@168). One sighting. The wiki's Speech page caption "Hey, I'm over here" is its audio, misheard.
+
+#### 10. The advisor button is in the 2011 build
+
+The "?" button by the minimap (toplevel `advisorbutton`, 548:183 / 746:172) appears silently
+during the roof-collapse cutscene, while the screen is black before Roddeck walks out:
+- 4KO2h2xPtdM: absent at 407.5, present at 408.
+- Qh_-AMJpVd0 (2011-05-10): absent at 339, present at 341.
+
+No line announces it in the Task build; the old build had Roddeck's "I'll add a button to your
+display." It stays to the end (seen in Lumbridge, 4KO2h2xPtdM @607-630).
+
+#### Overhead lines (new: not in the dialogue boxes)
+
+From whole-frame OCR, checked on the frame:
+
+| Speaker | Line | Where |
+|---|---|---|
+| Goblin | "Me get rich!" | rummaging (Kw7h2jY9ANQ @166) |
+| Goblin | "Heh heh heh." | rummaging (Kw7h2jY9ANQ @170) |
+| Goblin | "Ooh, shiny!" | rummaging (7_neJ6mCLXc @90; 4KO2h2xPtdM @50) |
+| Goblin | "Mine, all mine!" | rummaging (Kw7h2jY9ANQ @185) |
+| Goblin | "Ooh!" | rummaging (Qzq-h8kLBHk @101) |
+| Dragon | "Roargh!" | the opening cutscene (7_neJ6mCLXc @74) |
+| Squire | "Aaargh!" | hit by the dragon's breath (4KO2h2xPtdM @35, Qzq-h8kLBHk @80) |
+| Roddeck (inference) | "Help!" | far off, in the dragon cutscene (4KO2h2xPtdM @22-23, dSHLzIzwXq4 @24) |
+| Sir Vant | "Grub's up! Shoo!" | sending the dragon to the bowl (4KO2h2xPtdM @204-205) |
+| Sir Vant | "Wow!" | after the collapse (4KO2h2xPtdM @413-414) |
+
 ---
 
 ## 4. Cutscenes and camera (cache 786: client-side camera paths)
@@ -851,16 +1063,16 @@ Every stage stops where its row says **gap**.
 | 0 | Engine decision on instancing (8.2 items 2-3): **done**, Jordan's regions and controllers (337f6e28e0: `region_create`, `region_copyarea`, `region_getcoord`, `region_del`, `controller_*`) | `_test/scripts/engine/region_tests.rs2` | |
 | 1 | varp 281 as UF's: character creation ends at UF's first stage, not 1001; UF's end sets 1000; varbit 4895 = 3 at creation (inference) | testscript: after `character_created`, varp281 = 5/6 (value 1-6 meaning: **gap**); at UF end = 1000; quest list cs2 2193 reads done | values 1-6, the exact first value |
 | 2 | UF configs: npc/loc/obj names for the ids in section 2; multiloc state helpers (varbits 6487, 6495, 6496, 6497) | runec lint; CRC gate if packs change | |
-| 3 | Start: place the player in the cellar (instance or static), open 1079/897 controls, Task tab; arrow-key ops -> varp281 7 | harness: login of a new account lands in the cellar, IF_BUTTON on 1079:0 sets 7 | start tile, overlay slot, whether ops are transmitted: **gap** |
-| 4 | Squire's gear and goblin: pick up gear (15), equip (20-30), goblin fight rules (35-40, wiki Goblin page) | harness: equip -> 35; goblin only attackable in full gear | Sir Vant's lines: **gap**; gear obj ids: **gap** |
+| 3 | Start: place the player in the cellar (instance or static), open 1079/897 controls, Task tab; arrow-key ops -> varp281 7 | harness: login of a new account lands in the cellar, IF_BUTTON on 1079:0 sets 7 | start tile: local (30, 9) (3.5 #1); overlay slot and whether the arrow-key ops are transmitted: **gap** (client test) |
+| 4 | Squire's gear and goblin: pick up gear (15), equip (20-30), goblin fight rules (35-40, wiki Goblin page) | harness: equip -> 35; goblin only attackable in full gear | lines: 3.4; gear: bronze platebody 1117, sq shield 1173, sword 1277 on (32, 13) (3.5 #3) |
 | 5 | Quest journal, world map, minimap Tasks (50-62) | testscript per threshold | how the server detects world map open / compass click: **gap** |
-| 6 | Plank, ramp (loc 45604 >= 75), low wall climb (65-75) | harness: use plank on wall -> 70, climb -> 75 | plank loc: **gap** |
-| 7 | Food bowl (varbit 6487), dragon asleep (80-90) + cutscene varcs 105/201-203 | harness: use meat on bowl -> 80+ | varc timing: **gap** |
+| 6 | Plank, ramp (loc 45604 >= 75), low wall climb (65-75) | harness: use plank on wall -> 70, climb -> 75 | the plank is ground obj 15276 on (35, 15), not a loc (3.5 #2) |
+| 7 | Food bowl (varbit 6487), dragon asleep (80-90) + cutscene varcs 105/201-203 | harness: use meat on bowl -> 80+ | shot-by-shot timelines in 3.5 #4; which varc 1007 value draws each shot: client test |
 | 8 | Sabotage: rip/oil/fuse/pillars (varbits 6496/6497), tinderbox to Sir Vant, light, collapse (93-115) | harness per item-on-loc | pillar state order (0-4 meaning): inference only |
 | 9 | Return gear (120-127) | harness | |
 | 10 | Roddeck and the exit choice (varbit 6495), practice rocks/roots 42 xp, blockage, hole (128-170) | harness: chop/mine to level 2, clear, climb through | Roddeck's lines: **gap** |
-| 11 | Ladder 45784 -> Lumbridge, varp281 = 1000, Explorer Jack Task (varbit 6494 = 3) | harness: climb -> Lumbridge, 1000 | arrival tile, Jack's lines: **gap** (void-634's only) |
-| 12 | Music (Destiny, The Adventurer, The Mentor, Harmony) | testscript: midi per stage | exact switch points: wiki wording only |
+| 11 | Ladder 45784 -> Lumbridge, varp281 = 1000, Explorer Jack Task (varbit 6494 = 3) | harness: climb -> Lumbridge, 1000 | arrival (3207, 3240) with the quest scroll (3.5 #7); Jack's lines in 3.4 |
+| 12 | Music (Destiny, The Adventurer, The Mentor, Harmony) | testscript: midi per stage | Destiny in creation, The Mentor in the cellar, Harmony on arrival (3.5 #6) |
 
 **Dialogue (all stages):** section 3.4 gives every line, with its first sighting and the
 branches, from 32 dated 2010-11 recordings. Recordings outrank the wiki for dialogue text (3.4's

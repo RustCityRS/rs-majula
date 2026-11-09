@@ -53,6 +53,31 @@ Windows' built-in one).
 11. **Record the result.** Put STATES.md's lines, branches and sources into the content's design
     note in `docs/`.
 
+## Beyond dialogue: closing the other gaps from the same recordings
+
+- **Where a player stands.** Use this for start tiles, item spots and arrival tiles.
+  `python $S/minimap_match.py <ours.mp4>@<s> <cx,cy> <recording>@<s> <cx,cy> dbg.png --tile x,z`
+  - It fits the recording's minimap (rotation, scale, shift) onto our north-up minimap recorded
+    at a known tile.
+  - `cx,cy` are the player's dot in each video.
+  - A ground item's tile is where the player stands as it enters the inventory.
+  - Confirm the answer by recording ours at that tile: the shift comes back (0,0).
+- **Cutscene beats.**
+  - `python $S/shots.py <video> <t0> <t1> <x0,y0,x1,y1> sheet.png` finds cuts and fades.
+  - `python $S/frames_at.py out.png <video>@<s>@<label> ...` tiles chosen frames. Tile one
+    frame a second, so pans show too.
+  - Overhead lines (yellow text over heads) turn up in the whole-frame OCR (`frames.sh`).
+- **Music.** Record each candidate track from our client, audio only. Then run
+  `python $S/music_match.py <video> <t0> <t1> name=ref.wav ...`.
+  - Chroma tells tunes apart; `--spectrum` tells two arrangements of one tune apart.
+  - Self-test first: each reference against itself should score about 0.9.
+  - Expect many recordings to carry the uploader's own music. Use one where character creation
+    or another known track scores high.
+- **Forced line breaks.** Run `python $S/br_check.py <q8_full.fontmetrics> <canon.tsv> <states.tsv>
+  <high-res labels>`, and check every line it can't settle by eye. A break where the next word
+  would still fit is a `<br>`.
+  - Chat and item boxes wrap at 380 px; message boxes at 470.
+
 ## Reading the output
 
 - **Counts.** A line's `n/N` says how many recordings show it. Rare lines are branches: wrong
