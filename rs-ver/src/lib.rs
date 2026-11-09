@@ -1,3 +1,4 @@
+pub mod archive;
 mod revision;
 
 pub use revision::{REVS, compile_target_revision};

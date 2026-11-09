@@ -8,6 +8,8 @@ use rs_pack::types::LocLayer;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
 use rs_protocol::network::game::server::loc_del::LocDel;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::obj_del::ObjDel;
 use rs_protocol::network::game::server::obj_reveal::ObjReveal;
@@ -776,6 +778,23 @@ impl Zone {
     pub fn merge_loc(&mut self, idx: usize, message: ZoneMessage) {
         let loc = &self.locs[idx];
         self.queue_event(Some(loc.lid()), ZoneEventType::Enclosed, None, message);
+    }
+
+    /// Queues an enclosed `LocPrefetch` of loc type `id`'s models for `shape`,
+    /// unless one for the same type and shape is already queued this tick.
+    ///
+    /// **Called by:** `Engine::loc_prefetchall`.
+    ///
+    /// **Calls:** [`queue_event`](Self::queue_event).
+    #[cfg(since_647)]
+    pub fn prefetch_loc(&mut self, id: u16, shape: u8) {
+        let queued = self.events.iter().any(
+            |e| matches!(&e.message, ZoneMessage::LocPrefetch(m) if m.id == id && m.shape == shape),
+        );
+        if !queued {
+            let message = ZoneMessage::LocPrefetch(LocPrefetch { id, shape });
+            self.queue_event(None, ZoneEventType::Enclosed, None, message);
+        }
     }
 
     // ---- obj management ----

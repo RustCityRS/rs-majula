@@ -644,6 +644,10 @@ pub const LOC_NAME: u16 = 3010;
 pub const LOC_PARAM: u16 = 3011;
 pub const LOC_SHAPE: u16 = 3012;
 pub const LOC_TYPE: u16 = 3013;
+#[cfg(since_647)]
+pub const LOC_PREFETCH: u16 = 3014;
+#[cfg(since_647)]
+pub const LOC_PREFETCHALL: u16 = 3015;
 
 // ── Obj ops (3500-3999) ─────────────────────────────────────────────────────
 

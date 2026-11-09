@@ -482,6 +482,16 @@ pub trait ScriptEngine {
     /// * `seq` - The sequence (animation) identifier to play.
     fn anim_loc(&mut self, loc: LocRef, seq: u16);
 
+    /// Starts every client observing `coord`'s zone downloading the models
+    /// loc type `id` has for `shape`.
+    ///
+    /// # Arguments
+    /// * `coord` - Picks the zone whose observers receive it.
+    /// * `id` - The loc type identifier.
+    /// * `shape` - The shape the client looks the models up by.
+    #[cfg(since_647)]
+    fn loc_prefetchall(&mut self, coord: CoordGrid, id: u16, shape: u8);
+
     /// Creates a projectile animation between two map positions.
     ///
     /// # Arguments
@@ -1622,6 +1632,15 @@ pub trait ScriptPlayer {
     /// * `loops` - The number of times to loop the sound.
     /// * `delay` - The delay in client ticks before playback starts.
     fn sound_synth(&mut self, synth: u16, loops: u8, delay: u16);
+
+    /// Starts the player's client downloading the models loc type `id` has
+    /// for `shape`.
+    ///
+    /// # Arguments
+    /// * `id` - The loc type identifier.
+    /// * `shape` - The shape the client looks the models up by.
+    #[cfg(since_647)]
+    fn loc_prefetch(&mut self, id: u16, shape: u8);
 
     /// Clears the player's pending action, if any.
     ///

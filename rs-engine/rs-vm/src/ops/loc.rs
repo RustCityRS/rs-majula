@@ -1,9 +1,17 @@
+#[cfg(since_647)]
+use crate::active_player_mut;
+#[cfg(since_647)]
+use crate::engine::ScriptPlayer;
 use crate::engine::{ScriptEngine, engine, engine_mut};
 use crate::iterators;
 use crate::iterators::LocIteratorState;
 #[cfg(since_647)]
 use crate::ops::test;
 use crate::register::OpsRegistry;
+#[cfg(since_647)]
+use crate::state::ScriptState;
+#[cfg(since_647)]
+use crate::util::pop_loc;
 use crate::util::{pop_coord, pop_param, pop_seq, set_active_loc};
 use crate::{ScriptError, active_loc, handlers, none};
 use num_enum::TryFromPrimitive;
@@ -22,12 +30,13 @@ use rs_pack::types::{LocAngle, LocShape};
 ///   `LOC_CATEGORY`, `LOC_PARAM`
 /// - **Animation:** `LOC_ANIM`
 /// - **Search / iterators:** `LOC_FIND`, `LOC_FINDALLZONE`, `LOC_FINDNEXT`
+/// - **Model prefetch (647):** `LOC_PREFETCH`, `LOC_PREFETCHALL`
 ///
 /// # Call Stack
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::loc::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` /
-/// `active_loc!` / `none!` macros
+/// `active_loc!` / `active_player_mut!` / `none!` macros
 pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
     handlers! { |m|
         // 3000
@@ -165,5 +174,42 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_loc!(m, LOC_TYPE => |s, loc| {
             s.push_int(engine::<E>().live_loc(loc).id as i32);
         });
+
+        // 3014
+        #[cfg(since_647)]
+        active_player_mut!(m, LOC_PREFETCH => |s, player| {
+            let (id, shape) = pop_prefetch::<E>(s)?;
+            player.loc_prefetch(id, shape);
+        });
+
+        // 3015
+        #[cfg(since_647)]
+        none!(m, LOC_PREFETCHALL => |s| {
+            let (id, shape) = pop_prefetch::<E>(s)?;
+            let coord = pop_coord(s)?;
+            engine_mut::<E>().loc_prefetchall(coord, id, shape);
+        });
     }
+}
+
+/// Pops a loc type and shape for `LOC_PREFETCH` / `LOC_PREFETCHALL`.
+///
+/// Returns the type's id and the shape its models are stored under: the client
+/// looks a diagonal centrepiece up as a straight one and every wall decoration
+/// as the unoffset straight one, but reads a prefetch's shape as sent.
+#[cfg(since_647)]
+fn pop_prefetch<E: ScriptEngine + 'static>(s: &mut ScriptState) -> crate::Result<(u16, u8)> {
+    let shape = s.pop_int_as::<u8>()?;
+    let loc = pop_loc::<E>(s)?;
+    let shape = LocShape::try_from_primitive(shape)
+        .map_err(|_| ScriptError::Runtime(format!("Invalid loc shape: {}", shape)))?;
+    let shape = match shape {
+        LocShape::CentrepieceDiagonal => LocShape::CentrepieceStraight,
+        LocShape::WallDecorStraightOffset
+        | LocShape::WallDecorDiagonalOffset
+        | LocShape::WallDecorDiagonalNoOffset
+        | LocShape::WallDecorDiagonalBoth => LocShape::WallDecorStraightNoOffset,
+        shape => shape,
+    };
+    Ok((loc.id, shape as u8))
 }

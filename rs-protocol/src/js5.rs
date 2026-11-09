@@ -10,6 +10,12 @@ use rs_io::js5::java_string_hash;
 #[cfg(since_647)]
 use rs_io::js5::reference::{ReferenceTable, encode_master_index};
 #[cfg(since_647)]
+use rs_ver::archive::{
+    BILLBOARDS, BINARY, CLIENTSCRIPT, CONFIG, CONFIG_ENUM, CONFIG_LOC, CONFIG_NPC, CONFIG_OBJ,
+    CONFIG_SEQ, CONFIG_SPOTANIM, CONFIG_VARBIT, DEFAULTS, DLLS, FONTMETRICS, INTERFACES, MATERIALS,
+    PARTICLES, QUICKCHAT, QUICKCHAT_GLOBAL, REFERENCE_TABLES, SHADERS, WORLDMAP,
+};
+#[cfg(since_647)]
 use std::collections::HashMap;
 #[cfg(since_647)]
 use std::ops::Range;
@@ -85,33 +91,33 @@ enum Prefetch {
 
 #[cfg(since_647)]
 const PREFETCHES: [Prefetch; 27] = [
-    Archive(28),
-    Group(30, "windows/x86/jaclib.dll"),
-    Group(30, "windows/x86/jaggl.dll"),
-    Group(30, "windows/x86/jagdx.dll"),
-    Group(30, "windows/x86/jagmisc.dll"),
-    Group(30, "windows/x86/sw3d.dll"),
-    Group(30, "windows/x86/hw3d.dll"),
-    Group(30, "windows/x86/jagtheora.dll"),
-    Archive(31),
-    Archive(26),
-    Archive(2),
-    Archive(16),
-    Archive(17),
-    Archive(18),
-    Archive(19),
-    Archive(20),
-    Archive(21),
-    Archive(22),
-    Archive(24),
-    Archive(25),
-    Archive(27),
-    Archive(29),
-    Group(10, "huffman"),
-    Archive(3),
-    Archive(12),
-    Archive(13),
-    Group(23, "details"),
+    Archive(DEFAULTS),
+    Group(DLLS, "windows/x86/jaclib.dll"),
+    Group(DLLS, "windows/x86/jaggl.dll"),
+    Group(DLLS, "windows/x86/jagdx.dll"),
+    Group(DLLS, "windows/x86/jagmisc.dll"),
+    Group(DLLS, "windows/x86/sw3d.dll"),
+    Group(DLLS, "windows/x86/hw3d.dll"),
+    Group(DLLS, "windows/x86/jagtheora.dll"),
+    Archive(SHADERS),
+    Archive(MATERIALS),
+    Archive(CONFIG),
+    Archive(CONFIG_LOC),
+    Archive(CONFIG_ENUM),
+    Archive(CONFIG_NPC),
+    Archive(CONFIG_OBJ),
+    Archive(CONFIG_SEQ),
+    Archive(CONFIG_SPOTANIM),
+    Archive(CONFIG_VARBIT),
+    Archive(QUICKCHAT),
+    Archive(QUICKCHAT_GLOBAL),
+    Archive(PARTICLES),
+    Archive(BILLBOARDS),
+    Group(BINARY, "huffman"),
+    Archive(INTERFACES),
+    Archive(CLIENTSCRIPT),
+    Archive(FONTMETRICS),
+    Group(WORLDMAP, "details"),
 ];
 
 #[cfg(since_647)]
@@ -131,13 +137,13 @@ impl Js5Cache {
     ) -> anyhow::Result<Self> {
         let archive_count = groups
             .keys()
-            .filter(|(archive, _)| *archive == 255)
+            .filter(|(archive, _)| *archive == REFERENCE_TABLES)
             .map(|(_, group)| group + 1)
             .max()
             .unwrap_or(0);
         for archive in 0..archive_count {
             groups
-                .entry((255, archive))
+                .entry((REFERENCE_TABLES, archive))
                 .or_insert_with(|| vec![0, 0, 0, 0, 4, 5, 1, 0, 0]);
         }
         for data in groups.values_mut() {
@@ -145,10 +151,10 @@ impl Js5Cache {
             data.truncate(len);
         }
         let master = encode_master_index(
-            (0..archive_count).map(|archive| (groups[&(255, archive)].as_ref(), 0)),
+            (0..archive_count).map(|archive| (groups[&(REFERENCE_TABLES, archive)].as_ref(), 0)),
             private_key,
         );
-        groups.insert((255, 255), master);
+        groups.insert((REFERENCE_TABLES, REFERENCE_TABLES as u32), master);
         let mut data = Vec::with_capacity(groups.values().map(Vec::len).sum());
         let groups: HashMap<_, _> = groups
             .into_iter()
@@ -158,16 +164,18 @@ impl Js5Cache {
                 (id, start..data.len())
             })
             .collect();
-        let mut archive_bytes = [0; 255];
+        let mut archive_bytes = [0; REFERENCE_TABLES as usize];
         for (&(archive, _), range) in &groups {
-            if archive != 255 {
+            if archive != REFERENCE_TABLES {
                 archive_bytes[archive as usize] += range.len();
             }
         }
         let len = |archive: u8, group: u32| groups.get(&(archive, group)).map_or(0, Range::len);
         let prefetches = PREFETCHES.map(|prefetch| {
             let size = match prefetch {
-                Archive(archive) => len(255, archive as u32) + archive_bytes[archive as usize],
+                Archive(archive) => {
+                    len(REFERENCE_TABLES, archive as u32) + archive_bytes[archive as usize]
+                }
                 Group(archive, name) => {
                     let hash = java_string_hash(name);
                     tables
@@ -207,6 +215,8 @@ mod tests {
     #[cfg(since_647)]
     use rs_io::js5::reference::GroupInfo;
     #[cfg(since_647)]
+    use rs_ver::archive::{CONFIG_GROUP_FLU, CONFIG_GROUP_HUNT};
+    #[cfg(since_647)]
     use std::ptr;
 
     #[cfg(since_647)]
@@ -223,8 +233,8 @@ mod tests {
         versioned.extend_from_slice(&321u16.to_be_bytes());
         let cache = Js5Cache::new(
             HashMap::from([
-                ((255, 0), reference.clone()),
-                ((255, 2), reference.clone()),
+                ((REFERENCE_TABLES, 0), reference.clone()),
+                ((REFERENCE_TABLES, 2), reference.clone()),
                 ((2, 7), versioned),
             ]),
             &HashMap::new(),
@@ -232,9 +242,11 @@ mod tests {
         )
         .unwrap();
         assert_eq!(cache.get(2, 7), Some(container.as_slice()));
-        assert_eq!(cache.get(255, 1), Some(reference.as_slice()));
+        assert_eq!(cache.get(REFERENCE_TABLES, 1), Some(reference.as_slice()));
         assert!(cache.get(2, 8).is_none());
-        let master = cache.get(255, 255).unwrap();
+        let master = cache
+            .get(REFERENCE_TABLES, REFERENCE_TABLES as u32)
+            .unwrap();
         assert_eq!(Container::parse(master).unwrap().data.len(), master.len());
         assert_eq!(master[5], 3);
         let shared = cache.clone();
@@ -256,7 +268,7 @@ mod tests {
         let mut versioned = huffman.clone();
         versioned.extend_from_slice(&[0, 7]);
         let binary = ReferenceTable {
-            archive_id: 10,
+            archive_id: BINARY,
             format: 5,
             version: 0,
             named: true,
@@ -274,13 +286,13 @@ mod tests {
         };
         let cache = Js5Cache::new(
             HashMap::from([
-                ((255, 2), table.clone()),
-                ((255, 10), table.clone()),
-                ((2, 0), first.clone()),
-                ((2, 1), second.clone()),
-                ((10, 4), versioned),
+                ((REFERENCE_TABLES, CONFIG as u32), table.clone()),
+                ((REFERENCE_TABLES, BINARY as u32), table.clone()),
+                ((CONFIG, CONFIG_GROUP_FLU), first.clone()),
+                ((CONFIG, CONFIG_GROUP_HUNT), second.clone()),
+                ((BINARY, 4), versioned),
             ]),
-            &HashMap::from([(10, binary)]),
+            &HashMap::from([(BINARY, binary)]),
             &key,
         )
         .unwrap();

@@ -1,7 +1,7 @@
 #[cfg(all(since_244, before_647))]
 use crate::archive;
 #[cfg(since_647)]
-use crate::archive::CONFIG_EMPTY_TABLES;
+use crate::archive::{CONFIG, CONFIG_EMPTY_TABLES};
 #[cfg(before_647)]
 use crate::archive::{JagArchive, JagSource};
 #[cfg(since_647)]
@@ -461,10 +461,10 @@ fn versionlist_known_hashes() -> Vec<i32> {
 #[cfg(all(since_244, before_647))]
 fn collect_js5_ondemand_crcs(vl_jag: &JagFile, cache: &mut Js5Store, crc_report: &mut CrcReport) {
     let tables = [
-        (1u8, "model", "model_version", "model_crc"),
-        (2, "anim", "anim_version", "anim_crc"),
-        (3, "midi", "midi_version", "midi_crc"),
-        (4, "map", "map_version", "map_crc"),
+        (archive::MODELS, "model", "model_version", "model_crc"),
+        (archive::ANIMS, "anim", "anim_version", "anim_crc"),
+        (archive::MIDI, "midi", "midi_version", "midi_crc"),
+        (archive::MAPS, "map", "map_version", "map_crc"),
     ];
     for (index, label, version_table, crc_table) in tables {
         let versions = read_u16_table(vl_jag, version_table);
@@ -501,7 +501,12 @@ fn collect_js5_leftovers(
             .flatten()
             .filter(|d| !d.is_empty())
         {
-            leftover.js5_unread(0, file, blob.len(), "idx0 slot not handled");
+            leftover.js5_unread(
+                archive::JAG as usize,
+                file,
+                blob.len(),
+                "idx0 slot not handled",
+            );
         }
     }
 
@@ -789,7 +794,7 @@ fn unpack_empty_table(
     section: &str,
     output_dir: &Path,
 ) -> Result<()> {
-    let Some(group) = store.read_group(2, group_id)? else {
+    let Some(group) = store.read_group(CONFIG, group_id)? else {
         info!("  Archive 2 group {group_id} ({type_name}) absent -- skipping");
         return Ok(());
     };

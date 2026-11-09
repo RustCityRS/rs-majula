@@ -1,4 +1,5 @@
 use super::vorbis_setup;
+use crate::archive::VORBIS;
 use crate::pack::{
     names::AssetNames,
     text::{Number, TextCodec},
@@ -256,7 +257,7 @@ pub fn unpack_archive(store: &mut Js5Store, pack_dir: &Path, content_dir: &Path)
     fs::create_dir_all(&dir)?;
     let names = AssetNames::load(pack_dir)?;
     let setup = store
-        .read_group_raw_decompressed(14, 0)?
+        .read_group_raw_decompressed(VORBIS, 0)?
         .context("Missing Vorbis setup")?;
     let text = vorbis_setup::unpack(&setup, &names)?;
     ensure!(
@@ -270,7 +271,7 @@ pub fn unpack_archive(store: &mut Js5Store, pack_dir: &Path, content_dir: &Path)
     let (modes, framing) = vorbis_setup::modes(&setup, &names)?;
     let shared = Setup::new(&setup, &names)?;
     let groups = store
-        .reference_table(14)
+        .reference_table(VORBIS)
         .context("Missing Vorbis table")?
         .groups
         .clone();
@@ -279,7 +280,7 @@ pub fn unpack_archive(store: &mut Js5Store, pack_dir: &Path, content_dir: &Path)
             continue;
         }
         let data = store
-            .read_group_raw_decompressed(14, info.id)?
+            .read_group_raw_decompressed(VORBIS, info.id)?
             .context("Missing Vorbis sample")?;
         let (header, packets) = sample(&data)?;
         let text = format!(

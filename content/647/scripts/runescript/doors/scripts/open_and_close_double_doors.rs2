@@ -45,6 +45,8 @@ if ($entering = true) {
         p_teleport($loc_coord);
         // initially thought p_delay(0); was the right speed.
         // but it seems to have buggy clipping; you move through too early
+        loc_prefetchall(movecoord($loc_coord, $x, 0, $z), $next_loc, wall_straight);
+        loc_prefetchall($opposite_coord, $opposite_loc, wall_straight);
         p_delay(1);
     }
     $dest = movecoord($loc_coord, $x, 0, $z);
@@ -101,6 +103,8 @@ if ($entering = true) {
         p_teleport($loc_coord);
         // initially thought p_delay(0); was the right speed.
         // but it seems to have buggy clipping; you move through too early
+        loc_prefetchall(movecoord($loc_coord, $x, 0, $z), $next_loc, wall_straight);
+        loc_prefetchall($opposite_coord, $opposite_loc, wall_straight);
         p_delay(1);
     }
     $dest = movecoord($loc_coord, $x, 0, $z);
@@ -153,6 +157,8 @@ if ($entering = true) {
         p_teleport($loc_coord);
         // initially thought p_delay(0); was the right speed.
         // but it seems to have buggy clipping; you move through too early
+        loc_prefetchall(movecoord($loc_coord, $x, 0, $z), $next_loc, wall_straight);
+        loc_prefetchall($opposite_coord, $opposite_loc, wall_straight);
         p_delay(1);
     }
     $dest = movecoord($loc_coord, $x, 0, $z);

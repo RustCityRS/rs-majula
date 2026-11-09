@@ -69,6 +69,8 @@ use rs_protocol::LoginResponse;
 use rs_protocol::login::{game_login_reply, reconnect_reply};
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
+#[cfg(since_647)]
+use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::obj_count::ObjCount;
 #[cfg(since_289)]
 use rs_protocol::network::game::server::sound_area::SoundArea;
@@ -4595,6 +4597,20 @@ impl ScriptEngine for Engine {
         }
     }
 
+    /// Starts every client observing `coord`'s zone downloading the models
+    /// loc type `id` has for `shape`.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptEngine` trait
+    /// **Calls:** `Zone::prefetch_loc`, `Engine::track_zone`
+    #[cfg(since_647)]
+    fn loc_prefetchall(&mut self, coord: CoordGrid, id: u16, shape: u8) {
+        let (x, y, z) = (coord.x(), coord.y(), coord.z());
+        self.zones.zone_mut(x, y, z).prefetch_loc(id, shape);
+        self.track_zone(x, y, z);
+    }
+
     /// Creates a projectile animation between two map positions.
     ///
     /// Computes relative deltas from source to destination and queues a
@@ -6594,6 +6610,19 @@ impl ScriptPlayer for ActivePlayer {
     /// **Calls:** `ActivePlayer::synth_sound`
     fn sound_synth(&mut self, synth: u16, loops: u8, delay: u16) {
         self.synth_sound(synth, loops, delay);
+    }
+
+    /// Starts the player's client downloading the models loc type `id` has
+    /// for `shape`. The standalone packet needs no zone header: the client
+    /// never reads a coordinate for it.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::write`
+    #[cfg(since_647)]
+    fn loc_prefetch(&mut self, id: u16, shape: u8) {
+        self.write(LocPrefetch { id, shape });
     }
 
     /// Clears the player's pending action, if any.

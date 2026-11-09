@@ -24,6 +24,7 @@ if(map_members = ^true) {
 }
 p_arrivedelay;
 anim(human_openchest,0);
+loc_prefetchall(loc_coord, loc_param(drawer_other), loc_shape);
 p_delay(0);
 // todo - Sound
 // Temp note: dur does not need updated
@@ -72,6 +73,7 @@ mes("The drawers are empty.");
 [label,empty_drawer_shut]
 p_arrivedelay;
 anim(human_closechest,0);
+loc_prefetchall(loc_coord, loc_param(drawer_other), loc_shape);
 p_delay(0);
 // todo - Sound
 // Temp note: dur does not need updated

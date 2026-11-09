@@ -836,7 +836,7 @@ pub(crate) fn pop_obj<E: ScriptEngine + 'static>(
 /// A static reference to the [`LocType`] definition.
 ///
 /// # Panics / Errors
-/// Returns `ScriptError::ObjNotFound` if no object type exists with the popped ID.
+/// Returns `ScriptError::LocNotFound` if no loc type exists with the popped ID.
 pub(crate) fn pop_loc<E: ScriptEngine + 'static>(
     state: &mut ScriptState,
 ) -> Result<&'static LocType> {
@@ -844,7 +844,7 @@ pub(crate) fn pop_loc<E: ScriptEngine + 'static>(
     engine::<E>()
         .locs()
         .get_by_id(id as u16)
-        .ok_or(ScriptError::ObjNotFound(id))
+        .ok_or(ScriptError::LocNotFound(id))
 }
 
 /// Pops an integer from the script stack and looks up the corresponding [`ParamType`] from the cache.

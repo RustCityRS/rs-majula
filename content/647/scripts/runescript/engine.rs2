@@ -776,6 +776,10 @@
 [command,loc_shape]()(locshape)
 // info: Get the secondary loc's shape
 [command,.loc_shape]()(locshape)
+// info: Start the player's client downloading $loc's models for $shape, a tick before it needs them
+[command,loc_prefetch](loc $loc, locshape $shape)
+// info: Start every client that can see $coord's zone downloading $loc's models for $shape, a tick before they need them
+[command,loc_prefetchall](coord $coord, loc $loc, locshape $shape)
 
 // Obj ops (3500-4000)
 // info: Spawn an object at $coord for the current player

@@ -66,7 +66,7 @@ struct Known {
 /// Exact divergences from OpenRS2 274.
 const KNOWN: &[Known] = &[
     Known {
-        archive: 5,
+        archive: archive::MAPS,
         // The 29 landscape squares whose 274 keys nobody has (OpenRS2 lists
         // none), rebuilt from donor caches and re-encrypted with the committed
         // key, plus the terrain of 4 of them: m51_53, m33_76, m48_50, m42_58.
@@ -78,7 +78,7 @@ const KNOWN: &[Known] = &[
         why: "donor-restored landscapes: 274's copies are unreadable without keys",
     },
     Known {
-        archive: 7,
+        archive: archive::MODELS,
         // All 197 are groups 274 does not have at all; no 274 model is
         // altered. Models the server overlay configs reference that Jagex did
         // not ship in this cache.
@@ -102,7 +102,7 @@ const KNOWN: &[Known] = &[
         why: "models added for server overlay configs, absent from 274",
     },
     Known {
-        archive: 16,
+        archive: archive::CONFIG_LOC,
         groups: &[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 17, 18, 19, 20, 21, 35],
         why: "loc config groups restored from donor caches, plus the woodcutting tree overlays",
     },
@@ -135,7 +135,7 @@ fn assembled_cache_matches_openrs2_group_by_group() {
         let theirs_raw = fs::read(format!("rs-pack/tests/fixtures/647/{aid}.dat")).unwrap();
         let ours_raw = store
             .groups
-            .get(&(255, aid as u32))
+            .get(&(archive::REFERENCE_TABLES, aid as u32))
             .expect("missing reference table");
         for group in &store.tables[&aid].groups {
             let raw = &store.groups[&(aid, group.id)];
@@ -252,16 +252,24 @@ fn rejects_corrupt_cache(store: &mut PackedCache) {
         let old_crc = table.groups[index].crc;
         table.groups[index].crc = crc;
         let encoded = compress_best(&encode_reference_table(table), true, true, None).unwrap();
-        let reference = store.groups.insert((255, aid as u32), encoded).unwrap();
+        let reference = store
+            .groups
+            .insert((archive::REFERENCE_TABLES, aid as u32), encoded)
+            .unwrap();
         let error = archive::verify_crcs(store, true).unwrap_err().to_string();
         assert!(error.contains(&format!("archive {aid}: got")), "{error}");
         archive::verify_crcs(store, false).expect("custom content remains supported");
         store.tables.get_mut(&aid).unwrap().groups[index].crc = old_crc;
         store.groups.insert((aid, gid), original);
-        store.groups.insert((255, aid as u32), reference);
+        store
+            .groups
+            .insert((archive::REFERENCE_TABLES, aid as u32), reference);
     }
 
-    let key = (32, store.tables[&32].groups[0].id);
+    let key = (
+        archive::LOADING_SPRITES,
+        store.tables[&archive::LOADING_SPRITES].groups[0].id,
+    );
     let original = store.groups.remove(&key).unwrap();
     let error = archive::verify_crcs(store, true).unwrap_err().to_string();
     assert!(error.contains("missing payload"), "{error}");
@@ -272,15 +280,31 @@ fn rejects_corrupt_cache(store: &mut PackedCache) {
     assert!(error.contains("invalid version trailer"), "{error}");
     store.groups.get_mut(&key).unwrap().push(last);
 
-    store.tables.get_mut(&32).unwrap().groups[0].name_hash ^= 1;
+    store
+        .tables
+        .get_mut(&archive::LOADING_SPRITES)
+        .unwrap()
+        .groups[0]
+        .name_hash ^= 1;
     let error = archive::verify_crcs(store, true).unwrap_err().to_string();
     assert!(error.contains("reference metadata differs"), "{error}");
-    store.tables.get_mut(&32).unwrap().groups[0].name_hash ^= 1;
+    store
+        .tables
+        .get_mut(&archive::LOADING_SPRITES)
+        .unwrap()
+        .groups[0]
+        .name_hash ^= 1;
 
-    let reference = store.groups.remove(&(255, 32)).unwrap();
+    let reference = store
+        .groups
+        .remove(&(archive::REFERENCE_TABLES, archive::LOADING_SPRITES as u32))
+        .unwrap();
     let error = archive::verify_crcs(store, true).unwrap_err().to_string();
     assert!(error.contains("missing reference container"), "{error}");
-    store.groups.insert((255, 32), reference);
+    store.groups.insert(
+        (archive::REFERENCE_TABLES, archive::LOADING_SPRITES as u32),
+        reference,
+    );
 
     store.groups.insert((35, 0), vec![0; 7]);
     let error = archive::verify_crcs(store, true).unwrap_err().to_string();

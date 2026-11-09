@@ -225,6 +225,7 @@ if (loc_find(0_50_54_4_13, loc_12982) = true) {
 p_delay(7);
 %demon_slayer_silverlight_case = ^demon_case_open;
 npc_anim(seq_12628, 0); // void-634: silverlight_remove_sword
+loc_prefetch(sword_case_12985, centrepiece_straight);
 p_delay(0);
 %demon_slayer_sir_prysin_sword = ^true;
 %demon_slayer_silverlight_case = ^demon_case_empty;

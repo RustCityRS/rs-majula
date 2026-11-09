@@ -189,10 +189,12 @@ pub fn insert_archive(
             &encoded,
             true,
             true,
-            archive::codec_override(255, aid as u32),
+            archive::codec_override(archive::REFERENCE_TABLES, aid as u32),
         )?)
     })?;
-    store.groups.insert((255, aid as u32), raw);
+    store
+        .groups
+        .insert((archive::REFERENCE_TABLES, aid as u32), raw);
     info!(
         "  archive {:>2} ({}) -- {} groups, table_version={} {}",
         aid,
