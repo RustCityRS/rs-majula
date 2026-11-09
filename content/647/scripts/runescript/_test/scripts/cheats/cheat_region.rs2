@@ -1,8 +1,9 @@
 // ::instance <rotation> copies the 64x64 tiles around you, every level, into
 // a new region turned <rotation> quarter turns clockwise and puts you on the
-// same tile of the copy. Logging out in it brings you back where you were.
-// The controller_0 on its south-west tile keeps where the copy came from,
-// its size and how it's turned, for ::instancespin and ::instanceleave.
+// same tile of the copy. It sets no exit coord, so leaving it, by
+// ::instanceleave or by logging out in it, brings you back to the tile you
+// entered it from. The controller_0 on its south-west tile keeps where the
+// copy came from, its size, how it's turned and that tile.
 [debugproc,instance](int $rotation)
 ~instance_copy(movecoord(0_0_0_0_0, clearbit_range(calc(coordx(coord) - 32), 0, 2), 0, clearbit_range(calc(coordz(coord) - 32), 0, 2)), 63, $rotation);
 
@@ -32,6 +33,7 @@ controller_add($origin, controller_0, 0);
 %config43_1 = coordz($from);
 %config43_2 = $rotation;
 %config43_3 = $last;
+%config43_4 = coord;
 p_telejump(~instance_tile(coord, $from, $rotation, $last));
 mes("Instance <tostring(region_uid)>, turned <tostring($rotation)>. ::instancespin to turn it, ::instanceleave to leave.");
 
@@ -60,8 +62,9 @@ def_coord $source = ~instance_source($from, %config43_2, %config43_3);
 p_telejump(~instance_tile($source, $from, $rotation, %config43_3));
 mes("Turned <tostring($rotation)>.");
 
-// ::instanceleave puts you on the tile of the map you stand on in the copy.
-// The region goes once nobody has been in it for 50 ticks.
+// ::instanceleave takes you back to the tile you entered the instance from,
+// where logging out in it would. The region goes once nobody has been in it
+// for 50 ticks.
 [debugproc,instanceleave]
 if_close;
 if (p_finduid(uid) = false) { return; }
@@ -73,8 +76,7 @@ if (controller_findexact(region_getcoord(0, 0, 0), controller_0) = false) {
     mes("This is not an ::instance.");
     return;
 }
-def_coord $from = movecoord(0_0_0_0_0, %config43_0, 0, %config43_1);
-p_telejump(~instance_source($from, %config43_2, %config43_3));
+p_telejump(%config43_4);
 mes("Left the instance.");
 
 // Sets each zone of the area $zones zones across from $from, every level,

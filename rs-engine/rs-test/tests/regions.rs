@@ -4,8 +4,15 @@
 
 #![cfg(since_647)]
 
+#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
+mod client_packet;
+
+use client_packet::ClientPacket;
 use rs_engine::Engine;
+use rs_engine::harness::HarnessClient;
+use rs_entity::player::StaffModLevel;
 use rs_grid::CoordGrid;
+use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
@@ -358,6 +365,48 @@ fn a_save_in_region_space_logs_in_at_its_exit() {
             let coord = engine.harness_player(client.pid).unwrap().pathing.coord;
             assert_eq!((coord.x(), coord.z()), expected, "{name}");
         }
+    });
+}
+
+/// Types `input` into the client's command box.
+fn cheat(client: &mut HarnessClient, input: &str) {
+    let mut p = ClientPacket::new();
+    p.p1(0).p1(0).pjstr(input);
+    client.send(ClientProt::ClientCheat, &p.finish());
+}
+
+/// `::instance` sets no exit coord, so leaving it and a save in it both go
+/// back to the tile the player entered it from, not the map tile under where
+/// it stands in the copy.
+#[test]
+fn leaving_an_instance_with_no_exit_goes_back_where_it_was_entered() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = engine
+            .harness_login_returning_at("leaver", 3222, 3218)
+            .unwrap();
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .staff_mod_level = StaffModLevel::Maintainer;
+        engine.cycle();
+        let entered = engine.harness_player(client.pid).unwrap().pathing.coord;
+
+        cheat(&mut client, "instance 0");
+        engine.cycle();
+        let inside = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert!(inside.x() >= 6400, "in the instance at {inside:?}");
+        engine.harness_telejump(client.pid, inside.x() + 3, 0, inside.z() + 2);
+        engine.cycle();
+        let (_, exit, login) = engine.harness_saved_coord(client.pid).unwrap();
+        assert_eq!((exit, login), (Some(entered), entered));
+
+        cheat(&mut client, "instanceleave");
+        engine.cycle();
+        assert_eq!(
+            engine.harness_player(client.pid).unwrap().pathing.coord,
+            entered
+        );
+        assert!(engine.script_errors.take().is_empty());
     });
 }
 
