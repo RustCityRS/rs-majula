@@ -25,6 +25,8 @@ use rs_pack::cache::script::{SETUP_PLAYER, TEST_OP};
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::server_prot::ServerProt;
+#[cfg(since_647)]
+use rs_var::VarSet;
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptPlayer, with_engine};
 use rs_vm::ops::test;
@@ -406,6 +408,14 @@ impl Engine {
         self.pending_logins.clear();
         for npc in self.npc_list.npcs.iter_mut().flatten() {
             npc.npc.state.active_script = None;
+            // The clock goes back to 0 below, so an npc's clock-valued vars from an earlier
+            // test (its last fight, its action delay, whom it fought) would read as the
+            // future: its single-combat lock held until the clock caught up ("Someone else
+            // is fighting that."). Its vars start fresh, as at its spawn.
+            #[cfg(since_647)]
+            {
+                npc.npc.vars = VarSet::new(self.cache.varns.types.iter().map(|v| v.var_type));
+            }
         }
         for uid in self.regions.uids() {
             self.region_del(uid);
