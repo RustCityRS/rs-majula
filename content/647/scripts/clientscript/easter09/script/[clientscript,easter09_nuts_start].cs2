@@ -40,4 +40,4 @@ if_setposition(calc(0 - if_getwidth(easter09_nuts:model2)), if_gety(easter09_nut
 if_setposition(calc(0 - if_getwidth(easter09_nuts:model3)), if_gety(easter09_nuts:model3), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model3);
 if_setposition(calc(0 - if_getwidth(easter09_nuts:model4)), if_gety(easter09_nuts:model4), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model4);
 if_setposition(if_getx(easter09_nuts:band), 200, ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:bar);
-if_setontimer("apply_zoom_item_text1(easter09_nuts:model1)", easter09_nuts:control1);
+if_setontimer("script399(easter09_nuts:model1)", easter09_nuts:control1);

@@ -1,5 +1,5 @@
 // 1188
-[clientscript,opt_header]
+[proc,script1188]
 if (getwindowmode >= 2) {
     if_setgraphic(chat_background, chattop:chat_graphic);
     if_setalpha(true, chattop:chat_graphic);

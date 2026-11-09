@@ -1,5 +1,5 @@
 // 399
-[proc,apply_zoom_item_text1](component $component0)
+[clientscript,script399](component $component0)
 if (if_getx($component0) < calc(if_getwidth(easter09_nuts:content) - 1) | calc(if_gety($component0) - if_getheight($component0)) > 110) {
     if (if_getx($component0) = calc(140 + if_getwidth($component0))) {
         if_setontimer("script1550(easter09_nuts:model2)", easter09_nuts:control2);

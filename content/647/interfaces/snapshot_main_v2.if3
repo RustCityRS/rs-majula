@@ -2600,7 +2600,7 @@ transmitop=10
 op10=  
 
 // 594:195
-[trh173_mosaic_crystal_prestige_counter]
+[honour_help_scrolled_layer]
 type=layer
 x=29
 y=78
@@ -2608,7 +2608,7 @@ width=431
 height=248
 layer=honour_help_layer
 scrollheight=350
-onload=scrollbar_vertical(snapshot_main_v2:honour_help_scroll_bar, snapshot_main_v2:trh173_mosaic_crystal_prestige_counter)
+onload=scrollbar_vertical(snapshot_main_v2:honour_help_scroll_bar, snapshot_main_v2:honour_help_scrolled_layer)
 
 // 594:196
 [honour_help_title_txt]
@@ -2633,7 +2633,7 @@ x=5
 y=5
 width=426
 height=239
-layer=trh173_mosaic_crystal_prestige_counter
+layer=honour_help_scrolled_layer
 textfont=p11_full
 text=An item scam is defined as cheating another player during a trade. We don't consider it a scam to ask for large amounts of gp for an item, but it is not in the spirit of the game to overprice an item. It is your responsibility to make sure that you are paying a good price.<br><br>Asking for someone's bank PIN or recovery answers is just as serious as asking for a password; giving out your bank PIN allows other players access to your bank space. Never tell another player your password, PIN number or any other account security details.<br><br>If you notice a bug, please report it to us straight away. If, after noticing a bug, you continue to exploit it, you are likely to have action taken against your account.<br><br>There are no cheats for any of our games. Anyone that approaches you in-game to offer you cheats should be reported under 'Encouraging rule-breaking'.<br><br>Don't encourage rule-breaking, such as encouraging someone to try real-world trading, scamming or exploiting bugs.<br><br>You should not swap your account with another player, or share your account with anyone else. Sharing your account makes it less secure, and is also unfair to other players.
 textshadow=yes

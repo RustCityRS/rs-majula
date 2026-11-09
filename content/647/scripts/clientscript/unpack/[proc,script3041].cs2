@@ -40,8 +40,8 @@ if ($int5 = -2) {
         } else {
             cc_setcolour(0x292016);
         }
-        cc_setonmouseover("script3031($component2, $int6)");
-        cc_setonmouseleave("script3036");
+        cc_setonmouseover("lobby_friends_ignoremo($component2, $int6)");
+        cc_setonmouseleave("lobby_friends_ignoreml");
         if (string_length($string1) > 0) {
             $int15 = calc(stringwidth("Last known as: <$string1>", p11_full) + 8);
             if ($int15 > if_getwidth(lobbyscreen_pane_friendslist:ignore_content)) {

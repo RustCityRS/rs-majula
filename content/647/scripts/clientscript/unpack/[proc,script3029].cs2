@@ -45,8 +45,8 @@ if ($int6 = -2) {
         } else {
             cc_setcolour(0x292016);
         }
-        cc_setonmouseover("script3030($component3, $int7)");
-        cc_setonmouseleave("script3035");
+        cc_setonmouseover("lobby_friends_friendmo($component3, $int7)");
+        cc_setonmouseleave("lobby_friends_friendml");
         if (string_length($string1) > 0) {
             $int16 = calc(stringwidth("Last known as: <$string1>", p11_full) + 8);
             if ($int16 > if_getwidth(lobbyscreen_pane_friendslist:friends_upper)) {

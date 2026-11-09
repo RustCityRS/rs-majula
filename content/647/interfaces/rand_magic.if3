@@ -586,7 +586,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Cast
 op10=  
-onload=radiocurrent(event_com, rand_magic:tooltip, "magicon2,50", "magicoff2,50", 32, "Gatestone Teleport", "Teleports you to your active gatestone", null, 0, null, 0, null, 0, null, 0)
+onload=script2271(event_com, rand_magic:tooltip, "magicon2,50", "magicoff2,50", 32, "Gatestone Teleport", "Teleports you to your active gatestone", null, 0, null, 0, null, 0, null, 0)
 
 // 950:40
 [com_40]

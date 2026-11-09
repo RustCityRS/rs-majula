@@ -19,7 +19,7 @@ if (clan_getchatcount > 0) {
     if_setop(1, "Join chat channel", lobbyscreen_pane_friendschat:clan_join_button);
 }
 %varclient_1868 = "";
-~brown_cursebearer(lobbyscreen_pane_friendschat:chat_bg);
+~script3024(lobbyscreen_pane_friendschat:chat_bg);
 %varclient_1507 = string_length(%varclient_1868);
 if_setonclick("script4570(event_mousex, lobbyscreen_pane_friendschat:chat_input_text, lobbyscreen_pane_friendschat:input_caret)", lobbyscreen_pane_friendschat:chat_input_text);
 ~script4571(lobbyscreen_pane_friendschat:chat_input_text, lobbyscreen_pane_friendschat:input_caret, %varclient_1868);

@@ -30,4 +30,4 @@ if (%varclient_1027 = true & string_length(%varclient_1721) > 0) {
 cc_setop(1, "Use:");
 cc_setopbase("<col=ff9040><removetags(%varclient_1721)></col>");
 cc_setonop("meslayer_lastname(%varclient_5, event_op, event_com, event_comsubid, %varclient_1721)");
-~opt_header;
+~script1188;

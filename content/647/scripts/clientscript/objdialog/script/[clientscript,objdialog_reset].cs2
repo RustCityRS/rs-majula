@@ -7,7 +7,7 @@ if_setonkey("objdialog_onkey(event_keycode, event_keychar)", objdialog:searchtex
 if_settext($string0, objdialog:objdialog_title);
 if_sethide(false, objdialog:resultlist_hide);
 if_setobject(null, -1, objdialog:objgraphic);
-~opt_header;
+~script1188;
 %varclient_1541 = "";
 if_settext("*", objdialog:searchtext);
 cc_deleteall(objdialog:resultlist);

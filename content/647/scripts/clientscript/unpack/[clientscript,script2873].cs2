@@ -1,5 +1,5 @@
 // 2873
-[proc,setintminimenu]
+[clientscript,script2873]
 if (%varplayerbit_7078 = 0) {
     if_setgraphic("music_header_icons,3", music_v3:playlist_on);
 } else {

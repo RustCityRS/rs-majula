@@ -35,5 +35,5 @@ if ($int1 >= 0) {
     if_setonclick(null, chattop:mes_layer);
     ~script2026;
     if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chattop:mes_text2);
-    ~opt_header;
+    ~script1188;
 }

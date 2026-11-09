@@ -23,7 +23,7 @@ if (activeclanchannel_find_affined = true) {
     ~script3161(0);
 }
 %varclient_1797 = "";
-~brown_cursebearer(lobbyscreen_pane_clanchat:chat_bg);
+~script3024(lobbyscreen_pane_clanchat:chat_bg);
 ~script3027(lobbyscreen_pane_clanchat:clan_title);
 %varclient_1098 = string_length(%varclient_1797);
 if_setonclick("script1335(event_mousex, lobbyscreen_pane_clanchat:chat_input_text, lobbyscreen_pane_clanchat:input_caret)", lobbyscreen_pane_clanchat:chat_input_text);

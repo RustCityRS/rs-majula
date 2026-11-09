@@ -16,6 +16,6 @@ if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:chat_build);
 if_setonfriendtransmit("script3028(lobbyscreen_pane_friendslist:friends_name, lobbyscreen_pane_friendslist:friends_namechange, lobbyscreen_pane_friendslist:friends_status, lobbyscreen_pane_friendslist:friends_bg, lobbyscreen_pane_friendslist:friends_main, lobbyscreen_pane_friendslist:friends_build_layer_scroll)", lobbyscreen_pane_friendslist:friends_main);
 ~script3041(lobbyscreen_pane_friendslist:ignore_name, lobbyscreen_pane_friendslist:ignore_namechange, lobbyscreen_pane_friendslist:ignore_bg, lobbyscreen_pane_friendslist:ignore_main, lobbyscreen_pane_friendslist:ignore_scroll);
 if_setonfriendtransmit("script3040(lobbyscreen_pane_friendslist:ignore_name, lobbyscreen_pane_friendslist:ignore_namechange, lobbyscreen_pane_friendslist:ignore_bg, lobbyscreen_pane_friendslist:ignore_main, lobbyscreen_pane_friendslist:ignore_scroll)", lobbyscreen_pane_friendslist:ignore_main);
-~brown_cursebearer(lobbyscreen_pane_friendslist:chat_bg);
+~script3024(lobbyscreen_pane_friendslist:chat_bg);
 %varclient_1795 = "";
 ~lobbyscreen_pane_friendslist_chatbox_resize_load;
