@@ -47,6 +47,10 @@ while ($i < db_getfieldcount($effect_data, consume_table:stat_heal)) {
     }
     $i = calc($i + 1);
 }
+// Unstable Foundations' cellar says it in a box, voiced (quest_unstable/uf_items.rs2).
+if (~uf_ate($consumable, %life_points > $hp_before) = true) {
+    return;
+}
 mes("You eat the <lowercase(oc_name($consumable))>.");
 if (%life_points > $hp_before) {
     mes("It heals some health.");

@@ -436,10 +436,20 @@ impl ScriptPlayer for ActivePlayer {
     /// **Calls:** `Stats::add_xp`, `change_stat`, `Engine::script_by_key`, `ScriptQueue::add`,
     /// `recalc_combat_and_appearance`
     fn add_xp(&mut self, stat: usize, xp: i32) {
+        #[cfg(since_647)]
+        let before = self.player.stats.base_level(stat);
         if !self.player.stats.add_xp(stat, xp) {
             return;
         }
         self.change_stat(stat);
+        // Rev-647: the level-up script runs once for the award and is told how many levels it
+        // crossed, for 2011's "You've just advanced 2 Mining levels!" (levelup.rs2).
+        #[cfg(since_647)]
+        let args = Some(vec![ScriptArgument::Int(i32::from(
+            self.player.stats.base_level(stat).saturating_sub(before),
+        ))]);
+        #[cfg(before_647)]
+        let args = None;
         if let Some(script) =
             engine().script_by_key(ServerTriggerType::AdvanceStat, Some(stat as i32), None)
         {
@@ -447,7 +457,7 @@ impl ScriptPlayer for ActivePlayer {
                 .player
                 .state
                 .queues
-                .add(QueuePriority::Engine, script.id, 0, None);
+                .add(QueuePriority::Engine, script.id, 0, args);
         }
         self.recalc_combat_and_appearance();
     }

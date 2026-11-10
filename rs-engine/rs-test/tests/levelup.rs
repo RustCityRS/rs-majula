@@ -134,9 +134,11 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
             Some("Congratulations! You've just advanced an Attack level!")
         );
         assert_eq!(text(1), Some("You have now reached level 2!"));
+        // 2011's chat line (xqWnfqno_1M 2010-12-12, 4KO2h2xPtdM 2011-04-30: "You've just
+        // advanced a Woodcutting level! You have reached level 4.").
         assert_eq!(
             said,
-            ["Congratulations, you just advanced an attack level."]
+            ["You've just advanced an Attack level! You have reached level 2."]
         );
         assert_eq!(played, [ADVANCE_ATTACK]);
         assert_eq!(

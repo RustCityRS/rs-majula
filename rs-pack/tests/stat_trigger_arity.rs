@@ -1,9 +1,12 @@
-//! `[advancestat,..]` and `[changestat,..]` handlers must declare no parameters.
+//! `[advancestat,..]` and `[changestat,..]` handlers must declare exactly the
+//! parameters the engine passes.
 //!
-//! Both triggers are fired by the engine, not by a script, and both are enqueued
-//! with **no arguments** -- `add_xp` and `change_stat` in
-//! `rs-engine/src/engine.rs` pass `None` for the `args` field of the queued
-//! entry. `ScriptState::new` does not treat that as an error: it fills whatever
+//! Both triggers are fired by the engine, not by a script. `change_stat` in
+//! `rs-engine/src/script/player.rs` enqueues `[changestat]` with **no arguments**
+//! (`None`) at every revision; `add_xp` does the same for `[advancestat]` before
+//! 647, and from 647 passes one int, the number of levels the award crossed, for
+//! 2011's "You've just advanced 2 Mining levels!" (`levelup.rs2`). A parameter
+//! the engine does not pass is no error to `ScriptState::new`: it fills whatever
 //! locals the script declares by `resize`-ing the local vectors to
 //! `int_local_count` / `string_local_count`, so a declared-but-unsupplied
 //! parameter reads back as `0` (or `""`). Nothing logs, nothing fails; the
@@ -20,8 +23,8 @@
 //! firing added `0 * 10`. Two separate mistakes compounded, and this test catches
 //! the one that is mechanically checkable:
 //!
-//! 1. **Arity** (checked here): the handler took an argument the engine does not
-//!    pass.
+//! 1. **Arity** (checked here): the handler took an argument the engine did not
+//!    pass then (647's one int, the levels crossed, came later).
 //! 2. **Semantics** (not checkable from text): `advancestat` is the *level-up*
 //!    trigger, so even a zero-arg handler would only have run on level-up. Every
 //!    earlier revision uses it that way -- `content/<rev>/scripts/levelup/
@@ -32,13 +35,15 @@
 //! **All revisions, one run.** The two triggers mean the same thing in every
 //! revision the server supports, and the engine that fires them is shared, so
 //! this walks every directory named in [`rs_ver::REVS`] rather than only the
-//! `REV` the test binary was built for. `REV=225 cargo test` and
-//! `REV=647 cargo test` therefore check the same seven content trees.
+//! `REV` the test binary was built for, holding each to its revision's
+//! arguments ([`engine_params`]). `REV=225 cargo test` and `REV=647 cargo test`
+//! therefore check the same seven content trees.
 //!
-//! **Not covered.** Whether a zero-arg handler is *semantically* right for the
-//! trigger it hangs off (point 2 above), and triggers other than these two.
-//! Other engine-fired triggers do pass arguments; only these two are asserted
-//! here, because only these two are enqueued with `None` at every call site.
+//! **Not covered.** Whether a handler is *semantically* right for the trigger it
+//! hangs off (point 2 above), and triggers other than these two. Other
+//! engine-fired triggers pass arguments of their own; only these two are
+//! asserted here, because each has a single call site whose arguments are
+//! mirrored in [`engine_params`].
 //!
 //! ```text
 //! cargo test -p rs-pack --test stat_trigger_arity
@@ -47,8 +52,16 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
-/// The triggers `rs-engine` enqueues with `None` for arguments.
-const ARGLESS_TRIGGERS: [&str; 2] = ["advancestat", "changestat"];
+/// The triggers this test checks.
+const STAT_TRIGGERS: [&str; 2] = ["advancestat", "changestat"];
+
+/// The parameter types `rs-engine` passes `trigger` at `rev`, `,`-joined; `None`
+/// when it passes no arguments. `add_xp` passes `[advancestat]` the levels crossed
+/// from 647 (`#[cfg(since_647)]`); everything else is enqueued with `None`.
+fn engine_params(trigger: &str, rev: &str) -> Option<&'static str> {
+    let since_647 = rev.parse::<f64>().is_ok_and(|r| r >= 647.0);
+    (trigger == "advancestat" && since_647).then_some("int")
+}
 
 /// Below this, the walk found too little to be believed and the test is failing
 /// vacuously rather than passing. Six revisions carry 20 `[advancestat,<skill>]`
@@ -79,19 +92,25 @@ fn header_trigger(line: &str) -> Option<&str> {
     (comma < bracket).then(|| &rest[..comma])
 }
 
-/// Whether a header line declares a parameter list -- `](` with nothing between.
+/// The types of the parameter list a header line declares -- `](` with nothing
+/// between -- `,`-joined; `None` when it declares none.
 ///
 /// `[advancestat,attack] @levelup(..)` is a header followed by a *statement* on
 /// the same line, which is why the check is for `(` immediately after `]` rather
 /// than for a `(` anywhere on the line.
-fn declares_parameters(line: &str) -> bool {
-    line.find(']')
-        .and_then(|i| line[i + 1..].chars().next())
-        .is_some_and(|c| c == '(')
+fn declared_params(line: &str) -> Option<String> {
+    let rest = line[line.find(']')? + 1..].strip_prefix('(')?;
+    let list = &rest[..rest.find(')')?];
+    Some(
+        list.split(',')
+            .map(|p| p.split_whitespace().next().unwrap_or(""))
+            .collect::<Vec<_>>()
+            .join(","),
+    )
 }
 
 #[test]
-fn argless_stat_triggers_declare_no_parameters() {
+fn stat_triggers_declare_the_engines_parameters() {
     let root = repo_root();
     let mut offenders = Vec::new();
     let mut checked = 0usize;
@@ -115,11 +134,11 @@ fn argless_stat_triggers_declare_no_parameters() {
                 let Some(trigger) = header_trigger(line) else {
                     continue;
                 };
-                if !ARGLESS_TRIGGERS.contains(&trigger) {
+                if !STAT_TRIGGERS.contains(&trigger) {
                     continue;
                 }
                 checked += 1;
-                if declares_parameters(line) {
+                if declared_params(line).as_deref() != engine_params(trigger, rev) {
                     let shown = file.strip_prefix(&root).unwrap_or(&file);
                     offenders.push(format!(
                         "{}:{}: {}",
@@ -139,12 +158,12 @@ fn argless_stat_triggers_declare_no_parameters() {
     );
     assert!(
         checked >= MIN_HEADERS,
-        "found only {checked} `{ARGLESS_TRIGGERS:?}` headers across {revisions_walked} \
+        "found only {checked} `{STAT_TRIGGERS:?}` headers across {revisions_walked} \
          revisions; expected at least {MIN_HEADERS}. The walk is broken, not the content."
     );
     assert!(
         offenders.is_empty(),
-        "these handlers declare parameters the engine never passes, so the locals \
+        "these handlers declare other parameters than the engine passes, so the locals \
          read back as 0 with no error:\n  {}",
         offenders.join("\n  ")
     );

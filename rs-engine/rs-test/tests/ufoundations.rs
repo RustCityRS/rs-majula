@@ -874,10 +874,19 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             p.p4((iface << 16) | com).p2_alt3(NONE).p2_alt1(slot);
             client.send(ClientProt::IfButton1, &p.finish());
         };
+        // The quest list tab clicked at its arrow (toplevel:stone3, 548:131): the arrow stops
+        // (4KO2h2xPtdM @118-120; worn equipment's @85.5-86.5).
+        button(&mut client, 548, 131, NONE);
+        cycles(engine, &mut client, 2);
+        assert_eq!(varbit(engine, &client, FLASH_SIDE), 0, "the tab clicked");
         button(&mut client, 190, 18, 131);
         let journal = cycles(engine, &mut client, 3);
         assert_eq!(progress(engine, &client), 60, "Check your World Map");
-        assert_eq!(varbit(engine, &client, FLASH_SIDE), 19, "the arrow at the globe");
+        assert_eq!(
+            varbit(engine, &client, FLASH_SIDE),
+            19,
+            "the arrow at the globe"
+        );
         assert!(
             switched_to_task(&journal),
             "a new Task brings the panel to the task system (4KO2h2xPtdM @83.75, @103.75)"
@@ -1317,20 +1326,21 @@ fn the_way_out_to_lumbridge() {
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(player.stats.base_levels[14], 4, "Mining 4");
 
-        // The level-up box first (interface 740, its "Click here to continue" is component 3).
-        // The scroll closed, the level-up queued behind it opens; two levels at once queue a
-        // box each.
+        // The scroll closed, the level-up queued behind it runs: 2011's one line for the two
+        // levels and no level-up box (4KO2h2xPtdM @610-636, VwpdbjfigD4 @788-796).
         engine.harness_close_modal(client.pid);
-        cycles(engine, &mut client, 3);
-        for _ in 0..4 {
-            if !is_open(engine, &client, 740) {
-                break;
-            }
-            let mut p = ClientPacket::new();
-            p.p2(NONE).p4_alt2((740 << 16) | 3);
-            client.send(ClientProt::ResumePauseButton, &p.finish());
-            cycles(engine, &mut client, 2);
-        }
+        let after = cycles(engine, &mut client, 3);
+        let lines: Vec<String> = HarnessClient::game_messages(&after)
+            .into_iter()
+            .map(|(_, m)| m)
+            .collect();
+        assert!(
+            lines
+                .iter()
+                .any(|m| m == "You've just advanced 2 Mining levels! You have reached level 4."),
+            "{lines:?}"
+        );
+        assert!(!is_open(engine, &client, 740), "no level-up box");
         talk_to(&mut client, npc_nid(engine, "explorer_jack_13295"));
         let jack = converse(engine, &mut client, &[], 60);
         assert!(
@@ -1340,5 +1350,74 @@ fn the_way_out_to_lumbridge() {
         );
         assert!(jack.said("Look at the Rewards tab for a Task to learn more."));
         assert_eq!(varbit_named(engine, &client, "varplayerbit_6494"), 3);
+    });
+}
+
+/// Roddeck's cellar's bookcase and crate, and the tutorial's eat and drop boxes (4KO2h2xPtdM
+/// @479.9-516, @574-576).
+#[test]
+fn the_books_the_cabbage_and_the_drop_hint() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = at_stage(engine, "uf_shelf", 130);
+        let origin = player_origin(engine, &client);
+        let diary = obj_id(engine, "roddeck_s_diary");
+        let manual = obj_id(engine, "manual_15671");
+        let cabbage = obj_id(engine, "cabbage");
+
+        engine.harness_telejump(client.pid, origin.0 + 48, 0, origin.1 + 36);
+        cycles(engine, &mut client, 3);
+        let shelf = loc_ids(engine, origin.0 + 49, origin.1 + 36);
+        let bookcase = loc_id(engine, "bookcase_49101");
+        assert!(
+            shelf.contains(&bookcase),
+            "the bookcase in the copy: {shelf:?}"
+        );
+        oploc1(&mut client, bookcase, origin.0 + 49, origin.1 + 36);
+        let books = converse(engine, &mut client, &[], 60);
+        assert!(
+            books.said("You find a couple of books and take them."),
+            "{:?} {:?} at {:?}",
+            books.texts,
+            HarnessClient::game_messages(&books.packets),
+            engine.harness_player(client.pid).unwrap().pathing.coord
+        );
+        assert!(speech(&books.packets).contains(&1345));
+        assert!(slot_of(engine, &client, diary).is_some(), "the diary");
+        assert!(slot_of(engine, &client, manual).is_some(), "the manual");
+
+        engine.harness_telejump(client.pid, origin.0 + 42, 0, origin.1 + 36);
+        cycles(engine, &mut client, 3);
+        let crate_loc = loc_id(engine, "crate_49100");
+        oploc1(&mut client, crate_loc, origin.0 + 42, origin.1 + 35);
+        let take = converse(engine, &mut client, &[], 60);
+        assert!(
+            take.said("It's full of cabbages. You take one."),
+            "{:?}",
+            take.texts
+        );
+        let slot = slot_of(engine, &client, cabbage).expect("a cabbage");
+        oploc1(&mut client, crate_loc, origin.0 + 42, origin.1 + 35);
+        let again = converse(engine, &mut client, &[], 60);
+        assert!(again.said("It's full of cabbages. You've already got one."));
+
+        held1(&mut client, cabbage, slot);
+        let eat = converse(engine, &mut client, &[], 60);
+        assert!(eat.said("You eat the cabbage."), "{:?}", eat.texts);
+        assert!(slot_of(engine, &client, cabbage).is_none(), "eaten");
+
+        // Drop (op 8 on the backpack): the hint, with the dropped book in the box.
+        let slot = slot_of(engine, &client, manual).expect("the manual");
+        let mut p = ClientPacket::new();
+        p.p4(i32::from(INVENTORY) << 16)
+            .p2_alt3(i32::from(manual))
+            .p2_alt1(i32::from(slot));
+        client.send(ClientProt::IfButton8, &p.finish());
+        let drop = converse(engine, &mut client, &[], 60);
+        assert!(
+            drop.said("When you drop items on the ground, they will eventually vanish."),
+            "{:?}",
+            drop.texts
+        );
+        assert!(speech(&drop.packets).contains(&1669));
     });
 }

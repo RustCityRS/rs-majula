@@ -1,26 +1,27 @@
 // https://www.youtube.com/watch?v=cz0FGYbfzzk
 // https://www.youtube.com/watch?v=IC2n8t76DDY
-[advancestat,attack] @levelup(enum(int, stat, stats, ^attack));
-[advancestat,strength] @levelup(enum(int, stat, stats, ^strength));
-[advancestat,ranged] @levelup(enum(int, stat, stats, ^ranged));
-[advancestat,magic] @levelup(enum(int, stat, stats, ^magic));
-[advancestat,defence] @levelup(enum(int, stat, stats, ^defence));
-[advancestat,hitpoints] @levelup(enum(int, stat, stats, ^hitpoints));
-[advancestat,prayer] @levelup(enum(int, stat, stats, ^prayer));
-[advancestat,agility] @levelup(enum(int, stat, stats, ^agility));
-[advancestat,herblore] @levelup(enum(int, stat, stats, ^herblore));
-[advancestat,thieving] @levelup(enum(int, stat, stats, ^thieving));
-[advancestat,crafting] @levelup(enum(int, stat, stats, ^crafting));
-[advancestat,runecraft] @levelup(enum(int, stat, stats, ^runecraft));
-[advancestat,mining] @levelup(enum(int, stat, stats, ^mining));
-[advancestat,smithing] @levelup(enum(int, stat, stats, ^smithing));
-[advancestat,fishing] @levelup(enum(int, stat, stats, ^fishing));
-[advancestat,cooking] @levelup(enum(int, stat, stats, ^cooking));
-[advancestat,firemaking] @levelup(enum(int, stat, stats, ^firemaking));
-[advancestat,woodcutting] @levelup(enum(int, stat, stats, ^woodcutting));
-[advancestat,fletching] @levelup(enum(int, stat, stats, ^fletching));
+[advancestat,attack](int $levels) @levelup(enum(int, stat, stats, ^attack), $levels);
+[advancestat,strength](int $levels) @levelup(enum(int, stat, stats, ^strength), $levels);
+[advancestat,ranged](int $levels) @levelup(enum(int, stat, stats, ^ranged), $levels);
+[advancestat,magic](int $levels) @levelup(enum(int, stat, stats, ^magic), $levels);
+[advancestat,defence](int $levels) @levelup(enum(int, stat, stats, ^defence), $levels);
+[advancestat,hitpoints](int $levels) @levelup(enum(int, stat, stats, ^hitpoints), $levels);
+[advancestat,prayer](int $levels) @levelup(enum(int, stat, stats, ^prayer), $levels);
+[advancestat,agility](int $levels) @levelup(enum(int, stat, stats, ^agility), $levels);
+[advancestat,herblore](int $levels) @levelup(enum(int, stat, stats, ^herblore), $levels);
+[advancestat,thieving](int $levels) @levelup(enum(int, stat, stats, ^thieving), $levels);
+[advancestat,crafting](int $levels) @levelup(enum(int, stat, stats, ^crafting), $levels);
+[advancestat,runecraft](int $levels) @levelup(enum(int, stat, stats, ^runecraft), $levels);
+[advancestat,mining](int $levels) @levelup(enum(int, stat, stats, ^mining), $levels);
+[advancestat,smithing](int $levels) @levelup(enum(int, stat, stats, ^smithing), $levels);
+[advancestat,fishing](int $levels) @levelup(enum(int, stat, stats, ^fishing), $levels);
+[advancestat,cooking](int $levels) @levelup(enum(int, stat, stats, ^cooking), $levels);
+[advancestat,firemaking](int $levels) @levelup(enum(int, stat, stats, ^firemaking), $levels);
+[advancestat,woodcutting](int $levels) @levelup(enum(int, stat, stats, ^woodcutting), $levels);
+[advancestat,fletching](int $levels) @levelup(enum(int, stat, stats, ^fletching), $levels);
 
-[label,levelup](stat $stat)
+// $levels: how many levels the xp crossed (the engine passes it; 647).
+[label,levelup](stat $stat, int $levels)
 db_find(levelup:stat, $stat);
 def_dbrow $unlock_row = db_findnext;
 if ($unlock_row = null) {
@@ -35,8 +36,19 @@ if (%learning_the_ropes >= 5 & %learning_the_ropes < 1000) {
     ~mesbox("Congratulations: You have reached level <tostring($level)> <~stat_name($stat)>.");
     return;
 }
-def_string $message = db_getfield($unlock_row, levelup:message, 0);
-mes($message);
+// 2011's line, game-wide: "You've just advanced a Woodcutting level! You have reached level 4."
+// (xqWnfqno_1M 2010-12-12 @372 and four more 2010-11 recordings) and "You've just advanced 2
+// Mining levels! You have reached level 4." (4KO2h2xPtdM 2011-04-30 @612). 289's levelup:message
+// ("Congratulations, you just advanced a mining level.") is 2004's. "an" before Attack and
+// Agility: English, no recording shows either.
+def_string $name = ~stat_name($stat);
+if ($levels > 1) {
+    mes("You've just advanced <tostring($levels)> <$name> levels! You have reached level <tostring($level)>.");
+} else if ($stat = attack | $stat = agility) {
+    mes("You've just advanced an <$name> level! You have reached level <tostring($level)>.");
+} else {
+    mes("You've just advanced a <$name> level! You have reached level <tostring($level)>.");
+}
 // play the fireworks
 spotanim_pl(levelup_anim, 124, 0);
 // sound_synth(firework, 1, 0); Was an osrs addition apparently
@@ -65,6 +77,12 @@ if ($level < 50) {
 // (skill_guide.rs2), and the level-up box shows the stat's icon. Both are bits
 // of %skill_stat_flash (varp 1179).
 ~levelup_flash($unlock_row);
+// Unstable Foundations' reward, in Explorer Jack's house copy: the line alone, no level-up box
+// (VwpdbjfigD4 2011-01-17 @788-796, the scroll closed then "You've just advanced a Woodcutting
+// level!"; 4KO2h2xPtdM 2011-04-30 @606-636). Why 2011 showed none there: no source.
+if (~uf_in_house = true) {
+    return;
+}
 // the level up dialogue box
 if_settext(db_getfield($unlock_row, levelup:title, 0), db_getfield($unlock_row, levelup:title_text, 0));
 if_settext(db_getfield($unlock_row, levelup:body, 0), "<db_getfield($unlock_row, levelup:level_prefix, 0)> <tostring($level)>!");

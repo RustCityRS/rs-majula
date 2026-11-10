@@ -50,6 +50,16 @@ p_delay(1);
 ~uf_complete;
 softtimer(uf_house_watch, 1);
 
+// Whether the player stands in Explorer Jack's house copy (two zones in, 16x16).
+[proc,uf_in_house]()(boolean)
+if (%learning_the_ropes < 1000 | region_findbycoord(coord) = false) {
+    return(false);
+}
+def_coord $origin = region_getcoord(0, 16, 16);
+def_int $dx = calc(coordx(coord) - coordx($origin));
+def_int $dz = calc(coordz(coord) - coordz($origin));
+return($dx >= 0 & $dx < 16 & $dz >= 0 & $dz < 16);
+
 // A Lumbridge tile in the house copy the player stands in.
 [proc,uf_house_coord](int $x, int $z)(coord)
 return(region_getcoord(0, calc(16 + $x - 3200), calc(16 + $z - 3232)));
