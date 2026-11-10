@@ -64,6 +64,11 @@ runclientscript("switchside(1)");
 [proc,uf_task_pin]
 if (%learning_the_ropes < 7) {
     %varplayerbit_8576 = 3522;
+} else if (%learning_the_ropes = 1000 & %varplayerbit_6494 < 3) {
+    // Done, Explorer Jack not yet talked to: 2011 pins Introducing...Explorer Jack (3520) from
+    // the quest's end until that talk (4KO2h2xPtdM 2011-04-30 @607-640), where 4098 gives 1000
+    // The Journey Begins (3521), the Task after it (in-client runs 19 and 20 showed 3521).
+    %varplayerbit_8576 = 3520;
 } else {
     %varplayerbit_8576 = ~script4098;
 }

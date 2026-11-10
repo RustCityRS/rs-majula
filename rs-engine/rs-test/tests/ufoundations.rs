@@ -1505,6 +1505,13 @@ fn the_way_out_to_lumbridge() {
         );
         assert!(!is_open(engine, &client, 740), "no level-up box");
         assert_eq!(popup(engine), Some(3519), "TASK COMPLETE! To Freedom!");
+        // Pinned till Jack is talked to: Introducing...Explorer Jack (@607-640), then the Task
+        // after it.
+        assert_eq!(
+            varbit(engine, &client, PINNED_TASK),
+            3520,
+            "Introducing...Explorer Jack"
+        );
         talk_to(&mut client, npc_nid(engine, "explorer_jack_13295"));
         let jack = converse(engine, &mut client, &[], 60);
         assert!(
@@ -1514,6 +1521,11 @@ fn the_way_out_to_lumbridge() {
         );
         assert!(jack.said("Look at the Rewards tab for a Task to learn more."));
         assert_eq!(varbit_named(engine, &client, "varplayerbit_6494"), 3);
+        assert_eq!(
+            varbit(engine, &client, PINNED_TASK),
+            3521,
+            "The Journey Begins"
+        );
     });
 }
 
