@@ -96,3 +96,16 @@ if (%learning_the_ropes < 5 | %learning_the_ropes >= 1000 | $obj = null) {
 }
 sound_speech_volume(vorbis_1669, 1, 0, 255);
 ~objbox($obj, "When you drop items on the ground, they will eventually vanish. It's a good way to get rid of junk, but don't drop anything you want to keep.", 250, 0, 0);
+
+// Taking a dropped diary back while the tutorial runs: "If you attempt to pick up the diary after
+// it is dropped, a message will appear saying 'You won't be needing that again.'" (the 2011 wiki's
+// Roddeck's diary, revision of 2011-03-13), the narrator's N9 (clip 1558). After the tutorial it
+// is taken as any book (the same page). A game message, as the page words it: no recording shows
+// whether it is that or a box.
+[opobj3,roddeck_s_diary]
+if (%learning_the_ropes >= 5 & %learning_the_ropes < 1000) {
+    sound_speech_volume(vorbis_1558, 1, 0, 255);
+    mes("You won't be needing that again.");
+    return;
+}
+@pickup_obj;

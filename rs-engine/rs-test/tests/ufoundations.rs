@@ -1614,6 +1614,29 @@ fn the_books_the_cabbage_and_the_drop_hint() {
             drop.texts
         );
         assert!(speech(&drop.packets).contains(&1669));
+
+        // The diary dropped and taken back: "You won't be needing that again." (the 2011 wiki's
+        // Roddeck's diary), N9 (clip 1558); it stays where it lies.
+        let slot = slot_of(engine, &client, diary).expect("the diary");
+        let mut p = ClientPacket::new();
+        p.p4(i32::from(INVENTORY) << 16)
+            .p2_alt3(i32::from(diary))
+            .p2_alt1(i32::from(slot));
+        client.send(ClientProt::IfButton8, &p.finish());
+        converse(engine, &mut client, &[], 60);
+        assert!(slot_of(engine, &client, diary).is_none(), "dropped");
+        let here = engine.harness_player(client.pid).unwrap().pathing.coord;
+        crate::take(&mut client, diary, here.x(), here.z());
+        let back = cycles(engine, &mut client, 3);
+        assert!(
+            HarnessClient::game_messages(&back)
+                .iter()
+                .any(|(_, m)| m == "You won't be needing that again."),
+            "{:?}",
+            HarnessClient::game_messages(&back)
+        );
+        assert!(speech(&back).contains(&1558));
+        assert!(slot_of(engine, &client, diary).is_none(), "not taken");
     });
 }
 
