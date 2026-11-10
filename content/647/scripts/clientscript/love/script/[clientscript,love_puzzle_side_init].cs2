@@ -7,7 +7,7 @@ cc_create($component0, ^iftype_model, if_getnextsubid($component0));
 cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
 cc_setmodelangle(0, 0, 0, 0, 0, 2600);
-cc_setnpchead(wise_old_man_2567);
+cc_setnpchead(wom_cutscene_2);
 cc_setmodelanim(chatidle2);
 ~script2647($component0);
 ~script1298(if_getlayer($component1), 0, 0, 0);
@@ -21,13 +21,13 @@ cc_settext($string0);
 if (calc(paraheight($string0, if_getwidth($component1), p11_full) * 10 + 5) <= if_getheight($component1)) {
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
     cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
-    if_setscrollsize(0, 0, $component1);
-    if_sethide(true, $component2);
+    if_setscrollsize($component1, 0, 0);
+    if_sethide($component2, true);
     return;
 }
 def_int $int3 = calc(paraheight($string0, calc(if_getwidth($component1) - 17), p11_full) * 10 + 5);
 cc_setsize(17, $int3, ^setsize_minus, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
-if_setscrollsize(0, $int3, $component1);
-if_sethide(false, $component2);
+if_setscrollsize($component1, 0, $int3);
+if_sethide($component2, false);
 ~scrollbar_vertical($component2, $component1, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

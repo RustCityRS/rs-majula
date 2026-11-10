@@ -1,7 +1,7 @@
 // 2296
 [proc,prayer_client_getvar](int $int0)(int)
 def_struct $struct1 = enum(int, struct, enum_2279, $int0);
-if (%varplayerbit_6840 = 1) {
+if (%prayer_mode = 1) {
     $struct1 = enum(int, struct, enum_863, $int0);
     switch_struct ($struct1) {
         case struct_888 :
@@ -50,9 +50,9 @@ if (%varplayerbit_6840 = 1) {
 }
 switch_struct ($struct1) {
     case struct_660 :
-        return(%prayer0);
+        return(%varplayerbit_5942);
     case struct_661 :
-        return(%prayer1);
+        return(%varplayerbit_5943);
     case struct_662 :
         return(%prayer2);
     case struct_663 :
@@ -68,13 +68,13 @@ switch_struct ($struct1) {
     case struct_668 :
         return(%prayer8);
     case struct_669 :
-        return(%prayer9);
+        return(%varplayerbit_5951);
     case struct_670 :
-        return(%prayer10);
+        return(%varplayerbit_5952);
     case struct_671 :
-        return(%prayer11);
+        return(%varplayerbit_5953);
     case struct_672 :
-        return(%prayer12);
+        return(%varplayerbit_5954);
     case struct_673 :
         return(%prayer13);
     case struct_674 :

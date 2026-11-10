@@ -2,24 +2,24 @@
 [proc,lobbyscreen_entergame](component $component0)
 if (worldlist_fetch = false) {
     ~lobbyscreen_loginbutton_text(0);
-    if_setontimer("lobbyscreen_entergame($component0)", $component0);
+    if_setontimer($component0, "lobbyscreen_entergame($component0)");
     return;
 }
-%varclient_1322 = false;
+%lobby_newuserhack = false;
 ~lobbyscreen_loginbutton_text(1);
-if_setontimer(null, $component0);
+if_setontimer($component0, null);
 ~lobby_popup_close;
-%varclient_1100 = -1;
+%login_reply_last = -1;
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
 def_int $int4 = 0;
-if (~script2727 = true & %varclient_547 = 0) {
+if (~script2727 = true & %loginscreen_pvp_warned = 0) {
     ~lobby_draw_button_green(lobbyscreen:com_93);
     ~lobby_draw_button_grey(lobbyscreen:com_91);
     ~script3026(lobbyscreen:com_93);
     ~script3025(lobbyscreen:com_91);
-    if_sethide(false, lobbyscreen:pvp_warning);
+    if_sethide(lobbyscreen:pvp_warning, false);
     sound_jingle(jingle_349, 0);
     ~script3412(lobbyscreen:pvp_warning_text_title, lobbyscreen:pvp_warning_text_main);
     $int3 = if_getwidth(lobbyscreen:pvp_warning_text_main);
@@ -27,11 +27,11 @@ if (~script2727 = true & %varclient_547 = 0) {
     $int1 = max(337, calc(stringwidth(if_gettext(lobbyscreen:pvp_warning_text_title), b12_full) + 30));
     $int4 = max(152, calc(paraheight(if_gettext(lobbyscreen:pvp_warning_text_main), $int3, b12_full) * 16));
     $int2 = max(243, calc($int4 + 91));
-    if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, lobbyscreen:pvp_warning_text_main);
-    if_setsize($int1, $int2, ^setsize_abs, ^setsize_abs, lobbyscreen:pvp_warning_window);
+    if_setsize(lobbyscreen:pvp_warning_text_main, $int3, $int4, ^setsize_abs, ^setsize_abs);
+    if_setsize(lobbyscreen:pvp_warning_window, $int1, $int2, ^setsize_abs, ^setsize_abs);
     return;
 }
-%varclient_200 = 0;
+%loginscreen_hopblocked_time = 0;
 ~lobbyscreen_loginbutton_text(0);
 unknown_command_5612(0);
-if_setontimer("lobbyscreen_entergametimer($component0, map_world)", $component0);
+if_setontimer($component0, "lobbyscreen_entergametimer($component0, map_world)");

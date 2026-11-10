@@ -3,7 +3,7 @@
 [proc,follower_death]
 if (npc_finduid(%follower_uid) = true) {
     %follower_uid = null;
-    %follower_obj = null;
+    %varplayer_275 = null;
     %cat_growth = 0;
     npc_del;
 }

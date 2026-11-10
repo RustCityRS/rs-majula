@@ -1,19 +1,19 @@
 // 2635
 [proc,mob_highlight_stop]
-%varclient_904 = 0;
-if_setontimer(null, mob_side_command:attack);
-if_setgraphic("mob_command_icons,0", mob_side_command:attack);
-if_setontimer(null, mob_side_command:move);
-if_setgraphic("mob_command_icons,1", mob_side_command:move);
-if_setontimer(null, mob_side_command:explore);
-if_setgraphic("mob_command_icons,2", mob_side_command:explore);
-if_setontimer(null, mob_side_command:attack_wall);
-if_setgraphic("mob_command_icons,3", mob_side_command:attack_wall);
-if_setontimer(null, mob_side_command:rescue);
-if_setgraphic("mob_command_icons,7", mob_side_command:rescue);
-if_setontimer(null, mob_side_command:cave_collect);
-if_setgraphic("mob_command_icons,4", mob_side_command:cave_collect);
-if_setontimer(null, mob_side_command:steal);
-if_setgraphic("mob_command_icons,5", mob_side_command:steal);
-if_setontimer(null, mob_side_command:collect);
-if_setgraphic("mob_command_icons,6", mob_side_command:collect);
+%mob_client_highlight = 0;
+if_setontimer(mob_side_command:attack, null);
+if_setgraphic(mob_side_command:attack, "mob_command_icons,0");
+if_setontimer(mob_side_command:move, null);
+if_setgraphic(mob_side_command:move, "mob_command_icons,1");
+if_setontimer(mob_side_command:explore, null);
+if_setgraphic(mob_side_command:explore, "mob_command_icons,2");
+if_setontimer(mob_side_command:attack_wall, null);
+if_setgraphic(mob_side_command:attack_wall, "mob_command_icons,3");
+if_setontimer(mob_side_command:rescue, null);
+if_setgraphic(mob_side_command:rescue, "mob_command_icons,7");
+if_setontimer(mob_side_command:cave_collect, null);
+if_setgraphic(mob_side_command:cave_collect, "mob_command_icons,4");
+if_setontimer(mob_side_command:steal, null);
+if_setgraphic(mob_side_command:steal, "mob_command_icons,5");
+if_setontimer(mob_side_command:collect, null);
+if_setgraphic(mob_side_command:collect, "mob_command_icons,6");

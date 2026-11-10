@@ -1,24 +1,24 @@
 // 1069
 [proc,quickchat_phrase_resend]
-%varclient_126 = %varclient_131;
+%quickchat_mode = %quickchat_last_mode;
 %varclient_1546 = %varclient_1547;
-%varclient_127 = false;
+%quickchat_backspace = false;
 if (if_gethide(chatdefault:quickchat) = true) {
     if (getwindowmode >= 2) {
-        if_setgraphic(chat_background, chattop:chat_graphic);
-        if_setalpha(false, chattop:chat_graphic);
-        if_sethide(false, chattop:chat_graphic);
-        if_sethide(false, chattop:chat_border);
+        if_setgraphic(chattop:chat_graphic, chat_background);
+        if_setalpha(chattop:chat_graphic, false);
+        if_sethide(chattop:chat_graphic, false);
+        if_sethide(chattop:chat_border, false);
     }
-    if_sethide(true, chatdefault:chat);
-    if_setonkey(null, chatdefault:input);
-    if_sethide(false, chatdefault:quickchat);
-    if_sethide(true, chatdefault:quickchat_countdialog);
-    if_sethide(true, chatdefault:quickchat_listdialog);
-    if_sethide(true, chatdefault:quickchat_objdialog);
-    if_sethide(false, chatdefault:quickchat_menu);
-    if_sethide(false, chatdefault:quickchat_path);
-    if_sethide(true, chatdefault:quickchat_title);
-    if_setscrollpos(0, 0, chatdefault:quickchat_menu);
+    if_sethide(chatdefault:chat, true);
+    if_setonkey(chatdefault:input, null);
+    if_sethide(chatdefault:quickchat, false);
+    if_sethide(chatdefault:quickchat_countdialog, true);
+    if_sethide(chatdefault:quickchat_listdialog, true);
+    if_sethide(chatdefault:quickchat_objdialog, true);
+    if_sethide(chatdefault:quickchat_menu, false);
+    if_sethide(chatdefault:quickchat_path, false);
+    if_sethide(chatdefault:quickchat_title, true);
+    if_setscrollpos(chatdefault:quickchat_menu, 0, 0);
 }
-~quickchat_phrase(chatdefault:quickchat_path, %varclient_130, -1);
+~quickchat_phrase(chatdefault:quickchat_path, %quickchat_last_phrase, -1);

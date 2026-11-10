@@ -145,7 +145,7 @@ model=null
 modelorigin=4,2
 modelangle=0,1524,341
 modelzoom=300
-onvartransmit=eyeglo_machine_transmit(event_com){varplayer_856}
+onvartransmit=eyeglo_machine_transmit(event_com){eyeglo_coin_selected}
 
 // 630:12
 [eyeglo_unlock_button]
@@ -181,7 +181,7 @@ height=334
 xmode=proportion_centre
 ymode=proportion_centre
 onload=eyeglo_unlock(eyeglo_gnome_machine_locked:tens, eyeglo_gnome_machine_locked:units, eyeglo_gnome_machine_locked:arrow_up, eyeglo_gnome_machine_locked:arrow_middle, eyeglo_gnome_machine_locked:arrow_down, eyeglo_gnome_machine_locked:eyeglo_unlock_inserted_coin)
-onvartransmit=eyeglo_unlock(eyeglo_gnome_machine_locked:tens, eyeglo_gnome_machine_locked:units, eyeglo_gnome_machine_locked:arrow_up, eyeglo_gnome_machine_locked:arrow_middle, eyeglo_gnome_machine_locked:arrow_down, eyeglo_gnome_machine_locked:eyeglo_unlock_inserted_coin){varplayer_844, varplayer_848, varplayer_849}
+onvartransmit=eyeglo_unlock(eyeglo_gnome_machine_locked:tens, eyeglo_gnome_machine_locked:units, eyeglo_gnome_machine_locked:arrow_up, eyeglo_gnome_machine_locked:arrow_middle, eyeglo_gnome_machine_locked:arrow_down, eyeglo_gnome_machine_locked:eyeglo_unlock_inserted_coin){eyeglo_var1, eyeglo_temp3, eyeglo_unlock_a}
 
 // 630:15
 [eyeglo_unlock_inserted_coin]

@@ -2,33 +2,33 @@
 [clientscript,rand_interface_click](int $int0)
 switch_int ($int0) {
     case 61145353 :
-        if (%varclient_1184 ! 1 & %varclient_1198 = 1) {
-            %varclient_1184 = 1;
+        if (%rand_player_tab ! 1 & %rand_exists_1 = 1) {
+            %rand_player_tab = 1;
         } else {
-            %varclient_1184 = 0;
+            %rand_player_tab = 0;
         }
     case 61145354 :
-        if (%varclient_1184 ! 2 & %varclient_1199 = 1) {
-            %varclient_1184 = 2;
+        if (%rand_player_tab ! 2 & %rand_exists_2 = 1) {
+            %rand_player_tab = 2;
         } else {
-            %varclient_1184 = 0;
+            %rand_player_tab = 0;
         }
     case 61145364 :
-        if (%varclient_1184 ! 3 & %varclient_1200 = 1) {
-            %varclient_1184 = 3;
+        if (%rand_player_tab ! 3 & %rand_exists_3 = 1) {
+            %rand_player_tab = 3;
         } else {
-            %varclient_1184 = 0;
+            %rand_player_tab = 0;
         }
     case 61145374 :
-        if (%varclient_1184 ! 4 & %varclient_1201 = 1) {
-            %varclient_1184 = 4;
+        if (%rand_player_tab ! 4 & %rand_exists_4 = 1) {
+            %rand_player_tab = 4;
         } else {
-            %varclient_1184 = 0;
+            %rand_player_tab = 0;
         }
     case 61145384 :
-        if (%varclient_1184 ! 5 & %varclient_1202 = 1) {
-            %varclient_1184 = 5;
+        if (%rand_player_tab ! 5 & %rand_exists_5 = 1) {
+            %rand_player_tab = 5;
         } else {
-            %varclient_1184 = 0;
+            %rand_player_tab = 0;
         }
 }

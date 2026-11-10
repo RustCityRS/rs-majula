@@ -1,7 +1,7 @@
 // 2297
 [proc,prayer_topstat_getvar](int $int0)(int)
 def_struct $struct1 = enum(int, struct, enum_2279, $int0);
-if (%varplayerbit_6840 = 1) {
+if (%prayer_mode = 1) {
     $struct1 = enum(int, struct, enum_863, $int0);
     switch_struct ($struct1) {
         case struct_888 :

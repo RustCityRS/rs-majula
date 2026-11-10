@@ -1,7 +1,7 @@
 // 89
 [proc,rebuildpmbox]
 if (minimenuopen(pmchat:pmchat, -1) = true) {
-    if_setontimer("rebuildpmbox_timer", pmchat:pmchat);
+    if_setontimer(pmchat:pmchat, "rebuildpmbox_timer");
     return;
 }
 def_int $int0 = 0;
@@ -12,73 +12,73 @@ if (reboottimer > 0) {
     $int2 = calc(reboottimer / 50 % 60);
     $int3 = calc(reboottimer / 3000);
     if ($int2 < 10) {
-        if_settext("<col=ffff00>System update in: <tostring($int3)>:0<tostring($int2)>", pmchat:pm5);
+        if_settext(pmchat:pm5, "<col=ffff00>System update in: <tostring($int3)>:0<tostring($int2)>");
     } else {
-        if_settext("<col=ffff00>System update in: <tostring($int3)>:<tostring($int2)>", pmchat:pm5);
+        if_settext(pmchat:pm5, "<col=ffff00>System update in: <tostring($int3)>:<tostring($int2)>");
     }
     $int0 = 1;
     if_clearops(pmchat:pm5);
-    if_setonop(null, pmchat:pm5);
-    if_settextshadow(true, pmchat:pm5);
+    if_setonop(pmchat:pm5, null);
+    if_settextshadow(pmchat:pm5, true);
 }
 def_int $int4 = 0;
 def_int $chattype5 = ^chattype_gamemessage;
 def_int $rgb6 = enum(int, int, enum_3056, %option_pm);
 def_boolean $boolean7 = enum(int, boolean, enum_3057, %option_pm);
-if (%option_pm > 0 & (getwindowmode < 2 | %varclient_41 ! -1)) {
+if (%option_pm > 0 & (getwindowmode < 2 | %chat_view ! -1)) {
     while ($int4 < 100 & $int0 < 5) {
         if (~pm_filtertest($int4) = true) {
             $component1 = enum(int, component, enum_580, $int0);
-            if_setcolour($rgb6, $component1);
-            if_settextshadow($boolean7, $component1);
+            if_setcolour($component1, $rgb6);
+            if_settextshadow($component1, $boolean7);
             $chattype5 = chat_gethistorytype($int4);
             switch_int ($chattype5) {
                 case ^chattype_privatechat, ^chattype_modprivatechat, ^chattype_quickchat_private_incoming :
-                    if_settext("From <chat_gethistoryname($int4)>: <chat_gethistorymessage($int4)>", $component1);
+                    if_settext($component1, "From <chat_gethistoryname($int4)>: <chat_gethistorymessage($int4)>");
                 case ^chattype_loginlogoutnotification :
-                    if_settext(chat_gethistorymessage($int4), $component1);
+                    if_settext($component1, chat_gethistorymessage($int4));
                 case ^chattype_privatechatout, ^chattype_quickchat_private_outgoing :
-                    if_settext("To <chat_gethistoryname($int4)>: <chat_gethistorymessage($int4)>", $component1);
+                    if_settext($component1, "To <chat_gethistoryname($int4)>: <chat_gethistorymessage($int4)>");
             }
             if_clearops($component1);
-            if_setonop("private_op(event_op, unknown_command_5019($int4), $int4)", $component1);
+            if_setonop($component1, "private_op(event_op, unknown_command_5019($int4), $int4)");
             switch_int ($chattype5) {
                 case ^chattype_privatechat, ^chattype_privatechatout, ^chattype_modprivatechat :
-                    if_setopbase("<col=ffffff><removetags(chat_gethistoryname($int4))>", $component1);
+                    if_setopbase($component1, "<col=ffffff><removetags(chat_gethistoryname($int4))>");
                     if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int4))) ! 0) {
                         if (friend_test(unknown_command_5019($int4)) = true) {
                             if (map_quickchat = false & userdetail_quickchat = false) {
-                                if_setop(7, "Message", $component1);
+                                if_setop($component1, 7, "Message");
                             }
                         } else {
-                            if_setop(7, "Add friend", $component1);
-                            if_setop(8, "Add ignore", $component1);
+                            if_setop($component1, 7, "Add friend");
+                            if_setop($component1, 8, "Add ignore");
                         }
                         if (staffmodlevel > 0 | playermod > 0) {
-                            if_setop(10, "Report abuse", $component1);
+                            if_setop($component1, 10, "Report abuse");
                         }
                     }
                 case ^chattype_quickchat_private_incoming, ^chattype_quickchat_private_outgoing :
-                    if_setopbase("<col=ffffff><removetags(chat_gethistoryname($int4))>", $component1);
+                    if_setopbase($component1, "<col=ffffff><removetags(chat_gethistoryname($int4))>");
                     if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int4))) ! 0) {
                         if (friend_test(unknown_command_5019($int4)) = true) {
                             if (map_quickchat = false & userdetail_quickchat = false) {
-                                if_setop(7, "Message", $component1);
+                                if_setop($component1, 7, "Message");
                             }
                         } else {
-                            if_setop(7, "Add friend", $component1);
-                            if_setop(8, "Add ignore", $component1);
+                            if_setop($component1, 7, "Add friend");
+                            if_setop($component1, 8, "Add ignore");
                         }
                         if ($chattype5 = ^chattype_quickchat_private_incoming & chatphrase_getautoresponsecount(chat_gethistoryphrase($int4)) > 0) {
-                            if (%varclient_132 = null) {
-                                %varclient_132 = chat_gethistoryphrase($int4);
+                            if (%quickchat_respond_phrase = null) {
+                                %quickchat_respond_phrase = chat_gethistoryphrase($int4);
                                 %varclient_1548 = chat_gethistoryname($int4);
-                                %varclient_133 = 5;
+                                %quickchat_respond_mode = 5;
                                 if (friend_test(unknown_command_5019($int4)) = true) {
-                                    if_setop(9, "Quick Response", $component1);
+                                    if_setop($component1, 9, "Quick Response");
                                 }
                             } else {
-                                if_setop(9, "Quick Response", $component1);
+                                if_setop($component1, 9, "Quick Response");
                             }
                         }
                     }
@@ -90,7 +90,7 @@ if (%option_pm > 0 & (getwindowmode < 2 | %varclient_41 ! -1)) {
 }
 while ($int0 < 5) {
     $component1 = enum(int, component, enum_580, $int0);
-    if_settext("", $component1);
+    if_settext($component1, "");
     if_clearops($component1);
     $int0 = calc($int0 + 1);
 }

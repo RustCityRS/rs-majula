@@ -23,7 +23,7 @@ if (map_members = ^false) {
 }
 // - 2007: https://youtu.be/VXwMnz9tTUs
 // - 2006: https://youtu.be/QzWqkSuYLDQ
-if (inv_total(inv, shantay_disclaimer) < 1) {
+if (inv_total(inv, thshantaydisc) < 1) {
     ~mesbox("There is a large poster on the wall near the gateway. It reads:");
     ~mesbox("The Desert is a VERY Dangerous place. Do not enter if|you are scared of dying. Beware of high temperatures,|sand storms, robbers, and slavers.");
     ~mesbox("That seems pretty scary! Are you sure you want to go through?");
@@ -37,15 +37,15 @@ if (inv_total(inv, shantay_disclaimer) < 1) {
 ~chatplayer("<p,neutral>Sure, here you go!");
 inv_del(inv, shantay_pass, 1);
 queue(shantay_pass_enter, 0, 0);
-if (inv_total(inv, shantay_disclaimer) < 1) {
-    inv_add(inv, shantay_disclaimer, 1);
+if (inv_total(inv, thshantaydisc) < 1) {
+    inv_add(inv, thshantaydisc, 1);
     ~chatnpc("<p,neutral>Here, have a disclaimer... It means that Shantay isn't|responsible if you die in the desert.");
 }
 
 
 // 289's shantay_prisondoor (3297,3124) is 2011's jail_door_35401 (3300,3123):
 // cache 786 moved Shantay's jail; it still opens as 289's metal gate.
-[oploc1,jail_door_35401]
+[oploc1,kharid_fai_jail_door]
 def_boolean $is_inside = ~check_axis_locactive(coord);
 if (%shantay_jail_progress = ^put_in_shantay_jail & npc_find(coord, shantay, 12, 0) = true) {
     if ($is_inside = false) {
@@ -57,7 +57,7 @@ if (%shantay_jail_progress = ^put_in_shantay_jail & npc_find(coord, shantay, 12,
     @multi2("Yes, okay.", shantay_yes_okay_ill_pay_the_fine, "No thanks, you're not having my money.", shantay_no_thanks_youre_not_having_my_money);
 }
 
-~open_and_close_metal_gate(loc_1541, $is_inside, false);
+~open_and_close_metal_gate(inactiveprisondoor, $is_inside, false);
 
 // 289's shantay_pass_henge_doorway (4031 at 3302,3116) is 2011's shantay_pass
 // (12774 at 3303,3116, Go-through and Look-at): the same gateway, a tile east.
@@ -86,7 +86,7 @@ if (inv_total(inv, shantay_pass) < 1) {
     return;
 }
 //https://youtu.be/VXwMnz9tTUs
-if (inv_total(inv, shantay_disclaimer) < 1) {
+if (inv_total(inv, thshantaydisc) < 1) {
     ~mesbox("There is a large poster on the wall near the gateway. It reads:");
     ~mesbox("The Desert is a VERY Dangerous place. Do not enter if|you are scared of dying. Beware of high temperatures,|sand storms, robbers, and slavers.");
     ~mesbox("That seems pretty scary! Are you sure you want to go through?");
@@ -100,8 +100,8 @@ if (inv_total(inv, shantay_disclaimer) < 1) {
 ~chatplayer("<p,neutral>Sure, here you go!");
 inv_del(inv, shantay_pass, 1);
 queue(shantay_pass_enter, 0, 0);
-if (inv_total(inv, shantay_disclaimer) < 1) {
-    inv_add(inv, shantay_disclaimer, 1);
+if (inv_total(inv, thshantaydisc) < 1) {
+    inv_add(inv, thshantaydisc, 1);
     ~chatnpc("<p,neutral>Here, have a disclaimer... It means that Shantay isn't|responsible if you die in the desert.");
 }
 

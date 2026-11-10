@@ -11,11 +11,11 @@ while ($int7 <= 27) {
 if (cc_find($component1, $int2) = true) {
     cc_settrans(150);
 }
-if_settext(enum(int, string, enum_1099, $int0), $component5);
-if_settext(enum(int, string, enum_1100, $int0), $component6);
+if_settext($component5, enum(int, string, enum_1099, $int0));
+if_settext($component6, enum(int, string, enum_1100, $int0));
 $int7 = enum(int, int, enum_1101, $int0);
 if ($int7 < 0) {
-    if_settext("<col=ff0000>Unavailable</col>", $component4);
+    if_settext($component4, "<col=ff0000>Unavailable</col>");
     return;
 }
 def_string $string0 = "";
@@ -38,7 +38,7 @@ if ($int7 = 0) {
         $string0 = "<col=ff0000><~tostring_spacer($int7, ",")></col><br><col=ff0000>coins</col>";
     }
 }
-if_settext(append("Confirm:<br>", $string0), $component4);
+if_settext($component4, append("Confirm:<br>", $string0));
 $int7 = 0;
 def_graphic $graphic8 = null;
 while ($int7 <= 27) {

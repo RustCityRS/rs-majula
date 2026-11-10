@@ -2,6 +2,6 @@
 [clientscript,script2168]
 if (map_members = false) {
     mes("More advanced sorting options are available on a members' world.");
-} else if (%learning_the_ropes < 1000) {
+} else if (%tutorial < 1000) {
     mes("More advanced sorting options are available after the Tutorial.");
 }

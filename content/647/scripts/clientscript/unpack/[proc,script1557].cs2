@@ -1,9 +1,9 @@
 // 1557
 [proc,script1557]
-if_setposition(~script1552(%varclient_1029, %varclient_1541, b12_full, chattop:mes_text2, -1), if_gety(chattop:caret), ^setpos_abs_left, ^setpos_abs_top, chattop:caret);
+if_setposition(chattop:caret, ~script1552(%meslayer_caret, %meslayerinput, b12_full, chattop:mes_text2, -1), if_gety(chattop:caret), ^setpos_abs_left, ^setpos_abs_top);
 if (applet_hasfocus = true) {
-    if_sethide(false, chattop:caret);
+    if_sethide(chattop:caret, false);
 } else {
-    if_sethide(true, chattop:caret);
+    if_sethide(chattop:caret, true);
 }
-if_setontimer("caret_flash(clientclock, chattop:caret)", chattop:mes_text2);
+if_setontimer(chattop:mes_text2, "caret_flash(clientclock, chattop:caret)");

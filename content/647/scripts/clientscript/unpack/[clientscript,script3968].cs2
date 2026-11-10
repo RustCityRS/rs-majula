@@ -1,6 +1,6 @@
 // 3968
 [clientscript,script3968]
-if (%varclient_1429 = 1 | %varclient_1425 = %varclient_1426) {
+if (%task_toggle_popup = 1 | %varclient_1425 = %varclient_1426) {
     return;
 }
 %varclient_1427 = 0;
@@ -13,19 +13,19 @@ if (getwindowmode >= 2) {
 } else if (if_gethide(toplevel:icon3) = true | if_getgraphic(toplevel:icon3) = null) {
     $int1 = 0;
 }
-if (%learning_the_ropes = 1000) {
-    if_setonop("task_side_overview_populate(%varclient_1425, 1, $int1)", interface_1055:com_2);
+if (%tutorial = 1000) {
+    if_setonop(interface_1055:com_2, "task_side_overview_populate(%varclient_1425, 1, $int1)");
 } else {
-    if_setonop(null, interface_1055:com_2);
+    if_setonop(interface_1055:com_2, null);
 }
 if (if_gethide(interface_1055:com_12) = true & if_gethide(interface_1055:task_info_layer) = true) {
     if ($struct0 ! null) {
-        if_settrans(255, interface_1055:com_13);
-        if_setontimer("script3969", interface_1055:com_12);
-        if_sethide(false, interface_1055:com_12);
+        if_settrans(interface_1055:com_13, 255);
+        if_setontimer(interface_1055:com_12, "script3969");
+        if_sethide(interface_1055:com_12, false);
     } else {
-        if_sethide(true, interface_1055:task_info_layer);
-        if_sethide(true, interface_1055:com_12);
+        if_sethide(interface_1055:task_info_layer, true);
+        if_sethide(interface_1055:com_12, true);
     }
 }
 %varclient_1426 = %varclient_1425;

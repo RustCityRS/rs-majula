@@ -2,22 +2,22 @@
 [clientscript,topstat_run_glow_timer](component $component0)
 def_int $int1 = 255;
 def_int $int2 = 0;
-if (%varclient_814 < 256) {
-    $int1 = calc(255 - %varclient_814);
-} else if (%varclient_814 < 510) {
-    $int1 = calc(%varclient_814 % 255);
+if (%topstat_run_button_glow < 256) {
+    $int1 = calc(255 - %topstat_run_button_glow);
+} else if (%topstat_run_button_glow < 510) {
+    $int1 = calc(%topstat_run_button_glow % 255);
 } else {
     $int1 = 255;
 }
-if (%varclient_119 = 4) {
+if (%option_run_status_varc = 4) {
     $int2 = 8;
-} else if (%varclient_119 = 3) {
+} else if (%option_run_status_varc = 3) {
     $int2 = 4;
 } else {
     $int1 = 255;
 }
-if_settrans($int1, $component0);
-%varclient_814 = calc(%varclient_814 + $int2);
-if (%varclient_814 > 510) {
-    %varclient_814 = 0;
+if_settrans($component0, $int1);
+%topstat_run_button_glow = calc(%topstat_run_button_glow + $int2);
+if (%topstat_run_button_glow > 510) {
+    %topstat_run_button_glow = 0;
 }

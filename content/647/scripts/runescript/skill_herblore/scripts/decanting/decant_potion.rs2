@@ -41,14 +41,14 @@ if($total_doses > 4) {
     $total_doses = 4;
 }
 def_namedobj $decanted_potion = enum(int, namedobj, $potion_enum, $total_doses);
-def_namedobj $remainder_potion = vial;
+def_namedobj $remainder_potion = vial_empty;
 if($remainder_doses > 0) {
     $remainder_potion = enum(int, namedobj, $potion_enum, $remainder_doses);
 }
 inv_setslot(inv, last_useslot, $decanted_potion, 1);
 inv_setslot(inv, last_slot, $remainder_potion, 1);
 
-sound_synth(drink, 1, 0); // osrs; 289's liquid, which 647 names drink
+sound_synth(liquid, 1, 0); // osrs; 289's liquid, which 647 names drink
 // https://youtu.be/qGcENRGIcoI?si=qGubXr8z_G3aDeaI&t=12
 mes("You have combined the liquid into <tostring($total_doses)> doses.");
 

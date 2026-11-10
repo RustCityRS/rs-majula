@@ -30,12 +30,12 @@ assert_lt($events, 150)
 setup_player("test_player")
 %random_event_gift_event = ^macro_mime
 ~random_event_gift_fill
-assert_gt(inv_getnum(ame_rewards, 26), 0)
-assert_gt(inv_getnum(ame_rewards, 27), 0)
+assert_gt(inv_getnum(macro_certer, 26), 0)
+assert_gt(inv_getnum(macro_certer, 27), 0)
 def_int $slot = 0;
 def_int $rewards = 0;
 while ($slot < 26) {
-    if (inv_getnum(ame_rewards, $slot) > 0) {
+    if (inv_getnum(macro_certer, $slot) > 0) {
         $rewards = add($rewards, 1);
     }
     $slot = add($slot, 1);
@@ -50,8 +50,8 @@ setup_player("test_player")
 def_int $tries = 0;
 while ($tries < 50) {
     ~random_event_gift_fill
-    if (inv_total(ame_rewards, coins) > 0) {
-        assert_eq(inv_total(ame_rewards, coins), max(divide(~total_level, 3), 1))
+    if (inv_total(macro_certer, coins) > 0) {
+        assert_eq(inv_total(macro_certer, coins), max(divide(~total_level, 3), 1))
         return;
     }
     $tries = add($tries, 1);
@@ -69,11 +69,11 @@ while ($tries < 40) {
     ~random_event_gift_fill
     $slot = 0;
     while ($slot < 28) {
-        if (inv_getnum(ame_rewards, $slot) > 0) {
-            if (inv_getobj(ame_rewards, $slot) = coins & $slot ! 0) {
+        if (inv_getnum(macro_certer, $slot) > 0) {
+            if (inv_getobj(macro_certer, $slot) = coins & $slot ! 0) {
                 test_fail("coins in slot <tostring($slot)>")
             }
-            if (inv_getobj(ame_rewards, $slot) = coal & $slot ! 2) {
+            if (inv_getobj(macro_certer, $slot) = coal & $slot ! 2) {
                 test_fail("coal in slot <tostring($slot)>")
             }
             if ($slot >= 10 & $slot ! 24) {

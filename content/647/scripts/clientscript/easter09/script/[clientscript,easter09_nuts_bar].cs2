@@ -1,25 +1,25 @@
 // 2328
 [clientscript,easter09_nuts_bar](component $component0)
-if (%varclient_766 = 1) {
+if (%easter09_nuts_bar = 1) {
     if (if_gety($component0) > 100) {
-        if_setposition(if_getx($component0), calc(if_gety($component0) - 2), ^setpos_abs_left, ^setpos_abs_top, $component0);
+        if_setposition($component0, if_getx($component0), calc(if_gety($component0) - 2), ^setpos_abs_left, ^setpos_abs_top);
         sound_synth(synth_6422, 1, 0);
         if (if_gety($component0) < 170) {
-            switch_int (%varclient_765) {
+            switch_int (%easter09_nuts_tagged) {
                 case 1 :
-                    if_setposition(if_getx(easter09_nuts:model1), calc(if_gety(easter09_nuts:model1) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model1);
+                    if_setposition(easter09_nuts:model1, if_getx(easter09_nuts:model1), calc(if_gety(easter09_nuts:model1) - 2), ^setpos_abs_left, ^setpos_abs_top);
                 case 2 :
-                    if_setposition(if_getx(easter09_nuts:model2), calc(if_gety(easter09_nuts:model2) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model2);
+                    if_setposition(easter09_nuts:model2, if_getx(easter09_nuts:model2), calc(if_gety(easter09_nuts:model2) - 2), ^setpos_abs_left, ^setpos_abs_top);
                 case 3 :
-                    if_setposition(if_getx(easter09_nuts:model3), calc(if_gety(easter09_nuts:model3) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model3);
+                    if_setposition(easter09_nuts:model3, if_getx(easter09_nuts:model3), calc(if_gety(easter09_nuts:model3) - 2), ^setpos_abs_left, ^setpos_abs_top);
                 case 4 :
-                    if_setposition(if_getx(easter09_nuts:model4), calc(if_gety(easter09_nuts:model4) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:model4);
+                    if_setposition(easter09_nuts:model4, if_getx(easter09_nuts:model4), calc(if_gety(easter09_nuts:model4) - 2), ^setpos_abs_left, ^setpos_abs_top);
             }
         }
     } else {
-        if_setposition(if_getx($component0), 100, ^setpos_abs_left, ^setpos_abs_top, $component0);
-        %varclient_766 = 2;
-        switch_int (%varclient_765) {
+        if_setposition($component0, if_getx($component0), 100, ^setpos_abs_left, ^setpos_abs_top);
+        %easter09_nuts_bar = 2;
+        switch_int (%easter09_nuts_tagged) {
             case 1 :
                 ~easter09_nuts_reset_model1;
             case 2 :
@@ -30,13 +30,13 @@ if (%varclient_766 = 1) {
                 ~easter09_nuts_reset_model4;
         }
     }
-} else if (%varclient_766 = 2) {
+} else if (%easter09_nuts_bar = 2) {
     if (if_gety($component0) < 200) {
-        if_setposition(if_getx($component0), calc(if_gety($component0) + 2), ^setpos_abs_left, ^setpos_abs_top, $component0);
+        if_setposition($component0, if_getx($component0), calc(if_gety($component0) + 2), ^setpos_abs_left, ^setpos_abs_top);
     } else {
-        if_setposition(if_getx($component0), 200, ^setpos_abs_left, ^setpos_abs_top, $component0);
-        %varclient_766 = 0;
-        %varclient_765 = 0;
-        if_setontimer(null, $component0);
+        if_setposition($component0, if_getx($component0), 200, ^setpos_abs_left, ^setpos_abs_top);
+        %easter09_nuts_bar = 0;
+        %easter09_nuts_tagged = 0;
+        if_setontimer($component0, null);
     }
 }

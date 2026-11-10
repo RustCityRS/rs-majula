@@ -3,43 +3,43 @@
 def_seq $seq0 = null;
 def_string $string0 = "";
 def_int $int1 = -1;
-if (%varplayer_1174 ! null & %varplayer_1174 ! hans) {
-    $string0 = enum(npc, string, enum_1279, %varplayer_1174);
-    if_setnpchead(%varplayer_1174, lore_stats_side:lore_chathead);
-} else if (enum(obj, npc, enum_1320, %varplayer_448) ! npc_6988) {
-    %varplayer_1174 = enum(obj, npc, enum_1320, %varplayer_448);
-    $string0 = enum(npc, string, enum_1279, %varplayer_1174);
-    if_setnpchead(%varplayer_1174, lore_stats_side:lore_chathead);
+if (%lore_npc_head ! null & %lore_npc_head ! hans) {
+    $string0 = enum(npc, string, enum_1279, %lore_npc_head);
+    if_setnpchead(lore_stats_side:lore_chathead, %lore_npc_head);
+} else if (enum(obj, npc, enum_1320, %follower_obj) ! npc_6988) {
+    %lore_npc_head = enum(obj, npc, enum_1320, %follower_obj);
+    $string0 = enum(npc, string, enum_1279, %lore_npc_head);
+    if_setnpchead(lore_stats_side:lore_chathead, %lore_npc_head);
 }
 if (compare($string0, "Animal") = 0) {
-    if_settext(oc_name(%varplayer_448), lore_stats_side:lore_name);
+    if_settext(lore_stats_side:lore_name, oc_name(%follower_obj));
 } else {
-    if_settext($string0, lore_stats_side:lore_name);
+    if_settext(lore_stats_side:lore_name, $string0);
 }
-if (%varplayerbit_4282 > 50) {
-    %varplayerbit_4282 = calc(%varplayerbit_4282 - 50);
-    $seq0 = enum(int, seq, enum_1275, %varplayerbit_4282);
-    if_setmodelanim($seq0, lore_stats_side:lore_chathead);
+if (%lore_interface_boolean > 50) {
+    %lore_interface_boolean = calc(%lore_interface_boolean - 50);
+    $seq0 = enum(int, seq, enum_1275, %lore_interface_boolean);
+    if_setmodelanim(lore_stats_side:lore_chathead, $seq0);
 } else {
-    $seq0 = enum(int, seq, enum_1276, %varplayerbit_4282);
-    if_setmodelanim($seq0, lore_stats_side:lore_chathead);
+    $seq0 = enum(int, seq, enum_1276, %lore_interface_boolean);
+    if_setmodelanim(lore_stats_side:lore_chathead, $seq0);
 }
-if (enum(obj, obj, enum_1283, %varplayer_448) ! bones) {
-    if_sethide(true, lore_stats_side:lore_pets);
-    if (enum(npc, component, enum_1282, %varplayer_1174) ! lore_stats_side:size_percentage) {
-        if_sethide(false, lore_stats_side:lore_familairs);
-        if_sethide(false, lore_stats_side:lore_pouch_counter);
-        if_sethide(false, enum(npc, component, enum_1282, %varplayer_1174));
-        if_sethide(false, enum(npc, component, enum_1092, %varplayer_1174));
-        if_setgraphic("topstat_fill_full,11", topstat_lore:topstat_circle_lore);
+if (enum(obj, obj, enum_1283, %follower_obj) ! bones) {
+    if_sethide(lore_stats_side:lore_pets, true);
+    if (enum(npc, component, enum_1282, %lore_npc_head) ! lore_stats_side:size_percentage) {
+        if_sethide(lore_stats_side:lore_familairs, false);
+        if_sethide(lore_stats_side:lore_pouch_counter, false);
+        if_sethide(enum(npc, component, enum_1282, %lore_npc_head), false);
+        if_sethide(enum(npc, component, enum_1092, %lore_npc_head), false);
+        if_setgraphic(topstat_lore:topstat_circle_lore, "topstat_fill_full,11");
     } else {
-        if_sethide(true, lore_stats_side:lore_pouch_counter);
+        if_sethide(lore_stats_side:lore_pouch_counter, true);
     }
 } else {
-    if_sethide(false, lore_stats_side:lore_pets);
-    if_sethide(true, lore_stats_side:lore_pouch_counter);
-    if (%varplayer_448 ! null & oc_param(%varplayer_448, param_394) ! 0) {
-        if_sethide(false, enum(npc, component, enum_1092, %varplayer_1174));
+    if_sethide(lore_stats_side:lore_pets, false);
+    if_sethide(lore_stats_side:lore_pouch_counter, true);
+    if (%follower_obj ! null & oc_param(%follower_obj, param_394) ! 0) {
+        if_sethide(enum(npc, component, enum_1092, %lore_npc_head), false);
     }
 }
 ~script2671;

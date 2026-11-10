@@ -5,15 +5,15 @@ if ($int0 ! 1) {
 }
 switch_int ($int2) {
     case 0 :
-        %varclient_1015 = $int1;
+        %playerdesign3_haircol = $int1;
     case 1 :
-        %varclient_1016 = $int1;
+        %playerdesign3_torsocol = $int1;
     case 2 :
-        %varclient_1017 = $int1;
+        %playerdesign3_legscol = $int1;
     case 3 :
-        %varclient_1018 = $int1;
+        %playerdesign3_feetcol = $int1;
     case 4 :
-        %varclient_1019 = $int1;
+        %playerdesign3_skincol = $int1;
     case default :
         return;
 }

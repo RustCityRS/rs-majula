@@ -1,13 +1,13 @@
 // 1329
 [clientscript,script1329]
 if (~current_side_if = 6) {
-    if (%varplayerbit_6522 = 1) {
-        if_settext("Click the flashing Prayer icon to activate the Thick Skin prayer. This prayer increases your Defence by 5%, which can be seen if you hover your mouse over the flashing Prayer icon.", advisor_tutorial_chat:graphic_text);
-        if_settext("", advisor_tutorial_chat:body);
-        if_setgraphic("prayeron,0", advisor_tutorial_chat:graphic);
+    if (%advisor_tutorial_step = 1) {
+        if_settext(advisor_tutorial_chat:graphic_text, "Click the flashing Prayer icon to activate the Thick Skin prayer. This prayer increases your Defence by 5%, which can be seen if you hover your mouse over the flashing Prayer icon.");
+        if_settext(advisor_tutorial_chat:body, "");
+        if_setgraphic(advisor_tutorial_chat:graphic, "prayeron,0");
     }
 } else {
-    if_settext("Click on the stone with the Prayer icon to open the Prayer side interface.", advisor_tutorial_chat:graphic_text);
-    if_settext("", advisor_tutorial_chat:body);
-    if_setgraphic("stonemenusideicons,6", advisor_tutorial_chat:graphic);
+    if_settext(advisor_tutorial_chat:graphic_text, "Click on the stone with the Prayer icon to open the Prayer side interface.");
+    if_settext(advisor_tutorial_chat:body, "");
+    if_setgraphic(advisor_tutorial_chat:graphic, "stonemenusideicons,6");
 }

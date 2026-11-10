@@ -68,13 +68,13 @@ fn al_kharid_s_npcs_answer_every_branch() {
         for npc in [
             "dommik",
             "gem_trader",
-            "karim",
+            "kebab_seller",
             "louie_legs",
             "ranael",
             "shantay",
             "shantay_guard",
             "silk_trader",
-            "ellis",
+            "ellis_tanner",
             "zeke",
         ] {
             let _ = engine.script_errors.take();
@@ -128,7 +128,7 @@ fn ellis_tans_on_2011_s_tanning_interface() {
     runner::on_loaded_engine(|engine| {
         let obj = |engine: &Engine, name: &str| *engine.cache.objs.debugnames.get(name).unwrap();
         let (cowhide, leather, hard, coins) = (
-            obj(engine, "cowhide"),
+            obj(engine, "cow_hide"),
             obj(engine, "leather"),
             obj(engine, "hard_leather"),
             obj(engine, "coins"),
@@ -139,7 +139,7 @@ fn ellis_tans_on_2011_s_tanning_interface() {
             .harness_login_returning("tanner_customer")
             .expect("login");
         engine.cycle();
-        let (nid, x, y, z) = beside(engine, "ellis");
+        let (nid, x, y, z) = beside(engine, "ellis_tanner");
         engine.harness_telejump(client.pid, x, y, z);
         let pack = engine
             .harness_player_mut(client.pid)

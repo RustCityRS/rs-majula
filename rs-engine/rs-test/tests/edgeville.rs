@@ -26,7 +26,7 @@ fn obj(engine: &Engine, name: &str) -> u16 {
 }
 
 fn give_key(engine: &mut Engine, client: &HarnessClient) {
-    let key = obj(engine, "brass_key");
+    let key = obj(engine, "edgevilledungeonkey");
     let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
     engine
         .harness_player_mut(client.pid)
@@ -82,7 +82,7 @@ fn the_brass_key_door_is_locked_and_the_key_opens_it_from_either_side() {
 
         // The key, from each side: through to the other.
         give_key(engine, &client);
-        let key = obj(engine, "brass_key");
+        let key = obj(engine, "edgevilledungeonkey");
         for (from, to) in [((3115, 3449), (3115, 3450)), ((3115, 3450), (3115, 3449))] {
             stand(engine, &mut client, from.0, from.1);
             let mut p = ClientPacket::new();

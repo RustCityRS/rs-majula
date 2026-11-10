@@ -1,8 +1,8 @@
 // 1758
 [clientscript,script1758](component $component0, component $component1)
-if (%varclient_218 > 0) {
-    if_sethide(false, $component0);
+if (%brew_varc_pipe_fire > 0) {
+    if_sethide($component0, false);
 } else {
-    if_sethide(true, $component0);
+    if_sethide($component0, true);
 }
-if_settext(tostring(%varclient_218), $component1);
+if_settext($component1, tostring(%brew_varc_pipe_fire));

@@ -152,7 +152,7 @@ fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
             .cache
             .objs
             .debugnames
-            .get("anti_dragon_shield")
+            .get("antidragonbreathshield")
             .unwrap();
         engine
             .harness_player_mut(client.pid)

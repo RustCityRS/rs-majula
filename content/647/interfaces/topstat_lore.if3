@@ -82,7 +82,7 @@ height=334
 layer=topstat_lore
 transmitop=10
 op10=Select left-click option
-onvartransmit=lore_head_update{varplayer_1493}
+onvartransmit=lore_head_update{lore_general_varp_1}
 
 // 747:8
 [main_ops]
@@ -169,7 +169,7 @@ type=layer
 width=57
 height=34
 layer=main_ops
-onvartransmit=lore_head_update{varplayer_1174}
+onvartransmit=lore_head_update{lore_npc_head}
 
 // 747:17
 [spell_icon]
@@ -178,7 +178,7 @@ width=57
 height=34
 layer=main_ops
 onload=script211
-onvartransmit=script211{varplayer_448}
+onvartransmit=script211{follower_obj}
 onvarcstrtransmit=script211{varclient_1724}
 
 // 747:18

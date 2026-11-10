@@ -1,7 +1,7 @@
 // 5
 [proc,prayer_temp_glow]
 def_int $int0 = 30;
-if (%varplayerbit_6840 = 1) {
+if (%prayer_mode = 1) {
     $int0 = 20;
 }
 def_int $int1 = 0;

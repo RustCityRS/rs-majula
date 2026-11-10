@@ -1,6 +1,6 @@
 // 4540
 [proc,aif_tooltip_draw](component $component0, component $component1, int $int2, string $string0, int $int3, fontmetrics $fontmetrics4, graphic $graphic5, int $rgb6, int $int7, int $int8, int $int9, int $int10, int $int11)
-if_sethide(false, $component0);
+if_sethide($component0, false);
 cc_deleteall($component0);
 if ($fontmetrics4 = null | $graphic5 = null) {
     $fontmetrics4, $graphic5 = verdana_11pt_regular_multiline, verdana_11pt_regular_multiline;
@@ -21,7 +21,7 @@ switch_int ($int9) {
         $int15 = calc($int15 + 23);
 }
 $int14, $int15 = max($int14, 45), max($int15, 45);
-if_setsize($int14, $int15, ^setsize_abs, ^setsize_abs, $component0);
+if_setsize($component0, $int14, $int15, ^setsize_abs, ^setsize_abs);
 cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
 switch_int ($int9) {
     case 3 :
@@ -263,6 +263,6 @@ if (cc_find($component1, $int2) = true | $int2 = -1 & if_find($component1) = tru
             .cc_setposition($int27, 0, ^setpos_abs_centre, ^setpos_abs_top);
     }
 } else {
-    if_sethide(true, $component0);
+    if_sethide($component0, true);
 }
-if_setposition(calc($int25 - $int16), calc($int26 - $int18), ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_setposition($component0, calc($int25 - $int16), calc($int26 - $int18), ^setpos_abs_left, ^setpos_abs_top);

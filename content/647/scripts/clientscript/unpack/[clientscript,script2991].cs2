@@ -1,4 +1,4 @@
 // 2991
 [clientscript,script2991]
-if_setgraphic("set_but_end_2,1", ecosystem_creatures:back_button_left);
-if_setgraphic("set_but_end_2,1", ecosystem_creatures:back_button_right);
+if_setgraphic(ecosystem_creatures:back_button_left, "set_but_end_2,1");
+if_setgraphic(ecosystem_creatures:back_button_right, "set_but_end_2,1");

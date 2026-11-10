@@ -67,5 +67,5 @@ cc_setgraphic($graphic5);
 cc_sethflip(true);
 cc_settrans($int9);
 if ($int2 = 4) {
-    if_sethide(true, $component0);
+    if_sethide($component0, true);
 }

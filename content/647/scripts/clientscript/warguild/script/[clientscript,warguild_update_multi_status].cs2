@@ -1,16 +1,16 @@
 // 4053
 [clientscript,warguild_update_multi_status]
-switch_int (%varplayerbit_8661) {
+switch_int (%warguild_token_type) {
     case 0 :
-        if_settext("Using multiple token types", warguild_token_overlay:token_type_text);
+        if_settext(warguild_token_overlay:token_type_text, "Using multiple token types");
     case 1 :
-        if_settext("Using attack tokens", warguild_token_overlay:token_type_text);
+        if_settext(warguild_token_overlay:token_type_text, "Using attack tokens");
     case 2 :
-        if_settext("Using defence tokens", warguild_token_overlay:token_type_text);
+        if_settext(warguild_token_overlay:token_type_text, "Using defence tokens");
     case 3 :
-        if_settext("Using strength tokens", warguild_token_overlay:token_type_text);
+        if_settext(warguild_token_overlay:token_type_text, "Using strength tokens");
     case 4 :
-        if_settext("Using combat tokens", warguild_token_overlay:token_type_text);
+        if_settext(warguild_token_overlay:token_type_text, "Using combat tokens");
     case 5 :
-        if_settext("Using balance tokens", warguild_token_overlay:token_type_text);
+        if_settext(warguild_token_overlay:token_type_text, "Using balance tokens");
 }

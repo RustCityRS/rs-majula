@@ -17,7 +17,7 @@ def_graphic $graphic13 = null;
 def_int $rgb14 = ^black;
 def_int $rgb15 = ^black;
 $int4, $string0, $int5, $string1, $int6, $int9, $string2 = worldlist_specific($int0);
-if_sethide(false, $component1);
+if_sethide($component1, false);
 def_graphic $graphic16 = null;
 def_string $string3 = "";
 def_graphic $graphic17 = null;
@@ -25,9 +25,9 @@ def_string $string4 = "";
 def_string $string5 = "";
 $graphic16, $string3, $graphic10, $rgb14, $graphic17, $rgb15, $graphic13, $string4, $string5 = ~script3117($int0, $int4, -1, $string0, $string1, $int6, $int5);
 if ($int3 = 0) {
-    if ($int0 = %varclient_998) {
+    if ($int0 = %worldselect_1stfavourite) {
         $rgb15 = 0x203211;
-    } else if ($int0 = %varclient_999) {
+    } else if ($int0 = %worldselect_2ndfavourite) {
         $rgb15 = 0x203c11;
     }
     $graphic13 = "world_select_hearts,2";

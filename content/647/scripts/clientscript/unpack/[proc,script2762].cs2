@@ -1,6 +1,6 @@
 // 2762
 [proc,script2762](component $component0, coord $coord1)
-switch_int (%varclient_1007) {
+switch_int (%tutorial3_cutscene_tracker) {
     case 101 :
         spline_new(0, 2);
         spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_35_13, $coord1), 450, ~tutorial3_coord(0_57_77_35_13, $coord1), 500, 0);

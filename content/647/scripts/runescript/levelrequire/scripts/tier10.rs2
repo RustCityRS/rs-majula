@@ -1,7 +1,7 @@
 // Melee
 [opheld2,black_dagger] @levelrequire_attack(10, last_slot);
-[opheld2,black_dagger__p] @levelrequire_attack(10, last_slot);
-[opheld2,black_hatchet] @levelrequire_attack(10, last_slot);
+[opheld2,black_dagger_p] @levelrequire_attack(10, last_slot);
+[opheld2,black_axe] @levelrequire_attack(10, last_slot);
 [opheld2,black_mace] @levelrequire_attack(10, last_slot);
 [opheld2,black_sword] @levelrequire_attack(10, last_slot);
 [opheld2,black_scimitar] @levelrequire_attack(10, last_slot);
@@ -21,21 +21,21 @@
 [opheld2,black_chainbody] @levelrequire_defence(10, last_slot);
 [opheld2,black_platebody] @levelrequire_defence(10, last_slot);
 
-[opheld2,black_platebody__t] @levelrequire_defence(10, last_slot);
-[opheld2,black_platelegs__t] @levelrequire_defence(10, last_slot);
-[opheld2,black_full_helm__t] @levelrequire_defence(10, last_slot);
-[opheld2,black_kiteshield__t] @levelrequire_defence(10, last_slot);
-[opheld2,black_platebody__g] @levelrequire_defence(10, last_slot);
-[opheld2,black_platelegs__g] @levelrequire_defence(10, last_slot);
-[opheld2,black_full_helm__g] @levelrequire_defence(10, last_slot);
-[opheld2,black_kiteshield__g] @levelrequire_defence(10, last_slot);
-[opheld2,black_plateskirt__g] @levelrequire_defence(10, last_slot);
-[opheld2,black_plateskirt__t] @levelrequire_defence(10, last_slot);
+[opheld2,black_platebody_trim] @levelrequire_defence(10, last_slot);
+[opheld2,black_platelegs_trim] @levelrequire_defence(10, last_slot);
+[opheld2,black_full_helm_trim] @levelrequire_defence(10, last_slot);
+[opheld2,black_kiteshield_trim] @levelrequire_defence(10, last_slot);
+[opheld2,black_platebody_gold] @levelrequire_defence(10, last_slot);
+[opheld2,black_platelegs_gold] @levelrequire_defence(10, last_slot);
+[opheld2,black_full_helm_gold] @levelrequire_defence(10, last_slot);
+[opheld2,black_kiteshield_gold] @levelrequire_defence(10, last_slot);
+[opheld2,black_plateskirt_gold] @levelrequire_defence(10, last_slot);
+[opheld2,black_plateskirt_trim] @levelrequire_defence(10, last_slot);
 
 [opheld2,black_knife] @levelrequire_ranged(10, last_slot);
-[opheld2,black_knife__p] @levelrequire_ranged(10, last_slot);
+[opheld2,black_knife_p] @levelrequire_ranged(10, last_slot);
 [opheld2,black_dart] @levelrequire_ranged(10, last_slot);
-[opheld2,black_dart__p] @levelrequire_ranged(10, last_slot);
+[opheld2,black_dart_p] @levelrequire_ranged(10, last_slot);
 
 // Ranged
 [opheld2,hardleather_body] @levelrequire_defence(10, last_slot);

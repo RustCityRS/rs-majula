@@ -9,13 +9,13 @@ def_int $int5 = 6;
 def_int $int6 = $int5;
 def_int $int7 = 3;
 def_int $int8 = calc(34 + 3);
-if (%varclient_1052 = 1 & %varplayerbit_6840 = 0) {
+if (%prayer_stats_if_visible = 1 & %prayer_mode = 0) {
     $int5 = 3;
     $int6 = $int5;
     $int8 = calc(34 + 0);
 }
 def_int $int9 = calc(34 + 2);
-if (%varclient_181 = true) {
+if (%prayer_custom_view_client = true) {
     $int5 = 6;
     $int6 = $int5;
     $int7 = 28;
@@ -23,7 +23,7 @@ if (%varclient_181 = true) {
     $int9 = calc(34 + 3);
 }
 def_int $int10 = 30;
-if (%varplayerbit_6840 = 1) {
+if (%prayer_mode = 1) {
     $int10 = 20;
 }
 while ($int4 < $int10) {

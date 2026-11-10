@@ -1,18 +1,18 @@
 // 289's hay, by id: 2011 spells 289's "Hay Bails" and "Hay bail" Hay bales
 // and Hay bale (cache 786 names of 298, 299 and 304).
-[oploc1,hay_bales]
-mes("You search the hay bales...");
-@search_haybale();
-
-[oploc1,hay_bales_299]
-mes("You search the hay bales...");
-@search_haybale();
-
 [oploc1,haystack]
+mes("You search the hay bales...");
+@search_haybale();
+
+[oploc1,haystack2]
+mes("You search the hay bales...");
+@search_haybale();
+
+[oploc1,haystack3]
 mes("You search the haystack...");
 @search_haybale();
 
-[oploc1,hay_bale]
+[oploc1,haybail]
 mes("You search the hay bale...");
 @search_haybale();
 

@@ -18,7 +18,7 @@ npc_queue(3, 0, 0)
 test_tick(5)
 assert_true(obj_find($at, bones))
 assert_true(obj_find($at, raw_beef))
-assert_true(obj_find($at, cowhide))
+assert_true(obj_find($at, cow_hide))
 
 // A chicken: its bones and raw chicken every time (feathers half the time).
 [label,test_a_chicken_drops_bones_and_raw_chicken]
@@ -48,7 +48,7 @@ assert_false(obj_find($at, raw_beef))
 [label,test_a_giant_rat_drops_bones_and_rat_meat]
 setup_player("test_player")
 p_telejump(0_50_50_36_30)
-npc_add(movecoord(coord, 2, 0, 0), giant_rat, 50)
+npc_add(movecoord(coord, 2, 0, 0), giantrat, 50)
 def_coord $at = npc_coord;
 npc_heropoints(50)
 npc_queue(3, 0, 0)
@@ -62,12 +62,12 @@ assert_true(obj_find($at, raw_rat_meat))
 [label,test_a_2011_blue_dragon_takes_289_s_table]
 setup_player("test_player")
 p_telejump(0_50_50_42_30)
-npc_add(movecoord(coord, 3, 0, 0), blue_dragon_4681, 50)
+npc_add(movecoord(coord, 3, 0, 0), blue_dragon2, 50)
 def_coord $at = npc_coord;
 npc_heropoints(100)
 npc_queue(3, 0, 0)
 test_tick(5)
-assert_true(obj_find($at, blue_dragonhide))
+assert_true(obj_find($at, dragonhide_blue))
 
 // 2011's Lumbridge goblins (12353-12358) are 289's level-2 goblin by name and
 // level (npc_clones_2011.npc): its life points, so they can die, and its table.

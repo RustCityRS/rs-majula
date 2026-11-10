@@ -6,61 +6,61 @@
 // The water sources are configs/water_sources.loc and the 2011 ones in
 // general/configs/examine.loc (category watersource or well).
 
-[opheldu,bowl_of_water]
+[opheldu,bowl_water]
 switch_obj (last_useitem)
 {
-    case pot_of_flour : @dough_interface(last_item);
-    case clay : @make_softclay(bowl_of_water);
-    case bucket, jug : @water_fill(last_useslot, last_slot);
+    case pot_flour : @dough_interface(last_item);
+    case clay : @make_softclay(bowl_water);
+    case bucket_empty, jug_empty : @water_fill(last_useslot, last_slot);
     case potato, cooked_meat, cooked_chicken : @make_incomplete_stew(last_useslot);
-    case waterskin__3, waterskin__2, waterskin__1, waterskin__0 : @water_fill(last_useslot, last_slot);
+    case water_skin3, water_skin2, water_skin1, water_skin0 : @water_fill(last_useslot, last_slot);
     case default : ~displaymessage(^dm_default);
 }
 
-[opheldu,bucket_of_water]
+[opheldu,bucket_water]
 switch_obj (last_useitem)
 {
     // 289's newbie_pot_flour makes Tutorial Island's dough (@tut_make_dough);
     // 2011 has no Tutorial Island (Unstable Foundations replaced it on 17
     // September 2009, wiki Unstable Foundations).
     // case newbie_pot_flour : @tut_make_dough;
-    case pot_of_flour : @dough_interface(last_item);
-    case clay : @make_softclay(bucket_of_water);
-    case jug, bowl : @water_fill(last_useslot, last_slot);
-    case waterskin__3, waterskin__2, waterskin__1, waterskin__0 : @water_fill(last_useslot, last_slot);
+    case pot_flour : @dough_interface(last_item);
+    case clay : @make_softclay(bucket_water);
+    case jug_empty, bowl_empty : @water_fill(last_useslot, last_slot);
+    case water_skin3, water_skin2, water_skin1, water_skin0 : @water_fill(last_useslot, last_slot);
     case default : ~displaymessage(^dm_default);
 }
 
-[opheldu,jug_of_water]
+[opheldu,jug_water]
 switch_obj (last_useitem)
 {
     case grapes : @make_wine;
-    case pot_of_flour : @dough_interface(last_item);
-    case clay : @make_softclay(jug_of_water);
-    case bucket, bowl : @water_fill(last_useslot, last_slot);
-    case waterskin__3, waterskin__2, waterskin__1, waterskin__0 : @water_fill(last_useslot, last_slot);
+    case pot_flour : @dough_interface(last_item);
+    case clay : @make_softclay(jug_water);
+    case bucket_empty, bowl_empty : @water_fill(last_useslot, last_slot);
+    case water_skin3, water_skin2, water_skin1, water_skin0 : @water_fill(last_useslot, last_slot);
     case default : ~displaymessage(^dm_default);
 }
 
-[opheldu,bucket]
+[opheldu,bucket_empty]
 switch_obj (last_useitem)
 {
-    case jug_of_water, bowl_of_water : @water_fill(last_useslot, last_slot);
+    case jug_water, bowl_water : @water_fill(last_useslot, last_slot);
     case default : ~displaymessage(^dm_default);
 }
 
-[opheldu,jug]
+[opheldu,jug_empty]
 switch_obj (last_useitem)
 {
-    case bucket_of_water, bowl_of_water : @water_fill(last_useslot, last_slot);
+    case bucket_water, bowl_water : @water_fill(last_useslot, last_slot);
     case default : ~displaymessage(^dm_default);
 }
 
-[opheldu,bowl]
+[opheldu,bowl_empty]
 switch_obj (last_useitem)
 {
-    case onion, tomato, ugthanki_meat : @make_bowl_mixture(last_useslot);
-    case bucket_of_water, jug_of_water : @water_fill(last_useslot, last_slot);
+    case onion, tomato, cooked_ugthanki_meat : @make_bowl_mixture(last_useslot);
+    case bucket_water, jug_water : @water_fill(last_useslot, last_slot);
     case default : ~displaymessage(^dm_default);
 }
 
@@ -77,13 +77,13 @@ switch_obj (last_useitem) {
     // goldbowlbless_empty); 647's gold_bowl and blessed_gold_bowl have no
     // next_obj_stage yet: they wait for the Legends' Quest port.
     // case bucket, jug, vial, bowl, gold_bowl, blessed_gold_bowl : @fill_container_water(last_useitem);
-    case bucket, jug, vial, bowl : @fill_container_water(last_useitem);
+    case bucket_empty, jug_empty, vial_empty, bowl_empty : @fill_container_water(last_useitem);
     case default : ~displaymessage(^dm_default);
 }
 
 [oplocu,_well]
 switch_obj (last_useitem) {
-    case bucket : @fill_bucket_well;
+    case bucket_empty : @fill_bucket_well;
     case default : ~displaymessage(^dm_default);
 }
 
@@ -100,8 +100,8 @@ mes("You fill the <$container_name> from the <$source_name>.");
 p_delay(0);
 
 [label,fill_bucket_well]
-inv_del(inv, bucket, 1);
-inv_add(inv, bucket_of_water, 1);
+inv_del(inv, bucket_empty, 1);
+inv_add(inv, bucket_water, 1);
 anim(human_pickuptable, 0);
 // 289 plays `well_fill` here; 647's synth pack has no such name, and no
 // source gives 2011's id, so it is left out.

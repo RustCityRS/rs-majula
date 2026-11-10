@@ -19,7 +19,7 @@ if ($int12 > 0) {
         $int13 = 1;
     }
     if ($int12 > $int13) {
-        if_setscrollpos(0, $int13, $component1);
+        if_setscrollpos($component1, 0, $int13);
         $int12 = $int13;
     }
     $int14 = scale($int12, $int13, calc($int10 - $int11));
@@ -62,5 +62,5 @@ cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
 cc_setgraphic($graphic7);
 cc_settiling(false);
 cc_setonhold("scrollbar_vertical_down($component0, $component1)");
-if_setonscrollwheel("scrollbar_vertical_wheel($component0, $component1, event_mousey)", $component0);
-if_setonscrollwheel("scrollbar_vertical_wheel($component0, $component1, event_mousey)", $component1);
+if_setonscrollwheel($component0, "scrollbar_vertical_wheel($component0, $component1, event_mousey)");
+if_setonscrollwheel($component1, "scrollbar_vertical_wheel($component0, $component1, event_mousey)");

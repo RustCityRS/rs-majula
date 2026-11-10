@@ -68,12 +68,12 @@ if ($option = 1) {
 // void-634 drops it at the player's feet when the backpack is full; 289 adds
 // it to the backpack
 if (inv_freespace(inv) = 0) {
-    obj_add(coord, ghostspeak_amulet, 1, ^lootdrop_duration);
+    obj_add(coord, amulet_of_ghostspeak, 1, ^lootdrop_duration);
 } else {
-    inv_add(inv, ghostspeak_amulet, 1);
+    inv_add(inv, amulet_of_ghostspeak, 1);
 }
 // void-634's item box; 289's is a message box
-~objbox(ghostspeak_amulet, "Father Urhney hands you an amulet.", 250, 0, 0);
+~objbox(amulet_of_ghostspeak, "Father Urhney hands you an amulet.", 250, 0, 0);
 ~chatnpc("<p,neutral>It is an Amulet of Ghostspeak.");
 ~chatnpc("<p,neutral>So called, because when you wear it you can speak to ghosts. A lot of ghosts are doomed to be ghosts because they have left some important task uncompleted.");
 ~chatnpc("<p,neutral>Maybe if you know what this task is, you can get rid of the ghost. I'm not making any guarantees mind you, but it is the best I can do right now.");
@@ -83,11 +83,11 @@ if (inv_freespace(inv) = 0) {
 [label,father_urhney_priest_lost_amulet]
 ~chatplayer("<p,happy>I've lost the Amulet of Ghostspeak.");
 ~mesbox("Father Urhney sighs.");
-if (inv_total(inv, ghostspeak_amulet) > 0 | inv_total(worn, ghostspeak_amulet) > 0) {
+if (inv_total(inv, amulet_of_ghostspeak) > 0 | inv_total(worn, amulet_of_ghostspeak) > 0) {
     ~chatnpc("<p,angry>What are you talking about? I can see you've got it with you!");
     return;
 }
-if (inv_total(bank, ghostspeak_amulet) > 0) {
+if (inv_total(bank, amulet_of_ghostspeak) > 0) {
     ~chatnpc("<p,angry>You come here wasting my time... Has it even occurred to you that you've got it stored somewhere? Now GO AWAY!");
     return;
 }
@@ -96,7 +96,7 @@ if (inv_freespace(inv) = 0) {
     return;
 }
 ~chatnpc("<p,angry>How careless can you get? Those things aren't easy to come by you know! It's a good job I've got a spare.");
-inv_add(inv, ghostspeak_amulet, 1);
-~objbox(ghostspeak_amulet, "Father Urhney hands you an amulet.", 250, 0, 0);
+inv_add(inv, amulet_of_ghostspeak, 1);
+~objbox(amulet_of_ghostspeak, "Father Urhney hands you an amulet.", 250, 0, 0);
 ~chatnpc("<p,angry>Be more careful this time.");
 ~chatplayer("<p,neutral>Okay, I'll try to be.");

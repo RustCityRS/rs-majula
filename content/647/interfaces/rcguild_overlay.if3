@@ -458,7 +458,7 @@ fill=yes
 transmitop=10
 op10= 
 onmouseleave=deltooltip(rcguild_overlay:tooltip_content_layer)
-onvartransmit=rcguild_activity_bar_fill{varplayer_1495}
+onvartransmit=rcguild_activity_bar_fill{rcguild_activity_base}
 onmouserepeat=rcguild_game_overlay_tooltips(event_com, rcguild_overlay:tooltip_content_layer)
 
 // 781:38
@@ -574,7 +574,7 @@ layer=yellow_layer
 colour=0x666600
 fill=yes
 onmouseleave=deltooltip(rcguild_overlay:tooltip_content_layer)
-onvartransmit=rcguild_activity_bar_fill{varplayer_1495}
+onvartransmit=rcguild_activity_bar_fill{rcguild_activity_base}
 onmouserepeat=rcguild_game_overlay_tooltips(event_com, rcguild_overlay:tooltip_content_layer)
 
 // 781:47

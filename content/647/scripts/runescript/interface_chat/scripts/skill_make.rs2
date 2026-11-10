@@ -23,17 +23,17 @@ return($product, $count);
 // All ten of the dialogue's items (choices com14 to com23, void-634's
 // dialogue_skill_creation), for makes with more than five, such as smelting.
 [proc,skill_make10](string $text, int $verb, int $maximum, namedobj $obj1, namedobj $obj2, namedobj $obj3, namedobj $obj4, namedobj $obj5, namedobj $obj6, namedobj $obj7, namedobj $obj8, namedobj $obj9, namedobj $obj10)(namedobj, int)
-%varclient_754 = $verb; // the verb: ^skill_make_make, ^skill_make_cook, ...
-%varclient_755 = $obj1;
-%varclient_756 = $obj2;
-%varclient_757 = $obj3;
-%varclient_758 = $obj4;
-%varclient_759 = $obj5;
-%varclient_760 = $obj6;
-%varclient_1139 = $obj7;
-%varclient_1140 = $obj8;
-%varclient_1141 = $obj9;
-%varclient_1142 = $obj10;
+%skill_multi_num = $verb; // the verb: ^skill_make_make, ^skill_make_cook, ...
+%skill_multi_obj1 = $obj1;
+%skill_multi_obj2 = $obj2;
+%skill_multi_obj3 = $obj3;
+%skill_multi_obj4 = $obj4;
+%skill_multi_obj5 = $obj5;
+%skill_multi_obj6 = $obj6;
+%skill_multi_obj7 = $obj7;
+%skill_multi_obj8 = $obj8;
+%skill_multi_obj9 = $obj9;
+%skill_multi_obj10 = $obj10;
 if ($obj1 ! null) { %varclient_1651 = oc_name($obj1); }
 if ($obj2 ! null) { %varclient_1652 = oc_name($obj2); }
 if ($obj3 ! null) { %varclient_1653 = oc_name($obj3); }

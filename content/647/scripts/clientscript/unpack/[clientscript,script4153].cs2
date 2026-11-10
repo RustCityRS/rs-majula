@@ -1,7 +1,7 @@
 // 4153
 [clientscript,script4153]
-if (%varplayerbit_4466 = 1) {
-    if_setgraphic("radio_buttons,1", friendschatsetup:opt_coinshare);
-} else if (%varplayerbit_4466 = 0) {
-    if_setgraphic("radio_buttons,0", friendschatsetup:opt_coinshare);
+if (%loot_clanconfig_coinshare = 1) {
+    if_setgraphic(friendschatsetup:opt_coinshare, "radio_buttons,1");
+} else if (%loot_clanconfig_coinshare = 0) {
+    if_setgraphic(friendschatsetup:opt_coinshare, "radio_buttons,0");
 }

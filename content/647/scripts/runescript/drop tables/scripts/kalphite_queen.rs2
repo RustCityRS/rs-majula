@@ -76,7 +76,7 @@ if ($random < 14) { // 14/128 guess: drop log 16/128, 4/128 osrs
 } else if ($random < 19) { // 3/128: drop log 3/128
     obj_add(npc_coord, rune_warhammer, 1, ^lootdrop_duration);
 } else if ($random < 22) { // 3/128 guess: drop log 2/128
-    obj_add(npc_coord, rune_hatchet, 1, ^lootdrop_duration);
+    obj_add(npc_coord, rune_axe, 1, ^lootdrop_duration);
 } else if ($random < 32) { // 10/128 guess: drop log 9/128
     obj_add(npc_coord, adamant_spear, 1, ^lootdrop_duration);
 } else if ($random < 42) { // 10/128 guess: drop log 8/128
@@ -86,17 +86,17 @@ if ($random < 14) { // 14/128 guess: drop log 16/128, 4/128 osrs
 } else if ($random < 47) { // 2/128: drop log 2/128
     obj_add(npc_coord, rune_arrow, 100, ^lootdrop_duration);
 } else if ($random < 50) { // 3/128 guess: missing from drop log
-    obj_add(npc_coord, oyster_pearls, 40, ^lootdrop_duration);
+    obj_add(npc_coord, bigoysterpearls, 40, ^lootdrop_duration);
 } else if ($random < 70) { // 20/128 guess: drop log 23/128, 6/128 osrs
-    obj_add(npc_coord, blood_rune, 19, ^lootdrop_duration);
+    obj_add(npc_coord, bloodrune, 19, ^lootdrop_duration);
 } else if ($random < 84) { // 14/128: drop log 14/128
-    obj_add(npc_coord, nature_rune, 75, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 75, ^lootdrop_duration);
 } else if ($random < 94) { // 10/128 guess: drop log 11/128
-    obj_add(npc_coord, fire_rune, 600, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 600, ^lootdrop_duration);
 } else if ($random < 99) { // 5/128: drop log 5/128
-    obj_add(npc_coord, law_rune, 20, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 20, ^lootdrop_duration);
 }  else if ($random < 102) { // 3/128: drop log 3/128
-    obj_add(npc_coord, death_rune, 30, ^lootdrop_duration);
+    obj_add(npc_coord, deathrune, 30, ^lootdrop_duration);
 }  else if ($random < 112) { // 10/128 guess: drop log 11/128, 10/128 osrs
     obj_add(npc_coord, cert_wine_of_zamorak, 20, ^lootdrop_duration);
 }  else if ($random < 119) { // 7/128: drop log 8/128, guess based on kbd's amulet of power/str 7/128
@@ -104,7 +104,7 @@ if ($random < 14) { // 14/128 guess: drop log 16/128, 4/128 osrs
 } else if ($random < 121) { // 2/128 guess: drop log 2.55/128
     obj_add(npc_coord, lobster, 7, ^lootdrop_duration);
 } else if ($random < 122) { // 1/128, 1 roll in osrs
-    obj_add(npc_coord, dragon_chainbody_3140, 1, ^lootdrop_duration);
+    obj_add(npc_coord, dragon_chainbody, 1, ^lootdrop_duration);
 } else if ($random < 128) { // 7/128 guess, drop log suggests 11/128
     obj_add(npc_coord, ~randomjewel, ^lootdrop_duration);
 }

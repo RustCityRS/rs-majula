@@ -8,7 +8,7 @@
 ~bank_v2_hide_all;
 ~bank_v2_build_tabs;
 ~bank_v2_tab_highlight(%open_bank_tab);
-if_setonvarctransmit("script1472{varclient_190}", bank_v2_main:bank_search_button);
-if_setonvarctransmit("script1465{varclient_192, varclient_1038, varclient_1324}", bank_v2_main:bank_space_layer);
-if_setscrollpos(0, ~bank_v2_get_tab_scrollpos(%open_bank_tab), bank_v2_main:bank_v2_inv);
+if_setonvarctransmit(bank_v2_main:bank_search_button, "script1472{varclient_190}");
+if_setonvarctransmit(bank_v2_main:bank_space_layer, "script1465{varclient_192, varclient_1038, varclient_1324}");
+if_setscrollpos(bank_v2_main:bank_v2_inv, 0, ~bank_v2_get_tab_scrollpos(%open_bank_tab));
 ~scrollbar_ondrag_doscroll(bank_v2_main:scrollbar, bank_v2_main:bank_v2_inv, if_getscrolly(bank_v2_main:bank_v2_inv), 1);

@@ -1,9 +1,9 @@
-[ai_queue1,druid] ~npc_default_retaliate_ap;
+[ai_queue1,wolf_druid_male1] ~npc_default_retaliate_ap;
 
 // from 100 ap hits:
 // entangle: 45
 // punch: 55
-[ai_applayer2,druid]
+[ai_applayer2,wolf_druid_male1]
 if (~npc_combat_spell_checks = false) {
     return;
 }
@@ -20,7 +20,7 @@ if (random(2) = 0) {
 // from 150 op hits:
 // entangle: 27
 // punch: 123
-[ai_opplayer2,druid]
+[ai_opplayer2,wolf_druid_male1]
 if (~npc_combat_spell_checks = false) {
     return;
 }

@@ -18,8 +18,8 @@ if (p_finduid(uid) = true) {
         return;
     }
     // 289's island hook, on its controls tab's run button (com_5)
-    if (%tutorial = ^tutorial_open_player_controls) {
-        %tutorial = ^tutorial_has_toggled_on_run;
+    if (%varplayer_419 = ^tutorial_open_player_controls) {
+        %varplayer_419 = ^tutorial_has_toggled_on_run;
         ~set_tutorial_progress;
     }
     p_run(^player_run_on);

@@ -3,7 +3,7 @@
 type=layer
 width=190
 height=261
-onvarctransmit=conq_update_buff_icons(0, 0, 0, 0, 0, 0){varclient_1372, varclient_1373, varclient_1374, varclient_1375, varclient_1376, varclient_1377}
+onvarctransmit=conq_update_buff_icons(0, 0, 0, 0, 0, 0){conq_unit_battle_cry_active, conq_unit_stoicism_active, conq_unit_bloodlust_active, conq_unit_chastise_active, conq_unit_vigilance_active, conq_unit_shield_wall_active}
 
 // 1012:1
 [main_title_text]
@@ -57,7 +57,7 @@ widthmode=proportion
 heightmode=proportion
 transmitop=10
 op10= 
-onvarctransmit=conq_update_unit_details{varclient_1371}
+onvarctransmit=conq_update_unit_details{conq_unit_details_range}
 
 // 1012:5
 [unit_type_text]

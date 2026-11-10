@@ -145,7 +145,7 @@ width=459
 height=245
 xmode=abs_centre
 layer=clanmate_settings_layer
-onvartransmit=script4312{varplayer_2143}
+onvartransmit=script4312{clansettings_clanmate_job_varp}
 
 // 1096:15
 [com_15]
@@ -807,7 +807,7 @@ heightmode=proportion
 layer=clanmate_tab_button_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 
 // 1096:76
@@ -887,7 +887,7 @@ heightmode=proportion
 layer=clan_tab_button_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 
 // 1096:83
@@ -2448,7 +2448,7 @@ heightmode=minus
 layer=com_220
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 
 // 1096:225
@@ -3734,7 +3734,7 @@ heightmode=minus
 layer=clan_data_waiting_button
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 
 // 1096:344

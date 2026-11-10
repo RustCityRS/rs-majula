@@ -2,20 +2,20 @@
 [clientscript,script2246](component $component0, component $component1, inv $inv2, int $int3)
 def_obj $obj4 = inv_getobj($inv2, $int3);
 if ($obj4 = null) {
-    if_sethide(true, $component0);
-    if_sethide(false, $component1);
+    if_sethide($component0, true);
+    if_sethide($component1, false);
 }
-if_sethide(false, $component0);
-if_sethide(true, $component1);
-if_setobject($obj4, inv_getnum(worn, $int3), $component0);
+if_sethide($component0, false);
+if_sethide($component1, true);
+if_setobject($component0, $obj4, inv_getnum(worn, $int3));
 if_clearops($component0);
-if_setonop("script1620(event_com, -1, 100, 0, 8)", $component0);
+if_setonop($component0, "script1620(event_com, -1, 100, 0, 8)");
 if (oc_param($obj4, param_1047) > 0) {
     if (oc_param($obj4, param_1050) > 0 | oc_param($obj4, param_1051) > 0) {
-        if_setop(3, "Destroy", $component0);
+        if_setop($component0, 3, "Destroy");
     } else {
-        if_setop(3, "Bind", $component0);
+        if_setop($component0, 3, "Bind");
     }
 }
-if_setop(10, "Examine", $component0);
-if_setopbase("<col=ff9040><oc_name($obj4)>", $component0);
+if_setop($component0, 10, "Examine");
+if_setopbase($component0, "<col=ff9040><oc_name($obj4)>");

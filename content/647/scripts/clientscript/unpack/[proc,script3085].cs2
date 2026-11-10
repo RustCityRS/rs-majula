@@ -5,8 +5,8 @@ def_int $int6 = 0;
 def_int $int7 = 0;
 def_component $component8 = $component0;
 if (clientclock > $int2) {
-    if_settext($string0, lobbyscreen:tooltip_text);
-    if_setsize(calc(if_getx(lobbyscreen:tooltip_text) * 2 + stringwidth($string0, p12_full)), if_getheight(lobbyscreen:tooltip), ^setsize_abs, ^setsize_abs, lobbyscreen:tooltip);
+    if_settext(lobbyscreen:tooltip_text, $string0);
+    if_setsize(lobbyscreen:tooltip, calc(if_getx(lobbyscreen:tooltip_text) * 2 + stringwidth($string0, p12_full)), if_getheight(lobbyscreen:tooltip), ^setsize_abs, ^setsize_abs);
     while ($int7 = 0) {
         if ($component8 = lobbyscreen:menu) {
             $int7 = 1;
@@ -27,10 +27,10 @@ if (clientclock > $int2) {
     if ($int6 < 0) {
         $int6 = 0;
     }
-    if_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen:tooltip);
-    if_sethide(false, lobbyscreen:tooltip);
+    if_setposition(lobbyscreen:tooltip, $int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+    if_sethide(lobbyscreen:tooltip, false);
     if ($int1 < 0) {
-        if_setonmouserepeat(null, $component0);
+        if_setonmouserepeat($component0, null);
     } else if (cc_find($component0, $int1) = true) {
         cc_setonmouserepeat(null);
     }

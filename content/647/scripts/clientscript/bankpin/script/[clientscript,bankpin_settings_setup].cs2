@@ -1,42 +1,42 @@
 // 4146
 [clientscript,bankpin_settings_setup]
 def_int $int0 = 0;
-if (testbit(%varclient_98, 31) = ^true) {
-    if_sethide(true, bankpin_settings:settings);
-    if_sethide(false, bankpin_settings:warnings);
+if (testbit(%playerdesign2_client_skincol, 31) = ^true) {
+    if_sethide(bankpin_settings:settings, true);
+    if_sethide(bankpin_settings:warnings, false);
     ~v2_stone_button_out_filled(bankpin_settings:warning_yes);
     ~v2_stone_button_out_filled(bankpin_settings:warning_no);
 } else {
-    if_sethide(false, bankpin_settings:settings);
-    if_sethide(true, bankpin_settings:warnings);
+    if_sethide(bankpin_settings:settings, false);
+    if_sethide(bankpin_settings:warnings, true);
     ~script1088(bankpin_settings:statusbox, 0);
     ~script1298(bankpin_settings:buttonbox, 0, 0, 0);
     ~script1088(bankpin_settings:messagebox, 19);
     $int0 = calc(if_getheight(bankpin_settings:buttonbox) - 14);
-    switch_int (calc(%varclient_98 & 3)) {
+    switch_int (calc(%playerdesign2_client_skincol & 3)) {
         case 0 :
-            if_settext("No PIN set", bankpin_settings:statusoutput);
+            if_settext(bankpin_settings:statusoutput, "No PIN set");
             $int0 = calc($int0 / 2);
             ~script4147(bankpin_settings:button1, $int0, calc((0 - $int0) / 2), "Set a PIN");
             ~script4147(bankpin_settings:button2, $int0, calc($int0 / 2), "Change recovery delay");
-            if_sethide(true, bankpin_settings:button3);
+            if_sethide(bankpin_settings:button3, true);
         case default :
-            if_settext("You have a PIN", bankpin_settings:statusoutput);
+            if_settext(bankpin_settings:statusoutput, "You have a PIN");
             $int0 = calc($int0 / 3);
             ~script4147(bankpin_settings:button1, $int0, calc(0 - $int0), "Change your PIN");
             ~script4147(bankpin_settings:button2, $int0, 0, "Delete your PIN");
             ~script4147(bankpin_settings:button3, $int0, $int0, "Change recovery delay");
         case 3 :
-            if_settext("PIN coming soon", bankpin_settings:statusoutput);
+            if_settext(bankpin_settings:statusoutput, "PIN coming soon");
             $int0 = min($int0, 50);
             ~script4147(bankpin_settings:button1, $int0, 0, "Cancel the PIN");
-            if_sethide(true, bankpin_settings:button2);
-            if_sethide(true, bankpin_settings:button3);
+            if_sethide(bankpin_settings:button2, true);
+            if_sethide(bankpin_settings:button3, true);
     }
-    if (testbit(%varclient_98, 10) = ^true) {
-        if_settext("7 days", bankpin_settings:delayoutput);
+    if (testbit(%playerdesign2_client_skincol, 10) = ^true) {
+        if_settext(bankpin_settings:delayoutput, "7 days");
     } else {
-        if_settext("3 days", bankpin_settings:delayoutput);
+        if_settext(bankpin_settings:delayoutput, "3 days");
     }
 }
 cc_deleteall(bankpin_settings:message);
@@ -45,20 +45,20 @@ cc_settextfont(p12_full);
 cc_setcolour(0xff981f);
 cc_settextshadow(true);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
-cc_settext(%varclient_1863);
-if (calc(paraheight(%varclient_1863, calc(if_getwidth(if_getlayer(bankpin_settings:message)) - 14), p12_full) * 12 + 5) <= if_getheight(bankpin_settings:message)) {
-    if_setsize(14, 40, ^setsize_minus, ^setsize_minus, bankpin_settings:message);
-    if_setscrollsize(0, 0, bankpin_settings:message);
+cc_settext(%bankpin_settings_message);
+if (calc(paraheight(%bankpin_settings_message, calc(if_getwidth(if_getlayer(bankpin_settings:message)) - 14), p12_full) * 12 + 5) <= if_getheight(bankpin_settings:message)) {
+    if_setsize(bankpin_settings:message, 14, 40, ^setsize_minus, ^setsize_minus);
+    if_setscrollsize(bankpin_settings:message, 0, 0);
     cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
-    if_sethide(true, bankpin_settings:scrollbar);
+    if_sethide(bankpin_settings:scrollbar, true);
     return;
 }
-if_setsize(31, 40, ^setsize_minus, ^setsize_minus, bankpin_settings:message);
-$int0 = calc(paraheight(%varclient_1863, if_getwidth(bankpin_settings:message), p12_full) * 12 + 5);
-if_setscrollsize(0, $int0, bankpin_settings:message);
-if_setscrollpos(0, 0, bankpin_settings:message);
+if_setsize(bankpin_settings:message, 31, 40, ^setsize_minus, ^setsize_minus);
+$int0 = calc(paraheight(%bankpin_settings_message, if_getwidth(bankpin_settings:message), p12_full) * 12 + 5);
+if_setscrollsize(bankpin_settings:message, 0, $int0);
+if_setscrollpos(bankpin_settings:message, 0, 0);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
 cc_setsize(0, $int0, ^setsize_minus, ^setsize_abs);
-if_sethide(false, bankpin_settings:scrollbar);
+if_sethide(bankpin_settings:scrollbar, false);
 ~scrollbar_vertical(bankpin_settings:scrollbar, bankpin_settings:message, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

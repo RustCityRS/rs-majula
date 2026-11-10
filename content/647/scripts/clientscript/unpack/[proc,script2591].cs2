@@ -112,7 +112,7 @@ switch_int (%varclient_929) {
 }
 switch_int ($int1) {
     case 0 :
-        if_setgraphic("radio_buttons,1", mob_squad_exchange:com_110);
+        if_setgraphic(mob_squad_exchange:com_110, "radio_buttons,1");
     case 1 :
-        if_setgraphic("radio_buttons,1", mob_squad_exchange:com_111);
+        if_setgraphic(mob_squad_exchange:com_111, "radio_buttons,1");
 }

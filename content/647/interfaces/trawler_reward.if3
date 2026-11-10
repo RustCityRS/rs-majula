@@ -243,4 +243,4 @@ height=240
 layer=universe
 noclickthrough=yes
 onload=trawler_reward_setup(event_com, trawler_reward:bank, trawler_reward:banktext)
-oninvtransmit=trawler_reward_setup(event_com, trawler_reward:bank, trawler_reward:banktext){inv_0}
+oninvtransmit=trawler_reward_setup(event_com, trawler_reward:bank, trawler_reward:banktext){trawler_rewardinv}

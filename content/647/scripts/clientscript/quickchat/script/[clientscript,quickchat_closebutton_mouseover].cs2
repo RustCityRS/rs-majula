@@ -1,3 +1,3 @@
 // 1055
 [clientscript,quickchat_closebutton_mouseover](component $component0)
-if_setgraphic("v2_stone_close_button,3", $component0);
+if_setgraphic($component0, "v2_stone_close_button,3");

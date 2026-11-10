@@ -111,7 +111,7 @@ if (%imp = ^imp_complete) {
 if (%druidquest = ^druid_complete) {
     $questpoints = add($questpoints, ^druid_questpoints);
 }
-if (%varplayerbit_2378 = ^gobdip_complete) {
+if (%gobdip_main = ^gobdip_complete) {
     $questpoints = add($questpoints, ^gobdip_questpoints); 
 }
 if (%sheep = ^sheep_complete) {
@@ -120,7 +120,7 @@ if (%sheep = ^sheep_complete) {
 if (%fluffs = ^fluffs_complete) {
     $questpoints = add($questpoints, ^fluffs_questpoints); 
 }
-if (%demon_slayer = ^demon_complete) {
+if (%demonslayer_main = ^demon_complete) {
     $questpoints = add($questpoints, ^demon_questpoints); 
 }
 if (%princequest = ^prince_complete) {
@@ -153,7 +153,7 @@ if (%scorpcatcher = ^scorpcatcher_complete) {
 if (%zanaris = ^zanaris_complete) {
     $questpoints = add($questpoints, ^zanaris_questpoints); 
 }
-if (%blackarmgang = ^blackarmgang_complete | %phoenixgang = ^phoenixgang_complete) {
+if (%phoenixgang = ^blackarmgang_complete | %blackarmgang = ^phoenixgang_complete) {
     $questpoints = add($questpoints, ^blackarmgang_questpoints); 
 }
 if (%elenaquest >= ^elena_complete) {

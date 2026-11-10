@@ -59,9 +59,9 @@ fn a_2011_spot_gives_shrimps() {
             .cache
             .objs
             .debugnames
-            .get("small_fishing_net")
+            .get("net")
             .unwrap();
-        let shrimps = *engine.cache.objs.debugnames.get("raw_shrimps").unwrap();
+        let shrimps = *engine.cache.objs.debugnames.get("raw_shrimp").unwrap();
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
 
         engine.harness_reset();
@@ -230,10 +230,10 @@ fn a_karambwanji_spot_nets_karambwanji_or_shrimps() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let karambwanji = *engine.cache.objs.debugnames.get("raw_karambwanji").unwrap();
-        let shrimps = *engine.cache.objs.debugnames.get("raw_shrimps").unwrap();
+        let karambwanji = *engine.cache.objs.debugnames.get("tbwt_raw_karambwanji").unwrap();
+        let shrimps = *engine.cache.objs.debugnames.get("raw_shrimp").unwrap();
         let (nid, x, z) = spot(engine, KARAMBWANJI, (2791, 3019));
-        let mut client = fisher(engine, "netter", (x, z), 5, &["small_fishing_net"]);
+        let mut client = fisher(engine, "netter", (x, z), 5, &["net"]);
         let pid = client.pid;
         let xp = engine.harness_player(pid).unwrap().stats.xp[FISHING];
         op_npc1(&mut client, nid);
@@ -306,9 +306,9 @@ fn a_taught_player_lowers_the_karambwan_vessel() {
             .cache
             .objs
             .debugnames
-            .get("karambwan_vessel")
+            .get("tbwt_karambwan_vessel")
             .unwrap();
-        let karambwan = *engine.cache.objs.debugnames.get("raw_karambwan").unwrap();
+        let karambwan = *engine.cache.objs.debugnames.get("tbwt_raw_karambwan").unwrap();
         let (nid, x, z) = spot(engine, KARAMBWAN, (2899, 3119));
         let mut client = fisher(
             engine,
@@ -318,7 +318,7 @@ fn a_taught_player_lowers_the_karambwan_vessel() {
             &["tbwt_karambwan_vessel_loaded_with_karambwanji"],
         );
         let pid = client.pid;
-        let lubufu = *engine.cache.varps.debugnames.get("tbwt_lubufu").unwrap();
+        let lubufu = *engine.cache.varps.debugnames.get("varplayer_324").unwrap();
         engine
             .harness_player_mut(pid)
             .unwrap()
@@ -385,8 +385,8 @@ fn spots_and_the_master_fisher_take_289s_ranges() {
         for (name, wander, max) in [
             ("0_40_53_rarefish", 0, 50),
             ("0_41_57_memberfish", 0, 50),
-            ("fishing_spot_1405", 0, 50),
-            ("fishing_spot", 0, 20),
+            ("0_43_42_memberfish", 0, 50),
+            ("0_41_53_compofishspot", 0, 20),
             ("master_fisher", 3, 3),
         ] {
             let id = *engine.cache.npcs.debugnames.get(name).expect(name);

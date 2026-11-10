@@ -101,13 +101,13 @@ anim(null, 0);
 // 289 resets Ernest the Chicken's levers here (~reset_haunted_levers); their
 // scripts (quest_haunted) are not ported.
 // ~reset_haunted_levers;
-def_int $rum = inv_total(inv, karamjan_rum);
+def_int $rum = inv_total(inv, karamja_rum);
 if ($rum > 0) {
-    inv_del(inv, karamjan_rum, $rum);
+    inv_del(inv, karamja_rum, $rum);
     mes("Your Karamjan rum gets broken and spilled.");
 }
-if(inv_total(inv, plague_sample) > 0) { // Biohazard plague sample
-    inv_del(inv, plague_sample, ^max_32bit_int);
+if(inv_total(inv, plaguesample) > 0) { // Biohazard plague sample
+    inv_del(inv, plaguesample, ^max_32bit_int);
     mes("The plague sample is too delicate...it disintegrates in the crossing.");
 }
 // 289 takes off a worn Troll Romance sled here (~unequip_trollromance_sled);
@@ -132,8 +132,8 @@ if(inv_total(inv, plague_sample) > 0) { // Biohazard plague sample
 // }
 
 [proc,tele_checks]()
-if(inv_total(inv, ana_in_a_barrel) > 0) {
-    inv_del(inv, ana_in_a_barrel, ^max_32bit_int);
+if(inv_total(inv, thanainabarrel) > 0) {
+    inv_del(inv, thanainabarrel, ^max_32bit_int);
     mes("You drop 'Ana in a barrel' before you teleport.");
 }
 
@@ -169,7 +169,7 @@ if (~in_duel_arena($coord) = true) {
 //     return(false);
 // }
 
-if(inv_total(inv, ana_in_a_barrel) > 0) {
+if(inv_total(inv, thanainabarrel) > 0) {
     ~chatnpc_specific("Ana (in a Barrel)", anabarrel, "<p,idle>@dbl@-- You can't teleport while holding the barrel, it's just @dbl@too difficult to concentrate. --");
     return (true);
 }

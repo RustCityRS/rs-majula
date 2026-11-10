@@ -110,7 +110,7 @@ heightmode=minus
 layer=content
 transmitop=10
 op10= 
-onvarctransmit=objreq_draw{varclient_741, varclient_744}
+onvarctransmit=objreq_draw{objreq_obj, objreq_price}
 
 // 449:9
 [scrollbar]
@@ -311,7 +311,7 @@ graphicshadow=3153952
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=objreq_buy{varclient_744}
+onvarctransmit=objreq_buy{objreq_price}
 
 // 449:24
 [buy_text]

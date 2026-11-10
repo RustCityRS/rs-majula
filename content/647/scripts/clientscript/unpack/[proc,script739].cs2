@@ -6,10 +6,10 @@ def_int $int2 = 1;
 def_int $int3 = 0;
 def_int $intarray0(36);
 def_int $int4 = 0;
-if (%varclient_103 ! %varplayerbit_4227) {
-    %varclient_103 = %varplayerbit_4227;
+if (%scab_seed ! %scab_seed_serverside) {
+    %scab_seed = %scab_seed_serverside;
 }
-$int3 = %varclient_103;
+$int3 = %scab_seed;
 while ($int1 <= 12) {
     while ($int2 <= 3) {
         $int4 = calc($int3 % 36);

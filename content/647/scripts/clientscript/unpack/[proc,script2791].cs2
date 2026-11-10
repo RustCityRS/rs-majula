@@ -14,30 +14,30 @@ if (struct_param(enum(int, struct, enum_869, $int0), param_940) = 1) {
                 $int4 = 0;
             }
         case 1 :
-            if (%varplayerbit_1527 < 160) {
+            if (%handsand_quest < 160) {
                 $model1 = struct_param(enum(int, struct, enum_869, $int0), param_936);
                 $int4 = 0;
             }
         case 2 :
-            if (%varplayer_359 < 100) {
+            if (%misc_quest < 100) {
                 $model1 = struct_param(enum(int, struct, enum_869, $int0), param_936);
                 $int4 = 0;
             }
         case 3 :
-            if (%varplayerbit_5491 > 370) {
+            if (%luc2_main_quest > 370) {
                 $int5 = 1;
             }
         case 5 :
-            if (%varplayerbit_418 < 26) {
+            if (%ics_little_var < 26) {
                 $model1 = struct_param(enum(int, struct, enum_869, $int0), param_936);
                 $int4 = 0;
             }
         case 6 :
-            if (%varplayerbit_5525 = 1) {
+            if (%luc2_hero_part_1_vis = 1) {
                 $int5 = 1;
             }
         case 7 :
-            if (%varplayerbit_5491 > 370) {
+            if (%luc2_main_quest > 370) {
                 $int5 = 1;
             }
         case 9 :
@@ -46,19 +46,19 @@ if (struct_param(enum(int, struct, enum_869, $int0), param_940) = 1) {
                 $int4 = 0;
             }
         case 11 :
-            if (%varplayerbit_3618 < 16 | %varplayerbit_5550 = 1) {
+            if (%dream_prog < 16 | %luc2_cyrisus_recruit = 1) {
                 $model1 = struct_param(enum(int, struct, enum_869, $int0), param_936);
                 $int4 = 0;
             }
         case 12 :
-            if (%varplayerbit_3293 < 135) {
+            if (%peng_quest < 135) {
                 $model1 = struct_param(enum(int, struct, enum_869, $int0), param_936);
                 $int4 = 0;
-            } else if (%varplayerbit_6180 = 140) {
+            } else if (%peng_rak_quest = 140) {
                 $int5 = 1;
             }
         case 17 :
-            if (%varplayerbit_3618 < 28) {
+            if (%dream_prog < 28) {
                 $model1 = struct_param(enum(int, struct, enum_869, $int0), param_936);
                 $int4 = 0;
             }
@@ -68,7 +68,7 @@ if (struct_param(enum(int, struct, enum_869, $int0), param_940) = 1) {
                 $int4 = 0;
             }
         case 16 :
-            if (%varplayerbit_9067 < 8) {
+            if (%lunarfm_spells_unlocked < 8) {
                 $model1 = struct_param(enum(int, struct, enum_869, $int0), param_936);
                 $int4 = 0;
             }

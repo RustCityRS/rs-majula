@@ -22,7 +22,7 @@ tiling=yes
 colour=0xffffffff
 transmitop=10
 op10= 
-onvarctransmit=peng_rak_engine_update{varclient_806}
+onvarctransmit=peng_rak_engine_update{peng_rak_eng_state}
 
 // 765:2
 [border]
@@ -63,7 +63,7 @@ opbase=Wirebox
 op1=Inspect
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Wirebox", 50, 150)
-onvarctransmit=peng_rak_engine_ops_wirebox(event_com){varclient_805}
+onvarctransmit=peng_rak_engine_ops_wirebox(event_com){peng_rak_eng_tools}
 
 // 765:6
 [bellows_demo]
@@ -121,7 +121,7 @@ opbase=Pipe
 op1=Inspect
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Pipe", 50, 150)
-onvarctransmit=peng_rak_engine_ops(event_com){varclient_805}
+onvarctransmit=peng_rak_engine_ops(event_com){peng_rak_eng_tools}
 
 // 765:9
 [valve_wheel]
@@ -156,7 +156,7 @@ transmitop=1,10
 opbase=Pressure guage
 op1=Read
 op10= 
-opcursor0=cursor_50
+opcursor0=cursor_read
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Pressure gauge", 50, 150)
 
@@ -174,7 +174,7 @@ modelzoom=400
 transmitop=1
 opbase=Wirebox Cover
 op1=Open
-opcursor0=cursor_49
+opcursor0=cursor_open
 
 // 765:12
 [close]
@@ -199,7 +199,7 @@ type=layer
 width=512
 height=334
 onload=peng_rak_eng_onload
-onvarctransmit=peng_rak_tools_update{varclient_805}
+onvarctransmit=peng_rak_tools_update{peng_rak_eng_tools}
 
 // 765:14
 [wrench]
@@ -216,7 +216,7 @@ transmitop=1,10
 opbase=Wrench
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46982)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Wrench", 50, 150)
@@ -236,7 +236,7 @@ transmitop=1,10
 opbase=Wire
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46989)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Wire", 50, 150)
@@ -257,7 +257,7 @@ transmitop=1,10
 opbase=Wire cutter
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46979)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Wire cutter", 50, 150)
@@ -277,7 +277,7 @@ transmitop=1,10
 opbase=Tape
 op1=Select
 op10=   
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46981)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Tape", 50, 150)
@@ -297,7 +297,7 @@ transmitop=1,10
 opbase=Bellows
 op1=Select
 op10=   
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46996)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Bellows", 50, 150)
@@ -495,7 +495,7 @@ modelzoom=544
 transmitop=1
 opbase=Swordfish
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46983)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Swordfish", 50, 150)
@@ -515,7 +515,7 @@ transmitop=1,10
 opbase=Crab claw
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46980)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Crab claw", 50, 150)
@@ -535,7 +535,7 @@ transmitop=1,10
 opbase=Shark tooth
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46984)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Shark tooth", 50, 150)
@@ -556,7 +556,7 @@ transmitop=1,10
 opbase=Eel
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46992)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Electric eel", 50, 150)
@@ -576,7 +576,7 @@ transmitop=1,10
 opbase=Seaweed
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46994)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Seaweed", 50, 150)
@@ -597,7 +597,7 @@ transmitop=1,10
 opbase=Pufferfish
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46985)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Pufferfish", 50, 150)
@@ -617,7 +617,7 @@ transmitop=1,10
 opbase=Octopus
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onop=model_swapper(event_com, model_46988)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Octopus", 50, 150)
@@ -675,4 +675,4 @@ op1=Inspect
 op10= 
 onmouseleave=deltooltip(peng_rak_engine:tooltip)
 onmouserepeat=addtooltip(event_com, peng_rak_engine:tooltip, "Lever", 50, 150)
-onvarctransmit=script2418(event_com){varclient_805}
+onvarctransmit=script2418(event_com){peng_rak_eng_tools}

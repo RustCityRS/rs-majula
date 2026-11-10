@@ -1,62 +1,62 @@
 // 4042
 [clientscript,warguild_tag_setup]
-switch_int (%varplayerbit_8648) {
+switch_int (%warguild_tag_1st) {
     case 1 :
-        if_setposition(-130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 1));
+        if_setposition(enum(int, component, enum_755, 1), -130, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 2 :
-        if_setposition(-130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 2));
+        if_setposition(enum(int, component, enum_755, 2), -130, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 3 :
-        if_setposition(-130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 3));
+        if_setposition(enum(int, component, enum_755, 3), -130, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 4 :
-        if_setposition(-130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 4));
+        if_setposition(enum(int, component, enum_755, 4), -130, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 5 :
-        if_setposition(-130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 5));
+        if_setposition(enum(int, component, enum_755, 5), -130, 0, ^setpos_abs_centre, ^setpos_abs_top);
 }
-switch_int (%varplayerbit_8649) {
+switch_int (%warguild_tag_2nd) {
     case 1 :
-        if_setposition(-65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 1));
+        if_setposition(enum(int, component, enum_755, 1), -65, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 2 :
-        if_setposition(-65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 2));
+        if_setposition(enum(int, component, enum_755, 2), -65, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 3 :
-        if_setposition(-65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 3));
+        if_setposition(enum(int, component, enum_755, 3), -65, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 4 :
-        if_setposition(-65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 4));
+        if_setposition(enum(int, component, enum_755, 4), -65, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 5 :
-        if_setposition(-65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 5));
+        if_setposition(enum(int, component, enum_755, 5), -65, 0, ^setpos_abs_centre, ^setpos_abs_top);
 }
-switch_int (%varplayerbit_8650) {
+switch_int (%warguild_tag_3rd) {
     case 1 :
-        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 1));
+        if_setposition(enum(int, component, enum_755, 1), 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 2 :
-        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 2));
+        if_setposition(enum(int, component, enum_755, 2), 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 3 :
-        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 3));
+        if_setposition(enum(int, component, enum_755, 3), 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 4 :
-        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 4));
+        if_setposition(enum(int, component, enum_755, 4), 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 5 :
-        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 5));
+        if_setposition(enum(int, component, enum_755, 5), 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
 }
-switch_int (%varplayerbit_8651) {
+switch_int (%warguild_tag_4th) {
     case 1 :
-        if_setposition(65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 1));
+        if_setposition(enum(int, component, enum_755, 1), 65, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 2 :
-        if_setposition(65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 2));
+        if_setposition(enum(int, component, enum_755, 2), 65, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 3 :
-        if_setposition(65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 3));
+        if_setposition(enum(int, component, enum_755, 3), 65, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 4 :
-        if_setposition(65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 4));
+        if_setposition(enum(int, component, enum_755, 4), 65, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 5 :
-        if_setposition(65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 5));
+        if_setposition(enum(int, component, enum_755, 5), 65, 0, ^setpos_abs_centre, ^setpos_abs_top);
 }
-switch_int (%varplayerbit_8652) {
+switch_int (%warguild_tag_5th) {
     case 1 :
-        if_setposition(130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 1));
+        if_setposition(enum(int, component, enum_755, 1), 130, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 2 :
-        if_setposition(130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 2));
+        if_setposition(enum(int, component, enum_755, 2), 130, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 3 :
-        if_setposition(130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 3));
+        if_setposition(enum(int, component, enum_755, 3), 130, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 4 :
-        if_setposition(130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 4));
+        if_setposition(enum(int, component, enum_755, 4), 130, 0, ^setpos_abs_centre, ^setpos_abs_top);
     case 5 :
-        if_setposition(130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(int, component, enum_755, 5));
+        if_setposition(enum(int, component, enum_755, 5), 130, 0, ^setpos_abs_centre, ^setpos_abs_top);
 }

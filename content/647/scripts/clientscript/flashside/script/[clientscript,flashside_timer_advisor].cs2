@@ -4,12 +4,12 @@ def_component $component0 = ~getsideicon(8);
 if (~current_side_if ! 8 & ~script1569 = false & if_hassub(~getsidelayer(8)) = true) {
     if ($component0 ! null) {
         if (calc(clientclock % 40) > 20) {
-            if_sethide(false, $component0);
+            if_sethide($component0, false);
             if (calc(clientclock % 40) = 21) {
                 sound_synth(synth_5009, 1, 0);
             }
         } else {
-            if_sethide(true, $component0);
+            if_sethide($component0, true);
         }
     }
 } else {

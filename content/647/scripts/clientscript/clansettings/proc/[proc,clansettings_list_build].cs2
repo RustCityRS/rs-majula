@@ -46,9 +46,9 @@ while ($int23 < $int24) {
     $int22 = calc($int33 / 2 * $int14);
     $string0 = activeclansettings_getaffineddisplayname($int23);
     $int31 = activeclansettings_getaffinedrank($int23);
-    if (calc(%varclient_1516 - 1) ! $int31) {
+    if (calc(%clansettings_clanmate_filter_rank_plus_1 - 1) ! $int31) {
         $int32 = 1;
-        if (%varclient_1516 = 0 | %varclient_1516 = -1) {
+        if (%clansettings_clanmate_filter_rank_plus_1 = 0 | %clansettings_clanmate_filter_rank_plus_1 = -1) {
             $int32 = 0;
         }
     } else {
@@ -125,6 +125,6 @@ while ($int23 < $int24) {
     }
     $int23 = calc($int23 + 1);
 }
-%varclient_1517 = $int34;
+%clansettings_clanmate_unfiltered_count = $int34;
 ~clansettings_list_scrollbar_update;
 return;

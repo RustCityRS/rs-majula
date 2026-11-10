@@ -2,18 +2,18 @@
 [proc,chat_alert_get](int $int0)(int)
 switch_int ($int0) {
     case 1 :
-        return(%varclient_44);
+        return(%chat_alert_game);
     case 2 :
-        return(%varclient_45);
+        return(%chat_alert_public);
     case 3 :
-        return(%varclient_46);
+        return(%chat_alert_private);
     case 4 :
-        return(%varclient_47);
+        return(%chat_alert_clan);
     case 5 :
-        return(%varclient_48);
+        return(%chat_alert_trade);
     case 6 :
         return(%varclient_49);
     case 7 :
-        return(%varclient_1511);
+        return(%chat_alert_friendschat);
 }
 return(0);

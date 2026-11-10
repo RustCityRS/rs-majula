@@ -32,11 +32,11 @@ if(%morttonquest = ^mortton_created_sacred_oil) {
 }
 
 if($doses = $doses_req) {
-    inv_setslot(inv, $oil_slot, vial, 1);
+    inv_setslot(inv, $oil_slot, vial_empty, 1);
 } else if(sub($doses,$doses_req) = 2) {
-    inv_setslot(inv, $oil_slot, sacred_oil__2, 1);
+    inv_setslot(inv, $oil_slot, sacred_oil2, 1);
 } else {
-    inv_setslot(inv, $oil_slot, sacred_oil__1, 1);
+    inv_setslot(inv, $oil_slot, sacred_oil1, 1);
 }
 inv_setslot(inv, $logs_slot, $product, 1);
 stat_advance(firemaking, struct_param($struct, pyre_create_experience));

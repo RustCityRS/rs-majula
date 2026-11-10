@@ -15,4 +15,4 @@ if ($int1 = 1) {
     $string0 = "Assist with <$string1> while using the Assist System (OFF).";
 }
 ~addtooltip_action($component0, assister_interface:assist_tooltip_build_layer, $string0, 25, 180);
-%varclient_2 = 0;
+%tooltip_built = 0;

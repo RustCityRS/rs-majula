@@ -12,21 +12,21 @@ cc_deleteall($component1);
 cc_deleteall($component2);
 def_int $int3 = if_getwidth($component0);
 def_int $int4 = 0;
-if_setscrollpos(0, 0, $component1);
-if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_centre, $component1);
+if_setscrollpos($component1, 0, 0);
+if_setposition($component1, $int4, 0, ^setpos_abs_left, ^setpos_abs_centre);
 def_int $int5 = calc(paraheight($string0, $int3, tutorial_font) * 12 + 3);
 if ($int5 > if_getheight($component0)) {
     $int3 = calc($int3 - (if_getwidth($component2) + 5));
-    if_setsize($int3, 0, ^setsize_abs, ^setsize_minus, $component1);
+    if_setsize($component1, $int3, 0, ^setsize_abs, ^setsize_minus);
     $int5 = calc(paraheight($string0, $int3, tutorial_font) * 12 + 3);
-    if_setscrollsize(0, $int5, $component1);
-    if_sethide(false, $component2);
+    if_setscrollsize($component1, 0, $int5);
+    if_sethide($component2, false);
     ~scrollbar_vertical($component2, $component1, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 } else {
     $int5 = if_getheight($component0);
-    if_setsize($int3, 0, ^setsize_abs, ^setsize_minus, $component1);
-    if_setscrollsize(0, 0, $component1);
-    if_sethide(true, $component2);
+    if_setsize($component1, $int3, 0, ^setsize_abs, ^setsize_minus);
+    if_setscrollsize($component1, 0, 0);
+    if_sethide($component2, true);
 }
 cc_create($component1, ^iftype_text, 0);
 cc_setsize(0, $int5, ^setsize_minus, ^setsize_abs);
@@ -36,4 +36,4 @@ cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 cc_setcolour(^black);
 cc_settextshadow(false);
 cc_settext($string0);
-if_settextfont(tutorial_font, chatmodal:continue_text);
+if_settextfont(chatmodal:continue_text, tutorial_font);

@@ -7,7 +7,7 @@ if (activeclanchannel_find_affined = true & activeclansettings_find_affined = tr
     if ($int1 >= 0) {
         $int2 = activeclanchannel_getuserrank($int1);
         if ($int2 >= 100) {
-            %varclient_1869 = activeclansettings_getbanneddisplayname($int0);
+            %stringdialog_init_string = activeclansettings_getbanneddisplayname($int0);
         }
     }
 }

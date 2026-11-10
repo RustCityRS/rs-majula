@@ -1,11 +1,11 @@
 // 2760
 [proc,script2760](component $component0)
-if (%varclient_173 = 1 | %varplayerbit_542 = 1) {
+if (%camera_control_mode = 1 | %cutscene_status = 1) {
     if_clearops($component0);
-    if_setonop(null, $component0);
-    if_setnoclickthrough(false, $component0);
+    if_setonop($component0, null);
+    if_setnoclickthrough($component0, false);
 } else {
-    if_setop(1, "Face North", $component0);
-    if_setonop("script2757(event_op)", $component0);
-    if_setnoclickthrough(true, $component0);
+    if_setop($component0, 1, "Face North");
+    if_setonop($component0, "script2757(event_op)");
+    if_setnoclickthrough($component0, true);
 }

@@ -6,7 +6,7 @@
 [oplocu,_tree]
 switch_obj(last_useitem) {
     // 2011 has the dragon hatchet (2011 wiki, Hatchet).
-    case bronze_hatchet, iron_hatchet, steel_hatchet, black_hatchet, mithril_hatchet, adamant_hatchet, rune_hatchet, dragon_hatchet :
+    case bronze_axe, iron_axe, steel_axe, black_axe, mithril_axe, adamant_axe, rune_axe, dragon_axe :
         p_oploc(1); // gets delayed by a tick >:(
     // case raw_herring, herring :
     //     mes("This is not the mightiest tree in the forest.");
@@ -226,29 +226,29 @@ def_obj $obj1 = inv_getobj(worn, ^wearpos_rhand);
 // 2011 has the requirements 289 leaves commented out, and the dragon hatchet:
 // bronze and iron 1, steel and black 6, mithril 21, adamant 31, rune 41 and
 // dragon 61 (2011 wiki, Hatchet). 289's commented black was 11.
-if (($obj1 = dragon_hatchet | inv_total(inv, dragon_hatchet) > 0) & $level > 60) {
-    return (dragon_hatchet);
+if (($obj1 = dragon_axe | inv_total(inv, dragon_axe) > 0) & $level > 60) {
+    return (dragon_axe);
 }
-if (($obj1 = rune_hatchet | inv_total(inv, rune_hatchet) > 0) & $level > 40) {
-    return (rune_hatchet);
+if (($obj1 = rune_axe | inv_total(inv, rune_axe) > 0) & $level > 40) {
+    return (rune_axe);
 }
-if (($obj1 = adamant_hatchet | inv_total(inv, adamant_hatchet) > 0) & $level > 30) {
-    return (adamant_hatchet);
+if (($obj1 = adamant_axe | inv_total(inv, adamant_axe) > 0) & $level > 30) {
+    return (adamant_axe);
 }
-if (($obj1 = mithril_hatchet | inv_total(inv, mithril_hatchet) > 0) & $level > 20) {
-    return (mithril_hatchet);
+if (($obj1 = mithril_axe | inv_total(inv, mithril_axe) > 0) & $level > 20) {
+    return (mithril_axe);
 }
-if (($obj1 = black_hatchet | inv_total(inv, black_hatchet) > 0) & $level > 5) {
-    return (black_hatchet);
+if (($obj1 = black_axe | inv_total(inv, black_axe) > 0) & $level > 5) {
+    return (black_axe);
 }
-if (($obj1 = steel_hatchet | inv_total(inv, steel_hatchet) > 0) & $level > 5) {
-    return (steel_hatchet);
+if (($obj1 = steel_axe | inv_total(inv, steel_axe) > 0) & $level > 5) {
+    return (steel_axe);
 }
-if (($obj1 = iron_hatchet | inv_total(inv, iron_hatchet) > 0) & $level > 0) {
-    return (iron_hatchet);
+if (($obj1 = iron_axe | inv_total(inv, iron_axe) > 0) & $level > 0) {
+    return (iron_axe);
 }
-if (($obj1 = bronze_hatchet | inv_total(inv, bronze_hatchet) > 0) & $level > 0) {
-    return (bronze_hatchet);
+if (($obj1 = bronze_axe | inv_total(inv, bronze_axe) > 0) & $level > 0) {
+    return (bronze_axe);
 }
 // 289's live checks, with no levels:
 // if (($obj1 = rune_axe | inv_total(inv, rune_axe) > 0)) {
@@ -302,37 +302,37 @@ return(null, null);
 // ── Hatchet finder: 2011's woodcutting levels ───────────────────
 [label,test_wc_axe_checker_bronze_at_level_1]
 setup_player("test_player")
-inv_add(inv, bronze_hatchet, 1)
+inv_add(inv, bronze_axe, 1)
 def_obj $found = ~woodcutting_axe_checker(false)
-assert_eq($found, bronze_hatchet)
+assert_eq($found, bronze_axe)
 
 [label,test_wc_axe_checker_steel_requires_6]
 setup_player("test_player")
-inv_add(inv, steel_hatchet, 1)
-inv_add(inv, bronze_hatchet, 1)
+inv_add(inv, steel_axe, 1)
+inv_add(inv, bronze_axe, 1)
 def_obj $found = ~woodcutting_axe_checker(false)
-assert_eq($found, bronze_hatchet)
+assert_eq($found, bronze_axe)
 stat_add(woodcutting, 5, 0)
 $found = ~woodcutting_axe_checker(false)
-assert_eq($found, steel_hatchet)
+assert_eq($found, steel_axe)
 
 [label,test_wc_axe_checker_black_requires_6]
 setup_player("test_player")
-inv_add(inv, black_hatchet, 1)
+inv_add(inv, black_axe, 1)
 def_obj $found = ~woodcutting_axe_checker(false)
 assert_eq($found, null)
 stat_add(woodcutting, 5, 0)
 $found = ~woodcutting_axe_checker(false)
-assert_eq($found, black_hatchet)
+assert_eq($found, black_axe)
 
 [label,test_wc_axe_checker_picks_dragon_at_61]
 setup_player("test_player")
 stat_add(woodcutting, 60, 0)
-inv_add(inv, bronze_hatchet, 1)
-inv_add(inv, rune_hatchet, 1)
-inv_add(inv, dragon_hatchet, 1)
+inv_add(inv, bronze_axe, 1)
+inv_add(inv, rune_axe, 1)
+inv_add(inv, dragon_axe, 1)
 def_obj $found = ~woodcutting_axe_checker(false)
-assert_eq($found, dragon_hatchet)
+assert_eq($found, dragon_axe)
 
 [label,test_wc_axe_checker_no_hatchet]
 setup_player("test_player")
@@ -346,14 +346,14 @@ assert_eq($found, null)
 [label,test_wc_attempt_cut_tree_no_hatchet]
 setup_player("test_player");
 p_telejump(0_39_53_55_58);
-test_op(oploc1, tree_1276, 0_39_53_56_58);
+test_op(oploc1, tree, 0_39_53_56_58);
 assert_eq(inv_total(inv, logs), 0)
 
 [label,test_wc_attempt_cut_tree_with_hatchet]
 setup_player("test_player");
 p_telejump(0_39_53_55_58);
-inv_add(inv, bronze_hatchet, 1);
-test_op(oploc1, tree_1276, 0_39_53_56_58);
+inv_add(inv, bronze_axe, 1);
+test_op(oploc1, tree, 0_39_53_56_58);
 // The first op only books the swing (%action_delay, then p_oploc(1)); the
 // re-op a tick later swings.
 wait_for("mes", 5);
@@ -363,9 +363,9 @@ assert_called_with("mes", "You swing your hatchet at the tree.");
 setup_player("test_player");
 p_telejump(0_39_53_55_58);
 stat_add(woodcutting, 98, 0);
-inv_add(inv, dragon_hatchet, 1);
+inv_add(inv, dragon_axe, 1);
 def_int $logs_before = inv_total(inv, logs);
-test_op(oploc1, tree_1276, 0_39_53_56_58);
+test_op(oploc1, tree, 0_39_53_56_58);
 // A normal tree falls with its one log: wait for that, not the first
 // message, which is the swing.
 wait_for("loc_change", 20);
@@ -377,7 +377,7 @@ assert_called("loc_change", 1);
 [label,test_wc_yew_requires_level]
 setup_player("test_player");
 p_telejump(0_43_53_1_41);
-test_op(oploc1, yew, 0_43_53_2_41);
+test_op(oploc1, yewtree, 0_43_53_2_41);
 wait_for("mes", 5);
 assert_called_with("mes", "You need a Woodcutting level of 60 to chop down this tree.");
 assert_eq(inv_total(inv, yew_logs), 0)

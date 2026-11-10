@@ -6,8 +6,8 @@ def_component $component4 = enum(int, component, enum_1551, $int2);
 while ($component3 ! null) {
     cc_deleteall($component3);
     cc_deleteall($component4);
-    if_sethide(true, $component3);
-    if_setonkey(null, $component3);
+    if_sethide($component3, true);
+    if_setonkey($component3, null);
     $component3 = enum(int, component, enum_1550, $int2);
     $component4 = enum(int, component, enum_1551, $int2);
     $int2 = calc($int2 + 1);
@@ -31,6 +31,6 @@ while (cc_find($component3, $int2) = true) {
     }
     $int2 = calc($int2 + 1);
 }
-%varclient_128 = -1;
+%quickchat_menu_select = -1;
 ~quickchat_menu_scroll($int1);
 ~quickchat_path_scroll($component0, $int1);

@@ -1,12 +1,12 @@
 // 2860
 [proc,script2860]
-if (%varclient_1074 = 0) {
-    %varclient_1073 = calc(%varclient_1073 + 25);
-    if (%varclient_1073 > %varclient_1069) {
-        %varclient_1073 = %varclient_1069;
+if (%machinima_livecamera_targetmode = 0) {
+    %machinima_livecamera_lookatheight = calc(%machinima_livecamera_lookatheight + 25);
+    if (%machinima_livecamera_lookatheight > %machinima_livecamera_height) {
+        %machinima_livecamera_lookatheight = %machinima_livecamera_height;
     }
-} else if (%varclient_1074 = 1) {
-    %varclient_1072 = movecoord(%varclient_1072, 0, 0, 1);
+} else if (%machinima_livecamera_targetmode = 1) {
+    %machinima_livecamera_lookatpositioncoord = movecoord(%machinima_livecamera_lookatpositioncoord, 0, 0, 1);
 } else {
     cam_inc_x;
 }

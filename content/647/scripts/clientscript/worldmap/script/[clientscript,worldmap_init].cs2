@@ -2,31 +2,31 @@
 [clientscript,worldmap_init](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9)
 ~script1088($component0, 0);
 def_wma $wma10 = null;
-if (%varclient_622 ! null) {
-    $wma10 = worldmap_getmap(%varclient_622);
+if (%worldmap_focus ! null) {
+    $wma10 = worldmap_getmap(%worldmap_focus);
     if ($wma10 = null) {
         $wma10 = main;
     }
 }
 $wma10 = ~script2785($wma10);
-if (worldmap_coordinmap(%varclient_622, $wma10) = true) {
-    worldmap_setmap_coord_override($wma10, %varclient_622);
+if (worldmap_coordinmap(%worldmap_focus, $wma10) = true) {
+    worldmap_setmap_coord_override($wma10, %worldmap_focus);
 } else {
     worldmap_setmap($wma10);
 }
-%varclient_172 = worldmap_getconfigzoom($wma10);
+%worldmap_zoom = worldmap_getconfigzoom($wma10);
 ~worldmap_setzoom;
 ~worldmap_showoverview(0);
 ~script1376(0, $component5, $component9);
 ~worldmap_showmenu(false, $component6, $component7, $component8, $component4, $component5);
-~worldmap_key_build(%varplayerbit_5367, $component1, $component2, $component3);
-if_setonvarctransmit("worldmap_init($component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7, $component8, $component9){varclient_622}", $component0);
-if_setonvartransmit("worldmap_vartransmit($component1, $component2, $component3, $component5, $component0, %varplayerbit_6175){varplayer_463, varplayer_1159}", $component0);
-if_setonkey("worldmap_onkey(event_keycode, event_keychar, $component4, null)", $component4);
-%varclient_1550 = "";
+~worldmap_key_build(%worldmap_keysort, $component1, $component2, $component3);
+if_setonvarctransmit($component0, "worldmap_init($component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7, $component8, $component9){worldmap_focus}");
+if_setonvartransmit($component0, "worldmap_vartransmit($component1, $component2, $component3, $component5, $component0, %worldmap_samemaplinks_hidden){lastdegrade, playerdesign2_col}");
+if_setonkey($component4, "worldmap_onkey(event_keycode, event_keychar, $component4, null)");
+%worldmap_findtext = "";
 def_int $int11 = 0;
 def_int $int12 = 0;
-def_coord $coord13 = %varclient_622;
+def_coord $coord13 = %worldmap_focus;
 if ($coord13 ! null) {
     $int11, $int12 = worldmap_getdisplaycoord($coord13);
     if ($int11 < 0 | $int12 < 0) {
@@ -40,5 +40,5 @@ if ($coord13 ! null) {
             }
         }
     }
-    if_setontimer("script2054(calc(clientclock + 4), $component0, $coord13)", $component0);
+    if_setontimer($component0, "script2054(calc(clientclock + 4), $component0, $coord13)");
 }

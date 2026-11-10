@@ -54,13 +54,13 @@ if ($int7 = $int5) {
 }
 switch_int ($int0) {
     case 7 :
-        if_setgraphic("symbols_1,3", account_create:com_71);
-        if_sethide(true, account_create:com_76);
+        if_setgraphic(account_create:com_71, "symbols_1,3");
+        if_sethide(account_create:com_76, true);
     case 8 :
-        if_setgraphic("symbols_1,3", account_create:com_61);
-        if_sethide(true, account_create:com_66);
+        if_setgraphic(account_create:com_61, "symbols_1,3");
+        if_sethide(account_create:com_66, true);
 }
-if_sethide(true, account_create:information_layer);
+if_sethide(account_create:information_layer, true);
 if ($int2 = 1) {
     switch_int ($int0) {
         case 7 :

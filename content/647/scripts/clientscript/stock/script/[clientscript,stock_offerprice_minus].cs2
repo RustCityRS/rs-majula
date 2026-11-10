@@ -3,6 +3,6 @@
 if (%varplayer_1109 = null) {
     return;
 }
-%varclient_85 = max(calc(%varclient_85 - 1), 1);
-if_settext("<tostring_localised(%varclient_85, true)> gp", stockmarket:offerprice);
+%stock_offerprice_visible = max(calc(%stock_offerprice_visible - 1), 1);
+if_settext(stockmarket:offerprice, "<tostring_localised(%stock_offerprice_visible, true)> gp");
 ~sm_offerprice_settimer;

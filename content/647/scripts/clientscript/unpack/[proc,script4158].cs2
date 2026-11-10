@@ -1,7 +1,7 @@
 // 4158
 [proc,script4158](component $component0, graphic $graphic1, graphic $graphic2, graphic $graphic3, graphic $graphic4, graphic $graphic5, graphic $graphic6)
-if_setonclick("script4162(event_com)", $component0);
-if_setonrelease("script4163(event_com)", $component0);
+if_setonclick($component0, "script4162(event_com)");
+if_setonrelease($component0, "script4163(event_com)");
 cc_deleteall($component0);
 cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);

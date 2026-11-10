@@ -21,13 +21,13 @@ switch_int(random(3)) {
 }
 p_delay(0);
 // seq doesn't exist (probably rework)
-if(inv_total(inv, waterskin__1) > 0 | inv_total(inv, waterskin__2) > 0 | inv_total(inv, waterskin__3) > 0 | inv_total(inv, waterskin__4) > 0) {
+if(inv_total(inv, water_skin1) > 0 | inv_total(inv, water_skin2) > 0 | inv_total(inv, water_skin3) > 0 | inv_total(inv, water_skin4) > 0) {
     mes("Guard: You won't be needing that water anymore!");
     mes("The guards throw your water away.");
-    inv_del(inv, waterskin__1, ^max_32bit_int);
-    inv_del(inv, waterskin__2, ^max_32bit_int);
-    inv_del(inv, waterskin__3, ^max_32bit_int);
-    inv_del(inv, waterskin__4, ^max_32bit_int);
-    if(inv_total(inv, waterskin__0) = 0) inv_add(inv, waterskin__0, 1);
+    inv_del(inv, water_skin1, ^max_32bit_int);
+    inv_del(inv, water_skin2, ^max_32bit_int);
+    inv_del(inv, water_skin3, ^max_32bit_int);
+    inv_del(inv, water_skin4, ^max_32bit_int);
+    if(inv_total(inv, water_skin0) = 0) inv_add(inv, water_skin0, 1);
 }
 mes("The guards move off leaving you stranded in the desert.");

@@ -1,14 +1,14 @@
 // 2423
 [clientscript,boardgames_sandtimer](component $component0)
 def_seq $seq1 = null;
-if (%varclient_811 = 0) {
+if (%boardgames_sandtimer = 0) {
     $seq1 = sandtimer_15secs;
-} else if (%varclient_811 = 1) {
+} else if (%boardgames_sandtimer = 1) {
     $seq1 = sandtimer_30secs;
-} else if (%varclient_811 = 2) {
+} else if (%boardgames_sandtimer = 2) {
     $seq1 = sandtimer_60secs;
-} else if (%varclient_811 = 3) {
+} else if (%boardgames_sandtimer = 3) {
     $seq1 = sandtimer_120secs;
 }
-if_setmodelanim(null, $component0);
-if_setmodelanim($seq1, $component0);
+if_setmodelanim($component0, null);
+if_setmodelanim($component0, $seq1);

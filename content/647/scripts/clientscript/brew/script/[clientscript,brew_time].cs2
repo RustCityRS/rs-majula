@@ -1,9 +1,9 @@
 // 1762
 [clientscript,brew_time](component $component0)
-if (%varclient_231 > 6) {
-    if_settext("Time Left : <tostring(calc(%varclient_231 - 5))> mins", $component0);
-} else if (%varclient_231 = 6) {
-    if_settext("Time Left : 1 min", $component0);
+if (%brew_varc_time > 6) {
+    if_settext($component0, "Time Left : <tostring(calc(%brew_varc_time - 5))> mins");
+} else if (%brew_varc_time = 6) {
+    if_settext($component0, "Time Left : 1 min");
 } else {
-    if_settext("Time Left : 0 mins", $component0);
+    if_settext($component0, "Time Left : 0 mins");
 }

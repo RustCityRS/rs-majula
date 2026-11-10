@@ -1,6 +1,6 @@
 // 2941
 [proc,login_close]
-if_setonresize(null, loginscreen:login);
-%varclient_1552 = "";
-%varclient_1099 = 0;
+if_setonresize(loginscreen:login, null);
+%loginscreen_password = "";
+%login_caret = 0;
 login_resetreply;

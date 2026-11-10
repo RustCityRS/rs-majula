@@ -9,7 +9,7 @@ def_int $int4 = 0;
 def_int $int5 = 6;
 def_int $int6 = 28;
 def_int $int7 = 30;
-if (%varplayerbit_6840 = 1) {
+if (%prayer_mode = 1) {
     $int7 = 20;
 }
 while ($int4 < $int7) {

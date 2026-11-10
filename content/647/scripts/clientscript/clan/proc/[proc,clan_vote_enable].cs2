@@ -1,4 +1,4 @@
 // 4376
 [proc,clan_vote_enable]
-if_sethide(true, clan_voting:disable_yes);
-if_sethide(true, clan_voting:disable_no);
+if_sethide(clan_voting:disable_yes, true);
+if_sethide(clan_voting:disable_no, true);

@@ -1,6 +1,6 @@
 // 303
 [proc,worldmap_elements_samemap_scroll](coord $coord0, boolean $boolean1)
-sound_synth(synth_2266, 1, 0);
+sound_synth(interface_select1, 1, 0);
 if ($boolean1 = false) {
     worldmap_jumptosourcecoord($coord0);
 } else {

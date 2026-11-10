@@ -16,7 +16,7 @@ npc_setmode(none);
 if (finduid(%npc_aggressive_player) = false) {
     return;
 }
-if (~quest_dragon_getting_map_parts = true & ~obj_gettotal(mappart2) = 0 & ~obj_gettotal(crandor_map) = 0) {
+if (~quest_dragon_getting_map_parts = true & ~obj_gettotal(mappart2) = 0 & ~obj_gettotal(dragonmap) = 0) {
     obj_add(npc_coord, mappart2, 1, ^lootdrop_duration);
     mes("Wormbrain drops a map piece on the floor.");
     // A var is written with protected access (as grip.rs2 does).

@@ -103,7 +103,7 @@ fn black_knights_fortress_as_2011_had_it() {
     runner::on_loaded_engine(|engine| {
         let inv = id(engine, "inv", "inv");
         let (dossier, cabbage, coins) = (
-            id(engine, "obj", "dossier"),
+            id(engine, "obj", "bk_dossier"),
             id(engine, "obj", "cabbage"),
             id(engine, "obj", "coins"),
         );

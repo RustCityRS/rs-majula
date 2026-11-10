@@ -35,7 +35,7 @@ def_int $damage = 0;
 def_int $hit = 0;
 if (~player_npc_hit_roll(%damagetype) = true) {
     def_int $maxhit = %com_maxhit;
-    if (npc_type = count_draynor & inv_total(inv, garlic) > 0) {
+    if (npc_type = vampire_slayer_qip_count & inv_total(inv, garlic) > 0) {
         $maxhit = add($maxhit, 10); // 289's +1 hitpoint
     }
     if (inv_total(worn, holy_water) > 0) {

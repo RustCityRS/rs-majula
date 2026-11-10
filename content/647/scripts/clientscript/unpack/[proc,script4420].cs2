@@ -1,36 +1,36 @@
 // 4420
 [proc,script4420]
-if_settext("Event", clan_info:com_60);
-if_sethide(false, clan_info:arrow1);
-if_sethide(false, clan_info:arrow2);
-switch_int (%varclansetting_130) {
+if_settext(clan_info:com_60, "Event");
+if_sethide(clan_info:arrow1, false);
+if_sethide(clan_info:arrow2, false);
+switch_int (%clan_event_vexillum_varclan) {
     case 1 :
-        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_98, %varclansetting_106, %varclansetting_82, %varclansetting_90, %varclansetting_74, %varclansetting_114, %varclansetting_65, %varclansetting_132, %varclansetting_122);
+        ~script4421(clan_info:com_50, clan_info:com_51, %clan_event_date_1_varclan, %clan_event_time_1_varclan, %clan_event_place_1_varclan, %clan_event_world_1_varclan, %clan_event_type_1_varclan, %clan_event_specific_1_varclan, %clan_event_who_1_varclan, %clan_event_mandatory_1_varclan, %clan_event_qfc_1_varclan);
     case 2 :
-        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_99, %varclansetting_107, %varclansetting_83, %varclansetting_91, %varclansetting_75, %varclansetting_115, %varclansetting_66, %varclansetting_133, %varclansetting_123);
+        ~script4421(clan_info:com_50, clan_info:com_51, %clan_event_date_2_varclan, %clan_event_time_2_varclan, %clan_event_place_2_varclan, %clan_event_world_2_varclan, %clan_event_type_2_varclan, %clan_event_specific_2_varclan, %clan_event_who_2_varclan, %clan_event_mandatory_2_varclan, %clan_event_qfc_2_varclan);
     case 3 :
-        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_100, %varclansetting_108, %varclansetting_84, %varclansetting_92, %varclansetting_76, %varclansetting_116, %varclansetting_67, %varclansetting_134, %varclansetting_124);
+        ~script4421(clan_info:com_50, clan_info:com_51, %clan_event_date_3_varclan, %clan_event_time_3_varclan, %clan_event_place_3_varclan, %clan_event_world_3_varclan, %clan_event_type_3_varclan, %clan_event_specific_3_varclan, %clan_event_who_3_varclan, %clan_event_mandatory_3_varclan, %clan_event_qfc_3_varclan);
     case 4 :
-        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_101, %varclansetting_109, %varclansetting_85, %varclansetting_93, %varclansetting_77, %varclansetting_117, %varclansetting_68, %varclansetting_135, %varclansetting_125);
+        ~script4421(clan_info:com_50, clan_info:com_51, %clan_event_date_4_varclan, %clan_event_time_4_varclan, %clan_event_place_4_varclan, %clan_event_world_4_varclan, %clan_event_type_4_varclan, %clan_event_specific_4_varclan, %clan_event_who_4_varclan, %clan_event_mandatory_4_varclan, %clan_event_qfc_4_varclan);
     case 5 :
-        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_102, %varclansetting_110, %varclansetting_86, %varclansetting_94, %varclansetting_78, %varclansetting_118, %varclansetting_69, %varclansetting_136, %varclansetting_126);
+        ~script4421(clan_info:com_50, clan_info:com_51, %clan_event_date_5_varclan, %clan_event_time_5_varclan, %clan_event_place_5_varclan, %clan_event_world_5_varclan, %clan_event_type_5_varclan, %clan_event_specific_5_varclan, %clan_event_who_5_varclan, %clan_event_mandatory_5_varclan, %clan_event_qfc_5_varclan);
     case 6 :
-        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_103, %varclansetting_111, %varclansetting_87, %varclansetting_95, %varclansetting_79, %varclansetting_119, %varclansetting_70, %varclansetting_137, %varclansetting_127);
+        ~script4421(clan_info:com_50, clan_info:com_51, %clan_event_date_6_varclan, %clan_event_time_6_varclan, %clan_event_place_6_varclan, %clan_event_world_6_varclan, %clan_event_type_6_varclan, %clan_event_specific_6_varclan, %clan_event_who_6_varclan, %clan_event_mandatory_6_varclan, %clan_event_qfc_6_varclan);
     case 7 :
-        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_104, %varclansetting_112, %varclansetting_88, %varclansetting_96, %varclansetting_80, %varclansetting_120, %varclansetting_71, %varclansetting_138, %varclansetting_128);
+        ~script4421(clan_info:com_50, clan_info:com_51, %clan_event_date_7_varclan, %clan_event_time_7_varclan, %clan_event_place_7_varclan, %clan_event_world_7_varclan, %clan_event_type_7_varclan, %clan_event_specific_7_varclan, %clan_event_who_7_varclan, %clan_event_mandatory_7_varclan, %clan_event_qfc_7_varclan);
     case 8 :
-        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_105, %varclansetting_113, %varclansetting_89, %varclansetting_97, %varclansetting_81, %varclansetting_121, %varclansetting_72, %varclansetting_139, %varclansetting_129);
+        ~script4421(clan_info:com_50, clan_info:com_51, %clan_event_date_8_varclan, %clan_event_time_8_varclan, %clan_event_place_8_varclan, %clan_event_world_8_varclan, %clan_event_type_8_varclan, %clan_event_specific_8_varclan, %clan_event_who_8_varclan, %clan_event_mandatory_8_varclan, %clan_event_qfc_8_varclan);
     case default :
-        if_setonmouseover(null, clan_info:com_54);
-        if_setonmouseleave(null, clan_info:com_54);
-        if_setonmouseover(null, clan_info:com_56);
-        if_setonmouseleave(null, clan_info:com_55);
-        if_setonmouseover(null, clan_info:com_56);
-        if_setonmouseleave(null, clan_info:com_56);
-        if_settext("Events (none)", clan_info:com_60);
-        if_sethide(true, clan_info:arrow1);
-        if_sethide(true, clan_info:arrow2);
-        if_settext("", clan_info:com_50);
-        if_settext("", clan_info:com_51);
-        if_setonclick(null, clan_info:com_57);
+        if_setonmouseover(clan_info:com_54, null);
+        if_setonmouseleave(clan_info:com_54, null);
+        if_setonmouseover(clan_info:com_56, null);
+        if_setonmouseleave(clan_info:com_55, null);
+        if_setonmouseover(clan_info:com_56, null);
+        if_setonmouseleave(clan_info:com_56, null);
+        if_settext(clan_info:com_60, "Events (none)");
+        if_sethide(clan_info:arrow1, true);
+        if_sethide(clan_info:arrow2, true);
+        if_settext(clan_info:com_50, "");
+        if_settext(clan_info:com_51, "");
+        if_setonclick(clan_info:com_57, null);
 }

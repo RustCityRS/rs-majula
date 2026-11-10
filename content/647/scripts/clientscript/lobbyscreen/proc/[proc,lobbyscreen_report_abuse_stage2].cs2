@@ -1,29 +1,29 @@
 // 3190
 [proc,lobbyscreen_report_abuse_stage2]
 if_opensubclient(lobbyscreen:report_abuse_stage2_body, lobbyscreen_report_abuse_stage2);
-if_sethide(false, lobbyscreen:report_abuse_stage2);
+if_sethide(lobbyscreen:report_abuse_stage2, false);
 if (if_gethide(enum(int, component, enum_941, 5)) = false) {
     ~script3161(0);
 }
-if (string_length(%varclient_1798) > 0) {
-    if_settext("Reporting: <%varclient_1798>", lobbyscreen_report_abuse_stage2:title_text);
+if (string_length(%lobbyscreen_report_abuse_name) > 0) {
+    if_settext(lobbyscreen_report_abuse_stage2:title_text, "Reporting: <%lobbyscreen_report_abuse_name>");
 } else {
-    if_settext("Report Abuse", lobbyscreen_report_abuse_stage2:title_text);
+    if_settext(lobbyscreen_report_abuse_stage2:title_text, "Report Abuse");
 }
 if (playermod = 1 | staffmodlevel > 0) {
-    if (%varclient_6 = false) {
-        if_setgraphic("check_box_2,0", lobbyscreen_report_abuse_stage2:com_46);
+    if (%snapshot_mute = false) {
+        if_setgraphic(lobbyscreen_report_abuse_stage2:com_46, "check_box_2,0");
     } else {
-        if_setgraphic("check_box_2,2", lobbyscreen_report_abuse_stage2:com_46);
+        if_setgraphic(lobbyscreen_report_abuse_stage2:com_46, "check_box_2,2");
     }
     if (playermodlevel = 5 | playermodlevel = 6) {
-        if_settext("Suggest to mute this player for 48 hours", lobbyscreen_report_abuse_stage2:mute_text);
+        if_settext(lobbyscreen_report_abuse_stage2:mute_text, "Suggest to mute this player for 48 hours");
     } else {
-        if_settext("Mute this player for 48 hours", lobbyscreen_report_abuse_stage2:mute_text);
+        if_settext(lobbyscreen_report_abuse_stage2:mute_text, "Mute this player for 48 hours");
     }
-    if_setsize(calc(stringwidth(if_gettext(lobbyscreen_report_abuse_stage2:mute_text), verdana_11pt_regular) + 18), if_getheight(lobbyscreen_report_abuse_stage2:mute_layer), ^setsize_abs, ^setsize_abs, lobbyscreen_report_abuse_stage2:mute_layer);
-    if_sethide(false, lobbyscreen_report_abuse_stage2:mute_layer);
+    if_setsize(lobbyscreen_report_abuse_stage2:mute_layer, calc(stringwidth(if_gettext(lobbyscreen_report_abuse_stage2:mute_text), verdana_11pt_regular) + 18), if_getheight(lobbyscreen_report_abuse_stage2:mute_layer), ^setsize_abs, ^setsize_abs);
+    if_sethide(lobbyscreen_report_abuse_stage2:mute_layer, false);
 } else {
-    if_sethide(true, lobbyscreen_report_abuse_stage2:mute_layer);
+    if_sethide(lobbyscreen_report_abuse_stage2:mute_layer, true);
 }
-if_setonkey("lobbyscreen_report_abuse_stage2_keyboard(event_keycode)", lobbyscreen_report_abuse_stage2:main);
+if_setonkey(lobbyscreen_report_abuse_stage2:main, "lobbyscreen_report_abuse_stage2_keyboard(event_keycode)");

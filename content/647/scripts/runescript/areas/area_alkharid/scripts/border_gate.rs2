@@ -1,17 +1,17 @@
-[ai_timer,border_guard] @guard_scout_toll_fence;
+[ai_timer,borderguard1] @guard_scout_toll_fence;
 [ai_timer,borderguard2] @guard_scout_toll_fence;
-[opnpc1,border_guard] @talk_to_border_guard(null);
+[opnpc1,borderguard1] @talk_to_border_guard(null);
 [opnpc1,borderguard2] @talk_to_border_guard(null);
 // 289's gates, border_gate_toll_left and _right, are 2011's loc_35549 and
 // loc_35551 (border_gate.loc). Open asks the guard, as 289's does.
-[oploc1,loc_35549] @find_and_talk_to_border_guard;
-[oploc1,loc_35551] @find_and_talk_to_border_guard;
+[oploc1,fai_alkh_guard_gate] @find_and_talk_to_border_guard;
+[oploc1,fai_alkh_guard_gatem] @find_and_talk_to_border_guard;
 
 // 2011's gate also has Pay-toll(10gp) (cache 786, gates 10565 and 10566):
 // void-634's (Tollgate.kt) pays the guard and goes through, or, short of the
 // toll, says so and asks the guard.
-[oploc2,loc_35549] @pay_toll_at_gate;
-[oploc2,loc_35551] @pay_toll_at_gate;
+[oploc2,fai_alkh_guard_gate] @pay_toll_at_gate;
+[oploc2,fai_alkh_guard_gatem] @pay_toll_at_gate;
 
 [label,pay_toll_at_gate]
 if (inv_total(inv, coins) < 10) {
@@ -26,7 +26,7 @@ inv_del(inv, coins, 10);
 // then starts dialogue with them
 [label,find_and_talk_to_border_guard]
 if (coordx(coord) < coordx(loc_coord)) { // in lumby
-    if (npc_find(coord, border_guard, 1, 0) = true) {
+    if (npc_find(coord, borderguard1, 1, 0) = true) {
         @talk_to_border_guard(loc_coord);
     }
 } else { // in al kharid

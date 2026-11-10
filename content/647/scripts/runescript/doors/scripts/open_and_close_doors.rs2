@@ -38,7 +38,7 @@ p_teleport($dest);
 loc_change(inviswall, 3);
 loc_add(movecoord($loc_coord, $x, 0, $z), $replacement, modulo(add($angle, 1), 4), $shape, 3);
 
-sound_synth(door_open, 1, 0);
+sound_synth(nicedoor_open, 1, 0);
 
 // same as the other proc but plays the sound instantly
 [proc,open_and_close_door2](loc $replacement, boolean $entering, synth $sound)

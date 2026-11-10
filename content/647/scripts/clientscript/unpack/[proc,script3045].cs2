@@ -2,9 +2,9 @@
 [proc,script3045]
 switch_int (chat_getfilter_private) {
     case ^chatfilter_on :
-        if_settext("Everybody", lobbyscreen_pane_friendslist:pm_button_text);
+        if_settext(lobbyscreen_pane_friendslist:pm_button_text, "Everybody");
     case ^chatfilter_friends :
-        if_settext("Friends", lobbyscreen_pane_friendslist:pm_button_text);
+        if_settext(lobbyscreen_pane_friendslist:pm_button_text, "Friends");
     case ^chatfilter_off :
-        if_settext("Nobody", lobbyscreen_pane_friendslist:pm_button_text);
+        if_settext(lobbyscreen_pane_friendslist:pm_button_text, "Nobody");
 }

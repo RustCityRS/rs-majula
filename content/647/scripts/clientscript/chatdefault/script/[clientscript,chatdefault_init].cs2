@@ -1,19 +1,19 @@
 // 1362
 [clientscript,chatdefault_init]
 def_int $int0 = 0;
-if_setonkey("chatdefault_onkey(event_keycode, event_keychar)", chatdefault:input);
-if_setonchattransmit("chatdefault_updatechatbox(true)", filterbuttons:container);
-if_setonclantransmit("chatdefault_updatechatbox(true)", filterbuttons:container);
-if_setonfriendtransmit("chatdefault_updatechatbox(false)", filterbuttons:container);
-if_setonmisctransmit("rebootwatch", filterbuttons:container);
-if_setonvarcstrtransmit("script710{varclient_1519}", filterbuttons:container);
+if_setonkey(chatdefault:input, "chatdefault_onkey(event_keycode, event_keychar)");
+if_setonchattransmit(filterbuttons:container, "chatdefault_updatechatbox(true)");
+if_setonclantransmit(filterbuttons:container, "chatdefault_updatechatbox(true)");
+if_setonfriendtransmit(filterbuttons:container, "chatdefault_updatechatbox(false)");
+if_setonmisctransmit(filterbuttons:container, "rebootwatch");
+if_setonvarcstrtransmit(filterbuttons:container, "script710{varclient_1519}");
 %varclient_1520 = "";
-%varclient_1028 = 0;
-%varclient_42 = -1;
-%varclient_41 = 0;
-%varclient_43 = chat_gethistorylength;
-%character_creation_name_required = -1;
-%varclient_4 = 0;
+%chat_caret = 0;
+%chat_highlight = -1;
+%chat_view = 0;
+%chat_lastcount = chat_gethistorylength;
+%chatout_readpos = -1;
+%chatout_writepos = 0;
 %varclient_1521 = "";
 %varclient_1522 = "";
 %varclient_1523 = "";
@@ -36,37 +36,37 @@ if_setonvarcstrtransmit("script710{varclient_1519}", filterbuttons:container);
 %varclient_1540 = "";
 %varclient_1795 = "";
 ~script1558(true);
-if_sethide(false, chatdefault:input);
+if_sethide(chatdefault:input, false);
 if (getwindowmode >= 2) {
-    if_sethide(true, chattop:chat_border);
-    if_setgraphic(graphic_1247, chattop:chat_graphic);
-    if_setalpha(true, chattop:chat_graphic);
-    if_sethide(false, chattop:chat_graphic);
-    if_sethide(true, chatdefault:divider_line);
-    if_sethide(false, chatdefault:divider_graphic);
-    if_sethide(false, chatdefault:divider_graphic_top);
+    if_sethide(chattop:chat_border, true);
+    if_setgraphic(chattop:chat_graphic, graphic_1247);
+    if_setalpha(chattop:chat_graphic, true);
+    if_sethide(chattop:chat_graphic, false);
+    if_sethide(chatdefault:divider_line, true);
+    if_sethide(chatdefault:divider_graphic, false);
+    if_sethide(chatdefault:divider_graphic_top, false);
     while ($int0 < 100) {
-        if_settextshadow(true, enum(int, component, enum_579, $int0));
-        if_setcolour(^white, enum(int, component, enum_579, $int0));
+        if_settextshadow(enum(int, component, enum_579, $int0), true);
+        if_setcolour(enum(int, component, enum_579, $int0), ^white);
         $int0 = calc($int0 + 1);
     }
-    if_settextshadow(true, chatdefault:input);
-    if_setcolour(^white, chatdefault:input);
+    if_settextshadow(chatdefault:input, true);
+    if_setcolour(chatdefault:input, ^white);
 } else {
-    if_setgraphic(chat_background, chattop:chat_graphic);
-    if_sethide(false, chattop:chat_graphic);
-    if_sethide(false, chattop:chat_border);
-    if_sethide(false, chatdefault:divider_line);
-    if_sethide(true, chatdefault:divider_graphic);
-    if_sethide(true, chatdefault:divider_graphic_top);
+    if_setgraphic(chattop:chat_graphic, chat_background);
+    if_sethide(chattop:chat_graphic, false);
+    if_sethide(chattop:chat_border, false);
+    if_sethide(chatdefault:divider_line, false);
+    if_sethide(chatdefault:divider_graphic, true);
+    if_sethide(chatdefault:divider_graphic_top, true);
     while ($int0 < 100) {
-        if_settextshadow(false, enum(int, component, enum_579, $int0));
-        if_setcolour(^black, enum(int, component, enum_579, $int0));
+        if_settextshadow(enum(int, component, enum_579, $int0), false);
+        if_setcolour(enum(int, component, enum_579, $int0), ^black);
         $int0 = calc($int0 + 1);
     }
-    if_settextshadow(false, chatdefault:input);
-    if_setcolour(^black, chatdefault:input);
+    if_settextshadow(chatdefault:input, false);
+    if_setcolour(chatdefault:input, ^black);
 }
-%varclient_7 = if_getheight(chatdefault:scrollarea);
+%chat_lastscrollpos = if_getheight(chatdefault:scrollarea);
 ~redraw_chat_buttons;
 %varclient_1519 = "";

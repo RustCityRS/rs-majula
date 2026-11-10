@@ -1,6 +1,6 @@
 // 2826
 [proc,script2826](component $component0, coord $coord1)
-switch_int (%varclient_1007) {
+switch_int (%tutorial3_cutscene_tracker) {
     case 301 :
         spline_new(0, 4);
         spline_new(1, 4);

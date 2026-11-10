@@ -122,9 +122,9 @@ fn goblin_diplomacy_as_2011s_rework() {
     runner::on_loaded_engine(|engine| {
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         let (orange, blue, brown, gold) = (
-            obj(engine, "orange_goblin_mail"),
-            obj(engine, "blue_goblin_mail"),
-            obj(engine, "goblin_mail"),
+            obj(engine, "goblin_armour_orange"),
+            obj(engine, "goblin_armour_darkblue"),
+            obj(engine, "goblin_armour"),
             obj(engine, "gold_bar"),
         );
         let _ = engine.script_errors.take();
@@ -135,7 +135,7 @@ fn goblin_diplomacy_as_2011s_rework() {
         for _ in 0..10 {
             engine.cycle();
         }
-        let (nid, x, y, z) = beside(engine, "general_bentnoze_4493");
+        let (nid, x, y, z) = beside(engine, "general_bentnoze_red");
         engine.harness_telejump(client.pid, x, y, z);
         for _ in 0..3 {
             engine.cycle();
@@ -248,9 +248,9 @@ fn goblin_mail_dyes_as_2011_says() {
     runner::on_loaded_engine(|engine| {
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         let (mail, blue_dye, blue) = (
-            obj(engine, "goblin_mail"),
-            obj(engine, "blue_dye"),
-            obj(engine, "blue_goblin_mail"),
+            obj(engine, "goblin_armour"),
+            obj(engine, "bluedye"),
+            obj(engine, "goblin_armour_darkblue"),
         );
         engine.harness_reset();
         let mut client: HarnessClient = engine
@@ -313,7 +313,7 @@ fn the_crate_behind_the_generals_hut_gives_goblin_mail() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let mail = obj(engine, "goblin_mail");
+        let mail = obj(engine, "goblin_armour");
         let _ = engine.script_errors.take();
         engine.harness_reset();
         let mut client: HarnessClient = engine
@@ -366,7 +366,7 @@ fn the_crate_behind_the_generals_hut_gives_goblin_mail() {
 #[test]
 fn the_generals_wander_as_289s_did() {
     runner::on_loaded_engine(|engine| {
-        for name in ["general_bentnoze_4493", "general_wartface_4494"] {
+        for name in ["general_bentnoze_red", "general_wartface_green"] {
             let id = *engine.cache.npcs.debugnames.get(name).unwrap();
             let general = engine.cache.npcs.get_by_id(id).unwrap();
             assert_eq!(general.wanderrange, 3, "{name}");

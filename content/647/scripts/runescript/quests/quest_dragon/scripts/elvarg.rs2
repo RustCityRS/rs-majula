@@ -31,14 +31,14 @@ if (%dragonquest >= ^quest_dragon_sailed_to_crandor & %dragonquest < ^dragon_com
 }
 
 [queue,elvarg_head]
-if (inv_total(inv, elvarg_s_head) > 0 | inv_total(bank, elvarg_s_head) > 0) {
+if (inv_total(inv, dragon_slayer_qip_elvargs_head) > 0 | inv_total(bank, dragon_slayer_qip_elvargs_head) > 0) {
     return;
 }
 mes("You cut off Elvarg's head as proof of your victory!");
 if (inv_freespace(inv) = 0) {
-    obj_add(coord, elvarg_s_head, 1, ^lootdrop_duration);
+    obj_add(coord, dragon_slayer_qip_elvargs_head, 1, ^lootdrop_duration);
 } else {
-    inv_add(inv, elvarg_s_head, 1);
+    inv_add(inv, dragon_slayer_qip_elvargs_head, 1);
 }
 
 // 289's ranged fire (its [ai_applayer2], with retaliation by AP) is the old dragon's: seq 84,
@@ -74,7 +74,7 @@ if_close;
 // spotanim 2465 on her (dragon.rs2's), not 289's old-dragon seq 84 and spotanim 1.
 spotanim_npc(dragon_breath_shoot, 0, 0);
 npc_anim(colour_dragon_breath, 0);
-sound_synth(dragonbreath, 1, 30);
+sound_synth(dragonslayer_dragonbreath, 1, 30);
 %npc_action_delay = add(map_clock, 4);
 
 // damage player
@@ -94,11 +94,11 @@ queue*(playerhit_n_retaliate, 0)(npc_uid);
 // cuts below are 289's, ten times over.
 [proc,elvarg_max_hit]()(int)
 def_int $maxhit = 600;
-if (inv_total(worn, anti_dragon_shield) > 0) {
+if (inv_total(worn, antidragonbreathshield) > 0) {
     // 2011-05-04 recording (mYqjoMQCOHI), 297.2s on.
     mes("Your shield absorbs most of the dragon fire.");
     $maxhit = 120;
-    if (%prayer12 = ^true) {
+    if (%varplayerbit_5954 = ^true) {
         $maxhit = sub($maxhit, 30);
         // https://youtu.be/lSV2whAirvY?t=41
         mes("Your prayers resist some of the dragon fire!");
@@ -109,7 +109,7 @@ if (inv_total(worn, anti_dragon_shield) > 0) {
         mes("Your potion protects you from the heat of the dragon fire!");
     }
 } else {
-    if (%prayer12 = ^true) {
+    if (%varplayerbit_5954 = ^true) {
         $maxhit = sub($maxhit, 150);
     }
     if (map_clock < %dragonresist) {

@@ -9,96 +9,96 @@ def_string $string1 = "accountappeal";
 def_string $string2 = "passwordchoice.ws";
 switch_component ($component0) {
     case default :
-        if_sethide(true, account_create:information_layer);
+        if_sethide(account_create:information_layer, true);
         return;
     case account_create:com_81 :
         if (string_length($string0) > 0) {
-            if_setgraphic("symbols_1,5", account_create:com_81);
-            if_sethide(false, account_create:com_86);
-            if_settext($string0, account_create:information_text);
-            if_settext($string0, account_create:com_124);
+            if_setgraphic(account_create:com_81, "symbols_1,5");
+            if_sethide(account_create:com_86, false);
+            if_settext(account_create:information_text, $string0);
+            if_settext(account_create:com_124, $string0);
         } else if (if_getgraphic($component0) = "symbols_1,5") {
-            if_settext(if_gettext(account_create:com_124), account_create:information_text);
+            if_settext(account_create:information_text, if_gettext(account_create:com_124));
         } else if (if_getgraphic($component0) = "symbols_1,3") {
-            if_settext("This email address is available for use.", account_create:information_text);
+            if_settext(account_create:information_text, "This email address is available for use.");
         } else {
-            if_settext("Please enter your email address here.", account_create:information_text);
+            if_settext(account_create:information_text, "Please enter your email address here.");
         }
-        if_setsize(110, calc(paraheight(if_gettext(account_create:information_text), calc(110 - 20), verdana_11pt_regular) * 12 + 10), ^setsize_abs, ^setsize_abs, account_create:information_layer);
+        if_setsize(account_create:information_layer, 110, calc(paraheight(if_gettext(account_create:information_text), calc(110 - 20), verdana_11pt_regular) * 12 + 10), ^setsize_abs, ^setsize_abs);
         $int2 = 99;
         $int4 = 535;
     case account_create:com_100 :
         if (string_length($string0) > 0) {
-            if_setgraphic("symbols_1,5", account_create:com_100);
-            if_sethide(false, account_create:com_105);
-            if_settext($string0, account_create:information_text);
-            if_settext($string0, account_create:com_125);
+            if_setgraphic(account_create:com_100, "symbols_1,5");
+            if_sethide(account_create:com_105, false);
+            if_settext(account_create:information_text, $string0);
+            if_settext(account_create:com_125, $string0);
         } else if (if_getgraphic($component0) = "symbols_1,5") {
-            if_settext(if_gettext(account_create:com_125), account_create:information_text);
+            if_settext(account_create:information_text, if_gettext(account_create:com_125));
         } else if (if_getgraphic($component0) = "symbols_1,3") {
-            if_settext("Both email addresses match.", account_create:information_text);
+            if_settext(account_create:information_text, "Both email addresses match.");
         } else {
-            if_settext("Please enter your email address again here.", account_create:information_text);
+            if_settext(account_create:information_text, "Please enter your email address again here.");
         }
-        if_setsize(110, calc(paraheight(if_gettext(account_create:information_text), calc(110 - 20), verdana_11pt_regular) * 12 + 10), ^setsize_abs, ^setsize_abs, account_create:information_layer);
+        if_setsize(account_create:information_layer, 110, calc(paraheight(if_gettext(account_create:information_text), calc(110 - 20), verdana_11pt_regular) * 12 + 10), ^setsize_abs, ^setsize_abs);
         $int2 = 128;
         $int4 = 535;
     case account_create:com_71 :
         if (string_length($string0) > 0) {
-            if_setgraphic("symbols_1,5", account_create:com_71);
-            if_sethide(false, account_create:com_76);
-            if_settext($string0, account_create:information_text);
-            if_settext($string0, account_create:password_error_text);
+            if_setgraphic(account_create:com_71, "symbols_1,5");
+            if_sethide(account_create:com_76, false);
+            if_settext(account_create:information_text, $string0);
+            if_settext(account_create:password_error_text, $string0);
         } else if (if_getgraphic($component0) = "symbols_1,5") {
-            if_settext(if_gettext(account_create:password_error_text), account_create:information_text);
+            if_settext(account_create:information_text, if_gettext(account_create:password_error_text));
         } else if (if_getgraphic($component0) = "symbols_1,3") {
-            if_settext("You have entered your password.", account_create:information_text);
+            if_settext(account_create:information_text, "You have entered your password.");
         } else {
-            if_settext("Please enter your desired password here.", account_create:information_text);
+            if_settext(account_create:information_text, "Please enter your desired password here.");
         }
-        if_setsize(110, calc(paraheight(if_gettext(account_create:information_text), calc(110 - 20), verdana_11pt_regular) * 12 + 10), ^setsize_abs, ^setsize_abs, account_create:information_layer);
+        if_setsize(account_create:information_layer, 110, calc(paraheight(if_gettext(account_create:information_text), calc(110 - 20), verdana_11pt_regular) * 12 + 10), ^setsize_abs, ^setsize_abs);
         $int2 = 161;
         $int4 = 535;
     case account_create:com_61 :
         if (string_length($string0) > 0) {
-            if_setgraphic("symbols_1,5", account_create:com_61);
-            if_sethide(false, account_create:com_66);
-            if_settext($string0, account_create:information_text);
-            if_settext($string0, account_create:password2_error_text);
+            if_setgraphic(account_create:com_61, "symbols_1,5");
+            if_sethide(account_create:com_66, false);
+            if_settext(account_create:information_text, $string0);
+            if_settext(account_create:password2_error_text, $string0);
         } else if (if_getgraphic($component0) = "symbols_1,5") {
-            if_settext(if_gettext(account_create:password2_error_text), account_create:information_text);
+            if_settext(account_create:information_text, if_gettext(account_create:password2_error_text));
         } else if (if_getgraphic($component0) = "symbols_1,3") {
-            if_settext("Both passwords match.", account_create:information_text);
+            if_settext(account_create:information_text, "Both passwords match.");
         } else {
-            if_settext("Please enter your desired password again here.", account_create:information_text);
+            if_settext(account_create:information_text, "Please enter your desired password again here.");
         }
-        if_setsize(110, calc(paraheight(if_gettext(account_create:information_text), calc(110 - 10 * 2), verdana_11pt_regular) * 12 + 10), ^setsize_abs, ^setsize_abs, account_create:information_layer);
+        if_setsize(account_create:information_layer, 110, calc(paraheight(if_gettext(account_create:information_text), calc(110 - 10 * 2), verdana_11pt_regular) * 12 + 10), ^setsize_abs, ^setsize_abs);
         $int2 = 190;
         $int4 = 535;
     case account_create:com_36 :
         if (string_length($string0) > 0) {
-            if_setgraphic("symbols_1,5", account_create:com_36);
-            if_sethide(false, account_create:com_112);
-            if_settext($string0, account_create:information_text);
-            if_settext($string0, account_create:com_128);
+            if_setgraphic(account_create:com_36, "symbols_1,5");
+            if_sethide(account_create:com_112, false);
+            if_settext(account_create:information_text, $string0);
+            if_settext(account_create:com_128, $string0);
         } else if (if_getgraphic($component0) = "symbols_1,5") {
-            if_settext(if_gettext(account_create:com_128), account_create:information_text);
+            if_settext(account_create:information_text, if_gettext(account_create:com_128));
         } else if (if_getgraphic($component0) = "symbols_1,3") {
-            if_settext("You have entered your age.", account_create:information_text);
+            if_settext(account_create:information_text, "You have entered your age.");
         } else {
-            if_settext("Please enter your age, in years, here.", account_create:information_text);
+            if_settext(account_create:information_text, "Please enter your age, in years, here.");
         }
         $int5 = calc(if_getwidth(account_create:com_25) - 362);
-        if_setsize(min(calc(parawidth(if_gettext(account_create:information_text), calc(stringwidth(if_gettext(account_create:information_text), verdana_11pt_regular) / 4 * 3), verdana_11pt_regular) + 10 * 2), $int5), 30, ^setsize_abs, ^setsize_abs, account_create:information_layer);
+        if_setsize(account_create:information_layer, min(calc(parawidth(if_gettext(account_create:information_text), calc(stringwidth(if_gettext(account_create:information_text), verdana_11pt_regular) / 4 * 3), verdana_11pt_regular) + 10 * 2), $int5), 30, ^setsize_abs, ^setsize_abs);
         $int2 = 223;
         $int4 = 362;
 }
 $int1 = calc(if_getheight(account_create:information_layer) / 2);
 $int3 = calc($int2 - $int1);
-if_setposition($int4, $int3, ^setpos_abs_left, ^setpos_abs_top, account_create:information_layer);
-if_sethide(false, account_create:information_layer);
+if_setposition(account_create:information_layer, $int4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+if_sethide(account_create:information_layer, false);
 if (compare(if_gettext(account_create:information_text), "Email already in use. Try a different email or click <u=ebe0bc>here</u> to recover this account.") = 0) {
-    if_setonclick("loginscreen_link($string1, $string2, true)", account_create:information_text_layer);
+    if_setonclick(account_create:information_text_layer, "loginscreen_link($string1, $string2, true)");
 } else {
-    if_setonclick(null, account_create:information_text_layer);
+    if_setonclick(account_create:information_text_layer, null);
 }

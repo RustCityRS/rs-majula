@@ -11,7 +11,7 @@ modelorigin=-2,33
 modelangle=512,0,0
 modelzoom=1009
 onload=clanwars_end_setup(clanwars_end:header, clanwars_end:text, clanwars_end:message, clanwars_end:line, clanwars_end:victory_model, clanwars_end:defeat_model)
-onvarctransmit=clanwars_end_setup(clanwars_end:header, clanwars_end:text, clanwars_end:message, clanwars_end:line, clanwars_end:victory_model, clanwars_end:defeat_model){varclient_268}
+onvarctransmit=clanwars_end_setup(clanwars_end:header, clanwars_end:text, clanwars_end:message, clanwars_end:line, clanwars_end:victory_model, clanwars_end:defeat_model){clanwars_endtype}
 
 // 790:1
 [line]

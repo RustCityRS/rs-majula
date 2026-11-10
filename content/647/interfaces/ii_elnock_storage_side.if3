@@ -60,8 +60,8 @@ op2=Store 5
 op3=Store All
 op4=Store X
 op10=Examine
-onload=ii_storage_update_side(event_com, imp_repellent, ii_elnock_storage_side:impling_repellent_name)
-oninvtransmit=ii_storage_update_side(event_com, imp_repellent, ii_elnock_storage_side:impling_repellent_name){inv}
+onload=ii_storage_update_side(event_com, ii_imp_repellent, ii_elnock_storage_side:impling_repellent_name)
+oninvtransmit=ii_storage_update_side(event_com, ii_imp_repellent, ii_elnock_storage_side:impling_repellent_name){inv}
 
 // 527:5
 [impling_net_name]
@@ -94,8 +94,8 @@ transmitop=1,10
 opbase=<col=ff9040>Butterfly net
 op1=Store
 op10=Examine
-onload=ii_storage_update_side(event_com, butterfly_net, ii_elnock_storage_side:impling_net_name)
-oninvtransmit=ii_storage_update_side(event_com, butterfly_net, ii_elnock_storage_side:impling_net_name){inv}
+onload=ii_storage_update_side(event_com, hunting_butterfly_net, ii_elnock_storage_side:impling_net_name)
+oninvtransmit=ii_storage_update_side(event_com, hunting_butterfly_net, ii_elnock_storage_side:impling_net_name){inv}
 
 // 527:7
 [impling_jar]
@@ -141,5 +141,5 @@ op2=Store 5
 op3=Store All
 op4=Store X
 op10=Examine
-onload=ii_storage_update_side(event_com, impling_jar, ii_elnock_storage_side:impling_jar_name)
-oninvtransmit=ii_storage_update_side(event_com, impling_jar, ii_elnock_storage_side:impling_jar_name){inv}
+onload=ii_storage_update_side(event_com, ii_impling_jar, ii_elnock_storage_side:impling_jar_name)
+oninvtransmit=ii_storage_update_side(event_com, ii_impling_jar, ii_elnock_storage_side:impling_jar_name){inv}

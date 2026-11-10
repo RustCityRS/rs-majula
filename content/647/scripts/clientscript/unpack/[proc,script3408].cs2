@@ -2,8 +2,8 @@
 [proc,script3408](component $component0, string $string0)
 def_string $string1 = "<u=88ffff><$string0></u>";
 def_string $string2 = "<u=64c8fa><$string0></u>";
-if_setop(1, "Open link", $component0);
-if_setonop("objectives_return", $component0);
-if_setopcursor(1, cursor_146, $component0);
-if_setonmouseover("link_rollover($component0, 0x88ffff, $string1)", $component0);
-if_setonmouseleave("link_rollover($component0, 0x64c8fa, $string2)", $component0);
+if_setop($component0, 1, "Open link");
+if_setonop($component0, "objectives_return");
+if_setopcursor($component0, 1, cursor_advisor_no_ring_1);
+if_setonmouseover($component0, "link_rollover($component0, 0x88ffff, $string1)");
+if_setonmouseleave($component0, "link_rollover($component0, 0x64c8fa, $string2)");

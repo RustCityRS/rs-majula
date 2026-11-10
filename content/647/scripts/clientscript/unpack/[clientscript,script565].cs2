@@ -4,105 +4,105 @@ def_int $int0 = 50;
 def_int $int1 = 45;
 def_string $string0 = ~magic_tostring(%varplayerbit_4138);
 if (%varplayerbit_4140 > 0) {
-    if_sethide(false, duel2_tourn_challengeoverlay:text);
-    if_settext(tostring(%varplayerbit_4140), duel2_tourn_challengeoverlay:npc_num);
-    if_settext(tostring(%varplayerbit_4143), duel2_tourn_challengeoverlay:kval);
-    if_settext("<$string0> Coins", duel2_tourn_challengeoverlay:entry_fee);
+    if_sethide(duel2_tourn_challengeoverlay:text, false);
+    if_settext(duel2_tourn_challengeoverlay:npc_num, tostring(%varplayerbit_4140));
+    if_settext(duel2_tourn_challengeoverlay:kval, tostring(%varplayerbit_4143));
+    if_settext(duel2_tourn_challengeoverlay:entry_fee, "<$string0> Coins");
     if (%varplayerbit_4144 = 0) {
-        if_setgraphic("staticons2,8", duel2_tourn_challengeoverlay:potion);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, duel2_tourn_challengeoverlay:potion);
-        if_sethide(false, duel2_tourn_challengeoverlay:potion_lay);
+        if_setgraphic(duel2_tourn_challengeoverlay:potion, "staticons2,8");
+        if_setposition(duel2_tourn_challengeoverlay:potion, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(duel2_tourn_challengeoverlay:potion_lay, false);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, duel2_tourn_challengeoverlay:potion_lay);
+        if_sethide(duel2_tourn_challengeoverlay:potion_lay, true);
     }
     if (%varplayerbit_4145 = 0) {
-        if_setgraphic("staticons2,10", duel2_tourn_challengeoverlay:food);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, duel2_tourn_challengeoverlay:food);
-        if_sethide(false, duel2_tourn_challengeoverlay:food_lay);
+        if_setgraphic(duel2_tourn_challengeoverlay:food, "staticons2,10");
+        if_setposition(duel2_tourn_challengeoverlay:food, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(duel2_tourn_challengeoverlay:food_lay, false);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, duel2_tourn_challengeoverlay:food_lay);
+        if_sethide(duel2_tourn_challengeoverlay:food_lay, true);
     }
     if (%varplayerbit_4146 = 0) {
-        if_setgraphic("staticons,4", duel2_tourn_challengeoverlay:prayer);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, duel2_tourn_challengeoverlay:prayer);
-        if_sethide(false, duel2_tourn_challengeoverlay:prayer_lay);
+        if_setgraphic(duel2_tourn_challengeoverlay:prayer, "staticons,4");
+        if_setposition(duel2_tourn_challengeoverlay:prayer, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(duel2_tourn_challengeoverlay:prayer_lay, false);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, duel2_tourn_challengeoverlay:prayer_lay);
+        if_sethide(duel2_tourn_challengeoverlay:prayer_lay, true);
     }
     if (%varplayerbit_4147 = 0) {
-        if_setgraphic("staticons2,11", duel2_tourn_challengeoverlay:spec_att);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, duel2_tourn_challengeoverlay:spec_att);
-        if_sethide(false, duel2_tourn_challengeoverlay:spec_att_lay);
+        if_setgraphic(duel2_tourn_challengeoverlay:spec_att, "staticons2,11");
+        if_setposition(duel2_tourn_challengeoverlay:spec_att, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(duel2_tourn_challengeoverlay:spec_att_lay, false);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, duel2_tourn_challengeoverlay:spec_att_lay);
+        if_sethide(duel2_tourn_challengeoverlay:spec_att_lay, true);
     }
     if (%varplayerbit_4151 = 0) {
-        if_setgraphic("staticons,6", duel2_tourn_challengeoverlay:healing);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, duel2_tourn_challengeoverlay:healing);
-        if_sethide(false, duel2_tourn_challengeoverlay:healing_lay);
+        if_setgraphic(duel2_tourn_challengeoverlay:healing, "staticons,6");
+        if_setposition(duel2_tourn_challengeoverlay:healing, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(duel2_tourn_challengeoverlay:healing_lay, false);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, duel2_tourn_challengeoverlay:healing_lay);
+        if_sethide(duel2_tourn_challengeoverlay:healing_lay, true);
     }
     if (%varplayerbit_4152 = 1) {
-        if_setgraphic("staticons2,12", duel2_tourn_challengeoverlay:weaponslot);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, duel2_tourn_challengeoverlay:weaponslot);
-        if_sethide(false, duel2_tourn_challengeoverlay:weaponslot_lay);
+        if_setgraphic(duel2_tourn_challengeoverlay:weaponslot, "staticons2,12");
+        if_setposition(duel2_tourn_challengeoverlay:weaponslot, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(duel2_tourn_challengeoverlay:weaponslot_lay, false);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, duel2_tourn_challengeoverlay:weaponslot_lay);
+        if_sethide(duel2_tourn_challengeoverlay:weaponslot_lay, true);
     }
     if (%varplayerbit_4276 = 1) {
-        if_setgraphic("staticons2,7", duel2_tourn_challengeoverlay:sum_lore);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, duel2_tourn_challengeoverlay:sum_lore);
-        if_sethide(false, duel2_tourn_challengeoverlay:sum_lore_lay);
+        if_setgraphic(duel2_tourn_challengeoverlay:sum_lore, "staticons2,7");
+        if_setposition(duel2_tourn_challengeoverlay:sum_lore, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(duel2_tourn_challengeoverlay:sum_lore_lay, false);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, duel2_tourn_challengeoverlay:sum_lore_lay);
+        if_sethide(duel2_tourn_challengeoverlay:sum_lore_lay, true);
     }
     $int0 = 8;
     $int1 = 45;
     if (%varplayerbit_4148 = 0) {
-        if_setgraphic("staticons,3", duel2_tourn_challengeoverlay:ranged);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, duel2_tourn_challengeoverlay:ranged);
-        if_sethide(false, duel2_tourn_challengeoverlay:ranged_lay);
+        if_setgraphic(duel2_tourn_challengeoverlay:ranged, "staticons,3");
+        if_setposition(duel2_tourn_challengeoverlay:ranged, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(duel2_tourn_challengeoverlay:ranged_lay, false);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, duel2_tourn_challengeoverlay:ranged_lay);
+        if_sethide(duel2_tourn_challengeoverlay:ranged_lay, true);
     }
     if (%varplayerbit_4149 = 0) {
-        if_setgraphic("staticons,0", duel2_tourn_challengeoverlay:melee);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, duel2_tourn_challengeoverlay:melee);
-        if_sethide(false, duel2_tourn_challengeoverlay:melee_lay);
+        if_setgraphic(duel2_tourn_challengeoverlay:melee, "staticons,0");
+        if_setposition(duel2_tourn_challengeoverlay:melee, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(duel2_tourn_challengeoverlay:melee_lay, false);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, duel2_tourn_challengeoverlay:melee_lay);
+        if_sethide(duel2_tourn_challengeoverlay:melee_lay, true);
     }
     if (%varplayerbit_4150 = 0) {
-        if_setgraphic("staticons,5", duel2_tourn_challengeoverlay:magic);
-        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, duel2_tourn_challengeoverlay:magic);
-        if_sethide(false, duel2_tourn_challengeoverlay:magic_lay);
+        if_setgraphic(duel2_tourn_challengeoverlay:magic, "staticons,5");
+        if_setposition(duel2_tourn_challengeoverlay:magic, $int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(duel2_tourn_challengeoverlay:magic_lay, false);
         $int1 = calc($int1 + 29);
     } else {
-        if_sethide(true, duel2_tourn_challengeoverlay:magic_lay);
+        if_sethide(duel2_tourn_challengeoverlay:magic_lay, true);
     }
 } else {
-    if_setgraphic(null, duel2_tourn_challengeoverlay:potion);
-    if_setgraphic(null, duel2_tourn_challengeoverlay:food);
-    if_setgraphic(null, duel2_tourn_challengeoverlay:prayer);
-    if_setgraphic(null, duel2_tourn_challengeoverlay:spec_att);
-    if_setgraphic(null, duel2_tourn_challengeoverlay:healing);
-    if_setgraphic(null, duel2_tourn_challengeoverlay:weaponslot);
-    if_setgraphic(null, duel2_tourn_challengeoverlay:ranged);
-    if_setgraphic(null, duel2_tourn_challengeoverlay:magic);
-    if_setgraphic(null, duel2_tourn_challengeoverlay:melee);
-    if_setgraphic(null, duel2_tourn_challengeoverlay:sum_lore);
-    if_settext(" ", duel2_tourn_challengeoverlay:kval);
-    if_settext(" ", duel2_tourn_challengeoverlay:entry_fee);
-    if_settext(" ", duel2_tourn_challengeoverlay:warn);
-    if_sethide(true, duel2_tourn_challengeoverlay:text);
+    if_setgraphic(duel2_tourn_challengeoverlay:potion, null);
+    if_setgraphic(duel2_tourn_challengeoverlay:food, null);
+    if_setgraphic(duel2_tourn_challengeoverlay:prayer, null);
+    if_setgraphic(duel2_tourn_challengeoverlay:spec_att, null);
+    if_setgraphic(duel2_tourn_challengeoverlay:healing, null);
+    if_setgraphic(duel2_tourn_challengeoverlay:weaponslot, null);
+    if_setgraphic(duel2_tourn_challengeoverlay:ranged, null);
+    if_setgraphic(duel2_tourn_challengeoverlay:magic, null);
+    if_setgraphic(duel2_tourn_challengeoverlay:melee, null);
+    if_setgraphic(duel2_tourn_challengeoverlay:sum_lore, null);
+    if_settext(duel2_tourn_challengeoverlay:kval, " ");
+    if_settext(duel2_tourn_challengeoverlay:entry_fee, " ");
+    if_settext(duel2_tourn_challengeoverlay:warn, " ");
+    if_sethide(duel2_tourn_challengeoverlay:text, true);
 }

@@ -1,7 +1,7 @@
 // 1131
 [proc,combat_side_comlevel](component $component0)
-if (%varclient_1000 > comlevel_active) {
-    if_settext("Combat Lvl: <tostring(comlevel_active)>+<tostring(calc(%varclient_1000 - comlevel_active))>", $component0);
+if (%comlevel_potential_varc > comlevel_active) {
+    if_settext($component0, "Combat Lvl: <tostring(comlevel_active)>+<tostring(calc(%comlevel_potential_varc - comlevel_active))>");
 } else {
-    if_settext("Combat Lvl: <tostring(comlevel_active)>", $component0);
+    if_settext($component0, "Combat Lvl: <tostring(comlevel_active)>");
 }

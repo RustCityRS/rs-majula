@@ -5,7 +5,7 @@ if (string_length($string0) > 0) {
     if ($cursor0 ! null) {
         cc_setopcursor(1, $cursor0);
     } else {
-        cc_setopcursor(1, cursor_36);
+        cc_setopcursor(1, cursor_default);
     }
 }
 if (string_length($string1) > 0) {
@@ -13,7 +13,7 @@ if (string_length($string1) > 0) {
     if ($cursor1 ! null) {
         cc_setopcursor(2, $cursor1);
     } else {
-        cc_setopcursor(2, cursor_36);
+        cc_setopcursor(2, cursor_default);
     }
 }
 if (string_length($string2) > 0) {
@@ -21,19 +21,19 @@ if (string_length($string2) > 0) {
     if ($cursor2 ! null) {
         cc_setopcursor(3, $cursor2);
     } else {
-        cc_setopcursor(3, cursor_36);
+        cc_setopcursor(3, cursor_default);
     }
 }
 cc_settargetverb("Use");
-cc_settargetopcursor(cursor_46);
-cc_settargetcursors(cursor_46, cursor_36);
+cc_settargetopcursor(cursor_use);
+cc_settargetcursors(cursor_use, cursor_default);
 cc_setop(10, "Examine");
 if (string_length($string3) > 0) {
     cc_setop(7, $string3);
     if ($cursor3 ! null) {
         cc_setopcursor(7, $cursor3);
     } else {
-        cc_setopcursor(7, cursor_36);
+        cc_setopcursor(7, cursor_default);
     }
 }
 if (string_length($string4) > 0) {
@@ -41,7 +41,7 @@ if (string_length($string4) > 0) {
     if ($cursor4 ! null) {
         cc_setopcursor(8, $cursor4);
     } else {
-        cc_setopcursor(8, cursor_36);
+        cc_setopcursor(8, cursor_default);
     }
 }
 cc_setopbase("<col=ff9040><$string5>");

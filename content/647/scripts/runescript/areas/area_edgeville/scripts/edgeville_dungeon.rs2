@@ -9,13 +9,13 @@ mes("The door is locked.");
 
 [oplocu,brasskeydoor]
 switch_obj(last_useitem) {
-    case brass_key : @open_edgeville_dungeon_door;
+    case edgevilledungeonkey : @open_edgeville_dungeon_door;
     case default : ~displaymessage(^dm_default);
 }
 
 
 [label,open_edgeville_dungeon_door]
-if (inv_total(inv, brass_key) > 0) {
+if (inv_total(inv, edgevilledungeonkey) > 0) {
     mes("You unlock the door.");
     sound_synth(locked, 1, 0);
     def_coord $loc_coord = loc_coord;
@@ -33,16 +33,16 @@ if (inv_total(inv, brass_key) > 0) {
         if (coord ! $loc_coord) {
             p_delay(0);
             p_teleport($loc_coord);
-            sound_synth(door_open, 1, 0);
+            sound_synth(nicedoor_open, 1, 0);
             p_delay(1);
         } else {
             p_delay(0);
-            sound_synth(door_open, 1, 0);
+            sound_synth(nicedoor_open, 1, 0);
         }
         $dest = movecoord($loc_coord, $x, 0, $z);
     } else {
         p_delay(0);
-        sound_synth(door_open, 1, 0);
+        sound_synth(nicedoor_open, 1, 0);
     }
 
     p_teleport($dest);

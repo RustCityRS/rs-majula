@@ -1,6 +1,6 @@
 // 1218
 [proc,loginscreen_bgsoundvol](component $component0, component $component1)
-if_setdraggable($component0, -1, $component1);
+if_setdraggable($component1, $component0, -1);
 def_int $int2 = calc(if_getwidth($component0) - if_getwidth($component1));
 def_int $int3 = scale(detailget_bgsoundvol, 127, $int2);
-if_setposition($int3, 0, ^setpos_abs_left, ^setpos_abs_top, $component1);
+if_setposition($component1, $int3, 0, ^setpos_abs_left, ^setpos_abs_top);

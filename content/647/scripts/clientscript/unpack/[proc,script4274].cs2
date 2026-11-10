@@ -1,16 +1,16 @@
 // 4274
 [proc,script4274]
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 0) * 10), ","), lunarfm_rewards_new:spell_points_falador);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 1) * 10), ","), lunarfm_rewards_new:spell_points_rune);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 2) * 10), ","), lunarfm_rewards_new:spell_points_ardougne);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 3) * 10), ","), lunarfm_rewards_new:spell_points_remote);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 4) * 10), ","), lunarfm_rewards_new:spell_points_spirit);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 5) * 10), ","), lunarfm_rewards_new:spell_points_leather);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 6) * 10), ","), lunarfm_rewards_new:spell_points_shield);
-if_settext(~tostring_spacer(calc(enum(int, int, enum_3674, 7) * 10), ","), lunarfm_rewards_new:spell_points_vengeance);
-if_settext(~tostring_spacer(calc(550 * 10), ","), lunarfm_rewards_new:wish_points_vial);
-if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:wish_points_herbs);
-if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:wish_points_seeds);
-if_settext(~tostring_spacer(calc(550 * 10), ","), lunarfm_rewards_new:wish_points_runes);
-if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:wish_points_planks);
-if_settext(~tostring_spacer(calc(1800 * 10), ","), lunarfm_rewards_new:wish_points_burn);
+if_settext(lunarfm_rewards_new:spell_points_falador, ~tostring_spacer(calc(enum(int, int, enum_3674, 0) * 10), ","));
+if_settext(lunarfm_rewards_new:spell_points_rune, ~tostring_spacer(calc(enum(int, int, enum_3674, 1) * 10), ","));
+if_settext(lunarfm_rewards_new:spell_points_ardougne, ~tostring_spacer(calc(enum(int, int, enum_3674, 2) * 10), ","));
+if_settext(lunarfm_rewards_new:spell_points_remote, ~tostring_spacer(calc(enum(int, int, enum_3674, 3) * 10), ","));
+if_settext(lunarfm_rewards_new:spell_points_spirit, ~tostring_spacer(calc(enum(int, int, enum_3674, 4) * 10), ","));
+if_settext(lunarfm_rewards_new:spell_points_leather, ~tostring_spacer(calc(enum(int, int, enum_3674, 5) * 10), ","));
+if_settext(lunarfm_rewards_new:spell_points_shield, ~tostring_spacer(calc(enum(int, int, enum_3674, 6) * 10), ","));
+if_settext(lunarfm_rewards_new:spell_points_vengeance, ~tostring_spacer(calc(enum(int, int, enum_3674, 7) * 10), ","));
+if_settext(lunarfm_rewards_new:wish_points_vial, ~tostring_spacer(calc(550 * 10), ","));
+if_settext(lunarfm_rewards_new:wish_points_herbs, ~tostring_spacer(calc(1800 * 10), ","));
+if_settext(lunarfm_rewards_new:wish_points_seeds, ~tostring_spacer(calc(1800 * 10), ","));
+if_settext(lunarfm_rewards_new:wish_points_runes, ~tostring_spacer(calc(550 * 10), ","));
+if_settext(lunarfm_rewards_new:wish_points_planks, ~tostring_spacer(calc(1800 * 10), ","));
+if_settext(lunarfm_rewards_new:wish_points_burn, ~tostring_spacer(calc(1800 * 10), ","));

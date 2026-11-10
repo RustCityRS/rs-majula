@@ -5,7 +5,7 @@
 // - The id's dont match up but what are the odds that our only
 // zombies add up to 5?
 // 289's zombie_unarmed is 2011's zombie (73, the same npc).
-[ai_timer,zombie] @zombie_brains;
+[ai_timer,zombie_unarmed] @zombie_brains;
 [ai_timer,zombie2] @zombie_brains;
 [ai_timer,zombie_armed] @zombie_brains;
 [ai_timer,zombie_entranan] @zombie_brains;
@@ -15,46 +15,46 @@
 // [ai_timer,dragonslayer_zombie] @zombie_brains;
 
 // 2011's re-issues of these zombies (npc/configs/npc_clones_2011.npc).
-[ai_timer,zombie_4392] @zombie_brains;
-[ai_timer,zombie_5293] @zombie_brains;
-[ai_timer,zombie_5294] @zombie_brains;
-[ai_timer,zombie_5295] @zombie_brains;
-[ai_timer,zombie_5296] @zombie_brains;
-[ai_timer,zombie_5297] @zombie_brains;
-[ai_timer,zombie_5298] @zombie_brains;
-[ai_timer,zombie_5300] @zombie_brains;
-[ai_timer,zombie_5303] @zombie_brains;
-[ai_timer,zombie_5304] @zombie_brains;
-[ai_timer,zombie_5305] @zombie_brains;
-[ai_timer,zombie_5306] @zombie_brains;
-[ai_timer,zombie_5307] @zombie_brains;
-[ai_timer,zombie_5308] @zombie_brains;
-[ai_timer,zombie_5309] @zombie_brains;
-[ai_timer,zombie_5310] @zombie_brains;
-[ai_timer,zombie_5311] @zombie_brains;
-[ai_timer,zombie_5312] @zombie_brains;
-[ai_timer,zombie_5313] @zombie_brains;
-[ai_timer,zombie_5314] @zombie_brains;
-[ai_timer,zombie_5315] @zombie_brains;
-[ai_timer,zombie_5316] @zombie_brains;
-[ai_timer,zombie_5318] @zombie_brains;
-[ai_timer,zombie_5319] @zombie_brains;
-[ai_timer,zombie_5320] @zombie_brains;
-[ai_timer,zombie_5321] @zombie_brains;
-[ai_timer,zombie_5322] @zombie_brains;
-[ai_timer,zombie_5323] @zombie_brains;
-[ai_timer,zombie_5324] @zombie_brains;
-[ai_timer,zombie_5325] @zombie_brains;
-[ai_timer,zombie_5326] @zombie_brains;
-[ai_timer,zombie_5327] @zombie_brains;
-[ai_timer,zombie_5328] @zombie_brains;
-[ai_timer,zombie_5329] @zombie_brains;
-[ai_timer,zombie_5330] @zombie_brains;
-[ai_timer,zombie_5331] @zombie_brains;
-[ai_timer,zombie_5375] @zombie_brains;
-[ai_timer,zombie_5376] @zombie_brains;
-[ai_timer,zombie_6099] @zombie_brains;
-[ai_timer,zombie_6100] @zombie_brains;
+[ai_timer,sos_fam_zombie_unarmed] @zombie_brains;
+[ai_timer,zombie_unarmed2] @zombie_brains;
+[ai_timer,zombie_unarmed3] @zombie_brains;
+[ai_timer,zombie_unarmed4] @zombie_brains;
+[ai_timer,zombie_unarmed5] @zombie_brains;
+[ai_timer,zombie_unarmed6] @zombie_brains;
+[ai_timer,zombie_unarmed_city1] @zombie_brains;
+[ai_timer,zombie_unarmed_city3] @zombie_brains;
+[ai_timer,zombie_unarmed_city6] @zombie_brains;
+[ai_timer,zombie_unarmed_sewer1] @zombie_brains;
+[ai_timer,zombie_unarmed_sewer2] @zombie_brains;
+[ai_timer,zombie_unarmed_sewer3] @zombie_brains;
+[ai_timer,zombie_unarmed_sewer4] @zombie_brains;
+[ai_timer,zombie2_b] @zombie_brains;
+[ai_timer,zombie2_c] @zombie_brains;
+[ai_timer,zombie2_rural1] @zombie_brains;
+[ai_timer,zombie2_rural2] @zombie_brains;
+[ai_timer,zombie2_rural3] @zombie_brains;
+[ai_timer,zombie2_rural4] @zombie_brains;
+[ai_timer,zombie_armed2] @zombie_brains;
+[ai_timer,zombie_armed3] @zombie_brains;
+[ai_timer,zombie_armed_city1] @zombie_brains;
+[ai_timer,zombie_armed_city3] @zombie_brains;
+[ai_timer,zombie_armed_sewer1] @zombie_brains;
+[ai_timer,zombie_armed_sewer2] @zombie_brains;
+[ai_timer,zombie_armed_sewer3] @zombie_brains;
+[ai_timer,zombie_armed_sewer4] @zombie_brains;
+[ai_timer,zombie_armed_rural1] @zombie_brains;
+[ai_timer,zombie_armed_rural2] @zombie_brains;
+[ai_timer,zombie_armed_rural3] @zombie_brains;
+[ai_timer,zombie_armed_rural4] @zombie_brains;
+[ai_timer,zombie_armed_rural5] @zombie_brains;
+[ai_timer,zombie_entranan2] @zombie_brains;
+[ai_timer,zombie_entranan3] @zombie_brains;
+[ai_timer,zombie_entranan4] @zombie_brains;
+[ai_timer,zombie_entranan5] @zombie_brains;
+[ai_timer,sos_fam_zombie_unarmed2] @zombie_brains;
+[ai_timer,sos_fam_zombie_unarmed3] @zombie_brains;
+[ai_timer,dragonslayer_zombie_1_key] @zombie_brains;
+[ai_timer,dragonslayer_zombie_2] @zombie_brains;
 
 [label,zombie_brains]
 if (finduid(%npc_attacking_uid) = true) {

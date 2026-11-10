@@ -6,7 +6,7 @@ if (~clanwars_setup_clicktest($int0) = false) {
 if (map_members = false & struct_param(enum(int, struct, enum_1604, $int1), param_557) = true) {
     return;
 }
-if (%varclient_257 ! $int1) {
-    %varclient_257 = $int1;
+if (%clanwars_rulevarc_arenachoice ! $int1) {
+    %clanwars_rulevarc_arenachoice = $int1;
     ~script1781;
 }

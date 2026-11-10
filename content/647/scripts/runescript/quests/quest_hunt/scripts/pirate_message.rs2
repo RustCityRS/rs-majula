@@ -2,11 +2,11 @@
 // calls loc 2079 plain "chest", at 3219,3396 upstairs) with 2011's opening, from the 2011-04-26
 // recording (YouTube GTgKzVezVDo, 437-440s): "You unlock the chest." in the same tick as the
 // message line, and the message taken about four ticks later (289 waits eight).
-[oploc1,chest]
+[oploc1,piratechest]
 mes("The chest is locked.");
 sound_synth(locked, 1, 0);
 
-[oplocu,chest]
+[oplocu,piratechest]
 if (last_useitem ! chest_key) {
     ~displaymessage(^dm_default);
     return;
@@ -23,9 +23,9 @@ p_delay(3);
 
 mes("You take the message from the chest.");
 inv_del(inv, chest_key, 1);
-inv_add(inv, pirate_message, 1);
+inv_add(inv, piratemessage, 1);
 
-[opheld1,pirate_message]
+[opheld1,piratemessage]
 if (%hunt = ^hunt_received_key) {
     %hunt = ^hunt_read_note;
 }

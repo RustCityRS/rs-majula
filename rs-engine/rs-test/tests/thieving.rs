@@ -176,7 +176,7 @@ fn the_bakers_stall_hides_a_thief_from_the_baker() {
         // within 5 tiles (stealing_check_for_guard, _for_owner). The stall
         // hides the thief only while they stand behind it: wait for a tick
         // when none can see the thief's tile, as a player would.
-        let watchers: Vec<u16> = ["baker", "ardougne_guard"]
+        let watchers: Vec<u16> = ["baker_merchant", "ardougne_guard"]
             .iter()
             .map(|n| *engine.cache.npcs.debugnames.get(*n).unwrap())
             .collect();
@@ -314,16 +314,16 @@ fn the_market_guards_carry_market_guard() {
         for name in [
             "ardougne_guard",
             "paladin",
-            "paladin_2256",
+            "paladin2",
             "hero",
             "knight_of_ardougne",
             "knight_of_ardougne2",
-            "market_guard",
+            "viking_guard",
             "viking_guard2",
-            "skraeling",
-            "skraeling_1368",
-            "skraeling_1389",
-            "skraeling_1391",
+            "etc_guard1",
+            "etc_guard2",
+            "misc_man_4",
+            "misc_man_6",
         ] {
             let id = *engine.cache.npcs.debugnames.get(name).expect(name);
             let value = engine

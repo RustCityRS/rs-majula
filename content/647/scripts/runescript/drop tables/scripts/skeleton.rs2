@@ -1,5 +1,5 @@
-[ai_queue3,skeleton] @skeleton_unarmed;
 [ai_queue3,skeleton_unarmed] @skeleton_unarmed;
+[ai_queue3,skeleton_unagressive] @skeleton_unarmed;
 
 [label,skeleton_unarmed]
 gosub(npc_death);
@@ -18,15 +18,15 @@ if ($random < 7) {
 } else if ($random < 15) {
     obj_add(npc_coord, iron_arrow, 1, ^lootdrop_duration);
 } else if ($random < 17) {
-    obj_add(npc_coord, air_rune, 15, ^lootdrop_duration);
+    obj_add(npc_coord, airrune, 15, ^lootdrop_duration);
 } else if ($random < 19) {
-    obj_add(npc_coord, earth_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, earthrune, 3, ^lootdrop_duration);
 } else if ($random < 21) {
-    obj_add(npc_coord, fire_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 2, ^lootdrop_duration);
 } else if ($random < 23) {
-    obj_add(npc_coord, chaos_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 3, ^lootdrop_duration);
 } else if ($random < 24) {
-    obj_add(npc_coord, nature_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 3, ^lootdrop_duration);
 } else if ($random < 25) {
     obj_add(npc_coord, steel_arrow, 1, ^lootdrop_duration);
 } else if ($random < 46) {
@@ -67,22 +67,22 @@ if ($random < 7) {
 // the Stronghold of Security's 4384-4386 and 5365-5368 (levels 60, 68 and 85).
 // The 2011 wiki's Skeleton (18 May 2011) gives every level one drop list, so
 // 289's.
-[ai_queue3,skeleton_5337] @skeleton_armed;
-[ai_queue3,skeleton_5338] @skeleton_armed;
-[ai_queue3,skeleton_5339] @skeleton_armed;
-[ai_queue3,skeleton_5340] @skeleton_armed;
-[ai_queue3,skeleton_2036] @skeleton_armed;
-[ai_queue3,skeleton_2037] @skeleton_armed;
-[ai_queue3,skeleton_5381] @skeleton_armed;
-[ai_queue3,skeleton_5422] @skeleton_armed;
-[ai_queue3,skeleton_5386] @skeleton_armed;
-[ai_queue3,skeleton_4384] @skeleton_armed;
-[ai_queue3,skeleton_4385] @skeleton_armed;
-[ai_queue3,skeleton_4386] @skeleton_armed;
-[ai_queue3,skeleton_5365] @skeleton_armed;
-[ai_queue3,skeleton_5366] @skeleton_armed;
-[ai_queue3,skeleton_5367] @skeleton_armed;
-[ai_queue3,skeleton_5368] @skeleton_armed;
+[ai_queue3,skeleton_armed2] @skeleton_armed;
+[ai_queue3,skeleton_armed3] @skeleton_armed;
+[ai_queue3,skeleton_armed4] @skeleton_armed;
+[ai_queue3,skeleton_armed5] @skeleton_armed;
+[ai_queue3,barrows_skeleton_unarmed] @skeleton_armed;
+[ai_queue3,barrows_skeleton_armed] @skeleton_armed;
+[ai_queue3,barrows_skeleton_unarmed2] @skeleton_armed;
+[ai_queue3,barrows_skeleton_armed2] @skeleton_armed;
+[ai_queue3,lotr_skeleton_lvl_77] @skeleton_armed;
+[ai_queue3,sos_death_skeleton_unarmed] @skeleton_armed;
+[ai_queue3,sos_death_skeleton_unarmed2] @skeleton_armed;
+[ai_queue3,sos_death_skeleton_armed] @skeleton_armed;
+[ai_queue3,sos_death_skeleton_unarmed3] @skeleton_armed;
+[ai_queue3,sos_death_skeleton_unarmed4] @skeleton_armed;
+[ai_queue3,sos_death_skeleton_armed2] @skeleton_armed;
+[ai_queue3,sos_death_skeleton_armed3] @skeleton_armed;
 
 [label,skeleton_armed]
 gosub(npc_death);
@@ -99,21 +99,21 @@ if ($random < 6) {
 } else if ($random < 10) {
     obj_add(npc_coord, iron_sword, 1, ^lootdrop_duration);
 } else if ($random < 12) {
-    obj_add(npc_coord, iron_hatchet, 1, ^lootdrop_duration);
+    obj_add(npc_coord, iron_axe, 1, ^lootdrop_duration);
 } else if ($random < 13) {
     obj_add(npc_coord, iron_scimitar, 1, ^lootdrop_duration);
 } else if ($random < 16) {
-    obj_add(npc_coord, air_rune, 15, ^lootdrop_duration);
+    obj_add(npc_coord, airrune, 15, ^lootdrop_duration);
 } else if ($random < 19) {
-    obj_add(npc_coord, water_rune, 9, ^lootdrop_duration);
+    obj_add(npc_coord, waterrune, 9, ^lootdrop_duration);
 } else if ($random < 22) {
-    obj_add(npc_coord, chaos_rune, 5, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 5, ^lootdrop_duration);
 } else if ($random < 24) {
     obj_add(npc_coord, iron_arrow, 12, ^lootdrop_duration);
 } else if ($random < 26) {
-    obj_add(npc_coord, law_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 2, ^lootdrop_duration);
 } else if ($random < 27) {
-    obj_add(npc_coord, cosmic_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, cosmicrune, 2, ^lootdrop_duration);
 } else if ($random < 47) {
     obj_add(npc_coord, ~randomherb, ^lootdrop_duration);
 } else if ($random < 71) {

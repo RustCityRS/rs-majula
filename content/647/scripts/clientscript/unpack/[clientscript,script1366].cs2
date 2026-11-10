@@ -1,9 +1,9 @@
 // 1366
 [clientscript,script1366]
-if (%varplayer_380 = 25) {
-    if_settext("Time until next game starts: 0", castlewars_status_overlay:castlewars_status);
-} else if (%varplayer_380 > 0) {
-    if_settext("Time until next game starts: <tostring(%varplayer_380)>", castlewars_status_overlay:castlewars_status);
+if (%castlewars_timer = 25) {
+    if_settext(castlewars_status_overlay:castlewars_status, "Time until next game starts: 0");
+} else if (%castlewars_timer > 0) {
+    if_settext(castlewars_status_overlay:castlewars_status, "Time until next game starts: <tostring(%castlewars_timer)>");
 } else {
-    if_settext("Waiting for players to join the other team.", castlewars_status_overlay:castlewars_status);
+    if_settext(castlewars_status_overlay:castlewars_status, "Waiting for players to join the other team.");
 }

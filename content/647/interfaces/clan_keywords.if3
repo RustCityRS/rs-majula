@@ -12,7 +12,7 @@ y=45
 height=177
 widthmode=minus
 layer=content_layer
-onvartransmit=clan_keywords_update{varplayer_2138, varplayer_2138, varplayer_2139, varplayer_2139, varplayer_2140, varplayer_2140, varplayer_2141, varplayer_2141, varplayer_2142, varplayer_2142, varplayer_2138, varplayer_2138, varplayer_2139, varplayer_2139, varplayer_2140, varplayer_2140, varplayer_2141, varplayer_2141, varplayer_2142, varplayer_2142}
+onvartransmit=clan_keywords_update{clan_keyword_main1_varp, clan_keyword_main1_varp, clan_keyword_main2_varp, clan_keyword_main2_varp, clan_keyword_main3_varp, clan_keyword_main3_varp, clan_keyword_main4_varp, clan_keyword_main4_varp, clan_keyword_main5_varp, clan_keyword_main5_varp, clan_keyword_main1_varp, clan_keyword_main1_varp, clan_keyword_main2_varp, clan_keyword_main2_varp, clan_keyword_main3_varp, clan_keyword_main3_varp, clan_keyword_main4_varp, clan_keyword_main4_varp, clan_keyword_main5_varp, clan_keyword_main5_varp}
 
 // 1097:2
 [ok_button_layer]
@@ -566,7 +566,7 @@ heightmode=minus
 layer=ok_button_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 
 // 1097:52
@@ -704,7 +704,7 @@ heightmode=minus
 layer=cancel_button_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=closebutton_click
 

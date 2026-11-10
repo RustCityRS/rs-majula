@@ -1,6 +1,6 @@
 // 2583
 [proc,script2583]
-if_setcolour(0xff9935, mob_squad_exchange:resupply_text);
-if_setop(1, "Resupply", mob_squad_exchange:resupply);
-if_setonop("script2592(event_com)", mob_squad_exchange:resupply);
-if_setonclick(null, mob_squad_exchange:resupply);
+if_setcolour(mob_squad_exchange:resupply_text, 0xff9935);
+if_setop(mob_squad_exchange:resupply, 1, "Resupply");
+if_setonop(mob_squad_exchange:resupply, "script2592(event_com)");
+if_setonclick(mob_squad_exchange:resupply, null);

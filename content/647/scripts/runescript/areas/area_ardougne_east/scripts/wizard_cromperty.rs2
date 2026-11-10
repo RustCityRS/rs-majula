@@ -1,5 +1,5 @@
 // 289's ardounge_wizard (844) is nameless in 2011; Wizard Cromperty is 2328.
-[opnpc1,wizard_cromperty]
+[opnpc1,cromperty]
 ~chatnpc("<p,neutral>Hello there.|My name is Cromperty.|I am a Wizard, and an inventor.");
 if(%runemysteries = ^runemysteries_complete) {
 @multi3("Two jobs? That's got to be tough.", cromperty_two_jobs, "So what have you invented?", cromperty_what_invented, "Can you teleport me to the Rune Essence?", cromperty_ess);
@@ -7,7 +7,7 @@ if(%runemysteries = ^runemysteries_complete) {
 @multi2("Two jobs? That's got to be tough.", cromperty_two_jobs, "So what have you invented?", cromperty_what_invented);
 }
 
-[opnpc3,wizard_cromperty]
+[opnpc3,cromperty]
 @teleport_to_essence_mine(^essence_mine_to_cromperty);
 
 [label,cromperty_two_jobs]

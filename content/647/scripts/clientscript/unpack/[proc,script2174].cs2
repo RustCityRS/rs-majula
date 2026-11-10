@@ -9,6 +9,6 @@ while ($int0 < $int2) {
     } else {
         $int1 = 141;
     }
-    if_settrans($int1, enum(int, component, enum_964, $int0));
+    if_settrans(enum(int, component, enum_964, $int0), $int1);
     $int0 = calc($int0 + 1);
 }

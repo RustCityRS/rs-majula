@@ -1,10 +1,10 @@
 // 1129
 [proc,cursors_login]
-setdefaultcursors(cursor_36, cursor_41);
-sethardcodedopcursors(cursor_46, null);
-if (%varclient_987 = true | %varclient_987 = false) {
-    detail_customcursors(%varclient_987);
+setdefaultcursors(cursor_default, cursor_blank);
+sethardcodedopcursors(cursor_use, null);
+if (%option_cursor = true | %option_cursor = false) {
+    detail_customcursors(%option_cursor);
 } else {
-    %varclient_987 = true;
-    detail_customcursors(%varclient_987);
+    %option_cursor = true;
+    detail_customcursors(%option_cursor);
 }

@@ -27,9 +27,9 @@ if ($int0 ! 10) {
             $int15 = 2047;
         }
     }
-    if_setmodelangle(0, 0, 512, $int15, 0, 3500, $component2);
-    if_setmodelangle(0, 0, 512, $int15, 0, 3500, $component3);
-    if_setmodelangle(0, 0, 512, $int15, 0, 3500, $component4);
+    if_setmodelangle($component2, 0, 0, 512, $int15, 0, 3500);
+    if_setmodelangle($component3, 0, 0, 512, $int15, 0, 3500);
+    if_setmodelangle($component4, 0, 0, 512, $int15, 0, 3500);
     if (~script850($int5) ! ~script850($int6)) {
         if ($int15 = 512 | $int15 = 1536) {
             $int9 = 9;
@@ -43,6 +43,6 @@ if ($int0 ! 10) {
         $int13 = calc($int13 + $int9 + $int7);
         $int14 = calc($int14 + $int10 + $int8);
     }
-    if_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top, $component2);
-    if_setposition($int13, $int14, ^setpos_abs_left, ^setpos_abs_top, $component3);
+    if_setposition($component2, $int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition($component3, $int13, $int14, ^setpos_abs_left, ^setpos_abs_top);
 }

@@ -1,10 +1,10 @@
 // 1756
 [clientscript,brew_bark](component $component0, component $component1)
-if (%varclient_225 > 0) {
-    if_setmodel(model_15667, $component0);
-    if_setcolour(0x33ff00, $component1);
+if (%brew_varc_bark > 0) {
+    if_setmodel($component0, model_15667);
+    if_setcolour($component1, 0x33ff00);
 } else {
-    if_setmodel(model_15659, $component0);
-    if_setcolour(0x910000, $component1);
+    if_setmodel($component0, model_15659);
+    if_setcolour($component1, 0x910000);
 }
-if_settext(tostring(%varclient_225), $component1);
+if_settext($component1, tostring(%brew_varc_bark));

@@ -1,10 +1,10 @@
 // 1182
 [proc,lobby_friends_join](int $int0)
 if (worldlist_fetch = false) {
-    if_setontimer("lobby_friends_join($int0)", lobbyscreen_pane_friendslist:friends_title);
+    if_setontimer(lobbyscreen_pane_friendslist:friends_title, "lobby_friends_join($int0)");
     return;
 } else {
-    if_setontimer(null, lobbyscreen_pane_friendslist:friends_title);
+    if_setontimer(lobbyscreen_pane_friendslist:friends_title, null);
 }
 def_int $int1 = 0;
 def_string $string0 = "";
@@ -14,7 +14,7 @@ $int2, $string0, $int1, $string0, $int1, $int1, $string1 = worldlist_specific($i
 if ($int2 = -1) {
     mes("Sorry, you can't join that person.");
 } else if (worldlist_switch($int0, $string1) = true) {
-    %varclient_547 = 0;
+    %loginscreen_pvp_warned = 0;
     ~script3143(0, "Switched to game world <tostring($int0)>");
     ~lobbyscreen_entergame(lobbyscreen:loginbutton);
 } else {

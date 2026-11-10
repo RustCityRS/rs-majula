@@ -1,9 +1,9 @@
 // 596
 [clientscript,stock_offercount_minus]
 def_string $string0 = null;
-if (%varclient_84 > 0) {
-    %varclient_84 = calc(%varclient_84 - 1);
-    $string0 = tostring_localised(%varclient_84, true);
-    if_settext($string0, stockmarket:offercount);
+if (%stock_offercount_visible > 0) {
+    %stock_offercount_visible = calc(%stock_offercount_visible - 1);
+    $string0 = tostring_localised(%stock_offercount_visible, true);
+    if_settext(stockmarket:offercount, $string0);
     ~sm_offercount_settimer;
 }

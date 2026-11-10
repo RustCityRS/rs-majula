@@ -24,8 +24,8 @@ while ($int1 < 30) {
     cc_create($component0, ^iftype_graphic, $int1);
     cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc((36 + $int2) * ($int1 % $int4)), calc($int1 / $int4 * (32 + $int3)), ^setpos_abs_left, ^setpos_abs_top);
-    cc_setobject_alwaysnum(enum(int, namedobj, enum_3272, $int1), testbit(%varclient_1352, $int1));
-    if (testbit(%varclient_1352, $int1) = ^true) {
+    cc_setobject_alwaysnum(enum(int, namedobj, enum_3272, $int1), testbit(%statue_bag_client, $int1));
+    if (testbit(%statue_bag_client, $int1) = ^true) {
         cc_setop(1, "Take<col=ff9040>");
         cc_setoutline(2);
     } else {

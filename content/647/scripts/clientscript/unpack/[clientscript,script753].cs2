@@ -1,19 +1,19 @@
 // 753
 [clientscript,script753]
-if (%varplayerbit_4286 ! 101) {
-    if_settext("<tostring(%varplayerbit_4286)>%", lore_stats_side:hunger);
-    if (%varplayerbit_4286 > 74) {
-        if_setcolour(^red, lore_stats_side:hunger);
+if (%lore_animal_hunger_percent ! 101) {
+    if_settext(lore_stats_side:hunger, "<tostring(%lore_animal_hunger_percent)>%");
+    if (%lore_animal_hunger_percent > 74) {
+        if_setcolour(lore_stats_side:hunger, ^red);
     } else {
-        if_setcolour(^white, lore_stats_side:hunger);
+        if_setcolour(lore_stats_side:hunger, ^white);
     }
 } else {
-    if_settext("NA", lore_stats_side:hunger);
+    if_settext(lore_stats_side:hunger, "NA");
 }
-if (%varplayerbit_4285 ! 101) {
-    if_settext("<tostring(%varplayerbit_4285)>%", lore_stats_side:size_percentage);
-    if_settext("<tostring(%varplayerbit_4285)>%", lore_stats_side:size_percent);
+if (%lore_animal_size_percent ! 101) {
+    if_settext(lore_stats_side:size_percentage, "<tostring(%lore_animal_size_percent)>%");
+    if_settext(lore_stats_side:size_percent, "<tostring(%lore_animal_size_percent)>%");
 } else {
-    if_settext("NA", lore_stats_side:size_percentage);
-    if_settext("NA", lore_stats_side:size_percent);
+    if_settext(lore_stats_side:size_percentage, "NA");
+    if_settext(lore_stats_side:size_percent, "NA");
 }

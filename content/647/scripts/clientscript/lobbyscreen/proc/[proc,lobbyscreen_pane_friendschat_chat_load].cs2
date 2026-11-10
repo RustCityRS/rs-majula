@@ -1,6 +1,6 @@
 // 4565
 [proc,lobbyscreen_pane_friendschat_chat_load](component $component0)
-if_setonfriendtransmit("lobbyscreen_pane_friendschat_chat_build($component0)", $component0);
-if_setonclantransmit("lobbyscreen_pane_friendschat_chat_build($component0)", $component0);
-if_setonchattransmit("lobbyscreen_pane_friendschat_chat_build($component0)", $component0);
+if_setonfriendtransmit($component0, "lobbyscreen_pane_friendschat_chat_build($component0)");
+if_setonclantransmit($component0, "lobbyscreen_pane_friendschat_chat_build($component0)");
+if_setonchattransmit($component0, "lobbyscreen_pane_friendschat_chat_build($component0)");
 ~lobbyscreen_pane_friendschat_chat_build($component0);

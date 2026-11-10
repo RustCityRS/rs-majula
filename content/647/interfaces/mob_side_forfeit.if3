@@ -41,7 +41,7 @@ textalignv=centre
 textshadow=yes
 colour=0xe79935
 onload=mob_command_onload
-onvarctransmit=mob_highlight_stop{varclient_904}
+onvarctransmit=mob_highlight_stop{mob_client_highlight}
 
 // 840:4
 [confirm_layer]
@@ -67,7 +67,7 @@ textalignv=centre
 textshadow=yes
 colour=0xe79935
 onload=mob_command_onload
-onvarctransmit=mob_highlight_stop{varclient_904}
+onvarctransmit=mob_highlight_stop{mob_client_highlight}
 
 // 840:6
 [confirm]
@@ -98,7 +98,7 @@ textalignv=centre
 textshadow=yes
 colour=0xe79935
 onload=mob_command_onload
-onvarctransmit=mob_highlight_stop{varclient_904}
+onvarctransmit=mob_highlight_stop{mob_client_highlight}
 
 // 840:8
 [decline]
@@ -129,7 +129,7 @@ textalignv=centre
 textshadow=yes
 colour=0xe79935
 onload=mob_command_onload
-onvarctransmit=mob_highlight_stop{varclient_904}
+onvarctransmit=mob_highlight_stop{mob_client_highlight}
 
 // 840:10
 [desc]

@@ -13,8 +13,8 @@ def_int $int8 = 0;
 cc_deleteall($component3);
 cc_deleteall($component6);
 if (activeclansettings_find_affined = true) {
-    if_settext("", clan_chat:ignore_info_txt);
-    if_sethide(true, clan_chat:ignore_info_layer);
+    if_settext(clan_chat:ignore_info_txt, "");
+    if_sethide(clan_chat:ignore_info_layer, true);
     $int1 = activeclansettings_getbannedcount;
     while ($int0 < $int1) {
         $int8 = calc($int0 * 19);
@@ -53,14 +53,14 @@ if (activeclansettings_find_affined = true) {
         $int0 = calc($int0 + 1);
     }
 } else {
-    if_sethide(false, clan_chat:ignore_info_layer);
-    if_settext("You must be part of a clan to<br>view the ban list.", clan_chat:ignore_info_txt);
+    if_sethide(clan_chat:ignore_info_layer, false);
+    if_settext(clan_chat:ignore_info_txt, "You must be part of a clan to<br>view the ban list.");
     cc_deleteall($component3);
     cc_deleteall($component6);
 }
-if_sethide(false, $component5);
+if_sethide($component5, false);
 def_int $int9 = if_getscrolly(clan_chat:ignore_list_scrolling_layer);
-if_setscrollsize(if_getwidth(clan_chat:ignore_list_scrolling_layer), calc($int2 * max($int1, $int7)), clan_chat:ignore_list_scrolling_layer);
+if_setscrollsize(clan_chat:ignore_list_scrolling_layer, if_getwidth(clan_chat:ignore_list_scrolling_layer), calc($int2 * max($int1, $int7)));
 $int9 = min($int9, if_getscrollheight(clan_chat:ignore_list_scrolling_layer));
-if_setscrollpos(0, $int9, clan_chat:ignore_list_scrolling_layer);
+if_setscrollpos(clan_chat:ignore_list_scrolling_layer, 0, $int9);
 ~scrollbar_vertical(clan_chat:ignorelistscrollbar, clan_chat:ignore_list_scrolling_layer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");

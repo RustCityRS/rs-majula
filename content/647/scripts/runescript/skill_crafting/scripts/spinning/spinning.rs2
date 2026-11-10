@@ -23,7 +23,7 @@ switch_obj (last_useitem)
             return;
         }
         @craft_spinning(last_useitem);
-    case golden_fleece : // this still delays after other objs were changed to use weakqueue, also not weakqueueable until after 2007
+    case viking_golden_fleece : // this still delays after other objs were changed to use weakqueue, also not weakqueueable until after 2007
         if (map_members = ^false) {
             mes(^mes_members_feature);
             return;
@@ -31,8 +31,8 @@ switch_obj (last_useitem)
         anim(seq_894, 0);
         loc_anim(seq_466);
         sound_synth(spinning, 1, 0);
-        inv_del(inv, golden_fleece, 1);
-        inv_add(inv, golden_wool, 1);
+        inv_del(inv, viking_golden_fleece, 1);
+        inv_add(inv, viking_golden_wool, 1);
         mes("You spin the fleece into some golden string.");
         // 289 pays with stat_advance, here and below; 2011's xp counter
         // counts what ~givexp pays (player/scripts/xp.rs2).
@@ -40,7 +40,7 @@ switch_obj (last_useitem)
         p_delay(2);
     case ball_of_wool : ~objbox(ball_of_wool, "You have already spun this wool.", 250, 0, divide(^objbox_height, 2));
     case bow_string : ~objbox(bow_string, "You have already spun this bow string.", 250, 0, divide(^objbox_height, 2));
-    case golden_wool : ~objbox(golden_wool, "You have already spun this wool.", 250, 0, divide(^objbox_height, 2));
+    case viking_golden_wool : ~objbox(viking_golden_wool, "You have already spun this wool.", 250, 0, divide(^objbox_height, 2));
     case default : ~displaymessage(^dm_default);
 }
 

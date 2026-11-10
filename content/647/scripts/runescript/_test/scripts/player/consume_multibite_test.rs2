@@ -10,80 +10,80 @@
 [label,test_multibite_apple_pie]
 setup_player("test_player")
 assert_eq(oc_param(apple_pie, next_obj_stage), half_an_apple_pie)
-assert_eq(oc_param(half_an_apple_pie, next_obj_stage), pie_dish)
+assert_eq(oc_param(half_an_apple_pie, next_obj_stage), piedish)
 assert_eq(~food_heal(apple_pie), 70)
 assert_eq(~food_heal(half_an_apple_pie), 70)
 
 [label,test_multibite_redberry_pie]
 setup_player("test_player")
 assert_eq(oc_param(redberry_pie, next_obj_stage), half_a_redberry_pie)
-assert_eq(oc_param(half_a_redberry_pie, next_obj_stage), pie_dish)
+assert_eq(oc_param(half_a_redberry_pie, next_obj_stage), piedish)
 assert_eq(~food_heal(redberry_pie), 50)
 assert_eq(~food_heal(half_a_redberry_pie), 50)
 
 [label,test_multibite_meat_pie]
 setup_player("test_player")
 assert_eq(oc_param(meat_pie, next_obj_stage), half_a_meat_pie)
-assert_eq(oc_param(half_a_meat_pie, next_obj_stage), pie_dish)
+assert_eq(oc_param(half_a_meat_pie, next_obj_stage), piedish)
 assert_eq(~food_heal(meat_pie), 60)
 assert_eq(~food_heal(half_a_meat_pie), 60)
 
 // ── Cakes: cake -> 2_3 -> slice (terminal, next=null) ────────────────
 [label,test_multibite_cake]
 setup_player("test_player")
-assert_eq(oc_param(cake, next_obj_stage), 2_3_cake)
-assert_eq(oc_param(2_3_cake, next_obj_stage), slice_of_cake)
+assert_eq(oc_param(cake, next_obj_stage), partial_cake)
+assert_eq(oc_param(partial_cake, next_obj_stage), cake_slice)
 def_int $term = 0
-if (oc_param(slice_of_cake, next_obj_stage) = null) {
+if (oc_param(cake_slice, next_obj_stage) = null) {
     $term = 1
 }
 assert_eq($term, 1)
 assert_eq(~food_heal(cake), 40)
-assert_eq(~food_heal(2_3_cake), 40)
-assert_eq(~food_heal(slice_of_cake), 40)
+assert_eq(~food_heal(partial_cake), 40)
+assert_eq(~food_heal(cake_slice), 40)
 
 [label,test_multibite_chocolate_cake]
 setup_player("test_player")
-assert_eq(oc_param(chocolate_cake, next_obj_stage), 2_3_chocolate_cake)
-assert_eq(oc_param(2_3_chocolate_cake, next_obj_stage), chocolate_slice)
+assert_eq(oc_param(chocolate_cake, next_obj_stage), partial_chocolate_cake)
+assert_eq(oc_param(partial_chocolate_cake, next_obj_stage), chocolate_slice)
 def_int $term = 0
 if (oc_param(chocolate_slice, next_obj_stage) = null) {
     $term = 1
 }
 assert_eq($term, 1)
 assert_eq(~food_heal(chocolate_cake), 50)
-assert_eq(~food_heal(2_3_chocolate_cake), 50)
+assert_eq(~food_heal(partial_chocolate_cake), 50)
 assert_eq(~food_heal(chocolate_slice), 50)
 
 // ── Pizzas: X_pizza -> 1_2_X_pizza (terminal, next=null) ─────────────
 [label,test_multibite_plain_pizza]
 setup_player("test_player")
-assert_eq(oc_param(plain_pizza, next_obj_stage), 1_2_plain_pizza)
+assert_eq(oc_param(plain_pizza, next_obj_stage), half_plain_pizza)
 def_int $term = 0
-if (oc_param(1_2_plain_pizza, next_obj_stage) = null) {
+if (oc_param(half_plain_pizza, next_obj_stage) = null) {
     $term = 1
 }
 assert_eq($term, 1)
 assert_eq(~food_heal(plain_pizza), 70)
-assert_eq(~food_heal(1_2_plain_pizza), 70)
+assert_eq(~food_heal(half_plain_pizza), 70)
 
 [label,test_multibite_meat_pizza]
 setup_player("test_player")
-assert_eq(oc_param(meat_pizza, next_obj_stage), 1_2_meat_pizza)
+assert_eq(oc_param(meat_pizza, next_obj_stage), half_meat_pizza)
 assert_eq(~food_heal(meat_pizza), 80)
-assert_eq(~food_heal(1_2_meat_pizza), 80)
+assert_eq(~food_heal(half_meat_pizza), 80)
 
 [label,test_multibite_anchovy_pizza]
 setup_player("test_player")
-assert_eq(oc_param(anchovy_pizza, next_obj_stage), 1_2_anchovy_pizza)
-assert_eq(~food_heal(anchovy_pizza), 90)
-assert_eq(~food_heal(1_2_anchovy_pizza), 90)
+assert_eq(oc_param(anchovie_pizza, next_obj_stage), half_anchovie_pizza)
+assert_eq(~food_heal(anchovie_pizza), 90)
+assert_eq(~food_heal(half_anchovie_pizza), 90)
 
 [label,test_multibite_pineapple_pizza]
 setup_player("test_player")
-assert_eq(oc_param(pineapple_pizza, next_obj_stage), 1_2_p_apple_pizza)
+assert_eq(oc_param(pineapple_pizza, next_obj_stage), half_pineapple_pizza)
 assert_eq(~food_heal(pineapple_pizza), 110)
-assert_eq(~food_heal(1_2_p_apple_pizza), 110)
+assert_eq(~food_heal(half_pineapple_pizza), 110)
 
 // ── Integration: a stage routes its heal to the life-points pool ─────
 [label,test_eat_apple_pie_heals_70]

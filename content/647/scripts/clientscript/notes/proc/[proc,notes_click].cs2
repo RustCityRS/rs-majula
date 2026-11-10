@@ -5,15 +5,15 @@ while (cc_find(notes:main, $int1) = true) {
     cc_setop(1, "Select");
     $int1 = calc($int1 + 1);
 }
-if (cc_find(notes:main, %varplayer_1439) = true) {
+if (cc_find(notes:main, %notes_selected) = true) {
     cc_setop(1, "Unselect");
     if (if_gethide(notes:dragger) = false) {
-        if_sethide(true, notes:selected);
+        if_sethide(notes:selected, true);
         return;
     }
-    if_sethide(false, notes:selected);
-    if_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top, notes:selected);
-    if_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs, notes:selected);
+    if_sethide(notes:selected, false);
+    if_setposition(notes:selected, cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(notes:selected, cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
     if ($int0 = 1) {
         if (cc_gety < if_getscrolly(notes:main)) {
             ~scrollbar_ondrag_doscroll(notes:scrollbar, notes:main, calc(cc_gety - 5), 1);
@@ -22,5 +22,5 @@ if (cc_find(notes:main, %varplayer_1439) = true) {
         }
     }
 } else {
-    if_sethide(true, notes:selected);
+    if_sethide(notes:selected, true);
 }

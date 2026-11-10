@@ -4,7 +4,7 @@ def_int $int0 = create_reply;
 if ($int0 = -3) {
     return;
 }
-if_setontimer(null, account_create:continue);
+if_setontimer(account_create:continue, null);
 def_int $int1 = 0;
 def_string $string0 = "accountappeal";
 def_string $string1 = "passwordchoice.ws";

@@ -1,6 +1,6 @@
 // 638
 [proc,stock_choosebuy_highlight_off](component $component0)
-if_setgraphic("grand_exchange_buy_sell_icon,2", $component0);
+if_setgraphic($component0, "grand_exchange_buy_sell_icon,2");
 def_int $int1 = 0;
 while ($int1 < 6) {
     ~deltooltip_action(~script626($int1));

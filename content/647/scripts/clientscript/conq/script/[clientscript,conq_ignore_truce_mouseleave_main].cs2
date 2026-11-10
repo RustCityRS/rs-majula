@@ -1,3 +1,3 @@
 // 455
 [clientscript,conq_ignore_truce_mouseleave_main]
-if_setcolour(0xff981f, conq_truce_offer:ignore_truce_text);
+if_setcolour(conq_truce_offer:ignore_truce_text, 0xff981f);

@@ -1,8 +1,8 @@
 // 609
 [proc,sm_offerprice_settimer]
-if (%varclient_83 <= 0) {
-    %varclient_83 = 100;
+if (%stock_offerprice_timer <= 0) {
+    %stock_offerprice_timer = 100;
 } else {
-    %varclient_83 = calc(%varclient_83 + 10);
+    %stock_offerprice_timer = calc(%stock_offerprice_timer + 10);
 }
-if_setontimer("script610", stockmarket:offerprice);
+if_setontimer(stockmarket:offerprice, "script610");

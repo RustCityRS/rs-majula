@@ -9,31 +9,31 @@ switch_component ($component0) {
     case default :
         return;
     case conq_side_command:ability_layer_1 :
-        if (%varclient_1388 = 1) {
+        if (%conq_in_tutorial = 1) {
             $int2 = 1;
         } else {
-            $int2 = %varplayerbit_7539;
+            $int2 = %conq_command_ability_1;
         }
         $component5 = conq_side_command:name_1;
     case conq_side_command:ability_layer_2 :
-        if (%varclient_1388 = 1) {
+        if (%conq_in_tutorial = 1) {
             $int2 = 3;
         } else {
-            $int2 = %varplayerbit_7540;
+            $int2 = %conq_command_ability_2;
         }
         $component5 = conq_side_command:name_2;
     case conq_side_command:ability_layer_3 :
-        if (%varclient_1388 = 1) {
+        if (%conq_in_tutorial = 1) {
             $int2 = 5;
         } else {
-            $int2 = %varplayerbit_7541;
+            $int2 = %conq_command_ability_3;
         }
         $component5 = conq_side_command:name_3;
     case conq_side_command:ability_layer_4 :
-        if (%varclient_1388 = 1) {
+        if (%conq_in_tutorial = 1) {
             $int2 = 6;
         } else {
-            $int2 = %varplayerbit_7542;
+            $int2 = %conq_command_ability_4;
         }
         $component5 = conq_side_command:name_4;
 }
@@ -41,38 +41,38 @@ switch_int ($int2) {
     case default :
         return;
     case 1 :
-        $int4 = %varclient_1378;
+        $int4 = %conq_cooldown_battle_cry;
         $int6 = struct_param(struct_293, param_1154);
     case 2 :
-        $int4 = %varclient_1379;
+        $int4 = %conq_cooldown_stoicism;
         $int6 = struct_param(struct_299, param_1154);
     case 3 :
-        $int4 = %varclient_1380;
+        $int4 = %conq_cooldown_regenerate;
         $int6 = struct_param(struct_300, param_1154);
     case 4 :
-        $int4 = %varclient_1386;
+        $int4 = %conq_cooldown_barrage;
         $int6 = struct_param(struct_301, param_1154);
     case 5 :
-        $int4 = %varclient_1381;
+        $int4 = %conq_cooldown_bloodlust;
         $int6 = struct_param(struct_305, param_1154);
     case 6 :
-        $int4 = %varclient_1383;
+        $int4 = %conq_cooldown_chastise;
         $int6 = struct_param(struct_1044, param_1154);
     case 7 :
-        $int4 = %varclient_1384;
+        $int4 = %conq_cooldown_vigilance;
         $int6 = struct_param(struct_1045, param_1154);
     case 8 :
-        $int4 = %varclient_1385;
+        $int4 = %conq_cooldown_shield_wall;
         $int6 = struct_param(struct_1046, param_1154);
     case 9 :
-        $int4 = %varclient_1382;
+        $int4 = %conq_cooldown_winds_of_change;
         $int6 = struct_param(struct_1047, param_1154);
 }
-if ($int4 = 0 & %varplayerbit_7514 >= $int6) {
+if ($int4 = 0 & %conq_command_points >= $int6) {
     if ($int1 = 1) {
         $rgb3 = ^white;
     } else {
         $rgb3 = 0xff981f;
     }
-    if_setcolour($rgb3, $component5);
+    if_setcolour($component5, $rgb3);
 }

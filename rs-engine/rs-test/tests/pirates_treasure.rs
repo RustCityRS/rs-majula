@@ -284,10 +284,10 @@ fn frank_and_luthas_as_2011s() {
         );
 
         // The rum and ten bananas into the crate, then paid.
-        let rum = id(engine, "obj", "karamjan_rum");
+        let rum = id(engine, "obj", "karamja_rum");
         let banana = id(engine, "obj", "banana");
         tele(engine, &mut client, 2944, 0, 3151);
-        give(engine, &client, 0, "karamjan_rum", 1);
+        give(engine, &client, 0, "karamja_rum", 1);
         use_on_loc(&mut client, rum, 0, BANANA_CRATE);
         let t = converse(engine, &mut client, &[], 60);
         says(&t, &["You stash the rum in the crate."]);
@@ -370,7 +370,7 @@ fn wydin_hires_at_the_door() {
                 "2011 shows {line:?}; {said:?}"
             );
         }
-        assert_eq!(held(engine, &client, "karamjan_rum"), 1, "the rum");
+        assert_eq!(held(engine, &client, "karamja_rum"), 1, "the rum");
         let errors = engine.script_errors.take();
         assert!(errors.is_empty(), "{errors:?}");
     });
@@ -383,7 +383,7 @@ fn the_key_the_chest_and_the_casket() {
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "hunt_end");
         set_var(engine, &client, "hunt", 1);
-        give(engine, &client, 0, "karamjan_rum", 1);
+        give(engine, &client, 0, "karamja_rum", 1);
         let t = talk(
             engine,
             &mut client,
@@ -431,7 +431,7 @@ fn the_key_the_chest_and_the_casket() {
                 "2011 shows {line:?}; {said:?}"
             );
         }
-        assert_eq!(held(engine, &client, "pirate_message"), 1);
+        assert_eq!(held(engine, &client, "piratemessage"), 1);
         set_var(engine, &client, "hunt", 3);
 
         // The gardener: his 2011 shout, then a dig refused while he attacks.
@@ -440,7 +440,7 @@ fn the_key_the_chest_and_the_casket() {
         tele(engine, &mut client, DIG.0, 0, DIG.1);
         op_held1(&mut client, spade, 0);
         settle(engine, &mut client, 3);
-        let (gardener, _, _) = npc_near(engine, "gardener", DIG.0, DIG.1);
+        let (gardener, _, _) = npc_near(engine, "falador_gardener", DIG.0, DIG.1);
         op_held1(&mut client, spade, 0);
         let said = messages(engine, &mut client, 4);
         assert!(
@@ -454,7 +454,7 @@ fn the_key_the_chest_and_the_casket() {
         // The park's other gardener (3012,3372) wanders; one that has wandered within the dig's
         // 10 tiles would refuse it too, so every gardener that near goes.
         engine.remove_npc(gardener);
-        let want = id(engine, "npc", "gardener");
+        let want = id(engine, "npc", "falador_gardener");
         let near: Vec<u16> = engine
             .npc_list
             .npcs
@@ -483,8 +483,8 @@ fn the_key_the_chest_and_the_casket() {
             );
         }
         assert_eq!(var(engine, &client, "hunt"), 4, "complete");
-        assert_eq!(held(engine, &client, "casket_7956"), 1, "Hector's casket");
-        let casket = id(engine, "obj", "casket_7956");
+        assert_eq!(held(engine, &client, "pirate_casket"), 1, "Hector's casket");
+        let casket = id(engine, "obj", "pirate_casket");
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         let cslot = (0..28u16)
             .find(|&s| {

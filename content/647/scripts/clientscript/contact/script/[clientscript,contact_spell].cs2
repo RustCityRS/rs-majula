@@ -22,7 +22,7 @@ if (calc(enum_getoutputcount(enum_869) % $int2) = 0) {
 }
 cc_deleteall(quest_lunar_contact_npc_spell_v2:model_layer);
 cc_deleteall(quest_lunar_contact_npc_spell_v2:caption_layer);
-if_setscrollsize(calc($int2 * $int1), $int13, quest_lunar_contact_npc_spell_v2:scroll_layer);
+if_setscrollsize(quest_lunar_contact_npc_spell_v2:scroll_layer, calc($int2 * $int1), $int13);
 while ($int0 < enum_getoutputcount(enum_869)) {
     cc_create(quest_lunar_contact_npc_spell_v2:model_layer, ^iftype_model, $int0);
     cc_setsize($int1, $int5, ^setsize_abs, ^setsize_abs);

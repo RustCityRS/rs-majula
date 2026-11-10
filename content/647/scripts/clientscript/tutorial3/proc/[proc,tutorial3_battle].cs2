@@ -1,6 +1,6 @@
 // 2770
 [proc,tutorial3_battle](component $component0, coord $coord1)
-switch_int (%varclient_1007) {
+switch_int (%tutorial3_cutscene_tracker) {
     case 1 :
         spline_new(0, 2);
         spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_32_13, $coord1), 600, ~tutorial3_coord(0_57_77_32_13, $coord1), 600, 0);
@@ -9,9 +9,9 @@ switch_int (%varclient_1007) {
         spline_addpoint(1, 0, ~tutorial3_coord(0_57_77_32_20, $coord1), 100, ~tutorial3_coord(0_57_77_32_20, $coord1), 100, 0);
         spline_addpoint(1, 1, ~tutorial3_coord(0_57_77_32_25, $coord1), 100, ~tutorial3_coord(0_57_77_32_25, $coord1), 100, 0);
         cam_movealong(0, 0, 100, 140, 1, 0);
-        if_setontimer("script2771($component0, clientclock)", $component0);
+        if_setontimer($component0, "script2771($component0, clientclock)");
     case 2 :
-        if_setontimer(null, $component0);
+        if_setontimer($component0, null);
         spline_new(0, 10);
         spline_new(1, 10);
         spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_25_37, $coord1), 400, ~tutorial3_coord(0_57_77_25_37, $coord1), 420, 0);
@@ -36,11 +36,11 @@ switch_int (%varclient_1007) {
         spline_addpoint(1, 8, ~tutorial3_coord(0_57_77_32_18, $coord1), 360, ~tutorial3_coord(0_57_77_32_18, $coord1), 360, 0);
         spline_addpoint(1, 9, ~tutorial3_coord(0_57_77_32_17, $coord1), 355, ~tutorial3_coord(0_57_77_32_17, $coord1), 355, 0);
         spline_addpoint(1, 10, ~tutorial3_coord(0_57_77_32_17, $coord1), 350, ~tutorial3_coord(0_57_77_32_17, $coord1), 350, 0);
-        if_setoncamfinished("script2772($component0, 1)", $component0);
+        if_setoncamfinished($component0, "script2772($component0, 1)");
         cam_movealong(0, 0, 3000, 2500, 1, 0);
         sound_synth(synth_6645, 1, 0);
     case 3 :
-        if_setoncamfinished(null, $component0);
+        if_setoncamfinished($component0, null);
         spline_new(0, 2);
         spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_32_22, $coord1), 350, ~tutorial3_coord(0_57_77_32_22, $coord1), 350, 0);
         spline_addpoint(0, 1, ~tutorial3_coord(0_57_77_32_22, $coord1), 300, ~tutorial3_coord(0_57_77_32_22, $coord1), 300, 0);

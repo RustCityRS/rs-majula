@@ -19,7 +19,7 @@ if(%princequest = ^prince_not_started) {
     $text = "@str@Prince Ali has been kidnapped but luckily the spy Leela|@str@has found he is being held near draynor village. I will|";
     $text = append($text, "@str@need to disguise the Prince and tie up his captor to free|@str@him from their clutches. To do this I should:||");
     $text = append($text, "@dbl@Talk to @dre@Leela@dbl@ near @dre@Draynor Village@dbl@ for advice|");
-    if (inv_total(inv, bronze_key) > 0) {
+    if (inv_total(inv, princeskey) > 0) {
         $text = append($text, "@str@I have a duplicate of the key with me|");
     } else {
         $text = append($text, "@dbl@Get a duplicate of the key that is imprisoning the prince|");
@@ -29,7 +29,7 @@ if(%princequest = ^prince_not_started) {
     } else {
         $text = append($text, "@dbl@Get some rope to tie up the Princes' kidnapper|");
     }
-    if (inv_total(inv, paste) > 0) {
+    if (inv_total(inv, skinpaste) > 0) {
         $text = append($text, "@str@I have some skin paste with me|");
     } else {
         $text = append($text, "@dbl@Get something to colour the Princes' skin as disguise|");
@@ -39,7 +39,7 @@ if(%princequest = ^prince_not_started) {
     } else {
         $text = append($text, "@dbl@Get a skirt similar to his kidnapper as disguise|");
     }
-    if (inv_total(inv, wig) > 0) {
+    if (inv_total(inv, blondwig) > 0) {
         $text = append($text, "@str@I have a wig suitable for a disguise with me");
     } else {
         $text = append($text, "@dbl@Get a Wig to help disguise the prince");

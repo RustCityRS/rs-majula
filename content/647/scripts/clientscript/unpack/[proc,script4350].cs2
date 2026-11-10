@@ -2,7 +2,7 @@
 [proc,script4350]
 def_enum $enum0 = null;
 def_int $int1 = 0;
-switch_int (%varplayer_2128) {
+switch_int (%clan_event_current_varp) {
     case 1 :
         $int1 = %varplayerbit_9091;
     case 2 :
@@ -23,9 +23,9 @@ switch_int (%varplayer_2128) {
 if ($int1 > 0) {
     $enum0 = enum(int, enum, enum_3689, $int1);
     if ($enum0 ! null) {
-        if_sethide(true, clan_noticeboard_event_edit:com_134);
-        if_setscrollpos(0, 0, clan_noticeboard_event_edit:com_139);
-        switch_int (%varplayer_2128) {
+        if_sethide(clan_noticeboard_event_edit:com_134, true);
+        if_setscrollpos(clan_noticeboard_event_edit:com_139, 0, 0);
+        switch_int (%clan_event_current_varp) {
             case 1 :
                 ~aif_dropdownbox_setup($enum0, 1, enum(int, string, $enum0, %varplayerbit_9131), enum_getoutputcount($enum0), 4, clan_noticeboard_event_edit:com_128, clan_noticeboard_event_edit:com_138, clan_noticeboard_event_edit:com_140, clan_noticeboard_event_edit:com_139, clan_noticeboard_event_edit:com_262);
             case 2 :
@@ -47,4 +47,4 @@ if ($int1 > 0) {
     }
 }
 ~script4501(clan_noticeboard_event_edit:com_128, "Select a sub-type");
-if_sethide(false, clan_noticeboard_event_edit:com_134);
+if_sethide(clan_noticeboard_event_edit:com_134, false);

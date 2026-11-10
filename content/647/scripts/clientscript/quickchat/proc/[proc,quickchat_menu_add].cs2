@@ -17,15 +17,15 @@ cc_setonop("quickchat_return($component0, $int1)");
 cc_setop(1, "Return to: ");
 if ($int1 > 0) {
     $string0 = " <col=0000ff><$string0> <img=2>";
-} else if (%varclient_126 = 1) {
+} else if (%quickchat_mode = 1) {
     $string0 = " To <%varclient_1546>: <col=800000><$string0> <img=2>";
-} else if (%varclient_126 = 2) {
+} else if (%quickchat_mode = 2) {
     $string0 = " [<col=0000ff><clan_getchatdisplayname><col=000000>]: <col=800000><$string0> <img=2>";
-} else if (%varclient_126 = 8) {
+} else if (%quickchat_mode = 8) {
     if (activeclanchannel_find_affined = true) {
         $string0 = " [<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0> <img=2>";
     }
-} else if (%varclient_126 = 10) {
+} else if (%quickchat_mode = 10) {
     if (activeclanchannel_find_listened = true) {
         $string0 = " [<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0> <img=2>";
     }
@@ -42,7 +42,7 @@ cc_setonmouseleave("quickchat_path_highlight_hide(chatdefault:quickchat_path_hig
 .cc_setcolour(0x577e45);
 .cc_setfill(true);
 .cc_sethide(true);
-if_sethide(false, $component5);
+if_sethide($component5, false);
 def_int $int7 = chatcat_getsubcatcount($chatcat2);
 def_int $int8 = chatcat_getphrasecount($chatcat2);
 def_int $int9 = 0;
@@ -143,7 +143,7 @@ if ($int4 = 1) {
     }
     $int10 = calc($int10 + 1);
 }
-if_setonkey("quickchat_onkey(event_keycode, event_keychar, $component0, $int1, $chatcat2, null, $int10)", $component5);
+if_setonkey($component5, "quickchat_onkey(event_keycode, event_keychar, $component0, $int1, $chatcat2, null, $int10)");
 $int9 = 0;
 def_int $int17 = 0;
 while (cc_find($component5, $int9) = true) {
@@ -164,7 +164,7 @@ while (cc_find($component5, $int9) = true) {
 }
 $int17 = calc($int17 + $int12 + 4);
 def_component $component18 = if_getlayer($component5);
-if_setsize($int17, if_getheight($component18), ^setsize_abs, ^setsize_abs, $component5);
-if_setsize($int17, if_getheight($component18), ^setsize_abs, ^setsize_abs, $component6);
-if_setposition(calc(if_getx($component5) + $int17), 0, ^setpos_abs_left, ^setpos_abs_top, enum(int, component, enum_1550, calc($int1 + 1)));
+if_setsize($component5, $int17, if_getheight($component18), ^setsize_abs, ^setsize_abs);
+if_setsize($component6, $int17, if_getheight($component18), ^setsize_abs, ^setsize_abs);
+if_setposition(enum(int, component, enum_1550, calc($int1 + 1)), calc(if_getx($component5) + $int17), 0, ^setpos_abs_left, ^setpos_abs_top);
 ~quickchat_return($component0, $int1);

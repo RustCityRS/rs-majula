@@ -1,15 +1,15 @@
 // 4553
 [clientscript,friends2_switchmode](int $int0)
 if ($int0 = 1) {
-    if_sethide(true, friends2:friends_layer);
-    if_sethide(false, friends2:ignore_layer);
-    if_sethide(true, friends2:friends_button_selected);
-    if_sethide(false, friends2:ignore_button_selected);
+    if_sethide(friends2:friends_layer, true);
+    if_sethide(friends2:ignore_layer, false);
+    if_sethide(friends2:friends_button_selected, true);
+    if_sethide(friends2:ignore_button_selected, false);
     ~ignore_init;
 } else {
-    if_sethide(true, friends2:ignore_layer);
-    if_sethide(false, friends2:friends_layer);
-    if_sethide(true, friends2:ignore_button_selected);
-    if_sethide(false, friends2:friends_button_selected);
+    if_sethide(friends2:ignore_layer, true);
+    if_sethide(friends2:friends_layer, false);
+    if_sethide(friends2:ignore_button_selected, true);
+    if_sethide(friends2:friends_button_selected, false);
     ~friend_init;
 }

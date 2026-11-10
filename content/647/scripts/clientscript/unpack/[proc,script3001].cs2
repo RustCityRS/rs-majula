@@ -21,20 +21,20 @@ if ($boolean0 = false & playermember = true) {
     }
     $string2 = "Your membership will expire on <$string0><$string1>. Renew now to avoid losing member status. Click <col=0166ff><u=0166ff>here</u></col> to renew.";
     $string3 = "Your membership will expire on <$string0><$string1>. Renew now to avoid losing member status. Click <col=0296fe><u=0296fe>here</u></col> to renew.";
-    if_settext($string2, lobbyscreen_pane_playerinfo:circlesslide);
-    if_setonmouseover("text_swapper(event_com, $string3)", lobbyscreen_pane_playerinfo:circlesslide);
-    if_setonmouseleave("text_swapper(event_com, $string2)", lobbyscreen_pane_playerinfo:circlesslide);
+    if_settext(lobbyscreen_pane_playerinfo:circlesslide, $string2);
+    if_setonmouseover(lobbyscreen_pane_playerinfo:circlesslide, "text_swapper(event_com, $string3)");
+    if_setonmouseleave(lobbyscreen_pane_playerinfo:circlesslide, "text_swapper(event_com, $string2)");
 }
 def_int $int6 = userdetail_lobby_lastloginday;
 if ($int6 = 0) {
-    if_settext("Welcome to RuneScape!", lobbyscreen_pane_playerinfo:login_address);
+    if_settext(lobbyscreen_pane_playerinfo:login_address, "Welcome to RuneScape!");
     return;
 }
 def_int $int7 = calc(date_runeday - $int6);
 if ($int7 < 1) {
-    if_settext("You last logged in earlier today from: <userdetail_lobby_lastloginaddress>", lobbyscreen_pane_playerinfo:login_address);
+    if_settext(lobbyscreen_pane_playerinfo:login_address, "You last logged in earlier today from: <userdetail_lobby_lastloginaddress>");
 } else if ($int7 = 1) {
-    if_settext("You last logged in yesterday from: <userdetail_lobby_lastloginaddress>", lobbyscreen_pane_playerinfo:login_address);
+    if_settext(lobbyscreen_pane_playerinfo:login_address, "You last logged in yesterday from: <userdetail_lobby_lastloginaddress>");
 } else {
-    if_settext("You last logged in <tostring($int7)> days ago from: <userdetail_lobby_lastloginaddress>", lobbyscreen_pane_playerinfo:login_address);
+    if_settext(lobbyscreen_pane_playerinfo:login_address, "You last logged in <tostring($int7)> days ago from: <userdetail_lobby_lastloginaddress>");
 }

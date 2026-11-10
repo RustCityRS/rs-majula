@@ -1,11 +1,11 @@
 [opnpc1,katrine]
-if(%phoenixgang >= ^phoenixgang_joined) {
+if(%blackarmgang >= ^phoenixgang_joined) {
     ~chatnpc("<p,angry>You've got some guts coming here,|Phoenix <text_gender("guy", "gal")>!");
     ~mesbox("Katrine spits.");
     ~chatnpc("<p,angry>Now get lost!");
     return;
 }
-switch_int(%blackarmgang) {
+switch_int(%phoenixgang) {
     case ^blackarmgang_spoken_katrine : @katrine_got_yet;
     case ^blackarmgang_joined, ^blackarmgang_complete : @katrine_blackarmmember;
     case default : @katrine_standard;
@@ -21,7 +21,7 @@ switch_int(%blackarmgang) {
 ~chatplayer("<p,quiz>What is this place?");
 ~chatnpc("<p,neutral>It's a private business. Can I help you at all?");
 def_int $option;
-if(%blackarmgang = ^blackarmgang_started) {
+if(%phoenixgang = ^blackarmgang_started) {
     $option = ~p_choice3("I've heard you're the Black Arm Gang.", 3, "What sort of business?", 1, "I'm looking for fame and riches.", 2);
 } else {
     $option = ~p_choice2("What sort of business?", 1, "I'm looking for fame and riches.", 2);
@@ -83,7 +83,7 @@ switch_int (~p_choice2("Well, you can give me a try can't you?", 1, "Well, peopl
 switch_int (~p_choice2("Ok, no problem.", 1, "Sounds a little tricky. Got anything easier?", 2)) {
     case 1 :
         ~chatplayer("<p,happy>Ok, no problem.");
-        %blackarmgang = ^blackarmgang_spoken_katrine;
+        %phoenixgang = ^blackarmgang_spoken_katrine;
         ~chatnpc("<p,neutral>Great! You'll find the Phoenix gang's weapon stash just next to a temple, due east of here.");
     case 2 :
         ~chatplayer("<p,confused>Sounds a little tricky...");
@@ -107,7 +107,7 @@ if(inv_total(inv,phoenix_crossbow) >= 2) {
     ~chatplayer("<p,happy>Yes, I have.");
     ~mesbox("You give the crossbows to Katrine.");
     inv_del(inv, phoenix_crossbow, 2);
-    %blackarmgang = ^blackarmgang_joined;
+    %phoenixgang = ^blackarmgang_joined;
     ~chatnpc("<p,neutral>Ok. You can join our gang now. Feel free to enter any of the rooms of the ganghouse.");
     return;
 } else if(inv_total(inv,phoenix_crossbow) = 1) {
@@ -153,8 +153,8 @@ switch_int (~determine_katrine_option) {
         ~chatnpc("<p,happy>Us thieves have been trying to get ahold of this one for a while!");
         ~chatnpc("<p,happy>You wanted to be ranked as a master thief didn't you? Well, I guess this just about ranks as good enough!");
         ~mesbox("Katrine gives you a master thief armband.");
-        inv_del(inv, pete_s_candlestick, 1);
-        inv_add(inv, thieves__armband, 1);
+        inv_del(inv, petecandlestick, 1);
+        inv_add(inv, master_thief_armband, 1);
         %heroquest = ^hero_blackarm_obtained_armband;
     case 5 : // Showing candlestick (did not progress quest correctly)
         ~chatplayer("<p,neutral>I have a candlestick now!");
@@ -162,17 +162,17 @@ switch_int (~determine_katrine_option) {
     case 6 : // Lost armband
         ~chatplayer("<p,sad>I have lost my master thief's armband...");
         ~chatnpc("<p,neutral>Lucky I 'ave a spare ain't it? Don't lose it again.");
-        inv_add(inv, thieves__armband, 1);
+        inv_add(inv, master_thief_armband, 1);
 }
 
 [proc,determine_katrine_option]()(int)
-if (%heroquest >= ^hero_blackarm_obtained_armband & ~obj_gettotal(thieves__armband) < 1) {
+if (%heroquest >= ^hero_blackarm_obtained_armband & ~obj_gettotal(master_thief_armband) < 1) {
     return(6);
 }
 else if (%heroquest < ^hero_started | %heroquest >= ^hero_blackarm_obtained_armband) {
     return(~p_choice2("Who are all those people in there?", 1, "Teach me to be a top class criminal.", 2));
 }
-else if (%heroquest >= ^hero_blackarm_gangmember_spoken & inv_total(inv, pete_s_candlestick) >= 1) {
+else if (%heroquest >= ^hero_blackarm_gangmember_spoken & inv_total(inv, petecandlestick) >= 1) {
     def_int $option;
     if (%heroquest = ^hero_blackarm_looted_chest) {
         $option = 4; // success

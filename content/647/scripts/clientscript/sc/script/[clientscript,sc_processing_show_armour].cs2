@@ -1,12 +1,12 @@
 // 1911
 [clientscript,sc_processing_show_armour]
-if_sethide(true, sc_processing:weapons_button_highlight);
-if_sethide(true, sc_processing:weapons_layer);
-if_sethide(false, sc_processing:armour_button_highlight);
-if_sethide(false, sc_processing:armour_layer);
-if_sethide(true, sc_processing:supplies_button_highlight);
-if_sethide(true, sc_processing:supplies_layer);
-if_sethide(true, sc_processing:potions_button_highlight);
-if_sethide(true, sc_processing:potions_layer);
-if_sethide(true, sc_processing:highlight_rect);
-%varclient_582 = 0;
+if_sethide(sc_processing:weapons_button_highlight, true);
+if_sethide(sc_processing:weapons_layer, true);
+if_sethide(sc_processing:armour_button_highlight, false);
+if_sethide(sc_processing:armour_layer, false);
+if_sethide(sc_processing:supplies_button_highlight, true);
+if_sethide(sc_processing:supplies_layer, true);
+if_sethide(sc_processing:potions_button_highlight, true);
+if_sethide(sc_processing:potions_layer, true);
+if_sethide(sc_processing:highlight_rect, true);
+%sc_client_selected_item = 0;

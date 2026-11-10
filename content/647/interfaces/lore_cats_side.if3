@@ -42,7 +42,7 @@ model=null
 modelorigin=4,4
 modelangle=2033,1833,0
 modelzoom=2168
-onvartransmit=script819{varplayer_1174}
+onvartransmit=script819{lore_npc_head}
 
 // 663:4
 [com_4]
@@ -201,7 +201,7 @@ textalignv=centre
 textshadow=yes
 colour=0xc4b074
 onmouseleave=deltooltip(lore_cats_side:build_layer)
-onvartransmit=script820{varplayer_1175}
+onvartransmit=script820{lore_npc_stats}
 onmouserepeat=addtooltip(event_com, lore_cats_side:build_layer, "Pet Size Percentage", 25, 300)
 
 // 663:18

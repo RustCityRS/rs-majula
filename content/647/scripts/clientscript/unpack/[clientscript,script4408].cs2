@@ -6,4 +6,4 @@ def_int $int7 = calc($int3 * 128 / if_getwidth($component0));
 %varplayerbit_9089 = calc($int6 % 8);
 %varplayerbit_9090 = calc($int7 % 128);
 ~script4411($int3, $int4);
-if_setcolour(hsvtorgb(%varplayer_2098), $component2);
+if_setcolour($component2, hsvtorgb(%varplayer_2098));

@@ -1,31 +1,31 @@
 // 1463
 [proc,bank_v2_tab_highlight](int $int0)
-if_setgraphic("bank_tabs,3", bank_v2_main:tab_1);
-if_setgraphic("bank_tabs,3", bank_v2_main:tab_2);
-if_setgraphic("bank_tabs,3", bank_v2_main:tab_3);
-if_setgraphic("bank_tabs,3", bank_v2_main:tab_4);
-if_setgraphic("bank_tabs,3", bank_v2_main:tab_5);
-if_setgraphic("bank_tabs,3", bank_v2_main:tab_6);
-if_setgraphic("bank_tabs,3", bank_v2_main:tab_7);
-if_setgraphic("bank_tabs,3", bank_v2_main:tab_8);
-if_setgraphic("bank_tabs,3", bank_v2_main:tab_9);
+if_setgraphic(bank_v2_main:tab_1, "bank_tabs,3");
+if_setgraphic(bank_v2_main:tab_2, "bank_tabs,3");
+if_setgraphic(bank_v2_main:tab_3, "bank_tabs,3");
+if_setgraphic(bank_v2_main:tab_4, "bank_tabs,3");
+if_setgraphic(bank_v2_main:tab_5, "bank_tabs,3");
+if_setgraphic(bank_v2_main:tab_6, "bank_tabs,3");
+if_setgraphic(bank_v2_main:tab_7, "bank_tabs,3");
+if_setgraphic(bank_v2_main:tab_8, "bank_tabs,3");
+if_setgraphic(bank_v2_main:tab_9, "bank_tabs,3");
 switch_int ($int0) {
     case 1 :
-        if_setgraphic("bank_tabs,1", bank_v2_main:tab_1);
+        if_setgraphic(bank_v2_main:tab_1, "bank_tabs,1");
     case 2 :
-        if_setgraphic("bank_tabs,1", bank_v2_main:tab_2);
+        if_setgraphic(bank_v2_main:tab_2, "bank_tabs,1");
     case 3 :
-        if_setgraphic("bank_tabs,1", bank_v2_main:tab_3);
+        if_setgraphic(bank_v2_main:tab_3, "bank_tabs,1");
     case 4 :
-        if_setgraphic("bank_tabs,1", bank_v2_main:tab_4);
+        if_setgraphic(bank_v2_main:tab_4, "bank_tabs,1");
     case 5 :
-        if_setgraphic("bank_tabs,1", bank_v2_main:tab_5);
+        if_setgraphic(bank_v2_main:tab_5, "bank_tabs,1");
     case 6 :
-        if_setgraphic("bank_tabs,1", bank_v2_main:tab_6);
+        if_setgraphic(bank_v2_main:tab_6, "bank_tabs,1");
     case 7 :
-        if_setgraphic("bank_tabs,1", bank_v2_main:tab_7);
+        if_setgraphic(bank_v2_main:tab_7, "bank_tabs,1");
     case 8 :
-        if_setgraphic("bank_tabs,1", bank_v2_main:tab_8);
+        if_setgraphic(bank_v2_main:tab_8, "bank_tabs,1");
     case 9 :
-        if_setgraphic("bank_tabs,1", bank_v2_main:tab_9);
+        if_setgraphic(bank_v2_main:tab_9, "bank_tabs,1");
 }

@@ -131,7 +131,7 @@ if (loc_find($coord, $loc) = true) {
 [debugproc,coffinpush](int $id)
 facesquare(0_48_152_9_58);
 anim($id, 0);
-if (loc_find(0_48_152_8_57, coffin) = true) {
+if (loc_find(0_48_152_8_57, vampire_slayer_qip_coffin_closed_stake) = true) {
     loc_anim(seq_3112);
 }
 mes("Seq <tostring($id)> with the lid");

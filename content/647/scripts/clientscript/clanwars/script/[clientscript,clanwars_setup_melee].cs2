@@ -3,9 +3,9 @@
 if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varclient_250 = false) {
-    %varclient_250 = true;
+if (%clanwars_rulevarc_nomelee = false) {
+    %clanwars_rulevarc_nomelee = true;
 } else {
-    %varclient_250 = false;
+    %clanwars_rulevarc_nomelee = false;
 }
 ~clanwars_resynch_melee;

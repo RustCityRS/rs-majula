@@ -181,7 +181,7 @@ model=model_18535
 modelangle=517,0,0
 modelzoom=1162
 onload=signpost_model(event_com)
-onvarctransmit=signpost_model(event_com){varclient_179}
+onvarctransmit=signpost_model(event_com){signpost_if_model}
 
 // 135:14
 [main_layer]

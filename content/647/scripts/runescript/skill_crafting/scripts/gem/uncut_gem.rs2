@@ -11,7 +11,7 @@ switch_obj (last_useitem)
     // beads wait for their quests' ports.
     // case limestone : @craft_limestonebrick;
     case uncut_sapphire, uncut_emerald, uncut_ruby, uncut_diamond, uncut_dragonstone, uncut_opal, uncut_jade, uncut_red_topaz : @crafting_gem(last_useitem);
-    case opal, oyster_pearl, oyster_pearls : @make_bolt_tips(last_useitem);
+    case opal, smalloysterpearls, bigoysterpearls : @make_bolt_tips(last_useitem);
     case wolf_bones : @make_wolf_bone_tips;
     // case bone_beads : @craft_ivorybeads;
     case default :
@@ -64,7 +64,7 @@ if ($low ! null & $high ! null & stat_random(crafting, $low, $high) = false) {
     ~givexp(crafting, calc((db_getfield($data, gem_cutting_table:experience, 0) + 2)/4));
     // osrs except uppercase product name. needs confirmation
     mes("You mis-hit the chisel and smash the <$product_name> to pieces!");
-    inv_add(inv, crushed_gem, 1);
+    inv_add(inv, crushed_gemstone, 1);
     return;
 }
 

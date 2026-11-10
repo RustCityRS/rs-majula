@@ -1,11 +1,11 @@
 // 417
 [clientscript,script417](component $component0)
 def_int $int1 = if_gettrans($component0);
-if (%varclient_1387 = 1) {
+if (%conq_loading = 1) {
     $int1 = calc($int1 + 2);
     if ($int1 < 255) {
-        if_settrans($int1, $component0);
+        if_settrans($component0, $int1);
     } else {
-        if_sethide(true, $component0);
+        if_sethide($component0, true);
     }
 }

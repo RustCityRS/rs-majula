@@ -3,10 +3,10 @@
 if (cc_find($component0, $int4) = true) {
     cc_setvflip(false);
 }
-if_sethide(true, $component1);
-if_sethide(true, $component2);
+if_sethide($component1, true);
+if_sethide($component2, true);
 if ($component3 ! null) {
-    if_sethide(true, $component3);
+    if_sethide($component3, true);
 }
 cc_deleteall($component1);
 cc_deleteall($component2);

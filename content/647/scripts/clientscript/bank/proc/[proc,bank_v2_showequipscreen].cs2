@@ -1,14 +1,14 @@
 // 2319
 [proc,bank_v2_showequipscreen]
-if (%bank_hidden = 1) {
-    if_sethide(true, bank_v2_main:all);
-    if_sethide(true, bank_v2_side:inventory_layer);
-    if_sethide(false, equip_screen2:universe);
-    if_sethide(false, bank_v2_side:equipscreen_container);
+if (%bank_show_equipscreen = 1) {
+    if_sethide(bank_v2_main:all, true);
+    if_sethide(bank_v2_side:inventory_layer, true);
+    if_sethide(equip_screen2:universe, false);
+    if_sethide(bank_v2_side:equipscreen_container, false);
 } else {
-    if_sethide(false, bank_v2_main:all);
-    if_sethide(false, bank_v2_side:inventory_layer);
-    if_sethide(true, equip_screen2:universe);
-    if_sethide(true, bank_v2_side:equipscreen_container);
+    if_sethide(bank_v2_main:all, false);
+    if_sethide(bank_v2_side:inventory_layer, false);
+    if_sethide(equip_screen2:universe, true);
+    if_sethide(bank_v2_side:equipscreen_container, true);
 }
 ~window_resize;

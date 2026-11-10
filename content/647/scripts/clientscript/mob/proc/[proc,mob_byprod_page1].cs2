@@ -4,11 +4,11 @@ def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
-%varclient_842 = 1;
+%mob_client_byprod_page = 1;
 def_obj $obj4 = null;
 ~mob_byprod_page(interface_860:page);
 cc_deleteall(interface_860:main_stock);
-if_settext("A list of items you can trade with Mal for investment credit.<br>Items highlighted with a green rectangle are present in your bank or inventory.", interface_860:title_1);
+if_settext(interface_860:title_1, "A list of items you can trade with Mal for investment credit.<br>Items highlighted with a green rectangle are present in your bank or inventory.");
 $int1 = calc((if_getwidth(interface_860:main_stock) - 36 * 10) / 10);
 $int2 = calc((if_getheight(interface_860:main_stock) - 128) / 3);
 def_int $int5 = 3;
@@ -16,7 +16,7 @@ def_int $int6 = 3;
 def_int $int7 = 0;
 while ($int3 = 0 & $int0 < 900) {
     $obj4 = enum(int, obj, enum_1939, $int0);
-    if ($obj4 ! logs_11760 & $obj4 ! null) {
+    if ($obj4 ! shop_dummy & $obj4 ! null) {
         cc_create(interface_860:main_stock, ^iftype_graphic, $int0);
         cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
         cc_setposition(calc($int5 + (36 + $int1) * ($int0 % 10)), calc($int6 + $int0 / 10 * (32 + $int2)), ^setpos_abs_left, ^setpos_abs_top);
@@ -71,6 +71,6 @@ while ($int8 <= inv_size(bank)) {
     }
     $int8 = calc($int8 + 1);
 }
-if_setscrollsize(if_getwidth(interface_860:main_stock), calc($int7 + 32), interface_860:main_stock);
-if_setscrollpos(0, 0, interface_860:main_stock);
+if_setscrollsize(interface_860:main_stock, if_getwidth(interface_860:main_stock), calc($int7 + 32));
+if_setscrollpos(interface_860:main_stock, 0, 0);
 ~scrollbar_vertical(interface_860:scrollbar, interface_860:main_stock, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

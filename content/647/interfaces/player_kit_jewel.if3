@@ -871,7 +871,7 @@ y=111
 width=173
 height=194
 onload=player_kit_bracelet_load(event_com)
-onvarctransmit=player_kit_bracelet_silver_select_varc(event_com){varclient_785}
+onvarctransmit=player_kit_bracelet_silver_select_varc(event_com){player_kit_brace_silver_client}
 
 // 725:86
 [gold_layer]
@@ -881,7 +881,7 @@ y=111
 width=173
 height=194
 hide=yes
-onvarctransmit=player_kit_bracelet_gold_select_varc(event_com){varclient_784}
+onvarctransmit=player_kit_bracelet_gold_select_varc(event_com){player_kit_brace_gold_client}
 
 // 725:87
 [silver_tab]
@@ -894,7 +894,7 @@ graphic="player_kit_fancy,7"
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(player_kit_jewel:tooltip)
 onop=script325
 onmouserepeat=addtooltip(event_com, player_kit_jewel:tooltip, "Show Silver Selections", 25, 80)
@@ -910,7 +910,7 @@ graphic="player_kit_fancy_off,5"
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(player_kit_jewel:tooltip)
 onop=script326
 onmouserepeat=addtooltip(event_com, player_kit_jewel:tooltip, "Show Gold Selections", 25, 80)
@@ -1007,6 +1007,6 @@ height=200
 model=model_6675
 modelorigin=15,88
 modelzoom=550
-modelanim=seq_808
+modelanim=human_ready
 transmitop=10
 op10= 

@@ -5,23 +5,23 @@ def_int $int1 = 0;
 if (if_gethide(enum(int, component, enum_941, 5)) = false) {
     $int1 = 1;
 }
-if ($int0 = 1 & string_length(%varclient_1798) > 0) {
-    if (friend_test(%varclient_1798) = true) {
+if ($int0 = 1 & string_length(%lobbyscreen_report_abuse_name) > 0) {
+    if (friend_test(%lobbyscreen_report_abuse_name) = true) {
         if ($int1 = 0) {
             mes_typed(^chattype_snapshotfeedback, 0, "Sorry, you cannot ignore players in your Friends List.");
         } else {
             mes_typed(^chattype_snapshotfeedback, 0, "Sorry, you cannot ignore players in your Friends List.");
         }
     } else {
-        ignore_add_temp(%varclient_1798);
+        ignore_add_temp(%lobbyscreen_report_abuse_name);
         if ($int1 = 0) {
-            mes_typed(^chattype_snapshotfeedback, 0, "You are ignoring <%varclient_1798> until you log out.");
+            mes_typed(^chattype_snapshotfeedback, 0, "You are ignoring <%lobbyscreen_report_abuse_name> until you log out.");
         } else {
-            mes_typed(^chattype_snapshotfeedback, 0, "You are ignoring <%varclient_1798> until you log out.");
+            mes_typed(^chattype_snapshotfeedback, 0, "You are ignoring <%lobbyscreen_report_abuse_name> until you log out.");
         }
     }
 }
-if (%varclient_1094 = true) {
+if (%lobbyscreen_report_abuse_bug = true) {
     ~lobbyscreen_input("", "Open a bug report form?<br>(opens a new window)", 6, "", "");
-    %varclient_1094 = false;
+    %lobbyscreen_report_abuse_bug = false;
 }

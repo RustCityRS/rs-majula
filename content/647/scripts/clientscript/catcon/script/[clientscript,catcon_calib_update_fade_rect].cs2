@@ -1,15 +1,15 @@
 // 1745
 [clientscript,catcon_calib_update_fade_rect]
-if (%varclient_217 < 1) {
-    %varclient_217 = calc(%varclient_217 + 1);
+if (%catcon_calib_fade_delay < 1) {
+    %catcon_calib_fade_delay = calc(%catcon_calib_fade_delay + 1);
     return;
 }
-%varclient_217 = 0;
-if (%varclient_216 = 1) {
-    %varclient_215 = calc(%varclient_215 - 9);
+%catcon_calib_fade_delay = 0;
+if (%catcon_calib_fade_direction = 1) {
+    %catcon_calib_fade = calc(%catcon_calib_fade - 9);
 } else {
-    %varclient_215 = calc(%varclient_215 + 9);
+    %catcon_calib_fade = calc(%catcon_calib_fade + 9);
 }
-%varclient_215 = min(%varclient_215, 255);
-%varclient_215 = max(%varclient_215, 0);
-if_settrans(%varclient_215, catcon_calibration_puzzle:blackout_rect);
+%catcon_calib_fade = min(%catcon_calib_fade, 255);
+%catcon_calib_fade = max(%catcon_calib_fade, 0);
+if_settrans(catcon_calibration_puzzle:blackout_rect, %catcon_calib_fade);

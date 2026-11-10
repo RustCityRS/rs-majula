@@ -1,14 +1,14 @@
 // 1100
 [proc,atjun_hard_done]()(int)
 def_int $int0 = 0;
-$int0 = calc($int0 + %varplayerbit_3600);
-$int0 = calc($int0 + %varplayerbit_3601);
-$int0 = calc($int0 + %varplayerbit_3602);
-$int0 = calc($int0 + %varplayerbit_3603);
-$int0 = calc($int0 + %varplayerbit_3604);
-$int0 = calc($int0 + %varplayerbit_3605);
-$int0 = calc($int0 + %varplayerbit_3606);
-$int0 = calc($int0 + %varplayerbit_3607);
-$int0 = calc($int0 + %varplayerbit_3608);
-$int0 = calc($int0 + %varplayerbit_3609);
+$int0 = calc($int0 + %atjun_hard_fightpits);
+$int0 = calc($int0 + %atjun_hard_fightcave);
+$int0 = calc($int0 + %atjun_hard_oomlie);
+$int0 = calc($int0 + %atjun_hard_nature);
+$int0 = calc($int0 + %atjun_hard_karambwan);
+$int0 = calc($int0 + %atjun_hard_deathwing);
+$int0 = calc($int0 + %atjun_hard_xbow);
+$int0 = calc($int0 + %atjun_hard_palm);
+$int0 = calc($int0 + %atjun_hard_duradel);
+$int0 = calc($int0 + %atjun_hard_dragon);
 return($int0);

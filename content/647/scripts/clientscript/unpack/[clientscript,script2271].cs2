@@ -1,12 +1,12 @@
 // 2271
 [clientscript,script2271](component $component0, component $component1, graphic $graphic2, graphic $graphic3, int $int4, string $string0, string $string1, obj $obj5, int $int6, obj $obj7, int $int8, obj $obj9, int $int10, obj $obj11, int $int12)
-if_setopbase("<col=00ff00><$string0>", $component0);
+if_setopbase($component0, "<col=00ff00><$string0>");
 ~script2273($component0, $graphic2, $graphic3, $int4, $obj5, $int6, $obj7, $int8, $obj9, $int10, $obj11, $int12);
-if_setonmouserepeat("script2274($component0, $component1, $int4, $string0, $string1, $obj5, $int6, $obj7, $int8, $obj9, $int10, $obj11, $int12)", $component0);
-if_setonmouseleave("magic_deltooltip($component1)", $component0);
+if_setonmouserepeat($component0, "script2274($component0, $component1, $int4, $string0, $string1, $obj5, $int6, $obj7, $int8, $obj9, $int10, $obj11, $int12)");
+if_setonmouseleave($component0, "magic_deltooltip($component1)");
 if (if_gettargetmask($component0) ! 0) {
-    if_setontargetenter("magic_entertargetmode($component0)", $component0);
-    if_setontargetleave("magic_leavetargetmode($component0)", $component0);
+    if_setontargetenter($component0, "magic_entertargetmode($component0)");
+    if_setontargetleave($component0, "magic_leavetargetmode($component0)");
 }
-if_setoninvtransmit("script2272($component0, $graphic2, $graphic3, $int4, $obj5, $int6, $obj7, $int8, $obj9, $int10, $obj11, $int12){inv}", $component0);
-if_setonstattransmit("script2272($component0, $graphic2, $graphic3, $int4, $obj5, $int6, $obj7, $int8, $obj9, $int10, $obj11, $int12){magic}", $component0);
+if_setoninvtransmit($component0, "script2272($component0, $graphic2, $graphic3, $int4, $obj5, $int6, $obj7, $int8, $obj9, $int10, $obj11, $int12){inv}");
+if_setonstattransmit($component0, "script2272($component0, $graphic2, $graphic3, $int4, $obj5, $int6, $obj7, $int8, $obj9, $int10, $obj11, $int12){magic}");

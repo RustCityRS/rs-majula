@@ -1,22 +1,22 @@
 // 2510
 [clientscript,script2510]
-if (%varclient_852 <= 0) {
-    %varclient_852 = 0;
+if (%mob_client_cannon_exist_qty <= 0) {
+    %mob_client_cannon_exist_qty = 0;
 }
-if (%varclient_853 <= 0) {
-    %varclient_853 = 0;
+if (%mob_client_glider_exist_qty <= 0) {
+    %mob_client_glider_exist_qty = 0;
 }
-if (%varclient_854 <= 0) {
-    %varclient_854 = 0;
+if (%mob_client_chinchompa_exist_qty <= 0) {
+    %mob_client_chinchompa_exist_qty = 0;
 }
-if (%varclient_855 <= 0) {
-    %varclient_855 = 0;
+if (%mob_client_distractor_exist_qty <= 0) {
+    %mob_client_distractor_exist_qty = 0;
 }
-if (%varclient_856 <= 0) {
-    %varclient_856 = 0;
+if (%mob_client_barricade_exist_qty <= 0) {
+    %mob_client_barricade_exist_qty = 0;
 }
-if_settext(tostring(%varclient_852), mob_special_units:cannon_quantity);
-if_settext(tostring(%varclient_853), mob_special_units:glider_quantity);
-if_settext(tostring(%varclient_854), mob_special_units:chinchompa_quantity);
-if_settext(tostring(%varclient_855), mob_special_units:distractor_quantity);
-if_settext(tostring(%varclient_856), mob_special_units:barricade_quantity);
+if_settext(mob_special_units:cannon_quantity, tostring(%mob_client_cannon_exist_qty));
+if_settext(mob_special_units:glider_quantity, tostring(%mob_client_glider_exist_qty));
+if_settext(mob_special_units:chinchompa_quantity, tostring(%mob_client_chinchompa_exist_qty));
+if_settext(mob_special_units:distractor_quantity, tostring(%mob_client_distractor_exist_qty));
+if_settext(mob_special_units:barricade_quantity, tostring(%mob_client_barricade_exist_qty));

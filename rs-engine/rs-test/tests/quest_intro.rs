@@ -439,7 +439,7 @@ fn the_duke_asks_in_the_window_and_hands_over_a_talisman() {
         let (mut client, talk) = at_the_window_of(
             engine,
             "window_duke",
-            "duke_horacio",
+            "duke_of_lumbridge",
             "runemysteries",
             &["Have you any quests for me?"],
         );

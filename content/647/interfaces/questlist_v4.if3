@@ -9,7 +9,7 @@ opbase=
 onload=ql4_init
 onvartransmit=ql4_refresh{varplayer_1402}
 onstattransmit=ql4_refresh
-onvarctransmit=ql4_refresh{varclient_695}
+onvarctransmit=ql4_refresh{ql4_reinit}
 
 // 190:1
 [title]
@@ -41,7 +41,7 @@ textshadow=yes
 colour=0xeb981f
 transmitop=10
 op10= 
-onvartransmit=ql4_qp_update{qp, quest_points_total}
+onvartransmit=ql4_qp_update{qp, qp_total}
 
 // 190:3
 [com_3]
@@ -123,7 +123,7 @@ textshadow=yes
 colour=0xeb981f
 transmitop=10
 op10=  
-onvartransmit=ql4_qp_update{qp, quest_points_total}
+onvartransmit=ql4_qp_update{qp, qp_total}
 
 // 190:9
 [button_filter]

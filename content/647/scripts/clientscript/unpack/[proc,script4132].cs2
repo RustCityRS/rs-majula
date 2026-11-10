@@ -1,6 +1,6 @@
 // 4132
 [proc,script4132](component $component0, coord $coord1)
-switch_int (%varclient_1452) {
+switch_int (%glo3_cutscene) {
     case 201 :
         cc_deleteall($component0);
         cc_create($component0, ^iftype_rectangle, 0);

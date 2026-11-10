@@ -1,5 +1,5 @@
 // 2503
 [clientscript,script2503]
-if (%varclient_837 > 0 & %varclient_837 <= 9) {
-    if_settext(enum(int, string, enum_2403, %varclient_837), interface_291:formation_text);
+if (%mob_client_formation > 0 & %mob_client_formation <= 9) {
+    if_settext(interface_291:formation_text, enum(int, string, enum_2403, %mob_client_formation));
 }

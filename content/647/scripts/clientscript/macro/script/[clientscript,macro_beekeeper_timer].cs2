@@ -1,27 +1,27 @@
 // 2126
 [clientscript,macro_beekeeper_timer](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)
-%varclient_681 = calc((%varclient_681 + random(4) + 2) % 2048);
-%varclient_684 = calc((%varclient_684 + random(4) + 2) % 2048);
-%varclient_687 = calc((%varclient_687 + random(4) + 2) % 2048);
-%varclient_690 = calc((%varclient_690 + random(4) + 2) % 2048);
-if (%varclient_680 < 20 & (%varclient_680 < -20 | random(2) = 0)) {
-    %varclient_680 = min(calc(%varclient_680 + random(3) + 1), 25);
+%beekeeper_lid_y = calc((%beekeeper_lid_y + random(4) + 2) % 2048);
+%beekeeper_uppermiddle_y = calc((%beekeeper_uppermiddle_y + random(4) + 2) % 2048);
+%beekeeper_lowermiddle_y = calc((%beekeeper_lowermiddle_y + random(4) + 2) % 2048);
+%beekeeper_legs_y = calc((%beekeeper_legs_y + random(4) + 2) % 2048);
+if (%beekeeper_lid_x < 20 & (%beekeeper_lid_x < -20 | random(2) = 0)) {
+    %beekeeper_lid_x = min(calc(%beekeeper_lid_x + random(3) + 1), 25);
 } else {
-    %varclient_680 = max(calc(%varclient_680 - (random(3) + 1)), -25);
+    %beekeeper_lid_x = max(calc(%beekeeper_lid_x - (random(3) + 1)), -25);
 }
-if (%varclient_683 < 20 & (%varclient_683 < -20 | random(2) = 0)) {
-    %varclient_683 = min(calc(%varclient_683 + random(3) + 1), 25);
+if (%beekeeper_uppermiddle_x < 20 & (%beekeeper_uppermiddle_x < -20 | random(2) = 0)) {
+    %beekeeper_uppermiddle_x = min(calc(%beekeeper_uppermiddle_x + random(3) + 1), 25);
 } else {
-    %varclient_683 = max(calc(%varclient_683 - (random(3) + 1)), -25);
+    %beekeeper_uppermiddle_x = max(calc(%beekeeper_uppermiddle_x - (random(3) + 1)), -25);
 }
-if (%varclient_686 < 20 & (%varclient_686 < -20 | random(2) = 0)) {
-    %varclient_686 = min(calc(%varclient_686 + random(3) + 1), 25);
+if (%beekeeper_lowermiddle_x < 20 & (%beekeeper_lowermiddle_x < -20 | random(2) = 0)) {
+    %beekeeper_lowermiddle_x = min(calc(%beekeeper_lowermiddle_x + random(3) + 1), 25);
 } else {
-    %varclient_686 = max(calc(%varclient_686 - (random(3) + 1)), -25);
+    %beekeeper_lowermiddle_x = max(calc(%beekeeper_lowermiddle_x - (random(3) + 1)), -25);
 }
-if (%varclient_689 < 20 & (%varclient_689 < -20 | random(2) = 0)) {
-    %varclient_689 = min(calc(%varclient_689 + random(3) + 1), 25);
+if (%beekeeper_legs_x < 20 & (%beekeeper_legs_x < -20 | random(2) = 0)) {
+    %beekeeper_legs_x = min(calc(%beekeeper_legs_x + random(3) + 1), 25);
 } else {
-    %varclient_689 = max(calc(%varclient_689 - (random(3) + 1)), -25);
+    %beekeeper_legs_x = max(calc(%beekeeper_legs_x - (random(3) + 1)), -25);
 }
 ~macro_beekeeper_update($component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7);

@@ -5,7 +5,7 @@ def_int $int2 = 0;
 def_int $int3 = 0;
 def_int $int4 = 0;
 if ($component0 = interface_1072:com_201) {
-    switch_int (%varplayerbit_8876) {
+    switch_int (%artisan_grade_choice) {
         case 0 :
             $int1 = 1;
         case 1 :
@@ -15,16 +15,16 @@ if ($component0 = interface_1072:com_201) {
         case 3 :
             $int1 = 75;
     }
-    $int3 = calc($int1 * %varplayerbit_8877);
-    if (calc(%varplayerbit_8857 - $int3) > 0) {
-        if_setcolour(^green, interface_1072:com_53);
-        $int3 = calc(%varplayerbit_8857 - $int3);
+    $int3 = calc($int1 * %artisan_temp_bar_number);
+    if (calc(%artisan_iron_ores - $int3) > 0) {
+        if_setcolour(interface_1072:com_53, ^green);
+        $int3 = calc(%artisan_iron_ores - $int3);
     } else {
-        if_setcolour(^red, interface_1072:com_53);
+        if_setcolour(interface_1072:com_53, ^red);
         $int3 = 0;
     }
 } else if ($component0 = interface_1072:com_213) {
-    switch_int (%varplayerbit_8876) {
+    switch_int (%artisan_grade_choice) {
         case 0 :
             $int1 = 1;
             $int2 = 2;
@@ -38,24 +38,24 @@ if ($component0 = interface_1072:com_201) {
             $int1 = 40;
             $int2 = 80;
     }
-    $int3 = calc($int1 * %varplayerbit_8877);
-    if (calc(%varplayerbit_8857 - $int3) > 0) {
-        if_setcolour(^green, interface_1072:com_53);
-        $int3 = calc(%varplayerbit_8857 - $int3);
+    $int3 = calc($int1 * %artisan_temp_bar_number);
+    if (calc(%artisan_iron_ores - $int3) > 0) {
+        if_setcolour(interface_1072:com_53, ^green);
+        $int3 = calc(%artisan_iron_ores - $int3);
     } else {
-        if_setcolour(^red, interface_1072:com_53);
+        if_setcolour(interface_1072:com_53, ^red);
         $int3 = 0;
     }
-    $int4 = calc($int2 * %varplayerbit_8877);
-    if (calc(%varplayerbit_8865 - $int4) > 0) {
-        if_setcolour(^green, interface_1072:com_49);
-        $int4 = calc(%varplayerbit_8865 - $int4);
+    $int4 = calc($int2 * %artisan_temp_bar_number);
+    if (calc(%artisan_coal - $int4) > 0) {
+        if_setcolour(interface_1072:com_49, ^green);
+        $int4 = calc(%artisan_coal - $int4);
     } else {
-        if_setcolour(^red, interface_1072:com_49);
+        if_setcolour(interface_1072:com_49, ^red);
         $int4 = 0;
     }
 } else if ($component0 = interface_1072:com_225) {
-    switch_int (%varplayerbit_8876) {
+    switch_int (%artisan_grade_choice) {
         case 0 :
             $int1 = 1;
             $int2 = 4;
@@ -69,24 +69,24 @@ if ($component0 = interface_1072:com_201) {
             $int1 = 30;
             $int2 = 120;
     }
-    $int3 = calc($int1 * %varplayerbit_8877);
+    $int3 = calc($int1 * %artisan_temp_bar_number);
     if (calc(%varplayerbit_8859 - $int3) > 0) {
-        if_setcolour(^green, interface_1072:com_57);
+        if_setcolour(interface_1072:com_57, ^green);
         $int3 = calc(%varplayerbit_8859 - $int3);
     } else {
-        if_setcolour(^red, interface_1072:com_57);
+        if_setcolour(interface_1072:com_57, ^red);
         $int3 = 0;
     }
-    $int4 = calc($int2 * %varplayerbit_8877);
-    if (calc(%varplayerbit_8865 - $int4) > 0) {
-        if_setcolour(^green, interface_1072:com_49);
-        $int4 = calc(%varplayerbit_8865 - $int4);
+    $int4 = calc($int2 * %artisan_temp_bar_number);
+    if (calc(%artisan_coal - $int4) > 0) {
+        if_setcolour(interface_1072:com_49, ^green);
+        $int4 = calc(%artisan_coal - $int4);
     } else {
-        if_setcolour(^red, interface_1072:com_49);
+        if_setcolour(interface_1072:com_49, ^red);
         $int4 = 0;
     }
 } else if ($component0 = interface_1072:com_237) {
-    switch_int (%varplayerbit_8876) {
+    switch_int (%artisan_grade_choice) {
         case 0 :
             $int1 = 1;
             $int2 = 6;
@@ -100,24 +100,24 @@ if ($component0 = interface_1072:com_201) {
             $int1 = 25;
             $int2 = 150;
     }
-    $int3 = calc($int1 * %varplayerbit_8877);
-    if (calc(%varplayerbit_8862 - $int3) > 0) {
-        if_setcolour(^green, interface_1072:com_61);
-        $int3 = calc(%varplayerbit_8862 - $int3);
+    $int3 = calc($int1 * %artisan_temp_bar_number);
+    if (calc(%artisan_adamant_ores - $int3) > 0) {
+        if_setcolour(interface_1072:com_61, ^green);
+        $int3 = calc(%artisan_adamant_ores - $int3);
     } else {
-        if_setcolour(^red, interface_1072:com_61);
+        if_setcolour(interface_1072:com_61, ^red);
         $int3 = 0;
     }
-    $int4 = calc($int2 * %varplayerbit_8877);
-    if (calc(%varplayerbit_8865 - $int4) > 0) {
-        if_setcolour(^green, interface_1072:com_49);
-        $int4 = calc(%varplayerbit_8865 - $int4);
+    $int4 = calc($int2 * %artisan_temp_bar_number);
+    if (calc(%artisan_coal - $int4) > 0) {
+        if_setcolour(interface_1072:com_49, ^green);
+        $int4 = calc(%artisan_coal - $int4);
     } else {
-        if_setcolour(^red, interface_1072:com_49);
+        if_setcolour(interface_1072:com_49, ^red);
         $int4 = 0;
     }
 } else if ($component0 = interface_1072:com_249) {
-    switch_int (%varplayerbit_8876) {
+    switch_int (%artisan_grade_choice) {
         case 0 :
             $int1 = 1;
             $int2 = 8;
@@ -131,20 +131,20 @@ if ($component0 = interface_1072:com_201) {
             $int1 = 18;
             $int2 = 144;
     }
-    $int3 = calc($int1 * %varplayerbit_8877);
-    if (calc(%varplayerbit_8863 - $int3) > 0) {
-        if_setcolour(^green, interface_1072:com_65);
-        $int3 = calc(%varplayerbit_8863 - $int3);
+    $int3 = calc($int1 * %artisan_temp_bar_number);
+    if (calc(%artisan_rune_ores - $int3) > 0) {
+        if_setcolour(interface_1072:com_65, ^green);
+        $int3 = calc(%artisan_rune_ores - $int3);
     } else {
-        if_setcolour(^red, interface_1072:com_65);
+        if_setcolour(interface_1072:com_65, ^red);
         $int3 = 0;
     }
-    $int4 = calc($int2 * %varplayerbit_8877);
-    if (calc(%varplayerbit_8865 - $int4) > 0) {
-        if_setcolour(^green, interface_1072:com_49);
-        $int4 = calc(%varplayerbit_8865 - $int4);
+    $int4 = calc($int2 * %artisan_temp_bar_number);
+    if (calc(%artisan_coal - $int4) > 0) {
+        if_setcolour(interface_1072:com_49, ^green);
+        $int4 = calc(%artisan_coal - $int4);
     } else {
-        if_setcolour(^red, interface_1072:com_49);
+        if_setcolour(interface_1072:com_49, ^red);
         $int4 = 0;
     }
 }

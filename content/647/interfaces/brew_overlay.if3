@@ -57,7 +57,7 @@ text=0
 textshadow=yes
 colour=0x910000
 onload=script1757(brew_overlay:hopper_fire_model, brew_overlay:hopper_amount)
-onvarctransmit=script1757(brew_overlay:hopper_fire_model, brew_overlay:hopper_amount){varclient_219}
+onvarctransmit=script1757(brew_overlay:hopper_fire_model, brew_overlay:hopper_amount){brew_varc_hopper_fire}
 
 // 415:5
 [pipe_amount]
@@ -72,7 +72,7 @@ text=0
 textshadow=yes
 colour=0x910000
 onload=script1758(brew_overlay:pipe_fire_model, brew_overlay:pipe_amount)
-onvarctransmit=script1758(brew_overlay:pipe_fire_model, brew_overlay:pipe_amount){varclient_218}
+onvarctransmit=script1758(brew_overlay:pipe_fire_model, brew_overlay:pipe_amount){brew_varc_pipe_fire}
 
 // 415:6
 [bridge_amount]
@@ -87,7 +87,7 @@ text=0
 textshadow=yes
 colour=0x910000
 onload=script1759(brew_overlay:bridge_fire_model, brew_overlay:bridge_amount)
-onvarctransmit=script1759(brew_overlay:bridge_fire_model, brew_overlay:bridge_amount){varclient_220}
+onvarctransmit=script1759(brew_overlay:bridge_fire_model, brew_overlay:bridge_amount){brew_varc_bridge_fire}
 
 // 415:7
 [hopper_fire_model]
@@ -296,7 +296,7 @@ layer=red_bottle_on
 model=model_15723
 modelangle=468,0,0
 modelzoom=850
-modelanim=seq_4262
+modelanim=game_brew_bottle_flash
 
 // 415:25
 [blue_bottle_on]
@@ -318,7 +318,7 @@ layer=blue_bottle_on
 model=model_15722
 modelangle=468,0,0
 modelzoom=850
-modelanim=seq_4262
+modelanim=game_brew_bottle_flash
 
 // 415:27
 [red_bottle_warning]
@@ -340,7 +340,7 @@ layer=red_bottle_warning
 model=model_15698
 modelangle=468,0,0
 modelzoom=850
-modelanim=seq_4262
+modelanim=game_brew_bottle_flash
 
 // 415:29
 [blue_bottle_warning]
@@ -363,7 +363,7 @@ model=model_15668
 modelorigin=0,1
 modelangle=468,0,0
 modelzoom=656
-modelanim=seq_4262
+modelanim=game_brew_bottle_flash
 
 // 415:31
 [boiler1_count]
@@ -377,7 +377,7 @@ text=0
 textshadow=yes
 colour=0x910000
 onload=brew_boiler1(brew_overlay:boiler1_model, brew_overlay:boiler1_count)
-onvarctransmit=brew_boiler1(brew_overlay:boiler1_model, brew_overlay:boiler1_count){varclient_228}
+onvarctransmit=brew_boiler1(brew_overlay:boiler1_model, brew_overlay:boiler1_count){brew_varc_boiler1}
 
 // 415:32
 [boiler2_count]
@@ -391,7 +391,7 @@ text=0
 textshadow=yes
 colour=0x910000
 onload=brew_boiler2(brew_overlay:boiler2_model, brew_overlay:boiler2_count)
-onvarctransmit=brew_boiler2(brew_overlay:boiler2_model, brew_overlay:boiler2_count){varclient_229}
+onvarctransmit=brew_boiler2(brew_overlay:boiler2_model, brew_overlay:boiler2_count){brew_varc_boiler2}
 
 // 415:33
 [boiler3_count]
@@ -405,7 +405,7 @@ text=0
 textshadow=yes
 colour=0x910000
 onload=brew_boiler3(brew_overlay:boiler3_model, brew_overlay:boiler3_count)
-onvarctransmit=brew_boiler3(brew_overlay:boiler3_model, brew_overlay:boiler3_count){varclient_230}
+onvarctransmit=brew_boiler3(brew_overlay:boiler3_model, brew_overlay:boiler3_count){brew_varc_boiler3}
 
 // 415:34
 [bitternut_count]
@@ -419,7 +419,7 @@ text=0
 textshadow=yes
 colour=0x910000
 onload=brew_bitternut(brew_overlay:bitternut_model, brew_overlay:bitternut_count)
-onvarctransmit=brew_bitternut(brew_overlay:bitternut_model, brew_overlay:bitternut_count){varclient_223}
+onvarctransmit=brew_bitternut(brew_overlay:bitternut_model, brew_overlay:bitternut_count){brew_varc_bitternuts}
 
 // 415:35
 [sweetgrub_count]
@@ -433,7 +433,7 @@ text=0
 textshadow=yes
 colour=0x910000
 onload=brew_sweetgrub(brew_overlay:sweetgrub_model, brew_overlay:sweetgrub_count)
-onvarctransmit=brew_sweetgrub(brew_overlay:sweetgrub_model, brew_overlay:sweetgrub_count){varclient_224}
+onvarctransmit=brew_sweetgrub(brew_overlay:sweetgrub_model, brew_overlay:sweetgrub_count){brew_varc_sweetgrubs}
 
 // 415:36
 [bucket_count]
@@ -447,7 +447,7 @@ text=0
 textshadow=yes
 colour=0x910000
 onload=brew_buckets(brew_overlay:bucket_model, brew_overlay:bucket_count)
-onvarctransmit=brew_buckets(brew_overlay:bucket_model, brew_overlay:bucket_count){varclient_226}
+onvarctransmit=brew_buckets(brew_overlay:bucket_model, brew_overlay:bucket_count){brew_varc_buckets}
 
 // 415:37
 [colourwater_count]
@@ -462,7 +462,7 @@ textshadow=yes
 colour=0x910000
 onload=brew_colourwater(brew_overlay:colourwater_model, brew_overlay:colourwater_count)
 oninvtransmit=brew_colourwater(brew_overlay:colourwater_model, brew_overlay:colourwater_count){worn}
-onvarctransmit=brew_colourwater(brew_overlay:colourwater_model, brew_overlay:colourwater_count){varclient_227}
+onvarctransmit=brew_colourwater(brew_overlay:colourwater_model, brew_overlay:colourwater_count){brew_varc_colourwater}
 
 // 415:38
 [bark_count]
@@ -476,7 +476,7 @@ text=0
 textshadow=yes
 colour=0x910000
 onload=brew_bark(brew_overlay:bark_model, brew_overlay:bark_count)
-onvarctransmit=brew_bark(brew_overlay:bark_model, brew_overlay:bark_count){varclient_225}
+onvarctransmit=brew_bark(brew_overlay:bark_model, brew_overlay:bark_count){brew_varc_bark}
 
 // 415:39
 [brew_score_text]
@@ -519,7 +519,7 @@ textfont=b12_full
 text=0
 colour=0x990000
 onload=brew_redscore(event_com)
-onvarctransmit=brew_redscore(event_com){varclient_221}
+onvarctransmit=brew_redscore(event_com){brew_varc_red_score}
 
 // 415:42
 [blue_score]
@@ -534,7 +534,7 @@ textfont=b12_full
 text=0
 colour=0x0000cc
 onload=brew_bluescore(event_com)
-onvarctransmit=brew_bluescore(event_com){varclient_222}
+onvarctransmit=brew_bluescore(event_com){brew_varc_blue_score}
 
 // 415:43
 [brew_time_display]
@@ -550,4 +550,4 @@ textalignh=centre
 textshadow=yes
 colour=0xff981f
 onload=brew_time(event_com)
-onvarctransmit=brew_time(event_com){varclient_231}
+onvarctransmit=brew_time(event_com){brew_varc_time}

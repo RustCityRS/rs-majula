@@ -3,25 +3,25 @@
 def_component $component4 = if_getlayer($component0);
 def_int $int5 = 0;
 switch_obj ($obj1) {
-    case juju_hunter_potion__3 :
+    case 3doseadvanced_hunter_potion :
         $int5 = %varplayerbit_8399;
-        if_settext("<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)", $component3);
-    case juju_farming_potion__3 :
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+    case 3dosefarming_potion :
         $int5 = %varplayerbit_8400;
-        if_settext("<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)", $component3);
-    case saradomin_s_blessing__3 :
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+    case 3dosesaradomin_potion :
         $int5 = %varplayerbit_8403;
-        if_settext("<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)", $component3);
-    case guthix_s_gift__3 :
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+    case 3doseguthix_potion :
         $int5 = %varplayerbit_8402;
-        if_settext("<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)", $component3);
-    case zamorak_s_favour__3 :
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+    case 3dosezamorak_potion :
         $int5 = %varplayerbit_8404;
-        if_settext("<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)", $component3);
-    case scentless_potion__3 :
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+    case 3dosescentless_potion :
         $int5 = %varplayerbit_8401;
-        if_settext("<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)", $component3);
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
 }
-if_setobject_nonum($obj1, -1, $component0);
-if_setoutline(1, $component0);
-if_setmouseovercursor(cursor_171, $component3);
+if_setobject_nonum($component0, $obj1, -1);
+if_setoutline($component0, 1);
+if_setmouseovercursor($component3, cursor_farming);

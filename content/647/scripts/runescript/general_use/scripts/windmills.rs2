@@ -40,17 +40,17 @@
 // @millbase_opu;
 
 [label,millbase_opu]
-if (last_useitem = empty_pot) {
-    if (%flour > 0) p_oploc(1);
+if (last_useitem = pot_empty) {
+    if (%millcheck_multi > 0) p_oploc(1);
     else @empty_flour_bin;
-} else if(last_useitem = pot_of_flour) {
+} else if(last_useitem = pot_flour) {
     mes("This pot is already full.");
 } else {
     ~displaymessage(^dm_default);
 }
 
 [label,millbase_take]
-if (%flour > 0) {
+if (%millcheck_multi > 0) {
     @take_flour_bin;
 } else {
     @empty_flour_bin;
@@ -60,27 +60,27 @@ if (%flour > 0) {
 mes("The flour bin is already empty.");
 
 [label,take_flour_bin]
-if (inv_total(inv, empty_pot) < 1) {
+if (inv_total(inv, pot_empty) < 1) {
     mes("You need an empty pot to hold the flour in.");
 } else {
-    inv_del(inv, empty_pot, 1);
+    inv_del(inv, pot_empty, 1);
     // 2011: Mill Lane's bin gives extra fine flour once Millie has set the
     // millstones, during Cook's Assistant (2011 wiki, Extra fine flour,
     // 2011-05-19; void-634 Windmill, whose message this is).
-    if (loc_type = loc_36880 & %cookquest = 1 & %cookquest_millie = ^true & inv_total(inv, extra_fine_flour) = 0) {
-        inv_add(inv, extra_fine_flour, 1);
-        %flour = sub(%flour, 1);
+    if (loc_type = fai_lumbridge_windmill_base & %cookquest = 1 & %cookquest_millie = ^true & inv_total(inv, cook_flour) = 0) {
+        inv_add(inv, cook_flour, 1);
+        %millcheck_multi = sub(%millcheck_multi, 1);
         mes("You fill a pot with the extra fine flour from the bin.");
         return;
     }
-    inv_add(inv, pot_of_flour, 1);
+    inv_add(inv, pot_flour, 1);
 
-    if (%flour > 1) {
-        %flour = sub(%flour, 1);
+    if (%millcheck_multi > 1) {
+        %millcheck_multi = sub(%millcheck_multi, 1);
         mes("You fill a pot with flour from the bin.");
     } else {
         // todo: do we revert visual state? let the loc_change run its course?
-        %flour = 0;
+        %millcheck_multi = 0;
         mes("You fill a pot with the last of the flour in the bin.");
         // Temp note: dur does not need updated
         // 2011 draws the empty bin from %flour.
@@ -97,7 +97,7 @@ if (last_useitem = grain) {
             ~chatplayer("<p,neutral>Hmm. I should probably ask that lady downstairs how I can make extra fine flour.");
             return;
         }
-        if (inv_total(inv, extra_fine_flour) > 0) {
+        if (inv_total(inv, cook_flour) > 0) {
             mes("It'd be best to take the extra fine flour you already have to the cook first.");
             return;
         }
@@ -131,18 +131,18 @@ anim(human_pickuptable, 0);
 loc_change(hoppercontrol_inuse, 3);
 sound_synth(lever, 1, 0);
 if(%hopper_full = ^true) {
-    if (%flour > 29) {
+    if (%millcheck_multi > 29) {
         mes("The flour bin downstairs is full, I should empty it first.");
         return;
     }
 
     mes("You operate the hopper. The grain slides down the chute.");
-    sound_synth(millstones, 1, 0);
+    sound_synth(mill, 1, 0);
     sound_synth(lever, 1, 0); // this sound plays twice
 
     %hopper_full = ^false;
-    %flour = add(%flour, 1);
-    if (%flour = 30) {
+    %millcheck_multi = add(%millcheck_multi, 1);
+    if (%millcheck_multi = 30) {
         mes("The flour bin downstairs is now full.");
     }
 

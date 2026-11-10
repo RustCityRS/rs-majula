@@ -1,7 +1,7 @@
 // 2562
 [clientscript,mob_buy_add]
-if (%varclient_846 < 10) {
-    %varclient_846 = calc(%varclient_846 + 1);
+if (%mob_client_squad_qty_selected < 10) {
+    %mob_client_squad_qty_selected = calc(%mob_client_squad_qty_selected + 1);
 }
-if_settext(tostring(%varclient_846), mob_squad_buy:quantity_field);
+if_settext(mob_squad_buy:quantity_field, tostring(%mob_client_squad_qty_selected));
 ~mob_buy_update_qty;

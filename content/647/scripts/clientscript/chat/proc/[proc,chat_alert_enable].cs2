@@ -1,13 +1,13 @@
 // 180
 [proc,chat_alert_enable](int $int0)
-if ($int0 = %varclient_41) {
+if ($int0 = %chat_view) {
     return;
 }
-if ($int0 = 3 & %option_pm > 0 & %varclient_41 ! -1) {
+if ($int0 = 3 & %option_pm > 0 & %chat_view ! -1) {
     return;
 }
 if (~chat_alert_get($int0) > 24) {
     return;
 }
 ~chat_alert_set($int0, 249);
-if_setontimer("chat_alert_flash($int0)", enum(int, component, enum_683, $int0));
+if_setontimer(enum(int, component, enum_683, $int0), "chat_alert_flash($int0)");

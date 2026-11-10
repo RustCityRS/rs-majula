@@ -21,7 +21,7 @@ onmouseleave=topstat_prayer_button_mouseleave(event_com)
 onvartransmit=topstat_prayer_custom(event_com){varplayer_1584}
 onstattransmit=script2298{prayer}
 onop=topstat_prayer_button_op(event_op)
-onvarctransmit=topstat_prayer_custom(event_com){varclient_181}
+onvarctransmit=topstat_prayer_custom(event_com){prayer_custom_view_client}
 
 // 749:2
 [topstat_circle_prayer]
@@ -34,7 +34,7 @@ layer=topstat_prayer
 graphic="topstat_fill_full,1"
 alpha=yes
 colour=0xffffffff
-onvarctransmit=topstat_prayer_button_update{varclient_182}
+onvarctransmit=topstat_prayer_button_update{topstat_prayer_button_client}
 
 // 749:3
 [com_3]

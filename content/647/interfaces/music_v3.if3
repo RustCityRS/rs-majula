@@ -7,7 +7,7 @@ height=186
 colour=0x000000
 fill=yes
 trans=200
-onvarctransmit=music_playlist_toggle_interface(0){varclient_1077}
+onvarctransmit=music_playlist_toggle_interface(0){music_playlist_toggle_varc}
 
 // 187:1
 [jukebox]
@@ -17,7 +17,7 @@ width=170
 height=187
 opbase= 
 onload=script828
-onvartransmit=music_v3_setcolour{varplayer_1621, varplayer_1622, varplayer_1623, varplayer_1624, varplayer_1625, varplayer_1626, musicmulti_1, musicmulti_2, musicmulti_3, musicmulti_4, musicmulti_5, musicmulti_6, musicmulti_7, musicmulti_8, musicmulti_9, musicmulti_10, musicmulti_11, musicmulti_12, musicmulti_13, musicmulti_14, musicmulti_15, musicmulti_16, musicmulti_17, musicmulti_18, musicmulti_19, musicmulti_20, musicmulti_21, musicmulti_22, musicmulti_23, musicmulti_24, musicmulti_25, musicmulti_26, musicmulti_27, musicmulti_29, musicmulti_30, musicmulti_31}
+onvartransmit=music_v3_setcolour{playlist_0_and_1, varplayer_1622, varplayer_1623, varplayer_1624, varplayer_1625, varplayer_1626, musicmulti_1, musicmulti_2, musicmulti_3, musicmulti_4, musicmulti_5, musicmulti_6, musicmulti_7, musicmulti_8, musicmulti_9, musicmulti_10, musicmulti_11, musicmulti_12, musicmulti_13, musicmulti_14, musicmulti_15, musicmulti_16, musicmulti_17, musicmulti_18, musicmulti_19, musicmulti_20, musicmulti_21, musicmulti_22, musicmulti_23, musicmulti_24, musicmulti_25, musicmulti_26, musicmulti_27, musicmulti_29, musicmulti_30, musicmulti_31}
 
 // 187:2
 [scrollbar]
@@ -106,7 +106,7 @@ type=layer
 y=62
 width=186
 height=187
-onvartransmit=music_playlist_onload{varplayer_1621, varplayer_1622, varplayer_1623, varplayer_1624, varplayer_1625, varplayer_1626, varplayer_1189}
+onvartransmit=music_playlist_onload{playlist_0_and_1, varplayer_1622, varplayer_1623, varplayer_1624, varplayer_1625, varplayer_1626, music_v3_temp}
 
 // 187:10
 [playlist_on]
@@ -120,7 +120,7 @@ colour=0xffffffff
 transmitop=1
 op1=Playlist on/off
 onmouseleave=deltooltip(music_v3:music_tooltip_layer)
-onvartransmit=music_playlist_update_mode{varplayer_1621}
+onvartransmit=music_playlist_update_mode{playlist_0_and_1}
 onop=script2873
 onmouserepeat=script2882
 
@@ -163,7 +163,7 @@ colour=0xffffffff
 transmitop=1
 op1=Shuffle on/off
 onmouseleave=deltooltip(music_v3:music_tooltip_layer)
-onvartransmit=music_playlist_update_random{varplayer_1621}
+onvartransmit=music_playlist_update_random{playlist_0_and_1}
 onop=script2875
 onmouserepeat=script2884
 
@@ -204,7 +204,7 @@ graphic="music_header_icons,7"
 colour=0xffffffff
 transmitop=1
 op1=Search
-opcursor0=cursor_56
+opcursor0=cursor_search
 onmouseleave=deltooltip(music_v3:music_tooltip_layer)
 onop=script3682
 onmouserepeat=script3684

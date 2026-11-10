@@ -5,7 +5,7 @@ def_int $int8 = calc($int7 + (146 + $int7) * $int2);
 cc_create($component0, ^iftype_rectangle, calc($int2 * 6));
 cc_setsize(164, 146, ^setsize_abs, ^setsize_abs);
 cc_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top);
-if (%varplayerbit_4190 = $int1) {
+if (%gravestone_type = $int1) {
     cc_setcolour(0x7f0000);
 } else {
     cc_setcolour(^black);

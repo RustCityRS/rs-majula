@@ -1,105 +1,105 @@
 // 756
 [clientscript,script756]
-if (%varplayer_1177 > 60) {
-    %varplayer_1177 = 60;
+if (%lore_spell_points > 60) {
+    %lore_spell_points = 60;
 }
-if (%varplayer_1177 = 60) {
-    if_sethide(false, lore_stats_side:com_39);
+if (%lore_spell_points = 60) {
+    if_sethide(lore_stats_side:com_39, false);
 } else {
-    if_sethide(true, lore_stats_side:com_39);
+    if_sethide(lore_stats_side:com_39, true);
 }
-if (%varplayer_1177 >= 57) {
-    if_sethide(false, lore_stats_side:com_38);
+if (%lore_spell_points >= 57) {
+    if_sethide(lore_stats_side:com_38, false);
 } else {
-    if_sethide(true, lore_stats_side:com_38);
+    if_sethide(lore_stats_side:com_38, true);
 }
-if (%varplayer_1177 >= 54) {
-    if_sethide(false, lore_stats_side:com_37);
+if (%lore_spell_points >= 54) {
+    if_sethide(lore_stats_side:com_37, false);
 } else {
-    if_sethide(true, lore_stats_side:com_37);
+    if_sethide(lore_stats_side:com_37, true);
 }
-if (%varplayer_1177 >= 51) {
-    if_sethide(false, lore_stats_side:com_36);
+if (%lore_spell_points >= 51) {
+    if_sethide(lore_stats_side:com_36, false);
 } else {
-    if_sethide(true, lore_stats_side:com_36);
+    if_sethide(lore_stats_side:com_36, true);
 }
-if (%varplayer_1177 >= 48) {
-    if_sethide(false, lore_stats_side:com_35);
+if (%lore_spell_points >= 48) {
+    if_sethide(lore_stats_side:com_35, false);
 } else {
-    if_sethide(true, lore_stats_side:com_35);
+    if_sethide(lore_stats_side:com_35, true);
 }
-if (%varplayer_1177 >= 45) {
-    if_sethide(false, lore_stats_side:com_34);
+if (%lore_spell_points >= 45) {
+    if_sethide(lore_stats_side:com_34, false);
 } else {
-    if_sethide(true, lore_stats_side:com_34);
+    if_sethide(lore_stats_side:com_34, true);
 }
-if (%varplayer_1177 >= 42) {
-    if_sethide(false, lore_stats_side:com_33);
+if (%lore_spell_points >= 42) {
+    if_sethide(lore_stats_side:com_33, false);
 } else {
-    if_sethide(true, lore_stats_side:com_33);
+    if_sethide(lore_stats_side:com_33, true);
 }
-if (%varplayer_1177 >= 39) {
-    if_sethide(false, lore_stats_side:com_32);
+if (%lore_spell_points >= 39) {
+    if_sethide(lore_stats_side:com_32, false);
 } else {
-    if_sethide(true, lore_stats_side:com_32);
+    if_sethide(lore_stats_side:com_32, true);
 }
-if (%varplayer_1177 >= 36) {
-    if_sethide(false, lore_stats_side:com_31);
+if (%lore_spell_points >= 36) {
+    if_sethide(lore_stats_side:com_31, false);
 } else {
-    if_sethide(true, lore_stats_side:com_31);
+    if_sethide(lore_stats_side:com_31, true);
 }
-if (%varplayer_1177 >= 33) {
-    if_sethide(false, lore_stats_side:com_30);
+if (%lore_spell_points >= 33) {
+    if_sethide(lore_stats_side:com_30, false);
 } else {
-    if_sethide(true, lore_stats_side:com_30);
+    if_sethide(lore_stats_side:com_30, true);
 }
-if (%varplayer_1177 >= 30) {
-    if_sethide(false, lore_stats_side:com_29);
+if (%lore_spell_points >= 30) {
+    if_sethide(lore_stats_side:com_29, false);
 } else {
-    if_sethide(true, lore_stats_side:com_29);
+    if_sethide(lore_stats_side:com_29, true);
 }
-if (%varplayer_1177 >= 27) {
-    if_sethide(false, lore_stats_side:com_28);
+if (%lore_spell_points >= 27) {
+    if_sethide(lore_stats_side:com_28, false);
 } else {
-    if_sethide(true, lore_stats_side:com_28);
+    if_sethide(lore_stats_side:com_28, true);
 }
-if (%varplayer_1177 >= 24) {
-    if_sethide(false, lore_stats_side:com_27);
+if (%lore_spell_points >= 24) {
+    if_sethide(lore_stats_side:com_27, false);
 } else {
-    if_sethide(true, lore_stats_side:com_27);
+    if_sethide(lore_stats_side:com_27, true);
 }
-if (%varplayer_1177 >= 21) {
-    if_sethide(false, lore_stats_side:com_26);
+if (%lore_spell_points >= 21) {
+    if_sethide(lore_stats_side:com_26, false);
 } else {
-    if_sethide(true, lore_stats_side:com_26);
+    if_sethide(lore_stats_side:com_26, true);
 }
-if (%varplayer_1177 >= 18) {
-    if_sethide(false, lore_stats_side:com_25);
+if (%lore_spell_points >= 18) {
+    if_sethide(lore_stats_side:com_25, false);
 } else {
-    if_sethide(true, lore_stats_side:com_25);
+    if_sethide(lore_stats_side:com_25, true);
 }
-if (%varplayer_1177 >= 15) {
-    if_sethide(false, lore_stats_side:com_24);
+if (%lore_spell_points >= 15) {
+    if_sethide(lore_stats_side:com_24, false);
 } else {
-    if_sethide(true, lore_stats_side:com_24);
+    if_sethide(lore_stats_side:com_24, true);
 }
-if (%varplayer_1177 >= 12) {
-    if_sethide(false, lore_stats_side:com_23);
+if (%lore_spell_points >= 12) {
+    if_sethide(lore_stats_side:com_23, false);
 } else {
-    if_sethide(true, lore_stats_side:com_23);
+    if_sethide(lore_stats_side:com_23, true);
 }
-if (%varplayer_1177 >= 9) {
-    if_sethide(false, lore_stats_side:com_22);
+if (%lore_spell_points >= 9) {
+    if_sethide(lore_stats_side:com_22, false);
 } else {
-    if_sethide(true, lore_stats_side:com_22);
+    if_sethide(lore_stats_side:com_22, true);
 }
-if (%varplayer_1177 >= 6) {
-    if_sethide(false, lore_stats_side:com_21);
+if (%lore_spell_points >= 6) {
+    if_sethide(lore_stats_side:com_21, false);
 } else {
-    if_sethide(true, lore_stats_side:com_21);
+    if_sethide(lore_stats_side:com_21, true);
 }
-if (%varplayer_1177 >= 3) {
-    if_sethide(false, lore_stats_side:com_20);
+if (%lore_spell_points >= 3) {
+    if_sethide(lore_stats_side:com_20, false);
 } else {
-    if_sethide(true, lore_stats_side:com_20);
+    if_sethide(lore_stats_side:com_20, true);
 }

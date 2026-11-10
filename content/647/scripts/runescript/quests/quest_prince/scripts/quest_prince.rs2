@@ -1,14 +1,14 @@
 [opheldu,plainwig]
-if(last_useitem = yellow_dye) {
+if(last_useitem = yellowdye) {
     @make_blonde_wig;
 }
 ~displaymessage(^dm_default);
 
 [label,make_blonde_wig]
-inv_del(inv, yellow_dye, 1);
+inv_del(inv, yellowdye, 1);
 inv_del(inv, plainwig, 1);
 // add the dye
-inv_add(inv, wig, 1);
+inv_add(inv, blondwig, 1);
 mes("You dye the wig blonde.");
 
 [opnpcu,lady_keli]
@@ -32,7 +32,7 @@ if(inv_total(inv, rope) > 0) {
 }
 
 [oplocu,alidoor]
-if (last_useitem ! bronze_key | coordz(coord) <= coordz(loc_coord)) {
+if (last_useitem ! princeskey | coordz(coord) <= coordz(loc_coord)) {
     ~displaymessage(^dm_default);
     return;
 }
@@ -41,7 +41,7 @@ if(%princequest <= ^prince_guard_drunk | npc_find(coord, lady_keli, 10, 0) = tru
     return;
 }
 mes("You unlock the door.");
-~open_and_close_metal_gate2(loc_1541, false, false);
+~open_and_close_metal_gate2(inactiveprisondoor, false, false);
 
 [oploc1,alidoor]
 if(coordz(coord) > coordz(loc_coord)) {
@@ -49,7 +49,7 @@ if(coordz(coord) > coordz(loc_coord)) {
     sound_synth(locked, 1, 0);
     return;
 }
-~open_and_close_metal_gate2(loc_1541, true, false);
+~open_and_close_metal_gate2(inactiveprisondoor, true, false);
 
 [queue,prince_complete]
 %princequest = ^prince_complete;

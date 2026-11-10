@@ -254,7 +254,7 @@ widthmode=minus
 xmode=abs_centre
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Baby x 3, Young x 2, Gourmet x 1 for Imp repellent x 1.")
 onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, 1)
 onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Baby x 3, Young x 2, Gourmet x 1 for Imp repellent x 1.")
@@ -279,7 +279,7 @@ widthmode=minus
 xmode=abs_centre
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Gourmet x 3, Earth x 2, Essence x 1 for Magic Butterfly Net x 1.")
 onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, 2)
 onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Gourmet x 3, Earth x 2, Essence x 1 for Magic Butterfly Net x 1.")
@@ -304,7 +304,7 @@ widthmode=minus
 xmode=abs_centre
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Essence x 3, Eclectic x 2, Nature x 1 for Jar Generator x 1.")
 onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, 3)
 onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Essence x 3, Eclectic x 2, Nature x 1 for Jar Generator x 1.")
@@ -329,7 +329,7 @@ widthmode=minus
 xmode=abs_centre
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, "Exchange any jarred impling x 1 for Impling Jar x 3.")
 onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, 4)
 onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, "Exchange any jarred impling x 1 for Impling Jar x 3.")
@@ -765,7 +765,7 @@ tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(event_com, ii_elnocks_exchange:com_61, ii_elnocks_exchange:com_62, ii_elnocks_exchange:com_63)
 
 // 540:61
@@ -783,7 +783,7 @@ tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(event_com, ii_elnocks_exchange:com_60, ii_elnocks_exchange:com_62, ii_elnocks_exchange:com_63)
 
 // 540:62
@@ -801,7 +801,7 @@ tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(event_com, ii_elnocks_exchange:com_60, ii_elnocks_exchange:com_61, ii_elnocks_exchange:com_63)
 
 // 540:63
@@ -819,7 +819,7 @@ tiling=yes
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(event_com, ii_elnocks_exchange:com_60, ii_elnocks_exchange:com_61, ii_elnocks_exchange:com_62)
 
 // 540:64

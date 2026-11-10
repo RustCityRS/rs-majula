@@ -3,29 +3,29 @@
 def_int $int1 = ~script2520;
 switch_component ($component0) {
     case mob_special_units:plus_button1 :
-        if (%varclient_847 < 5 & $int1 < 5) {
-            %varclient_847 = calc(%varclient_847 + 1);
-            if_settext(tostring(%varclient_847), mob_special_units:quantity_field1);
+        if (%mob_client_cannon_qty < 5 & $int1 < 5) {
+            %mob_client_cannon_qty = calc(%mob_client_cannon_qty + 1);
+            if_settext(mob_special_units:quantity_field1, tostring(%mob_client_cannon_qty));
         }
     case mob_special_units:plus_button2 :
-        if (%varclient_848 < 5 & $int1 < 5) {
-            %varclient_848 = calc(%varclient_848 + 1);
-            if_settext(tostring(%varclient_848), mob_special_units:quantity_field2);
+        if (%mob_client_glider_qty < 5 & $int1 < 5) {
+            %mob_client_glider_qty = calc(%mob_client_glider_qty + 1);
+            if_settext(mob_special_units:quantity_field2, tostring(%mob_client_glider_qty));
         }
     case mob_special_units:plus_button3 :
-        if (%varclient_849 < 5 & $int1 < 5) {
-            %varclient_849 = calc(%varclient_849 + 1);
-            if_settext(tostring(%varclient_849), mob_special_units:quantity_field3);
+        if (%mob_client_chinchompa_qty < 5 & $int1 < 5) {
+            %mob_client_chinchompa_qty = calc(%mob_client_chinchompa_qty + 1);
+            if_settext(mob_special_units:quantity_field3, tostring(%mob_client_chinchompa_qty));
         }
     case mob_special_units:plus_button4 :
-        if (%varclient_850 < 5 & $int1 < 5) {
-            %varclient_850 = calc(%varclient_850 + 1);
-            if_settext(tostring(%varclient_850), mob_special_units:quantity_field4);
+        if (%mob_client_distractor_qty < 5 & $int1 < 5) {
+            %mob_client_distractor_qty = calc(%mob_client_distractor_qty + 1);
+            if_settext(mob_special_units:quantity_field4, tostring(%mob_client_distractor_qty));
         }
     case mob_special_units:plus_button5 :
-        if (%varclient_851 < 5 & $int1 < 5) {
-            %varclient_851 = calc(%varclient_851 + 1);
-            if_settext(tostring(%varclient_851), mob_special_units:quantity_field5);
+        if (%mob_client_barricade_qty < 5 & $int1 < 5) {
+            %mob_client_barricade_qty = calc(%mob_client_barricade_qty + 1);
+            if_settext(mob_special_units:quantity_field5, tostring(%mob_client_barricade_qty));
         }
 }
 ~script2517;

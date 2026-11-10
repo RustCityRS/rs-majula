@@ -1,16 +1,16 @@
 // 2299
 [clientscript,topstat_prayer_custom](component $component0)
-if (%varclient_181 = true) {
-    if (%varplayerbit_6840 = 1) {
-        if_setop(2, "Finish quick curse selection", $component0);
-        if_settext("Select your quick curses:", prayer:custom_instructions);
+if (%prayer_custom_view_client = true) {
+    if (%prayer_mode = 1) {
+        if_setop($component0, 2, "Finish quick curse selection");
+        if_settext(prayer:custom_instructions, "Select your quick curses:");
     } else {
-        if_setop(2, "Finish quick prayer selection", $component0);
-        if_settext("Select your quick prayers:", prayer:custom_instructions);
+        if_setop($component0, 2, "Finish quick prayer selection");
+        if_settext(prayer:custom_instructions, "Select your quick prayers:");
     }
-} else if (%varplayerbit_6840 = 1) {
-    if_setop(2, "Select quick curses", $component0);
+} else if (%prayer_mode = 1) {
+    if_setop($component0, 2, "Select quick curses");
 } else {
-    if_setop(2, "Select quick prayers", $component0);
+    if_setop($component0, 2, "Select quick prayers");
 }
 ~topstat_prayer_button_update;

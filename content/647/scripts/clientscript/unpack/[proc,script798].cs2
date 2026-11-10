@@ -3,7 +3,7 @@
 cc_deleteall($component0);
 def_int $int5 = 0;
 def_int $int6 = 0;
-if_setscrollsize(0, calc((($int4 - $int3) / $int1 + 1) * 57), $component0);
+if_setscrollsize($component0, 0, calc((($int4 - $int3) / $int1 + 1) * 57));
 def_int $int7 = 0;
 def_int $int8 = 1;
 def_int $int9 = 0;
@@ -41,7 +41,7 @@ while ($int7 <= calc($int4 - $int3)) {
         } else {
             ~lore_interface_inv_draw_slot(enum(int, obj, enum_1184, $int8), $obj13, $component0, $int15, $string0, $string1, $string2, $string3, $string4, "");
         }
-    } else if ($obj13 = scroll_12421) {
+    } else if ($obj13 = lore_pouch_spell_grey) {
         ~lore_interface_inv_draw_slot($obj13, $obj13, $component0, $int15, $string0, $string1, $string2, $string3, $string4, "");
     } else {
         ~lore_interface_inv_draw_slot(enum(int, obj, enum_1184, $int8), $obj13, $component0, $int15, $string0, $string1, $string2, $string3, $string4, "");
@@ -49,7 +49,7 @@ while ($int7 <= calc($int4 - $int3)) {
     $string5 = enum(obj, string, enum_1187, $obj13);
     $int14 = enum(obj, int, enum_1185, $obj12);
     if ($int8 = 1) {
-        cc_setonmouserepeat("lore_addtooltip(event_comsubid, interface_666:tool_tip_build_layer, interface_666:scroll_icons, $int14, $string5, spirit_wolf_pouch_12526, 1, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0)");
+        cc_setonmouserepeat("lore_addtooltip(event_comsubid, interface_666:tool_tip_build_layer, interface_666:scroll_icons, $int14, $string5, wolf_wolf_pouch, 1, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0)");
         cc_setonmouseleave("deltooltip(interface_666:tool_tip_build_layer)");
     } else {
         $string5 = "You do not have access to this type of scroll.";

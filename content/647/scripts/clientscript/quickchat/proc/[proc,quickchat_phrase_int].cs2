@@ -1,26 +1,26 @@
 // 1074
 [proc,quickchat_phrase_int](component $component0, chatphrase $chatphrase1, int $int2)
-switch_int (%varclient_134) {
+switch_int (%quickchat_phrase_count) {
     case 0 :
-        %varclient_135 = $int2;
+        %quickchat_phrase_int0 = $int2;
     case 1 :
-        %varclient_136 = $int2;
+        %quickchat_phrase_int1 = $int2;
     case 2 :
-        %varclient_137 = $int2;
+        %quickchat_phrase_int2 = $int2;
     case 3 :
-        %varclient_138 = $int2;
+        %quickchat_phrase_int3 = $int2;
     case 4 :
-        %varclient_139 = $int2;
+        %quickchat_phrase_int4 = $int2;
     case 5 :
-        %varclient_140 = $int2;
+        %quickchat_phrase_int5 = $int2;
     case 6 :
-        %varclient_141 = $int2;
+        %quickchat_phrase_int6 = $int2;
     case 7 :
-        %varclient_142 = $int2;
+        %quickchat_phrase_int7 = $int2;
     case 8 :
-        %varclient_143 = $int2;
+        %quickchat_phrase_int8 = $int2;
     case 9 :
-        %varclient_144 = $int2;
+        %quickchat_phrase_int9 = $int2;
 }
-%varclient_134 = calc(%varclient_134 + 1);
+%quickchat_phrase_count = calc(%quickchat_phrase_count + 1);
 ~quickchat_phrase_setup($component0, $chatphrase1);

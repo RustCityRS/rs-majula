@@ -14,12 +14,12 @@ if(stat_random(fletching, 61, 254) = false) {
     return;
 }
 ~mesbox("Following the plans is tricky, but you persevere.");
-~objbox(prototype_dart, "You successfully attach the feathers to the dart tip.", 250, 0, 0);
+~objbox(thprotodart, "You successfully attach the feathers to the dart tip.", 250, 0, 0);
 if_close;
 p_delay(2);
 if(%desertrescue = ^desertrescue_made_dart_tip) %desertrescue = ^desertrescue_finished_dart;
 stat_advance(fletching, 100);
 inv_del(inv, feather, 10);
-inv_del(inv, prototype_dart_tip, 1);
-inv_add(inv, prototype_dart, 1);
+inv_del(inv, thprotodarttip, 1);
+inv_add(inv, thprotodart, 1);
 

@@ -43,7 +43,7 @@ if (if_gethide($component15) = false & if_getx($component15) = $int11 & if_gety(
 }
 cc_deleteall($component16);
 cc_deleteall($component17);
-if_setscrollpos(0, 0, $component16);
+if_setscrollpos($component16, 0, 0);
 def_enum $enum21 = struct_param($struct5, param_683);
 def_int $int22 = ~graphics_options_detailget($struct5);
 def_int $int23 = ~script829($struct5, $enum21);
@@ -94,16 +94,16 @@ if ($int10 = 1) {
 def_int $int28 = 1;
 if ($int27 < calc($int12 + $int24)) {
     $int12 = calc($int20 + 1 - $int24 + ~if_gety_absolute($component19));
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, $component18);
+    if_setposition($component18, 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
     $int28 = 0;
 } else {
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, $component18);
-    if_setscrollsize(0, 0, $component16);
-    if_sethide(true, $component17);
+    if_setposition($component18, 0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+    if_setscrollsize($component16, 0, 0);
+    if_sethide($component17, true);
 }
-if_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top, $component15);
-if_setsize($int13, $int24, ^setsize_abs, ^setsize_abs, $component15);
-if_sethide(false, $component15);
+if_setposition($component15, $int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize($component15, $int13, $int24, ^setsize_abs, ^setsize_abs);
+if_sethide($component15, false);
 if (cc_find($component0, $int2) = true) {
     cc_setgraphic(graphic_2556);
 }
@@ -121,4 +121,4 @@ if (cc_find($component0, $int1) = true) {
         }
     }
 }
-if_setonclick("graphics_options_canceldropdown($component0, $int1, $int2, $int3, $int4, $struct5, $int6, $int7, $int8, $int9, $int10)", $component14);
+if_setonclick($component14, "graphics_options_canceldropdown($component0, $int1, $int2, $int3, $int4, $struct5, $int6, $int7, $int8, $int9, $int10)");

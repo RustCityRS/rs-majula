@@ -3,8 +3,8 @@
 [oploc2,_cupboard_opened] @close_cupboard(~cupboards_use_message);
 
 // fight arena
-[oploc2,open_cupboard] @search_cupboard;
-[oploc3,open_cupboard] @close_cupboard(false);
+[oploc2,cupboardopen] @search_cupboard;
+[oploc3,cupboardopen] @close_cupboard(false);
 
 // ranging guild
 // this cupboard is not accessible
@@ -12,16 +12,16 @@
 [oploc3,cupboardopen_high] @close_cupboard(false);
 
 // sorcerers tower
-[oploc2,large_open_cupboard] @search_cupboard;
-[oploc3,large_open_cupboard] @close_cupboard(false);
+[oploc2,cupboardopen_big] @search_cupboard;
+[oploc3,cupboardopen_big] @close_cupboard(false);
 
 // 2011's cupboards on 289's spots (general_use/configs/cupboards.loc): the
 // Ranging Guild's opens with 289's ops, the Exam Centre's with Close on op1
 // and Search on op2.
-[oploc2,open_cupboard_37038] @search_cupboard;
-[oploc3,open_cupboard_37038] @close_cupboard(false);
-[oploc1,cupboard_17303] @close_cupboard(false);
-[oploc2,cupboard_17303] @search_cupboard;
+[oploc2,cupboardopen_gloffset] @search_cupboard;
+[oploc3,cupboardopen_gloffset] @close_cupboard(false);
+[oploc1,qip_digsite_cupboardopen] @close_cupboard(false);
+[oploc2,qip_digsite_cupboardopen] @search_cupboard;
 
 [label,search_cupboard]
 //mes(~coord_tostring(loc_coord));
@@ -32,9 +32,9 @@ switch_coord (loc_coord) {
                 // regardless of whether you have the portrait or not, but also not before it
                 if(~vyvin_distracted = false) {
                     return;
-                } else if(inv_total(inv, portrait) = 0 & inv_total(bank, portrait) = 0) {
+                } else if(inv_total(inv, knights_portrait) = 0 & inv_total(bank, knights_portrait) = 0) {
                     ~mesbox("You find a small portrait in here which you take.");
-                    inv_add(inv, portrait, 1);
+                    inv_add(inv, knights_portrait, 1);
                     return;
                 }
             }
@@ -80,7 +80,7 @@ if ($message = true) {
 switch_loc (loc_type) {
     // 2011: Morgan's drawers (cupboards.loc) stand for 289's garlic cupboard,
     // and cache 786 names Alrena's cupboard (2524, 2525) Wardrobe.
-    case drawers_46250, drawers_12961, wardrobe_2524, wardrobe_2525, legends_cupboard : return(true);
+    case drawers_46250, drawers_12961, alrenascupboardshut, alrenascupboardopen, legends_cupboard : return(true);
     case default : return(false);
 }
 

@@ -132,10 +132,10 @@ fn lumbridge_keepers_and_dummies_stand_still() {
     for name in [
         "bob",
         "cook",
-        "shopkeeper",
-        "doomsayer",
+        "generalshopkeeper1",
+        "cws_doomsayer",
         "melee_dummy",
-        "magic_dummy",
+        "tutorial2_magic_dummy",
     ] {
         let range = npcs
             .get(name)

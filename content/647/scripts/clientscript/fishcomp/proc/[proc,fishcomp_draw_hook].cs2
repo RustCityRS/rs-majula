@@ -1,7 +1,7 @@
 // 265
 [proc,fishcomp_draw_hook]
 def_string $string0 = "None";
-switch_int (%varclient_1110) {
+switch_int (%fishcomp_client_hook) {
     case 1 :
         $string0 = "Standard";
     case 3 :
@@ -15,4 +15,4 @@ switch_int (%varclient_1110) {
     case 6 :
         $string0 = "Double";
 }
-if_settext($string0, fishcomp_side:selected_hook_txt);
+if_settext(fishcomp_side:selected_hook_txt, $string0);

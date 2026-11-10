@@ -1,11 +1,11 @@
 // 4145
 [clientscript,bankpin_buttonbox](component $component0, component $component1)
-if (%varclient_98 >= 1) {
-    if_sethide(false, $component0);
-    if_setpausetext("I don't know it.", $component0);
-    if_setposition(0, calc(0 - if_getheight($component1) / 2), ^setpos_abs_centre, ^setpos_abs_centre, $component1);
+if (%playerdesign2_client_skincol >= 1) {
+    if_sethide($component0, false);
+    if_setpausetext($component0, "I don't know it.");
+    if_setposition($component1, 0, calc(0 - if_getheight($component1) / 2), ^setpos_abs_centre, ^setpos_abs_centre);
 } else {
-    if_sethide(true, $component0);
+    if_sethide($component0, true);
     if_clearops($component0);
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, $component1);
+    if_setposition($component1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
 }

@@ -1,7 +1,7 @@
 // 3145
 [clientscript,script3145](int $int0, component $component1, int $int2, int $int3)
-if_sethide(true, lobbyscreen_pane_worldselect:com_65);
-if_sethide(true, lobbyscreen_pane_worldselect:com_66);
+if_sethide(lobbyscreen_pane_worldselect:com_65, true);
+if_sethide(lobbyscreen_pane_worldselect:com_66, true);
 if (cc_find($component1, $int2) = true) {
     if (cc_getgraphic = "world_select_hearts,3") {
         cc_setgraphic("world_select_hearts,2");

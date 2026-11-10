@@ -3,5 +3,5 @@
 if (minimenuopen(chattop:chatdefault, -1) = true) {
     return;
 }
-if_setontimer(null, chattop:chatdefault);
+if_setontimer(chattop:chatdefault, null);
 ~chatdefault_updatechatbox($boolean0);

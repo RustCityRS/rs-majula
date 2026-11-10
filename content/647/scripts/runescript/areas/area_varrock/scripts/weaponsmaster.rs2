@@ -1,6 +1,6 @@
 [opnpc1,weaponsmaster]
 ~chatplayer("<p,neutral>Hello.");
-if(%phoenixgang >= ^phoenixgang_joined) {
+if(%blackarmgang >= ^phoenixgang_joined) {
     ~chatnpc("<p,happy>Hello fellow Phoenix!|What are you after?");
     switch_int (~p_choice2("I'm after a weapon or two.", 1, "I'm looking for treasure.", 2)) {
         case 1 :
@@ -16,7 +16,7 @@ if(%phoenixgang >= ^phoenixgang_joined) {
 }
 
 [label,weaponsmaster_stop]
-if(%phoenixgang >= ^phoenixgang_joined) {
+if(%blackarmgang >= ^phoenixgang_joined) {
     ~chatnpc("<p,angry>Hey! That's Stravens'!|He won't like you messing with that!");
 } else {
     ~chatnpc("<p,angry>Stop! thief!");

@@ -2,17 +2,17 @@
 [clientscript,rand_ring_onhover](component $component0)
 switch_component ($component0) {
     case rand_ring_interface:com_136 :
-        if_sethide(false, rand_ring_interface:com_137);
+        if_sethide(rand_ring_interface:com_137, false);
     case rand_ring_interface:com_43 :
-        if_sethide(false, rand_ring_interface:com_44);
+        if_sethide(rand_ring_interface:com_44, false);
     case rand_ring_interface:com_85 :
-        if_sethide(false, rand_ring_interface:com_86);
+        if_sethide(rand_ring_interface:com_86, false);
     case rand_ring_interface:cancel_button :
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:cancel_button_left);
-        if_setgraphic("login_lobby_button,11", rand_ring_interface:cancel_button_middle);
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:cancel_button_right);
+        if_setgraphic(rand_ring_interface:cancel_button_left, "login_lobby_button,10");
+        if_setgraphic(rand_ring_interface:cancel_button_middle, "login_lobby_button,11");
+        if_setgraphic(rand_ring_interface:cancel_button_right, "login_lobby_button,10");
     case rand_ring_interface:confirm_button :
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:confirm_button_left);
-        if_setgraphic("login_lobby_button,11", rand_ring_interface:confirm_button_middle);
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:confirm_button_right);
+        if_setgraphic(rand_ring_interface:confirm_button_left, "login_lobby_button,10");
+        if_setgraphic(rand_ring_interface:confirm_button_middle, "login_lobby_button,11");
+        if_setgraphic(rand_ring_interface:confirm_button_right, "login_lobby_button,10");
 }

@@ -19,7 +19,7 @@ if (%dragonquest >= ^quest_dragon_spoken_to_oziach & %dragonquest < ^dragon_comp
     // 2011's opener during the quest (mYqjoMQCOHI 355.4s). Only the answer with Elvarg's head
     // is recorded; without it nothing more is said.
     ~chatnpc("<p,quiz>Have ye slayed that dragon yet?");
-    if (inv_total(inv, elvarg_s_head) > 0) {
+    if (inv_total(inv, dragon_slayer_qip_elvargs_head) > 0) {
         @oziach_elvargs_head;
     }
     return;
@@ -102,22 +102,22 @@ if ($choice = 1) {
 ~openshop_activenpc;
 
 [label,trail_oziach]
-if(inv_total(inv, puzzle_box) > 0) {
+if(inv_total(inv, trail_clue_hard_riddle014_puzzlebox) > 0) {
     @puzzle_oziach;
 }
-~give_trail_puzzle(puzzle_box, "<p,neutral>The solving of this puzzle could be the key to your treasure.", "Oziach has given you a puzzle box!");
+~give_trail_puzzle(trail_clue_hard_riddle014_puzzlebox, "<p,neutral>The solving of this puzzle could be the key to your treasure.", "Oziach has given you a puzzle box!");
 
 [label,puzzle_oziach]
-if(inv_total(inv, puzzle_box) = 0) {
+if(inv_total(inv, trail_clue_hard_riddle014_puzzlebox) = 0) {
     ~chatplayer("<p,neutral>I don't have the puzzle box with me.");
     ~chatnpc("<p,angry>That's not much use - go and fetch it!");
     return;
 }
 // 289 checks trail_clue_hard_riddle017_puzzlebox here (Bentnoze's); Oziach's own box (289's
 // trail_clue_hard_riddle014_puzzlebox, obj 2795, 2011's puzzle_box) is the one he gave.
-if(~trail_puzzle_complete(puzzle_box) = true) {
+if(~trail_puzzle_complete(trail_clue_hard_riddle014_puzzlebox) = true) {
     ~chatnpc("<p,neutral>Well done, traveller.");
-    inv_del(inv, puzzle_box, 1);
+    inv_del(inv, trail_clue_hard_riddle014_puzzlebox, 1);
     ~progress_clue_hard(trail_clue_hard_riddle014, "Oziach has given you another clue scroll!");
     return;
 }
@@ -132,5 +132,5 @@ if(~trail_puzzle_complete(puzzle_box) = true) {
 ~chatnpc("<p,shock>You actually did it?");
 ~chatnpc("<p,neutral>I underestimated ye, adventurer. I apologise.");
 ~chatnpc("<p,happy>Yer a true hero, and I'd be happy to sell ye rune platebodies.");
-inv_del(inv, elvarg_s_head, 1);
+inv_del(inv, dragon_slayer_qip_elvargs_head, 1);
 queue(dragon_complete, 0, 0);

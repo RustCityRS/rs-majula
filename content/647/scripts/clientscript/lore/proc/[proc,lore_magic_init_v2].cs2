@@ -5,7 +5,7 @@ if (cc_find(lore_stats_side:spell_icon, 0) = true) {
     cc_setontargetleave("lore_magic_leavetargetmode(event_com)");
     cc_setoninvtransmit("script660(lore_stats_side:spell_icon, $component0, $graphic1, $graphic2, $int3, $string0, $string1, $obj4, $int5, $obj6, $int7, $obj8, $int9, $obj10, $int11){inv}");
     cc_setonstattransmit("script660(lore_stats_side:spell_icon, $component0, $graphic1, $graphic2, $int3, $string0, $string1, $obj4, $int5, $obj6, $int7, $obj8, $int9, $obj10, $int11){summoning}");
-    cc_setonvartransmit("script660(lore_stats_side:spell_icon, $component0, $graphic1, $graphic2, $int3, $string0, $string1, $obj4, $int5, $obj6, $int7, $obj8, $int9, $obj10, $int11){varplayer_1175, varplayer_448}");
+    cc_setonvartransmit("script660(lore_stats_side:spell_icon, $component0, $graphic1, $graphic2, $int3, $string0, $string1, $obj4, $int5, $obj6, $int7, $obj8, $int9, $obj10, $int11){lore_npc_stats, follower_obj}");
     ~script661(lore_stats_side:spell_icon, $component0, $graphic1, $graphic2, $int3, $string0, $string1, $obj4, $int5, $obj6, $int7, $obj8, $int9, $obj10, $int11);
 }
 if (cc_find(topstat_lore:spell_icon, 0) = true) {

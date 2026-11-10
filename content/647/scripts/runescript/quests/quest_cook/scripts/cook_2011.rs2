@@ -3,10 +3,10 @@
 // MilkCow).
 
 // Gillie Groats, the milkmaid by the field north-east of the castle.
-[opnpc1,gillie_groats]
+[opnpc1,gillie_the_milkmaid]
 ~chatnpc("<p,happy>Hello, I'm Gillie the Milkmaid. What can I do for you?");
 def_int $option;
-if (%cookquest = 1 & inv_total(inv, top_quality_milk) = 0) {
+if (%cookquest = 1 & inv_total(inv, cook_milk) = 0) {
     $option = ~p_choice4("I'm after some Top-quality milk.", 1, "Who are you?", 2, "Can you tell me how to milk a cow?", 3, "I'm fine, thanks.", 4);
 } else {
     $option = ~p_choice3("Who are you?", 2, "Can you tell me how to milk a cow?", 3, "I'm fine, thanks.", 4);
@@ -38,33 +38,33 @@ if ($option = 1) {
 
 // The prized dairy cow, east of Gillie's field by the cliff.
 [oploc1,prized_dairy_cow]
-if (inv_total(inv, bucket) < 1) {
+if (inv_total(inv, bucket_empty) < 1) {
     mes("You'll need an empty bucket to collect the milk.");
     return;
 }
 if (%cookquest ! 1) {
     ~mesbox("If you're after ordinary milk, you should use an ordinary dairy cow.");
 }
-if (inv_total(inv, top_quality_milk) > 0) {
+if (inv_total(inv, cook_milk) > 0) {
     mes("You've already got some top-quality milk; you should take it to the cook.");
     return;
 }
 p_arrivedelay;
-anim(milk_cow, 0);
+anim(milkit, 0);
 sound_synth(milk_cow, 1, 0);
 p_delay(4);
-inv_del(inv, bucket, 1);
-inv_add(inv, top_quality_milk, 1);
+inv_del(inv, bucket_empty, 1);
+inv_add(inv, cook_milk, 1);
 mes("You milk the cow for top-quality milk.");
 
 // Millie Miller, of Mill Lane Mill.
-[opnpc1,millie_miller]
+[opnpc1,millie_the_miller]
 ~chatnpc("<p,happy>Hello Adventurer. Welcome to Mill Lane Mill. Can I help you?");
 @millie_miller_menu;
 
 [label,millie_miller_menu]
 def_int $option;
-if (%cookquest = 1 & inv_total(inv, extra_fine_flour) = 0) {
+if (%cookquest = 1 & inv_total(inv, cook_flour) = 0) {
     $option = ~p_choice5("I'm looking for extra fine flour.", 1, "Who are you?", 2, "What is this place?", 3, "How do I mill flour?", 4, "I'm fine, thanks.", 5);
 } else {
     $option = ~p_choice4("Who are you?", 2, "What is this place?", 3, "How do I mill flour?", 4, "I'm fine, thanks.", 5);

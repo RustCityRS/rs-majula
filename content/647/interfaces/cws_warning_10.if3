@@ -157,7 +157,7 @@ textalignv=centre
 textshadow=yes
 colour=0xff7d1f
 onload=cws_setup(cws_warning_10:cws_warning_layer, cws_warning_10:cws_toggle_button, 10)
-onvartransmit=cws_setup(cws_warning_10:cws_warning_layer, cws_warning_10:cws_toggle_button, 10){varplayer_1045}
+onvartransmit=cws_setup(cws_warning_10:cws_warning_layer, cws_warning_10:cws_toggle_button, 10){cws_var}
 
 // 565:15
 [com_15]

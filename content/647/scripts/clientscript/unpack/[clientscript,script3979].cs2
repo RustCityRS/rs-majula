@@ -6,9 +6,9 @@ def_string $string0 = " -<br>";
 $string0 = append(struct_param($struct2, param_1266), $string0);
 $string0 = append($string0, struct_param($struct2, param_1273));
 if (~script3999($int0) = 0) {
-    if_setonmouserepeat("task_side_list_tooltip($component1, $string0)", $component1);
+    if_setonmouserepeat($component1, "task_side_list_tooltip($component1, $string0)");
 } else {
-    if_setonmouserepeat(null, $component1);
+    if_setonmouserepeat($component1, null);
 }
 switch_component ($component1) {
     case task_side:task_1 :

@@ -1,5 +1,5 @@
 [oplocu,newbiefurnace]
-if (%tutorial < ^newbie_mining_instructor_before_smelt_bronze_bar) {
+if (%varplayer_419 < ^newbie_mining_instructor_before_smelt_bronze_bar) {
     ~mesbox("This is a furnace for smelting metal.|You'll learn how to use it soon.");
     return;
 }
@@ -12,7 +12,7 @@ if (last_useitem = copper_ore | last_useitem = tin_ore) {
 
 [oploc1,newbiefurnace]
 // has arrivedelay on osrs, but prob didnt exist originally since no seq
-if (%tutorial < ^newbie_mining_instructor_before_smelt_bronze_bar) {
+if (%varplayer_419 < ^newbie_mining_instructor_before_smelt_bronze_bar) {
     ~mesbox("This is a furnace for smelting metal.|You'll learn how to use it soon.");
     return;
 }
@@ -38,8 +38,8 @@ anim(seq_899, 0);
 sound_synth(furnace, 1, 0);
 mes("You smelt the copper and tin together in the furnace.");
 p_delay(3);
-if (%tutorial = ^newbie_mining_instructor_before_smelt_bronze_bar) {
-    %tutorial = ^newbie_mining_instructor_after_smelt_bronze_bar;
+if (%varplayer_419 = ^newbie_mining_instructor_before_smelt_bronze_bar) {
+    %varplayer_419 = ^newbie_mining_instructor_after_smelt_bronze_bar;
 }
 inv_del(inv, copper_ore, 1);
 inv_del(inv, tin_ore, 1);

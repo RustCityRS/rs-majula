@@ -1,14 +1,14 @@
 // 3453
 [proc,script3453]
-if (%varclient_1281 = 8) {
+if (%machinima_livecamera_plannedmove_savedstates = 8) {
     return;
 }
-if (%varclient_1074 = 0) {
-    ~script3454(calc(%varclient_1281 + 1), %varclient_1070, %varclient_1069, ~script2865(%varclient_1070, %varclient_1071), %varclient_1073);
-} else if (%varclient_1074 = 1) {
-    ~script3454(calc(%varclient_1281 + 1), %varclient_1070, %varclient_1069, %varclient_1072, 50);
+if (%machinima_livecamera_targetmode = 0) {
+    ~script3454(calc(%machinima_livecamera_plannedmove_savedstates + 1), %machinima_livecamera_position, %machinima_livecamera_height, ~script2865(%machinima_livecamera_position, %machinima_livecamera_lookatposition), %machinima_livecamera_lookatheight);
+} else if (%machinima_livecamera_targetmode = 1) {
+    ~script3454(calc(%machinima_livecamera_plannedmove_savedstates + 1), %machinima_livecamera_position, %machinima_livecamera_height, %machinima_livecamera_lookatpositioncoord, 50);
 } else {
     return;
 }
-%varclient_1281 = calc(%varclient_1281 + 1);
-if_settext(tostring(%varclient_1281), machinima_livecamera:storedtext);
+%machinima_livecamera_plannedmove_savedstates = calc(%machinima_livecamera_plannedmove_savedstates + 1);
+if_settext(machinima_livecamera:storedtext, tostring(%machinima_livecamera_plannedmove_savedstates));

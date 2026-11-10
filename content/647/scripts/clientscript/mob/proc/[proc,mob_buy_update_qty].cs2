@@ -1,7 +1,7 @@
 // 2565
 [proc,mob_buy_update_qty]
 def_int $int0 = 0;
-%varclient_846 = %varplayerbit_6380;
-if_settext(tostring(%varplayerbit_6380), mob_squad_buy:quantity_field);
-$int0 = calc(%varclient_839 - 100 * %varclient_846);
-if_settext(~tostring_spacer($int0, ","), mob_squad_buy:remainder_field);
+%mob_client_squad_qty_selected = %varplayerbit_6380;
+if_settext(mob_squad_buy:quantity_field, tostring(%varplayerbit_6380));
+$int0 = calc(%mob_client_invest - 100 * %mob_client_squad_qty_selected);
+if_settext(mob_squad_buy:remainder_field, ~tostring_spacer($int0, ","));

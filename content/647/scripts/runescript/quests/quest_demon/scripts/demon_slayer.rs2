@@ -10,19 +10,19 @@
 // void-634's DemonSlayerSpell: each of the five words holds its place (1-5)
 // in this player's incantation (varbits 2562-2566).
 [proc,demon_slayer_word](int $place)(string)
-if (%demon_slayer_aber = $place) {
+if (%delrith_incantation_1 = $place) {
     return("Aber");
 }
-if (%demon_slayer_camerinthum = $place) {
+if (%delrith_incantation_2 = $place) {
     return("Camerinthum");
 }
-if (%demon_slayer_carlem = $place) {
+if (%delrith_incantation_3 = $place) {
     return("Carlem");
 }
-if (%demon_slayer_gabindo = $place) {
+if (%delrith_incantation_4 = $place) {
     return("Gabindo");
 }
-if (%demon_slayer_purchai = $place) {
+if (%delrith_incantation_5 = $place) {
     return("Purchai");
 }
 return("null");
@@ -30,15 +30,15 @@ return("null");
 // The five words in a random order (void-634's randomiseOrder).
 [proc,demon_slayer_deal_incantation]
 def_int $taken = 0;
-%demon_slayer_aber = ~demon_slayer_free_place($taken);
-$taken = setbit($taken, %demon_slayer_aber);
-%demon_slayer_camerinthum = ~demon_slayer_free_place($taken);
-$taken = setbit($taken, %demon_slayer_camerinthum);
-%demon_slayer_carlem = ~demon_slayer_free_place($taken);
-$taken = setbit($taken, %demon_slayer_carlem);
-%demon_slayer_gabindo = ~demon_slayer_free_place($taken);
-$taken = setbit($taken, %demon_slayer_gabindo);
-%demon_slayer_purchai = ~demon_slayer_free_place($taken);
+%delrith_incantation_1 = ~demon_slayer_free_place($taken);
+$taken = setbit($taken, %delrith_incantation_1);
+%delrith_incantation_2 = ~demon_slayer_free_place($taken);
+$taken = setbit($taken, %delrith_incantation_2);
+%delrith_incantation_3 = ~demon_slayer_free_place($taken);
+$taken = setbit($taken, %delrith_incantation_3);
+%delrith_incantation_4 = ~demon_slayer_free_place($taken);
+$taken = setbit($taken, %delrith_incantation_4);
+%delrith_incantation_5 = ~demon_slayer_free_place($taken);
 
 [proc,demon_slayer_free_place](int $taken)(int)
 def_int $place = calc(random(5) + 1);
@@ -68,10 +68,10 @@ return(false);
 anim(human_pickupfloor, 0); // void-634: climb_down
 ~demon_slayer_key_lost;
 // 289: nothing is there once Silverlight is had.
-if (%demon_slayer_drain_dislodged ! ^demon_key_in_drain | ~demon_owns_key(silverlight_key_sir_prysin) = true
-    | %demon_slayer_silverlight = ^true | %demon_slayer = ^demon_complete) {
+if (%delrith_drain_key ! ^demon_key_in_drain | ~demon_owns_key(silverlight_key_3) = true
+    | %delrith_silverlight_case = ^true | %demonslayer_main = ^demon_complete) {
     mes("Nothing interesting seems to have been dropped down here today.");
-} else if (%demon_slayer = ^demon_not_started) {
+} else if (%demonslayer_main = ^demon_not_started) {
     ~chatplayer("<p,shifty>This is the drainpipe running from the kitchen sink to the sewer. I can see a key just inside the drain.");
 } else {
     ~chatplayer("<p,neutral>That must be the key Sir Prysin dropped.");
@@ -81,9 +81,9 @@ if (%demon_slayer_drain_dislodged ! ^demon_key_in_drain | ~demon_owns_key(silver
 [oplocu,loc_31759]
 def_namedobj $empty;
 switch_obj (last_useitem) {
-    case bucket_of_water : $empty = bucket;
-    case jug_of_water : $empty = jug;
-    case bowl_of_water : $empty = bowl;
+    case bucket_water : $empty = bucket_empty;
+    case jug_water : $empty = jug_empty;
+    case bowl_water : $empty = bowl_empty;
     case default :
         ~displaymessage(^dm_default);
         return;
@@ -95,13 +95,13 @@ spotanim_pl(spotanim_779, 0, 0); // void-634: toss_water
 sound_synth(synth_2982, 1, 0); // void-634: demon_slayer_drain
 ~demon_slayer_key_lost;
 // 289: only a key still in the drain is washed down.
-if (%demon_slayer_drain_dislodged ! ^demon_key_in_drain | ~demon_owns_key(silverlight_key_sir_prysin) = true
-    | %demon_slayer_silverlight = ^true | %demon_slayer = ^demon_complete) {
+if (%delrith_drain_key ! ^demon_key_in_drain | ~demon_owns_key(silverlight_key_3) = true
+    | %delrith_silverlight_case = ^true | %demonslayer_main = ^demon_complete) {
     return;
 }
-sound_synth(synth_2983, 1, 0); // void-634: demon_slayer_key_fall
-%demon_slayer_drain_dislodged = ^demon_key_in_sewer;
-if (%demon_slayer = ^demon_key_hunt) {
+sound_synth(ds_key_fall, 1, 0); // void-634: demon_slayer_key_fall
+%delrith_drain_key = ^demon_key_in_sewer;
+if (%demonslayer_main = ^demon_key_hunt) {
     ~chatplayer("<p,happy>OK, I think I've washed the key down into the sewer. I'd better go down and get it!");
 } else {
     ~chatplayer("<p,shifty>I think that dislodged something from the drain. It's probably gone down to the sewers below.");
@@ -109,22 +109,22 @@ if (%demon_slayer = ^demon_key_hunt) {
 
 // A taken key that the player no longer has is back in the drain.
 [proc,demon_slayer_key_lost]
-if (%demon_slayer_drain_dislodged = ^demon_key_taken & ~demon_owns_key(silverlight_key_sir_prysin) = false) {
-    %demon_slayer_drain_dislodged = ^demon_key_in_drain;
+if (%delrith_drain_key = ^demon_key_taken & ~demon_owns_key(silverlight_key_3) = false) {
+    %delrith_drain_key = ^demon_key_in_drain;
 }
 
 // The key in the Varrock sewer (loc_17431 at 3225,9897), under the drain:
 // rusty_key, with Take, while it lies there. Once taken the cache's multilocs
 // show mud there and the drain empty (value 2), which void-634 does not use.
 [oploc1,loc_17431]
-if (%demon_slayer_drain_dislodged ! ^demon_key_in_sewer) {
+if (%delrith_drain_key ! ^demon_key_in_sewer) {
     return;
 }
 if (inv_freespace(inv) = 0) {
     ~displaymessage(^dm_invspace);
     return;
 }
-inv_add(inv, silverlight_key_sir_prysin, 1);
-%demon_slayer_drain_dislodged = ^demon_key_taken;
+inv_add(inv, silverlight_key_3, 1);
+%delrith_drain_key = ^demon_key_taken;
 // With the comma, as the 2011-04-20 recording shows it (YouTube bHxrbaUN3AI, 344s).
-~objbox(silverlight_key_sir_prysin, "You pick up an old, rusty key.", 250, 0, 0);
+~objbox(silverlight_key_3, "You pick up an old, rusty key.", 250, 0, 0);

@@ -1,12 +1,12 @@
 // 4329
 [proc,script4329](component $component0)
-if (%varclansetting_2 ! null) {
-    if_settext(clanforumqfc_tostring(%varclansetting_2), $component0);
-    if_setonmouseover("text_colour_swapper($component0, ^blue)", $component0);
-    if_setonmouseleave("text_colour_swapper($component0, 0xeae1c2)", $component0);
-    if_setmouseovercursor(cursor_175, $component0);
-    if_setonclick("script4330(%varclansetting_2)", $component0);
-    if_setopbase("Visit Clan Forum", $component0);
+if (%clan_qfc_varclan ! null) {
+    if_settext($component0, clanforumqfc_tostring(%clan_qfc_varclan));
+    if_setonmouseover($component0, "text_colour_swapper($component0, ^blue)");
+    if_setonmouseleave($component0, "text_colour_swapper($component0, 0xeae1c2)");
+    if_setmouseovercursor($component0, cursor_hyperlink_hand);
+    if_setonclick($component0, "script4330(%clan_qfc_varclan)");
+    if_setopbase($component0, "Visit Clan Forum");
 } else {
-    if_settext("", $component0);
+    if_settext($component0, "");
 }

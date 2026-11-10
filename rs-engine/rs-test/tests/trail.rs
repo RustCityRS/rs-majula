@@ -193,8 +193,8 @@ fn a_map_clue_opens_2011s_map() {
 #[test]
 fn the_sextant_moves_on_2011s_coordinates() {
     runner::on_loaded_engine(|engine| {
-        let sextant = obj(engine, "sextant");
-        let mut client = holder(engine, "navigator", &["sextant"]);
+        let sextant = obj(engine, "trail_sextant");
+        let mut client = holder(engine, "navigator", &["trail_sextant"]);
         op1(&mut client, BACKPACK, sextant, 0);
         let packets = ticks(engine, &mut client, 3);
         assert!(
@@ -233,8 +233,8 @@ fn the_sextant_moves_on_2011s_coordinates() {
 #[test]
 fn a_puzzle_box_shows_its_pieces() {
     runner::on_loaded_engine(|engine| {
-        let puzzle = obj(engine, "puzzle_box");
-        let mut client = holder(engine, "puzzler", &["puzzle_box"]);
+        let puzzle = obj(engine, "trail_clue_hard_riddle014_puzzlebox");
+        let mut client = holder(engine, "puzzler", &["trail_clue_hard_riddle014_puzzlebox"]);
         op1(&mut client, BACKPACK, puzzle, 0);
         let packets = ticks(engine, &mut client, 3);
         assert!(
@@ -312,8 +312,8 @@ fn a_puzzle_box_shows_its_pieces() {
 #[test]
 fn the_last_casket_of_an_easy_trail_opens_2011s_reward_box() {
     runner::on_loaded_engine(|engine| {
-        let casket = obj(engine, "casket__easy");
-        let mut client = holder(engine, "treasure", &["casket__easy"]);
+        let casket = obj(engine, "trail_clue_easy_map001_casket");
+        let mut client = holder(engine, "treasure", &["trail_clue_easy_map001_casket"]);
         // 289's %trail_status: the trail's steps so far in bits 0-3, at an
         // easy trail's last (^trail_easy_maxsteps, 4).
         let status = *engine.cache.varps.debugnames.get("trail_status").unwrap();

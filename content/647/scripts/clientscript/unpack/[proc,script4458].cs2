@@ -1,8 +1,8 @@
 // 4458
 [proc,script4458]
-if_sethide(true, clan_chat:clan_list_layer);
-if_sethide(false, clan_chat:guest_list_layer);
-if_sethide(true, clan_chat:ignore_list_layer);
-if_sethide(true, clan_chat:clan_button_selected);
-if_sethide(false, clan_chat:guest_button_selected);
-if_sethide(true, clan_chat:ignore_button_selected);
+if_sethide(clan_chat:clan_list_layer, true);
+if_sethide(clan_chat:guest_list_layer, false);
+if_sethide(clan_chat:ignore_list_layer, true);
+if_sethide(clan_chat:clan_button_selected, true);
+if_sethide(clan_chat:guest_button_selected, false);
+if_sethide(clan_chat:ignore_button_selected, true);

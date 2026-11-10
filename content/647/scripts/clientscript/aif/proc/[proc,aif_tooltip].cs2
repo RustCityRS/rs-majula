@@ -1,13 +1,13 @@
 // 4539
 [proc,aif_tooltip](component $component0, component $component1, int $int2, string $string0, int $int3, fontmetrics $fontmetrics4, graphic $graphic5, int $rgb6, int $int7, int $int8, int $int9, int $int10, int $int11)
-if (%varclient_1 < calc(clientclock + 25)) {
-    if (%varclient_1 < clientclock) {
-        %varclient_1 = clientclock;
+if (%tooltip_time < calc(clientclock + 25)) {
+    if (%tooltip_time < clientclock) {
+        %tooltip_time = clientclock;
     }
-    %varclient_1 = calc(%varclient_1 + 2);
+    %tooltip_time = calc(%tooltip_time + 2);
     return;
 }
-%varclient_1 = calc(clientclock + 25 + 10);
+%tooltip_time = calc(clientclock + 25 + 10);
 def_int $int12 = 0;
 def_int $int13 = 0;
 if (.cc_find($component0, calc(if_getnextsubid($component0) - 1)) = true & (cc_find($component1, $int2) = true | $int2 = -1 & if_find($component1) = true) & .cc_getgraphic = aif_tooltip_arrow_2) {

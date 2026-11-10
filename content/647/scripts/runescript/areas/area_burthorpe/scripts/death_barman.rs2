@@ -1,4 +1,4 @@
-[apnpc1,tostig]
+[apnpc1,death_barman]
 if (npc_range(coord) > 3) {
     p_aprange(3);
     return;
@@ -15,7 +15,7 @@ switch_int(~p_choice2("Yes, please.", 1, "No, thanks.", 2)) {
         // todo: rogues den dialogue
 }
 
-[apnpc3,tostig]
+[apnpc3,death_barman]
 if (npc_range(coord) > 3) {
     p_aprange(3);
     return;

@@ -1,9 +1,9 @@
 // 3381
 [clientscript,login_delay](component $component0, int $int1)
 $int1 = calc($int1 + 1);
-if_setontimer("login_delay($component0, $int1)", $component0);
+if_setontimer($component0, "login_delay($component0, $int1)");
 if ($int1 > 1) {
     %varclient_1273 = true;
-    if_setontimer(null, $component0);
+    if_setontimer($component0, null);
     ~login_dologin;
 }

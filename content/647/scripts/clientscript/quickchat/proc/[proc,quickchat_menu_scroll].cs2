@@ -3,7 +3,7 @@
 def_component $component1 = enum(int, component, enum_1550, $int0);
 def_component $component2 = if_getlayer($component1);
 if (if_getscrollwidth($component2) = 0) {
-    if_setscrollsize(if_getwidth($component2), 0, $component2);
+    if_setscrollsize($component2, if_getwidth($component2), 0);
 }
 def_int $int3 = if_getwidth($component1);
 def_int $int4 = if_getx($component1);
@@ -18,7 +18,7 @@ while ($int0 > 0) {
     }
 }
 if (if_getscrollx($component2) = $int4) {
-    if_setontimer(null, $component2);
+    if_setontimer($component2, null);
 } else {
-    if_setontimer("quickchat_menu_scroll($component2, $int4)", $component2);
+    if_setontimer($component2, "quickchat_menu_scroll($component2, $int4)");
 }

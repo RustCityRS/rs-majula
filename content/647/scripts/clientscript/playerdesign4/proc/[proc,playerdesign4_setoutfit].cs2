@@ -10,28 +10,28 @@ if ($boolean1 = true) {
     baseidkit(8, null);
     baseidkit(14, null);
     baseidkit(15, null);
-    %varclient_1009 = null;
+    %playerdesign3_jaw = null;
     $idkit2 = struct_param($struct0, param_1182);
     if ($idkit2 ! null) {
-        %varclient_1010 = $idkit2;
+        %playerdesign3_torso = $idkit2;
         baseidkit(9, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1183);
-    %varclient_1011 = $idkit2;
+    %playerdesign3_arms = $idkit2;
     baseidkit(10, $idkit2);
     $idkit2 = struct_param($struct0, param_1184);
     if ($idkit2 ! null) {
-        %varclient_1012 = $idkit2;
+        %playerdesign3_hands = $idkit2;
         baseidkit(11, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1185);
     if ($idkit2 ! null) {
-        %varclient_1013 = $idkit2;
+        %playerdesign3_legs = $idkit2;
         baseidkit(12, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1186);
     if ($idkit2 ! null) {
-        %varclient_1014 = $idkit2;
+        %playerdesign3_feet = $idkit2;
         baseidkit(13, $idkit2);
     }
 } else {
@@ -44,38 +44,38 @@ if ($boolean1 = true) {
     baseidkit(15, null);
     $idkit2 = struct_param($struct0, param_1182);
     if ($idkit2 ! null) {
-        %varclient_1010 = $idkit2;
+        %playerdesign3_torso = $idkit2;
         baseidkit(2, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1183);
-    %varclient_1011 = $idkit2;
+    %playerdesign3_arms = $idkit2;
     baseidkit(3, $idkit2);
     $idkit2 = struct_param($struct0, param_1184);
     if ($idkit2 ! null) {
-        %varclient_1012 = $idkit2;
+        %playerdesign3_hands = $idkit2;
         baseidkit(4, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1185);
     if ($idkit2 ! null) {
-        %varclient_1013 = $idkit2;
+        %playerdesign3_legs = $idkit2;
         baseidkit(5, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1186);
     if ($idkit2 ! null) {
         baseidkit(6, $idkit2);
-        %varclient_1014 = $idkit2;
+        %playerdesign3_feet = $idkit2;
     }
 }
-%varclient_1016, %varclient_1017, %varclient_1018 = ~playerdesign4_getcolours($struct0);
-basecolour(1, %varclient_1016);
-basecolour(2, %varclient_1017);
-basecolour(3, %varclient_1018);
+%playerdesign3_torsocol, %playerdesign3_legscol, %playerdesign3_feetcol = ~playerdesign4_getcolours($struct0);
+basecolour(1, %playerdesign3_torsocol);
+basecolour(2, %playerdesign3_legscol);
+basecolour(3, %playerdesign3_feetcol);
 def_inv $inv3 = null;
 def_struct $struct4 = null;
 def_obj $obj5 = null;
 def_obj $obj6 = null;
-if (%varclient_86 ! 0) {
-    $struct4 = enum(int, struct, enum_3278, calc(%varclient_197 - 1));
+if (%playerdesign2_client_antilag ! 0) {
+    $struct4 = enum(int, struct, enum_3278, calc(%playerdesign2_client_random - 1));
     if ($struct4 ! null) {
         $inv3 = struct_param($struct4, param_1163);
         if ($inv3 ! null) {
@@ -91,7 +91,7 @@ if (%varclient_86 ! 0) {
 } else {
     ~playerdesign4_setplayeranim(null, $boolean1);
 }
-setobj(2, junk_19713);
+setobj(2, playerkit_dummy_shadow_necklace);
 setobj(3, $obj5);
 setobj(5, $obj6);
 %character_creation_colour_offset = 0;

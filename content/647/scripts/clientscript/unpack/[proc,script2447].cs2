@@ -1,4 +1,4 @@
 // 2447
 [proc,script2447]
-if_sethide(true, lobbyscreen_pane_clanchat:kick_button_layer);
-if_sethide(true, lobbyscreen_pane_clanchat:com_2);
+if_sethide(lobbyscreen_pane_clanchat:kick_button_layer, true);
+if_sethide(lobbyscreen_pane_clanchat:com_2, true);

@@ -1,6 +1,6 @@
 // 4369
 [clientscript,clan_qfc_text_input](component $component0, char $char1, int $key2, component $component3)
-%varclient_1865 = if_gettext($component0);
+%qfc_input_varc = if_gettext($component0);
 switch_int ($key2) {
     case ^key_return :
         ~clan_qfc_return(1);
@@ -8,20 +8,20 @@ switch_int ($key2) {
         if (keyheld_shift = false) {
             return;
         }
-        ~script1553($key2, %varclient_1498, %varclient_1865);
+        ~script1553($key2, %qfc_input_caret_varc, %qfc_input_varc);
     case ^key_backspace :
-        if (string_length(%varclient_1865) > 0) {
-            %varclient_1865 = substring(%varclient_1865, 0, calc(string_length(%varclient_1865) - 1));
+        if (string_length(%qfc_input_varc) > 0) {
+            %qfc_input_varc = substring(%qfc_input_varc, 0, calc(string_length(%qfc_input_varc) - 1));
         }
     case default :
         if ($key2 = ^key_v & keyheld_ctrl = true) {
             ~clan_paste_qfc;
             return;
         }
-        if (string_length(%varclient_1865) < 13) {
-            %varclient_1865 = ~add_to_inputstring(%varclient_1865, 0, $key2, $char1);
+        if (string_length(%qfc_input_varc) < 13) {
+            %qfc_input_varc = ~add_to_inputstring(%qfc_input_varc, 0, $key2, $char1);
         }
 }
-%varclient_1498 = ~script1552(%varclient_1498, %varclient_1865, verdana_11pt_regular_multiline, $component0, -1);
-if_setposition(%varclient_1498, if_gety($component3), ^setpos_abs_left, ^setpos_abs_top, $component3);
-if_settext(%varclient_1865, $component0);
+%qfc_input_caret_varc = ~script1552(%qfc_input_caret_varc, %qfc_input_varc, verdana_11pt_regular_multiline, $component0, -1);
+if_setposition($component3, %qfc_input_caret_varc, if_gety($component3), ^setpos_abs_left, ^setpos_abs_top);
+if_settext($component0, %qfc_input_varc);

@@ -9,7 +9,7 @@ if (npc_findhero = ^false) {
 
 // Default drop from config.
 obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);
-obj_add(npc_coord, black_dragonhide, 1, ^lootdrop_duration);
+obj_add(npc_coord, dragonhide_black, 1, ^lootdrop_duration);
 
 // Tertiary
 ~trail_hardcluedrop(128, npc_coord);
@@ -19,7 +19,7 @@ def_int $random = random(128);
 if ($random < 4) {
     obj_add(npc_coord, mithril_2h_sword, 1, ^lootdrop_duration);
 } else if ($random < 7) {
-    obj_add(npc_coord, mithril_hatchet, 1, ^lootdrop_duration);
+    obj_add(npc_coord, mithril_axe, 1, ^lootdrop_duration);
 } else if ($random < 10) {
     obj_add(npc_coord, mithril_battleaxe, 1, ^lootdrop_duration);
 } else if ($random < 13) {
@@ -33,15 +33,15 @@ if ($random < 4) {
 } else if ($random < 36) {
     obj_add(npc_coord, adamant_javelin, 30, ^lootdrop_duration);
 } else if ($random < 44) {
-    obj_add(npc_coord, fire_rune, 50, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 50, ^lootdrop_duration);
 } else if ($random < 51) {
-    obj_add(npc_coord, adamant_dart__p, 16, ^lootdrop_duration);
+    obj_add(npc_coord, adamant_dart_p, 16, ^lootdrop_duration);
 } else if ($random < 56) {
-    obj_add(npc_coord, law_rune, 10, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 10, ^lootdrop_duration);
 } else if ($random < 59) {
-    obj_add(npc_coord, blood_rune, 15, ^lootdrop_duration);
+    obj_add(npc_coord, bloodrune, 15, ^lootdrop_duration);
 } else if ($random < 60) {
-    obj_add(npc_coord, air_rune, 75, ^lootdrop_duration);
+    obj_add(npc_coord, airrune, 75, ^lootdrop_duration);
 } else if ($random < 100) {
     obj_add(npc_coord, coins, 196, ^lootdrop_duration);
 } else if ($random < 110) {
@@ -49,7 +49,7 @@ if ($random < 4) {
 } else if ($random < 111) {
     obj_add(npc_coord, coins, 690, ^lootdrop_duration);
 } else if ($random < 114) {
-    obj_add(npc_coord, adamant_bar, 1, ^lootdrop_duration);
+    obj_add(npc_coord, adamantite_bar, 1, ^lootdrop_duration);
 } else if ($random < 117) {
     obj_add(npc_coord, chocolate_cake, 1, ^lootdrop_duration);
 } else if ($random < 120) {

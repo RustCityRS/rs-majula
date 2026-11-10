@@ -1,6 +1,6 @@
 // 2629
 [clientscript,mob_highlight_start](component $component0)
-if (%varclient_905 = $component0 & %varclient_904 = 1) {
+if (%mob_client_highlight_com = $component0 & %mob_client_highlight = 1) {
     ~mob_highlight_stop;
     return;
 }

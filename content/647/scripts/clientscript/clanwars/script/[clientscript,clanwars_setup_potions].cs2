@@ -3,9 +3,9 @@
 if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varclient_255 = false) {
-    %varclient_255 = true;
+if (%clanwars_rulevarc_nopotions = false) {
+    %clanwars_rulevarc_nopotions = true;
 } else {
-    %varclient_255 = false;
+    %clanwars_rulevarc_nopotions = false;
 }
 ~clanwars_resynch_potions;

@@ -29,7 +29,7 @@ width=80
 height=45
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 31:3
 [boardgames_title]
@@ -92,7 +92,7 @@ tiling=yes
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(event_com, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:8
@@ -108,7 +108,7 @@ tiling=yes
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(event_com, boardgames_challenge:boardgames_challenge_draughts1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:9
@@ -125,7 +125,7 @@ textshadow=yes
 colour=0xffaa44
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(boardgames_challenge:boardgames_challenge_draughts1, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:10
@@ -142,7 +142,7 @@ textshadow=yes
 colour=0xffaa44
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_draughts1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:11
@@ -210,7 +210,7 @@ tiling=yes
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(event_com, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_draughts1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:16
@@ -227,7 +227,7 @@ textshadow=yes
 colour=0xffaa44
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_draughts1, boardgames_challenge:boardgames_challenge_runeversi1)
 
 // 31:17
@@ -256,7 +256,7 @@ tiling=yes
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(event_com, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_draughts1)
 
 // 31:19
@@ -273,7 +273,7 @@ textshadow=yes
 colour=0xffaa44
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onclick=script1422(boardgames_challenge:boardgames_challenge_runeversi1, boardgames_challenge:boardgames_challenge_runelink1, boardgames_challenge:boardgames_challenge_runesquares1, boardgames_challenge:boardgames_challenge_draughts1)
 
 // 31:20

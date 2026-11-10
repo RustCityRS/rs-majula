@@ -3,7 +3,7 @@
 def_string $string0 = "";
 def_string $string1 = "";
 def_component $component2 = rand_ring_interface:tooltip_layer;
-switch_int (%varclient_1184) {
+switch_int (%rand_player_tab) {
     case 1 :
         if ($component0 = rand_ring_interface:ring_a) {
             $string0 = enum(int, string, enum_3089, %varplayerbit_8053);

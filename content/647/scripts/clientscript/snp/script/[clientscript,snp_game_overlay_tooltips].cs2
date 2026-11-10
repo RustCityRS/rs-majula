@@ -1,7 +1,7 @@
 // 2091
 [clientscript,snp_game_overlay_tooltips](component $component0, component $component1)
 def_string $string0 = "";
-if (%varplayerbit_5835 = 1) {
+if (%snp_interface_help_off = 1) {
     return;
 }
 switch_component ($component0) {

@@ -1,7 +1,7 @@
 // 3054
 [proc,lobbyscreen_pane_friendslist_chat_build](component $component0)
 if (minimenuopen(lobbyscreen_pane_friendslist:chat_build, -1) = true) {
-    if_setontimer("lobbyscreen_pane_friendslist_chat_build($component0)", $component0);
+    if_setontimer($component0, "lobbyscreen_pane_friendslist_chat_build($component0)");
     return;
 }
 cc_deleteall(lobbyscreen_pane_friendslist:chat_build);
@@ -50,12 +50,12 @@ if ($int1 < $int4) {
 }
 def_int $int6 = max(calc($int1 * 15), calc($int4 * 15));
 if ($int6 > if_getheight(lobbyscreen_pane_friendslist:chat_build)) {
-    if_setscrollsize(0, $int6, lobbyscreen_pane_friendslist:chat_build);
-    ~scrollbar_resize(lobbyscreen_pane_friendslist:chat_scroll, lobbyscreen_pane_friendslist:chat_build, calc(%varclient_1122 + if_getscrollheight(lobbyscreen_pane_friendslist:chat_build) - %varclient_1123));
+    if_setscrollsize(lobbyscreen_pane_friendslist:chat_build, 0, $int6);
+    ~scrollbar_resize(lobbyscreen_pane_friendslist:chat_scroll, lobbyscreen_pane_friendslist:chat_build, calc(%lobby_pmchat_lastscrollpos + if_getscrollheight(lobbyscreen_pane_friendslist:chat_build) - %lobby_pmchat_lastscrollsize));
 } else {
-    if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:chat_build);
-    if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:chat_build);
+    if_setscrollsize(lobbyscreen_pane_friendslist:chat_build, 0, 0);
+    if_setscrollpos(lobbyscreen_pane_friendslist:chat_build, 0, 0);
     ~scrollbar_resize(lobbyscreen_pane_friendslist:chat_scroll, lobbyscreen_pane_friendslist:chat_build, 0);
 }
-%varclient_1122 = if_getscrolly(lobbyscreen_pane_friendslist:chat_build);
-%varclient_1123 = if_getscrollheight(lobbyscreen_pane_friendslist:chat_build);
+%lobby_pmchat_lastscrollpos = if_getscrolly(lobbyscreen_pane_friendslist:chat_build);
+%lobby_pmchat_lastscrollsize = if_getscrollheight(lobbyscreen_pane_friendslist:chat_build);

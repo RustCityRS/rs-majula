@@ -5,19 +5,19 @@ def_string $string0 = null;
 ~sm_hideall;
 if (%varplayer_1112 = -1 | stockmarket_isofferempty(%varplayer_1112) = true & %varplayer_1113 = -1) {
     ~deltooltip_action(stockmarket:offertooltip);
-    if_sethide(false, stockmarket:summarylayer);
+    if_sethide(stockmarket:summarylayer, false);
     ~script628;
-    if_setoninvtransmit(null, stockmarket:runninglayer);
-    %varclient_83 = 0;
-    %varclient_82 = 0;
+    if_setoninvtransmit(stockmarket:runninglayer, null);
+    %stock_offerprice_timer = 0;
+    %stock_offercount_timer = 0;
 } else {
     while ($int0 < 6) {
         ~deltooltip_action(~script626($int0));
         $int0 = calc($int0 + 1);
     }
     if (stockmarket_isofferempty(%varplayer_1112) = false) {
-        if_sethide(false, stockmarket:offerlayer);
-        if_sethide(false, stockmarket:runninglayer);
+        if_sethide(stockmarket:offerlayer, false);
+        if_sethide(stockmarket:runninglayer, false);
         ~sm_updateofferlayer(stockmarket_getoffertype(%varplayer_1112), stockmarket_getofferitem(%varplayer_1112), stockmarket_getoffercount(%varplayer_1112), stockmarket_getofferprice(%varplayer_1112));
         ~sm_updaterunninglayer(%varplayer_1112);
         if (stockmarket_getoffertype(%varplayer_1112) = 0) {
@@ -25,41 +25,41 @@ if (%varplayer_1112 = -1 | stockmarket_isofferempty(%varplayer_1112) = true & %v
         } else {
             $string0 = "Minimum total value of sale";
         }
-        if_setonmouserepeat("sm_offer_addtooltip(stockmarket:totalvalue, stockmarket:offertooltip, $string0, 25, 300)", stockmarket:totalvalue);
+        if_setonmouserepeat(stockmarket:totalvalue, "sm_offer_addtooltip(stockmarket:totalvalue, stockmarket:offertooltip, $string0, 25, 300)");
         $string0 = tostring_localised(calc(stockmarket_getoffercount(%varplayer_1112) * stockmarket_getofferprice(%varplayer_1112)), true);
-        if_settext("<$string0> gp", stockmarket:totalvalue);
+        if_settext(stockmarket:totalvalue, "<$string0> gp");
     } else {
-        if_sethide(false, stockmarket:offerlayer);
-        if_sethide(false, stockmarket:newofferlayer);
+        if_sethide(stockmarket:offerlayer, false);
+        if_sethide(stockmarket:newofferlayer, false);
         if (%varplayer_1113 = 0) {
-            if_sethide(false, stockmarket:buylayer);
+            if_sethide(stockmarket:buylayer, false);
             if (%varplayer_1109 ! null) {
-                if_sethide(true, stockmarket:com_191);
-                if_sethide(true, stockmarket:com_192);
+                if_sethide(stockmarket:com_191, true);
+                if_sethide(stockmarket:com_192, true);
             } else {
-                if_sethide(false, stockmarket:com_191);
-                if_sethide(false, stockmarket:com_192);
+                if_sethide(stockmarket:com_191, false);
+                if_sethide(stockmarket:com_192, false);
             }
             $string0 = "Maximum total cost of purchase";
         } else {
-            if_sethide(false, stockmarket:selllayer);
+            if_sethide(stockmarket:selllayer, false);
             if (%varplayer_1109 ! null) {
-                if_sethide(true, stockmarket:com_195);
+                if_sethide(stockmarket:com_195, true);
             } else {
-                if_sethide(false, stockmarket:com_195);
+                if_sethide(stockmarket:com_195, false);
             }
             $string0 = "Minimum total value of sale";
         }
-        if_setonmouserepeat("sm_offer_addtooltip(stockmarket:totalvalue, stockmarket:offertooltip, $string0, 25, 300)", stockmarket:totalvalue);
+        if_setonmouserepeat(stockmarket:totalvalue, "sm_offer_addtooltip(stockmarket:totalvalue, stockmarket:offertooltip, $string0, 25, 300)");
         if (%varplayer_1111 > 0) {
             if (%varplayer_1110 > calc(^max_32bit_int / %varplayer_1111)) {
-                if_settext("Too high!", stockmarket:totalvalue);
+                if_settext(stockmarket:totalvalue, "Too high!");
             } else {
                 $string0 = tostring_localised(calc(%varplayer_1110 * %varplayer_1111), true);
-                if_settext("<$string0> gp", stockmarket:totalvalue);
+                if_settext(stockmarket:totalvalue, "<$string0> gp");
             }
         } else {
-            if_settext("0 gp", stockmarket:totalvalue);
+            if_settext(stockmarket:totalvalue, "0 gp");
         }
         ~sm_updateofferlayer(%varplayer_1113, %varplayer_1109, %varplayer_1110, %varplayer_1111);
     }

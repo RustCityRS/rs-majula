@@ -145,7 +145,7 @@ layer=contents
 model=null
 modelangle=0,1800,0
 modelzoom=1550
-onload=makeover_headsetup(event_com, man_3915)
+onload=makeover_headsetup(event_com, karamja_man)
 
 // 900:13
 [femalehead]
@@ -176,7 +176,7 @@ colour=0x000000
 transmitop=1
 op1=Select Male
 onload=makeover_gender_resynch(makeover_mage:choosemale, makeover_mage:choosefemale)
-onvartransmit=makeover_gender_resynch(makeover_mage:choosemale, makeover_mage:choosefemale){varplayer_1057}
+onvartransmit=makeover_gender_resynch(makeover_mage:choosemale, makeover_mage:choosefemale){gimp_temp_var}
 onop=makeover_gender_force(event_op, 0, makeover_mage:choosemale, makeover_mage:choosefemale)
 
 // 900:15
@@ -230,7 +230,7 @@ height=240
 xmode=abs_centre
 layer=contents
 onload=makeover_colour_resynch(makeover_mage:tick)
-onvartransmit=makeover_colour_resynch(makeover_mage:tick){varplayer_1057}
+onvartransmit=makeover_colour_resynch(makeover_mage:tick){gimp_temp_var}
 
 // 900:19
 [com_19]
@@ -256,7 +256,7 @@ colour=0xd9cec7
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 9)
 
 // 900:21
@@ -272,7 +272,7 @@ colour=0xceb4a1
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 8)
 
 // 900:22
@@ -288,7 +288,7 @@ colour=0xd5a985
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 7)
 
 // 900:23
@@ -304,7 +304,7 @@ colour=0xbb8f6a
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 0)
 
 // 900:24
@@ -320,7 +320,7 @@ colour=0xa47f5d
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 1)
 
 // 900:25
@@ -336,7 +336,7 @@ colour=0x9e7a49
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 2)
 
 // 900:26
@@ -352,7 +352,7 @@ colour=0x8e6e42
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 3)
 
 // 900:27
@@ -368,7 +368,7 @@ colour=0x79582a
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 4)
 
 // 900:28
@@ -384,7 +384,7 @@ colour=0x644e24
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 5)
 
 // 900:29
@@ -400,7 +400,7 @@ colour=0x4c3d09
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 6)
 
 // 900:30
@@ -416,7 +416,7 @@ colour=0x2e1c01
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 10)
 
 // 900:31
@@ -434,7 +434,7 @@ colour=0x1c120b
 fill=yes
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 11)
 
 // 900:32

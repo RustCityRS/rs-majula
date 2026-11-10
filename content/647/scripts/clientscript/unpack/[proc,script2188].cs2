@@ -2,11 +2,11 @@
 [proc,script2188](int $int0)(int)
 switch_int ($int0) {
     case 5 :
-        return(%varplayerbit_7307);
+        return(%fishcomp_reward_bait_amount_1);
     case 6 :
-        return(%varplayerbit_7308);
+        return(%fishcomp_reward_bait_amount_2);
     case 7 :
-        return(%varplayerbit_7309);
+        return(%fishcomp_reward_bait_amount_3);
     case default :
         return(1);
 }

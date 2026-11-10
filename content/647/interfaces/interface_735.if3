@@ -151,7 +151,7 @@ height=226
 layer=background
 scrollheight=2000
 onload=fairyrings_log_init(event_com, interface_735:scrollbar, interface_735:shuffle)
-onvartransmit=fairyrings_log_init(event_com, interface_735:scrollbar, interface_735:shuffle){varplayer_816}
+onvartransmit=fairyrings_log_init(event_com, interface_735:scrollbar, interface_735:shuffle){fairyrings_multi}
 
 // 735:14
 [text_aip]

@@ -1,7 +1,7 @@
 // 1536
 [clientscript,deathkeep_info_init](component $component0)
-if_setonvartransmit("script1537{varplayer_1747}", $component0);
-if_setoninvtransmit("script1538{inv, worn, inv_530}", $component0);
-if_setonvarcstrtransmit("script1539{varclient_1871}", $component0);
+if_setonvartransmit($component0, "script1537{varplayer_1747}");
+if_setoninvtransmit($component0, "script1538{inv, worn, lore_bob}");
+if_setonvarcstrtransmit($component0, "script1539{varclient_1871}");
 ~script4592;
 ~script4597;

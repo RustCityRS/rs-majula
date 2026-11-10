@@ -141,7 +141,7 @@ fn every_prince_ali_rescue_npc_answers_every_branch() {
             ("hassan", &[0, 10, 20, 30, 110][..]),
             // Osman is 2011's multi-npc 5282, shown as osman (924).
             ("npc_5282", &[0, 10, 20, 30, 110]),
-            ("leela", &[0, 20, 30, 40, 110]),
+            ("leela_child", &[0, 20, 30, 40, 110]),
             ("ned", &[0, 20, 110]),
             ("aggie", &[0, 20]),
             ("joe_916", &[0, 30, 40]),
@@ -150,7 +150,7 @@ fn every_prince_ali_rescue_npc_answers_every_branch() {
             ("lady_keli", &[0, 20, 30]),
             ("prince_ali", &[0, 50]),
             ("jailguard", &[0]),
-            ("border_guard", &[0, 110]),
+            ("borderguard1", &[0, 110]),
         ] {
             for &stage in stages {
                 every_branch(engine, npc, stage, 0);
@@ -159,7 +159,7 @@ fn every_prince_ali_rescue_npc_answers_every_branch() {
         // Osman and Leela with the key made, and claimed.
         for key in [1, 2] {
             every_branch(engine, "npc_5282", 20, key);
-            every_branch(engine, "leela", 20, key);
+            every_branch(engine, "leela_child", 20, key);
         }
     });
 }
@@ -174,8 +174,8 @@ fn aggie_mixes_skin_paste_without_flour() {
         let (ashes, berries, water, paste) = (
             obj(engine, "ashes"),
             obj(engine, "redberries"),
-            obj(engine, "bucket_of_water"),
-            obj(engine, "paste"),
+            obj(engine, "bucket_water"),
+            obj(engine, "skinpaste"),
         );
         let _ = engine.script_errors.take();
         let mut client = visit(engine, "aggie", 20, 0);
@@ -225,7 +225,7 @@ fn aggie_makes_dyes_from_her_2011_menu() {
         let (coins, onion, yellow) = (
             obj(engine, "coins"),
             obj(engine, "onion"),
-            obj(engine, "yellow_dye"),
+            obj(engine, "yellowdye"),
         );
         let _ = engine.script_errors.take();
         engine.harness_reset();

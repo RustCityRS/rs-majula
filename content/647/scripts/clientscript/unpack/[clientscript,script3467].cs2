@@ -3,5 +3,5 @@
 if (calc(clientclock - $int1) < $int2) {
     return;
 }
-if_setontimer(null, $component0);
+if_setontimer($component0, null);
 ~tutorial3_fadeout(^black, 50, $component0);

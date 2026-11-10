@@ -1,7 +1,7 @@
 // 2417
 [clientscript,peng_rak_engine_ops](component $component0)
-if (%varclient_805 = 5 | %varclient_805 = 11) {
-    if_setop(1, "Pump", $component0);
+if (%peng_rak_eng_tools = 5 | %peng_rak_eng_tools = 11) {
+    if_setop($component0, 1, "Pump");
 } else {
-    if_setop(1, "Inspect", $component0);
+    if_setop($component0, 1, "Inspect");
 }

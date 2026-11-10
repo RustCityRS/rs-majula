@@ -1,25 +1,25 @@
 // 2325
 [clientscript,easter09_reject]
-if (%varclient_766 = 1 | %varclient_766 = 2) {
+if (%easter09_nuts_bar = 1 | %easter09_nuts_bar = 2) {
     mes("You can't do that right now.");
     return;
 }
 sound_synth(synth_6421, 1, 0);
 if (if_getx(easter09_nuts:model1) >= if_getx(easter09_nuts:position_layer) & if_getx(easter09_nuts:model1) < calc(if_getx(easter09_nuts:position_layer) + if_getwidth(easter09_nuts:position_layer))) {
-    %varclient_765 = 1;
-    ~script2326(%varclient_761);
+    %easter09_nuts_tagged = 1;
+    ~script2326(%easter09_nuts_model1);
 }
 if (if_getx(easter09_nuts:model2) >= if_getx(easter09_nuts:position_layer) & if_getx(easter09_nuts:model2) < calc(if_getx(easter09_nuts:position_layer) + if_getwidth(easter09_nuts:position_layer))) {
-    %varclient_765 = 2;
-    ~script2326(%varclient_762);
+    %easter09_nuts_tagged = 2;
+    ~script2326(%easter09_nuts_model2);
 }
 if (if_getx(easter09_nuts:model3) >= if_getx(easter09_nuts:position_layer) & if_getx(easter09_nuts:model3) < calc(if_getx(easter09_nuts:position_layer) + if_getwidth(easter09_nuts:position_layer))) {
-    %varclient_765 = 3;
-    ~script2326(%varclient_763);
+    %easter09_nuts_tagged = 3;
+    ~script2326(%easter09_nuts_model3);
 }
 if (if_getx(easter09_nuts:model4) >= if_getx(easter09_nuts:position_layer) & if_getx(easter09_nuts:model4) < calc(if_getx(easter09_nuts:position_layer) + if_getwidth(easter09_nuts:position_layer))) {
-    %varclient_765 = 4;
-    ~script2326(%varclient_764);
+    %easter09_nuts_tagged = 4;
+    ~script2326(%easter09_nuts_model4);
 }
-%varclient_766 = 1;
-if_setontimer("easter09_nuts_bar(event_com)", easter09_nuts:bar);
+%easter09_nuts_bar = 1;
+if_setontimer(easter09_nuts:bar, "easter09_nuts_bar(event_com)");

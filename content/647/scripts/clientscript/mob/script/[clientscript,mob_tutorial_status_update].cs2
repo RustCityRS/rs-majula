@@ -6,4 +6,4 @@ if (%varclient_825 < 1) {
 if (%varclient_825 > 0) {
     %varclient_825 = calc(%varclient_825 - 1);
 }
-if_settext(tostring(%varclient_825), mob_status_overlay:tally_spec);
+if_settext(mob_status_overlay:tally_spec, tostring(%varclient_825));

@@ -60,11 +60,11 @@ fn varrock_s_npcs_answer_every_branch() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         for npc in [
-            "aubury",
+            "varrock_rune_seller",
             "baraek",
-            "fancy_dress_shop_owner",
+            "tailorp",
             "guildmaster",
-            "horvik",
+            "horvik_the_armourer",
             "kanel",
             "katrine",
             "lowe",
@@ -74,7 +74,7 @@ fn varrock_s_npcs_answer_every_branch() {
             "swordshop2",
             "straven",
             "tea_seller",
-            "charlie_the_tramp",
+            "tramppg",
             "valaine",
             "weaponsmaster",
             "zaff",

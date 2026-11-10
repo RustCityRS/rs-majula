@@ -11,4 +11,4 @@ switch_component ($component0) {
     case rand_ring_interface:skiller_class_button :
         $component1 = rand_ring_interface:skiller_class_onhover;
 }
-if_settrans(255, $component1);
+if_settrans($component1, 255);

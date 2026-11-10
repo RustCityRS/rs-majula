@@ -6,7 +6,7 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 onload=sidebook_build(event_com, sidebook:titlelayer, sidebook:textlayer)
-onvarctransmit=sidebook_build(sidebook:universe, sidebook:titlelayer, sidebook:textlayer){varclient_656}
+onvarctransmit=sidebook_build(sidebook:universe, sidebook:titlelayer, sidebook:textlayer){sidebook_currentpage}
 
 // 838:1
 [titlelayer]

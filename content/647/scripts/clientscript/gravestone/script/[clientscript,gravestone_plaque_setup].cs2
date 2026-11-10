@@ -1,21 +1,21 @@
 // 663
 [clientscript,gravestone_plaque_setup](component $component0, component $component1)
-if_settextfont(barbassault_font, $component1);
-if_settextalign(^settextalign_centre, ^settextalign_centre, 0, $component1);
-if (%varplayerbit_4191 = 0) {
-    if_setmodel(model_30184, $component0);
-    if_setmodelangle(0, 0, 0, 0, 0, 365, $component0);
-    if_setposition(2, 84, ^setpos_abs_left, ^setpos_abs_top, $component0);
-    if_setsize(509, 156, ^setsize_abs, ^setsize_abs, $component0);
-    if_setposition(15, 89, ^setpos_abs_left, ^setpos_abs_top, $component1);
-    if_setsize(487, 143, ^setsize_abs, ^setsize_abs, $component1);
-    if_setcolour(~rgb_to_hex(43, 26, 11), $component1);
-} else if (%varplayerbit_4191 = 1) {
-    if_setmodel(model_30183, $component0);
-    if_setmodelangle(0, 0, 0, 0, 0, 344, $component0);
-    if_setposition(3, 90, ^setpos_abs_left, ^setpos_abs_top, $component0);
-    if_setsize(509, 156, ^setsize_abs, ^setsize_abs, $component0);
-    if_setposition(4, 88, ^setpos_abs_left, ^setpos_abs_top, $component1);
-    if_setsize(506, 139, ^setsize_abs, ^setsize_abs, $component1);
-    if_setcolour(~rgb_to_hex(85, 85, 65), $component1);
+if_settextfont($component1, barbassault_font);
+if_settextalign($component1, ^settextalign_centre, ^settextalign_centre, 0);
+if (%gravestone_transmit = 0) {
+    if_setmodel($component0, model_30184);
+    if_setmodelangle($component0, 0, 0, 0, 0, 0, 365);
+    if_setposition($component0, 2, 84, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize($component0, 509, 156, ^setsize_abs, ^setsize_abs);
+    if_setposition($component1, 15, 89, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize($component1, 487, 143, ^setsize_abs, ^setsize_abs);
+    if_setcolour($component1, ~rgb_to_hex(43, 26, 11));
+} else if (%gravestone_transmit = 1) {
+    if_setmodel($component0, model_30183);
+    if_setmodelangle($component0, 0, 0, 0, 0, 0, 344);
+    if_setposition($component0, 3, 90, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize($component0, 509, 156, ^setsize_abs, ^setsize_abs);
+    if_setposition($component1, 4, 88, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize($component1, 506, 139, ^setsize_abs, ^setsize_abs);
+    if_setcolour($component1, ~rgb_to_hex(85, 85, 65));
 }

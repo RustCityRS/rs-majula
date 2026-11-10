@@ -37,7 +37,7 @@ settimer(general_macro_events, 500);
 queue(macro_event_login, 0, 0);
 // so antifire persists after logging back in
 ~set_antifire_login;
-if (%learning_the_ropes < 1000) {
+if (%tutorial < 1000) {
     ~cc_open_interface();
     return;
 }
@@ -46,7 +46,7 @@ if (%learning_the_ropes < 1000) {
 // 289's resume of its Tutorial Island (tutorial/). 289 resumed any unfinished
 // island; here only one the player entered (%tutorial past 0): 2011's new
 // players spawn on the island without entering it (tutorial.rs2).
-if (%tutorial > ^newbie_basics_instructor_start & %tutorial < ^tutorial_complete & ~in_tutorial_island(coord) = true) {
+if (%varplayer_419 > ^newbie_basics_instructor_start & %varplayer_419 < ^tutorial_complete & ~in_tutorial_island(coord) = true) {
     @start_tutorial;
 }
 
@@ -75,7 +75,7 @@ if (getwindowmode = 1) {
 def_int $summoning = ^false;
 if (map_members = ^true) {
     $summoning = ^true;
-    %show_summoning_orb = ^true;
+    %lore_lore_available = ^true;
 }
 
 if (getwindowmode = 1) {
@@ -112,8 +112,8 @@ if_opensub(chatdefault, chattop:chatdefault)
 // starts both at -1, and the prayer book offers Activate only while 181 is 0
 // (clientscript 1237): unsent, no prayer can be clicked. Quick prayers
 // themselves are not ported.
-%varclient_181 = false
-%varclient_182 = false
+%prayer_custom_view_client = false
+%topstat_prayer_button_client = false
 
 [proc,initalltabs]()
 inv_transmit(inv, inventory:inv)
@@ -205,7 +205,7 @@ if_setevents(combat_side:button4, -1, -1, ^if_op1, 0, 0, ^false, ^false)
 // void-634's total, 311 (varp 904; quests.toml); the wiki's is 316 (see
 // general/configs/quest_interface.constant).
 if_setevents(questlist_v4:quests, 0, 300, ^if_op1, 0, 0, ^false, ^false)
-%quest_points_total = ^quest_points_total;
+%qp_total = ^quest_points_total;
 ~update_questlist;
 
 // The prayer book (prayer, 271) draws its prayers as com8's children, by

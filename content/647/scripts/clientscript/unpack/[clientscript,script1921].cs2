@@ -1,17 +1,17 @@
 // 1921
 [clientscript,script1921]
-if (%varclient_551 > 0) {
-    if_settext(append(append_num(append(%varclient_1559, " ("), %varclient_551), ")"), sc_lobby_clan_overlay:clan_leader_text);
+if (%sc_lobby_clan_size > 0) {
+    if_settext(sc_lobby_clan_overlay:clan_leader_text, append(append_num(append(%sc_lobby_clan_leader, " ("), %sc_lobby_clan_size), ")"));
 } else {
-    if_settext(%varclient_1559, sc_lobby_clan_overlay:clan_leader_text);
+    if_settext(sc_lobby_clan_overlay:clan_leader_text, %sc_lobby_clan_leader);
 }
-if (%varclient_552 > 0) {
-    if_settext(append(append_num(append(%varclient_1560, " ("), %varclient_552), ")"), sc_lobby_clan_overlay:ally_1_text);
+if (%sc_lobby_ally_size_1 > 0) {
+    if_settext(sc_lobby_clan_overlay:ally_1_text, append(append_num(append(%sc_lobby_ally_leader_1, " ("), %sc_lobby_ally_size_1), ")"));
 } else {
-    if_settext(%varclient_1560, sc_lobby_clan_overlay:ally_1_text);
+    if_settext(sc_lobby_clan_overlay:ally_1_text, %sc_lobby_ally_leader_1);
 }
-if (%varclient_553 > 0) {
-    if_settext(append(append_num(append(%varclient_1561, " ("), %varclient_553), ")"), sc_lobby_clan_overlay:ally_2_text);
+if (%sc_lobby_ally_size_2 > 0) {
+    if_settext(sc_lobby_clan_overlay:ally_2_text, append(append_num(append(%sc_lobby_ally_leader_2, " ("), %sc_lobby_ally_size_2), ")"));
 } else {
-    if_settext(%varclient_1561, sc_lobby_clan_overlay:ally_2_text);
+    if_settext(sc_lobby_clan_overlay:ally_2_text, %sc_lobby_ally_leader_2);
 }

@@ -1,7 +1,7 @@
 // 1564
 [proc,meslayer_setupinput](string $string0)
-if_settext(escape($string0), chattop:mes_text2);
-%varclient_1541 = $string0;
-%varclient_1029 = string_length($string0);
-if_setonclick("script1556(event_mousex, event_com, event_comsubid)", chattop:mes_text2);
+if_settext(chattop:mes_text2, escape($string0));
+%meslayerinput = $string0;
+%meslayer_caret = string_length($string0);
+if_setonclick(chattop:mes_text2, "script1556(event_mousex, event_com, event_comsubid)");
 ~script1557;

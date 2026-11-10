@@ -1,53 +1,53 @@
 // 2223
 [proc,create_complete]
 if_opensubclient(loginscreen:create_success, account_create_success);
-if_setgraphic(runescape_logo, account_create_success:runescape_logo);
-if_setgraphic("corner_frame_1,0", account_create_success:top_left_corner);
-if_setvflip(false, account_create_success:top_left_corner);
-if_sethflip(true, account_create_success:top_left_corner);
-if_setgraphic("corner_frame_1,0", account_create_success:top_right_corner);
-if_setvflip(false, account_create_success:top_right_corner);
-if_sethflip(false, account_create_success:top_right_corner);
-if_setgraphic("corner_frame_1,2", account_create_success:bottom_left_corner);
-if_setvflip(false, account_create_success:bottom_left_corner);
-if_sethflip(true, account_create_success:bottom_left_corner);
-if_setgraphic("corner_frame_1,2", account_create_success:bottom_right_corner);
-if_setvflip(false, account_create_success:bottom_right_corner);
-if_sethflip(false, account_create_success:bottom_right_corner);
+if_setgraphic(account_create_success:runescape_logo, runescape_logo);
+if_setgraphic(account_create_success:top_left_corner, "corner_frame_1,0");
+if_setvflip(account_create_success:top_left_corner, false);
+if_sethflip(account_create_success:top_left_corner, true);
+if_setgraphic(account_create_success:top_right_corner, "corner_frame_1,0");
+if_setvflip(account_create_success:top_right_corner, false);
+if_sethflip(account_create_success:top_right_corner, false);
+if_setgraphic(account_create_success:bottom_left_corner, "corner_frame_1,2");
+if_setvflip(account_create_success:bottom_left_corner, false);
+if_sethflip(account_create_success:bottom_left_corner, true);
+if_setgraphic(account_create_success:bottom_right_corner, "corner_frame_1,2");
+if_setvflip(account_create_success:bottom_right_corner, false);
+if_sethflip(account_create_success:bottom_right_corner, false);
 def_string $string0 = "";
 def_int $int0 = stringwidth(if_gettext(account_create_success:terms_link), verdana_11pt_regular);
-if_setsize($int0, if_getheight(account_create_success:terms_link_layer), ^setsize_abs, ^setsize_abs, account_create_success:terms_link_layer);
+if_setsize(account_create_success:terms_link_layer, $int0, if_getheight(account_create_success:terms_link_layer), ^setsize_abs, ^setsize_abs);
 def_int $int1 = stringwidth(if_gettext(account_create_success:privacy_link), verdana_11pt_regular);
-if_setsize($int1, if_getheight(account_create_success:privacy_link_layer), ^setsize_abs, ^setsize_abs, account_create_success:privacy_link_layer);
+if_setsize(account_create_success:privacy_link_layer, $int1, if_getheight(account_create_success:privacy_link_layer), ^setsize_abs, ^setsize_abs);
 def_int $int2 = stringwidth(if_gettext(account_create_success:and_text), verdana_11pt_regular);
-if_setsize($int2, if_getheight(account_create_success:and_text), ^setsize_abs, ^setsize_abs, account_create_success:and_text);
+if_setsize(account_create_success:and_text, $int2, if_getheight(account_create_success:and_text), ^setsize_abs, ^setsize_abs);
 def_string $string1 = if_gettext(account_create_success:and_text);
-if_settext(append(append(if_gettext(account_create_success:terms_link), append(" ", append(if_gettext(account_create_success:and_text), " "))), if_gettext(account_create_success:privacy_link)), account_create_success:and_text);
-if_setposition(0, if_gety(account_create_success:and_text), ^setpos_abs_centre, ^setpos_abs_top, account_create_success:and_text);
-if_setsize(stringwidth(if_gettext(account_create_success:and_text), verdana_11pt_regular), if_getheight(account_create_success:and_text), ^setsize_abs, ^setsize_abs, account_create_success:and_text);
-if_setposition(if_getx(account_create_success:and_text), if_gety(account_create_success:terms_link_layer), ^setpos_abs_left, ^setpos_abs_top, account_create_success:terms_link_layer);
-if_settext($string1, account_create_success:and_text);
-if_setsize($int2, if_getheight(account_create_success:and_text), ^setsize_abs, ^setsize_abs, account_create_success:and_text);
-if_setposition(calc(if_getx(account_create_success:terms_link_layer) + if_getwidth(account_create_success:terms_link_layer) + stringwidth(" ", verdana_11pt_regular)), if_gety(account_create_success:and_text), ^setpos_abs_left, ^setpos_abs_top, account_create_success:and_text);
-if_setposition(calc(if_getx(account_create_success:and_text) + if_getwidth(account_create_success:and_text) + stringwidth(" ", verdana_11pt_regular)), if_gety(account_create_success:privacy_link_layer), ^setpos_abs_left, ^setpos_abs_top, account_create_success:privacy_link_layer);
-if (%varclient_1407 < 13) {
-    if_sethide(true, account_create_success:contents);
-    if_sethide(true, account_create_success:runescape_logo);
-    if_sethide(false, account_create_success:u13_layer);
-    if_settext("Congratulations, your account has been created successfully!", account_create_success:com_18);
+if_settext(account_create_success:and_text, append(append(if_gettext(account_create_success:terms_link), append(" ", append(if_gettext(account_create_success:and_text), " "))), if_gettext(account_create_success:privacy_link)));
+if_setposition(account_create_success:and_text, 0, if_gety(account_create_success:and_text), ^setpos_abs_centre, ^setpos_abs_top);
+if_setsize(account_create_success:and_text, stringwidth(if_gettext(account_create_success:and_text), verdana_11pt_regular), if_getheight(account_create_success:and_text), ^setsize_abs, ^setsize_abs);
+if_setposition(account_create_success:terms_link_layer, if_getx(account_create_success:and_text), if_gety(account_create_success:terms_link_layer), ^setpos_abs_left, ^setpos_abs_top);
+if_settext(account_create_success:and_text, $string1);
+if_setsize(account_create_success:and_text, $int2, if_getheight(account_create_success:and_text), ^setsize_abs, ^setsize_abs);
+if_setposition(account_create_success:and_text, calc(if_getx(account_create_success:terms_link_layer) + if_getwidth(account_create_success:terms_link_layer) + stringwidth(" ", verdana_11pt_regular)), if_gety(account_create_success:and_text), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(account_create_success:privacy_link_layer, calc(if_getx(account_create_success:and_text) + if_getwidth(account_create_success:and_text) + stringwidth(" ", verdana_11pt_regular)), if_gety(account_create_success:privacy_link_layer), ^setpos_abs_left, ^setpos_abs_top);
+if (%create_age < 13) {
+    if_sethide(account_create_success:contents, true);
+    if_sethide(account_create_success:runescape_logo, true);
+    if_sethide(account_create_success:u13_layer, false);
+    if_settext(account_create_success:com_18, "Congratulations, your account has been created successfully!");
 } else {
-    if_sethide(false, account_create_success:contents);
-    if_sethide(false, account_create_success:runescape_logo);
-    if_sethide(true, account_create_success:u13_layer);
-    if_settext("Congratulations, your account has been successfully created and your welcome email will arrive shortly!", account_create_success:com_18);
+    if_sethide(account_create_success:contents, false);
+    if_sethide(account_create_success:runescape_logo, false);
+    if_sethide(account_create_success:u13_layer, true);
+    if_settext(account_create_success:com_18, "Congratulations, your account has been successfully created and your welcome email will arrive shortly!");
 }
 def_string $string2 = "dob";
 def_string $string3 = "set_members_dob.ws";
-if (%varclient_1088 = true) {
+if (%create_success_billing_link = true) {
     $string0 = "Continue To Buy";
-    if_setonclick("loginscreen_link($string2, $string3, false)", account_create_success:continue);
+    if_setonclick(account_create_success:continue, "loginscreen_link($string2, $string3, false)");
 } else {
     $string0 = "Continue";
-    if_setonclick("loginscreen_setactivemenu(12)", account_create_success:continue);
+    if_setonclick(account_create_success:continue, "loginscreen_setactivemenu(12)");
 }
 ~loginscreen_setactivemenu(8);

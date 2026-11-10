@@ -1,10 +1,10 @@
 // 3165
 [proc,lobbyscreen_pane_clanchat_build](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
 if (minimenuopen($component3, -1) = true) {
-    if_setontimer("lobbyscreen_pane_clanchat_build($component0, $component1, $component2, $component3, $component4, $component5)", $component4);
+    if_setontimer($component4, "lobbyscreen_pane_clanchat_build($component0, $component1, $component2, $component3, $component4, $component5)");
     return;
 } else {
-    if_setontimer(null, $component4);
+    if_setontimer($component4, null);
 }
 cc_deleteall($component0);
 cc_deleteall($component1);
@@ -27,9 +27,9 @@ def_int $int17 = 0;
 def_int $int18 = ~script4468;
 def_int $int19 = activeclanchannel_getuserrank(activeclanchannel_getuserslot(chat_playername_unfiltered));
 ~script1896;
-if_sethide(true, lobbyscreen_pane_clanchat:info_layer);
-if_settext(activeclanchannel_getclanname, lobbyscreen_pane_clanchat:clan_detail_name_text);
-if_setsize(if_getwidth(lobbyscreen_pane_clanchat:clan_vdiv), 4, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_clanchat:clan_vdiv);
+if_sethide(lobbyscreen_pane_clanchat:info_layer, true);
+if_settext(lobbyscreen_pane_clanchat:clan_detail_name_text, activeclanchannel_getclanname);
+if_setsize(lobbyscreen_pane_clanchat:clan_vdiv, if_getwidth(lobbyscreen_pane_clanchat:clan_vdiv), 4, ^setsize_abs, ^setsize_minus);
 while ($int8 < $int7) {
     $int16 = activeclanchannel_getuserrank($int8);
     $string1 = activeclanchannel_getuserdisplayname($int8);
@@ -100,14 +100,14 @@ if ($int14 > $int7) {
 }
 if ($int14 <= $int7) {
     $int17 = if_getscrolly(lobbyscreen_pane_clanchat:clan_main);
-    if_setscrollsize(0, $int15, lobbyscreen_pane_clanchat:clan_main);
+    if_setscrollsize(lobbyscreen_pane_clanchat:clan_main, 0, $int15);
     if ($int17 > $int15) {
         $int17 = $int15;
     }
     ~scrollbar_resize(lobbyscreen_pane_clanchat:clan_build_layer_scroll, lobbyscreen_pane_clanchat:clan_main, $int17);
 } else {
-    if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:clan_main);
-    if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:clan_main);
+    if_setscrollsize(lobbyscreen_pane_clanchat:clan_main, 0, 0);
+    if_setscrollpos(lobbyscreen_pane_clanchat:clan_main, 0, 0);
     ~scrollbar_resize(lobbyscreen_pane_clanchat:clan_build_layer_scroll, lobbyscreen_pane_clanchat:clan_main, 0);
 }
 ~script1896;

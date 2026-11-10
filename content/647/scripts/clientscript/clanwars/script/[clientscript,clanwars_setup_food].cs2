@@ -3,9 +3,9 @@
 if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varclient_254 = false) {
-    %varclient_254 = true;
+if (%clanwars_rulevarc_nofood = false) {
+    %clanwars_rulevarc_nofood = true;
 } else {
-    %varclient_254 = false;
+    %clanwars_rulevarc_nofood = false;
 }
 ~clanwars_resynch_food;

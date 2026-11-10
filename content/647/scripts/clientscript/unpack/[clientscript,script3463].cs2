@@ -1,7 +1,7 @@
 // 3463
 [clientscript,script3463](component $component0, coord $coord1)
-if (%varclient_1007 ! 22) {
-    if_setontimer(null, $component0);
+if (%tutorial3_cutscene_tracker ! 22) {
+    if_setontimer($component0, null);
     return;
 }
 if (coord = $coord1) {
@@ -10,4 +10,4 @@ if (coord = $coord1) {
 sound_synth(synth_4874, 1, 0);
 cam_moveto(movecoord(coord, 0, 0, -3), 1500, 1, 75);
 cam_lookat(coord, 0, 1, 15);
-if_setontimer("script3463(event_com, coord)", $component0);
+if_setontimer($component0, "script3463(event_com, coord)");

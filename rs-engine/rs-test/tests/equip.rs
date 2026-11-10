@@ -70,7 +70,7 @@ fn refused() -> bool {
 #[test]
 fn the_renamed_items_keep_their_wield_levels() {
     runner::on_loaded_engine(|engine| {
-        for name in ["black_hatchet", "green_d_hide_body", "saradomin_platebody"] {
+        for name in ["black_axe", "dragonhide_body", "rune_platebody_saradomin"] {
             assert!(
                 wield(engine, name, 1),
                 "{name} stays in the backpack at level 1"
@@ -79,7 +79,7 @@ fn the_renamed_items_keep_their_wield_levels() {
         }
 
         // And the gate lets a player of the level through: Wield moves it.
-        assert!(!wield(engine, "black_hatchet", 10), "wielded at attack 10");
+        assert!(!wield(engine, "black_axe", 10), "wielded at attack 10");
         assert!(!refused(), "no refusal at the required level");
     });
 }
@@ -95,8 +95,8 @@ fn the_wield_requirements_the_first_port_dropped_hold() {
         for name in [
             "rune_claws",
             "rune_halberd",
-            "rune_platebody__t",
-            "berserker_helm",
+            "rune_platebody_trim",
+            "viking_helmet_crush",
         ] {
             assert!(
                 wield(engine, name, 1),
@@ -105,7 +105,7 @@ fn the_wield_requirements_the_first_port_dropped_hold() {
             assert!(refused(), "{name}: the wield trigger answered");
         }
         assert!(
-            wield(engine, "berserker_helm", 99),
+            wield(engine, "viking_helmet_crush", 99),
             "no helm without the Trials"
         );
         assert!(

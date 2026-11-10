@@ -1,7 +1,7 @@
 // 1284
 [proc,camera_sakearchive]
-if_sethide(true, quest_fever_gun_locker:cannon_barrel_banner);
-if_sethide(true, quest_fever_gun_locker:fuse_banner);
-if_sethide(true, quest_fever_gun_locker:ramrod_banner);
-if_sethide(true, quest_fever_gun_locker:cannon_ball_banner);
-if_sethide(true, quest_fever_gun_locker:cannon_cannister_banner);
+if_sethide(quest_fever_gun_locker:cannon_barrel_banner, true);
+if_sethide(quest_fever_gun_locker:fuse_banner, true);
+if_sethide(quest_fever_gun_locker:ramrod_banner, true);
+if_sethide(quest_fever_gun_locker:cannon_ball_banner, true);
+if_sethide(quest_fever_gun_locker:cannon_cannister_banner, true);

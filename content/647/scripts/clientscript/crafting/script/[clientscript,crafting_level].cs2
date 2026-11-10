@@ -1,7 +1,7 @@
 // 541
 [clientscript,crafting_level](component $component0, int $int1)
-if (stat(crafting) >= $int1 | %varplayerbit_4089 = 1 & %varplayer_1093 >= $int1) {
-    if_setcolour(0x00cc00, $component0);
+if (stat(crafting) >= $int1 | %assist_engaged = 1 & %assist_stat_crafting >= $int1) {
+    if_setcolour($component0, 0x00cc00);
 } else {
-    if_setcolour(0xff981f, $component0);
+    if_setcolour($component0, 0xff981f);
 }

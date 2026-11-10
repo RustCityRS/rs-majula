@@ -1,5 +1,5 @@
-[opnpc1,financial_advisor]
-if (%tutorial = ^tutorial_opened_newbie_account_instructor_door) {
+[opnpc1,newbie_financial_advisor]
+if (%varplayer_419 = ^tutorial_opened_newbie_account_instructor_door) {
     @newbie_account_instructor_incomplete;
 } else {
     @newbie_account_instructor_recap_questions;
@@ -15,8 +15,8 @@ if (%tutorial = ^tutorial_opened_newbie_account_instructor_door) {
 ~chatnpc("<p,neutral>Now, the next way to earn money quickly is by quests. Many people on RuneScape have things they need doing, which they will reward you for.");
 ~chatnpc("<p,neutral>By getting a high level in skills such as cooking, mining, smithing or fishing, you can create your own items and sell them for pure profit.");
 ~chatnpc("<p,neutral>Well that about covers it. Come back if you'd like to go over this again.");
-if (%tutorial = ^tutorial_opened_newbie_account_instructor_door) {
-    %tutorial = ^newbie_account_instructor_talked_to;
+if (%varplayer_419 = ^tutorial_opened_newbie_account_instructor_door) {
+    %varplayer_419 = ^newbie_account_instructor_talked_to;
     ~set_tutorial_progress;
 }
 
@@ -39,6 +39,6 @@ if (%tutorial = ^tutorial_opened_newbie_account_instructor_door) {
 [label,newbie_account_instructor_no_thanks]
 
 [proc,set_hint_icon_newbie_account_instructor]
-if (npc_find(0_48_48_56_52, financial_advisor, 5, 0) = true) {
+if (npc_find(0_48_48_56_52, newbie_financial_advisor, 5, 0) = true) {
     hint_npc;
 }

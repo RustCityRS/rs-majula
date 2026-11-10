@@ -63,20 +63,20 @@ if (inv_freespace(tradeoffer) < inv_size(tradeoffer)) {
 }
 $int8 = calc($int8 + 32 + 40);
 if ($int8 > if_getheight($component0)) {
-    if_setscrollsize(0, $int8, $component0);
-    if_setposition(-8, if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top, $component0);
+    if_setscrollsize($component0, 0, $int8);
+    if_setposition($component0, -8, if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top);
     ~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
     if (cc_find($component1, 1) = true) {
         ~scrollbar_vertical_doscroll($component1, $component0, if_getscrolly($component0), true);
     }
 } else {
-    if_setscrollsize(0, 0, $component0);
-    if_setscrollpos(0, 0, $component0);
+    if_setscrollsize($component0, 0, 0);
+    if_setscrollpos($component0, 0, 0);
     cc_deleteall($component1);
-    if_setposition(0, if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top, $component0);
+    if_setposition($component0, 0, if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top);
 }
-if (%varclient_728 < 0) {
-    if_settext("Total value:<br>---", $component2);
+if (%trade_pricechecker_totalvalue < 0) {
+    if_settext($component2, "Total value:<br>---");
 } else {
-    if_settext("Total value:<br><tostring_localised(%varclient_728, true)>", $component2);
+    if_settext($component2, "Total value:<br><tostring_localised(%trade_pricechecker_totalvalue, true)>");
 }

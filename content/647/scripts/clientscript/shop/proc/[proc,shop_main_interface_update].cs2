@@ -17,7 +17,7 @@ if ($inv3 ! null) {
         $int6 = calc($int6 + 1);
     }
     if ($int5 > 26) {
-        if_setscrollsize(0, calc(63 * ($int5 / 9 + 1)), $component0);
+        if_setscrollsize($component0, 0, calc(63 * ($int5 / 9 + 1)));
         if ($int4 = 1) {
             ~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
         } else {
@@ -26,8 +26,8 @@ if ($inv3 ! null) {
         ~script2718($component0, 1, $component1);
         $int8 = 2;
     } else {
-        if_setscrollsize(0, 0, $component0);
-        if_setscrollpos(0, 0, $component0);
+        if_setscrollsize($component0, 0, 0);
+        if_setscrollpos($component0, 0, 0);
         cc_deleteall($component1);
         ~script2718($component0, 0, $component1);
         $int8 = 4;
@@ -41,7 +41,7 @@ if ($inv3 ! null) {
         $int6 = calc($int6 + 1);
     }
     if ($int5 > 35) {
-        if_setscrollsize(0, calc(63 * ($int5 / 9 + 1)), $component0);
+        if_setscrollsize($component0, 0, calc(63 * ($int5 / 9 + 1)));
         if ($int4 = 1) {
             ~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
         } else {
@@ -49,8 +49,8 @@ if ($inv3 ! null) {
         }
         $int8 = 2;
     } else {
-        if_setscrollsize(0, 0, $component0);
-        if_setscrollpos(0, 0, $component0);
+        if_setscrollsize($component0, 0, 0);
+        if_setscrollpos($component0, 0, 0);
         cc_deleteall($component1);
         $int8 = 4;
     }

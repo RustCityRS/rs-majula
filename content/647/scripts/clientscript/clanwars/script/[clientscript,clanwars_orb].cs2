@@ -1,6 +1,6 @@
 // 1769
 [clientscript,clanwars_orb](component $component0)
-if_setmodel(struct_param(%varclient_269, param_581), $component0);
-if_setmodelangle(0, 160, struct_param(%varclient_269, param_584), struct_param(%varclient_269, param_585), struct_param(%varclient_269, param_586), struct_param(%varclient_269, param_583), $component0);
-if_setmodelanim(struct_param(%varclient_269, param_582), $component0);
-if_setposition(0, struct_param(%varclient_269, param_587), ^setpos_abs_centre, ^setpos_abs_top, $component0);
+if_setmodel($component0, struct_param(%clanwars_orb_graphic, param_581));
+if_setmodelangle($component0, 0, 160, struct_param(%clanwars_orb_graphic, param_584), struct_param(%clanwars_orb_graphic, param_585), struct_param(%clanwars_orb_graphic, param_586), struct_param(%clanwars_orb_graphic, param_583));
+if_setmodelanim($component0, struct_param(%clanwars_orb_graphic, param_582));
+if_setposition($component0, 0, struct_param(%clanwars_orb_graphic, param_587), ^setpos_abs_centre, ^setpos_abs_top);

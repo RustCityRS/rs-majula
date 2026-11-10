@@ -1,12 +1,12 @@
 // A label, so 2011's re-issues share it (as rat.rs2's).
-[ai_queue3,ice_giant] @ice_giant_drop_table;
+[ai_queue3,icegiant] @ice_giant_drop_table;
 
 // 2011's ice giants 3072 and 4685-4687 (cache 786: "Ice giant", level 53, as
 // 289's) are 289's ice giant (npc_clones_2011.npc: void-634's clones), so its table.
-[ai_queue3,ice_giant_3072] @ice_giant_drop_table;
-[ai_queue3,ice_giant_4685] @ice_giant_drop_table;
-[ai_queue3,ice_giant_4686] @ice_giant_drop_table;
-[ai_queue3,ice_giant_4687] @ice_giant_drop_table;
+[ai_queue3,icegiant_low_wanderrange] @ice_giant_drop_table;
+[ai_queue3,icegiant2] @ice_giant_drop_table;
+[ai_queue3,icegiant3] @ice_giant_drop_table;
+[ai_queue3,icegiant_low_wanderrange2] @ice_giant_drop_table;
 
 [label,ice_giant_drop_table]
 gosub(npc_death);
@@ -25,7 +25,7 @@ if ($random < 5) {
 } else if ($random < 9) {
     obj_add(npc_coord, black_kiteshield, 1, ^lootdrop_duration);
 } else if ($random < 13) {
-    obj_add(npc_coord, steel_hatchet, 1, ^lootdrop_duration);
+    obj_add(npc_coord, steel_axe, 1, ^lootdrop_duration);
 } else if ($random < 17) {
     obj_add(npc_coord, steel_sword, 1, ^lootdrop_duration);
 } else if ($random < 18) {
@@ -35,22 +35,22 @@ if ($random < 5) {
 } else if ($random < 20) {
     obj_add(npc_coord, mithril_sq_shield, 1, ^lootdrop_duration);
 } else if ($random < 24) { // 4/128
-    obj_add(npc_coord, nature_rune, 6, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 6, ^lootdrop_duration);
 } else if ($random < 27) { // 3/128
-    obj_add(npc_coord, mind_rune, 24, ^lootdrop_duration);
+    obj_add(npc_coord, mindrune, 24, ^lootdrop_duration);
 } else if ($random < 30) { // 3/128
-    obj_add(npc_coord, body_rune, 37, ^lootdrop_duration);
+    obj_add(npc_coord, bodyrune, 37, ^lootdrop_duration);
 } else if ($random < 32) { // 2/128
-    obj_add(npc_coord, law_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 3, ^lootdrop_duration);
 } else if ($random < 33) { // 1/128
-    obj_add(npc_coord, water_rune, 12, ^lootdrop_duration);
+    obj_add(npc_coord, waterrune, 12, ^lootdrop_duration);
 } else if ($random < 34) { // 1/128
-    obj_add(npc_coord, cosmic_rune, 4, ^lootdrop_duration);
+    obj_add(npc_coord, cosmicrune, 4, ^lootdrop_duration);
 } else if ($random < 35) { // 1/128
-    obj_add(npc_coord, death_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, deathrune, 3, ^lootdrop_duration);
 } else if ($random < 36) {
     if (map_members = ^true) {
-        obj_add(npc_coord, blood_rune, 2, ^lootdrop_duration);
+        obj_add(npc_coord, bloodrune, 2, ^lootdrop_duration);
     } else {
         obj_add(npc_coord, black_kiteshield, 1, ^lootdrop_duration);
     }
@@ -67,7 +67,7 @@ if ($random < 5) {
 } else if ($random < 105) {
     obj_add(npc_coord, coins, 400, ^lootdrop_duration);
 } else if ($random < 108) {
-    obj_add(npc_coord, jug_of_wine, 1, ^lootdrop_duration);
+    obj_add(npc_coord, jug_wine, 1, ^lootdrop_duration);
 } else if ($random < 109) {
     obj_add(npc_coord, mithril_ore, 1, ^lootdrop_duration);
 } else if ($random < 110) {

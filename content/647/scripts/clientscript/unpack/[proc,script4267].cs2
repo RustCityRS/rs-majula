@@ -1,35 +1,35 @@
 // 4267
 [proc,script4267]
-def_int $int0 = calc(%varplayerbit_9065 * 10);
-if_settext(~tostring_spacer($int0, ","), lunarfm_rewards_new:current_points);
-if (%varplayerbit_9067 > 0) {
-    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_falador);
+def_int $int0 = calc(%lunarfm_produce_points * 10);
+if_settext(lunarfm_rewards_new:current_points, ~tostring_spacer($int0, ","));
+if (%lunarfm_spells_unlocked > 0) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_falador, null);
 }
-if (%varplayerbit_9067 > 1) {
-    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_rune);
+if (%lunarfm_spells_unlocked > 1) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_rune, null);
 }
-if (%varplayerbit_9067 > 2) {
-    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_ardougne);
+if (%lunarfm_spells_unlocked > 2) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_ardougne, null);
 }
-if (%varplayerbit_9067 > 3) {
-    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_remote);
+if (%lunarfm_spells_unlocked > 3) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_remote, null);
 }
-if (%varplayerbit_9067 > 4) {
-    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_spirit);
+if (%lunarfm_spells_unlocked > 4) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_spirit, null);
 }
-if (%varplayerbit_9067 > 5) {
-    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_leather);
+if (%lunarfm_spells_unlocked > 5) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_leather, null);
 }
-if (%varplayerbit_9067 > 6) {
-    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_shield);
+if (%lunarfm_spells_unlocked > 6) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_shield, null);
 }
-if (%varplayerbit_9067 > 7) {
-    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_vengeance);
-    if_setgraphic(null, lunarfm_rewards_new:spell_unlock_rune);
-    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_seeds);
-    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_herbs);
-    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_vials);
-    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_runes);
-    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_burn);
-    if_setgraphic(null, lunarfm_rewards_new:wish_unlock_planks);
+if (%lunarfm_spells_unlocked > 7) {
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_vengeance, null);
+    if_setgraphic(lunarfm_rewards_new:spell_unlock_rune, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_seeds, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_herbs, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_vials, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_runes, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_burn, null);
+    if_setgraphic(lunarfm_rewards_new:wish_unlock_planks, null);
 }

@@ -1,10 +1,10 @@
 // 1188
 [proc,script1188]
 if (getwindowmode >= 2) {
-    if_setgraphic(chat_background, chattop:chat_graphic);
-    if_setalpha(true, chattop:chat_graphic);
-    if_sethide(false, chattop:chat_graphic);
-    if_sethide(false, chattop:chat_border);
+    if_setgraphic(chattop:chat_graphic, chat_background);
+    if_setalpha(chattop:chat_graphic, true);
+    if_sethide(chattop:chat_graphic, false);
+    if_sethide(chattop:chat_border, false);
     ~chatbox_resize_reset(0);
-    if_sethide(true, toplevel_fullscreen:chatbox_resize_dragger);
+    if_sethide(toplevel_fullscreen:chatbox_resize_dragger, true);
 }

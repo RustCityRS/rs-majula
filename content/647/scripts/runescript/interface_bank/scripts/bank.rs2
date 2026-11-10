@@ -122,7 +122,7 @@ if ($inv = worn) {
 // 2011: the bank shows (varbit 8348, void-634 bank_hidden). Its equipment
 // button hides it client-side (clientscript 2318), and nothing set it back,
 // so the bank opened hidden from then on.
-%bank_hidden = 0;
+%bank_show_equipscreen = 0;
 ~reorganize_inv(bank);
 // inv_transmit(inv, bank_side:inv);
 // inv_transmit(bank, bank_main:inv);
@@ -287,12 +287,12 @@ if (oc_param($obj, unbankable) = ^true) {
 
 // 289's misc_awful_anthem, misc_good_anthem and mm_monkey_in_backpack are
 // 647's awful_anthem, good_anthem (3894, 3895) and monkey (4033).
-if($obj = awful_anthem | $obj = good_anthem) {
+if($obj = misc_awful_anthem | $obj = misc_good_anthem) {
     mes("You have more urgent things to do with this anthem!");
     return(false);
 }
 
-if ($obj = monkey) {
+if ($obj = mm_monkey_in_backpack) {
     mes("Sorry, you can't bank the monkey!");
     return(false);
 }

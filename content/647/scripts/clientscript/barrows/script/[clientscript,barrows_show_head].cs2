@@ -1,26 +1,26 @@
 // 1715
 [clientscript,barrows_show_head]
 def_component $component0 = null;
-if (%varclient_1043 = null) {
+if (%barrows_overlay_head = null) {
     return;
 }
-switch_obj (%varclient_1043) {
-    case obj_4761, obj_4762 :
+switch_obj (%barrows_overlay_head) {
+    case barrows_interface_ahrim, barrows_interface_ahrim_green :
         $component0 = barrows_overlay:barrows_ahrim;
-    case obj_4763, obj_4764 :
+    case barrows_interface_dharok, barrows_interface_dharok_green :
         $component0 = barrows_overlay:barrows_dharok;
-    case obj_4765, obj_4766 :
+    case barrows_interface_guthan, barrows_interface_guthan_green :
         $component0 = barrows_overlay:barrows_guthan;
-    case obj_4767, obj_4768 :
+    case barrows_interface_karil, barrows_interface_karil_green :
         $component0 = barrows_overlay:barrows_karil;
-    case obj_4769, obj_4770 :
+    case barrows_interface_torag, barrows_interface_torag_green :
         $component0 = barrows_overlay:barrows_torag;
-    case obj_4771, obj_4772 :
+    case barrows_interface_verac, barrows_interface_verac_green :
         $component0 = barrows_overlay:barrows_verac;
 }
 if ($component0 = null) {
     return;
 }
-if_setobject(%varclient_1043, -1, $component0);
-if_setmodelzoom(1600, $component0);
-if_setmodelanim(seq_12554, $component0);
+if_setobject($component0, %barrows_overlay_head, -1);
+if_setmodelzoom($component0, 1600);
+if_setmodelanim($component0, seq_12554);

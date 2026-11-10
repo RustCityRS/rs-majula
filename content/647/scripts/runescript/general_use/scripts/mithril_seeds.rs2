@@ -1,4 +1,4 @@
-[opheld1,mithril_seeds]
+[opheld1,mithril_seed]
 p_stopaction;
 if (~area_allow_loc_add(coord) = false) {
     mes("You can't plant your flowers here."); // OSRS
@@ -11,7 +11,7 @@ if (~inzone_coord_pair_table(party_room_zones, coord) = true) {
 }
 mes("You open the small mithril case.");
 mes("You drop a seed by your feet.");
-inv_del(inv, mithril_seeds, 1);
+inv_del(inv, mithril_seed, 1);
 // Temp note: dur does not need updated
 loc_add(coord, ~random_flowers, 0, centrepiece_straight, 500);
 ~push_player(coord);
@@ -52,14 +52,14 @@ if($rand < 150) {
 
 [proc,flowers_obj](loc $flowers_loc)(namedobj)
 switch_loc($flowers_loc) {
-    case flower_waterfall_quest : return (flowers);
-    case flower_waterfall_quest_red : return (red_flowers);
-    case flower_waterfall_quest_blue : return (blue_flowers);
-    case flower_waterfall_quest_yellow : return (yellow_flowers);
-    case flower_waterfall_quest_purple : return (purple_flowers);
-    case flower_waterfall_quest_orange : return (orange_flowers);
+    case flower_waterfall_quest : return (flowers_waterfall_quest);
+    case flower_waterfall_quest_red : return (flowers_waterfall_quest_red);
+    case flower_waterfall_quest_blue : return (flowers_waterfall_quest_blue);
+    case flower_waterfall_quest_yellow : return (flowers_waterfall_quest_yellow);
+    case flower_waterfall_quest_purple : return (flowers_waterfall_quest_purple);
+    case flower_waterfall_quest_orange : return (flowers_waterfall_quest_orange);
     case flower_waterfall_quest_mixed : return (flowers_waterfall_quest_mixed);
-    case flower_waterfall_quest_white : return (white_flowers);
-    case flower_waterfall_quest_black : return (black_flowers);
+    case flower_waterfall_quest_white : return (flowers_waterfall_quest_white);
+    case flower_waterfall_quest_black : return (flowers_waterfall_quest_black);
     case default : return (flowers_waterfall_quest_mixed);
 }

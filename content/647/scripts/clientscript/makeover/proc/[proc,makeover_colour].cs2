@@ -1,8 +1,8 @@
 // 2380
 [proc,makeover_colour](component $component0, component $component1)
 if ($component0 = null) {
-    if_sethide(true, $component1);
+    if_sethide($component1, true);
     return;
 }
-if_sethide(false, $component1);
-if_setposition(calc(if_getx($component0) + if_getwidth($component0) - if_getwidth($component1)), calc(if_gety($component0) + if_getheight($component0) - if_getheight($component1)), ^setpos_abs_left, ^setpos_abs_top, $component1);
+if_sethide($component1, false);
+if_setposition($component1, calc(if_getx($component0) + if_getwidth($component0) - if_getwidth($component1)), calc(if_gety($component0) + if_getheight($component0) - if_getheight($component1)), ^setpos_abs_left, ^setpos_abs_top);

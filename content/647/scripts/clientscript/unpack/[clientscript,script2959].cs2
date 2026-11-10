@@ -1,6 +1,6 @@
 // 2959
 [clientscript,script2959](component $component0)
-if_setopcursor(1, cursor_170, $component0);
-if_setopcursor(2, cursor_170, $component0);
-if_setopcursor(3, cursor_170, $component0);
-if_setopcursor(4, cursor_170, $component0);
+if_setopcursor($component0, 1, cursor_herblore);
+if_setopcursor($component0, 2, cursor_herblore);
+if_setopcursor($component0, 3, cursor_herblore);
+if_setopcursor($component0, 4, cursor_herblore);

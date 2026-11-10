@@ -7,6 +7,6 @@ while ($int0 < if_getnextsubid(lobbyscreen_report_abuse_stage1_namelist:selected
     }
     $int0 = calc($int0 + 1);
 }
-if (cc_find(lobbyscreen_report_abuse_stage1_namelist:selected_name_layer, %varclient_792) = true) {
+if (cc_find(lobbyscreen_report_abuse_stage1_namelist:selected_name_layer, %snapshot_last_selected_highlight) = true) {
     cc_settrans(0);
 }

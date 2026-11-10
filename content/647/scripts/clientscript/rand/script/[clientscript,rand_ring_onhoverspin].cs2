@@ -12,5 +12,5 @@ switch_component ($component0) {
         $component1 = rand_ring_interface:skiller_class_onhover;
 }
 if (if_gettrans($component1) > 220) {
-    if_settrans(calc(if_gettrans($component1) - 2), $component1);
+    if_settrans($component1, calc(if_gettrans($component1) - 2));
 }

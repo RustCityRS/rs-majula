@@ -17,10 +17,10 @@ if (~script1566($int4, $int5) = 1) {
     } else {
         cc_setgraphic($graphic7);
     }
-} else if ($obj2 = obj_18637 | $obj2 = obj_18638) {
+} else if ($obj2 = 32_rand_gate_stone_create | $obj2 = 32_rand_gate_stone_teleport) {
     cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
     cc_setoutline(0);
-    if ($obj2 = obj_18637) {
+    if ($obj2 = 32_rand_gate_stone_create) {
         cc_setgraphic("magicon2,51");
     } else {
         cc_setgraphic("magicon2,50");
@@ -32,7 +32,7 @@ if (~script1566($int4, $int5) = 1) {
     if ($obj2 ! null) {
         cc_setobject($obj2, -1);
     } else {
-        cc_setobject(silvthrill_rod, -1);
+        cc_setobject(invis_rod, -1);
     }
 }
 cc_setposition(0, $int1, ^setpos_abs_left, ^setpos_abs_top);

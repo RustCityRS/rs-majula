@@ -1,77 +1,77 @@
 // 2044
 [clientscript,script2044]
-if_sethide(true, target:dart_bull);
-if_sethide(true, target:dart_1);
-if_sethide(true, target:dart_2);
-if_sethide(true, target:dart_3);
-if_sethide(true, target:dart_4);
-if_sethide(true, target:dart_5);
-if_sethide(true, target:dart_6);
-if_sethide(true, target:dart_7);
-if_sethide(true, target:dart_8);
-if_sethide(true, target:dart_9);
-if_sethide(true, target:dart_10);
-if_sethide(true, target:left1);
-if_sethide(true, target:left2);
-if_sethide(true, target:left3);
-if_sethide(true, target:left4);
-if_sethide(true, target:left5);
-if_sethide(true, target:left6);
-if_sethide(true, target:left7);
-if_sethide(true, target:left8);
-if_sethide(true, target:left9);
-if_sethide(true, target:left10);
-switch_int (%varplayer_158) {
+if_sethide(target:dart_bull, true);
+if_sethide(target:dart_1, true);
+if_sethide(target:dart_2, true);
+if_sethide(target:dart_3, true);
+if_sethide(target:dart_4, true);
+if_sethide(target:dart_5, true);
+if_sethide(target:dart_6, true);
+if_sethide(target:dart_7, true);
+if_sethide(target:dart_8, true);
+if_sethide(target:dart_9, true);
+if_sethide(target:dart_10, true);
+if_sethide(target:left1, true);
+if_sethide(target:left2, true);
+if_sethide(target:left3, true);
+if_sethide(target:left4, true);
+if_sethide(target:left5, true);
+if_sethide(target:left6, true);
+if_sethide(target:left7, true);
+if_sethide(target:left8, true);
+if_sethide(target:left9, true);
+if_sethide(target:left10, true);
+switch_int (%targethit) {
     case 0 :
-        if_sethide(false, target:dart_bull);
+        if_sethide(target:dart_bull, false);
     case 1 :
-        if_sethide(false, target:dart_1);
+        if_sethide(target:dart_1, false);
     case 2 :
-        if_sethide(false, target:dart_2);
+        if_sethide(target:dart_2, false);
     case 3 :
-        if_sethide(false, target:dart_3);
+        if_sethide(target:dart_3, false);
     case 4 :
-        if_sethide(false, target:dart_4);
+        if_sethide(target:dart_4, false);
     case 5 :
-        if_sethide(false, target:dart_5);
+        if_sethide(target:dart_5, false);
     case 6 :
-        if_sethide(false, target:dart_6);
+        if_sethide(target:dart_6, false);
     case 7 :
-        if_sethide(false, target:dart_7);
+        if_sethide(target:dart_7, false);
     case 8 :
-        if_sethide(false, target:dart_8);
+        if_sethide(target:dart_8, false);
     case 9 :
-        if_sethide(false, target:dart_9);
+        if_sethide(target:dart_9, false);
     case 10 :
-        if_sethide(false, target:dart_10);
+        if_sethide(target:dart_10, false);
 }
-if (%varplayer_156 < 2) {
-    if_sethide(false, target:left1);
+if (%targetcount < 2) {
+    if_sethide(target:left1, false);
 }
-if (%varplayer_156 < 3) {
-    if_sethide(false, target:left2);
+if (%targetcount < 3) {
+    if_sethide(target:left2, false);
 }
-if (%varplayer_156 < 4) {
-    if_sethide(false, target:left3);
+if (%targetcount < 4) {
+    if_sethide(target:left3, false);
 }
-if (%varplayer_156 < 5) {
-    if_sethide(false, target:left4);
+if (%targetcount < 5) {
+    if_sethide(target:left4, false);
 }
-if (%varplayer_156 < 6) {
-    if_sethide(false, target:left5);
+if (%targetcount < 6) {
+    if_sethide(target:left5, false);
 }
-if (%varplayer_156 < 7) {
-    if_sethide(false, target:left6);
+if (%targetcount < 7) {
+    if_sethide(target:left6, false);
 }
-if (%varplayer_156 < 8) {
-    if_sethide(false, target:left7);
+if (%targetcount < 8) {
+    if_sethide(target:left7, false);
 }
-if (%varplayer_156 < 9) {
-    if_sethide(false, target:left8);
+if (%targetcount < 9) {
+    if_sethide(target:left8, false);
 }
-if (%varplayer_156 < 10) {
-    if_sethide(false, target:left9);
+if (%targetcount < 10) {
+    if_sethide(target:left9, false);
 }
-if (%varplayer_156 < 11) {
-    if_sethide(false, target:left10);
+if (%targetcount < 11) {
+    if_sethide(target:left10, false);
 }

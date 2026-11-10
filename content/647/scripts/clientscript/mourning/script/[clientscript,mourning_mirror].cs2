@@ -1,19 +1,19 @@
 // 1235
 [clientscript,mourning_mirror](component $component0)
-if_sethide(false, lighttemple_piller:mirror_layer);
-switch_int (%varclient_180) {
+if_sethide(lighttemple_piller:mirror_layer, false);
+switch_int (%mourning_mirror) {
     case 1 :
-        if_setmodelangle(0, 0, 510, 762, 0, 410, $component0);
+        if_setmodelangle($component0, 0, 0, 510, 762, 0, 410);
     case 2 :
-        if_setmodelangle(0, 0, 514, 1241, 0, 410, $component0);
+        if_setmodelangle($component0, 0, 0, 514, 1241, 0, 410);
     case 3 :
-        if_setmodelangle(0, 0, 512, 1536, 1250, 410, $component0);
+        if_setmodelangle($component0, 0, 0, 512, 1536, 1250, 410);
     case 4 :
-        if_setmodelangle(0, 0, 512, 0, 1250, 410, $component0);
+        if_setmodelangle($component0, 0, 0, 512, 0, 1250, 410);
     case 5 :
-        if_setmodelangle(0, 0, 512, 512, 1250, 410, $component0);
+        if_setmodelangle($component0, 0, 0, 512, 512, 1250, 410);
     case 6 :
-        if_setmodelangle(0, 0, 512, 1024, 1250, 410, $component0);
+        if_setmodelangle($component0, 0, 0, 512, 1024, 1250, 410);
     case default :
-        if_sethide(true, lighttemple_piller:mirror_layer);
+        if_sethide(lighttemple_piller:mirror_layer, true);
 }

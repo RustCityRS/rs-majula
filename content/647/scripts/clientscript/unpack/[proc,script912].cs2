@@ -4,7 +4,7 @@ def_string $string0 = enum(obj, string, enum_1440, $obj0);
 if (compare($string0, "") ! 0) {
     return("<br><$string0>");
 }
-switch_int (%varclient_746) {
+switch_int (%objreq_obj_category) {
     case 0 :
         if (oc_param($obj0, param_1047) ! 1) {
             return("<br><enum(int, string, enum_1437, oc_param($obj0, param_23))>");

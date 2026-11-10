@@ -6,21 +6,21 @@ data=npc,man3
 data=npc,al_kharid_man
 data=npc,ardougnian_male1
 // 2011's, from void-634 where 647's cache gives them Pickpocket
-data=npc,man_7873
-data=npc,man_7874
-data=npc,man_7875
-data=npc,man_7876
-data=npc,man_7877
-data=npc,man_7878
-data=npc,man_7879
+data=npc,fai_lumbridge_man1
+data=npc,fai_lumbridge_man2
+data=npc,fai_lumbridge_man3
+data=npc,fai_lumbridge_man4
+data=npc,fai_lumbridge_man5
+data=npc,fai_lumbridge_man6
+data=npc,fai_lumbridge_man7
 // 2011's that fight as 289's man (void-634's combat_def) and have
 // Pickpocket in 647's cache (memberop3)
-data=npc,hengel
-data=npc,drunken_man
-data=npc,cuffs
-data=npc,narf
-data=npc,rusty
-data=npc,jeff
+data=npc,rimmington_hengel
+data=npc,falador_man1
+data=npc,falador_doric_area_man1
+data=npc,falador_doric_area_man2
+data=npc,falador_doric_area_man3
+data=npc,falador_doric_area_man4
 data=level,1
 data=experience,80
 data=stun_ticks,8
@@ -36,14 +36,14 @@ data=npc,woman2
 data=npc,woman3
 data=npc,ardougnian_female1
 // 2011's, from void-634 where 647's cache gives them Pickpocket
-data=npc,woman_7880
-data=npc,woman_7881
-data=npc,woman_7882
-data=npc,woman_7883
-data=npc,woman_7884
+data=npc,fai_lumbridge_woman1
+data=npc,fai_lumbridge_woman2
+data=npc,fai_lumbridge_woman3
+data=npc,fai_lumbridge_woman4
+data=npc,fai_lumbridge_woman5
 // 2011's Anja fights as 289's woman (void-634's combat_def) and has
 // Pickpocket in 647's cache (memberop3)
-data=npc,anja
+data=npc,rimmington_anja
 data=level,1
 data=experience,80
 data=stun_ticks,8
@@ -54,10 +54,10 @@ data=pocket,woman's pocket
 
 [pickpocket_farmer]
 table=pickpocket
-data=npc,farmer
+data=npc,farmer1
 // 2011's, from void-634 where 647's cache gives them Pickpocket
-data=npc,farmer_1757
-data=npc,farmer_1758
+data=npc,farmer2
+data=npc,farmer3
 data=level,10
 data=experience,145
 data=stun_ticks,8
@@ -87,23 +87,23 @@ data=stun_ticks,8
 data=stun_damage,2
 data=success_chance,74,240
 data=loot,coins,25,40,108
-data=loot,air_rune,8,8,8
-data=loot,jug_of_wine,1,1,6
+data=loot,airrune,8,8,8
+data=loot,jug_wine,1,1,6
 data=loot,lockpick,1,1,5
-data=loot,iron_dagger__p,1,1,1
+data=loot,iron_dagger_p,1,1,1
 data=pocket,rogue's pocket
 
 [pickpocket_guard]
 table=pickpocket
-data=npc,guard
+data=npc,guard1
 data=npc,ardougne_guard
 // 2011's, from void-634 where 647's cache gives them Pickpocket
-data=npc,guard_296
-data=npc,guard_297
-data=npc,guard_298
-data=npc,guard_299
-data=npc,guard_3407
-data=npc,guard_3408
+data=npc,edge_guard1
+data=npc,edge_guard2
+data=npc,edge_guard3
+data=npc,edge_guard4
+data=npc,edge_guard5
+data=npc,edge_guard6
 data=npc,guard_3228
 data=npc,guard_3229
 data=npc,guard_3230
@@ -111,13 +111,13 @@ data=npc,guard_3231
 data=npc,guard_3232
 data=npc,guard_3233
 data=npc,guard_3241
-data=npc,guard_4307
-data=npc,guard_4308
-data=npc,guard_4309
-data=npc,guard_4310
-data=npc,guard_4311
-data=npc,guard_5919
-data=npc,guard_5920
+data=npc,dttd_ham_guard_1_postquest
+data=npc,dttd_ham_guard_2_postquest
+data=npc,dttd_ham_guard_3_postquest
+data=npc,dttd_ham_guard_4_postquest
+data=npc,dttd_ham_guard_5_postquest
+data=npc,fai_varrock_guard
+data=npc,fai_varrock_guard_captain
 data=npc,guard_2699
 data=npc,guard_2700
 data=npc,guard_2701
@@ -125,7 +125,7 @@ data=npc,guard_2702
 data=npc,guard_2703
 // 2011's Guard 8173 (Defender of Varrock's) is 289's guard by name and level,
 // with Pickpocket in 647's cache (op3)
-data=npc,guard_8173
+data=npc,zemo_fai_varrock_guard
 data=level,40
 data=experience,468
 data=stun_ticks,8
@@ -148,7 +148,7 @@ data=pocket,knight's pocket
 
 [pickpocket_watchman]
 table=pickpocket
-data=npc,watchman
+data=npc,yanille_watchman
 data=level,65
 data=experience,1375
 data=stun_ticks,8
@@ -162,14 +162,14 @@ data=pocket,watchman's pocket
 table=pickpocket
 data=npc,paladin
 // 2011's, from void-634 where 647's cache gives them Pickpocket
-data=npc,paladin_2256
+data=npc,paladin2
 data=level,70
 data=experience,1518
 data=stun_ticks,8
 data=stun_damage,3
 data=success_chance,50,150
 data=loot,coins,80,80,128
-data=loot,chaos_rune,2,2,128
+data=loot,chaosrune,2,2,128
 data=pocket,paladin's pocket
 
 [pickpocket_gnome]
@@ -177,10 +177,10 @@ table=pickpocket
 data=npc,gnome
 data=npc,browclothedgnome
 data=npc,darkskinned_gnome
-data=npc,gnome_child
+data=npc,gnomechildgreen
 data=npc,gnomechildblue
 data=npc,gnomechild
-data=npc,gnome_woman
+data=npc,gnomefemale
 data=npc,gnomefemale_dskinned
 data=level,75
 data=experience,1983
@@ -191,7 +191,7 @@ data=loot,king_worm,1,1,55
 data=loot,coins,300,300,30
 data=loot,swamp_toad,1,1,28
 data=loot,gold_ore,1,1,8
-data=loot,earth_rune,1,1,5
+data=loot,earthrune,1,1,5
 data=loot,fire_orb,1,1,2
 data=pocket,gnome's pocket
 
@@ -204,9 +204,9 @@ data=stun_ticks,10
 data=stun_damage,4
 data=success_chance,6,100
 data=loot,coins,200,300,105
-data=loot,death_rune,2,2,8
-data=loot,jug_of_wine,1,1,6
-data=loot,blood_rune,1,1,5
+data=loot,deathrune,2,2,8
+data=loot,jug_wine,1,1,6
+data=loot,bloodrune,1,1,5
 data=loot,fire_orb,1,1,2
 data=loot,diamond,1,1,1
 data=loot,gold_ore,1,1,1
@@ -214,16 +214,16 @@ data=pocket,hero's pocket
 
 [pickpocket_viking]
 table=pickpocket
-data=npc,agnar
-data=npc,freidir
-data=npc,borrokar
-data=npc,lanzig
-data=npc,pontak
-data=npc,freygerd
-data=npc,lensa
-data=npc,jennella
-data=npc,sassilik
-data=npc,inga
+data=npc,viking_man
+data=npc,viking_man2
+data=npc,viking_man3
+data=npc,viking_man4
+data=npc,viking_man5
+data=npc,viking_woman
+data=npc,viking_woman2
+data=npc,viking_woman3
+data=npc,viking_woman4
+data=npc,viking_woman_indoors
 data=level,45
 data=experience,650
 data=stun_ticks,8

@@ -20,13 +20,13 @@ switch_int(%hetty) {
         }
     case ^hetty_started :
         ~chatnpc("<p,happy>So have you found the things for the potion?");
-        if(inv_total(inv, burnt_meat) > 0 & inv_total(inv, rat_s_tail) > 0 & inv_total(inv, eye_of_newt) > 0 & inv_total(inv, onion) > 0) {
+        if(inv_total(inv, burnt_meat) > 0 & inv_total(inv, rats_tail) > 0 & inv_total(inv, eye_of_newt) > 0 & inv_total(inv, onion) > 0) {
             ~chatplayer("<p,happy>Yes I have everything!");
             ~chatnpc("<p,happy>Excellent, can I have them then?");
             ~mesbox("You pass the ingredients to Hetty and she puts them all into her cauldron. Hetty closes her eyes and begins to chant. The cauldron bubbles mysteriously.");
             ~chatplayer("<p,neutral>Well, is it ready?");
             inv_del(inv, burnt_meat, 1);
-            inv_del(inv, rat_s_tail, 1);
+            inv_del(inv, rats_tail, 1);
             inv_del(inv, eye_of_newt, 1);
             inv_del(inv, onion, 1);
             // Varp 67 at 2: the client turns her cauldron into one with "Drink-from" (cache 786).

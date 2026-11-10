@@ -7,53 +7,53 @@ def_int $int2 = -1;
 def_string $string3 = "";
 def_string $string4 = "";
 def_int $int3 = -1;
-if (string_length(%varclient_1796) > 0) {
+if (string_length(%lobbyscreen_input) > 0) {
     switch_int ($int0) {
         case 0 :
-            if (string_length(%varclient_1796) > 0 & string_length($string0) > 0) {
+            if (string_length(%lobbyscreen_input) > 0 & string_length($string0) > 0) {
                 if (chat_getfilter_private = ^chatfilter_off) {
                     ~script3047(1);
                 }
-                chat_sendprivate(removetags($string0), %varclient_1796);
+                chat_sendprivate(removetags($string0), %lobbyscreen_input);
             }
         case 1 :
             if (friend_count < 0) {
                 mes("Unable to update Friends List - system busy.");
-            } else if (string_length(%varclient_1796) > 0) {
-                friend_add(%varclient_1796);
+            } else if (string_length(%lobbyscreen_input) > 0) {
+                friend_add(%lobbyscreen_input);
             }
         case 2 :
             if (ignore_count < 0) {
                 mes("Unable to update Ignore List - system busy.");
-            } else if (string_length(%varclient_1796) > 0) {
-                ignore_add(%varclient_1796);
+            } else if (string_length(%lobbyscreen_input) > 0) {
+                ignore_add(%lobbyscreen_input);
             }
         case 3 :
             if (friend_count < 0) {
                 mes("Unable to update Friends List - system busy.");
-            } else if (string_length(%varclient_1796) > 0) {
-                friend_del(%varclient_1796);
+            } else if (string_length(%lobbyscreen_input) > 0) {
+                friend_del(%lobbyscreen_input);
             }
         case 4 :
             if (ignore_count < 0) {
                 mes("Unable to update Ignore List - system busy.");
-            } else if (string_length(%varclient_1796) > 0) {
-                ignore_del(%varclient_1796);
+            } else if (string_length(%lobbyscreen_input) > 0) {
+                ignore_del(%lobbyscreen_input);
             }
         case 5 :
-            if (clan_getchatcount <= 0 & string_length(%varclient_1796) > 0) {
-                clan_joinchat(%varclient_1796);
+            if (clan_getchatcount <= 0 & string_length(%lobbyscreen_input) > 0) {
+                clan_joinchat(%lobbyscreen_input);
             }
         case 6 :
-            %varclient_1094 = false;
+            %lobbyscreen_report_abuse_bug = false;
             openurl("bugtracker_v4", "index.html", false);
         case 7 :
-            if (string_length(%varclient_1796) > 0) {
-                ~clan_chat_kick_find(%varclient_1796);
+            if (string_length(%lobbyscreen_input) > 0) {
+                ~clan_chat_kick_find(%lobbyscreen_input);
             }
         case 9 :
-            if (clan_getchatcount > 0 & string_length(%varclient_1796) > 0) {
-                ~friendschat_kick(%varclient_1796);
+            if (clan_getchatcount > 0 & string_length(%lobbyscreen_input) > 0) {
+                ~friendschat_kick(%lobbyscreen_input);
             }
     }
 }

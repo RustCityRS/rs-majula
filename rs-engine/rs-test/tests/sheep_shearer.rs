@@ -192,7 +192,7 @@ fn fred_s_job_from_taking_it_to_his_pay() {
         let (shears, black_wool, ball, coins) = (
             obj(engine, "shears"),
             obj(engine, "black_wool"),
-            obj(engine, "ball_of_black_wool"),
+            obj(engine, "black_ball_of_wool"),
             obj(engine, "coins"),
         );
         let _ = engine.script_errors.take();
@@ -377,7 +377,7 @@ fn every_branch(engine: &mut Engine, stage: i32, thing: bool, balls: u16) -> usi
     let sheep = varp(engine, "sheep");
     let the_thing = varp(engine, "the_thing_interacted");
     let backpack = inv(engine, "inv");
-    let ball = obj(engine, "ball_of_black_wool");
+    let ball = obj(engine, "black_ball_of_wool");
     let fred = npc(engine, "fred_the_farmer");
     let _ = engine.script_errors.take();
     let branches = explore(

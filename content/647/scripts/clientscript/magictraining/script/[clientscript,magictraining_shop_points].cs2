@@ -1,6 +1,6 @@
 // 27
 [clientscript,magictraining_shop_points]
-if_settext(tostring(%varplayerbit_1485), magictraining_shop:magictraining_shop_telepts);
-if_settext(tostring(%varplayerbit_1489), magictraining_shop:magictraining_shop_gravepts);
-if_settext(tostring(%varplayerbit_1488), magictraining_shop:magictraining_shop_enchanpts);
-if_settext(tostring(%varplayerbit_1486), magictraining_shop:magictraining_shop_alchempts);
+if_settext(magictraining_shop:magictraining_shop_telepts, tostring(%magictraining_tele_points));
+if_settext(magictraining_shop:magictraining_shop_gravepts, tostring(%magictraining_grave_points));
+if_settext(magictraining_shop:magictraining_shop_enchanpts, tostring(%magictraining_ench_points));
+if_settext(magictraining_shop:magictraining_shop_alchempts, tostring(%magictraining_alchem_points));

@@ -101,10 +101,10 @@ switch_int ($piece) {
         ~chatnpc("<p,neutral>The inside of his castle is like a maze, and is populated by undead monsters. Maybe, if you could get all the way through the maze, you could find his piece of the map.");
         // 289's check that the player has no key yet (in the backpack or the bank); 2011's
         // with a key held is not recorded.
-        if (inv_total(inv, maze_key) = 0 & inv_total(bank, maze_key) = 0) {
+        if (inv_total(inv, melzarkey) = 0 & inv_total(bank, melzarkey) = 0) {
             ~chatnpc("<p,neutral>Adventurers sometimes go in there to prove themselves, so I can give you this key to Melzar's Maze.");
-            inv_add(inv, maze_key, 1);
-            ~objbox(maze_key, "The Guildmaster hands you a key.", 250, 0, 0);
+            inv_add(inv, melzarkey, 1);
+            ~objbox(melzarkey, "The Guildmaster hands you a key.", 250, 0, 0);
         }
     case 2 :
         ~chatplayer("<p,quiz>Where is Thalzar's map piece?");

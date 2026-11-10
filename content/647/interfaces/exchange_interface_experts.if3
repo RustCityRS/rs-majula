@@ -193,7 +193,7 @@ colour=0xff981f
 transmitop=10
 op10= 
 onload=exchange_expert_initialise
-onvarctransmit=exchange_expert_initialise{varclient_1001}
+onvarctransmit=exchange_expert_initialise{exchange_expert_type}
 
 // 885:15
 [com_15]

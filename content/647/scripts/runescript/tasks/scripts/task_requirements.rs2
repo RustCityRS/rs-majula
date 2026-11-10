@@ -35,7 +35,7 @@ switch_int ($int0) {
             return(false);
         }
     case 8 :
-        if (%varplayerbit_3337 < 18) {
+        if (%tol_prog < 18) {
             return(false);
         }
     case 9 :
@@ -47,11 +47,11 @@ switch_int ($int0) {
             return(false);
         }
     case 12 :
-        if (%varplayerbit_5277 = 0) {
+        if (%peng_spy_explain = 0) {
             return(false);
         }
     case 13 :
-        if (%varplayerbit_4302 < 110) {
+        if (%wolf_quest < 110) {
             return(false);
         }
     case 14 :
@@ -59,7 +59,7 @@ switch_int ($int0) {
             return(false);
         }
     case 23 :
-        if (%varplayerbit_2328 = 0) {
+        if (%fairyring_use = 0) {
             return(false);
         }
     case 25 :
@@ -77,7 +77,7 @@ switch_int ($int0) {
             return(false);
         }
     case 27 :
-        if (%varplayerbit_4505 < 100) {
+        if (%ken_main < 100) {
             return(false);
         }
         if (stat_base(mining) < 46) {
@@ -95,18 +95,18 @@ switch_int ($int0) {
             return(false);
         }
     case 30 :
-        if (%varplayerbit_2866 < 200) {
+        if (%zep_quest < 200) {
             return(false);
         }
         if (stat_base(firemaking) < 50) {
             return(false);
         }
     case 31 :
-        if (%varplayerbit_1527 < 160) {
+        if (%handsand_quest < 160) {
             return(false);
         }
     case 32 :
-        if (%varplayerbit_5075 < 20) {
+        if (%hist_prog < 20) {
             return(false);
         }
     case 33 :
@@ -133,7 +133,7 @@ switch_int ($int0) {
             return(false);
         }
     case 38 :
-        if (%varplayerbit_3337 < 18) {
+        if (%tol_prog < 18) {
             return(false);
         }
     case 39 :
@@ -153,7 +153,7 @@ switch_int ($int0) {
             return(false);
         }
     case 44 :
-        if (%varplayerbit_2448 < 190) {
+        if (%lunar_quest_main < 190) {
             return(false);
         }
         if (stat_base(magic) < 71) {
@@ -167,22 +167,22 @@ switch_int ($int0) {
             return(false);
         }
     case 46 :
-        if (%varplayerbit_3337 < 18) {
+        if (%tol_prog < 18) {
             return(false);
         }
     case 47 :
-        if (%varplayer_365 < 9) {
+        if (%mm_main < 9) {
             return(false);
         }
     case 48 :
-        if (%varplayerbit_4055 < 65) {
+        if (%roots_quest < 65) {
             return(false);
         }
         if (stat_base(slayer) < 59) {
             return(false);
         }
     case 49 :
-        if (%varplayerbit_4394 = 0) {
+        if (%emote_music = 0) {
             return(false);
         }
     case 50 :
@@ -209,7 +209,7 @@ switch_int ($int0) {
             return(false);
         }
     case 55 :
-        if (%varplayerbit_4396 < 60) {
+        if (%catcon_main < 60) {
             return(false);
         }
     case 56 :
@@ -217,7 +217,7 @@ switch_int ($int0) {
             return(false);
         }
     case 57 :
-        if (%varplayerbit_4302 < 110) {
+        if (%wolf_quest < 110) {
             return(false);
         }
         if (stat_base(summoning) < 93) {
@@ -295,7 +295,7 @@ switch_int ($int0) {
             return(false);
         }
     case 107 :
-        if (%dragonquest < 2 | %varplayerbit_3746 = 1 & %dragonquest < 10) {
+        if (%dragonquest < 2 | %dragonslayer_instructions_shield = 1 & %dragonquest < 10) {
             return(false);
         }
     case 108 :
@@ -371,7 +371,7 @@ switch_int ($int0) {
             return(false);
         }
     case 132 :
-        if (%varplayerbit_961 < 60) {
+        if (%garden_quest < 60) {
             return(false);
         }
     case 133 :
@@ -385,7 +385,7 @@ switch_int ($int0) {
             return(false);
         }
     case 134 :
-        if (%varplayerbit_1051 < 10) {
+        if (%wanted_main < 10) {
             return(false);
         }
     case 136 :
@@ -411,11 +411,11 @@ switch_int ($int0) {
             return(false);
         }
     case 140 :
-        if (%varplayerbit_1404 < 127) {
+        if (%ratcatch_var < 127) {
             return(false);
         }
     case 141 :
-        if (%varplayerbit_657 < 2) {
+        if (%rd_main < 2) {
             return(false);
         }
         if (stat_base(defence) < 20) {
@@ -425,7 +425,7 @@ switch_int ($int0) {
             return(false);
         }
     case 142 :
-        if (%varplayerbit_1527 < 160) {
+        if (%handsand_quest < 160) {
             return(false);
         }
     case 143 :
@@ -454,7 +454,7 @@ switch_int ($int0) {
             return(false);
         }
     case 147 :
-        if (%varplayerbit_2328 = 0) {
+        if (%fairyring_use = 0) {
             return(false);
         }
     case 148 :
@@ -470,7 +470,7 @@ switch_int ($int0) {
             return(false);
         }
     case 151 :
-        if (%varplayerbit_2610 < 14) {
+        if (%slug2_main < 14) {
             return(false);
         }
         if (stat_base(defence) < 30) {
@@ -499,14 +499,14 @@ switch_int ($int0) {
             return(false);
         }
     case 313 :
-        if (%varplayerbit_4302 < 110) {
+        if (%wolf_quest < 110) {
             return(false);
         }
         if (stat_base(summoning) < 80) {
             return(false);
         }
     case 314 :
-        if (%varplayerbit_2448 < 190) {
+        if (%lunar_quest_main < 190) {
             return(false);
         }
         if (stat_base(magic) < 80) {
@@ -516,7 +516,7 @@ switch_int ($int0) {
         if (stat_base(prayer) < 95) {
             return(false);
         }
-        if (%varplayerbit_6775 < 90) {
+        if (%mah4_main < 90) {
             return(false);
         }
     case 152 :
@@ -524,7 +524,7 @@ switch_int ($int0) {
             return(false);
         }
     case 160 :
-        if (%varplayerbit_4302 < 110) {
+        if (%wolf_quest < 110) {
             return(false);
         }
     case 162 :
@@ -550,11 +550,11 @@ switch_int ($int0) {
         if (%viking < 10) {
             return(false);
         }
-        if (%varplayerbit_961 < 60) {
+        if (%garden_quest < 60) {
             return(false);
         }
     case 167 :
-        if (%varplayerbit_2328 = 0) {
+        if (%fairyring_use = 0) {
             return(false);
         }
     case 168 :
@@ -602,11 +602,11 @@ switch_int ($int0) {
             return(false);
         }
     case 176 :
-        if (%varplayerbit_2448 < 190) {
+        if (%lunar_quest_main < 190) {
             return(false);
         }
     case 177 :
-        if (%varplayerbit_3764 = 0) {
+        if (%brut_craft_ship = 0) {
             return(false);
         }
         if (stat_base(crafting) < 52) {
@@ -616,7 +616,7 @@ switch_int ($int0) {
             return(false);
         }
     case 178 :
-        if (%varplayerbit_3757 = 0) {
+        if (%brut_fishing_s = 0) {
             return(false);
         }
         if (stat_base(strength) < 35) {
@@ -626,26 +626,26 @@ switch_int ($int0) {
             return(false);
         }
     case 179 :
-        if (%varplayerbit_2448 < 190) {
+        if (%lunar_quest_main < 190) {
             return(false);
         }
         if (stat_base(magic) < 65) {
             return(false);
         }
     case 180 :
-        if (%varplayerbit_3764 = 0) {
+        if (%brut_craft_ship = 0) {
             return(false);
         }
     case 181 :
-        if (%varplayerbit_2140 < 30) {
+        if (%royal_quest < 30) {
             return(false);
         }
     case 428 :
-        if (%varplayerbit_2448 < 190 | stat_base(magic) < 70 | stat_base(farming) < 60 | stat_base(agility) < 60 | stat_base(crafting) < 60 | stat_base(construction) < 50) {
+        if (%lunar_quest_main < 190 | stat_base(magic) < 70 | stat_base(farming) < 60 | stat_base(agility) < 60 | stat_base(crafting) < 60 | stat_base(construction) < 50) {
             return(false);
         }
     case 316 :
-        if (%varplayerbit_3757 = 0) {
+        if (%brut_fishing_s = 0) {
             return(false);
         }
         if (stat_base(fishing) < 96) {
@@ -665,7 +665,7 @@ switch_int ($int0) {
             return(false);
         }
     case 318 :
-        if (%varplayerbit_2448 < 190) {
+        if (%lunar_quest_main < 190) {
             return(false);
         }
         if (stat_base(runecraft) < 82) {
@@ -680,7 +680,7 @@ switch_int ($int0) {
             return(false);
         }
     case 321 :
-        if (%varplayerbit_3764 = 0) {
+        if (%brut_craft_ship = 0) {
             return(false);
         }
         if (stat_base(crafting) < 85) {
@@ -690,21 +690,21 @@ switch_int ($int0) {
             return(false);
         }
     case 322 :
-        if (%varplayerbit_3763 = 0) {
+        if (%brut_smith_hasta = 0) {
             return(false);
         }
         if (stat_base(smithing) < 90) {
             return(false);
         }
     case 323 :
-        if (%varplayerbit_3761 = 0) {
+        if (%brut_herb_potion = 0) {
             return(false);
         }
         if (stat_base(herblore) < 80) {
             return(false);
         }
     case 417 :
-        if (%varplayerbit_6883 < 147) {
+        if (%evq_quest < 147) {
             return(false);
         }
         if (stat_base(attack) < 75) {
@@ -805,7 +805,7 @@ switch_int ($int0) {
         if (%grandtree < 160) {
             return(false);
         }
-        if (%varplayer_365 < 9) {
+        if (%mm_main < 9) {
             return(false);
         }
     case 214 :
@@ -880,7 +880,7 @@ switch_int ($int0) {
             return(false);
         }
     case 326 :
-        if (%varplayerbit_4302 < 110) {
+        if (%wolf_quest < 110) {
             return(false);
         }
         if (stat_base(summoning) < 95) {
@@ -898,7 +898,7 @@ switch_int ($int0) {
             return(false);
         }
     case 329 :
-        if (%varplayerbit_4302 < 110) {
+        if (%wolf_quest < 110) {
             return(false);
         }
         if (stat_base(summoning) < 90) {
@@ -918,7 +918,7 @@ switch_int ($int0) {
         if (stat_base(slayer) < 50) {
             return(false);
         }
-        if (%varplayerbit_5491 < 910) {
+        if (%luc2_main_quest < 910) {
             return(false);
         }
     case 223 :
@@ -954,7 +954,7 @@ switch_int ($int0) {
             return(false);
         }
     case 236 :
-        if (%varplayerbit_2067 < 1) {
+        if (%elemental_workshop_finished < 1) {
             return(false);
         }
     case 237 :
@@ -974,7 +974,7 @@ switch_int ($int0) {
             return(false);
         }
     case 241 :
-        if (%varplayerbit_4302 < 110) {
+        if (%wolf_quest < 110) {
             return(false);
         }
         if (stat_base(firemaking) < 45) {
@@ -1003,14 +1003,14 @@ switch_int ($int0) {
             return(false);
         }
     case 248 :
-        if (%varplayerbit_3909 < 8) {
+        if (%kr_knightwaves_state < 8) {
             return(false);
         }
         if (stat_base(prayer) < 70) {
             return(false);
         }
     case 249 :
-        if (%varplayerbit_2328 = 0) {
+        if (%fairyring_use = 0) {
             return(false);
         }
     case 250 :
@@ -1081,7 +1081,7 @@ switch_int ($int0) {
         if (stat_base(magic) < 83) {
             return(false);
         }
-        if (%varplayerbit_2448 < 190) {
+        if (%lunar_quest_main < 190) {
             return(false);
         }
     case 257 :
@@ -1117,11 +1117,11 @@ switch_int ($int0) {
             return(false);
         }
     case 277 :
-        if (%varplayerbit_3523 < 150 | stat_base(mining) < 42) {
+        if (%surok_quest < 150 | stat_base(mining) < 42) {
             return(false);
         }
     case 278 :
-        if (%varplayerbit_1404 < 127) {
+        if (%ratcatch_var < 127) {
             return(false);
         }
     case 280 :
@@ -1129,23 +1129,23 @@ switch_int ($int0) {
             return(false);
         }
     case 281 :
-        if (%varplayerbit_2309 < 1) {
+        if (%sos_emote_flap < 1) {
             return(false);
         }
-        if (%varplayerbit_2310 < 1) {
+        if (%sos_emote_doh < 1) {
             return(false);
         }
-        if (%varplayerbit_2311 < 1) {
+        if (%sos_emote_idea < 1) {
             return(false);
         }
-        if (%varplayerbit_2312 < 1) {
+        if (%sos_emote_stamp < 1) {
             return(false);
         }
     case 282 :
         if (%fluffs < 6) {
             return(false);
         }
-        if (%varplayerbit_961 < 60) {
+        if (%garden_quest < 60) {
             return(false);
         }
     case 283 :
@@ -1153,11 +1153,11 @@ switch_int ($int0) {
             return(false);
         }
     case 284 :
-        if (%varplayerbit_2011 < 13) {
+        if (%soulbane_prog < 13) {
             return(false);
         }
     case 285 :
-        if (%varplayerbit_3639 < 1) {
+        if (%vm_necklace < 1) {
             return(false);
         }
         if (stat_base(magic) < 49) {
@@ -1176,11 +1176,11 @@ switch_int ($int0) {
             return(false);
         }
     case 291 :
-        if (%varplayerbit_961 < 60) {
+        if (%garden_quest < 60) {
             return(false);
         }
     case 292 :
-        if (%varplayerbit_2866 < 200) {
+        if (%zep_quest < 200) {
             return(false);
         }
     case 293 :
@@ -1188,7 +1188,7 @@ switch_int ($int0) {
             return(false);
         }
     case 294 :
-        if (%varplayerbit_2328 = 0) {
+        if (%fairyring_use = 0) {
             return(false);
         }
     case 295 :
@@ -1236,15 +1236,15 @@ switch_int ($int0) {
             return(false);
         }
     case 308 :
-        if (%varplayerbit_358 < 15) {
+        if (%deserttreasure < 15) {
             return(false);
         }
     case 337 :
-        if (%varplayerbit_3523 < 150) {
+        if (%surok_quest < 150) {
             return(false);
         }
     case 338 :
-        if (%varplayerbit_6962 < 12) {
+        if (%nom_quest < 12) {
             return(false);
         }
     case 339 :
@@ -1252,7 +1252,7 @@ switch_int ($int0) {
             return(false);
         }
     case 340 :
-        if (%varplayerbit_5133 < 90) {
+        if (%firedup_quest < 90) {
             return(false);
         }
         if (stat_base(firemaking) < 92) {
@@ -1262,7 +1262,7 @@ switch_int ($int0) {
             return(false);
         }
     case 341 :
-        if (%varplayerbit_3523 < 150) {
+        if (%surok_quest < 150) {
             return(false);
         }
         if (stat_base(magic) < 80) {
@@ -1273,7 +1273,7 @@ switch_int ($int0) {
             return(false);
         }
     case 343 :
-        if (%varplayerbit_6775 < 90) {
+        if (%mah4_main < 90) {
             return(false);
         }
         if (stat_base(prayer) < 92) {
@@ -1354,7 +1354,7 @@ switch_int ($int0) {
         if (date_minutes < %varplayer_451) {
             return(false);
         }
-        if (%qp < %varplayerbit_456 & ~task_total_xp_check > 0) {
+        if (%qp < %tog_qp_before_return & ~task_total_xp_check > 0) {
             return(false);
         }
     case 3001 :
@@ -1362,17 +1362,17 @@ switch_int ($int0) {
             return(false);
         }
     case 3002 :
-        if (%varplayerbit_5276 = 10) {
+        if (%peng_spy_week_peng = 10) {
             return(false);
         }
         if (%varplayerbit_5275 = 50) {
             return(false);
         }
-        if (%varplayerbit_5277 = 0) {
+        if (%peng_spy_explain = 0) {
             return(false);
         }
     case 3003 :
-        if (%varplayerbit_1545 >= 2) {
+        if (%eviltree_interactions_today >= 2) {
             return(false);
         }
     case 3005 :
@@ -1384,14 +1384,14 @@ switch_int ($int0) {
             return(false);
         }
     case 3008 :
-        if (%varplayerbit_3523 < 150) {
+        if (%surok_quest < 150) {
             return(false);
         }
         if (%varplayer_1199 = date_runeday) {
             return(false);
         }
     case 3009 :
-        if (%varplayerbit_5133 < 90) {
+        if (%firedup_quest < 90) {
             return(false);
         }
     case 3010 :
@@ -1417,7 +1417,7 @@ switch_int ($int0) {
         if (stat_base(attack) < 65 & stat_base(defence) < 65) {
             return(false);
         }
-        if (%varplayerbit_3888 < 90) {
+        if (%kr_quest < 90) {
             return(false);
         }
     case 3016 :
@@ -1523,19 +1523,19 @@ switch_int ($int0) {
             return(false);
         }
     case 3515 :
-        if (%learning_the_ropes < 135 | %learning_the_ropes > 160 | %varplayerbit_6495 = 0 | %varplayerbit_6495 = 1) {
+        if (%tutorial < 135 | %tutorial > 160 | %tutorial3_tool = 0 | %tutorial3_tool = 1) {
             return(false);
         }
     case 3516 :
-        if (%learning_the_ropes < 135 | %learning_the_ropes > 160 | %varplayerbit_6495 = 2 | %varplayerbit_6495 = 3) {
+        if (%tutorial < 135 | %tutorial > 160 | %tutorial3_tool = 2 | %tutorial3_tool = 3) {
             return(false);
         }
     case 3517 :
-        if (%learning_the_ropes < 140 | %varplayerbit_6495 = 0 | %varplayerbit_6495 = 1 | stat_base(woodcutting) > 1) {
+        if (%tutorial < 140 | %tutorial3_tool = 0 | %tutorial3_tool = 1 | stat_base(woodcutting) > 1) {
             return(false);
         }
     case 3518 :
-        if (%learning_the_ropes < 140 | %varplayerbit_6495 = 2 | %varplayerbit_6495 = 3 | stat_base(mining) > 1) {
+        if (%tutorial < 140 | %tutorial3_tool = 2 | %tutorial3_tool = 3 | stat_base(mining) > 1) {
             return(false);
         }
     case 3519 :
@@ -1543,11 +1543,11 @@ switch_int ($int0) {
             return(false);
         }
     case 3520 :
-        if (~script4098 ! 3521 | %varplayerbit_6494 > 2) {
+        if (~script4098 ! 3521 | %tutorial3_postquest > 2) {
             return(false);
         }
     case 3521 :
-        if (~script4098 ! 3521 | %varplayerbit_6494 ! 5) {
+        if (~script4098 ! 3521 | %tutorial3_postquest ! 5) {
             return(false);
         }
 }

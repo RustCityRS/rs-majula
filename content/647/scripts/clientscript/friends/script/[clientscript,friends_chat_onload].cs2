@@ -1,7 +1,7 @@
 // 195
 [clientscript,friends_chat_onload](component $component0, int $int1)
-if_setonclantransmit("friends_chat_onclantransmit(event_com)", $component0);
-if_setonfriendtransmit("friends_chat_onclantransmit(event_com)", $component0);
+if_setonclantransmit($component0, "friends_chat_onclantransmit(event_com)");
+if_setonfriendtransmit($component0, "friends_chat_onclantransmit(event_com)");
 ~script1600;
 def_component $component2 = friendschat:com_4;
 def_int $int3 = 0;

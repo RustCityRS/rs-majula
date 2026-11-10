@@ -86,7 +86,7 @@ fn witchs_potion_as_2011s_miniquest() {
         let backpack = *engine.cache.invs.debugnames.get("inv").unwrap();
         let ingredients = [
             obj(engine, "burnt_meat"),
-            obj(engine, "rat_s_tail"),
+            obj(engine, "rats_tail"),
             obj(engine, "eye_of_newt"),
             obj(engine, "onion"),
         ];

@@ -101,16 +101,16 @@ if(~trail_hasclue_all = true) {
 def_int $random = random(12);
 
 switch_int ($random) {
-    case 0 : return (saradomin_page_1, 1);
-    case 1 : return (saradomin_page_2, 1);
-    case 2 : return (saradomin_page_3, 1);
-    case 3 : return (saradomin_page_4, 1);
-    case 4 : return (zamorak_page_1, 1);
-    case 5 : return (zamorak_page_2, 1);
-    case 6 : return (zamorak_page_3, 1);
-    case 7 : return (zamorak_page_4, 1);
-    case 8 : return (guthix_page_1, 1);
-    case 9 : return (guthix_page_2, 1);
-    case 10 : return (guthix_page_3, 1);
-    case 11 : return (guthix_page_4, 1);
+    case 0 : return (holy_book_s_page1, 1);
+    case 1 : return (holy_book_s_page2, 1);
+    case 2 : return (holy_book_s_page3, 1);
+    case 3 : return (holy_book_s_page4, 1);
+    case 4 : return (holy_book_z_page1, 1);
+    case 5 : return (holy_book_z_page2, 1);
+    case 6 : return (holy_book_z_page3, 1);
+    case 7 : return (holy_book_z_page4, 1);
+    case 8 : return (holy_book_g_page1, 1);
+    case 9 : return (holy_book_g_page2, 1);
+    case 10 : return (holy_book_g_page3, 1);
+    case 11 : return (holy_book_g_page4, 1);
 }

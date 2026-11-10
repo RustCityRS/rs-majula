@@ -1,9 +1,9 @@
 // 407
 [clientscript,conq_update_time_left]
-if (%varclient_1362 < 1) {
+if (%conq_turn_time_remaining < 1) {
     return;
 }
-def_int $int0 = calc(%varclient_1362 * 6 / 10);
+def_int $int0 = calc(%conq_turn_time_remaining * 6 / 10);
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_string $string0 = "";
@@ -15,14 +15,14 @@ if ($int0 < 60) {
 }
 if ($int1 < 10) {
     $string0 = append("0", tostring($int1));
-    if ($int2 = 0 & %varclient_1389 = 0) {
-        %varclient_1389 = 1;
-        if (%varplayerbit_7511 = 1) {
+    if ($int2 = 0 & %conq_played_low_time_warning = 0) {
+        %conq_played_low_time_warning = 1;
+        if (%conq_is_active_player = 1) {
             sound_vorbis_volume(vorbis_3434, 1, 0, 255);
         }
     }
 } else {
     $string0 = tostring($int1);
 }
-if_settext("Turn Time Left<br><tostring($int2)>:<$string0>", conq_side_turn:time_left_text);
-if_settext("<tostring($int2)>:<$string0>", conq_scroll_overlay:time_left_text);
+if_settext(conq_side_turn:time_left_text, "Turn Time Left<br><tostring($int2)>:<$string0>");
+if_settext(conq_scroll_overlay:time_left_text, "<tostring($int2)>:<$string0>");

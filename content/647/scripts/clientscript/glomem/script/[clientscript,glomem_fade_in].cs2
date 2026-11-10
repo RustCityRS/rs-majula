@@ -1,3 +1,3 @@
 // 2320
 [clientscript,glomem_fade_in]
-if_setmodelanim(seq_1378, glomem_sepia_overlay:fade);
+if_setmodelanim(glomem_sepia_overlay:fade, seq_1378);

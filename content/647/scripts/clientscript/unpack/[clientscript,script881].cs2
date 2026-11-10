@@ -1,5 +1,5 @@
 // 881
 [clientscript,script881](component $component0)
-if_setmodel(model_32408, $component0);
-if_setonmouseleave(null, $component0);
-if_sethide(true, interface_699:sops_box2);
+if_setmodel($component0, model_32408);
+if_setonmouseleave($component0, null);
+if_sethide(interface_699:sops_box2, true);

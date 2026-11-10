@@ -6,7 +6,7 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 onload=mm_reinit_refresh
-oninvtransmit=mm_reinit_refresh{inv_221, inv_222}
+oninvtransmit=mm_reinit_refresh{reinitialisation_inv, reinitialisation_inv_inactive}
 
 // 287:1
 [board_layer]

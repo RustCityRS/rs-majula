@@ -111,13 +111,13 @@ def_int $int11 = 0;
 if ($int3 > 12) {
     $int10 = if_getscrolly($component0);
     $int11 = calc($int3 * 16 + 4);
-    if_setscrollsize(0, $int11, $component0);
+    if_setscrollsize($component0, 0, $int11);
     if ($int10 > $int11) {
         $int10 = $int11;
     }
     ~scrollbar_resize($component1, $component0, $int10);
 } else {
-    if_setscrollsize(0, 0, $component0);
-    if_setscrollpos(0, 0, $component0);
+    if_setscrollsize($component0, 0, 0);
+    if_setscrollpos($component0, 0, 0);
     ~scrollbar_resize($component1, $component0, 0);
 }

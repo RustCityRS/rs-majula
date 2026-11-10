@@ -16,15 +16,15 @@
 if (inv_freespace(inv) = 0) {
     mes("A random event gift has been placed on the ground for you to take!");
 }
-inv_add(inv, random_event_gift, 1);
+inv_add(inv, macro_frog_token, 1);
 
-[opheld1,random_event_gift]
+[opheld1,macro_frog_token]
 if (add(%lastcombat, 8) > map_clock) {
     mes("You won't be able to choose a reward during combat.");
     return;
 }
 ~random_event_gift_fill;
-inv_transmit(ame_rewards, ame_rewards:menu);
+inv_transmit(macro_certer, ame_rewards:menu);
 if_openmain(ame_rewards);
 // The choices are clientscript-built children of com_15 (choice * 7); the
 // client sends their ops only on the slots the server grants.
@@ -38,7 +38,7 @@ if_setevents(ame_rewards:menu, 0, 195, calc(^if_op1 + ^if_op10), 0, 0, ^false, ^
 // Surprise, 26 Emote, 27 Costume); which categories, a random choice of that
 // many. Herbs, seeds and charms are members' (their objs are).
 [proc,random_event_gift_fill]
-inv_clear(ame_rewards);
+inv_clear(macro_certer);
 def_int $choices = ~random_range(6, 14);
 def_int $categories = 8; // cash, runes, coal, essence, ore, bars, gems, other
 if (map_members = ^false) {
@@ -47,8 +47,8 @@ if (map_members = ^false) {
     $categories = add($categories, 3);
 }
 if (~random_event_gift_has_emotes(%random_event_gift_event) = true) {
-    inv_setslot(ame_rewards, 26, random_event_gift, 1);
-    inv_setslot(ame_rewards, 27, random_event_gift, 1);
+    inv_setslot(macro_certer, 26, macro_frog_token, 1);
+    inv_setslot(macro_certer, 27, macro_frog_token, 1);
     $choices = sub($choices, 2);
 }
 // The lamp (XP item) and the mystery box (Surprise) are not offered
@@ -124,7 +124,7 @@ def_int $count = add($min, scale($total_level, 2496, sub($max, $min)));
 if ($reward = coins) {
     $count = divide($total_level, 3);
 }
-inv_setslot(ame_rewards, $slot, $reward, max($count, 1));
+inv_setslot(macro_certer, $slot, $reward, max($count, 1));
 return(true);
 
 [proc,random_event_gift_has_emotes](int $event)(boolean)
@@ -135,7 +135,7 @@ return(false);
 
 [if_button1,ame_rewards:menu]
 def_int $choice = divide(last_slot, 7);
-if ($choice < 0 | $choice >= inv_size(ame_rewards) | inv_getnum(ame_rewards, $choice) <= 0) {
+if ($choice < 0 | $choice >= inv_size(macro_certer) | inv_getnum(macro_certer, $choice) <= 0) {
     return;
 }
 // "If you choose to get a new emote while already having all the emotes from
@@ -149,10 +149,10 @@ if_close;
 if (p_finduid(uid) = false) {
     return;
 }
-if (inv_total(inv, random_event_gift) = 0) {
+if (inv_total(inv, macro_frog_token) = 0) {
     return;
 }
-inv_del(inv, random_event_gift, 1);
+inv_del(inv, macro_frog_token, 1);
 // "When players have confirmed their selection a message in the chatbox
 // says: Enjoy your gift."
 mes("Enjoy your gift.");
@@ -168,8 +168,8 @@ if ($choice = 27) {
     mes("You have received a costume point. Talk to Iffie at Thessalia's Fine Clothes in Varrock to claim your reward.");
     return;
 }
-def_obj $reward = inv_getobj(ame_rewards, $choice);
-def_int $count = inv_getnum(ame_rewards, $choice);
+def_obj $reward = inv_getobj(macro_certer, $choice);
+def_int $count = inv_getnum(macro_certer, $choice);
 // More than one of an obj that does not stack comes noted.
 if ($count > 1 & oc_stackable($reward) = false) {
     $reward = oc_cert($reward);
@@ -178,7 +178,7 @@ inv_add(inv, $reward, $count);
 
 [if_button10,ame_rewards:menu]
 def_int $choice = divide(last_slot, 7);
-if ($choice < 0 | $choice >= inv_size(ame_rewards) | inv_getnum(ame_rewards, $choice) <= 0) {
+if ($choice < 0 | $choice >= inv_size(macro_certer) | inv_getnum(macro_certer, $choice) <= 0) {
     return;
 }
 if ($choice = 26) {
@@ -189,4 +189,4 @@ if ($choice = 27) {
     mes("Save up costume points to exchange with Iffie at Thessalia's Fine Clothes in Varrock for pieces of the Mime's costume.");
     return;
 }
-mes(oc_desc(inv_getobj(ame_rewards, $choice)));
+mes(oc_desc(inv_getobj(macro_certer, $choice)));

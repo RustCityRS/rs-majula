@@ -1,10 +1,10 @@
 // 3067
 [clientscript,script3067](int $int0)
 if (worldlist_fetch = false) {
-    if_setontimer("script3067($int0)", lobbyscreen:login_favs);
+    if_setontimer(lobbyscreen:login_favs, "script3067($int0)");
     return;
 } else {
-    if_setontimer(null, lobbyscreen:login_favs);
+    if_setontimer(lobbyscreen:login_favs, null);
 }
 def_int $int1 = 0;
 def_int $int2 = 0;
@@ -16,9 +16,9 @@ def_int $int5 = 0;
 def_string $string2 = "";
 def_int $int6 = -1;
 if ($int0 = 1) {
-    $int6 = %varclient_998;
+    $int6 = %worldselect_1stfavourite;
 } else if ($int0 = 2) {
-    $int6 = %varclient_999;
+    $int6 = %worldselect_2ndfavourite;
 } else {
     return;
 }
@@ -39,7 +39,7 @@ if ($int0 = 1) {
 if ($int1 > 0) {
     if (map_world ! $int1) {
         if (worldlist_switch($int1, $string2) = true) {
-            %varclient_547 = 0;
+            %loginscreen_pvp_warned = 0;
             ~lobbyscreen_entergame(lobbyscreen:loginbutton);
         } else {
             ~lobbyscreen_loginbutton_text(1);

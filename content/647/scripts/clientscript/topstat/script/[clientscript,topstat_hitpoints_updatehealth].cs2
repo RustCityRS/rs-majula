@@ -1,35 +1,35 @@
 // 2923
 [clientscript,topstat_hitpoints_updatehealth](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
 if (%poison > 0) {
-    if_setgraphic("topstat_fill_full,10", $component2);
-    if_setgraphic("topstat_fill_full,10", $component3);
-    if_sethide(true, $component0);
-    if_sethide(false, $component1);
-    if_setop(1, "Use cure (p)", $component1);
+    if_setgraphic($component2, "topstat_fill_full,10");
+    if_setgraphic($component3, "topstat_fill_full,10");
+    if_sethide($component0, true);
+    if_sethide($component1, false);
+    if_setop($component1, 1, "Use cure (p)");
 } else if (%varplayer_456 > 0) {
-    if_setgraphic("topstat_fill_full,9", $component2);
-    if_setgraphic("topstat_fill_full,9", $component3);
-    if_sethide(true, $component0);
-    if_sethide(false, $component1);
-    if_setop(1, "Use cure (d)", $component1);
+    if_setgraphic($component2, "topstat_fill_full,9");
+    if_setgraphic($component3, "topstat_fill_full,9");
+    if_sethide($component0, true);
+    if_sethide($component1, false);
+    if_setop($component1, 1, "Use cure (d)");
 } else {
-    if_setgraphic("topstat_fill_full,0", $component2);
-    if_setgraphic("topstat_fill_full,0", $component3);
-    if_sethide(false, $component0);
-    if_sethide(true, $component1);
+    if_setgraphic($component2, "topstat_fill_full,0");
+    if_setgraphic($component3, "topstat_fill_full,0");
+    if_sethide($component0, false);
+    if_sethide($component1, true);
     if_clearops($component1);
 }
-if_setsize(0, calc(16384 - max(min(scale(%life_points, ~script2916, 16384), 16384), 0)), ^setsize_minus, ^setsize_rel, $component3);
-if_setsize(0, calc(16384 - max(min(scale(~script2915, ~script2916, 16384), 16384), 0)), ^setsize_minus, ^setsize_rel, $component4);
-if_settext(tostring(%life_points), $component5);
+if_setsize($component3, 0, calc(16384 - max(min(scale(%life_points, ~script2916, 16384), 16384), 0)), ^setsize_minus, ^setsize_rel);
+if_setsize($component4, 0, calc(16384 - max(min(scale(~script2915, ~script2916, 16384), 16384), 0)), ^setsize_minus, ^setsize_rel);
+if_settext($component5, tostring(%life_points));
 def_int $int6 = scale(%life_points, ~script2916, 100);
 if ($int6 > 75) {
-    if_setcolour(^green, $component5);
+    if_setcolour($component5, ^green);
 } else if ($int6 > 50) {
-    if_setcolour(^yellow, $component5);
+    if_setcolour($component5, ^yellow);
 } else if ($int6 > 25) {
-    if_setcolour(0xff981f, $component5);
+    if_setcolour($component5, 0xff981f);
 } else {
-    if_setcolour(^red, $component5);
+    if_setcolour($component5, ^red);
 }
 ~topstat_hitpoints_update;

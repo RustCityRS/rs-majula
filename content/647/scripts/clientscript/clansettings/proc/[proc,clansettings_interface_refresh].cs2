@@ -11,108 +11,108 @@ if (activeclansettings_find_affined = true) {
         $int1 = 0;
     }
     ~script4501(clansettings:com_156, enum(int, string, enum_3718, $int1));
-    $int0 = %varclansetting_0;
+    $int0 = %clan_time_offset_varclan;
     $int0 = calc($int0 / 10 + 72);
     ~script4501(clansettings:com_220, enum(int, string, enum_3711, $int0));
-    ~script4501(clansettings:com_368, enum(int, string, enum_3797, %varclient_1516));
+    ~script4501(clansettings:com_368, enum(int, string, enum_3797, %clansettings_clanmate_filter_rank_plus_1));
     ~script4329(clansettings:qfc_text);
-    if (%varclansetting_6 = 0) {
+    if (%clan_homeworld_varclan = 0) {
         ~script4501(clansettings:com_275, "Not set");
     } else {
-        ~script4501(clansettings:com_275, enum(int, string, enum_3700, %varclansetting_6));
+        ~script4501(clansettings:com_275, enum(int, string, enum_3700, %clan_homeworld_varclan));
     }
-    if (%varclansetting_5 = 1) {
+    if (%clan_events_time_varclan = 1) {
         if (~script4292 = 1) {
-            if_sethide(false, clansettings:com_243);
-            if_sethide(true, clansettings:com_245);
-            if_sethide(true, clansettings:com_244);
-            if_sethide(true, clansettings:com_246);
-            if_sethide(true, clansettings:com_239);
-            if_sethide(false, clansettings:com_241);
-            if_sethide(true, clansettings:com_240);
-            if_sethide(true, clansettings:com_242);
+            if_sethide(clansettings:com_243, false);
+            if_sethide(clansettings:com_245, true);
+            if_sethide(clansettings:com_244, true);
+            if_sethide(clansettings:com_246, true);
+            if_sethide(clansettings:com_239, true);
+            if_sethide(clansettings:com_241, false);
+            if_sethide(clansettings:com_240, true);
+            if_sethide(clansettings:com_242, true);
         } else {
-            if_sethide(true, clansettings:com_243);
-            if_sethide(true, clansettings:com_245);
-            if_sethide(false, clansettings:com_244);
-            if_sethide(true, clansettings:com_246);
-            if_sethide(true, clansettings:com_239);
-            if_sethide(true, clansettings:com_241);
-            if_sethide(true, clansettings:com_240);
-            if_sethide(false, clansettings:com_242);
+            if_sethide(clansettings:com_243, true);
+            if_sethide(clansettings:com_245, true);
+            if_sethide(clansettings:com_244, false);
+            if_sethide(clansettings:com_246, true);
+            if_sethide(clansettings:com_239, true);
+            if_sethide(clansettings:com_241, true);
+            if_sethide(clansettings:com_240, true);
+            if_sethide(clansettings:com_242, false);
         }
     } else if (~script4292 = 1) {
-        if_sethide(true, clansettings:com_243);
-        if_sethide(false, clansettings:com_245);
-        if_sethide(true, clansettings:com_244);
-        if_sethide(true, clansettings:com_246);
-        if_sethide(false, clansettings:com_239);
-        if_sethide(true, clansettings:com_241);
-        if_sethide(true, clansettings:com_240);
-        if_sethide(true, clansettings:com_242);
+        if_sethide(clansettings:com_243, true);
+        if_sethide(clansettings:com_245, false);
+        if_sethide(clansettings:com_244, true);
+        if_sethide(clansettings:com_246, true);
+        if_sethide(clansettings:com_239, false);
+        if_sethide(clansettings:com_241, true);
+        if_sethide(clansettings:com_240, true);
+        if_sethide(clansettings:com_242, true);
     } else {
-        if_sethide(true, clansettings:com_243);
-        if_sethide(true, clansettings:com_245);
-        if_sethide(true, clansettings:com_244);
-        if_sethide(false, clansettings:com_246);
-        if_sethide(true, clansettings:com_239);
-        if_sethide(true, clansettings:com_241);
-        if_sethide(false, clansettings:com_240);
-        if_sethide(true, clansettings:com_242);
+        if_sethide(clansettings:com_243, true);
+        if_sethide(clansettings:com_245, true);
+        if_sethide(clansettings:com_244, true);
+        if_sethide(clansettings:com_246, false);
+        if_sethide(clansettings:com_239, true);
+        if_sethide(clansettings:com_241, true);
+        if_sethide(clansettings:com_240, false);
+        if_sethide(clansettings:com_242, true);
     }
-    if (%varclansetting_4 = 1) {
+    if (%clan_is_recruiting_varclan = 1) {
         if (~script4292 = 1) {
-            if_sethide(false, clansettings:com_235);
-            if_sethide(true, clansettings:com_237);
-            if_sethide(true, clansettings:com_236);
-            if_sethide(true, clansettings:com_238);
+            if_sethide(clansettings:com_235, false);
+            if_sethide(clansettings:com_237, true);
+            if_sethide(clansettings:com_236, true);
+            if_sethide(clansettings:com_238, true);
         } else {
-            if_sethide(true, clansettings:com_235);
-            if_sethide(true, clansettings:com_237);
-            if_sethide(false, clansettings:com_236);
-            if_sethide(true, clansettings:com_238);
+            if_sethide(clansettings:com_235, true);
+            if_sethide(clansettings:com_237, true);
+            if_sethide(clansettings:com_236, false);
+            if_sethide(clansettings:com_238, true);
         }
     } else if (~script4292 = 1) {
-        if_sethide(true, clansettings:com_235);
-        if_sethide(false, clansettings:com_237);
-        if_sethide(true, clansettings:com_236);
-        if_sethide(true, clansettings:com_238);
+        if_sethide(clansettings:com_235, true);
+        if_sethide(clansettings:com_237, false);
+        if_sethide(clansettings:com_236, true);
+        if_sethide(clansettings:com_238, true);
     } else {
-        if_sethide(true, clansettings:com_235);
-        if_sethide(true, clansettings:com_237);
-        if_sethide(true, clansettings:com_236);
-        if_sethide(false, clansettings:com_238);
+        if_sethide(clansettings:com_235, true);
+        if_sethide(clansettings:com_237, true);
+        if_sethide(clansettings:com_236, true);
+        if_sethide(clansettings:com_238, false);
     }
     if (~script4292 = 1) {
-        if_sethide(true, clansettings:com_227);
-        if_sethide(true, clansettings:com_281);
+        if_sethide(clansettings:com_227, true);
+        if_sethide(clansettings:com_281, true);
     } else {
-        if_sethide(false, clansettings:com_227);
-        if_sethide(false, clansettings:com_281);
+        if_sethide(clansettings:com_227, false);
+        if_sethide(clansettings:com_281, false);
     }
     ~clansettings_list_build;
     if (~script4292 = 1) {
-        if_sethide(true, clansettings:com_267);
-        if_sethide(true, clansettings:com_253);
-        if_sethide(true, clansettings:com_111);
-        if_sethide(true, clansettings:com_100);
-        if_sethide(true, clansettings:com_185);
-        if_sethide(true, clansettings:com_362);
-        if_sethide(true, clansettings:com_299);
-        if_sethide(true, clansettings:com_162);
-        if_sethide(true, clansettings:com_148);
-        if_sethide(true, clansettings:com_134);
+        if_sethide(clansettings:com_267, true);
+        if_sethide(clansettings:com_253, true);
+        if_sethide(clansettings:com_111, true);
+        if_sethide(clansettings:com_100, true);
+        if_sethide(clansettings:com_185, true);
+        if_sethide(clansettings:com_362, true);
+        if_sethide(clansettings:com_299, true);
+        if_sethide(clansettings:com_162, true);
+        if_sethide(clansettings:com_148, true);
+        if_sethide(clansettings:com_134, true);
     } else {
-        if_sethide(false, clansettings:com_267);
-        if_sethide(false, clansettings:com_253);
-        if_sethide(false, clansettings:com_111);
-        if_sethide(false, clansettings:com_100);
-        if_sethide(false, clansettings:com_185);
-        if_sethide(false, clansettings:com_362);
-        if_sethide(false, clansettings:com_299);
-        if_sethide(false, clansettings:com_162);
-        if_sethide(false, clansettings:com_148);
-        if_sethide(false, clansettings:com_134);
+        if_sethide(clansettings:com_267, false);
+        if_sethide(clansettings:com_253, false);
+        if_sethide(clansettings:com_111, false);
+        if_sethide(clansettings:com_100, false);
+        if_sethide(clansettings:com_185, false);
+        if_sethide(clansettings:com_362, false);
+        if_sethide(clansettings:com_299, false);
+        if_sethide(clansettings:com_162, false);
+        if_sethide(clansettings:com_148, false);
+        if_sethide(clansettings:com_134, false);
     }
 }
 ~clansettings_clanmate_details_onclansettingstransmit;

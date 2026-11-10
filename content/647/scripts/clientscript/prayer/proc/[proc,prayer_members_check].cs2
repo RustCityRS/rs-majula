@@ -1,6 +1,6 @@
 // 2294
 [proc,prayer_members_check](int $int0)(int)
-if (%varplayerbit_6840 = 1) {
+if (%prayer_mode = 1) {
     if (struct_param(enum(int, struct, enum_863, $int0), param_739) = true) {
         return(1);
     } else {

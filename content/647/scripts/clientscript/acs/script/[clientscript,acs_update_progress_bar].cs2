@@ -1,6 +1,6 @@
 // 4235
 [clientscript,acs_update_progress_bar]
-if (%varclient_1494 > 100) {
-    %varclient_1494 = 100;
+if (%acs_progress_bar_fill_value > 100) {
+    %acs_progress_bar_fill_value = 100;
 }
-if_setsize(scale(%varclient_1494, 100, 16384), 16384, ^setsize_rel, ^setsize_rel, acs_bar_overlay:progress_bar);
+if_setsize(acs_bar_overlay:progress_bar, scale(%acs_progress_bar_fill_value, 100, 16384), 16384, ^setsize_rel, ^setsize_rel);

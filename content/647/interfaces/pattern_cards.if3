@@ -113,8 +113,8 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
-onvartransmit=pattern_cards_select{varplayer_1037}
+opcursor0=cursor_use
+onvartransmit=pattern_cards_select{pattern_varp}
 
 // 559:11
 [pattern_button_2]
@@ -127,7 +127,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:12
 [pattern_button_3]
@@ -140,7 +140,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:13
 [pattern_button_4]
@@ -153,7 +153,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:14
 [pattern_button_5]
@@ -166,7 +166,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:15
 [pattern_button_6]
@@ -179,7 +179,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:16
 [pattern_button_7]
@@ -192,7 +192,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:17
 [pattern_button_8]
@@ -205,7 +205,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:18
 [pattern_button_9]
@@ -218,7 +218,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:19
 [pattern_button_10]
@@ -231,7 +231,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:20
 [pattern_button_11]
@@ -244,7 +244,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:21
 [pattern_button_12]
@@ -257,7 +257,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:22
 [pattern_button_13]
@@ -270,7 +270,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:23
 [pattern_button_14]
@@ -283,7 +283,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:24
 [pattern_button_0]
@@ -296,7 +296,7 @@ layer=layer_1
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 559:25
 [pattern_cards_hint]
@@ -875,7 +875,7 @@ width=25
 height=25
 layer=cardselectedgraphics
 colour=0x000000
-onvartransmit=pattern_cards_select{varplayer_1037}
+onvartransmit=pattern_cards_select{pattern_varp}
 
 // 559:73
 [pattern_pick_card_2]

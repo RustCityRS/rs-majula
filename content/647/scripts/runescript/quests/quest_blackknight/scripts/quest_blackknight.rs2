@@ -25,7 +25,7 @@ mes("You can't open this door.");
 [oploc1,inaclefayeunopenabledoorl]
 mes("You can't open this door.");
 
-[oploc1,sturdy_door]
+[oploc1,bkfortressdoor1]
 def_boolean $is_outside = ~check_axis(coord, loc_coord, loc_angle);
 if ($is_outside = true & ((inv_getobj(worn, ^wearpos_hat) ! bronze_med_helm) | (inv_getobj(worn, ^wearpos_torso) ! iron_chainbody))) {
     if (npc_find(0_47_54_8_56, fortress_guard, 5, 1) = true) {
@@ -100,7 +100,7 @@ mes("You push against the wall. You find a secret passage.");
 ~open_and_close_door2(loc_param(next_loc_stage), ~check_axis_locactive(coord), coffin_open);
 
 // Using Cabbage on hole
-[oplocu,hole]
+[oplocu,blackknighthole]
 switch_obj (last_useitem)
 {
     case cabbage : @black_knights_fortress_correct_cabbage;
@@ -142,7 +142,7 @@ if (%spy = 2) {
 }
 
 // Listening at grate: 2011's lines (2011-05-04, 215.1-223.6s).
-[oploc1,grill]
+[oploc1,witchgrill]
 if (%spy = 1) {
     ~chatnpc_specific("Black Knight captain", black_knight_captain, "<p,quiz>So... how's the secret weapon coming along?");
     ~chatnpc_specific("Witch", fortwitch, "<p,happy>The invincibility potion is almost ready...");
@@ -172,7 +172,7 @@ if (%spy = 1) {
 inv_add(inv, coins, 2500);
 ~mesbox("Sir Amik hands you 2,500 coins.");
 session_log(^log_adventure, "Quest complete: Black Knight's Fortress");
-~send_quest_complete2(^questlist_fortress, broken_cauldron, 260, ^blackknight_questpoints, "You have completed Black Knights' Fortress!", "2500 Coins");
+~send_quest_complete2(^questlist_fortress, bkfortress_cauldron_broken, 260, ^blackknight_questpoints, "You have completed Black Knights' Fortress!", "2500 Coins");
 
 [proc,black_knights_aggro](coord $first_search_coord, coord $all_search_coord)
 if (npc_find($first_search_coord, aggressive_black_knight, 5, 0) = true) {

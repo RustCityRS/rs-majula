@@ -160,7 +160,7 @@ height=248
 xmode=abs_centre
 onload=trade_pricechecker_init(event_com, trade_pricechecker:scrollbar, trade_pricechecker:total)
 oninvtransmit=trade_pricechecker_setup(event_com, trade_pricechecker:scrollbar, trade_pricechecker:total){tradeoffer}
-onvarctransmit=trade_pricechecker_setup(event_com, trade_pricechecker:scrollbar, trade_pricechecker:total){varclient_700, varclient_701, varclient_702, varclient_703, varclient_704, varclient_705, varclient_706, varclient_707, varclient_708, varclient_709, varclient_710, varclient_711, varclient_712, varclient_713, varclient_714, varclient_715, varclient_716, varclient_717, varclient_718, varclient_719, varclient_720, varclient_721, varclient_722, varclient_723, varclient_724, varclient_725, varclient_726, varclient_727, varclient_728}
+onvarctransmit=trade_pricechecker_setup(event_com, trade_pricechecker:scrollbar, trade_pricechecker:total){trade_pricechecker_value_0, trade_pricechecker_value_1, trade_pricechecker_value_2, trade_pricechecker_value_3, trade_pricechecker_value_4, trade_pricechecker_value_5, trade_pricechecker_value_6, trade_pricechecker_value_7, trade_pricechecker_value_8, trade_pricechecker_value_9, trade_pricechecker_value_10, trade_pricechecker_value_11, trade_pricechecker_value_12, trade_pricechecker_value_13, trade_pricechecker_value_14, trade_pricechecker_value_15, trade_pricechecker_value_16, trade_pricechecker_value_17, trade_pricechecker_value_18, trade_pricechecker_value_19, trade_pricechecker_value_20, trade_pricechecker_value_21, trade_pricechecker_value_22, trade_pricechecker_value_23, trade_pricechecker_value_24, trade_pricechecker_value_25, trade_pricechecker_value_26, trade_pricechecker_value_27, trade_pricechecker_totalvalue}
 
 // 206:16
 [scrollbar]

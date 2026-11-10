@@ -12,28 +12,28 @@ if ($int2 = 999) {
     $int2 = %varplayerbit_8580;
 }
 ~script4017($int0);
-if_setgraphic(enum(int, graphic, enum_3491, $int0), task_main:area_selected_icon);
-if_settext(enum(int, string, enum_3487, $int0), task_main:area_selected);
-if_sethide(false, task_main:area_selected);
+if_setgraphic(task_main:area_selected_icon, enum(int, graphic, enum_3491, $int0));
+if_settext(task_main:area_selected, enum(int, string, enum_3487, $int0));
+if_sethide(task_main:area_selected, false);
 if (if_find(task_main:progress_layer) = true) {
-    cc_setopcursor(1, cursor_172);
+    cc_setopcursor(1, cursor_info);
 }
 if (if_find(task_main:area_arrow) = true) {
-    cc_setopcursor(1, cursor_56);
+    cc_setopcursor(1, cursor_search);
 }
 if (if_find(task_main:area_selected) = true) {
-    cc_setopcursor(1, cursor_56);
+    cc_setopcursor(1, cursor_search);
 }
 %varclient_1422 = -1;
 def_int $int3 = enum(int, int, enum_3482, $int0);
 cc_deleteall(task_main:list_window);
-if_sethide(true, task_main:area_list);
-if_sethide(true, task_main:area_scroll);
+if_sethide(task_main:area_list, true);
+if_sethide(task_main:area_scroll, true);
 def_int $int4 = 0;
-if_sethide(false, task_main:menu_window);
+if_sethide(task_main:menu_window, false);
 if (%varplayerbit_9030 = 1) {
     $int4 = ~script4243;
-    if_sethide(true, task_main:menu_window);
+    if_sethide(task_main:menu_window, true);
 } else if ($int3 = 4091) {
     $int4 = ~script3988($int0);
 } else {
@@ -41,5 +41,5 @@ if (%varplayerbit_9030 = 1) {
 }
 def_int $int5 = calc($int4 + if_getheight(task_main:basebar));
 $int5 = max($int5, if_getheight(task_main:list_window));
-if_setscrollsize(0, $int5, task_main:list_window);
+if_setscrollsize(task_main:list_window, 0, $int5);
 ~scrollbar_vertical(task_main:list_scroll, task_main:list_window, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");

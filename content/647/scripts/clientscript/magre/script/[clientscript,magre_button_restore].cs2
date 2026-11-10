@@ -6,8 +6,8 @@ def_component $component3 = struct_param($struct1, param_661);
 if ($component3 ! null) {
     ~deltooltip_action($component3);
 }
-if ($int2 = %varclient_631) {
-    if_setgraphic("magic_icon_set,2", $component0);
+if ($int2 = %magre_cs_order) {
+    if_setgraphic($component0, "magic_icon_set,2");
 } else {
-    if_setgraphic("magic_icon_set,0", $component0);
+    if_setgraphic($component0, "magic_icon_set,0");
 }

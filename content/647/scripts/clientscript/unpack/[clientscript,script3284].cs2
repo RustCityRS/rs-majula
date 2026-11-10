@@ -2,19 +2,19 @@
 [clientscript,script3284](int $int0, component $component1, component $component2, component $component3)
 def_int $int4 = calc(61 + 10 * ($int0 - 1));
 sound_synth(synth_8809, 1, 0);
-if_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top, $component1);
-if_settext(tostring($int0), $component2);
+if_setposition($component1, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+if_settext($component2, tostring($int0));
 switch_int (enum(int, int, enum_1264, $int0)) {
     case 1 :
-        if_settext("Frozen", $component3);
+        if_settext($component3, "Frozen");
     case 2 :
-        if_settext("Abandoned", $component3);
+        if_settext($component3, "Abandoned");
     case 3 :
-        if_settext("Furnished", $component3);
+        if_settext($component3, "Furnished");
     case 4 :
-        if_settext("Occult", $component3);
+        if_settext($component3, "Occult");
     case 5 :
-        if_settext("Warped", $component3);
+        if_settext($component3, "Warped");
     case default :
-        if_settext("Dungeon", $component3);
+        if_settext($component3, "Dungeon");
 }

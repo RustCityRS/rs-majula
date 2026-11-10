@@ -1,62 +1,62 @@
 // 480
 [clientscript,script480]
-if_settext(~script483(%varplayerbit_7520), conq_buy_army:com_144);
-if (%varplayerbit_7520 > 0) {
-    if_setcolour(0xe6ca98, conq_buy_army:com_144);
+if_settext(conq_buy_army:com_144, ~script483(%conq_unit_1_type));
+if (%conq_unit_1_type > 0) {
+    if_setcolour(conq_buy_army:com_144, 0xe6ca98);
 } else {
-    if_setcolour(0x585042, conq_buy_army:com_144);
+    if_setcolour(conq_buy_army:com_144, 0x585042);
 }
-if_settext(~script483(%varplayerbit_7521), conq_buy_army:com_146);
-if (%varplayerbit_7521 > 0) {
-    if_setcolour(0xe6ca98, conq_buy_army:com_146);
+if_settext(conq_buy_army:com_146, ~script483(%conq_unit_2_type));
+if (%conq_unit_2_type > 0) {
+    if_setcolour(conq_buy_army:com_146, 0xe6ca98);
 } else {
-    if_setcolour(0x585042, conq_buy_army:com_146);
+    if_setcolour(conq_buy_army:com_146, 0x585042);
 }
-if_settext(~script483(%varplayerbit_7526), conq_buy_army:com_148);
-if (%varplayerbit_7526 > 0) {
-    if_setcolour(0xe6ca98, conq_buy_army:com_148);
+if_settext(conq_buy_army:com_148, ~script483(%conq_unit_3_type));
+if (%conq_unit_3_type > 0) {
+    if_setcolour(conq_buy_army:com_148, 0xe6ca98);
 } else {
-    if_setcolour(0x585042, conq_buy_army:com_148);
+    if_setcolour(conq_buy_army:com_148, 0x585042);
 }
-if_settext(~script483(%varplayerbit_7527), conq_buy_army:com_150);
-if (%varplayerbit_7527 > 0) {
-    if_setcolour(0xe6ca98, conq_buy_army:com_150);
+if_settext(conq_buy_army:com_150, ~script483(%conq_unit_4_type));
+if (%conq_unit_4_type > 0) {
+    if_setcolour(conq_buy_army:com_150, 0xe6ca98);
 } else {
-    if_setcolour(0x585042, conq_buy_army:com_150);
+    if_setcolour(conq_buy_army:com_150, 0x585042);
 }
-if_settext(~script483(%varplayerbit_7530), conq_buy_army:com_152);
-if (%varplayerbit_7530 > 0) {
-    if_setcolour(0xe6ca98, conq_buy_army:com_152);
+if_settext(conq_buy_army:com_152, ~script483(%conq_unit_5_type));
+if (%conq_unit_5_type > 0) {
+    if_setcolour(conq_buy_army:com_152, 0xe6ca98);
 } else {
-    if_setcolour(0x585042, conq_buy_army:com_152);
+    if_setcolour(conq_buy_army:com_152, 0x585042);
 }
-if_settext(~script483(%varplayerbit_7531), conq_buy_army:com_154);
-if (%varplayerbit_7531 > 0) {
-    if_setcolour(0xe6ca98, conq_buy_army:com_154);
+if_settext(conq_buy_army:com_154, ~script483(%conq_unit_6_type));
+if (%conq_unit_6_type > 0) {
+    if_setcolour(conq_buy_army:com_154, 0xe6ca98);
 } else {
-    if_setcolour(0x585042, conq_buy_army:com_154);
+    if_setcolour(conq_buy_army:com_154, 0x585042);
 }
-if_settext(~script483(%varplayerbit_7532), conq_buy_army:com_156);
-if (%varplayerbit_7532 > 0) {
-    if_setcolour(0xe6ca98, conq_buy_army:com_156);
+if_settext(conq_buy_army:com_156, ~script483(%conq_unit_7_type));
+if (%conq_unit_7_type > 0) {
+    if_setcolour(conq_buy_army:com_156, 0xe6ca98);
 } else {
-    if_setcolour(0x585042, conq_buy_army:com_156);
+    if_setcolour(conq_buy_army:com_156, 0x585042);
 }
-if_settext(~script483(%varplayerbit_7533), conq_buy_army:com_158);
-if (%varplayerbit_7533 > 0) {
-    if_setcolour(0xe6ca98, conq_buy_army:com_158);
+if_settext(conq_buy_army:com_158, ~script483(%conq_unit_8_type));
+if (%conq_unit_8_type > 0) {
+    if_setcolour(conq_buy_army:com_158, 0xe6ca98);
 } else {
-    if_setcolour(0x585042, conq_buy_army:com_158);
+    if_setcolour(conq_buy_army:com_158, 0x585042);
 }
-if_settext(~script483(%varplayerbit_7534), conq_buy_army:com_160);
-if (%varplayerbit_7534 > 0) {
-    if_setcolour(0xe6ca98, conq_buy_army:com_160);
+if_settext(conq_buy_army:com_160, ~script483(%conq_unit_9_type));
+if (%conq_unit_9_type > 0) {
+    if_setcolour(conq_buy_army:com_160, 0xe6ca98);
 } else {
-    if_setcolour(0x585042, conq_buy_army:com_160);
+    if_setcolour(conq_buy_army:com_160, 0x585042);
 }
-if_settext(~script483(%varplayerbit_7535), conq_buy_army:com_162);
-if (%varplayerbit_7535 > 0) {
-    if_setcolour(0xe6ca98, conq_buy_army:com_162);
+if_settext(conq_buy_army:com_162, ~script483(%conq_unit_10_type));
+if (%conq_unit_10_type > 0) {
+    if_setcolour(conq_buy_army:com_162, 0xe6ca98);
 } else {
-    if_setcolour(0x585042, conq_buy_army:com_162);
+    if_setcolour(conq_buy_army:com_162, 0x585042);
 }

@@ -1,5 +1,5 @@
 // 327
 [clientscript,player_kit_bracelet_load](component $component0)
-%varclient_783 = 0;
-if_setmodel(null, player_kit_jewel:bracemodel);
+%player_kit_bracelet_layer = 0;
+if_setmodel(player_kit_jewel:bracemodel, null);
 ~player_kit_bracelet_load($component0);

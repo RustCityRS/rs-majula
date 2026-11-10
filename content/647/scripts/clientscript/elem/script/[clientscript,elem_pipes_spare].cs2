@@ -1,14 +1,14 @@
 // 1317
 [clientscript,elem_pipes_spare]
-if_setmodel(model_18789, elem_magicpress_pipes:sparepipe1m);
-if_setmodel(model_18813, elem_magicpress_pipes:sparepipe2m);
-if_setmodel(model_18814, elem_magicpress_pipes:sparepipe3m);
-if (%varplayerbit_4835 < 1) {
-    if_setmodel(null, elem_magicpress_pipes:sparepipe3m);
+if_setmodel(elem_magicpress_pipes:sparepipe1m, model_18789);
+if_setmodel(elem_magicpress_pipes:sparepipe2m, model_18813);
+if_setmodel(elem_magicpress_pipes:sparepipe3m, model_18814);
+if (%elemental_if_2 < 1) {
+    if_setmodel(elem_magicpress_pipes:sparepipe3m, null);
 }
-if (%varplayerbit_4835 < 2) {
-    if_setmodel(null, elem_magicpress_pipes:sparepipe2m);
+if (%elemental_if_2 < 2) {
+    if_setmodel(elem_magicpress_pipes:sparepipe2m, null);
 }
-if (%varplayerbit_4835 < 3) {
-    if_setmodel(null, elem_magicpress_pipes:sparepipe1m);
+if (%elemental_if_2 < 3) {
+    if_setmodel(elem_magicpress_pipes:sparepipe1m, null);
 }

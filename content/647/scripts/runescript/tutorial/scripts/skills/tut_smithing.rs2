@@ -1,6 +1,6 @@
 [proc,tut_smithing_anvil](int $count)
-if (%tutorial = ^newbie_mining_instructor_smith_a_dagger) {
-    %tutorial = ^newbie_mining_instructor_finished;
+if (%varplayer_419 = ^newbie_mining_instructor_smith_a_dagger) {
+    %varplayer_419 = ^newbie_mining_instructor_finished;
 }
 p_delay(1);
 // delete bars

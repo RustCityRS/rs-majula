@@ -29,9 +29,9 @@ if($head = null) {
 def_int $reduction = 0;
 if($head = blood_n_tar_snelm | $head = snelm_point_red+black | $head = snelm_point_blue) {
     $reduction = 12;
-} else if($head = bruise_blue_snelm | $head = broken_bark_snelm | $head = snelm_point_yellow) {
+} else if($head = snelm_round_blue | $head = snelm_round_orange | $head = snelm_point_yellow) {
     $reduction = 8;
-} else if($head = myre_snelm | $head = myre_snelm | $head = ochre_snelm) {
+} else if($head = snelm_round_swamp | $head = snelm_round_swamp | $head = snelm_round_yellow) {
     $reduction = 4;
 }
 return (max(0, sub($damage, $reduction)));

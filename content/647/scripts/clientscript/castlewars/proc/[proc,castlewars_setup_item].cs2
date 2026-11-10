@@ -2,11 +2,11 @@
 [proc,castlewars_setup_item](component $component0, component $component1)
 def_namedobj $namedobj2 = enum(component, namedobj, enum_3058, $component1);
 def_int $int3 = enum(namedobj, int, enum_3059, $namedobj2);
-if ($namedobj2 = castle_wars_manual) {
-    if_settext("Free!", $component0);
+if ($namedobj2 = castlewars_manual) {
+    if_settext($component0, "Free!");
 } else {
-    if_settext(tostring($int3), $component0);
+    if_settext($component0, tostring($int3));
 }
-if_setobject($namedobj2, -1, $component1);
-if_setoutline(1, $component1);
-if_setgraphicshadow(0x333333, $component1);
+if_setobject($component1, $namedobj2, -1);
+if_setoutline($component1, 1);
+if_setgraphicshadow($component1, 0x333333);

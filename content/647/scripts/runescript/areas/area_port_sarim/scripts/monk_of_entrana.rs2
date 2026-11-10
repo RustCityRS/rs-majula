@@ -1,9 +1,9 @@
-[opnpc1,monk_of_entrana] @monk_of_entrana_talk;
+[opnpc1,shipmonk] @monk_of_entrana_talk;
 // 2011's other two monks on Port Sarim's dock (void-634's
 // monk_of_entrana_port_sarim_grey and _white, 2728 and 2729) take players to
 // Entrana as 289's monk does.
-[opnpc1,monk_of_entrana_2728] @monk_of_entrana_talk;
-[opnpc1,monk_of_entrana_2729] @monk_of_entrana_talk;
+[opnpc1,shipmonk1_b] @monk_of_entrana_talk;
+[opnpc1,shipmonk1_c] @monk_of_entrana_talk;
 
 [label,monk_of_entrana_talk]
 if(map_members = ^false) { // RS3

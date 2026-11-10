@@ -190,7 +190,7 @@ dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:start_1_anchor){varplayer_805}
+onvartransmit=script2130(event_com, beehive:start_1_anchor){macro_bee_pos_1}
 ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:start_1_anchor)
 
 // 420:13
@@ -205,7 +205,7 @@ dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:start_2_anchor){varplayer_805}
+onvartransmit=script2130(event_com, beehive:start_2_anchor){macro_bee_pos_1}
 ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:start_2_anchor)
 
 // 420:14
@@ -220,7 +220,7 @@ dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:start_3_anchor){varplayer_805}
+onvartransmit=script2130(event_com, beehive:start_3_anchor){macro_bee_pos_1}
 ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:start_3_anchor)
 
 // 420:15
@@ -235,7 +235,7 @@ dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:start_4_anchor){varplayer_805}
+onvartransmit=script2130(event_com, beehive:start_4_anchor){macro_bee_pos_1}
 ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:start_4_anchor)
 
 // 420:16
@@ -250,7 +250,7 @@ dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:dest_1_anchor){varplayer_805}
+onvartransmit=script2130(event_com, beehive:dest_1_anchor){macro_bee_pos_1}
 ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:dest_1_anchor)
 
 // 420:17
@@ -265,7 +265,7 @@ dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:dest_2_anchor){varplayer_805}
+onvartransmit=script2130(event_com, beehive:dest_2_anchor){macro_bee_pos_1}
 ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:dest_2_anchor)
 
 // 420:18
@@ -280,7 +280,7 @@ dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:dest_3_anchor){varplayer_805}
+onvartransmit=script2130(event_com, beehive:dest_3_anchor){macro_bee_pos_1}
 ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:dest_3_anchor)
 
 // 420:19
@@ -295,7 +295,7 @@ dragdepth=1
 candrop=yes
 dragdeadzone=2
 dragdeadtime=2
-onvartransmit=script2130(event_com, beehive:dest_4_anchor){varplayer_805}
+onvartransmit=script2130(event_com, beehive:dest_4_anchor){macro_bee_pos_1}
 ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:dest_4_anchor)
 
 // 420:20
@@ -428,7 +428,7 @@ type=layer
 width=330
 height=250
 onload=macro_beekeeper_init(event_com, beehive:start_1_model, beehive:start_2_model, beehive:start_3_model, beehive:start_4_model, beehive:dest_1_model, beehive:dest_2_model, beehive:dest_3_model, beehive:dest_4_model)
-onvartransmit=macro_beekeeper_transmit(event_com, beehive:start_1_model, beehive:start_2_model, beehive:start_3_model, beehive:start_4_model, beehive:dest_1_model, beehive:dest_2_model, beehive:dest_3_model, beehive:dest_4_model){varplayer_805}
+onvartransmit=macro_beekeeper_transmit(event_com, beehive:start_1_model, beehive:start_2_model, beehive:start_3_model, beehive:start_4_model, beehive:dest_1_model, beehive:dest_2_model, beehive:dest_3_model, beehive:dest_4_model){macro_bee_pos_1}
 
 // 420:30
 [bees_layer]

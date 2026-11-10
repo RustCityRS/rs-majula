@@ -4,10 +4,10 @@ def_enum $enum4 = null;
 if ($int2 > 0 & $int3 > 0) {
     $enum4 = enum(int, enum, enum_3703, $int2);
     if ($enum4 ! null) {
-        if_settext(enum(int, string, $enum4, $int3), $component0);
-        if_sethide(false, $component1);
+        if_settext($component0, enum(int, string, $enum4, $int3));
+        if_sethide($component1, false);
         return;
     }
 }
-if_settext("", $component0);
-if_sethide(true, $component1);
+if_settext($component0, "");
+if_sethide($component1, true);

@@ -1,56 +1,56 @@
 // 1558
 [proc,script1558](boolean $boolean0)
-if (~script2709 = 0 & %learning_the_ropes = 1000) {
-    if_settext("", chatdefault:input);
-    if_setonclick(null, chatdefault:input);
-    if_setontimer(null, chatdefault:input);
-    if_sethide(true, chatdefault:caret);
-    if_setposition(0, 72, ^setpos_abs_left, ^setpos_abs_top, chatdefault:scrollarea);
-    if_setsize(488, 72, ^setsize_abs, ^setsize_minus, chatdefault:scrollarea);
-    if_setposition(0, 72, ^setpos_abs_right, ^setpos_abs_top, chatdefault:scrollbar);
-    if_setsize(16, 72, ^setsize_abs, ^setsize_minus, chatdefault:scrollbar);
-    if_sethide(true, chatdefault:divider_line);
-    if_sethide(true, chatdefault:divider_graphic);
-    if_sethide(true, chatdefault:divider_graphic_top);
-    if_sethide(true, chatdefault:input);
-    if_sethide(false, chatdefault:dob_layer);
+if (~script2709 = 0 & %tutorial = 1000) {
+    if_settext(chatdefault:input, "");
+    if_setonclick(chatdefault:input, null);
+    if_setontimer(chatdefault:input, null);
+    if_sethide(chatdefault:caret, true);
+    if_setposition(chatdefault:scrollarea, 0, 72, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(chatdefault:scrollarea, 488, 72, ^setsize_abs, ^setsize_minus);
+    if_setposition(chatdefault:scrollbar, 0, 72, ^setpos_abs_right, ^setpos_abs_top);
+    if_setsize(chatdefault:scrollbar, 16, 72, ^setsize_abs, ^setsize_minus);
+    if_sethide(chatdefault:divider_line, true);
+    if_sethide(chatdefault:divider_graphic, true);
+    if_sethide(chatdefault:divider_graphic_top, true);
+    if_sethide(chatdefault:input, true);
+    if_sethide(chatdefault:dob_layer, false);
     return;
 }
-if_sethide(false, chatdefault:caret);
-if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, chatdefault:scrollarea);
-if_setsize(488, 17, ^setsize_abs, ^setsize_minus, chatdefault:scrollarea);
-if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top, chatdefault:scrollbar);
-if_setsize(16, 17, ^setsize_abs, ^setsize_minus, chatdefault:scrollbar);
-if_sethide(false, chatdefault:divider_line);
-if_sethide(false, chatdefault:divider_graphic);
-if_sethide(false, chatdefault:divider_graphic_top);
-if_sethide(false, chatdefault:input);
-if_sethide(true, chatdefault:dob_layer);
+if_sethide(chatdefault:caret, false);
+if_setposition(chatdefault:scrollarea, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize(chatdefault:scrollarea, 488, 17, ^setsize_abs, ^setsize_minus);
+if_setposition(chatdefault:scrollbar, 0, 0, ^setpos_abs_right, ^setpos_abs_top);
+if_setsize(chatdefault:scrollbar, 16, 17, ^setsize_abs, ^setsize_minus);
+if_sethide(chatdefault:divider_line, false);
+if_sethide(chatdefault:divider_graphic, false);
+if_sethide(chatdefault:divider_graphic_top, false);
+if_sethide(chatdefault:input, false);
+if_sethide(chatdefault:dob_layer, true);
 if ($boolean0 = true & (userdetail_quickchat = true | map_quickchat = true)) {
-    if_settext("Left-click here to enter Public Quick Chat or right-click for Friends Channel Quick Chat.", chatdefault:input);
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, chatdefault:quickchat_op);
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, chatdefault:quickchat_op);
-    if_setonclick(null, chatdefault:input);
-    if_setontimer(null, chatdefault:input);
-    if_sethide(true, chatdefault:caret);
+    if_settext(chatdefault:input, "Left-click here to enter Public Quick Chat or right-click for Friends Channel Quick Chat.");
+    if_setposition(chatdefault:quickchat_op, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setsize(chatdefault:quickchat_op, 0, 0, ^setsize_minus, ^setsize_minus);
+    if_setonclick(chatdefault:input, null);
+    if_setontimer(chatdefault:input, null);
+    if_sethide(chatdefault:caret, true);
     return;
 }
 def_string $string0 = "<chat_playername_unfiltered><img=3>:";
 def_string $string1 = append($string0, " ");
 def_int $int1 = if_getx(chatdefault:input);
 if (getwindowmode >= 2) {
-    if_settext("<$string1><col=7fa9ff><escape(%varclient_1520)>", chatdefault:input);
+    if_settext(chatdefault:input, "<$string1><col=7fa9ff><escape(%varclient_1520)>");
 } else {
-    if_settext("<$string1><col=0000ff><escape(%varclient_1520)>", chatdefault:input);
+    if_settext(chatdefault:input, "<$string1><col=0000ff><escape(%varclient_1520)>");
 }
-if_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_centre, chatdefault:quickchat_op);
-if_setsize(parawidth($string0, ^max_32bit_int, p12_full), 0, ^setsize_abs, ^setsize_minus, chatdefault:quickchat_op);
+if_setposition(chatdefault:quickchat_op, $int1, 0, ^setpos_abs_left, ^setpos_abs_centre);
+if_setsize(chatdefault:quickchat_op, parawidth($string0, ^max_32bit_int, p12_full), 0, ^setsize_abs, ^setsize_minus);
 $int1 = calc($int1 + parawidth($string1, ^max_32bit_int, p12_full));
-if_setonclick("script1554(event_mousex, $int1)", chatdefault:input);
-%varclient_1028 = max(min(%varclient_1028, string_length(escape(%varclient_1520))), 0);
+if_setonclick(chatdefault:input, "script1554(event_mousex, $int1)");
+%chat_caret = max(min(%chat_caret, string_length(escape(%varclient_1520))), 0);
 ~script1555($int1);
 if (string_length(chat_playername_unfiltered) > 0) {
-    if_setontimer(null, chatdefault:scrollarea);
+    if_setontimer(chatdefault:scrollarea, null);
 } else {
-    if_setontimer("script4308($boolean0)", chatdefault:scrollarea);
+    if_setontimer(chatdefault:scrollarea, "script4308($boolean0)");
 }

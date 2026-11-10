@@ -208,7 +208,7 @@ textshadow=yes
 colour=0xff981f
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 onvartransmit=duel2_select_type_vartrans{varplayer_283}
@@ -228,7 +228,7 @@ textshadow=yes
 colour=0xff981f
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xff981f)
 

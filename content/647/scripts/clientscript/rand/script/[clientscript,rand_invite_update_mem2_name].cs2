@@ -1,3 +1,3 @@
 // 3301
 [clientscript,rand_invite_update_mem2_name]
-if_settext(%varclient_1804, rand_party_invite:mem2_name);
+if_settext(rand_party_invite:mem2_name, %rand_invite_mem2_name);

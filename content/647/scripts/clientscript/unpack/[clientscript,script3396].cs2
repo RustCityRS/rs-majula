@@ -3,8 +3,8 @@
 def_string $string0 = "";
 def_int $int1 = -1;
 if (cc_find(lobbyscreen_report_abuse_stage1_namelist:build_layer, $int0) = true) {
-    %varclient_1798 = cc_getopbase;
-    %varclient_792 = %varclient_791;
+    %lobbyscreen_report_abuse_name = cc_getopbase;
+    %snapshot_last_selected_highlight = %snapshot_last_selected_highlight_mouseover;
     ~lobbyscreen_report_abuse_stage1_namelist_selected_highlight;
     ~lobbyscreen_report_abuse_stage1_namelist_update_select_button;
 }

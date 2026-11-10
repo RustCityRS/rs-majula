@@ -1,4 +1,4 @@
 // 4334
 [proc,script4334](component $component0, component $component1)
-if_setcolour(hsvtorgb(%varclansetting_18), $component0);
-if_setcolour(hsvtorgb(%varclansetting_19), $component1);
+if_setcolour($component0, hsvtorgb(%clan_custom_colour1_varclan));
+if_setcolour($component1, hsvtorgb(%clan_custom_colour2_varclan));

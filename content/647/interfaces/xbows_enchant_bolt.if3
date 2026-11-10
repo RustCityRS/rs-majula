@@ -199,7 +199,7 @@ textalignh=centre
 textshadow=yes
 colour=0xff981f
 onload=xbows_level(event_com, 4)
-onvartransmit=xbows_level(event_com, 4){varplayer_1092}
+onvartransmit=xbows_level(event_com, 4){assist_stat_magic}
 
 // 432:16
 [opal_1]
@@ -214,7 +214,7 @@ text=Opal
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=xbows_bolts(event_com, opal_bolts)
+onload=xbows_bolts(event_com, opal_bolt)
 
 // 432:17
 [model1]
@@ -256,7 +256,7 @@ text=Jade
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=xbows_bolts(event_com, jade_bolts)
+onload=xbows_bolts(event_com, xbows_crossbow_bolts_blurite_tipped_jade)
 
 // 432:20
 [jade]
@@ -272,7 +272,7 @@ textalignh=centre
 textshadow=yes
 colour=0xff981f
 onload=xbows_level(event_com, 14)
-onvartransmit=xbows_level(event_com, 14){varplayer_1092}
+onvartransmit=xbows_level(event_com, 14){assist_stat_magic}
 
 // 432:21
 [model2]
@@ -314,7 +314,7 @@ text=Pearl
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=xbows_bolts(event_com, pearl_bolts)
+onload=xbows_bolts(event_com, pearl_bolt)
 
 // 432:24
 [pearl]
@@ -330,7 +330,7 @@ textalignh=centre
 textshadow=yes
 colour=0xff981f
 onload=xbows_level(event_com, 24)
-onvartransmit=xbows_level(event_com, 24){varplayer_1092}
+onvartransmit=xbows_level(event_com, 24){assist_stat_magic}
 
 // 432:25
 [model3]
@@ -373,7 +373,7 @@ textalignh=centre
 textshadow=yes
 colour=0xff981f
 onload=xbows_level(event_com, 29)
-onvartransmit=xbows_level(event_com, 29){varplayer_1092}
+onvartransmit=xbows_level(event_com, 29){assist_stat_magic}
 
 // 432:28
 [model4]
@@ -416,7 +416,7 @@ textalignh=centre
 textshadow=yes
 colour=0xff981f
 onload=xbows_level(event_com, 7)
-onvartransmit=xbows_level(event_com, 7){varplayer_1092}
+onvartransmit=xbows_level(event_com, 7){assist_stat_magic}
 
 // 432:31
 [model5]
@@ -459,7 +459,7 @@ textalignh=centre
 textshadow=yes
 colour=0xff981f
 onload=xbows_level(event_com, 27)
-onvartransmit=xbows_level(event_com, 27){varplayer_1092}
+onvartransmit=xbows_level(event_com, 27){assist_stat_magic}
 
 // 432:34
 [model6]
@@ -502,7 +502,7 @@ textalignh=centre
 textshadow=yes
 colour=0xff981f
 onload=xbows_level(event_com, 49)
-onvartransmit=xbows_level(event_com, 49){varplayer_1092}
+onvartransmit=xbows_level(event_com, 49){assist_stat_magic}
 
 // 432:37
 [model7]
@@ -545,7 +545,7 @@ textalignh=centre
 textshadow=yes
 colour=0xff981f
 onload=xbows_level(event_com, 57)
-onvartransmit=xbows_level(event_com, 57){varplayer_1092}
+onvartransmit=xbows_level(event_com, 57){assist_stat_magic}
 
 // 432:40
 [model8]
@@ -588,7 +588,7 @@ textalignh=centre
 textshadow=yes
 colour=0xff981f
 onload=xbows_level(event_com, 68)
-onvartransmit=xbows_level(event_com, 68){varplayer_1092}
+onvartransmit=xbows_level(event_com, 68){assist_stat_magic}
 
 // 432:43
 [model9]
@@ -631,7 +631,7 @@ textalignh=centre
 textshadow=yes
 colour=0xff981f
 onload=xbows_level(event_com, 87)
-onvartransmit=xbows_level(event_com, 87){varplayer_1092}
+onvartransmit=xbows_level(event_com, 87){assist_stat_magic}
 
 // 432:46
 [model10]
@@ -658,7 +658,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, cosmic_rune, 1)
+onload=xbows_init(event_com, cosmicrune, 1)
 
 // 432:48
 [com_48]
@@ -684,7 +684,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, cosmic_rune, 1)
+onload=xbows_init(event_com, cosmicrune, 1)
 
 // 432:50
 [com_50]
@@ -710,7 +710,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, cosmic_rune, 1)
+onload=xbows_init(event_com, cosmicrune, 1)
 
 // 432:52
 [observation_colors]
@@ -736,7 +736,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, cosmic_rune, 1)
+onload=xbows_init(event_com, cosmicrune, 1)
 
 // 432:54
 [com_54]
@@ -762,7 +762,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, cosmic_rune, 1)
+onload=xbows_init(event_com, cosmicrune, 1)
 
 // 432:56
 [com_56]
@@ -788,7 +788,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, cosmic_rune, 1)
+onload=xbows_init(event_com, cosmicrune, 1)
 
 // 432:58
 [com_58]
@@ -814,7 +814,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, cosmic_rune, 1)
+onload=xbows_init(event_com, cosmicrune, 1)
 
 // 432:60
 [com_60]
@@ -840,7 +840,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, cosmic_rune, 1)
+onload=xbows_init(event_com, cosmicrune, 1)
 
 // 432:62
 [com_62]
@@ -866,7 +866,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, cosmic_rune, 1)
+onload=xbows_init(event_com, cosmicrune, 1)
 
 // 432:64
 [com_64]
@@ -892,7 +892,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, cosmic_rune, 1)
+onload=xbows_init(event_com, cosmicrune, 1)
 
 // 432:66
 [com_66]
@@ -930,7 +930,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, air_rune, 2)
+onload=xbows_init(event_com, airrune, 2)
 
 // 432:69
 [com_69]
@@ -956,7 +956,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, earth_rune, 15)
+onload=xbows_init(event_com, earthrune, 15)
 
 // 432:71
 [com_71]
@@ -982,7 +982,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, earth_rune, 2)
+onload=xbows_init(event_com, earthrune, 2)
 
 // 432:73
 [com_73]
@@ -1008,7 +1008,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, water_rune, 2)
+onload=xbows_init(event_com, waterrune, 2)
 
 // 432:75
 [com_75]
@@ -1034,7 +1034,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, fire_rune, 2)
+onload=xbows_init(event_com, firerune, 2)
 
 // 432:77
 [com_77]
@@ -1060,7 +1060,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, mind_rune, 1)
+onload=xbows_init(event_com, mindrune, 1)
 
 // 432:79
 [com_79]
@@ -1086,7 +1086,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, water_rune, 1)
+onload=xbows_init(event_com, waterrune, 1)
 
 // 432:81
 [com_81]
@@ -1112,7 +1112,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, blood_rune, 1)
+onload=xbows_init(event_com, bloodrune, 1)
 
 // 432:83
 [com_83]
@@ -1138,7 +1138,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, fire_rune, 5)
+onload=xbows_init(event_com, firerune, 5)
 
 // 432:85
 [com_85]
@@ -1164,7 +1164,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, air_rune, 3)
+onload=xbows_init(event_com, airrune, 3)
 
 // 432:87
 [com_87]
@@ -1190,7 +1190,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, law_rune, 2)
+onload=xbows_init(event_com, lawrune, 2)
 
 // 432:89
 [com_89]
@@ -1216,7 +1216,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, death_rune, 1)
+onload=xbows_init(event_com, deathrune, 1)
 
 // 432:91
 [com_91]
@@ -1242,7 +1242,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, soul_rune, 1)
+onload=xbows_init(event_com, soulrune, 1)
 
 // 432:93
 [com_93]
@@ -1268,7 +1268,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, nature_rune, 1)
+onload=xbows_init(event_com, naturerune, 1)
 
 // 432:95
 [com_95]
@@ -1298,7 +1298,7 @@ text=Red Topaz
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=xbows_bolts(event_com, topaz_bolts)
+onload=xbows_bolts(event_com, xbows_crossbow_bolts_steel_tipped_redtopaz)
 
 // 432:97
 [sapphire_1]
@@ -1313,7 +1313,7 @@ text=Sapphire
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=xbows_bolts(event_com, sapphire_bolts)
+onload=xbows_bolts(event_com, xbows_crossbow_bolts_mithril_tipped_sapphire)
 
 // 432:98
 [emerald_1]
@@ -1328,7 +1328,7 @@ text=Emerald
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=xbows_bolts(event_com, emerald_bolts)
+onload=xbows_bolts(event_com, xbows_crossbow_bolts_mithril_tipped_emerald)
 
 // 432:99
 [ruby_1]
@@ -1343,7 +1343,7 @@ text=Ruby
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=xbows_bolts(event_com, ruby_bolts)
+onload=xbows_bolts(event_com, xbows_crossbow_bolts_adamantite_tipped_ruby)
 
 // 432:100
 [diamond_1]
@@ -1358,7 +1358,7 @@ text=Diamond
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=xbows_bolts(event_com, diamond_bolts)
+onload=xbows_bolts(event_com, xbows_crossbow_bolts_adamantite_tipped_diamond)
 
 // 432:101
 [dragonstone_1]
@@ -1373,7 +1373,7 @@ text=Dragonstone
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=xbows_bolts(event_com, dragon_bolts)
+onload=xbows_bolts(event_com, xbows_crossbow_bolts_runite_tipped_dragonstone)
 
 // 432:102
 [onyx_1]
@@ -1388,7 +1388,7 @@ text=Onyx
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onload=xbows_bolts(event_com, onyx_bolts)
+onload=xbows_bolts(event_com, xbows_crossbow_bolts_runite_tipped_onyx)
 
 // 432:103
 [com_103]
@@ -1414,7 +1414,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, earth_rune, 10)
+onload=xbows_init(event_com, earthrune, 10)
 
 // 432:105
 [com_105]
@@ -1440,7 +1440,7 @@ textfont=p11_full
 textalignh=centre
 textshadow=yes
 colour=0xc00000
-onload=xbows_init(event_com, fire_rune, 20)
+onload=xbows_init(event_com, firerune, 20)
 
 // 432:107
 [top]

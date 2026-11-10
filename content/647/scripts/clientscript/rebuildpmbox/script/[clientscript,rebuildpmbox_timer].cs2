@@ -3,5 +3,5 @@
 if (minimenuopen(pmchat:pmchat, -1) = true) {
     return;
 }
-if_setontimer(null, pmchat:pmchat);
+if_setontimer(pmchat:pmchat, null);
 ~rebuildpmbox;

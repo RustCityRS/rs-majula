@@ -1,11 +1,11 @@
 // 59
 [proc,deathkeep_select_update](int $int0)
 if (%varplayerbit_9227 > 1) {
-    if_settext("Select <tostring(%varplayerbit_9227)> items to keep. The rest will be dropped.", deathkeep_select:available_text);
+    if_settext(deathkeep_select:available_text, "Select <tostring(%varplayerbit_9227)> items to keep. The rest will be dropped.");
 } else if (%varplayerbit_9227 = 1) {
-    if_settext("Select an item to keep. The rest will be dropped.", deathkeep_select:available_text);
+    if_settext(deathkeep_select:available_text, "Select an item to keep. The rest will be dropped.");
 } else {
-    if_settext("These items will be dropped.", deathkeep_select:available_text);
+    if_settext(deathkeep_select:available_text, "These items will be dropped.");
 }
 def_obj $objarray0(4);
 $objarray0(0) = ~script750(%varplayerbit_9222);
@@ -55,7 +55,7 @@ while ($int5 < %varplayerbit_9227 & $int5 < 4) {
     $int5 = calc($int5 + 1);
 }
 $int1 = calc($int1 + 9);
-if_setsize($int1, if_getheight(deathkeep_select:protected_container), ^setsize_abs, ^setsize_abs, deathkeep_select:protected_container);
+if_setsize(deathkeep_select:protected_container, $int1, if_getheight(deathkeep_select:protected_container), ^setsize_abs, ^setsize_abs);
 cc_deleteall(deathkeep_select:available_backgrounds);
 cc_deleteall(deathkeep_select:available);
 cc_deleteall(deathkeep_select:automatic_backgrounds);
@@ -157,11 +157,11 @@ if ($int8 <= 0) {
 def_int $int20 = calc(($int7 + 1) * (32 + $int16));
 def_int $int21 = calc(($int9 + 1) * (32 + $int16));
 if ($int7 < 2 & $int7 <= $int9) {
-    if_setsize(0, calc($int20 + if_getheight(deathkeep_select:available_text) + 6), ^setsize_minus, ^setsize_abs, deathkeep_select:available_container);
-    if_setsize(0, calc(if_getheight(deathkeep_select:available_container) + 3), ^setsize_minus, ^setsize_minus, deathkeep_select:automatic_container);
+    if_setsize(deathkeep_select:available_container, 0, calc($int20 + if_getheight(deathkeep_select:available_text) + 6), ^setsize_minus, ^setsize_abs);
+    if_setsize(deathkeep_select:automatic_container, 0, calc(if_getheight(deathkeep_select:available_container) + 3), ^setsize_minus, ^setsize_minus);
 } else if ($int9 < 2 & $int9 <= $int7) {
-    if_setsize(0, calc($int21 + if_getheight(deathkeep_select:automatic_text) + 6), ^setsize_minus, ^setsize_abs, deathkeep_select:automatic_container);
-    if_setsize(0, calc(if_getheight(deathkeep_select:automatic_container) + 3), ^setsize_minus, ^setsize_minus, deathkeep_select:available_container);
+    if_setsize(deathkeep_select:automatic_container, 0, calc($int21 + if_getheight(deathkeep_select:automatic_text) + 6), ^setsize_minus, ^setsize_abs);
+    if_setsize(deathkeep_select:available_container, 0, calc(if_getheight(deathkeep_select:automatic_container) + 3), ^setsize_minus, ^setsize_minus);
 }
 if ($int6 <= 0 & $int7 <= 0) {
     cc_create(deathkeep_select:available, ^iftype_text, if_getnextsubid(deathkeep_select:available));
@@ -174,45 +174,45 @@ if ($int6 <= 0 & $int7 <= 0) {
     cc_settext("You haven't got any more items to choose.");
 }
 if ($int20 > if_getheight(deathkeep_select:available_scroller)) {
-    if_setscrollsize(0, $int20, deathkeep_select:available_scroller);
-    if_setsize(0, $int20, ^setsize_minus, ^setsize_abs, deathkeep_select:available);
-    if_setsize(0, $int20, ^setsize_minus, ^setsize_abs, deathkeep_select:available_backgrounds);
+    if_setscrollsize(deathkeep_select:available_scroller, 0, $int20);
+    if_setsize(deathkeep_select:available, 0, $int20, ^setsize_minus, ^setsize_abs);
+    if_setsize(deathkeep_select:available_backgrounds, 0, $int20, ^setsize_minus, ^setsize_abs);
     ~scrollbar_vertical(deathkeep_select:available_scrollbar, deathkeep_select:available_scroller, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");
-    if_sethide(false, deathkeep_select:available_scrollbar);
-    if_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_centre, deathkeep_select:available_scroller);
+    if_sethide(deathkeep_select:available_scrollbar, false);
+    if_setposition(deathkeep_select:available_scroller, 2, 0, ^setpos_abs_left, ^setpos_abs_centre);
 } else {
-    if_setscrollsize(0, 0, deathkeep_select:available_scroller);
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, deathkeep_select:available);
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, deathkeep_select:available_backgrounds);
-    if_setscrollpos(0, 0, deathkeep_select:available_scroller);
+    if_setscrollsize(deathkeep_select:available_scroller, 0, 0);
+    if_setsize(deathkeep_select:available, 0, 0, ^setsize_minus, ^setsize_minus);
+    if_setsize(deathkeep_select:available_backgrounds, 0, 0, ^setsize_minus, ^setsize_minus);
+    if_setscrollpos(deathkeep_select:available_scroller, 0, 0);
     cc_deleteall(deathkeep_select:available_scrollbar);
-    if_sethide(true, deathkeep_select:available_scrollbar);
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, deathkeep_select:available_scroller);
+    if_sethide(deathkeep_select:available_scrollbar, true);
+    if_setposition(deathkeep_select:available_scroller, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
 }
 if ($int21 > if_getheight(deathkeep_select:automatic_scroller)) {
-    if_setscrollsize(0, $int21, deathkeep_select:automatic_scroller);
-    if_setsize(0, $int21, ^setsize_minus, ^setsize_abs, deathkeep_select:automatic);
-    if_setsize(0, $int21, ^setsize_minus, ^setsize_abs, deathkeep_select:automatic_backgrounds);
+    if_setscrollsize(deathkeep_select:automatic_scroller, 0, $int21);
+    if_setsize(deathkeep_select:automatic, 0, $int21, ^setsize_minus, ^setsize_abs);
+    if_setsize(deathkeep_select:automatic_backgrounds, 0, $int21, ^setsize_minus, ^setsize_abs);
     ~scrollbar_vertical(deathkeep_select:automatic_scrollbar, deathkeep_select:automatic_scroller, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");
-    if_sethide(false, deathkeep_select:automatic_scrollbar);
-    if_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_centre, deathkeep_select:automatic_scroller);
+    if_sethide(deathkeep_select:automatic_scrollbar, false);
+    if_setposition(deathkeep_select:automatic_scroller, 2, 0, ^setpos_abs_left, ^setpos_abs_centre);
 } else {
-    if_setscrollsize(0, 0, deathkeep_select:automatic_scroller);
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, deathkeep_select:automatic);
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, deathkeep_select:automatic_backgrounds);
-    if_setscrollpos(0, 0, deathkeep_select:automatic_scroller);
+    if_setscrollsize(deathkeep_select:automatic_scroller, 0, 0);
+    if_setsize(deathkeep_select:automatic, 0, 0, ^setsize_minus, ^setsize_minus);
+    if_setsize(deathkeep_select:automatic_backgrounds, 0, 0, ^setsize_minus, ^setsize_minus);
+    if_setscrollpos(deathkeep_select:automatic_scroller, 0, 0);
     cc_deleteall(deathkeep_select:automatic_scrollbar);
-    if_sethide(true, deathkeep_select:automatic_scrollbar);
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, deathkeep_select:automatic_scroller);
+    if_sethide(deathkeep_select:automatic_scrollbar, true);
+    if_setposition(deathkeep_select:automatic_scroller, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
 }
 cc_deleteall(deathkeep_select:com_45);
 if (%varplayer_105 ! -1) {
-    if_sethide(true, deathkeep_select:com_27);
-    if_sethide(true, deathkeep_select:dropdown_universe);
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_select:protected_container);
+    if_sethide(deathkeep_select:com_27, true);
+    if_sethide(deathkeep_select:dropdown_universe, true);
+    if_setposition(deathkeep_select:protected_container, 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
     return;
 }
-if_sethide(false, deathkeep_select:com_27);
+if_sethide(deathkeep_select:com_27, false);
 def_string $string0 = "Your hub (<enum(int, string, enum_3792, %varplayerbit_9231)>)";
 def_string $string1 = "";
 def_int $int22 = 0;
@@ -227,15 +227,15 @@ while ($int5 <= $int17) {
         case 0, -1 :
             $int23 = 1;
         case 1 :
-            if (%varplayerbit_668 = 1 & map_members = true) {
+            if (%falador_spawn = 1 & map_members = true) {
                 $int23 = 1;
             }
         case 2 :
-            if (%varplayerbit_3910 = 1 & map_members = true) {
+            if (%camelot_spawn = 1 & map_members = true) {
                 $int23 = 1;
             }
         case 3 :
-            if (%varplayerbit_6982 = 1 & map_members = true) {
+            if (%soulwars_spawn = 1 & map_members = true) {
                 $int23 = 1;
             }
     }
@@ -267,6 +267,6 @@ while ($int5 <= $int17) {
     $int5 = calc($int5 + 1);
 }
 $int22 = calc($int22 + 28);
-if_setsize($int22, if_getheight(deathkeep_select:com_27), ^setsize_abs, ^setsize_abs, deathkeep_select:com_27);
-if_setsize($int22, calc($int7 + 6), ^setsize_abs, ^setsize_abs, deathkeep_select:dropdown_container);
-if_setposition(max(calc($int22 + 1 - ($int12 - $int1) / 2), 0), 0, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_select:protected_container);
+if_setsize(deathkeep_select:com_27, $int22, if_getheight(deathkeep_select:com_27), ^setsize_abs, ^setsize_abs);
+if_setsize(deathkeep_select:dropdown_container, $int22, calc($int7 + 6), ^setsize_abs, ^setsize_abs);
+if_setposition(deathkeep_select:protected_container, max(calc($int22 + 1 - ($int12 - $int1) / 2), 0), 0, ^setpos_abs_centre, ^setpos_abs_top);

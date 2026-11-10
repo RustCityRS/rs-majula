@@ -9,8 +9,8 @@ layer=watch_layer
 graphic="aif_checkbox_small,4"
 transmitop=1
 op1=Select
-opcursor0=cursor_46
-onvartransmit=clan_noticeboard_watch_tick_update(event_com){varplayer_2128, varplayer_2175, varplayer_2175, varplayer_2175, varplayer_2175, varplayer_2175, varplayer_2175, varplayer_2175, varplayer_2175}
+opcursor0=cursor_use
+onvartransmit=clan_noticeboard_watch_tick_update(event_com){clan_event_current_varp, clan_event_notifications, clan_event_notifications, clan_event_notifications, clan_event_notifications, clan_event_notifications, clan_event_notifications, clan_event_notifications, clan_event_notifications}
 onop=clan_noticeboard_watch_tick(event_com)
 
 // 1099:1
@@ -1057,7 +1057,7 @@ layer=events_layer
 transmitop=1
 opbase=Event
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 1099:97
 [com_97]
@@ -1367,7 +1367,7 @@ layer=events_layer
 transmitop=1
 opbase=Event
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 1099:123
 [event_2]
@@ -1402,7 +1402,7 @@ layer=events_layer
 transmitop=1
 opbase=Event
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 1099:126
 [event_3]
@@ -1437,7 +1437,7 @@ layer=events_layer
 transmitop=1
 opbase=Event
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 1099:129
 [event_4]
@@ -1472,7 +1472,7 @@ layer=events_layer
 transmitop=1
 opbase=Event
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 1099:132
 [event_5]
@@ -1507,7 +1507,7 @@ layer=events_layer
 transmitop=1
 opbase=Event
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 1099:135
 [event_6]
@@ -1542,7 +1542,7 @@ layer=events_layer
 transmitop=1
 opbase=Event
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 1099:138
 [event_7]
@@ -1577,7 +1577,7 @@ layer=events_layer
 transmitop=1
 opbase=Event
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 1099:141
 [event_8]
@@ -1698,7 +1698,7 @@ heightmode=minus
 layer=clan_data_waiting_button
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 
 // 1099:152
@@ -1834,7 +1834,7 @@ heightmode=minus
 layer=qfc_button_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 
 // 1099:164

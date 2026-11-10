@@ -1,44 +1,44 @@
 // 2414
 [clientscript,peng_rak_eng_onload]
-if (%varplayerbit_6180 = 120) {
-    if_sethide(false, peng_rak_engine:fish_tools);
-    if_sethide(true, peng_rak_engine:normal_tools);
-    if (inv_total(inv, swordfish_14831) = 0) {
-        if_sethide(true, peng_rak_engine:swordfish);
+if (%peng_rak_quest = 120) {
+    if_sethide(peng_rak_engine:fish_tools, false);
+    if_sethide(peng_rak_engine:normal_tools, true);
+    if (inv_total(inv, peng_rak_tool_swordfish) = 0) {
+        if_sethide(peng_rak_engine:swordfish, true);
     }
-    if (inv_total(inv, octopus) = 0 & inv_total(worn, octopus) = 0) {
-        if_sethide(true, peng_rak_engine:octopus);
+    if (inv_total(inv, peng_rak_hat_octopus) = 0 & inv_total(worn, peng_rak_hat_octopus) = 0) {
+        if_sethide(peng_rak_engine:octopus, true);
     }
-    if (inv_total(inv, seaweed_14830) = 0) {
-        if_sethide(true, peng_rak_engine:seaweed);
+    if (inv_total(inv, peng_rak_tool_seaweed) = 0) {
+        if_sethide(peng_rak_engine:seaweed, true);
     }
-    if (inv_total(inv, puffer) = 0 & inv_total(worn, puffer) = 0) {
-        if_sethide(true, peng_rak_engine:blowfish);
+    if (inv_total(inv, peng_rak_hat_pufferfish) = 0 & inv_total(worn, peng_rak_hat_pufferfish) = 0) {
+        if_sethide(peng_rak_engine:blowfish, true);
     }
-    if (inv_total(inv, electric_eel) = 0) {
-        if_sethide(true, peng_rak_engine:eel);
+    if (inv_total(inv, peng_rak_tool_eel) = 0) {
+        if_sethide(peng_rak_engine:eel, true);
     }
-    if (inv_total(inv, shark_tooth) = 0) {
-        if_sethide(true, peng_rak_engine:sharktooth);
+    if (inv_total(inv, peng_rak_tool_sharktooth) = 0) {
+        if_sethide(peng_rak_engine:sharktooth, true);
     }
-    if (inv_total(inv, crab_claw_14827) = 0) {
-        if_sethide(true, peng_rak_engine:crab);
+    if (inv_total(inv, peng_rak_tool_crab) = 0) {
+        if_sethide(peng_rak_engine:crab, true);
     }
 } else {
-    if_sethide(true, peng_rak_engine:fish_tools);
-    if_sethide(false, peng_rak_engine:normal_tools);
+    if_sethide(peng_rak_engine:fish_tools, true);
+    if_sethide(peng_rak_engine:normal_tools, false);
 }
-if_setmodelanim(null, peng_rak_engine:gauge);
-if_sethide(false, peng_rak_engine:wirebox_cover);
-if_setmodel(model_46967, peng_rak_engine:wirebox);
-if_setmodelanim(seq_11762, peng_rak_engine:gauge);
-if_sethide(true, peng_rak_engine:lever_down);
-if_sethide(false, peng_rak_engine:lever_up);
-if_sethide(true, peng_rak_engine:bellows_demo);
-if_sethide(false, peng_rak_engine:bellows);
-if_setmodelanim(null, peng_rak_engine:lever_up);
-if_sethide(true, peng_rak_engine:lever_up_fish);
-if_sethide(true, peng_rak_engine:lever_down_fish);
-if_sethide(true, peng_rak_engine:blowfish_demo);
-%varclient_805 = 0;
-%varclient_806 = 0;
+if_setmodelanim(peng_rak_engine:gauge, null);
+if_sethide(peng_rak_engine:wirebox_cover, false);
+if_setmodel(peng_rak_engine:wirebox, model_46967);
+if_setmodelanim(peng_rak_engine:gauge, seq_11762);
+if_sethide(peng_rak_engine:lever_down, true);
+if_sethide(peng_rak_engine:lever_up, false);
+if_sethide(peng_rak_engine:bellows_demo, true);
+if_sethide(peng_rak_engine:bellows, false);
+if_setmodelanim(peng_rak_engine:lever_up, null);
+if_sethide(peng_rak_engine:lever_up_fish, true);
+if_sethide(peng_rak_engine:lever_down_fish, true);
+if_sethide(peng_rak_engine:blowfish_demo, true);
+%peng_rak_eng_tools = 0;
+%peng_rak_eng_state = 0;

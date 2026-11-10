@@ -115,7 +115,7 @@ height=32
 layer=content_layer
 colour=0x000000
 onmouseleave=deltooltip(pog_coin_machine:tooltip_input)
-onvartransmit=pog_machine_transmit(event_com){varplayer_1065}
+onvartransmit=pog_machine_transmit(event_com){pog_coin_display1_obj}
 onmouserepeat=pog_coin_tooltip_input(event_com)
 
 // 613:10
@@ -128,7 +128,7 @@ height=32
 layer=content_layer
 colour=0x000000
 onmouseleave=deltooltip(pog_coin_machine:tooltip_input)
-onvartransmit=pog_machine_transmit(event_com){varplayer_1066}
+onvartransmit=pog_machine_transmit(event_com){pog_coin_display2_1_obj}
 onmouserepeat=pog_coin_tooltip_input(event_com)
 
 // 613:11
@@ -141,7 +141,7 @@ height=32
 layer=content_layer
 colour=0x000000
 onmouseleave=deltooltip(pog_coin_machine:tooltip_input)
-onvartransmit=pog_machine_transmit(event_com){varplayer_1067}
+onvartransmit=pog_machine_transmit(event_com){pog_coin_display2_2_obj}
 onmouserepeat=pog_coin_tooltip_input(event_com)
 
 // 613:12
@@ -153,7 +153,7 @@ width=36
 height=32
 layer=content_layer
 colour=0x000000
-onvartransmit=pog_machine_transmit(event_com){varplayer_856}
+onvartransmit=pog_machine_transmit(event_com){eyeglo_coin_selected}
 
 // 613:13
 [pog_gnome_machine_unloacked_close]
@@ -191,7 +191,7 @@ height=32
 layer=content_layer
 colour=0x000000
 onmouseleave=deltooltip(pog_coin_machine:tooltip_target)
-onvartransmit=pog_machine_transmit(event_com){varplayer_1068}
+onvartransmit=pog_machine_transmit(event_com){pog_coin_target1_1_obj}
 onmouserepeat=pog_coin_tooltip_target(event_com)
 
 // 613:16
@@ -204,7 +204,7 @@ height=32
 layer=content_layer
 colour=0x000000
 onmouseleave=deltooltip(pog_coin_machine:tooltip_target)
-onvartransmit=pog_machine_transmit(event_com){varplayer_1069}
+onvartransmit=pog_machine_transmit(event_com){pog_coin_target1_2_obj}
 onmouserepeat=pog_coin_tooltip_target(event_com)
 
 // 613:17
@@ -218,7 +218,7 @@ layer=content_layer
 colour=0x000000
 opbase=m
 onmouseleave=deltooltip(pog_coin_machine:tooltip_target)
-onvartransmit=pog_machine_transmit(event_com){varplayer_1070}
+onvartransmit=pog_machine_transmit(event_com){pog_coin_target2_obj}
 onmouserepeat=pog_coin_tooltip_target(event_com)
 
 // 613:18

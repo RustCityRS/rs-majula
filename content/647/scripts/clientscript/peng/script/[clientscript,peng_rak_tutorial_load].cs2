@@ -1,11 +1,11 @@
 // 2420
 [clientscript,peng_rak_tutorial_load]
-if_sethide(true, peng_rak_engine_overlay:lever_down);
-if_sethide(false, peng_rak_engine_overlay:lever_up);
-if_setmodelanim(null, peng_rak_engine_overlay:lever_up);
-if_setmodelanim(null, peng_rak_engine_overlay:gauge);
-if_sethide(false, peng_rak_engine_overlay:wirebox_cover);
-if_setmodel(model_46967, peng_rak_engine_overlay:wirebox);
-if_sethide(true, peng_rak_engine_overlay:bellows_demo);
-if_setmodelanim(seq_11762, peng_rak_engine_overlay:gauge);
-%varclient_737 = 0;
+if_sethide(peng_rak_engine_overlay:lever_down, true);
+if_sethide(peng_rak_engine_overlay:lever_up, false);
+if_setmodelanim(peng_rak_engine_overlay:lever_up, null);
+if_setmodelanim(peng_rak_engine_overlay:gauge, null);
+if_sethide(peng_rak_engine_overlay:wirebox_cover, false);
+if_setmodel(peng_rak_engine_overlay:wirebox, model_46967);
+if_sethide(peng_rak_engine_overlay:bellows_demo, true);
+if_setmodelanim(peng_rak_engine_overlay:gauge, seq_11762);
+%peng_rak_eng_tutorial = 0;

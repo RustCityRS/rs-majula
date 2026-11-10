@@ -185,7 +185,7 @@ modelangle=519,0,0
 modelzoom=400
 transmitop=1
 op1=Attach/Detach Pipe
-onvartransmit=script1319{varplayer_898}
+onvartransmit=script1319{elemental_quest_2_temp}
 onop=elem_pipes_select(event_com)
 
 // 262:21
@@ -294,7 +294,7 @@ colour=0x000000
 transmitop=1
 op1=Close
 onmouseleave=graphic_swapper(event_com, "close_buttons,1")
-onvartransmit=elem_pipes_spare{varplayer_898}
+onvartransmit=elem_pipes_spare{elemental_quest_2_temp}
 onop=closebutton_click
 onmouserepeat=graphic_swapper(event_com, "close_buttons,0")
 

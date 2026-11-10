@@ -4,7 +4,7 @@ def_int $int1 = ~current_side_if;
 if ($int0 = -1 & %varplayerbit_9030 = 1) {
     $int0 = 1;
 }
-%varclient_168 = $int0;
+%if_switchside_varc = $int0;
 if ($int0 = -1) {
     if (getwindowmode >= 2) {
         ~side_if_closeall;

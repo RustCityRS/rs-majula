@@ -1,22 +1,22 @@
 // 4253
 [proc,script4253]
 if (%varplayerbit_9030 = 1) {
-    if_settext("Tutorial is ON", task_main:com_169);
+    if_settext(task_main:com_169, "Tutorial is ON");
 } else {
-    if_settext("Tutorial is OFF", task_main:com_169);
+    if_settext(task_main:com_169, "Tutorial is OFF");
 }
 if (%varplayerbit_9028 = enum_getoutputcount(enum_3656) | %varplayerbit_8601 >= 60) {
-    if_sethide(true, task_main:com_165);
+    if_sethide(task_main:com_165, true);
 } else {
-    if_sethide(false, task_main:com_165);
+    if_sethide(task_main:com_165, false);
 }
 switch_int (map_lang) {
     case 0 :
-        if_setsize(77, 18, ^setsize_abs, ^setsize_abs, task_main:com_165);
+        if_setsize(task_main:com_165, 77, 18, ^setsize_abs, ^setsize_abs);
     case 2 :
-        if_setsize(112, 18, ^setsize_abs, ^setsize_abs, task_main:com_165);
+        if_setsize(task_main:com_165, 112, 18, ^setsize_abs, ^setsize_abs);
     case 1 :
-        if_setsize(135, 18, ^setsize_abs, ^setsize_abs, task_main:com_165);
+        if_setsize(task_main:com_165, 135, 18, ^setsize_abs, ^setsize_abs);
     case 3 :
-        if_setsize(109, 18, ^setsize_abs, ^setsize_abs, task_main:com_165);
+        if_setsize(task_main:com_165, 109, 18, ^setsize_abs, ^setsize_abs);
 }

@@ -1,6 +1,6 @@
 // 1121
 [proc,autocast_highlight_spell]
-def_component $component0 = enum(int, component, enum_729, %varplayerbit_276);
+def_component $component0 = enum(int, component, enum_729, %autocast_spell);
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_component $component3 = null;
@@ -18,21 +18,21 @@ switch_int (%varplayerbit_357) {
     case default :
         return;
 }
-if (%varplayerbit_276 = 1) {
-    if (%varplayerbit_6521 = 3) {
+if (%autocast_spell = 1) {
+    if (%advisor_tutorial_id = 3) {
         ~script948;
-    } else if (%varplayerbit_6521 = 28) {
+    } else if (%advisor_tutorial_id = 28) {
         ~script1331;
     }
 }
-if ($component0 ! null & %varplayerbit_275 = 1) {
+if ($component0 ! null & %autocast_set = 1) {
     $int1 = calc(if_getx($component0) - 2);
     $int2 = calc(if_gety($component0) - 2);
-    if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $component3);
-    if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $component4);
-    if_sethide(false, $component3);
-    if_sethide(false, $component4);
+    if_setposition($component3, $int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition($component4, $int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    if_sethide($component3, false);
+    if_sethide($component4, false);
     return;
 }
-if_sethide(true, $component3);
-if_sethide(true, $component4);
+if_sethide($component3, true);
+if_sethide($component4, true);

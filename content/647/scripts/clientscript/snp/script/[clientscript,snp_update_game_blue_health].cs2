@@ -1,7 +1,7 @@
 // 2083
 [clientscript,snp_update_game_blue_health]
-if (%varclient_639 > 0) {
-    if_settext("<tostring(%varclient_639)>%", snp_game_overlay:blue_health);
+if (%snp_blue_boss_health_client > 0) {
+    if_settext(snp_game_overlay:blue_health, "<tostring(%snp_blue_boss_health_client)>%");
 } else {
-    if_settext("---", snp_game_overlay:blue_health);
+    if_settext(snp_game_overlay:blue_health, "---");
 }

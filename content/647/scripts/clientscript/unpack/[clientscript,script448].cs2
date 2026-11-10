@@ -1,7 +1,7 @@
 // 448
 [clientscript,script448]
-if (%varplayerbit_7537 = 0) {
-    if_setgraphic("km_tickbox,0", conq_side_diplomacy:ignore_truce_check);
+if (%conq_ignore_truce = 0) {
+    if_setgraphic(conq_side_diplomacy:ignore_truce_check, "km_tickbox,0");
 } else {
-    if_setgraphic("km_tickbox,1", conq_side_diplomacy:ignore_truce_check);
+    if_setgraphic(conq_side_diplomacy:ignore_truce_check, "km_tickbox,1");
 }

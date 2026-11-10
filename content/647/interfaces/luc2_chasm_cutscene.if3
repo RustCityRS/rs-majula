@@ -160,5 +160,5 @@ heightmode=minus
 xmode=abs_centre
 ymode=abs_centre
 onload=luc2_chasm_overlay(luc2_chasm_cutscene:image, luc2_chasm_cutscene:scenery, luc2_chasm_cutscene:ambient_darkness, luc2_chasm_cutscene:fader)
-onvartransmit=luc2_chasm_overlay(luc2_chasm_cutscene:image, luc2_chasm_cutscene:scenery, luc2_chasm_cutscene:ambient_darkness, luc2_chasm_cutscene:fader){varplayer_425}
-onvarctransmit=luc2_chasm_overlay(luc2_chasm_cutscene:image, luc2_chasm_cutscene:scenery, luc2_chasm_cutscene:ambient_darkness, luc2_chasm_cutscene:fader){varclient_97}
+onvartransmit=luc2_chasm_overlay(luc2_chasm_cutscene:image, luc2_chasm_cutscene:scenery, luc2_chasm_cutscene:ambient_darkness, luc2_chasm_cutscene:fader){goblin_caves}
+onvarctransmit=luc2_chasm_overlay(luc2_chasm_cutscene:image, luc2_chasm_cutscene:scenery, luc2_chasm_cutscene:ambient_darkness, luc2_chasm_cutscene:fader){playerdesign2_client_feetcol}

@@ -16,13 +16,13 @@ if_openoverlay(mazetimer);
 
 [proc,start_macro_maze]
 def_coord $coord = enum(int, coord, macro_maze_teleports, random(enum_getoutputcount(macro_maze_teleports)));
-%xplamp = 100;
+%macro_transmit = 100;
 %macro_event_target_coord = coord;
 p_telejump($coord);
 ~update_macro_maze_progress;
 if_openoverlay(mazetimer);
 mes("You need to reach the maze centre, then you'll be returned to where you were.");
-~chatnpc_specific("Mysterious Old Man", mysterious_old_man, "<p,neutral>You need to reach the maze centre,|then you'll be returned to where you were."); // Split line as per https://imgur.com/riCliBA
+~chatnpc_specific("Mysterious Old Man", macro_mage, "<p,neutral>You need to reach the maze centre,|then you'll be returned to where you were."); // Split line as per https://imgur.com/riCliBA
 
 [proc,end_macro_maze]
 if_openoverlay(null);
@@ -32,8 +32,8 @@ clearsofttimer(macro_maze_run);
 anim(emote_cheer, 20);
 p_delay(5);
 ~macro_return_teleport;
-if (%xplamp > 0) {
-    ~macro_maze_give_reward(~total_level, %xplamp);
+if (%macro_transmit > 0) {
+    ~macro_maze_give_reward(~total_level, %macro_transmit);
 }
 
 [proc,update_macro_maze_progress]
@@ -46,11 +46,11 @@ if (%xplamp > 0) {
 cleartimer(macro_maze);
 clearsofttimer(macro_maze_run);
 if_openoverlay(null);
-%xplamp = 0;
+%macro_transmit = 0;
 
 [timer,macro_maze]
-if (%xplamp > 0) {
-    %xplamp = sub(%xplamp, 1);
+if (%macro_transmit > 0) {
+    %macro_transmit = sub(%macro_transmit, 1);
 }
 ~update_macro_maze_progress;
 
@@ -80,7 +80,7 @@ if ($should_open = true) {
     ~mesbox("I don't think that's the right way.");
 }
 
-[oploc1,strange_shrine] // Maze finish statue
+[oploc1,macro_maze_complete] // Maze finish statue
 if_close;
 ~end_macro_maze;
 
@@ -112,12 +112,12 @@ switch_int($roll) {
     case 0 : { $reward_type = coins;            $divisor = 1;   }
     case 1 : { $reward_type = feather;          $divisor = 2;   }
     case 2 : { $reward_type = iron_arrow;       $divisor = 3;   }
-    case 3 : { $reward_type = chaos_rune;        $divisor = 9;   }
+    case 3 : { $reward_type = chaosrune;        $divisor = 9;   }
     case 4 : { $reward_type = steel_arrow;      $divisor = 12;  }
-    case 5 : { $reward_type = death_rune;        $divisor = 18;  }
+    case 5 : { $reward_type = deathrune;        $divisor = 18;  }
     case 6 : { $reward_type = cert_coal;        $divisor = 45;  }
     case 7 : { $reward_type = cert_mithril_ore; $divisor = 162; }
-    case 8 : { $reward_type = nature_rune;       $divisor = 180; }
+    case 8 : { $reward_type = naturerune;       $divisor = 180; }
 }
 
 // (total_level × reward_potential × 10) / (3 × divisor × 100)
@@ -159,7 +159,7 @@ return($total);
 // https://www.youtube.com/watch?v=yCBpihIGy68
 p_arrivedelay;
 
-if (%xplamp <= 0) {
+if (%macro_transmit <= 0) {
     ~mesbox("Awww, it's empty!");
     return;
 }
@@ -172,17 +172,17 @@ if (map_members() = ^false) {
 }
 
 switch_int($roll) {
-    case 0 : { ~macro_maze_give_chest_loot(air_rune, 15, "You've found some air runes!", 0); }
-    case 1 : { ~macro_maze_give_chest_loot(water_rune, 10, "You've found some water runes!", 0); }
-    case 2 : { ~macro_maze_give_chest_loot(earth_rune, 10, "You've found some earth runes!", 0); }
-    case 3 : { ~macro_maze_give_chest_loot(fire_rune, 10, "You've found some fire runes!", 0); }
+    case 0 : { ~macro_maze_give_chest_loot(airrune, 15, "You've found some air runes!", 0); }
+    case 1 : { ~macro_maze_give_chest_loot(waterrune, 10, "You've found some water runes!", 0); }
+    case 2 : { ~macro_maze_give_chest_loot(earthrune, 10, "You've found some earth runes!", 0); }
+    case 3 : { ~macro_maze_give_chest_loot(firerune, 10, "You've found some fire runes!", 0); }
     case 4 : { ~macro_maze_give_chest_loot(bronze_arrow, 20, "You've found some bronze arrows!", 0); }
-    case 5 : { ~macro_maze_give_chest_loot(bronze_bolts, 10, "You've found some bolts!", ^objbox_height); }
+    case 5 : { ~macro_maze_give_chest_loot(bolt, 10, "You've found some bolts!", ^objbox_height); }
     case 6 : { ~macro_maze_give_chest_loot(iron_arrow, 15, "You've found some iron arrows!", 0); }
-    case 7 : { ~macro_maze_give_chest_loot(strength_potion__2, 1, "You've found a strength potion!", ^objbox_height); }
+    case 7 : { ~macro_maze_give_chest_loot(2dose1strength, 1, "You've found a strength potion!", ^objbox_height); }
     // Members-only
-    case 8 : { ~macro_maze_give_chest_loot(attack_potion__2, 1, "You've found an attack potion!", ^objbox_height); }
-    case 9 : { ~macro_maze_give_chest_loot(defence_potion__2, 1, "You've found a defence potion!", ^objbox_height); }
+    case 8 : { ~macro_maze_give_chest_loot(2dose1attack, 1, "You've found an attack potion!", ^objbox_height); }
+    case 9 : { ~macro_maze_give_chest_loot(2dose1defense, 1, "You've found a defence potion!", ^objbox_height); }
 }
 
 [proc,macro_maze_give_chest_loot](namedobj $item, int $qty, string $text, int $y_offset)

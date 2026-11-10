@@ -1,11 +1,11 @@
 // 2621
 [proc,mob_show_hide]
 if (if_gethide(mob_chat:button_layer) = false) {
-    if_sethide(true, mob_chat:button_layer);
-    if_sethide(false, mob_chat:text_layer);
-    if_sethflip(false, mob_chat:arrow_graphic);
+    if_sethide(mob_chat:button_layer, true);
+    if_sethide(mob_chat:text_layer, false);
+    if_sethflip(mob_chat:arrow_graphic, false);
 } else {
-    if_sethide(false, mob_chat:button_layer);
-    if_sethide(true, mob_chat:text_layer);
-    if_sethflip(true, mob_chat:arrow_graphic);
+    if_sethide(mob_chat:button_layer, false);
+    if_sethide(mob_chat:text_layer, true);
+    if_sethflip(mob_chat:arrow_graphic, true);
 }

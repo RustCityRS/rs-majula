@@ -28,11 +28,11 @@ if (~script1566(%varplayerbit_3288, %varplayerbit_3289) = 1) {
         cc_setgraphic(graphic_2287);
     }
 } else if ($obj1 ! null) {
-    if ($obj1 = obj_18637 | $obj1 = obj_18638) {
+    if ($obj1 = 32_rand_gate_stone_create | $obj1 = 32_rand_gate_stone_teleport) {
         cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
         cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
         cc_setoutline(0);
-        if ($obj1 = obj_18637) {
+        if ($obj1 = 32_rand_gate_stone_create) {
             cc_setgraphic("magicon2,51");
         } else {
             cc_setgraphic("magicon2,50");
@@ -54,7 +54,7 @@ if (~script1566(%varplayerbit_3288, %varplayerbit_3289) = 1) {
         }
     }
 } else {
-    cc_setobject(silvthrill_rod, -1);
+    cc_setobject(invis_rod, -1);
 }
 cc_setposition(28, $int4, ^setpos_abs_left, ^setpos_abs_top);
 cc_create(skill_guide_v2:info, ^iftype_text, calc($int3 * 3 + 2));

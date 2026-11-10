@@ -13,7 +13,7 @@ cc_settextalign(^settextalign_left, ^settextalign_centre, 14);
 cc_settextshadow(true);
 cc_setondrag("notes_drag(event_com, event_comsubid, event_mousey)");
 cc_setondragcomplete("notes_drag_end(event_com2)");
-if (%varplayer_1439 = $int1) {
+if (%notes_selected = $int1) {
     cc_setop(1, "Unselect");
 } else {
     cc_setop(1, "Select");

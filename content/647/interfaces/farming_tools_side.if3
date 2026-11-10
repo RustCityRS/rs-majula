@@ -93,9 +93,9 @@ transmitop=1,10
 opbase=<col=ff9040>Dibber
 op1=Store
 op10=Examine
-onload=farming_tools_side_update(event_com, seed_dibber, farming_tools_side:dibber_name)
+onload=farming_tools_side_update(event_com, dibber, farming_tools_side:dibber_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, seed_dibber, farming_tools_side:dibber_name){inv}
+oninvtransmit=farming_tools_side_update(event_com, dibber, farming_tools_side:dibber_name){inv}
 
 // 126:8
 [spade]
@@ -216,9 +216,9 @@ transmitop=1,10
 opbase=<col=ff9040>Watering Can
 op1=Store
 op10=Examine
-onload=farming_tools_side_update(event_com, watering_can_6797, farming_tools_side:wateringcan_name)
+onload=farming_tools_side_update(event_com, watering_can_dummy, farming_tools_side:wateringcan_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, watering_can_6797, farming_tools_side:wateringcan_name){inv}
+oninvtransmit=farming_tools_side_update(event_com, watering_can_dummy, farming_tools_side:wateringcan_name){inv}
 
 // 126:17
 [trowel]
@@ -301,9 +301,9 @@ op2=Store 5
 op3=Store All
 op4=Store X
 op10=Examine
-onload=farming_tools_side_update(event_com, bucket, farming_tools_side:buckets_name)
+onload=farming_tools_side_update(event_com, bucket_empty, farming_tools_side:buckets_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, bucket, farming_tools_side:buckets_name){inv}
+oninvtransmit=farming_tools_side_update(event_com, bucket_empty, farming_tools_side:buckets_name){inv}
 
 // 126:23
 [scarecrow]
@@ -345,9 +345,9 @@ op2=Store 5
 op3=Store All
 op4=Store X
 op10=Examine
-onload=farming_tools_side_update(event_com, scarecrow, farming_tools_side:scarecrow_name)
+onload=farming_tools_side_update(event_com, scarecrow_complete, farming_tools_side:scarecrow_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, scarecrow, farming_tools_side:scarecrow_name){inv}
+oninvtransmit=farming_tools_side_update(event_com, scarecrow_complete, farming_tools_side:scarecrow_name){inv}
 
 // 126:26
 [compost]
@@ -389,9 +389,9 @@ op2=Store 5
 op3=Store All
 op4=Store X
 op10=Examine
-onload=farming_tools_side_update(event_com, compost, farming_tools_side:compost_name)
+onload=farming_tools_side_update(event_com, bucket_compost, farming_tools_side:compost_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, compost, farming_tools_side:compost_name){inv}
+oninvtransmit=farming_tools_side_update(event_com, bucket_compost, farming_tools_side:compost_name){inv}
 
 // 126:29
 [supercompost]
@@ -433,6 +433,6 @@ op2=Store 5
 op3=Store All
 op4=Store X
 op10=Examine
-onload=farming_tools_side_update(event_com, supercompost, farming_tools_side:supercompost_name)
+onload=farming_tools_side_update(event_com, bucket_supercompost, farming_tools_side:supercompost_name)
 onmouseover=script3927(event_com)
-oninvtransmit=farming_tools_side_update(event_com, supercompost, farming_tools_side:supercompost_name){inv}
+oninvtransmit=farming_tools_side_update(event_com, bucket_supercompost, farming_tools_side:supercompost_name){inv}

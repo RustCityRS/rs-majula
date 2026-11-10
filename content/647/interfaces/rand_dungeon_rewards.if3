@@ -648,7 +648,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(62324786)
-onvarctransmit=rand_interface_update_rand_exists_1{varclient_1198}
+onvarctransmit=rand_interface_update_rand_exists_1{rand_exists_1}
 
 // 951:51
 [player_2]
@@ -662,7 +662,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(62324787)
-onvarctransmit=rand_interface_update_rand_exists_2{varclient_1199}
+onvarctransmit=rand_interface_update_rand_exists_2{rand_exists_2}
 
 // 951:52
 [player_2_name]
@@ -678,7 +678,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=10
 op10= 
-onvarcstrtransmit=rand_interface_update_rand_name_2{varclient_1830}
+onvarcstrtransmit=rand_interface_update_rand_name_2{rand_name_2}
 
 // 951:53
 [player_2_title_1]
@@ -694,7 +694,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10= 
-onvarctransmit=rand_interface_update_rand_rand_award_2_1{varclient_1209}
+onvarctransmit=rand_interface_update_rand_rand_award_2_1{rand_award_2_1}
 
 // 951:54
 [player_2_title_2]
@@ -710,7 +710,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10= 
-onvarctransmit=rand_interface_update_rand_rand_award_2_2{varclient_1210}
+onvarctransmit=rand_interface_update_rand_rand_award_2_2{rand_award_2_2}
 
 // 951:55
 [player_2_title_3]
@@ -726,7 +726,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10= 
-onvarctransmit=rand_interface_update_rand_rand_award_2_3{varclient_1211}
+onvarctransmit=rand_interface_update_rand_rand_award_2_3{rand_award_2_3}
 
 // 951:56
 [player_2_title_4]
@@ -742,7 +742,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10= 
-onvarctransmit=rand_interface_update_rand_rand_award_2_4{varclient_1212}
+onvarctransmit=rand_interface_update_rand_rand_award_2_4{rand_award_2_4}
 
 // 951:57
 [player_2_title_5]
@@ -758,7 +758,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10= 
-onvarctransmit=rand_interface_update_rand_rand_award_2_5{varclient_1213}
+onvarctransmit=rand_interface_update_rand_rand_award_2_5{rand_award_2_5}
 
 // 951:58
 [player_2_title_6]
@@ -774,7 +774,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10= 
-onvarctransmit=rand_interface_update_rand_rand_award_2_6{varclient_1214}
+onvarctransmit=rand_interface_update_rand_rand_award_2_6{rand_award_2_6}
 
 // 951:59
 [player_2_divider]
@@ -809,7 +809,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(62324797)
-onvarctransmit=rand_interface_update_rand_exists_3{varclient_1200}
+onvarctransmit=rand_interface_update_rand_exists_3{rand_exists_3}
 
 // 951:62
 [player_3_name]
@@ -825,7 +825,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=10
 op10=  
-onvarcstrtransmit=rand_interface_update_rand_name_3{varclient_1831}
+onvarcstrtransmit=rand_interface_update_rand_name_3{rand_name_3}
 
 // 951:63
 [player_3_title_1]
@@ -841,7 +841,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_3_1{varclient_1215}
+onvarctransmit=rand_interface_update_rand_rand_award_3_1{rand_award_3_1}
 
 // 951:64
 [player_3_title_2]
@@ -857,7 +857,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_3_2{varclient_1216}
+onvarctransmit=rand_interface_update_rand_rand_award_3_2{rand_award_3_2}
 
 // 951:65
 [player_3_title_3]
@@ -873,7 +873,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_3_3{varclient_1217}
+onvarctransmit=rand_interface_update_rand_rand_award_3_3{rand_award_3_3}
 
 // 951:66
 [player_3_title_4]
@@ -889,7 +889,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_3_4{varclient_1218}
+onvarctransmit=rand_interface_update_rand_rand_award_3_4{rand_award_3_4}
 
 // 951:67
 [player_3_title_5]
@@ -905,7 +905,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_3_5{varclient_1219}
+onvarctransmit=rand_interface_update_rand_rand_award_3_5{rand_award_3_5}
 
 // 951:68
 [player_3_title_6]
@@ -921,7 +921,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_3_6{varclient_1220}
+onvarctransmit=rand_interface_update_rand_rand_award_3_6{rand_award_3_6}
 
 // 951:69
 [player_3_divider]
@@ -958,7 +958,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(62324807)
-onvarctransmit=rand_interface_update_rand_exists_4{varclient_1201}
+onvarctransmit=rand_interface_update_rand_exists_4{rand_exists_4}
 
 // 951:72
 [player_4_name]
@@ -974,7 +974,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=10
 op10=  
-onvarcstrtransmit=rand_interface_update_rand_name_4{varclient_1832}
+onvarcstrtransmit=rand_interface_update_rand_name_4{rand_name_4}
 
 // 951:73
 [player_4_title_1]
@@ -990,7 +990,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_4_1{varclient_1221}
+onvarctransmit=rand_interface_update_rand_rand_award_4_1{rand_award_4_1}
 
 // 951:74
 [player_4_title_2]
@@ -1006,7 +1006,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_4_2{varclient_1222}
+onvarctransmit=rand_interface_update_rand_rand_award_4_2{rand_award_4_2}
 
 // 951:75
 [player_4_title_3]
@@ -1022,7 +1022,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_4_3{varclient_1223}
+onvarctransmit=rand_interface_update_rand_rand_award_4_3{rand_award_4_3}
 
 // 951:76
 [player_4_title_4]
@@ -1038,7 +1038,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_4_4{varclient_1224}
+onvarctransmit=rand_interface_update_rand_rand_award_4_4{rand_award_4_4}
 
 // 951:77
 [player_4_title_5]
@@ -1054,7 +1054,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_4_5{varclient_1225}
+onvarctransmit=rand_interface_update_rand_rand_award_4_5{rand_award_4_5}
 
 // 951:78
 [player_4_title_6]
@@ -1070,7 +1070,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_4_6{varclient_1226}
+onvarctransmit=rand_interface_update_rand_rand_award_4_6{rand_award_4_6}
 
 // 951:79
 [player_4_divider]
@@ -1107,7 +1107,7 @@ layer=titles
 transmitop=1
 op1=Expand
 onclick=rand_interface_click(62324817)
-onvarctransmit=rand_interface_update_rand_exists_5{varclient_1202}
+onvarctransmit=rand_interface_update_rand_exists_5{rand_exists_5}
 
 // 951:82
 [title_hide_layer]
@@ -1256,7 +1256,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=10
 op10=  
-onvarcstrtransmit=rand_interface_update_rand_name_5{varclient_1833}
+onvarcstrtransmit=rand_interface_update_rand_name_5{rand_name_5}
 
 // 951:93
 [player_5_title_1]
@@ -1272,7 +1272,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_5_1{varclient_1227}
+onvarctransmit=rand_interface_update_rand_rand_award_5_1{rand_award_5_1}
 
 // 951:94
 [player_5_title_2]
@@ -1288,7 +1288,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_5_2{varclient_1228}
+onvarctransmit=rand_interface_update_rand_rand_award_5_2{rand_award_5_2}
 
 // 951:95
 [player_5_title_3]
@@ -1304,7 +1304,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_5_3{varclient_1229}
+onvarctransmit=rand_interface_update_rand_rand_award_5_3{rand_award_5_3}
 
 // 951:96
 [player_5_title_4]
@@ -1320,7 +1320,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_5_4{varclient_1230}
+onvarctransmit=rand_interface_update_rand_rand_award_5_4{rand_award_5_4}
 
 // 951:97
 [player_5_title_5]
@@ -1336,7 +1336,7 @@ textshadow=yes
 colour=0x00cc33
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_5_5{varclient_1231}
+onvarctransmit=rand_interface_update_rand_rand_award_5_5{rand_award_5_5}
 
 // 951:98
 [player_5_title_6]
@@ -1352,7 +1352,7 @@ textshadow=yes
 colour=0xcc0000
 transmitop=10
 op10=  
-onvarctransmit=rand_interface_update_rand_rand_award_5_6{varclient_1232}
+onvarctransmit=rand_interface_update_rand_rand_award_5_6{rand_award_5_6}
 
 // 951:99
 [player_5_button]
@@ -1378,7 +1378,7 @@ text=Mod Trick
 textalignv=centre
 textshadow=yes
 colour=0xffff00
-onvarcstrtransmit=rand_interface_update_rand_name_1{varclient_1829}
+onvarcstrtransmit=rand_interface_update_rand_name_1{rand_name_1}
 
 // 951:101
 [player_1_title_1]
@@ -1392,7 +1392,7 @@ textfont=p12_full
 text=Battle Mage
 textshadow=yes
 colour=0x00cc33
-onvarctransmit=rand_interface_update_rand_rand_award_1_1{varclient_1203}
+onvarctransmit=rand_interface_update_rand_rand_award_1_1{rand_award_1_1}
 
 // 951:102
 [player_1_title_2]
@@ -1406,7 +1406,7 @@ textfont=p12_full
 text=Culinary Disaster
 textshadow=yes
 colour=0xcc0000
-onvarctransmit=rand_interface_update_rand_rand_award_1_2{varclient_1204}
+onvarctransmit=rand_interface_update_rand_rand_award_1_2{rand_award_1_2}
 
 // 951:103
 [player_1_title_3]
@@ -1420,7 +1420,7 @@ textfont=p12_full
 text=Master of None
 textshadow=yes
 colour=0xcc0000
-onvarctransmit=rand_interface_update_rand_rand_award_1_3{varclient_1205}
+onvarctransmit=rand_interface_update_rand_rand_award_1_3{rand_award_1_3}
 
 // 951:104
 [player_1_title_4]
@@ -1434,7 +1434,7 @@ textfont=p12_full
 text=MVP
 textshadow=yes
 colour=0x00cc33
-onvarctransmit=rand_interface_update_rand_rand_award_1_4{varclient_1206}
+onvarctransmit=rand_interface_update_rand_rand_award_1_4{rand_award_1_4}
 
 // 951:105
 [player_1_title_5]
@@ -1448,7 +1448,7 @@ textfont=p12_full
 text=Master Chef
 textshadow=yes
 colour=0x00cc33
-onvarctransmit=rand_interface_update_rand_rand_award_1_5{varclient_1207}
+onvarctransmit=rand_interface_update_rand_rand_award_1_5{rand_award_1_5}
 
 // 951:106
 [player_1_title_6]
@@ -1462,7 +1462,7 @@ textfont=p12_full
 text=Uneconomical Alcher
 textshadow=yes
 colour=0xcc0000
-onvarctransmit=rand_interface_update_rand_rand_award_1_6{varclient_1208}
+onvarctransmit=rand_interface_update_rand_rand_award_1_6{rand_award_1_6}
 
 // 951:107
 [player_1_divider]

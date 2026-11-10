@@ -8,26 +8,26 @@ def_int $int5 = 0;
 def_enum $enum6 = enum_2987;
 def_enum $enum7 = enum_2988;
 if (map_members = true) {
-    if (%varclient_1320 = 2) {
+    if (%rand_party_complexity_level_trans = 2) {
         $enum6 = enum_2989;
         $enum7 = enum_2990;
-    } else if (%varclient_1320 = 3) {
+    } else if (%rand_party_complexity_level_trans = 3) {
         $enum6 = enum_2991;
         $enum7 = enum_2992;
-    } else if (%varclient_1320 = 4) {
+    } else if (%rand_party_complexity_level_trans = 4) {
         $enum6 = enum_2993;
         $enum7 = enum_2994;
     } else {
         $enum6 = enum_2987;
         $enum7 = enum_2988;
     }
-} else if (%varclient_1320 = 2) {
+} else if (%rand_party_complexity_level_trans = 2) {
     $enum6 = enum_2997;
     $enum7 = enum_2998;
-} else if (%varclient_1320 = 3) {
+} else if (%rand_party_complexity_level_trans = 3) {
     $enum6 = enum_2999;
     $enum7 = enum_3000;
-} else if (%varclient_1320 = 4) {
+} else if (%rand_party_complexity_level_trans = 4) {
     $enum6 = enum_3001;
     $enum7 = enum_3002;
 } else {
@@ -162,5 +162,5 @@ while (calc($int3 - $int8) < calc(enum_getoutputcount($enum7) * 5)) {
     }
     $int3 = calc($int3 + 5);
 }
-if_setscrollsize(0, calc($int5 + 52), $component0);
+if_setscrollsize($component0, 0, calc($int5 + 52));
 ~scrollbar_vertical(dungeon_shop:main_scroll, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

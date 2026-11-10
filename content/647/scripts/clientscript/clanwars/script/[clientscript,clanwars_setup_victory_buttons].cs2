@@ -3,7 +3,7 @@
 if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varclient_246 ! $int1) {
-    %varclient_246 = $int1;
+if (%clanwars_rulevarc_endtype ! $int1) {
+    %clanwars_rulevarc_endtype = $int1;
     ~script1770;
 }

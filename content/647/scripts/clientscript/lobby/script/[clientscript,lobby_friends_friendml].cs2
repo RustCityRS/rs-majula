@@ -1,4 +1,4 @@
 // 3035
 [clientscript,lobby_friends_friendml]
-if_sethide(true, lobbyscreen_pane_friendslist:friends_mo_bg);
+if_sethide(lobbyscreen_pane_friendslist:friends_mo_bg, true);
 ~friend_deltooltip(lobbyscreen_pane_friendslist:friends_tooltip, lobbyscreen_pane_friendslist:friends_tooltip_text);

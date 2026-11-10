@@ -15,7 +15,7 @@ if (%hunt ! 3) {
     return;
 }
 
-if (npc_find(coord, gardener, 10, 0) = true) {
+if (npc_find(coord, falador_gardener, 10, 0) = true) {
     if (npc_getmode = opplayer2) {
         mes("I can't dig up anything with him attacking me!");
         return;
@@ -32,10 +32,10 @@ queue(hunt_quest_complete, 0, 0);
 
 [queue,hunt_quest_complete]
 mes("and find a little chest of treasure.");
-inv_add(inv, casket_7956, 1);
+inv_add(inv, pirate_casket, 1);
 %hunt = ^hunt_complete;
 session_log(^log_adventure, "Quest complete: Pirate's Treasure");
-~send_quest_complete2(^questlist_hunt, casket_7956, 250, ^hunt_questpoints, "You have completed the Pirate's Treasure Quest!", "One-Eyed Hector's Treasure Chest|You can also use the Pay-fare option to go to and from Karamja");
+~send_quest_complete2(^questlist_hunt, pirate_casket, 250, ^hunt_questpoints, "You have completed the Pirate's Treasure Quest!", "One-Eyed Hector's Treasure Chest|You can also use the Pay-fare option to go to and from Karamja");
 
 [label,pirate_irate_gardener_attack]
 npc_say("First moles, now this! Take this, vandal!");

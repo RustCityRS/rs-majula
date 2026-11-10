@@ -2,8 +2,8 @@
 // casket_pirates_treasure; not in 289, which gave its contents loose). The message is the 2011-04-26
 // recording's (YouTube GTgKzVezVDo, 502s); the contents are the 2011 wiki's (Pirate's Treasure,
 // 2011-04-17: "450 coins, a cut emerald and a gold ring"), 289's loose reward.
-[opheld1,casket_7956]
-inv_del(inv, casket_7956, 1);
+[opheld1,pirate_casket]
+inv_del(inv, pirate_casket, 1);
 inv_add(inv, coins, 450);
 inv_add(inv, emerald, 1);
 inv_add(inv, gold_ring, 1);

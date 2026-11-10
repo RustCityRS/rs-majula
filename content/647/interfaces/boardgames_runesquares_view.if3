@@ -3563,7 +3563,7 @@ colour=0xaaaaaa
 transmitop=10
 op10=    
 onload=boardgames_status(boardgames_runesquares_view:status1, boardgames_runesquares_view:status2, boardgames_runesquares_view:status3, boardgames_runesquares_view:tooltip)
-onvarcstrtransmit=boardgames_status(boardgames_runesquares_view:status1, boardgames_runesquares_view:status2, boardgames_runesquares_view:status3, boardgames_runesquares_view:tooltip){varclient_1662, varclient_1663, varclient_1664}
+onvarcstrtransmit=boardgames_status(boardgames_runesquares_view:status1, boardgames_runesquares_view:status2, boardgames_runesquares_view:status3, boardgames_runesquares_view:tooltip){boardgames_status1, boardgames_status2, varclient_1664}
 
 // 43:291
 [status2]
@@ -3690,7 +3690,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10=  
-onvarctransmit=boardgames_piece1(event_com){varclient_809}
+onvarctransmit=boardgames_piece1(event_com){boardgames_pl_piece}
 
 // 43:299
 [game_piece_player2]
@@ -3705,7 +3705,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10=  
-onvarctransmit=boardgames_piece2(event_com){varclient_810}
+onvarctransmit=boardgames_piece2(event_com){boardgames_opp_piece}
 
 // 43:300
 [close_layer]
@@ -3830,7 +3830,7 @@ x=212
 y=34
 width=270
 height=270
-onvartransmit=script2430{varplayer_644, varplayer_645, varplayer_646, varplayer_647}
+onvartransmit=script2430{boardgames_runesquares_va, boardgames_runesquares_vb, boardgames_runesquares_ha, boardgames_runesquares_hb}
 
 // 43:310
 [vertical]

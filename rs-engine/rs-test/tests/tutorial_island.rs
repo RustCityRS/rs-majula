@@ -77,12 +77,12 @@ fn varp_id(engine: &Engine, name: &str) -> u16 {
 }
 
 fn tutorial(engine: &Engine, pid: u16) -> i32 {
-    let id = varp_id(engine, "tutorial");
+    let id = varp_id(engine, "varplayer_419");
     engine.harness_player(pid).unwrap().vars.get(id).as_int()
 }
 
 fn set_tutorial(engine: &mut Engine, pid: u16, value: i32) {
-    let id = varp_id(engine, "tutorial");
+    let id = varp_id(engine, "varplayer_419");
     engine
         .harness_player_mut(pid)
         .unwrap()
@@ -293,7 +293,7 @@ fn the_cheat_enters_the_island_and_the_guide_and_door_move_it_on() {
 
         // The guide: a dev world first asks to skip (289's map_live check);
         // no, then his five lines.
-        let guide = npc_nid(engine, "runescape_guide");
+        let guide = npc_nid(engine, "newbie_basics_instructor");
         op_npc1(&mut client, guide);
         assert!(until_paused(engine, &mut client, 10), "the guide speaks");
         let chat = open_chat(engine, client.pid);
@@ -340,7 +340,7 @@ fn the_step_s_tab_stone_hands_out_the_axe_and_tinderbox() {
         button1(&mut client, INVENTORY_STONE);
         ticks(engine, &mut client, 2);
         assert_eq!(tutorial(engine, client.pid), CUT_TREE);
-        assert_eq!(backpack_total(engine, client.pid, "bronze_hatchet"), 1);
+        assert_eq!(backpack_total(engine, client.pid, "bronze_axe"), 1);
         assert_eq!(backpack_total(engine, client.pid, "tinderbox"), 1);
     });
 }
@@ -360,7 +360,7 @@ fn an_island_tree_gives_logs_and_the_fire_step() {
         let mut client = developer(engine, "islandchopper", stand);
         set_tutorial(engine, client.pid, CUT_TREE);
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let hatchet = obj(engine, "bronze_hatchet");
+        let hatchet = obj(engine, "bronze_axe");
         engine
             .harness_player_mut(client.pid)
             .unwrap()

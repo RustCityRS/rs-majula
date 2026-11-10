@@ -1,35 +1,35 @@
 // 4377
 [clientscript,clan_vote_update]
-if (%varplayer_2134 = %varclient_1499) {
-    if_settext("You have voted.", clan_voting:vote_status);
+if (%clan_custom_vote_cast_varp = %clan_voting_id_initial_varc) {
+    if_settext(clan_voting:vote_status, "You have voted.");
 } else {
-    if_settext("You have not yet voted.<br>How would you like to vote?", clan_voting:vote_status);
+    if_settext(clan_voting:vote_status, "You have not yet voted.<br>How would you like to vote?");
 }
-if (%varplayerbit_9151 = 0) {
-    if_settext("Results of last vote:", clan_voting:vote_time);
-} else if (%varplayerbit_9154 = 1 | %varplayerbit_9154 = 0) {
-    if_settext("Vote open for less than a minute.", clan_voting:vote_time);
+if (%clan_custom_vote_inprogress_varp = 0) {
+    if_settext(clan_voting:vote_time, "Results of last vote:");
+} else if (%clan_custom_vote_time_remaining = 1 | %clan_custom_vote_time_remaining = 0) {
+    if_settext(clan_voting:vote_time, "Vote open for less than a minute.");
 } else {
-    if_settext("Vote open for less than <tostring(%varplayerbit_9154)> minutes.", clan_voting:vote_time);
+    if_settext(clan_voting:vote_time, "Vote open for less than <tostring(%clan_custom_vote_time_remaining)> minutes.");
 }
-def_int $int0 = calc(%varplayerbit_9149 + %varplayerbit_9150);
+def_int $int0 = calc(%clan_custom_vote_yes_varp + %clan_custom_vote_no_varp);
 def_int $int1 = 0;
 def_int $int2 = 0;
 if ($int0 > 0) {
-    if ($int0 = %varplayerbit_9149) {
+    if ($int0 = %clan_custom_vote_yes_varp) {
         $int1 = 100;
-    } else if ($int0 = %varplayerbit_9150) {
+    } else if ($int0 = %clan_custom_vote_no_varp) {
         $int2 = 100;
     } else {
-        $int1 = calc(100 * %varplayerbit_9149 / $int0);
-        if (%varplayerbit_9150 = 0) {
+        $int1 = calc(100 * %clan_custom_vote_yes_varp / $int0);
+        if (%clan_custom_vote_no_varp = 0) {
             $int2 = 0;
         } else {
             $int2 = calc(100 - $int1);
         }
     }
 }
-if_settext(tostring(%varplayerbit_9149), clan_voting:vote_yes_total);
-if_settext(tostring(%varplayerbit_9150), clan_voting:vote_no_total);
+if_settext(clan_voting:vote_yes_total, tostring(%clan_custom_vote_yes_varp));
+if_settext(clan_voting:vote_no_total, tostring(%clan_custom_vote_no_varp));
 ~aif_progressbar_set($int1, clan_voting:green_large_progress_value_layer, clan_voting:green_text);
 ~aif_progressbar_set($int2, clan_voting:red_large_progress_value_layer, clan_voting:red_text);

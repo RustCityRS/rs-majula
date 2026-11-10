@@ -139,7 +139,7 @@ model=model_12114
 modelorigin=-5,-11
 modelangle=465,1647,0
 modelzoom=466
-modelanim=seq_3308
+modelanim=canoeing_interface_water
 
 // 52:14
 [canoe_wake_1]
@@ -167,7 +167,7 @@ model=model_12101
 modelorigin=1,-1
 modelangle=162,1186,0
 modelzoom=912
-modelanim=seq_3306
+modelanim=canoeing_bobbing_inwater
 
 // 52:16
 [canoe_wake_2]
@@ -195,7 +195,7 @@ model=model_12103
 modelorigin=-10,2
 modelangle=171,348,0
 modelzoom=466
-modelanim=seq_3306
+modelanim=canoeing_bobbing_inwater
 
 // 52:18
 [canoe_wake_3]
@@ -223,7 +223,7 @@ model=model_12114
 modelorigin=-93,-52
 modelangle=189,1654,0
 modelzoom=400
-modelanim=seq_3308
+modelanim=canoeing_interface_water
 
 // 52:20
 [can_log_canoe]
@@ -237,7 +237,7 @@ model=model_12108
 modelorigin=-6,-15
 modelangle=180,459,0
 modelzoom=1040
-modelanim=seq_3306
+modelanim=canoeing_bobbing_inwater
 
 // 52:21
 [canoe_wake_4]
@@ -265,7 +265,7 @@ model=model_12112
 modelorigin=-25,15
 modelangle=81,150,0
 modelzoom=656
-modelanim=seq_3306
+modelanim=canoeing_bobbing_inwater
 
 // 52:23
 [catarmeran_text]
@@ -331,7 +331,7 @@ model=model_12114
 modelorigin=-43,-44
 modelangle=306,1642,0
 modelzoom=400
-modelanim=seq_3308
+modelanim=canoeing_interface_water
 
 // 52:28
 [can_water4]
@@ -345,7 +345,7 @@ model=model_12114
 modelorigin=-57,-29
 modelangle=198,1609,0
 modelzoom=400
-modelanim=seq_3308
+modelanim=canoeing_interface_water
 
 // 52:29
 [can_water_fadetoblack]
@@ -373,7 +373,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 52:31
 [can_dug_button]
@@ -388,7 +388,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 52:32
 [can_cat_button]
@@ -403,7 +403,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 52:33
 [can_waka_button]
@@ -418,7 +418,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 52:34
 [canoe_waka_water_grey]
@@ -446,7 +446,7 @@ model=model_12113
 modelorigin=-10,21
 modelangle=81,152,0
 modelzoom=588
-modelanim=seq_3306
+modelanim=canoeing_bobbing_inwater
 
 // 52:36
 [canoe_dugout_water_grey]
@@ -474,7 +474,7 @@ model=model_12104
 modelorigin=-10,2
 modelangle=166,346,0
 modelzoom=466
-modelanim=seq_3306
+modelanim=canoeing_bobbing_inwater
 
 // 52:38
 [canoe_catamaran_water_grey]
@@ -502,7 +502,7 @@ model=model_12102
 modelorigin=-14,8
 modelangle=164,1179,0
 modelzoom=867
-modelanim=seq_3306
+modelanim=canoeing_bobbing_inwater
 
 // 52:40
 [dugout_greyed_button]

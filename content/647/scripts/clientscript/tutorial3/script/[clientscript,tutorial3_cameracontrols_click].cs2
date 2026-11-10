@@ -1,5 +1,5 @@
 // 2774
 [clientscript,tutorial3_cameracontrols_click](component $component0)
-sound_synth(synth_2277, 1, 0);
-if_setcolour(^yellow, $component0);
-if_setontimer("script2775(calc(clientclock + 15), event_com)", $component0);
+sound_synth(pillory_wrong, 1, 0);
+if_setcolour($component0, ^yellow);
+if_setontimer($component0, "script2775(calc(clientclock + 15), event_com)");

@@ -1,5 +1,5 @@
 // 2777
 [clientscript,tutorial3_cameracontrols_pulsate](int $int0, component $component1, component $component2)
 def_int $int3 = calc(255 - ~script1210(200, 75, $int0, 0));
-if_settrans($int3, $component1);
-if_settrans($int3, $component2);
+if_settrans($component1, $int3);
+if_settrans($component2, $int3);

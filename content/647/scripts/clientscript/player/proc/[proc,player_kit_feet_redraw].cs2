@@ -29,7 +29,7 @@ while ($int2 < $int3) {
     .cc_setcolour(0xff981f);
     .cc_settextfont(p12_full);
     .cc_settext($string0);
-    if ($idkit4 = %varclient_1014) {
+    if ($idkit4 = %playerdesign3_feet) {
         cc_setgraphic("options_radio_buttons,2");
         $int6 = $int5;
     } else {
@@ -47,21 +47,21 @@ while ($int2 < $int3) {
     $int5 = calc($int5 + 19);
 }
 if ($int5 > if_getheight(player_kit_feet:menu)) {
-    if_setsize(20, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:menu);
-    if_setscrollsize(0, $int5, player_kit_feet:menu);
+    if_setsize(player_kit_feet:menu, 20, 4, ^setsize_minus, ^setsize_minus);
+    if_setscrollsize(player_kit_feet:menu, 0, $int5);
     if ($int6 < if_getscrolly(player_kit_feet:menu)) {
-        if_setscrollpos(0, calc($int6 - 5), player_kit_feet:menu);
+        if_setscrollpos(player_kit_feet:menu, 0, calc($int6 - 5));
     } else if (calc($int6 + 19) >= calc(if_getscrolly(player_kit_feet:menu) + if_getheight(player_kit_feet:menu))) {
-        if_setscrollpos(0, calc($int6 + 25 - if_getheight(player_kit_feet:menu)), player_kit_feet:menu);
+        if_setscrollpos(player_kit_feet:menu, 0, calc($int6 + 25 - if_getheight(player_kit_feet:menu)));
     }
-    if_sethide(false, player_kit_feet:menu_scrollbar);
+    if_sethide(player_kit_feet:menu_scrollbar, false);
     ~scrollbar_vertical(player_kit_feet:menu_scrollbar, player_kit_feet:menu, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 } else {
-    if_setsize(4, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:menu);
-    if_setscrollsize(0, 0, player_kit_feet:menu);
-    if_setscrollpos(0, 0, player_kit_feet:menu);
+    if_setsize(player_kit_feet:menu, 4, 4, ^setsize_minus, ^setsize_minus);
+    if_setscrollsize(player_kit_feet:menu, 0, 0);
+    if_setscrollpos(player_kit_feet:menu, 0, 0);
     cc_deleteall(player_kit_feet:menu_scrollbar);
-    if_sethide(true, player_kit_feet:menu_scrollbar);
+    if_sethide(player_kit_feet:menu_scrollbar, true);
 }
 cc_deleteall(player_kit_feet:colours);
 $int3 = enum_getoutputcount(enum_3297);
@@ -87,7 +87,7 @@ while ($int2 < $int3) {
     .cc_create(player_kit_feet:colours, ^iftype_graphic, if_getnextsubid(player_kit_feet:colours));
     .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
     .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
-    if ($int10 = %varclient_1018) {
+    if ($int10 = %playerdesign3_feetcol) {
         .cc_setgraphic(graphic_1043);
         $int6 = $int5;
     } else {
@@ -111,19 +111,19 @@ if ($int8 ! 0) {
     $int5 = calc($int5 + 21);
 }
 if ($int5 > if_getheight(player_kit_feet:colours) | $int7 < 6) {
-    if_setsize(20, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:colours);
-    if_setscrollsize(0, $int5, player_kit_feet:colours);
+    if_setsize(player_kit_feet:colours, 20, 4, ^setsize_minus, ^setsize_minus);
+    if_setscrollsize(player_kit_feet:colours, 0, $int5);
     if ($int6 < if_getscrolly(player_kit_feet:colours)) {
-        if_setscrollpos(0, calc($int6 - 5), player_kit_feet:colours);
+        if_setscrollpos(player_kit_feet:colours, 0, calc($int6 - 5));
     } else if (calc($int6 + 21) >= calc(if_getscrolly(player_kit_feet:colours) + if_getheight(player_kit_feet:colours))) {
-        if_setscrollpos(0, calc($int6 + 25 - if_getheight(player_kit_feet:colours)), player_kit_feet:colours);
+        if_setscrollpos(player_kit_feet:colours, 0, calc($int6 + 25 - if_getheight(player_kit_feet:colours)));
     }
-    if_sethide(false, player_kit_feet:colours_scrollbar);
+    if_sethide(player_kit_feet:colours_scrollbar, false);
     ~scrollbar_vertical(player_kit_feet:colours_scrollbar, player_kit_feet:colours, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 } else {
-    if_setsize(4, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:colours);
-    if_setscrollsize(0, 0, player_kit_feet:colours);
-    if_setscrollpos(0, 0, player_kit_feet:colours);
+    if_setsize(player_kit_feet:colours, 4, 4, ^setsize_minus, ^setsize_minus);
+    if_setscrollsize(player_kit_feet:colours, 0, 0);
+    if_setscrollpos(player_kit_feet:colours, 0, 0);
     cc_deleteall(player_kit_feet:colours_scrollbar);
-    if_sethide(true, player_kit_feet:colours_scrollbar);
+    if_sethide(player_kit_feet:colours_scrollbar, true);
 }

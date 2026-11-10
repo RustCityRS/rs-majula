@@ -5,8 +5,8 @@
 gosub(npc_death);
 if (npc_findhero = ^true) {
     obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);
-    if (%tutorial =  ^newbie_combat_instructor_during_attacking_melee
-        | %tutorial =  ^newbie_combat_instructor_before_attacking_ranged) {
+    if (%varplayer_419 =  ^newbie_combat_instructor_during_attacking_melee
+        | %varplayer_419 =  ^newbie_combat_instructor_before_attacking_ranged) {
         queue(set_rat_kill, 0, 0);
     }
 }
@@ -55,15 +55,15 @@ queue*(playerhit_n_retaliate, 1)(npc_uid);
 if (~player_in_combat_check = false) {
     return;
 }
-if (%tutorial = ^newbie_combat_instructor_before_attacking_melee) {
-    %tutorial = ^newbie_combat_instructor_during_attacking_melee;
+if (%varplayer_419 = ^newbie_combat_instructor_before_attacking_melee) {
+    %varplayer_419 = ^newbie_combat_instructor_during_attacking_melee;
    ~set_tutorial_progress;
 }
 @player_combat_start;
 
 [apnpc2,newbiegiantrat]
-if (%tutorial > ^newbie_combat_instructor_before_attacking_ranged
-    & %tutorial < ^tutorial_complete) {
+if (%varplayer_419 > ^newbie_combat_instructor_before_attacking_ranged
+    & %varplayer_419 < ^tutorial_complete) {
     if (inv_total(worn, shortbow) < 1 & inv_total(worn, bronze_arrow) < 1
         | inv_total(worn, shortbow) < 1 & inv_total(worn, bronze_arrow) > 1) {
         ~mesbox("You should equip a bow and some arrows before doing that.");
@@ -111,13 +111,13 @@ p_aprange($attackrange);
 @player_combat_start;
 
 [queue,set_rat_kill]
-if (%tutorial = ^newbie_combat_instructor_during_attacking_melee) {
-    %tutorial = ^newbie_combat_instructor_after_rat_kill_melee;
+if (%varplayer_419 = ^newbie_combat_instructor_during_attacking_melee) {
+    %varplayer_419 = ^newbie_combat_instructor_after_rat_kill_melee;
     ~set_tutorial_progress;
 }
 
-if (%tutorial = ^newbie_combat_instructor_before_attacking_ranged) {
-    %tutorial = ^newbie_combat_instructor_after_attacking_ranged;
+if (%varplayer_419 = ^newbie_combat_instructor_before_attacking_ranged) {
+    %varplayer_419 = ^newbie_combat_instructor_after_attacking_ranged;
     ~set_tutorial_progress;
 }
 

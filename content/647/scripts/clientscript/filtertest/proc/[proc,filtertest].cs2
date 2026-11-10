@@ -19,7 +19,7 @@ switch_int (chat_gethistorytype($int0)) {
         }
         return(false);
     case ^chattype_privatechat, ^chattype_quickchat_private_incoming :
-        if (%option_pm > 0 & %varclient_41 >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
+        if (%option_pm > 0 & %chat_view >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
             return(false);
         }
         if (chat_getfilter_private = ^chatfilter_on) {
@@ -38,7 +38,7 @@ switch_int (chat_gethistorytype($int0)) {
         }
         return(false);
     case ^chattype_loginlogoutnotification, ^chattype_privatechatout, ^chattype_quickchat_private_outgoing :
-        if (%option_pm > 0 & %varclient_41 >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
+        if (%option_pm > 0 & %chat_view >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
             return(false);
         }
         if (chat_getfilter_private < 2) {
@@ -46,7 +46,7 @@ switch_int (chat_gethistorytype($int0)) {
         }
         return(false);
     case ^chattype_modprivatechat :
-        if (%option_pm > 0 & %varclient_41 >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
+        if (%option_pm > 0 & %chat_view >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
             return(false);
         }
         return(true);

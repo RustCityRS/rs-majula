@@ -1,18 +1,18 @@
 // 4428
 [clientscript,clan_chat_onload]
 def_component $component0 = clan_chat:clan_list_parent_layer;
-if_setontimer("script4431(event_com)", $component0);
+if_setontimer($component0, "script4431(event_com)");
 def_int $int1 = 0;
 if (activeclanchannel_find_affined = true) {
-    %varclient_53 = 0;
-    if_setonclantransmit("clan_chat_onclantransmit(event_com)", $component0);
-    if_setonfriendtransmit("clan_chat_onclantransmit(event_com)", $component0);
-    if_setscrollsize(0, 0, $component0);
-    if_setscrollpos(0, 0, $component0);
-    if_setmouseovercursor(cursor_149, clan_chat:drag_layer);
-    if_sethide(false, clan_chat:kick_button_layer);
+    %client_timer = 0;
+    if_setonclantransmit($component0, "clan_chat_onclantransmit(event_com)");
+    if_setonfriendtransmit($component0, "clan_chat_onclantransmit(event_com)");
+    if_setscrollsize($component0, 0, 0);
+    if_setscrollpos($component0, 0, 0);
+    if_setmouseovercursor(clan_chat:drag_layer, friends_arrow_cursor);
+    if_sethide(clan_chat:kick_button_layer, false);
     ~script4470;
-    ~script4436($component0, %varclient_1035);
+    ~script4436($component0, %clan_line_pos);
     ~script4447;
 }
 def_int $int2 = 0;

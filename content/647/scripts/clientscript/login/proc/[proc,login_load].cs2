@@ -1,15 +1,15 @@
 // 2937
 [proc,login_load]
-%varclient_1089 = -1;
-if_setgraphic("corner_frame_1,3", login:top_left);
-if_setgraphic("corner_frame_1,3", login:top_right);
-if_setgraphic("corner_frame_1,2", login:bottom_left);
-if_setgraphic("corner_frame_1,2", login:bottom_right);
-if_setgraphic("corner_frame_1,2", login:popup_top_left);
-if_setvflip(true, login:popup_top_left);
-if_sethflip(true, login:popup_top_left);
-if_setgraphic("corner_frame_1,2", login:popup_top_right);
-if_setvflip(true, login:popup_top_right);
-if_sethflip(false, login:popup_top_right);
-if_setgraphic("corner_frame_1,2", login:popup_bottom_left);
-if_setgraphic("corner_frame_1,2", login:popup_bottom_right);
+%loginscreen_focus_last = -1;
+if_setgraphic(login:top_left, "corner_frame_1,3");
+if_setgraphic(login:top_right, "corner_frame_1,3");
+if_setgraphic(login:bottom_left, "corner_frame_1,2");
+if_setgraphic(login:bottom_right, "corner_frame_1,2");
+if_setgraphic(login:popup_top_left, "corner_frame_1,2");
+if_setvflip(login:popup_top_left, true);
+if_sethflip(login:popup_top_left, true);
+if_setgraphic(login:popup_top_right, "corner_frame_1,2");
+if_setvflip(login:popup_top_right, true);
+if_sethflip(login:popup_top_right, false);
+if_setgraphic(login:popup_bottom_left, "corner_frame_1,2");
+if_setgraphic(login:popup_bottom_right, "corner_frame_1,2");

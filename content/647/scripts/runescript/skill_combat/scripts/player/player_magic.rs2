@@ -7,9 +7,9 @@
 if (~npc_is_attackable = false) { // test: wormbrain's special mes shows before if you dont have enough runes to autocast a specific spell
     return;
 }
-def_dbrow $spell_data = ~get_spell_data(%autocast_spell);
+def_dbrow $spell_data = ~get_spell_data(%varplayer_59);
 if (~check_spell_requirements($spell_data) = false) {
-    if (%autocast_spell = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
+    if (%varplayer_59 = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
         ~player_autocast_reset;
     }
     return;
@@ -39,19 +39,19 @@ if (~in_tutorial_island(coord) = true) {
 [apnpct,magic:sb40] ~pvm_default_spell(^earth_wave);
 [apnpct,magic:sb42] ~pvm_default_spell(^fire_wave);
 [apnpct,magic:sb9] 
-if (npc_type = ungadulu) {
+if (npc_type = ungadulu_good) {
    ~legends_spell_usage(^curse);
 } else {
    ~pvm_default_spell(^curse);
 }
 [apnpct,magic:sb5]
-if (npc_type = ungadulu) {
+if (npc_type = ungadulu_good) {
    ~legends_spell_usage(^weaken);
 } else {
    ~pvm_default_spell(^weaken);
 }
 [apnpct,magic:sb1]
-if (npc_type = ungadulu) {
+if (npc_type = ungadulu_good) {
    ~legends_spell_usage(^confuse);
 } else {
    ~pvm_default_spell(^confuse);
@@ -78,7 +78,7 @@ def_int $duration = ~pvm_spell_cast($spell_data);
 // if player DOESNT splash:
 if (~player_npc_hit_roll(^magic_style) = true) {
     def_int $maxhit = ~magic_spell_maxhit($spell_data);
-    if (npc_type = count_draynor & inv_total(inv, garlic) > 0) {
+    if (npc_type = vampire_slayer_qip_count & inv_total(inv, garlic) > 0) {
         $maxhit = add($maxhit, 10); // 289's +1 hitpoint
     }
     ~pvm_spell_success($spell_data, $maxhit, $duration);
@@ -97,7 +97,7 @@ if (map_clock < %action_delay) {
     return(false);
 }
 if (~check_spell_requirements($spell_data) = false) {
-    if (%autocast_spell = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
+    if (%varplayer_59 = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
         ~player_autocast_reset;
     }
     return(false);
@@ -197,7 +197,7 @@ if (db_getfieldcount($spell_data, magic_spell_table:spotanim_proj) > 0) {
 // freezes, and stat reductions dont continue ever, even if you have autocast enabled.
 // crumble undead continues autocast for some reason
 if (~player_autocast_enabled = true & db_getfield($spell_data, magic_spell_table:continue_by_autocast, 0) = true) {
-    p_opnpct(db_getfield(~get_spell_data(%autocast_spell), magic_spell_table:spellcom, 0));
+    p_opnpct(db_getfield(~get_spell_data(%varplayer_59), magic_spell_table:spellcom, 0));
 }
 return($duration);
 

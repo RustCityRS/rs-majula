@@ -272,14 +272,14 @@ fn a_sale_pays_289_s_price_and_bob_takes_only_his_stock() {
             engine,
             "axeseller",
             &[
-                ("steel_hatchet", 1),
-                ("steel_hatchet", 1),
+                ("steel_axe", 1),
+                ("steel_axe", 1),
                 ("bronze_dagger", 1),
             ],
         );
         trade(engine, &mut client, nid);
-        let value = cost(engine, "steel_hatchet");
-        let held = count(engine, client.pid, "axeshop", "steel_hatchet");
+        let value = cost(engine, "steel_axe");
+        let held = count(engine, client.pid, "axeshop", "steel_axe");
         let base = 3;
         assert_eq!(held, base, "Bob holds his base of steel hatchets");
 
@@ -295,7 +295,7 @@ fn a_sale_pays_289_s_price_and_bob_takes_only_his_stock() {
         said(engine, &mut client, 1);
         assert_eq!(count(engine, client.pid, "inv", "coins"), price(0));
         assert_eq!(
-            count(engine, client.pid, "axeshop", "steel_hatchet"),
+            count(engine, client.pid, "axeshop", "steel_axe"),
             base + 1
         );
         button(&mut client, ClientProt::IfButton1, BACKPACK, 1);
@@ -358,7 +358,7 @@ fn a_closed_shop_stops_going_to_the_client_and_reopens_whole() {
 #[test]
 fn kofi_keeps_289_s_karamja_general_store() {
     runner::on_loaded_engine(|engine| {
-        let (mut client, nid) = customer_of(engine, "shopkeeper_kofi", "musabuyer", &[]);
+        let (mut client, nid) = customer_of(engine, "vkq2_kofi", "musabuyer", &[]);
         let packets = trade(engine, &mut client, nid);
         assert!(
             engine

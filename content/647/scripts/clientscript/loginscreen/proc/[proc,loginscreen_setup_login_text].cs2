@@ -1,9 +1,9 @@
 // 3964
 [proc,loginscreen_setup_login_text]
-if (%varclient_1414 = 1) {
-    if_settext("Username:", login:username_title);
-} else if (%varclient_1414 = 2) {
-    if_settext("Email:", login:username_title);
+if (%loginscreen_previous_login_type = 1) {
+    if_settext(login:username_title, "Username:");
+} else if (%loginscreen_previous_login_type = 2) {
+    if_settext(login:username_title, "Email:");
 } else {
-    if_settext("Login:", login:username_title);
+    if_settext(login:username_title, "Login:");
 }

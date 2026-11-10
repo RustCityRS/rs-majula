@@ -9,21 +9,21 @@
 [label,test_a_level_17_barbarian_hits_up_to_30]
 setup_player("test_player");
 p_telejump(0_50_50_44_30);
-npc_add(movecoord(coord, 2, 0, 0), barbarian, 100);
+npc_add(movecoord(coord, 2, 0, 0), fai_barbarian_1, 100);
 assert_eq(~npc_melee_maxhit, 30);
 
 // Fafner (3247, level 10) and Sieglinde (3263, level 9): 20.
 [label,test_a_level_10_barbarian_hits_up_to_20]
 setup_player("test_player");
 p_telejump(0_50_50_44_36);
-npc_add(movecoord(coord, 2, 0, 0), barbarian_3247, 100);
+npc_add(movecoord(coord, 2, 0, 0), fai_barbarian_2, 100);
 assert_eq(~npc_melee_maxhit, 20);
-npc_add(movecoord(coord, 2, 0, 2), barbarian_3263, 100);
+npc_add(movecoord(coord, 2, 0, 2), fai_barbarian_female_4, 100);
 assert_eq(~npc_melee_maxhit, 20);
 
 // Aitan (3259, level 15), the archer: 31 with bronze arrows' ranged strength.
 [label,test_aitan_shoots_up_to_31]
 setup_player("test_player");
 p_telejump(0_50_50_44_42);
-npc_add(movecoord(coord, 2, 0, 0), barbarian_3259, 100);
+npc_add(movecoord(coord, 2, 0, 0), fai_barbarian_14, 100);
 assert_eq(~npc_ranged_maxhit, 31);

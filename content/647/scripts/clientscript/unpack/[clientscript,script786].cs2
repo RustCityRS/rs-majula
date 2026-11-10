@@ -1,17 +1,17 @@
 // 786
 [clientscript,script786](component $component0)
 if ($component0 = interface_1072:com_201) {
-    if_setcolour(^white, interface_1072:com_53);
+    if_setcolour(interface_1072:com_53, ^white);
 } else if ($component0 = interface_1072:com_213) {
-    if_setcolour(^white, interface_1072:com_53);
-    if_setcolour(^white, interface_1072:com_49);
+    if_setcolour(interface_1072:com_53, ^white);
+    if_setcolour(interface_1072:com_49, ^white);
 } else if ($component0 = interface_1072:com_225) {
-    if_setcolour(^white, interface_1072:com_57);
-    if_setcolour(^white, interface_1072:com_49);
+    if_setcolour(interface_1072:com_57, ^white);
+    if_setcolour(interface_1072:com_49, ^white);
 } else if ($component0 = interface_1072:com_237) {
-    if_setcolour(^white, interface_1072:com_61);
-    if_setcolour(^white, interface_1072:com_49);
+    if_setcolour(interface_1072:com_61, ^white);
+    if_setcolour(interface_1072:com_49, ^white);
 } else if ($component0 = interface_1072:com_249) {
-    if_setcolour(^white, interface_1072:com_65);
-    if_setcolour(^white, interface_1072:com_49);
+    if_setcolour(interface_1072:com_65, ^white);
+    if_setcolour(interface_1072:com_49, ^white);
 }

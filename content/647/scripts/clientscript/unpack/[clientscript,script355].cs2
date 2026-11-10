@@ -7,66 +7,66 @@ def_struct $struct3 = null;
 def_int $int4 = -1;
 switch_int ($int2) {
     case 0, 7 :
-        %varclient_1008 = $idkit1;
+        %playerdesign3_head = $idkit1;
         baseidkit($int2, $idkit1);
         sound_synth(synth_9860, 1, 0);
     case 1, 8 :
-        %varclient_1009 = $idkit1;
+        %playerdesign3_jaw = $idkit1;
         baseidkit($int2, $idkit1);
         sound_synth(synth_9860, 1, 0);
     case 2, 9, 3, 10, 4, 11 :
-        %varclient_86 = 0;
-        setobj(2, junk_19713);
+        %playerdesign2_client_antilag = 0;
+        setobj(2, playerkit_dummy_shadow_necklace);
         setobj(3, null);
         setobj(5, null);
         sound_synth(synth_9819, 1, 0);
         switch_int ($int2) {
             case 2, 9 :
-                %varclient_1010, $int4 = $idkit1, 3;
+                %playerdesign3_torso, $int4 = $idkit1, 3;
             case 3, 10 :
-                %varclient_1011, $int4 = $idkit1, 4;
+                %playerdesign3_arms, $int4 = $idkit1, 4;
             case 4, 11 :
-                %varclient_1012, $int4 = $idkit1, 5;
+                %playerdesign3_hands, $int4 = $idkit1, 5;
         }
         $struct3 = ~script361($idkit1, $int4);
         if ($struct3 ! null) {
             if (gender = 1) {
-                %varclient_1010 = struct_param($struct3, param_1182);
-                baseidkit(9, %varclient_1010);
-                %varclient_1011 = struct_param($struct3, param_1183);
-                baseidkit(10, %varclient_1011);
-                %varclient_1012 = struct_param($struct3, param_1184);
-                baseidkit(11, %varclient_1012);
+                %playerdesign3_torso = struct_param($struct3, param_1182);
+                baseidkit(9, %playerdesign3_torso);
+                %playerdesign3_arms = struct_param($struct3, param_1183);
+                baseidkit(10, %playerdesign3_arms);
+                %playerdesign3_hands = struct_param($struct3, param_1184);
+                baseidkit(11, %playerdesign3_hands);
                 ~playerdesign4_setplayeranim(null, true);
             } else {
-                %varclient_1010 = struct_param($struct3, param_1182);
-                baseidkit(2, %varclient_1010);
-                %varclient_1011 = struct_param($struct3, param_1183);
-                baseidkit(3, %varclient_1011);
-                %varclient_1012 = struct_param($struct3, param_1184);
-                baseidkit(4, %varclient_1012);
+                %playerdesign3_torso = struct_param($struct3, param_1182);
+                baseidkit(2, %playerdesign3_torso);
+                %playerdesign3_arms = struct_param($struct3, param_1183);
+                baseidkit(3, %playerdesign3_arms);
+                %playerdesign3_hands = struct_param($struct3, param_1184);
+                baseidkit(4, %playerdesign3_hands);
                 ~playerdesign4_setplayeranim(null, false);
             }
         } else {
             baseidkit($int2, $idkit1);
         }
     case 5, 12 :
-        %varclient_86 = 0;
-        setobj(2, junk_19713);
+        %playerdesign2_client_antilag = 0;
+        setobj(2, playerkit_dummy_shadow_necklace);
         setobj(3, null);
         setobj(5, null);
         ~playerdesign4_setplayeranim(null, ~int_to_bool(gender));
         baseidkit($int2, $idkit1);
-        %varclient_1013 = $idkit1;
+        %playerdesign3_legs = $idkit1;
         sound_synth(synth_9819, 1, 0);
     case 6, 13 :
-        %varclient_86 = 0;
-        setobj(2, junk_19713);
+        %playerdesign2_client_antilag = 0;
+        setobj(2, playerkit_dummy_shadow_necklace);
         setobj(3, null);
         setobj(5, null);
         ~playerdesign4_setplayeranim(null, ~int_to_bool(gender));
         baseidkit($int2, $idkit1);
-        %varclient_1014 = $idkit1;
+        %playerdesign3_feet = $idkit1;
         sound_synth(synth_9819, 1, 0);
     case default :
         return;

@@ -6,7 +6,7 @@ width=100
 height=128
 xmode=abs_right
 onload=ntk_text(ntk_overlay:roomnumber, ntk_overlay:levelreq)
-onvartransmit=ntk_text(ntk_overlay:roomnumber, ntk_overlay:levelreq){varplayer_822}
+onvartransmit=ntk_text(ntk_overlay:roomnumber, ntk_overlay:levelreq){ntk_var_temp}
 
 // 428:1
 [bottom]
@@ -87,7 +87,7 @@ width=12
 height=110
 xmode=abs_right
 onload=ntk_timer(ntk_overlay:timerbar, ntk_overlay:border, ntk_overlay:sand)
-onvartransmit=ntk_timer(ntk_overlay:timerbar, ntk_overlay:border, ntk_overlay:sand){varplayer_821}
+onvartransmit=ntk_timer(ntk_overlay:timerbar, ntk_overlay:border, ntk_overlay:sand){ntk_var2}
 
 // 428:7
 [com_7]

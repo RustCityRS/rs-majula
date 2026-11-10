@@ -1,10 +1,10 @@
 // 1780
 [proc,clanwars_resynch_potions]
-if (%varclient_255 = false) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:potions_indicator);
-    if_settrans(0, clanwars_setup:potions);
+if (%clanwars_rulevarc_nopotions = false) {
+    if_setgraphic(clanwars_setup:potions_indicator, "options_radio_buttons,2");
+    if_settrans(clanwars_setup:potions, 0);
 } else {
-    if_setgraphic("options_radio_buttons,1", clanwars_setup:potions_indicator);
-    if_settrans(225, clanwars_setup:potions);
+    if_setgraphic(clanwars_setup:potions_indicator, "options_radio_buttons,1");
+    if_settrans(clanwars_setup:potions, 225);
 }
 ~clanwars_updateside;

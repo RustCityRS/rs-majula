@@ -29,7 +29,7 @@ layer=clan_motif_colour1
 colour=0xffffff
 fill=yes
 onmouseleave=deltooltip(clan_motif_chooser:com_248)
-onvartransmit=script4401(event_com){varplayer_2094}
+onvartransmit=script4401(event_com){clan_custom_motif_colour1_varp}
 onmouserepeat=aif_tooltip(clan_motif_chooser:com_248, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 1105:3
@@ -62,7 +62,7 @@ layer=clan_colour2
 colour=0xffffff
 fill=yes
 onmouseleave=deltooltip(clan_motif_chooser:com_248)
-onvartransmit=clan_set_colour2(event_com){varplayer_2097}
+onvartransmit=clan_set_colour2(event_com){clan_custom_colour2_varp}
 onmouserepeat=aif_tooltip(clan_motif_chooser:com_248, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 1105:6
@@ -95,7 +95,7 @@ layer=clan_motif_colour2
 colour=0xffffff
 fill=yes
 onmouseleave=deltooltip(clan_motif_chooser:com_248)
-onvartransmit=script4402(event_com){varplayer_2095}
+onvartransmit=script4402(event_com){clan_custom_motif_colour2_varp}
 onmouserepeat=aif_tooltip(clan_motif_chooser:com_248, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 1105:9
@@ -128,7 +128,7 @@ layer=clan_colour1
 colour=0xffffff
 fill=yes
 onmouseleave=deltooltip(clan_motif_chooser:com_248)
-onvartransmit=clan_set_colour1(event_com){varplayer_2096}
+onvartransmit=clan_set_colour1(event_com){clan_custom_colour1_varp}
 onmouserepeat=aif_tooltip(clan_motif_chooser:com_248, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
 
 // 1105:12
@@ -177,7 +177,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=script4402(event_com){varplayer_2095}
+onvartransmit=script4402(event_com){clan_custom_motif_colour2_varp}
 
 // 1105:16
 [picker_border_top1]
@@ -204,7 +204,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=clan_set_colour1(event_com){varplayer_2096}
+onvartransmit=clan_set_colour1(event_com){clan_custom_colour1_varp}
 
 // 1105:18
 [picker_border_middle1]
@@ -231,7 +231,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=clan_set_colour2(event_com){varplayer_2097}
+onvartransmit=clan_set_colour2(event_com){clan_custom_colour2_varp}
 
 // 1105:20
 [picker_border_bottom1]
@@ -1853,7 +1853,7 @@ heightmode=proportion
 layer=com_24
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=clan_switch_tab(event_com)
 
@@ -1983,7 +1983,7 @@ heightmode=proportion
 layer=com_172
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=clan_switch_tab(event_com)
 
@@ -2113,7 +2113,7 @@ heightmode=proportion
 layer=colour_tab_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=clan_switch_tab(event_com)
 
@@ -2173,7 +2173,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=script4401(event_com){varplayer_2094}
+onvartransmit=script4401(event_com){clan_custom_motif_colour1_varp}
 
 // 1105:200
 [picker_border_top2]
@@ -2200,7 +2200,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=clan_set_colour1(event_com){varplayer_2096}
+onvartransmit=clan_set_colour1(event_com){clan_custom_colour1_varp}
 
 // 1105:202
 [picker_border_middle2]
@@ -2227,7 +2227,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=clan_set_colour2(event_com){varplayer_2097}
+onvartransmit=clan_set_colour2(event_com){clan_custom_colour2_varp}
 
 // 1105:204
 [picker_border_bottom2]
@@ -2337,7 +2337,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=script4401(event_com){varplayer_2094}
+onvartransmit=script4401(event_com){clan_custom_motif_colour1_varp}
 
 // 1105:214
 [picker_border_top3]
@@ -2364,7 +2364,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=script4402(event_com){varplayer_2095}
+onvartransmit=script4402(event_com){clan_custom_motif_colour2_varp}
 
 // 1105:216
 [picker_border_middle3]
@@ -2391,7 +2391,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=clan_set_colour2(event_com){varplayer_2097}
+onvartransmit=clan_set_colour2(event_com){clan_custom_colour2_varp}
 
 // 1105:218
 [picker_border_bottom3]
@@ -2501,7 +2501,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=script4401(event_com){varplayer_2094}
+onvartransmit=script4401(event_com){clan_custom_motif_colour1_varp}
 
 // 1105:228
 [picker_border_top4]
@@ -2528,7 +2528,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=script4402(event_com){varplayer_2095}
+onvartransmit=script4402(event_com){clan_custom_motif_colour2_varp}
 
 // 1105:230
 [picker_border_middle4]
@@ -2555,7 +2555,7 @@ colour=0xffffff
 fill=yes
 transmitop=1
 op1=Apply
-onvartransmit=clan_set_colour1(event_com){varplayer_2096}
+onvartransmit=clan_set_colour1(event_com){clan_custom_colour1_varp}
 
 // 1105:232
 [picker_border_bottom4]

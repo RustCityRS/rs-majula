@@ -1,6 +1,6 @@
 // 1523
 [clientscript,script1523]
-if (%varplayerbit_4895 = 2) {
+if (%tutorial_version = 2) {
     cc_create(questjournal_scroll:back_layer, ^iftype_text, 0);
     cc_setposition(0, -2, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(102, 23, ^setsize_abs, ^setsize_abs);
@@ -11,5 +11,5 @@ if (%varplayerbit_4895 = 2) {
     cc_settextshadow(false);
     cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
     cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0x46320a)");
-    if_setop(1, "Back to Index", questjournal_scroll:back_layer);
+    if_setop(questjournal_scroll:back_layer, 1, "Back to Index");
 }

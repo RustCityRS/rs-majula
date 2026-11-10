@@ -1,834 +1,834 @@
 // 0
-[varclansetting_0]
+[clan_time_offset_varclan]
 type=int
 
 // 1
-[varclansetting_1]
+[clan_motto_varclan]
 type=string
 
 // 2
-[varclansetting_2]
+[clan_qfc_varclan]
 type=clanforumqfc
 
 // 3
-[varclansetting_3]
+[clan_general_settings_varclan]
 type=int
 
 // 4
-[varclansetting_4]
+[clan_is_recruiting_varclan]
 type=bit
-basevar=varclansetting_3
+basevar=clan_general_settings_varclan
 startbit=0
 endbit=0
 
 // 5
-[varclansetting_5]
+[clan_events_time_varclan]
 type=bit
-basevar=varclansetting_3
+basevar=clan_general_settings_varclan
 startbit=1
 endbit=1
 
 // 6
-[varclansetting_6]
+[clan_homeworld_varclan]
 type=bit
-basevar=varclansetting_3
+basevar=clan_general_settings_varclan
 startbit=2
 endbit=9
 
 // 7
-[varclansetting_7]
+[clan_region_varclan]
 type=bit
-basevar=varclansetting_3
+basevar=clan_general_settings_varclan
 startbit=10
 endbit=20
 
 // 8
-[varclansetting_8]
+[clan_lootshare_varclan]
 type=bit
-basevar=varclansetting_3
+basevar=clan_general_settings_varclan
 startbit=21
 endbit=21
 
 // 9
-[varclansetting_9]
+[clan_motto_sanction_varclan]
 type=bit
-basevar=varclansetting_3
+basevar=clan_general_settings_varclan
 startbit=22
 endbit=22
 
 // 10
-[varclansetting_10]
+[clan_motif_sanction_varclan]
 type=bit
-basevar=varclansetting_3
+basevar=clan_general_settings_varclan
 startbit=23
 endbit=23
 
 // 11
-[varclansetting_11]
+[clan_flag_sanction_varclan]
 type=bit
-basevar=varclansetting_3
+basevar=clan_general_settings_varclan
 startbit=24
 endbit=24
 
 // 12
-[varclansetting_12]
+[clan_defaults_set_varclan]
 type=bit
-basevar=varclansetting_3
+basevar=clan_general_settings_varclan
 startbit=25
 endbit=25
 
 // 13
-[varclansetting_13]
+[clan_custom_motif_varclan]
 type=int
 
 // 14
-[varclansetting_14]
+[clan_custom_motif_a_varclan]
 type=bit
-basevar=varclansetting_13
+basevar=clan_custom_motif_varclan
 startbit=0
 endbit=15
 
 // 15
-[varclansetting_15]
+[clan_custom_motif_b_varclan]
 type=bit
-basevar=varclansetting_13
+basevar=clan_custom_motif_varclan
 startbit=16
 endbit=31
 
 // 16
-[varclansetting_16]
+[clan_custom_motif_colour1_varclan]
 type=int
 
 // 17
-[varclansetting_17]
+[clan_custom_motif_colour2_varclan]
 type=int
 
 // 18
-[varclansetting_18]
+[clan_custom_colour1_varclan]
 type=int
 
 // 19
-[varclansetting_19]
+[clan_custom_colour2_varclan]
 type=int
 
 // 20
-[varclansetting_20]
+[clan_keyword_main1_varclan]
 type=int
 
 // 21
-[varclansetting_21]
+[clan_keyword_main2_varclan]
 type=int
 
 // 22
-[varclansetting_22]
+[clan_keyword_main3_varclan]
 type=int
 
 // 23
-[varclansetting_23]
+[clan_keyword_main4_varclan]
 type=int
 
 // 24
-[varclansetting_24]
+[clan_keyword_main5_varclan]
 type=int
 
 // 25
-[varclansetting_25]
+[clan_keyword_cat1_varclan]
 type=bit
-basevar=varclansetting_20
+basevar=clan_keyword_main1_varclan
 startbit=0
 endbit=5
 
 // 26
-[varclansetting_26]
+[clan_keyword1_varclan]
 type=bit
-basevar=varclansetting_20
+basevar=clan_keyword_main1_varclan
 startbit=6
 endbit=15
 
 // 27
-[varclansetting_27]
+[clan_keyword_cat2_varclan]
 type=bit
-basevar=varclansetting_20
+basevar=clan_keyword_main1_varclan
 startbit=16
 endbit=21
 
 // 28
-[varclansetting_28]
+[clan_keyword2_varclan]
 type=bit
-basevar=varclansetting_20
+basevar=clan_keyword_main1_varclan
 startbit=22
 endbit=31
 
 // 29
-[varclansetting_29]
+[clan_keyword_cat3_varclan]
 type=bit
-basevar=varclansetting_21
+basevar=clan_keyword_main2_varclan
 startbit=0
 endbit=5
 
 // 30
-[varclansetting_30]
+[clan_keyword3_varclan]
 type=bit
-basevar=varclansetting_21
+basevar=clan_keyword_main2_varclan
 startbit=6
 endbit=15
 
 // 31
-[varclansetting_31]
+[clan_keyword_cat4_varclan]
 type=bit
-basevar=varclansetting_21
+basevar=clan_keyword_main2_varclan
 startbit=16
 endbit=21
 
 // 32
-[varclansetting_32]
+[clan_keyword4_varclan]
 type=bit
-basevar=varclansetting_21
+basevar=clan_keyword_main2_varclan
 startbit=22
 endbit=31
 
 // 33
-[varclansetting_33]
+[clan_keyword_cat5_varclan]
 type=bit
-basevar=varclansetting_22
+basevar=clan_keyword_main3_varclan
 startbit=0
 endbit=5
 
 // 34
-[varclansetting_34]
+[clan_keyword5_varclan]
 type=bit
-basevar=varclansetting_22
+basevar=clan_keyword_main3_varclan
 startbit=6
 endbit=15
 
 // 35
-[varclansetting_35]
+[clan_keyword_cat6_varclan]
 type=bit
-basevar=varclansetting_22
+basevar=clan_keyword_main3_varclan
 startbit=16
 endbit=21
 
 // 36
-[varclansetting_36]
+[clan_keyword6_varclan]
 type=bit
-basevar=varclansetting_22
+basevar=clan_keyword_main3_varclan
 startbit=22
 endbit=31
 
 // 37
-[varclansetting_37]
+[clan_keyword_cat7_varclan]
 type=bit
-basevar=varclansetting_23
+basevar=clan_keyword_main4_varclan
 startbit=0
 endbit=5
 
 // 38
-[varclansetting_38]
+[clan_keyword7_varclan]
 type=bit
-basevar=varclansetting_23
+basevar=clan_keyword_main4_varclan
 startbit=6
 endbit=15
 
 // 39
-[varclansetting_39]
+[clan_keyword_cat8_varclan]
 type=bit
-basevar=varclansetting_23
+basevar=clan_keyword_main4_varclan
 startbit=16
 endbit=21
 
 // 40
-[varclansetting_40]
+[clan_keyword8_varclan]
 type=bit
-basevar=varclansetting_23
+basevar=clan_keyword_main4_varclan
 startbit=22
 endbit=31
 
 // 41
-[varclansetting_41]
+[clan_keyword_cat9_varclan]
 type=bit
-basevar=varclansetting_24
+basevar=clan_keyword_main5_varclan
 startbit=0
 endbit=5
 
 // 42
-[varclansetting_42]
+[clan_keyword9_varclan]
 type=bit
-basevar=varclansetting_24
+basevar=clan_keyword_main5_varclan
 startbit=6
 endbit=15
 
 // 43
-[varclansetting_43]
+[clan_keyword_cat10_varclan]
 type=bit
-basevar=varclansetting_24
+basevar=clan_keyword_main5_varclan
 startbit=16
 endbit=21
 
 // 44
-[varclansetting_44]
+[clan_keyword10_varclan]
 type=bit
-basevar=varclansetting_24
+basevar=clan_keyword_main5_varclan
 startbit=22
 endbit=31
 
 // 45
-[varclansetting_45]
+[clan_event_main_type1_varclan]
 type=int
 
 // 46
-[varclansetting_46]
+[clan_event_main_type2_varclan]
 type=int
 
 // 47
-[varclansetting_47]
+[clan_event_main_place1_varclan]
 type=int
 
 // 48
-[varclansetting_48]
+[clan_event_main_place2_varclan]
 type=int
 
 // 49
-[varclansetting_49]
+[clan_event_main_place3_varclan]
 type=int
 
 // 50
-[varclansetting_50]
+[clan_event_main_place4_varclan]
 type=int
 
 // 51
-[varclansetting_51]
+[clan_event_main_world1_varclan]
 type=int
 
 // 52
-[varclansetting_52]
+[clan_event_main_world2_varclan]
 type=int
 
 // 53
-[varclansetting_53]
+[clan_event_main_date1_varclan]
 type=int
 
 // 54
-[varclansetting_54]
+[clan_event_main_date2_varclan]
 type=int
 
 // 55
-[varclansetting_55]
+[clan_event_main_date3_varclan]
 type=int
 
 // 56
-[varclansetting_56]
+[clan_event_main_date4_varclan]
 type=int
 
 // 57
-[varclansetting_57]
+[clan_event_main_time1_varclan]
 type=int
 
 // 58
-[varclansetting_58]
+[clan_event_main_time2_varclan]
 type=int
 
 // 59
-[varclansetting_59]
+[clan_event_main_time3_varclan]
 type=int
 
 // 60
-[varclansetting_60]
+[clan_event_main_time4_varclan]
 type=int
 
 // 61
-[varclansetting_61]
+[clan_event_main_specific1_varclan]
 type=int
 
 // 62
-[varclansetting_62]
+[clan_event_main_specific2_varclan]
 type=int
 
 // 63
-[varclansetting_63]
+[clan_event_main_specific3_varclan]
 type=int
 
 // 64
-[varclansetting_64]
+[clan_event_main_specific4_varclan]
 type=int
 
 // 65
-[varclansetting_65]
+[clan_event_who_1_varclan]
 type=int
 
 // 66
-[varclansetting_66]
+[clan_event_who_2_varclan]
 type=int
 
 // 67
-[varclansetting_67]
+[clan_event_who_3_varclan]
 type=int
 
 // 68
-[varclansetting_68]
+[clan_event_who_4_varclan]
 type=int
 
 // 69
-[varclansetting_69]
+[clan_event_who_5_varclan]
 type=int
 
 // 70
-[varclansetting_70]
+[clan_event_who_6_varclan]
 type=int
 
 // 71
-[varclansetting_71]
+[clan_event_who_7_varclan]
 type=int
 
 // 72
-[varclansetting_72]
+[clan_event_who_8_varclan]
 type=int
 
 // 73
-[varclansetting_73]
+[clan_event_bits_varclan]
 type=int
 
 // 74
-[varclansetting_74]
+[clan_event_type_1_varclan]
 type=bit
-basevar=varclansetting_45
+basevar=clan_event_main_type1_varclan
 startbit=0
 endbit=7
 
 // 75
-[varclansetting_75]
+[clan_event_type_2_varclan]
 type=bit
-basevar=varclansetting_45
+basevar=clan_event_main_type1_varclan
 startbit=8
 endbit=15
 
 // 76
-[varclansetting_76]
+[clan_event_type_3_varclan]
 type=bit
-basevar=varclansetting_45
+basevar=clan_event_main_type1_varclan
 startbit=16
 endbit=23
 
 // 77
-[varclansetting_77]
+[clan_event_type_4_varclan]
 type=bit
-basevar=varclansetting_45
+basevar=clan_event_main_type1_varclan
 startbit=24
 endbit=31
 
 // 78
-[varclansetting_78]
+[clan_event_type_5_varclan]
 type=bit
-basevar=varclansetting_46
+basevar=clan_event_main_type2_varclan
 startbit=0
 endbit=7
 
 // 79
-[varclansetting_79]
+[clan_event_type_6_varclan]
 type=bit
-basevar=varclansetting_46
+basevar=clan_event_main_type2_varclan
 startbit=8
 endbit=15
 
 // 80
-[varclansetting_80]
+[clan_event_type_7_varclan]
 type=bit
-basevar=varclansetting_46
+basevar=clan_event_main_type2_varclan
 startbit=16
 endbit=23
 
 // 81
-[varclansetting_81]
+[clan_event_type_8_varclan]
 type=bit
-basevar=varclansetting_46
+basevar=clan_event_main_type2_varclan
 startbit=24
 endbit=31
 
 // 82
-[varclansetting_82]
+[clan_event_place_1_varclan]
 type=bit
-basevar=varclansetting_47
+basevar=clan_event_main_place1_varclan
 startbit=0
 endbit=15
 
 // 83
-[varclansetting_83]
+[clan_event_place_2_varclan]
 type=bit
-basevar=varclansetting_47
+basevar=clan_event_main_place1_varclan
 startbit=16
 endbit=31
 
 // 84
-[varclansetting_84]
+[clan_event_place_3_varclan]
 type=bit
-basevar=varclansetting_48
+basevar=clan_event_main_place2_varclan
 startbit=0
 endbit=15
 
 // 85
-[varclansetting_85]
+[clan_event_place_4_varclan]
 type=bit
-basevar=varclansetting_48
+basevar=clan_event_main_place2_varclan
 startbit=16
 endbit=31
 
 // 86
-[varclansetting_86]
+[clan_event_place_5_varclan]
 type=bit
-basevar=varclansetting_49
+basevar=clan_event_main_place3_varclan
 startbit=0
 endbit=15
 
 // 87
-[varclansetting_87]
+[clan_event_place_6_varclan]
 type=bit
-basevar=varclansetting_49
+basevar=clan_event_main_place3_varclan
 startbit=16
 endbit=31
 
 // 88
-[varclansetting_88]
+[clan_event_place_7_varclan]
 type=bit
-basevar=varclansetting_50
+basevar=clan_event_main_place4_varclan
 startbit=0
 endbit=15
 
 // 89
-[varclansetting_89]
+[clan_event_place_8_varclan]
 type=bit
-basevar=varclansetting_50
+basevar=clan_event_main_place4_varclan
 startbit=16
 endbit=31
 
 // 90
-[varclansetting_90]
+[clan_event_world_1_varclan]
 type=bit
-basevar=varclansetting_51
+basevar=clan_event_main_world1_varclan
 startbit=0
 endbit=7
 
 // 91
-[varclansetting_91]
+[clan_event_world_2_varclan]
 type=bit
-basevar=varclansetting_51
+basevar=clan_event_main_world1_varclan
 startbit=8
 endbit=15
 
 // 92
-[varclansetting_92]
+[clan_event_world_3_varclan]
 type=bit
-basevar=varclansetting_51
+basevar=clan_event_main_world1_varclan
 startbit=16
 endbit=23
 
 // 93
-[varclansetting_93]
+[clan_event_world_4_varclan]
 type=bit
-basevar=varclansetting_51
+basevar=clan_event_main_world1_varclan
 startbit=24
 endbit=31
 
 // 94
-[varclansetting_94]
+[clan_event_world_5_varclan]
 type=bit
-basevar=varclansetting_52
+basevar=clan_event_main_world2_varclan
 startbit=0
 endbit=7
 
 // 95
-[varclansetting_95]
+[clan_event_world_6_varclan]
 type=bit
-basevar=varclansetting_52
+basevar=clan_event_main_world2_varclan
 startbit=8
 endbit=15
 
 // 96
-[varclansetting_96]
+[clan_event_world_7_varclan]
 type=bit
-basevar=varclansetting_52
+basevar=clan_event_main_world2_varclan
 startbit=16
 endbit=23
 
 // 97
-[varclansetting_97]
+[clan_event_world_8_varclan]
 type=bit
-basevar=varclansetting_52
+basevar=clan_event_main_world2_varclan
 startbit=24
 endbit=31
 
 // 98
-[varclansetting_98]
+[clan_event_date_1_varclan]
 type=bit
-basevar=varclansetting_53
+basevar=clan_event_main_date1_varclan
 startbit=0
 endbit=15
 
 // 99
-[varclansetting_99]
+[clan_event_date_2_varclan]
 type=bit
-basevar=varclansetting_53
+basevar=clan_event_main_date1_varclan
 startbit=16
 endbit=31
 
 // 100
-[varclansetting_100]
+[clan_event_date_3_varclan]
 type=bit
-basevar=varclansetting_54
+basevar=clan_event_main_date2_varclan
 startbit=0
 endbit=15
 
 // 101
-[varclansetting_101]
+[clan_event_date_4_varclan]
 type=bit
-basevar=varclansetting_54
+basevar=clan_event_main_date2_varclan
 startbit=16
 endbit=31
 
 // 102
-[varclansetting_102]
+[clan_event_date_5_varclan]
 type=bit
-basevar=varclansetting_55
+basevar=clan_event_main_date3_varclan
 startbit=0
 endbit=15
 
 // 103
-[varclansetting_103]
+[clan_event_date_6_varclan]
 type=bit
-basevar=varclansetting_55
+basevar=clan_event_main_date3_varclan
 startbit=16
 endbit=31
 
 // 104
-[varclansetting_104]
+[clan_event_date_7_varclan]
 type=bit
-basevar=varclansetting_56
+basevar=clan_event_main_date4_varclan
 startbit=0
 endbit=15
 
 // 105
-[varclansetting_105]
+[clan_event_date_8_varclan]
 type=bit
-basevar=varclansetting_56
+basevar=clan_event_main_date4_varclan
 startbit=16
 endbit=31
 
 // 106
-[varclansetting_106]
+[clan_event_time_1_varclan]
 type=bit
-basevar=varclansetting_57
+basevar=clan_event_main_time1_varclan
 startbit=0
 endbit=11
 
 // 107
-[varclansetting_107]
+[clan_event_time_2_varclan]
 type=bit
-basevar=varclansetting_57
+basevar=clan_event_main_time1_varclan
 startbit=12
 endbit=23
 
 // 108
-[varclansetting_108]
+[clan_event_time_3_varclan]
 type=bit
-basevar=varclansetting_58
+basevar=clan_event_main_time2_varclan
 startbit=0
 endbit=11
 
 // 109
-[varclansetting_109]
+[clan_event_time_4_varclan]
 type=bit
-basevar=varclansetting_58
+basevar=clan_event_main_time2_varclan
 startbit=12
 endbit=23
 
 // 110
-[varclansetting_110]
+[clan_event_time_5_varclan]
 type=bit
-basevar=varclansetting_59
+basevar=clan_event_main_time3_varclan
 startbit=0
 endbit=11
 
 // 111
-[varclansetting_111]
+[clan_event_time_6_varclan]
 type=bit
-basevar=varclansetting_59
+basevar=clan_event_main_time3_varclan
 startbit=12
 endbit=23
 
 // 112
-[varclansetting_112]
+[clan_event_time_7_varclan]
 type=bit
-basevar=varclansetting_60
+basevar=clan_event_main_time4_varclan
 startbit=0
 endbit=11
 
 // 113
-[varclansetting_113]
+[clan_event_time_8_varclan]
 type=bit
-basevar=varclansetting_60
+basevar=clan_event_main_time4_varclan
 startbit=12
 endbit=23
 
 // 114
-[varclansetting_114]
+[clan_event_specific_1_varclan]
 type=bit
-basevar=varclansetting_61
+basevar=clan_event_main_specific1_varclan
 startbit=0
 endbit=15
 
 // 115
-[varclansetting_115]
+[clan_event_specific_2_varclan]
 type=bit
-basevar=varclansetting_61
+basevar=clan_event_main_specific1_varclan
 startbit=16
 endbit=31
 
 // 116
-[varclansetting_116]
+[clan_event_specific_3_varclan]
 type=bit
-basevar=varclansetting_62
+basevar=clan_event_main_specific2_varclan
 startbit=0
 endbit=15
 
 // 117
-[varclansetting_117]
+[clan_event_specific_4_varclan]
 type=bit
-basevar=varclansetting_62
+basevar=clan_event_main_specific2_varclan
 startbit=16
 endbit=31
 
 // 118
-[varclansetting_118]
+[clan_event_specific_5_varclan]
 type=bit
-basevar=varclansetting_63
+basevar=clan_event_main_specific3_varclan
 startbit=0
 endbit=15
 
 // 119
-[varclansetting_119]
+[clan_event_specific_6_varclan]
 type=bit
-basevar=varclansetting_63
+basevar=clan_event_main_specific3_varclan
 startbit=16
 endbit=31
 
 // 120
-[varclansetting_120]
+[clan_event_specific_7_varclan]
 type=bit
-basevar=varclansetting_64
+basevar=clan_event_main_specific4_varclan
 startbit=0
 endbit=15
 
 // 121
-[varclansetting_121]
+[clan_event_specific_8_varclan]
 type=bit
-basevar=varclansetting_64
+basevar=clan_event_main_specific4_varclan
 startbit=16
 endbit=31
 
 // 122
-[varclansetting_122]
+[clan_event_qfc_1_varclan]
 type=clanforumqfc
 
 // 123
-[varclansetting_123]
+[clan_event_qfc_2_varclan]
 type=clanforumqfc
 
 // 124
-[varclansetting_124]
+[clan_event_qfc_3_varclan]
 type=clanforumqfc
 
 // 125
-[varclansetting_125]
+[clan_event_qfc_4_varclan]
 type=clanforumqfc
 
 // 126
-[varclansetting_126]
+[clan_event_qfc_5_varclan]
 type=clanforumqfc
 
 // 127
-[varclansetting_127]
+[clan_event_qfc_6_varclan]
 type=clanforumqfc
 
 // 128
-[varclansetting_128]
+[clan_event_qfc_7_varclan]
 type=clanforumqfc
 
 // 129
-[varclansetting_129]
+[clan_event_qfc_8_varclan]
 type=clanforumqfc
 
 // 130
-[varclansetting_130]
+[clan_event_vexillum_varclan]
 type=bit
-basevar=varclansetting_73
+basevar=clan_event_bits_varclan
 startbit=8
 endbit=11
 
 // 131
-[varclansetting_131]
+[clan_event_time_varclan]
 type=bit
-basevar=varclansetting_73
+basevar=clan_event_bits_varclan
 startbit=12
 endbit=12
 
 // 132
-[varclansetting_132]
+[clan_event_mandatory_1_varclan]
 type=bit
-basevar=varclansetting_73
+basevar=clan_event_bits_varclan
 startbit=13
 endbit=13
 
 // 133
-[varclansetting_133]
+[clan_event_mandatory_2_varclan]
 type=bit
-basevar=varclansetting_73
+basevar=clan_event_bits_varclan
 startbit=14
 endbit=14
 
 // 134
-[varclansetting_134]
+[clan_event_mandatory_3_varclan]
 type=bit
-basevar=varclansetting_73
+basevar=clan_event_bits_varclan
 startbit=15
 endbit=15
 
 // 135
-[varclansetting_135]
+[clan_event_mandatory_4_varclan]
 type=bit
-basevar=varclansetting_73
+basevar=clan_event_bits_varclan
 startbit=16
 endbit=16
 
 // 136
-[varclansetting_136]
+[clan_event_mandatory_5_varclan]
 type=bit
-basevar=varclansetting_73
+basevar=clan_event_bits_varclan
 startbit=17
 endbit=17
 
 // 137
-[varclansetting_137]
+[clan_event_mandatory_6_varclan]
 type=bit
-basevar=varclansetting_73
+basevar=clan_event_bits_varclan
 startbit=18
 endbit=18
 
 // 138
-[varclansetting_138]
+[clan_event_mandatory_7_varclan]
 type=bit
-basevar=varclansetting_73
+basevar=clan_event_bits_varclan
 startbit=19
 endbit=19
 
 // 139
-[varclansetting_139]
+[clan_event_mandatory_8_varclan]
 type=bit
-basevar=varclansetting_73
+basevar=clan_event_bits_varclan
 startbit=20
 endbit=20
 
 // 140
-[varclansetting_140]
+[clan_name_sanction_varclan]
 type=bit
-basevar=varclansetting_3
+basevar=clan_general_settings_varclan
 startbit=26
 endbit=26
 

@@ -4,7 +4,7 @@ if ($int0 ! 1) {
     return;
 }
 def_int $int5 = 0;
-while ($int5 < inv_size(ame_rewards)) {
+while ($int5 < inv_size(macro_certer)) {
     if (cc_find($component1, calc($int5 * 7)) = true) {
         if ($int5 = $int2) {
             cc_settrans(100);
@@ -14,11 +14,11 @@ while ($int5 < inv_size(ame_rewards)) {
     }
     $int5 = calc($int5 + 1);
 }
-if_settext("Confirm:<br><enum(int, string, enum_2238, $int2)>", $component4);
+if_settext($component4, "Confirm:<br><enum(int, string, enum_2238, $int2)>");
 cc_deleteall($component3);
 def_graphic $graphic6 = "wild_ditch_sign_button,0";
 $int5 = 0;
-while ($int5 < inv_size(ame_rewards)) {
+while ($int5 < inv_size(macro_certer)) {
     if ($int5 = $int2) {
         cc_create($component3, ^iftype_graphic, $int5);
         cc_setsize(90, 56, ^setsize_abs, ^setsize_abs);

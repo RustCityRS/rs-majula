@@ -1,11 +1,11 @@
 // 1704
 [proc,prayer_refresh_scrollbar]
 def_int $int0 = 0;
-if (%varplayerbit_6840 = 0) {
-    if (%varclient_1052 = 1) {
-        if (%varclient_181 = true) {
+if (%prayer_mode = 0) {
+    if (%prayer_stats_if_visible = 1) {
+        if (%prayer_custom_view_client = true) {
             cc_deleteall(prayer:scrollbar_layer);
-            if_setscrollpos(0, 0, prayer:prayer_and_glow_layer);
+            if_setscrollpos(prayer:prayer_and_glow_layer, 0, 0);
             $int0 = 1;
         } else if (if_getnextsubid(prayer:scrollbar_layer) = 0) {
             ~scrollbar_vertical(prayer:scrollbar_layer, prayer:prayer_and_glow_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
@@ -13,13 +13,13 @@ if (%varplayerbit_6840 = 0) {
         }
     } else if (if_getnextsubid(prayer:scrollbar_layer) ! 0) {
         cc_deleteall(prayer:scrollbar_layer);
-        if_setscrollpos(0, 0, prayer:prayer_and_glow_layer);
+        if_setscrollpos(prayer:prayer_and_glow_layer, 0, 0);
         $int0 = 1;
     }
 } else if (if_getnextsubid(prayer:scrollbar_layer) ! 0) {
     cc_deleteall(prayer:scrollbar_layer);
-    if_setscrollpos(0, 0, prayer:prayer_and_glow_layer);
-    if_setsize(16384, calc(19 + if_getheight(prayer:prayer_level_layer)), ^setsize_rel, ^setsize_minus, prayer:prayer_and_glow_layer);
+    if_setscrollpos(prayer:prayer_and_glow_layer, 0, 0);
+    if_setsize(prayer:prayer_and_glow_layer, 16384, calc(19 + if_getheight(prayer:prayer_level_layer)), ^setsize_rel, ^setsize_minus);
     $int0 = 1;
 }
 if ($int0 = 1) {

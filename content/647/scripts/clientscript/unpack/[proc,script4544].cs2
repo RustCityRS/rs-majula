@@ -6,14 +6,14 @@ if ($component8 = null) {
 }
 if ($int6 = 0 | $int6 = 1) {
     if (if_getwidth($component8) = $int4) {
-        if_setontimer("script4545(event_com, $int5, $int6, $component1, $graphic2, $int7)", $component8);
+        if_setontimer($component8, "script4545(event_com, $int5, $int6, $component1, $graphic2, $int7)");
     } else if (if_getwidth($component8) = $int5) {
-        if_setontimer("script4546(event_com, $int4, $int6, $component1, $graphic3, $int7)", $component8);
+        if_setontimer($component8, "script4546(event_com, $int4, $int6, $component1, $graphic3, $int7)");
     }
 } else if ($int6 = 2 | $int6 = 3) {
     if (if_getheight($component8) = $int4) {
-        if_setontimer("script4545(event_com, $int5, $int6, $component1, $graphic2, $int7)", $component8);
+        if_setontimer($component8, "script4545(event_com, $int5, $int6, $component1, $graphic2, $int7)");
     } else if (if_getheight($component8) = $int5) {
-        if_setontimer("script4546(event_com, $int4, $int6, $component1, $graphic3, $int7)", $component8);
+        if_setontimer($component8, "script4546(event_com, $int4, $int6, $component1, $graphic3, $int7)");
     }
 }

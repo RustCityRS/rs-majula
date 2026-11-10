@@ -170,7 +170,7 @@ text=Giving items to: Unknown
 textalignh=centre
 textshadow=yes
 colour=0xff981f
-onvartransmit=script141{offer_modified, other_offer_modified}
+onvartransmit=script141{traderemoved, traderemoved_other}
 
 // 805:16
 [accept_button]

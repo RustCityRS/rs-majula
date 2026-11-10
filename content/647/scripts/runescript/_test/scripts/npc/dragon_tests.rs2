@@ -12,7 +12,7 @@
 def_player_uid $uid = setup_player("test_player");
 p_telejump(0_50_50_40_30);
 stat_advance(hitpoints, 130344310);
-inv_setslot(worn, ^wearpos_lhand, anti_dragon_shield, 1);
+inv_setslot(worn, ^wearpos_lhand, antidragonbreathshield, 1);
 npc_add(movecoord(coord, 3, 0, 0), green_dragon, 100);
 def_int $i = 0;
 while ($i < 20) {
@@ -38,7 +38,7 @@ npc_add(movecoord(coord, 3, 0, 0), green_dragon, 100);
 def_int $i = 0;
 while ($i < 20) {
     %life_points = 990;
-    %prayer12 = ^true;
+    %varplayerbit_5954 = ^true;
     ~dragon_fire;
     test_tick(2);
     if_close;

@@ -1,9 +1,9 @@
 // 3277
 [clientscript,rand_map_reset]
-%varclient_1149 = 0;
-%varclient_1150 = 0;
-%varclient_1151 = 0;
-%varclient_1152 = 0;
+%rand_map_room_count = 0;
+%rand_map_wall_count = 0;
+%rand_map_door_count = 0;
+%rand_map_player_count = 0;
 cc_deleteall(rand_dungeon_map:room_layer);
 cc_deleteall(rand_dungeon_map:player_layer);
 cc_deleteall(rand_dungeon_map:door_layer);

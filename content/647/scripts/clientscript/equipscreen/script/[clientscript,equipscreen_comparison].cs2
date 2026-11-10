@@ -1,9 +1,9 @@
 // 2782
 [clientscript,equipscreen_comparison]
 if (string_length(%varclient_1840) <= 0) {
-    if_sethide(true, equip_screen2:popup);
-    if_sethide(true, inventory_wear2:popup);
-    if_sethide(true, bank_v2_side:popup);
+    if_sethide(equip_screen2:popup, true);
+    if_sethide(inventory_wear2:popup, true);
+    if_sethide(bank_v2_side:popup, true);
     return;
 }
 cc_deleteall(equip_screen2:popup_contents);
@@ -71,8 +71,8 @@ if ($int4 > 0) {
     cc_settext($string0);
     $int6 = calc($int6 + cc_getheight);
 }
-if_setsize(calc($int8 + 20), calc($int6 + 60), ^setsize_abs, ^setsize_abs, equip_screen2:popup_contents);
-if_settext(%varclient_1840, equip_screen2:comparison_title);
-if_sethide(false, equip_screen2:popup);
-if_sethide(false, inventory_wear2:popup);
-if_sethide(false, bank_v2_side:popup);
+if_setsize(equip_screen2:popup_contents, calc($int8 + 20), calc($int6 + 60), ^setsize_abs, ^setsize_abs);
+if_settext(equip_screen2:comparison_title, %varclient_1840);
+if_sethide(equip_screen2:popup, false);
+if_sethide(inventory_wear2:popup, false);
+if_sethide(bank_v2_side:popup, false);

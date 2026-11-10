@@ -1,7 +1,7 @@
 // 708
 [clientscript,sum1_overlay_init](component $component0)
-if (%varplayerbit_5032 < 80) {
-    if_setontimer("sum1_overlay_resize($component0)", $component0);
-} else if (%varplayerbit_5331 < 35) {
-    if_setontimer("sum1_overlay_resize($component0)", $component0);
+if (%sum1_quest < 80) {
+    if_setontimer($component0, "sum1_overlay_resize($component0)");
+} else if (%sum2_quest < 35) {
+    if_setontimer($component0, "sum1_overlay_resize($component0)");
 }

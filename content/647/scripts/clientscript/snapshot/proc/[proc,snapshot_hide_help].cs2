@@ -1,12 +1,12 @@
 // 231
 [proc,snapshot_hide_help]
-if_sethide(true, snapshot_main_v2:namelist_help_layer);
-if_sethide(true, snapshot_main_v2:offence_help_layer);
-if_sethide(true, snapshot_main_v2:honour_help_layer);
-if_sethide(true, snapshot_main_v2:respect_help_layer);
-if_sethide(true, snapshot_main_v2:security_help_layer);
-if_sethide(true, snapshot_main_v2:ignore_help_layer);
-if_sethide(true, snapshot_main_v2:offence_blackout_layer);
-if_sethide(true, snapshot_main_v2:name_blackout_layer);
-if_sethide(true, snapshot_main_v2:type_name_blackout_layer);
-if_sethide(true, snapshot_main_v2:ignore_blackout_layer);
+if_sethide(snapshot_main_v2:namelist_help_layer, true);
+if_sethide(snapshot_main_v2:offence_help_layer, true);
+if_sethide(snapshot_main_v2:honour_help_layer, true);
+if_sethide(snapshot_main_v2:respect_help_layer, true);
+if_sethide(snapshot_main_v2:security_help_layer, true);
+if_sethide(snapshot_main_v2:ignore_help_layer, true);
+if_sethide(snapshot_main_v2:offence_blackout_layer, true);
+if_sethide(snapshot_main_v2:name_blackout_layer, true);
+if_sethide(snapshot_main_v2:type_name_blackout_layer, true);
+if_sethide(snapshot_main_v2:ignore_blackout_layer, true);

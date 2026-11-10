@@ -1,108 +1,108 @@
 // 1288
 [clientscript,script1288]
-if_settext(tostring(%varplayerbit_861), forget_traintrack_puzzle1:1counter_l);
-if_settext(tostring(%varplayerbit_862), forget_traintrack_puzzle1:1counter_r);
-if (%varplayerbit_842 = 2) {
-    if_setmodel(model_8398, forget_traintrack_puzzle1:1track_al);
-    if_setmodel(model_8399, forget_traintrack_puzzle1:1track_ar);
-    if_setmodel(model_8430, forget_traintrack_puzzle1:1switch_a);
-} else if (%varplayerbit_842 = 1) {
-    if_setmodel(model_8397, forget_traintrack_puzzle1:1track_al);
-    if_setmodel(model_8400, forget_traintrack_puzzle1:1track_ar);
-    if_setmodel(model_8429, forget_traintrack_puzzle1:1switch_a);
+if_settext("forget_traintrack_puzzle1:1counter_l", tostring(%forget_num_left));
+if_settext("forget_traintrack_puzzle1:1counter_r", tostring(%forget_num_right));
+if (%forget_if1 = 2) {
+    if_setmodel("forget_traintrack_puzzle1:1track_al", model_8398);
+    if_setmodel("forget_traintrack_puzzle1:1track_ar", model_8399);
+    if_setmodel("forget_traintrack_puzzle1:1switch_a", model_8430);
+} else if (%forget_if1 = 1) {
+    if_setmodel("forget_traintrack_puzzle1:1track_al", model_8397);
+    if_setmodel("forget_traintrack_puzzle1:1track_ar", model_8400);
+    if_setmodel("forget_traintrack_puzzle1:1switch_a", model_8429);
 } else {
-    if_setmodel(null, forget_traintrack_puzzle1:1switch_a);
-    if_setmodel(model_8398, forget_traintrack_puzzle1:1track_al);
-    if_setmodel(model_8400, forget_traintrack_puzzle1:1track_ar);
+    if_setmodel("forget_traintrack_puzzle1:1switch_a", null);
+    if_setmodel("forget_traintrack_puzzle1:1track_al", model_8398);
+    if_setmodel("forget_traintrack_puzzle1:1track_ar", model_8400);
 }
-if (%varplayerbit_843 = 2) {
-    if_setmodel(model_8402, forget_traintrack_puzzle1:1track_bl);
-    if_setmodel(model_8403, forget_traintrack_puzzle1:1track_br);
-    if_setmodel(model_8430, forget_traintrack_puzzle1:1switch_b);
-} else if (%varplayerbit_843 = 1) {
-    if_setmodel(model_8401, forget_traintrack_puzzle1:1track_bl);
-    if_setmodel(model_8404, forget_traintrack_puzzle1:1track_br);
-    if_setmodel(model_8429, forget_traintrack_puzzle1:1switch_b);
+if (%forget_if2 = 2) {
+    if_setmodel("forget_traintrack_puzzle1:1track_bl", model_8402);
+    if_setmodel("forget_traintrack_puzzle1:1track_br", model_8403);
+    if_setmodel("forget_traintrack_puzzle1:1switch_b", model_8430);
+} else if (%forget_if2 = 1) {
+    if_setmodel("forget_traintrack_puzzle1:1track_bl", model_8401);
+    if_setmodel("forget_traintrack_puzzle1:1track_br", model_8404);
+    if_setmodel("forget_traintrack_puzzle1:1switch_b", model_8429);
 } else {
-    if_setmodel(null, forget_traintrack_puzzle1:1switch_b);
-    if_setmodel(model_8402, forget_traintrack_puzzle1:1track_bl);
-    if_setmodel(model_8404, forget_traintrack_puzzle1:1track_br);
+    if_setmodel("forget_traintrack_puzzle1:1switch_b", null);
+    if_setmodel("forget_traintrack_puzzle1:1track_bl", model_8402);
+    if_setmodel("forget_traintrack_puzzle1:1track_br", model_8404);
 }
-if (%varplayerbit_844 = 2) {
-    if_setmodel(model_8406, forget_traintrack_puzzle1:1track_cl);
-    if_setmodel(model_8407, forget_traintrack_puzzle1:1track_cr);
-    if_setmodel(model_8430, forget_traintrack_puzzle1:1switch_c);
-} else if (%varplayerbit_844 = 1) {
-    if_setmodel(model_8405, forget_traintrack_puzzle1:1track_cl);
-    if_setmodel(model_8408, forget_traintrack_puzzle1:1track_cr);
-    if_setmodel(model_8429, forget_traintrack_puzzle1:1switch_c);
+if (%forget_if3 = 2) {
+    if_setmodel("forget_traintrack_puzzle1:1track_cl", model_8406);
+    if_setmodel("forget_traintrack_puzzle1:1track_cr", model_8407);
+    if_setmodel("forget_traintrack_puzzle1:1switch_c", model_8430);
+} else if (%forget_if3 = 1) {
+    if_setmodel("forget_traintrack_puzzle1:1track_cl", model_8405);
+    if_setmodel("forget_traintrack_puzzle1:1track_cr", model_8408);
+    if_setmodel("forget_traintrack_puzzle1:1switch_c", model_8429);
 } else {
-    if_setmodel(null, forget_traintrack_puzzle1:1switch_c);
-    if_setmodel(model_8406, forget_traintrack_puzzle1:1track_cl);
-    if_setmodel(model_8408, forget_traintrack_puzzle1:1track_cr);
+    if_setmodel("forget_traintrack_puzzle1:1switch_c", null);
+    if_setmodel("forget_traintrack_puzzle1:1track_cl", model_8406);
+    if_setmodel("forget_traintrack_puzzle1:1track_cr", model_8408);
 }
-if (%varplayerbit_845 = 2) {
-    if_setmodel(model_8410, forget_traintrack_puzzle1:1track_dl);
-    if_setmodel(model_8411, forget_traintrack_puzzle1:1track_dr);
-    if_setmodel(model_8430, forget_traintrack_puzzle1:1switch_d);
-} else if (%varplayerbit_845 = 1) {
-    if_setmodel(model_8409, forget_traintrack_puzzle1:1track_dl);
-    if_setmodel(model_8412, forget_traintrack_puzzle1:1track_dr);
-    if_setmodel(model_8429, forget_traintrack_puzzle1:1switch_d);
+if (%forget_if4 = 2) {
+    if_setmodel("forget_traintrack_puzzle1:1track_dl", model_8410);
+    if_setmodel("forget_traintrack_puzzle1:1track_dr", model_8411);
+    if_setmodel("forget_traintrack_puzzle1:1switch_d", model_8430);
+} else if (%forget_if4 = 1) {
+    if_setmodel("forget_traintrack_puzzle1:1track_dl", model_8409);
+    if_setmodel("forget_traintrack_puzzle1:1track_dr", model_8412);
+    if_setmodel("forget_traintrack_puzzle1:1switch_d", model_8429);
 } else {
-    if_setmodel(null, forget_traintrack_puzzle1:1switch_d);
-    if_setmodel(model_8410, forget_traintrack_puzzle1:1track_dl);
-    if_setmodel(model_8412, forget_traintrack_puzzle1:1track_dr);
+    if_setmodel("forget_traintrack_puzzle1:1switch_d", null);
+    if_setmodel("forget_traintrack_puzzle1:1track_dl", model_8410);
+    if_setmodel("forget_traintrack_puzzle1:1track_dr", model_8412);
 }
-if (%varplayerbit_846 = 2) {
-    if_setmodel(model_8414, forget_traintrack_puzzle1:1track_el);
-    if_setmodel(model_8415, forget_traintrack_puzzle1:1track_er);
-    if_setmodel(model_8430, forget_traintrack_puzzle1:1switch_e);
-} else if (%varplayerbit_846 = 1) {
-    if_setmodel(model_8413, forget_traintrack_puzzle1:1track_el);
-    if_setmodel(model_8416, forget_traintrack_puzzle1:1track_er);
-    if_setmodel(model_8429, forget_traintrack_puzzle1:1switch_e);
+if (%forget_if5 = 2) {
+    if_setmodel("forget_traintrack_puzzle1:1track_el", model_8414);
+    if_setmodel("forget_traintrack_puzzle1:1track_er", model_8415);
+    if_setmodel("forget_traintrack_puzzle1:1switch_e", model_8430);
+} else if (%forget_if5 = 1) {
+    if_setmodel("forget_traintrack_puzzle1:1track_el", model_8413);
+    if_setmodel("forget_traintrack_puzzle1:1track_er", model_8416);
+    if_setmodel("forget_traintrack_puzzle1:1switch_e", model_8429);
 } else {
-    if_setmodel(null, forget_traintrack_puzzle1:1switch_e);
-    if_setmodel(model_8414, forget_traintrack_puzzle1:1track_el);
-    if_setmodel(model_8416, forget_traintrack_puzzle1:1track_er);
+    if_setmodel("forget_traintrack_puzzle1:1switch_e", null);
+    if_setmodel("forget_traintrack_puzzle1:1track_el", model_8414);
+    if_setmodel("forget_traintrack_puzzle1:1track_er", model_8416);
 }
-if (%varplayerbit_847 = 2) {
-    if_setmodel(model_8418, forget_traintrack_puzzle1:1track_fl);
-    if_setmodel(model_8419, forget_traintrack_puzzle1:1track_fr);
-    if_setmodel(model_8430, forget_traintrack_puzzle1:1switch_f);
-} else if (%varplayerbit_847 = 1) {
-    if_setmodel(model_8417, forget_traintrack_puzzle1:1track_fl);
-    if_setmodel(model_8420, forget_traintrack_puzzle1:1track_fr);
-    if_setmodel(model_8429, forget_traintrack_puzzle1:1switch_f);
+if (%forget_if6 = 2) {
+    if_setmodel("forget_traintrack_puzzle1:1track_fl", model_8418);
+    if_setmodel("forget_traintrack_puzzle1:1track_fr", model_8419);
+    if_setmodel("forget_traintrack_puzzle1:1switch_f", model_8430);
+} else if (%forget_if6 = 1) {
+    if_setmodel("forget_traintrack_puzzle1:1track_fl", model_8417);
+    if_setmodel("forget_traintrack_puzzle1:1track_fr", model_8420);
+    if_setmodel("forget_traintrack_puzzle1:1switch_f", model_8429);
 } else {
-    if_setmodel(null, forget_traintrack_puzzle1:1switch_f);
-    if_setmodel(model_8418, forget_traintrack_puzzle1:1track_fl);
-    if_setmodel(model_8420, forget_traintrack_puzzle1:1track_fr);
+    if_setmodel("forget_traintrack_puzzle1:1switch_f", null);
+    if_setmodel("forget_traintrack_puzzle1:1track_fl", model_8418);
+    if_setmodel("forget_traintrack_puzzle1:1track_fr", model_8420);
 }
-if (%varplayerbit_848 = 2) {
-    if_setmodel(model_8422, forget_traintrack_puzzle1:1track_gl);
-    if_setmodel(model_8423, forget_traintrack_puzzle1:1track_gr);
-    if_setmodel(model_8430, forget_traintrack_puzzle1:1switch_g);
-} else if (%varplayerbit_848 = 1) {
-    if_setmodel(model_8421, forget_traintrack_puzzle1:1track_gl);
-    if_setmodel(model_8424, forget_traintrack_puzzle1:1track_gr);
-    if_setmodel(model_8429, forget_traintrack_puzzle1:1switch_g);
+if (%forget_if7 = 2) {
+    if_setmodel("forget_traintrack_puzzle1:1track_gl", model_8422);
+    if_setmodel("forget_traintrack_puzzle1:1track_gr", model_8423);
+    if_setmodel("forget_traintrack_puzzle1:1switch_g", model_8430);
+} else if (%forget_if7 = 1) {
+    if_setmodel("forget_traintrack_puzzle1:1track_gl", model_8421);
+    if_setmodel("forget_traintrack_puzzle1:1track_gr", model_8424);
+    if_setmodel("forget_traintrack_puzzle1:1switch_g", model_8429);
 } else {
-    if_setmodel(null, forget_traintrack_puzzle1:1switch_g);
-    if_setmodel(model_8422, forget_traintrack_puzzle1:1track_gl);
-    if_setmodel(model_8424, forget_traintrack_puzzle1:1track_gr);
+    if_setmodel("forget_traintrack_puzzle1:1switch_g", null);
+    if_setmodel("forget_traintrack_puzzle1:1track_gl", model_8422);
+    if_setmodel("forget_traintrack_puzzle1:1track_gr", model_8424);
 }
-if (%varplayerbit_849 = 2) {
-    if_setmodel(model_8426, forget_traintrack_puzzle1:1track_hl);
-    if_setmodel(model_8427, forget_traintrack_puzzle1:1track_hr);
-    if_setmodel(model_8430, forget_traintrack_puzzle1:1switch_h);
-} else if (%varplayerbit_849 = 1) {
-    if_setmodel(model_8425, forget_traintrack_puzzle1:1track_hl);
-    if_setmodel(model_8428, forget_traintrack_puzzle1:1track_hr);
-    if_setmodel(model_8429, forget_traintrack_puzzle1:1switch_h);
+if (%forget_if8 = 2) {
+    if_setmodel("forget_traintrack_puzzle1:1track_hl", model_8426);
+    if_setmodel("forget_traintrack_puzzle1:1track_hr", model_8427);
+    if_setmodel("forget_traintrack_puzzle1:1switch_h", model_8430);
+} else if (%forget_if8 = 1) {
+    if_setmodel("forget_traintrack_puzzle1:1track_hl", model_8425);
+    if_setmodel("forget_traintrack_puzzle1:1track_hr", model_8428);
+    if_setmodel("forget_traintrack_puzzle1:1switch_h", model_8429);
 } else {
-    if_setmodel(null, forget_traintrack_puzzle1:1switch_h);
-    if_setmodel(model_8426, forget_traintrack_puzzle1:1track_hl);
-    if_setmodel(model_8428, forget_traintrack_puzzle1:1track_hr);
+    if_setmodel("forget_traintrack_puzzle1:1switch_h", null);
+    if_setmodel("forget_traintrack_puzzle1:1track_hl", model_8426);
+    if_setmodel("forget_traintrack_puzzle1:1track_hr", model_8428);
 }

@@ -1,10 +1,10 @@
 // A label, so 2011's re-issues share it (as rat.rs2's).
-[ai_queue3,farmer] @farmer_drop_table;
+[ai_queue3,farmer1] @farmer_drop_table;
 
 // 2011's Lumbridge farmers 1757 and 1758 (cache 786: "Farmer", level 7, as
 // 289's) are 289's farmer (npc_clones_2011.npc), so its table.
-[ai_queue3,farmer_1757] @farmer_drop_table;
-[ai_queue3,farmer_1758] @farmer_drop_table;
+[ai_queue3,farmer2] @farmer_drop_table;
+[ai_queue3,farmer3] @farmer_drop_table;
 
 [label,farmer_drop_table]
 gosub(npc_death);
@@ -26,13 +26,13 @@ if ($random < 2) {
 } else if ($random < 6) {
     obj_add(npc_coord, bronze_arrow, 7, ^lootdrop_duration);
 } else if ($random < 8) {
-    obj_add(npc_coord, earth_rune, 4, ^lootdrop_duration);
+    obj_add(npc_coord, earthrune, 4, ^lootdrop_duration);
 } else if ($random < 10) {
-    obj_add(npc_coord, fire_rune, 6, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 6, ^lootdrop_duration);
 } else if ($random < 12) {
-    obj_add(npc_coord, mind_rune, 9, ^lootdrop_duration);
+    obj_add(npc_coord, mindrune, 9, ^lootdrop_duration);
 } else if ($random < 13) {
-    obj_add(npc_coord, chaos_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 2, ^lootdrop_duration);
 } else if ($random < 24) {
     obj_add(npc_coord, ~randomherb, ^lootdrop_duration);
 } else if ($random < 62) {

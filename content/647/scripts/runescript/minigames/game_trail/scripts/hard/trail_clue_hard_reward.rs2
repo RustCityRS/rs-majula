@@ -29,9 +29,9 @@ switch_int ($random) {
     case 0 : inv_add(trail_rewardinv, coins, calc(1000 + random(4001)));
     case 1 : inv_add(trail_rewardinv, cert_lobster, calc(12 + random(4)));
     case 2 : inv_add(trail_rewardinv, cert_shark, calc(12 + random(4)));
-    case 3 : inv_add(trail_rewardinv, nature_rune, calc(30 + random(21)));
-    case 4 : inv_add(trail_rewardinv, law_rune, calc(30 + random(21)));
-    case 5 : inv_add(trail_rewardinv, blood_rune, calc(20 + random(11)));
+    case 3 : inv_add(trail_rewardinv, naturerune, calc(30 + random(21)));
+    case 4 : inv_add(trail_rewardinv, lawrune, calc(30 + random(21)));
+    case 5 : inv_add(trail_rewardinv, bloodrune, calc(20 + random(11)));
     case 6 : inv_add(trail_rewardinv, rune_full_helm, 1);
     case 7 : inv_add(trail_rewardinv, rune_platebody, 1);
     case 8 : inv_add(trail_rewardinv, rune_platelegs, 1);
@@ -40,10 +40,10 @@ switch_int ($random) {
     case 11 : inv_add(trail_rewardinv, rune_longsword, 1);
     case 12 : inv_add(trail_rewardinv, rune_dagger, 1);
     case 13 : inv_add(trail_rewardinv, rune_battleaxe, 1);
-    case 14 : inv_add(trail_rewardinv, rune_hatchet, 1);
+    case 14 : inv_add(trail_rewardinv, rune_axe, 1);
     case 15 : inv_add(trail_rewardinv, rune_pickaxe, 1);
-    case 16 : inv_add(trail_rewardinv, black_d_hide_body, 1);
-    case 17 : inv_add(trail_rewardinv, black_d_hide_chaps, 1);
+    case 16 : inv_add(trail_rewardinv, black_dragonhide_body, 1);
+    case 17 : inv_add(trail_rewardinv, black_dragonhide_chaps, 1);
     case 18 : inv_add(trail_rewardinv, magic_shortbow, 1);
     case 19 : inv_add(trail_rewardinv, magic_longbow, 1);
     case 20 : inv_add(trail_rewardinv, ~trail_reward_godpage);
@@ -53,37 +53,37 @@ switch_int ($random) {
 def_int $random = random(31);
 
 switch_int ($random) {
-    case 0 : inv_add(trail_rewardinv, robin_hood_hat, 1);
-    case 1 : inv_add(trail_rewardinv, rune_full_helm__t, 1);
-    case 2 : inv_add(trail_rewardinv, rune_platebody__t, 1);
-    case 3 : inv_add(trail_rewardinv, rune_platelegs__t, 1);
-    case 4 : inv_add(trail_rewardinv, rune_kiteshield__t, 1);
-    case 5 : inv_add(trail_rewardinv, rune_full_helm__g, 1);
-    case 6 : inv_add(trail_rewardinv, rune_platebody__g, 1);
-    case 7 : inv_add(trail_rewardinv, rune_platelegs__g, 1);
-    case 8 : inv_add(trail_rewardinv, rune_kiteshield__g, 1);
-    case 9 : inv_add(trail_rewardinv, pirate_s_hat, 1);
-    case 10 : inv_add(trail_rewardinv, tan_cavalier, 1);
-    case 11 : inv_add(trail_rewardinv, dark_cavalier, 1);
-    case 12 : inv_add(trail_rewardinv, black_cavalier, 1);
-    case 13 : inv_add(trail_rewardinv, zamorak_full_helm, 1);
-    case 14 : inv_add(trail_rewardinv, zamorak_platebody, 1);
-    case 15 : inv_add(trail_rewardinv, zamorak_platelegs, 1);
-    case 16 : inv_add(trail_rewardinv, zamorak_kiteshield, 1);
-    case 17 : inv_add(trail_rewardinv, guthix_full_helm, 1);
-    case 18 : inv_add(trail_rewardinv, guthix_platebody, 1);
-    case 19 : inv_add(trail_rewardinv, guthix_platelegs, 1);
-    case 20 : inv_add(trail_rewardinv, guthix_kiteshield, 1);
-    case 21 : inv_add(trail_rewardinv, saradomin_full_helm, 1);
-    case 22 : inv_add(trail_rewardinv, saradomin_platebody, 1);
-    case 23 : inv_add(trail_rewardinv, saradomin_platelegs, 1);
-    case 24 : inv_add(trail_rewardinv, saradomin_kiteshield, 1);
+    case 0 : inv_add(trail_rewardinv, robinhoodhat, 1);
+    case 1 : inv_add(trail_rewardinv, rune_full_helm_trim, 1);
+    case 2 : inv_add(trail_rewardinv, rune_platebody_trim, 1);
+    case 3 : inv_add(trail_rewardinv, rune_platelegs_trim, 1);
+    case 4 : inv_add(trail_rewardinv, rune_kiteshield_trim, 1);
+    case 5 : inv_add(trail_rewardinv, rune_full_helm_gold, 1);
+    case 6 : inv_add(trail_rewardinv, rune_platebody_gold, 1);
+    case 7 : inv_add(trail_rewardinv, rune_platelegs_gold, 1);
+    case 8 : inv_add(trail_rewardinv, rune_kiteshield_gold, 1);
+    case 9 : inv_add(trail_rewardinv, piratehat, 1);
+    case 10 : inv_add(trail_rewardinv, cavalier_brown, 1);
+    case 11 : inv_add(trail_rewardinv, cavalier_dark, 1);
+    case 12 : inv_add(trail_rewardinv, cavalier_black, 1);
+    case 13 : inv_add(trail_rewardinv, rune_full_helm_zamorak, 1);
+    case 14 : inv_add(trail_rewardinv, rune_platebody_zamorak, 1);
+    case 15 : inv_add(trail_rewardinv, rune_platelegs_zamorak, 1);
+    case 16 : inv_add(trail_rewardinv, rune_kiteshield_zamorak, 1);
+    case 17 : inv_add(trail_rewardinv, rune_full_helm_guthix, 1);
+    case 18 : inv_add(trail_rewardinv, rune_platebody_guthix, 1);
+    case 19 : inv_add(trail_rewardinv, rune_platelegs_guthix, 1);
+    case 20 : inv_add(trail_rewardinv, rune_kiteshield_guthix, 1);
+    case 21 : inv_add(trail_rewardinv, rune_full_helm_saradomin, 1);
+    case 22 : inv_add(trail_rewardinv, rune_platebody_saradomin, 1);
+    case 23 : inv_add(trail_rewardinv, rune_platelegs_saradomin, 1);
+    case 24 : inv_add(trail_rewardinv, rune_kiteshield_saradomin, 1);
     case 25 : ~trail_clue_hard_ultrarare;
-    case 26 : inv_add(trail_rewardinv, guthix_plateskirt, 1);
-    case 27 : inv_add(trail_rewardinv, saradomin_plateskirt, 1);
-    case 28 : inv_add(trail_rewardinv, zamorak_plateskirt, 1);
-    case 29 : inv_add(trail_rewardinv, rune_plateskirt__t, 1);
-    case 30 : inv_add(trail_rewardinv, rune_plateskirt__g, 1);
+    case 26 : inv_add(trail_rewardinv, rune_plateskirt_guthix, 1);
+    case 27 : inv_add(trail_rewardinv, rune_plateskirt_saradomin, 1);
+    case 28 : inv_add(trail_rewardinv, rune_plateskirt_zamorak, 1);
+    case 29 : inv_add(trail_rewardinv, rune_plateskirt_trim, 1);
+    case 30 : inv_add(trail_rewardinv, rune_plateskirt_gold, 1);
 }
 
 [proc,trail_clue_hard_ultrarare]()
@@ -104,10 +104,10 @@ if($rand = 0) { // junk table
     $rand = random(5);
 
     switch_int ($rand) {
-        case 0 : inv_add(trail_rewardinv, gilded_platebody, 1);
-        case 1 : inv_add(trail_rewardinv, gilded_platelegs, 1);
-        case 2 : inv_add(trail_rewardinv, gilded_full_helm, 1);
-        case 3 : inv_add(trail_rewardinv, gilded_plateskirt, 1);
-        case 4 : inv_add(trail_rewardinv, gilded_kiteshield, 1);
+        case 0 : inv_add(trail_rewardinv, rune_platebody_goldplate, 1);
+        case 1 : inv_add(trail_rewardinv, rune_platelegs_goldplate, 1);
+        case 2 : inv_add(trail_rewardinv, rune_full_helm_goldplate, 1);
+        case 3 : inv_add(trail_rewardinv, rune_plateskirt_goldplate, 1);
+        case 4 : inv_add(trail_rewardinv, rune_kiteshield_goldplate, 1);
     }
 }

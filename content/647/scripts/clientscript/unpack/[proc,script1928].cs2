@@ -2,14 +2,14 @@
 [proc,script1928]
 def_int $int0 = 1;
 while ($int0 <= 6) {
-    if ($int0 = %varclient_544) {
-        if_sethide(false, enum(int, component, enum_2031, $int0));
-        if_setcolour(^white, enum(int, component, enum_2030, $int0));
-        if_setcolour(^white, enum(int, component, enum_2029, $int0));
+    if ($int0 = %sc_client_selected_reward) {
+        if_sethide(enum(int, component, enum_2031, $int0), false);
+        if_setcolour(enum(int, component, enum_2030, $int0), ^white);
+        if_setcolour(enum(int, component, enum_2029, $int0), ^white);
     } else {
-        if_sethide(true, enum(int, component, enum_2031, $int0));
-        if_setcolour(0xc8aa64, enum(int, component, enum_2030, $int0));
-        if_setcolour(0xc8aa64, enum(int, component, enum_2029, $int0));
+        if_sethide(enum(int, component, enum_2031, $int0), true);
+        if_setcolour(enum(int, component, enum_2030, $int0), 0xc8aa64);
+        if_setcolour(enum(int, component, enum_2029, $int0), 0xc8aa64);
     }
     $int0 = calc($int0 + 1);
 }

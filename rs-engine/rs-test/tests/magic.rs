@@ -128,7 +128,7 @@ fn xp(engine: &Engine, pid: u16, stat: usize) -> i32 {
 #[test]
 fn varrock_teleport_takes_its_runes_and_lands_in_varrock() {
     runner::on_loaded_engine(|engine| {
-        let runes = [("fire_rune", 1), ("air_rune", 3), ("law_rune", 1)];
+        let runes = [("firerune", 1), ("airrune", 3), ("lawrune", 1)];
         let mut client = caster(engine, "teleporter", 25, &runes);
         let before = xp(engine, client.pid, MAGIC);
         cast(&mut client, VARROCK_TELEPORT);
@@ -153,7 +153,7 @@ fn varrock_teleport_takes_its_runes_and_lands_in_varrock() {
 #[test]
 fn a_spell_above_the_level_is_refused() {
     runner::on_loaded_engine(|engine| {
-        let runes = [("fire_rune", 1), ("air_rune", 3), ("law_rune", 1)];
+        let runes = [("firerune", 1), ("airrune", 3), ("lawrune", 1)];
         let mut client = caster(engine, "lowmagic", 1, &runes);
         cast(&mut client, VARROCK_TELEPORT);
         ticks(engine, &mut client, 4);
@@ -163,7 +163,7 @@ fn a_spell_above_the_level_is_refused() {
         );
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!((player.pathing.coord.x(), player.pathing.coord.z()), TILE);
-        assert_eq!(count(engine, client.pid, id(engine, "law_rune")), 1);
+        assert_eq!(count(engine, client.pid, id(engine, "lawrune")), 1);
     });
 }
 
@@ -171,7 +171,7 @@ fn a_spell_above_the_level_is_refused() {
 #[test]
 fn a_spell_without_its_runes_is_refused() {
     runner::on_loaded_engine(|engine| {
-        let mut client = caster(engine, "noruns", 25, &[("air_rune", 3)]);
+        let mut client = caster(engine, "noruns", 25, &[("airrune", 3)]);
         cast(&mut client, VARROCK_TELEPORT);
         ticks(engine, &mut client, 4);
         assert_eq!(
@@ -186,7 +186,7 @@ fn a_spell_without_its_runes_is_refused() {
 #[test]
 fn high_alchemy_turns_an_item_to_coins() {
     runner::on_loaded_engine(|engine| {
-        let items = [("nature_rune", 1), ("fire_rune", 5), ("gold_bar", 1)];
+        let items = [("naturerune", 1), ("firerune", 5), ("gold_bar", 1)];
         let mut client = caster(engine, "alcher", 55, &items);
         let gold_bar = id(engine, "gold_bar");
         let cost = engine.cache.objs.get_by_id(gold_bar).unwrap().cost;
@@ -201,8 +201,8 @@ fn high_alchemy_turns_an_item_to_coins() {
             count(engine, client.pid, id(engine, "coins")) as i32,
             (cost * 6 / 10).max(1)
         );
-        assert_eq!(count(engine, client.pid, id(engine, "nature_rune")), 0);
-        assert_eq!(count(engine, client.pid, id(engine, "fire_rune")), 0);
+        assert_eq!(count(engine, client.pid, id(engine, "naturerune")), 0);
+        assert_eq!(count(engine, client.pid, id(engine, "firerune")), 0);
         assert_eq!(xp(engine, client.pid, MAGIC) - before, 650);
     });
 }
@@ -211,7 +211,7 @@ fn high_alchemy_turns_an_item_to_coins() {
 #[test]
 fn superheat_smelts_iron_ore() {
     runner::on_loaded_engine(|engine| {
-        let items = [("nature_rune", 1), ("fire_rune", 4), ("iron_ore", 1)];
+        let items = [("naturerune", 1), ("firerune", 4), ("iron_ore", 1)];
         let mut client = caster(engine, "superheater", 43, &items);
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.stats.base_levels[SMITHING] = 15;
@@ -222,7 +222,7 @@ fn superheat_smelts_iron_ore() {
         let said = calls_for("mes");
         assert_eq!(count(engine, client.pid, iron_ore), 0, "{said:?}");
         assert_eq!(count(engine, client.pid, id(engine, "iron_bar")), 1);
-        assert_eq!(count(engine, client.pid, id(engine, "nature_rune")), 0);
+        assert_eq!(count(engine, client.pid, id(engine, "naturerune")), 0);
     });
 }
 
@@ -231,9 +231,9 @@ fn superheat_smelts_iron_ore() {
 fn bones_to_bananas_turns_every_bone() {
     runner::on_loaded_engine(|engine| {
         let items = [
-            ("earth_rune", 2),
-            ("water_rune", 2),
-            ("nature_rune", 1),
+            ("earthrune", 2),
+            ("waterrune", 2),
+            ("naturerune", 1),
             ("bones", 1),
             ("bones", 1),
             ("bones", 1),
@@ -255,7 +255,7 @@ fn bones_to_bananas_turns_every_bone() {
 #[test]
 fn lvl_1_enchant_makes_a_ring_of_recoil() {
     runner::on_loaded_engine(|engine| {
-        let items = [("water_rune", 1), ("cosmic_rune", 1), ("sapphire_ring", 1)];
+        let items = [("waterrune", 1), ("cosmicrune", 1), ("sapphire_ring", 1)];
         let mut client = caster(engine, "enchanter", 7, &items);
         let ring = id(engine, "sapphire_ring");
         cast_on(&mut client, LVL_1_ENCHANT, 2, ring);
@@ -270,8 +270,8 @@ fn lvl_1_enchant_makes_a_ring_of_recoil() {
 #[test]
 fn telekinetic_grab_refuses_the_finished_god_books() {
     runner::on_loaded_engine(|engine| {
-        for book in ["unholy_book", "book_of_balance"] {
-            let runes = [("law_rune", 1), ("air_rune", 1)];
+        for book in ["zamorakbook_complete", "guthixbook_complete"] {
+            let runes = [("lawrune", 1), ("airrune", 1)];
             let mut client = caster(engine, &format!("grab{}", book.len()), 99, &runes);
             let obj = id(engine, book);
             let (x, z) = (TILE.0 + 3, TILE.1);

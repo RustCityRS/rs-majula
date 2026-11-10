@@ -3,10 +3,10 @@
 def_int $int2 = calc(clientclock - $int1);
 def_int $int3 = 0;
 if ($int2 > 70) {
-    if_sethide(true, toplevel_fullscreen:xpsplat);
-    if_setontimer(null, toplevel_fullscreen:xpbaselayer);
+    if_sethide(toplevel_fullscreen:xpsplat, true);
+    if_setontimer(toplevel_fullscreen:xpbaselayer, null);
     return;
 }
 $int3 = min(70, calc($int2 * 2));
-if_setposition(7, $int3, ^setpos_abs_left, ^setpos_abs_top, toplevel_fullscreen:xpsplat);
-if_sethide(false, toplevel_fullscreen:xpsplat);
+if_setposition(toplevel_fullscreen:xpsplat, 7, $int3, ^setpos_abs_left, ^setpos_abs_top);
+if_sethide(toplevel_fullscreen:xpsplat, false);

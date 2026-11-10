@@ -1,4 +1,4 @@
 // 2381
 [clientscript,link_rollover](component $component0, int $rgb1, string $string0)
-if_settext($string0, $component0);
-if_setcolour($rgb1, $component0);
+if_settext($component0, $string0);
+if_setcolour($component0, $rgb1);

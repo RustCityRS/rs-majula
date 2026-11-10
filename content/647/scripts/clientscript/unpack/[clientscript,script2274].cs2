@@ -48,19 +48,19 @@ def_int $int16 = calc((190 - $int15 * 35) / ($int15 + 1));
 cc_create($component1, ^iftype_graphic, 5);
 cc_setposition($int16, calc($int14 + 2 + $int11 + $int12), ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(35, 32, ^setsize_abs, ^setsize_abs);
-cc_setobject(gatestone, -1);
+cc_setobject(rand_gate_stone, -1);
 cc_create($component1, ^iftype_text, 6);
 cc_setposition($int16, calc($int14 + 2 + $int11 + $int12 + 32), ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(35, 14, ^setsize_abs, ^setsize_abs);
 cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 cc_settextfont(p11_full);
-if (%varplayer_1795 ! -1) {
+if (%rand_gate_stone_coord ! -1) {
     cc_setcolour(^green);
 } else {
     cc_setcolour(^red);
 }
 cc_settextshadow(false);
-if (%varplayer_1795 ! -1) {
+if (%rand_gate_stone_coord ! -1) {
     cc_settext("1/1");
 } else {
     cc_settext("0/1");

@@ -931,7 +931,7 @@ param=param_1153,"conq_command_icon,0"
 param=param_1154,75
 param=param_1155,5
 param=param_1156,spotanim_2791
-param=param_1157,cursor_160
+param=param_1157,conq_cursor_battle_cry
 
 // 295
 [struct_295]
@@ -975,7 +975,7 @@ param=param_1153,"conq_command_icon,1"
 param=param_1154,75
 param=param_1155,5
 param=param_1156,spotanim_2791
-param=param_1157,cursor_159
+param=param_1157,conq_cursor_stoicism
 
 // 300
 [struct_300]
@@ -986,7 +986,7 @@ param=param_1153,"conq_command_icon,2"
 param=param_1154,150
 param=param_1155,4
 param=param_1156,spotanim_2791
-param=param_1157,cursor_161
+param=param_1157,conq_cursor_regenerate
 
 // 301
 [struct_301]
@@ -997,7 +997,7 @@ param=param_1153,"conq_command_icon,3"
 param=param_1154,200
 param=param_1155,2
 param=param_1156,spotanim_2787
-param=param_1157,cursor_162
+param=param_1157,conq_cursor_barrage
 
 // 302
 [struct_302]
@@ -1033,102 +1033,102 @@ param=param_1153,"conq_command_icon,8"
 param=param_1154,75
 param=param_1155,5
 param=param_1156,spotanim_2791
-param=param_1157,cursor_163
+param=param_1157,conq_cursor_bloodlust
 
 // 306
 [struct_306]
-param=param_813,construction_guide
+param=param_813,poh_guide_book
 param=param_923,null
 param=param_924,Guide to Construction
 param=param_925,A helpful book about how to add rooms and furniture to your house.
 
 // 307
 [struct_307]
-param=param_813,game_book
+param=param_813,poh_games_book
 param=param_923,null
 param=param_924,Party Pete's Bumper Book of Games
 param=param_925,Instructions for a variety of party games you can play in your house.
 
 // 308
 [struct_308]
-param=param_813,diary
+param=param_813,witches_diary
 param=param_923,struct_620
 param=param_924,Witch's Diary
 param=param_925,The diary of Nora T. Hagg, a witch who lives in Taverley.
 
 // 309
 [struct_309]
-param=param_813,instruction_manual
+param=param_813,mcannonbook
 param=param_923,struct_545
 param=param_924,Dwarf Multicannon Manual
 param=param_925,Instructions for the operation of the multicannon.
 
 // 310
 [struct_310]
-param=param_813,book_on_chemicals
+param=param_813,digsitebook
 param=param_923,struct_543
 param=param_924,Volatile chemicals
 param=param_925,The recipe for an explosive compound, found in the library of the Dig Site.
 
 // 311
 [struct_311]
-param=param_813,battered_book
+param=param_813,elemental_workshop_shield_book
 param=param_923,struct_548
 param=param_924,Book of the Elemental Shield
 param=param_925,Information about a lost workshop and a special shield that can be made there.
 
 // 312
 [struct_312]
-param=param_813,journal_4203
+param=param_813,fenk_journal
 param=param_923,struct_537
 param=param_924,Fenkenstrain's Journal
 param=param_925,The unreadable journal of the unspeakable Dr Fenkenstrain.
 
 // 313
 [struct_313]
-param=param_813,varmen_s_notes
+param=param_813,golem_notes
 param=param_923,struct_566
 param=param_924,The Ruins of Uzer
 param=param_925,Notes made by Varmen, an archaeologist excavating the ruins of Uzer.
 
 // 314
 [struct_314]
-param=param_813,goblin_symbol_book
+param=param_813,lost_tribe_book
 param=param_923,struct_580
 param=param_924,A History of the Goblin Race
 param=param_925,A list of old goblin tribes and their symbols.
 
 // 315
 [struct_315]
-param=param_813,book_of_haricanto
+param=param_813,ahoy_book_of_haricanto
 param=param_923,struct_564
 param=param_924,Book of Haricanto
 param=param_925,A book of rituals by Haricanto, an ancient sorcerer from the East.
 
 // 316
 [struct_316]
-param=param_813,translation_manual
+param=param_813,ahoy_translation_manual
 param=param_923,struct_564
 param=param_924,Translation Manual
 param=param_925,For translating text written in the language of the Eastern lands.
 
 // 317
 [struct_317]
-param=param_813,translation
+param=param_813,four_diamonds_translation_primer
 param=param_923,struct_541
 param=param_924,Translation Primer
 param=param_925,A translation of the cuneiform writing found on a stone tablet.
 
 // 318
 [struct_318]
-param=param_813,translation_book
+param=param_813,grandtree_translationbook
 param=param_923,struct_567
 param=param_924,Gnome-English Translation Dictionary
 param=param_925,Common words in the ancient Gnome language, translated into the modern tongue by Anita.
 
 // 319
 [struct_319]
-param=param_813,glough_s_journal
+param=param_813,grandtree_journal
 param=param_923,struct_567
 param=param_924,Glough's Journal
 param=param_925,The journal of Glough, former Tree Guardian of the Grand Tree.
@@ -1149,7 +1149,7 @@ param=param_925,The diary of Silas, describing his encounters in the caves benea
 
 // 322
 [struct_322]
-param=param_813,manual
+param=param_813,horror_diary3
 param=param_923,struct_573
 param=param_924,Lighthouse Manual
 param=param_925,Lightomatic Deluxe 500 Maintenance, Upkeep and Users' Manual: Second Edition.
@@ -1163,56 +1163,56 @@ param=param_925,Notes made by Ungadulu, shaman of a tribe in the Kharazi Jungle.
 
 // 324
 [struct_324]
-param=param_813,binding_book
+param=param_813,book_of_binding
 param=param_923,struct_578
 param=param_924,Book of Binding
 param=param_925,An ancient tome on Demonology, including information about how to fight demons with holy water.
 
 // 325
 [struct_325]
-param=param_813,ghrim_s_book
+param=param_813,misc_ghrimbook
 param=param_923,struct_618
 param=param_924,Managing Thine Kingdom - for Noobes
 param=param_925,Advisor Ghrim's book of advice about how to manage a kingdom.
 
 // 326
 [struct_326]
-param=param_813,astronomy_book
+param=param_813,book_of_astrology
 param=param_923,struct_592
 param=param_924,The Tale of Scorpius
 param=param_925,A history of the study of astronomy, or possibly astrology.
 
 // 327
 [struct_327]
-param=param_813,old_journal
+param=param_813,upass_journal
 param=param_923,struct_625
 param=param_924,The Journal of Randas
 param=param_925,The Journal of Randas, who came to grief in the Underground Pass.
 
 // 328
 [struct_328]
-param=param_813,history_of_iban
+param=param_813,old_journal
 param=param_923,struct_625
 param=param_924,History of Iban
 param=param_925,Kardia's account of how she created Iban.
 
 // 329
 [struct_329]
-param=param_813,big_book_of_bangs
+param=param_813,regicide_alchemy
 param=param_923,struct_600
 param=param_924,Big Book o' Bangs
 param=param_925,A book of instructions for the manufacture of fire oil.
 
 // 330
 [struct_330]
-param=param_813,cadarn_lineage
+param=param_813,roving_cadarn_book
 param=param_923,struct_601
 param=param_924,The Cadarn Lineage
 param=param_925,Golrie's book about the history of the Cadarn elf clan.
 
 // 331
 [struct_331]
-param=param_813,crystal_of_seren
+param=param_813,roving_crystal_book
 param=param_923,struct_601
 param=param_924,Crystal Singing for Beginners
 param=param_925,Ilfeen's book about the elven art of crystal chanting.
@@ -2134,21 +2134,21 @@ param=param_850,0_52_54_33_49
 
 // 501
 [struct_501]
-param=param_813,book
+param=param_813,the_shield_of_arrav
 param=param_923,struct_526
 param=param_924,The Shield of Arrav
 param=param_925,The history of the legendary shield of Arrav.
 
 // 502
 [struct_502]
-param=param_813,guide_book
+param=param_813,ardougne_book
 param=param_923,struct_622
 param=param_924,Tourist Guide to Ardougne
 param=param_925,An excessively enthusiastic introduction to Ardougne, containing the full name of Lord Handlemort.
 
 // 503
 [struct_503]
-param=param_813,book_on_baxtorian
+param=param_813,baxtorian_book_waterfall_quest
 param=param_923,struct_561
 param=param_924,Book on Baxtorian
 param=param_925,The history of Baxtorian, his wife and his lost treasure.
@@ -2231,7 +2231,7 @@ param=param_949,A chisel, a steel bar, a mithril bar, two oak planks and some co
 param=param_950,Must be able to defeat a level 246 mage.
 param=param_951,2 Quest Points, 50,000 XP in Construction and Magic, 40,000 XP in Smithing and Crafting, 30,000 coins, Construction and Magic abilities.
 param=param_952,"quest_icons_large,10"
-param=param_691,npc_11627
+param=param_691,love_mabel_multi
 
 // 508
 [struct_508]
@@ -2411,7 +2411,7 @@ param=param_691,father_aereck
 
 // 523
 [struct_523]
-param=param_813,gunnar_s_ground_19773
+param=param_813,romcom_poem_readable
 param=param_923,struct_1137
 param=param_924,Gunnar's Ground
 param=param_925,A poem written by Dororan the dwarf for the chieftain of the barbarian village.
@@ -2432,7 +2432,7 @@ param=param_949,None.
 param=param_950,None.
 param=param_951,1 Quest Point, access to the Runecrafting skill and an air talisman.
 param=param_952,"quest_icons_large,0"
-param=param_691,duke_horacio
+param=param_691,duke_of_lumbridge
 
 // 525
 [struct_525]
@@ -4385,7 +4385,7 @@ param=param_949,None.
 param=param_950,None.
 param=param_951,2 Quest Points, an XP lamp and the opportunity to discover hidden wisdom.
 param=param_1212,1 Quest Point, an XP lamp and the opportunity to discover hidden wisdom.
-param=param_691,explorer_jack
+param=param_691,atlum_explorer_jack
 
 // 659
 [struct_659]
@@ -4402,7 +4402,7 @@ param=param_949,None.
 param=param_950,None.
 param=param_951,2 Quest Points, a broomstick and the opportunity to gain XP in various skills.
 param=param_1212,1 Quest Point, a broomstick and the opportunity to gain XP in various skills.
-param=param_691,maggie
+param=param_691,swept_maggie
 
 // 660
 [struct_660]
@@ -5074,7 +5074,7 @@ param=param_1090,Increases damage when in aggressive stance.
 
 // 740
 [struct_740]
-param=param_813,dwarven_lore
+param=param_813,dwarf_rock_book
 param=param_923,struct_530
 param=param_924,The Arzinian Being of Bordanzan
 param=param_925,A book about a terrifying entity that was encountered in the mines of Keldagrim.
@@ -5297,35 +5297,35 @@ param=param_791,idkit_331
 
 // 768
 [struct_768]
-param=param_813,embalming_manual
+param=param_813,ics_little_bookofembalming
 param=param_923,struct_574
 param=param_924,The Little Book of Embalming
 param=param_925,How to embalm the dead in accordance with the practices of Sophanem and Menaphos, by Bod E Wrapper.
 
 // 769
 [struct_769]
-param=param_813,demonic_tome
+param=param_813,agrith_book
 param=param_923,struct_608
 param=param_924,The Confession of Ellemar
 param=param_925,Ellemar's explanation for his attempt to summon the demon Agrith-Naar.
 
 // 770
 [struct_770]
-param=param_813,crumbling_tome
+param=param_813,barrows_book_history
 param=param_923,null
 param=param_924,Legend of the Brothers
 param=param_925,The tale of the 6 brothers whose remains were interred in the Barrows of Morytania.
 
 // 771
 [struct_771]
-param=param_813,book_of_portraiture
+param=param_813,zogre_portrait_book
 param=param_923,struct_536
 param=param_924,Book of Portraiture
 param=param_925,How to draw a portrait.
 
 // 772
 [struct_772]
-param=param_813,book_6767
+param=param_813,ratpits_manual
 param=param_923,struct_597
 param=param_924,The Ratpits Manual
 param=param_925,The rules of the ratpits.
@@ -5501,7 +5501,7 @@ param=param_477,category_1240
 
 // 828
 [struct_828]
-param=param_813,abyssal_book
+param=param_813,rcu_instruction_book
 param=param_923,null
 param=param_924,Abyssal Research Notes
 param=param_925,A Zamorakian researcher's notes on the discovery and nature of the Abyss.
@@ -5628,49 +5628,49 @@ param=param_683,null
 
 // 846
 [struct_846]
-param=param_813,edern_s_journal
+param=param_813,mourning_ederns_journal
 param=param_923,struct_588
 param=param_924,Journal of Nissyen Edern
 param=param_925,The journal of Nissyen Edern, an elf who served with the Death Guard.
 
 // 847
 [struct_847]
-param=param_813,prifddinas__history
+param=param_813,mourning_book1
 param=param_923,struct_587
 param=param_924,The Creation of Prifddinas
 param=param_925,The origin of the elf race.
 
 // 848
 [struct_848]
-param=param_813,eastern_discovery
+param=param_813,mourning_book2
 param=param_923,struct_587
 param=param_924,Exploration of the Eastern Realm
 param=param_925,The expansion of the elven domain into the lands east of Tirannwn.
 
 // 849
 [struct_849]
-param=param_813,eastern_settlement
+param=param_813,mourning_book3
 param=param_923,struct_587
 param=param_924,Settlement of the East
 param=param_925,The settlement of the eastern lands by the Cadarn clan.
 
 // 850
 [struct_850]
-param=param_813,the_great_divide
+param=param_813,mourning_book4
 param=param_923,struct_587
 param=param_924,The Great Divide
 param=param_925,The attempt by the forces of Baxtorian to return to Tirannwn and restore peace to Prifddinas.
 
 // 851
 [struct_851]
-param=param_813,journal_6755
+param=param_813,makinghistory_journal
 param=param_923,struct_582
 param=param_924,Drozal's Journal
 param=param_925,The journal of Drozal, a follower of Zamorak who briefly lived in the outpost north of Ardougne.
 
 // 852
 [struct_852]
-param=param_813,gianne_s_cook_book
+param=param_813,giannes_cook_book
 param=param_923,null
 param=param_924,Gianne's Cook Book
 param=param_925,The collected recipes of Aluft Gianne.
@@ -5684,231 +5684,231 @@ param=param_925,Recipes for the cocktails sold in Blurberry's bar.
 
 // 854
 [struct_854]
-param=param_813,security_book
+param=param_813,sos_security_book
 param=param_923,null
 param=param_924,RuneScape Account Security
 param=param_925,Security tips, including how to choose a secure password and good recovery questions.
 
 // 855
 [struct_855]
-param=param_813,stronghold_notes
+param=param_813,sos_stronghold_book
 param=param_923,null
 param=param_924,Stronghold of Security - Notes
 param=param_925,Some notes on the layout of the Stronghold of Security, and the creatures found therein.
 
 // 856
 [struct_856]
-param=param_813,moonclan_manual
+param=param_813,lunar_book
 param=param_923,struct_581
 param=param_924,Basics of Magic
 param=param_925,A Primer in the Mystical Arts, by a member of the Moonclan.
 
 // 857
 [struct_857]
-param=param_813,herman_s_book
+param=param_813,swan_book
 param=param_923,struct_613
 param=param_924,Dionysius: A Legend in his own Lifetime
 param=param_925,The biography of Dionysius, a modern-day hero.
 
 // 858
 [struct_858]
-param=param_813,pie_recipe_book
+param=param_813,book_recipie_pie
 param=param_923,null
 param=param_924,Pie Recipes
 param=param_925,Recipes for a variety of pies.
 
 // 859
 [struct_859]
-param=param_813,brewin__guide
+param=param_813,game_brew_instruction_book
 param=param_923,null
 param=param_924,Brewin' Guide
 param=param_925,How to make Mos Le'Harmless Rum in Trouble Brewing.
 
 // 860
 [struct_860]
-param=param_813,arena_book
+param=param_813,magictraining_arenalorebook
 param=param_923,null
 param=param_924,Magic Training Arena Lore Book
 param=param_925,Information about the Magic Training Arena north-east of Al-Kharid.
 
 // 861
 [struct_861]
-param=param_813,burnt_diary_7965
+param=param_813,royal_diary5
 param=param_923,struct_602
 param=param_924,Armod's Burnt Diary
 param=param_925,The diary of Armod, a young Fremennik who caused political strife between Miscellania and Etceteria.
 
 // 862
 [struct_862]
-param=param_813,lift_manual
+param=param_813,royal_lift_manual
 param=param_923,struct_602
 param=param_924,AMCE Lift-In-A-Box User Manual
 param=param_925,Troubleshooting your AMCE Lift-In-A-Box.
 
 // 863
 [struct_863]
-param=param_813,book_o__piracy
+param=param_813,fever_piracy_book
 param=param_923,struct_533
 param=param_924,The Little Book o' Piracy
 param=param_925,How to act and talk like a pirate.
 
 // 864
 [struct_864]
-param=param_813,sin_keth_s_diary
+param=param_813,surok_diary
 param=param_923,struct_632
 param=param_924,The Journal of Sin'keth Magis
 param=param_925,The journal of Sin'keth Magis, a member of the Dagon'hai.
 
 // 865
 [struct_865]
-param=param_813,dagon_hai_history
+param=param_813,surok_tome
 param=param_923,struct_632
 param=param_924,The Fall of the Dagon'hai
 param=param_925,An account of how the Dagon'hai order came to Varrock and were subsequently banished.
 
 // 866
 [struct_866]
-param=param_813,tarn_s_diary
+param=param_813,lotr_diary
 param=param_923,null
 param=param_924,The Diary of Tarn Razorlor
 param=param_925,Tarn Razorlor's diary, into which is bound the spell needed to enhance the powers of the Salve amulet.
 
 // 867
 [struct_867]
-param=param_813,bird_book
+param=param_813,hunting_book_of_birds
 param=param_923,struct_547
 param=param_924,William Oddity's Guide to the Avian
 param=param_925,William Oddity's notes on useful species of bird, including the mysterious giant eagles.
 
 // 868
 [struct_868]
-param=param_813,feathered_journal
+param=param_813,ep_transport_book01
 param=param_923,struct_547
 param=param_924,The Journal of Arthur Artimus
 param=param_925,The journal of Arthur Artimus, a brigand who had a hideout in Eagles' Peak.
 
 // 869
 [struct_869]
-param=param_813,farming_manual
+param=param_813,myarm_book
 param=param_923,struct_590
 param=param_924,Farmer Gricoller's Farming Manual
 param=param_925,How to grow healthy crops, even in difficult areas.
 
 // 870
 [struct_870]
-param=param_813,queen_help_book
+param=param_813,barbassault_queen_guidebook
 param=param_923,null
 param=param_924,Queen Help
 param=param_925,How to make and use an Omega Egg in Barbarian Assault.
 
 // 871
 [struct_871]
-param=param_813,prayer_book_10890
+param=param_813,brain_inv_saradomin_book
 param=param_923,struct_631
 param=param_924,Prayer of Deliverance from Poisons
 param=param_925,Allows you to cure yourself of poison through prayer.
 
 // 872
 [struct_872]
-param=param_813,battered_tome
+param=param_813,burgh_book_historiesofhallowland
 param=param_923,struct_575
 param=param_924,Histories of the Hallowland
 param=param_925,The history of Morytania in the times before the darkness fell upon it.
 
 // 873
 [struct_873]
-param=param_813,ancient_tome
+param=param_813,burgh_book_sevenwarriors
 param=param_923,struct_575
 param=param_924,The Sleeping Seven
 param=param_925,An account of the seven priestly warriors who fought against the forces of evil in Hallowvale.
 
 // 874
 [struct_874]
-param=param_813,leather_book
+param=param_813,burgh_book_moderndaymorytania
 param=param_923,struct_575
 param=param_924,Modern day Morytania
 param=param_925,A guide to Morytania as it is today.
 
 // 875
 [struct_875]
-param=param_813,beaten_book
+param=param_813,elemental_workshop_helm_book
 param=param_923,struct_549
 param=param_924,Book of the Elemental Helm
 param=param_925,The discovery of the technique whereby one's consciousness may be instilled into an ingot of 'primed' elemental metal.
 
 // 876
 [struct_876]
-param=param_813,a_handwritten_book
+param=param_813,eyeglo_crystal_book
 param=param_923,struct_552
 param=param_924,Crystal Singing for Beginners
 param=param_925,Oaknock's translation of an introduction to the elven art of crystal chanting.
 
 // 877
 [struct_877]
-param=param_813,clockwork_book
+param=param_813,peng_book
 param=param_923,struct_628
 param=param_924,Clockwork Toys - Chapter 1.0
 param=param_925,A book about clockwork mechanisms, with a note about how to make a clockwork suit that can be controlled from the inside.
 
 // 878
 [struct_878]
-param=param_813,goblin_book
+param=param_813,slice_goblin_history_book
 param=param_923,struct_634
 param=param_924,The Book of the Big High War God
 param=param_925,A goblin history book, telling of how they fought for the Big High War God, and of the prophecy of the Chosen Commander.
 
 // 879
 [struct_879]
-param=param_813,barbarian_skills
+param=param_813,brut_logbook_main
 param=param_923,null
 param=param_924,Barbarian skills
 param=param_925,A record of instructions received from Otto Godblessed.
 
 // 880
 [struct_880]
-param=param_813,my_notes
+param=param_813,brut_logbook
 param=param_923,null
 param=param_924,'My Notes'
 param=param_925,Discoveries from the ancient cavern beneath the lake.
 
 // 881
 [struct_881]
-param=param_813,explorer_s_notes
+param=param_813,godwars_dwarven_book
 param=param_923,null
 param=param_924,Beyond Trollheim
 param=param_925,Nestor Peregrine, a dwarven explorer, wrote this account of his discovery of a vast battlefield beneath the mountains beyond Trollheim.
 
 // 882
 [struct_882]
-param=param_813,glassblowing_book
+param=param_813,observatory_glassblowing_book
 param=param_923,null
 param=param_924,Ultimate Guide to Glassblowing
 param=param_925,A guide to the craft of Glassblowing, by Fritz the Glassblower of Entrana.
 
 // 883
 [struct_883]
-param=param_813,yewnock_s_notes
+param=param_813,pog_yewnocks_note
 param=param_923,struct_638
 param=param_924,Yewnock's notes
 param=param_925,Yewknock's notes on the use of devices such as singing bowls to enable mortals to chant crystals.
 
 // 884
 [struct_884]
-param=param_813,scabaras_research
+param=param_813,scab_journal
 param=param_923,struct_641
 param=param_924,'My Notes'
 param=param_925,Discoveries about the Scabarites living east of Sophanem.
 
 // 885
 [struct_885]
-param=param_813,tzhaar_tourist_guide
+param=param_813,dillo_tzhaar_tourist_guide
 param=param_923,struct_648
 param=param_924,TzHaar Tourist Guide
 param=param_925,Advice for tourists planning to visit the TzHaar city.
 
 // 886
 [struct_886]
-param=param_813,ancient_hymnal
+param=param_813,mah4_zaros_hymnal
 param=param_923,struct_887
 param=param_924,Ancient hymnal
 param=param_925,A hymnal of chanted Zarosian Curses
@@ -6437,25 +6437,25 @@ param=param_949,None.
 param=param_950,Must be able to defeat three low-level enemies..
 param=param_951,1 Quest Point; a sword, sling, and magic staff; 100 Attack, Strength, Defence, Ranged and Magic XP; access to the Lumbridge Catacombs dungeon.
 param=param_952,"quest_icons_large,15"
-param=param_691,npc_9633
+param=param_691,lumbcat_xenia_at_entrance
 
 // 969
 [struct_969]
-param=param_813,combination_runes
+param=param_813,rm_combo_runes_book
 param=param_923,struct_954
 param=param_924,Combination Runes
 param=param_925,A guide to combining runes.
 
 // 970
 [struct_970]
-param=param_813,roddeck_s_diary
+param=param_813,tutorial3_diary
 param=param_923,struct_510
 param=param_924,Roddeck's Diary
 param=param_925,The diary of Roddeck the Advisor, telling of his ill-fated attempt to raise a dragon in his cellar.
 
 // 971
 [struct_971]
-param=param_813,manual_15671
+param=param_813,tutorial3_book
 param=param_923,struct_510
 param=param_924,On the Care of Dragons
 param=param_925,A book of somewhat dubious accuracy, allegedly containing instructions for raising pet dragons.
@@ -6476,14 +6476,14 @@ param=param_848,0
 param=param_856,1
 param=param_850,0_72_92_54_15
 param=param_854,0_50_51_23_4
-param=param_691,npc_11273
+param=param_691,thigui_guildmaster
 param=param_694,1
 param=param_948,Speak to Darren in his cellar north of the Lumbridge furnace.
 param=param_949,Some logs or the means to acquire them.
 param=param_950,None.
 param=param_951,1 Quest Point, 500 Thieving XP, Access to the Thieves' Guild.
 param=param_952,"quest_icons_large,5"
-param=param_691,npc_11273
+param=param_691,thigui_guildmaster
 
 // 974
 [struct_974]
@@ -6523,7 +6523,7 @@ param=param_688,rand_magic:tooltip
 
 // 976
 [struct_976]
-param=param_1070,longbow_sight
+param=param_1070,rand_reward_longbow_scope
 param=param_1072,10000
 param=param_1078,This item can be attached to a maple or magic longbow to increase its ranged abilities. (Requires 45 Ranged for maple, 55 for magic.)
 param=param_1073,ranged
@@ -6533,7 +6533,7 @@ param=param_1071,45
 
 // 977
 [struct_977]
-param=param_1070,arcane_pulse_necklace
+param=param_1070,rand_reward_arcane_pulse_necklace
 param=param_1072,6500
 param=param_1078,This item can be worn by mages with a Magic level of 30 or higher and provides +10 magic attack and +5% magical damage.
 param=param_1073,magic
@@ -6543,7 +6543,7 @@ param=param_1071,30
 
 // 978
 [struct_978]
-param=param_1070,arcane_blast_necklace
+param=param_1070,rand_reward_arcane_blast_necklace
 param=param_1072,15500
 param=param_1078,This item can be worn by mages with a Magic level of 50 or higher and provides +12 magic attack and +10% magical damage.
 param=param_1073,magic
@@ -6553,7 +6553,7 @@ param=param_1071,50
 
 // 979
 [struct_979]
-param=param_1070,arcane_stream_necklace
+param=param_1070,rand_reward_arcane_stream_necklace
 param=param_1072,30500
 param=param_1078,This item can be worn by mages with a Magic level of 70 or higher and provides +14 magic attack and +15% magical damage.
 param=param_1073,magic
@@ -6563,7 +6563,7 @@ param=param_1071,70
 
 // 980
 [struct_980]
-param=param_1070,scroll_of_life
+param=param_1070,rand_reward_farming_conservation_unlocker
 param=param_1072,10000
 param=param_1078,This item requires a Farming level of 25 to unlock. When unlocked, farmers who harvest patches (including dead ones) have a permanent 10% chance of receiving their seeds back. There is also a 5% chance of getting a tree seed back from a dead tree/stump. For herb seeds, the seed type returned may be random.
 param=param_1073,farming
@@ -6573,7 +6573,7 @@ param=param_1071,25
 
 // 981
 [struct_981]
-param=param_1070,bonecrusher
+param=param_1070,rand_reward_bonecrusher
 param=param_1072,34000
 param=param_1078,This item requires a Prayer level of 21 to purchase. If you have a bonecrusher in your inventory, dropped bones from monster kills will automatically be converted into Prayer XP.
 param=param_1073,prayer
@@ -6583,7 +6583,7 @@ param=param_1071,21
 
 // 982
 [struct_982]
-param=param_1070,gem_bag
+param=param_1070,rand_reward_gem_bag
 param=param_1072,2000
 param=param_1078,This item requires a Crafting level of 25. The gem bag can hold uncut gems of the following types: sapphire, emerald, ruby, diamond. The bag can hold a maximum of 100 gems.
 param=param_1073,crafting
@@ -6593,7 +6593,7 @@ param=param_1071,25
 
 // 983
 [struct_983]
-param=param_1070,coal_bag
+param=param_1070,rand_reward_coal_bag
 param=param_1072,4000
 param=param_1078,This item requires a Mining level of 35. The coal bag holds up to 27 pieces of coal. When smithing or superheating, coal in the bag will be used before the coal in your inventory.
 param=param_1071,35
@@ -6603,7 +6603,7 @@ param=param_1077,You need a Mining level of 35 to access this item.
 
 // 984
 [struct_984]
-param=param_1070,anti_poison_totem
+param=param_1070,rand_reward_anti_poison_totem
 param=param_1072,44000
 param=param_1078,This item requires 60 Defence and 70 Herblore to wield. While wielding the totem, you cannot be poisoned. (The totem does not remove any existing poison effects.) 
 param=param_1073,defence
@@ -6615,7 +6615,7 @@ param=param_1071,60
 
 // 985
 [struct_985]
-param=param_1070,nature_staff
+param=param_1070,rand_reward_nature_staff
 param=param_1072,12500
 param=param_1078,This item requires a Magic level of 53 and an Attack level of 40 to wield. You can store up to 1000 nature runes in the staff. When casting spells that use nature runes, there is a 1/10 chance that a nature rune will not be used.
 param=param_1073,magic
@@ -6627,7 +6627,7 @@ param=param_1071,53
 
 // 986
 [struct_986]
-param=param_1070,law_staff
+param=param_1070,rand_reward_law_staff
 param=param_1072,10000
 param=param_1078,This item requires a Magic level of 45 and an Attack level of 40 to wield. You can store up to 1000 law runes in the staff. When casting spells that use law runes, there is a 1/10 chance that a law rune will not be used.
 param=param_1073,magic
@@ -6639,7 +6639,7 @@ param=param_1071,45
 
 // 987
 [struct_987]
-param=param_1070,scroll_of_renewal
+param=param_1070,rand_reward_rapid_renewal_unlocker
 param=param_1072,107000
 param=param_1078,Reading this scroll permanently unlocks Rapid Renewal, a level 65 prayer. This prayer, when activated, will restore life points at 5 times the normal restore rate.
 param=param_1073,prayer
@@ -6649,7 +6649,7 @@ param=param_1071,65
 
 // 988
 [struct_988]
-param=param_1070,scroll_of_augury
+param=param_1070,rand_reward_augury_unlocker
 param=param_1072,153000
 param=param_1078,Reading this scroll permanently unlocks Augury, a level 77 prayer. This prayer, when activated, will boost your magical attack by 20% and defence by 25%.
 param=param_1073,prayer
@@ -6659,7 +6659,7 @@ param=param_1071,77
 
 // 989
 [struct_989]
-param=param_1070,tome_of_frost
+param=param_1070,rand_reward_tome_of_frost
 param=param_1072,43000
 param=param_1078,This item requires a Magic level of 48 to wield. This item acts as an infinite number of water runes, and is carried in the offhand slot.
 param=param_1073,magic
@@ -6669,7 +6669,7 @@ param=param_1071,48
 
 // 990
 [struct_990]
-param=param_1070,mercenary_s_gloves
+param=param_1070,rand_reward_mercenarys_gloves
 param=param_1072,48500
 param=param_1078,This item requires a Ranged level of 73 to wear. When worn, these gloves provide a +13 ranged attack bonus.
 param=param_1073,ranged
@@ -6679,7 +6679,7 @@ param=param_1071,73
 
 // 991
 [struct_991]
-param=param_1070,chaotic_rapier
+param=param_1070,rand_rapier_80_reward
 param=param_1072,200000
 param=param_1078,This item requires an Attack level of 80 to wield and will last 10 hours in combat before it needs recharging.
 param=param_1073,attack
@@ -6689,7 +6689,7 @@ param=param_1071,80
 
 // 992
 [struct_992]
-param=param_1070,chaotic_longsword
+param=param_1070,rand_longsword_80_reward
 param=param_1072,200000
 param=param_1078,This item requires an Attack level of 80 to wield and will last 10 hours in combat before it needs recharging.
 param=param_1073,attack
@@ -6699,7 +6699,7 @@ param=param_1071,80
 
 // 993
 [struct_993]
-param=param_1070,chaotic_maul
+param=param_1070,rand_maul_80_reward
 param=param_1072,200000
 param=param_1078,This item requires an Attack level of 80 to wield and will last 10 hours in combat before it needs recharging.
 param=param_1073,attack
@@ -6709,7 +6709,7 @@ param=param_1071,80
 
 // 994
 [struct_994]
-param=param_1070,chaotic_staff
+param=param_1070,rand_staff_80_reward
 param=param_1072,200000
 param=param_1078,This item requires a Magic level of 80 to wield and will last 10 hours in combat before it needs recharging.
 param=param_1073,magic
@@ -6719,7 +6719,7 @@ param=param_1071,80
 
 // 995
 [struct_995]
-param=param_1070,chaotic_crossbow
+param=param_1070,rand_xbow_80_reward
 param=param_1072,200000
 param=param_1078,This item requires a Ranged level of 80 to wield and will last 10 hours in combat before it needs recharging.
 param=param_1073,ranged
@@ -6729,7 +6729,7 @@ param=param_1071,80
 
 // 996
 [struct_996]
-param=param_1070,chaotic_kiteshield
+param=param_1070,rand_kiteshield_80_melee_reward
 param=param_1072,200000
 param=param_1078,This item requires a Defence level of 80 to wield and will last 10 hours in combat before it needs recharging. It also reduces damage taken from ranged attacks.
 param=param_1073,defence
@@ -6739,7 +6739,7 @@ param=param_1071,80
 
 // 997
 [struct_997]
-param=param_1070,eagle_eye_kiteshield
+param=param_1070,rand_kiteshield_80_range_reward
 param=param_1072,200000
 param=param_1078,This item requires a Defence level of 80 to wield and will last 10 hours in combat before it needs recharging. It also reduces damage taken from magic attacks.
 param=param_1073,defence
@@ -6749,7 +6749,7 @@ param=param_1071,80
 
 // 998
 [struct_998]
-param=param_1070,farseer_kiteshield
+param=param_1070,rand_kiteshield_80_magic_reward
 param=param_1072,200000
 param=param_1078,This item requires a Defence level of 80 to wield and will last 10 hours in combat before it needs recharging. It also reduces damage taken from melee attacks.
 param=param_1073,defence
@@ -6759,7 +6759,7 @@ param=param_1071,80
 
 // 999
 [struct_999]
-param=param_1070,gravite_rapier
+param=param_1070,rand_rapier_45_reward
 param=param_1072,40000
 param=param_1078,This item requires an Attack level of 45 to wield and will last 10 hours in combat before it requires recharging.
 param=param_1073,attack
@@ -6769,7 +6769,7 @@ param=param_1071,45
 
 // 1000
 [struct_1000]
-param=param_1070,gravite_longsword
+param=param_1070,rand_longsword_45_reward
 param=param_1072,40000
 param=param_1078,This item requires an Attack level of 45 to wield and will last 10 hours in combat before it requires recharging.
 param=param_1073,attack
@@ -6779,7 +6779,7 @@ param=param_1071,45
 
 // 1001
 [struct_1001]
-param=param_1070,gravite_2h_sword
+param=param_1070,rand_2h_sword_45_reward
 param=param_1072,40000
 param=param_1078,This item requires an Attack level of 45 to wield and will last 10 hours in combat before it requires recharging.
 param=param_1073,attack
@@ -6789,7 +6789,7 @@ param=param_1071,45
 
 // 1002
 [struct_1002]
-param=param_1070,gravite_staff
+param=param_1070,rand_staff_45_reward
 param=param_1072,40000
 param=param_1078,This item requires a Magic level of 45 to wield and will last 10 hours in combat before it requires recharging.
 param=param_1073,magic
@@ -6799,7 +6799,7 @@ param=param_1071,45
 
 // 1003
 [struct_1003]
-param=param_1070,gravite_shortbow
+param=param_1070,rand_shortbow_45_reward
 param=param_1072,40000
 param=param_1078,This item requires a Ranged level of 45 to wield and will last 10 hours in combat before it requires recharging.
 param=param_1073,ranged
@@ -6809,7 +6809,7 @@ param=param_1071,45
 
 // 1004
 [struct_1004]
-param=param_1070,dungeoneering_experience
+param=param_1070,rand_xp_reward
 param=param_1072,1
 param=param_1078,This option allows you to trade dungeoneering tokens for Dungeoneering skill XP at a rate of 1:1.
 param=param_1071,1
@@ -6857,7 +6857,7 @@ param=param_949,Fairy Nuff's certificate and dramen staff.
 param=param_950,Must be able to survive a battle equivalent to fighting a level 180 foe.
 param=param_951,2 Quest Points, 11,000 Farming XP, 11,000 Thieving XP, 11,000 Magic XP. 1,000 Summoning XP, 1,000 Crafting XP, free access to Zanaris market and a magic watering can.
 param=param_952,"quest_icons_large,6"
-param=param_691,npc_11377
+param=param_691,ft3_fairy_very_wise
 
 // 1008
 [struct_1008]
@@ -6893,7 +6893,7 @@ param=param_845,Quiet Before the Swarm
 param=param_846,Quiet Before the Swarm (sort)
 param=param_848,1
 param=param_856,1
-param=param_691,sir_tiffy_cashien
+param=param_691,rd_teleporter_guy
 param=param_850,0_46_52_52_46
 param=param_859,7
 param=param_860,115
@@ -6974,14 +6974,14 @@ param=param_1090,Chance of saving resources and increasing rune production.
 
 // 1026
 [struct_1026]
-param=param_813,void_knight_book
+param=param_813,vkq2_vk_book
 param=param_923,struct_1028
 param=param_924,The Void Knights' Creed
 param=param_925,History and tenets of the Void Knight order.
 
 // 1027
 [struct_1027]
-param=param_813,void_pest_research_notes
+param=param_813,vkq2_pest_book
 param=param_923,struct_1028
 param=param_924,Void Pest Research Notes
 param=param_925,Jessika's collected notes on void pests and their society.
@@ -7018,7 +7018,7 @@ param=param_949,Pickaxe, five coins, spade, sextant, watch & chart
 param=param_950,Must be able to defeat a level 110 knight.
 param=param_951,1 Quest Point, 50 Commendations, 10,000 Hunter and Herblore XP, 8,000 Summoning and Woodcutting XP, 5,000 Thieving, Construction and Mining XP.
 param=param_952,"quest_icons_large,12"
-param=param_691,npc_11681
+param=param_691,vkq2_tyr
 
 // 1029
 [struct_1029]
@@ -7031,7 +7031,7 @@ param=param_739,true
 
 // 1030
 [struct_1030]
-param=param_1070,ring_of_vigour
+param=param_1070,rand_reward_ring_of_vigor
 param=param_1072,50000
 param=param_1078,This item provides a +3 bonus to your Strength, and reduces the cost of any weapon's special attack by 10%.
 param=param_1073,attack
@@ -7041,7 +7041,7 @@ param=param_1071,62
 
 // 1031
 [struct_1031]
-param=param_1070,magical_blastbox
+param=param_1070,rand_reward_bolt_blast_box
 param=param_1072,40000
 param=param_1078,This item can be charged with the runes required for bolt and blast spells in one worn slot.
 param=param_1073,magic
@@ -7053,7 +7053,7 @@ param=param_1071,30
 
 // 1032
 [struct_1032]
-param=param_1070,herbicide
+param=param_1070,rand_herb_burner
 param=param_1072,34000
 param=param_1078,Instead of receiving certain types of herb from monster drops, you may choose for this item to corrode and destroy them. This provides you with 2x the Herblore XP that you would have gained for cleaning them. (Does not apply to certed herb drops.)
 param=param_1073,herblore
@@ -7063,7 +7063,7 @@ param=param_1071,21
 
 // 1033
 [struct_1033]
-param=param_1070,scroll_of_rigour
+param=param_1070,rand_artifact_scroll_of_rigour
 param=param_1072,140000
 param=param_1078,Reading this scroll permanently unlocks Rigour, a level 74 prayer. This prayer, when activated, will boost your Ranged by 20% and defences by 25%.
 param=param_1073,prayer
@@ -7073,7 +7073,7 @@ param=param_1071,74
 
 // 1034
 [struct_1034]
-param=param_1070,scroll_of_efficiency
+param=param_1070,rand_reward_wasteless_smithing_unlocker
 param=param_1072,20000
 param=param_1078,Reading this scroll permanently unlocks the wasteless smithing ability: when smithing an item that requires three bars or more, there is a chance that you will retain one bar. The chance is 50% for bronze items, 25% for iron, 20% for steel, 10% for mithril, 8% for adamant and 5% for rune.
 param=param_1073,smithing
@@ -7109,7 +7109,7 @@ param=param_1153,"conq_command_icon,4"
 param=param_1154,50
 param=param_1155,3
 param=param_1156,spotanim_2791
-param=param_1157,cursor_164
+param=param_1157,conq_cursor_chastise
 
 // 1045
 [struct_1045]
@@ -7121,7 +7121,7 @@ param=param_1153,"conq_command_icon,5"
 param=param_1154,50
 param=param_1155,3
 param=param_1156,spotanim_2791
-param=param_1157,cursor_166
+param=param_1157,conq_cursor_vigilance
 
 // 1046
 [struct_1046]
@@ -7133,7 +7133,7 @@ param=param_1153,"conq_command_icon,6"
 param=param_1154,50
 param=param_1155,5
 param=param_1156,spotanim_2791
-param=param_1157,cursor_165
+param=param_1157,conq_cursor_shield_wall
 
 // 1047
 [struct_1047]
@@ -9282,7 +9282,7 @@ param=param_1180,struct_1087
 param=param_1160,Warrior
 param=param_1161,warrior_male_small
 param=param_1162,warrior_female_small
-param=param_1163,inv_594
+param=param_1163,playerkit_warrior
 param=param_1164,seq_14700
 param=param_1165,seq_14699
 param=param_1169,struct_1106
@@ -9297,7 +9297,7 @@ param=param_1177,struct_1111
 param=param_1160,Mage
 param=param_1161,mage_male_small
 param=param_1162,mage_female_small
-param=param_1163,inv_586
+param=param_1163,playerkit_mage
 param=param_1164,seq_14690
 param=param_1165,seq_14691
 param=param_1169,struct_1094
@@ -9312,7 +9312,7 @@ param=param_1177,struct_1099
 param=param_1160,Ranger
 param=param_1161,ranger_male_small
 param=param_1162,ranger_female_small
-param=param_1163,inv_463
+param=param_1163,ranging_guild_bowshop_skillcape
 param=param_1164,seq_14640
 param=param_1165,seq_14641
 param=param_1169,struct_1054
@@ -9327,7 +9327,7 @@ param=param_1177,struct_1059
 param=param_1160,Slayer
 param=param_1161,slayer_male_small
 param=param_1162,slayer_female_small
-param=param_1163,inv_592
+param=param_1163,playerkit_slayer
 param=param_1164,seq_14680
 param=param_1165,seq_14681
 param=param_1169,struct_1074
@@ -9358,7 +9358,7 @@ param=param_1175,struct_1093
 param=param_1160,Hunter
 param=param_1161,hunter_male_small
 param=param_1162,hunter_female_small
-param=param_1163,inv_486
+param=param_1163,poh_costume_room_treasure_trail_2a_inv
 param=param_1164,seq_14697
 param=param_1165,seq_14698
 param=param_1169,struct_1104
@@ -9369,7 +9369,7 @@ param=param_1175,struct_1105
 param=param_1160,Chef
 param=param_1161,chef_male_small
 param=param_1162,chef_female_small
-param=param_1163,inv_587
+param=param_1163,playerkit_chef
 param=param_1164,seq_14685
 param=param_1165,seq_14684
 param=param_1169,struct_1088
@@ -9378,7 +9378,7 @@ param=param_1175,struct_1089
 // 1121
 [struct_1121]
 param=param_1160,Priest
-param=param_1163,inv_591
+param=param_1163,playerkit_priest
 param=param_1164,seq_14648
 param=param_1165,seq_14649
 param=param_1161,priest_male_small
@@ -9391,7 +9391,7 @@ param=param_1175,struct_1065
 param=param_1160,Fisher
 param=param_1161,fisherman_male_small
 param=param_1162,fisherman_female_small
-param=param_1163,inv_596
+param=param_1163,playerkit_fisher
 param=param_1164,seq_14687
 param=param_1165,seq_14686
 param=param_1169,struct_1090
@@ -9402,7 +9402,7 @@ param=param_1175,struct_1091
 param=param_1160,Woodcutter
 param=param_1161,woodcutters_male_small
 param=param_1162,woodcutters_female_small
-param=param_1163,inv_595
+param=param_1163,playerkit_woodcutter
 param=param_1164,seq_14678
 param=param_1165,seq_14679
 param=param_1169,struct_1072
@@ -9413,7 +9413,7 @@ param=param_1175,struct_1073
 param=param_1160,Miner
 param=param_1161,miner_male_small
 param=param_1162,miner_female_small
-param=param_1163,inv_499
+param=param_1163,poh_costume_room_treasure_trail_2a_inv_check
 param=param_1164,seq_14646
 param=param_1165,seq_14647
 param=param_1169,struct_1062
@@ -9424,7 +9424,7 @@ param=param_1175,struct_1063
 param=param_1160,Farmer
 param=param_1161,farmer_male_small
 param=param_1162,farmer_female_small
-param=param_1163,inv_597
+param=param_1163,playerkit_farmer
 param=param_1164,seq_14677
 param=param_1165,seq_14676
 param=param_1169,struct_1070
@@ -9435,7 +9435,7 @@ param=param_1175,struct_1071
 param=param_1160,Smith
 param=param_1161,smiths_male_small
 param=param_1162,smiths_female_small
-param=param_1163,inv_593
+param=param_1163,playerkit_smith
 param=param_1164,seq_14635
 param=param_1165,seq_14634
 param=param_1169,struct_1050
@@ -9448,7 +9448,7 @@ param=param_1176,struct_1049
 param=param_1160,Crafter
 param=param_1161,crafter_male_small
 param=param_1162,crafter_female_small
-param=param_1163,inv_588
+param=param_1163,playerkit_crafter
 param=param_1164,seq_14695
 param=param_1165,seq_14696
 param=param_1169,struct_1102
@@ -9459,7 +9459,7 @@ param=param_1175,struct_1103
 param=param_1160,Fletcher
 param=param_1161,fletcher_male_small
 param=param_1162,fletcher_female_small
-param=param_1163,inv_589
+param=param_1163,playerkit_fletcher
 param=param_1164,seq_14636
 param=param_1165,seq_14637
 param=param_1166,model_60330
@@ -9473,7 +9473,7 @@ param=param_1175,struct_1053
 param=param_1160,Herblorist
 param=param_1161,herblorist_male_small
 param=param_1162,herblorist_female_small
-param=param_1163,inv_590
+param=param_1163,playerkit_herbalist
 param=param_1164,seq_14674
 param=param_1165,seq_14675
 param=param_1169,struct_1068
@@ -9484,7 +9484,7 @@ param=param_1175,struct_1069
 param=param_1160,Runecrafter
 param=param_1161,runecrafter_male_small
 param=param_1162,runecrafter_female_small
-param=param_1163,inv_598
+param=param_1163,playerkit_runecrafter
 param=param_1164,seq_14643
 param=param_1165,seq_14642
 param=param_1166,model_60331
@@ -9498,7 +9498,7 @@ param=param_1175,struct_1061
 param=param_1160,Summoner
 param=param_1161,summoners_male_small
 param=param_1162,summoners_female_small
-param=param_1163,inv_599
+param=param_1163,playerkit_summoner
 param=param_1164,seq_14651
 param=param_1165,seq_14650
 param=param_1169,struct_1066
@@ -9551,7 +9551,7 @@ param=param_845,Gunnar's Ground
 param=param_846,Gunnar's Ground (sort)
 param=param_848,0
 param=param_856,0
-param=param_691,npc_1168
+param=param_691,romcom_dororan_village_multi
 param=param_850,0_48_53_27_30
 param=param_871,crafting
 param=param_872,5
@@ -9612,7 +9612,7 @@ param=param_845,The Void Stares Back
 param=param_846,Void Stares Back, The (sort)
 param=param_848,4
 param=param_856,1
-param=param_691,npc_12264
+param=param_691,vkq3_korasi_falador_multi
 param=param_850,0_46_52_52_46
 param=param_859,173
 param=param_871,attack
@@ -9660,7 +9660,7 @@ param=param_1269,65
 
 // 1154
 [struct_1154]
-param=param_1070,twisted_bird_skull_necklace
+param=param_1070,rand_reward_twisted_bird_skull_necklace
 param=param_1072,8500
 param=param_1078,This item restores 1 prayer point for each normal bone you bury (Requires 30 prayer).
 param=param_1073,prayer
@@ -9670,7 +9670,7 @@ param=param_1071,30
 
 // 1155
 [struct_1155]
-param=param_1070,split_dragontooth_necklace
+param=param_1070,rand_reward_split_dragon_tooth_necklace
 param=param_1072,17000
 param=param_1078,This item restores 1 prayer point for each normal bone you bury, and 2 prayer points for every big, baby dragon or wyvern bone (Requires 60 prayer).
 param=param_1073,prayer
@@ -9680,7 +9680,7 @@ param=param_1071,60
 
 // 1156
 [struct_1156]
-param=param_1070,demon_horn_necklace
+param=param_1070,rand_reward_demon_horn_necklace
 param=param_1072,35000
 param=param_1078,This item restores 1 prayer point for burying normal bones, 2 prayer points for burying big, baby dragon or wyvern bones, and 3 prayer points for burying dragon, ourg and frost dragon bones (Requires 90 prayer).
 param=param_1073,prayer
@@ -9690,7 +9690,7 @@ param=param_1071,90
 
 // 1157
 [struct_1157]
-param=param_1070,celestial_surgebox_19889
+param=param_1070,rand_reward_wave_surge_box
 param=param_1072,65000
 param=param_1078,This item can be charged with the runes required for wave and surge spells in one worn slot.
 param=param_1073,magic
@@ -9702,7 +9702,7 @@ param=param_1071,70
 
 // 1158
 [struct_1158]
-param=param_1070,scroll_of_cleansing
+param=param_1070,rand_reward_wasteless_herblore_unlocker
 param=param_1072,20000
 param=param_1078,Reading this scroll permanently unlocks the wasteless herblore ability: when concocting a potion, there is a chance you will complete the potion slightly quicker, and that you will save the secondary item completely.
 param=param_1073,herblore
@@ -9712,7 +9712,7 @@ param=param_1071,49
 
 // 1159
 [struct_1159]
-param=param_1070,sneakerpeeper_spawn
+param=param_1070,lore_seeker_child_1
 param=param_1072,85000
 param=param_1078,This is a pet stalker from Daemonheim.
 param=param_1073,summoning
@@ -9722,7 +9722,7 @@ param=param_1071,80
 
 // 1160
 [struct_1160]
-param=param_1070,amulet_of_zealots
+param=param_1070,rand_reward_amulet_of_hopelessness
 param=param_1072,40000
 param=param_1078,This item, when wielded, adds +2 to each of your attack modifiers, with a -8 penalty to your prayer points. It also improves the effect of any prayer that boosts only one skill.
 param=param_1073,prayer
@@ -9732,7 +9732,7 @@ param=param_1071,48
 
 // 1161
 [struct_1161]
-param=param_1070,spirit_cape
+param=param_1070,rand_reward_spirit_cape
 param=param_1072,45000
 param=param_1078,This item, when wielded, gives +3 to each of your defence modifiers, with a reduction to the cost of any scroll abilities that your combat familiars have.
 param=param_1073,defence
@@ -16949,7 +16949,7 @@ param=param_1269,450
 
 // 1681
 [struct_1681]
-param=param_813,miner_s_diary
+param=param_813,love_dwarfdiary
 param=param_923,struct_507
 param=param_924,Diary of Runvastr
 param=param_925,The diary of Runvastr, a dwarven miner, telling of how Dionysius drove a tribe of aggressive trolls out of the Keldagrim mines.
@@ -17386,7 +17386,7 @@ param=param_949,A pickaxe, six pieces of soft clay, six mithril bars.
 param=param_950,Must be able to defeat a level 160 enemy.
 param=param_951,2 Quest Points, 45,000 Mining XP, 50,000 Smithing XP, 55,000 Strength XP, new gravestone option.
 param=param_952,"quest_icons_large,17"
-param=param_691,lava_flow_miner_sven_13396
+param=param_691,ra4_lfm_doorman
 
 // 1727
 [struct_1727]
@@ -17403,7 +17403,7 @@ param=param_845,The Prisoner of Glouphrie
 param=param_846,Prisoner of Glouphrie, The (sort)
 param=param_848,3
 param=param_856,1
-param=param_691,npc_2610
+param=param_691,glo3_golrie_multi_cave
 param=param_850,0_40_69_19_34
 param=param_854,0_39_49_37_19
 param=param_871,thieving
@@ -17441,21 +17441,21 @@ param=param_1269,99
 
 // 1730
 [struct_1730]
-param=param_813,notched_book
+param=param_813,elem4_cosmic_book
 param=param_923,struct_1733
 param=param_924,Book of the Elemental Gloves
 param=param_925,A book about a secret workshop, and the gloves that can be made there.
 
 // 1731
 [struct_1731]
-param=param_813,shabby_book
+param=param_813,elem4_chaos_book
 param=param_923,struct_1733
 param=param_924,Book of the Elemental Boots
 param=param_925,A book about a secret workshop, and the boots that can be made there.
 
 // 1732
 [struct_1732]
-param=param_813,ragged_book
+param=param_813,elemental_workshop_body_book
 param=param_923,struct_1008
 param=param_924,Book of the Elemental Body
 param=param_925,A book about a secret workshop, and the body armour that can be made there.
@@ -17490,7 +17490,7 @@ param=param_1362,struct_1008
 
 // 1734
 [struct_1734]
-param=param_813,a_handwritten_book_20258
+param=param_813,glo3_research_notes
 param=param_923,struct_1728
 param=param_924,Bolrie's Notebook
 param=param_925,Bolrie's research notes on anti-illusion devices.

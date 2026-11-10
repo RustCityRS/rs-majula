@@ -14,4 +14,4 @@ if ($int1 = 1) {
     $graphic2 = "check_box_2,0";
     ~deltooltip_action(task_main:toggle_tooltip);
 }
-if_setgraphic($graphic2, task_main:com_142);
+if_setgraphic(task_main:com_142, $graphic2);

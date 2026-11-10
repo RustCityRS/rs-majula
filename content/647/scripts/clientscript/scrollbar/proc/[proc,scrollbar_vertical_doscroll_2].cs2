@@ -10,8 +10,8 @@ if ($int3 < 0) {
 if ($int3 > $int5) {
     $int3 = $int5;
 }
-if_setscrollpos(0, $int3, $component1);
-if_setscrollpos(0, $int3, $component2);
+if_setscrollpos($component1, 0, $int3);
+if_setscrollpos($component2, 0, $int3);
 def_int $int6 = 0;
 if ($boolean4 = true) {
     $int6 = calc(if_getheight($component0) - 32 - cc_getheight);

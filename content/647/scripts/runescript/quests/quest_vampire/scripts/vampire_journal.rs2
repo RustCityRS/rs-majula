@@ -29,7 +29,7 @@ if (%vampire = ^quest_vampire_not_started) {
         if (inv_total(inv, garlic) > 0) {
             $garlic = true;
         }
-        if (inv_total(inv, stake_hammer) > 0) {
+        if (inv_total(inv, vampire_hammer) > 0) {
             $hammer = true;
         }
         if ($garlic = true & $hammer = false) {

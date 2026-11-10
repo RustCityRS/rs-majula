@@ -5,11 +5,11 @@ def_graphic $graphic4 = "km_colourpickerbox,0";
 if ($int2 = $int1) {
     if (cc_find($component0, 1) = true) {
         cc_setgraphic($graphic3);
-        if_setonmouseover(null, $component0);
-        if_setonmouseleave(null, $component0);
+        if_setonmouseover($component0, null);
+        if_setonmouseleave($component0, null);
     }
 } else if (cc_find($component0, 1) = true) {
     cc_setgraphic($graphic4);
-    if_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic3)", $component0);
-    if_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic4)", $component0);
+    if_setonmouseover($component0, "cc_graphic_swapper(event_com, cc_getid, $graphic3)");
+    if_setonmouseleave($component0, "cc_graphic_swapper(event_com, cc_getid, $graphic4)");
 }

@@ -47,34 +47,34 @@ def_int $int2 = 0;
 if (worldlist_fetch = false) {
     return;
 } else {
-    if_setontimer("script3114(calc(clientclock + 500))", lobbyscreen_pane_worldselect:main);
+    if_setontimer(lobbyscreen_pane_worldselect:main, "script3114(calc(clientclock + 500))");
 }
 def_int $int3 = 0;
-if (%varclient_998 > 0) {
+if (%worldselect_1stfavourite > 0) {
     $int3 = if_getheight(lobbyscreen_pane_worldselect:list_fav1);
 }
-if (%varclient_999 > 0) {
+if (%worldselect_2ndfavourite > 0) {
     $int3 = calc($int3 + if_getheight(lobbyscreen_pane_worldselect:list_fav2));
 }
 if ($int3 = 0) {
-    if_sethide(true, lobbyscreen_pane_worldselect:fav_div);
-    if_sethide(true, lobbyscreen_pane_worldselect:fav_title);
-    if_sethide(true, lobbyscreen_pane_worldselect:ws_fav_divs);
+    if_sethide(lobbyscreen_pane_worldselect:fav_div, true);
+    if_sethide(lobbyscreen_pane_worldselect:fav_title, true);
+    if_sethide(lobbyscreen_pane_worldselect:ws_fav_divs, true);
 } else {
-    if_setsize(if_getwidth(lobbyscreen_pane_worldselect:ws_fav_divs), $int3, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:ws_fav_divs);
-    if_sethide(false, lobbyscreen_pane_worldselect:fav_div);
-    if_sethide(false, lobbyscreen_pane_worldselect:fav_title);
-    if_sethide(false, lobbyscreen_pane_worldselect:ws_fav_divs);
+    if_setsize(lobbyscreen_pane_worldselect:ws_fav_divs, if_getwidth(lobbyscreen_pane_worldselect:ws_fav_divs), $int3, ^setsize_abs, ^setsize_abs);
+    if_sethide(lobbyscreen_pane_worldselect:fav_div, false);
+    if_sethide(lobbyscreen_pane_worldselect:fav_title, false);
+    if_sethide(lobbyscreen_pane_worldselect:ws_fav_divs, false);
     $int3 = calc($int3 + if_getheight(lobbyscreen_pane_worldselect:fav_title));
-    if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:fav_div);
+    if_setposition(lobbyscreen_pane_worldselect:fav_div, 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
     $int3 = calc($int3 + if_getheight(lobbyscreen_pane_worldselect:fav_div));
 }
-if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:list_titles);
+if_setposition(lobbyscreen_pane_worldselect:list_titles, 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
 $int3 = calc($int3 + if_getheight(lobbyscreen_pane_worldselect:list_titles));
-if_setsize(16, $int3, ^setsize_minus, ^setsize_minus, lobbyscreen_pane_worldselect:list_area);
-if_setposition(0, $int3, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:list_area);
-if_setsize(16, $int3, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:list_scroll);
-if_setposition(0, $int3, ^setpos_abs_right, ^setpos_abs_top, lobbyscreen_pane_worldselect:list_scroll);
+if_setsize(lobbyscreen_pane_worldselect:list_area, 16, $int3, ^setsize_minus, ^setsize_minus);
+if_setposition(lobbyscreen_pane_worldselect:list_area, 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize(lobbyscreen_pane_worldselect:list_scroll, 16, $int3, ^setsize_abs, ^setsize_minus);
+if_setposition(lobbyscreen_pane_worldselect:list_scroll, 0, $int3, ^setpos_abs_right, ^setpos_abs_top);
 def_component $component4 = lobbyscreen_pane_worldselect:ws_bg;
 def_component $component5 = lobbyscreen_pane_worldselect:fav;
 def_component $component6 = lobbyscreen_pane_worldselect:world;
@@ -129,7 +129,7 @@ def_int $int36 = -1;
 $int17, $int18, $string0, $int19, $string1, $int20, $int21, $string2 = worldlist_start;
 if ($int17 = -1) {
     ~script3143(1, "Unable to load list.");
-    if_settext("The world list could not be loaded.<br><br>Please accept our apologies for the<br>inconvenience, and try again later.", lobbyscreen_pane_worldselect:please_wait);
+    if_settext(lobbyscreen_pane_worldselect:please_wait, "The world list could not be loaded.<br><br>Please accept our apologies for the<br>inconvenience, and try again later.");
     return;
 }
 def_int $int37 = 0;
@@ -146,9 +146,9 @@ while ($int2 = 0) {
         $int17, $int18, $string0, $int19, $string1, $int20, $int21, $string2 = worldlist_next;
     } else {
         $graphic28, $string3, $graphic22, $rgb27, $graphic29, $rgb26, $graphic25, $string4, $string5 = ~script3117($int17, $int18, $int37, $string0, $string1, $int20, $int19);
-        if ($int17 = %varclient_998) {
+        if ($int17 = %worldselect_1stfavourite) {
             $int40 = 1;
-        } else if ($int17 = %varclient_999) {
+        } else if ($int17 = %worldselect_2ndfavourite) {
             $int41 = 1;
         }
         ~cc_add_rect($component4, $int37, if_getwidth($component4), 20, 0, $int38, $rgb26, true, 0);
@@ -184,13 +184,13 @@ while ($int2 = 0) {
         cc_setopbase("Favourite");
         cc_setonop("script3128(event_op, $int37, $int17)");
         if ($int17 = map_world) {
-            if_sethide(false, lobbyscreen_pane_worldselect:ws_selected_bg);
-            if_setposition(0, $int38, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:ws_selected_bg);
+            if_sethide(lobbyscreen_pane_worldselect:ws_selected_bg, false);
+            if_setposition(lobbyscreen_pane_worldselect:ws_selected_bg, 0, $int38, ^setpos_abs_left, ^setpos_abs_top);
         }
-        if ($int17 = %varclient_998) {
+        if ($int17 = %worldselect_1stfavourite) {
             $int35 = $int37;
         }
-        if ($int17 = %varclient_999) {
+        if ($int17 = %worldselect_2ndfavourite) {
             $int36 = $int37;
         }
         $int17, $int18, $string0, $int19, $string1, $int20, $int21, $string2 = worldlist_next;
@@ -199,103 +199,103 @@ while ($int2 = 0) {
         $int37 = calc($int37 + 1);
     }
 }
-if_setscrollsize(0, calc($int38 + if_gety(lobbyscreen_pane_worldselect:list_main)), lobbyscreen_pane_worldselect:list_area);
+if_setscrollsize(lobbyscreen_pane_worldselect:list_area, 0, calc($int38 + if_gety(lobbyscreen_pane_worldselect:list_main)));
 ~scrollbar_vertical($component16, lobbyscreen_pane_worldselect:list_area, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if (%varclient_998 > 0) {
-    ~script3118(%varclient_998, lobbyscreen_pane_worldselect:list_fav1, $int35, $int40);
+if (%worldselect_1stfavourite > 0) {
+    ~script3118(%worldselect_1stfavourite, lobbyscreen_pane_worldselect:list_fav1, $int35, $int40);
 } else {
     ~script3119(lobbyscreen_pane_worldselect:list_fav1, 1);
 }
-if (%varclient_999 > 0) {
-    ~script3118(%varclient_999, lobbyscreen_pane_worldselect:list_fav2, $int36, $int41);
+if (%worldselect_2ndfavourite > 0) {
+    ~script3118(%worldselect_2ndfavourite, lobbyscreen_pane_worldselect:list_fav2, $int36, $int41);
 } else {
     ~script3119(lobbyscreen_pane_worldselect:list_fav2, 0);
 }
-if (%varclient_998 > 0 & %varclient_999 > 0) {
+if (%worldselect_1stfavourite > 0 & %worldselect_2ndfavourite > 0) {
     if ($int40 = 0 & $int41 = 0) {
-        if_sethide(true, lobbyscreen_pane_worldselect:ws_fav_divs);
+        if_sethide(lobbyscreen_pane_worldselect:ws_fav_divs, true);
     } else if ($int40 = 1 & $int41 = 0) {
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:fav_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:world_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:world_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:players_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:players_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:location_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:location_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:type_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:type_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:qchat_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:fav_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:fav_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:world_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:world_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:players_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:players_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:location_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:location_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:type_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:type_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:qchat_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:qchat_main_div);
-        if_sethide(false, lobbyscreen_pane_worldselect:ws_fav_divs);
+        if_setposition(lobbyscreen_pane_worldselect:fav_main_div, if_getx(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:world_main_div, if_getx(lobbyscreen_pane_worldselect:world_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:players_main_div, if_getx(lobbyscreen_pane_worldselect:players_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:location_main_div, if_getx(lobbyscreen_pane_worldselect:location_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:type_main_div, if_getx(lobbyscreen_pane_worldselect:type_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:qchat_main_div, if_getx(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setsize(lobbyscreen_pane_worldselect:fav_main_div, if_getwidth(lobbyscreen_pane_worldselect:fav_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(lobbyscreen_pane_worldselect:world_main_div, if_getwidth(lobbyscreen_pane_worldselect:world_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(lobbyscreen_pane_worldselect:players_main_div, if_getwidth(lobbyscreen_pane_worldselect:players_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(lobbyscreen_pane_worldselect:location_main_div, if_getwidth(lobbyscreen_pane_worldselect:location_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(lobbyscreen_pane_worldselect:type_main_div, if_getwidth(lobbyscreen_pane_worldselect:type_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(lobbyscreen_pane_worldselect:qchat_main_div, if_getwidth(lobbyscreen_pane_worldselect:qchat_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_sethide(lobbyscreen_pane_worldselect:ws_fav_divs, false);
     } else if ($int40 = 0 & $int41 = 1) {
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:fav_main_div), 20, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:fav_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:world_main_div), 20, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:world_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:players_main_div), 20, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:players_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:location_main_div), 20, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:location_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:type_main_div), 20, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:type_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:qchat_main_div), 20, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:qchat_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:fav_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:fav_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:world_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:world_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:players_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:players_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:location_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:location_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:type_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:type_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:qchat_main_div), 20, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_worldselect:qchat_main_div);
-        if_sethide(false, lobbyscreen_pane_worldselect:ws_fav_divs);
+        if_setposition(lobbyscreen_pane_worldselect:fav_main_div, if_getx(lobbyscreen_pane_worldselect:fav_main_div), 20, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:world_main_div, if_getx(lobbyscreen_pane_worldselect:world_main_div), 20, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:players_main_div, if_getx(lobbyscreen_pane_worldselect:players_main_div), 20, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:location_main_div, if_getx(lobbyscreen_pane_worldselect:location_main_div), 20, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:type_main_div, if_getx(lobbyscreen_pane_worldselect:type_main_div), 20, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:qchat_main_div, if_getx(lobbyscreen_pane_worldselect:qchat_main_div), 20, ^setpos_abs_left, ^setpos_abs_top);
+        if_setsize(lobbyscreen_pane_worldselect:fav_main_div, if_getwidth(lobbyscreen_pane_worldselect:fav_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(lobbyscreen_pane_worldselect:world_main_div, if_getwidth(lobbyscreen_pane_worldselect:world_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(lobbyscreen_pane_worldselect:players_main_div, if_getwidth(lobbyscreen_pane_worldselect:players_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(lobbyscreen_pane_worldselect:location_main_div, if_getwidth(lobbyscreen_pane_worldselect:location_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(lobbyscreen_pane_worldselect:type_main_div, if_getwidth(lobbyscreen_pane_worldselect:type_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(lobbyscreen_pane_worldselect:qchat_main_div, if_getwidth(lobbyscreen_pane_worldselect:qchat_main_div), 20, ^setsize_abs, ^setsize_abs);
+        if_sethide(lobbyscreen_pane_worldselect:ws_fav_divs, false);
     } else {
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:fav_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:world_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:world_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:players_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:players_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:location_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:location_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:type_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:type_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:qchat_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:fav_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:world_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:world_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:players_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:players_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:location_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:location_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:type_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:type_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:qchat_main_div);
-        if_sethide(false, lobbyscreen_pane_worldselect:ws_fav_divs);
+        if_setposition(lobbyscreen_pane_worldselect:fav_main_div, if_getx(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:world_main_div, if_getx(lobbyscreen_pane_worldselect:world_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:players_main_div, if_getx(lobbyscreen_pane_worldselect:players_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:location_main_div, if_getx(lobbyscreen_pane_worldselect:location_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:type_main_div, if_getx(lobbyscreen_pane_worldselect:type_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:qchat_main_div, if_getx(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setsize(lobbyscreen_pane_worldselect:fav_main_div, if_getwidth(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:world_main_div, if_getwidth(lobbyscreen_pane_worldselect:world_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:players_main_div, if_getwidth(lobbyscreen_pane_worldselect:players_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:location_main_div, if_getwidth(lobbyscreen_pane_worldselect:location_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:type_main_div, if_getwidth(lobbyscreen_pane_worldselect:type_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:qchat_main_div, if_getwidth(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_sethide(lobbyscreen_pane_worldselect:ws_fav_divs, false);
     }
-} else if (%varclient_998 > 0 & %varclient_999 <= 0) {
+} else if (%worldselect_1stfavourite > 0 & %worldselect_2ndfavourite <= 0) {
     if ($int40 = 0) {
-        if_sethide(true, lobbyscreen_pane_worldselect:ws_fav_divs);
+        if_sethide(lobbyscreen_pane_worldselect:ws_fav_divs, true);
     } else {
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:fav_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:world_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:world_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:players_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:players_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:location_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:location_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:type_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:type_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:qchat_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:fav_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:world_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:world_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:players_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:players_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:location_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:location_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:type_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:type_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:qchat_main_div);
-        if_sethide(false, lobbyscreen_pane_worldselect:ws_fav_divs);
+        if_setposition(lobbyscreen_pane_worldselect:fav_main_div, if_getx(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:world_main_div, if_getx(lobbyscreen_pane_worldselect:world_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:players_main_div, if_getx(lobbyscreen_pane_worldselect:players_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:location_main_div, if_getx(lobbyscreen_pane_worldselect:location_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:type_main_div, if_getx(lobbyscreen_pane_worldselect:type_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:qchat_main_div, if_getx(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setsize(lobbyscreen_pane_worldselect:fav_main_div, if_getwidth(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:world_main_div, if_getwidth(lobbyscreen_pane_worldselect:world_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:players_main_div, if_getwidth(lobbyscreen_pane_worldselect:players_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:location_main_div, if_getwidth(lobbyscreen_pane_worldselect:location_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:type_main_div, if_getwidth(lobbyscreen_pane_worldselect:type_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:qchat_main_div, if_getwidth(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_sethide(lobbyscreen_pane_worldselect:ws_fav_divs, false);
     }
-} else if (%varclient_998 <= 0 & %varclient_999 > 0) {
+} else if (%worldselect_1stfavourite <= 0 & %worldselect_2ndfavourite > 0) {
     if ($int41 = 0) {
-        if_sethide(true, lobbyscreen_pane_worldselect:ws_fav_divs);
+        if_sethide(lobbyscreen_pane_worldselect:ws_fav_divs, true);
     } else {
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:fav_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:world_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:world_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:players_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:players_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:location_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:location_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:type_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:type_main_div);
-        if_setposition(if_getx(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:qchat_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:fav_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:world_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:world_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:players_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:players_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:location_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:location_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:type_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:type_main_div);
-        if_setsize(if_getwidth(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_worldselect:qchat_main_div);
-        if_sethide(false, lobbyscreen_pane_worldselect:ws_fav_divs);
+        if_setposition(lobbyscreen_pane_worldselect:fav_main_div, if_getx(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:world_main_div, if_getx(lobbyscreen_pane_worldselect:world_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:players_main_div, if_getx(lobbyscreen_pane_worldselect:players_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:location_main_div, if_getx(lobbyscreen_pane_worldselect:location_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:type_main_div, if_getx(lobbyscreen_pane_worldselect:type_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_worldselect:qchat_main_div, if_getx(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setpos_abs_left, ^setpos_abs_top);
+        if_setsize(lobbyscreen_pane_worldselect:fav_main_div, if_getwidth(lobbyscreen_pane_worldselect:fav_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:world_main_div, if_getwidth(lobbyscreen_pane_worldselect:world_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:players_main_div, if_getwidth(lobbyscreen_pane_worldselect:players_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:location_main_div, if_getwidth(lobbyscreen_pane_worldselect:location_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:type_main_div, if_getwidth(lobbyscreen_pane_worldselect:type_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(lobbyscreen_pane_worldselect:qchat_main_div, if_getwidth(lobbyscreen_pane_worldselect:qchat_main_div), 0, ^setsize_abs, ^setsize_minus);
+        if_sethide(lobbyscreen_pane_worldselect:ws_fav_divs, false);
     }
 } else {
-    if_sethide(true, lobbyscreen_pane_worldselect:ws_fav_divs);
+    if_sethide(lobbyscreen_pane_worldselect:ws_fav_divs, true);
 }
-if_sethide(true, lobbyscreen_pane_worldselect:please_wait);
-if_sethide(false, lobbyscreen_pane_worldselect:list_content);
+if_sethide(lobbyscreen_pane_worldselect:please_wait, true);
+if_sethide(lobbyscreen_pane_worldselect:list_content, false);
 return;

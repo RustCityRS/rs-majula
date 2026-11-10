@@ -1,4 +1,4 @@
 // 2374
 [clientscript,makeover_headsetup](component $component0, npc $npc1)
-if_setnpchead($npc1, $component0);
-if_setmodelanim(chatidle3, $component0);
+if_setnpchead($component0, $npc1);
+if_setmodelanim($component0, chatidle3);

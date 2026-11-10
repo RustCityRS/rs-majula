@@ -1,11 +1,11 @@
 // 2963
 [clientscript,loginscreen_camerastop](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, int $int6)
 if (clientclock >= $int6) {
-    if_setontimer(null, $component0);
-    if_sethide(true, $component0);
-    if_setonclick("loginscreen_disable_camera($component0, $component1, $component2, $component3, $component4, $component5)", $component3);
-    if_setonmouserepeat("script2961($component4, $component5, true)", $component3);
-    if_setonmouseleave("script2961($component4, $component5, false)", $component3);
-    if_setgraphic("animatedcam,0", $component4);
-    %varclient_986 = true;
+    if_setontimer($component0, null);
+    if_sethide($component0, true);
+    if_setonclick($component3, "loginscreen_disable_camera($component0, $component1, $component2, $component3, $component4, $component5)");
+    if_setonmouserepeat($component3, "script2961($component4, $component5, true)");
+    if_setonmouseleave($component3, "script2961($component4, $component5, false)");
+    if_setgraphic($component4, "animatedcam,0");
+    %loginscreen_camera_disabled = true;
 }

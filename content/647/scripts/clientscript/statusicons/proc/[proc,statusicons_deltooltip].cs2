@@ -9,6 +9,6 @@ if (getwindowmode < 2) {
     $component0 = toplevel_fullscreen:statusicon_tooltip;
     $component1 = toplevel_fullscreen:statusicon_tooltip_text;
 }
-if_settext("", $component1);
-if_sethide(true, $component0);
-%varclient_2 = 0;
+if_settext($component1, "");
+if_sethide($component0, true);
+%tooltip_built = 0;

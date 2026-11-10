@@ -35,7 +35,7 @@ xmode=abs_centre
 layer=token_choice_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=warguild_trans_off(event_com)
 onop=warguild_select_single(event_com)
 onmouserepeat=warguild_trans(event_com)
@@ -51,7 +51,7 @@ xmode=abs_centre
 layer=token_choice_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=warguild_trans_off(event_com)
 onop=warguild_select_multi(event_com)
 onmouserepeat=warguild_trans(event_com)
@@ -148,7 +148,7 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=warguild_update_tokens_attack(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_attack(event_com){warguild_tokens}
 
 // 1058:13
 [single_defence_token]
@@ -172,7 +172,7 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=warguild_update_tokens_defence(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_defence(event_com){warguild_tokens}
 
 // 1058:15
 [single_combat_token]
@@ -196,7 +196,7 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=warguild_update_tokens_combat(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_combat(event_com){warguild_tokens2}
 
 // 1058:17
 [single_strength_token]
@@ -220,7 +220,7 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=warguild_update_tokens_strength(event_com){varplayer_788}
+onvartransmit=warguild_update_tokens_strength(event_com){warguild_games}
 
 // 1058:19
 [single_balance_token]
@@ -244,7 +244,7 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=warguild_update_tokens_balance(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_balance(event_com){warguild_tokens2}
 
 // 1058:21
 [back]
@@ -270,7 +270,7 @@ xmode=abs_centre
 layer=single_token_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=warguild_hover_leave_tokens(event_com)
 onop=warguild_select_token_type(event_com)
 onmouserepeat=warguild_hover_tokens(event_com)
@@ -286,7 +286,7 @@ xmode=abs_centre
 layer=single_token_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=warguild_hover_leave_tokens(event_com)
 onop=warguild_select_token_type(event_com)
 onmouserepeat=warguild_hover_tokens(event_com)
@@ -301,7 +301,7 @@ xmode=abs_centre
 layer=single_token_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=warguild_hover_leave_tokens(event_com)
 onop=warguild_select_token_type(event_com)
 onmouserepeat=warguild_hover_tokens(event_com)
@@ -317,7 +317,7 @@ xmode=abs_centre
 layer=single_token_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=warguild_hover_leave_tokens(event_com)
 onop=warguild_select_token_type(event_com)
 onmouserepeat=warguild_hover_tokens(event_com)
@@ -333,7 +333,7 @@ xmode=abs_centre
 layer=single_token_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=warguild_hover_leave_tokens(event_com)
 onop=warguild_select_token_type(event_com)
 onmouserepeat=warguild_hover_tokens(event_com)
@@ -637,7 +637,7 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=warguild_update_tokens_combat(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_combat(event_com){warguild_tokens2}
 
 // 1058:53
 [com_53]
@@ -653,7 +653,7 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=warguild_update_tokens_strength(event_com){varplayer_788}
+onvartransmit=warguild_update_tokens_strength(event_com){warguild_games}
 
 // 1058:54
 [com_54]
@@ -669,7 +669,7 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=warguild_update_tokens_balance(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_balance(event_com){warguild_tokens2}
 
 // 1058:55
 [com_55]
@@ -685,7 +685,7 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=warguild_update_tokens_defence(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_defence(event_com){warguild_tokens}
 
 // 1058:56
 [com_56]
@@ -701,7 +701,7 @@ text=36635
 textalignh=centre
 textalignv=centre
 colour=0xbcab8d
-onvartransmit=warguild_update_tokens_attack(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_attack(event_com){warguild_tokens}
 
 // 1058:57
 [com_57]

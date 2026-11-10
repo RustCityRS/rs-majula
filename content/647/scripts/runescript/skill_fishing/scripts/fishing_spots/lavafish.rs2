@@ -30,8 +30,8 @@ if (npc_range(coord) > 1)
 [label,oil_rod_fishing_use_item]
 switch_obj (last_useitem) {
     case oily_fishing_rod : @attempt_fish_lava_eel;
-    case small_fishing_net : @burnup_fishing_equipment(small_fishing_net, "net");
-    case big_fishing_net : @burnup_fishing_equipment(big_fishing_net, "net");
+    case net : @burnup_fishing_equipment(net, "net");
+    case big_net : @burnup_fishing_equipment(big_net, "net");
     case harpoon : @burnup_fishing_equipment(harpoon, "harpoon");
     case fishing_rod : @burnup_fishing_equipment(fishing_rod, "rod");
     case fly_fishing_rod : @burnup_fishing_equipment(fly_fishing_rod, "rod");

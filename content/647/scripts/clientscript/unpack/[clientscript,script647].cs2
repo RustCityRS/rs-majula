@@ -1,7 +1,7 @@
 // 647
 [clientscript,script647](component $component0, component $component1, string $string0, int $int2, int $int3)
 def_int $int4 = 0;
-if (%varclient_2 = 1) {
+if (%tooltip_built = 1) {
     while ($int4 < 6) {
         ~deltooltip_action(~script626($int4));
         $int4 = calc($int4 + 1);

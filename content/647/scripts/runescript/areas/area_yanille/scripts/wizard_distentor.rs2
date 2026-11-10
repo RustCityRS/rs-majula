@@ -1,4 +1,4 @@
-[opnpc1,wizard_distentor]
+[opnpc1,guild_wizard]
 ~chatnpc("<p,neutral>Welcome to the Magicians' Guild!");
 ~chatplayer("<p,neutral>Hello there.");
 ~chatnpc("<p,quiz>What can I do for you?");
@@ -12,5 +12,5 @@ if(%runemysteries = ^runemysteries_complete) {
 ~chatplayer("<p,neutral>Nothing thanks, I'm just looking around.");
 ~chatnpc("<p,neutral>That's fine with me.");
 
-[opnpc3,wizard_distentor]
+[opnpc3,guild_wizard]
 @teleport_to_essence_mine(^essence_mine_to_disentor);

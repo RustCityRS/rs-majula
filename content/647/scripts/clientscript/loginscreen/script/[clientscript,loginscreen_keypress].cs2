@@ -1,10 +1,10 @@
 // 1221
 [clientscript,loginscreen_keypress](int $key0, char $char1)
-if (%varclient_174 = 11) {
+if (%loginscreen_focus = 11) {
     return;
 }
 def_int $int2 = ~login_getreply;
-switch_int (%varclient_174) {
+switch_int (%loginscreen_focus) {
     case 12 :
         if ($key0 = ^key_escape) {
             ~loginscreen_pvp_warning_unsigned(0);
@@ -31,24 +31,24 @@ switch_int (%varclient_174) {
                 ~loginscreen_setactivemenu(11);
                 return;
             case ^key_return, ^key_tab :
-                if (%varclient_175 >= clientclock) {
+                if (%loginscreen_focustime >= clientclock) {
                     return;
                 }
-                %varclient_174 = 4;
-                %varclient_175 = clientclock;
-                %varclient_1099 = string_length(~script2949(%varclient_1552));
-                ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%varclient_1552), 4);
+                %loginscreen_focus = 4;
+                %loginscreen_focustime = clientclock;
+                %login_caret = string_length(~script2949(%loginscreen_password));
+                ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%loginscreen_password), 4);
                 return;
             case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
-                %varclient_1099 = ~script1553($key0, %varclient_1099, %varclient_1551);
+                %login_caret = ~script1553($key0, %login_caret, %varclient_1551);
                 ~script3237(login:username_layer, login:username, login:username_caret, %varclient_1551, 3);
                 return;
         }
         if (string_length(%varclient_1551) >= 320 & $key0 ! ^key_backspace & $key0 ! ^key_del | string_length(removetags(append_char("", $char1))) = 0) {
             return;
         }
-        %varclient_1551, %varclient_1099 = ~script802(%varclient_1099, %varclient_1551, 0, $key0, $char1);
-        if_settext(%varclient_1551, login:username);
+        %varclient_1551, %login_caret = ~script802(%login_caret, %varclient_1551, 0, $key0, $char1);
+        if_settext(login:username, %varclient_1551);
         ~script3237(login:username_layer, login:username, login:username_caret, %varclient_1551, 3);
         return;
     case 4 :
@@ -61,29 +61,29 @@ switch_int (%varclient_174) {
                 ~loginscreen_setactivemenu(11);
                 return;
             case ^key_return, ^key_tab :
-                if (%varclient_175 >= clientclock) {
+                if (%loginscreen_focustime >= clientclock) {
                     return;
                 }
                 if ($key0 = ^key_return & string_length(%varclient_1551) > 0) {
                     ~login_dologin;
                     return;
                 }
-                %varclient_174 = 3;
-                %varclient_175 = clientclock;
-                %varclient_1099 = string_length(%varclient_1551);
+                %loginscreen_focus = 3;
+                %loginscreen_focustime = clientclock;
+                %login_caret = string_length(%varclient_1551);
                 ~script3237(login:username_layer, login:username, login:username_caret, %varclient_1551, 3);
                 return;
             case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
-                %varclient_1099 = ~script1553($key0, %varclient_1099, ~script2949(%varclient_1552));
-                ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%varclient_1552), 4);
+                %login_caret = ~script1553($key0, %login_caret, ~script2949(%loginscreen_password));
+                ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%loginscreen_password), 4);
                 return;
         }
-        if (string_length(%varclient_1552) >= 20 & $key0 ! ^key_backspace & $key0 ! ^key_del) {
+        if (string_length(%loginscreen_password) >= 20 & $key0 ! ^key_backspace & $key0 ! ^key_del) {
             return;
         }
-        %varclient_1552, %varclient_1099 = ~script802(%varclient_1099, %varclient_1552, 0, $key0, $char1);
-        if_settext(~script2949(%varclient_1552), login:password);
-        ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%varclient_1552), 4);
+        %loginscreen_password, %login_caret = ~script802(%login_caret, %loginscreen_password, 0, $key0, $char1);
+        if_settext(login:password, ~script2949(%loginscreen_password));
+        ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%loginscreen_password), 4);
         return;
     case 5 :
         switch_int ($int2) {
@@ -106,7 +106,7 @@ switch_int (%varclient_174) {
         return;
     case 13 :
         if ($key0 = ^key_escape) {
-            ~loginscreen_setactivemenu(%varclient_1091);
+            ~loginscreen_setactivemenu(%loginscreen_lastmenu_options);
             return;
         }
         return;

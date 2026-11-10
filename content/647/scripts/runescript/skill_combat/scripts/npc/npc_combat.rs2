@@ -150,11 +150,11 @@ if (npc_type = grip) {
     return(~grip_attack);
 }
 
-if(npc_type = lucien) {
+if(npc_type = ikov_lucien2) {
     return (~lucien_attack);
 } 
 
-if(npc_type = gorad & (~obj_gettotal(ogre_tooth) > 0 | getbit_range(%itwatchtower_bits, ^itwatchtower_spoken_grew, ^itwatchtower_helped_grew) ! 1)) {
+if(npc_type = gorad & (~obj_gettotal(ogretooth) > 0 | getbit_range(%itwatchtower_bits, ^itwatchtower_spoken_grew, ^itwatchtower_helped_grew) ! 1)) {
     if(%itwatchtower = ^itwatchtower_complete) return (true);
     if(getbit_range(%itwatchtower_bits, ^itwatchtower_spoken_grew, ^itwatchtower_helped_grew) < 1) {
         mes("You don't need to fight him now.");
@@ -164,17 +164,17 @@ if(npc_type = gorad & (~obj_gettotal(ogre_tooth) > 0 | getbit_range(%itwatchtowe
     return(false);
 }
 
-if(npc_type = mercenary_captain) {
+if(npc_type = desertminingcaptain) {
     return (~mercenary_capt_attack(false));
 } 
 
-if(npc_type = fire_warrior_of_lesarkus & (inv_total(worn, ice_arrows) = 0 | %damagetype ! ^ranged_style)) {
+if(npc_type = ikov_firewarrior & (inv_total(worn, ice_arrow) = 0 | %damagetype ! ^ranged_style)) {
     ~chatnpc("<p,angry>Your puny weapons do nothing against me human! Come back when you can give me a real fight!");
     return (false);
 }
 
 if (npc_type = delrith) {
-    if (%demon_slayer = ^demon_complete) {
+    if (%demonslayer_main = ^demon_complete) {
         mes("You've already done that quest.");
         return(false);
     }
@@ -187,7 +187,7 @@ if (npc_type = delrith) {
         return(false);
     }
 }
-if (npc_type = count_draynor) {
+if (npc_type = vampire_slayer_qip_count) {
     if (%vampire = ^vampire_complete) {
         mes("You've done enough vampire slaying.");
         return(false);
@@ -244,10 +244,10 @@ if(npc_type = general_khazard & %arenaquest < ^arena_freed_servils) {
     mes("I don't have time. I'm here to rescue Sir Servil and Jeremy.");
     return (false);
 }
-if(npc_type = lucien) {
+if(npc_type = ikov_lucien2) {
     return (~lucien_attack);
 }
-if(npc_type = gorad & (~obj_gettotal(ogre_tooth) > 0 | getbit_range(%itwatchtower_bits, ^itwatchtower_spoken_grew, ^itwatchtower_helped_grew) ! 1)) {
+if(npc_type = gorad & (~obj_gettotal(ogretooth) > 0 | getbit_range(%itwatchtower_bits, ^itwatchtower_spoken_grew, ^itwatchtower_helped_grew) ! 1)) {
     if(getbit_range(%itwatchtower_bits, ^itwatchtower_spoken_grew, ^itwatchtower_helped_grew) ! 1 | %itwatchtower >= ^itwatchtower_complete) {
         mes("You don't need to fight him now.");
     } else {
@@ -255,10 +255,10 @@ if(npc_type = gorad & (~obj_gettotal(ogre_tooth) > 0 | getbit_range(%itwatchtowe
     }
     return(false);
 }
-if(npc_type = mercenary_captain) {
+if(npc_type = desertminingcaptain) {
     return (~mercenary_capt_attack(true));
 } 
-if(npc_type = fire_warrior_of_lesarkus) { // can't attack with magic
+if(npc_type = ikov_firewarrior) { // can't attack with magic
     ~chatnpc("<p,angry>Your puny weapons do nothing against me human! Come back when you can give me a real fight!");
     return (false);
 }
@@ -278,16 +278,16 @@ if (npc_category = kolodion & enum(int, npc, mage_arena_bosses, %magearena) ! np
     }
     return(false);
 }
-if (npc_type = chompy_bird) {
+if (npc_type = chompybird_dead) {
     mes("Magic simply won't affect this beast!");
     return(false);
 }
-if (%vampire = ^vampire_complete & npc_type = count_draynor) {
+if (%vampire = ^vampire_complete & npc_type = vampire_slayer_qip_count) {
     mes("You've done enough vampire slaying.");
     return(false);
 }
 if (npc_type = delrith) {
-    if (%demon_slayer = ^demon_complete) {
+    if (%demonslayer_main = ^demon_complete) {
         mes("You've already done that quest.");
         return(false);
     }
@@ -300,7 +300,7 @@ if (npc_type = delrith) {
         return(false);
     }
 }
-if (npc_type = count_draynor) {
+if (npc_type = vampire_slayer_qip_count) {
     if (%vampire = ^vampire_complete) {
         mes("You've done enough vampire slaying.");
         return(false);

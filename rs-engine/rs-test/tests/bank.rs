@@ -616,8 +616,8 @@ fn the_stats_screen_totals_the_worn_absorb() {
     runner::on_loaded_engine(|engine| {
         let mut client = banker(engine, "statsabsorb");
         for (slot, name) in [
-            (0, "dragon_full_helm"),
-            (4, "dragon_platebody"),
+            (0, "brut_dragon_full_helm"),
+            (4, "luc2_dragonplate_torso"),
             (7, "dragon_platelegs"),
             (5, "dragon_sq_shield"),
         ] {

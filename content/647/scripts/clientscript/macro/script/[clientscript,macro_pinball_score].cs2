@@ -1,8 +1,8 @@
 // 87
 [clientscript,macro_pinball_score](component $component0)
-if_settext("Score: <tostring(%varplayerbit_2121)>", $component0);
-if (%varplayerbit_2121 = 0) {
-    if_setcolour(^red, $component0);
+if_settext($component0, "Score: <tostring(%macro_pinball_score)>");
+if (%macro_pinball_score = 0) {
+    if_setcolour($component0, ^red);
 } else {
-    if_setcolour(^yellow, $component0);
+    if_setcolour($component0, ^yellow);
 }

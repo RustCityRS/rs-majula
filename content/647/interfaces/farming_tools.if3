@@ -51,8 +51,8 @@ op2=Remove 5
 op3=Remove All
 op4=Remove X
 op10=Examine
-onload=farming_tools_main_update(event_com, supercompost, 255, farming_tools:supercompost_name)
-onvartransmit=farming_tools_main_update(event_com, supercompost, 255, farming_tools:supercompost_name){varplayer_615}
+onload=farming_tools_main_update(event_com, bucket_supercompost, 255, farming_tools:supercompost_name)
+onvartransmit=farming_tools_main_update(event_com, bucket_supercompost, 255, farming_tools:supercompost_name){farming_tools}
 
 // 125:4
 [compost_name]
@@ -85,8 +85,8 @@ op2=Remove 5
 op3=Remove All
 op4=Remove X
 op10=Examine
-onload=farming_tools_main_update(event_com, compost, 255, farming_tools:compost_name)
-onvartransmit=farming_tools_main_update(event_com, compost, 255, farming_tools:compost_name){varplayer_615}
+onload=farming_tools_main_update(event_com, bucket_compost, 255, farming_tools:compost_name)
+onvartransmit=farming_tools_main_update(event_com, bucket_compost, 255, farming_tools:compost_name){farming_tools}
 
 // 125:6
 [buckets_name]
@@ -119,8 +119,8 @@ op2=Remove 5
 op3=Remove All
 op4=Remove X
 op10=Examine
-onload=farming_tools_main_update(event_com, bucket, 31, farming_tools:buckets_name)
-onvartransmit=farming_tools_main_update(event_com, bucket, 31, farming_tools:buckets_name){varplayer_615}
+onload=farming_tools_main_update(event_com, bucket_empty, 31, farming_tools:buckets_name)
+onvartransmit=farming_tools_main_update(event_com, bucket_empty, 31, farming_tools:buckets_name){farming_tools}
 
 // 125:8
 [scarecrow_name]
@@ -153,8 +153,8 @@ op2=Remove 5
 op3=Remove All
 op4=Remove X
 op10=Examine
-onload=farming_tools_main_update(event_com, scarecrow, 4, farming_tools:scarecrow_name)
-onvartransmit=farming_tools_main_update(event_com, scarecrow, 4, farming_tools:scarecrow_name){varplayer_1357}
+onload=farming_tools_main_update(event_com, scarecrow_complete, 4, farming_tools:scarecrow_name)
+onvartransmit=farming_tools_main_update(event_com, scarecrow_complete, 4, farming_tools:scarecrow_name){varplayer_1357}
 
 // 125:10
 [wateringcan_name]
@@ -184,8 +184,8 @@ transmitop=1,10
 opbase=<col=ff9040>Watering Can
 op1=Remove
 op10=Examine
-onload=farming_tools_main_update(event_com, watering_can_6797, 1, farming_tools:wateringcan_name)
-onvartransmit=farming_tools_main_update(event_com, watering_can_6797, 1, farming_tools:wateringcan_name){varplayer_615}
+onload=farming_tools_main_update(event_com, watering_can_dummy, 1, farming_tools:wateringcan_name)
+onvartransmit=farming_tools_main_update(event_com, watering_can_dummy, 1, farming_tools:wateringcan_name){farming_tools}
 
 // 125:12
 [secateurs_name]
@@ -216,7 +216,7 @@ opbase=<col=ff9040>Secateurs
 op1=Remove
 op10=Examine
 onload=farming_tools_main_update(event_com, secateurs, 1, farming_tools:secateurs_name)
-onvartransmit=farming_tools_main_update(event_com, secateurs, 1, farming_tools:secateurs_name){varplayer_615}
+onvartransmit=farming_tools_main_update(event_com, secateurs, 1, farming_tools:secateurs_name){farming_tools}
 
 // 125:14
 [trowel_name]
@@ -247,7 +247,7 @@ opbase=<col=ff9040>Trowel
 op1=Remove
 op10=Examine
 onload=farming_tools_main_update(event_com, gardening_trowel, 1, farming_tools:trowel_name)
-onvartransmit=farming_tools_main_update(event_com, gardening_trowel, 1, farming_tools:trowel_name){varplayer_615}
+onvartransmit=farming_tools_main_update(event_com, gardening_trowel, 1, farming_tools:trowel_name){farming_tools}
 
 // 125:16
 [spade_name]
@@ -278,7 +278,7 @@ opbase=<col=ff9040>Spade
 op1=Remove
 op10=Examine
 onload=farming_tools_main_update(event_com, spade, 1, farming_tools:spade_name)
-onvartransmit=farming_tools_main_update(event_com, spade, 1, farming_tools:spade_name){varplayer_615}
+onvartransmit=farming_tools_main_update(event_com, spade, 1, farming_tools:spade_name){farming_tools}
 
 // 125:18
 [dibber_name]
@@ -308,8 +308,8 @@ transmitop=1,10
 opbase=<col=ff9040>Dibber
 op1=Remove
 op10=Examine
-onload=farming_tools_main_update(event_com, seed_dibber, 1, farming_tools:dibber_name)
-onvartransmit=farming_tools_main_update(event_com, seed_dibber, 1, farming_tools:dibber_name){varplayer_615}
+onload=farming_tools_main_update(event_com, dibber, 1, farming_tools:dibber_name)
+onvartransmit=farming_tools_main_update(event_com, dibber, 1, farming_tools:dibber_name){farming_tools}
 
 // 125:20
 [rake_name]
@@ -340,7 +340,7 @@ opbase=<col=ff9040>Rake
 op1=Remove
 op10=Examine
 onload=farming_tools_main_update(event_com, rake, 1, farming_tools:rake_name)
-onvartransmit=farming_tools_main_update(event_com, rake, 1, farming_tools:rake_name){varplayer_615}
+onvartransmit=farming_tools_main_update(event_com, rake, 1, farming_tools:rake_name){farming_tools}
 
 // 125:22
 [com_22]

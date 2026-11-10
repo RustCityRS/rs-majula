@@ -7,7 +7,7 @@ cc_setcolour(^green);
 cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^green)");
 .cc_sethide(false);
 .cc_setonop("script2885(event_com, event_comsubid, 150, 0, 20, event_op)");
-if ($int0 = %varplayerbit_7081 | $int0 = %varplayerbit_7082 | $int0 = %varplayerbit_7083 | $int0 = %varplayerbit_7084 | $int0 = %varplayerbit_7085 | $int0 = %varplayerbit_7086 | $int0 = %varplayerbit_7087 | $int0 = %varplayerbit_7088 | $int0 = %varplayerbit_7089 | $int0 = %varplayerbit_7090 | $int0 = %varplayerbit_7091 | $int0 = %varplayerbit_7092) {
+if ($int0 = %playlist_0 | $int0 = %playlist_1 | $int0 = %varplayerbit_7083 | $int0 = %varplayerbit_7084 | $int0 = %varplayerbit_7085 | $int0 = %varplayerbit_7086 | $int0 = %varplayerbit_7087 | $int0 = %varplayerbit_7088 | $int0 = %varplayerbit_7089 | $int0 = %varplayerbit_7090 | $int0 = %varplayerbit_7091 | $int0 = %varplayerbit_7092) {
     .cc_setgraphic("music_icons_new,1");
     .cc_setop(4, $string1);
     cc_setop(4, $string1);

@@ -4,10 +4,10 @@ def_int $int2 = calc(clientclock - $int1);
 def_int $int3 = 0;
 if ($int2 <= 30) {
     if ($int2 = 5) {
-        sound_synth(synth_2871, 1, 0);
+        sound_synth(ft_fairyrings, 1, 0);
     }
     $int3 = calc(11 * $int2 - 325);
-    if_setposition($int3, 5, ^setpos_abs_left, ^setpos_abs_top, machinima_livecamera:messagelayer);
+    if_setposition(machinima_livecamera:messagelayer, $int3, 5, ^setpos_abs_left, ^setpos_abs_top);
     return;
 }
 if ($int2 < 170) {
@@ -15,10 +15,10 @@ if ($int2 < 170) {
 }
 if ($int2 < 201) {
     if ($int2 = 5) {
-        sound_synth(synth_2871, 1, 0);
+        sound_synth(ft_fairyrings, 1, 0);
     }
     $int3 = calc(5 - 11 * ($int2 - 170));
-    if_setposition($int3, 5, ^setpos_abs_left, ^setpos_abs_top, machinima_livecamera:messagelayer);
+    if_setposition(machinima_livecamera:messagelayer, $int3, 5, ^setpos_abs_left, ^setpos_abs_top);
     return;
 }
-if_setontimer(null, $component0);
+if_setontimer($component0, null);

@@ -4,12 +4,12 @@ if ($key0 = ^key_page_up) {
     if ($int6 = 0) {
         return;
     }
-    if (%varclient_128 <= 0) {
-        %varclient_128 = calc($int6 - 1);
+    if (%quickchat_menu_select <= 0) {
+        %quickchat_menu_select = calc($int6 - 1);
     } else {
-        %varclient_128 = calc(%varclient_128 - 1);
+        %quickchat_menu_select = calc(%quickchat_menu_select - 1);
     }
-    if (cc_find($component4, calc(%varclient_128 + 1)) = true) {
+    if (cc_find($component4, calc(%quickchat_menu_select + 1)) = true) {
         if (.cc_find($component4, 0) = true) {
             .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
             .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
@@ -28,12 +28,12 @@ if ($key0 = ^key_page_down) {
     if ($int6 = 0) {
         return;
     }
-    if (%varclient_128 = calc($int6 - 1)) {
-        %varclient_128 = 0;
+    if (%quickchat_menu_select = calc($int6 - 1)) {
+        %quickchat_menu_select = 0;
     } else {
-        %varclient_128 = calc(%varclient_128 + 1);
+        %quickchat_menu_select = calc(%quickchat_menu_select + 1);
     }
-    if (cc_find($component4, calc(%varclient_128 + 1)) = true) {
+    if (cc_find($component4, calc(%quickchat_menu_select + 1)) = true) {
         if (.cc_find($component4, 0) = true) {
             .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
             .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
@@ -49,7 +49,7 @@ if ($key0 = ^key_page_down) {
     return;
 }
 if ($key0 = ^key_home) {
-    ~quickchat_open(%varclient_126, %varclient_1546);
+    ~quickchat_open(%quickchat_mode, %varclient_1546);
     return;
 }
 if ($key0 = ^key_escape) {
@@ -61,15 +61,15 @@ def_int $int8 = chatphrase_find(%varclient_1549, false);
 def_int $int9 = 0;
 def_chatphrase $chatphrase10 = null;
 if ($key0 = ^key_return) {
-    if (%varclient_128 < 0) {
+    if (%quickchat_menu_select < 0) {
         if ($int7 > 0) {
-            %varclient_129 = 0;
-            if_setontimer(null, $component3);
+            %quickchat_phrase_temp_int = 0;
+            if_setontimer($component3, null);
             ~quickchat_phrase_search_refreshsearch($component2, $component4, $component5);
         } else {
             ~quickchat_close;
         }
-    } else if ($int8 > 0 & cc_find($component4, calc(%varclient_128 + 1)) = true) {
+    } else if ($int8 > 0 & cc_find($component4, calc(%quickchat_menu_select + 1)) = true) {
         while ($int9 < $int8) {
             $chatphrase10 = chatphrase_findnext;
             if (compare(cc_gettext, chatphrase_gettext($chatphrase10)) = 0) {
@@ -84,16 +84,16 @@ if ($key0 = ^key_return) {
 if ($key0 = ^key_backspace) {
     if ($int7 > 0) {
         %varclient_1549 = substring(%varclient_1549, 0, calc($int7 - 1));
-    } else if (%varclient_127 = false) {
+    } else if (%quickchat_backspace = false) {
         ~quickchat_close;
     } else {
-        %varclient_128 = -1;
-        if_sethide(true, chatdefault:quickchat_countdialog);
-        if_sethide(true, chatdefault:quickchat_listdialog);
-        if_sethide(true, chatdefault:quickchat_objdialog);
-        if_sethide(false, chatdefault:quickchat_menu);
-        if_sethide(false, chatdefault:quickchat_path);
-        if_sethide(true, chatdefault:quickchat_title);
+        %quickchat_menu_select = -1;
+        if_sethide(chatdefault:quickchat_countdialog, true);
+        if_sethide(chatdefault:quickchat_listdialog, true);
+        if_sethide(chatdefault:quickchat_objdialog, true);
+        if_sethide(chatdefault:quickchat_menu, false);
+        if_sethide(chatdefault:quickchat_path, false);
+        if_sethide(chatdefault:quickchat_title, true);
         ~quickchat_return($component2, 0);
         return;
     }
@@ -102,6 +102,6 @@ if ($key0 = ^key_backspace) {
 } else {
     return;
 }
-if_settext("Search for: <%varclient_1549>*", $component3);
-%varclient_129 = 50;
-if_setontimer("script1903($component2, $component3, $component4, $component5)", $component3);
+if_settext($component3, "Search for: <%varclient_1549>*");
+%quickchat_phrase_temp_int = 50;
+if_setontimer($component3, "script1903($component2, $component3, $component4, $component5)");

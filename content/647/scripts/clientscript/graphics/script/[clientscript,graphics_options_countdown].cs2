@@ -18,9 +18,9 @@ if ($int2 = 1) {
     if (if_hassub($component7) = false) {
         ~graphics_options_opencountdown($int1, $boolean3, $boolean4);
     }
-    if_settext("Reverting in: <tostring(calc($int5 / 50))>", graphics_confirm:countdown);
+    if_settext(graphics_confirm:countdown, "Reverting in: <tostring(calc($int5 / 50))>");
 } else if ($int2 = 2) {
-    if_settext("Reverting in: <tostring(calc($int5 / 50))>", lobbyscreen:windowmode_confirm_countdown);
+    if_settext(lobbyscreen:windowmode_confirm_countdown, "Reverting in: <tostring(calc($int5 / 50))>");
 } else {
-    if_settext("Reverting in: <tostring(calc($int5 / 50))>", loginscreen:windowmode_confirm_countdown_text);
+    if_settext(loginscreen:windowmode_confirm_countdown_text, "Reverting in: <tostring(calc($int5 / 50))>");
 }

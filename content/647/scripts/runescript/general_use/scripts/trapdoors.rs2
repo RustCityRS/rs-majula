@@ -1,7 +1,7 @@
 // https://youtu.be/0lPiEWFcXTM?t=99
-[oploc1,trapdoor_1568]
+[oploc1,trapdoor]
 mes("The trapdoor opens...");
-sound_synth(door_open, 1, 0);
+sound_synth(nicedoor_open, 1, 0);
 // Temp note: dur does not need updated ? @indio
 loc_change(trapdoor_open, 500);
 
@@ -12,9 +12,9 @@ p_telejump(movecoord(coord(), 0, 0, 6400));
 
 [oploc2,trapdoor_open]
 mes("You close the trapdoor.");
-sound_synth(door_close, 1, 0 );
+sound_synth(nicedoor_close, 1, 0 );
 // Temp note: dur does not need updated ? @indio
-loc_change(trapdoor_1568, 500);
+loc_change(trapdoor, 500);
 
 // 2011 placed its own trapdoors on 289's spots (cache 786's map; void-634
 // trapdoors.objs.toml and its *.teles.toml give each one's climb).
@@ -24,22 +24,22 @@ loc_change(trapdoor_1568, 500);
 // open too; void-634 gives it no climb, so it keeps 289's.
 [oploc1,trapdoor_26933]
 mes("The trapdoor opens...");
-sound_synth(door_open, 1, 0);
-loc_change(trapdoor_26934, 500);
+sound_synth(nicedoor_open, 1, 0);
+loc_change(edge_trapdoor_open, 500);
 
-[oploc1,trapdoor_26934]
+[oploc1,edge_trapdoor_open]
 mes("You climb down through the trapdoor...");
 p_telejump(movecoord(coord(), 0, 0, 6399));
 
-[oploc2,trapdoor_26934]
+[oploc2,edge_trapdoor_open]
 mes("You close the trapdoor.");
-sound_synth(door_close, 1, 0);
+sound_synth(nicedoor_close, 1, 0);
 loc_change(trapdoor_26933, 500);
 
 [oploc1,trapdoor_36687]
 mes("You climb down through the trapdoor...");
 p_telejump(movecoord(coord(), -2, 0, 6400));
 
-[oploc1,trapdoor_36691]
+[oploc1,castle_wars_update_trapdoor]
 mes("You climb down through the trapdoor...");
 p_telejump(movecoord(coord(), 0, 0, 6400));

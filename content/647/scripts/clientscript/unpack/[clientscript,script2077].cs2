@@ -2,15 +2,15 @@
 [clientscript,script2077]
 def_int $int0 = 0;
 def_int $int1 = 0;
-if (%varclient_632 = 0) {
-    $int0 = calc(3 - %varclient_635);
+if (%snp_game_in_progress_client = 0) {
+    $int0 = calc(3 - %snp_new_game_delay_client);
     if ($int0 = 1) {
-        if_settext("New game: <tostring($int0)> min", snp_waiting_room:text_next_game_count);
+        if_settext(snp_waiting_room:text_next_game_count, "New game: <tostring($int0)> min");
     } else {
-        if_settext("New game: <tostring($int0)> mins", snp_waiting_room:text_next_game_count);
+        if_settext(snp_waiting_room:text_next_game_count, "New game: <tostring($int0)> mins");
     }
 } else {
-    $int1 = calc(20 - %varclient_636);
+    $int1 = calc(20 - %snp_game_duration_client);
     $int0 = calc($int1 + 3);
-    if_settext("New game: <tostring($int0)> mins", snp_waiting_room:text_next_game_count);
+    if_settext(snp_waiting_room:text_next_game_count, "New game: <tostring($int0)> mins");
 }

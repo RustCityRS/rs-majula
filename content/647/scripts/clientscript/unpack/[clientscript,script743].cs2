@@ -2,10 +2,10 @@
 [clientscript,script743](component $component0, int $int1, boolean $boolean2)
 if (cc_find($component0, $int1) = true) {
     if ($boolean2 = true) {
-        if_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top, deathkeep_select:com_46);
-        if_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs, deathkeep_select:com_46);
-        if_sethide(false, deathkeep_select:com_46);
+        if_setposition(deathkeep_select:com_46, cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        if_setsize(deathkeep_select:com_46, cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+        if_sethide(deathkeep_select:com_46, false);
     } else {
-        if_sethide(true, deathkeep_select:com_46);
+        if_sethide(deathkeep_select:com_46, true);
     }
 }

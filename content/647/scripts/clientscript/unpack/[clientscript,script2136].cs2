@@ -1,7 +1,7 @@
 // 2136
 [clientscript,script2136](component $component0)
 cc_deleteall($component0);
-def_int $int1 = calc(118 + %varplayerbit_5855 + %varplayerbit_5855);
+def_int $int1 = calc(118 + %macro_certer_ignorebits_1 + %macro_certer_ignorebits_1);
 cc_create($component0, ^iftype_text, 0);
 cc_setsize(200, 32, ^setsize_abs, ^setsize_abs);
 cc_setposition($int1, 36, ^setpos_abs_left, ^setpos_abs_top);
@@ -9,7 +9,7 @@ cc_settextfont(q8_full);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 cc_setcolour(0x342e10);
 cc_settextshadow(false);
-cc_settext(enum(int, string, enum_2224, %varplayerbit_5856));
+cc_settext(enum(int, string, enum_2224, %macro_certer_a));
 cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
 cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0x342e10)");
 cc_setop(1, "Select");
@@ -20,7 +20,7 @@ cc_settextfont(q8_full);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 cc_setcolour(0x342e10);
 cc_settextshadow(false);
-cc_settext(enum(int, string, enum_2224, %varplayerbit_5858));
+cc_settext(enum(int, string, enum_2224, %macro_certer_b));
 cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
 cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0x342e10)");
 cc_setop(1, "Select");
@@ -31,30 +31,30 @@ cc_settextfont(q8_full);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 cc_setcolour(0x342e10);
 cc_settextshadow(false);
-cc_settext(enum(int, string, enum_2224, %varplayerbit_5860));
+cc_settext(enum(int, string, enum_2224, %macro_certer_c));
 cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
 cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0x342e10)");
 cc_setop(1, "Select");
 .cc_create($component0, ^iftype_model, 3);
 .cc_setsize(226, 144, ^setsize_abs, ^setsize_abs);
 .cc_setposition(0, 147, ^setpos_abs_centre, ^setpos_abs_top);
-switch_int (%varplayerbit_5857) {
+switch_int (%macro_certer_whichenum) {
     case 0 :
-        .cc_setmodel(enum(int, model, enum_2225, %varplayerbit_5862));
+        .cc_setmodel(enum(int, model, enum_2225, %macro_certer_model));
     case 1 :
-        .cc_setmodel(enum(int, model, enum_2226, %varplayerbit_5862));
+        .cc_setmodel(enum(int, model, enum_2226, %macro_certer_model));
     case 2 :
-        .cc_setmodel(enum(int, model, enum_2227, %varplayerbit_5862));
+        .cc_setmodel(enum(int, model, enum_2227, %macro_certer_model));
     case default :
-        .cc_setmodel(enum(int, model, enum_2228, %varplayerbit_5862));
+        .cc_setmodel(enum(int, model, enum_2228, %macro_certer_model));
 }
-def_int $int2 = calc((%varplayerbit_5855 - 5) * 4);
-def_int $int3 = calc((%varplayerbit_5859 - 4) * 4);
-.cc_setmodelangle($int2, $int3, pow(%varplayerbit_5861, 2), pow(%varplayerbit_5861, 2), pow(%varplayerbit_5861, 2), calc(400 + %varplayerbit_5863 + %varplayerbit_5863));
-def_int $int4 = %varplayerbit_5855;
-def_int $int5 = calc(%varplayerbit_5859 / 2);
+def_int $int2 = calc((%macro_certer_ignorebits_1 - 5) * 4);
+def_int $int3 = calc((%macro_certer_ignorebits_2 - 4) * 4);
+.cc_setmodelangle($int2, $int3, pow(%macro_certer_ignorebits_3, 2), pow(%macro_certer_ignorebits_3, 2), pow(%macro_certer_ignorebits_3, 2), calc(400 + %macro_certer_ignorebits_4 + %macro_certer_ignorebits_4));
+def_int $int4 = %macro_certer_ignorebits_1;
+def_int $int5 = calc(%macro_certer_ignorebits_2 / 2);
 def_int $int6 = 0;
-switch_int (%varplayerbit_5863) {
+switch_int (%macro_certer_ignorebits_4) {
     case 0 :
         $int4, $int5, $int6 = $int5, $int6, $int4;
     case 1 :
@@ -66,13 +66,13 @@ switch_int (%varplayerbit_5863) {
 cc_create($component0, ^iftype_rectangle, 4);
 cc_setsize(226, 144, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 147, ^setpos_abs_centre, ^setpos_abs_top);
-cc_setcolour(~rgb_to_hex(calc(%varplayerbit_5861 + 95), calc(%varplayerbit_5859 + 85), calc(%varplayerbit_5855 + 29)));
+cc_setcolour(~rgb_to_hex(calc(%macro_certer_ignorebits_3 + 95), calc(%macro_certer_ignorebits_2 + 85), calc(%macro_certer_ignorebits_1 + 29)));
 cc_setfill(true);
 cc_settrans(0);
 cc_setontimer("script2138(event_com, event_comsubid, 0)");
 cc_create($component0, ^iftype_graphic, 5);
 cc_setsize(19, 16, ^setsize_abs, ^setsize_abs);
-cc_setposition(349, calc(%varplayerbit_5859 + 148), ^setpos_abs_left, ^setpos_abs_top);
+cc_setposition(349, calc(%macro_certer_ignorebits_2 + 148), ^setpos_abs_left, ^setpos_abs_top);
 cc_sethflip(true);
 cc_setgraphic(world_select_refresh_arrow);
 cc_setonmouseover("cc_settrans(event_com, event_comsubid, 125)");

@@ -6,13 +6,15 @@ use crate::cache::provider::CacheType;
 use crate::pack::names::AssetNames;
 use crate::pack::pack::collect_config_files;
 use crate::unpack::interface::{decode_interfaces, write_interfaces};
-use anyhow::{Context, Result, ensure};
+use anyhow::{Context, Result, bail, ensure};
 use rs_io::Packet;
 use rs_io::js5::Js5Store;
 use runec::clientscript;
 use runec::clientscript::decode::Script;
 use runec::clientscript::decompile::{decompile, infer_signatures};
+use runec::lexer::Lexer;
 use runec::symbol::SymbolKind;
+use runec::token::Kind;
 use runec::types::Type;
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs;
@@ -147,6 +149,21 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
             .get(&clientscript::script_key(&name))
             .cloned()
             .unwrap_or_else(|| script_path(&dir, &name));
+        if text.contains("__") {
+            let tokens = Lexer::new(&text, &path).tokenize()?;
+            if let Some(pair) = tokens.windows(2).find(|pair| {
+                pair[0].kind == Kind::Identifier
+                    && pair[0].value.starts_with("__")
+                    && pair[1].kind == Kind::LParen
+            }) {
+                bail!(
+                    "Clientscript {} still requires helper {} at line {}; cannot export ordinary source",
+                    info.id,
+                    pair[0].value,
+                    pair[0].line
+                );
+            }
+        }
         sources.push(
             clientscript::Source::parse(&text, &path)
                 .with_context(|| format!("Parsing {}", path.display()))?,

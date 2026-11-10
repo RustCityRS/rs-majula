@@ -59,7 +59,7 @@ modelangle=512,0,0
 modelzoom=1550
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=cc_text_colour_swapper(macro_certer:content_layer, 0, ^white)
 onmouseleave=cc_text_colour_swapper(macro_certer:content_layer, 0, 0x342e10)
 
@@ -77,7 +77,7 @@ modelangle=512,0,0
 modelzoom=1650
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=cc_text_colour_swapper(macro_certer:content_layer, 1, ^white)
 onmouseleave=cc_text_colour_swapper(macro_certer:content_layer, 1, 0x342e10)
 
@@ -95,7 +95,7 @@ modelangle=512,0,0
 modelzoom=1745
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=cc_text_colour_swapper(macro_certer:content_layer, 2, ^white)
 onmouseleave=cc_text_colour_swapper(macro_certer:content_layer, 2, 0x342e10)
 
@@ -124,4 +124,4 @@ height=334
 xmode=proportion_centre
 ymode=proportion_centre
 onload=script2136(event_com)
-onvartransmit=script2136(event_com){varplayer_807}
+onvartransmit=script2136(event_com){macro_bee_pos_3}

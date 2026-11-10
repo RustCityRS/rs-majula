@@ -13,9 +13,9 @@ def_obj $obj9 = inv_getobj($inv3, 1);
 def_component $component10 = enum(int, component, enum_1082, $int0);
 if ($component10 ! null) {
     if (playermember = true | stockmarket_isofferempty($int0) = false) {
-        if_sethide(true, $component10);
+        if_sethide($component10, true);
     } else {
-        if_sethide(false, $component10);
+        if_sethide($component10, false);
     }
 }
 ~create_graphic($component1, 0, "bank_slot,1", calc($int6 - 2), calc($int7 - 2), 40, 36);

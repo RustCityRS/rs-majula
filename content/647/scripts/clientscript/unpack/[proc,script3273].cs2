@@ -1,8 +1,8 @@
 // 3273
 [proc,script3273]()(int, int, int)
 def_int $int0 = 0;
-def_int $int1 = calc(%varclient_1191 / 10);
-def_int $int2 = calc(%varclient_1191 - %varclient_1191 / 10 * 10);
+def_int $int1 = calc(%rand_dungeon_difficulty_trans / 10);
+def_int $int2 = calc(%rand_dungeon_difficulty_trans - %rand_dungeon_difficulty_trans / 10 * 10);
 switch_int ($int1) {
     case 1 :
         switch_int ($int2) {

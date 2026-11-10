@@ -119,7 +119,7 @@ model=model_58171
 modelorigin=1,5
 modelangle=512,0,233
 modelzoom=275
-onvarctransmit=trail_compasspoint(event_com, trail_compassclue:trail_cross){varclient_1323}
+onvarctransmit=trail_compasspoint(event_com, trail_compassclue:trail_cross){trail_destcoord}
 
 // 997:9
 [com_9]

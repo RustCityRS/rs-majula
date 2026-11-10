@@ -40,7 +40,7 @@
 [if_button,friends2:ignore_button] ~tutorial_tab_clicked(^tab_tutorial_ignore);
 
 [proc,tutorial_tab_clicked](int $tab)
-if (%tutorial >= ^tutorial_complete | ~in_tutorial_island(coord) = false) {
+if (%varplayer_419 >= ^tutorial_complete | ~in_tutorial_island(coord) = false) {
     return;
 }
 if ($tab ! ~tutorial_flashing_tab) {
@@ -54,7 +54,7 @@ if (p_finduid(uid) = true) {
 // The tab each step points at: 289's tut_flash calls (tut_chatbox_steps.rs2),
 // by 2011's tab.
 [proc,tutorial_flashing_tab]()(int)
-switch_int (%tutorial) {
+switch_int (%varplayer_419) {
     case 2 : return(^tab_options);
     case ^newbie_survival_instructor_open_inventory : return(^tab_inventory);
     case ^newbie_survival_instructor_open_skill_menu : return(^tab_stats);

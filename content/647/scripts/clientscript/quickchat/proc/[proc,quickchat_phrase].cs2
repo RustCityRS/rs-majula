@@ -3,7 +3,7 @@
 if ($int2 >= 0) {
     ~quickchat_return($component0, $int2);
 }
-%varclient_134 = 0;
+%quickchat_phrase_count = 0;
 if (chatphrase_getdynamiccommandcount($chatphrase1) > 0) {
     ~quickchat_phrase_setup($component0, $chatphrase1);
 } else {

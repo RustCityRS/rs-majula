@@ -20,7 +20,7 @@ if ($int9 > 0) {
     $int7 = calc($int7 + $int8);
     $int6 = $int4;
 }
-if_settext(tostring($int6), $component0);
-if_settext(tostring($int7), $component2);
-if_settext(tostring($int4), $component1);
-if_settext(tostring($int5), $component3);
+if_settext($component0, tostring($int6));
+if_settext($component2, tostring($int7));
+if_settext($component1, tostring($int4));
+if_settext($component3, tostring($int5));

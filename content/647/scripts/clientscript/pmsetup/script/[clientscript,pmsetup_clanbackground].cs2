@@ -9,4 +9,4 @@ if ($windowmode4 ! ^windowmode_small) {
     return;
 }
 ~pmsetup_clanbackground($component1, $component2, $windowmode4);
-if_setontimer("pmsetup_clanbackground(event_com, $component1, $component2, $windowmode4)", $component0);
+if_setontimer($component0, "pmsetup_clanbackground(event_com, $component1, $component2, $windowmode4)");

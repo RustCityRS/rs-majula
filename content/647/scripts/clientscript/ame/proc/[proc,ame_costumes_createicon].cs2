@@ -11,7 +11,7 @@ if ($obj4 ! null) {
     cc_setop(1, "Claim");
     cc_setop(10, "Examine");
     cc_setopbase("<col=ff9040><oc_name($obj4)></col>");
-    if (calc(inv_total(inv, $obj4) + inv_total(worn, $obj4) + inv_total(bank, $obj4) + inv_total(inv_530, $obj4)) > 0) {
+    if (calc(inv_total(inv, $obj4) + inv_total(worn, $obj4) + inv_total(bank, $obj4) + inv_total(lore_bob, $obj4)) > 0) {
         cc_settrans(200);
     } else if (calc($int0 / 10) = calc(1 / 10)) {
         if (%varplayerbit_2698 > 0) {

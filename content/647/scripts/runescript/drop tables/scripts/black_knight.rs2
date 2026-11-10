@@ -22,19 +22,19 @@ if ($random < 4) {
 } else if ($random < 11) {
     obj_add(npc_coord, mithril_arrow, 3, ^lootdrop_duration);
 } else if ($random < 14) {
-    obj_add(npc_coord, body_rune, 9, ^lootdrop_duration);
+    obj_add(npc_coord, bodyrune, 9, ^lootdrop_duration);
 } else if ($random < 17) {
-    obj_add(npc_coord, chaos_rune, 6, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 6, ^lootdrop_duration);
 } else if ($random < 20) {
-    obj_add(npc_coord, earth_rune, 10, ^lootdrop_duration);
+    obj_add(npc_coord, earthrune, 10, ^lootdrop_duration);
 } else if ($random < 22) {
-    obj_add(npc_coord, death_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, deathrune, 2, ^lootdrop_duration);
 } else if ($random < 24) {
-    obj_add(npc_coord, law_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 3, ^lootdrop_duration);
 } else if ($random < 25) {
-    obj_add(npc_coord, cosmic_rune, 7, ^lootdrop_duration);
+    obj_add(npc_coord, cosmicrune, 7, ^lootdrop_duration);
 } else if ($random < 26) {
-    obj_add(npc_coord, mind_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, mindrune, 2, ^lootdrop_duration);
 } else if ($random < 29) {
     obj_add(npc_coord, ~randomherb, ^lootdrop_duration);
 } else if ($random < 35) {
@@ -42,7 +42,7 @@ if ($random < 4) {
 } else if ($random < 36) {
     obj_add(npc_coord, tin_ore, 1, ^lootdrop_duration);
 } else if ($random < 37) {
-    obj_add(npc_coord, pot_of_flour, 1, ^lootdrop_duration);
+    obj_add(npc_coord, pot_flour, 1, ^lootdrop_duration);
 } else if ($random < 58) {
     obj_add(npc_coord, coins, 35, ^lootdrop_duration);
 } else if ($random < 72) {

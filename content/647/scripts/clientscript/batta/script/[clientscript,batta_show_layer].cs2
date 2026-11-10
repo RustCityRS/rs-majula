@@ -1,3 +1,3 @@
 // 1955
 [clientscript,batta_show_layer](component $component0)
-if_sethide(false, $component0);
+if_sethide($component0, false);

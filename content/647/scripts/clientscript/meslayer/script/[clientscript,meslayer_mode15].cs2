@@ -1,23 +1,23 @@
 // 2688
 [clientscript,meslayer_mode15]
 if (clan_getchatcount > 0 & clan_getchatrank >= clan_getchatminkick) {
-    if (%varclient_1413 = false) {
+    if (%has_displayname_client = false) {
         return;
     }
-    if (%varclient_11 = true) {
+    if (%snapshot_open = true) {
         ~script675;
     }
     if (getwindowmode >= 2) {
-        if_sethide(false, toplevel_fullscreen:chattop);
+        if_sethide(toplevel_fullscreen:chattop, false);
     }
-    if_sethide(false, chattop:mes_layer);
-    if_sethide(true, chattop:mes_layer_large);
-    if_sethide(true, chattop:mes_layer_hide);
-    if_settext("Enter the player to ban from the channel:", chattop:mes_text);
-    %varclient_5 = 15;
+    if_sethide(chattop:mes_layer, false);
+    if_sethide(chattop:mes_layer_large, true);
+    if_sethide(chattop:mes_layer_hide, true);
+    if_settext(chattop:mes_text, "Enter the player to ban from the channel:");
+    %meslayermode = 15;
     ~meslayer_setupinput("");
-    if_setonclick(null, chattop:mes_layer);
+    if_setonclick(chattop:mes_layer, null);
     ~script2026;
-    if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chattop:mes_text2);
+    if_setonkey(chattop:mes_text2, "meslayer_onkey(event_keycode, event_keychar)");
     ~script1188;
 }

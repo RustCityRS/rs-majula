@@ -1,3 +1,3 @@
 // 636
 [proc,stock_choosebuy_highlight_on](component $component0)
-if_setgraphic("grand_exchange_buy_sell_icon,3", $component0);
+if_setgraphic($component0, "grand_exchange_buy_sell_icon,3");

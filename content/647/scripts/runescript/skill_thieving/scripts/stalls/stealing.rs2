@@ -4,19 +4,19 @@
 [oploc2,silk_stall_stealing] // Silk stall
 @attempt_steal_from_stall(loc_type, loc_coord, loc_angle, loc_shape);
 
-[oploc2,bakers_stall_stealing] // Baker's stall
+[oploc2,area_ardougne_cakethiefstall] // Baker's stall
 @attempt_steal_from_stall(loc_type, loc_coord, loc_angle, loc_shape);
 
-[oploc2,gem_stall_stealing] // Gem stall
+[oploc2,area_ardougne_gemthiefstall] // Gem stall
 @attempt_steal_from_stall(loc_type, loc_coord, loc_angle, loc_shape);
 
-[oploc2,fur_stall_stealing] // Fur stall
+[oploc2,area_ardougne_furthiefstall] // Fur stall
 @attempt_steal_from_stall(loc_type, loc_coord, loc_angle, loc_shape);
 
-[oploc2,spice_stall_stealing] // Spice stall
+[oploc2,area_ardougne_spicethiefstall] // Spice stall
 @attempt_steal_from_stall(loc_type, loc_coord, loc_angle, loc_shape);
 
-[oploc2,silver_stall_stealing] // Silver stall
+[oploc2,area_ardougne_silverthiefstall] // Silver stall
 @attempt_steal_from_stall(loc_type, loc_coord, loc_angle, loc_shape);
 
 // Miscellania's and Etceteria's stalls (289's misc_/etc_ fish and veg
@@ -25,19 +25,19 @@
 // Miscellania must be complete, while Throne of Miscellania (2011-05-08)
 // counts a theft from a stall against the approval earned during the quest.
 // That quest is not ported, so 289's stands.
-[oploc2,fish_stall_4705] // Fish stall
+[oploc2,misc_fish_market] // Fish stall
 @attempt_steal_from_stall(loc_type, loc_coord, loc_angle, loc_shape);
 
-[oploc2,veg_stall] // Veg stall
+[oploc2,misc_veg_market] // Veg stall
 @attempt_steal_from_stall(loc_type, loc_coord, loc_angle, loc_shape);
 
-[oploc2,fish_stall_4707] // Fish stall
+[oploc2,etc_fish_market] // Fish stall
 @attempt_steal_from_stall(loc_type, loc_coord, loc_angle, loc_shape);
 
-[oploc2,veg_stall_4708] // Veg stall
+[oploc2,etc_veg_market] // Veg stall
 @attempt_steal_from_stall(loc_type, loc_coord, loc_angle, loc_shape);
 
-[oploc2,fish_stall]
+[oploc2,viking_fish_market]
 if(%viking < ^viking_complete) {
     ~mesbox("The fishmonger is staring at you suspiciously. You cannot steal from his stall while he distrusts you.");
     return;

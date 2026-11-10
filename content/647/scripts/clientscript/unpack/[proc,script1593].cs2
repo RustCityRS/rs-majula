@@ -14,9 +14,9 @@ if ($int0 <= -1) {
     $int0 = if_getx($component1);
 }
 $int0 = max(min($int0, calc(if_getwidth($component2) - $int10)), 0);
-%varclient_1505 = $int0;
-if_setposition($int0, 0, ^setpos_abs_left, ^setpos_abs_centre, $component1);
-if_setmouseovercursor(cursor_149, $component1);
+%friendschannel_line_pos = $int0;
+if_setposition($component1, $int0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+if_setmouseovercursor($component1, friends_arrow_cursor);
 cc_deleteall($component3);
 cc_deleteall($component4);
 cc_deleteall($component5);
@@ -42,7 +42,7 @@ def_int $int23 = calc(if_getheight($component8) / $int17);
 def_int $int24 = 0;
 def_int $int25 = clan_getchatcount;
 if ($int25 > 0) {
-    if_sethide(true, friendschat:info_layer);
+    if_sethide(friendschat:info_layer, true);
     while ($int11 < $int25) {
         $int16 = $int11;
         $int22 = calc($int11 * $int17);
@@ -69,8 +69,8 @@ if ($int25 > 0) {
         }
         cc_settext($string0);
         ~script1595($int11, $string1, $string2);
-        if_setsize($int14, 0, ^setsize_abs, ^setsize_minus, $component5);
-        if_setsize($int14, 0, ^setsize_abs, ^setsize_minus, $component6);
+        if_setsize($component5, $int14, 0, ^setsize_abs, ^setsize_minus);
+        if_setsize($component6, $int14, 0, ^setsize_abs, ^setsize_minus);
         cc_create($component5, ^iftype_text, if_getnextsubid($component5));
         cc_settextfont(verdana_11pt_regular);
         cc_setposition(0, $int22, ^setpos_abs_right, ^setpos_abs_top);
@@ -149,33 +149,33 @@ if ($int25 > 0) {
         }
         $string1 = "<$string1>...";
     }
-    if_settext("<$string3><br><$string1>", friendschat:channeldetails);
+    if_settext(friendschat:channeldetails, "<$string3><br><$string1>");
     if ($int24 = 1) {
         $string3 = "Talking in: <clan_getchatdisplayname><br>Owner: <clan_getchatownername>";
-        if_setonmouserepeat("aif_tooltip(friendschat:tooltip, event_com, -1, $string3, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)", friendschat:channeldetails);
-        if_setonmouseleave("deltooltip(friendschat:tooltip)", friendschat:channeldetails);
+        if_setonmouserepeat(friendschat:channeldetails, "aif_tooltip(friendschat:tooltip, event_com, -1, $string3, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setonmouseleave(friendschat:channeldetails, "deltooltip(friendschat:tooltip)");
     } else {
-        if_setonmouserepeat(null, friendschat:channeldetails);
-        if_setonmouseleave(null, friendschat:channeldetails);
+        if_setonmouserepeat(friendschat:channeldetails, null);
+        if_setonmouseleave(friendschat:channeldetails, null);
     }
-    if_setop(1, "Leave chat", friendschat:joinleave_button_active_layer);
-    if_setgraphic("aif_clanchat_icons,3", friendschat:joinleave_button_graphic);
-    if_sethide(false, $component1);
+    if_setop(friendschat:joinleave_button_active_layer, 1, "Leave chat");
+    if_setgraphic(friendschat:joinleave_button_graphic, "aif_clanchat_icons,3");
+    if_sethide($component1, false);
 } else {
-    if_sethide(false, friendschat:info_layer);
-    if_settext("Talking in: Not in chat", friendschat:channeldetails);
-    if_setop(1, "Join chat", friendschat:joinleave_button_active_layer);
-    if_setgraphic("aif_clanchat_icons,2", friendschat:joinleave_button_graphic);
-    if_sethide(true, $component1);
+    if_sethide(friendschat:info_layer, false);
+    if_settext(friendschat:channeldetails, "Talking in: Not in chat");
+    if_setop(friendschat:joinleave_button_active_layer, 1, "Join chat");
+    if_setgraphic(friendschat:joinleave_button_graphic, "aif_clanchat_icons,2");
+    if_sethide($component1, true);
     if_clearops($component1);
-    if_setonmouserepeat(null, friendschat:channeldetails);
-    if_setonmouseleave(null, friendschat:channeldetails);
+    if_setonmouserepeat(friendschat:channeldetails, null);
+    if_setonmouseleave(friendschat:channeldetails, null);
 }
 def_int $int26 = if_getscrolly($component8);
 def_int $int27 = calc(max($int11, $int23) * $int17);
-if_setscrollsize(if_getwidth($component8), $int27, $component8);
+if_setscrollsize($component8, if_getwidth($component8), $int27);
 if ($int26 > $int27) {
     $int26 = $int27;
 }
-if_setscrollpos(0, $int26, $component8);
+if_setscrollpos($component8, 0, $int26);
 ~scrollbar_vertical($component9, $component8, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");

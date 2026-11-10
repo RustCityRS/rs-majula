@@ -68,7 +68,7 @@ type=layer
 width=506
 height=40
 onload=rand_skill_multi_num
-onvarctransmit=rand_skill_multi_num{varclient_754}
+onvarctransmit=rand_skill_multi_num{skill_multi_num}
 
 // 944:7
 [right_click_text]
@@ -281,7 +281,7 @@ transmitop=10
 op10= 
 onload=skill_multi_rand_model(event_com)
 onmouseover=skill_multi_rand_text(event_com)
-onvarctransmit=skill_multi_rand_model(event_com){varclient_756}
+onvarctransmit=skill_multi_rand_model(event_com){skill_multi_obj2}
 
 // 944:25
 [makex_2]
@@ -360,7 +360,7 @@ transmitop=10
 op10= 
 onload=skill_multi_rand_model(event_com)
 onmouseover=skill_multi_rand_text(event_com)
-onvarctransmit=skill_multi_rand_model(event_com){varclient_757}
+onvarctransmit=skill_multi_rand_model(event_com){skill_multi_obj3}
 
 // 944:31
 [makex_3]
@@ -439,7 +439,7 @@ transmitop=10
 op10= 
 onload=skill_multi_rand_model(event_com)
 onmouseover=skill_multi_rand_text(event_com)
-onvarctransmit=skill_multi_rand_model(event_com){varclient_758}
+onvarctransmit=skill_multi_rand_model(event_com){skill_multi_obj4}
 
 // 944:37
 [makex_4]
@@ -518,7 +518,7 @@ transmitop=10
 op10= 
 onload=skill_multi_rand_model(event_com)
 onmouseover=skill_multi_rand_text(event_com)
-onvarctransmit=skill_multi_rand_model(event_com){varclient_759}
+onvarctransmit=skill_multi_rand_model(event_com){skill_multi_obj5}
 
 // 944:43
 [makex_5]
@@ -597,7 +597,7 @@ transmitop=10
 op10= 
 onload=skill_multi_rand_model(event_com)
 onmouseover=skill_multi_rand_text(event_com)
-onvarctransmit=skill_multi_rand_model(event_com){varclient_760}
+onvarctransmit=skill_multi_rand_model(event_com){skill_multi_obj6}
 
 // 944:49
 [makex_6]
@@ -676,7 +676,7 @@ transmitop=10
 op10= 
 onload=skill_multi_rand_model(event_com)
 onmouseover=skill_multi_rand_text(event_com)
-onvarctransmit=skill_multi_rand_model(event_com){varclient_1139}
+onvarctransmit=skill_multi_rand_model(event_com){skill_multi_obj7}
 
 // 944:55
 [makex_7]
@@ -755,7 +755,7 @@ transmitop=10
 op10= 
 onload=skill_multi_rand_model(event_com)
 onmouseover=skill_multi_rand_text(event_com)
-onvarctransmit=skill_multi_rand_model(event_com){varclient_1140}
+onvarctransmit=skill_multi_rand_model(event_com){skill_multi_obj8}
 
 // 944:61
 [makex_8]
@@ -834,7 +834,7 @@ transmitop=10
 op10= 
 onload=skill_multi_rand_model(event_com)
 onmouseover=skill_multi_rand_text(event_com)
-onvarctransmit=skill_multi_rand_model(event_com){varclient_1141}
+onvarctransmit=skill_multi_rand_model(event_com){skill_multi_obj9}
 
 // 944:67
 [makex_9]
@@ -913,7 +913,7 @@ transmitop=10
 op10= 
 onload=skill_multi_rand_model(event_com)
 onmouseover=skill_multi_rand_text(event_com)
-onvarctransmit=skill_multi_rand_model(event_com){varclient_1142}
+onvarctransmit=skill_multi_rand_model(event_com){skill_multi_obj10}
 
 // 944:73
 [makex_10]
@@ -979,7 +979,7 @@ model=null
 modelzoom=394
 onload=skill_multi_rand_model(event_com)
 onmouseover=skill_multi_rand_text(event_com)
-onvarctransmit=skill_multi_rand_model(event_com){varclient_755}
+onvarctransmit=skill_multi_rand_model(event_com){skill_multi_obj1}
 
 // 944:78
 [makex_1]

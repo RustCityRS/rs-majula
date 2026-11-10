@@ -1,8 +1,8 @@
 // 2215
 [clientscript,script2215]
 if (if_gety(easter10_nuts:bar) < 180) {
-    if_setontimer("script2215", easter10_nuts:content);
-    if_setposition(if_getx(easter10_nuts:bar), calc(2 + if_gety(easter10_nuts:bar)), ^setpos_abs_left, ^setpos_abs_top, easter10_nuts:bar);
+    if_setontimer(easter10_nuts:content, "script2215");
+    if_setposition(easter10_nuts:bar, if_getx(easter10_nuts:bar), calc(2 + if_gety(easter10_nuts:bar)), ^setpos_abs_left, ^setpos_abs_top);
 } else {
-    %varclient_1137 = 0;
+    %easter10_pushbarstatus = 0;
 }

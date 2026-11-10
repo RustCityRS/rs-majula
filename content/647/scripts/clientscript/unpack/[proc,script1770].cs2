@@ -1,75 +1,75 @@
 // 1770
 [proc,script1770]
-if (%varclient_246 = 0) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:knockout_indicator);
+if (%clanwars_rulevarc_endtype = 0) {
+    if_setgraphic(clanwars_setup:knockout_indicator, "options_radio_buttons,2");
     ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, null, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:knockout_indicator);
+    if_setgraphic(clanwars_setup:knockout_indicator, "options_radio_buttons,0");
 }
-if (%varclient_246 = 1) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:25kills_indicator);
-    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, clanwars_setup:25kills_indicator, -1);
+if (%clanwars_rulevarc_endtype = 1) {
+    if_setgraphic("clanwars_setup:25kills_indicator", "options_radio_buttons,2");
+    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, "clanwars_setup:25kills_indicator", -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:25kills_indicator);
+    if_setgraphic("clanwars_setup:25kills_indicator", "options_radio_buttons,0");
 }
-if (%varclient_246 = 2) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:50kills_indicator);
-    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, clanwars_setup:50kills_indicator, -1);
+if (%clanwars_rulevarc_endtype = 2) {
+    if_setgraphic("clanwars_setup:50kills_indicator", "options_radio_buttons,2");
+    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, "clanwars_setup:50kills_indicator", -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:50kills_indicator);
+    if_setgraphic("clanwars_setup:50kills_indicator", "options_radio_buttons,0");
 }
-if (%varclient_246 = 3) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:100kills_indicator);
-    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, clanwars_setup:100kills_indicator, -1);
+if (%clanwars_rulevarc_endtype = 3) {
+    if_setgraphic("clanwars_setup:100kills_indicator", "options_radio_buttons,2");
+    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, "clanwars_setup:100kills_indicator", -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:100kills_indicator);
+    if_setgraphic("clanwars_setup:100kills_indicator", "options_radio_buttons,0");
 }
-if (%varclient_246 = 4) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:200kills_indicator);
-    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, clanwars_setup:200kills_indicator, -1);
+if (%clanwars_rulevarc_endtype = 4) {
+    if_setgraphic("clanwars_setup:200kills_indicator", "options_radio_buttons,2");
+    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, "clanwars_setup:200kills_indicator", -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:200kills_indicator);
+    if_setgraphic("clanwars_setup:200kills_indicator", "options_radio_buttons,0");
 }
-if (%varclient_246 = 5) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:400kills_indicator);
-    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, clanwars_setup:400kills_indicator, -1);
+if (%clanwars_rulevarc_endtype = 5) {
+    if_setgraphic("clanwars_setup:400kills_indicator", "options_radio_buttons,2");
+    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, "clanwars_setup:400kills_indicator", -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:400kills_indicator);
+    if_setgraphic("clanwars_setup:400kills_indicator", "options_radio_buttons,0");
 }
-if (%varclient_246 = 6) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:750kills_indicator);
-    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, clanwars_setup:750kills_indicator, -1);
+if (%clanwars_rulevarc_endtype = 6) {
+    if_setgraphic("clanwars_setup:750kills_indicator", "options_radio_buttons,2");
+    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, "clanwars_setup:750kills_indicator", -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:750kills_indicator);
+    if_setgraphic("clanwars_setup:750kills_indicator", "options_radio_buttons,0");
 }
-if (%varclient_246 = 7) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:1000kills_indicator);
-    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, clanwars_setup:1000kills_indicator, -1);
+if (%clanwars_rulevarc_endtype = 7) {
+    if_setgraphic("clanwars_setup:1000kills_indicator", "options_radio_buttons,2");
+    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, "clanwars_setup:1000kills_indicator", -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:1000kills_indicator);
+    if_setgraphic("clanwars_setup:1000kills_indicator", "options_radio_buttons,0");
 }
-if (%varclient_246 = 8) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:2500kills_indicator);
-    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, clanwars_setup:2500kills_indicator, -1);
+if (%clanwars_rulevarc_endtype = 8) {
+    if_setgraphic("clanwars_setup:2500kills_indicator", "options_radio_buttons,2");
+    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, "clanwars_setup:2500kills_indicator", -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:2500kills_indicator);
+    if_setgraphic("clanwars_setup:2500kills_indicator", "options_radio_buttons,0");
 }
-if (%varclient_246 = 9) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:5000kills_indicator);
-    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, clanwars_setup:5000kills_indicator, -1);
+if (%clanwars_rulevarc_endtype = 9) {
+    if_setgraphic("clanwars_setup:5000kills_indicator", "options_radio_buttons,2");
+    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, "clanwars_setup:5000kills_indicator", -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:5000kills_indicator);
+    if_setgraphic("clanwars_setup:5000kills_indicator", "options_radio_buttons,0");
 }
-if (%varclient_246 = 10) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:10000kills_indicator);
-    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, clanwars_setup:10000kills_indicator, -1);
+if (%clanwars_rulevarc_endtype = 10) {
+    if_setgraphic("clanwars_setup:10000kills_indicator", "options_radio_buttons,2");
+    ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, "clanwars_setup:10000kills_indicator", -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:10000kills_indicator);
+    if_setgraphic("clanwars_setup:10000kills_indicator", "options_radio_buttons,0");
 }
-if (%varclient_246 = 15) {
-    if_setgraphic("options_radio_buttons,2", clanwars_setup:mostkills_indicator);
+if (%clanwars_rulevarc_endtype = 15) {
+    if_setgraphic(clanwars_setup:mostkills_indicator, "options_radio_buttons,2");
     ~clanwars_focuslayer(clanwars_setup:killcounts, clanwars_setup:killcounts_scrollbar, null, -1);
 } else {
-    if_setgraphic("options_radio_buttons,0", clanwars_setup:mostkills_indicator);
+    if_setgraphic(clanwars_setup:mostkills_indicator, "options_radio_buttons,0");
 }
 ~clanwars_updateside;

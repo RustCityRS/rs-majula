@@ -2,7 +2,7 @@
 [clientscript,script4509](component $component0)
 def_graphic $graphic1 = "close_buttons,0";
 def_graphic $graphic2 = "close_buttons,1";
-if_setgraphic($graphic1, $component0);
-if_setonmouseover("graphic_swapper(event_com, $graphic2)", $component0);
-if_setonmouseleave("graphic_swapper(event_com, $graphic1)", $component0);
-if_setonop("closebutton_click", $component0);
+if_setgraphic($component0, $graphic1);
+if_setonmouseover($component0, "graphic_swapper(event_com, $graphic2)");
+if_setonmouseleave($component0, "graphic_swapper(event_com, $graphic1)");
+if_setonop($component0, "closebutton_click");

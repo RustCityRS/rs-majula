@@ -1,6 +1,6 @@
 // 4165
 [proc,script4165](component $component0, graphic $graphic1, component $component2, graphic $graphic3, component $component4, graphic $graphic5, component $component6, graphic $graphic7)
-if_setgraphic($graphic1, $component0);
-if_setgraphic($graphic3, $component2);
-if_setgraphic($graphic5, $component4);
-if_setgraphic($graphic7, $component6);
+if_setgraphic($component0, $graphic1);
+if_setgraphic($component2, $graphic3);
+if_setgraphic($component4, $graphic5);
+if_setgraphic($component6, $graphic7);

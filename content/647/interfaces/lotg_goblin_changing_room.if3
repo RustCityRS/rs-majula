@@ -406,9 +406,9 @@ model=model_29248
 modelorigin=-9,91
 modelangle=63,192,0
 modelzoom=350
-modelanim=seq_6181
+modelanim=slice_surface_goblin_squat_ready
 modelorthog=yes
-onvartransmit=lotg_goblin_interface_ontransmit{varplayer_1095}
+onvartransmit=lotg_goblin_interface_ontransmit{lotg_base_2}
 
 // 625:40
 [com_40]
@@ -719,7 +719,7 @@ layer=listlayer
 transmitop=1
 opbase=Goblin 1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=lotg_goblin_radio_button(1)
 
 // 625:71
@@ -757,7 +757,7 @@ layer=listlayer
 transmitop=1
 opbase=Goblin 2
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=lotg_goblin_radio_button(2)
 
 // 625:74
@@ -795,7 +795,7 @@ layer=listlayer
 transmitop=1
 opbase=Goblin 3
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=lotg_goblin_radio_button(3)
 
 // 625:77
@@ -833,7 +833,7 @@ layer=listlayer
 transmitop=1
 opbase=Goblin 4
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=lotg_goblin_radio_button(4)
 
 // 625:80
@@ -871,7 +871,7 @@ layer=listlayer
 transmitop=1
 opbase=Goblin 5
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=lotg_goblin_radio_button(5)
 
 // 625:83
@@ -909,7 +909,7 @@ layer=listlayer
 transmitop=1
 opbase=Goblin 6
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=lotg_goblin_radio_button(6)
 
 // 625:86

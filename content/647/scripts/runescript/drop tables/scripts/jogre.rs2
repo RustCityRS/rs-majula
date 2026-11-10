@@ -24,11 +24,11 @@ if ($random < 30) {
 } else if ($random < 34) {
     obj_add(npc_coord, iron_spear, 1, ^lootdrop_duration);
 } else if ($random < 44) {
-    obj_add(npc_coord, nature_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 2, ^lootdrop_duration);
 } else if ($random < 46) {
-    obj_add(npc_coord, nature_rune, 10, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 10, ^lootdrop_duration);
 } else if ($random < 48) {
-    obj_add(npc_coord, nature_rune, 5, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 5, ^lootdrop_duration);
 } else if ($random < 50) {
     obj_add(npc_coord, steel_javelin, 5, ^lootdrop_duration);
 } else if ($random < 56) {
@@ -48,7 +48,7 @@ if ($random < 30) {
 } else if ($random < 80) {
     obj_add(npc_coord, ~randomjewel, ^lootdrop_duration);
 } else if ($random < 85) {
-    obj_add(npc_coord, grimy_snake_weed, 1, ^lootdrop_duration);
+    obj_add(npc_coord, unidentified_snake_weed, 1, ^lootdrop_duration);
 } else if ($random < 90) {
-    obj_add(npc_coord, grimy_rogue_s_purse, 1, ^lootdrop_duration);
+    obj_add(npc_coord, unidentified_rogues_purse, 1, ^lootdrop_duration);
 }

@@ -33,9 +33,9 @@ assert_eq(%sa_attack, ^false);
 // ~bank_check_allowed) and its ~bank_add.
 [label,test_the_bank_refuses_the_anthems_and_the_monkey]
 setup_player("test_player");
-assert_false(~bank_check_allowed(awful_anthem, ^true));
+assert_false(~bank_check_allowed(misc_awful_anthem, ^true));
 assert_called_with("mes", "You have more urgent things to do with this anthem!");
-assert_false(~bank_check_allowed(monkey, ^true));
+assert_false(~bank_check_allowed(mm_monkey_in_backpack, ^true));
 assert_called_with("mes", "Sorry, you can't bank the monkey!");
 
 [label,test_bank_add_puts_objs_in_the_bank]

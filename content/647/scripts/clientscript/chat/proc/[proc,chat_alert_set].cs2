@@ -2,17 +2,17 @@
 [proc,chat_alert_set](int $int0, int $int1)
 switch_int ($int0) {
     case 1 :
-        %varclient_44 = $int1;
+        %chat_alert_game = $int1;
     case 2 :
-        %varclient_45 = $int1;
+        %chat_alert_public = $int1;
     case 3 :
-        %varclient_46 = $int1;
+        %chat_alert_private = $int1;
     case 4 :
-        %varclient_47 = $int1;
+        %chat_alert_clan = $int1;
     case 5 :
-        %varclient_48 = $int1;
+        %chat_alert_trade = $int1;
     case 6 :
         %varclient_49 = $int1;
     case 7 :
-        %varclient_1511 = $int1;
+        %chat_alert_friendschat = $int1;
 }

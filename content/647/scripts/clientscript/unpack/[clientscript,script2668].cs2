@@ -1,8 +1,8 @@
 // 2668
 [clientscript,script2668]
-if (%varplayerbit_6303 = 1) {
-    if_sethide(true, mah3_base_decoder_panel2:decoder_strip_1);
-    if_sethide(true, mah3_base_decoder_panel2:decoder_strip_2);
-    if_sethide(true, mah3_base_decoder_panel2:decoder_strip_3);
-    if_sethide(true, mah3_base_decoder_panel2:decoder_strip_4);
+if (%mah3_nostrips = 1) {
+    if_sethide(mah3_base_decoder_panel2:decoder_strip_1, true);
+    if_sethide(mah3_base_decoder_panel2:decoder_strip_2, true);
+    if_sethide(mah3_base_decoder_panel2:decoder_strip_3, true);
+    if_sethide(mah3_base_decoder_panel2:decoder_strip_4, true);
 }

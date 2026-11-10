@@ -1,16 +1,16 @@
 // 2095
 [clientscript,snp_tutorial_flash_icons]
-if (%varclient_654 < 100) {
-    %varclient_654 = calc(%varclient_654 + 1);
+if (%snp_tut_flash_counter_client < 100) {
+    %snp_tut_flash_counter_client = calc(%snp_tut_flash_counter_client + 1);
 }
-if (%varclient_654 = 50) {
-    if_sethide(true, snp_tutorial_game_overlay:east_grave_flash_layer);
-    if_sethide(true, snp_tutorial_game_overlay:west_grave_flash_layer);
-    if_sethide(true, snp_tutorial_game_overlay:obelisk_flash_layer);
+if (%snp_tut_flash_counter_client = 50) {
+    if_sethide(snp_tutorial_game_overlay:east_grave_flash_layer, true);
+    if_sethide(snp_tutorial_game_overlay:west_grave_flash_layer, true);
+    if_sethide(snp_tutorial_game_overlay:obelisk_flash_layer, true);
 }
-if (%varclient_654 = 100) {
-    if_sethide(false, snp_tutorial_game_overlay:east_grave_flash_layer);
-    if_sethide(false, snp_tutorial_game_overlay:west_grave_flash_layer);
-    if_sethide(false, snp_tutorial_game_overlay:obelisk_flash_layer);
-    %varclient_654 = 0;
+if (%snp_tut_flash_counter_client = 100) {
+    if_sethide(snp_tutorial_game_overlay:east_grave_flash_layer, false);
+    if_sethide(snp_tutorial_game_overlay:west_grave_flash_layer, false);
+    if_sethide(snp_tutorial_game_overlay:obelisk_flash_layer, false);
+    %snp_tut_flash_counter_client = 0;
 }

@@ -70,11 +70,11 @@ fn taverley_and_burthorpe_npcs_answer_every_branch() {
     runner::on_loaded_engine(|engine| {
         for npc in [
             "death_white_knight",
-            "eadburg",
+            "death_cook",
             "gaius",
             "jatix",
-            "servant",
-            "wistan",
+            "death_servant1",
+            "death_shopkeeper",
         ] {
             let _ = engine.script_errors.take();
             let branches = explore(
@@ -127,8 +127,8 @@ fn the_crystal_key_halves_join() {
     runner::on_loaded_engine(|engine| {
         let obj = |engine: &Engine, name: &str| *engine.cache.objs.debugnames.get(name).unwrap();
         let (tooth, lp, key) = (
-            obj(engine, "tooth_half_of_a_key"),
-            obj(engine, "loop_half_of_a_key"),
+            obj(engine, "keyhalf1"),
+            obj(engine, "keyhalf2"),
             obj(engine, "crystal_key"),
         );
         let backpack = *engine.cache.invs.debugnames.get("inv").unwrap();

@@ -30,24 +30,24 @@ if (unknown_command_5623 = true) {
     $component12 = south_progress9:popup_small_button_text;
     $component13 = south_progress9:popup_big_button_text;
 }
-if_setonclick(null, $component4);
-if_setonclick(null, $component5);
-if_setonmouseover(null, $component5);
-if_setonmouseleave(null, $component5);
-if_setonmouseover(null, $component4);
-if_setonmouseleave(null, $component4);
-if_setposition(6, 5, ^setpos_abs_left, ^setpos_abs_bottom, $component4);
-if_setposition(6, 5, ^setpos_abs_left, ^setpos_abs_bottom, $component5);
-if_settext("", $component12);
-if_settext("", $component13);
-if_sethide(true, $component4);
-if_sethide(true, $component5);
-if_settext("", $component2);
-%varclient_1092 = 0;
-if_setgraphic(null, $component3);
-if_setontimer(null, $component3);
-if_sethide(true, $component0);
-if_sethide(true, $component1);
+if_setonclick($component4, null);
+if_setonclick($component5, null);
+if_setonmouseover($component5, null);
+if_setonmouseleave($component5, null);
+if_setonmouseover($component4, null);
+if_setonmouseleave($component4, null);
+if_setposition($component4, 6, 5, ^setpos_abs_left, ^setpos_abs_bottom);
+if_setposition($component5, 6, 5, ^setpos_abs_left, ^setpos_abs_bottom);
+if_settext($component12, "");
+if_settext($component13, "");
+if_sethide($component4, true);
+if_sethide($component5, true);
+if_settext($component2, "");
+%throbber_last = 0;
+if_setgraphic($component3, null);
+if_setontimer($component3, null);
+if_sethide($component0, true);
+if_sethide($component1, true);
 if (unknown_command_5623 = true) {
     return;
 } else {

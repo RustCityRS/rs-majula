@@ -12,44 +12,44 @@ if (if_gethide(interface_1055:task_info_layer) = true) {
         $int2 = calc(100 - $int2);
         $int3 = calc(scale(270, 100, $int2) + 10);
         $int4 = calc(scale(100, 100, $int2) + 10);
-        if_setsize(min($int3, 270), min($int4, 100), ^setsize_abs, ^setsize_abs, interface_1055:com_13);
+        if_setsize(interface_1055:com_13, min($int3, 270), min($int4, 100), ^setsize_abs, ^setsize_abs);
         $int0 = max(calc($int0 - 8), 0);
-        if_settrans($int0, interface_1055:com_13);
+        if_settrans(interface_1055:com_13, $int0);
     } else {
         $struct1 = enum(int, struct, enum_3483, %varclient_1425);
         if ($struct1 ! null) {
-            if_setfill(true, interface_1055:com_13);
-            if_settrans(0, interface_1055:com_2);
-            if_settrans(0, interface_1055:task_icon);
-            if_settrans(0, interface_1055:task_title_text);
-            if_settrans(0, interface_1055:com_5);
-            if_settrans(0, interface_1055:com_6);
-            if_settrans(0, interface_1055:com_7);
-            if_settrans(0, interface_1055:com_8);
-            if_settrans(0, interface_1055:com_9);
-            if_settrans(0, interface_1055:com_10);
-            if_settrans(0, interface_1055:com_11);
-            if_settext(struct_param($struct1, param_1266), interface_1055:com_5);
+            if_setfill(interface_1055:com_13, true);
+            if_settrans(interface_1055:com_2, 0);
+            if_settrans(interface_1055:task_icon, 0);
+            if_settrans(interface_1055:task_title_text, 0);
+            if_settrans(interface_1055:com_5, 0);
+            if_settrans(interface_1055:com_6, 0);
+            if_settrans(interface_1055:com_7, 0);
+            if_settrans(interface_1055:com_8, 0);
+            if_settrans(interface_1055:com_9, 0);
+            if_settrans(interface_1055:com_10, 0);
+            if_settrans(interface_1055:com_11, 0);
+            if_settext(interface_1055:com_5, struct_param($struct1, param_1266));
             if (struct_param($struct1, param_1270) ! 4094) {
                 $graphic5 = struct_param(enum(int, struct, enum_2252, struct_param($struct1, param_1270)), param_952);
             } else {
                 $graphic5 = struct_param($struct1, param_1271);
             }
-            if_setgraphic($graphic5, interface_1055:task_icon);
-            if_setontimer("script3970", interface_1055:com_0);
-            if_sethide(false, interface_1055:task_info_layer);
+            if_setgraphic(interface_1055:task_icon, $graphic5);
+            if_setontimer(interface_1055:com_0, "script3970");
+            if_sethide(interface_1055:task_info_layer, false);
         } else {
-            if_setontimer(null, interface_1055:com_12);
-            if_setontimer(null, interface_1055:com_0);
-            if_sethide(true, interface_1055:task_info_layer);
-            if_sethide(true, interface_1055:com_12);
+            if_setontimer(interface_1055:com_12, null);
+            if_setontimer(interface_1055:com_0, null);
+            if_sethide(interface_1055:task_info_layer, true);
+            if_sethide(interface_1055:com_12, true);
         }
     }
 } else if ($int0 < 255) {
     $int0 = min(calc($int0 + 8), 255);
-    if_settrans($int0, interface_1055:com_13);
+    if_settrans(interface_1055:com_13, $int0);
 } else {
-    if_setontimer(null, interface_1055:com_12);
-    if_setfill(false, interface_1055:com_13);
-    if_sethide(true, interface_1055:com_12);
+    if_setontimer(interface_1055:com_12, null);
+    if_setfill(interface_1055:com_13, false);
+    if_sethide(interface_1055:com_12, true);
 }

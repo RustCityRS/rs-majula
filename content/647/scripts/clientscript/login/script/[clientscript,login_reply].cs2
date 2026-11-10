@@ -11,33 +11,33 @@ if (unknown_command_5623 = true) {
     $component4 = south_progress9:popup;
 }
 if ($int0 = -3) {
-    if_settext("Logging in...", $component1);
-    if_settext("Logging in...", $component2);
-    if_setonclick(null, $component3);
+    if_settext($component1, "Logging in...");
+    if_settext($component2, "Logging in...");
+    if_setonclick($component3, null);
     ~login_popup($int0, 0, "Logging In - Please Wait", 1, null, 0, -1, "", 0, "");
-    %varclient_1100 = -3;
+    %login_reply_last = -3;
     return;
 }
-if (%varclient_1100 = -3) {
+if (%login_reply_last = -3) {
     ~login_popup_close;
 }
 def_int $int5 = 0;
 def_string $string0 = "";
 if ($int0 = 21) {
-    %varclient_1100 = 21;
-    if_settext("Logging in...", $component1);
-    if_settext("Logging in...", $component2);
-    if_setonclick(null, $component3);
-    if (%varclient_200 = 0) {
-        %varclient_200 = login_hoptime;
+    %login_reply_last = 21;
+    if_settext($component1, "Logging in...");
+    if_settext($component2, "Logging in...");
+    if_setonclick($component3, null);
+    if (%loginscreen_hopblocked_time = 0) {
+        %loginscreen_hopblocked_time = login_hoptime;
     }
-    %varclient_200 = calc(%varclient_200 - 1);
-    if (%varclient_200 <= 0) {
-        if_setontimer(null, $component3);
+    %loginscreen_hopblocked_time = calc(%loginscreen_hopblocked_time - 1);
+    if (%loginscreen_hopblocked_time <= 0) {
+        if_setontimer($component3, null);
         ~login_dologin;
         return;
     }
-    $int5 = calc(%varclient_200 / 50);
+    $int5 = calc(%loginscreen_hopblocked_time / 50);
     if ($int5 = 1) {
         $string0 = "You have only just left another world. Your profile will be transferred in<br>1 second.";
     } else {
@@ -54,20 +54,20 @@ if ($int0 = 21) {
 def_int $int6 = 0;
 def_string $string1 = "";
 if ($int0 = 1) {
-    if_settext("Logging in...", $component1);
-    if_settext("Logging in...", $component2);
-    if_setonclick(null, $component3);
-    if (%varclient_201 = 0) {
-        %varclient_202 = video_advert_play;
+    if_settext($component1, "Logging in...");
+    if_settext($component2, "Logging in...");
+    if_setonclick($component3, null);
+    if (%loginscreen_videoad = 0) {
+        %loginscreen_videoad_available = video_advert_play;
     }
-    $int6 = calc((500 - %varclient_201) / 50);
-    if (%varclient_202 = false) {
+    $int6 = calc((500 - %loginscreen_videoad) / 50);
+    if (%loginscreen_videoad_available = false) {
         if ($int6 = 1) {
             $string1 = "Could not display video advertisement. Login will continue in 1 second.";
         } else {
             $string1 = "Could not display video advertisement. Login will continue in <tostring($int6)> seconds";
         }
-    } else if (%varclient_201 < 500) {
+    } else if (%loginscreen_videoad < 500) {
         if ($int6 = 1) {
             $string1 = "Displaying video advertisement. Login will continue in 1 second.";
         } else {
@@ -77,8 +77,8 @@ if ($int0 = 1) {
         $string1 = "Displaying video advertisement. Login will continue in 0 seconds.";
     }
     ~login_popup($int0, 0, $string1, 0, "loadingwheel,12", 0, -1, "", 0, "");
-    %varclient_201 = calc(%varclient_201 + 1);
-    if (%varclient_202 = true & video_advert_has_finished = false | %varclient_201 < 500) {
+    %loginscreen_videoad = calc(%loginscreen_videoad + 1);
+    if (%loginscreen_videoad_available = true & video_advert_has_finished = false | %loginscreen_videoad < 500) {
         return;
     }
     ~login_popup_close;
@@ -87,14 +87,14 @@ if ($int0 = 1) {
 }
 ~login_popup_close;
 if (unknown_command_5623 = true) {
-    if_settext("Play Game", $component1);
-    if_settext("Play Game", $component2);
+    if_settext($component1, "Play Game");
+    if_settext($component2, "Play Game");
 } else {
-    if_settext("Log In", $component1);
-    if_settext("Log In", $component2);
+    if_settext($component1, "Log In");
+    if_settext($component2, "Log In");
 }
-if_setonclick("login_dologin", $component3);
-if_setontimer(null, login:popup);
+if_setonclick($component3, "login_dologin");
+if_setontimer(login:popup, null);
 def_string $string2 = "";
 def_int $int7 = 1;
 def_int $int8 = 0;
@@ -184,9 +184,9 @@ switch_int ($int0) {
         $graphic9 = "loadingwheel,11";
         $string2 = "RuneScape has been updated! Please reload this page.";
     case 3 :
-        if (%varclient_1414 = 1) {
+        if (%loginscreen_previous_login_type = 1) {
             $string2 = "Invalid username or password.<br><br>For accounts created after the 24th of November 2010, please use your email address to login. Otherwise please login with your username.";
-        } else if (%varclient_1414 = 2) {
+        } else if (%loginscreen_previous_login_type = 2) {
             $string2 = "Invalid email or password.<br><br>For accounts created after the 24th of November 2010, please use your email address to login. Otherwise please login with your username.";
         } else {
             $string2 = "Invalid login or password.<br><br>For accounts created after the 24th of November 2010, please use your email address to login. Otherwise please login with your username.";

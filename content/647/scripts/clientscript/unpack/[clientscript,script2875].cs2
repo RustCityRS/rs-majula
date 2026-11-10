@@ -1,8 +1,8 @@
 // 2875
 [clientscript,script2875]
-if (%varplayerbit_7079 = 0) {
-    if_setgraphic("music_header_icons,6", music_v3:playlist_random);
+if (%playlist_random = 0) {
+    if_setgraphic(music_v3:playlist_random, "music_header_icons,6");
 } else {
-    if_setgraphic("music_header_icons,5", music_v3:playlist_random);
+    if_setgraphic(music_v3:playlist_random, "music_header_icons,5");
 }
-%varclient_2 = 0;
+%tooltip_built = 0;

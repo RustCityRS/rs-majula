@@ -4,7 +4,7 @@ def_enum $enum10 = enum(int, enum, enum_3689, $int6);
 def_string $string0 = "";
 if ($int2 >= date_runeday & $int5 > 0 & $int4 > 0 & $int6 > 0) {
     $string0 = "<fromdate($int2)><br><enum(int, string, enum_3695, $int3)>";
-    if (%varclansetting_5 = 0) {
+    if (%clan_events_time_varclan = 0) {
         $string0 = "<$string0> Game time:";
     } else {
         $string0 = "<$string0> Clan time:";
@@ -13,7 +13,7 @@ if ($int2 >= date_runeday & $int5 > 0 & $int4 > 0 & $int6 > 0) {
         $string0 = "<$string0><br>World <tostring($int5)>";
     }
     $string0 = "<$string0><br><enum(int, string, enum_3696, $int4)>";
-    if_settext($string0, $component0);
+    if_settext($component0, $string0);
     $string0 = enum(int, string, enum_3687, $int6);
     if ($enum10 ! null & $int7 > 0) {
         $string0 = "<$string0><br><enum(int, string, $enum10, $int7)>";
@@ -22,12 +22,12 @@ if ($int2 >= date_runeday & $int5 > 0 & $int4 > 0 & $int6 > 0) {
     if ($int9 = 1) {
         $string0 = "<$string0><br>Attendance is mandatory.";
     }
-    if_settext($string0, $component1);
+    if_settext($component1, $string0);
     if ($clanforumqfc0 ! null) {
-        if_sethide(false, clan_info:com_146);
-        if_setonop("script4330($clanforumqfc0)", clan_info:com_146);
+        if_sethide(clan_info:com_146, false);
+        if_setonop(clan_info:com_146, "script4330($clanforumqfc0)");
     } else {
-        if_setonclick(null, clan_info:com_146);
-        if_sethide(true, clan_info:com_52);
+        if_setonclick(clan_info:com_146, null);
+        if_sethide(clan_info:com_52, true);
     }
 }

@@ -1,5 +1,5 @@
 // Ship ladder (climb up)
-[oploc1,ship_s_ladder]
+[oploc1,shipladder_angled]
 p_arrivedelay;
 switch_int (loc_angle) {
 	case 0 : p_teleport(movecoord(coord, 0, 1, 2));
@@ -46,7 +46,7 @@ switch_coord (loc_coord) {
     case default : ~climb_ladder(movecoord(coord(), 0, -1, 0), false);   
 }
 
-[oploc1,ladder_1747]
+[oploc1,ladder]
 p_arrivedelay;
 switch_coord (loc_coord) {
     case 0_40_53_10_49 : @ladder_to_dwarf_remains; // Ladder to Dwarf Guard Tower

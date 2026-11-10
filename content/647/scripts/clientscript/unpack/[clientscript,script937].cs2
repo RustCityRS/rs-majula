@@ -26,4 +26,4 @@ while ($int4 < inv_size(tradeoffer)) {
     cc_settrans(255);
     $int4 = calc($int4 + 1);
 }
-if_setoninvtransmit("script938{tradeoffer}", trademain:other_offer_layer_back);
+if_setoninvtransmit(trademain:other_offer_layer_back, "script938{tradeoffer}");

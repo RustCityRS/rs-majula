@@ -35,7 +35,7 @@ p_delay(2);
 anim(human_pickupfloor, 0);
 mes("You remove the cannonballs from the mould.");
 inv_del(inv, steel_bar, 1);
-inv_add(inv, cannonball, 4);
+inv_add(inv, mcannonball, 4);
 // 37.5 xp gained
 // https://web.archive.org/web/20040606145237/http://www.tip.it/runescape/index.php?page=rs2smithtables.htm
 // https://web.archive.org/web/20041222084000/http://www.runehq.com/cacheguides/viewotherguide00278.htm

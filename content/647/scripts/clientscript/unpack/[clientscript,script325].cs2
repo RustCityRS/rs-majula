@@ -1,8 +1,8 @@
 // 325
 [clientscript,script325]
-if_sethide(true, player_kit_jewel:gold_layer);
-if_sethide(false, player_kit_jewel:silver_layer);
-if_setgraphic("player_kit_fancy_off,5", player_kit_jewel:gold_tab);
-if_setgraphic("player_kit_fancy,7", player_kit_jewel:silver_tab);
-%varclient_783 = 0;
+if_sethide(player_kit_jewel:gold_layer, true);
+if_sethide(player_kit_jewel:silver_layer, false);
+if_setgraphic(player_kit_jewel:gold_tab, "player_kit_fancy_off,5");
+if_setgraphic(player_kit_jewel:silver_tab, "player_kit_fancy,7");
+%player_kit_bracelet_layer = 0;
 ~player_kit_bracelet_load(player_kit_jewel:silver_layer);

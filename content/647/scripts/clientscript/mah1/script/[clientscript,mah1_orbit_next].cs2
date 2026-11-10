@@ -1,14 +1,14 @@
 // 2346
 [clientscript,mah1_orbit_next]
-%varclient_769 = calc(%varclient_769 + 1);
-if (%varclient_769 >= calc(spline_length(0) - 1)) {
-    %varclient_769 = 0;
-    if_setoncamfinished(null, mah1_orbitsplines:controller);
+%mah1_orbit_step = calc(%mah1_orbit_step + 1);
+if (%mah1_orbit_step >= calc(spline_length(0) - 1)) {
+    %mah1_orbit_step = 0;
+    if_setoncamfinished(mah1_orbitsplines:controller, null);
     return;
 }
-if (%varclient_769 = calc(spline_length(0) - 2)) {
-    cam_movealong(0, %varclient_769, 200, 75, 1, %varclient_769);
+if (%mah1_orbit_step = calc(spline_length(0) - 2)) {
+    cam_movealong(0, %mah1_orbit_step, 200, 75, 1, %mah1_orbit_step);
 } else {
-    cam_movealong(0, %varclient_769, 200, 200, 1, %varclient_769);
+    cam_movealong(0, %mah1_orbit_step, 200, 200, 1, %mah1_orbit_step);
 }
-if_setoncamfinished("mah1_orbit_next", mah1_orbitsplines:controller);
+if_setoncamfinished(mah1_orbitsplines:controller, "mah1_orbit_next");

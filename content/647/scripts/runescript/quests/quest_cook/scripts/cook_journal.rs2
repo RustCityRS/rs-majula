@@ -10,21 +10,21 @@ if (%cookquest = 0) {
     $text = "@dbl@It's the @dre@Duke of Lumbridge's @dbl@birthday and I have to help|@dbl@his @dre@Cook @dbl@make him a @dre@birthday cake. @dbl@To do this I need to|@dbl@bring the cook the following ingredients:||";
     if (%cookquest_milk = ^true) {
         $text = append($text, "@str@I have given the cook a bucket of top-quality milk.|");
-    } else if (inv_total(inv, top_quality_milk) > 0) {
+    } else if (inv_total(inv, cook_milk) > 0) {
         $text = append($text, "@dbl@I have found a @dre@bucket of top-quality milk @dbl@to give to the cook.|");
     } else {
         $text = append($text, "@dbl@I need to find a @dre@bucket of top-quality milk.|");
     }
     if (%cookquest_flour = ^true) {
         $text = append($text, "@str@I have given the cook a pot of extra fine flour.|");
-    } else if (inv_total(inv, extra_fine_flour) > 0) {
+    } else if (inv_total(inv, cook_flour) > 0) {
         $text = append($text, "@dbl@I have found a @dre@pot of extra fine flour @dbl@to give to the cook.|");
     } else {
         $text = append($text, "@dbl@I need to find a @dre@pot of extra fine flour.|");
     }
     if (%cookquest_egg = ^true) {
         $text = append($text, "@str@I have given the cook a super large egg.|");
-    } else if (inv_total(inv, super_large_egg) > 0) {
+    } else if (inv_total(inv, cook_egg) > 0) {
         $text = append($text, "@dbl@I have found a @dre@super large egg @dbl@to give to the cook.|");
     } else {
         $text = append($text, "@dbl@I need to find a @dre@super large egg.|");

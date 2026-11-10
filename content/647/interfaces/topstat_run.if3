@@ -19,7 +19,7 @@ op1=Turn Run mode on
 op2=Rest
 op10= 
 onload=topstat_run_button_init(event_com)
-onvarctransmit=topstat_run_button_update(event_com){varclient_119}
+onvarctransmit=topstat_run_button_update(event_com){option_run_status_varc}
 
 // 750:2
 [titlescroll_onop_1]
@@ -28,7 +28,7 @@ width=512
 height=334
 layer=topstat_prayer
 onload=topstat_set_graphic_lore
-onvartransmit=topstat_set_graphic_lore{varplayer_1160}
+onvartransmit=topstat_set_graphic_lore{lore_incubators_var}
 onstattransmit=script815{summoning}
 
 // 750:3

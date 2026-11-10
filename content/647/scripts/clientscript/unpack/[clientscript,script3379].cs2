@@ -1,5 +1,5 @@
 // 3379
 [clientscript,script3379]
-if_setgraphic("login_lobby_button,0", runefest_banner:button_left);
-if_setgraphic("login_lobby_button,0", runefest_banner:button_right);
-if_setgraphic("login_lobby_button,1", runefest_banner:button_middle);
+if_setgraphic(runefest_banner:button_left, "login_lobby_button,0");
+if_setgraphic(runefest_banner:button_right, "login_lobby_button,0");
+if_setgraphic(runefest_banner:button_middle, "login_lobby_button,1");

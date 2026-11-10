@@ -47,8 +47,8 @@ inv_add(inv, stake, 1);
 ~objbox(stake, "Dr Harlow hands you a stake.", 250, 0, 0);
 ~chatnpc("<p,neutral>You'll need a special hammer as well, to drive it in properly.");
 ~chatnpc("<p,neutral>Hmm, I think I have a spare hammer you can have.");
-inv_add(inv, stake_hammer, 1);
-~objbox(stake_hammer, "Dr Harlow hands you a strange hammer.", 250, 0, 0);
+inv_add(inv, vampire_hammer, 1);
+~objbox(vampire_hammer, "Dr Harlow hands you a strange hammer.", 250, 0, 0);
 ~chatnpc("<p,neutral>One last thing. It's wise to carry garlic with you; vampires are slightly weakened if they can smell garlic.");
 ~chatnpc("<p,neutral>Garlic is pretty common, I know I always advised Morgan to keep a supply, so you might be able to get some from him. If not, I know they sell it in Port Sarim.");
 // 132.2s: "how I do I", 2011's typo.

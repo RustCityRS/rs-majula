@@ -1,19 +1,19 @@
 // 4035
 [proc,task_kudos_available]()(int)
 def_int $int0 = 88;
-if (%varplayerbit_5387 = 250) {
+if (%zemo_main = 250) {
     $int0 = calc($int0 + 5);
 }
-if (%demon_slayer >= 3) {
+if (%demonslayer_main >= 3) {
     $int0 = calc($int0 + 5);
 }
 if (%itexamlevel >= 9) {
     $int0 = calc($int0 + 5);
 }
-if (%varplayerbit_358 = 15) {
+if (%deserttreasure = 15) {
     $int0 = calc($int0 + 10);
 }
-if (%varplayerbit_6001 >= 45) {
+if (%glomem_quest >= 45) {
     $int0 = calc($int0 + 10);
 }
 if (%grandtree >= 160) {
@@ -22,13 +22,13 @@ if (%grandtree >= 160) {
 if (%hazeelcultquest >= 9) {
     $int0 = calc($int0 + 5);
 }
-if (%varplayerbit_1990 >= 430) {
+if (%myreque_2_quest >= 430) {
     $int0 = calc($int0 + 5);
 }
-if (%varplayerbit_1383 >= 4) {
+if (%makinghistory_prog >= 4) {
     $int0 = calc($int0 + 5);
 }
-if (%varplayerbit_5075 = 20) {
+if (%hist_prog = 20) {
     $int0 = calc($int0 + 5);
 }
 if (%arthur >= 7) {
@@ -43,16 +43,16 @@ if (%priestperil >= 61) {
 if (%runemysteries >= 6) {
     $int0 = calc($int0 + 5);
 }
-if (%blackarmgang >= 7 | %phoenixgang >= 4) {
+if (%phoenixgang >= 7 | %blackarmgang >= 4) {
     $int0 = calc($int0 + 5);
 }
-if (%varplayerbit_1028 >= 70) {
+if (%twocats_quest >= 70) {
     $int0 = calc($int0 + 5);
 }
 if (%ikov >= 80) {
     $int0 = calc($int0 + 5);
 }
-if (%varplayerbit_3523 >= 150) {
+if (%surok_quest >= 150) {
     $int0 = calc($int0 + 5);
 }
 return($int0);

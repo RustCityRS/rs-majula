@@ -1,13 +1,13 @@
 // 4437
 [proc,clan_chat_clearlist]
-if_sethide(true, clan_chat:drag_layer);
+if_sethide(clan_chat:drag_layer, true);
 if_clearops(clan_chat:drag_layer);
-if_setscrollpos(0, 0, clan_chat:clan_list_scrolling_layer);
-if_sethide(false, clan_chat:clanlistscrollbar);
+if_setscrollpos(clan_chat:clan_list_scrolling_layer, 0, 0);
+if_sethide(clan_chat:clanlistscrollbar, false);
 ~scrollbar_vertical(clan_chat:clanlistscrollbar, clan_chat:clan_list_scrolling_layer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
-if_setgraphic("aif_clanchat_icons,13", clan_chat:clan_join_affinedchat_button_gfx);
-if_sethide(true, clan_chat:selected_highlight_layer);
-if_setsize(1, 19, ^setsize_abs, ^setsize_abs, clan_chat:clan_list_button_popout_layer);
-%varclient_1518 = -1;
-%varclient_1645 = "";
-if_settext("", clan_chat:clan_name);
+if_setgraphic(clan_chat:clan_join_affinedchat_button_gfx, "aif_clanchat_icons,13");
+if_sethide(clan_chat:selected_highlight_layer, true);
+if_setsize(clan_chat:clan_list_button_popout_layer, 1, 19, ^setsize_abs, ^setsize_abs);
+%clan_chat_selected_slot = -1;
+%clan_channel_selected_name = "";
+if_settext(clan_chat:clan_name, "");

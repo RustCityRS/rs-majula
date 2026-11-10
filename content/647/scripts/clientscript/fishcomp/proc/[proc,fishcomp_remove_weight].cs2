@@ -1,11 +1,11 @@
 // 268
 [proc,fishcomp_remove_weight](int $int0)
 def_int $intarray0(5);
-$intarray0(0) = %varclient_1104;
-$intarray0(1) = %varclient_1105;
-$intarray0(2) = %varclient_1106;
-$intarray0(3) = %varclient_1107;
-$intarray0(4) = %varclient_1108;
+$intarray0(0) = %fishcomp_client_weight_1;
+$intarray0(1) = %fishcomp_client_weight_2;
+$intarray0(2) = %fishcomp_client_weight_3;
+$intarray0(3) = %fishcomp_client_weight_4;
+$intarray0(4) = %fishcomp_client_weight_5;
 def_int $int1 = 0;
 if ($intarray0($int0) ! 0) {
     $int1 = $int0;
@@ -14,9 +14,9 @@ if ($intarray0($int0) ! 0) {
     }
     $intarray0(calc(5 - 1)) = 0;
 }
-%varclient_1104 = $intarray0(0);
-%varclient_1105 = $intarray0(1);
-%varclient_1106 = $intarray0(2);
-%varclient_1107 = $intarray0(3);
-%varclient_1108 = $intarray0(4);
+%fishcomp_client_weight_1 = $intarray0(0);
+%fishcomp_client_weight_2 = $intarray0(1);
+%fishcomp_client_weight_3 = $intarray0(2);
+%fishcomp_client_weight_4 = $intarray0(3);
+%fishcomp_client_weight_5 = $intarray0(4);
 ~fishcomp_refresh;

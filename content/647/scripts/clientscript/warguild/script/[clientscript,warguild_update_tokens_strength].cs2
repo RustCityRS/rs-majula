@@ -1,3 +1,3 @@
 // 4044
 [clientscript,warguild_update_tokens_strength](component $component0)
-if_settext(tostring(%varplayerbit_8662), $component0);
+if_settext($component0, tostring(%warguild_tokens_strength));

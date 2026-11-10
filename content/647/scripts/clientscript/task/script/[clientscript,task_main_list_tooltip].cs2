@@ -10,15 +10,15 @@ def_int $int7 = 0;
 def_int $int8 = 2;
 def_component $component9 = null;
 if ($int0 = -1 & if_find(task_main:list_window) = true | cc_find(task_main:list_window, $int0) = true) {
-    if (%varclient_1 < calc(clientclock + $int8)) {
-        if (%varclient_1 < clientclock) {
-            %varclient_1 = clientclock;
+    if (%tooltip_time < calc(clientclock + $int8)) {
+        if (%tooltip_time < clientclock) {
+            %tooltip_time = clientclock;
         }
-        %varclient_1 = calc(%varclient_1 + 2);
+        %tooltip_time = calc(%tooltip_time + 2);
         return;
     }
-    %varclient_1 = calc(clientclock + $int8 + 10);
-    if (%varclient_2 ! 1) {
+    %tooltip_time = calc(clientclock + $int8 + 10);
+    if (%tooltip_built ! 1) {
         $component9 = if_getlayer(task_main:list_tooltip);
         if ($component9 ! null & $int6 >= calc(if_getwidth($component9) - if_getwidth(task_main:list_scroll) - 30)) {
             $int6 = calc(if_getwidth($component9) - if_getwidth(task_main:list_scroll) - 30);
@@ -37,8 +37,8 @@ if ($int0 = -1 & if_find(task_main:list_window) = true | cc_find(task_main:list_
         } else if ($int2 > calc(if_getheight($component9) - $int7 - 25)) {
             $int2 = calc(if_getheight($component9) - $int7 - 25);
         }
-        if_setsize($int5, $int7, ^setsize_abs, ^setsize_abs, task_main:list_tooltip);
-        if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, task_main:list_tooltip);
+        if_setsize(task_main:list_tooltip, $int5, $int7, ^setsize_abs, ^setsize_abs);
+        if_setposition(task_main:list_tooltip, $int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
         cc_deleteall(task_main:list_tooltip);
         cc_create(task_main:list_tooltip, ^iftype_rectangle, 0);
         cc_setsize(if_getwidth(task_main:list_tooltip), if_getheight(task_main:list_tooltip), ^setsize_abs, ^setsize_abs);
@@ -56,6 +56,6 @@ if ($int0 = -1 & if_find(task_main:list_window) = true | cc_find(task_main:list_
         cc_settextalign(^settextalign_left, ^settextalign_centre, 16);
         cc_settextfont(p12_full);
         cc_setcolour(0xeeeeee);
-        %varclient_2 = 1;
+        %tooltip_built = 1;
     }
 }

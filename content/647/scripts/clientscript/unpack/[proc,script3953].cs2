@@ -13,9 +13,9 @@ if (if_getgraphic(account_create:com_81) = "symbols_1,5") {
     ~create_error(if_gettext(account_create:com_124), account_create:com_100);
     return;
 }
-if_setgraphic("symbols_1,3", account_create:com_100);
-if_sethide(true, account_create:com_105);
-if_sethide(true, account_create:information_layer);
+if_setgraphic(account_create:com_100, "symbols_1,3");
+if_sethide(account_create:com_105, true);
+if_sethide(account_create:information_layer, true);
 if ($int0 = 1) {
     ~create_focus(7, 1);
 }

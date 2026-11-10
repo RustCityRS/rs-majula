@@ -115,8 +115,8 @@ if_setevents(trademain:other_offer_layer_flashy, 0, 27, ~inv_ops(^no_op, ^no_op,
 runclientscript("interface_inv_init_big(tradeside:side_layer, inv, 4, 7, 0, -1, \"Offer\", \"Offer-5\", \"Offer-10\", \"Offer-All\", \"Offer-X\", \"\", \"\", \"\", \"\")");
 if_setevents(tradeside:side_layer, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
 %varclient_1722 = $name;
-%offer_modified = 0;
-%other_offer_modified = 0;
+%traderemoved = 0;
+%traderemoved_other = 0;
 .if_settext(trademain:free_space_text, "has <tostring(inv_freespace(inv))> free inventory slots.");
 
 [proc,.trademain_2011](string $name)
@@ -127,8 +127,8 @@ if_setevents(tradeside:side_layer, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^i
 .runclientscript("interface_inv_init_big(tradeside:side_layer, inv, 4, 7, 0, -1, \"Offer\", \"Offer-5\", \"Offer-10\", \"Offer-All\", \"Offer-X\", \"\", \"\", \"\", \"\")");
 .if_setevents(tradeside:side_layer, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
 .%varclient_1722 = $name;
-.%offer_modified = 0;
-.%other_offer_modified = 0;
+.%traderemoved = 0;
+.%traderemoved_other = 0;
 if_settext(trademain:free_space_text, "has <tostring(.inv_freespace(inv))> free inventory slots.");
 
 // 2011: what each offer is worth, under "Wealth transfer:" (varc 729 the
@@ -271,10 +271,10 @@ if (.finduid(%tradepartner) = true) {
         // 2011: an offer that lost an item says "Trade modified" under what
         // the other will receive (com55, hidden until then; the 2011 wiki,
         // Trading: "a red and highlighted spot with Trade modified").
-        if (%other_offer_modified = 1) {
+        if (%traderemoved_other = 1) {
             if_sethide(tradeconfirm:trade_removed_warning_right, false);
         }
-        if (.%other_offer_modified = 1) {
+        if (.%traderemoved_other = 1) {
             .if_sethide(tradeconfirm:trade_removed_warning_right, false);
         }
 
@@ -492,8 +492,8 @@ if (.finduid(%tradepartner) = true) {
     // flashes the slot it left on the other's (clientscript 143; the 2011
     // wiki: "a big red flashing exclamation point will appear where the
     // item used to be").
-    %offer_modified = 1;
-    .%other_offer_modified = 1;
+    %traderemoved = 1;
+    .%traderemoved_other = 1;
     .runclientscript("interface_flash_slot(trademain:other_offer_layer, 4, 7, $slot)");
 }
 

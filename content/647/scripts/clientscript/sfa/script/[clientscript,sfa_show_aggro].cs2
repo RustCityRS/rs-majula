@@ -1,6 +1,6 @@
 // 2899
 [clientscript,sfa_show_aggro]
-if_sethide(false, sfa:aggro_warning);
-if_settrans(0, sfa:aggro_warning);
+if_sethide(sfa:aggro_warning, false);
+if_settrans(sfa:aggro_warning, 0);
 def_int $int0 = clientclock;
-if_setontimer("sfa_hide_warning($int0)", sfa:aggro_warning);
+if_setontimer(sfa:aggro_warning, "sfa_hide_warning($int0)");

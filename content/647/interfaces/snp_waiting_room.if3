@@ -44,7 +44,7 @@ textfont=p11_full
 text=-
 textshadow=yes
 colour=0x3366ff
-onvarctransmit=script2075{varclient_633}
+onvarctransmit=script2075{snp_blue_players_waiting_client}
 
 // 837:4
 [text_redteam]
@@ -74,7 +74,7 @@ textfont=p11_full
 text=-
 textshadow=yes
 colour=0xe12323
-onvarctransmit=script2076{varclient_634}
+onvarctransmit=script2076{snp_red_players_waiting_client}
 
 // 837:6
 [top_divider_line]
@@ -110,7 +110,7 @@ text=Players needed
 textalignh=centre
 textshadow=yes
 colour=0xff9900
-onvarctransmit=script2074{varclient_632}
+onvarctransmit=script2074{snp_game_in_progress_client}
 
 // 837:9
 [text_next_game_count]
@@ -126,7 +126,7 @@ text=New game: - mins
 textalignh=centre
 textshadow=yes
 colour=0xff9900
-onvarctransmit=script2077{varclient_636}
+onvarctransmit=script2077{snp_game_duration_client}
 
 // 837:10
 [waiting_bottomleft]

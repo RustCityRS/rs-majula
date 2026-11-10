@@ -1,4 +1,4 @@
 // 2293
 [clientscript,prayer_custom_confirm_mouseleave](component $component0, component $component1)
-if_setgraphic("ame_confirm_button_no_back,0", $component1);
-if_setcolour(0xff981f, $component0);
+if_setgraphic($component1, "ame_confirm_button_no_back,0");
+if_setcolour($component0, 0xff981f);

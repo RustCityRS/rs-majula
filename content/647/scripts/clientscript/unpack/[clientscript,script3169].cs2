@@ -1,7 +1,7 @@
 // 3169
 [clientscript,script3169](component $component0, int $int1)
-if_sethide(true, lobbyscreen_pane_clanchat:clan_active_bg);
-if_sethide(true, lobbyscreen_pane_clanchat:clan_tooltip);
+if_sethide(lobbyscreen_pane_clanchat:clan_active_bg, true);
+if_sethide(lobbyscreen_pane_clanchat:clan_tooltip, true);
 if (cc_find($component0, $int1) = true) {
     cc_setonmouserepeat(null);
 }

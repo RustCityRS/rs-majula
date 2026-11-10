@@ -10,60 +10,60 @@ if ($component0 = null | $graphic1 = null | $graphic2 = null) {
     return;
 }
 if ($component0 = assister_interface:runecrafting_icon) {
-    $int5 = ~assist_switch_var(%varplayerbit_4090);
+    $int5 = ~assist_switch_var(%assist_runecraft_xp_on);
     $component7 = assister_interface:runecraft_text;
     $component8 = assister_interface:runecraft_xp;
 }
 if ($component0 = assister_interface:crafting_icon_on) {
-    $int5 = ~assist_switch_var(%varplayerbit_4091);
+    $int5 = ~assist_switch_var(%assist_crafting_xp_on);
     $component7 = assister_interface:crafting_text;
     $component8 = assister_interface:crafting_xp;
 }
 if ($component0 = assister_interface:fletching_icon_on) {
-    $int5 = ~assist_switch_var(%varplayerbit_4093);
+    $int5 = ~assist_switch_var(%assist_fletching_xp_on);
     $component7 = assister_interface:fletching_text;
     $component8 = assister_interface:fletching_xp;
 }
 if ($component0 = assister_interface:construction_icon_on) {
-    $int5 = ~assist_switch_var(%varplayerbit_4095);
+    $int5 = ~assist_switch_var(%assist_construction_xp_on);
     $component7 = assister_interface:construction_text;
     $component8 = assister_interface:construction_xp;
 }
 if ($component0 = assister_interface:farming_icon_on) {
-    $int5 = ~assist_switch_var(%varplayerbit_4096);
+    $int5 = ~assist_switch_var(%assist_farming_xp_on);
     $component7 = assister_interface:farming_text;
     $component8 = assister_interface:farming_xp;
 }
 if ($component0 = assister_interface:magic_icon_on) {
-    $int5 = ~assist_switch_var(%varplayerbit_4098);
+    $int5 = ~assist_switch_var(%assist_magic_xp_on);
     $component7 = assister_interface:magic_text;
     $component8 = assister_interface:magic_xp;
 }
 if ($component0 = assister_interface:smithing_icon_on) {
-    $int5 = ~assist_switch_var(%varplayerbit_4100);
+    $int5 = ~assist_switch_var(%assist_smithing_xp_on);
     $component7 = assister_interface:smithing_text;
     $component8 = assister_interface:smithing_xp;
 }
 if ($component0 = assister_interface:cooking_icon_on) {
-    $int5 = ~assist_switch_var(%varplayerbit_4101);
+    $int5 = ~assist_switch_var(%assist_cooking_xp_on);
     $component7 = assister_interface:cooking_text;
     $component8 = assister_interface:cooking_xp;
 }
 if ($component0 = assister_interface:herblore_icon_on) {
-    $int5 = ~assist_switch_var(%varplayerbit_4102);
+    $int5 = ~assist_switch_var(%assist_herblore_xp_on);
     $component7 = assister_interface:herblore_text;
     $component8 = assister_interface:herblore_xp;
 }
 if ($int5 = 1) {
     $graphic4 = $graphic1;
     $boolean9 = false;
-    if_setcolour(0xfab432, $component7);
-    if_setcolour(0xfab432, $component8);
+    if_setcolour($component7, 0xfab432);
+    if_setcolour($component8, 0xfab432);
 } else {
     $graphic4 = $graphic2;
     $boolean9 = true;
-    if_setcolour(0x606060, $component7);
-    if_setcolour(0x606060, $component8);
+    if_setcolour($component7, 0x606060);
+    if_setcolour($component8, 0x606060);
 }
-if_setgraphic($graphic4, $component0);
-if_sethide($boolean9, $component3);
+if_setgraphic($component0, $graphic4);
+if_sethide($component3, $boolean9);

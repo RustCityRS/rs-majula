@@ -3,11 +3,11 @@
 def_int $int1 = 9;
 def_int $int2 = 23;
 ~clan_chat_guest_list_clear;
-if_setgraphic("aif_clanchat_icons,12", clan_chat:guest_joinleave_button_graphic);
-if_sethide(true, clan_chat:guest_info_layer);
-if_settext("", clan_chat:guest_info_txt);
-if (%varclient_1513 ! 1) {
-    %varclient_1513 = 1;
+if_setgraphic(clan_chat:guest_joinleave_button_graphic, "aif_clanchat_icons,12");
+if_sethide(clan_chat:guest_info_layer, true);
+if_settext(clan_chat:guest_info_txt, "");
+if (%guest_initialise_mes ! 1) {
+    %guest_initialise_mes = 1;
     mes("To talk in guest chat, start each line of chat with ///.");
 }
 def_component $component3 = clan_chat:guestclanlist;
@@ -29,10 +29,10 @@ if ($int0 <= -1) {
     $int0 = if_getx($component7);
 }
 $int0 = max(min($int0, calc(if_getwidth($component8) - $int13)), 0);
-%varclient_1506 = $int0;
-if_setposition($int0, 0, ^setpos_abs_left, ^setpos_abs_centre, $component7);
-if_sethide(false, $component7);
-if_setmouseovercursor(cursor_149, $component7);
+%guest_line_pos = $int0;
+if_setposition($component7, $int0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+if_sethide($component7, false);
+if_setmouseovercursor($component7, friends_arrow_cursor);
 $int11 = 0;
 def_int $int14 = 2;
 def_string $string0 = "";
@@ -48,14 +48,14 @@ def_int $int20 = -1;
 def_int $int21 = ~if_getx_absolute($component8);
 def_int $int22 = calc($int0 + $int21 - ~if_getx_absolute($component3));
 def_int $int23 = calc(if_getwidth($component5) - ($int0 + ($int21 - ~if_getx_absolute($component5)) + $int13));
-if_setop(1, "Leave chat", clan_chat:guest_joinleave_button_active_layer);
-if_setgraphic("aif_clanchat_icons,12", clan_chat:guest_joinleave_button_graphic);
-if_setsize($int23, 0, ^setsize_abs, ^setsize_minus, $component5);
-if_setsize($int23, 0, ^setsize_abs, ^setsize_minus, $component6);
-if_settext(activeclanchannel_getclanname, clan_chat:guest_clan_name);
+if_setop(clan_chat:guest_joinleave_button_active_layer, 1, "Leave chat");
+if_setgraphic(clan_chat:guest_joinleave_button_graphic, "aif_clanchat_icons,12");
+if_setsize($component5, $int23, 0, ^setsize_abs, ^setsize_minus);
+if_setsize($component6, $int23, 0, ^setsize_abs, ^setsize_minus);
+if_settext(clan_chat:guest_clan_name, activeclanchannel_getclanname);
 def_string $string4 = "Leave another<br>clan's clanchat.";
-if_setonmouserepeat("aif_tooltip(clan_chat:tooltip, event_com, -1, $string4, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)", clan_chat:guest_joinleave_button_active_layer);
-if_setop(1, "Leave Clan Chat channel", clan_chat:guest_joinleave_button_active_layer);
+if_setonmouserepeat(clan_chat:guest_joinleave_button_active_layer, "aif_tooltip(clan_chat:tooltip, event_com, -1, $string4, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+if_setop(clan_chat:guest_joinleave_button_active_layer, 1, "Leave Clan Chat channel");
 while ($int11 < $int12) {
     $string1 = activeclanchannel_getuserdisplayname($int11);
     $int20 = activeclanchannel_getuserrank($int11);
@@ -164,16 +164,16 @@ while ($int11 < $int12) {
     $int11 = calc($int11 + 1);
 }
 if (calc($int11 * 19) > if_getheight($component9)) {
-    if_setscrollsize(0, calc($int11 * 19), $component9);
+    if_setscrollsize($component9, 0, calc($int11 * 19));
 } else {
-    if_setscrollsize(0, 0, $component9);
+    if_setscrollsize($component9, 0, 0);
 }
 def_int $int25 = if_getscrolly($component9);
-if_setscrollsize(if_getwidth($component9), calc($int15 * $int12), $component9);
+if_setscrollsize($component9, if_getwidth($component9), calc($int15 * $int12));
 $int25 = min($int25, if_getscrollheight($component9));
-if_setscrollpos(0, $int25, $component9);
+if_setscrollpos($component9, 0, $int25);
 ~scrollbar_vertical($component10, $component9, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
-if_setonclanchanneltransmit("clan_chat_guest_list_refresh(-1)", $component3);
-if_setonclansettingstransmit("clan_chat_guest_list_refresh(-1)", $component3);
-if_setscrollsize(if_getwidth(clan_chat:clan_list_scrolling_layer), calc($int15 * $int12), clan_chat:clan_list_scrolling_layer);
+if_setonclanchanneltransmit($component3, "clan_chat_guest_list_refresh(-1)");
+if_setonclansettingstransmit($component3, "clan_chat_guest_list_refresh(-1)");
+if_setscrollsize(clan_chat:clan_list_scrolling_layer, if_getwidth(clan_chat:clan_list_scrolling_layer), calc($int15 * $int12));
 ~scrollbar_vertical(clan_chat:clanlistscrollbar, clan_chat:clan_list_scrolling_layer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");

@@ -51,7 +51,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff991f
-onvartransmit=conq_update_command_points_side{varplayer_1870}
+onvartransmit=conq_update_command_points_side{conq_base_temp}
 
 // 1024:6
 [no_abilities_grey_rectangle]
@@ -337,7 +337,7 @@ textshadow=yes
 colour=0xff991f
 transmitop=10
 op10= 
-onvartransmit=script429(event_com){varplayer_1870}
+onvartransmit=script429(event_com){conq_base_temp}
 
 // 1024:26
 [icon_4]
@@ -367,7 +367,7 @@ textshadow=yes
 colour=0x7d7d7d
 transmitop=10
 op10=  
-onvarctransmit=script429(event_com){varclient_1378, varclient_1379, varclient_1380, varclient_1381, varclient_1382}
+onvarctransmit=script429(event_com){conq_cooldown_battle_cry, conq_cooldown_stoicism, conq_cooldown_regenerate, conq_cooldown_bloodlust, conq_cooldown_winds_of_change}
 
 // 1024:28
 [shading_rect_4]
@@ -585,7 +585,7 @@ textshadow=yes
 colour=0xff991f
 transmitop=10
 op10= 
-onvartransmit=script429(event_com){varplayer_1870}
+onvartransmit=script429(event_com){conq_base_temp}
 
 // 1024:43
 [icon_3]
@@ -615,7 +615,7 @@ textshadow=yes
 colour=0x7d7d7d
 transmitop=10
 op10=  
-onvarctransmit=script429(event_com){varclient_1378, varclient_1379, varclient_1380, varclient_1381, varclient_1382}
+onvarctransmit=script429(event_com){conq_cooldown_battle_cry, conq_cooldown_stoicism, conq_cooldown_regenerate, conq_cooldown_bloodlust, conq_cooldown_winds_of_change}
 
 // 1024:45
 [shading_rect_3]
@@ -833,7 +833,7 @@ textshadow=yes
 colour=0xff991f
 transmitop=10
 op10= 
-onvartransmit=script429(event_com){varplayer_1870}
+onvartransmit=script429(event_com){conq_base_temp}
 
 // 1024:60
 [icon_2]
@@ -863,7 +863,7 @@ textshadow=yes
 colour=0x7d7d7d
 transmitop=10
 op10=  
-onvarctransmit=script429(event_com){varclient_1378, varclient_1379, varclient_1380, varclient_1381, varclient_1382}
+onvarctransmit=script429(event_com){conq_cooldown_battle_cry, conq_cooldown_stoicism, conq_cooldown_regenerate, conq_cooldown_bloodlust, conq_cooldown_winds_of_change}
 
 // 1024:62
 [shading_rect_2]
@@ -1073,7 +1073,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff991f
-onvartransmit=script429(event_com){varplayer_1870}
+onvartransmit=script429(event_com){conq_base_temp}
 
 // 1024:77
 [icon_1]
@@ -1101,7 +1101,7 @@ textshadow=yes
 colour=0x7d7d7d
 transmitop=10
 op10= 
-onvarctransmit=script429(event_com){varclient_1378, varclient_1379, varclient_1380, varclient_1381, varclient_1382}
+onvarctransmit=script429(event_com){conq_cooldown_battle_cry, conq_cooldown_stoicism, conq_cooldown_regenerate, conq_cooldown_bloodlust, conq_cooldown_winds_of_change}
 
 // 1024:79
 [shading_rect_1]

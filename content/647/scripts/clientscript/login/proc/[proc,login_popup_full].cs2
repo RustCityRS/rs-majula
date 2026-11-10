@@ -29,10 +29,10 @@ if (unknown_command_5623 = true) {
 if (if_gethide($component8) = false) {
     return;
 }
-if (%varclient_174 ! 5) {
-    %varclient_1089 = %varclient_174;
+if (%loginscreen_focus ! 5) {
+    %loginscreen_focus_last = %loginscreen_focus;
 }
-%varclient_174 = 5;
+%loginscreen_focus = 5;
 def_int $int20 = 250;
 if ($int4 = 1) {
     $int20 = max(250, calc(stringwidth($string1, verdana_11pt_regular) + 36));
@@ -40,24 +40,24 @@ if ($int4 = 1) {
         $int20 = calc($int20 + 1);
     }
 }
-if_setsize($int20, 154, ^setsize_abs, ^setsize_abs, $component9);
+if_setsize($component9, $int20, 154, ^setsize_abs, ^setsize_abs);
 def_int $int21 = calc(paraheight($string0, if_getwidth($component10), verdana_11pt_regular) * 16 + 5);
-if_setsize(20, $int21, ^setsize_minus, ^setsize_abs, $component10);
-if_settext($string0, $component10);
+if_setsize($component10, 20, $int21, ^setsize_minus, ^setsize_abs);
+if_settext($component10, $string0);
 if ($int2 = 1) {
-    %varclient_1092 = calc(clientclock + 5);
-    if_setgraphic("loading_wheel_1,0", $component11);
-    if_setsize(111, 111, ^setsize_abs, ^setsize_abs, $component11);
-    if_setposition(0, 7, ^setpos_abs_centre, ^setpos_abs_top, $component11);
-    if_setposition(0, 112, ^setpos_abs_centre, ^setpos_abs_top, $component10);
-    if_setontimer("login_popup_throbber", $component11);
+    %throbber_last = calc(clientclock + 5);
+    if_setgraphic($component11, "loading_wheel_1,0");
+    if_setsize($component11, 111, 111, ^setsize_abs, ^setsize_abs);
+    if_setposition($component11, 0, 7, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition($component10, 0, 112, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setontimer($component11, "login_popup_throbber");
 } else {
-    %varclient_1092 = 0;
-    if_setontimer(null, $component11);
-    if_setgraphic($graphic3, $component11);
-    if_setsize(76, 63, ^setsize_abs, ^setsize_abs, $component11);
-    if_setposition(0, 18, ^setpos_abs_centre, ^setpos_abs_top, $component11);
-    if_setposition(0, 123, ^setpos_abs_centre, ^setpos_abs_top, $component10);
+    %throbber_last = 0;
+    if_setontimer($component11, null);
+    if_setgraphic($component11, $graphic3);
+    if_setsize($component11, 76, 63, ^setsize_abs, ^setsize_abs);
+    if_setposition($component11, 0, 18, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition($component10, 0, 123, ^setpos_abs_centre, ^setpos_abs_top);
     $int21 = calc($int21 - 35);
 }
 def_int $int22 = 0;
@@ -65,40 +65,40 @@ $int21 = calc(if_gety($component10) + $int21);
 if ($int4 = 0 & $int6 = 0) {
     $int22 = 12;
     $int21 = calc($int21 + $int22);
-    if_sethide(true, $component12);
-    if_sethide(true, $component13);
+    if_sethide($component12, true);
+    if_sethide($component13, true);
 } else if ($int4 = 1 & $int6 = 0) {
     $int22 = 41;
     $int21 = calc($int21 + $int22);
-    if_setposition(0, 8, ^setpos_abs_centre, ^setpos_abs_bottom, $component12);
-    if_sethide(false, $component12);
-    if_sethide(true, $component13);
+    if_setposition($component12, 0, 8, ^setpos_abs_centre, ^setpos_abs_bottom);
+    if_sethide($component12, false);
+    if_sethide($component13, true);
     ~login_popup_small_button($string1, $component12, $component14, $component15, $component16, $int5);
 } else if ($int4 = 0 & $int6 = 1) {
     $int22 = 41;
     $int21 = calc($int21 + $int22);
-    if_setposition(0, 8, ^setpos_abs_centre, ^setpos_abs_bottom, $component13);
-    if_sethide(false, $component13);
-    if_sethide(true, $component12);
+    if_setposition($component13, 0, 8, ^setpos_abs_centre, ^setpos_abs_bottom);
+    if_sethide($component13, false);
+    if_sethide($component12, true);
     ~login_popup_big_button($string2, $component13, $component17, $component18, $component19);
 } else {
     $int22 = 70;
     $int21 = calc($int21 + $int22);
     if ($int7 = 0) {
-        if_setposition(0, 40, ^setpos_abs_centre, ^setpos_abs_bottom, $component12);
-        if_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_bottom, $component13);
+        if_setposition($component12, 0, 40, ^setpos_abs_centre, ^setpos_abs_bottom);
+        if_setposition($component13, 0, 10, ^setpos_abs_centre, ^setpos_abs_bottom);
     } else {
-        if_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_bottom, $component12);
-        if_setposition(0, 40, ^setpos_abs_centre, ^setpos_abs_bottom, $component13);
+        if_setposition($component12, 0, 10, ^setpos_abs_centre, ^setpos_abs_bottom);
+        if_setposition($component13, 0, 40, ^setpos_abs_centre, ^setpos_abs_bottom);
     }
-    if_sethide(false, $component13);
-    if_sethide(false, $component12);
+    if_sethide($component13, false);
+    if_sethide($component12, false);
     ~login_popup_small_button($string1, $component12, $component14, $component15, $component16, $int5);
     ~login_popup_big_button($string2, $component13, $component17, $component18, $component19);
 }
-if_setsize(if_getwidth($component9), $int21, ^setsize_abs, ^setsize_abs, $component9);
+if_setsize($component9, if_getwidth($component9), $int21, ^setsize_abs, ^setsize_abs);
 ~script2952($component12, $component13, $int0);
-if_setposition(0, $int22, ^setpos_abs_centre, ^setpos_abs_bottom, $component10);
-if_sethide(false, $component8);
-if_sethide(false, $component9);
-if_sethide(true, login:main);
+if_setposition($component10, 0, $int22, ^setpos_abs_centre, ^setpos_abs_bottom);
+if_sethide($component8, false);
+if_sethide($component9, false);
+if_sethide(login:main, true);

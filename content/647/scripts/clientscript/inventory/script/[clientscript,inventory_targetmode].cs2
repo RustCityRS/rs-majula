@@ -4,10 +4,10 @@ if ($boolean0 = true) {
     if (cc_find($component1, $int2) = true) {
         cc_setoutline(2);
     }
-    %varclient_1031 = calc(1 + $int2);
+    %inventory_target = calc(1 + $int2);
 } else {
     if (cc_find($component1, $int2) = true) {
         cc_setoutline(1);
     }
-    %varclient_1031 = 0;
+    %inventory_target = 0;
 }

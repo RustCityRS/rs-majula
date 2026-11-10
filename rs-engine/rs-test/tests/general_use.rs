@@ -74,7 +74,7 @@ fn said(line: &str) -> bool {
 fn a_hat_falls_off_the_hat_stand_and_nothing_else_goes_on_it() {
     runner::on_loaded_engine(|engine| {
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let hat = obj(engine, "wizard_hat");
+        let hat = obj(engine, "bluewizhat");
         let mut client = holding(engine, "hatter", STAND_TILE.0, STAND_TILE.1, &[hat]);
         use_on_hat_stand(&mut client, hat);
         for _ in 0..10 {
@@ -247,7 +247,7 @@ fn two_thousand_eleven_s_bookcases_and_coffins_on_289_s_spots() {
         let mut client = beside_loc(engine, "reader", BOOKCASE, &[]);
         op_loc1(
             &mut client,
-            loc_id("bookcase_12539"),
+            loc_id("fai_wiztower_bookcase"),
             BOOKCASE.0,
             BOOKCASE.2,
         );
@@ -257,18 +257,18 @@ fn two_thousand_eleven_s_bookcases_and_coffins_on_289_s_spots() {
         // coffin_32290 opens into coffin_32291, which closes it again.
         const COFFIN: (u16, u8, u16) = (2878, 0, 9803);
         let mut client = beside_loc(engine, "undertaker", COFFIN, &[]);
-        op_loc1(&mut client, loc_id("coffin_32290"), COFFIN.0, COFFIN.2);
+        op_loc1(&mut client, loc_id("di2_coffin"), COFFIN.0, COFFIN.2);
         cycles(engine, 6);
         assert!(said("The coffin creaks open..."));
         assert!(
-            loc_at(engine, "coffin_32291", COFFIN.0, 0, COFFIN.2),
+            loc_at(engine, "di2_coffin_open", COFFIN.0, 0, COFFIN.2),
             "opened"
         );
-        op_loc1(&mut client, loc_id("coffin_32291"), COFFIN.0, COFFIN.2);
+        op_loc1(&mut client, loc_id("di2_coffin_open"), COFFIN.0, COFFIN.2);
         cycles(engine, 6);
         assert!(said("You close the coffin."));
         assert!(
-            loc_at(engine, "coffin_32290", COFFIN.0, 0, COFFIN.2),
+            loc_at(engine, "di2_coffin", COFFIN.0, 0, COFFIN.2),
             "shut"
         );
     });
@@ -344,7 +344,7 @@ fn hay_searches_as_289_s() {
 #[test]
 fn mithril_seeds_plant_flowers_and_the_paterdomus_organ_plays() {
     runner::on_loaded_engine(|engine| {
-        let seeds = obj(engine, "mithril_seeds");
+        let seeds = obj(engine, "mithril_seed");
         let (x, z) = (3222, 3219);
         let mut client = holding(engine, "gardener", x, z, &[seeds]);
         op_held(&mut client, 1, seeds, 0);
@@ -391,7 +391,7 @@ fn the_fence_squeezes_through_both_ways() {
         const FENCE: (u16, u8, u16) = (2541, 0, 3331);
         let mut client = holding(engine, "squeezer", FENCE.0, FENCE.2, &[]);
         let start = coord(engine, client.pid);
-        op_loc1(&mut client, loc_id("fence"), FENCE.0, FENCE.2);
+        op_loc1(&mut client, loc_id("mournerstewfence"), FENCE.0, FENCE.2);
         cycles(engine, 8);
         let through = coord(engine, client.pid);
         assert_ne!(through, start, "through the fence");
@@ -400,7 +400,7 @@ fn the_fence_squeezes_through_both_ways() {
             1,
             "a tile across: {start:?} -> {through:?}"
         );
-        op_loc1(&mut client, loc_id("fence"), FENCE.0, FENCE.2);
+        op_loc1(&mut client, loc_id("mournerstewfence"), FENCE.0, FENCE.2);
         cycles(engine, 8);
         assert_eq!(coord(engine, client.pid), start, "and back");
     });
@@ -424,7 +424,7 @@ fn varrock_s_manhole_opens_closes_and_climbs_down() {
     runner::on_loaded_engine(|engine| {
         const MANHOLE: (u16, u8, u16) = (3237, 0, 3458);
         let mut client = beside_loc(engine, "sewerman", MANHOLE, &[]);
-        op_loc1(&mut client, loc_id("manhole"), MANHOLE.0, MANHOLE.2);
+        op_loc1(&mut client, loc_id("manholeclosed"), MANHOLE.0, MANHOLE.2);
         cycles(engine, 6);
         assert!(said("You pull back the cover from over the manhole."));
         assert!(
@@ -435,9 +435,9 @@ fn varrock_s_manhole_opens_closes_and_climbs_down() {
         op_loc2(&mut client, loc_id("manholeopen"), MANHOLE.0, MANHOLE.2);
         cycles(engine, 6);
         assert!(said("You place the cover back over the manhole."));
-        assert!(loc_at(engine, "manhole", MANHOLE.0, 0, MANHOLE.2), "shut");
+        assert!(loc_at(engine, "manholeclosed", MANHOLE.0, 0, MANHOLE.2), "shut");
 
-        op_loc1(&mut client, loc_id("manhole"), MANHOLE.0, MANHOLE.2);
+        op_loc1(&mut client, loc_id("manholeclosed"), MANHOLE.0, MANHOLE.2);
         cycles(engine, 6);
         op_loc1(&mut client, loc_id("manholeopen"), MANHOLE.0, MANHOLE.2);
         // 2011 asks first (2011-04-20 recording, 319.3-320.3s).
@@ -503,7 +503,7 @@ fn a_locked_chest_and_a_locked_gate_stay_shut() {
 #[test]
 fn a_bucket_fills_at_a_sink_and_a_well() {
     runner::on_loaded_engine(|engine| {
-        let (bucket, water) = (obj(engine, "bucket"), obj(engine, "bucket_of_water"));
+        let (bucket, water) = (obj(engine, "bucket_empty"), obj(engine, "bucket_water"));
         for (name, loc, (x, z), line) in [
             (
                 "sinker",
@@ -513,7 +513,7 @@ fn a_bucket_fills_at_a_sink_and_a_well() {
             ),
             (
                 "weller",
-                "well_884",
+                "well",
                 (3161, 3220),
                 "You fill the bucket from the well.",
             ),

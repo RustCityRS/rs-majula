@@ -174,7 +174,7 @@ xmode=abs_right
 layer=bg_layer
 colour=0x0033cc
 fill=yes
-onvarctransmit=trawler_water_bar_fill{varclient_817}
+onvarctransmit=trawler_water_bar_fill{trawler_water_level_client}
 
 // 15:12
 [water_bar_border]
@@ -215,7 +215,7 @@ xmode=abs_right
 layer=bg_layer
 colour=0x006600
 fill=yes
-onvartransmit=trawler_activity_bar_fill{varplayer_1436}
+onvartransmit=trawler_activity_bar_fill{trawler_activity_base}
 
 // 15:15
 [activity_bar_border]
@@ -243,7 +243,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff9900
-onvarctransmit=trawler_net_status{varclient_818}
+onvarctransmit=trawler_net_status{trawler_is_net_ripped_client}
 
 // 15:17
 [catch_text]
@@ -260,7 +260,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff9900
-onvarctransmit=trawler_catch_amount{varclient_819}
+onvarctransmit=trawler_catch_amount{trawler_total_catch_client}
 
 // 15:18
 [time_text]
@@ -277,4 +277,4 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff9900
-onvarctransmit=trawler_time_left{varclient_820}
+onvarctransmit=trawler_time_left{trawler_time_left_client}

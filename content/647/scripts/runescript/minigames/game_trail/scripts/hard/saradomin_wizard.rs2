@@ -1,4 +1,4 @@
-[opnpc2,saradomin_wizard]
+[opnpc2,trail_hard2]
 if (%npc_aggressive_player ! uid) {
     mes("It's not after you...");
     return;
@@ -6,7 +6,7 @@ if (%npc_aggressive_player ! uid) {
 npc_setmode(opplayer2);
 @player_combat_start;
 
-[apnpc2,saradomin_wizard] 
+[apnpc2,trail_hard2] 
 if (%npc_aggressive_player ! uid) {
     mes("It's not after you...");
     return;
@@ -14,15 +14,15 @@ if (%npc_aggressive_player ! uid) {
 npc_setmode(applayer2);
 @player_combat_start_ap;
 
-[ai_queue1,saradomin_wizard]
+[ai_queue1,trail_hard2]
 if(npc_getmode = applayer2) ~npc_default_retaliate_ap;
 else ~npc_default_retaliate;
 
-[ai_applayer2,saradomin_wizard]
+[ai_applayer2,trail_hard2]
 // once he's in ap he never switches back, and will only attack with mage
 ~npc_cast_spell(^saradomin_strike_npc, 4);
 
-[ai_opplayer2,saradomin_wizard]
+[ai_opplayer2,trail_hard2]
 if (~check_protect_prayer(^melee_style) = true) {
     ~npc_cast_spell(^saradomin_strike_npc, 4);
     npc_setmode(opplayer2); // keep in op
@@ -47,7 +47,7 @@ if ($rand ! 0) {
 }
 ~npc_default_attack;
 
-[ai_timer,saradomin_wizard]
+[ai_timer,trail_hard2]
 if(finduid(%npc_aggressive_player) = false) {
     npc_del;
     return;
@@ -56,7 +56,7 @@ if(distance(coord, npc_coord) > 17) { // not 100% sure on this, think it's the s
     npc_del;
 }
 
-[ai_queue3,saradomin_wizard]
+[ai_queue3,trail_hard2]
 if (npc_findhero = ^true) {
     queue(queue_defeat_trail_hard, 0, 0);
 }
@@ -78,33 +78,33 @@ if ($random >= 7 & $random < 10) {
 } else if ($random < 16) {
     obj_add(npc_coord, fire_battlestaff, 1, ^lootdrop_duration);
 } else if ($random < 28) {
-    obj_add(npc_coord, blood_rune, 12, ^lootdrop_duration);
+    obj_add(npc_coord, bloodrune, 12, ^lootdrop_duration);
 } else if ($random < 35) {
-    obj_add(npc_coord, nature_rune, 7, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 7, ^lootdrop_duration);
 } else if ($random < 41) {
-    obj_add(npc_coord, death_rune, 45, ^lootdrop_duration);
+    obj_add(npc_coord, deathrune, 45, ^lootdrop_duration);
 } else if ($random < 45) {
-    obj_add(npc_coord, earth_rune, 86, ^lootdrop_duration);
+    obj_add(npc_coord, earthrune, 86, ^lootdrop_duration);
 } else if ($random < 48) {
-    obj_add(npc_coord, air_rune, 60, ^lootdrop_duration);
+    obj_add(npc_coord, airrune, 60, ^lootdrop_duration);
 } else if ($random < 51) {
-    obj_add(npc_coord, water_rune, 42, ^lootdrop_duration);
+    obj_add(npc_coord, waterrune, 42, ^lootdrop_duration);
 } else if ($random < 54) {
-    obj_add(npc_coord, earth_rune, 79, ^lootdrop_duration);
+    obj_add(npc_coord, earthrune, 79, ^lootdrop_duration);
 } else if ($random < 57) {
-    obj_add(npc_coord, fire_rune, 51, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 51, ^lootdrop_duration);
 } else if ($random < 59) {
-    obj_add(npc_coord, air_rune, 189, ^lootdrop_duration);
+    obj_add(npc_coord, airrune, 189, ^lootdrop_duration);
 } else if ($random < 61) {
-    obj_add(npc_coord, water_rune, 126, ^lootdrop_duration);
+    obj_add(npc_coord, waterrune, 126, ^lootdrop_duration);
 } else if ($random < 63) {
-    obj_add(npc_coord, earth_rune, 107, ^lootdrop_duration);
+    obj_add(npc_coord, earthrune, 107, ^lootdrop_duration);
 } else if ($random < 65) {
-    obj_add(npc_coord, fire_rune, 180, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 180, ^lootdrop_duration);
 } else if ($random < 66) {
-    obj_add(npc_coord, cosmic_rune, 25, ^lootdrop_duration);
+    obj_add(npc_coord, cosmicrune, 25, ^lootdrop_duration);
 } else if ($random < 67) {
-    obj_add(npc_coord, law_rune, 9, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 9, ^lootdrop_duration);
 } else if ($random < 92) {
     obj_add(npc_coord, coins, 89, ^lootdrop_duration);
 } else if ($random < 109) {

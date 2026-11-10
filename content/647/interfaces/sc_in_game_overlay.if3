@@ -215,7 +215,7 @@ textalignh=centre
 colour=0xff981f
 onload=sc_game_start
 ontimer=sc_overlay_timer
-onvarctransmit=script1940{varclient_557}
+onvarctransmit=script1940{sc_client_minutes_remaining}
 
 // 809:16
 [com_16]
@@ -226,7 +226,7 @@ width=32
 height=32
 colour=0xffff00
 trans=255
-onvarctransmit=script1939{varclient_558}
+onvarctransmit=script1939{sc_server_cycles_left_on_launch}
 
 // 809:17
 [score]

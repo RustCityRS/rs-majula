@@ -1,3 +1,3 @@
 // 2098
 [clientscript,snp_tutorial_update_red_boss_level]
-if_settext(tostring(%varclient_642), snp_tutorial_game_overlay:red_level);
+if_settext(snp_tutorial_game_overlay:red_level, tostring(%snp_red_boss_slayer_level_client));

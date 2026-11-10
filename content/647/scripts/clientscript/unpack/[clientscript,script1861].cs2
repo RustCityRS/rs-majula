@@ -1,9 +1,9 @@
 // 1861
 [clientscript,script1861]
-if_setmodel(enum(int, model, enum_1318, %varplayerbit_5470), swept_chalkboard:swept_a);
-if_setmodel(enum(int, model, enum_1318, %varplayerbit_5471), swept_chalkboard:swept_b);
-if_setmodel(enum(int, model, enum_1318, %varplayerbit_5472), swept_chalkboard:swept_c);
-if_setmodel(enum(int, model, enum_1318, %varplayerbit_5473), swept_chalkboard:swept_d);
-if_setmodel(enum(int, model, enum_1318, %varplayerbit_5474), swept_chalkboard:swept_e);
-if_setmodel(enum(int, model, enum_1318, %varplayerbit_5475), swept_chalkboard:swept_f);
-if_setmodel(enum(int, model, enum_1318, %varplayerbit_5476), swept_chalkboard:swept_g);
+if_setmodel(swept_chalkboard:swept_a, enum(int, model, enum_1318, %swept_chamber_a));
+if_setmodel(swept_chalkboard:swept_b, enum(int, model, enum_1318, %swept_chamber_b));
+if_setmodel(swept_chalkboard:swept_c, enum(int, model, enum_1318, %swept_chamber_c));
+if_setmodel(swept_chalkboard:swept_d, enum(int, model, enum_1318, %swept_chamber_d));
+if_setmodel(swept_chalkboard:swept_e, enum(int, model, enum_1318, %swept_chamber_e));
+if_setmodel(swept_chalkboard:swept_f, enum(int, model, enum_1318, %swept_chamber_f));
+if_setmodel(swept_chalkboard:swept_g, enum(int, model, enum_1318, %swept_chamber_g));

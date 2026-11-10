@@ -12,4 +12,4 @@ cc_deleteall(player_kit_feet:player_container);
 cc_deleteall(player_kit_feet:colours_graphics);
 ~script2647(player_kit_feet:colours_graphics);
 ~player_kit_feet_redraw;
-if_setonvarctransmit("player_kit_feet_varctransmit{varclient_1014, varclient_1018}", player_kit_feet:universe);
+if_setonvarctransmit(player_kit_feet:universe, "player_kit_feet_varctransmit{playerdesign3_feet, playerdesign3_feetcol}");

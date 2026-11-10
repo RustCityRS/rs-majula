@@ -23,6 +23,6 @@ if ($int2 = $int1) {
     cc_setgraphic($graphic4);
 } else {
     cc_setgraphic($graphic5);
-    if_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic4)", $component0);
-    if_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic5)", $component0);
+    if_setonmouseover($component0, "cc_graphic_swapper(event_com, cc_getid, $graphic4)");
+    if_setonmouseleave($component0, "cc_graphic_swapper(event_com, cc_getid, $graphic5)");
 }

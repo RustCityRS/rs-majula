@@ -1,13 +1,13 @@
 // 3411
 [clientscript,script3411]
-%varclient_1240 = 3;
-%varclient_1277 = false;
+%graphics_options_version = 3;
+%graphics_options_firstrun = false;
 if (unknown_command_5623 = true) {
     ~loginscreen_setactivemenu(5);
     if (%varclient_1273 = true) {
         return;
     } else {
-        if_setontimer("login_delay(south_progress9:login_button, 0)", south_progress9:login_button);
+        if_setontimer(south_progress9:login_button, "login_delay(south_progress9:login_button, 0)");
     }
 } else if (~userflowflags(3) = true) {
     ~loginscreen_setactivemenu(7);

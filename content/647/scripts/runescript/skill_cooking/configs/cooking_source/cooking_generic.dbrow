@@ -3,7 +3,7 @@
 [cooking_generic_ugthanki_meat]
 table=cooking_generic
 data=uncooked,raw_ugthanki_meat
-data=cooked,ugthanki_meat
+data=cooked,cooked_ugthanki_meat
 data=burnt,burnt_meat
 data=levelrequired,1
 data=experience,400
@@ -114,8 +114,8 @@ data=successchance,1,1
 [cooking_generic_wrapped_oomlie]
 table=cooking_generic
 data=uncooked,wrapped_oomlie
-data=cooked,cooked_oomlie_wrap
-data=burnt,burnt_oomlie_wrap
+data=cooked,cooked_oomlie
+data=burnt,burnt_oomlie
 data=levelrequired,50
 data=experience,300
 data=successchance,106,450
@@ -130,7 +130,7 @@ data=cantcookmessage_range,The meat is far too delicate to cook like this. Perha
 
 [cooking_generic_pitta_bread]
 table=cooking_generic
-data=uncooked,pitta_dough
+data=uncooked,uncooked_pitta_bread
 data=cooked,pitta_bread
 data=burnt,burnt_pitta_bread
 data=levelrequired,58
@@ -200,7 +200,7 @@ data=successmessage,You remove the meat pie from the oven.
 
 [cooking_generic_redberry_pie]
 table=cooking_generic
-data=uncooked,uncooked_berry_pie
+data=uncooked,uncooked_redberry_pie
 data=cooked,redberry_pie
 data=burnt,burnt_pie
 data=levelrequired,10
@@ -213,9 +213,9 @@ data=successmessage,You remove the redberry pie from the oven.
 
 [cooking_generic_shrimp]
 table=cooking_generic
-data=uncooked,raw_shrimps
-data=cooked,shrimps
-data=burnt,burnt_fish
+data=uncooked,raw_shrimp
+data=cooked,shrimp
+data=burnt,burntfish1
 data=levelrequired,1
 data=experience,300
 data=successchance,128,512
@@ -226,7 +226,7 @@ data=successmessage,The shrimps are now nicely cooked.
 table=cooking_generic
 data=uncooked,raw_anchovies
 data=cooked,anchovies
-data=burnt,burnt_fish
+data=burnt,burntfish1
 data=levelrequired,1
 data=experience,300
 data=successchance,128,512
@@ -366,9 +366,9 @@ data=successchance_gauntlets,15,270
 
 [cooking_generic_mantaray]
 table=cooking_generic
-data=uncooked,raw_manta_ray
-data=cooked,manta_ray
-data=burnt,burnt_manta_ray
+data=uncooked,raw_mantaray
+data=cooked,mantaray
+data=burnt,burnt_mantaray
 data=levelrequired,91
 data=experience,2163
 data=successchance,1,202
@@ -376,9 +376,9 @@ data=successchance_range,1,222
 
 [cooking_generic_seaturtle]
 table=cooking_generic
-data=uncooked,raw_sea_turtle
-data=cooked,sea_turtle
-data=burnt,burnt_sea_turtle
+data=uncooked,raw_seaturtle
+data=cooked,seaturtle
+data=burnt,burnt_seaturtle
 data=levelrequired,82
 data=experience,2113
 data=successchance,1,202
@@ -480,7 +480,7 @@ data=successmessage,You remove the batta from the oven.
 [cooking_generic_unfinished_gnome_crunchies]
 table=cooking_generic
 data=uncooked,half_baked_crunchy
-data=cooked,odd_crunchies
+data=cooked,spoilt_crunchies
 data=additional,crunchy_tray
 data=burnt,null
 data=levelrequired,1
@@ -505,9 +505,9 @@ data=successmessage,You remove the gnome bowl from the oven.
 
 [cooking_generic_raw_swamp_paste]
 table=cooking_generic
-data=uncooked,raw_swamp_paste
-data=cooked,swamp_paste
-data=burnt,swamp_paste
+data=uncooked,rawswamppaste
+data=cooked,swamppaste
+data=burnt,swamppaste
 data=levelrequired,1
 data=experience,20
 data=successchance,500,500
@@ -531,8 +531,8 @@ data=burnmessage,You accidentally burn the rabbit.
 
 [cooking_generic_karambwanji]
 table=cooking_generic
-data=uncooked,raw_karambwanji
-data=cooked,karambwanji
+data=uncooked,tbwt_raw_karambwanji
+data=cooked,tbwt_cooked_karambwanji
 data=burnt,ashes
 data=levelrequired,1
 data=experience,100
@@ -544,9 +544,9 @@ data=burnmessage,You accidentally burn the karambwanji to ashes.
 
 [cooking_generic_karambwan]
 table=cooking_generic
-data=uncooked,raw_karambwan
-data=cooked,cooked_karambwan
-data=burnt,burnt_karambwan
+data=uncooked,tbwt_raw_karambwan
+data=cooked,tbwt_cooked_karambwan
+data=burnt,tbwt_burnt_karambwan
 // requirement is only 1, but need 30 to complete the quest
 data=levelrequired,1
 data=experience,1900
@@ -558,9 +558,9 @@ data=burnmessage,You accidentally burn the karambwan.
 
 [cooking_generic_poor_karambwan]
 table=cooking_generic
-data=uncooked,raw_karambwan
-data=cooked,poison_karambwan
-data=burnt,burnt_karambwan
+data=uncooked,tbwt_raw_karambwan
+data=cooked,tbwt_poorly_cooked_karambwan
+data=burnt,tbwt_burnt_karambwan
 data=levelrequired,1
 data=experience,800
 data=successchance,70,255
@@ -586,8 +586,8 @@ data=successmessage,You marinate the burnt bones perfectly.
 
 [cooking_generic_burnt_jogre_bones_in_raw_karambwanji_paste]
 table=cooking_generic
-data=uncooked,pasty_jogre_bones
-data=cooked,marinated_j__bones
+data=uncooked,tbwt_burnt_jogre_bones_in_raw_karambwanji_paste
+data=cooked,tbwt_burnt_jogre_bones_marinated_in_karambwanji
 data=burnt,null
 data=levelrequired,30
 data=levelrequired_message,You need a Cooking level of 30 to cook burnt jogre bones covered in raw karambwanji paste.
@@ -599,8 +599,8 @@ data=successmessage,You marinate the burnt bones perfectly.
 
 [cooking_generic_jogre_bones]
 table=cooking_generic
-data=uncooked,jogre_bones
-data=cooked,jogre_bones
+data=uncooked,tbwt_jogre_bones
+data=cooked,tbwt_jogre_bones
 data=burnt,null
 data=levelrequired,0
 data=experience,0
@@ -609,8 +609,8 @@ data=successmessage,"You heat the bones, but they don't look any different."
 
 [cooking_generic_burnt_jogre_bones]
 table=cooking_generic
-data=uncooked,burnt_jogre_bones
-data=cooked,burnt_jogre_bones
+data=uncooked,tbwt_burnt_jogre_bones
+data=cooked,tbwt_burnt_jogre_bones
 data=burnt,null
 data=levelrequired,0
 data=experience,0
@@ -619,8 +619,8 @@ data=successmessage,"You heat the bones, but they don't look any different."
 
 [cooking_snail_corpse1]
 table=cooking_generic
-data=uncooked,thin_snail
-data=cooked,thin_snail_meat
+data=uncooked,snail_corpse1
+data=cooked,snail_corpse_cooked1
 data=burnt,burnt_snail
 data=levelrequired,12
 data=experience,700
@@ -634,8 +634,8 @@ data=burnmessage,You accidentally burn the snail.
 
 [cooking_snail_corpse2]
 table=cooking_generic
-data=uncooked,lean_snail
-data=cooked,lean_snail_meat
+data=uncooked,snail_corpse2
+data=cooked,snail_corpse_cooked2
 data=burnt,burnt_snail
 data=levelrequired,17
 data=experience,800
@@ -650,8 +650,8 @@ data=burnmessage,You accidentally burn the snail.
 
 [cooking_snail_corpse3]
 table=cooking_generic
-data=uncooked,fat_snail
-data=cooked,fat_snail_meat
+data=uncooked,snail_corpse3
+data=cooked,snail_corpse_cooked3
 data=burnt,burnt_snail
 data=levelrequired,22
 data=experience,950
@@ -665,8 +665,8 @@ data=burnmessage,You accidentally burn the snail.
 
 [cooking_generic_mort_slimey_eel]
 table=cooking_generic
-data=uncooked,slimy_eel
-data=cooked,cooked_slimy_eel
+data=uncooked,mort_slimey_eel
+data=cooked,mort_slimey_eel_cooked
 data=burnt,burnt_eel
 data=levelrequired,28
 data=experience,950
@@ -678,8 +678,8 @@ data=burnmessage,You accidentally burn the eel.
 
 [cooking_generic_troll_thistle]
 table=cooking_generic
-data=uncooked,troll_thistle
-data=cooked,dried_thistle
+data=uncooked,eadgar_troll_thistle
+data=cooked,eadgar_dried_troll_thistle
 data=burnt,null
 data=levelrequired,1
 data=experience,0

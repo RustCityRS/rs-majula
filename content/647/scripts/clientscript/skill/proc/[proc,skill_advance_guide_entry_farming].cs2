@@ -61,7 +61,7 @@ switch_int ($int0) {
             case 4 :
                 return(51, pineapple, "Pineapple plant", "You can now plant <col=000080>pineapple plants</col>.");
             case 5 :
-                return(57, papaya_fruit, "Papaya tree", "You can now plant <col=000080>papaya trees</col>.");
+                return(57, papaya, "Papaya tree", "You can now plant <col=000080>papaya trees</col>.");
             case 6 :
                 return(68, coconut, "Palm tree", "You can now plant <col=000080>palm trees</col>.");
         }
@@ -70,7 +70,7 @@ switch_int ($int0) {
             case 0 :
                 return(10, redberries, "Redberry bush", "You can now plant <col=000080>redberry bushes</col>.");
             case 1 :
-                return(22, cadava_berries, "Cadavaberry bush", "You can now plant <col=000080>cadavaberry bushes</col>.");
+                return(22, cadavaberries, "Cadavaberry bush", "You can now plant <col=000080>cadavaberry bushes</col>.");
             case 2 :
                 return(36, dwellberries, "Dwellberry bush", "You can now plant <col=000080>dwellberry bushes</col>.");
             case 3 :
@@ -78,195 +78,195 @@ switch_int ($int0) {
             case 4 :
                 return(59, white_berries, "White berry bush", "You can now plant <col=000080>white berry bushes</col>.");
             case 5 :
-                return(70, poison_ivy_berries, "Poison ivy bush", "You can now plant <col=000080>poison ivy bushes</col>.");
+                return(70, poisonivy_berries, "Poison ivy bush", "You can now plant <col=000080>poison ivy bushes</col>.");
         }
     case 5 :
         switch_int ($int1) {
             case 0 :
-                return(2, marigolds, "Marigold<br> Protects onions, tomatoes and potatoes from disease", "You can now <col=000080>plant marigolds</col>.");
+                return(2, marigold, "Marigold<br> Protects onions, tomatoes and potatoes from disease", "You can now <col=000080>plant marigolds</col>.");
             case 1 :
                 return(11, rosemary, "Rosemary<br> Protects cabbages from disease", "You can now plant <col=000080>rosemary</col>.");
             case 2 :
-                return(24, nasturtiums, "Nasturtium<br> Protects watermelons from disease", "You can now plant <col=000080>nasturtiums</col>.");
+                return(24, nasturtium, "Nasturtium<br> Protects watermelons from disease", "You can now plant <col=000080>nasturtiums</col>.");
             case 3 :
-                return(25, woad_leaf_5738, "Woad", "You can now plant <col=000080>woad</col>.");
+                return(25, woadleaf_dummy, "Woad", "You can now plant <col=000080>woad</col>.");
             case 4 :
                 return(26, limpwurt_root, "Limpwurt", "You can now plant <col=000080>limpwurt</col>.");
             case 5 :
-                return(52, white_lily, "White lily<br> Protects all neighbouring fruit and vegetables from disease", "You can now plant <col=000080>white lilies</col>.");
+                return(52, atfal_lily_if, "White lily<br> Protects all neighbouring fruit and vegetables from disease", "You can now plant <col=000080>white lilies</col>.");
         }
     case 6 :
         switch_int ($int1) {
             case 0 :
-                return(9, clean_guam, "Guam", "You can now plant <col=000080>guam</col>.");
+                return(9, guam_leaf, "Guam", "You can now plant <col=000080>guam</col>.");
             case 1 :
-                return(14, clean_marrentill, "Marrentill", "You can now plant <col=000080>marrentill</col>.");
+                return(14, marentill, "Marrentill", "You can now plant <col=000080>marrentill</col>.");
             case 2 :
-                return(19, clean_tarromin, "Tarromin", "You can now plant <col=000080>tarromin</col>.");
+                return(19, tarromin, "Tarromin", "You can now plant <col=000080>tarromin</col>.");
             case 3 :
-                return(26, clean_harralander, "Harralander", "You can now plant <col=000080>harralander</col>.");
+                return(26, harralander, "Harralander", "You can now plant <col=000080>harralander</col>.");
             case 4 :
-                return(29, goutweed, "Goutweed<br> (after Eadgar's Ruse)", "You now have the Farming level required to plant <col=000080>goutweed</col> (after Eadgar's Ruse).");
+                return(29, eadgar_goutweed_herb, "Goutweed<br> (after Eadgar's Ruse)", "You now have the Farming level required to plant <col=000080>goutweed</col> (after Eadgar's Ruse).");
             case 5 :
-                return(32, clean_ranarr, "Ranarr", "You can now plant <col=000080>ranarr</col>.");
+                return(32, ranarr_weed, "Ranarr", "You can now plant <col=000080>ranarr</col>.");
             case 6 :
-                return(36, clean_spirit_weed, "Spirit weed", "You can now plant <col=000080>spirit weed</col>.");
+                return(36, lore_spirit_weed, "Spirit weed", "You can now plant <col=000080>spirit weed</col>.");
             case 7 :
-                return(38, clean_toadflax, "Toadflax", "You can now plant <col=000080>toadflax</col>.");
+                return(38, toadflax, "Toadflax", "You can now plant <col=000080>toadflax</col>.");
             case 8 :
-                return(44, clean_irit, "Irit", "You can now plant <col=000080>irit</col>.");
+                return(44, irit_leaf, "Irit", "You can now plant <col=000080>irit</col>.");
             case 9 :
-                return(46, clean_wergali, "Wergali", "You can now plant <col=000080>wergali</col>.");
+                return(46, wergali, "Wergali", "You can now plant <col=000080>wergali</col>.");
             case 10 :
-                return(50, clean_avantoe, "Avantoe", "You can now plant <col=000080>avantoe</col>.");
+                return(50, avantoe, "Avantoe", "You can now plant <col=000080>avantoe</col>.");
             case 11 :
-                return(56, clean_kwuarm, "Kwuarm", "You can now plant <col=000080>kwuarm</col>.");
+                return(56, kwuarm, "Kwuarm", "You can now plant <col=000080>kwuarm</col>.");
             case 12 :
-                return(58, clean_erzille, "Erzille", "You can now plant <col=000080>erzille</col> (in a vine herb patch).");
+                return(58, erzille, "Erzille", "You can now plant <col=000080>erzille</col> (in a vine herb patch).");
             case 13 :
-                return(62, clean_snapdragon, "Snapdragon", "You can now plant <col=000080>snapdragon</col>.");
+                return(62, snapdragon, "Snapdragon", "You can now plant <col=000080>snapdragon</col>.");
             case 14 :
-                return(65, clean_argway, "Argway", "You can now plant <col=000080>argway</col> (in a vine herb patch).");
+                return(65, argway, "Argway", "You can now plant <col=000080>argway</col> (in a vine herb patch).");
             case 15 :
-                return(67, clean_cadantine, "Cadantine", "You can now plant <col=000080>cadantine</col>.");
+                return(67, cadantine, "Cadantine", "You can now plant <col=000080>cadantine</col>.");
             case 16 :
-                return(70, clean_ugune, "Ugune", "You can now plant <col=000080>ugune</col> (in a vine herb patch).");
+                return(70, ugune, "Ugune", "You can now plant <col=000080>ugune</col> (in a vine herb patch).");
             case 17 :
-                return(73, clean_lantadyme, "Lantadyme", "You can now plant <col=000080>lantadyme</col>.");
+                return(73, lantadyme, "Lantadyme", "You can now plant <col=000080>lantadyme</col>.");
             case 18 :
-                return(76, clean_shengo, "Shengo", "You can now plant <col=000080>shengo</col> (in a vine herb patch).");
+                return(76, shengo, "Shengo", "You can now plant <col=000080>shengo</col> (in a vine herb patch).");
             case 19 :
-                return(79, clean_dwarf_weed, "Dwarf weed", "You can now plant <col=000080>dwarf weed</col>.");
+                return(79, dwarf_weed, "Dwarf weed", "You can now plant <col=000080>dwarf weed</col>.");
             case 20 :
-                return(80, clean_samaden, "Samaden", "You can now plant <col=000080>samaden</col> (in a vine herb patch).");
+                return(80, samaden, "Samaden", "You can now plant <col=000080>samaden</col> (in a vine herb patch).");
             case 21 :
-                return(85, clean_torstol, "Torstol", "You can now plant <col=000080>torstol</col>.");
+                return(85, torstol, "Torstol", "You can now plant <col=000080>torstol</col>.");
         }
     case 7 :
         switch_int ($int1) {
             case 0 :
-                return(42, evil_turnip, "Evil turnip", "You can now plant <col=000080>evil turnips</col>.");
+                return(42, lore_evil_turnip_3, "Evil turnip", "You can now plant <col=000080>evil turnips</col>.");
             case 1 :
-                return(53, mushroom, "Bittercap mushroom", "You can now plant <col=000080>bittercap mushrooms</col>.");
+                return(53, bittercap_mushroom, "Bittercap mushroom", "You can now plant <col=000080>bittercap mushrooms</col>.");
             case 2 :
-                return(53, obj_11779, "Jade vine<br> (after Back to My Roots)", "You now have the Farming level required to plant <col=000080>jade vines</col> (after Back to my Roots).");
+                return(53, roots_seed_graphic, "Jade vine<br> (after Back to My Roots)", "You now have the Farming level required to plant <col=000080>jade vines</col> (after Back to my Roots).");
             case 3 :
-                return(54, red_vine_blossom, "Vine blossoms", "You can now plant <col=000080>vine blossoms</col> (in a vine flower patch).");
+                return(54, ecosystem_red_flower, "Vine blossoms", "You can now plant <col=000080>vine blossoms</col> (in a vine flower patch).");
             case 4 :
                 return(55, cactus_spine, "Cactus", "You can now plant <col=000080>cacti</col>.");
             case 5 :
                 return(61, lergberries, "Lergberry bush", "You can now plant <col=000080>lergberry bushes</col> (in a vine bush patch).");
             case 6 :
-                return(63, cave_nightshade, "Belladonna", "You can now plant <col=000080>belladonna</col>.");
+                return(63, nightshade, "Belladonna", "You can now plant <col=000080>belladonna</col>.");
             case 7 :
                 return(72, calquat_fruit, "Calquat tree", "You can now plant <col=000080>calquat trees</col>.");
             case 8 :
                 return(77, kalferberries, "Kalferberry bush", "You can now plant <col=000080>kalferberry bushes</col> (in a vine bush patch).");
             case 9 :
-                return(83, spirit_tree, "Spirit tree<br> (only 1 planted at a time)", "You can now plant <col=000080>spirit trees</col>.");
+                return(83, spirit_tree_dummy, "Spirit tree<br> (only 1 planted at a time)", "You can now plant <col=000080>spirit trees</col>.");
         }
     case 8 :
         switch_int ($int1) {
             case 0 :
-                return(23, scarecrow, "Able to make and place a scarecrow", "You now have the ability to make and place a <col=000080>scarecrow</col>.");
+                return(23, scarecrow_complete, "Able to make and place a scarecrow", "You now have the ability to make and place a <col=000080>scarecrow</col>.");
             case 1 :
-                return(-1, silvthrill_rod, "Scarecrows help to stop sweetcorn from being attacked by birds, while also helping to prevent disease.", "");
+                return(-1, invis_rod, "Scarecrows help to stop sweetcorn from being attacked by birds, while also helping to prevent disease.", "");
             case 2 :
-                return(-1, silvthrill_rod, "How to make a scarecrow:", "");
+                return(-1, invis_rod, "How to make a scarecrow:", "");
             case 3 :
-                return(-1, silvthrill_rod, "1. Fill an empty sack with straw from a haystack.", "");
+                return(-1, invis_rod, "1. Fill an empty sack with straw from a haystack.", "");
             case 4 :
-                return(-1, silvthrill_rod, "2. Drive the hay sack onto a bronze spear.", "");
+                return(-1, invis_rod, "2. Drive the hay sack onto a bronze spear.", "");
             case 5 :
-                return(-1, silvthrill_rod, "3. Place a watermelon at the very top as a head.", "");
+                return(-1, invis_rod, "3. Place a watermelon at the very top as a head.", "");
             case 6 :
-                return(-1, silvthrill_rod, "4. Stand the scarecrow in an empty flower patch.", "");
+                return(-1, invis_rod, "4. Stand the scarecrow in an empty flower patch.", "");
             case 7 :
-                return(25, scroll_of_life, "Scroll of life<br> (with 25 Dungeoneering)", "You can now use the <col=000080>scroll of life</col>. (You also need level 25 Dungeoneering.)");
+                return(25, rand_reward_farming_conservation_unlocker, "Scroll of life<br> (with 25 Dungeoneering)", "You can now use the <col=000080>scroll of life</col>. (You also need level 25 Dungeoneering.)");
         }
     case 9 :
         switch_int ($int1) {
             case 0 :
-                return(60, livid_plant, "Members: access to the Livid Farm (with 70 Magic, 60 Agility, 60 Crafting, 50 Construction and Lunar Diplomacy)", "Members can access the <col=000080>Livid Farm</col> (with 70 Magic, 60 Agility, 60 Crafting, 50 Construction and Lunar Diplomacy).");
+                return(60, lunarfm_plant, "Members: access to the Livid Farm (with 70 Magic, 60 Agility, 60 Crafting, 50 Construction and Lunar Diplomacy)", "Members can access the <col=000080>Livid Farm</col> (with 70 Magic, 60 Agility, 60 Crafting, 50 Construction and Lunar Diplomacy).");
             case 1 :
-                return(91, starved_ancient_effigy, "Starved ancient effigies", "You can now investigate <col=000080>starved ancient effigies</col> using your knowledge of Farming.");
+                return(91, effi_ancient_effigy_level_0, "Starved ancient effigies", "You can now investigate <col=000080>starved ancient effigies</col> using your knowledge of Farming.");
             case 2 :
-                return(93, nourished_ancient_effigy, "Nourished ancient effigies", "You can now investigate <col=000080>nourished ancient effigies</col> using your knowledge of Farming.");
+                return(93, effi_ancient_effigy_level_1, "Nourished ancient effigies", "You can now investigate <col=000080>nourished ancient effigies</col> using your knowledge of Farming.");
             case 3 :
-                return(95, sated_ancient_effigy, "Sated ancient effigies", "You can now investigate <col=000080>sated ancient effigies</col> using your knowledge of Farming.");
+                return(95, effi_ancient_effigy_level_2, "Sated ancient effigies", "You can now investigate <col=000080>sated ancient effigies</col> using your knowledge of Farming.");
             case 4 :
-                return(97, gorged_ancient_effigy, "Gorged ancient effigies", "You can now investigate <col=000080>gorged ancient effigies</col> using your knowledge of Farming.");
+                return(97, effi_ancient_effigy_level_3, "Gorged ancient effigies", "You can now investigate <col=000080>gorged ancient effigies</col> using your knowledge of Farming.");
         }
     case 10 :
         switch_int ($int1) {
             case 0 :
-                return(1, flag, "Vinesweeper", "You can now play <col=000080>Vinesweeper</col>.");
+                return(1, rabbit_flag, "Vinesweeper", "You can now play <col=000080>Vinesweeper</col>.");
             case 1 :
-                return(1, obj_14667, "Nurture basic evil tree saplings", "You can now nurture <col=000080>basic evil tree saplings</col>.");
+                return(1, eviltree_skillguide, "Nurture basic evil tree saplings", "You can now nurture <col=000080>basic evil tree saplings</col>.");
             case 2 :
-                return(7, obj_14667, "Nurture evil oak tree saplings", "You can now nurture <col=000080>evil oak tree saplings</col>.");
+                return(7, eviltree_skillguide, "Nurture evil oak tree saplings", "You can now nurture <col=000080>evil oak tree saplings</col>.");
             case 3 :
-                return(15, obj_14667, "Nurture evil willow tree saplings", "You can now nurture <col=000080>evil willow tree saplings</col>.");
+                return(15, eviltree_skillguide, "Nurture evil willow tree saplings", "You can now nurture <col=000080>evil willow tree saplings</col>.");
             case 4 :
-                return(22, obj_14667, "Nurture evil maple tree saplings", "You can now nurture <col=000080>evil maple tree saplings</col>.");
+                return(22, eviltree_skillguide, "Nurture evil maple tree saplings", "You can now nurture <col=000080>evil maple tree saplings</col>.");
             case 5 :
-                return(30, obj_14667, "Nurture evil yew tree saplings", "You can now nurture <col=000080>evil yew tree saplings</col>.");
+                return(30, eviltree_skillguide, "Nurture evil yew tree saplings", "You can now nurture <col=000080>evil yew tree saplings</col>.");
             case 6 :
-                return(37, obj_14667, "Nurture evil magic tree saplings", "You can now nurture <col=000080>evil magic tree saplings</col>.");
+                return(37, eviltree_skillguide, "Nurture evil magic tree saplings", "You can now nurture <col=000080>evil magic tree saplings</col>.");
             case 7 :
-                return(42, obj_14667, "Nurture elder evil tree saplings", "You can now nurture <col=000080>elder evil tree saplings</col>.");
+                return(42, eviltree_skillguide, "Nurture elder evil tree saplings", "You can now nurture <col=000080>elder evil tree saplings</col>.");
         }
     case 11 :
         switch_int ($int1) {
             case 0 :
-                return(-1, ring_of_kinship, "Dungeoneering skill tasks<br>As your Farming level increases, you will be able to attempt higher-level farming tasks within Daemonheim. You will also be more likely to succeed when attempting farming tasks within Daemonheim.", "");
+                return(-1, rand_mission_contract, "Dungeoneering skill tasks<br>As your Farming level increases, you will be able to attempt higher-level farming tasks within Daemonheim. You will also be more likely to succeed when attempting farming tasks within Daemonheim.", "");
             case 1 :
-                return(1, salve_nettles, "Salve nettles", "You can now harvest <col=000080>salve nettles</col> within Daemonheim.");
+                return(1, rand_textile_1, "Salve nettles", "You can now harvest <col=000080>salve nettles</col> within Daemonheim.");
             case 2 :
-                return(1, cave_potato_seed, "Cave potato", "You can now plant <col=000080>cave potatoes</col> within Daemonheim.");
+                return(1, rand_potato_seed, "Cave potato", "You can now plant <col=000080>cave potatoes</col> within Daemonheim.");
             case 3 :
-                return(7, sagewort_seed, "Sagewort", "You can now plant <col=000080>sagewort</col> within Daemonheim.");
+                return(7, rand_herb_a_seed, "Sagewort", "You can now plant <col=000080>sagewort</col> within Daemonheim.");
             case 4 :
-                return(10, wildercress, "Wildercress", "You can now harvest <col=000080>wildercress</col> within Daemonheim.");
+                return(10, rand_textile_2, "Wildercress", "You can now harvest <col=000080>wildercress</col> within Daemonheim.");
             case 5 :
-                return(18, valerian_seed, "Valerian", "You can now plant <col=000080>valerian</col> within Daemonheim.");
+                return(18, rand_herb_b_seed, "Valerian", "You can now plant <col=000080>valerian</col> within Daemonheim.");
             case 6 :
-                return(20, blightleaf, "Blightleaf", "You can now harvest <col=000080>blightleaves</col> within Daemonheim.");
+                return(20, rand_textile_3, "Blightleaf", "You can now harvest <col=000080>blightleaves</col> within Daemonheim.");
             case 7 :
-                return(29, aloe_seed, "Aloe", "You can now plant <col=000080>aloe</col> within Daemonheim.");
+                return(29, rand_herb_c_seed, "Aloe", "You can now plant <col=000080>aloe</col> within Daemonheim.");
             case 8 :
-                return(30, roseblood, "Roseblood", "You can now harvest <col=000080>roseblood</col> within Daemonheim.");
+                return(30, rand_textile_4, "Roseblood", "You can now harvest <col=000080>roseblood</col> within Daemonheim.");
             case 9 :
-                return(34, gissel_mushroom_spore, "Gissel mushroom", "You can now plant <col=000080>gissel mushrooms</col> within Daemonheim.");
+                return(34, rand_mushroom_a_seed, "Gissel mushroom", "You can now plant <col=000080>gissel mushrooms</col> within Daemonheim.");
             case 10 :
-                return(40, wormwood_seed, "Wormwood", "You can now plant <col=000080>wormwood</col> within Daemonheim.");
+                return(40, rand_herb_d_seed, "Wormwood", "You can now plant <col=000080>wormwood</col> within Daemonheim.");
             case 11 :
-                return(40, bryll, "Bryll", "You can now harvest <col=000080>bryll</col> within Daemonheim.");
+                return(40, rand_textile_5, "Bryll", "You can now harvest <col=000080>bryll</col> within Daemonheim.");
             case 12 :
-                return(50, duskweed, "Duskweed", "You can now plant <col=000080>duskweed</col> within Daemonheim.");
+                return(50, rand_textile_6, "Duskweed", "You can now plant <col=000080>duskweed</col> within Daemonheim.");
             case 13 :
-                return(51, magebane_seed, "Magebane", "You can now plant <col=000080>magebane</col> within Daemonheim.");
+                return(51, rand_herb_e_seed, "Magebane", "You can now plant <col=000080>magebane</col> within Daemonheim.");
             case 14 :
-                return(60, soulbell, "Soulbell", "You can now harvest <col=000080>soulbells</col> within Daemonheim.");
+                return(60, rand_textile_7, "Soulbell", "You can now harvest <col=000080>soulbells</col> within Daemonheim.");
             case 15 :
-                return(62, featherfoil_seed, "Featherfoil", "You can now plant <col=000080>featherfoil</col> within Daemonheim.");
+                return(62, rand_herb_f_seed, "Featherfoil", "You can now plant <col=000080>featherfoil</col> within Daemonheim.");
             case 16 :
-                return(68, edicap_mushroom_spore, "Edicap mushroom", "You can now plant <col=000080>edicap mushrooms</col> within Daemonheim.");
+                return(68, rand_mushroom_b_seed, "Edicap mushroom", "You can now plant <col=000080>edicap mushrooms</col> within Daemonheim.");
             case 17 :
-                return(70, ectograss, "Ectograss", "You can now harvest <col=000080>ectograss</col> within Daemonheim.");
+                return(70, rand_textile_8, "Ectograss", "You can now harvest <col=000080>ectograss</col> within Daemonheim.");
             case 18 :
-                return(73, winter_s_grip_seed, "Winter's grip", "You can now plant <col=000080>winter's grip</col> within Daemonheim.");
+                return(73, rand_herb_g_seed, "Winter's grip", "You can now plant <col=000080>winter's grip</col> within Daemonheim.");
             case 19 :
-                return(80, runeleaf, "Runeleaf", "You can now harvest <col=000080>runeleaves</col> within Daemonheim.");
+                return(80, rand_textile_9, "Runeleaf", "You can now harvest <col=000080>runeleaves</col> within Daemonheim.");
             case 20 :
-                return(84, lycopus_seed, "Lycopus", "You can now plant <col=000080>lycopus</col> within Daemonheim.");
+                return(84, rand_herb_h_seed, "Lycopus", "You can now plant <col=000080>lycopus</col> within Daemonheim.");
             case 21 :
-                return(90, spiritbloom, "Spiritbloom", "You can now harvest <col=000080>spiritbloom</col> within Daemonheim.");
+                return(90, rand_textile_10, "Spiritbloom", "You can now harvest <col=000080>spiritbloom</col> within Daemonheim.");
             case 22 :
-                return(95, buckthorn_seed, "Buckthorn", "You can now plant <col=000080>buckthorn</col> within Daemonheim.");
+                return(95, rand_herb_i_seed, "Buckthorn", "You can now plant <col=000080>buckthorn</col> within Daemonheim.");
         }
     case 12 :
         if ($int1 = 0) {
-            return(99, farming_cape, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Farming<col=000080>. Why not visit <col=800000>Martin the Master Gardener<col=000080> in <col=800000>Draynor Village<col=000080>? He has something special that is only available to true masters of the <col=800000>Farming<col=000080> skill!");
+            return(99, skillcape_farming, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Farming<col=000080>. Why not visit <col=800000>Martin the Master Gardener<col=000080> in <col=800000>Draynor Village<col=000080>? He has something special that is only available to true masters of the <col=800000>Farming<col=000080> skill!");
         }
 }

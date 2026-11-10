@@ -1,6 +1,6 @@
-[opnpc1,runescape_guide]
+[opnpc1,newbie_basics_instructor]
 
-switch_int(%tutorial) {
+switch_int(%varplayer_419) {
     case ^newbie_basics_instructor_designed_character : @newbie_basics_instructor_welcome;
 //    case 2 : @newbie_basics_instructor_spanner;
     case ^newbie_basics_instructor_interact_with_scenery : @newbie_basics_instructor_return;
@@ -12,7 +12,7 @@ if (map_live = false) {
     ~chatnpc("<p,neutral>Do you want to skip the tutorial?");
     def_int $choice = ~p_choice2("Yes please.", 1, "No, thank you.", 2);
     if ($choice = 1) {
-        %tutorial = ^tutorial_complete;
+        %varplayer_419 = ^tutorial_complete;
         @tutorial_complete;
     }
 }
@@ -22,7 +22,7 @@ if (map_live = false) {
 ~chatnpc("<p,neutral>You will find many inhabitants of this world|have useful things to say to you. By clicking|on them with your mouse you can talk to them.");
 ~chatnpc("<p,neutral>I would also suggest reading through some of|the supporting information on the website.|There you can find maps, a bestiary, and much more.");
 ~chatnpc("<p,neutral>To continue the tutorial go through that door|over there, and speak to your first instructor!");
-%tutorial = ^newbie_basics_instructor_interact_with_scenery;
+%varplayer_419 = ^newbie_basics_instructor_interact_with_scenery;
 ~set_tutorial_progress;
 // The below commented out code will be relevant in October 2006, but was absent in September 2006.
 //~chatnpc("<p,neutral>You will notice a flashing icon of a spanner.|Please click on this to continue the tutorial.");
@@ -40,8 +40,8 @@ if (map_live = false) {
 ~chatnpc("<p,neutral>To continue the tutorial go through that door over there, and speak to your first instructor!");
 
 [proc,set_hint_newbie_basics_instructor]
-if (%tutorial < ^newbie_basics_instructor_interact_with_scenery) {
-    if (npc_find(0_48_48_21_35, runescape_guide, 10, 0) = true) {
+if (%varplayer_419 < ^newbie_basics_instructor_interact_with_scenery) {
+    if (npc_find(0_48_48_21_35, newbie_basics_instructor, 10, 0) = true) {
       hint_npc;
     }
 }

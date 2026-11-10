@@ -1,4 +1,4 @@
 // 402
 [clientscript,script402]
-if_settrans(0, conq_side_turn:charging_background_fade);
-%varclient_1391 = 1;
+if_settrans(conq_side_turn:charging_background_fade, 0);
+%conq_vk3_commorb_bar_delay = 1;

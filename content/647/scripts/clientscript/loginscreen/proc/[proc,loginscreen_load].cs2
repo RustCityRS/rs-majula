@@ -1,74 +1,74 @@
 // 2708
 [proc,loginscreen_load](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
 setup_messagebox(0, 0, 4, 3, 135, 30, loadingbox_border_corner, loadingbox_border_side, tradebacking, ^white, verdana_11pt_regular);
-if_setsize(278, 90, ^setsize_abs, ^setsize_abs, loginscreen:runescape_logo);
-if_setgraphic(logo_alpha, loginscreen:runescape_logo);
-if_setgraphic(battle_title_widescreen_2, loginscreen:com_8);
-if_setgraphic(battle_title_widescreen_1, loginscreen:com_9);
-if_setgraphic(battle_title_widescreen_3, loginscreen:com_10);
-if_setgraphic(battle_title_widescreen_4, loginscreen:com_11);
-if_setgraphic(battle_title_widescreen_6, loginscreen:telekinetic_push);
-if_setgraphic(battle_title_widescreen_5, loginscreen:com_13);
-if_setgraphic(battle_title_widescreen_7, loginscreen:com_14);
-if_setgraphic(battle_title_widescreen_8, loginscreen:com_15);
-if_setgraphic("corner_flourish,0", loginscreen:com_22);
-if_setgraphic("corner_flourish,0", loginscreen:com_97);
-if_setgraphic("corner_flourish,0", loginscreen:com_100);
-if_setgraphic("corner_frame_1,4", loginscreen:general_messages_top_left);
-if_sethflip(true, loginscreen:general_messages_top_left);
-if_setvflip(true, loginscreen:general_messages_top_left);
-if_setgraphic("corner_frame_1,4", loginscreen:general_messages_top_right);
-if_sethflip(false, loginscreen:general_messages_top_right);
-if_setvflip(true, loginscreen:general_messages_top_right);
-if_setgraphic("corner_frame_1,4", loginscreen:bottom_left);
-if_setgraphic("corner_frame_1,4", loginscreen:bottom_right);
+if_setsize(loginscreen:runescape_logo, 278, 90, ^setsize_abs, ^setsize_abs);
+if_setgraphic(loginscreen:runescape_logo, logo_alpha);
+if_setgraphic(loginscreen:com_8, battle_title_widescreen_2);
+if_setgraphic(loginscreen:com_9, battle_title_widescreen_1);
+if_setgraphic(loginscreen:com_10, battle_title_widescreen_3);
+if_setgraphic(loginscreen:com_11, battle_title_widescreen_4);
+if_setgraphic(loginscreen:telekinetic_push, battle_title_widescreen_6);
+if_setgraphic(loginscreen:com_13, battle_title_widescreen_5);
+if_setgraphic(loginscreen:com_14, battle_title_widescreen_7);
+if_setgraphic(loginscreen:com_15, battle_title_widescreen_8);
+if_setgraphic(loginscreen:com_22, "corner_flourish,0");
+if_setgraphic(loginscreen:com_97, "corner_flourish,0");
+if_setgraphic(loginscreen:com_100, "corner_flourish,0");
+if_setgraphic(loginscreen:general_messages_top_left, "corner_frame_1,4");
+if_sethflip(loginscreen:general_messages_top_left, true);
+if_setvflip(loginscreen:general_messages_top_left, true);
+if_setgraphic(loginscreen:general_messages_top_right, "corner_frame_1,4");
+if_sethflip(loginscreen:general_messages_top_right, false);
+if_setvflip(loginscreen:general_messages_top_right, true);
+if_setgraphic(loginscreen:bottom_left, "corner_frame_1,4");
+if_setgraphic(loginscreen:bottom_right, "corner_frame_1,4");
 unknown_command_6039(random(18));
 if (%varclient_176 <= 0) {
     %varclient_176 = calc((random(5) + 1) * 10);
 }
-if_setonresize("login_resize", loginscreen:background_layer);
+if_setonresize(loginscreen:background_layer, "login_resize");
 ~loginscreen_setup_login_text;
 %varclient_1551 = "";
-%varclient_1552 = "";
-%varclient_547 = 0;
-%varclient_1093 = false;
+%loginscreen_password = "";
+%loginscreen_pvp_warned = 0;
+%login_members = false;
 if_opensubclient(loginscreen:options, loginscreen_graphics_options);
 ~graphics_options_init(0);
-if_setonclick("loginscreen_setactivemenu(11)", loginscreen_graphics_options:cancel);
-if_setonkey("loginscreen_keypress(event_keycode, event_keychar)", loginscreen:background_layer);
+if_setonclick(loginscreen_graphics_options:cancel, "loginscreen_setactivemenu(11)");
+if_setonkey(loginscreen:background_layer, "loginscreen_keypress(event_keycode, event_keychar)");
 ~loginscreen_initialisecamera($component0, $component1, $component2, $component3, $component4, $component5);
 ~cursors_login;
 if (frombilling = true) {
-    %varclient_1090 = 11;
-    %varclient_1091 = 11;
+    %loginscreen_lastmenu = 11;
+    %loginscreen_lastmenu_options = 11;
     ~loginscreen_setactivemenu_full(11, true, false);
 } else {
-    if (%varclient_1240 = 2 & detailget_toolkit ! 0) {
-        %varclient_1240 = 3;
+    if (%graphics_options_version = 2 & detailget_toolkit ! 0) {
+        %graphics_options_version = 3;
     }
     if (unknown_command_5420 = true) {
-        %varclient_1240 = 3;
+        %graphics_options_version = 3;
     }
-    if (detailget_chosesafemode = false & unknown_command_5420 = false & (%varclient_1240 < 3 | detailget_safemode = true | detailget_toolkit_default = 0)) {
-        %varclient_1090 = 0;
-        %varclient_1091 = 0;
+    if (detailget_chosesafemode = false & unknown_command_5420 = false & (%graphics_options_version < 3 | detailget_safemode = true | detailget_toolkit_default = 0)) {
+        %loginscreen_lastmenu = 0;
+        %loginscreen_lastmenu_options = 0;
         ~loginscreen_setactivemenu_full(0, true, false);
     } else if (unknown_command_5623 = true) {
-        %varclient_1090 = 5;
-        %varclient_1091 = 5;
+        %loginscreen_lastmenu = 5;
+        %loginscreen_lastmenu_options = 5;
         ~loginscreen_setactivemenu_full(5, true, false);
         if (%varclient_1273 = true) {
             return;
         } else {
-            if_setontimer("login_delay(south_progress9:login_button, 0)", south_progress9:login_button);
+            if_setontimer(south_progress9:login_button, "login_delay(south_progress9:login_button, 0)");
         }
     } else if (~userflowflags(3) = true) {
-        %varclient_1090 = 7;
-        %varclient_1091 = 7;
+        %loginscreen_lastmenu = 7;
+        %loginscreen_lastmenu_options = 7;
         ~loginscreen_setactivemenu_full(7, true, false);
     } else {
-        %varclient_1090 = 11;
-        %varclient_1091 = 11;
+        %loginscreen_lastmenu = 11;
+        %loginscreen_lastmenu_options = 11;
         ~loginscreen_setactivemenu_full(11, true, false);
     }
 }

@@ -173,12 +173,12 @@ return (null);
 [oplocu,_anvil]
 if (~in_tutorial_island(coord) = true) {
     // This happens with any item, not just bars.
-    if (%tutorial < ^newbie_mining_instructor_before_smelt_bronze_bar) {
+    if (%varplayer_419 < ^newbie_mining_instructor_before_smelt_bronze_bar) {
         ~mesbox("This is an anvil used for smithing.|You'll learn how to use it soon.");
         return;
     }
 
-    if (%tutorial < ^newbie_mining_instructor_smith_a_dagger) {
+    if (%varplayer_419 < ^newbie_mining_instructor_smith_a_dagger) {
         ~mesbox("You need a hammer to work the metal with.|Talk to the mining instructor to get one");
         return;
     }
@@ -208,7 +208,7 @@ if(loc_type = viking_anvil) {
 // Legends' Quest's golden bowl waits for the quest's port.
 // if (last_useitem = gold_bar & %legendsquest >= ^legends_asked_gujuo_holy_water) @make_golden_bowl;
 if (oc_category(last_useitem) = category_151) @smithing_anvil_interface(last_useitem);
-else if (last_useitem = shield_left_half | last_useitem = shield_right_half) @make_dragon_sq;
+else if (last_useitem = dragonshield_a | last_useitem = dragonshield_b) @make_dragon_sq;
 else ~displaymessage(^dm_default);
 
 // 289 stopped transmitting its inv columns on close ([if_close,smithing]);

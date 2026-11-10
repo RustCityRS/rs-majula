@@ -3,10 +3,10 @@
 if ($int0 ! 1) {
     return;
 }
-if (%varclient_250 = true & %varclient_252 >= 2 & %varclient_251 = true & (map_members = false | %varclient_253 = true)) {
+if (%clanwars_rulevarc_nomelee = true & %clanwars_rulevarc_nomagic >= 2 & %clanwars_rulevarc_noranged = true & (map_members = false | %clanwars_rulevarc_nosummoning = true)) {
     return;
 }
-if (%varclient_258 = false) {
-    %varclient_258 = true;
+if (%clanwars_rulevarc_accept = false) {
+    %clanwars_rulevarc_accept = true;
     ~clanwars_resynch_accept;
 }

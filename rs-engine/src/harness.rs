@@ -258,7 +258,7 @@ impl Engine {
         coord: CoordGrid,
         exit: Option<CoordGrid>,
     ) -> Option<PlayerProfile> {
-        let tutorial_done = *self.cache.varps.debugnames.get("learning_the_ropes")?;
+        let tutorial_done = *self.cache.varps.debugnames.get("tutorial")?;
         Some(PlayerProfile {
             x: coord.x(),
             z: coord.z(),

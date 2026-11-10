@@ -1,7 +1,7 @@
 // 2029
 [clientscript,regicide_still_total_bar](component $component0, int $int1)
 if (%regicide_still_total > $int1) {
-    if_setcolour(^green, $component0);
+    if_setcolour($component0, ^green);
 } else {
-    if_setcolour(^black, $component0);
+    if_setcolour($component0, ^black);
 }

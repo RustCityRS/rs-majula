@@ -3,29 +3,29 @@
 if ($component0 = null | $component2 = null | compare($string0, "") = 0) {
     return;
 }
-if (%varclient_1 < calc(clientclock + $int3)) {
-    if (%varclient_1 < clientclock) {
-        %varclient_1 = clientclock;
+if (%tooltip_time < calc(clientclock + $int3)) {
+    if (%tooltip_time < clientclock) {
+        %tooltip_time = clientclock;
     }
-    %varclient_1 = calc(%varclient_1 + 2);
+    %tooltip_time = calc(%tooltip_time + 2);
     return;
 }
 if (cc_find($component0, $int1) = true) {
     $int5 = calc($int5 + ~cc_getx_absolute);
     $int6 = calc($int6 + ~cc_gety_absolute);
 }
-%varclient_1 = calc(clientclock + $int3 + 10);
+%tooltip_time = calc(clientclock + $int3 + 10);
 def_int $int7 = 0;
 def_int $int8 = 0;
 def_component $component9 = null;
-if (%varclient_2 ! 1) {
+if (%tooltip_built ! 1) {
     $component9 = if_getlayer($component2);
     if ($component9 ! null & $int4 >= if_getwidth($component9)) {
         $int4 = if_getwidth($component9);
     }
     $int7 = calc(6 + parawidth($string0, calc($int4 - 6), p12_full));
     $int8 = calc(6 + 16 * paraheight($string0, calc($int4 - 6), p12_full));
-    if_setsize($int7, $int8, ^setsize_abs, ^setsize_abs, $component2);
+    if_setsize($component2, $int7, $int8, ^setsize_abs, ^setsize_abs);
     $int5 = calc($int5 - 5 - $int7);
     $int6 = calc($int6 - 3 - $int8);
     if ($component9 ! null) {
@@ -42,7 +42,7 @@ if (%varclient_2 ! 1) {
     if ($int6 < 0) {
         $int6 = 0;
     }
-    if_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top, $component2);
+    if_setposition($component2, $int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
     cc_deleteall($component2);
     cc_create($component2, ^iftype_rectangle, 0);
     cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
@@ -59,5 +59,5 @@ if (%varclient_2 ! 1) {
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 16);
     cc_settextfont(p12_full);
     cc_setcolour(^black);
-    %varclient_2 = 1;
+    %tooltip_built = 1;
 }

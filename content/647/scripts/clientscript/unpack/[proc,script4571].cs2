@@ -1,9 +1,9 @@
 // 4571
 [proc,script4571](component $component0, component $component1, string $string0)
-if_setposition(~script1551(%varclient_1507, $string0, p11_full, if_getx($component0)), 1, ^setpos_abs_left, ^setpos_abs_centre, $component1);
+if_setposition($component1, ~script1551(%lobby_caret_friendschat, $string0, p11_full, if_getx($component0)), 1, ^setpos_abs_left, ^setpos_abs_centre);
 if (applet_hasfocus = true) {
-    if_sethide(false, $component1);
+    if_sethide($component1, false);
 } else {
-    if_sethide(true, $component1);
+    if_sethide($component1, true);
 }
-if_setontimer("lobbyscreen_pane_friendschat_caret_flash(clientclock, $component1)", $component0);
+if_setontimer($component0, "lobbyscreen_pane_friendschat_caret_flash(clientclock, $component1)");

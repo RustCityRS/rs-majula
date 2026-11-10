@@ -1,6 +1,6 @@
 // 964
 [clientscript,fairyrings_vartransmit]
-switch_int (%varplayerbit_2341) {
+switch_int (%fairyring1) {
     case default :
         %varclient_122 = 0;
     case 1 :
@@ -10,7 +10,7 @@ switch_int (%varplayerbit_2341) {
     case 3 :
         %varclient_122 = 512;
 }
-switch_int (%varplayerbit_2342) {
+switch_int (%fairyring2) {
     case default :
         %varclient_123 = 0;
     case 1 :
@@ -20,7 +20,7 @@ switch_int (%varplayerbit_2342) {
     case 3 :
         %varclient_123 = 512;
 }
-switch_int (%varplayerbit_2343) {
+switch_int (%fairyring3) {
     case default :
         %varclient_124 = 0;
     case 1 :

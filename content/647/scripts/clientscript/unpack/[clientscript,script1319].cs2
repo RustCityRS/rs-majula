@@ -1,44 +1,44 @@
 // 1319
 [clientscript,script1319]
-if (%varplayerbit_4834 = 1) {
-    if_setmodel(model_18796, elem_magicpress_pipes:inletam);
-    %varclient_163 = 1;
+if (%elemental_if_1 = 1) {
+    if_setmodel(elem_magicpress_pipes:inletam, model_18796);
+    %inletam = 1;
 } else {
-    if_setmodel(model_18794, elem_magicpress_pipes:inletam);
-    %varclient_163 = 0;
+    if_setmodel(elem_magicpress_pipes:inletam, model_18794);
+    %inletam = 0;
 }
-if (%varplayerbit_4834 = 2) {
-    if_setmodel(model_18796, elem_magicpress_pipes:inletbm);
-    %varclient_164 = 1;
+if (%elemental_if_1 = 2) {
+    if_setmodel(elem_magicpress_pipes:inletbm, model_18796);
+    %inletbm = 1;
 } else {
-    if_setmodel(model_18794, elem_magicpress_pipes:inletbm);
-    %varclient_164 = 0;
+    if_setmodel(elem_magicpress_pipes:inletbm, model_18794);
+    %inletbm = 0;
 }
-if (%varplayerbit_4834 = 3) {
-    if_setmodel(model_18796, elem_magicpress_pipes:inletcm);
-    %varclient_162 = 1;
+if (%elemental_if_1 = 3) {
+    if_setmodel(elem_magicpress_pipes:inletcm, model_18796);
+    %inletcm = 1;
 } else {
-    if_setmodel(model_18794, elem_magicpress_pipes:inletcm);
-    %varclient_162 = 0;
+    if_setmodel(elem_magicpress_pipes:inletcm, model_18794);
+    %inletcm = 0;
 }
-if (%varplayerbit_4834 = 4) {
-    if_setmodel(model_18792, elem_magicpress_pipes:inlet1m);
-    %varclient_165 = 1;
+if (%elemental_if_1 = 4) {
+    if_setmodel(elem_magicpress_pipes:inlet1m, model_18792);
+    %inlet1m = 1;
 } else {
-    if_setmodel(model_18790, elem_magicpress_pipes:inlet1m);
-    %varclient_165 = 0;
+    if_setmodel(elem_magicpress_pipes:inlet1m, model_18790);
+    %inlet1m = 0;
 }
-if (%varplayerbit_4834 = 5) {
-    if_setmodel(model_18792, elem_magicpress_pipes:inlet2m);
-    %varclient_166 = 1;
+if (%elemental_if_1 = 5) {
+    if_setmodel(elem_magicpress_pipes:inlet2m, model_18792);
+    %inlet2m = 1;
 } else {
-    if_setmodel(model_18790, elem_magicpress_pipes:inlet2m);
-    %varclient_166 = 0;
+    if_setmodel(elem_magicpress_pipes:inlet2m, model_18790);
+    %inlet2m = 0;
 }
-if (%varplayerbit_4834 = 6) {
-    if_setmodel(model_18792, elem_magicpress_pipes:inlet3m);
-    %varclient_167 = 1;
+if (%elemental_if_1 = 6) {
+    if_setmodel(elem_magicpress_pipes:inlet3m, model_18792);
+    %inlet3m = 1;
 } else {
-    if_setmodel(model_18790, elem_magicpress_pipes:inlet3m);
-    %varclient_167 = 0;
+    if_setmodel(elem_magicpress_pipes:inlet3m, model_18790);
+    %inlet3m = 0;
 }

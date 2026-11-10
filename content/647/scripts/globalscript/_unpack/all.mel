@@ -894,7 +894,7 @@ textsize=1
 textcolour=0xffffff
 mapfunction=yes
 category=category_950
-condition=varplayerbit_5819,0,0
+condition=romcom_village_name,0,0
 
 // 102
 [mapelement_102]
@@ -4531,7 +4531,7 @@ opbase=Map
 [mapelement_539]
 show=both
 condition=varplayerbit_6913,12,12
-condition2=varplayerbit_5332,0,12
+condition2=glo3_main,0,12
 polygonpoint0=0,0
 polygonpoint1=0,64
 polygonpoint2=64,64
@@ -5319,7 +5319,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_1850,0,5
+condition=hundred_main_quest_var,0,5
 
 // 647
 [mapelement_647]
@@ -5327,7 +5327,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_1850,5,9999
+condition=hundred_main_quest_var,5,9999
 
 // 648
 [mapelement_648]
@@ -5335,7 +5335,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_961,0,60
+condition=garden_quest,0,60
 
 // 649
 [mapelement_649]
@@ -5343,7 +5343,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_961,60,9999
+condition=garden_quest,60,9999
 
 // 650
 [mapelement_650]
@@ -5351,7 +5351,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_5331,0,35
+condition=sum2_quest,0,35
 
 // 651
 [mapelement_651]
@@ -5359,7 +5359,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_5331,35,9999
+condition=sum2_quest,35,9999
 
 // 652
 [mapelement_652]
@@ -5367,7 +5367,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_5032,0,63
+condition=sum1_quest,0,63
 
 // 653
 [mapelement_653]
@@ -5375,7 +5375,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_5032,63,9999
+condition=sum1_quest,63,9999
 
 // 654
 [mapelement_654]
@@ -5399,7 +5399,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_3523,0,150
+condition=surok_quest,0,150
 
 // 657
 [mapelement_657]
@@ -5407,7 +5407,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_3523,150,9999
+condition=surok_quest,150,9999
 
 // 658
 [mapelement_658]
@@ -5415,7 +5415,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_5733,0,60
+condition=motwl_main,0,60
 
 // 659
 [mapelement_659]
@@ -5423,7 +5423,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_5733,60,9999
+condition=motwl_main,60,9999
 
 // 660
 [mapelement_660]
@@ -5447,7 +5447,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_1404,0,127
+condition=ratcatch_var,0,127
 
 // 663
 [mapelement_663]
@@ -5455,7 +5455,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_1404,127,9999
+condition=ratcatch_var,127,9999
 
 // 664
 [mapelement_664]
@@ -5463,7 +5463,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_5133,0,90
+condition=firedup_quest,0,90
 
 // 665
 [mapelement_665]
@@ -5471,7 +5471,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_5133,90,9999
+condition=firedup_quest,90,9999
 
 // 666
 [mapelement_666]
@@ -5479,7 +5479,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_2326,0,90
+condition=fairy2_queencure_quest,0,90
 
 // 667
 [mapelement_667]
@@ -5487,7 +5487,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_2326,90,9999
+condition=fairy2_queencure_quest,90,9999
 
 // 668
 [mapelement_668]
@@ -5495,7 +5495,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_1803,0,90
+condition=fairy_farmers_quest,0,90
 
 // 669
 [mapelement_669]
@@ -5503,7 +5503,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_1803,90,9999
+condition=fairy_farmers_quest,90,9999
 
 // 670
 [mapelement_670]
@@ -5511,7 +5511,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_3550,0,11
+condition=slice_quest,0,11
 
 // 671
 [mapelement_671]
@@ -5519,7 +5519,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_3550,11,9999
+condition=slice_quest,11,9999
 
 // 672
 [mapelement_672]
@@ -5527,7 +5527,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_4105,0,18
+condition=lotg_quest,0,18
 
 // 673
 [mapelement_673]
@@ -5535,7 +5535,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_4105,18,9999
+condition=lotg_quest,18,9999
 
 // 674
 [mapelement_674]
@@ -5543,7 +5543,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_451,0,2
+condition=tog_juna_bowl,0,2
 
 // 675
 [mapelement_675]
@@ -5551,7 +5551,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_451,2,9999
+condition=tog_juna_bowl,2,9999
 
 // 676
 [mapelement_676]
@@ -5559,7 +5559,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_1372,0,125
+condition=agrith_quest,0,125
 
 // 677
 [mapelement_677]
@@ -5567,7 +5567,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_1372,125,9999
+condition=agrith_quest,125,9999
 
 // 678
 [mapelement_678]
@@ -5575,7 +5575,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_532,0,11
+condition=lost_tribe_quest,0,11
 
 // 679
 [mapelement_679]
@@ -5583,7 +5583,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_532,11,9999
+condition=lost_tribe_quest,11,9999
 
 // 680
 [mapelement_680]
@@ -5591,7 +5591,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_2258,0,13
+condition=dttd_main,0,13
 
 // 681
 [mapelement_681]
@@ -5599,7 +5599,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_2258,13,9999
+condition=dttd_main,13,9999
 
 // 682
 [mapelement_682]
@@ -5607,7 +5607,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_1938,0,110
+condition=chosen_quest,0,110
 
 // 683
 [mapelement_683]
@@ -5615,7 +5615,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_1938,110,9999
+condition=chosen_quest,110,9999
 
 // 684
 [mapelement_684]
@@ -5623,7 +5623,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_4684,0,150
+condition=icemt_quest,0,150
 
 // 685
 [mapelement_685]
@@ -5631,7 +5631,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_4684,150,9999
+condition=icemt_quest,150,9999
 
 // 686
 [mapelement_686]
@@ -5639,7 +5639,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_1051,0,10
+condition=wanted_main,0,10
 
 // 687
 [mapelement_687]
@@ -5647,7 +5647,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_1051,10,9999
+condition=wanted_main,10,9999
 
 // 688
 [mapelement_688]
@@ -5655,7 +5655,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_3185,0,240
+condition=anma_main,0,240
 
 // 689
 [mapelement_689]
@@ -5663,7 +5663,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_3185,240,9999
+condition=anma_main,240,9999
 
 // 690
 [mapelement_690]
@@ -5671,7 +5671,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_334,0,28
+condition=feud_var,0,28
 
 // 691
 [mapelement_691]
@@ -5679,7 +5679,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_334,28,9999
+condition=feud_var,28,9999
 
 // 692
 [mapelement_692]
@@ -5687,7 +5687,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_657,0,2
+condition=rd_main,0,2
 
 // 693
 [mapelement_693]
@@ -5695,7 +5695,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_657,2,9999
+condition=rd_main,2,9999
 
 // 694
 [mapelement_694]
@@ -5703,7 +5703,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_2610,0,14
+condition=slug2_main,0,14
 
 // 695
 [mapelement_695]
@@ -5711,7 +5711,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_2610,14,9999
+condition=slug2_main,14,9999
 
 // 696
 [mapelement_696]
@@ -5719,7 +5719,7 @@ sprite="mapfunction_sep,6"
 category=category_1157
 mapfunction=yes
 show=both
-condition=varplayerbit_5387,0,250
+condition=zemo_main,0,250
 
 // 697
 [mapelement_697]
@@ -5727,7 +5727,7 @@ sprite="mapfunction_sep,97"
 category=category_1229
 mapfunction=yes
 show=both
-condition=varplayerbit_5387,250,9999
+condition=zemo_main,250,9999
 
 // 698
 [mapelement_698]
@@ -6029,7 +6029,7 @@ sprite="mapfunction_sep,12"
 category=category_949
 mapfunction=yes
 show=both
-condition=varplayerbit_6884,2,2
+condition=evq_entrance_multi,2,2
 
 // 737
 [mapelement_737]
@@ -6212,7 +6212,7 @@ condition=cookquest,1,1
 mapfunction=no
 show=both
 condition=varplayerbit_6913,168,168
-condition2=varplayerbit_8045,1,39
+condition2=love,1,39
 polygonpoint0=0,0
 polygonpoint1=0,11
 polygonpoint2=10,11
@@ -6253,7 +6253,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=demon_slayer,0,0
+condition=demonslayer_main,0,0
 condition2=varplayerbit_697,2,2
 
 // 755
@@ -6301,7 +6301,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2378,0,0
+condition=gobdip_main,0,0
 condition2=varplayerbit_697,6,6
 
 // 759
@@ -6368,7 +6368,7 @@ condition2=varplayerbit_697,11,11
 [mapelement_764]
 show=both
 condition=varplayerbit_6913,174,174
-condition2=varplayerbit_8248,2,6
+condition2=vkq3_quest,2,6
 polygonpoint0=0,0
 polygonpoint1=0,11
 polygonpoint2=25,11
@@ -6393,7 +6393,7 @@ condition2=varplayerbit_697,13,13
 mapfunction=no
 show=both
 condition=varplayerbit_6913,168,168
-condition2=varplayerbit_8045,40,54
+condition2=love,40,54
 polygonpoint0=0,0
 polygonpoint1=0,8
 polygonpoint2=11,8
@@ -6420,7 +6420,7 @@ opbase=Start of Vampire Slayer
 mapfunction=no
 show=both
 condition=varplayerbit_6913,168,168
-condition2=varplayerbit_8045,125,149
+condition2=love,125,149
 polygonpoint0=0,0
 polygonpoint1=0,8
 polygonpoint2=11,8
@@ -6437,7 +6437,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3185,0,0
+condition=anma_main,0,0
 condition2=varplayerbit_697,18,18
 
 // 770
@@ -6449,7 +6449,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_299,0,0
+condition=dwarfrock_quest,0,0
 condition2=varplayerbit_697,19,19
 
 // 771
@@ -6461,7 +6461,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_299,0,0
+condition=dwarfrock_quest,0,0
 condition2=varplayerbit_697,19,19
 
 // 772
@@ -6521,7 +6521,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3274,0,0
+condition=contact,0,0
 condition2=varplayerbit_697,24,24
 
 // 777
@@ -6533,7 +6533,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_487,0,0
+condition=zogre,0,0
 condition2=varplayerbit_697,25,25
 
 // 778
@@ -6545,7 +6545,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2573,0,0
+condition=myq3_main_quest,0,0
 condition2=varplayerbit_697,27,27
 
 // 779
@@ -6559,7 +6559,7 @@ sprite="you_are_here_icon,3"
 category=category_1399
 textbackgroundfill=0x2095c8ff
 op1=Scroll
-condition=varplayerbit_2258,0,0
+condition=dttd_main,0,0
 condition2=varplayerbit_697,28,28
 opbase=Start of Death to the Dorgeshuun
 
@@ -6575,7 +6575,7 @@ category=category_1399
 textbackgroundfill=0x2095c8ff
 op1=Scroll
 op2=Follow
-condition=varplayerbit_2258,0,0
+condition=dttd_main,0,0
 condition2=varplayerbit_697,28,28
 opbase=Route to Death to the Dorgeshuun
 
@@ -6600,7 +6600,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_358,0,0
+condition=deserttreasure,0,0
 condition2=varplayerbit_697,30,30
 
 // 783
@@ -6612,7 +6612,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1465,0,0
+condition=devious_main,0,0
 condition2=varplayerbit_697,31,31
 
 // 784
@@ -6672,7 +6672,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2780,0,0
+condition=eaglepeak_quest,0,0
 condition2=varplayerbit_697,36,36
 
 // 789
@@ -6684,7 +6684,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2639,0,0
+condition=elemental_quest_2_main,0,0
 condition2=varplayerbit_697,38,38
 
 // 790
@@ -6696,7 +6696,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1560,0,0
+condition=enakh_quest,0,0
 condition2=varplayerbit_697,39,39
 
 // 791
@@ -6708,7 +6708,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2866,0,0
+condition=zep_quest,0,0
 condition2=varplayerbit_697,40,40
 
 // 792
@@ -6720,7 +6720,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2497,0,0
+condition=eyeglo_quest,0,0
 condition2=varplayerbit_697,41,41
 
 // 793
@@ -6732,7 +6732,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1803,0,0
+condition=fairy_farmers_quest,0,0
 condition2=varplayerbit_697,42,42
 
 // 794
@@ -6744,7 +6744,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2326,0,0
+condition=fairy2_queencure_quest,0,0
 condition2=varplayerbit_697,43,43
 
 // 795
@@ -6768,7 +6768,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_334,0,0
+condition=feud_var,0,0
 condition2=varplayerbit_697,45,45
 
 // 797
@@ -6804,7 +6804,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_822,0,0
+condition=forget_quest,0,0
 condition2=varplayerbit_697,48,48
 
 // 800
@@ -6816,7 +6816,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_822,0,0
+condition=forget_quest,0,0
 condition2=varplayerbit_697,48,48
 
 // 801
@@ -6852,7 +6852,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_961,0,0
+condition=garden_quest,0,0
 condition2=varplayerbit_697,51,51
 
 // 804
@@ -6876,7 +6876,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_217,0,0
+condition=ahoy_questvar,0,0
 condition2=varplayerbit_697,53,53
 
 // 806
@@ -6888,7 +6888,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_571,0,0
+condition=giantdwarf_quest,0,0
 condition2=varplayerbit_697,54,54
 
 // 807
@@ -6900,7 +6900,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_571,0,0
+condition=giantdwarf_quest,0,0
 condition2=varplayerbit_697,54,54
 
 // 808
@@ -6912,7 +6912,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_346,0,0
+condition=golem_a,0,0
 condition2=varplayerbit_697,55,55
 
 // 809
@@ -6936,7 +6936,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1527,0,0
+condition=handsand_quest,0,0
 condition2=varplayerbit_697,57,57
 
 // 811
@@ -6948,7 +6948,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayer_382,0,0
+condition=hauntedmine,0,0
 condition2=varplayerbit_697,58,58
 
 // 812
@@ -7008,7 +7008,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_418,0,0
+condition=ics_little_var,0,0
 condition2=varplayerbit_697,63,63
 
 // 817
@@ -7020,7 +7020,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1990,0,0
+condition=myreque_2_quest,0,0
 condition2=varplayerbit_697,64,64
 
 // 818
@@ -7032,7 +7032,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1990,0,0
+condition=myreque_2_quest,0,0
 condition2=varplayerbit_697,64,64
 
 // 819
@@ -7044,7 +7044,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayer_387,0,0
+condition=routequest,0,0
 condition2=varplayerbit_697,65,65
 
 // 820
@@ -7092,7 +7092,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_532,0,0
+condition=lost_tribe_quest,0,0
 condition2=varplayerbit_697,69,69
 
 // 824
@@ -7104,7 +7104,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2448,0,0
+condition=lunar_quest_main,0,0
 condition2=varplayerbit_697,70,70
 
 // 825
@@ -7116,7 +7116,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1383,0,0
+condition=makinghistory_prog,0,0
 condition2=varplayerbit_697,71,71
 
 // 826
@@ -7140,7 +7140,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayer_365,0,0
+condition=mm_main,0,0
 condition2=varplayerbit_697,73,73
 
 // 828
@@ -7164,7 +7164,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_260,0,0
+condition=mdaughter_quest_var,0,0
 condition2=varplayerbit_697,75,75
 
 // 830
@@ -7188,7 +7188,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1103,0,8
+condition=mourning_quest_main,0,8
 condition2=varplayerbit_697,77,77
 
 // 832
@@ -7200,7 +7200,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_6553,0,0
+condition=wtl_main_quest_var,0,0
 condition2=varplayerbit_697,161,161
 
 // 833
@@ -7224,7 +7224,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2790,0,0
+condition=myarm,0,0
 condition2=varplayerbit_697,79,79
 
 // 835
@@ -7236,7 +7236,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2790,0,0
+condition=myarm,0,0
 condition2=varplayerbit_697,79,79
 
 // 836
@@ -7320,7 +7320,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayer_714,0,0
+condition=rag_quest,0,0
 condition2=varplayerbit_697,85,85
 
 // 843
@@ -7332,7 +7332,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1404,0,0
+condition=ratcatch_var,0,0
 condition2=varplayerbit_697,86,86
 
 // 844
@@ -7344,7 +7344,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1850,0,0
+condition=hundred_main_quest_var,0,0
 condition2=varplayerbit_697,87,87
 
 // 845
@@ -7356,7 +7356,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_657,0,0
+condition=rd_main,0,0
 condition2=varplayerbit_697,88,88
 
 // 846
@@ -7380,7 +7380,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2140,0,0
+condition=royal_quest,0,0
 condition2=varplayerbit_697,91,91
 
 // 848
@@ -7428,7 +7428,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2610,0,0
+condition=slug2_main,0,0
 condition2=varplayerbit_697,95,95
 
 // 852
@@ -7452,7 +7452,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1372,0,0
+condition=agrith_quest,0,0
 condition2=varplayerbit_697,97,97
 
 // 854
@@ -7488,7 +7488,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2011,0,0
+condition=soulbane_prog,0,0
 condition2=varplayerbit_697,100,100
 
 // 857
@@ -7500,7 +7500,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1444,0,0
+condition=elidquest,0,0
 condition2=varplayerbit_697,101,101
 
 // 858
@@ -7512,7 +7512,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2098,0,0
+condition=swansong,0,0
 condition2=varplayerbit_697,102,102
 
 // 859
@@ -7536,7 +7536,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1028,0,0
+condition=twocats_quest,0,0
 condition2=varplayerbit_697,104,104
 
 // 861
@@ -7548,7 +7548,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_451,0,0
+condition=tog_juna_bowl,0,0
 condition2=varplayerbit_697,105,105
 
 // 862
@@ -7560,7 +7560,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_451,0,0
+condition=tog_juna_bowl,0,0
 condition2=varplayerbit_697,105,105
 
 // 863
@@ -7584,7 +7584,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayer_359,0,0
+condition=misc_quest,0,0
 condition2=varplayerbit_697,107,107
 
 // 865
@@ -7644,7 +7644,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayer_385,0,0
+condition=troll_love,0,0
 condition2=varplayerbit_697,112,112
 
 // 870
@@ -7656,7 +7656,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayer_385,0,0
+condition=troll_love,0,0
 condition2=varplayerbit_697,112,112
 
 // 871
@@ -7680,7 +7680,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1051,0,0
+condition=wanted_main,0,0
 condition2=varplayerbit_697,115,115
 
 // 873
@@ -7704,7 +7704,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3293,0,0
+condition=peng_quest,0,0
 condition2=varplayerbit_697,117,117
 
 // 875
@@ -7716,7 +7716,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3311,0,0
+condition=fris_quest,0,0
 condition2=varplayerbit_697,118,118
 
 // 876
@@ -7728,7 +7728,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3337,0,0
+condition=tol_prog,0,0
 condition2=varplayerbit_697,119,119
 
 // 877
@@ -7740,7 +7740,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayer_980,0,0
+condition=brain_quest_var,0,0
 condition2=varplayerbit_697,120,120
 
 // 878
@@ -7752,7 +7752,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3523,0,0
+condition=surok_quest,0,0
 condition2=varplayerbit_697,121,121
 
 // 879
@@ -7764,7 +7764,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3534,0,0
+condition=olaf_quest_var,0,0
 condition2=varplayerbit_697,122,122
 
 // 880
@@ -7776,7 +7776,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3550,0,0
+condition=slice_quest,0,0
 condition2=varplayerbit_697,123,123
 
 // 881
@@ -7788,7 +7788,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3550,0,0
+condition=slice_quest,0,0
 condition2=varplayerbit_697,123,123
 
 // 882
@@ -7800,7 +7800,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3618,0,0
+condition=dream_prog,0,0
 condition2=varplayerbit_697,124,124
 
 // 883
@@ -7812,7 +7812,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3618,0,0
+condition=dream_prog,0,0
 condition2=varplayerbit_697,124,124
 
 // 884
@@ -7824,7 +7824,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_2783,0,0
+condition=grim_quest,0,0
 condition2=varplayerbit_697,125,125
 
 // 885
@@ -7836,7 +7836,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3888,0,0
+condition=kr_quest,0,0
 condition2=varplayerbit_697,126,126
 
 // 886
@@ -7848,7 +7848,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_3954,0,0
+condition=pog_main,0,0
 condition2=varplayerbit_697,127,127
 
 // 887
@@ -7860,7 +7860,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4055,0,0
+condition=roots_quest,0,0
 condition2=varplayerbit_697,128,128
 
 // 888
@@ -7872,7 +7872,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4105,0,0
+condition=lotg_quest,0,0
 condition2=varplayerbit_697,129,129
 
 // 889
@@ -7884,7 +7884,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4105,0,0
+condition=lotg_quest,0,0
 condition2=varplayerbit_697,129,129
 
 // 890
@@ -7896,7 +7896,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4230,0,0
+condition=scab,0,0
 condition2=varplayerbit_697,130,130
 
 // 891
@@ -7908,7 +7908,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4302,0,0
+condition=wolf_quest,0,0
 condition2=varplayerbit_697,131,131
 
 // 892
@@ -7920,7 +7920,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4321,0,9
+condition=afr_quest,0,9
 condition2=varplayerbit_697,132,132
 
 // 893
@@ -7932,7 +7932,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4396,0,0
+condition=catcon_main,0,0
 condition2=varplayerbit_697,133,133
 
 // 894
@@ -7944,7 +7944,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4505,0,0
+condition=ken_main,0,0
 condition2=varplayerbit_697,134,134
 
 // 895
@@ -7956,7 +7956,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4569,0,0
+condition=myq4_main_quest,0,0
 condition2=varplayerbit_697,135,135
 
 // 896
@@ -7968,7 +7968,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4684,0,0
+condition=icemt_quest,0,0
 condition2=varplayerbit_697,136,136
 
 // 897
@@ -7980,7 +7980,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4700,0,0
+condition=dillo_quest,0,0
 condition2=varplayerbit_697,137,137
 
 // 898
@@ -7992,7 +7992,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4700,0,0
+condition=dillo_quest,0,0
 condition2=varplayerbit_697,137,137
 
 // 899
@@ -8004,7 +8004,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4764,0,0
+condition=smki,0,0
 condition2=varplayerbit_697,138,138
 
 // 900
@@ -8016,7 +8016,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_4797,0,0
+condition=rocko_quest,0,0
 condition2=varplayerbit_697,139,139
 
 // 901
@@ -8028,7 +8028,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_5032,0,0
+condition=sum1_quest,0,0
 condition2=varplayerbit_697,140,140
 
 // 902
@@ -8040,7 +8040,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_5075,0,0
+condition=hist_prog,0,0
 condition2=varplayerbit_697,141,141
 
 // 903
@@ -8052,7 +8052,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_5133,0,0
+condition=firedup_quest,0,0
 condition2=varplayerbit_697,142,142
 
 // 904
@@ -8064,7 +8064,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_5331,0,0
+condition=sum2_quest,0,0
 condition2=varplayerbit_697,143,143
 
 // 905
@@ -8076,7 +8076,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_5387,0,0
+condition=zemo_main,0,0
 condition2=varplayerbit_697,144,144
 
 // 906
@@ -8088,7 +8088,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_5491,0,0
+condition=luc2_main_quest,0,0
 condition2=varplayerbit_697,145,145
 
 // 907
@@ -8100,7 +8100,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_5761,0,0
+condition=phoenix_quest_var,0,0
 condition2=varplayerbit_697,146,146
 
 // 908
@@ -8112,7 +8112,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_5733,0,0
+condition=motwl_main,0,0
 condition2=varplayerbit_697,148,148
 
 // 909
@@ -8124,7 +8124,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_6001,0,2
+condition=glomem_quest,0,2
 condition2=varplayerbit_697,149,149
 
 // 910
@@ -8136,7 +8136,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_6048,0,5
+condition=mah1_quest,0,5
 condition2=varplayerbit_697,150,150
 
 // 911
@@ -8148,7 +8148,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_6112,0,0
+condition=mom2_main,0,0
 condition2=varplayerbit_697,155,155
 
 // 912
@@ -8160,7 +8160,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_6289,0,0
+condition=mah3_main,0,0
 condition2=varplayerbit_697,156,156
 
 // 913
@@ -8172,7 +8172,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_6775,0,0
+condition=mah4_main,0,0
 condition2=varplayerbit_697,157,157
 
 // 914
@@ -8184,7 +8184,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_6180,0,1
+condition=peng_rak_quest,0,1
 condition2=varplayerbit_697,151,151
 
 // 915
@@ -8196,7 +8196,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1938,0,0
+condition=chosen_quest,0,0
 condition2=varplayerbit_697,152,152
 
 // 916
@@ -8208,7 +8208,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_1938,0,0
+condition=chosen_quest,0,0
 condition2=varplayerbit_697,152,152
 
 // 917
@@ -8220,7 +8220,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_5448,0,0
+condition=swept_quest,0,0
 condition2=varplayerbit_697,153,153
 
 // 918
@@ -8232,7 +8232,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_6962,0,0
+condition=nom_quest,0,0
 condition2=varplayerbit_697,162,162
 
 // 919
@@ -8244,7 +8244,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_6883,0,1
+condition=evq_quest,0,1
 condition2=varplayerbit_697,163,163
 
 // 920
@@ -8262,7 +8262,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_7238,0,0
+condition=lumbcat_quest,0,0
 condition2=varplayerbit_697,170,170
 
 // 922
@@ -8278,7 +8278,7 @@ category=category_950
 mapfunction=no
 show=both
 condition=varplayerbit_6913,167,167
-condition2=varplayerbit_7792,0,0
+condition2=thigui_quest,0,0
 polygonpoint0=-12,39
 polygonpoint1=33,39
 polygonpoint2=33,71
@@ -8291,7 +8291,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,167,167
-condition2=varplayerbit_7792,5,5
+condition2=thigui_quest,5,5
 polygonpoint0=19,-2
 polygonpoint1=28,-2
 polygonpoint2=28,6
@@ -8304,7 +8304,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,167,167
-condition2=varplayerbit_7793,7,25
+condition2=thigui_humble,7,25
 polygonpoint0=-3,1
 polygonpoint1=-3,37
 polygonpoint2=31,37
@@ -8317,7 +8317,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,167,167
-condition2=varplayerbit_7793,10,25
+condition2=thigui_humble,10,25
 polygonpoint0=-1,8
 polygonpoint1=-1,20
 polygonpoint2=13,20
@@ -8334,7 +8334,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_7792,0,0
+condition=thigui_quest,0,0
 condition2=varplayerbit_697,167,167
 
 // 928
@@ -8346,14 +8346,14 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_7871,0,0
+condition=elem_3_main,0,0
 condition2=varplayerbit_697,172,172
 
 // 929
 [mapelement_929]
 show=both
 condition=varplayerbit_6913,172,172
-condition2=varplayerbit_7871,0,4
+condition2=elem_3_main,0,4
 polygonpoint0=-10,10
 polygonpoint1=10,10
 polygonpoint2=10,-30
@@ -8370,7 +8370,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_7826,0,0
+condition=ft3_quest,0,0
 condition2=varplayerbit_697,158,158
 
 // 931
@@ -8382,7 +8382,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_7958,0,0
+condition=vkq1_quest,0,0
 condition2=varplayerbit_697,171,171
 
 // 932
@@ -8390,7 +8390,7 @@ condition2=varplayerbit_697,171,171
 mapfunction=no
 show=both
 condition=varplayerbit_6913,170,170
-condition2=varplayerbit_7238,1,59
+condition2=lumbcat_quest,1,59
 polygonpoint0=-6,-8
 polygonpoint1=-6,6
 polygonpoint2=8,6
@@ -8402,7 +8402,7 @@ polygonoutline=0xff00ffff
 [mapelement_933]
 show=both
 condition=varplayerbit_6913,171,171
-condition2=varplayerbit_7958,5,85
+condition2=vkq1_quest,5,85
 polygonpoint0=20,-10
 polygonpoint1=5,5
 polygonpoint2=5,50
@@ -8418,7 +8418,7 @@ polygonoutline=0xff00ffff
 [mapelement_934]
 show=both
 condition=varplayerbit_6913,171,171
-condition2=varplayerbit_7958,5,85
+condition2=vkq1_quest,5,85
 polygonpoint0=20,-10
 polygonpoint1=5,5
 polygonpoint2=5,50
@@ -8434,7 +8434,7 @@ polygonoutline=0xff00ffff
 [mapelement_935]
 show=both
 condition=varplayerbit_6913,171,171
-condition2=varplayerbit_7958,0,85
+condition2=vkq1_quest,0,85
 polygonpoint0=-10,-15
 polygonpoint1=-20,-5
 polygonpoint2=-20,15
@@ -8458,7 +8458,7 @@ show=both
 mapfunction=no
 show=both
 condition=varplayerbit_6913,153,153
-condition2=varplayerbit_5448,1,49
+condition2=swept_quest,1,49
 polygonpoint0=-8,-5
 polygonpoint1=-8,5
 polygonpoint2=8,5
@@ -8471,7 +8471,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,153,153
-condition2=varplayerbit_5448,20,29
+condition2=swept_quest,20,29
 polygonpoint0=0,0
 polygonpoint1=0,8
 polygonpoint2=8,8
@@ -8484,7 +8484,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,153,153
-condition2=varplayerbit_5448,20,29
+condition2=swept_quest,20,29
 polygonpoint0=0,0
 polygonpoint1=0,10
 polygonpoint2=8,10
@@ -8497,7 +8497,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,148,148
-condition2=varplayerbit_5733,1,9
+condition2=motwl_main,1,9
 polygonpoint0=0,0
 polygonpoint1=0,7
 polygonpoint2=7,7
@@ -8510,7 +8510,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,148,148
-condition2=varplayerbit_5733,50,59
+condition2=motwl_main,50,59
 polygonpoint0=0,0
 polygonpoint1=0,7
 polygonpoint2=7,7
@@ -8523,7 +8523,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,148,148
-condition2=varplayerbit_5733,10,49
+condition2=motwl_main,10,49
 polygonpoint0=0,0
 polygonpoint1=0,8
 polygonpoint2=9,8
@@ -8536,7 +8536,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,148,148
-condition2=varplayerbit_5733,10,49
+condition2=motwl_main,10,49
 polygonpoint0=0,0
 polygonpoint1=0,9
 polygonpoint2=11,9
@@ -8549,7 +8549,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,168,168
-condition2=varplayerbit_8045,55,124
+condition2=love,55,124
 polygonpoint0=17,0
 polygonpoint1=17,-16
 polygonpoint2=0,-16
@@ -8566,7 +8566,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_8045,0,0
+condition=love,0,0
 condition2=varplayerbit_697,168,168
 
 // 946
@@ -8615,7 +8615,7 @@ show=both
 [mapelement_952]
 show=both
 condition=varplayerbit_6913,173,173
-condition2=varplayerbit_7451,1,1
+condition2=vkq2_quest,1,1
 polygonpoint0=20,-10
 polygonpoint1=5,5
 polygonpoint2=5,50
@@ -8631,7 +8631,7 @@ polygonoutline=0xff00ffff
 [mapelement_953]
 show=both
 condition=varplayerbit_6913,173,173
-condition2=varplayerbit_7451,60,60
+condition2=vkq2_quest,60,60
 polygonpoint0=20,-10
 polygonpoint1=5,5
 polygonpoint2=5,50
@@ -8648,7 +8648,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,173,173
-condition2=varplayerbit_7451,3,15
+condition2=vkq2_quest,3,15
 polygonpoint0=20,-10
 polygonpoint1=5,5
 polygonpoint2=5,50
@@ -8665,7 +8665,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,173,173
-condition2=varplayerbit_7451,16,24
+condition2=vkq2_quest,16,24
 polygonpoint0=-30,0
 polygonpoint1=40,0
 polygonpoint2=40,23
@@ -8680,7 +8680,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,173,173
-condition2=varplayerbit_7451,27,30
+condition2=vkq2_quest,27,30
 polygonpoint0=-24,20
 polygonpoint1=-24,0
 polygonpoint2=-3,0
@@ -8695,7 +8695,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,173,173
-condition2=varplayerbit_7451,33,48
+condition2=vkq2_quest,33,48
 polygonpoint0=-4,5
 polygonpoint1=-13,-1
 polygonpoint2=-14,-13
@@ -8711,7 +8711,7 @@ polygonoutline=0xff00ffff
 mapfunction=no
 show=both
 condition=varplayerbit_6913,173,173
-condition2=varplayerbit_7451,51,57
+condition2=vkq2_quest,51,57
 polygonpoint0=-6,0
 polygonpoint1=-6,22
 polygonpoint2=16,22
@@ -8728,7 +8728,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_7451,1,1
+condition=vkq2_quest,1,1
 condition2=varplayerbit_697,173,173
 
 // 960
@@ -8997,7 +8997,7 @@ textsize=0
 textcolour=0xcccccc
 mapfunction=yes
 category=category_950
-condition=varplayerbit_5819,1,1
+condition=romcom_village_name,1,1
 
 // 998
 [mapelement_998]
@@ -9006,13 +9006,13 @@ textsize=1
 textcolour=0xffffff
 mapfunction=yes
 category=category_950
-condition=varplayerbit_5819,1,1
+condition=romcom_village_name,1,1
 
 // 999
 [mapelement_999]
 show=both
 condition=varplayerbit_6913,17,17
-condition2=varplayerbit_5730,1,99
+condition2=romcom_quest,1,99
 polygonpoint0=0,0
 polygonpoint1=0,102
 polygonpoint2=43,102
@@ -9029,14 +9029,14 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_5730,0,0
+condition=romcom_quest,0,0
 condition2=varplayerbit_697,17,17
 
 // 1001
 [mapelement_1001]
 show=both
 condition=varplayerbit_6913,174,174
-condition2=varplayerbit_8248,8,38
+condition2=vkq3_quest,8,38
 polygonpoint0=0,0
 polygonpoint1=0,15
 polygonpoint2=15,15
@@ -9048,7 +9048,7 @@ polygonoutline=0xff00ffff
 [mapelement_1002]
 show=both
 condition=varplayerbit_6913,174,174
-condition2=varplayerbit_8248,8,38
+condition2=vkq3_quest,8,38
 polygonpoint0=0,0
 polygonpoint1=0,50
 polygonpoint2=50,50
@@ -9065,14 +9065,14 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_8248,0,0
+condition=vkq3_quest,0,0
 condition2=varplayerbit_697,174,174
 
 // 1004
 [mapelement_1004]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,10,10
+condition2=apmeken_master,10,10
 polygonpoint0=0,0
 polygonpoint1=0,30
 polygonpoint2=25,30
@@ -9084,7 +9084,7 @@ polygonoutline=0xff00ffff
 [mapelement_1005]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,15,15
+condition2=apmeken_master,15,15
 polygonpoint0=0,0
 polygonpoint1=0,62
 polygonpoint2=53,62
@@ -9096,7 +9096,7 @@ polygonoutline=0xff00ffff
 [mapelement_1006]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,17,17
+condition2=apmeken_master,17,17
 polygonpoint0=0,0
 polygonpoint1=0,30
 polygonpoint2=25,30
@@ -9108,7 +9108,7 @@ polygonoutline=0xff00ffff
 [mapelement_1007]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,25,75
+condition2=apmeken_master,25,75
 polygonpoint0=0,0
 polygonpoint1=0,126
 polygonpoint2=128,126
@@ -9120,7 +9120,7 @@ polygonoutline=0xff00ffff
 [mapelement_1008]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,80,90
+condition2=apmeken_master,80,90
 polygonpoint0=0,0
 polygonpoint1=0,62
 polygonpoint2=58,62
@@ -9132,7 +9132,7 @@ polygonoutline=0xff00ffff
 [mapelement_1009]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,90,100
+condition2=apmeken_master,90,100
 polygonpoint0=0,0
 polygonpoint1=0,126
 polygonpoint2=128,126
@@ -9144,7 +9144,7 @@ polygonoutline=0xff00ffff
 [mapelement_1010]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,105,105
+condition2=apmeken_master,105,105
 polygonpoint0=0,0
 polygonpoint1=64,0
 polygonpoint2=64,-128
@@ -9163,7 +9163,7 @@ polygonoutline=0xff00ffff
 [mapelement_1011]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,110,115
+condition2=apmeken_master,110,115
 polygonpoint0=0,0
 polygonpoint1=0,17
 polygonpoint2=17,17
@@ -9175,7 +9175,7 @@ polygonoutline=0xff00ffff
 [mapelement_1012]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,120,130
+condition2=apmeken_master,120,130
 polygonpoint0=0,0
 polygonpoint1=0,74
 polygonpoint2=66,74
@@ -9187,7 +9187,7 @@ polygonoutline=0xff00ffff
 [mapelement_1013]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,135,150
+condition2=apmeken_master,135,150
 polygonpoint0=20,-10
 polygonpoint1=5,5
 polygonpoint2=5,50
@@ -9203,7 +9203,7 @@ polygonoutline=0xff00ffff
 [mapelement_1014]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,155,190
+condition2=apmeken_master,155,190
 polygonpoint0=0,0
 polygonpoint1=64,0
 polygonpoint2=64,-128
@@ -9222,7 +9222,7 @@ polygonoutline=0xff00ffff
 [mapelement_1015]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,195,220
+condition2=apmeken_master,195,220
 polygonpoint0=0,0
 polygonpoint1=0,17
 polygonpoint2=17,17
@@ -9234,7 +9234,7 @@ polygonoutline=0xff00ffff
 [mapelement_1016]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,215,215
+condition2=apmeken_master,215,215
 polygonpoint0=0,0
 polygonpoint1=0,126
 polygonpoint2=128,126
@@ -9246,7 +9246,7 @@ polygonoutline=0xff00ffff
 [mapelement_1017]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,225,230
+condition2=apmeken_master,225,230
 polygonpoint0=0,0
 polygonpoint1=0,30
 polygonpoint2=25,30
@@ -9258,7 +9258,7 @@ polygonoutline=0xff00ffff
 [mapelement_1018]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,235,245
+condition2=apmeken_master,235,245
 polygonpoint0=0,0
 polygonpoint1=0,17
 polygonpoint2=17,17
@@ -9270,7 +9270,7 @@ polygonoutline=0xff00ffff
 [mapelement_1019]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,250,255
+condition2=apmeken_master,250,255
 polygonpoint0=0,0
 polygonpoint1=0,66
 polygonpoint2=42,66
@@ -9282,7 +9282,7 @@ polygonoutline=0xff00ffff
 [mapelement_1020]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,260,260
+condition2=apmeken_master,260,260
 polygonpoint0=0,0
 polygonpoint1=0,17
 polygonpoint2=17,17
@@ -9294,7 +9294,7 @@ polygonoutline=0xff00ffff
 [mapelement_1021]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,265,275
+condition2=apmeken_master,265,275
 polygonpoint0=0,0
 polygonpoint1=0,40
 polygonpoint2=32,40
@@ -9306,7 +9306,7 @@ polygonoutline=0xff00ffff
 [mapelement_1022]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,280,280
+condition2=apmeken_master,280,280
 polygonpoint0=0,0
 polygonpoint1=0,17
 polygonpoint2=17,17
@@ -9318,7 +9318,7 @@ polygonoutline=0xff00ffff
 [mapelement_1023]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,285,290
+condition2=apmeken_master,285,290
 polygonpoint0=0,0
 polygonpoint1=0,42
 polygonpoint2=50,42
@@ -9330,7 +9330,7 @@ polygonoutline=0xff00ffff
 [mapelement_1024]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,295,305
+condition2=apmeken_master,295,305
 polygonpoint0=0,0
 polygonpoint1=0,17
 polygonpoint2=17,17
@@ -9342,7 +9342,7 @@ polygonoutline=0xff00ffff
 [mapelement_1025]
 show=both
 condition=varplayerbit_6913,179,179
-condition2=varplayerbit_8605,310,310
+condition2=apmeken_master,310,310
 polygonpoint0=0,0
 polygonpoint1=0,30
 polygonpoint2=25,30
@@ -9359,7 +9359,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_8605,0,5
+condition=apmeken_master,0,5
 condition2=varplayerbit_697,179,179
 
 // 1027
@@ -9381,7 +9381,7 @@ show=both
 [mapelement_1029]
 show=both
 condition=varplayerbit_6913,14,14
-condition2=varplayerbit_8704,10,59
+condition2=ra4_quest,10,59
 polygonpoint0=0,64
 polygonpoint1=80,28
 polygonpoint2=128,28
@@ -9394,7 +9394,7 @@ polygonoutline=0xff00ffff
 [mapelement_1030]
 show=both
 condition=varplayerbit_6913,14,14
-condition2=varplayerbit_8704,60,79
+condition2=ra4_quest,60,79
 polygonpoint0=40,16
 polygonpoint1=40,-8
 polygonpoint2=64,-8
@@ -9406,7 +9406,7 @@ polygonoutline=0xff00ffff
 [mapelement_1031]
 show=both
 condition=varplayerbit_6913,14,14
-condition2=varplayerbit_8704,80,89
+condition2=ra4_quest,80,89
 polygonpoint0=0,64
 polygonpoint1=80,28
 polygonpoint2=128,28
@@ -9533,7 +9533,7 @@ opbase=Map
 [mapelement_1045]
 show=both
 condition=varplayerbit_6913,12,12
-condition2=varplayerbit_5332,115,115
+condition2=glo3_main,115,115
 polygonpoint0=0,0
 polygonpoint1=0,64
 polygonpoint2=64,64
@@ -9545,7 +9545,7 @@ polygonoutline=0xff00ffff
 [mapelement_1046]
 show=both
 condition=varplayerbit_6913,12,12
-condition2=varplayerbit_5332,30,55
+condition2=glo3_main,30,55
 polygonpoint0=5,10
 polygonpoint1=5,64
 polygonpoint2=64,64
@@ -9557,7 +9557,7 @@ polygonoutline=0xff00ffff
 [mapelement_1047]
 show=both
 condition=varplayerbit_6913,12,12
-condition2=varplayerbit_5332,15,20
+condition2=glo3_main,15,20
 polygonpoint0=-5,-5
 polygonpoint1=-5,15
 polygonpoint2=15,15
@@ -9569,7 +9569,7 @@ polygonoutline=0xff00ffff
 [mapelement_1048]
 show=both
 condition=varplayerbit_6913,12,12
-condition2=varplayerbit_5332,25,28
+condition2=glo3_main,25,28
 polygonpoint0=-5,10
 polygonpoint1=-5,123
 polygonpoint2=69,123
@@ -9582,7 +9582,7 @@ polygonoutline=0xff00ffff
 [mapelement_1049]
 show=both
 condition=varplayerbit_6913,12,12
-condition2=varplayerbit_5332,60,110
+condition2=glo3_main,60,110
 polygonpoint0=-5,10
 polygonpoint1=-5,123
 polygonpoint2=69,123
@@ -9600,14 +9600,14 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_5332,0,0
+condition=glo3_main,0,0
 condition2=varplayerbit_697,12,12
 
 // 1051
 [mapelement_1051]
 show=both
 condition=varplayerbit_6913,180,180
-condition2=varplayerbit_998,0,9
+condition2=elem_4_main,0,9
 polygonpoint0=-10,10
 polygonpoint1=10,10
 polygonpoint2=10,-90
@@ -9665,7 +9665,7 @@ opbase=Map
 [mapelement_1057]
 show=both
 condition=varplayerbit_6913,181,181
-condition2=varplayerbit_8961,0,200
+condition2=acs_quest,0,200
 polygonpoint0=7,7
 polygonpoint1=7,-7
 polygonpoint2=-7,-7
@@ -9678,7 +9678,7 @@ polygonoutline=0xff00ffff
 [mapelement_1058]
 show=both
 condition=varplayerbit_6913,181,181
-condition2=varplayerbit_8961,45,200
+condition2=acs_quest,45,200
 polygonpoint0=3,3
 polygonpoint1=3,-3
 polygonpoint2=-3,-3
@@ -9691,7 +9691,7 @@ polygonoutline=0xff00ffff
 [mapelement_1059]
 show=both
 condition=varplayerbit_6913,181,181
-condition2=varplayerbit_8961,110,200
+condition2=acs_quest,110,200
 polygonpoint0=10,3
 polygonpoint1=10,-3
 polygonpoint2=-10,-3
@@ -9704,7 +9704,7 @@ polygonoutline=0xff00ffff
 [mapelement_1060]
 show=both
 condition=varplayerbit_6913,181,181
-condition2=varplayerbit_8961,65,80
+condition2=acs_quest,65,80
 polygonpoint0=2,2
 polygonpoint1=2,-2
 polygonpoint2=-2,-2
@@ -9717,7 +9717,7 @@ polygonoutline=0xff00ffff
 [mapelement_1061]
 show=both
 condition=varplayerbit_6913,181,181
-condition2=varplayerbit_8961,75,80
+condition2=acs_quest,75,80
 polygonpoint0=2,2
 polygonpoint1=2,-2
 polygonpoint2=-2,-2
@@ -9778,7 +9778,7 @@ textbackgroundoutline=0xffaf7d0f
 textbackgroundfill=0xffffffc8
 sprite="you_are_here_icon,3"
 category=category_1399
-condition=varplayerbit_998,0,0
+condition=elem_4_main,0,0
 condition2=varplayerbit_697,180,180
 
 // 1069

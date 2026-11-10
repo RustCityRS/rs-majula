@@ -1,5 +1,5 @@
 // 3447
 [clientscript,csi_jury_confirm_mouseleave]
-if_setgraphic(graphic_3163, csi_jury_spy:confirm_l);
-if_setgraphic(graphic_3163, csi_jury_spy:confirm_r);
-if_setgraphic(graphic_3164, csi_jury_spy:confirm_m);
+if_setgraphic(csi_jury_spy:confirm_l, graphic_3163);
+if_setgraphic(csi_jury_spy:confirm_r, graphic_3163);
+if_setgraphic(csi_jury_spy:confirm_m, graphic_3164);

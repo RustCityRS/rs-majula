@@ -1,7 +1,7 @@
 // 1134
 [clientscript,combat_side_button_highlight](component $component0, int $int1)
 if (%com_mode = $int1) {
-    if_setgraphic("combatboxes_large,1", $component0);
+    if_setgraphic($component0, "combatboxes_large,1");
 } else {
-    if_setgraphic("combatboxes_large,0", $component0);
+    if_setgraphic($component0, "combatboxes_large,0");
 }

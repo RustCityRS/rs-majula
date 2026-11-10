@@ -2,7 +2,7 @@
 [proc,lobbyscreen_pane_clanchat_chat_build](component $component0)
 ~script4548;
 if (minimenuopen(lobbyscreen_pane_clanchat:chat_build, -1) = true) {
-    if_setontimer("lobbyscreen_pane_clanchat_chat_build($component0)", $component0);
+    if_setontimer($component0, "lobbyscreen_pane_clanchat_chat_build($component0)");
     return;
 }
 cc_deleteall(lobbyscreen_pane_clanchat:chat_build);
@@ -40,7 +40,7 @@ if ($int2 < $int4) {
     }
 }
 def_int $int6 = max(calc($int2 * 15), calc($int4 * 15));
-if_setscrollsize(0, $int6, lobbyscreen_pane_clanchat:chat_build);
-~scrollbar_resize(lobbyscreen_pane_clanchat:chat_scroll, lobbyscreen_pane_clanchat:chat_build, calc(%varclient_1124 + if_getscrollheight(lobbyscreen_pane_clanchat:chat_build) - %varclient_1125));
-%varclient_1124 = if_getscrolly(lobbyscreen_pane_clanchat:chat_build);
-%varclient_1125 = if_getscrollheight(lobbyscreen_pane_clanchat:chat_build);
+if_setscrollsize(lobbyscreen_pane_clanchat:chat_build, 0, $int6);
+~scrollbar_resize(lobbyscreen_pane_clanchat:chat_scroll, lobbyscreen_pane_clanchat:chat_build, calc(%lobby_clanchat_lastscrollpos + if_getscrollheight(lobbyscreen_pane_clanchat:chat_build) - %lobby_clanchat_lastscrollsize));
+%lobby_clanchat_lastscrollpos = if_getscrolly(lobbyscreen_pane_clanchat:chat_build);
+%lobby_clanchat_lastscrollsize = if_getscrollheight(lobbyscreen_pane_clanchat:chat_build);

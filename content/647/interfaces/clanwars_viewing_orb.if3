@@ -21,7 +21,7 @@ modelobjwidth=80
 transmitop=10
 op10=  
 onload=clanwars_orb(event_com)
-onvarctransmit=clanwars_orb(event_com){varclient_269}
+onvarctransmit=clanwars_orb(event_com){clanwars_orb_graphic}
 
 // 649:2
 [com_2]
@@ -36,7 +36,7 @@ modelobjwidth=80
 transmitop=10
 op10= 
 onload=clanwars_orb(event_com)
-onvarctransmit=clanwars_orb(event_com){varclient_269}
+onvarctransmit=clanwars_orb(event_com){clanwars_orb_graphic}
 
 // 649:3
 [com_3]
@@ -51,7 +51,7 @@ modelobjwidth=80
 transmitop=10
 op10= 
 onload=clanwars_orb(event_com)
-onvarctransmit=clanwars_orb(event_com){varclient_269}
+onvarctransmit=clanwars_orb(event_com){clanwars_orb_graphic}
 
 // 649:4
 [com_4]
@@ -66,7 +66,7 @@ modelobjwidth=80
 transmitop=10
 op10= 
 onload=clanwars_orb(event_com)
-onvarctransmit=clanwars_orb(event_com){varclient_269}
+onvarctransmit=clanwars_orb(event_com){clanwars_orb_graphic}
 
 // 649:5
 [com_5]
@@ -122,7 +122,7 @@ textalignv=centre
 textshadow=yes
 transmitop=1
 op1=Exit
-opcursor0=cursor_57
+opcursor0=cursor_enter
 targetverb=Exit
 onmouseover=text_colour_swapper(event_com, ^yellow)
 onmouseleave=text_colour_swapper(event_com, ^white)
@@ -144,7 +144,7 @@ model=null
 modelzoom=0
 modelobjwidth=80
 onload=clanwars_orb(event_com)
-onvarctransmit=clanwars_orb(event_com){varclient_269}
+onvarctransmit=clanwars_orb(event_com){clanwars_orb_graphic}
 
 // 649:12
 [nw_text]

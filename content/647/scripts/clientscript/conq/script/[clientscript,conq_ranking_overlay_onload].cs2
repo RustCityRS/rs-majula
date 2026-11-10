@@ -1,5 +1,5 @@
 // 405
 [clientscript,conq_ranking_overlay_onload](component $component0)
-if_settrans(255, $component0);
-if_setontimer("conq_ranking_overlay_ontimer(event_com)", $component0);
-if_settext("Conquest Ranking: <tostring(%varplayer_1875)>", $component0);
+if_settrans($component0, 255);
+if_setontimer($component0, "conq_ranking_overlay_ontimer(event_com)");
+if_settext($component0, "Conquest Ranking: <tostring(%conq_highscore)>");

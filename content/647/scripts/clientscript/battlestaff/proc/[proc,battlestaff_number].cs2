@@ -1,35 +1,35 @@
 // 2002
 [proc,battlestaff_number]()(int)
 def_int $int0 = 0;
-if (%varplayerbit_8150 = 1) {
-    if (%varplayerbit_4069 > 79) {
+if (%atvar_elite_reward = 1) {
+    if (%atvar_staffs_sold > 79) {
         $int0 = 0;
     } else {
-        $int0 = calc(80 - %varplayerbit_4069);
+        $int0 = calc(80 - %atvar_staffs_sold);
     }
-} else if (%varplayerbit_3976 = 1) {
-    if (%varplayerbit_4069 > 63) {
+} else if (%atvar_hard_reward = 1) {
+    if (%atvar_staffs_sold > 63) {
         $int0 = 0;
     } else {
-        $int0 = calc(64 - %varplayerbit_4069);
+        $int0 = calc(64 - %atvar_staffs_sold);
     }
-} else if (%varplayerbit_3975 = 1) {
-    if (%varplayerbit_4069 > 31) {
+} else if (%atvar_med_reward = 1) {
+    if (%atvar_staffs_sold > 31) {
         $int0 = 0;
     } else {
-        $int0 = calc(32 - %varplayerbit_4069);
+        $int0 = calc(32 - %atvar_staffs_sold);
     }
-} else if (%varplayerbit_3974 = 1) {
-    if (%varplayerbit_4069 > 15) {
+} else if (%atvar_easy_reward = 1) {
+    if (%atvar_staffs_sold > 15) {
         $int0 = 0;
     } else {
-        $int0 = calc(16 - %varplayerbit_4069);
+        $int0 = calc(16 - %atvar_staffs_sold);
     }
-} else if (%varplayerbit_3974 = 0) {
-    if (%varplayerbit_4069 > 7) {
+} else if (%atvar_easy_reward = 0) {
+    if (%atvar_staffs_sold > 7) {
         $int0 = 0;
     } else {
-        $int0 = calc(8 - %varplayerbit_4069);
+        $int0 = calc(8 - %atvar_staffs_sold);
     }
 }
 return($int0);

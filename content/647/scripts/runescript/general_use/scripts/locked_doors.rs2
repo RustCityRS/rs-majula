@@ -22,12 +22,12 @@ mes("The door is locked tight, I can't open it.");
 // between them. The unplaced ones (2134-2136, 2138-2140, 49600) are left alone,
 // as are `unlocked_door` 2137/2141, which are doors that merely say so.
 
-[oploc1,locked_door_26189] ~locked_door_message;
-[oploc1,locked_door_37197] ~locked_door_message;
-[oploc1,locked_door_49601] ~locked_door_message;
-[oploc1,locked_door_49602] ~locked_door_message;
-[oploc1,locked_door_52381] ~locked_door_message;
-[oploc1,locked_door_52382] ~locked_door_message;
+[oploc1,fai_falador_party_neg_room_door_bars_mirror] ~locked_door_message;
+[oploc1,rand_riddle_fence_door_closed_warped] ~locked_door_message;
+[oploc1,rand_riddle_fence_door_closed_abandoned] ~locked_door_message;
+[oploc1,rand_riddle_fence_door_closed_furnished] ~locked_door_message;
+[oploc1,thigui_guild_door_locked] ~locked_door_message;
+[oploc1,thigui_guild_door_locked_mirror] ~locked_door_message;
 
 [proc,locked_door_message]
 p_arrivedelay;

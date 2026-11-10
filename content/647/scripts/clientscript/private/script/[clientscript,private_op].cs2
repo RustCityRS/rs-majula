@@ -19,5 +19,5 @@ switch_int ($int0) {
     case 9 :
         ~quickchat_respond(5, $string0, chat_gethistoryphrase($int1));
     case 10 :
-        %varclient_1543 = $string0;
+        %snapshot_name = $string0;
 }

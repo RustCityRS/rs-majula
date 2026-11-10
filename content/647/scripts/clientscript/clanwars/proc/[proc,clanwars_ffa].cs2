@@ -3,70 +3,70 @@
 if ($int0 = 0 | coordx(coord) >= coordx(0_43_86_0_0) & coordx(coord) <= coordx(3_44_87_63_63) & coordz(coord) >= coordz(0_43_86_0_0) & coordz(coord) <= coordz(3_44_87_63_63)) {
     if ($component6 ! null) {
         if (coordz(coord) < calc(coordz(0_43_86_0_0) + 8)) {
-            if_sethide(false, $component6);
+            if_sethide($component6, false);
             cc_deleteall($component6);
             ~clanwars_setup_createbox($component6, 0, 0, 0);
         } else {
-            if_sethide(true, $component6);
+            if_sethide($component6, true);
         }
     }
     if ($int7 = 0 & calc(clientclock % 50) ! 0) {
         return;
     }
-    if_setcolour(0xff981f, $component4);
-    if_setcolour(0xff981f, $component5);
-    if_setgraphic(tex_brown, $component2);
-    if_settext("ITEMS ARE<br>SAFE", $component5);
+    if_setcolour($component4, 0xff981f);
+    if_setcolour($component5, 0xff981f);
+    if_setgraphic($component2, tex_brown);
+    if_settext($component5, "ITEMS ARE<br>SAFE");
 } else if ($int0 = 1 | coordx(coord) >= coordx(0_46_86_0_0) & coordx(coord) <= coordx(3_47_87_63_63) & coordz(coord) >= coordz(0_46_86_0_0) & coordz(coord) <= coordz(3_47_87_63_63)) {
     if ($component6 ! null) {
         if (coordz(coord) < calc(coordz(0_46_86_0_0) + 8)) {
-            if_sethide(false, $component6);
+            if_sethide($component6, false);
             cc_deleteall($component6);
             ~clanwars_setup_createbox($component6, 0, 0, 0);
         } else {
-            if_sethide(true, $component6);
+            if_sethide($component6, true);
         }
     }
     if ($int7 = 0 & calc(clientclock % 50) ! 0) {
         return;
     }
-    if_setcolour(^yellow, $component4);
-    if_setcolour(^yellow, $component5);
-    if_setgraphic(tex_red, $component2);
-    if_settext("ITEMS ARE<br>DROPPED", $component5);
+    if_setcolour($component4, ^yellow);
+    if_setcolour($component5, ^yellow);
+    if_setgraphic($component2, tex_red);
+    if_settext($component5, "ITEMS ARE<br>DROPPED");
 } else {
-    if_sethide(true, $component4);
-    if_sethide(true, $component5);
-    if_sethide(true, $component2);
-    if_sethide(true, $component3);
+    if_sethide($component4, true);
+    if_sethide($component5, true);
+    if_sethide($component2, true);
+    if_sethide($component3, true);
     if ($component6 ! null) {
-        if_sethide(true, $component6);
+        if_sethide($component6, true);
     }
     cc_deleteall($component1);
     return;
 }
-if_sethide(false, $component4);
-if_sethide(false, $component5);
-if_sethide(false, $component2);
-if_sethide(false, $component3);
-if_settiling(true, $component2);
+if_sethide($component4, false);
+if_sethide($component5, false);
+if_sethide($component2, false);
+if_sethide($component3, false);
+if_settiling($component2, true);
 def_int $int8 = parawidth(if_gettext($component4), 512, p11_full);
 $int8 = max(parawidth(if_gettext($component5), 512, p11_full), $int8);
 $int8 = calc($int8 + 8);
 def_int $int9 = 5;
-if_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top, $component4);
+if_setposition($component4, 0, $int9, ^setpos_abs_left, ^setpos_abs_top);
 def_int $int10 = paraheight(if_gettext($component4), $int8, p11_full);
 $int10 = calc($int10 * 10 + 3);
-if_setsize($int8, $int10, ^setsize_abs, ^setsize_abs, $component4);
+if_setsize($component4, $int8, $int10, ^setsize_abs, ^setsize_abs);
 $int9 = calc($int9 + $int10 - 1);
-if_setposition(calc(($int8 - if_getwidth($component3)) / 2), $int9, ^setpos_abs_left, ^setpos_abs_top, $component3);
+if_setposition($component3, calc(($int8 - if_getwidth($component3)) / 2), $int9, ^setpos_abs_left, ^setpos_abs_top);
 $int9 = calc($int9 + if_getheight($component3) - 1);
-if_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top, $component5);
+if_setposition($component5, 0, $int9, ^setpos_abs_left, ^setpos_abs_top);
 def_int $int11 = paraheight(if_gettext($component5), $int8, p11_full);
 $int11 = calc($int11 * 10 + 3);
-if_setsize($int8, $int10, ^setsize_abs, ^setsize_abs, $component5);
+if_setsize($component5, $int8, $int10, ^setsize_abs, ^setsize_abs);
 $int9 = calc($int9 + $int11 + 3);
-if_setsize($int8, $int9, ^setsize_abs, ^setsize_abs, $component1);
-if_setsize($int8, $int9, ^setsize_abs, ^setsize_abs, $component2);
+if_setsize($component1, $int8, $int9, ^setsize_abs, ^setsize_abs);
+if_setsize($component2, $int8, $int9, ^setsize_abs, ^setsize_abs);
 cc_deleteall($component1);
 ~clanwars_setup_createbox($component1, 0, 0, 0);

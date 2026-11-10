@@ -1,10 +1,10 @@
 // 779
 [clientscript,script779](component $component0, component $component1, int $int2, int $int3, string $string0)
 cc_deleteall($component1);
-if (compare($string0, "Call familiar") = 0 & enum(obj, obj, enum_1283, %varplayer_448) = bones) {
+if (compare($string0, "Call familiar") = 0 & enum(obj, obj, enum_1283, %follower_obj) = bones) {
     $string0 = "Call pet";
 }
-if (compare($string0, "Dismiss familiar") = 0 & enum(obj, obj, enum_1283, %varplayer_448) = bones) {
+if (compare($string0, "Dismiss familiar") = 0 & enum(obj, obj, enum_1283, %follower_obj) = bones) {
     $string0 = "Dismiss pet";
 }
 def_int $int4 = calc(2 + 13 * paraheight($string0, 125, p12_full));

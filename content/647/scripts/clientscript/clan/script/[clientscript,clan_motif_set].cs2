@@ -3,9 +3,9 @@
 def_graphic $graphic2 = null;
 def_graphic $graphic3 = null;
 if (activeclansettings_find_affined = true) {
-    $graphic2, $graphic3 = ~script4384(%varplayerbit_9086, %varplayerbit_9087, 0);
-    if_setgraphic($graphic2, $component0);
-    if_setgraphic($graphic3, $component1);
-    if_setcolour(hsvtorgb(%varplayer_2094), $component0);
-    if_setcolour(hsvtorgb(%varplayer_2095), $component1);
+    $graphic2, $graphic3 = ~script4384(%clan_custom_motif_a_varp, %clan_custom_motif_b_varp, 0);
+    if_setgraphic($component0, $graphic2);
+    if_setgraphic($component1, $graphic3);
+    if_setcolour($component0, hsvtorgb(%clan_custom_motif_colour1_varp));
+    if_setcolour($component1, hsvtorgb(%clan_custom_motif_colour2_varp));
 }

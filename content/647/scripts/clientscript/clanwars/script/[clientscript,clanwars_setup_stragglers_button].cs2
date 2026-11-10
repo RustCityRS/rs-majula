@@ -3,7 +3,7 @@
 if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varclient_248 = true) {
-    %varclient_248 = false;
+if (%clanwars_rulevarc_nostragglers = true) {
+    %clanwars_rulevarc_nostragglers = false;
     ~script1772;
 }

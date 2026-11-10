@@ -1,11 +1,11 @@
 // 600
 [clientscript,stock_offercount_100]
 if (%varplayer_1113 = 0) {
-    if (%varclient_84 <= 2147483547) {
-        %varclient_84 = calc(%varclient_84 + 100);
+    if (%stock_offercount_visible <= 2147483547) {
+        %stock_offercount_visible = calc(%stock_offercount_visible + 100);
     }
 } else {
-    %varclient_84 = 100;
+    %stock_offercount_visible = 100;
 }
-if_settext(tostring_localised(%varclient_84, true), stockmarket:offercount);
+if_settext(stockmarket:offercount, tostring_localised(%stock_offercount_visible, true));
 ~sm_offercount_settimer;

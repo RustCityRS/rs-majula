@@ -1,6 +1,6 @@
 // 3351
 [proc,rand_mem4_xp_tooltip]
-if (%varclient_1178 = 0) {
+if (%rand_party_mem4_xp_off = 0) {
     ~script1163(rand_party_side:mem4_xp_button, -1, rand_party_side:com_114, "P4: Shared XP is ON", 25, 200);
 } else {
     ~script1163(rand_party_side:mem4_xp_button, -1, rand_party_side:com_114, "P4: Shared XP is OFF", 25, 200);

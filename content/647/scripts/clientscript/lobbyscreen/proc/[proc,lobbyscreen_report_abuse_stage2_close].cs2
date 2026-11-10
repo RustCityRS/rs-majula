@@ -1,9 +1,9 @@
 // 3194
 [proc,lobbyscreen_report_abuse_stage2_close]
 if_closesubclient(lobbyscreen:report_abuse_stage2_body);
-if_sethide(true, lobbyscreen:report_abuse_stage2);
-if_setonkey(null, lobbyscreen_report_abuse_stage2:main);
-%varclient_1094 = false;
+if_sethide(lobbyscreen:report_abuse_stage2, true);
+if_setonkey(lobbyscreen_report_abuse_stage2:main, null);
+%lobbyscreen_report_abuse_bug = false;
 if (if_gethide(enum(int, component, enum_941, 5)) = false) {
     ~script3161(1);
 }

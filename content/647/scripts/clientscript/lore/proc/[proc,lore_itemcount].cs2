@@ -1,12 +1,12 @@
 // 771
 [proc,lore_itemcount](obj $obj0)(int)
 switch_obj ($obj0) {
-    case snake_hide :
-        return(calc(inv_total(inv, snake_hide) + inv_total(inv, snake_hide_7801)));
-    case granite__500g :
-        return(calc(inv_total(inv, granite__500g) + inv_total(inv, granite__2kg) + inv_total(inv, granite__5kg)));
-    case red_flowers :
-        return(calc(inv_total(inv, red_flowers) + inv_total(inv, flowers) + inv_total(inv, blue_flowers) + inv_total(inv, yellow_flowers) + inv_total(inv, purple_flowers) + inv_total(inv, orange_flowers) + inv_total(inv, flowers_waterfall_quest_mixed)));
+    case village_snake_hide :
+        return(calc(inv_total(inv, village_snake_hide) + inv_total(inv, templetrek_swamp_snake_hide)));
+    case enakh_granite_tiny :
+        return(calc(inv_total(inv, enakh_granite_tiny) + inv_total(inv, enakh_granite_small) + inv_total(inv, enakh_granite_medium)));
+    case flowers_waterfall_quest_red :
+        return(calc(inv_total(inv, flowers_waterfall_quest_red) + inv_total(inv, flowers_waterfall_quest) + inv_total(inv, flowers_waterfall_quest_blue) + inv_total(inv, flowers_waterfall_quest_yellow) + inv_total(inv, flowers_waterfall_quest_purple) + inv_total(inv, flowers_waterfall_quest_orange) + inv_total(inv, flowers_waterfall_quest_mixed)));
     case default :
         return(~inv_total_available(inv, $obj0));
 }

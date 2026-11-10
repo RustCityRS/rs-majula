@@ -1,19 +1,19 @@
 // 291
 [proc,worldmap_showmenu](boolean $boolean0, component $component1, component $component2, component $component3, component $component4, component $component5)
-if_settext(worldmap_getmapname(worldmap_getcurrentmap), worldmap:mapname);
+if_settext(worldmap:mapname, worldmap_getmapname(worldmap_getcurrentmap));
 cc_deleteall($component2);
 cc_deleteall($component3);
 if ($boolean0 = false) {
-    if_sethide(true, $component1);
-    if_setgraphic("scrollbar_v2,0", worldmap:map_menu_arrow);
-    if_setonclick("worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)", worldmap:map_menu_arrow);
-    if_setonclick("worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)", worldmap:mapname);
+    if_sethide($component1, true);
+    if_setgraphic(worldmap:map_menu_arrow, "scrollbar_v2,0");
+    if_setonclick(worldmap:map_menu_arrow, "worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)");
+    if_setonclick(worldmap:mapname, "worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)");
     return;
 }
-if_sethide(false, $component1);
-if_setgraphic("scrollbar_v2,1", worldmap:map_menu_arrow);
-if_setonclick("worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)", worldmap:map_menu_arrow);
-if_setonclick("worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)", worldmap:mapname);
+if_sethide($component1, false);
+if_setgraphic(worldmap:map_menu_arrow, "scrollbar_v2,1");
+if_setonclick(worldmap:map_menu_arrow, "worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)");
+if_setonclick(worldmap:mapname, "worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)");
 def_int $intarray0(calc(40 + 1));
 $intarray0(0) = 0;
 def_int $int6 = 1;
@@ -62,10 +62,10 @@ while ($int6 < $int7) {
     $int9 = calc($int9 + cc_getheight);
     $int6 = calc($int6 + 1);
 }
-if_setscrollsize(0, $int9, $component2);
+if_setscrollsize($component2, 0, $int9);
 $int9 = max($int9, 20);
 $int9 = calc($int9 + 3);
 $int9 = min($int9, 150);
-if_setsize(if_getwidth($component1), $int9, ^setsize_abs, ^setsize_abs, $component1);
+if_setsize($component1, if_getwidth($component1), $int9, ^setsize_abs, ^setsize_abs);
 ~scrollbar_vertical($component3, $component2, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 ~scrollbar_ondrag_doscroll($component3, $component2, $int10, 1);

@@ -3,22 +3,22 @@
 def_int $int2 = 0;
 if (activeclanchannel_find_affined = true) {
     if ($int1 < 0 | $int1 >= activeclanchannel_getusercount) {
-        %varclient_1518 = -1;
-        %varclient_1645 = "";
+        %clan_chat_selected_slot = -1;
+        %clan_channel_selected_name = "";
         mes("That person isn't in your clan channel.");
         return;
     }
     if (cc_find($component0, $int1) = true) {
         $int2 = cc_gety;
     }
-    %varclient_1518 = $int1;
-    %varclient_1645 = activeclanchannel_getuserdisplayname($int1);
+    %clan_chat_selected_slot = $int1;
+    %clan_channel_selected_name = activeclanchannel_getuserdisplayname($int1);
     if (if_find(clan_chat:clan_list_button_popout_layer) = true) {
         cc_setsize(1, 19, ^setsize_abs, ^setsize_abs);
         cc_setposition(0, $int2, ^setpos_abs_right, ^setpos_abs_top);
         cc_setontimer("script4629(1)");
-        if_sethide(false, clan_chat:selected_highlight_layer);
-        if_setposition(0, $int2, ^setpos_abs_right, ^setpos_abs_top, clan_chat:selected_highlight_layer);
+        if_sethide(clan_chat:selected_highlight_layer, false);
+        if_setposition(clan_chat:selected_highlight_layer, 0, $int2, ^setpos_abs_right, ^setpos_abs_top);
     }
 } else {
     mes("You must be in your clan channel to do that.");

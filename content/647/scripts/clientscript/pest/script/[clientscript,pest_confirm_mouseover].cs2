@@ -1,7 +1,7 @@
 // 1965
 [clientscript,pest_confirm_mouseover](component $component0)
-if (%xplamp_stat > 0) {
-    if_settrans(255, $component0);
+if (%if1 > 0) {
+    if_settrans($component0, 255);
 } else {
-    if_settrans(200, $component0);
+    if_settrans($component0, 200);
 }

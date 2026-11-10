@@ -17,13 +17,13 @@ assert_eq(~combat_maxhit(1100), 22)
 setup_player("test_player")
 npc_add(movecoord(coord, 2, 0, 0), kolhuman, 50)
 assert_eq(npc_basestat(hitpoints), 30)
-npc_add(movecoord(coord, 0, 0, 2), dagannoth, 50)
+npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
 assert_eq(npc_basestat(hitpoints), 1200)
 
 // A hit past a byte lands whole on an npc: 300 of the dagannoth's 1200.
 [label,test_a_hit_past_255_lands_whole_on_an_npc]
 setup_player("test_player")
-npc_add(movecoord(coord, 0, 0, 2), dagannoth, 50)
+npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
 npc_damage(^hitmark_damage, 300)
 assert_eq(npc_stat(hitpoints), 900)
 

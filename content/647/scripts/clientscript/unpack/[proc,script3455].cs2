@@ -1,5 +1,5 @@
 // 3455
 [proc,script3455]
-%varclient_1281 = 0;
-if_settext(tostring(%varclient_1281), machinima_livecamera:storedtext);
+%machinima_livecamera_plannedmove_savedstates = 0;
+if_settext(machinima_livecamera:storedtext, tostring(%machinima_livecamera_plannedmove_savedstates));
 return;

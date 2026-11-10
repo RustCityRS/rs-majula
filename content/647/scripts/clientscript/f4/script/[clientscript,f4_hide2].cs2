@@ -1,10 +1,10 @@
 // 1259
 [clientscript,f4_hide2]
-if (%varplayerbit_305 = 1) {
+if (%dwarfrock_schematics_solved = 1) {
     return;
 }
 if (%barbarian_course_progress = 0) {
-    if_setgraphic("miscgraphics,10", dwarf_rock_schematics_control:f4_hide2);
+    if_setgraphic(dwarf_rock_schematics_control:f4_hide2, "miscgraphics,10");
 } else {
-    if_setgraphic("miscgraphics,11", dwarf_rock_schematics_control:f4_hide2);
+    if_setgraphic(dwarf_rock_schematics_control:f4_hide2, "miscgraphics,11");
 }

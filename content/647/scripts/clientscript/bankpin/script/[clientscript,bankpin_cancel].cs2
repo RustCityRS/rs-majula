@@ -2,4 +2,4 @@
 [clientscript,bankpin_cancel]
 ~script675;
 mes("Cancelled.");
-sound_synth(synth_1042, 1, 0);
+sound_synth(pin_cancel, 1, 0);

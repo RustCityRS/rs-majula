@@ -1,36 +1,36 @@
 // 110
 [clientscript,meslayer_mode9](string $string0)
 if (getwindowmode >= 2) {
-    if_sethide(false, toplevel_fullscreen:chattop);
+    if_sethide(toplevel_fullscreen:chattop, false);
 }
-if_sethide(false, chattop:mes_layer);
-if_sethide(true, chattop:mes_layer_large);
-if_sethide(true, chattop:mes_layer_hide);
-if_settext($string0, chattop:mes_text);
-%varclient_5 = 9;
-if (compare(null, %varclient_1869) = 0) {
-    %varclient_1869 = "";
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if_settext(chattop:mes_text, $string0);
+%meslayermode = 9;
+if (compare(null, %stringdialog_init_string) = 0) {
+    %stringdialog_init_string = "";
 }
-if (compare("", %varclient_1869) ! 0) {
-    ~meslayer_setupinput(%varclient_1869);
-    %varclient_1869 = "";
+if (compare("", %stringdialog_init_string) ! 0) {
+    ~meslayer_setupinput(%stringdialog_init_string);
+    %stringdialog_init_string = "";
 } else {
     ~meslayer_setupinput("");
 }
-if (compare(null, %varclient_1873) = 0) {
-    %varclient_1873 = "";
+if (compare(null, %stringdialog_suggested_string) = 0) {
+    %stringdialog_suggested_string = "";
 }
-if_setonclick(null, chattop:mes_layer);
+if_setonclick(chattop:mes_layer, null);
 ~script2026;
-if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chattop:mes_text2);
-if_setondialogabort("meslayer_ondialogabort", chattop:mes_text2);
-if (compare(%varclient_1873, "") ! 0) {
+if_setonkey(chattop:mes_text2, "meslayer_onkey(event_keycode, event_keychar)");
+if_setondialogabort(chattop:mes_text2, "meslayer_ondialogabort");
+if (compare(%stringdialog_suggested_string, "") ! 0) {
     cc_create(chattop:mes_layer, ^iftype_text, 0);
     ~meslayer_setupdynamicbutton;
-    cc_settext("Last entered: <%varclient_1873>");
+    cc_settext("Last entered: <%stringdialog_suggested_string>");
     cc_setop(1, "Use:");
-    cc_setopbase("<col=ff9040><removetags(%varclient_1873)></col>");
-    cc_setonop("meslayer_lastname(%varclient_5, event_op, event_com, event_comsubid, %varclient_1873)");
-    %varclient_1873 = "";
+    cc_setopbase("<col=ff9040><removetags(%stringdialog_suggested_string)></col>");
+    cc_setonop("meslayer_lastname(%meslayermode, event_op, event_com, event_comsubid, %stringdialog_suggested_string)");
+    %stringdialog_suggested_string = "";
 }
 ~script1188;

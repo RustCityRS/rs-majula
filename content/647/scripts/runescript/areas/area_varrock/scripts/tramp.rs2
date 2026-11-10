@@ -11,9 +11,9 @@
 // as every recorded 2011 option does, and Charlie's answer is unknown (nothing more is said).
 // Whether the 10 gold leave the backpack is not shown (the stats tab is open); it is taken here
 // like Baraek's 20. The other branches are 289's, unverified for 2011.
-[opnpc1,charlie_the_tramp]
+[opnpc1,tramppg]
 ~chatnpc("<p,sad>Spare some change guv?");
-if(%blackarmgang = ^blackarmgang_spoken_katrine) {
+if(%phoenixgang = ^blackarmgang_spoken_katrine) {
     switch_int(~p_choice5("Sorry, I haven't got any.", 1, "Go get a job!", 2, "Ok. Here you go.", 3, "Any idea where the Phoenix gang hideout is?", 6, "I think I know where the hideout is, but I can't get inside.", 7)) {
         case 1 : @tramp_option(1);
         case 2 : @tramp_option(2);
@@ -59,16 +59,16 @@ switch_int($picked) {
             ~chatnpc("<p,happy>Don't worry about it.");
         } else if($option = 2) {
             ~chatplayer("<p,quiz>Do you think they would let me join?");
-            if(%blackarmgang >= ^blackarmgang_joined) { // In Black arm
+            if(%phoenixgang >= ^blackarmgang_joined) { // In Black arm
                 ~chatnpc("<p,confused>I was under the impression you were already a member...");
                 return;
             }
-            if(%phoenixgang >= ^phoenixgang_joined) { // In phoenix
+            if(%blackarmgang >= ^phoenixgang_joined) { // In phoenix
                 @tramp_phoenixmember;
             }
-            if(%blackarmgang = ^blackarmgang_not_started) {
-                %blackarmgang = ^blackarmgang_started;
-                ~send_quest_progress(^questlist_blackarmgang, %blackarmgang, ^blackarmgang_complete);
+            if(%phoenixgang = ^blackarmgang_not_started) {
+                %phoenixgang = ^blackarmgang_started;
+                ~send_quest_progress(^questlist_blackarmgang, %phoenixgang, ^blackarmgang_complete);
             }
             ~chatnpc("<p,neutral>You never know. You'll find a lady down there called Katrine. Speak to her.");
             ~chatnpc("<p,neutral>But don't upset her, she's pretty dangerous.");

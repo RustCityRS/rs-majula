@@ -45,9 +45,9 @@ fn tai_bwo_wannai_trios_varps_are_the_caches_and_saved() {
     runner::on_loaded_engine(|engine| {
         for name in [
             "tbwt_tiadeche",
-            "tbwt_tinsay",
-            "tbwt_tamayu",
             "tbwt_lubufu",
+            "tbwt_tamayu",
+            "varplayer_324",
             "tbwt_bits",
         ] {
             let id = *engine

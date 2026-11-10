@@ -6,7 +6,7 @@ if_close;
 if (p_finduid(uid) = true) {
     @activate_prayer_incrediblereflexes;
 }
-%prayer11 = %prayer11; // resync varp
+%varplayerbit_5953 = %varplayerbit_5953; // resync varp
 
 [label,activate_prayer_incrediblereflexes]
 p_clearpendingaction;
@@ -14,18 +14,18 @@ def_dbrow $data = ~get_prayer_data(^prayer_incrediblereflexes);
 if ($data = null) {
     return;
 }
-if (%prayer11 = ^true) {
-    %prayer11 = ^false;
+if (%varplayerbit_5953 = ^true) {
+    %varplayerbit_5953 = ^false;
     ~prayer_deactivate(^prayer_incrediblereflexes);
     return;
 }
 if (~prayer_checks($data) = false) {
-    %prayer11 = ^false;
+    %varplayerbit_5953 = ^false;
     return;
 }
 def_int $levelreq = db_getfield($data, prayers:level, 0);
 if (stat_base(prayer) < $levelreq){
-    %prayer11 = ^false;
+    %varplayerbit_5953 = ^false;
     // sound_synth(prayer_off, 1, 0);
     // 2011's client plays prayer_off itself (clientscript 2295).
     // ~mesbox("You need a @dbl@Prayer level of <tostring($levelreq)> to use <db_getfield($data, prayers:name, 0)>.");
@@ -33,5 +33,5 @@ if (stat_base(prayer) < $levelreq){
     ~mesbox("You need a Prayer level of at least <tostring($levelreq)> to use <db_getfield($data, prayers:name, 0)>.");
     return;
 }
-%prayer11 = ^true;
+%varplayerbit_5953 = ^true;
 ~prayer_activate($data);

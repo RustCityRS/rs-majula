@@ -145,9 +145,9 @@ fn the_field_cow_fights_with_2011s_animations_and_sounds() {
             .and_then(|n| n.params.as_deref())
             .expect("the field cow has params");
         for (param, kind, id, name) in [
-            ("attack_anim", "seq", 5849, "cow_attack"),
-            ("defend_anim", "seq", 5850, "cow_block"),
-            ("death_anim", "seq", 5851, "cow_death"),
+            ("attack_anim", "seq", 5849, "cow_update_attack"),
+            ("defend_anim", "seq", 5850, "cow_update_defend"),
+            ("death_anim", "seq", 5851, "cow_update_death"),
             ("attack_sound", "synth", 369, "cow_attack"),
             ("defend_sound", "synth", 371, "cow_hit"),
             ("death_sound", "synth", 370, "cow_death"),

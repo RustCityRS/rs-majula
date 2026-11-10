@@ -1,47 +1,47 @@
 // 2220
 [proc,script2220]
-if (%varplayerbit_7324 = 1) {
-    if_sethide(true, easter10_resourcegame:fc_repair_tick);
+if (%easter10_incubator_status = 1) {
+    if_sethide(easter10_resourcegame:fc_repair_tick, true);
 } else {
-    if_sethide(false, easter10_resourcegame:fc_repair_tick);
+    if_sethide(easter10_resourcegame:fc_repair_tick, false);
 }
-if (%varplayerbit_7325 = 1) {
-    if_sethide(true, easter10_resourcegame:tegg_repair_tick);
+if (%easter10_painter_status = 1) {
+    if_sethide(easter10_resourcegame:tegg_repair_tick, true);
 } else {
-    if_sethide(false, easter10_resourcegame:tegg_repair_tick);
+    if_sethide(easter10_resourcegame:tegg_repair_tick, false);
 }
-if (%varplayerbit_7326 = 1) {
-    if_sethide(true, easter10_resourcegame:negg_repair_tick);
+if (%easter10_conveyor_status = 1) {
+    if_sethide(easter10_resourcegame:negg_repair_tick, true);
 } else {
-    if_sethide(false, easter10_resourcegame:negg_repair_tick);
+    if_sethide(easter10_resourcegame:negg_repair_tick, false);
 }
-if_settext(tostring(%varclient_1126), easter10_resourcegame:nuts_workers_text);
-if_settext(tostring(%varclient_1127), easter10_resourcegame:choc_workers_text);
-if_settext(tostring(%varclient_1128), easter10_resourcegame:fruit_workers_text);
-if_settext(tostring(%varclient_1129), easter10_resourcegame:fc_workers_text);
-if_settext(tostring(%varclient_1131), easter10_resourcegame:tegg_workers_text);
-if_settext(tostring(%varclient_1130), easter10_resourcegame:negg_workers_text);
-if_settext("Total Workers: <tostring(%varclient_1135)>", easter10_resourcegame:totalworkers_text);
-if_settext("<tostring(%varplayer_1687)>/15", easter10_resourcegame:nut_stock_text);
-if_settext("<tostring(%varplayer_1688)>/15", easter10_resourcegame:fruit_stock_text);
-if_settext("<tostring(%varplayer_1686)>/15", easter10_resourcegame:choc_stock_text);
-if_settext("<tostring(%varplayer_1689)>/7", easter10_resourcegame:fc_stock_text);
-if_settext("<tostring(%varplayer_1690)>/7", easter10_resourcegame:tegg_stock_text);
-if_settext("<tostring(%varplayer_1691)>/7", easter10_resourcegame:negg_stock_text);
+if_settext(easter10_resourcegame:nuts_workers_text, tostring(%easter10_nutworkers));
+if_settext(easter10_resourcegame:choc_workers_text, tostring(%easter10_chocworkers));
+if_settext(easter10_resourcegame:fruit_workers_text, tostring(%easter10_fruitworkers));
+if_settext(easter10_resourcegame:fc_workers_text, tostring(%easter10_fcworkers));
+if_settext(easter10_resourcegame:tegg_workers_text, tostring(%easter10_teggworkers));
+if_settext(easter10_resourcegame:negg_workers_text, tostring(%easter10_neggworkers));
+if_settext(easter10_resourcegame:totalworkers_text, "Total Workers: <tostring(%easter10_totalworkers)>");
+if_settext(easter10_resourcegame:nut_stock_text, "<tostring(%easter10_resourcegame_totalnuts)>/15");
+if_settext(easter10_resourcegame:fruit_stock_text, "<tostring(%easter10_resourcegame_totalfruit)>/15");
+if_settext(easter10_resourcegame:choc_stock_text, "<tostring(%easter10_resourcegame_totalchoc)>/15");
+if_settext(easter10_resourcegame:fc_stock_text, "<tostring(%easter10_resourcegame_totalfc)>/7");
+if_settext(easter10_resourcegame:tegg_stock_text, "<tostring(%easter10_resourcegame_totaltegg)>/7");
+if_settext(easter10_resourcegame:negg_stock_text, "<tostring(%easter10_resourcegame_totalnegg)>/7");
 ~script2221;
-if_settext("Turn <tostring(%varplayer_1674)>/15", easter10_resourcegame:turn_text);
-if (%varclient_1132 = false) {
-    if_setgraphic("warning_icons,1", easter10_resourcegame:fc_repair_tick);
+if_settext(easter10_resourcegame:turn_text, "Turn <tostring(%easter10_resourcegame_turncount)>/15");
+if (%easter10_fcrepair = false) {
+    if_setgraphic(easter10_resourcegame:fc_repair_tick, "warning_icons,1");
 } else {
-    if_setgraphic("warning_icons,2", easter10_resourcegame:fc_repair_tick);
+    if_setgraphic(easter10_resourcegame:fc_repair_tick, "warning_icons,2");
 }
-if (%varclient_1134 = false) {
-    if_setgraphic("warning_icons,1", easter10_resourcegame:tegg_repair_tick);
+if (%easter10_teggrepair = false) {
+    if_setgraphic(easter10_resourcegame:tegg_repair_tick, "warning_icons,1");
 } else {
-    if_setgraphic("warning_icons,2", easter10_resourcegame:tegg_repair_tick);
+    if_setgraphic(easter10_resourcegame:tegg_repair_tick, "warning_icons,2");
 }
-if (%varclient_1133 = false) {
-    if_setgraphic("warning_icons,1", easter10_resourcegame:negg_repair_tick);
+if (%easter10_neggrepair = false) {
+    if_setgraphic(easter10_resourcegame:negg_repair_tick, "warning_icons,1");
 } else {
-    if_setgraphic("warning_icons,2", easter10_resourcegame:negg_repair_tick);
+    if_setgraphic(easter10_resourcegame:negg_repair_tick, "warning_icons,2");
 }

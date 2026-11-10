@@ -1,3 +1,3 @@
 // 3318
 [clientscript,rand_invite_update_mem4_total]
-if_settext(tostring(%varclient_1171), rand_party_invite:mem4_total);
+if_settext(rand_party_invite:mem4_total, tostring(%rand_invite_mem4_total));

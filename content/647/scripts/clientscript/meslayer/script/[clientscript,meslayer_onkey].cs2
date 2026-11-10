@@ -2,94 +2,94 @@
 [clientscript,meslayer_onkey](int $key0, char $char1)
 switch_int ($key0) {
     case ^key_return :
-        if (%varclient_5 = 12) {
-            ~script1806(%varclient_1541);
+        if (%meslayermode = 12) {
+            ~script1806(%meslayerinput);
             return;
         }
-        if (string_length(%varclient_1541) > 0) {
-            if (%varclient_5 = 13) {
-                resume_stringdialog(%varclient_1541);
-            } else if (%varclient_5 = 4 | %varclient_5 = 5) {
+        if (string_length(%meslayerinput) > 0) {
+            if (%meslayermode = 13) {
+                resume_stringdialog(%meslayerinput);
+            } else if (%meslayermode = 4 | %meslayermode = 5) {
                 if (ignore_count < 0) {
                     mes("Unable to update Ignore List: system busy");
-                } else if (%varclient_5 = 4) {
-                    ignore_add(%varclient_1541);
-                } else if (%varclient_5 = 5) {
-                    if (ignore_test(~displayname_simplify(%varclient_1541)) = true) {
-                        ignore_del(~displayname_simplify(%varclient_1541));
+                } else if (%meslayermode = 4) {
+                    ignore_add(%meslayerinput);
+                } else if (%meslayermode = 5) {
+                    if (ignore_test(~displayname_simplify(%meslayerinput)) = true) {
+                        ignore_del(~displayname_simplify(%meslayerinput));
                     } else {
                         mes("That player is not on your ignore list.");
                     }
                 }
-            } else if (%varclient_5 < 7) {
+            } else if (%meslayermode < 7) {
                 if (friend_count < 0) {
                     mes("Unable to complete action - system busy");
-                } else if (%varclient_5 = 2) {
-                    friend_add(%varclient_1541);
-                } else if (%varclient_5 = 3) {
-                    if (friend_test(~displayname_simplify(%varclient_1541)) = true) {
-                        friend_del(~displayname_simplify(%varclient_1541));
+                } else if (%meslayermode = 2) {
+                    friend_add(%meslayerinput);
+                } else if (%meslayermode = 3) {
+                    if (friend_test(~displayname_simplify(%meslayerinput)) = true) {
+                        friend_del(~displayname_simplify(%meslayerinput));
                     } else {
                         mes("That player is not on your friends list.");
                     }
-                } else if (%varclient_5 = 6) {
+                } else if (%meslayermode = 6) {
                     if (chat_getfilter_private = ^chatfilter_off) {
                         chat_setfilter(chat_getfilter_public, ^chatfilter_friends, chat_getfilter_trade);
                         ~redraw_chat_buttons;
                         ~rebuildchatbox;
                         ~rebuildpmbox;
                     }
-                    chat_sendprivate(%varclient_1542, %varclient_1541);
+                    chat_sendprivate(%friendtomessage, %meslayerinput);
                 }
-            } else if (%varclient_5 = 11) {
+            } else if (%meslayermode = 11) {
                 ~bank_v2_confirmsearch;
-            } else if (%varclient_5 = 7) {
-                %varclient_1541 = ~find_and_replace(%varclient_1541, "K", "000");
-                %varclient_1541 = ~find_and_replace(%varclient_1541, "k", "000");
-                %varclient_1541 = ~find_and_replace(%varclient_1541, "M", "000000");
-                %varclient_1541 = ~find_and_replace(%varclient_1541, "m", "000000");
+            } else if (%meslayermode = 7) {
+                %meslayerinput = ~find_and_replace(%meslayerinput, "K", "000");
+                %meslayerinput = ~find_and_replace(%meslayerinput, "k", "000");
+                %meslayerinput = ~find_and_replace(%meslayerinput, "M", "000000");
+                %meslayerinput = ~find_and_replace(%meslayerinput, "m", "000000");
                 if (map_lang = 1) {
-                    %varclient_1541 = ~find_and_replace(%varclient_1541, "T", "000");
-                    %varclient_1541 = ~find_and_replace(%varclient_1541, "t", "000");
+                    %meslayerinput = ~find_and_replace(%meslayerinput, "T", "000");
+                    %meslayerinput = ~find_and_replace(%meslayerinput, "t", "000");
                 }
-                resume_countdialog(%varclient_1541);
-            } else if (%varclient_5 = 8) {
-                %varclient_1720 = escape(%varclient_1541);
-                %varclient_1026 = true;
-                resume_namedialog(%varclient_1541);
-            } else if (%varclient_5 = 9) {
-                if (compare(lowercase(%varclient_1541), lowercase(%varclient_1552)) ! 0) {
-                    resume_stringdialog(%varclient_1541);
+                resume_countdialog(%meslayerinput);
+            } else if (%meslayermode = 8) {
+                %last_namedialog = escape(%meslayerinput);
+                %last_namedialog_init = true;
+                resume_namedialog(%meslayerinput);
+            } else if (%meslayermode = 9) {
+                if (compare(lowercase(%meslayerinput), lowercase(%loginscreen_password)) ! 0) {
+                    resume_stringdialog(%meslayerinput);
                 } else {
                     mes("Please do not enter your password here!");
                 }
-            } else if (%varclient_5 = 10) {
-                %varclient_1721 = escape(%varclient_1541);
-                %varclient_1027 = true;
-                clan_joinchat(%varclient_1541);
-            } else if (%varclient_5 = 15) {
-                ~friendschat_kick(%varclient_1541);
-            } else if (%varclient_5 = 16) {
-                ~clan_chat_kick_find(%varclient_1541);
+            } else if (%meslayermode = 10) {
+                %last_clanchannelowner = escape(%meslayerinput);
+                %last_clanchannelowner_init = true;
+                clan_joinchat(%meslayerinput);
+            } else if (%meslayermode = 15) {
+                ~friendschat_kick(%meslayerinput);
+            } else if (%meslayermode = 16) {
+                ~clan_chat_kick_find(%meslayerinput);
             }
-        } else if (%varclient_5 = 14) {
+        } else if (%meslayermode = 14) {
             ~music_search_close;
             return;
-        } else if (%varclient_5 = 7) {
+        } else if (%meslayermode = 7) {
         }
-        if_sethide(true, chattop:mes_layer);
-        if_sethide(true, chattop:mes_layer_large);
-        if_sethide(false, chattop:mes_layer_hide);
-        %varclient_5 = 0;
+        if_sethide(chattop:mes_layer, true);
+        if_sethide(chattop:mes_layer_large, true);
+        if_sethide(chattop:mes_layer_hide, false);
+        %meslayermode = 0;
         if (getwindowmode >= 2) {
             ~subchanged;
         }
         return;
     case ^key_escape :
-        if (%varclient_5 = 12) {
-            ~script1806(%varclient_1557);
+        if (%meslayermode = 12) {
+            ~script1806(%clanwars_caller);
             ~meslayer_close(0);
-        } else if (%varclient_5 = 14) {
+        } else if (%meslayermode = 14) {
             ~music_search_close;
         }
         return;
@@ -97,27 +97,27 @@ switch_int ($key0) {
         if (keyheld_shift = false) {
             return;
         }
-        %varclient_1029 = ~script1553($key0, %varclient_1029, %varclient_1541);
+        %meslayer_caret = ~script1553($key0, %meslayer_caret, %meslayerinput);
     case default :
-        switch_int (%varclient_5) {
+        switch_int (%meslayermode) {
             case 6, 9, 11 :
-                %varclient_1541, %varclient_1029 = ~script802(%varclient_1029, %varclient_1541, 0, $key0, $char1);
+                %meslayerinput, %meslayer_caret = ~script802(%meslayer_caret, %meslayerinput, 0, $key0, $char1);
             case 7 :
-                %varclient_1541, %varclient_1029 = ~script802(%varclient_1029, %varclient_1541, 6, $key0, $char1);
+                %meslayerinput, %meslayer_caret = ~script802(%meslayer_caret, %meslayerinput, 6, $key0, $char1);
             case 13 :
-                %varclient_1541, %varclient_1029 = ~script802(%varclient_1029, %varclient_1541, 5, $key0, $char1);
+                %meslayerinput, %meslayer_caret = ~script802(%meslayer_caret, %meslayerinput, 5, $key0, $char1);
             case 14 :
-                %varclient_1541, %varclient_1029 = ~script802(%varclient_1029, %varclient_1541, 4, $key0, $char1);
+                %meslayerinput, %meslayer_caret = ~script802(%meslayer_caret, %meslayerinput, 4, $key0, $char1);
             case default :
-                %varclient_1541, %varclient_1029 = ~script802(%varclient_1029, %varclient_1541, 2, $key0, $char1);
+                %meslayerinput, %meslayer_caret = ~script802(%meslayer_caret, %meslayerinput, 2, $key0, $char1);
         }
 }
-if_settext(escape(%varclient_1541), chattop:mes_text2);
+if_settext(chattop:mes_text2, escape(%meslayerinput));
 ~script1557;
-if (%varclient_5 = 11) {
+if (%meslayermode = 11) {
     ~bank_v2_search_update;
-} else if (%varclient_5 = 14) {
-    %varclient_1715 = lowercase(%varclient_1541);
-    %varclient_89 = true;
+} else if (%meslayermode = 14) {
+    %music_searchstring = lowercase(%meslayerinput);
+    %playerdesign2_client_torso = true;
     ~music_v3_refresh;
 }

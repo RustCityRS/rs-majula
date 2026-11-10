@@ -3,4 +3,4 @@
 if ($int0 ! 1) {
     return;
 }
-if_setgraphic("loot_icon,2", $component1);
+if_setgraphic($component1, "loot_icon,2");

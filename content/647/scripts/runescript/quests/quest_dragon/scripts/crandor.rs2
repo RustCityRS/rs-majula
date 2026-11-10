@@ -6,16 +6,16 @@
 // behind a low wall of spikes instead (wall_25161, l44_150's 30,35-36).
 // Not known for 2011: an animation or line for the hole and the rope (289's opening had neither).
 
-[oploc1,hole_25154] p_teleport(0_44_150_17_58);
+[oploc1,dragon_slayer_qip_ruin_entrance] p_teleport(0_44_150_17_58);
 
-[oploc1,climbing_rope_25213] p_teleport(0_44_50_18_58);
+[oploc1,dragon_slayer_qip_climbing_rope] p_teleport(0_44_50_18_58);
 
 // The 2011 wiki (Dragon Slayer, May 2011): "Elvarg behind a short wall of spikes protruding from
 // the ground on the east. Climb over it". The 2011-05-04 recording (YouTube mYqjoMQCOHI, 290-295.4s)
 // shows the wall's "Climb-over" and then "You climb over the low wall.". Its animation is not
 // clear in the recording: 289's low-wall climb (the Barbarian Outpost's, human_walk_crumbledwall)
 // stands in.
-[oploc1,wall_25161]
+[oploc1,dragon_slayer_qip_stalagtite_jump]
 def_int $dx = 1;
 def_int $direction = ^exact_east;
 if (coordx(coord) > coordx(loc_coord)) {

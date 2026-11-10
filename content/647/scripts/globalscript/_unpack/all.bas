@@ -11,33 +11,33 @@ readyanim=human_climbing_ready,human_climbing
 [bas_1]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 2
 [bas_2]
-readyanim=seq_101,dwarf_walk
+readyanim=dwarf_ready,dwarf_walk
 
 // 3
 [bas_3]
-walkanim_b=seq_1380
-walkanim_l=seq_1380
-walkanim_r=seq_1380
-runanim=seq_1381
-runanim_b=seq_1381
-runanim_l=seq_1381
-runanim_r=seq_1381
-readyanim=seq_1386,seq_1380
+walkanim_b=m_monkey_walk
+walkanim_l=m_monkey_walk
+walkanim_r=m_monkey_walk
+runanim=m_monkey_run
+runanim_b=m_monkey_run
+runanim_l=m_monkey_run
+runanim_r=m_monkey_run
+readyanim=m_monkey_ready,m_monkey_walk
 
 // 4
 [bas_4]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_808,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_ready,human_walk_f
 
 // 5
 [bas_5]
@@ -48,7 +48,7 @@ readyanim=seq_7575,seq_8337
 runanim=seq_12823
 hillrotate=16,16
 hillrotatelimit=16,3
-readyanim=seq_5225,seq_5226
+readyanim=hunter_big_cat_ready,hunter_big_cat_walk
 
 // 7
 [bas_7]
@@ -88,7 +88,7 @@ readyanim=seq_8572,seq_8575
 [bas_13]
 runanim=seq_1478
 hillrotate=64,32
-readyanim=seq_4919,seq_4923
+readyanim=bear_rework_ready,bear_rework_walk
 
 // 14
 [bas_14]
@@ -97,7 +97,7 @@ readyanim=seq_8008,seq_8007
 
 // 15
 [bas_15]
-readyanim=seq_1008,seq_1007
+readyanim=pog_terror_bird_ready,pog_terror_bird_walk
 
 // 16
 [bas_16]
@@ -108,7 +108,7 @@ readyanim=seq_11092,seq_11094
 [bas_17]
 runanim=seq_905
 hillrotate=32,32
-readyanim=seq_5326,seq_5325
+readyanim=spider_update_ready,spider_update_walk
 
 // 18
 [bas_18]
@@ -140,7 +140,7 @@ readyanim=seq_8363,seq_8365
 
 // 24
 [bas_24]
-readyanim=seq_7728,seq_10954
+readyanim=seq_7728,wgs_broav_walk
 
 // 25
 [bas_25]
@@ -183,10 +183,10 @@ readyanim=seq_10898,seq_10899
 
 // 31
 [bas_31]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_2561,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_dh_weapon_ready,human_walk_f
 
 // 32
 [bas_32]
@@ -209,22 +209,22 @@ readyanim=seq_7188,seq_7191
 
 // 36
 [bas_36]
-readyanim=seq_3169,seq_3169
+readyanim=cloud_rain,cloud_rain
 
 // 37
 [bas_37]
-readyanim=seq_1796,seq_1797
+readyanim=giant_frog_ready,giant_frog_walk
 
 // 38
 [bas_38]
-walkanim_b=seq_5790
-walkanim_l=seq_5788
-walkanim_r=seq_5789
-readyanim=seq_5572,seq_5570
+walkanim_b=zombie_update_walkbackwards_weapon
+walkanim_l=zombie_update_walk_left_normal
+walkanim_r=zombie_update_walk_right_normal
+readyanim=zombie_update_ready_weapon,zombie_update_walk_weapon
 
 // 39
 [bas_39]
-readyanim=seq_2561,seq_2562
+readyanim=human_dh_weapon_ready,human_dh_weapon_walk
 
 // 40
 [bas_40]
@@ -243,7 +243,7 @@ readyanim=troll_ready,troll_walk
 
 // 43
 [bas_43]
-readyanim=seq_456,null
+readyanim=whirlpool,null
 
 // 44
 [bas_44]
@@ -262,7 +262,7 @@ readyanim=golem_ready,golem_walk
 
 // 47
 [bas_47]
-readyanim=seq_808,null
+readyanim=human_ready,null
 
 // 48
 [bas_48]
@@ -274,45 +274,45 @@ readyanim=swarm_walk,swarm_walk
 
 // 50
 [bas_50]
-readyanim=seq_2298,seq_2297
+readyanim=roosterready,roosterwalk
 
 // 51
 [bas_51]
-walkanim_b=seq_4227
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_4591,seq_4226
+walkanim_b=xbows_human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=xbows_human_ready,xbows_human_walk_f
 
 // 52
 [bas_52]
-readyanim=seq_2770,seq_2769
+readyanim=drunk_player_ready,drunk_player_walk
 
 // 53
 [bas_53]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 readyanim=human_staffready,walk_walkingstick
 
 // 54
 [bas_54]
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 55
 [bas_55]
-readyanim=seq_4662,seq_4660
+readyanim=giant_update_fire_ready,giant_update_fire_walk
 
 // 56
 [bas_56]
-readyanim=seq_4663,seq_4661
+readyanim=giant_update_fire_sword_ready,giant_update_fire_sword_walk
 
 // 57
 [bas_57]
-readyanim=seq_4656,seq_4654
+readyanim=giant_update_moss_ready,giant_update_moss_walk
 
 // 58
 [bas_58]
-readyanim=seq_4656,seq_4655
+readyanim=giant_update_moss_ready,giant_update_moss_lg_club_walk
 
 // 59
 [bas_59]
@@ -324,23 +324,23 @@ readyanim=ogre_ready,ogre_walk
 
 // 61
 [bas_61]
-readyanim=seq_4650,seq_4649
+readyanim=giant_update_basic_ready,giant_update_basic_walk
 
 // 62
 [bas_62]
-readyanim=seq_5386,seq_5385
+readyanim=lore_chicken_ready,lore_chicken_walk
 
 // 63
 [bas_63]
-readyanim=seq_5339,seq_5340
+readyanim=goat_update_ready,goat_update_walk
 
 // 64
 [bas_64]
-readyanim=seq_5335,seq_5334
+readyanim=sheep_update_ready,sheep_update_walk
 
 // 65
 [bas_65]
-readyanim=seq_5345,seq_5344
+readyanim=sheep_update_shaggy_ready,sheep_update_shaggy_walk
 
 // 66
 [bas_66]
@@ -349,57 +349,57 @@ readyanim=seq_147,seq_149
 
 // 67
 [bas_67]
-walkanim_b=seq_5790
-walkanim_l=seq_5788
-walkanim_r=seq_5789
-readyanim=seq_5565,seq_5566
+walkanim_b=zombie_update_walkbackwards_weapon
+walkanim_l=zombie_update_walk_left_normal
+walkanim_r=zombie_update_walk_right_normal
+readyanim=zombie_update_ready_normal,zombie_update_walk_normal
 
 // 68
 [bas_68]
-walkanim_b=seq_5793
-walkanim_l=seq_5792
-walkanim_r=seq_5791
-readyanim=seq_5576,seq_5577
+walkanim_b=zombie_update_walkbackwards_dragging
+walkanim_l=zombie_update_walk_left_dragging
+walkanim_r=zombie_update_walk_right_dragging
+readyanim=zombie_update_ready_dragging,zombie_update_walk_dragging
 
 // 69
 [bas_69]
-walkanim_b=seq_5790
-walkanim_l=seq_5788
-walkanim_r=seq_5789
-readyanim=seq_5565,seq_5570
+walkanim_b=zombie_update_walkbackwards_weapon
+walkanim_l=zombie_update_walk_left_normal
+walkanim_r=zombie_update_walk_right_normal
+readyanim=zombie_update_ready_normal,zombie_update_walk_weapon
 
 // 70
 [bas_70]
-readyanim=seq_5483,seq_5481
+readyanim=skeleton_update_ready,skeleton_update_walk_shield
 
 // 71
 [bas_71]
-readyanim=seq_5483,seq_5479
+readyanim=skeleton_update_ready,skeleton_update_walk
 
 // 72
 [bas_72]
-readyanim=seq_5493,seq_5497
+readyanim=skeleton_update_giant_ready,skeleton_update_giant_walk
 
 // 73
 [bas_73]
-readyanim=seq_5538,seq_5539
+readyanim=ghost_update_tendrill_ready,ghost_update_tendrill_walk
 
 // 74
 [bas_74]
-readyanim=seq_5530,seq_5531
+readyanim=ghost_update_normal_ready,ghost_update_normal_walk
 
 // 75
 [bas_75]
-readyanim=seq_66,demon_walk
+readyanim=demon_ready,demon_walk
 
 // 76
 [bas_76]
-readyanim=seq_4914,seq_4913
+readyanim=bat_rework_ready,bat_rework_flying
 
 // 77
 [bas_77]
 hillrotate=128,64
-readyanim=seq_90,seq_79
+readyanim=dragon_ready,dragon_walk
 
 // 78
 [bas_78]
@@ -424,10 +424,10 @@ readyanim=human_sitting_chair,human_walk_tankard_f
 
 // 81
 [bas_81]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_2702,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=prisoner_ready_crying,human_walk_f
 
 // 82
 [bas_82]
@@ -435,23 +435,23 @@ readyanim=horror_crab_ready,horror_crab_walk
 
 // 83
 [bas_83]
-readyanim=seq_6771,seq_6773
+readyanim=bird_flying_update_ready_and_extra,bird_flying_update_ready
 
 // 84
 [bas_84]
-readyanim=seq_5572,seq_5570
+readyanim=zombie_update_ready_weapon,zombie_update_walk_weapon
 
 // 85
 [bas_85]
-readyanim=seq_6772,seq_6774
+readyanim=bird_flying_update_ready_and_extra_toucan_and_cormarant,bird_flying_update_ready_toucan_and_cormarant
 
 // 86
 [bas_86]
-readyanim=seq_6181,seq_6180
+readyanim=slice_surface_goblin_squat_ready,slice_surface_goblin_squat_walk
 
 // 87
 [bas_87]
-readyanim=seq_6186,seq_6187
+readyanim=slice_surface_goblin_squat_ready_spear,slice_surface_goblin_squat_walk_spear
 
 // 88
 [bas_88]
@@ -463,78 +463,78 @@ readyanim=butterfly_hover,butterfly_hover
 
 // 90
 [bas_90]
-readyanim=seq_5668,seq_5666
+readyanim=peng_gentoo_ready,peng_gentoo_walk
 
 // 91
 [bas_91]
-readyanim=seq_6793,seq_6796
+readyanim=mounted_terrorbird_ready,mounted_terrorbird_walk
 
 // 92
 [bas_92]
-readyanim=seq_808,seq_808
+readyanim=human_ready,human_ready
 
 // 93
 [bas_93]
-readyanim=seq_12454,seq_5799
+readyanim=seq_12454,fai_varrock_brooming
 
 // 94
 [bas_94]
-readyanim=seq_4777,seq_4773
+readyanim=straydog_ready,straydog_walk
 
 // 95
 [bas_95]
-readyanim=seq_6487,seq_6486
+readyanim=fai_varrock_guard_ready,fai_varrock_guard_walk
 
 // 96
 [bas_96]
 hillrotate=16,4
-readyanim=seq_6561,seq_6583
+readyanim=dog_update_small_dog_ready,dog_update_hellhound_walk
 
 // 97
 [bas_97]
 readyanim_l=seq_3967
 readyanim_r=seq_3967
-walkanim_l=seq_6556
-walkanim_r=seq_6556
-walkturn_l=seq_6556
-walkturn_r=seq_6556
+walkanim_l=dog_update_wolf_walk
+walkanim_r=dog_update_wolf_walk
+walkturn_l=dog_update_wolf_walk
+walkturn_r=dog_update_wolf_walk
 hillrotate=0,16
 hillrotatelimit=64,64
-readyanim=seq_6580,seq_6556
+readyanim=dog_update_wolf_ready,dog_update_wolf_walk
 
 // 98
 [bas_98]
 hillrotate=16,4
-readyanim=seq_6561,seq_6560
+readyanim=dog_update_small_dog_ready,dog_update_walk
 
 // 99
 [bas_99]
-readyanim=seq_6247,seq_6248
+readyanim=small_spider_update_ready,small_spider_update_walk
 
 // 100
 [bas_100]
 hillrotate=48,48
-readyanim=seq_6252,seq_6253
+readyanim=scorpion_update_ready,scorpion_update_walk
 
 // 101
 [bas_101]
 hillrotate=8,8
-readyanim=seq_2704,seq_2703
+readyanim=mouse_ready,mouse_walk
 
 // 102
 [bas_102]
-readyanim=seq_2065,seq_2064
+readyanim=barrow_dharok_ready,barrow_dharok_walk
 
 // 103
 [bas_103]
-walkanim_b=seq_2562
-walkanim_l=seq_2562
-walkanim_r=seq_2562
-readyanim=seq_2561,seq_2562
+walkanim_b=human_dh_weapon_walk
+walkanim_l=human_dh_weapon_walk
+walkanim_r=human_dh_weapon_walk
+readyanim=human_dh_weapon_ready,human_dh_weapon_walk
 
 // 104
 [bas_104]
-readyanim=seq_4318,seq_4319
+readyanim=ork_update_weapon_ready,ork_update_weapon_walk
 
 // 105
 [bas_105]
@@ -561,7 +561,7 @@ readyanim=seq_9669,seq_9670
 [bas_110]
 hillrotate=0,16
 hillrotatelimit=64,64
-readyanim=seq_6374,seq_6373
+readyanim=unicorn_rework_ready,unicorn_rework_walk
 
 // 111
 [bas_111]
@@ -589,10 +589,10 @@ readyanim=yeti_ready,yeti_walk
 walkanim_b=monkey_walk
 walkanim_l=monkey_walk
 walkanim_r=monkey_walk
-runanim=seq_1419
-runanim_b=seq_1419
-runanim_l=seq_1419
-runanim_r=seq_1419
+runanim=m_normalmonkey_run
+runanim_b=m_normalmonkey_run
+runanim_l=m_normalmonkey_run
+runanim_r=m_normalmonkey_run
 readyanim=monkey_ready,monkey_walk
 
 // 117
@@ -601,21 +601,21 @@ readyanim=seq_9870,seq_9869
 
 // 118
 [bas_118]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_808,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_ready,human_walk_f
 
 // 119
 [bas_119]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=human_staffready,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_staffready,human_walk_f
 
 // 120
 [bas_120]
-readyanim=seq_2163,seq_2164
+readyanim=spade_ready,spade_walk
 
 // 121
 [bas_121]
@@ -623,10 +623,10 @@ readyanim=seq_4857,seq_4858
 
 // 122
 [bas_122]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=ghoul_ready,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=ghoul_ready,human_walk_f
 
 // 123
 [bas_123]
@@ -648,7 +648,7 @@ readyanim=seq_1261,seq_1261
 
 // 126
 [bas_126]
-readyanim=seq_2906,seq_2907
+readyanim=elid_waterspirit_ready,elid_waterspirit_walk
 
 // 127
 [bas_127]
@@ -660,22 +660,22 @@ readyanim=seq_9654,null
 
 // 129
 [bas_129]
-readyanim=seq_6089,seq_6088
+readyanim=rabbit_update_ready,rabbit_update_walk
 
 // 130
 [bas_130]
 runanim=seq_4626
-readyanim=seq_171,seq_168
+readyanim=imp_ready,imp_walk
 
 // 131
 [bas_131]
-readyanim_l=seq_1426
-readyanim_r=seq_1426
-walkanim_b=seq_1423
-walkanim_l=seq_1424
-walkanim_r=seq_1425
+readyanim_l=human_bannerturnonspot
+readyanim_r=human_bannerturnonspot
+walkanim_b=human_bannerwalk_b
+walkanim_l=human_bannerwalk_l
+walkanim_r=human_bannerwalk_r
 runanim=seq_1427
-readyanim=seq_1421,seq_1422
+readyanim=human_bannerready,human_bannerwalk_f
 
 // 132
 [bas_132]
@@ -684,81 +684,81 @@ readyanim=rat_ready,rat_walk
 
 // 133
 [bas_133]
-readyanim=seq_4932,seq_4931
+readyanim=giant_rat_update_ready,giant_rat_update_walk
 
 // 134
 [bas_134]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_2064
-walkanim_l=seq_2064
-walkanim_r=seq_2064
+walkanim_b=barrow_dharok_walk
+walkanim_l=barrow_dharok_walk
+walkanim_r=barrow_dharok_walk
 runanim=seq_9721
-readyanim=seq_2065,seq_2064
+readyanim=barrow_dharok_ready,barrow_dharok_walk
 
 // 135
 [bas_135]
-readyanim=seq_1947,seq_1945
+readyanim=scarab_ready,scarab_swarming
 
 // 136
 [bas_136]
-readyanim=seq_2051,seq_2051
+readyanim=light_creature_ready,light_creature_ready
 
 // 137
 [bas_137]
-readyanim=seq_3926,null
+readyanim=pest_void_knight_casting,null
 
 // 138
 [bas_138]
-readyanim=seq_3886,seq_3887
+readyanim=splatter_ready,splatter_walk
 
 // 139
 [bas_139]
-readyanim=seq_3899,seq_3898
+readyanim=shifter_ready,shifter_walk
 
 // 140
 [bas_140]
-readyanim=seq_3913,seq_3914
+readyanim=ravager_ready,ravager_walk
 
 // 141
 [bas_141]
-readyanim=seq_3906,seq_3907
+readyanim=spinner_ready,spinner_walk
 
 // 142
 [bas_142]
-readyanim=seq_3878,seq_3879
+readyanim=torcher_ready,torcher_walk
 
 // 143
 [bas_143]
-readyanim=seq_3918,seq_3919
+readyanim=defiler_ready,defiler_walk
 
 // 144
 [bas_144]
-readyanim=seq_3893,seq_3892
+readyanim=brawler_ready,brawler_walk
 
 // 145
 [bas_145]
-readyanim=seq_3933,seq_3933
+readyanim=pest_portal_on_anim_east,pest_portal_on_anim_east
 
 // 146
 [bas_146]
-readyanim=seq_3936,seq_3936
+readyanim=pest_portal_on_anim_west,pest_portal_on_anim_west
 
 // 147
 [bas_147]
-readyanim=seq_3928,seq_3928
+readyanim=pest_portal_on_anim,pest_portal_on_anim
 
 // 148
 [bas_148]
-readyanim=seq_6879,seq_6879
+readyanim=pest_portal_shield_ready_east,pest_portal_shield_ready_east
 
 // 149
 [bas_149]
-readyanim=seq_6880,seq_6880
+readyanim=pest_portal_shield_ready_west,pest_portal_shield_ready_west
 
 // 150
 [bas_150]
-readyanim=seq_6878,seq_6878
+readyanim=pest_portal_shield_ready,pest_portal_shield_ready
 
 // 151
 [bas_151]
@@ -775,11 +775,11 @@ readyanim=human_swim_ready,human_swim
 
 // 153
 [bas_153]
-readyanim=seq_3396,seq_3396
+readyanim=100_sit_ready_chair,100_sit_ready_chair
 
 // 154
 [bas_154]
-readyanim=seq_4753,seq_4754
+readyanim=myq3_leaves_ready,myq3_leaves_walk
 
 // 155
 [bas_155]
@@ -810,11 +810,11 @@ readyanim=human_ready_sidestepl,human_walk_sidestepl
 
 // 158
 [bas_158]
-readyanim_l=seq_6611
-readyanim_r=seq_6611
+readyanim_l=ii_human_net_turnonspot
+readyanim_r=ii_human_net_turnonspot
 walkanim_b=seq_10577
-walkanim_l=seq_6610
-walkanim_r=seq_6609
+walkanim_l=ii_human_net_walkleft
+walkanim_r=ii_human_net_walkright
 runanim=seq_748
 readyanim=seq_746,human_doublepipesqueeze
 
@@ -822,22 +822,22 @@ readyanim=seq_746,human_doublepipesqueeze
 [bas_159]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_15070
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 160
 [bas_160]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_808,seq_824
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_ready,seq_824
 
 // 161
 [bas_161]
-readyanim=seq_4689,seq_4683
+readyanim=myq3_vampire_flying_ready,myq3_vampire_flying
 
 // 162
 [bas_162]
@@ -867,7 +867,7 @@ readyanim=seq_7158,seq_7160
 
 // 166
 [bas_166]
-readyanim=seq_808,walk_walkingstick
+readyanim=human_ready,walk_walkingstick
 
 // 167
 [bas_167]
@@ -883,15 +883,15 @@ readyanim=shade_ready,shade_walk
 
 // 170
 [bas_170]
-readyanim=seq_3551,null
+readyanim=burgh_human_holding_capture_loop,null
 
 // 171
 [bas_171]
-readyanim=seq_3617,seq_3617
+readyanim=tentacle_monster_ready,tentacle_monster_ready
 
 // 172
 [bas_172]
-readyanim=seq_6613,seq_6614
+readyanim=ii_impling_ready,ii_impling_walk
 
 // 173
 [bas_173]
@@ -905,25 +905,25 @@ readyanim=seq_8721,seq_8722
 [bas_175]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_4227
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=xbows_human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_4228
-readyanim=seq_4591,seq_4226
+readyanim=xbows_human_ready,xbows_human_walk_f
 
 // 176
 [bas_176]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_9754
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 177
 [bas_177]
-readyanim=seq_1386,seq_1380
+readyanim=m_monkey_ready,m_monkey_walk
 
 // 178
 [bas_178]
@@ -931,7 +931,7 @@ readyanim=seq_9645,seq_9645
 
 // 179
 [bas_179]
-readyanim=seq_7188,seq_6531
+readyanim=seq_7188,grim_woman_long_skirt_walk
 
 // 180
 [bas_180]
@@ -939,15 +939,15 @@ readyanim=seq_3852,seq_3851
 
 // 181
 [bas_181]
-readyanim=seq_5273,seq_5272
+readyanim=huntingbeast_ready,huntingbeast_walk
 
 // 182
 [bas_182]
 readyanim_l=seq_823
 readyanim_r=seq_823
 walkanim_b=seq_1830
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
 readyanim=seq_1832,seq_1830
 
@@ -957,7 +957,7 @@ readyanim=rabbit_ready,rabbit_walk
 
 // 184
 [bas_184]
-readyanim=seq_6518,seq_6517
+readyanim=grim_giant_mouse_ready,grim_giant_mouse_walk
 
 // 185
 [bas_185]
@@ -966,11 +966,11 @@ readyanim=seq_8798,seq_8794
 
 // 186
 [bas_186]
-readyanim=seq_5326,seq_5325
+readyanim=spider_update_ready,spider_update_walk
 
 // 187
 [bas_187]
-readyanim=seq_6580,seq_6577
+readyanim=dog_update_wolf_ready,dog_update_skeleton_hellhound_walk
 
 // 188
 [bas_188]
@@ -992,7 +992,7 @@ readyanim=human_falling_4,human_falling_4
 
 // 190
 [bas_190]
-readyanim=seq_6539,seq_6541
+readyanim=werewolf_update_ready,werewolf_update_walk
 
 // 191
 [bas_191]
@@ -1006,20 +1006,20 @@ readyanim=seq_330,seq_330
 
 // 192
 [bas_192]
-readyanim=seq_1144,null
+readyanim=sitting_ready,null
 
 // 193
 [bas_193]
-readyanim=seq_1673,null
+readyanim=sitting_ready_backwards,null
 
 // 194
 [bas_194]
 hillrotate=64,48
-readyanim=seq_27,seq_21
+readyanim=bdrag_ready,bdrag_walk
 
 // 195
 [bas_195]
-readyanim=seq_6218,seq_6220
+readyanim=kalphite_update_ready,kalphite_update_walk
 
 // 196
 [bas_196]
@@ -1035,23 +1035,23 @@ readyanim=seq_12292,seq_9680
 
 // 199
 [bas_199]
-readyanim=seq_6139,seq_6138
+readyanim=surface_goblin_update_banner_ready,surface_goblin_update_banner_walk
 
 // 200
 [bas_200]
-readyanim=seq_2931,seq_2932
+readyanim=champions_jogre_ready,champions_jogre_walk
 
 // 201
 [bas_201]
-readyanim=seq_66,demon_walk
+readyanim=demon_ready,demon_walk
 
 // 202
 [bas_202]
-readyanim=seq_3424,seq_3426
+readyanim=crab_ready,crab_walk
 
 // 203
 [bas_203]
-readyanim=seq_2395,seq_2396
+readyanim=tbw_mosquito_ready,tbw_mosquito_walk
 
 // 204
 [bas_204]
@@ -1085,13 +1085,13 @@ readyanim=seq_9735,seq_9736
 
 // 211
 [bas_211]
-readyanim_l=seq_2148
-readyanim_r=seq_2148
-walkanim_b=seq_2148
-walkanim_l=seq_2148
-walkanim_r=seq_2148
-runanim=seq_2148
-readyanim=seq_2148,seq_2148
+readyanim_l=human_minecart_anim
+readyanim_r=human_minecart_anim
+walkanim_b=human_minecart_anim
+walkanim_l=human_minecart_anim
+walkanim_r=human_minecart_anim
+runanim=human_minecart_anim
+readyanim=human_minecart_anim,human_minecart_anim
 
 // 212
 [bas_212]
@@ -1099,15 +1099,15 @@ readyanim=seq_15235,seq_15234
 
 // 213
 [bas_213]
-readyanim=seq_101,dwarf_drunkwalk
+readyanim=dwarf_ready,dwarf_drunkwalk
 
 // 214
 [bas_214]
-readyanim=seq_6040,seq_6041
+readyanim=dorgesh_goblin_ready,dorgesh_goblin_walk
 
 // 215
 [bas_215]
-readyanim=seq_6075,seq_6076
+readyanim=dorgesh_magic_scan_ready,dorgesh_magic_scan_walk
 
 // 216
 [bas_216]
@@ -1122,10 +1122,10 @@ readyanim=seq_7167,seq_7160
 
 // 218
 [bas_218]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_3557,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=rat_eat_ready,human_walk_f
 
 // 219
 [bas_219]
@@ -1143,15 +1143,15 @@ readyanim=seq_7047,seq_7039
 
 // 221
 [bas_221]
-readyanim=seq_808,seq_1661
+readyanim=human_ready,seq_1661
 
 // 222
 [bas_222]
-readyanim=seq_5225,seq_5226
+readyanim=hunter_big_cat_ready,hunter_big_cat_walk
 
 // 223
 [bas_223]
-readyanim=seq_1740,seq_1739
+readyanim=cape_seller_ready,cape_seller_walk
 
 // 224
 [bas_224]
@@ -1159,7 +1159,7 @@ readyanim=kalphite_ready,kalphite_walk
 
 // 225
 [bas_225]
-readyanim=seq_2364,seq_2363
+readyanim=wallasalki_ready,wallasalki_walk
 
 // 226
 [bas_226]
@@ -1178,25 +1178,25 @@ readyanim=seq_9281,seq_9296
 
 // 229
 [bas_229]
-readyanim=seq_6580,seq_6582
+readyanim=dog_update_wolf_ready,dog_update_hellhound_godwars_walk
 
 // 230
 [bas_230]
-readyanim=seq_4299,seq_4298
+readyanim=gorak_ready,gorak_walk
 
 // 231
 [bas_231]
-readyanim=seq_6153,seq_6152
+readyanim=slice_surface_goblin_sergent_ready,slice_surface_goblin_sergent_walk
 
 // 232
 [bas_232]
 hillrotate=49,8
 hillrotatelimit=127,1
-readyanim=seq_6374,seq_6373
+readyanim=unicorn_rework_ready,unicorn_rework_walk
 
 // 233
 [bas_233]
-readyanim=seq_4311,seq_4310
+readyanim=fairy2_centaur_ready,fairy2_centaur_walk
 
 // 234
 [bas_234]
@@ -1210,21 +1210,21 @@ readyanim=seq_3175,seq_3177
 
 // 235
 [bas_235]
-readyanim_l=seq_2258
-readyanim_r=seq_2258
-walkanim_b=seq_2258
-walkanim_l=seq_2258
-walkanim_r=seq_2258
-runanim=seq_2251
-readyanim=seq_2257,seq_2258
+readyanim_l=rd_carry_fox_walk
+readyanim_r=rd_carry_fox_walk
+walkanim_b=rd_carry_fox_walk
+walkanim_l=rd_carry_fox_walk
+walkanim_r=rd_carry_fox_walk
+runanim=rd_fox_run
+readyanim=rd_carry_fox_ready,rd_carry_fox_walk
 
 // 236
 [bas_236]
-readyanim=seq_2256,null
+readyanim=rd_knight_crossed_arms,null
 
 // 237
 [bas_237]
-readyanim=seq_6927,seq_6928
+readyanim=kr_keep_le_faye_guard_ready,kr_keep_le_faye_guard_walk
 
 // 238
 [bas_238]
@@ -1232,15 +1232,15 @@ readyanim=seq_1412,seq_189
 
 // 239
 [bas_239]
-readyanim=seq_4472,seq_4473
+readyanim=eyeglo_fluffie_ready,eyeglo_fluffie_walking
 
 // 240
 [bas_240]
-readyanim=seq_808,seq_6926
+readyanim=human_ready,kr_sinclair_family_pacing_male_tweaked
 
 // 241
 [bas_241]
-readyanim=seq_1913,seq_1912
+readyanim=clay_golem_ready,clay_golem_walk
 
 // 242
 [bas_242]
@@ -1252,7 +1252,7 @@ readyanim=seq_7610,seq_7611
 
 // 244
 [bas_244]
-readyanim=seq_5548,seq_5552
+readyanim=mummy_update_civillian_ready,mummy_update_walk
 
 // 245
 [bas_245]
@@ -1284,11 +1284,11 @@ readyanim=willowthewisp,willowthewisp
 
 // 251
 [bas_251]
-readyanim=seq_6809,seq_6808
+readyanim=firebird_update_ready,firebird_update_fly
 
 // 252
 [bas_252]
-readyanim=seq_2334,seq_2333
+readyanim=human_secret_ghost_transready,human_secret_ghost_transwalk_f
 
 // 253
 [bas_253]
@@ -1300,15 +1300,15 @@ readyanim=troll_ready_shield,troll_walk_shield
 
 // 255
 [bas_255]
-readyanim=seq_6469,seq_6468
+readyanim=fai_varrock_ikov_lucien_ready,fai_varrock_limp_walk
 
 // 256
 [bas_256]
-readyanim=seq_90,seq_79
+readyanim=dragon_ready,dragon_walk
 
 // 257
 [bas_257]
-readyanim=seq_2688,seq_2689
+readyanim=dragonkin_ready,dragonkin_walk
 
 // 258
 [bas_258]
@@ -1323,68 +1323,68 @@ readyanim=seq_9669,seq_9670
 
 // 260
 [bas_260]
-readyanim=seq_6239,seq_6238
+readyanim=kalphite_update_queen_ready,kalphite_update_queen_walk
 
 // 261
 [bas_261]
-readyanim=seq_6236,seq_6236
+readyanim=kalphite_update_flying_queen_ready_walk,kalphite_update_flying_queen_ready_walk
 
 // 262
 [bas_262]
-readyanim=seq_5646,seq_5645
+readyanim=brain_zombie_pirate_wanderers_ready,brain_zombie_pirate_wanderers_walk
 
 // 263
 [bas_263]
-readyanim=seq_5650,seq_5652
+readyanim=brain_zombie_pirate_drag_feet_ready,brain_zombie_pirate_drag_feet_walk
 
 // 264
 [bas_264]
-readyanim=seq_1773,seq_1773
+readyanim=giant_eagle_fly,giant_eagle_fly
 
 // 265
 [bas_265]
-readyanim=seq_2126,seq_2126
+readyanim=swamp_fishing_point,swamp_fishing_point
 
 // 266
 [bas_266]
-readyanim=seq_1749,seq_1748
+readyanim=rock_ready,rock_walk
 
 // 267
 [bas_267]
-readyanim_l=seq_3415
-readyanim_r=seq_3415
-walkanim_b=seq_3415
-walkanim_l=seq_3415
-walkanim_r=seq_3415
-readyanim=seq_3418,seq_3415
+readyanim_l=human_real_swimming
+readyanim_r=human_real_swimming
+walkanim_b=human_real_swimming
+walkanim_l=human_real_swimming
+walkanim_r=human_real_swimming
+readyanim=human_real_swimming_ready,human_real_swimming
 
 // 268
 [bas_268]
-readyanim=seq_3535,seq_3537
+readyanim=royal_sea_snake_ready,royal_sea_snake_walk_baby
 
 // 269
 [bas_269]
-readyanim=seq_6803,seq_6804
+readyanim=jubbly_update_ready_and_extra,jubbly_update_walk
 
 // 270
 [bas_270]
-readyanim=seq_5673,null
+readyanim=peng_cowbell_ready,null
 
 // 271
 [bas_271]
-readyanim=seq_6200,seq_6201
+readyanim=slice_surface_goblin_squat_shield_spear_ready,slice_surface_goblin_squat_walk_shield_armed
 
 // 272
 [bas_272]
-readyanim=seq_6258,seq_6257
+readyanim=small_scorpion_update_ready,small_scorpion_update_walk
 
 // 273
 [bas_273]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 readyanim=seq_777,seq_776
 
 // 274
@@ -1393,70 +1393,70 @@ readyanim=chompy_toad_ready,chompy_toad_walk
 
 // 275
 [bas_275]
-readyanim=seq_2028,seq_2027
+readyanim=sphinx_ready,sphinx_walk
 
 // 276
 [bas_276]
-readyanim=seq_4780,null
+readyanim=slug2_human_rocking,null
 
 // 277
 [bas_277]
-readyanim=seq_808,seq_4779
+readyanim=human_ready,slug2_walk_stage_one
 
 // 278
 [bas_278]
-readyanim=seq_6263,seq_6264
+readyanim=lobster_update_ready,lobster_update_walk
 
 // 279
 [bas_279]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=viking_lyre_playing_loop,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=viking_lyre_playing_loop,human_walk_f
 
 // 280
 [bas_280]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_6935,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_6935,human_walk_f
 
 // 281
 [bas_281]
-readyanim=seq_1401,seq_1399
+readyanim=m_gorilla_ready,m_gorilla_walk
 
 // 282
 [bas_282]
-readyanim=seq_1386,seq_1382
+readyanim=m_monkey_ready,m_zombie_walk
 
 // 283
 [bas_283]
-readyanim=seq_5318,seq_5317
+readyanim=spider_update_ready_large,spider_update_walk_large
 
 // 284
 [bas_284]
-readyanim_l=seq_2321
-readyanim_r=seq_2321
-walkanim_b=seq_2318
-walkanim_l=seq_2319
-walkanim_r=seq_2320
+readyanim_l=human_toadcannon_turnonspot
+readyanim_r=human_toadcannon_turnonspot
+walkanim_b=human_toadcannon_walk_b
+walkanim_l=human_toadcannon_walk_l
+walkanim_r=human_toadcannon_walk_r
 runanim=seq_2322
 readyanim=seq_2316,seq_2317
 
 // 285
 [bas_285]
-readyanim=seq_5188,seq_5187
+readyanim=ferret_ready,ferret_walk
 
 // 286
 [bas_286]
-readyanim=seq_5280,seq_5279
+readyanim=giant_eagle_ready,giant_eagle_walk
 
 // 287
 [bas_287]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_2578,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=garden_queen_ready,human_walk_f
 
 // 288
 [bas_288]
@@ -1468,10 +1468,10 @@ readyanim=null,boulder_rolling
 
 // 290
 [bas_290]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_3040,seq_3039
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=drunk_holditem_ready,drunk_holditem_walk
 
 // 291
 [bas_291]
@@ -1481,15 +1481,15 @@ readyanim=seq_10056,seq_10055
 [bas_292]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=human_ds_ready,seq_819
+readyanim=human_ds_ready,human_walk_f
 
 // 293
 [bas_293]
-readyanim=seq_6203,seq_6202
+readyanim=slice_surface_goblin_squat_generals_ready,slice_surface_goblin_squat_generals_walk
 
 // 294
 [bas_294]
@@ -1534,7 +1534,7 @@ readyanim=seq_9535,seq_7191
 // 301
 [bas_301]
 hillrotate=64,32
-readyanim=seq_4920,seq_4924
+readyanim=bear_rework_cub_ready,bear_rework_cub_walk
 
 // 302
 [bas_302]
@@ -1560,52 +1560,52 @@ readyanim=snail_ready,snail_walk
 
 // 306
 [bas_306]
-readyanim=seq_4257,seq_4256
+readyanim=brew_jimmy_ready,brew_jimmy_walk
 
 // 307
 [bas_307]
-readyanim=seq_4259,null
+readyanim=game_brew_helper_parrot_ready,null
 
 // 308
 [bas_308]
-readyanim=seq_5424,null
+readyanim=barbassault_egg_cannon_ready,null
 
 // 309
 [bas_309]
-readyanim=seq_5425,null
+readyanim=barbassault_egg_cannon_ready_n,null
 
 // 310
 [bas_310]
-readyanim=seq_5410,seq_5409
+readyanim=barbassault_penacne_queen_new_ready,barbassault_penance_queen_new_walk
 
 // 311
 [bas_311]
-readyanim=seq_5094,seq_5095
+readyanim=barbassault_penance_fighter_ready,barbassault_penance_fighter_walk
 
 // 312
 [bas_312]
-readyanim=seq_5104,seq_5107
+readyanim=barbassault_penance_healer_ready,barbassault_penance_healer_walk
 
 // 313
 [bas_313]
-readyanim=seq_5090,seq_5089
+readyanim=barbassault_penance_queen_spawn_ready,barbassault_penance_queen_spawn_walk
 
 // 314
 [bas_314]
-readyanim=seq_5393,seq_5394
+readyanim=barbassault_penance_ranger_ready,barbassault_penance_ranger_walk
 
 // 315
 [bas_315]
-readyanim=seq_5099,seq_5100
+readyanim=barbassault_penance_runner_ready,barbassault_penance_runner_walk
 
 // 316
 [bas_316]
-readyanim=seq_3309,seq_3313
+readyanim=mole_ready,mole_walk
 
 // 317
 [bas_317]
 hillrotate=32,32
-readyanim=seq_3309,seq_3313
+readyanim=mole_ready,mole_walk
 
 // 318
 [bas_318]
@@ -1632,21 +1632,21 @@ readyanim=seq_10587,seq_10588
 // 323
 [bas_323]
 hillrotate=80,80
-readyanim=seq_5318,seq_5317
+readyanim=spider_update_ready_large,spider_update_walk_large
 
 // 324
 [bas_324]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 readyanim=seq_9227,seq_9226
 
 // 325
 [bas_325]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_784,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=partyroom_dance,human_walk_f
 
 // 326
 [bas_326]
@@ -1662,21 +1662,21 @@ readyanim=seq_10266,seq_7046
 [bas_327]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=seq_10270,seq_819
+readyanim=seq_10270,human_walk_f
 
 // 328
 [bas_328]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=seq_10268,seq_819
+readyanim=seq_10268,human_walk_f
 
 // 329
 [bas_329]
@@ -1705,91 +1705,91 @@ readyanim=seq_10321,seq_10321
 
 // 334
 [bas_334]
-readyanim=seq_5973,seq_5969
+readyanim=ramble_zombie_ready,ramble_zombie_walk_land
 
 // 335
 [bas_335]
-readyanim=seq_5965,seq_5965
+readyanim=ramble_zombie_emerge_head,ramble_zombie_emerge_head
 
 // 336
 [bas_336]
-readyanim=seq_5967,seq_5967
+readyanim=ramble_zombie_emerge_thighs,ramble_zombie_emerge_thighs
 
 // 337
 [bas_337]
-readyanim=seq_5966,seq_5966
+readyanim=ramble_zombie_emerge_torso,ramble_zombie_emerge_torso
 
 // 338
 [bas_338]
-readyanim=seq_5986,seq_5987
+readyanim=trek_nailbeast_ready,trek_nailbeast_walk
 
 // 339
 [bas_339]
-walkanim_b=seq_3537
-walkanim_l=seq_3537
-walkanim_r=seq_3537
+walkanim_b=royal_sea_snake_walk_baby
+walkanim_l=royal_sea_snake_walk_baby
+walkanim_r=royal_sea_snake_walk_baby
 hillrotate=80,32
-readyanim=seq_3535,seq_3537
+readyanim=royal_sea_snake_ready,royal_sea_snake_walk_baby
 
 // 340
 [bas_340]
-walkanim_b=seq_3537
-walkanim_l=seq_3537
-walkanim_r=seq_3537
+walkanim_b=royal_sea_snake_walk_baby
+walkanim_l=royal_sea_snake_walk_baby
+walkanim_r=royal_sea_snake_walk_baby
 hillrotate=112,40
-readyanim=seq_3535,seq_3537
+readyanim=royal_sea_snake_ready,royal_sea_snake_walk_baby
 
 // 341
 [bas_341]
-walkanim_b=seq_3537
-walkanim_l=seq_3537
-walkanim_r=seq_3537
+walkanim_b=royal_sea_snake_walk_baby
+walkanim_l=royal_sea_snake_walk_baby
+walkanim_r=royal_sea_snake_walk_baby
 hillrotate=142,64
-readyanim=seq_3535,seq_3537
+readyanim=royal_sea_snake_ready,royal_sea_snake_walk_baby
 
 // 342
 [bas_342]
 hillrotate=80,32
-readyanim=seq_3535,seq_3537
+readyanim=royal_sea_snake_ready,royal_sea_snake_walk_baby
 
 // 343
 [bas_343]
-readyanim=seq_3722,seq_3721
+readyanim=templetrek_giant_snail_ready,templetrek_giant_snail_walk
 
 // 344
 [bas_344]
 hillrotate=80,32
-readyanim=seq_3738,null
+readyanim=templetrek_swamp_snake_dead,null
 
 // 345
 [bas_345]
 hillrotate=112,40
-readyanim=seq_3738,null
+readyanim=templetrek_swamp_snake_dead,null
 
 // 346
 [bas_346]
 hillrotate=142,64
-readyanim=seq_3738,null
+readyanim=templetrek_swamp_snake_dead,null
 
 // 347
 [bas_347]
-readyanim=seq_3730,seq_3730
+readyanim=templetrek_tentacle_head_ready,templetrek_tentacle_head_ready
 
 // 348
 [bas_348]
-readyanim=seq_3728,seq_3728
+readyanim=templetrek_tentacle_head_spawning,templetrek_tentacle_head_spawning
 
 // 349
 [bas_349]
-readyanim=seq_3729,seq_3729
+readyanim=templetrek_tentacle_spawning,templetrek_tentacle_spawning
 
 // 350
 [bas_350]
-readyanim=seq_8737,seq_6088
+readyanim=seq_8737,rabbit_update_walk
 
 // 351
 [bas_351]
-readyanim=seq_8737,seq_6088
+readyanim=seq_8737,rabbit_update_walk
 
 // 352
 [bas_352]
@@ -1805,20 +1805,20 @@ readyanim=seq_3359,seq_3359
 
 // 355
 [bas_355]
-readyanim=seq_5801,seq_5802
+readyanim=100_osman_seasons_elemental_ready,100_osman_seasons_elemental_walk
 
 // 356
 [bas_356]
-readyanim=seq_5803,seq_5802
+readyanim=100_osman_seasons_elemental_point,100_osman_seasons_elemental_walk
 
 // 357
 [bas_357]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_2041
-walkanim_l=seq_2041
-walkanim_r=seq_2041
-readyanim=seq_2040,seq_2041
+walkanim_b=tog_walk_bowl
+walkanim_l=tog_walk_bowl
+walkanim_r=tog_walk_bowl
+readyanim=tog_ready_bowl,tog_walk_bowl
 
 // 358
 [bas_358]
@@ -1857,7 +1857,7 @@ readyanim=seq_10209,seq_10208
 
 // 366
 [bas_366]
-readyanim=seq_5558,seq_5557
+readyanim=mummy_update_guardian_ready,mummy_update_guardian_walk
 
 // 367
 [bas_367]
@@ -1866,7 +1866,7 @@ readyanim=seq_10352,null
 // 368
 [bas_368]
 hillrotate=32,32
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 369
 [bas_369]
@@ -1884,7 +1884,7 @@ readyanim=seq_8998,seq_8997
 
 // 371
 [bas_371]
-readyanim=seq_2061,seq_2060
+readyanim=barrow_guthan_ready,barrow_guthan_walk
 
 // 372
 [bas_372]
@@ -1900,15 +1900,15 @@ readyanim=seq_2074,seq_2076
 [bas_373]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_2060
-walkanim_l=seq_2060
-walkanim_r=seq_2060
+walkanim_b=barrow_guthan_walk
+walkanim_l=barrow_guthan_walk
+walkanim_r=barrow_guthan_walk
 runanim=seq_10019
-readyanim=seq_2061,seq_2060
+readyanim=barrow_guthan_ready,barrow_guthan_walk
 
 // 374
 [bas_374]
-readyanim=seq_2071,seq_2069
+readyanim=bloodworm_ready,bloodworm_walk
 
 // 375
 [bas_375]
@@ -1944,55 +1944,55 @@ readyanim=seq_10366,seq_10367
 
 // 383
 [bas_383]
-readyanim_l=seq_168
-readyanim_r=seq_168
-walkanim_b=seq_168
-walkanim_l=seq_168
-walkanim_r=seq_168
-readyanim=seq_171,seq_168
+readyanim_l=imp_walk
+readyanim_r=imp_walk
+walkanim_b=imp_walk
+walkanim_l=imp_walk
+walkanim_r=imp_walk
+readyanim=imp_ready,imp_walk
 
 // 384
 [bas_384]
-readyanim_l=seq_6088
-readyanim_r=seq_6088
-walkanim_b=seq_6088
-walkanim_l=seq_6088
-walkanim_r=seq_6088
-readyanim=seq_6089,seq_6088
+readyanim_l=rabbit_update_walk
+readyanim_r=rabbit_update_walk
+walkanim_b=rabbit_update_walk
+walkanim_l=rabbit_update_walk
+walkanim_r=rabbit_update_walk
+readyanim=rabbit_update_ready,rabbit_update_walk
 
 // 385
 [bas_385]
-readyanim_l=seq_5334
-readyanim_r=seq_5334
-walkanim_b=seq_5334
-walkanim_l=seq_5334
-walkanim_r=seq_5334
-readyanim=seq_5335,seq_5334
+readyanim_l=sheep_update_walk
+readyanim_r=sheep_update_walk
+walkanim_b=sheep_update_walk
+walkanim_l=sheep_update_walk
+walkanim_r=sheep_update_walk
+readyanim=sheep_update_ready,sheep_update_walk
 
 // 386
 [bas_386]
-readyanim_l=seq_3059
-readyanim_r=seq_3059
-walkanim_b=seq_3059
-walkanim_l=seq_3059
-walkanim_r=seq_3059
-readyanim=seq_3059,seq_3059
+readyanim_l=agility_pyramid_ledge_walk_left
+readyanim_r=agility_pyramid_ledge_walk_left
+walkanim_b=agility_pyramid_ledge_walk_left
+walkanim_l=agility_pyramid_ledge_walk_left
+walkanim_r=agility_pyramid_ledge_walk_left
+readyanim=agility_pyramid_ledge_walk_left,agility_pyramid_ledge_walk_left
 
 // 387
 [bas_387]
-readyanim_l=seq_3060
-readyanim_r=seq_3060
-walkanim_b=seq_3060
-walkanim_l=seq_3060
-walkanim_r=seq_3060
-readyanim=seq_3060,seq_3060
+readyanim_l=agility_pyramid_ledge_walk_right
+readyanim_r=agility_pyramid_ledge_walk_right
+walkanim_b=agility_pyramid_ledge_walk_right
+walkanim_l=agility_pyramid_ledge_walk_right
+walkanim_r=agility_pyramid_ledge_walk_right
+readyanim=agility_pyramid_ledge_walk_right,agility_pyramid_ledge_walk_right
 
 // 388
 [bas_388]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_1705,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_1705,human_walk_f
 
 // 389
 [bas_389]
@@ -2000,22 +2000,22 @@ readyanim=seq_12460,seq_12459
 
 // 390
 [bas_390]
-readyanim=seq_6864,seq_6867
+readyanim=town_crier_ready,town_crier_walk
 
 // 391
 [bas_391]
-readyanim=seq_3948,seq_3947
+readyanim=postie_pete_ready,postie_pete_walk
 
 // 392
 [bas_392]
-readyanim=seq_3144,seq_3145
+readyanim=chaoselemental_ready,chaoselemental_walk
 
 // 393
 [bas_393]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_808,walk_walkingstick
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_ready,walk_walkingstick
 
 // 394
 [bas_394]
@@ -2023,16 +2023,16 @@ readyanim=human_staffready,null
 
 // 395
 [bas_395]
-readyanim=seq_2170,null
+readyanim=wom_bed_ready,null
 
 // 396
 [bas_396]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_808,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_ready,human_walk_f
 
 // 397
 [bas_397]
@@ -2042,17 +2042,17 @@ readyanim=seq_8944,null
 [bas_398]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
 readyanim=seq_8977,seq_8979
 
 // 399
 [bas_399]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 readyanim=seq_8977,seq_8979
 
 // 400
@@ -2069,10 +2069,10 @@ readyanim=seq_11036,seq_8968
 
 // 403
 [bas_403]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_11486,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_11486,human_walk_f
 
 // 404
 [bas_404]
@@ -2159,7 +2159,7 @@ readyanim=seq_11543,seq_11545
 
 // 416
 [bas_416]
-readyanim=seq_6518,seq_11546
+readyanim=grim_giant_mouse_ready,seq_11546
 
 // 417
 [bas_417]
@@ -2248,24 +2248,24 @@ readyanim=seq_9171,null
 
 // 436
 [bas_436]
-readyanim=seq_2157,seq_2156
+readyanim=dwarf_ready_woman,dwarf_walk_woman
 
 // 437
 [bas_437]
-runanim=seq_2150
-readyanim=seq_2150,seq_2150
+runanim=dwarf_minecart_ready
+readyanim=dwarf_minecart_ready,dwarf_minecart_ready
 
 // 438
 [bas_438]
-readyanim=seq_101,seq_101
+readyanim=dwarf_ready,dwarf_ready
 
 // 439
 [bas_439]
-readyanim=seq_2157,seq_2157
+readyanim=dwarf_ready_woman,dwarf_ready_woman
 
 // 440
 [bas_440]
-readyanim=seq_2158,null
+readyanim=dwarf_secretary_ready,null
 
 // 441
 [bas_441]
@@ -2275,59 +2275,59 @@ readyanim=seq_825,seq_826
 [bas_442]
 readyanim_l=seq_823
 readyanim_r=seq_823
-readyanim=seq_4179,seq_4178
+readyanim=balance_ready,balance_walk
 
 // 443
 [bas_443]
-readyanim=horror_dagannoth_ready,seq_2361
+readyanim=horror_dagannoth_ready,dagganoth_walk_quickly
 
 // 444
 [bas_444]
-readyanim=seq_2362,seq_2362
+readyanim=dagganoth_egg_open,dagganoth_egg_open
 
 // 445
 [bas_445]
-readyanim=seq_2351,null
+readyanim=weak_door_fall,null
 
 // 446
 [bas_446]
-readyanim=seq_2356,null
+readyanim=weak_door_fall_north,null
 
 // 447
 [bas_447]
-readyanim=seq_2353,null
+readyanim=weak_door_fall_west,null
 
 // 448
 [bas_448]
-readyanim=seq_2352,null
+readyanim=weak_door_fallen,null
 
 // 449
 [bas_449]
-readyanim=seq_2358,null
+readyanim=weak_door_fallen_north,null
 
 // 450
 [bas_450]
-readyanim=seq_2355,null
+readyanim=weak_door_fallen_west,null
 
 // 451
 [bas_451]
-readyanim=seq_2357,null
+readyanim=weak_door_north,null
 
 // 452
 [bas_452]
-readyanim=seq_2354,null
+readyanim=weak_door_west,null
 
 // 453
 [bas_453]
-readyanim=seq_2850,seq_2849
+readyanim=dagannoth_meganoth_ready,dagannoth_meganoth_walk
 
 // 454
 [bas_454]
-readyanim=seq_2858,seq_2857
+readyanim=dagannoth_rock_lobster_ready,dagannoth_rock_lobster_walk
 
 // 455
 [bas_455]
-readyanim=seq_2867,seq_2863
+readyanim=dagannoth_water_creature_ready,dagannoth_water_creature_walk
 
 // 456
 [bas_456]
@@ -2335,27 +2335,27 @@ readyanim=seq_1577,seq_1578
 
 // 457
 [bas_457]
-readyanim=seq_2180,seq_2179
+readyanim=abyssal_leech_ready,abyssal_leech_walk
 
 // 458
 [bas_458]
-readyanim=seq_2185,seq_2184
+readyanim=abyssal_pyramid_ready,abyssal_pyramid_walk
 
 // 459
 [bas_459]
-readyanim=seq_2191,seq_2190
+readyanim=abyssal_walker_ready,abyssal_walker_walk
 
 // 460
 [bas_460]
-readyanim=seq_2149,seq_2149
+readyanim=human_geni_bowing,human_geni_bowing
 
 // 461
 [bas_461]
-readyanim=seq_4269,seq_4268
+readyanim=catpon_ready,catpon_walk
 
 // 462
 [bas_462]
-readyanim=seq_4264,seq_4263
+readyanim=mino_ready,mino_walk
 
 // 463
 [bas_463]
@@ -2364,15 +2364,15 @@ readyanim=seq_2263,seq_2262
 // 464
 [bas_464]
 hillrotate=40,40
-readyanim=seq_9917,seq_4635
+readyanim=seq_9917,dragon_walk_kbd
 
 // 465
 [bas_465]
-readyanim=seq_9966,seq_6180
+readyanim=seq_9966,slice_surface_goblin_squat_walk
 
 // 466
 [bas_466]
-readyanim=seq_808,seq_8527
+readyanim=human_ready,seq_8527
 
 // 467
 [bas_467]
@@ -2462,59 +2462,59 @@ readyanim=seq_9274,seq_9273
 
 // 486
 [bas_486]
-readyanim=seq_5589,seq_5593
+readyanim=lotr_pickaxe_ready,lotr_pickaxe_walk
 
 // 487
 [bas_487]
-readyanim=seq_5594,seq_5595
+readyanim=lotr_spade_ready,lotr_spade_walk
 
 // 488
 [bas_488]
-readyanim=seq_5616,seq_5615
+readyanim=lotr_tarn_razorlor_mutant_ready,lotr_tarn_razorlor_mutant_walk
 
 // 489
 [bas_489]
-readyanim=seq_5623,seq_5622
+readyanim=lotr_terror_dog_look_ready,lotr_terror_dog_look_walk
 
 // 490
 [bas_490]
-readyanim=seq_5576,seq_5577
+readyanim=zombie_update_ready_dragging,zombie_update_walk_dragging
 
 // 491
 [bas_491]
-readyanim=seq_6058,seq_6057
+readyanim=dorgesh_baby_ready,dorgesh_baby_crawl
 
 // 492
 [bas_492]
-readyanim=seq_6059,seq_6057
+readyanim=dorgesh_baby_sit_ready,dorgesh_baby_crawl
 
 // 493
 [bas_493]
-readyanim=seq_6043,seq_6044
+readyanim=dorgesh_goblin_ready_crate,dorgesh_goblin_walk_crate
 
 // 494
 [bas_494]
-readyanim=seq_6045,seq_6046
+readyanim=dorgesh_goblin_ready_scribe,dorgesh_goblin_walk_scribe
 
 // 495
 [bas_495]
-readyanim=seq_6040,seq_6042
+readyanim=dorgesh_goblin_ready,dorgesh_goblin_child_walk
 
 // 496
 [bas_496]
-readyanim=seq_6060,seq_6041
+readyanim=dorgesh_goblin_frogspit_rotate,dorgesh_goblin_walk
 
 // 497
 [bas_497]
-readyanim=seq_6052,seq_6053
+readyanim=dorgesh_goblin_child_ball_ready,dorgesh_goblin_child_ball_kick
 
 // 498
 [bas_498]
-readyanim=seq_6062,seq_6061
+readyanim=dorgesh_goblin_fish_ready,dorgesh_goblin_fish_walk
 
 // 499
 [bas_499]
-readyanim=seq_6036,seq_6036
+readyanim=dorgesh_moths,dorgesh_moths
 
 // 500
 [bas_500]
@@ -2530,26 +2530,26 @@ readyanim=seq_4457,seq_4459
 
 // 503
 [bas_503]
-walkanim_b=seq_6799
-walkanim_l=seq_6799
-walkanim_r=seq_6799
-walkturn_l=seq_6799
-walkturn_r=seq_6799
-readyanim=seq_6798,seq_6799
+walkanim_b=mounted_terrorbird_walk_1x1
+walkanim_l=mounted_terrorbird_walk_1x1
+walkanim_r=mounted_terrorbird_walk_1x1
+walkturn_l=mounted_terrorbird_walk_1x1
+walkturn_r=mounted_terrorbird_walk_1x1
+readyanim=mounted_terrorbird_ready_1x1,mounted_terrorbird_walk_1x1
 
 // 504
 [bas_504]
 readyanim_l=seq_15272
 readyanim_r=seq_15273
-walkturn_l=seq_3953
-walkturn_r=seq_3953
+walkturn_l=battle_tortoise_walk
+walkturn_r=battle_tortoise_walk
 walkanim_l=seq_15272
 walkanim_r=seq_15273
-readyanim=seq_3952,seq_3953
+readyanim=battle_tortoise_ready,battle_tortoise_walk
 
 // 505
 [bas_505]
-readyanim=seq_3965,seq_3963
+readyanim=gnome_staff_ready,gnome_staff_walk
 
 // 506
 [bas_506]
@@ -2557,14 +2557,14 @@ readyanim=seq_195,seq_195
 
 // 507
 [bas_507]
-readyanim=null,seq_2212
+readyanim=null,rogue_spinblades
 
 // 508
 [bas_508]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_6464,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=vm_outside_gate_guard_ready,human_walk_f
 
 // 509
 [bas_509]
@@ -2572,115 +2572,115 @@ readyanim=seq_7167,seq_7165
 
 // 510
 [bas_510]
-readyanim=seq_6389,seq_6388
+readyanim=vm_art_critic_ready,vm_art_critic_walk
 
 // 511
 [bas_511]
-readyanim=seq_6458,null
+readyanim=vm_canal_barge_foremen_talking,null
 
 // 512
 [bas_512]
-readyanim=seq_6454,null
+readyanim=vm_canal_barge_workman_kneeling_hammering,null
 
 // 513
 [bas_513]
-readyanim=seq_6457,null
+readyanim=vm_canal_barge_workman_painting_tar,null
 
 // 514
 [bas_514]
-readyanim=seq_6455,null
+readyanim=vm_canal_barge_workman_sawing,null
 
 // 515
 [bas_515]
-readyanim=seq_6456,null
+readyanim=vm_canal_barge_workman_sledgehammering,null
 
 // 516
 [bas_516]
-readyanim=seq_6413,seq_6412
+readyanim=vm_female_teacher_child_girl_ready_multi,vm_female_teacher_child_girl_walk_multi
 
 // 517
 [bas_517]
-readyanim=seq_6390,null
+readyanim=vm_museum_guard_ready,null
 
 // 518
 [bas_518]
-readyanim=seq_6393,seq_6395
+readyanim=vm_natural_historian_ready,vm_natural_historian_walk
 
 // 519
 [bas_519]
-readyanim=seq_6449,null
+readyanim=vm_natural_history_display_case_battle_tortoise_fixed,null
 
 // 520
 [bas_520]
-readyanim=seq_6441,null
+readyanim=vm_natural_history_display_case_camel_fixed,null
 
 // 521
 [bas_521]
-readyanim=seq_6447,null
+readyanim=vm_natural_history_display_case_dragon_fixed,null
 
 // 522
 [bas_522]
-readyanim=seq_6429,null
+readyanim=vm_natural_history_display_case_leech_fixed,null
 
 // 523
 [bas_523]
-readyanim=seq_6437,null
+readyanim=vm_natural_history_display_case_lizard_fixed,null
 
 // 524
 [bas_524]
-readyanim=seq_6451,null
+readyanim=vm_natural_history_display_case_mole_fixed,null
 
 // 525
 [bas_525]
-readyanim=seq_6435,null
+readyanim=vm_natural_history_display_case_monkey_fixed,null
 
 // 526
 [bas_526]
-readyanim=seq_6439,null
+readyanim=vm_natural_history_display_case_penguin_fixed,null
 
 // 527
 [bas_527]
-readyanim=seq_6433,null
+readyanim=vm_natural_history_display_case_seaslug_fixed,null
 
 // 528
 [bas_528]
-readyanim=seq_6431,null
+readyanim=vm_natural_history_display_case_snail_fixed,null
 
 // 529
 [bas_529]
-readyanim=seq_6443,null
+readyanim=vm_natural_history_display_case_terror_bird_fixed,null
 
 // 530
 [bas_530]
-readyanim=seq_6445,null
+readyanim=vm_natural_history_display_case_wyvern_fixed,null
 
 // 531
 [bas_531]
-readyanim=seq_6464,null
+readyanim=vm_outside_gate_guard_ready,null
 
 // 532
 [bas_532]
-readyanim=seq_6415,seq_6414
+readyanim=vm_patrol_route_workmen_ready,vm_patrol_route_workmen_walk
 
 // 533
 [bas_533]
-readyanim=null,seq_6418
+readyanim=null,vm_patrol_route_workmen_no_plank_walk
 
 // 534
 [bas_534]
-readyanim=seq_6422,seq_6419
+readyanim=vm_patrol_route_workmen_wheelbarrow_ready,vm_patrol_route_workmen_wheelbarrow_walk
 
 // 535
 [bas_535]
-readyanim=seq_6423,seq_6420
+readyanim=vm_patrol_route_workmen_wheelbarrow_empty_ready,vm_patrol_route_workmen_wheelbarrow_empty_walk
 
 // 536
 [bas_536]
-readyanim=seq_6411,seq_6410
+readyanim=vm_school_teacher_male_ready,vm_school_teacher_male_walk
 
 // 537
 [bas_537]
-readyanim=seq_6425,null
+readyanim=vm_wheelbarrow_loader_ready,null
 
 // 538
 [bas_538]
@@ -2705,7 +2705,7 @@ readyanim=seq_7003,null
 
 // 543
 [bas_543]
-readyanim=seq_7014,seq_7015
+readyanim=godwars_lion_ready,godwars_lion_walk
 
 // 544
 [bas_544]
@@ -2717,10 +2717,10 @@ readyanim=seq_6943,seq_6942
 
 // 546
 [bas_546]
-walkanim_b=seq_2562
-walkanim_l=seq_2562
-walkanim_r=seq_2562
-readyanim=null,seq_2562
+walkanim_b=human_dh_weapon_walk
+walkanim_l=human_dh_weapon_walk
+walkanim_r=human_dh_weapon_walk
+readyanim=null,human_dh_weapon_walk
 
 // 547
 [bas_547]
@@ -2844,54 +2844,54 @@ readyanim=seq_8589,seq_8590
 
 // 577
 [bas_577]
-readyanim=seq_4231,seq_4236
+readyanim=harmless_island_jungle_horror_ready,harmless_island_jungle_horror_walk
 
 // 578
 [bas_578]
-readyanim=snake_ready,seq_2392
+readyanim=snake_ready,tbw_cleanup_snake_surprise_attack
 
 // 579
 [bas_579]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_2400,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=tbw_cleanup_tribesmen_surprise,human_walk_f
 
 // 580
 [bas_580]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_2401,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=tbw_broodoo_dance,human_walk_f
 
 // 581
 [bas_581]
 hillrotate=32,32
-readyanim=seq_5326,seq_5333
+readyanim=spider_update_ready,spider_update_tbw_bush_attack
 
 // 582
 [bas_582]
-readyanim=seq_3033,seq_3034
+readyanim=mage_training_area_ready,mage_training_area_walk
 
 // 583
 [bas_583]
-readyanim=seq_3033,seq_3035
+readyanim=mage_training_area_ready,mage_training_area_walk_large
 
 // 584
 [bas_584]
-readyanim=seq_3023,seq_3023
+readyanim=magictraining_flying_book_ready,magictraining_flying_book_ready
 
 // 585
 [bas_585]
-readyanim=seq_3026,seq_3027
+readyanim=magictraining_ghost_ready,magictraining_ghost_walk
 
 // 586
 [bas_586]
-readyanim=seq_3244,seq_3245
+readyanim=magictraining_ghost_broom_ready,magictraining_ghost_broom_walk
 
 // 587
 [bas_587]
-readyanim=seq_6580,seq_6556
+readyanim=dog_update_wolf_ready,dog_update_wolf_walk
 
 // 588
 [bas_588]
@@ -2899,19 +2899,19 @@ readyanim=leechready,leechwalk
 
 // 589
 [bas_589]
-readyanim=seq_2825,seq_2823
+readyanim=half_zombie_ready,half_zombie_walk
 
 // 590
 [bas_590]
-readyanim=seq_2826,seq_2824
+readyanim=half_zombie_ready2,half_zombie_walk2
 
 // 591
 [bas_591]
-readyanim=seq_2818,seq_2818
+readyanim=zombie_head_walk,zombie_head_walk
 
 // 592
 [bas_592]
-readyanim=seq_2816,seq_2815
+readyanim=seq_2816,zombie_torso_walk
 
 // 593
 [bas_593]
@@ -2928,8 +2928,8 @@ readyanim=seq_8981,seq_8982
 readyanim_l=seq_823
 readyanim_r=seq_823
 walkanim_b=seq_1836
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
 readyanim=seq_1837,seq_1836
 
@@ -2955,14 +2955,14 @@ readyanim=seq_5070,seq_5069
 
 // 600
 [bas_600]
-readyanim=seq_4738,seq_4740
+readyanim=myq3_werewolf_ready,myq3_werewolf_walk
 
 // 601
 [bas_601]
 walkanim_b=seq_11051
 walkanim_l=seq_11052
 walkanim_r=seq_11052
-readyanim=seq_808,seq_11051
+readyanim=human_ready,seq_11051
 
 // 602
 [bas_602]
@@ -2989,17 +2989,17 @@ readyanim=seq_7553,seq_7553
 
 // 607
 [bas_607]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_847,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_ready_scythe,human_walk_f
 
 // 608
 [bas_608]
 walkanim_b=seq_3865
 walkanim_l=seq_3865
 walkanim_r=seq_3865
-readyanim=seq_808,seq_3865
+readyanim=human_ready,seq_3865
 
 // 609
 [bas_609]
@@ -3056,16 +3056,16 @@ readyanim=seq_7295,null
 [bas_618]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
 readyanim=seq_2985,seq_2987
 
 // 619
 [bas_619]
 hillrotate=32,32
-readyanim=seq_1536,seq_1534
+readyanim=abyssal_ready,abyssal_walk
 
 // 620
 [bas_620]
@@ -3104,7 +3104,7 @@ readyanim=seq_268,seq_298
 
 // 626
 [bas_626]
-readyanim=seq_3168,seq_3167
+readyanim=cloud_lightning_strike,cloud_lightning_ready
 
 // 627
 [bas_627]
@@ -3112,7 +3112,7 @@ readyanim=seq_9462,seq_9463
 
 // 628
 [bas_628]
-readyanim=seq_1556,seq_1554
+readyanim=dustdevil_ready,dustdevil_walk
 
 // 629
 [bas_629]
@@ -3195,11 +3195,11 @@ readyanim=seq_1588,seq_1586
 
 // 646
 [bas_646]
-readyanim=seq_2774,seq_2310
+readyanim=zygomite_ready,zygomite_adolescent_walk
 
 // 647
 [bas_647]
-readyanim=seq_2774,seq_1597
+readyanim=zygomite_ready,zygomite_adult_walk
 
 // 648
 [bas_648]
@@ -3208,32 +3208,32 @@ readyanim=seq_2778,seq_2778
 // 649
 [bas_649]
 hillrotate=16,16
-readyanim=seq_1782,seq_1781
+readyanim=cave_littlebug_ready,cave_littlebug_walk
 
 // 650
 [bas_650]
-readyanim=seq_1790,seq_1788
+readyanim=cave_slime_idle,cave_slime_walks
 
 // 651
 [bas_651]
 hillrotate=32,32
-readyanim=seq_6078,seq_6077
+readyanim=monalisk_cave_bug_ready,monalisk_cave_bug_walk
 
 // 652
 [bas_652]
-readyanim=seq_6078,seq_6077
+readyanim=monalisk_cave_bug_ready,monalisk_cave_bug_walk
 
 // 653
 [bas_653]
-readyanim=seq_6010,seq_6011
+readyanim=monalisk_creature_ready,monalisk_creature_walk
 
 // 654
 [bas_654]
-readyanim=seq_1799,null
+readyanim=wall_beast_combat_ready,null
 
 // 655
 [bas_655]
-readyanim=seq_1798,null
+readyanim=wall_beast_ready,null
 
 // 656
 [bas_656]
@@ -3241,11 +3241,11 @@ readyanim=seq_7209,seq_7210
 
 // 657
 [bas_657]
-readyanim=human_staffready,seq_4226
+readyanim=human_staffready,xbows_human_walk_f
 
 // 658
 [bas_658]
-readyanim=seq_2904,seq_189
+readyanim=farming_tools_leprechaun_ready,seq_189
 
 // 659
 [bas_659]
@@ -3258,11 +3258,11 @@ readyanim=seq_2584,seq_2584
 
 // 660
 [bas_660]
-readyanim=seq_1607,seq_1608
+readyanim=waa_skullball_ready,waa_skullball_walk
 
 // 661
 [bas_661]
-readyanim=seq_6539,seq_6548
+readyanim=werewolf_update_ready,werewolf_update_walk_with_stick
 
 // 662
 [bas_662]
@@ -3279,10 +3279,10 @@ readyanim=seq_15028,seq_15028
 
 // 664
 [bas_664]
-walkanim_b=seq_6532
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_808,seq_6531
+walkanim_b=grim_woman_long_skirt_walk_backwards
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_ready,grim_woman_long_skirt_walk
 
 // 665
 [bas_665]
@@ -3290,7 +3290,7 @@ readyanim=ghosthuman_ready,ghosthuman_walk_forward
 
 // 666
 [bas_666]
-readyanim=seq_792,seq_792
+readyanim=human_geni_walkandready,human_geni_walkandready
 
 // 667
 [bas_667]
@@ -3299,12 +3299,12 @@ readyanim=seq_351,seq_335
 
 // 668
 [bas_668]
-readyanim_l=seq_1797
-readyanim_r=seq_1797
-walkanim_b=seq_1797
-walkanim_l=seq_1797
-walkanim_r=seq_1797
-readyanim=seq_1796,seq_1797
+readyanim_l=giant_frog_walk
+readyanim_r=giant_frog_walk
+walkanim_b=giant_frog_walk
+walkanim_l=giant_frog_walk
+walkanim_r=giant_frog_walk
+readyanim=giant_frog_ready,giant_frog_walk
 
 // 669
 [bas_669]
@@ -3324,47 +3324,47 @@ readyanim=triffid_ready,triffid_ready
 
 // 673
 [bas_673]
-readyanim=seq_6825,null
+readyanim=pattern_dragon_teacher_ready,null
 
 // 674
 [bas_674]
-readyanim=seq_6857,null
+readyanim=pattern_giant_at_desk_ready,null
 
 // 675
 [bas_675]
-readyanim=seq_6858,null
+readyanim=pattern_goblin1_at_desk_ready,null
 
 // 676
 [bas_676]
-readyanim=seq_6859,null
+readyanim=pattern_goblin2_at_desk_ready,null
 
 // 677
 [bas_677]
-readyanim=seq_6826,null
+readyanim=pattern_imp_on_stool_ready,null
 
 // 678
 [bas_678]
-readyanim=seq_6856,null
+readyanim=pattern_mummy_at_desk_ready,null
 
 // 679
 [bas_679]
-readyanim=seq_6855,null
+readyanim=pattern_zombie_at_desk_ready,null
 
 // 680
 [bas_680]
-readyanim=seq_2370,seq_2369
+readyanim=pheasent_ready,pheasent_walk
 
 // 681
 [bas_681]
-readyanim=seq_3043,seq_3042
+readyanim=macro_sandwich_lady_ready,macro_sandwich_lady_walk
 
 // 682
 [bas_682]
-readyanim=seq_3049,seq_3048
+readyanim=balloon_ready,balloon_walk
 
 // 683
 [bas_683]
-readyanim=seq_3049,seq_3050
+readyanim=balloon_ready,balloon_walk2
 
 // 684
 [bas_684]
@@ -3375,22 +3375,22 @@ readyanim=seq_7199,seq_7200
 
 // 685
 [bas_685]
-readyanim=seq_3999,seq_3999
+readyanim=grab_evil_twin_in_claw_ready,grab_evil_twin_in_claw_ready
 
 // 686
 [bas_686]
-readyanim=seq_11289,seq_6041
+readyanim=seq_11289,dorgesh_goblin_walk
 
 // 687
 [bas_687]
-readyanim=seq_6040,seq_11362
+readyanim=dorgesh_goblin_ready,seq_11362
 
 // 688
 [bas_688]
 walkanim_b=seq_11337
 walkanim_l=seq_11337
 walkanim_r=seq_11337
-readyanim=seq_808,seq_11337
+readyanim=human_ready,seq_11337
 
 // 689
 [bas_689]
@@ -3398,42 +3398,42 @@ readyanim=lion_ready,lion_walk
 
 // 690
 [bas_690]
-readyanim=seq_808,seq_5822
+readyanim=human_ready,tol_mage_walk01
 
 // 691
 [bas_691]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_5814,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=tol_lazy_builder01,human_walk_f
 
 // 692
 [bas_692]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_5817,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=tol_lazy_builder03_north,human_walk_f
 
 // 693
 [bas_693]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_5815,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=tol_lazy_builder02,human_walk_f
 
 // 694
 [bas_694]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_5816,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=tol_lazy_builder03,human_walk_f
 
 // 695
 [bas_695]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_5818,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=tol_lazy_builder04,human_walk_f
 
 // 696
 [bas_696]
@@ -3441,19 +3441,19 @@ readyanim=giantspider_ready,giantspider_walk
 
 // 697
 [bas_697]
-readyanim=seq_5839,seq_5840
+readyanim=tol_frogeel_ready,tol_frogeel_walk
 
 // 698
 [bas_698]
-readyanim=seq_5831,seq_5832
+readyanim=tol_homonculus_ready,tol_homonculus_walk
 
 // 699
 [bas_699]
-readyanim=seq_5831,null
+readyanim=tol_homonculus_ready,null
 
 // 700
 [bas_700]
-readyanim=seq_5823,seq_5822
+readyanim=tol_mage_ready01,tol_mage_walk01
 
 // 701
 [bas_701]
@@ -3471,21 +3471,21 @@ readyanim=seq_13890,seq_13889
 
 // 704
 [bas_704]
-readyanim_l=seq_2166
-readyanim_r=seq_2166
-walkanim_b=seq_2165
-walkanim_l=seq_2165
-walkanim_r=seq_2165
-readyanim=seq_2166,seq_2165
+readyanim_l=farming_pig_ready
+readyanim_r=farming_pig_ready
+walkanim_b=farming_pig_walk
+walkanim_l=farming_pig_walk
+walkanim_r=farming_pig_walk
+readyanim=farming_pig_ready,farming_pig_walk
 
 // 705
 [bas_705]
-readyanim_l=seq_5386
-readyanim_r=seq_5386
-walkanim_b=seq_5385
-walkanim_l=seq_5385
-walkanim_r=seq_5385
-readyanim=seq_5386,seq_5385
+readyanim_l=lore_chicken_ready
+readyanim_r=lore_chicken_ready
+walkanim_b=lore_chicken_walk
+walkanim_l=lore_chicken_walk
+walkanim_r=lore_chicken_walk
+readyanim=lore_chicken_ready,lore_chicken_walk
 
 // 706
 [bas_706]
@@ -3493,11 +3493,11 @@ readyanim=seq_14025,seq_14026
 
 // 707
 [bas_707]
-readyanim=seq_2618,seq_2619
+readyanim=firebat_ready,firebat_walk
 
 // 708
 [bas_708]
-readyanim=seq_6127,seq_6114
+readyanim=olaf2_brine_rat_ready,olaf2_brine_rat_walk
 
 // 709
 [bas_709]
@@ -3505,11 +3505,11 @@ readyanim=seq_12921,seq_12920
 
 // 710
 [bas_710]
-readyanim=seq_6126,null
+readyanim=olaf2_ulfric_rise,null
 
 // 711
 [bas_711]
-readyanim=seq_6113,seq_6112
+readyanim=olaf2_undead_ready,olaf2_undead_walk
 
 // 712
 [bas_712]
@@ -3565,23 +3565,23 @@ readyanim=seq_9040,seq_9039
 
 // 722
 [bas_722]
-readyanim=seq_6252,seq_6257
+readyanim=scorpion_update_ready,small_scorpion_update_walk
 
 // 723
 [bas_723]
-readyanim=seq_1387,seq_1380
+readyanim=m_monkey_acolyte_ready,m_monkey_walk
 
 // 724
 [bas_724]
-readyanim=seq_1386,seq_1385
+readyanim=m_monkey_ready,m_monkey_dh_walk
 
 // 725
 [bas_725]
-readyanim=seq_1388,seq_1380
+readyanim=m_monkey_jailofficer_ready,m_monkey_walk
 
 // 726
 [bas_726]
-readyanim=seq_5517,seq_5518
+readyanim=skeleton_update_gorilla_ready,skeleton_update_gorilla_walk
 
 // 727
 [bas_727]
@@ -3590,15 +3590,15 @@ readyanim=snake_ready,snake_walk
 
 // 728
 [bas_728]
-readyanim=seq_3385,seq_3385
+readyanim=100_gob_froze,100_gob_froze
 
 // 729
 [bas_729]
-readyanim=seq_3387,seq_3387
+readyanim=100_gob_sit,100_gob_sit
 
 // 730
 [bas_730]
-readyanim=seq_3401,seq_3401
+readyanim=100_goblin_on_wall,100_goblin_on_wall
 
 // 731
 [bas_731]
@@ -3606,116 +3606,116 @@ readyanim=seq_3388,seq_3388
 
 // 732
 [bas_732]
-readyanim=seq_3391,seq_3391
+readyanim=100_gobtwo_sit,100_gobtwo_sit
 
 // 733
 [bas_733]
-readyanim=seq_3498,seq_3499
+readyanim=agrith_nana_ready,agrith_nana_walk
 
 // 734
 [bas_734]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_3846,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=book_chuck_ready,human_walk_f
 
 // 735
 [bas_735]
-readyanim=seq_3504,seq_3506
+readyanim=dessourt_ready,dessourt_walk
 
 // 736
 [bas_736]
-walkanim_b=seq_3357
-walkanim_l=seq_3357
-walkanim_r=seq_3357
-readyanim=seq_3357,seq_3357
+walkanim_b=inflate
+walkanim_l=inflate
+walkanim_r=inflate
+readyanim=inflate,inflate
 
 // 737
 [bas_737]
-readyanim=seq_3362,seq_3362
+readyanim=100_guide_froze,100_guide_froze
 
 // 738
 [bas_738]
-readyanim=seq_3365,seq_3365
+readyanim=100_cul_froze,100_cul_froze
 
 // 739
 [bas_739]
-readyanim_l=seq_3485
-readyanim_r=seq_3485
-walkanim_b=seq_3485
-walkanim_l=seq_3485
-walkanim_r=seq_3485
-readyanim=seq_3485,seq_3485
+readyanim_l=100_ilm_climb_slope
+readyanim_r=100_ilm_climb_slope
+walkanim_b=100_ilm_climb_slope
+walkanim_l=100_ilm_climb_slope
+walkanim_r=100_ilm_climb_slope
+readyanim=100_ilm_climb_slope,100_ilm_climb_slope
 
 // 740
 [bas_740]
-readyanim_l=seq_3494
-readyanim_r=seq_3494
-walkanim_b=seq_3494
-walkanim_l=seq_3494
-walkanim_r=seq_3494
-readyanim=seq_3494,seq_3494
+readyanim_l=100_ilm_monkey_down_vine
+readyanim_r=100_ilm_monkey_down_vine
+walkanim_b=100_ilm_monkey_down_vine
+walkanim_l=100_ilm_monkey_down_vine
+walkanim_r=100_ilm_monkey_down_vine
+readyanim=100_ilm_monkey_down_vine,100_ilm_monkey_down_vine
 
 // 741
 [bas_741]
-readyanim_l=seq_3490
-readyanim_r=seq_3490
-walkanim_b=seq_3491
-walkanim_l=seq_3491
-walkanim_r=seq_3491
-readyanim=seq_3490,seq_3491
+readyanim_l=100_ilm_monkey_swim_ready
+readyanim_r=100_ilm_monkey_swim_ready
+walkanim_b=100_ilm_monkey_swim
+walkanim_l=100_ilm_monkey_swim
+walkanim_r=100_ilm_monkey_swim
+readyanim=100_ilm_monkey_swim_ready,100_ilm_monkey_swim
 
 // 742
 [bas_742]
-crawlanim=seq_6817
-runanim=seq_6817
-readyanim=seq_6818,seq_6817
+crawlanim=duck_rework_swim
+runanim=duck_rework_swim
+readyanim=duck_rework_underwater_ready_and_extra,duck_rework_swim
 
 // 743
 [bas_743]
-readyanim_l=seq_1380
-readyanim_r=seq_1380
-walkanim_b=seq_1380
-walkanim_l=seq_1380
-walkanim_r=seq_1380
-runanim=seq_1381
-readyanim=seq_1386,seq_1380
+readyanim_l=m_monkey_walk
+readyanim_r=m_monkey_walk
+walkanim_b=m_monkey_walk
+walkanim_l=m_monkey_walk
+walkanim_r=m_monkey_walk
+runanim=m_monkey_run
+readyanim=m_monkey_ready,m_monkey_walk
 
 // 744
 [bas_744]
-readyanim=seq_3523,null
+readyanim=hear_no_evil_monkey_ready,null
 
 // 745
 [bas_745]
-readyanim=seq_3525,null
+readyanim=see_no_evil_monkey_ready,null
 
 // 746
 [bas_746]
-readyanim=seq_3524,null
+readyanim=speak_no_evil_monkey_ready,null
 
 // 747
 [bas_747]
-readyanim=seq_3374,seq_3374
+readyanim=100_pirate_froze,100_pirate_froze
 
 // 748
 [bas_748]
-readyanim=seq_3442,seq_3441
+readyanim=fantail_fish_ready,fantail_fish_walk
 
 // 749
 [bas_749]
-readyanim=seq_3431,seq_3432
+readyanim=mudskipper_ready,mudskipper_walk
 
 // 750
 [bas_750]
-readyanim=seq_3436,seq_3437
+readyanim=ogre_swim_ready,ogre_swim
 
 // 751
 [bas_751]
-readyanim=seq_3444,seq_3443
+readyanim=shoal_ready,shoal_walk
 
 // 752
 [bas_752]
-readyanim=seq_3379,seq_3379
+readyanim=100_dwarf_sit,100_dwarf_sit
 
 // 753
 [bas_753]
@@ -3751,18 +3751,18 @@ readyanim=seq_3390,seq_3390
 
 // 761
 [bas_761]
-readyanim=seq_3383,seq_3383
+readyanim=100_ogre_sit,100_ogre_sit
 
 // 762
 [bas_762]
-readyanim_l=seq_1386
-readyanim_r=seq_1386
-walkanim_b=seq_1381
-readyanim=seq_1386,seq_1380
+readyanim_l=m_monkey_ready
+readyanim_r=m_monkey_ready
+walkanim_b=m_monkey_run
+readyanim=m_monkey_ready,m_monkey_walk
 
 // 763
 [bas_763]
-readyanim=seq_3473,seq_3474
+readyanim=100_jubbly_treading_water,100_jubbly_swimming
 
 // 764
 [bas_764]
@@ -3774,23 +3774,23 @@ readyanim=seq_3462,seq_3462
 
 // 766
 [bas_766]
-readyanim=seq_3472,seq_3472
+readyanim=100_jubbly_toad_balloon_deflate,100_jubbly_toad_balloon_deflate
 
 // 767
 [bas_767]
-readyanim=seq_3469,seq_3469
+readyanim=100_jubbly_toad_balloon_ready,100_jubbly_toad_balloon_ready
 
 // 768
 [bas_768]
-readyanim=seq_6807,seq_6807
+readyanim=jubbly_update_permadeath,jubbly_update_permadeath
 
 // 769
 [bas_769]
-readyanim=seq_3371,seq_3371
+readyanim=100_sir_froze,100_sir_froze
 
 // 770
 [bas_770]
-readyanim=seq_3346,null
+readyanim=fairy_dragon_flame,null
 
 // 771
 [bas_771]
@@ -3807,50 +3807,50 @@ readyanim=seq_1993,seq_1993
 
 // 773
 [bas_773]
-readyanim=seq_2012,seq_2011
+readyanim=locust_ready,locust_walk
 
 // 774
 [bas_774]
-readyanim=seq_5551,seq_5553
+readyanim=mummy_update_soldier_ready,mummy_update_sword_walk
 
 // 775
 [bas_775]
-walkanim_b=seq_6532
-walkanim_l=seq_6531
-walkanim_r=seq_6531
-readyanim=seq_808,seq_6531
+walkanim_b=grim_woman_long_skirt_walk_backwards
+walkanim_l=grim_woman_long_skirt_walk
+walkanim_r=grim_woman_long_skirt_walk
+readyanim=human_ready,grim_woman_long_skirt_walk
 
 // 776
 [bas_776]
-readyanim=seq_6511,seq_6510
+readyanim=grim_experiment_no2_ready,grim_experiment_no2_walk
 
 // 777
 [bas_777]
-readyanim=seq_6504,seq_6505
+readyanim=grim_giant_ready,grim_giant_walk
 
 // 778
 [bas_778]
-readyanim=seq_6533,null
+readyanim=grim_gnome_ready1,null
 
 // 779
 [bas_779]
-readyanim=seq_6534,null
+readyanim=grim_gnome_ready2,null
 
 // 780
 [bas_780]
-readyanim=seq_6535,null
+readyanim=grim_gnome_ready3,null
 
 // 781
 [bas_781]
-readyanim=seq_6507,null
+readyanim=grim_grimnash_ready,null
 
 // 782
 [bas_782]
-readyanim=seq_6006,seq_6005
+readyanim=dorgesh_goblin_ready_spear,dorgesh_goblin_walk_spear
 
 // 783
 [bas_783]
-readyanim=seq_6004,seq_6005
+readyanim=dorgesh_goblin_ready_mining,dorgesh_goblin_walk_spear
 
 // 784
 [bas_784]
@@ -3858,51 +3858,51 @@ readyanim=ghost_ready,ghost_walk
 
 // 785
 [bas_785]
-readyanim=seq_5563,seq_5563
+readyanim=mummy_update_turn_to_ash,mummy_update_turn_to_ash
 
 // 786
 [bas_786]
-readyanim=seq_1952,null
+readyanim=sitting_ready_east,null
 
 // 787
 [bas_787]
-readyanim=seq_1953,null
+readyanim=sitting_ready_north,null
 
 // 788
 [bas_788]
-readyanim=seq_1955,null
+readyanim=sitting_ready_south,null
 
 // 789
 [bas_789]
-readyanim=seq_1954,null
+readyanim=sitting_ready_west,null
 
 // 790
 [bas_790]
-readyanim=seq_1476,troll_walk
+readyanim=trollromance_cry_loop,troll_walk
 
 // 791
 [bas_791]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=viking_lyre_ready,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=viking_lyre_ready,human_walk_f
 
 // 792
 [bas_792]
-readyanim_l=seq_6661
-readyanim_r=seq_6661
-walkanim_b=seq_6659
-walkanim_l=seq_6662
-walkanim_r=seq_6663
-runanim=seq_6660
-readyanim=seq_6657,seq_6658
+readyanim_l=petrock_human_turnonspot
+readyanim_r=petrock_human_turnonspot
+walkanim_b=petrock_human_walk_b
+walkanim_l=petrock_human_walk_l
+walkanim_r=petrock_human_walk_r
+runanim=petrock_human_running
+readyanim=petrock_human_ready,petrock_human_walk
 
 // 793
 [bas_793]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=human_fish_onspot,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_fish_onspot,human_walk_f
 
 // 794
 [bas_794]
@@ -3914,10 +3914,10 @@ readyanim=seq_11027,null
 
 // 796
 [bas_796]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_346,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=sitting_throne,human_walk_f
 
 // 797
 [bas_797]
@@ -3925,22 +3925,22 @@ readyanim=caged,caged
 
 // 798
 [bas_798]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_2712,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=ready_drinking,human_walk_f
 
 // 799
 [bas_799]
-readyanim=seq_2713,null
+readyanim=ready_playing_cards,null
 
 // 800
 [bas_800]
-readyanim=seq_5810,seq_5809
+readyanim=shadow_maj_seer_ready,shadow_maj_seer_walk
 
 // 801
 [bas_801]
-readyanim=seq_7254,seq_6560
+readyanim=seq_7254,dog_update_walk
 
 // 802
 [bas_802]
@@ -3960,7 +3960,7 @@ readyanim=seq_7241,seq_7241
 
 // 806
 [bas_806]
-readyanim=seq_3208,seq_3207
+readyanim=fai_dwarf_ready_crate,fai_dwarf_walk_crate
 
 // 807
 [bas_807]
@@ -3968,12 +3968,12 @@ readyanim=seq_7718,seq_7719
 
 // 808
 [bas_808]
-readyanim=seq_3211,seq_3210
+readyanim=squirrel_ready,squirrel_walk
 
 // 809
 [bas_809]
 runanim=seq_8326
-readyanim=seq_3212,seq_3210
+readyanim=squirrel_ready2,squirrel_walk
 
 // 810
 [bas_810]
@@ -3985,15 +3985,15 @@ readyanim=seq_9479,seq_9480
 
 // 812
 [bas_812]
-readyanim=seq_5551,seq_5557
+readyanim=mummy_update_soldier_ready,mummy_update_guardian_walk
 
 // 813
 [bas_813]
-readyanim=seq_2995,null
+readyanim=devious_dead,null
 
 // 814
 [bas_814]
-readyanim=seq_2993,seq_2994
+readyanim=devious_relic_ready,devious_relic_walk
 
 // 815
 [bas_815]
@@ -4005,70 +4005,70 @@ readyanim=seq_1159,troll_walk
 
 // 817
 [bas_817]
-readyanim=seq_6106,null
+readyanim=fai_varrock_bench_sit,null
 
 // 818
 [bas_818]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_4208,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=dttd_ham_meeting_ready,human_walk_f
 
 // 819
 [bas_819]
-readyanim_l=seq_6040
-readyanim_r=seq_6040
-walkanim_b=seq_6041
-walkanim_l=seq_6041
-walkanim_r=seq_6041
-readyanim=seq_6040,seq_6041
+readyanim_l=dorgesh_goblin_ready
+readyanim_r=dorgesh_goblin_ready
+walkanim_b=dorgesh_goblin_walk
+walkanim_l=dorgesh_goblin_walk
+walkanim_r=dorgesh_goblin_walk
+readyanim=dorgesh_goblin_ready,dorgesh_goblin_walk
 
 // 820
 [bas_820]
-readyanim=seq_6040,null
+readyanim=dorgesh_goblin_ready,null
 
 // 821
 [bas_821]
-readyanim=seq_4210,null
+readyanim=dttd_bone_dealer_ready,null
 
 // 822
 [bas_822]
-readyanim_l=seq_4194
-readyanim_r=seq_4194
-walkanim_b=seq_4194
-walkanim_l=seq_4194
-walkanim_r=seq_4194
-runanim=seq_4194
-readyanim=seq_4193,seq_4194
+readyanim_l=dttd_carrying_crate_walk
+readyanim_r=dttd_carrying_crate_walk
+walkanim_b=dttd_carrying_crate_walk
+walkanim_l=dttd_carrying_crate_walk
+walkanim_r=dttd_carrying_crate_walk
+runanim=dttd_carrying_crate_walk
+readyanim=dttd_carrying_crate_ready,dttd_carrying_crate_walk
 
 // 823
 [bas_823]
-readyanim=seq_4193,seq_4194
+readyanim=dttd_carrying_crate_ready,dttd_carrying_crate_walk
 
 // 824
 [bas_824]
-readyanim=seq_4208,null
+readyanim=dttd_ham_meeting_ready,null
 
 // 825
 [bas_825]
-readyanim_l=seq_5994
-readyanim_r=seq_5994
-walkanim_b=seq_5995
-walkanim_l=seq_5995
-walkanim_r=seq_5995
-readyanim=seq_5994,seq_5995
+readyanim_l=dttd_zanik_tog_ready
+readyanim_r=dttd_zanik_tog_ready
+walkanim_b=dttd_zanik_tog_walk
+walkanim_l=dttd_zanik_tog_walk
+walkanim_r=dttd_zanik_tog_walk
+readyanim=dttd_zanik_tog_ready,dttd_zanik_tog_walk
 
 // 826
 [bas_826]
-readyanim=seq_5994,seq_5995
+readyanim=dttd_zanik_tog_ready,dttd_zanik_tog_walk
 
 // 827
 [bas_827]
-readyanim=seq_2253,null
+readyanim=rd_knight_relaxed_ready,null
 
 // 828
 [bas_828]
-readyanim=seq_2255,null
+readyanim=rd_throne_sit,null
 
 // 829
 [bas_829]
@@ -4082,74 +4082,74 @@ readyanim=viking_lyre_playing_loop,null
 
 // 831
 [bas_831]
-readyanim=seq_5335,null
+readyanim=sheep_update_ready,null
 
 // 832
 [bas_832]
-readyanim=seq_3569,seq_3568
+readyanim=the_thing_ready,the_thing_walk
 
 // 833
 [bas_833]
-readyanim=seq_2730,seq_2729
+readyanim=dark_beast_update_ready,dark_beast_update_walk
 
 // 834
 [bas_834]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_1728,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_farming,human_walk_f
 
 // 835
 [bas_835]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=human_dig,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_dig,human_walk_f
 
 // 836
 [bas_836]
-readyanim=seq_2740,seq_2737
+readyanim=shadow_ready,shadow_walk
 
 // 837
 [bas_837]
-readyanim=seq_1623,seq_1622
+readyanim=frank_ready,frank_walk
 
 // 838
 [bas_838]
-readyanim=seq_1625,seq_1624
+readyanim=homolupus_ready,homolupus_walk
 
 // 839
 [bas_839]
-readyanim=seq_1614,seq_1615
+readyanim=waa_homo_arachnus_ready,waa_homo_arachnus_walk
 
 // 840
 [bas_840]
-readyanim=seq_1609,seq_1610
+readyanim=waa_ovinocanus_ready,waa_ovinocanus_walk
 
 // 841
 [bas_841]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_3185,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=gasmask_application,human_walk_f
 
 // 842
 [bas_842]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_3186,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=hangover_drink,human_walk_f
 
 // 843
 [bas_843]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=human_herbing_grind,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_herbing_grind,human_walk_f
 
 // 844
 [bas_844]
-readyanim=seq_5455,seq_5454
+readyanim=contact_boss_ready,contact_boss_walk
 
 // 845
 [bas_845]
@@ -4165,9 +4165,9 @@ readyanim=seq_767,seq_767
 [bas_846]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 readyanim=human_swim_ready,human_swim
 
 // 847
@@ -4181,11 +4181,11 @@ readyanim=human_whirlpool,human_whirlpool
 
 // 848
 [bas_848]
-readyanim=seq_8705,seq_2769
+readyanim=seq_8705,drunk_player_walk
 
 // 849
 [bas_849]
-readyanim=seq_8707,seq_2769
+readyanim=seq_8707,drunk_player_walk
 
 // 850
 [bas_850]
@@ -4241,26 +4241,26 @@ readyanim=entready,null
 
 // 863
 [bas_863]
-readyanim=seq_3563,null
+readyanim=burgh_gadderanks_fall_over,null
 
 // 864
 [bas_864]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_8501,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_8501,human_walk_f
 
 // 865
 [bas_865]
-readyanim=seq_4303,seq_4304
+readyanim=cosmic_entity_ready,cosmic_entity_walk
 
 // 866
 [bas_866]
-readyanim=seq_4315,null
+readyanim=fairy2_starflower_fullgrown,null
 
 // 867
 [bas_867]
-readyanim=seq_4314,null
+readyanim=fairy2_starflower_seed,null
 
 // 868
 [bas_868]
@@ -4292,34 +4292,34 @@ readyanim=human_stumble_and_hang_ready,human_stumble_and_hang_ready
 
 // 871
 [bas_871]
-walkanim_b=seq_4427
-walkanim_l=seq_4428
-walkanim_r=seq_4429
-readyanim=seq_4424,seq_4426
+walkanim_b=human_moonclan_walk_b
+walkanim_l=human_moonclan_walk_l
+walkanim_r=human_moonclan_walk_r
+readyanim=human_moonclan_ready,human_moonclan_walk_f
 
 // 872
 [bas_872]
-readyanim=seq_4424,seq_4424
+readyanim=human_moonclan_ready,human_moonclan_ready
 
 // 873
 [bas_873]
-readyanim=seq_4391,seq_4390
+readyanim=lunar_moonclan_baba_yaga_ready,lunar_moonclan_baba_yaga_walk
 
 // 874
 [bas_874]
-readyanim=seq_4372,seq_4372
+readyanim=quest_lunar_broom_sweep,quest_lunar_broom_sweep
 
 // 875
 [bas_875]
-readyanim=seq_4374,seq_4374
+readyanim=quest_lunar_bucket_full_walk,quest_lunar_bucket_full_walk
 
 // 876
 [bas_876]
-readyanim=seq_4386,seq_4383
+readyanim=suqka_ready,suqka_walk
 
 // 877
 [bas_877]
-readyanim=seq_808,human_zombie_walk
+readyanim=human_ready,human_zombie_walk
 
 // 878
 [bas_878]
@@ -4357,7 +4357,7 @@ readyanim=seq_10945,seq_8723
 
 // 885
 [bas_885]
-readyanim=seq_10949,seq_5479
+readyanim=seq_10949,skeleton_update_walk
 
 // 886
 [bas_886]
@@ -4501,23 +4501,23 @@ readyanim=horror_dagannoth_emerge_c,horror_dagannoth_emerge_c
 
 // 917
 [bas_917]
-readyanim=seq_1756,seq_1757
+readyanim=bearsuit_ready,bearsuit_walk
 
 // 918
 [bas_918]
-readyanim=seq_5656,seq_5655
+readyanim=brain_zombie_pirate_captain_ready,brain_zombie_pirate_captain_walk
 
 // 919
 [bas_919]
-readyanim=seq_5586,seq_5585
+readyanim=half_wood_luke_ready,half_wood_luke_walk
 
 // 920
 [bas_920]
-readyanim=seq_2803,seq_2802
+readyanim=spirit_ready,spirit_walk
 
 // 921
 [bas_921]
-readyanim=seq_5584,seq_5583
+readyanim=zombie_update_sign_ready,zombie_update_sign_walk
 
 // 922
 [bas_922]
@@ -4525,19 +4525,19 @@ readyanim=seq_9608,null
 
 // 923
 [bas_923]
-readyanim=seq_479,null
+readyanim=cauldron,null
 
 // 924
 [bas_924]
-readyanim=seq_5021,seq_5022
+readyanim=myarm_roc_ready,myarm_roc_walk
 
 // 925
 [bas_925]
-readyanim=seq_5029,seq_5030
+readyanim=myarm_roc_baby_ready,myarm_roc_baby_walk
 
 // 926
 [bas_926]
-readyanim=seq_5002,null
+readyanim=myarm_sunbather_sipping_ready,null
 
 // 927
 [bas_927]
@@ -4545,11 +4545,11 @@ readyanim=seq_9629,null
 
 // 928
 [bas_928]
-readyanim=seq_1838,seq_1839
+readyanim=rock_avatar_ready,rock_avatar_walk
 
 // 929
 [bas_929]
-readyanim=seq_6252,seq_6262
+readyanim=scorpion_update_ready,scorpion_update_fight_arena_walk
 
 // 930
 [bas_930]
@@ -4560,49 +4560,49 @@ readyanim=human_swim_ready,human_swim
 
 // 931
 [bas_931]
-readyanim=seq_5146,seq_5150
+readyanim=zep_peasant_ready1,zep_peasant_walk1
 
 // 932
 [bas_932]
-readyanim=seq_5147,seq_5151
+readyanim=zep_peasant_ready2,zep_peasant_walk2
 
 // 933
 [bas_933]
-readyanim=seq_5148,seq_5152
+readyanim=zep_peasant_ready3,zep_peasant_walk3
 
 // 934
 [bas_934]
-readyanim=seq_5149,seq_5153
+readyanim=zep_peasant_ready4,zep_peasant_walk4
 
 // 935
 [bas_935]
-readyanim=seq_2893,null
+readyanim=makinghistory_ghost_fade,null
 
 // 936
 [bas_936]
-readyanim=seq_1753,null
+readyanim=rock_birth,null
 
 // 937
 [bas_937]
-readyanim=seq_1754,seq_1754
+readyanim=rock_hybernate,rock_hybernate
 
 // 938
 [bas_938]
-readyanim_l=seq_6180
-readyanim_r=seq_6180
-walkanim_b=seq_6180
-walkanim_l=seq_6180
-walkanim_r=seq_6180
+readyanim_l=slice_surface_goblin_squat_walk
+readyanim_r=slice_surface_goblin_squat_walk
+walkanim_b=slice_surface_goblin_squat_walk
+walkanim_l=slice_surface_goblin_squat_walk
+walkanim_r=slice_surface_goblin_squat_walk
 runanim=seq_7332
-readyanim=seq_6181,seq_6180
+readyanim=slice_surface_goblin_squat_ready,slice_surface_goblin_squat_walk
 
 // 939
 [bas_939]
-readyanim=seq_7315,seq_6180
+readyanim=lotg_preacher_gesticulating,slice_surface_goblin_squat_walk
 
 // 940
 [bas_940]
-readyanim=seq_7329,seq_6041
+readyanim=seq_7329,dorgesh_goblin_walk
 
 // 941
 [bas_941]
@@ -4625,24 +4625,24 @@ readyanim=human_scythe_sweep,seq_9738
 
 // 945
 [bas_945]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=human_woodcutting_steel_hatchet,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=human_woodcutting_steel_hatchet,human_walk_f
 
 // 946
 [bas_946]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_7261,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_7261,human_walk_f
 
 // 947
 [bas_947]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_10574,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_10574,human_walk_f
 
 // 948
 [bas_948]
@@ -4666,64 +4666,64 @@ readyanim=seq_9169,seq_9157
 
 // 953
 [bas_953]
-readyanim=seq_2151,dwarf_walk
+readyanim=dwarf_director_table_ready,dwarf_walk
 
 // 954
 [bas_954]
-readyanim=seq_2153,seq_2156
+readyanim=dwarf_director_table_woman_ready_nod,dwarf_walk_woman
 
 // 955
 [bas_955]
-readyanim=seq_2152,dwarf_walk
+readyanim=dwarf_director_table_ready_nod,dwarf_walk
 
 // 956
 [bas_956]
-readyanim=seq_4619,demon_walk
+readyanim=qip_ds_delrith_weakened_portal,demon_walk
 
 // 957
 [bas_957]
-readyanim=seq_808,seq_12611
+readyanim=human_ready,seq_12611
 
 // 958
 [bas_958]
-readyanim=seq_6841,null
+readyanim=astronomers_assistant_works_at_desk,null
 
 // 959
 [bas_959]
-readyanim=seq_6828,seq_6187
+readyanim=qip_observatory_goblin_sleeping,slice_surface_goblin_squat_walk_spear
 
 // 960
 [bas_960]
-readyanim=seq_6831,null
+readyanim=qip_observatory_cooking_goblin_ready_and_extra,null
 
 // 961
 [bas_961]
-readyanim=seq_6834,null
+readyanim=qip_observatory_goblin_chatter_one,null
 
 // 962
 [bas_962]
-readyanim=seq_6835,null
+readyanim=qip_observatory_goblin_chatter_two,null
 
 // 963
 [bas_963]
-readyanim=seq_6829,null
+readyanim=qip_observatory_goblin_drunk_ready_and_extra,null
 
 // 964
 [bas_964]
-readyanim=seq_6836,null
+readyanim=qip_observatory_huck_fin_goblin_ready_and_extra,null
 
 // 965
 [bas_965]
-readyanim=seq_6833,null
+readyanim=qip_observatory_setting_a_fire_ready_and_extra,null
 
 // 966
 [bas_966]
 hillrotate=32,16
-readyanim=seq_1900,snake_walk
+readyanim=snake_charmed,snake_walk
 
 // 967
 [bas_967]
-readyanim=seq_1879,null
+readyanim=snakecharmer_charming,null
 
 // 968
 [bas_968]
@@ -4731,26 +4731,26 @@ readyanim=viking_drinking_ready,null
 
 // 969
 [bas_969]
-readyanim=seq_2341,seq_2335
+readyanim=forgettable_evil_dwarf_laugh,dwarf_walk_withhelmet
 
 // 970
 [bas_970]
-readyanim=seq_2336,seq_2335
+readyanim=dwarf_ready_withhelmet,dwarf_walk_withhelmet
 
 // 971
 [bas_971]
-readyanim=seq_2337,dwarf_drunkwalk
+readyanim=dwarf_ready_sitting_and_drinking,dwarf_drunkwalk
 
 // 972
 [bas_972]
-readyanim=seq_2337,dwarf_walk
+readyanim=dwarf_ready_sitting_and_drinking,dwarf_walk
 
 // 973
 [bas_973]
-readyanim_l=seq_2339
-readyanim_r=seq_2339
-walkanim_b=seq_2339
-readyanim=seq_2339,seq_2339
+readyanim_l=human_sitting_drunk_ready
+readyanim_r=human_sitting_drunk_ready
+walkanim_b=human_sitting_drunk_ready
+readyanim=human_sitting_drunk_ready,human_sitting_drunk_ready
 
 // 974
 [bas_974]
@@ -4766,10 +4766,10 @@ readyanim=seq_7158,null
 
 // 976
 [bas_976]
-walkanim_b=seq_820
-walkanim_l=seq_808
-walkanim_r=seq_808
-readyanim=seq_808,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_ready
+walkanim_r=human_ready
+readyanim=human_ready,human_walk_f
 
 // 977
 [bas_977]
@@ -4807,78 +4807,78 @@ readyanim=seq_8878,seq_8875
 [bas_985]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_5867
-walkanim_l=seq_5867
-walkanim_r=seq_5867
-runanim=seq_5868
-readyanim=seq_5869,seq_5867
+walkanim_b=brain_player_anchor_walk
+walkanim_l=brain_player_anchor_walk
+walkanim_r=brain_player_anchor_walk
+runanim=brain_player_anchor_run
+readyanim=brain_player_anchor_ready,brain_player_anchor_walk
 
 // 986
 [bas_986]
-readyanim=seq_5875,seq_5876
+readyanim=brain_brother_tranquility_shifty_ready,brain_human_brain_monk_walk
 
 // 987
 [bas_987]
-readyanim=seq_5893,seq_5892
+readyanim=brain_barrelchest_ready,brain_barrelchest_walk
 
 // 988
 [bas_988]
-readyanim=seq_5877,seq_5876
+readyanim=brain_human_brain_monk_ready,brain_human_brain_monk_walk
 
 // 989
 [bas_989]
-readyanim=seq_5859,seq_5858
+readyanim=brain_mi_gor_ready,brain_mi_gor_walk
 
 // 990
 [bas_990]
-readyanim=seq_5873,seq_5872
+readyanim=brain_puffin_ready,brain_puffin_walk
 
 // 991
 [bas_991]
-readyanim=seq_5873,null
+readyanim=brain_puffin_ready,null
 
 // 992
 [bas_992]
-readyanim=seq_5641,seq_5642
+readyanim=brain_sawbones_ready,brain_sawbones_walk
 
 // 993
 [bas_993]
-readyanim=seq_5883,seq_5882
+readyanim=brain_zombie_pirate_boney_ready,brain_zombie_pirate_boney_walk
 
 // 994
 [bas_994]
-readyanim=seq_5888,seq_5887
+readyanim=brain_zombie_pirate_cutters_ready,brain_zombie_pirate_cutters_walk
 
 // 995
 [bas_995]
-readyanim=seq_5879,seq_5878
+readyanim=brain_zombie_pirate_limpers_ready,brain_zombie_pirate_limpers_walk
 
 // 996
 [bas_996]
-readyanim=seq_2911,seq_2912
+readyanim=elid_choc_ice_seller_ready,elid_choc_ice_walk
 
 // 997
 [bas_997]
-readyanim=seq_2908,seq_2907
+readyanim=elid_waterspirit_sitting,elid_waterspirit_walk
 
 // 998
 [bas_998]
-readyanim=seq_792,null
+readyanim=human_geni_walkandready,null
 
 // 999
 [bas_999]
-walkanim_b=seq_1144
-walkanim_l=seq_1144
-walkanim_r=seq_1144
-readyanim=seq_1144,seq_1144
+walkanim_b=sitting_ready
+walkanim_l=sitting_ready
+walkanim_r=sitting_ready
+readyanim=sitting_ready,sitting_ready
 
 // 1000
 [bas_1000]
-readyanim=seq_1445,magicaxe_walk
+readyanim=pickaxe_beforesummon,magicaxe_walk
 
 // 1001
 [bas_1001]
-readyanim=seq_5543,seq_5543
+readyanim=ghost_update_mine_boss_run,ghost_update_mine_boss_run
 
 // 1002
 [bas_1002]
@@ -4891,72 +4891,72 @@ readyanim=seq_777,seq_776
 
 // 1003
 [bas_1003]
-readyanim=seq_1450,seq_1451
+readyanim=possessed_key_ready,possessed_key_drifting
 
 // 1004
 [bas_1004]
-readyanim=seq_1442,seq_5479
+readyanim=skeleton_beforesummon,skeleton_update_walk
 
 // 1005
 [bas_1005]
-readyanim_l=seq_3280
-readyanim_r=seq_3280
-walkanim_b=seq_3280
-walkanim_l=seq_3280
-walkanim_r=seq_3280
-readyanim=seq_3280,seq_3280
+readyanim_l=human_dead
+readyanim_r=human_dead
+walkanim_b=human_dead
+walkanim_l=human_dead
+walkanim_r=human_dead
+readyanim=human_dead,human_dead
 
 // 1006
 [bas_1006]
-readyanim=seq_4711,seq_4699
+readyanim=myq3_male_juvinate_pouchtray_ready,myq3_vampire_grounded_walk
 
 // 1007
 [bas_1007]
-readyanim=seq_4755,seq_4756
+readyanim=seq_4755,myq3_boat_walk
 
 // 1008
 [bas_1008]
-readyanim=seq_4756,seq_4756
+readyanim=myq3_boat_walk,myq3_boat_walk
 
 // 1009
 [bas_1009]
-readyanim=seq_4712,null
+readyanim=myq3_citizen_huddled,null
 
 // 1010
 [bas_1010]
-readyanim=seq_4768,null
+readyanim=myq3_juvinate_juvenile_holding_capture_loop,null
 
 // 1011
 [bas_1011]
-readyanim=seq_4690,seq_4684
+readyanim=myq3_vampire_flying_ready_head,myq3_vampire_flying_head
 
 // 1012
 [bas_1012]
-readyanim=seq_4696,null
+readyanim=myq3_vampire_flying_landing_head,null
 
 // 1013
 [bas_1013]
-readyanim=seq_4703,seq_4700
+readyanim=myq3_vampire_grounded_ready_female,myq3_vampire_grounded_female_walk
 
 // 1014
 [bas_1014]
-readyanim=seq_4702,seq_4699
+readyanim=myq3_vampire_grounded_ready_male,myq3_vampire_grounded_walk
 
 // 1015
 [bas_1015]
-readyanim=seq_4702,seq_4700
+readyanim=myq3_vampire_grounded_ready_male,myq3_vampire_grounded_female_walk
 
 // 1016
 [bas_1016]
-readyanim=seq_4703,seq_4699
+readyanim=myq3_vampire_grounded_ready_female,myq3_vampire_grounded_walk
 
 // 1017
 [bas_1017]
-readyanim=seq_4706,null
+readyanim=myq3_vampire_grounded_takeoff,null
 
 // 1018
 [bas_1018]
-readyanim=seq_4707,null
+readyanim=myq3_vampire_head_takeoff,null
 
 // 1019
 [bas_1019]
@@ -4964,16 +4964,16 @@ readyanim=seq_9118,null
 
 // 1020
 [bas_1020]
-readyanim=seq_6545,seq_6544
+readyanim=werewolf_update_ready_with_human,werewolf_update_walk_with_human
 
 // 1021
 [bas_1021]
-readyanim_l=seq_4772
-readyanim_r=seq_4772
-walkanim_b=seq_4772
-walkanim_l=seq_4772
-walkanim_r=seq_4772
-readyanim=seq_4772,seq_4772
+readyanim_l=myq3_human_tightrope
+readyanim_r=myq3_human_tightrope
+walkanim_b=myq3_human_tightrope
+walkanim_l=myq3_human_tightrope
+walkanim_r=myq3_human_tightrope
+readyanim=myq3_human_tightrope,myq3_human_tightrope
 
 // 1022
 [bas_1022]
@@ -5020,34 +5020,34 @@ readyanim=human_walk_logbalance_stumble,human_walk_logbalance_stumble
 
 // 1029
 [bas_1029]
-readyanim=seq_5505,seq_5506
+readyanim=skeleton_update_giant_vary3_ready,skeleton_update_giant_vary3_walk
 
 // 1030
 [bas_1030]
-readyanim=seq_5572,seq_5582
+readyanim=zombie_update_ready_weapon,zombie_update_walk_champion
 
 // 1031
 [bas_1031]
-readyanim=seq_3281,null
+readyanim=romeo_juliet_pew_ready,null
 
 // 1032
 [bas_1032]
-readyanim=seq_3282,null
+readyanim=romeo_juliet_pew_ready2,null
 
 // 1033
 [bas_1033]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_3036,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=handsand_sandy_lookready,human_walk_f
 
 // 1034
 [bas_1034]
-readyanim=seq_808,seq_6919
+readyanim=human_ready,kr_sincalir_family_pacing
 
 // 1035
 [bas_1035]
-readyanim=seq_6918,null
+readyanim=kr_keep_knight_posing,null
 
 // 1036
 [bas_1036]
@@ -5103,11 +5103,11 @@ readyanim=seq_11422,seq_11422
 
 // 1049
 [bas_1049]
-readyanim=seq_5565,seq_5566
+readyanim=zombie_update_ready_normal,zombie_update_walk_normal
 
 // 1050
 [bas_1050]
-readyanim=seq_3845,null
+readyanim=aide_fisherman_ready,null
 
 // 1051
 [bas_1051]
@@ -5115,15 +5115,15 @@ readyanim=bloated_toad_stay,bloated_toad_stay
 
 // 1052
 [bas_1052]
-readyanim=seq_6764,seq_6765
+readyanim=chompy_update_ready_and_extra,chompy_update_walk
 
 // 1053
 [bas_1053]
-readyanim=seq_6768,seq_6768
+readyanim=chompy_update_permadeath,chompy_update_permadeath
 
 // 1054
 [bas_1054]
-readyanim=null,seq_2571
+readyanim=null,tranquillity_trolley_move_one_square
 
 // 1055
 [bas_1055]
@@ -5135,7 +5135,7 @@ readyanim=seq_9165,seq_9165
 
 // 1057
 [bas_1057]
-readyanim=seq_90,seq_4635
+readyanim=dragon_ready,dragon_walk_kbd
 
 // 1058
 [bas_1058]
@@ -5143,11 +5143,11 @@ readyanim=seq_2691,seq_189
 
 // 1059
 [bas_1059]
-readyanim=seq_2668,seq_2667
+readyanim=panther_ready,panther_walk
 
 // 1060
 [bas_1060]
-readyanim=seq_2666,seq_2666
+readyanim=panther_ghost_sits,panther_ghost_sits
 
 // 1061
 [bas_1061]
@@ -5155,14 +5155,14 @@ readyanim=seq_9194,null
 
 // 1062
 [bas_1062]
-readyanim=seq_5044,null
+readyanim=tourtrap_qip_camel_ready,null
 
 // 1063
 [bas_1063]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_1953,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=sitting_ready_north,human_walk_f
 
 // 1064
 [bas_1064]
@@ -5176,7 +5176,7 @@ readyanim=human_falling,human_falling
 
 // 1065
 [bas_1065]
-readyanim=seq_4021,dwarf_walk
+readyanim=royal_dwarf_mining,dwarf_walk
 
 // 1066
 [bas_1066]
@@ -5184,22 +5184,22 @@ readyanim=null,dwarf_walk
 
 // 1067
 [bas_1067]
-readyanim=seq_4037,seq_4037
+readyanim=royal_sea_snake_mother_ready,royal_sea_snake_mother_ready
 
 // 1068
 [bas_1068]
-readyanim=seq_5770,seq_5770
+readyanim=fris_iceberg_moves,fris_iceberg_moves
 
 // 1069
 [bas_1069]
-readyanim=seq_5773,seq_5773
+readyanim=fris_pine_sway,fris_pine_sway
 
 // 1070
 [bas_1070]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_12455,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_12455,human_walk_f
 
 // 1071
 [bas_1071]
@@ -5233,18 +5233,18 @@ readyanim=seq_10569,seq_10568
 
 // 1077
 [bas_1077]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_10000,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_10000,human_walk_f
 
 // 1078
 [bas_1078]
-readyanim=seq_3073,seq_3078
+readyanim=enakh_boneguard_ready,enakh_boneguard_walk
 
 // 1079
 [bas_1079]
-readyanim=seq_3073,null
+readyanim=enakh_boneguard_ready,null
 
 // 1080
 [bas_1080]
@@ -5255,11 +5255,11 @@ readyanim=seq_10434,seq_10436
 
 // 1081
 [bas_1081]
-readyanim=seq_6932,seq_5570
+readyanim=seq_6932,zombie_update_walk_weapon
 
 // 1082
 [bas_1082]
-readyanim=seq_10415,seq_5570
+readyanim=seq_10415,zombie_update_walk_weapon
 
 // 1083
 [bas_1083]
@@ -5283,60 +5283,60 @@ readyanim=seq_10432,seq_10433
 
 // 1088
 [bas_1088]
-readyanim=seq_808,seq_4824
+readyanim=human_ready,slug2_walk_stage_two
 
 // 1089
 [bas_1089]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_2253,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=rd_knight_relaxed_ready,human_walk_f
 
 // 1090
 [bas_1090]
-readyanim=seq_4819,seq_4820
+readyanim=slug2_queen_ready,slug2_slug_queen_walk
 
 // 1091
 [bas_1091]
-readyanim=seq_4828,seq_4821
+readyanim=slug2_prince_ready,slug2_prince_walking
 
 // 1092
 [bas_1092]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_2728,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=wanted_ranger_ready,human_walk_f
 
 // 1093
 [bas_1093]
-walkanim_b=seq_2724
-walkanim_l=seq_2724
-walkanim_r=seq_2724
-readyanim=seq_2724,seq_2724
+walkanim_b=wanted_human_injured_cutscene
+walkanim_l=wanted_human_injured_cutscene
+walkanim_r=wanted_human_injured_cutscene
+readyanim=wanted_human_injured_cutscene,wanted_human_injured_cutscene
 
 // 1094
 [bas_1094]
-walkanim_b=seq_2727
-walkanim_l=seq_2727
-walkanim_r=seq_2727
-readyanim=seq_2727,seq_2727
+walkanim_b=wanted_interrupt_teleport
+walkanim_l=wanted_interrupt_teleport
+walkanim_r=wanted_interrupt_teleport
+readyanim=wanted_interrupt_teleport,wanted_interrupt_teleport
 
 // 1095
 [bas_1095]
-walkanim_b=seq_2726
-walkanim_l=seq_2726
-walkanim_r=seq_2726
-readyanim=seq_2726,seq_2726
+walkanim_b=wanted_prayer_anim
+walkanim_l=wanted_prayer_anim
+walkanim_r=wanted_prayer_anim
+readyanim=wanted_prayer_anim,wanted_prayer_anim
 
 // 1096
 [bas_1096]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_10575
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 1097
 [bas_1097]
@@ -5355,7 +5355,7 @@ readyanim=seq_10254,human_halberdwalk_f
 
 // 1100
 [bas_1100]
-readyanim=seq_10240,seq_6180
+readyanim=seq_10240,slice_surface_goblin_squat_walk
 
 // 1101
 [bas_1101]
@@ -5367,7 +5367,7 @@ readyanim=seq_10243,troll_walk_shield
 
 // 1103
 [bas_1103]
-readyanim=seq_10242,seq_4923
+readyanim=seq_10242,bear_rework_walk
 
 // 1104
 [bas_1104]
@@ -5380,14 +5380,14 @@ readyanim=human_climbing,human_climbing
 
 // 1105
 [bas_1105]
-readyanim=seq_7158,seq_4789
+readyanim=seq_7158,seaslug_ken_leap
 
 // 1106
 [bas_1106]
 walkanim_b=human_halberdwalk_b
 walkanim_l=human_halberdwalk_l
 walkanim_r=human_halberdwalk_r
-readyanim=seq_4788,human_halberdwalk_f
+readyanim=seaslug_water_ready,human_halberdwalk_f
 
 // 1107
 [bas_1107]
@@ -5399,15 +5399,15 @@ readyanim=seq_7166,seq_7166
 
 // 1109
 [bas_1109]
-readyanim=null,seq_4787
+readyanim=null,seaslug_water_in
 
 // 1110
 [bas_1110]
-readyanim=null,seq_4790
+readyanim=null,seaslug_water_out
 
 // 1111
 [bas_1111]
-readyanim=seq_4825,seq_4779
+readyanim=slug2_ready_stage_one,slug2_walk_stage_one
 
 // 1112
 [bas_1112]
@@ -5415,11 +5415,11 @@ readyanim_l=seq_15272
 readyanim_r=seq_15273
 walkturn_l=seq_15272
 walkturn_r=seq_15273
-readyanim=seq_3952,seq_3953
+readyanim=battle_tortoise_ready,battle_tortoise_walk
 
 // 1113
 [bas_1113]
-readyanim=seq_6140,seq_6141
+readyanim=surface_goblin_update_eyeglo_crazy_scared,surface_goblin_update_eyeglo_scared_run
 
 // 1114
 [bas_1114]
@@ -5439,68 +5439,68 @@ readyanim=seq_1474,troll_walk
 
 // 1118
 [bas_1118]
-readyanim=seq_1480,troll_walk
+readyanim=trollromance_eat,troll_walk
 
 // 1119
 [bas_1119]
-readyanim_l=seq_1468
-readyanim_r=seq_1468
-walkanim_b=seq_1468
-walkanim_l=seq_1468
-walkanim_r=seq_1468
-runanim=seq_1468
-readyanim=seq_1461,seq_1468
+readyanim_l=trollromance_toboggan_walking
+readyanim_r=trollromance_toboggan_walking
+walkanim_b=trollromance_toboggan_walking
+walkanim_l=trollromance_toboggan_walking
+walkanim_r=trollromance_toboggan_walking
+runanim=trollromance_toboggan_walking
+readyanim=seq_1461,trollromance_toboggan_walking
 
 // 1120
 [bas_1120]
-readyanim_l=seq_1462
-readyanim_r=seq_1462
-walkanim_b=seq_1462
-walkanim_l=seq_1462
-walkanim_r=seq_1462
-runanim=seq_1462
-readyanim=seq_1461,seq_1462
+readyanim_l=trollromance_toboggan_moving
+readyanim_r=trollromance_toboggan_moving
+walkanim_b=trollromance_toboggan_moving
+walkanim_l=trollromance_toboggan_moving
+walkanim_r=trollromance_toboggan_moving
+runanim=trollromance_toboggan_moving
+readyanim=seq_1461,trollromance_toboggan_moving
 
 // 1121
 [bas_1121]
-readyanim_l=seq_1464
-readyanim_r=seq_1464
-walkanim_b=seq_1464
-walkanim_l=seq_1464
-walkanim_r=seq_1464
-runanim=seq_1464
-readyanim=seq_1464,seq_1464
+readyanim_l=trollromance_toboggan_crashing
+readyanim_r=trollromance_toboggan_crashing
+walkanim_b=trollromance_toboggan_crashing
+walkanim_l=trollromance_toboggan_crashing
+walkanim_r=trollromance_toboggan_crashing
+runanim=trollromance_toboggan_crashing
+readyanim=trollromance_toboggan_crashing,trollromance_toboggan_crashing
 
 // 1122
 [bas_1122]
-readyanim_l=seq_1463
-readyanim_r=seq_1463
-walkanim_b=seq_1463
-walkanim_l=seq_1463
-walkanim_r=seq_1463
-runanim=seq_1463
-readyanim=seq_1463,seq_1463
+readyanim_l=trollromance_toboggan_flying
+readyanim_r=trollromance_toboggan_flying
+walkanim_b=trollromance_toboggan_flying
+walkanim_l=trollromance_toboggan_flying
+walkanim_r=trollromance_toboggan_flying
+runanim=trollromance_toboggan_flying
+readyanim=trollromance_toboggan_flying,trollromance_toboggan_flying
 
 // 1123
 [bas_1123]
-readyanim_l=seq_1467
-readyanim_r=seq_1467
-walkanim_b=seq_1467
-walkanim_l=seq_1467
-walkanim_r=seq_1467
-runanim=seq_1467
-readyanim=seq_1467,seq_1467
+readyanim_l=trollromance_toboggan_stunt
+readyanim_r=trollromance_toboggan_stunt
+walkanim_b=trollromance_toboggan_stunt
+walkanim_l=trollromance_toboggan_stunt
+walkanim_r=trollromance_toboggan_stunt
+runanim=trollromance_toboggan_stunt
+readyanim=trollromance_toboggan_stunt,trollromance_toboggan_stunt
 
 // 1124
 [bas_1124]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_7629,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_7629,human_walk_f
 
 // 1125
 [bas_1125]
-readyanim=seq_7629,seq_819
+readyanim=seq_7629,human_walk_f
 
 // 1126
 [bas_1126]
@@ -5521,7 +5521,7 @@ readyanim=seq_7593,seq_7592
 // 1130
 [bas_1130]
 hillrotate=68,48
-readyanim=seq_6263,seq_6264
+readyanim=lobster_update_ready,lobster_update_walk
 
 // 1131
 [bas_1131]
@@ -5657,17 +5657,17 @@ readyanim=seq_8683,seq_8684
 
 // 1158
 [bas_1158]
-walkturn_l=seq_3997
-walkturn_r=seq_3997
-readyanim_l=seq_3997
-readyanim_r=seq_3997
-walkanim_l=seq_3997
-walkanim_r=seq_3997
-readyanim=seq_3950,seq_3997
+walkturn_l=qip_cook_milkmaid_walk
+walkturn_r=qip_cook_milkmaid_walk
+readyanim_l=qip_cook_milkmaid_walk
+readyanim_r=qip_cook_milkmaid_walk
+walkanim_l=qip_cook_milkmaid_walk
+walkanim_r=qip_cook_milkmaid_walk
+readyanim=qip_cook_milkmaid,qip_cook_milkmaid_walk
 
 // 1159
 [bas_1159]
-readyanim=null,seq_3220
+readyanim=null,draynor_possesed_chair
 
 // 1160
 [bas_1160]
@@ -5681,69 +5681,69 @@ readyanim=human_lean_ready,human_lean_ready
 
 // 1161
 [bas_1161]
-readyanim=seq_6205,dwarf_walk
+readyanim=slice_dwarf_1_ready,dwarf_walk
 
 // 1162
 [bas_1162]
-readyanim=seq_6206,dwarf_walk
+readyanim=slice_dwarf_2_ready,dwarf_walk
 
 // 1163
 [bas_1163]
-readyanim=seq_6207,dwarf_walk
+readyanim=slice_dwarf_3_ready,dwarf_walk
 
 // 1164
 [bas_1164]
-readyanim=seq_6208,dwarf_walk
+readyanim=slice_dwarf_4_ready,dwarf_walk
 
 // 1165
 [bas_1165]
-readyanim=seq_6040,seq_6215
+readyanim=dorgesh_goblin_ready,slice_zanik_jump_from_track_south
 
 // 1166
 [bas_1166]
-readyanim=seq_6151,seq_6150
+readyanim=slice_hostage_ready,slice_hostage_walk
 
 // 1167
 [bas_1167]
-readyanim=seq_6181,seq_6193
+readyanim=slice_surface_goblin_squat_ready,slice_surface_goblin_running_scared
 
 // 1168
 [bas_1168]
-readyanim=seq_6149,null
+readyanim=slice_zanik_public_address,null
 
 // 1169
 [bas_1169]
-readyanim=seq_5370,seq_5372
+readyanim=anma_ghost_ready,anma_ghost_walk
 
 // 1170
 [bas_1170]
-readyanim=seq_5371,seq_5373
+readyanim=anma_ghost_ready_sack_empty,anma_ghost_walk_sack_empty
 
 // 1171
 [bas_1171]
 readyanim_l=seq_823
 readyanim_r=seq_823
 walkanim_b=seq_5438
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
 readyanim=seq_5363,seq_5364
 
 // 1172
 [bas_1172]
-readyanim=null,seq_5531
+readyanim=null,ghost_update_normal_walk
 
 // 1173
 [bas_1173]
-readyanim=seq_2882,seq_2882
+readyanim=sand_storm_npc,sand_storm_npc
 
 // 1174
 [bas_1174]
-readyanim=seq_4866,seq_4867
+readyanim=earth_elemental_rework_ready,earth_elemental_rework_walk
 
 // 1175
 [bas_1175]
-readyanim=seq_4864,seq_4864
+readyanim=earth_elemental_rework_ready_rock,earth_elemental_rework_ready_rock
 
 // 1176
 [bas_1176]
@@ -5761,26 +5761,26 @@ readyanim=elemental_water_ready,elemental_water_walk
 [bas_1179]
 readyanim_l=human_staffready
 readyanim_r=human_staffready
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 readyanim=human_staffready,walk_walkingstick
 
 // 1180
 [bas_1180]
-readyanim=seq_3978,seq_3977
+readyanim=swan_general_ready,swan_general_walk
 
 // 1181
 [bas_1181]
-readyanim=seq_3970,null
+readyanim=swan_infinitedeath,null
 
 // 1182
 [bas_1182]
-readyanim=seq_3989,null
+readyanim=swan_queen_ready,null
 
 // 1183
 [bas_1183]
-readyanim=seq_3987,seq_3984
+readyanim=swan_seatroll_ready,swan_seatroll_walk
 
 // 1184
 [bas_1184]
@@ -5793,172 +5793,172 @@ randomreadyanim=seq_107,20
 
 // 1185
 [bas_1185]
-readyanim=seq_6282,seq_6282
+readyanim=dream_cyrisus_barely_conscious,dream_cyrisus_barely_conscious
 
 // 1186
 [bas_1186]
-readyanim=seq_6284,seq_6284
+readyanim=dream_cyrisus_sitting_up,dream_cyrisus_sitting_up
 
 // 1187
 [bas_1187]
-readyanim=seq_6280,seq_6280
+readyanim=dream_cyrisus_unconscious,dream_cyrisus_unconscious
 
 // 1188
 [bas_1188]
-readyanim=seq_6343,seq_6344
+readyanim=dream_everlasting_ready,dream_everlasting_walk
 
 // 1189
 [bas_1189]
-readyanim=seq_6338,seq_6339
+readyanim=dream_illusive_ready,dream_illusive_walk
 
 // 1190
 [bas_1190]
-readyanim=seq_6350,seq_6339
+readyanim=dream_illusive_death_ready,dream_illusive_walk
 
 // 1191
 [bas_1191]
-readyanim=seq_6317,seq_6317
+readyanim=dream_inadequacy_ready,dream_inadequacy_ready
 
 // 1192
 [bas_1192]
-readyanim=seq_6311,seq_6312
+readyanim=dream_razorbeast_ready,dream_razorbeast_walk
 
 // 1193
 [bas_1193]
-readyanim=seq_6328,seq_6328
+readyanim=dream_untouchable_ready_walk,dream_untouchable_ready_walk
 
 // 1194
 [bas_1194]
-readyanim_l=seq_1640
-readyanim_r=seq_1640
-walkanim_b=seq_1640
-walkanim_l=seq_1640
-readyanim=seq_1639,seq_1640
+readyanim_l=ahoy_ghost_disguise_walk
+readyanim_r=ahoy_ghost_disguise_walk
+walkanim_b=ahoy_ghost_disguise_walk
+walkanim_l=ahoy_ghost_disguise_walk
+readyanim=ahoy_ghost_disguise_ready,ahoy_ghost_disguise_walk
 
 // 1195
 [bas_1195]
-readyanim=seq_1639,seq_1640
+readyanim=ahoy_ghost_disguise_ready,ahoy_ghost_disguise_walk
 
 // 1196
 [bas_1196]
-readyanim=seq_1646,seq_1647
+readyanim=goop_launch,seq_1647
 
 // 1197
 [bas_1197]
-readyanim=seq_1644,seq_1645
+readyanim=goopy_snake,seq_1645
 
 // 1198
 [bas_1198]
-walkanim_b=seq_1423
-walkanim_l=seq_1424
-walkanim_r=seq_1425
-readyanim=seq_1421,seq_1422
+walkanim_b=human_bannerwalk_b
+walkanim_l=human_bannerwalk_l
+walkanim_r=human_bannerwalk_r
+readyanim=human_bannerready,human_bannerwalk_f
 
 // 1199
 [bas_1199]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_5752,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=wake_up_ready,human_walk_f
 
 // 1200
 [bas_1200]
-readyanim=seq_3815,seq_3819
+readyanim=confready,confwalk
 
 // 1201
 [bas_1201]
-readyanim=seq_3810,seq_3809
+readyanim=fear_ready,fear_walk
 
 // 1202
 [bas_1202]
-readyanim=seq_3822,seq_3825
+readyanim=lessready,lesswalk
 
 // 1203
 [bas_1203]
-readyanim=seq_3828,seq_3828
+readyanim=neckready,neckready
 
 // 1204
 [bas_1204]
-readyanim_l=seq_5703
-readyanim_r=seq_5703
-walkanim_b=seq_5703
-walkanim_l=seq_5703
-walkanim_r=seq_5667
-readyanim=seq_5668,seq_5703
+readyanim_l=peng_slippery_walk
+readyanim_r=peng_slippery_walk
+walkanim_b=peng_slippery_walk
+walkanim_l=peng_slippery_walk
+walkanim_r=peng_geentoo_run
+readyanim=peng_gentoo_ready,peng_slippery_walk
 
 // 1205
 [bas_1205]
-readyanim_l=seq_5666
-readyanim_r=seq_5666
-walkanim_b=seq_5666
-walkanim_l=seq_5666
-walkanim_r=seq_5666
-runanim=seq_5667
-runanim=seq_5667
-runanim_l=seq_5667
-runanim_r=seq_5667
-readyanim=seq_5668,seq_5666
+readyanim_l=peng_gentoo_walk
+readyanim_r=peng_gentoo_walk
+walkanim_b=peng_gentoo_walk
+walkanim_l=peng_gentoo_walk
+walkanim_r=peng_gentoo_walk
+runanim=peng_geentoo_run
+runanim=peng_geentoo_run
+runanim_l=peng_geentoo_run
+runanim_r=peng_geentoo_run
+readyanim=peng_gentoo_ready,peng_gentoo_walk
 
 // 1206
 [bas_1206]
-readyanim_l=seq_5666
-readyanim_r=seq_5666
-walkanim_b=seq_5666
-walkanim_l=seq_5666
-readyanim=seq_5668,seq_5666
+readyanim_l=peng_gentoo_walk
+readyanim_r=peng_gentoo_walk
+walkanim_b=peng_gentoo_walk
+walkanim_l=peng_gentoo_walk
+readyanim=peng_gentoo_ready,peng_gentoo_walk
 
 // 1207
 [bas_1207]
-readyanim=seq_5674,null
+readyanim=peng_player_bongo,null
 
 // 1208
 [bas_1208]
-readyanim_l=seq_5706
-readyanim_r=seq_5706
-walkanim_b=seq_5706
-walkanim_l=seq_5706
-walkanim_r=seq_5707
-readyanim=seq_5705,seq_5706
+readyanim_l=peng_slide_walk
+readyanim_r=peng_slide_walk
+walkanim_b=peng_slide_walk
+walkanim_l=peng_slide_walk
+walkanim_r=peng_slide_run
+readyanim=peng_slide_ready,peng_slide_walk
 
 // 1209
 [bas_1209]
-readyanim_l=seq_5689
-readyanim_r=seq_5689
-walkanim_b=seq_5689
-walkanim_l=seq_5689
-readyanim=seq_5688,seq_5689
+readyanim_l=peng_swim_walk
+readyanim_r=peng_swim_walk
+walkanim_b=peng_swim_walk
+walkanim_l=peng_swim_walk
+readyanim=peng_swim_ready,peng_swim_walk
 
 // 1210
 [bas_1210]
-readyanim=seq_5675,null
+readyanim=peng_bongo_ready,null
 
 // 1211
 [bas_1211]
-readyanim=seq_5677,seq_5676
+readyanim=peng_general_ready,peng_general_walk
 
 // 1212
 [bas_1212]
-readyanim=seq_5685,null
+readyanim=peng_gentoo_pushups,null
 
 // 1213
 [bas_1213]
-readyanim=seq_5668,null
+readyanim=peng_gentoo_ready,null
 
 // 1214
 [bas_1214]
-readyanim=seq_5682,null
+readyanim=peng_gentoo_situps_north,null
 
 // 1215
 [bas_1215]
-readyanim=seq_5680,null
+readyanim=peng_gentoo_starjump_east,null
 
 // 1216
 [bas_1216]
-readyanim=seq_5722,seq_5721
+readyanim=peng_icelord_ready,peng_icelord_walk
 
 // 1217
 [bas_1217]
-readyanim=seq_5310,seq_5309
+readyanim=eaglepeak_desert_boulder_ready,eaglepeak_desert_boulder_roll
 
 // 1218
 [bas_1218]
@@ -5972,15 +5972,15 @@ readyanim=human_crawling_ready,human_crawling
 
 // 1220
 [bas_1220]
-readyanim=seq_5302,seq_5301
+readyanim=uber_kebbit_ready,uber_kebbit_walk
 
 // 1221
 [bas_1221]
-readyanim=seq_6218,seq_6221
+readyanim=kalphite_update_ready,kalphite_update_larvae_walk
 
 // 1222
 [bas_1222]
-readyanim=seq_6219,seq_6222
+readyanim=kalphite_update_lord_ready,kalphite_update_lord_walk
 
 // 1223
 [bas_1223]
@@ -6000,7 +6000,7 @@ readyanim=seq_7105,seq_7106
 
 // 1227
 [bas_1227]
-readyanim=seq_7090,seq_7089
+readyanim=pog_mutated_battle_tortoise_ready,pog_mutated_battle_tortoise_walk
 
 // 1228
 [bas_1228]
@@ -6072,27 +6072,27 @@ readyanim=seq_7384,null
 
 // 1245
 [bas_1245]
-readyanim=seq_3840,null
+readyanim=talking_sack,null
 
 // 1246
 [bas_1246]
-readyanim=seq_2017,seq_2016
+readyanim=vulture_ground_ready,vulture_walk
 
 // 1247
 [bas_1247]
-readyanim=seq_2024,seq_2024
+readyanim=vulture_fly,vulture_fly
 
 // 1248
 [bas_1248]
-readyanim=seq_4593,null
+readyanim=qip_digsite_panning_01,null
 
 // 1249
 [bas_1249]
-readyanim=seq_4594,null
+readyanim=qip_digsite_panning_02,null
 
 // 1250
 [bas_1250]
-readyanim=seq_6729,seq_6730
+readyanim=brut_angry_spirit_ready,brut_angry_spirit_walk
 
 // 1251
 [bas_1251]
@@ -6128,15 +6128,15 @@ readyanim=seq_7368,seq_7368
 
 // 1259
 [bas_1259]
-readyanim=seq_2939,null
+readyanim=champions_throne_sit,null
 
 // 1260
 [bas_1260]
-readyanim=seq_2943,null
+readyanim=gnome_throne_sit,null
 
 // 1261
 [bas_1261]
-readyanim=seq_2940,null
+readyanim=elf_throne_sit,null
 
 // 1262
 [bas_1262]
@@ -6144,22 +6144,22 @@ readyanim=seq_12415,seq_12415
 
 // 1263
 [bas_1263]
-readyanim=seq_2942,null
+readyanim=dwarf_throne_sit,null
 
 // 1264
 [bas_1264]
-walkanim_b=seq_2948
-walkanim_l=seq_2949
-walkanim_r=seq_2950
-readyanim=seq_2945,seq_2947
+walkanim_b=earthwarrior_walk_b
+walkanim_l=earthwarrior_walk_l
+walkanim_r=earthwarrior_walk_r
+readyanim=earthwarrior_ready,earthwarrior_walk_f
 
 // 1265
 [bas_1265]
-readyanim=seq_6371,seq_6372
+readyanim=giant_champion_ready,giant_champion_walk
 
 // 1266
 [bas_1266]
-readyanim=seq_5510,seq_5511
+readyanim=skeleton_update_champion_ready,skeleton_update_champion_walk
 
 // 1267
 [bas_1267]
@@ -6167,11 +6167,11 @@ readyanim=seq_9299,null
 
 // 1268
 [bas_1268]
-readyanim=seq_6542,null
+readyanim=werewolf_update_on_throne,null
 
 // 1269
 [bas_1269]
-readyanim=seq_5573,seq_5582
+readyanim=seq_5573,zombie_update_walk_champion
 
 // 1270
 [bas_1270]
@@ -6185,7 +6185,7 @@ walkanim_b=seq_9738
 walkanim_l=seq_9738
 walkanim_r=seq_9738
 runanim=seq_9739
-readyanim=seq_847,seq_9738
+readyanim=human_ready_scythe,seq_9738
 
 // 1272
 [bas_1272]
@@ -6225,13 +6225,13 @@ readyanim=seq_5246,seq_5245
 
 // 1278
 [bas_1278]
-readyanim=seq_5182,seq_5181
+readyanim=hunting_chinchompa_ready,hunting_chinchompa_walking
 
 // 1279
 [bas_1279]
-readyanim_l=seq_5252
-readyanim_r=seq_5252
-walkanim_b=seq_5251
+readyanim_l=hunting_noose_turnonspot
+readyanim_r=hunting_noose_turnonspot
+walkanim_b=hunting_noose_walk_b
 walkanim_l=human_halberdwalk_l
 walkanim_r=human_halberdwalk_r
 runanim=seq_5253
@@ -6239,29 +6239,29 @@ readyanim=seq_5254,seq_5250
 
 // 1280
 [bas_1280]
-readyanim=seq_5263,seq_5262
+readyanim=salamander_ready,salamander_walk
 
 // 1281
 [bas_1281]
-readyanim=seq_5202,seq_5284
+readyanim=falcon_on_prey,cockatiel_walk
 
 // 1282
 [bas_1282]
-readyanim=seq_5203,seq_5284
+readyanim=falcon_ready,cockatiel_walk
 
 // 1283
 [bas_1283]
-readyanim_l=seq_5161
-readyanim_r=seq_5161
-walkanim_b=seq_5165
-walkanim_l=seq_5166
-walkanim_r=seq_5167
+readyanim_l=human_falconer_turnonspot
+readyanim_r=human_falconer_turnonspot
+walkanim_b=human_falconer_walk_b
+walkanim_l=human_falconer_walk_l
+walkanim_r=human_falconer_walk_r
 runanim=seq_5168
-readyanim=seq_5160,seq_5164
+readyanim=human_falconer_ready,human_falconer_walk_f
 
 // 1284
 [bas_1284]
-readyanim=seq_5160,seq_5164
+readyanim=human_falconer_ready,human_falconer_walk_f
 
 // 1285
 [bas_1285]
@@ -6325,7 +6325,7 @@ readyanim=seq_7968,seq_7961
 [bas_1295]
 runanim=seq_2175
 hillrotate=64,24
-readyanim=seq_6374,seq_6373
+readyanim=unicorn_rework_ready,unicorn_rework_walk
 
 // 1296
 [bas_1296]
@@ -6338,7 +6338,7 @@ readyanim=seq_7849,seq_7848
 [bas_1297]
 runanim=seq_1260
 hillrotate=32,32
-readyanim=seq_6252,seq_6253
+readyanim=scorpion_update_ready,scorpion_update_walk
 
 // 1298
 [bas_1298]
@@ -6394,13 +6394,13 @@ readyanim=seq_7738,seq_7735
 // 1308
 [bas_1308]
 runanim=seq_1268
-readyanim=seq_5386,seq_7808
+readyanim=lore_chicken_ready,seq_7808
 
 // 1309
 [bas_1309]
 runanim=seq_2177
 hillrotate=32,32
-readyanim=seq_8518,seq_6220
+readyanim=seq_8518,kalphite_update_walk
 
 // 1310
 [bas_1310]
@@ -6520,7 +6520,7 @@ readyanim=seq_7751,seq_7750
 [bas_1331]
 runanim=seq_1499
 hillrotate=64,32
-readyanim=seq_5986,seq_5987
+readyanim=trek_nailbeast_ready,trek_nailbeast_walk
 
 // 1332
 [bas_1332]
@@ -6578,12 +6578,12 @@ readyanim=seq_8324,seq_8326
 // 1343
 [bas_1343]
 hillrotate=32,32
-readyanim=seq_27,seq_21
+readyanim=bdrag_ready,bdrag_walk
 
 // 1344
 [bas_1344]
 hillrotate=64,64
-readyanim=seq_27,seq_21
+readyanim=bdrag_ready,bdrag_walk
 
 // 1345
 [bas_1345]
@@ -6774,28 +6774,28 @@ readyanim=human_staffready,human_halberdwalk_f
 
 // 1382
 [bas_1382]
-readyanim_l=seq_3594
-readyanim_r=seq_3594
-readyanim=seq_3594,seq_3600
+readyanim_l=balance_beam_ready
+readyanim_r=balance_beam_ready
+readyanim=balance_beam_ready,balance_beam_walk
 
 // 1383
 [bas_1383]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=seq_847,seq_819
+readyanim=human_ready_scythe,human_walk_f
 
 // 1384
 [bas_1384]
 hillrotate=128,64
-readyanim=seq_6496,seq_79
+readyanim=dragon_update_ready_poh_fix,dragon_walk
 
 // 1385
 [bas_1385]
-readyanim=seq_3584,null
+readyanim=elemental_orb_spins,null
 
 // 1386
 [bas_1386]
@@ -6809,111 +6809,111 @@ readyanim=seq_3677,seq_3680
 
 // 1387
 [bas_1387]
-readyanim=seq_3707,seq_3708
+readyanim=oub_monster1_ready,oub_monster1_walk
 
 // 1388
 [bas_1388]
 hillrotate=48,48
-readyanim=seq_5318,seq_5317
+readyanim=spider_update_ready_large,spider_update_walk_large
 
 // 1389
 [bas_1389]
-readyanim=seq_3719,null
+readyanim=chair_ready_herald,null
 
 // 1390
 [bas_1390]
-readyanim=seq_3716,seq_3717
+readyanim=poh_toy_doll_ready,poh_toy_doll_walk
 
 // 1391
 [bas_1391]
-readyanim=seq_3718,seq_3718
+readyanim=poh_toy_mouse_walk,poh_toy_mouse_walk
 
 // 1392
 [bas_1392]
-readyanim=seq_3712,seq_3713
+readyanim=poh_toy_soldier_ready,poh_toy_soldier_walk
 
 // 1393
 [bas_1393]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=seq_12423,seq_819
+readyanim=seq_12423,human_walk_f
 
 // 1394
 [bas_1394]
-readyanim=seq_5852,seq_5856
+readyanim=cow_just_ready_update,calf_update_walk
 
 // 1395
 [bas_1395]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_2701,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=prisoner_ready_angry,human_walk_f
 
 // 1396
 [bas_1396]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_2700,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=prison_guard_sleep,human_walk_f
 
 // 1397
 [bas_1397]
 hillrotate=64,32
-readyanim=seq_5852,seq_5856
+readyanim=cow_just_ready_update,calf_update_walk
 
 // 1398
 [bas_1398]
 hillrotate=64,32
-readyanim=seq_27,seq_21
+readyanim=bdrag_ready,bdrag_walk
 
 // 1399
 [bas_1399]
-readyanim=seq_6772,null
+readyanim=bird_flying_update_ready_and_extra_toucan_and_cormarant,null
 
 // 1400
 [bas_1400]
-readyanim=seq_6785,seq_6784
+readyanim=crow_update_ready,crow_update_fly
 
 // 1401
 [bas_1401]
-readyanim=seq_6786,seq_6784
+readyanim=crow_update_ready_2,crow_update_fly
 
 // 1402
 [bas_1402]
-readyanim=seq_6787,seq_6784
+readyanim=crow_update_ready_3,crow_update_fly
 
 // 1403
 [bas_1403]
 hillrotate=128,64
-readyanim=seq_90,seq_4635
+readyanim=dragon_ready,dragon_walk_kbd
 
 // 1404
 [bas_1404]
-readyanim=seq_6815,seq_6819
+readyanim=duck_rework_land_ready_and_extra,duck_rework_walk
 
 // 1405
 [bas_1405]
-readyanim=seq_6818,seq_6817
+readyanim=duck_rework_underwater_ready_and_extra,duck_rework_swim
 
 // 1406
 [bas_1406]
-readyanim=seq_6813,seq_6819
+readyanim=duck_rework_land_ready_extra,duck_rework_walk
 
 // 1407
 [bas_1407]
-readyanim=seq_6821,seq_6822
+readyanim=ducklings_rework_ready,ducklings_rework_swim
 
 // 1408
 [bas_1408]
-readyanim=seq_2166,seq_2165
+readyanim=farming_pig_ready,farming_pig_walk
 
 // 1409
 [bas_1409]
-readyanim=seq_4670,seq_4669
+readyanim=giant_update_ice_ready,giant_update_ice_walk
 
 // 1410
 [bas_1410]
@@ -6940,7 +6940,7 @@ readyanim=orc_ready,orc_walk
 // 1414
 [bas_1414]
 hillrotate=64,64
-readyanim=seq_6252,seq_6253
+readyanim=scorpion_update_ready,scorpion_update_walk
 
 // 1415
 [bas_1415]
@@ -6948,16 +6948,16 @@ readyanim=null,shark_walk
 
 // 1416
 [bas_1416]
-readyanim=seq_2268,null
+readyanim=sittingdog_ready,null
 
 // 1417
 [bas_1417]
-readyanim=seq_5495,seq_5497
+readyanim=skeleton_update_giant_vary2_ready,skeleton_update_giant_walk
 
 // 1418
 [bas_1418]
 hillrotate=24,24
-readyanim=seq_6258,seq_6257
+readyanim=small_scorpion_update_ready,small_scorpion_update_walk
 
 // 1419
 [bas_1419]
@@ -6965,44 +6965,44 @@ readyanim=souless_ready,souless_walk
 
 // 1420
 [bas_1420]
-readyanim=seq_3242,seq_3241
+readyanim=swan_ready,swan_walk
 
 // 1421
 [bas_1421]
-readyanim=seq_6478,null
+readyanim=varrock_granny_rocking,null
 
 // 1422
 [bas_1422]
 walkanim_b=monkey_walk
 walkanim_l=monkey_walk
 walkanim_r=monkey_walk
-runanim=seq_1419
-runanim_b=seq_1419
-runanim_l=seq_1419
-runanim_r=seq_1419
+runanim=m_normalmonkey_run
+runanim_b=m_normalmonkey_run
+runanim_l=m_normalmonkey_run
+runanim_r=m_normalmonkey_run
 readyanim=monkey_ready,monkey_walk
 
 // 1423
 [bas_1423]
-walkanim_b=seq_1399
-walkanim_l=seq_1399
-walkanim_r=seq_1399
-runanim=seq_1400
-runanim_b=seq_1400
-runanim_l=seq_1400
-runanim_r=seq_1400
-readyanim=seq_1401,seq_1399
+walkanim_b=m_gorilla_walk
+walkanim_l=m_gorilla_walk
+walkanim_r=m_gorilla_walk
+runanim=m_gorilla_run
+runanim_b=m_gorilla_run
+runanim_l=m_gorilla_run
+runanim_r=m_gorilla_run
+readyanim=m_gorilla_ready,m_gorilla_walk
 
 // 1424
 [bas_1424]
-walkanim_b=seq_1382
-walkanim_l=seq_1382
-walkanim_r=seq_1382
-runanim=seq_1381
-runanim_b=seq_1381
-runanim_l=seq_1381
-runanim_r=seq_1381
-readyanim=seq_1386,seq_1382
+walkanim_b=m_zombie_walk
+walkanim_l=m_zombie_walk
+walkanim_r=m_zombie_walk
+runanim=m_monkey_run
+runanim_b=m_monkey_run
+runanim_l=m_monkey_run
+runanim_r=m_monkey_run
+readyanim=m_monkey_ready,m_zombie_walk
 
 // 1425
 [bas_1425]
@@ -7015,11 +7015,11 @@ readyanim=seq_3866,seq_3865
 [bas_1426]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 1427
 [bas_1427]
@@ -7048,11 +7048,11 @@ readyanim=seq_11029,seq_11029
 [bas_1430]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=human_halberdrunning
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 1431
 [bas_1431]
@@ -7079,24 +7079,24 @@ readyanim=seq_11200,seq_11201
 
 // 1436
 [bas_1436]
-readyanim_l=seq_5531
-readyanim_r=seq_5531
-walkanim_b=seq_5531
-walkanim_l=seq_5531
-walkanim_r=seq_5531
-readyanim=seq_5530,seq_5531
+readyanim_l=ghost_update_normal_walk
+readyanim_r=ghost_update_normal_walk
+walkanim_b=ghost_update_normal_walk
+walkanim_l=ghost_update_normal_walk
+walkanim_r=ghost_update_normal_walk
+readyanim=ghost_update_normal_ready,ghost_update_normal_walk
 
 // 1437
 [bas_1437]
-readyanim=seq_4087,seq_4087
+readyanim=chair_sit_ready_chair7,chair_sit_ready_chair7
 
 // 1438
 [bas_1438]
 readyanim_l=human_lean
 readyanim_r=human_lean
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 crawlanim=human_crawling
 crawlanim_b=human_stumble_back
 crawlanim_l=human_crawling
@@ -7105,15 +7105,15 @@ runanim=seq_824
 runanim_b=seq_824
 runanim_l=seq_824
 runanim_r=seq_824
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 1439
 [bas_1439]
-readyanim=seq_4010,troll_walk_shield
+readyanim=pinball_troll_ease_lft,troll_walk_shield
 
 // 1440
 [bas_1440]
-readyanim=seq_4009,troll_walk_shield
+readyanim=pinball_troll_ease_rht,troll_walk_shield
 
 // 1441
 [bas_1441]
@@ -7133,46 +7133,46 @@ readyanim=seq_11304,null
 
 // 1445
 [bas_1445]
-readyanim_l=seq_6041
-readyanim_r=seq_6041
-walkanim_b=seq_6041
-walkanim_l=seq_6041
-walkanim_r=seq_6041
+readyanim_l=dorgesh_goblin_walk
+readyanim_r=dorgesh_goblin_walk
+walkanim_b=dorgesh_goblin_walk
+walkanim_l=dorgesh_goblin_walk
+walkanim_r=dorgesh_goblin_walk
 runanim=seq_11267
-readyanim=seq_11304,seq_6041
+readyanim=seq_11304,dorgesh_goblin_walk
 
 // 1446
 [bas_1446]
-readyanim_l=seq_6041
-readyanim_r=seq_6041
-walkanim_b=seq_6041
-walkanim_l=seq_6041
-walkanim_r=seq_6041
-runanim=seq_6041
-readyanim=seq_6040,seq_6041
+readyanim_l=dorgesh_goblin_walk
+readyanim_r=dorgesh_goblin_walk
+walkanim_b=dorgesh_goblin_walk
+walkanim_l=dorgesh_goblin_walk
+walkanim_r=dorgesh_goblin_walk
+runanim=dorgesh_goblin_walk
+readyanim=dorgesh_goblin_ready,dorgesh_goblin_walk
 
 // 1447
 [bas_1447]
-readyanim_l=seq_6041
-readyanim_r=seq_6041
-walkanim_b=seq_6041
-walkanim_l=seq_6041
-walkanim_r=seq_6041
+readyanim_l=dorgesh_goblin_walk
+readyanim_r=dorgesh_goblin_walk
+walkanim_b=dorgesh_goblin_walk
+walkanim_l=dorgesh_goblin_walk
+walkanim_r=dorgesh_goblin_walk
 runanim=seq_11267
-readyanim=seq_11268,seq_6041
+readyanim=seq_11268,dorgesh_goblin_walk
 
 // 1448
 [bas_1448]
-readyanim_l=seq_6041
-readyanim_r=seq_6041
-walkanim_b=seq_6041
-walkanim_l=seq_6041
-walkanim_r=seq_6041
+readyanim_l=dorgesh_goblin_walk
+readyanim_r=dorgesh_goblin_walk
+walkanim_b=dorgesh_goblin_walk
+walkanim_l=dorgesh_goblin_walk
+walkanim_r=dorgesh_goblin_walk
 runanim=seq_11267
 runanim_b=seq_11267
 runanim_l=seq_11267
 runanim_r=seq_11267
-readyanim=seq_6040,seq_6041
+readyanim=dorgesh_goblin_ready,dorgesh_goblin_walk
 
 // 1449
 [bas_1449]
@@ -7189,29 +7189,29 @@ readyanim=seq_11390,seq_11391
 
 // 1450
 [bas_1450]
-readyanim_l=seq_808
-readyanim_r=seq_808
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+readyanim_l=human_ready
+readyanim_r=human_ready
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
 runanim_b=seq_824
 runanim_l=seq_824
 runanim_r=seq_824
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 1451
 [bas_1451]
-readyanim_l=seq_6181
-readyanim_r=seq_6181
-walkanim_b=seq_6180
-walkanim_l=seq_6180
-walkanim_r=seq_6180
+readyanim_l=slice_surface_goblin_squat_ready
+readyanim_r=slice_surface_goblin_squat_ready
+walkanim_b=slice_surface_goblin_squat_walk
+walkanim_l=slice_surface_goblin_squat_walk
+walkanim_r=slice_surface_goblin_squat_walk
 runanim=seq_7332
 runanim_b=seq_7332
 runanim_l=seq_7332
 runanim_r=seq_7332
-readyanim=seq_6181,seq_6180
+readyanim=slice_surface_goblin_squat_ready,slice_surface_goblin_squat_walk
 
 // 1452
 [bas_1452]
@@ -7242,29 +7242,29 @@ readyanim=seq_11407,seq_11406
 
 // 1458
 [bas_1458]
-readyanim=seq_5750,seq_6042
+readyanim=seq_5750,dorgesh_goblin_child_walk
 
 // 1459
 [bas_1459]
-readyanim=seq_5751,seq_6042
+readyanim=seq_5751,dorgesh_goblin_child_walk
 
 // 1460
 [bas_1460]
-readyanim=seq_11225,seq_6042
+readyanim=seq_11225,dorgesh_goblin_child_walk
 
 // 1461
 [bas_1461]
-readyanim=seq_11226,seq_6042
+readyanim=seq_11226,dorgesh_goblin_child_walk
 
 // 1462
 [bas_1462]
-readyanim_l=seq_6041
-readyanim_r=seq_6041
-walkanim_b=seq_6041
-walkanim_l=seq_6041
-walkanim_r=seq_6041
+readyanim_l=dorgesh_goblin_walk
+readyanim_r=dorgesh_goblin_walk
+walkanim_b=dorgesh_goblin_walk
+walkanim_l=dorgesh_goblin_walk
+walkanim_r=dorgesh_goblin_walk
 runanim=seq_11267
-readyanim=seq_6040,seq_6041
+readyanim=dorgesh_goblin_ready,dorgesh_goblin_walk
 
 // 1463
 [bas_1463]
@@ -7347,7 +7347,7 @@ readyanim=seq_11436,seq_11433
 // 1481
 [bas_1481]
 runanim=seq_11481
-readyanim=seq_11482,seq_819
+readyanim=seq_11482,human_walk_f
 
 // 1482
 [bas_1482]
@@ -7407,7 +7407,7 @@ readyanim=seq_11687,null
 
 // 1496
 [bas_1496]
-readyanim=seq_2700,null
+readyanim=prison_guard_sleep,null
 
 // 1497
 [bas_1497]
@@ -7415,28 +7415,28 @@ readyanim=seq_11690,null
 
 // 1498
 [bas_1498]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=null,seq_819
-randomreadyanim=seq_808,2
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=null,human_walk_f
+randomreadyanim=human_ready,2
 randomreadyanim=seq_11659,1
 
 // 1499
 [bas_1499]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=null,seq_819
-randomreadyanim=seq_808,2
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=null,human_walk_f
+randomreadyanim=human_ready,2
 randomreadyanim=seq_11658,1
 
 // 1500
 [bas_1500]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_11660,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_11660,human_walk_f
 
 // 1501
 [bas_1501]
@@ -7494,11 +7494,11 @@ readyanim=seq_11736,dwarf_walk
 
 // 1514
 [bas_1514]
-readyanim=seq_11750,seq_5666
+readyanim=seq_11750,peng_gentoo_walk
 
 // 1515
 [bas_1515]
-readyanim=seq_5720,seq_5719
+readyanim=peng_polar_bear_ready,peng_polar_bear_walk
 
 // 1516
 [bas_1516]
@@ -7544,11 +7544,11 @@ readyanim=seq_11747,seq_11746
 
 // 1525
 [bas_1525]
-readyanim=seq_5675,seq_5675
+readyanim=peng_bongo_ready,peng_bongo_ready
 
 // 1526
 [bas_1526]
-readyanim=seq_5673,seq_5673
+readyanim=peng_cowbell_ready,peng_cowbell_ready
 
 // 1527
 [bas_1527]
@@ -7560,7 +7560,7 @@ readyanim=seq_11893,seq_9869
 
 // 1529
 [bas_1529]
-readyanim=seq_11848,seq_6187
+readyanim=seq_11848,slice_surface_goblin_squat_walk_spear
 
 // 1530
 [bas_1530]
@@ -7640,15 +7640,15 @@ readyanim=seq_11809,seq_11809
 
 // 1549
 [bas_1549]
-readyanim=seq_5732,seq_819
+readyanim=seq_5732,human_walk_f
 
 // 1550
 [bas_1550]
-readyanim=seq_11787,seq_819
+readyanim=seq_11787,human_walk_f
 
 // 1551
 [bas_1551]
-readyanim=seq_2920,seq_819
+readyanim=seq_2920,human_walk_f
 
 // 1552
 [bas_1552]
@@ -7705,7 +7705,7 @@ readyanim=seq_11895,seq_11896
 
 // 1564
 [bas_1564]
-readyanim=seq_2034,seq_819
+readyanim=seq_2034,human_walk_f
 
 // 1565
 [bas_1565]
@@ -7751,22 +7751,22 @@ readyanim=seq_11951,seq_11951
 
 // 1571
 [bas_1571]
-crawlanim=seq_6822
-runanim=seq_6822
-readyanim=seq_6821,seq_6822
+crawlanim=ducklings_rework_swim
+runanim=ducklings_rework_swim
+readyanim=ducklings_rework_ready,ducklings_rework_swim
 
 // 1572
 [bas_1572]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_2163,seq_2164
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=spade_ready,spade_walk
 
 // 1573
 [bas_1573]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
+walkanim_b=human_walk_b
 walkanim_l=seq_3271
 walkanim_r=seq_3272
 runanim=seq_824
@@ -7774,7 +7774,7 @@ readyanim=seq_3269,seq_3270
 
 // 1574
 [bas_1574]
-readyanim=seq_12106,seq_819
+readyanim=seq_12106,human_walk_f
 
 // 1575
 [bas_1575]
@@ -7891,12 +7891,12 @@ readyanim=seq_12077,seq_12081
 
 // 1594
 [bas_1594]
-readyanim=seq_2772,null
+readyanim=fishbowl_swims,null
 
 // 1595
 [bas_1595]
 runanim=seq_12132
-readyanim=seq_101,dwarf_walk
+readyanim=dwarf_ready,dwarf_walk
 
 // 1596
 [bas_1596]
@@ -7930,15 +7930,15 @@ readyanim=seq_12179,seq_12180
 [bas_1603]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_12183
 readyanim=seq_12155,seq_12154
 
 // 1604
 [bas_1604]
-readyanim=seq_12186,seq_2156
+readyanim=seq_12186,dwarf_walk_woman
 
 // 1605
 [bas_1605]
@@ -8014,8 +8014,8 @@ readyanim=seq_12233,seq_9957
 
 // 1617
 [bas_1617]
-readyanim_l=seq_808
-readyanim_r=seq_808
+readyanim_l=human_ready
+readyanim_r=human_ready
 walkanim_b=seq_12280
 walkanim_l=seq_12280
 walkanim_r=seq_12280
@@ -8023,7 +8023,7 @@ runanim=seq_12280
 runanim_b=seq_12280
 runanim_l=seq_12280
 runanim_r=seq_12280
-readyanim=seq_808,seq_12280
+readyanim=human_ready,seq_12280
 
 // 1618
 [bas_1618]
@@ -8085,10 +8085,10 @@ randomreadyanim=seq_12296,15
 
 // 1628
 [bas_1628]
-crawlanim=seq_2703
-runanim=seq_2703
+crawlanim=mouse_walk
+runanim=mouse_walk
 hillrotate=8,8
-readyanim=seq_2704,seq_2703
+readyanim=mouse_ready,mouse_walk
 
 // 1629
 [bas_1629]
@@ -8137,9 +8137,9 @@ readyanim=seq_12435,seq_12435
 
 // 1635
 [bas_1635]
-readyanim_l=seq_4859
-readyanim_r=seq_4859
-readyanim=seq_4859,null
+readyanim_l=glassblowing_ready
+readyanim_r=glassblowing_ready
+readyanim=glassblowing_ready,null
 
 // 1636
 [bas_1636]
@@ -8226,7 +8226,7 @@ readyanim=seq_7536,seq_7536
 
 // 1651
 [bas_1651]
-readyanim=seq_1728,seq_12542
+readyanim=human_farming,seq_12542
 
 // 1652
 [bas_1652]
@@ -8246,26 +8246,26 @@ readyanim=horror_dagannoth_ready,seq_1529
 
 // 1656
 [bas_1656]
-crawlanim=seq_6733
-readyanim=seq_6733,null
+crawlanim=brut_pyre_boat_fire
+readyanim=brut_pyre_boat_fire,null
 
 // 1657
 [bas_1657]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=null,seq_819
-randomreadyanim=seq_808,2
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=null,human_walk_f
+randomreadyanim=human_ready,2
 randomreadyanim=emote_cry,3
 
 // 1658
 [bas_1658]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim_l=seq_808
-readyanim_r=seq_808
-readyanim=seq_808,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim_l=human_ready
+readyanim_r=human_ready
+readyanim=human_ready,human_walk_f
 
 // 1659
 [bas_1659]
@@ -8319,7 +8319,7 @@ readyanim=seq_3330,seq_3333
 
 // 1670
 [bas_1670]
-readyanim=seq_66,demon_walk
+readyanim=demon_ready,demon_walk
 
 // 1671
 [bas_1671]
@@ -8331,12 +8331,12 @@ readyanim=seq_12610,seq_7650
 
 // 1673
 [bas_1673]
-readyanim=seq_3040,seq_3039
+readyanim=drunk_holditem_ready,drunk_holditem_walk
 
 // 1674
 [bas_1674]
-readyanim=null,seq_819
-randomreadyanim=seq_808,60
+readyanim=null,human_walk_f
+randomreadyanim=human_ready,60
 randomreadyanim=seq_12668,10
 randomreadyanim=seq_12669,10
 randomreadyanim=seq_12670,5
@@ -8354,7 +8354,7 @@ randomreadyanim=seq_12677,10
 // 1676
 [bas_1676]
 readyanim=null,seq_12689
-randomreadyanim=seq_3040,90
+randomreadyanim=drunk_holditem_ready,90
 randomreadyanim=seq_12678,10
 
 // 1677
@@ -8371,11 +8371,11 @@ readyanim=seq_12684,seq_12685
 
 // 1680
 [bas_1680]
-readyanim=seq_12633,seq_819
+readyanim=seq_12633,human_walk_f
 
 // 1681
 [bas_1681]
-readyanim=seq_12657,seq_6531
+readyanim=seq_12657,grim_woman_long_skirt_walk
 
 // 1682
 [bas_1682]
@@ -8445,7 +8445,7 @@ randomreadyanim=seq_12768,5
 
 // 1693
 [bas_1693]
-readyanim=seq_808,null
+readyanim=human_ready,null
 
 // 1694
 [bas_1694]
@@ -8544,7 +8544,7 @@ readyanim=seq_12906,human_halberdwalk_f
 [bas_1713]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_2064
+walkanim_b=barrow_dharok_walk
 walkanim_l=seq_12912
 walkanim_r=seq_12912
 runanim=seq_12911
@@ -8563,7 +8563,7 @@ readyanim=null,seq_11411
 
 // 1716
 [bas_1716]
-readyanim=null,seq_6120
+readyanim=null,olaf2_cave_boulder_roll
 
 // 1717
 [bas_1717]
@@ -8702,10 +8702,10 @@ readyanim=seq_13167,seq_13168
 
 // 1743
 [bas_1743]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=null,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=null,human_walk_f
 randomreadyanim=seq_13179,80
 randomreadyanim=seq_13180,20
 
@@ -9050,48 +9050,48 @@ readyanim=seq_13794,seq_13793
 
 // 1788
 [bas_1788]
-walkanim_b=seq_820
+walkanim_b=human_walk_b
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_13800,seq_819
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_13800,human_walk_f
 
 // 1789
 [bas_1789]
-walkanim_b=seq_820
+walkanim_b=human_walk_b
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_13801,seq_819
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_13801,human_walk_f
 
 // 1790
 [bas_1790]
-walkanim_b=seq_820
+walkanim_b=human_walk_b
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_13802,seq_819
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_13802,human_walk_f
 
 // 1791
 [bas_1791]
-walkanim_b=seq_820
+walkanim_b=human_walk_b
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_13803,seq_819
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_13803,human_walk_f
 
 // 1792
 [bas_1792]
-walkanim_b=seq_820
+walkanim_b=human_walk_b
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_13804,seq_819
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_13804,human_walk_f
 
 // 1793
 [bas_1793]
@@ -9109,16 +9109,16 @@ readyanim_l=seq_13809
 readyanim_r=seq_13809
 walkanim_l=seq_13809
 walkanim_r=seq_13809
-readyanim=seq_808,seq_13809
+readyanim=human_ready,seq_13809
 
 // 1795
 [bas_1795]
-walkanim_b=seq_820
+walkanim_b=human_walk_b
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_13808,seq_819
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_13808,human_walk_f
 
 // 1796
 [bas_1796]
@@ -9131,19 +9131,19 @@ readyanim=seq_13810,seq_13811
 
 // 1797
 [bas_1797]
-walkanim_b=seq_820
+walkanim_b=human_walk_b
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_13812,seq_819
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_13812,human_walk_f
 
 // 1798
 [bas_1798]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_13818,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_13818,human_walk_f
 
 // 1799
 [bas_1799]
@@ -9314,22 +9314,22 @@ randomreadyanim=seq_14182,20
 readyanim_l=seq_823
 readyanim_r=seq_823
 crawlanim=seq_14186
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 1837
 [bas_1837]
 readyanim_l=seq_823
 readyanim_r=seq_823
-crawlanim=seq_819
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+crawlanim=human_walk_f
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_14207
-readyanim=seq_808,seq_819
+readyanim=human_ready,human_walk_f
 
 // 1838
 [bas_1838]
@@ -9365,14 +9365,14 @@ readyanim=seq_14232,seq_14232
 
 // 1842
 [bas_1842]
-walkanim_b=seq_821
-walkanim_l=seq_821
-walkanim_r=seq_821
-readyanim=seq_808,seq_821
+walkanim_b=human_walk_l
+walkanim_l=human_walk_l
+walkanim_r=human_walk_l
+readyanim=human_ready,human_walk_l
 
 // 1843
 [bas_1843]
-readyanim=seq_3710,seq_3708
+readyanim=oub_monster1_block,oub_monster1_walk
 
 // 1844
 [bas_1844]
@@ -9432,7 +9432,7 @@ readyanim=seq_14262,seq_14263
 
 // 1854
 [bas_1854]
-readyanim=seq_14276,seq_3426
+readyanim=seq_14276,crab_walk
 
 // 1855
 [bas_1855]
@@ -9603,11 +9603,11 @@ readyanim=seq_14727,null
 [bas_1883]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=seq_13818,seq_819
+readyanim=seq_13818,human_walk_f
 
 // 1884
 [bas_1884]
@@ -9624,13 +9624,13 @@ walkturn_l=seq_14742
 walkturn_r=seq_14742
 readyanim_l=seq_14742
 readyanim_r=seq_14742
-readyanim=seq_5623,seq_14742
+readyanim=lotr_terror_dog_look_ready,seq_14742
 
 // 1886
 [bas_1886]
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 readyanim=seq_14750,seq_14749
 
 // 1887
@@ -9673,21 +9673,21 @@ readyanim=seq_12010,seq_12012
 [bas_1893]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=seq_14831,seq_819
+readyanim=seq_14831,human_walk_f
 
 // 1894
 [bas_1894]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=seq_14830,seq_819
+readyanim=seq_14830,human_walk_f
 
 // 1895
 [bas_1895]
@@ -9715,9 +9715,9 @@ readyanim=seq_14846,seq_14847
 [bas_1899]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_14865
 readyanim=seq_14863,seq_14864
 
@@ -9799,19 +9799,19 @@ randomreadyanim=seq_2414,30
 [bas_1913]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
 runanim=seq_824
-readyanim=null,seq_819
+readyanim=null,human_walk_f
 randomreadyanim=seq_14885,100
-randomreadyanim=seq_808,50
+randomreadyanim=human_ready,50
 
 // 1914
 [bas_1914]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
+walkanim_b=human_walk_b
 runanim=seq_14947
 readyanim=seq_14948,seq_14950
 
@@ -9949,8 +9949,8 @@ readyanim=seq_15115,null
 
 // 1935
 [bas_1935]
-readyanim=null,seq_3379
-randomreadyanim=seq_3379,10
+readyanim=null,100_dwarf_sit
+randomreadyanim=100_dwarf_sit,10
 randomreadyanim=seq_15119,10
 randomreadyanim=seq_15119,10
 
@@ -10045,7 +10045,7 @@ readyanim=seq_7008,seq_7001
 // 1954
 [bas_1954]
 hillrotate=16,4
-readyanim=seq_15240,seq_6583
+readyanim=seq_15240,dog_update_hellhound_walk
 
 // 1955
 [bas_1955]
@@ -10100,12 +10100,12 @@ readyanim=seq_3959,seq_3964
 
 // 1963
 [bas_1963]
-walkanim_b=seq_6796
-walkanim_l=seq_6796
-walkanim_r=seq_6796
-walkturn_l=seq_6796
-walkturn_r=seq_6796
-readyanim=seq_6793,seq_6796
+walkanim_b=mounted_terrorbird_walk
+walkanim_l=mounted_terrorbird_walk
+walkanim_r=mounted_terrorbird_walk
+walkturn_l=mounted_terrorbird_walk
+walkturn_r=mounted_terrorbird_walk
+readyanim=mounted_terrorbird_ready,mounted_terrorbird_walk
 
 // 1964
 [bas_1964]
@@ -10126,11 +10126,11 @@ readyanim=seq_4536,null
 
 // 1967
 [bas_1967]
-readyanim=seq_4538,null
+readyanim=aluft_gnome_sitting_facing_south,null
 
 // 1968
 [bas_1968]
-readyanim=seq_4537,null
+readyanim=aluft_gnome_sitting_facing_west,null
 
 // 1969
 [bas_1969]
@@ -10140,7 +10140,7 @@ randomreadyanim=seq_3216,50
 
 // 1970
 [bas_1970]
-readyanim=seq_1009,seq_1007
+readyanim=pog_terror_bird_ready_extra,pog_terror_bird_walk
 
 // 1971
 [bas_1971]
@@ -10182,10 +10182,10 @@ readyanim=seq_41,null
 [bas_1978]
 readyanim_l=seq_823
 readyanim_r=seq_823
-walkanim_b=seq_820
-walkanim_l=seq_821
-walkanim_r=seq_822
-readyanim=seq_436,seq_819
+walkanim_b=human_walk_b
+walkanim_l=human_walk_l
+walkanim_r=human_walk_r
+readyanim=seq_436,human_walk_f
 
 // 1979
 [bas_1979]
@@ -10216,7 +10216,7 @@ readyanim=null,seq_10812
 
 // 1985
 [bas_1985]
-readyanim=seq_1476,seq_10812
+readyanim=trollromance_cry_loop,seq_10812
 
 // 1986
 [bas_1986]
@@ -10344,7 +10344,7 @@ readyanim=seq_15345,null
 
 // 2010
 [bas_2010]
-readyanim=seq_15361,seq_6531
+readyanim=seq_15361,grim_woman_long_skirt_walk
 
 // 2011
 [bas_2011]

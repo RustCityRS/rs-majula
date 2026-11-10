@@ -101,7 +101,7 @@ while (.huntnext = true) {
         return(true);
     }
 }
-if (obj_find($pad, pet_rock) = true) {
+if (obj_find($pad, vt_useless_rock) = true) {
     return(true);
 }
 return(false);

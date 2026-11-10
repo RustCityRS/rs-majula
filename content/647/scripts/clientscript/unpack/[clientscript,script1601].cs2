@@ -38,6 +38,6 @@ switch_component ($component0) {
     case default :
         ~script675;
 }
-if_sethide(true, $component1);
-if_sethide(false, $component2);
+if_sethide($component1, true);
+if_sethide($component2, false);
 return;

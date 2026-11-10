@@ -1,6 +1,6 @@
 // 1948
 [clientscript,script1948]
-if_sethide(false, sc_scores:com_84);
-if_sethide(true, sc_scores:com_85);
-if_sethide(false, sc_scores:tab_scores);
-if_sethide(true, sc_scores:tab_awards);
+if_sethide(sc_scores:com_84, false);
+if_sethide(sc_scores:com_85, true);
+if_sethide(sc_scores:tab_scores, false);
+if_sethide(sc_scores:tab_awards, true);

@@ -1,8 +1,8 @@
 // 3116
 [proc,script3116]
 if (map_world = -1) {
-    if_sethide(true, lobbyscreen_pane_worldselect:current_icon);
-    if_settext("World: Auto", lobbyscreen_pane_worldselect:current_text);
+    if_sethide(lobbyscreen_pane_worldselect:current_icon, true);
+    if_settext(lobbyscreen_pane_worldselect:current_text, "World: Auto");
     return;
 }
 def_int $int0 = 0;
@@ -20,11 +20,11 @@ if (testbit($int0, 0) = ^true) {
     $int4 = 0;
 }
 def_string $string3 = "World <tostring(map_world)>";
-if_settext($string3, lobbyscreen_pane_worldselect:current_text);
-if_setposition(calc(stringwidth($string3, verdana_11pt_regular) + 5), 0, ^setpos_abs_right, ^setpos_abs_bottom, lobbyscreen_pane_worldselect:current_icon);
+if_settext(lobbyscreen_pane_worldselect:current_text, $string3);
+if_setposition(lobbyscreen_pane_worldselect:current_icon, calc(stringwidth($string3, verdana_11pt_regular) + 5), 0, ^setpos_abs_right, ^setpos_abs_bottom);
 if ($int4 = 1) {
-    if_setgraphic("world_select_stars,0", lobbyscreen_pane_worldselect:current_icon);
+    if_setgraphic(lobbyscreen_pane_worldselect:current_icon, "world_select_stars,0");
 } else {
-    if_setgraphic("world_select_stars,1", lobbyscreen_pane_worldselect:current_icon);
+    if_setgraphic(lobbyscreen_pane_worldselect:current_icon, "world_select_stars,1");
 }
 return;

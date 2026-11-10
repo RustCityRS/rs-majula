@@ -10,7 +10,7 @@ if (npc_findhero = ^false) {
 
 // Drop Rats Tail only as long as quest is active.
 if (%hetty = ^hetty_started | %hetty = ^hetty_objects_given) {
-    if (inv_total(inv, rat_s_tail) < 1 & inv_total(bank, rat_s_tail) < 1) { // Only drop if no rats tail found in inv or bank.
-        obj_add(npc_coord, rat_s_tail, 1, ^lootdrop_duration);
+    if (inv_total(inv, rats_tail) < 1 & inv_total(bank, rats_tail) < 1) { // Only drop if no rats tail found in inv or bank.
+        obj_add(npc_coord, rats_tail, 1, ^lootdrop_duration);
     }
 }

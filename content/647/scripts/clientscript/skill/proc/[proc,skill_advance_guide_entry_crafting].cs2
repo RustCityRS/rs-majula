@@ -4,31 +4,31 @@ switch_int ($int0) {
     case 0 :
         switch_int ($int1) {
             case 0 :
-                return(10, strip_of_cloth, "Members: Cloth", "Members can now weave <col=000080>cloth</col> on a loom.");
+                return(10, regicide_cloth, "Members: Cloth", "Members can now weave <col=000080>cloth</col> on a loom.");
             case 1 :
-                return(10, milestone_cape__10_20754, "Members: Milestone cape (10)", "Members can now weave a <col=000080>Milestone cape (10)</col> on a loom.");
+                return(10, skillcape_tens_10, "Members: Milestone cape (10)", "Members can now weave a <col=000080>Milestone cape (10)</col> on a loom.");
             case 2 :
-                return(20, milestone_cape__20_20755, "Members: Milestone cape (20)", "Members can now weave a <col=000080>Milestone cape (20)</col> on a loom.");
+                return(20, skillcape_tens_20, "Members: Milestone cape (20)", "Members can now weave a <col=000080>Milestone cape (20)</col> on a loom.");
             case 3 :
-                return(21, empty_sack, "Members: Vegetable sack", "Members can now weave <col=000080>vegetable sacks</col> on a loom.");
+                return(21, sack_empty, "Members: Vegetable sack", "Members can now weave <col=000080>vegetable sacks</col> on a loom.");
             case 4 :
-                return(30, milestone_cape__30_20756, "Members: Milestone cape (30)", "Members can now weave a <col=000080>Milestone cape (30)</col> on a loom.");
+                return(30, skillcape_tens_30, "Members: Milestone cape (30)", "Members can now weave a <col=000080>Milestone cape (30)</col> on a loom.");
             case 5 :
-                return(36, basket, "Members: Fruit basket", "Members can now weave <col=000080>fruit baskets</col> on a loom.");
+                return(36, basket_empty, "Members: Fruit basket", "Members can now weave <col=000080>fruit baskets</col> on a loom.");
             case 6 :
-                return(40, milestone_cape__40_20757, "Members: Milestone cape (40)", "Members can now weave a <col=000080>Milestone cape (40)</col> on a loom.");
+                return(40, skillcape_tens_40, "Members: Milestone cape (40)", "Members can now weave a <col=000080>Milestone cape (40)</col> on a loom.");
             case 7 :
-                return(50, milestone_cape__50_20758, "Members: Milestone cape (50)", "Members can now weave a <col=000080>Milestone cape (50)</col> on a loom.");
+                return(50, skillcape_tens_50, "Members: Milestone cape (50)", "Members can now weave a <col=000080>Milestone cape (50)</col> on a loom.");
             case 8 :
-                return(52, empty_seaweed_net, "Members: Seaweed net", "Members can now weave <col=000080>seaweed nets</col> on a loom.");
+                return(52, seaweed_net_empty, "Members: Seaweed net", "Members can now weave <col=000080>seaweed nets</col> on a loom.");
             case 9 :
-                return(60, milestone_cape__60_20759, "Members: Milestone cape (60)", "Members can now weave a <col=000080>Milestone cape (60)</col> on a loom.");
+                return(60, skillcape_tens_60, "Members: Milestone cape (60)", "Members can now weave a <col=000080>Milestone cape (60)</col> on a loom.");
             case 10 :
-                return(70, milestone_cape__70_20760, "Members: Milestone cape (70)", "Members can now weave a <col=000080>Milestone cape (70)</col> on a loom.");
+                return(70, skillcape_tens_70, "Members: Milestone cape (70)", "Members can now weave a <col=000080>Milestone cape (70)</col> on a loom.");
             case 11 :
-                return(80, milestone_cape__80_20761, "Members: Milestone cape (80)", "Members can now weave a <col=000080>Milestone cape (80)</col> on a loom.");
+                return(80, skillcape_tens_80, "Members: Milestone cape (80)", "Members can now weave a <col=000080>Milestone cape (80)</col> on a loom.");
             case 12 :
-                return(90, milestone_cape__90_20762, "Members: Milestone cape (90)", "Members can now weave a <col=000080>Milestone cape (90)</col> on a loom.");
+                return(90, skillcape_tens_90, "Members: Milestone cape (90)", "Members can now weave a <col=000080>Milestone cape (90)</col> on a loom.");
         }
     case 1 :
         switch_int ($int1) {
@@ -41,31 +41,31 @@ switch_int ($int0) {
             case 3 :
                 return(11, leather_vambraces, "Leather vambraces", "You can now craft <col=000080>leather vambraces</col>.");
             case 4 :
-                return(14, leather_body, "Leather body", "You can now craft <col=000080>leather bodies</col>.");
+                return(14, leather_armour, "Leather body", "You can now craft <col=000080>leather bodies</col>.");
             case 5 :
-                return(15, myre_snelm, "Members: Snail helmet", "Members can now craft <col=000080>snail helmets</col>.");
+                return(15, snelm_round_swamp, "Members: Snail helmet", "Members can now craft <col=000080>snail helmets</col>.");
             case 6 :
-                return(15, crab_helmet, "Members: Crab shell armour", "Members can now craft <col=000080>crab shell armour</col>.");
+                return(15, hundred_pirate_crab_shell_helm, "Members: Crab shell armour", "Members can now craft <col=000080>crab shell armour</col>.");
             case 7 :
                 return(18, leather_chaps, "Leather chaps", "You can now craft <col=000080>leather chaps</col>.");
             case 8 :
                 return(28, hardleather_body, "Hard leather body", "You can now craft <col=000080>hard leather bodies</col>.");
             case 9 :
-                return(32, spiky_vambraces, "Members: Spiked vambraces", "Members can now craft <col=000080>spiked vambraces</col>.");
+                return(32, spiked_vambraces, "Members: Spiked vambraces", "Members can now craft <col=000080>spiked vambraces</col>.");
             case 10 :
-                return(35, broodoo_shield__10_6259, "Members: Broodoo shield", "Members can now craft <col=000080>broodoo shields</col>.");
+                return(35, broodoo_combatshield_10, "Members: Broodoo shield", "Members can now craft <col=000080>broodoo shields</col>.");
             case 11 :
                 return(38, coif, "Members: Coif", "Members can now craft <col=000080>coifs</col>.");
             case 12 :
                 return(41, studded_body, "Members: Studded body", "Members can now craft <col=000080>studded bodies</col>.");
             case 13 :
-                return(43, yak_hide_armour_10824, "Members: Yak-hide leg armour", "Members can now craft <col=000080>yak-hide leg armour</col>.");
+                return(43, yak_hide_armour_greaves, "Members: Yak-hide leg armour", "Members can now craft <col=000080>yak-hide leg armour</col>.");
             case 14 :
                 return(44, studded_chaps, "Members: Studded chaps", "Members can now craft <col=000080>studded chaps</col>.");
             case 15 :
                 return(45, snakeskin_boots, "Members: Snakeskin boots", "Members can now craft <col=000080>snakeskin boots</col>.");
             case 16 :
-                return(46, yak_hide_armour, "Members: Yak-hide body armour", "Members can now craft <col=000080>yak-hide body armour</col>.");
+                return(46, yak_hide_armour_body, "Members: Yak-hide body armour", "Members can now craft <col=000080>yak-hide body armour</col>.");
             case 17 :
                 return(47, snakeskin_vambraces, "Members: Snakeskin vambraces", "Members can now craft <col=000080>snakeskin vambraces</col>.");
             case 18 :
@@ -75,35 +75,35 @@ switch_int ($int0) {
             case 20 :
                 return(53, snakeskin_body, "Members: Snakeskin body", "Members can now craft <col=000080>snakeskin bodies</col>.");
             case 21 :
-                return(55, slayer_helmet, "Members: Slayer helmet<br> (after Smoking Kills)", "Members can now craft <col=000080>Slayer helmets</col> (after Smoking Kills).");
+                return(55, smki_inv_full_slayer_helmet, "Members: Slayer helmet<br> (after Smoking Kills)", "Members can now craft <col=000080>Slayer helmets</col> (after Smoking Kills).");
             case 22 :
-                return(57, green_d_hide_vambraces, "Members: Green dragonhide vambraces", "Members can now craft <col=000080>green dragonhide vambraces</col>.");
+                return(57, dragon_vambraces, "Members: Green dragonhide vambraces", "Members can now craft <col=000080>green dragonhide vambraces</col>.");
             case 23 :
-                return(60, green_d_hide_chaps, "Members: Green dragonhide chaps", "Members can now craft <col=000080>green dragonhide chaps</col>.");
+                return(60, dragonhide_chaps, "Members: Green dragonhide chaps", "Members can now craft <col=000080>green dragonhide chaps</col>.");
             case 24 :
-                return(63, green_d_hide_body, "Members: Green dragonhide body", "Members can now craft <col=000080>green dragonhide bodies</col>.");
+                return(63, dragonhide_body, "Members: Green dragonhide body", "Members can now craft <col=000080>green dragonhide bodies</col>.");
             case 25 :
-                return(64, gloves_of_silence, "Members: Repairing gloves of silence", "Members can now repair <col=000080>gloves of silence</col> with dark kebbit fur.");
+                return(64, hunting_silent_gloves, "Members: Repairing gloves of silence", "Members can now repair <col=000080>gloves of silence</col> with dark kebbit fur.");
             case 26 :
-                return(66, blue_d_hide_vambraces, "Members: Blue dragonhide vambraces", "Members can now craft <col=000080>blue dragonhide vambraces</col>.");
+                return(66, blue_dragon_vambraces, "Members: Blue dragonhide vambraces", "Members can now craft <col=000080>blue dragonhide vambraces</col>.");
             case 27 :
-                return(68, blue_d_hide_chaps, "Members: Blue dragonhide chaps", "Members can now craft <col=000080>blue dragonhide chaps</col>.");
+                return(68, blue_dragonhide_chaps, "Members: Blue dragonhide chaps", "Members can now craft <col=000080>blue dragonhide chaps</col>.");
             case 28 :
-                return(71, blue_d_hide_body, "Members: Blue dragonhide body", "Members can now craft <col=000080>blue dragonhide bodies</col>.");
+                return(71, blue_dragonhide_body, "Members: Blue dragonhide body", "Members can now craft <col=000080>blue dragonhide bodies</col>.");
             case 29 :
-                return(73, red_d_hide_vambraces, "Members: Red dragonhide vambraces", "Members can now craft <col=000080>red dragonhide vambraces</col>.");
+                return(73, red_dragon_vambraces, "Members: Red dragonhide vambraces", "Members can now craft <col=000080>red dragonhide vambraces</col>.");
             case 30 :
-                return(75, red_d_hide_chaps, "Members: Red dragonhide chaps", "Members can now craft <col=000080>red dragonhide chaps</col>.");
+                return(75, red_dragonhide_chaps, "Members: Red dragonhide chaps", "Members can now craft <col=000080>red dragonhide chaps</col>.");
             case 31 :
-                return(77, red_d_hide_body, "Members: Red dragonhide body", "Members can now craft <col=000080>red dragonhide bodies</col>.");
+                return(77, red_dragonhide_body, "Members: Red dragonhide body", "Members can now craft <col=000080>red dragonhide bodies</col>.");
             case 32 :
-                return(79, feather_headdress, "Members: Feathered headdress", "Members can now craft <col=000080>feathered headdresses</col>.");
+                return(79, lore_feathered_headdress_1, "Members: Feathered headdress", "Members can now craft <col=000080>feathered headdresses</col>.");
             case 33 :
-                return(79, black_d_hide_vambraces, "Members: Black dragonhide vambraces", "Members can now craft <col=000080>black dragonhide vambraces</col>.");
+                return(79, black_dragon_vambraces, "Members: Black dragonhide vambraces", "Members can now craft <col=000080>black dragonhide vambraces</col>.");
             case 34 :
-                return(82, black_d_hide_chaps, "Members: Black dragonhide chaps", "Members can now craft <col=000080>black dragonhide chaps</col>.");
+                return(82, black_dragonhide_chaps, "Members: Black dragonhide chaps", "Members can now craft <col=000080>black dragonhide chaps</col>.");
             case 35 :
-                return(84, black_d_hide_body, "Members: Black dragonhide body", "Members can now craft <col=000080>black dragonhide bodies</col>.");
+                return(84, black_dragonhide_body, "Members: Black dragonhide body", "Members can now craft <col=000080>black dragonhide bodies</col>.");
         }
     case 2 :
         switch_int ($int1) {
@@ -112,7 +112,7 @@ switch_int ($int0) {
             case 1 :
                 return(10, bow_string, "Members: Flax into bow strings", "Members can now spin flax into <col=000080>bow strings</col>.");
             case 2 :
-                return(10, crossbow_string, "Members: Sinew into crossbow strings", "Members can now spin sinew into <col=000080>crossbow strings</col>.");
+                return(10, xbows_crossbow_string, "Members: Sinew into crossbow strings", "Members can now spin sinew into <col=000080>crossbow strings</col>.");
             case 3 :
                 return(19, magic_string, "Members: Magic tree roots into magic strings", "Members can now spin magic tree roots into <col=000080>magic strings</col>.");
             case 4 :
@@ -121,113 +121,113 @@ switch_int ($int0) {
     case 3 :
         switch_int ($int1) {
             case 0 :
-                return(1, empty_pot, "Pot", "You can now craft and fire <col=000080>clay pots</col>.");
+                return(1, pot_empty, "Pot", "You can now craft and fire <col=000080>clay pots</col>.");
             case 1 :
-                return(1, cracked_mining_urn__r, "Cracked mining urn", "You can now craft, fire and attach runes to <col=000080>cracked mining urns</col>.");
+                return(1, urns_mining1_rune, "Cracked mining urn", "You can now craft, fire and attach runes to <col=000080>cracked mining urns</col>.");
             case 2 :
-                return(2, cracked_cooking_urn__r, "Cracked cooking urn", "You can now craft, fire and attach runes to <col=000080>cracked cooking urns</col>.");
+                return(2, urns_cooking1_rune, "Cracked cooking urn", "You can now craft, fire and attach runes to <col=000080>cracked cooking urns</col>.");
             case 3 :
-                return(2, cracked_fishing_urn__r, "Cracked fishing urn", "You can now craft, fire and attach runes to <col=000080>cracked fishing urns</col>.");
+                return(2, urns_fishing1_rune, "Cracked fishing urn", "You can now craft, fire and attach runes to <col=000080>cracked fishing urns</col>.");
             case 4 :
-                return(2, impious_urn__r, "Impious urn", "You can now craft, fire and attach runes to <col=000080>impious urns</col>.");
+                return(2, urns_prayer1_rune, "Impious urn", "You can now craft, fire and attach runes to <col=000080>impious urns</col>.");
             case 5 :
                 return(4, clay_ring, "Clay ring", "You can now craft and fire <col=000080>clay rings</col>.");
             case 6 :
-                return(4, cracked_woodcutting_urn__r, "Cracked woodcutting urn", "You can now craft, fire and attach runes to <col=000080>cracked woodcutting urns</col>.");
+                return(4, urns_woodcutting1_rune, "Cracked woodcutting urn", "You can now craft, fire and attach runes to <col=000080>cracked woodcutting urns</col>.");
             case 7 :
-                return(4, cracked_smelting_urn__r, "Cracked smelting urn", "You can now craft, fire and attach runes to <col=000080>cracked smelting urns</col>.");
+                return(4, urns_smithing1_rune, "Cracked smelting urn", "You can now craft, fire and attach runes to <col=000080>cracked smelting urns</col>.");
             case 8 :
-                return(7, pie_dish, "Pie dish", "You can now craft and fire <col=000080>clay pie dishes</col>.");
+                return(7, piedish, "Pie dish", "You can now craft and fire <col=000080>clay pie dishes</col>.");
             case 9 :
-                return(8, bowl, "Bowl", "You can now craft and fire <col=000080>clay bowls</col>.");
+                return(8, bowl_empty, "Bowl", "You can now craft and fire <col=000080>clay bowls</col>.");
             case 10 :
-                return(12, fragile_cooking_urn__r, "Fragile cooking urn", "You can now craft, fire and attach runes to <col=000080>fragile cooking urns</col>.");
+                return(12, urns_cooking2_rune, "Fragile cooking urn", "You can now craft, fire and attach runes to <col=000080>fragile cooking urns</col>.");
             case 11 :
-                return(15, fragile_fishing_urn__r, "Fragile fishing urn", "You can now craft, fire and attach runes to <col=000080>fragile fishing urns</col>.");
+                return(15, urns_fishing2_rune, "Fragile fishing urn", "You can now craft, fire and attach runes to <col=000080>fragile fishing urns</col>.");
             case 12 :
-                return(15, fragile_woodcutting_urn__r, "Fragile woodcutting urn", "You can now craft, fire and attach runes to <col=000080>fragile woodcutting urns</col>.");
+                return(15, urns_woodcutting2_rune, "Fragile woodcutting urn", "You can now craft, fire and attach runes to <col=000080>fragile woodcutting urns</col>.");
             case 13 :
-                return(17, fragile_mining_urn__r, "Fragile mining urn", "You can now craft, fire and attach runes to <col=000080>fragile mining urns</col>.");
+                return(17, urns_mining2_rune, "Fragile mining urn", "You can now craft, fire and attach runes to <col=000080>fragile mining urns</col>.");
             case 14 :
-                return(17, fragile_smelting_urn__r, "Fragile smelting urn", "You can now craft, fire and attach runes to <col=000080>fragile smelting urns</col>.");
+                return(17, urns_smithing2_rune, "Fragile smelting urn", "You can now craft, fire and attach runes to <col=000080>fragile smelting urns</col>.");
             case 15 :
-                return(19, plant_pot, "Members: Plant pot", "Members can now craft and fire <col=000080>clay plant pots</col>.");
+                return(19, plantpot_empty, "Members: Plant pot", "Members can now craft and fire <col=000080>clay plant pots</col>.");
             case 16 :
-                return(25, pot_lid, "Members: Pot lid<br> (after starting One Small Favour)", "Members can now craft and fire <col=000080>clay pot lids</col> (after starting One Small Favour.)");
+                return(25, potlid, "Members: Pot lid<br> (after starting One Small Favour)", "Members can now craft and fire <col=000080>clay pot lids</col> (after starting One Small Favour.)");
             case 17 :
-                return(26, accursed_urn__r, "Accursed urn", "You can now craft, fire and attach runes to <col=000080>accursed urns</col>.");
+                return(26, urns_prayer2_rune, "Accursed urn", "You can now craft, fire and attach runes to <col=000080>accursed urns</col>.");
             case 18 :
-                return(32, mining_urn__r, "Mining urn", "You can now craft, fire and attach runes to <col=000080>mining urns</col>.");
+                return(32, urns_mining3_rune, "Mining urn", "You can now craft, fire and attach runes to <col=000080>mining urns</col>.");
             case 19 :
-                return(35, smelting_urn__r, "Smelting urn", "You can now craft, fire and attach runes to <col=000080>smelting urns</col>.");
+                return(35, urns_smithing3_rune, "Smelting urn", "You can now craft, fire and attach runes to <col=000080>smelting urns</col>.");
             case 20 :
-                return(36, cooking_urn__r, "Cooking urn", "You can now craft, fire and attach runes to <col=000080>cooking urns</col>.");
+                return(36, urns_cooking3_rune, "Cooking urn", "You can now craft, fire and attach runes to <col=000080>cooking urns</col>.");
             case 21 :
-                return(41, fishing_urn__r, "Fishing urn", "You can now craft, fire and attach runes to <col=000080>fishing urns</col>.");
+                return(41, urns_fishing3_rune, "Fishing urn", "You can now craft, fire and attach runes to <col=000080>fishing urns</col>.");
             case 22 :
-                return(44, woodcutting_urn__r, "Woodcutting urn", "You can now craft, fire and attach runes to <col=000080>woodcutting urns</col>.");
+                return(44, urns_woodcutting3_rune, "Woodcutting urn", "You can now craft, fire and attach runes to <col=000080>woodcutting urns</col>.");
             case 23 :
-                return(48, strong_mining_urn__r, "Members: Strong mining urn", "Members can now craft, fire and attach runes to <col=000080>strong mining urns</col>.");
+                return(48, urns_mining4_rune, "Members: Strong mining urn", "Members can now craft, fire and attach runes to <col=000080>strong mining urns</col>.");
             case 24 :
-                return(49, strong_smelting_urn__r, "Members: Strong smelting urn", "Members can now craft, fire and attach runes to <col=000080>strong smelting urns</col>.");
+                return(49, urns_smithing4_rune, "Members: Strong smelting urn", "Members can now craft, fire and attach runes to <col=000080>strong smelting urns</col>.");
             case 25 :
-                return(51, strong_cooking_urn__r, "Members: Strong cooking urn", "Members can now craft, fire and attach runes to <col=000080>strong cooking urns</col>.");
+                return(51, urns_cooking4_rune, "Members: Strong cooking urn", "Members can now craft, fire and attach runes to <col=000080>strong cooking urns</col>.");
             case 26 :
-                return(53, strong_fishing_urn__r, "Members: Strong fishing urn", "Members can now craft, fire and attach runes to <col=000080>strong fishing urns</col>.");
+                return(53, urns_fishing4_rune, "Members: Strong fishing urn", "Members can now craft, fire and attach runes to <col=000080>strong fishing urns</col>.");
             case 27 :
-                return(59, decorated_mining_urn__r, "Members: Decorated mining urn", "Members can now craft, fire and attach runes to <col=000080>decorated mining urns</col>.");
+                return(59, urns_mining5_rune, "Members: Decorated mining urn", "Members can now craft, fire and attach runes to <col=000080>decorated mining urns</col>.");
             case 28 :
-                return(61, strong_woodcutting_urn__r, "Members: Strong woodcutting urn", "Members can now craft, fire and attach runes to <col=000080>strong woodcutting urns</col>.");
+                return(61, urns_woodcutting4_rune, "Members: Strong woodcutting urn", "Members can now craft, fire and attach runes to <col=000080>strong woodcutting urns</col>.");
             case 29 :
-                return(62, infernal_urn__r, "Members: Infernal urn", "Members can now craft, fire and attach runes to <col=000080>infernal urns</col>.");
+                return(62, urns_prayer3_rune, "Members: Infernal urn", "Members can now craft, fire and attach runes to <col=000080>infernal urns</col>.");
             case 30 :
-                return(76, decorated_fishing_urn__r, "Members: Decorated fishing urn", "Members can now craft, fire and attach runes to <col=000080>decorated fishing urns</col>.");
+                return(76, urns_fishing5_rune, "Members: Decorated fishing urn", "Members can now craft, fire and attach runes to <col=000080>decorated fishing urns</col>.");
             case 31 :
-                return(81, decorated_cooking_urn__r, "Members: Decorated cooking urn", "Members can now craft, fire and attach runes to <col=000080>decorated cooking urns</col>.");
+                return(81, urns_cooking5_rune, "Members: Decorated cooking urn", "Members can now craft, fire and attach runes to <col=000080>decorated cooking urns</col>.");
         }
     case 4 :
         switch_int ($int1) {
             case 0 :
                 return(1, beer_glass, "Members: Beer glass", "Members can now craft <col=000080>beer glasses</col>.");
             case 1 :
-                return(4, candle_lantern, "Members: Candle lantern", "Members can now craft <col=000080>candle lanterns</col>.");
+                return(4, candle_lantern_empty, "Members: Candle lantern", "Members can now craft <col=000080>candle lanterns</col>.");
             case 2 :
-                return(12, oil_lamp_4525, "Members: Oil lamp", "Members can now craft <col=000080>oil lamps</col>.");
+                return(12, oil_lamp_empty, "Members: Oil lamp", "Members can now craft <col=000080>oil lamps</col>.");
             case 3 :
-                return(26, oil_lantern, "Members: Oil lantern", "Members can now craft <col=000080>oil lanterns</col>.");
+                return(26, oil_lantern_empty, "Members: Oil lantern", "Members can now craft <col=000080>oil lanterns</col>.");
             case 4 :
-                return(33, vial, "Members: Vial", "Members can now craft <col=000080>vials</col>.");
+                return(33, vial_empty, "Members: Vial", "Members can now craft <col=000080>vials</col>.");
             case 5 :
-                return(42, fishbowl, "Members: Fishbowl", "Members can now craft <col=000080>fishbowls</col>.");
+                return(42, fishbowl_empty, "Members: Fishbowl", "Members can now craft <col=000080>fishbowls</col>.");
             case 6 :
-                return(46, unpowered_orb, "Members: Glass orb", "Members can now craft <col=000080>glass orbs</col>.");
+                return(46, stafforb, "Members: Glass orb", "Members can now craft <col=000080>glass orbs</col>.");
             case 7 :
-                return(49, lantern_lens, "Members: Bullseye lantern lens", "Members can now craft <col=000080>bullseye lantern lenses</col>.");
+                return(49, bullseye_lantern_lens, "Members: Bullseye lantern lens", "Members can now craft <col=000080>bullseye lantern lenses</col>.");
             case 8 :
-                return(87, light_orb, "Members: Dorgeshuun light orb", "Members can now craft <col=000080>Dorgeshuun light orbs</col>.");
+                return(87, dorgesh_light_bulb, "Members: Dorgeshuun light orb", "Members can now craft <col=000080>Dorgeshuun light orbs</col>.");
         }
     case 5 :
         switch_int ($int1) {
             case 0 :
                 return(1, opal, "Members: Cut opal", "Members can now cut <col=000080>opals</col>.");
             case 1 :
-                return(3, polished_buttons, "Polished buttons", "You can now craft <col=000080>polished buttons</col>.");
+                return(3, anma_p_buttons, "Polished buttons", "You can now craft <col=000080>polished buttons</col>.");
             case 2 :
                 return(5, gold_ring, "Gold ring", "You can now craft <col=000080>gold rings</col>.");
             case 3 :
                 return(6, gold_necklace, "Gold necklace", "You can now craft <col=000080>gold necklaces</col>.");
             case 4 :
-                return(7, gold_bracelet, "Members: Gold bracelet", "Members can now craft <col=000080>gold bracelets</col>.");
+                return(7, jewl_gold_bracelet, "Members: Gold bracelet", "Members can now craft <col=000080>gold bracelets</col>.");
             case 5 :
                 return(8, strung_gold_amulet, "Gold amulet", "You can now craft <col=000080>gold amulets</col>.");
             case 6 :
                 return(13, jade, "Members: Cut jade", "Members can now cut <col=000080>jade</col>.");
             case 7 :
-                return(16, unblessed_symbol, "Holy symbol", "You can now craft <col=000080>holy symbols</col>.");
+                return(16, stringstar, "Holy symbol", "You can now craft <col=000080>holy symbols</col>.");
             case 8 :
                 return(16, red_topaz, "Members: Cut red topaz", "Members can now cut <col=000080>red topaz</col>.");
             case 9 :
-                return(17, unpowered_symbol, "Members: Unholy symbol", "Members can now craft <col=000080>unholy symbols</col>.");
+                return(17, stringsnake, "Members: Unholy symbol", "Members can now craft <col=000080>unholy symbols</col>.");
             case 10 :
                 return(20, sapphire, "Cut sapphire", "You can now craft <col=000080>sapphires</col>.");
             case 11 :
@@ -237,7 +237,7 @@ switch_int ($int0) {
             case 13 :
                 return(23, tiara, "Tiara", "You can now craft <col=000080>tiaras</col>.");
             case 14 :
-                return(23, sapphire_bracelet, "Members: Sapphire bracelet", "Members can now craft <col=000080>sapphire bracelets</col>.");
+                return(23, jewl_sapphire_bracelet, "Members: Sapphire bracelet", "Members can now craft <col=000080>sapphire bracelets</col>.");
             case 15 :
                 return(24, strung_sapphire_amulet, "Sapphire amulet", "You can now craft <col=000080>sapphire amulets</col>.");
             case 16 :
@@ -247,7 +247,7 @@ switch_int ($int0) {
             case 18 :
                 return(29, emerald_necklace, "Emerald necklace", "You can now craft <col=000080>emerald necklaces</col>.");
             case 19 :
-                return(30, emerald_bracelet, "Members: Emerald bracelet", "Members can now craft <col=000080>emerald bracelets</col>.");
+                return(30, jewl_emerald_bracelet, "Members: Emerald bracelet", "Members can now craft <col=000080>emerald bracelets</col>.");
             case 20 :
                 return(31, strung_emerald_amulet, "Emerald amulet", "You can now craft <col=000080>emerald amulets</col>.");
             case 21 :
@@ -255,11 +255,11 @@ switch_int ($int0) {
             case 22 :
                 return(34, ruby_ring, "Ruby ring", "You can now craft <col=000080>ruby rings</col>.");
             case 23 :
-                return(37, strung_rabbit_foot, "Members: Rabbit-foot necklaces", "Members can now craft <col=000080>rabbit-foot necklaces</col>.");
+                return(37, hunting_strung_rabbit_foot, "Members: Rabbit-foot necklaces", "Members can now craft <col=000080>rabbit-foot necklaces</col>.");
             case 24 :
                 return(40, ruby_necklace, "Ruby necklace", "You can now craft <col=000080>ruby necklaces</col>.");
             case 25 :
-                return(42, ruby_bracelet, "Members: Ruby bracelet", "Members can now craft <col=000080>ruby bracelets</col>.");
+                return(42, jewl_ruby_bracelet, "Members: Ruby bracelet", "Members can now craft <col=000080>ruby bracelets</col>.");
             case 26 :
                 return(43, diamond, "Cut diamond", "You can now cut <col=000080>diamonds</col>.");
             case 27 :
@@ -273,34 +273,34 @@ switch_int ($int0) {
             case 31 :
                 return(56, diamond_necklace, "Diamond necklace", "You can now craft <col=000080>diamond necklaces</col>.");
             case 32 :
-                return(58, diamond_bracelet, "Members: Diamond bracelet", "Members can now craft <col=000080>diamond bracelets</col>.");
+                return(58, jewl_diamond_bracelet, "Members: Diamond bracelet", "Members can now craft <col=000080>diamond bracelets</col>.");
             case 33 :
                 return(67, onyx, "Members: Cut onyx", "Members can now cut <col=000080>onyx</col>.");
             case 34 :
-                return(67, onyx_ring_6575, "Members: Onyx ring", "Members can now craft <col=000080>onyx rings</col>.");
+                return(67, onyx_ring, "Members: Onyx ring", "Members can now craft <col=000080>onyx rings</col>.");
             case 35 :
                 return(70, strung_diamond_amulet, "Diamond amulet", "You can now craft <col=000080>diamond amulets</col>.");
             case 36 :
-                return(72, dragon_necklace, "Members: Dragonstone necklace", "Members can now craft <col=000080>dragonstone necklaces</col>.");
+                return(72, dragonstone_necklace, "Members: Dragonstone necklace", "Members can now craft <col=000080>dragonstone necklaces</col>.");
             case 37 :
-                return(74, dragon_bracelet, "Members: Dragonstone bracelet", "Members can now craft <col=000080>dragonstone bracelets</col>.");
+                return(74, jewl_dragonstone_bracelet, "Members: Dragonstone bracelet", "Members can now craft <col=000080>dragonstone bracelets</col>.");
             case 38 :
-                return(75, ring_of_slaying__8, "Members: Ring of slaying<br> (after Smoking Kills)", "Members can now craft <col=000080>rings of slaying</col> (after Smoking Kills).");
+                return(75, smki_ring_of_slaying_8, "Members: Ring of slaying<br> (after Smoking Kills)", "Members can now craft <col=000080>rings of slaying</col> (after Smoking Kills).");
             case 39 :
                 return(80, strung_dragonstone_amulet, "Members: Dragonstone amulet", "Members can now craft <col=000080>dragonstone amulets</col>.");
             case 40 :
-                return(82, onyx_necklace_6577, "Members: Onyx necklace", "Members can now craft <col=000080>onyx necklaces</col>.");
+                return(82, onyx_necklace, "Members: Onyx necklace", "Members can now craft <col=000080>onyx necklaces</col>.");
             case 41 :
-                return(84, onyx_bracelet, "Members: Onyx bracelet", "Members can now craft <col=000080>onyx bracelets</col>.");
+                return(84, jewl_onyx_bracelet, "Members: Onyx bracelet", "Members can now craft <col=000080>onyx bracelets</col>.");
             case 42 :
-                return(90, onyx_amulet_6581, "Members: Onyx amulet", "Members can now craft <col=000080>onyx amulets</col>.");
+                return(90, strung_onyx_amulet, "Members: Onyx amulet", "Members can now craft <col=000080>onyx amulets</col>.");
         }
     case 6 :
         switch_int ($int1) {
             case 0 :
                 return(18, silver_sickle, "Members: Silver sickle", "Members can now craft silver sickles.");
             case 1 :
-                return(21, silver_bolts, "Silver crossbow bolt", "Members can now craft <col=000080>silver crossbow bolts</col>.");
+                return(21, xbows_crossbow_bolts_silver, "Silver crossbow bolt", "Members can now craft <col=000080>silver crossbow bolts</col>.");
             case 2 :
                 return(54, water_battlestaff, "Members: Water battlestaff", "Members can now craft <col=000080>water battlestaves</col>.");
             case 3 :
@@ -313,7 +313,7 @@ switch_int ($int0) {
     case 7 :
         switch_int ($int1) {
             case 0 :
-                return(-1, silvthrill_rod, "To start Firemaking in the manner of the barbarians, talk to Otto Godblessed when you have level 35 Firemaking or higher. Pyre ships can only be constructed and burnt where the ground is charred around the lake next to Otto's hut.", "");
+                return(-1, invis_rod, "To start Firemaking in the manner of the barbarians, talk to Otto Godblessed when you have level 35 Firemaking or higher. Pyre ships can only be constructed and burnt where the ground is charred around the lake next to Otto's hut.", "");
             case 1 :
                 return(11, logs, "Members: Wood<br> (with 11 Firemaking)", "Members versed in the art of barbarian firemaking now have the Crafting level required to make <col=000080>wood pyre ships</col>. (They also need level 11 Firemaking.)");
             case 2 :
@@ -325,7 +325,7 @@ switch_int ($int0) {
             case 5 :
                 return(45, teak_logs, "Members: Teak<br> (with 45 Firemaking)", "Members versed in the art of barbarian firemaking now have the Crafting level required to make <col=000080>teak pyre ships</col>. (They also need level 45 Firemaking.)");
             case 6 :
-                return(52, arctic_pine_logs, "Members: Arctic pine<br> (with 52 Firemaking)", "Members versed in the art of barbarian firemaking now have the Crafting level required to make <col=000080>arctic pine pyre ships</col>. (They also need level 52 Firemaking.)");
+                return(52, arctic_pine_log, "Members: Arctic pine<br> (with 52 Firemaking)", "Members versed in the art of barbarian firemaking now have the Crafting level required to make <col=000080>arctic pine pyre ships</col>. (They also need level 52 Firemaking.)");
             case 7 :
                 return(55, maple_logs, "Members: Maple<br> (with 55 Firemaking)", "Members versed in the art of barbarian firemaking now have the Crafting level required to make <col=000080>maple pyre ships</col>. (They also need level 55 Firemaking.)");
             case 8 :
@@ -340,348 +340,348 @@ switch_int ($int0) {
     case 8 :
         switch_int ($int1) {
             case 0 :
-                return(8, clockwork, "Members: Clockwork mechanism", "Members can now craft <col=000080>clockwork mechanisms</col> in the workshop of their player-owned house.");
+                return(8, poh_clockwork_mechanism, "Members: Clockwork mechanism", "Members can now craft <col=000080>clockwork mechanisms</col> in the workshop of their player-owned house.");
             case 1 :
                 return(10, horsey_white, "Members: Toy horsey", "Members can now craft <col=000080>toy horseys</col> in the workshop of their player-owned house.");
             case 2 :
-                return(13, toy_soldier__wound, "Members: Clockwork soldier", "Members can now craft <col=000080>clockwork soldiers</col> in the workshop of their player-owned house.");
+                return(13, poh_toy_soldier_wound, "Members: Clockwork soldier", "Members can now craft <col=000080>clockwork soldiers</col> in the workshop of their player-owned house.");
             case 3 :
-                return(18, toy_doll__wound, "Members: Clockwork doll", "Members can now craft <col=000080>clockwork dolls</col> in the workshop of their player-owned house.");
+                return(18, poh_toy_doll_wound, "Members: Clockwork doll", "Members can now craft <col=000080>clockwork dolls</col> in the workshop of their player-owned house.");
             case 4 :
-                return(20, conductor, "Members: Conductor<br> (after starting Creature of Fenkenstrain)", "Members can now make <col=000080>lightning conductors</col> (after starting Creature of Fenkenstrain).");
+                return(20, fenk_conductor, "Members: Conductor<br> (after starting Creature of Fenkenstrain)", "Members can now make <col=000080>lightning conductors</col> (after starting Creature of Fenkenstrain).");
             case 5 :
-                return(23, sextant, "Members: Sextant", "Members can now craft <col=000080>sextants</col> in the workshop of their player-owned house.");
+                return(23, trail_sextant, "Members: Sextant", "Members can now craft <col=000080>sextants</col> in the workshop of their player-owned house.");
             case 6 :
-                return(25, gem_bag, "Gem bag<br> (with 25 Dungeoneering)", "You can now use <col=000080>gem bags</col>. (You also need level 25 Dungeoneering.)");
+                return(25, rand_reward_gem_bag, "Gem bag<br> (with 25 Dungeoneering)", "You can now use <col=000080>gem bags</col>. (You also need level 25 Dungeoneering.)");
             case 7 :
-                return(28, watch, "Members: Watch", "Members can now craft <col=000080>watches</col> in the workshop of their player-owned house.");
+                return(28, trail_watch, "Members: Watch", "Members can now craft <col=000080>watches</col> in the workshop of their player-owned house.");
             case 8 :
-                return(30, clockwork_suit, "Members: Clockwork penguins", "Members can now craft <col=000080>clockwork penguins</col> in the workshop of their player-owned house.");
+                return(30, peng_suit_unwound, "Members: Clockwork penguins", "Members can now craft <col=000080>clockwork penguins</col> in the workshop of their player-owned house.");
             case 9 :
-                return(33, toy_mouse__wound, "Members: Clockwork mouse", "Members can now craft <col=000080>clockwork mice</col> in the workshop of their player-owned house.");
+                return(33, poh_toy_mouse_wound, "Members: Clockwork mouse", "Members can now craft <col=000080>clockwork mice</col> in the workshop of their player-owned house.");
             case 10 :
-                return(43, pillar, "Members: Pillar<br> (after starting TokTz-Ket-Dill)", "Members can now make <col=000080>pillars</col> (after starting TokTz-Ket-Dill).");
+                return(43, dillo_stone_pillar, "Members: Pillar<br> (after starting TokTz-Ket-Dill)", "Members can now make <col=000080>pillars</col> (after starting TokTz-Ket-Dill).");
             case 11 :
-                return(85, clockwork_cat, "Members: Clockwork cat", "Members can now craft <col=000080>clockwork cats</col> in the workshop of their player-owned house.");
+                return(85, poh_toy_cat, "Members: Clockwork cat", "Members can now craft <col=000080>clockwork cats</col> in the workshop of their player-owned house.");
         }
     case 9 :
         switch_int ($int1) {
             case 0 :
-                return(60, livid_plant, "Members: access to the Livid Farm (with 70 Magic, 60 Agility, 60 Farming, 50 Construction and Lunar Diplomacy)", "Members can access <col=000080>Livid Farm</col> (with 70 Magic, 60 Agility, 60 Farming, 50 Construction and Lunar Diplomacy).");
+                return(60, lunarfm_plant, "Members: access to the Livid Farm (with 70 Magic, 60 Agility, 60 Farming, 50 Construction and Lunar Diplomacy)", "Members can access <col=000080>Livid Farm</col> (with 70 Magic, 60 Agility, 60 Farming, 50 Construction and Lunar Diplomacy).");
             case 1 :
-                return(91, starved_ancient_effigy, "Members: Starved ancient effigies", "Members can now investigate <col=000080>starved ancient effigies</col> using their knowledge of Crafting.");
+                return(91, effi_ancient_effigy_level_0, "Members: Starved ancient effigies", "Members can now investigate <col=000080>starved ancient effigies</col> using their knowledge of Crafting.");
             case 2 :
-                return(93, nourished_ancient_effigy, "Members: Nourished ancient effigies", "Members can now investigate <col=000080>nourished ancient effigies</col> using their knowledge of Crafting.");
+                return(93, effi_ancient_effigy_level_1, "Members: Nourished ancient effigies", "Members can now investigate <col=000080>nourished ancient effigies</col> using their knowledge of Crafting.");
             case 3 :
-                return(95, sated_ancient_effigy, "Members: Sated ancient effigies", "Members can now investigate <col=000080>sated ancient effigies</col> using their knowledge of Crafting.");
+                return(95, effi_ancient_effigy_level_2, "Members: Sated ancient effigies", "Members can now investigate <col=000080>sated ancient effigies</col> using their knowledge of Crafting.");
             case 4 :
-                return(97, gorged_ancient_effigy, "Members: Gorged ancient effigies", "Members can now investigate <col=000080>gorged ancient effigies</col> using their knowledge of Crafting.");
+                return(97, effi_ancient_effigy_level_3, "Members: Gorged ancient effigies", "Members can now investigate <col=000080>gorged ancient effigies</col> using their knowledge of Crafting.");
         }
     case 10 :
         switch_int ($int1) {
             case 0 :
-                return(1, butterfly_net__class_1, "Members: Stealing Creation - class 1 butterfly net", "Members can now craft <col=000080>class 1 butterfly nets</col> in Stealing Creation.");
+                return(1, sc_butterflynet_1, "Members: Stealing Creation - class 1 butterfly net", "Members can now craft <col=000080>class 1 butterfly nets</col> in Stealing Creation.");
             case 1 :
-                return(1, harpoon__class_1, "Members: Stealing Creation - class 1 harpoon", "Members can now craft <col=000080>class 1 harpoons</col> in Stealing Creation.");
+                return(1, sc_harpoon_1, "Members: Stealing Creation - class 1 harpoon", "Members can now craft <col=000080>class 1 harpoons</col> in Stealing Creation.");
             case 2 :
-                return(1, staff__class_1, "Members: Stealing Creation - class 1 staff", "Members can now craft <col=000080>class 1 staves</col> in Stealing Creation.");
+                return(1, sc_staff_1, "Members: Stealing Creation - class 1 staff", "Members can now craft <col=000080>class 1 staves</col> in Stealing Creation.");
             case 3 :
-                return(1, leather_body__class_1, "Members: Stealing Creation - class 1 leather body", "Members can now craft <col=000080>class 1 leather bodies</col> in Stealing Creation.");
+                return(1, sc_ranger_body_1, "Members: Stealing Creation - class 1 leather body", "Members can now craft <col=000080>class 1 leather bodies</col> in Stealing Creation.");
             case 4 :
-                return(1, chaps__class_1, "Members: Stealing Creation - class 1 chaps", "Members can now craft <col=000080>class 1 chaps</col> in Stealing Creation.");
+                return(1, sc_ranger_legs_1, "Members: Stealing Creation - class 1 chaps", "Members can now craft <col=000080>class 1 chaps</col> in Stealing Creation.");
             case 5 :
-                return(1, coif__class_1, "Members: Stealing Creation - class 1 coif", "Members can now craft <col=000080>class 1 coifs</col> in Stealing Creation.");
+                return(1, sc_ranger_head_1, "Members: Stealing Creation - class 1 coif", "Members can now craft <col=000080>class 1 coifs</col> in Stealing Creation.");
             case 6 :
-                return(1, robe_top__class_1, "Members: Stealing Creation - class 1 robe top", "Members can now craft <col=000080>class 1 robe tops</col> in Stealing Creation.");
+                return(1, sc_robe_top_1, "Members: Stealing Creation - class 1 robe top", "Members can now craft <col=000080>class 1 robe tops</col> in Stealing Creation.");
             case 7 :
-                return(1, robe_bottom__class_1, "Members: Stealing Creation - class 1 robe bottom", "Members can now craft <col=000080>class 1 robe bottoms</col> in Stealing Creation.");
+                return(1, sc_robe_bottom_1, "Members: Stealing Creation - class 1 robe bottom", "Members can now craft <col=000080>class 1 robe bottoms</col> in Stealing Creation.");
             case 8 :
-                return(1, hat__class_1, "Members: Stealing Creation - class 1 hat", "Members can now craft <col=000080>class 1 hats</col> in Stealing Creation.");
+                return(1, sc_hat_1, "Members: Stealing Creation - class 1 hat", "Members can now craft <col=000080>class 1 hats</col> in Stealing Creation.");
             case 9 :
-                return(20, butterfly_net__class_2, "Members: Stealing Creation - class 2 butterfly net", "Members can now craft <col=000080>class 2 butterfly nets</col> in Stealing Creation.");
+                return(20, sc_butterflynet_2, "Members: Stealing Creation - class 2 butterfly net", "Members can now craft <col=000080>class 2 butterfly nets</col> in Stealing Creation.");
             case 10 :
-                return(20, harpoon__class_2, "Members: Stealing Creation - class 2 harpoon", "Members can now craft <col=000080>class 2 harpoons</col> in Stealing Creation.");
+                return(20, sc_harpoon_2, "Members: Stealing Creation - class 2 harpoon", "Members can now craft <col=000080>class 2 harpoons</col> in Stealing Creation.");
             case 11 :
-                return(20, staff__class_2, "Members: Stealing Creation - class 2 staff", "Members can now craft <col=000080>class 2 staves</col> in Stealing Creation.");
+                return(20, sc_staff_2, "Members: Stealing Creation - class 2 staff", "Members can now craft <col=000080>class 2 staves</col> in Stealing Creation.");
             case 12 :
-                return(20, leather_body__class_2, "Members: Stealing Creation - class 2 leather body", "Members can now craft <col=000080>class 2 leather bodies</col> in Stealing Creation.");
+                return(20, sc_ranger_body_2, "Members: Stealing Creation - class 2 leather body", "Members can now craft <col=000080>class 2 leather bodies</col> in Stealing Creation.");
             case 13 :
-                return(20, chaps__class_2, "Members: Stealing Creation - class 2 chaps", "Members can now craft <col=000080>class 2 chaps</col> in Stealing Creation.");
+                return(20, sc_ranger_legs_2, "Members: Stealing Creation - class 2 chaps", "Members can now craft <col=000080>class 2 chaps</col> in Stealing Creation.");
             case 14 :
-                return(20, coif__class_2, "Members: Stealing Creation - class 2 coif", "Members can now craft <col=000080>class 2 coifs</col> in Stealing Creation.");
+                return(20, sc_ranger_head_2, "Members: Stealing Creation - class 2 coif", "Members can now craft <col=000080>class 2 coifs</col> in Stealing Creation.");
             case 15 :
-                return(20, robe_top__class_2, "Members: Stealing Creation - class 2 robe top", "Members can now craft <col=000080>class 2 robe tops</col> in Stealing Creation.");
+                return(20, sc_robe_top_2, "Members: Stealing Creation - class 2 robe top", "Members can now craft <col=000080>class 2 robe tops</col> in Stealing Creation.");
             case 16 :
-                return(20, robe_bottom__class_2, "Members: Stealing Creation - class 2 robe bottom", "Members can now craft <col=000080>class 2 robe bottoms</col> in Stealing Creation.");
+                return(20, sc_robe_bottom_2, "Members: Stealing Creation - class 2 robe bottom", "Members can now craft <col=000080>class 2 robe bottoms</col> in Stealing Creation.");
             case 17 :
-                return(20, hat__class_2, "Members: Stealing Creation - class 2 hat", "Members can now craft <col=000080>class 2 hats</col> in Stealing Creation.");
+                return(20, sc_hat_2, "Members: Stealing Creation - class 2 hat", "Members can now craft <col=000080>class 2 hats</col> in Stealing Creation.");
             case 18 :
-                return(40, butterfly_net__class_3, "Members: Stealing Creation - class 3 butterfly net", "Members can now craft <col=000080>class 3 butterfly nets</col> in Stealing Creation.");
+                return(40, sc_butterflynet_3, "Members: Stealing Creation - class 3 butterfly net", "Members can now craft <col=000080>class 3 butterfly nets</col> in Stealing Creation.");
             case 19 :
-                return(40, harpoon__class_3, "Members: Stealing Creation - class 3 harpoon", "Members can now craft <col=000080>class 3 harpoons</col> in Stealing Creation.");
+                return(40, sc_harpoon_3, "Members: Stealing Creation - class 3 harpoon", "Members can now craft <col=000080>class 3 harpoons</col> in Stealing Creation.");
             case 20 :
-                return(40, staff__class_3, "Members: Stealing Creation - class 3 staff", "Members can now craft <col=000080>class 3 staves</col> in Stealing Creation.");
+                return(40, sc_staff_3, "Members: Stealing Creation - class 3 staff", "Members can now craft <col=000080>class 3 staves</col> in Stealing Creation.");
             case 21 :
-                return(40, leather_body__class_3, "Members: Stealing Creation - class 3 leather body", "Members can now craft <col=000080>class 3 leather bodies</col> in Stealing Creation.");
+                return(40, sc_ranger_body_3, "Members: Stealing Creation - class 3 leather body", "Members can now craft <col=000080>class 3 leather bodies</col> in Stealing Creation.");
             case 22 :
-                return(40, chaps__class_3, "Members: Stealing Creation - class 3 chaps", "Members can now craft <col=000080>class 3 chaps</col> in Stealing Creation.");
+                return(40, sc_ranger_legs_3, "Members: Stealing Creation - class 3 chaps", "Members can now craft <col=000080>class 3 chaps</col> in Stealing Creation.");
             case 23 :
-                return(40, coif__class_3, "Members: Stealing Creation - class 3 coif", "Members can now craft <col=000080>class 3 coifs</col> in Stealing Creation.");
+                return(40, sc_ranger_head_3, "Members: Stealing Creation - class 3 coif", "Members can now craft <col=000080>class 3 coifs</col> in Stealing Creation.");
             case 24 :
-                return(40, robe_top__class_3, "Members: Stealing Creation - class 3 robe top", "Members can now craft <col=000080>class 3 robe tops</col> in Stealing Creation.");
+                return(40, sc_robe_top_3, "Members: Stealing Creation - class 3 robe top", "Members can now craft <col=000080>class 3 robe tops</col> in Stealing Creation.");
             case 25 :
-                return(40, robe_bottom__class_3, "Members: Stealing Creation - class 3 robe bottom", "Members can now craft <col=000080>class 3 robe bottoms</col> in Stealing Creation.");
+                return(40, sc_robe_bottom_3, "Members: Stealing Creation - class 3 robe bottom", "Members can now craft <col=000080>class 3 robe bottoms</col> in Stealing Creation.");
             case 26 :
-                return(40, hat__class_3, "Members: Stealing Creation - class 3 hat", "Members can now craft <col=000080>class 3 hats</col> in Stealing Creation.");
+                return(40, sc_hat_3, "Members: Stealing Creation - class 3 hat", "Members can now craft <col=000080>class 3 hats</col> in Stealing Creation.");
             case 27 :
-                return(52, obj_14619, "Members: Phoenix lair - funeral pyre", "Members can now craft the phoenix's <col=000080>funeral pyre</col> in the phoenix lair.");
+                return(52, phoenix_pyre_inv, "Members: Phoenix lair - funeral pyre", "Members can now craft the phoenix's <col=000080>funeral pyre</col> in the phoenix lair.");
             case 28 :
-                return(60, butterfly_net__class_4, "Members: Stealing Creation - class 4 butterfly net", "Members can now craft <col=000080>class 4 butterfly nets</col> in Stealing Creation.");
+                return(60, sc_butterflynet_4, "Members: Stealing Creation - class 4 butterfly net", "Members can now craft <col=000080>class 4 butterfly nets</col> in Stealing Creation.");
             case 29 :
-                return(60, harpoon__class_4, "Members: Stealing Creation - class 4 harpoon", "Members can now craft <col=000080>class 4 harpoons</col> in Stealing Creation.");
+                return(60, sc_harpoon_4, "Members: Stealing Creation - class 4 harpoon", "Members can now craft <col=000080>class 4 harpoons</col> in Stealing Creation.");
             case 30 :
-                return(60, staff__class_4, "Members: Stealing Creation - class 4 staff", "Members can now craft <col=000080>class 4 staves</col> in Stealing Creation.");
+                return(60, sc_staff_4, "Members: Stealing Creation - class 4 staff", "Members can now craft <col=000080>class 4 staves</col> in Stealing Creation.");
             case 31 :
-                return(60, leather_body__class_4, "Members: Stealing Creation - class 4 leather body", "Members can now craft <col=000080>class 4 leather bodies</col> in Stealing Creation.");
+                return(60, sc_ranger_body_4, "Members: Stealing Creation - class 4 leather body", "Members can now craft <col=000080>class 4 leather bodies</col> in Stealing Creation.");
             case 32 :
-                return(60, chaps__class_4, "Members: Stealing Creation - class 4 chaps", "Members can now craft <col=000080>class 4 chaps</col> in Stealing Creation.");
+                return(60, sc_ranger_legs_4, "Members: Stealing Creation - class 4 chaps", "Members can now craft <col=000080>class 4 chaps</col> in Stealing Creation.");
             case 33 :
-                return(60, coif__class_4, "Members: Stealing Creation - class 4 coif", "Members can now craft <col=000080>class 4 coifs</col> in Stealing Creation.");
+                return(60, sc_ranger_head_4, "Members: Stealing Creation - class 4 coif", "Members can now craft <col=000080>class 4 coifs</col> in Stealing Creation.");
             case 34 :
-                return(60, robe_top__class_4, "Members: Stealing Creation - class 4 robe top", "Members can now craft <col=000080>class 4 robe tops</col> in Stealing Creation.");
+                return(60, sc_robe_top_4, "Members: Stealing Creation - class 4 robe top", "Members can now craft <col=000080>class 4 robe tops</col> in Stealing Creation.");
             case 35 :
-                return(60, robe_bottom__class_4, "Members: Stealing Creation - class 4 robe bottom", "Members can now craft <col=000080>class 4 robe bottoms</col> in Stealing Creation.");
+                return(60, sc_robe_bottom_4, "Members: Stealing Creation - class 4 robe bottom", "Members can now craft <col=000080>class 4 robe bottoms</col> in Stealing Creation.");
             case 36 :
-                return(60, hat__class_4, "Members: Stealing Creation - class 4 hat", "Members can now craft <col=000080>class 4 hats</col> in Stealing Creation.");
+                return(60, sc_hat_4, "Members: Stealing Creation - class 4 hat", "Members can now craft <col=000080>class 4 hats</col> in Stealing Creation.");
             case 37 :
-                return(80, butterfly_net__class_5, "Members: Stealing Creation - class 5 butterfly net", "Members can now craft <col=000080>class 5 butterfly nets</col> in Stealing Creation.");
+                return(80, sc_butterflynet_5, "Members: Stealing Creation - class 5 butterfly net", "Members can now craft <col=000080>class 5 butterfly nets</col> in Stealing Creation.");
             case 38 :
-                return(80, harpoon__class_5, "Members: Stealing Creation - class 5 harpoon", "Members can now craft <col=000080>class 5 harpoons</col> in Stealing Creation.");
+                return(80, sc_harpoon_5, "Members: Stealing Creation - class 5 harpoon", "Members can now craft <col=000080>class 5 harpoons</col> in Stealing Creation.");
             case 39 :
-                return(80, staff__class_5, "Members: Stealing Creation - class 5 staff", "Members can now craft <col=000080>class 5 staves</col> in Stealing Creation.");
+                return(80, sc_staff_5, "Members: Stealing Creation - class 5 staff", "Members can now craft <col=000080>class 5 staves</col> in Stealing Creation.");
             case 40 :
-                return(80, leather_body__class_5, "Members: Stealing Creation - class 5 leather body", "Members can now craft <col=000080>class 5 leather bodies</col> in Stealing Creation.");
+                return(80, sc_ranger_body_5, "Members: Stealing Creation - class 5 leather body", "Members can now craft <col=000080>class 5 leather bodies</col> in Stealing Creation.");
             case 41 :
-                return(80, chaps__class_5, "Members: Stealing Creation - class 5 chaps", "Members can now craft <col=000080>class 5 chaps</col> in Stealing Creation.");
+                return(80, sc_ranger_legs_5, "Members: Stealing Creation - class 5 chaps", "Members can now craft <col=000080>class 5 chaps</col> in Stealing Creation.");
             case 42 :
-                return(80, coif__class_5, "Members: Stealing Creation - class 5 coif", "Members can now craft <col=000080>class 5 coifs</col> in Stealing Creation.");
+                return(80, sc_ranger_head_5, "Members: Stealing Creation - class 5 coif", "Members can now craft <col=000080>class 5 coifs</col> in Stealing Creation.");
             case 43 :
-                return(80, robe_top__class_5, "Members: Stealing Creation - class 5 robe top", "Members can now craft <col=000080>class 5 robe tops</col> in Stealing Creation.");
+                return(80, sc_robe_top_5, "Members: Stealing Creation - class 5 robe top", "Members can now craft <col=000080>class 5 robe tops</col> in Stealing Creation.");
             case 44 :
-                return(80, robe_bottom__class_5, "Members: Stealing Creation - class 5 robe bottom", "Members can now craft <col=000080>class 5 robe bottoms</col> in Stealing Creation.");
+                return(80, sc_robe_bottom_5, "Members: Stealing Creation - class 5 robe bottom", "Members can now craft <col=000080>class 5 robe bottoms</col> in Stealing Creation.");
             case 45 :
-                return(80, hat__class_5, "Members: Stealing Creation - class 5 hat", "Members can now craft <col=000080>class 5 hats</col> in Stealing Creation.");
+                return(80, sc_hat_5, "Members: Stealing Creation - class 5 hat", "Members can now craft <col=000080>class 5 hats</col> in Stealing Creation.");
         }
     case 11 :
         switch_int ($int1) {
             case 0 :
-                return(-1, ring_of_kinship, "Dungeoneering skill tasks (Levels 1-99)<br>As your Crafting level increases, you will be able to attempt higher-level crafting tasks within Daemonheim. You will also be more likely to succeed when attempting crafting tasks within Daemonheim.", "");
+                return(-1, rand_mission_contract, "Dungeoneering skill tasks (Levels 1-99)<br>As your Crafting level increases, you will be able to attempt higher-level crafting tasks within Daemonheim. You will also be more likely to succeed when attempting crafting tasks within Daemonheim.", "");
             case 1 :
-                return(1, salve_gloves, "Salve gloves (Tier 1)", "You can now craft <col=000080>salve gloves</col> within Daemonheim.");
+                return(1, rand_gloves_1, "Salve gloves (Tier 1)", "You can now craft <col=000080>salve gloves</col> within Daemonheim.");
             case 2 :
-                return(1, protoleather_vambraces, "Protoleather vambraces (Tier 1)", "You can now craft <col=000080>protoleather vambraces</col> within Daemonheim.");
+                return(1, rand_vambraces_1, "Protoleather vambraces (Tier 1)", "You can now craft <col=000080>protoleather vambraces</col> within Daemonheim.");
             case 3 :
-                return(2, salve_shoes, "Salve shoes (Tier 1)", "You can now craft <col=000080>salve shoes</col> within Daemonheim.");
+                return(2, rand_cloth_boots_1, "Salve shoes (Tier 1)", "You can now craft <col=000080>salve shoes</col> within Daemonheim.");
             case 4 :
-                return(3, protoleather_boots, "Protoleather boots (Tier 1)", "You can now craft <col=000080>protoleather boots</col> within Daemonheim.");
+                return(3, rand_leather_boots_1, "Protoleather boots (Tier 1)", "You can now craft <col=000080>protoleather boots</col> within Daemonheim.");
             case 5 :
-                return(4, salve_hood, "Salve hood (Tier 1)", "You can now craft <col=000080>salve hoods</col> within Daemonheim.");
+                return(4, rand_hood_1, "Salve hood (Tier 1)", "You can now craft <col=000080>salve hoods</col> within Daemonheim.");
             case 6 :
-                return(5, protoleather_coif, "Protoleather coif (Tier 1)", "You can now craft <col=000080>protoleather coifs</col> within Daemonheim.");
+                return(5, rand_coif_1, "Protoleather coif (Tier 1)", "You can now craft <col=000080>protoleather coifs</col> within Daemonheim.");
             case 7 :
-                return(6, salve_robe_bottom, "Salve robe bottom (Tier 1)", "You can now craft <col=000080>salve robe bottoms</col> within Daemonheim.");
+                return(6, rand_robe_bottom_1, "Salve robe bottom (Tier 1)", "You can now craft <col=000080>salve robe bottoms</col> within Daemonheim.");
             case 8 :
-                return(7, protoleather_chaps, "Protoleather chaps (Tier 1)", "You can now craft <col=000080>protoleather chaps</col> within Daemonheim.");
+                return(7, rand_chaps_1, "Protoleather chaps (Tier 1)", "You can now craft <col=000080>protoleather chaps</col> within Daemonheim.");
             case 9 :
-                return(8, salve_robe_top, "Salve robe top (Tier 1)", "You can now craft <col=000080>salve robe tops</col> within Daemonheim.");
+                return(8, rand_robe_top_1, "Salve robe top (Tier 1)", "You can now craft <col=000080>salve robe tops</col> within Daemonheim.");
             case 10 :
-                return(9, protoleather_body, "Protoleather body (Tier 1)", "You can now craft <col=000080>protoleather bodies</col> within Daemonheim.");
+                return(9, rand_leather_body_1, "Protoleather body (Tier 1)", "You can now craft <col=000080>protoleather bodies</col> within Daemonheim.");
             case 11 :
-                return(10, wildercress_gloves, "Wildercress gloves (Tier 2)", "You can now craft <col=000080>wildercress gloves</col> within Daemonheim.");
+                return(10, rand_gloves_2, "Wildercress gloves (Tier 2)", "You can now craft <col=000080>wildercress gloves</col> within Daemonheim.");
             case 12 :
-                return(11, subleather_vambraces, "Subleather vambraces (Tier 2)", "You can now craft <col=000080>subleather vambraces</col> within Daemonheim.");
+                return(11, rand_vambraces_2, "Subleather vambraces (Tier 2)", "You can now craft <col=000080>subleather vambraces</col> within Daemonheim.");
             case 13 :
-                return(12, wildercress_shoes, "Wildercress shoes (Tier 2)", "You can now craft <col=000080>wildercress shoes</col> within Daemonheim.");
+                return(12, rand_cloth_boots_2, "Wildercress shoes (Tier 2)", "You can now craft <col=000080>wildercress shoes</col> within Daemonheim.");
             case 14 :
-                return(13, subleather_boots, "Subleather boots (Tier 2)", "You can now craft <col=000080>subleather boots</col> within Daemonheim.");
+                return(13, rand_leather_boots_2, "Subleather boots (Tier 2)", "You can now craft <col=000080>subleather boots</col> within Daemonheim.");
             case 15 :
-                return(14, wildercress_hood, "Wildercress hood (Tier 2)", "You can now craft <col=000080>wildercress hoods</col> within Daemonheim.");
+                return(14, rand_hood_2, "Wildercress hood (Tier 2)", "You can now craft <col=000080>wildercress hoods</col> within Daemonheim.");
             case 16 :
-                return(15, subleather_coif, "Subleather coif (Tier 2)", "You can now craft <col=000080>subleather coifs</col> within Daemonheim.");
+                return(15, rand_coif_2, "Subleather coif (Tier 2)", "You can now craft <col=000080>subleather coifs</col> within Daemonheim.");
             case 17 :
-                return(16, wildercress_robe_bottom, "Wildercress robe bottom (Tier 2)", "You can now craft <col=000080>wildercress robe bottoms</col> within Daemonheim.");
+                return(16, rand_robe_bottom_2, "Wildercress robe bottom (Tier 2)", "You can now craft <col=000080>wildercress robe bottoms</col> within Daemonheim.");
             case 18 :
-                return(17, subleather_chaps, "Subleather chaps (Tier 2)", "You can now craft <col=000080>subleather chaps</col> within Daemonheim.");
+                return(17, rand_chaps_2, "Subleather chaps (Tier 2)", "You can now craft <col=000080>subleather chaps</col> within Daemonheim.");
             case 19 :
-                return(18, wildercress_robe_top, "Wildercress robe top (Tier 2)", "You can now craft <col=000080>wildercress robe tops</col> within Daemonheim.");
+                return(18, rand_robe_top_2, "Wildercress robe top (Tier 2)", "You can now craft <col=000080>wildercress robe tops</col> within Daemonheim.");
             case 20 :
-                return(19, subleather_body, "Subleather body (Tier 2)", "You can now craft <col=000080>subleather bodies</col> within Daemonheim.");
+                return(19, rand_leather_body_2, "Subleather body (Tier 2)", "You can now craft <col=000080>subleather bodies</col> within Daemonheim.");
             case 21 :
-                return(20, blightleaf_gloves, "Blightleaf gloves (Tier 3)", "You can now craft <col=000080>blightleaf gloves</col> within Daemonheim.");
+                return(20, rand_gloves_3, "Blightleaf gloves (Tier 3)", "You can now craft <col=000080>blightleaf gloves</col> within Daemonheim.");
             case 22 :
-                return(21, paraleather_vambraces, "Paraleather vambraces (Tier 3)", "You can now craft <col=000080>paraleather vambraces</col> within Daemonheim.");
+                return(21, rand_vambraces_3, "Paraleather vambraces (Tier 3)", "You can now craft <col=000080>paraleather vambraces</col> within Daemonheim.");
             case 23 :
-                return(22, blightleaf_shoes, "Blightleaf shoes (Tier 3)", "You can now craft <col=000080>blightleaf shoes</col> within Daemonheim.");
+                return(22, rand_cloth_boots_3, "Blightleaf shoes (Tier 3)", "You can now craft <col=000080>blightleaf shoes</col> within Daemonheim.");
             case 24 :
-                return(23, paraleather_boots, "Paraleather boots (Tier 3)", "You can now craft <col=000080>paraleather boots</col> within Daemonheim.");
+                return(23, rand_leather_boots_3, "Paraleather boots (Tier 3)", "You can now craft <col=000080>paraleather boots</col> within Daemonheim.");
             case 25 :
-                return(24, blightleaf_hood, "Blightleaf hood (Tier 3)", "You can now craft <col=000080>blightleaf hoods</col> within Daemonheim.");
+                return(24, rand_hood_3, "Blightleaf hood (Tier 3)", "You can now craft <col=000080>blightleaf hoods</col> within Daemonheim.");
             case 26 :
-                return(25, paraleather_coif, "Paraleather coif (Tier 3)", "You can now craft <col=000080>paraleather coifs</col> within Daemonheim.");
+                return(25, rand_coif_3, "Paraleather coif (Tier 3)", "You can now craft <col=000080>paraleather coifs</col> within Daemonheim.");
             case 27 :
-                return(26, blightleaf_robe_bottom, "Blightleaf robe bottom (Tier 3)", "You can now craft <col=000080>blightleaf robe bottoms</col> within Daemonheim.");
+                return(26, rand_robe_bottom_3, "Blightleaf robe bottom (Tier 3)", "You can now craft <col=000080>blightleaf robe bottoms</col> within Daemonheim.");
             case 28 :
-                return(27, paraleather_chaps, "Paraleather chaps (Tier 3)", "You can now craft <col=000080>paraleather chaps</col> within Daemonheim.");
+                return(27, rand_chaps_3, "Paraleather chaps (Tier 3)", "You can now craft <col=000080>paraleather chaps</col> within Daemonheim.");
             case 29 :
-                return(28, blightleaf_robe_top, "Blightleaf robe top (Tier 3)", "You can now craft <col=000080>blightleaf robe tops</col> within Daemonheim.");
+                return(28, rand_robe_top_3, "Blightleaf robe top (Tier 3)", "You can now craft <col=000080>blightleaf robe tops</col> within Daemonheim.");
             case 30 :
-                return(29, paraleather_body, "Paraleather body (Tier 3)", "You can now craft <col=000080>paraleather bodies</col> within Daemonheim.");
+                return(29, rand_leather_body_3, "Paraleather body (Tier 3)", "You can now craft <col=000080>paraleather bodies</col> within Daemonheim.");
             case 31 :
-                return(30, roseblood_gloves, "Roseblood gloves (Tier 4)", "You can now craft <col=000080>roseblood gloves</col> within Daemonheim.");
+                return(30, rand_gloves_4, "Roseblood gloves (Tier 4)", "You can now craft <col=000080>roseblood gloves</col> within Daemonheim.");
             case 32 :
-                return(31, archleather_vambraces, "Archleather vambraces (Tier 4)", "You can now craft <col=000080>archleather vambraces</col> within Daemonheim.");
+                return(31, rand_vambraces_4, "Archleather vambraces (Tier 4)", "You can now craft <col=000080>archleather vambraces</col> within Daemonheim.");
             case 33 :
-                return(32, roseblood_shoes, "Roseblood shoes (Tier 4)", "You can now craft <col=000080>roseblood shoes</col> within Daemonheim.");
+                return(32, rand_cloth_boots_4, "Roseblood shoes (Tier 4)", "You can now craft <col=000080>roseblood shoes</col> within Daemonheim.");
             case 34 :
-                return(33, archleather_boots, "Archleather boots (Tier 4)", "You can now craft <col=000080>archleather boots</col> within Daemonheim.");
+                return(33, rand_leather_boots_4, "Archleather boots (Tier 4)", "You can now craft <col=000080>archleather boots</col> within Daemonheim.");
             case 35 :
-                return(34, roseblood_hood, "Roseblood hood (Tier 4)", "You can now craft <col=000080>roseblood hoods</col> within Daemonheim.");
+                return(34, rand_hood_4, "Roseblood hood (Tier 4)", "You can now craft <col=000080>roseblood hoods</col> within Daemonheim.");
             case 36 :
-                return(35, archleather_coif, "Archleather coif (Tier 4)", "You can now craft <col=000080>archleather coifs</col> within Daemonheim.");
+                return(35, rand_coif_4, "Archleather coif (Tier 4)", "You can now craft <col=000080>archleather coifs</col> within Daemonheim.");
             case 37 :
-                return(36, roseblood_robe_bottom, "Roseblood robe bottom (Tier 4)", "You can now craft <col=000080>roseblood robe bottoms</col> within Daemonheim.");
+                return(36, rand_robe_bottom_4, "Roseblood robe bottom (Tier 4)", "You can now craft <col=000080>roseblood robe bottoms</col> within Daemonheim.");
             case 38 :
-                return(37, archleather_chaps, "Archleather chaps (Tier 4)", "You can now craft <col=000080>archleather chaps</col> within Daemonheim.");
+                return(37, rand_chaps_4, "Archleather chaps (Tier 4)", "You can now craft <col=000080>archleather chaps</col> within Daemonheim.");
             case 39 :
-                return(38, roseblood_robe_top, "Roseblood robe top (Tier 4)", "You can now craft <col=000080>roseblood robe tops</col> within Daemonheim.");
+                return(38, rand_robe_top_4, "Roseblood robe top (Tier 4)", "You can now craft <col=000080>roseblood robe tops</col> within Daemonheim.");
             case 40 :
-                return(39, archleather_body, "Archleather body (Tier 4)", "You can now craft <col=000080>archleather bodies</col> within Daemonheim.");
+                return(39, rand_leather_body_4, "Archleather body (Tier 4)", "You can now craft <col=000080>archleather bodies</col> within Daemonheim.");
             case 41 :
-                return(40, bryll_gloves, "Bryll gloves (Tier 5)", "You can now craft <col=000080>bryll gloves</col> within Daemonheim.");
+                return(40, rand_gloves_5, "Bryll gloves (Tier 5)", "You can now craft <col=000080>bryll gloves</col> within Daemonheim.");
             case 42 :
-                return(41, dromoleather_vambraces, "Dromoleather vambraces (Tier 5)", "You can now craft <col=000080>dromoleather vambraces</col> within Daemonheim.");
+                return(41, rand_vambraces_5, "Dromoleather vambraces (Tier 5)", "You can now craft <col=000080>dromoleather vambraces</col> within Daemonheim.");
             case 43 :
-                return(42, bryll_shoes, "Bryll shoes (Tier 5)", "You can now craft <col=000080>bryll shoes</col> within Daemonheim.");
+                return(42, rand_cloth_boots_5, "Bryll shoes (Tier 5)", "You can now craft <col=000080>bryll shoes</col> within Daemonheim.");
             case 44 :
-                return(43, dromoleather_boots, "Dromoleather boots (Tier 5)", "You can now craft <col=000080>dromoleather boots</col> within Daemonheim.");
+                return(43, rand_leather_boots_5, "Dromoleather boots (Tier 5)", "You can now craft <col=000080>dromoleather boots</col> within Daemonheim.");
             case 45 :
-                return(44, bryll_hood, "Bryll hood (Tier 5)", "You can now craft <col=000080>bryll hoods</col> within Daemonheim.");
+                return(44, rand_hood_5, "Bryll hood (Tier 5)", "You can now craft <col=000080>bryll hoods</col> within Daemonheim.");
             case 46 :
-                return(45, dromoleather_coif, "Dromoleather coif (Tier 5)", "You can now craft <col=000080>dromoleather coifs</col> within Daemonheim.");
+                return(45, rand_coif_5, "Dromoleather coif (Tier 5)", "You can now craft <col=000080>dromoleather coifs</col> within Daemonheim.");
             case 47 :
-                return(46, bryll_robe_bottom, "Bryll robe bottom (Tier 5)", "You can now craft <col=000080>bryll robe bottoms</col> within Daemonheim.");
+                return(46, rand_robe_bottom_5, "Bryll robe bottom (Tier 5)", "You can now craft <col=000080>bryll robe bottoms</col> within Daemonheim.");
             case 48 :
-                return(47, dromoleather_chaps, "Dromoleather chaps (Tier 5)", "You can now craft <col=000080>dromoleather chaps</col> within Daemonheim.");
+                return(47, rand_chaps_5, "Dromoleather chaps (Tier 5)", "You can now craft <col=000080>dromoleather chaps</col> within Daemonheim.");
             case 49 :
-                return(48, bryll_robe_top, "Bryll robe top (Tier 5)", "You can now craft <col=000080>bryll robe tops</col> within Daemonheim.");
+                return(48, rand_robe_top_5, "Bryll robe top (Tier 5)", "You can now craft <col=000080>bryll robe tops</col> within Daemonheim.");
             case 50 :
-                return(49, dromoleather_body, "Dromoleather body (Tier 5)", "You can now craft <col=000080>dromoleather bodies</col> within Daemonheim.");
+                return(49, rand_leather_body_5, "Dromoleather body (Tier 5)", "You can now craft <col=000080>dromoleather bodies</col> within Daemonheim.");
             case 51 :
-                return(50, duskweed_gloves, "Members: Duskweed gloves (Tier 6)", "Members can now craft <col=000080>duskweed gloves</col> within Daemonheim.");
+                return(50, rand_gloves_6, "Members: Duskweed gloves (Tier 6)", "Members can now craft <col=000080>duskweed gloves</col> within Daemonheim.");
             case 52 :
-                return(51, spinoleather_vambraces, "Members: Spinoleather vambraces (Tier 6)", "Members can now craft <col=000080>spinoleather vambraces</col> within Daemonheim.");
+                return(51, rand_vambraces_6, "Members: Spinoleather vambraces (Tier 6)", "Members can now craft <col=000080>spinoleather vambraces</col> within Daemonheim.");
             case 53 :
-                return(52, duskweed_shoes, "Members: Duskweed shoes (Tier 6)", "Members can now craft <col=000080>duskweed shoes</col> within Daemonheim.");
+                return(52, rand_cloth_boots_6, "Members: Duskweed shoes (Tier 6)", "Members can now craft <col=000080>duskweed shoes</col> within Daemonheim.");
             case 54 :
-                return(53, spinoleather_boots, "Members: Spinoleather boots (Tier 6)", "Members can now craft <col=000080>spinoleather boots</col> within Daemonheim.");
+                return(53, rand_leather_boots_6, "Members: Spinoleather boots (Tier 6)", "Members can now craft <col=000080>spinoleather boots</col> within Daemonheim.");
             case 55 :
-                return(54, duskweed_hood, "Members: Duskweed hood (Tier 6)", "Members can now craft <col=000080>duskweed hoods</col> within Daemonheim.");
+                return(54, rand_hood_6, "Members: Duskweed hood (Tier 6)", "Members can now craft <col=000080>duskweed hoods</col> within Daemonheim.");
             case 56 :
-                return(55, spinoleather_coif, "Members: Spinoleather coif (Tier 6)", "Members can now craft <col=000080>spinoleather coifs</col> within Daemonheim.");
+                return(55, rand_coif_6, "Members: Spinoleather coif (Tier 6)", "Members can now craft <col=000080>spinoleather coifs</col> within Daemonheim.");
             case 57 :
-                return(56, duskweed_robe_bottom, "Members: Duskweed robe bottom (Tier 6)", "Members can now craft <col=000080>duskweed robe bottoms</col> within Daemonheim.");
+                return(56, rand_robe_bottom_6, "Members: Duskweed robe bottom (Tier 6)", "Members can now craft <col=000080>duskweed robe bottoms</col> within Daemonheim.");
             case 58 :
-                return(57, spinoleather_chaps, "Members: Spinoleather chaps (Tier 6)", "Members can now craft <col=000080>spinoleather chaps</col> within Daemonheim.");
+                return(57, rand_chaps_6, "Members: Spinoleather chaps (Tier 6)", "Members can now craft <col=000080>spinoleather chaps</col> within Daemonheim.");
             case 59 :
-                return(58, duskweed_robe_top, "Members: Duskweed robe top (Tier 6)", "Members can now craft <col=000080>duskweed robe tops</col> within Daemonheim.");
+                return(58, rand_robe_top_6, "Members: Duskweed robe top (Tier 6)", "Members can now craft <col=000080>duskweed robe tops</col> within Daemonheim.");
             case 60 :
-                return(59, spinoleather_body, "Members: Spinoleather body (Tier 6)", "Members can now craft <col=000080>spinoleather bodies</col> within Daemonheim.");
+                return(59, rand_leather_body_6, "Members: Spinoleather body (Tier 6)", "Members can now craft <col=000080>spinoleather bodies</col> within Daemonheim.");
             case 61 :
-                return(60, soulbell_gloves, "Members: Soulbell gloves (Tier 7)", "Members can now craft <col=000080>soulbell gloves</col> within Daemonheim.");
+                return(60, rand_gloves_7, "Members: Soulbell gloves (Tier 7)", "Members can now craft <col=000080>soulbell gloves</col> within Daemonheim.");
             case 62 :
-                return(61, gallileather_vambraces, "Members: Gallileather vambraces (Tier 7)", "Members can now craft <col=000080>gallileather vambraces</col> within Daemonheim.");
+                return(61, rand_vambraces_7, "Members: Gallileather vambraces (Tier 7)", "Members can now craft <col=000080>gallileather vambraces</col> within Daemonheim.");
             case 63 :
-                return(62, soulbell_shoes, "Members: Soulbell shoes (Tier 7)", "Members can now craft <col=000080>soulbell shoes</col> within Daemonheim.");
+                return(62, rand_cloth_boots_7, "Members: Soulbell shoes (Tier 7)", "Members can now craft <col=000080>soulbell shoes</col> within Daemonheim.");
             case 64 :
-                return(63, gallileather_boots, "Members: Gallileather boots (Tier 7)", "Members can now craft <col=000080>gallileather boots</col> within Daemonheim.");
+                return(63, rand_leather_boots_7, "Members: Gallileather boots (Tier 7)", "Members can now craft <col=000080>gallileather boots</col> within Daemonheim.");
             case 65 :
-                return(64, soulbell_hood, "Members: Soulbell hood (Tier 7)", "Members can now craft <col=000080>soulbell hoods</col> within Daemonheim.");
+                return(64, rand_hood_7, "Members: Soulbell hood (Tier 7)", "Members can now craft <col=000080>soulbell hoods</col> within Daemonheim.");
             case 66 :
-                return(65, gallileather_coif, "Members: Gallileather coif (Tier 7)", "Members can now craft <col=000080>gallileather coifs</col> within Daemonheim.");
+                return(65, rand_coif_7, "Members: Gallileather coif (Tier 7)", "Members can now craft <col=000080>gallileather coifs</col> within Daemonheim.");
             case 67 :
-                return(66, soulbell_robe_bottom, "Members: Soulbell robe bottom (Tier 7)", "Members can now craft <col=000080>soulbell robe bottoms</col> within Daemonheim.");
+                return(66, rand_robe_bottom_7, "Members: Soulbell robe bottom (Tier 7)", "Members can now craft <col=000080>soulbell robe bottoms</col> within Daemonheim.");
             case 68 :
-                return(67, gallileather_chaps, "Members: Gallileather chaps (Tier 7)", "Members can now craft <col=000080>gallileather chaps</col> within Daemonheim.");
+                return(67, rand_chaps_7, "Members: Gallileather chaps (Tier 7)", "Members can now craft <col=000080>gallileather chaps</col> within Daemonheim.");
             case 69 :
-                return(68, soulbell_robe_top, "Members: Soulbell robe top (Tier 7)", "Members can now craft <col=000080>soulbell robe tops</col> within Daemonheim.");
+                return(68, rand_robe_top_7, "Members: Soulbell robe top (Tier 7)", "Members can now craft <col=000080>soulbell robe tops</col> within Daemonheim.");
             case 70 :
-                return(69, gallileather_body, "Members: Gallileather body (Tier 7)", "Members can now craft <col=000080>gallileather bodies</col> within Daemonheim.");
+                return(69, rand_leather_body_7, "Members: Gallileather body (Tier 7)", "Members can now craft <col=000080>gallileather bodies</col> within Daemonheim.");
             case 71 :
-                return(70, ectogloves, "Members: Ectogloves (Tier 8)", "Members can now craft <col=000080>ectogloves</col> within Daemonheim.");
+                return(70, rand_gloves_8, "Members: Ectogloves (Tier 8)", "Members can now craft <col=000080>ectogloves</col> within Daemonheim.");
             case 72 :
-                return(71, stegoleather_vambraces, "Members: Stegoleather vambraces (Tier 8)", "Members can now craft <col=000080>stegoleather vambraces</col> within Daemonheim.");
+                return(71, rand_vambraces_8, "Members: Stegoleather vambraces (Tier 8)", "Members can now craft <col=000080>stegoleather vambraces</col> within Daemonheim.");
             case 73 :
-                return(72, ectoshoes, "Members: Ectoshoes (Tier 8)", "Members can now craft <col=000080>ectoshoes</col> within Daemonheim.");
+                return(72, rand_cloth_boots_8, "Members: Ectoshoes (Tier 8)", "Members can now craft <col=000080>ectoshoes</col> within Daemonheim.");
             case 74 :
-                return(73, stegoleather_boots, "Members: Stegoleather boots (Tier 8)", "Members can now craft <col=000080>stegoleather boots</col> within Daemonheim.");
+                return(73, rand_leather_boots_8, "Members: Stegoleather boots (Tier 8)", "Members can now craft <col=000080>stegoleather boots</col> within Daemonheim.");
             case 75 :
-                return(74, ectohood, "Members: Ectohood (Tier 8)", "Members can now craft <col=000080>ectohoods</col> within Daemonheim.");
+                return(74, rand_hood_8, "Members: Ectohood (Tier 8)", "Members can now craft <col=000080>ectohoods</col> within Daemonheim.");
             case 76 :
-                return(75, stegoleather_coif, "Members: Stegoleather coif (Tier 8)", "Members can now craft <col=000080>stegoleather coifs</col> within Daemonheim.");
+                return(75, rand_coif_8, "Members: Stegoleather coif (Tier 8)", "Members can now craft <col=000080>stegoleather coifs</col> within Daemonheim.");
             case 77 :
-                return(76, ectorobe_bottom, "Members: Ectorobe bottom (Tier 8)", "Members can now craft <col=000080>ectorobe bottoms</col> within Daemonheim.");
+                return(76, rand_robe_bottom_8, "Members: Ectorobe bottom (Tier 8)", "Members can now craft <col=000080>ectorobe bottoms</col> within Daemonheim.");
             case 78 :
-                return(77, stegoleather_chaps, "Members: Stegoleather chaps (Tier 8)", "Members can now craft <col=000080>stegoleather chaps</col> within Daemonheim.");
+                return(77, rand_chaps_8, "Members: Stegoleather chaps (Tier 8)", "Members can now craft <col=000080>stegoleather chaps</col> within Daemonheim.");
             case 79 :
-                return(78, ectorobe_top, "Members: Ectorobe top (Tier 8)", "Members can now craft <col=000080>ectorobe tops</col> within Daemonheim.");
+                return(78, rand_robe_top_8, "Members: Ectorobe top (Tier 8)", "Members can now craft <col=000080>ectorobe tops</col> within Daemonheim.");
             case 80 :
-                return(79, stegoleather_body, "Members: Stegoleather body (Tier 8)", "Members can now craft <col=000080>stegoleather bodies</col> within Daemonheim.");
+                return(79, rand_leather_body_8, "Members: Stegoleather body (Tier 8)", "Members can now craft <col=000080>stegoleather bodies</col> within Daemonheim.");
             case 81 :
-                return(80, runic_gloves, "Members: Runic gloves (Tier 9)", "Members can now craft <col=000080>runic gloves</col> within Daemonheim.");
+                return(80, rand_gloves_9, "Members: Runic gloves (Tier 9)", "Members can now craft <col=000080>runic gloves</col> within Daemonheim.");
             case 82 :
-                return(81, megaleather_vambraces, "Members: Megaleather vambraces (Tier 9)", "Members can now craft <col=000080>megaleather vambraces</col> within Daemonheim.");
+                return(81, rand_vambraces_9, "Members: Megaleather vambraces (Tier 9)", "Members can now craft <col=000080>megaleather vambraces</col> within Daemonheim.");
             case 83 :
-                return(82, runic_shoes, "Members: Runic shoes (Tier 9)", "Members can now craft <col=000080>runic shoes</col> within Daemonheim.");
+                return(82, rand_cloth_boots_9, "Members: Runic shoes (Tier 9)", "Members can now craft <col=000080>runic shoes</col> within Daemonheim.");
             case 84 :
-                return(83, megaleather_boots, "Members: Megaleather boots (Tier 9)", "Members can now craft <col=000080>megaleather boots</col> within Daemonheim.");
+                return(83, rand_leather_boots_9, "Members: Megaleather boots (Tier 9)", "Members can now craft <col=000080>megaleather boots</col> within Daemonheim.");
             case 85 :
-                return(84, runic_hood, "Members: Runic hood (Tier 9)", "Members can now craft <col=000080>runic hoods</col> within Daemonheim.");
+                return(84, rand_hood_9, "Members: Runic hood (Tier 9)", "Members can now craft <col=000080>runic hoods</col> within Daemonheim.");
             case 86 :
-                return(85, megaleather_coif, "Members: Megaleather coif (Tier 9)", "Members can now craft <col=000080>megaleather coifs</col> within Daemonheim.");
+                return(85, rand_coif_9, "Members: Megaleather coif (Tier 9)", "Members can now craft <col=000080>megaleather coifs</col> within Daemonheim.");
             case 87 :
-                return(86, runic_robe_bottom, "Members: Runic robe bottom (Tier 9)", "Members can now craft <col=000080>runic robe bottoms</col> within Daemonheim.");
+                return(86, rand_robe_bottom_9, "Members: Runic robe bottom (Tier 9)", "Members can now craft <col=000080>runic robe bottoms</col> within Daemonheim.");
             case 88 :
-                return(87, megaleather_chaps, "Members: Megaleather chaps (Tier 9)", "Members can now craft <col=000080>megaleather chaps</col> within Daemonheim.");
+                return(87, rand_chaps_9, "Members: Megaleather chaps (Tier 9)", "Members can now craft <col=000080>megaleather chaps</col> within Daemonheim.");
             case 89 :
-                return(88, runic_robe_top, "Members: Runic robe top (Tier 9)", "Members can now craft <col=000080>runic robe tops</col> within Daemonheim.");
+                return(88, rand_robe_top_9, "Members: Runic robe top (Tier 9)", "Members can now craft <col=000080>runic robe tops</col> within Daemonheim.");
             case 90 :
-                return(89, megaleather_body, "Members: Megaleather body (Tier 9)", "Members can now craft <col=000080>megaleather bodies</col> within Daemonheim.");
+                return(89, rand_leather_body_9, "Members: Megaleather body (Tier 9)", "Members can now craft <col=000080>megaleather bodies</col> within Daemonheim.");
             case 91 :
-                return(90, spiritbloom_gloves, "Members: Spiritbloom gloves (Tier 10)", "Members can now craft <col=000080>spiritbloom gloves</col> within Daemonheim.");
+                return(90, rand_gloves_10, "Members: Spiritbloom gloves (Tier 10)", "Members can now craft <col=000080>spiritbloom gloves</col> within Daemonheim.");
             case 92 :
-                return(91, tyrannoleather_vambraces, "Members: Tyrannoleather vambraces (Tier 10)", "Members can now craft <col=000080>tyrannoleather vambraces</col> within Daemonheim.");
+                return(91, rand_vambraces_10, "Members: Tyrannoleather vambraces (Tier 10)", "Members can now craft <col=000080>tyrannoleather vambraces</col> within Daemonheim.");
             case 93 :
-                return(92, spiritbloom_shoes, "Members: Spiritbloom shoes (Tier 10)", "Members can now craft <col=000080>spiritbloom shoes</col> within Daemonheim.");
+                return(92, rand_cloth_boots_10, "Members: Spiritbloom shoes (Tier 10)", "Members can now craft <col=000080>spiritbloom shoes</col> within Daemonheim.");
             case 94 :
-                return(93, tyrannoleather_boots, "Members: Tyrannoleather boots (Tier 10)", "Members can now craft <col=000080>tyrannoleather boots</col> within Daemonheim.");
+                return(93, rand_leather_boots_10, "Members: Tyrannoleather boots (Tier 10)", "Members can now craft <col=000080>tyrannoleather boots</col> within Daemonheim.");
             case 95 :
-                return(94, spiritbloom_hood, "Members: Spiritbloom hood (Tier 10)", "Members can now craft <col=000080>spiritbloom hoods</col> within Daemonheim.");
+                return(94, rand_hood_10, "Members: Spiritbloom hood (Tier 10)", "Members can now craft <col=000080>spiritbloom hoods</col> within Daemonheim.");
             case 96 :
-                return(95, tyrannoleather_coif, "Members: Tyrannoleather coif (Tier 10)", "Members can now craft <col=000080>tyrannoleather coifs</col> within Daemonheim.");
+                return(95, rand_coif_10, "Members: Tyrannoleather coif (Tier 10)", "Members can now craft <col=000080>tyrannoleather coifs</col> within Daemonheim.");
             case 97 :
-                return(96, spiritbloom_robe_bottom, "Members: Spiritbloom robe bottom (Tier 10)", "Members can now craft <col=000080>spiritbloom robe bottoms</col> within Daemonheim.");
+                return(96, rand_robe_bottom_10, "Members: Spiritbloom robe bottom (Tier 10)", "Members can now craft <col=000080>spiritbloom robe bottoms</col> within Daemonheim.");
             case 98 :
-                return(97, tyrannoleather_chaps, "Members: Tyrannoleather chaps (Tier 10)", "Members can now craft <col=000080>tyrannoleather chaps</col> within Daemonheim.");
+                return(97, rand_chaps_10, "Members: Tyrannoleather chaps (Tier 10)", "Members can now craft <col=000080>tyrannoleather chaps</col> within Daemonheim.");
             case 99 :
-                return(98, spiritbloom_robe_top, "Members: Spiritbloom robe top (Tier 10)", "Members can now craft <col=000080>spiritbloom robe tops</col> within Daemonheim.");
+                return(98, rand_robe_top_10, "Members: Spiritbloom robe top (Tier 10)", "Members can now craft <col=000080>spiritbloom robe tops</col> within Daemonheim.");
             case 100 :
-                return(99, tyrannoleather_body, "Members: Tyrannoleather body (Tier 10)", "Members can now craft <col=000080>tyrannoleather bodies</col> within Daemonheim.");
+                return(99, rand_leather_body_10, "Members: Tyrannoleather body (Tier 10)", "Members can now craft <col=000080>tyrannoleather bodies</col> within Daemonheim.");
         }
     case 12 :
         switch_int ($int1) {
             case 0 :
                 return(40, brown_apron, "Crafting Guild", "You can now enter the <col=000080>Crafting Guild<col=000080>.");
             case 1 :
-                return(99, crafting_cape, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Crafting<col=000080>. Members can visit the <col=800000>Master Craftsman<col=000080> at the <col=800000>Crafting Guild<col=000080>. He has something special that is only available to true masters of the <col=800000>Crafting<col=000080> skill!");
+                return(99, skillcape_crafting, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Crafting<col=000080>. Members can visit the <col=800000>Master Craftsman<col=000080> at the <col=800000>Crafting Guild<col=000080>. He has something special that is only available to true masters of the <col=800000>Crafting<col=000080> skill!");
         }
 }

@@ -77,8 +77,8 @@ fn grain_in_the_hopper_comes_out_as_flour_in_the_bin() {
         engine.cycle();
         let (grain, pot, flour_pot) = (
             obj(engine, "grain"),
-            obj(engine, "empty_pot"),
-            obj(engine, "pot_of_flour"),
+            obj(engine, "pot_empty"),
+            obj(engine, "pot_flour"),
         );
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         {
@@ -163,7 +163,7 @@ fn a_dairy_cow_fills_an_empty_bucket() {
         engine.harness_reset();
         let mut client = engine.harness_login_returning("milkmaid").expect("login");
         engine.cycle();
-        let (bucket, milk) = (obj(engine, "bucket"), obj(engine, "bucket_of_milk"));
+        let (bucket, milk) = (obj(engine, "bucket_empty"), obj(engine, "bucket_milk"));
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         engine
             .harness_player_mut(client.pid)
@@ -213,8 +213,8 @@ fn mill_lane_mills_extra_fine_flour_for_the_cook() {
         engine.cycle();
         let (grain, pot, fine) = (
             obj(engine, "grain"),
-            obj(engine, "empty_pot"),
-            obj(engine, "extra_fine_flour"),
+            obj(engine, "pot_empty"),
+            obj(engine, "cook_flour"),
         );
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         {
@@ -270,7 +270,7 @@ fn the_prized_cow_gives_top_quality_milk() {
             .harness_login_returning("prizemilker")
             .expect("login");
         engine.cycle();
-        let (bucket, top) = (obj(engine, "bucket"), obj(engine, "top_quality_milk"));
+        let (bucket, top) = (obj(engine, "bucket_empty"), obj(engine, "cook_milk"));
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         engine
             .harness_player_mut(client.pid)

@@ -4,7 +4,7 @@
 // too: the wiki quotes none of them. The faces are void-634's expressions
 // (Idle is neutral, Disheartened sad).
 
-[opnpc1,restless_ghost]
+[opnpc1,ghostx]
 switch_int (%prieststart) {
     case ^priest_not_started :
         // void-634
@@ -18,7 +18,7 @@ switch_int (%prieststart) {
 
 // void-634 (RestlessGhost.kt, ghost)
 [label,restless_ghost_ghost]
-if (inv_total(worn, ghostspeak_amulet) > 0) {
+if (inv_total(worn, amulet_of_ghostspeak) > 0) {
     ~chatplayer("<p,neutral>Hello ghost, how are you?");
     ~chatnpc("<p,neutral>Not very good actually.");
     ~chatplayer("<p,quiz>What's the problem then?");
@@ -52,7 +52,7 @@ if (inv_total(worn, ghostspeak_amulet) > 0) {
             ~chatnpc("<p,neutral>Oh! It's your amulet that's doing it! I did wonder. I don't suppose you can help me? I don't like being a ghost.");
             @restless_ghost_help_me;
     }
-} else if (inv_total(inv, ghostspeak_amulet) > 0) {
+} else if (inv_total(inv, amulet_of_ghostspeak) > 0) {
     ~chatnpc("<p,neutral>Wooo wooo wooooo!");
     ~chatplayer("<p,neutral>Why can't I understand you? Oh, yeah, it might help if I wear this amulet!");
 } else {
@@ -85,10 +85,10 @@ switch_int (~p_choice2("Yes, ok. Do you know WHY you're a ghost?", 1, "No, you'r
 
 // void-634 (miningSpot)
 [label,restless_ghost_mining_spot]
-if (inv_total(worn, ghostspeak_amulet) > 0) {
+if (inv_total(worn, amulet_of_ghostspeak) > 0) {
     ~chatplayer("<p,neutral>Hello ghost, how are you?");
     ~chatnpc("<p,neutral>How are you doing finding my skull?");
-    if (inv_total(inv, muddy_skull) > 0) {
+    if (inv_total(inv, ghostskull) > 0) {
         ~chatplayer("<p,happy>I have found it!");
         ~chatnpc("<p,neutral>Hurrah! Now I can stop being a ghost! You just need to put it in my coffin there, and I will be free!");
     } else {
@@ -96,7 +96,7 @@ if (inv_total(worn, ghostspeak_amulet) > 0) {
         ~chatnpc("<p,neutral>Ah well. Keep on looking.");
         ~chatnpc("<p,neutral>I'm pretty sure it's somewhere near the mining spot south of here. I really hope it's still there somewhere.");
     }
-} else if (inv_total(inv, ghostspeak_amulet) > 0) {
+} else if (inv_total(inv, amulet_of_ghostspeak) > 0) {
     ~chatnpc("<p,neutral>Wooo wooo wooooo!");
     ~chatplayer("<p,neutral>Why can't I understand you? Oh, yeah, it might help if I wear this amulet!");
 } else {

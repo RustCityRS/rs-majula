@@ -88,11 +88,11 @@ while ($i <= db_getfieldcount($data, prayers:prayer_deactivate)) {
 def_int $drain = enum(int, int, prayer_drain_effects, $prayer);
 switch_int($prayer) {
     case ^prayer_thickskin :
-        if (%prayer0 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer0 = ^false;
+        if (%varplayerbit_5942 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %varplayerbit_5942 = ^false;
     case ^prayer_strengthburst :
-        if (%prayer1 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer1 = ^false;
+        if (%varplayerbit_5943 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %varplayerbit_5943 = ^false;
     case ^prayer_clarity :
         if (%prayer2 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
         %prayer2 = ^false;
@@ -115,17 +115,17 @@ switch_int($prayer) {
         if (%prayer8 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
         %prayer8 = ^false;
     case ^prayer_steelskin :
-        if (%prayer9 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer9 = ^false;
+        if (%varplayerbit_5951 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %varplayerbit_5951 = ^false;
     case ^prayer_ultimatestrength :
-        if (%prayer10 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer10 = ^false;
+        if (%varplayerbit_5952 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %varplayerbit_5952 = ^false;
     case ^prayer_incrediblereflexes :
-        if (%prayer11 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer11 = ^false;
+        if (%varplayerbit_5953 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %varplayerbit_5953 = ^false;
     case ^prayer_protectfrommagic :
-        if (%prayer12 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer12 = ^false;
+        if (%varplayerbit_5954 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %varplayerbit_5954 = ^false;
     case ^prayer_protectfrommissiles :
         if (%prayer13 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
         %prayer13 = ^false;
@@ -142,8 +142,8 @@ if (~prayers_are_active = false) {
 }
 
 [proc,prayers_are_active]()(boolean)
-if (%prayer0 = ^true) return (true);
-if (%prayer1 = ^true) return (true);
+if (%varplayerbit_5942 = ^true) return (true);
+if (%varplayerbit_5943 = ^true) return (true);
 if (%prayer2 = ^true) return (true);
 if (%prayer3 = ^true) return (true);
 if (%prayer4 = ^true) return (true);
@@ -151,17 +151,17 @@ if (%prayer5 = ^true) return (true);
 if (%prayer6 = ^true) return (true);
 if (%prayer7 = ^true) return (true);
 if (%prayer8 = ^true) return (true);
-if (%prayer9 = ^true) return (true);
-if (%prayer10 = ^true) return (true);
-if (%prayer11 = ^true) return (true);
-if (%prayer12 = ^true) return (true);
+if (%varplayerbit_5951 = ^true) return (true);
+if (%varplayerbit_5952 = ^true) return (true);
+if (%varplayerbit_5953 = ^true) return (true);
+if (%varplayerbit_5954 = ^true) return (true);
 if (%prayer13 = ^true) return (true);
 if (%prayer14 = ^true) return (true);
 return (false);
 
 [proc,prayer_deactivate_all]
-%prayer0 = ^false;
-%prayer1 = ^false;
+%varplayerbit_5942 = ^false;
+%varplayerbit_5943 = ^false;
 %prayer2 = ^false;
 %prayer3 = ^false;
 %prayer4 = ^false;
@@ -169,10 +169,10 @@ return (false);
 %prayer6 = ^false;
 %prayer7 = ^false;
 %prayer8 = ^false;
-%prayer9 = ^false;
-%prayer10 = ^false;
-%prayer11 = ^false;
-%prayer12 = ^false;
+%varplayerbit_5951 = ^false;
+%varplayerbit_5952 = ^false;
+%varplayerbit_5953 = ^false;
+%varplayerbit_5954 = ^false;
 %prayer13 = ^false;
 %prayer14 = ^false;
 ~headicon_del(^headicon_prayer_protectfrommelee);

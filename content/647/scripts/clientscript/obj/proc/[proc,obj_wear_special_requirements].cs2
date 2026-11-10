@@ -2,31 +2,31 @@
 [proc,obj_wear_special_requirements](obj $obj0)(boolean)
 switch_int (oc_param($obj0, param_741)) {
     case 1 :
-        if (%varplayerbit_1852 < oc_param($obj0, param_742)) {
+        if (%hundred_subquest_tally < oc_param($obj0, param_742)) {
             return(false);
         }
     case 2 :
-        if (%varplayerbit_3763 < 2) {
+        if (%brut_smith_hasta < 2) {
             return(false);
         }
     case 3 :
-        if (%varplayerbit_4310 < 10) {
+        if (%dsd_quest < 10) {
             return(false);
         }
     case 4 :
-        if (%varplayerbit_1990 < 280) {
+        if (%myreque_2_quest < 280) {
             return(false);
         }
     case 5 :
-        if (%varplayerbit_1850 < 4) {
+        if (%hundred_main_quest_var < 4) {
             return(false);
         }
     case 6 :
-        if (%varplayerbit_3550 < 8) {
+        if (%slice_quest < 8) {
             return(false);
         }
     case 7 :
-        if (%varplayerbit_998 < 7) {
+        if (%elem_4_main < 7) {
             return(false);
         }
     case default :

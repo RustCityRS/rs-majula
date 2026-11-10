@@ -12,15 +12,15 @@ def_int $int9 = 0;
 def_int $int10 = 0;
 def_component $component11 = null;
 if (if_find($component0) = true) {
-    if (%varclient_1 < calc(clientclock + 45)) {
-        if (%varclient_1 < clientclock) {
-            %varclient_1 = clientclock;
+    if (%tooltip_time < calc(clientclock + 45)) {
+        if (%tooltip_time < clientclock) {
+            %tooltip_time = clientclock;
         }
-        %varclient_1 = calc(%varclient_1 + 2);
+        %tooltip_time = calc(%tooltip_time + 2);
         return;
     }
-    %varclient_1 = calc(clientclock + 55);
-    if (%varclient_2 ! 1) {
+    %tooltip_time = calc(clientclock + 55);
+    if (%tooltip_built ! 1) {
         $int1 = calc(cc_getx + 5);
         $int2 = calc(cc_gety + cc_getheight + 5);
         $component11 = task_side:tasks_layer;
@@ -59,8 +59,8 @@ if (if_find($component0) = true) {
         if ($int2 < 0) {
             $int2 = 0;
         }
-        if_setsize($int9, $int10, ^setsize_abs, ^setsize_abs, $component8);
-        if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $component8);
+        if_setsize($component8, $int9, $int10, ^setsize_abs, ^setsize_abs);
+        if_setposition($component8, $int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
         cc_deleteall($component8);
         cc_create($component8, ^iftype_rectangle, 0);
         cc_setsize(if_getwidth($component8), if_getheight($component8), ^setsize_abs, ^setsize_abs);
@@ -78,6 +78,6 @@ if (if_find($component0) = true) {
         cc_settextalign(^settextalign_left, ^settextalign_centre, 16);
         cc_settextfont(p12_full);
         cc_setcolour(0xeeeeee);
-        %varclient_2 = 1;
+        %tooltip_built = 1;
     }
 }

@@ -74,7 +74,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Fire
-opcursor0=cursor_62
+opcursor0=cursor_crafting
 
 // 264:6
 [com_6]
@@ -107,9 +107,9 @@ model=model_3447
 modelorigin=0,-1
 modelangle=221,0,0
 modelzoom=928
-modelanim=seq_2328
+modelanim=paint_frog_travel
 onload=script1123(event_com)
-onvartransmit=script1123(event_com){varplayer_518}
+onvartransmit=script1123(event_com){mourning_quest_bits}
 
 // 264:9
 [close_button]

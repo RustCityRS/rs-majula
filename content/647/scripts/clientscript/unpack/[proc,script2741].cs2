@@ -9,9 +9,9 @@ $string1 = "Back";
 $int0 = calc($int0 + 55);
 ~playerdesign4_button(playerdesign4:back, $string1, calc(stringwidth($string1, p12_full) + 30), "");
 if (%character_creation_multipage = 1 & %character_creation_page = 0) {
-    if_setposition(20, 0, ^setpos_abs_right, ^setpos_abs_bottom, playerdesign4:com_115);
-    if_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom, playerdesign4:back);
+    if_setposition(playerdesign4:com_115, 20, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+    if_setposition(playerdesign4:back, 0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
 } else {
-    if_setposition($int0, 0, ^setpos_abs_right, ^setpos_abs_bottom, playerdesign4:com_115);
-    if_setposition($int0, 0, ^setpos_abs_right, ^setpos_abs_bottom, playerdesign4:back);
+    if_setposition(playerdesign4:com_115, $int0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+    if_setposition(playerdesign4:back, $int0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
 }

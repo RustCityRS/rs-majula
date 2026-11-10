@@ -6,22 +6,22 @@ if (if_gethide(enum(int, component, enum_1550, $int3)) = false) {
         cc_sethide(false);
         cc_setcolour(0x969777);
     }
-    if (%varclient_128 >= 0) {
+    if (%quickchat_menu_select >= 0) {
         $int3 = calc($int3 + 1);
         while (if_gethide(enum(int, component, enum_1550, $int3)) = false) {
             $int3 = calc($int3 + 1);
         }
-        if (cc_find(enum(int, component, enum_1551, calc($int3 - 1)), %varclient_128) = true) {
+        if (cc_find(enum(int, component, enum_1551, calc($int3 - 1)), %quickchat_menu_select) = true) {
             cc_sethide(true);
         }
-        %varclient_128 = -1;
+        %quickchat_menu_select = -1;
     }
     return;
 }
-if (%varclient_128 = $int2) {
+if (%quickchat_menu_select = $int2) {
     return;
 }
-if (%varclient_128 >= 0 & cc_find($component1, %varclient_128) = true) {
+if (%quickchat_menu_select >= 0 & cc_find($component1, %quickchat_menu_select) = true) {
     cc_sethide(true);
 }
 if (cc_find($component1, $int2) = true) {
@@ -29,5 +29,5 @@ if (cc_find($component1, $int2) = true) {
         cc_sethide(false);
         cc_setcolour(0x577e45);
     }
-    %varclient_128 = $int2;
+    %quickchat_menu_select = $int2;
 }

@@ -1,8 +1,8 @@
 // 1801
 [proc,script1801]
-if_sethide(false, clanwars_setup:accept_button);
-if_sethide(false, clanwars_setup:accept_text);
-if_sethide(true, clanwars_setup:watch_button);
-if_sethide(true, clanwars_setup:watch_text);
-if_sethide(true, clanwars_setup:fight_button);
-if_sethide(true, clanwars_setup:fight_text);
+if_sethide(clanwars_setup:accept_button, false);
+if_sethide(clanwars_setup:accept_text, false);
+if_sethide(clanwars_setup:watch_button, true);
+if_sethide(clanwars_setup:watch_text, true);
+if_sethide(clanwars_setup:fight_button, true);
+if_sethide(clanwars_setup:fight_text, true);

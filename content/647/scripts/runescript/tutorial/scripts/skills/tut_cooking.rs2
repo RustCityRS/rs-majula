@@ -14,14 +14,14 @@ if (oc_param(last_useitem, is_water_source) = ^true) {
 
 [oplocu,newbierange]
 if (last_useitem = bread_dough) {
-    anim(human_cooking, 0);
-    sound_synth(cook, 1, 0);
+    anim(human_fai_furnace, 0);
+    sound_synth(fry, 1, 0);
     p_delay(2);
-    if (%tutorial = ^newbie_cook_instructor_mixed_dough) {
+    if (%varplayer_419 = ^newbie_cook_instructor_mixed_dough) {
         inv_del(inv, bread_dough, 1);
         inv_add(inv, bread, 1);
         ~tutorial_give_xp(cooking, 400);
-        %tutorial = ^newbie_cook_instructor_baked_bread;
+        %varplayer_419 = ^newbie_cook_instructor_baked_bread;
         ~set_tutorial_progress;
     } else {
         inv_del(inv, bread_dough, 1);
@@ -36,14 +36,14 @@ if (last_useitem = bread_dough) {
         }
     }
 } else if (last_useitem = newbieraw_shrimp) {
-    anim(human_cooking, 0);
-    sound_synth(cook, 1, 0);
+    anim(human_fai_furnace, 0);
+    sound_synth(fry, 1, 0);
     p_delay(2);
     inv_del(inv, newbieraw_shrimp, 1);
     @tut_random_shrimp_chance;
 } else if (last_useitem = raw_rat_meat) {
-      anim(human_cooking, 0);
-      sound_synth(cook, 1, 0);
+      anim(human_fai_furnace, 0);
+      sound_synth(fry, 1, 0);
       p_delay(2);
       inv_del(inv, raw_rat_meat, 1);
       @tut_random_meat_chance;
@@ -54,33 +54,33 @@ if (last_useitem = bread_dough) {
 [label,tut_attempt_cook_item](obj $uncooked_item)
 if ($uncooked_item = newbieraw_shrimp) {
     p_arrivedelay;
-    if (%tutorial = ^newbie_survival_instructor_cook_shrimps) {
+    if (%varplayer_419 = ^newbie_survival_instructor_cook_shrimps) {
         anim(human_firecooking, 0);
-        sound_synth(cook, 1, 0);
+        sound_synth(fry, 1, 0);
         p_delay(2);
         inv_del(inv, newbieraw_shrimp, 1);
-        inv_add(inv, burnt_fish, 1);
-        %tutorial = ^newbie_survival_instructor_burnt_shrimps;
+        inv_add(inv, burntfish1, 1);
+        %varplayer_419 = ^newbie_survival_instructor_burnt_shrimps;
         ~tutorial_step_burn_shrimp;
-    } else if (%tutorial = ^newbie_survival_instructor_burnt_shrimps) {
+    } else if (%varplayer_419 = ^newbie_survival_instructor_burnt_shrimps) {
         anim(human_firecooking, 0);
-        sound_synth(cook, 1, 0);
+        sound_synth(fry, 1, 0);
         p_delay(2);
         inv_del(inv, newbieraw_shrimp, 1);
-        inv_add(inv, shrimps, 1);
+        inv_add(inv, shrimp, 1);
         ~tutorial_give_xp(cooking, 300);
-        %tutorial = ^newbie_survival_instructor_complete;
+        %varplayer_419 = ^newbie_survival_instructor_complete;
         ~tutorial_step_survival_recap;
     } else {
         anim(human_firecooking, 0);
-        sound_synth(cook, 1, 0);
+        sound_synth(fry, 1, 0);
         p_delay(2);
         inv_del(inv, newbieraw_shrimp, 1);
         @tut_random_shrimp_chance;
     }
 } else if ($uncooked_item = raw_rat_meat) {
     anim(human_firecooking, 0);
-    sound_synth(cook, 1, 0);
+    sound_synth(fry, 1, 0);
     p_delay(2);
     inv_del(inv, raw_rat_meat, 1);
     @tut_random_meat_chance;
@@ -92,11 +92,11 @@ if ($uncooked_item = newbieraw_shrimp) {
 def_int $rand = random(10);
 if ($rand < calc(3 + stat_base(cooking))) {
     mes("The shrimps are now nicely cooked.");
-    inv_add(inv, shrimps, 1);
+    inv_add(inv, shrimp, 1);
     ~tutorial_give_xp(cooking, 300);
 } else {
     mes("You accidentally burn the shrimps.");
-    inv_add(inv, burnt_fish, 1);
+    inv_add(inv, burntfish1, 1);
 }
 
 [label,tut_random_meat_chance]
@@ -114,11 +114,11 @@ if ($rand < calc(3 + stat_base(cooking))) {
 // todo: See what happens on rs if you have a full invent
 // On a quick test, I made the dough, got that in my invent first, then an empty pot, and no bucket to be found anywhere.
 inv_del(inv, newbie_pot_flour, 1);
-inv_del(inv, bucket_of_water, 1);
-inv_add(inv, empty_pot, 1);
-inv_add(inv, bucket, 1);
+inv_del(inv, bucket_water, 1);
+inv_add(inv, pot_empty, 1);
+inv_add(inv, bucket_empty, 1);
 inv_add(inv, bread_dough, 1);
-if (%tutorial = ^newbie_cook_instructor_make_dough) {
-    %tutorial = ^newbie_cook_instructor_mixed_dough;
+if (%varplayer_419 = ^newbie_cook_instructor_make_dough) {
+    %varplayer_419 = ^newbie_cook_instructor_mixed_dough;
 }
 ~set_tutorial_progress;

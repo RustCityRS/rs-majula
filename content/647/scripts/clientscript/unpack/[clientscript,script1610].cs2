@@ -1,4 +1,4 @@
 // 1610
 [clientscript,script1610]
-if_sethide(false, boothpreview:confirm_layer_container);
+if_sethide(boothpreview:confirm_layer_container, false);
 ~v2_stone_button(boothpreview:confirm_button);

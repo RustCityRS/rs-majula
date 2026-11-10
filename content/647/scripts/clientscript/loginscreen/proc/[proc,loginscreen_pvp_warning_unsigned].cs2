@@ -1,15 +1,15 @@
 // 2936
 [proc,loginscreen_pvp_warning_unsigned](int $int0)
 if (unknown_command_5420 = true) {
-    %varclient_547 = $int0;
+    %loginscreen_pvp_warned = $int0;
     ~login_open(11);
-    if_sethide(true, loginscreen:pvp_warning);
+    if_sethide(loginscreen:pvp_warning, true);
     if (unknown_command_5623 = true) {
-        if_sethide(false, loginscreen:south_progress9);
+        if_sethide(loginscreen:south_progress9, false);
     } else {
-        if_sethide(false, loginscreen:login);
+        if_sethide(loginscreen:login, false);
     }
-    if (%varclient_547 = 1) {
+    if (%loginscreen_pvp_warned = 1) {
         ~login_dologin;
     }
 }

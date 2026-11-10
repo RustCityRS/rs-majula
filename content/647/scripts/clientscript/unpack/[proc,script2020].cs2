@@ -21,16 +21,16 @@ cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 cc_setcolour(0xff981f);
 cc_settextshadow(true);
 cc_settext($string0);
-if_setsize($int1, 26, ^setsize_abs, ^setsize_abs, $component2);
-if_sethide(false, $component2);
-if_setonmouseover("script2021(event_com, true)", $component2);
-if_setonmouseleave("script2021(event_com, false)", $component2);
+if_setsize($component2, $int1, 26, ^setsize_abs, ^setsize_abs);
+if_sethide($component2, false);
+if_setonmouseover($component2, "script2021(event_com, true)");
+if_setonmouseleave($component2, "script2021(event_com, false)");
 if ($int0 = -1) {
     if_clearops($component2);
-    if_setpausetext($string0, $component2);
-    if_setonclick("script2022(1, $int0)", $component2);
+    if_setpausetext($component2, $string0);
+    if_setonclick($component2, "script2022(1, $int0)");
 } else {
-    if_setop(1, $string0, $component2);
-    if_setpausetext("", $component2);
-    if_setonop("script2022(event_op, $int0)", $component2);
+    if_setop($component2, 1, $string0);
+    if_setpausetext($component2, "");
+    if_setonop($component2, "script2022(event_op, $int0)");
 }

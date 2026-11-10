@@ -2,44 +2,44 @@
 [proc,sm_updaterunninglayer](int $int0)
 def_inv $inv1 = enum(int, inv, enum_1079, %varplayer_1112);
 def_obj $obj2 = inv_getobj($inv1, 0);
-if_setobject($obj2, inv_getnum($inv1, 0), stockmarket:offercollect_a);
+if_setobject(stockmarket:offercollect_a, $obj2, inv_getnum($inv1, 0));
 if_clearops(stockmarket:offercollect_a);
 if ($obj2 ! null) {
     if (oc_cert($obj2) ! $obj2) {
         if (inv_getnum($inv1, 0) > 1) {
-            if_setop(1, "Collect-notes", stockmarket:offercollect_a);
-            if_setop(2, "Collect-items", stockmarket:offercollect_a);
+            if_setop(stockmarket:offercollect_a, 1, "Collect-notes");
+            if_setop(stockmarket:offercollect_a, 2, "Collect-items");
         } else {
-            if_setop(1, "Collect-items", stockmarket:offercollect_a);
-            if_setop(2, "Collect-notes", stockmarket:offercollect_a);
+            if_setop(stockmarket:offercollect_a, 1, "Collect-items");
+            if_setop(stockmarket:offercollect_a, 2, "Collect-notes");
         }
     } else {
-        if_setop(1, "Collect", stockmarket:offercollect_a);
+        if_setop(stockmarket:offercollect_a, 1, "Collect");
     }
-    if_setopbase(oc_name($obj2), stockmarket:offercollect_a);
+    if_setopbase(stockmarket:offercollect_a, oc_name($obj2));
 } else {
-    if_setopbase("", stockmarket:offercollect_a);
+    if_setopbase(stockmarket:offercollect_a, "");
 }
 def_obj $obj3 = inv_getobj($inv1, 1);
-if_setobject($obj3, inv_getnum($inv1, 1), stockmarket:offercollect_b);
+if_setobject(stockmarket:offercollect_b, $obj3, inv_getnum($inv1, 1));
 if_clearops(stockmarket:offercollect_b);
 if ($obj3 ! null) {
     if (oc_cert($obj3) ! $obj3) {
         if (inv_getnum($inv1, 1) > 1) {
-            if_setop(1, "Collect-notes", stockmarket:offercollect_b);
-            if_setop(2, "Collect-items", stockmarket:offercollect_b);
+            if_setop(stockmarket:offercollect_b, 1, "Collect-notes");
+            if_setop(stockmarket:offercollect_b, 2, "Collect-items");
         } else {
-            if_setop(1, "Collect-items", stockmarket:offercollect_b);
-            if_setop(2, "Collect-notes", stockmarket:offercollect_b);
+            if_setop(stockmarket:offercollect_b, 1, "Collect-items");
+            if_setop(stockmarket:offercollect_b, 2, "Collect-notes");
         }
     } else {
-        if_setop(1, "Collect", stockmarket:offercollect_b);
+        if_setop(stockmarket:offercollect_b, 1, "Collect");
     }
-    if_setopbase(oc_name($obj3), stockmarket:offercollect_b);
+    if_setopbase(stockmarket:offercollect_b, oc_name($obj3));
 } else {
-    if_setopbase("", stockmarket:offercollect_b);
+    if_setopbase(stockmarket:offercollect_b, "");
 }
-if_setoninvtransmit("stockmarket_oninvtransmit{$inv1}", stockmarket:runninglayer);
+if_setoninvtransmit(stockmarket:runninglayer, "stockmarket_oninvtransmit{$inv1}");
 def_int $int4 = stockmarket_getoffertype($int0);
 def_int $int5 = stockmarket_getoffercount($int0);
 def_int $int6 = stockmarket_getoffercompletedcount($int0);
@@ -62,16 +62,16 @@ if (if_find(stockmarket:progressbar) = true) {
 }
 if (stockmarket_isofferfinished($int0) = true) {
     if ($int4 = 0) {
-        if_settext("You bought a total of <col=cc9900><$string0></col><br>for a total price of <col=cc9900><$string1></col> gp.", stockmarket:progresstext);
+        if_settext(stockmarket:progresstext, "You bought a total of <col=cc9900><$string0></col><br>for a total price of <col=cc9900><$string1></col> gp.");
     } else {
-        if_settext("You sold a total of <col=cc9900><$string0></col><br>for a total price of <col=cc9900><$string1></col> gp.", stockmarket:progresstext);
+        if_settext(stockmarket:progresstext, "You sold a total of <col=cc9900><$string0></col><br>for a total price of <col=cc9900><$string1></col> gp.");
     }
-    if_sethide(true, stockmarket:offerabort);
+    if_sethide(stockmarket:offerabort, true);
 } else {
     if ($int4 = 0) {
-        if_settext("You have bought a total of <col=cc9900><$string0></col> so far<br>for a total price of <col=cc9900><$string1></col> gp.", stockmarket:progresstext);
+        if_settext(stockmarket:progresstext, "You have bought a total of <col=cc9900><$string0></col> so far<br>for a total price of <col=cc9900><$string1></col> gp.");
     } else {
-        if_settext("You have sold a total of <col=cc9900><$string0></col> so far<br>for a total price of <col=cc9900><$string1></col> gp.", stockmarket:progresstext);
+        if_settext(stockmarket:progresstext, "You have sold a total of <col=cc9900><$string0></col> so far<br>for a total price of <col=cc9900><$string1></col> gp.");
     }
-    if_sethide(false, stockmarket:offerabort);
+    if_sethide(stockmarket:offerabort, false);
 }

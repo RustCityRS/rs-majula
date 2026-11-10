@@ -176,7 +176,7 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
 #[test]
 fn eating_cave_nightshade_hurts_150_life_points() {
     runner::on_loaded_engine(|engine| {
-        let nightshade = id(engine, "cave_nightshade");
+        let nightshade = id(engine, "nightshade");
         let mut client = player_holding(engine, "nightshade", &[nightshade]);
         // %life_points: varbit 7198, bits 1-15 of varp 1240.
         let life = |e: &Engine, pid: u16| {
@@ -231,7 +231,7 @@ fn eating_cave_nightshade_hurts_150_life_points() {
 #[test]
 fn a_bucket_of_water_pours_into_a_jug() {
     runner::on_loaded_engine(|engine| {
-        let (water, jug) = (id(engine, "bucket_of_water"), id(engine, "jug"));
+        let (water, jug) = (id(engine, "bucket_water"), id(engine, "jug_empty"));
         let mut client = player_holding(engine, "pourer", &[water, jug]);
         client.send(
             ClientProt::IfButtonT,
@@ -246,11 +246,11 @@ fn a_bucket_of_water_pours_into_a_jug() {
             .and_then(|p| p.invs.get(&inv))
             .expect("backpack");
         assert!(
-            backpack.has_at(0, id(engine, "bucket")),
+            backpack.has_at(0, id(engine, "bucket_empty")),
             "the bucket is empty"
         );
         assert!(
-            backpack.has_at(1, id(engine, "jug_of_water")),
+            backpack.has_at(1, id(engine, "jug_water")),
             "the jug is full"
         );
     });

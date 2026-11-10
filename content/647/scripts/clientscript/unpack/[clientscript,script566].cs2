@@ -1,5 +1,5 @@
 // 566
 [clientscript,script566](component $component0)
 if (if_getgraphic($component0) = "aif_bronze_icon_button_2,1") {
-    if_setgraphic("aif_bronze_icon_button_2,0", $component0);
+    if_setgraphic($component0, "aif_bronze_icon_button_2,0");
 }

@@ -6,21 +6,21 @@
 // once held only server keys, so every oc_name came back as the debug name
 // ("vial_of_water") and no obj was members, priced or notable.
 [label,test_obj_name_is_the_caches]
-assert_str_eq(oc_name(vial_of_water), "Vial of water");
+assert_str_eq(oc_name(vial_water), "Vial of water");
 assert_str_eq(oc_name(abyssal_whip), "Abyssal whip");
 
 [label,test_obj_cost_and_members_are_the_caches]
-assert_eq(oc_cost(vial_of_water), 10);
+assert_eq(oc_cost(vial_water), 10);
 assert_eq(oc_cost(abyssal_whip), 120001);
-assert_false(oc_members(vial_of_water));
+assert_false(oc_members(vial_water));
 assert_true(oc_members(abyssal_whip));
 
 [label,test_obj_notes_link_both_ways]
-assert_eq(oc_cert(vial_of_water), cert_vial_water);
-assert_eq(oc_uncert(cert_vial_water), vial_of_water);
-assert_eq(oc_cert(abyssal_whip), abyssal_whip_4152);
+assert_eq(oc_cert(vial_water), cert_vial_water);
+assert_eq(oc_uncert(cert_vial_water), vial_water);
+assert_eq(oc_cert(abyssal_whip), cert_abyssal_whip);
 // A note takes its name, price and members flag from the obj it notes.
-assert_str_eq(oc_name(abyssal_whip_4152), "Abyssal whip");
-assert_eq(oc_cost(abyssal_whip_4152), 120001);
-assert_true(oc_members(abyssal_whip_4152));
+assert_str_eq(oc_name(cert_abyssal_whip), "Abyssal whip");
+assert_eq(oc_cost(cert_abyssal_whip), 120001);
+assert_true(oc_members(cert_abyssal_whip));
 assert_true(oc_stackable(cert_vial_water));

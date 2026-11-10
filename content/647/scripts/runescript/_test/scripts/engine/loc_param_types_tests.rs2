@@ -6,7 +6,7 @@
 // tiles (skill_agility/configs/shortcuts.loc) read as no coord, and the
 // shortcut walked the player nowhere.
 [label,test_a_loc_coord_param_is_a_coord]
-assert_eq(coordx(lc_param(monkey_bars_29375, start_coord)), 3120)
-assert_eq(coordz(lc_param(monkey_bars_29375, start_coord)), 9964)
-assert_eq(coordx(lc_param(monkey_bars_29375, end_coord)), 3121)
-assert_eq(coordz(lc_param(monkey_bars_29375, end_coord)), 9969)
+assert_eq(coordx(lc_param(di1_monkeybars_end1, start_coord)), 3120)
+assert_eq(coordz(lc_param(di1_monkeybars_end1, start_coord)), 9964)
+assert_eq(coordx(lc_param(di1_monkeybars_end1, end_coord)), 3121)
+assert_eq(coordz(lc_param(di1_monkeybars_end1, end_coord)), 9969)

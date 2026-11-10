@@ -2,18 +2,18 @@
 [clientscript,pog_coin_tooltip_input](component $component0)
 def_string $string0 = "";
 if ($component0 = pog_coin_machine:pog_coin_display1_1) {
-    $string0 = oc_name(%varplayer_1065);
-    if (%varplayer_1065 = null) {
+    $string0 = oc_name(%pog_coin_display1_obj);
+    if (%pog_coin_display1_obj = null) {
         $string0 = "Empty";
     }
 } else if ($component0 = pog_coin_machine:pog_coin_display2_1) {
-    $string0 = oc_name(%varplayer_1066);
-    if (%varplayer_1066 = null) {
+    $string0 = oc_name(%pog_coin_display2_1_obj);
+    if (%pog_coin_display2_1_obj = null) {
         $string0 = "Empty";
     }
 } else if ($component0 = pog_coin_machine:pog_coin_display2_2) {
-    $string0 = oc_name(%varplayer_1067);
-    if (%varplayer_1067 = null) {
+    $string0 = oc_name(%pog_coin_display2_2_obj);
+    if (%pog_coin_display2_2_obj = null) {
         $string0 = "Empty";
     }
 }

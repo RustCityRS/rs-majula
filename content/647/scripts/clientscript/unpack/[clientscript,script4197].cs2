@@ -1,8 +1,8 @@
 // 4197
 [clientscript,script4197](component $component0)
-if_sethide(true, interface_891:target);
-if_sethide(false, interface_891:com_65);
-if_setgraphic(blue_over, $component0);
-if_settext("You are here.", interface_891:title);
-if_settext("", interface_891:level);
-if_settext("", interface_891:description);
+if_sethide(interface_891:target, true);
+if_sethide(interface_891:com_65, false);
+if_setgraphic($component0, blue_over);
+if_settext(interface_891:title, "You are here.");
+if_settext(interface_891:level, "");
+if_settext(interface_891:description, "");

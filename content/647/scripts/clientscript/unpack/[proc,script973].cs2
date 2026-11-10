@@ -11,62 +11,62 @@ def_int $int3 = 1;
 def_int $int4 = 1;
 switch_int ($int0) {
     case 1 :
-        $int4 = %varclient_1469;
+        $int4 = %lvl_attack_before_levelup_varc;
     case 2 :
-        $int4 = %varclient_1470;
+        $int4 = %lvl_strength_before_levelup_varc;
     case 5 :
-        $int4 = %varclient_1471;
+        $int4 = %lvl_defence_before_levelup_varc;
     case 3 :
-        $int4 = %varclient_1472;
+        $int4 = %lvl_ranged_before_levelup_varc;
     case 7 :
-        $int4 = %varclient_1473;
+        $int4 = %lvl_prayer_before_levelup_varc;
     case 4 :
-        $int4 = %varclient_1474;
+        $int4 = %lvl_magic_before_levelup_varc;
     case 6 :
-        $int4 = %varclient_1475;
+        $int4 = %lvl_hitpoints_before_levelup_varc;
     case 8 :
-        $int4 = %varclient_1476;
+        $int4 = %lvl_agility_before_levelup_varc;
     case 9 :
-        $int4 = %varclient_1477;
+        $int4 = %lvl_herblore_before_levelup_varc;
     case 10 :
-        $int4 = %varclient_1478;
+        $int4 = %lvl_thieving_before_levelup_varc;
     case 11 :
-        $int4 = %varclient_1479;
+        $int4 = %lvl_crafting_before_levelup_varc;
     case 19 :
-        $int4 = %varclient_1480;
+        $int4 = %lvl_fletching_before_levelup_varc;
     case 13 :
-        $int4 = %varclient_1481;
+        $int4 = %lvl_mining_before_levelup_varc;
     case 14 :
-        $int4 = %varclient_1482;
+        $int4 = %lvl_smithing_before_levelup_varc;
     case 15 :
-        $int4 = %varclient_1483;
+        $int4 = %lvl_fishing_before_levelup_varc;
     case 16 :
-        $int4 = %varclient_1484;
+        $int4 = %lvl_cooking_before_levelup_varc;
     case 17 :
-        $int4 = %varclient_1485;
+        $int4 = %lvl_firemaking_before_levelup_varc;
     case 18 :
-        $int4 = %varclient_1486;
+        $int4 = %lvl_woodcutting_before_levelup_varc;
     case 12 :
-        $int4 = %varclient_1487;
+        $int4 = %lvl_runecraft_before_levelup_varc;
     case 20 :
-        $int4 = %varclient_1488;
+        $int4 = %lvl_slayer_before_levelup_varc;
     case 21 :
-        $int4 = %varclient_1489;
+        $int4 = %lvl_farming_before_levelup_varc;
     case 22 :
-        $int4 = %varclient_1490;
+        $int4 = %lvl_construction_before_levelup_varc;
     case 23 :
-        $int4 = %varclient_1491;
+        $int4 = %lvl_hunter_before_levelup_varc;
     case 24 :
-        $int4 = %varclient_1492;
+        $int4 = %lvl_summoning_before_levelup_varc;
     case 25 :
-        $int4 = %varclient_1493;
+        $int4 = %lvl_dungeoneering_before_levelup_varc;
 }
 if (calc($int4 + 1) ! stat_base($stat1)) {
     $string0 = "<enum_string(enum_3644, $int0)><tostring(calc(stat_base($stat1) - $int4))><enum_string(enum_3645, $int0)>";
 }
-if_settext($string0, lvl_scroll:title);
-if_settext("You have now reached level <tostring(stat_base($stat1))>.", lvl_scroll:subsection_title);
-if_setgraphic($graphic2, lvl_scroll:icons);
+if_settext(lvl_scroll:title, $string0);
+if_settext(lvl_scroll:subsection_title, "You have now reached level <tostring(stat_base($stat1))>.");
+if_setgraphic(lvl_scroll:icons, $graphic2);
 def_int $int5 = 0;
 def_int $int6 = 0;
 def_int $int7 = 0;
@@ -78,27 +78,27 @@ def_graphic $graphic11 = $graphic10;
 def_int $int12 = 0;
 cc_deleteall(lvl_scroll:info);
 cc_deleteall(lvl_scroll:info_scrollbar);
-if (%learning_the_ropes < 1000 & stat_base($stat1) = 3) {
+if (%tutorial < 1000 & stat_base($stat1) = 3) {
     $string1 = "<col=000080>You've now reached the highest skill level that you can achieve during the tutorial. Once you finish the tutorial, you can advance this skill even further!";
-    $int7 = ~script974($int5, $int6, silvthrill_rod, $graphic10, $string1, 0, 0);
+    $int7 = ~script974($int5, $int6, invis_rod, $graphic10, $string1, 0, 0);
     cc_settext($string1);
     $int6 = ~script975($int6, $int7);
     $int5 = calc(2 + $int5);
 }
 if (%varplayerbit_4730 = 1) {
     $string1 = "<col=800000>Well done! You've reached the total level <tostring(enum(int, int, enum_1475, %varplayerbit_4728))> milestone!";
-    $int7 = ~script974($int5, $int6, silvthrill_rod, $graphic10, $string1, 0, 0);
+    $int7 = ~script974($int5, $int6, invis_rod, $graphic10, $string1, 0, 0);
     cc_settext($string1);
     $int6 = ~script975($int6, $int7);
     $int5 = calc(2 + $int5);
 }
 $int8 = 0;
 $string1 = null;
-$obj9 = silvthrill_rod;
+$obj9 = invis_rod;
 if ($int0 = 1 | $int0 = 2 | $int0 = 5 | $int0 = 3 | $int0 = 7 | $int0 = 4 | $int0 = 6 | $int0 = 24) {
     if (%varplayerbit_4731 = 1) {
         $string1 = "<col=800000>Well done! You've reached the Combat level <tostring(enum(int, int, enum_1473, %varplayerbit_4727))> milestone!";
-        $int7 = ~script974($int5, $int6, silvthrill_rod, $graphic10, $string1, 0, 0);
+        $int7 = ~script974($int5, $int6, invis_rod, $graphic10, $string1, 0, 0);
         cc_settext($string1);
         $int6 = ~script975($int6, $int7);
         $int5 = calc(2 + $int5);
@@ -117,7 +117,7 @@ if ($int0 = 1 | $int0 = 2 | $int0 = 5 | $int0 = 3 | $int0 = 7 | $int0 = 4 | $int
     }
 }
 $string1 = "";
-$obj9 = silvthrill_rod;
+$obj9 = invis_rod;
 def_int $int13 = 0;
 $int8 = 0;
 while ($int13 ! -1) {
@@ -133,7 +133,7 @@ while ($int13 ! -1) {
     $int8 = calc($int8 + 1);
 }
 $graphic11 = $graphic10;
-$obj9 = silvthrill_rod;
+$obj9 = invis_rod;
 $string1 = "";
 $int8 = 0;
 def_int $int14 = 0;
@@ -144,7 +144,7 @@ $string0, $int14 = ~skill_advance_guide_title($int0);
 while ($int8 < $int14) {
     $string0, $int15 = ~skill_advance_guide_subsection_title($int0, $int8);
     $int16 = 0;
-    $obj9 = silvthrill_rod;
+    $obj9 = invis_rod;
     $graphic11 = $graphic10;
     if (~script1566($int0, $int8) = 1) {
         while ($graphic11 ! null) {
@@ -176,12 +176,12 @@ while ($int8 < $int14) {
 }
 if ($int3 = 1) {
     $string1 = append(~script4242($int0), "Check out the skill advance guide to see what you'll be able to do when you reach even higher levels...");
-    $int7 = ~script974($int5, $int6, silvthrill_rod, $graphic10, $string1, 0, 0);
+    $int7 = ~script974($int5, $int6, invis_rod, $graphic10, $string1, 0, 0);
     cc_settext($string1);
     $int6 = ~script975($int6, $int7);
 }
-if_setscrollpos(0, 0, lvl_scroll:info);
-if_setscrollsize(296, $int6, lvl_scroll:info);
+if_setscrollpos(lvl_scroll:info, 0, 0);
+if_setscrollsize(lvl_scroll:info, 296, $int6);
 if ($int6 > 160) {
     ~scrollbar_vertical(lvl_scroll:info_scrollbar, lvl_scroll:info, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");
 }

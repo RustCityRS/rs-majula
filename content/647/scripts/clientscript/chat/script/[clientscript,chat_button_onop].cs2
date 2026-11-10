@@ -1,21 +1,21 @@
 // 175
 [clientscript,chat_button_onop](int $int0, int $int1)
-if (%learning_the_ropes < 1000) {
+if (%tutorial < 1000) {
     mes("You can't do this while in the tutorial.");
     return;
 }
 switch_int ($int0) {
     case 1 :
-        if (%varclient_41 = $int1 & getwindowmode >= 2) {
-            %varclient_41 = -1;
+        if (%chat_view = $int1 & getwindowmode >= 2) {
+            %chat_view = -1;
             ~subchanged;
-        } else if (%varclient_41 = -1) {
-            %varclient_41 = $int1;
+        } else if (%chat_view = -1) {
+            %chat_view = $int1;
             ~subchanged;
         } else {
-            %varclient_41 = $int1;
+            %chat_view = $int1;
         }
-        ~chat_alert_reset(%varclient_41);
+        ~chat_alert_reset(%chat_view);
         ~redraw_chat_buttons;
         ~rebuildchatbox;
         ~rebuildpmbox;

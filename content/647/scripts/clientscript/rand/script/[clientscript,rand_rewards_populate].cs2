@@ -16,7 +16,7 @@ if (calc(enum_getoutputcount($enum6) % 5) = 0) {
     $int3 = calc(enum_getoutputcount($enum6) / 5 * 67 + 67);
 }
 cc_deleteall(rand_rewards_interface:base_layer);
-if_setscrollsize(calc(5 * 60), $int3, rand_rewards_interface:base_layer);
+if_setscrollsize(rand_rewards_interface:base_layer, calc(5 * 60), $int3);
 while ($int0 < enum_getoutputcount($enum6)) {
     cc_create(rand_rewards_interface:scrolling_layer, ^iftype_graphic, $int4);
     cc_setop(1, oc_name(struct_param(enum(int, struct, $enum6, $int0), param_1070)));

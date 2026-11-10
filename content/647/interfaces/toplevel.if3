@@ -475,7 +475,7 @@ height=90
 xmode=abs_right
 layer=main
 hide=yes
-onvarctransmit=script720{varclient_1096}
+onvarctransmit=script720{doublexp_dropletamount}
 
 // 548:40
 [com_40]
@@ -1452,7 +1452,7 @@ y=168
 width=249
 height=37
 onload=if_side_stone_set
-onvarctransmit=if_side_stone_set{varclient_232, varclient_233, varclient_234, varclient_822, varclient_235, varclient_236, varclient_237, varclient_238, varclient_823, varclient_240, varclient_241, varclient_242, varclient_243, varclient_244, varclient_245, varclient_824}
+onvarctransmit=if_side_stone_set{if_side_combat, if_side_stats, if_side_journal, if_side_achievements, if_side_inv, if_side_worn, if_side_prayer, if_side_magic, if_side_objectives, if_side_friends, if_side_ignore, if_side_clanchat, if_side_options1, if_side_options2, if_side_music, if_side_notes}
 
 // 548:116
 [com_116]
@@ -2209,7 +2209,7 @@ transmitop=1,2
 op1=*
 op2=*
 onload=worldmap_button(event_com)
-onvartransmit=worldmap_button(event_com){varplayer_638, varplayer_1159}
+onvartransmit=worldmap_button(event_com){swansong_temp, playerdesign2_col}
 
 // 548:180
 [com_180]
@@ -2232,7 +2232,7 @@ graphic="km_helpandexit21x21,3"
 colour=0xffffffff
 transmitop=1
 op1=Exit
-opcursor0=cursor_57
+opcursor0=cursor_enter
 onmouseover=graphic_swapper(event_com, "km_helpandexit21x21,4")
 onmouseleave=graphic_swapper(event_com, "km_helpandexit21x21,3")
 onop=switchside(99)
@@ -2294,7 +2294,7 @@ graphic="topstat_alpha_glow,0"
 alpha=yes
 colour=0xffffffff
 onload=topstat_run_glow_onload(event_com)
-onvarctransmit=topstat_run_glow_timer_init(event_com){varclient_119}
+onvarctransmit=topstat_run_glow_timer_init(event_com){option_run_status_varc}
 
 // 548:187
 [topstat_lore]
@@ -2398,8 +2398,8 @@ type=layer
 widthmode=minus
 heightmode=minus
 layer=side
-onvarctransmit=script28(event_com){varclient_1027, varclient_1034}
-onvarcstrtransmit=script28(event_com){varclient_1721}
+onvarctransmit=script28(event_com){last_clanchannelowner_init, last_clanchannelowner_attempttorejoin}
+onvarcstrtransmit=script28(event_com){last_clanchannelowner}
 
 // 548:198
 [sidemodal]

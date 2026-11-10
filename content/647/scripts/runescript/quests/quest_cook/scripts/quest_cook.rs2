@@ -66,21 +66,21 @@ if (~quest_intro(struct_512) = true) {
 
 [label,cooks_assistant_inprogress]
 ~chatnpc("<p,sad>How are you getting on with finding the ingredients?");
-if (inv_total(inv, top_quality_milk) > 0) {
-    ~objbox(top_quality_milk, "You give the top-quality milk to the cook.", 250, 0, 0);
-    inv_del(inv, top_quality_milk, 1);
+if (inv_total(inv, cook_milk) > 0) {
+    ~objbox(cook_milk, "You give the top-quality milk to the cook.", 250, 0, 0);
+    inv_del(inv, cook_milk, 1);
     %cookquest_milk = ^true;
     ~chatplayer("<p,happy>Here's some top-quality milk.");
 }
-if (inv_total(inv, extra_fine_flour) > 0) {
-    ~objbox(extra_fine_flour, "You give the extra fine flour to the cook.", 250, 0, 0);
-    inv_del(inv, extra_fine_flour, 1);
+if (inv_total(inv, cook_flour) > 0) {
+    ~objbox(cook_flour, "You give the extra fine flour to the cook.", 250, 0, 0);
+    inv_del(inv, cook_flour, 1);
     %cookquest_flour = ^true;
     ~chatplayer("<p,happy>Here's the extra fine flour.");
 }
-if (inv_total(inv, super_large_egg) > 0) {
-    ~objbox(super_large_egg, "You give the super large egg to the cook.", 250, 0, 0);
-    inv_del(inv, super_large_egg, 1);
+if (inv_total(inv, cook_egg) > 0) {
+    ~objbox(cook_egg, "You give the super large egg to the cook.", 250, 0, 0);
+    inv_del(inv, cook_egg, 1);
     %cookquest_egg = ^true;
     ~chatplayer("<p,happy>Here's a super large egg.");
 }
@@ -88,11 +88,11 @@ if (inv_total(inv, egg) > 0 & %cookquest_egg = ^false) {
     ~chatplayer("<p,neutral>I've this egg.");
     ~chatnpc("<p,neutral>No, I need a super large egg. You'll probably find one near the local chickens.");
 }
-if (inv_total(inv, pot_of_flour) > 0 & %cookquest_flour = ^false) {
+if (inv_total(inv, pot_flour) > 0 & %cookquest_flour = ^false) {
     ~chatplayer("<p,neutral>I've this flour.");
     ~chatnpc("<p,neutral>That's not fine enough. I imagine if you speak with Millie at the mill to the north she'll help you out.");
 }
-if (inv_total(inv, bucket_of_milk) > 0 & %cookquest_milk = ^false) {
+if (inv_total(inv, bucket_milk) > 0 & %cookquest_milk = ^false) {
     ~chatplayer("<p,neutral>I've this milk.");
     ~chatnpc("<p,neutral>Not bad, but not good enough. There's a milk maid that looks after the cows to the north-east. She might have some advice.");
 }
@@ -148,14 +148,14 @@ if ($option = 1) {
     ~chatnpc("<p,happy>It's called the Cook-o-Matic 25 and it uses a combination of state-of-the-art temperature regulation and magic.");
     ~chatplayer("<p,neutral>Will it mean my food will burn less often?");
     ~chatnpc("<p,happy>As long as the food is fairly easy to cook in the first place!");
-    if (inv_total(inv, cook_o_matic_manual) > 0) {
+    if (inv_total(inv, cookrange_manual) > 0) {
         ~chatnpc("<p,happy>The manual you have in your inventory should tell you more.");
     } else if (inv_freespace(inv) = 0) {
         ~chatnpc("<p,sad>I'd give you the manual, but you don't have room to take it. Ask me again when you have some space.");
     } else {
         ~chatnpc("<p,happy>Here, take this manual. It should tell you everything you need to know about this range.");
-        inv_add(inv, cook_o_matic_manual, 1);
-        ~objbox(cook_o_matic_manual, "The cook hands you a manual.", 250, 0, 0);
+        inv_add(inv, cookrange_manual, 1);
+        ~objbox(cookrange_manual, "The cook hands you a manual.", 250, 0, 0);
     }
     ~chatplayer("<p,neutral>Thanks!");
 }
@@ -260,7 +260,7 @@ session_log(^log_adventure, "Quest complete: Cook's Assistant");
 // 'Cook's Assistant'!" after the quest (2011-05-23 A-JAsglDtjE, chat at 213s).
 ~task_complete(348);
 
-[oplocu,cooking_range]
+[oplocu,cooksquestrange]
 if (%cookquest < ^cook_complete) {
     if(npc_find(coord, cook, 5, 0) = true) {
         ~chatnpc("<p,angry>Hey! Who said you could use that?");

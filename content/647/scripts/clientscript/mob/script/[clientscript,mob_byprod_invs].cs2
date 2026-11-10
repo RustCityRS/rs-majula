@@ -1,27 +1,27 @@
 // 2646
 [clientscript,mob_byprod_invs](component $component0)
-if (%varclient_842 = 3) {
-    %varclient_842 = 1;
-    if_settext("Check bank & inventory", $component0);
-    if_settext("Commodities", interface_860:title);
-    if_sethide(false, interface_860:next_prev);
+if (%mob_client_byprod_page = 3) {
+    %mob_client_byprod_page = 1;
+    if_settext($component0, "Check bank & inventory");
+    if_settext(interface_860:title, "Commodities");
+    if_sethide(interface_860:next_prev, false);
     ~mob_byprod_page(interface_860:next_prev);
     ~mob_byprod_page1;
     return;
 }
-%varclient_842 = 3;
+%mob_client_byprod_page = 3;
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
 def_int $int4 = 0;
 def_int $int5 = 0;
-%varclient_842 = 3;
+%mob_client_byprod_page = 3;
 def_obj $obj6 = null;
-if_sethide(true, interface_860:next_prev);
-if_settext("View all commodities", $component0);
-if_settext("Commodities in your bank & inventory", interface_860:title);
+if_sethide(interface_860:next_prev, true);
+if_settext($component0, "View all commodities");
+if_settext(interface_860:title, "Commodities in your bank & inventory");
 cc_deleteall(interface_860:main_stock);
-if_settext("A list of items already in your inventory or bank that you can trade with Mal for investment credit.", interface_860:title_1);
+if_settext(interface_860:title_1, "A list of items already in your inventory or bank that you can trade with Mal for investment credit.");
 $int3 = calc((if_getwidth(interface_860:main_stock) - 36 * 10) / (10 - 1));
 $int4 = calc((if_getheight(interface_860:main_stock) - 128) / 3);
 def_int $int7 = 0;
@@ -69,6 +69,6 @@ if ($int2 = 0) {
     cc_setcolour(0xff981f);
     $int2 = 1;
 }
-if_setscrollsize(if_getwidth(interface_860:main_stock), calc($int7 + 32), interface_860:main_stock);
-if_setscrollpos(0, 0, interface_860:main_stock);
+if_setscrollsize(interface_860:main_stock, if_getwidth(interface_860:main_stock), calc($int7 + 32));
+if_setscrollpos(interface_860:main_stock, 0, 0);
 ~scrollbar_vertical(interface_860:scrollbar, interface_860:main_stock, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

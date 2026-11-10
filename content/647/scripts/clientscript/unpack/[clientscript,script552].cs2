@@ -1,11 +1,11 @@
 // 552
 [clientscript,script552]
-if (%varplayerbit_4110 = 0) {
-    sound_synth(synth_4020, 1, 0);
+if (%lotg_connectors_2 = 0) {
+    sound_synth(lotg_fairyring_adjust_max, 1, 0);
     return;
 }
-%varplayerbit_4110 = calc(%varplayerbit_4110 - 1);
-def_int $int0 = calc((15 - %varplayerbit_4110) * 6);
-if_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_top, lotg_fairy_ring_power_interface:meter_2);
-if_settext(tostring(%varplayerbit_4110), lotg_fairy_ring_power_interface:counter2);
-sound_synth(synth_4026, 1, 0);
+%lotg_connectors_2 = calc(%lotg_connectors_2 - 1);
+def_int $int0 = calc((15 - %lotg_connectors_2) * 6);
+if_setposition(lotg_fairy_ring_power_interface:meter_2, 0, $int0, ^setpos_abs_left, ^setpos_abs_top);
+if_settext(lotg_fairy_ring_power_interface:counter2, tostring(%lotg_connectors_2));
+sound_synth(lotg_fairyring_adjust, 1, 0);

@@ -15,7 +15,7 @@ while ($int0 < 31) {
     cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
     $int0 = calc($int0 + 1);
 }
-if_setscrollsize(0, calc($int0 * 20), chatdefault:dayddlist);
+if_setscrollsize(chatdefault:dayddlist, 0, calc($int0 * 20));
 ~scrollbar_vertical(chatdefault:dayddscroll, chatdefault:dayddlist, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 $int0 = 0;
 while ($int0 < 12) {
@@ -32,20 +32,20 @@ while ($int0 < 12) {
     cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
     $int0 = calc($int0 + 1);
 }
-if_setscrollsize(0, calc($int0 * 20), chatdefault:monthddlist);
+if_setscrollsize(chatdefault:monthddlist, 0, calc($int0 * 20));
 ~scrollbar_vertical(chatdefault:monthddscroll, chatdefault:monthddlist, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_sethide(true, chatdefault:dayddlist);
-if_sethide(true, chatdefault:dayddlistborder);
-if_sethide(true, chatdefault:dayddscroll);
-if_sethide(true, chatdefault:monthddlist);
-if_sethide(true, chatdefault:monthddlistborder);
-if_sethide(true, chatdefault:monthddscroll);
-if_sethide(true, chatdefault:yearddlist);
-if_sethide(true, chatdefault:yearddscroll);
-if_sethide(true, chatdefault:yearddlistborder);
-if_sethide(true, chatdefault:dayddback);
-if_sethide(true, chatdefault:monthddback);
-if_sethide(true, chatdefault:yearddback);
-if_sethide(false, chatdefault:day);
-if_sethide(false, chatdefault:month);
-if_sethide(false, chatdefault:year);
+if_sethide(chatdefault:dayddlist, true);
+if_sethide(chatdefault:dayddlistborder, true);
+if_sethide(chatdefault:dayddscroll, true);
+if_sethide(chatdefault:monthddlist, true);
+if_sethide(chatdefault:monthddlistborder, true);
+if_sethide(chatdefault:monthddscroll, true);
+if_sethide(chatdefault:yearddlist, true);
+if_sethide(chatdefault:yearddscroll, true);
+if_sethide(chatdefault:yearddlistborder, true);
+if_sethide(chatdefault:dayddback, true);
+if_sethide(chatdefault:monthddback, true);
+if_sethide(chatdefault:yearddback, true);
+if_sethide(chatdefault:day, false);
+if_sethide(chatdefault:month, false);
+if_sethide(chatdefault:year, false);

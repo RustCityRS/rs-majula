@@ -102,9 +102,9 @@ if (gender() = 0) {
 } else {
     $rand = random(2);
     switch_int($rand) {
-        case 0 : $sound = female_hit;
+        case 0 : $sound = female_hit1;
         case 1 : $sound = female_hit2;
-        case default : $sound = female_hit;
+        case default : $sound = female_hit1;
     }
 }
 sound_synth($sound, 1, 20);

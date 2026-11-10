@@ -5,11 +5,11 @@ def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
 def_int $int4 = 0;
-if_sethide(false, reinitialisation_puzzle:inv_layer);
-if (%varclient_1032 = 1) {
-    $inv0 = inv_221;
+if_sethide(reinitialisation_puzzle:inv_layer, false);
+if (%mm_reinit_active = 1) {
+    $inv0 = reinitialisation_inv;
 } else {
-    $inv0 = inv_222;
+    $inv0 = reinitialisation_inv_inactive;
 }
 $int1 = inv_size($inv0);
 if ($int1 ! calc(5 * 5)) {

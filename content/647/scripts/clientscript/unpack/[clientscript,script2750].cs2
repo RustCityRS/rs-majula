@@ -1,8 +1,8 @@
 // 2750
 [clientscript,script2750](int $int0)
-if_settext(tostring(calc(2009 - $int0)), dob_confirm_login:yeartext);
-if_sethide(true, dob_confirm_login:yearddlist);
-if_sethide(true, dob_confirm_login:yearddscroll);
-if_sethide(true, dob_confirm_login:yearddlistborder);
-if_sethide(true, dob_confirm_login:yearddback);
-if_sethide(false, dob_confirm_login:year);
+if_settext(dob_confirm_login:yeartext, tostring(calc(2009 - $int0)));
+if_sethide(dob_confirm_login:yearddlist, true);
+if_sethide(dob_confirm_login:yearddscroll, true);
+if_sethide(dob_confirm_login:yearddlistborder, true);
+if_sethide(dob_confirm_login:yearddback, true);
+if_sethide(dob_confirm_login:year, false);

@@ -1,8 +1,8 @@
 // 3153
 [clientscript,script3153](component $component0, int $int1)
-if_sethide(true, lobbyscreen_pane_worldselect:tooltip);
+if_sethide(lobbyscreen_pane_worldselect:tooltip, true);
 if ($int1 < 0) {
-    if_setonmouserepeat(null, $component0);
+    if_setonmouserepeat($component0, null);
 } else if (cc_find($component0, $int1) = true) {
     cc_setonmouserepeat(null);
 }

@@ -1,10 +1,10 @@
 // 2655
 [clientscript,generaljournal_setscrollpos](int $int0, int $int1)
 if ($int0 <= 11) {
-    if_setscrollsize(404, 215, generaljournal_scroll:qj_layer1);
+    if_setscrollsize(generaljournal_scroll:qj_layer1, 404, 215);
     ~scrollbar_resize(generaljournal_scroll:scroll_bar, generaljournal_scroll:qj_layer1, 0);
 } else {
-    if_setscrollsize(404, calc($int0 * 20), generaljournal_scroll:qj_layer1);
+    if_setscrollsize(generaljournal_scroll:qj_layer1, 404, calc($int0 * 20));
     if ($int1 = 1) {
         ~scrollbar_resize(generaljournal_scroll:scroll_bar, generaljournal_scroll:qj_layer1, 0);
     } else {

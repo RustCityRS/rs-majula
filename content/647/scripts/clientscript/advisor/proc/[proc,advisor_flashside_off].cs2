@@ -1,7 +1,7 @@
 // 1849
 [proc,advisor_flashside_off]
-if_setontimer(null, toplevel_fullscreen:stones_on);
-if_setontimer(null, toplevel:backhmid1_hide);
+if_setontimer(toplevel_fullscreen:stones_on, null);
+if_setontimer(toplevel:backhmid1_hide, null);
 ~arrow_set(null, -1, null, -1);
 ~subchanged;
 return;

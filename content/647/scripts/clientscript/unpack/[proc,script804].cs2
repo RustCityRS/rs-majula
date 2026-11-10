@@ -1,19 +1,19 @@
 // 804
 [proc,script804]
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5146), firedup_beacon_map:firedup_1);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5147), firedup_beacon_map:firedup_2);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5148), firedup_beacon_map:firedup_3);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5149), firedup_beacon_map:firedup_4);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5150), firedup_beacon_map:firedup_5);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5151), firedup_beacon_map:firedup_6);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5152), firedup_beacon_map:firedup_7);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5153), firedup_beacon_map:firedup_8);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5154), firedup_beacon_map:firedup_9);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5155), firedup_beacon_map:firedup_10);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5156), firedup_beacon_map:firedup_11);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5157), firedup_beacon_map:firedup_12);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5158), firedup_beacon_map:firedup_13);
-if_setmodel(enum(int, model, enum_1696, %varplayerbit_5159), firedup_beacon_map:firedup_14);
+if_setmodel(firedup_beacon_map:firedup_1, enum(int, model, enum_1696, %firedup_loc1));
+if_setmodel(firedup_beacon_map:firedup_2, enum(int, model, enum_1696, %firedup_loc2));
+if_setmodel(firedup_beacon_map:firedup_3, enum(int, model, enum_1696, %firedup_loc3));
+if_setmodel(firedup_beacon_map:firedup_4, enum(int, model, enum_1696, %firedup_loc4));
+if_setmodel(firedup_beacon_map:firedup_5, enum(int, model, enum_1696, %firedup_loc5));
+if_setmodel(firedup_beacon_map:firedup_6, enum(int, model, enum_1696, %firedup_loc6));
+if_setmodel(firedup_beacon_map:firedup_7, enum(int, model, enum_1696, %firedup_loc7));
+if_setmodel(firedup_beacon_map:firedup_8, enum(int, model, enum_1696, %firedup_loc8));
+if_setmodel(firedup_beacon_map:firedup_9, enum(int, model, enum_1696, %firedup_loc9));
+if_setmodel(firedup_beacon_map:firedup_10, enum(int, model, enum_1696, %firedup_loc10));
+if_setmodel(firedup_beacon_map:firedup_11, enum(int, model, enum_1696, %firedup_loc11));
+if_setmodel(firedup_beacon_map:firedup_12, enum(int, model, enum_1696, %firedup_loc12));
+if_setmodel(firedup_beacon_map:firedup_13, enum(int, model, enum_1696, %firedup_loc13));
+if_setmodel(firedup_beacon_map:firedup_14, enum(int, model, enum_1696, %firedup_loc14));
 def_int $int0 = 14;
 while ($int0 > 0) {
     ~firedup_update_tooltip($int0);

@@ -51,7 +51,7 @@ fn lumbridge_s_keepers_stand_and_its_wanderers_wander() {
         engine.harness_telejump(client.pid, centre.0, 0, centre.1);
         engine.cycle();
         let mut still = Vec::new();
-        for name in ["bob", "shopkeeper", "cook"] {
+        for name in ["bob", "generalshopkeeper1", "cook"] {
             let found = spawns(engine, name, centre, 32);
             assert!(!found.is_empty(), "{name} spawns in Lumbridge");
             still.extend(found.into_iter().map(|(nid, c)| (name, nid, c)));

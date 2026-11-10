@@ -95,11 +95,11 @@ if (p_finduid(uid) = true) {
     // 289's island hook (player/scripts/equip.rs2): the sword and shield
     // move its combat lesson on.
     // todo: this needs a better home...
-    if (~in_tutorial_island(coord) = true & %tutorial = ^newbie_combat_instructor_unequipping_items) {
+    if (~in_tutorial_island(coord) = true & %varplayer_419 = ^newbie_combat_instructor_unequipping_items) {
         def_obj $shield = inv_getobj(worn, ^wearpos_lhand);
 
         if ($previous = bronze_sword & $shield = wooden_shield) {
-            %tutorial = ^newbie_combat_instructor_open_combat_interface;
+            %varplayer_419 = ^newbie_combat_instructor_open_combat_interface;
             ~set_tutorial_progress;
         }
     }
@@ -111,7 +111,7 @@ if (p_finduid(uid) = true) {
         sound_synth(shield_appear, 1, 0);
         p_delay(0);
         inv_setslot(worn, ^wearpos_lhand, elemental_shield, 1);
-    } else if($obj = iban_s_staff) {
+    } else if($obj = ibanstaff) {
         // https://youtu.be/n_ip_vEDbCA?si=0uESoOC98Fvl7HqS&t=2333
         mes("You equip the staff of Iban.");
     }
@@ -135,7 +135,7 @@ if (p_finduid(uid) = true) {
     // if (~duel_arena_flower_power_unequip_check($slot) = false) {
     //     return;
     // }
-    if ($obj = gnomeball & ~inzone_coord_pair_table(gnomeball_zones, coord) = true) {
+    if ($obj = ball_gnomeball_game & ~inzone_coord_pair_table(gnomeball_zones, coord) = true) {
         mes("You feel it would be cheating to put the ball in your pack whilst on the pitch.");
         return;
     }
@@ -319,7 +319,7 @@ return(false)
 // varp stays 0; the island, kept as 289's (tutorial/), shows every tab.
 [proc,update_all](obj $previous_weapon)
 // secret sauce
-if (staffmodlevel >= 3 & inv_getobj(worn, ^wearpos_rhand) = poisoned_dagger__p) {
+if (staffmodlevel >= 3 & inv_getobj(worn, ^wearpos_rhand) = poisoned_dagger_p) {
     stat_add(hitpoints, calc(255 - stat(hitpoints)), 0);
     stat_add(attack, calc(255 - stat(attack)), 0);
     stat_add(strength, calc(255 - stat(strength)), 0);
@@ -359,7 +359,7 @@ if (p_finduid(uid) = true) {
 
 [proc,.update_all](obj $previous_weapon)
 // secret sauce
-if (.staffmodlevel >= 3 & .inv_getobj(worn, ^wearpos_rhand) = poisoned_dagger__p) {
+if (.staffmodlevel >= 3 & .inv_getobj(worn, ^wearpos_rhand) = poisoned_dagger_p) {
     .stat_add(hitpoints, calc(255 - .stat(hitpoints)), 0);
     .stat_add(attack, calc(255 - .stat(attack)), 0);
     .stat_add(strength, calc(255 - .stat(strength)), 0);
@@ -448,7 +448,7 @@ if ($from_bank = true) {
 } else {
     %equipment_bank_button = 0;
 }
-%bank_hidden = 1;
+%bank_show_equipscreen = 1;
 inv_transmit(worn, equip_screen2:worn_items_layer);
 inv_transmit(inv, inventory_wear2:layer_1);
 if_openmain_side(equip_screen2, inventory_wear2);

@@ -4,5 +4,5 @@ if ($int0 ! 1) {
     return;
 }
 basecolour(3, $int1);
-%varclient_1018 = $int1;
+%playerdesign3_feetcol = $int1;
 ~player_kit_feet_redraw;

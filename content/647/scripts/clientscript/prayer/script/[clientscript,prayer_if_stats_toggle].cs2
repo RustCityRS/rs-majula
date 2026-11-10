@@ -1,11 +1,11 @@
 // 1701
 [clientscript,prayer_if_stats_toggle]
-if (%varclient_1052 = 1) {
-    sound_synth(synth_8123, 1, 0);
-    %varclient_1052 = 0;
+if (%prayer_stats_if_visible = 1) {
+    sound_synth(mah4_hide_stats, 1, 0);
+    %prayer_stats_if_visible = 0;
 } else {
-    sound_synth(synth_8096, 1, 0);
-    %varclient_1052 = 1;
+    sound_synth(mah4_show_stats, 1, 0);
+    %prayer_stats_if_visible = 1;
 }
-if_setontimer("prayer_if_stats_update(0)", prayer:stats_layer);
+if_setontimer(prayer:stats_layer, "prayer_if_stats_update(0)");
 ~script1700;

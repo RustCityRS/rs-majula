@@ -20,23 +20,23 @@ if ($random < 4) {
 } else if ($random < 8) {
     obj_add(npc_coord, coins, 450, ^lootdrop_duration);
 } else if ($random < 12) {
-    obj_add(npc_coord, steel_hatchet, 1, ^lootdrop_duration);
+    obj_add(npc_coord, steel_axe, 1, ^lootdrop_duration);
 } else if ($random < 14) {
-    obj_add(npc_coord, jug_of_wine, 1, ^lootdrop_duration);
+    obj_add(npc_coord, jug_wine, 1, ^lootdrop_duration);
 } else if ($random < 15) {
-    obj_add(npc_coord, jug_of_wine, 1, ^lootdrop_duration);
+    obj_add(npc_coord, jug_wine, 1, ^lootdrop_duration);
 } else if ($random < 19) {
     obj_add(npc_coord, steel_full_helm, 1, ^lootdrop_duration);
 } else if ($random < 29) {
     obj_add(npc_coord, coins, 200, ^lootdrop_duration);
 } else if ($random < 37) {
-    obj_add(npc_coord, fire_rune, 60, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 60, ^lootdrop_duration);
 } else if ($random < 40) {
     obj_add(npc_coord, steel_scimitar, 1, ^lootdrop_duration);
 } else if ($random < 80) {
     obj_add(npc_coord, coins, 120, ^lootdrop_duration);
 } else if ($random < 81) {
-    obj_add(npc_coord, fire_rune, 30, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 30, ^lootdrop_duration);
 } else if ($random < 110) {
     obj_add(npc_coord, coins, 40, ^lootdrop_duration);
 } else if ($random < 111) {
@@ -44,9 +44,9 @@ if ($random < 4) {
 } else if ($random < 113) {
     obj_add(npc_coord, gold_ore, 1, ^lootdrop_duration);
 } else if ($random < 116) {
-    obj_add(npc_coord, death_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, deathrune, 3, ^lootdrop_duration);
 } else if ($random < 121) {
-    obj_add(npc_coord, chaos_rune, 12, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 12, ^lootdrop_duration);
 } else {
     obj_add(npc_coord, coins, 10, ^lootdrop_duration);
 }

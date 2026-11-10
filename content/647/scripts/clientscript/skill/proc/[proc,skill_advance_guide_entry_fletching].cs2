@@ -8,31 +8,31 @@ switch_int ($int0) {
             case 1 :
                 return(5, ogre_arrow, "Ogre arrow<br> (after starting Big Chompy Bird Hunting)", "You now have the Fletching level required to fletch <col=000080>ogre arrows</col> (after starting Big Chompy Bird Hunting).");
             case 2 :
-                return(7, bronze_brutal, "Bronze 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>bronze 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
+                return(7, zogre_brutal_bronze, "Bronze 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>bronze 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
             case 3 :
                 return(15, iron_arrow, "Iron arrow", "You can now fletch <col=000080>iron arrows</col>.");
             case 4 :
-                return(18, iron_brutal, "Iron 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>iron 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
+                return(18, zogre_brutal_iron, "Iron 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>iron 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
             case 5 :
                 return(30, steel_arrow, "Steel arrow", "You can now fletch <col=000080>steel arrows</col>.");
             case 6 :
-                return(33, steel_brutal, "Steel 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>steel 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
+                return(33, zogre_brutal_steel, "Steel 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>steel 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
             case 7 :
-                return(38, black_brutal, "Black 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>black 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
+                return(38, zogre_brutal_black, "Black 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>black 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
             case 8 :
                 return(45, mithril_arrow, "Mithril arrow", "You can now fletch <col=000080>mithril arrows</col>.");
             case 9 :
-                return(49, mithril_brutal, "Mithril 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>mithril 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
+                return(49, zogre_brutal_mithril, "Mithril 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>mithril 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
             case 10 :
-                return(52, broad_arrow_heads, "Broad leaf arrows<br> (after Smoking Kills)", "You can now fletch <col=000080>broad leaf arrows</col> (after Smoking Kills).");
+                return(52, slayer_broad_arrow_head, "Broad leaf arrows<br> (after Smoking Kills)", "You can now fletch <col=000080>broad leaf arrows</col> (after Smoking Kills).");
             case 11 :
                 return(60, adamant_arrow, "Adamant arrow", "You can now fletch <col=000080>adamant arrows</col>.");
             case 12 :
-                return(62, adamant_brutal, "Adamant 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>adamant 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
+                return(62, zogre_brutal_adamant, "Adamant 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>adamant 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
             case 13 :
                 return(75, rune_arrow, "Rune arrow", "You can now fletch <col=000080>rune arrows</col>.");
             case 14 :
-                return(77, rune_brutal, "Rune 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>rune 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
+                return(77, zogre_brutal_rune, "Rune 'brutal' arrow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>rune 'brutal' arrows</col> (after starting Zogre Flesh Eaters).");
             case 15 :
                 return(90, dragon_arrow, "Dragon arrow", "You can now fletch <col=000080>dragon arrows</col>.");
         }
@@ -47,7 +47,7 @@ switch_int ($int0) {
             case 3 :
                 return(25, oak_longbow, "Oak longbow", "You can now fletch <col=000080>oak longbows</col>.");
             case 4 :
-                return(30, comp_ogre_bow, "Ogre composite bow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>ogre composite bows</col> (after starting Zogre Flesh Eaters).");
+                return(30, zogre_bow, "Ogre composite bow<br> (after starting Zogre Flesh Eaters)", "You now have the Fletching level required to fletch <col=000080>ogre composite bows</col> (after starting Zogre Flesh Eaters).");
             case 5 :
                 return(35, willow_shortbow, "Willow shortbow", "You can now fletch <col=000080>willow shortbows</col>.");
             case 6 :
@@ -68,51 +68,51 @@ switch_int ($int0) {
     case 2 :
         switch_int ($int1) {
             case 0 :
-                return(9, bronze_bolts, "Bronze bolt", "You can now fletch <col=000080>bronze bolts</col>.");
+                return(9, bolt, "Bronze bolt", "You can now fletch <col=000080>bronze bolts</col>.");
             case 1 :
-                return(11, opal_bolts, "Opal-tipped bronze bolt", "You can now fletch <col=000080>opal-tipped bronze bolts</col>.");
+                return(11, opal_bolt, "Opal-tipped bronze bolt", "You can now fletch <col=000080>opal-tipped bronze bolts</col>.");
             case 2 :
-                return(24, blurite_bolts, "Blurite bolt<br> (after The Knight's Sword)", "You now have the Fletching level required to fletch <col=000080>blurite bolts</col> (after The Knight's Sword).");
+                return(24, xbows_crossbow_bolts_blurite, "Blurite bolt<br> (after The Knight's Sword)", "You now have the Fletching level required to fletch <col=000080>blurite bolts</col> (after The Knight's Sword).");
             case 3 :
-                return(26, jade_bolts, "Jade-tipped blurite bolt<br> (after The Knight's Sword)", "You now have the Fletching level required to fletch <col=000080>jade-tipped blurite bolts</col> (after The Knight's Sword).");
+                return(26, xbows_crossbow_bolts_blurite_tipped_jade, "Jade-tipped blurite bolt<br> (after The Knight's Sword)", "You now have the Fletching level required to fletch <col=000080>jade-tipped blurite bolts</col> (after The Knight's Sword).");
             case 4 :
-                return(32, kebbit_bolts, "Kebbit-tipped hunting bolt", "You can now fletch <col=000080>kebbit-tipped hunting bolts</col>.");
+                return(32, huntingbow_bolts, "Kebbit-tipped hunting bolt", "You can now fletch <col=000080>kebbit-tipped hunting bolts</col>.");
             case 5 :
-                return(39, iron_bolts, "Iron bolt", "You can now fletch <col=000080>iron bolts</col>.");
+                return(39, xbows_crossbow_bolts_iron, "Iron bolt", "You can now fletch <col=000080>iron bolts</col>.");
             case 6 :
-                return(41, pearl_bolts, "Pearl-tipped iron bolt", "You can now fletch <col=000080>pearl-tipped iron bolts</col>.");
+                return(41, pearl_bolt, "Pearl-tipped iron bolt", "You can now fletch <col=000080>pearl-tipped iron bolts</col>.");
             case 7 :
-                return(42, long_kebbit_bolts, "Long kebbit-tipped hunting bolt", "You can now fletch <col=000080>long kebbit-tipped hunting bolts</col>.");
+                return(42, huntingbow_bigbolts, "Long kebbit-tipped hunting bolt", "You can now fletch <col=000080>long kebbit-tipped hunting bolts</col>.");
             case 8 :
-                return(43, silver_bolts, "Silver bolt", "You can now fletch <col=000080>silver bolts</col>.");
+                return(43, xbows_crossbow_bolts_silver, "Silver bolt", "You can now fletch <col=000080>silver bolts</col>.");
             case 9 :
-                return(46, steel_bolts, "Steel bolt", "You can now fletch <col=000080>steel bolts</col>.");
+                return(46, xbows_crossbow_bolts_steel, "Steel bolt", "You can now fletch <col=000080>steel bolts</col>.");
             case 10 :
-                return(48, topaz_bolts, "Red topaz-tipped steel bolt", "You can now fletch <col=000080>red topaz-tipped steel bolts</col>.");
+                return(48, xbows_crossbow_bolts_steel_tipped_redtopaz, "Red topaz-tipped steel bolt", "You can now fletch <col=000080>red topaz-tipped steel bolts</col>.");
             case 11 :
-                return(51, barbed_bolts, "Barbed bolts", "You can now fletch <col=000080>barbed bolts</col>.");
+                return(51, barbed_bolt, "Barbed bolts", "You can now fletch <col=000080>barbed bolts</col>.");
             case 12 :
-                return(54, mithril_bolts, "Mithril bolt", "You can now fletch <col=000080>mithril bolts</col>.");
+                return(54, xbows_crossbow_bolts_mithril, "Mithril bolt", "You can now fletch <col=000080>mithril bolts</col>.");
             case 13 :
-                return(55, unfinished_broad_bolts, "Broad leaf bolts<br> (after Smoking Kills)", "You can now fletch <col=000080>broad leaf bolts</col> (after Smoking Kills).");
+                return(55, xbows_slayer_bolts_unfinished, "Broad leaf bolts<br> (after Smoking Kills)", "You can now fletch <col=000080>broad leaf bolts</col> (after Smoking Kills).");
             case 14 :
-                return(56, sapphire_bolts, "Sapphire-tipped mithril bolt", "You can now fletch <col=000080>sapphire-tipped mithril bolts</col>.");
+                return(56, xbows_crossbow_bolts_mithril_tipped_sapphire, "Sapphire-tipped mithril bolt", "You can now fletch <col=000080>sapphire-tipped mithril bolts</col>.");
             case 15 :
-                return(58, emerald_bolts, "Emerald-tipped mithril bolt", "You can now fletch <col=000080>emerald-tipped mithril bolts</col>.");
+                return(58, xbows_crossbow_bolts_mithril_tipped_emerald, "Emerald-tipped mithril bolt", "You can now fletch <col=000080>emerald-tipped mithril bolts</col>.");
             case 16 :
-                return(59, mith_grapple, "Mithril grapple-tipped bolt", "You can now fletch <col=000080>mithril grapple-tipped bolts</col>.");
+                return(59, xbows_grapple_tip_bolt_mithril, "Mithril grapple-tipped bolt", "You can now fletch <col=000080>mithril grapple-tipped bolts</col>.");
             case 17 :
-                return(61, adamant_bolts, "Adamantite bolt", "You can now fletch <col=000080>adamantite bolts</col>.");
+                return(61, xbows_crossbow_bolts_adamantite, "Adamantite bolt", "You can now fletch <col=000080>adamantite bolts</col>.");
             case 18 :
-                return(63, ruby_bolts, "Ruby-tipped adamantite bolt", "You can now fletch <col=000080>ruby-tipped adamantite bolts</col>.");
+                return(63, xbows_crossbow_bolts_adamantite_tipped_ruby, "Ruby-tipped adamantite bolt", "You can now fletch <col=000080>ruby-tipped adamantite bolts</col>.");
             case 19 :
-                return(65, diamond_bolts, "Diamond-tipped adamantite bolt", "You can now fletch <col=000080>diamond-tipped adamantite bolts</col>.");
+                return(65, xbows_crossbow_bolts_adamantite_tipped_diamond, "Diamond-tipped adamantite bolt", "You can now fletch <col=000080>diamond-tipped adamantite bolts</col>.");
             case 20 :
-                return(69, runite_bolts, "Runite bolt", "You can now fletch <col=000080>runite bolts</col>.");
+                return(69, xbows_crossbow_bolts_runite, "Runite bolt", "You can now fletch <col=000080>runite bolts</col>.");
             case 21 :
-                return(71, dragon_bolts, "Dragonstone-tipped runite bolt", "You can now fletch <col=000080>dragonstone-tipped runite bolts</col>.");
+                return(71, xbows_crossbow_bolts_runite_tipped_dragonstone, "Dragonstone-tipped runite bolt", "You can now fletch <col=000080>dragonstone-tipped runite bolts</col>.");
             case 22 :
-                return(73, onyx_bolts, "Onyx-tipped runite bolt", "You can now fletch <col=000080>onyx-tipped runite bolts</col>.");
+                return(73, xbows_crossbow_bolts_runite_tipped_onyx, "Onyx-tipped runite bolt", "You can now fletch <col=000080>onyx-tipped runite bolts</col>.");
         }
     case 3 :
         switch_int ($int1) {
@@ -134,191 +134,191 @@ switch_int ($int0) {
     case 4 :
         switch_int ($int1) {
             case 0 :
-                return(9, wooden_stock, "Bronze/wooden crossbow", "You can now fletch <col=000080>bronze and wooden crossbows</col>.");
+                return(9, xbows_crossbow_stock_wood, "Bronze/wooden crossbow", "You can now fletch <col=000080>bronze and wooden crossbows</col>.");
             case 1 :
-                return(24, oak_stock, "Blurite/oak crossbow<br> (after The Knight's Sword)", "You now have the Fletching level required to fletch <col=000080>blurite and oak crossbows</col> (after The Knight's Sword).");
+                return(24, xbows_crossbow_stock_oak, "Blurite/oak crossbow<br> (after The Knight's Sword)", "You now have the Fletching level required to fletch <col=000080>blurite and oak crossbows</col> (after The Knight's Sword).");
             case 2 :
-                return(39, willow_stock, "Iron/willow crossbow", "You can now fletch <col=000080>iron and willow crossbows</col>.");
+                return(39, xbows_crossbow_stock_willow, "Iron/willow crossbow", "You can now fletch <col=000080>iron and willow crossbows</col>.");
             case 3 :
-                return(46, teak_stock, "Steel/teak crossbow", "You can now fletch <col=000080>steel and teak crossbows</col>.");
+                return(46, xbows_crossbow_stock_teak, "Steel/teak crossbow", "You can now fletch <col=000080>steel and teak crossbows</col>.");
             case 4 :
-                return(54, maple_stock, "Mithril/maple crossbow", "You can now fletch <col=000080>mithril and maple crossbows</col>.");
+                return(54, xbows_crossbow_stock_maple, "Mithril/maple crossbow", "You can now fletch <col=000080>mithril and maple crossbows</col>.");
             case 5 :
-                return(61, mahogany_stock, "Adamantite/mahogany crossbow", "You can now fletch <col=000080>adamantite and mahogany crossbows</col>.");
+                return(61, xbows_crossbow_stock_mahogany, "Adamantite/mahogany crossbow", "You can now fletch <col=000080>adamantite and mahogany crossbows</col>.");
             case 6 :
-                return(69, yew_stock, "Runite/yew crossbow", "You can now fletch <col=000080>runite and yew crossbows</col>.");
+                return(69, xbows_crossbow_stock_yew, "Runite/yew crossbow", "You can now fletch <col=000080>runite and yew crossbows</col>.");
         }
     case 5 :
         switch_int ($int1) {
             case 0 :
-                return(91, starved_ancient_effigy, "Starved ancient effigies", "You can now investigate <col=000080>starved ancient effigies</col> using your knowledge of Fletching.");
+                return(91, effi_ancient_effigy_level_0, "Starved ancient effigies", "You can now investigate <col=000080>starved ancient effigies</col> using your knowledge of Fletching.");
             case 1 :
-                return(93, nourished_ancient_effigy, "Nourished ancient effigies", "You can now investigate <col=000080>nourished ancient effigies</col> using your knowledge of Fletching.");
+                return(93, effi_ancient_effigy_level_1, "Nourished ancient effigies", "You can now investigate <col=000080>nourished ancient effigies</col> using your knowledge of Fletching.");
             case 2 :
-                return(95, sated_ancient_effigy, "Sated ancient effigies", "You can now investigate <col=000080>sated ancient effigies</col> using your knowledge of Fletching.");
+                return(95, effi_ancient_effigy_level_2, "Sated ancient effigies", "You can now investigate <col=000080>sated ancient effigies</col> using your knowledge of Fletching.");
             case 3 :
-                return(97, gorged_ancient_effigy, "Gorged ancient effigies", "You can now investigate <col=000080>gorged ancient effigies</col> using your knowledge of Fletching.");
+                return(97, effi_ancient_effigy_level_3, "Gorged ancient effigies", "You can now investigate <col=000080>gorged ancient effigies</col> using your knowledge of Fletching.");
         }
     case 6 :
         switch_int ($int1) {
             case 0 :
-                return(1, bow__class_1, "Stealing Creation - class 1 bow", "Members can now fletch <col=000080>class 1 bows</col> in Stealing Creation.");
+                return(1, sc_bow_1, "Stealing Creation - class 1 bow", "Members can now fletch <col=000080>class 1 bows</col> in Stealing Creation.");
             case 1 :
-                return(1, arrows__class_1, "Stealing Creation - class 1 arrow", "You can now fletch <col=000080>class 1 arrows</col> in Stealing Creation.");
+                return(1, sc_arrow_1, "Stealing Creation - class 1 arrow", "You can now fletch <col=000080>class 1 arrows</col> in Stealing Creation.");
             case 2 :
-                return(20, bow__class_2, "Stealing Creation - class 2 bow", "Members can now fletch <col=000080>class 2 bows</col> in Stealing Creation.");
+                return(20, sc_bow_2, "Stealing Creation - class 2 bow", "Members can now fletch <col=000080>class 2 bows</col> in Stealing Creation.");
             case 3 :
-                return(20, arrows__class_2, "Stealing Creation - class 2 arrow", "You can now fletch <col=000080>class 2 arrows</col> in Stealing Creation.");
+                return(20, sc_arrow_2, "Stealing Creation - class 2 arrow", "You can now fletch <col=000080>class 2 arrows</col> in Stealing Creation.");
             case 4 :
-                return(40, bow__class_3, "Stealing Creation - class 3 bow", "Members can now fletch <col=000080>class 3 bows</col> in Stealing Creation.");
+                return(40, sc_bow_3, "Stealing Creation - class 3 bow", "Members can now fletch <col=000080>class 3 bows</col> in Stealing Creation.");
             case 5 :
-                return(40, arrows__class_3, "Stealing Creation - class 3 arrow", "You can now fletch <col=000080>class 3 arrows</col> in Stealing Creation.");
+                return(40, sc_arrow_3, "Stealing Creation - class 3 arrow", "You can now fletch <col=000080>class 3 arrows</col> in Stealing Creation.");
             case 6 :
-                return(53, cinnamon_weaving_ribbon, "Phoenix lair - cinnamon weaving ribbon", "Members can now fletch <col=000080>cinnamon weaving ribbon</col> in the phoenix lair.");
+                return(53, phoenix_twigsfletched_cinnamon, "Phoenix lair - cinnamon weaving ribbon", "Members can now fletch <col=000080>cinnamon weaving ribbon</col> in the phoenix lair.");
             case 7 :
-                return(53, sassafras_weaving_ribbon, "Phoenix lair - sassafras weaving ribbon", "Members can now fletch <col=000080>sassafras weaving ribbon</col> in the phoenix lair.");
+                return(53, phoenix_twigsfletched_sassafras, "Phoenix lair - sassafras weaving ribbon", "Members can now fletch <col=000080>sassafras weaving ribbon</col> in the phoenix lair.");
             case 8 :
-                return(53, ailanthus_weaving_ribbon, "Phoenix lair - ailanthus weaving ribbon", "Members can now fletch <col=000080>ailanthus weaving ribbon</col> in the phoenix lair.");
+                return(53, phoenix_twigsfletched_ailanthus, "Phoenix lair - ailanthus weaving ribbon", "Members can now fletch <col=000080>ailanthus weaving ribbon</col> in the phoenix lair.");
             case 9 :
-                return(53, cedar_weaving_ribbon, "Phoenix lair - cedar weaving ribbon", "Members can now fletch <col=000080>cedar weaving ribbon</col> in the phoenix lair.");
+                return(53, phoenix_twigsfletched_cedar, "Phoenix lair - cedar weaving ribbon", "Members can now fletch <col=000080>cedar weaving ribbon</col> in the phoenix lair.");
             case 10 :
-                return(53, mastic_weaving_ribbon, "Phoenix lair - mastic weaving ribbon", "Members can now fletch <col=000080>mastic weaving ribbon</col> in the phoenix lair.");
+                return(53, phoenix_twigsfletched_mastic, "Phoenix lair - mastic weaving ribbon", "Members can now fletch <col=000080>mastic weaving ribbon</col> in the phoenix lair.");
             case 11 :
-                return(60, bow__class_4, "Stealing Creation - class 4 bow", "Members can now fletch <col=000080>class 4 bows</col> in Stealing Creation.");
+                return(60, sc_bow_4, "Stealing Creation - class 4 bow", "Members can now fletch <col=000080>class 4 bows</col> in Stealing Creation.");
             case 12 :
-                return(60, arrows__class_4, "Stealing Creation - class 4 arrow", "You can now fletch <col=000080>class 4 arrows</col> in Stealing Creation.");
+                return(60, sc_arrow_4, "Stealing Creation - class 4 arrow", "You can now fletch <col=000080>class 4 arrows</col> in Stealing Creation.");
             case 13 :
-                return(80, bow__class_5, "Stealing Creation - class 5 bow", "Members can now fletch <col=000080>class 5 bows</col> in Stealing Creation.");
+                return(80, sc_bow_5, "Stealing Creation - class 5 bow", "Members can now fletch <col=000080>class 5 bows</col> in Stealing Creation.");
             case 14 :
-                return(80, arrows__class_5, "Stealing Creation - class 5 arrow", "You can now fletch <col=000080>class 5 arrows</col> in Stealing Creation.");
+                return(80, sc_arrow_5, "Stealing Creation - class 5 arrow", "You can now fletch <col=000080>class 5 arrows</col> in Stealing Creation.");
         }
     case 7 :
         switch_int ($int1) {
             case 0 :
-                return(-1, ring_of_kinship, "Dungeoneering skill tasks<br>As your Fletching level increases, you will be able to attempt higher-level fletching tasks within Daemonheim. You will also be more likely to succeed when attempting fletching tasks within Daemonheim.", "");
+                return(-1, rand_mission_contract, "Dungeoneering skill tasks<br>As your Fletching level increases, you will be able to attempt higher-level fletching tasks within Daemonheim. You will also be more likely to succeed when attempting fletching tasks within Daemonheim.", "");
             case 1 :
-                return(1, arrow_shaft_17742, "Tangle gum<br> 15 Arrow shafts", "You can now fletch <col=000080>tangle gum branches</col> into <col=000080>15 arrow shafts</col> within Daemonheim.");
+                return(1, rand_arrow_shaft, "Tangle gum<br> 15 Arrow shafts", "You can now fletch <col=000080>tangle gum branches</col> into <col=000080>15 arrow shafts</col> within Daemonheim.");
             case 2 :
-                return(1, novite_arrows, "Novite arrows (Tier 1)", "You can now fletch <col=000080>novite arrows</col> within Daemonheim.");
+                return(1, rand_arrow_1, "Novite arrows (Tier 1)", "You can now fletch <col=000080>novite arrows</col> within Daemonheim.");
             case 3 :
-                return(1, tangle_gum_shortbow, "Tangle gum shortbow (Tier 1)", "You can now fletch <col=000080>tangle gum shortbows</col> within Daemonheim.");
+                return(1, rand_shortbow_1, "Tangle gum shortbow (Tier 1)", "You can now fletch <col=000080>tangle gum shortbows</col> within Daemonheim.");
             case 4 :
-                return(3, tangle_gum_trap, "Tangle gum trap (Tier 1)", "You can now fletch <col=000080>tangle gum traps</col> within Daemonheim.");
+                return(3, rand_trap_1, "Tangle gum trap (Tier 1)", "You can now fletch <col=000080>tangle gum traps</col> within Daemonheim.");
             case 5 :
-                return(6, tangle_gum_longbow, "Tangle gum longbow (Tier 1)", "You can now fletch <col=000080>tangle gum longbows</col> within Daemonheim.");
+                return(6, rand_longbow_1, "Tangle gum longbow (Tier 1)", "You can now fletch <col=000080>tangle gum longbows</col> within Daemonheim.");
             case 6 :
-                return(8, tangle_gum_staff, "Tangle gum staff (Tier 1)", "You can now fletch <col=000080>tangle gum staves</col> within Daemonheim.");
+                return(8, rand_basic_staff_1, "Tangle gum staff (Tier 1)", "You can now fletch <col=000080>tangle gum staves</col> within Daemonheim.");
             case 7 :
-                return(10, arrow_shaft_17742, "Seeping elm<br> 21 Arrow shafts", "You can now fletch <col=000080>seeping elm branches</col> into <col=000080>21 arrow shafts</col> within Daemonheim.");
+                return(10, rand_arrow_shaft, "Seeping elm<br> 21 Arrow shafts", "You can now fletch <col=000080>seeping elm branches</col> into <col=000080>21 arrow shafts</col> within Daemonheim.");
             case 8 :
-                return(11, bathus_arrows, "Bathus arrows (Tier 2)", "You can now fletch <col=000080>bathus arrows</col> within Daemonheim.");
+                return(11, rand_arrow_2, "Bathus arrows (Tier 2)", "You can now fletch <col=000080>bathus arrows</col> within Daemonheim.");
             case 9 :
-                return(11, seeping_elm_shortbow, "Seeping elm shortbow (Tier 2)", "You can now fletch <col=000080>seeping elm shortbows</col> within Daemonheim.");
+                return(11, rand_shortbow_2, "Seeping elm shortbow (Tier 2)", "You can now fletch <col=000080>seeping elm shortbows</col> within Daemonheim.");
             case 10 :
-                return(13, seeping_elm_trap, "Seeping elm trap (Tier 2)", "You can now fletch <col=000080>seeping elm traps</col> within Daemonheim.");
+                return(13, rand_trap_2, "Seeping elm trap (Tier 2)", "You can now fletch <col=000080>seeping elm traps</col> within Daemonheim.");
             case 11 :
-                return(16, seeping_elm_longbow, "Seeping elm longbow (Tier 2)", "You can now fletch <col=000080>seeping elm longbows</col> within Daemonheim.");
+                return(16, rand_longbow_2, "Seeping elm longbow (Tier 2)", "You can now fletch <col=000080>seeping elm longbows</col> within Daemonheim.");
             case 12 :
-                return(18, seeping_elm_staff, "Seeping elm staff (Tier 2)", "You can now fletch <col=000080>seeping elm staves</col> within Daemonheim.");
+                return(18, rand_basic_staff_2, "Seeping elm staff (Tier 2)", "You can now fletch <col=000080>seeping elm staves</col> within Daemonheim.");
             case 13 :
-                return(20, arrow_shaft_17742, "Blood spindle<br> 26 Arrow shafts", "You can now fletch <col=000080>blood spindle branches</col> into <col=000080>26 arrow shafts</col> within Daemonheim.");
+                return(20, rand_arrow_shaft, "Blood spindle<br> 26 Arrow shafts", "You can now fletch <col=000080>blood spindle branches</col> into <col=000080>26 arrow shafts</col> within Daemonheim.");
             case 14 :
-                return(21, blood_spindle_shortbow, "Blood spindle shortbow (Tier 3)", "You can now fletch <col=000080>blood spindle shortbows</col> within Daemonheim.");
+                return(21, rand_shortbow_3, "Blood spindle shortbow (Tier 3)", "You can now fletch <col=000080>blood spindle shortbows</col> within Daemonheim.");
             case 15 :
-                return(22, marmaros_arrows, "Marmaros arrows (Tier 3)", "You can now fletch <col=000080>marmaros arrows</col> within Daemonheim.");
+                return(22, rand_arrow_3, "Marmaros arrows (Tier 3)", "You can now fletch <col=000080>marmaros arrows</col> within Daemonheim.");
             case 16 :
-                return(23, blood_spindle_trap, "Blood spindle trap (Tier 3)", "You can now fletch <col=000080>blood spindle traps</col> within Daemonheim.");
+                return(23, rand_trap_3, "Blood spindle trap (Tier 3)", "You can now fletch <col=000080>blood spindle traps</col> within Daemonheim.");
             case 17 :
-                return(26, blood_spindle_longbow, "Blood spindle longbow (Tier 3)", "You can now fletch <col=000080>blood spindle longbows</col> within Daemonheim.");
+                return(26, rand_longbow_3, "Blood spindle longbow (Tier 3)", "You can now fletch <col=000080>blood spindle longbows</col> within Daemonheim.");
             case 18 :
-                return(28, blood_spindle_staff, "Blood spindle staff (Tier 3)", "You can now fletch <col=000080>blood spindle staves</col> within Daemonheim.");
+                return(28, rand_basic_staff_3, "Blood spindle staff (Tier 3)", "You can now fletch <col=000080>blood spindle staves</col> within Daemonheim.");
             case 19 :
-                return(30, arrow_shaft_17742, "Utuku<br> 32 Arrow shafts", "You can now fletch <col=000080>utuku branches</col> into <col=000080>32 arrow shafts</col> within Daemonheim.");
+                return(30, rand_arrow_shaft, "Utuku<br> 32 Arrow shafts", "You can now fletch <col=000080>utuku branches</col> into <col=000080>32 arrow shafts</col> within Daemonheim.");
             case 20 :
-                return(31, utuku_shortbow, "Utuku shortbow (Tier 4)", "You can now fletch <col=000080>utuku shortbows</col> within Daemonheim.");
+                return(31, rand_shortbow_4, "Utuku shortbow (Tier 4)", "You can now fletch <col=000080>utuku shortbows</col> within Daemonheim.");
             case 21 :
-                return(33, kratonite_arrows, "Kratonite arrows (Tier 4)", "You can now fletch <col=000080>kratonite arrows</col> within Daemonheim.");
+                return(33, rand_arrow_4, "Kratonite arrows (Tier 4)", "You can now fletch <col=000080>kratonite arrows</col> within Daemonheim.");
             case 22 :
-                return(33, utuku_trap, "Utuku trap (Tier 4)", "You can now fletch <col=000080>utuku traps</col> within Daemonheim.");
+                return(33, rand_trap_4, "Utuku trap (Tier 4)", "You can now fletch <col=000080>utuku traps</col> within Daemonheim.");
             case 23 :
-                return(36, utuku_longbow, "Utuku longbow (Tier 4)", "You can now fletch <col=000080>utuku longbows</col> within Daemonheim.");
+                return(36, rand_longbow_4, "Utuku longbow (Tier 4)", "You can now fletch <col=000080>utuku longbows</col> within Daemonheim.");
             case 24 :
-                return(38, utuku_staff, "Utuku staff (Tier 4)", "You can now fletch <col=000080>utuku staves</col> within Daemonheim.");
+                return(38, rand_basic_staff_4, "Utuku staff (Tier 4)", "You can now fletch <col=000080>utuku staves</col> within Daemonheim.");
             case 25 :
-                return(40, arrow_shaft_17742, "Spinebeam<br> 37 Arrow shafts", "You can now fletch <col=000080>spinebeam branches</col> into <col=000080>37 arrow shafts</col> within Daemonheim.");
+                return(40, rand_arrow_shaft, "Spinebeam<br> 37 Arrow shafts", "You can now fletch <col=000080>spinebeam branches</col> into <col=000080>37 arrow shafts</col> within Daemonheim.");
             case 26 :
-                return(41, spinebeam_shortbow, "Spinebeam shortbow (Tier 5)", "You can now fletch <col=000080>spinebeam shortbows</col> within Daemonheim.");
+                return(41, rand_shortbow_5, "Spinebeam shortbow (Tier 5)", "You can now fletch <col=000080>spinebeam shortbows</col> within Daemonheim.");
             case 27 :
-                return(43, spinebeam_trap, "Spinebeam trap (Tier 5)", "You can now fletch <col=000080>spinebeam traps</col> within Daemonheim.");
+                return(43, rand_trap_5, "Spinebeam trap (Tier 5)", "You can now fletch <col=000080>spinebeam traps</col> within Daemonheim.");
             case 28 :
-                return(44, fractite_arrows, "Fractite arrows (Tier 5)", "You can now fletch <col=000080>fractite arrows</col> within Daemonheim.");
+                return(44, rand_arrow_5, "Fractite arrows (Tier 5)", "You can now fletch <col=000080>fractite arrows</col> within Daemonheim.");
             case 29 :
-                return(46, spinebeam_longbow, "Spinebeam longbow (Tier 5)", "You can now fletch <col=000080>spinebeam longbows</col> within Daemonheim.");
+                return(46, rand_longbow_5, "Spinebeam longbow (Tier 5)", "You can now fletch <col=000080>spinebeam longbows</col> within Daemonheim.");
             case 30 :
-                return(48, spinebeam_staff, "Spinebeam staff (Tier 5)", "You can now fletch <col=000080>spinebeam staves</col> within Daemonheim.");
+                return(48, rand_basic_staff_5, "Spinebeam staff (Tier 5)", "You can now fletch <col=000080>spinebeam staves</col> within Daemonheim.");
             case 31 :
-                return(50, arrow_shaft_17742, "Bovistrangler<br> 43 Arrow shafts", "You can now fletch <col=000080>bovistrangler branches</col> into <col=000080>43 arrow shafts</col> within Daemonheim.");
+                return(50, rand_arrow_shaft, "Bovistrangler<br> 43 Arrow shafts", "You can now fletch <col=000080>bovistrangler branches</col> into <col=000080>43 arrow shafts</col> within Daemonheim.");
             case 32 :
-                return(51, bovistrangler_shortbow, "Bovistrangler shortbow (Tier 6)", "You can now fletch <col=000080>bovistrangler shortbows</col> within Daemonheim.");
+                return(51, rand_shortbow_6, "Bovistrangler shortbow (Tier 6)", "You can now fletch <col=000080>bovistrangler shortbows</col> within Daemonheim.");
             case 33 :
-                return(53, bovistrangler_trap, "Bovistrangler trap (Tier 6)", "You can now fletch <col=000080>bovistrangler traps</col> within Daemonheim.");
+                return(53, rand_trap_6, "Bovistrangler trap (Tier 6)", "You can now fletch <col=000080>bovistrangler traps</col> within Daemonheim.");
             case 34 :
-                return(55, zephyrium_arrows, "Zephyrium arrows (Tier 6)", "You can now fletch <col=000080>zephyrium arrows</col> within Daemonheim.");
+                return(55, rand_arrow_6, "Zephyrium arrows (Tier 6)", "You can now fletch <col=000080>zephyrium arrows</col> within Daemonheim.");
             case 35 :
-                return(56, bovistrangler_longbow, "Bovistrangler longbow (Tier 6)", "You can now fletch <col=000080>bovistrangler longbows</col> within Daemonheim.");
+                return(56, rand_longbow_6, "Bovistrangler longbow (Tier 6)", "You can now fletch <col=000080>bovistrangler longbows</col> within Daemonheim.");
             case 36 :
-                return(58, bovistrangler_staff, "Bovistrangler staff (Tier 6)", "You can now fletch <col=000080>bovistrangler staves</col> within Daemonheim.");
+                return(58, rand_basic_staff_6, "Bovistrangler staff (Tier 6)", "You can now fletch <col=000080>bovistrangler staves</col> within Daemonheim.");
             case 37 :
-                return(60, arrow_shaft_17742, "Thigat<br> 48 Arrow shafts", "You can now fletch <col=000080>thigat branches</col> into <col=000080>48 arrow shafts</col> within Daemonheim.");
+                return(60, rand_arrow_shaft, "Thigat<br> 48 Arrow shafts", "You can now fletch <col=000080>thigat branches</col> into <col=000080>48 arrow shafts</col> within Daemonheim.");
             case 38 :
-                return(61, thigat_shortbow, "Thigat shortbow (Tier 7)", "You can now fletch <col=000080>thigat shortbows</col> within Daemonheim.");
+                return(61, rand_shortbow_7, "Thigat shortbow (Tier 7)", "You can now fletch <col=000080>thigat shortbows</col> within Daemonheim.");
             case 39 :
-                return(63, thigat_trap, "Thigat trap (Tier 7)", "You can now fletch <col=000080>thigat traps</col> within Daemonheim.");
+                return(63, rand_trap_7, "Thigat trap (Tier 7)", "You can now fletch <col=000080>thigat traps</col> within Daemonheim.");
             case 40 :
-                return(66, argonite_arrows, "Argonite arrows (Tier 7)", "You can now fletch <col=000080>argonite arrows</col> within Daemonheim.");
+                return(66, rand_arrow_7, "Argonite arrows (Tier 7)", "You can now fletch <col=000080>argonite arrows</col> within Daemonheim.");
             case 41 :
-                return(66, thigat_longbow, "Thigat longbow (Tier 7)", "You can now fletch <col=000080>thigat longbows</col> within Daemonheim.");
+                return(66, rand_longbow_7, "Thigat longbow (Tier 7)", "You can now fletch <col=000080>thigat longbows</col> within Daemonheim.");
             case 42 :
-                return(68, thigat_staff, "Thigat staff (Tier 7)", "You can now fletch <col=000080>thigat staves</col> within Daemonheim.");
+                return(68, rand_basic_staff_7, "Thigat staff (Tier 7)", "You can now fletch <col=000080>thigat staves</col> within Daemonheim.");
             case 43 :
-                return(70, arrow_shaft_17742, "Corpsethorn<br> 54 Arrow shafts", "You can now fletch <col=000080>corpsethorn branches</col> into <col=000080>54 arrow shafts</col> within Daemonheim.");
+                return(70, rand_arrow_shaft, "Corpsethorn<br> 54 Arrow shafts", "You can now fletch <col=000080>corpsethorn branches</col> into <col=000080>54 arrow shafts</col> within Daemonheim.");
             case 44 :
-                return(71, corpsethorn_shortbow, "Corpsethorn shortbow (Tier 8)", "You can now fletch <col=000080>corpsethorn shortbows</col> within Daemonheim.");
+                return(71, rand_shortbow_8, "Corpsethorn shortbow (Tier 8)", "You can now fletch <col=000080>corpsethorn shortbows</col> within Daemonheim.");
             case 45 :
-                return(73, corpsethorn_trap, "Corpsethorn trap (Tier 8)", "You can now fletch <col=000080>corpsethorn traps</col> within Daemonheim.");
+                return(73, rand_trap_8, "Corpsethorn trap (Tier 8)", "You can now fletch <col=000080>corpsethorn traps</col> within Daemonheim.");
             case 46 :
-                return(76, corpsethorn_longbow, "Corpsethorn longbow (Tier 8)", "You can now fletch <col=000080>corpsethorn longbows</col> within Daemonheim.");
+                return(76, rand_longbow_8, "Corpsethorn longbow (Tier 8)", "You can now fletch <col=000080>corpsethorn longbows</col> within Daemonheim.");
             case 47 :
-                return(77, katagon_arrows, "Katagon arrows (Tier 8)", "You can now fletch <col=000080>katagon arrows</col> within Daemonheim.");
+                return(77, rand_arrow_8, "Katagon arrows (Tier 8)", "You can now fletch <col=000080>katagon arrows</col> within Daemonheim.");
             case 48 :
-                return(78, corpsethorn_staff, "Corpsethorn staff (Tier 8)", "You can now fletch <col=000080>corpsethorn staves</col> within Daemonheim.");
+                return(78, rand_basic_staff_8, "Corpsethorn staff (Tier 8)", "You can now fletch <col=000080>corpsethorn staves</col> within Daemonheim.");
             case 49 :
-                return(80, arrow_shaft_17742, "Entgallow<br> 59 Arrow shafts", "You can now fletch <col=000080>entgallow branches</col> into <col=000080>59 arrow shafts</col> within Daemonheim.");
+                return(80, rand_arrow_shaft, "Entgallow<br> 59 Arrow shafts", "You can now fletch <col=000080>entgallow branches</col> into <col=000080>59 arrow shafts</col> within Daemonheim.");
             case 50 :
-                return(81, entgallow_shortbow, "Entgallow shortbow (Tier 9)", "You can now fletch <col=000080>entgallow shortbows</col> within Daemonheim.");
+                return(81, rand_shortbow_9, "Entgallow shortbow (Tier 9)", "You can now fletch <col=000080>entgallow shortbows</col> within Daemonheim.");
             case 51 :
-                return(83, entgallow_trap, "Entgallow trap (Tier 9)", "You can now fletch <col=000080>entgallow traps</col> within Daemonheim.");
+                return(83, rand_trap_9, "Entgallow trap (Tier 9)", "You can now fletch <col=000080>entgallow traps</col> within Daemonheim.");
             case 52 :
-                return(86, entgallow_longbow, "Entgallow longbow (Tier 9)", "You can now fletch <col=000080>entgallow longbows</col> within Daemonheim.");
+                return(86, rand_longbow_9, "Entgallow longbow (Tier 9)", "You can now fletch <col=000080>entgallow longbows</col> within Daemonheim.");
             case 53 :
-                return(88, gorgonite_arrows, "Gorgonite arrows (Tier 9)", "You can now fletch <col=000080>gorgonite arrows</col> within Daemonheim.");
+                return(88, rand_arrow_9, "Gorgonite arrows (Tier 9)", "You can now fletch <col=000080>gorgonite arrows</col> within Daemonheim.");
             case 54 :
-                return(88, entgallow_staff, "Entgallow staff (Tier 9)", "You can now fletch <col=000080>entgallow staves</col> within Daemonheim.");
+                return(88, rand_basic_staff_9, "Entgallow staff (Tier 9)", "You can now fletch <col=000080>entgallow staves</col> within Daemonheim.");
             case 55 :
-                return(90, arrow_shaft_17742, "Grave creeper<br> 65 Arrow shafts", "You can now fletch <col=000080>grave creeper branches</col> into <col=000080>65 arrow shafts</col> within Daemonheim.");
+                return(90, rand_arrow_shaft, "Grave creeper<br> 65 Arrow shafts", "You can now fletch <col=000080>grave creeper branches</col> into <col=000080>65 arrow shafts</col> within Daemonheim.");
             case 56 :
-                return(91, grave_creeper_shortbow, "Grave creeper shortbow (Tier 10)", "You can now fletch <col=000080>grave creeper shortbows</col> within Daemonheim.");
+                return(91, rand_shortbow_10, "Grave creeper shortbow (Tier 10)", "You can now fletch <col=000080>grave creeper shortbows</col> within Daemonheim.");
             case 57 :
-                return(93, grave_creeper_trap, "Grave creeper trap (Tier 10)", "You can now fletch <col=000080>grave creeper traps</col> within Daemonheim.");
+                return(93, rand_trap_10, "Grave creeper trap (Tier 10)", "You can now fletch <col=000080>grave creeper traps</col> within Daemonheim.");
             case 58 :
-                return(96, grave_creeper_longbow, "Grave creeper longbow (Tier 10)", "You can now fletch <col=000080>grave creeper longbows</col> within Daemonheim.");
+                return(96, rand_longbow_10, "Grave creeper longbow (Tier 10)", "You can now fletch <col=000080>grave creeper longbows</col> within Daemonheim.");
             case 59 :
-                return(98, grave_creeper_staff, "Grave creeper staff (Tier 10)", "You can now fletch <col=000080>grave creeper staves</col> within Daemonheim.");
+                return(98, rand_basic_staff_10, "Grave creeper staff (Tier 10)", "You can now fletch <col=000080>grave creeper staves</col> within Daemonheim.");
             case 60 :
-                return(99, promethium_arrows, "Promethium arrows (Tier 10)", "You can now fletch promethium arrows</col> within Daemonheim.");
+                return(99, rand_arrow_10, "Promethium arrows (Tier 10)", "You can now fletch promethium arrows</col> within Daemonheim.");
         }
     case 8 :
         if ($int1 = 0) {
-            return(99, fletching_cape, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Fletching<col=000080>. Why not visit <col=800000>Hickton<col=000080> who runs the <col=800000>bow and arrow shop<col=000080> in <col=800000>Catherby<col=000080>? He has something special that is only available to true masters of the <col=800000>Fletching<col=000080> skill!");
+            return(99, skillcape_fletching, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Fletching<col=000080>. Why not visit <col=800000>Hickton<col=000080> who runs the <col=800000>bow and arrow shop<col=000080> in <col=800000>Catherby<col=000080>? He has something special that is only available to true masters of the <col=800000>Fletching<col=000080> skill!");
         }
 }

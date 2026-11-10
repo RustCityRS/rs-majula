@@ -3,8 +3,8 @@
 if (activeclansettings_find_affined = true) {
     ~script4291;
 } else {
-    if_setonclansettingstransmit("script4290", clansettings:com_124);
+    if_setonclansettingstransmit(clansettings:com_124, "script4290");
 }
-if (%varclient_1516 = -1) {
-    %varclient_1516 = 0;
+if (%clansettings_clanmate_filter_rank_plus_1 = -1) {
+    %clansettings_clanmate_filter_rank_plus_1 = 0;
 }

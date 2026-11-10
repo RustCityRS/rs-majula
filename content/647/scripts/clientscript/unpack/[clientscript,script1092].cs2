@@ -1,67 +1,67 @@
 // 1092
 [clientscript,script1092](int $int0)
 if ($int0 = 1) {
-    if (%varplayerbit_1892 = 60) {
-        if_setcolour(^green, hundred_subquest_journal:com_2);
-    } else if (%varplayerbit_1892 = 0) {
-        if_setcolour(^red, hundred_subquest_journal:com_2);
+    if (%hundred_dwarf_quest = 60) {
+        if_setcolour(hundred_subquest_journal:com_2, ^green);
+    } else if (%hundred_dwarf_quest = 0) {
+        if_setcolour(hundred_subquest_journal:com_2, ^red);
     } else {
-        if_setcolour(^yellow, hundred_subquest_journal:com_2);
+        if_setcolour(hundred_subquest_journal:com_2, ^yellow);
     }
 } else if ($int0 = 2) {
     if (%varplayerbit_1867 = 40) {
-        if_setcolour(^green, hundred_subquest_journal:com_3);
+        if_setcolour(hundred_subquest_journal:com_3, ^green);
     } else if (%varplayerbit_1867 = 0) {
-        if_setcolour(^red, hundred_subquest_journal:com_3);
+        if_setcolour(hundred_subquest_journal:com_3, ^red);
     } else {
-        if_setcolour(^yellow, hundred_subquest_journal:com_3);
+        if_setcolour(hundred_subquest_journal:com_3, ^yellow);
     }
 } else if ($int0 = 3) {
     if (%varplayerbit_1895 = 110) {
-        if_setcolour(^green, hundred_subquest_journal:com_4);
+        if_setcolour(hundred_subquest_journal:com_4, ^green);
     } else if (%varplayerbit_1895 = 0) {
-        if_setcolour(^red, hundred_subquest_journal:com_4);
+        if_setcolour(hundred_subquest_journal:com_4, ^red);
     } else {
-        if_setcolour(^yellow, hundred_subquest_journal:com_4);
+        if_setcolour(hundred_subquest_journal:com_4, ^yellow);
     }
 } else if ($int0 = 4) {
     if (%varplayerbit_1896 = 5) {
-        if_setcolour(^green, hundred_subquest_journal:com_5);
+        if_setcolour(hundred_subquest_journal:com_5, ^green);
     } else if (%varplayerbit_1896 = 0) {
-        if_setcolour(^red, hundred_subquest_journal:com_5);
+        if_setcolour(hundred_subquest_journal:com_5, ^red);
     } else {
-        if_setcolour(^yellow, hundred_subquest_journal:com_5);
+        if_setcolour(hundred_subquest_journal:com_5, ^yellow);
     }
 } else if ($int0 = 5) {
-    if (%varplayerbit_1878 = 5) {
-        if_setcolour(^green, hundred_subquest_journal:com_6);
-    } else if (%varplayerbit_1878 = 0) {
-        if_setcolour(^red, hundred_subquest_journal:com_6);
+    if (%hundred_dave_main = 5) {
+        if_setcolour(hundred_subquest_journal:com_6, ^green);
+    } else if (%hundred_dave_main = 0) {
+        if_setcolour(hundred_subquest_journal:com_6, ^red);
     } else {
-        if_setcolour(^yellow, hundred_subquest_journal:com_6);
+        if_setcolour(hundred_subquest_journal:com_6, ^yellow);
     }
 } else if ($int0 = 6) {
-    if (%varplayerbit_1910 = 20) {
-        if_setcolour(^green, hundred_subquest_journal:com_7);
-    } else if (%varplayerbit_1910 = 0) {
-        if_setcolour(^red, hundred_subquest_journal:com_7);
+    if (%chickenquest = 20) {
+        if_setcolour(hundred_subquest_journal:com_7, ^green);
+    } else if (%chickenquest = 0) {
+        if_setcolour(hundred_subquest_journal:com_7, ^red);
     } else {
-        if_setcolour(^yellow, hundred_subquest_journal:com_7);
+        if_setcolour(hundred_subquest_journal:com_7, ^yellow);
     }
 } else if ($int0 = 7) {
     if (%varplayerbit_1904 = 170) {
-        if_setcolour(^green, hundred_subquest_journal:com_8);
+        if_setcolour(hundred_subquest_journal:com_8, ^green);
     } else if (%varplayerbit_1904 = 0) {
-        if_setcolour(^red, hundred_subquest_journal:com_8);
+        if_setcolour(hundred_subquest_journal:com_8, ^red);
     } else {
-        if_setcolour(^yellow, hundred_subquest_journal:com_8);
+        if_setcolour(hundred_subquest_journal:com_8, ^yellow);
     }
 } else if ($int0 = 8) {
-    if (%varplayerbit_1914 = 50) {
-        if_setcolour(^green, hundred_subquest_journal:com_9);
-    } else if (%varplayerbit_1914 = 0) {
-        if_setcolour(^red, hundred_subquest_journal:com_9);
+    if (%hundred_ilm_quest = 50) {
+        if_setcolour(hundred_subquest_journal:com_9, ^green);
+    } else if (%hundred_ilm_quest = 0) {
+        if_setcolour(hundred_subquest_journal:com_9, ^red);
     } else {
-        if_setcolour(^yellow, hundred_subquest_journal:com_9);
+        if_setcolour(hundred_subquest_journal:com_9, ^yellow);
     }
 }

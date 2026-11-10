@@ -12,7 +12,7 @@ if ($int0 = -1) {
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     cc_setcolour(0xa05a00);
     cc_settextshadow(false);
-    if_setscrollsize(0, 15, objdialog:resultlist);
+    if_setscrollsize(objdialog:resultlist, 0, 15);
     ~objdialog_doscrollbar;
     return;
 }
@@ -25,7 +25,7 @@ if ($int0 = 0) {
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     cc_setcolour(0xa05a00);
     cc_settextshadow(false);
-    if_setscrollsize(0, 15, objdialog:resultlist);
+    if_setscrollsize(objdialog:resultlist, 0, 15);
     ~objdialog_doscrollbar;
     return;
 }
@@ -45,5 +45,5 @@ while ($obj4 ! null) {
     $obj4 = oc_findnext;
     $int3 = calc($int3 + 1);
 }
-if_setscrollsize(0, calc(15 * ($int3 - 1)), objdialog:resultlist);
+if_setscrollsize(objdialog:resultlist, 0, calc(15 * ($int3 - 1)));
 ~objdialog_doscrollbar;

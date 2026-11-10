@@ -96,7 +96,7 @@ fn the_lost_city_adventurers_answer_every_branch() {
     runner::on_loaded_engine(|engine| {
         for npc in [
             "archeradventurerpg",
-            "warrior",
+            "warrioradventurerpg",
             "monkadventurerpg",
             "wizardadventuterpg",
         ] {

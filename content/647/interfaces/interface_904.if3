@@ -275,7 +275,7 @@ colour=0xaaaaaa
 transmitop=10
 op10=   
 onload=boardgames_status(interface_904:status1, interface_904:status2, interface_904:status3, interface_904:tooltip)
-onvarcstrtransmit=boardgames_status(interface_904:status1, interface_904:status2, interface_904:status3, interface_904:tooltip){varclient_1662, varclient_1663, varclient_1664}
+onvarcstrtransmit=boardgames_status(interface_904:status1, interface_904:status2, interface_904:status3, interface_904:tooltip){boardgames_status1, boardgames_status2, varclient_1664}
 
 // 904:20
 [status2]
@@ -322,7 +322,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10=   
-onvarctransmit=boardgames_piece1(event_com){varclient_809}
+onvarctransmit=boardgames_piece1(event_com){boardgames_pl_piece}
 
 // 904:23
 [game_piece_player2]
@@ -337,7 +337,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10=   
-onvarctransmit=boardgames_piece2(event_com){varclient_810}
+onvarctransmit=boardgames_piece2(event_com){boardgames_opp_piece}
 
 // 904:24
 [sandtimer]
@@ -352,7 +352,7 @@ modelorigin=0,45
 modelzoom=2048
 transmitop=10
 op10=  
-onvarctransmit=boardgames_sandtimer(event_com){varclient_811}
+onvarctransmit=boardgames_sandtimer(event_com){boardgames_sandtimer}
 
 // 904:25
 [resign_layer]
@@ -364,7 +364,7 @@ height=42
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=closebutton_click
 
 // 904:26
@@ -486,7 +486,7 @@ height=43
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 904:35
 [boardgames_runelink_draw]

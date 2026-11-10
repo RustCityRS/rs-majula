@@ -16,11 +16,11 @@ def_int $colour_index = random($colour_count);
 def_int $hair_colour = enum(105, 105, enum_2345, $colour_index);
 if ($hair_colour ! -1) {
     setidkcolour(0, $hair_colour);
-    %varclient_1015 = $hair_colour;
+    %playerdesign3_haircol = $hair_colour;
 }
 
-if ($hair ! -1) { %varclient_1008 = $hair; }
-%varclient_1009 = 14;
+if ($hair ! -1) { %playerdesign3_head = $hair; }
+%playerdesign3_jaw = 14;
 
 if_opentop(playerdesign4);
 allowdesign(^true);
@@ -28,37 +28,37 @@ allowdesign(^true);
 ~cc_transmit_invs();
 
 [proc,cc_send_makeover_varcs]()
-%varclient_1008 = 0
-%varclient_1009 = 14
-%varclient_1010 = 18
-%varclient_1011 = 26
-%varclient_1012 = 34
-%varclient_1013 = 38
-%varclient_1014 = 42
-%varclient_1015 = 0
-%varclient_1016 = 0
-%varclient_1017 = 0
-%varclient_1018 = 0
+%playerdesign3_head = 0
+%playerdesign3_jaw = 14
+%playerdesign3_torso = 18
+%playerdesign3_arms = 26
+%playerdesign3_hands = 34
+%playerdesign3_legs = 38
+%playerdesign3_feet = 42
+%playerdesign3_haircol = 0
+%playerdesign3_torsocol = 0
+%playerdesign3_legscol = 0
+%playerdesign3_feetcol = 0
 
 [proc,cc_transmit_invs]()
-inv_transmit(inv_463, playerdesign4:skincolours)
-inv_transmit(inv_486, playerdesign4:skincolours)
-inv_transmit(inv_499, playerdesign4:skincolours)
-inv_transmit(inv_585, playerdesign4:skincolours)
-inv_transmit(inv_586, playerdesign4:skincolours)
-inv_transmit(inv_587, playerdesign4:skincolours)
-inv_transmit(inv_588, playerdesign4:skincolours)
-inv_transmit(inv_589, playerdesign4:skincolours)
-inv_transmit(inv_590, playerdesign4:skincolours)
-inv_transmit(inv_591, playerdesign4:skincolours)
-inv_transmit(inv_592, playerdesign4:skincolours)
-inv_transmit(inv_593, playerdesign4:skincolours)
-inv_transmit(inv_594, playerdesign4:skincolours)
-inv_transmit(inv_595, playerdesign4:skincolours)
-inv_transmit(inv_596, playerdesign4:skincolours)
-inv_transmit(inv_597, playerdesign4:skincolours)
-inv_transmit(inv_598, playerdesign4:skincolours)
-inv_transmit(inv_599, playerdesign4:skincolours)
+inv_transmit(ranging_guild_bowshop_skillcape, playerdesign4:skincolours)
+inv_transmit(poh_costume_room_treasure_trail_2a_inv, playerdesign4:skincolours)
+inv_transmit(poh_costume_room_treasure_trail_2a_inv_check, playerdesign4:skincolours)
+inv_transmit(playerkit_default, playerdesign4:skincolours)
+inv_transmit(playerkit_mage, playerdesign4:skincolours)
+inv_transmit(playerkit_chef, playerdesign4:skincolours)
+inv_transmit(playerkit_crafter, playerdesign4:skincolours)
+inv_transmit(playerkit_fletcher, playerdesign4:skincolours)
+inv_transmit(playerkit_herbalist, playerdesign4:skincolours)
+inv_transmit(playerkit_priest, playerdesign4:skincolours)
+inv_transmit(playerkit_slayer, playerdesign4:skincolours)
+inv_transmit(playerkit_smith, playerdesign4:skincolours)
+inv_transmit(playerkit_warrior, playerdesign4:skincolours)
+inv_transmit(playerkit_woodcutter, playerdesign4:skincolours)
+inv_transmit(playerkit_fisher, playerdesign4:skincolours)
+inv_transmit(playerkit_farmer, playerdesign4:skincolours)
+inv_transmit(playerkit_runecrafter, playerdesign4:skincolours)
+inv_transmit(playerkit_summoner, playerdesign4:skincolours)
 
 [proc,cc_enable_events]()
 if_setevents(playerdesign4:skincolours, 0, 20, ^if_op1, 0, 0, ^false, ^false)

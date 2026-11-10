@@ -8,7 +8,7 @@
 [opheldu,clay]
 switch_obj (last_useitem)
 {
-    case bowl_of_water, bucket_of_water, jug_of_water : @make_softclay(last_useitem);
+    case bowl_water, bucket_water, jug_water : @make_softclay(last_useitem);
     case default : ~displaymessage(^dm_default);
 }
 
@@ -21,7 +21,7 @@ if(loc_type = viking_potterywheel) {
 }
 switch_obj (last_useitem)
 {
-    case soft_clay : @craft_pottery_interface;
+    case softclay : @craft_pottery_interface;
     case clay : ~objbox(clay, "This clay is too hard to craft|You'll need to soften it with some water.", 250, 0, divide(^objbox_height, 2));
     case default : ~displaymessage(^dm_default);
 }
@@ -35,7 +35,7 @@ if(loc_type = viking_potteryoven) {
 }
 switch_obj (last_useitem)
 {
-    case bowl__unfired, pie_dish__unfired, pot__unfired : @fire_pottery(last_useslot);
+    case bowl_unfired, piedish_unfired, pot_unfired : @fire_pottery(last_useslot);
     case default : ~displaymessage(^dm_default);
 }
 
@@ -59,7 +59,7 @@ inv_del(inv, oc_param($empty_source, next_obj_stage), 1);
 //add empty water source BEFORE soft clay
 inv_add(inv, $empty_source, 1);
 //add soft clay
-inv_add(inv, soft_clay, 1);
+inv_add(inv, softclay, 1);
 p_delay(1); // 2 ticks
 mes("You now have some soft workable clay.");
 
@@ -67,9 +67,9 @@ mes("You now have some soft workable clay.");
 def_namedobj $item;
 def_int $count;
 $item, $count = ~skill_multi3(
-    pot__unfired, 0, 2, 185, "\\n\\n\\n\\nPot",
-    pie_dish__unfired, 0, -4, 190, "\\n\\n\\n\\nPie Dish",
-    bowl__unfired, 0, 0, 200, "\\n\\n\\n\\nBowl"
+    pot_unfired, 0, 2, 185, "\\n\\n\\n\\nPot",
+    piedish_unfired, 0, -4, 190, "\\n\\n\\n\\nPie Dish",
+    bowl_unfired, 0, 0, 200, "\\n\\n\\n\\nBowl"
 );
 if ($item = null) {
     ~displaymessage(^dm_default);
@@ -93,11 +93,11 @@ if (%action_delay < map_clock) {
 weakqueue*(craft_pottery, sub(%action_delay, map_clock))($item, $struct, $name, $level, $count);
 
 [queue,craft_pottery](namedobj $item, struct $struct, string $name, int $level, int $count)
-if(inv_total(inv, soft_clay) = 0) {
+if(inv_total(inv, softclay) = 0) {
     mes("You have run out of soft clay.");
     return;
 }
-inv_del(inv, soft_clay, 1);
+inv_del(inv, softclay, 1);
 inv_add(inv, $item, 1);
 // 289 pays with stat_advance, here and below; 2011's xp counter
 // counts what ~givexp pays (player/scripts/xp.rs2).
@@ -116,9 +116,9 @@ def_namedobj $item;
 def_int $count;
 // https://youtu.be/WGbO-Xwk8b8?si=ISoIMVCPIAg37Hp4&t=197 uses unfired objs
 $item, $count = ~skill_multi3(
-    pot__unfired, 0, 2, 185, "\\n\\n\\n\\nPot",
-    pie_dish__unfired, 0, -4, 190, "\\n\\n\\n\\nPie Dish",
-    bowl__unfired, 0, 0, 200, "\\n\\n\\n\\nBowl"
+    pot_unfired, 0, 2, 185, "\\n\\n\\n\\nPot",
+    piedish_unfired, 0, -4, 190, "\\n\\n\\n\\nPie Dish",
+    bowl_unfired, 0, 0, 200, "\\n\\n\\n\\nBowl"
 );
 if ($item = null) {
     ~displaymessage(^dm_default);

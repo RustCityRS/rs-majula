@@ -1,10 +1,10 @@
 [opheldu,cocktail_shaker] 
 switch_obj(last_useitem) {
-    case cocktail_glass : @pour_cocktail_shaker;
+    case cocktail_glass_empty : @pour_cocktail_shaker;
     case default : @add_cocktail_ingredient(last_useitem);
 }
 
-[opheldu,cocktail_glass]
+[opheldu,cocktail_glass_empty]
 switch_obj(last_useitem) {
     case cocktail_shaker : @pour_cocktail_shaker;
     case default : ~displaymessage(^dm_default);
@@ -22,7 +22,7 @@ if (~gnome_cocktail_ingredient_space = 0) { // guess
 switch_obj($ingredient) {
     case lemon, orange, pineapple, lime, dwellberries :
         mes("You squeeze the juice from the <lowercase(oc_name($ingredient))> into your cocktail shaker..."); // guess
-    case vodka, gin, brandy, whisky, bucket_of_milk :
+    case vodka, gin, brandy, whisky, bucket_milk :
         mes("You pour the <lowercase(oc_name($ingredient))> into your cocktail shaker..."); // guess
     case equa_leaves :
         mes("You sprinkle the equa leaves into your cocktail shaker..."); // guess
@@ -46,7 +46,7 @@ switch_obj($ingredient) {
     case lime : %gnome_cocktail_bits1 = setbit_range_toint(%gnome_cocktail_bits1, add(getbit_range(%gnome_cocktail_bits1, 24, 27), 1), 24, 27);
     case pineapple : %gnome_cocktail_bits1 = setbit_range_toint(%gnome_cocktail_bits1, add(getbit_range(%gnome_cocktail_bits1, 28, 31), 1), 28, 31);
     case equa_leaves : %gnome_cocktail_bits2 = setbit_range_toint(%gnome_cocktail_bits2, add(getbit_range(%gnome_cocktail_bits2, 0, 3), 1), 0, 3);
-    case bucket_of_milk : %gnome_cocktail_bits2 = setbit_range_toint(%gnome_cocktail_bits2, add(getbit_range(%gnome_cocktail_bits2, 4, 7), 1), 4, 7);
+    case bucket_milk : %gnome_cocktail_bits2 = setbit_range_toint(%gnome_cocktail_bits2, add(getbit_range(%gnome_cocktail_bits2, 4, 7), 1), 4, 7);
     case dwellberries : %gnome_cocktail_bits2 = setbit_range_toint(%gnome_cocktail_bits2, add(getbit_range(%gnome_cocktail_bits2, 8, 11), 1), 8, 11);
 }
 
@@ -55,7 +55,7 @@ if (~gnome_cocktail_ingredient_space = 15) {
     mes("There's nothing to pour from the cocktail shaker."); // guess
     return;
 }
-inv_del(inv, cocktail_glass, 1);
+inv_del(inv, cocktail_glass_empty, 1);
 inv_add(inv, ~gnome_cocktail, 1);
 
 [proc,gnome_cocktail]()(namedobj)

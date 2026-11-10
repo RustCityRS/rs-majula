@@ -11,14 +11,14 @@ def_string $string0 = " ";
 def_enum $enum7 = null;
 if (gender = 1) {
     $int4 = enum_getoutputcount(enum_2363);
-    if (%varclient_783 = 0) {
+    if (%player_kit_bracelet_layer = 0) {
         $enum7 = enum_2362;
     } else {
         $enum7 = enum_2361;
     }
 } else {
     $int4 = enum_getoutputcount(enum_2132);
-    if (%varclient_783 = 0) {
+    if (%player_kit_bracelet_layer = 0) {
         $enum7 = enum_2129;
     } else {
         $enum7 = enum_1609;

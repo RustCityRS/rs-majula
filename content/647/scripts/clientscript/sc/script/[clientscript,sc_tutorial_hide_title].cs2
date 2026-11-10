@@ -1,5 +1,5 @@
 // 1944
 [clientscript,sc_tutorial_hide_title]
-if_settext("", sc_tutorial_overlay:title_text);
-if_sethide(true, sc_tutorial_overlay:title_layer);
-%varclient_581 = 0;
+if_settext(sc_tutorial_overlay:title_text, "");
+if_sethide(sc_tutorial_overlay:title_layer, true);
+%sc_tutorial_title_visible = 0;

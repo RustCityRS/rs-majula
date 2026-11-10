@@ -30,7 +30,7 @@ if (cam_getangle_ya < $int1) {
         }
         if (cam_getangle_ya = 0 & $int2 = 0) {
             cam_forceangle(cam_getangle_xa, 2047);
-            if_setontimer("script421($int0, $int1, 1)", conq_scroll_overlay:main_layer);
+            if_setontimer(conq_scroll_overlay:main_layer, "script421($int0, $int1, 1)");
         }
     }
 } else if (cam_getangle_ya > $int1) {
@@ -46,7 +46,7 @@ if (cam_getangle_ya < $int1) {
         }
         if (cam_getangle_ya = 2047 & $int2 = 0) {
             cam_forceangle(cam_getangle_xa, 0);
-            if_setontimer("script421($int0, $int1, 1)", conq_scroll_overlay:main_layer);
+            if_setontimer(conq_scroll_overlay:main_layer, "script421($int0, $int1, 1)");
         }
     } else {
         $int10 = $int7;
@@ -64,5 +64,5 @@ if (cam_getangle_xa < $int0) {
     $int3 = 1;
 }
 if ($int3 = 1 & $int4 = 1) {
-    if_setontimer(null, conq_scroll_overlay:main_layer);
+    if_setontimer(conq_scroll_overlay:main_layer, null);
 }

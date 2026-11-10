@@ -1,7 +1,7 @@
 [label,pvp_magic_attack]
-def_dbrow $spell_data = ~get_spell_data(%autocast_spell);
+def_dbrow $spell_data = ~get_spell_data(%varplayer_59);
 if (~check_spell_requirements($spell_data) = false) {
-    if (%autocast_spell = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
+    if (%varplayer_59 = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
         ~player_autocast_reset;
     }
     return;
@@ -70,7 +70,7 @@ if (map_clock < %action_delay) {
     return(false);
 }
 if (~check_spell_requirements($spell_data) = false) {
-    if (%autocast_spell = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
+    if (%varplayer_59 = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
         ~player_autocast_reset;
     }
     return(false);
@@ -235,14 +235,14 @@ if (db_getfieldcount($spell_data, magic_spell_table:spotanim_proj) > 0) {
 
 // continue by autocast
 if (~player_autocast_enabled = true & db_getfield($spell_data, magic_spell_table:continue_by_autocast, 0) = true) {
-    p_opplayert(db_getfield(~get_spell_data(%autocast_spell), magic_spell_table:spellcom, 0));
+    p_opplayert(db_getfield(~get_spell_data(%varplayer_59), magic_spell_table:spellcom, 0));
 }
 return($duration);
 
 [proc,magic_spell_maxhit](dbrow $spell_data)(int)
 def_int $maxhit = db_getfield($spell_data, magic_spell_table:maxhit, 0);
 def_int $spell = db_getfield($spell_data, magic_spell_table:spell, 0);
-if (inv_total(worn, chaos_gauntlets) > 0 & $spell >= ^wind_bolt & $spell <= ^fire_bolt) {
+if (inv_total(worn, gauntlets_of_chaos) > 0 & $spell >= ^wind_bolt & $spell <= ^fire_bolt) {
     $maxhit = add($maxhit, 3);
 }
 return($maxhit);

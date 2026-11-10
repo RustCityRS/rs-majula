@@ -39,8 +39,8 @@ if (add(%lastcombat, 8) > map_clock) {
     mes("Please finish what you are doing before opening the world map.");
     return;
 }
-%varclient_622 = coord;
-%varclient_674 = coord;
+%worldmap_focus = coord;
+%worldmap_player_coord = coord;
 if_opentop(worldmap);
 // The key's option lines (below) send their ops only from the slots enabled
 // here. void-634 enables 0-182, every line of the key; which range 2011 used
@@ -54,7 +54,7 @@ if_setevents(worldmap:com_49, 0, 19, ^if_op1, 0, 0, false, false);
 // the left hand, puts obj 9973 (a tan and black two-panel dummy model) in the
 // right and loops from frame 8. In client B the player holds it up in front
 // in both hands at chest height, the 2009 pose (2026-11-08).
-anim(seq_5354, 0);
+anim(qip_watchtower_read_scroll, 0);
 
 // The X at the top right (755:44, op1 "Close"). The client keeps every
 // sub-interface across IF_OPENTOP, so the frame comes back with its tabs,
@@ -90,7 +90,7 @@ if (getwindowmode = 1) {
 // (clientscripts 692 and 1839; YouTube 0PgitXjVAiU, 2011-02-09, 07:45 "Key
 // order: Traditional", 08:30-08:38).
 [if_button1,worldmap:sort_button]
-%varplayerbit_5367 = ~worldmap_keysort_next(%varplayerbit_5367);
+%worldmap_keysort = ~worldmap_keysort_next(%worldmap_keysort);
 
 // The option lines. script285 builds each as two clickable children of
 // 755:49 and the client sends the clicked one's slot: "You are here" 0 and 1
@@ -101,10 +101,10 @@ if (getwindowmode = 1) {
 // only one child of each line (1, 4, 12, 16).
 [if_button1,worldmap:com_49]
 switch_int (last_slot) {
-    case 0, 1 : %varplayerbit_6174 = calc(1 - %varplayerbit_6174);
-    case 3, 4 : %varplayerbit_6175 = calc(1 - %varplayerbit_6175);
-    case 11, 12 : %varplayerbit_6176 = calc(1 - %varplayerbit_6176);
-    case 14, 16 : %varplayerbit_6177 = calc(1 - %varplayerbit_6177);
+    case 0, 1 : %worldmap_yah_hidden = calc(1 - %worldmap_yah_hidden);
+    case 3, 4 : %worldmap_samemaplinks_hidden = calc(1 - %worldmap_samemaplinks_hidden);
+    case 11, 12 : %worldmap_textlabels_hidden = calc(1 - %worldmap_textlabels_hidden);
+    case 14, 16 : %worldmap_tooltips_hidden = calc(1 - %worldmap_tooltips_hidden);
     case 18, 19 : ~worldmap_marker_clear; // "Clear your marker"
 }
 
@@ -154,7 +154,7 @@ if ($coord = %worldmap_lastclick & sub(map_clock, %worldmap_lastclick_clock) <= 
 %worldmap_lastclick_clock = map_clock;
 
 [proc,worldmap_marker_set](coord $coord)
-%varplayer_1159 = $coord;
+%playerdesign2_col = $coord;
 ~worldmap_marker_arrow;
 
 // The marker's hint arrow, which blinks at the minimap's edge and over the
@@ -167,10 +167,10 @@ if ($coord = %worldmap_lastclick & sub(map_clock, %worldmap_lastclick_clock) <= 
 // largest range. Its slot (7, clear of quests' 0) and height (0) are not
 // known.
 [proc,worldmap_marker_arrow]
-hint_coord_slot(^worldmap_marker_slot, ^worldmap_marker_icon, ^worldmap_marker_offset, %varplayer_1159, 0, ^worldmap_marker_range);
+hint_coord_slot(^worldmap_marker_slot, ^worldmap_marker_icon, ^worldmap_marker_offset, %playerdesign2_col, 0, ^worldmap_marker_range);
 
 [proc,worldmap_marker_clear]
-%varplayer_1159 = null;
+%playerdesign2_col = null;
 hint_stop_slot(^worldmap_marker_slot);
 
 [if_button2,toplevel:worldmap_icon] ~worldmap_marker_clear;

@@ -7,14 +7,14 @@
 // message. The other two are taken to do the same. Not known: what a crate gives when searched
 // again (the wiki says players "sometimes find some"), and the full-pack message (the usual
 // one here).
-[oploc1,crate_16559] @gobdip_search_crate;
-[oploc1,crate_16560] @gobdip_search_crate;
-[oploc1,crate_16561] @gobdip_search_crate;
+[oploc1,goblin_outpost_large_crate_armour1] @gobdip_search_crate;
+[oploc1,goblin_outpost_large_crate_armour2] @gobdip_search_crate;
+[oploc1,goblin_outpost_large_crate_armour3] @gobdip_search_crate;
 
 [label,gobdip_search_crate]
 if (inv_freespace(inv) = 0) {
     ~displaymessage(^dm_invspace);
     return;
 }
-inv_add(inv, goblin_mail, 1);
-~objbox(goblin_mail, "You find some goblin armour.", 250, 0, 0);
+inv_add(inv, goblin_armour, 1);
+~objbox(goblin_armour, "You find some goblin armour.", 250, 0, 0);

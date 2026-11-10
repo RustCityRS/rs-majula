@@ -110,7 +110,7 @@ fn finishing_cooks_assistant_completes_its_task() {
         assert_eq!(progress(engine, &client), (LUMBRIDGE_TASKS, 0));
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         let cookquest = *engine.cache.varps.debugnames.get("cookquest").unwrap();
-        let items: Vec<u16> = ["top_quality_milk", "extra_fine_flour", "super_large_egg"]
+        let items: Vec<u16> = ["cook_milk", "cook_flour", "cook_egg"]
             .iter()
             .map(|n| *engine.cache.objs.debugnames.get(*n).unwrap())
             .collect();

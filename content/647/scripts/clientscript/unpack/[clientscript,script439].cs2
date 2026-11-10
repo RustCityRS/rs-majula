@@ -1,16 +1,16 @@
 // 439
 [clientscript,script439](component $component0)
-switch_int (%varplayerbit_8087) {
+switch_int (%conq_max_turn_time_selection) {
     case 0 :
-        if_settext("0:30", $component0);
+        if_settext($component0, "0:30");
     case 1 :
-        if_settext("1:00", $component0);
+        if_settext($component0, "1:00");
     case 2 :
-        if_settext("1:30", $component0);
+        if_settext($component0, "1:30");
     case 3 :
-        if_settext("2:00", $component0);
+        if_settext($component0, "2:00");
     case 4 :
-        if_settext("2:30", $component0);
+        if_settext($component0, "2:30");
     case 5 :
-        if_settext("3:00", $component0);
+        if_settext($component0, "3:00");
 }

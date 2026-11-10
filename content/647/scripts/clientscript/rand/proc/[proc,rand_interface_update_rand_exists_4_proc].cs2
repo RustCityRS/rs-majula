@@ -1,19 +1,19 @@
 // 3248
 [proc,rand_interface_update_rand_exists_4_proc]
-if (%varclient_1201 = 1) {
-    if_settext(%varclient_1832, rand_dungeon_rewards_v2:player_4_name);
-    if_settext(enum(int, string, enum_2857, %varclient_1221), rand_dungeon_rewards_v2:player_4_title_1);
-    if_settext(enum(int, string, enum_2857, %varclient_1222), rand_dungeon_rewards_v2:player_4_title_2);
-    if_settext(enum(int, string, enum_2857, %varclient_1223), rand_dungeon_rewards_v2:player_4_title_3);
-    if_settext(enum(int, string, enum_2857, %varclient_1224), rand_dungeon_rewards_v2:player_4_title_4);
-    if_settext(enum(int, string, enum_2857, %varclient_1225), rand_dungeon_rewards_v2:player_4_title_5);
-    if_settext(enum(int, string, enum_2857, %varclient_1226), rand_dungeon_rewards_v2:player_4_title_6);
+if (%rand_exists_4 = 1) {
+    if_settext(rand_dungeon_rewards_v2:player_4_name, %rand_name_4);
+    if_settext(rand_dungeon_rewards_v2:player_4_title_1, enum(int, string, enum_2857, %rand_award_4_1));
+    if_settext(rand_dungeon_rewards_v2:player_4_title_2, enum(int, string, enum_2857, %rand_award_4_2));
+    if_settext(rand_dungeon_rewards_v2:player_4_title_3, enum(int, string, enum_2857, %rand_award_4_3));
+    if_settext(rand_dungeon_rewards_v2:player_4_title_4, enum(int, string, enum_2857, %rand_award_4_4));
+    if_settext(rand_dungeon_rewards_v2:player_4_title_5, enum(int, string, enum_2857, %rand_award_4_5));
+    if_settext(rand_dungeon_rewards_v2:player_4_title_6, enum(int, string, enum_2857, %rand_award_4_6));
 } else {
-    if_settext("", rand_dungeon_rewards_v2:player_4_name);
-    if_settext("", rand_dungeon_rewards_v2:player_4_title_1);
-    if_settext("", rand_dungeon_rewards_v2:player_4_title_2);
-    if_settext("", rand_dungeon_rewards_v2:player_4_title_3);
-    if_settext("", rand_dungeon_rewards_v2:player_4_title_4);
-    if_settext("", rand_dungeon_rewards_v2:player_4_title_5);
-    if_settext("", rand_dungeon_rewards_v2:player_4_title_6);
+    if_settext(rand_dungeon_rewards_v2:player_4_name, "");
+    if_settext(rand_dungeon_rewards_v2:player_4_title_1, "");
+    if_settext(rand_dungeon_rewards_v2:player_4_title_2, "");
+    if_settext(rand_dungeon_rewards_v2:player_4_title_3, "");
+    if_settext(rand_dungeon_rewards_v2:player_4_title_4, "");
+    if_settext(rand_dungeon_rewards_v2:player_4_title_5, "");
+    if_settext(rand_dungeon_rewards_v2:player_4_title_6, "");
 }

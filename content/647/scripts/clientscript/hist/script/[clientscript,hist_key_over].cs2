@@ -1,12 +1,12 @@
 // 716
 [clientscript,hist_key_over](component $component0)
 if ($component0 = hist_interface_key:head_layer) {
-    if_setmodel(model_41312, hist_interface_key:keymodel);
+    if_setmodel(hist_interface_key:keymodel, model_41312);
     sound_synth(synth_5111, 1, 0);
 } else if ($component0 = hist_interface_key:shaft_layer) {
-    if_setmodel(model_41303, hist_interface_key:keymodel);
+    if_setmodel(hist_interface_key:keymodel, model_41303);
     sound_synth(synth_5112, 1, 0);
 } else if ($component0 = hist_interface_key:teeth_layer) {
-    if_setmodel(model_41305, hist_interface_key:keymodel);
+    if_setmodel(hist_interface_key:keymodel, model_41305);
     sound_synth(synth_5110, 1, 0);
 }

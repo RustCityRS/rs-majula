@@ -1,17 +1,17 @@
 // 2961
 [clientscript,script2961](component $component0, component $component1, boolean $boolean2)
 if ($boolean2 = true) {
-    if (%varclient_986 = true) {
-        if_setgraphic("animatedcam,2", $component0);
+    if (%loginscreen_camera_disabled = true) {
+        if_setgraphic($component0, "animatedcam,2");
     } else {
-        if_setgraphic("animatedcam,1", $component0);
+        if_setgraphic($component0, "animatedcam,1");
     }
-    if_setcolour(0xebe0bc, $component1);
+    if_setcolour($component1, 0xebe0bc);
 } else {
-    if (%varclient_986 = true) {
-        if_setgraphic("animatedcam,0", $component0);
+    if (%loginscreen_camera_disabled = true) {
+        if_setgraphic($component0, "animatedcam,0");
     } else {
-        if_setgraphic("animatedcam,3", $component0);
+        if_setgraphic($component0, "animatedcam,3");
     }
-    if_setcolour(0xb2aa9f, $component1);
+    if_setcolour($component1, 0xb2aa9f);
 }

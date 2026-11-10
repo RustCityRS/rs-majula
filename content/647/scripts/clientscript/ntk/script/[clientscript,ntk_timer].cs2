@@ -1,64 +1,64 @@
 // 324
 [clientscript,ntk_timer](component $component0, component $component1, component $component2)
-def_int $int3 = min(%varplayerbit_2375, 500);
-if_setsize(0, scale(calc(500 - $int3), 500, 16384), ^setsize_minus, ^setsize_rel, $component0);
+def_int $int3 = min(%ntk_player_timer_count, 500);
+if_setsize($component0, 0, scale(calc(500 - $int3), 500, 16384), ^setsize_minus, ^setsize_rel);
 def_int $int4 = calc(164 + scale($int3, 500, 91));
 def_int $int5 = calc(164 - scale($int3, 500, 164));
 def_int $int6 = calc(41 - scale($int3, 500, 41));
 def_int $int7 = ~rgb_to_hex($int4, $int5, $int6);
-if_setcolour($int7, $component0);
-if_setcolour($int7, $component1);
+if_setcolour($component0, $int7);
+if_setcolour($component1, $int7);
 switch_int (scale(calc($int3 + 5), 500, 25)) {
     case 0 :
-        if_setmodel(model_16353, $component2);
+        if_setmodel($component2, model_16353);
     case 1 :
-        if_setmodel(model_16354, $component2);
+        if_setmodel($component2, model_16354);
     case 2 :
-        if_setmodel(model_16355, $component2);
+        if_setmodel($component2, model_16355);
     case 3 :
-        if_setmodel(model_16356, $component2);
+        if_setmodel($component2, model_16356);
     case 4 :
-        if_setmodel(model_16357, $component2);
+        if_setmodel($component2, model_16357);
     case 5 :
-        if_setmodel(model_16358, $component2);
+        if_setmodel($component2, model_16358);
     case 6 :
-        if_setmodel(model_16359, $component2);
+        if_setmodel($component2, model_16359);
     case 7 :
-        if_setmodel(model_16360, $component2);
+        if_setmodel($component2, model_16360);
     case 8 :
-        if_setmodel(model_16361, $component2);
+        if_setmodel($component2, model_16361);
     case 9 :
-        if_setmodel(model_16362, $component2);
+        if_setmodel($component2, model_16362);
     case 10 :
-        if_setmodel(model_16363, $component2);
+        if_setmodel($component2, model_16363);
     case 11 :
-        if_setmodel(model_16364, $component2);
+        if_setmodel($component2, model_16364);
     case 12 :
-        if_setmodel(model_16365, $component2);
+        if_setmodel($component2, model_16365);
     case 13 :
-        if_setmodel(model_16366, $component2);
+        if_setmodel($component2, model_16366);
     case 14 :
-        if_setmodel(model_16367, $component2);
+        if_setmodel($component2, model_16367);
     case 15 :
-        if_setmodel(model_16368, $component2);
+        if_setmodel($component2, model_16368);
     case 16 :
-        if_setmodel(model_16369, $component2);
+        if_setmodel($component2, model_16369);
     case 17 :
-        if_setmodel(model_16370, $component2);
+        if_setmodel($component2, model_16370);
     case 18 :
-        if_setmodel(model_16371, $component2);
+        if_setmodel($component2, model_16371);
     case 19 :
-        if_setmodel(model_16372, $component2);
+        if_setmodel($component2, model_16372);
     case 20 :
-        if_setmodel(model_16373, $component2);
+        if_setmodel($component2, model_16373);
     case 21 :
-        if_setmodel(model_16374, $component2);
+        if_setmodel($component2, model_16374);
     case 22 :
-        if_setmodel(model_16375, $component2);
+        if_setmodel($component2, model_16375);
     case 23 :
-        if_setmodel(model_16376, $component2);
+        if_setmodel($component2, model_16376);
     case 24 :
-        if_setmodel(model_16377, $component2);
+        if_setmodel($component2, model_16377);
     case default :
-        if_setmodel(model_16378, $component2);
+        if_setmodel($component2, model_16378);
 }

@@ -1,17 +1,17 @@
 // 3428
 [clientscript,castlewars_game_end_icons]
-if_setobject(castle_wars_flag_cape, -1, castlewars_game_end:cape_flag_icon);
-if_setoutline(1, castlewars_game_end:cape_flag_icon);
-if_setgraphicshadow(0x333333, castlewars_game_end:cape_flag_icon);
-if_setobject(castle_wars_kills_cape, -1, castlewars_game_end:cape_kills_icon);
-if_setoutline(1, castlewars_game_end:cape_kills_icon);
-if_setgraphicshadow(0x333333, castlewars_game_end:cape_kills_icon);
-if_setobject(castle_wars_hobbyist_cape, -1, castlewars_game_end:cape_500_games_icon);
-if_setoutline(1, castlewars_game_end:cape_500_games_icon);
-if_setgraphicshadow(0x333333, castlewars_game_end:cape_500_games_icon);
-if_setobject(castle_wars_enthusiast_cape, -1, castlewars_game_end:cape_1000_games_icon);
-if_setoutline(1, castlewars_game_end:cape_1000_games_icon);
-if_setgraphicshadow(0x333333, castlewars_game_end:cape_1000_games_icon);
-if_setobject(castle_wars_professional_cape, -1, castlewars_game_end:cape_5000_games_icon);
-if_setoutline(1, castlewars_game_end:cape_5000_games_icon);
-if_setgraphicshadow(0x333333, castlewars_game_end:cape_5000_games_icon);
+if_setobject(castlewars_game_end:cape_flag_icon, castlewars_cape_flag, -1);
+if_setoutline(castlewars_game_end:cape_flag_icon, 1);
+if_setgraphicshadow(castlewars_game_end:cape_flag_icon, 0x333333);
+if_setobject(castlewars_game_end:cape_kills_icon, castlewars_cape_kills, -1);
+if_setoutline(castlewars_game_end:cape_kills_icon, 1);
+if_setgraphicshadow(castlewars_game_end:cape_kills_icon, 0x333333);
+if_setobject(castlewars_game_end:cape_500_games_icon, castlewars_cape_500, -1);
+if_setoutline(castlewars_game_end:cape_500_games_icon, 1);
+if_setgraphicshadow(castlewars_game_end:cape_500_games_icon, 0x333333);
+if_setobject(castlewars_game_end:cape_1000_games_icon, castlewars_cape_1000, -1);
+if_setoutline(castlewars_game_end:cape_1000_games_icon, 1);
+if_setgraphicshadow(castlewars_game_end:cape_1000_games_icon, 0x333333);
+if_setobject(castlewars_game_end:cape_5000_games_icon, castlewars_cape_5000, -1);
+if_setoutline(castlewars_game_end:cape_5000_games_icon, 1);
+if_setgraphicshadow(castlewars_game_end:cape_5000_games_icon, 0x333333);

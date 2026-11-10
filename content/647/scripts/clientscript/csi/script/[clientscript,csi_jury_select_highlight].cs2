@@ -1,17 +1,17 @@
 // 3448
 [clientscript,csi_jury_select_highlight]
 if (%varplayerbit_7933 ! 0) {
-    if_sethide(false, csi_jury_spy:selected);
+    if_sethide(csi_jury_spy:selected, false);
 } else {
-    if_sethide(true, csi_jury_spy:selected);
+    if_sethide(csi_jury_spy:selected, true);
 }
 switch_int (%varplayerbit_7933) {
     case 1 :
-        if_setposition(16, 28, ^setpos_abs_left, ^setpos_abs_top, csi_jury_spy:selected);
+        if_setposition(csi_jury_spy:selected, 16, 28, ^setpos_abs_left, ^setpos_abs_top);
     case 7 :
-        if_setposition(16, 161, ^setpos_abs_left, ^setpos_abs_top, csi_jury_spy:selected);
+        if_setposition(csi_jury_spy:selected, 16, 161, ^setpos_abs_left, ^setpos_abs_top);
     case 2, 3, 4, 5, 6 :
-        if_setposition(calc(16 + (%varplayerbit_7933 - 1) * 79), 28, ^setpos_abs_left, ^setpos_abs_top, csi_jury_spy:selected);
+        if_setposition(csi_jury_spy:selected, calc(16 + (%varplayerbit_7933 - 1) * 79), 28, ^setpos_abs_left, ^setpos_abs_top);
     case 8, 9, 10, 11, 12 :
-        if_setposition(calc(16 + (%varplayerbit_7933 - 7) * 79), 161, ^setpos_abs_left, ^setpos_abs_top, csi_jury_spy:selected);
+        if_setposition(csi_jury_spy:selected, calc(16 + (%varplayerbit_7933 - 7) * 79), 161, ^setpos_abs_left, ^setpos_abs_top);
 }

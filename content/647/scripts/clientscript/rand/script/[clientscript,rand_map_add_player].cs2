@@ -13,8 +13,8 @@ switch_int ($int3) {
         $int4 = calc(if_getwidth(rand_dungeon_map:room_layer) / 4);
     case default :
 }
-cc_create(rand_dungeon_map:player_layer, ^iftype_graphic, %varclient_1152);
-%varclient_1152 = calc(%varclient_1152 + 1);
+cc_create(rand_dungeon_map:player_layer, ^iftype_graphic, %rand_map_player_count);
+%rand_map_player_count = calc(%rand_map_player_count + 1);
 switch_int ($int2) {
     case 1 :
         cc_setgraphic("rand_map_player_pips,0");

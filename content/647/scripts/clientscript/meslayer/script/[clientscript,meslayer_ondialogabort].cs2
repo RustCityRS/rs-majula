@@ -1,6 +1,6 @@
 // 138
 [clientscript,meslayer_ondialogabort]
-switch_int (%varclient_5) {
+switch_int (%meslayermode) {
     case 7 :
         ~meslayer_close(7);
     case 8 :

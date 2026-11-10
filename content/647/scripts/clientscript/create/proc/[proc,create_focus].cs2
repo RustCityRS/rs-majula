@@ -3,38 +3,38 @@
 if (create_reply = -3) {
     return;
 }
-def_int $int2 = %varclient_174;
-%varclient_174 = $int0;
-%varclient_175 = clientclock;
+def_int $int2 = %loginscreen_focus;
+%loginscreen_focus = $int0;
+%loginscreen_focustime = clientclock;
 switch_int ($int0) {
     case 6 :
         if ($int1 = 1) {
-            %varclient_1099 = string_length(%varclient_1641);
+            %login_caret = string_length(%varclient_1641);
             ~script3218(account_create:email_input_layer, account_create:com_31, account_create:email_input_caret, %varclient_1641, 6);
         }
     case 14 :
         if ($int1 = 1) {
-            %varclient_1099 = string_length(%varclient_1845);
+            %login_caret = string_length(%varclient_1845);
             ~script3218(account_create:com_106, account_create:com_107, account_create:com_108, %varclient_1845, 14);
         }
     case 7 :
         if ($int1 = 1) {
-            %varclient_1099 = string_length(%varclient_1643);
+            %login_caret = string_length(%varclient_1643);
             ~script3218(account_create:password_input_layer, account_create:password_input_text, account_create:password_input_caret, ~script2949(%varclient_1643), 7);
         }
     case 8 :
         if ($int1 = 1) {
-            %varclient_1099 = string_length(%varclient_1644);
+            %login_caret = string_length(%varclient_1644);
             ~script3218(account_create:password2_input_layer, account_create:password2_input_text, account_create:password2_input_caret, ~script2949(%varclient_1644), 8);
         }
     case 15 :
         if ($int1 = 1) {
-            if (%varclient_1407 < 1) {
-                %varclient_1099 = 0;
+            if (%create_age < 1) {
+                %login_caret = 0;
                 ~script3218(account_create:com_113, account_create:age_input_text, account_create:com_114, "", 15);
             } else {
-                %varclient_1099 = string_length(tostring(%varclient_1407));
-                ~script3218(account_create:com_113, account_create:age_input_text, account_create:com_114, tostring(%varclient_1407), 15);
+                %login_caret = string_length(tostring(%create_age));
+                ~script3218(account_create:com_113, account_create:age_input_text, account_create:com_114, tostring(%create_age), 15);
             }
         }
 }
@@ -57,6 +57,6 @@ if ($int2 = 6 & $int0 ! 6) {
     if (compare(%varclient_1848, %varclient_1644) ! 0) {
         ~script3228(8, 1, 0);
     }
-} else if ($int2 = 15 & $int0 ! 15 & %varclient_1408 ! %varclient_1407) {
+} else if ($int2 = 15 & $int0 ! 15 & %create_age_last ! %create_age) {
     ~script3954(0);
 }

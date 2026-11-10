@@ -6,30 +6,30 @@ if (unknown_command_5623 = true) {
 }
 def_int $int1 = ~login_getreply;
 if ($int1 ! -3) {
-    if_setontimer(null, $component0);
+    if_setontimer($component0, null);
     return;
 }
-if (clientclock < %varclient_1092) {
+if (clientclock < %throbber_last) {
     return;
 }
-%varclient_1092 = calc(clientclock + 5);
+%throbber_last = calc(clientclock + 5);
 switch_graphic (if_getgraphic($component0)) {
     case "loading_wheel_1,0" :
-        if_setgraphic("loading_wheel_1,1", $component0);
+        if_setgraphic($component0, "loading_wheel_1,1");
     case "loading_wheel_1,1" :
-        if_setgraphic("loading_wheel_1,2", $component0);
+        if_setgraphic($component0, "loading_wheel_1,2");
     case "loading_wheel_1,2" :
-        if_setgraphic("loading_wheel_1,3", $component0);
+        if_setgraphic($component0, "loading_wheel_1,3");
     case "loading_wheel_1,3" :
-        if_setgraphic("loading_wheel_1,4", $component0);
+        if_setgraphic($component0, "loading_wheel_1,4");
     case "loading_wheel_1,4" :
-        if_setgraphic("loading_wheel_1,5", $component0);
+        if_setgraphic($component0, "loading_wheel_1,5");
     case "loading_wheel_1,5" :
-        if_setgraphic("loading_wheel_1,6", $component0);
+        if_setgraphic($component0, "loading_wheel_1,6");
     case "loading_wheel_1,6" :
-        if_setgraphic("loading_wheel_1,7", $component0);
+        if_setgraphic($component0, "loading_wheel_1,7");
     case "loading_wheel_1,7" :
-        if_setgraphic("loading_wheel_1,0", $component0);
+        if_setgraphic($component0, "loading_wheel_1,0");
     case default :
-        if_setgraphic("loading_wheel_1,0", $component0);
+        if_setgraphic($component0, "loading_wheel_1,0");
 }

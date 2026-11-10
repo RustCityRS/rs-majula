@@ -4,10 +4,10 @@ def_string $string0 = "";
 def_int $int6 = 0;
 def_int $int7 = 0;
 if (clientclock > $int2 & cc_find($component0, $int1) = true) {
-    if_sethide(false, lobbyscreen_pane_friendschat:clan_tooltip);
+    if_sethide(lobbyscreen_pane_friendschat:clan_tooltip, false);
     $string0 = "Rank: <~script196($int3)>";
-    if_settext($string0, lobbyscreen_pane_friendschat:clan_tooltip_text);
-    if_setsize(calc(if_getx(lobbyscreen_pane_friendschat:clan_tooltip_text) * 2 + stringwidth($string0, p12_full)), if_getheight(lobbyscreen_pane_friendschat:clan_tooltip), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_friendschat:clan_tooltip);
+    if_settext(lobbyscreen_pane_friendschat:clan_tooltip_text, $string0);
+    if_setsize(lobbyscreen_pane_friendschat:clan_tooltip, calc(if_getx(lobbyscreen_pane_friendschat:clan_tooltip_text) * 2 + stringwidth($string0, p12_full)), if_getheight(lobbyscreen_pane_friendschat:clan_tooltip), ^setsize_abs, ^setsize_abs);
     $int6 = calc(cc_getx + $int4 + 3 - if_getscrollx($component0));
     $int7 = calc(cc_gety + $int5 + if_gety(lobbyscreen_pane_friendschat:clan_content) + if_gety(lobbyscreen_pane_friendschat:clan_main) - 3 - if_getheight(lobbyscreen_pane_friendschat:clan_tooltip) - if_getscrolly($component0));
     if (calc($int6 + if_getwidth(lobbyscreen_pane_friendschat:clan_tooltip)) > if_getwidth(lobbyscreen_pane_friendschat:clan_upper)) {
@@ -16,7 +16,7 @@ if (clientclock > $int2 & cc_find($component0, $int1) = true) {
     if ($int7 < 0) {
         $int7 = 0;
     }
-    if_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_friendschat:clan_tooltip);
+    if_setposition(lobbyscreen_pane_friendschat:clan_tooltip, $int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
     cc_setonmouserepeat(null);
 }
 return;

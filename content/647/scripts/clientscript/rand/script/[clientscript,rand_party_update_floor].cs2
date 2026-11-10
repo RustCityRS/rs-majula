@@ -1,3 +1,3 @@
 // 3332
 [clientscript,rand_party_update_floor]
-if_settext(tostring(%varclient_1180), rand_party_side:party_floor);
+if_settext(rand_party_side:party_floor, tostring(%rand_party_floor));

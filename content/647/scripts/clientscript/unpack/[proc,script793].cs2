@@ -3,16 +3,16 @@
 cc_deleteall($component0);
 def_int $int5 = 0;
 def_int $int6 = 0;
-if_setscrollsize(0, calc((($int4 - $int3) / $int1 + 1) * 57), $component0);
+if_setscrollsize($component0, 0, calc((($int4 - $int3) / $int1 + 1) * 57));
 def_int $int7 = 0;
 def_int $int8 = 1;
 def_int $int9 = 0;
 def_int $int10 = 0;
 def_int $int11 = -1;
-def_obj $obj12 = pouch_12525;
-def_obj $obj13 = spirit_shards_12530;
+def_obj $obj12 = wolf_druid_pouch;
+def_obj $obj13 = wolf_spirit_shard;
 def_obj $obj14 = wolf_bones;
-def_obj $obj15 = gold_charm_12527;
+def_obj $obj15 = wolf_creature_charm;
 def_obj $obj16 = null;
 def_obj $obj17 = null;
 def_obj $obj18 = null;
@@ -60,7 +60,7 @@ while ($int7 <= calc($int4 - $int3)) {
         } else {
             ~script794(enum(int, obj, enum_1183, $int8), $obj33, $component0, $int34, $string0, $string1, $string2, $string3, $string4);
         }
-    } else if ($obj33 = pouch_12292) {
+    } else if ($obj33 = lore_pouch_grey) {
         ~script794($obj33, $obj33, $component0, $int34, $string0, $string1, $string2, $string3, $string4);
     } else {
         ~script794(enum(int, obj, enum_1183, $int8), $obj33, $component0, $int34, $string0, $string1, $string2, $string3, $string4);
@@ -80,7 +80,7 @@ while ($int7 <= calc($int4 - $int3)) {
     $int34 = calc($int34 + 1);
     cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int5 + 2), calc($int6 + 38), ^setpos_abs_left, ^setpos_abs_top);
-    cc_setobject_nonum(spirit_shards, 1);
+    cc_setobject_nonum(lore_spirit_shard, 1);
     cc_create($component0, ^iftype_text, $int34);
     $int34 = calc($int34 + 1);
     cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);

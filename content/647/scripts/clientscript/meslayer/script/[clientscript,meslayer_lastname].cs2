@@ -6,15 +6,15 @@ if ($int1 ! 1) {
 if (cc_find($component2, $int3) = true) {
     cc_delete;
 }
-if (%varclient_5 ! $int0 | string_length($string0) <= 0) {
+if (%meslayermode ! $int0 | string_length($string0) <= 0) {
     return;
 }
-%varclient_1541 = removetags($string0);
-if_settext(escape(%varclient_1541), chattop:mes_text2);
-if (%varclient_5 = 8) {
-    resume_namedialog(%varclient_1541);
+%meslayerinput = removetags($string0);
+if_settext(chattop:mes_text2, escape(%meslayerinput));
+if (%meslayermode = 8) {
+    resume_namedialog(%meslayerinput);
     ~meslayer_close(0);
-} else if (%varclient_5 = 10) {
-    clan_joinchat(%varclient_1541);
+} else if (%meslayermode = 10) {
+    clan_joinchat(%meslayerinput);
     ~meslayer_close(0);
 }

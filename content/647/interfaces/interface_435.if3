@@ -372,8 +372,8 @@ text=%1/4
 textalignh=centre
 textshadow=yes
 colour=0xff0000
-onload=batta_set_text(event_com, toad_s_legs, 4)
-oninvtransmit=batta_set_text(event_com, toad_s_legs, 4){inv}
+onload=batta_set_text(event_com, toads_legs, 4)
+oninvtransmit=batta_set_text(event_com, toads_legs, 4){inv}
 
 // 435:28
 [com_28]

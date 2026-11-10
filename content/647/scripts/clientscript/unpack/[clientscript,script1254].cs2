@@ -1,5 +1,5 @@
 // 1254
 [clientscript,script1254]
-if_settext(tostring(%temple_repaired_p), temple_screen:temple_repaired_state);
-if_settext(tostring(%temple_resources_p), temple_screen:mat_resource_pool);
-if_settext(tostring(%temple_sanctity_p), temple_screen:cont_effort);
+if_settext(temple_screen:temple_repaired_state, tostring(%temple_repaired_p));
+if_settext(temple_screen:mat_resource_pool, tostring(%temple_resources_p));
+if_settext(temple_screen:cont_effort, tostring(%temple_sanctity_p));

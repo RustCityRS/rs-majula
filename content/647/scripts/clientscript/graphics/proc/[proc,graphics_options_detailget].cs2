@@ -30,11 +30,11 @@ switch_struct ($struct0) {
         return(~bool_to_int(detailget_groundblending));
     case struct_844 :
         if (unknown_command_6133 = true) {
-            return(~bool_to_int(%varclient_987));
+            return(~bool_to_int(%option_cursor));
         }
         return(-1);
     case struct_845 :
-        return(%varclient_178);
+        return(%selectedresolution);
     case struct_908 :
         return(detailget_cpuusage);
     case struct_963 :

@@ -2,15 +2,15 @@
 [proc,script2370]
 def_int $int0 = if_getscrollx(skillmulti2010:menu);
 if ($int0 <= 0) {
-    if_settrans(150, skillmulti2010:left);
-    if_setgraphic("sm_select_body_button,0", skillmulti2010:left);
+    if_settrans(skillmulti2010:left, 150);
+    if_setgraphic(skillmulti2010:left, "sm_select_body_button,0");
 } else {
-    if_settrans(0, skillmulti2010:left);
+    if_settrans(skillmulti2010:left, 0);
 }
 if ($int0 >= calc(if_getscrollwidth(skillmulti2010:menu) - if_getwidth(skillmulti2010:menu))) {
-    if_settrans(150, skillmulti2010:right);
-    if_setgraphic("sm_select_body_button,2", skillmulti2010:right);
+    if_settrans(skillmulti2010:right, 150);
+    if_setgraphic(skillmulti2010:right, "sm_select_body_button,2");
 } else {
-    if_settrans(0, skillmulti2010:right);
+    if_settrans(skillmulti2010:right, 0);
 }
-%varclient_93 = $int0;
+%playerdesign2_client_feet = $int0;

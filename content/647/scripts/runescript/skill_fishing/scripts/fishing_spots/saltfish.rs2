@@ -17,15 +17,15 @@
 switch_obj(last_useitem) {
     case fly_fishing_rod : ~displaymessage(^dm_default);
     case fishing_rod : @attempt_fish_sardine;
-    case small_fishing_net : @attempt_fish_shrimp;
-    case big_fishing_net : ~mesbox("The fish here aren't suitable for catching with a Big Net.");
+    case net : @attempt_fish_shrimp;
+    case big_net : ~mesbox("The fish here aren't suitable for catching with a Big Net.");
     case default : @fishing_wrong_spot_message(last_useitem);
 }
 
 
 [label,attempt_fish_shrimp]
 // check if they have fishing equipment
-if (~check_fish_equipment(small_fishing_net) = false) {
+if (~check_fish_equipment(net) = false) {
     return;
 }
 // check if inv is full
@@ -48,19 +48,19 @@ if (%action_delay = calc(map_clock + 3)) {
 } else if (%action_delay = map_clock) {
     // doesnt play anim here
     if (stat(fishing) >= 15) {
-        ~fish_roll(raw_shrimps, raw_anchovies, small_fishing_net, null);
+        ~fish_roll(raw_shrimp, raw_anchovies, net, null);
     } else {
-        ~fish_roll(raw_shrimps, null, small_fishing_net, null);
+        ~fish_roll(raw_shrimp, null, net, null);
     }
 }
 
 if (afk_event = ^true & npc_param(is_whirlpool) = ^false) {
-    @macro_event_fishing(small_fishing_net);
+    @macro_event_fishing(net);
 }
 
 [label,fish_shrimp]
 // check if they have fishing equipment
-if (~check_fish_equipment(small_fishing_net) = false) {
+if (~check_fish_equipment(net) = false) {
     return;
 }
 // check if inv is full again
@@ -74,9 +74,9 @@ if (%action_delay < map_clock) {
 } else if (%action_delay = map_clock) {
     anim(human_smallnet, 0);
     if (stat(fishing) >= 15) {
-        ~fish_roll(raw_shrimps, raw_anchovies, small_fishing_net, null);
+        ~fish_roll(raw_shrimp, raw_anchovies, net, null);
     } else {
-        ~fish_roll(raw_shrimps, null, small_fishing_net, null);
+        ~fish_roll(raw_shrimp, null, net, null);
     }
 }
 p_opnpc(4);

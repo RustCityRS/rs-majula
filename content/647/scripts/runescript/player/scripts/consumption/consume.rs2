@@ -10,7 +10,7 @@
 // Normal food: eat_delay 2 (3-tick eat throttle), skill_delay 3 (delays the
 // next skilling action) — matches rev-225 @player_consume_item(..., 2, 3).
 [opheld1,anchovies] @player_consume_item(consume_effect_stat, 2, 3);
-[opheld1,shrimps] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,shrimp] @player_consume_item(consume_effect_stat, 2, 3);
 [opheld1,cooked_chicken] @player_consume_item(consume_effect_stat, 2, 3);
 [opheld1,cooked_meat] @player_consume_item(consume_effect_stat, 2, 3);
 [opheld1,sardine] @player_consume_item(consume_effect_stat, 2, 3);
@@ -26,11 +26,11 @@
 [opheld1,bass] @player_consume_item(consume_effect_stat, 2, 3);
 [opheld1,swordfish] @player_consume_item(consume_effect_stat, 2, 3);
 [opheld1,monkfish] @player_consume_item(consume_effect_stat, 2, 3);
-[opheld1,cooked_karambwan] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,tbwt_cooked_karambwan] @player_consume_item(consume_effect_stat, 2, 3);
 [opheld1,shark] @player_consume_item(consume_effect_stat, 2, 3);
-[opheld1,sea_turtle] @player_consume_item(consume_effect_stat, 2, 3);
-[opheld1,manta_ray] @player_consume_item(consume_effect_stat, 2, 3);
-[opheld1,rocktail] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,seaturtle] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,mantaray] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,lrc_rocktail_cooked] @player_consume_item(consume_effect_stat, 2, 3);
 
 // Raw vegetables (low-tier staples) — heal 1 HP (10 LP) each.
 [opheld1,potato] @player_consume_item(consume_effect_stat, 2, 3);
@@ -51,20 +51,20 @@
 [opheld1,half_a_meat_pie] @player_consume_item(consume_effect_stat2, 2, 3);
 // Cakes -> 2/3 -> slice -> gone
 [opheld1,cake] @player_consume_item(consume_effect_stat2, 2, 3);
-[opheld1,2_3_cake] @player_consume_item(consume_effect_stat2, 2, 3);
-[opheld1,slice_of_cake] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,partial_cake] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,cake_slice] @player_consume_item(consume_effect_stat2, 2, 3);
 [opheld1,chocolate_cake] @player_consume_item(consume_effect_stat2, 2, 3);
-[opheld1,2_3_chocolate_cake] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,partial_chocolate_cake] @player_consume_item(consume_effect_stat2, 2, 3);
 [opheld1,chocolate_slice] @player_consume_item(consume_effect_stat2, 2, 3);
 // Pizzas -> half -> gone
 [opheld1,plain_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
-[opheld1,1_2_plain_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,half_plain_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
 [opheld1,meat_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
-[opheld1,1_2_meat_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
-[opheld1,anchovy_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
-[opheld1,1_2_anchovy_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,half_meat_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,anchovie_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,half_anchovie_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
 [opheld1,pineapple_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
-[opheld1,1_2_p_apple_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,half_pineapple_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
 
 // Specials. Kebab has random outcomes (its own consume_effect_kebab label).
 // Stew/curry are heal foods that leave an empty bowl (consume_effect_stat2 +
@@ -79,7 +79,7 @@
 [opheld1,_potion]
 switch_obj(last_item) {
     // anti dragon
-    case antifire__1, antifire__2, antifire__3, antifire__4 :
+    case 1dose1antidragon, 2dose1antidragon, 3dose1antidragon, 4dose1antidragon :
         @player_consume_item(consume_effect_antidragon, null, null);
     // anti posions
     // case 1doseantipoison, 2doseantipoison, 3doseantipoison, 4doseantipoison :

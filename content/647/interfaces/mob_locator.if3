@@ -25,7 +25,7 @@ layer=other
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:3
 [herbtext1]
@@ -51,7 +51,7 @@ layer=other
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:5
 [herbtext2]
@@ -77,7 +77,7 @@ layer=other
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:7
 [fishtext1]
@@ -103,7 +103,7 @@ layer=other
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:9
 [fishtext2]
@@ -153,7 +153,7 @@ layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:14
 [wood2]
@@ -166,7 +166,7 @@ layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:15
 [wood3]
@@ -179,7 +179,7 @@ layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:16
 [wood4]
@@ -192,7 +192,7 @@ layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:17
 [wood5]
@@ -205,7 +205,7 @@ layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:18
 [wood6]
@@ -218,7 +218,7 @@ layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:19
 [wood7]
@@ -231,7 +231,7 @@ layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:20
 [wood8]
@@ -244,7 +244,7 @@ layer=wood_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:21
 [woodtext1]
@@ -361,7 +361,7 @@ layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:30
 [ore2]
@@ -374,7 +374,7 @@ layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:31
 [ore3]
@@ -387,7 +387,7 @@ layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:32
 [ore4]
@@ -400,7 +400,7 @@ layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:33
 [ore5]
@@ -413,7 +413,7 @@ layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:34
 [ore6]
@@ -426,7 +426,7 @@ layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:35
 [ore7]
@@ -439,7 +439,7 @@ layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:36
 [ore8]
@@ -452,7 +452,7 @@ layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:37
 [ore9]
@@ -465,7 +465,7 @@ layer=ore_layer
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 844:38
 [oretext1]
@@ -628,7 +628,7 @@ candrop=yes
 op1=Open
 op2=Collapse
 op10= 
-opcursor0=cursor_49
+opcursor0=cursor_open
 onclick=mob_locator_switch_tab(event_com)
 
 // 844:50
@@ -921,4 +921,4 @@ colour=0xff981f
 transmitop=10
 op10=  
 onload=mob_locator_onload
-onvarctransmit=mob_locator_resource_setup{varclient_826, varclient_827}
+onvarctransmit=mob_locator_resource_setup{mob_locator_charges, mob_locator_type}

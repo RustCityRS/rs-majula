@@ -48,7 +48,7 @@ transmit=yes
 scope=perm
 
 // 12
-[hemenster_comp_stage]
+[garlicpipe]
 scope=perm
 
 // 13
@@ -76,10 +76,10 @@ transmit=yes
 scope=perm
 
 // 18
-[varplayer_18]
+[musicplay]
 
 // 19
-[varplayer_19]
+[musicloop]
 
 // 20
 [musicmulti_1]
@@ -277,7 +277,7 @@ protect=no
 [action_delay]
 
 // 59
-[autocast_spell]
+[varplayer_59]
 scope=perm
 
 // 60
@@ -290,7 +290,7 @@ scope=perm
 scope=perm
 
 // 62
-[varplayer_62]
+[goblinquest]
 transmit=yes
 
 // 63
@@ -369,7 +369,7 @@ transmit=yes
 scope=perm
 
 // 77
-[varplayer_77]
+[barcrawl]
 transmit=yes
 
 // 78
@@ -458,10 +458,10 @@ scope=perm
 // 2011's active prayers, a bit each (void-634 activated_prayers). Unprotected,
 // as 289's prayer0-14 were.
 // 83
-[varplayer_83]
+[prayer0]
 
 // 84
-[varplayer_84]
+[prayer1]
 
 // 85
 [varplayer_85]
@@ -485,16 +485,16 @@ scope=perm
 [varplayer_91]
 
 // 92
-[varplayer_92]
+[prayer9]
 
 // 93
-[varplayer_93]
+[prayer10]
 
 // 94
-[varplayer_94]
+[prayer11]
 
 // 95
-[varplayer_95]
+[prayer12]
 
 // 96
 [varplayer_96]
@@ -534,7 +534,7 @@ scope=perm
 transmit=yes
 
 // 106
-[varplayer_106]
+[player_map]
 transmit=yes
 
 // 107
@@ -547,12 +547,12 @@ scope=perm
 // coffin (15061) and rocks (47713) read as multilocs (cache 786); void-634
 // keeps both (persist = true).
 // 108
-[attackstyle_magic]
+[lastcastspell]
 transmit=yes
 protect=no
 
 // 109
-[varplayer_109]
+[trawler]
 
 // 110
 [varplayer_110]
@@ -666,7 +666,7 @@ scope=perm
 [varplayer_134]
 
 // 135
-[varplayer_135]
+[itdigsitemulti]
 
 // 136
 [varplayer_136]
@@ -691,7 +691,7 @@ transmit=yes
 [varplayer_142]
 
 // 143
-[varplayer_143]
+[score_gnomeball_game]
 transmit=yes
 
 // 144
@@ -699,12 +699,12 @@ transmit=yes
 scope=perm
 
 // 145
-[blackarmgang]
+[phoenixgang]
 transmit=yes
 scope=perm
 
 // 146
-[phoenixgang]
+[blackarmgang]
 transmit=yes
 scope=perm
 
@@ -735,7 +735,7 @@ scope=perm
 scope=perm
 
 // 153
-[varplayer_153]
+[pilot_journey]
 transmit=yes
 
 // 154
@@ -745,15 +745,15 @@ transmit=yes
 [varplayer_155]
 
 // 156
-[varplayer_156]
+[targetcount]
 transmit=yes
 
 // 157
-[varplayer_157]
+[targetscore]
 transmit=yes
 
 // 158
-[varplayer_158]
+[targethit]
 transmit=yes
 
 // 159
@@ -791,19 +791,19 @@ transmit=yes
 scope=perm
 
 // 166
-[varplayer_166]
+[option_brightness]
 clientcode=1
 
 // 167
-[varplayer_167]
+[option_jingles]
 clientcode=2
 
 // 168
-[varplayer_168]
+[option_music]
 clientcode=3
 
 // 169
-[varplayer_169]
+[option_sounds]
 clientcode=4
 
 // 170
@@ -854,7 +854,7 @@ scope=perm
 transmit=yes
 
 // 177
-[varplayer_177]
+[dragonquestvar]
 transmit=yes
 
 // 178
@@ -1014,7 +1014,7 @@ scope=perm
 scope=perm
 
 // 203
-[varplayer_203]
+[flour]
 
 // 204
 [macro_event]
@@ -1040,10 +1040,10 @@ type=coord
 scope=perm
 
 // 210
-[varplayer_210]
+[smithbars]
 
 // 211
-[varplayer_211]
+[modified_smith]
 
 // 212
 [itwatchtower]
@@ -1221,7 +1221,7 @@ protect=no
 // transmits both. Each player marks the other's, as 289's trade varps are
 // written, so neither is protected.
 // 259
-[varplayer_259]
+[attack]
 transmit=yes
 
 // 260
@@ -1230,18 +1230,18 @@ scope=temp
 protect=no
 
 // 261
-[xplamp_stat]
+[if1]
 // The stat picked on the lamp (cache 786 varp 261: the lamp's Confirm,
 // interface 134 com2, redraws on it, vartransmit_list=261). 289's is its
 // %xplamp (varp 79 in 289's cache); 647's %xplamp is varp 531, the Maze's.
 transmit=yes
 
 // 262
-[varplayer_262]
+[if2]
 transmit=yes
 
 // 263
-[varplayer_263]
+[if3]
 transmit=yes
 
 // 264
@@ -1293,7 +1293,7 @@ scope=perm
 scope=perm
 
 // 275
-[follower_obj]
+[varplayer_275]
 type=namedobj
 scope=perm
 
@@ -1316,7 +1316,7 @@ scope=perm
 [varplayer_280]
 
 // 281
-[learning_the_ropes]
+[tutorial]
 transmit=yes
 // Varps saved with the player. Laid over _unpack/all.varp.
 
@@ -1394,7 +1394,7 @@ scope=temp
 protect=no
 
 // 297
-[varplayer_297]
+[musiclength]
 transmit=yes
 
 // 298
@@ -1448,7 +1448,7 @@ scope=perm
 scope=perm
 
 // 309
-[varplayer_309]
+[agilityarena_varbit]
 transmit=yes
 
 // 310
@@ -1509,7 +1509,7 @@ transmit=yes
 scope=perm
 
 // 322
-[tbwt_tinsay]
+[tbwt_lubufu]
 transmit=yes
 scope=perm
 
@@ -1518,7 +1518,7 @@ scope=perm
 scope=perm
 
 // 324
-[tbwt_lubufu]
+[varplayer_324]
 scope=perm
 
 // 325
@@ -1645,11 +1645,11 @@ scope=perm
 [varplayer_352]
 
 // 353
-[varplayer_353]
+[boardgames_runelink_rank]
 transmit=yes
 
 // 354
-[varplayer_354]
+[boardgames_draughts_rank]
 transmit=yes
 
 // 355
@@ -1667,28 +1667,28 @@ transmit=yes
 [varplayer_358]
 
 // 359
-[varplayer_359]
+[misc_quest]
 transmit=yes
 
 // 360
 [varplayer_360]
 
 // 361
-[varplayer_361]
+[misc_varbit_1]
 
 // 362
-[varplayer_362]
+[misc_varbit_2]
 transmit=yes
 
 // 363
-[varplayer_363]
+[misc_varbit_3]
 transmit=yes
 
 // 364
 [varplayer_364]
 
 // 365
-[varplayer_365]
+[mm_main]
 transmit=yes
 
 // 366
@@ -1710,7 +1710,7 @@ transmit=yes
 [varplayer_371]
 
 // 372
-[varplayer_372]
+[mm_gnomes]
 
 // 373
 [varplayer_373]
@@ -1727,48 +1727,48 @@ type=synth
 [varplayer_376]
 
 // 377
-[varplayer_377]
+[castlewars_zamorak]
 transmit=yes
 
 // 378
-[varplayer_378]
+[castlewars_saradomin]
 transmit=yes
 
 // 379
-[varplayer_379]
+[castlewars_main]
 transmit=yes
 
 // 380
-[varplayer_380]
+[castlewars_timer]
 transmit=yes
 
 // 381
 [varplayer_381]
 
 // 382
-[varplayer_382]
+[hauntedmine]
 transmit=yes
 
 // 383
-[varplayer_383]
+[hauntedmine_bits]
 transmit=yes
 
 // 384
 [varplayer_384]
 
 // 385
-[varplayer_385]
+[troll_love]
 transmit=yes
 
 // 386
 [varplayer_386]
 
 // 387
-[varplayer_387]
+[routequest]
 transmit=yes
 
 // 388
-[varplayer_388]
+[routequestmulti]
 
 // 389
 [varplayer_389]
@@ -1777,24 +1777,24 @@ transmit=yes
 [varplayer_390]
 
 // 391
-[varplayer_391]
+[trawler_water_overlay]
 transmit=yes
 
 // 392
 [varplayer_392]
 
 // 393
-[varplayer_393]
+[karam_dungeon_varbit]
 
 // 394
-[varplayer_394]
+[slayer_count]
 transmit=yes
 
 // 395
 [varplayer_395]
 
 // 396
-[varplayer_396]
+[waa_varbits]
 
 // 397
 [display_mode]
@@ -1807,11 +1807,11 @@ protect=no
 scope=perm
 
 // 399
-[varplayer_399]
+[fenk_quest]
 transmit=yes
 
 // 400
-[varplayer_400]
+[fenk_flags]
 transmit=yes
 
 // 401
@@ -1823,7 +1823,7 @@ scope=perm
 transmit=yes
 
 // 403
-[varplayer_403]
+[roving_elves_bits]
 
 // 404
 [random_event_gift_event]
@@ -1834,7 +1834,7 @@ scope=perm
 scope=perm
 
 // 406
-[varplayer_406]
+[tutorial_progress_overlay]
 transmit=yes
 
 // 407
@@ -1842,7 +1842,7 @@ transmit=yes
 scope=perm
 
 // 408
-[varplayer_408]
+[ahoy_varbits_1]
 transmit=yes
 
 // 409
@@ -1873,7 +1873,7 @@ scope=perm
 protect=no
 
 // 415
-[musiclength]
+[varplayer_415]
 scope=temp
 protect=no
 
@@ -1882,7 +1882,7 @@ protect=no
 transmit=yes
 
 // 417
-[varplayer_417]
+[onesmallfavourmulti]
 
 // 418
 [skill_creation_saved]
@@ -1890,7 +1890,7 @@ scope=perm
 protect=no
 
 // 419
-[tutorial]
+[varplayer_419]
 scope=perm
 
 // 420
@@ -1905,14 +1905,14 @@ scope=perm
 [varplayer_422]
 
 // 423
-[varplayer_423]
+[mdaughter_var]
 transmit=yes
 
 // 424
 [varplayer_424]
 
 // 425
-[varplayer_425]
+[goblin_caves]
 transmit=yes
 
 // 426
@@ -1938,66 +1938,66 @@ transmit=yes
 [varplayer_432]
 
 // 433
-[varplayer_433]
+[dwarfrock_main]
 transmit=yes
 
 // 434
 [varplayer_434]
 
 // 435
-[varplayer_435]
+[main_feud_var]
 transmit=yes
 
 // 436
-[varplayer_436]
+[feud_var_multi]
 
 // 437
-[varplayer_437]
+[golem_quest]
 transmit=yes
 
 // 438
 [varplayer_438]
 
 // 439
-[varplayer_439]
+[alternate_spells]
 transmit=yes
 
 // 440
-[varplayer_440]
+[deserttreasuremain]
 transmit=yes
 
 // 441
-[varplayer_441]
+[deserttreasurevarbit]
 
 // 442
-[varplayer_442]
+[deserttreasurevarbit2]
 
 // 443
-[varplayer_443]
+[ics_little_multi]
 
 // 444
 [varplayer_444]
 
 // 445
-[varplayer_445]
+[main_ics_var]
 transmit=yes
 
 // 446
-[varplayer_446]
+[ics_little_multi_extra]
 
 // 447
 [varplayer_447]
 
 // 448
-[varplayer_448]
+[follower_obj]
 transmit=yes
 
 // 449
-[varplayer_449]
+[tog_minigame]
 transmit=yes
 
 // 450
-[varplayer_450]
+[tog_xp_before_return]
 transmit=yes
 
 // 451
@@ -2005,17 +2005,17 @@ transmit=yes
 transmit=yes
 
 // 452
-[varplayer_452]
+[barrows]
 
 // 453
-[varplayer_453]
+[barrows_kills]
 transmit=yes
 
 // 454
 [varplayer_454]
 
 // 455
-[varplayer_455]
+[zombie_ogre]
 transmit=yes
 
 // 456
@@ -2041,7 +2041,7 @@ transmit=yes
 [varplayer_462]
 
 // 463
-[varplayer_463]
+[lastdegrade]
 transmit=yes
 // 2011's world map key (interface_worldmap): varbit 5367 its order, 6174-6177
 // its four Hide/Show options. Its buttons run unprotected (on 755, the map
@@ -2057,11 +2057,11 @@ scope=perm
 protect=no
 
 // 465
-[varplayer_465]
+[lost_tribe]
 transmit=yes
 
 // 466
-[varplayer_466]
+[cutscene_var]
 transmit=yes
 
 // 467
@@ -2074,7 +2074,7 @@ transmit=yes
 [varplayer_469]
 
 // 470
-[varplayer_470]
+[keldagrim_temp_var]
 
 // 471
 [varplayer_471]
@@ -2110,7 +2110,7 @@ transmit=yes
 [varplayer_481]
 
 // 482
-[varplayer_482]
+[giantdwarf_main]
 transmit=yes
 
 // 483
@@ -2123,7 +2123,7 @@ transmit=yes
 [varplayer_485]
 
 // 486
-[varplayer_486]
+[abyssal_pouches1]
 
 // 487
 [varplayer_487]
@@ -2138,14 +2138,14 @@ transmit=yes
 [varplayer_490]
 
 // 491
-[varplayer_491]
+[abyssal_warp]
 
 // 492
 [varplayer_492]
 transmit=yes
 
 // 493
-[varplayer_493]
+[roguesden_puzzle]
 
 // 494
 [varplayer_494]
@@ -2154,17 +2154,17 @@ transmit=yes
 [varplayer_495]
 
 // 496
-[varplayer_496]
+[recruitmentdrive]
 transmit=yes
 
 // 497
-[varplayer_497]
+[rd_rooms_tempvar]
 
 // 498
-[varplayer_498]
+[rd_rooms_tempvar2]
 
 // 499
-[varplayer_499]
+[magic_carpet_var]
 
 // 500
 [varplayer_500]
@@ -2173,38 +2173,38 @@ transmit=yes
 [varplayer_501]
 
 // 502
-[varplayer_502]
+[farming_varp_1]
 
 // 503
-[varplayer_503]
+[farming_varp_2]
 
 // 504
-[varplayer_504]
+[farming_varp_3]
 
 // 505
-[varplayer_505]
+[farming_varp_4]
 
 // 506
-[varplayer_506]
+[farming_varp_5]
 
 // 507
-[varplayer_507]
+[farming_varp_6]
 transmit=yes
 
 // 508
-[varplayer_508]
+[farming_varp_7]
 
 // 509
-[varplayer_509]
+[farming_varp_8]
 
 // 510
-[varplayer_510]
+[farming_varp_9]
 
 // 511
 [varplayer_511]
 
 // 512
-[varplayer_512]
+[farming_varp_11]
 
 // 513
 [varplayer_513]
@@ -2213,7 +2213,7 @@ transmit=yes
 [varplayer_514]
 
 // 515
-[varplayer_515]
+[farming_varp_14]
 
 // 516
 [varplayer_516]
@@ -2223,17 +2223,17 @@ transmit=yes
 transmit=yes
 
 // 518
-[varplayer_518]
+[mourning_quest_bits]
 transmit=yes
 
 // 519
 [varplayer_519]
 
 // 520
-[varplayer_520]
+[dagganoth_area_project]
 
 // 521
-[varplayer_521]
+[forget_main_var]
 transmit=yes
 
 // 522
@@ -2243,11 +2243,11 @@ transmit=yes
 [varplayer_523]
 
 // 524
-[varplayer_524]
+[forget_puzzle_var]
 transmit=yes
 
 // 525
-[varplayer_525]
+[forget_puzzle_var2]
 transmit=yes
 
 // 526
@@ -2266,7 +2266,7 @@ transmit=yes
 [varplayer_530]
 
 // 531
-[xplamp]
+[macro_transmit]
 transmit=yes
 scope=perm
 
@@ -2277,14 +2277,14 @@ type=obj
 scope=temp
 
 // 533
-[varplayer_533]
+[tai_bwo_cleanup]
 transmit=yes
 
 // 534
-[varplayer_534]
+[tai_bwo_villagerchat]
 
 // 535
-[varplayer_535]
+[tbw_cleanup_temp]
 transmit=yes
 
 // 536
@@ -2300,7 +2300,7 @@ transmit=yes
 [varplayer_539]
 
 // 540
-[varplayer_540]
+[roguetrader_var]
 
 // 541
 [varplayer_541]
@@ -2309,29 +2309,29 @@ transmit=yes
 [varplayer_542]
 
 // 543
-[varplayer_543]
+[blast_furnace_readings]
 transmit=yes
 
 // 544
 [varplayer_544]
 
 // 545
-[varplayer_545]
+[blast_furnace_1]
 transmit=yes
 
 // 546
-[varplayer_546]
+[blast_furnace_2]
 transmit=yes
 
 // 547
-[varplayer_547]
+[blast_furnace_3]
 transmit=yes
 
 // 548
-[varplayer_548]
+[blast_furnace_4]
 
 // 549
-[varplayer_549]
+[blast_furnace_5]
 transmit=yes
 
 // 550
@@ -2344,11 +2344,11 @@ transmit=yes
 [varplayer_552]
 
 // 553
-[varplayer_553]
+[garden_varp_1]
 transmit=yes
 
 // 554
-[varplayer_554]
+[garden_varp_2]
 
 // 555
 [varplayer_555]
@@ -2366,7 +2366,7 @@ transmit=yes
 [varplayer_559]
 
 // 560
-[varplayer_560]
+[tzhaar_fightpit_remaining]
 transmit=yes
 
 // 561
@@ -2376,7 +2376,7 @@ transmit=yes
 [varplayer_562]
 
 // 563
-[varplayer_563]
+[bankpin_2]
 transmit=yes
 
 // 564
@@ -2392,28 +2392,28 @@ transmit=yes
 [varplayer_567]
 
 // 568
-[varplayer_568]
+[twocats_varbit]
 transmit=yes
 
 // 569
-[varplayer_569]
+[cat_name]
 transmit=yes
 
 // 570
 [varplayer_570]
 
 // 571
-[varplayer_571]
+[quest_wanted]
 transmit=yes
 
 // 572
-[varplayer_572]
+[quest_wanted2]
 
 // 573
 [varplayer_573]
 
 // 574
-[varplayer_574]
+[mourning_quest_part2]
 transmit=yes
 
 // 575
@@ -2429,52 +2429,52 @@ transmit=yes
 [varplayer_578]
 
 // 579
-[varplayer_579]
+[mourning_quest_light_doors]
 
 // 580
-[varplayer_580]
+[mourning_quest_beams1]
 
 // 581
-[varplayer_581]
+[mourning_quest_beams2]
 
 // 582
-[varplayer_582]
+[mourning_quest_beams3]
 
 // 583
-[varplayer_583]
+[mourning_quest_beams4]
 
 // 584
-[varplayer_584]
+[mourning_quest_beams5]
 
 // 585
-[varplayer_585]
+[mourning_quest_beams6]
 
 // 586
-[varplayer_586]
+[mourning_quest_vert_beams1]
 
 // 587
-[varplayer_587]
+[mourning_quest_vert_beams2]
 
 // 588
-[varplayer_588]
+[mourning_quest_vert_beams3]
 
 // 589
-[varplayer_589]
+[mourning_quest_vert_beams4]
 
 // 590
-[varplayer_590]
+[mourning_quest_vert_beams5]
 
 // 591
-[varplayer_591]
+[mourning_quest_beam_cross1]
 
 // 592
-[varplayer_592]
+[mourning_quest_beam_cross2]
 
 // 593
 [varplayer_593]
 
 // 594
-[varplayer_594]
+[mourning_part2_basevar2]
 
 // 595
 [varplayer_595]
@@ -2483,7 +2483,7 @@ transmit=yes
 [varplayer_596]
 
 // 597
-[varplayer_597]
+[rimmington_extras_var]
 
 // 598
 [musicmulti_12]
@@ -2492,24 +2492,24 @@ scope=perm
 protect=no
 
 // 599
-[varplayer_599]
+[desert]
 
 // 600
 [varplayer_600]
 transmit=yes
 
 // 601
-[varplayer_601]
+[deal_var]
 
 // 602
-[varplayer_602]
+[agrith_quest_varp]
 transmit=yes
 
 // 603
 [varplayer_603]
 
 // 604
-[varplayer_604]
+[makinghistory]
 transmit=yes
 
 // 605
@@ -2519,20 +2519,20 @@ transmit=yes
 [varplayer_606]
 
 // 607
-[varplayer_607]
+[main_ratcatch_var]
 transmit=yes
 
 // 608
 [varplayer_608]
 
 // 609
-[varplayer_609]
+[ratcatch_var_multi]
 
 // 610
-[varplayer_610]
+[ratcatch_var_temp1]
 
 // 611
-[varplayer_611]
+[ratcatch_var_temp2]
 
 // 612
 [varplayer_612]
@@ -2544,15 +2544,15 @@ transmit=yes
 [varplayer_614]
 
 // 615
-[varplayer_615]
+[farming_tools]
 transmit=yes
 
 // 616
-[varplayer_616]
+[elid_main]
 transmit=yes
 
 // 617
-[varplayer_617]
+[champions_defeated]
 transmit=yes
 
 // 618
@@ -2570,18 +2570,18 @@ transmit=yes
 transmit=yes
 
 // 622
-[varplayer_622]
+[devious_base]
 transmit=yes
 
 // 623
-[varplayer_623]
+[win05_var]
 
 // 624
-[varplayer_624]
+[magictraining]
 transmit=yes
 
 // 625
-[varplayer_625]
+[magictraining2]
 transmit=yes
 
 // 626
@@ -2591,10 +2591,10 @@ transmit=yes
 [varplayer_627]
 
 // 628
-[varplayer_628]
+[magictraining5]
 
 // 629
-[varplayer_629]
+[magictraining6]
 
 // 630
 [varplayer_630]
@@ -2612,17 +2612,17 @@ transmit=yes
 [varplayer_634]
 
 // 635
-[varplayer_635]
+[handsand]
 transmit=yes
 
 // 636
-[varplayer_636]
+[handsand_transmit]
 
 // 637
 [varplayer_637]
 
 // 638
-[varplayer_638]
+[swansong_temp]
 transmit=yes
 
 // 639
@@ -2630,40 +2630,40 @@ transmit=yes
 transmit=yes
 
 // 640
-[varplayer_640]
+[agility_pyramid]
 
 // 641
-[varplayer_641]
+[enakh_quest_expositbits]
 transmit=yes
 
 // 642
-[varplayer_642]
+[enakh_multivarbits]
 
 // 643
-[varplayer_643]
+[enakh_varbits]
 
 // 644
-[varplayer_644]
+[boardgames_runesquares_va]
 transmit=yes
 
 // 645
-[varplayer_645]
+[boardgames_runesquares_vb]
 transmit=yes
 
 // 646
-[varplayer_646]
+[boardgames_runesquares_ha]
 transmit=yes
 
 // 647
-[varplayer_647]
+[boardgames_runesquares_hb]
 transmit=yes
 
 // 648
-[varplayer_648]
+[boardgames_runesquares_rank]
 transmit=yes
 
 // 649
-[varplayer_649]
+[boardgames_runeversi_rank]
 transmit=yes
 
 // 650
@@ -2686,13 +2686,13 @@ transmit=yes
 transmit=yes
 
 // 656
-[varplayer_656]
+[fever_cannon_var]
 
 // 657
-[varplayer_657]
+[fever_extra_var]
 
 // 658
-[varplayer_658]
+[fever_storage_var]
 
 // 659
 [varplayer_659]
@@ -2701,7 +2701,7 @@ transmit=yes
 [varplayer_660]
 
 // 661
-[varplayer_661]
+[slayer_killerwatt_var]
 
 // 662
 [musicmulti_13]
@@ -2716,16 +2716,16 @@ protect=no
 [varplayer_664]
 
 // 665
-[varplayer_665]
+[ogre_area_extra]
 
 // 666
 [varplayer_666]
 
 // 667
-[varplayer_667]
+[elenaquest_extra_bits]
 
 // 668
-[ernest_doors]
+[ernestdoors]
 scope=perm
 transmit=yes
 
@@ -2737,20 +2737,20 @@ transmit=yes
 [varplayer_670]
 
 // 671
-[varplayer_671]
+[fairytale_multi]
 transmit=yes
 
 // 672
 [varplayer_672]
 
 // 673
-[varplayer_673]
+[romeo_juliet_multi]
 
 // 674
-[varplayer_674]
+[canoeing_river_lum]
 
 // 675
-[varplayer_675]
+[canoeing_menu]
 
 // 676
 [varplayer_676]
@@ -2767,11 +2767,11 @@ transmit=yes
 transmit=yes
 
 // 680
-[varplayer_680]
+[hundred_dave]
 transmit=yes
 
 // 681
-[varplayer_681]
+[hundred_dwarf]
 transmit=yes
 
 // 682
@@ -2786,7 +2786,7 @@ transmit=yes
 transmit=yes
 
 // 685
-[varplayer_685]
+[hundred_ilm_var_1]
 transmit=yes
 
 // 686
@@ -2817,24 +2817,24 @@ transmit=yes
 [varplayer_694]
 
 // 695
-[flour]
+[millcheck_multi]
 scope=perm
 transmit=yes
 
 // 696
-[varplayer_696]
+[macro_digger_var]
 
 // 697
-[varplayer_697]
+[macro_digger_var_2]
 
 // 698
-[varplayer_698]
+[macro_digger_var_3]
 
 // 699
-[varplayer_699]
+[macro_digger_var_4]
 
 // 700
-[varplayer_700]
+[templetrek_main_var]
 transmit=yes
 
 // 701
@@ -2847,10 +2847,10 @@ transmit=yes
 [varplayer_703]
 
 // 704
-[varplayer_704]
+[myreque_2_main_var]
 
 // 705
-[varplayer_705]
+[myreque2_multivar]
 transmit=yes
 
 // 706
@@ -2863,30 +2863,30 @@ transmit=yes
 [varplayer_708]
 
 // 709
-[varplayer_709]
+[soulbane]
 transmit=yes
 
 // 710
-[varplayer_710]
+[soulbane2]
 
 // 711
-[varplayer_711]
+[soulbane_unprotected]
 
 // 712
-[varplayer_712]
+[soulbane_unprotected2]
 
 // 713
 [varplayer_713]
 
 // 714
-[varplayer_714]
+[rag_quest]
 transmit=yes
 
 // 715
 [varplayer_715]
 
 // 716
-[varplayer_716]
+[rag_bone_2]
 
 // 717
 [varplayer_717]
@@ -2899,7 +2899,7 @@ transmit=yes
 transmit=yes
 
 // 720
-[varplayer_720]
+[abyssal_pouches2]
 
 // 721
 [musicmulti_14]
@@ -2911,7 +2911,7 @@ protect=no
 [varplayer_722]
 
 // 723
-[varplayer_723]
+[swansong_quest]
 transmit=yes
 
 // 724
@@ -2924,24 +2924,24 @@ transmit=yes
 [varplayer_726]
 
 // 727
-[varplayer_727]
+[macro_pinball_var]
 transmit=yes
 
 // 728
-[varplayer_728]
+[restless_ghost_control]
 scope=perm
 transmit=yes
 
 // 729
-[varplayer_729]
+[misc_varbit_4]
 transmit=yes
 
 // 730
-[varplayer_730]
+[royal_questvarbits]
 transmit=yes
 
 // 731
-[varplayer_731]
+[royal_varbits]
 
 // 732
 [varplayer_732]
@@ -2962,7 +2962,7 @@ transmit=yes
 [varplayer_737]
 
 // 738
-[varplayer_738]
+[poh_house_data]
 transmit=yes
 
 // 739
@@ -3111,11 +3111,11 @@ transmit=yes
 [varplayer_786]
 
 // 787
-[varplayer_787]
+[warguild_tokens]
 transmit=yes
 
 // 788
-[varplayer_788]
+[warguild_games]
 transmit=yes
 
 // 789
@@ -3132,11 +3132,11 @@ transmit=yes
 [varplayer_792]
 
 // 793
-[varplayer_793]
+[war_strength_kegs]
 transmit=yes
 
 // 794
-[varplayer_794]
+[dttd_base]
 transmit=yes
 
 // 795
@@ -3146,22 +3146,22 @@ transmit=yes
 [varplayer_796]
 
 // 797
-[varplayer_797]
+[dttd_temp]
 
 // 798
-[varplayer_798]
+[brew_var_1]
 
 // 799
-[varplayer_799]
+[brew_var_2]
 
 // 800
-[varplayer_800]
+[brew_var_3]
 
 // 801
 [varplayer_801]
 
 // 802
-[varplayer_802]
+[sos_emote]
 transmit=yes
 
 // 803
@@ -3171,14 +3171,14 @@ transmit=yes
 [varplayer_804]
 
 // 805
-[varplayer_805]
+[macro_bee_pos_1]
 transmit=yes
 
 // 806
-[varplayer_806]
+[macro_bee_pos_2]
 
 // 807
-[varplayer_807]
+[macro_bee_pos_3]
 transmit=yes
 
 // 808
@@ -3189,7 +3189,7 @@ transmit=yes
 transmit=yes
 
 // 810
-[varplayer_810]
+[queencure_multi]
 transmit=yes
 
 // 811
@@ -3208,7 +3208,7 @@ transmit=yes
 [varplayer_815]
 
 // 816
-[varplayer_816]
+[fairyrings_multi]
 transmit=yes
 
 // 817
@@ -3221,40 +3221,40 @@ transmit=yes
 [varplayer_819]
 
 // 820
-[varplayer_820]
+[ntk_urn]
 
 // 821
-[varplayer_821]
+[ntk_var2]
 transmit=yes
 
 // 822
-[varplayer_822]
+[ntk_var_temp]
 transmit=yes
 
 // 823
-[varplayer_823]
+[lunar_quest]
 transmit=yes
 
 // 824
-[varplayer_824]
+[lunar_quest1]
 
 // 825
-[varplayer_825]
+[lunar_quest2]
 
 // 826
-[varplayer_826]
+[lunar_quest3]
 
 // 827
-[varplayer_827]
+[lunar_quest4]
 
 // 828
-[varplayer_828]
+[lunar_quest5]
 
 // 829
 [varplayer_829]
 
 // 830
-[varplayer_830]
+[farming_varp_16]
 
 // 831
 [varplayer_831]
@@ -3266,18 +3266,18 @@ transmit=yes
 [varplayer_833]
 
 // 834
-[varplayer_834]
+[xbows_pouch1]
 transmit=yes
 
 // 835
-[varplayer_835]
+[xbows_pouch2]
 transmit=yes
 
 // 836
 [varplayer_836]
 
 // 837
-[varplayer_837]
+[aluft_minigame]
 
 // 838
 [varplayer_838]
@@ -3286,23 +3286,23 @@ transmit=yes
 [varplayer_839]
 
 // 840
-[varplayer_840]
+[aluft_temp]
 
 // 841
 [varplayer_841]
 
 // 842
-[varplayer_842]
+[spy_cauldron]
 
 // 843
 [varplayer_843]
 
 // 844
-[varplayer_844]
+[eyeglo_var1]
 transmit=yes
 
 // 845
-[varplayer_845]
+[eyeglo_var2]
 transmit=yes
 
 // 846
@@ -3312,38 +3312,38 @@ transmit=yes
 [varplayer_847]
 
 // 848
-[varplayer_848]
+[eyeglo_temp3]
 transmit=yes
 
 // 849
-[varplayer_849]
+[eyeglo_unlock_a]
 
 // 850
-[varplayer_850]
+[eyeglo_operate1_a]
 transmit=yes
 
 // 851
-[varplayer_851]
+[eyeglo_operate2_a]
 transmit=yes
 
 // 852
-[varplayer_852]
+[eyeglo_operate2_b]
 transmit=yes
 
 // 853
-[varplayer_853]
+[eyeglo_operate3_a]
 transmit=yes
 
 // 854
-[varplayer_854]
+[eyeglo_operate3_b]
 transmit=yes
 
 // 855
-[varplayer_855]
+[eyeglo_operate3_c]
 transmit=yes
 
 // 856
-[varplayer_856]
+[eyeglo_coin_selected]
 transmit=yes
 
 // 857
@@ -3383,24 +3383,24 @@ transmit=yes
 [varplayer_868]
 
 // 869
-[varplayer_869]
+[myreque_3_main_var]
 transmit=yes
 
 // 870
-[varplayer_870]
+[myreque3_multivar]
 
 // 871
 [varplayer_871]
 
 // 872
-[varplayer_872]
+[option_areasounds]
 clientcode=10
 
 // 873
 [varplayer_873]
 
 // 874
-[varplayer_874]
+[quest_slug2]
 transmit=yes
 
 // 875
@@ -3467,14 +3467,14 @@ transmit=yes
 [varplayer_895]
 
 // 896
-[varplayer_896]
+[elemental_quest_2_bits]
 transmit=yes
 
 // 897
-[varplayer_897]
+[elemental_quest_2_bits_2]
 
 // 898
-[varplayer_898]
+[elemental_quest_2_temp]
 transmit=yes
 
 // 899
@@ -3495,11 +3495,11 @@ transmit=yes
 transmit=yes
 
 // 904
-[quest_points_total]
+[qp_total]
 transmit=yes
 
 // 905
-[varplayer_905]
+[myarm_quest]
 transmit=yes
 
 // 906
@@ -3509,7 +3509,7 @@ scope=perm
 protect=no
 
 // 907
-[varplayer_907]
+[tourtrap_qip_var]
 
 // 908
 [varplayer_908]
@@ -3521,14 +3521,14 @@ protect=no
 [varplayer_910]
 
 // 911
-[varplayer_911]
+[hw06_ghosts_var_2]
 
 // 912
-[varplayer_912]
+[zep_var]
 transmit=yes
 
 // 913
-[varplayer_913]
+[zep_if_var]
 transmit=yes
 
 // 914
@@ -3541,34 +3541,34 @@ transmit=yes
 [varplayer_916]
 
 // 917
-[varplayer_917]
+[hunt_pitfall_states_basevar1]
 
 // 918
-[varplayer_918]
+[hunt_pitfall_states_basevar2]
 
 // 919
-[varplayer_919]
+[hunting_trail_basevar1]
 
 // 920
-[varplayer_920]
+[hunting_trail_basevar2]
 
 // 921
-[varplayer_921]
+[hunting_trail_basevar3]
 
 // 922
-[varplayer_922]
+[hunting_trail_basevar4]
 
 // 923
-[varplayer_923]
+[hunting_trail_basevar5]
 
 // 924
-[varplayer_924]
+[hunting_trail_basevar6]
 
 // 925
-[varplayer_925]
+[hunting_trail_basevar7]
 
 // 926
-[varplayer_926]
+[hunting_trail_basevar8]
 
 // 927
 [varplayer_927]
@@ -3592,14 +3592,14 @@ transmit=yes
 [varplayer_933]
 
 // 934
-[varplayer_934]
+[eaglepeak]
 transmit=yes
 
 // 935
-[varplayer_935]
+[eaglepeak2]
 
 // 936
-[varplayer_936]
+[watchtower_rework_var]
 
 // 937
 [varplayer_937]
@@ -3608,17 +3608,17 @@ transmit=yes
 [varplayer_938]
 
 // 939
-[varplayer_939]
+[anma_base_1]
 transmit=yes
 
 // 940
 [varplayer_940]
 
 // 941
-[varplayer_941]
+[holiday_event_var_1]
 
 // 942
-[varplayer_942]
+[gublinch_event]
 
 // 943
 [varplayer_943]
@@ -3631,19 +3631,19 @@ transmit=yes
 transmit=yes
 
 // 946
-[varplayer_946]
+[barbarianassault4]
 transmit=yes
 
 // 947
-[varplayer_947]
+[barbarianassault5]
 transmit=yes
 
 // 948
-[varplayer_948]
+[barbarianassault6]
 transmit=yes
 
 // 949
-[varplayer_949]
+[barbarianassault7]
 
 // 950
 [varplayer_950]
@@ -3688,11 +3688,11 @@ transmit=yes
 [varplayer_963]
 
 // 964
-[varplayer_964]
+[contact_master]
 transmit=yes
 
 // 965
-[skill_guide]
+[skill_guide_v2]
 transmit=yes
 protect=no
 
@@ -3703,18 +3703,18 @@ protect=no
 [varplayer_967]
 
 // 968
-[varplayer_968]
+[peng_var]
 transmit=yes
 
 // 969
-[varplayer_969]
+[peng_var2]
 
 // 970
-[varplayer_970]
+[fris_r1]
 transmit=yes
 
 // 971
-[varplayer_971]
+[fris_r2]
 
 // 972
 [varplayer_972]
@@ -3723,83 +3723,83 @@ transmit=yes
 [varplayer_973]
 
 // 974
-[varplayer_974]
+[osman_var]
 
 // 975
 [varplayer_975]
 
 // 976
-[varplayer_976]
+[shadow_maj]
 
 // 977
-[varplayer_977]
+[tol_main]
 transmit=yes
 
 // 978
-[varplayer_978]
+[tol_main2]
 
 // 979
 [varplayer_979]
 
 // 980
-[varplayer_980]
+[brain_quest_var]
 transmit=yes
 
 // 981
-[varplayer_981]
+[brain_extra_var]
 
 // 982
-[varplayer_982]
+[brain_extra_var_2]
 
 // 983
-[varplayer_983]
+[ramble_main_var]
 
 // 984
-[varplayer_984]
+[follower_food_track_1]
 transmit=yes
 
 // 985
-[varplayer_985]
+[follower_food_track_2]
 transmit=yes
 
 // 986
-[varplayer_986]
+[follower_food_track_3]
 transmit=yes
 
 // 987
-[varplayer_987]
+[dorgesh_kaan_1]
 
 // 988
-[varplayer_988]
+[dorgesh_kaan_2]
 
 // 989
 [varplayer_989]
 
 // 990
-[varplayer_990]
+[dorgesh_light_bulbs_base_1]
 
 // 991
-[varplayer_991]
+[dorgesh_light_bulbs_base_2]
 
 // 992
-[varplayer_992]
+[surok_main]
 transmit=yes
 
 // 993
 [varplayer_993]
 
 // 994
-[varplayer_994]
+[olaf_var]
 transmit=yes
 
 // 995
-[varplayer_995]
+[olaf_extra_var]
 
 // 996
-[varplayer_996]
+[olaf2_extra_var]
 
 // 997
-[varplayer_997]
+[slice_base]
 transmit=yes
 
 // 998
@@ -3809,26 +3809,26 @@ transmit=yes
 [varplayer_999]
 
 // 1000
-[varplayer_1000]
+[atjun_tasks_1]
 transmit=yes
 
 // 1001
-[varplayer_1001]
+[atjun_tasks_2]
 transmit=yes
 
 // 1002
-[varplayer_1002]
+[atjun_tasks_3]
 transmit=yes
 
 // 1003
-[varplayer_1003]
+[dream_main]
 transmit=yes
 
 // 1004
-[varplayer_1004]
+[dream_main2]
 
 // 1005
-[varplayer_1005]
+[dream_main3]
 
 // 1006
 [varplayer_1006]
@@ -3846,11 +3846,11 @@ scope=perm
 protect=no
 
 // 1010
-[varplayer_1010]
+[vm]
 transmit=yes
 
 // 1011
-[varplayer_1011]
+[vm_displays]
 transmit=yes
 
 // 1012
@@ -3866,14 +3866,14 @@ transmit=yes
 [varplayer_1015]
 
 // 1016
-[varplayer_1016]
+[grim_main]
 transmit=yes
 
 // 1017
-[varplayer_1017]
+[grim_second]
 
 // 1018
-[varplayer_1018]
+[ii_player]
 transmit=yes
 
 // 1019
@@ -3890,7 +3890,7 @@ transmit=yes
 [varplayer_1022]
 
 // 1023
-[varplayer_1023]
+[brut_base_1]
 transmit=yes
 
 // 1024
@@ -3933,7 +3933,7 @@ transmit=yes
 [varplayer_1036]
 
 // 1037
-[varplayer_1037]
+[pattern_varp]
 transmit=yes
 
 // 1038
@@ -3949,44 +3949,44 @@ transmit=yes
 [varplayer_1041]
 
 // 1042
-[offer_modified]
+[traderemoved]
 transmit=yes
 protect=no
 
 // 1043
-[other_offer_modified]
+[traderemoved_other]
 transmit=yes
 protect=no
 
 // 1044
-[varplayer_1044]
+[pest2]
 
 // 1045
-[varplayer_1045]
+[cws_var]
 transmit=yes
 
 // 1046
-[varplayer_1046]
+[cws_var_2]
 transmit=yes
 
 // 1047
-[varplayer_1047]
+[cws_var_3]
 transmit=yes
 
 // 1048
-[varplayer_1048]
+[godwars]
 transmit=yes
 
 // 1049
-[varplayer_1049]
+[kr_varp1]
 transmit=yes
 
 // 1050
-[varplayer_1050]
+[kr_varp2]
 transmit=yes
 
 // 1051
-[varplayer_1051]
+[kr_varp3]
 transmit=yes
 
 // 1052
@@ -4008,7 +4008,7 @@ transmit=yes
 transmit=yes
 
 // 1057
-[varplayer_1057]
+[gimp_temp_var]
 transmit=yes
 
 // 1058
@@ -4028,46 +4028,46 @@ transmit=yes
 [varplayer_1062]
 
 // 1063
-[varplayer_1063]
+[pog_var1]
 transmit=yes
 
 // 1064
-[varplayer_1064]
+[pog_var2]
 
 // 1065
-[varplayer_1065]
+[pog_coin_display1_obj]
 transmit=yes
 
 // 1066
-[varplayer_1066]
+[pog_coin_display2_1_obj]
 transmit=yes
 
 // 1067
-[varplayer_1067]
+[pog_coin_display2_2_obj]
 transmit=yes
 
 // 1068
-[varplayer_1068]
+[pog_coin_target1_1_obj]
 transmit=yes
 
 // 1069
-[varplayer_1069]
+[pog_coin_target1_2_obj]
 transmit=yes
 
 // 1070
-[varplayer_1070]
+[pog_coin_target2_obj]
 transmit=yes
 
 // 1071
-[varplayer_1071]
+[atvar_task1]
 transmit=yes
 
 // 1072
-[varplayer_1072]
+[atvar_task2]
 transmit=yes
 
 // 1073
-[varplayer_1073]
+[atvar_task3]
 transmit=yes
 
 // 1074
@@ -4080,7 +4080,7 @@ transmit=yes
 [varplayer_1076]
 
 // 1077
-[varplayer_1077]
+[roots]
 transmit=yes
 
 // 1078
@@ -4093,32 +4093,32 @@ transmit=yes
 [varplayer_1080]
 
 // 1081
-[varplayer_1081]
+[atvar_date_var]
 transmit=yes
 
 // 1082
 [varplayer_1082]
 
 // 1083
-[varplayer_1083]
+[loot_var]
 transmit=yes
 
 // 1084
 [varplayer_1084]
 
 // 1085
-[varplayer_1085]
+[hw07_main]
 transmit=yes
 
 // 1086
 [varplayer_1086]
 
 // 1087
-[varplayer_1087]
+[assist_var]
 transmit=yes
 
 // 1088
-[varplayer_1088]
+[assist_xp_cap_var]
 transmit=yes
 
 // 1089
@@ -4131,18 +4131,18 @@ transmit=yes
 [varplayer_1091]
 
 // 1092
-[varplayer_1092]
+[assist_stat_magic]
 transmit=yes
 
 // 1093
-[varplayer_1093]
+[assist_stat_crafting]
 
 // 1094
-[varplayer_1094]
+[lotg_base]
 transmit=yes
 
 // 1095
-[varplayer_1095]
+[lotg_base_2]
 transmit=yes
 
 // 1096
@@ -4305,18 +4305,18 @@ protect=no
 [varplayer_1145]
 
 // 1146
-[varplayer_1146]
+[gravestone]
 transmit=yes
 
 // 1147
-[varplayer_1147]
+[clanwars]
 transmit=yes
 
 // 1148
 [varplayer_1148]
 
 // 1149
-[varplayer_1149]
+[clanwars_challengeuid]
 transmit=yes
 
 // 1150
@@ -4357,7 +4357,7 @@ protect=no
 transmit=yes
 
 // 1159
-[varplayer_1159]
+[playerdesign2_col]
 transmit=yes
 // 2011's world map marker, "Your marker" (interface_worldmap). Set and cleared
 // from the map's buttons and CLICKWORLDMAP, which run unprotected. Not saved,
@@ -4367,26 +4367,26 @@ type=coord
 protect=no
 
 // 1160
-[varplayer_1160]
+[lore_incubators_var]
 transmit=yes
 
 // 1161
-[varplayer_1161]
+[scab_temp_1]
 transmit=yes
 
 // 1162
 [varplayer_1162]
 
 // 1163
-[varplayer_1163]
+[scab_component_clicked]
 transmit=yes
 
 // 1164
-[varplayer_1164]
+[scab_thief_clicked]
 transmit=yes
 
 // 1165
-[varplayer_1165]
+[scab_1]
 transmit=yes
 
 // 1166
@@ -4405,7 +4405,7 @@ transmit=yes
 [varplayer_1170]
 
 // 1171
-[varplayer_1171]
+[lore_general_var_1]
 
 // 1172
 [varplayer_1172]
@@ -4414,23 +4414,23 @@ transmit=yes
 [varplayer_1173]
 
 // 1174
-[varplayer_1174]
+[lore_npc_head]
 transmit=yes
 
 // 1175
-[varplayer_1175]
+[lore_npc_stats]
 transmit=yes
 
 // 1176
-[varplayer_1176]
+[lore_timer_var]
 transmit=yes
 
 // 1177
-[varplayer_1177]
+[lore_spell_points]
 transmit=yes
 
 // 1178
-[varplayer_1178]
+[wolf_var]
 transmit=yes
 
 // 1179
@@ -4445,21 +4445,21 @@ scope=perm
 protect=no
 
 // 1181
-[varplayer_1181]
+[dsd_main]
 transmit=yes
 
 // 1182
 [varplayer_1182]
 
 // 1183
-[varplayer_1183]
+[farming_varp_17]
 
 // 1184
-[varplayer_1184]
+[afr_base]
 transmit=yes
 
 // 1185
-[varplayer_1185]
+[afr_extra]
 
 // 1186
 [varplayer_1186]
@@ -4471,30 +4471,30 @@ transmit=yes
 [varplayer_1188]
 
 // 1189
-[varplayer_1189]
+[music_v3_temp]
 transmit=yes
 
 // 1190
-[varplayer_1190]
+[catcon_1]
 transmit=yes
 
 // 1191
-[varplayer_1191]
+[catcon_2]
 transmit=yes
 
 // 1192
-[varplayer_1192]
+[catcon_3]
 transmit=yes
 
 // 1193
-[varplayer_1193]
+[catcon_4]
 transmit=yes
 
 // 1194
 [varplayer_1194]
 
 // 1195
-[varplayer_1195]
+[rabbit_main]
 transmit=yes
 
 // 1196
@@ -4514,7 +4514,7 @@ transmit=yes
 [varplayer_1200]
 
 // 1201
-[varplayer_1201]
+[easter08_shared2]
 transmit=yes
 
 // 1202
@@ -4524,14 +4524,14 @@ scope=perm
 protect=no
 
 // 1203
-[varplayer_1203]
+[sops_integer1]
 
 // 1204
-[varplayer_1204]
+[ken_var1]
 transmit=yes
 
 // 1205
-[varplayer_1205]
+[easter08_shared1]
 transmit=yes
 
 // 1206
@@ -4563,7 +4563,7 @@ transmit=yes
 [varplayer_1214]
 
 // 1215
-[varplayer_1215]
+[hvh_temps_2]
 transmit=yes
 
 // 1216
@@ -4573,11 +4573,11 @@ transmit=yes
 [varplayer_1217]
 
 // 1218
-[varplayer_1218]
+[myreque4_main_var]
 transmit=yes
 
 // 1219
-[varplayer_1219]
+[myreque4_2nd_var]
 
 // 1220
 [varplayer_1220]
@@ -4595,14 +4595,14 @@ transmit=yes
 [varplayer_1224]
 
 // 1225
-[varplayer_1225]
+[icemt_base]
 transmit=yes
 
 // 1226
 [varplayer_1226]
 
 // 1227
-[varplayer_1227]
+[dillo_var1]
 transmit=yes
 
 // 1228
@@ -4617,11 +4617,11 @@ transmit=yes
 protect=no
 
 // 1231
-[varplayer_1231]
+[gamearea_master]
 transmit=yes
 
 // 1232
-[varplayer_1232]
+[smki_1]
 transmit=yes
 
 // 1233
@@ -4634,17 +4634,17 @@ transmit=yes
 [varplayer_1235]
 
 // 1236
-[varplayer_1236]
+[rocko_var_1]
 transmit=yes
 
 // 1237
-[varplayer_1237]
+[rocko_var_2]
 
 // 1238
 [varplayer_1238]
 
 // 1239
-[varplayer_1239]
+[rocko_harry_hand_varp]
 
 // 1240
 [varplayer_1240]
@@ -4652,7 +4652,7 @@ transmit=yes
 scope=perm
 
 // 1241
-[varplayer_1241]
+[fov_status]
 transmit=yes
 
 // 1242
@@ -4663,10 +4663,10 @@ transmit=yes
 [varplayer_1243]
 
 // 1244
-[varplayer_1244]
+[zq_temp]
 
 // 1245
-[varplayer_1245]
+[login_once_checks]
 
 // 1246
 [varplayer_1246]
@@ -4709,11 +4709,11 @@ transmit=yes
 transmit=yes
 
 // 1254
-[varplayer_1254]
+[tutorial2_tasks2]
 transmit=yes
 
 // 1255
-[varplayer_1255]
+[tutorial2_tracking]
 transmit=yes
 
 // 1256
@@ -4735,7 +4735,7 @@ transmit=yes
 [varplayer_1260]
 
 // 1261
-[varplayer_1261]
+[chathead_var]
 transmit=yes
 
 // 1262
@@ -4764,27 +4764,27 @@ transmit=yes
 [varplayer_1269]
 
 // 1270
-[varplayer_1270]
+[area_environment_varp_1]
 
 // 1271
-[varplayer_1271]
+[sum1_var1]
 transmit=yes
 
 // 1272
-[varplayer_1272]
+[sum1_var2]
 
 // 1273
 [varplayer_1273]
 
 // 1274
-[varplayer_1274]
+[hist_main]
 transmit=yes
 
 // 1275
-[varplayer_1275]
+[hist_main2]
 
 // 1276
-[varplayer_1276]
+[rcguild_temp]
 transmit=yes
 
 // 1277
@@ -4804,11 +4804,11 @@ transmit=yes
 [varplayer_1281]
 
 // 1282
-[varplayer_1282]
+[firedup_1]
 transmit=yes
 
 // 1283
-[varplayer_1283]
+[firedup_2]
 transmit=yes
 
 // 1284
@@ -4821,10 +4821,10 @@ transmit=yes
 [varplayer_1286]
 
 // 1287
-[varplayer_1287]
+[firedup_6]
 
 // 1288
-[varplayer_1288]
+[firedup_7]
 transmit=yes
 
 // 1289
@@ -4862,7 +4862,7 @@ transmit=yes
 [varplayer_1299]
 
 // 1300
-[varplayer_1300]
+[crcs_temp_multi]
 
 // 1301
 [varplayer_1301]
@@ -4871,18 +4871,18 @@ transmit=yes
 [varplayer_1302]
 
 // 1303
-[varplayer_1303]
+[peng_spy_switch]
 transmit=yes
 
 // 1304
 [varplayer_1304]
 
 // 1305
-[varplayer_1305]
+[clanwars_rules]
 transmit=yes
 
 // 1306
-[varplayer_1306]
+[sum2_var1]
 transmit=yes
 
 // 1307
@@ -4895,11 +4895,11 @@ transmit=yes
 [varplayer_1309]
 
 // 1311
-[varplayer_1311]
+[zemo_base1]
 transmit=yes
 
 // 1312
-[varplayer_1312]
+[zemo_base2]
 
 // 1313
 [varplayer_1313]
@@ -4945,51 +4945,51 @@ transmit=yes
 [varplayer_1326]
 
 // 1327
-[varplayer_1327]
+[swept1]
 transmit=yes
 
 // 1328
-[varplayer_1328]
+[swept2]
 transmit=yes
 
 // 1329
 [varplayer_1329]
 
 // 1330
-[varplayer_1330]
+[lucien2_main_var]
 transmit=yes
 
 // 1331
-[varplayer_1331]
+[sc_temp]
 
 // 1332
-[varplayer_1332]
+[sc_score_clay_gathered]
 transmit=yes
 
 // 1333
-[varplayer_1333]
+[sc_score_clay_deposited]
 transmit=yes
 
 // 1334
-[varplayer_1334]
+[sc_score_clay_processed]
 transmit=yes
 
 // 1335
-[varplayer_1335]
+[sc_score_clay_taken]
 transmit=yes
 
 // 1336
 [varplayer_1336]
 
 // 1337
-[varplayer_1337]
+[sc_score_damage_inflicted]
 transmit=yes
 
 // 1338
 [varplayer_1338]
 
 // 1339
-[varplayer_1339]
+[sc_debug_npcs_visible]
 
 // 1340
 [varplayer_1340]
@@ -5016,29 +5016,29 @@ transmit=yes
 [varplayer_1347]
 
 // 1348
-[varplayer_1348]
+[lucien2_second_var]
 transmit=yes
 
 // 1349
-[varplayer_1349]
+[lucien2_third_var]
 
 // 1350
-[varplayer_1350]
+[lucien2_fourth_var]
 
 // 1351
 [varplayer_1351]
 
 // 1352
-[varplayer_1352]
+[lucien2_sixth_var]
 
 // 1353
-[varplayer_1353]
+[lucien2_weight]
 
 // 1354
-[varplayer_1354]
+[luc2_temp_varp_no_protect]
 
 // 1355
-[varplayer_1355]
+[arena_var2]
 
 // 1356
 [varplayer_1356]
@@ -5060,7 +5060,7 @@ transmit=yes
 transmit=yes
 
 // 1361
-[varplayer_1361]
+[atfal_task2]
 transmit=yes
 
 // 1362
@@ -5085,11 +5085,11 @@ protect=no
 [varplayer_1364]
 
 // 1365
-[varplayer_1365]
+[motwl_xmas08]
 transmit=yes
 
 // 1366
-[varplayer_1366]
+[motwl_temp]
 transmit=yes
 
 // 1367
@@ -5102,11 +5102,11 @@ transmit=yes
 [varplayer_1369]
 
 // 1370
-[varplayer_1370]
+[phoenix_main_var]
 transmit=yes
 
 // 1371
-[varplayer_1371]
+[phoenix_dungeon_var]
 
 // 1372
 [varplayer_1372]
@@ -5128,17 +5128,17 @@ transmit=yes
 transmit=yes
 
 // 1377
-[varplayer_1377]
+[snp_main]
 transmit=yes
 
 // 1378
 [varplayer_1378]
 
 // 1379
-[varplayer_1379]
+[snp_temp]
 
 // 1380
-[varplayer_1380]
+[snp_idle]
 transmit=yes
 
 // 1381
@@ -5162,11 +5162,11 @@ transmit=yes
 [varplayer_1385]
 
 // 1386
-[varplayer_1386]
+[eviltree_varp_1]
 transmit=yes
 
 // 1387
-[varplayer_1387]
+[eviltree_varp_2]
 
 // 1388
 [varplayer_1388]
@@ -5175,11 +5175,11 @@ transmit=yes
 [varplayer_1389]
 
 // 1390
-[varplayer_1390]
+[chosen_base]
 transmit=yes
 
 // 1391
-[varplayer_1391]
+[chosen_bits]
 
 // 1392
 [varplayer_1392]
@@ -5223,11 +5223,11 @@ transmit=yes
 transmit=yes
 
 // 1403
-[varplayer_1403]
+[glomem_basevar]
 transmit=yes
 
 // 1404
-[varplayer_1404]
+[easter09]
 transmit=yes
 
 // 1405
@@ -5237,17 +5237,17 @@ transmit=yes
 [varplayer_1406]
 
 // 1407
-[varplayer_1407]
+[mah1_perm1]
 transmit=yes
 
 // 1408
-[varplayer_1408]
+[mah1_perm2]
 
 // 1409
 [varplayer_1409]
 
 // 1410
-[varplayer_1410]
+[pvpwild_main]
 transmit=yes
 
 // 1411
@@ -5264,53 +5264,53 @@ transmit=yes
 transmit=yes
 
 // 1415
-[varplayer_1415]
+[mom2_base1]
 transmit=yes
 
 // 1416
-[varplayer_1416]
+[mom2_base2]
 
 // 1417
 [varplayer_1417]
 transmit=yes
 
 // 1418
-[varplayer_1418]
+[arena_cutscene]
 
 // 1419
 [varplayer_1419]
 
 // 1420
-[varplayer_1420]
+[peng_rak_main]
 transmit=yes
 
 // 1421
-[varplayer_1421]
+[peng_rak_temp]
 
 // 1422
-[varplayer_1422]
+[peng_rak_temp2]
 transmit=yes
 
 // 1423
-[varplayer_1423]
+[peng_rak_hunting1]
 
 // 1424
-[varplayer_1424]
+[peng_rak_hunting2]
 
 // 1425
-[varplayer_1425]
+[peng_rak_hunting3]
 
 // 1426
-[varplayer_1426]
+[peng_rak_hunting_joint1]
 
 // 1427
-[varplayer_1427]
+[peng_rak_hunting_joint2]
 
 // 1428
-[varplayer_1428]
+[peng_rak_hunting_joint3]
 
 // 1429
-[varplayer_1429]
+[peng_rak_hunting_joint4]
 
 // 1430
 [varplayer_1430]
@@ -5320,7 +5320,7 @@ transmit=yes
 transmit=yes
 
 // 1432
-[varplayer_1432]
+[sops_rem_temp]
 
 // 1433
 [varplayer_1433]
@@ -5335,7 +5335,7 @@ protect=no
 [varplayer_1435]
 
 // 1436
-[varplayer_1436]
+[trawler_activity_base]
 transmit=yes
 
 // 1437
@@ -5347,15 +5347,15 @@ transmit=yes
 transmit=yes
 
 // 1439
-[varplayer_1439]
+[notes_selected]
 transmit=yes
 
 // 1440
-[varplayer_1440]
+[notes_colours_base0]
 transmit=yes
 
 // 1441
-[varplayer_1441]
+[notes_colours_base1]
 transmit=yes
 
 // 1442
@@ -5470,11 +5470,11 @@ transmit=yes
 [varplayer_1474]
 
 // 1475
-[varplayer_1475]
+[mah3_base1]
 transmit=yes
 
 // 1476
-[varplayer_1476]
+[mah3_temp1]
 transmit=yes
 
 // 1477
@@ -5533,7 +5533,7 @@ transmit=yes
 [varplayer_1492]
 
 // 1493
-[varplayer_1493]
+[lore_general_varp_1]
 transmit=yes
 
 // 1494
@@ -5541,7 +5541,7 @@ transmit=yes
 transmit=yes
 
 // 1495
-[varplayer_1495]
+[rcguild_activity_base]
 transmit=yes
 
 // 1496
@@ -5554,7 +5554,7 @@ scope=temp
 [varplayer_1497]
 
 // 1498
-[varplayer_1498]
+[ra3_base]
 transmit=yes
 
 // 1499
@@ -5581,22 +5581,22 @@ transmit=yes
 [varplayer_1505]
 
 // 1506
-[varplayer_1506]
+[objective_random]
 transmit=yes
 
 // 1507
-[varplayer_1507]
+[objective_random2]
 transmit=yes
 
 // 1508
-[varplayer_1508]
+[objective_random3]
 transmit=yes
 
 // 1509
 [varplayer_1509]
 
 // 1510
-[varplayer_1510]
+[advisor_bits]
 transmit=yes
 
 // 1511
@@ -5726,7 +5726,7 @@ transmit=yes
 [varplayer_1552]
 
 // 1553
-[varplayer_1553]
+[wc_update09_varp1]
 transmit=yes
 
 // 1554
@@ -5744,14 +5744,14 @@ transmit=yes
 [varplayer_1557]
 
 // 1558
-[varplayer_1558]
+[wtl_varp1]
 transmit=yes
 
 // 1559
-[varplayer_1559]
+[wtl_varp2]
 
 // 1560
-[varplayer_1560]
+[wtl_varp3]
 transmit=yes
 
 // 1561
@@ -5775,28 +5775,28 @@ transmit=yes
 transmit=yes
 
 // 1566
-[varplayer_1566]
+[hw09_base]
 
 // 1567
-[varplayer_1567]
+[hw09_furniture]
 
 // 1568
-[varplayer_1568]
+[hw09_furniture2]
 
 // 1569
-[varplayer_1569]
+[hw09_furniture3]
 
 // 1570
-[varplayer_1570]
+[hw09_furniture4]
 
 // 1571
 [varplayer_1571]
 
 // 1572
-[varplayer_1572]
+[champions_banners]
 
 // 1573
-[varplayer_1573]
+[champions_rewards]
 transmit=yes
 
 // 1574
@@ -5806,20 +5806,20 @@ transmit=yes
 [varplayer_1575]
 
 // 1576
-[varplayer_1576]
+[tg09_base]
 
 // 1577
-[varplayer_1577]
+[mah4_base1]
 transmit=yes
 
 // 1578
-[varplayer_1578]
+[mah4_base2]
 
 // 1579
-[varplayer_1579]
+[mah4_base3]
 
 // 1580
-[varplayer_1580]
+[mah4_base4]
 
 // 1581
 [varplayer_1581]
@@ -5829,7 +5829,7 @@ transmit=yes
 transmit=yes
 
 // 1583
-[varplayer_1583]
+[curse_perm1]
 transmit=yes
 
 // 1584
@@ -5847,7 +5847,7 @@ transmit=yes
 transmit=yes
 
 // 1588
-[varplayer_1588]
+[evq_basevar1]
 transmit=yes
 
 // 1589
@@ -5879,17 +5879,17 @@ scope=perm
 protect=no
 
 // 1597
-[varplayer_1597]
+[xmas09_mastervar]
 transmit=yes
 
 // 1598
-[varplayer_1598]
+[xmas09_puzzlevar]
 
 // 1599
-[varplayer_1599]
+[xmas09_tempvar]
 
 // 1600
-[varplayer_1600]
+[nom_main]
 transmit=yes
 
 // 1601
@@ -5905,7 +5905,7 @@ transmit=yes
 [varplayer_1604]
 
 // 1605
-[varplayer_1605]
+[barbarianassault8]
 transmit=yes
 
 // 1606
@@ -5921,15 +5921,15 @@ transmit=yes
 [varplayer_1609]
 
 // 1610
-[varplayer_1610]
+[rm_main]
 transmit=yes
 
 // 1611
-[varplayer_1611]
+[rm_temp_var]
 transmit=yes
 
 // 1612
-[varplayer_1612]
+[rm_temp_var2]
 transmit=yes
 
 // 1613
@@ -5966,7 +5966,7 @@ scope=perm
 protect=no
 
 // 1621
-[varplayer_1621]
+[playlist_0_and_1]
 transmit=yes
 
 // 1622
@@ -5993,25 +5993,25 @@ transmit=yes
 [varplayer_1627]
 
 // 1628
-[varplayer_1628]
+[sfa]
 transmit=yes
 
 // 1629
-[varplayer_1629]
+[sfa_temp]
 transmit=yes
 
 // 1630
-[varplayer_1630]
+[sfa_shards]
 
 // 1631
-[varplayer_1631]
+[sfa_shards2]
 
 // 1632
-[varplayer_1632]
+[sfa_hunt]
 transmit=yes
 
 // 1633
-[varplayer_1633]
+[sfa_timers]
 transmit=yes
 
 // 1634
@@ -6036,10 +6036,10 @@ transmit=yes
 [varplayer_1640]
 
 // 1641
-[varplayer_1641]
+[statue_main]
 
 // 1642
-[varplayer_1642]
+[statue_replica_main]
 
 // 1644
 [doublexp_perm1]
@@ -6050,11 +6050,11 @@ scope=perm
 [varplayer_1645]
 
 // 1646
-[varplayer_1646]
+[lumbcat_base]
 transmit=yes
 
 // 1647
-[varplayer_1647]
+[lumbcat_in_quest_for_client]
 transmit=yes
 
 // 1648
@@ -6070,15 +6070,15 @@ transmit=yes
 [varplayer_1651]
 
 // 1652
-[varplayer_1652]
+[dob_day]
 transmit=yes
 
 // 1653
-[varplayer_1653]
+[dob_month]
 transmit=yes
 
 // 1654
-[varplayer_1654]
+[dob_year]
 transmit=yes
 
 // 1655
@@ -6106,7 +6106,7 @@ transmit=yes
 transmit=yes
 
 // 1662
-[varplayer_1662]
+[fishcomp_perm8]
 transmit=yes
 
 // 1663
@@ -6129,11 +6129,11 @@ transmit=yes
 [varplayer_1668]
 
 // 1669
-[varplayer_1669]
+[easter10_var1]
 transmit=yes
 
 // 1670
-[varplayer_1670]
+[easter10_var2]
 transmit=yes
 
 // 1671
@@ -6146,7 +6146,7 @@ transmit=yes
 [varplayer_1673]
 
 // 1674
-[varplayer_1674]
+[easter10_resourcegame_turncount]
 transmit=yes
 
 // 1675
@@ -6174,7 +6174,7 @@ transmit=yes
 transmit=yes
 
 // 1681
-[varplayer_1681]
+[easter10_resourcegame_totalworkers]
 transmit=yes
 
 // 1682
@@ -6190,77 +6190,77 @@ transmit=yes
 transmit=yes
 
 // 1685
-[varplayer_1685]
+[easter10_resourcegame_errortextflag]
 transmit=yes
 
 // 1686
-[varplayer_1686]
+[easter10_resourcegame_totalchoc]
 transmit=yes
 
 // 1687
-[varplayer_1687]
+[easter10_resourcegame_totalnuts]
 transmit=yes
 
 // 1688
-[varplayer_1688]
+[easter10_resourcegame_totalfruit]
 transmit=yes
 
 // 1689
-[varplayer_1689]
+[easter10_resourcegame_totalfc]
 transmit=yes
 
 // 1690
-[varplayer_1690]
+[easter10_resourcegame_totaltegg]
 transmit=yes
 
 // 1691
-[varplayer_1691]
+[easter10_resourcegame_totalnegg]
 transmit=yes
 
 // 1692
-[varplayer_1692]
+[easter10_resourcegame_chocgenerated]
 transmit=yes
 
 // 1693
-[varplayer_1693]
+[easter10_resourcegame_nutsgenerated]
 transmit=yes
 
 // 1694
-[varplayer_1694]
+[easter10_resourcegame_fruitgenerated]
 transmit=yes
 
 // 1695
-[varplayer_1695]
+[easter10_resourcegame_fcgenerated]
 transmit=yes
 
 // 1696
-[varplayer_1696]
+[easter10_resourcegame_negggenerated]
 transmit=yes
 
 // 1697
-[varplayer_1697]
+[easter10_resourcegame_tegggenerated]
 transmit=yes
 
 // 1698
-[varplayer_1698]
+[easter10_resourcegame_randomeventflag]
 transmit=yes
 
 // 1699
 [varplayer_1699]
 
 // 1700
-[varplayer_1700]
+[easter10_conveyorstatus]
 transmit=yes
 
 // 1701
-[varplayer_1701]
+[easter10_conveyoritemsent]
 transmit=yes
 
 // 1702
 [varplayer_1702]
 
 // 1703
-[varplayer_1703]
+[easter10_conveyorcorrectitems]
 transmit=yes
 
 // 1704
@@ -6352,7 +6352,7 @@ transmit=yes
 [varplayer_1774]
 
 // 1775
-[varplayer_1775]
+[rand_perm_int_02]
 transmit=yes
 
 // 1776
@@ -6416,7 +6416,7 @@ transmit=yes
 [varplayer_1794]
 
 // 1795
-[varplayer_1795]
+[rand_gate_stone_coord]
 transmit=yes
 
 // 1796
@@ -6449,7 +6449,7 @@ transmit=yes
 [varplayer_1804]
 
 // 1805
-[varplayer_1805]
+[tutorial3_voice_enabled]
 transmit=yes
 
 // 1806
@@ -6468,14 +6468,14 @@ transmit=yes
 [varplayer_1810]
 
 // 1811
-[varplayer_1811]
+[thigui_main]
 transmit=yes
 
 // 1812
-[varplayer_1812]
+[thigui_values]
 
 // 1813
-[varplayer_1813]
+[thigui_hanky]
 
 // 1814
 [varplayer_1814]
@@ -6493,17 +6493,17 @@ transmit=yes
 [varplayer_1818]
 
 // 1819
-[varplayer_1819]
+[ft3_main]
 transmit=yes
 
 // 1820
-[varplayer_1820]
+[ft3_second]
 
 // 1821
-[varplayer_1821]
+[ft3_third]
 
 // 1822
-[varplayer_1822]
+[ft3_temp]
 
 // 1823
 [varplayer_1823]
@@ -6536,14 +6536,14 @@ transmit=yes
 [varplayer_1832]
 
 // 1833
-[varplayer_1833]
+[elem_3_bits_1]
 
 // 1834
-[varplayer_1834]
+[elem_3_bits_2]
 transmit=yes
 
 // 1835
-[varplayer_1835]
+[elem_3_turn_count]
 
 // 1836
 [varplayer_1836]
@@ -6555,14 +6555,14 @@ transmit=yes
 [varplayer_1838]
 
 // 1839
-[varplayer_1839]
+[csi_temp1]
 
 // 1840
 [varplayer_1840]
 transmit=yes
 
 // 1841
-[varplayer_1841]
+[csi_perm1]
 transmit=yes
 
 // 1842
@@ -6573,14 +6573,14 @@ transmit=yes
 [varplayer_1843]
 
 // 1844
-[varplayer_1844]
+[vkq1_varp1]
 transmit=yes
 
 // 1845
-[varplayer_1845]
+[vkq1_varp_temp1]
 
 // 1846
-[varplayer_1846]
+[vkq1_varp_temp2]
 
 // 1847
 [varplayer_1847]
@@ -6589,7 +6589,7 @@ transmit=yes
 [varplayer_1848]
 
 // 1849
-[varplayer_1849]
+[lovestory]
 transmit=yes
 
 // 1850
@@ -6628,11 +6628,11 @@ transmit=yes
 [varplayer_1860]
 
 // 1861
-[varplayer_1861]
+[vkq2_main]
 transmit=yes
 
 // 1862
-[varplayer_1862]
+[vkq2_puzzles]
 
 // 1863
 [varplayer_1863]
@@ -6662,34 +6662,34 @@ protect=no
 [varplayer_1869]
 
 // 1870
-[varplayer_1870]
+[conq_base_temp]
 transmit=yes
 
 // 1871
-[varplayer_1871]
+[conq_base_1]
 transmit=yes
 
 // 1872
-[varplayer_1872]
+[conq_base_2]
 transmit=yes
 
 // 1873
-[varplayer_1873]
+[conq_base_3]
 transmit=yes
 
 // 1874
-[varplayer_1874]
+[conq_base_4]
 transmit=yes
 
 // 1875
-[varplayer_1875]
+[conq_highscore]
 transmit=yes
 
 // 1876
 [varplayer_1876]
 
 // 1877
-[varplayer_1877]
+[conq_unprotected_temp]
 transmit=yes
 
 // 1878
@@ -6716,10 +6716,10 @@ scope=perm
 [varplayer_1883]
 
 // 1884
-[varplayer_1884]
+[atvar_chest_varp2]
 
 // 1885
-[varplayer_1885]
+[atvar_chest_varp3]
 
 // 1886
 [varplayer_1886]
@@ -6730,27 +6730,27 @@ transmit=yes
 transmit=yes
 
 // 1888
-[varplayer_1888]
+[misc_total_resource]
 transmit=yes
 
 // 1889
-[varplayer_1889]
+[romcom_main]
 transmit=yes
 
 // 1890
-[varplayer_1890]
+[vkq3_grid_1]
 transmit=yes
 
 // 1891
-[varplayer_1891]
+[vkq3_grid_2]
 transmit=yes
 
 // 1892
-[varplayer_1892]
+[vkq3_grid_3]
 transmit=yes
 
 // 1893
-[varplayer_1893]
+[vkq3_active_piece]
 transmit=yes
 
 // 1894
@@ -6790,17 +6790,17 @@ transmit=yes
 [varplayer_1905]
 
 // 1906
-[varplayer_1906]
+[vkq3_varp1]
 transmit=yes
 
 // 1907
-[varplayer_1907]
+[vkq3_puzzles]
 
 // 1908
 [varplayer_1908]
 
 // 1909
-[varplayer_1909]
+[vkq3_varp_temp1]
 transmit=yes
 
 // 1910
@@ -6837,7 +6837,7 @@ transmit=yes
 [varplayer_1920]
 
 // 1921
-[varplayer_1921]
+[hw10_var]
 transmit=yes
 
 // 1922
@@ -6868,10 +6868,10 @@ transmit=yes
 [varplayer_1930]
 
 // 1931
-[varplayer_1931]
+[ecosystem_var_1]
 
 // 1932
-[varplayer_1932]
+[ecosystem_var_2]
 
 // 1933
 [varplayer_1933]
@@ -6885,19 +6885,19 @@ transmit=yes
 transmit=yes
 
 // 1936
-[varplayer_1936]
+[ecosystem_temp_1]
 
 // 1937
-[varplayer_1937]
+[ecosystem_temp_2]
 
 // 1938
-[varplayer_1938]
+[ecosystem_temp_3]
 
 // 1939
-[varplayer_1939]
+[ecosystem_temp_4]
 
 // 1940
-[varplayer_1940]
+[ecosystem_temp_5]
 
 // 1941
 [varplayer_1941]
@@ -6906,13 +6906,13 @@ transmit=yes
 [varplayer_1942]
 
 // 1943
-[varplayer_1943]
+[ecosystem_trail_1]
 
 // 1944
-[varplayer_1944]
+[ecosystem_trail_2]
 
 // 1945
-[varplayer_1945]
+[ecosystem_trail_3]
 
 // 1946
 [varplayer_1946]
@@ -6927,7 +6927,7 @@ transmit=yes
 [varplayer_1949]
 
 // 1950
-[varplayer_1950]
+[desert_quest_series_1]
 transmit=yes
 
 // 1951
@@ -7203,17 +7203,17 @@ scope=perm
 protect=no
 
 // 2020
-[varplayer_2020]
+[apmeken_mastervar]
 transmit=yes
 
 // 2021
 [varplayer_2021]
 
 // 2022
-[varplayer_2022]
+[apmeken_secondvar]
 
 // 2023
-[varplayer_2023]
+[apmeken_thirdvar]
 
 // 2024
 [varplayer_2024]
@@ -7234,21 +7234,21 @@ transmit=yes
 [varplayer_2029]
 
 // 2030
-[varplayer_2030]
+[warguild_tokens2]
 transmit=yes
 
 // 2031
 [varplayer_2031]
 
 // 2032
-[varplayer_2032]
+[xmas10_base]
 
 // 2033
 [varplayer_2033]
 transmit=yes
 
 // 2034
-[varplayer_2034]
+[xmas10_temp]
 transmit=yes
 
 // 2035
@@ -7258,17 +7258,17 @@ transmit=yes
 [varplayer_2036]
 
 // 2037
-[varplayer_2037]
+[ra4_base]
 transmit=yes
 
 // 2038
-[varplayer_2038]
+[ra4_base2]
 
 // 2039
 [varplayer_2039]
 
 // 2040
-[varplayer_2040]
+[godwars2_perm]
 transmit=yes
 
 // 2041
@@ -7288,37 +7288,37 @@ transmit=yes
 [varplayer_2045]
 
 // 2046
-[varplayer_2046]
+[glo3_var1]
 transmit=yes
 
 // 2047
-[varplayer_2047]
+[glo3_var2]
 
 // 2048
-[varplayer_2048]
+[glo3_vartemp]
 
 // 2049
-[varplayer_2049]
+[construction_shortcuts]
 
 // 2050
 [varplayer_2050]
 
 // 2051
-[varplayer_2051]
+[elem_4_bits_1]
 transmit=yes
 
 // 2052
-[varplayer_2052]
+[elem_4_bits_2]
 transmit=yes
 
 // 2053
-[varplayer_2053]
+[elem_4_bits_3]
 
 // 2054
-[varplayer_2054]
+[elem_4_temp]
 
 // 2055
-[varplayer_2055]
+[elem_4_truely_temp]
 
 // 2056
 [varplayer_2056]
@@ -7327,13 +7327,13 @@ transmit=yes
 [varplayer_2057]
 
 // 2058
-[varplayer_2058]
+[artisan_varp_1]
 
 // 2059
-[varplayer_2059]
+[artisan_varp_2]
 
 // 2060
-[varplayer_2060]
+[artisan_varp_3]
 transmit=yes
 
 // 2061
@@ -7341,15 +7341,15 @@ transmit=yes
 transmit=yes
 
 // 2062
-[varplayer_2062]
+[artisan_varp_5]
 transmit=yes
 
 // 2063
-[varplayer_2063]
+[artisan_varp_6]
 transmit=yes
 
 // 2064
-[varplayer_2064]
+[artisan_varp_1_temp]
 transmit=yes
 
 // 2065
@@ -7360,11 +7360,11 @@ transmit=yes
 transmit=yes
 
 // 2067
-[varplayer_2067]
+[artisan_varp_4_temp]
 transmit=yes
 
 // 2068
-[varplayer_2068]
+[tog_xp_before_return_billions]
 transmit=yes
 
 // 2069
@@ -7392,24 +7392,24 @@ transmit=yes
 [varplayer_2076]
 
 // 2077
-[varplayer_2077]
+[acs_tempint_1]
 transmit=yes
 
 // 2078
 [varplayer_2078]
 
 // 2079
-[varplayer_2079]
+[acs_varp_1]
 transmit=yes
 
 // 2080
-[varplayer_2080]
+[acs_varp_2]
 
 // 2081
-[varplayer_2081]
+[acs_temp_1]
 
 // 2082
-[varplayer_2082]
+[tutorial4_tasks]
 transmit=yes
 
 // 2083
@@ -7420,16 +7420,16 @@ transmit=yes
 [varplayer_2084]
 
 // 2085
-[varplayer_2085]
+[lunarfm_main]
 
 // 2086
-[varplayer_2086]
+[lunarfm_main2]
 
 // 2087
-[varplayer_2087]
+[lunarfm_main3]
 
 // 2088
-[varplayer_2088]
+[lunarfm_main4]
 transmit=yes
 
 // 2089
@@ -7446,23 +7446,23 @@ transmit=yes
 [varplayer_2092]
 
 // 2093
-[varplayer_2093]
+[clan_custom_motif_base_varp]
 transmit=yes
 
 // 2094
-[varplayer_2094]
+[clan_custom_motif_colour1_varp]
 transmit=yes
 
 // 2095
-[varplayer_2095]
+[clan_custom_motif_colour2_varp]
 transmit=yes
 
 // 2096
-[varplayer_2096]
+[clan_custom_colour1_varp]
 transmit=yes
 
 // 2097
-[varplayer_2097]
+[clan_custom_colour2_varp]
 transmit=yes
 
 // 2098
@@ -7582,7 +7582,7 @@ transmit=yes
 transmit=yes
 
 // 2128
-[varplayer_2128]
+[clan_event_current_varp]
 transmit=yes
 
 // 2129
@@ -7595,15 +7595,15 @@ transmit=yes
 [varplayer_2131]
 
 // 2132
-[varplayer_2132]
+[clan_custom_vote_numbers_varp]
 transmit=yes
 
 // 2133
-[varplayer_2133]
+[clan_custom_vote_varp]
 transmit=yes
 
 // 2134
-[varplayer_2134]
+[clan_custom_vote_cast_varp]
 transmit=yes
 
 // 2135
@@ -7617,27 +7617,27 @@ transmit=yes
 [varplayer_2137]
 
 // 2138
-[varplayer_2138]
+[clan_keyword_main1_varp]
 transmit=yes
 
 // 2139
-[varplayer_2139]
+[clan_keyword_main2_varp]
 transmit=yes
 
 // 2140
-[varplayer_2140]
+[clan_keyword_main3_varp]
 transmit=yes
 
 // 2141
-[varplayer_2141]
+[clan_keyword_main4_varp]
 transmit=yes
 
 // 2142
-[varplayer_2142]
+[clan_keyword_main5_varp]
 transmit=yes
 
 // 2143
-[varplayer_2143]
+[clansettings_clanmate_job_varp]
 
 // 2144
 [varplayer_2144]
@@ -7655,14 +7655,14 @@ transmit=yes
 [varplayer_2148]
 
 // 2149
-[varplayer_2149]
+[clan_flag_varp]
 transmit=yes
 
 // 2150
 [varplayer_2150]
 
 // 2151
-[varplayer_2151]
+[clan_rcw_transmit]
 transmit=yes
 
 // 2152
@@ -7718,7 +7718,7 @@ transmit=yes
 [varplayer_2168]
 
 // 2169
-[varplayer_2169]
+[easter11_base]
 transmit=yes
 
 // 2170
@@ -7740,7 +7740,7 @@ transmit=yes
 transmit=yes
 
 // 2175
-[varplayer_2175]
+[clan_event_notifications]
 transmit=yes
 
 // 2176

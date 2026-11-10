@@ -18,8 +18,8 @@ switch_int(oc_param(last_useitem, gnome_cooking_type)) {
     case ^gnome_bowl, ^gnome_batta, ^gnome_crunchies : @finish_gnome_food(last_useitem, last_item);
 }
 switch_obj(last_useitem) {
-    case toad_s_legs : @opheldu_make_gnome_food(equa_toads_legs, "You add the equa leaves to the toad legs.");
-    case spicy_toad_s_legs : @opheldu_make_gnome_food(seasoned_legs, "You add the equa leaves to the spicy toad legs.");
+    case toads_legs : @opheldu_make_gnome_food(equa_toads_legs, "You add the equa leaves to the toad legs.");
+    case spicy_toads_legs : @opheldu_make_gnome_food(seasoned_toads_legs, "You add the equa leaves to the spicy toad legs.");
     case cocktail_shaker : @add_batta_ingredient(last_item);
     case half_baked_bowl : @add_bowl_ingredient(last_item);
     case half_baked_batta : @add_batta_ingredient(last_item);
@@ -35,7 +35,7 @@ switch_obj(last_useitem) {
     case default : ~displaymessage(^dm_default);
 }
 
-[opheldu,seasoned_legs]
+[opheldu,seasoned_toads_legs]
 switch_obj(last_useitem) {
     case half_baked_batta : @add_batta_ingredient(last_item);
     case default : ~displaymessage(^dm_default);
@@ -55,13 +55,13 @@ switch_obj(last_useitem) {
     case default : ~displaymessage(^dm_default);
 }
 
-[opheldu,toad_s_legs]
+[opheldu,toads_legs]
 switch_obj(last_useitem) {
-    case gnome_spice : @opheldu_make_gnome_food(spicy_toad_s_legs, "You add the gnome spice to the toad legs.");
+    case gnome_spice : @opheldu_make_gnome_food(spicy_toads_legs, "You add the gnome spice to the toad legs.");
     case equa_leaves : @opheldu_make_gnome_food(equa_toads_legs, "You add the equa leaves to the toad legs.");
     case half_baked_bowl : @add_bowl_ingredient(last_item);
     case half_baked_crunchy : @add_crunchies_ingredient(last_item);
-    case toadflax_potion__unf : ~attempt_brew_potion(last_useslot, last_slot);
+    case toadflaxvial : ~attempt_brew_potion(last_useslot, last_slot);
     case default : ~displaymessage(^dm_default);
 }
 
@@ -100,8 +100,8 @@ switch_int(oc_param(last_useitem, gnome_cooking_type)) {
 }
 switch_obj(last_useitem) {
     case king_worm : @opheldu_make_gnome_food(spicy_worm, "You add the gnome spice to the king worm.");
-    case toad_s_legs : @opheldu_make_gnome_food(spicy_toad_s_legs, "You add the gnome spice to the toad legs.");
-    case equa_toads_legs : @opheldu_make_gnome_food(seasoned_legs, "You add the gnome spice to the equa toad legs.");
+    case toads_legs : @opheldu_make_gnome_food(spicy_toads_legs, "You add the gnome spice to the toad legs.");
+    case equa_toads_legs : @opheldu_make_gnome_food(seasoned_toads_legs, "You add the gnome spice to the equa toad legs.");
     case half_baked_bowl : @add_bowl_ingredient(last_item);
     case half_baked_crunchy : @add_crunchies_ingredient(last_item);
     case default : ~displaymessage(^dm_default);

@@ -1,21 +1,21 @@
 // 3023
 [proc,script3023]
-if_setsize(calc(if_getx(lobbyscreen_pane_friendslist:friends_vdiv) - if_getx(lobbyscreen_pane_friendslist:friends_content)), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendslist:friends_name);
-if_setsize(calc(if_getwidth(lobbyscreen_pane_friendslist:friends_main) - if_getwidth(lobbyscreen_pane_friendslist:friends_name) - 2), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendslist:friends_status);
-if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:friends_main);
-if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:friends_main);
+if_setsize(lobbyscreen_pane_friendslist:friends_name, calc(if_getx(lobbyscreen_pane_friendslist:friends_vdiv) - if_getx(lobbyscreen_pane_friendslist:friends_content)), 0, ^setsize_abs, ^setsize_minus);
+if_setsize(lobbyscreen_pane_friendslist:friends_status, calc(if_getwidth(lobbyscreen_pane_friendslist:friends_main) - if_getwidth(lobbyscreen_pane_friendslist:friends_name) - 2), 0, ^setsize_abs, ^setsize_minus);
+if_setscrollsize(lobbyscreen_pane_friendslist:friends_main, 0, 0);
+if_setscrollpos(lobbyscreen_pane_friendslist:friends_main, 0, 0);
 ~scrollbar_vertical(lobbyscreen_pane_friendslist:friends_build_layer_scroll, lobbyscreen_pane_friendslist:friends_main, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:ignore_main);
-if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:ignore_main);
+if_setscrollsize(lobbyscreen_pane_friendslist:ignore_main, 0, 0);
+if_setscrollpos(lobbyscreen_pane_friendslist:ignore_main, 0, 0);
 ~scrollbar_vertical(lobbyscreen_pane_friendslist:ignore_scroll, lobbyscreen_pane_friendslist:ignore_main, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:chat_build);
-if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:chat_build);
+if_setscrollsize(lobbyscreen_pane_friendslist:chat_build, 0, 0);
+if_setscrollpos(lobbyscreen_pane_friendslist:chat_build, 0, 0);
 ~scrollbar_vertical(lobbyscreen_pane_friendslist:chat_scroll, lobbyscreen_pane_friendslist:chat_build, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-%varclient_1122 = if_getheight(lobbyscreen_pane_friendslist:chat_build);
+%lobby_pmchat_lastscrollpos = if_getheight(lobbyscreen_pane_friendslist:chat_build);
 ~script3029(lobbyscreen_pane_friendslist:friends_name, lobbyscreen_pane_friendslist:friends_namechange, lobbyscreen_pane_friendslist:friends_status, lobbyscreen_pane_friendslist:friends_bg, lobbyscreen_pane_friendslist:friends_main, lobbyscreen_pane_friendslist:friends_build_layer_scroll);
-if_setonfriendtransmit("script3028(lobbyscreen_pane_friendslist:friends_name, lobbyscreen_pane_friendslist:friends_namechange, lobbyscreen_pane_friendslist:friends_status, lobbyscreen_pane_friendslist:friends_bg, lobbyscreen_pane_friendslist:friends_main, lobbyscreen_pane_friendslist:friends_build_layer_scroll)", lobbyscreen_pane_friendslist:friends_main);
+if_setonfriendtransmit(lobbyscreen_pane_friendslist:friends_main, "script3028(lobbyscreen_pane_friendslist:friends_name, lobbyscreen_pane_friendslist:friends_namechange, lobbyscreen_pane_friendslist:friends_status, lobbyscreen_pane_friendslist:friends_bg, lobbyscreen_pane_friendslist:friends_main, lobbyscreen_pane_friendslist:friends_build_layer_scroll)");
 ~script3041(lobbyscreen_pane_friendslist:ignore_name, lobbyscreen_pane_friendslist:ignore_namechange, lobbyscreen_pane_friendslist:ignore_bg, lobbyscreen_pane_friendslist:ignore_main, lobbyscreen_pane_friendslist:ignore_scroll);
-if_setonfriendtransmit("script3040(lobbyscreen_pane_friendslist:ignore_name, lobbyscreen_pane_friendslist:ignore_namechange, lobbyscreen_pane_friendslist:ignore_bg, lobbyscreen_pane_friendslist:ignore_main, lobbyscreen_pane_friendslist:ignore_scroll)", lobbyscreen_pane_friendslist:ignore_main);
+if_setonfriendtransmit(lobbyscreen_pane_friendslist:ignore_main, "script3040(lobbyscreen_pane_friendslist:ignore_name, lobbyscreen_pane_friendslist:ignore_namechange, lobbyscreen_pane_friendslist:ignore_bg, lobbyscreen_pane_friendslist:ignore_main, lobbyscreen_pane_friendslist:ignore_scroll)");
 ~script3024(lobbyscreen_pane_friendslist:chat_bg);
 %varclient_1795 = "";
 ~lobbyscreen_pane_friendslist_chatbox_resize_load;

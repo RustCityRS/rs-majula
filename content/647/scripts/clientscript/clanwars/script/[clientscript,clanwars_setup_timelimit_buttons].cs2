@@ -3,7 +3,7 @@
 if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varclient_247 ! $int1) {
-    %varclient_247 = $int1;
+if (%clanwars_rulevarc_timelimit ! $int1) {
+    %clanwars_rulevarc_timelimit = $int1;
     ~togglebox_variablebits;
 }

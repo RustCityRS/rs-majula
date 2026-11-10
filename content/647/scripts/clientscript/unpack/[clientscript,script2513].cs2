@@ -1,22 +1,22 @@
 // 2513
 [clientscript,script2513]
-if (%varclient_847 < 0) {
-    %varclient_847 = 0;
+if (%mob_client_cannon_qty < 0) {
+    %mob_client_cannon_qty = 0;
 }
-if (%varclient_848 < 0) {
-    %varclient_848 = 0;
+if (%mob_client_glider_qty < 0) {
+    %mob_client_glider_qty = 0;
 }
-if (%varclient_849 < 0) {
-    %varclient_849 = 0;
+if (%mob_client_chinchompa_qty < 0) {
+    %mob_client_chinchompa_qty = 0;
 }
-if (%varclient_850 < 0) {
-    %varclient_850 = 0;
+if (%mob_client_distractor_qty < 0) {
+    %mob_client_distractor_qty = 0;
 }
-if (%varclient_851 < 0) {
-    %varclient_851 = 0;
+if (%mob_client_barricade_qty < 0) {
+    %mob_client_barricade_qty = 0;
 }
-if_settext(tostring(%varclient_847), mob_special_units:quantity_field1);
-if_settext(tostring(%varclient_848), mob_special_units:quantity_field2);
-if_settext(tostring(%varclient_849), mob_special_units:quantity_field3);
-if_settext(tostring(%varclient_850), mob_special_units:quantity_field4);
-if_settext(tostring(%varclient_851), mob_special_units:quantity_field5);
+if_settext(mob_special_units:quantity_field1, tostring(%mob_client_cannon_qty));
+if_settext(mob_special_units:quantity_field2, tostring(%mob_client_glider_qty));
+if_settext(mob_special_units:quantity_field3, tostring(%mob_client_chinchompa_qty));
+if_settext(mob_special_units:quantity_field4, tostring(%mob_client_distractor_qty));
+if_settext(mob_special_units:quantity_field5, tostring(%mob_client_barricade_qty));

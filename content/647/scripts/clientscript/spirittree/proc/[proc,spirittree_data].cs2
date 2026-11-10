@@ -15,19 +15,19 @@ switch_int ($int0) {
     case 4 :
         return(1, enum(int, string, enum_2535, 4));
     case 5 :
-        if (%varplayerbit_720 = 20) {
+        if (%farming_spirit_tree_varbit_1 = 20) {
             return(1, enum(int, string, enum_2535, 5));
         }
     case 6 :
-        if (%varplayerbit_722 = 20) {
+        if (%farming_spirit_tree_varbit_2 = 20) {
             return(1, enum(int, string, enum_2535, 6));
         }
     case 7 :
-        if (%varplayerbit_724 = 20) {
+        if (%farming_spirit_tree_varbit_3 = 20) {
             return(1, enum(int, string, enum_2535, 7));
         }
     case 8 :
-        if (%varplayerbit_3959 >= 3) {
+        if (%pog_spirit >= 3) {
             return(1, enum(int, string, enum_2535, 8));
         }
     case default :

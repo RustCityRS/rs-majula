@@ -20,11 +20,11 @@ sound_synth(pick, 1, 0);
 if (coordx(coord) < 2880 | coordx(coord) > 2943 | coordz(coord) < 3136 | coordz(coord) > 3199) {
     return;
 }
-if (%varplayerbit_3566 >= 5) {
+if (%atjun_easy_banana >= 5) {
     return;
 }
-%varplayerbit_3566 = add(%varplayerbit_3566, 1);
-if (%varplayerbit_3566 = 5) {
+%atjun_easy_banana = add(%atjun_easy_banana, 1);
+if (%atjun_easy_banana = 5) {
     ~task_complete(182);
 }
 

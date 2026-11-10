@@ -1,5 +1,5 @@
 // 2165
 [clientscript,ql4_init]
 ~ql4_init_general(1);
-if_setonvartransmit("ql4_refresh{varplayer_1384}", questlist_v4:quests);
-if_setonvarctransmit("ql4_refresh{varclient_695}", questlist_v4:quests);
+if_setonvartransmit(questlist_v4:quests, "ql4_refresh{varplayer_1384}");
+if_setonvarctransmit(questlist_v4:quests, "ql4_refresh{ql4_reinit}");

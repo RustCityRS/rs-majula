@@ -41,7 +41,7 @@ assert_called("sound_synth", 1)
 [label,test_a_leather_body_blocks_with_leather_hit]
 setup_player("test_player")
 %life_points = 100;
-inv_setslot(worn, ^wearpos_torso, leather_body, 1);
+inv_setslot(worn, ^wearpos_torso, leather_armour, 1);
 ~player_combat_stat;
 ~damage_self(0);
 assert_called_with("sound_synth", "1064,0,20")
@@ -79,15 +79,15 @@ assert_called("sound_synth", 0)
 // reaches 2011's anti_dragon_shield: its bonuses (7/9/8/2/8, as the 2011 wiki's
 // Anti-dragon shield gives them) and shield category.
 [label,test_the_anti_dragon_shield_has_289_s_bonuses]
-assert_eq(oc_param(anti_dragon_shield, stabdefence), 7)
-assert_eq(oc_param(anti_dragon_shield, slashdefence), 9)
-assert_eq(oc_param(anti_dragon_shield, crushdefence), 8)
-assert_eq(oc_param(anti_dragon_shield, magicdefence), 2)
-assert_eq(oc_param(anti_dragon_shield, rangedefence), 8)
-assert_true(oc_category(anti_dragon_shield) = armour_shield)
+assert_eq(oc_param(antidragonbreathshield, stabdefence), 7)
+assert_eq(oc_param(antidragonbreathshield, slashdefence), 9)
+assert_eq(oc_param(antidragonbreathshield, crushdefence), 8)
+assert_eq(oc_param(antidragonbreathshield, magicdefence), 2)
+assert_eq(oc_param(antidragonbreathshield, rangedefence), 8)
+assert_true(oc_category(antidragonbreathshield) = armour_shield)
 
 // 289's adamant fire arrows light into its lit ones (289's adamant_litarrow,
 // obj 2539), which reach 2011's 2539 with their range bonus.
 [label,test_adamant_fire_arrows_light_into_2539]
-assert_true(oc_param(adamant_fire_arrows, next_obj_stage) = adamant_fire_arrows_2539)
-assert_eq(oc_param(adamant_fire_arrows_2539, rangebonus), 31)
+assert_true(oc_param(adamant_unlitarrow, next_obj_stage) = adamant_litarrow)
+assert_eq(oc_param(adamant_litarrow, rangebonus), 31)

@@ -1,8 +1,8 @@
 // 2855
 [proc,machinima_camera_south]
-if (~script2869(movecoord(%varclient_1070, 0, 0, -1)) = true) {
+if (~script2869(movecoord(%machinima_livecamera_position, 0, 0, -1)) = true) {
     return;
 }
-if (~machinima_distance(coord, movecoord(%varclient_1070, 0, 0, -1)) < 31) {
-    %varclient_1070 = movecoord(%varclient_1070, 0, 0, -1);
+if (~machinima_distance(coord, movecoord(%machinima_livecamera_position, 0, 0, -1)) < 31) {
+    %machinima_livecamera_position = movecoord(%machinima_livecamera_position, 0, 0, -1);
 }

@@ -1,9 +1,9 @@
 // 2031
 [clientscript,regicide_still_right_wheel](component $component0)
 if (testbit(%regicide_still_settings, 29) = ^true) {
-    if_setmodelangle(0, 0, 512, 1024, 0, 1000, $component0);
+    if_setmodelangle($component0, 0, 0, 512, 1024, 0, 1000);
 } else if (testbit(%regicide_still_settings, 30) = ^true) {
-    if_setmodelangle(0, 0, 512, 1536, 0, 1000, $component0);
+    if_setmodelangle($component0, 0, 0, 512, 1536, 0, 1000);
 } else if (testbit(%regicide_still_settings, 31) = ^true) {
-    if_setmodelangle(0, 0, 512, 0, 0, 1000, $component0);
+    if_setmodelangle($component0, 0, 0, 512, 0, 0, 1000);
 }

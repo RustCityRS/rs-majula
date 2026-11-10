@@ -1,10 +1,10 @@
 // 3041
 [proc,script3041](component $component0, component $component1, component $component2, component $component3, component $component4)
 if (minimenuopen($component2, -1) = true) {
-    if_setontimer("script3040($component0, $component1, $component2, $component3, $component4)", $component3);
+    if_setontimer($component3, "script3040($component0, $component1, $component2, $component3, $component4)");
     return;
 } else {
-    if_setontimer(null, $component3);
+    if_setontimer($component3, null);
 }
 cc_deleteall($component0);
 cc_deleteall($component1);
@@ -25,13 +25,13 @@ def_int $int14 = 0;
 def_int $int15 = 0;
 def_string $string3 = "";
 if ($int5 = -2) {
-    if_settext("Name", lobbyscreen_pane_friendslist:ignore_name_title);
+    if_settext(lobbyscreen_pane_friendslist:ignore_name_title, "Name");
     ~script3038("Loading Ignore List.<br><br>Please wait.", $component2);
 } else if ($int5 = -1) {
-    if_settext("Name", lobbyscreen_pane_friendslist:ignore_name_title);
+    if_settext(lobbyscreen_pane_friendslist:ignore_name_title, "Name");
     ~script3038("Connecting to server.<br><br>Please wait.", $component2);
 } else if ($int5 > 0) {
-    if_settext("Name (<tostring($int5)>/100)", lobbyscreen_pane_friendslist:ignore_name_title);
+    if_settext(lobbyscreen_pane_friendslist:ignore_name_title, "Name (<tostring($int5)>/100)");
     while ($int6 < $int5) {
         $string0, $string1 = ignore_getname($int6);
         ~cc_add_rect($component2, $int6, if_getwidth($component2), $int10, 0, $int7, ^black, true, 0);
@@ -87,18 +87,18 @@ if ($int5 = -2) {
     }
     if ($int9 <= $int5) {
         $int14 = if_getscrolly(lobbyscreen_pane_friendslist:ignore_main);
-        if_setscrollsize(0, $int11, lobbyscreen_pane_friendslist:ignore_main);
+        if_setscrollsize(lobbyscreen_pane_friendslist:ignore_main, 0, $int11);
         if ($int14 > $int11) {
             $int14 = $int11;
         }
         ~scrollbar_resize(lobbyscreen_pane_friendslist:ignore_scroll, lobbyscreen_pane_friendslist:ignore_main, $int14);
     } else {
-        if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:ignore_main);
-        if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:ignore_main);
+        if_setscrollsize(lobbyscreen_pane_friendslist:ignore_main, 0, 0);
+        if_setscrollpos(lobbyscreen_pane_friendslist:ignore_main, 0, 0);
         ~scrollbar_resize(lobbyscreen_pane_friendslist:ignore_scroll, lobbyscreen_pane_friendslist:ignore_main, 0);
     }
 } else if ($int5 = 0) {
-    if_settext("Name", lobbyscreen_pane_friendslist:ignore_name_title);
+    if_settext(lobbyscreen_pane_friendslist:ignore_name_title, "Name");
     ~script3038("You are not ignoring any players.", $component2);
 }
 return;

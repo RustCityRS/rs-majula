@@ -6,15 +6,15 @@
 // (@open_autocast_interface, @set_autocast_spell, cancelspell) go with it;
 // the state combat reads stays.
 [proc,player_autocast_enabled]()(boolean)
-if (testbit(%attackstyle_magic, 0) = ^true & %attackstyle_magic = 3 & %autocast_spell > 0) {
+if (testbit(%lastcastspell, 0) = ^true & %lastcastspell = 3 & %varplayer_59 > 0) {
     return(true);
 }
 return(false);
 
 [proc,player_autocast_reset]
-%attackstyle_magic = 0;
-%autocast_spell = null;
+%lastcastspell = 0;
+%varplayer_59 = null;
 
 [proc,.player_autocast_reset]
-.%attackstyle_magic = 0;
-.%autocast_spell = null;
+.%lastcastspell = 0;
+.%varplayer_59 = null;

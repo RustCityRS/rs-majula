@@ -26,7 +26,7 @@ if ($int7 = 1) {
             cc_settrans(230);
         }
     } else {
-        if_sethide(false, enum(int, component, enum_1085, $int0));
+        if_sethide(enum(int, component, enum_1085, $int0), false);
     }
 }
 def_string $string1 = ~tostring_spacer($int2, ",");
@@ -34,12 +34,12 @@ def_string $string2 = ~tostring_spacer($int6, ",");
 def_int $int14 = 0;
 def_int $int15 = 0;
 def_component $component16 = enum(int, component, enum_1084, $int0);
-if_sethide(true, $component16);
+if_sethide($component16, true);
 def_string $string3 = "";
 if ($int7 = 1) {
     if ($int0 < 2 | playermember = true) {
         if ($int0 = $int9) {
-            if_sethide(false, $component16);
+            if_sethide($component16, false);
         } else {
             cc_create($component10, ^iftype_graphic, $int13);
             cc_setgraphic("grand_exchange_misc_graphics,5");

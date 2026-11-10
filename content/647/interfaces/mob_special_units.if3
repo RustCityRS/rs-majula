@@ -56,7 +56,7 @@ colour=0xff991f
 transmitop=10
 op10=  
 onload=script2510
-onvarctransmit=script2510{varclient_852, varclient_853, varclient_854, varclient_855, varclient_856}
+onvarctransmit=script2510{mob_client_cannon_exist_qty, mob_client_glider_exist_qty, mob_client_chinchompa_exist_qty, mob_client_distractor_exist_qty, mob_client_barricade_exist_qty}
 
 // 654:4
 [cost_title]
@@ -93,7 +93,7 @@ colour=0xff991f
 transmitop=10
 op10=  
 onload=script2513
-onvarctransmit=script2513{varclient_847, varclient_848, varclient_849, varclient_850, varclient_851}
+onvarctransmit=script2513{mob_client_cannon_qty, mob_client_glider_qty, mob_client_chinchompa_qty, mob_client_distractor_qty, mob_client_barricade_qty}
 
 // 654:6
 [total_cost_title]
@@ -1083,7 +1083,7 @@ colour=0xff9933
 transmitop=10
 op10= 
 onvartransmit=script2515{varplayer_1445, varplayer_1451, varplayer_1451, varplayer_1451, varplayer_1451, varplayer_1451}
-onvarctransmit=script2515{varclient_839, varclient_847, varclient_848, varclient_849, varclient_850, varclient_851}
+onvarctransmit=script2515{mob_client_invest, mob_client_cannon_qty, mob_client_glider_qty, mob_client_chinchompa_qty, mob_client_distractor_qty, mob_client_barricade_qty}
 
 // 654:75
 [grand_total]

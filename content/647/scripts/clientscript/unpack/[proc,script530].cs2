@@ -1,29 +1,29 @@
 // 530
 [proc,script530](component $component0)(int, string)
 if ($component0 = assister_interface:runecrafting_event_area) {
-    return(%varplayerbit_4090, "Runecrafting");
+    return(%assist_runecraft_xp_on, "Runecrafting");
 }
 if ($component0 = assister_interface:crafting_event_area) {
-    return(%varplayerbit_4091, "Crafting");
+    return(%assist_crafting_xp_on, "Crafting");
 }
 if ($component0 = assister_interface:fletching_event_area) {
-    return(%varplayerbit_4093, "Fletching");
+    return(%assist_fletching_xp_on, "Fletching");
 }
 if ($component0 = assister_interface:construction_event_area) {
-    return(%varplayerbit_4095, "Construction");
+    return(%assist_construction_xp_on, "Construction");
 }
 if ($component0 = assister_interface:farming_event_area) {
-    return(%varplayerbit_4096, "Farming");
+    return(%assist_farming_xp_on, "Farming");
 }
 if ($component0 = assister_interface:magic_event_area) {
-    return(%varplayerbit_4098, "Magic");
+    return(%assist_magic_xp_on, "Magic");
 }
 if ($component0 = assister_interface:smithing_event_area) {
-    return(%varplayerbit_4100, "Smithing");
+    return(%assist_smithing_xp_on, "Smithing");
 }
 if ($component0 = assister_interface:cooking_event_area) {
-    return(%varplayerbit_4101, "Cooking");
+    return(%assist_cooking_xp_on, "Cooking");
 }
 if ($component0 = assister_interface:herblore_event_area) {
-    return(%varplayerbit_4102, "Herblore");
+    return(%assist_herblore_xp_on, "Herblore");
 }

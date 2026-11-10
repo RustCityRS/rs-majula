@@ -11,14 +11,14 @@
 // The page calls the zap "a Magical melee attack" and its trivia "actually
 // melee based"; 289's roll (magic, beaten by Protect from Magic) is kept, as
 // no 2011 source says how it is blocked.
-[ai_opplayer2,monk_of_zamorak] @monk_of_zamorak_attack(80);
+[ai_opplayer2,chaosmonk1] @monk_of_zamorak_attack(80);
 [ai_opplayer2,chaosmonk2] @monk_of_zamorak_attack(60);
 [ai_opplayer2,chaosmonk3] @monk_of_zamorak_attack(130);
 
 // 2011's Defender of Varrock monk, 8178, fights as 289's chaosmonk3
 // (npc_clones_2011.npc: void-634's combat_def); cache 786 gives it level 17, so
 // the 2011 wiki's level-17 zap.
-[ai_opplayer2,monk_of_zamorak_8178] @monk_of_zamorak_attack(60);
+[ai_opplayer2,zemo_chaosmonk2] @monk_of_zamorak_attack(60);
 
 [label,monk_of_zamorak_attack](int $zap_maxhit)
 if (%npc_action_delay > map_clock) return;

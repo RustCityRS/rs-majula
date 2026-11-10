@@ -3,38 +3,38 @@
 if (($component0 = interface_134:agility | $component0 = interface_134:herblore | $component0 = interface_134:thieving | $component0 = interface_134:fletching | $component0 = interface_134:slayer | $component0 = interface_134:farming | $component0 = interface_134:construction | $component0 = interface_134:hunter | $component0 = interface_134:lore) & map_members = false) {
     return;
 }
-if ($component0 = interface_134:lore & %varplayerbit_4302 < 110) {
+if ($component0 = interface_134:lore & %wolf_quest < 110) {
     return;
 }
 if ($component0 = interface_134:herblore & %druidquest < 4) {
     return;
 }
-if ($component0 = interface_134:construction & %varplayerbit_2187 = 0) {
+if ($component0 = interface_134:construction & %poh_house_location = 0) {
     return;
 }
-if_sethide(true, interface_134:click_attack);
-if_sethide(true, interface_134:click_strength);
-if_sethide(true, interface_134:click_ranged);
-if_sethide(true, interface_134:click_magic);
-if_sethide(true, interface_134:click_defence);
-if_sethide(true, interface_134:click_hitpoints);
-if_sethide(true, interface_134:click_prayer);
-if_sethide(true, interface_134:click_agility);
-if_sethide(true, interface_134:click_herblore);
-if_sethide(true, interface_134:click_thieving);
-if_sethide(true, interface_134:click_crafting);
-if_sethide(true, interface_134:click_runecraft);
-if_sethide(true, interface_134:click_mining);
-if_sethide(true, interface_134:click_smithing);
-if_sethide(true, interface_134:click_fishing);
-if_sethide(true, interface_134:click_cooking);
-if_sethide(true, interface_134:click_firemaking);
-if_sethide(true, interface_134:click_woodcutting);
-if_sethide(true, interface_134:click_fletching);
-if_sethide(true, interface_134:click_slayer);
-if_sethide(true, interface_134:click_farming);
-if_sethide(true, interface_134:click_construction);
-if_sethide(true, interface_134:click_hunter);
-if_sethide(true, interface_134:click_lore);
-if_sethide(true, interface_134:click_dungeoneering);
-if_sethide(false, $component0);
+if_sethide(interface_134:click_attack, true);
+if_sethide(interface_134:click_strength, true);
+if_sethide(interface_134:click_ranged, true);
+if_sethide(interface_134:click_magic, true);
+if_sethide(interface_134:click_defence, true);
+if_sethide(interface_134:click_hitpoints, true);
+if_sethide(interface_134:click_prayer, true);
+if_sethide(interface_134:click_agility, true);
+if_sethide(interface_134:click_herblore, true);
+if_sethide(interface_134:click_thieving, true);
+if_sethide(interface_134:click_crafting, true);
+if_sethide(interface_134:click_runecraft, true);
+if_sethide(interface_134:click_mining, true);
+if_sethide(interface_134:click_smithing, true);
+if_sethide(interface_134:click_fishing, true);
+if_sethide(interface_134:click_cooking, true);
+if_sethide(interface_134:click_firemaking, true);
+if_sethide(interface_134:click_woodcutting, true);
+if_sethide(interface_134:click_fletching, true);
+if_sethide(interface_134:click_slayer, true);
+if_sethide(interface_134:click_farming, true);
+if_sethide(interface_134:click_construction, true);
+if_sethide(interface_134:click_hunter, true);
+if_sethide(interface_134:click_lore, true);
+if_sethide(interface_134:click_dungeoneering, true);
+if_sethide($component0, false);

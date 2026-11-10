@@ -23,9 +23,9 @@ switch_int ($int0) {
         $string0 = "Help - ignoring a player temporarily";
         $string1 = "Now that your report has been sent, you can choose whether or not to ignore the offender. This is a temporary measure, and will only last until you log out. To permanently ignore a player, make a note of their name and add them to your Ignore List once the 'Report Abuse' windows are closed.<br><br>You cannot ignore moderators or people on your Friends List.";
 }
-if_settext($string0, $component1);
-if_settext($string1, $component2);
-if_setsize(if_getwidth($component3), calc(paraheight($string1, if_getwidth($component2), verdana_11pt_regular) * 12 + 48), ^setsize_abs, ^setsize_abs, $component3);
+if_settext($component1, $string0);
+if_settext($component2, $string1);
+if_setsize($component3, if_getwidth($component3), calc(paraheight($string1, if_getwidth($component2), verdana_11pt_regular) * 12 + 48), ^setsize_abs, ^setsize_abs);
 switch_component ($component5) {
     case lobbyscreen_report_abuse_ignore:main :
         $component6 = lobbyscreen:report_abuse_ignore_body;
@@ -37,7 +37,7 @@ switch_component ($component5) {
         $component6 = lobbyscreen:report_abuse_stage2_body;
 }
 if ($component6 ! null) {
-    if_setsize(if_getwidth($component6), if_getheight($component3), ^setsize_abs, ^setsize_abs, $component6);
-    if_setsize(if_getwidth($component5), if_getheight($component3), ^setsize_abs, ^setsize_abs, $component5);
+    if_setsize($component6, if_getwidth($component6), if_getheight($component3), ^setsize_abs, ^setsize_abs);
+    if_setsize($component5, if_getwidth($component5), if_getheight($component3), ^setsize_abs, ^setsize_abs);
 }
-if_sethide(false, $component4);
+if_sethide($component4, false);

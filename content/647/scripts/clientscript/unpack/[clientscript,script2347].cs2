@@ -1,38 +1,38 @@
 // 2347
 [clientscript,script2347](int $int0)
 if ($int0 = 1) {
-    if (%varplayerbit_6048 >= 250) {
-        if_setcolour(^green, interface_723:com_6);
-    } else if (%varplayerbit_6048 = 0) {
-        if_setcolour(^red, interface_723:com_6);
+    if (%mah1_quest >= 250) {
+        if_setcolour(interface_723:com_6, ^green);
+    } else if (%mah1_quest = 0) {
+        if_setcolour(interface_723:com_6, ^red);
     } else {
-        if_setcolour(^yellow, interface_723:com_6);
+        if_setcolour(interface_723:com_6, ^yellow);
     }
 }
 if ($int0 = 2) {
-    if (%varplayerbit_6112 >= 60) {
-        if_setcolour(^green, interface_723:com_7);
-    } else if (%varplayerbit_6112 = 0) {
-        if_setcolour(^red, interface_723:com_7);
+    if (%mom2_main >= 60) {
+        if_setcolour(interface_723:com_7, ^green);
+    } else if (%mom2_main = 0) {
+        if_setcolour(interface_723:com_7, ^red);
     } else {
-        if_setcolour(^yellow, interface_723:com_7);
+        if_setcolour(interface_723:com_7, ^yellow);
     }
 }
 if ($int0 = 3) {
-    if (%varplayerbit_6289 >= 240) {
-        if_setcolour(^green, interface_723:com_8);
-    } else if (%varplayerbit_6289 = 0) {
-        if_setcolour(^red, interface_723:com_8);
+    if (%mah3_main >= 240) {
+        if_setcolour(interface_723:com_8, ^green);
+    } else if (%mah3_main = 0) {
+        if_setcolour(interface_723:com_8, ^red);
     } else {
-        if_setcolour(^yellow, interface_723:com_8);
+        if_setcolour(interface_723:com_8, ^yellow);
     }
 }
 if ($int0 = 4) {
-    if (%varplayerbit_6775 >= 100) {
-        if_setcolour(^green, interface_723:com_9);
-    } else if (%varplayerbit_6775 = 0) {
-        if_setcolour(^red, interface_723:com_9);
+    if (%mah4_main >= 100) {
+        if_setcolour(interface_723:com_9, ^green);
+    } else if (%mah4_main = 0) {
+        if_setcolour(interface_723:com_9, ^red);
     } else {
-        if_setcolour(^yellow, interface_723:com_9);
+        if_setcolour(interface_723:com_9, ^yellow);
     }
 }

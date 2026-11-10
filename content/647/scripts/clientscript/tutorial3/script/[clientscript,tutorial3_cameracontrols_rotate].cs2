@@ -1,6 +1,6 @@
 // 2773
 [clientscript,tutorial3_cameracontrols_rotate](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8)
-if (%learning_the_ropes < 6) {
+if (%tutorial < 6) {
     return;
 }
 def_component $component9 = null;
@@ -27,8 +27,8 @@ switch_int ($int0) {
     case default :
         return;
 }
-if_setgraphic("km_camerakeys,5", $component9);
+if_setgraphic($component9, "km_camerakeys,5");
 def_graphic $graphic13 = "km_camerakeys,0";
-if_setontimer("script1723(event_com, event_comsubid, $graphic13, calc(clientclock + 10))", $component9);
-if_setgraphic($graphic12, $component10);
-if_setontimer("script1723(event_com, event_comsubid, $graphic11, calc(clientclock + 10))", $component10);
+if_setontimer($component9, "script1723(event_com, event_comsubid, $graphic13, calc(clientclock + 10))");
+if_setgraphic($component10, $graphic12);
+if_setontimer($component10, "script1723(event_com, event_comsubid, $graphic11, calc(clientclock + 10))");

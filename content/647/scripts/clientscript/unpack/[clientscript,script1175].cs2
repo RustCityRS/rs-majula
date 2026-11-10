@@ -30,9 +30,9 @@ if (~pvpwild_world_check = 1) {
     }
     if ($int4 = $int5) {
         if (getwindowmode < 2) {
-            if_settext(" ", toplevel:com_9);
+            if_settext(toplevel:com_9, " ");
         } else {
-            if_settext(" ", toplevel_fullscreen:com_14);
+            if_settext(toplevel_fullscreen:com_14, " ");
         }
         return;
     }
@@ -51,7 +51,7 @@ if (~pvpwild_world_check = 1) {
     $int5 = calc($int5 - 1);
 }
 if (getwindowmode < 2) {
-    if_settext("<tostring($int4)> - <tostring($int5)>", toplevel:com_9);
+    if_settext(toplevel:com_9, "<tostring($int4)> - <tostring($int5)>");
 } else {
-    if_settext("<tostring($int4)> - <tostring($int5)>", toplevel_fullscreen:com_14);
+    if_settext(toplevel_fullscreen:com_14, "<tostring($int4)> - <tostring($int5)>");
 }

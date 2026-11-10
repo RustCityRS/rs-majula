@@ -12,7 +12,7 @@ if (~check_axis(coord, loc_coord, loc_angle) = true) {
     // the Cape of Accomplishment for Crafting can enter the Crafting Guild
     // simply by wearing the cape instead of a brown apron").
     // if (inv_total(worn, brown_apron) < 1) {
-    if (inv_total(worn, brown_apron) < 1 & inv_total(worn, crafting_cape) < 1 & inv_total(worn, crafting_cape__t) < 1) {
+    if (inv_total(worn, brown_apron) < 1 & inv_total(worn, skillcape_crafting) < 1 & inv_total(worn, skillcape_crafting_trimmed) < 1) {
         ~chatnpc_specific(nc_name(master_crafter), master_crafter, "<p,neutral>Where's your brown apron? You can't come in here unless you're wearing one.");
         if (inv_total(inv, brown_apron) < 1) {
             ~chatplayer("<p,neutral>Err... I haven't got one.");

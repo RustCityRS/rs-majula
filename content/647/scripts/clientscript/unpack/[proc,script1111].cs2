@@ -1,6 +1,6 @@
 // 1111
 [proc,script1111]()(string)
-switch_int (%varclient_754) {
+switch_int (%skill_multi_num) {
     case 0, 9 :
         if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
             return("Make All");

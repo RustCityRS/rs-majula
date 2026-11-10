@@ -16,5 +16,5 @@ if_opensubclient(lobbyscreen:friendschat_panel, lobbyscreen_pane_friendschat);
 ~lobbyscreen_pane_friendschat_chat_load(lobbyscreen_pane_friendschat:chat);
 if_opensubclient(lobbyscreen:options_panel, lobbyscreen_pane_options);
 ~lobbyscreen_options_load;
-if_setonchattransmit("lobbyscreen_chat_handler(lobbyscreen_pane_friendslist:chat, lobbyscreen_pane_clanchat:chat, lobbyscreen_pane_friendschat:chat)", lobbyscreen:base);
-%varclient_1275, %varclient_1276, %varclient_1510 = ~lobbyscreen_chat_count;
+if_setonchattransmit(lobbyscreen:base, "lobbyscreen_chat_handler(lobbyscreen_pane_friendslist:chat, lobbyscreen_pane_clanchat:chat, lobbyscreen_pane_friendschat:chat)");
+%lobby_pmchat_lastcount, %lobby_clanchat_lastcount, %lobby_friendschat_lastcount = ~lobbyscreen_chat_count;

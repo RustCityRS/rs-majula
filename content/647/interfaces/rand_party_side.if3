@@ -785,7 +785,7 @@ op1=Toggle-shared-xp
 op10= 
 onmouseleave=deltooltip(rand_party_side:com_114)
 onmouserepeat=rand_mem1_xp_tooltip
-onvarctransmit=rand_update_mem1_xp_off(rand_party_side:mem1_xp_graphic){varclient_1175}
+onvarctransmit=rand_update_mem1_xp_off(rand_party_side:mem1_xp_graphic){rand_party_mem1_xp_off}
 
 // 939:61
 [mem1_xp_graphic]
@@ -832,7 +832,7 @@ op1=Toggle-shared-xp
 op10=  
 onmouseleave=deltooltip(rand_party_side:com_114)
 onmouserepeat=rand_mem2_xp_tooltip
-onvarctransmit=rand_update_mem2_xp_off(rand_party_side:mem2_xp_graphic){varclient_1176}
+onvarctransmit=rand_update_mem2_xp_off(rand_party_side:mem2_xp_graphic){rand_party_mem2_xp_off}
 
 // 939:64
 [mem2_xp_graphic]
@@ -881,7 +881,7 @@ op1=Toggle-shared-xp
 op10=  
 onmouseleave=deltooltip(rand_party_side:com_114)
 onmouserepeat=rand_mem3_xp_tooltip
-onvarctransmit=rand_update_mem3_xp_off(rand_party_side:mem3_xp_graphic){varclient_1177}
+onvarctransmit=rand_update_mem3_xp_off(rand_party_side:mem3_xp_graphic){rand_party_mem3_xp_off}
 
 // 939:67
 [mem3_xp_graphic]
@@ -930,7 +930,7 @@ op1=Toggle-shared-xp
 op10=  
 onmouseleave=deltooltip(rand_party_side:com_114)
 onmouserepeat=rand_mem4_xp_tooltip
-onvarctransmit=rand_update_mem4_xp_off(rand_party_side:mem4_xp_graphic){varclient_1178}
+onvarctransmit=rand_update_mem4_xp_off(rand_party_side:mem4_xp_graphic){rand_party_mem4_xp_off}
 
 // 939:70
 [mem4_xp_graphic]
@@ -979,7 +979,7 @@ op1=Toggle-shared-xp
 op10=  
 onmouseleave=deltooltip(rand_party_side:com_114)
 onmouserepeat=rand_mem5_xp_tooltip
-onvarctransmit=rand_update_mem5_xp_off(rand_party_side:mem5_xp_graphic){varclient_1179}
+onvarctransmit=rand_update_mem5_xp_off(rand_party_side:mem5_xp_graphic){rand_party_mem5_xp_off}
 
 // 939:73
 [mem5_xp_graphic]
@@ -1103,7 +1103,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=      
-onvarctransmit=rand_party_update_current{varclient_1181}
+onvarctransmit=rand_party_update_current{rand_party_current}
 
 // 939:84
 [last_reset]
@@ -1121,7 +1121,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10=       
-onvarctransmit=rand_party_update_previous{varclient_1182}
+onvarctransmit=rand_party_update_previous{rand_party_previous}
 
 // 939:85
 [reset_layer]
@@ -1338,7 +1338,7 @@ textshadow=yes
 colour=0xe2e2a2
 transmitop=10
 op10= 
-onvarctransmit=rand_party_update_complexity{varclient_1183}
+onvarctransmit=rand_party_update_complexity{rand_party_complexity}
 
 // 939:101
 [complexity_title]
@@ -1433,7 +1433,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xe2e2a2
-onvarctransmit=rand_party_update_floor{varclient_1180}
+onvarctransmit=rand_party_update_floor{rand_party_floor}
 
 // 939:107
 [floor_title]

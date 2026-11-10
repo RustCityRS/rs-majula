@@ -1,9 +1,9 @@
 // 1220
 [proc,loginscreen_stereo](component $component0, component $component1)
 if (detailget_stereo = 1) {
-    if_setgraphic("check_box_2,2", $component1);
-    if_setgraphic("check_box_2,0", $component0);
+    if_setgraphic($component1, "check_box_2,2");
+    if_setgraphic($component0, "check_box_2,0");
 } else {
-    if_setgraphic("check_box_2,2", $component0);
-    if_setgraphic("check_box_2,0", $component1);
+    if_setgraphic($component0, "check_box_2,2");
+    if_setgraphic($component1, "check_box_2,0");
 }

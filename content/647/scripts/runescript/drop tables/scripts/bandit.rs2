@@ -15,25 +15,25 @@ if ($random < 4) {
 } else if ($random < 6) {
     obj_add(npc_coord, steel_sq_shield, 1, ^lootdrop_duration);
 } else if ($random < 7) {
-    obj_add(npc_coord, steel_hatchet, 1, ^lootdrop_duration);
+    obj_add(npc_coord, steel_axe, 1, ^lootdrop_duration);
 } else if ($random < 10) {
-    obj_add(npc_coord, chaos_rune, 6, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 6, ^lootdrop_duration);
 } else if ($random < 13) {
-    obj_add(npc_coord, water_rune, 9, ^lootdrop_duration);
+    obj_add(npc_coord, waterrune, 9, ^lootdrop_duration);
 } else if ($random < 15) {
-    obj_add(npc_coord, air_rune, 10, ^lootdrop_duration);
+    obj_add(npc_coord, airrune, 10, ^lootdrop_duration);
 } else if ($random < 17) {
-    obj_add(npc_coord, death_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, deathrune, 2, ^lootdrop_duration);
 } else if ($random < 19) {
-    obj_add(npc_coord, law_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 3, ^lootdrop_duration);
 } else if ($random < 20) {
     if (map_members = ^true) {
-        obj_add(npc_coord, blood_rune, 2, ^lootdrop_duration);
+        obj_add(npc_coord, bloodrune, 2, ^lootdrop_duration);
     }
 } else if ($random < 21) {
-    obj_add(npc_coord, mind_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, mindrune, 2, ^lootdrop_duration);
 } else if ($random < 22) {
-    obj_add(npc_coord, nature_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 2, ^lootdrop_duration);
 } else if ($random < 59) {
     obj_add(npc_coord, ~randomherb, ^lootdrop_duration);
 } else if ($random < 85) {

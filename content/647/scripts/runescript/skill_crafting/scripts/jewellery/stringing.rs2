@@ -4,38 +4,38 @@
 [opheldu,ball_of_wool]
 switch_obj (last_useitem)
 {
-    case gold_amulet, sapphire_amulet, emerald_amulet, ruby_amulet, diamond_amulet, unstrung_symbol : @string_amulet(last_useslot);
+    case unstrung_gold_amulet, unstrung_sapphire_amulet, unstrung_emerald_amulet, unstrung_ruby_amulet, unstrung_diamond_amulet, nostringstar : @string_amulet(last_useslot);
     // Monkey Madness's amulet waits for the quest's port.
     // case mm_amulet_of_monkey_speak_without_string : @mm_string_amulet;
-    case unstrung_emblem, dragonstone_ammy :
+    case nostringsnake, unstrung_dragonstone_amulet :
         if (map_members = ^false) {
             mes(^mes_members_feature);
             return;
         }
         @string_amulet(last_useslot);
-    case barrel_bomb :
+    case regicide_barrel_lid :
         mes("The wool is too thin to fit well, maybe if I weave a load of it together it will work.");
         return;
 }
 ~displaymessage(^dm_default);
 
-[opheldu,sapphire_amulet]
+[opheldu,unstrung_sapphire_amulet]
 if (last_useitem = ball_of_wool) @string_amulet(last_slot);
 ~displaymessage(^dm_default);
 
-[opheldu,emerald_amulet]
+[opheldu,unstrung_emerald_amulet]
 if (last_useitem = ball_of_wool) @string_amulet(last_slot);
 ~displaymessage(^dm_default);
 
-[opheldu,ruby_amulet]
+[opheldu,unstrung_ruby_amulet]
 if (last_useitem = ball_of_wool) @string_amulet(last_slot);
 ~displaymessage(^dm_default);
 
-[opheldu,diamond_amulet]
+[opheldu,unstrung_diamond_amulet]
 if (last_useitem = ball_of_wool) @string_amulet(last_slot);
 ~displaymessage(^dm_default);
 
-[opheldu,dragonstone_ammy]
+[opheldu,unstrung_dragonstone_amulet]
 if (last_useitem = ball_of_wool) {
     if (map_members = ^false) {
         mes(^mes_members_feature);
@@ -45,11 +45,11 @@ if (last_useitem = ball_of_wool) {
 }
 ~displaymessage(^dm_default);
 
-[opheldu,unstrung_symbol]
+[opheldu,nostringstar]
 if (last_useitem = ball_of_wool) @string_amulet(last_slot);
 ~displaymessage(^dm_default);
 
-[opheldu,unstrung_emblem]
+[opheldu,nostringsnake]
 if (last_useitem = ball_of_wool) {
     if (map_members = ^false) {
         mes(^mes_members_feature);

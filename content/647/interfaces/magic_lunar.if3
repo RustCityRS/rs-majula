@@ -291,7 +291,7 @@ op1=Defensive Casting
 op10=  
 onmouseover=script1125(event_com)
 onmouseleave=script1126(event_com)
-onvartransmit=script1128(event_com){varplayer_439}
+onvartransmit=script1128(event_com){alternate_spells}
 onmouserepeat=script1127(event_com)
 
 // 430:21
@@ -320,7 +320,7 @@ graphic="lunar_magic_off,4"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,4", "lunar_magic_off,4", 75, "Barbarian Teleport", "Teleports you to the Barbarian Outpost", astral_rune, 2, law_rune, 2, fire_rune, 3, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,4", "lunar_magic_off,4", 75, "Barbarian Teleport", "Teleports you to the Barbarian Outpost", astralrune, 2, lawrune, 2, firerune, 3, null, 0)
 
 // 430:23
 [cure_other]
@@ -334,8 +334,8 @@ graphic="lunar_magic_off,16"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astral_rune, 1, earth_rune, 10, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astral_rune, 1, earth_rune, 10, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astralrune, 1, earthrune, 10, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astralrune, 1, earthrune, 10, null, 0, null, 0){assist_stat_magic}
 
 // 430:24
 [fertile_soil]
@@ -349,8 +349,8 @@ graphic="lunar_magic_off,10"
 colour=0xffffffff
 targetmask=loc
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,10", "lunar_magic_off,10", 83, "Fertile Soil", "Fertilise a farming patch with super compost", astral_rune, 3, nature_rune, 2, earth_rune, 15, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,10", "lunar_magic_off,10", 83, "Fertile Soil", "Fertilise a farming patch with super compost", astral_rune, 3, nature_rune, 2, earth_rune, 15, null, 0){varplayer_1092, varplayer_2089}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,10", "lunar_magic_off,10", 83, "Fertile Soil", "Fertilise a farming patch with super compost", astralrune, 3, naturerune, 2, earthrune, 15, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,10", "lunar_magic_off,10", 83, "Fertile Soil", "Fertilise a farming patch with super compost", astralrune, 3, naturerune, 2, earthrune, 15, null, 0){assist_stat_magic, varplayer_2089}
 
 // 430:25
 [cure_group]
@@ -364,8 +364,8 @@ graphic="lunar_magic_off,22"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astralrune, 2, cosmicrune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astralrune, 2, cosmicrune, 2, null, 0, null, 0){assist_stat_magic}
 
 // 430:26
 [npc_contact]
@@ -379,8 +379,8 @@ graphic="lunar_magic_off,25"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,25", "lunar_magic_off,25", 67, "NPC Contact", "Speak with varied NPCs", astral_rune, 1, cosmic_rune, 1, air_rune, 2, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,25", "lunar_magic_off,25", 67, "NPC Contact", "Speak with varied NPCs", astral_rune, 1, cosmic_rune, 1, air_rune, 2, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,25", "lunar_magic_off,25", 67, "NPC Contact", "Speak with varied NPCs", astralrune, 1, cosmicrune, 1, airrune, 2, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,25", "lunar_magic_off,25", 67, "NPC Contact", "Speak with varied NPCs", astralrune, 1, cosmicrune, 1, airrune, 2, null, 0){assist_stat_magic}
 
 // 430:27
 [energy_trans]
@@ -394,8 +394,8 @@ graphic="lunar_magic_off,15"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,15", "lunar_magic_off,15", 91, "Energy Transfer", "Spend life points and SA energy to give another SA and run energy", astral_rune, 3, law_rune, 2, nature_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,15", "lunar_magic_off,15", 91, "Energy Transfer", "Spend life points and SA energy to give another SA and run energy", astral_rune, 3, law_rune, 2, nature_rune, 1, null, 0){varplayer_1092, varplayer_2089}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,15", "lunar_magic_off,15", 91, "Energy Transfer", "Spend life points and SA energy to give another SA and run energy", astralrune, 3, lawrune, 2, naturerune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,15", "lunar_magic_off,15", 91, "Energy Transfer", "Spend life points and SA energy to give another SA and run energy", astralrune, 3, lawrune, 2, naturerune, 1, null, 0){assist_stat_magic, varplayer_2089}
 
 // 430:28
 [monster_examine]
@@ -409,8 +409,8 @@ graphic="lunar_magic_off,34"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astral_rune, 1, cosmic_rune, 1, mind_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astral_rune, 1, cosmic_rune, 1, mind_rune, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astralrune, 1, cosmicrune, 1, mindrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astralrune, 1, cosmicrune, 1, mindrune, 1, null, 0){assist_stat_magic}
 
 // 430:29
 [humidify]
@@ -424,8 +424,8 @@ graphic="lunar_magic_off,35"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astral_rune, 1, water_rune, 3, fire_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astral_rune, 1, water_rune, 3, fire_rune, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astralrune, 1, waterrune, 3, firerune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astralrune, 1, waterrune, 3, firerune, 1, null, 0){assist_stat_magic}
 
 // 430:30
 [hunter_kit]
@@ -440,8 +440,8 @@ colour=0xffffffff
 transmitop=1
 op1=Cast
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,36", "lunar_magic_off,36", 71, "Hunter Kit", "Get a kit of hunter gear", astral_rune, 2, earth_rune, 2, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,36", "lunar_magic_off,36", 71, "Hunter Kit", "Get a kit of hunter gear", astral_rune, 2, earth_rune, 2, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,36", "lunar_magic_off,36", 71, "Hunter Kit", "Get a kit of hunter gear", astralrune, 2, earthrune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,36", "lunar_magic_off,36", 71, "Hunter Kit", "Get a kit of hunter gear", astralrune, 2, earthrune, 2, null, 0, null, 0){assist_stat_magic}
 
 // 430:31
 [stat_spy]
@@ -455,8 +455,8 @@ graphic="lunar_magic_off,33"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,33", "lunar_magic_off,33", 75, "Stat Spy", "Cast on another player to see their skill levels", astral_rune, 2, cosmic_rune, 2, body_rune, 5, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,33", "lunar_magic_off,33", 75, "Stat Spy", "Cast on another player to see their skill levels", astral_rune, 2, cosmic_rune, 2, body_rune, 5, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,33", "lunar_magic_off,33", 75, "Stat Spy", "Cast on another player to see their skill levels", astralrune, 2, cosmicrune, 2, bodyrune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,33", "lunar_magic_off,33", 75, "Stat Spy", "Cast on another player to see their skill levels", astralrune, 2, cosmicrune, 2, bodyrune, 5, null, 0){assist_stat_magic}
 
 // 430:32
 [dream]
@@ -471,8 +471,8 @@ colour=0xffffffff
 transmitop=1
 op1=Cast
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,37", "lunar_magic_off,37", 79, "Dream", "Take a rest and restore life points five times faster than normal", astral_rune, 2, cosmic_rune, 1, body_rune, 5, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,37", "lunar_magic_off,37", 79, "Dream", "Take a rest and restore life points five times faster than normal", astral_rune, 2, cosmic_rune, 1, body_rune, 5, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,37", "lunar_magic_off,37", 79, "Dream", "Take a rest and restore life points five times faster than normal", astralrune, 2, cosmicrune, 1, bodyrune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,37", "lunar_magic_off,37", 79, "Dream", "Take a rest and restore life points five times faster than normal", astralrune, 2, cosmicrune, 1, bodyrune, 5, null, 0){assist_stat_magic}
 
 // 430:33
 [plank_make]
@@ -486,8 +486,8 @@ graphic="lunar_magic_off,38"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,38", "lunar_magic_off,38", 86, "Plank Make", "Turn logs into planks", astral_rune, 2, earth_rune, 15, nature_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,38", "lunar_magic_off,38", 86, "Plank Make", "Turn logs into planks", astral_rune, 2, earth_rune, 15, nature_rune, 1, null, 0){varplayer_1092, varplayer_2089}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,38", "lunar_magic_off,38", 86, "Plank Make", "Turn logs into planks", astralrune, 2, earthrune, 15, naturerune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,38", "lunar_magic_off,38", 86, "Plank Make", "Turn logs into planks", astralrune, 2, earthrune, 15, naturerune, 1, null, 0){assist_stat_magic, varplayer_2089}
 
 // 430:34
 [spellbook_swap]
@@ -501,8 +501,8 @@ graphic="lunar_magic_off,39"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,39", "lunar_magic_off,39", 96, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astral_rune, 3, cosmic_rune, 2, law_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,39", "lunar_magic_off,39", 96, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astral_rune, 3, cosmic_rune, 2, law_rune, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,39", "lunar_magic_off,39", 96, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astralrune, 3, cosmicrune, 2, lawrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,39", "lunar_magic_off,39", 96, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astralrune, 3, cosmicrune, 2, lawrune, 1, null, 0){assist_stat_magic}
 
 // 430:35
 [magic_imbue]
@@ -516,8 +516,8 @@ graphic="lunar_magic_off,9"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,9", "lunar_magic_off,9", 82, "Magic Imbue", "Combine runes without a talisman", astral_rune, 2, fire_rune, 7, water_rune, 7, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,9", "lunar_magic_off,9", 82, "Magic Imbue", "Combine runes without a talisman", astral_rune, 2, fire_rune, 7, water_rune, 7, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,9", "lunar_magic_off,9", 82, "Magic Imbue", "Combine runes without a talisman", astralrune, 2, firerune, 7, waterrune, 7, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,9", "lunar_magic_off,9", 82, "Magic Imbue", "Combine runes without a talisman", astralrune, 2, firerune, 7, waterrune, 7, null, 0){assist_stat_magic}
 
 // 430:36
 [vengeance]
@@ -531,7 +531,7 @@ graphic="lunar_magic_off,21"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,21", "lunar_magic_off,21", 94, "Vengeance", "Rebound damage to an opponent", astral_rune, 4, death_rune, 2, earth_rune, 10, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,21", "lunar_magic_off,21", 94, "Vengeance", "Rebound damage to an opponent", astralrune, 4, deathrune, 2, earthrune, 10, null, 0)
 
 // 430:37
 [burn_fuel]
@@ -545,8 +545,8 @@ graphic="lunar_magic_off,0"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,0", "lunar_magic_off,0", 65, "Bake Pie", "Bake pies without a stove", astral_rune, 1, fire_rune, 5, water_rune, 4, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,0", "lunar_magic_off,0", 65, "Bake Pie", "Bake pies without a stove", astral_rune, 1, fire_rune, 5, water_rune, 4, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,0", "lunar_magic_off,0", 65, "Bake Pie", "Bake pies without a stove", astralrune, 1, firerune, 5, waterrune, 4, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,0", "lunar_magic_off,0", 65, "Bake Pie", "Bake pies without a stove", astralrune, 1, firerune, 5, waterrune, 4, null, 0){assist_stat_magic}
 
 // 430:38
 [home_teleport]
@@ -574,7 +574,7 @@ graphic="lunar_magic_off,12"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,12", "lunar_magic_off,12", 85, "Fishing Guild Teleport", "Teleports you to the Fishing Guild", astral_rune, 3, law_rune, 3, water_rune, 8, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,12", "lunar_magic_off,12", 85, "Fishing Guild Teleport", "Teleports you to the Fishing Guild", astralrune, 3, lawrune, 3, waterrune, 8, null, 0)
 
 // 430:40
 [tele_khazard]
@@ -588,7 +588,7 @@ graphic="lunar_magic_off,6"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,6", "lunar_magic_off,6", 78, "Khazard Teleport", "Teleports you to Port Khazard", astral_rune, 2, law_rune, 2, water_rune, 4, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,6", "lunar_magic_off,6", 78, "Khazard Teleport", "Teleports you to Port Khazard", astralrune, 2, lawrune, 2, waterrune, 4, null, 0)
 
 // 430:41
 [vengeance_other]
@@ -603,8 +603,8 @@ colour=0xffffffff
 targetmask=npc,player
 opbase=bb
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,18", "lunar_magic_off,18", 93, "Vengeance Other", "Allows another player to rebound damage to an opponent", astral_rune, 3, death_rune, 2, earth_rune, 10, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,18", "lunar_magic_off,18", 93, "Vengeance Other", "Allows another player to rebound damage to an opponent", astral_rune, 3, death_rune, 2, earth_rune, 10, null, 0){varplayer_2089}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,18", "lunar_magic_off,18", 93, "Vengeance Other", "Allows another player to rebound damage to an opponent", astralrune, 3, deathrune, 2, earthrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,18", "lunar_magic_off,18", 93, "Vengeance Other", "Allows another player to rebound damage to an opponent", astralrune, 3, deathrune, 2, earthrune, 10, null, 0){varplayer_2089}
 
 // 430:42
 [tele_moonclan]
@@ -618,7 +618,7 @@ graphic="lunar_magic_off,1"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,1", "lunar_magic_off,1", 69, "Moonclan Teleport", "Teleports you to Moonclan Island", astral_rune, 2, law_rune, 1, earth_rune, 2, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,1", "lunar_magic_off,1", 69, "Moonclan Teleport", "Teleports you to Moonclan Island", astralrune, 2, lawrune, 1, earthrune, 2, null, 0)
 
 // 430:43
 [tele_cather]
@@ -632,7 +632,7 @@ graphic="lunar_magic_off,13"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,13", "lunar_magic_off,13", 87, "Catherby Teleport", "Teleports you to Catherby", astral_rune, 3, law_rune, 3, water_rune, 10, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,13", "lunar_magic_off,13", 87, "Catherby Teleport", "Teleports you to Catherby", astralrune, 3, lawrune, 3, waterrune, 10, null, 0)
 
 // 430:44
 [string_jewel]
@@ -646,8 +646,8 @@ graphic="lunar_magic_off,7"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,7", "lunar_magic_off,7", 80, "String Jewellery", "String amulets without wool", astral_rune, 2, earth_rune, 10, water_rune, 5, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,7", "lunar_magic_off,7", 80, "String Jewellery", "String amulets without wool", astral_rune, 2, earth_rune, 10, water_rune, 5, null, 0){varplayer_1092, varplayer_2089}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,7", "lunar_magic_off,7", 80, "String Jewellery", "String amulets without wool", astralrune, 2, earthrune, 10, waterrune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,7", "lunar_magic_off,7", 80, "String Jewellery", "String amulets without wool", astralrune, 2, earthrune, 10, waterrune, 5, null, 0){assist_stat_magic, varplayer_2089}
 
 // 430:45
 [cure_me]
@@ -661,8 +661,8 @@ graphic="lunar_magic_off,19"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cure Poison and disease", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cure Poison and disease", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cure Poison and disease", astralrune, 2, cosmicrune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cure Poison and disease", astralrune, 2, cosmicrune, 2, null, 0, null, 0){assist_stat_magic}
 
 // 430:46
 [tele_waterbirth]
@@ -676,7 +676,7 @@ graphic="lunar_magic_off,2"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,2", "lunar_magic_off,2", 72, "Waterbirth Teleport", "Teleports you to Waterbirth Island", astral_rune, 2, law_rune, 1, water_rune, 1, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,2", "lunar_magic_off,2", 72, "Waterbirth Teleport", "Teleports you to Waterbirth Island", astralrune, 2, lawrune, 1, waterrune, 1, null, 0)
 
 // 430:47
 [superglass]
@@ -690,8 +690,8 @@ graphic="lunar_magic_off,5"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,5", "lunar_magic_off,5", 77, "Superglass Make", "Make glass without a furnace", astral_rune, 2, fire_rune, 6, air_rune, 10, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,5", "lunar_magic_off,5", 77, "Superglass Make", "Make glass without a furnace", astral_rune, 2, fire_rune, 6, air_rune, 10, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,5", "lunar_magic_off,5", 77, "Superglass Make", "Make glass without a furnace", astralrune, 2, firerune, 6, airrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,5", "lunar_magic_off,5", 77, "Superglass Make", "Make glass without a furnace", astralrune, 2, firerune, 6, airrune, 10, null, 0){assist_stat_magic}
 
 // 430:48
 [supply_setslot]
@@ -705,8 +705,8 @@ graphic="lunar_magic_off,8"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,8", "lunar_magic_off,8", 84, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astral_rune, 3, earth_rune, 12, water_rune, 10, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,8", "lunar_magic_off,8", 84, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astral_rune, 3, earth_rune, 12, water_rune, 10, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,8", "lunar_magic_off,8", 84, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astralrune, 3, earthrune, 12, waterrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,8", "lunar_magic_off,8", 84, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astralrune, 3, earthrune, 12, waterrune, 10, null, 0){assist_stat_magic}
 
 // 430:49
 [rest_pot_share]
@@ -720,8 +720,8 @@ graphic="lunar_magic_off,11"
 colour=0xffffffff
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,11", "lunar_magic_off,11", 81, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astral_rune, 2, earth_rune, 10, water_rune, 10, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,11", "lunar_magic_off,11", 81, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astral_rune, 2, earth_rune, 10, water_rune, 10, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,11", "lunar_magic_off,11", 81, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astralrune, 2, earthrune, 10, waterrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,11", "lunar_magic_off,11", 81, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astralrune, 2, earthrune, 10, waterrune, 10, null, 0){assist_stat_magic}
 
 // 430:50
 [tele_ghorrock]
@@ -735,7 +735,7 @@ graphic="lunar_magic_off,14"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,14", "lunar_magic_off,14", 89, "Ice Plateau Teleport", "Teleports you to Ice Plateau", astral_rune, 3, law_rune, 3, water_rune, 8, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,14", "lunar_magic_off,14", 89, "Ice Plateau Teleport", "Teleports you to Ice Plateau", astralrune, 3, lawrune, 3, waterrune, 8, null, 0)
 
 // 430:51
 [heal_other]
@@ -749,8 +749,8 @@ graphic="lunar_magic_off,17"
 colour=0xffffffff
 targetmask=npc,player
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,17", "lunar_magic_off,17", 92, "Heal Other", "Transfers up to 75% of life points to another player", astral_rune, 3, law_rune, 3, blood_rune, 1, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,17", "lunar_magic_off,17", 92, "Heal Other", "Transfers up to 75% of life points to another player", astral_rune, 3, law_rune, 3, blood_rune, 1, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,17", "lunar_magic_off,17", 92, "Heal Other", "Transfers up to 75% of life points to another player", astralrune, 3, lawrune, 3, bloodrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,17", "lunar_magic_off,17", 92, "Heal Other", "Transfers up to 75% of life points to another player", astralrune, 3, lawrune, 3, bloodrune, 1, null, 0){assist_stat_magic}
 
 // 430:52
 [heal_group]
@@ -764,8 +764,8 @@ graphic="lunar_magic_off,23"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,23", "lunar_magic_off,23", 95, "Heal Group", "Transfers up to 75% of life points to a group", astral_rune, 4, blood_rune, 2, law_rune, 3, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,23", "lunar_magic_off,23", 95, "Heal Group", "Transfers up to 75% of life points to a group", astral_rune, 4, blood_rune, 2, law_rune, 3, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,23", "lunar_magic_off,23", 95, "Heal Group", "Transfers up to 75% of life points to a group", astralrune, 4, bloodrune, 2, lawrune, 3, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,23", "lunar_magic_off,23", 95, "Heal Group", "Transfers up to 75% of life points to a group", astralrune, 4, bloodrune, 2, lawrune, 3, null, 0){assist_stat_magic}
 
 // 430:53
 [com_53]
@@ -779,7 +779,7 @@ graphic="lunar_magic_off,40"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,40", "lunar_magic_off,40", 71, "Ourania Teleport", "Teleports you to Ourania rune altar", astral_rune, 2, law_rune, 1, earth_rune, 6, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,40", "lunar_magic_off,40", 71, "Ourania Teleport", "Teleports you to Ourania rune altar", astralrune, 2, lawrune, 1, earthrune, 6, null, 0)
 
 // 430:54
 [cure_plant]
@@ -793,8 +793,8 @@ graphic="lunar_magic_off,24"
 colour=0xffffffff
 targetmask=loc
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,24", "lunar_magic_off,24", 66, "Cure Plant", "Cures disease on farming patch", astral_rune, 1, earth_rune, 8, null, 0, null, 0)
-onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,24", "lunar_magic_off,24", 66, "Cure Plant", "Cures disease on farming patch", astral_rune, 1, earth_rune, 8, null, 0, null, 0){varplayer_1092}
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,24", "lunar_magic_off,24", 66, "Cure Plant", "Cures disease on farming patch", astralrune, 1, earthrune, 8, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,24", "lunar_magic_off,24", 66, "Cure Plant", "Cures disease on farming patch", astralrune, 1, earthrune, 8, null, 0, null, 0){assist_stat_magic}
 
 // 430:55
 [tele_group_moonclan]
@@ -808,7 +808,7 @@ graphic="lunar_magic_off,26"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,26", "lunar_magic_off,26", 70, "Tele Group Moonclan", "Teleports players to Moonclan Island", astral_rune, 2, law_rune, 1, earth_rune, 4, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,26", "lunar_magic_off,26", 70, "Tele Group Moonclan", "Teleports players to Moonclan Island", astralrune, 2, lawrune, 1, earthrune, 4, null, 0)
 
 // 430:56
 [tele_group_waterbirth]
@@ -822,7 +822,7 @@ graphic="lunar_magic_off,27"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,27", "lunar_magic_off,27", 73, "Tele Group Waterbirth", "Teleports players to Waterbirth Island", astral_rune, 2, law_rune, 1, water_rune, 5, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,27", "lunar_magic_off,27", 73, "Tele Group Waterbirth", "Teleports players to Waterbirth Island", astralrune, 2, lawrune, 1, waterrune, 5, null, 0)
 
 // 430:57
 [tele_group_barbarian]
@@ -836,7 +836,7 @@ graphic="lunar_magic_off,28"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,28", "lunar_magic_off,28", 76, "Tele Group Barbarian", "Teleports players to the Barbarian Outpost", astral_rune, 2, law_rune, 2, fire_rune, 6, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,28", "lunar_magic_off,28", 76, "Tele Group Barbarian", "Teleports players to the Barbarian Outpost", astralrune, 2, lawrune, 2, firerune, 6, null, 0)
 
 // 430:58
 [tele_group_khazard]
@@ -850,7 +850,7 @@ graphic="lunar_magic_off,29"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,29", "lunar_magic_off,29", 79, "Tele Group Khazard", "Teleports players to Port Khazard", astral_rune, 2, law_rune, 2, water_rune, 8, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,29", "lunar_magic_off,29", 79, "Tele Group Khazard", "Teleports players to Port Khazard", astralrune, 2, lawrune, 2, waterrune, 8, null, 0)
 
 // 430:59
 [tele_group_fishing_guild]
@@ -864,7 +864,7 @@ graphic="lunar_magic_off,30"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,30", "lunar_magic_off,30", 86, "Tele Group Fishing Guild", "Teleports players to the Fishing Guild", astral_rune, 3, law_rune, 3, water_rune, 10, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,30", "lunar_magic_off,30", 86, "Tele Group Fishing Guild", "Teleports players to the Fishing Guild", astralrune, 3, lawrune, 3, waterrune, 10, null, 0)
 
 // 430:60
 [tele_group_catherby]
@@ -878,7 +878,7 @@ graphic="lunar_magic_off,31"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,31", "lunar_magic_off,31", 88, "Tele Group Catherby", "Teleports players to Catherby", astral_rune, 3, law_rune, 3, water_rune, 12, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,31", "lunar_magic_off,31", 88, "Tele Group Catherby", "Teleports players to Catherby", astralrune, 3, lawrune, 3, waterrune, 12, null, 0)
 
 // 430:61
 [tele_group_ghorrock]
@@ -892,7 +892,7 @@ graphic="lunar_magic_off,32"
 colour=0xffffffff
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,32", "lunar_magic_off,32", 90, "Tele Group Ice Plateau", "Teleports players to Ice Plateau", astral_rune, 3, law_rune, 3, water_rune, 16, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,32", "lunar_magic_off,32", 90, "Tele Group Ice Plateau", "Teleports players to Ice Plateau", astralrune, 3, lawrune, 3, waterrune, 16, null, 0)
 
 // 430:62
 [scrollbar_layer]
@@ -942,7 +942,7 @@ layer=spells_layer
 graphic="lunar_magic_off,42"
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,42", "lunar_magic_off,42", 72, "South Falador Teleport", "Teleports you to South Falador", astral_rune, 2, law_rune, 1, air_rune, 2, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,42", "lunar_magic_off,42", 72, "South Falador Teleport", "Teleports you to South Falador", astralrune, 2, lawrune, 1, airrune, 2, null, 0)
 
 // 430:67
 [com_67]
@@ -955,7 +955,7 @@ layer=spells_layer
 graphic="lunar_magic_off,43"
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,43", "lunar_magic_off,43", 75, "Repair Rune Pouch", "Repairs and strengthens any degraded rune pouch", astral_rune, 2, cosmic_rune, 1, law_rune, 1, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,43", "lunar_magic_off,43", 75, "Repair Rune Pouch", "Repairs and strengthens any degraded rune pouch", astralrune, 2, cosmicrune, 1, lawrune, 1, null, 0)
 
 // 430:68
 [com_68]
@@ -968,7 +968,7 @@ layer=spells_layer
 graphic="lunar_magic_off,44"
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,44", "lunar_magic_off,44", 76, "North Ardougne Teleport", "Teleports you to North Ardougne", astral_rune, 2, law_rune, 1, water_rune, 5, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,44", "lunar_magic_off,44", 76, "North Ardougne Teleport", "Teleports you to North Ardougne", astralrune, 2, lawrune, 1, waterrune, 5, null, 0)
 
 // 430:69
 [com_69]
@@ -981,7 +981,7 @@ layer=spells_layer
 graphic="lunar_magic_off,45"
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,45", "lunar_magic_off,45", 78, "Remote Farm", "See your crop status and cure any disease", astral_rune, 2, earth_rune, 2, nature_rune, 3, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,45", "lunar_magic_off,45", 78, "Remote Farm", "See your crop status and cure any disease", astralrune, 2, earthrune, 2, naturerune, 3, null, 0)
 
 // 430:70
 [com_70]
@@ -994,7 +994,7 @@ layer=spells_layer
 graphic="lunar_magic_off,47"
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,47", "lunar_magic_off,47", 80, "Spiritualise Food", "Use on ordinary food to heal your familiar; boost its combat stats and extend its timer", astral_rune, 2, cosmic_rune, 3, body_rune, 5, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,47", "lunar_magic_off,47", 80, "Spiritualise Food", "Use on ordinary food to heal your familiar; boost its combat stats and extend its timer", astralrune, 2, cosmicrune, 3, bodyrune, 5, null, 0)
 
 // 430:71
 [com_71]
@@ -1007,7 +1007,7 @@ layer=spells_layer
 graphic="lunar_magic_off,46"
 targetmask=com
 targetverb=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,46", "lunar_magic_off,46", 83, "Make Leather", "Turn hides into leather in sets of 5", astral_rune, 2, fire_rune, 2, body_rune, 2, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,46", "lunar_magic_off,46", 83, "Make Leather", "Turn hides into leather in sets of 5", astralrune, 2, firerune, 2, bodyrune, 2, null, 0)
 
 // 430:72
 [com_72]
@@ -1020,7 +1020,7 @@ layer=spells_layer
 graphic="lunar_magic_off,48"
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,48", "lunar_magic_off,48", 90, "Disruption Shield", "Nullify the next hit you receive from another player", astral_rune, 3, blood_rune, 3, body_rune, 10, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,48", "lunar_magic_off,48", 90, "Disruption Shield", "Nullify the next hit you receive from another player", astralrune, 3, bloodrune, 3, bodyrune, 10, null, 0)
 
 // 430:73
 [com_73]
@@ -1033,4 +1033,4 @@ layer=spells_layer
 graphic="lunar_magic_off,49"
 transmitop=1
 op1=Cast
-onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,49", "lunar_magic_off,49", 95, "Vengeance Group", "Those nearby get to rebound damage", astral_rune, 4, death_rune, 3, earth_rune, 11, null, 0)
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,49", "lunar_magic_off,49", 95, "Vengeance Group", "Those nearby get to rebound damage", astralrune, 4, deathrune, 3, earthrune, 11, null, 0)

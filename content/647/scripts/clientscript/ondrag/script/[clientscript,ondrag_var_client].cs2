@@ -3,8 +3,8 @@
 def_string $string0 = "";
 def_int $int1 = -1;
 if (cc_find(snapshot_main_v2:build_layer, $int0) = true) {
-    %varclient_1543 = cc_getopbase;
-    %varclient_792 = %varclient_791;
+    %snapshot_name = cc_getopbase;
+    %snapshot_last_selected_highlight = %snapshot_last_selected_highlight_mouseover;
     ~snapshot_selected_highlight;
     ~snapshot_update_select_button;
 }

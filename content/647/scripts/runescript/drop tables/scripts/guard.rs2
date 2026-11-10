@@ -31,23 +31,23 @@ if ($random < 8) {
 } else if ($random < 36) {
     obj_add(npc_coord, bronze_arrow, 1, ^lootdrop_duration);
 } else if ($random < 38) {
-    obj_add(npc_coord, air_rune, 6, ^lootdrop_duration);
+    obj_add(npc_coord, airrune, 6, ^lootdrop_duration);
 } else if ($random < 40) {
-    obj_add(npc_coord, earth_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, earthrune, 3, ^lootdrop_duration);
 } else if ($random < 42) {
-    obj_add(npc_coord, fire_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 2, ^lootdrop_duration);
 } else if ($random < 44) {
     obj_add(npc_coord, bronze_arrow, 2, ^lootdrop_duration);
 } else if ($random < 45) {
     if (map_members = ^true) {
-        obj_add(npc_coord, blood_rune, 1, ^lootdrop_duration);
+        obj_add(npc_coord, bloodrune, 1, ^lootdrop_duration);
     } else {
         obj_add(npc_coord, body_talisman, 1, ^lootdrop_duration);
     }
 } else if ($random < 46) {
-    obj_add(npc_coord, chaos_rune, 1, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 1, ^lootdrop_duration);
 } else if ($random < 47) {
-    obj_add(npc_coord, nature_rune, 1, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 1, ^lootdrop_duration);
 } else if ($random < 48) {
     obj_add(npc_coord, steel_arrow, 5, ^lootdrop_duration);
 } else if ($random < 67) {

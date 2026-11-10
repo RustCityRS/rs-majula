@@ -3,7 +3,7 @@
 sound_synth(synth_9824, 1, 0);
 if ($boolean0 = true & %character_creation_multipage = 1) {
     %character_creation_page = 1;
-    if_sethide(false, playerdesign4:confirm);
+    if_sethide(playerdesign4:confirm, false);
     ~script2741;
 }
 ~playerdesign4_switchpage($boolean0);

@@ -2,62 +2,62 @@
 [proc,love_puzzle_update]
 def_int $int0 = calc(3 - ~love_puzzle_used_1(1));
 if ($int0 > 0) {
-    if_setobject_alwaysnum(enum(int, obj, enum_3082, 1), $int0, love_puzzle:source_1_l);
-    if_setonop("love_puzzle_sourceclick(event_op)", love_puzzle:source_1_l);
-    if_setop(1, "Select", love_puzzle:source_1_l);
+    if_setobject_alwaysnum(love_puzzle:source_1_l, enum(int, obj, enum_3082, 1), $int0);
+    if_setonop(love_puzzle:source_1_l, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_1_l, 1, "Select");
 } else {
-    if_setobject_nonum(null, 0, love_puzzle:source_1_l);
-    if_setonop(null, love_puzzle:source_1_l);
+    if_setobject_nonum(love_puzzle:source_1_l, null, 0);
+    if_setonop(love_puzzle:source_1_l, null);
     if_clearops(love_puzzle:source_1_l);
 }
 $int0 = calc(2 - ~love_puzzle_used_1(2));
 if ($int0 > 0) {
-    if_setobject_alwaysnum(enum(int, obj, enum_3082, 2), $int0, love_puzzle:source_1_r);
-    if_setonop("love_puzzle_sourceclick(event_op)", love_puzzle:source_1_r);
-    if_setop(1, "Select", love_puzzle:source_1_r);
+    if_setobject_alwaysnum(love_puzzle:source_1_r, enum(int, obj, enum_3082, 2), $int0);
+    if_setonop(love_puzzle:source_1_r, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_1_r, 1, "Select");
 } else {
-    if_setobject_nonum(null, 0, love_puzzle:source_1_r);
-    if_setonop(null, love_puzzle:source_1_r);
+    if_setobject_nonum(love_puzzle:source_1_r, null, 0);
+    if_setonop(love_puzzle:source_1_r, null);
     if_clearops(love_puzzle:source_1_r);
 }
 $int0 = calc(2 - ~love_puzzle_used_1(3));
 if ($int0 > 0) {
-    if_setobject_alwaysnum(enum(int, obj, enum_3082, 3), $int0, love_puzzle:source_1_b);
-    if_setonop("love_puzzle_sourceclick(event_op)", love_puzzle:source_1_b);
-    if_setop(1, "Select", love_puzzle:source_1_b);
+    if_setobject_alwaysnum(love_puzzle:source_1_b, enum(int, obj, enum_3082, 3), $int0);
+    if_setonop(love_puzzle:source_1_b, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_1_b, 1, "Select");
 } else {
-    if_setobject_nonum(null, 0, love_puzzle:source_1_b);
-    if_setonop(null, love_puzzle:source_1_b);
+    if_setobject_nonum(love_puzzle:source_1_b, null, 0);
+    if_setonop(love_puzzle:source_1_b, null);
     if_clearops(love_puzzle:source_1_b);
 }
 $int0 = calc(2 - ~love_puzzle_used_2(1));
 if ($int0 > 0) {
-    if_setobject_alwaysnum(enum(int, obj, enum_3083, 1), $int0, love_puzzle:source_2_l);
-    if_setonop("love_puzzle_sourceclick(event_op)", love_puzzle:source_2_l);
-    if_setop(1, "Select", love_puzzle:source_2_l);
+    if_setobject_alwaysnum(love_puzzle:source_2_l, enum(int, obj, enum_3083, 1), $int0);
+    if_setonop(love_puzzle:source_2_l, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_2_l, 1, "Select");
 } else {
-    if_setobject_nonum(null, 0, love_puzzle:source_2_l);
-    if_setonop(null, love_puzzle:source_2_l);
+    if_setobject_nonum(love_puzzle:source_2_l, null, 0);
+    if_setonop(love_puzzle:source_2_l, null);
     if_clearops(love_puzzle:source_2_l);
 }
 $int0 = calc(4 - ~love_puzzle_used_2(2));
 if ($int0 > 0) {
-    if_setobject_alwaysnum(enum(int, obj, enum_3083, 2), $int0, love_puzzle:source_2_r);
-    if_setonop("love_puzzle_sourceclick(event_op)", love_puzzle:source_2_r);
-    if_setop(1, "Select", love_puzzle:source_2_r);
+    if_setobject_alwaysnum(love_puzzle:source_2_r, enum(int, obj, enum_3083, 2), $int0);
+    if_setonop(love_puzzle:source_2_r, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_2_r, 1, "Select");
 } else {
-    if_setobject_nonum(null, 0, love_puzzle:source_2_r);
-    if_setonop(null, love_puzzle:source_2_r);
+    if_setobject_nonum(love_puzzle:source_2_r, null, 0);
+    if_setonop(love_puzzle:source_2_r, null);
     if_clearops(love_puzzle:source_2_r);
 }
 $int0 = calc(2 - ~love_puzzle_used_2(3));
 if ($int0 > 0) {
-    if_setobject_alwaysnum(enum(int, obj, enum_3083, 3), $int0, love_puzzle:source_2_b);
-    if_setonop("love_puzzle_sourceclick(event_op)", love_puzzle:source_2_b);
-    if_setop(1, "Select", love_puzzle:source_2_b);
+    if_setobject_alwaysnum(love_puzzle:source_2_b, enum(int, obj, enum_3083, 3), $int0);
+    if_setonop(love_puzzle:source_2_b, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_2_b, 1, "Select");
 } else {
-    if_setobject_nonum(null, 0, love_puzzle:source_2_b);
-    if_setonop(null, love_puzzle:source_2_b);
+    if_setobject_nonum(love_puzzle:source_2_b, null, 0);
+    if_setonop(love_puzzle:source_2_b, null);
     if_clearops(love_puzzle:source_2_b);
 }
 cc_deleteall(love_puzzle:grid1);
@@ -113,7 +113,7 @@ while ($int1 < 28) {
 ~love_puzzle_node(love_puzzle:grid1, 0, 7, 0xff981f);
 $int1 = 0;
 while ($int1 <= 30) {
-    if (testbit(%varclient_1317, $int1) = ^true) {
+    if (testbit(%love_puzzle_nodes_1, $int1) = ^true) {
         switch_int ($int1) {
             case 0 :
                 ~love_puzzle_node(love_puzzle:grid1, -1, 5, 0xff981f);
@@ -191,7 +191,7 @@ while ($int1 <= 30) {
 }
 $int1 = 0;
 while ($int1 <= 30) {
-    if (testbit(%varclient_1318, $int1) = ^true) {
+    if (testbit(%love_puzzle_nodes_2, $int1) = ^true) {
         switch_int ($int1) {
             case 0 :
                 ~love_puzzle_node(love_puzzle:grid2, -6, 5, 0xff981f);

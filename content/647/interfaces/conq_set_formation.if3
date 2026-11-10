@@ -371,7 +371,7 @@ widthmode=proportion
 heightmode=proportion
 layer=grid_main_layer
 onload=conq_formation_setup
-onvartransmit=script503{varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script503{conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 
 // 1017:32
 [backing_rect_1]
@@ -2177,7 +2177,7 @@ candrop=yes
 op10= 
 onload=script1377(event_com, 1)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 1){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 1){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2200,7 +2200,7 @@ candrop=yes
 op10= 
 onload=script1377(event_com, 2)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 2){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 2){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2223,7 +2223,7 @@ candrop=yes
 op10=  
 onload=script1377(event_com, 3)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 3){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 3){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2246,7 +2246,7 @@ candrop=yes
 op10= 
 onload=script1377(event_com, 4)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 4){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 4){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2269,7 +2269,7 @@ candrop=yes
 op10=  
 onload=script1377(event_com, 5)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 5){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 5){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2292,7 +2292,7 @@ candrop=yes
 op10=  
 onload=script1377(event_com, 6)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 6){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 6){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2315,7 +2315,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 7)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 7){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 7){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2338,7 +2338,7 @@ candrop=yes
 op10= 
 onload=script1377(event_com, 8)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 8){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 8){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2361,7 +2361,7 @@ candrop=yes
 op10=  
 onload=script1377(event_com, 9)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 9){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 9){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2384,7 +2384,7 @@ candrop=yes
 op10=  
 onload=script1377(event_com, 10)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 10){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 10){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2407,7 +2407,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 11)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 11){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 11){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2430,7 +2430,7 @@ candrop=yes
 op10=  
 onload=script1377(event_com, 12)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 12){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 12){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2453,7 +2453,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 13)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 13){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 13){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2476,7 +2476,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 14)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 14){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 14){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2499,7 +2499,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 15)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 15){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 15){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2522,7 +2522,7 @@ candrop=yes
 op10= 
 onload=script1377(event_com, 16)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 16){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 16){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2545,7 +2545,7 @@ candrop=yes
 op10=  
 onload=script1377(event_com, 17)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 17){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 17){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2568,7 +2568,7 @@ candrop=yes
 op10=  
 onload=script1377(event_com, 18)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 18){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 18){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2591,7 +2591,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 19)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 19){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 19){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2614,7 +2614,7 @@ candrop=yes
 op10=  
 onload=script1377(event_com, 20)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 20){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 20){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2637,7 +2637,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 21)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 21){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 21){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2660,7 +2660,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 22)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 22){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 22){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2683,7 +2683,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 23)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 23){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 23){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2706,7 +2706,7 @@ candrop=yes
 op10=  
 onload=script1377(event_com, 24)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 24){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 24){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2729,7 +2729,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 25)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 25){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 25){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2752,7 +2752,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 26)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 26){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 26){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2775,7 +2775,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 27)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 27){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 27){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2798,7 +2798,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 28)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 28){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 28){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2821,7 +2821,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 29)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 29){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 29){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2844,7 +2844,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 30)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 30){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 30){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2867,7 +2867,7 @@ candrop=yes
 op10=     
 onload=script1377(event_com, 31)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 31){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 31){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2890,7 +2890,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 32)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 32){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 32){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2913,7 +2913,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 33)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 33){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 33){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2936,7 +2936,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 34)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 34){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 34){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2959,7 +2959,7 @@ candrop=yes
 op10=     
 onload=script1377(event_com, 35)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 35){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 35){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -2982,7 +2982,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 36)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 36){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 36){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3005,7 +3005,7 @@ candrop=yes
 op10=     
 onload=script1377(event_com, 37)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 37){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 37){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3028,7 +3028,7 @@ candrop=yes
 op10=     
 onload=script1377(event_com, 38)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 38){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 38){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3051,7 +3051,7 @@ candrop=yes
 op10=      
 onload=script1377(event_com, 39)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 39){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 39){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3074,7 +3074,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 40)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 40){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 40){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3097,7 +3097,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 41)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 41){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 41){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3120,7 +3120,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 42)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 42){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 42){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3143,7 +3143,7 @@ candrop=yes
 op10=     
 onload=script1377(event_com, 43)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 43){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 43){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3166,7 +3166,7 @@ candrop=yes
 op10=   
 onload=script1377(event_com, 44)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 44){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 44){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3189,7 +3189,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 45)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 45){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 45){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3212,7 +3212,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 46)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 46){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 46){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3235,7 +3235,7 @@ candrop=yes
 op10=     
 onload=script1377(event_com, 47)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 47){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 47){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3258,7 +3258,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 48)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 48){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 48){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3281,7 +3281,7 @@ candrop=yes
 op10=     
 onload=script1377(event_com, 49)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 49){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 49){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3304,7 +3304,7 @@ candrop=yes
 op10=     
 onload=script1377(event_com, 50)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 50){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 50){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3327,7 +3327,7 @@ candrop=yes
 op10=      
 onload=script1377(event_com, 51)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 51){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 51){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3350,7 +3350,7 @@ candrop=yes
 op10=    
 onload=script1377(event_com, 52)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 52){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 52){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3373,7 +3373,7 @@ candrop=yes
 op10=     
 onload=script1377(event_com, 53)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 53){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 53){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3396,7 +3396,7 @@ candrop=yes
 op10=     
 onload=script1377(event_com, 54)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 54){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 54){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3419,7 +3419,7 @@ candrop=yes
 op10=      
 onload=script1377(event_com, 55)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 55){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 55){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3442,7 +3442,7 @@ candrop=yes
 op10=     
 onload=script1377(event_com, 56)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 56){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 56){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3465,7 +3465,7 @@ candrop=yes
 op10=      
 onload=script1377(event_com, 57)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 57){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 57){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3488,7 +3488,7 @@ candrop=yes
 op10=      
 onload=script1377(event_com, 58)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 58){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 58){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3511,7 +3511,7 @@ candrop=yes
 op10=       
 onload=script1377(event_com, 59)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 59){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 59){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 
@@ -3532,7 +3532,7 @@ dragdepth=1
 candrop=yes
 onload=script1377(event_com, 60)
 onmouseleave=conq_formation_tooltip_mouseleave
-onvartransmit=script1377(event_com, 60){varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873}
+onvartransmit=script1377(event_com, 60){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
 onmouserepeat=conq_formation_tooltip_mouseover(event_com)
 ondragcomplete=script1378(event_com, event_com2)
 

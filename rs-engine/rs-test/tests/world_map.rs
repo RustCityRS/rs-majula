@@ -562,7 +562,7 @@ fn every_clear_path_clears_the_marker() {
     runner::on_loaded_engine(|engine| {
         let mut client = player(engine, "wm_clear", 1);
         for (what, op, com, slot, map_up) in [
-            ("globe", 2, GLOBE_FIXED, 0xFFFF, false),
+            ("poh_globe_1", 2, GLOBE_FIXED, 0xFFFF, false),
             ("key 18", 1, KEY_LIST, 18, true),
             ("key 19", 1, KEY_LIST, 19, true),
             ("marker", 10, WAYPOINT, 0xFFFF, true),

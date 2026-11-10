@@ -262,8 +262,8 @@ tiling=yes
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
-onvartransmit=f4_select1{varplayer_433, xplamp_stat}
+opcursor0=cursor_use
+onvartransmit=f4_select1{dwarfrock_main, if1}
 
 // 114:25
 [f4_select2]
@@ -277,8 +277,8 @@ tiling=yes
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
-onvartransmit=f4_select2{varplayer_433, varplayer_262}
+opcursor0=cursor_use
+onvartransmit=f4_select2{dwarfrock_main, if2}
 
 // 114:26
 [f4_select3]
@@ -292,8 +292,8 @@ tiling=yes
 colour=0x000000
 transmitop=1
 op1=Select
-opcursor0=cursor_46
-onvartransmit=f4_select3{varplayer_433, varplayer_263}
+opcursor0=cursor_use
+onvartransmit=f4_select3{dwarfrock_main, if3}
 
 // 114:27
 [f4_hide1]
@@ -307,7 +307,7 @@ tiling=yes
 colour=0x000000
 transmitop=1
 op1=Show
-onvartransmit=f4_hide1{varplayer_433, gnome_course_progress}
+onvartransmit=f4_hide1{dwarfrock_main, gnome_course_progress}
 
 // 114:28
 [f4_hide2]
@@ -321,7 +321,7 @@ tiling=yes
 colour=0x000000
 transmitop=1
 op1=Show
-onvartransmit=f4_hide2{varplayer_433, barbarian_course_progress}
+onvartransmit=f4_hide2{dwarfrock_main, barbarian_course_progress}
 
 // 114:29
 [f4_hide3]
@@ -335,7 +335,7 @@ tiling=yes
 colour=0x000000
 transmitop=1
 op1=Show
-onvartransmit=f4_hide3{varplayer_433, wilderness_course_progress}
+onvartransmit=f4_hide3{dwarfrock_main, wilderness_course_progress}
 
 // 114:30
 [dr_rotate_button]

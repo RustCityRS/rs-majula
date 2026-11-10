@@ -1,6 +1,6 @@
 // 307
 [proc,worldmap_vartransmit_effects]
-if (%varplayerbit_6176 = 1) {
+if (%worldmap_textlabels_hidden = 1) {
     worldmap_disableelementcategory(category_950, true);
 } else {
     worldmap_disableelementcategory(category_950, false);

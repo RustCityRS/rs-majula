@@ -2,16 +2,16 @@
 [clientscript,script1180]
 if (%doublexp_setupflag = 1) {
     if (map_lang = 1) {
-        if_setgraphic("xp_token_with_plus,2", toplevel:xpx2smallbutton);
-        if_setgraphic("xp_token_with_plus,2", toplevel_fullscreen:xpx2smallbutton);
+        if_setgraphic(toplevel:xpx2smallbutton, "xp_token_with_plus,2");
+        if_setgraphic(toplevel_fullscreen:xpx2smallbutton, "xp_token_with_plus,2");
     } else {
-        if_setgraphic("xp_token_with_plus,0", toplevel:xpx2smallbutton);
-        if_setgraphic("xp_token_with_plus,0", toplevel_fullscreen:xpx2smallbutton);
+        if_setgraphic(toplevel:xpx2smallbutton, "xp_token_with_plus,0");
+        if_setgraphic(toplevel_fullscreen:xpx2smallbutton, "xp_token_with_plus,0");
     }
 } else if (map_lang = 1) {
-    if_setgraphic("xp_token,2", toplevel:xpx2smallbutton);
-    if_setgraphic("xp_token,2", toplevel_fullscreen:xpx2smallbutton);
+    if_setgraphic(toplevel:xpx2smallbutton, "xp_token,2");
+    if_setgraphic(toplevel_fullscreen:xpx2smallbutton, "xp_token,2");
 } else {
-    if_setgraphic("xp_token,0", toplevel:xpx2smallbutton);
-    if_setgraphic("xp_token,0", toplevel_fullscreen:xpx2smallbutton);
+    if_setgraphic(toplevel:xpx2smallbutton, "xp_token,0");
+    if_setgraphic(toplevel_fullscreen:xpx2smallbutton, "xp_token,0");
 }

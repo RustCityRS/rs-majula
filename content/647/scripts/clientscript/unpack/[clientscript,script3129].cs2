@@ -3,17 +3,17 @@
 if ($int0 = 1) {
     ~script3141($int2, $string0);
     if ($int1 > -1 & cc_find(lobbyscreen_pane_worldselect:ws_bg, $int1) = true) {
-        if_sethide(false, lobbyscreen_pane_worldselect:ws_selected_bg);
-        if_setposition(0, cc_gety, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:ws_selected_bg);
+        if_sethide(lobbyscreen_pane_worldselect:ws_selected_bg, false);
+        if_setposition(lobbyscreen_pane_worldselect:ws_selected_bg, 0, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
     }
-    if (map_world = %varclient_998) {
+    if (map_world = %worldselect_1stfavourite) {
         if (cc_find(lobbyscreen_pane_worldselect:list_fav1, 3) = true) {
             cc_sethide(false);
         }
     } else if (cc_find(lobbyscreen_pane_worldselect:list_fav1, 3) = true) {
         cc_sethide(true);
     }
-    if (map_world = %varclient_999) {
+    if (map_world = %worldselect_2ndfavourite) {
         if (cc_find(lobbyscreen_pane_worldselect:list_fav2, 3) = true) {
             cc_sethide(false);
         }

@@ -42,7 +42,7 @@ assert_called_with("damage", "0,37,0,160")
 // A player's ranged hit paints the ranged mark on the npc.
 [label,test_a_ranged_hit_paints_the_ranged_mark_on_an_npc]
 setup_player("test_player")
-npc_add(movecoord(coord, 0, 0, 2), dagannoth, 50)
+npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
 npc_queue(2, ~combat_hit(40, ^hitmark_ranged, 100), 0)
 test_tick(2)
 assert_eq(npc_stat(hitpoints), 1160)
@@ -51,19 +51,19 @@ assert_called_with("npc_damage", "1,40")
 // A critical magic hit paints the magic crit.
 [label,test_a_critical_magic_hit_paints_the_magic_crit]
 setup_player("test_player")
-npc_add(movecoord(coord, 0, 0, 2), dagannoth, 50)
+npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
 npc_queue(2, ~combat_hit(95, ^hitmark_magic, 100), 0)
 test_tick(2)
 assert_called_with("npc_damage", "12,95")
 
 // A hit an npc's queue queues again is still the player's: the second queue
 // carries the player who queued the first.
-[ai_queue19,dagannoth] npc_queue(20, last_int, 0);
-[ai_queue20,dagannoth] npc_damage(^hitmark_damage, last_int);
+[ai_queue19,horror_dagganoth_jr] npc_queue(20, last_int, 0);
+[ai_queue20,horror_dagganoth_jr] npc_damage(^hitmark_damage, last_int);
 
 [label,test_a_hit_queued_twice_is_still_the_players]
 setup_player("test_player")
-npc_add(movecoord(coord, 0, 0, 2), dagannoth, 50)
+npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
 npc_queue(19, 40, 0)
 test_tick(3)
 assert_eq(npc_stat(hitpoints), 1160)

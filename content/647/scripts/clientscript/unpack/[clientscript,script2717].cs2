@@ -2,7 +2,7 @@
 [clientscript,script2717](component $component0)
 if (%shop_sample ! null) {
     ~script2726($component0, %shop_sample);
-    if_setoninvtransmit("script2725($component0, %shop_sample){%shop_sample}", $component0);
-    if_sethide(false, shop_template:main_title);
-    if_sethide(false, shop_template:com_21);
+    if_setoninvtransmit($component0, "script2725($component0, %shop_sample){%shop_sample}");
+    if_sethide(shop_template:main_title, false);
+    if_sethide(shop_template:com_21, false);
 }

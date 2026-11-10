@@ -276,7 +276,7 @@ colour=0xaaaaaa
 transmitop=10
 op10=    
 onload=boardgames_status(boardgames_view:status1, boardgames_view:status2, boardgames_view:status3, boardgames_view:tooltip)
-onvarcstrtransmit=boardgames_status(boardgames_view:status1, boardgames_view:status2, boardgames_view:status3, boardgames_view:tooltip){varclient_1662, varclient_1663, varclient_1664}
+onvarcstrtransmit=boardgames_status(boardgames_view:status1, boardgames_view:status2, boardgames_view:status3, boardgames_view:tooltip){boardgames_status1, boardgames_status2, varclient_1664}
 
 // 769:20
 [status2]
@@ -339,7 +339,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10= 
-onvarctransmit=boardgames_piece1(event_com){varclient_809}
+onvarctransmit=boardgames_piece1(event_com){boardgames_pl_piece}
 
 // 769:24
 [game_piece_player2]
@@ -354,7 +354,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10= 
-onvarctransmit=boardgames_piece2(event_com){varclient_810}
+onvarctransmit=boardgames_piece2(event_com){boardgames_opp_piece}
 
 // 769:25
 [close_layer]

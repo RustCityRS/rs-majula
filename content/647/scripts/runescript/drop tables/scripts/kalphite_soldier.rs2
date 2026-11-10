@@ -7,7 +7,7 @@ def_int $random = random(128);
 if ($random < 4) {
     obj_add(npc_coord, steel_full_helm, 1, ^lootdrop_duration);
 } else if ($random < 8) {
-    obj_add(npc_coord, steel_hatchet, 1, ^lootdrop_duration);
+    obj_add(npc_coord, steel_axe, 1, ^lootdrop_duration);
 } else if ($random < 11) {
     obj_add(npc_coord, steel_scimitar, 1, ^lootdrop_duration);
 } else if ($random < 12) {
@@ -17,15 +17,15 @@ if ($random < 4) {
 } else if ($random < 14) {
     obj_add(npc_coord, adamant_med_helm, 1, ^lootdrop_duration);
 } else if ($random < 22) {
-    obj_add(npc_coord, fire_rune, 60, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 60, ^lootdrop_duration);
 } else if ($random < 27) {
-    obj_add(npc_coord, chaos_rune, 12, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 12, ^lootdrop_duration);
 } else if ($random < 30) {
-    obj_add(npc_coord, death_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, deathrune, 3, ^lootdrop_duration);
 } else if ($random < 32) {
-    obj_add(npc_coord, nature_rune, ~random_range(1,4), ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, ~random_range(1,4), ^lootdrop_duration);
 } else if ($random < 33) {
-    obj_add(npc_coord, fire_rune, 30, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 30, ^lootdrop_duration);
 } else if ($random < 34) {
     obj_add(npc_coord, ~randomherb, ^lootdrop_duration);
 } else if ($random < 74) {
@@ -39,7 +39,7 @@ if ($random < 4) {
 } else if ($random < 121) {
     obj_add(npc_coord, coins, 450, ^lootdrop_duration);
 } else if ($random < 124) {
-    obj_add(npc_coord, waterskin__4, 1, ^lootdrop_duration);
+    obj_add(npc_coord, water_skin4, 1, ^lootdrop_duration);
 } else {
     obj_add(npc_coord, ~randomjewel, ^lootdrop_duration);
 }

@@ -2,58 +2,58 @@
 [clientscript,farming_tools_side_update](component $component0, obj $obj1, component $component2)
 def_component $component3 = if_getlayer($component0);
 if ($obj1 = secateurs) {
-    if (inv_total(inv, magic_secateurs) > 0) {
-        $obj1 = magic_secateurs;
+    if (inv_total(inv, fairy_enchanted_secateurs) > 0) {
+        $obj1 = fairy_enchanted_secateurs;
     }
-} else if ($obj1 = watering_can_6797) {
-    if (inv_total(inv, magic_watering_can) > 0) {
-        $obj1 = magic_watering_can;
-        if_setopbase("<col=ff9040>Magic watering can", $component0);
-    } else if (inv_total(inv, watering_can__8) > 0) {
-        $obj1 = watering_can__8;
-        if_setopbase("<col=ff9040>Watering can (8)", $component0);
-    } else if (inv_total(inv, watering_can__7) > 0) {
-        $obj1 = watering_can__7;
-        if_setopbase("<col=ff9040>Watering can (7)", $component0);
-    } else if (inv_total(inv, watering_can__6) > 0) {
-        $obj1 = watering_can__6;
-        if_setopbase("<col=ff9040>Watering can (6)", $component0);
-    } else if (inv_total(inv, watering_can__5) > 0) {
-        $obj1 = watering_can__5;
-        if_setopbase("<col=ff9040>Watering can (5)", $component0);
-    } else if (inv_total(inv, watering_can__4) > 0) {
-        $obj1 = watering_can__4;
-        if_setopbase("<col=ff9040>Watering can (4)", $component0);
-    } else if (inv_total(inv, watering_can__3) > 0) {
-        $obj1 = watering_can__3;
-        if_setopbase("<col=ff9040>Watering can (3)", $component0);
-    } else if (inv_total(inv, watering_can__2) > 0) {
-        $obj1 = watering_can__2;
-        if_setopbase("<col=ff9040>Watering can (2)", $component0);
-    } else if (inv_total(inv, watering_can__1) > 0) {
-        $obj1 = watering_can__1;
-        if_setopbase("<col=ff9040>Watering can (1)", $component0);
-    } else if (inv_total(inv, watering_can) > 0) {
-        $obj1 = watering_can;
-        if_setopbase("<col=ff9040>Watering can (0)", $component0);
+} else if ($obj1 = watering_can_dummy) {
+    if (inv_total(inv, ft3_watering_can) > 0) {
+        $obj1 = ft3_watering_can;
+        if_setopbase($component0, "<col=ff9040>Magic watering can");
+    } else if (inv_total(inv, watering_can_8) > 0) {
+        $obj1 = watering_can_8;
+        if_setopbase($component0, "<col=ff9040>Watering can (8)");
+    } else if (inv_total(inv, watering_can_7) > 0) {
+        $obj1 = watering_can_7;
+        if_setopbase($component0, "<col=ff9040>Watering can (7)");
+    } else if (inv_total(inv, watering_can_6) > 0) {
+        $obj1 = watering_can_6;
+        if_setopbase($component0, "<col=ff9040>Watering can (6)");
+    } else if (inv_total(inv, watering_can_5) > 0) {
+        $obj1 = watering_can_5;
+        if_setopbase($component0, "<col=ff9040>Watering can (5)");
+    } else if (inv_total(inv, watering_can_4) > 0) {
+        $obj1 = watering_can_4;
+        if_setopbase($component0, "<col=ff9040>Watering can (4)");
+    } else if (inv_total(inv, watering_can_3) > 0) {
+        $obj1 = watering_can_3;
+        if_setopbase($component0, "<col=ff9040>Watering can (3)");
+    } else if (inv_total(inv, watering_can_2) > 0) {
+        $obj1 = watering_can_2;
+        if_setopbase($component0, "<col=ff9040>Watering can (2)");
+    } else if (inv_total(inv, watering_can_1) > 0) {
+        $obj1 = watering_can_1;
+        if_setopbase($component0, "<col=ff9040>Watering can (1)");
+    } else if (inv_total(inv, watering_can_0) > 0) {
+        $obj1 = watering_can_0;
+        if_setopbase($component0, "<col=ff9040>Watering can (0)");
     } else {
-        if_setopbase("<col=ff9040>Watering can", $component0);
+        if_setopbase($component0, "<col=ff9040>Watering can");
     }
 }
 def_int $int4 = 0;
 switch_obj ($obj1) {
-    case secateurs, magic_secateurs :
-        $int4 = calc(inv_total(inv, secateurs) + inv_total(inv, magic_secateurs));
-    case watering_can_6797, watering_can__8, watering_can__7, watering_can__6, watering_can__5, watering_can__4, watering_can__3, watering_can__2, watering_can__1, watering_can :
-        $int4 = calc(inv_total(inv, magic_watering_can) + inv_total(inv, watering_can__8) + inv_total(inv, watering_can__7) + inv_total(inv, watering_can__6) + inv_total(inv, watering_can__5) + inv_total(inv, watering_can__4) + inv_total(inv, watering_can__3) + inv_total(inv, watering_can__2) + inv_total(inv, watering_can__1) + inv_total(inv, watering_can));
+    case secateurs, fairy_enchanted_secateurs :
+        $int4 = calc(inv_total(inv, secateurs) + inv_total(inv, fairy_enchanted_secateurs));
+    case watering_can_dummy, watering_can_8, watering_can_7, watering_can_6, watering_can_5, watering_can_4, watering_can_3, watering_can_2, watering_can_1, watering_can_0 :
+        $int4 = calc(inv_total(inv, ft3_watering_can) + inv_total(inv, watering_can_8) + inv_total(inv, watering_can_7) + inv_total(inv, watering_can_6) + inv_total(inv, watering_can_5) + inv_total(inv, watering_can_4) + inv_total(inv, watering_can_3) + inv_total(inv, watering_can_2) + inv_total(inv, watering_can_1) + inv_total(inv, watering_can_0));
     case default :
         $int4 = inv_total(inv, $obj1);
 }
 if ($int4 > 0) {
-    if_setcolour(0x7dd764, $component2);
-    if_setobject($obj1, $int4, $component0);
+    if_setcolour($component2, 0x7dd764);
+    if_setobject($component0, $obj1, $int4);
 } else {
-    if_setcolour(0x872300, $component2);
-    if_setobject($obj1, -1, $component0);
+    if_setcolour($component2, 0x872300);
+    if_setobject($component0, $obj1, -1);
 }
-if_setoutline(1, $component0);
+if_setoutline($component0, 1);

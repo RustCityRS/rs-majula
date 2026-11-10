@@ -1,8 +1,8 @@
 // 1517
 [clientscript,script1517](component $component0, int $int1)
 if (cc_find($component0, $int1) = true) {
-    if (%varclient_779 ! null) {
-        cc_setmodelanim(bas_getanim_ready(%varclient_779));
+    if (%player_kit_torso_client ! null) {
+        cc_setmodelanim(bas_getanim_ready(%player_kit_torso_client));
     } else {
         cc_setmodelanim(bas_getanim_ready(bas_1426));
     }

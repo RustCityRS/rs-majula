@@ -119,8 +119,8 @@ cam_moveto(2_48_49_31_25, 775, 232, 100);
 p_delay(0);
 npc_facesquare(movecoord(npc_coord, -1, 0, 0));
 p_delay(2);
-npc_anim(seq_4285, 0);
-sound_synth(synth_1632, 1, 0);
+npc_anim(qip_imp_catcher_wizard, 0);
+sound_synth(mizgog_placebeads, 1, 0);
 p_delay(1);
 if (~mizgog_has_beads = false) {
     cam_reset;
@@ -131,11 +131,11 @@ inv_del(inv, white_bead, 1);
 inv_del(inv, yellow_bead, 1);
 inv_del(inv, red_bead, 1);
 p_delay(0);
-if (loc_find(2_48_49_30_27, table_16169) = true) {
+if (loc_find(2_48_49_30_27, qip_imp_catcher_magic_table_before) = true) {
     loc_change(loc_16171, 8);
 }
-spotanim_map(spotanim_714, 2_48_49_30_27, 100, 0);
-sound_synth(synth_1633, 1, 0);
+spotanim_map(qip_imp_catcher_spotanim, 2_48_49_30_27, 100, 0);
+sound_synth(mizgog_beads, 1, 0);
 p_delay(6);
 cam_reset;
 mes("The Wizard hands you an amulet."); // 2011-05-18 recording: capital W

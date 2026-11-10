@@ -1,26 +1,26 @@
 // 3360
 [proc,script3360]()(int, string, obj)
-switch_obj (%varplayer_448) {
+switch_obj (%follower_obj) {
     case default :
-        return(5, "Aptitude (Tier 1)", aptitude__tier_1);
-    case cub_hoardstalker_pouch :
-        return(5, "Aptitude (Tier 1)", aptitude__tier_1);
-    case little_hoardstalker_pouch :
-        return(15, "Aptitude (Tier 2)", aptitude__tier_2);
-    case "naïve_hoardstalker_pouch" :
-        return(25, "Aptitude (Tier 3)", aptitude__tier_3);
-    case keen_hoardstalker_pouch :
-        return(35, "Aptitude (Tier 4)", aptitude__tier_4);
-    case brave_hoardstalker_pouch :
-        return(45, "Aptitude (Tier 5)", aptitude__tier_5);
-    case brah_hoardstalker_pouch :
-        return(55, "Aptitude (Tier 6)", aptitude__tier_6);
-    case naabe_hoardstalker_pouch :
-        return(65, "Aptitude (Tier 7)", aptitude__tier_7);
-    case wise_hoardstalker_pouch :
-        return(75, "Aptitude (Tier 8)", aptitude__tier_8);
-    case adept_hoardstalker_pouch :
-        return(85, "Aptitude (Tier 9)", aptitude__tier_9);
-    case sachem_hoardstalker_pouch :
-        return(95, "Aptitude (Tier 10)", aptitude__tier_10);
+        return(5, "Aptitude (Tier 1)", rand_loreskill_01_spell);
+    case rand_loreskill_01 :
+        return(5, "Aptitude (Tier 1)", rand_loreskill_01_spell);
+    case rand_loreskill_02 :
+        return(15, "Aptitude (Tier 2)", rand_loreskill_02_spell);
+    case rand_loreskill_03 :
+        return(25, "Aptitude (Tier 3)", rand_loreskill_03_spell);
+    case rand_loreskill_04 :
+        return(35, "Aptitude (Tier 4)", rand_loreskill_04_spell);
+    case rand_loreskill_05 :
+        return(45, "Aptitude (Tier 5)", rand_loreskill_05_spell);
+    case rand_loreskill_06 :
+        return(55, "Aptitude (Tier 6)", rand_loreskill_06_spell);
+    case rand_loreskill_07 :
+        return(65, "Aptitude (Tier 7)", rand_loreskill_07_spell);
+    case rand_loreskill_08 :
+        return(75, "Aptitude (Tier 8)", rand_loreskill_08_spell);
+    case rand_loreskill_09 :
+        return(85, "Aptitude (Tier 9)", rand_loreskill_09_spell);
+    case rand_loreskill_10 :
+        return(95, "Aptitude (Tier 10)", rand_loreskill_10_spell);
 }

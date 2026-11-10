@@ -3,7 +3,7 @@
 // Gerrant says the same. No 2011 recording of him was found.
 // Waiting: Hero's Quest at 647 (289's quests/quest_hero); with it, 289's third option ("I want to
 // find out how to catch a lava eel.", the Blamish slime) returns.
-[opnpc1,gerrant_12261]
+[opnpc1,gerrant_npc]
 if(map_members = ^true & inv_total(inv, trail_clue_hard_riddle004) > 0) {
     ~chatnpc("<p,neutral>You've done it!");
     ~progress_clue_hard(trail_clue_hard_riddle004, "Gerrant has given you another clue scroll!");

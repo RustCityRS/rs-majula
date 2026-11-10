@@ -1,29 +1,29 @@
 // 1377
 [clientscript,script1377](component $component0, int $int1)
 def_npc $npc2 = null;
-if (%varplayerbit_7516 = $int1) {
-    $npc2 = ~script486(%varplayerbit_7520);
-} else if (%varplayerbit_7517 = $int1) {
-    $npc2 = ~script486(%varplayerbit_7521);
-} else if (%varplayerbit_7518 = $int1) {
-    $npc2 = ~script486(%varplayerbit_7526);
-} else if (%varplayerbit_7519 = $int1) {
-    $npc2 = ~script486(%varplayerbit_7527);
-} else if (%varplayerbit_7522 = $int1) {
-    $npc2 = ~script486(%varplayerbit_7530);
-} else if (%varplayerbit_7523 = $int1) {
-    $npc2 = ~script486(%varplayerbit_7531);
-} else if (%varplayerbit_7524 = $int1) {
-    $npc2 = ~script486(%varplayerbit_7532);
-} else if (%varplayerbit_7525 = $int1) {
-    $npc2 = ~script486(%varplayerbit_7533);
-} else if (%varplayerbit_7528 = $int1) {
-    $npc2 = ~script486(%varplayerbit_7534);
-} else if (%varplayerbit_7529 = $int1) {
-    $npc2 = ~script486(%varplayerbit_7535);
+if (%conq_unit_1_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_1_type);
+} else if (%conq_unit_2_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_2_type);
+} else if (%conq_unit_3_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_3_type);
+} else if (%conq_unit_4_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_4_type);
+} else if (%conq_unit_5_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_5_type);
+} else if (%conq_unit_6_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_6_type);
+} else if (%conq_unit_7_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_7_type);
+} else if (%conq_unit_8_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_8_type);
+} else if (%conq_unit_9_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_9_type);
+} else if (%conq_unit_10_pos = $int1) {
+    $npc2 = ~script486(%conq_unit_10_type);
 }
 if ($npc2 ! null) {
-    if_settext(nc_param($npc2, param_1140), $component0);
+    if_settext($component0, nc_param($npc2, param_1140));
 } else {
-    if_settext("", $component0);
+    if_settext($component0, "");
 }

@@ -1,77 +1,77 @@
-[opheldu,vial_of_water]
+[opheldu,vial_water]
 if(last_useitem = jangerberries) {
     if(%itwatchtower < ^itwatchtower_learned_potion) {
         ~chatplayer("<p,confused>Hmm, perhaps I shouldn't mix these together. It might have unpredictable results...");
         return;
     }
-    @ogrepotion_add_jangerberries(vial_of_water);
+    @ogrepotion_add_jangerberries(vial_water);
 }
 if(last_useitem = ground_bat_bones) {
-  @ogrepotion_add_bat_bones(vial_of_water);
+  @ogrepotion_add_bat_bones(vial_water);
 }
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,guam_potion__unf]
+[opheldu,guamvial]
 if(last_useitem = jangerberries) {
     if(%itwatchtower < ^itwatchtower_learned_potion) {
         ~chatplayer("<p,confused>Hmm, perhaps I shouldn't mix these together. It might have unpredictable results...");
         return;
     }
-    @ogrepotion_add_jangerberries(guam_potion__unf);
+    @ogrepotion_add_jangerberries(guamvial);
 }
 if(last_useitem = ground_bat_bones) {
-  @ogrepotion_add_bat_bones(guam_potion__unf);
+  @ogrepotion_add_bat_bones(guamvial);
 }
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,marrentill_potion__unf]
+[opheldu,marrentillvial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,tarromin_potion__unf]
+[opheldu,tarrominvial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,harralander_potion__unf]
+[opheldu,harralandervial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,ranarr_potion__unf]
+[opheldu,ranarrvial]
 switch_obj(last_useitem) {
-    case troll_thistle : mes("I need to dry it over a fire first."); // different mes than opheldu the other way around
-    case dried_thistle : @eadgar_dried_troll_thistle_mes;
-    case ground_thistle : @eadgar_mix_troll_truth_potion;
+    case eadgar_troll_thistle : mes("I need to dry it over a fire first."); // different mes than opheldu the other way around
+    case eadgar_dried_troll_thistle : @eadgar_dried_troll_thistle_mes;
+    case eadgar_ground_troll_thistle : @eadgar_mix_troll_truth_potion;
     case default : ~attempt_brew_potion(last_useslot, last_slot);        
 }
 
-[opheldu,irit_potion__unf]
+[opheldu,iritvial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,avantoe_potion__unf]
+[opheldu,avantoevial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,kwuarm_potion__unf]
+[opheldu,kwuarmvial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,cadantine_potion__unf]
+[opheldu,cadantinevial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,lantadyme_potion__unf]
+[opheldu,lantadymevial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,dwarf_weed_potion__unf]
+[opheldu,dwarfweedvial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,torstol_potion__unf]
+[opheldu,torstolvial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,toadflax_potion__unf]
+[opheldu,toadflaxvial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,snapdragon_potion__unf]
+[opheldu,snapdragonvial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
 [opheldu,eye_of_newt]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,red_spiders__eggs]
+[opheldu,red_spiders_eggs]
 ~attempt_brew_potion(last_useslot, last_slot);
 
 [opheldu,limpwurt_root]
@@ -92,7 +92,7 @@ switch_obj(last_useitem) {
 [opheldu,ashes]
 ~attempt_brew_potion(last_useslot, last_slot);
 
-[opheldu,ash_potion__unf]
+[opheldu,ashesvial]
 ~attempt_brew_potion(last_useslot, last_slot);
 
 [proc,attempt_brew_potion](int $use_slot, int $last_slot)(boolean)

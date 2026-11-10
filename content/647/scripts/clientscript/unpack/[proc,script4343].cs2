@@ -69,4 +69,4 @@ if (compare($string9, "") ! 0) {
     }
     $string10 = append($string10, $string9);
 }
-if_settext($string10, $component0);
+if_settext($component0, $string10);

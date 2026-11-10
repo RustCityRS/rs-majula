@@ -22,5 +22,5 @@ switch_int(random(4)) {
 }
 npc_say("Kill that intruder guards!");
 npc_setmode(playerescape);
-if(npc_find(coord, desertminingmercenary1, 7, 0) = true) ~mercenary_attack;
+if(npc_find(coord, tourtrap_qip_desert_mining_merc_1, 7, 0) = true) ~mercenary_attack;
 return (false);

@@ -2,7 +2,7 @@
 [proc,script4384](int $int0, int $int1, int $int2)(graphic, graphic)
 def_graphic $graphic3 = enum(int, graphic, enum_3686, $int0);
 def_graphic $graphic4 = enum(int, graphic, enum_3686, $int1);
-if ($int2 = 1 & %varclansetting_10 = 1) {
+if ($int2 = 1 & %clan_motif_sanction_varclan = 1) {
     $graphic3 = clan_icon_generic_runestone_r;
     $graphic4 = clan_icon_generic_runestone_s;
 } else {

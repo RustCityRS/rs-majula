@@ -1,10 +1,10 @@
 // 2201
 [clientscript,script2201]
-if (%varplayer_1701 = 1) {
+if (%easter10_conveyoritemsent = 1) {
     ~script2200;
 } else {
     ~script2199;
 }
 ~script2209;
-if_sethide(false, %varclient_1136);
-if_setontimer("script2210", easter10_nuts:content);
+if_sethide(%easter10_currentmodel, false);
+if_setontimer(easter10_nuts:content, "script2210");

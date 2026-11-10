@@ -3,12 +3,12 @@
 if ($int1 ! 1) {
     return;
 }
-if (%varclient_1413 = false) {
+if (%has_displayname_client = false) {
     return;
 }
-if (%varclient_119 = 1) {
-    %varclient_119 = 0;
+if (%option_run_status_varc = 1) {
+    %option_run_status_varc = 0;
 } else {
-    %varclient_119 = 1;
+    %option_run_status_varc = 1;
 }
 ~topstat_run_button_update($component0);

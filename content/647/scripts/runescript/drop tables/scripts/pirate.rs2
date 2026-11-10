@@ -18,21 +18,21 @@ if ($random < 6) {
 } else if ($random < 11) {
     obj_add(npc_coord, iron_platebody, 1, ^lootdrop_duration);
 } else if ($random < 17) {
-    obj_add(npc_coord, chaos_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 2, ^lootdrop_duration);
 } else if ($random < 22) {
-    obj_add(npc_coord, nature_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 2, ^lootdrop_duration);
 } else if ($random < 25) {
     obj_add(npc_coord, bronze_arrow, 9, ^lootdrop_duration);
 } else if ($random < 27) {
     obj_add(npc_coord, bronze_arrow, 12, ^lootdrop_duration);
 } else if ($random < 29) {
-    obj_add(npc_coord, air_rune, 10, ^lootdrop_duration);
+    obj_add(npc_coord, airrune, 10, ^lootdrop_duration);
 } else if ($random < 31) {
-    obj_add(npc_coord, earth_rune, 9, ^lootdrop_duration);
+    obj_add(npc_coord, earthrune, 9, ^lootdrop_duration);
 } else if ($random < 33) {
-    obj_add(npc_coord, fire_rune, 5, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 5, ^lootdrop_duration);
 } else if ($random < 34) {
-    obj_add(npc_coord, law_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 2, ^lootdrop_duration);
 } else if ($random < 63) {
     obj_add(npc_coord, coins, 4, ^lootdrop_duration);
 } else if ($random < 76) {
@@ -50,7 +50,7 @@ if ($random < 6) {
         obj_add(npc_coord, eye_patch, 1, ^lootdrop_duration);
     }
 } else if ($random < 108) {
-    obj_add(npc_coord, chef_s_hat, 1, ^lootdrop_duration);
+    obj_add(npc_coord, chefs_hat, 1, ^lootdrop_duration);
 } else if ($random < 109) {  // recheck drop rate %
     obj_add(npc_coord, iron_bar, 1, ^lootdrop_duration);
 } else if ($random < 110) {

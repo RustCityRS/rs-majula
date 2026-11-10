@@ -1,9 +1,9 @@
 // 2239
 [clientscript,easter10_negg_repair_click]
 sound_synth(synth_8729, 1, 0);
-if (%varclient_1133 = false) {
-    %varclient_1133 = true;
+if (%easter10_neggrepair = false) {
+    %easter10_neggrepair = true;
 } else {
-    %varclient_1133 = false;
+    %easter10_neggrepair = false;
 }
 ~script2220;

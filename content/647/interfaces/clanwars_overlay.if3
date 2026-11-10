@@ -219,7 +219,7 @@ height=72
 xmode=abs_right
 ymode=abs_centre
 onload=clanwars_overlay_rules(event_com, clanwars_overlay:rules_background, clanwars_overlay:rules_icon, clanwars_overlay:rules_header, clanwars_overlay:rules_text, 17367040)
-onvartransmit=clanwars_overlay_rules(event_com, clanwars_overlay:rules_background, clanwars_overlay:rules_icon, clanwars_overlay:rules_header, clanwars_overlay:rules_text, 17367040){varplayer_1305}
+onvartransmit=clanwars_overlay_rules(event_com, clanwars_overlay:rules_background, clanwars_overlay:rules_icon, clanwars_overlay:rules_header, clanwars_overlay:rules_text, 17367040){clanwars_rules}
 
 // 265:18
 [rules_background]

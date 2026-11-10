@@ -1,8 +1,8 @@
 // 2816
 [clientscript,script2816]
-if (%varclient_1065 ! null) {
+if (%evq_region_sw ! null) {
     ~script2817;
-    if_setonvarctransmit(null, fade2:eventlayer);
+    if_setonvarctransmit(fade2:eventlayer, null);
 } else {
-    if_setonvarctransmit("script2816{varclient_1065}", fade2:eventlayer);
+    if_setonvarctransmit(fade2:eventlayer, "script2816{evq_region_sw}");
 }

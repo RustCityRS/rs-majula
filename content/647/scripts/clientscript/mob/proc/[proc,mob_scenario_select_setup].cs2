@@ -1,37 +1,37 @@
 // 2484
 [proc,mob_scenario_select_setup]
 def_int $int0 = 1;
-%varclient_838 = %varplayerbit_6347;
+%mob_client_scenario = %varplayerbit_6347;
 while ($int0 <= 4 & enum(int, component, enum_2383, $int0) ! mob_scenario_select:content_layer) {
-    if ($int0 <= %varclient_838) {
-        if_setcolour(0xe1981f, enum(int, component, enum_2384, $int0));
-        if_setop(1, "Select", enum(int, component, enum_2383, $int0));
+    if ($int0 <= %mob_client_scenario) {
+        if_setcolour(enum(int, component, enum_2384, $int0), 0xe1981f);
+        if_setop(enum(int, component, enum_2383, $int0), 1, "Select");
         switch_int ($int0) {
             case 1 :
-                if_settext("Conflict", enum(int, component, enum_2384, $int0));
+                if_settext(enum(int, component, enum_2384, $int0), "Conflict");
             case 2 :
-                if_settext("Siege", enum(int, component, enum_2384, $int0));
+                if_settext(enum(int, component, enum_2384, $int0), "Siege");
             case 3 :
-                if_settext("Hoard", enum(int, component, enum_2384, $int0));
+                if_settext(enum(int, component, enum_2384, $int0), "Hoard");
             case 4 :
-                if_settext("Rescue", enum(int, component, enum_2384, $int0));
+                if_settext(enum(int, component, enum_2384, $int0), "Rescue");
         }
     } else {
-        if_setcolour(0x996600, enum(int, component, enum_2384, $int0));
-        if_setop(1, "Select", enum(int, component, enum_2383, $int0));
+        if_setcolour(enum(int, component, enum_2384, $int0), 0x996600);
+        if_setop(enum(int, component, enum_2383, $int0), 1, "Select");
         switch_int ($int0) {
             case 2 :
-                if_settext("Siege<br>- Locked", enum(int, component, enum_2384, $int0));
+                if_settext(enum(int, component, enum_2384, $int0), "Siege<br>- Locked");
             case 3 :
-                if_settext("Hoard<br>- Locked", enum(int, component, enum_2384, $int0));
+                if_settext(enum(int, component, enum_2384, $int0), "Hoard<br>- Locked");
             case 4 :
-                if_settext("Rescue<br>- Locked", enum(int, component, enum_2384, $int0));
+                if_settext(enum(int, component, enum_2384, $int0), "Rescue<br>- Locked");
         }
     }
     $int0 = calc($int0 + 1);
 }
-if_setcolour(0x996600, mob_scenario_select:com_42);
-if_setcolour(0x996600, mob_scenario_select:com_31);
-if_setcolour(0x996600, mob_scenario_select:com_38);
-if_setcolour(0x996600, mob_scenario_select:com_26);
+if_setcolour(mob_scenario_select:com_42, 0x996600);
+if_setcolour(mob_scenario_select:com_31, 0x996600);
+if_setcolour(mob_scenario_select:com_38, 0x996600);
+if_setcolour(mob_scenario_select:com_26, 0x996600);
 ~script2486;

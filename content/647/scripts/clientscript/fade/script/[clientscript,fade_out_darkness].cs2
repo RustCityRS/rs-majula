@@ -1,9 +1,9 @@
 // 732
 [clientscript,fade_out_darkness](component $component0)
-if (%varplayerbit_278 = 0) {
-    if_setmodelanim(seq_1377, $component0);
-} else if (%varplayerbit_278 = 1) {
-    if_setmodelanim(seq_2114, $component0);
+if (%darkness_level = 0) {
+    if_setmodelanim($component0, seq_1377);
+} else if (%darkness_level = 1) {
+    if_setmodelanim($component0, seq_2114);
 } else {
-    if_setmodelanim(seq_2116, $component0);
+    if_setmodelanim($component0, seq_2116);
 }

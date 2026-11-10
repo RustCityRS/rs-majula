@@ -227,7 +227,7 @@ textshadow=yes
 colour=0xff991f
 transmitop=10
 op10= 
-onvarctransmit=mob_spoils_load{varclient_875}
+onvarctransmit=mob_spoils_load{mob_shopenum}
 
 // 848:17
 [content]
@@ -344,7 +344,7 @@ graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onvartransmit=script2522(event_com){varplayer_1451}
 
 // 848:27
@@ -359,7 +359,7 @@ graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onvartransmit=script2523(event_com){varplayer_1451}
 
 // 848:28
@@ -374,7 +374,7 @@ graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onvartransmit=script2524(event_com){varplayer_1451}
 
 // 848:29
@@ -389,7 +389,7 @@ graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onvartransmit=script2525(event_com){varplayer_1451}
 
 // 848:30
@@ -404,7 +404,7 @@ graphic="radio_buttons,0"
 colour=0xffffffff
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onvartransmit=script2526(event_com){varplayer_1451}
 
 // 848:31

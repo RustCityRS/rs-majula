@@ -2,57 +2,57 @@
 [proc,task_main_summary_tab](int $int0)
 switch_int ($int0) {
     case 0 :
-        if_sethide(false, task_main:summary_details_layer);
-        if_sethide(true, task_main:com_84);
-        if_sethide(true, task_main:com_82);
-        if_sethide(true, task_main:summary_requirements_layer);
-        if_setgraphic("task_tab,4", task_main:com_26);
-        if_setgraphic("task_tab,4", task_main:com_28);
-        if_setgraphic("task_tab,5", task_main:com_27);
+        if_sethide(task_main:summary_details_layer, false);
+        if_sethide(task_main:com_84, true);
+        if_sethide(task_main:com_82, true);
+        if_sethide(task_main:summary_requirements_layer, true);
+        if_setgraphic(task_main:com_26, "task_tab,4");
+        if_setgraphic(task_main:com_28, "task_tab,4");
+        if_setgraphic(task_main:com_27, "task_tab,5");
     case 1 :
-        if_sethide(true, task_main:summary_details_layer);
-        if_sethide(false, task_main:com_84);
-        if_sethide(true, task_main:com_82);
-        if_sethide(true, task_main:summary_requirements_layer);
-        if_setgraphic("task_tab,4", task_main:summary_rewards_tab_l);
-        if_setgraphic("task_tab,4", task_main:summary_rewards_tab_r);
-        if_setgraphic("task_tab,5", task_main:summary_rewards_tab_m);
-        if_setscrollsize(0, max(%varclient_1419, if_getheight(task_main:com_85)), task_main:com_85);
+        if_sethide(task_main:summary_details_layer, true);
+        if_sethide(task_main:com_84, false);
+        if_sethide(task_main:com_82, true);
+        if_sethide(task_main:summary_requirements_layer, true);
+        if_setgraphic(task_main:summary_rewards_tab_l, "task_tab,4");
+        if_setgraphic(task_main:summary_rewards_tab_r, "task_tab,4");
+        if_setgraphic(task_main:summary_rewards_tab_m, "task_tab,5");
+        if_setscrollsize(task_main:com_85, 0, max(%varclient_1419, if_getheight(task_main:com_85)));
         ~scrollbar_vertical(task_main:com_143, task_main:com_85, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
         if (%varclient_1419 > if_getheight(task_main:com_85)) {
-            if_sethide(false, task_main:com_143);
+            if_sethide(task_main:com_143, false);
         } else {
-            if_sethide(true, task_main:com_143);
+            if_sethide(task_main:com_143, true);
         }
     case 2 :
-        if_sethide(true, task_main:summary_details_layer);
-        if_sethide(true, task_main:com_84);
-        if_sethide(false, task_main:com_82);
-        if_sethide(true, task_main:summary_requirements_layer);
-        if_setgraphic("task_tab,4", task_main:summary_hints_tab_l);
-        if_setgraphic("task_tab,4", task_main:summary_hints_tab_r);
-        if_setgraphic("task_tab,5", task_main:summary_hints_tab_m);
-        if_setscrollsize(0, max(%varclient_1418, if_getheight(task_main:com_61)), task_main:com_61);
+        if_sethide(task_main:summary_details_layer, true);
+        if_sethide(task_main:com_84, true);
+        if_sethide(task_main:com_82, false);
+        if_sethide(task_main:summary_requirements_layer, true);
+        if_setgraphic(task_main:summary_hints_tab_l, "task_tab,4");
+        if_setgraphic(task_main:summary_hints_tab_r, "task_tab,4");
+        if_setgraphic(task_main:summary_hints_tab_m, "task_tab,5");
+        if_setscrollsize(task_main:com_61, 0, max(%varclient_1418, if_getheight(task_main:com_61)));
         ~scrollbar_vertical(task_main:com_62, task_main:com_61, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
         if (%varclient_1418 > if_getheight(task_main:com_61)) {
-            if_sethide(false, task_main:com_62);
+            if_sethide(task_main:com_62, false);
         } else {
-            if_sethide(true, task_main:com_62);
+            if_sethide(task_main:com_62, true);
         }
     case 3 :
-        if_sethide(true, task_main:summary_details_layer);
-        if_sethide(true, task_main:com_84);
-        if_sethide(true, task_main:com_82);
-        if_sethide(false, task_main:summary_requirements_layer);
-        if_setgraphic("task_tab,4", task_main:summary_requirements_tab_l);
-        if_setgraphic("task_tab,4", task_main:summary_requirements_tab_r);
-        if_setgraphic("task_tab,5", task_main:summary_requirements_tab_m);
-        if_setscrollsize(0, max(%varclient_1420, if_getheight(task_main:summary_requirements_window)), task_main:summary_requirements_window);
+        if_sethide(task_main:summary_details_layer, true);
+        if_sethide(task_main:com_84, true);
+        if_sethide(task_main:com_82, true);
+        if_sethide(task_main:summary_requirements_layer, false);
+        if_setgraphic(task_main:summary_requirements_tab_l, "task_tab,4");
+        if_setgraphic(task_main:summary_requirements_tab_r, "task_tab,4");
+        if_setgraphic(task_main:summary_requirements_tab_m, "task_tab,5");
+        if_setscrollsize(task_main:summary_requirements_window, 0, max(%varclient_1420, if_getheight(task_main:summary_requirements_window)));
         ~scrollbar_vertical(task_main:summary_requirements_scroll, task_main:summary_requirements_window, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
         if (%varclient_1420 > if_getheight(task_main:summary_requirements_window)) {
-            if_sethide(false, task_main:summary_requirements_scroll);
+            if_sethide(task_main:summary_requirements_scroll, false);
         } else {
-            if_sethide(true, task_main:summary_requirements_scroll);
+            if_sethide(task_main:summary_requirements_scroll, true);
         }
 }
 ~task_main_tab_hover(0);

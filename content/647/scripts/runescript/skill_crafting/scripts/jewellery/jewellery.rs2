@@ -225,7 +225,7 @@ if (inv_total(inv, necklace_mould) > 0) {
     }
     if ($dragonstone_total > 0) {
         if_sethide(crafting_gold:dragonstone_necklace, false);
-        if_setobject(crafting_gold:dragon_dark2, dragon_necklace, 1);
+        if_setobject(crafting_gold:dragon_dark2, dragonstone_necklace, 1);
     } else {
         if_sethide(crafting_gold:dragonstone_necklace, true);
         if_setobject(crafting_gold:dragon_dark2, black_necklace, 1);
@@ -240,41 +240,41 @@ if (inv_total(inv, amulet_mould) > 0) {
     if_sethide(crafting_gold:com_26, true); // hide "You need a amulet mould to craft amulets."
     if_sethide(crafting_gold:com_27, false);
 
-    if_setobject(crafting_gold:gold_dark3, gold_amulet, 1);
+    if_setobject(crafting_gold:gold_dark3, unstrung_gold_amulet, 1);
     if_sethide(crafting_gold:gold_amulet, false);
     // if they have one or more of corresponding gem, show corresponding amulet
     if ($sapphire_total > 0) {
         //sets slot to the invisable amulet
         if_sethide(crafting_gold:sapphire_amulet, false);
-        if_setobject(crafting_gold:sapphire_dark3, sapphire_amulet, 1);
+        if_setobject(crafting_gold:sapphire_dark3, unstrung_sapphire_amulet, 1);
     } else {
         if_sethide(crafting_gold:sapphire_amulet, true);
         if_setobject(crafting_gold:sapphire_dark3, black_amulet, 1);
     }
     if ($emerald_total > 0) {
         if_sethide(crafting_gold:emerald_amulet, false);
-        if_setobject(crafting_gold:emerald_dark3, emerald_amulet, 1);
+        if_setobject(crafting_gold:emerald_dark3, unstrung_emerald_amulet, 1);
     } else {
         if_sethide(crafting_gold:emerald_amulet, true);
         if_setobject(crafting_gold:emerald_dark3, black_amulet, 1);
     }
     if ($ruby_total > 0) {
         if_sethide(crafting_gold:ruby_amulet, false);
-        if_setobject(crafting_gold:ruby_dark3, ruby_amulet, 1);
+        if_setobject(crafting_gold:ruby_dark3, unstrung_ruby_amulet, 1);
     } else {
         if_sethide(crafting_gold:ruby_amulet, true);
         if_setobject(crafting_gold:ruby_dark3, black_amulet, 1);
     }
     if ($diamond_total > 0) {
         if_sethide(crafting_gold:diamond_amulet, false);
-        if_setobject(crafting_gold:diamond_dark3, diamond_amulet, 1);
+        if_setobject(crafting_gold:diamond_dark3, unstrung_diamond_amulet, 1);
     } else {
         if_sethide(crafting_gold:diamond_amulet, true);
         if_setobject(crafting_gold:diamond_dark3, black_amulet, 1);
     }
     if ($dragonstone_total > 0) {
         if_sethide(crafting_gold:dragonstone_amulet, false);
-        if_setobject(crafting_gold:dragon_dark3, dragonstone_ammy, 1);
+        if_setobject(crafting_gold:dragon_dark3, unstrung_dragonstone_amulet, 1);
     } else {
         if_sethide(crafting_gold:dragonstone_amulet, true);
         if_setobject(crafting_gold:dragon_dark3, black_amulet, 1);
@@ -329,7 +329,7 @@ if ($count = ^crafting_make_x) {
     if (last_int <= 0) return;
     $count = last_int;
 } else if ($count = ^crafting_make_all) {
-    $count = add(inv_total(inv, gold_bar), inv_total(inv, perfect__gold_bar));
+    $count = add(inv_total(inv, gold_bar), inv_total(inv, perfect_gold_bar));
     if ($gem ! null) {
         $count = min($count, inv_total(inv, $gem));
     }
@@ -370,17 +370,17 @@ p_delay(2);
 [proc,crafting_gold](namedobj $product, namedobj $gem, int $productexp, int $count)
 
 def_obj $bar = gold_bar;
-if (inv_total(inv, perfect__gold_bar) >= 1) {
+if (inv_total(inv, perfect_gold_bar) >= 1) {
     // Tested on OSRS: if normal gold bar and perfect gold bar are both in inventory, the perfect gold bar gets used first,
     // even if the normal gold bar was explicitly used on the furnace. If you select normal ruby ring with normal gold bar
     // and you have a perfect bar in your inv, a perfect ring will be made instead (and only one, even if you have more
     // gold bars and selected make x).
-    $bar = perfect__gold_bar;
+    $bar = perfect_gold_bar;
     if ($product = ruby_necklace) {
-        $product = perfect__necklace;
+        $product = perfect_ruby_necklace;
     }
     else if ($product = ruby_ring) {
-        $product = perfect__ring;
+        $product = perfect_ruby_ring;
     }
 }
 inv_del(inv, $bar, 1);
@@ -438,8 +438,8 @@ p_delay(2);
 //        nostringstar, 0, -10, 175, "\\n\\n\\n\\nSymbol of Saradomin"
 //     );
 // }
-~craft_silver_row(crafting_silver_casting:com_15, crafting_silver_casting:com_17, crafting_silver_casting:com_19, crafting_silver_casting:com_20, holy_mould, unstrung_symbol);
-~craft_silver_row(crafting_silver_casting:com_22, crafting_silver_casting:com_24, crafting_silver_casting:com_26, crafting_silver_casting:com_27, unholy_mould, unstrung_emblem);
+~craft_silver_row(crafting_silver_casting:com_15, crafting_silver_casting:com_17, crafting_silver_casting:com_19, crafting_silver_casting:com_20, holy_symbol_mould, nostringstar);
+~craft_silver_row(crafting_silver_casting:com_22, crafting_silver_casting:com_24, crafting_silver_casting:com_26, crafting_silver_casting:com_27, unholy_symbol_mould, nostringsnake);
 if (map_members = ^true) {
     ~craft_silver_row(crafting_silver_casting:silvercast_sickle, crafting_silver_casting:silvercast_sickle_model, crafting_silver_casting:com_33, crafting_silver_casting:com_34, sickle_mould, silver_sickle);
 } else {
@@ -472,15 +472,15 @@ if (inv_total(inv, $mould) > 0) {
 
 // 2011's buttons, Make 1, 5, All and X, where 289 asked in skill_multi.
 // Saradomin symbol
-[if_button1,crafting_silver_casting:com_16] @craft_silver_make(unstrung_symbol, 1);
-[if_button2,crafting_silver_casting:com_16] @craft_silver_make(unstrung_symbol, 5);
-[if_button3,crafting_silver_casting:com_16] @craft_silver_make(unstrung_symbol, ^crafting_make_all);
-[if_button4,crafting_silver_casting:com_16] @craft_silver_make(unstrung_symbol, ^crafting_make_x);
+[if_button1,crafting_silver_casting:com_16] @craft_silver_make(nostringstar, 1);
+[if_button2,crafting_silver_casting:com_16] @craft_silver_make(nostringstar, 5);
+[if_button3,crafting_silver_casting:com_16] @craft_silver_make(nostringstar, ^crafting_make_all);
+[if_button4,crafting_silver_casting:com_16] @craft_silver_make(nostringstar, ^crafting_make_x);
 // Zamorak symbol
-[if_button1,crafting_silver_casting:com_23] @craft_silver_make(unstrung_emblem, 1);
-[if_button2,crafting_silver_casting:com_23] @craft_silver_make(unstrung_emblem, 5);
-[if_button3,crafting_silver_casting:com_23] @craft_silver_make(unstrung_emblem, ^crafting_make_all);
-[if_button4,crafting_silver_casting:com_23] @craft_silver_make(unstrung_emblem, ^crafting_make_x);
+[if_button1,crafting_silver_casting:com_23] @craft_silver_make(nostringsnake, 1);
+[if_button2,crafting_silver_casting:com_23] @craft_silver_make(nostringsnake, 5);
+[if_button3,crafting_silver_casting:com_23] @craft_silver_make(nostringsnake, ^crafting_make_all);
+[if_button4,crafting_silver_casting:com_23] @craft_silver_make(nostringsnake, ^crafting_make_x);
 // Silver sickle
 [if_button1,crafting_silver_casting:silver_sickle_x] @craft_silver_make(silver_sickle, 1);
 [if_button2,crafting_silver_casting:silver_sickle_x] @craft_silver_make(silver_sickle, 5);

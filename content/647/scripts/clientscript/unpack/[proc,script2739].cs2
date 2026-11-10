@@ -36,4 +36,4 @@ while ($int7 < $int2) {
 if ($int1 ! -1 & inv_getobj(inv, $int1) = null) {
     $int1 = -1;
 }
-if_setoninvtransmit("enable_button_acc1(event_com, $int1){inv}", $component0);
+if_setoninvtransmit($component0, "enable_button_acc1(event_com, $int1){inv}");

@@ -6,9 +6,9 @@ if ($int0 ! 1) {
 if (%varplayer_1397 = 0) {
     return;
 }
-if (~bool_to_int(%varclient_182) = 1) {
-    %varclient_182 = false;
+if (~bool_to_int(%topstat_prayer_button_client) = 1) {
+    %topstat_prayer_button_client = false;
 } else {
-    %varclient_182 = true;
+    %topstat_prayer_button_client = true;
 }
 ~topstat_prayer_button_update;

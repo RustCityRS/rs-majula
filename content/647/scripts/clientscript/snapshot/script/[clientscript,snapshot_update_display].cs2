@@ -1,21 +1,21 @@
 // 249
 [clientscript,snapshot_update_display]
-%varclient_799 = calc(%varclient_799 + 1);
-if (%varclient_799 >= 30) {
-    %varclient_799 = 0;
-    if (%varclient_798 = true) {
-        %varclient_798 = false;
+%snapshot_cursor_delay = calc(%snapshot_cursor_delay + 1);
+if (%snapshot_cursor_delay >= 30) {
+    %snapshot_cursor_delay = 0;
+    if (%snapshot_cursor_hidden = true) {
+        %snapshot_cursor_hidden = false;
     } else {
-        %varclient_798 = true;
+        %snapshot_cursor_hidden = true;
     }
 }
-if (%varclient_798 = true) {
-    if_settext("<escape(%varclient_1543)><col=ffff00> ", snapshot_main_v2:name);
+if (%snapshot_cursor_hidden = true) {
+    if_settext(snapshot_main_v2:name, "<escape(%snapshot_name)><col=ffff00> ");
 } else {
-    if_settext("<escape(%varclient_1543)><col=ffff00>|", snapshot_main_v2:name);
+    if_settext(snapshot_main_v2:name, "<escape(%snapshot_name)><col=ffff00>|");
 }
-if (compare(%varclient_1543, "") = 0) {
-    if_setcolour(0xbbbbbb, snapshot_main_v2:name_next_text);
+if (compare(%snapshot_name, "") = 0) {
+    if_setcolour(snapshot_main_v2:name_next_text, 0xbbbbbb);
 } else {
-    if_setcolour(^white, snapshot_main_v2:name_next_text);
+    if_setcolour(snapshot_main_v2:name_next_text, ^white);
 }

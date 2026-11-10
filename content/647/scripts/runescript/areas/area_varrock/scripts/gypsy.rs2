@@ -8,7 +8,7 @@
 // instance of the stone circle, the player as Wally, with camera moves and
 // "Wally the Hero"); without instances it is her and Wally's lines.
 [opnpc1,gypsy_aris_9362]
-if (%demon_slayer = ^demon_not_started) {
+if (%demonslayer_main = ^demon_not_started) {
     ~chatnpc("<p,neutral>Hello, young one.");
     ~chatnpc("<p,neutral>Cross my palm with silver and the future will be revealed to you.");
     if (inv_total(inv, coins) < 1) {
@@ -26,7 +26,7 @@ if (%demon_slayer = ^demon_not_started) {
         case 3 : @gypsy_aris_not_believer;
         case 4 : @gypsy_aris_with_silver;
     }
-} else if (%demon_slayer = ^demon_complete) {
+} else if (%demonslayer_main = ^demon_complete) {
     ~chatnpc("<p,neutral>Greetings young one.");
     ~chatnpc("<p,happy>You're a hero now. That was a good bit of demon-slaying.");
     switch_int (~p_choice3("How do you know I killed it?", 1, "Thanks.", 2, "Stop calling me that!", 3)) {
@@ -54,11 +54,11 @@ if (%demon_slayer = ^demon_not_started) {
 ~chatplayer("<p,neutral>Okay, here you go.");
 inv_del(inv, coins, 1);
 ~chatnpc("<p,happy>Come closer and listen carefully to what the future holds, as I peer into the swirling mists of the crystal ball.");
-sound_synth(synth_2976, 1, 0); // void-634: demon_slayer_crystal_ball_start
+sound_synth(ds_crystal_ball_start, 1, 0); // void-634: demon_slayer_crystal_ball_start
 ~chatnpc("<p,neutral>I can see images forming. I can see you.");
 ~chatnpc("<p,confused>You are holding a very impressive-looking sword. I'm sure I recognise it...");
 ~chatnpc("<p,confused>There is a big, dark shadow appearing now.");
-sound_synth(synth_2975, 1, 0); // void-634: demon_slayer_crystal_ball_end
+sound_synth(ds_crystal_ball_end, 1, 0); // void-634: demon_slayer_crystal_ball_end
 ~chatnpc("<p,scared>Aaargh!");
 ~chatplayer("<p,quiz>Are you all right?");
 ~chatnpc("<p,scared>It's Delrith! Delrith is coming!");
@@ -159,9 +159,9 @@ switch_int (~p_choice3_header("How am I meant to fight a demon who can destroy c
 ~chatnpc_specific("Wally", wally, "<p,angry><~demon_slayer_word(1)>... <~demon_slayer_word(2)>... <~demon_slayer_word(3)>... <~demon_slayer_word(4)>... <~demon_slayer_word(5)>!");
 ~chatnpc_specific("Wally", wally, "<p,happy>I am the greatest demon slayer EVER!");
 ~chatnpc("<p,neutral>By reciting the correct magical incantation, and thrusting Silverlight into Delrith while he was newly summoned, Wally was able to imprison Delrith in the stone table at the centre of the circle.");
-if (%demon_slayer = ^demon_not_started) {
-    %demon_slayer = ^demon_sir_prysin;
-    ~send_quest_progress(^questlist_demon, %demon_slayer, ^demon_complete);
+if (%demonslayer_main = ^demon_not_started) {
+    %demonslayer_main = ^demon_sir_prysin;
+    ~send_quest_progress(^questlist_demon, %demonslayer_main, ^demon_complete);
 }
 ~chatnpc("<p,sad>Delrith will come forth from the stone circle again.");
 ~chatnpc("<p,sad>I would imagine an evil sorcerer is already beginning the rituals to summon Delrith as we speak.");

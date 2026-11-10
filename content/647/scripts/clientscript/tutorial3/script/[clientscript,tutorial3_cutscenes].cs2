@@ -1,18 +1,18 @@
 // 2765
 [clientscript,tutorial3_cutscenes](component $component0)
-if (%varclient_1007 <= 0) {
+if (%tutorial3_cutscene_tracker <= 0) {
     cam_smoothreset;
     return;
 }
-if (%varclient_1007 <= 100) {
+if (%tutorial3_cutscene_tracker <= 100) {
     ~tutorial3_battle($component0, ~coord_0_0(coord));
     return;
 }
-if (%varclient_1007 <= 200) {
+if (%tutorial3_cutscene_tracker <= 200) {
     ~script2762($component0, ~coord_0_0(coord));
     return;
 }
-if (%varclient_1007 <= 300) {
+if (%tutorial3_cutscene_tracker <= 300) {
     ~tutorial3_explosion($component0, ~coord_0_0(coord));
     return;
 }

@@ -1,7 +1,7 @@
 // 1962
 [clientscript,agilityarena_colour](component $component0, int $int1)
-if (inv_total(inv, agility_arena_ticket) >= $int1) {
-    if_setcolour(0xff981f, $component0);
+if (inv_total(inv, agilityarena_ticket) >= $int1) {
+    if_setcolour($component0, 0xff981f);
 } else {
-    if_setcolour(0x77736a, $component0);
+    if_setcolour($component0, 0x77736a);
 }

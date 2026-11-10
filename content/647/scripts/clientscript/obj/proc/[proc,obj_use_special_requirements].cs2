@@ -2,11 +2,11 @@
 [proc,obj_use_special_requirements](obj $obj0)(boolean)
 switch_int (oc_param($obj0, param_762)) {
     case 1 :
-        if (%tbwt_tinsay < 10) {
+        if (%tbwt_lubufu < 10) {
             return(false);
         }
     case 2 :
-        if (%varplayerbit_4310 < 10) {
+        if (%dsd_quest < 10) {
             return(false);
         }
     case default :

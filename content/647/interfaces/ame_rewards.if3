@@ -170,7 +170,7 @@ y=58
 width=342
 height=257
 onload=ame_reward_init(event_com, ame_rewards:scrollbar, ame_rewards:scrollhint, ame_rewards:accept, ame_rewards:confirm_text)
-oninvtransmit=ame_reward_init(event_com, ame_rewards:scrollbar, ame_rewards:scrollhint, ame_rewards:accept, ame_rewards:confirm_text){ame_rewards}
+oninvtransmit=ame_reward_init(event_com, ame_rewards:scrollbar, ame_rewards:scrollhint, ame_rewards:accept, ame_rewards:confirm_text){macro_certer}
 ontimer=ame_rewards_scrollhint(event_com, ame_rewards:scrollhint)
 
 // 202:16

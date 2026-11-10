@@ -29,7 +29,7 @@ if (~create_check_username($name) = false) {
     ~cc_send_suggestions();
     runclientscript("script3943()")
     %varclient_1849 = ""
-    %varclient_1099 = string_length("")
+    %login_caret = string_length("")
     runclientscript("script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, \"\", 16)")
     @cc_name_loop;
 }
@@ -47,7 +47,7 @@ if ($result = 1) {
     ~cc_send_suggestions();
     runclientscript("script3943()")
     %varclient_1849 = $formatted
-    %varclient_1099 = string_length($formatted)
+    %login_caret = string_length($formatted)
     runclientscript("script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, $formatted, 16)")
     @cc_name_loop;
 }
@@ -112,7 +112,7 @@ runclientscript("script3946(1, $s0, $s1, $s2, ^string_empty, ^string_empty, ^str
 
 [queue,character_created]
 allowdesign(^false)
-%learning_the_ropes = 1001;
+%tutorial = 1001;
 setgender(%character_creation_female);
 applydesign;
 buildappearance(worn)

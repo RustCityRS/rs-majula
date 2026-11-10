@@ -96,5 +96,5 @@ while ($int4 < $int3) {
     }
     $int4 = calc($int4 + 1);
 }
-if_settext($string0, interface_626:stake_text);
-if_settext($string1, interface_626:opponent_text);
+if_settext(interface_626:stake_text, $string0);
+if_settext(interface_626:opponent_text, $string1);

@@ -9,7 +9,7 @@ model=model_48505
 modelorigin=-66,10
 modelangle=512,3,0
 modelzoom=160
-onvartransmit=ra3_package_update_interface{varplayer_1498}
+onvartransmit=ra3_package_update_interface{ra3_base}
 oninvtransmit=ra3_package_update_interface{inv, bank}
 
 // 887:1
@@ -38,7 +38,7 @@ modelzoom=1312
 transmitop=1
 opbase=Metal Bowl
 op1=Take
-opcursor0=cursor_45
+opcursor0=cursor_take
 
 // 887:3
 [sheet]
@@ -54,7 +54,7 @@ modelzoom=672
 transmitop=1
 opbase=Metal Rectangle
 op1=Take
-opcursor0=cursor_45
+opcursor0=cursor_take
 
 // 887:4
 [boot]
@@ -70,7 +70,7 @@ modelzoom=672
 transmitop=1
 opbase=Boot
 op1=Take
-opcursor0=cursor_45
+opcursor0=cursor_take
 
 // 887:5
 [handled_rod]
@@ -86,7 +86,7 @@ modelzoom=800
 transmitop=1
 opbase=Metal Rod
 op1=Take
-opcursor0=cursor_45
+opcursor0=cursor_take
 
 // 887:6
 [turn_screw]
@@ -102,7 +102,7 @@ modelzoom=288
 transmitop=1
 opbase=Turnscrew
 op1=Take
-opcursor0=cursor_45
+opcursor0=cursor_take
 
 // 887:7
 [yellow_stone]
@@ -118,7 +118,7 @@ modelzoom=416
 transmitop=1
 opbase=Yellow Stone
 op1=Take
-opcursor0=cursor_45
+opcursor0=cursor_take
 
 // 887:8
 [green_stone]
@@ -134,7 +134,7 @@ modelzoom=416
 transmitop=1
 opbase=Green Stone
 op1=Take
-opcursor0=cursor_45
+opcursor0=cursor_take
 
 // 887:9
 [close_button]

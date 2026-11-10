@@ -163,7 +163,7 @@ height=61
 xmode=abs_right
 ymode=abs_bottom
 onload=bankpin_buttonbox(bankpin_main:forgotten, bankpin_main:cancel)
-onvarctransmit=bankpin_buttonbox(bankpin_main:forgotten, bankpin_main:cancel){varclient_98}
+onvarctransmit=bankpin_buttonbox(bankpin_main:forgotten, bankpin_main:cancel){playerdesign2_client_skincol}
 
 // 13:17
 [com_17]
@@ -280,7 +280,7 @@ textshadow=yes
 colour=0xbf751d
 transmitop=1
 op1=Exit
-opcursor0=cursor_57
+opcursor0=cursor_enter
 onmouseover=text_colour_swapper(event_com, 0xe1981f)
 onmouseleave=text_colour_swapper(event_com, 0xbf751d)
 onop=bankpin_cancel
@@ -321,7 +321,7 @@ textfont=b12_full
 textalignh=centre
 textshadow=yes
 onload=bankpin_init
-onvartransmit=bankpin_resynch{varplayer_563}
+onvartransmit=bankpin_resynch{bankpin_2}
 
 // 13:29
 [com_29]

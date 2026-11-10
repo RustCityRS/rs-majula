@@ -483,7 +483,7 @@ y=52
 width=240
 height=261
 layer=background
-oninvtransmit=dream_bank_init{inv_514}
+oninvtransmit=dream_bank_init{dream_bank_inventory}
 
 // 260:43
 [cyrisus_inv]
@@ -514,7 +514,7 @@ x=348
 y=105
 width=86
 height=158
-oninvtransmit=dream_chest_init{inv_515}
+oninvtransmit=dream_chest_init{dream_crate_inventory}
 
 // 260:46
 [close_button]

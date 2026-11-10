@@ -1,12 +1,12 @@
 // 3132
 [clientscript,script3132](component $component0, int $int1, int $int2)
 if (cc_find($component0, $int1) = true) {
-    if (%varclient_998 = $int2 | %varclient_999 = $int2) {
+    if (%worldselect_1stfavourite = $int2 | %worldselect_2ndfavourite = $int2) {
         cc_setgraphic("world_select_hearts,2");
     } else {
         cc_setgraphic("world_select_hearts,6");
     }
 }
-if_sethide(true, lobbyscreen_pane_worldselect:com_65);
-if_sethide(true, lobbyscreen_pane_worldselect:com_66);
+if_sethide(lobbyscreen_pane_worldselect:com_65, true);
+if_sethide(lobbyscreen_pane_worldselect:com_66, true);
 return;

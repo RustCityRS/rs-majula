@@ -39,10 +39,10 @@ if (oc_param($product, gnome_cooking_type) = null) { // finished
 
 [label,finish_gnome_food](obj $food, obj $ingredient)
 switch_obj ($food) {
-    case unfinished_spicy_crunchies : @gnome_topping_add($food, $ingredient, gnome_spice, spicy_crunchies, odd_crunchies);
-    case unfinished_toad_crunchies : @gnome_topping_add($food, $ingredient, equa_leaves, toad_crunchies, odd_crunchies);
-    case unfinished_worm_crunchies : @gnome_topping_add($food, $ingredient, gnome_spice, worm_crunchies, odd_crunchies);
-    case unfinished_chocchip_crunchies : @gnome_topping_add($food, $ingredient, chocolate_dust, chocchip_crunchies, odd_crunchies);
+    case unfinished_spicy_crunchies : @gnome_topping_add($food, $ingredient, gnome_spice, spicy_crunchies, spoilt_crunchies);
+    case unfinished_toad_crunchies : @gnome_topping_add($food, $ingredient, equa_leaves, toad_crunchies, spoilt_crunchies);
+    case unfinished_worm_crunchies : @gnome_topping_add($food, $ingredient, gnome_spice, worm_crunchies, spoilt_crunchies);
+    case unfinished_chocchip_crunchies : @gnome_topping_add($food, $ingredient, chocolate_dust, chocchip_crunchies, spoilt_crunchies);
 
     case unfinished_chocolate_bomb1 : @gnome_topping_add($food, $ingredient, pot_of_cream, unfinished_chocolate_bomb2, spoilt_gnomebowl);
     case unfinished_chocolate_bomb2 : @gnome_topping_add($food, $ingredient, pot_of_cream, unfinished_chocolate_bomb3, spoilt_gnomebowl);
@@ -55,7 +55,7 @@ switch_obj ($food) {
     case unfinished_cheese+tom_batta : @gnome_topping_add($food, $ingredient, equa_leaves, cheese_tom_batta, spoilt_batta);
     case unfinished_vegetable_batta : @gnome_topping_add($food, $ingredient, equa_leaves, vegetable_batta, spoilt_batta);
 
-    case unfinished_batta :
+    case fruitless_batta :
         switch_obj($ingredient) {
             case lime_chunks : @gnome_topping_add($food, $ingredient, lime_chunks, fruit_batta_lime, spoilt_batta);
             case orange_chunks : @gnome_topping_add($food, $ingredient, orange_chunks, fruit_batta_orange, spoilt_batta);
@@ -83,7 +83,7 @@ switch_obj ($food) {
 }
 
 switch_int (oc_param($food, gnome_cooking_type)) {
-    case ^gnome_crunchies : @gnome_topping_add($food, $ingredient, null, odd_crunchies, odd_crunchies);
+    case ^gnome_crunchies : @gnome_topping_add($food, $ingredient, null, spoilt_crunchies, spoilt_crunchies);
     case ^gnome_batta : @gnome_topping_add($food, $ingredient, null, spoilt_batta, spoilt_batta);
     case ^gnome_bowl : @gnome_topping_add($food, $ingredient, null, spoilt_gnomebowl, spoilt_gnomebowl);
 }

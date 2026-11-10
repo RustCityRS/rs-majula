@@ -1,12 +1,12 @@
 // 2315
 [clientscript,script2315]
-if_setvflip(false, chatdefault:dayarrow);
-if_sethide(true, chatdefault:dayddlist);
-if_sethide(true, chatdefault:dayddlistborder);
-if_sethide(true, chatdefault:dayddscroll);
-if_sethide(true, chatdefault:dayddback);
-if_setvflip(false, chatdefault:montharrow);
-if_sethide(true, chatdefault:monthddlist);
-if_sethide(true, chatdefault:monthddlistborder);
-if_sethide(true, chatdefault:monthddscroll);
-if_sethide(true, chatdefault:monthddback);
+if_setvflip(chatdefault:dayarrow, false);
+if_sethide(chatdefault:dayddlist, true);
+if_sethide(chatdefault:dayddlistborder, true);
+if_sethide(chatdefault:dayddscroll, true);
+if_sethide(chatdefault:dayddback, true);
+if_setvflip(chatdefault:montharrow, false);
+if_sethide(chatdefault:monthddlist, true);
+if_sethide(chatdefault:monthddlistborder, true);
+if_sethide(chatdefault:monthddscroll, true);
+if_sethide(chatdefault:monthddback, true);

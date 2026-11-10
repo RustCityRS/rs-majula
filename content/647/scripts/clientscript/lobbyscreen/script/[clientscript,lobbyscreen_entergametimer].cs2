@@ -4,10 +4,10 @@ def_int $int2 = lobby_entergamereply;
 if ($int2 = -3) {
     ~lobbyscreen_loginbutton_text(0);
     ~lobby_popup($int2, 0, "Logging In - Please Wait", 1, null, 0, -1, "", "", 0, "", "");
-    %varclient_1100 = -3;
+    %login_reply_last = -3;
     return;
 }
-if (%varclient_1100 = -3) {
+if (%login_reply_last = -3) {
     ~lobby_popup_close;
 }
 def_int $int3 = 0;
@@ -20,15 +20,15 @@ def_int $int6 = 0;
 def_int $int7 = 0;
 def_string $string3 = "";
 if ($int2 = 21) {
-    %varclient_1100 = 21;
+    %login_reply_last = 21;
     ~lobbyscreen_loginbutton_text(0);
-    if (%varclient_200 = 0) {
-        %varclient_200 = login_hoptime;
+    if (%loginscreen_hopblocked_time = 0) {
+        %loginscreen_hopblocked_time = login_hoptime;
     }
-    %varclient_200 = calc(%varclient_200 - 1);
-    if (%varclient_200 <= 0) {
+    %loginscreen_hopblocked_time = calc(%loginscreen_hopblocked_time - 1);
+    if (%loginscreen_hopblocked_time <= 0) {
         if (worldlist_fetch = false) {
-            %varclient_200 = 1;
+            %loginscreen_hopblocked_time = 1;
             return;
         }
         if ($int1 > 0) {
@@ -37,11 +37,11 @@ if ($int2 = 21) {
                 $int4 = 0;
             }
         }
-        if_setontimer(null, $component0);
+        if_setontimer($component0, null);
         ~lobbyscreen_entergame($component0);
         return;
     }
-    $int3 = calc(%varclient_200 / 50);
+    $int3 = calc(%loginscreen_hopblocked_time / 50);
     if ($int3 = 1) {
         $string0 = "You have only just left another world. Your profile will be transferred in<br>1 second.";
     } else {
@@ -59,7 +59,7 @@ if ($component0 = lobbyscreen:base) {
 }
 ~lobby_popup_close;
 ~lobbyscreen_loginbutton_text(1);
-if_setontimer(null, $component0);
+if_setontimer($component0, null);
 def_string $string4 = "";
 def_int $int8 = 1;
 def_int $int9 = 0;

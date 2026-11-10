@@ -3,9 +3,9 @@
 if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varclient_251 = false) {
-    %varclient_251 = true;
+if (%clanwars_rulevarc_noranged = false) {
+    %clanwars_rulevarc_noranged = true;
 } else {
-    %varclient_251 = false;
+    %clanwars_rulevarc_noranged = false;
 }
 ~clanwars_resynch_ranged;

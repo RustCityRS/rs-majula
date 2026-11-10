@@ -3,32 +3,32 @@
 def_string $string0 = "";
 def_int $int0 = 0;
 def_int $int1 = 0;
-if (%varplayerbit_457 = 1) {
+if (%barrows_killed_ahrim = 1) {
     $string0 = append($string0, "Ahrim<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
 }
-if (%varplayerbit_458 = 1) {
+if (%barrows_killed_dharok = 1) {
     $string0 = append($string0, "Dharok<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
 }
-if (%varplayerbit_459 = 1) {
+if (%barrows_killed_guthan = 1) {
     $string0 = append($string0, "Guthan<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
 }
-if (%varplayerbit_460 = 1) {
+if (%barrows_killed_karil = 1) {
     $string0 = append($string0, "Karil<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
 }
-if (%varplayerbit_461 = 1) {
+if (%barrows_killed_torag = 1) {
     $string0 = append($string0, "Torag<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
 }
-if (%varplayerbit_462 = 1) {
+if (%barrows_killed_verac = 1) {
     $string0 = append($string0, "Verac<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
@@ -38,6 +38,6 @@ if (compare($string0, "") = 0) {
     $int0 = 1;
 }
 def_int $int2 = calc(52 + $int0 * 12);
-if_setsize(if_getwidth(barrows_overlay:kills_layer), $int2, ^setsize_abs, ^setsize_abs, barrows_overlay:kills_layer);
-if_settext($string0, barrows_overlay:brother_kills);
-if_settext(tostring(max(0, calc(%varplayerbit_464 - $int1))), barrows_overlay:creature_kills);
+if_setsize(barrows_overlay:kills_layer, if_getwidth(barrows_overlay:kills_layer), $int2, ^setsize_abs, ^setsize_abs);
+if_settext(barrows_overlay:brother_kills, $string0);
+if_settext(barrows_overlay:creature_kills, tostring(max(0, calc(%barrows_killed_count - $int1))));

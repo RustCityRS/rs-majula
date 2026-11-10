@@ -21,7 +21,7 @@ model=model_22441
 modelorigin=-15,53
 modelangle=195,78,0
 modelzoom=748
-modelanim=seq_5830
+modelanim=tol_cage_surround_anim
 
 // 509:2
 [com_2]
@@ -35,7 +35,7 @@ model=model_22435
 modelorigin=-1,13
 modelangle=195,78,0
 modelzoom=748
-modelanim=seq_5830
+modelanim=tol_cage_surround_anim
 
 // 509:3
 [rotation1_fixed]
@@ -98,7 +98,7 @@ model=model_22437
 modelorigin=19,-35
 modelangle=195,78,0
 modelzoom=748
-modelanim=seq_5830
+modelanim=tol_cage_surround_anim
 
 // 509:9
 [tol_cage_left]
@@ -239,7 +239,7 @@ modelangle=441,0,0
 modelzoom=528
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=model_swapper(event_com, model_22440)
 onmouseleave=model_swapper(event_com, model_22442)
 
@@ -266,7 +266,7 @@ modelangle=441,0,0
 modelzoom=528
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=model_swapper(event_com, model_22440)
 onmouseleave=model_swapper(event_com, model_22442)
 

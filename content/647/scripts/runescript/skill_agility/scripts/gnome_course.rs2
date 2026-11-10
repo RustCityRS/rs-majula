@@ -1,4 +1,4 @@
-[oploc1,log_balance]
+[oploc1,gnome_log_balance1]
 ~gnome_trainer_say("Okay get over that log, quick quick!");
 p_arrivedelay;
 mes("You walk carefully across the slippery log...");
@@ -7,7 +7,7 @@ sound_synth(log_balance, 4, 0);
 mes("...You make it safely to the other side.");
 ~update_gnome_varp(1);
 
-[oploc1,obstacle_net]
+[oploc1,obstical_net2]
 if(coordz(coord) <= coordz(loc_coord)) {
     mes("You can not do that from here.");
     return;
@@ -18,7 +18,7 @@ p_arrivedelay;
 ~agility_climb_up(75, movecoord(coord, 0, 1, -2));
 ~update_gnome_varp(2);
 
-[oploc1,gnome_tree_branch_1]
+[oploc1,climbing_branch_low]
 mes("You climb the tree..");
 ~gnome_trainer_say("That's it - straight up");
 p_arrivedelay;
@@ -34,7 +34,7 @@ sound_synth(tightrope, 5, 0);
 ~agility_force_move(75, human_walk_logbalance, movecoord(coord, 6, 0, 0));
 ~update_gnome_varp(4);
 
-[oploc1,tree_branch] @climbdown_gnome_tree_branch;
+[oploc1,climbing_tree] @climbdown_gnome_tree_branch;
 [oploc1,climbing_tree2] @climbdown_gnome_tree_branch;
 
 [label,climbdown_gnome_tree_branch]
@@ -55,7 +55,7 @@ p_arrivedelay;
 ~agility_climb_up(75, movecoord(coord, 0, 0, 2));
 ~update_gnome_varp(6);
 
-[oploc1,loc_154]
+[oploc1,lfm_lava_pipes_floor_01]
 if(coordz(coord) > coordz(loc_coord)) {
     mes("You can't enter the pipe from this side.");
     return;
@@ -69,7 +69,7 @@ if(%gnome_obstacle_pipe_used >= map_clock) {
 %gnome_obstacle_pipe_used = calc(map_clock + 12);
 @enter_gnome_obstacle_pipe;
 
-[oploc1,gnome_obstacle_pipe]
+[oploc1,hla_pipe_right]
 if(coordz(coord) > coordz(loc_coord)) {
     mes("You can't enter the pipe from this side.");
     return;
@@ -87,7 +87,7 @@ if(%gnome_obstacle_pipe_used2 >= map_clock) {
 // 2011's map; 2011's are 43543 (gnome_obstacle_pipe above, 2487,3431) and 43544
 // west of it (2483,3431), void-634's gnome_obstacle_pipe_east and _west. 289
 // gives each pipe a timer; this one takes loc_154's.
-[oploc1,gnome_obstacle_pipe_west]
+[oploc1,hla_pipe_left]
 if(coordz(coord) > coordz(loc_coord)) {
     mes("You can't enter the pipe from this side.");
     return;
@@ -116,7 +116,7 @@ p_delay(0);
 ~update_gnome_varp(7);
 
 [proc,gnome_trainer_say](string $line)
-if(npc_find(coord, gnome_trainer, 5, 0) = true) {
+if(npc_find(coord, gnometrainer, 5, 0) = true) {
     npc_say($line);
 }
 

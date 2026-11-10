@@ -1,14 +1,14 @@
 // 1677
 [clientscript,mah4_final_cutscene_init]
-if_setontimer("mah4_cutscene_update", mah4_cutscene_overlay:main_layer);
-%varclient_1046 = 0;
-%varclient_1045 = 0;
-%varclient_1051 = 0;
-%varclient_1048 = 0;
-%varclient_1049 = 255;
-%varclient_1044 = 0;
+if_setontimer(mah4_cutscene_overlay:main_layer, "mah4_cutscene_update");
+%mah4_cutscene_fade_transparency = 0;
+%mah4_cutscene_fade_direction = 0;
+%mah4_golden_active = 0;
+%mah4_golden_direction = 0;
+%mah4_golden_transparency = 255;
+%mah4_final_cutscene_step = 0;
 spline_new(0, 0);
 spline_new(1, 0);
 ~mah4_cutscene_create_spline;
 cam_movealong(0, 0, 200, 200, 1, 0);
-if_setoncamfinished("mah4_final_cutscene_next", mah4_cutscene_overlay:main_layer);
+if_setoncamfinished(mah4_cutscene_overlay:main_layer, "mah4_final_cutscene_next");

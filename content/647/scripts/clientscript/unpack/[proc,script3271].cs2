@@ -1,13 +1,13 @@
 // 3271
 [proc,script3271]
-if (%varclient_1202 = 1) {
-    if_setsize(16384, calc(if_getheight(rand_dungeon_rewards_v2:player_5) - 1), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:player_5);
-} else if (%varclient_1201 = 1) {
-    if_setsize(16384, calc(if_getheight(rand_dungeon_rewards_v2:player_4) - 1), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:player_4);
-} else if (%varclient_1200 = 1) {
-    if_setsize(16384, calc(if_getheight(rand_dungeon_rewards_v2:player_3) - 1), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:player_3);
-} else if (%varclient_1199 = 1) {
-    if_setsize(16384, calc(if_getheight(rand_dungeon_rewards_v2:player_2) - 1), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:player_2);
-} else if (%varclient_1198 = 1) {
-    if_setsize(16384, calc(if_getheight(rand_dungeon_rewards_v2:player_1) - 1), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:player_1);
+if (%rand_exists_5 = 1) {
+    if_setsize(rand_dungeon_rewards_v2:player_5, 16384, calc(if_getheight(rand_dungeon_rewards_v2:player_5) - 1), ^setsize_rel, ^setsize_abs);
+} else if (%rand_exists_4 = 1) {
+    if_setsize(rand_dungeon_rewards_v2:player_4, 16384, calc(if_getheight(rand_dungeon_rewards_v2:player_4) - 1), ^setsize_rel, ^setsize_abs);
+} else if (%rand_exists_3 = 1) {
+    if_setsize(rand_dungeon_rewards_v2:player_3, 16384, calc(if_getheight(rand_dungeon_rewards_v2:player_3) - 1), ^setsize_rel, ^setsize_abs);
+} else if (%rand_exists_2 = 1) {
+    if_setsize(rand_dungeon_rewards_v2:player_2, 16384, calc(if_getheight(rand_dungeon_rewards_v2:player_2) - 1), ^setsize_rel, ^setsize_abs);
+} else if (%rand_exists_1 = 1) {
+    if_setsize(rand_dungeon_rewards_v2:player_1, 16384, calc(if_getheight(rand_dungeon_rewards_v2:player_1) - 1), ^setsize_rel, ^setsize_abs);
 }

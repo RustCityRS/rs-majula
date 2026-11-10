@@ -1,8 +1,8 @@
 // 2138
 [clientscript,script2138](component $component0, int $int1, int $int2)
-def_int $int3 = calc(%varplayerbit_5861 + 95);
-def_int $int4 = calc(%varplayerbit_5859 + 85);
-def_int $int5 = calc(%varplayerbit_5855 + 29);
+def_int $int3 = calc(%macro_certer_ignorebits_3 + 95);
+def_int $int4 = calc(%macro_certer_ignorebits_2 + 85);
+def_int $int5 = calc(%macro_certer_ignorebits_1 + 29);
 def_int $int6 = 0;
 def_int $int7 = 0;
 if (cc_find($component0, $int1) = true) {
@@ -25,7 +25,7 @@ if (cc_find($component0, $int1) = true) {
     }
     $int6 = scale(cc_gettrans, 255, 100);
     $int7 = calc($int6 / 2);
-    switch_int (%varplayerbit_5863) {
+    switch_int (%macro_certer_ignorebits_4) {
         case 0 :
             $int4 = calc($int4 + $int6);
             $int3 = calc($int3 + $int7);

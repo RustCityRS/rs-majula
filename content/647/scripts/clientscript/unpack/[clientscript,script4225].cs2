@@ -1,6 +1,6 @@
 // 4225
 [clientscript,script4225]
-if_setonmouserepeat("script4226", toplevel_fullscreen:xptotallayer);
-if_setonmouseleave("deltooltip(toplevel_fullscreen:xptooltip)", toplevel_fullscreen:xptotallayer);
-if_setonmouserepeat("script4226", toplevel:xptotallayer);
-if_setonmouseleave("deltooltip(toplevel:xptooltip)", toplevel:xptotallayer);
+if_setonmouserepeat(toplevel_fullscreen:xptotallayer, "script4226");
+if_setonmouseleave(toplevel_fullscreen:xptotallayer, "deltooltip(toplevel_fullscreen:xptooltip)");
+if_setonmouserepeat(toplevel:xptotallayer, "script4226");
+if_setonmouseleave(toplevel:xptotallayer, "deltooltip(toplevel:xptooltip)");

@@ -1,7 +1,7 @@
 // 2308
 [proc,topstat_button_mouseover](component $component0, int $int1)
 if (getwindowmode >= 2) {
-    if_setgraphic(graphic_1127, $component0);
+    if_setgraphic($component0, graphic_1127);
 } else {
-    if_setgraphic(graphic_784, $component0);
+    if_setgraphic($component0, graphic_784);
 }

@@ -3,19 +3,19 @@
 def_int $int3 = 0;
 def_int $int4 = 0;
 if (cc_find($component0, $int1) = true) {
-    if_sethide(true, notes:selected);
-    if_sethide(false, notes:dragger);
+    if_sethide(notes:selected, true);
+    if_sethide(notes:dragger, false);
     $int4 = cc_getheight;
-    if_setposition(cc_getx, $int2, ^setpos_abs_left, ^setpos_abs_top, notes:dragger);
-    if_setsize(cc_getwidth, $int4, ^setsize_abs, ^setsize_abs, notes:dragger);
+    if_setposition(notes:dragger, cc_getx, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(notes:dragger, cc_getwidth, $int4, ^setsize_abs, ^setsize_abs);
     $int3 = calc($int2 + $int4 / 2);
 }
 def_int $int5 = if_gety(notes:del_button);
 def_int $int6 = calc($int5 + if_getheight(notes:del_button));
 if ($int3 >= $int5 & $int3 <= $int6) {
-    if_setgraphic("notes_add_delete_icons,4", notes:del_button_graphic);
+    if_setgraphic(notes:del_button_graphic, "notes_add_delete_icons,4");
 } else {
-    if_setgraphic("notes_add_delete_icons,3", notes:del_button_graphic);
+    if_setgraphic(notes:del_button_graphic, "notes_add_delete_icons,3");
 }
 def_int $int7 = 0;
 def_int $int8 = if_gety(notes:main);
@@ -27,10 +27,10 @@ if ($int3 >= $int8 & $int3 <= $int9) {
 } else if ($int3 >= $int11 & $int3 <= $int10) {
     $int7 = 4;
 } else {
-    %varclient_821 = 0;
+    %notes_scrolldelay = 0;
     return;
 }
-%varclient_821 = calc(%varclient_821 + 1);
-if (%varclient_821 > 5) {
+%notes_scrolldelay = calc(%notes_scrolldelay + 1);
+if (%notes_scrolldelay > 5) {
     ~scrollbar_ondrag_doscroll(notes:scrollbar, notes:main, calc(if_getscrolly(notes:main) + $int7), 1);
 }

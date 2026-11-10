@@ -1,4 +1,4 @@
 // 4239
 [clientscript,script4239]
-if_setoutline(2, acs_battleships_side:fire_button_graphic);
+if_setoutline(acs_battleships_side:fire_button_graphic, 2);
 ~script4161(acs_battleships_side:fire_button_selected_layer, 0);

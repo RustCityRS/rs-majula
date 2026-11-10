@@ -7,8 +7,8 @@ if ($boolean6 = true) {
     $int11 = if_getwidth($component5);
 }
 if ($boolean1 = false & calc(if_getwidth($component0) - $int11) < $int7) {
-    if_setontimer("loginscreen_options_button($component0, $boolean1, $component2, $component3, $component4, $component5, $boolean6, $int7, $int8, $int9, $int10)", $component2);
+    if_setontimer($component2, "loginscreen_options_button($component0, $boolean1, $component2, $component3, $component4, $component5, $boolean6, $int7, $int8, $int9, $int10)");
     return;
 }
-if_setontimer(null, $component2);
-if_setontimer("loginscreen_options_button_timer($component0, $boolean1, $int11, $component2, $component3, $component4, $int7, $int8, $int9, $int10)", $component0);
+if_setontimer($component2, null);
+if_setontimer($component0, "loginscreen_options_button_timer($component0, $boolean1, $int11, $component2, $component3, $component4, $int7, $int8, $int9, $int10)");

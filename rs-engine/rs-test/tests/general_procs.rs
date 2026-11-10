@@ -191,16 +191,16 @@ fn quest_complete2_lists_the_rewards_on_2011_s_scroll() {
 #[test]
 fn the_lamp_advances_the_stat_picked_on_2011_s_lamp() {
     runner::on_loaded_engine(|engine| {
-        let lamp = *engine.cache.objs.debugnames.get("lamp").unwrap();
+        let lamp = *engine.cache.objs.debugnames.get("macro_genilamp").unwrap();
         let mut client = developer(engine, "lamprub");
-        cheat(&mut client, "~give lamp 1");
+        cheat(&mut client, "~give macro_genilamp 1");
         ticks(engine, &mut client, 2);
         assert_eq!(inv_total(engine, &client, lamp), 1, "the lamp given");
 
         button1(&mut client, BACKPACK, 0, lamp as i32);
         ticks(engine, &mut client, 2);
         assert!(is_open(engine, &client, LAMP), "Rub opens 2011's lamp");
-        assert_eq!(varp(engine, &client, "xplamp_stat"), 0);
+        assert_eq!(varp(engine, &client, "if1"), 0);
 
         // Herblore wants Druidic Ritual first, as 289's.
         button1(&mut client, com(LAMP, 38), 0xFFFF, 0xFFFF);
@@ -211,14 +211,14 @@ fn the_lamp_advances_the_stat_picked_on_2011_s_lamp() {
             ),
             "{said:?}"
         );
-        assert_eq!(varp(engine, &client, "xplamp_stat"), 0);
+        assert_eq!(varp(engine, &client, "if1"), 0);
 
         // Each button its stat's value: the box clientscript 790 lights.
         for (button, value) in [(54, 25), (52, 22), (50, 23), (41, 19), (47, 18), (30, 1)] {
             button1(&mut client, com(LAMP, button), 0xFFFF, 0xFFFF);
             ticks(engine, &mut client, 1);
             assert_eq!(
-                varp(engine, &client, "xplamp_stat"),
+                varp(engine, &client, "if1"),
                 value,
                 "button {button}"
             );
@@ -234,7 +234,7 @@ fn the_lamp_advances_the_stat_picked_on_2011_s_lamp() {
             100
         );
         assert_eq!(inv_total(engine, &client, lamp), 0, "the lamp is used up");
-        assert_eq!(varp(engine, &client, "xplamp_stat"), 0);
+        assert_eq!(varp(engine, &client, "if1"), 0);
         assert!(!is_open(engine, &client, LAMP), "the lamp closes");
         assert!(
             texts
@@ -322,9 +322,9 @@ fn teleport_jewellery_goes_to_2011_s_places() {
             .cache
             .objs
             .debugnames
-            .get("ring_of_duelling__7")
+            .get("ring_of_dueling_7")
             .unwrap();
-        let (at, left, said) = rub_and_go(engine, &mut client, "ring_of_duelling__8", 234, 4);
+        let (at, left, said) = rub_and_go(engine, &mut client, "ring_of_dueling_8", 234, 4);
         assert!(
             near(at, (2412, 2415), (2847, 2849)),
             "Mobilising Armies: at {at:?}; said {said:?}"
@@ -339,9 +339,9 @@ fn teleport_jewellery_goes_to_2011_s_places() {
             .cache
             .objs
             .debugnames
-            .get("games_necklace__7")
+            .get("necklace_of_minigames_7")
             .unwrap();
-        let (at, left, said) = rub_and_go(engine, &mut client, "games_necklace__8", 230, 3);
+        let (at, left, said) = rub_and_go(engine, &mut client, "necklace_of_minigames_8", 230, 3);
         assert!(
             near(at, (2519, 2521), (3572, 3574)),
             "Barbarian Outpost: at {at:?}; said {said:?}"
@@ -352,9 +352,9 @@ fn teleport_jewellery_goes_to_2011_s_places() {
             .cache
             .objs
             .debugnames
-            .get("amulet_of_glory__3")
+            .get("amulet_of_glory_3")
             .unwrap();
-        let (at, left, said) = rub_and_go(engine, &mut client, "amulet_of_glory__4", 234, 2);
+        let (at, left, said) = rub_and_go(engine, &mut client, "amulet_of_glory_4", 234, 2);
         assert!(
             near(at, (3087, 3089), (3496, 3498)),
             "Edgeville: at {at:?}; said {said:?}"

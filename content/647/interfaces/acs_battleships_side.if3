@@ -74,7 +74,7 @@ widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
 layer=health_bar_bounds
-onvartransmit=script4241{varplayer_2077}
+onvartransmit=script4241{acs_tempint_1}
 
 // 1078:8
 [com_8]
@@ -257,7 +257,7 @@ y=7
 width=52
 height=52
 layer=fire_layer
-onvartransmit=script4237{varplayer_2077}
+onvartransmit=script4237{acs_tempint_1}
 ontimer=script4238(70647832, acs_battleships_side:cooldown_l, acs_battleships_side:cooldown_r)
 
 // 1078:25
@@ -382,7 +382,7 @@ heightmode=proportion
 layer=repair_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 
 // 1078:37

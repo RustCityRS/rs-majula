@@ -36,13 +36,13 @@ def_obj $weapon = inv_getobj(worn, ^wearpos_rhand);
 p_opplayer(2);
 
 switch_obj($weapon) {
-    case dragon_dagger, dragon_dagger__p : @pvp_dragon_dagger_sa;
+    case dragon_dagger, dragon_dagger_p : @pvp_dragon_dagger_sa;
     case dragon_longsword : @pvp_dragon_longsword_sa;
     case dragon_mace : @pvp_dragon_mace_sa;
     case magic_shortbow : @pvp_magic_shortbow_sa;
     case magic_longbow : @pvp_magic_longbow_sa;
     case rune_thrownaxe : @pvp_rune_thrownaxe_sa;
-    case dragon_spear, dragon_spear__p, dragon_spear__kp : @pvp_dragon_spear_sa;
+    case dragon_spear, dragon_spear_p, tbwt_dragon_spear_kp : @pvp_dragon_spear_sa;
     case rune_claws : @pvp_rune_claws_sa;
     case dragon_halberd : @pvp_dragon_halberd_sa;
 }

@@ -124,7 +124,7 @@ colour=0xaaaaaa
 transmitop=10
 op10=    
 onload=boardgames_status(boardgames_draughts:status1, boardgames_draughts:status2, boardgames_draughts:status3, boardgames_draughts:tooltip)
-onvarcstrtransmit=boardgames_status(boardgames_draughts:status1, boardgames_draughts:status2, boardgames_draughts:status3, boardgames_draughts:tooltip){varclient_1662, varclient_1663, varclient_1664}
+onvarcstrtransmit=boardgames_status(boardgames_draughts:status1, boardgames_draughts:status2, boardgames_draughts:status3, boardgames_draughts:tooltip){boardgames_status1, boardgames_status2, varclient_1664}
 
 // 32:9
 [status2]
@@ -171,7 +171,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10=  
-onvarctransmit=boardgames_piece1(event_com){varclient_809}
+onvarctransmit=boardgames_piece1(event_com){boardgames_pl_piece}
 
 // 32:12
 [game_piece_player2]
@@ -186,7 +186,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10=  
-onvarctransmit=boardgames_piece2(event_com){varclient_810}
+onvarctransmit=boardgames_piece2(event_com){boardgames_opp_piece}
 
 // 32:13
 [close_layer]
@@ -211,7 +211,7 @@ height=43
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 32:15
 [resign_layer]
@@ -223,7 +223,7 @@ height=42
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=closebutton_click
 
 // 32:16
@@ -276,7 +276,7 @@ x=219
 y=41
 width=258
 height=258
-onvarctransmit=draughts_inv_init(event_com, inv_215, 8, 8){varclient_807}
+onvarctransmit=draughts_inv_init(event_com, boardgames_boardinv, 8, 8){boardgames_transmit}
 
 // 32:21
 [tooltip]
@@ -449,7 +449,7 @@ modelorigin=0,45
 modelzoom=2048
 transmitop=10
 op10=   
-onvarctransmit=boardgames_sandtimer(event_com){varclient_811}
+onvarctransmit=boardgames_sandtimer(event_com){boardgames_sandtimer}
 
 // 32:34
 [resign_box]

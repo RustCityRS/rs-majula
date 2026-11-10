@@ -2,13 +2,13 @@
 [proc,options_aid]
 def_string $string0 = null;
 if (%varplayer_427 = 0) {
-    if_setgraphic("options_boxes,0", options:optaid);
+    if_setgraphic(options:optaid, "options_boxes,0");
     $string0 = "Accept aid<br>(currently off)";
-    if_setonmouserepeat("addtooltip(event_com, options:options_tooltip, $string0, 25, 180)", options:optaid);
-    %varclient_2 = 0;
+    if_setonmouserepeat(options:optaid, "addtooltip(event_com, options:options_tooltip, $string0, 25, 180)");
+    %tooltip_built = 0;
 } else if (%varplayer_427 = 1) {
-    if_setgraphic("options_boxes,1", options:optaid);
+    if_setgraphic(options:optaid, "options_boxes,1");
     $string0 = "Accept aid<br>(currently on)";
-    if_setonmouserepeat("addtooltip(event_com, options:options_tooltip, $string0, 25, 180)", options:optaid);
-    %varclient_2 = 0;
+    if_setonmouserepeat(options:optaid, "addtooltip(event_com, options:options_tooltip, $string0, 25, 180)");
+    %tooltip_built = 0;
 }

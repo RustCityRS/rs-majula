@@ -1,4 +1,4 @@
 // 3363
 [clientscript,addtooltip_graphic_swapper](component $component0, component $component1, int $int2, int $int3, graphic $graphic4, string $string0)
-if_setgraphic($graphic4, $component0);
+if_setgraphic($component0, $graphic4);
 ~addtooltip_action_dynamic($component0, -1, $component1, $string0, $int2, $int3);

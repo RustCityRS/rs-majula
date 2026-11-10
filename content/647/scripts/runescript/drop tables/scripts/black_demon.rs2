@@ -14,7 +14,7 @@ if ($random < 4) {
 } else if ($random < 7) {
     obj_add(npc_coord, steel_battleaxe, 1, ^lootdrop_duration);
 } else if ($random < 9) {
-    obj_add(npc_coord, black_hatchet, 1, ^lootdrop_duration);
+    obj_add(npc_coord, black_axe, 1, ^lootdrop_duration);
 } else if ($random < 10) {
     obj_add(npc_coord, mithril_kiteshield, 1, ^lootdrop_duration);
 } else if ($random < 11) {
@@ -22,15 +22,15 @@ if ($random < 4) {
 } else if ($random < 12) {
     obj_add(npc_coord, rune_chainbody, 1, ^lootdrop_duration);
 }else if ($random < 20) {
-    obj_add(npc_coord, air_rune, 50, ^lootdrop_duration);
+    obj_add(npc_coord, airrune, 50, ^lootdrop_duration);
 } else if ($random < 27) {
-    obj_add(npc_coord, chaos_rune, 10, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 10, ^lootdrop_duration);
 } else if ($random < 31) {
-    obj_add(npc_coord, blood_rune, 7, ^lootdrop_duration);
+    obj_add(npc_coord, bloodrune, 7, ^lootdrop_duration);
 } else if ($random < 32) {
-    obj_add(npc_coord, fire_rune, 37, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 37, ^lootdrop_duration);
 } else if ($random < 33) {
-    obj_add(npc_coord, law_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 3, ^lootdrop_duration);
 } else if ($random < 56) {
     obj_add(npc_coord, ~randomherb, ^lootdrop_duration);
 } else if ($random < 96) {
@@ -46,9 +46,9 @@ if ($random < 4) {
 } else if ($random < 119) {
     obj_add(npc_coord, lobster, 1, ^lootdrop_duration);
 } else if ($random < 121) {
-    obj_add(npc_coord, adamant_bar, 1, ^lootdrop_duration);
+    obj_add(npc_coord, adamantite_bar, 1, ^lootdrop_duration);
 } else if ($random < 122) {
-    obj_add(npc_coord, defence_potion__3, 1, ^lootdrop_duration);
+    obj_add(npc_coord, 3dose1defense, 1, ^lootdrop_duration);
 } else if ($random < 127) {
     obj_add(npc_coord, ~randomjewel, ^lootdrop_duration);
 } else if ($random < 128) {

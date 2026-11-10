@@ -200,7 +200,7 @@ layer=cws_warning_layer
 graphic="warning_icons,1"
 transmitop=1
 op1=Off/On
-onvartransmit=cws_graphic_swap(cws_warning_26:cws_toggle_button, 26){varplayer_1047}
+onvartransmit=cws_graphic_swap(cws_warning_26:cws_toggle_button, 26){cws_var_3}
 onclick=cws_toggle(cws_warning_26:cws_toggle_button)
 
 // 627:19

@@ -6,5 +6,5 @@ if (gender = 1) {
 } else {
     $int1 = enum_getoutputcount(enum_2132);
 }
-~player_kit_bracelet_display(%varclient_784);
-~player_kit_select($component0, %varclient_784, $int1);
+~player_kit_bracelet_display(%player_kit_brace_gold_client);
+~player_kit_select($component0, %player_kit_brace_gold_client, $int1);

@@ -1,14 +1,14 @@
 // 4144
 [clientscript,valentine_setup](component $component0, component $component1, component $component2)
 def_int $int3 = calc(paraheight(%varclient_1862, if_getwidth($component1), p12_full) * 12 + 5);
-if_setsize(0, $int3, ^setsize_minus, ^setsize_abs, $component1);
-if_setscrollsize(0, $int3, $component0);
-if_setscrollpos(0, 0, $component0);
-if_settext(%varclient_1862, $component1);
+if_setsize($component1, 0, $int3, ^setsize_minus, ^setsize_abs);
+if_setscrollsize($component0, 0, $int3);
+if_setscrollpos($component0, 0, 0);
+if_settext($component1, %varclient_1862);
 if ($int3 <= if_getheight($component0)) {
     cc_deleteall($component2);
-    if_sethide(true, $component2);
+    if_sethide($component2, true);
     return;
 }
-if_sethide(false, $component2);
+if_sethide($component2, false);
 ~scrollbar_vertical($component2, $component0, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");

@@ -3,7 +3,7 @@
 if (clientclock < $int0) {
     return;
 } else {
-    if_setontimer(null, bank_v2_main:bank_v2_inv);
+    if_setontimer(bank_v2_main:bank_v2_inv, null);
 }
 def_int $int1 = 0;
 def_int $int2 = 0;
@@ -25,8 +25,8 @@ while ($int3 < $int5) {
     $int3 = calc($int3 + 1);
 }
 if (%open_bank_tab = 0) {
-    if (%varclient_5 = 11) {
-        %varclient_1657 = %varclient_1541;
+    if (%meslayermode = 11) {
+        %varclient_1657 = %meslayerinput;
     }
     ~bank_v2_show_search(%varclient_1657);
 } else if (%open_bank_tab = 1) {

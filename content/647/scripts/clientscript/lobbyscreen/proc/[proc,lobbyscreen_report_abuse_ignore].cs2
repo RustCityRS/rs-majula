@@ -1,8 +1,8 @@
 // 3203
 [proc,lobbyscreen_report_abuse_ignore]
 if_opensubclient(lobbyscreen:report_abuse_ignore_body, lobbyscreen_report_abuse_ignore);
-if_sethide(false, lobbyscreen:report_abuse_ignore);
+if_sethide(lobbyscreen:report_abuse_ignore, false);
 if (if_gethide(enum(int, component, enum_941, 5)) = false) {
     ~script3161(0);
 }
-if_setonkey("lobbyscreen_report_abuse_ignore_keyboard(event_keycode)", lobbyscreen_report_abuse_ignore:main);
+if_setonkey(lobbyscreen_report_abuse_ignore:main, "lobbyscreen_report_abuse_ignore_keyboard(event_keycode)");

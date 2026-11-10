@@ -65,9 +65,9 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<Strin
 #[test]
 fn three_shrimps_on_a_range_in_one_go() {
     runner::on_loaded_engine(|engine| {
-        let raw = obj(engine, "raw_shrimps");
-        let cooked = obj(engine, "shrimps");
-        let burnt = obj(engine, "burnt_fish");
+        let raw = obj(engine, "raw_shrimp");
+        let cooked = obj(engine, "shrimp");
+        let burnt = obj(engine, "burntfish1");
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
 
         engine.harness_reset();
@@ -255,7 +255,7 @@ fn the_head_chef_and_cooked_meats_take_289s_configs() {
         .lines()
         .find_map(|l| l.strip_suffix("=meat")?.parse().ok())
         .expect("meat is in category.pack");
-        for name in ["cooked_chicken", "cooked_meat", "ugthanki_meat"] {
+        for name in ["cooked_chicken", "cooked_meat", "cooked_ugthanki_meat"] {
             let obj = *engine.cache.objs.debugnames.get(name).expect(name);
             let category = engine.cache.objs.get_by_id(obj).and_then(|o| o.category);
             assert_eq!(category, Some(meat), "{name}");

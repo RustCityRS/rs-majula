@@ -171,7 +171,7 @@ width=457
 height=264
 onload=ame_costumes_init(event_com, ame_costumes:scrollbar)
 onvartransmit=ame_costumes_init(event_com, ame_costumes:scrollbar){varplayer_1383, varplayer_900, varplayer_903}
-oninvtransmit=ame_costumes_init(event_com, ame_costumes:scrollbar){inv, worn, bank, inv_530}
+oninvtransmit=ame_costumes_init(event_com, ame_costumes:scrollbar){inv, worn, bank, lore_bob}
 
 // 201:16
 [scrollbar]

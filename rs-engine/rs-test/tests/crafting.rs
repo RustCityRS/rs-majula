@@ -157,10 +157,10 @@ fn wool_on_lumbridge_castle_s_wheel_spins_a_ball_of_wool() {
 fn sand_and_soda_ash_on_lumbridge_s_furnace_make_molten_glass() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let sand = obj(engine, "bucket_of_sand");
+        let sand = obj(engine, "bucket_sand");
         let ash = obj(engine, "soda_ash");
         let glass = obj(engine, "molten_glass");
-        let bucket = obj(engine, "bucket");
+        let bucket = obj(engine, "bucket_empty");
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         let mut client = beside(engine, "glassmaker", (3226, 0, 3255), &[sand, ash]);
         let player = engine.harness_player(client.pid).unwrap();
@@ -187,8 +187,8 @@ fn sand_and_soda_ash_on_lumbridge_s_furnace_make_molten_glass() {
 fn soft_clay_on_a_potter_s_wheel_shapes_a_pot() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let clay = obj(engine, "soft_clay");
-        let pot = obj(engine, "pot__unfired");
+        let clay = obj(engine, "softclay");
+        let pot = obj(engine, "pot_unfired");
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         let wheel = (2642, 2935, 3289);
         let mut client = beside(engine, "potter", (2935, 0, 3288), &[clay]);
@@ -338,8 +338,8 @@ fn a_silver_bar_on_lumbridge_s_furnace_casts_holy_symbols() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let bar = obj(engine, "silver_bar");
-        let mould = obj(engine, "holy_mould");
-        let symbol = obj(engine, "unstrung_symbol");
+        let mould = obj(engine, "holy_symbol_mould");
+        let symbol = obj(engine, "nostringstar");
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         let mut client = beside(engine, "silversmith", AT_FURNACE, &[bar, mould, bar]);
         let player = engine.harness_player_mut(client.pid).unwrap();
@@ -392,7 +392,7 @@ fn a_ball_of_wool_strings_a_gold_amulet() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let wool = obj(engine, "ball_of_wool");
-        let amulet = obj(engine, "gold_amulet");
+        let amulet = obj(engine, "unstrung_gold_amulet");
         let strung = obj(engine, "strung_gold_amulet");
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         let mut client = beside(engine, "stringer", AT_FURNACE, &[wool, amulet]);
@@ -504,8 +504,8 @@ fn a_chisel_cuts_a_sapphire() {
 fn studs_on_a_leather_body_make_a_studded_body() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let studs = obj(engine, "steel_studs");
-        let body = obj(engine, "leather_body");
+        let studs = obj(engine, "studs");
+        let body = obj(engine, "leather_armour");
         let studded = obj(engine, "studded_body");
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         // Level 41, 22,406 xp.
@@ -547,9 +547,9 @@ fn a_fire_orb_on_a_battlestaff_makes_a_fire_battlestaff() {
 fn red_and_yellow_dye_make_orange_which_dyes_a_cape() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let red = obj(engine, "red_dye");
-        let yellow = obj(engine, "yellow_dye");
-        let orange = obj(engine, "orange_dye");
+        let red = obj(engine, "reddye");
+        let yellow = obj(engine, "yellowdye");
+        let orange = obj(engine, "orangedye");
         let black_cape = obj(engine, "black_cape");
         let orange_cape = obj(engine, "orange_cape");
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();

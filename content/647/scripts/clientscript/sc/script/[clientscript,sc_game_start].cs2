@@ -1,8 +1,8 @@
 // 1938
 [clientscript,sc_game_start]
-%varclient_556 = calc(clientclock + 2000 * 30);
-%varclient_559 = 255;
-%varclient_560 = 0;
-%varclient_561 = 0;
-%varclient_562 = 0;
-if_settextshadow(false, sc_in_game_overlay:time_remaining);
+%sc_end_time_clientclock = calc(clientclock + 2000 * 30);
+%sc_panic_transparent = 255;
+%sc_panic_direction = 0;
+%sc_panic_flash_counter = 0;
+%sc_panic_frame_count = 0;
+if_settextshadow(sc_in_game_overlay:time_remaining, false);

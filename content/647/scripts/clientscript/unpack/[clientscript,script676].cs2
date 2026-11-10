@@ -9,38 +9,38 @@ def_int $int5 = 0;
 $int2 = calc((if_getwidth(exchange_itemsets:stock_lay) - 36 * 10) / (10 - 1));
 $int3 = calc((if_getheight(exchange_itemsets:stock_lay) - 128) / 3);
 while ($int4 = 0) {
-    if (enum(int, namedobj, enum_1087, calc($int0 + 1)) ! logs_11760) {
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = barrows___ahrim_s_set) {
+    if (enum(int, namedobj, enum_1087, calc($int0 + 1)) ! shop_dummy) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_barrows_ahrim) {
             $int5 = calc($int5 + 2);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = third_age_melee_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_third_melee) {
             $int5 = calc($int5 + 4);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = green_dragonhide_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dragonhide_green) {
             $int5 = calc($int5 + 6);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = mystic_robes_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_mystic) {
             $int5 = calc($int5 + 6);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = black_heraldic_armour_set_1__lg) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_black_h1_l) {
             $int5 = calc($int5 + 5);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = enchanted_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_ench_mystic) {
             $int5 = calc($int5 + 8);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = trimmed_leather_armour_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_leather_trim) {
             $int5 = calc($int5 + 7);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = guthix_armour_set__lg) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_guthix_l) {
             $int5 = calc($int5 + 8);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = rock_shell_armour_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_rocksell) {
             $int5 = calc($int5 + 6);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = dwarf_cannon_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dwarf_cannon) {
             $int5 = calc($int5 + 7);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = dagon_hai_robes_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dagon_hai) {
             $int5 = calc($int5 + 9);
         }
         cc_create(exchange_itemsets:stock_lay, ^iftype_graphic, $int0);
@@ -64,38 +64,38 @@ $int0 = 0;
 $int5 = 0;
 $int4 = 0;
 while ($int4 = 0) {
-    if (enum(int, namedobj, enum_1087, calc($int0 + 1)) ! logs_11760) {
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = barrows___ahrim_s_set) {
+    if (enum(int, namedobj, enum_1087, calc($int0 + 1)) ! shop_dummy) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_barrows_ahrim) {
             $int5 = calc($int5 + 2);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = third_age_melee_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_third_melee) {
             $int5 = calc($int5 + 4);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = green_dragonhide_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dragonhide_green) {
             $int5 = calc($int5 + 6);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = mystic_robes_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_mystic) {
             $int5 = calc($int5 + 6);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = black_heraldic_armour_set_1__lg) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_black_h1_l) {
             $int5 = calc($int5 + 5);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = enchanted_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_ench_mystic) {
             $int5 = calc($int5 + 8);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = trimmed_leather_armour_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_leather_trim) {
             $int5 = calc($int5 + 7);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = guthix_armour_set__lg) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_guthix_l) {
             $int5 = calc($int5 + 8);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = rock_shell_armour_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_rocksell) {
             $int5 = calc($int5 + 6);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = dwarf_cannon_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dwarf_cannon) {
             $int5 = calc($int5 + 7);
         }
-        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = dagon_hai_robes_set) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dagon_hai) {
             $int5 = calc($int5 + 9);
         }
         cc_create(exchange_itemsets:stock_lay, ^iftype_graphic, $int1);

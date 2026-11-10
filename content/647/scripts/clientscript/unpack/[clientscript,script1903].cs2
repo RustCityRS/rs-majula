@@ -1,8 +1,8 @@
 // 1903
 [clientscript,script1903](component $component0, component $component1, component $component2, component $component3)
-%varclient_129 = calc(%varclient_129 - 1);
-if (%varclient_129 > 0) {
+%quickchat_phrase_temp_int = calc(%quickchat_phrase_temp_int - 1);
+if (%quickchat_phrase_temp_int > 0) {
     return;
 }
-if_setontimer(null, $component1);
+if_setontimer($component1, null);
 ~quickchat_phrase_search_refreshsearch($component0, $component2, $component3);

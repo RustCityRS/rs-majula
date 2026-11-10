@@ -1,17 +1,17 @@
 // 2735
 [proc,pmsetup_updateinterface](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
 if (%option_pm <= 0) {
-    if_sethide(false, $component0);
-    if_sethide(true, $component2);
+    if_sethide($component0, false);
+    if_sethide($component2, true);
 } else {
-    if_sethide(true, $component0);
-    if_sethide(false, $component2);
+    if_sethide($component0, true);
+    if_sethide($component2, false);
 }
-if_setcolour(enum(int, int, enum_3724, %varplayerbit_3612), $component1);
-if_setcolour(enum(int, int, enum_3056, %option_pm), $component3);
-if_setcolour(enum(int, int, enum_3723, %varplayerbit_9188), $component4);
-if_setcolour(enum(int, int, enum_3726, %varplayerbit_9191), $component5);
-if_settextshadow(enum(int, boolean, enum_3057, %option_pm), $component3);
+if_setcolour($component1, enum(int, int, enum_3724, %varplayerbit_3612));
+if_setcolour($component3, enum(int, int, enum_3056, %option_pm));
+if_setcolour($component4, enum(int, int, enum_3723, %varplayerbit_9188));
+if_setcolour($component5, enum(int, int, enum_3726, %varplayerbit_9191));
+if_settextshadow($component3, enum(int, boolean, enum_3057, %option_pm));
 ~script3418(pmsetup:clancol0, 0, %varplayerbit_3612);
 ~script3418(pmsetup:clancol1, 1, %varplayerbit_3612);
 ~script3418(pmsetup:clancol2, 2, %varplayerbit_3612);

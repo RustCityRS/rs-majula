@@ -2,7 +2,7 @@
 [proc,combat_side_title](component $component0)
 def_obj $obj1 = inv_getobj(worn, 3);
 if ($obj1 ! null & (oc_members($obj1) = 0 | map_members = true)) {
-    if_settext(oc_name($obj1), $component0);
+    if_settext($component0, oc_name($obj1));
 } else {
-    if_settext("Unarmed", $component0);
+    if_settext($component0, "Unarmed");
 }

@@ -14,6 +14,6 @@ if ($int2 < $int0) {
         $int2 = $int0;
     }
 }
-if_setsize(calc(1 + 223 * $int2 / $int1), 10, ^setsize_abs, ^setsize_abs, $component3);
-if_settext(tostring($int2), $component4);
+if_setsize($component3, calc(1 + 223 * $int2 / $int1), 10, ^setsize_abs, ^setsize_abs);
+if_settext($component4, tostring($int2));
 return($int2);

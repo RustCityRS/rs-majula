@@ -8,19 +8,19 @@
 
 // Most objs trade.
 [label,test_an_obj_trades_unless_its_config_says_not]
-assert_true(oc_tradeable(vial_of_water))
+assert_true(oc_tradeable(vial_water))
 assert_true(oc_tradeable(coins))
 
 // 289's untradeables (Family Crest's perfect gold ore) and void-634's (a
 // treasure-trail storage copy of the adamant (g) platebody).
 [label,test_289s_and_2011s_untradeables_do_not_trade]
-assert_false(oc_tradeable(perfect__gold_ore))
-assert_false(oc_tradeable(adam_platebody__g))
+assert_false(oc_tradeable(perfect_gold_ore))
+assert_false(oc_tradeable(dummy_adamant_platebody_gold))
 
 // A cert trades as its obj does (Jordan's cert_link).
 [label,test_a_cert_trades_as_its_obj_does]
 assert_false(oc_tradeable(cocktail_shaker))
-assert_false(oc_tradeable(cocktail_shaker_9565))
+assert_false(oc_tradeable(cert_cocktail_shaker))
 
 // 2011's cache puts the law talisman on the Grand Exchange; 289's was
 // untradeable.

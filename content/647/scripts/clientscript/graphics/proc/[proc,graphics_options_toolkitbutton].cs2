@@ -3,7 +3,7 @@
 def_graphic $graphic6 = null;
 def_graphic $graphic7 = null;
 if ($int1 = $int0) {
-    if_setsize(106, 27, ^setsize_abs, ^setsize_abs, $component3);
+    if_setsize($component3, 106, 27, ^setsize_abs, ^setsize_abs);
     switch_int ($int0) {
         case 0 :
             $graphic6 = graphic_3095;
@@ -23,12 +23,12 @@ if ($int1 = $int0) {
         case 3 :
             $graphic6 = graphic_3122;
     }
-    if_setgraphic($graphic6, $component4);
-    if_setonmouseover(null, $component3);
-    if_setonmouseleave(null, $component3);
-    if_setonclick(null, $component3);
+    if_setgraphic($component4, $graphic6);
+    if_setonmouseover($component3, null);
+    if_setonmouseleave($component3, null);
+    if_setonclick($component3, null);
 } else {
-    if_setsize(106, 27, ^setsize_abs, ^setsize_abs, $component3);
+    if_setsize($component3, 106, 27, ^setsize_abs, ^setsize_abs);
     switch_int ($int0) {
         case 0 :
             switch_int (map_lang) {
@@ -67,8 +67,8 @@ if ($int1 = $int0) {
             $graphic6 = graphic_3120;
             $graphic7 = graphic_3121;
     }
-    if_setgraphic($graphic6, $component4);
-    if_setonmouseover("script1148($int0, $component4, $graphic6, $graphic7, true)", $component3);
-    if_setonmouseleave("script1148($int0, $component4, $graphic6, $graphic7, false)", $component3);
-    if_setonclick("graphics_options_settoolkit($int0, $int5)", $component3);
+    if_setgraphic($component4, $graphic6);
+    if_setonmouseover($component3, "script1148($int0, $component4, $graphic6, $graphic7, true)");
+    if_setonmouseleave($component3, "script1148($int0, $component4, $graphic6, $graphic7, false)");
+    if_setonclick($component3, "graphics_options_settoolkit($int0, $int5)");
 }

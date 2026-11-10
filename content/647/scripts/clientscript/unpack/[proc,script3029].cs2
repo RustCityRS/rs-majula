@@ -1,10 +1,10 @@
 // 3029
 [proc,script3029](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
 if (minimenuopen($component3, -1) = true) {
-    if_setontimer("script3028($component0, $component1, $component2, $component3, $component4, $component5)", $component4);
+    if_setontimer($component4, "script3028($component0, $component1, $component2, $component3, $component4, $component5)");
     return;
 } else {
-    if_setontimer(null, $component4);
+    if_setontimer($component4, null);
 }
 cc_deleteall($component0);
 cc_deleteall($component1);
@@ -26,16 +26,16 @@ def_int $int15 = 0;
 def_int $int16 = 0;
 def_string $string3 = "";
 if ($int6 = -2) {
-    if_settext("Name", lobbyscreen_pane_friendslist:friend_name_title);
+    if_settext(lobbyscreen_pane_friendslist:friend_name_title, "Name");
     ~script3038("Loading Friends List.<br><br>Please wait.", $component3);
-    if_setsize(if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), if_getheight(lobbyscreen_pane_friendslist:friends_titles), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_friendslist:friends_vdiv);
+    if_setsize(lobbyscreen_pane_friendslist:friends_vdiv, if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), if_getheight(lobbyscreen_pane_friendslist:friends_titles), ^setsize_abs, ^setsize_abs);
 } else if ($int6 = -1) {
-    if_settext("Name", lobbyscreen_pane_friendslist:friend_name_title);
+    if_settext(lobbyscreen_pane_friendslist:friend_name_title, "Name");
     ~script3038("Connecting to server.<br><br>Please wait.", $component3);
-    if_setsize(if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), if_getheight(lobbyscreen_pane_friendslist:friends_titles), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_friendslist:friends_vdiv);
+    if_setsize(lobbyscreen_pane_friendslist:friends_vdiv, if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), if_getheight(lobbyscreen_pane_friendslist:friends_titles), ^setsize_abs, ^setsize_abs);
 } else if ($int6 > 0) {
-    if_settext("Name (<tostring($int6)>/200)", lobbyscreen_pane_friendslist:friend_name_title);
-    if_setsize(if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), 4, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendslist:friends_vdiv);
+    if_settext(lobbyscreen_pane_friendslist:friend_name_title, "Name (<tostring($int6)>/200)");
+    if_setsize(lobbyscreen_pane_friendslist:friends_vdiv, if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), 4, ^setsize_abs, ^setsize_minus);
     while ($int7 < $int6) {
         $string0, $string1 = friend_getname($int7);
         $int9 = friend_getworld($int7);
@@ -113,19 +113,19 @@ if ($int6 = -2) {
     }
     if ($int10 <= $int6) {
         $int15 = if_getscrolly(lobbyscreen_pane_friendslist:friends_main);
-        if_setscrollsize(0, $int12, lobbyscreen_pane_friendslist:friends_main);
+        if_setscrollsize(lobbyscreen_pane_friendslist:friends_main, 0, $int12);
         if ($int15 > $int12) {
             $int15 = $int12;
         }
         ~scrollbar_resize(lobbyscreen_pane_friendslist:friends_build_layer_scroll, lobbyscreen_pane_friendslist:friends_main, $int15);
     } else {
-        if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:friends_main);
-        if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:friends_main);
+        if_setscrollsize(lobbyscreen_pane_friendslist:friends_main, 0, 0);
+        if_setscrollpos(lobbyscreen_pane_friendslist:friends_main, 0, 0);
         ~scrollbar_resize(lobbyscreen_pane_friendslist:friends_build_layer_scroll, lobbyscreen_pane_friendslist:friends_main, 0);
     }
 } else if ($int6 = 0) {
-    if_settext("Name", lobbyscreen_pane_friendslist:friend_name_title);
+    if_settext(lobbyscreen_pane_friendslist:friend_name_title, "Name");
     ~script3038("You have not added any friends to your list.", $component3);
-    if_setsize(if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), if_getheight(lobbyscreen_pane_friendslist:friends_titles), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_friendslist:friends_vdiv);
+    if_setsize(lobbyscreen_pane_friendslist:friends_vdiv, if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), if_getheight(lobbyscreen_pane_friendslist:friends_titles), ^setsize_abs, ^setsize_abs);
 }
 return;

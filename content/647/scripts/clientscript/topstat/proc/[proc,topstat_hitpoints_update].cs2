@@ -1,13 +1,13 @@
 // 2654
 [proc,topstat_hitpoints_update]
 if (getwindowmode >= 2) {
-    if_setgraphic(graphic_1207, topstat_hitpoints:background);
-    if_setgraphic(graphic_1207, topstat_hitpoints:background_op);
-    if_setposition(25, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_hitpoints:globe);
-    if_setposition(3, 15, ^setpos_abs_left, ^setpos_abs_top, topstat_hitpoints:text);
+    if_setgraphic(topstat_hitpoints:background, graphic_1207);
+    if_setgraphic(topstat_hitpoints:background_op, graphic_1207);
+    if_setposition(topstat_hitpoints:globe, 25, 1, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(topstat_hitpoints:text, 3, 15, ^setpos_abs_left, ^setpos_abs_top);
 } else {
-    if_setgraphic(graphic_1206, topstat_hitpoints:background);
-    if_setgraphic(graphic_1206, topstat_hitpoints:background_op);
-    if_setposition(1, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_hitpoints:globe);
-    if_setposition(31, 15, ^setpos_abs_left, ^setpos_abs_top, topstat_hitpoints:text);
+    if_setgraphic(topstat_hitpoints:background, graphic_1206);
+    if_setgraphic(topstat_hitpoints:background_op, graphic_1206);
+    if_setposition(topstat_hitpoints:globe, 1, 1, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(topstat_hitpoints:text, 31, 15, ^setpos_abs_left, ^setpos_abs_top);
 }

@@ -8,8 +8,8 @@
 // runec to key ai_timer by npc, as it keys ai_queue. 6211's is unaffected.
 [ai_timer,imp] @imp_ai_timer;
 [ai_queue2,imp] @imp_ai_queue2;
-[ai_timer,imp_6211] @imp_ai_timer;
-[ai_queue2,imp_6211] @imp_ai_queue2;
+[ai_timer,godwars_ancient_imp] @imp_ai_timer;
+[ai_queue2,godwars_ancient_imp] @imp_ai_queue2;
 
 [label,imp_ai_timer]
 // in testing, imps seemed to teleport every 200 ticks on average.

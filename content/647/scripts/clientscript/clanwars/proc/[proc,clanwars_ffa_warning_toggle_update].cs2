@@ -2,18 +2,18 @@
 [proc,clanwars_ffa_warning_toggle_update](component $component0, component $component1)
 def_graphic $graphic2 = "options_radio_buttons,0";
 def_graphic $graphic3 = "options_radio_buttons,2";
-if (%varplayerbit_5279 = 1) {
-    if (%varplayerbit_5295 = 1) {
-        if_setgraphic($graphic3, $component1);
-        if_setonop("graphic_swapper($component1, $graphic2)", $component0);
+if (%clanwars_ffatype = 1) {
+    if (%cws_warning_31 = 1) {
+        if_setgraphic($component1, $graphic3);
+        if_setonop($component0, "graphic_swapper($component1, $graphic2)");
     } else {
-        if_setgraphic($graphic2, $component1);
-        if_setonop("graphic_swapper($component1, $graphic3)", $component0);
+        if_setgraphic($component1, $graphic2);
+        if_setonop($component0, "graphic_swapper($component1, $graphic3)");
     }
-} else if (%varplayerbit_5294 = 1) {
-    if_setgraphic($graphic3, $component1);
-    if_setonop("graphic_swapper($component1, $graphic2)", $component0);
+} else if (%cws_warning_22 = 1) {
+    if_setgraphic($component1, $graphic3);
+    if_setonop($component0, "graphic_swapper($component1, $graphic2)");
 } else {
-    if_setgraphic($graphic2, $component1);
-    if_setonop("graphic_swapper($component1, $graphic3)", $component0);
+    if_setgraphic($component1, $graphic2);
+    if_setonop($component0, "graphic_swapper($component1, $graphic3)");
 }

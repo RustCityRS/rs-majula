@@ -57,7 +57,7 @@ data=product_amount,1
 data=levelrequired,70
 data=end_message,a dagger
 data=levelfailmessage,an Adamant Dagger
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_dagger_pic,smithing_new:smith_dagger_name,smithing_new:smith_dagger_bars
 
@@ -69,7 +69,7 @@ data=product_amount,1
 data=levelrequired,85
 data=end_message,a dagger
 data=levelfailmessage,a Rune Dagger
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_dagger_pic,smithing_new:smith_dagger_name,smithing_new:smith_dagger_bars
 
@@ -129,7 +129,7 @@ data=product_amount,1
 data=levelrequired,74
 data=end_message,a sword
 data=levelfailmessage,an Adamant Sword
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_sword_pic,smithing_new:smith_sword_name,smithing_new:smith_sword_bars
 
@@ -141,7 +141,7 @@ data=product_amount,1
 data=levelrequired,89
 data=end_message,a sword
 data=levelfailmessage,a Rune Sword
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_sword_pic,smithing_new:smith_sword_name,smithing_new:smith_sword_bars
 
@@ -201,7 +201,7 @@ data=product_amount,1
 data=levelrequired,75
 data=end_message,a scimitar
 data=levelfailmessage,an Adamant Scimitar
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,2
 data=slot,smithing_new:smith_scimitar_pic,smithing_new:smith_scimitar_name,smithing_new:smith_scimitar_bars
 
@@ -213,7 +213,7 @@ data=product_amount,1
 data=levelrequired,90
 data=end_message,a scimitar
 data=levelfailmessage,a Rune Scimitar
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,2
 data=slot,smithing_new:smith_scimitar_pic,smithing_new:smith_scimitar_name,smithing_new:smith_scimitar_bars
 
@@ -273,7 +273,7 @@ data=product_amount,1
 data=levelrequired,76
 data=end_message,a long sword
 data=levelfailmessage,an Adamant Longsword
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,2
 data=slot,smithing_new:smith_longsword_pic,smithing_new:smith_longsword_name,smithing_new:smith_longsword_bars
 
@@ -285,7 +285,7 @@ data=product_amount,1
 data=levelrequired,91
 data=end_message,a long sword
 data=levelfailmessage,a Rune Longsword
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,2
 data=slot,smithing_new:smith_longsword_pic,smithing_new:smith_longsword_name,smithing_new:smith_longsword_bars
 
@@ -345,7 +345,7 @@ data=product_amount,1
 data=levelrequired,84
 data=end_message,a two handed sword
 data=levelfailmessage,an Adamant 2h Sword
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,3
 data=slot,smithing_new:com_218,smithing_new:com_219,smithing_new:ogre_bottoms
 
@@ -357,14 +357,14 @@ data=product_amount,1
 data=levelrequired,99
 data=end_message,a two handed sword
 data=levelfailmessage,a Rune 2h Sword
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,3
 data=slot,smithing_new:com_218,smithing_new:com_219,smithing_new:ogre_bottoms
 
 [bronze_axe]
 table=smithing
-data=ifproduct,bronze_hatchet
-data=product,bronze_hatchet
+data=ifproduct,bronze_axe
+data=product,bronze_axe
 data=product_amount,1
 data=levelrequired,1
 data=end_message,an axe
@@ -375,8 +375,8 @@ data=slot,smithing_new:smith_axe_pic,smithing_new:smith_axe_name,smithing_new:sm
 
 [iron_axe]
 table=smithing
-data=ifproduct,iron_hatchet
-data=product,iron_hatchet
+data=ifproduct,iron_axe
+data=product,iron_axe
 data=product_amount,1
 data=levelrequired,16
 data=end_message,an axe
@@ -387,8 +387,8 @@ data=slot,smithing_new:smith_axe_pic,smithing_new:smith_axe_name,smithing_new:sm
 
 [steel_axe]
 table=smithing
-data=ifproduct,steel_hatchet
-data=product,steel_hatchet
+data=ifproduct,steel_axe
+data=product,steel_axe
 data=product_amount,1
 data=levelrequired,31
 data=end_message,an axe
@@ -399,8 +399,8 @@ data=slot,smithing_new:smith_axe_pic,smithing_new:smith_axe_name,smithing_new:sm
 
 [mithril_axe]
 table=smithing
-data=ifproduct,mithril_hatchet
-data=product,mithril_hatchet
+data=ifproduct,mithril_axe
+data=product,mithril_axe
 data=product_amount,1
 data=levelrequired,51
 data=end_message,an axe
@@ -411,25 +411,25 @@ data=slot,smithing_new:smith_axe_pic,smithing_new:smith_axe_name,smithing_new:sm
 
 [adamant_axe]
 table=smithing
-data=ifproduct,adamant_hatchet
-data=product,adamant_hatchet
+data=ifproduct,adamant_axe
+data=product,adamant_axe
 data=product_amount,1
 data=levelrequired,71
 data=end_message,an axe
 data=levelfailmessage,an Adamant Axe
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_axe_pic,smithing_new:smith_axe_name,smithing_new:smith_axe_bars
 
 [rune_axe]
 table=smithing
-data=ifproduct,rune_hatchet
-data=product,rune_hatchet
+data=ifproduct,rune_axe
+data=product,rune_axe
 data=product_amount,1
 data=levelrequired,86
 data=end_message,an axe
 data=levelfailmessage,a Rune Axe
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_axe_pic,smithing_new:smith_axe_name,smithing_new:smith_axe_bars
 
@@ -489,7 +489,7 @@ data=product_amount,1
 data=levelrequired,72
 data=end_message,a mace
 data=levelfailmessage,an Adamant Mace
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_mace_pic,smithing_new:smith_mace_name,smithing_new:smith_mace_bars
 
@@ -501,7 +501,7 @@ data=product_amount,1
 data=levelrequired,87
 data=end_message,a mace
 data=levelfailmessage,a Rune Mace
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_mace_pic,smithing_new:smith_mace_name,smithing_new:smith_mace_bars
 
@@ -555,13 +555,13 @@ data=slot,smithing_new:smith_warhammer_pic,smithing_new:smith_warhammer_name,smi
 
 [adamant_warhammer]
 table=smithing
-data=ifproduct,adamant_warhammer
-data=product,adamant_warhammer
+data=ifproduct,adamnt_warhammer
+data=product,adamnt_warhammer
 data=product_amount,1
 data=levelrequired,79
 data=end_message,a warhammer
 data=levelfailmessage,an Adamant Warhammer
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_warhammer_pic,smithing_new:smith_warhammer_name,smithing_new:smith_warhammer_bars
 
@@ -573,7 +573,7 @@ data=product_amount,1
 data=levelrequired,94
 data=end_message,a warhammer
 data=levelfailmessage,a Rune Warhammer
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_warhammer_pic,smithing_new:smith_warhammer_name,smithing_new:smith_warhammer_bars
 
@@ -633,7 +633,7 @@ data=product_amount,1
 data=levelrequired,80
 data=end_message,a battleaxe
 data=levelfailmessage,an Adamant Battleaxe
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_battleaxe_pic,smithing_new:smith_battleaxe_name,smithing_new:smith_battleaxe_bars
 
@@ -645,7 +645,7 @@ data=product_amount,1
 data=levelrequired,95
 data=end_message,a battleaxe
 data=levelfailmessage,a Rune Battleaxe
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_battleaxe_pic,smithing_new:smith_battleaxe_name,smithing_new:smith_battleaxe_bars
 
@@ -705,7 +705,7 @@ data=product_amount,1
 data=levelrequired,81
 data=end_message,a chain mail body
 data=levelfailmessage,an Adamant Chainbody
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_chainbody_pic,smithing_new:smith_chainbody_name,smithing_new:smith_chainbody_bars
 
@@ -717,7 +717,7 @@ data=product_amount,1
 data=levelrequired,96
 data=end_message,a chain mail body
 data=levelfailmessage,a Rune Chainbody
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_chainbody_pic,smithing_new:smith_chainbody_name,smithing_new:smith_chainbody_bars
 
@@ -777,7 +777,7 @@ data=product_amount,1
 data=levelrequired,86
 data=end_message,a pair of plate legs
 data=levelfailmessage,a pair of Adamant Platelegs
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_platelegs_pic,smithing_new:smith_platelegs_name,smithing_new:smith_platelegs_bars
 
@@ -789,7 +789,7 @@ data=product_amount,1
 data=levelrequired,99
 data=end_message,a pair of plate legs
 data=levelfailmessage,a pair of Rune Platelegs
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_platelegs_pic,smithing_new:smith_platelegs_name,smithing_new:smith_platelegs_bars
 
@@ -849,7 +849,7 @@ data=product_amount,1
 data=levelrequired,86
 data=end_message,a plate skirt
 data=levelfailmessage,an Adamant Plateskirt
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_plateskirt_pic,smithing_new:smith_plateskirt_name,smithing_new:smith_plateskirt_bars
 
@@ -861,7 +861,7 @@ data=product_amount,1
 data=levelrequired,99
 data=end_message,a plate skirt
 data=levelfailmessage,a Rune Plateskirt
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_plateskirt_pic,smithing_new:smith_plateskirt_name,smithing_new:smith_plateskirt_bars
 
@@ -921,7 +921,7 @@ data=product_amount,1
 data=levelrequired,88
 data=end_message,a plate body
 data=levelfailmessage,an Adamant Platebody
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,5
 data=slot,smithing_new:smith_platebody_pic,smithing_new:smith_platebody_name,smithing_new:smith_platebody_bars
 
@@ -933,7 +933,7 @@ data=product_amount,1
 data=levelrequired,99
 data=end_message,a plate body
 data=levelfailmessage,a Rune Platebody
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,5
 data=slot,smithing_new:smith_platebody_pic,smithing_new:smith_platebody_name,smithing_new:smith_platebody_bars
 
@@ -993,7 +993,7 @@ data=product_amount,1
 data=levelrequired,73
 data=end_message,a medium helmet
 data=levelfailmessage,an Adamant Med Helm
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_medhelm_pic,smithing_new:smith_medhelm_name,smithing_new:smith_medhelm_bars
 
@@ -1005,7 +1005,7 @@ data=product_amount,1
 data=levelrequired,88
 data=end_message,a medium helmet
 data=levelfailmessage,a Rune Med Helm
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_medhelm_pic,smithing_new:smith_medhelm_name,smithing_new:smith_medhelm_bars
 
@@ -1065,7 +1065,7 @@ data=product_amount,1
 data=levelrequired,77
 data=end_message,a full helm
 data=levelfailmessage,an Adamant Full Helm
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,2
 data=slot,smithing_new:smith_fullhelm_pic,smithing_new:smith_fullhelm_name,smithing_new:smith_fullhelm_bars
 
@@ -1077,7 +1077,7 @@ data=product_amount,1
 data=levelrequired,92
 data=end_message,a full helm
 data=levelfailmessage,a Rune Full Helm
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,2
 data=slot,smithing_new:smith_fullhelm_pic,smithing_new:smith_fullhelm_name,smithing_new:smith_fullhelm_bars
 
@@ -1137,7 +1137,7 @@ data=product_amount,1
 data=levelrequired,78
 data=end_message,a square shield
 data=levelfailmessage,an Adamant Sq Shield
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,2
 data=slot,smithing_new:com_154,smithing_new:com_155,smithing_new:com_156
 
@@ -1149,7 +1149,7 @@ data=product_amount,1
 data=levelrequired,93
 data=end_message,a square shield
 data=levelfailmessage,a Rune Sq Shield
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,2
 data=slot,smithing_new:com_154,smithing_new:com_155,smithing_new:com_156
 
@@ -1209,7 +1209,7 @@ data=product_amount,1
 data=levelrequired,82
 data=end_message,a kite shield
 data=levelfailmessage,an Adamant Kiteshield
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_kiteshield_pic,smithing_new:smith_kiteshield_name,smithing_new:smith_kiteshield_bars
 
@@ -1221,7 +1221,7 @@ data=product_amount,1
 data=levelrequired,97
 data=end_message,a kite shield
 data=levelfailmessage,a Rune Kiteshield
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,3
 data=slot,smithing_new:smith_kiteshield_pic,smithing_new:smith_kiteshield_name,smithing_new:smith_kiteshield_bars
 
@@ -1281,7 +1281,7 @@ data=product_amount,10
 data=levelrequired,74
 data=end_message,ten dart tips
 data=levelfailmessage,Adamant Dart Tips
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_darttip_pic,smithing_new:smith_darttip_name,smithing_new:smith_darttip_bars
 
@@ -1293,14 +1293,14 @@ data=product_amount,10
 data=levelrequired,89
 data=end_message,ten dart tips
 data=levelfailmessage,Rune Dart Tips
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_darttip_pic,smithing_new:smith_darttip_name,smithing_new:smith_darttip_bars
 
 [bronze_arrowheads]
 table=smithing
-data=ifproduct,bronze_arrowtips
-data=product,bronze_arrowtips
+data=ifproduct,bronze_arrowheads
+data=product,bronze_arrowheads
 data=product_amount,15
 data=levelrequired,5
 data=end_message,fifteen arrow heads
@@ -1311,8 +1311,8 @@ data=slot,smithing_new:smith_arrowtip_pic,smithing_new:smith_arrowtip_name,smith
 
 [iron_arrowheads]
 table=smithing
-data=ifproduct,iron_arrowtips
-data=product,iron_arrowtips
+data=ifproduct,iron_arrowheads
+data=product,iron_arrowheads
 data=product_amount,15
 data=levelrequired,20
 data=end_message,fifteen arrow heads
@@ -1323,8 +1323,8 @@ data=slot,smithing_new:smith_arrowtip_pic,smithing_new:smith_arrowtip_name,smith
 
 [steel_arrowheads]
 table=smithing
-data=ifproduct,steel_arrowtips
-data=product,steel_arrowtips
+data=ifproduct,steel_arrowheads
+data=product,steel_arrowheads
 data=product_amount,15
 data=levelrequired,35
 data=end_message,fifteen arrow heads
@@ -1335,8 +1335,8 @@ data=slot,smithing_new:smith_arrowtip_pic,smithing_new:smith_arrowtip_name,smith
 
 [mithril_arrowheads]
 table=smithing
-data=ifproduct,mithril_arrowtips
-data=product,mithril_arrowtips
+data=ifproduct,mithril_arrowheads
+data=product,mithril_arrowheads
 data=product_amount,15
 data=levelrequired,55
 data=end_message,fifteen arrow heads
@@ -1347,25 +1347,25 @@ data=slot,smithing_new:smith_arrowtip_pic,smithing_new:smith_arrowtip_name,smith
 
 [adamant_arrowheads]
 table=smithing
-data=ifproduct,adamant_arrowtips
-data=product,adamant_arrowtips
+data=ifproduct,adamant_arrowheads
+data=product,adamant_arrowheads
 data=product_amount,15
 data=levelrequired,75
 data=end_message,fifteen arrow heads
 data=levelfailmessage,Adamant Arrowheads
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_arrowtip_pic,smithing_new:smith_arrowtip_name,smithing_new:smith_arrowtip_bars
 
 [rune_arrowheads]
 table=smithing
-data=ifproduct,rune_arrowtips
-data=product,rune_arrowtips
+data=ifproduct,rune_arrowheads
+data=product,rune_arrowheads
 data=product_amount,15
 data=levelrequired,90
 data=end_message,fifteen arrow heads
 data=levelfailmessage,Rune Arrowheads
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_arrowtip_pic,smithing_new:smith_arrowtip_name,smithing_new:smith_arrowtip_bars
 
@@ -1425,7 +1425,7 @@ data=product_amount,5
 data=levelrequired,77
 data=end_message,five throwing knives
 data=levelfailmessage,Adamant Knives
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_throwingknife_pic,smithing_new:smith_throwingknife_name,smithing_new:smith_throwingknife_bars
 
@@ -1437,14 +1437,14 @@ data=product_amount,5
 data=levelrequired,92
 data=end_message,five throwing knives
 data=levelfailmessage,Rune Knives
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,1
 data=slot,smithing_new:smith_throwingknife_pic,smithing_new:smith_throwingknife_name,smithing_new:smith_throwingknife_bars
 
 [bronze_wire]
 table=smithing
-data=ifproduct,bronze_wire
-data=product,bronze_wire
+data=ifproduct,bronzecraftwire
+data=product,bronzecraftwire
 data=product_amount,1
 data=levelrequired,4
 data=end_message,a piece of wire
@@ -1455,8 +1455,8 @@ data=slot,smithing_new:smith_wire_pic,smithing_new:smith_wire_name,smithing_new:
 
 [steel_studs]
 table=smithing
-data=ifproduct,steel_studs
-data=product,steel_studs
+data=ifproduct,studs
+data=product,studs
 data=product_amount,1
 data=levelrequired,36
 data=end_message,set of studs
@@ -1467,8 +1467,8 @@ data=slot,smithing_new:smith_studs_pic,smithing_new:smith_studs_name,smithing_ne
 
 [nails]
 table=smithing
-data=ifproduct,steel_nails
-data=product,steel_nails
+data=ifproduct,nails
+data=product,nails
 data=product_amount,2
 data=levelrequired,34
 data=end_message,two nails
@@ -1533,7 +1533,7 @@ data=product_amount,1
 data=levelrequired,83
 data=end_message,a pair of claws
 data=levelfailmessage,some adamant claws
-data=bar,adamant_bar
+data=bar,adamantite_bar
 data=bar_amount,2
 data=slot,smithing_new:smith_claws_pic,smithing_new:smith_claws_name,smithing_new:smith_claws_bars
 
@@ -1545,6 +1545,6 @@ data=product_amount,1
 data=levelrequired,98
 data=end_message,a pair of claws
 data=levelfailmessage,some rune claws
-data=bar,rune_bar
+data=bar,runite_bar
 data=bar_amount,2
 data=slot,smithing_new:smith_claws_pic,smithing_new:smith_claws_name,smithing_new:smith_claws_bars

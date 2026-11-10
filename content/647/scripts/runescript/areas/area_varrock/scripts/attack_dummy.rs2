@@ -1,4 +1,4 @@
-[oploc2,dummy]
+[oploc2,sworddummy]
 if (%damagetype = ^ranged_style | ~player_autocast_enabled = true) {
     mes("You can't use ranged attacks on the dummy.");
     return;

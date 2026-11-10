@@ -6,74 +6,74 @@ switch_int ($int0) {
             case 0 :
                 return(1, logs, "Normal logs", "You can now light <col=000080>normal logs</col>.");
             case 1 :
-                return(1, unlit_torch, "Members: Torch", "Members can now light <col=000080>torches</col>.");
+                return(1, torch_unlit, "Members: Torch", "Members can now light <col=000080>torches</col>.");
             case 2 :
-                return(1, candle, "Members: Candle", "Members can now light <col=000080>candles</col>.");
+                return(1, unlit_candle, "Members: Candle", "Members can now light <col=000080>candles</col>.");
             case 3 :
                 return(1, achey_tree_logs, "Members: Achey logs", "Members can now light <col=000080>achey logs</col>.");
             case 4 :
-                return(4, candle_lantern_4531, "Members: Candle lantern", "Members can now light <col=000080>candle lanterns</col>.");
+                return(4, candle_lantern_lit, "Members: Candle lantern", "Members can now light <col=000080>candle lanterns</col>.");
             case 5 :
-                return(5, pyre_logs, "Members: Pyre logs", "Members can now light <col=000080>pyre logs</col>.");
+                return(5, logs_pyre, "Members: Pyre logs", "Members can now light <col=000080>pyre logs</col>.");
             case 6 :
-                return(12, oil_lamp_4524, "Members: Oil lamp", "Members can now light <col=000080>oil lamps</col>.");
+                return(12, oil_lamp_lit, "Members: Oil lamp", "Members can now light <col=000080>oil lamps</col>.");
             case 7 :
                 return(15, oak_logs, "Oak logs", "You can now light <col=000080>oak logs</col>.");
             case 8 :
-                return(20, iron_spit, "Members: Iron spit", "Members can now cook with <col=000080>iron spits</col>.");
+                return(20, spit_iron, "Members: Iron spit", "Members can now cook with <col=000080>iron spits</col>.");
             case 9 :
-                return(20, oak_pyre_logs, "Members: Oak pyre logs", "Members can now light <col=000080>oak pyre logs</col>.");
+                return(20, oak_logs_pyre, "Members: Oak pyre logs", "Members can now light <col=000080>oak pyre logs</col>.");
             case 10 :
-                return(26, oil_lantern_4539, "Members: Oil lantern", "Members can now light <col=000080>oil lanterns</col>.");
+                return(26, oil_lantern_lit, "Members: Oil lantern", "Members can now light <col=000080>oil lanterns</col>.");
             case 11 :
                 return(30, willow_logs, "Willow logs", "You can now light <col=000080>willow logs</col>.");
             case 12 :
-                return(33, lit_bug_lantern, "Members: Harpie bug lantern (not a light source)", "Members can now light <col=000080>harpie bug lanterns</col>. These are not a light source.");
+                return(33, slayer_buglan_on, "Members: Harpie bug lantern (not a light source)", "Members can now light <col=000080>harpie bug lanterns</col>. These are not a light source.");
             case 13 :
                 return(35, teak_logs, "Members: Teak logs", "Members can now light <col=000080>teak logs</col>.");
             case 14 :
-                return(35, willow_pyre_logs, "Members: Willow pyre logs", "Members can now light <col=000080>willow pyre logs</col>.");
+                return(35, willow_logs_pyre, "Members: Willow pyre logs", "Members can now light <col=000080>willow pyre logs</col>.");
             case 15 :
-                return(40, teak_pyre_logs, "Members: Teak pyre logs", "Members can now light <col=000080>teak pyre logs</col>.");
+                return(40, teak_logs_pyre, "Members: Teak pyre logs", "Members can now light <col=000080>teak pyre logs</col>.");
             case 16 :
-                return(42, arctic_pine_logs, "Members: Arctic pine logs", "Members can now light <col=000080>arctic pine logs</col>.");
+                return(42, arctic_pine_log, "Members: Arctic pine logs", "Members can now light <col=000080>arctic pine logs</col>.");
             case 17 :
                 return(45, maple_logs, "Maple logs", "You can now light <col=000080>maple logs</col>.");
             case 18 :
-                return(47, arctic_pyre_logs, "Members: Arctic pine pyre logs", "Members can now light <col=000080>arctic pine pyre logs</col>.");
+                return(47, arctic_pine_logs_pyre, "Members: Arctic pine pyre logs", "Members can now light <col=000080>arctic pine pyre logs</col>.");
             case 19 :
-                return(49, bullseye_lantern_4550, "Members: Bullseye lantern", "Members can now light <col=000080>bullseye lanterns</col>.");
+                return(49, bullseye_lantern_lit, "Members: Bullseye lantern", "Members can now light <col=000080>bullseye lanterns</col>.");
             case 20 :
-                return(49, sapphire_lantern_4702, "Members: Sapphire lantern", "Members can now light <col=000080>sapphire lanterns</col>.");
+                return(49, tog_sapphire_lantern_lit, "Members: Sapphire lantern", "Members can now light <col=000080>sapphire lanterns</col>.");
             case 21 :
-                return(49, emerald_lantern_9065, "Members: Emerald lantern", "Members can now light <col=000080>emerald lanterns</col>.");
+                return(49, bullseye_lantern_lit_lunar_quest, "Members: Emerald lantern", "Members can now light <col=000080>emerald lanterns</col>.");
             case 22 :
                 return(50, mahogany_logs, "Members: Mahogany logs", "Members can now light <col=000080>mahogany logs</col>.");
             case 23 :
-                return(50, maple_pyre_logs, "Members: Maple pyre logs", "Members can now light <col=000080>maple pyre logs</col>.");
+                return(50, maple_logs_pyre, "Members: Maple pyre logs", "Members can now light <col=000080>maple pyre logs</col>.");
             case 24 :
-                return(52, light_orb, "Members: Replace Dorgeshuun light orb", "Members can now replace <col=000080>Dorgeshuun light orbs</col>.");
+                return(52, dorgesh_light_bulb, "Members: Replace Dorgeshuun light orb", "Members can now replace <col=000080>Dorgeshuun light orbs</col>.");
             case 25 :
-                return(55, mahogany_pyre_log, "Members: Mahogany pyre logs", "Members can now light <col=000080>mahogany pyre logs</col>.");
+                return(55, mahogany_logs_pyre, "Members: Mahogany pyre logs", "Members can now light <col=000080>mahogany pyre logs</col>.");
             case 26 :
                 return(58, eucalyptus_logs, "Members: Eucalyptus logs", "Members can now light <col=000080>eucalyptus logs</col>.");
             case 27 :
                 return(60, yew_logs, "Yew logs", "You can now light <col=000080>yew logs</col>.");
             case 28 :
-                return(63, eucalyptus_pyre_logs, "Members: Eucalyptus pyre logs", "Members can now light <col=000080>eucalyptus pyre logs</col>.");
+                return(63, eucalyptus_logs_pyre, "Members: Eucalyptus pyre logs", "Members can now light <col=000080>eucalyptus pyre logs</col>.");
             case 29 :
-                return(65, mining_helmet, "Members: Cave goblin mining helmet", "Members can now light <col=000080>cave goblin mining helmets</col>.");
+                return(65, cave_goblin_mining_helmet_lit, "Members: Cave goblin mining helmet", "Members can now light <col=000080>cave goblin mining helmets</col>.");
             case 30 :
-                return(65, yew_pyre_logs, "Members: Yew pyre logs", "Members can now light <col=000080>yew pyre logs</col>.");
+                return(65, yew_logs_pyre, "Members: Yew pyre logs", "Members can now light <col=000080>yew pyre logs</col>.");
             case 31 :
                 return(75, magic_logs, "Members: Magic logs", "Members can now light <col=000080>magic logs</col>.");
             case 32 :
-                return(80, magic_pyre_logs, "Members: Magic pyre logs", "Members can now light <col=000080>magic pyre logs</col>.");
+                return(80, magic_logs_pyre, "Members: Magic pyre logs", "Members can now light <col=000080>magic pyre logs</col>.");
         }
     case 1 :
         switch_int ($int1) {
             case 0 :
-                return(-1, silvthrill_rod, "To start Firemaking in the manner of the barbarians, talk to Otto Godblessed when you have level 35 Firemaking or higher.", "");
+                return(-1, invis_rod, "To start Firemaking in the manner of the barbarians, talk to Otto Godblessed when you have level 35 Firemaking or higher.", "");
             case 1 :
                 return(21, logs, "Members: Normal Logs", "Members versed in the art of barbarian firemaking can now light <col=000080>normal logs</col> without a tinderbox.");
             case 2 :
@@ -85,7 +85,7 @@ switch_int ($int0) {
             case 5 :
                 return(55, teak_logs, "Members: Teak", "Members versed in the art of barbarian firemaking can now light <col=000080>teak logs</col> without a tinderbox.");
             case 6 :
-                return(62, arctic_pine_logs, "Members: Arctic pine", "Members versed in the art of barbarian firemaking can now light <col=000080>arctic pine logs</col> without a tinderbox.");
+                return(62, arctic_pine_log, "Members: Arctic pine", "Members versed in the art of barbarian firemaking can now light <col=000080>arctic pine logs</col> without a tinderbox.");
             case 7 :
                 return(65, maple_logs, "Members: Maple", "Members versed in the art of barbarian firemaking can now light <col=000080>maple logs</col> without a tinderbox.");
             case 8 :
@@ -100,7 +100,7 @@ switch_int ($int0) {
     case 2 :
         switch_int ($int1) {
             case 0 :
-                return(-1, silvthrill_rod, "To start Firemaking in the manner of the barbarians, talk to Otto Godblessed when you have level 35 Firemaking or higher. Pyre ships can only be constructed and burnt where the ground is charred, around the lake next to Otto's hut.", "");
+                return(-1, invis_rod, "To start Firemaking in the manner of the barbarians, talk to Otto Godblessed when you have level 35 Firemaking or higher. Pyre ships can only be constructed and burnt where the ground is charred, around the lake next to Otto's hut.", "");
             case 1 :
                 return(11, logs, "Members: Wood<br> (with 11 Crafting)", "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of <col=000080>logs</col>. (They also need level 11 Crafting.)");
             case 2 :
@@ -112,7 +112,7 @@ switch_int ($int0) {
             case 5 :
                 return(45, teak_logs, "Members: Teak<br> (with 45 Crafting)", "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of <col=000080>teak logs</col>. (They also need level 45 Crafting.)");
             case 6 :
-                return(52, arctic_pine_logs, "Members: Arctic pine<br> (with 52 Crafting)", "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of <col=000080>arctic pine logs</col>. (They also need level 52 Crafting.)");
+                return(52, arctic_pine_log, "Members: Arctic pine<br> (with 52 Crafting)", "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of <col=000080>arctic pine logs</col>. (They also need level 52 Crafting.)");
             case 7 :
                 return(55, maple_logs, "Members: Maple<br> (with 55 Crafting)", "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of <col=000080>maple logs</col>. (They also need level 55 Crafting.)");
             case 8 :
@@ -129,104 +129,104 @@ switch_int ($int0) {
             case 0 :
                 return(1, tinderbox, "Tinderbox", "You can now light fires with a <col=000080>tinderbox</col>.");
             case 1 :
-                return(61, hand_cannon, "Members: Chaos dwarf hand cannon<br> (after Forgiveness of a Chaos Dwarf and with 75 Ranged)", "Members now have the Firemaking level required to fire the <col=000080>chaos dwarf hand cannon</col> (after Forgiveness of a Chaos Dwarf and with 75 Ranged).");
+                return(61, ra3_arquebus, "Members: Chaos dwarf hand cannon<br> (after Forgiveness of a Chaos Dwarf and with 75 Ranged)", "Members now have the Firemaking level required to fire the <col=000080>chaos dwarf hand cannon</col> (after Forgiveness of a Chaos Dwarf and with 75 Ranged).");
             case 2 :
-                return(62, ring_of_fire, "Members: Ring of Fire<br> (after All Fired Up)", "Members can now wear the <col=000080>Ring of Fire</col> (after All Fired Up).");
+                return(62, firedup_ring, "Members: Ring of Fire<br> (after All Fired Up)", "Members can now wear the <col=000080>Ring of Fire</col> (after All Fired Up).");
             case 3 :
-                return(79, flame_gloves, "Members: Flame Gloves<br> (after All Fired Up)", "Members can now wear the <col=000080>Flame Gloves</col> (after All Fired Up).");
+                return(79, firedup_gloves, "Members: Flame Gloves<br> (after All Fired Up)", "Members can now wear the <col=000080>Flame Gloves</col> (after All Fired Up).");
             case 4 :
-                return(92, inferno_adze, "Members: Inferno Adze<br> (after All Fired Up)", "Members can now use the <col=000080>Inferno Adze</col> (after All Fired Up).");
+                return(92, firedup_adze, "Members: Inferno Adze<br> (after All Fired Up)", "Members can now use the <col=000080>Inferno Adze</col> (after All Fired Up).");
         }
     case 4 :
         switch_int ($int1) {
             case 0 :
-                return(-1, silvthrill_rod, "To use the beacons, you must have completed All Fired Up.", "");
+                return(-1, invis_rod, "To use the beacons, you must have completed All Fired Up.", "");
             case 1 :
-                return(43, fire_beacon, "Members: Beacon near the River Salve", "Members can now light the <col=000080>beacon</col> near the <col=000080>River Salve</col> (after All Fired Up).");
+                return(43, firedup_beacon_icon_dummy, "Members: Beacon near the River Salve", "Members can now light the <col=000080>beacon</col> near the <col=000080>River Salve</col> (after All Fired Up).");
             case 2 :
-                return(43, fire_beacon, "Members: Beacon near the Rag and Bone Man", "Members can now light the <col=000080>beacon</col> near the <col=000080>Rag and Bone Man</col> (after All Fired Up).");
+                return(43, firedup_beacon_icon_dummy, "Members: Beacon near the Rag and Bone Man", "Members can now light the <col=000080>beacon</col> near the <col=000080>Rag and Bone Man</col> (after All Fired Up).");
             case 3 :
-                return(48, fire_beacon, "Members: Beacon near the Jolly Boar", "Members can now light the <col=000080>beacon</col> near the <col=000080>Jolly Boar</col> (after All Fired Up).");
+                return(48, firedup_beacon_icon_dummy, "Members: Beacon near the Jolly Boar", "Members can now light the <col=000080>beacon</col> near the <col=000080>Jolly Boar</col> (after All Fired Up).");
             case 4 :
-                return(53, fire_beacon, "Members: Beacon north of Varrock Palace", "Members can now light the <col=000080>beacon</col> north of <col=000080>Varrock Palace</col> (after All Fired Up).");
+                return(53, firedup_beacon_icon_dummy, "Members: Beacon north of Varrock Palace", "Members can now light the <col=000080>beacon</col> north of <col=000080>Varrock Palace</col> (after All Fired Up).");
             case 5 :
-                return(59, fire_beacon, "Members: Beacon near the Grand Exchange", "Members can now light the <col=000080>beacon</col> near the <col=000080>Grand Exchange</col> (after All Fired Up).");
+                return(59, firedup_beacon_icon_dummy, "Members: Beacon near the Grand Exchange", "Members can now light the <col=000080>beacon</col> near the <col=000080>Grand Exchange</col> (after All Fired Up).");
             case 6 :
-                return(62, fire_beacon, "Members: Beacon near Edgeville", "Members can now light the <col=000080>beacon</col> near <col=000080>Edgeville</col> (after All Fired Up).");
+                return(62, firedup_beacon_icon_dummy, "Members: Beacon near Edgeville", "Members can now light the <col=000080>beacon</col> near <col=000080>Edgeville</col> (after All Fired Up).");
             case 7 :
-                return(68, fire_beacon, "Members: Beacon near the Monastery<br> (after joining the Monastery)", "Members can now light the <col=000080>beacon</col> near <col=000080>the Monastery</col> (after All Fired Up and after joining the Monastery).");
+                return(68, firedup_beacon_icon_dummy, "Members: Beacon near the Monastery<br> (after joining the Monastery)", "Members can now light the <col=000080>beacon</col> near <col=000080>the Monastery</col> (after All Fired Up and after joining the Monastery).");
             case 8 :
-                return(72, fire_beacon, "Members: Beacon near Goblin Village<br> (after Land of the Goblins)", "Members can now light the <col=000080>beacon</col> near <col=000080>Goblin Village</col> (after All Fired Up and Land of the Goblins).");
+                return(72, firedup_beacon_icon_dummy, "Members: Beacon near Goblin Village<br> (after Land of the Goblins)", "Members can now light the <col=000080>beacon</col> near <col=000080>Goblin Village</col> (after All Fired Up and Land of the Goblins).");
             case 9 :
-                return(76, fire_beacon, "Members: Beacon near Burthorpe<br> (with 56 Smithing)", "Members now have the Firemaking level required to light the <col=000080>beacon</col> near <col=000080>Burthorpe</col>. (They also need level 56 Smithing and to have completed All Fired Up).");
+                return(76, firedup_beacon_icon_dummy, "Members: Beacon near Burthorpe<br> (with 56 Smithing)", "Members now have the Firemaking level required to light the <col=000080>beacon</col> near <col=000080>Burthorpe</col>. (They also need level 56 Smithing and to have completed All Fired Up).");
             case 10 :
-                return(79, fire_beacon, "Members: Beacon east of Death Plateau<br> (with 42 Construction)", "Members now have the Firemaking level required to light the <col=000080>beacon</col> east of <col=000080>Death Plateau</col>. (They also need level 42 Construction and to have completed All Fired Up).");
+                return(79, firedup_beacon_icon_dummy, "Members: Beacon east of Death Plateau<br> (with 42 Construction)", "Members now have the Firemaking level required to light the <col=000080>beacon</col> east of <col=000080>Death Plateau</col>. (They also need level 42 Construction and to have completed All Fired Up).");
             case 11 :
-                return(83, fire_beacon, "Members: Beacon near the Trollheim shortcut<br> (with 64 Agility)", "Members now have the Firemaking level required to light the <col=000080>beacon</col> near the <col=000080>Trollheim shortcut</col>. (They also need level 64 Agility and to have completed All Fired Up).");
+                return(83, firedup_beacon_icon_dummy, "Members: Beacon near the Trollheim shortcut<br> (with 64 Agility)", "Members now have the Firemaking level required to light the <col=000080>beacon</col> near the <col=000080>Trollheim shortcut</col>. (They also need level 64 Agility and to have completed All Fired Up).");
             case 12 :
-                return(87, fire_beacon, "Members: Beacon near the entrance to the God Wars Dungeon<br> (with 60 Crafting)", "Members now have the Firemaking level required to light the <col=000080>beacon</col> near the entrance to the <col=000080>God Wars Dungeon</col>. (They also need level 60 Crafting and to have completed All Fired Up).");
+                return(87, firedup_beacon_icon_dummy, "Members: Beacon near the entrance to the God Wars Dungeon<br> (with 60 Crafting)", "Members now have the Firemaking level required to light the <col=000080>beacon</col> near the entrance to the <col=000080>God Wars Dungeon</col>. (They also need level 60 Crafting and to have completed All Fired Up).");
             case 13 :
-                return(89, fire_beacon, "Members: Beacon near small temple in the Wilderness<br> (with 70 Smithing or 59 Construction)", "Members now have the Firemaking level required to light the <col=000080>beacon</col> near the <col=000080>small temple in the Wilderness</col>. (They will also need level 70 Smithing or level 59 Construction, and to have completed All Fired Up).");
+                return(89, firedup_beacon_icon_dummy, "Members: Beacon near small temple in the Wilderness<br> (with 70 Smithing or 59 Construction)", "Members now have the Firemaking level required to light the <col=000080>beacon</col> near the <col=000080>small temple in the Wilderness</col>. (They will also need level 70 Smithing or level 59 Construction, and to have completed All Fired Up).");
             case 14 :
-                return(92, fire_beacon, "Members: Beacon on the Frozen Waste Plateau", "Members can now light the <col=000080>beacon</col> on the <col=000080>Frozen Waste Plateau</col> (after All Fired Up).");
+                return(92, firedup_beacon_icon_dummy, "Members: Beacon on the Frozen Waste Plateau", "Members can now light the <col=000080>beacon</col> on the <col=000080>Frozen Waste Plateau</col> (after All Fired Up).");
         }
     case 5 :
         switch_int ($int1) {
             case 0 :
-                return(91, starved_ancient_effigy, "Members: Starved ancient effigies", "Members can now investigate <col=000080>starved ancient effigies</col> using their knowledge of Firemaking.");
+                return(91, effi_ancient_effigy_level_0, "Members: Starved ancient effigies", "Members can now investigate <col=000080>starved ancient effigies</col> using their knowledge of Firemaking.");
             case 1 :
-                return(93, nourished_ancient_effigy, "Members: Nourished ancient effigies", "Members can now investigate <col=000080>nourished ancient effigies</col> using their knowledge of Firemaking.");
+                return(93, effi_ancient_effigy_level_1, "Members: Nourished ancient effigies", "Members can now investigate <col=000080>nourished ancient effigies</col> using their knowledge of Firemaking.");
             case 2 :
-                return(95, sated_ancient_effigy, "Members: Sated ancient effigies", "Members can now investigate <col=000080>sated ancient effigies</col> using their knowledge of Firemaking.");
+                return(95, effi_ancient_effigy_level_2, "Members: Sated ancient effigies", "Members can now investigate <col=000080>sated ancient effigies</col> using their knowledge of Firemaking.");
             case 3 :
-                return(97, gorged_ancient_effigy, "Members: Gorged ancient effigies", "Members can now investigate <col=000080>gorged ancient effigies</col> using their knowledge of Firemaking.");
+                return(97, effi_ancient_effigy_level_3, "Members: Gorged ancient effigies", "Members can now investigate <col=000080>gorged ancient effigies</col> using their knowledge of Firemaking.");
         }
     case 6 :
         switch_int ($int1) {
             case 0 :
-                return(1, obj_14667, "Members: Burn basic evil tree", "Members can now burn <col=000080>basic evil trees</col>");
+                return(1, eviltree_skillguide, "Members: Burn basic evil tree", "Members can now burn <col=000080>basic evil trees</col>");
             case 1 :
-                return(15, obj_14667, "Members: Burn evil oak tree", "Members can now burn <col=000080>evil oak trees</col>");
+                return(15, eviltree_skillguide, "Members: Burn evil oak tree", "Members can now burn <col=000080>evil oak trees</col>");
             case 2 :
-                return(30, obj_14667, "Members: Burn evil willow tree", "Members can now burn <col=000080>evil willow trees</col>");
+                return(30, eviltree_skillguide, "Members: Burn evil willow tree", "Members can now burn <col=000080>evil willow trees</col>");
             case 3 :
-                return(45, obj_14667, "Members: Burn evil maple tree", "Members can now burn <col=000080>evil maple trees</col>");
+                return(45, eviltree_skillguide, "Members: Burn evil maple tree", "Members can now burn <col=000080>evil maple trees</col>");
             case 4 :
-                return(55, obj_14619, "Members: Phoenix Lair - funeral pyre", "Members can now light the phoenix's <col=000080>funeral pyre</col> in the phoenix lair.");
+                return(55, phoenix_pyre_inv, "Members: Phoenix Lair - funeral pyre", "Members can now light the phoenix's <col=000080>funeral pyre</col> in the phoenix lair.");
             case 5 :
-                return(60, obj_14667, "Members: Burn evil yew tree", "Members can now burn <col=000080>evil yew trees</col>");
+                return(60, eviltree_skillguide, "Members: Burn evil yew tree", "Members can now burn <col=000080>evil yew trees</col>");
             case 6 :
-                return(75, obj_14667, "Members: Burn evil magic tree", "Members can now burn <col=000080>evil magic trees</col>");
+                return(75, eviltree_skillguide, "Members: Burn evil magic tree", "Members can now burn <col=000080>evil magic trees</col>");
             case 7 :
-                return(85, obj_14667, "Members: Burn elder evil tree", "Members can now burn <col=000080>elder evil trees</col>");
+                return(85, eviltree_skillguide, "Members: Burn elder evil tree", "Members can now burn <col=000080>elder evil trees</col>");
         }
     case 7 :
         switch_int ($int1) {
             case 0 :
-                return(-1, ring_of_kinship, "Dungeoneering skill tasks<br>As your Firemaking level increases, you will be able to attempt higher-level firemaking tasks within Daemonheim. You will also be more likely to succeed when attempting firemaking tasks within Daemonheim.", "");
+                return(-1, rand_mission_contract, "Dungeoneering skill tasks<br>As your Firemaking level increases, you will be able to attempt higher-level firemaking tasks within Daemonheim. You will also be more likely to succeed when attempting firemaking tasks within Daemonheim.", "");
             case 1 :
-                return(1, tangle_gum_branches, "Tangle gum branches (Tier 1)", "You can now light <col=000080>tangle gum branches</col> within Daemonheim.");
+                return(1, rand_logs_1, "Tangle gum branches (Tier 1)", "You can now light <col=000080>tangle gum branches</col> within Daemonheim.");
             case 2 :
-                return(10, seeping_elm_branches, "Seeping elm branches (Tier 2)", "You can now light <col=000080>seeping elm branches</col> within Daemonheim.");
+                return(10, rand_logs_2, "Seeping elm branches (Tier 2)", "You can now light <col=000080>seeping elm branches</col> within Daemonheim.");
             case 3 :
-                return(20, blood_spindle_branches, "Blood spindle branches (Tier 3)", "You can now light <col=000080>blood spindle branches</col> within Daemonheim.");
+                return(20, rand_logs_3, "Blood spindle branches (Tier 3)", "You can now light <col=000080>blood spindle branches</col> within Daemonheim.");
             case 4 :
-                return(30, utuku_branches, "Utuku branches (Tier 4)", "You can now light <col=000080>utuku branches</col> within Daemonheim.");
+                return(30, rand_logs_4, "Utuku branches (Tier 4)", "You can now light <col=000080>utuku branches</col> within Daemonheim.");
             case 5 :
-                return(40, spinebeam_branches, "Spinebeam branches (Tier 5)", "You can now light <col=000080>spinebeam branches</col> within Daemonheim.");
+                return(40, rand_logs_5, "Spinebeam branches (Tier 5)", "You can now light <col=000080>spinebeam branches</col> within Daemonheim.");
             case 6 :
-                return(50, bovistrangler_branches, "Members: Bovistrangler branches (Tier 6)", "Members can now light <col=000080>bovistrangler branches</col> within Daemonheim.");
+                return(50, rand_logs_6, "Members: Bovistrangler branches (Tier 6)", "Members can now light <col=000080>bovistrangler branches</col> within Daemonheim.");
             case 7 :
-                return(60, thigat_branches, "Members: Thigat branches (Tier 7)", "Members can now light <col=000080>thigat branches</col> within Daemonheim.");
+                return(60, rand_logs_7, "Members: Thigat branches (Tier 7)", "Members can now light <col=000080>thigat branches</col> within Daemonheim.");
             case 8 :
-                return(70, corpsethorn_branches, "Members: Corpsethorn branches (Tier 8)", "Members can now light <col=000080>corpsethorn branches</col> within Daemonheim.");
+                return(70, rand_logs_8, "Members: Corpsethorn branches (Tier 8)", "Members can now light <col=000080>corpsethorn branches</col> within Daemonheim.");
             case 9 :
-                return(80, entgallow_branches, "Members: Entgallow branches (Tier 9)", "Members can now light <col=000080>entgallow branches</col> within Daemonheim.");
+                return(80, rand_logs_9, "Members: Entgallow branches (Tier 9)", "Members can now light <col=000080>entgallow branches</col> within Daemonheim.");
             case 10 :
-                return(90, grave_creeper_branches, "Members: Grave creeper branches (Tier 10)", "Members can now light <col=000080>grave creeper branches</col> within Daemonheim.");
+                return(90, rand_logs_10, "Members: Grave creeper branches (Tier 10)", "Members can now light <col=000080>grave creeper branches</col> within Daemonheim.");
         }
     case 8 :
         if ($int1 = 0) {
-            return(99, firemaking_cape, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Firemaking<col=000080>. Members can visit <col=800000>Ignatius<col=000080>, south of <col=800000>Seers' Village<col=000080>. He has something special that is only available to true masters of the <col=800000>Firemaking<col=000080> skill!");
+            return(99, skillcape_firemaking, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Firemaking<col=000080>. Members can visit <col=800000>Ignatius<col=000080>, south of <col=800000>Seers' Village<col=000080>. He has something special that is only available to true masters of the <col=800000>Firemaking<col=000080> skill!");
         }
 }

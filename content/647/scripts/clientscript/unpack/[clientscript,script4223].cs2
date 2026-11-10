@@ -1,17 +1,17 @@
 // 4223
 [clientscript,script4223]
-if_setpausetext("Make 100", skill_multi_rand:make10_1);
-if_setpausetext("Make 50", skill_multi_rand:make5_1);
-if_setpausetext("Make 10", skill_multi_rand:make1_1);
-if_setpausetext("Make 100", skill_multi_rand:make10_2);
-if_setpausetext("Make 50", skill_multi_rand:make5_2);
-if_setpausetext("Make 10", skill_multi_rand:make1_2);
-if_setpausetext("Make 100", skill_multi_rand:make10_3);
-if_setpausetext("Make 50", skill_multi_rand:make5_3);
-if_setpausetext("Make 10", skill_multi_rand:make1_3);
-if_setpausetext("Make 100", skill_multi_rand:make10_4);
-if_setpausetext("Make 50", skill_multi_rand:make5_4);
-if_setpausetext("Make 10", skill_multi_rand:make1_4);
-if_setpausetext("Make 100", skill_multi_rand:make10_5);
-if_setpausetext("Make 50", skill_multi_rand:make5_5);
-if_setpausetext("Make 10", skill_multi_rand:make1_5);
+if_setpausetext(skill_multi_rand:make10_1, "Make 100");
+if_setpausetext(skill_multi_rand:make5_1, "Make 50");
+if_setpausetext(skill_multi_rand:make1_1, "Make 10");
+if_setpausetext(skill_multi_rand:make10_2, "Make 100");
+if_setpausetext(skill_multi_rand:make5_2, "Make 50");
+if_setpausetext(skill_multi_rand:make1_2, "Make 10");
+if_setpausetext(skill_multi_rand:make10_3, "Make 100");
+if_setpausetext(skill_multi_rand:make5_3, "Make 50");
+if_setpausetext(skill_multi_rand:make1_3, "Make 10");
+if_setpausetext(skill_multi_rand:make10_4, "Make 100");
+if_setpausetext(skill_multi_rand:make5_4, "Make 50");
+if_setpausetext(skill_multi_rand:make1_4, "Make 10");
+if_setpausetext(skill_multi_rand:make10_5, "Make 100");
+if_setpausetext(skill_multi_rand:make5_5, "Make 50");
+if_setpausetext(skill_multi_rand:make1_5, "Make 10");

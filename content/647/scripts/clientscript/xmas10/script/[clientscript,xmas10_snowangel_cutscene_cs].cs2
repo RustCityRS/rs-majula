@@ -1,6 +1,6 @@
 // 4076
 [clientscript,xmas10_snowangel_cutscene_cs](component $component0)
-switch_int (%varclient_1434) {
+switch_int (%xmas10_snowangel_cutscene_tracker) {
     case 1 :
         ~tutorial3_fadeout(^black, 50, $component0);
     case 2 :

@@ -1,15 +1,15 @@
 // 4595
 [proc,script4595]
-if_sethide(true, deathkeep_info:com_17);
-if_sethide(true, deathkeep_info:0_header);
-if_sethide(true, deathkeep_info:com_20);
-if_sethide(true, deathkeep_info:1_header);
-if_sethide(true, deathkeep_info:com_22);
-if_sethide(true, deathkeep_info:2_header);
-if_sethide(true, deathkeep_info:items_scrollbar);
-if_setscrollsize(0, 0, deathkeep_info:items);
-if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, deathkeep_info:items);
-if_setscrollpos(0, 0, deathkeep_info:items);
+if_sethide(deathkeep_info:com_17, true);
+if_sethide("deathkeep_info:0_header", true);
+if_sethide(deathkeep_info:com_20, true);
+if_sethide("deathkeep_info:1_header", true);
+if_sethide(deathkeep_info:com_22, true);
+if_sethide("deathkeep_info:2_header", true);
+if_sethide(deathkeep_info:items_scrollbar, true);
+if_setscrollsize(deathkeep_info:items, 0, 0);
+if_setposition(deathkeep_info:items, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+if_setscrollpos(deathkeep_info:items, 0, 0);
 cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
 cc_settextfont(p12_full);

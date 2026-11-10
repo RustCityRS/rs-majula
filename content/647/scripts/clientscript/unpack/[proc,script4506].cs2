@@ -12,10 +12,10 @@ def_component $component5 = if_getlayer($component1);
 if ($component5 = null) {
     return;
 }
-if_sethide(false, $component3);
-if_setnoclickthrough(true, $component3);
+if_sethide($component3, false);
+if_setnoclickthrough($component3, true);
 if ($component2 ! null) {
-    if_sethide(false, $component2);
+    if_sethide($component2, false);
 }
 def_int $int6 = calc(if_getnextsubid($component0) - 1);
 while ($int6 >= 0) {

@@ -1,6 +1,6 @@
 // 4131
 [proc,script4131](component $component0, coord $coord1)
-switch_int (%varclient_1452) {
+switch_int (%glo3_cutscene) {
     case 101 :
         cc_deleteall($component0);
         ~fadeout(^black, 50, $component0);

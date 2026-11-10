@@ -1,8 +1,8 @@
 // 3171
 [proc,lobbyscreen_pane_clanchat_chat_load](component $component0)
-if_setonfriendtransmit("lobbyscreen_pane_clanchat_chat_build($component0)", $component0);
-if_setonclantransmit("lobbyscreen_pane_clanchat_chat_build($component0)", $component0);
-if_setonchattransmit("lobbyscreen_pane_clanchat_chat_build($component0)", $component0);
-if_setonclanchanneltransmit("lobbyscreen_pane_clanchat_chat_build($component0)", $component0);
-if_setonclansettingstransmit("lobbyscreen_pane_clanchat_chat_build($component0)", $component0);
+if_setonfriendtransmit($component0, "lobbyscreen_pane_clanchat_chat_build($component0)");
+if_setonclantransmit($component0, "lobbyscreen_pane_clanchat_chat_build($component0)");
+if_setonchattransmit($component0, "lobbyscreen_pane_clanchat_chat_build($component0)");
+if_setonclanchanneltransmit($component0, "lobbyscreen_pane_clanchat_chat_build($component0)");
+if_setonclansettingstransmit($component0, "lobbyscreen_pane_clanchat_chat_build($component0)");
 ~lobbyscreen_pane_clanchat_chat_build($component0);

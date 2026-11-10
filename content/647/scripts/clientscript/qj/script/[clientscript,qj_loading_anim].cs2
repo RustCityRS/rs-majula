@@ -1,19 +1,19 @@
 // 2354
 [clientscript,qj_loading_anim](component $component0)
-if (%varclient_772 = 1) {
-    if_settext("Saving your game and loading QuestHelp", $component0);
-    %varclient_772 = calc(%varclient_772 + 1);
-} else if (%varclient_772 = 20) {
-    if_settext("Saving your game and loading QuestHelp.", $component0);
-    %varclient_772 = calc(%varclient_772 + 1);
-} else if (%varclient_772 = 40) {
-    if_settext("Saving your game and loading QuestHelp..", $component0);
-    %varclient_772 = calc(%varclient_772 + 1);
-} else if (%varclient_772 = 60) {
-    if_settext("Saving your game and loading QuestHelp.", $component0);
-    %varclient_772 = calc(%varclient_772 + 1);
-} else if (%varclient_772 = 80) {
-    %varclient_772 = 1;
+if (%qj_help_anim = 1) {
+    if_settext($component0, "Saving your game and loading QuestHelp");
+    %qj_help_anim = calc(%qj_help_anim + 1);
+} else if (%qj_help_anim = 20) {
+    if_settext($component0, "Saving your game and loading QuestHelp.");
+    %qj_help_anim = calc(%qj_help_anim + 1);
+} else if (%qj_help_anim = 40) {
+    if_settext($component0, "Saving your game and loading QuestHelp..");
+    %qj_help_anim = calc(%qj_help_anim + 1);
+} else if (%qj_help_anim = 60) {
+    if_settext($component0, "Saving your game and loading QuestHelp.");
+    %qj_help_anim = calc(%qj_help_anim + 1);
+} else if (%qj_help_anim = 80) {
+    %qj_help_anim = 1;
 } else {
-    %varclient_772 = calc(%varclient_772 + 1);
+    %qj_help_anim = calc(%qj_help_anim + 1);
 }

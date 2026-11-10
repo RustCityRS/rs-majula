@@ -1,82 +1,82 @@
 // 2032
 [clientscript,trawler_water_level]
-if_sethide(true, trawler_overlay:trawler_waterlevel0);
-if_sethide(true, trawler_overlay:trawler_waterlevel1);
-if_sethide(true, trawler_overlay:trawler_waterlevel2);
-if_sethide(true, trawler_overlay:trawler_waterlevel3);
-if_sethide(true, trawler_overlay:trawler_waterlevel4);
-if_sethide(true, trawler_overlay:trawler_waterlevel5);
-if_sethide(true, trawler_overlay:trawler_waterlevel6);
-if_sethide(true, trawler_overlay:trawler_waterlevel7);
-if_sethide(true, trawler_overlay:trawler_waterlevel8);
-if_sethide(true, trawler_overlay:trawler_waterlevel9);
-if_sethide(true, trawler_overlay:trawler_waterlevel10);
-if_sethide(true, trawler_overlay:trawler_waterlevel11);
-if_sethide(true, trawler_overlay:trawler_waterlevel12);
-if_sethide(true, trawler_overlay:trawler_waterlevel13);
-if_sethide(true, trawler_overlay:trawler_waterlevel14);
-if_sethide(true, trawler_overlay:trawler_waterlevel15);
-if_sethide(true, trawler_overlay:trawler_waterlevel16);
-if_sethide(true, trawler_overlay:trawler_waterlevel17);
-if_sethide(true, trawler_overlay:trawler_waterlevel18);
-if_sethide(true, trawler_overlay:trawler_waterlevel19);
-if (%varplayer_391 > 0) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel0);
+if_sethide(trawler_overlay:trawler_waterlevel0, true);
+if_sethide(trawler_overlay:trawler_waterlevel1, true);
+if_sethide(trawler_overlay:trawler_waterlevel2, true);
+if_sethide(trawler_overlay:trawler_waterlevel3, true);
+if_sethide(trawler_overlay:trawler_waterlevel4, true);
+if_sethide(trawler_overlay:trawler_waterlevel5, true);
+if_sethide(trawler_overlay:trawler_waterlevel6, true);
+if_sethide(trawler_overlay:trawler_waterlevel7, true);
+if_sethide(trawler_overlay:trawler_waterlevel8, true);
+if_sethide(trawler_overlay:trawler_waterlevel9, true);
+if_sethide(trawler_overlay:trawler_waterlevel10, true);
+if_sethide(trawler_overlay:trawler_waterlevel11, true);
+if_sethide(trawler_overlay:trawler_waterlevel12, true);
+if_sethide(trawler_overlay:trawler_waterlevel13, true);
+if_sethide(trawler_overlay:trawler_waterlevel14, true);
+if_sethide(trawler_overlay:trawler_waterlevel15, true);
+if_sethide(trawler_overlay:trawler_waterlevel16, true);
+if_sethide(trawler_overlay:trawler_waterlevel17, true);
+if_sethide(trawler_overlay:trawler_waterlevel18, true);
+if_sethide(trawler_overlay:trawler_waterlevel19, true);
+if (%trawler_water_overlay > 0) {
+    if_sethide(trawler_overlay:trawler_waterlevel0, false);
 }
-if (%varplayer_391 > 4) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel1);
+if (%trawler_water_overlay > 4) {
+    if_sethide(trawler_overlay:trawler_waterlevel1, false);
 }
-if (%varplayer_391 > 9) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel2);
+if (%trawler_water_overlay > 9) {
+    if_sethide(trawler_overlay:trawler_waterlevel2, false);
 }
-if (%varplayer_391 > 14) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel3);
+if (%trawler_water_overlay > 14) {
+    if_sethide(trawler_overlay:trawler_waterlevel3, false);
 }
-if (%varplayer_391 > 19) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel4);
+if (%trawler_water_overlay > 19) {
+    if_sethide(trawler_overlay:trawler_waterlevel4, false);
 }
-if (%varplayer_391 > 24) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel5);
+if (%trawler_water_overlay > 24) {
+    if_sethide(trawler_overlay:trawler_waterlevel5, false);
 }
-if (%varplayer_391 > 29) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel6);
+if (%trawler_water_overlay > 29) {
+    if_sethide(trawler_overlay:trawler_waterlevel6, false);
 }
-if (%varplayer_391 > 34) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel7);
+if (%trawler_water_overlay > 34) {
+    if_sethide(trawler_overlay:trawler_waterlevel7, false);
 }
-if (%varplayer_391 > 39) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel8);
+if (%trawler_water_overlay > 39) {
+    if_sethide(trawler_overlay:trawler_waterlevel8, false);
 }
-if (%varplayer_391 > 44) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel9);
+if (%trawler_water_overlay > 44) {
+    if_sethide(trawler_overlay:trawler_waterlevel9, false);
 }
-if (%varplayer_391 > 49) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel10);
+if (%trawler_water_overlay > 49) {
+    if_sethide(trawler_overlay:trawler_waterlevel10, false);
 }
-if (%varplayer_391 > 54) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel11);
+if (%trawler_water_overlay > 54) {
+    if_sethide(trawler_overlay:trawler_waterlevel11, false);
 }
-if (%varplayer_391 > 59) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel12);
+if (%trawler_water_overlay > 59) {
+    if_sethide(trawler_overlay:trawler_waterlevel12, false);
 }
-if (%varplayer_391 > 64) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel13);
+if (%trawler_water_overlay > 64) {
+    if_sethide(trawler_overlay:trawler_waterlevel13, false);
 }
-if (%varplayer_391 > 69) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel14);
+if (%trawler_water_overlay > 69) {
+    if_sethide(trawler_overlay:trawler_waterlevel14, false);
 }
-if (%varplayer_391 > 74) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel15);
+if (%trawler_water_overlay > 74) {
+    if_sethide(trawler_overlay:trawler_waterlevel15, false);
 }
-if (%varplayer_391 > 79) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel16);
+if (%trawler_water_overlay > 79) {
+    if_sethide(trawler_overlay:trawler_waterlevel16, false);
 }
-if (%varplayer_391 > 84) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel17);
+if (%trawler_water_overlay > 84) {
+    if_sethide(trawler_overlay:trawler_waterlevel17, false);
 }
-if (%varplayer_391 > 89) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel18);
+if (%trawler_water_overlay > 89) {
+    if_sethide(trawler_overlay:trawler_waterlevel18, false);
 }
-if (%varplayer_391 > 94) {
-    if_sethide(false, trawler_overlay:trawler_waterlevel19);
+if (%trawler_water_overlay > 94) {
+    if_sethide(trawler_overlay:trawler_waterlevel19, false);
 }

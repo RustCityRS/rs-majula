@@ -2,24 +2,24 @@
 [proc,script1898](int $int0)(int, int)
 switch_int ($int0) {
     case 0 :
-        return(%varclient_523, %varclient_533);
+        return(%camera_speed_start_0, %camera_speed_finish_0);
     case 1 :
-        return(%varclient_524, %varclient_534);
+        return(%camera_speed_start_1, %camera_speed_finish_1);
     case 2 :
-        return(%varclient_525, %varclient_535);
+        return(%camera_speed_start_2, %camera_speed_finish_2);
     case 3 :
-        return(%varclient_526, %varclient_536);
+        return(%camera_speed_start_3, %camera_speed_finish_3);
     case 4 :
-        return(%varclient_527, %varclient_537);
+        return(%camera_speed_start_4, %camera_speed_finish_4);
     case 5 :
-        return(%varclient_528, %varclient_538);
+        return(%camera_speed_start_5, %camera_speed_finish_5);
     case 6 :
-        return(%varclient_529, %varclient_539);
+        return(%camera_speed_start_6, %camera_speed_finish_6);
     case 7 :
-        return(%varclient_530, %varclient_540);
+        return(%camera_speed_start_7, %camera_speed_finish_7);
     case 8 :
-        return(%varclient_531, %varclient_541);
+        return(%camera_speed_start_8, %camera_speed_finish_8);
     case 9 :
-        return(%varclient_532, %varclient_542);
+        return(%camera_speed_start_9, %camera_speed_finish_9);
 }
 return(0, 0);

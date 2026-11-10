@@ -1,10 +1,10 @@
 // 2998
 [proc,lobbyscreen_playerinfo_load]
 ~script2999;
-if_setonclick("script3002(0)", lobbyscreen_pane_playerinfo:com_41);
-if_setonclick("script3002(1)", lobbyscreen_pane_playerinfo:com_29);
-if_setonclick("script3002(2)", lobbyscreen_pane_playerinfo:com_17);
-if_setonclick("script3002(3)", lobbyscreen_pane_playerinfo:com_55);
+if_setonclick(lobbyscreen_pane_playerinfo:com_41, "script3002(0)");
+if_setonclick(lobbyscreen_pane_playerinfo:com_29, "script3002(1)");
+if_setonclick(lobbyscreen_pane_playerinfo:com_17, "script3002(2)");
+if_setonclick(lobbyscreen_pane_playerinfo:com_55, "script3002(3)");
 def_int $int0 = 0;
 if (if_getgraphic(lobbyscreen_pane_playerinfo:com_34) = graphic_2672) {
     $int0 = 0;
@@ -25,8 +25,8 @@ switch_int ($int0) {
     case 3 :
         ~lobbyscreen_playerinfo_bar_open_instant(3, ~lobbyscreen_playerinfo_bar_layers(3));
 }
-if_sethide(false, lobbyscreen_pane_playerinfo:info_bars);
+if_sethide(lobbyscreen_pane_playerinfo:info_bars, false);
 ~script3001;
-if_setontimer("script3000", lobbyscreen_pane_playerinfo:login_address);
+if_setontimer(lobbyscreen_pane_playerinfo:login_address, "script3000");
 if_opensubclient(lobbyscreen_pane_playerinfo:message_of_the_week, lobby_message_of_the_week);
 ~lobby_message_of_the_week;

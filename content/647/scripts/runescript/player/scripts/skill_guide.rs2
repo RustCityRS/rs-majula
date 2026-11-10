@@ -47,7 +47,7 @@ if (testbit(%skill_stat_flash, $bit) = ^true) {
     return;
 }
 %skill_guide_skill = $lookup;
-%skill_guide = add($menu, multiply($page, 1024));
+%skill_guide_v2 = add($menu, multiply($page, 1024));
 if_openmain(skill_guide_v2);
 
 // 2011's guide lists its sections down the left (components 10-24; cache 786
@@ -75,7 +75,7 @@ def_dbrow $row = db_findnext;
 if ($row = null) {
     return;
 }
-%skill_guide = add(db_getfield($row, levelup:icon, 0), multiply($page, 1024));
+%skill_guide_v2 = add(db_getfield($row, levelup:icon, 0), multiply($page, 1024));
 
 // 289's guide pages (its skill_guide interface's section buttons) and the
 // procs that fill its rows have no 2011 counterpart: 2011's client pages and

@@ -1,6 +1,6 @@
 // 2757
 [clientscript,script2757](int $int0)
-if (%varclient_173 = 1 | %varplayerbit_542 = 1 | $int0 ! 1) {
+if (%camera_control_mode = 1 | %cutscene_status = 1 | $int0 ! 1) {
     return;
 }
 if (cam_getangle_xa < 150) {

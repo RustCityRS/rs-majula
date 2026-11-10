@@ -20,7 +20,7 @@ layer=lore_chathead_1
 model=null
 modelangle=2033,1833,0
 modelzoom=2168
-onvartransmit=lore_head_update{varplayer_1174, varplayer_1160}
+onvartransmit=lore_head_update{lore_npc_head, lore_incubators_var}
 
 // 662:2
 [com_2]
@@ -467,7 +467,7 @@ textalignh=centre
 textalignv=bottom
 colour=0xffffcc
 onmouseleave=deltooltip(lore_stats_side:build_layer)
-onvartransmit=script756{varplayer_1177}
+onvartransmit=script756{lore_spell_points}
 onstattransmit=script756{summoning}
 onmouserepeat=script777(event_com, lore_stats_side:build_layer, 43384905, 1)
 
@@ -514,7 +514,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xc4b074
-onvartransmit=script752{varplayer_1176}
+onvartransmit=script752{lore_timer_var}
 
 // 662:44
 [size_icon]
@@ -545,7 +545,7 @@ textshadow=yes
 colour=0xc4b074
 transmitop=10
 op10= 
-onvartransmit=script753{varplayer_1175}
+onvartransmit=script753{lore_npc_stats}
 
 // 662:46
 [size_percent]
@@ -883,7 +883,7 @@ width=190
 height=261
 layer=lore_bounding_box
 hide=yes
-onvartransmit=script753{varplayer_1175}
+onvartransmit=script753{lore_npc_stats}
 
 // 662:72
 [lore_familairs]
@@ -909,7 +909,7 @@ width=32
 height=36
 layer=lore_familairs
 onload=script211
-onvartransmit=script211{varplayer_448}
+onvartransmit=script211{follower_obj}
 onvarcstrtransmit=script211{varclient_1724}
 
 // 662:75

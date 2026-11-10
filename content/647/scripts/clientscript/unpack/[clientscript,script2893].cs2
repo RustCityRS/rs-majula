@@ -1,7 +1,7 @@
 // 2893
 [clientscript,script2893]
-if (%varclient_1086 = 1) {
-    if_setontimer(null, sfa:initial);
-    if_sethide(true, sfa:initial);
-    %varclient_1086 = 0;
+if (%sfa_initial_disappear = 1) {
+    if_setontimer(sfa:initial, null);
+    if_sethide(sfa:initial, true);
+    %sfa_initial_disappear = 0;
 }

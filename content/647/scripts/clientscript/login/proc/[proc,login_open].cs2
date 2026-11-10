@@ -4,20 +4,20 @@ def_int $int1 = ~login_getreply;
 if ($int1 = -3 | $int1 = 21 | $int1 = 1) {
     return;
 }
-if_settext(%varclient_1551, login:username);
-if_settext(~script2949(%varclient_1552), login:password);
+if_settext(login:username, %varclient_1551);
+if_settext(login:password, ~script2949(%loginscreen_password));
 if (string_length(%varclient_1551) > 0) {
-    %varclient_174 = 4;
+    %loginscreen_focus = 4;
 } else {
-    %varclient_174 = 3;
+    %loginscreen_focus = 3;
 }
-if (%varclient_174 = 3) {
-    %varclient_1099 = string_length(%varclient_1551);
+if (%loginscreen_focus = 3) {
+    %login_caret = string_length(%varclient_1551);
     ~script3237(login:username_layer, login:username, login:username_caret, %varclient_1551, 3);
 } else {
-    %varclient_1099 = string_length(~script2949(%varclient_1552));
-    ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%varclient_1552), 4);
+    %login_caret = string_length(~script2949(%loginscreen_password));
+    ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%loginscreen_password), 4);
 }
-if_sethide(false, loginscreen:login);
-if_sethide(false, login:main);
+if_sethide(loginscreen:login, false);
+if_sethide(login:main, false);
 ~loginscreen_setup_login_text;

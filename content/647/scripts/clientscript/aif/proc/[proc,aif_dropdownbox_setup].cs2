@@ -47,8 +47,8 @@ def_component $component16 = if_getlayer($component15);
 if ($component16 = null) {
     return;
 }
-if_setsize(if_getwidth($component15), calc($int13 + if_getheight($component4)), ^setsize_abs, ^setsize_abs, $component15);
-if_setsize(if_getwidth($component15), $int13, ^setsize_abs, ^setsize_abs, $component14);
+if_setsize($component15, if_getwidth($component15), calc($int13 + if_getheight($component4)), ^setsize_abs, ^setsize_abs);
+if_setsize($component14, if_getwidth($component15), $int13, ^setsize_abs, ^setsize_abs);
 if (if_getlayer($component15) = null) {
     return;
 }
@@ -59,18 +59,18 @@ if (if_getheight($component16) < calc(if_gety($component15) + if_getheight($comp
     return;
 }
 if (calc(if_gety($component15) + $int13) > if_getheight(if_getlayer($component15))) {
-    if_setposition(if_getx($component15), calc(if_gety($component15) - (if_getheight($component15) - if_getheight($component4))), ^setpos_abs_left, ^setpos_abs_top, $component15);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component14);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, $component4);
+    if_setposition($component15, if_getx($component15), calc(if_gety($component15) - (if_getheight($component15) - if_getheight($component4))), ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition($component14, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition($component4, 0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
 } else {
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component4);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, $component14);
+    if_setposition($component4, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition($component14, 0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
 }
-if_sethide(true, $component14);
-if_setonclick("script4505($component7, $component4, $component8)", $component4);
-if_setsize(0, 15, ^setsize_minus, ^setsize_abs, $component6);
-if_sethide(true, $component6);
-if_setscrollsize(0, calc($int10 + 5), $component7);
+if_sethide($component14, true);
+if_setonclick($component4, "script4505($component7, $component4, $component8)");
+if_setsize($component6, 0, 15, ^setsize_minus, ^setsize_abs);
+if_sethide($component6, true);
+if_setscrollsize($component7, 0, calc($int10 + 5));
 cc_deleteall($component5);
 ~scrollbar_vertical($component5, $component7, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
 ~script4501($component4, $string0);

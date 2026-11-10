@@ -1,27 +1,27 @@
 // 4043
 [clientscript,warguild_tag_tick]
-if (%varplayerbit_8655 = 0) {
-    if_sethide(true, warguild_token_overlay:tick_1);
+if (%warguild_tagged_1st = 0) {
+    if_sethide(warguild_token_overlay:tick_1, true);
 } else {
-    if_sethide(false, warguild_token_overlay:tick_1);
+    if_sethide(warguild_token_overlay:tick_1, false);
 }
-if (%varplayerbit_8656 = 0) {
-    if_sethide(true, warguild_token_overlay:tick_2);
+if (%warguild_tagged_2nd = 0) {
+    if_sethide(warguild_token_overlay:tick_2, true);
 } else {
-    if_sethide(false, warguild_token_overlay:tick_2);
+    if_sethide(warguild_token_overlay:tick_2, false);
 }
-if (%varplayerbit_8657 = 0) {
-    if_sethide(true, warguild_token_overlay:tick_3);
+if (%warguild_tagged_3rd = 0) {
+    if_sethide(warguild_token_overlay:tick_3, true);
 } else {
-    if_sethide(false, warguild_token_overlay:tick_3);
+    if_sethide(warguild_token_overlay:tick_3, false);
 }
-if (%varplayerbit_8658 = 0) {
-    if_sethide(true, warguild_token_overlay:tick_4);
+if (%warguild_tagged_4th = 0) {
+    if_sethide(warguild_token_overlay:tick_4, true);
 } else {
-    if_sethide(false, warguild_token_overlay:tick_4);
+    if_sethide(warguild_token_overlay:tick_4, false);
 }
-if (%varplayerbit_8659 = 0) {
-    if_sethide(true, warguild_token_overlay:tick_5);
+if (%warguild_tagged_5th = 0) {
+    if_sethide(warguild_token_overlay:tick_5, true);
 } else {
-    if_sethide(false, warguild_token_overlay:tick_5);
+    if_sethide(warguild_token_overlay:tick_5, false);
 }

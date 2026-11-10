@@ -1,5 +1,5 @@
 // 2743
 [clientscript,script2743]
-if_setgraphic("login_lobby_button,0", dob_confirm_login:leftbutton);
-if_setgraphic("login_lobby_button,0", dob_confirm_login:rightbutton);
-if_setgraphic("login_lobby_button,1", dob_confirm_login:middlebutton);
+if_setgraphic(dob_confirm_login:leftbutton, "login_lobby_button,0");
+if_setgraphic(dob_confirm_login:rightbutton, "login_lobby_button,0");
+if_setgraphic(dob_confirm_login:middlebutton, "login_lobby_button,1");

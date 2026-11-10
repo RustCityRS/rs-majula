@@ -2,33 +2,33 @@
 [proc,love_puzzle_read_2](int $int0)(int)
 switch_int ($int0) {
     case 0 :
-        return(%varplayerbit_8023);
+        return(%love_puzzle_2_a1);
     case 1 :
-        return(%varplayerbit_8024);
+        return(%love_puzzle_2_a2);
     case 2 :
-        return(%varplayerbit_8025);
+        return(%love_puzzle_2_a3);
     case 3 :
-        return(%varplayerbit_8026);
+        return(%love_puzzle_2_a4);
     case 4 :
-        return(%varplayerbit_8027);
+        return(%love_puzzle_2_a5);
     case 5 :
-        return(%varplayerbit_8028);
+        return(%love_puzzle_2_a6);
     case 6 :
-        return(%varplayerbit_8029);
+        return(%love_puzzle_2_a7);
     case 7 :
-        return(%varplayerbit_8030);
+        return(%love_puzzle_2_b1);
     case 8 :
-        return(%varplayerbit_8031);
+        return(%love_puzzle_2_b2);
     case 9 :
         return(-1);
     case 10 :
-        return(%varplayerbit_8032);
+        return(%love_puzzle_2_b4);
     case 11 :
-        return(%varplayerbit_8033);
+        return(%love_puzzle_2_b5);
     case 12 :
-        return(%varplayerbit_8034);
+        return(%love_puzzle_2_b6);
     case 13 :
-        return(%varplayerbit_8035);
+        return(%love_puzzle_2_c1);
     case 14 :
         return(-1);
     case 15 :
@@ -36,26 +36,26 @@ switch_int ($int0) {
     case 16 :
         return(-1);
     case 17 :
-        return(%varplayerbit_8036);
+        return(%love_puzzle_2_c5);
     case 18 :
-        return(%varplayerbit_8037);
+        return(%love_puzzle_2_d1);
     case 19 :
-        return(%varplayerbit_8038);
+        return(%love_puzzle_2_d2);
     case 20 :
-        return(%varplayerbit_8039);
+        return(%love_puzzle_2_d3);
     case 21 :
-        return(%varplayerbit_8040);
+        return(%love_puzzle_2_d4);
     case 22 :
         return(-1);
     case 23 :
-        return(%varplayerbit_8041);
+        return(%love_puzzle_2_e2);
     case 24 :
-        return(%varplayerbit_8042);
+        return(%love_puzzle_2_e3);
     case 25 :
-        return(%varplayerbit_8043);
+        return(%love_puzzle_2_f1);
     case 26 :
         return(-1);
     case 27 :
-        return(%varplayerbit_8044);
+        return(%love_puzzle_2_g1);
 }
 return(-1);

@@ -1,8 +1,8 @@
 // 273
 [proc,fishcomp_show_history]
-if_setsize(if_getwidth(fishcomp_overlay:content_layer), 185, ^setsize_abs, ^setsize_abs, fishcomp_overlay:content_layer);
-if_setonop("fishcomp_hide_history", fishcomp_overlay:dropdown_button_layer);
-if_settext("Hide", fishcomp_overlay:com_31);
+if_setsize(fishcomp_overlay:content_layer, if_getwidth(fishcomp_overlay:content_layer), 185, ^setsize_abs, ^setsize_abs);
+if_setonop(fishcomp_overlay:dropdown_button_layer, "fishcomp_hide_history");
+if_settext(fishcomp_overlay:com_31, "Hide");
 ~scrollbar_vertical(fishcomp_overlay:history_scrollbar, fishcomp_overlay:history_scrolllayer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_setvflip(true, fishcomp_overlay:dropdown_arrow_left);
-if_setvflip(true, fishcomp_overlay:dropdown_arrow_right);
+if_setvflip(fishcomp_overlay:dropdown_arrow_left, true);
+if_setvflip(fishcomp_overlay:dropdown_arrow_right, true);

@@ -4,6 +4,6 @@ cc_deleteall($component1);
 if (string_length(%varclient_1549) > 0) {
     ~quickchat_phrase_search_dosearch($component0, $component1, $component2);
 } else {
-    if_setscrollsize(0, 0, $component1);
+    if_setscrollsize($component1, 0, 0);
     ~quickchat_phrase_search_doscrollbar($component1, $component2);
 }

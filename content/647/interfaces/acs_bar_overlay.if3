@@ -55,8 +55,8 @@ width=14
 height=29
 widthmode=minus
 layer=bounds
-onvartransmit=acs_update_progress_bar{varplayer_2081}
-onvarctransmit=acs_update_progress_bar{varclient_1494}
+onvartransmit=acs_update_progress_bar{acs_temp_1}
+onvarctransmit=acs_update_progress_bar{acs_progress_bar_fill_value}
 
 // 481:6
 [wetwilly_layer]
@@ -165,7 +165,7 @@ widthmode=proportion
 heightmode=proportion
 ymode=abs_centre
 layer=progress_bar_bounds
-onvartransmit=script4241{varplayer_2077}
+onvartransmit=script4241{acs_tempint_1}
 
 // 481:16
 [com_16]

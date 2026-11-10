@@ -1,7 +1,7 @@
 // 3977
 [proc,task_side_overview_populate](int $int0)
 ~deltooltip_action(task_side:summary_tooltip);
-if ($int0 = 0 & %learning_the_ropes < 1000) {
+if ($int0 = 0 & %tutorial < 1000) {
     $int0 = 4094;
 }
 if (~script3999($int0) = 1) {
@@ -31,14 +31,14 @@ if ($struct1 ! null) {
         $string2 = struct_param($struct1, param_1292);
         $graphic3 = struct_param($struct1, param_1271);
     }
-    if_setgraphic($graphic3, task_side:task_icon);
-    if_settext($string0, task_side:title_text);
-    if_settext($string1, task_side:details_text);
-    if_settextfont(p12_full, task_side:details_text);
-    if_settextalign(^settextalign_left, ^settextalign_top, 0, task_side:details_text);
+    if_setgraphic(task_side:task_icon, $graphic3);
+    if_settext(task_side:title_text, $string0);
+    if_settext(task_side:details_text, $string1);
+    if_settextfont(task_side:details_text, p12_full);
+    if_settextalign(task_side:details_text, ^settextalign_left, ^settextalign_top, 0);
 }
 def_string $string3 = "";
-if (compare($string2, "") = 0 & %learning_the_ropes = 1000) {
+if (compare($string2, "") = 0 & %tutorial = 1000) {
     if (%varplayerbit_8601 < 10) {
         $string3 = "ten";
     } else if (%varplayerbit_8601 < 25) {
@@ -52,18 +52,18 @@ if (compare($string2, "") = 0 & %learning_the_ropes = 1000) {
     }
     $string2 = "Completing this Task will earn you <$string3> coins.";
 }
-if_sethide(true, task_side:overview_step1);
-if_sethide(true, task_side:com_77);
-if_sethide(true, task_side:overview_step2);
-if_sethide(true, task_side:com_79);
-if_sethide(true, task_side:overview_step3);
-if_sethide(true, task_side:com_81);
-if_sethide(true, task_side:overview_step4);
-if_sethide(true, task_side:com_83);
-if_sethide(true, task_side:overview_step5);
-if_sethide(true, task_side:com_85);
-if_sethide(true, task_side:overview_step6);
-if_sethide(true, task_side:com_87);
+if_sethide(task_side:overview_step1, true);
+if_sethide(task_side:com_77, true);
+if_sethide(task_side:overview_step2, true);
+if_sethide(task_side:com_79, true);
+if_sethide(task_side:overview_step3, true);
+if_sethide(task_side:com_81, true);
+if_sethide(task_side:overview_step4, true);
+if_sethide(task_side:com_83, true);
+if_sethide(task_side:overview_step5, true);
+if_sethide(task_side:com_85, true);
+if_sethide(task_side:overview_step6, true);
+if_sethide(task_side:com_87, true);
 def_int $int6 = 10;
 def_int $int7 = 0;
 def_int $int8 = 15;
@@ -72,17 +72,17 @@ def_string $string4 = "";
 def_int $rgb10 = ^black;
 $int9, $string4, $rgb10 = ~task_requirements($int0);
 if (map_lang = 1 | map_lang = 3 | map_lang = 2) {
-    if_sethide(true, task_side:com_121);
-    if_sethide(true, task_side:close_arrow);
+    if_sethide(task_side:com_121, true);
+    if_sethide(task_side:close_arrow, true);
 } else {
     if (map_lang = 0) {
-        if_settext("    Pin", task_side:active_state);
-        if_settext("     Back", task_side:close_text);
+        if_settext(task_side:active_state, "    Pin");
+        if_settext(task_side:close_text, "     Back");
     }
-    if_sethide(false, task_side:com_121);
-    if_sethide(false, task_side:close_arrow);
+    if_sethide(task_side:com_121, false);
+    if_sethide(task_side:close_arrow, false);
 }
-if_sethide(true, task_side:pin_button_layer);
+if_sethide(task_side:pin_button_layer, true);
 if (compare(struct_param($struct1, param_1274), "") ! 0) {
     if (struct_param($struct1, param_1282) ! null) {
         $int7 = $int0;
@@ -132,21 +132,21 @@ if (compare(struct_param($struct1, param_1279), "") ! 0) {
     $int6 = ~script3978(6, $int6, struct_param($struct1, param_1279), task_side:overview_step6, $int7, task_side:com_87, task_side:hints_window);
 }
 $int6 = max($int6, if_getheight(task_side:hints_window));
-if_setscrollsize(0, $int6, task_side:hints_window);
+if_setscrollsize(task_side:hints_window, 0, $int6);
 ~scrollbar_vertical(task_side:hints_scroll, task_side:hints_window, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
 if ($int6 > if_getheight(task_side:hints_window)) {
-    if_sethide(false, task_side:hints_scroll);
+    if_sethide(task_side:hints_scroll, false);
 } else {
-    if_sethide(true, task_side:hints_scroll);
+    if_sethide(task_side:hints_scroll, true);
 }
-if_sethide(true, task_side:rewards_set_npc);
-if_sethide(true, task_side:rewards_set_details);
-if_sethide(true, task_side:rewards_set_1);
-if_sethide(true, task_side:rewards_set_2);
-if_sethide(true, task_side:rewards_set_3);
-if_sethide(true, task_side:rewards_set_4);
-if_sethide(true, task_side:rewards_set_5);
-if_sethide(true, task_side:rewards_set_6);
+if_sethide(task_side:rewards_set_npc, true);
+if_sethide(task_side:rewards_set_details, true);
+if_sethide(task_side:rewards_set_1, true);
+if_sethide(task_side:rewards_set_2, true);
+if_sethide(task_side:rewards_set_3, true);
+if_sethide(task_side:rewards_set_4, true);
+if_sethide(task_side:rewards_set_5, true);
+if_sethide(task_side:rewards_set_6, true);
 $int6 = ~script3978(0, 10, $string2, task_side:rewards_text, 4094, null, task_side:rewards_window);
 if ($struct5 ! null & $struct5 ! struct_1645) {
     $int6 = ~script3978(0, $int6, struct_param($struct5, param_1273), task_side:rewards_set_npc, 4094, null, task_side:rewards_window);
@@ -174,20 +174,20 @@ if ($struct5 ! null & $struct5 ! struct_1645) {
     $int6 = ~script3978(0, $int6, $string2, task_side:rewards_set_details, 4094, null, task_side:rewards_window);
 }
 $int6 = max($int6, if_getheight(task_side:rewards_window));
-if_setscrollsize(0, $int6, task_side:rewards_window);
+if_setscrollsize(task_side:rewards_window, 0, $int6);
 ~scrollbar_vertical(task_side:rewards_scroll, task_side:rewards_window, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
 if ($int6 > if_getheight(task_side:rewards_window)) {
-    if_sethide(false, task_side:rewards_scroll);
+    if_sethide(task_side:rewards_scroll, false);
 } else {
-    if_sethide(true, task_side:rewards_scroll);
+    if_sethide(task_side:rewards_scroll, true);
 }
 def_string $string5 = "";
 def_int $int11 = 5;
 if (~task_get_progress($int0) = 2) {
-    if_sethide(true, task_side:pin_button_layer);
-    if_sethide(true, task_side:summary_close);
-    if (%learning_the_ropes = 1000 | %varplayerbit_9029 = 1) {
-        if_sethide(false, task_side:complete_layer);
+    if_sethide(task_side:pin_button_layer, true);
+    if_sethide(task_side:summary_close, true);
+    if (%tutorial = 1000 | %varplayerbit_9029 = 1) {
+        if_sethide(task_side:complete_layer, false);
     }
     if ($int0 = 419 & %varplayerbit_9030 = 1) {
         $string5 = "Task complete! Click here to return to the task list.";
@@ -201,21 +201,21 @@ if (~task_get_progress($int0) = 2) {
         }
     }
 } else if (struct_param($struct1, param_1267) = 60) {
-    if_sethide(true, task_side:pin_button_layer);
-    if_sethide(true, task_side:complete_layer);
-    if (%learning_the_ropes < 135 & %varplayerbit_9029 = 0) {
-        if_sethide(true, task_side:summary_close);
+    if_sethide(task_side:pin_button_layer, true);
+    if_sethide(task_side:complete_layer, true);
+    if (%tutorial < 135 & %varplayerbit_9029 = 0) {
+        if_sethide(task_side:summary_close, true);
     } else {
-        if_sethide(false, task_side:summary_close);
+        if_sethide(task_side:summary_close, false);
     }
 } else {
-    if_sethide(false, task_side:summary_close);
+    if_sethide(task_side:summary_close, false);
     if (~script3999($int0) = 0 & $int9 = 1 & $int0 ! %varplayerbit_8576) {
-        if_sethide(false, task_side:pin_button_layer);
+        if_sethide(task_side:pin_button_layer, false);
     } else {
-        if_sethide(true, task_side:pin_button_layer);
+        if_sethide(task_side:pin_button_layer, true);
     }
-    if ($int0 = 420 | $int0 = 363 | $int0 = 419 & %learning_the_ropes = 1000) {
+    if ($int0 = 420 | $int0 = 363 | $int0 = 419 & %tutorial = 1000) {
         $string5 = "Click on the Hints tab for more on how to complete this Task.";
     } else if ($int0 = 421) {
         $string5 = "Remember, the Hints tab provides more details about a Task.";
@@ -235,4 +235,4 @@ if (~task_get_progress($int0) = 2) {
         ~script4247($string5, 217, 177, 1, ^white, verdana_11pt_regular_multiline);
     }
 }
-if_setsize(0, calc(15 + $int6), ^setsize_minus, ^setsize_abs, task_side:bg_layer);
+if_setsize(task_side:bg_layer, 0, calc(15 + $int6), ^setsize_minus, ^setsize_abs);

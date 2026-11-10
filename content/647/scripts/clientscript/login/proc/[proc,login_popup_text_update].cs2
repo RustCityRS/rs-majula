@@ -4,4 +4,4 @@ def_component $component0 = login:popup_text;
 if (unknown_command_5623 = true) {
     $component0 = south_progress9:popup_text;
 }
-if_settext($string0, $component0);
+if_settext($component0, $string0);

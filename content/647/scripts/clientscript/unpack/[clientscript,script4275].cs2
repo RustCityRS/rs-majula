@@ -1,6 +1,6 @@
 // 4275
 [clientscript,script4275]
-if_setmodelanim(seq_8016, lunarfm_cure_side:plant1);
-if_setmodelanim(seq_8016, lunarfm_cure_side:plant2);
-if_setmodelanim(seq_4407, lunarfm_cure_side:plant3);
-if_setmodelanim(seq_8016, lunarfm_cure_side:plant4);
+if_setmodelanim(lunarfm_cure_side:plant1, seq_8016);
+if_setmodelanim(lunarfm_cure_side:plant2, seq_8016);
+if_setmodelanim(lunarfm_cure_side:plant3, seq_4407);
+if_setmodelanim(lunarfm_cure_side:plant4, seq_8016);

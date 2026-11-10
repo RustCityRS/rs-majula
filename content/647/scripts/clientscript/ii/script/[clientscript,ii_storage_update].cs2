@@ -2,24 +2,24 @@
 [clientscript,ii_storage_update](component $component0, obj $obj1, int $int2, component $component3)
 def_component $component4 = if_getlayer($component0);
 def_int $int5 = 0;
-if ($obj1 = butterfly_net) {
-    switch_int (%varplayerbit_7193) {
+if ($obj1 = hunting_butterfly_net) {
+    switch_int (%ii_stored_net) {
         case 1 :
             $int5 = 1;
         case 2 :
             $int5 = 1;
-            $obj1 = magic_butterfly_net;
+            $obj1 = ii_magic_butterfly_net;
     }
-} else if ($obj1 = imp_repellent) {
-    $int5 = %varplayerbit_7192;
-} else if ($obj1 = impling_jar) {
-    $int5 = %varplayerbit_7194;
+} else if ($obj1 = ii_imp_repellent) {
+    $int5 = %ii_stored_repellent;
+} else if ($obj1 = ii_impling_jar) {
+    $int5 = %ii_stored_impling_jars;
 }
-if_settext("<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)", $component3);
-if_setobject_nonum($obj1, -1, $component0);
-if_setoutline(1, $component0);
+if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+if_setobject_nonum($component0, $obj1, -1);
+if_setoutline($component0, 1);
 if ($int5 > 0) {
-    if_setcolour(^yellow, $component3);
+    if_setcolour($component3, ^yellow);
 } else {
-    if_setcolour(0xcc0000, $component3);
+    if_setcolour($component3, 0xcc0000);
 }

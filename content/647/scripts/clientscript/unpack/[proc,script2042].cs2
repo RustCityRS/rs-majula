@@ -9,6 +9,6 @@ if (~lvl_quest_requirements_met($int2) = 0) {
     $string0 = "<col=000080>You now have all the levels necessary to complete <col=800000><enum_string(enum_1481, $int2)><col=000080>.";
 }
 if ($obj3 = null) {
-    $obj3 = obj_6513;
+    $obj3 = quest_scroll_icon;
 }
 return($string0, $obj3, $int4);

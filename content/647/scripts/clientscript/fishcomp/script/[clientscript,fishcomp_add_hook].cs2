@@ -1,4 +1,4 @@
 // 264
 [clientscript,fishcomp_add_hook](int $int0)
-%varclient_1110 = $int0;
+%fishcomp_client_hook = $int0;
 ~fishcomp_refresh;

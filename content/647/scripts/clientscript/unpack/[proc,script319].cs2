@@ -3,7 +3,7 @@
 cc_deleteall($component0);
 def_int $int5 = 0;
 def_int $int6 = 0;
-if_setscrollsize(0, calc((($int4 - $int3) / $int1 + 1) * 57), $component0);
+if_setscrollsize($component0, 0, calc((($int4 - $int3) / $int1 + 1) * 57));
 def_int $int7 = 0;
 def_int $int8 = 1;
 def_int $int9 = 0;
@@ -36,7 +36,7 @@ while ($int7 <= calc($int4 - $int3)) {
     cc_setposition(calc($int5 + 6), calc($int6 + 4), ^setpos_abs_left, ^setpos_abs_top);
     $obj13 = enum(int, obj, enum_1182, $int8);
     $int14 = enum(obj, int, enum_1185, oc_uncert($obj13));
-    if ($obj13 = pouch_12292) {
+    if ($obj13 = lore_pouch_grey) {
         ~lore_interface_inv_draw_slot($obj13, $obj13, $component0, $int15, $string0, $string1, $string2, $string3, $string4, $string5);
     } else if ((inv_total(inv, $obj13) > 0 | inv_total(inv, oc_cert($obj13)) > 0) & stat_base(summoning) >= enum(int, int, enum_1472, $int14)) {
         ~lore_interface_inv_draw_slot($obj13, $obj13, $component0, $int15, $string0, $string1, $string2, $string3, $string4, $string5);
@@ -48,7 +48,7 @@ while ($int7 <= calc($int4 - $int3)) {
     $int15 = calc($int15 + 1);
     cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int5 + 2), calc($int6 + 38), ^setpos_abs_left, ^setpos_abs_top);
-    cc_setobject_nonum(spirit_shards, 1);
+    cc_setobject_nonum(lore_spirit_shard, 1);
     cc_create($component0, ^iftype_text, $int15);
     $int15 = calc($int15 + 1);
     cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);

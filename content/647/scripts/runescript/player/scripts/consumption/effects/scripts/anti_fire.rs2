@@ -1,5 +1,5 @@
 [label,consume_effect_antidragon]
-sound_synth(drink, 1, 0); // 289's liquid; drink is void-634's name for synth 2401
+sound_synth(liquid, 1, 0); // 289's liquid; drink is void-634's name for synth 2401
 anim(human_eat, 0);
 def_obj $consumable = last_item;
 // 289's duration, 600 ticks: 2011's is the same, 6 minutes a dose (2011

@@ -25,25 +25,25 @@ cc_setcolour(^white);
 cc_settrans(255);
 ~script584($component1, $string0);
 def_int $int9 = if_getnextsubid($component1);
-if_setonmouseover("script629($int0)", $component1);
-if_setonmouseleave("script631($int0)", $component1);
+if_setonmouseover($component1, "script629($int0)");
+if_setonmouseleave($component1, "script631($int0)");
 if (stockmarket_isofferempty($int0) = true) {
-    if_setonop(null, $component1);
-    if_setop(1, "", $component1);
-    if_setop(2, "", $component1);
+    if_setonop($component1, null);
+    if_setop($component1, 1, "");
+    if_setop($component1, 2, "");
     if ($int0 >= 2) {
         if (playermember = true) {
-            if_sethide(true, ~script624($int0));
+            if_sethide(~script624($int0), true);
         } else {
-            if_sethide(false, ~script624($int0));
+            if_sethide(~script624($int0), false);
         }
     }
 } else {
-    if_setop(1, "View Offer", $component1);
+    if_setop($component1, 1, "View Offer");
     if (stockmarket_isofferfinished($int0) = false) {
-        if_setop(2, "Abort Offer", $component1);
+        if_setop($component1, 2, "Abort Offer");
     } else {
-        if_setop(2, "", $component1);
+        if_setop($component1, 2, "");
     }
 }
 def_string $string1 = tostring_localised($int5, true);
@@ -51,7 +51,7 @@ def_string $string2 = tostring_localised($int8, true);
 def_int $int10 = 0;
 def_int $int11 = 0;
 def_component $component12 = ~script627($int0);
-if_sethide(true, $component12);
+if_sethide($component12, true);
 def_component $component13 = ~script626($int0);
 def_component $component14 = ~script625($int0);
 def_string $string3 = "";
@@ -59,7 +59,7 @@ def_int $int15 = 0;
 def_int $int16 = 0;
 if (stockmarket_isofferempty($int0) = true) {
     if ($int0 < 2 | playermember = true) {
-        if_sethide(false, $component12);
+        if_sethide($component12, false);
     }
 } else {
     $int10 = 7;

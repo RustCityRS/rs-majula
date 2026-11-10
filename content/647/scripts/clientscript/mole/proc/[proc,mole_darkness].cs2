@@ -1,12 +1,12 @@
 // 834
 [proc,mole_darkness](component $component0)
-switch_int (%varplayerbit_278) {
+switch_int (%darkness_level) {
     case 1 :
-        if_settrans(200, $component0);
+        if_settrans($component0, 200);
     case 2 :
-        if_settrans(150, $component0);
+        if_settrans($component0, 150);
     case 3 :
-        if_settrans(50, $component0);
+        if_settrans($component0, 50);
     case default :
-        if_settrans(255, $component0);
+        if_settrans($component0, 255);
 }

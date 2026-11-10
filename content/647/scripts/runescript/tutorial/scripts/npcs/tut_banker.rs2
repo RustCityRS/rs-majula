@@ -14,8 +14,8 @@ if (npc_range(coord) > 2) {
 );
 
 [label,tut_open_bank]
-if (%tutorial = ^tutorial_open_banking) {
-    %tutorial = ^tutorial_opened_bank;
+if (%varplayer_419 = ^tutorial_open_banking) {
+    %varplayer_419 = ^tutorial_opened_bank;
     inv_add(bank, coins, 25);
     ~set_tutorial_progress;
 }

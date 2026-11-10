@@ -37,7 +37,7 @@ assert_eq(~seqlength20ms(human_sword_slash), divide(seqlength(human_sword_slash)
 [label,test_general_a_poisoned_zombie_moans_and_takes_no_poison]
 setup_player("test_player");
 p_telejump(0_50_50_40_50);
-npc_add(movecoord(coord, 3, 0, 0), zombie, 200);
+npc_add(movecoord(coord, 3, 0, 0), zombie_unarmed, 200);
 def_npc_uid $npc = npc_uid;
 def_int $hp = npc_stat(hitpoints);
 ~npc_poison_start(6);
@@ -50,7 +50,7 @@ assert_eq(npc_stat(hitpoints), $hp);
 [label,test_general_a_poisoned_zombie_clone_moans_and_takes_no_poison]
 setup_player("test_player");
 p_telejump(0_50_50_40_50);
-npc_add(movecoord(coord, 3, 0, 0), zombie_5293, 200);
+npc_add(movecoord(coord, 3, 0, 0), zombie_unarmed2, 200);
 def_npc_uid $npc = npc_uid;
 def_int $hp = npc_stat(hitpoints);
 ~npc_poison_start(6);

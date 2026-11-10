@@ -5,13 +5,13 @@ if (%xp_counter >= -1 & %xp_counter < ^max_32bit_int) {
     $string0 = tostring_localised(calc(%xp_counter / 10), true);
 }
 def_int $int0 = stringwidth($string0, p12_full);
-if_setsize(max(calc($int0 + 38), 90), 106, ^setsize_abs, ^setsize_abs, toplevel:xpbaselayer);
-if_setsize(max(calc($int0 + 40), 90), 106, ^setsize_abs, ^setsize_abs, toplevel_fullscreen:xpbaselayer);
-if_settext($string0, toplevel_fullscreen:xpdisplaytext);
-if_settext($string0, toplevel:xpdisplaytext);
+if_setsize(toplevel:xpbaselayer, max(calc($int0 + 38), 90), 106, ^setsize_abs, ^setsize_abs);
+if_setsize(toplevel_fullscreen:xpbaselayer, max(calc($int0 + 40), 90), 106, ^setsize_abs, ^setsize_abs);
+if_settext(toplevel_fullscreen:xpdisplaytext, $string0);
+if_settext(toplevel:xpdisplaytext, $string0);
 if (map_lang = 1) {
-    if_setgraphic(graphic_3066, toplevel:xpsplaticon);
-    if_setgraphic(graphic_3066, toplevel_fullscreen:xpsplaticon);
+    if_setgraphic(toplevel:xpsplaticon, graphic_3066);
+    if_setgraphic(toplevel_fullscreen:xpsplaticon, graphic_3066);
 }
 ~script3367;
 ~script3337;

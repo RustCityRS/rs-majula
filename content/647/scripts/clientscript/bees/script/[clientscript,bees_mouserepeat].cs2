@@ -16,4 +16,4 @@ $int3 = max($int3, 0);
 $int4 = max($int4, 0);
 $int3 = min($int3, calc(if_getwidth(if_getlayer($component0)) - if_getwidth($component0)));
 $int4 = min($int4, calc(if_getheight(if_getlayer($component0)) - if_getheight($component0)));
-if_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_setposition($component0, $int3, $int4, ^setpos_abs_left, ^setpos_abs_top);

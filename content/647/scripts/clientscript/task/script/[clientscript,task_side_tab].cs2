@@ -6,10 +6,10 @@ def_int $int2 = 0;
 def_int $int3 = 0;
 switch_int ($int0) {
     case 0 :
-        if_sethide(true, task_side:hints_layer);
-        if_sethide(true, task_side:rewards_layer);
-        if_sethide(false, task_side:details_layer);
-        if (compare(if_gettext(task_side:title_text), struct_param(struct_1753, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1752, param_1266)) = 0 & %learning_the_ropes = 1000) {
+        if_sethide(task_side:hints_layer, true);
+        if_sethide(task_side:rewards_layer, true);
+        if_sethide(task_side:details_layer, false);
+        if (compare(if_gettext(task_side:title_text), struct_param(struct_1753, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1752, param_1266)) = 0 & %tutorial = 1000) {
             $string0 = "Click on the Hints tab for more on how to complete this Task.";
         } else if (compare(if_gettext(task_side:title_text), struct_param(struct_1754, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1518, param_1266)) = 0) {
             $string0 = "Remember, the Hints tab provides more details about a Task.";
@@ -26,10 +26,10 @@ switch_int ($int0) {
             $int2 = 177;
         }
     case 1 :
-        if_sethide(true, task_side:hints_layer);
-        if_sethide(false, task_side:rewards_layer);
-        if_sethide(true, task_side:details_layer);
-        if (compare(if_gettext(task_side:title_text), struct_param(struct_1753, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1752, param_1266)) = 0 & %learning_the_ropes = 1000) {
+        if_sethide(task_side:hints_layer, true);
+        if_sethide(task_side:rewards_layer, false);
+        if_sethide(task_side:details_layer, true);
+        if (compare(if_gettext(task_side:title_text), struct_param(struct_1753, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1752, param_1266)) = 0 & %tutorial = 1000) {
             $string0 = "Click on the Hints tab for more on how to complete this Task.";
         } else if (compare(if_gettext(task_side:title_text), struct_param(struct_1754, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1518, param_1266)) = 0) {
             $string0 = "Remember, the Hints tab provides more details about a Task.";
@@ -46,9 +46,9 @@ switch_int ($int0) {
             $int2 = 177;
         }
     case 2 :
-        if_sethide(false, task_side:hints_layer);
-        if_sethide(true, task_side:rewards_layer);
-        if_sethide(true, task_side:details_layer);
+        if_sethide(task_side:hints_layer, false);
+        if_sethide(task_side:rewards_layer, true);
+        if_sethide(task_side:details_layer, true);
         if (compare(if_gettext(task_side:title_text), struct_param(struct_1753, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1754, param_1266)) = 0) {
             $string0 = "The '?' icon will add an arrow to the screen which points to your destination.";
         }

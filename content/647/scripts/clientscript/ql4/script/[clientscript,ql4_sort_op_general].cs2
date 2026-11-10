@@ -3,16 +3,16 @@
 def_enum $enum4 = struct_param(enum(int, struct, enum_169, $int0), param_782);
 if (map_members = false) {
     mes("More advanced grouping options are available on a members' world.");
-} else if (%learning_the_ropes < 1000) {
+} else if (%tutorial < 1000) {
     mes("More advanced grouping options will be available when you've finished the Tutorial.");
 } else {
-    if (%varclient_693 = $int1) {
-        %varclient_694 = calc((1 + %varclient_694) % 2);
+    if (%ql4_sort_mode = $int1) {
+        %ql4_reverse_list = calc((1 + %ql4_reverse_list) % 2);
     } else {
-        %varclient_693 = $int1;
-        %varclient_694 = 0;
+        %ql4_sort_mode = $int1;
+        %ql4_reverse_list = 0;
     }
-    ~ql4_sort($int0, %varclient_693, %varclient_694, %varclient_692, %varclient_1103);
+    ~ql4_sort($int0, %ql4_sort_mode, %ql4_reverse_list, %ql4_filter_doable, %ql4_filter_done);
     ~dropdownbox_close(questlist_v4:com_16, questlist_v4:com_14, questlist_v4:com_15, null, 1);
     if (cc_find(questlist_v4:com_16, 2) = true) {
         cc_settext(enum(int, string, $enum4, $int1));

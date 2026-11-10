@@ -6,9 +6,9 @@ switch_int ($int0) {
             case 0 :
                 return(1, cooked_meat, "Meat", "You can now cook <col=000080>meat</col>.");
             case 1 :
-                return(1, sinew, "Members: Sinew", "You can now make <col=000080>sinew</col> by drying beef or bear meat on a range.");
+                return(1, xbows_sinew, "Members: Sinew", "You can now make <col=000080>sinew</col> by drying beef or bear meat on a range.");
             case 2 :
-                return(1, shrimps, "Shrimp", "You can now cook <col=000080>shrimp</col>.");
+                return(1, shrimp, "Shrimp", "You can now cook <col=000080>shrimp</col>.");
             case 3 :
                 return(1, crayfish, "Crayfish", "You can now cook <col=000080>crayfish</col>.");
             case 4 :
@@ -20,61 +20,61 @@ switch_int ($int0) {
             case 7 :
                 return(1, sardine, "Sardine", "You can now cook <col=000080>sardines</col>.");
             case 8 :
-                return(1, karambwanji, "Members: Karambwanji", "Members can now cook <col=000080>karambwanji</col>.");
+                return(1, tbwt_cooked_karambwanji, "Members: Karambwanji", "Members can now cook <col=000080>karambwanji</col>.");
             case 9 :
-                return(1, poison_karambwan, "Members: Karambwan", "Members can now cook <col=000080>karambwan</col>.");
+                return(1, tbwt_poorly_cooked_karambwan, "Members: Karambwan", "Members can now cook <col=000080>karambwan</col>.");
             case 10 :
-                return(1, ugthanki_kebab_1885, "Members: Ugthanki kebab", "Members can now cook <col=000080>ugthanki kebabs</col>.");
+                return(1, ugthanki_kebab, "Members: Ugthanki kebab", "Members can now cook <col=000080>ugthanki kebabs</col>.");
             case 11 :
                 return(5, herring, "Herring", "You can now cook <col=000080>herring</col>.");
             case 12 :
                 return(10, mackerel, "Members: Mackerel", "Members can now cook <col=000080>mackerel</col>.");
             case 13 :
-                return(11, roast_bird_meat, "Members: Roasted bird meat", "Members can now roast <col=000080>bird meat</col> on an iron spit.");
+                return(11, spit_roasted_bird_meat, "Members: Roasted bird meat", "Members can now roast <col=000080>bird meat</col> on an iron spit.");
             case 14 :
-                return(12, thin_snail_meat, "Members: Thin snail", "Members can now cook <col=000080>thin snails</col>.");
+                return(12, snail_corpse_cooked1, "Members: Thin snail", "Members can now cook <col=000080>thin snails</col>.");
             case 15 :
                 return(15, trout, "Trout", "You can now cook <col=000080>trout</col>.");
             case 16 :
-                return(16, spider_on_stick_6297, "Members: Spider", "Members can now cook <col=000080>spiders</col>.");
+                return(16, tbw_spider_on_stick_cooked, "Members: Spider", "Members can now cook <col=000080>spiders</col>.");
             case 17 :
-                return(16, roast_rabbit, "Members: Roasted rabbit", "Members can now roast <col=000080>rabbits</col> on a spit.");
+                return(16, spit_roasted_rabbit_meat, "Members: Roasted rabbit", "Members can now roast <col=000080>rabbits</col> on a spit.");
             case 18 :
-                return(17, lean_snail_meat, "Members: Lean snail", "Members can now cook <col=000080>lean snails</col>.");
+                return(17, snail_corpse_cooked2, "Members: Lean snail", "Members can now cook <col=000080>lean snails</col>.");
             case 19 :
                 return(18, cod, "Members: Cod", "Members can now cook <col=000080>cod</col>.");
             case 20 :
                 return(20, pike, "Pike", "You can now cook <col=000080>pike</col>.");
             case 21 :
-                return(21, roast_beast_meat, "Members: Roasted beast meat", "Members can now roast <col=000080>beast meat</col> on a spit.");
+                return(21, spit_roasted_beast_meat, "Members: Roasted beast meat", "Members can now roast <col=000080>beast meat</col> on a spit.");
             case 22 :
-                return(21, cooked_crab_meat, "Members: Giant crab meat", "Members can now cook <col=000080>giant crab meat</col>.");
+                return(21, hundred_pirate_giant_crab_meat_5, "Members: Giant crab meat", "Members can now cook <col=000080>giant crab meat</col>.");
             case 23 :
-                return(22, fat_snail_meat, "Members: Fat snail", "Members can now cook <col=000080>fat snails</col>.");
+                return(22, snail_corpse_cooked3, "Members: Fat snail", "Members can now cook <col=000080>fat snails</col>.");
             case 24 :
                 return(25, salmon, "Salmon", "You can now cook <col=000080>salmon</col>.");
             case 25 :
-                return(28, cooked_slimy_eel, "Members: Slimy eel", "Members can now cook <col=000080>slimy eels</col>.");
+                return(28, mort_slimey_eel_cooked, "Members: Slimy eel", "Members can now cook <col=000080>slimy eels</col>.");
             case 26 :
                 return(30, tuna, "Tuna", "You can now cook <col=000080>tuna</col>.");
             case 27 :
                 return(30, cooked_chompy, "Members: Roasted chompy", "Members can now roast <col=000080>chompies</col> on a spit.");
             case 28 :
-                return(31, cooked_fishcake, "Members: Fishcake", "Members can now cook <col=000080>fishcakes</col>.");
+                return(31, hundred_pirate_fishcake, "Members: Fishcake", "Members can now cook <col=000080>fishcakes</col>.");
             case 29 :
-                return(35, rainbow_fish, "Members: Rainbow fish", "Members can now cook <col=000080>rainbow fish</col>.");
+                return(35, hunting_fish_special, "Members: Rainbow fish", "Members can now cook <col=000080>rainbow fish</col>.");
             case 30 :
                 return(38, cave_eel, "Members: Cave eel", "Members can now cook <col=000080>cave eels</col>.");
             case 31 :
                 return(40, lobster, "Lobster", "You can now cook <col=000080>lobsters</col>.");
             case 32 :
-                return(41, cooked_jubbly, "Members: Jubbly", "Members can now cook <col=000080>jubblies</col>.");
+                return(41, 100_jubbly_meat_cooked, "Members: Jubbly", "Members can now cook <col=000080>jubblies</col>.");
             case 33 :
                 return(43, bass, "Members: Bass", "Members can now cook <col=000080>bass</col>.");
             case 34 :
                 return(45, swordfish, "Swordfish", "You can now cook <col=000080>swordfish</col>.");
             case 35 :
-                return(50, cooked_oomlie_wrap, "Members: Oomlie wrap", "Members can now cook <col=000080>oomlie wraps</col>.");
+                return(50, cooked_oomlie, "Members: Oomlie wrap", "Members can now cook <col=000080>oomlie wraps</col>.");
             case 36 :
                 return(53, lava_eel, "Members: Lava eel", "Members can now cook <col=000080>lava eels</col>.");
             case 37 :
@@ -82,13 +82,13 @@ switch_int ($int0) {
             case 38 :
                 return(80, shark, "Members: Shark", "Members can now cook <col=000080>sharks</col>.");
             case 39 :
-                return(82, sea_turtle, "Members: Sea turtle", "Members can now cook <col=000080>sea turtles</col>.");
+                return(82, seaturtle, "Members: Sea turtle", "Members can now cook <col=000080>sea turtles</col>.");
             case 40 :
-                return(88, cavefish, "Members: Cavefish", "Members can now cook <col=000080>cavefish</col>.");
+                return(88, lrc_cavefish_cooked, "Members: Cavefish", "Members can now cook <col=000080>cavefish</col>.");
             case 41 :
-                return(91, manta_ray, "Members: Manta ray", "Members can now cook <col=000080>manta rays</col>.");
+                return(91, mantaray, "Members: Manta ray", "Members can now cook <col=000080>manta rays</col>.");
             case 42 :
-                return(93, rocktail, "Members: Rocktail", "Members can now cook <col=000080>rocktails</col>.");
+                return(93, lrc_rocktail_cooked, "Members: Rocktail", "Members can now cook <col=000080>rocktails</col>.");
         }
     case 1 :
         switch_int ($int1) {
@@ -97,17 +97,17 @@ switch_int ($int0) {
             case 1 :
                 return(58, pitta_bread, "Members: Pitta bread", "Members can now bake <col=000080>pitta bread</col>.");
             case 2 :
-                return(-1, silvthrill_rod, "To make bread:", "");
+                return(-1, invis_rod, "To make bread:", "");
             case 3 :
-                return(-1, silvthrill_rod, "1. Pick some grain and take it to a windmill to make flour.", "");
+                return(-1, invis_rod, "1. Pick some grain and take it to a windmill to make flour.", "");
             case 4 :
-                return(-1, silvthrill_rod, "2. Use a pot to collect the flour you have made.", "");
+                return(-1, invis_rod, "2. Use a pot to collect the flour you have made.", "");
             case 5 :
-                return(-1, silvthrill_rod, "3. Fill a bucket or jug with water from a sink or fountain.", "");
+                return(-1, invis_rod, "3. Fill a bucket or jug with water from a sink or fountain.", "");
             case 6 :
-                return(-1, silvthrill_rod, "4. Mix the flour and water to make some bread dough.", "");
+                return(-1, invis_rod, "4. Mix the flour and water to make some bread dough.", "");
             case 7 :
-                return(-1, silvthrill_rod, "5. Cook the dough by using it with a stove.", "");
+                return(-1, invis_rod, "5. Cook the dough by using it with a stove.", "");
         }
     case 2 :
         switch_int ($int1) {
@@ -130,15 +130,15 @@ switch_int ($int0) {
             case 8 :
                 return(95, summer_pie, "Members: Summer pie", "Members can now bake <col=000080>summer pies</col>.");
             case 9 :
-                return(-1, silvthrill_rod, "To make a pie:", "");
+                return(-1, invis_rod, "To make a pie:", "");
             case 10 :
-                return(-1, silvthrill_rod, "1. Mix flour and water to make pastry dough.", "");
+                return(-1, invis_rod, "1. Mix flour and water to make pastry dough.", "");
             case 11 :
-                return(-1, silvthrill_rod, "2. Place the dough in an empty pie dish.", "");
+                return(-1, invis_rod, "2. Place the dough in an empty pie dish.", "");
             case 12 :
-                return(-1, silvthrill_rod, "3. Use your choice of filling with the empty pie (refer to pie recipe book).", "");
+                return(-1, invis_rod, "3. Use your choice of filling with the empty pie (refer to pie recipe book).", "");
             case 13 :
-                return(-1, silvthrill_rod, "4. Cook the pie by using it with a stove.", "");
+                return(-1, invis_rod, "4. Cook the pie by using it with a stove.", "");
         }
     case 3 :
         switch_int ($int1) {
@@ -147,19 +147,19 @@ switch_int ($int0) {
             case 1 :
                 return(60, curry, "Members: Curry", "Members can now make <col=000080>curries</col>.");
             case 2 :
-                return(-1, silvthrill_rod, "To make stew:", "");
+                return(-1, invis_rod, "To make stew:", "");
             case 3 :
-                return(-1, silvthrill_rod, "1. Obtain a bowl and fill it with water from a sink or fountain.", "");
+                return(-1, invis_rod, "1. Obtain a bowl and fill it with water from a sink or fountain.", "");
             case 4 :
-                return(-1, silvthrill_rod, "2. Pick a potato and place it in the bowl.", "");
+                return(-1, invis_rod, "2. Pick a potato and place it in the bowl.", "");
             case 5 :
-                return(-1, silvthrill_rod, "3. Cook some meat and place it in the bowl.", "");
+                return(-1, invis_rod, "3. Cook some meat and place it in the bowl.", "");
             case 6 :
-                return(-1, silvthrill_rod, "4. Cook the stew by using it with a stove or fire.", "");
+                return(-1, invis_rod, "4. Cook the stew by using it with a stove or fire.", "");
             case 7 :
-                return(-1, silvthrill_rod, "After completing Evil Dave's subquest from Recipe for Disaster, I can add spices to cooked stew.", "");
+                return(-1, invis_rod, "After completing Evil Dave's subquest from Recipe for Disaster, I can add spices to cooked stew.", "");
             case 8 :
-                return(-1, silvthrill_rod, "To make curry: make uncooked stew as above. Before cooking, add some spices or 3 curry leaves.", "");
+                return(-1, invis_rod, "To make curry: make uncooked stew as above. Before cooking, add some spices or 3 curry leaves.", "");
         }
     case 4 :
         switch_int ($int1) {
@@ -168,21 +168,21 @@ switch_int ($int0) {
             case 1 :
                 return(45, meat_pizza, "Meat pizza", "You can now cook <col=000080>meat pizzas</col>.");
             case 2 :
-                return(55, anchovy_pizza, "Anchovy pizza", "You can now cook <col=000080>anchovy pizzas</col>.");
+                return(55, anchovie_pizza, "Anchovy pizza", "You can now cook <col=000080>anchovy pizzas</col>.");
             case 3 :
                 return(65, pineapple_pizza, "Members: Pineapple pizza", "Members can now make <col=000080>pineapple pizzas</col>.");
             case 4 :
-                return(-1, silvthrill_rod, "To make a pizza:", "");
+                return(-1, invis_rod, "To make a pizza:", "");
             case 5 :
-                return(-1, silvthrill_rod, "1. Mix flour and water to make a pizza base.", "");
+                return(-1, invis_rod, "1. Mix flour and water to make a pizza base.", "");
             case 6 :
-                return(-1, silvthrill_rod, "2. Add a tomato to the pizza.", "");
+                return(-1, invis_rod, "2. Add a tomato to the pizza.", "");
             case 7 :
-                return(-1, silvthrill_rod, "3. Add some cheese to the pizza.", "");
+                return(-1, invis_rod, "3. Add some cheese to the pizza.", "");
             case 8 :
-                return(-1, silvthrill_rod, "4. Cook the pizza by using it with a stove.", "");
+                return(-1, invis_rod, "4. Cook the pizza by using it with a stove.", "");
             case 9 :
-                return(-1, silvthrill_rod, "5. Add your choice of topping to the pizza.", "");
+                return(-1, invis_rod, "5. Add your choice of topping to the pizza.", "");
         }
     case 5 :
         switch_int ($int1) {
@@ -191,45 +191,45 @@ switch_int ($int0) {
             case 1 :
                 return(50, chocolate_cake, "Chocolate cake", "You can now bake <col=000080>chocolate cakes</col>.");
             case 2 :
-                return(-1, silvthrill_rod, "To make a cake:", "");
+                return(-1, invis_rod, "To make a cake:", "");
             case 3 :
-                return(-1, silvthrill_rod, "1. Mix flour, eggs and milk together in a cake tin.", "");
+                return(-1, invis_rod, "1. Mix flour, eggs and milk together in a cake tin.", "");
             case 4 :
-                return(-1, silvthrill_rod, "2. Cook the cake by using it with a stove.", "");
+                return(-1, invis_rod, "2. Cook the cake by using it with a stove.", "");
             case 5 :
-                return(-1, silvthrill_rod, "3. Optional: Buy some chocolate and add it to the cake to make a chocolate cake.", "");
+                return(-1, invis_rod, "3. Optional: Buy some chocolate and add it to the cake to make a chocolate cake.", "");
         }
     case 6 :
         switch_int ($int1) {
             case 0 :
-                return(35, jug_of_wine, "Wine", "You can now ferment <col=000080>wine</col>.");
+                return(35, jug_wine, "Wine", "You can now ferment <col=000080>wine</col>.");
             case 1 :
-                return(-1, silvthrill_rod, "To make wine:", "");
+                return(-1, invis_rod, "To make wine:", "");
             case 2 :
-                return(-1, silvthrill_rod, "1. Fill a jug with water.", "");
+                return(-1, invis_rod, "1. Fill a jug with water.", "");
             case 3 :
-                return(-1, silvthrill_rod, "2. Use grapes with the jug of water.", "");
+                return(-1, invis_rod, "2. Use grapes with the jug of water.", "");
             case 4 :
-                return(-1, silvthrill_rod, "3. Wait until the wine ferments.", "");
+                return(-1, invis_rod, "3. Wait until the wine ferments.", "");
             case 5 :
-                return(-1, silvthrill_rod, "The wine will ferment while left in your inventory or the bank.", "");
+                return(-1, invis_rod, "The wine will ferment while left in your inventory or the bank.", "");
         }
     case 7 :
         switch_int ($int1) {
             case 0 :
-                return(20, cup_of_tea_4242, "Nettle tea", "Members can now make <col=000080>nettle tea</col>.");
+                return(20, cup_of_nettletea, "Nettle tea", "Members can now make <col=000080>nettle tea</col>.");
             case 1 :
-                return(-1, silvthrill_rod, "To make nettle tea:", "");
+                return(-1, invis_rod, "To make nettle tea:", "");
             case 2 :
-                return(-1, silvthrill_rod, "1. Fill a bowl with water.", "");
+                return(-1, invis_rod, "1. Fill a bowl with water.", "");
             case 3 :
-                return(-1, silvthrill_rod, "2. Put some picked nettles into the bowl of water.", "");
+                return(-1, invis_rod, "2. Put some picked nettles into the bowl of water.", "");
             case 4 :
-                return(-1, silvthrill_rod, "3. Boil the nettle-water by using it with a range or a fire.", "");
+                return(-1, invis_rod, "3. Boil the nettle-water by using it with a range or a fire.", "");
             case 5 :
-                return(-1, silvthrill_rod, "4. Use the bowl of nettle tea with a cup.", "");
+                return(-1, invis_rod, "4. Use the bowl of nettle tea with a cup.", "");
             case 6 :
-                return(-1, silvthrill_rod, "5. If you take milk, use a bucket of milk on the nettle tea.", "");
+                return(-1, invis_rod, "5. If you take milk, use a bucket of milk on the nettle tea.", "");
         }
     case 8 :
         switch_int ($int1) {
@@ -240,44 +240,44 @@ switch_int ($int0) {
             case 2 :
                 return(24, asgarnian_ale, "Members: Asgarnian Ale<br>4 Asgarnian hops", "Members can now brew <col=000080>Asgarnian Ale</col>.");
             case 3 :
-                return(29, greenman_s_ale, "Members: Greenman's Ale<br>4 Harralander leaves", "Members can now brew <col=000080>Greenman's Ale</col>.");
+                return(29, greenmans_ale, "Members: Greenman's Ale<br>4 Harralander leaves", "Members can now brew <col=000080>Greenman's Ale</col>.");
             case 4 :
-                return(34, wizard_s_mind_bomb, "Members: Wizard's mind bomb<br>4 Yanillian hops", "Members can now brew <col=000080>Wizard's Mind Bomb</col>.");
+                return(34, wizards_mind_bomb, "Members: Wizard's mind bomb<br>4 Yanillian hops", "Members can now brew <col=000080>Wizard's Mind Bomb</col>.");
             case 5 :
                 return(39, dragon_bitter, "Members: Dragon Bitter<br>4 Krandorian hops", "Members can now brew <col=000080>Dragon Bitter</col>.");
             case 6 :
                 return(44, moonlight_mead, "Members: Moonlight Mead<br>4 Bittercap mushrooms", "Members can now brew <col=000080>Moonlight Mead</col>.");
             case 7 :
-                return(49, axeman_s_folly, "Members: Axeman's folly<br>1 Oak root", "Members can now brew <col=000080>Axeman's Folly</col>.");
+                return(49, axemans_folly, "Members: Axeman's folly<br>1 Oak root", "Members can now brew <col=000080>Axeman's Folly</col>.");
             case 8 :
-                return(54, chef_s_delight, "Members: Chef's Delight<br>4 Portions of chocolate dust", "Members can now brew <col=000080>Chef's Delight</col>.");
+                return(54, chefs_delight, "Members: Chef's Delight<br>4 Portions of chocolate dust", "Members can now brew <col=000080>Chef's Delight</col>.");
             case 9 :
-                return(59, slayer_s_respite, "Members: Slayer's Respite<br>4 Wildblood hops", "Members can now brew <col=000080>Slayer's Respite</col>.");
+                return(59, slayers_respite, "Members: Slayer's Respite<br>4 Wildblood hops", "Members can now brew <col=000080>Slayer's Respite</col>.");
         }
     case 9 :
         switch_int ($int1) {
             case 0 :
-                return(7, baked_potato, "Members: Baked potato", "Members can now cook <col=000080>baked potatoes</col>.");
+                return(7, potato_baked, "Members: Baked potato", "Members can now cook <col=000080>baked potatoes</col>.");
             case 1 :
-                return(9, spicy_sauce, "Members: Spicy sauce (topping ingredient)", "Members can now make <col=000080>spicy sauce</col> toppings.");
+                return(9, bowl_chilli, "Members: Spicy sauce (topping ingredient)", "Members can now make <col=000080>spicy sauce</col> toppings.");
             case 2 :
                 return(11, chilli_con_carne, "Members: Chilli con carne (topping)", "Members can now make <col=000080>chilli con carne</col> toppings.");
             case 3 :
-                return(13, scrambled_egg, "Members: Scrambled egg (topping ingredient)", "Members can now make <col=000080>scrambled egg</col> toppings.");
+                return(13, bowl_egg_scrambled, "Members: Scrambled egg (topping ingredient)", "Members can now make <col=000080>scrambled egg</col> toppings.");
             case 4 :
                 return(23, egg_and_tomato, "Members: Scrambled egg and tomato (topping)", "Members can now make <col=000080>scrambled egg and tomato</col> toppings.");
             case 5 :
-                return(28, cooked_sweetcorn, "Members: Sweetcorn", "Members can now cook <col=000080>sweetcorn</col>.");
+                return(28, sweetcorn_cooked, "Members: Sweetcorn", "Members can now cook <col=000080>sweetcorn</col>.");
             case 6 :
-                return(39, potato_with_butter, "Members: Baked potato with butter", "Members can now cook <col=000080>baked potatoes with butter</col>.");
+                return(39, potato_butter, "Members: Baked potato with butter", "Members can now cook <col=000080>baked potatoes with butter</col>.");
             case 7 :
                 return(41, chilli_potato, "Members: Baked potato with chilli con carne", "Members can now cook <col=000080>baked potatoes with chilli con carne</col>.");
             case 8 :
-                return(42, fried_onions, "Members: Fried onion (topping ingredient)", "Members can now make <col=000080>fried onion</col> toppings.");
+                return(42, bowl_onion_fried, "Members: Fried onion (topping ingredient)", "Members can now make <col=000080>fried onion</col> toppings.");
             case 9 :
-                return(46, fried_mushrooms, "Members: Fried mushroom (topping ingredient)", "Members can now make <col=000080>fried mushroom</col> toppings.");
+                return(46, bowl_mushroom_fried, "Members: Fried mushroom (topping ingredient)", "Members can now make <col=000080>fried mushroom</col> toppings.");
             case 10 :
-                return(47, potato_with_cheese, "Members: Baked potato with butter and cheese", "Members can now cook <col=000080>baked potatoes with butter and cheese</col>.");
+                return(47, potato_cheese, "Members: Baked potato with butter and cheese", "Members can now cook <col=000080>baked potatoes with butter and cheese</col>.");
             case 11 :
                 return(51, egg_potato, "Members: Baked potato with egg and tomato", "Members can now cook <col=000080>baked potatoes with egg and tomato</col>.");
             case 12 :
@@ -289,42 +289,42 @@ switch_int ($int0) {
             case 15 :
                 return(68, tuna_potato, "Members: Baked potato with tuna and sweetcorn", "Members can now cook <col=000080>baked potatoes with tuna and sweetcorn</col>.");
             case 16 :
-                return(-1, silvthrill_rod, "To make baked potatoes with toppings:", "");
+                return(-1, invis_rod, "To make baked potatoes with toppings:", "");
             case 17 :
-                return(-1, silvthrill_rod, "1. Bake the potato on a range.", "");
+                return(-1, invis_rod, "1. Bake the potato on a range.", "");
             case 18 :
-                return(-1, silvthrill_rod, "2. Add some butter.", "");
+                return(-1, invis_rod, "2. Add some butter.", "");
             case 19 :
-                return(-1, silvthrill_rod, "3. If needed, combine topping ingredients by chopping them into a bowl.", "");
+                return(-1, invis_rod, "3. If needed, combine topping ingredients by chopping them into a bowl.", "");
             case 20 :
-                return(-1, silvthrill_rod, "Ingredients for toppings:", "");
+                return(-1, invis_rod, "Ingredients for toppings:", "");
             case 21 :
-                return(-1, silvthrill_rod, "1. Chilli con carne: meat and spicy sauce (made from garlic and gnome spice)", "");
+                return(-1, invis_rod, "1. Chilli con carne: meat and spicy sauce (made from garlic and gnome spice)", "");
             case 22 :
-                return(-1, silvthrill_rod, "2. Egg and tomato: scrambled egg and tomato", "");
+                return(-1, invis_rod, "2. Egg and tomato: scrambled egg and tomato", "");
             case 23 :
-                return(-1, silvthrill_rod, "3. Mushroom and onion: fried bittercap mushroom and fried onion", "");
+                return(-1, invis_rod, "3. Mushroom and onion: fried bittercap mushroom and fried onion", "");
             case 24 :
-                return(-1, silvthrill_rod, "4. Tuna and sweetcorn: tuna and cooked sweetcorn", "");
+                return(-1, invis_rod, "4. Tuna and sweetcorn: tuna and cooked sweetcorn", "");
         }
     case 10 :
         switch_int ($int1) {
             case 0 :
-                return(4, chocolatey_milk, "Members: Chocolate milk", "Members can now make <col=000080>chocolate milk</col>.");
+                return(4, chocolaty_milk, "Members: Chocolate milk", "Members can now make <col=000080>chocolate milk</col>.");
             case 1 :
                 return(21, pot_of_cream, "Members: Cream", "Members can now churn <col=000080>cream</col>.");
             case 2 :
-                return(38, pat_of_butter, "Members: Butter", "Members can now churn <col=000080>butter</col>.");
+                return(38, pot_of_butter, "Members: Butter", "Members can now churn <col=000080>butter</col>.");
             case 3 :
                 return(48, cheese, "Members: Cheese", "Members can now churn <col=000080>cheese</col>.");
             case 4 :
-                return(-1, silvthrill_rod, "To make churned dairy products:", " ");
+                return(-1, invis_rod, "To make churned dairy products:", " ");
             case 5 :
-                return(-1, silvthrill_rod, "1. Get a bucket of milk, a pot of cream or a pot of butter.", " ");
+                return(-1, invis_rod, "1. Get a bucket of milk, a pot of cream or a pot of butter.", " ");
             case 6 :
-                return(-1, silvthrill_rod, "2. Use the milk, cream or butter in a churn.", " ");
+                return(-1, invis_rod, "2. Use the milk, cream or butter in a churn.", " ");
             case 7 :
-                return(-1, silvthrill_rod, "3. Milk can be churned into cream, then into butter, then into cheese.", " ");
+                return(-1, invis_rod, "3. Milk can be churned into cream, then into butter, then into cheese.", " ");
         }
     case 11 :
         switch_int ($int1) {
@@ -343,7 +343,7 @@ switch_int ($int0) {
             case 6 :
                 return(18, wizard_blizzard, "Members: Wizard Blizzard", "Members can now mix <col=000080>Wizard Blizzards</col>.");
             case 7 :
-                return(20, short_green_guy, "Members: Short Green Guy (SGG)", "Members can now mix <col=000080>Short Green Guys</col>.");
+                return(20, sgg, "Members: Short Green Guy (SGG)", "Members can now mix <col=000080>Short Green Guys</col>.");
             case 8 :
                 return(25, fruit_batta, "Members: Fruit batta", "Members can now cook <col=000080>fruit battas</col>.");
             case 9 :
@@ -359,132 +359,132 @@ switch_int ($int0) {
             case 14 :
                 return(32, drunk_dragon, "Members: Drunk Dragon", "Members can now mix <col=000080>Drunk Dragons</col>.");
             case 15 :
-                return(33, choc_saturday, "Members: Chocolate Saturday", "Members can now mix <col=000080>Chocolate Saturdays</col>.");
+                return(33, chocolate_saturday, "Members: Chocolate Saturday", "Members can now mix <col=000080>Chocolate Saturdays</col>.");
             case 16 :
                 return(35, veg_ball, "Members: Vegetable ball", "Members can now cook <col=000080>vegetable balls</col>.");
             case 17 :
                 return(37, blurberry_special, "Members: Blurberry Special", "Members can now mix <col=000080>Blurberry Specials</col>.");
             case 18 :
-                return(40, tangled_toads__legs, "Members: Tangled toads' legs", "Members can now cook <col=000080>tangled toads' legs</col>.");
+                return(40, tangled_toads_legs, "Members: Tangled toads' legs", "Members can now cook <col=000080>tangled toads' legs</col>.");
             case 19 :
                 return(42, chocolate_bomb, "Members: Chocolate bomb", "Members can now cook <col=000080>chocolate bombs</col>.");
         }
     case 12 :
         switch_int ($int1) {
             case 0 :
-                return(91, starved_ancient_effigy, "Members: Starved ancient effigies", "Members can now investigate <col=000080>starved ancient effigies</col> using their knowledge of Cooking.");
+                return(91, effi_ancient_effigy_level_0, "Members: Starved ancient effigies", "Members can now investigate <col=000080>starved ancient effigies</col> using their knowledge of Cooking.");
             case 1 :
-                return(93, nourished_ancient_effigy, "Members: Nourished ancient effigies", "Members can now investigate <col=000080>nourished ancient effigies</col> using their knowledge of Cooking.</col>.");
+                return(93, effi_ancient_effigy_level_1, "Members: Nourished ancient effigies", "Members can now investigate <col=000080>nourished ancient effigies</col> using their knowledge of Cooking.</col>.");
             case 2 :
-                return(95, sated_ancient_effigy, "Members: Sated ancient effigies", "Members can now investigate <col=000080>sated ancient effigies</col> using their knowledge of Cooking.</col>.");
+                return(95, effi_ancient_effigy_level_2, "Members: Sated ancient effigies", "Members can now investigate <col=000080>sated ancient effigies</col> using their knowledge of Cooking.</col>.");
             case 3 :
-                return(97, gorged_ancient_effigy, "Members: Gorged ancient effigies", "Members can now investigate <col=000080>gorged ancient effigies</col> using their knowledge of Cooking.</col>.");
+                return(97, effi_ancient_effigy_level_3, "Members: Gorged ancient effigies", "Members can now investigate <col=000080>gorged ancient effigies</col> using their knowledge of Cooking.</col>.");
         }
     case 13 :
         switch_int ($int1) {
             case 0 :
-                return(1, food__class_1, "Members: Stealing Creation - class 1 food", "Members can now cook <col=000080>class 1 food</col> in Stealing Creation.");
+                return(1, sc_food_1, "Members: Stealing Creation - class 1 food", "Members can now cook <col=000080>class 1 food</col> in Stealing Creation.");
             case 1 :
-                return(20, food__class_2, "Members: Stealing Creation - class 2 food", "Members can now cook <col=000080>class 2 food</col> in Stealing Creation.");
+                return(20, sc_food_2, "Members: Stealing Creation - class 2 food", "Members can now cook <col=000080>class 2 food</col> in Stealing Creation.");
             case 2 :
-                return(40, food__class_3, "Members: Stealing Creation - class 3 food", "Members can now cook <col=000080>class 3 food</col> in Stealing Creation.");
+                return(40, sc_food_3, "Members: Stealing Creation - class 3 food", "Members can now cook <col=000080>class 3 food</col> in Stealing Creation.");
             case 3 :
-                return(60, food__class_4, "Members: Stealing Creation - class 4 food", "Members can now cook <col=000080>class 4 food</col> in Stealing Creation.");
+                return(60, sc_food_4, "Members: Stealing Creation - class 4 food", "Members can now cook <col=000080>class 4 food</col> in Stealing Creation.");
             case 4 :
-                return(80, food__class_5, "Members: Stealing Creation - class 5 food", "Members can now cook <col=000080>class 5 food</col> in Stealing Creation.");
+                return(80, sc_food_5, "Members: Stealing Creation - class 5 food", "Members can now cook <col=000080>class 5 food</col> in Stealing Creation.");
         }
     case 14 :
         switch_int ($int1) {
             case 0 :
-                return(-1, ring_of_kinship, "Dungeoneering skill tasks<br>As your Cooking level increases, you will be able to attempt higher-level cooking tasks within Daemonheim. You will also be more likely to succeed when attempting cooking tasks within Daemonheim.", "");
+                return(-1, rand_mission_contract, "Dungeoneering skill tasks<br>As your Cooking level increases, you will be able to attempt higher-level cooking tasks within Daemonheim. You will also be more likely to succeed when attempting cooking tasks within Daemonheim.", "");
             case 1 :
-                return(1, baked_cave_potato, "Cave potato", "You can now cook <col=000080>cave potatoes</col> within Daemonheim.");
+                return(1, rand_potato, "Cave potato", "You can now cook <col=000080>cave potatoes</col> within Daemonheim.");
             case 2 :
-                return(1, heim_crab, "Heim crab (Tier 1)", "You can now cook <col=000080>heim crabs</col> within Daemonheim.");
+                return(1, rand_fish_1, "Heim crab (Tier 1)", "You can now cook <col=000080>heim crabs</col> within Daemonheim.");
             case 3 :
-                return(3, heim_crab_potato, "Heim crab potato (Tier 1)", "You can now cook <col=000080>heim crab potatoes</col> within Daemonheim.");
+                return(3, rand_potato_with_fish_1, "Heim crab potato (Tier 1)", "You can now cook <col=000080>heim crab potatoes</col> within Daemonheim.");
             case 4 :
-                return(6, heim_crab___gissel_potato, "Heim crab & gissel potato (Tier 1)", "You can now cook <col=000080>heim crab & gissel potatoes</col> within Daemonheim.");
+                return(6, rand_potato_with_fish_1_and_mushroom_a, "Heim crab & gissel potato (Tier 1)", "You can now cook <col=000080>heim crab & gissel potatoes</col> within Daemonheim.");
             case 5 :
-                return(9, heim_crab___edicap_potato, "Heim crab & edicap potato (Tier 1)", "You can now cook <col=000080>heim crab & edicap potatoes</col> within Daemonheim.");
+                return(9, rand_potato_with_fish_1_and_mushroom_b, "Heim crab & edicap potato (Tier 1)", "You can now cook <col=000080>heim crab & edicap potatoes</col> within Daemonheim.");
             case 6 :
-                return(10, red_eye, "Red-eye (Tier 2)", "You can now cook <col=000080>red-eyes</col> within Daemonheim.");
+                return(10, rand_fish_2, "Red-eye (Tier 2)", "You can now cook <col=000080>red-eyes</col> within Daemonheim.");
             case 7 :
-                return(13, red_eye_potato, "Red-eye potato (Tier 2)", "You can now cook <col=000080>red-eye potatoes</col> within Daemonheim.");
+                return(13, rand_potato_with_fish_2, "Red-eye potato (Tier 2)", "You can now cook <col=000080>red-eye potatoes</col> within Daemonheim.");
             case 8 :
-                return(16, red_eye___gissel_potato, "Red-eye & gissel potato (Tier 2)", "You can now cook <col=000080>red-eye & gissel potatoes</col> within Daemonheim.");
+                return(16, rand_potato_with_fish_2_and_mushroom_a, "Red-eye & gissel potato (Tier 2)", "You can now cook <col=000080>red-eye & gissel potatoes</col> within Daemonheim.");
             case 9 :
-                return(19, red_eye___edicap_potato, "Red-eye & edicap potato (Tier 2)", "You can now cook <col=000080>red-eye & edicap potatoes</col> within Daemonheim.");
+                return(19, rand_potato_with_fish_2_and_mushroom_b, "Red-eye & edicap potato (Tier 2)", "You can now cook <col=000080>red-eye & edicap potatoes</col> within Daemonheim.");
             case 10 :
-                return(20, dusk_eel, "Dusk eel (Tier 3)", "You can now cook <col=000080>dusk eels</col> within Daemonheim.");
+                return(20, rand_fish_3, "Dusk eel (Tier 3)", "You can now cook <col=000080>dusk eels</col> within Daemonheim.");
             case 11 :
-                return(23, dusk_eel_potato, "Dusk eel potato (Tier 3)", "You can now cook <col=000080>dusk eel potatoes</col> within Daemonheim.");
+                return(23, rand_potato_with_fish_3, "Dusk eel potato (Tier 3)", "You can now cook <col=000080>dusk eel potatoes</col> within Daemonheim.");
             case 12 :
-                return(26, dusk_eel___gissel_potato, "Dusk eel & gissel potato (Tier 3)", "You can now cook <col=000080>dusk eel & gissel potatoes</col> within Daemonheim.");
+                return(26, rand_potato_with_fish_3_and_mushroom_a, "Dusk eel & gissel potato (Tier 3)", "You can now cook <col=000080>dusk eel & gissel potatoes</col> within Daemonheim.");
             case 13 :
-                return(29, dusk_eel___edicap_potato, "Dusk eel & edicap potato (Tier 3)", "You can now cook <col=000080>dusk eel & edicap potatoes</col> within Daemonheim.");
+                return(29, rand_potato_with_fish_3_and_mushroom_b, "Dusk eel & edicap potato (Tier 3)", "You can now cook <col=000080>dusk eel & edicap potatoes</col> within Daemonheim.");
             case 14 :
-                return(30, giant_flatfish, "Giant flatfish (Tier 4)", "You can now cook <col=000080>giant flatfish</col> within Daemonheim.");
+                return(30, rand_fish_4, "Giant flatfish (Tier 4)", "You can now cook <col=000080>giant flatfish</col> within Daemonheim.");
             case 15 :
-                return(33, giant_flatfish_potato, "Flatfish potato (Tier 4)", "You can now cook <col=000080>flatfish potatoes</col> within Daemonheim.");
+                return(33, rand_potato_with_fish_4, "Flatfish potato (Tier 4)", "You can now cook <col=000080>flatfish potatoes</col> within Daemonheim.");
             case 16 :
-                return(36, flatfish___gissel_potato, "Flatfish & gissel potato (Tier 4)", "You can now cook <col=000080>flatfish & gissel potatoes</col> within Daemonheim.");
+                return(36, rand_potato_with_fish_4_and_mushroom_a, "Flatfish & gissel potato (Tier 4)", "You can now cook <col=000080>flatfish & gissel potatoes</col> within Daemonheim.");
             case 17 :
-                return(39, flatfish___edicap_potato, "Flatfish & edicap potato (Tier 4)", "You can now cook <col=000080>flatfish & edicap potatoes</col> within Daemonheim.");
+                return(39, rand_potato_with_fish_4_and_mushroom_b, "Flatfish & edicap potato (Tier 4)", "You can now cook <col=000080>flatfish & edicap potatoes</col> within Daemonheim.");
             case 18 :
-                return(40, short_finned_eel, "Short-finned eel (Tier 5)", "You can now cook <col=000080>short-finned eels</col> within Daemonheim.");
+                return(40, rand_fish_5, "Short-finned eel (Tier 5)", "You can now cook <col=000080>short-finned eels</col> within Daemonheim.");
             case 19 :
-                return(43, short_fin_eel_potato, "Short-fin potato (Tier 5)", "You can now cook <col=000080>short-fin potatoes</col> within Daemonheim.");
+                return(43, rand_potato_with_fish_5, "Short-fin potato (Tier 5)", "You can now cook <col=000080>short-fin potatoes</col> within Daemonheim.");
             case 20 :
-                return(46, short_fin___gissel_potato, "Short-fin & gissel potato (Tier 5)", "You can now cook <col=000080>short-fin & gissel potatoes</col> within Daemonheim.");
+                return(46, rand_potato_with_fish_5_and_mushroom_a, "Short-fin & gissel potato (Tier 5)", "You can now cook <col=000080>short-fin & gissel potatoes</col> within Daemonheim.");
             case 21 :
-                return(49, short_fin___edicap_potato, "Short-fin & edicap potato (Tier 5)", "You can now cook <col=000080>short-fin & edicap potatoes</col> within Daemonheim.");
+                return(49, rand_potato_with_fish_5_and_mushroom_b, "Short-fin & edicap potato (Tier 5)", "You can now cook <col=000080>short-fin & edicap potatoes</col> within Daemonheim.");
             case 22 :
-                return(50, web_snipper, "Members: Web snipper (Tier 6)", "Members can now cook <col=000080>web snippers</col> within Daemonheim.");
+                return(50, rand_fish_6, "Members: Web snipper (Tier 6)", "Members can now cook <col=000080>web snippers</col> within Daemonheim.");
             case 23 :
-                return(53, snipper_potato, "Members: Snipper potato (Tier 6)", "Members can now cook <col=000080>spinner potatoes</col> within Daemonheim.");
+                return(53, rand_potato_with_fish_6, "Members: Snipper potato (Tier 6)", "Members can now cook <col=000080>spinner potatoes</col> within Daemonheim.");
             case 24 :
-                return(56, snipper___gissel_potato, "Members: Snipper & gissel potato (Tier 6)", "Members can now cook <col=000080>snipper & gissel potatoes</col> within Daemonheim.");
+                return(56, rand_potato_with_fish_6_and_mushroom_a, "Members: Snipper & gissel potato (Tier 6)", "Members can now cook <col=000080>snipper & gissel potatoes</col> within Daemonheim.");
             case 25 :
-                return(59, snipper___edicap_potato, "Members: Snipper & edicap potato (Tier 6)", "Members can now cook <col=000080>snipper & edicap potatoes</col> within Daemonheim.");
+                return(59, rand_potato_with_fish_6_and_mushroom_b, "Members: Snipper & edicap potato (Tier 6)", "Members can now cook <col=000080>snipper & edicap potatoes</col> within Daemonheim.");
             case 26 :
-                return(60, bouldabass, "Members: Bouldabass (Tier 7)", "Members can now cook <col=000080>bouldabass</col> within Daemonheim.");
+                return(60, rand_fish_7, "Members: Bouldabass (Tier 7)", "Members can now cook <col=000080>bouldabass</col> within Daemonheim.");
             case 27 :
-                return(63, bouldabass_potato, "Members: Bouldabass potato (Tier 7)", "Members can now cook <col=000080>bouldabass potatoes</col> within Daemonheim.");
+                return(63, rand_potato_with_fish_7, "Members: Bouldabass potato (Tier 7)", "Members can now cook <col=000080>bouldabass potatoes</col> within Daemonheim.");
             case 28 :
-                return(66, bouldabass___gissel_potato, "Members: Bouldabass & gissel potato (Tier 7)", "Members can now cook <col=000080>bouldabass & gissel potatoes</col> within Daemonheim.");
+                return(66, rand_potato_with_fish_7_and_mushroom_a, "Members: Bouldabass & gissel potato (Tier 7)", "Members can now cook <col=000080>bouldabass & gissel potatoes</col> within Daemonheim.");
             case 29 :
-                return(69, bouldabass___edicap_potato, "Members: Bouldabass & edicap potato (Tier 7)", "Members can now cook <col=000080>bouldabass & edicap potatoes</col> within Daemonheim.");
+                return(69, rand_potato_with_fish_7_and_mushroom_b, "Members: Bouldabass & edicap potato (Tier 7)", "Members can now cook <col=000080>bouldabass & edicap potatoes</col> within Daemonheim.");
             case 30 :
-                return(70, salve_eel, "Members: Salve eel (Tier 8)", "Members can now cook <col=000080>salve eels</col> within Daemonheim.");
+                return(70, rand_fish_8, "Members: Salve eel (Tier 8)", "Members can now cook <col=000080>salve eels</col> within Daemonheim.");
             case 31 :
-                return(73, salve_eel_potato, "Members: Salve eel potato (Tier 8)", "Members can now cook <col=000080>salve eel potatoes</col> within Daemonheim.");
+                return(73, rand_potato_with_fish_8, "Members: Salve eel potato (Tier 8)", "Members can now cook <col=000080>salve eel potatoes</col> within Daemonheim.");
             case 32 :
-                return(76, salve_eel___gissel_potato, "Members: Salve eel & gissel potato (Tier 8)", "Members can now cook <col=000080>salve eel & gissel potatoes</col> within Daemonheim.");
+                return(76, rand_potato_with_fish_8_and_mushroom_a, "Members: Salve eel & gissel potato (Tier 8)", "Members can now cook <col=000080>salve eel & gissel potatoes</col> within Daemonheim.");
             case 33 :
-                return(79, salve_eel___edicap_potato, "Members: Salve eel & edicap potato (Tier 8)", "Members can now cook <col=000080>salve eel & edicap potatoes</col> within Daemonheim.");
+                return(79, rand_potato_with_fish_8_and_mushroom_b, "Members: Salve eel & edicap potato (Tier 8)", "Members can now cook <col=000080>salve eel & edicap potatoes</col> within Daemonheim.");
             case 34 :
-                return(80, blue_crab, "Members: Blue crab (Tier 9)", "Members can now cook <col=000080>blue crabs</col> within Daemonheim.");
+                return(80, rand_fish_9, "Members: Blue crab (Tier 9)", "Members can now cook <col=000080>blue crabs</col> within Daemonheim.");
             case 35 :
-                return(83, blue_crab_potato, "Members: Blue crab potato (Tier 9)", "Members can now cook <col=000080>blue crab potatoes</col> within Daemonheim.");
+                return(83, rand_potato_with_fish_9, "Members: Blue crab potato (Tier 9)", "Members can now cook <col=000080>blue crab potatoes</col> within Daemonheim.");
             case 36 :
-                return(86, blue_crab___gissel_potato, "Members: blue crab & gissel potato (Tier 9)", "Members can now cook <col=000080>blue crab & gissel potatoes</col> within Daemonheim.");
+                return(86, rand_potato_with_fish_9_and_mushroom_a, "Members: blue crab & gissel potato (Tier 9)", "Members can now cook <col=000080>blue crab & gissel potatoes</col> within Daemonheim.");
             case 37 :
-                return(89, blue_crab___edicap_potato, "Members: Blue crab & edicap potato (Tier 9)", "Members can now cook <col=000080>blue crab & edicap potatoes</col> within Daemonheim.");
+                return(89, rand_potato_with_fish_9_and_mushroom_b, "Members: Blue crab & edicap potato (Tier 9)", "Members can now cook <col=000080>blue crab & edicap potatoes</col> within Daemonheim.");
             case 38 :
-                return(90, cave_moray, "Members: Cave moray (Tier 10)", "Members can now cook <col=000080>cave morays</col> within Daemonheim.");
+                return(90, rand_fish_10, "Members: Cave moray (Tier 10)", "Members can now cook <col=000080>cave morays</col> within Daemonheim.");
             case 39 :
-                return(93, cave_moray_potato, "Members: Moray potato (Tier 10)", "Members can now cook <col=000080>moray potatoes</col> within Daemonheim.");
+                return(93, rand_potato_with_fish_10, "Members: Moray potato (Tier 10)", "Members can now cook <col=000080>moray potatoes</col> within Daemonheim.");
             case 40 :
-                return(96, moray___gissel_potato, "Members: Moray & gissel potato (Tier 10)", "Members can now cook <col=000080>moray & gissel potatoes</col> within Daemonheim.");
+                return(96, rand_potato_with_fish_10_and_mushroom_a, "Members: Moray & gissel potato (Tier 10)", "Members can now cook <col=000080>moray & gissel potatoes</col> within Daemonheim.");
             case 41 :
-                return(99, moray___edicap_potato, "Members: Moray & edicap potato (Tier 10)", "Members can now cook <col=000080>moray & edicap potatoes</col> within Daemonheim.");
+                return(99, rand_potato_with_fish_10_and_mushroom_b, "Members: Moray & edicap potato (Tier 10)", "Members can now cook <col=000080>moray & edicap potatoes</col> within Daemonheim.");
         }
     case 15 :
         switch_int ($int1) {
             case 0 :
-                return(32, chef_s_hat, "Chefs' Guild", "You are now qualified to enter the prestigious <col=000080>Chefs' Guild</col>.");
+                return(32, chefs_hat, "Chefs' Guild", "You are now qualified to enter the prestigious <col=000080>Chefs' Guild</col>.");
             case 1 :
-                return(99, cooking_cape, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Cooking<col=000080>. Members can visit the <col=800000>head chef<col=000080> at the <col=800000>Cooking Guild<col=000080>. He has something special that is only available to true masters of the <col=800000>Cooking<col=000080> skill!");
+                return(99, skillcape_cooking, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Cooking<col=000080>. Members can visit the <col=800000>head chef<col=000080> at the <col=800000>Cooking Guild<col=000080>. He has something special that is only available to true masters of the <col=800000>Cooking<col=000080> skill!");
         }
 }

@@ -44,10 +44,10 @@ struct Chop {
 #[test]
 fn an_oak_gives_oak_logs_by_name() {
     chop(Chop {
-        tree: "oak",
+        tree: "oaktree",
         at: (3230, 3247),
         level: 15,
-        hatchet: "bronze_hatchet",
+        hatchet: "bronze_axe",
         product: Some("oak_logs"),
         exp: 375,
         said: "You get some oak logs.",
@@ -58,10 +58,10 @@ fn an_oak_gives_oak_logs_by_name() {
 #[test]
 fn a_2011_willow_gives_willow_logs() {
     chop(Chop {
-        tree: "willow_2210",
+        tree: "willowtree",
         at: (3114, 3488),
         level: 30,
-        hatchet: "mithril_hatchet",
+        hatchet: "mithril_axe",
         product: Some("willow_logs"),
         exp: 675,
         said: "You get some willow logs.",
@@ -75,7 +75,7 @@ fn a_2011_dead_tree_gives_logs_and_falls() {
         tree: "dead_tree_47594",
         at: (3084, 3371),
         level: 1,
-        hatchet: "bronze_hatchet",
+        hatchet: "bronze_axe",
         product: Some("logs"),
         exp: 250,
         said: "You get some logs.",
@@ -86,10 +86,10 @@ fn a_2011_dead_tree_gives_logs_and_falls() {
 #[test]
 fn a_black_hatchet_chops_at_woodcutting_6() {
     chop(Chop {
-        tree: "tree_1276",
+        tree: "tree",
         at: (3225, 3243),
         level: 6,
-        hatchet: "black_hatchet",
+        hatchet: "black_axe",
         product: Some("logs"),
         exp: 250,
         said: "You get some logs.",
@@ -100,10 +100,10 @@ fn a_black_hatchet_chops_at_woodcutting_6() {
 #[test]
 fn choking_ivy_gives_xp_and_no_item() {
     chop(Chop {
-        tree: "ivy_46318",
+        tree: "wc_update09_ivy_01",
         at: (3217, 3498),
         level: 68,
-        hatchet: "dragon_hatchet",
+        hatchet: "dragon_axe",
         product: None,
         exp: 3325,
         said: "You successfully chop away some ivy.",

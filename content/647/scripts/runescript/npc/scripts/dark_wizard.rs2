@@ -1,8 +1,8 @@
-[ai_queue1,dark_wizard] ~npc_default_retaliate_ap;
+[ai_queue1,bearded_dark_wizard] ~npc_default_retaliate_ap;
 [ai_queue1,young_dark_wizard] ~npc_default_retaliate_ap;
 
-[ai_applayer2,dark_wizard] ~dark_wizard_earth_attack;
-[ai_opplayer2,dark_wizard] ~dark_wizard_earth_attack;
+[ai_applayer2,bearded_dark_wizard] ~dark_wizard_earth_attack;
+[ai_opplayer2,bearded_dark_wizard] ~dark_wizard_earth_attack;
 [ai_applayer2,young_dark_wizard] ~dark_wizard_water_attack;
 [ai_opplayer2,young_dark_wizard] ~dark_wizard_water_attack;
 
@@ -21,7 +21,7 @@ if (~npc_check_notcombat_self = false) {
 
 npc_setmode(applayer2);
 
-if (busy = true & %demon_slayer = ^demon_key_hunt & %demon_slayer_silverlight = ^true)  { // in osrs dark wizards wont attack if player is busy and ready to fight delrith
+if (busy = true & %demonslayer_main = ^demon_key_hunt & %delrith_silverlight_case = ^true)  { // in osrs dark wizards wont attack if player is busy and ready to fight delrith
     // dark wizards will still try to hunt you
     return;
 }
@@ -46,7 +46,7 @@ if (~npc_check_notcombat_self = false) {
     return;
 }
 
-if (busy = true & %demon_slayer = ^demon_key_hunt & %demon_slayer_silverlight = ^true)  {
+if (busy = true & %demonslayer_main = ^demon_key_hunt & %delrith_silverlight_case = ^true)  {
     return;
 }
 

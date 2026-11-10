@@ -271,8 +271,8 @@ textfont=p12_full
 text=%1/1
 textshadow=yes
 colour=0xff0000
-onload=batta_set_text(event_com, toad_s_legs, 1)
-oninvtransmit=batta_set_text(event_com, toad_s_legs, 1){inv}
+onload=batta_set_text(event_com, toads_legs, 1)
+oninvtransmit=batta_set_text(event_com, toads_legs, 1){inv}
 
 // 434:21
 [com_21]

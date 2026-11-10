@@ -16,10 +16,10 @@
 [opnpc3,woman3] // Woman
 @attempt_pick_pocket(npc_type);
 
-[opnpc3,farmer] // Farmer
+[opnpc3,farmer1] // Farmer
 @attempt_pick_pocket(npc_type);
 
-[opnpc3,guard] // Guard
+[opnpc3,guard1] // Guard
 @attempt_pick_pocket(npc_type);
 
 [opnpc3,warrior_woman] // Warrior woman
@@ -52,7 +52,7 @@
 [opnpc3,ardougne_guard] // Guard
 @attempt_pick_pocket(npc_type);
 
-[opnpc3,watchman] // Watchman
+[opnpc3,yanille_watchman] // Watchman
 @attempt_pick_pocket(npc_type);
 
 [opnpc3,gnome] // Gnome
@@ -64,7 +64,7 @@
 [opnpc3,darkskinned_gnome] // Gnome
 @attempt_pick_pocket(npc_type);
 
-[opnpc3,gnome_child] // Gnome child
+[opnpc3,gnomechildgreen] // Gnome child
 @attempt_pick_pocket(npc_type);
 
 [opnpc3,gnomechildblue] // Gnome child
@@ -73,7 +73,7 @@
 [opnpc3,gnomechild] // Gnome child
 @attempt_pick_pocket(npc_type);
 
-[opnpc3,gnome_woman] // Gnome woman
+[opnpc3,gnomefemale] // Gnome woman
 @attempt_pick_pocket(npc_type);
 
 [opnpc3,gnomefemale_dskinned] // Gnome woman
@@ -82,17 +82,17 @@
 [opnpc3,rogue] // Rogue
 @attempt_pick_pocket(npc_type);
 
-[opnpc3,agnar] @attempt_pick_viking_pocket(npc_type);
-[opnpc3,freidir] @attempt_pick_viking_pocket(npc_type);
-[opnpc3,borrokar] @attempt_pick_viking_pocket(npc_type);
-[opnpc3,lanzig] @attempt_pick_viking_pocket(npc_type);
-[opnpc3,pontak] @attempt_pick_viking_pocket(npc_type);
+[opnpc3,viking_man] @attempt_pick_viking_pocket(npc_type);
+[opnpc3,viking_man2] @attempt_pick_viking_pocket(npc_type);
+[opnpc3,viking_man3] @attempt_pick_viking_pocket(npc_type);
+[opnpc3,viking_man4] @attempt_pick_viking_pocket(npc_type);
+[opnpc3,viking_man5] @attempt_pick_viking_pocket(npc_type);
 
-[opnpc3,freygerd] @attempt_pick_viking_pocket(npc_type);
-[opnpc3,lensa] @attempt_pick_viking_pocket(npc_type);
-[opnpc3,jennella] @attempt_pick_viking_pocket(npc_type);
-[opnpc3,sassilik] @attempt_pick_viking_pocket(npc_type);
-[opnpc3,inga] @attempt_pick_viking_pocket(npc_type);
+[opnpc3,viking_woman] @attempt_pick_viking_pocket(npc_type);
+[opnpc3,viking_woman2] @attempt_pick_viking_pocket(npc_type);
+[opnpc3,viking_woman3] @attempt_pick_viking_pocket(npc_type);
+[opnpc3,viking_woman4] @attempt_pick_viking_pocket(npc_type);
+[opnpc3,viking_woman_indoors] @attempt_pick_viking_pocket(npc_type);
 
 [label,attempt_pick_pocket](npc $npc)
 if (map_members = ^false) {

@@ -1,7 +1,7 @@
 // 2512
 [clientscript,update_buttoninit_lines]
-if_settext(~tostring_spacer(enum(int, int, enum_2454, 1), ","), mob_special_units:cannon_cost);
-if_settext(~tostring_spacer(enum(int, int, enum_2454, 2), ","), mob_special_units:glider_cost);
-if_settext(~tostring_spacer(enum(int, int, enum_2454, 3), ","), mob_special_units:chinchompa_cost);
-if_settext(~tostring_spacer(enum(int, int, enum_2454, 4), ","), mob_special_units:distractor_cost);
-if_settext(~tostring_spacer(enum(int, int, enum_2454, 5), ","), mob_special_units:barricade_cost);
+if_settext(mob_special_units:cannon_cost, ~tostring_spacer(enum(int, int, enum_2454, 1), ","));
+if_settext(mob_special_units:glider_cost, ~tostring_spacer(enum(int, int, enum_2454, 2), ","));
+if_settext(mob_special_units:chinchompa_cost, ~tostring_spacer(enum(int, int, enum_2454, 3), ","));
+if_settext(mob_special_units:distractor_cost, ~tostring_spacer(enum(int, int, enum_2454, 4), ","));
+if_settext(mob_special_units:barricade_cost, ~tostring_spacer(enum(int, int, enum_2454, 5), ","));

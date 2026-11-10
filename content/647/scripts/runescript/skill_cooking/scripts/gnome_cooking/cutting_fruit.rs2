@@ -1,10 +1,10 @@
 [opheldu,knife]
 switch_obj(last_useitem) {
-    case lemon, orange, lime, pineapple, tenti_pineapple : @slice_or_dice_interface(last_useitem);
+    case lemon, orange, lime, pineapple, tentipineapple : @slice_or_dice_interface(last_useitem);
     case achey_tree_logs : @make_ogre_shafts;
     case dramen_branch : @cut_dramenstaff;
-    case tenti_pineapple : mes("This pineapple is too small to cut up into rings. But it's very, very juicy!");
-    case branch : @craft_unstrung_lyre;
+    case tentipineapple : mes("This pineapple is too small to cut up into rings. But it's very, very juicy!");
+    case viking_musical_tree_branch : @craft_unstrung_lyre;
     case banana : @slice_banana;
     case default :
         if (oc_category(last_useitem) = category_22) {

@@ -3,9 +3,9 @@
 if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varclient_256 = false) {
-    %varclient_256 = true;
+if (%clanwars_rulevarc_noprayer = false) {
+    %clanwars_rulevarc_noprayer = true;
 } else {
-    %varclient_256 = false;
+    %clanwars_rulevarc_noprayer = false;
 }
 ~clanwars_resynch_prayer;

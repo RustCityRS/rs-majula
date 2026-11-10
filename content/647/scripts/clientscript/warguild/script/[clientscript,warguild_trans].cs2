@@ -1,9 +1,9 @@
 // 4071
 [clientscript,warguild_trans](component $component0)
 if ($component0 = warguild_token_choice:ok_button) {
-    if_sethide(false, warguild_token_choice:ok_trans);
+    if_sethide(warguild_token_choice:ok_trans, false);
 } else if ($component0 = warguild_token_choice:single_token_button) {
-    if_sethide(false, warguild_token_choice:single_trans);
+    if_sethide(warguild_token_choice:single_trans, false);
 } else if ($component0 = warguild_token_choice:multi_token_button) {
-    if_sethide(false, warguild_token_choice:multi_trans);
+    if_sethide(warguild_token_choice:multi_trans, false);
 }

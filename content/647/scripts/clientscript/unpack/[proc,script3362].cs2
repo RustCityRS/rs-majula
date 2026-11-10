@@ -1,26 +1,26 @@
 // 3362
 [proc,script3362]()(int, string, obj)
-switch_obj (%varplayer_448) {
+switch_obj (%follower_obj) {
     case default :
-        return(9, "Glimmer of Light (Tier 1)", glimmer_of_light__tier_1);
-    case cub_skinweaver_pouch :
-        return(9, "Glimmer of Light (Tier 1)", glimmer_of_light__tier_1);
-    case little_skinweaver_pouch :
-        return(19, "Glimmer of Light (Tier 2)", glimmer_of_light__tier_2);
-    case "naïve_skinweaver_pouch" :
-        return(29, "Glimmer of Light (Tier 3)", glimmer_of_light__tier_3);
-    case keen_skinweaver_pouch :
-        return(39, "Glimmer of Light (Tier 4)", glimmer_of_light__tier_4);
-    case brave_skinweaver_pouch :
-        return(49, "Glimmer of Light (Tier 5)", glimmer_of_light__tier_5);
-    case brah_skinweaver_pouch :
-        return(59, "Glimmer of Light (Tier 6)", glimmer_of_light__tier_6);
-    case naabe_skinweaver_pouch :
-        return(69, "Glimmer of Light (Tier 7)", glimmer_of_light__tier_7);
-    case wise_skinweaver_pouch :
-        return(79, "Glimmer of Light (Tier 8)", glimmer_of_light__tier_8);
-    case adept_skinweaver_pouch :
-        return(89, "Glimmer of Light (Tier 9)", glimmer_of_light__tier_9);
-    case sachem_skinweaver_pouch :
-        return(99, "Glimmer of Light (Tier 10)", glimmer_of_light__tier_10);
+        return(9, "Glimmer of Light (Tier 1)", rand_loreheal_01_spell);
+    case rand_loreheal_01 :
+        return(9, "Glimmer of Light (Tier 1)", rand_loreheal_01_spell);
+    case rand_loreheal_02 :
+        return(19, "Glimmer of Light (Tier 2)", rand_loreheal_02_spell);
+    case rand_loreheal_03 :
+        return(29, "Glimmer of Light (Tier 3)", rand_loreheal_03_spell);
+    case rand_loreheal_04 :
+        return(39, "Glimmer of Light (Tier 4)", rand_loreheal_04_spell);
+    case rand_loreheal_05 :
+        return(49, "Glimmer of Light (Tier 5)", rand_loreheal_05_spell);
+    case rand_loreheal_06 :
+        return(59, "Glimmer of Light (Tier 6)", rand_loreheal_06_spell);
+    case rand_loreheal_07 :
+        return(69, "Glimmer of Light (Tier 7)", rand_loreheal_07_spell);
+    case rand_loreheal_08 :
+        return(79, "Glimmer of Light (Tier 8)", rand_loreheal_08_spell);
+    case rand_loreheal_09 :
+        return(89, "Glimmer of Light (Tier 9)", rand_loreheal_09_spell);
+    case rand_loreheal_10 :
+        return(99, "Glimmer of Light (Tier 10)", rand_loreheal_10_spell);
 }

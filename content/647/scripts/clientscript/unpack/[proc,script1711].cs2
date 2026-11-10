@@ -13,7 +13,7 @@ def_int $int5 = ~script1714($stat0, ~curse_get_stat($stat0));
 def_int $int6 = ~script1713($stat0);
 def_int $int7 = ~script1712($stat0);
 def_int $int8 = 0;
-if (inv_getobj(worn, 2) = amulet_of_zealots) {
+if (inv_getobj(worn, 2) = rand_reward_amulet_of_hopelessness) {
     $int8 = 5;
 }
 if ($int6 < calc($int8 + 5) & $int4 = 4) {

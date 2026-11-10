@@ -1,4 +1,4 @@
-[ai_queue3,market_guard] @viking_guard_drops;
+[ai_queue3,viking_guard] @viking_guard_drops;
 [ai_queue3,viking_guard2] @viking_guard_drops;
 
 [label,viking_guard_drops]
@@ -22,11 +22,11 @@ if ($random < 6) {
 } else if ($random < 11) {
     obj_add(npc_coord, black_warhammer, 1, ^lootdrop_duration);
 } else if ($random < 12) {
-    if(%viking = ^viking_complete) obj_add(npc_coord, fremennik_blade, 1, ^lootdrop_duration);
+    if(%viking = ^viking_complete) obj_add(npc_coord, viking_sword, 1, ^lootdrop_duration);
 } else if ($random < 13) {
-    if(%viking = ^viking_complete) obj_add(npc_coord, fremennik_shield, 1, ^lootdrop_duration);
+    if(%viking = ^viking_complete) obj_add(npc_coord, viking_shield, 1, ^lootdrop_duration);
 } else if ($random < 14) {
-    if(%viking = ^viking_complete) obj_add(npc_coord, fremennik_helm, 1, ^lootdrop_duration);
+    if(%viking = ^viking_complete) obj_add(npc_coord, viking_helmet, 1, ^lootdrop_duration);
 } else if ($random < 16) {
     obj_add(npc_coord, ~randomherb, ^lootdrop_duration);
 } else if ($random < 58) {
@@ -38,7 +38,7 @@ if ($random < 6) {
 } else if ($random < 75) {
      obj_add(npc_coord, coins, 27, ^lootdrop_duration);
 } else if ($random < 79) {
-     obj_add(npc_coord, keg_of_beer_3801, 1, ^lootdrop_duration);
+     obj_add(npc_coord, keg_of_beer, 1, ^lootdrop_duration);
 } else if ($random < 83) {
      obj_add(npc_coord, cake, 1, ^lootdrop_duration);
 } else if ($random < 86) {
@@ -46,9 +46,9 @@ if ($random < 6) {
 } else if ($random < 88) {
      obj_add(npc_coord, copper_ore, 5, ^lootdrop_duration);
 } else if ($random < 89) {
-     obj_add(npc_coord, bucket_of_water, 1, ^lootdrop_duration);
+     obj_add(npc_coord, bucket_water, 1, ^lootdrop_duration);
 } else if ($random < 90) {
-     obj_add(npc_coord, bear_fur, 1, ^lootdrop_duration);
+     obj_add(npc_coord, fur, 1, ^lootdrop_duration);
 } else if ($random < 91) {
      obj_add(npc_coord, tin_ore, 1, ^lootdrop_duration);
 } else if ($random < 92) {

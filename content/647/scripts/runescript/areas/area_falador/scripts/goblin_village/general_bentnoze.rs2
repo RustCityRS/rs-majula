@@ -1,7 +1,7 @@
 // General Bentnoze (289's general_bentnoze.rs2) on 2011's npc 4493 (cache 786; Goblin Village spawn
 // 46_54 14,57). 289's clue and Dragon Slayer lines are kept; Goblin Diplomacy is 2011's
 // (quest_gobdip.rs2).
-[opnpc1,general_bentnoze_4493]
+[opnpc1,general_bentnoze_red]
 // if dragon slayer is in progress, then add this dialogue.
 // it only exists for bentnoze, not wartface.
 if(map_members = ^true & inv_total(inv, trail_clue_hard_riddle017) > 0) {
@@ -35,4 +35,4 @@ if (~quest_dragon_getting_map_parts = true & %dragon_goblin = ^quest_dragon_know
     }
     ~chatplayer("<p,quiz>So how is life for the goblins?");
 }
-@goblin_diplomacy_talk(general_bentnoze_4493);
+@goblin_diplomacy_talk(general_bentnoze_red);

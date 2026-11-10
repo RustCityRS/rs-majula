@@ -21,7 +21,7 @@ if (%crate_bananas = 0 & %crate_rum = 0) {
 }
 
 [oplocu,bananacrate]
-if (last_useitem ! banana & last_useitem ! karamjan_rum & last_useitem ! tbwt_sliced_banana_in_karamja_rum) {
+if (last_useitem ! banana & last_useitem ! karamja_rum & last_useitem ! tbwt_sliced_banana_in_karamja_rum) {
     ~displaymessage(^dm_default);
     return;
 }
@@ -33,7 +33,7 @@ if (testbit(%hunt_store_employed, ^hunt_not_started) = ^false) {
 
 if (last_useitem = banana) {
     @banana_crate_pack_banana;
-} else if (last_useitem = karamjan_rum) {
+} else if (last_useitem = karamja_rum) {
     @banana_crate_pack_rum;
 } else if (last_useitem = tbwt_sliced_banana_in_karamja_rum) {
     mes("Pirate's don't usually take sliced banana with their Karamjan rum.");
@@ -61,7 +61,7 @@ if (%hunt ! 1) {
 } else if (%crate_rum = 1) {
     mes("There's already some rum in here...");
 } else {
-    inv_del(inv, karamjan_rum, 1);
+    inv_del(inv, karamja_rum, 1);
     %crate_rum = 1;
 
     sound_synth(put_down, 1, 0);

@@ -152,7 +152,7 @@ textalignh=right
 textalignv=centre
 textshadow=yes
 colour=0xff991f
-onvartransmit=script479{varplayer_1870}
+onvartransmit=script479{conq_base_temp}
 
 // 1015:13
 [com_13]
@@ -409,7 +409,7 @@ height=334
 layer=com_33
 transmitop=10
 op10= 
-onvartransmit=script487{varplayer_1870}
+onvartransmit=script487{conq_base_temp}
 
 // 1015:35
 [command_ability_1_layer]
@@ -419,7 +419,7 @@ y=79
 width=180
 height=50
 layer=com_33
-onvartransmit=script490{varplayer_1874, varplayer_1874, varplayer_1874, varplayer_1874}
+onvartransmit=script490{conq_base_4, conq_base_4, conq_base_4, conq_base_4}
 
 // 1015:36
 [command_ability_2_layer]
@@ -1873,7 +1873,7 @@ height=43
 layer=unit_buttons_layer
 graphic=graphic_3255
 colour=0x000000
-onvartransmit=script481{varplayer_1870}
+onvartransmit=script481{conq_base_temp}
 
 // 1015:144
 [com_144]
@@ -1894,7 +1894,7 @@ transmitop=1
 op1=Select Slot
 onmouseover=conq_unit_text_mouseover(event_com)
 onmouseleave=conq_unit_text_mouseleave(event_com)
-onvartransmit=script480{varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873, varplayer_1873, varplayer_1873, varplayer_1873, varplayer_1874}
+onvartransmit=script480{conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_3, conq_base_3, conq_base_3, conq_base_3, conq_base_3, conq_base_4}
 
 // 1015:145
 [unit_2_border]

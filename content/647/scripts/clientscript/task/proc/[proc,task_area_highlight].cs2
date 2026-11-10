@@ -5,16 +5,16 @@ def_component $component2 = null;
 while ($int1 <= enum_getoutputcount(enum_3489)) {
     $component2 = enum(int, component, enum_3489, $int1);
     if ($component2 ! null) {
-        if_setcolour(^black, $component2);
+        if_setcolour($component2, ^black);
     }
     $int1 = calc($int1 + 1);
 }
 $component2 = enum(int, component, enum_3489, 62);
 if ($component2 ! null) {
-    if_setcolour(^black, $component2);
+    if_setcolour($component2, ^black);
 }
 if ($int0 > 60 & $int0 ! 62) {
     return;
 }
 $component2 = enum(int, component, enum_3489, $int0);
-if_setcolour(0x927d59, $component2);
+if_setcolour($component2, 0x927d59);

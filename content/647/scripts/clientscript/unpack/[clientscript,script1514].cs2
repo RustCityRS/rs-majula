@@ -15,46 +15,46 @@ switch_int ($int2) {
     case 2, 9 :
         $struct3 = ~script361($idkit1, 3);
         if ($struct3 ! null) {
-            %varclient_1010 = struct_param($struct3, param_1182);
-            baseidkit($int4, %varclient_1010);
-            %varclient_1011 = struct_param($struct3, param_1183);
-            baseidkit($int5, %varclient_1011);
-            %varclient_1012 = struct_param($struct3, param_1184);
-            baseidkit($int6, %varclient_1012);
+            %playerdesign3_torso = struct_param($struct3, param_1182);
+            baseidkit($int4, %playerdesign3_torso);
+            %playerdesign3_arms = struct_param($struct3, param_1183);
+            baseidkit($int5, %playerdesign3_arms);
+            %playerdesign3_hands = struct_param($struct3, param_1184);
+            baseidkit($int6, %playerdesign3_hands);
         } else {
             baseidkit($int2, $idkit1);
-            %varclient_1010 = $idkit1;
-            if (%varclient_1011 = null | ~script361(%varclient_1011, 4) ! null) {
+            %playerdesign3_torso = $idkit1;
+            if (%playerdesign3_arms = null | ~script361(%playerdesign3_arms, 4) ! null) {
                 if (gender = 1) {
                     $idkit7 = idkit_61;
                 } else {
                     $idkit7 = idkit_26;
                 }
                 baseidkit($int5, $idkit7);
-                %varclient_1011 = $idkit7;
+                %playerdesign3_arms = $idkit7;
             }
-            if (%varclient_1012 = null | ~script361(%varclient_1012, 5) ! null) {
+            if (%playerdesign3_hands = null | ~script361(%playerdesign3_hands, 5) ! null) {
                 if (gender = 1) {
                     $idkit7 = idkit_68;
                 } else {
                     $idkit7 = idkit_34;
                 }
                 baseidkit($int6, $idkit7);
-                %varclient_1012 = $idkit7;
+                %playerdesign3_hands = $idkit7;
             }
         }
     case 3, 10 :
-        if (~script361(%varclient_1010, 3) = null) {
+        if (~script361(%playerdesign3_torso, 3) = null) {
             baseidkit($int2, $idkit1);
-            %varclient_1011 = $idkit1;
+            %playerdesign3_arms = $idkit1;
         }
     case 4, 11 :
-        if (~script361(%varclient_1010, 3) = null) {
+        if (~script361(%playerdesign3_torso, 3) = null) {
             baseidkit($int2, $idkit1);
-            %varclient_1012 = $idkit1;
+            %playerdesign3_hands = $idkit1;
         }
     case 5, 12 :
         baseidkit($int2, $idkit1);
-        %varclient_1013 = $idkit1;
+        %playerdesign3_legs = $idkit1;
 }
 ~player_kit_body_redraw;

@@ -5,7 +5,7 @@ switch_int ($int3) {
     case 3 :
         $string0 = %varclient_1551;
     case 4 :
-        $string0 = ~script2949(%varclient_1552);
+        $string0 = ~script2949(%loginscreen_password);
 }
-%varclient_1099 = ~script1401($int0, $string0, verdana_11pt_regular, 0);
+%login_caret = ~script1401($int0, $string0, verdana_11pt_regular, 0);
 ~script3237($component4, $component1, $component2, $string0, $int3);

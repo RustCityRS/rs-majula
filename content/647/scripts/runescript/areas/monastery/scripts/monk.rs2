@@ -1,7 +1,7 @@
 // 289's monk (803) does not stand in void-634's monastery: its monks there are
 // 7727 ("Monk", level 5, in cache 786; void-634's monk_edgeville and its
 // edgeville.npc-spawns.toml, as cache 786 has no npc spawns here).
-[ai_opplayer2,monk_7727]
+[ai_opplayer2,icemt_monk]
 if (%npc_action_delay > map_clock) return;
 // 2011's monastery monks no longer heal themselves in a fight (2011 wiki,
 // Monk and Monastery: they "used to"; Entrana's still do).
@@ -19,7 +19,7 @@ npc_anim(human_castheal,0);
 %npc_action_delay = add(map_clock, 4);
 %npc_attacking_uid = %npc_aggressive_player;
 
-[opnpc1,monk_7727]
+[opnpc1,icemt_monk]
 ~chatnpc("<p,neutral>Greetings traveller.");
 @multi3("Can you heal me? I'm injured.", monk_heal_player, "Isn't this place built a bit out the way?", isnt_this_place_built_a_bit_out_the_way, "How do I get further into the monastery?", ask_to_join_monk);
 
@@ -40,7 +40,7 @@ mes("You feel a little better.");
 ~chatplayer("<p,quiz>How do I get further into the monastery?");
 ~chatnpc("<p,neutral>You'll need to talk to Abbot Langley about that. He's|usually to be found walking the halls of the monastery.");
 
-[ai_queue3,monk_7727]
+[ai_queue3,icemt_monk]
 if (npc_stat(hitpoints) ! 0) {
     return;
 }

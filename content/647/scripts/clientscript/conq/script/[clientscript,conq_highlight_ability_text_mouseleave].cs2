@@ -2,11 +2,11 @@
 [clientscript,conq_highlight_ability_text_mouseleave](component $component0)
 switch_component ($component0) {
     case conq_buy_army:command_ability_1_details_layer :
-        if_setcolour(0xe6ca98, conq_buy_army:command_ability_1_name);
+        if_setcolour(conq_buy_army:command_ability_1_name, 0xe6ca98);
     case conq_buy_army:command_ability_2_details_layer :
-        if_setcolour(0xe6ca98, conq_buy_army:command_ability_2_name);
+        if_setcolour(conq_buy_army:command_ability_2_name, 0xe6ca98);
     case conq_buy_army:command_ability_3_details_layer :
-        if_setcolour(0xe6ca98, conq_buy_army:command_ability_3_name);
+        if_setcolour(conq_buy_army:command_ability_3_name, 0xe6ca98);
     case conq_buy_army:command_ability_4_details_layer :
-        if_setcolour(0xe6ca98, conq_buy_army:command_ability_4_name);
+        if_setcolour(conq_buy_army:command_ability_4_name, 0xe6ca98);
 }

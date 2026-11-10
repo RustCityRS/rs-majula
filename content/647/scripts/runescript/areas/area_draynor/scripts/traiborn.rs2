@@ -6,8 +6,8 @@
 // ^demon_bones_given once he has them all.
 [opnpc1,traiborn]
 ~chatnpc("<p,confused>Ello young thingummywut.");
-if (%demon_slayer = ^demon_key_hunt) {
-    if (inv_total(inv, silverlight_key_wizard_traiborn) > 0) {
+if (%demonslayer_main = ^demon_key_hunt) {
+    if (inv_total(inv, silverlight_key_1) > 0) {
         ~chatnpc("<p,confused>Don't you have somewhere to be, young thingummywut? You still have that key you asked me for.");
         ~chatplayer("<p,neutral>You're right. I've got a demon to slay.");
         return;
@@ -46,7 +46,7 @@ switch_int (~p_choice3("What's a thingummywut?", 1, "Teach me to be a mighty and
 
 // Bones used on him while he wants them (void-634's itemOnNPCOperate).
 [opnpcu,traiborn]
-if (last_useitem ! bones | %demon_slayer ! ^demon_key_hunt | %demon_slayer_bones <= 0) {
+if (last_useitem ! bones | %demonslayer_main ! ^demon_key_hunt | %demon_slayer_bones <= 0) {
     ~displaymessage(^dm_default);
     return;
 }
@@ -169,7 +169,7 @@ switch_int (~p_choice2("Hmm, that's too bad. I really need that key.", 1, "I'll 
         ~chatnpc("<p,neutral>Ah well, sorry I couldn't be any more help.");
     case 2 :
         ~chatplayer("<p,neutral>I'll help get the bones for you.");
-        if (%demon_slayer = ^demon_key_hunt) {
+        if (%demonslayer_main = ^demon_key_hunt) {
             %demon_slayer_bones = ^demon_bones_wanted;
         }
         ~chatnpc("<p,neutral>Ooh, that would be very good of you.");
@@ -193,31 +193,31 @@ if (%demon_slayer_bones > 0) {
 }
 %demon_slayer_bones = ^demon_bones_given;
 ~chatnpc("<p,happy>Hurrah! That's all 25 sets of bones.");
-npc_anim(seq_4602, 0); // void-634: traiborn_bone_spell
-spotanim_npc(spotanim_777, 0, 0); // void-634: traiborn_bone_spell
-sound_synth(synth_2973, 1, 0); // void-634: demon_slayer_bone_spell
+npc_anim(qip_ds_bones_wizard_anim, 0); // void-634: traiborn_bone_spell
+spotanim_npc(qip_ds_bone_spotanim, 0, 0); // void-634: traiborn_bone_spell
+sound_synth(ds_bone_spell, 1, 0); // void-634: demon_slayer_bone_spell
 // 2011-04-20 recording (415.6s): the verse on four lines.
 ~chatnpc("<p,confused>Wings of dark and colour too,|Spreading in the morning dew;|Locked away I have a key;|Return it now, please, unto me.");
-sound_synth(synth_2977, 1, 0); // void-634: demon_slayer_cupboard_appear
+sound_synth(ds_cupboard_appear, 1, 0); // void-634: demon_slayer_cupboard_appear
 if_close;
 // The closet: 2011's wardrobe_17434 (void-634's demon_slayer_spell_wardrobe),
 // for 5 ticks on the first free tile beside him, facing him.
 def_coord $closet = ~traiborn_closet_tile;
 if ($closet ! null) {
-    loc_add($closet, wardrobe_17434, ~traiborn_closet_angle($closet), centrepiece_straight, 5);
+    loc_add($closet, qip_ds_wizards_key_wardrobe_magic, ~traiborn_closet_angle($closet), centrepiece_straight, 5);
     npc_facesquare($closet);
 }
 p_delay(0);
 npc_anim(human_openchest, 0); // void-634: open_chest
 sound_synth(chest_open, 1, 0);
 p_delay(0);
-inv_add(inv, silverlight_key_wizard_traiborn, 1);
-if ($closet ! null & loc_find($closet, wardrobe_17434) = true) {
-    loc_anim(seq_4600); // void-634: demon_slayer_cupboard_disappear
+inv_add(inv, silverlight_key_1, 1);
+if ($closet ! null & loc_find($closet, qip_ds_wizards_key_wardrobe_magic) = true) {
+    loc_anim(qip_ds_wardrobe_disappear); // void-634: demon_slayer_cupboard_disappear
 }
-sound_synth(synth_2978, 1, 0); // void-634: demon_slayer_cupboard_disappear
+sound_synth(ds_cupboard_dissappear, 1, 0); // void-634: demon_slayer_cupboard_disappear
 npc_facesquare(coord);
-~objbox(silverlight_key_wizard_traiborn, "Traiborn hands you a key.", 250, 0, 0);
+~objbox(silverlight_key_1, "Traiborn hands you a key.", 250, 0, 0);
 ~chatplayer("<p,neutral>Thank you very much.");
 ~chatnpc("<p,neutral>Not a problem for a friend of Sir What's-his-face.");
 

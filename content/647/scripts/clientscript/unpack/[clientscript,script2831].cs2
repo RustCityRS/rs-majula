@@ -5,8 +5,8 @@ if ($int0 ! 1) {
 }
 baseidkit($int2, $idkit1);
 if ($int2 = 1) {
-    %varclient_1009 = $idkit1;
+    %playerdesign3_jaw = $idkit1;
 } else {
-    %varclient_1008 = $idkit1;
+    %playerdesign3_head = $idkit1;
 }
 ~player_kit_hair_redraw;

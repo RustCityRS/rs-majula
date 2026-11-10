@@ -1,6 +1,6 @@
 // 3135
 [proc,script3135](int $int0)
-if (%varclient_998 = $int0 | %varclient_999 = $int0) {
+if (%worldselect_1stfavourite = $int0 | %worldselect_2ndfavourite = $int0) {
     ~script3139($int0);
 } else {
     ~script3137($int0);

@@ -1,5 +1,5 @@
 [opnpc1,_sailor]
-if(map_members = ^true & npc_type = captain_tobias) {
+if(map_members = ^true & npc_type = vkq2_captain_tobias_sick) {
     if(inv_total(inv, trail_clue_easy_vague012) > 0) {
         // https://youtu.be/o3Hvw7cqXv8?si=LqxAoPuaPZNpijxq&t=129
         ~chatnpc("<p,happy>Well done, matey! Here you go!");

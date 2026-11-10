@@ -1,6 +1,6 @@
 // 548
 [clientscript,stats_update](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, stat $stat7, component $component8, component $component9)
-if (%varclient_80 = 0) {
+if (%stats_mouseover = 0) {
     return;
 }
 def_int $int10 = 0;
@@ -14,7 +14,7 @@ def_int $int17 = 0;
 def_int $int18 = 0;
 def_string $string0 = "";
 def_string $string1 = "<enum(stat, string, enum_680, $stat7)>: <tostring(stat($stat7))>/<tostring(stat_base($stat7))>";
-if (cc_find($component9, $int0) = true & parawidth($string1, 190, p12_full) < cc_getwidth & %varclient_80 = stat_base($stat7)) {
+if (cc_find($component9, $int0) = true & parawidth($string1, 190, p12_full) < cc_getwidth & %stats_mouseover = stat_base($stat7)) {
     cc_settext($string1);
     if (cc_find($component9, $int1) = true) {
         cc_settext(~tostring_spacer(stat_visible_xp($stat7), ","));
@@ -65,5 +65,5 @@ if (cc_find($component9, $int0) = true & parawidth($string1, 190, p12_full) < cc
     return;
 }
 cc_deleteall($component9);
-%varclient_80 = stat_base($stat7);
+%stats_mouseover = stat_base($stat7);
 ~stats_mouseover_create($component8, $stat7, $component9);

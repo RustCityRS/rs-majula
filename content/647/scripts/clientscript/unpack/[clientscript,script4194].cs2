@@ -1,65 +1,65 @@
 // 4194
 [clientscript,script4194](component $component0)
 if ($component0 = artisan_build_sword:button1) {
-    if (%varplayerbit_8911 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point1);
+    if (%artisan_pos_1_on = 0) {
+        if_setgraphic(artisan_build_sword:point1, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button2) {
-    if (%varplayerbit_8912 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point2);
+    if (%artisan_pos_2_on = 0) {
+        if_setgraphic(artisan_build_sword:point2, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button3) {
-    if (%varplayerbit_8913 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point3);
+    if (%artisan_pos_3_on = 0) {
+        if_setgraphic(artisan_build_sword:point3, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button4) {
-    if (%varplayerbit_8914 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point4);
+    if (%artisan_pos_4_on = 0) {
+        if_setgraphic(artisan_build_sword:point4, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button5) {
-    if (%varplayerbit_8915 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point5);
+    if (%artisan_pos_5_on = 0) {
+        if_setgraphic(artisan_build_sword:point5, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button6) {
-    if (%varplayerbit_8916 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point6);
+    if (%artisan_pos_6_on = 0) {
+        if_setgraphic(artisan_build_sword:point6, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button7) {
-    if (%varplayerbit_8917 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point7);
+    if (%artisan_pos_7_on = 0) {
+        if_setgraphic(artisan_build_sword:point7, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button8) {
-    if (%varplayerbit_8918 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point8);
+    if (%artisan_pos_8_on = 0) {
+        if_setgraphic(artisan_build_sword:point8, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button9) {
-    if (%varplayerbit_8919 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point9);
+    if (%artisan_pos_9_on = 0) {
+        if_setgraphic(artisan_build_sword:point9, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button10) {
-    if (%varplayerbit_8920 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point10);
+    if (%artisan_pos_10_on = 0) {
+        if_setgraphic(artisan_build_sword:point10, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button11) {
-    if (%varplayerbit_8921 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point11);
+    if (%artisan_pos_11_on = 0) {
+        if_setgraphic(artisan_build_sword:point11, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button12) {
-    if (%varplayerbit_8922 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point12);
+    if (%artisan_pos_12_on = 0) {
+        if_setgraphic(artisan_build_sword:point12, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button13) {
-    if (%varplayerbit_8923 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point13);
+    if (%artisan_pos_13_on = 0) {
+        if_setgraphic(artisan_build_sword:point13, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button14) {
-    if (%varplayerbit_8924 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point14);
+    if (%artisan_pos_14_on = 0) {
+        if_setgraphic(artisan_build_sword:point14, "artisan_sword_hammer,0");
     }
 } else if ($component0 = artisan_build_sword:button15) {
-    if (%varplayerbit_8925 = 0) {
-        if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point15);
+    if (%artisan_pos_15_on = 0) {
+        if_setgraphic(artisan_build_sword:point15, "artisan_sword_hammer,0");
     }
-} else if ($component0 = artisan_build_sword:button16 & %varplayerbit_8926 = 0) {
-    if_setgraphic("artisan_sword_hammer,0", artisan_build_sword:point16);
+} else if ($component0 = artisan_build_sword:button16 & %artisan_pos_16_on = 0) {
+    if_setgraphic(artisan_build_sword:point16, "artisan_sword_hammer,0");
 }

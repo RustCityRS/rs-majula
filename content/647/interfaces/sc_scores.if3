@@ -466,7 +466,7 @@ height=32
 layer=main_layer
 colour=0xffff00
 trans=255
-onvarctransmit=sc_client_score_refresh{varclient_590, varclient_591, varclient_592, varclient_593, varclient_594, varclient_588, varclient_589, varclient_596, varclient_597, varclient_598}
+onvarctransmit=sc_client_score_refresh{sc_client_gathered_score, sc_client_processed_score, sc_client_deposited_score, sc_client_damaged_score, sc_client_killed_score, sc_client_player_team, sc_client_winning_team, sc_client_final_score, sc_client_team1_score, sc_client_team2_score}
 
 // 810:35
 [com_35]

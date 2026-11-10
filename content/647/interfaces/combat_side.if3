@@ -28,7 +28,7 @@ colour=0xff981f
 onload=combat_side_comlevel(event_com)
 oninvtransmit=combat_side_comlevel(event_com){worn}
 onstattransmit=combat_side_comlevel(event_com){hitpoints, summoning, defence, attack, strength, ranged, magic, prayer}
-onvarctransmit=combat_side_comlevel(event_com){varclient_1000}
+onvarctransmit=combat_side_comlevel(event_com){comlevel_potential_varc}
 
 // 884:2
 [sp_attack_layer]
@@ -59,7 +59,7 @@ colour=0xffffffff
 transmitop=1
 opbase=<col=00ff00>Special Attack
 op1=Use
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 884:5
 [com_5]

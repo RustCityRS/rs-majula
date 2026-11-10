@@ -5,6 +5,6 @@
 %varclient_1842 = "";
 %varclient_1843 = "";
 %varclient_1844 = "";
-if_sethide(true, equip_screen2:popup);
-if_sethide(true, inventory_wear2:popup);
-if_sethide(true, bank_v2_side:popup);
+if_sethide(equip_screen2:popup, true);
+if_sethide(inventory_wear2:popup, true);
+if_sethide(bank_v2_side:popup, true);

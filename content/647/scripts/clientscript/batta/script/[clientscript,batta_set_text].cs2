@@ -1,9 +1,9 @@
 // 1957
 [clientscript,batta_set_text](component $component0, obj $obj1, int $int2)
 def_int $int3 = inv_total(inv, $obj1);
-if_settext("<tostring($int3)>/<tostring($int2)>", $component0);
+if_settext($component0, "<tostring($int3)>/<tostring($int2)>");
 if ($int3 >= $int2) {
-    if_setcolour(^green, $component0);
+    if_setcolour($component0, ^green);
 } else {
-    if_setcolour(^red, $component0);
+    if_setcolour($component0, ^red);
 }

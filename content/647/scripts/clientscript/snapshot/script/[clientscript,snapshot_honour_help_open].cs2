@@ -2,4 +2,4 @@
 [clientscript,snapshot_honour_help_open]
 ~snapshot_hide_help;
 ~snapshot_help_show_blackout;
-if_sethide(false, snapshot_main_v2:honour_help_layer);
+if_sethide(snapshot_main_v2:honour_help_layer, false);

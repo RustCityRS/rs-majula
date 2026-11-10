@@ -1,9 +1,9 @@
 // 385
 [proc,playerdesign4_backdrop](struct $struct0)
-if ($struct0 = %varclient_543 & $struct0 ! null) {
+if ($struct0 = %last_windowmode & $struct0 ! null) {
     return;
 }
-%varclient_543 = $struct0;
+%last_windowmode = $struct0;
 switch_struct ($struct0) {
     case struct_1112 :
         if_opensubclient(playerdesign4:backdrop, avatar_creation_adventurer);

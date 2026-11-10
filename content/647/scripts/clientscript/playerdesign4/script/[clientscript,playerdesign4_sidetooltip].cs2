@@ -1,23 +1,23 @@
 // 381
 [clientscript,playerdesign4_sidetooltip](string $string0, component $component0, int $int1, int $int2)
 def_int $int3 = calc(clientclock + 25);
-if (%varclient_1 < $int3) {
-    %varclient_1 = max(clientclock, calc(%varclient_1 + 2));
+if (%tooltip_time < $int3) {
+    %tooltip_time = max(clientclock, calc(%tooltip_time + 2));
     return;
 }
-%varclient_1 = $int3;
+%tooltip_time = $int3;
 if (if_gethide(playerdesign4:tooltip) = false) {
     return;
 }
 def_int $int4 = 0;
 if (cc_find($component0, $int1) = true | $int1 = -1 & if_find($component0) = true) {
-    %varclient_2, %varclient_773 = ~cc_getx_absolute, cc_getwidth;
+    %tooltip_built, %player_kit_scroll_length = ~cc_getx_absolute, cc_getwidth;
     $int2 = max(min($int2, cc_getheight), 0);
     $int4 = calc(~cc_gety_absolute + $int2);
 } else {
     return;
 }
-if_sethide(false, playerdesign4:tooltip);
+if_sethide(playerdesign4:tooltip, false);
 cc_deleteall(playerdesign4:tooltip);
 def_int $int5 = parawidth($string0, if_getwidth(playerdesign4:universe), p12_full);
 def_int $int6 = calc(paraheight($string0, $int5, p12_full) * 12 + 5);
@@ -25,8 +25,8 @@ def_int $int7 = calc($int5 + 19);
 def_int $int8 = max(calc($int6 + 8), 17);
 def_int $int9 = max(calc($int7 - 25), 0);
 def_int $int10 = max(calc($int8 - 14), 0);
-if_setsize($int7, $int8, ^setsize_abs, ^setsize_abs, playerdesign4:tooltip);
-if_setposition(calc(%varclient_2 - $int7), calc($int4 - $int8 / 2), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:tooltip);
+if_setsize(playerdesign4:tooltip, $int7, $int8, ^setsize_abs, ^setsize_abs);
+if_setposition(playerdesign4:tooltip, calc(%tooltip_built - $int7), calc($int4 - $int8 / 2), ^setpos_abs_left, ^setpos_abs_top);
 cc_create(playerdesign4:tooltip, ^iftype_rectangle, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
 cc_setposition(7, 0, ^setpos_abs_left, ^setpos_abs_centre);

@@ -3,7 +3,7 @@
 cc_deleteall($component0);
 def_int $int5 = 0;
 def_int $int6 = 0;
-if_setscrollsize(0, calc((($int4 - $int3) / $int1 + 1) * 57), $component0);
+if_setscrollsize($component0, 0, calc((($int4 - $int3) / $int1 + 1) * 57));
 def_int $int7 = 0;
 def_int $int8 = 1;
 def_int $int9 = 0;
@@ -37,7 +37,7 @@ while ($int7 < 78) {
     $obj12 = enum(int, obj, enum_1277, $int8);
     $obj13 = enum(int, obj, enum_1188, $int8);
     $int15 = enum(obj, int, enum_1185, oc_uncert($obj12));
-    if ($obj13 = scroll_12421) {
+    if ($obj13 = lore_pouch_spell_grey) {
         ~script1670($obj13, $obj13, $component0, $int16, $string0, $string1, $string2, $string3, $string4, $string5);
     } else if (inv_total(inv, oc_uncert($obj13)) > 0 & inv_total(inv, oc_uncert($obj13)) >= oc_param(oc_uncert($obj13), param_599) & stat_base(summoning) >= enum(int, int, enum_1472, $int15)) {
         ~script1670($obj13, $obj13, $component0, $int16, $string0, $string1, $string2, $string3, $string4, $string5);
@@ -49,7 +49,7 @@ while ($int7 < 78) {
     $int16 = calc($int16 + 1);
     cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int5 + 2), calc($int6 + 38), ^setpos_abs_left, ^setpos_abs_top);
-    cc_setobject_nonum(spirit_shards, 1);
+    cc_setobject_nonum(lore_spirit_shard, 1);
     cc_create($component0, ^iftype_text, $int16);
     $int16 = calc($int16 + 1);
     cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);

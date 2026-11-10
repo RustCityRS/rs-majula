@@ -1,8 +1,8 @@
 // 2316
 [clientscript,script2316](int $int0)
-if_settext(tostring(calc($int0 + 1)), chatdefault:daytext);
-if_setvflip(false, chatdefault:dayarrow);
-if_sethide(true, chatdefault:dayddlist);
-if_sethide(true, chatdefault:dayddscroll);
-if_sethide(true, chatdefault:dayddlistborder);
-if_sethide(true, chatdefault:dayddback);
+if_settext(chatdefault:daytext, tostring(calc($int0 + 1)));
+if_setvflip(chatdefault:dayarrow, false);
+if_sethide(chatdefault:dayddlist, true);
+if_sethide(chatdefault:dayddscroll, true);
+if_sethide(chatdefault:dayddlistborder, true);
+if_sethide(chatdefault:dayddback, true);

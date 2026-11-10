@@ -517,7 +517,7 @@ textfont=p12_full
 text=Runecrafting XP
 textshadow=yes
 colour=0xfab432
-onvartransmit=script524(event_com, assister_interface:runecraft_xp){varplayer_1088, varplayer_1087}
+onvartransmit=script524(event_com, assister_interface:runecraft_xp){assist_xp_cap_var, assist_var}
 
 // 301:46
 [runecraft_xp]
@@ -544,7 +544,7 @@ textfont=p12_full
 text=Crafting XP
 textshadow=yes
 colour=0xfab432
-onvartransmit=script524(event_com, assister_interface:crafting_xp){varplayer_1088, varplayer_1087}
+onvartransmit=script524(event_com, assister_interface:crafting_xp){assist_xp_cap_var, assist_var}
 
 // 301:48
 [crafting_xp]
@@ -570,7 +570,7 @@ textfont=p12_full
 text=Fletching XP
 textshadow=yes
 colour=0xfab432
-onvartransmit=script524(event_com, assister_interface:fletching_xp){varplayer_1088, varplayer_1087}
+onvartransmit=script524(event_com, assister_interface:fletching_xp){assist_xp_cap_var, assist_var}
 
 // 301:50
 [fletching_xp]
@@ -597,7 +597,7 @@ textfont=p12_full
 text=Construction XP
 textshadow=yes
 colour=0xfab432
-onvartransmit=script524(event_com, assister_interface:construction_xp){varplayer_1088, varplayer_1087}
+onvartransmit=script524(event_com, assister_interface:construction_xp){assist_xp_cap_var, assist_var}
 
 // 301:52
 [construction_xp]
@@ -623,7 +623,7 @@ textfont=p12_full
 text=Farming XP
 textshadow=yes
 colour=0xfab432
-onvartransmit=script524(event_com, assister_interface:farming_xp){varplayer_1088, varplayer_1087}
+onvartransmit=script524(event_com, assister_interface:farming_xp){assist_xp_cap_var, assist_var}
 
 // 301:54
 [farming_xp]
@@ -650,7 +650,7 @@ textfont=p12_full
 text=Magic XP
 textshadow=yes
 colour=0xfab432
-onvartransmit=script524(event_com, assister_interface:magic_xp){varplayer_1088, varplayer_1087}
+onvartransmit=script524(event_com, assister_interface:magic_xp){assist_xp_cap_var, assist_var}
 
 // 301:56
 [magic_xp]
@@ -677,7 +677,7 @@ textfont=p12_full
 text=Smithing XP
 textshadow=yes
 colour=0xfab432
-onvartransmit=script524(event_com, assister_interface:smithing_xp){varplayer_1088, varplayer_1087}
+onvartransmit=script524(event_com, assister_interface:smithing_xp){assist_xp_cap_var, assist_var}
 
 // 301:58
 [smithing_xp]
@@ -704,7 +704,7 @@ textfont=p12_full
 text=Cooking XP
 textshadow=yes
 colour=0xfab432
-onvartransmit=script524(event_com, assister_interface:cooking_xp){varplayer_1088, varplayer_1087}
+onvartransmit=script524(event_com, assister_interface:cooking_xp){assist_xp_cap_var, assist_var}
 
 // 301:60
 [cooking_xp]
@@ -731,7 +731,7 @@ textfont=p12_full
 text=Herblore XP
 textshadow=yes
 colour=0xfab432
-onvartransmit=script524(event_com, assister_interface:herblore_xp){varplayer_1088, varplayer_1087}
+onvartransmit=script524(event_com, assister_interface:herblore_xp){assist_xp_cap_var, assist_var}
 
 // 301:62
 [herblore_xp]
@@ -758,7 +758,7 @@ graphic="staticons2,0"
 trans=20
 colour=0xffffffff
 onload=assist_display_icon
-onvartransmit=assist_display_icon{varplayer_1087}
+onvartransmit=assist_display_icon{assist_var}
 
 // 301:64
 [crafting_icon_on]
@@ -1063,7 +1063,7 @@ textfont=p12_full
 text=Total XP earned
 textshadow=yes
 colour=0xfab432
-onvartransmit=script524(event_com, assister_interface:assist_total_xp_display){varplayer_1088}
+onvartransmit=script524(event_com, assister_interface:assist_total_xp_display){assist_xp_cap_var}
 
 // 301:84
 [assist_total_xp_display]
@@ -1077,7 +1077,7 @@ textfont=p12_full
 text=XP 
 textshadow=yes
 colour=0xf3922a
-onvartransmit=script535(event_com){varplayer_1088}
+onvartransmit=script535(event_com){assist_xp_cap_var}
 
 // 301:85
 [assist_tooltip_build_layer]

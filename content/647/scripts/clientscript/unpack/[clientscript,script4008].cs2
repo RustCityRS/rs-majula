@@ -1,4 +1,4 @@
 // 4008
 [clientscript,script4008](int $int0, component $component1)
-if_setonmouseover("task_hintarrow_hover(0, $int0, $component1)", $component1);
-if_setonmouseleave("task_hintarrow_hover(1, $int0, $component1)", $component1);
+if_setonmouseover($component1, "task_hintarrow_hover(0, $int0, $component1)");
+if_setonmouseleave($component1, "task_hintarrow_hover(1, $int0, $component1)");

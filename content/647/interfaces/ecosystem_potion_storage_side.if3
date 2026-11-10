@@ -33,9 +33,9 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, scentless_potion__3, ecosystem_potion_storage_side:scentless_name)
+onload=script2968(event_com, 3dosescentless_potion, ecosystem_potion_storage_side:scentless_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, scentless_potion__3, ecosystem_potion_storage_side:scentless_name){inv}
+oninvtransmit=script2968(event_com, 3dosescentless_potion, ecosystem_potion_storage_side:scentless_name){inv}
 
 // 74:2
 [guthix_name]
@@ -73,9 +73,9 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, guthix_s_gift__3, ecosystem_potion_storage_side:guthix_name)
+onload=script2968(event_com, 3doseguthix_potion, ecosystem_potion_storage_side:guthix_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, guthix_s_gift__3, ecosystem_potion_storage_side:guthix_name){inv}
+oninvtransmit=script2968(event_com, 3doseguthix_potion, ecosystem_potion_storage_side:guthix_name){inv}
 
 // 74:4
 [farming_name]
@@ -112,9 +112,9 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, juju_farming_potion__3, ecosystem_potion_storage_side:farming_name)
+onload=script2968(event_com, 3dosefarming_potion, ecosystem_potion_storage_side:farming_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, juju_farming_potion__3, ecosystem_potion_storage_side:farming_name){inv}
+oninvtransmit=script2968(event_com, 3dosefarming_potion, ecosystem_potion_storage_side:farming_name){inv}
 
 // 74:6
 [farming]
@@ -200,9 +200,9 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, juju_hunter_potion__3, ecosystem_potion_storage_side:hunter_name)
+onload=script2968(event_com, 3doseadvanced_hunter_potion, ecosystem_potion_storage_side:hunter_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, juju_hunter_potion__3, ecosystem_potion_storage_side:hunter_name){inv}
+oninvtransmit=script2968(event_com, 3doseadvanced_hunter_potion, ecosystem_potion_storage_side:hunter_name){inv}
 
 // 74:13
 [right]
@@ -256,9 +256,9 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, saradomin_s_blessing__3, ecosystem_potion_storage_side:saradomin_name)
+onload=script2968(event_com, 3dosesaradomin_potion, ecosystem_potion_storage_side:saradomin_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, saradomin_s_blessing__3, ecosystem_potion_storage_side:saradomin_name){inv}
+oninvtransmit=script2968(event_com, 3dosesaradomin_potion, ecosystem_potion_storage_side:saradomin_name){inv}
 
 // 74:17
 [zamorak]
@@ -303,6 +303,6 @@ op2=Store-5
 op3=Store-All
 op4=Store-X
 op10=Examine
-onload=script2968(event_com, zamorak_s_favour__3, ecosystem_potion_storage_side:zamorak_name)
+onload=script2968(event_com, 3dosezamorak_potion, ecosystem_potion_storage_side:zamorak_name)
 onmouseover=script2959(event_com)
-oninvtransmit=script2968(event_com, zamorak_s_favour__3, ecosystem_potion_storage_side:zamorak_name){inv}
+oninvtransmit=script2968(event_com, 3dosezamorak_potion, ecosystem_potion_storage_side:zamorak_name){inv}

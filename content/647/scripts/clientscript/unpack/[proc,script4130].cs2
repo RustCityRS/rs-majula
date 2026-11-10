@@ -1,7 +1,7 @@
 // 4130
 [proc,script4130](component $component0)
 def_int $int1 = 0;
-switch_int (%varclient_1452) {
+switch_int (%glo3_cutscene) {
     case 1 :
         cc_create($component0, ^iftype_rectangle, $int1);
         cc_setfill(true);

@@ -214,47 +214,47 @@ switch_int(.%damagetype) {
 [proc,check_attack_prayer]()(int)
 if (%prayer2 = ^true) return (105);
 if (%prayer5 = ^true) return (110);
-if (%prayer11 = ^true) return (115);
+if (%varplayerbit_5953 = ^true) return (115);
 else return(100);
 
 [proc,check_defence_prayer]()(int)
-if (%prayer0 = ^true) return (105);
+if (%varplayerbit_5942 = ^true) return (105);
 if (%prayer3 = ^true) return (110);
-if (%prayer9 = ^true) return (115);
+if (%varplayerbit_5951 = ^true) return (115);
 else return(100);
 
 [proc,check_strength_prayer]()(int)
-if (%prayer1 = ^true) return (105);
+if (%varplayerbit_5943 = ^true) return (105);
 if (%prayer4 = ^true) return (110);
-if (%prayer10 = ^true) return (115);
+if (%varplayerbit_5952 = ^true) return (115);
 else return(100);
 
 [proc,check_protect_prayer](int $style)(boolean)
 if (($style = ^melee_style | $style = ^stab_style | $style = ^slash_style | $style = ^crush_style) & %prayer14 = ^true) return (true);
 if (($style = ^ranged_style) & %prayer13 = ^true) return (true);
-if (($style = ^magic_style) & %prayer12 = ^true) return (true);
+if (($style = ^magic_style) & %varplayerbit_5954 = ^true) return (true);
 else return (false);
 
 [proc,.check_attack_prayer]()(int)
 if (.%prayer2 = ^true) return (105);
 if (.%prayer5 = ^true) return (110);
-if (.%prayer11 = ^true) return (115);
+if (.%varplayerbit_5953 = ^true) return (115);
 else return(100);
 
 [proc,.check_defence_prayer]()(int)
-if (.%prayer0 = ^true) return (105);
+if (.%varplayerbit_5942 = ^true) return (105);
 if (.%prayer3 = ^true) return (110);
-if (.%prayer9 = ^true) return (115);
+if (.%varplayerbit_5951 = ^true) return (115);
 else return(100);
 
 [proc,.check_strength_prayer]()(int)
-if (.%prayer1 = ^true) return (105);
+if (.%varplayerbit_5943 = ^true) return (105);
 if (.%prayer4 = ^true) return (110);
-if (.%prayer10 = ^true) return (115);
+if (.%varplayerbit_5952 = ^true) return (115);
 else return(100);
 
 [proc,.check_protect_prayer](int $style)(boolean)
 if (($style = ^melee_style | $style = ^stab_style | $style = ^slash_style | $style = ^crush_style) & .%prayer14 = ^true) return (true);
 if (($style = ^ranged_style) & .%prayer13 = ^true) return (true);
-if (($style = ^magic_style) & .%prayer12 = ^true) return (true);
+if (($style = ^magic_style) & .%varplayerbit_5954 = ^true) return (true);
 else return (false);

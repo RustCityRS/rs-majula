@@ -1,14 +1,14 @@
 // 1631
 [clientscript,script1631]
-if (%varclient_1033 <= spline_length(0)) {
-    %varclient_1033 = calc(%varclient_1033 + 1);
-    switch_int (%varclient_1033) {
+if (%wtl_spline_step <= spline_length(0)) {
+    %wtl_spline_step = calc(%wtl_spline_step + 1);
+    switch_int (%wtl_spline_step) {
         case default :
-            if_setoncamfinished(null, wtl_cutscenes:cutscene_controller);
+            if_setoncamfinished(wtl_cutscenes:cutscene_controller, null);
         case 2, 4 :
-            if_setoncamfinished("script1631", wtl_cutscenes:cutscene_controller);
-            cam_movealong(0, %varclient_1033, 200, 200, 1, %varclient_1033);
+            if_setoncamfinished(wtl_cutscenes:cutscene_controller, "script1631");
+            cam_movealong(0, %wtl_spline_step, 200, 200, 1, %wtl_spline_step);
     }
 } else {
-    %varclient_1033 = 0;
+    %wtl_spline_step = 0;
 }

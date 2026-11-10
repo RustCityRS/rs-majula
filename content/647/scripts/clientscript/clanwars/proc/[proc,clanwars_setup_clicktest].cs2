@@ -1,6 +1,6 @@
 // 1820
 [proc,clanwars_setup_clicktest](int $int0)(boolean)
-if (%varplayer_1149 = -1) {
+if (%clanwars_challengeuid = -1) {
     return(false);
 }
 if ($int0 ! 1) {

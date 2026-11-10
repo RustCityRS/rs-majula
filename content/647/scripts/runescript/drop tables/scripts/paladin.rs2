@@ -23,9 +23,9 @@ if ($random < 2) {
 } else if ($random < 4) {
     obj_add(npc_coord, steel_full_helm, 1, ^lootdrop_duration);
 } else if ($random < 17) {
-    obj_add(npc_coord, water_rune, 30, ^lootdrop_duration);
+    obj_add(npc_coord, waterrune, 30, ^lootdrop_duration);
 } else if ($random < 18) {
-    obj_add(npc_coord, blood_rune, 1, ^lootdrop_duration);
+    obj_add(npc_coord, bloodrune, 1, ^lootdrop_duration);
 } else if ($random < 27) {
     obj_add(npc_coord, iron_bar, 1, ^lootdrop_duration);
 } else if ($random < 28) {

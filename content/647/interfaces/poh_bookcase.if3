@@ -19,7 +19,7 @@ height=300
 xmode=abs_centre
 ymode=abs_centre
 onload=poh_bookcase_build(poh_bookcase:contents, poh_bookcase:scrollbar)
-onvarctransmit=poh_bookcase_build(poh_bookcase:contents, poh_bookcase:scrollbar){varclient_1040, varclient_1041, varclient_1042}
+onvarctransmit=poh_bookcase_build(poh_bookcase:contents, poh_bookcase:scrollbar){poh_bookcase_menu_1, poh_bookcase_menu_2, poh_bookcase_menu_3}
 
 // 87:2
 [com_2]

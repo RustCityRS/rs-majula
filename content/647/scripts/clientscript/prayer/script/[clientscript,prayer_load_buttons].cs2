@@ -1,8 +1,8 @@
 // 1236
 [clientscript,prayer_load_buttons]
-%varclient_1063 = -1;
-if_setonvartransmit("script1716{varplayer_1584}", prayer:prayer_buttons);
-if_setonstattransmit("prayer_refresh_stats_text{attack, strength, defence, ranged, magic}", prayer:prayer_buttons);
+%prayer_last_mode = -1;
+if_setonvartransmit(prayer:prayer_buttons, "script1716{varplayer_1584}");
+if_setonstattransmit(prayer:prayer_buttons, "prayer_refresh_stats_text{attack, strength, defence, ranged, magic}");
 ~prayer_init_buttons;
 cc_deleteall(prayer:scrollbar_layer);
 ~prayer_refresh_scrollbar;

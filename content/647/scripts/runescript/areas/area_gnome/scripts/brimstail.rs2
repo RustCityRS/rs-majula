@@ -1,4 +1,4 @@
-[opnpc1,brimstail]
+[opnpc1,gnome_brimstail]
 if(inv_total(inv, trail_clue_medium_anagram014) > 0) {
     // https://youtu.be/yOwYUB_bCAE?si=-cIVhPtRRTxmurRu&t=338
     ~chatnpc("<p,happy>Well done!");
@@ -17,5 +17,5 @@ if(%runemysteries = ^runemysteries_complete) {
 ~chatplayer("<p,neutral>Nothing for now, thanks!");
 ~chatnpc("<p,neutral>Ok. Just remember that a friend of a wizard is a friend of mine!");
 
-[opnpc3,brimstail]
+[opnpc3,gnome_brimstail]
 @teleport_to_essence_mine(^essence_mine_to_brimstail);

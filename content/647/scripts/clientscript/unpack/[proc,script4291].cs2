@@ -1,12 +1,12 @@
 // 4291
 [proc,script4291]
-if_setonclansettingstransmit("clansettings_list_build", clansettings:list_name_layer);
-if_setonvarctransmit("clansettings_list_build{varclient_1516}", clansettings:list_name_layer);
-if_setontimer("script4319(0, 1)", clansettings:clanmate_settings_layer);
-if_setonclansettingstransmit("clansettings_interface_refresh", clansettings:clanmate_settings_layer);
-if_setonclanchanneltransmit("clansettings_interface_refresh", clansettings:clanmate_settings_layer);
-if_setonvarctransmit("script118{varclient_1500, varclient_1501, varclient_1502, varclient_1503}", clansettings:clanmate_settings_layer);
-if_setonvarcstrtransmit("script118{varclient_1866}", clansettings:clanmate_settings_layer);
+if_setonclansettingstransmit(clansettings:list_name_layer, "clansettings_list_build");
+if_setonvarctransmit(clansettings:list_name_layer, "clansettings_list_build{clansettings_clanmate_filter_rank_plus_1}");
+if_setontimer(clansettings:clanmate_settings_layer, "script4319(0, 1)");
+if_setonclansettingstransmit(clansettings:clanmate_settings_layer, "clansettings_interface_refresh");
+if_setonclanchanneltransmit(clansettings:clanmate_settings_layer, "clansettings_interface_refresh");
+if_setonvarctransmit(clansettings:clanmate_settings_layer, "script118{clansettings_clanmate_settings_rank, clansettings_clanmate_settings_job, clansettings_clanmate_settings_recruiter, clansettings_clanmate_settings_clanwars_leader}");
+if_setonvarcstrtransmit(clansettings:clanmate_settings_layer, "script118{clansettings_clanmate_settings_name}");
 switch_int (map_lang) {
     case 1 :
         ~aif_dropdownbox_setup(enum_3727, 1, "", enum_getoutputcount(enum_3727), 10, clansettings:com_247, clansettings:com_257, clansettings:com_259, clansettings:com_258, clansettings:com_350);
@@ -18,10 +18,10 @@ switch_int (map_lang) {
         ~aif_dropdownbox_setup(enum_3720, 1, "", enum_getoutputcount(enum_3720), 10, clansettings:com_247, clansettings:com_257, clansettings:com_259, clansettings:com_258, clansettings:com_350);
 }
 ~script4328(clansettings:clan_flag_graphic);
-if_settext(activeclansettings_getclanname, clansettings:com_50);
-if_setsize(if_getwidth(clansettings:clanmate_settings_layer), 115, ^setsize_abs, ^setsize_abs, clansettings:clanmate_settings_layer);
-if_sethide(true, clansettings:clan_data_waiting);
-if_sethide(false, clansettings:com_72);
+if_settext(clansettings:com_50, activeclansettings_getclanname);
+if_setsize(clansettings:clanmate_settings_layer, if_getwidth(clansettings:clanmate_settings_layer), 115, ^setsize_abs, ^setsize_abs);
+if_sethide(clansettings:clan_data_waiting, true);
+if_sethide(clansettings:com_72, false);
 def_component $component0 = clansettings:rectangle_layer;
 def_int $int1 = 0;
 def_int $int2 = 0;

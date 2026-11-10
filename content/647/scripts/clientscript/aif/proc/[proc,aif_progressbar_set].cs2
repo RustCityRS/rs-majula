@@ -6,5 +6,5 @@ if ($component1 = null) {
     return;
 }
 def_int $int3 = calc($int0 * 16384 / 100);
-if_setsize($int3, if_getheight($component1), ^setsize_rel, ^setsize_abs, $component1);
+if_setsize($component1, $int3, if_getheight($component1), ^setsize_rel, ^setsize_abs);
 ~aif_text_layer_build_new($component2, "<tostring($int0)>%", verdana_11pt_regular, 0xd5d9d3, ^black);

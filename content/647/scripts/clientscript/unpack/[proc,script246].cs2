@@ -1,12 +1,12 @@
 // 246
 [proc,script246]
-if_setonkey("snapshot_onkey_v1(event_keycode, event_keychar)", snapshot_main_v2:name);
-if_setonkey(null, chatdefault:input);
-%varclient_6 = false;
-%varclient_11 = true;
+if_setonkey(snapshot_main_v2:name, "snapshot_onkey_v1(event_keycode, event_keychar)");
+if_setonkey(chatdefault:input, null);
+%snapshot_mute = false;
+%snapshot_open = true;
 if (if_gethide(chattop:mes_layer) = false) {
-    if_sethide(true, chattop:mes_layer);
-    if_sethide(false, chattop:mes_layer_hide);
-    %varclient_5 = 0;
-    %varclient_1541 = "";
+    if_sethide(chattop:mes_layer, true);
+    if_sethide(chattop:mes_layer_hide, false);
+    %meslayermode = 0;
+    %meslayerinput = "";
 }

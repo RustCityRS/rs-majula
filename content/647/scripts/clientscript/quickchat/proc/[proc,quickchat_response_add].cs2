@@ -10,15 +10,15 @@ cc_settextfont(p12_full);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
 def_string $string0 = chatphrase_gettext($chatphrase1);
-if (%varclient_126 = 1) {
+if (%quickchat_mode = 1) {
     $string0 = "From <%varclient_1546>: <col=800000><$string0>";
-} else if (%varclient_126 = 2) {
+} else if (%quickchat_mode = 2) {
     $string0 = "[<col=0000ff><clan_getchatdisplayname><col=000000>] <%varclient_1546>: <col=800000><$string0>";
-} else if (%varclient_126 = 8) {
+} else if (%quickchat_mode = 8) {
     if (activeclanchannel_find_affined = true) {
         $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>] <%varclient_1546>: <col=800000><$string0>";
     }
-} else if (%varclient_126 = 10) {
+} else if (%quickchat_mode = 10) {
     if (activeclanchannel_find_listened = true) {
         $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>] <%varclient_1546>: <col=800000><$string0>";
     }
@@ -28,7 +28,7 @@ if (%varclient_126 = 1) {
 cc_settext($string0);
 cc_settextshadow(false);
 cc_setsize(parawidth($string0, if_getwidth($component0), p12_full), if_getheight($component0), ^setsize_abs, ^setsize_abs);
-if_sethide(false, $component2);
+if_sethide($component2, false);
 def_int $int4 = chatphrase_getautoresponsecount($chatphrase1);
 def_int $int5 = 0;
 def_int $int6 = 0;
@@ -60,7 +60,7 @@ while ($int5 < $int4) {
     $int5 = calc($int5 + 1);
     $int6 = calc($int6 + 1);
 }
-if_setonkey("quickchat_onkey(event_keycode, event_keychar, $component0, 0, null, $chatphrase1, $int6)", $component2);
+if_setonkey($component2, "quickchat_onkey(event_keycode, event_keychar, $component0, 0, null, $chatphrase1, $int6)");
 $int5 = 0;
 def_int $int11 = 0;
 while (cc_find($component2, $int5) = true) {
@@ -81,6 +81,6 @@ while (cc_find($component2, $int5) = true) {
 }
 $int11 = calc($int11 + $int8 + 4);
 def_component $component12 = if_getlayer($component2);
-if_setsize($int11, if_getheight($component12), ^setsize_abs, ^setsize_abs, $component2);
-if_setsize($int11, if_getheight($component12), ^setsize_abs, ^setsize_abs, $component3);
+if_setsize($component2, $int11, if_getheight($component12), ^setsize_abs, ^setsize_abs);
+if_setsize($component3, $int11, if_getheight($component12), ^setsize_abs, ^setsize_abs);
 ~quickchat_return($component0, 0);

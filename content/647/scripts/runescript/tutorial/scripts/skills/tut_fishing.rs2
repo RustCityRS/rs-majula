@@ -2,7 +2,7 @@
 [opnpc1,0_48_48_newbiefishing] @tutorial_fishing;
 
 [label,tutorial_fishing]
-if (inv_total(inv, small_fishing_net) < 1) {
+if (inv_total(inv, net) < 1) {
     // OSRS message
     ~mesbox("You need to use a net to catch these fish.|Talk to the survival expert to get one.");
     return;
@@ -29,9 +29,9 @@ p_delay(1);
 anim(null, 0);
 inv_add(inv, newbieraw_shrimp, 1);
 ~tutorial_give_xp(fishing, 100);
-if (%tutorial = ^newbie_survival_instructor_fish_shrimps) {
+if (%varplayer_419 = ^newbie_survival_instructor_fish_shrimps) {
     hint_stop();
-    %tutorial = ^newbie_survival_instructor_cook_shrimps;
+    %varplayer_419 = ^newbie_survival_instructor_cook_shrimps;
     ~tutorial_step_cook_shrimp;
 } else {
     ~set_tutorial_progress;

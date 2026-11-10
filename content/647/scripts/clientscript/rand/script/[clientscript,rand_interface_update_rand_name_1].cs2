@@ -1,5 +1,5 @@
 // 2279
 [clientscript,rand_interface_update_rand_name_1]
-if (%varclient_1198 = 1) {
-    if_settext(%varclient_1829, rand_dungeon_rewards_v2:player_1_name);
+if (%rand_exists_1 = 1) {
+    if_settext(rand_dungeon_rewards_v2:player_1_name, %rand_name_1);
 }

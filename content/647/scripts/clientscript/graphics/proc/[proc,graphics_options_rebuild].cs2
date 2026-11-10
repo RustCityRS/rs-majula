@@ -4,62 +4,62 @@ def_component $component5 = null;
 def_component $component6 = null;
 switch_int ($int4) {
     case 1 :
-        if_settext("Graphics Options", graphics_options:title_text);
+        if_settext(graphics_options:title_text, "Graphics Options");
         if_opensubclient(graphics_options:options, graphics_options_client);
         $component5 = graphics_options:universe;
         $component6 = graphics_options:dropdown;
-        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, graphics_options_client:main);
-        if_setsize(if_getwidth(graphics_options:universe), 304, ^setsize_abs, ^setsize_abs, graphics_options:universe);
-        if_setonclick("closebutton_click", graphics_options:close_button);
-        if_setop(1, "Close", graphics_options:close_button);
+        if_setsize(graphics_options_client:main, 0, 0, ^setsize_minus, ^setsize_minus);
+        if_setsize(graphics_options:universe, if_getwidth(graphics_options:universe), 304, ^setsize_abs, ^setsize_abs);
+        if_setonclick(graphics_options:close_button, "closebutton_click");
+        if_setop(graphics_options:close_button, 1, "Close");
     case 0 :
         if_opensubclient(loginscreen_graphics_options:options_client_if, graphics_options_client);
-        if_setgraphic("corner_flourish,0", loginscreen_graphics_options:top_left_cr);
-        if_setgraphic("corner_flourish,0", loginscreen_graphics_options:bottom_left_cr);
-        if_setgraphic("corner_flourish,0", loginscreen_graphics_options:bottom_right_cr);
+        if_setgraphic(loginscreen_graphics_options:top_left_cr, "corner_flourish,0");
+        if_setgraphic(loginscreen_graphics_options:bottom_left_cr, "corner_flourish,0");
+        if_setgraphic(loginscreen_graphics_options:bottom_right_cr, "corner_flourish,0");
         $component5 = loginscreen_graphics_options:universe;
         $component6 = loginscreen_graphics_options:dropdown;
         ~loginscreen_soundvol(loginscreen_graphics_options:sound_dragzone, loginscreen_graphics_options:sound_slider);
         ~loginscreen_musicvol(loginscreen_graphics_options:music_dragzone, loginscreen_graphics_options:music_slider);
         ~loginscreen_bgsoundvol(loginscreen_graphics_options:bgsound_dragzone, loginscreen_graphics_options:bgsound_slider);
         ~loginscreen_stereo(loginscreen_graphics_options:mono_button, loginscreen_graphics_options:stereo_button);
-        if_setposition(0, 5, ^setpos_abs_centre, ^setpos_abs_top, graphics_options_client:centre);
-        if_setposition(0, 5, ^setpos_abs_centre, ^setpos_abs_top, graphics_options_client:main);
-        if_setsize(if_getwidth(loginscreen_graphics_options:options_client_if), calc(if_gety(graphics_options_client:centre) + if_gety(graphics_options_client:body) + if_getheight(graphics_options_client:centre) + 5 + if_getheight(loginscreen_graphics_options:sound_layer)), ^setsize_abs, ^setsize_abs, loginscreen_graphics_options:options_client_if);
-        if_setsize(if_getwidth(loginscreen_graphics_options:options_client_if), if_getheight(loginscreen_graphics_options:options_client_if), ^setsize_abs, ^setsize_abs, loginscreen_graphics_options:contents);
-        if_setsize(if_getwidth(loginscreen_graphics_options:border), calc(if_getheight(loginscreen_graphics_options:contents) + 47), ^setsize_abs, ^setsize_abs, loginscreen_graphics_options:border);
-        if_setposition(0, calc(if_gety(loginscreen_graphics_options:border) + 33), ^setpos_abs_centre, ^setpos_abs_top, loginscreen_graphics_options:contents);
-        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, loginscreen_graphics_options:options_client_if);
-        if_setposition(0, 100, ^setpos_abs_centre, ^setpos_abs_centre, loginscreen_graphics_options:sound_layer);
-        if_setposition(0, -5, ^setpos_abs_centre, ^setpos_abs_centre, graphics_options_client:setup_buttons);
-        if_sethide(false, loginscreen_graphics_options:sound_layer);
-        if_sethide(true, loginscreen_graphics_options:back_button);
+        if_setposition(graphics_options_client:centre, 0, 5, ^setpos_abs_centre, ^setpos_abs_top);
+        if_setposition(graphics_options_client:main, 0, 5, ^setpos_abs_centre, ^setpos_abs_top);
+        if_setsize(loginscreen_graphics_options:options_client_if, if_getwidth(loginscreen_graphics_options:options_client_if), calc(if_gety(graphics_options_client:centre) + if_gety(graphics_options_client:body) + if_getheight(graphics_options_client:centre) + 5 + if_getheight(loginscreen_graphics_options:sound_layer)), ^setsize_abs, ^setsize_abs);
+        if_setsize(loginscreen_graphics_options:contents, if_getwidth(loginscreen_graphics_options:options_client_if), if_getheight(loginscreen_graphics_options:options_client_if), ^setsize_abs, ^setsize_abs);
+        if_setsize(loginscreen_graphics_options:border, if_getwidth(loginscreen_graphics_options:border), calc(if_getheight(loginscreen_graphics_options:contents) + 47), ^setsize_abs, ^setsize_abs);
+        if_setposition(loginscreen_graphics_options:contents, 0, calc(if_gety(loginscreen_graphics_options:border) + 33), ^setpos_abs_centre, ^setpos_abs_top);
+        if_setposition(loginscreen_graphics_options:options_client_if, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+        if_setposition(loginscreen_graphics_options:sound_layer, 0, 100, ^setpos_abs_centre, ^setpos_abs_centre);
+        if_setposition(graphics_options_client:setup_buttons, 0, -5, ^setpos_abs_centre, ^setpos_abs_centre);
+        if_sethide(loginscreen_graphics_options:sound_layer, false);
+        if_sethide(loginscreen_graphics_options:back_button, true);
         ~graphics_options_login_resize(false);
-        if_setonresize("graphics_options_login_resize(false)", loginscreen_graphics_options:universe);
-        if_setonresize("script2919(false, $int4)", loginscreen:options);
+        if_setonresize(loginscreen_graphics_options:universe, "graphics_options_login_resize(false)");
+        if_setonresize(loginscreen:options, "script2919(false, $int4)");
     case 2 :
         if_opensubclient(lobbyscreen_pane_options:options_client_if, graphics_options_client);
         $component5 = lobbyscreen_pane_options:universe;
         $component6 = lobbyscreen_pane_options:dropdown;
-        if_setposition(0, 5, ^setpos_abs_centre, ^setpos_abs_top, graphics_options_client:centre);
-        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, graphics_options_client:main);
-        if_setsize(if_getwidth(lobbyscreen_pane_options:options_client_if), calc(if_gety(graphics_options_client:centre) + if_gety(graphics_options_client:body) + if_getheight(graphics_options_client:centre) + 5 + if_getheight(lobbyscreen_pane_options:sound_layer)), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_options:options_client_if);
-        if_sethide(false, lobbyscreen_pane_options:sound_layer);
-        if_sethide(true, lobbyscreen_pane_options:back_button);
-        if_setonresize("script2919(false, $int4)", lobbyscreen:base);
+        if_setposition(graphics_options_client:centre, 0, 5, ^setpos_abs_centre, ^setpos_abs_top);
+        if_setposition(graphics_options_client:main, 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+        if_setsize(lobbyscreen_pane_options:options_client_if, if_getwidth(lobbyscreen_pane_options:options_client_if), calc(if_gety(graphics_options_client:centre) + if_gety(graphics_options_client:body) + if_getheight(graphics_options_client:centre) + 5 + if_getheight(lobbyscreen_pane_options:sound_layer)), ^setsize_abs, ^setsize_abs);
+        if_sethide(lobbyscreen_pane_options:sound_layer, false);
+        if_sethide(lobbyscreen_pane_options:back_button, true);
+        if_setonresize(lobbyscreen:base, "script2919(false, $int4)");
         ~lobby_resize;
 }
-if_setonclick("autosetup($int4)", graphics_options_client:autosetup_button);
+if_setonclick(graphics_options_client:autosetup_button, "autosetup($int4)");
 ~graphics_options_windowmodebutton(1, $int1, graphics_options_client:windowmode_1_button, graphics_options_client:windowmode_1_icon, graphics_options_client:windowmode_1_text, $int2, $int3, $int0, $int4);
 ~graphics_options_windowmodebutton(2, $int1, graphics_options_client:windowmode_2_button, graphics_options_client:windowmode_2_icon, graphics_options_client:windowmode_2_text, $int2, $int3, $int0, $int4);
 ~graphics_options_windowmodebutton(3, $int1, graphics_options_client:windowmode_3_button, graphics_options_client:windowmode_3_icon, graphics_options_client:windowmode_3_text, $int2, $int3, $int0, $int4);
-if_sethide(true, $component6);
-if_setonclick(null, $component5);
-if (%varclient_178 < 0) {
-    %varclient_178 = max(fullscreen_lastmode, 0);
+if_sethide($component6, true);
+if_setonclick($component5, null);
+if (%selectedresolution < 0) {
+    %selectedresolution = max(fullscreen_lastmode, 0);
 }
-if (%varclient_178 >= fullscreen_modecount) {
-    %varclient_178 = 0;
+if (%selectedresolution >= fullscreen_modecount) {
+    %selectedresolution = 0;
 }
 def_component $component7 = graphics_options_client:resolutions;
 cc_deleteall($component7);
@@ -85,12 +85,12 @@ if (fullscreen_modecount <= 0) {
 } else {
     .cc_setsize(21, 0, ^setsize_minus, ^setsize_minus);
     .cc_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_centre);
-    if (%varclient_178 < calc(fullscreen_modecount - 1)) {
+    if (%selectedresolution < calc(fullscreen_modecount - 1)) {
         .cc_setcolour(0xebe0bc);
     } else {
         .cc_setcolour(0x00b1e1);
     }
-    .cc_settext(~graphics_options_resolutions(%varclient_178));
+    .cc_settext(~graphics_options_resolutions(%selectedresolution));
     .cc_create($component7, ^iftype_graphic, if_getnextsubid($component7));
     .cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
     .cc_setposition(1, 0, ^setpos_abs_right, ^setpos_abs_centre);

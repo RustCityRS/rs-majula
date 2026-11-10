@@ -5,34 +5,34 @@ if ($component0 ! mob_side_command:head_rect) {
 }
 switch_component ($component0) {
     case mob_side_command:head_rect :
-        if_settext("Go to", mob_side_command:command_title);
-        if_settext("Click to view this squad.", mob_side_command:command_desc);
+        if_settext(mob_side_command:command_title, "Go to");
+        if_settext(mob_side_command:command_desc, "Click to view this squad.");
     case mob_side_command:button1 :
-        if_settext("Attack", mob_side_command:command_title);
-        if_settext("Select the enemy squad you wish to attack.", mob_side_command:command_desc);
+        if_settext(mob_side_command:command_title, "Attack");
+        if_settext(mob_side_command:command_desc, "Select the enemy squad you wish to attack.");
     case mob_side_command:button2 :
-        if_settext("Move", mob_side_command:command_title);
-        if_settext("Select the destination for your squad.", mob_side_command:command_desc);
+        if_settext(mob_side_command:command_title, "Move");
+        if_settext(mob_side_command:command_desc, "Select the destination for your squad.");
     case mob_side_command:button3 :
-        if_settext("Explore", mob_side_command:command_title);
-        if_settext("Send the unit to explore for treasure.", mob_side_command:command_desc);
+        if_settext(mob_side_command:command_title, "Explore");
+        if_settext(mob_side_command:command_desc, "Send the unit to explore for treasure.");
     case mob_side_command:button4 :
         if (%varplayerbit_6357 = 2) {
-            if_settext("Attack wall/catapult", mob_side_command:command_title);
-            if_settext("Select the wall or catapult you want your squad to attack.", mob_side_command:command_desc);
+            if_settext(mob_side_command:command_title, "Attack wall/catapult");
+            if_settext(mob_side_command:command_desc, "Select the wall or catapult you want your squad to attack.");
         } else if (%varplayerbit_6357 = 3) {
-            if_settext("Collect gold", mob_side_command:command_title);
-            if_settext("Select the cave entrance from which your squad should gather gold.", mob_side_command:command_desc);
+            if_settext(mob_side_command:command_title, "Collect gold");
+            if_settext(mob_side_command:command_desc, "Select the cave entrance from which your squad should gather gold.");
         } else if (%varplayerbit_6357 = 4) {
-            if_settext("Rescue", mob_side_command:command_title);
-            if_settext("Select the fissure from which your squad should rescue TzHaar.", mob_side_command:command_desc);
+            if_settext(mob_side_command:command_title, "Rescue");
+            if_settext(mob_side_command:command_desc, "Select the fissure from which your squad should rescue TzHaar.");
         }
     case mob_side_command:button5 :
         if (%varplayerbit_6357 = 2) {
-            if_settext("Collect", mob_side_command:command_title);
-            if_settext("Select a resource for your squad to collect.", mob_side_command:command_desc);
+            if_settext(mob_side_command:command_title, "Collect");
+            if_settext(mob_side_command:command_desc, "Select a resource for your squad to collect.");
         } else if (%varplayerbit_6357 = 4) {
-            if_settext("Steal", mob_side_command:command_title);
-            if_settext("Select a lander to steal TzHaar from.", mob_side_command:command_desc);
+            if_settext(mob_side_command:command_title, "Steal");
+            if_settext(mob_side_command:command_desc, "Select a lander to steal TzHaar from.");
         }
 }

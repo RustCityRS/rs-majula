@@ -1,4 +1,4 @@
 // 1276
 [clientscript,topstat_run_glow_onload](component $component0)
-%varclient_814 = 0;
-if_settrans(255, $component0);
+%topstat_run_button_glow = 0;
+if_settrans($component0, 255);

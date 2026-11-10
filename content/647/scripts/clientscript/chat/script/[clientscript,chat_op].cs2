@@ -28,7 +28,7 @@ switch_int ($int0) {
     case 7 :
         ignore_add($string0);
     case 8 :
-        %varclient_1543 = $string0;
+        %snapshot_name = $string0;
     case 9 :
         if ($chattype2 = ^chattype_quickchat_public) {
             ~quickchat_respond(4, chat_gethistoryname($int1), chat_gethistoryphrase($int1));

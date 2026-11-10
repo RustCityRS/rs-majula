@@ -27,17 +27,17 @@ $int10 = calc($int12 + $int6 / 2);
 $int11 = calc($int12 - $int6 / 2);
 $int11 = calc($int11 + scale($int6, $int5, calc($int5 - if_getwidth($component0))));
 if ($int12 ! $int2 | $int13 ! $int3 | $int7 ! $int4) {
-    if_setontimer("worldmap_overlay($component0, $component1, $int12, $int13, $int7)", $component0);
+    if_setontimer($component0, "worldmap_overlay($component0, $component1, $int12, $int13, $int7)");
     ~worldmap_elements_update($component0, $int8, $int9, $int10, $int11);
 }
-if (%varplayerbit_6174 = 0) {
-    ~worldmap_arrow_update(worldmap:you_are_here, %varclient_674, "You are here", struct_280, $component0, $int8, $int9, $int10, $int11);
+if (%worldmap_yah_hidden = 0) {
+    ~worldmap_arrow_update(worldmap:you_are_here, %worldmap_player_coord, "You are here", struct_280, $component0, $int8, $int9, $int10, $int11);
 } else {
     cc_deleteall(worldmap:you_are_here);
 }
-~worldmap_arrow_update(worldmap:arrow0, %varclient_623, %varclient_1572, %varclient_624, $component0, $int8, $int9, $int10, $int11);
-~worldmap_arrow_update(worldmap:arrow1, %varclient_625, %varclient_1573, %varclient_626, $component0, $int8, $int9, $int10, $int11);
-~worldmap_arrow_update(worldmap:arrow2, %varclient_627, %varclient_1574, %varclient_628, $component0, $int8, $int9, $int10, $int11);
-~worldmap_arrow_update(worldmap:arrow3, %varclient_629, %varclient_1575, %varclient_630, $component0, $int8, $int9, $int10, $int11);
-~worldmap_arrow_update(worldmap:arrow_gravestone, %varclient_940, %varclient_1709, %varclient_941, $component0, $int8, $int9, $int10, $int11);
-~worldmap_arrow_update(worldmap:arrow_waypoint, %varplayer_1159, "Your marker", struct_972, $component0, $int8, $int9, $int10, $int11);
+~worldmap_arrow_update(worldmap:arrow0, %worldmap_arrow0_coord, %varclient_1572, %worldmap_arrow0_style, $component0, $int8, $int9, $int10, $int11);
+~worldmap_arrow_update(worldmap:arrow1, %worldmap_arrow1_coord, %varclient_1573, %worldmap_arrow1_style, $component0, $int8, $int9, $int10, $int11);
+~worldmap_arrow_update(worldmap:arrow2, %worldmap_arrow2_coord, %varclient_1574, %worldmap_arrow2_style, $component0, $int8, $int9, $int10, $int11);
+~worldmap_arrow_update(worldmap:arrow3, %worldmap_arrow3_coord, %varclient_1575, %worldmap_arrow3_style, $component0, $int8, $int9, $int10, $int11);
+~worldmap_arrow_update(worldmap:arrow_gravestone, %worldmap_arrowgravestone_coord, %varclient_1709, %worldmap_arrowgravestone_style, $component0, $int8, $int9, $int10, $int11);
+~worldmap_arrow_update(worldmap:arrow_waypoint, %playerdesign2_col, "Your marker", struct_972, $component0, $int8, $int9, $int10, $int11);

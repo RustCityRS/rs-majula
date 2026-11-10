@@ -7,26 +7,26 @@ def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 264;
 def_int $int3 = 0;
-if_setposition(if_getx(champions2_bannerselect:listbox), $int0, ^setpos_abs_left, ^setpos_abs_top, champions2_bannerselect:listbox);
-$int1, $int3 = ~script1674(%varplayerbit_6768);
-if_setscrollsize(0, $int1, champions2_bannerselect:listbox_text);
-if_setscrollpos(0, $int3, champions2_bannerselect:listbox_text);
+if_setposition(champions2_bannerselect:listbox, if_getx(champions2_bannerselect:listbox), $int0, ^setpos_abs_left, ^setpos_abs_top);
+$int1, $int3 = ~script1674(%champions_reward_followerstate);
+if_setscrollsize(champions2_bannerselect:listbox_text, 0, $int1);
+if_setscrollpos(champions2_bannerselect:listbox_text, 0, $int3);
 $int1 = calc($int1 + 4);
 if ($int1 > $int2) {
-    if_setsize(16, 4, ^setsize_abs, ^setsize_minus, champions2_bannerselect:listbox_scrollbar);
-    if_setsize(20, 4, ^setsize_minus, ^setsize_minus, champions2_bannerselect:listbox_text);
+    if_setsize(champions2_bannerselect:listbox_scrollbar, 16, 4, ^setsize_abs, ^setsize_minus);
+    if_setsize(champions2_bannerselect:listbox_text, 20, 4, ^setsize_minus, ^setsize_minus);
     if (cc_find(champions2_bannerselect:listbox_scrollbar, 0) = false) {
         ~scrollbar_vertical(champions2_bannerselect:listbox_scrollbar, champions2_bannerselect:listbox_text, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
     }
     ~scrollbar_resize(champions2_bannerselect:listbox_scrollbar, champions2_bannerselect:listbox_text, if_getscrolly(champions2_bannerselect:listbox_text));
 } else {
-    if_setsize(0, 4, ^setsize_abs, ^setsize_minus, champions2_bannerselect:listbox_scrollbar);
-    if_setsize(4, 4, ^setsize_minus, ^setsize_minus, champions2_bannerselect:listbox_text);
+    if_setsize(champions2_bannerselect:listbox_scrollbar, 0, 4, ^setsize_abs, ^setsize_minus);
+    if_setsize(champions2_bannerselect:listbox_text, 4, 4, ^setsize_minus, ^setsize_minus);
 }
 if ($int1 < 111) {
-    if_setsize(350, calc(111 + 68), ^setsize_abs, ^setsize_abs, champions2_bannerselect:base_layer);
+    if_setsize(champions2_bannerselect:base_layer, 350, calc(111 + 68), ^setsize_abs, ^setsize_abs);
 } else if ($int1 < $int2) {
-    if_setsize(350, calc($int1 + 70), ^setsize_abs, ^setsize_abs, champions2_bannerselect:base_layer);
+    if_setsize(champions2_bannerselect:base_layer, 350, calc($int1 + 70), ^setsize_abs, ^setsize_abs);
 } else {
-    if_setsize(350, calc($int2 + 70), ^setsize_abs, ^setsize_abs, champions2_bannerselect:base_layer);
+    if_setsize(champions2_bannerselect:base_layer, 350, calc($int2 + 70), ^setsize_abs, ^setsize_abs);
 }

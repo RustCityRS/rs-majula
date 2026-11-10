@@ -1,15 +1,15 @@
 // 1104
 [clientscript,logout_init]
 if (unknown_command_5420 = false) {
-    if_settext("When you have finished playing<br>RuneScape, always use a<br>button below to exit the game and logout safely.", logout:advice);
-    if_settext("Exit to Lobby", logout:button1);
-    if_setop(1, "Exit to Lobby", logout:button1);
-    if_sethide(false, logout:button2_container);
-    if_settext("Exit to Login", logout:button2);
-    if_setop(1, "Exit to Login", logout:button2);
+    if_settext(logout:advice, "When you have finished playing<br>RuneScape, always use a<br>button below to exit the game and logout safely.");
+    if_settext(logout:button1, "Exit to Lobby");
+    if_setop(logout:button1, 1, "Exit to Lobby");
+    if_sethide(logout:button2_container, false);
+    if_settext(logout:button2, "Exit to Login");
+    if_setop(logout:button2, 1, "Exit to Login");
 } else {
-    if_settext("When you have finished playing<br>RuneScape, always use the<br>button below to exit the game and logout safely.", logout:advice);
-    if_settext("Click here to log out", logout:button1);
-    if_setop(1, "Logout", logout:button1);
-    if_sethide(true, logout:button2_container);
+    if_settext(logout:advice, "When you have finished playing<br>RuneScape, always use the<br>button below to exit the game and logout safely.");
+    if_settext(logout:button1, "Click here to log out");
+    if_setop(logout:button1, 1, "Logout");
+    if_sethide(logout:button2_container, true);
 }

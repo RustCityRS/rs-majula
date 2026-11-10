@@ -5,10 +5,10 @@ cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
 cc_setplayermodel_self;
 cc_setmodelangle(0, $int2, 0, 0, 0, $int1);
-if (%varclient_779 ! null) {
-    cc_setmodelanim(bas_getanim_ready(%varclient_779));
+if (%player_kit_torso_client ! null) {
+    cc_setmodelanim(bas_getanim_ready(%player_kit_torso_client));
 } else {
     cc_setmodelanim(bas_getanim_ready(bas_1426));
 }
-cc_setonvarctransmit("script1517(event_com, event_comsubid){varclient_779}");
+cc_setonvarctransmit("script1517(event_com, event_comsubid){player_kit_torso_client}");
 cc_setonclick("script347(event_com, event_comsubid, event_mousex)");

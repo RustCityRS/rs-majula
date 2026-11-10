@@ -11,7 +11,7 @@
 // Used before the Oracle is asked, the 2011 wiki (Dragon Slayer, 2011-05-22) gives "I have no idea
 // what I should put in the opening of this door. Maybe I should just leave it for now."; the
 // locked door's line and the chest's when the piece is not needed are 289's (unverified).
-[oploc1,magic_door_25115]
+[oploc1,dragon_slayer_qip_magic_door]
 def_boolean $leaving = false;
 if (coordx(coord) > coordx(loc_coord)) {
     $leaving = true;
@@ -25,7 +25,7 @@ if (%dragon_door = ^dragon_door_all) {
     %dragon_oracle = ^quest_dragon_gone_through_oracle_door;
 }
 mes("The door opens...");
-sound_synth(door_open, 1, 0);
+sound_synth(nicedoor_open, 1, 0);
 // Through the door to the other side, on the player's own row of its three tiles.
 def_int $z = coordz(coord);
 if ($z < coordz(loc_coord)) {
@@ -39,15 +39,15 @@ if ($leaving = true) {
     p_teleport(movecoord(loc_coord, 1, 0, sub($z, coordz(loc_coord))));
 }
 
-[oplocu,magic_door_25115]
+[oplocu,dragon_slayer_qip_magic_door]
 if (%dragon_oracle < ^quest_dragon_has_spoken_to_oracle) {
     mes("I have no idea what I should put in the opening of this door. Maybe I should just leave it for now.");
     return;
 }
 switch_obj (last_useitem) {
     case silk : ~dragon_door_item(silk, ^dragon_door_silk, "You put the silk into the opening in the door.");
-    case bowl__unfired : ~dragon_door_item(bowl__unfired, ^dragon_door_bowl, "You put the unfired bowl into the opening in the door.");
-    case wizard_s_mind_bomb : ~dragon_door_item(wizard_s_mind_bomb, ^dragon_door_mind_bomb, "You pour the Wizard's Mind Bomb into the opening in the door.");
+    case bowl_unfired : ~dragon_door_item(bowl_unfired, ^dragon_door_bowl, "You put the unfired bowl into the opening in the door.");
+    case wizards_mind_bomb : ~dragon_door_item(wizards_mind_bomb, ^dragon_door_mind_bomb, "You pour the Wizard's Mind Bomb into the opening in the door.");
     case lobster_pot : ~dragon_door_item(lobster_pot, ^dragon_door_lobster_pot, "You put the small crustacean cage into the opening in the door.");
     case default : ~displaymessage(^dm_default);
 }
@@ -82,7 +82,7 @@ loc_change(oraclechestshut, 300);
 [oploc1,oraclechestopen] @oracle_chest_search;
 
 [label,oracle_chest_search]
-if (~quest_dragon_getting_map_parts = false | ~obj_gettotal(mappart3) > 0 | ~obj_gettotal(crandor_map) > 0) {
+if (~quest_dragon_getting_map_parts = false | ~obj_gettotal(mappart3) > 0 | ~obj_gettotal(dragonmap) > 0) {
     mes("You find nothing in the chest.");
     return;
 }

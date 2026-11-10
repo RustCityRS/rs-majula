@@ -21,19 +21,19 @@ sound_synth(locked, 1, 0);
 mes("The door is securely locked.");
 
 [oplocu,melzardoor]
-if (last_useitem = maze_key) {
+if (last_useitem = melzarkey) {
     mes("You use the key and the door opens.");
-    ~open_and_close_door(loc_1535, ~check_axis_locactive(coord), false);
+    ~open_and_close_door(inactiveposhdoor, ~check_axis_locactive(coord), false);
 } else {
     ~displaymessage(^dm_default);
 }
 
-[oploc1,exit_door]
+[oploc1,funexit]
 if (~check_axis_locactive(coord) = false) {
     mes("The door is locked."); // osrs
     return;
 }
-~open_and_close_door(loc_1535, true, false);
+~open_and_close_door(inactiveposhdoor, true, false);
 
 // broken ladder
 [oploc1,ladder_broken]
@@ -46,35 +46,35 @@ mes("You climb down the ladder");
 ~climb_ladder(movecoord(coord, 0, 0, 6400), true);
 
 // red door
-[oploc1,red_door] mes("This door is securely locked."); // osrs
-[oplocu,red_door] @open_melzar_maze_door(redkey);
+[oploc1,reddoor] mes("This door is securely locked."); // osrs
+[oplocu,reddoor] @open_melzar_maze_door(redkey);
 // orange door
-[oploc1,orange_door] mes("This door is securely locked."); // osrs
-[oplocu,orange_door] @open_melzar_maze_door(orangekey);
+[oploc1,orangedoor] mes("This door is securely locked."); // osrs
+[oplocu,orangedoor] @open_melzar_maze_door(orangekey);
 // yellow door
-[oploc1,yellow_door] mes("This door is securely locked."); // osrs
-[oplocu,yellow_door] @open_melzar_maze_door(yellowkey);
+[oploc1,yellowdoor] mes("This door is securely locked."); // osrs
+[oplocu,yellowdoor] @open_melzar_maze_door(yellowkey);
 // blue door
-[oploc1,blue_door] mes("This door is securely locked."); // osrs
-[oplocu,blue_door] @open_melzar_maze_door(bluekey);
+[oploc1,bluedoor] mes("This door is securely locked."); // osrs
+[oplocu,bluedoor] @open_melzar_maze_door(bluekey);
 // magenta door
-[oploc1,magenta_door] mes("This door is securely locked."); // osrs
-[oplocu,magenta_door] @open_melzar_maze_door(magentakey);
+[oploc1,magentadoor] mes("This door is securely locked."); // osrs
+[oplocu,magentadoor] @open_melzar_maze_door(magentakey);
 // green door
-[oploc1,green_door] mes("This door is securely locked."); // osrs
-[oplocu,green_door] @open_melzar_maze_door(greenkey);
+[oploc1,greendoor] mes("This door is securely locked."); // osrs
+[oplocu,greendoor] @open_melzar_maze_door(greenkey);
 
 [label,open_melzar_maze_door](obj $key)
 if (last_useitem = $key) {
     mes("The key disintegrates as it unlocks the door.");
     inv_del(inv, $key, 1);
-    ~open_and_close_door(loc_1535, ~check_axis_locactive(coord), false);
+    ~open_and_close_door(inactiveposhdoor, ~check_axis_locactive(coord), false);
 } else {
     ~displaymessage(^dm_default); // osrs
 }
 
 // rat
-[ai_queue3,zombie_rat]
+[ai_queue3,dragonslayer_giantrat_1_key]
 gosub(npc_death);
 if (npc_findhero = ^false) {
     return;
@@ -86,11 +86,11 @@ obj_add(npc_coord, raw_rat_meat, 1, ^lootdrop_duration);
 obj_add(npc_coord, redkey, 1, ^lootdrop_duration);
 
 // ghosts
-[ai_queue3,ghost_6094] @melzar_ghost_death;
-[ai_queue3,ghost_6095] @melzar_ghost_death;
-[ai_queue3,ghost_6096] @melzar_ghost_death;
-[ai_queue3,ghost_6097] @melzar_ghost_death;
-[ai_queue3,ghost_6098] @melzar_ghost_death;
+[ai_queue3,dragonslayer_ghost_1_key] @melzar_ghost_death;
+[ai_queue3,dragonslayer_ghost_2] @melzar_ghost_death;
+[ai_queue3,dragonslayer_ghost_3] @melzar_ghost_death;
+[ai_queue3,dragonslayer_ghost_4] @melzar_ghost_death;
+[ai_queue3,dragonslayer_ghost_5] @melzar_ghost_death;
 
 [label,melzar_ghost_death]
 gosub(npc_death);
@@ -101,7 +101,7 @@ if (npc_findhero = ^false) {
 obj_add(npc_coord, orangekey, 1, ^lootdrop_duration);
 
 // skeleton
-[ai_queue3,skeleton_6091]
+[ai_queue3,dragonslayer_skeleton_1_key]
 gosub(npc_death);
 if (npc_findhero = ^false) {
     return;
@@ -112,8 +112,8 @@ obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);
 obj_add(npc_coord, yellowkey, 1, ^lootdrop_duration);
 
 // zombies
-[ai_queue3,zombie_6099] @melzar_zombie_death;
-[ai_queue3,zombie_6100] @melzar_zombie_death;
+[ai_queue3,dragonslayer_zombie_1_key] @melzar_zombie_death;
+[ai_queue3,dragonslayer_zombie_2] @melzar_zombie_death;
 
 [label,melzar_zombie_death]
 gosub(npc_death);
@@ -136,7 +136,7 @@ obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);
 obj_add(npc_coord, magentakey, 1, ^lootdrop_duration);
 
 // demon
-[ai_queue3,lesser_demon_6101]
+[ai_queue3,dragonslayer_demon]
 gosub(npc_death);
 if (npc_findhero = ^false) {
     return;
@@ -165,11 +165,11 @@ p_delay(0);
 loc_change(funchestshut, 300);
 
 [oploc1,funchestopen]
-if (~quest_dragon_getting_map_parts = false | ~obj_gettotal(map_part) > 0 | ~obj_gettotal(crandor_map) > 0) {
+if (~quest_dragon_getting_map_parts = false | ~obj_gettotal(mappart1) > 0 | ~obj_gettotal(dragonmap) > 0) {
     mes("You find nothing in the chest.");
 } else {
-    inv_add(inv, map_part, 1);
-    ~objbox(map_part, "You find a map piece in the chest.", 250, 0, 0);
+    inv_add(inv, mappart1, 1);
+    ~objbox(mappart1, "You find a map piece in the chest.", 250, 0, 0);
 }
 // Temp note: dur does not need updated
 loc_change(funchestshut, 300);

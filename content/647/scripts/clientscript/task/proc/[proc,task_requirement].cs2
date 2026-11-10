@@ -60,14 +60,14 @@ if ($int5 = 0) {
 }
 def_int $int10 = 0;
 if (compare($string0, "") ! 0) {
-    if_sethide(false, $component3);
-    if_settext($string0, $component3);
-    if_settextfont(p12_full, $component3);
-    if_settextalign(^settextalign_left, ^settextalign_centre, 0, $component3);
+    if_sethide($component3, false);
+    if_settext($component3, $string0);
+    if_settextfont($component3, p12_full);
+    if_settextalign($component3, ^settextalign_left, ^settextalign_centre, 0);
     $int10 = calc(if_getwidth(if_getlayer($component3)) - 18);
     $int8 = calc(15 * paraheight($string0, $int10, p12_full));
-    if_setsize($int10, $int8, ^setsize_abs, ^setsize_abs, $component3);
-    if_setposition(9, $int0, ^setpos_abs_left, ^setpos_abs_top, $component3);
+    if_setsize($component3, $int10, $int8, ^setsize_abs, ^setsize_abs);
+    if_setposition($component3, 9, $int0, ^setpos_abs_left, ^setpos_abs_top);
 } else {
     $int8 = 0;
 }

@@ -3,5 +3,5 @@
 if (minimenuopen(friendschat:clanlist, -1) = true) {
     return;
 }
-if_setontimer(null, friendschat:clanlist);
+if_setontimer(friendschat:clanlist, null);
 ~script518;

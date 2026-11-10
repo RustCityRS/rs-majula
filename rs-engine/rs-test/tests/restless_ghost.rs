@@ -192,14 +192,14 @@ fn father_urhney_gives_the_amulet() {
         );
         assert!(talk.unanswered.is_none(), "{:?}", talk.unanswered);
         assert_eq!(stage(engine, &client), 2);
-        assert_eq!(total(engine, &client, "inv", "ghostspeak_amulet"), 1);
+        assert_eq!(total(engine, &client, "inv", "amulet_of_ghostspeak"), 1);
     });
 }
 
 #[test]
 fn the_ghost_rises_and_asks_for_its_skull() {
     runner::on_loaded_engine(|engine| {
-        let mut client = player(engine, 2, &[], Some("ghostspeak_amulet"), (3249, 3191));
+        let mut client = player(engine, 2, &[], Some("amulet_of_ghostspeak"), (3249, 3191));
         oploc1(&mut client, COFFIN);
         messages(engine, &mut client, 6);
         let (nid, _, _) = npc_near(engine, GHOST).expect("the ghost rises from the coffin");
@@ -247,7 +247,7 @@ fn the_rocks_give_the_skull_and_raise_a_warlock() {
             said.iter().any(|m| m == "A skeleton warlock has appeared."),
             "{said:?}"
         );
-        assert_eq!(total(engine, &client, "inv", "muddy_skull"), 1);
+        assert_eq!(total(engine, &client, "inv", "ghostskull"), 1);
         assert_eq!(stage(engine, &client), 4);
         assert!(npc_near(engine, WARLOCK).is_some(), "the warlock");
         // rocks_restless_ghost (varbit 2130): bit 2 of varp 728.
@@ -264,8 +264,8 @@ fn the_rocks_give_the_skull_and_raise_a_warlock() {
 #[test]
 fn the_skull_in_the_coffin_lays_the_ghost_to_rest() {
     runner::on_loaded_engine(|engine| {
-        let skull = id(engine, "muddy_skull");
-        let mut client = player(engine, 4, &["muddy_skull"], None, (3249, 3191));
+        let skull = id(engine, "ghostskull");
+        let mut client = player(engine, 4, &["ghostskull"], None, (3249, 3191));
         let prayer = engine.harness_player(client.pid).unwrap().stats.xp[PRAYER];
         oploc1(&mut client, COFFIN);
         messages(engine, &mut client, 6);
@@ -296,8 +296,8 @@ fn the_skull_in_the_coffin_lays_the_ghost_to_rest() {
             );
         }
         assert_eq!(stage(engine, &client), 5, "complete");
-        assert_eq!(total(engine, &client, "inv", "muddy_skull"), 0);
-        assert_eq!(total(engine, &client, "inv", "ancient_bones"), 5);
+        assert_eq!(total(engine, &client, "inv", "ghostskull"), 0);
+        assert_eq!(total(engine, &client, "inv", "restless_bones"), 5);
         assert_eq!(
             engine.harness_player(client.pid).unwrap().stats.xp[PRAYER] - prayer,
             1250,

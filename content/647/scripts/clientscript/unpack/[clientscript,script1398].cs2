@@ -1,12 +1,12 @@
 // 1398
 [clientscript,script1398](component $component0, model $model1)
-if_setmodel(model_10111, ratcatcher_flute:rc_flute_csharp);
-if_setmodel(model_10113, ratcatcher_flute:rc_flute_c);
-if_setmodel(model_10109, ratcatcher_flute:rc_flute_b);
-if_setmodel(model_10107, ratcatcher_flute:rc_flute_a);
-if_setmodel(model_10105, ratcatcher_flute:rc_flute_g);
-if_setmodel(model_10103, ratcatcher_flute:rc_flute_fsharp);
-if_setmodel(model_10101, ratcatcher_flute:rc_flute_e);
-if_setmodel(model_10099, ratcatcher_flute:rc_flute_d);
-if_setmodel($model1, $component0);
+if_setmodel(ratcatcher_flute:rc_flute_csharp, model_10111);
+if_setmodel(ratcatcher_flute:rc_flute_c, model_10113);
+if_setmodel(ratcatcher_flute:rc_flute_b, model_10109);
+if_setmodel(ratcatcher_flute:rc_flute_a, model_10107);
+if_setmodel(ratcatcher_flute:rc_flute_g, model_10105);
+if_setmodel(ratcatcher_flute:rc_flute_fsharp, model_10103);
+if_setmodel(ratcatcher_flute:rc_flute_e, model_10101);
+if_setmodel(ratcatcher_flute:rc_flute_d, model_10099);
+if_setmodel($component0, $model1);
 return;

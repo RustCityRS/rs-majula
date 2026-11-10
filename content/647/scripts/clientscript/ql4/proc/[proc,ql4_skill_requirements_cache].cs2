@@ -1,90 +1,90 @@
 // 2153
 [proc,ql4_skill_requirements_cache]()(boolean)
-def_stat $stat0 = struct_param(%varclient_699, param_871);
-if (struct_param(%varclient_699, param_897) = 1 & calc(stat_base(attack) + stat_base(strength)) < 130) {
+def_stat $stat0 = struct_param(%ql4_quest, param_871);
+if (struct_param(%ql4_quest, param_897) = 1 & calc(stat_base(attack) + stat_base(strength)) < 130) {
     return(false);
 }
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_872)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_872)) {
     return(false);
 }
-$stat0 = struct_param(%varclient_699, param_873);
+$stat0 = struct_param(%ql4_quest, param_873);
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_874)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_874)) {
     return(false);
 }
-$stat0 = struct_param(%varclient_699, param_875);
+$stat0 = struct_param(%ql4_quest, param_875);
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_876)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_876)) {
     return(false);
 }
-$stat0 = struct_param(%varclient_699, param_877);
+$stat0 = struct_param(%ql4_quest, param_877);
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_878)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_878)) {
     return(false);
 }
-$stat0 = struct_param(%varclient_699, param_879);
+$stat0 = struct_param(%ql4_quest, param_879);
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_880)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_880)) {
     return(false);
 }
-$stat0 = struct_param(%varclient_699, param_881);
+$stat0 = struct_param(%ql4_quest, param_881);
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_882)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_882)) {
     return(false);
 }
-$stat0 = struct_param(%varclient_699, param_883);
+$stat0 = struct_param(%ql4_quest, param_883);
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_884)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_884)) {
     return(false);
 }
-$stat0 = struct_param(%varclient_699, param_885);
+$stat0 = struct_param(%ql4_quest, param_885);
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_886)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_886)) {
     return(false);
 }
-$stat0 = struct_param(%varclient_699, param_887);
+$stat0 = struct_param(%ql4_quest, param_887);
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_888)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_888)) {
     return(false);
 }
-$stat0 = struct_param(%varclient_699, param_889);
+$stat0 = struct_param(%ql4_quest, param_889);
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_890)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_890)) {
     return(false);
 }
-$stat0 = struct_param(%varclient_699, param_891);
+$stat0 = struct_param(%ql4_quest, param_891);
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_892)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_892)) {
     return(false);
 }
-$stat0 = struct_param(%varclient_699, param_893);
+$stat0 = struct_param(%ql4_quest, param_893);
 if ($stat0 = null) {
     return(true);
 }
-if (stat_base($stat0) < struct_param(%varclient_699, param_894)) {
+if (stat_base($stat0) < struct_param(%ql4_quest, param_894)) {
     return(false);
 }
 return(true);

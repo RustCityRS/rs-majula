@@ -11,7 +11,7 @@ text=Zamorak = %1
 textalignh=centre
 textshadow=yes
 onload=castlewars_zamorak_update_status
-onvartransmit=castlewars_zamorak_update_status{varplayer_378, varplayer_377, varplayer_380}
+onvartransmit=castlewars_zamorak_update_status{castlewars_saradomin, castlewars_zamorak, castlewars_timer}
 
 // 59:1
 [saradomin_score]
@@ -45,7 +45,7 @@ width=11
 height=11
 textfont=p11_full
 colour=0x55c855
-onvartransmit=castlewars_zamorak_update_status{varplayer_378, varplayer_377}
+onvartransmit=castlewars_zamorak_update_status{castlewars_saradomin, castlewars_zamorak}
 
 // 59:4
 [sara_flag]

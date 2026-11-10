@@ -1,7 +1,7 @@
 // 4397
 [clientscript,clan_motif_background_mouseleave](int $int0, component $component1)
 if (cc_find($component1, $int0) = true) {
-    if ($component1 = clan_motif_chooser:top_borders & calc(%varplayerbit_9086 - 1) = $int0 | $component1 = clan_motif_chooser:bottom_borders & calc(%varplayerbit_9087 - 1) = $int0) {
+    if ($component1 = clan_motif_chooser:top_borders & calc(%clan_custom_motif_a_varp - 1) = $int0 | $component1 = clan_motif_chooser:bottom_borders & calc(%clan_custom_motif_b_varp - 1) = $int0) {
         cc_setgraphic("aif_bronze_icon_button_1,3");
     } else {
         cc_setgraphic("aif_bronze_icon_button_1,0");

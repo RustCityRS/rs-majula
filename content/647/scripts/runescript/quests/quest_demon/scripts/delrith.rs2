@@ -20,7 +20,7 @@
 [zone,0_50_52_32_48] settimer(demon_slayer_stone_circle, 1);
 
 [timer,demon_slayer_stone_circle]
-if (%demon_slayer ! ^demon_key_hunt | %demon_slayer_silverlight = ^false
+if (%demonslayer_main ! ^demon_key_hunt | %delrith_silverlight_case = ^false
     | inzone(0_50_52_16_32, 0_50_52_39_55, coord) = false) {
     cleartimer(demon_slayer_stone_circle);
     return;
@@ -35,11 +35,11 @@ if (npc_find(0_50_52_27_41, delrith, 8, 0) = true | npc_find(0_50_52_27_41, weak
 // He rises off the stone table (loc_17454 at 3227,3369) and steps south
 // (void-634: delrith_appear, then to 3227,3367); a second visit finds him
 // already summoned, the table shattered.
-if (%demon_slayer_summoned = ^false) {
-    %demon_slayer_summoned = ^true;
+if (%delrith_seen_summoning_cutscene = ^false) {
+    %delrith_seen_summoning_cutscene = ^true;
     npc_add(0_50_52_27_41, delrith, 500);
-    npc_anim(seq_4623, 0); // void-634: delrith_appear
-    sound_synth(synth_2974, 1, 10); // void-634: demon_slayer_break_table
+    npc_anim(qip_ds_delrith_summoned, 0); // void-634: delrith_appear
+    sound_synth(ds_break_table, 1, 10); // void-634: demon_slayer_break_table
     sound_synth(synth_2980, 1, 0); // void-634: demon_slayer_delrith_appear
     npc_walk(0_50_52_27_39);
     return;
@@ -62,7 +62,7 @@ queue(demon_slayer_delrith_weakened, 0, 0);
 p_stopaction;
 
 [opnpc1,weakened_delrith]
-if (%demon_slayer ! ^demon_key_hunt | %demon_slayer_silverlight = ^false) {
+if (%demonslayer_main ! ^demon_key_hunt | %delrith_silverlight_case = ^false) {
     return;
 }
 ~chatplayer("<p,angry>Now what was that incantation again?");
@@ -88,7 +88,7 @@ while ($place <= 5) {
 if ($correct = false) {
     // 2011 wiki: "If you choose the wrong incantation, Delrith will be
     // revived and the fight will resume until you defeat him again."
-    npc_anim(seq_4620, 0); // void-634: delrith_continue
+    npc_anim(qip_ds_delrith_portal_failed, 0); // void-634: delrith_continue
     ~mesbox("The vortex collapses. That was the wrong incantation.");
     if (npc_type = weakened_delrith) {
         npc_changetype_keepall(delrith, ^max_32bit_int);
@@ -96,7 +96,7 @@ if ($correct = false) {
     }
     return;
 }
-npc_anim(demon_death, 0); // void-634: delrith_death (4624)
+npc_anim(qip_ds_delrith_banished, 0); // void-634: delrith_death (4624)
 sound_synth(synth_2981, 1, 0); // void-634: demon_slayer_delrith_banished
 ~mesbox("Delrith is sucked into the vortex...");
 npc_del;
@@ -104,12 +104,12 @@ npc_del;
 // 2011 wiki: "the player will do a victory cheer by raising Silverlight".
 anim(seq_12625, 0); // void-634: silverlight_showoff
 spotanim_pl(spotanim_778, 0, 0); // void-634: silverlight_sparkle
-%demon_slayer = ^demon_complete;
-%demon_slayer_aber = 0;
-%demon_slayer_camerinthum = 0;
-%demon_slayer_carlem = 0;
-%demon_slayer_gabindo = 0;
-%demon_slayer_purchai = 0;
+%demonslayer_main = ^demon_complete;
+%delrith_incantation_1 = 0;
+%delrith_incantation_2 = 0;
+%delrith_incantation_3 = 0;
+%delrith_incantation_4 = 0;
+%delrith_incantation_5 = 0;
 session_log(^log_adventure, "Quest complete: Demon Slayer");
 // 2011's scroll (2011-04-20 bHxrbaUN3AI, 592s): "quest" in lower case, on one line.
 ~send_quest_complete2(^questlist_demon, silverlight, 250, ^demon_questpoints, "You have completed the Demon Slayer quest!", "Silverlight");
@@ -118,11 +118,11 @@ session_log(^log_adventure, "Quest complete: Demon Slayer");
 // incantation.
 [proc,demon_slayer_banish_place](int $option)(int)
 switch_int ($option) {
-    case 1 : return(%demon_slayer_carlem);
-    case 2 : return(%demon_slayer_aber);
-    case 3 : return(%demon_slayer_camerinthum);
-    case 4 : return(%demon_slayer_purchai);
-    case 5 : return(%demon_slayer_gabindo);
+    case 1 : return(%delrith_incantation_3);
+    case 2 : return(%delrith_incantation_1);
+    case 3 : return(%delrith_incantation_2);
+    case 4 : return(%delrith_incantation_5);
+    case 5 : return(%delrith_incantation_4);
 }
 return(0);
 

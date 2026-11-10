@@ -1,10 +1,10 @@
 // 2895
 [clientscript,sfa_bar](component $component0)
-if (%varclient_1078 > %varplayerbit_7189) {
-    if (%varclient_1079 ! 1) {
-        if_setontimer("sfa_bar_timer($component0)", $component0);
-        %varclient_1079 = 1;
+if (%sfa_client_time > %sfa_event_time) {
+    if (%sfa_client_timer ! 1) {
+        if_setontimer($component0, "sfa_bar_timer($component0)");
+        %sfa_client_timer = 1;
     }
-} else if (%varclient_1078 = 0) {
-    %varclient_1078 = %varplayerbit_7189;
+} else if (%sfa_client_time = 0) {
+    %sfa_client_time = %sfa_event_time;
 }

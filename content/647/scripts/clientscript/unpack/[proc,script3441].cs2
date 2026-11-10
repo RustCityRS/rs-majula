@@ -1,6 +1,6 @@
 // 3441
 [proc,script3441]()(boolean)
-if (inv_total(worn, ring_of_charos__a) > 0 | inv_total(worn, ring_of_charos__a__i) > 0) {
+if (inv_total(worn, ring_of_charos_unlocked) > 0 | inv_total(worn, mob_ring_of_charos_unlocked) > 0) {
     return(true);
 } else {
     return(false);

@@ -203,7 +203,7 @@ textshadow=yes
 colour=0xff2323
 onmouseleave=deltooltip(snp_tutorial_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_tutorial_tooltips(event_com, snp_tutorial_game_overlay:tooltip_content_layer)
-onvarctransmit=snp_tutorial_update_red_boss_level{varclient_642}
+onvarctransmit=snp_tutorial_update_red_boss_level{snp_red_boss_slayer_level_client}
 
 // 834:14
 [red_health]
@@ -427,7 +427,7 @@ fill=yes
 trans=150
 onmouseleave=deltooltip(snp_tutorial_game_overlay:tooltip_content_layer)
 onmouserepeat=snp_tutorial_tooltips(event_com, snp_tutorial_game_overlay:tooltip_content_layer)
-onvarctransmit=snp_tutorial_update_obelisk_icon_colour{varclient_645}
+onvarctransmit=snp_tutorial_update_obelisk_icon_colour{snp_obelisk_control_is_client}
 
 // 834:29
 [west_icon_colour]
@@ -664,7 +664,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_right
 hide=yes
-onvarctransmit=snp_tutorial_update_obelisk_bar{varclient_645}
+onvarctransmit=snp_tutorial_update_obelisk_bar{snp_obelisk_control_is_client}
 
 // 834:47
 [obelisk_pointer]
@@ -1000,7 +1000,7 @@ trans=150
 transmitop=10
 op10=  
 onmouseleave=deltooltip(snp_tutorial_game_overlay:tooltip_content_layer)
-onvartransmit=script283{varplayer_1380}
+onvartransmit=script283{snp_idle}
 onmouserepeat=snp_tutorial_tooltips(event_com, snp_tutorial_game_overlay:tooltip_content_layer)
 
 // 834:75
@@ -1020,4 +1020,4 @@ width=512
 height=334
 xmode=abs_right
 layer=tooltip_boundary_layer
-onvarctransmit=snp_delete_tooltip(snp_tutorial_game_overlay:tooltip_content_layer){varclient_655}
+onvarctransmit=snp_delete_tooltip(snp_tutorial_game_overlay:tooltip_content_layer){snp_delete_tooltip_flag_client}

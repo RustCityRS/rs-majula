@@ -300,7 +300,7 @@ fn obj_boxes_page_their_text_in_2011_s_one_text_component() {
             .debugnames
             .get("strung_gold_amulet")
             .unwrap();
-        let bowl = *engine.cache.objs.debugnames.get("bowl").unwrap();
+        let bowl = *engine.cache.objs.debugnames.get("bowl_empty").unwrap();
 
         for (cheat_name, iface, done) in [
             ("~chat_doubleobjbox", 131, "chat_doubleobjbox done"),

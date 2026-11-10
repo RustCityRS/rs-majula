@@ -37,5 +37,5 @@ if ($int1 = 0) {
 if ($int2 = 0) {
     $int2 = calc(random(3) + 1);
 }
-if_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top, $component0);
-if_setontimer("bees($component0, $int1, $int2, $component3, $int4)", $component0);
+if_setposition($component0, $int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+if_setontimer($component0, "bees($component0, $int1, $int2, $component3, $int4)");

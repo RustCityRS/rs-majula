@@ -217,10 +217,10 @@ fn command_arguments_use_typed_names_without_changing_bytes() {
     registry.register_entity_id("options_boxes,1".to_owned(), Type::Obj, 99999);
     let path = Path::new("names.cs2");
     let text = r#"[proc,clientscript_100003]()
-        if_setgraphic(762, 17104903);
-        if_setonmouserepeat(38, -2147483645, 17104916, "Accept aid", 25, 180, "IIsii", 17104903);
-        if_settext("options_boxes,1", 17104903);
-        if_sethide(0, 11862017);
+        if_setgraphic(17104903, 762);
+        if_setonmouserepeat(17104903, 38, -2147483645, 17104916, "Accept aid", 25, 180, "IIsii");
+        if_settext(17104903, "options_boxes,1");
+        if_sethide(11862017, 0);
         cc_setonmouseover(2140, -2147483645, -2147483643, 200, "Iii");"#;
     let parsed = Source::parse(text, path).unwrap();
     clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
@@ -240,12 +240,12 @@ fn command_arguments_use_typed_names_without_changing_bytes() {
     )
     .unwrap();
     assert!(
-        generated.contains("if_setgraphic(\"options_boxes,1\", options:optaid);"),
+        generated.contains("if_setgraphic(options:optaid, \"options_boxes,1\");"),
         "{generated}"
     );
-    assert!(generated.contains("if_setonmouserepeat(addtooltip, event_com, options:options_tooltip, \"Accept aid\", 25, 180, \"IIsii\", options:optaid);"), "{generated}");
-    assert!(generated.contains("if_settext(\"options_boxes,1\", options:optaid);"));
-    assert!(generated.contains("if_sethide(false, lighttemple_piller:mirror_layer);"));
+    assert!(generated.contains("if_setonmouserepeat(options:optaid, addtooltip, event_com, options:options_tooltip, \"Accept aid\", 25, 180, \"IIsii\");"), "{generated}");
+    assert!(generated.contains("if_settext(options:optaid, \"options_boxes,1\");"));
+    assert!(generated.contains("if_sethide(lighttemple_piller:mirror_layer, false);"));
     assert!(
         generated
             .contains("cc_setonmouseover(cc_settrans, event_com, event_comsubid, 200, \"Iii\");")
@@ -270,8 +270,8 @@ fn structured_flow_and_typed_procedures_need_no_stack_helpers() {
     let path = Path::new("structured.cs2");
     let text = r#"
         [proc,clientscript_100004](int $component, int $graphic, int $colour)
-        if_setgraphic($graphic, $component);
-        if_setcolour($colour, $component);
+        if_setgraphic($component, $graphic);
+        if_setcolour($component, $colour);
 
         [proc,clientscript_100005](int $state)
         def_int $a = 0;
@@ -372,8 +372,8 @@ fn dump_formatting_preserves_local_slots_grouping_constants_and_bare_calls() {
     let path = Path::new("formatting.cs2");
     let text = r#"[proc,clientscript_100008](int $parent)
         def_int $child = $parent;
-        if_setsize(calc(10 - (3 - 1)), calc((2 + 3) * 4), 0, 1, $child);
-        if_setposition(0, 0, 1, 2, $child);
+        if_setsize($child, calc(10 - (3 - 1)), calc((2 + 3) * 4), 0, 1);
+        if_setposition($child, 0, 0, 1, 2);
         cc_create($child, 3, 0);
         cc_settextalign(0, 1, 0);
         cc_setcolour(0);
@@ -382,7 +382,7 @@ fn dump_formatting_preserves_local_slots_grouping_constants_and_bare_calls() {
         def_int $y;
         $x, $y = op6205();
         op6205();
-        if_setsize(op6205(), 0, 0, $child);
+        if_setsize($child, op6205(), 0, 0);
         cc_setoninvtransmit(38, $parent, $child, "text", 25, 180, 93, 1, "IIsiiY");"#;
     let parsed = Source::parse(text, path).unwrap();
     clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
@@ -420,7 +420,7 @@ fn dump_formatting_preserves_local_slots_grouping_constants_and_bare_calls() {
     assert!(generated.contains("cc_setcolour(^black);"));
     assert!(generated.contains("cc_setcolour(0xdd0000);"));
     assert!(
-        generated.contains("if_setsize(op6205, ^setsize_abs, ^setsize_abs, $component1);"),
+        generated.contains("if_setsize($component1, op6205, ^setsize_abs, ^setsize_abs);"),
         "{generated}"
     );
     assert!(
@@ -609,16 +609,16 @@ fn typed_values_use_names_in_declarations_assignments_and_comparisons() {
     let path = Path::new("typed.cs2");
     let text = r#"[proc,clientscript_100010](int $flag)(string)
         def_int $component = 39059508;
-        if_sethide($flag, $component);
+        if_sethide($component, $flag);
         if ($flag = 1) { $component = 63897654; }
-        if ($component = 39059508 | $component = 63897654) { if_setmodel(41312, $component); }
+        if ($component = 39059508 | $component = 63897654) { if_setmodel($component, 41312); }
         def_int $item = 10010;
         if ($item = 10010) { $item = 11259; }
         mes(oc_name($item));
         switch_obj ($item) { case 10010: mes("net"); case -1: mes("empty"); }
         def_component $components(1);
         $components(0) = 39059508;
-        if ($flag = true) { if_sethide(false, $components(0)); }
+        if ($flag = true) { if_sethide($components(0), false); }
         def_int $position = 60298074;
         cam_lookat($position, 100, 1, 2);
         $position = 0;
@@ -658,11 +658,11 @@ fn typed_values_use_names_in_declarations_assignments_and_comparisons() {
         "def_component $component1 = login:login_button_text;",
         "$component1 = south_progress9:login_button_text;",
         "if ($component1 = login:login_button_text | $component1 = south_progress9:login_button_text)",
-        "if_setmodel(model_41312, $component1);",
-        "def_obj $obj2 = butterfly_net;",
-        "if ($obj2 = butterfly_net)",
-        "$obj2 = magic_butterfly_net;",
-        "case butterfly_net :",
+        "if_setmodel($component1, model_41312);",
+        "def_obj $obj2 = hunting_butterfly_net;",
+        "if ($obj2 = hunting_butterfly_net)",
+        "$obj2 = ii_magic_butterfly_net;",
+        "case hunting_butterfly_net :",
         "case null :",
         "$componentarray0(0) = login:login_button_text;",
         "def_coord $coord3 = 0_57_77_32_26;",

@@ -1,14 +1,14 @@
 // 2520
 [proc,script2520]()(int)
 def_int $int0 = 0;
-$int0 = calc($int0 + %varclient_847);
-$int0 = calc($int0 + %varclient_852);
-$int0 = calc($int0 + %varclient_848);
-$int0 = calc($int0 + %varclient_853);
-$int0 = calc($int0 + %varclient_849);
-$int0 = calc($int0 + %varclient_854);
-$int0 = calc($int0 + %varclient_850);
-$int0 = calc($int0 + %varclient_855);
-$int0 = calc($int0 + %varclient_851);
-$int0 = calc($int0 + %varclient_856);
+$int0 = calc($int0 + %mob_client_cannon_qty);
+$int0 = calc($int0 + %mob_client_cannon_exist_qty);
+$int0 = calc($int0 + %mob_client_glider_qty);
+$int0 = calc($int0 + %mob_client_glider_exist_qty);
+$int0 = calc($int0 + %mob_client_chinchompa_qty);
+$int0 = calc($int0 + %mob_client_chinchompa_exist_qty);
+$int0 = calc($int0 + %mob_client_distractor_qty);
+$int0 = calc($int0 + %mob_client_distractor_exist_qty);
+$int0 = calc($int0 + %mob_client_barricade_qty);
+$int0 = calc($int0 + %mob_client_barricade_exist_qty);
 return($int0);

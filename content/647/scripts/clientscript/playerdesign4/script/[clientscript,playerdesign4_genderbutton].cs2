@@ -22,12 +22,12 @@ if ($boolean1 = true) {
 }
 sound_synth(synth_9819, 1, 0);
 setgender(~bool_to_int($boolean1));
-%varclient_196 = gender;
-%character_creation_female = %varclient_196;
+%playerdesign2_client_gender = gender;
+%character_creation_female = %playerdesign2_client_gender;
 ~script387($boolean1);
-%varclient_86 = 1;
+%playerdesign2_client_antilag = 1;
 %character_creation_sub_style = 1;
-def_struct $struct2 = enum(int, struct, enum_3278, calc(%varclient_197 - 1));
+def_struct $struct2 = enum(int, struct, enum_3278, calc(%playerdesign2_client_random - 1));
 def_struct $struct3 = null;
 if ($struct2 ! null) {
     $struct3 = ~playerdesign4_getoutfit(0, $struct2, $boolean1);

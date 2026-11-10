@@ -1,7 +1,7 @@
 // 7
 [clientscript,if_switchside_previous]
-def_int $int0 = calc(%varclient_10 - 100);
-%varclient_10 = 0;
+def_int $int0 = calc(%last_switchsided_stone - 100);
+%last_switchsided_stone = 0;
 if ($int0 < -1 | $int0 = ~current_side_if) {
     return;
 }

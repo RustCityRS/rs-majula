@@ -3,22 +3,22 @@
 def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
-switch_int (%varclient_816) {
+switch_int (%trawler_number_of_players_client) {
     case 0 :
         return;
     case 1 :
-        $int2 = %varclient_817;
+        $int2 = %trawler_water_level_client;
     case 2 :
-        $int2 = scale(%varclient_817, 125, 100);
+        $int2 = scale(%trawler_water_level_client, 125, 100);
     case 3 :
-        $int2 = scale(%varclient_817, 150, 100);
+        $int2 = scale(%trawler_water_level_client, 150, 100);
     case default :
-        $int2 = scale(%varclient_817, 175, 100);
+        $int2 = scale(%trawler_water_level_client, 175, 100);
 }
 if ($int2 > 100) {
     $int2 = 100;
 }
 $int0 = enum(int, int, enum_1090, $int2);
 $int1 = enum(int, int, enum_1091, $int2);
-if_setposition(91, $int0, ^setpos_abs_right, ^setpos_abs_top, trawler_game_overlay:water_bar_fill);
-if_setsize(18, $int1, ^setsize_abs, ^setsize_abs, trawler_game_overlay:water_bar_fill);
+if_setposition(trawler_game_overlay:water_bar_fill, 91, $int0, ^setpos_abs_right, ^setpos_abs_top);
+if_setsize(trawler_game_overlay:water_bar_fill, 18, $int1, ^setsize_abs, ^setsize_abs);

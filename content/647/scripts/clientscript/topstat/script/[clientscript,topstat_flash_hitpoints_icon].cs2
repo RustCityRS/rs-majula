@@ -1,26 +1,26 @@
 // 808
 [clientscript,topstat_flash_hitpoints_icon]
-if_sethide(false, topstat_hitpoints:icon);
+if_sethide(topstat_hitpoints:icon, false);
 def_int $int0 = scale(%life_points, ~script2916, 100);
 def_int $int1 = calc(clientclock % 32);
 if ($int0 > 25) {
-    %varclient_615 = 0;
+    %hitpoints_boomboom_time = 0;
     if (~script2916 < 200 & %life_points < 45 & $int0 < 100 & stat_base(hitpoints) > 0) {
         ~advisor_alert_player;
     } else {
-        %varclient_1025 = false;
+        %advisor_alert_cc = false;
     }
     if (if_gettrans(topstat_hitpoints:icon) ! 0) {
-        if_settrans(0, topstat_hitpoints:icon);
+        if_settrans(topstat_hitpoints:icon, 0);
     } else {
         return;
     }
 } else {
     if ($int1 = 1) {
-        if (%varclient_615 <= 0) {
-            %varclient_615 = clientclock;
+        if (%hitpoints_boomboom_time <= 0) {
+            %hitpoints_boomboom_time = clientclock;
         }
-        if (calc(clientclock - %varclient_615) < 1500) {
+        if (calc(clientclock - %hitpoints_boomboom_time) < 1500) {
             sound_synth(synth_5644, 1, 0);
         }
         if (stat_base(hitpoints) > 0) {
@@ -28,12 +28,12 @@ if ($int0 > 25) {
         }
     }
     if ($int1 < 8) {
-        if_settrans(0, topstat_hitpoints:icon);
+        if_settrans(topstat_hitpoints:icon, 0);
     } else if ($int1 < 16) {
-        if_settrans(85, topstat_hitpoints:icon);
+        if_settrans(topstat_hitpoints:icon, 85);
     } else if ($int1 < 24) {
-        if_settrans(255, topstat_hitpoints:icon);
+        if_settrans(topstat_hitpoints:icon, 255);
     } else {
-        if_settrans(85, topstat_hitpoints:icon);
+        if_settrans(topstat_hitpoints:icon, 85);
     }
 }

@@ -1,7 +1,7 @@
 // 1295
 [clientscript,hauntedmine_controls_startanim]
-if_setcolour(^red, hauntedmine_controls:hauntedmine_cart_start);
-if_setonmouseleave("text_colour_swapper(event_com, ^red)", hauntedmine_controls:hauntedmine_cart_start);
-if_sethide(true, hauntedmine_controls:hauntedmine_cart0);
-if_setmodel(model_4910, hauntedmine_controls:hauntedmine_cart1);
-if_setmodelanim(seq_1453, hauntedmine_controls:hauntedmine_cart1);
+if_setcolour(hauntedmine_controls:hauntedmine_cart_start, ^red);
+if_setonmouseleave(hauntedmine_controls:hauntedmine_cart_start, "text_colour_swapper(event_com, ^red)");
+if_sethide(hauntedmine_controls:hauntedmine_cart0, true);
+if_setmodel(hauntedmine_controls:hauntedmine_cart1, model_4910);
+if_setmodelanim(hauntedmine_controls:hauntedmine_cart1, hauntedmine_cart_travel);

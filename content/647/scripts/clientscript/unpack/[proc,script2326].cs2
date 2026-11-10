@@ -3,25 +3,25 @@
 def_int $int1 = clientclock;
 switch_model ($model0) {
     case model_32826, model_32828, model_32820 :
-        %varclient_767 = 0;
-        if_sethide(false, easter09_nuts:result);
-        if_settext("Incorrect", easter09_nuts:result_text);
+        %easter09_nuts_correct = 0;
+        if_sethide(easter09_nuts:result, false);
+        if_settext(easter09_nuts:result_text, "Incorrect");
         sound_synth(synth_6424, 1, 0);
-        if_setcolour(^red, easter09_nuts:result_text);
-        if_setontimer("easter09_nuts_hide_result($int1)", easter09_nuts:result);
+        if_setcolour(easter09_nuts:result_text, ^red);
+        if_setontimer(easter09_nuts:result, "easter09_nuts_hide_result($int1)");
     case default :
-        %varclient_767 = calc(%varclient_767 + 1);
-        if (%varclient_767 = 10) {
-            if_sethide(false, easter09_nuts:end_layer);
-            if_setop(1, "Train", easter09_nuts:end);
-            if_setonclick(null, easter09_nuts:reject);
+        %easter09_nuts_correct = calc(%easter09_nuts_correct + 1);
+        if (%easter09_nuts_correct = 10) {
+            if_sethide(easter09_nuts:end_layer, false);
+            if_setop(easter09_nuts:end, 1, "Train");
+            if_setonclick(easter09_nuts:reject, null);
         } else {
-            if_sethide(false, easter09_nuts:result);
-            if_settext("Correct", easter09_nuts:result_text);
+            if_sethide(easter09_nuts:result, false);
+            if_settext(easter09_nuts:result_text, "Correct");
             sound_synth(synth_6423, 1, 0);
-            if_setcolour(^green, easter09_nuts:result_text);
-            if_setontimer("easter09_nuts_hide_result($int1)", easter09_nuts:result);
+            if_setcolour(easter09_nuts:result_text, ^green);
+            if_setontimer(easter09_nuts:result, "easter09_nuts_hide_result($int1)");
         }
 }
-if_settext("Correct: <tostring(%varclient_767)>/<tostring(10)>", easter09_nuts:correct_count);
+if_settext(easter09_nuts:correct_count, "Correct: <tostring(%easter09_nuts_correct)>/<tostring(10)>");
 sound_synth(synth_6423, 1, 0);

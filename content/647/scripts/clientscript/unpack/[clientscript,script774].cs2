@@ -1,4 +1,4 @@
 // 774
 [clientscript,script774](component $component0, component $component1)
-if_setobject_nonum(%varplayer_851, 1, $component0);
-if_setobject_nonum(%varplayer_852, 1, $component1);
+if_setobject_nonum($component0, %eyeglo_operate2_a, 1);
+if_setobject_nonum($component1, %eyeglo_operate2_b, 1);

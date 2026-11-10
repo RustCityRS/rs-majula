@@ -1,7 +1,7 @@
 // 2097
 [clientscript,snp_tutorial_update_obelisk_icon_colour]
-if (%varclient_645 <= 5) {
-    if_setcolour(0x3366ff, snp_tutorial_game_overlay:obelisk_icon_colour);
+if (%snp_obelisk_control_is_client <= 5) {
+    if_setcolour(snp_tutorial_game_overlay:obelisk_icon_colour, 0x3366ff);
 } else {
-    if_setcolour(0x666666, snp_tutorial_game_overlay:obelisk_icon_colour);
+    if_setcolour(snp_tutorial_game_overlay:obelisk_icon_colour, 0x666666);
 }

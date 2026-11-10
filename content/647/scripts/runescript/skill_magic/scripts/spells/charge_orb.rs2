@@ -9,7 +9,7 @@
 
 [label,magic_spell_charge_orb](int $spell, loc $loc)
 // check if they have orb in inv
-if (inv_total(inv, unpowered_orb) < 1) {
+if (inv_total(inv, stafforb) < 1) {
     mes("You must be holding an orb to enchant it.");
     return;
 }
@@ -17,7 +17,7 @@ def_dbrow $spell_data = ~get_spell_data($spell);
 if (~check_spell_requirements($spell_data) = false) {
     return;
 }
-if($loc = lgmagictrialgateclosed) {
+if($loc = dng_mine_tunnel_right) {
     @legends_cast_orb_door($spell_data);
 }
 // check if used on correct loc
@@ -33,9 +33,9 @@ def_namedobj $final_obj;
 def_seq $anim;
 def_spotanim $spotanim;
 def_synth $sound;
-$final_obj, $anim, $spotanim, $sound = ~magic_spell_search_convertobj($spell_data, unpowered_orb);
+$final_obj, $anim, $spotanim, $sound = ~magic_spell_search_convertobj($spell_data, stafforb);
 // delete old, add new, play animations
-inv_del(inv, unpowered_orb, 1);
+inv_del(inv, stafforb, 1);
 ~delete_spell_runes($spell_data);
 inv_add(inv, $final_obj, 1);
 ~give_spell_xp($spell_data);

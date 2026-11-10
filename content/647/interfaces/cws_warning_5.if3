@@ -252,7 +252,7 @@ graphic="warning_icons,1"
 colour=0x000000
 transmitop=1
 op1=Off/On
-onvartransmit=cws_graphic_swap(cws_warning_5:cws_toggle_button, 5){varplayer_1045}
+onvartransmit=cws_graphic_swap(cws_warning_5:cws_toggle_button, 5){cws_var}
 onclick=cws_toggle(cws_warning_5:cws_toggle_button)
 
 // 563:21

@@ -1,19 +1,19 @@
 // The quest journal: void-634's lines (DemonSlayer.kt), in 289's colours.
 [label,questlist_demon]
 def_string $text;
-if (%demon_slayer = ^demon_not_started) {
+if (%demonslayer_main = ^demon_not_started) {
     $text = "@dbl@I can start this quest by speaking to the @dre@Gypsy@dbl@ in the @dre@tent|@dbl@in @dre@Varrock's main square.||@dbl@I must be able to defeat a level 27 @dre@apocalyptic demon@dbl@!";
-} else if (%demon_slayer = ^demon_complete) {
+} else if (%demonslayer_main = ^demon_complete) {
     $text = "@str@I spoke to Aris in Varrock Square who saw my future.|@str@Unfortunately it involved killing a demon who nearly|@str@destroyed Varrock over 150 years ago.|@str@I reclaimed the magical sword Silverlight from Sir Prysin.|@str@Using its power I managed to destroy the demon Delrith|@str@like the great hero Wally did many years before.|@red@QUEST COMPLETE!";
 } else {
     $text = "@str@I spoke to Aris in Varrock Square who saw my future.|@str@Unfortunately it involved killing a demon who nearly|@str@destroyed Varrock over 150 years ago.|";
-    if (%demon_slayer_silverlight = ^true) {
+    if (%delrith_silverlight_case = ^true) {
         $text = append($text, "@str@I reclaimed the magical sword Silverlight from Sir Prysin.||@dbl@Now I should go to the stone circle south of the city and|@dbl@destroy @dre@Delrith@dbl@ using @dre@Silverlight@dbl@!");
     } else {
         $text = append($text, "|@dbl@To defeat the @dre@demon@dbl@ I need the magical sword @dre@Silverlight@dbl@.|");
-        if (%demon_slayer = ^demon_sir_prysin) {
+        if (%demonslayer_main = ^demon_sir_prysin) {
             $text = append($text, "@dbl@I should ask @dre@Sir Prysin@dbl@ in @dre@Varrock Palace@dbl@ where it is.");
-        } else if (inv_total(inv, silverlight_key_sir_prysin) > 0 & inv_total(inv, silverlight_key_captain_rovin) > 0 & inv_total(inv, silverlight_key_wizard_traiborn) > 0) {
+        } else if (inv_total(inv, silverlight_key_3) > 0 & inv_total(inv, silverlight_key_2) > 0 & inv_total(inv, silverlight_key_1) > 0) {
             $text = append($text, "@dbl@Now I have all @dre@3 keys@dbl@ I should go and speak to @dre@Sir Prysin|@dbl@and collect the magical sword @dre@Silverlight@dbl@ from him.");
         } else {
             $text = append($text, "@dre@Sir Prysin@dbl@ needs @dre@3 keys@dbl@ before he can give me @dre@Silverlight@dbl@.||");
@@ -25,22 +25,22 @@ if (%demon_slayer = ^demon_not_started) {
 
 [proc,demon_journal_keys]()(string)
 def_string $text = "";
-if (inv_total(inv, silverlight_key_sir_prysin) > 0) {
+if (inv_total(inv, silverlight_key_3) > 0) {
     $text = "@str@I have the 1st Key with me.|";
 } else {
     $text = "@dbl@The @dre@1st Key@dbl@ was dropped down the @dre@palace kitchen drains@dbl@.|";
-    if (%demon_slayer_drain_dislodged = ^demon_key_in_sewer) {
+    if (%delrith_drain_key = ^demon_key_in_sewer) {
         $text = append($text, "@dbl@I have washed the key down the drain into the sewer. I|@dbl@should go down there to fetch it. The @dre@sewer entrance@dbl@ could|@dbl@be found somewhere just @dre@outside@dbl@ the @dre@palace courtyard@dbl@ to|@dre@the east.|");
     } else {
         $text = append($text, "@dbl@Maybe some water can dislodge it.|");
     }
 }
-if (inv_total(inv, silverlight_key_captain_rovin) > 0) {
+if (inv_total(inv, silverlight_key_2) > 0) {
     $text = append($text, "@str@I have the 2nd Key with me.|");
 } else {
     $text = append($text, "@dbl@The @dre@2nd Key@dbl@ is with Captain Rovin in Varrock Palace.|");
 }
-if (inv_total(inv, silverlight_key_wizard_traiborn) > 0) {
+if (inv_total(inv, silverlight_key_1) > 0) {
     $text = append($text, "@str@I have the 3rd Key with me.");
 } else {
     $text = append($text, "@dbl@The @dre@3rd Key@dbl@ is with Wizard Traiborn at the Wizards' Tower,|@dbl@south of Draynor Village.");

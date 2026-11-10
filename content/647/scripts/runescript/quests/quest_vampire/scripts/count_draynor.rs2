@@ -16,7 +16,7 @@
 // he has crumbled away, the player's "I should tell Morgan that I've killed the
 // vampire!" (05-04, 267.5s, about 1.5s after he goes) and "You have slain the
 // vampire." (both).
-[ai_queue4,count_draynor]
+[ai_queue4,vampire_slayer_qip_count]
 ~quest_vampire_coffin_close;
 npc_walk(npc_coord);
 npc_setmode(none);
@@ -40,14 +40,14 @@ npc_del;
 // He strikes first as the player reaches him (2011-04-21 LJsjL-Lu9cQ 147.9s,
 // his 20 before the player's first; 2011-05-04 8rnPUf2QQv4 251.0s, his 3
 // before their 71 at 252.9s): his blow comes as they arrive, then theirs.
-[opnpc2,count_draynor]
+[opnpc2,vampire_slayer_qip_count]
 if (npc_getmode ! opplayer2 & %npc_action_delay <= map_clock & %death = ^false) {
     npc_setmode(opplayer2);
     ~count_draynor_swing;
 }
 @player_combat_start;
 
-[apnpc2,count_draynor] @player_combat_start_ap;
+[apnpc2,vampire_slayer_qip_count] @player_combat_start_ap;
 
 // https://youtu.be/67aR5-_INcU
 // - seems to be called on npc damage, and on npc hit
@@ -65,7 +65,7 @@ if (inv_total(inv, garlic) > 0) {
     }
 }
 
-[ai_opplayer2,count_draynor]
+[ai_opplayer2,vampire_slayer_qip_count]
 if (%death = ^true) {
     npc_setmode(null);
     return;
@@ -91,7 +91,7 @@ if (npc_param(attack_sound) ! null) {
 ~count_draynor_garlic;
 ~npc_meleeattack;
 
-[ai_queue2,count_draynor]
+[ai_queue2,vampire_slayer_qip_count]
 if (finduid(%npc_aggressive_player) = true) {
     ~count_draynor_garlic;
     if (last_int = 0 & inv_total(inv, garlic) = 0) {
@@ -100,7 +100,7 @@ if (finduid(%npc_aggressive_player) = true) {
 }
 ~npc_default_damage(last_int);
 
-[ai_queue3,count_draynor]
+[ai_queue3,vampire_slayer_qip_count]
 if (npc_findhero = ^true) {
     if (p_finduid(uid) = true) {
         @count_draynor_use_stake;
@@ -115,7 +115,7 @@ if (inv_total(inv, stake) = 0) {
     npc_setmode(opplayer2);
     return;
 }
-if (inv_total(inv, stake_hammer) = 0) {
+if (inv_total(inv, vampire_hammer) = 0) {
     mes("You're unable to push the stake far enough in!");
     mes("The vampire seems to regenerate!");
     npc_statheal(hitpoints, 0, 100);
@@ -158,7 +158,7 @@ mes("You have slain the vampire.");
 // He does not come for the player: in the 2011-04-21 (LJsjL-Lu9cQ, 143.5-147.9s)
 // and 2011-05-04 (240-251s) recordings he waits where he rose while the player
 // walks up ([opnpc2] has him strike first as they arrive).
-[ai_timer,count_draynor]
+[ai_timer,vampire_slayer_qip_count]
 if (finduid(%npc_attacking_uid) = true) {
     if (npc_range(coord) > 20 | coordy(coord) ! coordy(npc_coord)) {
         // A player who leaves without attacking him gets the camera back.

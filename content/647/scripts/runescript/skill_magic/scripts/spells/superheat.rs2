@@ -7,11 +7,11 @@ def_dbrow $spell_data = ~get_spell_data($spell);
 if (~check_spell_requirements($spell_data) = false) {
     return;
 }
-if($ore1 = elemental_ore) {
+if($ore1 = elemental_workshop_ore) {
     mes("Even this spell is not hot enough to heat this item.");
     return;
 }
-if($ore1 = jogre_bones) {
+if($ore1 = tbwt_jogre_bones) {
     @tbwt_jogre_bones_superheat;
 }
 def_namedobj $bar = oc_param($ore1, smeltsto);
@@ -54,7 +54,7 @@ anim(human_castsuperheatitem, 0);
 ~delete_spell_runes($spell_data);
 ~give_spell_xp($spell_data);
 def_int $smith_xp = struct_param($bar_struct, productexp);
-if ($bar = gold_bar & inv_total(worn, goldsmith_gauntlets) > 0) {
+if ($bar = gold_bar & inv_total(worn, gauntlets_of_goldsmithing) > 0) {
     $smith_xp = scale(5, 2, $smith_xp); // 2.5x
 }
 // 289 pays with stat_advance, here and below; 2011's xp counter

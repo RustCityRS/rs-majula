@@ -1,8 +1,8 @@
 // 2369
 [clientscript,skillmulti2010_scroller](component $component0, graphic $graphic1, int $int2)
 def_int $int3 = if_getscrollx(skillmulti2010:menu);
-if_setscrollpos(calc(if_getscrollx(skillmulti2010:menu) + $int2), 0, skillmulti2010:menu);
+if_setscrollpos(skillmulti2010:menu, calc(if_getscrollx(skillmulti2010:menu) + $int2), 0);
 if ($int3 ! if_getscrollx(skillmulti2010:menu)) {
-    if_setgraphic($graphic1, $component0);
+    if_setgraphic($component0, $graphic1);
 }
 ~script2370;

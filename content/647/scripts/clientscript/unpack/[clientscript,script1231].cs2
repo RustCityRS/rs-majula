@@ -5,25 +5,25 @@ def_model $model1 = null;
 def_component $component2 = null;
 def_int $int3 = 0;
 while ($int3 < 81) {
-    $obj0 = inv_getobj(inv_308, $int3);
+    $obj0 = inv_getobj(roguetrader_toughsudukuinv, $int3);
     switch_obj ($obj0) {
-        case air_rune, air_rune_6422 :
+        case airrune, roguetrader_airrune :
             $model1 = model_8975;
-        case water_rune, water_rune_6424 :
+        case waterrune, roguetrader_waterrune :
             $model1 = model_8987;
-        case earth_rune, earth_rune_6426 :
+        case earthrune, roguetrader_earthrune :
             $model1 = model_8979;
-        case fire_rune, fire_rune_6428 :
+        case firerune, roguetrader_firerune :
             $model1 = model_8980;
-        case mind_rune, mind_rune_6436 :
+        case mindrune, roguetrader_mindrune :
             $model1 = model_8982;
-        case body_rune, body_rune_6438 :
+        case bodyrune, roguetrader_bodyrune :
             $model1 = model_8976;
-        case death_rune, death_rune_6432 :
+        case deathrune, roguetrader_deathrune :
             $model1 = model_8978;
-        case chaos_rune, chaos_rune_6430 :
+        case chaosrune, roguetrader_chaosrune :
             $model1 = model_8977;
-        case law_rune, law_rune_6434 :
+        case lawrune, roguetrader_lawrune :
             $model1 = model_8981;
         case default :
             $model1 = null;
@@ -33,7 +33,7 @@ while ($int3 < 81) {
         cc_setmodel($model1);
     } else {
     }
-    if ($obj0 = air_rune_6422 | $obj0 = air_rune_6422 | $obj0 = water_rune_6424 | $obj0 = earth_rune_6426 | $obj0 = fire_rune_6428 | $obj0 = mind_rune_6436 | $obj0 = body_rune_6438 | $obj0 = death_rune_6432 | $obj0 = chaos_rune_6430 | $obj0 = law_rune_6434) {
+    if ($obj0 = roguetrader_airrune | $obj0 = roguetrader_airrune | $obj0 = roguetrader_waterrune | $obj0 = roguetrader_earthrune | $obj0 = roguetrader_firerune | $obj0 = roguetrader_mindrune | $obj0 = roguetrader_bodyrune | $obj0 = roguetrader_deathrune | $obj0 = roguetrader_chaosrune | $obj0 = roguetrader_lawrune) {
         $component2 = enum(int, component, enum_2275, $int3);
         if (if_find($component2) = true) {
             cc_setcolour(0x440000);

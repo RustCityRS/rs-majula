@@ -97,22 +97,22 @@ if ($consumable ! null & oc_category($consumable) = potion) {
     if (db_getfieldcount($message_data, consume_messages_table:message_delay) > 0) {
         p_delay(db_getfield($message_data, consume_messages_table:message_delay, 0));
     }
-    if ($consumable = vial) {
+    if ($consumable = vial_empty) {
         mes("You have finished your potion.");
         return;
     }
     $consumable = oc_param($consumable, next_obj_stage);
-    if ($consumable = vial) {
+    if ($consumable = vial_empty) {
         mes("You have 1 dose of potion left.");
         return;
     }
     $consumable = oc_param($consumable, next_obj_stage);
-    if ($consumable = vial) {
+    if ($consumable = vial_empty) {
         mes("You have 2 doses of potion left.");
         return;
     }
     $consumable = oc_param($consumable, next_obj_stage);
-    if ($consumable = vial) {
+    if ($consumable = vial_empty) {
         mes("You have 3 doses of potion left.");
         return;
     }

@@ -1,6 +1,6 @@
 // 4354
 [clientscript,script4354](component $component0)
-switch_int (%varplayer_2128) {
+switch_int (%clan_event_current_varp) {
     case 1 :
         if (%varplayerbit_9141 = 0) {
             %varplayerbit_9141 = 1;

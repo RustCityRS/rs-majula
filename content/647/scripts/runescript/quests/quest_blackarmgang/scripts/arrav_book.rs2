@@ -2,14 +2,14 @@
 // on 2011's two-page book (general/scripts/book.rs2). The text is 289's; void-634's
 // shield_of_arrav.books.toml has it word for word, and the 2011-02-28 recording (LhbN1Qi39D4,
 // 67-75s) shows the same opening and closing lines over three spreads.
-[opheld1,book]
+[opheld1,the_shield_of_arrav]
 %book_page = 0;
-%open_book = book;
+%open_book = the_shield_of_arrav;
 @open_arrav_book;
 
 [label,open_arrav_book]
-if(%phoenixgang = ^phoenixgang_started) {
-    %phoenixgang = ^phoenixgang_read_book;
+if(%blackarmgang = ^phoenixgang_started) {
+    %blackarmgang = ^phoenixgang_read_book;
 }
 @book_flip_page(0, 0, 2, shieldofarrav_book);
 

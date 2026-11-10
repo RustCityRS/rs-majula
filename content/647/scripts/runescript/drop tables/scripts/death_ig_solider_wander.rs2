@@ -15,7 +15,7 @@ else if ($random < 26) obj_add(npc_coord, black_claws, 1, ^lootdrop_duration);
 else if ($random < 27) obj_add(npc_coord, steel_bar, 1, ^lootdrop_duration);
 else if ($random < 28) obj_add(npc_coord, mithril_bar, 1, ^lootdrop_duration);
 else if ($random < 36) obj_add(npc_coord, ~randomherb, ^lootdrop_duration);
-else if ($random < 37) obj_add(npc_coord, blood_rune, 2, ^lootdrop_duration);
+else if ($random < 37) obj_add(npc_coord, bloodrune, 2, ^lootdrop_duration);
 else if ($random < 54) obj_add(npc_coord, coins, 3, ^lootdrop_duration);
 else if ($random < 64) obj_add(npc_coord, coins, 5, ^lootdrop_duration);
 else if ($random < 84) obj_add(npc_coord, coins, 18, ^lootdrop_duration);

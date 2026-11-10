@@ -1,9 +1,9 @@
-0 25 11: large_door_1516 0 1
-0 26 11: large_door_1519 0 1
-0 18 31: loc_1535 0 3
-0 33 31: loc_1535 0 3
-2 23 26: climbing_rope 10 0
-2 28 26: climbing_rope 10 0
+0 25 11: castledoubledoorl 0 1
+0 26 11: castledoubledoorr 0 1
+0 18 31: inactiveposhdoor 0 3
+0 33 31: inactiveposhdoor 0 3
+2 23 26: climbing_rope_top 10 0
+2 28 26: climbing_rope_top 10 0
 0 17 12: macro_theatrewall 1 1
 0 17 13: macro_theatrewall 0 2
 0 17 14: macro_theatrewall 0 2
@@ -122,8 +122,8 @@
 1 32 30: macro_theatre_curtains_side 10 3
 1 32 26: macro_theatre_curtains_corner_left 10 0
 1 19 26: macro_theatre_curtains_corner_right 10 2
-1 23 25: spotlight 10 0
-1 26 25: spotlight 10 2
+1 23 25: macro_spotlight 10 0
+1 26 25: macro_spotlight 10 2
 1 18 30: macro_exitsign 4 1
 1 24 13: macro_exitsign 4 3
 1 27 13: macro_exitsign 4 3

@@ -1,7 +1,7 @@
 // 314
 [clientscript,signpost_model](component $component0)
-if (%varclient_179 ! null) {
-    if_setmodel(%varclient_179, $component0);
+if (%signpost_if_model ! null) {
+    if_setmodel($component0, %signpost_if_model);
 } else {
-    if_setmodel(model_18535, $component0);
+    if_setmodel($component0, model_18535);
 }

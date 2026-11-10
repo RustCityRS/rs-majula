@@ -107,7 +107,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0x64501e
-onvartransmit=kr_tumbler_height{varplayer_1051}
+onvartransmit=kr_tumbler_height{kr_varp3}
 
 // 588:8
 [kr_tumbler_column]
@@ -300,7 +300,7 @@ textshadow=yes
 colour=0x64501e
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=kr_mouseleave_colour(1, event_com)
 
@@ -320,7 +320,7 @@ textshadow=yes
 colour=0x64501e
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=kr_mouseleave_colour(2, event_com)
 
@@ -340,7 +340,7 @@ textshadow=yes
 colour=0x64501e
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=kr_mouseleave_colour(3, event_com)
 
@@ -360,7 +360,7 @@ textshadow=yes
 colour=0x64501e
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=kr_mouseleave_colour(4, event_com)
 

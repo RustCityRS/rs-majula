@@ -71,13 +71,13 @@ fn falador_s_npcs_answer_every_branch() {
     runner::on_loaded_engine(|engine| {
         for npc in [
             "cassie",
-            "drogo_dwarf",
+            "drogo",
             "flynn",
             "herquin",
             "nurmof",
             "sir_vyvin",
             "wayne",
-            "wyson_the_gardener",
+            "wyson",
         ] {
             let _ = engine.script_errors.take();
             let branches = explore(

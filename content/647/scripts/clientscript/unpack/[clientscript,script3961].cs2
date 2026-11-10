@@ -2,9 +2,9 @@
 [clientscript,script3961](int $int0, component $component1)
 if ($int0 < 50) {
     $int0 = calc($int0 + 1);
-    if_setontimer("script3961($int0, $component1)", $component1);
+    if_setontimer($component1, "script3961($int0, $component1)");
 } else {
-    if_setsize(63, 16, ^setsize_abs, ^setsize_abs, loginscreen:toolbar_layer);
-    if_setontimer(null, $component1);
+    if_setsize(loginscreen:toolbar_layer, 63, 16, ^setsize_abs, ^setsize_abs);
+    if_setontimer($component1, null);
     ~script3960(loginscreen:tool_bar_vol_button);
 }

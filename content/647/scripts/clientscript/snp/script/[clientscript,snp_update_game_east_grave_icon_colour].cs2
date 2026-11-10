@@ -1,9 +1,9 @@
 // 2086
 [clientscript,snp_update_game_east_grave_icon_colour]
-if (%varclient_647 <= 5) {
-    if_setcolour(0x3366ff, snp_game_overlay:east_icon_colour);
-} else if (%varclient_647 >= 25) {
-    if_setcolour(0xe12323, snp_game_overlay:east_icon_colour);
+if (%snp_east_control_is_client <= 5) {
+    if_setcolour(snp_game_overlay:east_icon_colour, 0x3366ff);
+} else if (%snp_east_control_is_client >= 25) {
+    if_setcolour(snp_game_overlay:east_icon_colour, 0xe12323);
 } else {
-    if_setcolour(0x666666, snp_game_overlay:east_icon_colour);
+    if_setcolour(snp_game_overlay:east_icon_colour, 0x666666);
 }

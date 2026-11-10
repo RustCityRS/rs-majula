@@ -38,7 +38,7 @@ op1=Close
 onload=clanwars_ffa_warning_setup(clanwars_ffa_warning:title, clanwars_ffa_warning:text, clanwars_ffa_warning:left_symbol, clanwars_ffa_warning:right_symbol, clanwars_ffa_warning:nomorewarnings, clanwars_ffa_warning:toggleicon)
 onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
 onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
-onvartransmit=clanwars_ffa_warning_setup(clanwars_ffa_warning:title, clanwars_ffa_warning:text, clanwars_ffa_warning:left_symbol, clanwars_ffa_warning:right_symbol, clanwars_ffa_warning:nomorewarnings, clanwars_ffa_warning:toggleicon){varplayer_1147}
+onvartransmit=clanwars_ffa_warning_setup(clanwars_ffa_warning:title, clanwars_ffa_warning:text, clanwars_ffa_warning:left_symbol, clanwars_ffa_warning:right_symbol, clanwars_ffa_warning:nomorewarnings, clanwars_ffa_warning:toggleicon){clanwars}
 onop=closebutton_click
 
 // 793:3

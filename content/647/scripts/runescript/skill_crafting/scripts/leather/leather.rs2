@@ -21,7 +21,7 @@ switch_obj (last_useitem)
     case thread : ~chatplayer("<p,happy>Perhaps I should use a needle with a piece of leather instead.");
     case leather : @craft_leather_interface;
     case hard_leather : @craft_leather(hardleather_body, 1);
-    case green_dragon_leather, blue_dragon_leather, red_dragon_leather, black_dragon_leather : @craft_dhide_interface(last_useslot);
+    case dragon_leather, dragon_leather_blue, dragon_leather_red, dragon_leather_black : @craft_dhide_interface(last_useslot);
     case default : ~displaymessage(^dm_default);
 }
 
@@ -35,19 +35,19 @@ if (last_useitem = needle) {
 if (last_useitem = needle) @craft_leather(hardleather_body, 1);
 ~displaymessage(^dm_default);
 
-[opheldu,green_dragon_leather]
+[opheldu,dragon_leather]
 if (last_useitem = needle) @craft_dhide_interface(last_slot);
 ~displaymessage(^dm_default);
 
-[opheldu,blue_dragon_leather]
+[opheldu,dragon_leather_blue]
 if (last_useitem = needle) @craft_dhide_interface(last_slot);
 ~displaymessage(^dm_default);
 
-[opheldu,red_dragon_leather]
+[opheldu,dragon_leather_red]
 if (last_useitem = needle) @craft_dhide_interface(last_slot);
 ~displaymessage(^dm_default);
 
-[opheldu,black_dragon_leather]
+[opheldu,dragon_leather_black]
 if (last_useitem = needle) @craft_dhide_interface(last_slot);
 ~displaymessage(^dm_default);
 
@@ -180,7 +180,7 @@ if (inv_total(inv, thread) < 1) {
 // body, gloves, boots, vambraces, chaps, coif and cowl.
 def_namedobj $product;
 def_int $process_count;
-$product, $process_count = ~skill_make10(^skill_make_text, ^skill_make_make, inv_total(inv, leather), leather_body, leather_gloves, leather_boots, leather_vambraces, leather_chaps, coif, leather_cowl, null, null, null);
+$product, $process_count = ~skill_make10(^skill_make_text, ^skill_make_make, inv_total(inv, leather), leather_armour, leather_gloves, leather_boots, leather_vambraces, leather_chaps, coif, leather_cowl, null, null, null);
 if ($product = null) {
     return;
 }

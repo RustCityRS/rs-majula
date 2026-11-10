@@ -1,4 +1,4 @@
 // 2898
 [clientscript,sfa_highlight_stop](component $component0)
 ~component_flash_stop($component0);
-if_sethide(true, $component0);
+if_sethide($component0, true);

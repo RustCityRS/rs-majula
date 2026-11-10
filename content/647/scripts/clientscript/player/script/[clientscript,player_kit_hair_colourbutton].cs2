@@ -4,5 +4,5 @@ if ($int0 ! 1) {
     return;
 }
 basecolour(0, $int1);
-%varclient_1015 = $int1;
+%playerdesign3_haircol = $int1;
 ~player_kit_hair_redraw;

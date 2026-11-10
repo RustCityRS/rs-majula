@@ -1,52 +1,52 @@
 // 2671
 [proc,script2671]
 if (%varplayerbit_6454 = 0) {
-    if_sethide(false, topstat_lore:details_op1);
-    if_sethide(true, topstat_lore:details_layer);
+    if_sethide(topstat_lore:details_op1, false);
+    if_sethide(topstat_lore:details_layer, true);
 } else {
-    if_sethide(true, topstat_lore:details_op1);
-    if_sethide(false, topstat_lore:details_layer);
+    if_sethide(topstat_lore:details_op1, true);
+    if_sethide(topstat_lore:details_layer, false);
 }
 if (%varplayerbit_6454 = 2) {
-    if_sethide(false, topstat_lore:attack_op1);
-    if_sethide(true, topstat_lore:attack_layer);
+    if_sethide(topstat_lore:attack_op1, false);
+    if_sethide(topstat_lore:attack_layer, true);
 } else {
-    if_sethide(true, topstat_lore:attack_op1);
-    if_sethide(false, topstat_lore:attack_layer);
+    if_sethide(topstat_lore:attack_op1, true);
+    if_sethide(topstat_lore:attack_layer, false);
 }
 if (%varplayerbit_6454 = 3) {
-    if_sethide(false, topstat_lore:call_op1);
-    if_sethide(true, topstat_lore:call_layer);
+    if_sethide(topstat_lore:call_op1, false);
+    if_sethide(topstat_lore:call_layer, true);
 } else {
-    if_sethide(true, topstat_lore:call_op1);
-    if_sethide(false, topstat_lore:call_layer);
+    if_sethide(topstat_lore:call_op1, true);
+    if_sethide(topstat_lore:call_layer, false);
 }
 if (%varplayerbit_6454 = 4) {
-    if_sethide(false, topstat_lore:dismiss_op1);
-    if_sethide(true, topstat_lore:dismiss_layer);
+    if_sethide(topstat_lore:dismiss_op1, false);
+    if_sethide(topstat_lore:dismiss_layer, true);
 } else {
-    if_sethide(true, topstat_lore:dismiss_op1);
-    if_sethide(false, topstat_lore:dismiss_layer);
+    if_sethide(topstat_lore:dismiss_op1, true);
+    if_sethide(topstat_lore:dismiss_layer, false);
 }
 if (%varplayerbit_6454 = 5) {
-    if_sethide(false, topstat_lore:bob_op1);
-    if_sethide(true, topstat_lore:bob_layer);
+    if_sethide(topstat_lore:bob_op1, false);
+    if_sethide(topstat_lore:bob_layer, true);
 } else {
-    if_sethide(true, topstat_lore:bob_op1);
-    if_sethide(false, topstat_lore:bob_layer);
+    if_sethide(topstat_lore:bob_op1, true);
+    if_sethide(topstat_lore:bob_layer, false);
 }
 if (%varplayerbit_6454 = 6) {
-    if_sethide(false, topstat_lore:renew_op1);
-    if_sethide(true, topstat_lore:renew_layer);
+    if_sethide(topstat_lore:renew_op1, false);
+    if_sethide(topstat_lore:renew_layer, true);
 } else {
-    if_sethide(true, topstat_lore:renew_op1);
-    if_sethide(false, topstat_lore:renew_layer);
+    if_sethide(topstat_lore:renew_op1, true);
+    if_sethide(topstat_lore:renew_layer, false);
 }
 if (%varplayerbit_6454 = 7) {
-    if_sethide(false, topstat_lore:interact_op1);
-    if_sethide(true, topstat_lore:interact_layer);
+    if_sethide(topstat_lore:interact_op1, false);
+    if_sethide(topstat_lore:interact_layer, true);
 } else {
-    if_sethide(true, topstat_lore:interact_op1);
-    if_sethide(false, topstat_lore:interact_layer);
+    if_sethide(topstat_lore:interact_op1, true);
+    if_sethide(topstat_lore:interact_layer, false);
 }
 return;

@@ -133,7 +133,7 @@ layer=bal_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
-onvartransmit=warguild_update_tokens_balance(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_balance(event_com){warguild_tokens2}
 
 // 1057:14
 [str_token]
@@ -166,7 +166,7 @@ layer=str_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
-onvartransmit=warguild_update_tokens_strength(event_com){varplayer_788}
+onvartransmit=warguild_update_tokens_strength(event_com){warguild_games}
 
 // 1057:17
 [com_token]
@@ -199,7 +199,7 @@ layer=com_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
-onvartransmit=warguild_update_tokens_combat(event_com){varplayer_2030}
+onvartransmit=warguild_update_tokens_combat(event_com){warguild_tokens2}
 
 // 1057:20
 [def_token]
@@ -232,7 +232,7 @@ layer=def_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
-onvartransmit=warguild_update_tokens_defence(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_defence(event_com){warguild_tokens}
 
 // 1057:23
 [att_token]
@@ -265,7 +265,7 @@ layer=att_layer
 textfont=p11_full
 textalignv=centre
 textshadow=yes
-onvartransmit=warguild_update_tokens_attack(event_com){varplayer_787}
+onvartransmit=warguild_update_tokens_attack(event_com){warguild_tokens}
 
 // 1057:26
 [token_type_text]
@@ -288,7 +288,7 @@ y=245
 width=191
 height=20
 layer=content_layer
-onvartransmit=warguild_update_multi_status{varplayer_788}
+onvartransmit=warguild_update_multi_status{warguild_games}
 
 // 1057:28
 [att_layer]
@@ -340,7 +340,7 @@ layer=content_layer
 type=layer
 widthmode=minus
 heightmode=minus
-onvartransmit=warguild_tag_setup{varplayer_793, varplayer_793, varplayer_793, varplayer_793, varplayer_793}
+onvartransmit=warguild_tag_setup{war_strength_kegs, war_strength_kegs, war_strength_kegs, war_strength_kegs, war_strength_kegs}
 
 // 1057:34
 [keg_tag_layer]
@@ -351,7 +351,7 @@ height=65
 xmode=abs_centre
 layer=content_layer
 hide=yes
-onvartransmit=warguild_tag_tick{varplayer_793, varplayer_793, varplayer_793, varplayer_793, varplayer_793}
+onvartransmit=warguild_tag_tick{war_strength_kegs, war_strength_kegs, war_strength_kegs, war_strength_kegs, war_strength_kegs}
 
 // 1057:35
 [tick_1]

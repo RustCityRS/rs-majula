@@ -253,7 +253,7 @@ fn the_guildmaster_tells_of_crandor_and_the_map() {
                 "Where is Thalzar's map piece?",
             ],
         );
-        assert_eq!(held(engine, &client, "maze_key"), 1);
+        assert_eq!(held(engine, &client, "melzarkey"), 1);
 
         let t = talk_on(
             engine,
@@ -293,7 +293,7 @@ fn the_duke_gives_the_shield() {
         let t = talk_on(
             engine,
             &mut client,
-            "duke_horacio",
+            "duke_of_lumbridge",
             DUKE,
             &[
                 "I seek a shield that will protect me from dragonbreath.",
@@ -314,7 +314,7 @@ fn the_duke_gives_the_shield() {
                 "If you kill it, for Saradomin's sake make sure it's really dead!",
             ],
         );
-        assert_eq!(held(engine, &client, "anti_dragon_shield"), 1);
+        assert_eq!(held(engine, &client, "antidragonbreathshield"), 1);
         assert!(
             t.messages
                 .iter()
@@ -333,7 +333,7 @@ fn oziach_takes_elvargs_head() {
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "ds_head");
         set_var(engine, &client, "dragonquest", 9);
-        give(engine, &client, 0, "elvarg_s_head", 1);
+        give(engine, &client, 0, "dragon_slayer_qip_elvargs_head", 1);
         let t = talk_on(engine, &mut client, "oziach", OZIACH, &[]);
         says(
             &t,
@@ -348,7 +348,7 @@ fn oziach_takes_elvargs_head() {
         );
         settle(engine, &mut client, 4);
         assert_eq!(var(engine, &client, "dragonquest"), 10, "complete");
-        assert_eq!(held(engine, &client, "elvarg_s_head"), 0, "Oziach keeps it");
+        assert_eq!(held(engine, &client, "dragon_slayer_qip_elvargs_head"), 0, "Oziach keeps it");
     });
 }
 
@@ -448,11 +448,11 @@ fn the_oracle_thalzars_door_and_chest() {
         let items = [
             ("silk", "You put the silk into the opening in the door."),
             (
-                "bowl__unfired",
+                "bowl_unfired",
                 "You put the unfired bowl into the opening in the door.",
             ),
             (
-                "wizard_s_mind_bomb",
+                "wizards_mind_bomb",
                 "You pour the Wizard's Mind Bomb into the opening in the door.",
             ),
             (
@@ -503,17 +503,17 @@ fn the_three_pieces_make_the_map() {
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "ds_map");
         set_var(engine, &client, "dragonquest", 2);
-        give(engine, &client, 0, "map_part", 1);
+        give(engine, &client, 0, "mappart1", 1);
         give(engine, &client, 1, "mappart2", 1);
         give(engine, &client, 2, "mappart3", 1);
-        let t = use_on_obj(engine, &mut client, "map_part", "mappart2", &[]);
+        let t = use_on_obj(engine, &mut client, "mappart1", "mappart2", &[]);
         assert!(
             t.said("You put the three pieces together and assemble a map that shows the route through the reefs to Crandor"),
             "{:?}",
             t.texts
         );
-        assert_eq!(held(engine, &client, "crandor_map"), 1);
-        for piece in ["map_part", "mappart2", "mappart3"] {
+        assert_eq!(held(engine, &client, "dragonmap"), 1);
+        for piece in ["mappart1", "mappart2", "mappart3"] {
             assert_eq!(held(engine, &client, piece), 0, "{piece} joined");
         }
     });
@@ -642,16 +642,16 @@ fn melzars_maze_doors_take_2011s_keys() {
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "ds_maze_doors");
         set_var(engine, &client, "dragonquest", 2);
-        give(engine, &client, 0, "maze_key", 1);
+        give(engine, &client, 0, "melzarkey", 1);
         tele(engine, &mut client, 2942, 0, 3248);
-        use_on_loc(&mut client, id(engine, "obj", "maze_key"), 0, MAZE_DOOR);
+        use_on_loc(&mut client, id(engine, "obj", "melzarkey"), 0, MAZE_DOOR);
         let said = messages(engine, &mut client, 8);
         assert!(
             said.iter()
                 .any(|m| m == "You use the key and the door opens."),
             "{said:?}"
         );
-        assert_eq!(held(engine, &client, "maze_key"), 1, "the maze key is kept");
+        assert_eq!(held(engine, &client, "melzarkey"), 1, "the maze key is kept");
 
         give(engine, &client, 1, "redkey", 1);
         tele(engine, &mut client, 2927, 0, 3244);
@@ -682,7 +682,7 @@ fn the_maze_zombie_rat_drops_the_red_key() {
                 player.stats.xp[skill] = 130_344_310;
             }
         }
-        let (nid, sx, sz) = npc_near_on(engine, "zombie_rat", 2930, 3252, 0);
+        let (nid, sx, sz) = npc_near_on(engine, "dragonslayer_giantrat_1_key", 2930, 3252, 0);
         engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 1;
         tele(engine, &mut client, sx, 0, sz);
         let mut p = ClientPacket::new();
@@ -734,7 +734,7 @@ fn melzars_chest_gives_the_first_piece() {
             "{:?}",
             t.texts
         );
-        assert_eq!(held(engine, &client, "map_part"), 1);
+        assert_eq!(held(engine, &client, "mappart1"), 1);
     });
 }
 
@@ -793,7 +793,7 @@ fn at(engine: &Engine, client: &HarnessClient) -> (u16, u8, u16) {
 }
 
 fn hull_repaired(engine: &Engine, client: &HarnessClient) -> bool {
-    var(engine, client, "varplayer_177") >> 10 & 1 == 1
+    var(engine, client, "dragonquestvar") >> 10 & 1 == 1
 }
 
 /// Boarding, the hold, and 2011's repair (2011-05-04 recording mYqjoMQCOHI, 28.6-52.6s): one
@@ -827,10 +827,10 @@ fn the_lady_lumbridges_hole_takes_three_planks() {
             &["You'll need to use wooden planks on this hole to patch it up."],
         );
 
-        give(engine, &client, 0, "plank", 3);
-        give(engine, &client, 1, "steel_nails", 90);
+        give(engine, &client, 0, "woodplank", 3);
+        give(engine, &client, 1, "nails", 90);
         give(engine, &client, 2, "hammer", 1);
-        use_on_loc(&mut client, id(engine, "obj", "plank"), 0, HOLE);
+        use_on_loc(&mut client, id(engine, "obj", "woodplank"), 0, HOLE);
         let t = converse(engine, &mut client, &[], 60);
         says(
             &t,
@@ -838,7 +838,7 @@ fn the_lady_lumbridges_hole_takes_three_planks() {
                 "You nail a plank over the hole, but you still need more planks to close the hole completely.",
             ],
         );
-        assert_eq!(held(engine, &client, "steel_nails"), 60, "30 nails a plank");
+        assert_eq!(held(engine, &client, "nails"), 60, "30 nails a plank");
         oploc1(&mut client, HOLE);
         let t = converse(engine, &mut client, &[], 60);
         says(
@@ -856,8 +856,8 @@ fn the_lady_lumbridges_hole_takes_three_planks() {
                 "You nail a final plank over the hole. You have successfully patched the hole in the ship.",
             ],
         );
-        assert_eq!(held(engine, &client, "plank"), 0);
-        assert_eq!(held(engine, &client, "steel_nails"), 0);
+        assert_eq!(held(engine, &client, "woodplank"), 0);
+        assert_eq!(held(engine, &client, "nails"), 0);
         assert_eq!(var(engine, &client, "dragonquest"), 7, "repaired");
         assert!(
             hull_repaired(engine, &client),
@@ -896,7 +896,7 @@ fn ned_takes_the_map_as_2011s() {
         let mut client = login(engine, "ds_ned");
         set_var(engine, &client, "dragonquest", 7);
         set_var(engine, &client, "dragon_ned_hired", 0);
-        give(engine, &client, 0, "crandor_map", 1);
+        give(engine, &client, 0, "dragonmap", 1);
         let t = talk_on(
             engine,
             &mut client,
@@ -933,7 +933,7 @@ fn ned_takes_the_map_as_2011s() {
         );
         assert_eq!(var(engine, &client, "dragonquest"), 8, "Ned has the map");
         assert_eq!(var(engine, &client, "dragon_ned_hired"), 1);
-        assert_eq!(held(engine, &client, "crandor_map"), 0);
+        assert_eq!(held(engine, &client, "dragonmap"), 0);
     });
 }
 
@@ -1043,7 +1043,7 @@ fn elvarg_slain_gives_her_head() {
         // The anti-dragon shield worn, as a player fights her: her fire then reaches 120, not
         // 600, so a swing or two that miss her 1 life point can't let her kill the player first
         // (which a full run's dice once did: "Oh dear, you are dead!").
-        let shield = id(engine, "obj", "anti_dragon_shield");
+        let shield = id(engine, "obj", "antidragonbreathshield");
         let worn = *engine.cache.invs.debugnames.get("worn").unwrap();
         engine
             .harness_player_mut(client.pid)
@@ -1075,7 +1075,7 @@ fn elvarg_slain_gives_her_head() {
         }
         assert!(said.iter().any(|m| m == line), "2011's line: {said:?}");
         settle(engine, &mut client, 3);
-        assert_eq!(held(engine, &client, "elvarg_s_head"), 1, "her head");
+        assert_eq!(held(engine, &client, "dragon_slayer_qip_elvargs_head"), 1, "her head");
         assert_eq!(
             var(engine, &client, "dragonquest"),
             9,

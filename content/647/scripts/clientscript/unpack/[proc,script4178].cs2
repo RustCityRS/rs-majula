@@ -4,144 +4,144 @@ if ($int0 = 1) {
     switch_int ($int1) {
         case 0 :
             if ($int2 = 1) {
-                %varclient_1465 = clientclock;
+                %duel2_wearpreventchanged_0 = clientclock;
             } else {
-                %varclient_1465 = 0;
+                %duel2_wearpreventchanged_0 = 0;
             }
         case 1 :
             if ($int2 = 1) {
-                %varclient_1466 = clientclock;
+                %duel2_wearpreventchanged_1 = clientclock;
             } else {
-                %varclient_1466 = 0;
+                %duel2_wearpreventchanged_1 = 0;
             }
         case 2 :
             if ($int2 = 1) {
-                %varclient_1467 = clientclock;
+                %duel2_wearpreventchanged_2 = clientclock;
             } else {
-                %varclient_1467 = 0;
+                %duel2_wearpreventchanged_2 = 0;
             }
         case 3 :
             if ($int2 = 1) {
-                %varclient_740 = clientclock;
+                %if_hide_sides = clientclock;
             } else {
-                %varclient_740 = 0;
+                %if_hide_sides = 0;
             }
         case 4 :
             if ($int2 = 1) {
-                %varclient_745 = clientclock;
+                %objreq_player_price = clientclock;
             } else {
-                %varclient_745 = 0;
+                %objreq_player_price = 0;
             }
         case 5 :
             if ($int2 = 1) {
-                %varclient_780 = clientclock;
+                %player_kit_arms_client = clientclock;
             } else {
-                %varclient_780 = 0;
+                %player_kit_arms_client = 0;
             }
         case 7 :
             if ($int2 = 1) {
-                %varclient_781 = clientclock;
+                %player_kit_legs_client = clientclock;
             } else {
-                %varclient_781 = 0;
+                %player_kit_legs_client = 0;
             }
         case 9 :
             if ($int2 = 1) {
-                %varclient_782 = clientclock;
+                %player_kit_feet_client = clientclock;
             } else {
-                %varclient_782 = 0;
+                %player_kit_feet_client = 0;
             }
         case 10 :
             if ($int2 = 1) {
-                %varclient_789 = clientclock;
+                %stock_dormant_offers = clientclock;
             } else {
-                %varclient_789 = 0;
+                %stock_dormant_offers = 0;
             }
         case 12 :
             if ($int2 = 1) {
-                %varclient_1409 = clientclock;
+                %create_age_perm = clientclock;
             } else {
-                %varclient_1409 = 0;
+                %create_age_perm = 0;
             }
         case 13 :
             if ($int2 = 1) {
-                %varclient_1410 = clientclock;
+                %create_age_time_perm = clientclock;
             } else {
-                %varclient_1410 = 0;
+                %create_age_time_perm = 0;
             }
     }
 } else {
     switch_int ($int1) {
         case 0 :
             if ($int2 = 1) {
-                %varclient_1453 = clientclock;
+                %duel2_optionschanged_0 = clientclock;
             } else {
-                %varclient_1453 = 0;
+                %duel2_optionschanged_0 = 0;
             }
         case 1 :
             if ($int2 = 1) {
-                %varclient_1454 = clientclock;
+                %duel2_optionschanged_1 = clientclock;
             } else {
-                %varclient_1454 = 0;
+                %duel2_optionschanged_1 = 0;
             }
         case 4 :
             if ($int2 = 1) {
-                %varclient_1455 = clientclock;
+                %duel2_optionschanged_4 = clientclock;
             } else {
-                %varclient_1455 = 0;
+                %duel2_optionschanged_4 = 0;
             }
         case 5 :
             if ($int2 = 1) {
-                %varclient_1456 = clientclock;
+                %duel2_optionschanged_5 = clientclock;
             } else {
-                %varclient_1456 = 0;
+                %duel2_optionschanged_5 = 0;
             }
         case 6 :
             if ($int2 = 1) {
-                %varclient_1457 = clientclock;
+                %duel2_optionschanged_6 = clientclock;
             } else {
-                %varclient_1453 = 6;
+                %duel2_optionschanged_0 = 6;
             }
         case 7 :
             if ($int2 = 1) {
-                %varclient_1458 = clientclock;
+                %duel2_optionschanged_7 = clientclock;
             } else {
-                %varclient_1453 = 7;
+                %duel2_optionschanged_0 = 7;
             }
         case 8 :
             if ($int2 = 1) {
-                %varclient_1459 = clientclock;
+                %duel2_optionschanged_8 = clientclock;
             } else {
-                %varclient_1453 = 8;
+                %duel2_optionschanged_0 = 8;
             }
         case 9 :
             if ($int2 = 1) {
-                %varclient_1460 = clientclock;
+                %duel2_optionschanged_9 = clientclock;
             } else {
-                %varclient_1453 = 9;
+                %duel2_optionschanged_0 = 9;
             }
         case 10 :
             if ($int2 = 1) {
-                %varclient_1461 = clientclock;
+                %duel2_optionschanged_10 = clientclock;
             } else {
-                %varclient_1461 = 0;
+                %duel2_optionschanged_10 = 0;
             }
         case 12 :
             if ($int2 = 1) {
-                %varclient_1462 = clientclock;
+                %duel2_optionschanged_12 = clientclock;
             } else {
-                %varclient_1462 = 0;
+                %duel2_optionschanged_12 = 0;
             }
         case 13 :
             if ($int2 = 1) {
-                %varclient_1463 = clientclock;
+                %duel2_optionschanged_13 = clientclock;
             } else {
-                %varclient_1463 = 0;
+                %duel2_optionschanged_13 = 0;
             }
         case 28 :
             if ($int2 = 1) {
-                %varclient_1464 = clientclock;
+                %duel2_optionschanged_28 = clientclock;
             } else {
-                %varclient_1464 = 0;
+                %duel2_optionschanged_28 = 0;
             }
     }
 }

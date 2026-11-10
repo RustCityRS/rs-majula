@@ -2,11 +2,11 @@
 [proc,script2199]
 switch_int (random(4)) {
     case 0 :
-        %varclient_1136 = easter10_nuts:goodstuff1;
+        %easter10_currentmodel = easter10_nuts:goodstuff1;
     case 1 :
-        %varclient_1136 = easter10_nuts:goodstuff2;
+        %easter10_currentmodel = easter10_nuts:goodstuff2;
     case 2 :
-        %varclient_1136 = easter10_nuts:goodstuff3;
+        %easter10_currentmodel = easter10_nuts:goodstuff3;
     case 3 :
-        %varclient_1136 = easter10_nuts:goodstuff4;
+        %easter10_currentmodel = easter10_nuts:goodstuff4;
 }

@@ -1,4 +1,4 @@
-[ai_queue3,earth_warrior]
+[ai_queue3,earthwarrior]
 gosub(npc_death);
 if (npc_findhero = ^false) {
     return;
@@ -11,19 +11,19 @@ if ($random < 3) {
 } else if ($random < 5) {
     obj_add(npc_coord, staff_of_earth, 1, ^lootdrop_duration);
 } else if ($random < 18) {
-    obj_add(npc_coord, earth_rune, 12, ^lootdrop_duration);
+    obj_add(npc_coord, earthrune, 12, ^lootdrop_duration);
 } else if ($random < 27) {
-    obj_add(npc_coord, nature_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 3, ^lootdrop_duration);
 } else if ($random < 34) {
-    obj_add(npc_coord, chaos_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 3, ^lootdrop_duration);
 } else if ($random < 40) {
-    obj_add(npc_coord, law_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 2, ^lootdrop_duration);
 } else if ($random < 44) {
-    obj_add(npc_coord, death_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, deathrune, 2, ^lootdrop_duration);
 } else if ($random < 47) {
-    obj_add(npc_coord, earth_rune, 60, ^lootdrop_duration);
+    obj_add(npc_coord, earthrune, 60, ^lootdrop_duration);
 } else if ($random < 48) {
-    obj_add(npc_coord, blood_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, bloodrune, 2, ^lootdrop_duration);
 } else if ($random < 62) {
     obj_add(npc_coord, ~randomherb, ^lootdrop_duration);
 } else if ($random < 80) {

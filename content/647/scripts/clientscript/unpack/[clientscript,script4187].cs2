@@ -3,5 +3,5 @@
 if (clientclock < $int0) {
     return;
 }
-if_setontimer(null, interface_1072:blocker);
-if_sethide(true, interface_1072:blocker);
+if_setontimer(interface_1072:blocker, null);
+if_sethide(interface_1072:blocker, true);

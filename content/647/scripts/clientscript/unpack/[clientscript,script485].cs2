@@ -2,40 +2,40 @@
 [clientscript,script485](component $component0)
 def_npc $npc1 = null;
 def_int $int2 = 0;
-if_setcolour(0xff981f, $component0);
-switch_int (%varplayerbit_7512) {
+if_setcolour($component0, 0xff981f);
+switch_int (%conq_current_unit_purchase_slot) {
     case default :
         return;
     case 1 :
-        $npc1 = ~script486(%varplayerbit_7520);
+        $npc1 = ~script486(%conq_unit_1_type);
     case 2 :
-        $npc1 = ~script486(%varplayerbit_7521);
+        $npc1 = ~script486(%conq_unit_2_type);
     case 3 :
-        $npc1 = ~script486(%varplayerbit_7526);
+        $npc1 = ~script486(%conq_unit_3_type);
     case 4 :
-        $npc1 = ~script486(%varplayerbit_7527);
+        $npc1 = ~script486(%conq_unit_4_type);
     case 5 :
-        $npc1 = ~script486(%varplayerbit_7530);
+        $npc1 = ~script486(%conq_unit_5_type);
     case 6 :
-        $npc1 = ~script486(%varplayerbit_7531);
+        $npc1 = ~script486(%conq_unit_6_type);
     case 7 :
-        $npc1 = ~script486(%varplayerbit_7532);
+        $npc1 = ~script486(%conq_unit_7_type);
     case 8 :
-        $npc1 = ~script486(%varplayerbit_7533);
+        $npc1 = ~script486(%conq_unit_8_type);
     case 9 :
-        $npc1 = ~script486(%varplayerbit_7534);
+        $npc1 = ~script486(%conq_unit_9_type);
     case 10 :
-        $npc1 = ~script486(%varplayerbit_7535);
+        $npc1 = ~script486(%conq_unit_10_type);
 }
 if ($npc1 = null) {
-    if_sethide(false, conq_buy_army:no_unit_selected_text);
-    if_sethide(true, conq_buy_army:purchase_current_details_layer);
+    if_sethide(conq_buy_army:no_unit_selected_text, false);
+    if_sethide(conq_buy_army:purchase_current_details_layer, true);
 } else {
-    if_setgraphic(nc_param($npc1, param_1148), conq_buy_army:current_unit_image);
-    if_settext(nc_param($npc1, param_1139), conq_buy_army:unit_type_text);
-    if_settext("Movement: <tostring(nc_param($npc1, param_1134))>", conq_buy_army:unit_movement_text);
-    if_settext("Damage: <tostring(calc(nc_param($npc1, param_1135) * 100))>", conq_buy_army:unit_damage_text);
-    if_settext("Health: <tostring(calc(nc_param($npc1, param_1136) * 100))>", conq_buy_army:unit_health_text);
-    if_settext("Range: <tostring(nc_param($npc1, param_1137))>", conq_buy_army:unit_range_text);
-    if_settext("Cost: <tostring(nc_param($npc1, param_1138))>", conq_buy_army:unit_cost_text);
+    if_setgraphic(conq_buy_army:current_unit_image, nc_param($npc1, param_1148));
+    if_settext(conq_buy_army:unit_type_text, nc_param($npc1, param_1139));
+    if_settext(conq_buy_army:unit_movement_text, "Movement: <tostring(nc_param($npc1, param_1134))>");
+    if_settext(conq_buy_army:unit_damage_text, "Damage: <tostring(calc(nc_param($npc1, param_1135) * 100))>");
+    if_settext(conq_buy_army:unit_health_text, "Health: <tostring(calc(nc_param($npc1, param_1136) * 100))>");
+    if_settext(conq_buy_army:unit_range_text, "Range: <tostring(nc_param($npc1, param_1137))>");
+    if_settext(conq_buy_army:unit_cost_text, "Cost: <tostring(nc_param($npc1, param_1138))>");
 }

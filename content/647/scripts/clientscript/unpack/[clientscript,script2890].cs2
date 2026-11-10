@@ -12,22 +12,22 @@ def_int $int8 = 1;
 def_int $int9 = 0;
 def_component $component10 = sfa:content_layer;
 while ($int8 <= enum_getoutputcount(enum_929)) {
-    if ($int8 ! %varclient_1080 & $int8 ! %varclient_1081 & $int8 ! %varclient_1082 & $int8 ! %varclient_1083 & $int8 ! %varclient_1084 & $int8 ! %varclient_1085 & testbit(%varplayer_1632, $int8) = ^true) {
+    if ($int8 ! %sfa_client_fam1 & $int8 ! %sfa_client_fam2 & $int8 ! %sfa_client_fam3 & $int8 ! %sfa_client_fam4 & $int8 ! %sfa_client_fam5 & $int8 ! %sfa_client_fam6 & testbit(%sfa_hunt, $int8) = ^true) {
         $npc0 = enum(int, npc, enum_929, $int8);
         if ($npc0 ! null & $int1 < 6) {
             $int1 = calc($int1 + 1);
-            if (%varclient_1080 = -1) {
-                %varclient_1080 = $int8;
-            } else if (%varclient_1081 = -1) {
-                %varclient_1081 = $int8;
-            } else if (%varclient_1082 = -1) {
-                %varclient_1082 = $int8;
-            } else if (%varclient_1083 = -1) {
-                %varclient_1083 = $int8;
-            } else if (%varclient_1084 = -1) {
-                %varclient_1084 = $int8;
-            } else if (%varclient_1085 = -1) {
-                %varclient_1085 = $int8;
+            if (%sfa_client_fam1 = -1) {
+                %sfa_client_fam1 = $int8;
+            } else if (%sfa_client_fam2 = -1) {
+                %sfa_client_fam2 = $int8;
+            } else if (%sfa_client_fam3 = -1) {
+                %sfa_client_fam3 = $int8;
+            } else if (%sfa_client_fam4 = -1) {
+                %sfa_client_fam4 = $int8;
+            } else if (%sfa_client_fam5 = -1) {
+                %sfa_client_fam5 = $int8;
+            } else if (%sfa_client_fam6 = -1) {
+                %sfa_client_fam6 = $int8;
             }
             $npc0 = null;
         }
@@ -41,29 +41,29 @@ while ($int8 <= 6) {
     if ($component10 ! sfa:content_layer & if_getgraphic($component10) = null) {
         switch_int ($int8) {
             case 1 :
-                $npc0 = enum(int, npc, enum_929, %varclient_1080);
+                $npc0 = enum(int, npc, enum_929, %sfa_client_fam1);
             case 2 :
-                $npc0 = enum(int, npc, enum_929, %varclient_1081);
+                $npc0 = enum(int, npc, enum_929, %sfa_client_fam2);
             case 3 :
-                $npc0 = enum(int, npc, enum_929, %varclient_1082);
+                $npc0 = enum(int, npc, enum_929, %sfa_client_fam3);
             case 4 :
-                $npc0 = enum(int, npc, enum_929, %varclient_1083);
+                $npc0 = enum(int, npc, enum_929, %sfa_client_fam4);
             case 5 :
-                $npc0 = enum(int, npc, enum_929, %varclient_1084);
+                $npc0 = enum(int, npc, enum_929, %sfa_client_fam5);
             case 6 :
-                $npc0 = enum(int, npc, enum_929, %varclient_1085);
+                $npc0 = enum(int, npc, enum_929, %sfa_client_fam6);
         }
         if ($npc0 ! null) {
-            if_setgraphic(enum(npc, graphic, enum_932, $npc0), $component10);
-            if_settext(enum(npc, string, enum_930, $npc0), enum(component, component, enum_926, $component10));
-            if_setonmouserepeat("script1160($component10, -1, sfa:tooltip, enum(npc, string, enum_930, $npc0), 25, 200)", $component10);
-            if_setonmouseleave("deltooltip(sfa:tooltip)", $component10);
+            if_setgraphic($component10, enum(npc, graphic, enum_932, $npc0));
+            if_settext(enum(component, component, enum_926, $component10), enum(npc, string, enum_930, $npc0));
+            if_setonmouserepeat($component10, "script1160($component10, -1, sfa:tooltip, enum(npc, string, enum_930, $npc0), 25, 200)");
+            if_setonmouseleave($component10, "deltooltip(sfa:tooltip)");
             if ($component10 ! sfa:fam_graph1 & $component10 ! sfa:fam_graph2) {
-                if_sethide(false, sfa:alert);
-                if_setposition(if_getx($component10), if_gety($component10), ^setpos_abs_left, ^setpos_abs_top, sfa:alert);
+                if_sethide(sfa:alert, false);
+                if_setposition(sfa:alert, if_getx($component10), if_gety($component10), ^setpos_abs_left, ^setpos_abs_top);
                 ~component_flash_start(sfa:alert);
                 $int11 = calc(clientclock + 150);
-                if_setontimer("sfa_stop_alert($int11, $component10)", $component10);
+                if_setontimer($component10, "sfa_stop_alert($int11, $component10)");
             }
         }
     }

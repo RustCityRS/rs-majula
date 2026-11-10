@@ -106,7 +106,7 @@ switch_int (~p_choice2("Oh, THAT Saradomin...", 1, "Oh, sorry. I'm not from this
 // are about the skull, so the skull picks them here.
 [label,father_aereck_found_skull]
 ~chatnpc("<p,neutral>Have you got rid of the ghost yet?");
-if (inv_total(inv, muddy_skull) > 0) {
+if (inv_total(inv, ghostskull) > 0) {
     ~chatplayer("<p,happy>I've finally found the ghost's skull!");
     ~chatnpc("<p,happy>Great! Put it in the ghost's coffin and see what happens!");
 } else {

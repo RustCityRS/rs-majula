@@ -2,7 +2,7 @@
 [proc,worldmap_arrow_update](component $component0, coord $coord1, string $string0, struct $struct2, component $component3, int $int4, int $int5, int $int6, int $int7)
 if ($coord1 = null | $coord1 = 0_0_0_0_0) {
     cc_deleteall($component0);
-    if_sethide(true, $component0);
+    if_sethide($component0, true);
     return;
 }
 def_int $int8 = 0;
@@ -19,13 +19,13 @@ if ($int8 < 0 | $int9 < 0) {
             $int8, $int9 = worldmap_getdisplaycoord($coord1);
             if ($int8 < 0 | $int9 < 0) {
                 cc_deleteall($component0);
-                if_sethide(true, $component0);
+                if_sethide($component0, true);
                 return;
             }
         }
     }
 }
-if_sethide(false, $component0);
+if_sethide($component0, false);
 def_int $int10 = if_getwidth($component3);
 def_int $int11 = if_getheight($component3);
 if ($struct2 = null) {
@@ -37,7 +37,7 @@ $int8 = max(min($int8, $int10), 0);
 $int9 = max(min($int9, $int11), 0);
 $int8 = calc($int8 - $int10 / 2);
 $int9 = calc($int11 / 2 - $int9);
-if_setposition($int8, $int9, ^setpos_abs_centre, ^setpos_abs_centre, $component0);
+if_setposition($component0, $int8, $int9, ^setpos_abs_centre, ^setpos_abs_centre);
 def_int $int12 = struct_param($struct2, param_132);
 def_int $int13 = struct_param($struct2, param_133);
 def_int $int14 = -1;
@@ -235,4 +235,4 @@ if ($int22 <= 0) {
     $int32 = calc($int16 + $int20);
 }
 $int31, $int32 = calc($int31 * 2 + 2), calc($int32 * 2 + 2);
-if_setsize($int31, $int32, ^setsize_abs, ^setsize_abs, $component0);
+if_setsize($component0, $int31, $int32, ^setsize_abs, ^setsize_abs);

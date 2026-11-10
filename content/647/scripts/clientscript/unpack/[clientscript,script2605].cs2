@@ -1,8 +1,8 @@
 // 2605
 [clientscript,script2605]
 sound_synth(synth_6784, 1, 0);
-if_sethide(false, mob_squad_exchange:confirm_layer);
-if_settext("Are you sure you wish to apply the selected changes?", mob_squad_exchange:confirm_text);
-if_sethide(true, mob_squad_exchange:confirm_resupply_all_layer);
-if_sethide(false, mob_squad_exchange:confirm_apply);
-if_sethide(true, mob_squad_exchange:confirm_reset_layer);
+if_sethide(mob_squad_exchange:confirm_layer, false);
+if_settext(mob_squad_exchange:confirm_text, "Are you sure you wish to apply the selected changes?");
+if_sethide(mob_squad_exchange:confirm_resupply_all_layer, true);
+if_sethide(mob_squad_exchange:confirm_apply, false);
+if_sethide(mob_squad_exchange:confirm_reset_layer, true);

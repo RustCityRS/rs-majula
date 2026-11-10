@@ -12,7 +12,7 @@ cc_create($component2, ^iftype_rectangle, if_getnextsubid($component2));
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(if_getwidth($component2), if_getheight($component2), ^setsize_abs, ^setsize_abs);
 cc_setcolour(^black);
-if_setscrollsize(if_getwidth($component4), calc($int1 * 15), $component4);
+if_setscrollsize($component4, if_getwidth($component4), calc($int1 * 15));
 def_int $int19 = 0;
 def_int $int20 = -1;
 def_string $string0 = "";
@@ -22,7 +22,7 @@ while ($int19 <= $int1) {
     $string0 = enum(int, string, $enum21, $int19);
     cc_create($component4, ^iftype_text, $int20);
     cc_setopbase($string0);
-    if ($int20 = %varclient_693 & %varclient_694 = 0) {
+    if ($int20 = %ql4_sort_mode & %ql4_reverse_list = 0) {
         $string0 = append($string0, " (r)");
     }
     cc_settext($string0);
@@ -45,7 +45,7 @@ while ($int19 <= $int1) {
 }
 if ($component5 ! null) {
     ~scrollbar_vertical($component5, $component4, $graphic13, $graphic14, $graphic15, $graphic16, $graphic17, $graphic18);
-    if_sethide(false, $component5);
+    if_sethide($component5, false);
 }
-if_sethide(false, $component2);
-if_sethide(false, $component4);
+if_sethide($component2, false);
+if_sethide($component4, false);

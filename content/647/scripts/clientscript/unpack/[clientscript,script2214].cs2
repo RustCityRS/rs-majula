@@ -1,18 +1,18 @@
 // 2214
 [clientscript,script2214]
-if (%varclient_1137 = 1) {
-    if (if_getx(%varclient_1136) < 256) {
-        if_setposition(calc(1 + if_getx(%varclient_1136)), if_gety(%varclient_1136), ^setpos_abs_left, ^setpos_abs_top, %varclient_1136);
+if (%easter10_pushbarstatus = 1) {
+    if (if_getx(%easter10_currentmodel) < 256) {
+        if_setposition(%easter10_currentmodel, calc(1 + if_getx(%easter10_currentmodel)), if_gety(%easter10_currentmodel), ^setpos_abs_left, ^setpos_abs_top);
     }
-    if (if_getx(%varclient_1136) > 256) {
-        if_setposition(calc(if_getx(%varclient_1136) - 1), if_gety(%varclient_1136), ^setpos_abs_left, ^setpos_abs_top, %varclient_1136);
+    if (if_getx(%easter10_currentmodel) > 256) {
+        if_setposition(%easter10_currentmodel, calc(if_getx(%easter10_currentmodel) - 1), if_gety(%easter10_currentmodel), ^setpos_abs_left, ^setpos_abs_top);
     }
     if (if_gety(easter10_nuts:bar) > 70) {
-        if_setposition(if_getx(%varclient_1136), calc(if_gety(%varclient_1136) - 2), ^setpos_abs_left, ^setpos_abs_top, %varclient_1136);
-        if_setposition(if_getx(easter10_nuts:bar), calc(if_gety(easter10_nuts:bar) - 2), ^setpos_abs_left, ^setpos_abs_top, easter10_nuts:bar);
-        if_setontimer("script2214", easter10_nuts:content);
+        if_setposition(%easter10_currentmodel, if_getx(%easter10_currentmodel), calc(if_gety(%easter10_currentmodel) - 2), ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(easter10_nuts:bar, if_getx(easter10_nuts:bar), calc(if_gety(easter10_nuts:bar) - 2), ^setpos_abs_left, ^setpos_abs_top);
+        if_setontimer(easter10_nuts:content, "script2214");
     } else {
-        if_sethide(true, %varclient_1136);
-        if_setontimer("script2215", easter10_nuts:content);
+        if_sethide(%easter10_currentmodel, true);
+        if_setontimer(easter10_nuts:content, "script2215");
     }
 }

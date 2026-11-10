@@ -10,4 +10,4 @@ spline_addpoint(1, 1, movecoord($coord1, 13, 0, 22), 400, movecoord($coord1, 13,
 spline_addpoint(0, 2, movecoord($coord1, 36, 0, 16), 800, movecoord($coord1, 36, 0, 16), 800, 0);
 spline_addpoint(1, 2, movecoord($coord1, 36, 0, 22), 400, movecoord($coord1, 36, 0, 22), 400, 0);
 cam_movealong(0, 0, 450, 450, 1, 0);
-if_setoncamfinished("ecosystem_tutorial_cam_8_2($component0)", $component0);
+if_setoncamfinished($component0, "ecosystem_tutorial_cam_8_2($component0)");

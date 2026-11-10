@@ -2,8 +2,8 @@
 [clientscript,script1141]
 if (~script1431 = 1) {
     if (getwindowmode < 2) {
-        if_setontimer("script1175", toplevel:com_9);
+        if_setontimer(toplevel:com_9, "script1175");
     } else {
-        if_setontimer("script1175", toplevel_fullscreen:com_14);
+        if_setontimer(toplevel_fullscreen:com_14, "script1175");
     }
 }

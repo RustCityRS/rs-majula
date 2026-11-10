@@ -3,10 +3,10 @@
 // void-634's clones).
 [ai_applayer2,chaos_druid] @chaos_druid_ai_applayer2;
 [ai_opplayer2,chaos_druid] @chaos_druid_ai_opplayer2;
-[ai_applayer2,chaos_druid_2547] @chaos_druid_ai_applayer2;
-[ai_opplayer2,chaos_druid_2547] @chaos_druid_ai_opplayer2;
-[ai_applayer2,chaos_druid_7105] @chaos_druid_ai_applayer2;
-[ai_opplayer2,chaos_druid_7105] @chaos_druid_ai_opplayer2;
+[ai_applayer2,chaos_druid_2] @chaos_druid_ai_applayer2;
+[ai_opplayer2,chaos_druid_2] @chaos_druid_ai_opplayer2;
+[ai_applayer2,chaos_druid_3] @chaos_druid_ai_applayer2;
+[ai_opplayer2,chaos_druid_3] @chaos_druid_ai_opplayer2;
 
 [label,chaos_druid_ai_applayer2]
 if (%npc_action_delay > map_clock) {

@@ -4,7 +4,7 @@ if(stat(agility) < 52) {
     return;
 }
 mes("You go through the gate and try to edge over the ridge...");
-~open_and_close_door(loc_1541, false, false);
+~open_and_close_door(inactiveprisondoor, false, false);
 p_delay(0);
 ~set_readywalk_bas(human_walk_logbalance_ready, human_walk_logbalance);
 ~forcemove(movecoord(coord, 0, 0, 7));
@@ -18,7 +18,7 @@ if(stat_random(agility, 200, 250) = false) {
 // counts what ~givexp pays (player/scripts/xp.rs2).
 ~givexp(agility, 150);
 mes("You skillfully balance across the ridge...");
-if(loc_find(movecoord(coord, 0, 0, 1), gate_2307) = true) ~open_and_close_double_door2(~check_axis(coord, loc_coord, loc_angle), ^left, door_open);
+if(loc_find(movecoord(coord, 0, 0, 1), gate_2307) = true) ~open_and_close_double_door2(~check_axis(coord, loc_coord, loc_angle), ^left, nicedoor_open);
 else p_teleport(movecoord(coord, 0, 0, 2));
 
 [oploc1,gate_2307] @open_course_gates(^left);
@@ -26,7 +26,7 @@ else p_teleport(movecoord(coord, 0, 0, 2));
 
 [label,open_course_gates](int $side)
 mes("You go through the gate and try to edge over the ridge...");
-~open_and_close_double_door2(~check_axis(coord, loc_coord, loc_angle), $side, door_open);
+~open_and_close_double_door2(~check_axis(coord, loc_coord, loc_angle), $side, nicedoor_open);
 p_delay(0);
 ~set_readywalk_bas(human_walk_logbalance_ready, human_walk_logbalance);
 ~forcemove(0_46_61_54_26);
@@ -42,9 +42,9 @@ p_delay(0);
 ~givexp(agility, 150);
 if(loc_find(movecoord(coord, 0, 0, -1), door_2309) = true) {
     loc_change(inviswall, 3);
-    loc_add(movecoord(loc_coord, 0, 0, -1), loc_1541, 0, loc_shape, 3);
+    loc_add(movecoord(loc_coord, 0, 0, -1), inactiveprisondoor, 0, loc_shape, 3);
 }
-sound_synth(door_open, 1, 0);
+sound_synth(nicedoor_open, 1, 0);
 p_teleport(movecoord(coord, 0, 0, -2));
 
 [oploc1,obstical_pipe2] 

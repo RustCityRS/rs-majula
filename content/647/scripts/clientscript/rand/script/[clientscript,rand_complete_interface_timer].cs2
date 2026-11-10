@@ -4,12 +4,12 @@ $int0 = ~script2245($int1, $int2, $int0, rand_complete:combat_bar_yellow, rand_c
 $int3 = ~script2245($int4, $int5, $int3, rand_complete:tasks_bar_yellow, rand_complete:tasks_number);
 $int6 = ~script2245($int7, $int8, $int6, rand_complete:complete_bar_yellow, rand_complete:complete_number);
 def_int $int12 = calc($int0 + $int3 + $int6);
-if_setsize(calc(1 + 223 * $int12 / ($int2 + $int5 + $int8)), 10, ^setsize_abs, ^setsize_abs, rand_complete:total_bar_yellow);
+if_setsize(rand_complete:total_bar_yellow, calc(1 + 223 * $int12 / ($int2 + $int5 + $int8)), 10, ^setsize_abs, ^setsize_abs);
 $int12 = calc($int12 + $int9 + $int10);
-if_settext(tostring($int12), rand_complete:total_number);
-if_settext(tostring(calc($int12 * $int11 / 100)), rand_complete:xp_number);
+if_settext(rand_complete:total_number, tostring($int12));
+if_settext(rand_complete:xp_number, tostring(calc($int12 * $int11 / 100)));
 if ($int0 = $int1 & $int3 = $int4 & $int6 = $int7) {
-    if_setontimer(null, rand_complete:top);
+    if_setontimer(rand_complete:top, null);
 } else {
-    if_setontimer("rand_complete_interface_timer($int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11)", rand_complete:top);
+    if_setontimer(rand_complete:top, "rand_complete_interface_timer($int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11)");
 }

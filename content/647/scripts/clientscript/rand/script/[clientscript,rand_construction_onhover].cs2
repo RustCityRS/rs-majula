@@ -2,15 +2,15 @@
 [clientscript,rand_construction_onhover](component $component0)
 switch_component ($component0) {
     case rand_start_room_construction:portal_button :
-        if_sethide(false, rand_start_room_construction:portal_hover);
+        if_sethide(rand_start_room_construction:portal_hover, false);
     case rand_start_room_construction:photo_booth_button :
-        if_sethide(false, rand_start_room_construction:photo_booth_hover);
+        if_sethide(rand_start_room_construction:photo_booth_hover, false);
     case rand_start_room_construction:farming_button :
-        if_sethide(false, rand_start_room_construction:farming_patch_hover);
+        if_sethide(rand_start_room_construction:farming_patch_hover, false);
     case rand_start_room_construction:range_button :
-        if_sethide(false, rand_start_room_construction:range_hover);
+        if_sethide(rand_start_room_construction:range_hover, false);
     case rand_start_room_construction:altar_button :
-        if_sethide(false, rand_start_room_construction:altar_hover);
+        if_sethide(rand_start_room_construction:altar_hover, false);
     case rand_start_room_construction:skillcape_button :
-        if_sethide(false, rand_start_room_construction:skillcape_hover);
+        if_sethide(rand_start_room_construction:skillcape_hover, false);
 }

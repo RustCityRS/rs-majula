@@ -1,4 +1,4 @@
 // 4422
 [clientscript,clan_info_hide_planter]
-if_sethide(true, clan_info:planter_layer);
-if_setsize(446, if_getheight(clan_info:main_text_layer), ^setsize_abs, ^setsize_abs, clan_info:main_text_layer);
+if_sethide(clan_info:planter_layer, true);
+if_setsize(clan_info:main_text_layer, 446, if_getheight(clan_info:main_text_layer), ^setsize_abs, ^setsize_abs);

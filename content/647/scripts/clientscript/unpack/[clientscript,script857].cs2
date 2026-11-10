@@ -1,7 +1,7 @@
 // 857
 [clientscript,script857]
 sound_synth(fletch, 1, 0);
-if (%varplayerbit_4400 > 0) {
-    %varclient_108 = calc(%varplayerbit_4400 - 1);
+if (%catcon_2x1_x > 0) {
+    %catcon_calib_client_powerbar = calc(%catcon_2x1_x - 1);
     ~catcon_calib_refresh_powerbar;
 }

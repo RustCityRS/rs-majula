@@ -1,19 +1,19 @@
 // 269
 [proc,script269]()(int)
 def_int $int0 = 0;
-if (%varclient_1104 ! 0) {
+if (%fishcomp_client_weight_1 ! 0) {
     $int0 = calc($int0 + 1);
 }
-if (%varclient_1105 ! 0) {
+if (%fishcomp_client_weight_2 ! 0) {
     $int0 = calc($int0 + 1);
 }
-if (%varclient_1106 ! 0) {
+if (%fishcomp_client_weight_3 ! 0) {
     $int0 = calc($int0 + 1);
 }
-if (%varclient_1107 ! 0) {
+if (%fishcomp_client_weight_4 ! 0) {
     $int0 = calc($int0 + 1);
 }
-if (%varclient_1108 ! 0) {
+if (%fishcomp_client_weight_5 ! 0) {
     $int0 = calc($int0 + 1);
 }
 return($int0);

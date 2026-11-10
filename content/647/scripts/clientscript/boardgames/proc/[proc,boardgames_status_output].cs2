@@ -6,11 +6,11 @@ if (parawidth("<$string1> ", $int2, b12_full) > $int2) {
     while (parawidth("<$string1>... ", ^max_32bit_int, b12_full) > $int2) {
         $string1 = substring($string1, 0, calc(string_length($string1) - 1));
     }
-    if_setonmouserepeat("addtooltip(event_com, $component1, $string0, 25, 5000)", $component0);
-    if_setonmouseleave("deltooltip($component1)", $component0);
+    if_setonmouserepeat($component0, "addtooltip(event_com, $component1, $string0, 25, 5000)");
+    if_setonmouseleave($component0, "deltooltip($component1)");
     $string1 = "<$string1>...";
 } else {
-    if_setonmouserepeat(null, $component0);
-    if_setonmouseleave(null, $component0);
+    if_setonmouserepeat($component0, null);
+    if_setonmouseleave($component0, null);
 }
-if_settext($string1, $component0);
+if_settext($component0, $string1);

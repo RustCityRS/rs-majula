@@ -12,22 +12,22 @@
 // The front doors (289's haunteddoorl and haunteddoorr) open from outside
 // only: 2011 also has players leave another way (2011 wiki, Vampire Slayer:
 // "To exit Draynor Manor you will not be able to use the main entrance").
-[oploc1,large_door_47421] @open_manor_entrance(^left);
-[oploc1,large_door_47424] @open_manor_entrance(^right);
+[oploc1,fai_draynor_exterior_wall_door_closed] @open_manor_entrance(^left);
+[oploc1,fai_draynor_exterior_wall_door_mirror_closed] @open_manor_entrance(^right);
 
 [label,open_manor_entrance](int $side)
 if(coordz(coord) > coordz(loc_coord)) {
     mes("The doors won't open.");
     return;
 }
-~open_and_close_double_door2(~check_axis(coord, loc_coord, loc_angle), $side, door_open);
+~open_and_close_double_door2(~check_axis(coord, loc_coord, loc_angle), $side, nicedoor_open);
 p_delay(0);
 mes("The doors slam shut behind you.");
 
-[oploc1,compost_heap]
+[oploc1,hauntedcompostheap]
 ~mesbox("I'm not looking through that with my hands!");
 
-[oplocu,compost_heap]
+[oplocu,hauntedcompostheap]
 if(last_useitem ! spade) {
     ~displaymessage(^dm_default);
     return;
@@ -35,9 +35,9 @@ if(last_useitem ! spade) {
 anim(human_dig, 0);
 mes("You dig through the compost heap.");
 p_delay(2);
-if(inv_total(inv, grimy_key) = 0 & %haunted < ^haunted_complete) {
+if(inv_total(inv, closet_key) = 0 & %haunted < ^haunted_complete) {
     mes("You find a small key.");
-    inv_add(inv, grimy_key, 1);
+    inv_add(inv, closet_key, 1);
     return;
 }
 mes("You find nothing of interest.");
@@ -47,7 +47,7 @@ mes("The door is locked.");
 sound_synth(locked, 1, 0);
 
 [oplocu,closet_door]
-if(last_useitem ! grimy_key) {
+if(last_useitem ! closet_key) {
     ~displaymessage(^dm_default);
     return;
 }
@@ -57,9 +57,9 @@ if(last_useitem ! grimy_key) {
 mes("You unlock the door.");
 mes("You go through the door.");
 sound_synth(locked, 1, 0);
-~open_and_close_door2(loc_1532, ~check_axis(coord, loc_coord, loc_angle), door_open);
+~open_and_close_door2(inactivepoordoor, ~check_axis(coord, loc_coord, loc_angle), nicedoor_open);
 
-[oploc1,fountain]
+[oploc1,hauntedfountain]
 anim(human_pickpocket, 0);
 // 289's sound_synth(fish_swim) (synth 378) has no known 2011 counterpart:
 // synth ids moved between 289 and 2011, and no source names this one.
@@ -94,7 +94,7 @@ inv_del(inv, poison, 1);
 inv_add(inv, poisoned_fish_food, 1);
 mes("You poison the fish food.");
 
-[oplocu,fountain]
+[oplocu,hauntedfountain]
 if(last_useitem ! poisoned_fish_food) {
     ~displaymessage(^dm_default);
     return;
@@ -113,7 +113,7 @@ mes("... then die and float to the surface.");
 // westernmost room") opens the wall where 289's bookcases stood (wall_47529
 // and wall_47531 at 3097,3358-3359). How the wall opens is not documented,
 // so the player goes through as 289's bookcase sent them (its end_coord).
-[oploc1,candle_sconce]
+[oploc1,fai_draynor_candle_lever]
 if(coordx(coord) < coordx(loc_coord)) {
     return;
 }
@@ -129,7 +129,7 @@ mes("The lever opens the secret door!");
 anim(human_leverdown, 0);
 sound_synth(lever, 1, 0);
 // Temp note: dur updated
-loc_change(hauntedleverdown, 4);
+loc_change(lfm_lava_pipes_floor_end_single, 4);
 p_teleport(movecoord(coord, 0, 0, 1));
 p_delay(1);
 @manor_secret_door(movecoord(coord, 2, 0, 0));
@@ -200,7 +200,7 @@ while ($door < 9) {
     }
     $door = calc($door + 1);
 }
-%ernest_doors = $doors;
+%ernestdoors = $doors;
 
 // An unlocked door lets the player through to the room beyond. 2011's doors
 // are centrepieces, and how 2011 moves a player across one is not documented:
@@ -213,7 +213,7 @@ if(~ernest_door_unlocked(loc_param(haunted_door_bit)) = false) {
     return;
 }
 def_coord $beyond = movecoord(loc_coord, calc(coordx(loc_coord) - coordx(coord)), 0, calc(coordz(loc_coord) - coordz(coord)));
-sound_synth(door_open, 1, 0);
+sound_synth(nicedoor_open, 1, 0);
 p_teleport($beyond);
 
 // 2011's chicken in the lab is npc 3290, a multi-npc on %haunted that shows
@@ -221,7 +221,7 @@ p_teleport($beyond);
 // stops seeing it once done. 289 turned it into Ernest for everyone; so does
 // this, until a 2011 source shows the other.
 [proc,change_ernest]
-if(npc_find(coord, questchicken, 8, 0) = true) {
+if(npc_find(coord, ernest_multichicken, 8, 0) = true) {
     npc_changetype_keepall(ernest, 100);
 }
 

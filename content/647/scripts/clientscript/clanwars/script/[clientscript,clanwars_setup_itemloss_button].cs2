@@ -3,9 +3,9 @@
 if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varclient_249 = false) {
-    %varclient_249 = true;
+if (%clanwars_rulevarc_itemloss = false) {
+    %clanwars_rulevarc_itemloss = true;
 } else {
-    %varclient_249 = false;
+    %clanwars_rulevarc_itemloss = false;
 }
 ~script1773;

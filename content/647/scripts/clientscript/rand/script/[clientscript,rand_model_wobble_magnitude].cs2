@@ -1,4 +1,4 @@
 // 1206
 [clientscript,rand_model_wobble_magnitude](component $component0, int $int1, int $int2, int $int3, int $int4)
-%varclient_1186 = calc((%varclient_1186 + 1) % 360);
-if_setmodelangle(if_getmodelxof($component0), if_getmodelyof($component0), $int1, calc(($int2 + scale($int4, 10000, enum(int, int, enum_3384, %varclient_1186))) % 2048), calc(($int3 + scale($int4, 10000, enum(int, int, enum_3385, %varclient_1186))) % 2048), if_getmodelzoom($component0), $component0);
+%rand_display_stage = calc((%rand_display_stage + 1) % 360);
+if_setmodelangle($component0, if_getmodelxof($component0), if_getmodelyof($component0), $int1, calc(($int2 + scale($int4, 10000, enum(int, int, enum_3384, %rand_display_stage))) % 2048), calc(($int3 + scale($int4, 10000, enum(int, int, enum_3385, %rand_display_stage))) % 2048), if_getmodelzoom($component0));

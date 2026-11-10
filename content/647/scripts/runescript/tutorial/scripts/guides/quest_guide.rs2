@@ -1,5 +1,5 @@
-[opnpc1,quest_guide]
-switch_int(%tutorial) {
+[opnpc1,newbie_quest_instructor]
+switch_int(%varplayer_419) {
     case ^newbie_quest_instructor_start : @newbie_quest_instructor_start;
     case ^newbie_quest_instructor_open_menu : @newbie_quest_instructor_menu_not_opened;
     case ^newbie_quest_instructor_opened_menu : @newbie_quest_instructor_journal_info;
@@ -8,13 +8,13 @@ switch_int(%tutorial) {
 
 [label,newbie_quest_instructor_start]
 ~chatnpc("<p,neutral>Ah... welcome adventurer. I'm here to tell you all about|quests. Let's start by opening the quest side panel.");
-%tutorial = ^newbie_quest_instructor_open_menu;
+%varplayer_419 = ^newbie_quest_instructor_open_menu;
 ~set_tutorial_progress;
 
 [label,newbie_quest_instructor_journal_info]
 ~chatnpc("<p,neutral>Now you have the journal open I'll tell you a bit about|it. As you see at the moment all the quests are shown|in red, a quest shown in red is unstarted.");
 ~newbie_quest_instructor_journal_info_no_intro;
-%tutorial = ^newbie_quest_instructor_finished;
+%varplayer_419 = ^newbie_quest_instructor_finished;
 ~set_tutorial_progress;
 
 [proc,newbie_quest_instructor_journal_info_no_intro]
@@ -42,6 +42,6 @@ if ($choice = 1) {
 ~chatnpc("<p,quiz>I don't think you're ready to go down there yet.");
 
 [proc,set_hint_icon_newbie_quest_instructor]
-if (npc_find(0_48_48_12_52, quest_guide, 10, 0) = true) {
+if (npc_find(0_48_48_12_52, newbie_quest_instructor, 10, 0) = true) {
     hint_npc;
 }

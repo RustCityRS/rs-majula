@@ -53,10 +53,10 @@ switch_struct ($struct0) {
             detail_groundblending(~int_to_bool($int1));
         }
     case struct_844 :
-        %varclient_987 = ~int_to_bool($int1);
-        detail_customcursors(%varclient_987);
+        %option_cursor = ~int_to_bool($int1);
+        detail_customcursors(%option_cursor);
     case struct_845 :
-        %varclient_178 = $int1;
+        %selectedresolution = $int1;
         if (getwindowmode = ^windowmode_fullscreen) {
             if (fullscreen_enter(fullscreen_getmode($int1)) = true) {
                 ~graphics_options_startcountdown(2, $int2, false, false);

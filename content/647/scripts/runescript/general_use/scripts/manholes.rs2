@@ -1,7 +1,7 @@
 // 289's manholes. Cache 786's open manhole closes itself (manholeopen: op1
 // Climb-down, op2 Close) where 289 laid a cover beside it, loc_883, which is a
 // Gate in 786 (gate_883): the cover's lines run on the open manhole's Close.
-[oploc1,manhole]
+[oploc1,manholeclosed]
 mes("You pull back the cover from over the manhole.");
 sound_synth(coffin_open, 1, 0);
 // Temp note: dur does not need updated
@@ -27,4 +27,4 @@ if (~loc_tele_2011(1) = false) {
 [oploc2,manholeopen]
 mes("You place the cover back over the manhole.");
 // Temp note: dur does not need updated
-loc_change(manhole, 400);
+loc_change(manholeclosed, 400);

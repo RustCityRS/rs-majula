@@ -17,13 +17,13 @@ if (~pvm_debuff_allowed($spell_data) = false) {
 
 def_int $duration = ~tut_pvm_spell_cast($spell_data);
 
-if (npc_type = newbiechicken & %tutorial < ^tutorial_successful_wind_strike) {
-    if (%tutorial = ^tutorial_cast_wind_strike) {
-        %tutorial = ^tutorial_unsuccessful_wind_strike;
+if (npc_type = newbiechicken & %varplayer_419 < ^tutorial_successful_wind_strike) {
+    if (%varplayer_419 = ^tutorial_cast_wind_strike) {
+        %varplayer_419 = ^tutorial_unsuccessful_wind_strike;
         ~pvm_spell_fail($spell_data, $duration);
         ~set_tutorial_progress;
-    } else if (%tutorial = ^tutorial_unsuccessful_wind_strike) {
-        %tutorial = ^tutorial_successful_wind_strike;
+    } else if (%varplayer_419 = ^tutorial_unsuccessful_wind_strike) {
+        %varplayer_419 = ^tutorial_successful_wind_strike;
         ~pvm_spell_success($spell_data, ~magic_spell_maxhit($spell_data), $duration);
         ~pvm_stat_change_effect($spell_data);
         ~pvm_freeze_effect($spell_data);
@@ -59,6 +59,6 @@ if (db_getfieldcount($spell_data, magic_spell_table:spotanim_proj) > 0) {
 // freezes, and stat reductions dont continue ever, even if you have autocast enabled.
 // crumble undead continues autocast for some reason
 if (~player_autocast_enabled = true & db_getfield($spell_data, magic_spell_table:continue_by_autocast, 0) = true) {
-    p_opnpct(db_getfield(~get_spell_data(%autocast_spell), magic_spell_table:spellcom, 0));
+    p_opnpct(db_getfield(~get_spell_data(%varplayer_59), magic_spell_table:spellcom, 0));
 }
 return($duration);

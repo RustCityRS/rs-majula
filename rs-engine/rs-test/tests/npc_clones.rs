@@ -38,7 +38,7 @@ const TRIGGERS: &[(ServerTriggerType, &str)] = {
 #[rustfmt::skip]
 const NOT_THE_BASE_S: &[(&str, &str, &str)] = &[
     // 289's rat drops no bones; the 2011 wiki's Crypt rat always drops bones.
-    ("crypt_rat", "ai_queue3", "289's rat table does not fit"),
+    ("barrows_rat", "ai_queue3", "289's rat table does not fit"),
     // Lambs are non-interactive at 2011 and cannot be sheared.
     ("li_l_lamb", "ai_timer", "no source has lambs baa"),
     ("li_l_lamb", "opnpc1", "a lamb has no Shear op"),
@@ -48,7 +48,7 @@ const NOT_THE_BASE_S: &[(&str, &str, &str)] = &[
     ("lamb", "opnpcu", "a lamb cannot be sheared"),
     // Two penguins dressed as a sheep: they get away when sheared
     // (shear_sheep.rs2), but do not baa.
-    ("sheep_3579", "ai_timer", "waits for the Cold War port"),
+    ("sheep_shearer_the_thing", "ai_timer", "waits for the Cold War port"),
     // Shorn sheep have no Shear op (their use is the shorn sheep's).
     ("sheep_1762", "opnpc1", "shorn: no Shear op"),
     ("sheep_1764", "opnpc1", "shorn: no Shear op"),
@@ -62,26 +62,26 @@ const NOT_THE_BASE_S: &[(&str, &str, &str)] = &[
     ("sheep_5155", "opnpc1", "shorn: no Shear op"),
     ("sheep_8877", "opnpc1", "shorn: no Shear op"),
     // The Dorgesh-Kaan station's dwarves share the guild dwarf's name only.
-    ("dwarf_5880", "opnpc1", "not a Mining Guild dwarf"),
-    ("dwarf_5881", "opnpc1", "not a Mining Guild dwarf"),
-    ("dwarf_5882", "opnpc1", "not a Mining Guild dwarf"),
-    ("dwarf_5883", "opnpc1", "not a Mining Guild dwarf"),
-    ("dwarf_5884", "opnpc1", "not a Mining Guild dwarf"),
-    ("dwarf_5885", "opnpc1", "not a Mining Guild dwarf"),
+    ("slice_dwarf1", "opnpc1", "not a Mining Guild dwarf"),
+    ("slice_dwarf2", "opnpc1", "not a Mining Guild dwarf"),
+    ("slice_dwarf3", "opnpc1", "not a Mining Guild dwarf"),
+    ("slice_dwarf4", "opnpc1", "not a Mining Guild dwarf"),
+    ("slice_dwarf5", "opnpc1", "not a Mining Guild dwarf"),
+    ("slice_dwarf6", "opnpc1", "not a Mining Guild dwarf"),
     // Fight as 289's man, but cache 786 gives them no Pickpocket.
-    ("thief_2674", "opnpc3", "no Pickpocket op"),
+    ("thief2", "opnpc3", "no Pickpocket op"),
     ("thief_2696", "opnpc3", "no Pickpocket op"),
     ("mugger_2697", "opnpc3", "no Pickpocket op"),
-    ("king_roald_5838", "opnpc3", "no Pickpocket op"),
-    ("thief_5926", "opnpc3", "no Pickpocket op"),
-    ("thief_5927", "opnpc3", "no Pickpocket op"),
-    ("thief_5928", "opnpc3", "no Pickpocket op"),
-    ("thief_5929", "opnpc3", "no Pickpocket op"),
-    ("zamorak_crafter", "opnpc3", "no Pickpocket op"),
-    ("zamorak_crafter_6372", "opnpc3", "no Pickpocket op"),
-    ("monk_7727", "opnpc3", "no Pickpocket op"),
-    ("shady_stranger", "opnpc3", "no Pickpocket op"),
-    ("suspicious_outsider", "opnpc3", "no Pickpocket op"),
+    ("surok_king", "opnpc3", "no Pickpocket op"),
+    ("qip_soa_thief_male01", "opnpc3", "no Pickpocket op"),
+    ("qip_soa_thief_male02", "opnpc3", "no Pickpocket op"),
+    ("qip_soa_thief_female01", "opnpc3", "no Pickpocket op"),
+    ("qip_soa_thief_female02", "opnpc3", "no Pickpocket op"),
+    ("rc_zmi_runerunner", "opnpc3", "no Pickpocket op"),
+    ("rc_zmi_runerunner2", "opnpc3", "no Pickpocket op"),
+    ("icemt_monk", "opnpc3", "no Pickpocket op"),
+    ("luc2_lucien_spy", "opnpc3", "no Pickpocket op"),
+    ("luc2_spy2", "opnpc3", "no Pickpocket op"),
 ];
 
 /// A 647 pack registry (`content/647/pack/<kind>.pack`): name to id.
@@ -182,19 +182,19 @@ fn clones_jump_to_their_base_s_label() {
         let scripts = pack("script");
         #[rustfmt::skip]
         let cases = [
-            (ServerTriggerType::AiQueue3, "fire_giant", "fire_giant_1585", "[label,fire_giant_drop_table]"),
-            (ServerTriggerType::AiQueue3, "dwarf_mountain", "black_guard_3276", "[label,dwarf_drop_table]"),
-            (ServerTriggerType::AiQueue3, "skeleton_armed", "skeleton_2036", "[label,skeleton_armed]"),
-            (ServerTriggerType::AiQueue3, "zombie", "zombie_5375", "[label,unarmed_zombie]"),
+            (ServerTriggerType::AiQueue3, "firegiant", "firegiant2", "[label,fire_giant_drop_table]"),
+            (ServerTriggerType::AiQueue3, "dwarf_mountain", "fai_black_guard_01", "[label,dwarf_drop_table]"),
+            (ServerTriggerType::AiQueue3, "skeleton_armed", "barrows_skeleton_unarmed", "[label,skeleton_armed]"),
+            (ServerTriggerType::AiQueue3, "zombie_unarmed", "sos_fam_zombie_unarmed2", "[label,unarmed_zombie]"),
             (ServerTriggerType::AiQueue3, "hobgoblin", "hobgoblin_2688", "[label,hobgoblin_drop_table]"),
-            (ServerTriggerType::AiOpPlayer2, "chaos_druid", "chaos_druid_2547", "[label,chaos_druid_ai_opplayer2]"),
+            (ServerTriggerType::AiOpPlayer2, "chaos_druid", "chaos_druid_2", "[label,chaos_druid_ai_opplayer2]"),
             (ServerTriggerType::AiApPlayer2, "highwayman", "highwayman_7443", "[label,highwayman_ai_applayer2]"),
-            (ServerTriggerType::AiQueue2, "imp", "imp_6211", "[label,imp_ai_queue2]"),
+            (ServerTriggerType::AiQueue2, "imp", "godwars_ancient_imp", "[label,imp_ai_queue2]"),
             (ServerTriggerType::AiTimer, "sheepunsheered", "sheep_5153", "[label,sheep_baa]"),
             (ServerTriggerType::OpNpc1, "sheepunsheered", "sheep_5162", "[label,shear_sheep_op1]"),
             (ServerTriggerType::OpNpcU, "cow", "cow_12362", "[label,cow_use]"),
             (ServerTriggerType::OpNpc1, "guilddwarf", "dwarf_3294", "[label,guilddwarf_talk]"),
-            (ServerTriggerType::OpNpc3, "man", "hengel", "[label,attempt_pick_pocket]"),
+            (ServerTriggerType::OpNpc3, "man", "rimmington_hengel", "[label,attempt_pick_pocket]"),
         ];
         for (trigger, base, clone, label) in cases {
             let label = scripts[label];

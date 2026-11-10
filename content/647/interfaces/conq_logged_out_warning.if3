@@ -314,7 +314,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0xff991f
-onvarctransmit=conq_update_logged_out_warning{varclient_1365}
+onvarctransmit=conq_update_logged_out_warning{conq_logout_counter}
 
 // 1027:25
 [com_25]
@@ -356,4 +356,4 @@ transmitop=1
 op1=Take Victory
 onmouseover=text_colour_swapper(event_com, ^white)
 onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
-onvarctransmit=conq_update_resign_op_text{varclient_1366}
+onvarctransmit=conq_update_resign_op_text{conq_take_victory_op}

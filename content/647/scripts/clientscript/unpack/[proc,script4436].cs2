@@ -1,7 +1,7 @@
 // 4436
 [proc,script4436](component $component0, int $int1)
-if (%varclient_1512 ! 1) {
-    %varclient_1512 = 1;
+if (%clan_initialise_mes ! 1) {
+    %clan_initialise_mes = 1;
     mes("To talk in your Clan Chat, start each line of chat with //.");
 }
 def_component $component2 = clan_chat:clanlist;
@@ -18,21 +18,21 @@ if ($int1 <= -1) {
     $int1 = if_getx($component6);
 }
 $int1 = max(min($int1, calc(if_getwidth($component7) - $int11)), 0);
-%varclient_1035 = $int1;
-if_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_centre, $component6);
-if_setmouseovercursor(cursor_149, $component6);
-if_sethide(false, $component6);
+%clan_line_pos = $int1;
+if_setposition($component6, $int1, 0, ^setpos_abs_left, ^setpos_abs_centre);
+if_setmouseovercursor($component6, friends_arrow_cursor);
+if_sethide($component6, false);
 cc_deleteall($component2);
 cc_deleteall($component3);
 cc_deleteall($component4);
 cc_deleteall($component5);
 cc_deleteall($component10);
-if_setgraphic("aif_clanchat_icons,12", clan_chat:clan_join_affinedchat_button_gfx);
-if_sethide(false, clan_chat:kick_button_layer);
+if_setgraphic(clan_chat:clan_join_affinedchat_button_gfx, "aif_clanchat_icons,12");
+if_sethide(clan_chat:kick_button_layer, false);
 ~script4470;
 def_string $string0 = "Leave your clan chat channel.";
-if_setonmouserepeat("aif_tooltip(clan_chat:tooltip, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)", clan_chat:clan_join_affinedchat_button);
-if_setop(1, "Leave Clan Chat channel", clan_chat:clan_join_affinedchat_button);
+if_setonmouserepeat(clan_chat:clan_join_affinedchat_button, "aif_tooltip(clan_chat:tooltip, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+if_setop(clan_chat:clan_join_affinedchat_button, 1, "Leave Clan Chat channel");
 def_int $int12 = 0;
 def_int $int13 = 0;
 def_int $int14 = 0;
@@ -49,13 +49,13 @@ def_int $int20 = 0;
 def_int $int21 = ~if_getx_absolute($component7);
 def_int $int22 = calc($int1 + $int21 - ~if_getx_absolute($component2));
 def_int $int23 = calc(if_getwidth($component4) - ($int1 + ($int21 - ~if_getx_absolute($component4)) + $int11));
-if_setsize($int23, 0, ^setsize_abs, ^setsize_minus, $component4);
-if_setsize($int23, 0, ^setsize_abs, ^setsize_minus, $component5);
-if_sethide(false, $component9);
-if_setonclanchanneltransmit("clan_chat_list_refresh(-1)", $component0);
-if_settext(activeclanchannel_getclanname, clan_chat:clan_name);
-if_settext("", clan_chat:clan_info_txt);
-if_sethide(true, clan_chat:clan_info_layer);
+if_setsize($component4, $int23, 0, ^setsize_abs, ^setsize_minus);
+if_setsize($component5, $int23, 0, ^setsize_abs, ^setsize_minus);
+if_sethide($component9, false);
+if_setonclanchanneltransmit($component0, "clan_chat_list_refresh(-1)");
+if_settext(clan_chat:clan_name, activeclanchannel_getclanname);
+if_settext(clan_chat:clan_info_txt, "");
+if_sethide(clan_chat:clan_info_layer, true);
 def_int $int24 = activeclanchannel_getuserslot(removetags(chat_playername));
 if ($int24 = -1) {
     return;
@@ -185,24 +185,24 @@ while ($int12 < $int14) {
 }
 def_int $int27 = 0;
 def_int $int28 = -1;
-if (%varclient_1518 >= 0) {
-    $int28 = activeclanchannel_getuserslot(%varclient_1645);
+if (%clan_chat_selected_slot >= 0) {
+    $int28 = activeclanchannel_getuserslot(%clan_channel_selected_name);
     if ($int28 >= 0) {
-        %varclient_1518 = $int28;
-        if (cc_find($component10, %varclient_1518) = true) {
+        %clan_chat_selected_slot = $int28;
+        if (cc_find($component10, %clan_chat_selected_slot) = true) {
             $int27 = cc_gety;
-            if_setposition(0, $int27, ^setpos_abs_right, ^setpos_abs_top, clan_chat:clan_list_button_popout_layer);
-            if_setposition(0, $int27, ^setpos_abs_right, ^setpos_abs_top, clan_chat:selected_highlight_layer);
+            if_setposition(clan_chat:clan_list_button_popout_layer, 0, $int27, ^setpos_abs_right, ^setpos_abs_top);
+            if_setposition(clan_chat:selected_highlight_layer, 0, $int27, ^setpos_abs_right, ^setpos_abs_top);
         }
     } else {
-        %varclient_1518 = -1;
-        %varclient_1645 = "";
-        if_sethide(false, clan_chat:selected_highlight_layer);
+        %clan_chat_selected_slot = -1;
+        %clan_channel_selected_name = "";
+        if_sethide(clan_chat:selected_highlight_layer, false);
         ~script4628;
     }
 }
 def_int $int29 = if_getscrolly($component8);
-if_setscrollsize(if_getwidth($component8), calc($int15 * max($int14, $int16)), $component8);
+if_setscrollsize($component8, if_getwidth($component8), calc($int15 * max($int14, $int16)));
 $int29 = min($int29, if_getscrollheight($component8));
-if_setscrollpos(0, $int29, $component8);
+if_setscrollpos($component8, 0, $int29);
 ~scrollbar_vertical(clan_chat:clanlistscrollbar, $component8, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");

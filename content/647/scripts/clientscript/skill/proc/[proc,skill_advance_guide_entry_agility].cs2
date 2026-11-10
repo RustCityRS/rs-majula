@@ -6,31 +6,31 @@ switch_int ($int0) {
             case 0 :
                 return(1, swamp_toad, "Gnome Stronghold Agility Course", "You can now use the <col=000080>Gnome Stronghold Agility Course</col>.");
             case 1 :
-                return(1, gnomeball, "Gnome Ball", "You can now play <col=000080>Gnome Ball</col> at the <col=000080>Tree Gnome Stronghold</col>.");
+                return(1, ball_gnomeball_game, "Gnome Ball", "You can now play <col=000080>Gnome Ball</col> at the <col=000080>Tree Gnome Stronghold</col>.");
             case 2 :
-                return(1, agility_arena_ticket, "Low-level Agility arena obstacles", "You can now attempt <col=000080>low-level Agility arena obstacles</col>.");
+                return(1, agilityarena_ticket, "Low-level Agility arena obstacles", "You can now attempt <col=000080>low-level Agility arena obstacles</col>.");
             case 3 :
-                return(20, agility_arena_ticket, "Medium-level Agility arena obstacles", "You can now attempt <col=000080>medium-level Agility arena obstacles</col>.");
+                return(20, agilityarena_ticket, "Medium-level Agility arena obstacles", "You can now attempt <col=000080>medium-level Agility arena obstacles</col>.");
             case 4 :
                 return(25, leather_boots, "Werewolf skullball game<br> (after Creature of Fenkenstrain)", "You can now play <col=000080>werewolf skullball</col> at the <col=000080>skullball course</col> east of <col=000080>Canifis</col> (after Creature of Fenkenstrain).");
             case 5 :
-                return(30, pyramid_top, "Agility Pyramid", "You can now enter the <col=000080>Agility Pyramid</col>.");
+                return(30, agility_pyramid_gold_pyramid, "Agility Pyramid", "You can now enter the <col=000080>Agility Pyramid</col>.");
             case 6 :
-                return(30, clockwork_suit, "Penguin Agility Course<br> (after starting Cold War)", "You can now use the <col=000080>Penguin Agility Course</col> (after starting Cold War).");
+                return(30, peng_suit_unwound, "Penguin Agility Course<br> (after starting Cold War)", "You can now use the <col=000080>Penguin Agility Course</col> (after starting Cold War).");
             case 7 :
                 return(35, steel_battleaxe, "Barbarian Outpost Agility Course", "You can now use the <col=000080>Barbarian Outpost Agility Course</col>.");
             case 8 :
-                return(40, agility_arena_ticket, "High-level Agility arena obstacles", "You can now attempt<col=000080> high-level Agility arena obstacles</col>.");
+                return(40, agilityarena_ticket, "High-level Agility arena obstacles", "You can now attempt<col=000080> high-level Agility arena obstacles</col>.");
             case 9 :
-                return(48, ninja_monkey_greegree, "Ape Atoll Agility Course<br> (after Monkey Madness)", "You can now use the <col=000080>Ape Atoll Agility Course</col> (after Monkey Madness).");
+                return(48, mm_monkey_greegree_for_small_ninja_monkey, "Ape Atoll Agility Course<br> (after Monkey Madness)", "You can now use the <col=000080>Ape Atoll Agility Course</col> (after Monkey Madness).");
             case 10 :
                 return(52, skull, "Wilderness Agility Course", "You can now use the <col=000080>Wilderness Agility Course</col>.");
             case 11 :
-                return(60, stick, "Werewolf Agility Course<br> (after Creature of Fenkenstrain)", "You can now use the <col=000080>Werewolf Agility Course</col> (after Creature of Fenkenstrain).");
+                return(60, waa_stick, "Werewolf Agility Course<br> (after Creature of Fenkenstrain)", "You can now use the <col=000080>Werewolf Agility Course</col> (after Creature of Fenkenstrain).");
             case 12 :
-                return(60, pendant_14683, "Statues in Bandos's Throne Room<br> (after The Chosen Commander)", "You can now use the <col=000080>statues in Bandos's throne room</col> (after The Chosen Commander).");
+                return(60, chosen_pendant_100, "Statues in Bandos's Throne Room<br> (after The Chosen Commander)", "You can now use the <col=000080>statues in Bandos's throne room</col> (after The Chosen Commander).");
             case 13 :
-                return(80, bullseye_lantern_4550, "Dorgesh-Kaan Agility Course<br> (after Death to the Dorgeshuun)", "You can now use the <col=000080>Dorgesh-Kaan Agility Course</col> (after Death to the Dorgeshuun).");
+                return(80, bullseye_lantern_lit, "Dorgesh-Kaan Agility Course<br> (after Death to the Dorgeshuun)", "You can now use the <col=000080>Dorgesh-Kaan Agility Course</col> (after Death to the Dorgeshuun).");
             case 14 :
                 return(85, swamp_toad, "Advanced Gnome Stronghold Course", "You can now use the <col=000080>Advanced Gnome Stronghold Course</col>.");
             case 15 :
@@ -39,31 +39,31 @@ switch_int ($int0) {
     case 1 :
         switch_int ($int1) {
             case 0 :
-                return(10, agility_jump_6518, "Moss Giant Island rope swing", "You can now use the <col=000080>Moss Giant Island rope-swing</col>.");
+                return(10, agility_jump_area, "Moss Giant Island rope swing", "You can now use the <col=000080>Moss Giant Island rope-swing</col>.");
             case 1 :
-                return(12, agility_jump_6518, "Karamja Dungeon stepping stones", "You can now cross the <col=000080>Karamja Dungeon stepping stones</col>.");
+                return(12, agility_jump_area, "Karamja Dungeon stepping stones", "You can now cross the <col=000080>Karamja Dungeon stepping stones</col>.");
             case 2 :
-                return(15, agility_jump_6518, "Edgeville Dungeon monkey bars", "You can now use the <col=000080>Edgeville Dungeon monkey bars</col>.");
+                return(15, agility_jump_area, "Edgeville Dungeon monkey bars", "You can now use the <col=000080>Edgeville Dungeon monkey bars</col>.");
             case 3 :
-                return(18, agility_climb_6521, "Watchtower wall climb", "You can now use the <col=000080>Watchtower wall climb</col>.");
+                return(18, agility_climb_area, "Watchtower wall climb", "You can now use the <col=000080>Watchtower wall climb</col>.");
             case 4 :
-                return(22, agility_contortion_6520, "Karamja Dungeon pipe contortion", "You can now squeeze through the <col=000080>Karamja Dungeon pipe contortion</col>.");
+                return(22, agility_contortion_area, "Karamja Dungeon pipe contortion", "You can now squeeze through the <col=000080>Karamja Dungeon pipe contortion</col>.");
             case 5 :
-                return(30, agility_jump_6518, "South-east Karamja stepping stones", "You can now cross the <col=000080>south-east Karamja stepping stones</col>.");
+                return(30, agility_jump_area, "South-east Karamja stepping stones", "You can now cross the <col=000080>south-east Karamja stepping stones</col>.");
             case 6 :
-                return(34, agility_contortion_6520, "Karamja Dungeon pipe contortion", "You can now squeeze through the <col=000080>Karamja Dungeon pipe contortion</col>.");
+                return(34, agility_contortion_area, "Karamja Dungeon pipe contortion", "You can now squeeze through the <col=000080>Karamja Dungeon pipe contortion</col>.");
             case 7 :
-                return(45, agility_balance_6519, "Isafdar log balance", "You can now cross the <col=000080>Isafdar log balance</col>.");
+                return(45, agility_balance_area, "Isafdar log balance", "You can now cross the <col=000080>Isafdar log balance</col>.");
             case 8 :
-                return(49, agility_contortion_6520, "Yanille Dungeon contortion", "You can now squeeze through the <col=000080>Yanille Dungeon contortion</col>.");
+                return(49, agility_contortion_area, "Yanille Dungeon contortion", "You can now squeeze through the <col=000080>Yanille Dungeon contortion</col>.");
             case 9 :
-                return(50, agility_jump_6518, "Rogues' Den<br> (with 50 Thieving)", "You now have the Agility level required to attempt the <col=000080>Rogues' Den</col>, located below the Toad and Chicken pub in Burthorpe. (You also need level 50 Thieving.)");
+                return(50, agility_jump_area, "Rogues' Den<br> (with 50 Thieving)", "You now have the Agility level required to attempt the <col=000080>Rogues' Den</col>, located below the Toad and Chicken pub in Burthorpe. (You also need level 50 Thieving.)");
             case 10 :
-                return(60, agility_contortion_6520, "God Wars Dungeon access", "You can now use the <col=000080>God Wars Dungeon access</col>.");
+                return(60, agility_contortion_area, "God Wars Dungeon access", "You can now use the <col=000080>God Wars Dungeon access</col>.");
             case 11 :
-                return(67, agility_climb_6521, "Yanille Dungeon rubble climb", "You can now attempt the <col=000080>Yanille Dungeon rubble climb</col>.");
+                return(67, agility_climb_area, "Yanille Dungeon rubble climb", "You can now attempt the <col=000080>Yanille Dungeon rubble climb</col>.");
             case 12 :
-                return(70, agility_climb_6521, "Saradomin Encampment rope descent", "You can now use the <col=000080>Saradomin Encampment rope descent</col> in the <col=000080>God Wars Dungeon</col>.");
+                return(70, agility_climb_area, "Saradomin Encampment rope descent", "You can now use the <col=000080>Saradomin Encampment rope descent</col> in the <col=000080>God Wars Dungeon</col>.");
         }
     case 2 :
         switch_int ($int1) {
@@ -163,15 +163,15 @@ switch_int ($int0) {
     case 3 :
         switch_int ($int1) {
             case 0 :
-                return(-1, silvthrill_rod, "To start Fishing like a barbarian, talk to Otto Godblessed when you have at least level 48 Fishing and level 15 Strength.", "");
+                return(-1, invis_rod, "To start Fishing like a barbarian, talk to Otto Godblessed when you have at least level 48 Fishing and level 15 Strength.", "");
             case 1 :
-                return(15, barbarian_rod, "Heavy rod<br> (with 48 Fishing and 15 Strength)", "You now have the Agility level required to fish with a <col=000080>heavy rod</col>. (You also need level 48 Fishing and level 15 Strength.)");
+                return(15, brut_fishing_rod, "Heavy rod<br> (with 48 Fishing and 15 Strength)", "You now have the Agility level required to fish with a <col=000080>heavy rod</col>. (You also need level 48 Fishing and level 15 Strength.)");
             case 2 :
-                return(15, leaping_trout, "Leaping trout<br> (with 48 Fishing and 15 Strength)", "You now have the Agility level required to catch <col=000080>leaping trout</col>. (You also need level 48 Fishing and level 15 Strength.)");
+                return(15, brut_spawning_trout, "Leaping trout<br> (with 48 Fishing and 15 Strength)", "You now have the Agility level required to catch <col=000080>leaping trout</col>. (You also need level 48 Fishing and level 15 Strength.)");
             case 3 :
-                return(30, leaping_salmon, "Leaping salmon<br> (with 58 Fishing and 30 Strength)", "You now have the Agility level required to catch <col=000080>leaping salmon</col>. (You also need level 58 Fishing and level 30 Strength.)");
+                return(30, brut_spawning_salmon, "Leaping salmon<br> (with 58 Fishing and 30 Strength)", "You now have the Agility level required to catch <col=000080>leaping salmon</col>. (You also need level 58 Fishing and level 30 Strength.)");
             case 4 :
-                return(45, leaping_sturgeon, "Leaping sturgeon<br> (with 70 Fishing and 45 Strength)", "You now have the Agility level required to catch <col=000080>leaping sturgeon</col>. (You also need level 70 Fishing and level 45 Strength.)");
+                return(45, brut_sturgeon, "Leaping sturgeon<br> (with 70 Fishing and 45 Strength)", "You now have the Agility level required to catch <col=000080>leaping sturgeon</col>. (You also need level 70 Fishing and level 45 Strength.)");
         }
     case 4 :
         switch_int ($int1) {
@@ -185,148 +185,148 @@ switch_int ($int0) {
     case 5 :
         switch_int ($int1) {
             case 0 :
-                return(1, man, "Possibility of stealing double loot from a man<br> (with 11 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>men</col> and <col=000080>women</col>. (You also need level 11 Thieving.)");
+                return(1, pickpocket_guide_man, "Possibility of stealing double loot from a man<br> (with 11 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>men</col> and <col=000080>women</col>. (You also need level 11 Thieving.)");
             case 1 :
-                return(10, farmer, "Possibility of stealing double loot from a farmer<br> (with 20 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>farmers</col>. (You also need level 20 Thieving.)");
+                return(10, pickpocket_guide_farmer, "Possibility of stealing double loot from a farmer<br> (with 20 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>farmers</col>. (You also need level 20 Thieving.)");
             case 2 :
-                return(11, man, "Possibility of stealing triple loot from a man<br> (with 21 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>men</col> and <col=000080>women</col>. (You also need level 21 Thieving.)");
+                return(11, pickpocket_guide_man, "Possibility of stealing triple loot from a man<br> (with 21 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>men</col> and <col=000080>women</col>. (You also need level 21 Thieving.)");
             case 3 :
-                return(15, female_h_a_m, "Possibility of stealing double loot from a female H.A.M.follower<br> (with 25 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>female H.A.M. followers</col>. (You also need level 25 Thieving.)");
+                return(15, pickpocket_guide_fham, "Possibility of stealing double loot from a female H.A.M.follower<br> (with 25 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>female H.A.M. followers</col>. (You also need level 25 Thieving.)");
             case 4 :
-                return(20, farmer, "Possibility of stealing triple loot from a farmer<br> (with 30 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>farmers</col>. (You also need level 30 Thieving.)");
+                return(20, pickpocket_guide_farmer, "Possibility of stealing triple loot from a farmer<br> (with 30 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>farmers</col>. (You also need level 30 Thieving.)");
             case 5 :
-                return(20, male_h_a_m, "Possibility of stealing double loot from a male H.A.M. follower<br> (with 30 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>male H.A.M. followers</col>. (You also need level 30 Thieving.)");
+                return(20, pickpocket_guide_mham, "Possibility of stealing double loot from a male H.A.M. follower<br> (with 30 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>male H.A.M. followers</col>. (You also need level 30 Thieving.)");
             case 6 :
-                return(21, man, "Possibility of stealing quadruple loot from a man<br> (with 31 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>men</col> and <col=000080>women</col>. (You also need level 31 Thieving.)");
+                return(21, pickpocket_guide_man, "Possibility of stealing quadruple loot from a man<br> (with 31 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>men</col> and <col=000080>women</col>. (You also need level 31 Thieving.)");
             case 7 :
-                return(25, female_h_a_m, "Possibility of stealing triple loot from a female H.A.M.follower<br> (with 35 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>female H.A.M. followers</col>. (You also need level 35 Thieving.)");
+                return(25, pickpocket_guide_fham, "Possibility of stealing triple loot from a female H.A.M.follower<br> (with 35 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>female H.A.M. followers</col>. (You also need level 35 Thieving.)");
             case 8 :
-                return(25, warrior_woman, "Possibility of stealing double loot from a warrior<br> (with 35 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>warriors</col>. (You also need level 35 Thieving.)");
+                return(25, pickpocket_guide_warrior, "Possibility of stealing double loot from a warrior<br> (with 35 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>warriors</col>. (You also need level 35 Thieving.)");
             case 9 :
-                return(30, farmer, "Possibility of stealing quadruple loot from a farmer<br> (with 40 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>farmers</col>. (You also need level 40 Thieving.)");
+                return(30, pickpocket_guide_farmer, "Possibility of stealing quadruple loot from a farmer<br> (with 40 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>farmers</col>. (You also need level 40 Thieving.)");
             case 10 :
-                return(30, male_h_a_m, "Possibility of stealing triple loot from a male H.A.M. follower<br> (with 40 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>male H.A.M. followers</col>. (You also need level 40 Thieving.)");
+                return(30, pickpocket_guide_mham, "Possibility of stealing triple loot from a male H.A.M. follower<br> (with 40 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>male H.A.M. followers</col>. (You also need level 40 Thieving.)");
             case 11 :
-                return(32, rogue, "Possibility of stealing double loot from a rogue<br> (with 42 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>rogues</col>. (You also need level 42 Thieving.)");
+                return(32, pickpocket_guide_rogue, "Possibility of stealing double loot from a rogue<br> (with 42 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>rogues</col>. (You also need level 42 Thieving.)");
             case 12 :
-                return(35, female_h_a_m, "Possibility of stealing quadruple loot from a female H.A.M. follower<br> (with 45 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>female H.A.M. followers</col>. (You also need level 45 Thieving.)");
+                return(35, pickpocket_guide_fham, "Possibility of stealing quadruple loot from a female H.A.M. follower<br> (with 45 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>female H.A.M. followers</col>. (You also need level 45 Thieving.)");
             case 13 :
-                return(35, warrior_woman, "Possibility of stealing triple loot from a warrior<br> (with 45 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>warriors</col>. (You also need level 45 Thieving.)");
+                return(35, pickpocket_guide_warrior, "Possibility of stealing triple loot from a warrior<br> (with 45 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>warriors</col>. (You also need level 45 Thieving.)");
             case 14 :
-                return(36, cave_goblin, "Possibility of stealing double loot from a cave goblin<br> (with 46 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>cave goblins</col>. (You also need level 46 Thieving.)");
+                return(36, pickpocket_guide_dorgesh, "Possibility of stealing double loot from a cave goblin<br> (with 46 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>cave goblins</col>. (You also need level 46 Thieving.)");
             case 15 :
-                return(38, master_farmer, "Possibility of stealing double loot from a master farmer<br> (with 48 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>master farmers</col>. (You also need level 48 Thieving.)");
+                return(38, pickpocket_guide_master_farmer, "Possibility of stealing double loot from a master farmer<br> (with 48 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>master farmers</col>. (You also need level 48 Thieving.)");
             case 16 :
-                return(40, male_h_a_m, "Possibility of stealing quadruple loot from a male H.A.M. follower<br> (with 50 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>male H.A.M. followers</col>. (You also need level 50 Thieving.)");
+                return(40, pickpocket_guide_mham, "Possibility of stealing quadruple loot from a male H.A.M. follower<br> (with 50 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>male H.A.M. followers</col>. (You also need level 50 Thieving.)");
             case 17 :
-                return(40, guard, "Possibility of stealing double loot from a guard<br> (with 50 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>guards</col>. (You also need level 50 Thieving.)");
+                return(40, pickpocket_guide_guard, "Possibility of stealing double loot from a guard<br> (with 50 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>guards</col>. (You also need level 50 Thieving.)");
             case 18 :
-                return(42, rogue, "Possibility of stealing triple loot from a rogue<br> (with 52 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>rogues</col>. (You also need level 52 Thieving.)");
+                return(42, pickpocket_guide_rogue, "Possibility of stealing triple loot from a rogue<br> (with 52 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>rogues</col>. (You also need level 52 Thieving.)");
             case 19 :
-                return(45, warrior_woman, "Possibility of stealing quadruple loot from a warrior<br> (with 55 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>warriors</col>. (You also need level 55 Thieving.)");
+                return(45, pickpocket_guide_warrior, "Possibility of stealing quadruple loot from a warrior<br> (with 55 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>warriors</col>. (You also need level 55 Thieving.)");
             case 20 :
-                return(45, fremennik, "Possibility of stealing double loot from a Fremennik citizen<br> (with 55 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>Fremennik citizens</col>. (You also need level 55 Thieving.)");
+                return(45, pickpocket_guide_fremennik_citizen, "Possibility of stealing double loot from a Fremennik citizen<br> (with 55 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>Fremennik citizens</col>. (You also need level 55 Thieving.)");
             case 21 :
-                return(45, bandit_6782, "Possibility of stealing double loot from a bearded Pollnivnian bandit<br> (with 55 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>bearded Pollnivnian bandits</col>. (You also need level 55 Thieving.)");
+                return(45, pickpocket_guide_feud_arabian_guard2, "Possibility of stealing double loot from a bearded Pollnivnian bandit<br> (with 55 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>bearded Pollnivnian bandits</col>. (You also need level 55 Thieving.)");
             case 22 :
-                return(46, cave_goblin, "Possibility of stealing triple loot from a cave goblin<br> (with 56 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>cave goblins</col>. (You also need level 56 Thieving.)");
+                return(46, pickpocket_guide_dorgesh, "Possibility of stealing triple loot from a cave goblin<br> (with 56 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>cave goblins</col>. (You also need level 56 Thieving.)");
             case 23 :
-                return(48, master_farmer, "Possibility of stealing triple loot from a master farmer<br> (with 58 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>master farmers</col>. (You also need level 58 Thieving.)");
+                return(48, pickpocket_guide_master_farmer, "Possibility of stealing triple loot from a master farmer<br> (with 58 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>master farmers</col>. (You also need level 58 Thieving.)");
             case 24 :
-                return(50, guard, "Possibility of stealing triple loot from a guard<br> (with 60 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>guards</col>. (You also need level 60 Thieving.)");
+                return(50, pickpocket_guide_guard, "Possibility of stealing triple loot from a guard<br> (with 60 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>guards</col>. (You also need level 60 Thieving.)");
             case 25 :
-                return(52, rogue, "Possibility of stealing quadruple loot from a rogue<br> (with 62 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>rogues</col>. (You also need level 62 Thieving.)");
+                return(52, pickpocket_guide_rogue, "Possibility of stealing quadruple loot from a rogue<br> (with 62 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>rogues</col>. (You also need level 62 Thieving.)");
             case 26 :
-                return(53, bandit, "Possibility of stealing double loot from a desert bandit<br> (with 63 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>desert bandits</col>. (You also need level 63 Thieving.)");
+                return(53, pickpocket_guide_desert_bandit, "Possibility of stealing double loot from a desert bandit<br> (with 63 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>desert bandits</col>. (You also need level 63 Thieving.)");
             case 27 :
-                return(55, fremennik, "Possibility of stealing triple loot from a Fremennik citizen<br> (with 65 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>Fremennik citizens</col>. (You also need level 65 Thieving.)");
+                return(55, pickpocket_guide_fremennik_citizen, "Possibility of stealing triple loot from a Fremennik citizen<br> (with 65 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>Fremennik citizens</col>. (You also need level 65 Thieving.)");
             case 28 :
-                return(55, bandit_6782, "Possibility of stealing triple loot from a Bearded Pollnivnian bandit<br> (with 65 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>bearded Pollnivnian bandits</col>. (You also need level 65 Thieving.)");
+                return(55, pickpocket_guide_feud_arabian_guard2, "Possibility of stealing triple loot from a Bearded Pollnivnian bandit<br> (with 65 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>bearded Pollnivnian bandits</col>. (You also need level 65 Thieving.)");
             case 29 :
-                return(55, knight_of_ardougne, "Possibility of stealing double loot from a knight<br> (with 65 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>knights</col>. (You also need level 65 Thieving.)");
+                return(55, pickpocket_guide_knight, "Possibility of stealing double loot from a knight<br> (with 65 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>knights</col>. (You also need level 65 Thieving.)");
             case 30 :
-                return(55, bandit_6781, "Possibility of stealing double loot from a Pollnivnian bandit<br> (with 65 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>Pollnivnian bandits</col>. (You also need level 65 Thieving.)");
+                return(55, pickpocket_guide_feud_arabian_guard1, "Possibility of stealing double loot from a Pollnivnian bandit<br> (with 65 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>Pollnivnian bandits</col>. (You also need level 65 Thieving.)");
             case 31 :
-                return(56, cave_goblin, "Possibility of stealing quadruple loot from a cave goblin<br> (with 66 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>cave goblins</col>. (You also need level 66 Thieving.)");
+                return(56, pickpocket_guide_dorgesh, "Possibility of stealing quadruple loot from a cave goblin<br> (with 66 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>cave goblins</col>. (You also need level 66 Thieving.)");
             case 32 :
-                return(58, master_farmer, "Possibility of stealing quadruple loot from a master farmer<br> (with 68 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>master farmers</col>. (You also need level 68 Thieving.)");
+                return(58, pickpocket_guide_master_farmer, "Possibility of stealing quadruple loot from a master farmer<br> (with 68 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>master farmers</col>. (You also need level 68 Thieving.)");
             case 33 :
-                return(60, guard, "Possibility of stealing quadruple loot from a guard<br> (with 70 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>guards</col>. (You also need level 70 Thieving.)");
+                return(60, pickpocket_guide_guard, "Possibility of stealing quadruple loot from a guard<br> (with 70 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>guards</col>. (You also need level 70 Thieving.)");
             case 34 :
-                return(63, bandit, "Possibility of stealing triple loot from a desert bandit<br> (with 73 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>desert bandits</col>. (You also need level 73 Thieving.)");
+                return(63, pickpocket_guide_desert_bandit, "Possibility of stealing triple loot from a desert bandit<br> (with 73 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>desert bandits</col>. (You also need level 73 Thieving.)");
             case 35 :
-                return(65, fremennik, "Possibility of stealing quadruple loot from a Fremennik citizen<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>Fremennik citizens</col>. (You also need level 75 Thieving.)");
+                return(65, pickpocket_guide_fremennik_citizen, "Possibility of stealing quadruple loot from a Fremennik citizen<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>Fremennik citizens</col>. (You also need level 75 Thieving.)");
             case 36 :
-                return(65, bandit_6782, "Possibility of stealing quadruple loot from a bearded Pollnivnian bandit<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>bearded Pollnivnian bandits</col>. (You also need level 75 Thieving.)");
+                return(65, pickpocket_guide_feud_arabian_guard2, "Possibility of stealing quadruple loot from a bearded Pollnivnian bandit<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>bearded Pollnivnian bandits</col>. (You also need level 75 Thieving.)");
             case 37 :
-                return(65, knight_of_ardougne, "Possibility of stealing triple loot from a knight<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>knights</col>. (You also need level 75 Thieving.)");
+                return(65, pickpocket_guide_knight, "Possibility of stealing triple loot from a knight<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>knights</col>. (You also need level 75 Thieving.)");
             case 38 :
-                return(65, bandit_6781, "Possibility of stealing triple loot from a Pollnivnian bandit<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>Pollnivnian bandits</col>. (You also need level 75 Thieving.)");
+                return(65, pickpocket_guide_feud_arabian_guard1, "Possibility of stealing triple loot from a Pollnivnian bandit<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>Pollnivnian bandits</col>. (You also need level 75 Thieving.)");
             case 39 :
-                return(65, watchman, "Possibility of stealing double loot from a watchman<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>watchmen</col>. (You also need level 75 Thieving.)");
+                return(65, pickpocket_guide_watchman, "Possibility of stealing double loot from a watchman<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>watchmen</col>. (You also need level 75 Thieving.)");
             case 40 :
-                return(65, menaphite_thug, "Possibility of stealing double loot from a Menaphite thug<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>Menaphite thugs</col>. (You also need level 75 Thieving.)");
+                return(65, pickpocket_guide_feud_egyptian_doorman, "Possibility of stealing double loot from a Menaphite thug<br> (with 75 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>Menaphite thugs</col>. (You also need level 75 Thieving.)");
             case 41 :
-                return(70, paladin, "Possibility of stealing double loot from a paladin<br> (with 80 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>paladins</col>. (You also need level 80 Thieving.)");
+                return(70, pickpocket_guide_paladin, "Possibility of stealing double loot from a paladin<br> (with 80 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>paladins</col>. (You also need level 80 Thieving.)");
             case 42 :
-                return(73, bandit, "Possibility of stealing quadruple loot from a desert bandit<br> (with 83 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>desert bandits</col>. (You also need level 83 Thieving.)");
+                return(73, pickpocket_guide_desert_bandit, "Possibility of stealing quadruple loot from a desert bandit<br> (with 83 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>desert bandits</col>. (You also need level 83 Thieving.)");
             case 43 :
-                return(75, knight_of_ardougne, "Possibility of stealing quadruple loot from a knight<br> (with 85 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>knights</col>. (You also need level 85 Thieving.)");
+                return(75, pickpocket_guide_knight, "Possibility of stealing quadruple loot from a knight<br> (with 85 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>knights</col>. (You also need level 85 Thieving.)");
             case 44 :
-                return(75, bandit_6781, "Possibility of stealing quadruple loot from a Pollnivnian bandit<br> (with 85 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>Pollnivnian bandits</col>. (You also need level 85 Thieving.)");
+                return(75, pickpocket_guide_feud_arabian_guard1, "Possibility of stealing quadruple loot from a Pollnivnian bandit<br> (with 85 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>Pollnivnian bandits</col>. (You also need level 85 Thieving.)");
             case 45 :
-                return(75, watchman, "Possibility of stealing triple loot from a watchman<br> (with 85 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>watchmen</col>. (You also need level 85 Thieving.)");
+                return(75, pickpocket_guide_watchman, "Possibility of stealing triple loot from a watchman<br> (with 85 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>watchmen</col>. (You also need level 85 Thieving.)");
             case 46 :
-                return(75, menaphite_thug, "Possibility of stealing triple loot from a Menaphite thug<br> (with 85 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>Menaphite thugs</col>. (You also need level 85 Thieving.)");
+                return(75, pickpocket_guide_feud_egyptian_doorman, "Possibility of stealing triple loot from a Menaphite thug<br> (with 85 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>Menaphite thugs</col>. (You also need level 85 Thieving.)");
             case 47 :
-                return(75, gnome, "Possibility of stealing double loot from a gnome<br> (with 85 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>gnomes</col>. (You also need level 85 Thieving.)");
+                return(75, pickpocket_guide_gnome, "Possibility of stealing double loot from a gnome<br> (with 85 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>gnomes</col>. (You also need level 85 Thieving.)");
             case 48 :
-                return(80, paladin, "Possibility of stealing triple loot from a paladin<br> (with 90 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>paladins</col>. (You also need level 90 Thieving.)");
+                return(80, pickpocket_guide_paladin, "Possibility of stealing triple loot from a paladin<br> (with 90 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>paladins</col>. (You also need level 90 Thieving.)");
             case 49 :
-                return(80, hero, "Possibility of stealing double loot from a hero<br> (with 90 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>heroes</col>. (You also need level 90 Thieving.)");
+                return(80, pickpocket_guide_hero, "Possibility of stealing double loot from a hero<br> (with 90 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>heroes</col>. (You also need level 90 Thieving.)");
             case 50 :
-                return(85, watchman, "Possibility of stealing quadruple loot from a watchman<br> (with 95 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>watchmen</col>. (You also need level 95 Thieving.)");
+                return(85, pickpocket_guide_watchman, "Possibility of stealing quadruple loot from a watchman<br> (with 95 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>watchmen</col>. (You also need level 95 Thieving.)");
             case 51 :
-                return(85, menaphite_thug, "Possibility of stealing quadruple loot from a Menaphite thug<br> (with 95 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>Menaphite thugs</col>. (You also need level 95 Thieving.)");
+                return(85, pickpocket_guide_feud_egyptian_doorman, "Possibility of stealing quadruple loot from a Menaphite thug<br> (with 95 Thieving)", "You now have the Agility level required to potentially steal quadruple loot from <col=000080>Menaphite thugs</col>. (You also need level 95 Thieving.)");
             case 52 :
-                return(85, gnome, "Possibility of stealing triple loot from a gnome<br> (with 95 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>gnomes</col>. (You also need level 95 Thieving.)");
+                return(85, pickpocket_guide_gnome, "Possibility of stealing triple loot from a gnome<br> (with 95 Thieving)", "You now have the Agility level required to potentially steal triple loot from <col=000080>gnomes</col>. (You also need level 95 Thieving.)");
             case 53 :
-                return(85, elf, "Possibility of stealing double loot from an elf<br> (with 95 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>elves</col>. (You also need level 95 Thieving.)");
+                return(85, pickpocket_guide_woodelf, "Possibility of stealing double loot from an elf<br> (with 95 Thieving)", "You now have the Agility level required to potentially steal double loot from <col=000080>elves</col>. (You also need level 95 Thieving.)");
         }
     case 6 :
         switch_int ($int1) {
             case 0 :
-                return(75, butterfly, "Catch ruby harvest barehanded (woodland)<br> (with 80 Hunter)", "You now have the Agility level to catch <col=000080>ruby harvest butterflies</col> barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 80 Hunter.)");
+                return(75, huntguide_red_butterfly, "Catch ruby harvest barehanded (woodland)<br> (with 80 Hunter)", "You now have the Agility level to catch <col=000080>ruby harvest butterflies</col> barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 80 Hunter.)");
             case 1 :
-                return(80, butterfly_9971, "Catch sapphire glacialis barehanded (polar)<br> (with 85 Hunter)", "You now have the Agility level to catch <col=000080>sapphire glacialis butterflies</col> barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 85 Hunter.)");
+                return(80, huntguide_blue_butterfly, "Catch sapphire glacialis barehanded (polar)<br> (with 85 Hunter)", "You now have the Agility level to catch <col=000080>sapphire glacialis butterflies</col> barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 85 Hunter.)");
             case 2 :
-                return(85, butterfly_9972, "Catch snowy knights barehanded (polar)<br> (with 90 Hunter)", "You now have the Agility level to catch <col=000080>snowy knight butterflies</col> barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 90 Hunter.)");
+                return(85, huntguide_white_butterfly, "Catch snowy knights barehanded (polar)<br> (with 90 Hunter)", "You now have the Agility level to catch <col=000080>snowy knight butterflies</col> barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 90 Hunter.)");
             case 3 :
-                return(90, butterfly_9973, "Catch black warlocks barehanded (jungle)<br> (with 95 Hunter)", "You now have the Agility level to catch <col=000080>black warlock butterflies</col> barehanded. This feat will give you Hunter and Agility experience upon a succesful catch. (You also need level 95 Hunter.)");
+                return(90, huntguide_black_butterfly, "Catch black warlocks barehanded (jungle)<br> (with 95 Hunter)", "You now have the Agility level to catch <col=000080>black warlock butterflies</col> barehanded. This feat will give you Hunter and Agility experience upon a succesful catch. (You also need level 95 Hunter.)");
         }
     case 7 :
         switch_int ($int1) {
             case 0 :
-                return(60, livid_plant, "Members: access to the Livid Farm (with 70 Magic, 60 Crafting, 60 Farming, 50 Construction and Lunar Diplomacy)", "Members can access the <col=000080>Livid Farm</col> (with 70 Magic, 60 Crafting, 60 Farming, 50 Construction and Lunar Diplomacy).");
+                return(60, lunarfm_plant, "Members: access to the Livid Farm (with 70 Magic, 60 Crafting, 60 Farming, 50 Construction and Lunar Diplomacy)", "Members can access the <col=000080>Livid Farm</col> (with 70 Magic, 60 Crafting, 60 Farming, 50 Construction and Lunar Diplomacy).");
             case 1 :
-                return(91, starved_ancient_effigy, "Starved ancient effigies", "You can now investigate <col=000080>starved ancient effigies</col> using your knowledge of Agility.");
+                return(91, effi_ancient_effigy_level_0, "Starved ancient effigies", "You can now investigate <col=000080>starved ancient effigies</col> using your knowledge of Agility.");
             case 2 :
-                return(93, nourished_ancient_effigy, "Nourished ancient effigies", "You can now investigate <col=000080>nourished ancient effigies</col> using your knowledge of Agility.");
+                return(93, effi_ancient_effigy_level_1, "Nourished ancient effigies", "You can now investigate <col=000080>nourished ancient effigies</col> using your knowledge of Agility.");
             case 3 :
-                return(95, sated_ancient_effigy, "Sated ancient effigies", "You can now investigate <col=000080>sated ancient effigies</col> using your knowledge of Agility.");
+                return(95, effi_ancient_effigy_level_2, "Sated ancient effigies", "You can now investigate <col=000080>sated ancient effigies</col> using your knowledge of Agility.");
             case 4 :
-                return(97, gorged_ancient_effigy, "Gorged ancient effigies", "You can now investigate <col=000080>gorged ancient effigies</col> using your knowledge of Agility.");
+                return(97, effi_ancient_effigy_level_3, "Gorged ancient effigies", "You can now investigate <col=000080>gorged ancient effigies</col> using your knowledge of Agility.");
         }
     case 8 :
         switch_int ($int1) {
             case 0 :
-                return(-1, ring_of_kinship, "Dungeoneering skill tasks<br>As your Agility level increases, you will be able to attempt higher-level Agility tasks within Daemonheim. You will also be more likely to succeed when attempting Agility tasks within Daemonheim.", "");
+                return(-1, rand_mission_contract, "Dungeoneering skill tasks<br>As your Agility level increases, you will be able to attempt higher-level Agility tasks within Daemonheim. You will also be more likely to succeed when attempting Agility tasks within Daemonheim.", "");
         }
     case 9 :
         if ($int1 = 0) {
-            return(50, elf_crystal, "Crystal equipment", "You now have the Agility level required to use <col=000080>crystal equipment</col>. (You may need further requirements.)");
+            return(50, roving_elf_crystal, "Crystal equipment", "You now have the Agility level required to use <col=000080>crystal equipment</col>. (You may need further requirements.)");
         }
         if ($int1 = 1) {
-            return(99, agility_cape, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Agility<col=000080>. Why not visit <col=800000>Cap'n Izzy No-beard<col=000080> at the <col=800000>Brimhaven Agility Arena<col=000080>? He has something special that is only available to true masters of the <col=800000>Agility<col=000080> skill!");
+            return(99, skillcape_agility, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Agility<col=000080>. Why not visit <col=800000>Cap'n Izzy No-beard<col=000080> at the <col=800000>Brimhaven Agility Arena<col=000080>? He has something special that is only available to true masters of the <col=800000>Agility<col=000080> skill!");
         }
 }

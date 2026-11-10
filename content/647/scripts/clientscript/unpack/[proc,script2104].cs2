@@ -1,9 +1,9 @@
 // 2104
 [proc,script2104](int $int0)
 if ($int0 = 1) {
-    if_sethide(false, sandwich_tray:key);
-    if_sethide(true, sandwich_tray:offer);
+    if_sethide(sandwich_tray:key, false);
+    if_sethide(sandwich_tray:offer, true);
 } else {
-    if_sethide(true, sandwich_tray:key);
-    if_sethide(false, sandwich_tray:offer);
+    if_sethide(sandwich_tray:key, true);
+    if_sethide(sandwich_tray:offer, false);
 }

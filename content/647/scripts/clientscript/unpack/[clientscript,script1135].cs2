@@ -1,13 +1,13 @@
 // 1135
 [clientscript,script1135](component $component0)
 def_coord $coord1 = ~coord_0_0(coord);
-switch_int (%varclient_1007) {
+switch_int (%tutorial3_cutscene_tracker) {
     case default :
         cc_deleteall($component0);
         cam_smoothreset;
     case 1 :
         ~tutorial3_fadeout(^white, 50, $component0);
-        sound_synth(synth_3641, 1, 0);
+        sound_synth(dream_whiteout, 1, 0);
     case 2 :
         spline_new(0, 2);
         spline_new(1, 2);
@@ -17,7 +17,7 @@ switch_int (%varclient_1007) {
         spline_addpoint(1, 1, ~dream_instance(25, 30, $coord1), 600, ~dream_instance(25, 30, $coord1), 600, 0);
         cam_movealong(0, 0, 100, 0, 1, 0);
         ~tutorial3_fadein(45, $component0);
-        sound_synth(synth_3641, 1, 0);
+        sound_synth(dream_whiteout, 1, 0);
     case 3 :
         spline_new(0, 7);
         spline_new(1, 7);
@@ -57,11 +57,11 @@ switch_int (%varclient_1007) {
     case 7 :
         if (spline_length(0) = 7) {
             cam_movealong(0, 4, 400, 600, 1, 4);
-            if_setoncamfinished("script1144($component0)", $component0);
+            if_setoncamfinished($component0, "script1144($component0)");
         } else {
             cam_smoothreset;
         }
     case 8 :
         ~tutorial3_fadein(50, $component0);
-        sound_synth(synth_3641, 1, 0);
+        sound_synth(dream_whiteout, 1, 0);
 }

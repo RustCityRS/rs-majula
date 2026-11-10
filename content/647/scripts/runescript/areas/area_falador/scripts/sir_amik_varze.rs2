@@ -76,7 +76,7 @@ if ($option = 2) {
 }
 ~chatplayer("<p,neutral>Ok, I'll do my best.");
 ~chatnpc("<p,happy>Good luck! Let me know how you get on. Here's the dossier for the case, I've already given you the details.");
-inv_add(inv, dossier, 1);
+inv_add(inv, bk_dossier, 1);
 ~update_blackknight_progress;
 
 // 289's, unverified: no 2011 recording shows a visit mid-quest.

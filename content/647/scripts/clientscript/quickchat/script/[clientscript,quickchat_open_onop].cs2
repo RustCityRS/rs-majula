@@ -13,7 +13,7 @@ if ($int0 = 1) {
     if (clan_getchatcount > 0) {
         ~quickchat_open(2, "");
     } else {
-        %varclient_41 = 0;
+        %chat_view = 0;
         ~chat_alert_reset(0);
         ~redraw_chat_buttons;
         ~rebuildchatbox;
@@ -30,7 +30,7 @@ if ($int0 = 1) {
             return;
         }
     } else {
-        %varclient_41 = 0;
+        %chat_view = 0;
         ~chat_alert_reset(0);
         ~redraw_chat_buttons;
         ~rebuildchatbox;
@@ -47,7 +47,7 @@ if ($int0 = 1) {
             return;
         }
     } else {
-        %varclient_41 = 0;
+        %chat_view = 0;
         ~chat_alert_reset(0);
         ~redraw_chat_buttons;
         ~rebuildchatbox;

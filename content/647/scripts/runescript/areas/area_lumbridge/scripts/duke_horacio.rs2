@@ -1,4 +1,4 @@
-[opnpc1,duke_horacio]
+[opnpc1,duke_of_lumbridge]
 ~chatnpc("<p,neutral>Greetings. Welcome to my castle.");
 
 // Dragon Slayer: 2011 offers the shield first once the Guildmaster has told of it (289: Oziach),
@@ -89,8 +89,8 @@ if (~p_choice2("I'd better leave that dragon alone.", 1, "So, are you going to g
 }
 ~chatplayer("<p,quiz>So, are you going to give me the shield or not?");
 ~chatnpc("<p,neutral>If you really think you're up to it then perhaps you are the one who can kill this dragon.");
-inv_add(inv, anti_dragon_shield, 1);
-~objbox(anti_dragon_shield, "The Duke hands you a heavy orange shield.", 250, 0, 0);
+inv_add(inv, antidragonbreathshield, 1);
+~objbox(antidragonbreathshield, "The Duke hands you a heavy orange shield.", 250, 0, 0);
 ~chatnpc("<p,neutral>Take care out there. If you kill it...");
 ~chatnpc("<p,angry>If you kill it, for Saradomin's sake make sure it's really dead!");
 // 2011's Task System: the shield completes "Always Be Prepared" (task 107, done at varbit 4996;

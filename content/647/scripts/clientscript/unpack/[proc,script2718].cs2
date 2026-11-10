@@ -4,7 +4,7 @@ def_int $int3 = 464;
 if ($int1 = 1) {
     $int3 = 448;
 }
-if_setposition(if_getx($component0), 118, ^setpos_abs_left, ^setpos_abs_top, $component0);
-if_setsize($int3, 181, ^setsize_abs, ^setsize_abs, $component0);
-if_setposition(474, 120, ^setpos_abs_left, ^setpos_abs_top, $component2);
-if_setsize(16, 181, ^setsize_abs, ^setsize_abs, $component2);
+if_setposition($component0, if_getx($component0), 118, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize($component0, $int3, 181, ^setsize_abs, ^setsize_abs);
+if_setposition($component2, 474, 120, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize($component2, 16, 181, ^setsize_abs, ^setsize_abs);

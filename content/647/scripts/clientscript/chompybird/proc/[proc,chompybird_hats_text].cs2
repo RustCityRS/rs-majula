@@ -1,6 +1,6 @@
 // 4229
 [proc,chompybird_hats_text](int $int0, string $string0)
-if ((inv_total(inv, ogre_bow) > 0 | inv_getobj(worn, 3) = ogre_bow | inv_total(inv, comp_ogre_bow) > 0 | inv_getobj(worn, 3) = comp_ogre_bow) & %chompybird_kills >= $int0) {
+if ((inv_total(inv, ogre_bow) > 0 | inv_getobj(worn, 3) = ogre_bow | inv_total(inv, zogre_bow) > 0 | inv_getobj(worn, 3) = zogre_bow) & %chompybird_kills >= $int0) {
     .cc_settext("<$string0><br>Kills: <tostring($int0)>");
     return;
 }

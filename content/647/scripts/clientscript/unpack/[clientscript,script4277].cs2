@@ -1,15 +1,15 @@
 // 4277
 [clientscript,script4277]
-def_int $int0 = calc(%varplayerbit_9186 * 6 / 10);
+def_int $int0 = calc(%clan_rcw_time * 6 / 10);
 def_string $string0 = tostring(calc($int0 / 60));
 def_string $string1 = tostring(calc($int0 % 60));
 if (string_length($string1) < 2) {
     $string1 = append("0", $string1);
 }
-if (%varplayerbit_9187 = 0) {
-    if_settext("Match Starts In:", clan_rcw_score:time_label);
-    if_settext("<$string0>:<$string1>", clan_rcw_score:time);
+if (%clan_rcw_barrierdown = 0) {
+    if_settext(clan_rcw_score:time_label, "Match Starts In:");
+    if_settext(clan_rcw_score:time, "<$string0>:<$string1>");
 } else {
-    if_settext("Time Remaining:", clan_rcw_score:time_label);
-    if_settext("<$string0>:<$string1>", clan_rcw_score:time);
+    if_settext(clan_rcw_score:time_label, "Time Remaining:");
+    if_settext(clan_rcw_score:time, "<$string0>:<$string1>");
 }

@@ -1,9 +1,9 @@
 // 2881
 [proc,script2881]
-if (%varplayerbit_4393 = 1 | %varplayerbit_542 = 1) {
+if (%music_v3_protect = 1 | %cutscene_status = 1) {
     return;
 }
-if (%varclient_1077 = true) {
+if (%music_playlist_toggle_varc = true) {
     ~addtooltip_action(music_v3:playlist_interface, music_v3:music_tooltip_layer, "Click here to access full song list", 25, 189);
 } else {
     ~addtooltip_action(music_v3:playlist_interface, music_v3:music_tooltip_layer, "Click here to access playlist", 25, 189);

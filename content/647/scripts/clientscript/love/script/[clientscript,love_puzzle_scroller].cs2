@@ -4,31 +4,31 @@ def_int $int5 = if_getscrolly($component0);
 if ($boolean3 = true) {
     if ($int5 ! 0) {
         $int5 = max(calc($int5 - 6), 0);
-        if_setscrollpos(0, $int5, $component0);
+        if_setscrollpos($component0, 0, $int5);
     }
     if ($int5 <= 0) {
-        if_setscrollpos(0, 0, $component0);
-        if_setontimer(null, $component0);
-        if_sethide(false, $component1);
-        if_sethide(false, $component2);
+        if_setscrollpos($component0, 0, 0);
+        if_setontimer($component0, null);
+        if_sethide($component1, false);
+        if_sethide($component2, false);
         return;
     }
 } else {
     if ($int5 ! 300) {
         $int5 = min(calc($int5 + 6), 300);
-        if_setscrollpos(0, $int5, $component0);
+        if_setscrollpos($component0, 0, $int5);
     }
     if ($int5 >= 300) {
-        if_setscrollpos(0, 300, $component0);
-        if_setontimer(null, $component0);
-        if_sethide(false, $component1);
-        if_sethide(false, $component2);
+        if_setscrollpos($component0, 0, 300);
+        if_setontimer($component0, null);
+        if_sethide($component1, false);
+        if_sethide($component2, false);
         return;
     }
 }
-if_sethide(true, $component1);
-if_sethide(true, $component2);
+if_sethide($component1, true);
+if_sethide($component2, true);
 if (calc(clientclock - $int4) >= 10) {
-    sound_synth(synth_2871, 1, 0);
-    if_setontimer("love_puzzle_scroller($component0, $component1, $component2, $boolean3, clientclock)", $component0);
+    sound_synth(ft_fairyrings, 1, 0);
+    if_setontimer($component0, "love_puzzle_scroller($component0, $component1, $component2, $boolean3, clientclock)");
 }

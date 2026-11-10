@@ -1,4 +1,4 @@
 // 1261
 [clientscript,script1261]
-if_settext(tostring(%varplayerbit_2880), zep_interface_side:zep_if_sandbags);
-if_settext(tostring(%varplayerbit_2881), zep_interface_side:zep_if_logs);
+if_settext(zep_interface_side:zep_if_sandbags, tostring(%zep_if_sandbags));
+if_settext(zep_interface_side:zep_if_logs, tostring(%zep_if_logs));

@@ -1,7 +1,7 @@
 // 3633
 [proc,trail_success](component $component0)
 if (if_find($component0) = true) {
-    if_setcolour(0x88ff88, $component0);
-    if_setsize(31, 31, ^setsize_abs, ^setsize_abs, $component0);
-    if_setposition(calc(cc_param(param_1101) - 2), calc(cc_param(param_1102) - 2), ^setpos_abs_left, ^setpos_abs_top, $component0);
+    if_setcolour($component0, 0x88ff88);
+    if_setsize($component0, 31, 31, ^setsize_abs, ^setsize_abs);
+    if_setposition($component0, calc(cc_param(param_1101) - 2), calc(cc_param(param_1102) - 2), ^setpos_abs_left, ^setpos_abs_top);
 }

@@ -11,14 +11,14 @@ if (getwindowmode >= 2) {
 }
 if ($boolean1 = true) {
     ~script3337;
-    if_sethide(true, toplevel:xpsplat);
-    if_setontimer(null, toplevel:xpbaselayer);
-    if_sethide(true, toplevel_fullscreen:xpsplat);
-    if_setontimer(null, toplevel_fullscreen:xpbaselayer);
-    if_sethide(false, toplevel_fullscreen:xpbaselayer);
-    if_sethide(false, toplevel:xpbaselayer);
+    if_sethide(toplevel:xpsplat, true);
+    if_setontimer(toplevel:xpbaselayer, null);
+    if_sethide(toplevel_fullscreen:xpsplat, true);
+    if_setontimer(toplevel_fullscreen:xpbaselayer, null);
+    if_sethide(toplevel_fullscreen:xpbaselayer, false);
+    if_sethide(toplevel:xpbaselayer, false);
 } else {
-    if_sethide(true, toplevel_fullscreen:xpbaselayer);
-    if_sethide(true, toplevel:xpbaselayer);
+    if_sethide(toplevel_fullscreen:xpbaselayer, true);
+    if_sethide(toplevel:xpbaselayer, true);
 }
 ~script776;

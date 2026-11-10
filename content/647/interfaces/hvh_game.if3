@@ -219,7 +219,7 @@ text=Name
 textalignh=right
 textshadow=yes
 colour=0x77736a
-onvarcstrtransmit=script1582(event_com, hvh_game:tooltip){varclient_1736}
+onvarcstrtransmit=script1582(event_com, hvh_game:tooltip){hvh_opp_name}
 
 // 730:19
 [hunter_layer]
@@ -334,7 +334,7 @@ height=6
 layer=layer_timer
 colour=0xffff00
 fill=yes
-onvartransmit=hvh_timer_bar{varplayer_1215}
+onvartransmit=hvh_timer_bar{hvh_temps_2}
 
 // 730:30
 [bar_backing]

@@ -1,48 +1,48 @@
 // 0
-[quest_0]
+[cabinfever]
 questpoints=2
 name=Cabin Fever
 masterquestvarp=varplayer_655,10,140
 
 // 1
-[quest_1]
+[tower_of_life]
 questpoints=2
 name=Tower of Life
-masterquestvarbit=varplayerbit_3337,2,18
+masterquestvarbit=tol_prog,2,18
 
 // 2
-[quest_2]
+[scorpioncatcher]
 questpoints=1
 name=Scorpion Catcher
 masterquestvarp=scorpcatcher,1,6
 
 // 3
-[quest_3]
+[thegolem_quest]
 questpoints=1
 name=The Golem
-masterquestvarbit=varplayerbit_346,1,10
+masterquestvarbit=golem_a,1,10
 
 // 4
-[quest_4]
+[rocking_out]
 questpoints=2
 name=Rocking Out
-masterquestvarbit=varplayerbit_4797,10,90
+masterquestvarbit=rocko_quest,10,90
 
 // 5
-[quest_5]
+[thepathofglouphrie]
 questpoints=1
 name=The Path of Glouphrie
-masterquestvarbit=varplayerbit_3954,1,200
+masterquestvarbit=pog_main,1,200
 
 // 6
-[quest_6]
+[cook_quest]
 questpoints=1
 icon=quest_icons_small,1
 name=Cook's Assistant
 masterquestvarp=cookquest,1,2
 
 // 7
-[quest_7]
+[witches_house]
 questpoints=4
 name=Witch's House
 masterquestvarp=ballquest,1,7
@@ -55,19 +55,19 @@ name=The Elemental Workshop I
 masterquestvarp=elemental_workshop_bits,1,524288
 
 // 9
-[quest_9]
+[priestperil]
 questpoints=1
 name=Priest in Peril
 masterquestvarp=priestperil,1,60
 
 // 10
-[quest_10]
+[shadesofmortton]
 questpoints=3
 name=Shades of Mort'ton
 masterquestvarp=morttonquest,5,85
 
 // 11
-[quest_11]
+[lovestory]
 sortname=Love Story
 type=normal
 difficulty=master
@@ -75,509 +75,509 @@ icon=quest_icons_small,10
 members=true
 questpoints=2
 name=Love Story
-masterquestvarbit=varplayerbit_8045,5,150
-questreq=quest_48
-questreq=quest_163
+masterquestvarbit=love,5,150
+questreq=swansong1
+questreq=recipe_for_disaster_sub_7
 statreq=magic,77
 statreq=construction,68
 statreq=smithing,68
 statreq=crafting,67
 
 // 12
-[quest_12]
+[sea_slug_2]
 questpoints=1
 name=Slug Menace
-masterquestvarbit=varplayerbit_2610,1,14
+masterquestvarbit=slug2_main,1,14
 
 // 13
-[quest_13]
+[death_to_the_dorgeshuun]
 questpoints=1
 name=Death to the Dorgeshuun
-masterquestvarbit=varplayerbit_2258,1,13
+masterquestvarbit=dttd_main,1,13
 
 // 14
-[quest_14]
+[spirit_summer_1]
 questpoints=1
 name=Spirit of Summer
-masterquestvarbit=varplayerbit_5032,5,75
+masterquestvarbit=sum1_quest,5,75
 
 // 15
-[quest_15]
+[ernest_the_chicken]
 questpoints=4
 icon=quest_icons_small,4
 name=Ernest the Chicken
 masterquestvarp=haunted,1,3
 
 // 16
-[quest_16]
+[watchtower]
 questpoints=4
 name=The Watchtower
 masterquestvarp=itwatchtower,1,13
 
 // 17
-[quest_17]
+[romeo_and_juliet]
 questpoints=0
 name=Romeo and Juliet
 masterquestvarp=rjquest,10,100
 
 // 18
-[quest_18]
+[tale_of_the_muspah]
 questpoints=1
 name=Tale of the Muspah
-masterquestvarbit=varplayerbit_6048,5,250
+masterquestvarbit=mah1_quest,5,250
 
 // 19
-[quest_19]
+[searchformyreque]
 questpoints=2
 name=In Search of the Myreque
-masterquestvarp=varplayer_387,5,105
+masterquestvarp=routequest,5,105
 
 // 20
-[quest_20]
+[swept_away]
 questpoints=2
 icon=quest_icons_small,14
 name=Swept Away
-masterquestvarbit=varplayerbit_5448,5,50
+masterquestvarbit=swept_quest,5,50
 
 // 21
-[quest_21]
+[in_aid_of_the_myreque]
 questpoints=2
 name=In Aid of the Myreque
-masterquestvarp=varplayer_705,20,430
+masterquestvarp=myreque2_multivar,20,430
 
 // 22
-[quest_22]
+[my_arm]
 questpoints=1
 name=My Arm's Big Adventure
-masterquestvarbit=varplayerbit_2790,10,320
+masterquestvarbit=myarm,10,320
 
 // 23
-[quest_23]
+[catapult_construction]
 questpoints=2
 name=Catapult Construction
-masterquestvarbit=varplayerbit_4396,2,60
+masterquestvarbit=catcon_main,2,60
 
 // 24
-[quest_24]
+[lunar_diplomacy]
 questpoints=2
 name=Lunar Diplomacy
-masterquestvarbit=varplayerbit_2448,10,190
+masterquestvarbit=lunar_quest_main,10,190
 
 // 25
-[quest_25]
+[scabaras]
 questpoints=1
 name=Dealing with Scabaras
-masterquestvarbit=varplayerbit_4230,100,700
+masterquestvarbit=scab,100,700
 
 // 26
-[quest_26]
+[myq3_main_quest]
 questpoints=2
 name=The Darkness of Hallowvale
-masterquestvarbit=varplayerbit_2573,10,320
+masterquestvarbit=myq3_main_quest,10,320
 
 // 27
-[quest_27]
+[restless_ghost]
 questpoints=1
 icon=quest_icons_small,3
 name=The Restless Ghost
 masterquestvarp=prieststart,1,5
 
 // 28
-[quest_28]
+[murder_mystery]
 questpoints=3
 name=Murder Mystery
 masterquestvarp=murderquest,1,2
 
 // 29
-[quest_29]
+[all_fired_up]
 questpoints=1
 name=All Fired Up
-masterquestvarbit=varplayerbit_5133,5,90
+masterquestvarbit=firedup_quest,5,90
 
 // 30
-[quest_30]
+[recipe_for_disaster]
 questpoints=1
 name=Recipe for Disaster
-masterquestvarbit=varplayerbit_1850,1,5
+masterquestvarbit=hundred_main_quest_var,1,5
 
 // 31
-[quest_31]
+[undergroundpass]
 questpoints=5
 name=Underground Pass
 masterquestvarp=upass,1,10
 
 // 32
-[quest_32]
+[grim_quest]
 questpoints=1
 name=Grim Tales
-masterquestvarbit=varplayerbit_2783,1,60
+masterquestvarbit=grim_quest,1,60
 
 // 33
-[quest_33]
+[fur_n_seek]
 questpoints=2
 name=Fur 'n' Seek
 masterquestvarbit=varplayerbit_6307,1,5
 
 // 34
-[quest_34]
+[dwarf_cannon]
 questpoints=1
 name=Dwarf Cannon
 masterquestvarp=mcannon,1,11
 
 // 35
-[quest_35]
+[forgiveness]
 questpoints=2
 name=Forgiveness of a Chaos Dwarf
-masterquestvarbit=varplayerbit_6471,10,80
+masterquestvarbit=ra3_quest,10,80
 
 // 36
-[quest_36]
+[souls_bane]
 questpoints=1
 name=A Soul's Bane
-masterquestvarbit=varplayerbit_2011,1,13
+masterquestvarbit=soulbane_prog,1,13
 
 // 37
-[quest_37]
+[lost_tribe]
 questpoints=1
 name=The Lost Tribe
-masterquestvarbit=varplayerbit_532,1,11
+masterquestvarbit=lost_tribe_quest,1,11
 
 // 38
-[quest_38]
+[heroes_quest]
 questpoints=1
 name=Heroes' Quest
 masterquestvarp=heroquest,1,15
 
 // 39
-[quest_39]
+[sheep_herder]
 questpoints=4
 name=Sheep Herder
 masterquestvarp=sheepherderquest,1,3
 
 // 40
-[quest_40]
+[tribal_totem]
 questpoints=1
 name=Tribal Totem
 masterquestvarp=totemquest,1,5
 
 // 41
-[quest_41]
+[a_first_resort]
 questpoints=1
 name=As A First Resort...
-masterquestvarbit=varplayerbit_4321,1,200
+masterquestvarbit=afr_quest,1,200
 
 // 42
-[quest_42]
+[lostcity]
 questpoints=3
 name=Lost City
 masterquestvarp=zanaris,1,6
 
 // 43
-[quest_43]
+[animal_magnetism]
 questpoints=1
 name=Animal Magnetism
-masterquestvarbit=varplayerbit_3185,10,240
+masterquestvarbit=anma_main,10,240
 
 // 44
-[quest_44]
+[clock_tower]
 questpoints=1
 name=Clock Tower
 masterquestvarp=cogquest,1,8
 
 // 45
-[quest_45]
+[tail_of_two_cats]
 questpoints=2
 name=A Tail of Two Cats
-masterquestvarbit=varplayerbit_1028,5,70
+masterquestvarbit=twocats_quest,5,70
 
 // 46
-[quest_46]
+[spirits_of_the_elid]
 questpoints=2
 name=Spirits of the Elid
-masterquestvarbit=varplayerbit_1444,10,60
+masterquestvarbit=elidquest,10,60
 
 // 47
-[quest_47]
+[myq4]
 questpoints=2
 name=Legacy of Seergaze
-masterquestvarbit=varplayerbit_4569,10,500
+masterquestvarbit=myq4_main_quest,10,500
 
 // 48
-[quest_48]
+[swansong1]
 questpoints=2
 name=Swan Song
-masterquestvarbit=varplayerbit_2098,10,200
+masterquestvarbit=swansong,10,200
 
 // 49
-[quest_49]
+[b2mr]
 questpoints=1
 name=Back to my Roots
-masterquestvarbit=varplayerbit_4055,1,65
+masterquestvarbit=roots_quest,1,65
 
 // 50
-[quest_50]
+[fremenniktrials]
 questpoints=3
 name=The Fremennik Trials
 masterquestvarp=viking,1,10
 
 // 51
-[quest_51]
+[demon_slayer]
 questpoints=3
 name=Demon Slayer
-masterquestvarbit=demon_slayer,1,3
+masterquestvarbit=demonslayer_main,1,3
 
 // 52
-[quest_52]
+[wolfwhistle]
 questpoints=1
 name=Wolf Whistle
-masterquestvarbit=varplayerbit_4302,10,110
+masterquestvarbit=wolf_quest,10,110
 
 // 53
-[quest_53]
+[black_knights_fortress]
 name=Black Knights' Fortress
 masterquestvarp=spy,1,4
 
 // 54
-[quest_54]
+[observatory_quest]
 questpoints=2
 name=Observatory Quest
 masterquestvarp=itgronigen,1,7
 
 // 55
-[quest_55]
+[rune_mysteries]
 questpoints=1
 icon=quest_icon,15
 name=Rune Mysteries
 masterquestvarp=runemysteries,1,6
 
 // 56
-[quest_56]
+[defender_of_varrock]
 questpoints=2
 name=Defender of Varrock
-masterquestvarbit=varplayerbit_5387,10,250
+masterquestvarbit=zemo_main,10,250
 
 // 57
-[quest_57]
+[betweenarock]
 questpoints=2
 name=Between a Rock...
-masterquestvarbit=varplayerbit_299,10,110
+masterquestvarbit=dwarfrock_quest,10,110
 
 // 58
-[quest_58]
+[plague_city]
 questpoints=1
 name=Plague City
 masterquestvarp=elenaquest,1,29
 
 // 59
-[quest_59]
+[jungle_potion]
 questpoints=1
 name=Jungle Potion
 masterquestvarp=junglepotion,1,12
 
 // 60
-[quest_60]
+[pirates_treasure]
 questpoints=2
 name=Pirate's Treasure
 masterquestvarp=hunt,1,4
 
 // 61
-[quest_61]
+[kings_ransom]
 questpoints=1
 name=King's Ransom
-masterquestvarbit=varplayerbit_3888,5,90
+masterquestvarbit=kr_quest,5,90
 
 // 62
-[quest_62]
+[recruitment_drive]
 questpoints=1
 name=Recruitment Drive
-masterquestvarbit=varplayerbit_657,1,2
+masterquestvarbit=rd_main,1,2
 
 // 63
-[quest_63]
+[shield_of_arrav]
 questpoints=1
 name=Shield of Arrav
-masterquestvarp=blackarmgang,1,7
-masterquestvarp=phoenixgang,99999,4
+masterquestvarp=phoenixgang,1,7
+masterquestvarp=blackarmgang,99999,4
 
 // 64
-[quest_64]
+[princeali_rescue]
 questpoints=3
 name=Prince Ali Rescue
 masterquestvarp=princequest,10,110
 
 // 65
-[quest_65]
+[thegrandtree]
 questpoints=5
 name=The Grand Tree
 masterquestvarp=grandtree,10,160
 
 // 66
-[quest_66]
+[dragon_slayer]
 questpoints=2
 name=Dragon Slayer
 masterquestvarp=dragonquest,1,10
 
 // 67
-[quest_67]
+[rat_catchers]
 questpoints=2
 name=Rat Catchers
-masterquestvarbit=varplayerbit_1404,5,127
+masterquestvarbit=ratcatch_var,5,127
 
 // 68
-[quest_68]
+[rag_and_bone_man]
 questpoints=2
 name=Rag and Bone Man
 masterquestvarbit=varplayerbit_6178,1,4
 
 // 69
-[quest_69]
+[digsite_quest]
 questpoints=2
 name=Dig Site
 masterquestvarp=itexamlevel,1,9
 
 // 70
-[quest_70]
+[shilo_village]
 questpoints=2
 name=Shilo Village
 masterquestvarp=zombiequeen,1,15
 
 // 71
-[quest_71]
+[shadow_of_the_storm]
 questpoints=1
 name=Shadow of the Storm
-masterquestvarbit=varplayerbit_1372,10,125
+masterquestvarbit=agrith_quest,10,125
 
 // 72
-[quest_72]
+[imp_catcher]
 questpoints=1
 name=Imp Catcher
 masterquestvarp=imp,1,2
 
 // 73
-[quest_73]
+[fairy_tale_part_1]
 questpoints=2
 name=Fairy Tale I - Growing Pains
-masterquestvarbit=varplayerbit_1803,10,90
+masterquestvarbit=fairy_farmers_quest,10,90
 
 // 74
-[quest_74]
+[myths_of_the_white_lands]
 questpoints=2
 icon=quest_icons_small,13
 name=Myths of the White Lands
-masterquestvarbit=varplayerbit_5733,5,60
+masterquestvarbit=motwl_main,5,60
 
 // 75
-[quest_75]
+[eadgars_ruse]
 questpoints=1
 name=Eadgar's Ruse
 masterquestvarp=eadgar_quest,10,110
 
 // 76
-[quest_76]
+[fishing_contest]
 questpoints=1
 name=Fishing Contest
 masterquestvarp=fishingcompo,1,5
 
 // 77
-[quest_77]
+[missing_my_mummy]
 questpoints=1
 name=Missing My Mummy
-masterquestvarbit=varplayerbit_6112,10,60
+masterquestvarbit=mom2_main,10,60
 
 // 78
-[quest_78]
+[treegnomevillage]
 questpoints=2
 name=Tree Gnome Village
 masterquestvarp=treequest,1,9
 
 // 79
-[quest_79]
+[dream_mentor]
 questpoints=2
 name=Dream Mentor
-masterquestvarbit=varplayerbit_3618,2,28
+masterquestvarbit=dream_prog,2,28
 
 // 80
-[quest_80]
+[smoking]
 questpoints=1
 name=Smoking Kills
-masterquestvarbit=varplayerbit_4764,10,250
+masterquestvarbit=smki,10,250
 
 // 81
-[quest_81]
+[tears_of_guthix]
 questpoints=1
 name=Tears of Guthix
-masterquestvarbit=varplayerbit_451,1,2
+masterquestvarbit=tog_juna_bowl,1,2
 
 // 82
-[quest_82]
+[ghosts_ahoy]
 questpoints=2
 name=Ghosts Ahoy
-masterquestvarbit=varplayerbit_217,1,8
+masterquestvarbit=ahoy_questvar,1,8
 
 // 83
-[quest_83]
+[vkq2]
 questpoints=1
 icon=quest_icons_small,12
 name=A Void Dance
-masterquestvarbit=varplayerbit_7451,3,63
+masterquestvarbit=vkq2_quest,3,63
 
 // 84
-[quest_84]
+[recipe_for_disaster_sub_0]
 questpoints=1
-parent=quest_30
+parent=recipe_for_disaster
 name=Recipe for Disaster: Starting Out
-masterquestvarbit=varplayerbit_1850,1,2
+masterquestvarbit=hundred_main_quest_var,1,2
 
 // 85
-[quest_85]
+[troll_stronghold]
 questpoints=1
 name=Troll Stronghold
 masterquestvarp=troll_quest,10,50
 
 // 86
-[quest_86]
+[while_guthix_sleeps]
 questpoints=5
 name=While Guthix Sleeps
-masterquestvarbit=varplayerbit_5491,10,910
+masterquestvarbit=luc2_main_quest,10,910
 
 // 87
-[quest_87]
+[in_pyre_need]
 questpoints=1
 name=In Pyre Need
-masterquestvarbit=varplayerbit_5761,10,30
+masterquestvarbit=phoenix_quest_var,10,30
 
 // 88
-[quest_88]
+[brain_quest]
 questpoints=2
 name=Great Brain Robbery
-masterquestvarp=varplayer_980,10,130
+masterquestvarp=brain_quest_var,10,130
 
 // 89
-[quest_89]
+[tbwt]
 questpoints=2
 name=Tai Bwo Wannai Trio
 masterquestvarp=tbwt_main,1,6
 
 // 90
-[quest_90]
+[troll_romance]
 questpoints=2
 name=Troll Romance
-masterquestvarp=varplayer_385,1,45
+masterquestvarp=troll_love,1,45
 
 // 91
-[quest_91]
+[lotg]
 questpoints=1
 name=Land of the Goblins
-masterquestvarbit=varplayerbit_4105,1,18
+masterquestvarbit=lotg_quest,1,18
 
 // 92
-[quest_92]
+[creature_of_fenkenstrain]
 questpoints=2
 name=Creature of Fenkenstrain
-masterquestvarp=varplayer_399,1,8
+masterquestvarp=fenk_quest,1,8
 
 // 93
-[quest_93]
+[waterfall]
 questpoints=1
 name=Waterfall Quest
 masterquestvarp=waterfall_quest,1,8
@@ -586,513 +586,513 @@ masterquestvarp=waterfall_quest,1,8
 [quest_94]
 questpoints=1
 name=The Elemental Workshop II
-masterquestvarbit=varplayerbit_2639,1,11
+masterquestvarbit=elemental_quest_2_main,1,11
 
 // 95
-[quest_95]
+[summers_end]
 questpoints=1
 name=Summer's End
-masterquestvarbit=varplayerbit_5331,5,35
+masterquestvarbit=sum2_quest,5,35
 
 // 96
-[quest_96]
+[kennithsconcerns]
 questpoints=1
 name=Kennith's Concerns
-masterquestvarbit=varplayerbit_4505,5,100
+masterquestvarbit=ken_main,5,100
 
 // 97
-[quest_97]
+[enakhras_lament]
 questpoints=2
 name=Enakhra's Lament
-masterquestvarbit=varplayerbit_1560,10,70
+masterquestvarbit=enakh_quest,10,70
 
 // 98
-[quest_98]
+[forgettable_tale_of_adrunkendwarf]
 questpoints=2
 name=Forgettable Tale of a Drunken Dwarf
-masterquestvarbit=varplayerbit_822,10,140
+masterquestvarbit=forget_quest,10,140
 
 // 99
-[quest_99]
+[doric_quest]
 questpoints=1
 name=Doric's Quest
 masterquestvarp=doricquest,10,100
 
 // 100
-[quest_100]
+[regicide_quest]
 questpoints=3
 name=Regicide
 masterquestvarp=regicide_quest,1,13
 
 // 101
-[quest_101]
+[rum_deal]
 questpoints=2
 name=A Rum Deal
 masterquestvarp=varplayer_600,1,19
 
 // 102
-[quest_102]
+[big_chompy_bird_hunting]
 questpoints=2
 name=Big Chompy Bird Hunting
 masterquestvarp=chompybird,5,65
 
 // 103
-[quest_103]
+[wanted_quest]
 questpoints=1
 name=Wanted!
-masterquestvarbit=varplayerbit_1051,1,11
+masterquestvarbit=wanted_main,1,11
 
 // 104
-[quest_104]
+[zogre_flesh_eaters]
 questpoints=1
 name=Zogre Flesh Eaters
-masterquestvarbit=varplayerbit_487,1,14
+masterquestvarbit=zogre,1,14
 
 // 105
-[quest_105]
+[horror_from_deep]
 questpoints=2
 name=Horror from the Deep
 masterquestvarbit=horrorquest,1,10
 
 // 106
-[quest_106]
+[fightarena]
 questpoints=2
 name=Fight Arena
 masterquestvarp=arenaquest,1,14
 
 // 107
-[quest_107]
+[led_zep]
 questpoints=1
 name=Enlightened Journey
-masterquestvarbit=varplayerbit_2866,5,200
+masterquestvarbit=zep_quest,5,200
 
 // 108
-[quest_108]
+[merlins_crystal]
 questpoints=6
 name=Merlin's Crystal
 masterquestvarp=arthur,1,7
 
 // 109
-[quest_109]
+[perils]
 questpoints=1
 name=Perils of Ice Mountain
-masterquestvarbit=varplayerbit_4684,10,140
+masterquestvarbit=icemt_quest,10,140
 
 // 110
-[quest_110]
+[roving_elves]
 questpoints=1
 name=Roving Elves
 masterquestvarp=varplayer_402,2,6
 
 // 111
-[quest_111]
+[druidic_ritual]
 questpoints=4
 name=Druidic Ritual
 masterquestvarp=druidquest,1,4
 
 // 112
-[quest_112]
+[holy_grail]
 questpoints=2
 name=Holy Grail
 masterquestvarp=grail,2,10
 
 // 113
-[quest_113]
+[the_tourist_trap]
 questpoints=2
 name=The Tourist Trap
 masterquestvarp=desertrescue,1,30
 
 // 114
-[quest_114]
+[chosen_commander]
 name=Chosen Commander
-masterquestvarbit=varplayerbit_1938,10,110
+masterquestvarbit=chosen_quest,10,110
 
 // 115
-[quest_115]
+[glorious_memories]
 questpoints=1
 name=Glorious Memories
-masterquestvarbit=varplayerbit_6001,3,45
+masterquestvarbit=glomem_quest,3,45
 
 // 116
-[quest_116]
+[family_crest]
 questpoints=1
 name=Family Crest
 masterquestvarp=crestquest,1,11
 
 // 117
-[quest_117]
+[curse_of_arrav]
 name=Curse of Arrav
-masterquestvarbit=varplayerbit_6289,10,240
+masterquestvarbit=mah3_main,10,240
 
 // 118
-[quest_118]
+[garden_of_tranquility]
 questpoints=2
 name=Garden of Tranquility
-masterquestvarbit=varplayerbit_961,10,60
+masterquestvarbit=garden_quest,10,60
 
 // 119
-[quest_119]
+[legends1]
 questpoints=4
 name=Legends' Quest
 masterquestvarp=legendsquest,1,75
 
 // 120
-[quest_120]
+[haunted_mine]
 questpoints=2
 name=Haunted Mine
-masterquestvarp=varplayer_382,1,11
+masterquestvarp=hauntedmine,1,11
 
 // 121
-[quest_121]
+[sea_slug]
 questpoints=1
 name=Sea Slug
 masterquestvarp=seaslugquest,1,12
 
 // 122
-[quest_122]
+[red_raktuber]
 questpoints=1
 name=Hunt for Red Raktuber
-masterquestvarbit=varplayerbit_6180,10,140
+masterquestvarbit=peng_rak_quest,10,140
 
 // 123
-[quest_123]
+[devious_minds]
 questpoints=1
 name=Devious Minds
-masterquestvarbit=varplayerbit_1465,10,80
+masterquestvarbit=devious_main,10,80
 
 // 124
-[quest_124]
+[making_history]
 questpoints=3
 name=Making History
-masterquestvarbit=varplayerbit_1383,1,4
+masterquestvarbit=makinghistory_prog,1,4
 
 // 125
-[quest_125]
+[hazeel_cult]
 questpoints=1
 name=Hazeel Cult
 masterquestvarp=hazeelcultquest,2,9
 
 // 126
-[quest_126]
+[temple_of_ikov]
 questpoints=1
 name=Temple of Ikov
 masterquestvarp=ikov,10,80
 
 // 127
-[quest_127]
+[royal_trouble]
 questpoints=1
 name=Royal Trouble
-masterquestvarbit=varplayerbit_2140,10,30
+masterquestvarbit=royal_quest,10,30
 
 // 128
-[quest_128]
+[biohazard]
 questpoints=3
 name=Biohazard
 masterquestvarp=biohazard,1,16
 
 // 129
-[quest_129]
+[mournings_ends_part2]
 questpoints=2
 name=Mourning's Ends Part II
-masterquestvarbit=varplayerbit_1103,10,60
+masterquestvarbit=mourning_quest_main,10,60
 
 // 130
-[quest_130]
+[monkey_madness]
 questpoints=3
 name=Monkey Madness
-masterquestvarp=varplayer_365,1,9
+masterquestvarp=mm_main,1,9
 
 // 131
-[quest_131]
+[tutorial_3]
 questpoints=1
 name=Unstable Foundations
-masterquestvarp=learning_the_ropes,5,1000
+masterquestvarp=tutorial,5,1000
 
 // 132
-[quest_132]
+[vampire_slayer]
 questpoints=3
 name=Vampire Slayer
-masterquestvarbit=varplayerbit_6914,1,3
+masterquestvarbit=vampire_quest,1,3
 
 // 133
-[quest_133]
+[nature_spirit]
 questpoints=2
 name=Nature Spirit
 masterquestvarp=druidspirit,5,110
 
 // 134
-[quest_134]
+[the_giant_dwarf]
 questpoints=2
 name=The Giant Dwarf
-masterquestvarbit=varplayerbit_571,5,50
+masterquestvarbit=giantdwarf_quest,5,50
 
 // 135
-[quest_135]
+[desert_treasure]
 questpoints=3
 name=Desert Treasure
-masterquestvarbit=varplayerbit_358,1,15
+masterquestvarbit=deserttreasure,1,15
 
 // 136
-[quest_136]
+[the_feud]
 questpoints=1
 name=The Feud
-masterquestvarbit=varplayerbit_334,1,28
+masterquestvarbit=feud_var,1,28
 
 // 137
-[quest_137]
+[goblin_diplomacy]
 questpoints=5
 name=Goblin Diplomacy
-masterquestvarbit=varplayerbit_2378,1,6
+masterquestvarbit=gobdip_main,1,6
 
 // 138
-[quest_138]
+[gertrudes_cat]
 questpoints=1
 name=Gertrude's Cat
 masterquestvarp=fluffs,1,6
 
 // 139
-[quest_139]
+[dillo]
 questpoints=1
 name=TokTz-Ket-Dill
-masterquestvarbit=varplayerbit_4700,5,63
+masterquestvarbit=dillo_quest,5,63
 
 // 140
-[quest_140]
+[death_plateau]
 questpoints=1
 name=Death Plateau
 masterquestvarp=death_equiproom,10,80
 
 // 141
-[quest_141]
+[icthlarins_little_helper]
 questpoints=2
 name=Icthlarin's Little Helper
-masterquestvarbit=varplayerbit_418,1,26
+masterquestvarbit=ics_little_var,1,26
 
 // 142
-[quest_142]
+[meeting_history]
 questpoints=1
 name=Meeting History
-masterquestvarbit=varplayerbit_5075,5,20
+masterquestvarbit=hist_prog,5,20
 
 // 143
-[quest_143]
+[eyes_glouphrie]
 questpoints=2
 name=The Eyes of Glouphrie
-masterquestvarbit=varplayerbit_2497,10,60
+masterquestvarbit=eyeglo_quest,10,60
 
 // 144
-[quest_144]
+[what_lies_below]
 questpoints=1
 name=What Lies Below
-masterquestvarbit=varplayerbit_3523,5,150
+masterquestvarbit=surok_quest,5,150
 
 // 145
-[quest_145]
+[cold_war]
 questpoints=1
 name=Cold War
-masterquestvarbit=varplayerbit_3293,5,135
+masterquestvarbit=peng_quest,5,135
 
 // 146
-[quest_146]
+[one_small_favour]
 questpoints=2
 name=One Small Favour
 masterquestvarp=varplayer_416,5,285
 
 // 147
-[quest_147]
+[monksfriend]
 questpoints=1
 name=Monk's Friend
 masterquestvarp=drunkmonkquest,10,80
 
 // 148
-[quest_148]
+[fremennik_isles]
 questpoints=1
 name=Fremennik Isles
-masterquestvarbit=varplayerbit_3311,5,340
+masterquestvarbit=fris_quest,5,340
 
 // 149
-[quest_149]
+[eagles_peak]
 questpoints=2
 name=Eagles' Peak
-masterquestvarbit=varplayerbit_2780,5,40
+masterquestvarbit=eaglepeak_quest,5,40
 
 // 150
-[quest_150]
+[handsand_quest]
 questpoints=1
 name=The Hand in the Sand
-masterquestvarbit=varplayerbit_1527,10,160
+masterquestvarbit=handsand_quest,10,160
 
 // 151
-[quest_151]
+[mountain_daughter]
 questpoints=2
 name=Mountain Daughter
-masterquestvarbit=varplayerbit_260,10,70
+masterquestvarbit=mdaughter_quest_var,10,70
 
 // 152
-[quest_152]
+[squire_quest]
 questpoints=1
 name=The Knight's Sword
 masterquestvarp=squire,1,7
 
 // 153
-[quest_153]
+[olaf_quest]
 questpoints=1
 name=Olaf's Quest
-masterquestvarbit=varplayerbit_3534,10,80
+masterquestvarbit=olaf_quest_var,10,80
 
 // 154
-[quest_154]
+[fairytale_part2]
 questpoints=2
 name=Fairy Tale II - Cure a Queen
-masterquestvarbit=varplayerbit_2326,10,90
+masterquestvarbit=fairy2_queencure_quest,10,90
 
 // 155
-[quest_155]
+[another_slice_of_ham]
 questpoints=1
 name=Another Slice of H.A.M.
-masterquestvarbit=varplayerbit_3550,1,11
+masterquestvarbit=slice_quest,1,11
 
 // 156
-[quest_156]
+[mournings_ends_part1]
 questpoints=2
 name=Mourning's Ends Part I
 masterquestvarp=varplayer_517,1,8
 
 // 157
-[quest_157]
+[tomisc]
 questpoints=1
 name=Throne of Miscellania
-masterquestvarp=varplayer_359,10,100
+masterquestvarp=misc_quest,10,100
 
 // 158
-[quest_158]
+[contact_qh]
 questpoints=1
 name=Contact!
-masterquestvarbit=varplayerbit_3274,10,130
+masterquestvarbit=contact,10,130
 
 // 159
-[quest_159]
+[recipe_for_disaster_sub_6]
 questpoints=1
-parent=quest_30
+parent=recipe_for_disaster
 name=Recipe for Disaster: Skrach
 masterquestvarbit=varplayerbit_1904,10,170
 
 // 160
-[quest_160]
+[recipe_for_disaster_sub_5]
 questpoints=1
-parent=quest_30
+parent=recipe_for_disaster
 name=Recipe for Disaster: Evil Dave
-masterquestvarbit=varplayerbit_1878,1,5
+masterquestvarbit=hundred_dave_main,1,5
 
 // 161
-[quest_161]
+[recipe_for_disaster_sub_1]
 questpoints=1
-parent=quest_30
+parent=recipe_for_disaster
 name=Recipe for Disaster: Dwarf
-masterquestvarbit=varplayerbit_1892,10,60
+masterquestvarbit=hundred_dwarf_quest,10,60
 
 // 162
-[quest_162]
+[recipe_for_disaster_sub_8]
 questpoints=1
-parent=quest_30
+parent=recipe_for_disaster
 name=Recipe for Disaster: Awowogei
-masterquestvarbit=varplayerbit_1914,5,50
+masterquestvarbit=hundred_ilm_quest,5,50
 
 // 163
-[quest_163]
+[recipe_for_disaster_sub_7]
 questpoints=1
-parent=quest_30
+parent=recipe_for_disaster
 name=Recipe for Disaster: Sir Amik Varze
-masterquestvarbit=varplayerbit_1910,5,20
+masterquestvarbit=chickenquest,5,20
 
 // 164
-[quest_164]
+[recipe_for_disaster_sub_3]
 questpoints=1
-parent=quest_30
+parent=recipe_for_disaster
 name=Recipe for Disaster: Pirate Pete
 masterquestvarbit=varplayerbit_1895,10,110
 
 // 165
-[quest_165]
+[recipe_for_disaster_sub_2]
 questpoints=1
-parent=quest_30
+parent=recipe_for_disaster
 name=Recipe for Disaster: Goblin Generals
 masterquestvarbit=varplayerbit_1867,5,40
 
 // 166
-[quest_166]
+[recipe_for_disaster_sub_4]
 questpoints=1
-parent=quest_30
+parent=recipe_for_disaster
 name=Recipe for Disaster: Lumbridge Sage
 masterquestvarbit=varplayerbit_1896,1,5
 
 // 167
-[quest_167]
+[within_the_light]
 questpoints=2
 name=Within the Light
-masterquestvarbit=varplayerbit_6553,1,46
+masterquestvarbit=wtl_main_quest_var,1,46
 
 // 168
-[quest_168]
+[senntisten]
 questpoints=2
 name=The Temple at Senntisten
-masterquestvarbit=varplayerbit_6775,10,90
+masterquestvarbit=mah4_main,10,90
 
 // 169
-[quest_169]
+[epic_viking]
 questpoints=2
 name=Blood Runs Deep
-masterquestvarbit=varplayerbit_6883,3,147
+masterquestvarbit=evq_quest,3,147
 
 // 170
-[quest_170]
+[nomads_requiem]
 questpoints=3
 name=Nomad's Requiem
-masterquestvarbit=varplayerbit_6962,1,12
+masterquestvarbit=nom_quest,1,12
 
 // 171
-[quest_171]
+[rune_mechanics]
 questpoints=1
 name=Rune Mechanics
-masterquestvarbit=varplayerbit_7050,5,35
+masterquestvarbit=rm_quest,5,35
 
 // 172
-[quest_172]
+[lumbcat_blood_pact]
 questpoints=1
 icon=quest_icons_small,15
 name=The Blood Pact
-masterquestvarbit=varplayerbit_7238,10,60
+masterquestvarbit=lumbcat_quest,10,60
 
 // 173
-[quest_173]
+[sheep_shearer]
 questpoints=0
 icon=quest_icons_small,2
 name=Sheep Shearer
 masterquestvarp=sheep,1,21
 
 // 174
-[quest_174]
+[thigui]
 questpoints=1
 icon=quest_icons_small,5
 name=Buyers and Cellars
-masterquestvarbit=varplayerbit_7792,5,10
+masterquestvarbit=thigui_quest,5,10
 
 // 175
-[quest_175]
+[fairy_tale_part_3]
 type=normal
 difficulty=experienced
 members=true
 questpoints=2
 icon=quest_icons_small,6
 name=Fairy Tale III - Battle at Orks Rift
-masterquestvarbit=varplayerbit_7826,10,180
+masterquestvarbit=ft3_quest,10,180
 
 // 176
 [quest_176]
 questpoints=1
 icon=quest_icons_small,9
 name=The Elemental Workshop III
-masterquestvarbit=varplayerbit_7871,1,5
+masterquestvarbit=elem_3_main,1,5
 param=param_694,1
 param=param_948,Search the bookcase in Seers' Village chapel.
 param=param_949,Any pickaxe, some coal, a hammer.
@@ -1102,88 +1102,88 @@ param=param_952,"quest_icons_large,9"
 param=param_691,null
 
 // 177
-[quest_177]
+[vkq1_quiet_before_swarm]
 questpoints=1
 icon=quest_icons_small,11
 name=Quiet Before the Swarm
-masterquestvarbit=varplayerbit_7958,5,90
+masterquestvarbit=vkq1_quest,5,90
 
 // 178
-[quest_178]
+[witchs_potion]
 questpoints=0
 icon=quest_icon,0
 name=Witch's Potion
 masterquestvarp=hetty,1,3
 
 // 179
-[quest_179]
+[romcom]
 sortname=Gunnar's Ground
 type=normal
 difficulty=novice
 icon=quest_icons_small,16
 questpoints=0
 name=Gunnar's Ground
-masterquestvarbit=varplayerbit_5730,5,100
+masterquestvarbit=romcom_quest,5,100
 mainstartcoord=0_48_53_27_30
 statreq=crafting,5
 
 // 180
-[quest_180]
+[vkq3_lie_in_ruins]
 questpoints=1
 icon=quest_icons_small,21
 name=The Void Stares Back
-masterquestvarbit=varplayerbit_8248,2,40
+masterquestvarbit=vkq3_quest,2,40
 
 // 181
-[quest_181]
+[xmas_2010]
 sortname=O Little Town of Daemonheim
 type=seasonal
 difficulty=novice
 questpoints=0
 name=O Little Town of Daemonheim
-masterquestvarbit=varplayerbit_8671,1,44
+masterquestvarbit=xmas10_main,1,44
 
 // 182
-[quest_182]
+[taskmaster]
 icon=achievement_diary_icons,1
 name=Task System
 
 // 183
-[quest_183]
+[apmeken_quest]
 questpoints=1
 icon=quest_icons_small2,12
 name=Do No Evil
-masterquestvarbit=varplayerbit_8605,10,315
+masterquestvarbit=apmeken_master,10,315
 
 // 184
-[quest_184]
+[halloween_2010]
 sortname=Partying is Such Sweet Sorrow
 type=seasonal
 questpoints=0
 difficulty=novice
 name=Partying is Such Sweet Sorrow
-masterquestvarbit=varplayerbit_8300,1,20
+masterquestvarbit=hw10_main,1,20
 
 // 185
-[quest_185]
+[king_of_the_dwarves]
 questpoints=2
 icon=quest_icons_small,20
 name=King of the Dwarves
-masterquestvarbit=varplayerbit_8704,10,90
+masterquestvarbit=ra4_quest,10,90
 
 // 186
-[quest_186]
+[prisoner_of_glouphrie]
 questpoints=1
 icon=quest_icons_small2,13
 name=Prisoner of Glouphrie
-masterquestvarbit=varplayerbit_5332,1,120
+masterquestvarbit=glo3_main,1,120
 
 // 187
 [quest_187]
 questpoints=1
 icon=quest_icons_small2,14
 name=The Elemental Workshop IV
-masterquestvarbit=varplayerbit_998,1,8
+masterquestvarbit=elem_4_main,1,8
 param=param_694,1
 param=param_948,Search the bookcase on the ground floor of the Sorcerer's Tower.
 param=param_949,A hammer, a chisel, a handful of elemental runes (air, earth, water and fire), and two primed bars of elemental metal.
@@ -1193,28 +1193,28 @@ param=param_952,"quest_icons_large2,13"
 param=param_691,null
 
 // 188
-[quest_188]
+[clockwork_syringe]
 questpoints=1
 icon=quest_icons_small2,15
 name=A Clockwork Syringe
-masterquestvarbit=varplayerbit_8961,10,210
+masterquestvarbit=acs_quest,10,210
 
 // 189
-[quest_189]
+[easter11_holly]
 sortname=Holly
 type=seasonal
 questpoints=0
 difficulty=novice
 name=Holly
-masterquestvarbit=varplayerbit_9198,1,60
+masterquestvarbit=easter11_miniquest,1,60
 
 // 190
-[quest_190]
+[easter11_hawthorn]
 sortname=Hawthorn
 type=seasonal
 questpoints=0
 members=true
 difficulty=novice
 name=Hawthorn
-masterquestvarbit=varplayerbit_9201,1,3
+masterquestvarbit=easter11_miniquest_members,1,3
 

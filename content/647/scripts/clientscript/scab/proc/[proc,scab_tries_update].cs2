@@ -1,6 +1,6 @@
 // 738
 [proc,scab_tries_update]
-def_string $string0 = tostring(calc(%varclient_105 / 10));
-def_string $string1 = tostring(calc(%varclient_105 % 10));
-if_settext($string0, scab_rune_game:counter_01);
-if_settext($string1, scab_rune_game:counter_02);
+def_string $string0 = tostring(calc(%scab_total_tries_remaining / 10));
+def_string $string1 = tostring(calc(%scab_total_tries_remaining % 10));
+if_settext(scab_rune_game:counter_01, $string0);
+if_settext(scab_rune_game:counter_02, $string1);

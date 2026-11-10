@@ -120,7 +120,7 @@ fn the_basement_levers_unlock_2011_s_doors() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let levers = varp(engine, "ernestlever");
-        let doors = varp(engine, "ernest_doors");
+        let doors = varp(engine, "ernestdoors");
         assert_eq!((levers, doors), (33, 668), "the cache's varps");
         let (bx, bz) = next_to(LEVER_B.1, 0, LEVER_B.2);
         let mut client = login(engine, "ernest_levers", (bx, 0, bz));
@@ -197,7 +197,7 @@ fn the_basement_levers_unlock_2011_s_doors() {
 fn the_candle_sconce_opens_the_secret_room() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let sconce = (loc(engine, "candle_sconce"), 3097, 3360);
+        let sconce = (loc(engine, "fai_draynor_candle_lever"), 3097, 3360);
         let mut client = login(engine, "ernest_sconce", (3098, 0, 3360));
         op_loc1(&mut client, sconce);
         ticks(engine, &mut client, 8);
@@ -212,7 +212,7 @@ fn the_candle_sconce_opens_the_secret_room() {
 fn the_front_doors_open_from_outside_only() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let door = (loc(engine, "large_door_47421"), 3108, 3353);
+        let door = (loc(engine, "fai_draynor_exterior_wall_door_closed"), 3108, 3353);
         let mut client = login(engine, "ernest_doors_out", (3108, 0, 3352));
         op_loc1(&mut client, door);
         ticks(engine, &mut client, 10);

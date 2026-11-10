@@ -12,4 +12,4 @@ if ($int1 = 2047) {
 } else {
     $int7 = calc($int1 + 1);
 }
-if_setmodelangle($int5, $int6, $int2, $int7, $int3, $int4, $component0);
+if_setmodelangle($component0, $int5, $int6, $int2, $int7, $int3, $int4);

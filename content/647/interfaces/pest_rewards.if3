@@ -445,7 +445,7 @@ textlineheight=12
 colour=0x855013
 transmitop=1
 op1=Attack
-opcursor0=cursor_42
+opcursor0=cursor_attack
 onmouseover=pest_mouseover(event_com, 1)
 onmouseleave=pest_mouseleave(event_com)
 
@@ -698,7 +698,7 @@ textlineheight=12
 colour=0x855013
 transmitop=1
 op1=Attack
-opcursor0=cursor_42
+opcursor0=cursor_attack
 onmouseover=pest_mouseover(event_com, 2)
 onmouseleave=pest_mouseleave(event_com)
 
@@ -818,7 +818,7 @@ textlineheight=12
 colour=0x855013
 transmitop=1
 op1=Attack
-opcursor0=cursor_42
+opcursor0=cursor_attack
 onmouseover=pest_mouseover(event_com, 3)
 onmouseleave=pest_mouseleave(event_com)
 
@@ -1463,7 +1463,7 @@ textalignh=centre
 textalignv=centre
 textshadow=yes
 colour=0x969696
-onvartransmit=script1966(event_com){xplamp_stat}
+onvartransmit=script1966(event_com){if1}
 
 // 267:102
 [com_102]

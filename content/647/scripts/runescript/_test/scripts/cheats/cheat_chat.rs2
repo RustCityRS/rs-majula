@@ -44,13 +44,13 @@ if (p_finduid(uid) = true) {
 // Six lines at 2011's 380 in q8_full: two pages.
 [debugproc,chat_doubleobjbox]
 if (p_finduid(uid) = true) {
-    ~doubleobjbox(strung_gold_amulet, bowl, "The first line of a long message that takes more than one page. The second line of a long message that takes more than one page. The third line of a long message that takes more than one page. The fourth line of a long message that takes more than one page. The fifth line of a long message that takes more than one page.", 200);
+    ~doubleobjbox(strung_gold_amulet, bowl_empty, "The first line of a long message that takes more than one page. The second line of a long message that takes more than one page. The third line of a long message that takes more than one page. The fourth line of a long message that takes more than one page. The fifth line of a long message that takes more than one page.", 200);
     mes("chat_doubleobjbox done");
 }
 
 [debugproc,chat_doubleobjbox2]
 if (p_finduid(uid) = true) {
-    ~doubleobjbox2(strung_gold_amulet, 180, 0, divide(^objbox_height, -2), bowl, 200, 0, 0, "You can now craft Bowls and Gold Amulets.");
+    ~doubleobjbox2(strung_gold_amulet, 180, 0, divide(^objbox_height, -2), bowl_empty, 200, 0, 0, "You can now craft Bowls and Gold Amulets.");
     mes("chat_doubleobjbox2 done");
 }
 

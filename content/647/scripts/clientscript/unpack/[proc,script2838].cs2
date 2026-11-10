@@ -17,6 +17,6 @@ spline_addpoint(0, 4, ~script2808($coord2, 0_52_91_8_8, 0_52_91_33_26), 506, ~sc
 spline_addpoint(1, 4, ~script2808($coord2, 0_52_91_8_8, 0_52_91_33_30), 240, ~script2808($coord2, 0_52_91_8_8, 0_52_91_33_29), 330, 0);
 spline_addpoint(0, 5, ~script2808($coord2, 0_52_91_8_8, 0_52_91_33_24), 506, ~script2808($coord2, 0_52_91_8_8, 0_52_91_33_23), 506, 0);
 spline_addpoint(1, 5, ~script2808($coord2, 0_52_91_8_8, 0_52_91_33_37), 350, ~script2808($coord2, 0_52_91_8_8, 0_52_91_33_39), 350, 0);
-%varclient_1068 = 0;
-if_setoncamfinished("script2840", nom_cutscene_controller:cutscene_controller);
-cam_movealong(0, %varclient_1068, 100, 100, 1, %varclient_1068);
+%nom_spline_step = 0;
+if_setoncamfinished(nom_cutscene_controller:cutscene_controller, "script2840");
+cam_movealong(0, %nom_spline_step, 100, 100, 1, %nom_spline_step);

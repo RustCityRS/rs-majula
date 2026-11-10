@@ -3,14 +3,14 @@
 cc_deleteall(friends2:ignorebox);
 def_int $int0 = ignore_count;
 if ($int0 < 0) {
-    if_settext("Loading Ignore List.<br>Please wait.", friends2:loadingmes);
-    if_sethide(false, friends2:loadingmes);
-    if_settext("", friends2:ignore_info);
+    if_settext(friends2:loadingmes, "Loading Ignore List.<br>Please wait.");
+    if_sethide(friends2:loadingmes, false);
+    if_settext(friends2:ignore_info, "");
     return;
 }
-if_settext("<tostring($int0)> / <tostring(100)>", friends2:ignore_info);
-if_settext("", friends2:loadingmes);
-if_sethide(true, friends2:loadingmes);
+if_settext(friends2:ignore_info, "<tostring($int0)> / <tostring(100)>");
+if_settext(friends2:loadingmes, "");
+if_sethide(friends2:loadingmes, true);
 def_component $component1 = friends2:ignorebox;
 def_component $component2 = friends2:ignorebox_rectangles;
 def_component $component3 = friends2:ignorebox_scrolling_layer;
@@ -101,7 +101,7 @@ def_int $int12 = 0;
 def_int $int13 = 0;
 $int12 = if_getscrolly($component3);
 $int13 = calc($int5 * $int10);
-if_setscrollsize(if_getwidth($component3), $int13, $component3);
+if_setscrollsize($component3, if_getwidth($component3), $int13);
 if ($int12 > $int13) {
     $int12 = $int13;
 }

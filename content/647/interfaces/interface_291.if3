@@ -369,7 +369,7 @@ type=layer
 width=512
 height=334
 onload=script2501
-onvarctransmit=script2502{varclient_838}
+onvarctransmit=script2502{mob_client_scenario}
 onvarcstrtransmit=script2504{varclient_1699}
 
 // 291:28
@@ -458,7 +458,7 @@ textfont=p12_full
 text=--------------
 textshadow=yes
 colour=0xff9900
-onvarctransmit=script2503{varclient_837}
+onvarctransmit=script2503{mob_client_formation}
 
 // 291:34
 [formation_title]

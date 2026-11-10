@@ -2,13 +2,13 @@
 [proc,options_chat_filter]
 def_string $string0 = null;
 if (%varplayerbit_8780 = 1) {
-    if_setgraphic("filter_chat_icon,1", options:com_3);
+    if_setgraphic(options:com_3, "filter_chat_icon,1");
     $string0 = "Toggle Profanity Filter<br>(filter is currently off)";
-    if_setonmouserepeat("addtooltip(event_com, options:options_tooltip, $string0, 25, 180)", options:com_3);
-    %varclient_2 = 0;
+    if_setonmouserepeat(options:com_3, "addtooltip(event_com, options:options_tooltip, $string0, 25, 180)");
+    %tooltip_built = 0;
 } else if (%varplayerbit_8780 = 0) {
-    if_setgraphic("filter_chat_icon,0", options:com_3);
+    if_setgraphic(options:com_3, "filter_chat_icon,0");
     $string0 = "Toggle Profanity Filter<br>(filter is currently on)";
-    if_setonmouserepeat("addtooltip(event_com, options:options_tooltip, $string0, 25, 180)", options:com_3);
-    %varclient_2 = 0;
+    if_setonmouserepeat(options:com_3, "addtooltip(event_com, options:options_tooltip, $string0, 25, 180)");
+    %tooltip_built = 0;
 }

@@ -1,5 +1,5 @@
 // 4368
 [clientscript,clan_qfc_text_init](component $component0, component $component1)
-if_setonkey("clan_qfc_text_input($component0, event_keychar, event_keycode, $component1)", $component0);
-if_setonclick("clan_qfc_text_click($component0, $component1, event_mousex)", $component0);
-if_setontimer("caret_flash(clientclock, $component1)", $component0);
+if_setonkey($component0, "clan_qfc_text_input($component0, event_keychar, event_keycode, $component1)");
+if_setonclick($component0, "clan_qfc_text_click($component0, $component1, event_mousex)");
+if_setontimer($component0, "caret_flash(clientclock, $component1)");

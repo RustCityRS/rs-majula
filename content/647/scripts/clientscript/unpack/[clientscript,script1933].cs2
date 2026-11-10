@@ -1,5 +1,5 @@
 // 1933
 [clientscript,script1933]
-if_sethide(true, sc_reward_shop:purchase_highlight_rect);
-if_setcolour(0xc8aa64, sc_reward_shop:purchase_text);
+if_sethide(sc_reward_shop:purchase_highlight_rect, true);
+if_setcolour(sc_reward_shop:purchase_text, 0xc8aa64);
 ~deltooltip_action(sc_reward_shop:purchase_tooltip_build);

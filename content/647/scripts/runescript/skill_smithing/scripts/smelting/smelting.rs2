@@ -17,16 +17,16 @@ switch_obj (last_useitem)
 {
     // The Underground Pass orbs, Tai Bwo Wannai Trio's jogre bones and
     // Regicide's quicklime wait for their quests.
-    case gold_bar, perfect__gold_bar : @craft_gold_interface;
+    case gold_bar, perfect_gold_bar : @craft_gold_interface;
     case silver_bar : @craft_silver;
     case steel_bar : @smelt_cannonballs;
-    case bucket_of_sand, soda_ash : @smelt_glass;
+    case bucket_sand, soda_ash : @smelt_glass;
     // case orb_of_light, caveorb2, caveorb3, caveorb4 :
     //     if(loc_type = furnace_upass) @destroy_orboflight(last_useitem);
     //     ~displaymessage(^dm_default);
-    case elemental_ore : mes("This furnace is not hot enough to smelt elemental ore.");
+    case elemental_workshop_ore : mes("This furnace is not hot enough to smelt elemental ore.");
     // case jogre_bones : @tbwt_smelt_jogre_bones;
-    case burnt_jogre_bones : mes("These Jogre bones are already burnt!");
+    case tbwt_burnt_jogre_bones : mes("These Jogre bones are already burnt!");
     // case limestone : @regicide_heat_quicklime;
     case default :
         if (oc_category(last_useitem) = category_91) {
@@ -61,7 +61,7 @@ if(loc_type = viking_furnace) { // 289's viking_furnace2 (4305) is nameless in 2
 // dungeoneering_smelt.
 def_namedobj $bar;
 def_int $count;
-$bar, $count = ~skill_make10(^skill_make_text, ^skill_make_make, 28, bronze_bar, iron_bar, silver_bar, steel_bar, gold_bar, mithril_bar, adamant_bar, rune_bar, null, null);
+$bar, $count = ~skill_make10(^skill_make_text, ^skill_make_make, 28, bronze_bar, iron_bar, silver_bar, steel_bar, gold_bar, mithril_bar, adamantite_bar, runite_bar, null, null);
 if ($bar = null | $count < 1) return;
 @smelt_ore($bar, $count);
 
@@ -111,16 +111,16 @@ return (true);
 if_close;
 // https://youtu.be/mMQ1PmgpWtQ?si=2HE4hDPxhS7NlE1U&t=465
 // make x perfect gold works, if you have both ores it will prio regular gold
-if($last = gold_bar & inv_total(inv, gold_ore) = 0 & inv_total(inv, perfect__gold_ore) > 0) {
-    $last = perfect__gold_bar;
+if($last = gold_bar & inv_total(inv, gold_ore) = 0 & inv_total(inv, perfect_gold_ore) > 0) {
+    $last = perfect_gold_bar;
 }
 if(~validate_first_smelt($last) = true) @smelt_ore_weakqueue($last, $count, 4);
 
 [label,smelt_ore_weakqueue](obj $bar, int $count, int $delay)
 // https://youtu.be/mMQ1PmgpWtQ?si=2HE4hDPxhS7NlE1U&t=465
 // make x perfect gold works, if you have both ores it will prio regular gold and process both
-if($bar = gold_bar & inv_total(inv, gold_ore) = 0 & inv_total(inv, perfect__gold_ore) > 0) {
-    $bar = perfect__gold_bar;
+if($bar = gold_bar & inv_total(inv, gold_ore) = 0 & inv_total(inv, perfect_gold_ore) > 0) {
+    $bar = perfect_gold_bar;
 }
 def_struct $struct = oc_param($bar, smelting_struct);
 if (afk_event = ^true) {
@@ -186,7 +186,7 @@ if ($product = iron_bar) {
 // No mentioned updates to Family Crest or the gauntlets in that period. 
 // Was likely changed when ported to rs2.
 def_int $xp = struct_param($struct, productexp);
-if ($product = gold_bar & inv_total(worn, goldsmith_gauntlets) > 0) {
+if ($product = gold_bar & inv_total(worn, gauntlets_of_goldsmithing) > 0) {
     $xp = scale(5, 2, $xp); // 2.5x
 }
 // display ingame message

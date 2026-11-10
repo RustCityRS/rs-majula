@@ -7,6 +7,6 @@ while ($int0 < if_getnextsubid(snapshot_main_v2:selected_name_layer)) {
     }
     $int0 = calc($int0 + 1);
 }
-if (cc_find(snapshot_main_v2:selected_name_layer, %varclient_792) = true) {
+if (cc_find(snapshot_main_v2:selected_name_layer, %snapshot_last_selected_highlight) = true) {
     cc_settrans(110);
 }

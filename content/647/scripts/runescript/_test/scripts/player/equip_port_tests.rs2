@@ -9,9 +9,9 @@
 setup_player("test_player");
 inv_clear(inv);
 inv_clear(worn);
-inv_add(inv, iban_s_staff, 1);
+inv_add(inv, ibanstaff, 1);
 ~equip(0);
-assert_eq(inv_total(worn, iban_s_staff), 1);
+assert_eq(inv_total(worn, ibanstaff), 1);
 assert_called_with("mes", "You equip the staff of Iban.");
 
 [label,test_player_port_try_unequip_clears_the_special]

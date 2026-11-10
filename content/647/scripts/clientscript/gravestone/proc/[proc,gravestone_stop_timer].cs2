@@ -1,13 +1,13 @@
 // 2436
 [proc,gravestone_stop_timer]
-%varclient_815 = 0;
+%gravestone_countdown = 0;
 ~statusicons_deltooltip;
 if (getwindowmode < 2) {
-    if_setontimer(null, toplevel:gravestone_layer);
-    if_sethide(true, toplevel:gravestone_timer);
-    if_sethide(true, toplevel:gravestone_background);
+    if_setontimer(toplevel:gravestone_layer, null);
+    if_sethide(toplevel:gravestone_timer, true);
+    if_sethide(toplevel:gravestone_background, true);
 } else {
-    if_setontimer(null, toplevel_fullscreen:gravestone_layer);
-    if_sethide(true, toplevel_fullscreen:gravestone_timer);
-    if_sethide(true, toplevel_fullscreen:gravestone_background);
+    if_setontimer(toplevel_fullscreen:gravestone_layer, null);
+    if_sethide(toplevel_fullscreen:gravestone_timer, true);
+    if_sethide(toplevel_fullscreen:gravestone_background, true);
 }

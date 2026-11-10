@@ -14,12 +14,12 @@ switch_int ($int4) {
     case 8 :
         $string0 = ~script2949(%varclient_1644);
     case 15 :
-        if (%varclient_1407 > 0) {
-            $string0 = tostring(%varclient_1407);
+        if (%create_age > 0) {
+            $string0 = tostring(%create_age);
         }
     case 16 :
         $string0 = %varclient_1849;
 }
-%varclient_1099 = ~script1401($int0, $string0, verdana_11pt_regular, 0);
+%login_caret = ~script1401($int0, $string0, verdana_11pt_regular, 0);
 ~script3218($component1, $component2, $component3, $string0, $int4);
 ~create_focus($int4, 0);

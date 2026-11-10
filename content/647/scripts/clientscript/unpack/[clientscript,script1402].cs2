@@ -1,131 +1,131 @@
 // 1402
 [clientscript,script1402]
-if (%varplayer_106 = -1) {
+if (%player_map = -1) {
     return;
-} else if (%varplayer_106 = 0) {
-    if_setmodel(model_3062, playermap_east:x_mark_0);
-    if_setmodelanim(x_mark, playermap_east:x_mark_0);
-} else if (%varplayer_106 = 1) {
-    if_setmodel(model_3062, playermap_east:x_mark_1);
-    if_setmodelanim(x_mark, playermap_east:x_mark_1);
-} else if (%varplayer_106 = 2) {
-    if_setmodel(model_3062, playermap_east:x_mark_2);
-    if_setmodelanim(x_mark, playermap_east:x_mark_2);
-} else if (%varplayer_106 = 3) {
-    if_setmodel(model_3062, playermap_east:x_mark_3);
-    if_setmodelanim(x_mark, playermap_east:x_mark_3);
-} else if (%varplayer_106 = 4) {
-    if_setmodel(model_3062, playermap_east:x_mark_4);
-    if_setmodelanim(x_mark, playermap_east:x_mark_4);
-} else if (%varplayer_106 = 5) {
-    if_setmodel(model_3062, playermap_east:x_mark_5);
-    if_setmodelanim(x_mark, playermap_east:x_mark_5);
-} else if (%varplayer_106 = 6) {
-    if_setmodel(model_3062, playermap_east:x_mark_6);
-    if_setmodelanim(x_mark, playermap_east:x_mark_6);
-} else if (%varplayer_106 = 7) {
-    if_setmodel(model_3062, playermap_east:x_mark_7);
-    if_setmodelanim(x_mark, playermap_east:x_mark_7);
-} else if (%varplayer_106 = 8) {
-    if_setmodel(model_3062, playermap_east:x_mark_8);
-    if_setmodelanim(x_mark, playermap_east:x_mark_8);
-} else if (%varplayer_106 = 9) {
-    if_setmodel(model_3062, playermap_east:x_mark_9);
-    if_setmodelanim(x_mark, playermap_east:x_mark_9);
-} else if (%varplayer_106 = 10) {
-    if_setmodel(model_3062, playermap_east:x_mark_10);
-    if_setmodelanim(x_mark, playermap_east:x_mark_10);
-} else if (%varplayer_106 = 11) {
-    if_setmodel(model_3062, playermap_east:x_mark_11);
-    if_setmodelanim(x_mark, playermap_east:x_mark_11);
-} else if (%varplayer_106 = 12) {
-    if_setmodel(model_3062, playermap_east:x_mark_12);
-    if_setmodelanim(x_mark, playermap_east:x_mark_12);
-} else if (%varplayer_106 = 13) {
-    if_setmodel(model_3062, playermap_east:x_mark_13);
-    if_setmodelanim(x_mark, playermap_east:x_mark_13);
-} else if (%varplayer_106 = 14) {
-    if_setmodel(model_3062, playermap_east:x_mark_14);
-    if_setmodelanim(x_mark, playermap_east:x_mark_14);
-} else if (%varplayer_106 = 15) {
-    if_setmodel(model_3062, playermap_east:x_mark_15);
-    if_setmodelanim(x_mark, playermap_east:x_mark_15);
-} else if (%varplayer_106 = 16) {
-    if_setmodel(model_3062, playermap_east:x_mark_16);
-    if_setmodelanim(x_mark, playermap_east:x_mark_16);
-} else if (%varplayer_106 = 17) {
-    if_setmodel(model_3062, playermap_east:x_mark_17);
-    if_setmodelanim(x_mark, playermap_east:x_mark_17);
-} else if (%varplayer_106 = 18) {
-    if_setmodel(model_3062, playermap_east:x_mark_18);
-    if_setmodelanim(x_mark, playermap_east:x_mark_18);
-} else if (%varplayer_106 = 19) {
-    if_setmodel(model_3062, playermap_east:x_mark_19);
-    if_setmodelanim(x_mark, playermap_east:x_mark_19);
-} else if (%varplayer_106 = 20) {
-    if_setmodel(model_3062, playermap_east:x_mark_20);
-    if_setmodelanim(x_mark, playermap_east:x_mark_20);
-} else if (%varplayer_106 = 21) {
-    if_setmodel(model_3062, playermap_east:x_mark_21);
-    if_setmodelanim(x_mark, playermap_east:x_mark_21);
-} else if (%varplayer_106 = 22) {
-    if_setmodel(model_3062, playermap_east:x_mark_22);
-    if_setmodelanim(x_mark, playermap_east:x_mark_22);
-} else if (%varplayer_106 = 23) {
-    if_setmodel(model_3062, playermap_east:x_mark_23);
-    if_setmodelanim(x_mark, playermap_east:x_mark_23);
-} else if (%varplayer_106 = 24) {
-    if_setmodel(model_3062, playermap_east:x_mark_24);
-    if_setmodelanim(x_mark, playermap_east:x_mark_24);
-} else if (%varplayer_106 = 25) {
-    if_setmodel(model_3062, playermap_east:x_mark_25);
-    if_setmodelanim(x_mark, playermap_east:x_mark_25);
-} else if (%varplayer_106 = 26) {
-    if_setmodel(model_3062, playermap_east:x_mark_26);
-    if_setmodelanim(x_mark, playermap_east:x_mark_26);
-} else if (%varplayer_106 = 27) {
-    if_setmodel(model_3062, playermap_east:x_mark_27);
-    if_setmodelanim(x_mark, playermap_east:x_mark_27);
-} else if (%varplayer_106 = 28) {
-    if_setmodel(model_3062, playermap_east:x_mark_28);
-    if_setmodelanim(x_mark, playermap_east:x_mark_28);
-} else if (%varplayer_106 = 29) {
-    if_setmodel(model_3062, playermap_east:x_mark_29);
-    if_setmodelanim(x_mark, playermap_east:x_mark_29);
-} else if (%varplayer_106 = 30) {
-    if_setmodel(model_3062, playermap_east:x_mark_30);
-    if_setmodelanim(x_mark, playermap_east:x_mark_30);
-} else if (%varplayer_106 = 31) {
-    if_setmodel(model_3062, playermap_east:x_mark_31);
-    if_setmodelanim(x_mark, playermap_east:x_mark_31);
-} else if (%varplayer_106 = 32) {
-    if_setmodel(model_3062, playermap_east:x_mark_32);
-    if_setmodelanim(x_mark, playermap_east:x_mark_32);
-} else if (%varplayer_106 = 33) {
-    if_setmodel(model_3062, playermap_east:x_mark_33);
-    if_setmodelanim(x_mark, playermap_east:x_mark_33);
-} else if (%varplayer_106 = 34) {
-    if_setmodel(model_3062, playermap_east:x_mark_34);
-    if_setmodelanim(x_mark, playermap_east:x_mark_34);
-} else if (%varplayer_106 = 35) {
-    if_setmodel(model_3062, playermap_east:x_mark_35);
-    if_setmodelanim(x_mark, playermap_east:x_mark_35);
-} else if (%varplayer_106 = 36) {
-    if_setmodel(model_3062, playermap_east:x_mark_36);
-    if_setmodelanim(x_mark, playermap_east:x_mark_36);
-} else if (%varplayer_106 = 37) {
-    if_setmodel(model_3062, playermap_east:x_mark_37);
-    if_setmodelanim(x_mark, playermap_east:x_mark_37);
-} else if (%varplayer_106 = 38) {
-    if_setmodel(model_3062, playermap_east:x_mark_38);
-    if_setmodelanim(x_mark, playermap_east:x_mark_38);
-} else if (%varplayer_106 = 39) {
-    if_setmodel(model_3062, playermap_east:x_mark_39);
-    if_setmodelanim(x_mark, playermap_east:x_mark_39);
-} else if (%varplayer_106 = 40) {
-    if_setmodel(model_3062, playermap_east:x_mark_40);
-    if_setmodelanim(x_mark, playermap_east:x_mark_40);
-} else if (%varplayer_106 = 41) {
-    if_setmodel(model_3062, playermap_east:x_mark_41);
-    if_setmodelanim(x_mark, playermap_east:x_mark_41);
+} else if (%player_map = 0) {
+    if_setmodel(playermap_east:x_mark_0, model_3062);
+    if_setmodelanim(playermap_east:x_mark_0, x_mark);
+} else if (%player_map = 1) {
+    if_setmodel(playermap_east:x_mark_1, model_3062);
+    if_setmodelanim(playermap_east:x_mark_1, x_mark);
+} else if (%player_map = 2) {
+    if_setmodel(playermap_east:x_mark_2, model_3062);
+    if_setmodelanim(playermap_east:x_mark_2, x_mark);
+} else if (%player_map = 3) {
+    if_setmodel(playermap_east:x_mark_3, model_3062);
+    if_setmodelanim(playermap_east:x_mark_3, x_mark);
+} else if (%player_map = 4) {
+    if_setmodel(playermap_east:x_mark_4, model_3062);
+    if_setmodelanim(playermap_east:x_mark_4, x_mark);
+} else if (%player_map = 5) {
+    if_setmodel(playermap_east:x_mark_5, model_3062);
+    if_setmodelanim(playermap_east:x_mark_5, x_mark);
+} else if (%player_map = 6) {
+    if_setmodel(playermap_east:x_mark_6, model_3062);
+    if_setmodelanim(playermap_east:x_mark_6, x_mark);
+} else if (%player_map = 7) {
+    if_setmodel(playermap_east:x_mark_7, model_3062);
+    if_setmodelanim(playermap_east:x_mark_7, x_mark);
+} else if (%player_map = 8) {
+    if_setmodel(playermap_east:x_mark_8, model_3062);
+    if_setmodelanim(playermap_east:x_mark_8, x_mark);
+} else if (%player_map = 9) {
+    if_setmodel(playermap_east:x_mark_9, model_3062);
+    if_setmodelanim(playermap_east:x_mark_9, x_mark);
+} else if (%player_map = 10) {
+    if_setmodel(playermap_east:x_mark_10, model_3062);
+    if_setmodelanim(playermap_east:x_mark_10, x_mark);
+} else if (%player_map = 11) {
+    if_setmodel(playermap_east:x_mark_11, model_3062);
+    if_setmodelanim(playermap_east:x_mark_11, x_mark);
+} else if (%player_map = 12) {
+    if_setmodel(playermap_east:x_mark_12, model_3062);
+    if_setmodelanim(playermap_east:x_mark_12, x_mark);
+} else if (%player_map = 13) {
+    if_setmodel(playermap_east:x_mark_13, model_3062);
+    if_setmodelanim(playermap_east:x_mark_13, x_mark);
+} else if (%player_map = 14) {
+    if_setmodel(playermap_east:x_mark_14, model_3062);
+    if_setmodelanim(playermap_east:x_mark_14, x_mark);
+} else if (%player_map = 15) {
+    if_setmodel(playermap_east:x_mark_15, model_3062);
+    if_setmodelanim(playermap_east:x_mark_15, x_mark);
+} else if (%player_map = 16) {
+    if_setmodel(playermap_east:x_mark_16, model_3062);
+    if_setmodelanim(playermap_east:x_mark_16, x_mark);
+} else if (%player_map = 17) {
+    if_setmodel(playermap_east:x_mark_17, model_3062);
+    if_setmodelanim(playermap_east:x_mark_17, x_mark);
+} else if (%player_map = 18) {
+    if_setmodel(playermap_east:x_mark_18, model_3062);
+    if_setmodelanim(playermap_east:x_mark_18, x_mark);
+} else if (%player_map = 19) {
+    if_setmodel(playermap_east:x_mark_19, model_3062);
+    if_setmodelanim(playermap_east:x_mark_19, x_mark);
+} else if (%player_map = 20) {
+    if_setmodel(playermap_east:x_mark_20, model_3062);
+    if_setmodelanim(playermap_east:x_mark_20, x_mark);
+} else if (%player_map = 21) {
+    if_setmodel(playermap_east:x_mark_21, model_3062);
+    if_setmodelanim(playermap_east:x_mark_21, x_mark);
+} else if (%player_map = 22) {
+    if_setmodel(playermap_east:x_mark_22, model_3062);
+    if_setmodelanim(playermap_east:x_mark_22, x_mark);
+} else if (%player_map = 23) {
+    if_setmodel(playermap_east:x_mark_23, model_3062);
+    if_setmodelanim(playermap_east:x_mark_23, x_mark);
+} else if (%player_map = 24) {
+    if_setmodel(playermap_east:x_mark_24, model_3062);
+    if_setmodelanim(playermap_east:x_mark_24, x_mark);
+} else if (%player_map = 25) {
+    if_setmodel(playermap_east:x_mark_25, model_3062);
+    if_setmodelanim(playermap_east:x_mark_25, x_mark);
+} else if (%player_map = 26) {
+    if_setmodel(playermap_east:x_mark_26, model_3062);
+    if_setmodelanim(playermap_east:x_mark_26, x_mark);
+} else if (%player_map = 27) {
+    if_setmodel(playermap_east:x_mark_27, model_3062);
+    if_setmodelanim(playermap_east:x_mark_27, x_mark);
+} else if (%player_map = 28) {
+    if_setmodel(playermap_east:x_mark_28, model_3062);
+    if_setmodelanim(playermap_east:x_mark_28, x_mark);
+} else if (%player_map = 29) {
+    if_setmodel(playermap_east:x_mark_29, model_3062);
+    if_setmodelanim(playermap_east:x_mark_29, x_mark);
+} else if (%player_map = 30) {
+    if_setmodel(playermap_east:x_mark_30, model_3062);
+    if_setmodelanim(playermap_east:x_mark_30, x_mark);
+} else if (%player_map = 31) {
+    if_setmodel(playermap_east:x_mark_31, model_3062);
+    if_setmodelanim(playermap_east:x_mark_31, x_mark);
+} else if (%player_map = 32) {
+    if_setmodel(playermap_east:x_mark_32, model_3062);
+    if_setmodelanim(playermap_east:x_mark_32, x_mark);
+} else if (%player_map = 33) {
+    if_setmodel(playermap_east:x_mark_33, model_3062);
+    if_setmodelanim(playermap_east:x_mark_33, x_mark);
+} else if (%player_map = 34) {
+    if_setmodel(playermap_east:x_mark_34, model_3062);
+    if_setmodelanim(playermap_east:x_mark_34, x_mark);
+} else if (%player_map = 35) {
+    if_setmodel(playermap_east:x_mark_35, model_3062);
+    if_setmodelanim(playermap_east:x_mark_35, x_mark);
+} else if (%player_map = 36) {
+    if_setmodel(playermap_east:x_mark_36, model_3062);
+    if_setmodelanim(playermap_east:x_mark_36, x_mark);
+} else if (%player_map = 37) {
+    if_setmodel(playermap_east:x_mark_37, model_3062);
+    if_setmodelanim(playermap_east:x_mark_37, x_mark);
+} else if (%player_map = 38) {
+    if_setmodel(playermap_east:x_mark_38, model_3062);
+    if_setmodelanim(playermap_east:x_mark_38, x_mark);
+} else if (%player_map = 39) {
+    if_setmodel(playermap_east:x_mark_39, model_3062);
+    if_setmodelanim(playermap_east:x_mark_39, x_mark);
+} else if (%player_map = 40) {
+    if_setmodel(playermap_east:x_mark_40, model_3062);
+    if_setmodelanim(playermap_east:x_mark_40, x_mark);
+} else if (%player_map = 41) {
+    if_setmodel(playermap_east:x_mark_41, model_3062);
+    if_setmodelanim(playermap_east:x_mark_41, x_mark);
 }

@@ -3,8 +3,8 @@
 if (%varplayer_1109 = null) {
     return;
 }
-if (%varclient_85 < ^max_32bit_int) {
-    %varclient_85 = calc(%varclient_85 + 1);
-    if_settext("<tostring_localised(%varclient_85, true)> gp", stockmarket:offerprice);
+if (%stock_offerprice_visible < ^max_32bit_int) {
+    %stock_offerprice_visible = calc(%stock_offerprice_visible + 1);
+    if_settext(stockmarket:offerprice, "<tostring_localised(%stock_offerprice_visible, true)> gp");
     ~sm_offerprice_settimer;
 }

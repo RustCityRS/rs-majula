@@ -8,8 +8,8 @@
 // Shadow of the Storm; the 2011 wiki says a lost Silverlight costs 500 coins
 // then, with no lines. Neither is ported.
 [opnpc1,npc_9359]
-if (%demon_slayer = ^demon_key_hunt) {
-    if (%demon_slayer_silverlight = ^false) {
+if (%demonslayer_main = ^demon_key_hunt) {
+    if (%delrith_silverlight_case = ^false) {
         @sir_prysin_key_progress;
     }
     ~chatnpc("<p,neutral>Have you sorted that demon out yet?");
@@ -29,7 +29,7 @@ if (%demon_slayer = ^demon_key_hunt) {
     }
     return;
 }
-if (%demon_slayer = ^demon_complete) {
+if (%demonslayer_main = ^demon_complete) {
     ~chatnpc("<p,neutral>Hello. I've heard you stopped the demon, well done.");
     switch_int (~p_choice2("Yes, that's right.", 1, "Yes, although I'm afraid I've lost Silverlight.", 2)) {
         case 1 :
@@ -43,7 +43,7 @@ if (%demon_slayer = ^demon_complete) {
     return;
 }
 ~chatnpc("<p,neutral>Hello, who are you?");
-if (%demon_slayer = ^demon_sir_prysin) {
+if (%demonslayer_main = ^demon_sir_prysin) {
     switch_int (~p_choice3("I am a mighty adventurer. Who are you?", 1, "I'm not sure, I was hoping you could tell me.", 2, "Gypsy Aris said I should come and talk to you.", 3)) {
         case 1 : @sir_prysin_mighty_adventurer;
         case 2 : @sir_prysin_you_tell_me;
@@ -104,8 +104,8 @@ switch_int (~p_choice2("So, give me the keys!", 1, "And why is this a problem?",
 ~chatnpc("<p,neutral>I kept one of the keys. I gave the other two to others for safekeeping.");
 ~chatnpc("<p,neutral>One I gave to Rovin, the captain of the palace guard.");
 ~chatnpc("<p,neutral>The other I gave to the wizard Traiborn.");
-if (%demon_slayer = ^demon_sir_prysin) {
-    %demon_slayer = ^demon_key_hunt;
+if (%demonslayer_main = ^demon_sir_prysin) {
+    %demonslayer_main = ^demon_key_hunt;
 }
 // 2011-04-20 recording (199.4s): "Choose an option:", ending in "Bye" (206.0s: "Bye.", and done).
 switch_int (~p_choice4_header("Can you give me your key?", 1, "Where can I find Captain Rovin?", 2, "Where does the wizard live?", 3, "Bye", 4, "Choose an option:")) {
@@ -162,13 +162,13 @@ switch_int (~p_choice3("Can you give me your key?", 1, "Where can I find Captain
 def_boolean $rovin = false;
 def_boolean $prysin = false;
 def_boolean $traiborn = false;
-if (inv_total(inv, silverlight_key_captain_rovin) > 0) {
+if (inv_total(inv, silverlight_key_2) > 0) {
     $rovin = true;
 }
-if (inv_total(inv, silverlight_key_sir_prysin) > 0) {
+if (inv_total(inv, silverlight_key_3) > 0) {
     $prysin = true;
 }
-if (inv_total(inv, silverlight_key_wizard_traiborn) > 0) {
+if (inv_total(inv, silverlight_key_1) > 0) {
     $traiborn = true;
 }
 if ($rovin = true & $prysin = true & $traiborn = true) {
@@ -204,9 +204,9 @@ switch_int (~p_choice2("Can you remind me where all the keys were again?", 1, "I
 [label,sir_prysin_give_silverlight]
 ~chatplayer("<p,neutral>I've got all three keys!");
 ~chatnpc("<p,neutral>Excellent! Now I can give you Silverlight.");
-inv_del(inv, silverlight_key_wizard_traiborn, 1);
-inv_del(inv, silverlight_key_captain_rovin, 1);
-inv_del(inv, silverlight_key_sir_prysin, 1);
+inv_del(inv, silverlight_key_1, 1);
+inv_del(inv, silverlight_key_2, 1);
+inv_del(inv, silverlight_key_3, 1);
 if_close;
 npc_tele(0_50_54_4_14);
 p_telejump(0_50_54_4_15);
@@ -223,20 +223,20 @@ if (loc_find(0_50_54_4_13, loc_12982) = true) {
     loc_anim(seq_12617); // void-634: silverlight_sword_removed
 }
 p_delay(7);
-%demon_slayer_silverlight_case = ^demon_case_open;
+%dsqip_key = ^demon_case_open;
 npc_anim(seq_12628, 0); // void-634: silverlight_remove_sword
 loc_prefetch(sword_case_12985, centrepiece_straight);
 p_delay(0);
-%demon_slayer_sir_prysin_sword = ^true;
-%demon_slayer_silverlight_case = ^demon_case_empty;
+%dsqip_prysin_silverlight = ^true;
+%dsqip_key = ^demon_case_empty;
 p_delay(3);
 npc_facesquare(coord);
 p_delay(1);
 npc_anim(seq_12618, 0); // void-634: silverlight_hand_over
 anim(seq_12615, 0); // void-634: silverlight_take
 p_delay(0);
-%demon_slayer_silverlight = ^true;
-%demon_slayer_sir_prysin_sword = ^false;
+%delrith_silverlight_case = ^true;
+%dsqip_prysin_silverlight = ^false;
 inv_add(inv, silverlight, 1);
 anim(seq_12625, 0); // void-634: silverlight_showoff
 spotanim_pl(spotanim_778, 0, 0); // void-634: silverlight_sparkle

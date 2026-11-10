@@ -1,5 +1,5 @@
 // 3925
 [clientscript,ecosystem_button_swapper]
-if_setgraphic("set_but_end_2,0", ecosystem_wardcreature:button_left);
-if_setgraphic("set_but_end_2,0", ecosystem_wardcreature:button_right);
-if_setgraphic("set_but_fill_2,0", ecosystem_wardcreature:button_main);
+if_setgraphic(ecosystem_wardcreature:button_left, "set_but_end_2,0");
+if_setgraphic(ecosystem_wardcreature:button_right, "set_but_end_2,0");
+if_setgraphic(ecosystem_wardcreature:button_main, "set_but_fill_2,0");

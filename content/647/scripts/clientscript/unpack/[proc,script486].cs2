@@ -4,45 +4,45 @@ switch_int ($int0) {
     case default :
         return(null);
     case 1 :
-        if (%varplayerbit_7510 = 0) {
-            return(npc_12200);
+        if (%conq_team = 0) {
+            return(conq_scout_dark);
         } else {
-            return(npc_12197);
+            return(conq_scout_light);
         }
     case 2 :
-        if (%varplayerbit_7510 = 0) {
-            return(npc_12205);
+        if (%conq_team = 0) {
+            return(conq_footman_dark);
         } else {
-            return(npc_12202);
+            return(conq_footman_light);
         }
     case 3 :
-        if (%varplayerbit_7510 = 0) {
-            return(npc_12210);
+        if (%conq_team = 0) {
+            return(conq_halberdier_dark);
         } else {
-            return(npc_12207);
+            return(conq_halberdier_light);
         }
     case 4 :
-        if (%varplayerbit_7510 = 0) {
-            return(npc_12215);
+        if (%conq_team = 0) {
+            return(conq_archer_dark);
         } else {
-            return(npc_12212);
+            return(conq_archer_light);
         }
     case 5 :
-        if (%varplayerbit_7510 = 0) {
-            return(npc_12219);
+        if (%conq_team = 0) {
+            return(conq_mage_dark);
         } else {
-            return(npc_12216);
+            return(conq_mage_light);
         }
     case 6 :
-        if (%varplayerbit_7510 = 0) {
-            return(npc_12223);
+        if (%conq_team = 0) {
+            return(conq_knight_dark);
         } else {
-            return(npc_12220);
+            return(conq_knight_light);
         }
     case 7 :
-        if (%varplayerbit_7510 = 0) {
-            return(npc_12227);
+        if (%conq_team = 0) {
+            return(conq_champion_dark);
         } else {
-            return(npc_12224);
+            return(conq_champion_light);
         }
 }

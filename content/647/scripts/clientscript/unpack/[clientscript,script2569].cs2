@@ -1,9 +1,9 @@
 // 2569
 [clientscript,script2569]
-if_sethide(true, mob_squad_exchange:confirm_layer);
+if_sethide(mob_squad_exchange:confirm_layer, true);
 if (map_lang = 0) {
-    if_settextfont(b12_full, mob_squad_exchange:resupply_all_text);
+    if_settextfont(mob_squad_exchange:resupply_all_text, b12_full);
 } else {
-    if_settextfont(p11_full, mob_squad_exchange:resupply_all_text);
+    if_settextfont(mob_squad_exchange:resupply_all_text, p11_full);
 }
 ~script2570;

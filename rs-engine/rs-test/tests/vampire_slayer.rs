@@ -251,7 +251,7 @@ fn harlow_gives_a_stake_and_a_stake_hammer_for_a_beer() {
         );
         assert_eq!(total(engine, &client, "inv", "beer"), 0);
         assert_eq!(total(engine, &client, "inv", "stake"), 1);
-        assert_eq!(total(engine, &client, "inv", "stake_hammer"), 1);
+        assert_eq!(total(engine, &client, "inv", "vampire_hammer"), 1);
     });
 }
 
@@ -263,7 +263,7 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let _ = engine.script_errors.take();
-        let count = npc_type(engine, "count_draynor");
+        let count = npc_type(engine, "vampire_slayer_qip_count");
         let find = |engine: &Engine| {
             engine
                 .npc_list
@@ -424,7 +424,7 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
             below,
             2,
             0,
-            &[("stake", 1), ("stake_hammer", 1), ("garlic", 1)],
+            &[("stake", 1), ("vampire_hammer", 1), ("garlic", 1)],
         );
         let said = fight(engine, &mut client);
         no_script_errors(engine, "the fight");
@@ -561,7 +561,7 @@ fn frame_sets(seq: &str) -> BTreeSet<String> {
 fn the_count_fights_on_his_own_skeleton() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let count = npc_type(engine, "count_draynor");
+        let count = npc_type(engine, "vampire_slayer_qip_count");
         let params = engine
             .cache
             .npcs
@@ -624,7 +624,7 @@ fn the_coffin_plays_2011s_cutscene() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let _ = engine.script_errors.take();
-        let count = npc_type(engine, "count_draynor");
+        let count = npc_type(engine, "vampire_slayer_qip_count");
         let mut client = login(
             engine,
             (3079, 0, 9786),
@@ -723,7 +723,7 @@ fn the_coffin_plays_2011s_cutscene() {
         let (tick, nid, x, z) = risen.expect("the Count rises");
         assert_eq!((tick - open, x, z), (21, 3081, 9777));
         assert!(
-            loc_at(engine, "coffin_163", COFFIN.1, COFFIN.2),
+            loc_at(engine, "vampire_slayer_qip_coffin_open", COFFIN.1, COFFIN.2),
             "the coffin lies open and empty"
         );
         // He stands where he rose; the player goes for him at once. The camera
@@ -802,7 +802,7 @@ fn the_coffin_plays_2011s_cutscene() {
             "he goes once the player is away"
         );
         assert!(
-            loc_at(engine, "coffin", COFFIN.1, COFFIN.2),
+            loc_at(engine, "vampire_slayer_qip_coffin_closed_stake", COFFIN.1, COFFIN.2),
             "the coffin closes once he has gone"
         );
     });
@@ -825,7 +825,7 @@ fn a_staked_count_does_not_rise_again() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let _ = engine.script_errors.take();
-        let count = npc_type(engine, "count_draynor");
+        let count = npc_type(engine, "vampire_slayer_qip_count");
         let mut client = login(engine, (3079, 0, 9786), 2, 1, &[("stake", 1)]);
         client.packets();
         let mut p = ClientPacket::new();
@@ -855,7 +855,7 @@ fn a_staked_count_does_not_rise_again() {
             "no Count"
         );
         assert!(
-            loc_at(engine, "coffin", COFFIN.1, COFFIN.2),
+            loc_at(engine, "vampire_slayer_qip_coffin_closed_stake", COFFIN.1, COFFIN.2),
             "the coffin stays shut"
         );
     });

@@ -5,19 +5,19 @@
 ~attempt_grind_ingredient(last_useslot, last_slot);
 
 [opheldu,bat_bones]
-if(last_useitem = vial_of_water | last_useitem = guamjangervial) { // this only works 1 way (for water vial)!
+if(last_useitem = vial_water | last_useitem = guamjangervial) { // this only works 1 way (for water vial)!
     mes("The bat bones are too bulky to fit into the vial.");
     return;
 }
 ~attempt_grind_ingredient(last_useslot, last_slot);
 
-[opheldu,thin_snail]
+[opheldu,snail_corpse1]
 ~attempt_grind_snail(last_useslot, last_slot);
 
-[opheldu,lean_snail]
+[opheldu,snail_corpse2]
 ~attempt_grind_snail(last_useslot, last_slot);
 
-[opheldu,fat_snail]
+[opheldu,snail_corpse3]
 ~attempt_grind_snail(last_useslot, last_slot);
 
 [proc,attempt_grind_ingredient](int $use_slot, int $last_slot)
@@ -66,11 +66,11 @@ if (map_members = ^false) {
 }
 
  // Note this is different.
-if (inv_total(inv, sample_bottle) = 0) {
-    ~objbox(sample_bottle, "You need an empty sample bottle to place the slime in.", 250, 0, ^objbox_height);
+if (inv_total(inv, empty_dye_bottle) = 0) {
+    ~objbox(empty_dye_bottle, "You need an empty sample bottle to place the slime in.", 250, 0, ^objbox_height);
     return; 
 } else {
-    inv_del(inv, sample_bottle , 1);
+    inv_del(inv, empty_dye_bottle , 1);
 }
 
 def_string $message = oc_param($used_on, grindable_ingredient_message);

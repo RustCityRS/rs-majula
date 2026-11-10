@@ -275,7 +275,7 @@ colour=0xaaaaaa
 transmitop=10
 op10=    
 onload=boardgames_status(boardgames_runelink:status1, boardgames_runelink:status2, boardgames_runelink:status3, boardgames_runelink:tooltip)
-onvarcstrtransmit=boardgames_status(boardgames_runelink:status1, boardgames_runelink:status2, boardgames_runelink:status3, boardgames_runelink:tooltip){varclient_1662, varclient_1663, varclient_1664}
+onvarcstrtransmit=boardgames_status(boardgames_runelink:status1, boardgames_runelink:status2, boardgames_runelink:status3, boardgames_runelink:tooltip){boardgames_status1, boardgames_status2, varclient_1664}
 
 // 36:20
 [status2]
@@ -322,7 +322,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10=   
-onvarctransmit=boardgames_piece1(event_com){varclient_809}
+onvarctransmit=boardgames_piece1(event_com){boardgames_pl_piece}
 
 // 36:23
 [game_piece_player2]
@@ -337,7 +337,7 @@ modelangle=512,1024,0
 modelzoom=1024
 transmitop=10
 op10=   
-onvarctransmit=boardgames_piece2(event_com){varclient_810}
+onvarctransmit=boardgames_piece2(event_com){boardgames_opp_piece}
 
 // 36:24
 [sandtimer]
@@ -352,7 +352,7 @@ modelorigin=0,45
 modelzoom=2048
 transmitop=10
 op10=  
-onvarctransmit=boardgames_sandtimer(event_com){varclient_811}
+onvarctransmit=boardgames_sandtimer(event_com){boardgames_sandtimer}
 
 // 36:25
 [resign_layer]
@@ -364,7 +364,7 @@ height=42
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onop=closebutton_click
 
 // 36:26
@@ -486,7 +486,7 @@ height=43
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 36:35
 [boardgames_runelink_draw]
@@ -759,7 +759,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 36:56
 [boardgames_runelink_column3]
@@ -773,7 +773,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 36:57
 [boardgames_runelink_column4]
@@ -787,7 +787,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 36:58
 [boardgames_runelink_column5]
@@ -801,7 +801,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 36:59
 [boardgames_runelink_column2]
@@ -815,7 +815,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 36:60
 [boardgames_runelink_column1]
@@ -829,7 +829,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 36:61
 [boardgames_runelink_column6]
@@ -843,7 +843,7 @@ colour=0xffffffff
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 36:62
 [boardgames_runelink_runeflash]

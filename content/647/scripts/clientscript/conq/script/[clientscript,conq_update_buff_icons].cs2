@@ -8,229 +8,229 @@ def_int $int10 = 0;
 def_int $int11 = 0;
 def_int $int12 = 0;
 def_struct $struct13 = null;
-if ($int0 = %varclient_1372 & $int1 = %varclient_1373 & $int2 = %varclient_1374 & $int3 = %varclient_1375 & $int4 = %varclient_1376 & $int5 = %varclient_1377) {
+if ($int0 = %conq_unit_battle_cry_active & $int1 = %conq_unit_stoicism_active & $int2 = %conq_unit_bloodlust_active & $int3 = %conq_unit_chastise_active & $int4 = %conq_unit_vigilance_active & $int5 = %conq_unit_shield_wall_active) {
     return;
 } else {
-    if_setonvarctransmit("conq_update_buff_icons(%varclient_1372, %varclient_1373, %varclient_1374, %varclient_1375, %varclient_1376, %varclient_1377){varclient_1372, varclient_1373, varclient_1374, varclient_1375, varclient_1376, varclient_1377}", conq_side_unit_details:background_components_layer);
+    if_setonvarctransmit(conq_side_unit_details:background_components_layer, "conq_update_buff_icons(%conq_unit_battle_cry_active, %conq_unit_stoicism_active, %conq_unit_bloodlust_active, %conq_unit_chastise_active, %conq_unit_vigilance_active, %conq_unit_shield_wall_active){conq_unit_battle_cry_active, conq_unit_stoicism_active, conq_unit_bloodlust_active, conq_unit_chastise_active, conq_unit_vigilance_active, conq_unit_shield_wall_active}");
 }
-if (%varclient_1367 ! null) {
-    $int6 = calc(%varclient_1372 + %varclient_1373 + %varclient_1374 + %varclient_1375 + %varclient_1376 + %varclient_1377);
+if (%conq_unit_details_type ! null) {
+    $int6 = calc(%conq_unit_battle_cry_active + %conq_unit_stoicism_active + %conq_unit_bloodlust_active + %conq_unit_chastise_active + %conq_unit_vigilance_active + %conq_unit_shield_wall_active);
     if ($int6 = 0) {
-        if_sethide(true, conq_side_unit_details:buffs_layer);
-        if_sethide(false, conq_side_unit_details:no_command_abilities_text);
+        if_sethide(conq_side_unit_details:buffs_layer, true);
+        if_sethide(conq_side_unit_details:no_command_abilities_text, false);
     } else {
-        if_sethide(false, conq_side_unit_details:buffs_layer);
-        if_sethide(true, conq_side_unit_details:no_command_abilities_text);
+        if_sethide(conq_side_unit_details:buffs_layer, false);
+        if_sethide(conq_side_unit_details:no_command_abilities_text, true);
     }
     if ($int6 = 1) {
-        if_sethide(false, conq_side_unit_details:buff_icon_1);
-        if_setposition(82, if_gety(conq_side_unit_details:buff_icon_1), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_1);
-        if (%varclient_1372 = 1) {
+        if_sethide(conq_side_unit_details:buff_icon_1, false);
+        if_setposition(conq_side_unit_details:buff_icon_1, 82, if_gety(conq_side_unit_details:buff_icon_1), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_battle_cry_active = 1) {
             $struct13 = struct_293;
-        } else if (%varclient_1373 = 1) {
+        } else if (%conq_unit_stoicism_active = 1) {
             $struct13 = struct_299;
-        } else if (%varclient_1374 = 1) {
+        } else if (%conq_unit_bloodlust_active = 1) {
             $struct13 = struct_305;
-        } else if (%varclient_1375 = 1) {
+        } else if (%conq_unit_chastise_active = 1) {
             $struct13 = struct_1044;
-        } else if (%varclient_1376 = 1) {
+        } else if (%conq_unit_vigilance_active = 1) {
             $struct13 = struct_1045;
         } else {
             $struct13 = struct_1046;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_1);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_1);
-        if_sethide(true, conq_side_unit_details:buff_icon_2);
-        if_sethide(true, conq_side_unit_details:buff_icon_3);
-        if_sethide(true, conq_side_unit_details:buff_icon_4);
-        if_sethide(true, conq_side_unit_details:buff_icon_5);
+        if_setgraphic(conq_side_unit_details:buff_icon_1, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_1, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_2, true);
+        if_sethide(conq_side_unit_details:buff_icon_3, true);
+        if_sethide(conq_side_unit_details:buff_icon_4, true);
+        if_sethide(conq_side_unit_details:buff_icon_5, true);
     } else if ($int6 = 2) {
-        if_sethide(false, conq_side_unit_details:buff_icon_1);
-        if_setposition(50, if_gety(conq_side_unit_details:buff_icon_1), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_1);
-        if (%varclient_1372 = 1) {
+        if_sethide(conq_side_unit_details:buff_icon_1, false);
+        if_setposition(conq_side_unit_details:buff_icon_1, 50, if_gety(conq_side_unit_details:buff_icon_1), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_battle_cry_active = 1) {
             $struct13 = struct_293;
-        } else if (%varclient_1373 = 1) {
+        } else if (%conq_unit_stoicism_active = 1) {
             $struct13 = struct_299;
             $int8 = 1;
-        } else if (%varclient_1374 = 1) {
+        } else if (%conq_unit_bloodlust_active = 1) {
             $struct13 = struct_305;
             $int9 = 1;
-        } else if (%varclient_1375 = 1) {
+        } else if (%conq_unit_chastise_active = 1) {
             $struct13 = struct_1044;
             $int10 = 1;
         } else {
             $struct13 = struct_1045;
             $int11 = 1;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_1);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_1);
-        if_sethide(false, conq_side_unit_details:buff_icon_2);
-        if_setposition(115, if_gety(conq_side_unit_details:buff_icon_2), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_2);
-        if (%varclient_1373 = 1 & $int8 = 0) {
+        if_setgraphic(conq_side_unit_details:buff_icon_1, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_1, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_2, false);
+        if_setposition(conq_side_unit_details:buff_icon_2, 115, if_gety(conq_side_unit_details:buff_icon_2), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_stoicism_active = 1 & $int8 = 0) {
             $struct13 = struct_299;
-        } else if (%varclient_1374 = 1 & $int9 = 0) {
+        } else if (%conq_unit_bloodlust_active = 1 & $int9 = 0) {
             $struct13 = struct_305;
-        } else if (%varclient_1375 = 1 & $int10 = 0) {
+        } else if (%conq_unit_chastise_active = 1 & $int10 = 0) {
             $struct13 = struct_1044;
-        } else if (%varclient_1376 = 1 & $int11 = 0) {
+        } else if (%conq_unit_vigilance_active = 1 & $int11 = 0) {
             $struct13 = struct_1045;
         } else {
             $struct13 = struct_1046;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_2);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_2);
-        if_sethide(true, conq_side_unit_details:buff_icon_3);
-        if_sethide(true, conq_side_unit_details:buff_icon_4);
-        if_sethide(true, conq_side_unit_details:buff_icon_5);
+        if_setgraphic(conq_side_unit_details:buff_icon_2, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_2, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_3, true);
+        if_sethide(conq_side_unit_details:buff_icon_4, true);
+        if_sethide(conq_side_unit_details:buff_icon_5, true);
     } else if ($int6 = 3) {
-        if_sethide(false, conq_side_unit_details:buff_icon_1);
-        if_setposition(30, if_gety(conq_side_unit_details:buff_icon_1), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_1);
-        if (%varclient_1372 = 1) {
+        if_sethide(conq_side_unit_details:buff_icon_1, false);
+        if_setposition(conq_side_unit_details:buff_icon_1, 30, if_gety(conq_side_unit_details:buff_icon_1), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_battle_cry_active = 1) {
             $struct13 = struct_293;
-        } else if (%varclient_1373 = 1) {
+        } else if (%conq_unit_stoicism_active = 1) {
             $struct13 = struct_299;
             $int8 = 1;
-        } else if (%varclient_1374 = 1) {
+        } else if (%conq_unit_bloodlust_active = 1) {
             $struct13 = struct_305;
             $int9 = 1;
         } else {
             $struct13 = struct_1044;
             $int10 = 1;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_1);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_1);
-        if_sethide(false, conq_side_unit_details:buff_icon_2);
-        if_setposition(80, if_gety(conq_side_unit_details:buff_icon_2), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_2);
-        if (%varclient_1373 = 1 & $int8 = 0) {
+        if_setgraphic(conq_side_unit_details:buff_icon_1, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_1, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_2, false);
+        if_setposition(conq_side_unit_details:buff_icon_2, 80, if_gety(conq_side_unit_details:buff_icon_2), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_stoicism_active = 1 & $int8 = 0) {
             $struct13 = struct_299;
-        } else if (%varclient_1374 = 1 & $int9 = 0) {
+        } else if (%conq_unit_bloodlust_active = 1 & $int9 = 0) {
             $struct13 = struct_305;
             $int9 = 1;
-        } else if (%varclient_1375 = 1 & $int10 = 0) {
+        } else if (%conq_unit_chastise_active = 1 & $int10 = 0) {
             $struct13 = struct_1044;
             $int10 = 1;
         } else {
             $struct13 = struct_1045;
             $int11 = 1;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_2);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_2);
-        if_sethide(false, conq_side_unit_details:buff_icon_3);
-        if_setposition(130, if_gety(conq_side_unit_details:buff_icon_3), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_3);
-        if (%varclient_1374 = 1 & $int9 = 0) {
+        if_setgraphic(conq_side_unit_details:buff_icon_2, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_2, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_3, false);
+        if_setposition(conq_side_unit_details:buff_icon_3, 130, if_gety(conq_side_unit_details:buff_icon_3), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_bloodlust_active = 1 & $int9 = 0) {
             $struct13 = struct_305;
-        } else if (%varclient_1375 = 1 & $int10 = 0) {
+        } else if (%conq_unit_chastise_active = 1 & $int10 = 0) {
             $struct13 = struct_1044;
-        } else if (%varclient_1376 = 1 & $int11 = 0) {
+        } else if (%conq_unit_vigilance_active = 1 & $int11 = 0) {
             $struct13 = struct_1045;
         } else {
             $struct13 = struct_1046;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_3);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_3);
-        if_sethide(true, conq_side_unit_details:buff_icon_4);
-        if_sethide(true, conq_side_unit_details:buff_icon_5);
+        if_setgraphic(conq_side_unit_details:buff_icon_3, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_3, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_4, true);
+        if_sethide(conq_side_unit_details:buff_icon_5, true);
     } else if ($int6 = 4) {
-        if_sethide(false, conq_side_unit_details:buff_icon_1);
-        if_setposition(18, if_gety(conq_side_unit_details:buff_icon_1), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_1);
-        if (%varclient_1372 = 1) {
+        if_sethide(conq_side_unit_details:buff_icon_1, false);
+        if_setposition(conq_side_unit_details:buff_icon_1, 18, if_gety(conq_side_unit_details:buff_icon_1), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_battle_cry_active = 1) {
             $struct13 = struct_293;
-        } else if (%varclient_1373 = 1) {
+        } else if (%conq_unit_stoicism_active = 1) {
             $struct13 = struct_299;
             $int8 = 1;
         } else {
             $struct13 = struct_305;
             $int9 = 1;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_1);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_1);
-        if_sethide(false, conq_side_unit_details:buff_icon_2);
-        if_setposition(61, if_gety(conq_side_unit_details:buff_icon_2), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_2);
-        if (%varclient_1373 = 1 & $int8 = 0) {
+        if_setgraphic(conq_side_unit_details:buff_icon_1, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_1, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_2, false);
+        if_setposition(conq_side_unit_details:buff_icon_2, 61, if_gety(conq_side_unit_details:buff_icon_2), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_stoicism_active = 1 & $int8 = 0) {
             $struct13 = struct_299;
-        } else if (%varclient_1374 = 1 & $int9 = 0) {
+        } else if (%conq_unit_bloodlust_active = 1 & $int9 = 0) {
             $struct13 = struct_305;
             $int9 = 1;
         } else {
             $struct13 = struct_1044;
             $int10 = 1;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_2);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_2);
-        if_sethide(false, conq_side_unit_details:buff_icon_3);
-        if_setposition(104, if_gety(conq_side_unit_details:buff_icon_3), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_3);
-        if (%varclient_1374 = 1 & $int9 = 0) {
+        if_setgraphic(conq_side_unit_details:buff_icon_2, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_2, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_3, false);
+        if_setposition(conq_side_unit_details:buff_icon_3, 104, if_gety(conq_side_unit_details:buff_icon_3), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_bloodlust_active = 1 & $int9 = 0) {
             $struct13 = struct_305;
-        } else if (%varclient_1375 = 1 & $int10 = 0) {
+        } else if (%conq_unit_chastise_active = 1 & $int10 = 0) {
             $struct13 = struct_1044;
             $int10 = 1;
         } else {
             $struct13 = struct_1045;
             $int11 = 1;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_3);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_3);
-        if_sethide(false, conq_side_unit_details:buff_icon_4);
-        if_setposition(147, if_gety(conq_side_unit_details:buff_icon_4), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_4);
-        if (%varclient_1375 = 1 & $int10 = 0) {
+        if_setgraphic(conq_side_unit_details:buff_icon_3, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_3, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_4, false);
+        if_setposition(conq_side_unit_details:buff_icon_4, 147, if_gety(conq_side_unit_details:buff_icon_4), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_chastise_active = 1 & $int10 = 0) {
             $struct13 = struct_1044;
-        } else if (%varclient_1376 = 1 & $int11 = 0) {
+        } else if (%conq_unit_vigilance_active = 1 & $int11 = 0) {
             $struct13 = struct_1045;
         } else {
             $struct13 = struct_1046;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_4);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_4);
-        if_sethide(true, conq_side_unit_details:buff_icon_5);
+        if_setgraphic(conq_side_unit_details:buff_icon_4, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_4, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_5, true);
     } else {
-        if_sethide(false, conq_side_unit_details:buff_icon_1);
-        if_setposition(11, if_gety(conq_side_unit_details:buff_icon_1), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_1);
-        if (%varclient_1372 = 1) {
+        if_sethide(conq_side_unit_details:buff_icon_1, false);
+        if_setposition(conq_side_unit_details:buff_icon_1, 11, if_gety(conq_side_unit_details:buff_icon_1), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_battle_cry_active = 1) {
             $struct13 = struct_293;
         } else {
             $struct13 = struct_299;
             $int8 = 1;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_1);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_1);
-        if_sethide(false, conq_side_unit_details:buff_icon_2);
-        if_setposition(47, if_gety(conq_side_unit_details:buff_icon_2), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_2);
-        if (%varclient_1373 = 1 & $int8 = 0) {
+        if_setgraphic(conq_side_unit_details:buff_icon_1, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_1, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_2, false);
+        if_setposition(conq_side_unit_details:buff_icon_2, 47, if_gety(conq_side_unit_details:buff_icon_2), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_stoicism_active = 1 & $int8 = 0) {
             $struct13 = struct_299;
         } else {
             $struct13 = struct_305;
             $int9 = 1;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_2);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_2);
-        if_sethide(false, conq_side_unit_details:buff_icon_3);
-        if_setposition(83, if_gety(conq_side_unit_details:buff_icon_3), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_3);
-        if (%varclient_1374 = 1 & $int9 = 0) {
+        if_setgraphic(conq_side_unit_details:buff_icon_2, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_2, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_3, false);
+        if_setposition(conq_side_unit_details:buff_icon_3, 83, if_gety(conq_side_unit_details:buff_icon_3), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_bloodlust_active = 1 & $int9 = 0) {
             $struct13 = struct_305;
         } else {
             $struct13 = struct_1044;
             $int10 = 1;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_3);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_3);
-        if_sethide(false, conq_side_unit_details:buff_icon_4);
-        if_setposition(119, if_gety(conq_side_unit_details:buff_icon_4), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_4);
-        if (%varclient_1375 = 1 & $int10 = 0) {
+        if_setgraphic(conq_side_unit_details:buff_icon_3, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_3, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_4, false);
+        if_setposition(conq_side_unit_details:buff_icon_4, 119, if_gety(conq_side_unit_details:buff_icon_4), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_chastise_active = 1 & $int10 = 0) {
             $struct13 = struct_1044;
         } else {
             $struct13 = struct_1045;
             $int11 = 1;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_4);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_4);
-        if_sethide(false, conq_side_unit_details:buff_icon_5);
-        if_setposition(155, if_gety(conq_side_unit_details:buff_icon_5), ^setpos_abs_left, ^setpos_abs_top, conq_side_unit_details:buff_icon_5);
-        if (%varclient_1376 = 1 & $int11 = 0) {
+        if_setgraphic(conq_side_unit_details:buff_icon_4, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_4, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
+        if_sethide(conq_side_unit_details:buff_icon_5, false);
+        if_setposition(conq_side_unit_details:buff_icon_5, 155, if_gety(conq_side_unit_details:buff_icon_5), ^setpos_abs_left, ^setpos_abs_top);
+        if (%conq_unit_vigilance_active = 1 & $int11 = 0) {
             $struct13 = struct_1045;
         } else {
             $struct13 = struct_1046;
         }
-        if_setgraphic(struct_param($struct13, param_1153), conq_side_unit_details:buff_icon_5);
-        if_setonmouserepeat("conq_unit_side_tooltips(struct_param($struct13, param_1149))", conq_side_unit_details:buff_icon_5);
+        if_setgraphic(conq_side_unit_details:buff_icon_5, struct_param($struct13, param_1153));
+        if_setonmouserepeat(conq_side_unit_details:buff_icon_5, "conq_unit_side_tooltips(struct_param($struct13, param_1149))");
     }
 }

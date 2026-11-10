@@ -5,7 +5,7 @@
 // 289's hellhound (npc_clones_2011.npc: void-634's hellhound_god_wars). The 2011
 // wiki's Hellhound (18 May 2011) gives levels 122 and 127 one drop list, so
 // 289's table.
-[ai_queue3,hellhound_6210] @hellhound_drop_table;
+[ai_queue3,godwars_ancient_hellhound] @hellhound_drop_table;
 
 [label,hellhound_drop_table]
 gosub(npc_death);

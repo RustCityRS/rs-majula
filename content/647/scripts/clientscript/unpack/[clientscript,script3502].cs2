@@ -1,14 +1,14 @@
 // 3502
 [clientscript,script3502]
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3547(3) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x1);
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3545(4) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x2);
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3545(12) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x3);
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3546(13) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x4);
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3546(5) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x5);
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3547(11) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x6);
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3546(1) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x7);
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3547(14) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x8);
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3545(1) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x9);
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3545(9) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x10);
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3547(6) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x11);
-if_setobject(enum(int, namedobj, enum_3170, calc((~script3546(9) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1, trail_knot_01:rune_x12);
+if_setobject(trail_knot_01:rune_x1, enum(int, namedobj, enum_3170, calc((~script3547(3) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_01:rune_x2, enum(int, namedobj, enum_3170, calc((~script3545(4) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_01:rune_x3, enum(int, namedobj, enum_3170, calc((~script3545(12) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_01:rune_x4, enum(int, namedobj, enum_3170, calc((~script3546(13) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_01:rune_x5, enum(int, namedobj, enum_3170, calc((~script3546(5) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_01:rune_x6, enum(int, namedobj, enum_3170, calc((~script3547(11) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_01:rune_x7, enum(int, namedobj, enum_3170, calc((~script3546(1) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_01:rune_x8, enum(int, namedobj, enum_3170, calc((~script3547(14) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_01:rune_x9, enum(int, namedobj, enum_3170, calc((~script3545(1) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_01:rune_x10, enum(int, namedobj, enum_3170, calc((~script3545(9) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_01:rune_x11, enum(int, namedobj, enum_3170, calc((~script3547(6) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_01:rune_x12, enum(int, namedobj, enum_3170, calc((~script3546(9) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);

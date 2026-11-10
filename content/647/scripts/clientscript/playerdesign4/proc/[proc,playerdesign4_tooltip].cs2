@@ -1,23 +1,23 @@
 // 379
 [proc,playerdesign4_tooltip](string $string0, int $int0, int $int1, int $int2, int $int3)
 def_int $int4 = calc(clientclock + 25);
-if (%varclient_1 < $int4) {
-    %varclient_1 = max(clientclock, calc(%varclient_1 + 2));
+if (%tooltip_time < $int4) {
+    %tooltip_time = max(clientclock, calc(%tooltip_time + 2));
     return;
 }
-%varclient_1 = $int4;
+%tooltip_time = $int4;
 $int3 = max(min($int3, $int1), 0);
-%varclient_2, %varclient_773 = $int0, $int1;
+%tooltip_built, %player_kit_scroll_length = $int0, $int1;
 def_int $int5 = 0;
 if (if_gethide(playerdesign4:tooltip) = false) {
-    if_setposition(if_getx(playerdesign4:tooltip), max(calc($int2 - if_getheight(playerdesign4:tooltip)), 0), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:tooltip);
+    if_setposition(playerdesign4:tooltip, if_getx(playerdesign4:tooltip), max(calc($int2 - if_getheight(playerdesign4:tooltip)), 0), ^setpos_abs_left, ^setpos_abs_top);
     if (cc_find(playerdesign4:tooltip, 9) = true) {
         $int5 = calc($int0 + $int3 - (~if_getx_absolute(playerdesign4:tooltip) + cc_getwidth / 2));
         cc_setposition(min(max($int5, 5), calc(if_getwidth(playerdesign4:tooltip) - (cc_getwidth + 5))), 0, ^setpos_abs_left, ^setpos_abs_bottom);
     }
     return;
 }
-if_sethide(false, playerdesign4:tooltip);
+if_sethide(playerdesign4:tooltip, false);
 cc_deleteall(playerdesign4:tooltip);
 def_int $int6 = parawidth($string0, if_getwidth(playerdesign4:universe), p12_full);
 def_int $int7 = calc(paraheight($string0, $int6, p12_full) * 12 + 3);
@@ -25,7 +25,7 @@ def_int $int8 = max(calc($int6 + 8), 45);
 def_int $int9 = calc($int7 + 18);
 def_int $int10 = max(calc($int8 - 14), 0);
 def_int $int11 = max(calc($int9 - 25), 0);
-if_setsize($int8, $int9, ^setsize_abs, ^setsize_abs, playerdesign4:tooltip);
+if_setsize(playerdesign4:tooltip, $int8, $int9, ^setsize_abs, ^setsize_abs);
 cc_create(playerdesign4:tooltip, ^iftype_rectangle, if_getnextsubid(playerdesign4:tooltip));
 cc_setsize($int10, $int11, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 7, ^setpos_abs_centre, ^setpos_abs_top);
@@ -91,5 +91,5 @@ if ($int5 < 0) {
 } else if (calc($int5 + $int8) > if_getwidth(playerdesign4:black)) {
     $int12 = calc(if_getwidth(playerdesign4:black) - ($int5 + $int8));
 }
-if_setposition(calc($int5 + $int12), max(calc($int2 - $int9), 0), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:tooltip);
+if_setposition(playerdesign4:tooltip, calc($int5 + $int12), max(calc($int2 - $int9), 0), ^setpos_abs_left, ^setpos_abs_top);
 cc_setposition(calc(0 - $int12), 0, ^setpos_abs_centre, ^setpos_abs_bottom);

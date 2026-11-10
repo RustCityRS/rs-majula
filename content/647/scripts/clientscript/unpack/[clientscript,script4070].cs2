@@ -2,5 +2,5 @@
 [clientscript,script4070](int $int0)
 if (clientclock > calc($int0 + 25)) {
     %varclient_1431 = 0;
-    if_setontimer(null, warguild_token_choice:title);
+    if_setontimer(warguild_token_choice:title, null);
 }

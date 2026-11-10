@@ -7,5 +7,5 @@ if (%varplayerbit_9188 = $int1) {
     return;
 }
 %varplayerbit_9188 = $int1;
-sound_synth(synth_2266, 1, 0);
+sound_synth(interface_select1, 1, 0);
 ~pmsetup_updateinterface($component2, $component3, $component4, $component5, $component6, $component7);

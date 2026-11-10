@@ -9,14 +9,14 @@
 // candle and oil lanterns, which 289 does not; they wait for their port (2011
 // wiki, Glassblowing pipe, 26 March 2011, lists all but the oil lantern).
 [oplocu,_sand_pit]
-if (last_useitem = bucket) @sand_fill;
+if (last_useitem = bucket_empty) @sand_fill;
 ~displaymessage(^dm_default);
 
-[opheldu,glassblowing_pipe]
+[opheldu,glassblowingpipe]
 if (last_useitem = molten_glass) @craft_glass_interface;
 
 [opheldu,molten_glass]
-if (last_useitem = glassblowing_pipe) @craft_glass_interface;
+if (last_useitem = glassblowingpipe) @craft_glass_interface;
 // The Observatory Quest's lens waits for the quest's port.
 // if (last_useitem = lens_mould) @craft_telescope_disc;
 
@@ -26,8 +26,8 @@ if (map_members = ^false) {
     return;
 }
 anim(human_fillbucket_sandpit, 0);
-inv_del(inv, bucket, 1);
-inv_add(inv, bucket_of_sand, 1);
+inv_del(inv, bucket_empty, 1);
+inv_add(inv, bucket_sand, 1);
 mes("You fill the bucket with sand.");
 
 [label,smelt_glass]
@@ -46,13 +46,13 @@ if (inv_total(inv, soda_ash) < 1) {
     return;
 }
 // check if enough sand
-if (inv_total(inv, bucket_of_sand) < 1) {
+if (inv_total(inv, bucket_sand) < 1) {
     ~mesbox("You need some Sand to make Glass.");
     return;
 }
 // delete and add items in this order
-inv_del(inv, bucket_of_sand, 1);
-inv_add(inv, bucket, 1);
+inv_del(inv, bucket_sand, 1);
+inv_add(inv, bucket_empty, 1);
 inv_del(inv, soda_ash, 1);
 inv_add(inv, molten_glass, 1);
 // play anim and sound
@@ -75,8 +75,8 @@ def_namedobj $item;
 def_int $process_count;
 $item, $process_count = ~skill_multi3(
     beer_glass, 0, 5, 200, "\\n\\n\\n\\nBeer Glass",
-    vial, 2, 10, 180, "\\n\\n\\n\\nVial",
-    unpowered_orb, 2, -10, 200, "\\n\\n\\n\\nOrb"
+    vial_empty, 2, 10, 180, "\\n\\n\\n\\nVial",
+    stafforb, 2, -10, 200, "\\n\\n\\n\\nOrb"
 );
 if ($item = null) {
     ~displaymessage(^dm_default);

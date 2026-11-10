@@ -4,7 +4,7 @@
 // 2011's God Wars imp 6211 (cache 786: "Imp", level 7) fights as 289's imp
 // (npc_clones_2011.npc: void-634's imp_god_wars). The 2011 wiki's Imp (21 May
 // 2011) gives levels 2 and 7 one drop list, so 289's table.
-[ai_queue3,imp_6211] @imp_drop_table;
+[ai_queue3,godwars_ancient_imp] @imp_drop_table;
 
 [label,imp_drop_table]
 gosub(npc_death);
@@ -26,9 +26,9 @@ if ($random < 5) {
 } else if ($random < 20) {
     obj_add(npc_coord, yellow_bead, 1, ^lootdrop_duration);
 } else if ($random < 28) {
-    obj_add(npc_coord, bronze_bolts, 1, ^lootdrop_duration);
+    obj_add(npc_coord, bolt, 1, ^lootdrop_duration);
 } else if ($random < 36) {
-    obj_add(npc_coord, wizard_hat, 1, ^lootdrop_duration);
+    obj_add(npc_coord, bluewizhat, 1, ^lootdrop_duration);
 } else if ($random < 41) {
     obj_add(npc_coord, egg, 1, ^lootdrop_duration);
 } else if ($random < 46) {
@@ -52,17 +52,17 @@ if ($random < 5) {
 } else if ($random < 77) {
     obj_add(npc_coord, shears, 1, ^lootdrop_duration);
 } else if ($random < 81) {
-    obj_add(npc_coord, bucket, 1, ^lootdrop_duration);
+    obj_add(npc_coord, bucket_empty, 1, ^lootdrop_duration);
 } else if ($random < 83) {
-    obj_add(npc_coord, bucket_of_water, 1, ^lootdrop_duration);
+    obj_add(npc_coord, bucket_water, 1, ^lootdrop_duration);
 } else if ($random < 85) {
-    obj_add(npc_coord, jug, 1, ^lootdrop_duration);
+    obj_add(npc_coord, jug_empty, 1, ^lootdrop_duration);
 } else if ($random < 87) {
-    obj_add(npc_coord, jug_of_water, 1, ^lootdrop_duration);
+    obj_add(npc_coord, jug_water, 1, ^lootdrop_duration);
 } else if ($random < 89) {
-    obj_add(npc_coord, empty_pot, 1, ^lootdrop_duration);
+    obj_add(npc_coord, pot_empty, 1, ^lootdrop_duration);
 } else if ($random < 91) {
-    obj_add(npc_coord, pot_of_flour, 1, ^lootdrop_duration);
+    obj_add(npc_coord, pot_flour, 1, ^lootdrop_duration);
 } else if ($random < 99) {
     obj_add(npc_coord, ball_of_wool, 1, ^lootdrop_duration);
 } else if ($random < 106) {
@@ -72,13 +72,13 @@ if ($random < 5) {
 } else if ($random < 116) {
     obj_add(npc_coord, clay, 1, ^lootdrop_duration);
 } else if ($random < 120) {
-    obj_add(npc_coord, cadava_berries, 1, ^lootdrop_duration);
+    obj_add(npc_coord, cadavaberries, 1, ^lootdrop_duration);
 } else if ($random < 123) {
     obj_add(npc_coord, grain, 1, ^lootdrop_duration);
 } else if ($random < 125) {
-    obj_add(npc_coord, chef_s_hat, 1, ^lootdrop_duration);
+    obj_add(npc_coord, chefs_hat, 1, ^lootdrop_duration);
 } else if ($random < 127) {
     obj_add(npc_coord, flier, 1, ^lootdrop_duration);
 } else if ($random < 128) {
-    obj_add(npc_coord, potion, 1, ^lootdrop_duration);
+    obj_add(npc_coord, acne_potion, 1, ^lootdrop_duration);
 }

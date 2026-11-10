@@ -2,10 +2,10 @@
 [proc,script2785](wma $wma0)(wma)
 switch_wma ($wma0) {
     case tutorial3_1, tutorial3_2, tutorial3_3 :
-        if (%learning_the_ropes < 93) {
+        if (%tutorial < 93) {
             return(tutorial3_1);
         }
-        if (%learning_the_ropes < 120) {
+        if (%tutorial < 120) {
             return(tutorial3_2);
         }
         return(tutorial3_3);

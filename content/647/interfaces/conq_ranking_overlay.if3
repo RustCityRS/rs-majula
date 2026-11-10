@@ -11,5 +11,5 @@ textalignv=bottom
 textshadow=yes
 colour=0xff981f
 onload=conq_ranking_overlay_onload(event_com)
-onvartransmit=conq_update_ranking_overlay(event_com){varplayer_1875}
+onvartransmit=conq_update_ranking_overlay(event_com){conq_highscore}
 ontimer=conq_ranking_overlay_ontimer(event_com)

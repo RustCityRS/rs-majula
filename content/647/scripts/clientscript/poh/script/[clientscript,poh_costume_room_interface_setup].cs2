@@ -1,4 +1,4 @@
 // 2677
 [clientscript,poh_costume_room_interface_setup]
-if_setscrollsize(431, 1863, poh_costume_room_menu:com_11);
+if_setscrollsize(poh_costume_room_menu:com_11, 431, 1863);
 ~scrollbar_vertical(poh_costume_room_menu:scrollbar_layer, poh_costume_room_menu:com_11, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

@@ -15,7 +15,7 @@ if ($int0 ! 0) {
     if (testbit($int0, 3) = ^true) {
         $int1 = setbit($int1, 3);
     }
-    %varclient_996 = $int1;
+    %worldselect_1stsort = $int1;
     $int1 = 0;
     if (testbit($int0, 4) = ^true) {
         $int1 = setbit($int1, 0);
@@ -29,7 +29,7 @@ if ($int0 ! 0) {
     if (testbit($int0, 7) = ^true) {
         $int1 = setbit($int1, 3);
     }
-    %varclient_997 = $int1;
+    %worldselect_2ndsort = $int1;
     $int1 = 0;
     if (testbit($int0, 14) = ^true) {
         $int1 = setbit($int1, 0);
@@ -58,7 +58,7 @@ if ($int0 ! 0) {
     if (testbit($int0, 22) = ^true) {
         $int1 = setbit($int1, 8);
     }
-    %varclient_998 = $int1;
+    %worldselect_1stfavourite = $int1;
     $int1 = 0;
     if (testbit($int0, 23) = ^true) {
         $int1 = setbit($int1, 0);
@@ -87,5 +87,5 @@ if ($int0 ! 0) {
     if (testbit($int0, 31) = ^true) {
         $int1 = setbit($int1, 8);
     }
-    %varclient_999 = $int1;
+    %worldselect_2ndfavourite = $int1;
 }

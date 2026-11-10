@@ -10,18 +10,18 @@ def_int $int2 = 0;
 ~script4501(clan_noticeboard_event_edit:com_142, "Select Event Type");
 ~script4501(clan_noticeboard_event_edit:com_157, "Select Event Place");
 ~script4501(clan_noticeboard_event_edit:com_172, "Select Event Attendees");
-if_setscrollpos(0, 0, clan_noticeboard_event_edit:com_183);
+if_setscrollpos(clan_noticeboard_event_edit:com_183, 0, 0);
 ~scrollbar_ondrag_doscroll(clan_noticeboard_event_edit:com_182, clan_noticeboard_event_edit:com_183, 0, 1);
-if_setscrollpos(0, 0, clan_noticeboard_event_edit:com_168);
+if_setscrollpos(clan_noticeboard_event_edit:com_168, 0, 0);
 ~scrollbar_ondrag_doscroll(clan_noticeboard_event_edit:com_167, clan_noticeboard_event_edit:com_168, 0, 1);
-if_setscrollpos(0, 0, clan_noticeboard_event_edit:com_153);
+if_setscrollpos(clan_noticeboard_event_edit:com_153, 0, 0);
 ~scrollbar_ondrag_doscroll(clan_noticeboard_event_edit:com_152, clan_noticeboard_event_edit:com_153, 0, 1);
 if (%varplayerbit_9140 = 1) {
-    if_settext("All events relative to clan time", clan_noticeboard_event_edit:time_text);
+    if_settext(clan_noticeboard_event_edit:time_text, "All events relative to clan time");
 } else {
-    if_settext("All events relative to game time", clan_noticeboard_event_edit:time_text);
+    if_settext(clan_noticeboard_event_edit:time_text, "All events relative to game time");
 }
-switch_int (%varplayer_2128) {
+switch_int (%clan_event_current_varp) {
     case 1 :
         if (%varplayerbit_9115 > 0) {
             $int0, $int1, $int2 = date_runeday_todate(%varplayerbit_9115);

@@ -5,11 +5,11 @@ def_int $int5 = calc(clientclock - $int3);
 def_int $int6 = 0;
 if ($int5 <= 30) {
     if ($int5 = 5) {
-        sound_synth(synth_2871, 1, 0);
+        sound_synth(ft_fairyrings, 1, 0);
     }
     $int6 = calc(scale($int5, 30, $int4) - $int4);
-    if_setposition(0, $int6, ^setpos_abs_centre, ^setpos_abs_centre, $component1);
-    if_setposition(0, $int6, ^setpos_abs_centre, ^setpos_abs_centre, $component2);
+    if_setposition($component1, 0, $int6, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setposition($component2, 0, $int6, ^setpos_abs_centre, ^setpos_abs_centre);
     return;
 }
 if ($int5 < 170) {
@@ -17,15 +17,15 @@ if ($int5 < 170) {
 }
 if ($int5 < 200) {
     if ($int5 = 170) {
-        sound_synth(synth_2871, 1, 0);
+        sound_synth(ft_fairyrings, 1, 0);
     }
     $int6 = calc(0 - scale(calc($int5 - 170), 30, $int4));
-    if_setposition(0, $int6, ^setpos_abs_centre, ^setpos_abs_centre, $component1);
-    if_setposition(0, $int6, ^setpos_abs_centre, ^setpos_abs_centre, $component2);
+    if_setposition($component1, 0, $int6, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setposition($component2, 0, $int6, ^setpos_abs_centre, ^setpos_abs_centre);
     return;
 }
-if_setontimer(null, $component0);
+if_setontimer($component0, null);
 if_clearops($component1);
-if_sethide(true, $component1);
-if_sethide(true, $component2);
-if_sethide(true, $component0);
+if_sethide($component1, true);
+if_sethide($component2, true);
+if_sethide($component0, true);

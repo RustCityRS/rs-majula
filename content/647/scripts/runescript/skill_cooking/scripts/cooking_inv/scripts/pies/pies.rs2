@@ -1,10 +1,10 @@
 [opheldu,pastry_dough]
 switch_obj (last_useitem) {
-    case pie_dish : @make_pie_shell;
+    case piedish : @make_pie_shell;
     case default : ~displaymessage(^dm_default);
 }
 
-[opheldu,pie_dish]
+[opheldu,piedish]
 switch_obj (last_useitem) {
     case pastry_dough : @make_pie_shell;
     case default : ~displaymessage(^dm_default);
@@ -30,13 +30,13 @@ switch_obj (last_useitem) {
 
 [opheld1,burnt_pie]
 inv_del(inv, burnt_pie, 1);
-inv_add(inv, pie_dish, 1);
+inv_add(inv, piedish, 1);
 mes("You remove the burnt pie from the pie dish.");
 
 [label,make_pie_shell]
 // delete the dough and pie dish
 inv_del(inv, pastry_dough, 1);
-inv_del(inv, pie_dish, 1);
+inv_del(inv, piedish, 1);
 // add the pie shell
 inv_add(inv, pie_shell, 1);
 // display the message

@@ -66,4 +66,4 @@ while ($int2 < inv_size(worn)) {
 if ($int1 ! -1 & inv_getobj(worn, $int1) = null) {
     $int1 = -1;
 }
-if_setoninvtransmit("script2372(event_com, $int1){worn}", $component0);
+if_setoninvtransmit($component0, "script2372(event_com, $int1){worn}");

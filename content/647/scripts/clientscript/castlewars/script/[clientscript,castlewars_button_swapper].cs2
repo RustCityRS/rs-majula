@@ -1,5 +1,5 @@
 // 3429
 [clientscript,castlewars_button_swapper](component $component0, component $component1, component $component2, graphic $graphic3, graphic $graphic4, graphic $graphic5)
-if_setgraphic($graphic3, $component0);
-if_setgraphic($graphic4, $component1);
-if_setgraphic($graphic5, $component2);
+if_setgraphic($component0, $graphic3);
+if_setgraphic($component1, $graphic4);
+if_setgraphic($component2, $graphic5);

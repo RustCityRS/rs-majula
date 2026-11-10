@@ -2,8 +2,8 @@
 [proc,mob_highlight_start](component $component0)
 def_graphic $graphic1 = null;
 def_graphic $graphic2 = null;
-%varclient_905 = $component0;
-%varclient_904 = 1;
+%mob_client_highlight_com = $component0;
+%mob_client_highlight = 1;
 switch_component ($component0) {
     case mob_side_command:button1 :
         $component0 = mob_side_command:attack;
@@ -45,4 +45,4 @@ switch_component ($component0) {
             $graphic2 = "mob_command_icons,13";
         }
 }
-if_setontimer("mob_highlight_timer($component0, $graphic1, $graphic2)", $component0);
+if_setontimer($component0, "mob_highlight_timer($component0, $graphic1, $graphic2)");

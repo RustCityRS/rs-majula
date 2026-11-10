@@ -6,7 +6,7 @@
 // row, clientscript 2193): no scroll, no quest point and no journal (289's hetty_journal.rs2).
 // The reward is unchanged, 325 Magic experience (2011 wiki, Witch's Potion, 2011-04-18). What
 // 2011 showed on finishing is not known: every recording found predates the change.
-[oploc1,loc_2024]
+[oploc1,hettycauldron]
 if(%hetty ! ^hetty_objects_given) {
     return;
 }

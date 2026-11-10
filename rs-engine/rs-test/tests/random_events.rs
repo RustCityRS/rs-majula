@@ -128,7 +128,7 @@ fn the_maze_takes_a_player_in_and_their_run_never_tires() {
             "in the maze; said {said:?}"
         );
         assert!(
-            varp(engine, client.pid, "xplamp") >= 99,
+            varp(engine, client.pid, "macro_transmit") >= 99,
             "the reward starts full"
         );
         // The old man's word opens a dialogue; the maze's [mapzone] queues
@@ -230,7 +230,7 @@ fn the_mime_takes_a_player_to_his_stage_and_four_right_answers_bring_a_gift() {
             x.abs_diff(HOME.0) <= 2 && z.abs_diff(HOME.1) <= 2,
             "back where they were: at {x},{z}"
         );
-        let gift = obj(engine, "random_event_gift");
+        let gift = obj(engine, "macro_frog_token");
         assert!(
             inv(engine, client.pid, "inv")
                 .iter()
@@ -245,7 +245,7 @@ fn the_mime_takes_a_player_to_his_stage_and_four_right_answers_bring_a_gift() {
 fn open_gift(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
     cheat(client, "~macro_event_gift 7");
     ticks(engine, client, 2);
-    let gift = obj(engine, "random_event_gift");
+    let gift = obj(engine, "macro_frog_token");
     let slot = inv(engine, client.pid, "inv")
         .iter()
         .position(|s| matches!(s, Some((o, _)) if *o == gift))
@@ -266,7 +266,7 @@ fn a_gift_offers_2011_s_choices_and_gives_the_one_chosen() {
                 .is_interface_open(202),
             "ame_rewards opens; said {said:?}"
         );
-        let choices = inv(engine, client.pid, "ame_rewards");
+        let choices = inv(engine, client.pid, "macro_certer");
         assert!(
             choices[26].is_some() && choices[27].is_some(),
             "the emote and the costume point"
@@ -283,7 +283,7 @@ fn a_gift_offers_2011_s_choices_and_gives_the_one_chosen() {
             said.iter().any(|m| m == "Enjoy your gift."),
             "said {said:?}"
         );
-        let gift = obj(engine, "random_event_gift");
+        let gift = obj(engine, "macro_frog_token");
         let held = inv(engine, client.pid, "inv");
         assert!(
             !held.iter().flatten().any(|&(o, _)| o == gift),
@@ -317,7 +317,7 @@ fn a_gift_s_emote_unlocks_one_of_the_mime_s_emotes() {
         let mut client = developer(engine, "emoter");
         let before = varp(engine, client.pid, "emote_access") & 0xF;
         open_gift(engine, &mut client);
-        let choices = inv(engine, client.pid, "ame_rewards");
+        let choices = inv(engine, client.pid, "macro_certer");
         assert!(choices[26].is_some(), "the emote is offered");
         button1(&mut client, GIFT_CHOICES, 26 * 7, -1);
         ticks(engine, &mut client, 2);

@@ -265,7 +265,7 @@ widthmode=minus
 heightmode=minus
 layer=com_7
 onload=clan_noticeboard_event_update_data
-onvartransmit=clan_noticeboard_event_update_data{varplayer_2128}
+onvartransmit=clan_noticeboard_event_update_data{clan_event_current_varp}
 
 // 1098:25
 [event_choose_layer]
@@ -510,7 +510,7 @@ layer=com_37
 graphic="aif_checkbox_small,4"
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseleave=deltooltip(clan_noticeboard_event_edit:tooltip)
 onvartransmit=clan_noticeboard_event_edit_vexillum_tick_update(event_com){varplayer_2111}
 onmouserepeat=aif_tooltip(clan_noticeboard_event_edit:tooltip, event_com, -1, "Only one event can be displayed on the vexillum.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
@@ -542,7 +542,7 @@ layer=com_37
 graphic="aif_checkbox_small,4"
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onvartransmit=script4355(event_com){varplayer_2111, varplayer_2111, varplayer_2111, varplayer_2111, varplayer_2111, varplayer_2111, varplayer_2111, varplayer_2111}
 onclick=script4354(event_com)
 
@@ -815,7 +815,7 @@ heightmode=minus
 layer=save_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 
 // 1098:73
@@ -964,7 +964,7 @@ heightmode=minus
 layer=cancel_layer
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 
 // 1098:86
@@ -1112,7 +1112,7 @@ heightmode=minus
 layer=com_90
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 
 // 1098:99
@@ -1458,7 +1458,7 @@ y=156
 width=323
 height=21
 layer=dropdown_container
-onvartransmit=script4349{varplayer_2099, varplayer_2099, varplayer_2099, varplayer_2099, varplayer_2100, varplayer_2100, varplayer_2100, varplayer_2100, varplayer_2128}
+onvartransmit=script4349{varplayer_2099, varplayer_2099, varplayer_2099, varplayer_2099, varplayer_2100, varplayer_2100, varplayer_2100, varplayer_2100, clan_event_current_varp}
 
 // 1098:128
 [com_128]
@@ -2897,7 +2897,7 @@ heightmode=minus
 layer=com_27
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
@@ -2986,7 +2986,7 @@ heightmode=minus
 layer=com_6
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
@@ -3075,7 +3075,7 @@ heightmode=minus
 layer=com_5
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
@@ -3164,7 +3164,7 @@ heightmode=minus
 layer=com_4
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
@@ -3253,7 +3253,7 @@ heightmode=minus
 layer=com_3
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
@@ -3342,7 +3342,7 @@ heightmode=minus
 layer=com_2
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
@@ -3431,7 +3431,7 @@ heightmode=minus
 layer=com_1
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 
@@ -3520,7 +3520,7 @@ heightmode=minus
 layer=com_0
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onload=script4213(event_com)
 onop=clan_noticeboard_event_edit_selection(event_com)
 

@@ -1,6 +1,6 @@
 // 3465
 [proc,script3465](component $component0, coord $coord1)
-switch_int (%varclient_1007) {
+switch_int (%tutorial3_cutscene_tracker) {
     case 11 :
         cc_deleteall($component0);
         ~tutorial3_fadeout(^black, 75, $component0);

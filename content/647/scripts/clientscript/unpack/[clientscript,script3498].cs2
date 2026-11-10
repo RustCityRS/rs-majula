@@ -25,38 +25,38 @@ if ($int1 ! 0) {
     $int6 = $int1;
 }
 sound_synth(synth_8809, 1, 0);
-if_setposition(0, $int5, ^setpos_abs_left, ^setpos_abs_top, $component2);
-if_settext(tostring($int6), $component3);
+if_setposition($component2, 0, $int5, ^setpos_abs_left, ^setpos_abs_top);
+if_settext($component3, tostring($int6));
 switch_int ($int0) {
     case 1 :
-        if_settext(if_gettext(interface_994:floor_count_1), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_1));
     case 2 :
-        if_settext(if_gettext(interface_994:floor_count_2), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_2));
     case 3 :
-        if_settext(if_gettext(interface_994:floor_count_3), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_3));
     case 4 :
-        if_settext(if_gettext(interface_994:floor_count_4), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_4));
     case 5 :
-        if_settext(if_gettext(interface_994:floor_count_5), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_5));
     case 6 :
-        if_settext(if_gettext(interface_994:floor_count_6), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_6));
     case 7 :
-        if_settext(if_gettext(interface_994:floor_count_7), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_7));
     case 8 :
-        if_settext(if_gettext(interface_994:floor_count_8), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_8));
     case 9 :
-        if_settext(if_gettext(interface_994:floor_count_9), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_9));
     case 10 :
-        if_settext(if_gettext(interface_994:floor_count_10), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_10));
     case 11 :
-        if_settext(if_gettext(interface_994:floor_count_11), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_11));
     case 12 :
-        if_settext(if_gettext(interface_994:floor_count_12), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_12));
     case 13 :
-        if_settext(if_gettext(interface_994:floor_count_13), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_13));
     case 14 :
-        if_settext(if_gettext(interface_994:floor_count_14), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_14));
     case 15 :
-        if_settext(if_gettext(interface_994:floor_count_15), $component4);
+        if_settext($component4, if_gettext(interface_994:floor_count_15));
     case default :
 }

@@ -11,16 +11,16 @@ if (oc_param($obj0, param_542) ! null & inv_total(inv, oc_param($obj0, param_542
 }
 if (oc_param($obj0, param_697) ! null) {
     switch_obj (oc_param($obj0, param_697)) {
-        case snake_hide :
-            if (calc(inv_total(inv, snake_hide) + inv_total(inv, snake_hide_7801)) < oc_param($obj0, param_698)) {
+        case village_snake_hide :
+            if (calc(inv_total(inv, village_snake_hide) + inv_total(inv, templetrek_swamp_snake_hide)) < oc_param($obj0, param_698)) {
                 return(0);
             }
-        case granite__500g :
-            if (calc(inv_total(inv, granite__500g) + inv_total(inv, granite__2kg) + inv_total(inv, granite__5kg)) < oc_param($obj0, param_698)) {
+        case enakh_granite_tiny :
+            if (calc(inv_total(inv, enakh_granite_tiny) + inv_total(inv, enakh_granite_small) + inv_total(inv, enakh_granite_medium)) < oc_param($obj0, param_698)) {
                 return(0);
             }
-        case red_flowers :
-            if (calc(inv_total(inv, red_flowers) + inv_total(inv, flowers) + inv_total(inv, blue_flowers) + inv_total(inv, yellow_flowers) + inv_total(inv, purple_flowers) + inv_total(inv, orange_flowers) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_698)) {
+        case flowers_waterfall_quest_red :
+            if (calc(inv_total(inv, flowers_waterfall_quest_red) + inv_total(inv, flowers_waterfall_quest) + inv_total(inv, flowers_waterfall_quest_blue) + inv_total(inv, flowers_waterfall_quest_yellow) + inv_total(inv, flowers_waterfall_quest_purple) + inv_total(inv, flowers_waterfall_quest_orange) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_698)) {
                 return(0);
             }
         case default :
@@ -31,16 +31,16 @@ if (oc_param($obj0, param_697) ! null) {
 }
 if (oc_param($obj0, param_699) ! null) {
     switch_obj (oc_param($obj0, param_699)) {
-        case snake_hide :
-            if (calc(inv_total(inv, snake_hide) + inv_total(inv, snake_hide_7801)) < oc_param($obj0, param_700)) {
+        case village_snake_hide :
+            if (calc(inv_total(inv, village_snake_hide) + inv_total(inv, templetrek_swamp_snake_hide)) < oc_param($obj0, param_700)) {
                 return(0);
             }
-        case granite__500g :
-            if (calc(inv_total(inv, granite__500g) + inv_total(inv, granite__2kg) + inv_total(inv, granite__5kg)) < oc_param($obj0, param_700)) {
+        case enakh_granite_tiny :
+            if (calc(inv_total(inv, enakh_granite_tiny) + inv_total(inv, enakh_granite_small) + inv_total(inv, enakh_granite_medium)) < oc_param($obj0, param_700)) {
                 return(0);
             }
-        case red_flowers :
-            if (calc(inv_total(inv, red_flowers) + inv_total(inv, flowers) + inv_total(inv, blue_flowers) + inv_total(inv, yellow_flowers) + inv_total(inv, purple_flowers) + inv_total(inv, orange_flowers) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_700)) {
+        case flowers_waterfall_quest_red :
+            if (calc(inv_total(inv, flowers_waterfall_quest_red) + inv_total(inv, flowers_waterfall_quest) + inv_total(inv, flowers_waterfall_quest_blue) + inv_total(inv, flowers_waterfall_quest_yellow) + inv_total(inv, flowers_waterfall_quest_purple) + inv_total(inv, flowers_waterfall_quest_orange) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_700)) {
                 return(0);
             }
         case default :
@@ -51,16 +51,16 @@ if (oc_param($obj0, param_699) ! null) {
 }
 if (oc_param($obj0, param_701) ! null) {
     switch_obj (oc_param($obj0, param_701)) {
-        case snake_hide :
-            if (calc(inv_total(inv, snake_hide) + inv_total(inv, snake_hide_7801)) < oc_param($obj0, param_702)) {
+        case village_snake_hide :
+            if (calc(inv_total(inv, village_snake_hide) + inv_total(inv, templetrek_swamp_snake_hide)) < oc_param($obj0, param_702)) {
                 return(0);
             }
-        case granite__500g :
-            if (calc(inv_total(inv, granite__500g) + inv_total(inv, granite__2kg) + inv_total(inv, granite__5kg)) < oc_param($obj0, param_702)) {
+        case enakh_granite_tiny :
+            if (calc(inv_total(inv, enakh_granite_tiny) + inv_total(inv, enakh_granite_small) + inv_total(inv, enakh_granite_medium)) < oc_param($obj0, param_702)) {
                 return(0);
             }
-        case red_flowers :
-            if (calc(inv_total(inv, red_flowers) + inv_total(inv, flowers) + inv_total(inv, blue_flowers) + inv_total(inv, yellow_flowers) + inv_total(inv, purple_flowers) + inv_total(inv, orange_flowers) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_702)) {
+        case flowers_waterfall_quest_red :
+            if (calc(inv_total(inv, flowers_waterfall_quest_red) + inv_total(inv, flowers_waterfall_quest) + inv_total(inv, flowers_waterfall_quest_blue) + inv_total(inv, flowers_waterfall_quest_yellow) + inv_total(inv, flowers_waterfall_quest_purple) + inv_total(inv, flowers_waterfall_quest_orange) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_702)) {
                 return(0);
             }
         case default :
@@ -71,16 +71,16 @@ if (oc_param($obj0, param_701) ! null) {
 }
 if (oc_param($obj0, param_703) ! null) {
     switch_obj (oc_param($obj0, param_703)) {
-        case snake_hide :
-            if (calc(inv_total(inv, snake_hide) + inv_total(inv, snake_hide_7801)) < oc_param($obj0, param_704)) {
+        case village_snake_hide :
+            if (calc(inv_total(inv, village_snake_hide) + inv_total(inv, templetrek_swamp_snake_hide)) < oc_param($obj0, param_704)) {
                 return(0);
             }
-        case granite__500g :
-            if (calc(inv_total(inv, granite__500g) + inv_total(inv, granite__2kg) + inv_total(inv, granite__5kg)) < oc_param($obj0, param_704)) {
+        case enakh_granite_tiny :
+            if (calc(inv_total(inv, enakh_granite_tiny) + inv_total(inv, enakh_granite_small) + inv_total(inv, enakh_granite_medium)) < oc_param($obj0, param_704)) {
                 return(0);
             }
-        case red_flowers :
-            if (calc(inv_total(inv, red_flowers) + inv_total(inv, flowers) + inv_total(inv, blue_flowers) + inv_total(inv, yellow_flowers) + inv_total(inv, purple_flowers) + inv_total(inv, orange_flowers) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_704)) {
+        case flowers_waterfall_quest_red :
+            if (calc(inv_total(inv, flowers_waterfall_quest_red) + inv_total(inv, flowers_waterfall_quest) + inv_total(inv, flowers_waterfall_quest_blue) + inv_total(inv, flowers_waterfall_quest_yellow) + inv_total(inv, flowers_waterfall_quest_purple) + inv_total(inv, flowers_waterfall_quest_orange) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_704)) {
                 return(0);
             }
         case default :
@@ -91,16 +91,16 @@ if (oc_param($obj0, param_703) ! null) {
 }
 if (oc_param($obj0, param_705) ! null) {
     switch_obj (oc_param($obj0, param_705)) {
-        case snake_hide :
-            if (calc(inv_total(inv, snake_hide) + inv_total(inv, snake_hide_7801)) < oc_param($obj0, param_706)) {
+        case village_snake_hide :
+            if (calc(inv_total(inv, village_snake_hide) + inv_total(inv, templetrek_swamp_snake_hide)) < oc_param($obj0, param_706)) {
                 return(0);
             }
-        case granite__500g :
-            if (calc(inv_total(inv, granite__500g) + inv_total(inv, granite__2kg) + inv_total(inv, granite__5kg)) < oc_param($obj0, param_706)) {
+        case enakh_granite_tiny :
+            if (calc(inv_total(inv, enakh_granite_tiny) + inv_total(inv, enakh_granite_small) + inv_total(inv, enakh_granite_medium)) < oc_param($obj0, param_706)) {
                 return(0);
             }
-        case red_flowers :
-            if (calc(inv_total(inv, red_flowers) + inv_total(inv, flowers) + inv_total(inv, blue_flowers) + inv_total(inv, yellow_flowers) + inv_total(inv, purple_flowers) + inv_total(inv, orange_flowers) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_706)) {
+        case flowers_waterfall_quest_red :
+            if (calc(inv_total(inv, flowers_waterfall_quest_red) + inv_total(inv, flowers_waterfall_quest) + inv_total(inv, flowers_waterfall_quest_blue) + inv_total(inv, flowers_waterfall_quest_yellow) + inv_total(inv, flowers_waterfall_quest_purple) + inv_total(inv, flowers_waterfall_quest_orange) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_706)) {
                 return(0);
             }
         case default :
@@ -111,16 +111,16 @@ if (oc_param($obj0, param_705) ! null) {
 }
 if (oc_param($obj0, param_707) ! null) {
     switch_obj (oc_param($obj0, param_707)) {
-        case snake_hide :
-            if (calc(inv_total(inv, snake_hide) + inv_total(inv, snake_hide_7801)) < oc_param($obj0, param_708)) {
+        case village_snake_hide :
+            if (calc(inv_total(inv, village_snake_hide) + inv_total(inv, templetrek_swamp_snake_hide)) < oc_param($obj0, param_708)) {
                 return(0);
             }
-        case granite__500g :
-            if (calc(inv_total(inv, granite__500g) + inv_total(inv, granite__2kg) + inv_total(inv, granite__5kg)) < oc_param($obj0, param_708)) {
+        case enakh_granite_tiny :
+            if (calc(inv_total(inv, enakh_granite_tiny) + inv_total(inv, enakh_granite_small) + inv_total(inv, enakh_granite_medium)) < oc_param($obj0, param_708)) {
                 return(0);
             }
-        case red_flowers :
-            if (calc(inv_total(inv, red_flowers) + inv_total(inv, flowers) + inv_total(inv, blue_flowers) + inv_total(inv, yellow_flowers) + inv_total(inv, purple_flowers) + inv_total(inv, orange_flowers) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_708)) {
+        case flowers_waterfall_quest_red :
+            if (calc(inv_total(inv, flowers_waterfall_quest_red) + inv_total(inv, flowers_waterfall_quest) + inv_total(inv, flowers_waterfall_quest_blue) + inv_total(inv, flowers_waterfall_quest_yellow) + inv_total(inv, flowers_waterfall_quest_purple) + inv_total(inv, flowers_waterfall_quest_orange) + inv_total(inv, flowers_waterfall_quest_mixed)) < oc_param($obj0, param_708)) {
                 return(0);
             }
         case default :

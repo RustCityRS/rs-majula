@@ -10,10 +10,10 @@ if ($int2 < 0) {
 if ($int2 > $int4) {
     $int2 = $int4;
 }
-if_setscrollpos(0, $int2, $component1);
+if_setscrollpos($component1, 0, $int2);
 switch_component ($component1) {
     case chatdefault:scrollarea :
-        %varclient_7 = $int2;
+        %chat_lastscrollpos = $int2;
     case smithing_new:scrolling_layer :
         %varclient_109 = $int2;
     case interface_735:text_layer :
@@ -21,11 +21,11 @@ switch_component ($component1) {
     case bank_v2_main:bank_v2_inv :
         ~bank_v2_set_tab_scrollpos(%open_bank_tab, $int2);
     case lobbyscreen_pane_friendslist:chat_build :
-        %varclient_1122 = $int2;
+        %lobby_pmchat_lastscrollpos = $int2;
     case lobbyscreen_pane_clanchat:chat_build :
-        %varclient_1124 = $int2;
+        %lobby_clanchat_lastscrollpos = $int2;
     case music_v3:jukebox :
-        %varclient_88 = $int2;
+        %playerdesign2_client_jaw = $int2;
 }
 def_int $int5 = 0;
 if ($boolean3 = true) {

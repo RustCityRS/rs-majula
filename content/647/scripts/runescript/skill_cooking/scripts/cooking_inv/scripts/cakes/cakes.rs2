@@ -1,6 +1,6 @@
 [opheldu,cake_tin]
 switch_obj (last_useitem) {
-    case pot_of_flour, egg, bucket_of_milk : @make_uncooked_cake;
+    case pot_flour, egg, bucket_milk : @make_uncooked_cake;
     case default : ~displaymessage(^dm_default);
 }
 [opheldu,egg]
@@ -9,7 +9,7 @@ switch_obj (last_useitem) {
     case default : ~displaymessage(^dm_default);
 }
 
-[opheldu,bucket_of_milk]
+[opheldu,bucket_milk]
 switch_obj (last_useitem) {
     case cocktail_shaker : @add_cocktail_ingredient(last_item);
     case cake_tin : @make_uncooked_cake;
@@ -17,7 +17,7 @@ switch_obj (last_useitem) {
     case default : ~displaymessage(^dm_default);
 }
 
-[opheldu,chocolatey_milk]
+[opheldu,chocolaty_milk]
 switch_obj (last_useitem) {
     case snape_grass : @make_hangover_cure(last_useslot);
     case default : ~displaymessage(^dm_default);
@@ -46,14 +46,14 @@ switch_obj (last_useitem) {
     // change to Desert Treasure, 18 Apr 2005); 2011 does (2011 wiki, Chocolate
     // dust, 2011-04-17; Chocolate cake, 2011-04-21).
     case cake : @make_chocolate_cake(last_slot);
-    case bucket_of_milk : @make_chocolate_milk(last_slot);
-    case harralander_potion__unf : ~attempt_brew_potion(last_useslot, last_slot);
+    case bucket_milk : @make_chocolate_milk(last_slot);
+    case harralandervial : ~attempt_brew_potion(last_useslot, last_slot);
     case default : ~displaymessage(^dm_default);
 }
 
 [opheldu,snape_grass]
 switch_obj (last_useitem) {
-    case chocolatey_milk : @make_hangover_cure(last_slot);
+    case chocolaty_milk : @make_hangover_cure(last_slot);
     case default : ~attempt_brew_potion(last_useslot, last_slot);
 }
 
@@ -75,27 +75,27 @@ if (last_useitem = cake_tin) {
 }
 switch_obj ($ignored_ingredient) {
     case egg :
-        if (~check_cake_ingredients(pot_of_flour, "flour", bucket_of_milk, "milk") = false) {
+        if (~check_cake_ingredients(pot_flour, "flour", bucket_milk, "milk") = false) {
             return;
         }
-    case pot_of_flour :
-        if (~check_cake_ingredients(egg, "egg", bucket_of_milk, "milk") = false) {
+    case pot_flour :
+        if (~check_cake_ingredients(egg, "egg", bucket_milk, "milk") = false) {
             return;
         }
-    case bucket_of_milk :
-        if (~check_cake_ingredients(egg, "egg", pot_of_flour, "flour") = false) {
+    case bucket_milk :
+        if (~check_cake_ingredients(egg, "egg", pot_flour, "flour") = false) {
             return;
         }
 }
 // delete 4 items
-inv_del(inv, pot_of_flour, 1);
+inv_del(inv, pot_flour, 1);
 inv_del(inv, egg, 1);
-inv_del(inv, bucket_of_milk, 1);
+inv_del(inv, bucket_milk, 1);
 inv_del(inv, cake_tin, 1);
 // add item (in this order)
-inv_add(inv, empty_pot, 1);
+inv_add(inv, pot_empty, 1);
 inv_add(inv, uncooked_cake, 1);
-inv_add(inv, bucket, 1);
+inv_add(inv, bucket_empty, 1);
 // display game message
 mes("You mix the milk, flour, and egg together to make a raw cake mix.");
 
@@ -139,13 +139,13 @@ mes("You make a chocolate cake.");
 [label,make_chocolate_milk](int $last)
 def_obj $chocolate = inv_getobj(inv, $last);
 inv_del(inv, $chocolate, 1);
-inv_del(inv, bucket_of_milk, 1);
-inv_add(inv, chocolatey_milk, 1);
-~objbox(chocolatey_milk, "You mix the chocolate into the bucket.", 250, 0, divide(^objbox_height, 2));
+inv_del(inv, bucket_milk, 1);
+inv_add(inv, chocolaty_milk, 1);
+~objbox(chocolaty_milk, "You mix the chocolate into the bucket.", 250, 0, divide(^objbox_height, 2));
 
 [label,make_hangover_cure](int $last)
 def_obj $snape_grass = inv_getobj(inv, $last);
 inv_del(inv, $snape_grass, 1);
-inv_del(inv, chocolatey_milk, 1);
+inv_del(inv, chocolaty_milk, 1);
 inv_add(inv, hangover_cure, 1);
 ~objbox(hangover_cure, "You mix the snape grass into the bucket.", 250, 0, divide(^objbox_height, 2));

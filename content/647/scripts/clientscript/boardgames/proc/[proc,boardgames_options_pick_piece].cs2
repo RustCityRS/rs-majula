@@ -1,39 +1,39 @@
 // 1409
 [proc,boardgames_options_pick_piece]
-if_setgraphic("miscgraphics,10", boardgames_options:firerune1);
-if_setgraphic("miscgraphics,10", boardgames_options:waterrune1);
-if_setgraphic("miscgraphics,10", boardgames_options:earthrune1);
-if_setgraphic("miscgraphics,10", boardgames_options:airrune1);
-if_setgraphic("miscgraphics,10", boardgames_options:mindrune1);
-if_setgraphic("miscgraphics,10", boardgames_options:bodyrune1);
-if_setgraphic("miscgraphics,10", boardgames_options:naturerune1);
-if_setgraphic("miscgraphics,10", boardgames_options:chaosrune1);
-if_setgraphic("miscgraphics,10", boardgames_options:lawrune1);
-if_setgraphic("miscgraphics,10", boardgames_options:cosmicrune1);
-if_setgraphic("miscgraphics,10", boardgames_options:bloodrune1);
-if_setgraphic("miscgraphics,10", boardgames_options:soulrune1);
+if_setgraphic(boardgames_options:firerune1, "miscgraphics,10");
+if_setgraphic(boardgames_options:waterrune1, "miscgraphics,10");
+if_setgraphic(boardgames_options:earthrune1, "miscgraphics,10");
+if_setgraphic(boardgames_options:airrune1, "miscgraphics,10");
+if_setgraphic(boardgames_options:mindrune1, "miscgraphics,10");
+if_setgraphic(boardgames_options:bodyrune1, "miscgraphics,10");
+if_setgraphic(boardgames_options:naturerune1, "miscgraphics,10");
+if_setgraphic(boardgames_options:chaosrune1, "miscgraphics,10");
+if_setgraphic(boardgames_options:lawrune1, "miscgraphics,10");
+if_setgraphic(boardgames_options:cosmicrune1, "miscgraphics,10");
+if_setgraphic(boardgames_options:bloodrune1, "miscgraphics,10");
+if_setgraphic(boardgames_options:soulrune1, "miscgraphics,10");
 if (%boardgames_piece = 1) {
-    if_setgraphic("miscgraphics,11", boardgames_options:firerune1);
+    if_setgraphic(boardgames_options:firerune1, "miscgraphics,11");
 } else if (%boardgames_piece = 2) {
-    if_setgraphic("miscgraphics,11", boardgames_options:waterrune1);
+    if_setgraphic(boardgames_options:waterrune1, "miscgraphics,11");
 } else if (%boardgames_piece = 3) {
-    if_setgraphic("miscgraphics,11", boardgames_options:earthrune1);
+    if_setgraphic(boardgames_options:earthrune1, "miscgraphics,11");
 } else if (%boardgames_piece = 4) {
-    if_setgraphic("miscgraphics,11", boardgames_options:airrune1);
+    if_setgraphic(boardgames_options:airrune1, "miscgraphics,11");
 } else if (%boardgames_piece = 5) {
-    if_setgraphic("miscgraphics,11", boardgames_options:mindrune1);
+    if_setgraphic(boardgames_options:mindrune1, "miscgraphics,11");
 } else if (%boardgames_piece = 6) {
-    if_setgraphic("miscgraphics,11", boardgames_options:bodyrune1);
+    if_setgraphic(boardgames_options:bodyrune1, "miscgraphics,11");
 } else if (%boardgames_piece = 7) {
-    if_setgraphic("miscgraphics,11", boardgames_options:naturerune1);
+    if_setgraphic(boardgames_options:naturerune1, "miscgraphics,11");
 } else if (%boardgames_piece = 8) {
-    if_setgraphic("miscgraphics,11", boardgames_options:chaosrune1);
+    if_setgraphic(boardgames_options:chaosrune1, "miscgraphics,11");
 } else if (%boardgames_piece = 9) {
-    if_setgraphic("miscgraphics,11", boardgames_options:lawrune1);
+    if_setgraphic(boardgames_options:lawrune1, "miscgraphics,11");
 } else if (%boardgames_piece = 10) {
-    if_setgraphic("miscgraphics,11", boardgames_options:cosmicrune1);
+    if_setgraphic(boardgames_options:cosmicrune1, "miscgraphics,11");
 } else if (%boardgames_piece = 11) {
-    if_setgraphic("miscgraphics,11", boardgames_options:bloodrune1);
+    if_setgraphic(boardgames_options:bloodrune1, "miscgraphics,11");
 } else if (%boardgames_piece = 12) {
-    if_setgraphic("miscgraphics,11", boardgames_options:soulrune1);
+    if_setgraphic(boardgames_options:soulrune1, "miscgraphics,11");
 }

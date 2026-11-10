@@ -4,7 +4,7 @@ def_int $int0 = if_getheight(objdialog:resultlist);
 def_int $int1 = if_getscrollheight(objdialog:resultlist);
 if ($int1 < 15) {
     $int1 = 15;
-    if_setscrollsize(0, 15, objdialog:resultlist);
+    if_setscrollsize(objdialog:resultlist, 0, 15);
 }
 def_int $int2 = calc($int1 - $int0);
 if ($int2 < 0) {

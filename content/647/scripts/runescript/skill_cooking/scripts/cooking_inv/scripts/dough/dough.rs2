@@ -1,4 +1,4 @@
-[opheldu,pot_of_flour]
+[opheldu,pot_flour]
 if(oc_category(last_useitem) = murder_proofobj) {
     @flour_proofobj(last_useitem);
 }
@@ -29,7 +29,7 @@ switch_int (~p_choice4_header("Bread dough.", 1, "Pastry dough.", 2, "Pizza doug
         $choice = pizza_base;
         $end_string = "a"; // only pizza adds an article
     case 4 : 
-        $choice = pitta_dough;
+        $choice = uncooked_pitta_bread;
     case default :
         ~displaymessage(^dm_default);
         return;
@@ -40,10 +40,10 @@ if (map_members = ^false & oc_members($choice) = true) {
     return;
 }
 
-inv_del(inv, pot_of_flour, 1);
+inv_del(inv, pot_flour, 1);
 inv_del(inv, $water_source, 1);
 
-inv_add(inv, empty_pot, 1);
+inv_add(inv, pot_empty, 1);
 if (oc_param($water_source, next_obj_stage) ! null) {
     inv_add(inv, oc_param($water_source, next_obj_stage), 1);
 }

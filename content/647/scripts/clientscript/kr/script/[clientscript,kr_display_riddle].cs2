@@ -1,35 +1,35 @@
 // 171
 [clientscript,kr_display_riddle]
-if (%varclient_40 = 0) {
-    if_settext("Show riddle", kr_jewellery_boxes:kr_show_riddle);
-    if_setop(1, "Show", kr_jewellery_boxes:kr_show_riddle);
-    if_sethide(false, kr_jewellery_boxes:box_1);
-    if_sethide(false, kr_jewellery_boxes:box_2);
-    if_sethide(false, kr_jewellery_boxes:box_3);
-    if_sethide(false, kr_jewellery_boxes:box_4);
-    if_sethide(false, kr_jewellery_boxes:box_5);
-    if_sethide(false, kr_jewellery_boxes:box_6);
-    if_sethide(false, kr_jewellery_boxes:box_7);
-    if_sethide(false, kr_jewellery_boxes:box_8);
-    if_sethide(true, kr_jewellery_boxes:kr_riddle_layer);
-    if_sethide(true, kr_jewellery_boxes:kr_scroll_bar);
-    %varclient_40 = 1;
+if (%kr_display_riddle = 0) {
+    if_settext(kr_jewellery_boxes:kr_show_riddle, "Show riddle");
+    if_setop(kr_jewellery_boxes:kr_show_riddle, 1, "Show");
+    if_sethide(kr_jewellery_boxes:box_1, false);
+    if_sethide(kr_jewellery_boxes:box_2, false);
+    if_sethide(kr_jewellery_boxes:box_3, false);
+    if_sethide(kr_jewellery_boxes:box_4, false);
+    if_sethide(kr_jewellery_boxes:box_5, false);
+    if_sethide(kr_jewellery_boxes:box_6, false);
+    if_sethide(kr_jewellery_boxes:box_7, false);
+    if_sethide(kr_jewellery_boxes:box_8, false);
+    if_sethide(kr_jewellery_boxes:kr_riddle_layer, true);
+    if_sethide(kr_jewellery_boxes:kr_scroll_bar, true);
+    %kr_display_riddle = 1;
 } else {
-    if_settext("Hide riddle", kr_jewellery_boxes:kr_show_riddle);
-    if_setop(1, "Hide", kr_jewellery_boxes:kr_show_riddle);
-    if_settext("You seek the grail of old,<br>but no longer is it a goblet of gold.<br>Among these nine will you find what you seek,<br>but be careful and don't peek!<br>A wrong choice will expel you,<br>so consider carefully each clue.<br><br>Three boxes contain only air,<br>beware of three boxes, for danger lurks there.<br>Two hold only rubbish but would fool you with disguise,<br>only one box holds your prize.<br><br>Clues will give the information you need,<br><br>rubbish always sits to the right of danger, pay heed.<br>There is nothing helpful in boxes great in height,<br>and boxes on either end will not end your plight.<br>A tall or small box will only bring you anger,<br>but a square box will not put you in danger.", kr_jewellery_boxes:kr_riddle);
-    if_setcolour(^black, kr_jewellery_boxes:kr_riddle);
-    if_sethide(true, kr_jewellery_boxes:box_1);
-    if_sethide(true, kr_jewellery_boxes:box_2);
-    if_sethide(true, kr_jewellery_boxes:box_3);
-    if_sethide(true, kr_jewellery_boxes:box_4);
-    if_sethide(true, kr_jewellery_boxes:box_5);
-    if_sethide(true, kr_jewellery_boxes:box_6);
-    if_sethide(true, kr_jewellery_boxes:box_7);
-    if_sethide(true, kr_jewellery_boxes:box_8);
-    if_sethide(false, kr_jewellery_boxes:kr_riddle_layer);
-    if_sethide(false, kr_jewellery_boxes:kr_scroll_bar);
-    if_setscrollsize(190, 520, kr_jewellery_boxes:kr_riddle_text_layer);
+    if_settext(kr_jewellery_boxes:kr_show_riddle, "Hide riddle");
+    if_setop(kr_jewellery_boxes:kr_show_riddle, 1, "Hide");
+    if_settext(kr_jewellery_boxes:kr_riddle, "You seek the grail of old,<br>but no longer is it a goblet of gold.<br>Among these nine will you find what you seek,<br>but be careful and don't peek!<br>A wrong choice will expel you,<br>so consider carefully each clue.<br><br>Three boxes contain only air,<br>beware of three boxes, for danger lurks there.<br>Two hold only rubbish but would fool you with disguise,<br>only one box holds your prize.<br><br>Clues will give the information you need,<br><br>rubbish always sits to the right of danger, pay heed.<br>There is nothing helpful in boxes great in height,<br>and boxes on either end will not end your plight.<br>A tall or small box will only bring you anger,<br>but a square box will not put you in danger.");
+    if_setcolour(kr_jewellery_boxes:kr_riddle, ^black);
+    if_sethide(kr_jewellery_boxes:box_1, true);
+    if_sethide(kr_jewellery_boxes:box_2, true);
+    if_sethide(kr_jewellery_boxes:box_3, true);
+    if_sethide(kr_jewellery_boxes:box_4, true);
+    if_sethide(kr_jewellery_boxes:box_5, true);
+    if_sethide(kr_jewellery_boxes:box_6, true);
+    if_sethide(kr_jewellery_boxes:box_7, true);
+    if_sethide(kr_jewellery_boxes:box_8, true);
+    if_sethide(kr_jewellery_boxes:kr_riddle_layer, false);
+    if_sethide(kr_jewellery_boxes:kr_scroll_bar, false);
+    if_setscrollsize(kr_jewellery_boxes:kr_riddle_text_layer, 190, 520);
     ~scrollbar_vertical(kr_jewellery_boxes:kr_scroll_bar, kr_jewellery_boxes:kr_riddle_text_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-    %varclient_40 = 0;
+    %kr_display_riddle = 0;
 }

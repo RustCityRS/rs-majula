@@ -16,7 +16,7 @@ if_setevents(trail_puzzle:puzzle_layer, 0, 24, ^if_op1, 0, 0, ^false, ^false);
 [proc,init_trail_puzzle](obj $puzzle)
 def_int $puztype = oc_param($puzzle, trail_puzzle);
 if($puztype = ^trail_puzzleb) {
-    inv_setslot(trail_puzzleinv, 0, sliding_piece, 1);
+    inv_setslot(trail_puzzleinv, 0, trail_slidingpuzzleb01, 1);
     inv_setslot(trail_puzzleinv, 1, trail_slidingpuzzleb02, 1);
     inv_setslot(trail_puzzleinv, 2, trail_slidingpuzzleb03, 1);
     inv_setslot(trail_puzzleinv, 3, trail_slidingpuzzleb04, 1);
@@ -41,7 +41,7 @@ if($puztype = ^trail_puzzleb) {
     inv_setslot(trail_puzzleinv, 22, trail_slidingpuzzleb23, 1);
     inv_setslot(trail_puzzleinv, 23, trail_slidingpuzzleb24, 1);
 
-    inv_setslot(trail_puzzlehintinv, 0, sliding_piece, 1);
+    inv_setslot(trail_puzzlehintinv, 0, trail_slidingpuzzleb01, 1);
     inv_setslot(trail_puzzlehintinv, 1, trail_slidingpuzzleb02, 1);
     inv_setslot(trail_puzzlehintinv, 2, trail_slidingpuzzleb03, 1);
     inv_setslot(trail_puzzlehintinv, 3, trail_slidingpuzzleb04, 1);
@@ -246,7 +246,7 @@ return ($down_slot);
 [proc,trail_puzzle_complete](namedobj $puzzle)(boolean)
 def_int $puztype = oc_param($puzzle, trail_puzzle);
 if($puztype = ^trail_puzzleb) {
-    if (inv_getobj(trail_puzzleinv, 0) = sliding_piece &
+    if (inv_getobj(trail_puzzleinv, 0) = trail_slidingpuzzleb01 &
             inv_getobj(trail_puzzleinv, 1) = trail_slidingpuzzleb02 &
             inv_getobj(trail_puzzleinv, 2) = trail_slidingpuzzleb03 &
             inv_getobj(trail_puzzleinv, 3) = trail_slidingpuzzleb04 &

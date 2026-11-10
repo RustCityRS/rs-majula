@@ -3,54 +3,54 @@
 if ($boolean0 = true) {
     switch_int ($int1) {
         case 0 :
-            return(%varclient_1465);
+            return(%duel2_wearpreventchanged_0);
         case 1 :
-            return(%varclient_1466);
+            return(%duel2_wearpreventchanged_1);
         case 2 :
-            return(%varclient_1467);
+            return(%duel2_wearpreventchanged_2);
         case 3 :
-            return(%varclient_740);
+            return(%if_hide_sides);
         case 4 :
-            return(%varclient_745);
+            return(%objreq_player_price);
         case 5 :
-            return(%varclient_780);
+            return(%player_kit_arms_client);
         case 7 :
-            return(%varclient_781);
+            return(%player_kit_legs_client);
         case 9 :
-            return(%varclient_782);
+            return(%player_kit_feet_client);
         case 10 :
-            return(%varclient_789);
+            return(%stock_dormant_offers);
         case 12 :
-            return(%varclient_1409);
+            return(%create_age_perm);
         case 13 :
-            return(%varclient_1410);
+            return(%create_age_time_perm);
     }
 } else {
     switch_int ($int1) {
         case 0 :
-            return(%varclient_1453);
+            return(%duel2_optionschanged_0);
         case 1 :
-            return(%varclient_1454);
+            return(%duel2_optionschanged_1);
         case 4 :
-            return(%varclient_1455);
+            return(%duel2_optionschanged_4);
         case 5 :
-            return(%varclient_1456);
+            return(%duel2_optionschanged_5);
         case 6 :
-            return(%varclient_1457);
+            return(%duel2_optionschanged_6);
         case 7 :
-            return(%varclient_1458);
+            return(%duel2_optionschanged_7);
         case 8 :
-            return(%varclient_1459);
+            return(%duel2_optionschanged_8);
         case 9 :
-            return(%varclient_1460);
+            return(%duel2_optionschanged_9);
         case 10 :
-            return(%varclient_1461);
+            return(%duel2_optionschanged_10);
         case 12 :
-            return(%varclient_1462);
+            return(%duel2_optionschanged_12);
         case 13 :
-            return(%varclient_1463);
+            return(%duel2_optionschanged_13);
         case 28 :
-            return(%varclient_1464);
+            return(%duel2_optionschanged_28);
     }
 }
 return(-1);

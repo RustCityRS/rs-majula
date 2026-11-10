@@ -1,6 +1,6 @@
 // 3466
 [proc,love_wizardstower](component $component0, coord $coord1)
-switch_int (%varclient_1007) {
+switch_int (%tutorial3_cutscene_tracker) {
     case 101 :
         cc_deleteall($component0);
         ~tutorial3_fadeout(^black, 50, $component0);
@@ -15,9 +15,9 @@ switch_int (%varclient_1007) {
         ~tutorial3_fadein(75, $component0);
     case 103 :
         cc_deleteall($component0);
-        if_setontimer("script3467($component0, clientclock, 50)", $component0);
+        if_setontimer($component0, "script3467($component0, clientclock, 50)");
     case 104 :
-        if_setontimer(null, $component0);
+        if_setontimer($component0, null);
         if (cc_find($component0, 0) = true) {
             cc_settrans(0);
             cc_setontimer(null);
@@ -70,7 +70,7 @@ switch_int (%varclient_1007) {
         spline_addpoint(1, 5, ~love_instance(38, 42, $coord1), 400, ~love_instance(38, 41, $coord1), 400, 0);
         spline_addpoint(0, 6, ~love_instance(47, 52, $coord1), 600, ~love_instance(43, 55, $coord1), 600, 0);
         spline_addpoint(1, 6, ~love_instance(37, 48, $coord1), 325, ~love_instance(37, 49, $coord1), 325, 0);
-        if_setoncamfinished("script3468($component0, 1, 900, 1300, 1300, 1600, 1600, 1600, 1600, 1200, 1200, 200)", $component0);
+        if_setoncamfinished($component0, "script3468($component0, 1, 900, 1300, 1300, 1600, 1600, 1600, 1600, 1200, 1200, 200)");
         cam_movealong(0, 0, 100, 900, 1, 0);
         ~tutorial3_fadein(50, $component0);
     case 114 :
@@ -82,10 +82,10 @@ switch_int (%varclient_1007) {
         spline_addpoint(1, 1, ~love_instance(39, 38, $coord1), 10, ~love_instance(39, 38, $coord1), 10, 0);
         spline_addpoint(0, 2, ~love_instance(33, 60, $coord1), 1000, ~love_instance(33, 60, $coord1), 1000, 0);
         spline_addpoint(1, 2, ~love_instance(39, 38, $coord1), 10, ~love_instance(39, 38, $coord1), 10, 0);
-        if_setoncamfinished("script3468($component0, 1, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0)", $component0);
+        if_setoncamfinished($component0, "script3468($component0, 1, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0)");
         cam_movealong(0, 0, 150, 100, 1, 0);
     case 115 :
-        if_setoncamfinished(null, $component0);
+        if_setoncamfinished($component0, null);
         spline_new(0, 2);
         spline_new(1, 2);
         spline_addpoint(0, 0, ~love_instance(35, 49, $coord1), 800, ~love_instance(36, 48, $coord1), 800, 0);
@@ -126,10 +126,10 @@ switch_int (%varclient_1007) {
         spline_addpoint(1, 13, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
         spline_addpoint(0, 14, ~love_instance(41, 55, $coord1), 1500, ~love_instance(41, 55, $coord1), 1500, 0);
         spline_addpoint(1, 14, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        if_setoncamfinished("love_wizardstower_thingummywut($component0, 1)", $component0);
+        if_setoncamfinished($component0, "love_wizardstower_thingummywut($component0, 1)");
         cam_movealong(0, 0, 2500, 3200, 1, 0);
     case 117 :
-        if_setoncamfinished(null, $component0);
+        if_setoncamfinished($component0, null);
         ~tutorial3_fadeout(^black, 50, $component0);
     case 118 :
         ~tutorial3_fadein(50, $component0);

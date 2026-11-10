@@ -1,14 +1,14 @@
 // 1194
 [proc,duel2_spectator_setcam]
-if (%varclient_1002 = null) {
+if (%duel2_spectator = null) {
     return;
 }
-def_int $int0 = calc(coordx(%varclient_1002) - coordx(coord));
+def_int $int0 = calc(coordx(%duel2_spectator) - coordx(coord));
 if ($int0 > 10 | $int0 < -10) {
     return;
 }
-def_int $int1 = calc(coordz(%varclient_1002) - coordz(coord));
+def_int $int1 = calc(coordz(%duel2_spectator) - coordz(coord));
 if ($int1 > 10 | $int1 < -10) {
     return;
 }
-cam_followcoord(%varclient_1002);
+cam_followcoord(%duel2_spectator);

@@ -8,7 +8,7 @@ heightmode=proportion
 xmode=proportion_centre
 ymode=proportion_centre
 onload=sfa_init
-onvartransmit=script2889{varplayer_1629}
+onvartransmit=script2889{sfa_temp}
 
 // 476:1
 [side_bar]
@@ -76,7 +76,7 @@ layer=side_bar
 colour=0x33cc00
 fill=yes
 trans=70
-onvartransmit=sfa_bar(event_com){varplayer_1633}
+onvartransmit=sfa_bar(event_com){sfa_timers}
 
 // 476:7
 [vert_highlight]
@@ -130,7 +130,7 @@ width=433
 height=101
 xmode=abs_centre
 layer=content_layer
-onvartransmit=script2890{varplayer_1632}
+onvartransmit=script2890{sfa_hunt}
 
 // 476:11
 [fam_graph5]
@@ -752,7 +752,7 @@ text=60
 textalignh=centre
 textshadow=yes
 colour=0xffcc99
-onvartransmit=sfa_shard_update(event_com){varplayer_1628}
+onvartransmit=sfa_shard_update(event_com){sfa}
 
 // 476:57
 [focus_frame]

@@ -13,8 +13,8 @@
 [label,test_full_dragon_soaks_75_of_a_450_ranged_hit]
 setup_player("test_player");
 stat_advance(hitpoints, 130344310);
-inv_setslot(worn, ^wearpos_hat, dragon_full_helm, 1);
-inv_setslot(worn, ^wearpos_torso, dragon_platebody, 1);
+inv_setslot(worn, ^wearpos_hat, brut_dragon_full_helm, 1);
+inv_setslot(worn, ^wearpos_torso, luc2_dragonplate_torso, 1);
 inv_setslot(worn, ^wearpos_legs, dragon_platelegs, 1);
 inv_setslot(worn, ^wearpos_lhand, dragon_sq_shield, 1);
 assert_eq(~worn_absorb(^hitmark_ranged), 30);
@@ -29,8 +29,8 @@ assert_called_with("damage", "1,375,75,158");
 [label,test_each_style_soaks_by_its_own_absorb]
 setup_player("test_player");
 stat_advance(hitpoints, 130344310);
-inv_setslot(worn, ^wearpos_hat, dragon_full_helm, 1);
-inv_setslot(worn, ^wearpos_torso, dragon_platebody, 1);
+inv_setslot(worn, ^wearpos_hat, brut_dragon_full_helm, 1);
+inv_setslot(worn, ^wearpos_torso, luc2_dragonplate_torso, 1);
 inv_setslot(worn, ^wearpos_legs, dragon_platelegs, 1);
 inv_setslot(worn, ^wearpos_lhand, dragon_sq_shield, 1);
 assert_eq(~worn_absorb(^hitmark_melee), 14);
@@ -49,8 +49,8 @@ assert_called_with("damage", "2,450,0,139");
 [label,test_only_damage_over_200_soaks]
 setup_player("test_player");
 stat_advance(hitpoints, 130344310);
-inv_setslot(worn, ^wearpos_hat, dragon_full_helm, 1);
-inv_setslot(worn, ^wearpos_torso, dragon_platebody, 1);
+inv_setslot(worn, ^wearpos_hat, brut_dragon_full_helm, 1);
+inv_setslot(worn, ^wearpos_torso, luc2_dragonplate_torso, 1);
 inv_setslot(worn, ^wearpos_legs, dragon_platelegs, 1);
 inv_setslot(worn, ^wearpos_lhand, dragon_sq_shield, 1);
 assert_eq(~damage_soaked(200, ^hitmark_ranged), 0);
@@ -63,7 +63,7 @@ assert_eq(~damage_soaked(450, ^hitmark_ranged), 75);
 [label,test_a_hit_with_no_style_is_not_soaked]
 setup_player("test_player");
 stat_advance(hitpoints, 130344310);
-inv_setslot(worn, ^wearpos_torso, dragon_platebody, 1);
+inv_setslot(worn, ^wearpos_torso, luc2_dragonplate_torso, 1);
 assert_eq(~damage_soaked(450, ^hitmark_damage), 0);
 assert_eq(~damage_soaked(450, ^hitmark_poison), 0);
 assert_eq(~damage_soaked(450, ^hitmark_reflect), 0);

@@ -1,10 +1,10 @@
 [stealing_bakery_stall]
 table=stealing
-data=loc,bakers_stall_stealing
+data=loc,area_ardougne_cakethiefstall
 // 2011's rebuilt Ardougne market empties into its own stall (34381, void-634's
 // bakers_stall_empty), 289's recoloured (the cache's model 1421 again)
-data=replacement,market_stall_34381
-data=owner,baker
+data=replacement,area_ardougne_emptystall
+data=owner,baker_merchant
 data=guard,ardougne_guard
 data=level,5
 data=experience,160
@@ -24,7 +24,7 @@ data=level,5
 data=experience,160
 // late osrs 7t https://youtu.be/T8Ok0zcgkis
 data=respawn_ticks,16
-data=loot,cup_of_tea_1978,1,1,128,a cup of tea
+data=loot,cup_of_tea,1,1,128,a cup of tea
 data=loot_total,128
 data=stall,tea stall
 data=stall,a cup of tea
@@ -34,7 +34,7 @@ table=stealing
 data=loc,silk_stall_stealing
 // 2011's rebuilt Ardougne market empties into its own stall (34381, void-634's
 // bakers_stall_empty), 289's recoloured (the cache's model 1421 again)
-data=replacement,market_stall_34381
+data=replacement,area_ardougne_emptystall
 data=owner,silk_merchant
 data=guard,ardougne_guard
 data=guard,knight_of_ardougne
@@ -50,11 +50,11 @@ data=stall,some silk
 
 [stealing_fur_stall]
 table=stealing
-data=loc,fur_stall_stealing
+data=loc,area_ardougne_furthiefstall
 // 2011's rebuilt Ardougne market empties into its own stall (34381, void-634's
 // bakers_stall_empty), 289's recoloured (the cache's model 1421 again)
-data=replacement,market_stall_34381
-data=owner,fur_trader
+data=replacement,area_ardougne_emptystall
+data=owner,fur_merchant
 data=guard,ardougne_guard
 data=guard,knight_of_ardougne
 data=guard,knight_of_ardougne2
@@ -68,10 +68,10 @@ data=stall,some fur
 
 [stealing_silver_stall]
 table=stealing
-data=loc,silver_stall_stealing
+data=loc,area_ardougne_silverthiefstall
 // 2011's rebuilt Ardougne market empties into its own stall (34381, void-634's
 // bakers_stall_empty), 289's recoloured (the cache's model 1421 again)
-data=replacement,market_stall_34381
+data=replacement,area_ardougne_emptystall
 data=owner,silver_merchant
 data=guard,ardougne_guard
 data=guard,knight_of_ardougne
@@ -88,11 +88,11 @@ data=stall,some silver
 
 [stealing_spice_stall]
 table=stealing
-data=loc,spice_stall_stealing
+data=loc,area_ardougne_spicethiefstall
 // 2011's rebuilt Ardougne market empties into its own stall (34381, void-634's
 // bakers_stall_empty), 289's recoloured (the cache's model 1421 again)
-data=replacement,market_stall_34381
-data=owner,spice_seller
+data=replacement,area_ardougne_emptystall
+data=owner,spice_merchant
 data=guard,ardougne_guard
 data=guard,knight_of_ardougne
 data=guard,knight_of_ardougne2
@@ -101,17 +101,17 @@ data=guard,ardougne_paladin2
 data=level,65
 data=experience,810
 data=respawn_ticks,166
-data=loot,spice,1,1,128,some spice
+data=loot,spicespot,1,1,128,some spice
 data=loot_total,128
 data=stall,spice stall
 data=stall,some spice
 
 [stealing_gem_stall]
 table=stealing
-data=loc,gem_stall_stealing
+data=loc,area_ardougne_gemthiefstall
 // 2011's rebuilt Ardougne market empties into its own stall (34381, void-634's
 // bakers_stall_empty), 289's recoloured (the cache's model 1421 again)
-data=replacement,market_stall_34381
+data=replacement,area_ardougne_emptystall
 data=owner,gem_merchant
 data=guard,ardougne_guard
 data=guard,knight_of_ardougne
@@ -137,7 +137,7 @@ table=stealing
 data=loc,viking_fur_market
 data=replacement,viking_market
 data=owner,viking_fur_monger
-data=guard,market_guard
+data=guard,viking_guard
 data=level,35
 data=experience,360
 data=respawn_ticks,32
@@ -148,10 +148,10 @@ data=stall,some fur
 
 [stealing_viking_fish_stall]
 table=stealing
-data=loc,fish_stall
+data=loc,viking_fish_market
 data=replacement,viking_market
 data=owner,fish_monger
-data=guard,market_guard
+data=guard,viking_guard
 data=level,42
 data=experience,420
 data=respawn_ticks,32
@@ -169,11 +169,11 @@ data=stall,some fish
 
 [stealing_misc_fish_market]
 table=stealing
-data=loc,fish_stall_4705
+data=loc,misc_fish_market
 data=replacement,viking_market
-data=owner,fishmonger_1393
-data=guard,skraeling_1389
-data=guard,skraeling_1391
+data=owner,misc_fish_monger
+data=guard,misc_man_4
+data=guard,misc_man_6
 data=level,42
 // 289's 42 is 4.2 xp; the 2011 wiki (Thieving activities, 2011-05-11; Fish
 // stall, 2011-01-12) gives 42 xp.
@@ -188,11 +188,11 @@ data=stall,some fish
 
 [stealing_misc_veg_market]
 table=stealing
-data=loc,veg_stall
+data=loc,misc_veg_market
 data=replacement,viking_market
-data=owner,greengrocer_1394
-data=guard,skraeling_1389
-data=guard,skraeling_1391
+data=owner,misc_veg_monger
+data=guard,misc_man_4
+data=guard,misc_man_6
 data=level,2
 // 289's 10 is 1 xp; the 2011 wiki (Thieving activities, 2011-05-11) gives 10 xp.
 data=experience,100
@@ -208,11 +208,11 @@ data=stall,some vegetables
 
 [stealing_etc_fish_market]
 table=stealing
-data=loc,fish_stall_4707
+data=loc,etc_fish_market
 data=replacement,viking_market
-data=owner,fishmonger
-data=guard,skraeling
-data=guard,skraeling_1368
+data=owner,etc_fish_monger
+data=guard,etc_guard1
+data=guard,etc_guard2
 data=level,42
 // 289's 42 is 4.2 xp; the 2011 wiki (Thieving activities, 2011-05-11; Fish
 // stall, 2011-01-12) gives 42 xp.
@@ -227,11 +227,11 @@ data=stall,some fish
 
 [stealing_etc_veg_market]
 table=stealing
-data=loc,veg_stall_4708
+data=loc,etc_veg_market
 data=replacement,viking_market
-data=owner,greengrocer
-data=guard,skraeling
-data=guard,skraeling_1368
+data=owner,etc_veg_monger
+data=guard,etc_guard1
+data=guard,etc_guard2
 data=level,2
 // 289's 10 is 1 xp; the 2011 wiki (Thieving activities, 2011-05-11) gives 10 xp.
 data=experience,100

@@ -22,7 +22,7 @@ colour=0x404040
 fill=yes
 transmitop=1
 op1=Enter
-opcursor0=cursor_57
+opcursor0=cursor_enter
 onmouseover=text_colour_swapper(event_com, 0x505050)
 onmouseleave=text_colour_swapper(event_com, 0x404040)
 
@@ -325,7 +325,7 @@ text=A
 textalignh=centre
 colour=0x505050
 onload=seer_varcupdate(3, event_com)
-onvarctransmit=seer_varcupdate(3, event_com){varclient_621}
+onvarctransmit=seer_varcupdate(3, event_com){seer_d}
 
 // 298:27
 [seerd_left]
@@ -386,7 +386,7 @@ text=A
 textalignh=centre
 colour=0x505050
 onload=seer_varcupdate(2, event_com)
-onvarctransmit=seer_varcupdate(2, event_com){varclient_620}
+onvarctransmit=seer_varcupdate(2, event_com){seer_c}
 
 // 298:31
 [seerc_left]
@@ -447,7 +447,7 @@ text=A
 textalignh=centre
 colour=0x505050
 onload=seer_varcupdate(1, event_com)
-onvarctransmit=seer_varcupdate(1, event_com){varclient_619}
+onvarctransmit=seer_varcupdate(1, event_com){seer_b}
 
 // 298:35
 [seerb_left]
@@ -508,7 +508,7 @@ text=A
 textalignh=centre
 colour=0x505050
 onload=seer_varcupdate(0, event_com)
-onvarctransmit=seer_varcupdate(0, event_com){varclient_618}
+onvarctransmit=seer_varcupdate(0, event_com){seer_a}
 
 // 298:39
 [seera_left]

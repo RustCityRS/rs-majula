@@ -6,18 +6,18 @@ def_int $int3 = calc($int1 - 1);
 while ($int3 >= 0) {
     $component2 = enum(int, component, enum_3281, $int3);
     if ($component2 ! null) {
-        if_sethide(true, $component2);
+        if_sethide($component2, true);
     }
     $int3 = calc($int3 - 1);
 }
 cc_deleteall(playerdesign4:outfits);
-def_struct $struct4 = enum(int, struct, enum_3278, calc(%varclient_197 - 1));
+def_struct $struct4 = enum(int, struct, enum_3278, calc(%playerdesign2_client_random - 1));
 cc_deleteall(playerdesign4:no_role);
 def_string $string0 = "Please choose your character.<br><br>Your choice will not affect your abilities.<br>You can modify features like your hair style and clothing once you have chosen your character.";
 if ($struct4 = null) {
     $int1 = calc(if_getwidth(playerdesign4:outfits) - 16);
     $int1, $int3 = parawidth($string0, $int1, p12_full), calc(paraheight($string0, $int1, p12_full) * 20 + 3);
-    if_setsize(calc($int1 + 16), calc($int3 + 50), ^setsize_abs, ^setsize_abs, playerdesign4:no_role);
+    if_setsize(playerdesign4:no_role, calc($int1 + 16), calc($int3 + 50), ^setsize_abs, ^setsize_abs);
     cc_create(playerdesign4:no_role, ^iftype_text, if_getnextsubid(playerdesign4:no_role));
     cc_setsize($int1, $int3, ^setsize_abs, ^setsize_abs);
     cc_setposition(0, 22, ^setpos_abs_centre, ^setpos_abs_top);
@@ -26,25 +26,25 @@ if ($struct4 = null) {
     cc_settextshadow(false);
     cc_settextalign(^settextalign_centre, ^settextalign_centre, 20);
     cc_settext($string0);
-    if_sethide(false, playerdesign4:no_role);
+    if_sethide(playerdesign4:no_role, false);
     return;
 }
-if_sethide(true, playerdesign4:no_role);
+if_sethide(playerdesign4:no_role, true);
 def_int $int5 = 0;
 $int3 = 0;
 def_struct $struct6 = ~playerdesign4_getoutfit(0, $struct4, $boolean0);
-def_int $int7 = calc(%varclient_86 - 1);
+def_int $int7 = calc(%playerdesign2_client_antilag - 1);
 $component2 = enum(int, component, enum_3281, 0);
 while ($struct6 ! null & $component2 ! null) {
-    if_setsize(98, 17, ^setsize_abs, ^setsize_minus, $component2);
+    if_setsize($component2, 98, 17, ^setsize_abs, ^setsize_minus);
     if ($int3 = $int7) {
         $int5 = 1;
     } else {
         $int5 = 0;
     }
     ~playerdesign4_box($component2, $int7, enum_3281, struct_param($struct6, param_1181), true, 85, 181, 1, "", $int5, "");
-    if_setop(1, "Select outfit", $component2);
-    if_setonop("playerdesign4_outfitbutton(event_op, calc($int3 + 1))", $component2);
+    if_setop($component2, 1, "Select outfit");
+    if_setonop($component2, "playerdesign4_outfitbutton(event_op, calc($int3 + 1))");
     $int3 = calc($int3 + 1);
     $struct6 = ~playerdesign4_getoutfit($int3, $struct4, $boolean0);
     $component2 = enum(int, component, enum_3281, $int3);
@@ -73,9 +73,9 @@ $int3 = 0;
 while ($int3 < $int8) {
     $component2 = enum(int, component, enum_3281, $int3);
     if ($int3 = $int7) {
-        if_setposition(calc($int3 * $int9), 0, ^setpos_abs_left, ^setpos_abs_top, $component2);
+        if_setposition($component2, calc($int3 * $int9), 0, ^setpos_abs_left, ^setpos_abs_top);
     } else {
-        if_setposition(calc($int3 * $int9), 0, ^setpos_abs_left, ^setpos_abs_bottom, $component2);
+        if_setposition($component2, calc($int3 * $int9), 0, ^setpos_abs_left, ^setpos_abs_bottom);
     }
     if ($int3 <= $int7) {
         if_sendtofront($component2);

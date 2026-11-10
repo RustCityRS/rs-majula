@@ -6,9 +6,9 @@ if (map_members = false) {
 if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varclient_253 = false) {
-    %varclient_253 = true;
+if (%clanwars_rulevarc_nosummoning = false) {
+    %clanwars_rulevarc_nosummoning = true;
 } else {
-    %varclient_253 = false;
+    %clanwars_rulevarc_nosummoning = false;
 }
 ~clanwars_resynch_summoning;

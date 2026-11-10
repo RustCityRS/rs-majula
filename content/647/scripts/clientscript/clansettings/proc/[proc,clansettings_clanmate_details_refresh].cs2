@@ -4,21 +4,21 @@ def_int $int0 = 0;
 def_int $int1 = ~script4293;
 def_int $int2 = -1;
 if (~script4309 = 1) {
-    $int2 = %varclient_1500;
+    $int2 = %clansettings_clanmate_settings_rank;
 }
-if_settext("Settings for: <%varclient_1866>", clansettings:clanmate_details_clanmate_name);
-if_sethide(true, clansettings:com_172);
-if_sethide(true, clansettings:com_173);
-if_sethide(true, clansettings:com_175);
-if_sethide(true, clansettings:com_174);
-if_sethide(true, clansettings:com_364);
-if_sethide(true, clansettings:com_365);
-if_sethide(true, clansettings:com_367);
-if_sethide(true, clansettings:com_366);
-if_sethide(false, clansettings:com_317);
-if_sethide(false, clansettings:com_329);
-if_sethide(false, clansettings:com_267);
-if_sethide(false, clansettings:com_253);
+if_settext(clansettings:clanmate_details_clanmate_name, "Settings for: <%clansettings_clanmate_settings_name>");
+if_sethide(clansettings:com_172, true);
+if_sethide(clansettings:com_173, true);
+if_sethide(clansettings:com_175, true);
+if_sethide(clansettings:com_174, true);
+if_sethide(clansettings:com_364, true);
+if_sethide(clansettings:com_365, true);
+if_sethide(clansettings:com_367, true);
+if_sethide(clansettings:com_366, true);
+if_sethide(clansettings:com_317, false);
+if_sethide(clansettings:com_329, false);
+if_sethide(clansettings:com_267, false);
+if_sethide(clansettings:com_253, false);
 def_enum $enum3 = enum_3720;
 if (map_lang = 1) {
     $enum3 = enum_3727;
@@ -30,60 +30,60 @@ if (map_lang = 1) {
 if (~script4309 = 1) {
     if (~script4292 = 1) {
         if ($int1 > $int2 | $int1 = 126) {
-            if_sethide(true, clansettings:com_317);
-            if_sethide(true, clansettings:com_329);
-            if_sethide(true, clansettings:com_267);
-            if_sethide(true, clansettings:com_253);
+            if_sethide(clansettings:com_317, true);
+            if_sethide(clansettings:com_329, true);
+            if_sethide(clansettings:com_267, true);
+            if_sethide(clansettings:com_253, true);
             if ($int2 >= 100) {
-                if_sethide(false, clansettings:com_173);
-            } else if (%varclient_1503 = 1) {
-                if_sethide(false, clansettings:com_172);
+                if_sethide(clansettings:com_173, false);
+            } else if (%clansettings_clanmate_settings_clanwars_leader = 1) {
+                if_sethide(clansettings:com_172, false);
             } else {
-                if_sethide(false, clansettings:com_174);
+                if_sethide(clansettings:com_174, false);
             }
             if ($int2 >= 100) {
-                if_sethide(false, clansettings:com_365);
-            } else if (%varclient_1502 = 1) {
-                if_sethide(false, clansettings:com_364);
+                if_sethide(clansettings:com_365, false);
+            } else if (%clansettings_clanmate_settings_recruiter = 1) {
+                if_sethide(clansettings:com_364, false);
             } else {
-                if_sethide(false, clansettings:com_366);
+                if_sethide(clansettings:com_366, false);
             }
         } else {
             if ($int2 >= 100) {
-                if_sethide(false, clansettings:com_173);
-            } else if (%varclient_1503 = 1) {
-                if_sethide(false, clansettings:com_173);
+                if_sethide(clansettings:com_173, false);
+            } else if (%clansettings_clanmate_settings_clanwars_leader = 1) {
+                if_sethide(clansettings:com_173, false);
             } else {
-                if_sethide(false, clansettings:com_175);
+                if_sethide(clansettings:com_175, false);
             }
             if ($int2 >= 100) {
-                if_sethide(false, clansettings:com_365);
-            } else if (%varclient_1502 = 1) {
-                if_sethide(false, clansettings:com_365);
+                if_sethide(clansettings:com_365, false);
+            } else if (%clansettings_clanmate_settings_recruiter = 1) {
+                if_sethide(clansettings:com_365, false);
             } else {
-                if_sethide(false, clansettings:com_367);
+                if_sethide(clansettings:com_367, false);
             }
         }
     } else {
         if ($int2 >= 100) {
-            if_sethide(false, clansettings:com_173);
-        } else if (%varclient_1503 = 1) {
-            if_sethide(false, clansettings:com_173);
+            if_sethide(clansettings:com_173, false);
+        } else if (%clansettings_clanmate_settings_clanwars_leader = 1) {
+            if_sethide(clansettings:com_173, false);
         } else {
-            if_sethide(false, clansettings:com_175);
+            if_sethide(clansettings:com_175, false);
         }
         if ($int2 >= 100) {
-            if_sethide(false, clansettings:com_365);
-        } else if (%varclient_1502 = 1) {
-            if_sethide(false, clansettings:com_365);
+            if_sethide(clansettings:com_365, false);
+        } else if (%clansettings_clanmate_settings_recruiter = 1) {
+            if_sethide(clansettings:com_365, false);
         } else {
-            if_sethide(false, clansettings:com_367);
+            if_sethide(clansettings:com_367, false);
         }
     }
-    ~script4501(clansettings:com_261, enum(int, string, enum_3715, %varclient_1500));
-    if (compare("", enum(int, string, $enum3, %varclient_1501)) = 0) {
-        ~script4501(clansettings:com_247, enum(int, string, $enum3, calc(%varclient_1501 - 1)));
+    ~script4501(clansettings:com_261, enum(int, string, enum_3715, %clansettings_clanmate_settings_rank));
+    if (compare("", enum(int, string, $enum3, %clansettings_clanmate_settings_job)) = 0) {
+        ~script4501(clansettings:com_247, enum(int, string, $enum3, calc(%clansettings_clanmate_settings_job - 1)));
     } else {
-        ~script4501(clansettings:com_247, enum(int, string, $enum3, %varclient_1501));
+        ~script4501(clansettings:com_247, enum(int, string, $enum3, %clansettings_clanmate_settings_job));
     }
 }

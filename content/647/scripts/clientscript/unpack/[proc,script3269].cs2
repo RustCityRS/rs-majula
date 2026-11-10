@@ -5,7 +5,7 @@ if ($int0 = 0) {
     $int3 = 48;
 }
 def_int $int4 = $int1;
-if (%varclient_1198 = 1) {
+if (%rand_exists_1 = 1) {
     $int4 = calc($int4 + 2);
     if ($int0 = 1) {
         $int4 = calc($int4 + $int3);
@@ -14,7 +14,7 @@ if (%varclient_1198 = 1) {
     }
 }
 def_int $int5 = $int4;
-if (%varclient_1199 = 1) {
+if (%rand_exists_2 = 1) {
     $int5 = calc($int5 + 2);
     if ($int0 = 2) {
         $int5 = calc($int5 + $int3);
@@ -23,7 +23,7 @@ if (%varclient_1199 = 1) {
     }
 }
 def_int $int6 = $int5;
-if (%varclient_1200 = 1) {
+if (%rand_exists_3 = 1) {
     $int6 = calc($int6 + 2);
     if ($int0 = 3) {
         $int6 = calc($int6 + $int3);
@@ -32,7 +32,7 @@ if (%varclient_1200 = 1) {
     }
 }
 def_int $int7 = $int6;
-if (%varclient_1201 = 1) {
+if (%rand_exists_4 = 1) {
     $int7 = calc($int7 + 2);
     if ($int0 = 4) {
         $int7 = calc($int7 + $int3);

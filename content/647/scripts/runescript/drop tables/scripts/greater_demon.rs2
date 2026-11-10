@@ -18,7 +18,7 @@ def_int $random = random(128);
 if ($random < 4) {
     obj_add(npc_coord, steel_2h_sword, 1, ^lootdrop_duration);
 } else if ($random < 7) {
-    obj_add(npc_coord, steel_hatchet, 1, ^lootdrop_duration);
+    obj_add(npc_coord, steel_axe, 1, ^lootdrop_duration);
 } else if ($random < 10) {
     obj_add(npc_coord, steel_battleaxe, 1, ^lootdrop_duration);
 } else if ($random < 11) {
@@ -28,13 +28,13 @@ if ($random < 4) {
 } else if ($random < 13) {
     obj_add(npc_coord, rune_full_helm, 1, ^lootdrop_duration);
 } else if ($random < 21) {
-    obj_add(npc_coord, fire_rune, 75, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 75, ^lootdrop_duration);
 } else if ($random < 24) {
-    obj_add(npc_coord, chaos_rune, 15, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 15, ^lootdrop_duration);
 } else if ($random < 27) {
-    obj_add(npc_coord, death_rune, 5, ^lootdrop_duration);
+    obj_add(npc_coord, deathrune, 5, ^lootdrop_duration);
 } else if ($random < 28) {
-    obj_add(npc_coord, fire_rune, 37, ^lootdrop_duration);
+    obj_add(npc_coord, firerune, 37, ^lootdrop_duration);
 } else if ($random < 68) {
     obj_add(npc_coord, coins, 132, ^lootdrop_duration);
 } else if ($random < 97) {

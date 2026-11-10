@@ -1,62 +1,62 @@
 // 168
 [clientscript,pattern_cards_select]
-if_setgraphic(null, pattern_cards:pattern_pick_card_0);
-if_setgraphic(null, pattern_cards:pattern_pick_card_1);
-if_setgraphic(null, pattern_cards:pattern_pick_card_2);
-if_setgraphic(null, pattern_cards:pattern_pick_card_3);
-if_setgraphic(null, pattern_cards:pattern_pick_card_4);
-if_setgraphic(null, pattern_cards:pattern_pick_card_5);
-if_setgraphic(null, pattern_cards:pattern_pick_card_6);
-if_setgraphic(null, pattern_cards:pattern_pick_card_7);
-if_setgraphic(null, pattern_cards:pattern_pick_card_8);
-if_setgraphic(null, pattern_cards:pattern_pick_card_9);
-if_setgraphic(null, pattern_cards:pattern_pick_card_10);
-if_setgraphic(null, pattern_cards:pattern_pick_card_11);
-if_setgraphic(null, pattern_cards:pattern_pick_card_12);
-if_setgraphic(null, pattern_cards:pattern_pick_card_13);
-if_setgraphic(null, pattern_cards:pattern_pick_card_14);
-if (%varplayerbit_3801 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_0);
+if_setgraphic(pattern_cards:pattern_pick_card_0, null);
+if_setgraphic(pattern_cards:pattern_pick_card_1, null);
+if_setgraphic(pattern_cards:pattern_pick_card_2, null);
+if_setgraphic(pattern_cards:pattern_pick_card_3, null);
+if_setgraphic(pattern_cards:pattern_pick_card_4, null);
+if_setgraphic(pattern_cards:pattern_pick_card_5, null);
+if_setgraphic(pattern_cards:pattern_pick_card_6, null);
+if_setgraphic(pattern_cards:pattern_pick_card_7, null);
+if_setgraphic(pattern_cards:pattern_pick_card_8, null);
+if_setgraphic(pattern_cards:pattern_pick_card_9, null);
+if_setgraphic(pattern_cards:pattern_pick_card_10, null);
+if_setgraphic(pattern_cards:pattern_pick_card_11, null);
+if_setgraphic(pattern_cards:pattern_pick_card_12, null);
+if_setgraphic(pattern_cards:pattern_pick_card_13, null);
+if_setgraphic(pattern_cards:pattern_pick_card_14, null);
+if (%pattern_card0 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_0, overlay_multiway);
 }
-if (%varplayerbit_3802 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_1);
+if (%pattern_card1 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_1, overlay_multiway);
 }
-if (%varplayerbit_3803 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_2);
+if (%pattern_card2 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_2, overlay_multiway);
 }
-if (%varplayerbit_3804 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_3);
+if (%pattern_card3 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_3, overlay_multiway);
 }
-if (%varplayerbit_3805 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_4);
+if (%pattern_card4 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_4, overlay_multiway);
 }
-if (%varplayerbit_3806 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_5);
+if (%pattern_card5 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_5, overlay_multiway);
 }
-if (%varplayerbit_3807 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_6);
+if (%pattern_card6 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_6, overlay_multiway);
 }
-if (%varplayerbit_3808 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_7);
+if (%pattern_card7 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_7, overlay_multiway);
 }
-if (%varplayerbit_3809 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_8);
+if (%pattern_card8 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_8, overlay_multiway);
 }
-if (%varplayerbit_3810 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_9);
+if (%pattern_card9 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_9, overlay_multiway);
 }
-if (%varplayerbit_3811 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_10);
+if (%pattern_card10 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_10, overlay_multiway);
 }
-if (%varplayerbit_3812 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_11);
+if (%pattern_card11 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_11, overlay_multiway);
 }
-if (%varplayerbit_3813 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_12);
+if (%pattern_card12 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_12, overlay_multiway);
 }
-if (%varplayerbit_3814 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_13);
+if (%pattern_card13 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_13, overlay_multiway);
 }
-if (%varplayerbit_3815 = 1) {
-    if_setgraphic(overlay_multiway, pattern_cards:pattern_pick_card_14);
+if (%pattern_card14 = 1) {
+    if_setgraphic(pattern_cards:pattern_pick_card_14, overlay_multiway);
 }

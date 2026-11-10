@@ -250,7 +250,7 @@ fn every_demon_slayer_npc_answers_every_branch() {
                 "npc_9359",
                 Demon::stage(2),
                 0,
-                &[("silverlight_key_captain_rovin", 1)],
+                &[("silverlight_key_2", 1)],
             ),
             (
                 "npc_9359",
@@ -277,7 +277,7 @@ fn every_demon_slayer_npc_answers_every_branch() {
                 "captain_rovin",
                 Demon::stage(2),
                 0,
-                &[("silverlight_key_captain_rovin", 1)],
+                &[("silverlight_key_2", 1)],
             ),
             ("captain_rovin", Demon::stage(3), 0, &[]),
             ("traiborn", Demon::stage(0), 0, &[]),
@@ -289,7 +289,7 @@ fn every_demon_slayer_npc_answers_every_branch() {
                 "traiborn",
                 Demon::stage(2),
                 -1,
-                &[("silverlight_key_wizard_traiborn", 1)],
+                &[("silverlight_key_1", 1)],
             ),
         ];
         for &(npc, at, bones, items) in cases {
@@ -385,7 +385,7 @@ fn captain_rovin_gives_his_key() {
         assert_eq!(talk.unanswered, None, "{:?}", talk.texts);
         no_script_errors(engine, "Rovin");
         assert_eq!(
-            total(engine, &client, "inv", "silverlight_key_captain_rovin"),
+            total(engine, &client, "inv", "silverlight_key_2"),
             1
         );
     });
@@ -446,7 +446,7 @@ fn traiborn_takes_25_bones_for_his_key() {
             "he takes only 15"
         );
         assert_eq!(
-            total(engine, &client, "inv", "silverlight_key_wizard_traiborn"),
+            total(engine, &client, "inv", "silverlight_key_1"),
             1
         );
         assert_eq!(bones(engine, &client), -1, "all given");
@@ -460,14 +460,14 @@ fn water_washes_the_drain_key_into_the_sewer() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let _ = engine.script_errors.take();
-        let bucket = obj(engine, "bucket_of_water");
+        let bucket = obj(engine, "bucket_water");
         let mut client = login(
             engine,
             "drain_washer",
             (DRAIN.1 + 1, 0, DRAIN.2),
             Demon::stage(2),
             0,
-            &[("bucket_of_water", 1)],
+            &[("bucket_water", 1)],
         );
         let mut p = ClientPacket::new();
         p.p2_alt2(bucket as i32)
@@ -486,7 +486,7 @@ fn water_washes_the_drain_key_into_the_sewer() {
         );
         assert_eq!(demon(engine, &client).drain, 1, "the key is in the sewer");
         assert_eq!(
-            total(engine, &client, "inv", "bucket"),
+            total(engine, &client, "inv", "bucket_empty"),
             1,
             "the bucket is emptied"
         );
@@ -507,7 +507,7 @@ fn water_washes_the_drain_key_into_the_sewer() {
             talk.texts
         );
         assert_eq!(
-            total(engine, &client, "inv", "silverlight_key_sir_prysin"),
+            total(engine, &client, "inv", "silverlight_key_3"),
             1
         );
         assert_eq!(demon(engine, &client).drain, 2, "mud where the key lay");
@@ -521,9 +521,9 @@ fn sir_prysin_hands_over_silverlight_for_the_three_keys() {
     runner::on_loaded_engine(|engine| {
         let _ = engine.script_errors.take();
         let keys = [
-            "silverlight_key_wizard_traiborn",
-            "silverlight_key_captain_rovin",
-            "silverlight_key_sir_prysin",
+            "silverlight_key_1",
+            "silverlight_key_2",
+            "silverlight_key_3",
         ];
         let mut client = visit(
             engine,

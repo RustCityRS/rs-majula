@@ -44,7 +44,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=model_swapper(canoe_stations_map:canoeing_barberian_canoe_model, model_12104)
 onmouseleave=model_swapper(canoe_stations_map:canoeing_barberian_canoe_model, model_12103)
 
@@ -88,7 +88,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=model_swapper(canoe_stations_map:canoeing_edgeville_canoe_model, model_12104)
 onmouseleave=model_swapper(canoe_stations_map:canoeing_edgeville_canoe_model, model_12103)
 
@@ -348,7 +348,7 @@ model=model_12114
 modelorigin=-5,-11
 modelangle=465,1647,0
 modelzoom=466
-modelanim=seq_3308
+modelanim=canoeing_interface_water
 
 // 53:32
 [canoeing_water2]
@@ -362,7 +362,7 @@ model=model_12114
 modelorigin=-43,-44
 modelangle=306,1642,0
 modelzoom=400
-modelanim=seq_3308
+modelanim=canoeing_interface_water
 
 // 53:33
 [canoeing_water3]
@@ -376,7 +376,7 @@ model=model_12114
 modelorigin=-93,-52
 modelangle=189,1654,0
 modelzoom=400
-modelanim=seq_3308
+modelanim=canoeing_interface_water
 
 // 53:34
 [canoeing_water4]
@@ -390,7 +390,7 @@ model=model_12114
 modelorigin=-57,-29
 modelangle=198,1609,0
 modelzoom=400
-modelanim=seq_3308
+modelanim=canoeing_interface_water
 
 // 53:35
 [canoeing_barberian_canoe_highlight]
@@ -562,7 +562,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=model_swapper(canoe_stations_map:canoeing_lumbridge_canoe_model, model_12104)
 onmouseleave=model_swapper(canoe_stations_map:canoeing_lumbridge_canoe_model, model_12103)
 
@@ -579,7 +579,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=model_swapper(canoe_stations_map:canoeing_champions_canoe_model, model_12104)
 onmouseleave=model_swapper(canoe_stations_map:canoeing_champions_canoe_model, model_12103)
 
@@ -596,7 +596,7 @@ textshadow=yes
 colour=0xffff00
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 
 // 53:50
 [you_are_here_edgeville_text]

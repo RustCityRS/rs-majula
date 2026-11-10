@@ -31,6 +31,6 @@ if ($int0 ! 10) {
     $int7 = calc($int7 + $int14 + $int5);
     $int8 = calc($int8 + $int13 + $int4);
     $int9 = calc($int9 + $int14 + $int5);
-    if_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top, $component2);
-    if_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top, $component3);
+    if_setposition($component2, $int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition($component3, $int8, $int9, ^setpos_abs_left, ^setpos_abs_top);
 }

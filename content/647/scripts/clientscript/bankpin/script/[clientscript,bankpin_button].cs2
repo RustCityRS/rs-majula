@@ -3,6 +3,6 @@
 if ($int0 ! 1) {
     return;
 }
-%varplayerbit_1010 = min(calc(%varplayerbit_1010 + 1), 3);
-sound_synth(synth_1041, 1, 0);
+%bankpin_counter = min(calc(%bankpin_counter + 1), 3);
+sound_synth(pin_beep, 1, 0);
 ~bankpin_shuffle(1);

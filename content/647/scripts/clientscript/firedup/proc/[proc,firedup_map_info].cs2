@@ -5,12 +5,12 @@ def_model $model2 = null;
 def_int $int3 = 0;
 def_component $component4 = null;
 $int3, $component4, $model2 = ~script814($int0);
-if_setmodel($model2, $component4);
+if_setmodel($component4, $model2);
 ~firedup_update_tooltip($int0);
 $int1 = calc($int0 - 1);
 while ($int1 > 0) {
     $int3, $component4, $model2 = ~script814($int1);
-    if_setmodel($model2, $component4);
+    if_setmodel($component4, $model2);
     ~firedup_update_tooltip($int1);
     if ($int3 > 1) {
         $int1 = calc($int1 - 1);
@@ -25,7 +25,7 @@ while ($int1 > 0) {
 $int1 = calc($int0 + 1);
 while ($int1 <= 14) {
     $int3, $component4, $model2 = ~script814($int1);
-    if_setmodel($model2, $component4);
+    if_setmodel($component4, $model2);
     ~firedup_update_tooltip($int1);
     if ($int3 > 1) {
         $int1 = calc($int1 + 1);

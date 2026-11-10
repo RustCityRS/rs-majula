@@ -3,5 +3,5 @@
 if ($component0 ! mob_side_command:head_rect) {
     ~v2_stone_button($component0);
 }
-if_settext("", mob_side_command:command_title);
-if_settext("", mob_side_command:command_desc);
+if_settext(mob_side_command:command_title, "");
+if_settext(mob_side_command:command_desc, "");

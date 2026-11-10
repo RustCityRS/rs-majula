@@ -4,90 +4,90 @@ def_int $int3 = ~login_getreply;
 if ($boolean1 = false & ($int3 = -3 | $int3 = 21 | $int3 = 1)) {
     return;
 }
-%varclient_175 = clientclock;
+%loginscreen_focustime = clientclock;
 ~deltooltip_action(loginscreen:tooltip);
-%varclient_1 = 0;
-%varclient_174 = 1;
-if (%varclient_1090 ! 6) {
-    %varclient_1091 = %varclient_1090;
-    if_setonclick("loginscreen_setactivemenu(%varclient_1091)", loginscreen_graphics_options:cancel);
+%tooltip_time = 0;
+%loginscreen_focus = 1;
+if (%loginscreen_lastmenu ! 6) {
+    %loginscreen_lastmenu_options = %loginscreen_lastmenu;
+    if_setonclick(loginscreen_graphics_options:cancel, "loginscreen_setactivemenu(%loginscreen_lastmenu_options)");
 }
 if ($int0 = 0) {
-    %varclient_174 = 0;
+    %loginscreen_focus = 0;
     ~firstrun;
-    if_sethide(false, loginscreen:options_firstrun);
+    if_sethide(loginscreen:options_firstrun, false);
 } else {
-    if_sethide(true, loginscreen:options_firstrun);
+    if_sethide(loginscreen:options_firstrun, true);
     if_closesubclient(loginscreen:options_firstrun);
 }
 if ($int0 = 5) {
     if_opensubclient(loginscreen:south_progress9, south_progress9);
-    if_sethide(true, loginscreen:runescape_logo);
-    if_sethide(false, loginscreen:south_progress9);
+    if_sethide(loginscreen:runescape_logo, true);
+    if_sethide(loginscreen:south_progress9, false);
 } else {
     if_closesubclient(loginscreen:south_progress9);
-    if_sethide(false, loginscreen:runescape_logo);
-    if_sethide(true, loginscreen:south_progress9);
+    if_sethide(loginscreen:runescape_logo, false);
+    if_sethide(loginscreen:south_progress9, true);
 }
 if ($int0 = 11 | $int0 = 12) {
-    %varclient_547 = 0;
+    %loginscreen_pvp_warned = 0;
     if_opensubclient(loginscreen:login, login);
     ~login_load;
     ~login_open($int0);
-    if_sethide(false, login:main);
+    if_sethide(login:main, false);
     ~login_resize;
 } else {
     ~login_close;
     if_closesubclient(loginscreen:login);
-    if_sethide(true, loginscreen:login);
+    if_sethide(loginscreen:login, true);
 }
 if ($int0 = 7) {
     if_opensubclient(loginscreen:create, account_create);
     ~create_setup;
-    if_sethide(false, loginscreen:create);
+    if_sethide(loginscreen:create, false);
 } else {
     if_closesubclient(loginscreen:create);
-    if_sethide(true, loginscreen:create);
+    if_sethide(loginscreen:create, true);
 }
 if ($int0 = 8) {
-    %varclient_174 = 10;
-    if_sethide(false, loginscreen:create_success);
+    %loginscreen_focus = 10;
+    if_sethide(loginscreen:create_success, false);
 } else {
     if_closesubclient(loginscreen:create_success);
-    if_sethide(true, loginscreen:create_success);
+    if_sethide(loginscreen:create_success, true);
 }
 if ($int0 = 7 | $int0 = 8) {
-    if_sethide(true, loginscreen:runescape_logo);
+    if_sethide(loginscreen:runescape_logo, true);
 } else {
-    if_sethide(false, loginscreen:runescape_logo);
+    if_sethide(loginscreen:runescape_logo, false);
 }
 def_graphic $graphic4 = graphic_4120;
 def_graphic $graphic5 = graphic_4125;
 if ($int0 = 0 | $int0 = 7 | $int0 = 8) {
-    if_setcolour(0x646464, loginscreen:com_106);
-    if_setonclick(null, loginscreen:com_106);
-    if_setonmouseover(null, loginscreen:com_106);
-    if_setonmouseleave(null, loginscreen:com_106);
+    if_setcolour(loginscreen:com_106, 0x646464);
+    if_setonclick(loginscreen:com_106, null);
+    if_setonmouseover(loginscreen:com_106, null);
+    if_setonmouseleave(loginscreen:com_106, null);
 } else {
-    if_setcolour(^black, loginscreen:com_106);
-    if_setonclick("loginscreen_setactivemenu(6)", loginscreen:com_106);
-    if_setonmouseover("graphic_swapper(event_com, $graphic5)", loginscreen:com_106);
-    if_setonmouseleave("graphic_swapper(event_com, $graphic4)", loginscreen:com_106);
+    if_setcolour(loginscreen:com_106, ^black);
+    if_setonclick(loginscreen:com_106, "loginscreen_setactivemenu(6)");
+    if_setonmouseover(loginscreen:com_106, "graphic_swapper(event_com, $graphic5)");
+    if_setonmouseleave(loginscreen:com_106, "graphic_swapper(event_com, $graphic4)");
 }
 if ($int0 = 6) {
     ~graphics_options_init(0);
     if ($boolean2 = true) {
         ~graphics_options_rebuild_advanced(detailget_toolkit, getwindowmode, ~graphics_options_reviewoptions(detailget_toolkit), 0);
     }
-    if_sethide(false, loginscreen:options);
-    %varclient_174 = 13;
+    if_sethide(loginscreen:options, false);
+    %loginscreen_focus = 13;
 } else {
-    if (%varclient_1090 = 6 & $int0 ! 5) {
-        if_sethide(false, loginscreen:runescape_logo);
+    if (%loginscreen_lastmenu = 6 & $int0 ! 5) {
+        if_sethide(loginscreen:runescape_logo, false);
     }
-    if_sethide(true, loginscreen:options);
-    if_setonresize(null, loginscreen:options);
-    if_setonresize(null, loginscreen_graphics_options:universe);
+    if_sethide(loginscreen:options, true);
+    if_setonresize(loginscreen:options, null);
+    if_setonresize(loginscreen_graphics_options:universe, null);
 }
 def_int $int6 = 0;
 def_int $int7 = 0;
@@ -96,62 +96,62 @@ def_fontmetrics $fontmetrics8 = verdana_11pt_regular;
 if ($int0 = 9) {
     $int6 = if_getwidth(loginscreen:general_messages_text);
     $int7 = calc(paraheight(if_gettext(loginscreen:general_messages_text), $int6, verdana_11pt_regular) * 14 + 5);
-    if_setsize($int6, $int7, ^setsize_abs, ^setsize_abs, loginscreen:general_messages_text);
+    if_setsize(loginscreen:general_messages_text, $int6, $int7, ^setsize_abs, ^setsize_abs);
     $string0 = if_gettext(loginscreen:com_78);
     $int7 = calc(if_gety(loginscreen:general_messages_text) + $int7 + 6);
     if (string_length($string0) > 0) {
-        if_setposition(0, $int7, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:com_77);
-        if_setsize(stringwidth($string0, $fontmetrics8), if_getheight(loginscreen:com_77), ^setsize_abs, ^setsize_abs, loginscreen:com_77);
-        if_settext("<u=c8c8c8><$string0></u>", loginscreen:com_78);
-        if_setonmouseover("loginscreen_link_highlight(loginscreen:com_77, loginscreen:com_78, $string0, $fontmetrics8, true)", loginscreen:com_77);
-        if_setonmouseleave("loginscreen_link_highlight(loginscreen:com_77, loginscreen:com_78, $string0, $fontmetrics8, false)", loginscreen:com_77);
-        if_sethide(false, loginscreen:com_77);
+        if_setposition(loginscreen:com_77, 0, $int7, ^setpos_abs_centre, ^setpos_abs_top);
+        if_setsize(loginscreen:com_77, stringwidth($string0, $fontmetrics8), if_getheight(loginscreen:com_77), ^setsize_abs, ^setsize_abs);
+        if_settext(loginscreen:com_78, "<u=c8c8c8><$string0></u>");
+        if_setonmouseover(loginscreen:com_77, "loginscreen_link_highlight(loginscreen:com_77, loginscreen:com_78, $string0, $fontmetrics8, true)");
+        if_setonmouseleave(loginscreen:com_77, "loginscreen_link_highlight(loginscreen:com_77, loginscreen:com_78, $string0, $fontmetrics8, false)");
+        if_sethide(loginscreen:com_77, false);
         $int7 = calc($int7 + if_getheight(loginscreen:com_77) + 6);
     } else {
-        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:com_77);
-        if_setonmouseover(null, loginscreen:com_77);
-        if_setonmouseleave(null, loginscreen:com_77);
-        if_setonclick(null, loginscreen:com_77);
-        if_sethide(true, loginscreen:com_77);
-        if_settext("", loginscreen:com_78);
+        if_setposition(loginscreen:com_77, 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+        if_setonmouseover(loginscreen:com_77, null);
+        if_setonmouseleave(loginscreen:com_77, null);
+        if_setonclick(loginscreen:com_77, null);
+        if_sethide(loginscreen:com_77, true);
+        if_settext(loginscreen:com_78, "");
     }
-    if_setsize(stringwidth(if_gettext(loginscreen:general_messages_continue), verdana_15pt_regular), if_getheight(loginscreen:general_messages_continue), ^setsize_abs, ^setsize_abs, loginscreen:general_messages_continue);
-    if_setsize(if_getwidth(loginscreen:general_messages), calc($int7 + if_getheight(loginscreen:general_messages_continue) + 11), ^setsize_abs, ^setsize_abs, loginscreen:general_messages);
-    if_sethide(false, loginscreen:general_messages);
+    if_setsize(loginscreen:general_messages_continue, stringwidth(if_gettext(loginscreen:general_messages_continue), verdana_15pt_regular), if_getheight(loginscreen:general_messages_continue), ^setsize_abs, ^setsize_abs);
+    if_setsize(loginscreen:general_messages, if_getwidth(loginscreen:general_messages), calc($int7 + if_getheight(loginscreen:general_messages_continue) + 11), ^setsize_abs, ^setsize_abs);
+    if_sethide(loginscreen:general_messages, false);
 } else {
-    if_sethide(true, loginscreen:general_messages);
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:com_77);
-    if_setonmouseover(null, loginscreen:com_77);
-    if_setonmouseleave(null, loginscreen:com_77);
-    if_setonclick(null, loginscreen:com_77);
-    if_sethide(true, loginscreen:com_77);
-    if_settext("", loginscreen:com_78);
-    if_settext("", loginscreen:general_messages_text);
-    if_setonclick(null, loginscreen:general_messages_continue);
+    if_sethide(loginscreen:general_messages, true);
+    if_setposition(loginscreen:com_77, 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setonmouseover(loginscreen:com_77, null);
+    if_setonmouseleave(loginscreen:com_77, null);
+    if_setonclick(loginscreen:com_77, null);
+    if_sethide(loginscreen:com_77, true);
+    if_settext(loginscreen:com_78, "");
+    if_settext(loginscreen:general_messages_text, "");
+    if_setonclick(loginscreen:general_messages_continue, null);
 }
 if ($int0 = 10) {
-    %varclient_174 = 11;
-    if_sethide(false, loginscreen:windowmode_confirm);
+    %loginscreen_focus = 11;
+    if_sethide(loginscreen:windowmode_confirm, false);
 } else {
-    if_sethide(true, loginscreen:windowmode_confirm);
-    if_setonclick(null, loginscreen:windowmode_confirm_yes);
-    if_setonclick(null, loginscreen:windowmode_confirm_no);
+    if_sethide(loginscreen:windowmode_confirm, true);
+    if_setonclick(loginscreen:windowmode_confirm_yes, null);
+    if_setonclick(loginscreen:windowmode_confirm_no, null);
 }
 if ($int0 ! 9 & $int0 ! 10) {
-    %varclient_1090 = $int0;
+    %loginscreen_lastmenu = $int0;
 }
 if ($int0 = 12) {
     %varclient_1551 = %varclient_1641;
-    %varclient_1552 = %varclient_1643;
+    %loginscreen_password = %varclient_1643;
     %varclient_1641 = "";
     %varclient_1643 = "";
     %varclient_1644 = "";
-    if_settext(%varclient_1551, login:username);
-    if_settext(~script2949(%varclient_1552), login:password);
-    %varclient_174 = 4;
-    %varclient_175 = clientclock;
-    %varclient_1099 = string_length(~script2949(%varclient_1552));
+    if_settext(login:username, %varclient_1551);
+    if_settext(login:password, ~script2949(%loginscreen_password));
+    %loginscreen_focus = 4;
+    %loginscreen_focustime = clientclock;
+    %login_caret = string_length(~script2949(%loginscreen_password));
     ~script3237(login:username_layer, login:username, login:username_caret, %varclient_1551, 3);
-    ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%varclient_1552), 4);
+    ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%loginscreen_password), 4);
     ~login_dologin;
 }

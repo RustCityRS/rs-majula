@@ -16,33 +16,33 @@ if ($int0 <= -1) {
     $int0 = if_getx($component9);
 }
 $int0 = max(min($int0, calc(if_getwidth($component10) - $int12)), 0);
-%varclient_1036 = $int0;
-if_setposition($int0, 0, ^setpos_abs_left, ^setpos_abs_centre, $component9);
+%friends_line_pos = $int0;
+if_setposition($component9, $int0, 0, ^setpos_abs_left, ^setpos_abs_centre);
 cc_deleteall($component1);
 cc_deleteall($component2);
 cc_deleteall($component3);
 cc_deleteall($component4);
 def_int $int13 = friend_count;
 if ($int13 = -2) {
-    if_settext("Loading Friends List.<br>Please wait.", $component8);
-    if_sethide(false, $component8);
-    if_sethide(true, $component9);
-    if_sethide(true, $component7);
+    if_settext($component8, "Loading Friends List.<br>Please wait.");
+    if_sethide($component8, false);
+    if_sethide($component9, true);
+    if_sethide($component7, true);
     return;
 }
 if ($int13 = -1) {
-    if_settext("Connecting to Friend Server.<br>Please wait.", $component8);
-    if_sethide(false, $component8);
-    if_sethide(true, $component9);
-    if_sethide(true, $component7);
+    if_settext($component8, "Connecting to Friend Server.<br>Please wait.");
+    if_sethide($component8, false);
+    if_sethide($component9, true);
+    if_sethide($component7, true);
     return;
 }
-if_sethide(false, $component9);
-if_setmouseovercursor(cursor_149, $component9);
-if_settext("", $component8);
-if_sethide(true, $component8);
-if_sethide(false, $component7);
-if_settext("<tostring($int13)> / <tostring(200)>", $component7);
+if_sethide($component9, false);
+if_setmouseovercursor($component9, friends_arrow_cursor);
+if_settext($component8, "");
+if_sethide($component8, true);
+if_sethide($component7, false);
+if_settext($component7, "<tostring($int13)> / <tostring(200)>");
 def_int $int14 = 0;
 def_int $int15 = if_getwidth($component1);
 def_int $int16 = calc($int0 + (~if_getx_absolute($component10) - ~if_getx_absolute($component1)));
@@ -135,8 +135,8 @@ while ($int14 < $int13) {
     if ($int19 = 0) {
         cc_sethide(true);
     }
-    if_setsize($int17, 0, ^setsize_abs, ^setsize_minus, $component3);
-    if_setsize($int17, 0, ^setsize_abs, ^setsize_minus, $component4);
+    if_setsize($component3, $int17, 0, ^setsize_abs, ^setsize_minus);
+    if_setsize($component4, $int17, 0, ^setsize_abs, ^setsize_minus);
     if ($int20 = 0) {
         $string4 = "Offline";
         $string5 = "Offline";
@@ -191,11 +191,11 @@ $int21 = calc($int21 + 15 + 5);
 def_int $int30 = 0;
 if ($int21 > if_getheight($component5)) {
     $int30 = min(if_getscrolly($component5), $int21);
-    if_setscrollsize(if_getwidth($component5), $int21, $component5);
+    if_setscrollsize($component5, if_getwidth($component5), $int21);
     ~scrollbar_resize($component6, $component5, $int30);
 } else {
-    if_setscrollsize(0, 0, $component5);
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component11);
-    if_setscrollpos(0, 0, $component5);
+    if_setscrollsize($component5, 0, 0);
+    if_setsize($component11, 0, 0, ^setsize_minus, ^setsize_minus);
+    if_setscrollpos($component5, 0, 0);
     ~scrollbar_resize($component6, $component5, 0);
 }

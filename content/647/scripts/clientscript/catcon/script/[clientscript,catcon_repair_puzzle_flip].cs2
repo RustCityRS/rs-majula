@@ -1,7 +1,7 @@
 // 839
 [clientscript,catcon_repair_puzzle_flip]
 sound_synth(synth_4501, 1, 0);
-if (%varplayerbit_4399 = 0) {
+if (%catcon_selected_side = 0) {
     ~script841(1);
 } else {
     ~script841(0);

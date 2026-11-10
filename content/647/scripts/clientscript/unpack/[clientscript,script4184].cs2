@@ -3,7 +3,7 @@
 if ($int0 ! 1) {
     return;
 }
-%varplayerbit_8877 = max(min(calc(%varplayerbit_8877 + $int1), 28), 1);
-if_settext(tostring(%varplayerbit_8877), interface_1072:bar_count);
-if_setontimer("script4187(calc(clientclock + 15))", interface_1072:blocker);
-if_sethide(false, interface_1072:blocker);
+%artisan_temp_bar_number = max(min(calc(%artisan_temp_bar_number + $int1), 28), 1);
+if_settext(interface_1072:bar_count, tostring(%artisan_temp_bar_number));
+if_setontimer(interface_1072:blocker, "script4187(calc(clientclock + 15))");
+if_sethide(interface_1072:blocker, false);

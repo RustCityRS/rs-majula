@@ -1,10 +1,10 @@
 // 1313
 [proc,script1313]
 ~topstat_hitpoints_update;
-if_setgraphic(graphic_1207, topstat_lore:topstat_background_lore);
-if_setposition(25, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_lore:topstat_circle_lore);
-if_setposition(25, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_lore:com_4);
-if_setposition(3, 15, ^setpos_abs_left, ^setpos_abs_top, topstat_lore:topstat_text_lore);
-if_setposition(31, 7, ^setpos_abs_left, ^setpos_abs_top, topstat_lore:topstat_graphic_lore);
+if_setgraphic(topstat_lore:topstat_background_lore, graphic_1207);
+if_setposition(topstat_lore:topstat_circle_lore, 25, 1, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(topstat_lore:com_4, 25, 1, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(topstat_lore:topstat_text_lore, 3, 15, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(topstat_lore:topstat_graphic_lore, 31, 7, ^setpos_abs_left, ^setpos_abs_top);
 ~topstat_prayer_button_update;
 ~topstat_run_button_update(topstat_run:run_background);

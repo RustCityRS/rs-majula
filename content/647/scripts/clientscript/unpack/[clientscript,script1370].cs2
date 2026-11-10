@@ -14,33 +14,33 @@ def_int $int11 = 0;
 def_int $int12 = 0;
 def_int $int13 = 0;
 def_int $int14 = 0;
-def_int $int15 = %varclient_172;
+def_int $int15 = %worldmap_zoom;
 if ($int2 > 0) {
-    switch_int (%varclient_172) {
+    switch_int (%worldmap_zoom) {
         case 50 :
-            %varclient_172 = 37;
+            %worldmap_zoom = 37;
         case 75 :
-            %varclient_172 = 50;
+            %worldmap_zoom = 50;
         case 100 :
-            %varclient_172 = 75;
+            %worldmap_zoom = 75;
         case 200 :
-            %varclient_172 = 100;
+            %worldmap_zoom = 100;
         case default :
-            %varclient_172 = 37;
+            %worldmap_zoom = 37;
             $int4 = 0;
     }
 } else {
-    switch_int (%varclient_172) {
+    switch_int (%worldmap_zoom) {
         case 37 :
-            %varclient_172 = 50;
+            %worldmap_zoom = 50;
         case 50 :
-            %varclient_172 = 75;
+            %worldmap_zoom = 75;
         case 75 :
-            %varclient_172 = 100;
+            %worldmap_zoom = 100;
         case 100 :
-            %varclient_172 = 200;
+            %worldmap_zoom = 200;
         case default :
-            %varclient_172 = 200;
+            %worldmap_zoom = 200;
             $int4 = 0;
     }
     if ($int3 = 1 & $int15 < 200) {
@@ -53,7 +53,7 @@ if ($int2 > 0) {
             $int13, $int14 = scale($int5, $int9, $int11), scale($int6, $int10, $int12);
             $int7 = calc($int7 + $int13);
             $int8 = calc($int8 - $int14);
-            if_setontimer("script2054(calc(clientclock + 1), $component0, movecoord(0_0_0_0_0, $int7, 0, $int8))", $component0);
+            if_setontimer($component0, "script2054(calc(clientclock + 1), $component0, movecoord(0_0_0_0_0, $int7, 0, $int8))");
         }
     }
 }

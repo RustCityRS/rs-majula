@@ -1,7 +1,7 @@
 // 470
 [clientscript,script470](component $component0, int $int1)
 if (%varplayerbit_2086 < $int1) {
-    if_settext("<col=c80000><tostring($int1)> Commendations required.</col>", $component0);
+    if_settext($component0, "<col=c80000><tostring($int1)> Commendations required.</col>");
 } else {
-    if_settext("<tostring($int1)> Commendations.", $component0);
+    if_settext($component0, "<tostring($int1)> Commendations.");
 }

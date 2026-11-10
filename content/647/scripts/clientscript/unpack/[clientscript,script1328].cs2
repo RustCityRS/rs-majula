@@ -84,17 +84,17 @@ if ($key0 = ^key_return & if_gethide(lobbyscreen:friendslist_panel) = false) {
             ~lobbyscreen_input("Send message to <$string0>", "", 0, %varclient_1795, "");
             return;
         }
-        if (%varclient_1271 > calc(clientclock - 100)) {
+        if (%lobby_quickreply_message > calc(clientclock - 100)) {
             return;
         }
         mes("That player is not on your Friends list.");
-        %varclient_1271 = clientclock;
+        %lobby_quickreply_message = clientclock;
         return;
     }
-    if (%varclient_1271 > calc(clientclock - 100)) {
+    if (%lobby_quickreply_message > calc(clientclock - 100)) {
         return;
     }
     mes("You haven't received any messages to which you can reply.");
-    %varclient_1271 = clientclock;
+    %lobby_quickreply_message = clientclock;
     return;
 }

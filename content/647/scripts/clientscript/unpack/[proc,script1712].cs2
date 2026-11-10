@@ -1,7 +1,7 @@
 // 1712
 [proc,script1712](stat $stat0)(int)
 def_int $int1 = 0;
-if (inv_getobj(worn, 2) = amulet_of_zealots) {
+if (inv_getobj(worn, 2) = rand_reward_amulet_of_hopelessness) {
     $int1 = scale(stat_base($stat0), 100, 5);
 }
 switch_stat ($stat0) {

@@ -1,14 +1,14 @@
 // A label, so 2011's re-issues share it (as rat.rs2's).
-[ai_queue3,moss_giant] @moss_giant_drop_table;
+[ai_queue3,mossgiant] @moss_giant_drop_table;
 
 // 2011's moss giants 1587, 1588, 4688 (cache 786: "Moss giant", level 42, as
 // 289's) and 4706 (level 48) are 289's moss giant (npc_clones_2011.npc: void-634's
 // clones). The 2011 wiki's Moss giant (20 May 2011) gives levels 42 and 48 one
 // drop list, so 289's table.
-[ai_queue3,moss_giant_1587] @moss_giant_drop_table;
-[ai_queue3,moss_giant_1588] @moss_giant_drop_table;
-[ai_queue3,moss_giant_4688] @moss_giant_drop_table;
-[ai_queue3,moss_giant_4706] @moss_giant_drop_table;
+[ai_queue3,mossgiant2] @moss_giant_drop_table;
+[ai_queue3,mossgiant3] @moss_giant_drop_table;
+[ai_queue3,mossgiant4] @moss_giant_drop_table;
+[ai_queue3,lunar_mossgiant] @moss_giant_drop_table;
 
 [label,moss_giant_drop_table]
 gosub(npc_death);
@@ -38,26 +38,26 @@ if ($random < 5) {
 } else if ($random < 14) {
     obj_add(npc_coord, steel_kiteshield, 1, ^lootdrop_duration);
 } else if ($random < 18) {
-    obj_add(npc_coord, law_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 3, ^lootdrop_duration);
 } else if ($random < 21) {
-    obj_add(npc_coord, air_rune, 18, ^lootdrop_duration);
+    obj_add(npc_coord, airrune, 18, ^lootdrop_duration);
 } else if ($random < 24) {
-    obj_add(npc_coord, earth_rune, 27, ^lootdrop_duration);
+    obj_add(npc_coord, earthrune, 27, ^lootdrop_duration);
 } else if ($random < 27) {
-    obj_add(npc_coord, chaos_rune, 7, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 7, ^lootdrop_duration);
 } else if ($random < 30) {
-    obj_add(npc_coord, nature_rune, 6, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 6, ^lootdrop_duration);
 } else if ($random < 32) {
-    obj_add(npc_coord, cosmic_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, cosmicrune, 2, ^lootdrop_duration);
 } else if ($random < 34) {
     obj_add(npc_coord, iron_arrow, 15, ^lootdrop_duration);
 } else if ($random < 35) {
     obj_add(npc_coord, steel_arrow, 30, ^lootdrop_duration);
 } else if ($random < 36) {
-    obj_add(npc_coord, death_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, deathrune, 3, ^lootdrop_duration);
 } else if ($random < 37) {
     if (map_members = ^true) {
-        obj_add(npc_coord, blood_rune, 1, ^lootdrop_duration);
+        obj_add(npc_coord, bloodrune, 1, ^lootdrop_duration);
     } else {
         obj_add(npc_coord, coins, 2, ^lootdrop_duration);
     }

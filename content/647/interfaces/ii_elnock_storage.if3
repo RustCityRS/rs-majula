@@ -50,8 +50,8 @@ op2=Remove 5
 op3=Remove All
 op4=Remove X
 op10=Examine
-onload=ii_storage_update(event_com, impling_jar, 127, ii_elnock_storage:impling_jar_name)
-onvartransmit=ii_storage_update(event_com, impling_jar, 127, ii_elnock_storage:impling_jar_name){varplayer_1018}
+onload=ii_storage_update(event_com, ii_impling_jar, 127, ii_elnock_storage:impling_jar_name)
+onvartransmit=ii_storage_update(event_com, ii_impling_jar, 127, ii_elnock_storage:impling_jar_name){ii_player}
 
 // 592:4
 [impling_net_name]
@@ -81,8 +81,8 @@ transmitop=1,10
 opbase=<col=ff9040>Butterfly net
 op1=Remove
 op10=Examine
-onload=ii_storage_update(event_com, butterfly_net, 1, ii_elnock_storage:impling_net_name)
-onvartransmit=ii_storage_update(event_com, butterfly_net, 1, ii_elnock_storage:impling_net_name){varplayer_1018}
+onload=ii_storage_update(event_com, hunting_butterfly_net, 1, ii_elnock_storage:impling_net_name)
+onvartransmit=ii_storage_update(event_com, hunting_butterfly_net, 1, ii_elnock_storage:impling_net_name){ii_player}
 
 // 592:6
 [background_1]
@@ -169,8 +169,8 @@ transmitop=1,10
 opbase=<col=ff9040>Imp repellent
 op1=Remove
 op10=Examine
-onload=ii_storage_update(event_com, imp_repellent, 1, ii_elnock_storage:impling_repellent_name)
-onvartransmit=ii_storage_update(event_com, imp_repellent, 1, ii_elnock_storage:impling_repellent_name){varplayer_1018}
+onload=ii_storage_update(event_com, ii_imp_repellent, 1, ii_elnock_storage:impling_repellent_name)
+onvartransmit=ii_storage_update(event_com, ii_imp_repellent, 1, ii_elnock_storage:impling_repellent_name){ii_player}
 
 // 592:13
 [impling_jar]

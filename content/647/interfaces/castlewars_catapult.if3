@@ -102,7 +102,7 @@ height=42
 layer=controls_layer
 transmitop=1
 op1=Fire
-opcursor0=cursor_62
+opcursor0=cursor_crafting
 onmouseover=castlewars_button_swapper(castlewars_catapult:graphic1, castlewars_catapult:graphic2, castlewars_catapult:graphic3, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
 onmouseleave=castlewars_button_swapper(castlewars_catapult:graphic1, castlewars_catapult:graphic2, castlewars_catapult:graphic3, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
 onop=castlewars_set_firing
@@ -323,7 +323,7 @@ width=160
 height=159
 xmode=abs_centre
 layer=map_layer
-onvartransmit=script3430{varplayer_379, varplayer_379}
+onvartransmit=script3430{castlewars_main, castlewars_main}
 
 // 54:24
 [layer_1_3]
@@ -346,7 +346,7 @@ colour=0xff3333
 trans=140
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -371,7 +371,7 @@ colour=0xff3333
 trans=140
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -396,7 +396,7 @@ colour=0xff3333
 trans=140
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -421,7 +421,7 @@ colour=0xff3333
 trans=140
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -446,7 +446,7 @@ colour=0xff3333
 trans=140
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -471,7 +471,7 @@ colour=0xff3333
 trans=140
 transmitop=1
 op1=Select
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -497,7 +497,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -523,7 +523,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -549,7 +549,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -575,7 +575,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -601,7 +601,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -627,7 +627,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -652,7 +652,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -678,7 +678,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -704,7 +704,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -730,7 +730,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -756,7 +756,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -782,7 +782,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -808,7 +808,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -834,7 +834,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -859,7 +859,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -885,7 +885,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -911,7 +911,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -937,7 +937,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -963,7 +963,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -989,7 +989,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1015,7 +1015,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1041,7 +1041,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1066,7 +1066,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1092,7 +1092,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1118,7 +1118,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1144,7 +1144,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1170,7 +1170,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1196,7 +1196,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1222,7 +1222,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1248,7 +1248,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1273,7 +1273,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1299,7 +1299,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1325,7 +1325,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1351,7 +1351,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1377,7 +1377,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1403,7 +1403,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1429,7 +1429,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1455,7 +1455,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1480,7 +1480,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1506,7 +1506,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1532,7 +1532,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1558,7 +1558,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1584,7 +1584,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1610,7 +1610,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10= 
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1635,7 +1635,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1661,7 +1661,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1687,7 +1687,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1713,7 +1713,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1739,7 +1739,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 
@@ -1765,7 +1765,7 @@ trans=140
 transmitop=1,10
 op1=Select
 op10=  
-opcursor0=cursor_46
+opcursor0=cursor_use
 onmouseover=script3432(event_com)
 onmouseleave=script3433(event_com)
 

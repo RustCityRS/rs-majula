@@ -4,337 +4,337 @@ def_int $int0 = 0;
 def_int $int1 = 0;
 if (getwindowmode >= 2) {
     if (if_gethide(chattop:mes_layer_hide) = true & (if_gethide(chattop:mes_layer) = false | if_gethide(chattop:mes_layer_large) = false)) {
-        if_sethide(false, toplevel_fullscreen:chattop);
-        if_setgraphic(chat_background, chattop:chat_graphic);
-        if_sethide(false, chattop:chat_graphic);
-        if_sethide(false, chattop:chat_border);
-        if_setalpha(false, chattop:chat_graphic);
+        if_sethide(toplevel_fullscreen:chattop, false);
+        if_setgraphic(chattop:chat_graphic, chat_background);
+        if_sethide(chattop:chat_graphic, false);
+        if_sethide(chattop:chat_border, false);
+        if_setalpha(chattop:chat_graphic, false);
     } else if (if_hassub(chattop:chatmodallarge) = true) {
-        if_sethide(false, toplevel_fullscreen:chattop);
-        if_sethide(false, chattop:chatmodallarge);
-        if_sethide(true, chattop:chatmodal);
-        if_sethide(true, chattop:chatoverlaylarge);
-        if_sethide(true, chattop:chatoverlay);
-        if_sethide(true, chattop:chatdefault);
-        if_sethide(false, chattop:chat_graphic);
-        if_setalpha(true, chattop:chat_graphic);
-        if (%varplayerbit_542 = 0) {
-            if_setgraphic(chat_window, chattop:chat_graphic);
-            if_sethide(false, chattop:chat_border);
+        if_sethide(toplevel_fullscreen:chattop, false);
+        if_sethide(chattop:chatmodallarge, false);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, chat_window);
+            if_sethide(chattop:chat_border, false);
         } else {
-            if_setgraphic(graphic_1205, chattop:chat_graphic);
-            if_sethide(true, chattop:chat_border);
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
+            if_sethide(chattop:chat_border, true);
         }
     } else if (if_hassub(chattop:chatmodal) = true) {
-        if_sethide(false, toplevel_fullscreen:chattop);
-        if_sethide(true, chattop:chatmodallarge);
-        if_sethide(false, chattop:chatmodal);
-        if_sethide(true, chattop:chatoverlaylarge);
-        if_sethide(true, chattop:chatoverlay);
-        if_sethide(true, chattop:chatdefault);
-        if_sethide(false, chattop:chat_graphic);
-        if_setalpha(true, chattop:chat_graphic);
-        if (%varplayerbit_542 = 0) {
-            if_setgraphic(chat_window, chattop:chat_graphic);
-            if_sethide(false, chattop:chat_border);
+        if_sethide(toplevel_fullscreen:chattop, false);
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, false);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, chat_window);
+            if_sethide(chattop:chat_border, false);
         } else {
-            if_setgraphic(graphic_1205, chattop:chat_graphic);
-            if_sethide(true, chattop:chat_border);
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
+            if_sethide(chattop:chat_border, true);
         }
     } else if (if_hassub(chattop:chatoverlaylarge) = true) {
-        if_sethide(false, toplevel_fullscreen:chattop);
-        if_sethide(true, chattop:chatmodallarge);
-        if_sethide(true, chattop:chatmodal);
-        if_sethide(false, chattop:chatoverlaylarge);
-        if_sethide(true, chattop:chatoverlay);
-        if_sethide(true, chattop:chatdefault);
-        if_sethide(false, chattop:chat_graphic);
-        if_setalpha(true, chattop:chat_graphic);
-        if (%varplayerbit_542 = 0) {
-            if_setgraphic(chat_window, chattop:chat_graphic);
-            if_sethide(false, chattop:chat_border);
+        if_sethide(toplevel_fullscreen:chattop, false);
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, false);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, chat_window);
+            if_sethide(chattop:chat_border, false);
         } else {
-            if_setgraphic(graphic_1205, chattop:chat_graphic);
-            if_sethide(true, chattop:chat_border);
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
+            if_sethide(chattop:chat_border, true);
         }
     } else if (if_hassub(chattop:chatoverlay) = true) {
-        if_sethide(false, toplevel_fullscreen:chattop);
-        if_sethide(true, chattop:chatmodallarge);
-        if_sethide(true, chattop:chatmodal);
-        if_sethide(true, chattop:chatoverlaylarge);
-        if_sethide(false, chattop:chatoverlay);
-        if_sethide(true, chattop:chatdefault);
-        if_sethide(false, chattop:chat_graphic);
-        if_setalpha(true, chattop:chat_graphic);
-        if (%varplayerbit_542 = 0) {
-            if_setgraphic(chat_window, chattop:chat_graphic);
-            if_sethide(false, chattop:chat_border);
+        if_sethide(toplevel_fullscreen:chattop, false);
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, false);
+        if_sethide(chattop:chatdefault, true);
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, chat_window);
+            if_sethide(chattop:chat_border, false);
         } else {
-            if_setgraphic(graphic_1205, chattop:chat_graphic);
-            if_sethide(true, chattop:chat_border);
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
+            if_sethide(chattop:chat_border, true);
         }
     } else if (if_hassub(chattop:chatdefault) = true) {
-        if (%varclient_41 = -1) {
-            if_sethide(true, toplevel_fullscreen:chattop);
-            if_sethide(true, toplevel_fullscreen:chatbox_resize_dragger);
+        if (%chat_view = -1) {
+            if_sethide(toplevel_fullscreen:chattop, true);
+            if_sethide(toplevel_fullscreen:chatbox_resize_dragger, true);
         } else {
-            if_sethide(false, toplevel_fullscreen:chattop);
-            if_sethide(false, toplevel_fullscreen:chatbox_resize_dragger);
+            if_sethide(toplevel_fullscreen:chattop, false);
+            if_sethide(toplevel_fullscreen:chatbox_resize_dragger, false);
         }
-        if_sethide(true, chattop:chatmodallarge);
-        if_sethide(true, chattop:chatmodal);
-        if_sethide(true, chattop:chatoverlaylarge);
-        if_sethide(true, chattop:chatoverlay);
-        if_sethide(false, chattop:chatdefault);
-        if_sethide(false, chattop:chat_graphic);
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, false);
+        if_sethide(chattop:chat_graphic, false);
         if (if_gethide(chatdefault:quickchat) = false) {
-            if_setgraphic(chat_background, chattop:chat_graphic);
-            if_setalpha(false, chattop:chat_graphic);
-            if_sethide(false, chattop:chat_border);
+            if_setgraphic(chattop:chat_graphic, chat_background);
+            if_setalpha(chattop:chat_graphic, false);
+            if_sethide(chattop:chat_border, false);
         } else {
-            if_sethide(true, chattop:chat_border);
-            if_setgraphic(graphic_1247, chattop:chat_graphic);
-            if_setalpha(true, chattop:chat_graphic);
-            if_settiling(false, chattop:chat_graphic);
-            if_sethide(true, chatdefault:divider_line);
-            if_sethide(false, chatdefault:divider_graphic);
-            if_sethide(false, chatdefault:divider_graphic_top);
+            if_sethide(chattop:chat_border, true);
+            if_setgraphic(chattop:chat_graphic, graphic_1247);
+            if_setalpha(chattop:chat_graphic, true);
+            if_settiling(chattop:chat_graphic, false);
+            if_sethide(chatdefault:divider_line, true);
+            if_sethide(chatdefault:divider_graphic, false);
+            if_sethide(chatdefault:divider_graphic_top, false);
             ~script1301(chatdefault:scrollbar, chatdefault:scrollarea);
             while ($int0 < 100) {
-                if_settextshadow(true, enum(int, component, enum_579, $int0));
-                if_setcolour(^white, enum(int, component, enum_579, $int0));
+                if_settextshadow(enum(int, component, enum_579, $int0), true);
+                if_setcolour(enum(int, component, enum_579, $int0), ^white);
                 $int0 = calc($int0 + 1);
             }
-            if_settextshadow(true, chatdefault:input);
-            if_setcolour(^white, chatdefault:input);
+            if_settextshadow(chatdefault:input, true);
+            if_setcolour(chatdefault:input, ^white);
             ~script1558(false);
             ~rebuildchatbox;
         }
     }
     if (if_hassub(toplevel_fullscreen:sidemodal) = true) {
-        if_sethide(true, toplevel_fullscreen:stones_on);
-        if_sethide(true, toplevel_fullscreen:icons);
-        if_sethide(true, toplevel_fullscreen:stone_highlight);
-        if_sethide(false, toplevel_fullscreen:sidemodal);
-        if_sethide(true, toplevel_fullscreen:sidemodal2);
-        if_sethide(false, toplevel_fullscreen:side_border);
-        if_sethide(true, toplevel_fullscreen:side_hide);
-        if_sethide(true, toplevel_fullscreen:logoutbutton);
+        if_sethide(toplevel_fullscreen:stones_on, true);
+        if_sethide(toplevel_fullscreen:icons, true);
+        if_sethide(toplevel_fullscreen:stone_highlight, true);
+        if_sethide(toplevel_fullscreen:sidemodal, false);
+        if_sethide(toplevel_fullscreen:sidemodal2, true);
+        if_sethide(toplevel_fullscreen:side_border, false);
+        if_sethide(toplevel_fullscreen:side_hide, true);
+        if_sethide(toplevel_fullscreen:logoutbutton, true);
     } else {
-        if_sethide(false, toplevel_fullscreen:stones_on);
-        if_sethide(false, toplevel_fullscreen:icons);
+        if_sethide(toplevel_fullscreen:stones_on, false);
+        if_sethide(toplevel_fullscreen:icons, false);
         if (%varplayerbit_6448 = 0) {
-            if_sethide(false, toplevel_fullscreen:stone_highlight);
+            if_sethide(toplevel_fullscreen:stone_highlight, false);
         }
-        if_sethide(false, toplevel_fullscreen:side_hide);
-        if_sethide(false, toplevel_fullscreen:logoutbutton);
+        if_sethide(toplevel_fullscreen:side_hide, false);
+        if_sethide(toplevel_fullscreen:logoutbutton, false);
         if (if_hassub(toplevel_fullscreen:sidemodal2) = false) {
-            if_sethide(true, toplevel_fullscreen:sidemodal);
+            if_sethide(toplevel_fullscreen:sidemodal, true);
         }
-        ~if_switchside(%varclient_168);
+        ~if_switchside(%if_switchside_varc);
         if (if_gethide(toplevel_fullscreen:side0) = false | if_gethide(toplevel_fullscreen:side1) = false | if_gethide(toplevel_fullscreen:side2) = false | if_gethide(toplevel_fullscreen:side3) = false | if_gethide(toplevel_fullscreen:side4) = false | if_gethide(toplevel_fullscreen:side5) = false | if_gethide(toplevel_fullscreen:side6) = false | if_gethide(toplevel_fullscreen:side7) = false | if_gethide(toplevel_fullscreen:side8) = false | if_gethide(toplevel_fullscreen:side9) = false | if_gethide(toplevel_fullscreen:side10) = false | if_gethide(toplevel_fullscreen:side11) = false | if_gethide(toplevel_fullscreen:side12) = false | if_gethide(toplevel_fullscreen:side13) = false | if_gethide(toplevel_fullscreen:side14) = false | if_gethide(toplevel_fullscreen:side15) = false | if_gethide(toplevel_fullscreen:side95) = false | if_gethide(toplevel_fullscreen:side99) = false) {
-            if_sethide(false, toplevel_fullscreen:side_border);
+            if_sethide(toplevel_fullscreen:side_border, false);
         } else {
-            if_sethide(true, toplevel_fullscreen:side_border);
+            if_sethide(toplevel_fullscreen:side_border, true);
         }
-        if_setontimer("subchanged_switchside_timer(clientclock, event_com)", toplevel_fullscreen:chattop);
+        if_setontimer(toplevel_fullscreen:chattop, "subchanged_switchside_timer(clientclock, event_com)");
     }
-    if_sethide(true, toplevel:sidemodal2);
+    if_sethide(toplevel:sidemodal2, true);
     $int1 = 0;
     while ($int1 <= 15) {
         if (if_hassub(~getsidelayer($int1)) = true) {
-            if_sethide(false, ~getsideicon($int1));
-            if_sethide(false, ~getstonelayer($int1));
+            if_sethide(~getsideicon($int1), false);
+            if_sethide(~getstonelayer($int1), false);
         } else {
-            if_sethide(true, ~getsideicon($int1));
-            if_sethide(true, ~getstonelayer($int1));
+            if_sethide(~getsideicon($int1), true);
+            if_sethide(~getstonelayer($int1), true);
         }
         $int1 = calc($int1 + 1);
     }
-    if (if_hassub(~getsidelayer(95)) = true & %show_summoning_orb = 1) {
-        if_sethide(false, topstat_lore:main_ops);
+    if (if_hassub(~getsidelayer(95)) = true & %lore_lore_available = 1) {
+        if_sethide(topstat_lore:main_ops, false);
     } else {
-        if_sethide(true, topstat_lore:main_ops);
+        if_sethide(topstat_lore:main_ops, true);
     }
     $int1 = 0;
     if (if_gethide(toplevel_fullscreen:icons) = true) {
         while ($int1 <= 15) {
-            if_setonmouseover(null, ~script2459($int1));
-            if_setonmouseleave(null, ~script2459($int1));
-            if_setgraphic(graphic_1835, ~script2459($int1));
+            if_setonmouseover(~script2459($int1), null);
+            if_setonmouseleave(~script2459($int1), null);
+            if_setgraphic(~script2459($int1), graphic_1835);
             $int1 = calc($int1 + 1);
         }
     } else {
         while ($int1 <= 15) {
             if (if_gethide(~getsideicon($int1)) = true) {
-                if_setonmouseover(null, ~script2459($int1));
-                if_setonmouseleave(null, ~script2459($int1));
-                if_setgraphic(graphic_1835, ~script2459($int1));
+                if_setonmouseover(~script2459($int1), null);
+                if_setonmouseleave(~script2459($int1), null);
+                if_setgraphic(~script2459($int1), graphic_1835);
             } else {
-                if_setonmouseover("script2462(event_com, true)", ~script2459($int1));
-                if_setonmouseleave("script2462(event_com, false)", ~script2459($int1));
+                if_setonmouseover(~script2459($int1), "script2462(event_com, true)");
+                if_setonmouseleave(~script2459($int1), "script2462(event_com, false)");
             }
             $int1 = calc($int1 + 1);
         }
     }
-    if_sethide(false, toplevel_fullscreen:com_10);
+    if_sethide(toplevel_fullscreen:com_10, false);
     ~script1313;
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:statusicons);
-    if_setsize(115, 35, ^setsize_abs, ^setsize_abs, statusicons:statusicons);
-    if_setposition(80, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:multiway_icon);
-    if_setposition(40, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:assist_engaged);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:pvpw_safe);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:pvpw_safe_countdown);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:pvpw_countdown);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:com_6);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, statusicons:multiway_icon);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, statusicons:assist_engaged);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, statusicons:pvpw_safe);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, statusicons:pvpw_safe_countdown);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, statusicons:pvpw_countdown);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, statusicons:com_6);
-    if_setgraphic(overlay_multiway_big, statusicons:multiway_icon);
-    if_setgraphic(graphic_1562, statusicons:assist_engaged);
-    if_setgraphic(graphic_1579, statusicons:pvpw_safe);
-    if_setgraphic(graphic_1580, statusicons:pvpw_safe_countdown);
-    if_setgraphic(graphic_1581, statusicons:com_6);
+    if_setposition(statusicons:statusicons, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(statusicons:statusicons, 115, 35, ^setsize_abs, ^setsize_abs);
+    if_setposition(statusicons:multiway_icon, 80, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:assist_engaged, 40, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_safe, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_safe_countdown, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_countdown, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:com_6, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(statusicons:multiway_icon, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:assist_engaged, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_safe, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_safe_countdown, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_countdown, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:com_6, 35, 35, ^setsize_abs, ^setsize_abs);
+    if_setgraphic(statusicons:multiway_icon, overlay_multiway_big);
+    if_setgraphic(statusicons:assist_engaged, graphic_1562);
+    if_setgraphic(statusicons:pvpw_safe, graphic_1579);
+    if_setgraphic(statusicons:pvpw_safe_countdown, graphic_1580);
+    if_setgraphic(statusicons:com_6, graphic_1581);
 } else {
-    if (%varclient_41 = -1 & %learning_the_ropes >= 1000) {
-        %varclient_41 = 0;
+    if (%chat_view = -1 & %tutorial >= 1000) {
+        %chat_view = 0;
         ~chat_alert_reset(0);
         ~redraw_chat_buttons;
         ~rebuildchatbox;
         ~rebuildpmbox;
     }
-    if_setgraphic(chat_background, chattop:chat_graphic);
-    if_sethide(false, chattop:chat_graphic);
-    if_sethide(false, chattop:chat_border);
-    if_setalpha(false, chattop:chat_graphic);
-    if_settiling(true, chattop:chat_graphic);
+    if_setgraphic(chattop:chat_graphic, chat_background);
+    if_sethide(chattop:chat_graphic, false);
+    if_sethide(chattop:chat_border, false);
+    if_setalpha(chattop:chat_graphic, false);
+    if_settiling(chattop:chat_graphic, true);
     if (if_hassub(chattop:chatmodallarge) = true) {
-        if_sethide(false, chattop:chatmodallarge);
-        if_sethide(true, chattop:chatmodal);
-        if_sethide(true, chattop:chatoverlaylarge);
-        if_sethide(true, chattop:chatoverlay);
-        if_sethide(true, chattop:chatdefault);
+        if_sethide(chattop:chatmodallarge, false);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
     } else if (if_hassub(chattop:chatmodal) = true) {
-        if_sethide(true, chattop:chatmodallarge);
-        if_sethide(false, chattop:chatmodal);
-        if_sethide(true, chattop:chatoverlaylarge);
-        if_sethide(true, chattop:chatoverlay);
-        if_sethide(true, chattop:chatdefault);
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, false);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
     } else if (if_hassub(chattop:chatoverlaylarge) = true) {
-        if_sethide(true, chattop:chatmodallarge);
-        if_sethide(true, chattop:chatmodal);
-        if_sethide(false, chattop:chatoverlaylarge);
-        if_sethide(true, chattop:chatoverlay);
-        if_sethide(true, chattop:chatdefault);
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, false);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, true);
     } else if (if_hassub(chattop:chatoverlay) = true) {
-        if_sethide(true, chattop:chatmodallarge);
-        if_sethide(true, chattop:chatmodal);
-        if_sethide(true, chattop:chatoverlaylarge);
-        if_sethide(false, chattop:chatoverlay);
-        if_sethide(true, chattop:chatdefault);
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, false);
+        if_sethide(chattop:chatdefault, true);
     } else if (if_hassub(chattop:chatdefault) = true) {
-        if_sethide(true, chattop:chatmodallarge);
-        if_sethide(true, chattop:chatmodal);
-        if_sethide(true, chattop:chatoverlaylarge);
-        if_sethide(true, chattop:chatoverlay);
-        if_sethide(false, chattop:chatdefault);
-        if_sethide(false, chatdefault:divider_line);
-        if_sethide(true, chatdefault:divider_graphic);
-        if_sethide(true, chatdefault:divider_graphic_top);
+        if_sethide(chattop:chatmodallarge, true);
+        if_sethide(chattop:chatmodal, true);
+        if_sethide(chattop:chatoverlaylarge, true);
+        if_sethide(chattop:chatoverlay, true);
+        if_sethide(chattop:chatdefault, false);
+        if_sethide(chatdefault:divider_line, false);
+        if_sethide(chatdefault:divider_graphic, true);
+        if_sethide(chatdefault:divider_graphic_top, true);
         ~script1301(chatdefault:scrollbar, chatdefault:scrollarea);
         while ($int0 < 100) {
-            if_settextshadow(false, enum(int, component, enum_579, $int0));
-            if_setcolour(^black, enum(int, component, enum_579, $int0));
+            if_settextshadow(enum(int, component, enum_579, $int0), false);
+            if_setcolour(enum(int, component, enum_579, $int0), ^black);
             $int0 = calc($int0 + 1);
         }
-        if_settextshadow(false, chatdefault:input);
-        if_setcolour(^black, chatdefault:input);
+        if_settextshadow(chatdefault:input, false);
+        if_setcolour(chatdefault:input, ^black);
         ~script1558(false);
         ~rebuildchatbox;
     }
     if (if_hassub(toplevel:sidemodal) = true) {
-        if_sethide(true, toplevel:backbase2_hide);
-        if_sethide(true, toplevel:backbase2_stonehighlight);
-        if_sethide(true, toplevel:backhmid1_hide);
-        if_sethide(true, toplevel:com_145);
-        if_sethide(false, toplevel:sidemodal);
-        if_sethide(true, toplevel:sidemodal2);
-        if_sethide(true, toplevel:side_hide);
-        if_sethide(true, toplevel:logoutbutton);
+        if_sethide(toplevel:backbase2_hide, true);
+        if_sethide(toplevel:backbase2_stonehighlight, true);
+        if_sethide(toplevel:backhmid1_hide, true);
+        if_sethide(toplevel:com_145, true);
+        if_sethide(toplevel:sidemodal, false);
+        if_sethide(toplevel:sidemodal2, true);
+        if_sethide(toplevel:side_hide, true);
+        if_sethide(toplevel:logoutbutton, true);
     } else {
-        if_sethide(false, toplevel:backbase2_hide);
-        if_sethide(false, toplevel:backbase2_stonehighlight);
-        if_sethide(false, toplevel:backhmid1_hide);
-        if_sethide(false, toplevel:com_145);
-        if_sethide(false, toplevel:side_hide);
-        if_sethide(false, toplevel:logoutbutton);
-        if_sethide(true, toplevel_fullscreen:sidemodal);
+        if_sethide(toplevel:backbase2_hide, false);
+        if_sethide(toplevel:backbase2_stonehighlight, false);
+        if_sethide(toplevel:backhmid1_hide, false);
+        if_sethide(toplevel:com_145, false);
+        if_sethide(toplevel:side_hide, false);
+        if_sethide(toplevel:logoutbutton, false);
+        if_sethide(toplevel_fullscreen:sidemodal, true);
         if (if_hassub(toplevel:sidemodal2) = false) {
-            if_sethide(true, toplevel:sidemodal2);
+            if_sethide(toplevel:sidemodal2, true);
         }
-        ~if_switchside(%varclient_168);
-        if_setontimer("subchanged_switchside_timer(clientclock, event_com)", toplevel:chattop);
+        ~if_switchside(%if_switchside_varc);
+        if_setontimer(toplevel:chattop, "subchanged_switchside_timer(clientclock, event_com)");
     }
     $int1 = 0;
     while ($int1 <= 15) {
         if (if_hassub(~getsidelayer($int1)) = true) {
-            if_sethide(false, ~getsideicon($int1));
-            if_sethide(false, ~getstonelayer($int1));
+            if_sethide(~getsideicon($int1), false);
+            if_sethide(~getstonelayer($int1), false);
         } else {
-            if_sethide(true, ~getsideicon($int1));
-            if_sethide(true, ~getstonelayer($int1));
+            if_sethide(~getsideicon($int1), true);
+            if_sethide(~getstonelayer($int1), true);
         }
         $int1 = calc($int1 + 1);
     }
-    if (if_hassub(~getsidelayer(95)) = true & %show_summoning_orb = 1) {
-        if_sethide(false, topstat_lore:main_ops);
+    if (if_hassub(~getsidelayer(95)) = true & %lore_lore_available = 1) {
+        if_sethide(topstat_lore:main_ops, false);
     } else {
-        if_sethide(true, topstat_lore:main_ops);
+        if_sethide(topstat_lore:main_ops, true);
     }
     $int1 = 0;
     if (if_gethide(toplevel:backbase2_hide) = true & if_gethide(toplevel:backhmid1_hide) = true) {
         while ($int1 <= 15) {
-            if_setonmouseover(null, ~script2459($int1));
-            if_setonmouseleave(null, ~script2459($int1));
-            if_setgraphic(graphic_1835, ~script2459($int1));
+            if_setonmouseover(~script2459($int1), null);
+            if_setonmouseleave(~script2459($int1), null);
+            if_setgraphic(~script2459($int1), graphic_1835);
             $int1 = calc($int1 + 1);
         }
     } else {
         while ($int1 <= 15) {
             if (if_gethide(~getsideicon($int1)) = true) {
-                if_setonmouseover(null, ~script2459($int1));
-                if_setonmouseleave(null, ~script2459($int1));
-                if_setgraphic(graphic_1835, ~script2459($int1));
+                if_setonmouseover(~script2459($int1), null);
+                if_setonmouseleave(~script2459($int1), null);
+                if_setgraphic(~script2459($int1), graphic_1835);
             } else {
-                if_setonmouseover("script2462(event_com, true)", ~script2459($int1));
-                if_setonmouseleave("script2462(event_com, false)", ~script2459($int1));
+                if_setonmouseover(~script2459($int1), "script2462(event_com, true)");
+                if_setonmouseleave(~script2459($int1), "script2462(event_com, false)");
             }
             $int1 = calc($int1 + 1);
         }
     }
     ~stats_side_resize;
     ~script1337;
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:statusicons);
-    if_setsize(82, 25, ^setsize_abs, ^setsize_abs, statusicons:statusicons);
-    if_setposition(57, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:multiway_icon);
-    if_setposition(28, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:assist_engaged);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:pvpw_safe);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:pvpw_safe_countdown);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:pvpw_countdown);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, statusicons:com_6);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, statusicons:multiway_icon);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, statusicons:assist_engaged);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, statusicons:pvpw_safe);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, statusicons:pvpw_safe_countdown);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, statusicons:pvpw_countdown);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, statusicons:com_6);
-    if_setgraphic(overlay_multiway, statusicons:multiway_icon);
-    if_setgraphic(assist_overlay, statusicons:assist_engaged);
-    if_setgraphic(graphic_1576, statusicons:pvpw_safe);
-    if_setgraphic(graphic_1578, statusicons:pvpw_safe_countdown);
-    if_setgraphic(graphic_1577, statusicons:com_6);
+    if_setposition(statusicons:statusicons, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(statusicons:statusicons, 82, 25, ^setsize_abs, ^setsize_abs);
+    if_setposition(statusicons:multiway_icon, 57, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:assist_engaged, 28, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_safe, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_safe_countdown, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:pvpw_countdown, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(statusicons:com_6, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(statusicons:multiway_icon, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:assist_engaged, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_safe, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_safe_countdown, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:pvpw_countdown, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setsize(statusicons:com_6, 25, 25, ^setsize_abs, ^setsize_abs);
+    if_setgraphic(statusicons:multiway_icon, overlay_multiway);
+    if_setgraphic(statusicons:assist_engaged, assist_overlay);
+    if_setgraphic(statusicons:pvpw_safe, graphic_1576);
+    if_setgraphic(statusicons:pvpw_safe_countdown, graphic_1578);
+    if_setgraphic(statusicons:com_6, graphic_1577);
 }
 ~window_resize;

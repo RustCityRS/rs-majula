@@ -1,10 +1,10 @@
 # Global ground-item (obj) spawns for mapsquare (50,51).
 # Ported from void-server (rev 634) by tools/item-spawn-porter — authentic
 # spawn locations. Format: level lx lz: obj_id count  # name (delay).
-0 25 30: bucket 1 # bucket delay=100
+0 25 30: bucket_empty 1 # bucket delay=100
 0 26 37: egg 1 # egg delay=30
-0 27 35: super_large_egg 1 # super_large_egg delay=100
+0 27 35: cook_egg 1 # super_large_egg delay=100
 0 29 36: egg 1 # egg delay=30
 0 30 35: egg 1 # egg delay=30
 0 33 36: egg 1 # egg delay=30
-0 63 13: bucket 1 # bucket delay=100
+0 63 13: bucket_empty 1 # bucket delay=100

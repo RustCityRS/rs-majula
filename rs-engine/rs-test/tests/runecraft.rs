@@ -109,8 +109,8 @@ fn oploc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
 fn runecrafting_at_2011s_air_temple() {
     runner::on_loaded_engine(|engine| {
         let talisman = obj(engine, "air_talisman");
-        let essence = obj(engine, "rune_essence");
-        let air = obj(engine, "air_rune");
+        let essence = obj(engine, "blankrune");
+        let air = obj(engine, "airrune");
         let inv = inv(engine);
 
         // The talisman, held to 2011's air ruins, takes the player inside.
@@ -186,7 +186,7 @@ fn the_essence_mine_portals_are_2011s_npcs() {
             .cache
             .npcs
             .debugnames
-            .get("col_00ffff_portal__col")
+            .get("essence_mine_exit_1")
             .copied()
             .expect("the first portal npc");
         let mut client = player_at(engine, "miner_of_essence", 2932, 4816);

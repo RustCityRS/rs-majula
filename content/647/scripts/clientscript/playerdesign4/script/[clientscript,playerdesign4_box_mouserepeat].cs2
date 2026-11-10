@@ -7,7 +7,7 @@ if ($component0 ! null) {
         ~playerdesign4_box_outline($component0, $int3, 0);
     }
     if ($boolean6 = true) {
-        if_setontimer("playerdesign4_box_mouserepeat_timer($component0, $int4, $boolean5)", $component0);
+        if_setontimer($component0, "playerdesign4_box_mouserepeat_timer($component0, $int4, $boolean5)");
     }
 } else {
     ~playerdesign4_box_outline($component7, $int3, 2);
@@ -17,7 +17,7 @@ if (if_find($component7) = true) {
         if (string_length($string0) > 0) {
             ~playerdesign4_tooltip($string0, ~if_getx_absolute($component7), if_getwidth($component7), ~if_gety_absolute($component7), $int8);
         }
-    } else if (~if_getx_absolute($component7) = %varclient_2 & if_getwidth($component7) = %varclient_773) {
+    } else if (~if_getx_absolute($component7) = %tooltip_built & if_getwidth($component7) = %player_kit_scroll_length) {
         ~playerdesign4_tooltip_clear;
     }
 }
@@ -35,7 +35,7 @@ if ($boolean5 = true) {
                 return;
             }
             if ($component11 ! $component0 & if_gethide($component11) = false) {
-                if_setontimer("playerdesign4_box_mouserepeat_timer($component11, $int4, false)", $component11);
+                if_setontimer($component11, "playerdesign4_box_mouserepeat_timer($component11, $int4, false)");
                 ~playerdesign4_box_outline($component11, $int3, 0);
             }
         }

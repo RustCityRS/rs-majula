@@ -4,7 +4,7 @@
 // at once (289 makes you talk to him again), and a teleport back to the Wizards' Tower.
 // Unverified, as no 2011 recording of them is found: the shop and "No, thank you." replies,
 // the lost-package and revisit lines (289's) and the menu after the quest (289's options).
-[opnpc1,aubury]
+[opnpc1,varrock_rune_seller]
 if (%runemysteries = ^runemysteries_given_package) {
     // 289's in-between stage, which 2011 never sets; a save left at it gets the notes.
     @aubury_notes;
@@ -33,11 +33,11 @@ if (%runemysteries = ^runemysteries_given_package) {
 
 // 2011's Aubury (npc 5913, cache 786) trades on op4 and teleports on op5,
 // where 289's traded on op3 and teleported on op4.
-[opnpc4,aubury] ~openshop_activenpc;
-[opnpc5,aubury]
+[opnpc4,varrock_rune_seller] ~openshop_activenpc;
+[opnpc5,varrock_rune_seller]
 @teleport_to_essence_mine(^essence_mine_to_aubury);
 
-[opnpcu,aubury]
+[opnpcu,varrock_rune_seller]
 if(last_useitem = research_package & %runemysteries = ^runemysteries_received_package) @aubury_package;
 ~displaymessage(^dm_default);
 

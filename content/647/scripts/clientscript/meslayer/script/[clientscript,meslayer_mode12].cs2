@@ -4,24 +4,24 @@ if ($int0 ! 1) {
     return;
 }
 if (getwindowmode >= 2) {
-    if_sethide(false, toplevel_fullscreen:chattop);
+    if_sethide(toplevel_fullscreen:chattop, false);
 }
-if_sethide(false, chattop:mes_layer);
-if_sethide(true, chattop:mes_layer_large);
-if_sethide(true, chattop:mes_layer_hide);
-if (~bool_to_int(%varclient_266) = 0) {
-    %varclient_1557 = "";
-    %varclient_1558 = "";
-    %varclient_266 = true;
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if (~bool_to_int(%clanwars_caller_init) = 0) {
+    %clanwars_caller = "";
+    %clanwars_caller_lastusedstring = "";
+    %clanwars_caller_init = true;
 }
-if (string_length(%varclient_1557) > 0) {
-    if_settext("Edit the name of your caller:<br>(Delete it to disable this feature.)", chattop:mes_text);
+if (string_length(%clanwars_caller) > 0) {
+    if_settext(chattop:mes_text, "Edit the name of your caller:<br>(Delete it to disable this feature.)");
 } else {
-    if_settext("Enter the name of your caller:", chattop:mes_text);
+    if_settext(chattop:mes_text, "Enter the name of your caller:");
 }
-%varclient_5 = 12;
-~meslayer_setupinput(%varclient_1557);
-if_setonclick("clanwars_caller_click", chattop:mes_layer);
+%meslayermode = 12;
+~meslayer_setupinput(%clanwars_caller);
+if_setonclick(chattop:mes_layer, "clanwars_caller_click");
 ~script2026;
-if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chattop:mes_text2);
+if_setonkey(chattop:mes_text2, "meslayer_onkey(event_keycode, event_keychar)");
 ~script1188;

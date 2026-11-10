@@ -1,9 +1,9 @@
 // 1700
 [proc,script1700]
-if (%varclient_1052 = 1) {
-    if_settext("Hide stat adjustments.", prayer:com_12);
-    if_setop(1, "Hide stat adjustments", prayer:com_12);
+if (%prayer_stats_if_visible = 1) {
+    if_settext(prayer:com_12, "Hide stat adjustments.");
+    if_setop(prayer:com_12, 1, "Hide stat adjustments");
 } else {
-    if_settext("Show stat adjustments.", prayer:com_12);
-    if_setop(1, "Show stat adjustments", prayer:com_12);
+    if_settext(prayer:com_12, "Show stat adjustments.");
+    if_setop(prayer:com_12, 1, "Show stat adjustments");
 }

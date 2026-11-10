@@ -1,5 +1,5 @@
 // 0
-[inv_0]
+[trawler_rewardinv]
 size=40
 
 // 1
@@ -12,9 +12,9 @@ restock=yes
 stackall=yes
 allstock=no
 stock1=bronze_pickaxe,5,100
-stock2=bronze_hatchet,10,100
-stock3=iron_hatchet,5,200
-stock4=steel_hatchet,3,400
+stock2=bronze_axe,10,100
+stock3=iron_axe,5,200
+stock4=steel_axe,3,400
 stock5=iron_battleaxe,5,100
 stock6=steel_battleaxe,2,200
 stock7=mithril_battleaxe,1,3000
@@ -57,10 +57,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=shears,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
@@ -75,10 +75,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=shears,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
@@ -92,14 +92,14 @@ size=8
 restock=yes
 stackall=yes
 allstock=no
-stock1=fire_rune,2000,10
-stock2=water_rune,2000,10
-stock3=air_rune,2000,10
-stock4=earth_rune,2000,10
-stock5=mind_rune,1000,10
-stock6=body_rune,1000,10
-stock7=chaos_rune,1000,100
-stock8=death_rune,1000,150
+stock1=firerune,2000,10
+stock2=waterrune,2000,10
+stock3=airrune,2000,10
+stock4=earthrune,2000,10
+stock5=mindrune,1000,10
+stock6=bodyrune,1000,10
+stock7=chaosrune,1000,100
+stock8=deathrune,1000,150
 
 // 6
 [swordshop]
@@ -146,7 +146,7 @@ stock2=iron_arrow,1500,15
 stock3=steel_arrow,1000,20
 stock4=mithril_arrow,100,100
 stock5=adamant_arrow,30,100
-stock6=bronze_bolts,1500,10
+stock6=bolt,1500,10
 stock7=shortbow,4,100
 stock8=longbow,4,100
 stock9=oak_shortbow,2,200
@@ -156,7 +156,7 @@ stock12=willow_longbow,10,100
 stock13=maple_shortbow,10,100
 stock14=maple_longbow,10,100
 stock15=crossbow,2,400
-stock16=leather_body,10,100
+stock16=leather_armour,10,100
 stock17=leather_gloves,10,100
 stock18=leather_boots,10,100
 stock19=leather_chaps,10,100
@@ -176,14 +176,14 @@ restock=yes
 stackall=yes
 allstock=no
 stock1=white_apron,3,100
-stock2=leather_body,12,100
+stock2=leather_armour,12,100
 stock3=leather_gloves,10,100
 stock4=leather_boots,10,100
 stock5=brown_apron,1,100
 stock6=pink_skirt,5,100
 stock7=black_skirt,3,100
 stock8=blue_skirt,2,100
-stock9=cape,4,100
+stock9=red_cape,4,100
 stock10=silk,5,500
 stock11=priest_robe,3,100
 stock12=priest_gown,3,100
@@ -198,7 +198,7 @@ size=6
 restock=yes
 stackall=yes
 allstock=no
-stock1=staff,5,100
+stock1=plainstaff,5,100
 stock2=magic_staff,5,200
 stock3=staff_of_air,2,1000
 stock4=staff_of_water,2,1000
@@ -266,10 +266,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=shears,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
@@ -334,10 +334,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=shears,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
@@ -351,7 +351,7 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=cape_1021,2,1000
+stock1=blue_cape,2,1000
 stock2=black_full_helm,1,1000
 stock3=black_platelegs,1,20000
 stock4=adamant_platebody,1,8000
@@ -373,7 +373,7 @@ stock4=mithril_mace,3,3000
 stock5=adamant_mace,2,12000
 
 // 20
-[inv_20]
+[foodshop]
 size=1
 
 // 21
@@ -421,10 +421,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=shears,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
@@ -438,10 +438,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=shears,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
@@ -454,16 +454,16 @@ size=11
 restock=yes
 stackall=yes
 allstock=no
-stock1=fire_rune,1000,10
-stock2=water_rune,1000,10
-stock3=air_rune,1000,10
-stock4=earth_rune,1000,10
-stock5=mind_rune,1000,10
-stock6=body_rune,1000,10
-stock7=chaos_rune,1000,100
-stock8=death_rune,1000,150
+stock1=firerune,1000,10
+stock2=waterrune,1000,10
+stock3=airrune,1000,10
+stock4=earthrune,1000,10
+stock5=mindrune,1000,10
+stock6=bodyrune,1000,10
+stock7=chaosrune,1000,100
+stock8=deathrune,1000,150
 stock9=eye_of_newt,300,10
-stock10=wizard_hat,1,100
+stock10=bluewizhat,1,100
 stock11=blackwizhat,1,100
 
 // 26
@@ -501,11 +501,11 @@ stock3=necklace_mould,2,100
 stock4=amulet_mould,2,100
 stock5=needle,3,100
 stock6=thread,100,5
-stock7=holy_mould,3,100
+stock7=holy_symbol_mould,3,100
 stock8=sickle_mould,6,15
 stock9=tiara_mould,10,100
-stock10=bolt_mould,10,100
-stock11=bracelet_mould,10,100
+stock10=xbows_silver_bolt_mould,10,100
+stock11=jewl_bracelet_mould,10,100
 
 // 28
 [goldshop]
@@ -533,11 +533,11 @@ stock12=strung_sapphire_amulet,0,2000
 stock13=strung_emerald_amulet,0,3000
 stock14=strung_ruby_amulet,0,4000
 stock15=strung_diamond_amulet,0,5000
-stock16=gold_bracelet,0,100
-stock17=emerald_bracelet,0,100
-stock18=ruby_bracelet,0,100
-stock19=sapphire_bracelet,0,100
-stock20=diamond_bracelet,0,100
+stock16=jewl_gold_bracelet,0,100
+stock17=jewl_emerald_bracelet,0,100
+stock18=jewl_ruby_bracelet,0,100
+stock19=jewl_sapphire_bracelet,0,100
+stock20=jewl_diamond_bracelet,0,100
 
 // 29
 [boozeshop]
@@ -549,8 +549,8 @@ restock=yes
 stackall=yes
 allstock=no
 stock1=beer,3,100
-stock2=karamjan_rum,3,100
-stock3=jug_of_wine,1,15000
+stock2=karamja_rum,3,100
+stock3=jug_wine,1,15000
 
 // 30
 [fishingshop]
@@ -564,7 +564,7 @@ size=18
 restock=yes
 stackall=yes
 allstock=no
-stock1=small_fishing_net,5,100
+stock1=net,5,100
 stock2=fishing_rod,5,100
 stock3=fly_fishing_rod,5,100
 stock4=harpoon,2,400
@@ -572,7 +572,7 @@ stock5=lobster_pot,2,400
 stock6=crayfish_cage,10,100
 stock7=fishing_bait,1500,1
 stock8=feather,1000,1
-stock9=raw_shrimps,0,300
+stock9=raw_shrimp,0,300
 stock10=raw_sardine,200,1
 stock11=raw_herring,0,900
 stock12=raw_anchovies,0,1200
@@ -592,10 +592,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=shears,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
@@ -617,11 +617,11 @@ stock3=necklace_mould,2,100
 stock4=amulet_mould,2,100
 stock5=needle,3,100
 stock6=thread,100,5
-stock7=holy_mould,3,100
+stock7=holy_symbol_mould,3,100
 stock8=sickle_mould,6,15
 stock9=tiara_mould,10,100
-stock10=bolt_mould,10,100
-stock11=bracelet_mould,10,100
+stock10=xbows_silver_bolt_mould,10,100
+stock11=jewl_bracelet_mould,10,100
 
 // 33
 [runiteshop]
@@ -638,8 +638,8 @@ stock3=rune_mace,1,7000
 stock4=rune_chainbody,1,15000
 stock5=rune_longsword,1,14000
 stock6=rune_sword,1,10000
-stock7=green_d_hide_chaps,1,500
-stock8=green_d_hide_vambraces,1,500
+stock7=dragonhide_chaps,1,500
+stock8=dragon_vambraces,1,500
 stock9=coif,2,1000
 
 // 34
@@ -651,10 +651,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=shears,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
@@ -669,7 +669,7 @@ restock=yes
 stackall=yes
 allstock=no
 stock1=rune_platebody,2,500
-stock2=green_d_hide_body,2,500
+stock2=dragonhide_body,2,500
 
 // 36
 [dragonswordshop]
@@ -704,10 +704,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=shears,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
@@ -741,11 +741,11 @@ size=5
 restock=yes
 stackall=yes
 allstock=no
-stock1=vial,800,100
-stock2=vial_pack,6,100
+stock1=vial_empty,800,100
+stock2=shop_pack_vial_empty,6,100
 stock3=pestle_and_mortar,3,100
 stock4=eye_of_newt,800,20
-stock5=eye_of_newt_pack,20,100
+stock5=shop_pack_eye_of_newt,20,100
 
 // 41
 [taxfree]
@@ -756,13 +756,13 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=tinderbox,2,100
 stock4=chisel,2,100
 stock5=hammer,5,100
 stock6=bronze_pickaxe,5,100
-stock7=bronze_hatchet,10,100
+stock7=bronze_axe,10,100
 
 // 42
 [pizzabaseshop]
@@ -784,13 +784,13 @@ size=17
 restock=yes
 stackall=yes
 allstock=no
-stock1=small_fishing_net,5,100
+stock1=net,5,100
 stock2=fishing_rod,5,100
 stock3=harpoon,2,400
 stock4=lobster_pot,2,400
 stock5=fishing_bait,1200,1
-stock6=big_fishing_net,5,100
-stock7=raw_shrimps,0,300
+stock6=big_net,5,100
+stock7=raw_shrimp,0,300
 stock8=raw_sardine,0,600
 stock9=raw_herring,0,900
 stock10=raw_mackerel,0,1000
@@ -803,7 +803,7 @@ stock16=raw_swordfish,0,2900
 stock17=raw_shark,0,3500
 
 // 44
-[inv_44]
+[fishrestaurant]
 size=1
 
 // 45
@@ -834,7 +834,7 @@ size=5
 restock=yes
 stackall=yes
 allstock=no
-stock1=holy_symbol,0,200
+stock1=blessedstar,0,200
 stock2=amulet_of_magic,0,200
 stock3=amulet_of_defence,0,200
 stock4=amulet_of_strength,0,200
@@ -851,15 +851,15 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=bucket,10,100
+stock1=bucket_empty,10,100
 stock2=bronze_pickaxe,2,100
-stock3=bowl,2,100
+stock3=bowl_empty,2,100
 stock4=cake_tin,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
 stock8=rope,2,300
-stock9=empty_pot,2,100
+stock9=pot_empty,2,100
 
 // 48
 [candleshop]
@@ -870,7 +870,7 @@ size=1
 restock=yes
 stackall=yes
 allstock=no
-stock1=candle,10,100
+stock1=unlit_candle,10,100
 
 // 49
 [archeryshop2]
@@ -884,32 +884,32 @@ size=28
 restock=yes
 stackall=yes
 allstock=no
-stock1=bronze_bolts,200,10
+stock1=bolt,200,10
 stock2=bronze_arrow,1000,10
 stock3=iron_arrow,800,20
 stock4=steel_arrow,0,1000
 stock5=mithril_arrow,0,2000
 stock6=adamant_arrow,0,3000
 stock7=rune_arrow,0,4000
-stock8=bronze_brutal,0,100
-stock9=iron_brutal,0,100
-stock10=steel_brutal,0,100
-stock11=black_brutal,0,100
-stock12=mithril_brutal,0,100
-stock13=adamant_brutal,0,100
-stock14=rune_brutal,0,100
-stock15=bronze_arrowtips,1000,10
-stock16=iron_arrowtips,800,20
-stock17=steel_arrowtips,600,40
-stock18=mithril_arrowtips,400,40
-stock19=adamant_arrowtips,200,40
-stock20=rune_arrowtips,100,40
+stock8=zogre_brutal_bronze,0,100
+stock9=zogre_brutal_iron,0,100
+stock10=zogre_brutal_steel,0,100
+stock11=zogre_brutal_black,0,100
+stock12=zogre_brutal_mithril,0,100
+stock13=zogre_brutal_adamant,0,100
+stock14=zogre_brutal_rune,0,100
+stock15=bronze_arrowheads,1000,10
+stock16=iron_arrowheads,800,20
+stock17=steel_arrowheads,600,40
+stock18=mithril_arrowheads,400,40
+stock19=adamant_arrowheads,200,40
+stock20=rune_arrowheads,100,40
 stock21=shortbow,4,100
 stock22=longbow,2,200
 stock23=crossbow,2,400
 stock24=oak_shortbow,4,800
 stock25=oak_longbow,4,1600
-stock26=comp_ogre_bow,10,100
+stock26=zogre_bow,10,100
 stock27=studded_body,2,1000
 stock28=studded_chaps,2,1000
 
@@ -924,11 +924,11 @@ size=5
 restock=yes
 stackall=yes
 allstock=no
-stock1=vial,50,100
-stock2=vial_pack,6,100
+stock1=vial_empty,50,100
+stock2=shop_pack_vial_empty,6,100
 stock3=pestle_and_mortar,3,100
 stock4=eye_of_newt,50,20
-stock5=eye_of_newt_pack,20,100
+stock5=shop_pack_eye_of_newt,20,100
 
 // 51
 [memberstaffshop]
@@ -942,7 +942,7 @@ size=6
 restock=yes
 stackall=yes
 allstock=no
-stock1=staff,5,100
+stock1=plainstaff,5,100
 stock2=magic_staff,5,200
 stock3=staff_of_air,2,1000
 stock4=staff_of_water,2,1000
@@ -1005,7 +1005,7 @@ stock4=chocolate_bar,100,100
 // 1-slot placeholder that 289's 3 stock lines do not fit.
 
 // 55
-[inv_55]
+[silvershop]
 size=1
 
 // 56
@@ -1029,9 +1029,9 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=vial_of_water,500,30
+stock1=vial_water,500,30
 stock2=bronze_pickaxe,2,100
-stock3=iron_hatchet,2,100
+stock3=iron_axe,2,100
 stock4=cooked_meat,2,100
 stock5=tinderbox,2,100
 stock6=ball_of_wool,30,100
@@ -1047,7 +1047,7 @@ size=1
 restock=yes
 stackall=yes
 allstock=no
-stock1=spice,1,100
+stock1=spicespot,1,100
 //unused
 
 // 59
@@ -1061,18 +1061,18 @@ size=12
 restock=yes
 stackall=yes
 allstock=no
-stock1=bear_fur,3,100
+stock1=fur,3,100
 stock2=grey_wolf_fur,3,100
-stock3=polar_kebbit_fur,0,100
-stock4=common_kebbit_fur,0,100
-stock5=feldip_weasel_fur,0,100
-stock6=desert_devil_fur,0,100
-stock7=tatty_larupia_fur,0,100
-stock8=larupia_fur,0,100
-stock9=tatty_graahk_fur,0,100
-stock10=graahk_fur,0,100
-stock11=tatty_kyatt_fur,0,100
-stock12=kyatt_fur,0,100
+stock3=huntingbeast_polar_fur,0,100
+stock4=huntingbeast_woodland_fur,0,100
+stock5=huntingbeast_jungle_fur,0,100
+stock6=huntingbeast_desert_fur,0,100
+stock7=hunting_fur_jaguar_shabby,0,100
+stock8=hunting_fur_jaguar_perfect,0,100
+stock9=hunting_fur_leopard_shabby,0,100
+stock10=hunting_fur_leopard_perfect,0,100
+stock11=hunting_fur_tiger_shabby,0,100
+stock12=hunting_fur_tiger_perfect,0,100
 
 // 60
 [fishingguild]
@@ -1110,17 +1110,17 @@ restock=yes
 stackall=yes
 allstock=yes
 stock1=bronze_pickaxe,5,100
-stock2=empty_pot,3,100
-stock3=jug,2,100
+stock2=pot_empty,3,100
+stock3=jug_empty,2,100
 stock4=shears,2,100
-stock5=bucket,2,100
+stock5=bucket_empty,2,100
 stock6=tinderbox,2,100
 stock7=chisel,2,100
 stock8=hammer,5,100
 stock9=rope,30,20
-stock10=pot_of_flour,30,100
-stock11=bailing_bucket,30,100
-stock12=swamp_paste,500,20
+stock10=pot_flour,30,100
+stock11=bucket_bailing,30,100
+stock12=swamppaste,500,20
 // stock13=knife,2,100      //Try to find out when the knife was added to the store.
 // 28 April 2021 The stock of swamp paste has been increased, and now restocks faster.
 // Swamp paste restock time is guesses.
@@ -1134,11 +1134,11 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
+stock1=pot_empty,3,100
 stock2=bronze_pickaxe,5,100
-stock3=jug,2,100
+stock3=jug_empty,2,100
 stock4=shears,2,100
-stock5=bucket,2,100
+stock5=bucket_empty,2,100
 stock6=tinderbox,2,100
 stock7=chisel,2,100
 stock8=hammer,5,100
@@ -1156,11 +1156,11 @@ size=23
 restock=yes
 stackall=yes
 allstock=no
-stock1=chef_s_hat,0,100
-stock2=wizard_hat,3,100
+stock1=chefs_hat,0,100
+stock2=bluewizhat,3,100
 stock3=yellow_cape,1,100
 stock4=grey_wolf_fur,3,100
-stock5=bear_fur,3,100
+stock5=fur,3,100
 stock6=needle,3,100
 stock7=thread,100,5
 stock8=leather_gloves,10,100
@@ -1171,14 +1171,14 @@ stock12=brown_apron,1,100
 stock13=pink_skirt,5,100
 stock14=black_skirt,3,100
 stock15=blue_skirt,2,100
-stock16=cape,4,100
+stock16=red_cape,4,100
 stock17=eye_patch,3,2000
-stock18=red_feather,0,100
-stock19=yellow_feather,0,100
-stock20=orange_feather,0,100
-stock21=blue_feather,0,100
-stock22=stripy_feather,0,100
-stock23=wimpy_feather,0,100
+stock18=hunting_jungle_feather,0,100
+stock19=hunting_desert_feather,0,100
+stock20=hunting_woodland_feather,0,100
+stock21=hunting_polar_feather,0,100
+stock22=hunting_stripy_bird_feather,0,100
+stock23=hunting_wimpy_feather,0,100
 
 // 64
 [magicguildshop]
@@ -1197,18 +1197,18 @@ size=16
 restock=yes
 stackall=yes
 allstock=no
-stock1=air_rune,3000,18
-stock2=water_rune,3000,18
-stock3=earth_rune,3000,18
-stock4=fire_rune,3000,18
-stock5=mind_rune,3000,18
-stock6=body_rune,3000,18
-stock7=chaos_rune,1000,100
-stock8=nature_rune,1000,300
-stock9=death_rune,1000,150
-stock10=law_rune,1000,300
-stock11=blood_rune,1000,300
-stock12=soul_rune,50,100
+stock1=airrune,3000,18
+stock2=waterrune,3000,18
+stock3=earthrune,3000,18
+stock4=firerune,3000,18
+stock5=mindrune,3000,18
+stock6=bodyrune,3000,18
+stock7=chaosrune,1000,100
+stock8=naturerune,1000,300
+stock9=deathrune,1000,150
+stock10=lawrune,1000,300
+stock11=bloodrune,1000,300
+stock12=soulrune,50,100
 stock13=staff_of_fire,2,1000
 stock14=staff_of_water,2,1000
 stock15=staff_of_air,2,1000
@@ -1224,29 +1224,29 @@ restock=yes
 stackall=yes
 allstock=yes
 stock1=tinderbox,2,500
-stock2=candle,10,500
-stock3=unlit_torch,10,500
-stock4=empty_pot,3,500
+stock2=unlit_candle,10,500
+stock3=torch_unlit,10,500
+stock4=pot_empty,3,500
 stock5=rope,10,200
-stock6=leather_body,12,500
+stock6=leather_armour,12,500
 stock7=leather_gloves,10,500
 stock8=leather_boots,10,500
 stock9=cooked_meat,2,500
 stock10=bread,10,500
-stock11=vial,10,500
-stock12=vial_of_water,50,200
+stock11=vial_empty,10,500
+stock12=vial_water,50,200
 stock13=pestle_and_mortar,3,500
-stock14=antipoison__3,10,150
+stock14=3doseantipoison,10,150
 stock15=papyrus,50,200
 stock16=charcoal,50,200
 stock17=knife,2,100
 stock18=hammer,10,500
-stock19=machete,50,200
+stock19=machette,50,200
 stock20=chisel,10,500
 stock21=spade,10,500
-stock22=bronze_hatchet,2,500
+stock22=bronze_axe,2,500
 stock23=bronze_pickaxe,2,500
-stock24=iron_hatchet,5,700
+stock24=iron_axe,5,700
 stock25=bronze_bar,10,500
 
 // 66
@@ -1260,16 +1260,16 @@ restock=yes
 stackall=yes
 allstock=no
 stock1=bronze_arrow,200,10
-stock2=bronze_bolts,200,10
+stock2=bolt,200,10
 stock3=shortbow,4,100
 stock4=longbow,2,200
 stock5=crossbow,2,400
-stock6=bronze_arrowtips,800,10
-stock7=iron_arrowtips,800,20
-stock8=steel_arrowtips,800,40
-stock9=mithril_arrowtips,800,80
-stock10=iron_hatchet,5,200
-stock11=steel_hatchet,3,400
+stock6=bronze_arrowheads,800,10
+stock7=iron_arrowheads,800,20
+stock8=steel_arrowheads,800,40
+stock9=mithril_arrowheads,800,80
+stock10=iron_axe,5,200
+stock11=steel_axe,3,400
 stock12=iron_battleaxe,5,100
 stock13=steel_battleaxe,2,200
 stock14=mithril_battleaxe,1,3000
@@ -1294,17 +1294,17 @@ restock=yes
 stackall=yes
 allstock=no
 // stock11=cup_empty,20,50 (Possible added with Ghost ahoy quest 15 February 2005)
-stock1=pie_dish,5,200
+stock1=piedish,5,200
 stock2=cooking_apple,2,200
 stock3=cake_tin,2,200
-stock4=bowl,2,200
+stock4=bowl_empty,2,200
 stock5=potato,5,200
 stock6=tinderbox,4,200
-stock7=jug,1,100
-stock8=empty_pot,8,100
+stock7=jug_empty,1,100
+stock8=pot_empty,8,100
 stock9=chocolate_bar,2,100
-stock10=pot_of_flour,8,100
-stock11=empty_cup,10,100
+stock10=pot_flour,8,100
+stock11=cup_empty,10,100
 
 // 68
 [pickaxeshop]
@@ -1330,7 +1330,7 @@ size=1
 restock=yes
 stackall=yes
 allstock=no
-stock1=cup_of_tea_1978,20,50
+stock1=cup_of_tea,20,50
 
 // 70
 [generalshopogre]
@@ -1342,10 +1342,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=knife,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
@@ -1362,11 +1362,11 @@ size=5
 restock=yes
 stackall=yes
 allstock=no
-stock1=vial,50,100
-stock2=vial_pack,6,100
+stock1=vial_empty,50,100
+stock2=shop_pack_vial_empty,6,100
 stock3=pestle_and_mortar,3,100
 stock4=eye_of_newt,50,20
-stock5=eye_of_newt_pack,20,100
+stock5=shop_pack_eye_of_newt,20,100
 
 // 72
 [silverstall]
@@ -1376,7 +1376,7 @@ size=3
 restock=yes
 stackall=yes
 allstock=no
-stock1=unstrung_symbol,2,100
+stock1=nostringstar,2,100
 stock2=silver_ore,1,2000
 stock3=silver_bar,1,1000
 //This information has been confirmed via rsproxy
@@ -1413,14 +1413,14 @@ allstock=no
 //stock2=knife,1,2
 //stock3=garlic,2,5
 //TODO Try to find out when the knife and garlic was added to the store.
-stock1=spice,1,100
+stock1=spicespot,1,100
 stock2=knife,10,100
 stock3=garlic,10,100
 
 // [furstall]: nothing opens it, and 2011's inventory 75 is a
 // 1-slot placeholder that 289's 2 stock lines do not fit.
 // 75
-[inv_75]
+[furstall]
 size=1
 
 // 76
@@ -1434,7 +1434,7 @@ size=12
 restock=yes
 stackall=yes
 allstock=no
-stock1=pot_of_flour,3,100
+stock1=pot_flour,3,100
 stock2=raw_beef,1,100
 stock3=raw_chicken,1,100
 stock4=cabbage,3,100
@@ -1458,11 +1458,11 @@ size=7
 restock=yes
 stackall=yes
 allstock=no
-stock1=waterskin__4,5,100
-stock2=waterskin__0,5,100
-stock3=jug_of_water,5,100
-stock4=bowl_of_water,5,100
-stock5=bucket_of_water,5,100
+stock1=water_skin4,5,100
+stock2=water_skin0,5,100
+stock3=jug_water,5,100
+stock4=bowl_water,5,100
+stock5=bucket_water,5,100
 stock6=knife,5,100
 stock7=hammer,10,100
 
@@ -1479,11 +1479,11 @@ size=17
 restock=yes
 stackall=yes
 allstock=no
-stock1=waterskin__4,100,10
-stock2=waterskin__0,100,10
-stock3=jug_of_water,10,100
-stock4=bowl_of_water,10,100
-stock5=bucket_of_water,10,100
+stock1=water_skin4,100,10
+stock2=water_skin0,100,10
+stock3=jug_water,10,100
+stock4=bowl_water,10,100
+stock5=bucket_water,10,100
 stock6=knife,10,100
 stock7=desert_shirt,10,500
 stock8=desert_robe,10,500
@@ -1491,9 +1491,9 @@ stock9=desert_boots,10,500
 stock10=bronze_bar,10,500
 stock11=feather,500,50
 stock12=hammer,10,500
-stock13=bucket,0,100
-stock14=bowl,0,100
-stock15=jug,0,100
+stock13=bucket_empty,0,100
+stock14=bowl_empty,0,100
+stock15=jug_empty,0,100
 stock16=shantay_pass,500,1
 stock17=rope,100,100
 
@@ -1506,11 +1506,11 @@ size=6
 restock=yes
 stackall=yes
 allstock=no
-stock1=cannon_base,5,100
-stock2=cannon_stand,5,100
-stock3=cannon_barrels,5,100
-stock4=cannon_furnace,5,100
-stock5=instruction_manual,5,100
+stock1=twpart1,5,100
+stock2=twpart2,5,100
+stock3=twpart3,5,100
+stock4=twpart4,5,100
+stock5=mcannonbook,5,100
 stock6=ammo_mould,5,100
 
 // 80
@@ -1526,32 +1526,32 @@ restock=yes
 stackall=yes
 allstock=no
 stock1=arrow_shaft,1000,50
-stock2=bronze_arrowtips,500,10
-stock3=iron_arrowtips,400,20
-stock4=steel_arrowtips,300,30
-stock5=mithril_arrowtips,200,40
-stock6=adamant_arrowtips,200,50
-stock7=rune_arrowtips,150,60
+stock2=bronze_arrowheads,500,10
+stock3=iron_arrowheads,400,20
+stock4=steel_arrowheads,300,30
+stock5=mithril_arrowheads,200,40
+stock6=adamant_arrowheads,200,50
+stock7=rune_arrowheads,150,60
 stock8=bronze_arrow,1000,10
 stock9=iron_arrow,500,20
 stock10=steel_arrow,500,40
 stock11=mithril_arrow,500,60
 stock12=adamant_arrow,450,120
 stock13=rune_arrow,400,130
-stock14=bronze_brutal,0,100
-stock15=iron_brutal,0,100
-stock16=steel_brutal,0,100
-stock17=black_brutal,0,100
-stock18=mithril_brutal,0,100
-stock19=adamant_brutal,0,100
-stock20=rune_brutal,0,100
+stock14=zogre_brutal_bronze,0,100
+stock15=zogre_brutal_iron,0,100
+stock16=zogre_brutal_steel,0,100
+stock17=zogre_brutal_black,0,100
+stock18=zogre_brutal_mithril,0,100
+stock19=zogre_brutal_adamant,0,100
+stock20=zogre_brutal_rune,0,100
 stock21=shortbow,20,50
 stock22=oak_shortbow,20,60
 stock23=willow_shortbow,20,70
 stock24=longbow,20,50
 stock25=oak_longbow,20,60
 stock26=willow_longbow,20,70
-stock27=comp_ogre_bow,10,100
+stock27=zogre_bow,10,100
 
 // 81
 [ranging_guild_armourshop]
@@ -1563,7 +1563,7 @@ size=8
 restock=yes
 stackall=yes
 allstock=no
-stock1=leather_body,10,50
+stock1=leather_armour,10,50
 stock2=hardleather_body,10,60
 stock3=studded_body,10,70
 stock4=leather_chaps,20,50
@@ -1592,7 +1592,7 @@ stock7=bronze_thrownaxe,900,20
 stock8=iron_thrownaxe,800,20
 stock9=steel_thrownaxe,700,40
 stock10=mithril_thrownaxe,600,60
-stock11=adamant_thrownaxe,500,80
+stock11=adamnt_thrownaxe,500,80
 stock12=rune_thrownaxe,400,100
 
 // 83
@@ -1606,7 +1606,7 @@ stackall=yes
 allstock=yes
 stock1=swordfish,20,200
 stock2=apple_pie,5,200
-stock3=attack_potion__3,3,100
+stock3=3dose1attack,3,100
 stock4=steel_arrow,500,100
 
 // 84
@@ -1621,10 +1621,10 @@ size=5
 restock=yes
 stackall=yes
 allstock=no
-stock1=mithril_seeds,6,50
+stock1=mithril_seed,6,50
 stock2=dusty_key,5,100
-stock3=maze_key,3,300
-stock4=shield_right_half,1,500
+stock3=melzarkey,3,300
+stock4=dragonshield_b,1,500
 stock5=cape_of_legends,3,500
 
 // 85
@@ -1653,26 +1653,26 @@ size=20
 restock=yes
 stackall=yes
 allstock=no
-stock1=pink_robe_bottoms,5,200
-stock2=green_robe_bottoms,5,200
-stock3=blue_robe_bottoms,5,200
-stock4=cream_robe_bottoms,5,200
-stock5=turquoise_robe_bottoms,5,200
-stock6=pink_hat,5,200
-stock7=green_hat,5,200
-stock8=blue_hat,5,200
-stock9=cream_hat,5,200
-stock10=turquoise_hat,5,200
-stock11=pink_robe_top,5,200
-stock12=green_robe_top,5,200
-stock13=blue_robe_top,5,200
-stock14=cream_robe_top,5,200
-stock15=turquoise_robe_top,5,200
-stock16=pink_boots,5,200
-stock17=green_boots,5,200
-stock18=blue_boots,5,200
-stock19=cream_boots,5,200
-stock20=turquoise_boots,5,200
+stock1=gnome_robebottoms_pink,5,200
+stock2=gnome_robebottoms_green,5,200
+stock3=gnome_robebottoms_blue,5,200
+stock4=gnome_robebottoms_cream,5,200
+stock5=gnome_robebottoms_turquoise,5,200
+stock6=gnome_hat_pink,5,200
+stock7=gnome_hat_green,5,200
+stock8=gnome_hat_blue,5,200
+stock9=gnome_hat_cream,5,200
+stock10=gnome_hat_turquoise,5,200
+stock11=gnome_robetop_pink,5,200
+stock12=gnome_robetop_green,5,200
+stock13=gnome_robetop_blue,5,200
+stock14=gnome_robetop_cream,5,200
+stock15=gnome_robetop_turquoise,5,200
+stock16=gnome_boots_pink,5,200
+stock17=gnome_boots_green,5,200
+stock18=gnome_boots_blue,5,200
+stock19=gnome_boots_cream,5,200
+stock20=gnome_boots_turquoise,5,200
 
 // 87
 [gnomeshop_gulluck]
@@ -1686,17 +1686,17 @@ restock=yes
 stackall=yes
 allstock=no
 stock1=bronze_arrow,200,10
-stock2=bronze_bolts,150,10
-stock3=pearl_bolts,1,1500
+stock2=bolt,150,10
+stock3=pearl_bolt,1,1500
 stock4=shortbow,4,100
 stock5=longbow,2,200
 stock6=crossbow,2,400
-stock7=bronze_arrowtips,200,10
-stock8=iron_arrowtips,180,20
-stock9=steel_arrowtips,160,40
-stock10=mithril_arrowtips,140,80
-stock11=iron_hatchet,5,200
-stock12=steel_hatchet,3,400
+stock7=bronze_arrowheads,200,10
+stock8=iron_arrowheads,180,20
+stock9=steel_arrowheads,160,40
+stock10=mithril_arrowheads,140,80
+stock11=iron_axe,5,200
+stock12=steel_axe,3,400
 stock13=iron_battleaxe,5,100
 stock14=steel_battleaxe,2,200
 stock15=mithril_battleaxe,1,3000
@@ -1732,10 +1732,10 @@ stock11=cocktail_shaker,5,200
 stock12=chocolate_bar,5,100
 stock13=chocolate_dust,5,100
 stock14=pot_of_cream,5,100
-stock15=bucket_of_milk,5,100
+stock15=bucket_milk,5,100
 stock16=knife,5,200
 stock17=cocktail_guide,5,100
-stock18=cocktail_glass,10,100
+stock18=cocktail_glass_empty,10,100
 
 // 89
 [gnomeshop_hudo]
@@ -1750,15 +1750,15 @@ stackall=yes
 allstock=no
 stock1=gianne_dough,8,100
 stock2=equa_leaves,5,100
-stock3=pot_of_flour,5,200
+stock3=pot_flour,5,200
 stock4=gnome_spice,5,100
 stock5=onion,5,100
 stock6=potato,3,100
 stock7=cabbage,3,100
 stock8=tomato,5,100
 stock9=cheese,5,100
-stock10=spider_on_stick_6297,10,100
-stock11=spider_on_shaft_6299,10,100
+stock10=tbw_spider_on_stick_cooked,10,100
+stock11=tbw_spider_on_shaft_cooked,10,100
 stock12=lime,5,100
 stock13=orange,5,100
 stock14=lemon,5,100
@@ -1768,9 +1768,9 @@ stock17=cocktail_shaker,5,200
 stock18=chocolate_bar,8,100
 stock19=chocolate_dust,5,100
 stock20=pot_of_cream,5,100
-stock21=bucket_of_milk,5,100
+stock21=bucket_milk,5,100
 stock22=knife,5,200
-stock23=gianne_s_cook_book,5,100
+stock23=giannes_cook_book,5,100
 stock24=batta_tin,10,100
 stock25=crunchy_tray,10,100
 stock26=gnomebowl_mould,10,100
@@ -1783,11 +1783,11 @@ size=28
 protect=no
 
 // 91
-[inv_91]
+[partyroom_dropinv]
 size=216
 
 // 92
-[inv_92]
+[partyroom_tempinv]
 size=8
 
 // 93
@@ -1816,15 +1816,15 @@ size=516
 stackall=yes
 
 // 96
-[inv_96]
+[crafting_make_rings]
 size=1
 
 // 97
-[inv_97]
+[crafting_make_necklaces]
 size=1
 
 // 98
-[inv_98]
+[crafting_make_amulets]
 size=1
 
 // 99
@@ -1836,13 +1836,13 @@ size=7
 restock=yes
 stackall=yes
 allstock=no
-stock1=premade_blurb__sp,10,100
-stock2=premade_choc_s_dy,10,100
-stock3=premade_dr__dragon,10,100
-stock4=premade_fr__blast,10,100
-stock5=premade_p__punch,10,100
+stock1=premade_blurberry_special,10,100
+stock2=premade_choc_saturday,10,100
+stock3=premade_drunk_dragon,10,100
+stock4=premade_fruit_blast,10,100
+stock5=premade_pineapple_punch,10,100
 stock6=premade_sgg,10,100
-stock7=premade_wiz_blz_d,10,100
+stock7=premade_wizard_blizzard,10,100
 
 // 100
 [giannerestaurant]
@@ -1855,138 +1855,138 @@ size=13
 restock=yes
 stackall=yes
 allstock=no
-stock1=premade_veg_batta,3,100
-stock2=premade_w_m_batta,3,100
-stock3=premade_t_d_batta,3,100
-stock4=premade_fr_t_batta,3,100
+stock1=premade_vegetable_batta,3,100
+stock2=premade_worm_batta,3,100
+stock3=premade_toad_batta,3,100
+stock4=premade_fruit_batta,3,100
 stock5=premade_c_t_batta,10,100
 stock6=premade_worm_hole,3,100
-stock7=premade_ttl,3,100
+stock7=premade_tangled_toads_legs,3,100
 stock8=premade_veg_ball,3,100
-stock9=premade_choc_bomb,3,100
-stock10=premade_w_m_crun,3,100
-stock11=premade_t_d_crunch,3,100
-stock12=premade_ch__crunch,3,100
-stock13=premade_s_y_crunch,3,100
+stock9=premade_chocolate_bomb,3,100
+stock10=premade_worm_crunchies,3,100
+stock11=premade_toad_crunchies,3,100
+stock12=premade_chocchip_crunchies,3,100
+stock13=premade_spicy_crunchies,3,100
 
 // 101
-[inv_101]
+[smithing_bronze1]
 size=5
 
 // 102
-[inv_102]
+[smithing_bronze2]
 size=5
 
 // 103
-[inv_103]
+[smithing_bronze3]
 size=5
 
 // 104
-[inv_104]
+[smithing_bronze4]
 size=5
 
 // 105
-[inv_105]
+[smithing_bronze5]
 size=5
 
 // 106
-[inv_106]
+[smithing_iron1]
 size=5
 
 // 107
-[inv_107]
+[smithing_iron2]
 size=5
 
 // 108
-[inv_108]
+[smithing_iron3]
 size=5
 
 // 109
-[inv_109]
+[smithing_iron4]
 size=5
 
 // 110
-[inv_110]
+[smithing_iron5]
 size=5
 
 // 111
-[inv_111]
+[smithing_steel1]
 size=5
 
 // 112
-[inv_112]
+[smithing_steel2]
 size=5
 
 // 113
-[inv_113]
+[smithing_steel3]
 size=5
 
 // 114
-[inv_114]
+[smithing_steel4]
 size=5
 
 // 115
-[inv_115]
+[smithing_steel5]
 size=5
 
 // 116
-[inv_116]
+[smithing_mithril1]
 size=5
 
 // 117
-[inv_117]
+[smithing_mithril2]
 size=5
 
 // 118
-[inv_118]
+[smithing_mithril3]
 size=5
 
 // 119
-[inv_119]
+[smithing_mithril4]
 size=5
 
 // 120
-[inv_120]
+[smithing_mithril5]
 size=5
 
 // 121
-[inv_121]
+[smithing_adamant1]
 size=5
 
 // 122
-[inv_122]
+[smithing_adamant2]
 size=5
 
 // 123
-[inv_123]
+[smithing_adamant3]
 size=5
 
 // 124
-[inv_124]
+[smithing_adamant4]
 size=5
 
 // 125
-[inv_125]
+[smithing_adamant5]
 size=5
 
 // 126
-[inv_126]
+[smithing_rune1]
 size=5
 
 // 127
-[inv_127]
+[smithing_rune2]
 size=5
 
 // 128
-[inv_128]
+[smithing_rune3]
 size=5
 
 // 129
-[inv_129]
+[smithing_rune4]
 size=5
 
 // 130
-[inv_130]
+[smithing_rune5]
 size=5
 
 // 131
@@ -1999,17 +1999,17 @@ size=11
 restock=yes
 stackall=yes
 allstock=no
-stock1=fire_rune,200,50
-stock2=water_rune,200,50
-stock3=air_rune,200,50
-stock4=earth_rune,200,50
-stock5=mind_rune,140,50
-stock6=body_rune,140,50
-stock7=nature_rune,250,300
-stock8=chaos_rune,250,100
-stock9=law_rune,250,300
-stock10=cosmic_rune,20,100
-stock11=death_rune,250,150
+stock1=firerune,200,50
+stock2=waterrune,200,50
+stock3=airrune,200,50
+stock4=earthrune,200,50
+stock5=mindrune,140,50
+stock6=bodyrune,140,50
+stock7=naturerune,250,300
+stock8=chaosrune,250,100
+stock9=lawrune,250,300
+stock10=cosmicrune,20,100
+stock11=deathrune,250,150
 
 // 132
 [magearena_staffshop]
@@ -2049,7 +2049,7 @@ size=13
 restock=yes
 stackall=yes
 allstock=no
-stock1=toy_horsey,5,20
+stock1=horsey_brown,5,20
 stock2=horsey_white,5,20
 stock3=horsey_black,5,20
 stock4=horsey_grey,5,20
@@ -2064,27 +2064,27 @@ restock=yes
 stackall=yes
 allstock=yes
 stock1=tinderbox,2,500
-stock2=vial,10,500
+stock2=vial_empty,10,500
 stock3=pestle_and_mortar,3,500
-stock4=empty_pot,3,500
-stock5=bronze_hatchet,3,500
+stock4=pot_empty,3,500
+stock5=bronze_axe,3,500
 stock6=bronze_pickaxe,2,500
-stock7=iron_hatchet,5,700
-stock8=leather_body,12,500
+stock7=iron_axe,5,700
+stock8=leather_armour,12,500
 stock9=leather_gloves,10,500
 stock10=leather_boots,10,500
 stock11=cooked_meat,2,500
 stock12=bread,10,500
 stock13=bronze_bar,10,500
 stock14=spade,10,500
-stock15=candle,10,500
-stock16=unlit_torch,10,500
+stock15=unlit_candle,10,500
+stock16=torch_unlit,10,500
 stock17=chisel,10,500
 stock18=hammer,10,500
 stock19=papyrus,50,200
 stock20=charcoal,50,200
-stock21=vial_of_water,50,200
-stock22=machete,50,200
+stock21=vial_water,50,200
+stock22=machette,50,200
 stock23=rope,10,200
 
 // 139
@@ -2096,10 +2096,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
+stock1=pot_empty,3,100
 stock2=rope,3,100
 stock3=bronze_pickaxe,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=hammer,3,100
 stock7=leather_boots,2,100
@@ -2150,11 +2150,11 @@ size=30
 restock=yes
 stackall=yes
 allstock=no
-stock1=boots,5,100
-stock2=robe_top,5,100
-stock3=robe_bottoms,5,100
-stock4=hat,5,100
-stock5=gloves,5,100
+stock1=wolfenboots_grey,5,100
+stock2=wolfenrobetop_grey,5,100
+stock3=wolfenrobebottom_grey,5,100
+stock4=wolfenhat_grey,5,100
+stock5=wolfengloves_grey,5,100
 stock6=wolfenboots_crimson,5,100
 stock7=wolfenrobetop_crimson,5,100
 stock8=wolfenrobebottom_crimson,5,100
@@ -2175,9 +2175,9 @@ stock22=wolfenrobetop_purple,5,100
 stock23=wolfenrobebottom_purple,5,100
 stock24=wolfenhat_purple,5,100
 stock25=wolfengloves_purple,5,100
-stock26=cape,5,500
+stock26=red_cape,5,500
 stock27=black_cape,5,500
-stock28=cape_1021,5,500
+stock28=blue_cape,5,500
 stock29=yellow_cape,5,500
 stock30=green_cape,5,500
 
@@ -2192,13 +2192,13 @@ stackall=yes
 allstock=yes
 stock1=needle,2,100
 stock2=thread,50,100
-stock3=empty_pot,3,100
-stock4=bucket,2,100
-stock5=jug,2,100
+stock3=pot_empty,3,100
+stock4=bucket_empty,2,100
+stock5=jug_empty,2,100
 stock6=tinderbox,2,100
 stock7=chisel,2,100
 stock8=hammer,5,100
-stock9=sample_bottle,10,100
+stock9=empty_dye_bottle,10,100
 // stock10=knife,2,100      //Try to find out when the knife was added to the store.
 // 146
 [craftingshop_free]
@@ -2215,7 +2215,7 @@ stock3=necklace_mould,2,100
 stock4=amulet_mould,2,100
 stock5=needle,3,100
 stock6=thread,100,5
-stock7=holy_mould,3,100
+stock7=holy_symbol_mould,3,100
 
 // 147
 [craftingshop2_free]
@@ -2232,7 +2232,7 @@ stock3=necklace_mould,2,100
 stock4=amulet_mould,2,100
 stock5=needle,3,100
 stock6=thread,100,5
-stock7=holy_mould,3,100
+stock7=holy_symbol_mould,3,100
 
 // 148
 [death_generalshop]
@@ -2242,10 +2242,10 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,3,100
-stock2=jug,2,100
+stock1=pot_empty,3,100
+stock2=jug_empty,2,100
 stock3=shears,2,100
-stock4=bucket,2,100
+stock4=bucket_empty,2,100
 stock5=tinderbox,2,100
 stock6=chisel,2,100
 stock7=hammer,5,100
@@ -2262,31 +2262,31 @@ restock=yes
 stackall=yes
 allstock=no
 stock1=asgarnian_ale,12,10
-stock2=wizard_s_mind_bomb,12,10
+stock2=wizards_mind_bomb,12,10
 stock3=dwarven_stout,12,10
 
 // 150
-[inv_150]
+[smithing_bronze_claws]
 size=1
 
 // 151
-[inv_151]
+[smithing_iron_claws]
 size=1
 
 // 152
-[inv_152]
+[smithing_steel_claws]
 size=1
 
 // 153
-[inv_153]
+[smithing_mithril_claws]
 size=1
 
 // 154
-[inv_154]
+[smithing_adamant_claws]
 size=1
 
 // 155
-[inv_155]
+[smithing_rune_claws]
 size=1
 
 // 156
@@ -2300,8 +2300,8 @@ size=2
 restock=yes
 stackall=yes
 allstock=no
-stock1=raw_karambwan,10,10
-stock2=karambwan_vessel,2,100
+stock1=tbwt_raw_karambwan,10,10
+stock2=tbwt_karambwan_vessel,2,100
 
 // 157
 [karamja_fishrestaurant]
@@ -2317,7 +2317,7 @@ stock2=cod,5,1100
 stock3=tuna,5,2300
 stock4=lobster,3,2600
 stock5=swordfish,2,2900
-stock6=cooked_karambwan,3,900
+stock6=tbwt_cooked_karambwan,3,900
 
 // 158
 [tbwt_tamayu_final_inventory]
@@ -2328,13 +2328,13 @@ size=7
 restock=yes
 stackall=yes
 allstock=no
-stock1=bronze_spear__kp,10,10
-stock2=iron_spear__kp,10,100
-stock3=steel_spear__kp,5,100
-stock4=mithril_spear__kp,2,100
-stock5=adamant_spear__kp,0,100
-stock6=rune_spear__kp,0,100
-stock7=cleaning_cloth,10,5
+stock1=tbwt_bronze_spear_kp,10,10
+stock2=tbwt_iron_spear_kp,10,100
+stock3=tbwt_steel_spear_kp,5,100
+stock4=tbwt_mithril_spear_kp,2,100
+stock5=tbwt_adamant_spear_kp,0,100
+stock6=tbwt_rune_spear_kp,0,100
+stock7=tbwt_cleaning_cloth,10,5
 
 // 159
 [regicide_general_shop]
@@ -2343,8 +2343,8 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,5,100
-stock2=jug,2,100
+stock1=pot_empty,5,100
+stock2=jug_empty,2,100
 stock3=shears,3,100
 stock4=tinderbox,3,100
 stock5=bread,10,100
@@ -2363,8 +2363,8 @@ size=40
 restock=yes
 stackall=yes
 allstock=yes
-stock1=empty_pot,5,100
-stock2=jug,2,100
+stock1=pot_empty,5,100
+stock2=jug_empty,2,100
 stock3=shears,3,100
 stock4=tinderbox,3,100
 stock5=bread,10,100
@@ -2378,187 +2378,187 @@ stock12=rune_halberd,7,100
 stock13=dragon_halberd,5,500
 
 // 161
-[inv_161]
+[skill_guide_firemaking]
 size=1
 
 // 162
-[inv_162]
+[skill_guide_agility]
 size=1
 
 // 163
-[inv_163]
+[skill_guide_combat_weapons]
 size=1
 
 // 164
-[inv_164]
+[skill_guide_combat_armours]
 size=1
 
 // 165
-[inv_165]
+[skill_guide_cooking_overall]
 size=1
 
 // 166
-[inv_166]
+[skill_guide_cooking_overall2]
 size=1
 
 // 167
-[inv_167]
+[skill_guide_cooking_meat]
 size=1
 
 // 168
-[inv_168]
+[skill_guide_cooking_bread]
 size=1
 
 // 169
-[inv_169]
+[skill_guide_cooking_cakes]
 size=1
 
 // 170
-[inv_170]
+[skill_guide_cooking_pizzas]
 size=1
 
 // 171
-[inv_171]
+[skill_guide_cooking_pies]
 size=1
 
 // 172
-[inv_172]
+[skill_guide_cooking_stews]
 size=1
 
 // 173
-[inv_173]
+[skill_guide_cooking_wine]
 size=1
 
 // 174
-[inv_174]
+[skill_guide_crafting_leather]
 size=40
 
 // 175
-[inv_175]
+[skill_guide_crafting_spinning]
 size=1
 
 // 176
-[inv_176]
+[skill_guide_crafting_pottery]
 size=1
 
 // 177
-[inv_177]
+[skill_guide_crafting_glass]
 size=1
 
 // 178
-[inv_178]
+[skill_guide_crafting_jewellery]
 size=1
 
 // 179
-[inv_179]
+[skill_guide_crafting_staffs]
 size=1
 
 // 180
-[inv_180]
+[skill_guide_fishing]
 size=1
 
 // 181
-[inv_181]
+[skill_guide_fletching_bows]
 size=1
 
 // 182
-[inv_182]
+[skill_guide_fletching_arrows]
 size=1
 
 // 183
-[inv_183]
+[skill_guide_fletching_darts]
 size=1
 
 // 184
-[inv_184]
+[skill_guide_fletching_bolts]
 size=1
 
 // 185
-[inv_185]
+[skill_guide_herblore_herbs]
 size=1
 
 // 186
-[inv_186]
+[skill_guide_herblore_potions]
 size=1
 
 // 187
-[inv_187]
+[skill_guide_mining_ores]
 size=1
 
 // 188
-[inv_188]
+[skill_guide_mining_pickaxes]
 size=1
 
 // 189
-[inv_189]
+[skill_guide_ranged_bows]
 size=1
 
 // 190
-[inv_190]
+[skill_guide_ranged_thrown]
 size=1
 
 // 191
-[inv_191]
+[skill_guide_ranged_armour]
 size=1
 
 // 192
-[inv_192]
+[skill_guide_runecrafting]
 size=1
 
 // 193
-[inv_193]
+[skill_guide_smithing_smelting]
 size=1
 
 // 194
-[inv_194]
+[skill_guide_smithing_bronze]
 size=1
 
 // 195
-[inv_195]
+[skill_guide_smithing_iron]
 size=1
 
 // 196
-[inv_196]
+[skill_guide_smithing_steel]
 size=1
 
 // 197
-[inv_197]
+[skill_guide_smithing_mithril]
 size=1
 
 // 198
-[inv_198]
+[skill_guide_smithing_adamant]
 size=1
 
 // 199
-[inv_199]
+[skill_guide_smithing_rune]
 size=1
 
 // 200
-[inv_200]
+[skill_guide_thieving_stalls]
 size=1
 
 // 201
-[inv_201]
+[skill_guide_thieving_pickpocket]
 size=1
 
 // 202
-[inv_202]
+[skill_guide_crafting_armour]
 size=1
 
 // 203
-[inv_203]
+[skill_guide_woodcutting]
 size=1
 
 // 204
-[inv_204]
+[razmiregeneralstore]
 size=40
 
 // 205
-[inv_205]
+[razmirebuildingstore]
 size=5
 
 // 206
-[inv_206]
+[skill_guide_magic_armour]
 size=1
 
 // 207
@@ -2578,18 +2578,18 @@ stackall=yes
 allstock=no
 stock1=viking_top_blue,5,100
 stock2=viking_top_red,5,100
-stock3=fremennik_shirt,5,100
+stock3=viking_top_darkbrown,5,100
 stock4=viking_top_green,5,100
 stock5=viking_top_beige,5,100
-stock6=fremennik_robe,5,100
-stock7=fremennik_skirt,5,100
-stock8=fremennik_hat,5,100
-stock9=fremennik_boots,5,100
+stock6=vikingrobetop,5,100
+stock7=vikingrobebottom,5,100
+stock8=vikinghat,5,100
+stock9=vikingboots,5,100
 stock10=vikinggloves,5,100
 stock11=viking_cloak_brown,5,100
 stock12=viking_cloak_lightbrown,5,100
 stock13=viking_cloak_darkbrown,5,100
-stock14=fremennik_cloak,5,100
+stock14=viking_cloak_green,5,100
 stock15=viking_cloak_red,5,100
 stock16=viking_cloak_grey,5,100
 stock17=viking_cloak_tangerine,5,100
@@ -2607,7 +2607,7 @@ stackall=yes
 allstock=no
 stock1=beer,50,10
 stock2=viking_tankard_full,50,10
-stock3=keg_of_beer_3801,20,10
+stock3=keg_of_beer,20,10
 
 // 210
 [viking_weapons_shop]
@@ -2621,12 +2621,12 @@ stock2=iron_warhammer,4,100
 stock3=steel_warhammer,3,100
 stock4=black_warhammer,3,100
 stock5=mithril_warhammer,2,100
-stock6=adamant_warhammer,1,100
+stock6=adamnt_warhammer,1,100
 stock7=rune_warhammer,0,100
-stock8=archer_helm,5,100
-stock9=berserker_helm,5,100
-stock10=warrior_helm,5,100
-stock11=farseer_helm,5,100
+stock8=viking_helmet_range,5,100
+stock9=viking_helmet_crush,5,100
+stock10=viking_helmet_slash,5,100
+stock11=viking_helmet_magic,5,100
 
 // 211
 [viking_general_store]
@@ -2638,17 +2638,17 @@ allstock=yes
 stock1=tinderbox,2,500
 stock2=rope,10,200
 stock3=pestle_and_mortar,3,500
-stock4=empty_pot,3,500
+stock4=pot_empty,3,500
 stock5=cooked_meat,2,500
 stock6=bread,10,500
 stock7=spade,10,500
-stock8=candle,10,500
+stock8=unlit_candle,10,500
 stock9=chisel,10,500
 stock10=hammer,10,500
-stock11=vial,10,500
-stock12=vial_of_water,10,200
-stock13=bucket,10,500
-stock14=bucket_of_water,10,200
+stock11=vial_empty,10,500
+stock12=vial_water,10,200
+stock13=bucket_empty,10,500
+stock14=bucket_water,10,200
 stock15=egg,10,200
 stock16=potato,10,200
 stock17=cabbage,10,200
@@ -2660,15 +2660,15 @@ size=22
 restock=yes
 stackall=yes
 allstock=no
-stock1=small_fishing_net,5,100
+stock1=net,5,100
 stock2=fishing_rod,5,100
 stock3=fly_fishing_rod,5,100
 stock4=harpoon,2,400
 stock5=lobster_pot,2,400
 stock6=fishing_bait,1500,1
 stock7=feather,1000,1
-stock8=big_fishing_net,5,100
-stock9=raw_shrimps,0,300
+stock8=big_net,5,100
+stock9=raw_shrimp,0,300
 stock10=raw_sardine,200,1
 stock11=raw_herring,0,900
 stock12=raw_mackerel,0,1000
@@ -2692,18 +2692,18 @@ size=12
 restock=yes
 stackall=yes
 allstock=no
-stock1=bear_fur,3,100
+stock1=fur,3,100
 stock2=grey_wolf_fur,3,100
-stock3=polar_kebbit_fur,0,100
-stock4=common_kebbit_fur,0,100
-stock5=feldip_weasel_fur,0,100
-stock6=desert_devil_fur,0,100
-stock7=tatty_larupia_fur,0,100
-stock8=larupia_fur,0,100
-stock9=tatty_graahk_fur,0,100
-stock10=graahk_fur,0,100
-stock11=tatty_kyatt_fur,0,100
-stock12=kyatt_fur,0,100
+stock3=huntingbeast_polar_fur,0,100
+stock4=huntingbeast_woodland_fur,0,100
+stock5=huntingbeast_jungle_fur,0,100
+stock6=huntingbeast_desert_fur,0,100
+stock7=hunting_fur_jaguar_shabby,0,100
+stock8=hunting_fur_jaguar_perfect,0,100
+stock9=hunting_fur_leopard_shabby,0,100
+stock10=hunting_fur_leopard_perfect,0,100
+stock11=hunting_fur_tiger_shabby,0,100
+stock12=hunting_fur_tiger_perfect,0,100
 
 // 214
 [lighthouseshop]
@@ -2718,1329 +2718,1329 @@ stock3=chisel,10,500
 stock4=knife,10,500
 stock5=spade,10,500
 stock6=tinderbox,5,500
-stock7=candle,10,500
+stock7=unlit_candle,10,500
 stock8=poison,10,200
 stock9=pestle_and_mortar,10,500
-stock10=empty_pot,10,500
-stock11=bucket,5,500
-stock12=bucket_of_water,5,500
-stock13=jug,5,200
-stock14=jug_of_water,5,500
-stock15=vial,100,500
-stock16=vial_of_water,100,500
+stock10=pot_empty,10,500
+stock11=bucket_empty,5,500
+stock12=bucket_water,5,500
+stock13=jug_empty,5,200
+stock14=jug_water,5,500
+stock15=vial_empty,100,500
+stock16=vial_water,100,500
 stock17=gin,5,500
 stock18=brandy,5,500
 stock19=vodka,5,500
 stock20=grog,5,500
 stock21=whisky,5,500
-stock22=greenman_s_ale,5,500
+stock22=greenmans_ale,5,500
 stock23=dwarven_stout,5,500
-stock24=wizard_s_mind_bomb,5,500
+stock24=wizards_mind_bomb,5,500
 // vodka restock time taken from rs3.
 // 215
-[inv_215]
+[boardgames_boardinv]
 size=64
 
 // 216
-[inv_216]
+[boardgames_sideinv]
 size=28
 
 // 217
-[inv_217]
+[misc_fishmonger]
 size=22
 
 // 218
-[inv_218]
+[misc_greengrocer]
 size=5
 
 // 219
-[inv_219]
+[etc_fishmonger]
 size=22
 
 // 220
-[inv_220]
+[etc_greengrocer]
 size=5
 
 // 221
-[inv_221]
+[reinitialisation_inv]
 size=25
 
 // 222
-[inv_222]
+[reinitialisation_inv_inactive]
 size=25
 
 // 223
-[inv_223]
+[mm_magic_shop]
 size=8
 
 // 224
-[inv_224]
+[mm_scimitar_shop]
 size=4
 
 // 225
-[inv_225]
+[mm_food_shop]
 size=4
 
 // 226
-[inv_226]
+[mm_crafting_shop]
 size=8
 
 // 227
-[inv_227]
+[mm_general_shop]
 size=40
 
 // 228
-[inv_228]
+[rangingguild_trade_tickets]
 size=6
 
 // 229
-[inv_229]
+[skill_guide_slayer_monsters]
 size=1
 
 // 230
-[inv_230]
+[skill_guide_slayer_equipment]
 size=1
 
 // 231
-[inv_231]
+[slayershop]
 size=20
 
 // 232
-[inv_232]
+[magicguildshop2]
 size=5
 
 // 233
-[inv_233]
+[generalshop_phasmatys]
 size=1
 
 // 234
-[inv_234]
+[skill_guide_cooking_hotdrinks]
 size=1
 
 // 235
-[inv_235]
+[ahoy_generalshop]
 size=40
 
 // 236
-[inv_236]
+[wildernesscapeshop1]
 size=5
 
 // 237
-[inv_237]
+[wildernesscapeshop2]
 size=5
 
 // 238
-[inv_238]
+[wildernesscapeshop3]
 size=5
 
 // 239
-[inv_239]
+[wildernesscapeshop4]
 size=5
 
 // 240
-[inv_240]
+[wildernesscapeshop5]
 size=5
 
 // 241
-[inv_241]
+[wildernesscapeshop6]
 size=5
 
 // 242
-[inv_242]
+[wildernesscapeshop7]
 size=5
 
 // 243
-[inv_243]
+[wildernesscapeshop8]
 size=5
 
 // 244
-[inv_244]
+[wildernesscapeshop9]
 size=5
 
 // 245
-[inv_245]
+[wildernesscapeshop10]
 size=5
 
 // 246
-[inv_246]
+[castlewars_trade_tickets]
 size=1
 
 // 247
-[inv_247]
+[castlewars_trade_coins]
 size=1
 
 // 248
-[inv_248]
+[smithing_lamp_iron]
 size=1
 
 // 249
-[inv_249]
+[smithing_lamp_steel]
 size=1
 
 // 250
-[inv_250]
+[salesman_ranging]
 size=9
 
 // 251
-[inv_251]
+[mm_scimitar_shop2]
 size=5
 
 // 252
-[inv_252]
+[feud_morrisanes]
 size=13
 
 // 253
-[inv_253]
+[feud_alispub]
 size=6
 
 // 254
-[inv_254]
+[pollnivneach_generalstore]
 size=40
 
 // 255
-[inv_255]
+[dt_bandit_shop]
 size=40
 
 // 256
-[inv_256]
+[rasoolshop1]
 size=40
 
 // 257
-[inv_257]
+[fd_bandit_bar]
 size=1
 
 // 258
-[inv_258]
+[sophanem_cloth_store]
 size=6
 
 // 259
-[inv_259]
+[ahoy_akharanu_shop]
 size=1
 
 // 260
-[inv_260]
+[uglug_nar_shop]
 size=15
 
 // 261
-[inv_261]
+[keldagrim_warhammer_shop]
 size=6
 
 // 262
-[inv_262]
+[keldagrim_quality_weapons_shop]
 size=11
 
 // 263
-[inv_263]
+[keldagrim_quality_armour_shop]
 size=9
 
 // 264
-[inv_264]
+[keldagrim_general_shop]
 size=40
 
 // 265
-[inv_265]
+[keldagrim_pickaxe_shop]
 size=5
 
 // 266
-[inv_266]
+[keldagrim_clothes_shop]
 size=10
 
 // 267
-[inv_267]
+[keldagrim_bread_stall]
 size=3
 
 // 268
-[inv_268]
+[keldagrim_crafting_stall]
 size=6
 
 // 269
-[inv_269]
+[keldagrim_gem_stall]
 size=4
 
 // 270
-[inv_270]
+[keldagrim_silver_stall]
 size=3
 
 // 271
-[inv_271]
+[keldagrim_clothes_stall]
 size=6
 
 // 272
-[inv_272]
+[minecart_temp_inv]
 size=3
 
 // 273
-[inv_273]
+[seed_stall]
 size=16
 
 // 274
-[inv_274]
+[skill_guide_thieving_chests]
 size=1
 
 // 275
-[inv_275]
+[skill_guide_prayer]
 size=1
 
 // 276
-[inv_276]
+[darkruneshop_crap]
 size=8
 
 // 277
-[inv_277]
+[darkruneshop_uber]
 size=8
 
 // 278
-[inv_278]
+[roguesden_puzzle_rotation]
 size=1
 
 // 279
-[inv_279]
+[roguesden_shop]
 size=40
 
 // 280
-[inv_280]
+[farming_shop_1]
 size=29
 
 // 281
-[inv_281]
+[farming_shop_2]
 size=29
 
 // 282
-[inv_282]
+[farming_shop_3]
 size=29
 
 // 283
-[inv_283]
+[farming_shop_4]
 size=29
 
 // 284
-[inv_284]
+[skill_guide_cooking_brewing]
 size=1
 
 // 285
-[inv_285]
+[skill_guide_cooking_vegetables]
 size=1
 
 // 286
-[inv_286]
+[skill_guide_crafting_weaving]
 size=1
 
 // 287
-[inv_287]
+[skill_guide_farming_veg]
 size=1
 
 // 288
-[inv_288]
+[skill_guide_farming_hops]
 size=1
 
 // 289
-[inv_289]
+[skill_guide_farming_trees]
 size=1
 
 // 290
-[inv_290]
+[skill_guide_farming_fruit_trees]
 size=1
 
 // 291
-[inv_291]
+[skill_guide_farming_herbs]
 size=1
 
 // 292
-[inv_292]
+[skill_guide_farming_flowers]
 size=1
 
 // 293
-[inv_293]
+[skill_guide_farming_bushes]
 size=1
 
 // 294
-[inv_294]
+[skill_guide_farming_special]
 size=1
 
 // 295
-[inv_295]
+[skill_guide_farming_mushroom]
 size=1
 
 // 296
-[inv_296]
+[skill_guide_farming_cactus]
 size=1
 
 // 297
-[inv_297]
+[skill_guide_farming_calquat]
 size=1
 
 // 298
-[inv_298]
+[skill_guide_farming_spirit_tree]
 size=1
 
 // 299
-[inv_299]
+[skill_guide_farming_scarecrow]
 size=1
 
 // 300
-[inv_300]
+[skill_guide_farming_belladonna]
 size=1
 
 // 301
-[inv_301]
+[lletyageneralshop1]
 size=40
 
 // 302
-[inv_302]
+[lletyaseamstressshop1]
 size=9
 
 // 303
-[inv_303]
+[lletyaarcheryshop1]
 size=11
 
 // 304
-[inv_304]
+[lletyafoodshop1]
 size=5
 
 // 305
-[inv_305]
+[tai_bwo_wannai_cooperative]
 size=30
 
 // 306
-[inv_306]
+[tai_bwo_wannai_drinksies]
 size=7
 
 // 307
-[ame_rewards]
+[macro_certer]
 size=28
 
 // 308
-[inv_308]
+[roguetrader_toughsudukuinv]
 size=81
 
 // 309
-[inv_309]
+[roguetrader_alim_defendbj_inv]
 size=5
 
 // 310
-[inv_310]
+[roguetrader_alim_assaultbj_inv]
 size=5
 
 // 311
-[inv_311]
+[roguetrader_alim_meanpclothes_inv]
 size=8
 
 // 312
-[inv_312]
+[roguetrader_alim_carpetclothes_inv]
 size=5
 
 // 313
-[inv_313]
+[roguetrader_alim_runeretail_inv]
 size=4
 
 // 314
-[inv_314]
+[roguetrader_alim_runewholesale_inv]
 size=9
 
 // 315
-[inv_315]
+[roguetrader_alim_runedump]
 size=9
 
 // 316
-[inv_316]
+[blast_furnace_inv]
 size=18
 
 // 317
-[inv_317]
+[blast_furnace_bars_inv]
 size=9
 
 // 318
-[inv_318]
+[smithing_guild_ore_seller]
 size=7
 
 // 319
-[inv_319]
+[smithing_guild_buyer]
 size=24
 
 // 320
-[inv_320]
+[pickcatinv]
 size=6
 
 // 321
-[inv_321]
+[skill_guide_agility_courses]
 size=1
 
 // 322
-[inv_322]
+[skill_guide_agility_areas]
 size=1
 
 // 323
-[inv_323]
+[skill_guide_agility_shortcuts]
 size=1
 
 // 324
-[inv_324]
+[tzhaar_shop_general]
 size=1
 
 // 325
-[inv_325]
+[tzhaar_shop_equipment]
 size=8
 
 // 326
-[inv_326]
+[tzhaar_shop_oreandgem]
 size=7
 
 // 327
-[inv_327]
+[tzhaar_shop_rune]
 size=8
 
 // 328
-[inv_328]
+[whiteknight_armoury1]
 size=21
 
 // 329
-[inv_329]
+[whiteknight_armoury2]
 size=21
 
 // 330
-[inv_330]
+[whiteknight_armoury3]
 size=21
 
 // 331
-[inv_331]
+[whiteknight_armoury4]
 size=21
 
 // 332
-[inv_332]
+[whiteknight_armoury5]
 size=21
 
 // 333
-[inv_333]
+[whiteknight_armoury6]
 size=21
 
 // 334
-[inv_334]
+[pillory_rottenfruitshop]
 size=1
 
 // 335
-[inv_335]
+[skill_guide_cooking_dairy]
 size=1
 
 // 336
-[inv_336]
+[skill_guide_woodcutting_axes]
 size=1
 
 // 337
-[inv_337]
+[silvercast_holysymbol]
 size=1
 
 // 338
-[inv_338]
+[silvercast_unholysymbol]
 size=1
 
 // 339
-[inv_339]
+[silvercast_sickle]
 size=1
 
 // 340
-[inv_340]
+[silvercast_lightning]
 size=1
 
 // 341
-[inv_341]
+[silvercast_tiara]
 size=1
 
 // 342
-[inv_342]
+[silvercast_agrith]
 size=1
 
 // 343
-[inv_343]
+[generalshopnardah]
 size=40
 
 // 344
-[inv_344]
+[armourshopnardah]
 size=7
 
 // 345
-[inv_345]
+[chociceshopnardah]
 size=2
 
 // 346
-[inv_346]
+[bakery2]
 size=4
 
 // 347
-[inv_347]
+[magictraining_inventory]
 size=26
 
 // 348
-[inv_348]
+[smithsshop]
 size=5
 
 // 349
-[inv_349]
+[joeshop]
 size=4
 
 // 350
-[inv_350]
+[charleyshop]
 size=10
 
 // 351
-[inv_351]
+[mikeshop]
 size=13
 
 // 352
-[inv_352]
+[shop_pies]
 size=12
 
 // 353
-[inv_353]
+[skill_guide_woodcutting_canoes]
 size=1
 
 // 354
-[inv_354]
+[farming_tools_fairyversion]
 size=1
 
 // 355
-[inv_355]
+[wielded_weapon_inv]
 size=2
 
 // 356
-[inv_356]
+[hundred_foodchest1]
 size=19
 
 // 357
-[inv_357]
+[hundred_foodchest2]
 size=19
 
 // 358
-[inv_358]
+[hundred_foodchest3]
 size=19
 
 // 359
-[inv_359]
+[hundred_foodchest4]
 size=19
 
 // 360
-[inv_360]
+[hundred_foodchest5]
 size=19
 
 // 361
-[inv_361]
+[hundred_foodchest6]
 size=19
 
 // 362
-[inv_362]
+[hundred_foodchest7]
 size=19
 
 // 363
-[inv_363]
+[hundred_foodchest8]
 size=19
 
 // 364
-[inv_364]
+[hundred_foodchest9]
 size=19
 
 // 365
-[inv_365]
+[hundred_foodchest10]
 size=19
 
 // 366
-[inv_366]
+[hundred_rewardchest1]
 size=2
 
 // 367
-[inv_367]
+[hundred_rewardchest2]
 size=4
 
 // 368
-[inv_368]
+[hundred_rewardchest3]
 size=6
 
 // 369
-[inv_369]
+[hundred_rewardchest4]
 size=8
 
 // 370
-[inv_370]
+[hundred_rewardchest5]
 size=10
 
 // 371
-[inv_371]
+[hundred_rewardchest6]
 size=12
 
 // 372
-[inv_372]
+[hundred_rewardchest7]
 size=14
 
 // 373
-[inv_373]
+[hundred_rewardchest8]
 size=16
 
 // 374
-[inv_374]
+[hundred_rewardchest9]
 size=18
 
 // 375
-[inv_375]
+[hundred_rewardchest10]
 size=20
 
 // 376
-[inv_376]
+[hundred_quest_journal]
 size=1
 
 // 377
-[inv_377]
+[100guide_flourinv1]
 size=11
 
 // 378
-[inv_378]
+[100guide_flourinv2]
 size=11
 
 // 379
-[inv_379]
+[100guide_flourinv3]
 size=11
 
 // 380
-[inv_380]
+[100guide_flourinv4]
 size=11
 
 // 381
-[inv_381]
+[100guide_flourinv5]
 size=11
 
 // 382
-[inv_382]
+[silvercast_commandrod]
 size=1
 
 // 383
-[inv_383]
+[burgh_general_store]
 size=40
 
 // 384
-[inv_384]
+[wine_merchant]
 size=3
 
 // 385
-[inv_385]
+[wine_vinegar_merchant]
 size=4
 
 // 386
-[inv_386]
+[wine_merchant_free]
 size=2
 
 // 387
-[inv_387]
+[pest_archery_store]
 size=12
 
 // 388
-[inv_388]
+[pest_rune_store]
 size=8
 
 // 389
-[inv_389]
+[pest_general_store]
 size=40
 
 // 390
-[inv_390]
+[misc_resources_collected]
 size=88
 
 // 391
-[inv_391]
+[royal_generalstore]
 size=40
 
 // 392
-[inv_392]
+[royal_clotheshop]
 size=17
 
 // 393
-[inv_393]
+[royal_bar]
 size=4
 
 // 394
-[inv_394]
+[royal_foodshop]
 size=8
 
 // 395
-[inv_395]
+[poh_sawmill_shop]
 size=5
 
 // 396
-[inv_396]
+[poh_stonemason_shop]
 size=4
 
 // 397
-[inv_397]
+[poh_garden_centre]
 size=25
 
 // 398
-[inv_398]
+[poh_furniture_menu_inv]
 size=8
 
 // 399
-[inv_399]
+[skill_guide_carpentry_rooms]
 size=40
 
 // 400
-[inv_400]
+[skill_guide_carpentry_seating]
 size=40
 
 // 401
-[inv_401]
+[skill_guide_carpentry_storage]
 size=40
 
 // 402
-[inv_402]
+[skill_guide_carpentry_skills]
 size=40
 
 // 403
-[inv_403]
+[skill_guide_carpentry_decorative]
 size=40
 
 // 404
-[inv_404]
+[skill_guide_carpentry_games]
 size=40
 
 // 405
-[inv_405]
+[skill_guide_carpentry_garden]
 size=40
 
 // 406
-[inv_406]
+[skill_guide_carpentry_misc]
 size=40
 
 // 407
-[inv_407]
+[skill_guide_carpentry_chapel]
 size=40
 
 // 408
-[inv_408]
+[skill_guide_carpentry_dungeon]
 size=40
 
 // 409
-[inv_409]
+[skill_guide_carpentry_trophies]
 size=40
 
 // 410
-[inv_410]
+[warguild_food_shop]
 size=5
 
 // 411
-[inv_411]
+[warguild_armour_shop]
 size=38
 
 // 412
-[inv_412]
+[warguild_potion_shop]
 size=3
 
 // 413
-[inv_413]
+[dorgeshuun_weapon_shop]
 size=5
 
 // 414
-[inv_414]
+[brew_reward_shop]
 size=30
 
 // 415
-[inv_415]
+[skill_guide_thieving_other]
 size=1
 
 // 416
-[inv_416]
+[lunar_general]
 size=40
 
 // 417
-[inv_417]
+[lunar_clotheshop]
 size=9
 
 // 418
-[inv_418]
+[lunar_runeshop]
 size=18
 
 // 419
-[inv_419]
+[lunar_runeshop_compl]
 size=19
 
 // 420
-[inv_420]
+[skill_guide_ranged_shortcuts]
 size=1
 
 // 421
-[inv_421]
+[skill_guide_strength_weapons_and_armour]
 size=1
 
 // 422
-[inv_422]
+[skill_guide_strength_shortcuts]
 size=1
 
 // 423
-[inv_423]
+[skill_guide_fletching_cbows]
 size=1
 
 // 424
-[inv_424]
+[skill_guide_magic_bolts]
 size=1
 
 // 425
-[inv_425]
+[skill_guide_ranged_crossbows]
 size=1
 
 // 426
-[inv_426]
+[skill_guide_smithing_blurite]
 size=1
 
 // 427
-[inv_427]
+[xbows_shop]
 size=19
 
 // 428
-[inv_428]
+[xbows_shop_addy]
 size=19
 
 // 429
-[inv_429]
+[silvercast_xbows]
 size=1
 
 // 430
-[inv_430]
+[smithing_bronze6]
 size=2
 
 // 431
-[inv_431]
+[smithing_iron6]
 size=2
 
 // 432
-[inv_432]
+[smithing_steel6]
 size=2
 
 // 433
-[inv_433]
+[smithing_mithril6]
 size=2
 
 // 434
-[inv_434]
+[xbows_grapple_inv]
 size=1
 
 // 435
-[inv_435]
+[smithing_adamant6]
 size=2
 
 // 436
-[inv_436]
+[smithing_rune6]
 size=2
 
 // 437
-[inv_437]
+[skill_guide_cooking_gnome]
 size=1
 
 // 438
-[inv_438]
+[eyeglo_inv_in]
 size=3
 
 // 439
-[inv_439]
+[eyeglo_inv_out]
 size=4
 
 // 440
-[inv_440]
+[eyeglo_inv_side]
 size=28
 
 // 441
-[inv_441]
+[trader_stan_shop]
 size=40
 
 // 442
-[inv_442]
+[meiyerditch_black_market]
 size=40
 
 // 443
-[inv_443]
+[templeknight_armoury1]
 size=4
 
 // 444
-[inv_444]
+[templeknight_armoury2]
 size=10
 
 // 445
-[inv_445]
+[poh_costume_menu_inv]
 size=30
 
 // 446
-[inv_446]
+[poh_costume_room_magic_wardrobe_inv]
 size=30
 
 // 447
-[inv_447]
+[poh_costume_room_armour_inv]
 size=30
 
 // 448
-[inv_448]
+[poh_costume_room_ame_inv]
 size=30
 
 // 449
-[inv_449]
+[poh_costume_room_treasure_trail_1_inv]
 size=30
 
 // 450
-[inv_450]
+[poh_costume_room_treasure_trail_2_inv]
 size=30
 
 // 451
-[inv_451]
+[poh_costume_room_treasure_trail_3_inv]
 size=30
 
 // 452
-[inv_452]
+[poh_costume_room_capes_inv]
 size=30
 
 // 453
-[inv_453]
+[poh_costume_room_holiday_items_inv]
 size=31
 
 // 454
-[inv_454]
+[skill_guide_carpentry_costume_room]
 size=40
 
 // 455
-[inv_455]
+[roguesden_shop_skillcape]
 size=40
 
 // 456
-[inv_456]
+[roguesden_shop_skillcape_trimmed]
 size=40
 
 // 457
-[inv_457]
+[ranging_guild_armourshop_skillcape]
 size=9
 
 // 458
-[inv_458]
+[ranging_guild_armourshop_skillcape_trimmed]
 size=9
 
 // 459
-[inv_459]
+[runeshop_skillcape]
 size=1
 
 // 460
-[inv_460]
+[runeshop_skillcape_trimmed]
 size=1
 
 // 461
-[inv_461]
+[magicguildshop2_skillcape]
 size=6
 
 // 462
-[inv_462]
+[magicguildshop2_skillcape_trimmed]
 size=6
 
 // 463
-[inv_463]
+[ranging_guild_bowshop_skillcape]
 size=3
 // Shop stock. Laid over the cache's inventory definitions in _unpack/all.inv.
 
-stock1=junk_19713,1
-stock2=junk_19726,1
-stock3=junk_19727,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_ranger_bow,1
+stock3=playerkit_ranger_arrow,1
 
 // 464
-[inv_464]
+[ranging_guild_bowshop_skillcape_trimmed]
 size=4
 
 // 465
-[inv_465]
+[myarm_shop]
 size=10
 
 // 466
-[inv_466]
+[archeryshop2_skillcape]
 size=29
 
 // 467
-[inv_467]
+[archeryshop2_skillcape_trimmed]
 size=29
 
 // 468
-[inv_468]
+[diango_hols_sack]
 size=63
 
 // 469
-[inv_469]
+[skill_guide_hunting_tracking]
 size=1
 
 // 470
-[inv_470]
+[skill_guide_hunting_birds]
 size=1
 
 // 471
-[inv_471]
+[skill_guide_hunting_butterflies]
 size=1
 
 // 472
-[inv_472]
+[skill_guide_hunting_deadfalls]
 size=1
 
 // 473
-[inv_473]
+[skill_guide_hunting_boxtraps]
 size=1
 
 // 474
-[inv_474]
+[skill_guide_hunting_nettraps]
 size=1
 
 // 475
-[inv_475]
+[skill_guide_hunting_pitfalls]
 size=1
 
 // 476
-[inv_476]
+[skill_guide_hunting_falconry]
 size=1
 
 // 477
-[inv_477]
+[skill_guide_hunting_impboxes]
 size=1
 
 // 478
-[inv_478]
+[skill_guide_hunting_rabbits]
 size=1
 
 // 479
-[inv_479]
+[skill_guide_hunting_eagles]
 size=1
 
 // 480
-[inv_480]
+[skill_guide_hunting_traps]
 size=1
 
 // 481
-[inv_481]
+[skill_guide_hunting_clothing]
 size=1
 
 // 482
-[inv_482]
+[hunting_customfurshop]
 size=20
 
 // 483
-[inv_483]
+[hunting_shop_yanille]
 size=10
 
 // 484
-[inv_484]
+[hunting_shop_nardah]
 size=10
 
 // 485
-[inv_485]
+[poh_costume_room_treasure_trail_1a_inv]
 size=30
 
 // 486
-[inv_486]
+[poh_costume_room_treasure_trail_2a_inv]
 size=3
-stock1=junk_19713,1
-stock2=junk_19723,1
-stock3=junk_19722,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_hunter_knife,1
+stock3=playerkit_hunter_stick,1
 
 // 487
-[inv_487]
+[poh_costume_room_treasure_trail_3a_inv]
 size=30
 
 // 488
-[inv_488]
+[poh_costume_room_capes_inv_page2]
 size=30
 
 // 489
-[inv_489]
+[anma_shop]
 size=5
 
 // 490
-[inv_490]
+[barbassault_egginv]
 size=1
 
 // 491
-[inv_491]
+[contact_craftingshop]
 size=10
 
 // 492
-[inv_492]
+[contact_bakery]
 size=4
 
 // 493
-[inv_493]
+[contact_daggershop]
 size=11
 
 // 494
-[inv_494]
+[contact_embalmer]
 size=4
 
 // 495
-[inv_495]
+[sophanem_cloth_store_updated]
 size=7
 
 // 496
-[inv_496]
+[poh_costume_room_treasure_trail_1_inv_check]
 size=30
 
 // 497
-[inv_497]
+[poh_costume_room_treasure_trail_1a_inv_check]
 size=30
 
 // 498
-[inv_498]
+[poh_costume_room_treasure_trail_2_inv_check]
 size=30
 
 // 499
-[inv_499]
+[poh_costume_room_treasure_trail_2a_inv_check]
 size=2
-stock1=junk_19713,1
-stock2=junk_19724,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_miner_pickaxe,1
 
 // 500
-[inv_500]
+[poh_costume_room_treasure_trail_3_inv_check]
 size=30
 
 // 501
-[inv_501]
+[poh_costume_room_treasure_trail_3a_inv_check]
 size=30
 
 // 502
-[inv_502]
+[frisb_n_shop]
 size=7
 
 // 503
-[inv_503]
+[frisd_fishmonger]
 size=6
 
 // 504
-[inv_504]
+[frisd_cook]
 size=6
 
 // 505
-[inv_505]
+[frisd_armourshop]
 size=8
 
 // 506
-[inv_506]
+[frisd_weaponshop]
 size=5
 
 // 507
-[inv_507]
+[frisd_oreshop]
 size=8
 
 // 508
-[inv_508]
+[frisd_yak_contraband]
 size=3
 
 // 509
-[inv_509]
+[ttrek_follower_inv]
 size=19
 
 // 510
-[inv_510]
+[dorgesh_food_sold]
 size=100
 
 // 511
-[inv_511]
+[dorgesh_lamp_shop]
 size=10
 
 // 512
-[inv_512]
+[dorgesh_leather_shop]
 size=3
 
 // 513
-[inv_513]
+[dorgesh_general_store]
 size=40
 
 // 514
-[inv_514]
+[dream_bank_inventory]
 size=36
 
 // 515
-[inv_515]
+[dream_crate_inventory]
 size=5
 
 // 516
-[inv_516]
+[lotg_temp_armour_holder]
 size=1
 
 // 517
-[inv_517]
+[stockmarket_offer0]
 size=1
 
 // 518
-[inv_518]
+[stockmarket_offer1]
 size=1
 
 // 519
-[inv_519]
+[stockmarket_offer2]
 size=1
 
 // 520
-[inv_520]
+[stockmarket_offer3]
 size=1
 
 // 521
-[inv_521]
+[stockmarket_offer4]
 size=1
 
 // 522
-[inv_522]
+[stockmarket_offer5]
 size=1
 
 // 523
-[inv_523]
+[stockmarket_collect0]
 size=2
 
 // 524
-[inv_524]
+[stockmarket_collect1]
 size=2
 
 // 525
-[inv_525]
+[stockmarket_collect2]
 size=2
 
 // 526
-[inv_526]
+[stockmarket_collect3]
 size=2
 
 // 527
-[inv_527]
+[stockmarket_collect4]
 size=2
 
 // 528
-[inv_528]
+[stockmarket_collect5]
 size=2
 
 // 529
-[inv_529]
+[partyroom_chestinv]
 size=216
 
 // 530
-[inv_530]
+[lore_bob]
 size=30
 
 // 531
-[inv_531]
+[lore_pet_shop_supplies]
 size=5
 
 // 532
-[inv_532]
+[lore_summoning_supplies]
 size=10
 
 // 533
-[inv_533]
+[afr_giftshop]
 size=17
 
 // 534
-[inv_534]
+[afr_meatshop]
 size=23
 
 // 535
-[inv_535]
+[easter08_transmog_inv]
 size=14
 
 // 536
-[inv_536]
+[carpet_shop]
 size=40
 
 // 537
-[inv_537]
+[poh_costume_room_armour_inv_page2]
 size=30
 
 // 538
-[inv_538]
+[smki_slayershop]
 size=22
 
 // 539
@@ -4048,175 +4048,175 @@ size=22
 size=1
 
 // 540
-[inv_540]
+[lent_items]
 size=1
 
 // 541
-[inv_541]
+[trade_loan_offer]
 size=1
 
 // 542
-[inv_542]
+[crcs_ranged_weapons]
 size=4
 
 // 543
-[inv_543]
+[crcs_magic_spells]
 size=4
 
 // 544
-[inv_544]
+[crcs_agility_juggling]
 size=10
 
 // 545
-[inv_545]
+[crcs_rewards_inv]
 size=30
 
 // 546
-[inv_546]
+[pvpw_drop_inv]
 size=1
 
 // 547
-[inv_547]
+[candleshop2]
 size=2
 
 // 548
-[inv_548]
+[glomem_inv_beer]
 size=1
 
 // 549
-[inv_549]
+[partyroom_shop]
 size=27
 
 // 550
-[inv_550]
+[mob_offer]
 size=10
 
 // 551
-[inv_551]
+[emrg_shop]
 size=15
 
 // 552
-[inv_552]
+[poh_pethouse]
 size=15
 
 // 553
-[inv_553]
+[generalshop1_freebies]
 size=3
 
 // 554
-[inv_554]
+[axeshop_freebies]
 size=2
 
 // 555
-[inv_555]
+[swordshop_freebies]
 size=2
 
 // 556
-[inv_556]
+[archeryshop_freebies]
 size=3
 
 // 557
-[inv_557]
+[runeshop_freebies]
 size=2
 
 // 558
-[inv_558]
+[skillcapes_firemaster_shop]
 size=3
 
 // 559
-[inv_559]
+[skillcapes_firemaster_shop_skillcape]
 size=4
 
 // 560
-[inv_560]
+[skillcapes_firemaster_shop_skillcape_trimmed]
 size=4
 
 // 561
-[inv_561]
+[fishingshop_lum_freebies]
 size=2
 
 // 562
-[inv_562]
+[fishingshop_lum]
 size=18
 
 // 563
-[inv_563]
+[evq_inv_bow]
 size=2
 
 // 564
-[inv_564]
+[ii_shop]
 size=1
 
 // 565
-[inv_565]
+[hunting_shop_freebies]
 size=2
 
 // 566
-[inv_566]
+[hunting_shop_freebies_polar]
 size=2
 
 // 567
-[inv_567]
+[hunting_shop_expert_polar]
 size=4
 
 // 568
-[inv_568]
+[hunting_shop_expert]
 size=4
 
 // 569
-[inv_569]
+[death_bootshop]
 size=1
 
 // 570
-[inv_570]
+[stankers_pick_shop]
 size=1
 
 // 571
-[inv_571]
+[stankers_chalice_freebie]
 size=1
 
 // 572
-[inv_572]
+[lumbcat_runeshop]
 size=1
 
 // 573
-[inv_573]
+[rand_bound]
 size=4
 
 // 574
-[inv_574]
+[thigui_urist_shop]
 size=10
 
 // 575
-[inv_575]
+[thigui_fence]
 size=40
 
 // 576
-[inv_576]
+[thigui_fence_low]
 size=40
 
 // 577
-[inv_577]
+[thigui_fence_nocosh]
 size=40
 
 // 578
-[inv_578]
+[thigui_fence_low_nocosh]
 size=40
 
 // 579
-[inv_579]
+[mm_varrock_dealga_scimitar_shop]
 size=1
 
 // 580
-[inv_580]
+[milkshop]
 size=1
 
 // 581
-[inv_581]
+[poh_costume_room_treasure_trail_4_inv]
 size=30
 
 // 582
-[inv_582]
+[poh_costume_room_treasure_trail_4_inv_check]
 size=30
 
 // 583
@@ -4228,106 +4228,106 @@ size=10
 size=10
 
 // 585
-[inv_585]
+[playerkit_default]
 size=1
-stock1=junk_19713,1
+stock1=playerkit_dummy_shadow_necklace,1
 
 // 586
-[inv_586]
+[playerkit_mage]
 size=2
-stock1=junk_19713,1
-stock2=junk_19714,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_mage_staff,1
 
 // 587
-[inv_587]
+[playerkit_chef]
 size=2
-stock1=junk_19713,1
-stock2=junk_19715,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_chef_cleaver,1
 
 // 588
-[inv_588]
+[playerkit_crafter]
 size=2
-stock1=junk_19713,1
-stock2=junk_19716,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_crafter_gem,1
 
 // 589
-[inv_589]
+[playerkit_fletcher]
 size=3
-stock1=junk_19713,1
-stock2=junk_19718,1
-stock3=junk_19719,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_fletcher_arrow,1
+stock3=playerkit_fletcher_knife,1
 
 // 590
-[inv_590]
+[playerkit_herbalist]
 size=3
-stock1=junk_19713,1
-stock2=junk_19720,1
-stock3=junk_19721,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_herbalist_pestle,1
+stock3=playerkit_herbalist_morter,1
 
 // 591
-[inv_591]
+[playerkit_priest]
 size=2
-stock1=junk_19713,1
-stock2=junk_19725,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_priest_tome,1
 
 // 592
-[inv_592]
+[playerkit_slayer]
 size=2
-stock1=junk_19713,1
-stock2=junk_19728,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_slayer_axe,1
 
 // 593
-[inv_593]
+[playerkit_smith]
 size=2
-stock1=junk_19713,1
-stock2=junk_19729,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_smith_hammer,1
 
 // 594
-[inv_594]
+[playerkit_warrior]
 size=2
-stock1=junk_19713,1
-stock2=junk_19730,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_warrior_sword,1
 
 // 595
-[inv_595]
+[playerkit_woodcutter]
 size=2
-stock1=junk_19713,1
-stock2=junk_19731,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_woodcutter_axe,1
 
 // 596
-[inv_596]
+[playerkit_fisher]
 size=2
-stock1=junk_19713,1
-stock2=junk_19732,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_fisherman_net,1
 
 // 597
-[inv_597]
+[playerkit_farmer]
 size=2
-stock1=junk_19713,1
-stock2=junk_19717,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_farmer_pitchfork,1
 
 // 598
-[inv_598]
+[playerkit_runecrafter]
 size=2
-stock1=junk_19713,1
-stock2=junk_19733,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_runecrafter_stone,1
 
 // 599
-[inv_599]
+[playerkit_summoner]
 size=2
-stock1=junk_19713,1
-stock2=junk_19734,1
+stock1=playerkit_dummy_shadow_necklace,1
+stock2=playerkit_summoner_pouch,1
 
 // 600
-[inv_600]
+[naffstaffshop]
 size=1
 
 // 601
-[inv_601]
+[huntcharm_yaktwee_shop]
 size=2
 
 // 602
-[inv_602]
+[impc_mizgog_amulet_shop]
 // Wizard Mizgog's amulets of accuracy: cache 786's inv 602, one slot (void-634's
 // mizgogs_amulets_of_accuracy, 30 amulets). "Buy up to 30 amulets per day"
 // (2011 wiki, Imp Catcher, 2011-05-16). Whether that is per player or per world
@@ -4341,30 +4341,30 @@ allstock=no
 stock1=amulet_of_accuracy,30,4800
 
 // 603
-[inv_603]
+[papa_mambo_shop]
 size=23
 
 // 604
-[inv_604]
+[eco_druid_shop]
 size=1
 
 // 605
-[inv_605]
+[apmeken_general_shop]
 size=40
 
 // 606
-[inv_606]
+[apmeken_gem_shop]
 size=4
 
 // 607
-[inv_607]
+[apmeken_banana_shop]
 size=1
 
 // 608
-[inv_608]
+[glo3_inv_side]
 size=42
 
 // 609
-[inv_609]
+[aprilfoolshorseshop_mems]
 size=14
 

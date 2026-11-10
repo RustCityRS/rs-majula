@@ -1,16 +1,16 @@
 // 192
 [proc,chatalerts]
-if (%learning_the_ropes < 1000) {
+if (%tutorial < 1000) {
     return;
 }
 def_int $int0 = chat_gethistorylength;
 def_int $chattype1 = ^chattype_gamemessage;
-if ($int0 > %varclient_43) {
-    if (%varclient_41 = 0) {
-        %varclient_43 = $int0;
+if ($int0 > %chat_lastcount) {
+    if (%chat_view = 0) {
+        %chat_lastcount = $int0;
         return;
     }
-    $int0 = calc($int0 - %varclient_43 - 1);
+    $int0 = calc($int0 - %chat_lastcount - 1);
     if ($int0 >= 100) {
         $int0 = 99;
     }
@@ -42,5 +42,5 @@ if ($int0 > %varclient_43) {
         }
         $int0 = calc($int0 - 1);
     }
-    %varclient_43 = chat_gethistorylength;
+    %chat_lastcount = chat_gethistorylength;
 }

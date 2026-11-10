@@ -84,10 +84,10 @@ if ($int14 = 1) {
 } else {
     $graphic10 = "options_radio_buttons,1";
 }
-if ($int0 = %varclient_998) {
+if ($int0 = %worldselect_1stfavourite) {
     $rgb7 = 0x203211;
     $graphic6 = "world_select_hearts,2";
-} else if ($int0 = %varclient_999) {
+} else if ($int0 = %worldselect_2ndfavourite) {
     $rgb7 = 0x203c11;
     $graphic6 = "world_select_hearts,2";
 } else {

@@ -162,7 +162,7 @@ textalignv=centre
 textshadow=yes
 colour=0xe79935
 onload=mob_command_onload
-onvarctransmit=mob_highlight_stop{varclient_904}
+onvarctransmit=mob_highlight_stop{mob_client_highlight}
 
 // 859:13
 [button1]
@@ -320,7 +320,7 @@ graphic="mob_unit_heads,3"
 colour=0xffffffff
 transmitop=1
 op1=Go to
-onvarctransmit=mob_command_unit_icon{varclient_902}
+onvarctransmit=mob_command_unit_icon{mob_side_command_head}
 
 // 859:25
 [status_graphic]
@@ -331,7 +331,7 @@ width=51
 height=46
 graphic=graphic_1868
 colour=0xffffffff
-onvarctransmit=mob_side_command_status_icon{varclient_906, varclient_907}
+onvarctransmit=mob_side_command_status_icon{mob_client_command_status, mob_client_command_npcmode}
 
 // 859:26
 [weight_graphic]
@@ -342,7 +342,7 @@ width=20
 height=20
 graphic="mob_heavy_light_icons,0"
 colour=0xffffffff
-onvarctransmit=mob_command_unit_weight_icon{varclient_903}
+onvarctransmit=mob_command_unit_weight_icon{mob_side_command_weight}
 
 // 859:27
 [text]

@@ -341,7 +341,7 @@ fn an_offer_reaches_the_other_as_their_other_inv() {
 fn both_accepting_twice_swaps_the_offers() {
     runner::on_loaded_engine(|engine| {
         let coins = obj(engine, "coins");
-        let axe = obj(engine, "bronze_hatchet");
+        let axe = obj(engine, "bronze_axe");
         let (mut a, mut b) = traders(engine);
         give(engine, a.pid, 0, coins, 1000);
         give(engine, b.pid, 0, axe, 1);

@@ -3,7 +3,7 @@
 def_int $int0 = 0;
 def_int $int1 = 0;
 if (~script4467 = 1) {
-    if_sethide(false, lobbyscreen_pane_clanchat:kick_button_layer);
+    if_sethide(lobbyscreen_pane_clanchat:kick_button_layer, false);
     return;
 }
 ~script2447;

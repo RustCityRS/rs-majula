@@ -256,7 +256,7 @@ fn the_phoenix_gang_as_2011s() {
         let t = talk(
             engine,
             &mut client,
-            "reldo_2661",
+            "reldo_normal",
             3209,
             3495,
             &["I'm in search of a quest."],
@@ -271,8 +271,8 @@ fn the_phoenix_gang_as_2011s() {
                 "Thank you.",
             ],
         );
-        assert_eq!(var(engine, &client, "phoenixgang"), 1);
-        let t = talk(engine, &mut client, "reldo_2661", 3209, 3495, &[]);
+        assert_eq!(var(engine, &client, "blackarmgang"), 1);
+        let t = talk(engine, &mut client, "reldo_normal", 3209, 3495, &[]);
         says(
             &t,
             &[
@@ -281,8 +281,8 @@ fn the_phoenix_gang_as_2011s() {
             ],
         );
 
-        set_var(engine, &client, "phoenixgang", 2);
-        let t = talk(engine, &mut client, "reldo_2661", 3209, 3495, &[]);
+        set_var(engine, &client, "blackarmgang", 2);
+        let t = talk(engine, &mut client, "reldo_normal", 3209, 3495, &[]);
         says(
             &t,
             &[
@@ -290,7 +290,7 @@ fn the_phoenix_gang_as_2011s() {
                 "If I were you I would talk to Baraek, the fur trader in the market place. I've heard he has connections with the Phoenix Gang.",
             ],
         );
-        assert_eq!(var(engine, &client, "phoenixgang"), 3);
+        assert_eq!(var(engine, &client, "blackarmgang"), 3);
 
         give(engine, &client, 0, "coins", 20);
         let t = talk(
@@ -318,7 +318,7 @@ fn the_phoenix_gang_as_2011s() {
             !t.said("Hello. I am in search of a quest."),
             "not offered in 2011"
         );
-        assert_eq!(var(engine, &client, "phoenixgang"), 4);
+        assert_eq!(var(engine, &client, "blackarmgang"), 4);
         assert_eq!(held(engine, &client, "coins"), 0);
 
         let t = talk(
@@ -341,9 +341,9 @@ fn the_phoenix_gang_as_2011s() {
                 "OBVIOUSLY I know NOTHING about the dealings of the Phoenix Gang, but I bet if SOMEBODY were to kill him and bring back his intelligence report, they would be considered loyal enough to join.",
             ],
         );
-        assert_eq!(var(engine, &client, "phoenixgang"), 8);
+        assert_eq!(var(engine, &client, "blackarmgang"), 8);
 
-        give(engine, &client, 0, "intel_report", 1);
+        give(engine, &client, 0, "intelligence_report", 1);
         let t = talk(engine, &mut client, "straven", 3246, 9780, &[]);
         says(
             &t,
@@ -353,8 +353,8 @@ fn the_phoenix_gang_as_2011s() {
                 "Straven hands you a key.",
             ],
         );
-        assert_eq!(var(engine, &client, "phoenixgang"), 9);
-        assert_eq!(held(engine, &client, "weapon_store_key"), 1);
+        assert_eq!(var(engine, &client, "blackarmgang"), 9);
+        assert_eq!(held(engine, &client, "phoenixkey2"), 1);
 
         tele(engine, &mut client, 3235, 0, 9762);
         oploc1(&mut client, PHOENIX_CHEST);
@@ -368,7 +368,7 @@ fn the_phoenix_gang_as_2011s() {
                 "You find half of a shield, which you take.",
             ],
         );
-        assert_eq!(held(engine, &client, "broken_shield"), 1);
+        assert_eq!(held(engine, &client, "arravshield1"), 1);
     });
 }
 
@@ -383,7 +383,7 @@ fn the_black_arm_gang_as_2011s() {
         let t = talk(
             engine,
             &mut client,
-            "charlie_the_tramp",
+            "tramppg",
             3208,
             3391,
             &[
@@ -401,7 +401,7 @@ fn the_black_arm_gang_as_2011s() {
                 "You never know. You'll find a lady down there called Katrine. Speak to her.",
             ],
         );
-        assert_eq!(var(engine, &client, "blackarmgang"), 1);
+        assert_eq!(var(engine, &client, "phoenixgang"), 1);
 
         let t = talk(
             engine,
@@ -445,13 +445,13 @@ fn the_black_arm_gang_as_2011s() {
                 t.texts
             );
         }
-        assert_eq!(var(engine, &client, "blackarmgang"), 2);
+        assert_eq!(var(engine, &client, "phoenixgang"), 2);
 
         give(engine, &client, 0, "coins", 10);
         let t = talk(
             engine,
             &mut client,
-            "charlie_the_tramp",
+            "tramppg",
             3208,
             3391,
             &[
@@ -485,7 +485,7 @@ fn the_black_arm_gang_as_2011s() {
                 "Ok. You can join our gang now. Feel free to enter any of the rooms of the ganghouse.",
             ],
         );
-        assert_eq!(var(engine, &client, "blackarmgang"), 3);
+        assert_eq!(var(engine, &client, "phoenixgang"), 3);
 
         tele(engine, &mut client, 3188, 1, 3386);
         oploc1(&mut client, BLACKARM_CUPBOARD);
@@ -507,8 +507,8 @@ fn half_certificates_and_the_king() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "arrav_ending");
-        set_var(engine, &client, "phoenixgang", 9);
-        give(engine, &client, 0, "broken_shield", 1);
+        set_var(engine, &client, "blackarmgang", 9);
+        give(engine, &client, 0, "arravshield1", 1);
 
         let t = talk_to_king(engine, &mut client);
         says(
@@ -524,8 +524,8 @@ fn half_certificates_and_the_king() {
         let t = use_on_npc(
             engine,
             &mut client,
-            "broken_shield",
-            "curator_haig_halen",
+            "arravshield1",
+            "curator",
             3257,
             3447,
             &[],
@@ -545,22 +545,22 @@ fn half_certificates_and_the_king() {
                 "Well, if you were to get me the other half of the shield, I could give you the other half of the reward certificate. It's rumoured to be in the possession of the infamous Blackarm Gang, beyond that I can't help you.",
             ],
         );
-        assert_eq!(held(engine, &client, "broken_shield"), 0);
-        assert_eq!(held(engine, &client, "half_certificate"), 2);
+        assert_eq!(held(engine, &client, "arravshield1"), 0);
+        assert_eq!(held(engine, &client, "arravcertificate_lft"), 2);
 
         // The partner's half, then the two halves joined.
-        give(engine, &client, 5, "half_certificate_11174", 1);
+        give(engine, &client, 5, "arravcertificate_rht", 1);
         let t = use_on_obj(
             engine,
             &mut client,
-            "half_certificate",
-            "half_certificate_11174",
+            "arravcertificate_lft",
+            "arravcertificate_rht",
             &["Yes."],
         );
         says(&t, &["The certificate will become untradable. Continue?"]);
-        assert_eq!(held(engine, &client, "certificate"), 1);
-        assert_eq!(held(engine, &client, "half_certificate"), 1);
-        assert_eq!(held(engine, &client, "half_certificate_11174"), 0);
+        assert_eq!(held(engine, &client, "arravcertificate"), 1);
+        assert_eq!(held(engine, &client, "arravcertificate_lft"), 1);
+        assert_eq!(held(engine, &client, "arravcertificate_rht"), 0);
 
         let t = talk_to_king(engine, &mut client);
         says(
@@ -574,8 +574,8 @@ fn half_certificates_and_the_king() {
             ],
         );
         settle(engine, &mut client, 4);
-        assert_eq!(var(engine, &client, "phoenixgang"), 10, "complete");
+        assert_eq!(var(engine, &client, "blackarmgang"), 10, "complete");
         assert_eq!(held(engine, &client, "coins"), 600);
-        assert_eq!(held(engine, &client, "certificate"), 0);
+        assert_eq!(held(engine, &client, "arravcertificate"), 0);
     });
 }

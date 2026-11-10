@@ -121,7 +121,7 @@ model=null
 modelorigin=2,2
 modelangle=381,0,62
 modelzoom=300
-onvartransmit=eyeglo_machine_transmit(event_com){varplayer_856}
+onvartransmit=eyeglo_machine_transmit(event_com){eyeglo_coin_selected}
 
 // 442:10
 [eyeglo_exchange_button]
@@ -181,7 +181,7 @@ width=36
 height=159
 layer=contents
 onload=eyeglo_exchanger_in(eyeglo_change_machine_v4:in_0, eyeglo_change_machine_v4:in_1, eyeglo_change_machine_v4:in_2)
-oninvtransmit=eyeglo_exchanger_in(eyeglo_change_machine_v4:in_0, eyeglo_change_machine_v4:in_1, eyeglo_change_machine_v4:in_2){inv_438}
+oninvtransmit=eyeglo_exchanger_in(eyeglo_change_machine_v4:in_0, eyeglo_change_machine_v4:in_1, eyeglo_change_machine_v4:in_2){eyeglo_inv_in}
 
 // 442:15
 [in_0]
@@ -231,7 +231,7 @@ width=99
 height=99
 layer=contents
 onload=eyeglo_exchanger_out(eyeglo_change_machine_v4:out_0, eyeglo_change_machine_v4:out_1, eyeglo_change_machine_v4:out_2, eyeglo_change_machine_v4:out_3)
-oninvtransmit=eyeglo_exchanger_out(eyeglo_change_machine_v4:out_0, eyeglo_change_machine_v4:out_1, eyeglo_change_machine_v4:out_2, eyeglo_change_machine_v4:out_3){inv_439}
+oninvtransmit=eyeglo_exchanger_out(eyeglo_change_machine_v4:out_0, eyeglo_change_machine_v4:out_1, eyeglo_change_machine_v4:out_2, eyeglo_change_machine_v4:out_3){eyeglo_inv_out}
 
 // 442:19
 [out_0]

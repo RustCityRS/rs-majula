@@ -22,22 +22,22 @@
 // 2011's other chromatic dragons, 4669-4684 (cache 786 names each a Red, Black,
 // Green or Blue dragon), take 289's dragon configs (npc_clones_2011.npc: void-634's
 // clones, or the 2011 npc of that name and level), so they fight as 289's do.
-[ai_opplayer2,red_dragon_4669] @dragon_ai_opplayer2;
-[ai_opplayer2,red_dragon_4670] @dragon_ai_opplayer2;
-[ai_opplayer2,red_dragon_4671] @dragon_ai_opplayer2;
-[ai_opplayer2,red_dragon_4672] @dragon_ai_opplayer2;
-[ai_opplayer2,black_dragon_4673] @dragon_ai_opplayer2;
-[ai_opplayer2,black_dragon_4674] @dragon_ai_opplayer2;
-[ai_opplayer2,black_dragon_4675] @dragon_ai_opplayer2;
-[ai_opplayer2,black_dragon_4676] @dragon_ai_opplayer2;
-[ai_opplayer2,green_dragon_4677] @dragon_ai_opplayer2;
-[ai_opplayer2,green_dragon_4678] @dragon_ai_opplayer2;
-[ai_opplayer2,green_dragon_4679] @dragon_ai_opplayer2;
-[ai_opplayer2,green_dragon_4680] @dragon_ai_opplayer2;
-[ai_opplayer2,blue_dragon_4681] @dragon_ai_opplayer2;
-[ai_opplayer2,blue_dragon_4682] @dragon_ai_opplayer2;
-[ai_opplayer2,blue_dragon_4683] @dragon_ai_opplayer2;
-[ai_opplayer2,blue_dragon_4684] @dragon_ai_opplayer2;
+[ai_opplayer2,red_dragon2] @dragon_ai_opplayer2;
+[ai_opplayer2,red_dragon3] @dragon_ai_opplayer2;
+[ai_opplayer2,red_dragon4] @dragon_ai_opplayer2;
+[ai_opplayer2,red_dragon5] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon2] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon3] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon4] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon5] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon2] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon3] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon4] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon5] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon2] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon3] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon4] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon5] @dragon_ai_opplayer2;
 
 // edit: elvarg was reworked after the dragon slayer rework.
 // [label,dragon_ai_applayer2]
@@ -135,7 +135,7 @@ spotanim_npc(dragon_breath_shoot, 0, 0);
 // colour_dragon_breath, whose frames are group 2931, the remodelled dragons'
 // (cache 786).
 npc_anim(colour_dragon_breath, 0);
-sound_synth(dragonbreath, 1, 30);
+sound_synth(dragonslayer_dragonbreath, 1, 30);
 %npc_action_delay = add(map_clock, 4);
 
 def_int $attack_roll = ~npc_magic_attack_roll;
@@ -151,10 +151,10 @@ def_int $maxhit = 300;
 // kept. 289 has no prayer message; the wiki gives "Your prayers help resist
 // some of the dragonfire!", and later in the same paragraph, with antifire,
 // "Your prayers resist some of the dragon fire".
-if (inv_total(worn, anti_dragon_shield) > 0) {
+if (inv_total(worn, antidragonbreathshield) > 0) {
     $maxhit = 50;
     mes("Your shield absorbs most of the dragon's fiery breath!");
-} else if (%prayer12 = ^true) {
+} else if (%varplayerbit_5954 = ^true) {
     $maxhit = 100;
     mes("Your prayers help resist some of the dragonfire!");
 } else if (randominc($attack_roll) > randominc($defence_roll)) {

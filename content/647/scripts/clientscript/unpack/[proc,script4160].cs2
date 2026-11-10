@@ -1,7 +1,7 @@
 // 4160
 [proc,script4160](component $component0, int $int1, int $int2)
 if ($int2 > 0) {
-    if_setontimer("script4159(event_com, $int1, calc($int2 - 1))", $component0);
+    if_setontimer($component0, "script4159(event_com, $int1, calc($int2 - 1))");
     return;
 }
 def_int $int3 = 0;
@@ -17,8 +17,8 @@ if (cc_find($component0, 0) = true) {
     $int4 = min($int4, 255);
 }
 if ($int4 = 0 & $int1 = 0 | $int4 = 255 & $int1 = 1) {
-    if_setontimer(null, $component0);
+    if_setontimer($component0, null);
 } else {
-    if_setontimer("script4159(event_com, $int1, 0)", $component0);
+    if_setontimer($component0, "script4159(event_com, $int1, 0)");
 }
 ~script4161($component0, $int4);

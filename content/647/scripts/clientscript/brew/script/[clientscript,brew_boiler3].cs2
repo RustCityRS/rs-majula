@@ -1,10 +1,10 @@
 // 1749
 [clientscript,brew_boiler3](component $component0, component $component1)
-if (%varclient_230 > 2) {
-    if_setmodel(model_15682, $component0);
-    if_setcolour(0x33ff00, $component1);
+if (%brew_varc_boiler3 > 2) {
+    if_setmodel($component0, model_15682);
+    if_setcolour($component1, 0x33ff00);
 } else {
-    if_setmodel(model_15681, $component0);
-    if_setcolour(0x910000, $component1);
+    if_setmodel($component0, model_15681);
+    if_setcolour($component1, 0x910000);
 }
-if_settext(tostring(%varclient_230), $component1);
+if_settext($component1, tostring(%brew_varc_boiler3));

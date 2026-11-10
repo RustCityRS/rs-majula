@@ -1,7 +1,7 @@
 // 2361
 [clientscript,script2361](int $int0)
-if (%varplayerbit_8271 = 0) {
+if (%vkq3_puzz1_select = 0) {
     return;
 }
-def_component $component1 = enum(int, component, enum_2352, %varplayerbit_8271);
-if_setparam_int(param_1224, $int0, $component1);
+def_component $component1 = enum(int, component, enum_2352, %vkq3_puzz1_select);
+if_setparam_int($component1, param_1224, $int0);

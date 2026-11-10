@@ -1,8 +1,8 @@
 [opheldu,potato]
 switch_obj (last_useitem) {
-    case bowl_of_water : @make_incomplete_stew(last_slot);
+    case bowl_water : @make_incomplete_stew(last_slot);
     case stew2 : @make_uncooked_stew(last_slot, last_useslot);
-    case bowl : @no_water_stew_message;
+    case bowl_empty : @no_water_stew_message;
     case raw_chompy : @quest_chompybird_add_ingredients_to_chompy_message;
     case half_baked_bowl : @add_bowl_ingredient(last_item);
     case default : ~displaymessage(^dm_default);
@@ -10,17 +10,17 @@ switch_obj (last_useitem) {
 
 [opheldu,uncooked_stew]
 switch_obj (last_useitem) {
-    case spice : @make_curry;
+    case spicespot : @make_curry;
 }
 
-[opheldu,spice]
+[opheldu,spicespot]
 switch_obj (last_useitem) {
     case uncooked_stew : @make_curry;
 }
 
 [opheld1,burnt_stew]
 inv_del(inv, burnt_stew, 1);
-inv_add(inv, bowl, 1);
+inv_add(inv, bowl_empty, 1);
 mes("You empty the burnt stew from the bowl.");
 
 
@@ -33,14 +33,14 @@ if (stat(cooking) < 25) {
     return;
 }
 def_obj $ingredient = inv_getobj(inv, $last);
-inv_del(inv, bowl_of_water, 1);
+inv_del(inv, bowl_water, 1);
 inv_del(inv, $ingredient, 1);
 if ($ingredient = cooked_meat | $ingredient = cooked_chicken) {
     mes("You cut up the meat and put it into the bowl.");
     inv_add(inv, stew2, 1);
 } else {
     mes("You cut up the <lowercase(oc_name($ingredient))> and put it into the bowl.");
-    inv_add(inv, incomplete_stew, 1);
+    inv_add(inv, stew1, 1);
 }
 
 [label,make_uncooked_stew](int $last_slot, int $last_useslot)
@@ -56,7 +56,7 @@ inv_del(inv, $used_with, 1);
 //add the uncooked stew
 inv_add(inv, uncooked_stew, 1);
 //display message
-if ($used_on = incomplete_stew | $used_with = incomplete_stew) {
+if ($used_on = stew1 | $used_with = stew1) {
     mes("You cut up the meat and put it into the stew.");
 } else {
     mes("You cut up the <lowercase(oc_name($used_on))> and put it into the stew.");
@@ -68,12 +68,12 @@ if (map_members = ^false) {
     return;
 }
 inv_del(inv, uncooked_stew, 1);
-inv_del(inv, spice, 1);
+inv_del(inv, spicespot, 1);
 
 inv_add(inv, uncooked_curry, 1);
 mes("You add the spice to the stew and make a curry.");
 
 [opheld1,burnt_curry]
 inv_del(inv, burnt_curry, 1);
-inv_add(inv, bowl, 1);
+inv_add(inv, bowl_empty, 1);
 mes("You empty the burnt curry from the bowl.");

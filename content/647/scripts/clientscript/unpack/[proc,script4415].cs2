@@ -1,16 +1,16 @@
 // 4415
 [proc,script4415]
-if_settext(activeclansettings_getclanname, clan_info:title_text);
-if_settext("Game time:<br><~clan_offset_tostring(%varclansetting_0)>", clan_info:timezone_text);
-if_settext(activeclansettings_getaffineddisplayname(activeclansettings_getcurrentowner_slot), clan_info:leader_text);
-if (%varclansetting_6 > 0) {
-    if_settext(tostring(%varclansetting_6), clan_info:homeworld_text);
+if_settext(clan_info:title_text, activeclansettings_getclanname);
+if_settext(clan_info:timezone_text, "Game time:<br><~clan_offset_tostring(%clan_time_offset_varclan)>");
+if_settext(clan_info:leader_text, activeclansettings_getaffineddisplayname(activeclansettings_getcurrentowner_slot));
+if (%clan_homeworld_varclan > 0) {
+    if_settext(clan_info:homeworld_text, tostring(%clan_homeworld_varclan));
 }
-if_settext(tostring(activeclansettings_getaffinedcount), clan_info:clansize_text);
-if (%varclansetting_4 = 0) {
-    if_settext("This clan is not recruiting.", clan_info:recruiting_text);
-} else if (%varclansetting_4 = 1) {
-    if_settext("This clan is recruiting.", clan_info:recruiting_text);
+if_settext(clan_info:clansize_text, tostring(activeclansettings_getaffinedcount));
+if (%clan_is_recruiting_varclan = 0) {
+    if_settext(clan_info:recruiting_text, "This clan is not recruiting.");
+} else if (%clan_is_recruiting_varclan = 1) {
+    if_settext(clan_info:recruiting_text, "This clan is recruiting.");
 }
 ~script4332(clan_info:logo1_gfx, clan_info:logo2_gfx);
 ~script4334(clan_info:colour1, clan_info:colour2);
@@ -19,4 +19,4 @@ if (%varclansetting_4 = 0) {
 ~script4329(clan_info:qfc_text);
 ~script4328(clan_info:flag);
 ~script4420;
-if_sethide(true, clan_info:clan_data_waiting);
+if_sethide(clan_info:clan_data_waiting, true);

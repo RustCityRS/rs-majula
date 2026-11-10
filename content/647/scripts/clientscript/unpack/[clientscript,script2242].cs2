@@ -1,54 +1,54 @@
 // 2242
 [clientscript,script2242]
 sound_synth(synth_8727, 3, 0);
-if_settext("Turns taken score: <tostring(%varplayer_1674)> x 101 = <tostring(calc(%varplayer_1674 * 101))>", easter10_gameresult:turnscore);
-if_settext("Resources spare: <tostring(calc(%varplayer_1688 + (%varplayer_1687 + %varplayer_1686)))> x -10 = -<tostring(calc((%varplayer_1688 + (%varplayer_1687 + %varplayer_1686)) * 10))>", easter10_gameresult:resourcesscore);
-if (%varplayer_1674 < 16) {
-    if_settext("Completed within turn limit: -100", easter10_gameresult:underparscore);
+if_settext(easter10_gameresult:turnscore, "Turns taken score: <tostring(%easter10_resourcegame_turncount)> x 101 = <tostring(calc(%easter10_resourcegame_turncount * 101))>");
+if_settext(easter10_gameresult:resourcesscore, "Resources spare: <tostring(calc(%easter10_resourcegame_totalfruit + (%easter10_resourcegame_totalnuts + %easter10_resourcegame_totalchoc)))> x -10 = -<tostring(calc((%easter10_resourcegame_totalfruit + (%easter10_resourcegame_totalnuts + %easter10_resourcegame_totalchoc)) * 10))>");
+if (%easter10_resourcegame_turncount < 16) {
+    if_settext(easter10_gameresult:underparscore, "Completed within turn limit: -100");
 } else {
-    if_settext("Not completed within turn limit: 0", easter10_gameresult:underparscore);
+    if_settext(easter10_gameresult:underparscore, "Not completed within turn limit: 0");
 }
-if_settext("Workers employed: <tostring(%varplayer_1681)> x -10 = -<tostring(calc(%varplayer_1681 * 10))>", easter10_gameresult:workersemployedscore);
-if_settext("Turns taken: <tostring(%varplayer_1674)>", easter10_gameresult:turncount);
-if (%varplayerbit_7324 = 0) {
-    if_settext("Oven not repaired: 50", easter10_gameresult:incubatorrepaired);
+if_settext(easter10_gameresult:workersemployedscore, "Workers employed: <tostring(%easter10_resourcegame_totalworkers)> x -10 = -<tostring(calc(%easter10_resourcegame_totalworkers * 10))>");
+if_settext(easter10_gameresult:turncount, "Turns taken: <tostring(%easter10_resourcegame_turncount)>");
+if (%easter10_incubator_status = 0) {
+    if_settext(easter10_gameresult:incubatorrepaired, "Oven not repaired: 50");
 } else {
-    if_settext("Oven repaired: 0", easter10_gameresult:incubatorrepaired);
+    if_settext(easter10_gameresult:incubatorrepaired, "Oven repaired: 0");
 }
-if (%varplayerbit_7326 = 0) {
-    if_settext("Conveyor not repaired: 50", easter10_gameresult:conveyorrepaired);
+if (%easter10_conveyor_status = 0) {
+    if_settext(easter10_gameresult:conveyorrepaired, "Conveyor not repaired: 50");
 } else {
-    if_settext("Conveyor repaired: 0", easter10_gameresult:conveyorrepaired);
+    if_settext(easter10_gameresult:conveyorrepaired, "Conveyor repaired: 0");
 }
-if (%varplayerbit_7325 = 0) {
-    if_settext("Painter not repaired: 50", easter10_gameresult:painterepaired);
+if (%easter10_painter_status = 0) {
+    if_settext(easter10_gameresult:painterepaired, "Painter not repaired: 50");
 } else {
-    if_settext("Painter repaired: 0", easter10_gameresult:painterepaired);
+    if_settext(easter10_gameresult:painterepaired, "Painter repaired: 0");
 }
 def_int $int0 = 0;
-$int0 = calc(%varplayer_1674 * 101);
-if (%varplayerbit_7325 = 0) {
+$int0 = calc(%easter10_resourcegame_turncount * 101);
+if (%easter10_painter_status = 0) {
     $int0 = calc($int0 + 50);
 }
-if (%varplayerbit_7324 = 0) {
+if (%easter10_incubator_status = 0) {
     $int0 = calc($int0 + 50);
 }
-if (%varplayerbit_7326 = 0) {
+if (%easter10_conveyor_status = 0) {
     $int0 = calc($int0 + 50);
 }
-$int0 = calc($int0 - (%varplayer_1688 + (%varplayer_1687 + %varplayer_1686)) * 10);
-if (%varplayer_1674 < 16) {
+$int0 = calc($int0 - (%easter10_resourcegame_totalfruit + (%easter10_resourcegame_totalnuts + %easter10_resourcegame_totalchoc)) * 10);
+if (%easter10_resourcegame_turncount < 16) {
     $int0 = calc($int0 - 100);
 }
-$int0 = calc($int0 - %varplayer_1681 * 10);
+$int0 = calc($int0 - %easter10_resourcegame_totalworkers * 10);
 if ($int0 < 0) {
     $int0 = 0;
 }
 if ($int0 > 32768) {
     $int0 = 32768;
 }
-if ($int0 = %varplayerbit_7339) {
-    if_settext("Final score: <tostring($int0)> (New best score)", easter10_gameresult:finalscore);
+if ($int0 = %easter10_resourcegame_score) {
+    if_settext(easter10_gameresult:finalscore, "Final score: <tostring($int0)> (New best score)");
 } else {
-    if_settext("Final score: <tostring($int0)>", easter10_gameresult:finalscore);
+    if_settext(easter10_gameresult:finalscore, "Final score: <tostring($int0)>");
 }

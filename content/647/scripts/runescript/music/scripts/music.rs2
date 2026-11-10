@@ -93,7 +93,7 @@ if ($var = 1) {
 [label,music_play](midi $song)
 %currentsong = $song;
 %musicstart = map_clock;
-%musiclength = midi_length($song);
+%varplayer_415 = midi_length($song);
 midi_song(%currentsong);
 
 // A track a quest scene plays, unlocked as it starts if it was not, with the
@@ -113,7 +113,7 @@ if ($unlock ! null) {
 if_settext(music_v3:now_playing_text, db_getfield($song, music:name, 0));
 %currentsong = db_getfield($song, music:track, 0);
 %musicstart = map_clock;
-%musiclength = midi_length(%currentsong);
+%varplayer_415 = midi_length(%currentsong);
 midi_song(%currentsong);
 
 [proc,music_jingle](midi $jingle)
@@ -191,7 +191,7 @@ if (%currentsong = null) {
     return;
 }
 
-if (map_clock > add(%musicstart, %musiclength)) {
+if (map_clock > add(%musicstart, %varplayer_415)) {
     %currentsong = null;
     @music_playbyregion(coord);
 }

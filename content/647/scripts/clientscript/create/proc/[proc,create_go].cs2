@@ -29,14 +29,14 @@ if (compare(%varclient_1641, %varclient_1845) ! 0) {
 }
 def_boolean $boolean6 = ~script3954(0);
 if ($int4 = 1 & $int5 = 1 & $boolean1 = true & $boolean2 = true & $int3 = 1 & $boolean6 = true) {
-    if (%varclient_1407 < 13) {
+    if (%create_age < 13) {
         unknown_command_5626;
         ~script4038;
     } else if (unknown_command_5625 = true) {
         ~script4038;
     } else {
-        unknown_command_5605(%varclient_1641, %varclient_1643, %varclient_1407, %varclient_1411);
-        if_setontimer("create_go_timer", account_create:continue);
+        unknown_command_5605(%varclient_1641, %varclient_1643, %create_age, %create_send_me_news);
+        if_setontimer(account_create:continue, "create_go_timer");
     }
 } else {
     ~create_please_wait(0);

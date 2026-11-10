@@ -1,9 +1,9 @@
 // 1303
 [clientscript,switchside_op](int $int0)
-%varclient_10 = 0;
+%last_switchsided_stone = 0;
 ~if_switchside_op($int0);
-if (%varclient_168 = $int0) {
-    %varclient_168 = -1;
+if (%if_switchside_varc = $int0) {
+    %if_switchside_varc = -1;
 } else {
-    %varclient_168 = $int0;
+    %if_switchside_varc = $int0;
 }

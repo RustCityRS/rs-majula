@@ -1,6 +1,6 @@
 // 1510
 [clientscript,player_kit_body_vartransmit]
-if (%varplayerbit_6091 ! %varclient_778) {
-    %varclient_778 = %varplayerbit_6091;
+if (%player_kit_body_viewing ! %player_kit_body_layer) {
+    %player_kit_body_layer = %player_kit_body_viewing;
     ~player_kit_body_redraw;
 }

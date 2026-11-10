@@ -1,7 +1,7 @@
 // 2082
 [clientscript,snp_update_game_red_level]
-if (%varclient_640 > 0) {
-    if_settext(tostring(%varclient_642), snp_game_overlay:red_level);
+if (%snp_red_boss_health_client > 0) {
+    if_settext(snp_game_overlay:red_level, tostring(%snp_red_boss_slayer_level_client));
 } else {
-    if_settext("---", snp_game_overlay:red_level);
+    if_settext(snp_game_overlay:red_level, "---");
 }

@@ -15,14 +15,14 @@
 ~fairyrings_rotate_component($component12, %varclient_124);
 ~fairyrings_rotate_component($component13, %varclient_124);
 ~fairyrings_rotate_component($component14, %varclient_124);
-if (%varclient_125 < clientclock) {
-    if_sethide(false, $component15);
-    if_sethide(true, $component16);
+if (%fairyrings_lastrotate < clientclock) {
+    if_sethide($component15, false);
+    if_sethide($component16, true);
 } else {
-    if (%varclient_156 <= clientclock & %varclient_157 = true) {
-        sound_synth(synth_2871, 1, 0);
-        %varclient_156 = calc(clientclock + 10);
+    if (%fairyrings_nextsound <= clientclock & %fairyrings_hasclicked = true) {
+        sound_synth(ft_fairyrings, 1, 0);
+        %fairyrings_nextsound = calc(clientclock + 10);
     }
-    if_sethide(true, $component15);
-    if_sethide(false, $component16);
+    if_sethide($component15, true);
+    if_sethide($component16, false);
 }

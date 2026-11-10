@@ -16,42 +16,42 @@ switch_int ($int0) {
             case 5 :
                 return(30, dragon_halberd, "Dragon halberd<br> (with 60 Attack)", "Members now have the Strength level required to wield <col=000080>dragon halberds</col>. (They also need level 60 Attack.)");
             case 6 :
-                return(42, void_knight_mace, "Members: Void knight mace", "Members now have the Strength level required to wield <col=000080>Void knight maces</col>.");
+                return(42, pest_void_knight_mace, "Members: Void knight mace", "Members now have the Strength level required to wield <col=000080>Void knight maces</col>.");
             case 7 :
                 return(50, granite_maul, "Granite maul<br> (with 50 Attack)", "Members now have the Strength level required to wield <col=000080>granite mauls</col>. (They also need level 50 Attack.)");
             case 8 :
-                return(50, granite_mace, "Granite mace<br> (with 50 Attack)", "Members now have the Strength level required to wield <col=000080>granite maces</col>. (They also need level 50 Attack.)");
+                return(50, chosen_granite_mace, "Granite mace<br> (with 50 Attack)", "Members now have the Strength level required to wield <col=000080>granite maces</col>. (They also need level 50 Attack.)");
             case 9 :
-                return(60, tzhaar_ket_om, "Tzhaar-Ket-Om", "Members can now wield <col=000080>Tzhaar-Ket-Om</col>.");
+                return(60, tzhaar_maul, "Tzhaar-Ket-Om", "Members can now wield <col=000080>Tzhaar-Ket-Om</col>.");
             case 10 :
-                return(70, dharok_s_greataxe, "Dharok's greataxe<br> (with 70 Attack)", "Members now have the Strength level required to wield <col=000080>Dharok's greataxe</col>. (They also need level 70 Attack.)");
+                return(70, barrows_dharok_weapon, "Dharok's greataxe<br> (with 70 Attack)", "Members now have the Strength level required to wield <col=000080>Dharok's greataxe</col>. (They also need level 70 Attack.)");
             case 11 :
-                return(70, torag_s_hammers, "Torag's hammers<br> (with 70 Attack)", "Members now have the Strength level required to wield <col=000080>Torag's hammers</col>. (They also need level 70 Attack.)");
+                return(70, barrows_torag_weapon, "Torag's hammers<br> (with 70 Attack)", "Members now have the Strength level required to wield <col=000080>Torag's hammers</col>. (They also need level 70 Attack.)");
             case 12 :
-                return(75, balmung, "Members: Balmung (after Blood Runs Deep and with 75 Attack)", "Members can now wield <col=000080>Balmung</col> (after Blood Runs Deep, with 75 Attack).");
+                return(75, evq_axe, "Members: Balmung (after Blood Runs Deep and with 75 Attack)", "Members can now wield <col=000080>Balmung</col> (after Blood Runs Deep, with 75 Attack).");
         }
     case 1 :
         switch_int ($int1) {
             case 0 :
-                return(20, black_mask, "Members: Black mask<br> (with 10 Defence)", "Members can now wear <col=000080>black masks (with 10 Defence)</col>.");
+                return(20, harmless_black_mask, "Members: Black mask<br> (with 10 Defence)", "Members can now wear <col=000080>black masks (with 10 Defence)</col>.");
             case 1 :
-                return(20, full_slayer_helmet, "Members: Full Slayer helmet<br> (after Smoking Kills with 20 Ranged, Magic and 10 Defence)", "Members can now wear <col=000080>full slayer helmets</col> (after Smoking Kills with 20 Ranged, Magic and 10 Defence).");
+                return(20, slayer_helmet_allcombats, "Members: Full Slayer helmet<br> (after Smoking Kills with 20 Ranged, Magic and 10 Defence)", "Members can now wear <col=000080>full slayer helmets</col> (after Smoking Kills with 20 Ranged, Magic and 10 Defence).");
             case 2 :
-                return(42, void_melee_helm, "Members: Void melee helm", "Members now have the Strength level required to wear <col=000080>Void melee helms</col>.");
+                return(42, game_pest_melee_helm, "Members: Void melee helm", "Members now have the Strength level required to wear <col=000080>Void melee helms</col>.");
             case 3 :
-                return(42, void_ranger_helm, "Members: Void ranger helm", "Members now have the Strength level required to wear <col=000080>Void ranger helms</col>.");
+                return(42, game_pest_archer_helm, "Members: Void ranger helm", "Members now have the Strength level required to wear <col=000080>Void ranger helms</col>.");
             case 4 :
-                return(42, void_mage_helm, "Members: Void mage helm", "Members now have the Strength level required to wear <col=000080>Void mage helms</col>.");
+                return(42, game_pest_mage_helm, "Members: Void mage helm", "Members now have the Strength level required to wear <col=000080>Void mage helms</col>.");
             case 5 :
-                return(42, void_knight_top, "Members: Void knight top", "Members now have the Strength level required to wear <col=000080>Void knight tops</col>.");
+                return(42, pest_void_knight_top, "Members: Void knight top", "Members now have the Strength level required to wear <col=000080>Void knight tops</col>.");
             case 6 :
-                return(42, void_knight_robe, "Members: Void knight robe", "Members now have the Strength level required to wear <col=000080>Void knight robes</col>.");
+                return(42, pest_void_knight_robes, "Members: Void knight robe", "Members now have the Strength level required to wear <col=000080>Void knight robes</col>.");
             case 7 :
-                return(42, void_knight_gloves, "Members: Void knight gloves", "Members now have the Strength level required to wear <col=000080>Void knight gloves</col>.");
+                return(42, pest_void_knight_gloves, "Members: Void knight gloves", "Members now have the Strength level required to wear <col=000080>Void knight gloves</col>.");
             case 8 :
-                return(42, void_knight_deflector_19712, "Members: Void knight deflector", "Members now have the Strength level required to wear <col=000080>Void knight deflectors</col>.");
+                return(42, conq_reward_shield, "Members: Void knight deflector", "Members now have the Strength level required to wear <col=000080>Void knight deflectors</col>.");
             case 9 :
-                return(42, silvthrill_rod, "Void knight equipment requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer.", "<col=000080>Void knight equipment</col> requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer.");
+                return(42, invis_rod, "Void knight equipment requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer.", "<col=000080>Void knight equipment</col> requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer.");
             case 10 :
                 return(50, granite_helm, "Granite helm<br> (with 50 Defence)", "Members now have the Strength level required to wear <col=000080>granite helms</col>. (They also need level 50 Defence.)");
             case 11 :
@@ -61,11 +61,11 @@ switch_int ($int0) {
             case 13 :
                 return(50, granite_shield, "Granite shield<br> (with 50 Defence)", "Members now have the Strength level required to wield <col=000080>granite shields</col>. (They also need level 50 Defence.)");
             case 14 :
-                return(80, torva_full_helm, "Members: Torva full helm<br> (with 80 Defence and Constitution)", "Members can now wear <col=000080>torva full helms</col>. (They also need level 80 Defence and Constitution.)");
+                return(80, godwars2_helm_melee_100, "Members: Torva full helm<br> (with 80 Defence and Constitution)", "Members can now wear <col=000080>torva full helms</col>. (They also need level 80 Defence and Constitution.)");
             case 15 :
-                return(80, torva_platebody, "Members: Torva platebody<br> (with 80 Defence and Constitution)", "Members can now wear <col=000080>torva platebodies</col>. (They also need level 80 Defence and Constitution.)");
+                return(80, godwars2_body_melee_100, "Members: Torva platebody<br> (with 80 Defence and Constitution)", "Members can now wear <col=000080>torva platebodies</col>. (They also need level 80 Defence and Constitution.)");
             case 16 :
-                return(80, torva_platelegs, "Members: Torva platelegs<br> (with 80 Defence and Constitution)", "Members can now wear <col=000080>torva platelegs</col>. (They also need level 80 Defence and Constitution.)");
+                return(80, godwars2_legs_melee_100, "Members: Torva platelegs<br> (with 80 Defence and Constitution)", "Members can now wear <col=000080>torva platelegs</col>. (They also need level 80 Defence and Constitution.)");
         }
     case 2 :
         switch_int ($int1) {
@@ -88,60 +88,60 @@ switch_int ($int0) {
         }
     case 3 :
         if ($int1 = 0) {
-            return(60, rock_4043, "God Wars Dungeon access via the Strength route", "You can now access the <col=000080>God Wars Dungeon</col> via the <col=000080>Strength route</col>.");
+            return(60, castlewars_catapult_rock, "God Wars Dungeon access via the Strength route", "You can now access the <col=000080>God Wars Dungeon</col> via the <col=000080>Strength route</col>.");
         }
         if ($int1 = 1) {
-            return(70, oak_door, "Bandos's Stronghold of the God Wars Dungeon", "You can now enter the <col=000080>Bandos's Stronghold</col> of the <col=000080>God Wars Dungeon</col>.");
+            return(70, poh_dungeon_door_oak, "Bandos's Stronghold of the God Wars Dungeon", "You can now enter the <col=000080>Bandos's Stronghold</col> of the <col=000080>God Wars Dungeon</col>.");
         }
     case 4 :
         switch_int ($int1) {
             case 0 :
-                return(-1, silvthrill_rod, "To start fishing like a barbarian, talk to Otto Godblessed when you have at least level 48 Fishing and level 15 Agility.", "");
+                return(-1, invis_rod, "To start fishing like a barbarian, talk to Otto Godblessed when you have at least level 48 Fishing and level 15 Agility.", "");
             case 1 :
-                return(15, leaping_trout, "Leaping trout<br> (with 15 Agility and 48 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>leaping trout</col>. (They also need level 15 Agility and level 48 Fishing.)");
+                return(15, brut_spawning_trout, "Leaping trout<br> (with 15 Agility and 48 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>leaping trout</col>. (They also need level 15 Agility and level 48 Fishing.)");
             case 2 :
-                return(30, leaping_salmon, "Leaping salmon<br> (with 30 Agility and 58 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>leaping salmon</col>. (They also need level 30 Agility and level 58 Fishing.)");
+                return(30, brut_spawning_salmon, "Leaping salmon<br> (with 30 Agility and 58 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>leaping salmon</col>. (They also need level 30 Agility and level 58 Fishing.)");
             case 3 :
-                return(35, obj_11322, "Tuna<br> (with 55 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>tuna</col> without a harpoon. (They also need level 55 Fishing.)");
+                return(35, brut_tuna, "Tuna<br> (with 55 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>tuna</col> without a harpoon. (They also need level 55 Fishing.)");
             case 4 :
-                return(45, leaping_sturgeon, "Leaping sturgeon<br> (with 45 Agility and 70 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>leaping sturgeon</col>. (They also need level 45 Agility and level 70 Fishing.)");
+                return(45, brut_sturgeon, "Leaping sturgeon<br> (with 45 Agility and 70 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>leaping sturgeon</col>. (They also need level 45 Agility and level 70 Fishing.)");
             case 5 :
-                return(50, obj_11321, "Swordfish<br> (with 70 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>swordfish</col> without a harpoon. (They also need level 70 Fishing.)");
+                return(50, brut_swordfish, "Swordfish<br> (with 70 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>swordfish</col> without a harpoon. (They also need level 70 Fishing.)");
             case 6 :
-                return(76, obj_11320, "Shark<br> (with 96 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>shark</col> without a harpoon. (They also need level 96 Fishing.)");
+                return(76, brut_shark, "Shark<br> (with 96 Fishing)", "Members versed in the art of barbarian fishing now have the Strength level required to catch <col=000080>shark</col> without a harpoon. (They also need level 96 Fishing.)");
         }
     case 5 :
         switch_int ($int1) {
             case 0 :
-                return(-1, ring_of_kinship, "Dungeoneering skill tasks<br>As your Strength level increases, you will be able to attempt higher-level strength tasks within Daemonheim. You will also be more likely to succeed when attempting strength tasks within Daemonheim.", "");
+                return(-1, rand_mission_contract, "Dungeoneering skill tasks<br>As your Strength level increases, you will be able to attempt higher-level strength tasks within Daemonheim. You will also be more likely to succeed when attempting strength tasks within Daemonheim.", "");
             case 1 :
-                return(1, novite_maul, "Novite maul (Tier 1)", "You can now wield <col=000080>novite mauls</col> within Daemonheim.");
+                return(1, rand_maul_1, "Novite maul (Tier 1)", "You can now wield <col=000080>novite mauls</col> within Daemonheim.");
             case 2 :
-                return(10, bathus_maul, "Bathus maul (Tier 2)", "You can now wield <col=000080>bathus mauls</col> within Daemonheim.");
+                return(10, rand_maul_2, "Bathus maul (Tier 2)", "You can now wield <col=000080>bathus mauls</col> within Daemonheim.");
             case 3 :
-                return(20, marmaros_maul, "Marmaros maul (Tier 3)", "You can now wield <col=000080>marmaros mauls</col> within Daemonheim.");
+                return(20, rand_maul_3, "Marmaros maul (Tier 3)", "You can now wield <col=000080>marmaros mauls</col> within Daemonheim.");
             case 4 :
-                return(30, kratonite_maul, "Kratonite maul (Tier 4)", "You can now wield <col=000080>kratonite mauls</col> within Daemonheim.");
+                return(30, rand_maul_4, "Kratonite maul (Tier 4)", "You can now wield <col=000080>kratonite mauls</col> within Daemonheim.");
             case 5 :
-                return(40, fractite_maul, "Fractite maul (Tier 5)", "You can now wield <col=000080>fractite mauls</col> within Daemonheim.");
+                return(40, rand_maul_5, "Fractite maul (Tier 5)", "You can now wield <col=000080>fractite mauls</col> within Daemonheim.");
             case 6 :
-                return(50, zephyrium_maul, "Members: Zephyrium maul (Tier 6)", "Members can now wield <col=000080>zephyrium mauls</col> within Daemonheim.");
+                return(50, rand_maul_6, "Members: Zephyrium maul (Tier 6)", "Members can now wield <col=000080>zephyrium mauls</col> within Daemonheim.");
             case 7 :
-                return(60, argonite_maul, "Members: Argonite maul (Tier 7)", "Members can now wield <col=000080>argonite mauls</col> within Daemonheim.");
+                return(60, rand_maul_7, "Members: Argonite maul (Tier 7)", "Members can now wield <col=000080>argonite mauls</col> within Daemonheim.");
             case 8 :
-                return(70, katagon_maul, "Members: Katagon maul (Tier 8)", "Members can now wield <col=000080>katagon mauls</col> within Daemonheim.");
+                return(70, rand_maul_8, "Members: Katagon maul (Tier 8)", "Members can now wield <col=000080>katagon mauls</col> within Daemonheim.");
             case 9 :
-                return(80, gorgonite_maul, "Members: Gorgonite maul (Tier 9)", "Members can now wield <col=000080>gorgonite mauls</col> within Daemonheim.");
+                return(80, rand_maul_9, "Members: Gorgonite maul (Tier 9)", "Members can now wield <col=000080>gorgonite mauls</col> within Daemonheim.");
             case 10 :
-                return(90, promethium_maul, "Members: Promethium maul (Tier 10)", "Members can now wield <col=000080>promethium mauls</col> within Daemonheim.");
+                return(90, rand_maul_10, "Members: Promethium maul (Tier 10)", "Members can now wield <col=000080>promethium mauls</col> within Daemonheim.");
             case 11 :
-                return(99, primal_maul, "Members: Primal maul (Tier 11)", "Members can now wield <col=000080>primal mauls</col> within Daemonheim.");
+                return(99, rand_maul_11, "Members: Primal maul (Tier 11)", "Members can now wield <col=000080>primal mauls</col> within Daemonheim.");
         }
     case 6 :
         if ($int1 = 0) {
-            return(-1, obj_8855, "You can enter the Warriors' Guild when your Attack and Strength levels add up to 130 or more, or when you reach level 99 in either Attack or Strength.", "");
+            return(-1, warguild_tokens_5, "You can enter the Warriors' Guild when your Attack and Strength levels add up to 130 or more, or when you reach level 99 in either Attack or Strength.", "");
         }
         if ($int1 = 1) {
-            return(99, strength_cape, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Strength<col=000080>. Members can visit <col=800000>the guard of the Strength training area<col=000080> at the <col=800000>Warriors' Guild<col=000080>. He has something special that is only available to true masters of the <col=800000>Strength<col=000080> skill!");
+            return(99, skillcape_strength, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Strength<col=000080>. Members can visit <col=800000>the guard of the Strength training area<col=000080> at the <col=800000>Warriors' Guild<col=000080>. He has something special that is only available to true masters of the <col=800000>Strength<col=000080> skill!");
         }
 }

@@ -1,4 +1,4 @@
 // 1934
 [clientscript,script1934]
-if_sethide(false, sc_reward_shop:recharge_highlight_rect);
-if_setcolour(^white, sc_reward_shop:recharge_text);
+if_sethide(sc_reward_shop:recharge_highlight_rect, false);
+if_setcolour(sc_reward_shop:recharge_text, ^white);

@@ -13,7 +13,7 @@ if (if_find(clan_chat:clan_list_button_popout_layer) = true) {
         $int1 = max(1, $int1);
         if ($int1 = 1) {
             cc_setontimer(null);
-            if_sethide(true, clan_chat:selected_highlight_layer);
+            if_sethide(clan_chat:selected_highlight_layer, true);
         }
     }
     cc_setsize($int1, 19, ^setsize_abs, ^setsize_abs);

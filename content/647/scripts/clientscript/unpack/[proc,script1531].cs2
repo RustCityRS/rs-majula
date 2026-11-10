@@ -1,12 +1,12 @@
 // 1531
 [proc,script1531]()(int)
 def_int $int0 = 0;
-$int0 = calc($int0 + %varplayerbit_8121);
-$int0 = calc($int0 + %varplayerbit_8122);
-$int0 = calc($int0 + %varplayerbit_8123);
-$int0 = calc($int0 + %varplayerbit_8124);
-$int0 = calc($int0 + %varplayerbit_8125);
-$int0 = calc($int0 + %varplayerbit_8126);
-$int0 = calc($int0 + %varplayerbit_8127);
-$int0 = calc($int0 + %varplayerbit_8128);
+$int0 = calc($int0 + %atjun_elite_nature);
+$int0 = calc($int0 + %atjun_elite_firecape);
+$int0 = calc($int0 + %atjun_elite_boxtrap);
+$int0 = calc($int0 + %atjun_elite_superrestore);
+$int0 = calc($int0 + %atjun_elite_cookshark);
+$int0 = calc($int0 + %atjun_elite_chameleon);
+$int0 = calc($int0 + %atjun_elite_steppingstone);
+$int0 = calc($int0 + %atjun_elite_slayerpoints);
 return($int0);

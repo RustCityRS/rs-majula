@@ -1,7 +1,7 @@
 // 1613
 [clientscript,inventory_init](component $component0, int $int1)
 if ($int1 = 1) {
-    %varclient_1031 = 0;
+    %inventory_target = 0;
 }
 def_int $int2 = inv_size(inv);
 def_int $int3 = calc($int2 * 2 - 1);
@@ -31,7 +31,7 @@ def_int $int5 = calc($int2 / 4);
 def_int $int6 = calc((if_getwidth($component0) - 4 * 36) / 3);
 def_int $int7 = calc((if_getheight($component0) - $int5 * 32) / 6);
 def_obj $obj8 = null;
-$int3 = calc(%varclient_1031 - 1);
+$int3 = calc(%inventory_target - 1);
 $int4 = 0;
 while ($int4 < $int2) {
     if (cc_find($component0, $int4) = true) {
@@ -54,7 +54,7 @@ while ($int4 < $int2) {
             cc_setobject(null, 0);
             cc_setoutline(1);
             if ($int4 = $int3) {
-                %varclient_1031 = 0;
+                %inventory_target = 0;
             }
         }
     }

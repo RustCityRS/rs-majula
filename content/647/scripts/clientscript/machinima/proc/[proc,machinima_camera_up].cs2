@@ -1,5 +1,5 @@
 // 2858
 [proc,machinima_camera_up]
-if (%varclient_1069 < 5000) {
-    %varclient_1069 = calc(%varclient_1069 + 50);
+if (%machinima_livecamera_height < 5000) {
+    %machinima_livecamera_height = calc(%machinima_livecamera_height + 50);
 }

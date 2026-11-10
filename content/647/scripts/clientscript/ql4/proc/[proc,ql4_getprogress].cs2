@@ -2,13 +2,13 @@
 [proc,ql4_getprogress](int $int0)(int)
 switch_int ($int0) {
     case 147 :
-        return(~ql4_getprogress_basic(%learning_the_ropes, 1000));
+        return(~ql4_getprogress_basic(%tutorial, 1000));
     case 159 :
         return(~ql4_getprogress_basic(%spy, 4));
     case 1 :
         return(~ql4_getprogress_basic(%cookquest, 2));
     case 2 :
-        return(~ql4_getprogress_basic(%demon_slayer, 3));
+        return(~ql4_getprogress_basic(%demonslayer_main, 3));
     case 3 :
         return(~ql4_getprogress_basic(%doricquest, 100));
     case 4 :
@@ -16,7 +16,7 @@ switch_int ($int0) {
     case 5 :
         return(~ql4_getprogress_basic(%haunted, 3));
     case 6 :
-        return(~ql4_getprogress_basic(%varplayerbit_2378, 6));
+        return(~ql4_getprogress_basic(%gobdip_main, 6));
     case 7 :
         return(~ql4_getprogress_basic(%imp, 2));
     case 8 :
@@ -30,13 +30,13 @@ switch_int ($int0) {
     case 13 :
         return(~ql4_getprogress_basic(%runemysteries, 6));
     case 15 :
-        return(~ql4_getprogress_multi(%blackarmgang, 7, %phoenixgang, 4));
+        return(~ql4_getprogress_multi(%phoenixgang, 7, %blackarmgang, 4));
     case 16 :
-        return(~ql4_getprogress_basic(%varplayerbit_6914, 3));
+        return(~ql4_getprogress_basic(%vampire_quest, 3));
     case 18 :
-        return(~ql4_getprogress_basic(%varplayerbit_3185, 240));
+        return(~ql4_getprogress_basic(%anma_main, 240));
     case 19 :
-        return(~ql4_getprogress_basic(%varplayerbit_299, 110));
+        return(~ql4_getprogress_basic(%dwarfrock_quest, 110));
     case 20 :
         return(~ql4_getprogress_basic(%chompybird, 65));
     case 21 :
@@ -46,27 +46,27 @@ switch_int ($int0) {
     case 23 :
         return(~ql4_getprogress_basic(%cogquest, 8));
     case 24 :
-        return(~ql4_getprogress_basic(%varplayerbit_3274, 130));
+        return(~ql4_getprogress_basic(%contact, 130));
     case 25 :
-        return(~ql4_getprogress_basic(%varplayerbit_487, 14));
+        return(~ql4_getprogress_basic(%zogre, 14));
     case 26 :
-        if (%varplayer_399 > 6) {
+        if (%fenk_quest > 6) {
             return(2);
         }
-        if (%varplayer_399 = 0 & %varplayerbit_203 = 0) {
+        if (%fenk_quest = 0 & %fenk_read_signpost = 0) {
             return(0);
         }
         return(1);
     case 27 :
-        return(~ql4_getprogress_basic(%varplayerbit_2573, 320));
+        return(~ql4_getprogress_basic(%myq3_main_quest, 320));
     case 28 :
-        return(~ql4_getprogress_basic(%varplayerbit_2258, 13));
+        return(~ql4_getprogress_basic(%dttd_main, 13));
     case 29 :
         return(~ql4_getprogress_basic(%death_equiproom, 80));
     case 30 :
-        return(~ql4_getprogress_basic(%varplayerbit_358, 15));
+        return(~ql4_getprogress_basic(%deserttreasure, 15));
     case 31 :
-        return(~ql4_getprogress_basic(%varplayerbit_1465, 80));
+        return(~ql4_getprogress_basic(%devious_main, 80));
     case 32 :
         return(~ql4_getprogress_basic(%itexamlevel, 9));
     case 33 :
@@ -76,7 +76,7 @@ switch_int ($int0) {
     case 35 :
         return(~ql4_getprogress_basic(%eadgar_quest, 110));
     case 36 :
-        return(~ql4_getprogress_basic(%varplayerbit_2780, 40));
+        return(~ql4_getprogress_basic(%eaglepeak_quest, 40));
     case 37 :
         if (testbit(%elemental_workshop_bits, 20) = ^true) {
             return(2);
@@ -86,47 +86,47 @@ switch_int ($int0) {
             return(1);
         }
     case 38 :
-        return(~ql4_getprogress_basic(%varplayerbit_2639, 11));
+        return(~ql4_getprogress_basic(%elemental_quest_2_main, 11));
     case 39 :
-        return(~ql4_getprogress_basic(%varplayerbit_1560, 70));
+        return(~ql4_getprogress_basic(%enakh_quest, 70));
     case 40 :
-        return(~ql4_getprogress_basic(%varplayerbit_2866, 200));
+        return(~ql4_getprogress_basic(%zep_quest, 200));
     case 41 :
-        return(~ql4_getprogress_basic(%varplayerbit_2497, 60));
+        return(~ql4_getprogress_basic(%eyeglo_quest, 60));
     case 42 :
-        return(~ql4_getprogress_basic(%varplayerbit_1803, 90));
+        return(~ql4_getprogress_basic(%fairy_farmers_quest, 90));
     case 43 :
-        return(~ql4_getprogress_basic(%varplayerbit_2326, 90));
+        return(~ql4_getprogress_basic(%fairy2_queencure_quest, 90));
     case 44 :
         return(~ql4_getprogress_basic(%crestquest, 11));
     case 45 :
-        return(~ql4_getprogress_basic(%varplayerbit_334, 28));
+        return(~ql4_getprogress_basic(%feud_var, 28));
     case 46 :
         return(~ql4_getprogress_basic(%arenaquest, 14));
     case 47 :
         return(~ql4_getprogress_basic(%fishingcompo, 5));
     case 48 :
-        return(~ql4_getprogress_basic(%varplayerbit_822, 140));
+        return(~ql4_getprogress_basic(%forget_quest, 140));
     case 49 :
         return(~ql4_getprogress_basic(%viking, 10));
     case 50 :
         return(~ql4_getprogress_basic(%waterfall_quest, 10));
     case 51 :
-        return(~ql4_getprogress_basic(%varplayerbit_961, 60));
+        return(~ql4_getprogress_basic(%garden_quest, 60));
     case 52 :
         return(~ql4_getprogress_basic(%fluffs, 6));
     case 53 :
-        return(~ql4_getprogress_basic(%varplayerbit_217, 8));
+        return(~ql4_getprogress_basic(%ahoy_questvar, 8));
     case 54 :
-        return(~ql4_getprogress_basic(%varplayerbit_571, 50));
+        return(~ql4_getprogress_basic(%giantdwarf_quest, 50));
     case 55 :
-        return(~ql4_getprogress_basic(%varplayerbit_346, 10));
+        return(~ql4_getprogress_basic(%golem_a, 10));
     case 56 :
         return(~ql4_getprogress_basic(%grandtree, 160));
     case 57 :
-        return(~ql4_getprogress_basic(%varplayerbit_1527, 160));
+        return(~ql4_getprogress_basic(%handsand_quest, 160));
     case 58 :
-        return(~ql4_getprogress_basic(%varplayer_382, 11));
+        return(~ql4_getprogress_basic(%hauntedmine, 11));
     case 59 :
         return(~ql4_getprogress_basic(%hazeelcultquest, 9));
     case 60 :
@@ -136,11 +136,11 @@ switch_int ($int0) {
     case 62 :
         return(~ql4_getprogress_basic(%horrorquest, 10));
     case 63 :
-        return(~ql4_getprogress_basic(%varplayerbit_418, 26));
+        return(~ql4_getprogress_basic(%ics_little_var, 26));
     case 64 :
-        return(~ql4_getprogress_basic(%varplayerbit_1990, 430));
+        return(~ql4_getprogress_basic(%myreque_2_quest, 430));
     case 65 :
-        return(~ql4_getprogress_basic(%varplayer_387, 105));
+        return(~ql4_getprogress_basic(%routequest, 105));
     case 66 :
         return(~ql4_getprogress_basic(%junglepotion, 12));
     case 67 :
@@ -148,27 +148,27 @@ switch_int ($int0) {
     case 68 :
         return(~ql4_getprogress_basic(%zanaris, 6));
     case 69 :
-        return(~ql4_getprogress_basic(%varplayerbit_532, 11));
+        return(~ql4_getprogress_basic(%lost_tribe_quest, 11));
     case 70 :
-        return(~ql4_getprogress_basic(%varplayerbit_2448, 190));
+        return(~ql4_getprogress_basic(%lunar_quest_main, 190));
     case 71 :
-        return(~ql4_getprogress_basic(%varplayerbit_1383, 4));
+        return(~ql4_getprogress_basic(%makinghistory_prog, 4));
     case 72 :
         return(~ql4_getprogress_basic(%arthur, 7));
     case 73 :
-        return(~ql4_getprogress_detail(%varplayer_365, 1, 9));
+        return(~ql4_getprogress_detail(%mm_main, 1, 9));
     case 74 :
         return(~ql4_getprogress_basic(%drunkmonkquest, 80));
     case 75 :
-        return(~ql4_getprogress_basic(%varplayerbit_260, 70));
+        return(~ql4_getprogress_basic(%mdaughter_quest_var, 70));
     case 76 :
         return(~ql4_getprogress_basic(%varplayer_517, 8));
     case 77 :
-        return(~ql4_getprogress_detail(%varplayerbit_1103, 9, 60));
+        return(~ql4_getprogress_detail(%mourning_quest_main, 9, 60));
     case 78 :
         return(~ql4_getprogress_basic(%murderquest, 2));
     case 79 :
-        return(~ql4_getprogress_basic(%varplayerbit_2790, 320));
+        return(~ql4_getprogress_basic(%myarm, 320));
     case 80 :
         return(~ql4_getprogress_basic(%druidspirit, 110));
     case 81 :
@@ -182,17 +182,17 @@ switch_int ($int0) {
     case 85 :
         return(~ql4_getprogress_basic(%varplayerbit_6178, 4));
     case 86 :
-        return(~ql4_getprogress_basic(%varplayerbit_1404, 127));
+        return(~ql4_getprogress_basic(%ratcatch_var, 127));
     case 87 :
-        return(~ql4_getprogress_basic(%varplayerbit_1850, 5));
+        return(~ql4_getprogress_basic(%hundred_main_quest_var, 5));
     case 88 :
-        return(~ql4_getprogress_basic(%varplayerbit_657, 2));
+        return(~ql4_getprogress_basic(%rd_main, 2));
     case 89 :
         return(~ql4_getprogress_basic(%regicide_quest, 15));
     case 90 :
         return(~ql4_getprogress_basic(%varplayer_402, 6));
     case 91 :
-        return(~ql4_getprogress_basic(%varplayerbit_2140, 30));
+        return(~ql4_getprogress_basic(%royal_quest, 30));
     case 92 :
         return(~ql4_getprogress_basic(%varplayer_600, 19));
     case 93 :
@@ -200,31 +200,31 @@ switch_int ($int0) {
     case 94 :
         return(~ql4_getprogress_basic(%seaslugquest, 12));
     case 95 :
-        return(~ql4_getprogress_basic(%varplayerbit_2610, 14));
+        return(~ql4_getprogress_basic(%slug2_main, 14));
     case 96 :
         return(~ql4_getprogress_basic(%morttonquest, 85));
     case 97 :
-        return(~ql4_getprogress_basic(%varplayerbit_1372, 125));
+        return(~ql4_getprogress_basic(%agrith_quest, 125));
     case 98 :
         return(~ql4_getprogress_basic(%sheepherderquest, 3));
     case 99 :
         return(~ql4_getprogress_basic(%zombiequeen, 15));
     case 100 :
-        return(~ql4_getprogress_basic(%varplayerbit_2011, 13));
+        return(~ql4_getprogress_basic(%soulbane_prog, 13));
     case 101 :
-        return(~ql4_getprogress_basic(%varplayerbit_1444, 60));
+        return(~ql4_getprogress_basic(%elidquest, 60));
     case 102 :
-        return(~ql4_getprogress_basic(%varplayerbit_2098, 200));
+        return(~ql4_getprogress_basic(%swansong, 200));
     case 103 :
         return(~ql4_getprogress_detail(%tbwt_main, 3, 6));
     case 104 :
-        return(~ql4_getprogress_basic(%varplayerbit_1028, 70));
+        return(~ql4_getprogress_basic(%twocats_quest, 70));
     case 105 :
-        return(~ql4_getprogress_basic(%varplayerbit_451, 2));
+        return(~ql4_getprogress_basic(%tog_juna_bowl, 2));
     case 106 :
         return(~ql4_getprogress_basic(%ikov, 80));
     case 107 :
-        return(~ql4_getprogress_basic(%varplayer_359, 100));
+        return(~ql4_getprogress_basic(%misc_quest, 100));
     case 108 :
         return(~ql4_getprogress_basic(%desertrescue, 30));
     case 109 :
@@ -234,7 +234,7 @@ switch_int ($int0) {
     case 111 :
         return(~ql4_getprogress_basic(%totemquest, 5));
     case 112 :
-        return(~ql4_getprogress_basic(%varplayer_385, 45));
+        return(~ql4_getprogress_basic(%troll_love, 45));
     case 113 :
         return(~ql4_getprogress_basic(%troll_quest, 50));
     case 114 :
@@ -246,127 +246,127 @@ switch_int ($int0) {
         }
         return(1);
     case 115 :
-        return(~ql4_getprogress_basic(%varplayerbit_1051, 11));
+        return(~ql4_getprogress_basic(%wanted_main, 11));
     case 116 :
         return(~ql4_getprogress_basic(%itwatchtower, 13));
     case 117 :
-        return(~ql4_getprogress_basic(%varplayerbit_3293, 135));
+        return(~ql4_getprogress_basic(%peng_quest, 135));
     case 118 :
-        return(~ql4_getprogress_basic(%varplayerbit_3311, 340));
+        return(~ql4_getprogress_basic(%fris_quest, 340));
     case 119 :
-        return(~ql4_getprogress_basic(%varplayerbit_3337, 18));
+        return(~ql4_getprogress_basic(%tol_prog, 18));
     case 120 :
-        return(~ql4_getprogress_basic(%varplayer_980, 130));
+        return(~ql4_getprogress_basic(%brain_quest_var, 130));
     case 121 :
-        return(~ql4_getprogress_basic(%varplayerbit_3523, 150));
+        return(~ql4_getprogress_basic(%surok_quest, 150));
     case 122 :
-        return(~ql4_getprogress_basic(%varplayerbit_3534, 80));
+        return(~ql4_getprogress_basic(%olaf_quest_var, 80));
     case 123 :
-        return(~ql4_getprogress_basic(%varplayerbit_3550, 11));
+        return(~ql4_getprogress_basic(%slice_quest, 11));
     case 124 :
-        return(~ql4_getprogress_basic(%varplayerbit_3618, 28));
+        return(~ql4_getprogress_basic(%dream_prog, 28));
     case 125 :
-        return(~ql4_getprogress_basic(%varplayerbit_2783, 60));
+        return(~ql4_getprogress_basic(%grim_quest, 60));
     case 126 :
-        return(~ql4_getprogress_basic(%varplayerbit_3888, 90));
+        return(~ql4_getprogress_basic(%kr_quest, 90));
     case 127 :
-        return(~ql4_getprogress_basic(%varplayerbit_3954, 200));
+        return(~ql4_getprogress_basic(%pog_main, 200));
     case 128 :
-        return(~ql4_getprogress_basic(%varplayerbit_4055, 65));
+        return(~ql4_getprogress_basic(%roots_quest, 65));
     case 129 :
-        return(~ql4_getprogress_basic(%varplayerbit_4105, 18));
+        return(~ql4_getprogress_basic(%lotg_quest, 18));
     case 130 :
-        return(~ql4_getprogress_basic(%varplayerbit_4230, 700));
+        return(~ql4_getprogress_basic(%scab, 700));
     case 131 :
-        return(~ql4_getprogress_basic(%varplayerbit_4302, 110));
+        return(~ql4_getprogress_basic(%wolf_quest, 110));
     case 132 :
-        return(~ql4_getprogress_detail(%varplayerbit_4321, 10, 200));
+        return(~ql4_getprogress_detail(%afr_quest, 10, 200));
     case 133 :
-        return(~ql4_getprogress_basic(%varplayerbit_4396, 60));
+        return(~ql4_getprogress_basic(%catcon_main, 60));
     case 134 :
-        return(~ql4_getprogress_basic(%varplayerbit_4505, 100));
+        return(~ql4_getprogress_basic(%ken_main, 100));
     case 135 :
-        return(~ql4_getprogress_basic(%varplayerbit_4569, 500));
+        return(~ql4_getprogress_basic(%myq4_main_quest, 500));
     case 136 :
-        return(~ql4_getprogress_basic(%varplayerbit_4684, 150));
+        return(~ql4_getprogress_basic(%icemt_quest, 150));
     case 137 :
-        return(~ql4_getprogress_basic(%varplayerbit_4700, 63));
+        return(~ql4_getprogress_basic(%dillo_quest, 63));
     case 138 :
-        return(~ql4_getprogress_basic(%varplayerbit_4764, 250));
+        return(~ql4_getprogress_basic(%smki, 250));
     case 139 :
-        return(~ql4_getprogress_basic(%varplayerbit_4797, 100));
+        return(~ql4_getprogress_basic(%rocko_quest, 100));
     case 140 :
-        return(~ql4_getprogress_basic(%varplayerbit_5032, 80));
+        return(~ql4_getprogress_basic(%sum1_quest, 80));
     case 141 :
-        return(~ql4_getprogress_basic(%varplayerbit_5075, 20));
+        return(~ql4_getprogress_basic(%hist_prog, 20));
     case 142 :
-        return(~ql4_getprogress_basic(%varplayerbit_5133, 90));
+        return(~ql4_getprogress_basic(%firedup_quest, 90));
     case 143 :
-        return(~ql4_getprogress_basic(%varplayerbit_5331, 35));
+        return(~ql4_getprogress_basic(%sum2_quest, 35));
     case 144 :
-        return(~ql4_getprogress_basic(%varplayerbit_5387, 250));
+        return(~ql4_getprogress_basic(%zemo_main, 250));
     case 145 :
-        return(~ql4_getprogress_basic(%varplayerbit_5491, 910));
+        return(~ql4_getprogress_basic(%luc2_main_quest, 910));
     case 146 :
-        return(~ql4_getprogress_basic(%varplayerbit_5761, 30));
+        return(~ql4_getprogress_basic(%phoenix_quest_var, 30));
     case 148 :
-        return(~ql4_getprogress_basic(%varplayerbit_5733, 60));
+        return(~ql4_getprogress_basic(%motwl_main, 60));
     case 149 :
-        return(~ql4_getprogress_detail(%varplayerbit_6001, 3, 45));
+        return(~ql4_getprogress_detail(%glomem_quest, 3, 45));
     case 150 :
-        return(~ql4_getprogress_detail(%varplayerbit_6048, 10, 250));
+        return(~ql4_getprogress_detail(%mah1_quest, 10, 250));
     case 155 :
-        return(~ql4_getprogress_basic(%varplayerbit_6112, 60));
+        return(~ql4_getprogress_basic(%mom2_main, 60));
     case 156 :
-        return(~ql4_getprogress_basic(%varplayerbit_6289, 240));
+        return(~ql4_getprogress_basic(%mah3_main, 240));
     case 157 :
-        return(~ql4_getprogress_basic(%varplayerbit_6775, 90));
+        return(~ql4_getprogress_basic(%mah4_main, 90));
     case 151 :
-        return(~ql4_getprogress_detail(%varplayerbit_6180, 2, 140));
+        return(~ql4_getprogress_detail(%peng_rak_quest, 2, 140));
     case 152 :
-        return(~ql4_getprogress_basic(%varplayerbit_1938, 110));
+        return(~ql4_getprogress_basic(%chosen_quest, 110));
     case 153 :
-        return(~ql4_getprogress_basic(%varplayerbit_5448, 50));
+        return(~ql4_getprogress_basic(%swept_quest, 50));
     case 154 :
         return(~ql4_getprogress_detail(%varplayerbit_6307, 2, 5));
     case 158 :
-        return(~ql4_getprogress_detail(%varplayerbit_7826, 10, 180));
+        return(~ql4_getprogress_detail(%ft3_quest, 10, 180));
     case 160 :
-        return(~ql4_getprogress_basic(%varplayerbit_6471, 90));
+        return(~ql4_getprogress_basic(%ra3_quest, 90));
     case 161 :
-        return(~ql4_getprogress_basic(%varplayerbit_6553, 46));
+        return(~ql4_getprogress_basic(%wtl_main_quest_var, 46));
     case 162 :
-        return(~ql4_getprogress_basic(%varplayerbit_6962, 12));
+        return(~ql4_getprogress_basic(%nom_quest, 12));
     case 163 :
-        return(~ql4_getprogress_detail(%varplayerbit_6883, 3, 147));
+        return(~ql4_getprogress_detail(%evq_quest, 3, 147));
     case 165 :
-        return(~ql4_getprogress_basic(%varplayerbit_7050, 35));
+        return(~ql4_getprogress_basic(%rm_quest, 35));
     case 167 :
-        return(~ql4_getprogress_basic(%varplayerbit_7793, 30));
+        return(~ql4_getprogress_basic(%thigui_humble, 30));
     case 168 :
-        return(~ql4_getprogress_basic(%varplayerbit_8045, 150));
+        return(~ql4_getprogress_basic(%love, 150));
     case 170 :
-        return(~ql4_getprogress_basic(%varplayerbit_7238, 60));
+        return(~ql4_getprogress_basic(%lumbcat_quest, 60));
     case 171 :
-        return(~ql4_getprogress_basic(%varplayerbit_7958, 90));
+        return(~ql4_getprogress_basic(%vkq1_quest, 90));
     case 172 :
-        return(~ql4_getprogress_basic(%varplayerbit_7871, 5));
+        return(~ql4_getprogress_basic(%elem_3_main, 5));
     case 173 :
-        return(~ql4_getprogress_detail(%varplayerbit_7451, 2, 63));
+        return(~ql4_getprogress_detail(%vkq2_quest, 2, 63));
     case 14 :
-        return(~ql4_getprogress_basic(%varplayerbit_8704, 90));
+        return(~ql4_getprogress_basic(%ra4_quest, 90));
     case 174 :
-        return(~ql4_getprogress_basic(%varplayerbit_8248, 40));
+        return(~ql4_getprogress_basic(%vkq3_quest, 40));
     case 17 :
-        return(~ql4_getprogress_basic(%varplayerbit_5730, 100));
+        return(~ql4_getprogress_basic(%romcom_quest, 100));
     case 179 :
-        return(~ql4_getprogress_detail(%varplayerbit_8605, 10, 315));
+        return(~ql4_getprogress_detail(%apmeken_master, 10, 315));
     case 12 :
-        return(~ql4_getprogress_basic(%varplayerbit_5332, 120));
+        return(~ql4_getprogress_basic(%glo3_main, 120));
     case 180 :
-        return(~ql4_getprogress_basic(%varplayerbit_998, 9));
+        return(~ql4_getprogress_basic(%elem_4_main, 9));
     case 181 :
-        return(~ql4_getprogress_detail(%varplayerbit_8961, 10, 210));
+        return(~ql4_getprogress_detail(%acs_quest, 10, 210));
     case default :
         return(0);
 }

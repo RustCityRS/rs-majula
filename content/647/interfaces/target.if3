@@ -18,7 +18,7 @@ modelorigin=-27,145
 modelangle=97,0,0
 modelzoom=360
 onload=script2044
-onvartransmit=script2044{varplayer_158, varplayer_156}
+onvartransmit=script2044{targethit, targetcount}
 
 // 325:2
 [dart_bull]
@@ -201,7 +201,7 @@ text=%1
 textalignh=centre
 textshadow=yes
 colour=0x00ff99
-onvartransmit=script2043(event_com){varplayer_157}
+onvartransmit=script2043(event_com){targetscore}
 
 // 325:16
 [com_16]

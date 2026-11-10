@@ -1,8 +1,8 @@
 // 511
 [clientscript,pog_hatch_zoom]
-if (%varclient_51 > 170) {
-    %varclient_51 = calc(%varclient_51 - 1);
-    if_setmodelangle(0, 0, 0, 0, 0, %varclient_51, pog_door_hatch:hatch);
+if (%pog_hatch_zoom_var > 170) {
+    %pog_hatch_zoom_var = calc(%pog_hatch_zoom_var - 1);
+    if_setmodelangle(pog_door_hatch:hatch, 0, 0, 0, 0, 0, %pog_hatch_zoom_var);
 } else {
-    if_setmodel(null, pog_door_hatch:hatch);
+    if_setmodel(pog_door_hatch:hatch, null);
 }

@@ -19,7 +19,7 @@ height=275
 xmode=abs_centre
 ymode=abs_centre
 onload=cws_setup(wilderness_warning:cws_warning_layer, wilderness_warning:cws_toggle_button, 7)
-onvartransmit=cws_setup(wilderness_warning:cws_warning_layer, wilderness_warning:cws_toggle_button, 7){varplayer_1045}
+onvartransmit=cws_setup(wilderness_warning:cws_warning_layer, wilderness_warning:cws_toggle_button, 7){cws_var}
 
 // 382:2
 [com_2]

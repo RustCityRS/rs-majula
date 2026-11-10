@@ -1,8 +1,8 @@
 // 2873
 [clientscript,script2873]
-if (%varplayerbit_7078 = 0) {
-    if_setgraphic("music_header_icons,3", music_v3:playlist_on);
+if (%playlist_mode = 0) {
+    if_setgraphic(music_v3:playlist_on, "music_header_icons,3");
 } else {
-    if_setgraphic("music_header_icons,2", music_v3:playlist_on);
+    if_setgraphic(music_v3:playlist_on, "music_header_icons,2");
 }
-%varclient_2 = 0;
+%tooltip_built = 0;

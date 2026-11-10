@@ -6,14 +6,14 @@ height=16391
 widthmode=proportion
 heightmode=proportion
 onload=script413
-onvarctransmit=conq_action_cam{varclient_1354, varclient_1357, varclient_1358}
+onvarctransmit=conq_action_cam{conq_action_cam_coord, conq_action_cam_target_x, conq_action_cam_target_y}
 
 // 1013:1
 [turn_control_layer]
 type=layer
 width=512
 height=334
-onvarctransmit=conq_update_turn(-1){varclient_1363}
+onvarctransmit=conq_update_turn(-1){conq_current_team}
 
 // 1013:2
 [left]
@@ -350,7 +350,7 @@ height=50
 xmode=abs_centre
 layer=main_layer
 hide=yes
-onvarctransmit=conq_update_time_left{varclient_1362}
+onvarctransmit=conq_update_time_left{conq_turn_time_remaining}
 
 // 1013:23
 [black_rect]

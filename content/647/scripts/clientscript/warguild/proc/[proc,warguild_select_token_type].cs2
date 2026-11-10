@@ -3,46 +3,46 @@
 ~script4066;
 switch_component ($component0) {
     case warguild_token_choice:balance_layer :
-        if_setgraphic("warguild_token_selected,0", warguild_token_choice:single_balance_token);
-        if_settext("Currently selected: Balance tokens - earned through the keg balancing minigame.", warguild_token_choice:com_46);
-        if_setposition(-160, 13, ^setpos_abs_centre, ^setpos_abs_top, $component0);
-        if (%varplayerbit_8666 < 200) {
+        if_setgraphic(warguild_token_choice:single_balance_token, "warguild_token_selected,0");
+        if_settext(warguild_token_choice:com_46, "Currently selected: Balance tokens - earned through the keg balancing minigame.");
+        if_setposition($component0, -160, 13, ^setpos_abs_centre, ^setpos_abs_top);
+        if (%warguild_tokens_balance < 200) {
             ~warguild_not_enough_tokens;
         } else {
             ~script4062;
         }
     case warguild_token_choice:strength_layer :
-        if_setgraphic("warguild_token_selected,1", warguild_token_choice:single_strength_token);
-        if_settext("Currently selected: Strength tokens - earned through the shot put minigame.", warguild_token_choice:com_46);
-        if_setposition(-80, 13, ^setpos_abs_centre, ^setpos_abs_top, $component0);
-        if (%varplayerbit_8662 < 200) {
+        if_setgraphic(warguild_token_choice:single_strength_token, "warguild_token_selected,1");
+        if_settext(warguild_token_choice:com_46, "Currently selected: Strength tokens - earned through the shot put minigame.");
+        if_setposition($component0, -80, 13, ^setpos_abs_centre, ^setpos_abs_top);
+        if (%warguild_tokens_strength < 200) {
             ~warguild_not_enough_tokens;
         } else {
             ~script4062;
         }
     case warguild_token_choice:combat_layer :
-        if_setgraphic("warguild_token_selected,2", warguild_token_choice:single_combat_token);
-        if_settext("Currently selected: Combat tokens - earned through the animator minigame.", warguild_token_choice:com_46);
-        if_setposition(0, 13, ^setpos_abs_centre, ^setpos_abs_top, $component0);
-        if (%varplayerbit_8665 < 200) {
+        if_setgraphic(warguild_token_choice:single_combat_token, "warguild_token_selected,2");
+        if_settext(warguild_token_choice:com_46, "Currently selected: Combat tokens - earned through the animator minigame.");
+        if_setposition($component0, 0, 13, ^setpos_abs_centre, ^setpos_abs_top);
+        if (%warguild_tokens_combat < 200) {
             ~warguild_not_enough_tokens;
         } else {
             ~script4062;
         }
     case warguild_token_choice:defence_layer :
-        if_setgraphic("warguild_token_selected,3", warguild_token_choice:single_defence_token);
-        if_settext("Currently selected: Defence tokens - earned through the catapult minigame.", warguild_token_choice:com_46);
-        if_setposition(80, 13, ^setpos_abs_centre, ^setpos_abs_top, $component0);
-        if (%varplayerbit_8663 < 200) {
+        if_setgraphic(warguild_token_choice:single_defence_token, "warguild_token_selected,3");
+        if_settext(warguild_token_choice:com_46, "Currently selected: Defence tokens - earned through the catapult minigame.");
+        if_setposition($component0, 80, 13, ^setpos_abs_centre, ^setpos_abs_top);
+        if (%warguild_tokens_defence < 200) {
             ~warguild_not_enough_tokens;
         } else {
             ~script4062;
         }
     case warguild_token_choice:attack_layer :
-        if_setgraphic("warguild_token_selected,4", warguild_token_choice:single_attack_token);
-        if_settext("Currently selected: Attack tokens - earned through the dummy minigame.", warguild_token_choice:com_46);
-        if_setposition(160, 13, ^setpos_abs_centre, ^setpos_abs_top, $component0);
-        if (%varplayerbit_8664 < 200) {
+        if_setgraphic(warguild_token_choice:single_attack_token, "warguild_token_selected,4");
+        if_settext(warguild_token_choice:com_46, "Currently selected: Attack tokens - earned through the dummy minigame.");
+        if_setposition($component0, 160, 13, ^setpos_abs_centre, ^setpos_abs_top);
+        if (%warguild_tokens_attack < 200) {
             ~warguild_not_enough_tokens;
         } else {
             ~script4062;

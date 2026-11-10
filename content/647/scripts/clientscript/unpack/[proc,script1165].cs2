@@ -2,4 +2,4 @@
 [proc,script1165]
 def_int $int0 = calc(if_getwidth(sound_options:optsound_dragzone) - if_getwidth(sound_options:optsound_slider));
 def_int $int1 = scale(detailget_soundvol, 127, $int0);
-if_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top, sound_options:optsound_slider);
+if_setposition(sound_options:optsound_slider, $int1, 0, ^setpos_abs_left, ^setpos_abs_top);

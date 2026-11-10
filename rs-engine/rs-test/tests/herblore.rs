@@ -77,12 +77,12 @@ fn use_on(client: &mut HarnessClient, (from, from_obj): (u16, u16), (to, to_obj)
 fn cleaning_and_brewing_on_2011s_herbs() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let grimy = obj(engine, "grimy_guam");
-        let clean = obj(engine, "clean_guam");
-        let water = obj(engine, "vial_of_water");
-        let unf = obj(engine, "guam_potion__unf");
+        let grimy = obj(engine, "unidentified_guam");
+        let clean = obj(engine, "guam_leaf");
+        let water = obj(engine, "vial_water");
+        let unf = obj(engine, "guamvial");
         let newt = obj(engine, "eye_of_newt");
-        let attack = obj(engine, "attack_potion__3");
+        let attack = obj(engine, "3dose1attack");
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
 
         engine.harness_reset();
@@ -152,8 +152,8 @@ fn cleaning_and_brewing_on_2011s_herbs() {
 fn drinking_an_antifire_resists_dragonfire_for_600_ticks() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let four = obj(engine, "antifire__4");
-        let three = obj(engine, "antifire__3");
+        let four = obj(engine, "4dose1antidragon");
+        let three = obj(engine, "3dose1antidragon");
         let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
         let resist = *engine.cache.varps.debugnames.get("dragonresist").unwrap();
 

@@ -7,7 +7,7 @@ if (distance(coord, 0_46_52_55_55) <= 1) {
 // zombiequeen (todo: did this always exist? It almost certainly existed in 2007, checking https://youtu.be/w1I0GXAkLKw?si=avVq7fsXaho-wZvK&t=317, it does
 // facesquare(loc_coord), which wouldnt be needed if it was only triggerable from oplocu
 if(inzone(0_45_46_40_54, 0_45_46_43_55, coord) = true) {
-    if(loc_find(0_45_46_41_55, mound_of_earth) = true) {
+    if(loc_find(0_45_46_41_55, ahzarhoon_entrance) = true) {
         @zombiequeen_mound_dig;
     }
 }
@@ -32,14 +32,14 @@ if(map_members = ^true & ~trail_hasclue_inv = true) {
         // for coord clues, https://www.youtube.com/watch?v=rcNbwik5-Ig looking at wiki and this 2013 video you can be 1 tile off and it will still work
         // todo: try and confirm this behaviour for 2004, this pre dec-2006 video also has this behaviour https://www.youtube.com/watch?v=yH6YaavzuMc
         // also https://www.youtube.com/watch?v=QhdRJd-g438 for maps
-        if($sextant_clue = true & (inv_total(inv, watch) = 0 | inv_total(inv, chart) = 0 | inv_total(inv, sextant) = 0)) {
+        if($sextant_clue = true & (inv_total(inv, trail_watch) = 0 | inv_total(inv, trail_chart) = 0 | inv_total(inv, trail_sextant) = 0)) {
             ~displaymessage(^dm_default);
             return;
         }
         if(distance(coord, $trail_coord) <= 1) {
             if(oc_param($clue, trail_guardian) ! null) {
                 def_npc $guard = oc_param($clue, trail_guardian);
-                if(($guard = zamorak_wizard | $guard = saradomin_wizard) & testbit(%trail_status, 4) = ^false) {
+                if(($guard = trail_hard | $guard = trail_hard2) & testbit(%trail_status, 4) = ^false) {
                     npc_huntall(coord, 10, 0); // zamorak/saradomin wizards range
                     while (npc_findnext = true) {
                         if(npc_type = $guard & %npc_aggressive_player = uid) {
@@ -50,8 +50,8 @@ if(map_members = ^true & ~trail_hasclue_inv = true) {
                     // https://youtu.be/uAv5a6y-3OQ?si=QxAUtMVq6KCZebat&t=36 notice smokepuff on adj tile to where he appears, confirms it should be map_findsquare
                     npc_add(map_findsquare(coord, 1, 1, ^map_findsquare_lineofsight), $guard, 500);
                     spotanim_map(smokepuff_large, npc_coord, 124, 0);
-                    if(npc_type = zamorak_wizard) npc_say("Die, human!");
-                    else if(npc_type = saradomin_wizard) npc_say("For Saradomin!");
+                    if(npc_type = trail_hard) npc_say("Die, human!");
+                    else if(npc_type = trail_hard2) npc_say("For Saradomin!");
                     %aggressive_npc = npc_uid;
                     // this prevents other players from attacking w/manual cast, this might've been a later change
                     %npc_lastcombat = sub(^max_32bit_int, 8);

@@ -7,19 +7,19 @@ if (clientclock >= $int1) {
     if (clientclock < $int3) {
         $int2 = calc(255 / ($int3 - $int1));
         $int2 = calc(255 - $int2 * (clientclock - $int1));
-        if_settrans($int2, statusicons:assist_engaged);
+        if_settrans(statusicons:assist_engaged, $int2);
         return;
     } else {
-        if_setontimer(null, statusicons:assist_engaged);
-        if_settrans(0, statusicons:assist_engaged);
+        if_setontimer(statusicons:assist_engaged, null);
+        if_settrans(statusicons:assist_engaged, 0);
         return;
     }
 } else if ($int4 <= 5) {
-    if_settrans(0, statusicons:assist_engaged);
+    if_settrans(statusicons:assist_engaged, 0);
 } else if ($int4 <= 10) {
-    if_settrans(85, statusicons:assist_engaged);
+    if_settrans(statusicons:assist_engaged, 85);
 } else if ($int4 <= 15) {
-    if_settrans(200, statusicons:assist_engaged);
+    if_settrans(statusicons:assist_engaged, 200);
 } else {
-    if_settrans(85, statusicons:assist_engaged);
+    if_settrans(statusicons:assist_engaged, 85);
 }

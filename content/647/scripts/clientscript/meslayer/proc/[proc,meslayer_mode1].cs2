@@ -1,30 +1,30 @@
 // 102
 [proc,meslayer_mode1](string $string0)
-if (%varclient_5 > 1) {
+if (%meslayermode > 1) {
     return;
 }
 if (getwindowmode >= 2) {
-    if_sethide(false, toplevel_fullscreen:chattop);
+    if_sethide(toplevel_fullscreen:chattop, false);
 }
-if_settextfont(q8_full, chattop:mes_text);
-if_settextfont(q8_full, chattop:mes_text2);
-if_setsize(0, 20, ^setsize_minus, ^setsize_minus, chattop:mes_text);
-if_setsize(0, 20, ^setsize_minus, ^setsize_abs, chattop:mes_text2);
-if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, chattop:mes_text);
-if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, chattop:mes_text2);
-if_sethide(false, chattop:mes_layer);
-if_sethide(true, chattop:mes_layer_large);
-if_sethide(true, chattop:mes_layer_hide);
-if_settext($string0, chattop:mes_text);
-if_settext("Click here to continue", chattop:mes_text2);
-%varclient_5 = 1;
-if_setonclick("meslayer_close", chattop:mes_layer);
-if_setonkey(null, chattop:mes_text2);
-if_setcolour(0x000080, chattop:mes_text2);
-if_setonmouserepeat("text_colour_swapper(event_com, ^white)", chattop:mes_text2);
-if_setonmouseleave("text_colour_swapper(event_com, 0x000080)", chattop:mes_text2);
+if_settextfont(chattop:mes_text, q8_full);
+if_settextfont(chattop:mes_text2, q8_full);
+if_setsize(chattop:mes_text, 0, 20, ^setsize_minus, ^setsize_minus);
+if_setsize(chattop:mes_text2, 0, 20, ^setsize_minus, ^setsize_abs);
+if_setposition(chattop:mes_text, 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+if_setposition(chattop:mes_text2, 0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if_settext(chattop:mes_text, $string0);
+if_settext(chattop:mes_text2, "Click here to continue");
+%meslayermode = 1;
+if_setonclick(chattop:mes_layer, "meslayer_close");
+if_setonkey(chattop:mes_text2, null);
+if_setcolour(chattop:mes_text2, 0x000080);
+if_setonmouserepeat(chattop:mes_text2, "text_colour_swapper(event_com, ^white)");
+if_setonmouseleave(chattop:mes_text2, "text_colour_swapper(event_com, 0x000080)");
 ~script1188;
-if_sethide(true, chattop:caret);
-if_setontimer(null, chattop:mes_text2);
-if_setonclick(null, chattop:mes_text2);
-if_setonsubchange("script3450(1)", chattop:mes_text2);
+if_sethide(chattop:caret, true);
+if_setontimer(chattop:mes_text2, null);
+if_setonclick(chattop:mes_text2, null);
+if_setonsubchange(chattop:mes_text2, "script3450(1)");

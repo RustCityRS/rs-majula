@@ -1,5 +1,5 @@
 // 2311
 [clientscript,script2311]
-if_setgraphic("login_lobby_button,0", chatdefault:leftbutton);
-if_setgraphic("login_lobby_button,0", chatdefault:rightbutton);
-if_setgraphic("login_lobby_button,1", chatdefault:middlebutton);
+if_setgraphic(chatdefault:leftbutton, "login_lobby_button,0");
+if_setgraphic(chatdefault:rightbutton, "login_lobby_button,0");
+if_setgraphic(chatdefault:middlebutton, "login_lobby_button,1");

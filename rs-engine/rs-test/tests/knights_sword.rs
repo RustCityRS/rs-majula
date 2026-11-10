@@ -159,7 +159,7 @@ fn the_knights_sword_as_2011_had_it() {
         let t = talk(
             engine,
             &mut client,
-            "reldo_2661",
+            "reldo_normal",
             &["What do you know about the Imcando dwarves?"],
         );
         assert_eq!(t.unanswered, None, "{:?}", t.texts);
@@ -212,7 +212,7 @@ fn the_knights_sword_as_2011_had_it() {
         assert_eq!(stage(engine, &client), 5);
 
         // Thurgo with the portrait: blurite "except crossbows".
-        give(engine, &client, &[("portrait", 1)]);
+        give(engine, &client, &[("knights_portrait", 1)]);
         let t = talk(engine, &mut client, "thurgo", &[]);
         shows(
             &t,

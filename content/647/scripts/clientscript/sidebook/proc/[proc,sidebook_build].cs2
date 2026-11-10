@@ -3,12 +3,12 @@
 cc_deleteall($component0);
 cc_deleteall($component1);
 cc_deleteall($component2);
-%varclient_656 = min(%varclient_656, calc(%varclient_657 - 1));
+%sidebook_currentpage = min(%sidebook_currentpage, calc(%sidebook_pagecount - 1));
 def_int $int3 = 0;
-if (%varclient_658 > 0 | %varclient_659 > 0 | %varclient_660 > 0 | %varclient_661 > 0 | %varclient_662 > 0 | %varclient_663 > 0 | %varclient_664 > 0 | %varclient_665 > 0 | %varclient_666 > 0 | %varclient_667 > 0 | %varclient_668 > 0 | %varclient_669 > 0 | %varclient_670 > 0 | %varclient_658 > 13 | %varclient_672 > 0 | %varclient_673 > 0) {
+if (%sidebook_bookmark0 > 0 | %sidebook_bookmark1 > 0 | %sidebook_bookmark2 > 0 | %sidebook_bookmark3 > 0 | %sidebook_bookmark4 > 0 | %sidebook_bookmark5 > 0 | %sidebook_bookmark6 > 0 | %sidebook_bookmark7 > 0 | %sidebook_bookmark8 > 0 | %sidebook_bookmark9 > 0 | %sidebook_bookmark10 > 0 | %sidebook_bookmark11 > 0 | %sidebook_bookmark12 > 0 | %sidebook_bookmark0 > 13 | %sidebook_bookmark14 > 0 | %sidebook_bookmark15 > 0) {
     $int3 = 1;
 }
-if ($int3 = 0 | %varclient_656 > 0) {
+if ($int3 = 0 | %sidebook_currentpage > 0) {
     cc_create($component2, ^iftype_text, if_getnextsubid($component2));
     cc_setsize(2, 14, ^setsize_minus, ^setsize_abs);
     cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
@@ -16,117 +16,117 @@ if ($int3 = 0 | %varclient_656 > 0) {
     cc_settextfont(p11_full);
     cc_setcolour(0xff981f);
     if ($int3 = 0) {
-        cc_settext("<tostring(calc(%varclient_656 + 1))> / <tostring(%varclient_657)>");
+        cc_settext("<tostring(calc(%sidebook_currentpage + 1))> / <tostring(%sidebook_pagecount)>");
     } else {
-        cc_settext("<tostring(%varclient_656)> / <tostring(calc(%varclient_657 - 1))>");
+        cc_settext("<tostring(%sidebook_currentpage)> / <tostring(calc(%sidebook_pagecount - 1))>");
     }
 }
-if (%varclient_656 > 0) {
+if (%sidebook_currentpage > 0) {
     cc_create($component2, ^iftype_text, if_getnextsubid($component2));
     cc_setsize(2, 17, ^setsize_minus, ^setsize_minus);
     cc_setposition(0, 1, ^setpos_abs_centre, ^setpos_abs_top);
     cc_settextalign(^settextalign_left, ^settextalign_top, 0);
     cc_settextfont(p12_full);
     cc_setcolour(0xff981f);
-    switch_int (%varclient_656) {
+    switch_int (%sidebook_currentpage) {
         case 1 :
-            cc_settext(%varclient_1592);
+            cc_settext(%sidebook_page1);
         case 2 :
-            cc_settext(%varclient_1593);
+            cc_settext(%sidebook_page2);
         case 3 :
-            cc_settext(%varclient_1594);
+            cc_settext(%sidebook_page3);
         case 4 :
-            cc_settext(%varclient_1595);
+            cc_settext(%sidebook_page4);
         case 5 :
-            cc_settext(%varclient_1596);
+            cc_settext(%sidebook_page5);
         case 6 :
-            cc_settext(%varclient_1597);
+            cc_settext(%sidebook_page6);
         case 7 :
-            cc_settext(%varclient_1598);
+            cc_settext(%sidebook_page7);
         case 8 :
-            cc_settext(%varclient_1599);
+            cc_settext(%sidebook_page8);
         case 9 :
-            cc_settext(%varclient_1600);
+            cc_settext(%sidebook_page9);
         case 10 :
-            cc_settext(%varclient_1601);
+            cc_settext(%sidebook_page10);
         case 11 :
-            cc_settext(%varclient_1602);
+            cc_settext(%sidebook_page11);
         case 12 :
-            cc_settext(%varclient_1603);
+            cc_settext(%sidebook_page12);
         case 13 :
-            cc_settext(%varclient_1604);
+            cc_settext(%sidebook_page13);
         case 14 :
-            cc_settext(%varclient_1605);
+            cc_settext(%sidebook_page14);
         case 15 :
-            cc_settext(%varclient_1606);
+            cc_settext(%sidebook_page15);
         case 16 :
-            cc_settext(%varclient_1607);
+            cc_settext(%sidebook_page16);
         case 17 :
-            cc_settext(%varclient_1608);
+            cc_settext(%sidebook_page17);
         case 18 :
-            cc_settext(%varclient_1609);
+            cc_settext(%sidebook_page18);
         case 19 :
-            cc_settext(%varclient_1610);
+            cc_settext(%sidebook_page19);
         case 20 :
-            cc_settext(%varclient_1611);
+            cc_settext(%sidebook_page20);
         case 21 :
-            cc_settext(%varclient_1612);
+            cc_settext(%sidebook_page21);
         case 22 :
-            cc_settext(%varclient_1613);
+            cc_settext(%sidebook_page22);
         case 23 :
-            cc_settext(%varclient_1614);
+            cc_settext(%sidebook_page23);
         case 24 :
-            cc_settext(%varclient_1615);
+            cc_settext(%sidebook_page24);
         case 25 :
-            cc_settext(%varclient_1616);
+            cc_settext(%sidebook_page25);
         case 26 :
-            cc_settext(%varclient_1617);
+            cc_settext(%sidebook_page26);
         case 27 :
-            cc_settext(%varclient_1618);
+            cc_settext(%sidebook_page27);
         case 28 :
-            cc_settext(%varclient_1619);
+            cc_settext(%sidebook_page28);
         case 29 :
-            cc_settext(%varclient_1620);
+            cc_settext(%sidebook_page29);
         case 30 :
-            cc_settext(%varclient_1621);
+            cc_settext(%sidebook_page30);
         case 31 :
-            cc_settext(%varclient_1622);
+            cc_settext(%sidebook_page31);
         case 32 :
-            cc_settext(%varclient_1623);
+            cc_settext(%sidebook_page32);
         case 33 :
-            cc_settext(%varclient_1624);
+            cc_settext(%sidebook_page33);
         case 34 :
-            cc_settext(%varclient_1625);
+            cc_settext(%sidebook_page34);
         case 35 :
-            cc_settext(%varclient_1626);
+            cc_settext(%sidebook_page35);
         case 36 :
-            cc_settext(%varclient_1627);
+            cc_settext(%sidebook_page36);
         case 37 :
-            cc_settext(%varclient_1628);
+            cc_settext(%sidebook_page37);
         case 38 :
-            cc_settext(%varclient_1629);
+            cc_settext(%sidebook_page38);
         case 39 :
-            cc_settext(%varclient_1630);
+            cc_settext(%sidebook_page39);
         case 40 :
-            cc_settext(%varclient_1631);
+            cc_settext(%sidebook_page40);
         case 41 :
-            cc_settext(%varclient_1632);
+            cc_settext(%sidebook_page41);
         case 42 :
-            cc_settext(%varclient_1633);
+            cc_settext(%sidebook_page42);
         case 43 :
-            cc_settext(%varclient_1634);
+            cc_settext(%sidebook_page43);
         case 44 :
-            cc_settext(%varclient_1635);
+            cc_settext(%sidebook_page44);
         case 45 :
-            cc_settext(%varclient_1636);
+            cc_settext(%sidebook_page45);
         case 46 :
-            cc_settext(%varclient_1637);
+            cc_settext(%sidebook_page46);
         case 47 :
-            cc_settext(%varclient_1638);
+            cc_settext(%sidebook_page47);
         case 48 :
-            cc_settext(%varclient_1639);
+            cc_settext(%sidebook_page48);
         case 49 :
-            cc_settext(%varclient_1640);
+            cc_settext(%sidebook_page49);
     }
     return;
 }
@@ -136,53 +136,53 @@ def_int $int5 = 0;
 while ($int4 < 16) {
     switch_int ($int4) {
         case 0 :
-            $string0 = %varclient_1576;
-            $int5 = %varclient_658;
+            $string0 = %sidebook_page0_line0;
+            $int5 = %sidebook_bookmark0;
         case 1 :
-            $string0 = %varclient_1577;
-            $int5 = %varclient_659;
+            $string0 = %sidebook_page0_line1;
+            $int5 = %sidebook_bookmark1;
         case 2 :
-            $string0 = %varclient_1578;
-            $int5 = %varclient_660;
+            $string0 = %sidebook_page0_line2;
+            $int5 = %sidebook_bookmark2;
         case 3 :
-            $string0 = %varclient_1579;
-            $int5 = %varclient_661;
+            $string0 = %sidebook_page0_line3;
+            $int5 = %sidebook_bookmark3;
         case 4 :
-            $string0 = %varclient_1580;
-            $int5 = %varclient_662;
+            $string0 = %sidebook_page0_line4;
+            $int5 = %sidebook_bookmark4;
         case 5 :
-            $string0 = %varclient_1581;
-            $int5 = %varclient_663;
+            $string0 = %sidebook_page0_line5;
+            $int5 = %sidebook_bookmark5;
         case 6 :
-            $string0 = %varclient_1582;
-            $int5 = %varclient_664;
+            $string0 = %sidebook_page0_line6;
+            $int5 = %sidebook_bookmark6;
         case 7 :
-            $string0 = %varclient_1583;
-            $int5 = %varclient_665;
+            $string0 = %sidebook_page0_line7;
+            $int5 = %sidebook_bookmark7;
         case 8 :
-            $string0 = %varclient_1584;
-            $int5 = %varclient_666;
+            $string0 = %sidebook_page0_line8;
+            $int5 = %sidebook_bookmark8;
         case 9 :
-            $string0 = %varclient_1585;
-            $int5 = %varclient_667;
+            $string0 = %sidebook_page0_line9;
+            $int5 = %sidebook_bookmark9;
         case 10 :
-            $string0 = %varclient_1586;
-            $int5 = %varclient_668;
+            $string0 = %sidebook_page0_line10;
+            $int5 = %sidebook_bookmark10;
         case 11 :
-            $string0 = %varclient_1587;
-            $int5 = %varclient_669;
+            $string0 = %sidebook_page0_line11;
+            $int5 = %sidebook_bookmark11;
         case 12 :
-            $string0 = %varclient_1588;
-            $int5 = %varclient_670;
+            $string0 = %sidebook_page0_line12;
+            $int5 = %sidebook_bookmark12;
         case 13 :
-            $string0 = %varclient_1589;
-            $int5 = %varclient_671;
+            $string0 = %sidebook_page0_line13;
+            $int5 = %sidebook_bookmark13;
         case 14 :
-            $string0 = %varclient_1590;
-            $int5 = %varclient_672;
+            $string0 = %sidebook_page0_line14;
+            $int5 = %sidebook_bookmark14;
         case 15 :
-            $string0 = %varclient_1591;
-            $int5 = %varclient_673;
+            $string0 = %sidebook_page0_line15;
+            $int5 = %sidebook_bookmark15;
         case default :
             $string0 = "";
             $int5 = 0;

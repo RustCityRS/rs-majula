@@ -116,7 +116,7 @@ if (inv_total(inv, shears) > 0) {
 ~chatnpc("<p,neutral>Well, first things first, you need some shears. There's a pair in my house on the table.");
 ~chatnpc("<p,neutral>Or you could buy your own pair from Lumbridge General Store or from the Grand Exchange in Varrock.");
 ~chatnpc("<p,neutral>To get to the store, turn right when leaving the farm then follow the path. The store will be just down the road on your right.");
-~objbox(obj_5094, "General stores are marked on the map by this symbol.", 250, 0, 0);
+~objbox(general_store_icon_dummy, "General stores are marked on the map by this symbol.", 250, 0, 0);
 ~chatnpc("<p,neutral>Once you have some shears, use them on the sheep in my field.");
 ~chatplayer("<p,happy>Sounds easy.");
 ~chatnpc("<p,laugh>That's what they all say! Some of the sheep don't like it and will run away from you. Persistence is the key.");
@@ -127,10 +127,10 @@ if (inv_total(inv, shears) > 0) {
 ~chatnpc("<p,neutral>Don't worry it's quite simple!");
 ~chatnpc("<p,neutral>The nearest Spinning Wheel can be found on the first floor of Lumbridge Castle.");
 ~chatnpc("<p,neutral>To get to Lumbridge Castle just follow the road east.");
-~objbox(obj_7670, "This icon denotes a Spinning Wheel on the world map.", 250, 0, 0);
+~objbox(crafting_icon_dummy, "This icon denotes a Spinning Wheel on the world map.", 250, 0, 0);
 
 [label,fred_started_job]
-def_int $balls = inv_total(inv, ball_of_black_wool);
+def_int $balls = inv_total(inv, black_ball_of_wool);
 def_string $first = "How many more balls of wool do you need?";
 if ($balls > 0) {
     $first = "I have some balls of black wool for you.";
@@ -198,9 +198,9 @@ if ($option = 1) {
 // being paid hands it in next time.
 [label,fred_give_wool]
 def_int $needed = sub(^sheep_complete, %sheep);
-def_int $give = min(inv_total(inv, ball_of_black_wool), $needed);
+def_int $give = min(inv_total(inv, black_ball_of_wool), $needed);
 if ($give < $needed) {
-    inv_del(inv, ball_of_black_wool, $give);
+    inv_del(inv, black_ball_of_wool, $give);
     %sheep = add(%sheep, $give);
     ~chatplayer("<p,neutral>That's all I've got so far.");
     ~chatnpc("<p,neutral>I need <tostring(sub(^sheep_complete, %sheep))> more before I can pay you.");
@@ -208,7 +208,7 @@ if ($give < $needed) {
     return;
 }
 if ($needed > 1) {
-    inv_del(inv, ball_of_black_wool, sub($needed, 1));
+    inv_del(inv, black_ball_of_wool, sub($needed, 1));
 }
 %sheep = ^sheep_last_wool;
 ~chatplayer("<p,happy>That's the last of them.");
@@ -258,7 +258,7 @@ if (%sheep < ^sheep_started | %sheep >= ^sheep_complete) {
     return;
 }
 switch_obj (last_useitem) {
-    case ball_of_black_wool : @fred_give_wool;
+    case black_ball_of_wool : @fred_give_wool;
     case black_wool :
         ~chatplayer("<p,neutral>I've got some wool. I've not managed to make it into a ball, though.");
         ~chatnpc("<p,neutral>Well, go find a spinning wheel then. You can find one on the first floor of Lumbridge Castle; just turn right and follow the path when leaving my house and you'll find Lumbridge.");

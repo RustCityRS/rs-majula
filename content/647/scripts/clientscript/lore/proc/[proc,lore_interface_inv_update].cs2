@@ -1,7 +1,7 @@
 // 759
 [proc,lore_interface_inv_update](component $component0, int $int1, int $int2, string $string0, string $string1, string $string2, string $string3, string $string4, string $string5, int $int3, int $int4)
 cc_deleteall($component0);
-if_setscrollsize(0, calc((($int4 - $int3) / $int1 + 1) * 57), $component0);
+if_setscrollsize($component0, 0, calc((($int4 - $int3) / $int1 + 1) * 57));
 def_int $int5 = 0;
 def_int $int6 = $int3;
 def_int $int7 = 0;
@@ -55,14 +55,14 @@ while ($int5 <= calc($int4 - $int3)) {
     cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int33 + 6), calc($int34 + 4), ^setpos_abs_left, ^setpos_abs_top);
     $obj32 = enum(int, obj, enum_1182, $int6);
-    if ($obj32 = pouch_12292) {
+    if ($obj32 = lore_pouch_grey) {
         ~lore_interface_inv_draw_slot($obj32, $obj32, $component0, $int35, $string0, $string1, $string2, $string3, $string4, $string5);
     } else if (~lore_pouch_checker($obj32) = 1 & stat_base(summoning) >= enum(obj, int, enum_1185, $obj32)) {
         ~lore_interface_inv_draw_slot($obj32, $obj32, $component0, $int35, $string0, $string1, $string2, $string3, $string4, $string5);
     } else {
         ~lore_interface_inv_draw_slot(enum(int, obj, enum_1183, $int6), $obj32, $component0, $int35, $string0, $string1, $string2, $string3, $string4, $string5);
     }
-    if ($obj32 = pouch_12292) {
+    if ($obj32 = lore_pouch_grey) {
         cc_setonmouserepeat("lore_blanktip(event_comsubid, lore_pouch_creation_combined:tool_tip_build_layer, lore_pouch_creation_combined:lore_pouch_layer, $int31, $string6)");
         cc_setonmouseleave("deltooltip(lore_pouch_creation_combined:tool_tip_build_layer)");
     } else {
@@ -77,7 +77,7 @@ while ($int5 <= calc($int4 - $int3)) {
     $int35 = calc($int35 + 1);
     cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int33 + 2), calc($int34 + 38), ^setpos_abs_left, ^setpos_abs_top);
-    cc_setobject_nonum(spirit_shards, 1);
+    cc_setobject_nonum(lore_spirit_shard, 1);
     cc_create($component0, ^iftype_text, $int35);
     $int35 = calc($int35 + 1);
     cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);

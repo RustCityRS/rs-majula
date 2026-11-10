@@ -3,7 +3,7 @@
 if (%varplayerbit_9254 = 0 & %varplayerbit_9255 = 0 & %varplayerbit_9256 = 0 & %varplayerbit_9257 = 0) {
     return;
 }
-if_setrecol(0, 65214, %varplayerbit_9254, $component0);
-if_setrecol(1, 65200, %varplayerbit_9255, $component0);
-if_setrecol(3, 65186, %varplayerbit_9256, $component0);
-if_setrecol(4, 62995, %varplayerbit_9257, $component0);
+if_setrecol($component0, 0, 65214, %varplayerbit_9254);
+if_setrecol($component0, 1, 65200, %varplayerbit_9255);
+if_setrecol($component0, 3, 65186, %varplayerbit_9256);
+if_setrecol($component0, 4, 62995, %varplayerbit_9257);

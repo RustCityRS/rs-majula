@@ -1,12 +1,12 @@
 // 4454
 [clientscript,script4454](component $component0, int $int1)
 if (activeclanchannel_find_listened = true) {
-    if_setontimer(null, clan_chat:guest_list_parent_layer);
-    ~clan_chat_guest_list_build(%varclient_1506);
+    if_setontimer(clan_chat:guest_list_parent_layer, null);
+    ~clan_chat_guest_list_build(%guest_line_pos);
 } else {
-    if_setgraphic("aif_clanchat_icons,13", clan_chat:guest_joinleave_button_graphic);
+    if_setgraphic(clan_chat:guest_joinleave_button_graphic, "aif_clanchat_icons,13");
     if (calc(clientclock - $int1) > 200) {
         ~clan_chat_guest_list_clear;
-        if_setontimer("script4454($component0, clientclock)", clan_chat:guest_list_parent_layer);
+        if_setontimer(clan_chat:guest_list_parent_layer, "script4454($component0, clientclock)");
     }
 }

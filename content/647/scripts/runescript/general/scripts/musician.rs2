@@ -1,9 +1,9 @@
-[opnpc3,musician]
+[opnpc3,rest_musician_lumbridge_castle]
 if (p_finduid(uid) = true) {
     p_rest(1);
 }
 
-[opnpc1,musician]
+[opnpc1,rest_musician_lumbridge_castle]
 ~chatnpc("<p,neutral>Hey, do you want to hear some music?|Sit down and rest a while.")
 def_int $option = ~p_choice3("Who are you?", 1, "Can you tell me about resting?", 2, "No thanks.", 3)
 if ($option = 1) {

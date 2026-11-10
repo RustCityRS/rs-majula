@@ -2,22 +2,22 @@
 [proc,bank_v2_show_search](string $string0)(int)
 $string0 = escape($string0);
 ~deltooltip_action(bank_v2_main:com_97);
-%varclient_1 = 0;
+%tooltip_time = 0;
 ~bank_v2_tab_hide_separator;
-if_sethide(true, bank_v2_main:message_nomatches);
+if_sethide(bank_v2_main:message_nomatches, true);
 if (string_length($string0) = 0) {
-    if_settext("Bank of RuneScape (no search entered)", bank_v2_main:title);
-    if_sethide(false, bank_v2_main:message_nosearch);
+    if_settext(bank_v2_main:title, "Bank of RuneScape (no search entered)");
+    if_sethide(bank_v2_main:message_nosearch, false);
     ~bank_v2_hide_all;
     return(0);
 } else {
-    if_settext("Bank of RuneScape (search: '<$string0>')", bank_v2_main:title);
-    if_sethide(true, bank_v2_main:message_nosearch);
+    if_settext(bank_v2_main:title, "Bank of RuneScape (search: '<$string0>')");
+    if_sethide(bank_v2_main:message_nosearch, true);
 }
 def_int $int0 = inv_size(bank);
 def_int $int1 = 0;
 def_int $int2 = 0;
-if_setscrollpos(0, 0, bank_v2_main:bank_v2_inv);
+if_setscrollpos(bank_v2_main:bank_v2_inv, 0, 0);
 while ($int1 < $int0) {
     if (string_indexof_string(lowercase(oc_name(inv_getobj(bank, $int1))), lowercase($string0), 0) ! -1) {
         if (cc_find(bank_v2_main:bank_v2_inv, $int1) = true) {
@@ -32,7 +32,7 @@ while ($int1 < $int0) {
     $int1 = calc($int1 + 1);
 }
 if ($int2 = 0) {
-    if_sethide(false, bank_v2_main:message_nomatches);
+    if_sethide(bank_v2_main:message_nomatches, false);
 }
 ~bank_v2_build_scrollbar($int2);
 return($int2);

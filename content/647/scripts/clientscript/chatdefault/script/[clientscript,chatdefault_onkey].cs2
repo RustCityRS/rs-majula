@@ -7,8 +7,8 @@ if (~script2709 = 0) {
     return;
 }
 if ($key0 = ^key_f9) {
-    if (%varclient_132 ! null) {
-        ~quickchat_respond(%varclient_133, %varclient_1548, %varclient_132);
+    if (%quickchat_respond_phrase ! null) {
+        ~quickchat_respond(%quickchat_respond_mode, %varclient_1548, %quickchat_respond_phrase);
     }
     return;
 }
@@ -34,39 +34,39 @@ if ($key0 = ^key_tab) {
             }
             return;
         }
-        if (%varclient_183 > calc(clientclock - 100)) {
+        if (%loginscreen_res_counter > calc(clientclock - 100)) {
             return;
         }
         mes("That player is not on your Friends list.");
-        %varclient_183 = clientclock;
+        %loginscreen_res_counter = clientclock;
         return;
     }
-    if (%varclient_183 > calc(clientclock - 100)) {
+    if (%loginscreen_res_counter > calc(clientclock - 100)) {
         return;
     }
     mes("You haven't received any messages to which you can reply.");
-    %varclient_183 = clientclock;
+    %loginscreen_res_counter = clientclock;
     return;
 }
 def_int $int3 = 0;
 def_int $int4 = 0;
 if ($key0 = ^key_f11) {
     $int3 = 150;
-    $int4 = calc(clientclock - %varclient_158);
+    $int4 = calc(clientclock - %quickchat_phraserepeat_lastclock);
     if ($int4 > 1500) {
-        %varclient_159 = 0;
+        %quickchat_phraserepeat_count = 0;
     }
-    if (%varclient_159 >= 7) {
+    if (%quickchat_phraserepeat_count >= 7) {
         $int3 = 600;
-    } else if (%varclient_159 >= 5) {
+    } else if (%quickchat_phraserepeat_count >= 5) {
         $int3 = 450;
-    } else if (%varclient_159 >= 3) {
+    } else if (%quickchat_phraserepeat_count >= 3) {
         $int3 = 300;
     }
     if ($int4 >= $int3) {
-        %varclient_158 = clientclock;
-        %varclient_159 = calc(%varclient_159 + 1);
-        if (%varclient_130 ! null) {
+        %quickchat_phraserepeat_lastclock = clientclock;
+        %quickchat_phraserepeat_count = calc(%quickchat_phraserepeat_count + 1);
+        if (%quickchat_last_phrase ! null) {
             ~quickchat_phrase_resend;
         }
         return;
@@ -88,10 +88,10 @@ if (staffmodlevel > 0) {
 } else if (userdetail_quickchat = true | map_quickchat = true) {
     if ($key0 = ^key_return) {
         $int6, $int7, $int8, $int9, $int10, $int11 = ~script4590;
-        if (%varclient_41 = 4) {
+        if (%chat_view = 4) {
             ~quickchat_open(2, "");
         }
-        if (%varclient_41 = 7) {
+        if (%chat_view = 7) {
             if ($int6 >= 0) {
                 if ($int7 >= $int8) {
                     ~quickchat_open(8, "");
@@ -101,7 +101,7 @@ if (staffmodlevel > 0) {
                     return;
                 }
             } else {
-                %varclient_41 = 0;
+                %chat_view = 0;
                 ~chat_alert_reset(0);
                 ~redraw_chat_buttons;
                 ~rebuildchatbox;
@@ -124,11 +124,11 @@ switch_int ($key0) {
         $int6, $int7, $int8, $int9, $int10, $int11 = ~script4590;
         if (string_length(%varclient_1520) <= 0) {
             %varclient_1520 = "";
-            if (%varclient_41 = 4) {
+            if (%chat_view = 4) {
                 ~quickchat_open(2, "");
                 return;
             }
-            if (%varclient_41 = 7) {
+            if (%chat_view = 7) {
                 if ($int6 >= 0) {
                     if ($int7 >= $int8) {
                         ~quickchat_open(8, "");
@@ -138,7 +138,7 @@ switch_int ($key0) {
                         return;
                     }
                 } else {
-                    %varclient_41 = 0;
+                    %chat_view = 0;
                     ~chat_alert_reset(0);
                     ~redraw_chat_buttons;
                     ~rebuildchatbox;
@@ -166,7 +166,7 @@ switch_int ($key0) {
                     return;
                 }
             } else {
-                %varclient_41 = 0;
+                %chat_view = 0;
                 ~chat_alert_reset(0);
                 ~redraw_chat_buttons;
                 ~rebuildchatbox;
@@ -185,7 +185,7 @@ switch_int ($key0) {
                     return;
                 }
             } else {
-                %varclient_41 = 0;
+                %chat_view = 0;
                 ~chat_alert_reset(0);
                 ~redraw_chat_buttons;
                 ~rebuildchatbox;
@@ -201,10 +201,10 @@ switch_int ($key0) {
             ~script1558(false);
             return;
         }
-        if (%varclient_41 = 4) {
+        if (%chat_view = 4) {
             if (compare("", clan_getchatdisplayname) = 0) {
                 %varclient_1520 = "";
-                %varclient_41 = 0;
+                %chat_view = 0;
                 ~chat_alert_reset(0);
                 ~redraw_chat_buttons;
                 ~rebuildchatbox;
@@ -219,7 +219,7 @@ switch_int ($key0) {
                 chat_sendpublic(%varclient_1520);
                 %varclient_1520 = "";
             }
-        } else if (%varclient_41 = 7) {
+        } else if (%chat_view = 7) {
             if ($int6 >= 0) {
                 if ($int7 >= $int8) {
                     chat_setmode(2);
@@ -237,7 +237,7 @@ switch_int ($key0) {
                     return;
                 }
             } else {
-                %varclient_41 = 0;
+                %chat_view = 0;
                 ~chat_alert_reset(0);
                 ~redraw_chat_buttons;
                 ~rebuildchatbox;
@@ -269,7 +269,7 @@ switch_int ($key0) {
                                 return;
                             }
                         } else {
-                            %varclient_41 = 0;
+                            %chat_view = 0;
                             ~chat_alert_reset(0);
                             ~redraw_chat_buttons;
                             ~rebuildchatbox;
@@ -290,7 +290,7 @@ switch_int ($key0) {
                             return;
                         }
                     } else {
-                        %varclient_41 = 0;
+                        %chat_view = 0;
                         ~chat_alert_reset(0);
                         ~redraw_chat_buttons;
                         ~rebuildchatbox;
@@ -311,8 +311,8 @@ switch_int ($key0) {
         if (keyheld_shift = false) {
             return;
         }
-        %varclient_1028 = ~script1553($key0, %varclient_1028, %varclient_1520);
+        %chat_caret = ~script1553($key0, %chat_caret, %varclient_1520);
     case default :
-        %varclient_1520, %varclient_1028 = ~script802(%varclient_1028, %varclient_1520, 0, $key0, $char1);
+        %varclient_1520, %chat_caret = ~script802(%chat_caret, %varclient_1520, 0, $key0, $char1);
 }
 ~script1558(false);

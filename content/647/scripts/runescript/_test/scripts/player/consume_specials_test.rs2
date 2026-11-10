@@ -9,12 +9,12 @@
 
 [label,test_special_stew]
 setup_player("test_player")
-assert_eq(oc_param(stew, next_obj_stage), bowl)
+assert_eq(oc_param(stew, next_obj_stage), bowl_empty)
 assert_eq(~food_heal(stew), 110)
 
 [label,test_special_curry]
 setup_player("test_player")
-assert_eq(oc_param(curry, next_obj_stage), bowl)
+assert_eq(oc_param(curry, next_obj_stage), bowl_empty)
 assert_eq(~food_heal(curry), 190)
 
 // Integration: the stew/curry heal routes to the life-points pool.

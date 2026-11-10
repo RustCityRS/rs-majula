@@ -2,15 +2,15 @@
 [proc,curse_get_stat](stat $stat0)(int)
 switch_stat ($stat0) {
     case attack :
-        return(calc(%varplayerbit_6857 - 30));
+        return(calc(%curse_attack_adjust - 30));
     case strength :
-        return(calc(%varplayerbit_6858 - 30));
+        return(calc(%curse_strength_adjust - 30));
     case defence :
-        return(calc(%varplayerbit_6859 - 30));
+        return(calc(%curse_defence_adjust - 30));
     case ranged :
-        return(calc(%varplayerbit_6860 - 30));
+        return(calc(%curse_ranged_adjust - 30));
     case magic :
-        return(calc(%varplayerbit_6861 - 30));
+        return(calc(%curse_magic_adjust - 30));
     case default :
         return(0);
 }

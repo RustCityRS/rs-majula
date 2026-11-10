@@ -2,40 +2,40 @@
 [clientscript,mob_invest_add](component $component0)
 switch_component ($component0) {
     case interface_852:offercount_0 :
-        %varclient_840 = 0;
+        %mob_client_invest_scenario = 0;
     case interface_852:offercount_10 :
-        if (%varclient_840 < calc(^max_32bit_int - 10) & %varclient_839 >= 10 & ~script2509(10) = 1) {
-            %varclient_840 = calc(%varclient_840 + 10);
-            %varclient_839 = calc(%varclient_839 - 10);
+        if (%mob_client_invest_scenario < calc(^max_32bit_int - 10) & %mob_client_invest >= 10 & ~script2509(10) = 1) {
+            %mob_client_invest_scenario = calc(%mob_client_invest_scenario + 10);
+            %mob_client_invest = calc(%mob_client_invest - 10);
         }
     case interface_852:offercount_100 :
-        if (%varclient_840 < calc(^max_32bit_int - 100) & %varclient_839 >= 100 & ~script2509(100) = 1) {
-            %varclient_840 = calc(%varclient_840 + 100);
-            %varclient_839 = calc(%varclient_839 - 100);
+        if (%mob_client_invest_scenario < calc(^max_32bit_int - 100) & %mob_client_invest >= 100 & ~script2509(100) = 1) {
+            %mob_client_invest_scenario = calc(%mob_client_invest_scenario + 100);
+            %mob_client_invest = calc(%mob_client_invest - 100);
         }
     case interface_852:offercount_500 :
-        if (%varclient_840 < calc(^max_32bit_int - 500) & %varclient_839 >= 500 & ~script2509(500) = 1) {
-            %varclient_840 = calc(%varclient_840 + 500);
-            %varclient_839 = calc(%varclient_839 - 500);
+        if (%mob_client_invest_scenario < calc(^max_32bit_int - 500) & %mob_client_invest >= 500 & ~script2509(500) = 1) {
+            %mob_client_invest_scenario = calc(%mob_client_invest_scenario + 500);
+            %mob_client_invest = calc(%mob_client_invest - 500);
         }
     case interface_852:offercount_1k :
-        if (%varclient_840 < calc(^max_32bit_int - 1000) & %varclient_839 >= 1000 & ~script2509(1000) = 1) {
-            %varclient_840 = calc(%varclient_840 + 1000);
-            %varclient_839 = calc(%varclient_839 - 1000);
+        if (%mob_client_invest_scenario < calc(^max_32bit_int - 1000) & %mob_client_invest >= 1000 & ~script2509(1000) = 1) {
+            %mob_client_invest_scenario = calc(%mob_client_invest_scenario + 1000);
+            %mob_client_invest = calc(%mob_client_invest - 1000);
         }
     case interface_852:offercount_10k :
-        if (%varclient_840 < calc(^max_32bit_int - 10000) & %varclient_839 >= 10000 & ~script2509(10000) = 1) {
-            %varclient_840 = calc(%varclient_840 + 10000);
-            %varclient_839 = calc(%varclient_839 - 10000);
+        if (%mob_client_invest_scenario < calc(^max_32bit_int - 10000) & %mob_client_invest >= 10000 & ~script2509(10000) = 1) {
+            %mob_client_invest_scenario = calc(%mob_client_invest_scenario + 10000);
+            %mob_client_invest = calc(%mob_client_invest - 10000);
         }
     case interface_852:offercount_all :
-        if (%varclient_839 < ~script2687) {
-            %varclient_840 = %varclient_839;
-            %varclient_839 = 0;
-        } else if (%varclient_840 < ~script2687) {
-            %varclient_840 = ~script2687;
-            %varclient_839 = calc(%varclient_839 - ~script2687);
+        if (%mob_client_invest < ~script2687) {
+            %mob_client_invest_scenario = %mob_client_invest;
+            %mob_client_invest = 0;
+        } else if (%mob_client_invest_scenario < ~script2687) {
+            %mob_client_invest_scenario = ~script2687;
+            %mob_client_invest = calc(%mob_client_invest - ~script2687);
         }
 }
-if_settext(~tostring_spacer(%varclient_840, ","), interface_852:com_63);
-if_settext(~tostring_spacer(%varclient_839, ","), interface_852:invest_total);
+if_settext(interface_852:com_63, ~tostring_spacer(%mob_client_invest_scenario, ","));
+if_settext(interface_852:invest_total, ~tostring_spacer(%mob_client_invest, ","));

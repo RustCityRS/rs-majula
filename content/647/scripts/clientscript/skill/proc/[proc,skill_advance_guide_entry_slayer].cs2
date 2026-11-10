@@ -4,185 +4,185 @@ switch_int ($int0) {
     case 0 :
         switch_int ($int1) {
             case 0 :
-                return(1, enchanted_gem, "Enchanted gem", "You can now use an <col=000080>enchanted gem</col> to communicate with your Slayer Master.");
+                return(1, slayer_gem, "Enchanted gem", "You can now use an <col=000080>enchanted gem</col> to communicate with your Slayer Master.");
             case 1 :
-                return(1, bag_of_salt, "Bag of salt", "You can now use <col=000080>bags of salt</col> to finish off rock slugs.");
+                return(1, slayer_bag_of_salt, "Bag of salt", "You can now use <col=000080>bags of salt</col> to finish off rock slugs.");
             case 2 :
-                return(1, ice_cooler, "Ice cooler", "You can now use <col=000080>ice coolers</col>to finish off desert lizards.");
+                return(1, slayer_icy_water, "Ice cooler", "You can now use <col=000080>ice coolers</col>to finish off desert lizards.");
             case 3 :
-                return(1, spiny_helmet, "Spiny helmet<br> (with 5 Defence)", "You now have the Slayer level required to wear a <col=000080>spiny helmet</col> to fend off wall beast attacks. (You also need level 5 Defence.");
+                return(1, wallbeast_spike_helmet, "Spiny helmet<br> (with 5 Defence)", "You now have the Slayer level required to wear a <col=000080>spiny helmet</col> to fend off wall beast attacks. (You also need level 5 Defence.");
             case 4 :
-                return(1, rock_hammer, "Rock hammer", "You can now use <col=000080>rock hammers</col> to kill weakened gargoyles.");
+                return(1, slayer_rock_hammer, "Rock hammer", "You can now use <col=000080>rock hammers</col> to kill weakened gargoyles.");
             case 5 :
-                return(1, focus_sight, "Members: Focus sight<br> (with 20 Ranged and 10 Defence)", "Members can now wear <col=000080>focus sights</col>.");
+                return(1, slayer_range_mask, "Members: Focus sight<br> (with 20 Ranged and 10 Defence)", "Members can now wear <col=000080>focus sights</col>.");
             case 6 :
-                return(1, hexcrest, "Members: Hexcrest<br> (with 20 Magic and 10 Defence)", "Members can now wear <col=000080>hexcrests</col>.");
+                return(1, slayer_mage_mask, "Members: Hexcrest<br> (with 20 Magic and 10 Defence)", "Members can now wear <col=000080>hexcrests</col>.");
             case 7 :
-                return(1, black_mask, "Members: Black mask<br> (with 20 Strength and 10 Defence)", "Members can now wear <col=000080>black masks</col>.");
+                return(1, harmless_black_mask, "Members: Black mask<br> (with 20 Strength and 10 Defence)", "Members can now wear <col=000080>black masks</col>.");
             case 8 :
-                return(1, slayer_helmet, "Members: Slayer helmet<br> (after Smoking Kills)", "Members can now wear <col=000080>slayer helmets</col> (after Smoking Kills).");
+                return(1, smki_inv_full_slayer_helmet, "Members: Slayer helmet<br> (after Smoking Kills)", "Members can now wear <col=000080>slayer helmets</col> (after Smoking Kills).");
             case 9 :
-                return(1, full_slayer_helmet, "Members: Full Slayer helmet<br> (after Smoking Kills with 20 Ranged, Magic, Strength and 10 Defence)", "Members can now wear <col=000080>full slayer helmets</col> (after Smoking Kills with 20 Ranged, Magic, Strength and 10 Defence).");
+                return(1, slayer_helmet_allcombats, "Members: Full Slayer helmet<br> (after Smoking Kills with 20 Ranged, Magic, Strength and 10 Defence)", "Members can now wear <col=000080>full slayer helmets</col> (after Smoking Kills with 20 Ranged, Magic, Strength and 10 Defence).");
             case 10 :
-                return(10, face_mask, "Face mask", "You can now wear the <col=000080>face mask</col> needed to kill dust devils.");
+                return(10, slayer_facemask, "Face mask", "You can now wear the <col=000080>face mask</col> needed to kill dust devils.");
             case 11 :
-                return(15, earmuffs, "Earmuffs", "You can now wear <col=000080>earmuffs</col> to protect yourself against banshees.");
+                return(15, slayer_earmuffs, "Earmuffs", "You can now wear <col=000080>earmuffs</col> to protect yourself against banshees.");
             case 12 :
-                return(25, mirror_shield, "Mirror shield<br> (with 20 Defence)", "You now have the Slayer level required to wield <col=000080>mirror shields</col> to protect yourself from cockatrices and basilisks. (You also need level 20 Defence.)");
+                return(25, slayer_mirror_shield, "Mirror shield<br> (with 20 Defence)", "You now have the Slayer level required to wield <col=000080>mirror shields</col> to protect yourself from cockatrices and basilisks. (You also need level 20 Defence.)");
             case 13 :
-                return(32, fishing_explosive, "Fishing explosive", "You can now use <col=000080>fishing explosives</col> to lure mogres.");
+                return(32, slayerguide_fishing_explosive, "Fishing explosive", "You can now use <col=000080>fishing explosives</col> to lure mogres.");
             case 14 :
-                return(33, lit_bug_lantern, "Harpie bug lantern<br> (not a light source)", "You can now use <col=000080>harpie bug lanterns</col> to fend off harpie bug swarms so that you can attack.");
+                return(33, slayer_buglan_on, "Harpie bug lantern<br> (not a light source)", "You can now use <col=000080>harpie bug lanterns</col> to fend off harpie bug swarms so that you can attack.");
             case 15 :
                 return(35, witchwood_icon, "Witchwood icon", "You can now wear <col=000080>witchwood icons</col> to protect yourself from cave horrors.");
             case 16 :
-                return(37, insulated_boots, "Insulated boots", "You can now wear <col=000080>insulated boots</col> to protect yourself from killerwatt shocks.");
+                return(37, slayer_boots, "Insulated boots", "You can now wear <col=000080>insulated boots</col> to protect yourself from killerwatt shocks.");
             case 17 :
-                return(39, slayer_bell, "Slayer bell", "You can now use <col=000080>slayer bells</col>, which allow molanisks to be attacked.");
+                return(39, molanisk_bell, "Slayer bell", "You can now use <col=000080>slayer bells</col>, which allow molanisks to be attacked.");
             case 18 :
-                return(42, slayer_gloves_6720, "Slayer gloves", "You can now wear <col=000080>slayer gloves</col> to protect yourself from fever spiders.");
+                return(42, deal_slayer_gloves, "Slayer gloves", "You can now wear <col=000080>slayer gloves</col> to protect yourself from fever spiders.");
             case 19 :
-                return(55, leaf_bladed_spear, "Leaf-bladed spear<br> (with 50 Attack)", "You now have the Slayer level required to wield <col=000080>leaf-bladed spears</col>, melee weapons used for killing turoth and kurask. (You also need level 50 Attack.)");
+                return(55, slayer_leafbladed_spear, "Leaf-bladed spear<br> (with 50 Attack)", "You now have the Slayer level required to wield <col=000080>leaf-bladed spears</col>, melee weapons used for killing turoth and kurask. (You also need level 50 Attack.)");
             case 20 :
-                return(55, broad_arrows, "Broad arrows<br> (with 50 Ranged)", "You now have the Slayer level required to fire <col=000080>broad arrows</col>, ranged weapons used for killing turoth and kurask. (You also need level 50 Ranged.)");
+                return(55, slayerguide_broad_arrows, "Broad arrows<br> (with 50 Ranged)", "You now have the Slayer level required to fire <col=000080>broad arrows</col>, ranged weapons used for killing turoth and kurask. (You also need level 50 Ranged.)");
             case 21 :
-                return(55, broad_tipped_bolts, "Broad-tipped bolts<br> (with 50 Ranged)", "You now have the Slayer level required to fire <col=000080>broad bolts</col>, ranged weapons used for killing turoth and kurask. (You also need level 50 Ranged.)");
+                return(55, xbows_slayer_bolts, "Broad-tipped bolts<br> (with 50 Ranged)", "You now have the Slayer level required to fire <col=000080>broad bolts</col>, ranged weapons used for killing turoth and kurask. (You also need level 50 Ranged.)");
             case 22 :
-                return(55, slayer_s_staff, "Slayer's staff<br> (with 50 Magic)", "You now have the Slayer level required to wield <col=000080>slayer's staves</col>, magic weapons used for killing turoth and kurask. (You also need level 50 Magic.)");
+                return(55, slayer_staff, "Slayer's staff<br> (with 50 Magic)", "You now have the Slayer level required to wield <col=000080>slayer's staves</col>, magic weapons used for killing turoth and kurask. (You also need level 50 Magic.)");
             case 23 :
-                return(55, leaf_bladed_sword, "Leaf-bladed swords<br> (with 50 Attack)", "You now have the Slayer level required to wield <col=000080>leaf-bladed swords</col>, melee weapons used for killing turoth and kurask (with level 50 Attack).");
+                return(55, smki_sword_leaf_blade, "Leaf-bladed swords<br> (with 50 Attack)", "You now have the Slayer level required to wield <col=000080>leaf-bladed swords</col>, melee weapons used for killing turoth and kurask (with level 50 Attack).");
             case 24 :
-                return(56, crystal_chime, "Crystal chime", "You can now use a <col=000080>crystal chime</col> to kill warped terrorbirds and warped tortoises.");
+                return(56, pog_crystal_chime, "Crystal chime", "You can now use a <col=000080>crystal chime</col> to kill warped terrorbirds and warped tortoises.");
             case 25 :
-                return(57, fungicide, "Fungicide spray", "You can now use <col=000080>fungicide spray</col> to finish off mutated zygomites.");
+                return(57, slayer_fungicide, "Fungicide spray", "You can now use <col=000080>fungicide spray</col> to finish off mutated zygomites.");
             case 26 :
-                return(60, nose_peg, "Nose peg", "You can now wear a <col=000080>nosepeg</col> to protect yourself from aberrant spectres.");
+                return(60, slayer_nosepeg, "Nose peg", "You can now wear a <col=000080>nosepeg</col> to protect yourself from aberrant spectres.");
             case 27 :
-                return(70, dragon_slayer_gloves, "Dragon slayer gloves", "You can now wear <col=000080>dragon slayer gloves</col>.");
+                return(70, hvh_dragon_slayer_gloves, "Dragon slayer gloves", "You can now wear <col=000080>dragon slayer gloves</col>.");
         }
     case 1 :
         switch_int ($int1) {
             case 0 :
-                return(5, crawling_hand, "Crawling hand", "You can now slay <col=000080>crawling hands</col>.");
+                return(5, slayerguide_crawlinghand, "Crawling hand", "You can now slay <col=000080>crawling hands</col>.");
             case 1 :
                 return(7, swamp_cave_bug, "Cave bug", "You can now slay <col=000080>cave bugs</col>.");
             case 2 :
-                return(10, cave_crawler, "Cave crawler", "You can now slay <col=000080>cave crawlers</col>.");
+                return(10, slayerguide_cavecrawler, "Cave crawler", "You can now slay <col=000080>cave crawlers</col>.");
             case 3 :
-                return(15, banshee, "Banshee", "You can now slay <col=000080>banshees</col>.");
+                return(15, slayerguide_banshee, "Banshee", "You can now slay <col=000080>banshees</col>.");
             case 4 :
                 return(17, swamp_cave_slime, "Cave slime", "You can now slay <col=000080>cave slimes</col>.");
             case 5 :
-                return(20, rock_slug, "Rockslug", "You can now slay <col=000080>rockslugs</col>.");
+                return(20, slayerguide_rockslug, "Rockslug", "You can now slay <col=000080>rockslugs</col>.");
             case 6 :
-                return(22, desert_lizard, "Desert lizard", "You can now slay <col=000080>desert lizards</col>.");
+                return(22, slayerguide_lizard, "Desert lizard", "You can now slay <col=000080>desert lizards</col>.");
             case 7 :
-                return(25, cockatrice, "Cockatrice", "You can now slay <col=000080>cockatrices</col>.");
+                return(25, slayerguide_cockatrice, "Cockatrice", "You can now slay <col=000080>cockatrices</col>.");
             case 8 :
-                return(30, pyrefiend, "Pyrefiend", "You can now slay <col=000080>pyrefiends</col>.");
+                return(30, slayerguide_pyrfiend, "Pyrefiend", "You can now slay <col=000080>pyrefiends</col>.");
             case 9 :
-                return(32, mogre, "Mogre", "You can now slay <col=000080>mogres</col>.");
+                return(32, slayerguide_mogre, "Mogre", "You can now slay <col=000080>mogres</col>.");
             case 10 :
-                return(33, harpie_bug_swarm, "Harpie bug swarm", "You can now slay <col=000080>harpie bug swarms</col>.");
+                return(33, slayerguide_swarm, "Harpie bug swarm", "You can now slay <col=000080>harpie bug swarms</col>.");
             case 11 :
                 return(35, swamp_wallbeast, "Wall beast", "You can now slay <col=000080>wall beasts</col>.");
             case 12 :
-                return(37, killerwatt, "Killerwatt", "You can now slay <col=000080>killerwatts</col>.");
+                return(37, slayerguide_killerwatt, "Killerwatt", "You can now slay <col=000080>killerwatts</col>.");
             case 13 :
-                return(39, molanisk, "Molanisk", "You can now slay <col=000080>molanisks</col>.");
+                return(39, slayerguide_molanisk, "Molanisk", "You can now slay <col=000080>molanisks</col>.");
             case 14 :
-                return(40, basilisk, "Basilisk", "You can now slay <col=000080>basilisks</col>.");
+                return(40, slayerguide_basilisk, "Basilisk", "You can now slay <col=000080>basilisks</col>.");
             case 15 :
-                return(40, terror_dog, "Terror dog", "You can now slay <col=000080>terror dogs</col>.");
+                return(40, slayerguide_terrordog, "Terror dog", "You can now slay <col=000080>terror dogs</col>.");
             case 16 :
-                return(42, fever_spider, "Fever spider", "You can now slay <col=000080>fever spiders</col>.");
+                return(42, slayerguide_fever_spider, "Fever spider", "You can now slay <col=000080>fever spiders</col>.");
             case 17 :
-                return(45, infernal_mage, "Infernal mage", "You can now slay <col=000080>infernal mages</col>.");
+                return(45, slayerguide_infernalmage, "Infernal mage", "You can now slay <col=000080>infernal mages</col>.");
             case 18 :
-                return(47, brine_rat, "Brine rat", "You can now slay <col=000080>brine rats</col>.");
+                return(47, olaf2_brine_rat_inv, "Brine rat", "You can now slay <col=000080>brine rats</col>.");
             case 19 :
-                return(50, bloodveld, "Bloodveld", "You can now slay <col=000080>bloodvelds</col>.");
+                return(50, slayerguide_bloodveld, "Bloodveld", "You can now slay <col=000080>bloodvelds</col>.");
             case 20 :
-                return(51, obj_14618, "Phoenix<br> (after In Pyre Need)", "You can now slay the <col=000080>phoenix</col>(after In Pyre Need).");
+                return(51, phoenix_phoenix_inv, "Phoenix<br> (after In Pyre Need)", "You can now slay the <col=000080>phoenix</col>(after In Pyre Need).");
             case 21 :
-                return(52, jelly, "Jelly", "You can now slay <col=000080>jellies</col>.");
+                return(52, slayerguide_jelly, "Jelly", "You can now slay <col=000080>jellies</col>.");
             case 22 :
-                return(55, turoth, "Turoth", "You can now slay <col=000080>turoths</col>.");
+                return(55, slayerguide_turoth, "Turoth", "You can now slay <col=000080>turoths</col>.");
             case 23 :
-                return(56, obj_11752, "Warped terrorbird", "You can now slay <col=000080>warped terrorbirds</col>.");
+                return(56, pog_slayer_dummy_warped_terrorbird, "Warped terrorbird", "You can now slay <col=000080>warped terrorbirds</col>.");
             case 24 :
-                return(56, obj_11751, "Warped tortoise", "You can now slay <col=000080>warped tortoises</col>.");
+                return(56, pog_slayer_dummy_warped_tortoise, "Warped tortoise", "You can now slay <col=000080>warped tortoises</col>.");
             case 25 :
-                return(57, mutated_zygomite, "Mutated zygomite", "You can now slay <col=000080>mutated zygomites</col>.");
+                return(57, slayer_zygomite_object, "Mutated zygomite", "You can now slay <col=000080>mutated zygomites</col>.");
             case 26 :
-                return(58, cave_horror, "Cave horror", "You can now slay <col=000080>cave horrors</col>.");
+                return(58, slayerguide_harmless_cave_horror, "Cave horror", "You can now slay <col=000080>cave horrors</col>.");
             case 27 :
-                return(59, obj_11779, "Wild jade vine<br> (after Back to My Roots)", "You now have the Slayer level required to slay <col=000080>wild jade vines</col> (after Back to My Roots).");
+                return(59, roots_seed_graphic, "Wild jade vine<br> (after Back to My Roots)", "You now have the Slayer level required to slay <col=000080>wild jade vines</col> (after Back to My Roots).");
             case 28 :
-                return(60, aberrant_spectre, "Aberrant spectre", "You can now slay <col=000080>aberrant spectres</col>.");
+                return(60, slayerguide_aberrantspecter, "Aberrant spectre", "You can now slay <col=000080>aberrant spectres</col>.");
             case 29 :
-                return(61, giant_crab, "'Rum'-pumped crab", "You can now slay <col=000080>'rum'-pumped crabs</col>.");
+                return(61, lore_giant_crab_1, "'Rum'-pumped crab", "You can now slay <col=000080>'rum'-pumped crabs</col>.");
             case 30 :
-                return(63, picture_11742, "Spiritual ranger", "You can now slay <col=000080>spiritual rangers</col>.");
+                return(63, godwars_spiritual_ranger_inv, "Spiritual ranger", "You can now slay <col=000080>spiritual rangers</col>.");
             case 31 :
-                return(65, dust_devil, "Dust devil", "You can now slay <col=000080>dust devils</col>.");
+                return(65, slayerguide_dustdevil, "Dust devil", "You can now slay <col=000080>dust devils</col>.");
             case 32 :
-                return(68, picture_11744, "Spiritual warrior", "You can now slay <col=000080>spiritual warriors</col>.");
+                return(68, godwars_spiritual_warrior_inv, "Spiritual warrior", "You can now slay <col=000080>spiritual warriors</col>.");
             case 33 :
-                return(70, kurask, "Kurask", "You can now slay <col=000080>kurask</col>.");
+                return(70, slayerguide_kurask, "Kurask", "You can now slay <col=000080>kurask</col>.");
             case 34 :
-                return(72, skeletal_wyvern, "Skeletal wyvern", "You can now slay <col=000080>skeletal wyverns</col>.");
+                return(72, slayerguide_skeletalwyvern, "Skeletal wyvern", "You can now slay <col=000080>skeletal wyverns</col>.");
             case 35 :
-                return(73, jungle_strykewyrm, "Jungle strykewyrm", "You can now slay <col=000080>jungle strykewyrms</col>.");
+                return(73, slayerguide_strykewyrm_jungle, "Jungle strykewyrm", "You can now slay <col=000080>jungle strykewyrms</col>.");
             case 36 :
-                return(75, gargoyle, "Gargoyle", "You can now slay <col=000080>gargoyles</col>.");
+                return(75, slayerguide_gargoyle, "Gargoyle", "You can now slay <col=000080>gargoyles</col>.");
             case 37 :
-                return(77, desert_strykewyrm, "Desert strykewyrm", "You can now slay <col=000080>desert strykewyrms</col>.");
+                return(77, slayerguide_strykewyrm_desert, "Desert strykewyrm", "You can now slay <col=000080>desert strykewyrms</col>.");
             case 38 :
-                return(78, aquanite, "Aquanite", "You can now slay <col=000080>aquanites</col>.");
+                return(78, slayerguide_aquanite, "Aquanite", "You can now slay <col=000080>aquanites</col>.");
             case 39 :
-                return(80, nechryael, "Nechryael", "You can now slay <col=000080>nechryaels</col>.");
+                return(80, slayerguide_nechryael, "Nechryael", "You can now slay <col=000080>nechryaels</col>.");
             case 40 :
-                return(83, picture_11740, "Spiritual mage", "You can now slay <col=000080>spiritual mages</col>.");
+                return(83, godwars_spiritual_mage_inv, "Spiritual mage", "You can now slay <col=000080>spiritual mages</col>.");
             case 41 :
-                return(85, abyssal_demon, "Abyssal demon", "You can now slay <col=000080>abyssal demons</col>.");
+                return(85, slayerguide_abyssaldemon, "Abyssal demon", "You can now slay <col=000080>abyssal demons</col>.");
             case 42 :
-                return(90, dark_beast, "Dark beast", "You can now slay <col=000080>dark beasts</col>.");
+                return(90, slayerguide_dark_beast, "Dark beast", "You can now slay <col=000080>dark beasts</col>.");
             case 43 :
-                return(93, ice_strykewyrm, "Ice strykewyrm", "You can now slay <col=000080>ice strykewyrms</col>.");
+                return(93, slayerguide_strykewyrm_ice, "Ice strykewyrm", "You can now slay <col=000080>ice strykewyrms</col>.");
         }
     case 2 :
         switch_int ($int1) {
             case 0 :
-                return(1, enchanted_gem, "Burthorpe<br> (with level 3 Combat)", "You can now receive <col=000080>Slayer assignments</col> from the <col=000080>Burthorpe slayer master</col>.");
+                return(1, slayer_gem, "Burthorpe<br> (with level 3 Combat)", "You can now receive <col=000080>Slayer assignments</col> from the <col=000080>Burthorpe slayer master</col>.");
             case 1 :
-                return(1, enchanted_gem, "Canifis<br> (with level 20 Combat)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Canifis slayer master</col>. (You also need level 20 Combat.)");
+                return(1, slayer_gem, "Canifis<br> (with level 20 Combat)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Canifis slayer master</col>. (You also need level 20 Combat.)");
             case 2 :
-                return(1, enchanted_gem, "Edgeville Dungeon<br> (with level 40 Combat)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Edgeville Dungeon slayer master</col>. (You also need level 40 Combat.)");
+                return(1, slayer_gem, "Edgeville Dungeon<br> (with level 40 Combat)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Edgeville Dungeon slayer master</col>. (You also need level 40 Combat.)");
             case 3 :
-                return(1, enchanted_gem, "Zanaris<br> (with level 70 Combat)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Zanaris slayer master</col>. (You also need level 70 Combat.)");
+                return(1, slayer_gem, "Zanaris<br> (with level 70 Combat)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Zanaris slayer master</col>. (You also need level 70 Combat.)");
             case 4 :
-                return(35, enchanted_gem, "Pollnivneach<br> (after Smoking Kills)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Pollnivneach slayer master</col> (after Smoking Kills).");
+                return(35, slayer_gem, "Pollnivneach<br> (after Smoking Kills)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Pollnivneach slayer master</col> (after Smoking Kills).");
             case 5 :
-                return(50, enchanted_gem, "Shilo Village<br> (with level 100 Combat)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Shilo Village slayer master</col>. (You also need level 100 Combat.)");
+                return(50, slayer_gem, "Shilo Village<br> (with level 100 Combat)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Shilo Village slayer master</col>. (You also need level 100 Combat.)");
             case 6 :
-                return(75, enchanted_gem, "Ancient cavern<br> (with level 110 Combat)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Ancient Cavern slayer master</col>. (You also need level 110 Combat.)");
+                return(75, slayer_gem, "Ancient cavern<br> (with level 110 Combat)", "You now have the Slayer level required to receive <col=000080>slayer assignments</col> from the <col=000080>Ancient Cavern slayer master</col>. (You also need level 110 Combat.)");
         }
     case 3 :
         switch_int ($int1) {
             case 0 :
-                return(41, night_spider, "Night spider", "You can now slay <col=000080>night spiders</col> within Daemonheim.");
+                return(41, slayerguide_night_spider, "Night spider", "You can now slay <col=000080>night spiders</col> within Daemonheim.");
             case 1 :
-                return(63, spirit_guardian, "Spiritual guardian", "You can now slay <col=000080>spiritual guardians</col> within Daemonheim.");
+                return(63, slayerguide_spirit, "Spiritual guardian", "You can now slay <col=000080>spiritual guardians</col> within Daemonheim.");
             case 2 :
-                return(71, seeker, "Seeker", "You can now slay <col=000080>seekers</col> within Daemonheim.");
+                return(71, slayerguide_seeker, "Seeker", "You can now slay <col=000080>seekers</col> within Daemonheim.");
             case 3 :
-                return(90, edimmu, "Edimmu", "You can now slay <col=000080>edimmu</col> within Daemonheim.");
+                return(90, slayerguide_edimmu, "Edimmu", "You can now slay <col=000080>edimmu</col> within Daemonheim.");
             case 4 :
-                return(99, stalker, "Soulgazer", "You can now slay <col=000080>soulgazers</col> within Daemonheim.");
+                return(99, slayerguide_stalker, "Soulgazer", "You can now slay <col=000080>soulgazers</col> within Daemonheim.");
         }
     case 4 :
         if ($int1 = 0) {
-            return(99, slayer_cape, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Slayer<col=000080>. Why not visit the <col=800000>ancient cavern Slayer Master<col=000080>? She has something special that is only available to true masters of the <col=800000>Slayer<col=000080> skill!");
+            return(99, skillcape_slayer, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Slayer<col=000080>. Why not visit the <col=800000>ancient cavern Slayer Master<col=000080>? She has something special that is only available to true masters of the <col=800000>Slayer<col=000080> skill!");
         }
 }

@@ -1,6 +1,6 @@
-[opnpc1,magic_instructor]
+[opnpc1,newbie_magic_instructor]
 
-switch_int(%tutorial) {
+switch_int(%varplayer_419) {
     case ^tutorial_exit_chapel : @newbie_magic_instructor_start;
     case ^tutorial_open_magic_tab : @newbie_magic_instructor_open_tab;
     case ^tutorial_opened_magic_tab : ~newbie_magic_instructor_opened_tab;
@@ -13,8 +13,8 @@ switch_int(%tutorial) {
 [label,newbie_magic_instructor_start]
 ~chatplayer("<p,neutral>Hello.");
 ~chatnpc("<p,neutral>Good day newcomer.|My name is Terrova.|I'm here to tell you about magic.|Let's start by opening your spell list. ");
-if (%tutorial = ^tutorial_exit_chapel) {
-    %tutorial = ^tutorial_open_magic_tab;
+if (%varplayer_419 = ^tutorial_exit_chapel) {
+    %varplayer_419 = ^tutorial_open_magic_tab;
     ~set_tutorial_progress;
 }
 
@@ -29,27 +29,27 @@ if (%tutorial = ^tutorial_exit_chapel) {
 ~chatnpc("<p,neutral>Good. This is a list of your spells. Currently you can only cast one offensive spell called Wind Strike. Let's try it out on one of those chickens.");
 ~newbie_magic_instructor_give_runes;
 // This weirdly comes after giving runes...
-if (%tutorial = ^tutorial_opened_magic_tab) {
-    %tutorial = ^tutorial_cast_wind_strike;
+if (%varplayer_419 = ^tutorial_opened_magic_tab) {
+    %varplayer_419 = ^tutorial_cast_wind_strike;
     ~set_tutorial_progress;
 }
 
 [label,newbie_magic_instructor_cast_wind_strike]
-if (inv_total(inv, air_rune) >= 25 & inv_total(inv, mind_rune) >= 25) {
+if (inv_total(inv, airrune) >= 25 & inv_total(inv, mindrune) >= 25) {
     ~chatnpc("<p,neutral>Sorry, I don't have any more runes just now. But I do see you have plenty.");
     return;
 }
 
-if (inv_total(inv, air_rune) < 25 & inv_total(inv, mind_rune) < 25) {
-    ~doubleobjbox(air_rune, mind_rune, "Terrova gives you some |@blu@Air runes| and some |@blu@Mind runes!", 200);
-    inv_add(inv, air_rune, ~newbie_magic_instructor_runes_to_give(air_rune));
-    inv_add(inv, mind_rune, ~newbie_magic_instructor_runes_to_give(mind_rune));
-}else if (inv_total(inv, air_rune) < 25) {
-    ~objbox(air_rune, "Terrova gives you some |@blu@Air runes!", 250, 0, 0);
-    inv_add(inv, air_rune, ~newbie_magic_instructor_runes_to_give(air_rune));
-}else if (inv_total(inv, mind_rune) < 25) {
-    ~objbox(mind_rune, "Terrova gives you some |@blu@Mind runes!", 250, 0, 0);
-    inv_add(inv, mind_rune, ~newbie_magic_instructor_runes_to_give(mind_rune));
+if (inv_total(inv, airrune) < 25 & inv_total(inv, mindrune) < 25) {
+    ~doubleobjbox(airrune, mindrune, "Terrova gives you some |@blu@Air runes| and some |@blu@Mind runes!", 200);
+    inv_add(inv, airrune, ~newbie_magic_instructor_runes_to_give(airrune));
+    inv_add(inv, mindrune, ~newbie_magic_instructor_runes_to_give(mindrune));
+}else if (inv_total(inv, airrune) < 25) {
+    ~objbox(airrune, "Terrova gives you some |@blu@Air runes!", 250, 0, 0);
+    inv_add(inv, airrune, ~newbie_magic_instructor_runes_to_give(airrune));
+}else if (inv_total(inv, mindrune) < 25) {
+    ~objbox(mindrune, "Terrova gives you some |@blu@Mind runes!", 250, 0, 0);
+    inv_add(inv, mindrune, ~newbie_magic_instructor_runes_to_give(mindrune));
 }
 
 [proc,newbie_magic_instructor_runes_to_give](obj $obj)(int)
@@ -63,8 +63,8 @@ if (calc(25 - $total_runes) >= 5) {
 
 [label,newbie_magic_instructor_successfully_cast_wind_strike]
 ~chatnpc("<p,neutral>Well you're all finished here now. I'll give a reasonable number of runes when you leave.");
-if (%tutorial = ^tutorial_successful_wind_strike) {
-    %tutorial = ^newbie_magic_instructor_finished;
+if (%varplayer_419 = ^tutorial_successful_wind_strike) {
+    %varplayer_419 = ^newbie_magic_instructor_finished;
 }
 
 @multi2_header(
@@ -89,11 +89,11 @@ if (%tutorial = ^tutorial_successful_wind_strike) {
 [proc,newbie_magic_instructor_give_runes]
 // check inventory space...
 // There's no inventory full message on OSRS it still shows the interface just no runes are given...
-~doubleobjbox(air_rune, mind_rune, "Terrova gives you five |@blu@Air runes| and five |@blu@Mind runes!", 200);
-inv_add(inv, air_rune, 5);
-inv_add(inv, mind_rune, 5);
+~doubleobjbox(airrune, mindrune, "Terrova gives you five |@blu@Air runes| and five |@blu@Mind runes!", 200);
+inv_add(inv, airrune, 5);
+inv_add(inv, mindrune, 5);
 
 [proc,set_hint_icon_newbie_magic_instructor]
-if (npc_find(0_49_48_5_17, magic_instructor, 10, 0) = true) {
+if (npc_find(0_49_48_5_17, newbie_magic_instructor, 10, 0) = true) {
     hint_npc;
 }

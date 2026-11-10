@@ -1,12 +1,12 @@
 // 1103
 [proc,script1103]()(boolean)
-if (%varclient_754 = 1) {
+if (%skill_multi_num = 1) {
     return(false);
 }
-if (%varclient_754 = 9) {
+if (%skill_multi_num = 9) {
     return(false);
 }
-if (%varclient_754 = 12) {
+if (%skill_multi_num = 12) {
     return(false);
 }
 return(true);

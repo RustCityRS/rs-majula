@@ -150,14 +150,14 @@ return(true);
 // simply walk away". So it always gets away: no wool, and none of 289's
 // one-in-four. No 2011 source quotes its message, so it says void-634's
 // (Sheep.kt); 289's sheep say "The sheep manages to get away from you!".
-[opnpc1,sheep_3579]
+[opnpc1,sheep_shearer_the_thing]
 if (inv_total(inv, shears) < 1) {
     mes("You need a set of shears to do this.");
     return;
 }
 @the_thing_gets_away;
 
-[opnpcu,sheep_3579]
+[opnpcu,sheep_shearer_the_thing]
 if(last_useitem ! shears) {
     ~displaymessage(^dm_default);
     return;

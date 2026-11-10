@@ -4,7 +4,7 @@ if (~script1431 = 0 | compare(%varclient_1667, null) = 0) {
     return;
 }
 if (getwindowmode < 2) {
-    if_settext(%varclient_1667, toplevel:com_10);
+    if_settext(toplevel:com_10, %varclient_1667);
 } else {
-    if_settext(%varclient_1667, toplevel_fullscreen:com_161);
+    if_settext(toplevel_fullscreen:com_161, %varclient_1667);
 }

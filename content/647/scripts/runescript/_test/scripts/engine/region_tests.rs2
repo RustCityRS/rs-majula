@@ -9,7 +9,7 @@
 
 // A hit a controller's queue paints is the player's who queued it.
 [ai_conqueue,controller_1]
-npc_add(controller_coord, dagannoth, 50);
+npc_add(controller_coord, horror_dagganoth_jr, 50);
 npc_damage(^hitmark_damage, last_int);
 
 // A region is found by any of its tiles and by its uid, and freed once
@@ -187,13 +187,13 @@ assert_false(controller_findexact($origin, controller_0))
 // A controller added for a duration goes when an npc added for it would.
 [label,test_controller_despawns_like_an_npc]
 controller_add(0_50_50_20_23, controller_0, 3)
-npc_add(0_50_50_20_24, dagannoth, 3)
+npc_add(0_50_50_20_24, horror_dagganoth_jr, 3)
 test_tick(2)
 assert_true(controller_findexact(0_50_50_20_23, controller_0))
-assert_true(npc_findexact(0_50_50_20_24, dagannoth))
+assert_true(npc_findexact(0_50_50_20_24, horror_dagganoth_jr))
 test_tick(1)
 assert_false(controller_findexact(0_50_50_20_23, controller_0))
-assert_false(npc_findexact(0_50_50_20_24, dagannoth))
+assert_false(npc_findexact(0_50_50_20_24, horror_dagganoth_jr))
 
 // A region's controller can stand on a tile no zone was copied to.
 [label,test_controller_stands_anywhere_in_its_region]

@@ -1,15 +1,15 @@
 // 728
 [clientscript,script728]
-if_sethide(true, rcguild_map:lay_air);
-if_sethide(true, rcguild_map:lay_body);
-if_sethide(true, rcguild_map:lay_mind);
-if_sethide(true, rcguild_map:lay_earth);
-if_sethide(true, rcguild_map:lay_water);
-if_sethide(true, rcguild_map:lay_fire);
-if_sethide(true, rcguild_map:lay_chaos);
-if_sethide(true, rcguild_map:lay_law);
-if_sethide(true, rcguild_map:lay_nature);
-if_sethide(true, rcguild_map:lay_death);
-if_sethide(true, rcguild_map:lay_cosmic);
-if_sethide(true, rcguild_map:lay_blood);
-if_settext("Use a talisman to display the altar location.", rcguild_map:info_txt);
+if_sethide(rcguild_map:lay_air, true);
+if_sethide(rcguild_map:lay_body, true);
+if_sethide(rcguild_map:lay_mind, true);
+if_sethide(rcguild_map:lay_earth, true);
+if_sethide(rcguild_map:lay_water, true);
+if_sethide(rcguild_map:lay_fire, true);
+if_sethide(rcguild_map:lay_chaos, true);
+if_sethide(rcguild_map:lay_law, true);
+if_sethide(rcguild_map:lay_nature, true);
+if_sethide(rcguild_map:lay_death, true);
+if_sethide(rcguild_map:lay_cosmic, true);
+if_sethide(rcguild_map:lay_blood, true);
+if_settext(rcguild_map:info_txt, "Use a talisman to display the altar location.");

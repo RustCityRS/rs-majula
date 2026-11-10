@@ -7,8 +7,8 @@ if ($int2 = 1) {
     $component3 = lobbyscreen_pane_friendslist:ignore_mo_bg;
 }
 if (cc_find($component0, $int1) = true) {
-    if_sethide(false, $component3);
-    if_setposition(if_getx($component3), cc_gety, ^setpos_abs_left, ^setpos_abs_top, $component3);
+    if_sethide($component3, false);
+    if_setposition($component3, if_getx($component3), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
 }
 if ($int2 = 1) {
     ~friend_deltooltip(lobbyscreen_pane_friendslist:friends_tooltip, lobbyscreen_pane_friendslist:friends_tooltip_text);

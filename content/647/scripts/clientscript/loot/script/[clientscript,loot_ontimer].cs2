@@ -1,16 +1,16 @@
 // 1598
 [clientscript,loot_ontimer](component $component0)
-if (%varclient_53 < clientclock) {
-    if (%varplayerbit_4072 = 1 | %varplayerbit_4073 = 1) {
-        if_setgraphic("loot_icon,2", $component0);
-    } else if (%varplayerbit_4071 = 1) {
-        if (%varplayerbit_4465 = 1) {
-            if_setgraphic("loot_icon,3", $component0);
+if (%client_timer < clientclock) {
+    if (%loot_waiting_on = 1 | %loot_waiting_off = 1) {
+        if_setgraphic($component0, "loot_icon,2");
+    } else if (%loot_share_on = 1) {
+        if (%loot_coinshare = 1) {
+            if_setgraphic($component0, "loot_icon,3");
         } else {
-            if_setgraphic("loot_icon,0", $component0);
+            if_setgraphic($component0, "loot_icon,0");
         }
     } else {
-        if_setgraphic("loot_icon,1", $component0);
+        if_setgraphic($component0, "loot_icon,1");
     }
-    %varclient_53 = calc(clientclock + 500);
+    %client_timer = calc(clientclock + 500);
 }

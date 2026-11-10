@@ -1,5 +1,5 @@
-[opnpc1,brother_brace]
-switch_int(%tutorial) {
+[opnpc1,brother_noob]
+switch_int(%varplayer_419) {
     case ^tutorial_exit_newbie_account_instructors_room : @brother_noob_intro;
     case ^brother_noob_open_prayer_tab : @brother_noob_open_indicated_menu_prayer;
     case ^brother_noob_opened_prayer_tab : @brother_noob_this_is_your_prayer_list;
@@ -13,8 +13,8 @@ switch_int(%tutorial) {
 [label,brother_noob_intro]
 ~chatplayer("<p,neutral>Good day brother, my name's <displayname>.");
 ~chatnpc("<p,neutral>Hello, <displayname>.|I'm Brother Brace. I'm here to |tell you all about prayer.");
-if (%tutorial = ^tutorial_exit_newbie_account_instructors_room) {
-    %tutorial = ^brother_noob_open_prayer_tab;
+if (%varplayer_419 = ^tutorial_exit_newbie_account_instructors_room) {
+    %varplayer_419 = ^brother_noob_open_prayer_tab;
     ~set_tutorial_progress;
 }
 
@@ -26,8 +26,8 @@ if (%tutorial = ^tutorial_exit_newbie_account_instructors_room) {
 ~chatnpc("<p,neutral>Active prayers will drain your prayer power which you can recharge by finding an altar or other holy spot, and praying there.");
 ~chatnpc("<p,neutral>As you noticed, most enemies when defeated will drop bones as they die. Burying bones, by clicking them in your inventory, will gain you experience in prayer.");
 ~chatnpc("<p,neutral>I'm also the community officer round here too. So it's my job to tell you about your friends and ignore list.");
-if (%tutorial = ^brother_noob_opened_prayer_tab) {
-    %tutorial = ^brother_noob_after_prayer_tab;
+if (%varplayer_419 = ^brother_noob_opened_prayer_tab) {
+    %varplayer_419 = ^brother_noob_after_prayer_tab;
     ~set_tutorial_progress;
 }
 
@@ -40,8 +40,8 @@ if (%tutorial = ^brother_noob_opened_prayer_tab) {
 ~chatnpc("<p,neutral>But as a general guide always try to be courteous to people in game, remember the people in the game are real people somewhere with real feelings.");
 ~chatnpc("<p,neutral>If you go round being abusive or causing trouble your character could quickly be the one in trouble.");
 ~chatplayer("<p,neutral>OK... Thanks I'll bear that in mind.");
-if (%tutorial = ^brother_noob_after_friends_tab) {
-    %tutorial = ^brother_noob_finish;
+if (%varplayer_419 = ^brother_noob_after_friends_tab) {
+    %varplayer_419 = ^brother_noob_finish;
     ~set_tutorial_progress;
 }
 
@@ -74,6 +74,6 @@ if (%tutorial = ^brother_noob_after_friends_tab) {
 ~chatnpc("<p,neutral>Ok then, <displayname>.");
 
 [proc,set_hint_icon_brother_noob]
-if (npc_find(0_48_48_53_34, brother_brace, 10, 0) = true) {
+if (npc_find(0_48_48_53_34, brother_noob, 10, 0) = true) {
     hint_npc;
 }

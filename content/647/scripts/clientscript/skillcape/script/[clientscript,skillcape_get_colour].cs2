@@ -1,6 +1,6 @@
 // 4604
 [clientscript,skillcape_get_colour](component $component0, component $component1, component $component2)
-if_setcolour(hsvtorgb(%varplayer_2174), $component2);
+if_setcolour($component2, hsvtorgb(%varplayer_2174));
 def_int $int3 = if_getheight($component1);
 def_int $int4 = 1;
 if (%varplayerbit_9258 > 0) {
@@ -17,5 +17,5 @@ def_int $int7 = 0;
 if (%varplayerbit_9260 > 0) {
     $int7 = max(min(calc(%varplayerbit_9260 * ($int5 / 128)), $int5), 0);
 }
-if_setcolour(%varplayerbit_9258, $component0);
+if_setcolour($component0, %varplayerbit_9258);
 ~script4609($int7, $int6);

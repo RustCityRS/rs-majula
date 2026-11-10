@@ -17,7 +17,7 @@ if(map_members = ^true & inv_total(inv, trail_clue_easy_simple021) = 1) {
 }
 
 [opnpcu,ned]
-if (last_useitem = crandor_map) {
+if (last_useitem = dragonmap) {
     @give_map_to_ned;
 } else {
     ~displaymessage(^dm_default);
@@ -166,7 +166,7 @@ if (%dragonquest = ^quest_dragon_repaired_ship) {
     ~chatplayer("<p,happy>I fixed her up!");
     ~chatnpc("<p,happy>You did? Excellent!");
     ~chatnpc("<p,neutral>Just show me the map and we can get ready to go!");
-    if (inv_total(inv, crandor_map) > 0) {
+    if (inv_total(inv, dragonmap) > 0) {
         @give_map_to_ned;
     }
     return;
@@ -202,7 +202,7 @@ if ($choice = 1) {
         return;
     }
     ~chatnpc("<p,neutral>Ok, show me the map and we'll set sail now.");
-    if (inv_total(inv, crandor_map) < 1) {
+    if (inv_total(inv, dragonmap) < 1) {
         return;
     }
     @give_map_to_ned;
@@ -248,7 +248,7 @@ if (%dragon_ned_hired = 0 | %dragonquest ! ^quest_dragon_repaired_ship) {
 }
 // 2011 (122.8-125.2s): the player's line, then the map in an item box, then Ned.
 ~chatplayer("<p,neutral>Here you go.");
-inv_del(inv, crandor_map, inv_total(inv, crandor_map));
+inv_del(inv, dragonmap, inv_total(inv, dragonmap));
 %dragonquest = ^quest_dragon_ned_given_map;
-~objbox(crandor_map, "You hand the map to Ned.", 250, 0, 0);
+~objbox(dragonmap, "You hand the map to Ned.", 250, 0, 0);
 ~chatnpc("<p,happy>Excellent! I'll meet you at the ship, then.");

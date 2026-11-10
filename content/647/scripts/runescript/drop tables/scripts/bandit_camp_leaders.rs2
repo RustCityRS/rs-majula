@@ -18,17 +18,17 @@ if ($random < 1) {
 } else if ($random < 2) {
     obj_add(npc_coord, steel_full_helm, 1, ^lootdrop_duration);
 } else if ($random < 6) {
-    obj_add(npc_coord, law_rune, 2, ^lootdrop_duration);
+    obj_add(npc_coord, lawrune, 2, ^lootdrop_duration);
 } else if ($random < 10) {
-    obj_add(npc_coord, nature_rune, 4, ^lootdrop_duration);
+    obj_add(npc_coord, naturerune, 4, ^lootdrop_duration);
 } else if ($random < 13) {
-    obj_add(npc_coord, body_rune, 12, ^lootdrop_duration);
+    obj_add(npc_coord, bodyrune, 12, ^lootdrop_duration);
 } else if ($random < 16) {
-    obj_add(npc_coord, chaos_rune, 3, ^lootdrop_duration);
+    obj_add(npc_coord, chaosrune, 3, ^lootdrop_duration);
 } else if ($random < 19) {
-    obj_add(npc_coord, water_rune, 30, ^lootdrop_duration);
+    obj_add(npc_coord, waterrune, 30, ^lootdrop_duration);
 } else if ($random < 20) {
-    obj_add(npc_coord, mind_rune, 5, ^lootdrop_duration);
+    obj_add(npc_coord, mindrune, 5, ^lootdrop_duration);
 } else if ($random < 35) {
     obj_add(npc_coord, ~randomherb, ^lootdrop_duration);
 } else if ($random < 65) {

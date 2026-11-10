@@ -1634,7 +1634,7 @@ mod tests {
             device: Arc::new(LoginDevice {
                 web: true,
                 user_agent: Some("Mozilla/5.0 (Windows NT 10.0) Chrome/141.0".into()),
-                engine: Some("blink".into()),
+                engine: Some("rand_blink_1".into()),
                 check: Some(check),
                 agent_differs,
                 ..LoginDevice::default()

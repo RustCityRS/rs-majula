@@ -5,8 +5,8 @@ width=16391
 height=16391
 widthmode=proportion
 heightmode=proportion
-onvartransmit=barrows_killcount_update{varplayer_453}
-onvarctransmit=barrows_show_head{varclient_1043}
+onvartransmit=barrows_killcount_update{barrows_kills}
+onvarctransmit=barrows_show_head{barrows_overlay_head}
 
 // 24:1
 [kills_layer]
@@ -42,7 +42,7 @@ textshadow=yes
 colour=0x7d7d4b
 transmitop=10
 op10= 
-onvartransmit=barrows_killcount_update{varplayer_453}
+onvartransmit=barrows_killcount_update{barrows_kills}
 
 // 24:4
 [brothers_slain_title]
@@ -58,7 +58,7 @@ textshadow=yes
 colour=0xcccc00
 transmitop=10
 op10=  
-onvartransmit=barrows_killcount_update{varplayer_453}
+onvartransmit=barrows_killcount_update{barrows_kills}
 
 // 24:5
 [creatures_slain_layer]
@@ -81,7 +81,7 @@ text=0
 textalignh=right
 textshadow=yes
 colour=0x7d7d4b
-onvartransmit=barrows_killcount_update{varplayer_453}
+onvartransmit=barrows_killcount_update{barrows_kills}
 
 // 24:7
 [creatures_slain_title]

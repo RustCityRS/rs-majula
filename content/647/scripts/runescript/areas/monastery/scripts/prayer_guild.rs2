@@ -8,7 +8,7 @@ if (%prayer_guild < 1) {
         ~chatnpc("<p,neutral>Only members of our order can go up there.");
         @ask_to_join_abbot_langley2;
     }
-    if (npc_find(coord, monk_7727, 5, 0) = true) { // the monastery's monk, as void-634 places it (monk.rs2)
+    if (npc_find(coord, icemt_monk, 5, 0) = true) { // the monastery's monk, as void-634 places it (monk.rs2)
         ~chatnpc("<p,neutral>You'll need to talk to Abbot Langley about that. He's|usually to be found walking the halls of the monastery.");
         return;
     }

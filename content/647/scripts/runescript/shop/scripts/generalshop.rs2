@@ -1,5 +1,5 @@
-[opnpc1,shopkeeper] @generalshop_help; //Lumbridge
-[opnpc1,shop_assistant] @generalshop_help; //Lumbridge
+[opnpc1,generalshopkeeper1] @generalshop_help; //Lumbridge
+[opnpc1,generalassistant1] @generalshop_help; //Lumbridge
 [opnpc1,generalshopkeeper2] @generalshop_help; //Varrock
 [opnpc1,generalassistant2] @generalshop_help; //Varrock
 [opnpc1,generalshopkeeper4] @generalshop_help; //Falador
@@ -17,12 +17,12 @@
 // does not resolve yet, so only Kofi answers.
 // [opnpc1,generalshopkeeper7]
 // [opnpc1,generalassistant7]
-[opnpc1,shopkeeper_kofi] @generalshop_help; //Karamja
-[opnpc1,npc_11677] @generalshop_help; //Karamja
+[opnpc1,vkq2_kofi] @generalshop_help; //Karamja
+[opnpc1,vkq2_assistant] @generalshop_help; //Karamja
 [opnpc1,khazard_shopkeeper] @generalshop_help_neutral; //Port Khazard
 [opnpc1,dwarven_shopkeeper] @generalshop_help_neutral; //Dwarven mine
-[opnpc1,fairy_shopkeeper] @generalshop_help; //Zanaris
-[opnpc1,fairy_shop_assistant] @generalshop_help; //Zanaris
+[opnpc1,generalshopkeeper8] @generalshop_help; //Zanaris
+[opnpc1,generalassistant8] @generalshop_help; //Zanaris
 
 // In osrs, most generic general shops (shopkeeper w/assistant) use this dialogue, directly opening the shop on the first dialogue option. 
 // This is probably an OSRS change as the khazard shop uses the same dialogue as classic (although the khazard shop has different mesanims)

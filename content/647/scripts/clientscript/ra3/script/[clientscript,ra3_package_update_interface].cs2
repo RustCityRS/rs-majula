@@ -1,37 +1,37 @@
 // 1198
 [clientscript,ra3_package_update_interface]
-if (inv_total(inv, rod) > 0 | inv_total(bank, rod) > 0 | %varplayerbit_6471 >= 44) {
-    if_sethide(true, ra3_package:handled_rod);
+if (inv_total(inv, ra3_rod) > 0 | inv_total(bank, ra3_rod) > 0 | %ra3_quest >= 44) {
+    if_sethide(ra3_package:handled_rod, true);
 } else {
-    if_sethide(false, ra3_package:handled_rod);
+    if_sethide(ra3_package:handled_rod, false);
 }
-if (inv_total(inv, turnscrew) > 0 | inv_total(bank, turnscrew) > 0) {
-    if_sethide(true, ra3_package:turn_screw);
+if (inv_total(inv, ra3_turnscrew) > 0 | inv_total(bank, ra3_turnscrew) > 0) {
+    if_sethide(ra3_package:turn_screw, true);
 } else {
-    if_sethide(false, ra3_package:turn_screw);
+    if_sethide(ra3_package:turn_screw, false);
 }
-if (inv_total(inv, bowl_15248) > 0 | inv_total(bank, bowl_15248) > 0 | %varplayerbit_6471 = 42) {
-    if_sethide(true, ra3_package:bowl);
+if (inv_total(inv, ra3_bowl) > 0 | inv_total(bank, ra3_bowl) > 0 | %ra3_quest = 42) {
+    if_sethide(ra3_package:bowl, true);
 } else {
-    if_sethide(false, ra3_package:bowl);
+    if_sethide(ra3_package:bowl, false);
 }
-if (inv_total(inv, boot) > 0 | inv_total(bank, boot) > 0) {
-    if_sethide(true, ra3_package:boot);
+if (inv_total(inv, ra3_boot) > 0 | inv_total(bank, ra3_boot) > 0) {
+    if_sethide(ra3_package:boot, true);
 } else {
-    if_sethide(false, ra3_package:boot);
+    if_sethide(ra3_package:boot, false);
 }
-if (inv_total(inv, green_stone) > 0 | inv_total(bank, green_stone) > 0 | %varplayerbit_6471 >= 52 | %varplayerbit_6481 = 1) {
-    if_sethide(true, ra3_package:green_stone);
+if (inv_total(inv, ra3_green_stone) > 0 | inv_total(bank, ra3_green_stone) > 0 | %ra3_quest >= 52 | %ra3_cart_switch = 1) {
+    if_sethide(ra3_package:green_stone, true);
 } else {
-    if_sethide(false, ra3_package:green_stone);
+    if_sethide(ra3_package:green_stone, false);
 }
-if (inv_total(inv, yellow_stone) > 0 | inv_total(bank, yellow_stone) > 0 | %varplayerbit_6471 >= 52 | %varplayerbit_6481 = 2) {
-    if_sethide(true, ra3_package:yellow_stone);
+if (inv_total(inv, ra3_yellow_stone) > 0 | inv_total(bank, ra3_yellow_stone) > 0 | %ra3_quest >= 52 | %ra3_cart_switch = 2) {
+    if_sethide(ra3_package:yellow_stone, true);
 } else {
-    if_sethide(false, ra3_package:yellow_stone);
+    if_sethide(ra3_package:yellow_stone, false);
 }
-if (inv_total(inv, metal_rectangle) > 0 | inv_total(bank, metal_rectangle) > 0) {
-    if_sethide(true, ra3_package:sheet);
+if (inv_total(inv, ra3_rectangle) > 0 | inv_total(bank, ra3_rectangle) > 0) {
+    if_sethide(ra3_package:sheet, true);
 } else {
-    if_sethide(false, ra3_package:sheet);
+    if_sethide(ra3_package:sheet, false);
 }

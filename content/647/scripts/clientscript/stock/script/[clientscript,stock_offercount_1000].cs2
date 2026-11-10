@@ -3,18 +3,18 @@
 def_int $int0 = 0;
 def_int $int1 = 0;
 if (%varplayer_1113 = 0) {
-    if (%varclient_84 <= 2147482647) {
-        %varclient_84 = calc(%varclient_84 + 1000);
+    if (%stock_offercount_visible <= 2147482647) {
+        %stock_offercount_visible = calc(%stock_offercount_visible + 1000);
     }
 } else {
     $int0 = inv_total(inv, %varplayer_1109);
     if (%varplayer_1109 ! oc_cert(%varplayer_1109)) {
         $int1 = inv_total(inv, oc_cert(%varplayer_1109));
     }
-    %varclient_84 = $int0;
-    if (%varclient_84 <= 1000000000 & $int1 <= 1000000000) {
-        %varclient_84 = calc(%varclient_84 + $int1);
+    %stock_offercount_visible = $int0;
+    if (%stock_offercount_visible <= 1000000000 & $int1 <= 1000000000) {
+        %stock_offercount_visible = calc(%stock_offercount_visible + $int1);
     }
 }
-if_settext(tostring_localised(%varclient_84, true), stockmarket:offercount);
+if_settext(stockmarket:offercount, tostring_localised(%stock_offercount_visible, true));
 ~sm_offercount_settimer;

@@ -8,8 +8,8 @@ if (~script2728 = 1) {
 } else {
     if ($component1 ! null & if_getnextsubid($component1) > 0) {
         cc_deleteall($component1);
-        if_setontimer(null, $component0);
-        if_sethide(true, $component1);
+        if_setontimer($component0, null);
+        if_sethide($component1, true);
     }
-    if_sethide(true, $component2);
+    if_sethide($component2, true);
 }

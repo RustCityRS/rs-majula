@@ -92,9 +92,9 @@ switch_component ($component0) {
         $string2 = "To attract draconic jadinkos:<br><br>grow a lergberry bush, a red vine flower and build a dark pit. In addition you will need to be under the influence of the juju hunter potion.";
         $model5 = model_62238;
 }
-if_sethide(true, ecosystem_creatures:creature_layer);
-if_sethide(false, ecosystem_creatures:requirement_layer);
-if_settext($string0, ecosystem_creatures:name);
-if_settext($string1, ecosystem_creatures:description);
-if_settext($string2, ecosystem_creatures:requirements);
-if_setmodel($model5, ecosystem_creatures:creature_model);
+if_sethide(ecosystem_creatures:creature_layer, true);
+if_sethide(ecosystem_creatures:requirement_layer, false);
+if_settext(ecosystem_creatures:name, $string0);
+if_settext(ecosystem_creatures:description, $string1);
+if_settext(ecosystem_creatures:requirements, $string2);
+if_setmodel(ecosystem_creatures:creature_model, $model5);

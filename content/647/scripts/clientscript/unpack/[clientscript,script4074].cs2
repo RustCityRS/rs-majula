@@ -6,13 +6,13 @@ if ($int0 > 48) {
     $int0 = calc(paraheight($string0, 328, p12_full) * 13);
 }
 if ($int0 > 48) {
-    if_setscrollsize(0, $int0, quest_intro:text_details_layer);
+    if_setscrollsize(quest_intro:text_details_layer, 0, $int0);
     ~scrollbar_vertical(quest_intro:scroll_layer_rewards, quest_intro:text_details_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-    if_setsize(334, 48, ^setsize_abs, ^setsize_abs, quest_intro:text_details_layer);
-    if_setsize(16384, $int0, ^setsize_rel, ^setsize_abs, quest_intro:rewards_rect1);
-    if_setsize(16384, $int0, ^setsize_rel, ^setsize_abs, quest_intro:rewards_rect2);
-    if_settextalign(^settextalign_left, ^settextalign_top, 0, quest_intro:rewards_field);
+    if_setsize(quest_intro:text_details_layer, 334, 48, ^setsize_abs, ^setsize_abs);
+    if_setsize(quest_intro:rewards_rect1, 16384, $int0, ^setsize_rel, ^setsize_abs);
+    if_setsize(quest_intro:rewards_rect2, 16384, $int0, ^setsize_rel, ^setsize_abs);
+    if_settextalign(quest_intro:rewards_field, ^settextalign_left, ^settextalign_top, 0);
 } else {
-    if_setsize(354, 48, ^setsize_abs, ^setsize_abs, quest_intro:text_details_layer);
-    if_settextalign(^settextalign_left, ^settextalign_centre, 0, quest_intro:rewards_field);
+    if_setsize(quest_intro:text_details_layer, 354, 48, ^setsize_abs, ^setsize_abs);
+    if_settextalign(quest_intro:rewards_field, ^settextalign_left, ^settextalign_centre, 0);
 }

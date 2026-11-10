@@ -7,7 +7,7 @@ if(stat(crafting) < 40) {
 mes("You craft an unstrung lyre out of the branch.");
 anim(human_fletching, 0);
 p_delay(0);
-inv_del(inv, branch, 1);
-inv_add(inv, unstrung_lyre, 1);
+inv_del(inv, viking_musical_tree_branch, 1);
+inv_add(inv, viking_unstrung_lyre, 1);
 stat_advance(crafting, 10);
 

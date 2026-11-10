@@ -1,7 +1,7 @@
 // 610
 [clientscript,script610]
-if (%varclient_83 <= 0) {
-    if_setontimer(null, stockmarket:offerprice);
+if (%stock_offerprice_timer <= 0) {
+    if_setontimer(stockmarket:offerprice, null);
     ~script621;
 }
-%varclient_83 = calc(%varclient_83 - 1);
+%stock_offerprice_timer = calc(%stock_offerprice_timer - 1);

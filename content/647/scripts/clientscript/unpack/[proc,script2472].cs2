@@ -2,20 +2,20 @@
 [proc,script2472](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, obj $obj6, obj $obj7, enum $enum8)
 if ($obj7 = null) {
     if ($obj6 = null) {
-        if_sethide(true, $component0);
-        if_sethide(true, $component2);
-        if_sethide(true, $component5);
-        if_setposition(calc(if_getx(enum(int, component, $enum8, 0)) - 10), calc(if_gety(enum(int, component, $enum8, 0)) - 10), ^setpos_abs_left, ^setpos_abs_top, $component4);
+        if_sethide($component0, true);
+        if_sethide($component2, true);
+        if_sethide($component5, true);
+        if_setposition($component4, calc(if_getx(enum(int, component, $enum8, 0)) - 10), calc(if_gety(enum(int, component, $enum8, 0)) - 10), ^setpos_abs_left, ^setpos_abs_top);
         return;
     } else {
-        $obj7 = clear_circle;
+        $obj7 = glo3_clear_circle;
     }
 } else if ($obj6 = null) {
-    $obj6 = clear_circle;
+    $obj6 = glo3_clear_circle;
 }
-if_sethide(false, $component0);
-if_sethide(false, $component2);
-if_sethide(false, $component5);
+if_sethide($component0, false);
+if_sethide($component2, false);
+if_sethide($component5, false);
 def_int $int9 = if_getx(enum(int, component, $enum8, oc_param($obj6, param_359)));
 def_int $int10 = if_getx(enum(int, component, $enum8, oc_param($obj7, param_359)));
 def_int $int11 = 0;
@@ -32,8 +32,8 @@ def_int $int13 = if_gety(enum(int, component, $enum8, oc_param($obj6, param_359)
 def_int $int14 = if_gety(enum(int, component, $enum8, oc_param($obj7, param_359)));
 def_int $int15 = calc($int10 - $int9);
 def_int $int16 = 0;
-if_setposition(calc($int9 - 10), calc($int13 - 10), ^setpos_abs_left, ^setpos_abs_top, $component0);
-if_setposition(calc($int10 - 10), calc($int14 - 10), ^setpos_abs_left, ^setpos_abs_top, $component2);
+if_setposition($component0, calc($int9 - 10), calc($int13 - 10), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition($component2, calc($int10 - 10), calc($int14 - 10), ^setpos_abs_left, ^setpos_abs_top);
 if (if_find($component1) = true) {
     cc_setparam_string(param_718, ~guesscolour(~script718(oc_param($obj6, param_359))));
     cc_setcolour(~script718(oc_param($obj6, param_359)));
@@ -47,24 +47,24 @@ def_int $int18 = 0;
 def_int $int19 = calc(oc_param($obj6, param_358) + oc_param($obj7, param_358));
 if ($int13 < $int14) {
     $int16 = calc($int14 - $int13);
-    if_setposition($int9, $int13, ^setpos_abs_left, ^setpos_abs_top, $component5);
-    if_setlinedirection(false, $component5);
+    if_setposition($component5, $int9, $int13, ^setpos_abs_left, ^setpos_abs_top);
+    if_setlinedirection($component5, false);
     $int11 = 1;
 } else {
     $int16 = calc($int13 - $int14);
-    if_setposition($int9, $int14, ^setpos_abs_left, ^setpos_abs_top, $component5);
-    if_setlinedirection(true, $component5);
+    if_setposition($component5, $int9, $int14, ^setpos_abs_left, ^setpos_abs_top);
+    if_setlinedirection($component5, true);
     $int11 = -1;
 }
-if_setsize($int15, $int16, ^setsize_abs, ^setsize_abs, $component5);
-if ($obj6 = clear_circle) {
+if_setsize($component5, $int15, $int16, ^setsize_abs, ^setsize_abs);
+if ($obj6 = glo3_clear_circle) {
     $int17 = calc($int9 + $int15 * oc_param($obj7, param_358) / (2 * $int19) - 10);
     $int18 = calc($int13 + $int11 * ($int16 * oc_param($obj7, param_358) / (2 * $int19)) - 10);
-} else if ($obj7 = clear_circle) {
+} else if ($obj7 = glo3_clear_circle) {
     $int17 = calc($int9 + $int15 * (2 * oc_param($obj7, param_358) + oc_param($obj6, param_358)) / (2 * $int19) - 10);
     $int18 = calc($int13 + $int11 * ($int16 * (2 * oc_param($obj7, param_358) + oc_param($obj6, param_358)) / (2 * $int19)) - 10);
 } else {
     $int17 = calc($int9 + $int15 * oc_param($obj7, param_358) / $int19 - 10);
     $int18 = calc($int13 + $int11 * ($int16 * oc_param($obj7, param_358) / $int19) - 10);
 }
-if_setposition($int17, $int18, ^setpos_abs_left, ^setpos_abs_top, $component4);
+if_setposition($component4, $int17, $int18, ^setpos_abs_left, ^setpos_abs_top);

@@ -16,7 +16,7 @@ if(%hunt = ^hunt_not_started) { // Not started
     $text = "@dbl@I have spoken to @dre@Redbeard Frank@dbl@. He has agreed to tell me the location of some @dre@treasure@dbl@ for some @dre@Karamja Rum@dbl@.||";
 
     if (%hunt_store_employed = 0 & %crate_rum < 2) {// Not employed at Plantation & rum not shipped
-        if (inv_total(inv, karamjan_rum) > 0) { // Not employed at Plantation
+        if (inv_total(inv, karamja_rum) > 0) { // Not employed at Plantation
             $text = append($text, "@dbl@I have the @dre@rum@dbl@, and now I need to find a way to get the rum off @dre@Karamja@dbl@. This might be tricky, as the @dre@Customs Officers|");
             $text = append($text, "@dbl@are searching people for it.");
         } else { // Not employed at Plantation
@@ -29,7 +29,7 @@ if(%hunt = ^hunt_not_started) { // Not started
     } else if (%hunt_store_employed = 1) { // Employed at Plantation
         $text = append($text, "@dbl@I have taken employment on the @dre@banana plantation@dbl@, as the @dre@Customs Officers@dbl@ might not notice the @dre@rum@dbl@ if it is covered in @dre@bananas@dbl@.||");
 
-        if (inv_total(inv, karamjan_rum) > 0 & %crate_rum = 0) { // Player has rum in inventory but not in the crate yet
+        if (inv_total(inv, karamja_rum) > 0 & %crate_rum = 0) { // Player has rum in inventory but not in the crate yet
             $text = append($text, "@dbl@I'm sure I will be able to hide my @dre@rum@dbl@ in the next crate destined for @dre@Wydin's store@dbl@.");
         } else {
             if (%crate_rum = 1) { // Rum in the crate
@@ -51,7 +51,7 @@ if(%hunt = ^hunt_not_started) { // Not started
             $text = append($text, "@str@get to it.||");
             $text = append($text, "@dbl@I have taken a job at @dre@Wydin's store@dbl@. I now have access to the back room of his shop where the @dre@rum@dbl@ is hidden.");
         } else if (%crate_rum = 0) { // Player has collected rum from Wydin's store
-            if (inv_total(inv, karamjan_rum) > 0) { // Player has rum in inventory
+            if (inv_total(inv, karamja_rum) > 0) { // Player has rum in inventory
                 $text = append($text, "@dbl@I have the @dre@Karamja Rum@dbl@. I should take it to @dre@Redbeard Frank@dbl@.");
             } else { // Player does not have rum in inventory
                 $text = append($text, "@dbl@I had some @dre@rum@dbl@, but I seem to have lost it. I will need to smuggle some more off @dre@Karamja@dbl@.");
@@ -59,7 +59,7 @@ if(%hunt = ^hunt_not_started) { // Not started
         }
     } else if (%hunt_store_employed = 3) { // Employed at Wydin's store (Re-smuggling?) - Matches OSRS
         if (%crate_rum = 0) { // Player has collected rum from Wydin's store
-            if (inv_total(inv, karamjan_rum) > 0) { // Player has rum in inventory
+            if (inv_total(inv, karamja_rum) > 0) { // Player has rum in inventory
                 $text = append($text, "@dbl@I have the @dre@Karamja Rum@dbl@. I should take it to @dre@Redbeard Frank@dbl@.");
             } else { // Player does not have rum in inventory
                 $text = append($text, "@dbl@I had some @dre@rum@dbl@, but I seem to have lost it. I will need to smuggle some more off @dre@Karamja@dbl@.");
@@ -74,7 +74,7 @@ if(%hunt = ^hunt_not_started) { // Not started
     $text = append($text, "@str@I have smuggled some rum off Karamja, and retrieved it|@str@from the back room of Wydin's shop.||");
     $text = append($text, "@dbl@I have given the rum to @dre@Redbeard Frank@dbl@. He has told me that the @dre@treasure@dbl@ is hidden in the chest in the upstairs room of the @dre@Blue Moon Inn@dbl@ in @dre@Varrock@dbl@.||");
 
-    if (inv_total(inv, pirate_message) > 0) { // Player has opened the chest and got the pirate's message
+    if (inv_total(inv, piratemessage) > 0) { // Player has opened the chest and got the pirate's message
         $text = append($text, "@dbl@I have opened the chest in the @dre@Blue Moon@dbl@, and found a @dre@note @dbl@inside. I think it will tell me where to dig.");
     } else if (inv_total(inv, chest_key) > 0) { // Player has the chest key
         $text = append($text, "@dbl@I have a @dre@key@dbl@ that can be used to unlock the chest that hold the treasure.");

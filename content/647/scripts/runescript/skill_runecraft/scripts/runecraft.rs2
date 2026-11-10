@@ -10,7 +10,7 @@ p_telejump(map_findsquare(db_getfield($data, runecraft_table:exit_coord, random(
 
 [oplocu,_rc_altar]
 switch_obj(last_useitem) {
-    case rune_essence : @runecraft_runes;
+    case blankrune : @runecraft_runes;
     case default : ~displaymessage(^dm_default);
 }
 
@@ -65,7 +65,7 @@ if ($level < $levelreq) {
     return;
 }
 
-def_int $total_ess = inv_total(inv, rune_essence);
+def_int $total_ess = inv_total(inv, blankrune);
 if ($total_ess = 0) {
     // osrs has rune essences. But when mining rune ess in this version it says rune stones
     // so this is just a guess
@@ -91,7 +91,7 @@ if(sub(^max_32bit_int, inv_total(inv, $rune)) < $craft_count) {
 // if $craft_count uses free_space as the value, it may not round exactly to $rune_count_per_ess
 $total_ess = calc($craft_count / $rune_count_per_ess);
 
-inv_del(inv, rune_essence, $total_ess);
+inv_del(inv, blankrune, $total_ess);
 // 289 pays with stat_advance, here and below; 2011's xp counter
 // counts what ~givexp pays (player/scripts/xp.rs2).
 ~givexp(runecraft, calc($total_ess * db_getfield($data, runecraft_table:experience, 0)));

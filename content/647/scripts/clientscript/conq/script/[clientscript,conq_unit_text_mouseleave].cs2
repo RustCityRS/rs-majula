@@ -5,28 +5,28 @@ switch_component ($component0) {
     case default :
         return;
     case conq_buy_army:com_144 :
-        $int1 = %varplayerbit_7520;
+        $int1 = %conq_unit_1_type;
     case conq_buy_army:com_146 :
-        $int1 = %varplayerbit_7521;
+        $int1 = %conq_unit_2_type;
     case conq_buy_army:com_148 :
-        $int1 = %varplayerbit_7526;
+        $int1 = %conq_unit_3_type;
     case conq_buy_army:com_150 :
-        $int1 = %varplayerbit_7527;
+        $int1 = %conq_unit_4_type;
     case conq_buy_army:com_152 :
-        $int1 = %varplayerbit_7530;
+        $int1 = %conq_unit_5_type;
     case conq_buy_army:com_154 :
-        $int1 = %varplayerbit_7531;
+        $int1 = %conq_unit_6_type;
     case conq_buy_army:com_156 :
-        $int1 = %varplayerbit_7532;
+        $int1 = %conq_unit_7_type;
     case conq_buy_army:com_158 :
-        $int1 = %varplayerbit_7533;
+        $int1 = %conq_unit_8_type;
     case conq_buy_army:com_160 :
-        $int1 = %varplayerbit_7534;
+        $int1 = %conq_unit_9_type;
     case conq_buy_army:com_162 :
-        $int1 = %varplayerbit_7535;
+        $int1 = %conq_unit_10_type;
 }
 if ($int1 = 0) {
-    if_setcolour(0x585042, $component0);
+    if_setcolour($component0, 0x585042);
 } else {
-    if_setcolour(0xe6ca98, $component0);
+    if_setcolour($component0, 0xe6ca98);
 }

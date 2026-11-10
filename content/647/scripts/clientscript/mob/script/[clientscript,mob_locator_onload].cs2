@@ -1,9 +1,9 @@
 // 2488
 [clientscript,mob_locator_onload]
-if_sethide(false, mob_locator:ore_layer);
-if_sethide(true, mob_locator:wood_layer);
-if_setgraphic("bank_tabs,2", mob_locator:tab_1);
-if_setgraphic("bank_tabs,3", mob_locator:tab_2);
-if_setobject_nonum(copper_ore, 1, mob_locator:tab_1_icon);
-if_setobject_nonum(logs, 1, mob_locator:tab_2_icon);
+if_sethide(mob_locator:ore_layer, false);
+if_sethide(mob_locator:wood_layer, true);
+if_setgraphic(mob_locator:tab_1, "bank_tabs,2");
+if_setgraphic(mob_locator:tab_2, "bank_tabs,3");
+if_setobject_nonum(mob_locator:tab_1_icon, copper_ore, 1);
+if_setobject_nonum(mob_locator:tab_2_icon, logs, 1);
 ~mob_locator_resource_setup;

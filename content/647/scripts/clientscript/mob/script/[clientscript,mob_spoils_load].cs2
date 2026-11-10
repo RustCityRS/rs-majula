@@ -8,24 +8,24 @@ def_int $int4 = -1;
 def_obj $obj5 = null;
 $int1 = calc((if_getwidth(mob_reward_spoils:spoils) - 180) / 4);
 $int2 = calc((if_getheight(mob_reward_spoils:spoils) - 128) / 3);
-while ($int0 < 5 & enum(int, namedobj, %varclient_875, $int0) ! logs_11760) {
-    $obj5 = enum(int, namedobj, %varclient_875, $int0);
+while ($int0 < 5 & enum(int, namedobj, %mob_shopenum, $int0) ! shop_dummy) {
+    $obj5 = enum(int, namedobj, %mob_shopenum, $int0);
     switch_int ($int0) {
         case 0 :
-            if_settext(oc_name(oc_uncert($obj5)), mob_reward_spoils:text1);
-            $int3 = %varclient_876;
+            if_settext(mob_reward_spoils:text1, oc_name(oc_uncert($obj5)));
+            $int3 = %mob_spoils_item_1_quantity;
         case 1 :
-            if_settext(oc_name(oc_uncert($obj5)), mob_reward_spoils:text2);
-            $int3 = %varclient_877;
+            if_settext(mob_reward_spoils:text2, oc_name(oc_uncert($obj5)));
+            $int3 = %mob_spoils_item_2_quantity;
         case 2 :
-            if_settext(oc_name(oc_uncert($obj5)), mob_reward_spoils:text3);
-            $int3 = %varclient_878;
+            if_settext(mob_reward_spoils:text3, oc_name(oc_uncert($obj5)));
+            $int3 = %mob_spoils_item_3_quantity;
         case 3 :
-            if_settext(oc_name(oc_uncert($obj5)), mob_reward_spoils:text4);
-            $int3 = %varclient_879;
+            if_settext(mob_reward_spoils:text4, oc_name(oc_uncert($obj5)));
+            $int3 = %mob_spoils_item_4_quantity;
         case 4 :
-            if_settext(oc_name(oc_uncert($obj5)), mob_reward_spoils:text5);
-            $int3 = %varclient_880;
+            if_settext(mob_reward_spoils:text5, oc_name(oc_uncert($obj5)));
+            $int3 = %mob_spoils_item_5_quantity;
     }
     cc_create(mob_reward_spoils:spoils, ^iftype_graphic, $int0);
     cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);

@@ -6,12 +6,12 @@ if ($int2 ! 1) {
 sound_synth(synth_4911, 1, 0);
 switch_int ($int0) {
     case 0 :
-        %varclient_618 = calc((%varclient_618 + 1) % 26);
+        %seer_a = calc((%seer_a + 1) % 26);
     case 1 :
-        %varclient_619 = calc((%varclient_619 + 1) % 26);
+        %seer_b = calc((%seer_b + 1) % 26);
     case 2 :
-        %varclient_620 = calc((%varclient_620 + 1) % 26);
+        %seer_c = calc((%seer_c + 1) % 26);
     case 3 :
-        %varclient_621 = calc((%varclient_621 + 1) % 26);
+        %seer_d = calc((%seer_d + 1) % 26);
 }
 ~seer_varcupdate($int0, $component1);

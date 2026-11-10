@@ -8,7 +8,7 @@ if ($int0 ! -1) {
 } else {
     $string1 = $string0;
 }
-if_settext(substring($string0, 0, $int0), quickchat_tutorial:title);
+if_settext(quickchat_tutorial:title, substring($string0, 0, $int0));
 def_int $int1 = 0;
 def_int $int2 = 0;
 $int1 = calc(paraheight($string1, 400, p12_full) * 12);

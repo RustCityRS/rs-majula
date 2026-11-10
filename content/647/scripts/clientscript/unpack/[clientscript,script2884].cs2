@@ -1,9 +1,9 @@
 // 2884
 [clientscript,script2884]
-if (%varplayerbit_4393 = 1 | %varplayerbit_542 = 1) {
+if (%music_v3_protect = 1 | %cutscene_status = 1) {
     return;
 }
-if (%varplayerbit_7079 = 0) {
+if (%playlist_random = 0) {
     ~addtooltip_action(music_v3:playlist_random, music_v3:music_tooltip_layer, "Shuffle on", 25, 189);
 } else {
     ~addtooltip_action(music_v3:playlist_random, music_v3:music_tooltip_layer, "Shuffle off", 25, 189);

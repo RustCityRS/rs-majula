@@ -1,13 +1,13 @@
 // 2833
 [proc,inventory_setophelds](obj $obj0)
 switch_obj ($obj0) {
-    case teleport_crystal__4, teleport_crystal__3, teleport_crystal__2, teleport_crystal__1 :
+    case mourning_teleport_crystal_4, mourning_teleport_crystal_3, mourning_teleport_crystal_2, mourning_teleport_crystal_1 :
         ~script2411($obj0);
         return;
-    case explorer_s_ring_2, explorer_s_ring_4, explorer_s_ring_3 :
+    case atlum_ring_med, atlum_ring_elite, atlum_ring_hard :
         ~script2431($obj0);
         return;
-    case coal_bag :
+    case rand_reward_coal_bag :
         ~script1273($obj0);
         return;
 }

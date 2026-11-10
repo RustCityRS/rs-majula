@@ -6,7 +6,7 @@ def_int $int3 = -1;
 def_string $string0 = "Hide";
 def_string $string1 = "Show";
 def_string $string2 = "`You are here'";
-if (%varplayerbit_6174 = 1) {
+if (%worldmap_yah_hidden = 1) {
     $string0 = "Show";
     $string1 = "Hide";
     $boolean2 = false;
@@ -40,7 +40,7 @@ cc_setonop("worldmap_key_toggle(event_op, $component0, cc_getid, .cc_getid, 2, $
 ~worldmap_key_createindicator(2, $boolean2, $component0, $int1);
 $int1 = calc($int1 + cc_getheight);
 $string2 = "Intra-map links";
-if (%varplayerbit_6175 = 1) {
+if (%worldmap_samemaplinks_hidden = 1) {
     $string0 = "Show";
     $string1 = "Hide";
     $boolean2 = false;
@@ -101,7 +101,7 @@ cc_setonop("worldmap_key_toggle(event_op, $component0, cc_getid, .cc_getid, 10, 
 ~worldmap_key_createindicator(10, $boolean2, $component0, $int1);
 $int1 = calc($int1 + cc_getheight);
 $string2 = "Map labels";
-if (%varplayerbit_6176 = 1) {
+if (%worldmap_textlabels_hidden = 1) {
     $string0 = "Show";
     $string1 = "Hide";
     $boolean2 = false;
@@ -142,7 +142,7 @@ cc_setonop("worldmap_key_toggle(event_op, $component0, cc_getid, .cc_getid, 13, 
 ~worldmap_key_createindicator(13, $boolean2, $component0, $int1);
 $int1 = calc($int1 + cc_getheight);
 $string2 = "Icon tooltips";
-if (%varplayerbit_6177 = 1) {
+if (%worldmap_tooltips_hidden = 1) {
     $string0 = "Show";
     $string1 = "Hide";
     $boolean2 = false;
@@ -195,7 +195,7 @@ cc_setgraphic(struct_param(struct_972, param_130));
 .cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
 .cc_setcolour(0xafafaf);
 .cc_settextshadow(true);
-if (%varplayer_1159 = null | %varplayer_1159 = 0_0_0_0_0) {
+if (%playerdesign2_col = null | %playerdesign2_col = 0_0_0_0_0) {
     .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
     .cc_settextfont(p11_full);
     .cc_settext($string2);

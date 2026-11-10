@@ -2,13 +2,13 @@
 // 647's by model (cache 786): com_1 (horizon, 3407) is com2, com_2 (sun, 3403)
 // com5, com_5 and com_6 (Tilt Down/Up) com3 and com4, com_7 and com_8
 // (Right/Left) com7 and com8, com_9-11 com9-11, get_location com12.
-[opheld1,sextant]
+[opheld1,trail_sextant]
 if_openmain(trail_sextant);
 %temp = 0;
 ~randomize_sextant_pos;
 
 [if_button,trail_sextant:sextant_location] 
-if(inv_total(inv, watch) = 0 | inv_total(inv, chart) = 0) {
+if(inv_total(inv, trail_watch) = 0 | inv_total(inv, trail_chart) = 0) {
     if_close;
     ~mesbox("You need a watch and navigator's chart to work out your location.");
     return;

@@ -1,4 +1,4 @@
 // 4236
 [clientscript,script4236](component $component0)
-if_setontargetenter("script4239", $component0);
-if_setontargetleave("script4240", $component0);
+if_setontargetenter($component0, "script4239");
+if_setontargetleave($component0, "script4240");

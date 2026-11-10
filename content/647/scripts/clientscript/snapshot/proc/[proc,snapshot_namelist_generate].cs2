@@ -2,7 +2,7 @@
 [proc,snapshot_namelist_generate]
 def_boolean $boolean0 = if_gethide(snapshot_main_v2:name_list_layer);
 if ($boolean0 = true) {
-    if_sethide(false, snapshot_main_v2:name_list_layer);
+    if_sethide(snapshot_main_v2:name_list_layer, false);
 }
 def_int $int1 = 100;
 def_string $string0 = "";
@@ -12,8 +12,8 @@ def_int $int4 = 0;
 cc_deleteall(snapshot_main_v2:build_layer);
 cc_deleteall(snapshot_main_v2:highlight_name_layer);
 cc_deleteall(snapshot_main_v2:selected_name_layer);
-if_setscrollsize(0, 0, snapshot_main_v2:build_layer);
-if_setscrollpos(0, 0, snapshot_main_v2:build_layer);
+if_setscrollsize(snapshot_main_v2:build_layer, 0, 0);
+if_setscrollpos(snapshot_main_v2:build_layer, 0, 0);
 while ($int1 >= 0) {
     $chattype3 = chat_gethistorytype($int1);
     if ($chattype3 ! ^chattype_gamemessage & $chattype3 ! ^chattype_engine & $chattype3 ! ^chattype_obj_examine & $chattype3 ! ^chattype_npc_examine & $chattype3 ! ^chattype_loc_examine & $chattype3 ! ^chattype_clanmessage & $chattype3 ! ^chattype_trade_notification & $chattype3 ! ^chattype_assist_notification & $chattype3 ! ^chattype_snapshotfeedback & $chattype3 ! ^chattype_friendnotification & $chattype3 ! ^chattype_ignorenotification & compare(chat_gethistoryname($int1), "") ! 0 & compare(chat_gethistorymessage($int1), "") ! 0) {
@@ -66,15 +66,15 @@ if ($int4 = 0) {
     cc_settextalign(^settextalign_left, ^settextalign_top, 14);
 }
 if ($int2 > calc(if_getheight(snapshot_main_v2:list_layer) / 14)) {
-    if_setsize(63, if_getheight(snapshot_main_v2:list_layer), ^setsize_minus, ^setsize_abs, snapshot_main_v2:list_layer);
-    if_setscrollsize(0, calc($int2 * 14), snapshot_main_v2:scrolled_layer);
+    if_setsize(snapshot_main_v2:list_layer, 63, if_getheight(snapshot_main_v2:list_layer), ^setsize_minus, ^setsize_abs);
+    if_setscrollsize(snapshot_main_v2:scrolled_layer, 0, calc($int2 * 14));
     ~scrollbar_vertical(snapshot_main_v2:scroll_layer, snapshot_main_v2:scrolled_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
     if (cc_find(snapshot_main_v2:scroll_layer, 1) = true) {
         ~scrollbar_vertical_doscroll(snapshot_main_v2:scroll_layer, snapshot_main_v2:scrolled_layer, if_getscrollheight(snapshot_main_v2:scrolled_layer), true);
     }
 } else {
-    if_setsize(44, if_getheight(snapshot_main_v2:list_layer), ^setsize_minus, ^setsize_abs, snapshot_main_v2:list_layer);
+    if_setsize(snapshot_main_v2:list_layer, 44, if_getheight(snapshot_main_v2:list_layer), ^setsize_minus, ^setsize_abs);
 }
 if ($boolean0 = true) {
-    if_sethide(true, snapshot_main_v2:name_list_layer);
+    if_sethide(snapshot_main_v2:name_list_layer, true);
 }

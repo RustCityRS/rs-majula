@@ -4,25 +4,25 @@ def_int $int1 = 0;
 def_component $component2 = enum(int, component, enum_1617, $int1);
 while ($component2 ! null) {
     if ($int1 = $int0) {
-        if_sethide(false, $component2);
+        if_sethide($component2, false);
     } else {
-        if_sethide(true, $component2);
+        if_sethide($component2, true);
     }
     $int1 = calc($int1 + 1);
     $component2 = enum(int, component, enum_1617, $int1);
 }
 if ($int0 > 0) {
-    if_setonop("bank_v2_help_showpage(calc($int0 - 1))", bank_v2_help:button_back);
-    if_settrans(0, bank_v2_help:button_back);
+    if_setonop(bank_v2_help:button_back, "bank_v2_help_showpage(calc($int0 - 1))");
+    if_settrans(bank_v2_help:button_back, 0);
 } else {
-    if_setonop(null, bank_v2_help:button_back);
-    if_settrans(200, bank_v2_help:button_back);
+    if_setonop(bank_v2_help:button_back, null);
+    if_settrans(bank_v2_help:button_back, 200);
 }
 if ($int0 < calc($int1 - 1)) {
-    if_setonop("bank_v2_help_showpage(calc($int0 + 1))", bank_v2_help:button_next);
-    if_settrans(0, bank_v2_help:button_next);
+    if_setonop(bank_v2_help:button_next, "bank_v2_help_showpage(calc($int0 + 1))");
+    if_settrans(bank_v2_help:button_next, 0);
 } else {
-    if_setonop(null, bank_v2_help:button_next);
-    if_settrans(200, bank_v2_help:button_next);
+    if_setonop(bank_v2_help:button_next, null);
+    if_settrans(bank_v2_help:button_next, 200);
 }
-if_settext("Page <tostring(calc($int0 + 1))> of <tostring($int1)>", bank_v2_help:pagecount);
+if_settext(bank_v2_help:pagecount, "Page <tostring(calc($int0 + 1))> of <tostring($int1)>");

@@ -13,5 +13,5 @@ cc_sethide(true);
 ~cc_add_graphic($component0, 5, 16, 32, 0, 0, $graphic3, true, false, false, 0);
 cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
 cc_sethide(true);
-if_setonmouseover("lobby_button_mo($component0)", $component0);
-if_setonmouseleave("lobby_button_ml($component0)", $component0);
+if_setonmouseover($component0, "lobby_button_mo($component0)");
+if_setonmouseleave($component0, "lobby_button_ml($component0)");

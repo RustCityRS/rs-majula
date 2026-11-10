@@ -1,7 +1,7 @@
 // 3945
 [clientscript,script3945](int $int0, int $int1, int $int2)
 if ($int2 = 1) {
-    %varclient_1412 = true;
+    %create_displayname_in_progress = true;
 }
 switch_int ($int0) {
     case default :
@@ -47,6 +47,6 @@ if ($int1 = 0) {
     $component4 = no_displayname:com_60;
     $component5 = no_displayname:com_61;
 }
-if_settext(%varclient_1849, $component4);
-%varclient_1099 = string_length(%varclient_1849);
+if_settext($component4, %varclient_1849);
+%login_caret = string_length(%varclient_1849);
 ~script3218($component3, $component4, $component5, %varclient_1849, 16);

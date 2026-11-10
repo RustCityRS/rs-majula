@@ -1,9 +1,9 @@
 // 2543
 [proc,mob_set_head_8]
-if (%varclient_915 = 1) {
-    if_setgraphic("mob_unit_heads,4", mob_side_units:unit8);
-} else if (%varclient_915 = 2) {
-    if_setgraphic("mob_unit_heads,1", mob_side_units:unit8);
-} else if (%varclient_915 = 3) {
-    if_setgraphic("mob_unit_heads,2", mob_side_units:unit8);
+if (%mob_side_unit_head_8 = 1) {
+    if_setgraphic(mob_side_units:unit8, "mob_unit_heads,4");
+} else if (%mob_side_unit_head_8 = 2) {
+    if_setgraphic(mob_side_units:unit8, "mob_unit_heads,1");
+} else if (%mob_side_unit_head_8 = 3) {
+    if_setgraphic(mob_side_units:unit8, "mob_unit_heads,2");
 }

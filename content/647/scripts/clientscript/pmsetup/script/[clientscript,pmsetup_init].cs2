@@ -5,11 +5,11 @@
 ~script1298($component9, 0, 0, 0);
 ~script1298($component20, 0, 0, 0);
 ~script1298($component15, 0, 0, 0);
-~script2670($component1, $component4, $component5, $component8, $component2, $component6, $component3, $component7, %varclient_91);
-if_setcolour(enum(int, int, enum_3724, %varplayerbit_3612), $component11);
+~script2670($component1, $component4, $component5, $component8, $component2, $component6, $component3, $component7, %playerdesign2_client_hands);
+if_setcolour($component11, enum(int, int, enum_3724, %varplayerbit_3612));
 def_int $windowmode22 = getwindowmode;
 ~pmsetup_clanbackground($component10, $component11, $windowmode22);
-if_setontimer("pmsetup_clanbackground(event_com, $component10, $component11, $windowmode22)", $component0);
+if_setontimer($component0, "pmsetup_clanbackground(event_com, $component10, $component11, $windowmode22)");
 ~script2731(pmsetup:clancol0, 0, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script2731(pmsetup:clancol1, 1, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script2731(pmsetup:clancol2, 2, $component19, $component11, $component20, $component21, $component14, $component17);
@@ -30,9 +30,9 @@ if_setontimer("pmsetup_clanbackground(event_com, $component10, $component11, $wi
 ~script2731(pmsetup:clancol17, 17, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script2731(pmsetup:clancol18, 18, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script2731(pmsetup:clancol19, 19, $component19, $component11, $component20, $component21, $component14, $component17);
-if_setcolour(enum(int, int, enum_3723, %varplayerbit_9188), $component14);
+if_setcolour($component14, enum(int, int, enum_3723, %varplayerbit_9188));
 ~pmsetup_clanbackground($component13, $component14, $windowmode22);
-if_setontimer("pmsetup_clanbackground(event_com, $component13, $component14, $windowmode22)", $component0);
+if_setontimer($component0, "pmsetup_clanbackground(event_com, $component13, $component14, $windowmode22)");
 ~script4426(pmsetup:com_72, 0, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script4426(pmsetup:com_73, 1, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script4426(pmsetup:com_74, 2, $component19, $component11, $component20, $component21, $component14, $component17);
@@ -53,9 +53,9 @@ if_setontimer("pmsetup_clanbackground(event_com, $component13, $component14, $wi
 ~script4426(pmsetup:com_89, 17, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script4426(pmsetup:com_90, 18, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script4426(pmsetup:com_91, 19, $component19, $component11, $component20, $component21, $component14, $component17);
-if_setcolour(enum(int, int, enum_3726, %varplayerbit_9191), $component17);
+if_setcolour($component17, enum(int, int, enum_3726, %varplayerbit_9191));
 ~pmsetup_clanbackground($component16, $component17, $windowmode22);
-if_setontimer("pmsetup_clanbackground(event_com, $component16, $component17, $windowmode22)", $component0);
+if_setontimer($component0, "pmsetup_clanbackground(event_com, $component16, $component17, $windowmode22)");
 ~script4584(pmsetup:com_97, 0, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script4584(pmsetup:com_98, 1, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script4584(pmsetup:com_99, 2, $component19, $component11, $component20, $component21, $component14, $component17);
@@ -77,12 +77,12 @@ if_setontimer("pmsetup_clanbackground(event_com, $component16, $component17, $wi
 ~script4584(pmsetup:com_115, 18, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script4584(pmsetup:com_116, 19, $component19, $component11, $component20, $component21, $component14, $component17);
 if (%option_pm <= 0) {
-    if_sethide(true, $component20);
+    if_sethide($component20, true);
 } else {
-    if_sethide(false, $component20);
+    if_sethide($component20, false);
 }
-if_setcolour(enum(int, int, enum_3056, %option_pm), $component21);
-if_settextshadow(enum(int, boolean, enum_3057, %option_pm), $component21);
+if_setcolour($component21, enum(int, int, enum_3056, %option_pm));
+if_settextshadow($component21, enum(int, boolean, enum_3057, %option_pm));
 ~script176(pmsetup:colour1, 1, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script176(pmsetup:colour2, 2, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script176(pmsetup:colour3, 3, $component19, $component11, $component20, $component21, $component14, $component17);
@@ -101,5 +101,5 @@ if_settextshadow(enum(int, boolean, enum_3057, %option_pm), $component21);
 ~script176(pmsetup:colour16, 16, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script176(pmsetup:colour17, 17, $component19, $component11, $component20, $component21, $component14, $component17);
 ~script176(pmsetup:colour18, 18, $component19, $component11, $component20, $component21, $component14, $component17);
-if_setonop("pmsetup_updatesetting(event_op, 0, $component19, $component11, $component20, $component21, $component14, $component17)", $component18);
-if_setonvartransmit("pmsetup_updateinterface($component19, $component11, $component20, $component21, $component14, $component17){option_pm, varplayer_1438}", $component0);
+if_setonop($component18, "pmsetup_updatesetting(event_op, 0, $component19, $component11, $component20, $component21, $component14, $component17)");
+if_setonvartransmit($component0, "pmsetup_updateinterface($component19, $component11, $component20, $component21, $component14, $component17){option_pm, varplayer_1438}");

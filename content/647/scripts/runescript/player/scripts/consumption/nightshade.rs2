@@ -3,7 +3,7 @@
 // op2). 289's 15 hitpoints are 2011's 150 life points: 2011 wiki, Cave
 // nightshade (2011-04-06), "this causes 150 life points of damage", with the
 // same two messages and "Ahhhh! What have I done!".
-[opheld4,cave_nightshade]
+[opheld4,nightshade]
 inv_delslot(inv, last_slot);
 mes("You eat the nightshade...");
 mes("The nightshade was highly poisonous.");

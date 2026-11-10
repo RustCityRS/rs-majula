@@ -66,10 +66,10 @@ fn port_sarim_and_karamja_npcs_answer_every_branch() {
             "betty",
             "brian",
             "grum",
-            "monk_of_entrana",
-            "monk_of_entrana_2728",
-            "monk_of_entrana_2729",
-            "npc_748",
+            "shipmonk",
+            "shipmonk1_b",
+            "shipmonk1_c",
+            "cabin_boy_jenkins",
             "captain_shanks",
             "customs_officer",
             "jiminua",
@@ -126,7 +126,7 @@ fn gerrant_rommik_and_peksa_open_their_shops() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         for (npc, title) in [
-            ("gerrant_12261", "Gerrant's Fishy Business."),
+            ("gerrant_npc", "Gerrant's Fishy Business."),
             ("rommik", "Rommiks Crafty Supplies."),
             ("peksa", "Helmet Shop."),
         ] {

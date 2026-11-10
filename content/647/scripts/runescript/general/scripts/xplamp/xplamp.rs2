@@ -14,8 +14,8 @@
 // 2011 wiki (Lamp, 2 May 2011) has the lamp advance any stat, Summoning,
 // Construction, Farming and Dungeoneering among them.
 
-[opheld1,lamp]
-%xplamp_stat = ^xplamp_none;
+[opheld1,macro_genilamp]
+%if1 = ^xplamp_none;
 if_openmain(interface_134);
 
 [if_button,interface_134:attack] @xplamp_select(attack);
@@ -45,7 +45,7 @@ if_openmain(interface_134);
 [if_button,interface_134:dungeoneering] @xplamp_select(dungeoneering);
 
 [if_button,interface_134:confirm]
-switch_int (%xplamp_stat) {
+switch_int (%if1) {
     case ^xplamp_none :
         mes("You need to choose which skill you wish to be advanced.");
         return;
@@ -75,12 +75,12 @@ switch_int (%xplamp_stat) {
     case ^xplamp_summoning : @xplamp_confirm(summoning);
     case ^xplamp_dungeoneering : @xplamp_confirm(dungeoneering);
 }
-error("case not found for xplamp varp: <tostring(%xplamp_stat)>");
+error("case not found for xplamp varp: <tostring(%if1)>");
 
 [label,xplamp_select](stat $stat)
 if (map_members = ^false & ~stat_members($stat) = ^true) {
     mes("You need to be on a members' world to gain experience in <~stat_name($stat)>.");
-    %xplamp_stat = ^xplamp_none;
+    %if1 = ^xplamp_none;
     return;
 }
 switch_stat ($stat) {
@@ -116,30 +116,30 @@ error("case not found for stat: <enum(stat, string, stat_names, $stat)>");
 switch_int ($selection) {
     case ^xplamp_herblore :
         if (%druidquest ! ^druid_complete) {
-            %xplamp_stat = ^xplamp_none;
+            %if1 = ^xplamp_none;
             mes("You need to complete the Druidic Ritual quest to choose that option.");
             return;
         }
     case ^xplamp_runecraft :
         if (%runemysteries ! ^runemysteries_complete) {
-            %xplamp_stat = ^xplamp_none;
+            %if1 = ^xplamp_none;
             mes("You need to complete the Rune Mysteries quest to choose that option.");
             return;
         }
 }
-%xplamp_stat = $selection;
+%if1 = $selection;
 
 [label,xplamp_confirm](stat $stat)
 // sanity check
 if (map_members = ^false & ~stat_members($stat) = ^true) {
     mes("You need to be on a members' world to gain experience in <~stat_name($stat)>.");
-    %xplamp_stat = ^xplamp_none;
+    %if1 = ^xplamp_none;
     return;
 }
 
 if_close;
-inv_del(inv, lamp, 1);
-%xplamp_stat = ^xplamp_none;
+inv_del(inv, macro_genilamp, 1);
+%if1 = ^xplamp_none;
 
 def_int $base_level = stat_base($stat);
 stat_advance($stat, multiply($base_level, 100)); // stat level * 10

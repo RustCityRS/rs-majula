@@ -1,5 +1,5 @@
 // 3133
 [clientscript,script3133]
-if_sethide(true, lobbyscreen_pane_worldselect:com_65);
-if_sethide(true, lobbyscreen_pane_worldselect:com_66);
+if_sethide(lobbyscreen_pane_worldselect:com_65, true);
+if_sethide(lobbyscreen_pane_worldselect:com_66, true);
 return;
