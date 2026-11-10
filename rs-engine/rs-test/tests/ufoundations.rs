@@ -1153,8 +1153,9 @@ fn the_dragon_is_put_to_sleep() {
             "{texts:?}"
         );
         assert!(sent_text(&packets, "Grub's up! Shoo!"));
-        // 2011's shots (4KO2h2xPtdM @202.64-234.53): clientscript 2762's 101, 102, 104, 105, the
-        // fade 106, then 107; no 103. Varc 1007 by VARC_SMALL, `p1_alt2 value, p2_alt1 varc`.
+        // 2011's shots (4KO2h2xPtdM, cuts @202.67, 206.27, 211.04, 215.35, 216.45): clientscript
+        // 2762's 101 to 105, the fade 106, then 107. Varc 1007 by VARC_SMALL,
+        // `p1_alt2 value, p2_alt1 varc`.
         let mut sent_shots: Vec<i32> = packets
             .iter()
             .filter(|(op, p)| *op == ServerProt::VarcSmall as u16 && p.len() >= 3)
@@ -1162,7 +1163,7 @@ fn the_dragon_is_put_to_sleep() {
             .map(|(_, p)| 0u8.wrapping_sub(p[0]) as i8 as i32)
             .collect();
         sent_shots.dedup();
-        assert_eq!(sent_shots, vec![101, 102, 104, 105, 106, 107, 0]);
+        assert_eq!(sent_shots, vec![101, 102, 103, 104, 105, 106, 107, 0]);
         let clips = speech(&packets);
         for clip in [715, 850, 958] {
             assert!(clips.contains(&clip), "clip {clip} in {clips:?}");
@@ -1195,12 +1196,9 @@ fn the_dragon_is_put_to_sleep() {
             .collect();
         assert_eq!(toggles.first(), Some(&2), "{toggles:?}");
         assert_eq!(toggles.last(), Some(&0), "{toggles:?}");
-        // Out of hiding where Sir Vant can be reached: talking to him goes on to the pillars.
-        assert_eq!(
-            cellar_tile(engine, &client),
-            Some((25, 31)),
-            "out of hiding"
-        );
+        // In the hole, the recess in the wall south of the nest (4KO2h2xPtdM @245.4), from where
+        // talking to Sir Vant walks on to the pillars.
+        assert_eq!(cellar_tile(engine, &client), Some((20, 29)), "in the hole");
         talk_to(&mut client, npc_nid(engine, "sir_vant_8850"));
         let next = converse(engine, &mut client, &[], 60);
         assert!(
@@ -1227,6 +1225,17 @@ fn the_dragon_is_put_to_sleep() {
             HarnessClient::game_messages(&bag.packets)
         );
         assert_eq!(progress(engine, &client), 96, "the supplies");
+        // He stays by the pillars (2011 @244-366): an npc a script moves walks back to where it
+        // was added once its mode goes back to its default (in-client run ufrest15, Sir Vant back
+        // in the doorway (32, 16) for the sabotage).
+        cycles(engine, &mut client, 100);
+        let (vx, vz) = npc_tile(engine, "sir_vant_8850")
+            .map(|t| local(engine, t))
+            .expect("Sir Vant");
+        assert!(
+            (i32::from(vx) - 26).abs() <= 5 && (i32::from(vz) - 30).abs() <= 5,
+            "Sir Vant by the pillars, not ({vx}, {vz})"
+        );
     });
 }
 

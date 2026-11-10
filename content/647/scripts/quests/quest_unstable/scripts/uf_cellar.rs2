@@ -70,9 +70,7 @@ if ($p >= 10 & $p < 90) {
 if ($p >= 90 & $p < 117) {
     // Asleep on its nest, as the sleep cutscene leaves it (uf_sleep.rs2), until the roof comes
     // down on it.
-    npc_add(~uf_cellar_coord(18, 33), dragon_8861, 0);
-    npc_setmode(none);
-    npc_facesquare(~uf_cellar_coord(17, 35));
+    ~uf_dragon_asleep;
 }
 if ($p >= 90 & $p < 117) {
     // By the pillars from the sleep cutscene on.
@@ -422,3 +420,10 @@ if (npc_find(coord, $npc, 40, 0) = true) {
 if (loc_find(~uf_cellar_coord(28, 29), sir_vant_s_bag) = false) {
     loc_add(~uf_cellar_coord(28, 29), sir_vant_s_bag, 1, centrepiece_straight, ^uf_cellar_obj_duration);
 }
+
+// The dragon asleep on its nest's corner (18, 33), lying as the sleep cutscene's lie-down ends:
+// facing north, its head to the north side (4KO2h2xPtdM 2011-04-30 @229.05-231.0, uf_sleep.rs2).
+[proc,uf_dragon_asleep]
+npc_add(~uf_cellar_coord(18, 33), dragon_8861, 0);
+npc_setmode(none);
+npc_facesquare(~uf_cellar_coord(20, 42));
