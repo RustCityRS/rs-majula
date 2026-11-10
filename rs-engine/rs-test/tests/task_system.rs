@@ -1,7 +1,9 @@
 //! 2011's Task System, phase 1 (`tasks/scripts`): at login the tab shows the Lumbridge/Draynor set
 //! with its first open tasks in the slots (varbits 8575, 8587..), and finishing a quest that is a
-//! task completes it with 2011's messages ("You have completed the Task 'Cook's Assistant'!", "You
-//! have now completed 1 Task in total."; the 2011-05-23 recording A-JAsglDtjE's chat).
+//! task completes it with 2011's messages ("You have completed the Task 'Cook's Assistant'!"; the
+//! 2011-05-23 recording A-JAsglDtjE's chat, where a player with 16 done also gets "You have now
+//! completed 17 Tasks in total."). A first Task prints no total: 4KO2h2xPtdM (2011-04-30) @610 has
+//! "You have completed the Task 'How To Train and Level'!" alone, @680 "... 2 Tasks in total.".
 
 #![cfg(since_647)]
 
@@ -159,10 +161,12 @@ fn finishing_cooks_assistant_completes_its_task() {
             2,
             "Cook's Assistant complete"
         );
-        for line in [
-            "You have completed the Task 'Cook's Assistant'!",
-            "You have now completed 1 Task in total.",
-        ] {
+        assert!(
+            !talk.messages.iter().any(|m| m.contains("in total")),
+            "no total for a first Task; {:?}",
+            talk.messages
+        );
+        for line in ["You have completed the Task 'Cook's Assistant'!"] {
             assert!(
                 talk.messages.iter().any(|m| m == line),
                 "2011's message {line:?}; {:?}",

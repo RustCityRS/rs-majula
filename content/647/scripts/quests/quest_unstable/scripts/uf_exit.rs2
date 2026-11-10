@@ -287,7 +287,10 @@ if ($rocks = true) {
     }
     if (stat_base(mining) >= 2 & %learning_the_ropes = 140) {
         %learning_the_ropes = 150;
-        %varclient_1425 = 3518;
+        // No TASK COMPLETE! Skill in Mining (3518): 4KO2h2xPtdM (2011-04-30) shows no popup from
+        // the level (@569) until the Task System's "How To Train and Level" (425) once the boxes
+        // are closed (@576.7, levelup.rs2). The woodcutting path's Skill in Woodcutting (3517)
+        // does pop (Qh_-AMJpVd0 2011-05-10 @403).
         ~uf_task_tab;
         ~uf_task_pin;
         sound_speech_volume(vorbis_1074, 1, 0, 255);

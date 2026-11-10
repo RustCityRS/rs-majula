@@ -1459,12 +1459,35 @@ fn the_way_out_to_lumbridge() {
         engine.harness_telejump(client.pid, origin.0 + 17, 0, origin.1 + 37);
         cycles(engine, &mut client, 3);
         let (px, pz) = at(17, 38);
+        let mut practice = Vec::new();
         for _ in 0..2 {
             oploc1(&mut client, loc_id(engine, "loc_45571"), px, pz);
-            converse(engine, &mut client, &[], 120);
-            cycles(engine, &mut client, 4);
+            practice.extend(converse(engine, &mut client, &[], 120).packets);
+            practice.extend(cycles(engine, &mut client, 4));
         }
         assert_eq!(progress(engine, &client), 150, "Mining level 2");
+        // The Task System's How To Train and Level (425) once the boxes are closed, its line alone
+        // (a first Task), and no Skill in Mining (3518) popup (4KO2h2xPtdM @569-577).
+        let lines: Vec<String> = HarnessClient::game_messages(&practice)
+            .into_iter()
+            .map(|(_, m)| m)
+            .collect();
+        assert!(
+            lines.contains(&"You have completed the Task 'How To Train and Level'!".to_string()),
+            "{lines:?}"
+        );
+        assert!(!lines.iter().any(|m| m.contains("in total")), "{lines:?}");
+        assert_eq!(varbit_named(engine, &client, "varplayerbit_9018"), 1);
+        assert_eq!(
+            engine
+                .harness_player(client.pid)
+                .unwrap()
+                .varcs
+                .get(&POPUP_TASK)
+                .copied(),
+            Some(425),
+            "TASK COMPLETE! How To Train and Level"
+        );
 
         engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 35);
         cycles(engine, &mut client, 3);

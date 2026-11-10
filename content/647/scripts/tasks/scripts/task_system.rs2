@@ -85,15 +85,26 @@ if ($x >= 3072 & $x <= 3270 & $z >= 3136 & $z <= 3391) {
 // Completes task <index>: the caller has already set its var (the one task_done reads). The
 // messages are 2011's ("You have completed the Task 'Rest Up'!", "You have now completed 58 Tasks
 // in total.", the 2011-04-22 Prince Ali Rescue recording's chat, YouTube I7lbQxahe_w); the popup
-// is the client's (interface_1055 wakes on varc task_popup).
+// is the client's (interface_1055 wakes on varc task_popup). The first Task done prints no total:
+// 4KO2h2xPtdM (2011-04-30) @610 has "You have completed the Task 'How To Train and Level'!" alone,
+// then @680 "You have completed the Task 'On the Run'!" / "You have now completed 2 Tasks in total."
 [proc,task_complete](int $index)
 def_struct $task = enum(int, struct, enum_3483, $index);
 mes("You have completed the Task '<struct_param($task, param_1266)>'!");
 %varplayerbit_8601 = add(%varplayerbit_8601, 1);
-if (%varplayerbit_8601 = 1) {
-    mes("You have now completed 1 Task in total.");
-} else {
+if (%varplayerbit_8601 > 1) {
     mes("You have now completed <tostring(%varplayerbit_8601)> Tasks in total.");
 }
 %varclient_1425 = $index;
 ~task_refresh;
+
+// Task 425 "How To Train and Level" (struct 1758: "Reach level 2 in Mining.", its var varbit 9018 in
+// the client's task_get_progress): done at Mining 2, its popup once the level's boxes are closed
+// (4KO2h2xPtdM @576.7, after "Congratulations: You have reached level 2 Mining.", Roddeck's line
+// and the drop hint). From levelup.rs2.
+[queue,task_how_to_train_and_level]
+if (%varplayerbit_9018 = 1 | stat_base(mining) < 2) {
+    return;
+}
+%varplayerbit_9018 = 1;
+~task_complete(425);
