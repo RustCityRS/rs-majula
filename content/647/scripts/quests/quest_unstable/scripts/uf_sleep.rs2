@@ -111,6 +111,11 @@ split_init("<p,neutral>Well done. Come out of hiding and I'll tell you what we'r
 ~chatnpc_page("Sir Vant", sir_vant_8850, 0);
 p_pausebutton;
 if_close;
+// Out of hiding as the camera comes back: (26, 25) is walled in (l57_77's wall along x 27 and the
+// rubble on (25, 29), (26, 28), (27, 27)), and in 2011 the player reaches Sir Vant at the pillars
+// about three seconds after the minimap returns (4KO2h2xPtdM @244.8-248). The hole's own tile:
+// (25, 31), where the run to it was going (inference).
+p_teleport(~uf_cellar_coord(25, 31));
 ~uf_cutscene_close;
 if (npc_find(~uf_cellar_coord(26, 30), sir_vant_8850, 2, 0) = true) {
     hint_npc_slot(0, 0, ^uf_hint_ring);

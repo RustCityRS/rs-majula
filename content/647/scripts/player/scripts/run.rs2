@@ -22,6 +22,11 @@ if (p_finduid(uid) = true) {
         %varplayer_419 = ^tutorial_has_toggled_on_run;
         ~set_tutorial_progress;
     }
+    // Unstable Foundations' arrow at the orb (varbit 3756 17, uf_plan.rs2) goes as run turns on
+    // (4KO2h2xPtdM 2011-04-30 @186.0 the orb lit, @186.5 the arrow gone; the run hint stays).
+    if (%varplayerbit_3756 = 17) {
+        %varplayerbit_3756 = 0;
+    }
     p_run(^player_run_on);
     return;
 }

@@ -12,7 +12,6 @@
 if (region_findbycoord(coord) = false) {
     return;
 }
-minimap_toggle(2);
 ~uf_cutscene_open;
 %varclient_1007 = 1;
 // The player backs off to the west wall: away down-left in shot 1 (4KO2 @17.0-17.4), and on
@@ -228,7 +227,10 @@ if (npc_find(~uf_cellar_coord(32, 14), squire_8857, 4, 0) = true) {
 }
 
 // Interface 899's slot: no source found; the game view's overlay slot, as the Controls overlay.
+// Every cutscene in the cellar blacks the minimap: the dragon's (8jKH_7To46o @88), the sleep
+// (4KO2h2xPtdM 2011-04-30 @203-244.81) and the collapse (@396.23-427.13).
 [proc,uf_cutscene_open]
+minimap_toggle(2);
 if (getwindowmode = 1) {
     if_opensub(tutorial3_cutscenes, toplevel:mainoverlay);
 } else {

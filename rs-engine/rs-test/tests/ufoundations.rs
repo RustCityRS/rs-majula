@@ -1122,6 +1122,27 @@ fn the_dragon_is_put_to_sleep() {
             !is_open(engine, &client, CUTSCENES),
             "the camera is the player's again"
         );
+        // The minimap black for the cutscene (4KO2h2xPtdM @203-244.81), and back after it.
+        let toggles: Vec<u8> = packets
+            .iter()
+            .filter(|(op, _)| *op == ServerProt::MinimapToggle as u16)
+            .map(|(_, b)| b[0])
+            .collect();
+        assert_eq!(toggles.first(), Some(&2), "{toggles:?}");
+        assert_eq!(toggles.last(), Some(&0), "{toggles:?}");
+        // Out of hiding where Sir Vant can be reached: talking to him goes on to the pillars.
+        assert_eq!(
+            cellar_tile(engine, &client),
+            Some((25, 31)),
+            "out of hiding"
+        );
+        talk_to(&mut client, npc_nid(engine, "sir_vant_8850"));
+        let next = converse(engine, &mut client, &[], 60);
+        assert!(
+            next.said("We need to destroy these pillars to collapse the ceiling on the dragon."),
+            "{:?}",
+            next.texts
+        );
     });
 }
 
@@ -1384,6 +1405,25 @@ fn the_books_the_cabbage_and_the_drop_hint() {
         assert!(speech(&books.packets).contains(&1345));
         assert!(slot_of(engine, &client, diary).is_some(), "the diary");
         assert!(slot_of(engine, &client, manual).is_some(), "the manual");
+
+        // Read: spread one as 4KO2h2xPtdM @483-491 shows it, the narrator reading it (clip 691).
+        let at_slot = slot_of(engine, &client, diary).unwrap();
+        held1(&mut client, diary, at_slot);
+        let read = cycles(engine, &mut client, 3);
+        let shown: Vec<String> = rs_test::talk::settexts(&read)
+            .into_iter()
+            .map(|(_, t)| t)
+            .collect();
+        for line in [
+            "Roddeck's Diary",
+            "Yet again it's raining.",
+            "Saradomin rest his soul.",
+        ] {
+            assert!(shown.iter().any(|t| t == line), "{line} in {shown:?}");
+        }
+        assert!(speech(&read).contains(&691));
+        engine.harness_close_modal(client.pid);
+        cycles(engine, &mut client, 2);
 
         engine.harness_telejump(client.pid, origin.0 + 42, 0, origin.1 + 36);
         cycles(engine, &mut client, 3);

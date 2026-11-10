@@ -1,0 +1,57 @@
+// Roddeck's diary and his manual on the care of pet dragons (the cellar's bookcase,
+// uf_items.rs2), on 2011's two-page book (general/scripts/book.rs2).
+//
+// - Spread one is 4KO2h2xPtdM's (2011-04-30 @483-491): "Roddeck's Diary", its first date in red,
+//   line for line. No recording shows another spread.
+// - The rest is the narrator's reading of each spread (cache 786 enum 3044 for the diary, 3045 for
+//   the manual; Whisper on the clips): the words as spoken, the punctuation, spelling and where the
+//   lines break ours (the book wraps at 175 in q8_full). Names as the 2011 wiki has them
+//   (Raktuber, Pentember, Sottlepot, Taverley); "Pitypins" as heard.
+// - In the tutorial the narrator reads each spread as it opens (the 2011 wiki's "Roddeck's diary",
+//   rev 2011-03-13: "read out loud by the narrator when in the tutorial"); the diary's
+//   post-scriptum is there only once the tutorial is done ("only for accounts that completed the
+//   tutorial", the same page's later text: the 2011 one does not say).
+
+[opheld1,roddeck_s_diary]
+%book_page = 0;
+%open_book = roddeck_s_diary;
+if (%learning_the_ropes >= 1000) {
+    @book_flip_page(0, 0, 9, uf_diary_book);
+}
+@book_flip_page(0, 0, 7, uf_diary_book);
+
+[opheld1,manual_15671]
+%book_page = 0;
+%open_book = manual_15671;
+@book_flip_page(0, 0, 3, uf_manual_book);
+
+// The spread's clip, in the tutorial only.
+[proc,uf_book_voice](enum $voices)
+if (%learning_the_ropes >= 5 & %learning_the_ropes < 1000) {
+    sound_speech_volume(enum(int, vorbis, $voices, calc(%book_page + 1)), 1, 0, 255);
+}
+
+[proc,uf_diary_book]
+~uf_book_voice(enum_3044);
+switch_int (%book_page) {
+    // 4KO2h2xPtdM's lines, each as it shows them: eleven on the left, six on the right.
+    case 0 : ~book("Roddeck's Diary", "<col=800000>3rd Raktuber</col>|Yet again it's raining.|Just when I wanted to|go for a walk to Draynor|Village with my gorgeous|new walking stick and|maybe pop in for tea with|the Wise Old Man. How|typical. Ah, well, I'm sure|I can find some way to|pass the time.|Maybe I'll leaf through|some of those old books|that belonged to my late|uncle. He had such|strange interests,|Saradomin rest his soul.");
+    case 1 : ~book("Roddeck's Diary", "<col=800000>4th Raktuber</col>|I believe I found a marvellous new hobby. One of those old books was a manual for rearing pet dragons. I don't have a garden, but I'm sure I can do just as well keeping it in my cellar. There's plenty of space down there, and it'll be out of the rain. I've written to the Taverley Pet Shop to order an egg and some supplies.");
+    case 2 : ~book("Roddeck's Diary", "<col=800000>5th Raktuber</col>|No sign of my egg yet, and it's still raining. Never mind. I shall brave the rain and take a walk after all.||<col=800000>6th Raktuber</col>|Oh dear. I have such a terrible cold.");
+    case 3 : ~book("Roddeck's Diary", "<col=800000>9th Raktuber</col>|At last I'm feeling well enough to resume my diary. Furthermore, my delivery has arrived far sooner than I had hoped. That postman is a curious little chap, but he certainly knows his trade. Now, to unpack the egg and get started.||<col=800000>11th Raktuber</col>|Apparently it takes ages for these eggs to hatch. How disappointing. I think I shall name it Sottlepot if it's a boy dragon and Pitypins if it's a girl dragon.");
+    case 4 : ~book("Roddeck's Diary", "<col=800000>14th Raktuber</col>|Little Sottlepot has hatched. These dragons really are marvellous creatures.||<col=800000>32nd Raktuber</col>|I've had no time for this diary recently. I seem to find myself constantly busy preparing minced meat and bringing him water. He's growing so fast.");
+    case 5 : ~book("Roddeck's Diary", "<col=800000>15th Pentember</col>|I must admit that I am starting to have second thoughts about this little project of mine. Sottlepot has grown so large that I am not entirely sure he will fit through the trapdoor of the cellar any more. Furthermore, no matter how much I feed him, he keeps... well... salivating when he looks at me. He was a lot sweeter when he was smaller. I wonder if parenthood is like this.");
+    case 6 : ~book("Roddeck's Diary", "<col=800000>20th Pentember</col>|I'm becoming seriously concerned about Sottlepot. He's completely smashed the pillars of my cellar. Fortunately, I was able to shore up the ceiling with some bits of wood before the whole cellar caved in. Hmm, perhaps I should have taken up carpentry instead of raising a dragon.");
+    case 7 : ~book("Roddeck's Diary", "<col=800000>21st Pentember</col>|That blasted dragon almost managed to break the chains that were holding it to the wall. If he gets loose, there's no way I'm going to be able to restrain him again. At the risk of looking like a complete nincompoop, I think I'm going to have to call someone to sort him out before I lose control of him completely. The White Knights might be able to help.");
+    case 8 : ~book("Roddeck's Diary", "<col=800000>Post Scriptum</col>|Saved at last! The White Knights sent an agent in response to my message. He couldn't have arrived at a better time. I'd completely lost control of the dragon, and it had me cornered in a cupboard in my own cellar. With the aid of a passing adventurer, he managed to kill the dragon, and then we tumbled out of the cellar into Jack's house because the blasted dragon had burnt my ladder.");
+    case 9 : ~book("Roddeck's Diary", "I've agreed to act as an advisor for the adventurer, since they are unfamiliar with this country. Still, now all that excitement is over, I should try to find myself a new hobby.");
+}
+
+[proc,uf_manual_book]
+~uf_book_voice(enum_3045);
+switch_int (%book_page) {
+    case 0 : ~book("On the Care of Dragons", "Dragons are the noblest of creatures. While it requires considerable skill to keep them as pets, this simple guide will help you grasp the essentials.|Firstly, you must ensure you have adequate space for the dragon. A large garden or menagerie is ideal. There should be some shelter from the elements and a plentiful supply of food and water.");
+    case 1 : ~book("On the Care of Dragons", "Once you are prepared, obtain a dragon's egg and place it in a warm, dry place. A dedicated incubator is preferred, as the temperature of a cooking range is unlikely to be suitable. After a few days of this treatment, your egg will hatch.|Do not leave your dragon outside except in warm weather until it has attained a size of approximately 12 inches. When it is ready to be introduced to its outdoor habitat, keep a close eye on its health to ensure it does not develop scale rot or lung damp.");
+    case 2 : ~book("On the Care of Dragons", "It is essential, especially in the first days, to keep the dragon well fed. In the wild, a mother dragon will typically spend most of her time feeding her brood. Dragons require copious quantities of raw meat. For the first weeks, you should mince this into a fine paste, having removed all bones, but once your dragon has attained a size of approximately 18 inches, it should be able to consume meat on the bone. You will rapidly learn what form of sustenance your dragon prefers.");
+    case 3 : ~book("On the Care of Dragons", "Dragon owners are strongly advised not to bring their dragons indoors once their flame ducts have developed, as this will typically lead to inconvenient house fires.");
+}
