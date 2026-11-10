@@ -4,7 +4,6 @@ use crate::cache::ScriptVarType;
 use crate::cache::param::ParamTypeRaw;
 use crate::cache::provider::CacheType;
 use crate::pack::names::AssetNames;
-use crate::pack::pack::collect_config_files;
 use crate::unpack::interface::{decode_interfaces, write_interfaces};
 use anyhow::{Context, Result, bail, ensure};
 use rs_io::Packet;
@@ -13,6 +12,7 @@ use runec::clientscript;
 use runec::clientscript::decode::Script;
 use runec::clientscript::decompile::{decompile, infer_signatures};
 use runec::lexer::Lexer;
+use runec::sources::{Scope, engine_file, script_files, target_config_files};
 use runec::symbol::SymbolKind;
 use runec::token::Kind;
 use runec::types::Type;
@@ -20,9 +20,9 @@ use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 
-fn script_path(dir: &Path, name: &str) -> PathBuf {
+fn script_path(dir: &Path, template: &Path, name: &str, scope: Scope) -> PathBuf {
     let key = clientscript::script_key(name);
-    let (trigger, name) = key[1..key.len() - 1].split_once(',').unwrap();
+    let (_, name) = key[1..key.len() - 1].split_once(',').unwrap();
     let folder = if name
         .strip_prefix("clientscript_")
         .or_else(|| name.strip_prefix("script"))
@@ -31,67 +31,109 @@ fn script_path(dir: &Path, name: &str) -> PathBuf {
         dir.join("unpack")
     } else {
         let name = name.trim_start_matches('_');
-        dir.join(name.split_once('_').map_or(name, |(prefix, _)| prefix))
-            .join(if trigger == "clientscript" {
-                "script"
-            } else {
-                "proc"
-            })
+        let prefix = name.split_once('_').map_or(name, |(prefix, _)| prefix);
+        let candidates = [
+            prefix.to_owned(),
+            format!("skill_{prefix}"),
+            format!("interface_{prefix}"),
+            format!("{prefix}s"),
+        ];
+        let matches = candidates
+            .iter()
+            .filter(|name| template.join(name).is_dir() || dir.join(name).is_dir())
+            .collect::<Vec<_>>();
+        dir.join(if matches.len() == 1 {
+            matches[0].as_str()
+        } else {
+            prefix
+        })
     };
-    folder.join(format!("{key}.cs2"))
+    folder
+        .join(if scope == Scope::Global {
+            "global"
+        } else {
+            "client"
+        })
+        .join(format!("{key}.{}", scope.extension()))
+}
+
+fn template_script_paths(dir: &Path, template: &Path) -> Result<HashMap<String, PathBuf>> {
+    let mut paths = HashMap::new();
+    for path in script_files(template, "cs2")? {
+        if path
+            .file_name()
+            .is_some_and(|name| name == "engine.cs2" || name == "engine.gs2")
+        {
+            continue;
+        }
+        let source = clientscript::Source::parse(&fs::read_to_string(&path)?, &path)?;
+        let target = dir.join(path.strip_prefix(template)?);
+        for script in &source.file.scripts {
+            let key = format!("[{},{}]", script.trigger, script.name);
+            let path = if source.file.scripts.len() == 1 {
+                target.clone()
+            } else {
+                target.with_file_name(format!(
+                    "{key}.{}",
+                    path.extension().unwrap().to_string_lossy()
+                ))
+            };
+            paths.insert(key, path);
+        }
+    }
+    Ok(paths)
 }
 
 pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Result<u32> {
     super::prepare_pack(pack_dir)?;
     let mut store = Js5Store::open(cache_dir)?;
     let names = AssetNames::load(pack_dir)?;
-    let dir = output_dir.join("scripts/clientscript");
-    let global = output_dir.join("scripts/globalscript");
+    let scripts_dir = output_dir.join("scripts");
+    let configs = scripts_dir.join("configs");
     // The standalone clientscript importer also needs the declarations that
     // grant scripts access to cache configs. The full importer writes these first.
-    if !global.join("_unpack").is_dir() {
-        fs::create_dir_all(global.join("_unpack"))?;
+    if !configs.join("_unpack").is_dir() {
+        fs::create_dir_all(configs.join("_unpack"))?;
         let mut results = Vec::new();
-        super::unpack_configs(&mut results, cache_dir, pack_dir, &global);
+        super::unpack_configs(&mut results, cache_dir, pack_dir, &configs);
         super::report::write_report(&results, &output_dir.join("unpack_report.txt"))?;
     }
     let template = pack_dir.with_file_name("scripts");
-    let template = if template.join("clientscript/engine.cs2").is_file() {
-        template
+    let (template, template_engine) = if let Some(engine) = engine_file(&template, Scope::Client)? {
+        (template, engine)
     } else {
-        Path::new(CONTENT_DIR).join("scripts")
+        let template = Path::new(CONTENT_DIR).join("scripts");
+        let engine = engine_file(&template, Scope::Client)?
+            .with_context(|| format!("Missing engine.cs2 under {}", template.display()))?;
+        (template, engine)
     };
-    fs::create_dir_all(&dir)?;
-    for name in ["engine.cs2", "cs2.constant"] {
-        let target = dir.join(name);
+    fs::create_dir_all(&scripts_dir)?;
+    let engine = if let Some(engine) = engine_file(&scripts_dir, Scope::Client)? {
+        engine
+    } else {
+        let target = scripts_dir.join(template_engine.strip_prefix(&template)?);
+        fs::create_dir_all(target.parent().unwrap())?;
+        fs::copy(&template_engine, &target).with_context(|| {
+            format!(
+                "Copying {} to {}",
+                template_engine.display(),
+                target.display()
+            )
+        })?;
+        target
+    };
+    for source in target_config_files(&template, Scope::Client)? {
+        if source.extension().is_none_or(|ext| ext != "constant") {
+            continue;
+        }
+        let target = scripts_dir.join(source.strip_prefix(&template)?);
         if !target.exists() {
-            let source = template.join("clientscript").join(name);
+            fs::create_dir_all(target.parent().unwrap())?;
             fs::copy(&source, &target)
                 .with_context(|| format!("Copying {} to {}", source.display(), target.display()))?;
         }
     }
-    let shared_template = template.join("globalscript");
-    let mut shared_paths = HashMap::new();
-    if shared_template.is_dir() {
-        for source in clientscript::load_sources(&shared_template)? {
-            for script in &source.file.scripts {
-                let key = format!("[{},{}]", script.trigger, script.name);
-                let path = if source.file.scripts.len() == 1 {
-                    global.join(source.path.strip_prefix(&shared_template)?)
-                } else {
-                    script_path(&global, &key).with_extension("gs2")
-                };
-                shared_paths.insert(key, path);
-            }
-        }
-        for source in collect_config_files(&shared_template, "constant") {
-            let target = global.join(source.strip_prefix(&shared_template)?);
-            if !target.exists() {
-                fs::create_dir_all(target.parent().unwrap())?;
-                fs::copy(source, target)?;
-            }
-        }
-    }
+    let template_paths = template_script_paths(&scripts_dir, &template)?;
     let groups = store
         .reference_table(archive::CLIENTSCRIPT)
         .context("Missing clientscript table")?
@@ -108,7 +150,7 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
         original.insert(info.id, data);
     }
     let mut params = HashMap::new();
-    let mut registry = clientscript::registry(&dir, pack_dir)?;
+    let mut registry = clientscript::registry(&scripts_dir, pack_dir)?;
     if let Some(group) = store.read_group(archive::CONFIG, archive::CONFIG_GROUP_PARAM)? {
         for entry in &group.entries {
             let mut param = ParamTypeRaw::new(entry.id as u16);
@@ -120,8 +162,7 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
             );
         }
     }
-    let commands =
-        clientscript::load_commands(&pack_dir.join("cs2_command.pack"), &dir.join("engine.cs2"))?;
+    let commands = clientscript::load_commands(&pack_dir.join("cs2_command.pack"), &engine)?;
     let interfaces = decode_interfaces(&mut store)?;
     let hooks: Vec<_> = interfaces
         .iter()
@@ -145,10 +186,10 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
         .with_context(|| format!("Decompiling clientscript {}", info.id))?;
         let text = format!("// {}\n{text}", info.id);
         let name = names.name("clientscript", info.id);
-        let path = shared_paths
+        let path = template_paths
             .get(&clientscript::script_key(&name))
             .cloned()
-            .unwrap_or_else(|| script_path(&dir, &name));
+            .unwrap_or_else(|| script_path(&scripts_dir, &template, &name, Scope::Client));
         if text.contains("__") {
             let tokens = Lexer::new(&text, &path).tokenize()?;
             if let Some(pair) = tokens.windows(2).find(|pair| {
@@ -187,8 +228,8 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
             variables.insert((category.as_str(), *var_id), name);
         }
     }
-    let table = fs::read_to_string(global.join("_unpack/all.varc"))?;
-    let path = dir.join("configs/all.varc");
+    let table = fs::read_to_string(configs.join("_unpack/all.varc"))?;
+    let path = configs.join("client/all.varc");
     let mut text = fs::read_to_string(&path).unwrap_or_default();
     let existing: HashSet<String> = table
         .lines()
@@ -207,13 +248,16 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
         }
     }
     if !text.is_empty() {
+        if !path.exists() {
+            text.insert_str(0, "// @scope(client)\n");
+        }
         fs::create_dir_all(path.parent().unwrap())?;
         fs::write(path, text)?;
     }
-    registry.load_visibility(&dir);
+    registry.load_visibility(&scripts_dir);
     let mut aliases = Vec::new();
     let ids = clientscript::script_ids(pack_dir)?;
-    for source in clientscript::load_sources(&dir)? {
+    for source in clientscript::load_sources(&scripts_dir)? {
         for script in &source.file.scripts {
             let key = format!("[{},{}]", script.trigger, script.name);
             let id = ids
@@ -289,4 +333,69 @@ pub fn scan_cs2_varp_refs(store: &mut Js5Store) -> Result<(HashSet<u32>, HashSet
         }
     }
     Ok((varps, varbits))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::{env, process};
+
+    #[test]
+    fn unpack_preserves_existing_feature_paths_and_uses_matching_server_folders() {
+        struct Fixture(PathBuf);
+        impl Drop for Fixture {
+            fn drop(&mut self) {
+                let path = self.0.canonicalize().unwrap();
+                let temp = env::temp_dir().canonicalize().unwrap();
+                assert!(path != temp && path.starts_with(temp));
+                fs::remove_dir_all(path).unwrap();
+            }
+        }
+        let fixture = Fixture(env::temp_dir().join(format!("rs-unpack-layout-{}", process::id())));
+        let template = fixture.0.join("template");
+        let output = fixture.0.join("output");
+        for (path, text) in [
+            (
+                "interface_bank/client/custom.cs2",
+                "[proc,bank_a]() return;",
+            ),
+            (
+                "skill_combat/global/bundle.gs2",
+                "[proc,combat_a]() return;\n[proc,combat_b]() return;",
+            ),
+        ] {
+            let path = template.join(path);
+            fs::create_dir_all(path.parent().unwrap()).unwrap();
+            fs::write(path, text).unwrap();
+        }
+        fs::create_dir_all(template.join("tasks")).unwrap();
+        let paths = template_script_paths(&output, &template).unwrap();
+        assert_eq!(
+            paths["[proc,bank_a]"],
+            output.join("interface_bank/client/custom.cs2")
+        );
+        for name in ["combat_a", "combat_b"] {
+            assert_eq!(
+                paths[&format!("[proc,{name}]")],
+                output.join(format!("skill_combat/global/[proc,{name}].gs2"))
+            );
+        }
+        for (name, folder) in [
+            ("bank_new", "interface_bank"),
+            ("combat_new", "skill_combat"),
+            ("task_new", "tasks"),
+            ("fresh_new", "fresh"),
+            ("clientscript_42", "unpack"),
+        ] {
+            assert_eq!(
+                script_path(&output, &template, name, Scope::Client),
+                output.join(format!("{folder}/client/[proc,{name}].cs2")),
+            );
+        }
+        fs::create_dir_all(template.join("combat")).unwrap();
+        assert_eq!(
+            script_path(&output, &template, "combat_new", Scope::Client),
+            output.join("combat/client/[proc,combat_new].cs2"),
+        );
+    }
 }

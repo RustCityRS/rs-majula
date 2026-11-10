@@ -53,7 +53,7 @@ fn every_trigger_subject_resolves() {
     let subscriber = tracing_subscriber::registry().with(Unresolved(seen.clone()));
     with_default(subscriber, || {
         runec::compile_memory(
-            &content.join("scripts/runescript"),
+            &content.join("scripts"),
             Some(&content.join("pack")),
             false,
         )

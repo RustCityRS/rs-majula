@@ -9,16 +9,16 @@ description: Port RuneScript scripts and configs from content/289 to content/647
 
 | Path | What it holds |
 |---|---|
-| `content/647/scripts/runescript/<dir>/` | server scripts (`.rs2`) and configs |
-| `content/647/scripts/clientscript/` | client scripts |
-| `content/647/scripts/globalscript/` | client logic the server reuses (procs) |
-| `content/647/scripts/globalscript/_unpack/all.*` | cache 786 configs; add server-only keys to these sections |
+| `content/647/scripts/<feature>/` | existing server layout, including `scripts/`, `configs/` and `interfaces/` |
+| `content/647/scripts/<feature>/client/` | client scripts (`.cs2`) |
+| `content/647/scripts/<feature>/global/` | shared procedures (`.gs2`) |
+| `content/647/scripts/configs/_unpack/all.*` | cache 786 configs; add server-only keys to these sections |
 | `content/647/pack/*.pack` | `id=name` registries |
 | `content/647/maps/` | `l<mx>_<mz>.jm2` (locs: `level x z: id shape angle`), `n...` (npc spawns), `m...` (terrain) |
 
 ## Porting a file
 
-1. Copy 289's script line for line into the same `<dir>`.
+1. Copy 289's script line for line into the same feature folder and relative path. Keep existing names such as `skill_combat` and `interface_bank`.
 2. Map every name through `content/647/pack/<type>.pack`. Ids are mostly stable; names often
    differ.
 3. Many 2005 locs, objs and npcs got new ids by 2011. Find the 2011 id in the maps or configs,
@@ -26,14 +26,14 @@ description: Port RuneScript scripts and configs from content/289 to content/647
 4. Configs: put server keys (stats, params, categories, weight) on the cache's own section in
    `_unpack/all.<type>`. Never write a second definition.
 5. Put each comment on its own line. A comment after a value on the same line breaks packing.
-6. Lint: `runec lint --source content/647/scripts/runescript --pack content/647/pack`. It
+6. Lint: `runec lint --source content/647/scripts --pack content/647/pack`. It
    registers new script ids in `script.pack`. When you delete a script, remove its id line by
    hand.
 
 ## Look up the cache
 
 ```sh
-S=.claude/skills/runescript-647/scripts U=content/647/scripts/globalscript/_unpack
+S=.claude/skills/runescript-647/scripts U=content/647/scripts/configs/_unpack
 python $S/config_sections.py $U/all.npc <name|id> ... [--keys name,op,param]
 python $S/multivar_users.py $U <varbit or varp name> ...
 ```

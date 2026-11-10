@@ -12,15 +12,15 @@ version: the wiki's Porting-Guide page.
 
 1. **Sync.** `git fetch origin && git rebase origin/feature/647-support`. Say if upstream moved.
 2. **Research** (skills `sources-2011`, `recordings-matrix`):
-   - list 289's files: `content/289/scripts/runescript/<dir>/`;
-   - find the content's 2011 ids in cache 786 (`content/647/scripts/globalscript/_unpack/all.*`,
+   - list 289's files: `content/289/scripts/<dir>/`;
+   - find the content's 2011 ids in cache 786 (`content/647/scripts/configs/_unpack/all.*`,
      `content/647/maps/`);
    - read any design note in `docs/`;
    - decode every dated 2010-11 recording of it into a state list.
 3. **Port** (skill `runescript-647`):
-   - 289's scripts line for line into `content/647/scripts/runescript/<dir>/`;
+   - 289's scripts line for line into `content/647/scripts/<dir>/`;
    - only the 2011 changes a source proves, each with a comment citing it;
-   - `runec lint --source content/647/scripts/runescript --pack content/647/pack` must be clean.
+   - `runec lint --source content/647/scripts --pack content/647/pack` must be clean.
 4. **Test** (skill `testing-647`). Write a red-then-green `rs-test` case per behaviour, plus one
    per branch the recordings show.
 5. **Check in the client and record** (skill `media-review`), beside the 2011 recording.

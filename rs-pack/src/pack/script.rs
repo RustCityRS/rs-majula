@@ -71,7 +71,7 @@ pub(crate) fn compile(source: &Path, pack: &Path) -> Result<(Vec<u8>, Vec<u8>)> 
     let mut ids = lock(&ids);
     let registry = ScriptRegistry(Mutex::new(ids.clone()));
     let private = PrivatePack::copy(pack)?;
-    let scripts = source.join("scripts/runescript");
+    let scripts = source.join("scripts");
     let stage = Stage::new(
         "scripts",
         vec![("pack".to_owned(), dir_key(private.path(), &[]))],

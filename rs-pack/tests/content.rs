@@ -32,21 +32,21 @@ fn a_registry_rename_stops_packing() {
     let pack = content.join("pack");
     let output = content.join("output");
     fs::create_dir_all(&pack).unwrap();
-    fs::create_dir_all(content.join("scripts/globalscript/_unpack")).unwrap();
+    fs::create_dir_all(content.join("scripts/configs/_unpack")).unwrap();
     fs::create_dir_all(output.join("server")).unwrap();
     fs::write(pack.join("seq.pack"), "893=human_shearing\n").unwrap();
     fs::write(pack.join("npc.pack"), "1=guard\n").unwrap();
     fs::write(
-        content.join("scripts/globalscript/_unpack/all.npc"),
+        content.join("scripts/configs/_unpack/all.npc"),
         "[guard]\nmultivar=renamed_varp\nmultinpc=1,guard\n",
     )
     .unwrap();
     fs::write(
-        content.join("scripts/globalscript/_unpack/all.seq"),
+        content.join("scripts/configs/_unpack/all.seq"),
         "[seq_893]\npriority=5\n",
     )
     .unwrap();
-    fs::write(content.join("scripts/globalscript/_unpack/all.loc"), "").unwrap();
+    fs::write(content.join("scripts/configs/_unpack/all.loc"), "").unwrap();
     fs::write(output.join("server/seq.dat"), b"previous output").unwrap();
 
     for verify in [false, true] {
@@ -75,7 +75,7 @@ fn a_registry_rename_stops_packing() {
 #[test]
 fn config_crcs_reject_incomplete_source() {
     let content = scratch("config_crc");
-    let scripts = content.join("scripts/runescript");
+    let scripts = content.join("scripts");
     let pack_dir = content.join("pack");
     fs::create_dir_all(&pack_dir).unwrap();
     fs::create_dir_all(&scripts).unwrap();

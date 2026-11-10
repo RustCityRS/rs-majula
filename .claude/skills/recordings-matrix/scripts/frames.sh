@@ -5,7 +5,7 @@
 #   frames.sh <work> <tasks.txt>
 #
 # <tasks.txt>: the content's task structs ("## <index> <struct>" then "param_1266 = <name>" lines),
-# e.g. dumped from content/647/scripts/globalscript/_unpack/all.struct.
+# e.g. dumped from content/647/scripts/configs/_unpack/all.struct.
 # Writes <work>/frameocr/<label>.tsv and <work>/streams/{tasks.md,ops.md,ops_raw.tsv}. Frames are
 # deleted after OCR.
 set -euo pipefail

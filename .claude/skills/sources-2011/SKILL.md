@@ -7,7 +7,7 @@ description: Decide what 2011 (cache 786, May 2011) did for a piece of RuneScape
 
 ## Which evidence wins (highest first)
 
-1. **Cache 786**: `content/647/scripts/globalscript/_unpack/all.*`, `content/647/maps/*.jm2`,
+1. **Cache 786**: `content/647/scripts/configs/_unpack/all.*`, `content/647/maps/*.jm2`,
    `content/647/interfaces/`, clientscripts.
 2. **The RuneScape Wiki** as of about May 2011, never the live wiki. Use the page revision nearest
    2011-05-17 and quote its timestamp.

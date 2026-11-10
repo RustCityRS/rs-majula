@@ -4,6 +4,7 @@ use rs_io::js5::Js5Store;
 use rs_pack::archive;
 use rs_pack::pack::names::AssetNames;
 use runec::clientscript::{self, Source, decode::Script, decompile as source, format::Format};
+use runec::sources::{Scope, engine_file};
 use runec::types::Type;
 use std::collections::HashMap;
 use std::fs;
@@ -14,7 +15,7 @@ use std::path::Path;
 fn sources_without_metadata_match_every_reference_clientscript() {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap();
     let pack = root.join("content/647/pack");
-    let dir = root.join("content/647/scripts/clientscript");
+    let dir = root.join("content/647/scripts");
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
     let sources = clientscript::load_sources(&dir).unwrap();
     let ids = clientscript::script_ids(&pack).unwrap();
@@ -60,11 +61,11 @@ fn sources_without_metadata_match_every_reference_clientscript() {
 #[test]
 fn editable_source_preserves_bytes_and_compiles_changes() {
     let pack = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/pack");
-    let source_dir = pack.with_file_name("scripts").join("clientscript");
+    let source_dir = pack.with_file_name("scripts");
     let names = AssetNames::load(&pack).unwrap();
     let commands = clientscript::load_commands(
         &pack.join("cs2_command.pack"),
-        &source_dir.join("engine.cs2"),
+        &engine_file(&source_dir, Scope::Client).unwrap().unwrap(),
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
@@ -130,7 +131,7 @@ fn editable_source_preserves_bytes_and_compiles_changes() {
 #[test]
 fn authored_source_reports_type_and_symbol_errors() {
     let pack = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/pack");
-    let source_dir = pack.with_file_name("scripts").join("clientscript");
+    let source_dir = pack.with_file_name("scripts");
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
     for body in ["mes(1);", "unknown_command();", "return(r\"wrong\");"] {
         let mut registry = clientscript::registry(&source_dir, &pack).unwrap();
@@ -150,11 +151,11 @@ fn authored_source_reports_type_and_symbol_errors() {
 #[test]
 fn readable_declarations_strings_conditions_and_implicit_returns_preserve_code() {
     let pack = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/pack");
-    let source_dir = pack.with_file_name("scripts").join("clientscript");
+    let source_dir = pack.with_file_name("scripts");
     let names = AssetNames::load(&pack).unwrap();
     let commands = clientscript::load_commands(
         &pack.join("cs2_command.pack"),
-        &source_dir.join("engine.cs2"),
+        &engine_file(&source_dir, Scope::Client).unwrap().unwrap(),
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
@@ -205,11 +206,11 @@ fn readable_declarations_strings_conditions_and_implicit_returns_preserve_code()
 #[test]
 fn command_arguments_use_typed_names_without_changing_bytes() {
     let pack = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/pack");
-    let source_dir = pack.with_file_name("scripts").join("clientscript");
+    let source_dir = pack.with_file_name("scripts");
     let names = AssetNames::load(&pack).unwrap();
     let commands = clientscript::load_commands(
         &pack.join("cs2_command.pack"),
-        &source_dir.join("engine.cs2"),
+        &engine_file(&source_dir, Scope::Client).unwrap().unwrap(),
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
@@ -258,11 +259,11 @@ fn command_arguments_use_typed_names_without_changing_bytes() {
 #[test]
 fn structured_flow_and_typed_procedures_need_no_stack_helpers() {
     let pack = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/pack");
-    let source_dir = pack.with_file_name("scripts").join("clientscript");
+    let source_dir = pack.with_file_name("scripts");
     let names = AssetNames::load(&pack).unwrap();
     let commands = clientscript::load_commands(
         &pack.join("cs2_command.pack"),
-        &source_dir.join("engine.cs2"),
+        &engine_file(&source_dir, Scope::Client).unwrap().unwrap(),
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
@@ -360,11 +361,11 @@ fn structured_flow_and_typed_procedures_need_no_stack_helpers() {
 #[test]
 fn dump_formatting_preserves_local_slots_grouping_constants_and_bare_calls() {
     let pack = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/pack");
-    let source_dir = pack.with_file_name("scripts").join("clientscript");
+    let source_dir = pack.with_file_name("scripts");
     let names = AssetNames::load(&pack).unwrap();
     let commands = clientscript::load_commands(
         &pack.join("cs2_command.pack"),
-        &source_dir.join("engine.cs2"),
+        &engine_file(&source_dir, Scope::Client).unwrap().unwrap(),
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
@@ -438,11 +439,11 @@ fn dump_formatting_preserves_local_slots_grouping_constants_and_bare_calls() {
 #[test]
 fn dynamic_return_types_use_normal_command_names() {
     let pack = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/pack");
-    let source_dir = pack.with_file_name("scripts").join("clientscript");
+    let source_dir = pack.with_file_name("scripts");
     let names = AssetNames::load(&pack).unwrap();
     let commands = clientscript::load_commands(
         &pack.join("cs2_command.pack"),
-        &source_dir.join("engine.cs2"),
+        &engine_file(&source_dir, Scope::Client).unwrap().unwrap(),
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
@@ -516,11 +517,11 @@ fn integer_and_boolean_guards_preserve_bytes_and_behavior_without_metadata() {
         }
     }
     let pack = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/pack");
-    let source_dir = pack.with_file_name("scripts").join("clientscript");
+    let source_dir = pack.with_file_name("scripts");
     let names = AssetNames::load(&pack).unwrap();
     let commands = clientscript::load_commands(
         &pack.join("cs2_command.pack"),
-        &source_dir.join("engine.cs2"),
+        &engine_file(&source_dir, Scope::Client).unwrap().unwrap(),
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
@@ -597,11 +598,11 @@ fn integer_and_boolean_guards_preserve_bytes_and_behavior_without_metadata() {
 #[test]
 fn typed_values_use_names_in_declarations_assignments_and_comparisons() {
     let pack = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/pack");
-    let source_dir = pack.with_file_name("scripts").join("clientscript");
+    let source_dir = pack.with_file_name("scripts");
     let names = AssetNames::load(&pack).unwrap();
     let commands = clientscript::load_commands(
         &pack.join("cs2_command.pack"),
-        &source_dir.join("engine.cs2"),
+        &engine_file(&source_dir, Scope::Client).unwrap().unwrap(),
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();

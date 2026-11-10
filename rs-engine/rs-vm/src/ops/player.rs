@@ -195,7 +195,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2015
         // 647's damage(uid, type, amount, soak, healthbar) only paints:
         // content owns the life points and works out the soak
-        // (content/647/scripts/runescript/player/scripts/damage.rs2).
+        // (content/647/scripts/player/scripts/damage.rs2).
         #[cfg(since_647)]
         none!(m, DAMAGE => |s| {
             let healthbar = s.pop_int_as::<u8>()?;

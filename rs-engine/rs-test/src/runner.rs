@@ -53,7 +53,7 @@ pub fn load_engine() -> anyhow::Result<Engine> {
     let cache: &'static CacheStore = unsafe { &*cache_ptr };
 
     let (dat, idx) = runec::compile_memory_with_tests(
-        &content.join("scripts/runescript"),
+        &content.join("scripts"),
         Some(&pack),
         false,
         true,

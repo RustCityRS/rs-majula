@@ -42,7 +42,7 @@ fn main() {
         .stack_size(16 * 1024 * 1024)
         .spawn(move || -> anyhow::Result<bool> {
             let labels = runner::discover_labels(
-                &runner::content_dir().join("scripts/runescript"),
+                &runner::content_dir().join("scripts"),
                 cli.filter.as_deref(),
             );
             let mut engine = runner::load_engine()?;

@@ -38,7 +38,7 @@ cargo fmt --all --check
 REV=647 cargo clippy --workspace --all-targets -- -D warnings -A clippy::nonminimal_bool -A clippy::vec_init_then_push
 REV=289 cargo check --workspace && REV=225 cargo check --workspace
 REV=289 cargo test -q -p rs-protocol
-runec lint --source content/647/scripts/runescript --pack content/647/pack
+runec lint --source content/647/scripts --pack content/647/pack
 REV=647 cargo test -p rs-pack --release --no-fail-fast -- --include-ignored    # with the CRC gate
 REV=647 cargo test -q -p rs-protocol --test wire_647
 REV=647 cargo test -q -p rs-test --no-fail-fast

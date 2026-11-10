@@ -42,7 +42,7 @@ fn every_script_var_is_registered() {
     }
 
     let mut files = Vec::new();
-    scripts(&root.join("content/647/scripts/runescript"), &mut files);
+    scripts(&root.join("content/647/scripts"), &mut files);
     let mut missing = BTreeSet::new();
     for path in files {
         let text = fs::read_to_string(&path).unwrap();

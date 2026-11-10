@@ -39,12 +39,12 @@ fn repeated_headers_in_one_file_report_both_lines() {
 
 #[test]
 fn repeated_headers_across_files_are_errors_in_both_loaders() {
-    for first in ["quests/first.varp", "globalscript/_unpack/all.varp"] {
+    for first in ["quests/first.varp", "configs/_unpack/all.varp"] {
         let mut files = tree(
             first,
             &[
                 (first, "[arenaquest]\ntransmit=yes\n"),
-                ("runescript/quest.varp", "\n[arenaquest]\nscope=perm\n"),
+                ("quests/arena/quest.varp", "\n[arenaquest]\nscope=perm\n"),
             ],
         );
         for _ in 0..2 {
@@ -106,10 +106,7 @@ fn every_revision_defines_each_config_once() {
 fn unpack_rejects_existing_configs_before_writing() {
     let files = tree(
         "unpack",
-        &[(
-            "scripts/runescript/quest.varp",
-            "[arenaquest]\nscope=perm\n",
-        )],
+        &[("scripts/quest.varp", "[arenaquest]\nscope=perm\n")],
     );
     let root = Path::new(env!("CARGO_TARGET_TMPDIR")).join("config_sections/unpack");
     let before = fs::read(&files[0]).unwrap();
@@ -118,6 +115,6 @@ fn unpack_rejects_existing_configs_before_writing() {
         .to_string();
     assert!(error.contains("already contains configs"), "{error}");
     assert_eq!(fs::read(&files[0]).unwrap(), before);
-    assert!(!root.join("scripts/globalscript/_unpack").exists());
+    assert!(!root.join("scripts/configs/_unpack").exists());
     assert!(!root.join("pack").exists());
 }

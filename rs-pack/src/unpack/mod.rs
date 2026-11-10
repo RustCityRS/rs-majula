@@ -163,7 +163,7 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
         let mut model_categories = HashMap::new();
         if let Some(jag) = &config_jag {
             debug!("Unpacking config...");
-            let config_dir = output_dir.join("scripts/globalscript/_unpack");
+            let config_dir = output_dir.join("scripts/_unpack");
             fs::create_dir_all(&config_dir)?;
             let packs = config::unpack_config(jag, &config_dir, pack_dir, model_textures.clone())?;
 
@@ -271,8 +271,8 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
 
                     let registry = PackRegistry::load(Path::new(PACK_DIR))
                         .expect("load pack registry for interface unpack");
-                    let src_scripts_dir = Path::new(CONTENT_DIR).join("scripts/runescript");
-                    let out_scripts_dir = output_dir.join("scripts/runescript");
+                    let src_scripts_dir = Path::new(CONTENT_DIR).join("scripts");
+                    let out_scripts_dir = output_dir.join("scripts");
                     interface::unpack_interface(
                         jag,
                         &src_scripts_dir,
@@ -735,8 +735,8 @@ fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Resu
     }
     fs::create_dir_all(output_dir)?;
     prepare_pack(pack_dir)?;
-    let scripts_dir = output_dir.join("scripts/globalscript");
-    fs::create_dir_all(scripts_dir.join("_unpack"))?;
+    let config_dir = output_dir.join("scripts/configs");
+    fs::create_dir_all(config_dir.join("_unpack"))?;
     let mut results: Vec<StepResult> = Vec::new();
     info!("Discovering pack registries from cache...");
     let report = discover_symbols(expected_dir, pack_dir, false)?;
@@ -745,7 +745,7 @@ fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Resu
         let store = Js5Store::open(expected_dir)?;
         asset::unpack_metadata(&store, pack_dir, output_dir).map(|n| format!("{n} archives"))
     });
-    unpack_configs(&mut results, expected_dir, pack_dir, &scripts_dir);
+    unpack_configs(&mut results, expected_dir, pack_dir, &config_dir);
     step(&mut results, "clientscripts", || {
         cs2::unpack_cs2_scripts(expected_dir, output_dir, pack_dir).map(|n| format!("{n} scripts"))
     });
@@ -772,9 +772,9 @@ fn unpack_configs(
     results: &mut Vec<StepResult>,
     cache_dir: &Path,
     pack_dir: &Path,
-    scripts_dir: &Path,
+    config_dir: &Path,
 ) {
-    let config_out = scripts_dir.join("_unpack");
+    let config_out = config_dir.join("_unpack");
 
     if let Err(error) = config::unpack_config(cache_dir, &config_out, pack_dir, results) {
         step(results, "configs", || Err(error));

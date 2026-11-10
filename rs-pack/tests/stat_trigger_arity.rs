@@ -9,7 +9,7 @@
 //! parameter reads back as `0` (or `""`). Nothing logs, nothing fails; the
 //! handler simply computes with zeros.
 //!
-//! `content/647/scripts/runescript/player/scripts/xp.rs2` carried exactly that. It declared
+//! `content/647/scripts/player/xp.rs2` carried exactly that. It declared
 //!
 //! ```text
 //! [advancestat,_](int $xp)
@@ -24,7 +24,7 @@
 //!    pass.
 //! 2. **Semantics** (not checkable from text): `advancestat` is the *level-up*
 //!    trigger, so even a zero-arg handler would only have run on level-up. Every
-//!    earlier revision uses it that way -- `content/<rev>/scripts/runescript/levelup/scripts/
+//!    earlier revision uses it that way -- `content/<rev>/scripts/levelup/
 //!    levelup.rs2` hangs `@levelup(..)` off `[advancestat,<skill>]` for all 20
 //!    skills -- and 647 is now consistent with them. The orb counter moved into
 //!    `~givexp`, which counts the XP at grant time.
@@ -98,7 +98,7 @@ fn argless_stat_triggers_declare_no_parameters() {
     let mut revisions_walked = 0usize;
 
     for rev in rs_ver::REVS {
-        let scripts = root.join("content").join(rev).join("scripts/runescript");
+        let scripts = root.join("content").join(rev).join("scripts");
         assert!(
             scripts.is_dir(),
             "revision {rev} is listed in rs_ver::REVS but {} does not exist",

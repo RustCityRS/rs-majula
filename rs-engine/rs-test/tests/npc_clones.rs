@@ -1,6 +1,6 @@
 //! 2011's re-issued npcs answer their 289 base's triggers.
 //!
-//! `npc_clones_2011.npc` (since 9217853428 folded into `globalscript/_unpack/all.npc`) gives 362 of 2011's npcs the server config of a 289
+//! `npc_clones_2011.npc` (since 9217853428 folded into `configs/_unpack/all.npc`) gives 362 of 2011's npcs the server config of a 289
 //! npc, named in each section's comment ("289's [cow]"). Config alone left 127
 //! of them without some of their base's own triggers, so they fell to 647's
 //! defaults: a fire giant dropped only its bones, a chaos druid never cast, a
@@ -100,11 +100,11 @@ fn pack(kind: &str) -> HashMap<String, i32> {
 
 /// Each clone (a section whose comment names "289's [base]") and the 289 npc
 /// that comment names. The clones' sections were `npc_clones_2011.npc` until
-/// 9217853428 folded every authored npc section into `globalscript/_unpack/all.npc`,
+/// 9217853428 folded every authored npc section into `configs/_unpack/all.npc`,
 /// where the comment follows the cache's lines.
 fn clones() -> Vec<(String, String)> {
     let path = format!(
-        "{}/../../content/647/scripts/globalscript/_unpack/all.npc",
+        "{}/../../content/647/scripts/configs/_unpack/all.npc",
         env!("CARGO_MANIFEST_DIR")
     );
     let text = fs::read_to_string(&path).expect(&path);

@@ -44,7 +44,7 @@ fn registry(kind: &str) -> BTreeSet<String> {
         .collect()
 }
 
-/// Every `.rs2` under `content/647/scripts/runescript`, tests and the unpacked tree left
+/// Every server script under `content/647/scripts`, tests and the unpacked tree left
 /// out.
 fn script_files() -> Vec<PathBuf> {
     fn walk(dir: &Path, out: &mut Vec<PathBuf>) {
@@ -64,14 +64,7 @@ fn script_files() -> Vec<PathBuf> {
         }
     }
     let mut out = Vec::new();
-    walk(
-        &repo_root().join("content/647/scripts/runescript"),
-        &mut out,
-    );
-    walk(
-        &repo_root().join("content/647/scripts/globalscript"),
-        &mut out,
-    );
+    walk(&repo_root().join("content/647/scripts"), &mut out);
     assert!(
         out.len() > 50,
         "only {} .rs2 files found; the walk is broken",

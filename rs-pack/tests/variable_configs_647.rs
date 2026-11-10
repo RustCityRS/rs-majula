@@ -30,7 +30,7 @@ fn entries(data: &PackedData) -> Vec<Vec<u8>> {
 #[test]
 fn shared_variable_files_route_strings_and_controller_bits() {
     let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("variable-configs-647");
-    let scripts = path.join("scripts/runescript");
+    let scripts = path.join("scripts");
     let pack = path.join("pack");
     fs::create_dir_all(&scripts).unwrap();
     fs::create_dir_all(&pack).unwrap();

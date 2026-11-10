@@ -668,13 +668,21 @@ copy instead. The original SHA-256 is
 `b7d38915a8fb878d2e2762ba63dac195e68fc8a7ecd9dcc1e738e17f875b6086`.
 
 Assets are versioned directly in their folders, such as `models`, `animations`, `sprites`
-and `maps`. Server scripts live in `scripts/runescript`, client scripts in `scripts/clientscript`,
-and shared `.gs2` procedures and configs in `scripts/globalscript`. Each compiler loads its own
-folder plus globalscript. Shared procedures may only reference shared configs, constants and
-procedures; references into the other target's private folder are compilation errors.
-Config imports use `scripts/globalscript/_unpack`; authored config sections add to or override
-sections of the same name. Update filenames, headers and references when renaming a `.pack`
-entry. See [647 source formats](rs-pack/README.md#647-source-formats) for editing and repacking.
+and `maps`. Both compilers scan the revision's `scripts` directory recursively: `.rs2` targets
+the server, `.cs2` targets the client, and `.gs2` compiles for both. Folders only organize source,
+so existing features keep their server layout, such as `interface_bank/scripts/*.rs2`,
+with `interface_bank/client/*.cs2` and `interface_bank/global/*.gs2` beside it.
+Names such as `skill_combat` and nested `scripts`, `configs` and `interfaces` folders
+are preserved.
+Engine declarations and common constants sit directly under `scripts`; feature configs
+remain beside their scripts.
+Configs and constants are shared by default; a `// @scope(server)` or `// @scope(client)`
+header restricts their target. Shared procedures may only reference shared definitions.
+647 config imports use `scripts/configs/_unpack`; older revisions keep `scripts/_unpack`.
+Each config name has one section per
+type; put client and server properties together in that section. Update filenames, headers and
+references when renaming a `.pack` entry. See [647 source formats](rs-pack/README.md#647-source-formats)
+for editing and repacking.
 
 Startup checks the original config and archive CRCs. Use `--verify false` for deliberate
 client-content changes. The full group comparison runs offline against the committed

@@ -21,7 +21,7 @@ fn rs2_files(dir: &Path, out: &mut Vec<PathBuf>) {
         let path = entry.path();
         if path.is_dir() {
             rs2_files(&path, out);
-        } else if path.extension().is_some_and(|e| e == "rs2") {
+        } else if path.extension().is_some_and(|e| e == "rs2" || e == "gs2") {
             out.push(path);
         }
     }
@@ -29,7 +29,7 @@ fn rs2_files(dir: &Path, out: &mut Vec<PathBuf>) {
 
 #[test]
 fn quest_scrolls_break_lines_with_br() {
-    let scripts = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/scripts/runescript");
+    let scripts = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/scripts");
     let mut files = Vec::new();
     rs2_files(&scripts, &mut files);
     let mut calls = 0;

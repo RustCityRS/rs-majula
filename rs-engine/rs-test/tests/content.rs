@@ -12,7 +12,7 @@ use rs_test::runner;
 fn every_testscript_label_passes() {
     let passed = runner::on_loaded_engine(|engine| {
         let labels =
-            runner::discover_labels(&runner::content_dir().join("scripts/runescript"), None);
+            runner::discover_labels(&runner::content_dir().join("scripts"), None);
         assert!(!labels.is_empty(), "found no #testscript labels");
         let results: Vec<_> = labels
             .iter()

@@ -76,16 +76,23 @@ the strict archive/group checks.
 
 ## 647 source formats
 
-RuneScript lives in `scripts/runescript`, clientscripts in `scripts/clientscript`, and shared `.gs2`
-procedures and configs in `scripts/globalscript`. Configs retain their extensions (`.obj`, `.param`,
-`.varp`, `.constant`, etc.). Both compilers include globalscript automatically. RS2 and CS2 can use
-their own configs and shared configs; GS2 can use only shared configs, constants and procedures.
+Both compilers scan the revision's `scripts` directory recursively. File extensions select the
+target: `.rs2` for the server, `.cs2` for the client, and `.gs2` for both. Folders only organize
+source; existing server feature names and nested folders are preserved. For example,
+`interface_bank/scripts/*.rs2`, `interface_bank/client/*.cs2` and
+`interface_bank/global/*.gs2` live together, while combat remains under `skill_combat`.
+Engine declarations and common constants sit directly under `scripts`; feature configs
+remain beside their scripts.
+Configs retain their extensions (`.obj`, `.param`, `.varp`, `.constant`, etc.) and are shared by
+default. A `// @scope(server)` or `// @scope(client)` header restricts configs or constants to
+one target; `// @scope(shared)` makes the default explicit. RS2 and CS2 can use their own
+definitions and shared definitions; GS2 can use only shared configs, constants and procedures.
 Pack registries assign IDs without granting access to private definitions. Asset registries such
 as models, sprites and interfaces remain independent of script namespaces.
 An intentional reference to a missing loc slot can be declared with `absent=yes`
 as its only property; this grants source ownership without creating a cache entry.
 Other assets live directly under their domain folder. Imported configs use
-`scripts/globalscript/_unpack`; older revisions' existing imports can remain in runescript.
+`scripts/configs/_unpack` by default; imports can be moved anywhere under `scripts`.
 Each config name has one section per config type. Put client and server properties together
 in that section; repeated headers, including across files, stop packing with both source locations.
 Imported definitions are editable source. Full unpacking requires an output without existing configs;
@@ -103,8 +110,7 @@ PNG previews or `manifest.json` files in `content/647`.
 | `maps` | `.jm2` terrain, named loc placements and server spawns, using the existing map text layout |
 | `sprites`, `loading_sprites`, `loading_sprites_raw` | Indexed `.tga` sheets with `.sprite` frame metadata; `.alpha.tga` masks where needed; original JPEGs |
 | `textures`, `materials` | `.texture` procedural operations, gradients, curves and shapes; `.material` rendering properties grouped by texture |
-| `scripts/clientscript` | `.cs2` RuneScript-style source with typed procedures, commands, conditions and loops |
-| `scripts/globalscript` | `.gs2` procedures compiled for both targets, shared configs and constants |
+| `scripts` (recursive) | `.rs2` server source, `.cs2` client source, `.gs2` procedures compiled for both targets, configs and constants |
 | `synth`, `instruments` | `.synth` envelopes, oscillators and filters; `.instrument` key maps and sample references |
 | `songs`, `jingles` | Standard `.mid` files |
 | `vorbis` | Standard `.ogg` packets, `.sample` playback and loop metadata, and the shared `.vorbis` setup as text |
@@ -116,7 +122,7 @@ PNG previews or `manifest.json` files in `content/647`.
 | `dlls` | Original native libraries under their platform and library names |
 
 Billboards, particles, quickchat and world map details are configs like the rest, in
-`scripts/globalscript/_unpack` (`all.billboard`, `all.particleemitter`, `all.particleeffector`,
+`scripts/configs/_unpack` (`all.billboard`, `all.particleemitter`, `all.particleeffector`,
 `all.quickchatcat`, `all.quickchatphrase`, `all.wma`). A `.wma` block is one map's details and
 static elements; its position in the cache is its `wma.pack` id.
 
@@ -161,15 +167,17 @@ opacity values. Do not flatten the mask into the colour palette. A dot in an ass
 part of the name: `painting.02.sprite` pairs with `painting.02.tga`.
 
 Clientscripts compile with the shared RuneScript compiler. Commands are declared
-in `scripts/clientscript/engine.cs2`; `pack/cs2_command.pack` supplies opcode IDs for both commands
-and core instructions. The writer derives operand sizes and format features from
+in the unique `engine.cs2` anywhere under `scripts`; `pack/cs2_command.pack` supplies opcode IDs
+for both commands and core instructions. The writer derives operand sizes and format features from
 those instructions. Event, colour and UI layout constants live in
-`scripts/clientscript/cs2.constant`. Parameter return types come from `.param` configs under
-`scripts/clientscript` and `scripts/globalscript`.
-Named procedures live in `scripts/clientscript/<prefix>/proc/[proc,<name>].cs2`, and client scripts
-in `scripts/clientscript/<prefix>/script/[clientscript,<name>].cs2`. The prefix is the part before the first
-underscore, or the whole name when there is none. Unknown scripts live in
-`scripts/clientscript/unpack/[proc,clientscript_<id>].cs2`. Packing reads these directories recursively.
+`.constant` files under `scripts`. Parameter return types come from client or shared `.param` configs.
+Unpacking preserves existing client and shared script locations from the source template.
+New named scripts use a matching existing feature folder, such as
+`interface_bank/client/[proc,bank_new].cs2` or `skill_combat/client/...`.
+If no unique feature matches the name's prefix, it creates `scripts/<prefix>/client/`.
+Unknown scripts live in `scripts/unpack/client/[proc,clientscript_<id>].cs2`.
+Shared procedures use the feature's `global` folder. This is an output convention;
+packing discovers these files anywhere under `scripts`.
 Procedure types are inferred across calls during unpacking; typed arguments, declarations,
 assignments, comparisons and switch cases use
 pack names, colours use constants or lowercase hex, and unused results are discarded by ordinary calls.
@@ -200,7 +208,7 @@ Configure the editor to launch the executable directly, with `rs-majula` as its
 working directory (Windows; omit `.exe` on Linux/macOS):
 
 ```text
-"../rs-compiler/target/debug/runec.exe" lsp --client --source content/647/scripts/clientscript --pack content/647/pack
+"../rs-compiler/target/debug/runec.exe" lsp --source content/647/scripts --pack content/647/pack
 ```
 
 Do not use `cargo run` as an editor launch command. Stop the language servers
@@ -227,7 +235,7 @@ Existing names are preserved. Hash collisions are skipped, and expanded `#` spri
 indices require neighbouring names as corroboration. `--max-index` controls the expansion
 limit (4096 by default). Regeneration removes obsolete generated files when their
 names or paths change. Scripts without a recovered name keep their numeric fallback
-in `scripts/clientscript/unpack`.
+in `scripts/unpack/client`.
 
 Vorbis packets are wrapped in Ogg without audio re-encoding. Edit playback rate, sample
 count and loop points in `.sample`. The client shares one codebook/setup across every

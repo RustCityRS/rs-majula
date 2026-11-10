@@ -120,7 +120,7 @@ mod tests {
     #[test]
     fn clientscript_growth_is_rejected_before_pinning() {
         let dir = env::temp_dir().join(format!("rs-majula-clientscript-ids-{}", process::id()));
-        let scripts = dir.join("scripts/clientscript");
+        let scripts = dir.join("scripts");
         let pack = dir.join("pack");
         fs::create_dir_all(&scripts).unwrap();
         fs::create_dir_all(&pack).unwrap();
@@ -131,8 +131,9 @@ mod tests {
         )
         .unwrap();
         fs::write(scripts.join("engine.cs2"), "").unwrap();
+        fs::create_dir_all(scripts.join("bank/client")).unwrap();
         fs::write(
-            scripts.join("new.cs2"),
+            scripts.join("bank/client/new.cs2"),
             "[proc,new_script]()(int) return(1);\n",
         )
         .unwrap();

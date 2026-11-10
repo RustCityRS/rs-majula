@@ -212,7 +212,7 @@ fn unpack_world_maps(
         packed == original,
         "World map text round trip changed bytes"
     );
-    let dir = content_dir.join("scripts/globalscript/_unpack");
+    let dir = content_dir.join("scripts/configs/_unpack");
     fs::create_dir_all(&dir)?;
     fs::write(dir.join(wma::SOURCE), text)?;
     Ok(original.into_iter().map(|(id, _)| id).collect())

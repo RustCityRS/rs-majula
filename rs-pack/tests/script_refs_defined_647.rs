@@ -15,6 +15,7 @@
 
 #![cfg(since_647)]
 
+use runec::sources::{Scope, engine_file};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -93,8 +94,9 @@ fn ident_at(s: &str) -> Option<&str> {
 
 #[test]
 fn every_named_timer_and_queue_is_defined() {
-    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/scripts/runescript");
-    let commands = ref_commands(&fs::read_to_string(root.join("engine.rs2")).unwrap());
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/scripts");
+    let engine = engine_file(&root, Scope::Rune).unwrap().unwrap();
+    let commands = ref_commands(&fs::read_to_string(engine).unwrap());
     assert!(
         commands.contains_key("cleartimer") && commands.contains_key("queue"),
         "read no timer or queue commands from engine.rs2: {commands:?}"

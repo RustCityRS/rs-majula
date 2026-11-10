@@ -901,7 +901,7 @@ mod tests {
     #[test]
     fn client_configs_follow_registry_ids_in_any_source_file() {
         let dir = env::temp_dir().join(format!("rs-majula-config-paths-{}", process::id()));
-        let scripts = dir.join("scripts/runescript/feature");
+        let scripts = dir.join("scripts/feature/configs");
         fs::create_dir_all(&scripts).unwrap();
         let pack = PackFile::parse("// client_count=2\n0=first\n1=last\n2=server\n");
         let kinds = FileCache::TEXT_EXTS

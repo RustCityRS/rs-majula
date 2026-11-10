@@ -494,7 +494,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         whirlpooled: false,
         allow_uncompressed: false,
         allow_bzip2: false,
-        content_dir: "scripts/clientscript",
+        content_dir: "scripts",
     },
     ArchiveFormat {
         id: FONTMETRICS,

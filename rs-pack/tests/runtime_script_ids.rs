@@ -134,7 +134,7 @@ fn script_ids_survive_parallel_worlds_reload_and_cache_reuse() {
     }
     let root = Path::new(env!("CARGO_TARGET_TMPDIR"))
         .join(format!("runtime-script-ids-{}", process::id()));
-    let scripts = root.join("scripts/runescript");
+    let scripts = root.join("scripts/bank/server");
     fs::create_dir_all(&scripts).unwrap();
     fs::create_dir_all(root.join("pack")).unwrap();
     let path = scripts.join("scripts.rs2");

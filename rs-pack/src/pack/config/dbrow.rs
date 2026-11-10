@@ -335,7 +335,7 @@ mod tests {
         let registry = registry();
         let source = Path::new("..")
             .join(crate::CONTENT_DIR)
-            .join("scripts/runescript");
+            .join("scripts");
         let constants = load_constants(&source);
         let tables =
             parse_config_sections(&collect_config_files(&source, "dbtable"), &constants).unwrap();

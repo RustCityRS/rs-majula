@@ -875,7 +875,7 @@ pub const OBJCOUNT: u16 = 10020;
 
 // ── Test framework (50000-50100, rev-647 `#testscript` only) ────────────────
 //
-// Declared by `content/647/scripts/runescript/engine.rs2` and used only below a
+// Declared by `content/647/scripts/engine.rs2` and used only below a
 // `#testscript` line, which production compiles leave out. The headless
 // runner (`rs-test`) is the only thing that registers handlers for them, so a
 // script that reaches one anywhere else fails as an unknown opcode.

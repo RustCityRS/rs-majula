@@ -10,7 +10,7 @@
 //!
 //! `quest_varps_647.tsv` lists each such varp. This decompiles the client's
 //! own table from 786's clientscript 2193, unpacked into the repo
-//! (`content/647/scripts/clientscript/**/*.cs2`), and fails if a listed
+//! (`content/647/scripts/**/*.cs2`), and fails if a listed
 //! varp is not there with that value, or if 647's registry does not give the
 //! name that id.
 //!
@@ -31,7 +31,7 @@ use std::path::Path;
 fn client_quest_table(root: &Path) -> BTreeMap<u32, Vec<i32>> {
     let names = AssetNames::load(&root.join("content/647/pack")).unwrap();
     let key = clientscript::script_key(&names.name("clientscript", 2193));
-    let source = clientscript::load_sources(&root.join("content/647/scripts/clientscript"))
+    let source = clientscript::load_sources(&root.join("content/647/scripts"))
         .unwrap()
         .into_iter()
         .find(|source| {

@@ -73,7 +73,7 @@ fn repo_root() -> PathBuf {
         .to_path_buf()
 }
 
-/// Every `.rs2` under `content/647/scripts/runescript`, recursively.
+/// Every server script under `content/647/scripts`, recursively.
 fn script_files() -> Vec<PathBuf> {
     fn walk(dir: &Path, out: &mut Vec<PathBuf>) {
         for entry in fs::read_dir(dir).unwrap_or_else(|e| panic!("read {}: {e}", dir.display())) {
@@ -89,10 +89,9 @@ fn script_files() -> Vec<PathBuf> {
         }
     }
 
-    let root = repo_root().join("content/647/scripts/runescript");
+    let root = repo_root().join("content/647/scripts");
     let mut out = Vec::new();
     walk(&root, &mut out);
-    walk(&root.with_file_name("globalscript"), &mut out);
     out.sort();
     assert!(
         out.len() > 50,
@@ -240,8 +239,7 @@ fn every_trigger_header_names_a_real_trigger() {
 #[test]
 fn the_mode_switch_is_reached_by_name() {
     let script = fs::read_to_string(
-        repo_root()
-            .join("content/647/scripts/runescript/login_logout/scripts/switch_window_mode.rs2"),
+        repo_root().join("content/647/scripts/login_logout/scripts/switch_window_mode.rs2"),
     )
     .expect("read switch_window_mode.rs2");
     // Header position, not mere presence. A comment explaining why the header
