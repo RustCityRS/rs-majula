@@ -77,6 +77,7 @@ if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 2, 0) = true) {
     npc_tele(~uf_cellar_coord(26, 30));
     npc_facesquare(~uf_cellar_coord(24, 31));
 }
+~uf_bag_by_pillars;
 p_delay(8);
 // Shot 104 (~25 ticks): the static view of the nest; the dragon eats, then lies down.
 %varclient_1007 = 104;

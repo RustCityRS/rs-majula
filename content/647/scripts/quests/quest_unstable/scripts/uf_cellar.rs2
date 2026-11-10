@@ -82,6 +82,7 @@ if ($p >= 90 & $p < 117) {
     if ($p = 93) {
         hint_npc_slot(0, 0, ^uf_hint_ring);
     }
+    ~uf_bag_by_pillars;
 }
 if ($p >= 10 & $p < 45) {
     // At Sir Vant's bag, as the cutscene leaves it.
@@ -409,4 +410,15 @@ if (region_findbycoord(coord) = false) {
 if (npc_find(coord, $npc, 40, 0) = true) {
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord($x, $z));
+}
+
+// Sir Vant's bag by the pillars once he is there (uf_sleep.rs2): 4KO2h2xPtdM (2011-04-30) @262-304,
+// the player stays in the corner by Sir Vant and the pillar while he asks for the supplies, and
+// @284 "Search Sir Vant's bag" is beside them, against the room's edge on his far side from the
+// pillar. Cache 786's map places the bag only in the start room (35, 13), behind the low wall:
+// here a second one, on (28, 29) by the barrel (the tile: inference). Its forceapproach is east,
+// turned with the loc: angle 1 opens its south side to the room, the barrel being on its west.
+[proc,uf_bag_by_pillars]
+if (loc_find(~uf_cellar_coord(28, 29), sir_vant_s_bag) = false) {
+    loc_add(~uf_cellar_coord(28, 29), sir_vant_s_bag, 1, centrepiece_straight, ^uf_cellar_obj_duration);
 }

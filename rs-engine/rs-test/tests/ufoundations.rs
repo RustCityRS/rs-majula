@@ -1143,6 +1143,25 @@ fn the_dragon_is_put_to_sleep() {
             "{:?}",
             next.texts
         );
+        // His bag is by the pillars (4KO2h2xPtdM @284): the supplies without going back.
+        let origin = player_origin(engine, &client);
+        oploc1(
+            &mut client,
+            loc_id(engine, "sir_vant_s_bag"),
+            origin.0 + 28,
+            origin.1 + 29,
+        );
+        let bag = converse(engine, &mut client, &[], 60);
+        assert!(
+            bag.said("You search Sir Vant's bag and take a selection of supplies."),
+            "{:?} stage {} locs {:?} at {:?} msgs {:?}",
+            bag.texts,
+            progress(engine, &client),
+            loc_ids(engine, origin.0 + 28, origin.1 + 29),
+            cellar_tile(engine, &client),
+            HarnessClient::game_messages(&bag.packets)
+        );
+        assert_eq!(progress(engine, &client), 96, "the supplies");
     });
 }
 
