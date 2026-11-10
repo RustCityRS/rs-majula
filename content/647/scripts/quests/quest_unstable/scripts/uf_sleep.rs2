@@ -27,7 +27,7 @@ inv_del(inv, tutorial3_meat, 1);
 %tutorial = 82;
 ~uf_task_pin;
 ~uf_hint_box_close;
-sound_speech_volume(vorbis_715, 1, 0, 255);
+~speech_line(vorbis_715);
 // s019's box has no "Click here to continue" (4KO2h2xPtdM @199.07-202.67): it stays up while the
 // player runs to hide, with no click (the cursor still @200.6-202.4), until the cutscene cuts in.
 split_init("<p,shock>It's smelled the meat! Hide!", 380, 4, q8_full);
@@ -37,7 +37,7 @@ split_init("<p,shock>It's smelled the meat! Hide!", 380, 4, q8_full);
 // Searching the bowl once the meat is in: V106 (clip 992; V107, clip 703, is another take of the
 // same line). Texts from the takes: no recording shows the box.
 [oploc1,tutorial3_foodbowl_full_big]
-sound_speech_volume(vorbis_992, 1, 0, 255);
+~speech_line(vorbis_992);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You've already lured the dragon to the right place. We don't need to mess around with its food anymore.");
 
 // The hiding place: "your character will run to a hole" (the 2011 wiki, Unstable Foundations,
@@ -68,7 +68,7 @@ p_delay(0);
 if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(32, 20));
     npc_say("Grub's up! Shoo!");
-    sound_speech_volume(vorbis_850, 1, 0, 255);
+    ~speech_line(vorbis_850);
 }
 p_delay(4);
 // Shot 102 (8 ticks, @206.27-211.04): 2762's 102, high, moving north and looking south at the
@@ -179,7 +179,7 @@ p_delay(1);
 %varclient_1425 = 3510;
 ~uf_task_tab;
 ~uf_task_pin;
-sound_speech_volume(vorbis_958, 1, 0, 255);
+~speech_line(vorbis_958);
 split_init("<p,neutral>Well done. Come out of hiding and I'll tell you what we're doing next.", 380, 4, q8_full);
 ~chatnpc_page("Sir Vant", tutorial3_knight_waitingforbattle, 0);
 p_pausebutton;

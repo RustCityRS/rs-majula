@@ -34,7 +34,7 @@ if ($access = true & %tutorial >= 50 & %tutorial < 60) {
 // 1502: a world map click is one of the actions it answers, design note 3.7).
 [proc,uf_worldmap_allowed]()(boolean)
 if (%tutorial >= 5 & %tutorial < 60) {
-    sound_speech_volume(vorbis_1502, 1, 0, 255);
+    ~speech_line(vorbis_1502);
     ~mesbox("We'll come back to that in a moment.");
     return(false);
 }

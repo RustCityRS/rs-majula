@@ -18,9 +18,9 @@
 [proc,uf_vant_sabotage]
 if (%tutorial = 93) {
     hint_stop_slot(0);
-    sound_speech_volume(vorbis_911, 1, 0, 255);
+    ~speech_line(vorbis_911);
     ~chatnpc("<p,neutral>We need to destroy these pillars to collapse the ceiling on the dragon.");
-    sound_speech_volume(vorbis_993, 1, 0, 255);
+    ~speech_line(vorbis_993);
     ~chatnpc("<p,neutral>Could you get the rest of the supplies from my bag please?");
     %tutorial = 95;
     ~uf_task_pin;
@@ -28,39 +28,39 @@ if (%tutorial = 93) {
 }
 if (%tutorial = 95) {
     // V24 (clip 870), then s022a and s022b (VwpdbjfigD4 2011-01-17 @392-395; P4, V60).
-    sound_speech_volume(vorbis_870, 1, 0, 255);
+    ~speech_line(vorbis_870);
     ~chatnpc("<p,neutral>Have you got the stuff from my bag?");
     ~uf_player_voice(vorbis_1819, vorbis_640);
     ~chatplayer("<p,neutral>I haven't searched it yet.");
-    sound_speech_volume(vorbis_932, 1, 0, 255);
+    ~speech_line(vorbis_932);
     ~chatnpc("<p,neutral>Oh. Well, search my bag and bring the supplies to me before the dragon wakes up!");
     return;
 }
 if (%tutorial >= 96 & %tutorial < 115) {
     if (%tutorial3_leftpillar = 2 & %tutorial3_rightpillar = 2) {
         // s034 (V73, clip 931): both pillars ready.
-        sound_speech_volume(vorbis_931, 1, 0, 255);
+        ~speech_line(vorbis_931);
         ~chatnpc("<p,neutral>Thanks, that's perfect. Now, hand me a tinderbox.");
         return;
     }
     if (%tutorial = 96) {
         // s024-s026 (VwpdbjfigD4 @411-419; V58, V14, V98, clips 795, 876, 844).
-        sound_speech_volume(vorbis_795, 1, 0, 255);
+        ~speech_line(vorbis_795);
         ~chatnpc("<p,neutral>Now we're going to burn these wooden pillars and bring the ceiling down on this fat old worm!");
-        sound_speech_volume(vorbis_876, 1, 0, 255);
+        ~speech_line(vorbis_876);
         ~chatnpc("<p,neutral>First, we need to wrap the pillars in oily rags. There was a big cloth in my bag. Rip it in half, then soak the pieces in oil.");
-        sound_speech_volume(vorbis_844, 1, 0, 255);
+        ~speech_line(vorbis_844);
         ~chatnpc("<p,neutral>Wrap the oily rags around the pillars, then add a fuse to each one.");
         return;
     }
     // s026a-s026e (rX5vda5px3w 2011-01-28 @66-81; V29 clip 757, V54 clip 907).
-    sound_speech_volume(vorbis_757, 1, 0, 255);
+    ~speech_line(vorbis_757);
     ~chatnpc("<p,neutral>How are you getting on?");
     def_int $choice = ~p_choice3("What am I meant to be doing?", 1, "I'm getting there.", 2, "Why don't you do it yourself?", 3);
     if ($choice = 1) {
         ~uf_player_voice(vorbis_1880, vorbis_661);
         ~chatplayer("<p,neutral>What am I meant to be doing?");
-        sound_speech_volume(vorbis_844, 1, 0, 255);
+        ~speech_line(vorbis_844);
         ~chatnpc("<p,neutral>Wrap the oily rags around the pillars, then add a fuse to each one.");
     } else if ($choice = 2) {
         ~uf_player_voice(vorbis_1839, vorbis_414);
@@ -68,7 +68,7 @@ if (%tutorial >= 96 & %tutorial < 115) {
     } else {
         ~uf_player_voice(vorbis_1859, vorbis_578);
         ~chatplayer("<p,neutral>Why don't you do it yourself?");
-        sound_speech_volume(vorbis_907, 1, 0, 255);
+        ~speech_line(vorbis_907);
         ~chatnpc("<p,neutral>Me? Touch oily rags? You've clearly never tried to clean oil off white armour!");
         ~chatnpc("<p,neutral>No, I'll let you have all the fun.");
     }
@@ -76,7 +76,7 @@ if (%tutorial >= 96 & %tutorial < 115) {
 }
 if (%tutorial = 115) {
     // s036 again (V72, clip 893).
-    sound_speech_volume(vorbis_893, 1, 0, 255);
+    ~speech_line(vorbis_893);
     ~chatnpc("<p,neutral>Thank you. When you're ready, set fire to the other pillar. I'll light this one at the same moment.");
 }
 
@@ -97,11 +97,11 @@ if (%tutorial = 95) {
     %varclient_1425 = 3511;
     ~uf_task_tab;
     ~uf_task_pin;
-    sound_speech_volume(vorbis_1488, 1, 0, 255);
+    ~speech_line(vorbis_1488);
     ~objbox(tutorial3_bigcloth, "You search Sir Vant's bag and take a selection of supplies.", 250, 0, 0);
     return;
 }
-sound_speech_volume(vorbis_1739, 1, 0, 255);
+~speech_line(vorbis_1739);
 ~mesbox("There's nothing useful left in the bag except for Sir Vant's spare underpants, which you leave well alone.");
 
 // Rip: s027 / s030 (N10, N11; clips 1382, 1452).
@@ -111,7 +111,7 @@ inv_add(inv, tutorial3_rag, 2);
 if (%tutorial = 96) {
     %tutorial = 98;
 }
-sound_speech_volume(vorbis_1382, 1, 0, 255);
+~speech_line(vorbis_1382);
 ~objbox(tutorial3_rag, "You rip the cloth and end up with two rags.", 250, 0, 0);
 
 [opheld1,tutorial3_bigcloth_oily]
@@ -120,7 +120,7 @@ inv_add(inv, tutorial3_rag_oily, 2);
 if (%tutorial = 96) {
     %tutorial = 100;
 }
-sound_speech_volume(vorbis_1452, 1, 0, 255);
+~speech_line(vorbis_1452);
 ~objbox(tutorial3_rag_oily, "You rip the oily cloth and end up with two oily rags.", 250, 0, 0);
 
 // Soak: the oil can with the cloth or a rag, either way round (s028 N13 clip 1379, s029 N12 clip
@@ -144,7 +144,7 @@ if ($item = tutorial3_oilcan) {
 if ($item = tutorial3_bigcloth) {
     inv_del(inv, tutorial3_bigcloth, 1);
     inv_add(inv, tutorial3_bigcloth_oily, 1);
-    sound_speech_volume(vorbis_1541, 1, 0, 255);
+    ~speech_line(vorbis_1541);
     ~objbox(tutorial3_bigcloth_oily, "You soak the cloth in oil.", 250, 0, 0);
 } else if ($item = tutorial3_rag) {
     inv_del(inv, tutorial3_rag, 1);
@@ -152,16 +152,16 @@ if ($item = tutorial3_bigcloth) {
     if (%tutorial = 98 & inv_total(inv, tutorial3_rag) = 0) {
         %tutorial = 100;
     }
-    sound_speech_volume(vorbis_1379, 1, 0, 255);
+    ~speech_line(vorbis_1379);
     ~objbox(tutorial3_rag_oily, "You soak the rag in oil.", 250, 0, 0);
 } else if ($item = tutorial3_bigcloth_oily) {
-    sound_speech_volume(vorbis_1344, 1, 0, 255);
+    ~speech_line(vorbis_1344);
     ~mesbox("The cloth has already been soaked in oil.");
 } else if ($item = tutorial3_rag_oily) {
-    sound_speech_volume(vorbis_1598, 1, 0, 255);
+    ~speech_line(vorbis_1598);
     ~mesbox("The rag has already been soaked in oil.");
 } else if ($item = tutorial3_fuse_1 | $item = tutorial3_fuse_2) {
-    sound_speech_volume(vorbis_1770, 1, 0, 255);
+    ~speech_line(vorbis_1770);
     ~mesbox("There's no need to put oil on the fuse.");
 } else {
     ~displaymessage(^dm_default);
@@ -190,13 +190,13 @@ if ($his = true) {
 if ($item = tutorial3_rag_oily) {
     if ($state > 0) {
         // V77 (clip 786; N21, clip 1773, is the narrator's).
-        sound_speech_volume(vorbis_786, 1, 0, 255);
+        ~speech_line(vorbis_786);
         ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>That pillar's already got an oil-soaked cloth around it.");
         return;
     }
     inv_del(inv, tutorial3_rag_oily, 1);
     ~uf_pillar_set($his, 1);
-    sound_speech_volume(vorbis_1698, 1, 0, 255);
+    ~speech_line(vorbis_1698);
     ~objbox(tutorial3_rag_oily, "You wrap the oily rag around the pillar.", 250, 0, 0);
     if (%tutorial3_leftpillar >= 1 & %tutorial3_rightpillar >= 1 & %tutorial < 105) {
         %tutorial = 105;
@@ -205,32 +205,32 @@ if ($item = tutorial3_rag_oily) {
 }
 if ($item = tutorial3_rag) {
     // s031a (promi6pWj8k @627), V105 (clip 750).
-    sound_speech_volume(vorbis_750, 1, 0, 255);
+    ~speech_line(vorbis_750);
     ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You're supposed to soak the rag in oil first. Try using the rag with the oil can.");
     return;
 }
 if ($item = tutorial3_bigcloth | $item = tutorial3_bigcloth_oily) {
     // V103 (clip 791).
-    sound_speech_volume(vorbis_791, 1, 0, 255);
+    ~speech_line(vorbis_791);
     ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You're supposed to rip the cloth in half first.");
     return;
 }
 if ($item = tutorial3_fuse_1 | $item = tutorial3_fuse_2) {
     if ($state = 0) {
         // V41 (clip 991): its take runs on; the box keeps the first sentence.
-        sound_speech_volume(vorbis_991, 1, 0, 255);
+        ~speech_line(vorbis_991);
         ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>I think you should wrap the oily rag around the pillar before adding the fuse.");
         return;
     }
     if ($state >= 2) {
         // V79 (clip 905).
-        sound_speech_volume(vorbis_905, 1, 0, 255);
+        ~speech_line(vorbis_905);
         ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>The pillar's already fully prepared for burning.");
         return;
     }
     inv_del(inv, $item, 1);
     ~uf_pillar_set($his, 2);
-    sound_speech_volume(vorbis_1621, 1, 0, 255);
+    ~speech_line(vorbis_1621);
     ~objbox($item, "You attach the fuse to the pillar.", 250, 0, 0);
     if (%tutorial3_leftpillar = 2 & %tutorial3_rightpillar = 2 & %tutorial < 110) {
         %tutorial = 110;
@@ -240,19 +240,19 @@ if ($item = tutorial3_fuse_1 | $item = tutorial3_fuse_2) {
 if ($item = tinderbox) {
     if (%tutorial3_leftpillar ! 2 | %tutorial3_rightpillar ! 2) {
         // s033a (p7ufqPwAXLg 2011-03-07 @464), V83 (clip 833).
-        sound_speech_volume(vorbis_833, 1, 0, 255);
+        ~speech_line(vorbis_833);
         ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Wait a minute! You're supposed to get both pillars prepared before we light them.");
         return;
     }
     if (%tutorial < 115) {
         // s034a (7_neJ6mCLXc 2010-12-23 @299), V101 (clip 913).
-        sound_speech_volume(vorbis_913, 1, 0, 255);
+        ~speech_line(vorbis_913);
         ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You'll need to give me a tinderbox first - otherwise, I can't light my pillar at the same time as you light yours.");
         return;
     }
     if ($his = true) {
         // V39 (clip 799): its take runs on; the box keeps the first sentence.
-        sound_speech_volume(vorbis_799, 1, 0, 255);
+        ~speech_line(vorbis_799);
         ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>I think it would be better if you lit the other pillar.");
         return;
     }
@@ -273,15 +273,15 @@ if ($his = true) {
 [opnpcu,tutorial3_knight_waitingforbattle]
 if (last_useitem = tinderbox & %tutorial >= 96 & %tutorial < 115) {
     if (%tutorial3_leftpillar ! 2 | %tutorial3_rightpillar ! 2) {
-        sound_speech_volume(vorbis_833, 1, 0, 255);
+        ~speech_line(vorbis_833);
         ~chatnpc("<p,neutral>Wait a minute! You're supposed to get both pillars prepared before we light them.");
         return;
     }
     inv_del(inv, tinderbox, 1);
     %tutorial = 115;
-    sound_speech_volume(vorbis_1556, 1, 0, 255);
+    ~speech_line(vorbis_1556);
     ~objbox(tinderbox, "You offer Sir Vant a tinderbox.", 250, 0, 0);
-    sound_speech_volume(vorbis_893, 1, 0, 255);
+    ~speech_line(vorbis_893);
     ~chatnpc("<p,neutral>Thank you. When you're ready, set fire to the other pillar. I'll light this one at the same moment.");
     return;
 }
@@ -289,5 +289,5 @@ if (%tutorial >= 120 & %tutorial < 128) {
     ~uf_return_item(last_useitem);
     return;
 }
-sound_speech_volume(vorbis_798, 1, 0, 255);
+~speech_line(vorbis_798);
 ~chatnpc("<p,neutral>I don't think I need that just at the moment, thank you.");

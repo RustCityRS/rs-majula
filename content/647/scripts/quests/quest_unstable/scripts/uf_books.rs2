@@ -28,7 +28,7 @@ if (%tutorial >= 1000) {
 // The spread's clip, in the tutorial only.
 [proc,uf_book_voice](enum $voices)
 if (%tutorial >= 5 & %tutorial < 1000) {
-    sound_speech_volume(enum(int, vorbis, $voices, calc(%book_page + 1)), 1, 0, 255);
+    ~speech_line(enum(int, vorbis, $voices, calc(%book_page + 1)));
 }
 
 [proc,uf_diary_book]

@@ -18,7 +18,7 @@ anim(human_createfire, 0);
 p_delay(1);
 %tutorial3_rightpillar = 3;
 %tutorial3_leftpillar = 3;
-sound_speech_volume(vorbis_881, 1, 0, 255);
+~speech_line(vorbis_881);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,shock>It's burning! Run!");
 p_walk(~uf_cellar_coord(30, 26));
 p_delay(1);
@@ -47,7 +47,7 @@ p_delay(5);
 p_delay(2);
 if (npc_find(~uf_cellar_coord(28, 31), tutorial3_knight_waitingforbattle, 3, 0) = true) {
     npc_say("Wow!");
-    sound_speech_volume(vorbis_782, 1, 0, 255);
+    ~speech_line(vorbis_782);
 }
 p_delay(6);
 // Shot 204: Roddeck out of his cupboard.
@@ -60,11 +60,11 @@ npc_setmode(none);
 npc_walk(~uf_cellar_coord(32, 32));
 p_delay(4);
 // s038-s040 (IwS6rBpkcyE @340; 4KO2h2xPtdM @419.3), V1, R43, V56 (clips 763, 1102, 785).
-sound_speech_volume(vorbis_763, 1, 0, 255);
+~speech_line(vorbis_763);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Ah, here you are, Roddeck. The White Knights got your message and sent me to slay your dragon.");
-sound_speech_volume(vorbis_1102, 1, 0, 255);
+~speech_line(vorbis_1102);
 ~chatnpc_specific("Roddeck", tutorial3_advisor_walkoverrocks, "<p,neutral>Thank you both very much! It's had me trapped in the cupboard for ages. I'd completely lost control of it.");
-sound_speech_volume(vorbis_785, 1, 0, 255);
+~speech_line(vorbis_785);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Next time, get a puppy!");
 ~uf_cutscene_close;
 %tutorial = 120;
@@ -103,10 +103,10 @@ while ($level < 4) {
 // still wearing it, s041c (7_neJ6mCLXc @358), V4 (clip 3169).
 [proc,uf_vant_kit_ask]
 if (~uf_kit_worn > 0) {
-    sound_speech_volume(vorbis_3169, 1, 0, 255);
+    ~speech_line(vorbis_3169);
     ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>I'd like my squire's kit back so I can return it to the poor chap's family. Take it off and hand it to me, please. I'd like my tinderbox and oil can too.");
 } else {
-    sound_speech_volume(vorbis_705, 1, 0, 255);
+    ~speech_line(vorbis_705);
     ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Before we go any further, could I have my squire's kit back, please? I ought to return it to the poor chap's family. I'd like my tinderbox and oil can too.");
 }
 
@@ -115,7 +115,7 @@ if (~uf_kit_worn > 0) {
 [proc,uf_return_item](obj $item)
 if ($item ! bronze_platebody & $item ! bronze_sq_shield & $item ! bronze_sword & $item ! tinderbox & $item ! tutorial3_oilcan) {
     // V57 (clip 908).
-    sound_speech_volume(vorbis_908, 1, 0, 255);
+    ~speech_line(vorbis_908);
     ~chatnpc("<p,neutral>No thanks. Drop it on the floor if you don't need it.");
     return;
 }
@@ -124,5 +124,5 @@ if (~uf_kit_held = 0 & inv_total(inv, tinderbox) = 0 & inv_total(inv, tutorial3_
     ~uf_kit_returned;
     return;
 }
-sound_speech_volume(vorbis_744, 1, 0, 255);
+~speech_line(vorbis_744);
 ~chatnpc("<p,neutral>Thanks. Keep 'em coming, please.");

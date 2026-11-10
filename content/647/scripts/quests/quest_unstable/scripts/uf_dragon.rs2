@@ -117,7 +117,7 @@ p_delay(0);
 // the cut a tick earlier it hid him before the fire came (in-client ufdragon18 @28.55).
 if (npc_find(~uf_cellar_coord(32, 13), tutorial3_squire, 2, 0) = true) {
     npc_say("Aaargh!");
-    sound_speech_volume(vorbis_1292, 1, 0, 255);
+    ~speech_line(vorbis_1292);
     npc_facesquare(~uf_cellar_coord(32, 17));
     npc_anim(seq_12226, 0);
 }
@@ -190,7 +190,7 @@ if (npc_find(~uf_cellar_coord(31, 12), tutorial3_goblin, 2, 0) = true) {
 p_delay(0);
 if (npc_find(~uf_cellar_coord(32, 13), tutorial3_goblin, 3, 0) = true) {
     npc_say("Ooh, shiny!");
-    sound_speech_volume(vorbis_1215, 1, 0, 255);
+    ~speech_line(vorbis_1215);
     // Then it mutters as it rummages (uf_goblin.rs2), from the tick after.
     npc_settimer(1);
 }
@@ -208,7 +208,7 @@ if (npc_find(~uf_cellar_coord(34, 13), tutorial3_goblin, 2, 0) = true) {
 split_init("<p,shock>I need some help over here!", 380, 4, q8_full);
 if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_battle, 2, 0) = true) {
     ~chatnpc_page("Sir Vant", tutorial3_knight_waitingforbattle, 0);
-    sound_speech_volume(vorbis_882, 1, 0, 255);
+    ~speech_line(vorbis_882);
 }
 p_delay(2);
 ~uf_cutscene_close;
@@ -231,7 +231,7 @@ if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) 
 [proc,uf_squire_say](string $text, vorbis $clip)
 if (npc_find(~uf_cellar_coord(32, 14), tutorial3_squire, 4, 0) = true) {
     npc_say($text);
-    sound_speech_volume($clip, 1, 0, 255);
+    ~speech_line($clip);
 }
 
 // Interface 899's slot: no source found; the game view's overlay slot, as the Controls overlay.

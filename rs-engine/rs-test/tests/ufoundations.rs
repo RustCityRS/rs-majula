@@ -216,6 +216,15 @@ fn speech(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
         .collect()
 }
 
+/// Whether every voice line (VORBIS_SPEECH_SOUND) comes straight after a VORBIS_SPEECH_STOP: the
+/// 647 client plays speech sounds side by side, so the last line must be stopped first.
+fn each_voice_stops_the_last(packets: &[(u16, Vec<u8>)]) -> bool {
+    packets.iter().enumerate().all(|(i, (op, _))| {
+        *op != ServerProt::VorbisSpeechSound as u16
+            || (i > 0 && packets[i - 1].0 == ServerProt::VorbisSpeechStop as u16)
+    })
+}
+
 fn create_character(engine: &mut Engine, client: &mut HarnessClient) -> Vec<(u16, Vec<u8>)> {
     let uid = engine.harness_player(client.pid).unwrap().uid;
     engine
@@ -545,6 +554,13 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             .flat_map(|packets| speech(packets))
             .collect();
         assert_eq!(early, vec![1850, 770, 1319], "then his Uh-oh take");
+        // Each voice line stops the one before it (VORBIS_SPEECH_STOP, then the line's take).
+        assert!(each_voice_stops_the_last(&talk.packets));
+        assert!(
+            ticks
+                .iter()
+                .all(|(_, packets, _)| each_voice_stops_the_last(packets))
+        );
         assert!(
             sent_text(&ticks[two + 1].1, "Help!"),
             "Help! a tick into shot 2"

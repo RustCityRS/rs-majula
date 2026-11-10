@@ -369,7 +369,7 @@ if (npc_find(coord, tutorial3_knight_waitingforbattle, 32, 0) = true) {
 if (p_finduid(uid) = false) { return; }
 cam_moveto(movecoord(coord, 6, 0, 6), 600, 100, 100);
 cam_lookat(movecoord(coord, -6, 0, -6), 0, 100, 100);
-sound_speech_volume(vorbis_1284, 1, 0, 255);
+~speech_line(vorbis_1284);
 
 // ::ufhint <model> <icon> puts a hint arrow over Sir Vant with a model at the player's feet (-1 for
 // none), to find the yellow ring 2011 draws under a new player (vGlx_SDOI7s @13.6, refs GAPS 18).

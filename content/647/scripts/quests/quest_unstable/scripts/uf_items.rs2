@@ -7,17 +7,17 @@
 // the box (clip 1561); the player already holding one (1381) or with a full pack (1701).
 [oploc1,tutorial3_cellar_crate_cabbage]
 if (inv_total(inv, cabbage) > 0) {
-    sound_speech_volume(vorbis_1381, 1, 0, 255);
+    ~speech_line(vorbis_1381);
     ~objbox(cabbage, "It's full of cabbages. You've already got one.", 250, 0, 0);
     return;
 }
 if (inv_freespace(inv) = 0) {
-    sound_speech_volume(vorbis_1701, 1, 0, 255);
+    ~speech_line(vorbis_1701);
     ~objbox(cabbage, "It's full of cabbages. Your inventory is too full for you to take one.", 250, 0, 0);
     return;
 }
 inv_add(inv, cabbage, 1);
-sound_speech_volume(vorbis_1561, 1, 0, 255);
+~speech_line(vorbis_1561);
 ~objbox(cabbage, "It's full of cabbages. You take one.", 250, 0, 0);
 
 // The bookcase (bookcase_49101, l57_77 local 49,36): Roddeck's diary and his manual on the care of
@@ -45,18 +45,18 @@ if ($missing = 2) {
     if ($space >= 2) {
         inv_add(inv, tutorial3_diary, 1);
         inv_add(inv, tutorial3_book, 1);
-        sound_speech_volume(vorbis_1345, 1, 0, 255);
+        ~speech_line(vorbis_1345);
         ~doubleobjbox(tutorial3_diary, tutorial3_book, "You find a couple of books and take them.", 250);
         return;
     }
     if ($space = 1) {
         // Which book comes first: no source; the diary, Roddeck's own.
         inv_add(inv, tutorial3_diary, 1);
-        sound_speech_volume(vorbis_1592, 1, 0, 255);
+        ~speech_line(vorbis_1592);
         ~objbox(tutorial3_diary, "There are a couple of interesting looking books on the shelf, but you only have room to take one of them.", 250, 0, 0);
         return;
     }
-    sound_speech_volume(vorbis_1385, 1, 0, 255);
+    ~speech_line(vorbis_1385);
     ~mesbox("There are a couple of interesting looking books on the shelf, but you don't have room to hold them.");
     return;
 }
@@ -65,12 +65,12 @@ if (inv_total(inv, tutorial3_diary) > 0) {
     $book = tutorial3_book;
 }
 if ($space = 0) {
-    sound_speech_volume(vorbis_1530, 1, 0, 255);
+    ~speech_line(vorbis_1530);
     ~mesbox("There's an interesting looking book on the shelf, but you don't have room to hold it.");
     return;
 }
 inv_add(inv, $book, 1);
-sound_speech_volume(vorbis_1419, 1, 0, 255);
+~speech_line(vorbis_1419);
 ~objbox($book, "You take a book from the shelf.", 250, 0, 0);
 
 // Eating in the tutorial (consume_effects.rs2): s051 "You eat the cabbage." @515.5, a cabbage in
@@ -80,10 +80,10 @@ if (%tutorial < 5 | %tutorial >= 1000 | $food ! cabbage) {
     return(false);
 }
 if ($healed = true) {
-    sound_speech_volume(vorbis_1615, 1, 0, 255);
+    ~speech_line(vorbis_1615);
     ~objbox(cabbage, "You eat the cabbage. It restores some of your life points.", 250, 0, 0);
 } else {
-    sound_speech_volume(vorbis_1595, 1, 0, 255);
+    ~speech_line(vorbis_1595);
     ~objbox(cabbage, "You eat the cabbage.", 250, 0, 0);
 }
 return(true);
@@ -94,7 +94,7 @@ return(true);
 if (%tutorial < 5 | %tutorial >= 1000 | $obj = null) {
     return;
 }
-sound_speech_volume(vorbis_1669, 1, 0, 255);
+~speech_line(vorbis_1669);
 ~objbox($obj, "When you drop items on the ground, they will eventually vanish. It's a good way to get rid of junk, but don't drop anything you want to keep.", 250, 0, 0);
 
 // Taking a dropped diary back while the tutorial runs: "If you attempt to pick up the diary after
@@ -104,7 +104,7 @@ sound_speech_volume(vorbis_1669, 1, 0, 255);
 // whether it is that or a box.
 [opobj3,tutorial3_diary]
 if (%tutorial >= 5 & %tutorial < 1000) {
-    sound_speech_volume(vorbis_1558, 1, 0, 255);
+    ~speech_line(vorbis_1558);
     mes("You won't be needing that again.");
     return;
 }

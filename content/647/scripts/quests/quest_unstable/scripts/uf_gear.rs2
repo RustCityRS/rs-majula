@@ -111,11 +111,11 @@ if (%tutorial >= 35 & ~uf_kit_worn = 3) {
 if (~uf_kit_held = 3) {
     // Holding the kit, not wearing all of it: V85 (enum 3039 #85, clip 758; text from its
     // take, no recording shows the box).
-    sound_speech_volume(vorbis_758, 1, 0, 255);
+    ~speech_line(vorbis_758);
     ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Wait, you're not properly armed. You should equip all the kit you've picked up.");
 } else {
     // s005a (E4MP65bl3sI 2011-01-15 @200), V86 (clip 988).
-    sound_speech_volume(vorbis_988, 1, 0, 255);
+    ~speech_line(vorbis_988);
     ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Wait! You're not properly armed. Pick up the kit dropped by my squire, then attack the goblin when you've equipped it.");
 }
 return(false);
@@ -152,13 +152,13 @@ if (%tutorial ! 40 | region_findbycoord(coord) = false) {
 if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 3, 0) = true) {
     hint_npc_slot(0, 0, ^uf_hint_ring);
 }
-sound_speech_volume(vorbis_730, 1, 0, 255);
+~speech_line(vorbis_730);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Thank you! Now to deal with the dragon. Come here, and I'll tell you my plan.");
 
 // Sir Vant's bag before he gives leave: s008 (fE0GdVcmJ9E 2011-01-23 @285), V109 (clip 739).
 [oploc1,tutorial3_knights_bag]
 if (%tutorial < 45) {
-    sound_speech_volume(vorbis_739, 1, 0, 255);
+    ~speech_line(vorbis_739);
     ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>I don't believe I gave you permission to go through my bag.");
     return;
 }
@@ -168,7 +168,7 @@ if (%tutorial < 45) {
 // guide narrator's U90, clip 1502).
 [oploc1,tutorial3_cellar_barricade_clickarea]
 if (%tutorial < 65) {
-    sound_speech_volume(vorbis_1502, 1, 0, 255);
+    ~speech_line(vorbis_1502);
     ~mesbox("We'll come back to that in a moment.");
     return;
 }

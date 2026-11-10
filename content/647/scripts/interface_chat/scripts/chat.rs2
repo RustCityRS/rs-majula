@@ -722,3 +722,12 @@ while ($page < $pagetotal) {
     ~chatnpc_cutscene_page($npc_name, $npc, $page);
     $page = calc($page + 1);
 }
+
+// A voiced line: VORBIS_SPEECH_STOP (66) first, then the line's VORBIS_SPEECH_SOUND (7). The 647
+// client plays every speech sound it is sent side by side (AClass55.method3670 adds each to its
+// sound list; 66 stops them all, Class95_Sub3.method3214), so a line clicked through before its
+// voice ended played on under the next one's. Not on each continue: cache 786's clip 3177 is one
+// take of both of Explorer Jack's boxes, which a stop at the second box would cut off.
+[proc,speech_line](vorbis $clip)
+sound_speech_stop;
+sound_speech_volume($clip, 1, 0, 255);

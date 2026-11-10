@@ -132,7 +132,7 @@ if (p_finduid(uid) = false) {
 }
 clearsofttimer(uf_house_watch);
 // s087 (IwS6rBpkcyE @500, 17/31), N58 (clip 1653).
-sound_speech_volume(vorbis_1653, 1, 0, 255);
+~speech_line(vorbis_1653);
 mes("As you leave, Roddeck wanders off home.");
 p_telejump(movecoord(0_49_49_24_56, calc($x - 3160), coordy(coord), calc($z - 3192)));
 
@@ -142,22 +142,22 @@ p_telejump(movecoord(0_49_49_24_56, calc($x - 3160), coordy(coord), calc($z - 31
 if (%tutorial < 1000 | %tutorial3_postquest >= 3) {
     return;
 }
-sound_speech_volume(vorbis_3180, 1, 0, 255);
+~speech_line(vorbis_3180);
 ~chatnpc("<p,neutral>Good grief! Where did you three come from?");
-sound_speech_volume(vorbis_3173, 1, 0, 255);
+~speech_line(vorbis_3173);
 ~chatnpc_specific("Roddeck", tutorial3_advisor_walkoverrocks, "<p,neutral>I'll explain later, Jack.");
-sound_speech_volume(vorbis_1282, 1, 0, 255);
+~speech_line(vorbis_1282);
 ~chatnpc_specific("Roddeck", tutorial3_advisor_walkoverrocks, "<p,neutral>At last, we're out! Now, Sir Vant has accomplished his mission - to rescue me from my pet dragon - so I suppose he'll be off.");
-sound_speech_volume(vorbis_688, 1, 0, 255);
+~speech_line(vorbis_688);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Well, my mission is accomplished now: Roddeck's dragon is no longer a threat.");
-sound_speech_volume(vorbis_687, 1, 0, 255);
+~speech_line(vorbis_687);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>I'd better head back to Falador. My squire's family will need to be informed of his death. It's been a pleasure working with you.");
-sound_speech_volume(vorbis_1253, 1, 0, 255);
+~speech_line(vorbis_1253);
 ~chatnpc_specific("Roddeck", tutorial3_advisor_walkoverrocks, "<p,neutral>Goodbye, Sir Vant, and thank you again!");
 if (npc_find(coord, tutorial3_knight_waitingforbattle, 8, 0) = true) {
     npc_del;
 }
-sound_speech_volume(vorbis_3177, 1, 0, 255);
+~speech_line(vorbis_3177);
 ~chatnpc_specific("Explorer Jack", tutorial3_explorer_jack, "<p,neutral>Once you're out and about, you can use the Task System to suggest aims and endeavours to go for. Every one you do will get you a reward.");
 ~chatnpc_specific("Explorer Jack", tutorial3_explorer_jack, "<p,neutral>You'll always earn some money, sometimes additional goodies, and often progress towards a piece of armour with special effects. Look at the Rewards tab for a Task to learn more.");
 %tutorial3_postquest = 3;

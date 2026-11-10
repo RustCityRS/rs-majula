@@ -9,16 +9,16 @@
 [proc,uf_vant_plan]
 if (%tutorial >= 45 & %tutorial <= 49) {
     hint_stop_slot(0);
-    sound_speech_volume(vorbis_732, 1, 0, 255);
+    ~speech_line(vorbis_732);
     ~chatnpc("<p,neutral>This dragon's a tougher customer than I'd expected, but I know a way we can defeat it.");
     %tutorial = 46;
-    sound_speech_volume(vorbis_943, 1, 0, 255);
+    ~speech_line(vorbis_943);
     ~chatnpc("<p,neutral>One corner of the ceiling is held up by wooden pillars. We're going to lure the dragon there and then collapse the roof on top of it.");
     %tutorial = 47;
-    sound_speech_volume(vorbis_806, 1, 0, 255);
+    ~speech_line(vorbis_806);
     ~chatnpc("<p,neutral>In my bag is some meat I've prepared with a sleeping potion. I need you to put the meat in the food bowl by the wooden pillars. The dragon will eat it and fall asleep.");
     %tutorial = 48;
-    sound_speech_volume(vorbis_726, 1, 0, 255);
+    ~speech_line(vorbis_726);
     ~chatnpc("<p,neutral>I'll keep the dragon's attention. Once you've got the drugged meat you'll need to climb over the wall next to me.");
     %tutorial = 50;
     ~uf_open_tab(3);
@@ -31,15 +31,15 @@ if (%tutorial >= 45 & %tutorial <= 49) {
 if (%tutorial < 80) {
     if (inv_total(inv, tutorial3_meat) > 0) {
         // V64 (clip 773).
-        sound_speech_volume(vorbis_773, 1, 0, 255);
+        ~speech_line(vorbis_773);
         ~chatnpc("<p,neutral>Put that drugged meat in the food bowl by the wooden pillars, please.");
     } else if (inv_total(inv, tutorial3_plank) > 0) {
         // V35 (clip 859).
-        sound_speech_volume(vorbis_859, 1, 0, 255);
+        ~speech_line(vorbis_859);
         ~chatnpc("<p,neutral>I see you're holding a plank. You could use it against the wall to create a ramp.");
     } else {
         // V20 (clip 966).
-        sound_speech_volume(vorbis_966, 1, 0, 255);
+        ~speech_line(vorbis_966);
         ~chatnpc("<p,neutral>Get some more meat from my bag and put it in the food bowl by the wooden pillars, please.");
     }
 }
@@ -49,7 +49,7 @@ if (%tutorial < 80) {
 // their takes: no recording shows the boxes.
 [proc,uf_bag_search]
 if (%tutorial < 50) {
-    sound_speech_volume(vorbis_739, 1, 0, 255);
+    ~speech_line(vorbis_739);
     ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>I don't believe I gave you permission to go through my bag.");
     return;
 }
@@ -59,22 +59,22 @@ if (%tutorial >= 93) {
 }
 if (%tutorial >= 80) {
     // N50 (clip 1459) holds after the meat is placed too: no source shows the bag then.
-    sound_speech_volume(vorbis_1459, 1, 0, 255);
+    ~speech_line(vorbis_1459);
     ~mesbox("You won't need any more meat now.");
     return;
 }
 if (inv_total(inv, tutorial3_meat) > 0) {
-    sound_speech_volume(vorbis_1459, 1, 0, 255);
+    ~speech_line(vorbis_1459);
     ~mesbox("You won't need any more meat now.");
     return;
 }
 if (inv_freespace(inv) = 0) {
-    sound_speech_volume(vorbis_1406, 1, 0, 255);
+    ~speech_line(vorbis_1406);
     ~mesbox("You don't have enough inventory space to pick up the meat.");
     return;
 }
 inv_add(inv, tutorial3_meat, 1);
-sound_speech_volume(vorbis_1608, 1, 0, 255);
+~speech_line(vorbis_1608);
 ~objbox(tutorial3_meat, "The bag contains several parcels of meat, all wrapped up in paper. You take one.", 250, 0, 0);
 
 // The low wall by Sir Vant, "Climb the Wall" (65, 75) and "Make a Ramp" (70). Cache 786's ramp is
@@ -84,7 +84,7 @@ sound_speech_volume(vorbis_1608, 1, 0, 255);
 // - The ramp up, without the meat: s013b (VwpdbjfigD4 2011-01-17 @239).
 [proc,uf_low_wall]
 if (%tutorial < 75) {
-    sound_speech_volume(vorbis_1769, 1, 0, 255);
+    ~speech_line(vorbis_1769);
     ~mesbox("Even this low section of the wall is too high for you to climb over.");
     if (%tutorial = 65) {
         %tutorial = 70;
@@ -109,7 +109,7 @@ if (last_useitem ! tutorial3_plank) {
     return;
 }
 if (%tutorial < 65) {
-    sound_speech_volume(vorbis_1502, 1, 0, 255);
+    ~speech_line(vorbis_1502);
     ~mesbox("We'll come back to that in a moment.");
     return;
 }
@@ -125,7 +125,7 @@ inv_del(inv, tutorial3_plank, 1);
 %varclient_1425 = 3523;
 ~uf_task_tab;
 ~uf_task_pin;
-sound_speech_volume(vorbis_1401, 1, 0, 255);
+~speech_line(vorbis_1401);
 ~objbox(tutorial3_plank, "You use the plank to construct a crude ramp.", 250, 0, 0);
 
 // Over the wall by the ramp (4KO2h2xPtdM @180-182): "Put the Dragon to Sleep" (80) and TASK
@@ -174,5 +174,5 @@ if_closesub(chattop:chatoverlay);
 [oploc1,tutorial3_cellar_barricade_wall_6_mirror] ~uf_high_wall;
 
 [proc,uf_high_wall]
-sound_speech_volume(vorbis_755, 1, 0, 255);
+~speech_line(vorbis_755);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You'll never get over the wall there. Try going to the eastern end where it's lower.");
