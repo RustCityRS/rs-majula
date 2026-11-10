@@ -36,16 +36,16 @@ return(calc(~uf_kit_count(inv) + ~uf_kit_count(worn)));
 if (region_findbycoord(coord) = false) {
     return;
 }
-if (%learning_the_ropes = 15) {
+if (%tutorial = 15) {
     hint_coord_slot(0, 0, 2, ~uf_cellar_coord(32, 13), 0, 0, ^uf_hint_ring);
 }
 
 // From pickup.rs2, each time a ground obj is taken while the gear is to gather.
 [proc,uf_gear_taken]
-if (%learning_the_ropes ! 15 | ~uf_kit_held < 3) {
+if (%tutorial ! 15 | ~uf_kit_held < 3) {
     return;
 }
-%learning_the_ropes = 20;
+%tutorial = 20;
 hint_stop_slot(0);
 ~uf_open_tab(4);
 // The arrow at the inventory tab, flashing it while another tab shows (4KO2h2xPtdM @79-80).
@@ -56,7 +56,7 @@ hint_stop_slot(0);
 
 // From equip.rs2, after each piece is put on.
 [proc,uf_gear_worn](obj $obj)
-if (%learning_the_ropes < 20 | %learning_the_ropes > 30) {
+if (%tutorial < 20 | %tutorial > 30) {
     return;
 }
 def_int $worn = ~uf_kit_worn;
@@ -67,10 +67,10 @@ if ($obj = bronze_sword) {
     ~uf_open_tab(0);
 }
 if ($worn < 3) {
-    %learning_the_ropes = calc(20 + 5 * $worn);
+    %tutorial = calc(20 + 5 * $worn);
     return;
 }
-%learning_the_ropes = 35;
+%tutorial = 35;
 ~uf_open_tab(5);
 %varplayerbit_3756 = 6;
 %varclient_1425 = 3503;
@@ -81,7 +81,7 @@ if ($worn < 3) {
 if (region_findbycoord(coord) = false) {
     return;
 }
-if (npc_find(~uf_cellar_coord(34, 13), goblin_8862, 4, 0) = true) {
+if (npc_find(~uf_cellar_coord(34, 13), tutorial3_goblin, 4, 0) = true) {
     hint_npc_slot(0, 0, ^uf_hint_ring);
 }
 
@@ -89,22 +89,22 @@ if (npc_find(~uf_cellar_coord(34, 13), goblin_8862, 4, 0) = true) {
 // each hit, goes back to rummaging when left alone, and can be fought only in all three pieces of
 // the squire's gear, Sir Vant stopping you otherwise (the 2011 wiki's "Goblin (Unstable
 // Foundations)", 2011-04-16). Its op 1 is Attack (cache 786).
-[apnpc1,goblin_8862]
+[apnpc1,tutorial3_goblin]
 if (~uf_goblin_may_fight = false) {
     return;
 }
 @player_combat_start_ap;
 
-[opnpc1,goblin_8862]
+[opnpc1,tutorial3_goblin]
 if (~uf_goblin_may_fight = false) {
     return;
 }
 @player_combat_start;
 
 [proc,uf_goblin_may_fight]()(boolean)
-if (%learning_the_ropes >= 35 & ~uf_kit_worn = 3) {
-    if (%learning_the_ropes = 35) {
-        %learning_the_ropes = 40;
+if (%tutorial >= 35 & ~uf_kit_worn = 3) {
+    if (%tutorial = 35) {
+        %tutorial = 40;
     }
     return(true);
 }
@@ -112,17 +112,17 @@ if (~uf_kit_held = 3) {
     // Holding the kit, not wearing all of it: V85 (enum 3039 #85, clip 758; text from its
     // take, no recording shows the box).
     sound_speech_volume(vorbis_758, 1, 0, 255);
-    ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Wait, you're not properly armed. You should equip all the kit you've picked up.");
+    ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Wait, you're not properly armed. You should equip all the kit you've picked up.");
 } else {
     // s005a (E4MP65bl3sI 2011-01-15 @200), V86 (clip 988).
     sound_speech_volume(vorbis_988, 1, 0, 255);
-    ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Wait! You're not properly armed. Pick up the kit dropped by my squire, then attack the goblin when you've equipped it.");
+    ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Wait! You're not properly armed. Pick up the kit dropped by my squire, then attack the goblin when you've equipped it.");
 }
 return(false);
 
 // It hits back once for each hit it takes, from its own square: never the default retaliation's
 // opplayer2 mode, which would follow the player and keep attacking.
-[ai_queue1,goblin_8862]
+[ai_queue1,tutorial3_goblin]
 if (finduid(%npc_aggressive_player) = false) {
     return;
 }
@@ -132,9 +132,9 @@ if (npc_range(coord) > 1) {
 %npc_attacking_uid = %npc_aggressive_player;
 gosub(npc_default_attack);
 
-[ai_queue3,goblin_8862]
+[ai_queue3,tutorial3_goblin]
 if (finduid(%npc_aggressive_player) = true) {
-    if (%learning_the_ropes = 40) {
+    if (%tutorial = 40) {
         queue(uf_goblin_killed, 2, 0);
     }
 }
@@ -142,32 +142,32 @@ gosub(npc_death);
 
 // s007 (4KO2h2xPtdM; IwS6rBpkcyE @75), V71 (clip 730): "Find Out Sir Vant's Plan" (45).
 [queue,uf_goblin_killed]
-if (%learning_the_ropes ! 40 | region_findbycoord(coord) = false) {
+if (%tutorial ! 40 | region_findbycoord(coord) = false) {
     return;
 }
-%learning_the_ropes = 45;
+%tutorial = 45;
 %varclient_1425 = 3504;
 ~uf_task_tab;
 ~uf_task_pin;
-if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 3, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 3, 0) = true) {
     hint_npc_slot(0, 0, ^uf_hint_ring);
 }
 sound_speech_volume(vorbis_730, 1, 0, 255);
-~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Thank you! Now to deal with the dragon. Come here, and I'll tell you my plan.");
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Thank you! Now to deal with the dragon. Come here, and I'll tell you my plan.");
 
 // Sir Vant's bag before he gives leave: s008 (fE0GdVcmJ9E 2011-01-23 @285), V109 (clip 739).
-[oploc1,sir_vant_s_bag]
-if (%learning_the_ropes < 45) {
+[oploc1,tutorial3_knights_bag]
+if (%tutorial < 45) {
     sound_speech_volume(vorbis_739, 1, 0, 255);
-    ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>I don't believe I gave you permission to go through my bag.");
+    ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>I don't believe I gave you permission to go through my bag.");
     return;
 }
 ~uf_bag_search;
 
 // The low wall by Sir Vant before its step: s006 (4KO2h2xPtdM @84 "Climb-over Low wall", the
 // guide narrator's U90, clip 1502).
-[oploc1,low_wall_45603]
-if (%learning_the_ropes < 65) {
+[oploc1,tutorial3_cellar_barricade_clickarea]
+if (%tutorial < 65) {
     sound_speech_volume(vorbis_1502, 1, 0, 255);
     ~mesbox("We'll come back to that in a moment.");
     return;

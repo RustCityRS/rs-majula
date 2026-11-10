@@ -8,7 +8,7 @@
 // what else 6 meant: no source found.
 
 [proc,uf_controls_open]
-%learning_the_ropes = 6;
+%tutorial = 6;
 if (getwindowmode = 1) {
     if_opensub(tutorial3_cameracontrols, toplevel:mainoverlay);
 } else {
@@ -36,10 +36,10 @@ if (getwindowmode = 1) {
 if (p_finduid(uid) = false) {
     return;
 }
-if (%learning_the_ropes ! 6) {
+if (%tutorial ! 6) {
     return;
 }
-%learning_the_ropes = 7;
+%tutorial = 7;
 ~uf_controls_close;
 hint_stop_slot(0);
 // No arrow shows after this (8jKH_7To46o @63-70, the task tab open): when 2011 cleared it, no
@@ -62,9 +62,9 @@ runclientscript("switchside(1)");
 // varc 1428 arrives): Rotate Your Camera while the overlay is up, then cs2 4098's Task for the
 // stage (Talk to Sir Vant at 7).
 [proc,uf_task_pin]
-if (%learning_the_ropes < 7) {
+if (%tutorial < 7) {
     %varplayerbit_8576 = 3522;
-} else if (%learning_the_ropes = 1000 & %varplayerbit_6494 < 3) {
+} else if (%tutorial = 1000 & %tutorial3_postquest < 3) {
     // Done, Explorer Jack not yet talked to: 2011 pins Introducing...Explorer Jack (3520) from
     // the quest's end until that talk (4KO2h2xPtdM 2011-04-30 @607-640), where 4098 gives 1000
     // The Journey Begins (3521), the Task after it (in-client runs 19 and 20 showed 3521).

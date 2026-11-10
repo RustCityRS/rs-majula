@@ -5,32 +5,32 @@
 // - Varp 6, the Controls overlay still up: what talking did then, no recording shows.
 // - After the talk, 9: cs2 4098 still pins Talk to Sir Vant at 9, as 2011's panel shows it while
 //   the dragon cutscene plays (8jKH_7To46o @88); 10 (Assist Sir Vant) comes with the cutscene's end.
-[opnpc1,sir_vant_8850]
-if (%learning_the_ropes = 7) {
+[opnpc1,tutorial3_knight_waitingforbattle]
+if (%tutorial = 7) {
     ~uf_vant_hello;
-} else if (%learning_the_ropes = 10) {
+} else if (%tutorial = 10) {
     ~uf_vant_assist;
-} else if (%learning_the_ropes = 15) {
+} else if (%tutorial = 15) {
     // V55 (enum 3039 #55, clip 811; text from its take, no recording shows the box).
     sound_speech_volume(vorbis_811, 1, 0, 255);
     ~chatnpc("<p,neutral>My squire dropped his sword and armour when he died. You can pick them up and use them to defend my bag from the goblin.");
-} else if (%learning_the_ropes >= 20 & %learning_the_ropes <= 30) {
+} else if (%tutorial >= 20 & %tutorial <= 30) {
     // V94 (clip 788; V95, clip 846, is another take of the same line).
     sound_speech_volume(vorbis_788, 1, 0, 255);
     ~chatnpc("<p,neutral>When you've got the rest of my squire's kit equipped, you'll be ready to deal with the goblin.");
-} else if (%learning_the_ropes = 35) {
+} else if (%tutorial = 35) {
     // V12 (clip 978).
     sound_speech_volume(vorbis_978, 1, 0, 255);
     ~chatnpc("<p,neutral>Excellent! You look ready to fight. You can deal with the goblin now.");
-} else if (%learning_the_ropes = 40) {
+} else if (%tutorial = 40) {
     // V21 (clip 729).
     sound_speech_volume(vorbis_729, 1, 0, 255);
     ~chatnpc("<p,neutral>Go on, finish off the goblin. It's too weak to be a real threat.");
-} else if (%learning_the_ropes >= 45 & %learning_the_ropes < 90) {
+} else if (%tutorial >= 45 & %tutorial < 90) {
     ~uf_vant_plan;
-} else if (%learning_the_ropes >= 93 & %learning_the_ropes < 120) {
+} else if (%tutorial >= 93 & %tutorial < 120) {
     ~uf_vant_sabotage;
-} else if (%learning_the_ropes >= 120) {
+} else if (%tutorial >= 120) {
     ~uf_vant_exit;
 }
 
@@ -39,7 +39,7 @@ if (%learning_the_ropes = 7) {
 [proc,uf_vant_assist]
 sound_speech_volume(vorbis_887, 1, 0, 255);
 ~chatnpc("<p,neutral>Thank goodness you're here! My squire's dead, and there's a goblin going through my bag!");
-%learning_the_ropes = 15;
+%tutorial = 15;
 ~uf_task_pin;
 sound_speech_volume(vorbis_807, 1, 0, 255);
 ~chatnpc("<p,neutral>I can't turn my back on this dragon. I need you to take my squire's equipment and deal with the goblin!");
@@ -56,7 +56,7 @@ if (compare(text_gender("m", "f"), "m") = 0) {
 ~chatplayer("<p,neutral>Hello!");
 sound_speech_volume(vorbis_770, 1, 0, 255);
 ~chatnpc("<p,shock>Wait a moment - there's a dragon coming!");
-%learning_the_ropes = 9;
+%tutorial = 9;
 ~uf_dragon_cutscene;
 
 // A line in the player's voice: enum 3041 is the male one, 3042 the female (median pitch 115-160

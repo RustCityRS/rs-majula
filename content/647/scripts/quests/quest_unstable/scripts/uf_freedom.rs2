@@ -13,8 +13,8 @@
 // (3204, 3241) as in the static world (n50_50).
 
 // The ladder up (loc 45784 on local (6, 21)).
-[oploc1,ladder_45784]
-if (%learning_the_ropes < 170) {
+[oploc1,tutorial3_cellar_ladder_exit]
+if (%tutorial < 170) {
     return;
 }
 anim(human_reachforladder, 0);
@@ -47,11 +47,11 @@ while ($level < 4) {
     $level = calc($level + 1);
 }
 p_telejump(~uf_house_coord(3207, 3240));
-npc_add(~uf_house_coord(3204, 3241), explorer_jack_13295, 0);
+npc_add(~uf_house_coord(3204, 3241), tutorial3_explorer_jack, 0);
 npc_setmode(none);
-npc_add(~uf_house_coord(3206, 3239), roddeck, 0);
+npc_add(~uf_house_coord(3206, 3239), tutorial3_advisor_walkoverrocks, 0);
 npc_setmode(none);
-npc_add(~uf_house_coord(3205, 3240), sir_vant_8850, 0);
+npc_add(~uf_house_coord(3205, 3240), tutorial3_knight_waitingforbattle, 0);
 npc_setmode(none);
 p_delay(1);
 ~uf_complete;
@@ -59,7 +59,7 @@ softtimer(uf_house_watch, 1);
 
 // Whether the player stands in Explorer Jack's house copy (two zones in, 96x96).
 [proc,uf_in_house]()(boolean)
-if (%learning_the_ropes < 1000 | region_findbycoord(coord) = false) {
+if (%tutorial < 1000 | region_findbycoord(coord) = false) {
     return(false);
 }
 def_coord $origin = region_getcoord(0, 16, 16);
@@ -74,7 +74,7 @@ return(region_getcoord(0, calc(16 + $x - 3160), calc(16 + $z - 3192)));
 // The quest's end: 1 quest point, level 4 in the skill chosen (the 2011 wiki's Reward:
 // "Level 4 Mining/Woodcutting"), Harmony, every tab, and the Task panel on Explorer Jack.
 [proc,uf_complete]
-%learning_the_ropes = 1000;
+%tutorial = 1000;
 ~uf_task_tab;
 ~uf_task_pin;
 // On the Run waits for the tutorial's end (tasks/task_system.rs2).
@@ -82,8 +82,8 @@ return(region_getcoord(0, calc(16 + $x - 3160), calc(16 + $z - 3192)));
 ~initalltabs;
 def_obj $tool = bronze_pickaxe;
 def_string $reward = "Level 4 Mining";
-if (%varplayerbit_6495 >= 2) {
-    $tool = bronze_hatchet;
+if (%tutorial3_tool >= 2) {
+    $tool = bronze_axe;
     $reward = "Level 4 Woodcutting";
 }
 // The scroll's own "Congratulations! Quest complete!" is the only one, then Harmony's unlock
@@ -96,7 +96,7 @@ if_settext(questscroll_ver3:quest_awardedtext_ver3, "You gain:");
 ~music_unlock_play(music_Harmony);
 // Level 4 is 276 xp; the practice leaves the player on 84 (two 42s), so 192 more. A player who
 // practised past level 2 ends a little above 276, still level 4 below 388.
-if (%varplayerbit_6495 >= 2) {
+if (%tutorial3_tool >= 2) {
     if (stat_base(woodcutting) < 4) {
         stat_advance(woodcutting, 1920);
     }
@@ -138,29 +138,29 @@ p_telejump(movecoord(0_49_49_24_56, calc($x - 3160), coordy(coord), calc($z - 31
 
 // Explorer Jack in his house: s079-s086 (Task-build lines R81, R78, R5; V90, V42; R14; R79 for
 // both of Jack's boxes, clips 3180, 3173, 1282, 688, 687, 1253, 3177).
-[opnpc1,explorer_jack_13295]
-if (%learning_the_ropes < 1000 | %varplayerbit_6494 >= 3) {
+[opnpc1,tutorial3_explorer_jack]
+if (%tutorial < 1000 | %tutorial3_postquest >= 3) {
     return;
 }
 sound_speech_volume(vorbis_3180, 1, 0, 255);
 ~chatnpc("<p,neutral>Good grief! Where did you three come from?");
 sound_speech_volume(vorbis_3173, 1, 0, 255);
-~chatnpc_specific("Roddeck", roddeck, "<p,neutral>I'll explain later, Jack.");
+~chatnpc_specific("Roddeck", tutorial3_advisor_walkoverrocks, "<p,neutral>I'll explain later, Jack.");
 sound_speech_volume(vorbis_1282, 1, 0, 255);
-~chatnpc_specific("Roddeck", roddeck, "<p,neutral>At last, we're out! Now, Sir Vant has accomplished his mission - to rescue me from my pet dragon - so I suppose he'll be off.");
+~chatnpc_specific("Roddeck", tutorial3_advisor_walkoverrocks, "<p,neutral>At last, we're out! Now, Sir Vant has accomplished his mission - to rescue me from my pet dragon - so I suppose he'll be off.");
 sound_speech_volume(vorbis_688, 1, 0, 255);
-~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Well, my mission is accomplished now: Roddeck's dragon is no longer a threat.");
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Well, my mission is accomplished now: Roddeck's dragon is no longer a threat.");
 sound_speech_volume(vorbis_687, 1, 0, 255);
-~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>I'd better head back to Falador. My squire's family will need to be informed of his death. It's been a pleasure working with you.");
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>I'd better head back to Falador. My squire's family will need to be informed of his death. It's been a pleasure working with you.");
 sound_speech_volume(vorbis_1253, 1, 0, 255);
-~chatnpc_specific("Roddeck", roddeck, "<p,neutral>Goodbye, Sir Vant, and thank you again!");
-if (npc_find(coord, sir_vant_8850, 8, 0) = true) {
+~chatnpc_specific("Roddeck", tutorial3_advisor_walkoverrocks, "<p,neutral>Goodbye, Sir Vant, and thank you again!");
+if (npc_find(coord, tutorial3_knight_waitingforbattle, 8, 0) = true) {
     npc_del;
 }
 sound_speech_volume(vorbis_3177, 1, 0, 255);
-~chatnpc_specific("Explorer Jack", explorer_jack_13295, "<p,neutral>Once you're out and about, you can use the Task System to suggest aims and endeavours to go for. Every one you do will get you a reward.");
-~chatnpc_specific("Explorer Jack", explorer_jack_13295, "<p,neutral>You'll always earn some money, sometimes additional goodies, and often progress towards a piece of armour with special effects. Look at the Rewards tab for a Task to learn more.");
-%varplayerbit_6494 = 3;
+~chatnpc_specific("Explorer Jack", tutorial3_explorer_jack, "<p,neutral>Once you're out and about, you can use the Task System to suggest aims and endeavours to go for. Every one you do will get you a reward.");
+~chatnpc_specific("Explorer Jack", tutorial3_explorer_jack, "<p,neutral>You'll always earn some money, sometimes additional goodies, and often progress towards a piece of armour with special effects. Look at the Rewards tab for a Task to learn more.");
+%tutorial3_postquest = 3;
 %varclient_1425 = 3520;
 ~uf_task_tab;
 ~uf_task_pin;

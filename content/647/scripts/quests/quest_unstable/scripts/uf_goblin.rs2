@@ -4,7 +4,7 @@
 // comes next looks random; the gaps between them, about 8, 8, 5 and 12 ticks (one frame a second),
 // look like a 1-in-8 chance every tick rather than a fixed timer. That cadence is fitted to those
 // four gaps; no script source gives it.
-[ai_timer,goblin_8862]
+[ai_timer,tutorial3_goblin]
 if (random(8) = 0) {
     switch_int (random(4)) {
         case 0 : npc_say("Heh heh heh.");

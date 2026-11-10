@@ -13,18 +13,18 @@ if (region_findbycoord(coord) = false) {
     return;
 }
 ~uf_cutscene_open;
-%varclient_1007 = 1;
+%tutorial3_cutscene_tracker = 1;
 // The player backs off to the west wall: away down-left in shot 1 (4KO2 @17.0-17.4), and on
 // (28, 12) for shots 5 and 7, fitted in-client against @34.2 and @42.1 (refs GAPS 18).
 p_walk(~uf_cellar_coord(28, 12));
 // Sir Vant turns to face the dragon: his back to shot 1's camera, looking north (@17-20).
-if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) = true) {
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(32, 20));
 }
 // The squire holds his place until "Uh-oh" (out of wander mode: with wanderrange 0 it heads back
 // to his spawn tile), turned to Sir Vant: shot 1 shows his right side, board up (@17.2-18.6).
-if (npc_find(~uf_cellar_coord(33, 15), squire_8857, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(33, 15), tutorial3_squire, 2, 0) = true) {
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(32, 16));
 }
@@ -36,11 +36,11 @@ p_delay(0);
 // Tick 3 (@18.7) he walks off down-right, out of shot by @19.4: south along x = 33 toward the
 // camera on (32, 13). A walk queued here shows this same tick (uf18c, queued a tick early, had
 // him moving as "Uh-" came up, his head off the screen's edge).
-if (npc_find(~uf_cellar_coord(33, 15), squire_8857, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(33, 15), tutorial3_squire, 2, 0) = true) {
     npc_walk(~uf_cellar_coord(33, 13));
 }
 p_delay(2);
-%varclient_1007 = 2;
+%tutorial3_cutscene_tracker = 2;
 p_delay(0);
 // @21.2 (tick 7), over the doorway from shot 2's camera: within 10 px of 2011's against Sir Vant
 // with him on x = 33, 40 px off on (32, 13) (in-client, refs GAPS 18).
@@ -51,15 +51,15 @@ facesquare(~uf_cellar_coord(32, 13));
 p_delay(0);
 // To the ladder's foot, (32, 13), where shot 5 has him and his kit lies after: when he steps
 // there no shot shows (3 and 4 look away); here, after his Help!.
-if (npc_find(~uf_cellar_coord(33, 13), squire_8857, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(33, 13), tutorial3_squire, 2, 0) = true) {
     npc_walk(~uf_cellar_coord(32, 13));
 }
 p_delay(3);
-%varclient_1007 = 3;
+%tutorial3_cutscene_tracker = 3;
 // At the ladder's foot he turns to the doorway and the dragon while no shot shows him: shot 5
 // opens on him facing the fire, shield up (4KO2 @33.9-34.1), where ours turned him only with his
 // "Aaargh!" and showed him facing the player till then (in-client ufdragon17 @28.4-28.6).
-if (npc_find(~uf_cellar_coord(32, 13), squire_8857, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 13), tutorial3_squire, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(32, 17));
 }
 // The dragon (one throughout, red, size 5: refs GAPS 18): shot 3 shows it face-on in the main
@@ -68,7 +68,7 @@ if (npc_find(~uf_cellar_coord(32, 13), squire_8857, 2, 0) = true) {
 // behind the doorway's wall (in by @28.0, tick 18; at the wall by ~@29.5, tick 21) and face Sir
 // Vant over it. Its south-west tile here and at the wall are fitted in-client, not read from any
 // source; its roar (shot 3) and breath (shot 4) seqs are still to fit (GAPS 18).
-npc_add(~uf_cellar_coord(30, 26), dragon_8858, ^uf_cellar_obj_duration);
+npc_add(~uf_cellar_coord(30, 26), tutorial3_dragon_initial, ^uf_cellar_obj_duration);
 npc_setmode(none);
 npc_facesquare(~uf_cellar_coord(32, 16));
 // Its roar, head thrust at the camera then back (@24.4-24.8): seq 12259 (frames on the dragon's
@@ -78,25 +78,25 @@ npc_anim(seq_12259, 0);
 p_delay(1);
 // It sets off on shot 3's last tick: in uf18e, leaving as shot 4 opened, it reached the wall ~2 s
 // after 2011's.
-if (npc_find(~uf_cellar_coord(32, 28), dragon_8858, 4, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 28), tutorial3_dragon_initial, 4, 0) = true) {
     npc_walk(~uf_cellar_coord(30, 18));
 }
 p_delay(0);
-%varclient_1007 = 4;
+%tutorial3_cutscene_tracker = 4;
 // From shot 4 Sir Vant holds his shield up and his feet still while the dragon comes (4KO2 @26-41),
 // where 8850's ready seq (12235) paces: cache 786's Sir Vant 8851 (bas 1615, ready 12234, a
 // 16-frame loop) stands so. Fitted by eye (ufbatch), not read from a source. Back to 8850 as the
 // cutscene ends. An added npc keeps one lifecycle countdown, so a changetype's duration ends in a
 // despawn, not a revert (phases/npc.rs): both changes take the cellar's lifetime.
-if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 2, 0) = true) {
-    npc_changetype(sir_vant_8851, ^uf_cellar_obj_duration);
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) = true) {
+    npc_changetype(tutorial3_knight_battle, ^uf_cellar_obj_duration);
 }
 p_delay(8);
 // Tick 24, ~5.4 s into shot 4 (@31.4): it rears, wings up, and drops its head over the wall to
 // breathe: seq 14244 (frames on the dragon's skeleton, group 2931; 66 frames, 203 cycles), ranked
 // first of seven by both matchers against 4KO2 under shot 4's own camera (ufinger: frame motion
 // 0.264 against 0.293 next; DINOv2 0.189 against 0.194), its fit starting ~0.5-0.8 s into the seq.
-if (npc_find(~uf_cellar_coord(32, 20), dragon_8858, 6, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 20), tutorial3_dragon_initial, 6, 0) = true) {
     npc_facesquare(~uf_cellar_coord(32, 16));
     npc_anim(seq_14244, 0);
 }
@@ -109,13 +109,13 @@ p_delay(2);
 // in-client, not read from any source, until the dragon stands where shot 4 has it.
 projanim_map(~uf_cellar_coord(32, 18), ~uf_cellar_coord(32, 12), spotanim_2148, 60, 30, 15, 95, 0, 0);
 p_delay(0);
-%varclient_1007 = 5;
+%tutorial3_cutscene_tracker = 5;
 p_delay(0);
 // "Aaargh!" @34.35 (tick 29) with his scream, clip 1292. Till then he stands facing the fire in
 // his own stance, sword up and shield raised (@33.9-34.3, his "board up" of shot 1). Seq 12226
 // (0.56 s) raises his shield and hides him as the fire covers him (@34.6-34.9): started with
 // the cut a tick earlier it hid him before the fire came (in-client ufdragon18 @28.55).
-if (npc_find(~uf_cellar_coord(32, 13), squire_8857, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 13), tutorial3_squire, 2, 0) = true) {
     npc_say("Aaargh!");
     sound_speech_volume(vorbis_1292, 1, 0, 255);
     npc_facesquare(~uf_cellar_coord(32, 17));
@@ -125,47 +125,47 @@ p_delay(0);
 // Tick 30: spotanim 2151 is his charred body coming apart (model 49339 in his own recolours; the
 // gold-hilted sword hangs as in 4KO2 @35.1-35.4), and the ladder burns (gone @35.05): loc 45786,
 // design note 4's darkened ladder.
-if (npc_find(~uf_cellar_coord(32, 13), squire_8857, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 13), tutorial3_squire, 2, 0) = true) {
     spotanim_npc(spotanim_2151, 0, 0);
 }
-if (loc_find(~uf_cellar_coord(32, 12), ladder_45785) = true) {
-    loc_change(ladder_45786, ^uf_cellar_obj_duration);
+if (loc_find(~uf_cellar_coord(32, 12), tutorial3_cellar_ladder) = true) {
+    loc_change(tutorial3_cellar_ladder_breaking, ^uf_cellar_obj_duration);
 }
 p_delay(0);
 // Tick 31 (@35.5): he is gone, his overhead and 2151 with him, and his kit lies where he stood
 // (GAPS 3: bronze platebody, sq shield and sword on (32, 13)).
-if (npc_find(~uf_cellar_coord(32, 13), squire_8857, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 13), tutorial3_squire, 2, 0) = true) {
     npc_del;
 }
 obj_add(~uf_cellar_coord(32, 13), bronze_platebody, 1, ^uf_cellar_obj_duration);
 obj_add(~uf_cellar_coord(32, 13), bronze_sq_shield, 1, ^uf_cellar_obj_duration);
 obj_add(~uf_cellar_coord(32, 13), bronze_sword, 1, ^uf_cellar_obj_duration);
 p_delay(2);
-%varclient_1007 = 6;
+%tutorial3_cutscene_tracker = 6;
 // Shot 6: Sir Vant swings at the dragon over the wall, a crouch then a leap with his sword up
 // (4KO2 @38.0-38.8): seq 12232 move for move (frames on skeleton base_0; 38 frames, 91 cycles,
 // its own clang at frame 23), its leap 0.6 s in as 2011's is 0.6 s into the shot (ufactor).
-if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8851, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_battle, 2, 0) = true) {
     npc_anim(seq_12232, 0);
 }
 p_delay(6);
-%varclient_1007 = 7;
+%tutorial3_cutscene_tracker = 7;
 // Shot 7 finds the player at the wall panicking (4KO2 @41.6-44.1): hands to head, a jump with
 // arms straight up, a crouch on landing, then one arm waving. That is seq 12270 move for move
 // (frames on skeleton base_0, the player's and the squire's; 51 frames, 102 cycles): played on
 // the player in-client (ufpanic) its jump peaks 0.5 s in, as 2011's does 0.5 s into the shot.
 anim(seq_12270, 0);
 p_delay(3);
-%varclient_1007 = 8;
+%tutorial3_cutscene_tracker = 8;
 // Shot 8 (@44.1-46.5): the dragon close, turning away from the wall, wings folded. It is back at the
 // wall over Sir Vant in shot 10 (@51.9-53.7) and stays there into the next stage (vGlx_SDOI7s), so
 // it turns away here and back by shot 10; it is not seen to leave the wall. Fitted, not read from
 // a source.
-if (npc_find(~uf_cellar_coord(32, 20), dragon_8858, 6, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 20), tutorial3_dragon_initial, 6, 0) = true) {
     npc_facesquare(~uf_cellar_coord(37, 24));
 }
 p_delay(3);
-%varclient_1007 = 9;
+%tutorial3_cutscene_tracker = 9;
 // Shot 9 (4KO2h2xPtdM 46.41-51.83, the cut measured to 10 ms against ours): goblin 8862 stands
 // hunched at the stone pillar's west side (32, 11) from ~0.5 s in, starts to walk on the shot's
 // tick 4 (@48.24), says "Ooh, shiny!" a tick later (overhead first on frame @49.5; the 2011 wiki's
@@ -175,28 +175,28 @@ p_delay(3);
 //   feet within a few pixels of 2011's).
 // - Its hunch, at the pillar and in the bag: seq 12301, the one seq on its skeleton (base 1415)
 //   in Unstable Foundations' id range (12226-12280 are the cutscene's others); a 32-frame loop.
-npc_add(~uf_cellar_coord(31, 12), goblin_8862, ^uf_cellar_obj_duration);
+npc_add(~uf_cellar_coord(31, 12), tutorial3_goblin, ^uf_cellar_obj_duration);
 npc_setmode(none);
 npc_facesquare(~uf_cellar_coord(32, 13));
 npc_anim(seq_12301, 0);
-if (npc_find(~uf_cellar_coord(32, 20), dragon_8858, 6, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 20), tutorial3_dragon_initial, 6, 0) = true) {
     npc_facesquare(~uf_cellar_coord(32, 16));
 }
 p_delay(3);
-if (npc_find(~uf_cellar_coord(31, 12), goblin_8862, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(31, 12), tutorial3_goblin, 2, 0) = true) {
     npc_anim(null, 0);
     npc_walk(~uf_cellar_coord(34, 13));
 }
 p_delay(0);
-if (npc_find(~uf_cellar_coord(32, 13), goblin_8862, 3, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 13), tutorial3_goblin, 3, 0) = true) {
     npc_say("Ooh, shiny!");
     sound_speech_volume(vorbis_1215, 1, 0, 255);
     // Then it mutters as it rummages (uf_goblin.rs2), from the tick after.
     npc_settimer(1);
 }
 p_delay(3);
-%varclient_1007 = 10;
-if (npc_find(~uf_cellar_coord(34, 13), goblin_8862, 2, 0) = true) {
+%tutorial3_cutscene_tracker = 10;
+if (npc_find(~uf_cellar_coord(34, 13), tutorial3_goblin, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(35, 13));
     npc_anim(seq_12301, 0);
 }
@@ -206,30 +206,30 @@ if (npc_find(~uf_cellar_coord(34, 13), goblin_8862, 2, 0) = true) {
 // His shock chathead: ranked first of nine against 4KO2's s003 frames by shape (0.096 against
 // 0.157 next) and by DINOv2 (0.068 against 0.075).
 split_init("<p,shock>I need some help over here!", 380, 4, q8_full);
-if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8851, 2, 0) = true) {
-    ~chatnpc_page("Sir Vant", sir_vant_8850, 0);
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_battle, 2, 0) = true) {
+    ~chatnpc_page("Sir Vant", tutorial3_knight_waitingforbattle, 0);
     sound_speech_volume(vorbis_882, 1, 0, 255);
 }
 p_delay(2);
 ~uf_cutscene_close;
-if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8851, 2, 0) = true) {
-    npc_changetype(sir_vant_8850, ^uf_cellar_obj_duration);
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_battle, 2, 0) = true) {
+    npc_changetype(tutorial3_knight_waitingforbattle, ^uf_cellar_obj_duration);
 }
 p_pausebutton;
 if_close;
 // Assist Sir Vant (Task 3501; cs2 4098: 10). Once s003 is read 2011 shows "TASK COMPLETE! Talk to
 // Sir Vant" (Task 3500, 4KO2h2xPtdM @54.8), the yellow ring and arrow at the player's feet again and
 // a yellow arrow over Sir Vant (@57.8; also C-kHSxIgZH0 2010-10-13 @216-220).
-%learning_the_ropes = 10;
+%tutorial = 10;
 %varclient_1425 = 3500;
 ~uf_task_tab;
 ~uf_task_pin;
-if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) = true) {
     hint_npc_slot(0, 0, ^uf_hint_ring);
 }
 
 [proc,uf_squire_say](string $text, vorbis $clip)
-if (npc_find(~uf_cellar_coord(32, 14), squire_8857, 4, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 14), tutorial3_squire, 4, 0) = true) {
     npc_say($text);
     sound_speech_volume($clip, 1, 0, 255);
 }
@@ -246,7 +246,7 @@ if (getwindowmode = 1) {
 }
 
 [proc,uf_cutscene_close]
-%varclient_1007 = 0;
+%tutorial3_cutscene_tracker = 0;
 // The camera comes back through interface 899's own hook: clientscript 2765 runs cam_smoothreset
 // when varc 1007 arrives at 0. Closed in the same tick, 899 was gone before its hook ran and the
 // camera stayed on the last shot (in-client run ufrest10, 2026-11-10: the pillars talk and the

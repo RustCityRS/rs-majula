@@ -8,15 +8,15 @@
 [proc,uf_start]
 ~uf_cellar_enter_at(30, 9);
 // A login in the dragon cutscene starts it again from the talk.
-if (%learning_the_ropes = 9) {
-    %learning_the_ropes = 7;
+if (%tutorial = 9) {
+    %tutorial = 7;
 }
 ~uf_cellar_populate;
 // The side panel opens on the options tab, as 2011's first frame in the cellar shows it
 // (8jKH_7To46o @56, a yellow arrow pointing at the task system tab); the other tabs stay shut
 // until unlocked (uf_tabs.rs2).
 if_settabactive(12);
-if (%learning_the_ropes < 7) {
+if (%tutorial < 7) {
     ~uf_controls_open;
 }
 ~uf_task_pin;
@@ -29,20 +29,20 @@ if (%learning_the_ropes < 7) {
 // step left it for a login mid-tutorial (where 2011 put such a player: no source found).
 [proc,uf_cellar_populate]
 // A login in the sleep cutscene starts it again from the meat.
-if (%learning_the_ropes = 82 | %learning_the_ropes = 83) {
-    %learning_the_ropes = 80;
-    %varplayerbit_6487 = 0;
-    if (inv_total(inv, drugged_meat) = 0) {
-        inv_add(inv, drugged_meat, 1);
+if (%tutorial = 82 | %tutorial = 83) {
+    %tutorial = 80;
+    %tutorial3_meatplacement = 0;
+    if (inv_total(inv, tutorial3_meat) = 0) {
+        inv_add(inv, tutorial3_meat, 1);
     }
 }
-def_int $p = %learning_the_ropes;
+def_int $p = %tutorial;
 // Sir Vant in the start room's north doorway and his squire south of it: the 2011 minimaps put
 // them on (32, 16) and (33, 15) (4KO2h2xPtdM and VwpdbjfigD4, fitted against ours), and the 3D
 // view shows the knight in the doorway. Of cache 786's six Sir Vants, 8850 (bas_1614) is the one
 // holding his orange shield up in front, feet wide, as 2011's does (4KO2h2xPtdM 9-14 s).
 if ($p < 90) {
-    npc_add(~uf_cellar_coord(32, 16), sir_vant_8850, 0);
+    npc_add(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 0);
     npc_setmode(none);
     // Until the camera is turned a hint points the new player at Sir Vant: the yellow ring and
     // arrow at their feet (vGlx_SDOI7s 2011-02-28 @13.6-15.6; gone once Rotate Your Camera is
@@ -52,18 +52,18 @@ if ($p < 90) {
     }
 }
 if ($p < 9) {
-    npc_add(~uf_cellar_coord(33, 15), squire_8857, 0);
+    npc_add(~uf_cellar_coord(33, 15), tutorial3_squire, 0);
     npc_setmode(none);
 }
 if ($p >= 10) {
     // The dragon's fire burnt the ladder (shot 5).
-    if (loc_find(~uf_cellar_coord(32, 12), ladder_45785) = true) {
-        loc_change(ladder_45786, ^uf_cellar_obj_duration);
+    if (loc_find(~uf_cellar_coord(32, 12), tutorial3_cellar_ladder) = true) {
+        loc_change(tutorial3_cellar_ladder_breaking, ^uf_cellar_obj_duration);
     }
 }
 if ($p >= 10 & $p < 90) {
     // At the wall over Sir Vant, as the cutscene leaves it.
-    npc_add(~uf_cellar_coord(30, 18), dragon_8858, 0);
+    npc_add(~uf_cellar_coord(30, 18), tutorial3_dragon_initial, 0);
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(32, 16));
 }
@@ -78,7 +78,7 @@ if ($p >= 90 & $p < 117) {
 }
 if ($p >= 90 & $p < 117) {
     // By the pillars from the sleep cutscene on.
-    npc_add(~uf_cellar_coord(26, 30), sir_vant_8850, 0);
+    npc_add(~uf_cellar_coord(26, 30), tutorial3_knight_waitingforbattle, 0);
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(24, 31));
     if ($p = 93) {
@@ -88,7 +88,7 @@ if ($p >= 90 & $p < 117) {
 }
 if ($p >= 10 & $p < 45) {
     // At Sir Vant's bag, as the cutscene leaves it.
-    npc_add(~uf_cellar_coord(34, 13), goblin_8862, 0);
+    npc_add(~uf_cellar_coord(34, 13), tutorial3_goblin, 0);
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(35, 13));
     npc_settimer(1);
@@ -120,33 +120,33 @@ if ($p >= 117) {
     // After the roof came down: Roddeck's cellar in the region, Sir Vant by the rubble, Roddeck
     // out of his cupboard (uf_collapse.rs2).
     ~uf_cellar_collapsed;
-    npc_add(~uf_cellar_coord(28, 31), sir_vant_8850, 0);
+    npc_add(~uf_cellar_coord(28, 31), tutorial3_knight_waitingforbattle, 0);
     npc_setmode(none);
-    npc_add(~uf_cellar_coord(32, 32), roddeck, 0);
+    npc_add(~uf_cellar_coord(32, 32), tutorial3_advisor_walkoverrocks, 0);
     npc_setmode(none);
-    if (%learning_the_ropes = 117) {
-        %learning_the_ropes = 120;
+    if (%tutorial = 117) {
+        %tutorial = 120;
     }
-    if (%learning_the_ropes >= 160) {
-        if (loc_find(~uf_cellar_coord(14, 35), rock_45595) = true & %varplayerbit_6495 <= 1) {
-            loc_change(hole_45597, ^uf_cellar_obj_duration);
+    if (%tutorial >= 160) {
+        if (loc_find(~uf_cellar_coord(14, 35), tutorial3_mine_wall_start) = true & %tutorial3_tool <= 1) {
+            loc_change(tutorial3_mine_wall_end, ^uf_cellar_obj_duration);
         }
-        if (loc_find(~uf_cellar_coord(14, 38), roots_45598) = true & %varplayerbit_6495 >= 2) {
-            loc_change(hole_45600, ^uf_cellar_obj_duration);
+        if (loc_find(~uf_cellar_coord(14, 38), tutorial3_vine_wall_start) = true & %tutorial3_tool >= 2) {
+            loc_change(tutorial3_vine_wall_end, ^uf_cellar_obj_duration);
         }
     }
 }
 // How long 2011 left the plank on the floor: no source found. Players pick it up minutes in
 // (Kw7h2jY9ANQ @265 s), so it stays for the cellar's life.
-if ($p < 75 & inv_total(inv, plank_15276) = 0) {
-    obj_add(~uf_cellar_coord(35, 15), plank_15276, 1, ^uf_cellar_obj_duration);
+if ($p < 75 & inv_total(inv, tutorial3_plank) = 0) {
+    obj_add(~uf_cellar_coord(35, 15), tutorial3_plank, 1, ^uf_cellar_obj_duration);
 }
 
 // ::ufstage <n> puts you in a fresh cellar at step n of varp 281, as a login there would.
 [debugproc,ufstage](int $n)
 if_close;
 if (p_finduid(uid) = false) { return; }
-%learning_the_ropes = $n;
+%tutorial = $n;
 ~uf_start;
 ~initalltabs;
 
@@ -223,15 +223,15 @@ npc_setmode(none);
 [debugproc,ufhead](int $n)
 if (p_finduid(uid) = false) { return; }
 switch_int ($n) {
-    case 1 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Wait a moment - there's a dragon coming!");
-    case 2 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,shock>Wait a moment - there's a dragon coming!");
-    case 3 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,scared>Wait a moment - there's a dragon coming!");
-    case 4 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,confused>Wait a moment - there's a dragon coming!");
-    case 5 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,angry>Wait a moment - there's a dragon coming!");
-    case 6 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,quiz>Wait a moment - there's a dragon coming!");
-    case 7 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,happy>Wait a moment - there's a dragon coming!");
-    case 8 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,sad>Wait a moment - there's a dragon coming!");
-    case 9 : ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,bored>Wait a moment - there's a dragon coming!");
+    case 1 : ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Wait a moment - there's a dragon coming!");
+    case 2 : ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,shock>Wait a moment - there's a dragon coming!");
+    case 3 : ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,scared>Wait a moment - there's a dragon coming!");
+    case 4 : ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,confused>Wait a moment - there's a dragon coming!");
+    case 5 : ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,angry>Wait a moment - there's a dragon coming!");
+    case 6 : ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,quiz>Wait a moment - there's a dragon coming!");
+    case 7 : ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,happy>Wait a moment - there's a dragon coming!");
+    case 8 : ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,sad>Wait a moment - there's a dragon coming!");
+    case 9 : ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,bored>Wait a moment - there's a dragon coming!");
 }
 
 [debugproc,ufheadp](int $n)
@@ -259,7 +259,7 @@ if (getwindowmode = 1) {
 } else {
     if_opensub(tutorial3_cutscenes, toplevel_fullscreen:mainoverlay);
 }
-%varclient_1007 = $n;
+%tutorial3_cutscene_tracker = $n;
 
 // ::ufcreated, with character creation open, queues what an accepted name queues (cc_name.rs2's
 // cc_name_loop): for a test account that already owns its name, which the name page refuses.
@@ -347,7 +347,7 @@ anim($seq, 0);
 if_settext(music_v3:now_playing_text, db_getfield($song, music:name, 0));
 %currentsong = db_getfield($song, music:track, 0);
 %musicstart = map_clock;
-%musiclength = midi_length(%currentsong);
+%varplayer_415 = midi_length(%currentsong);
 midi_song(%currentsong);
 
 // ::ufvanttype <npc> turns Sir Vant into one of cache 786's other Sir Vants (8851-8853, each
@@ -357,7 +357,7 @@ if (region_findbycoord(coord) = false) {
     mes("Not in a cellar: ::ufcellar first.");
     return;
 }
-if (npc_find(coord, sir_vant_8850, 32, 0) = true) {
+if (npc_find(coord, tutorial3_knight_waitingforbattle, 32, 0) = true) {
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(32, 20));
     npc_changetype($type, 200);
@@ -379,7 +379,7 @@ if (region_findbycoord(coord) = false) {
     mes("Not in a cellar: ::ufcellar first.");
     return;
 }
-if (npc_find(coord, sir_vant_8850, 32, 0) = true) {
+if (npc_find(coord, tutorial3_knight_waitingforbattle, 32, 0) = true) {
     hint_npc_slot(0, $icon, $model);
 }
 
@@ -436,13 +436,13 @@ while ($level < 4) {
 // the pillar), and stage 2's start room has a plain barrel where the bag was: so the bag takes the
 // barrel's place, as the barrel stands (angle 3: the sack on its north side, as @234.6 shows).
 [proc,uf_bag_by_pillars]
-if (loc_find(~uf_cellar_coord(27, 29), barrel_45654) = true) {
-    loc_change(sir_vant_s_bag, ^uf_cellar_obj_duration);
+if (loc_find(~uf_cellar_coord(27, 29), tutorial3_barrel) = true) {
+    loc_change(tutorial3_knights_bag, ^uf_cellar_obj_duration);
 }
 
 // The dragon asleep on its nest's corner (18, 33), lying as the sleep cutscene's lie-down ends:
 // facing north, its head to the north side (4KO2h2xPtdM 2011-04-30 @229.05-231.0, uf_sleep.rs2).
 [proc,uf_dragon_asleep]
-npc_add(~uf_cellar_coord(18, 33), dragon_8861, 0);
+npc_add(~uf_cellar_coord(18, 33), tutorial3_dragon_sleeping, 0);
 npc_setmode(none);
 npc_facesquare(~uf_cellar_coord(20, 42));

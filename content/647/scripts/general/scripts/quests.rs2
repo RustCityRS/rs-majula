@@ -84,7 +84,7 @@ if ($questpointrecount ! %qp) {
 [proc,count_questpoints]()(int)
 def_int $questpoints = 0;
 // Unstable Foundations, 2011's tutorial: 1 quest point (quest config 131, done at 1000).
-if (%learning_the_ropes >= 1000) {
+if (%tutorial >= 1000) {
     $questpoints = add($questpoints, 1);
 }
 if (%runemysteries = ^runemysteries_complete) {

@@ -10,35 +10,35 @@
 // meat (op Search).
 
 // The meat in the bowl.
-[oplocu,dragon_s_food_bowl]
-if (last_useitem ! drugged_meat) {
+[oplocu,tutorial3_foodbowl_empty_big]
+if (last_useitem ! tutorial3_meat) {
     // N48 (clip 1737) is for an item on the dragon; for the bowl, the default.
     ~displaymessage(^dm_default);
     return;
 }
-if (%learning_the_ropes ! 80) {
+if (%tutorial ! 80) {
     ~displaymessage(^dm_default);
     return;
 }
 anim(human_pickuptable, 0);
 p_delay(0);
-inv_del(inv, drugged_meat, 1);
-%varplayerbit_6487 = 1;
-%learning_the_ropes = 82;
+inv_del(inv, tutorial3_meat, 1);
+%tutorial3_meatplacement = 1;
+%tutorial = 82;
 ~uf_task_pin;
 ~uf_hint_box_close;
 sound_speech_volume(vorbis_715, 1, 0, 255);
 // s019's box has no "Click here to continue" (4KO2h2xPtdM @199.07-202.67): it stays up while the
 // player runs to hide, with no click (the cursor still @200.6-202.4), until the cutscene cuts in.
 split_init("<p,shock>It's smelled the meat! Hide!", 380, 4, q8_full);
-~chatnpc_cutscene_page("Sir Vant", sir_vant_8850, 0);
+~chatnpc_cutscene_page("Sir Vant", tutorial3_knight_waitingforbattle, 0);
 ~uf_sleep_cutscene;
 
 // Searching the bowl once the meat is in: V106 (clip 992; V107, clip 703, is another take of the
 // same line). Texts from the takes: no recording shows the box.
-[oploc1,dragon_s_food_bowl_1761]
+[oploc1,tutorial3_foodbowl_full_big]
 sound_speech_volume(vorbis_992, 1, 0, 255);
-~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>You've already lured the dragon to the right place. We don't need to mess around with its food anymore.");
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You've already lured the dragon to the right place. We don't need to mess around with its food anymore.");
 
 // The hiding place: "your character will run to a hole" (the 2011 wiki, Unstable Foundations,
 // 2011-05-05). The hole is the wooden recess in the wall south of the nest, cache 786's (20, 29):
@@ -53,7 +53,7 @@ sound_speech_volume(vorbis_992, 1, 0, 255);
 if (region_findbycoord(coord) = false) {
     return;
 }
-%learning_the_ropes = 83;
+%tutorial = 83;
 // The player stands ~1.5 s with the box up, then runs (@199.07-200.6); the cutscene cuts in 6 ticks
 // after the box (@202.67), the run all but over.
 p_delay(1);
@@ -61,11 +61,11 @@ p_walk(~uf_cellar_coord(20, 29));
 p_delay(3);
 if_close;
 ~uf_cutscene_open;
-%varclient_1007 = 101;
+%tutorial3_cutscene_tracker = 101;
 // Shot 101 (6 ticks): Sir Vant at the wall, "Grub's up! Shoo!" (@204-205, V23 clip 850), his back
 // to the camera and his face to the dragon over the wall (@205.6).
 p_delay(0);
-if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(32, 20));
     npc_say("Grub's up! Shoo!");
     sound_speech_volume(vorbis_850, 1, 0, 255);
@@ -75,15 +75,15 @@ p_delay(4);
 // wall: the dragon turns from the wall and goes. The doorway Sir Vant stood in is empty by the
 // shot's end (@210.5-211.0), and no shot shows him again until 107, by his bag: where he is
 // meanwhile, no recording shows. Here he leaves the cellar at the cut and is added back for 107.
-%varclient_1007 = 102;
+%tutorial3_cutscene_tracker = 102;
 // In the hole by now, turned to face out of it (@245.4).
 facesquare(~uf_cellar_coord(20, 30));
-if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 6, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 6, 0) = true) {
     npc_del;
 }
 // The dragon still faces the wall @207.0 and turns from it @208.5.
 p_delay(1);
-if (npc_find(~uf_cellar_coord(30, 18), dragon_8858, 4, 0) = true) {
+if (npc_find(~uf_cellar_coord(30, 18), tutorial3_dragon_initial, 4, 0) = true) {
     npc_walk(~uf_cellar_coord(30, 26));
 }
 p_delay(5);
@@ -94,18 +94,18 @@ p_delay(5);
 // (@215.8), so about (29, 31) (by the shot's view angles); and 105 opens with it under the camera
 // on (32, 31). Its way north is x 29 (a size-5 body on x 30 would meet the barrel and crates on
 // x 34, z 33-37: l57_77).
-%varclient_1007 = 103;
-if (npc_find(~uf_cellar_coord(30, 26), dragon_8858, 8, 0) = true) {
+%tutorial3_cutscene_tracker = 103;
+if (npc_find(~uf_cellar_coord(30, 26), tutorial3_dragon_initial, 8, 0) = true) {
     npc_walk(~uf_cellar_coord(29, 31));
 }
 p_delay(6);
-%varclient_1007 = 104;
+%tutorial3_cutscene_tracker = 104;
 p_delay(0);
 // Two steps more north, facing north as 104 shows it (@215.8), to the nest's row, z 33: from there
 // its walk west is straight, its last step west, so it stops facing the bowl. Walked from z 31,
 // its path went west first and ended on a step north, turning it side-on on the nest (headless
 // path log; in-client runs ufrest16-18).
-if (npc_find(~uf_cellar_coord(29, 31), dragon_8858, 8, 0) = true) {
+if (npc_find(~uf_cellar_coord(29, 31), tutorial3_dragon_initial, 8, 0) = true) {
     npc_walk(~uf_cellar_coord(29, 33));
 }
 p_delay(0);
@@ -120,27 +120,27 @@ p_delay(0);
 // uf_nest2_probe (B: facing north with 14260 ends as @231.0 does). The turns a tick apart from
 // @227.25 reach south, east and north at 2011's times (in-client run ufrest16); 14260 with the
 // turn east is to lie it flat by @230.8 (with the turn north, run 16, it was ~0.5 s late).
-%varclient_1007 = 105;
+%tutorial3_cutscene_tracker = 105;
 p_delay(0);
 // West to the nest, there by 105's 12th tick (@223.4 in 2011, ~7 s in). Its face target is the
 // bowl, so it stays facing it: the one it kept from the dragon cutscene (Sir Vant's (32, 16))
 // turned it on the nest (runs ufrest16 and 17).
-if (npc_find(~uf_cellar_coord(29, 33), dragon_8858, 8, 0) = true) {
+if (npc_find(~uf_cellar_coord(29, 33), tutorial3_dragon_initial, 8, 0) = true) {
     npc_facesquare(~uf_cellar_coord(17, 35));
     npc_walk(~uf_cellar_coord(18, 33));
 }
 p_delay(16);
 // The nest's middle is (20, 35).
-if (npc_find(~uf_cellar_coord(18, 33), dragon_8858, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_initial, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(20, 28));
 }
 p_delay(0);
-if (npc_find(~uf_cellar_coord(18, 33), dragon_8858, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_initial, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(27, 35));
     npc_anim(seq_14260, 0);
 }
 p_delay(0);
-if (npc_find(~uf_cellar_coord(18, 33), dragon_8858, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_initial, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(20, 42));
 }
 p_delay(4);
@@ -149,9 +149,9 @@ p_delay(4);
 // stays: an npc moved by a script walks back to where it was added once its mode goes back to
 // its default (run ufrest15: Sir Vant teleported to the pillars was back in the doorway for the
 // sabotage, where 2011 has him by the pillars @244-366).
-%varclient_1007 = 106;
+%tutorial3_cutscene_tracker = 106;
 p_delay(1);
-if (npc_find(~uf_cellar_coord(18, 33), dragon_8858, 8, 0) = true) {
+if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_initial, 8, 0) = true) {
     npc_del;
 }
 ~uf_dragon_asleep;
@@ -162,31 +162,31 @@ if (npc_find(~uf_cellar_coord(18, 33), dragon_8858, 8, 0) = true) {
 // (@234.6-237.6). He is added on his place by the pillars (26, 30), as a login after the cutscene
 // finds him (uf_cellar.rs2), and stands at the bag for the shot.
 ~uf_bag_by_pillars;
-npc_add(~uf_cellar_coord(26, 30), sir_vant_8850, 0);
+npc_add(~uf_cellar_coord(26, 30), tutorial3_knight_waitingforbattle, 0);
 npc_setmode(none);
 npc_tele(~uf_cellar_coord(28, 30));
 npc_facesquare(~uf_cellar_coord(27, 29));
 p_delay(2);
 // Shot 107 (from @234.53): s020 (V88 clip 958) ~4 ticks in, the cutscene open until it is
 // continued.
-%varclient_1007 = 107;
+%tutorial3_cutscene_tracker = 107;
 p_delay(1);
-if (npc_find(~uf_cellar_coord(28, 30), sir_vant_8850, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(28, 30), tutorial3_knight_waitingforbattle, 2, 0) = true) {
     npc_walk(~uf_cellar_coord(26, 30));
 }
 p_delay(1);
-%learning_the_ropes = 93;
+%tutorial = 93;
 %varclient_1425 = 3510;
 ~uf_task_tab;
 ~uf_task_pin;
 sound_speech_volume(vorbis_958, 1, 0, 255);
 split_init("<p,neutral>Well done. Come out of hiding and I'll tell you what we're doing next.", 380, 4, q8_full);
-~chatnpc_page("Sir Vant", sir_vant_8850, 0);
+~chatnpc_page("Sir Vant", tutorial3_knight_waitingforbattle, 0);
 p_pausebutton;
 if_close;
 // The camera back on the player in the hole (@245.4); they walk out to Sir Vant themselves.
 ~uf_cutscene_close;
-if (npc_find(~uf_cellar_coord(26, 30), sir_vant_8850, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(26, 30), tutorial3_knight_waitingforbattle, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(24, 31));
     hint_npc_slot(0, 0, ^uf_hint_ring);
 }

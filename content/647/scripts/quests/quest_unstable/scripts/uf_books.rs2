@@ -12,22 +12,22 @@
 //   post-scriptum is there only once the tutorial is done ("only for accounts that completed the
 //   tutorial", the same page's later text: the 2011 one does not say).
 
-[opheld1,roddeck_s_diary]
+[opheld1,tutorial3_diary]
 %book_page = 0;
-%open_book = roddeck_s_diary;
-if (%learning_the_ropes >= 1000) {
+%open_book = tutorial3_diary;
+if (%tutorial >= 1000) {
     @book_flip_page(0, 0, 9, uf_diary_book);
 }
 @book_flip_page(0, 0, 7, uf_diary_book);
 
-[opheld1,manual_15671]
+[opheld1,tutorial3_book]
 %book_page = 0;
-%open_book = manual_15671;
+%open_book = tutorial3_book;
 @book_flip_page(0, 0, 3, uf_manual_book);
 
 // The spread's clip, in the tutorial only.
 [proc,uf_book_voice](enum $voices)
-if (%learning_the_ropes >= 5 & %learning_the_ropes < 1000) {
+if (%tutorial >= 5 & %tutorial < 1000) {
     sound_speech_volume(enum(int, vorbis, $voices, calc(%book_page + 1)), 1, 0, 255);
 }
 

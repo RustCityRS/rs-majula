@@ -5,7 +5,7 @@
 
 // The crate of cabbages (crate_49100, cache 786's l57_77 local 42,35): s050 @513.7, a cabbage in
 // the box (clip 1561); the player already holding one (1381) or with a full pack (1701).
-[oploc1,crate_49100]
+[oploc1,tutorial3_cellar_crate_cabbage]
 if (inv_total(inv, cabbage) > 0) {
     sound_speech_volume(vorbis_1381, 1, 0, 255);
     ~objbox(cabbage, "It's full of cabbages. You've already got one.", 250, 0, 0);
@@ -26,14 +26,14 @@ sound_speech_volume(vorbis_1561, 1, 0, 255);
 // bookcase stands in Roddeck's house in Lumbridge (l50_50 local 32,36): what it said there after
 // the tutorial, no source; 289's bookcase search.
 [oploc1,bookcase_49101]
-if (%learning_the_ropes < 5 | %learning_the_ropes >= 1000) {
+if (%tutorial < 5 | %tutorial >= 1000) {
     @search_bookcase;
 }
 def_int $missing = 0;
-if (inv_total(inv, roddeck_s_diary) = 0) {
+if (inv_total(inv, tutorial3_diary) = 0) {
     $missing = calc($missing + 1);
 }
-if (inv_total(inv, manual_15671) = 0) {
+if (inv_total(inv, tutorial3_book) = 0) {
     $missing = calc($missing + 1);
 }
 // Both already held: no clip answers a second search; 289's.
@@ -43,26 +43,26 @@ if ($missing = 0) {
 def_int $space = inv_freespace(inv);
 if ($missing = 2) {
     if ($space >= 2) {
-        inv_add(inv, roddeck_s_diary, 1);
-        inv_add(inv, manual_15671, 1);
+        inv_add(inv, tutorial3_diary, 1);
+        inv_add(inv, tutorial3_book, 1);
         sound_speech_volume(vorbis_1345, 1, 0, 255);
-        ~doubleobjbox(roddeck_s_diary, manual_15671, "You find a couple of books and take them.", 250);
+        ~doubleobjbox(tutorial3_diary, tutorial3_book, "You find a couple of books and take them.", 250);
         return;
     }
     if ($space = 1) {
         // Which book comes first: no source; the diary, Roddeck's own.
-        inv_add(inv, roddeck_s_diary, 1);
+        inv_add(inv, tutorial3_diary, 1);
         sound_speech_volume(vorbis_1592, 1, 0, 255);
-        ~objbox(roddeck_s_diary, "There are a couple of interesting looking books on the shelf, but you only have room to take one of them.", 250, 0, 0);
+        ~objbox(tutorial3_diary, "There are a couple of interesting looking books on the shelf, but you only have room to take one of them.", 250, 0, 0);
         return;
     }
     sound_speech_volume(vorbis_1385, 1, 0, 255);
     ~mesbox("There are a couple of interesting looking books on the shelf, but you don't have room to hold them.");
     return;
 }
-def_obj $book = roddeck_s_diary;
-if (inv_total(inv, roddeck_s_diary) > 0) {
-    $book = manual_15671;
+def_obj $book = tutorial3_diary;
+if (inv_total(inv, tutorial3_diary) > 0) {
+    $book = tutorial3_book;
 }
 if ($space = 0) {
     sound_speech_volume(vorbis_1530, 1, 0, 255);
@@ -76,7 +76,7 @@ sound_speech_volume(vorbis_1419, 1, 0, 255);
 // Eating in the tutorial (consume_effects.rs2): s051 "You eat the cabbage." @515.5, a cabbage in
 // the box (clip 1595); with life points restored, 1615. Other food in the cellar: none to eat.
 [proc,uf_ate](obj $food, boolean $healed)(boolean)
-if (%learning_the_ropes < 5 | %learning_the_ropes >= 1000 | $food ! cabbage) {
+if (%tutorial < 5 | %tutorial >= 1000 | $food ! cabbage) {
     return(false);
 }
 if ($healed = true) {
@@ -91,7 +91,7 @@ return(true);
 // Dropping in the tutorial (drop.rs2): s077 @576, the stone chippings dropped, a box with them
 // (clip 1669). Every drop, or the first only: one recording, one drop.
 [proc,uf_dropped](obj $obj)
-if (%learning_the_ropes < 5 | %learning_the_ropes >= 1000 | $obj = null) {
+if (%tutorial < 5 | %tutorial >= 1000 | $obj = null) {
     return;
 }
 sound_speech_volume(vorbis_1669, 1, 0, 255);
@@ -102,8 +102,8 @@ sound_speech_volume(vorbis_1669, 1, 0, 255);
 // Roddeck's diary, revision of 2011-03-13), the narrator's N9 (clip 1558). After the tutorial it
 // is taken as any book (the same page). A game message, as the page words it: no recording shows
 // whether it is that or a box.
-[opobj3,roddeck_s_diary]
-if (%learning_the_ropes >= 5 & %learning_the_ropes < 1000) {
+[opobj3,tutorial3_diary]
+if (%tutorial >= 5 & %tutorial < 1000) {
     sound_speech_volume(vorbis_1558, 1, 0, 255);
     mes("You won't be needing that again.");
     return;

@@ -205,7 +205,7 @@ if (npc_type = vampire_slayer_qip_count) {
 
 // Unstable Foundations' goblin has Attack as op 1 (cache 786; quest_unstable/uf_gear.rs2 checks
 // the squire's kit first).
-if (npc_type = goblin_8862) {
+if (npc_type = tutorial3_goblin) {
     return(true);
 }
 if (npc_hasop(2) = true) {

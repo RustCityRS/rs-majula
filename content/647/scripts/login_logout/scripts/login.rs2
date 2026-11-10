@@ -45,7 +45,7 @@ if (%tutorial = 0) {
 }
 ~open_game_frame()
 ~login_finish()
-if (%learning_the_ropes < 1000) {
+if (%tutorial < 1000) {
     // Where 2011 put a player who logged out mid-tutorial: no source found. A fresh cellar.
     ~uf_start;
     return;

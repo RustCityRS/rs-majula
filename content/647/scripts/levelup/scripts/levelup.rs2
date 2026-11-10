@@ -29,13 +29,13 @@ if ($unlock_row = null) {
 }
 def_int $level = stat_base($stat);
 // Task 425 "How To Train and Level" at Mining 2 (tasks/task_system.rs2), queued behind the boxes.
-if ($stat = mining & $level >= 2 & %varplayerbit_9018 = 0) {
+if ($stat = mining & $level >= 2 & %task_tut4_how_to_2 = 0) {
     queue(task_how_to_train_and_level, 0, 0);
 }
 // In Unstable Foundations' cellar the level comes as a plain box: s068 / s069 "Congratulations:
 // You have reached level 2 Mining." (4KO2h2xPtdM @568, 11 and 10 of 31 recordings), before
 // Roddeck's word; no level-up window.
-if (%learning_the_ropes >= 5 & %learning_the_ropes < 1000) {
+if (%tutorial >= 5 & %tutorial < 1000) {
     spotanim_pl(levelup_anim, 124, 0);
     ~mesbox("Congratulations: You have reached level <tostring($level)> <~stat_name($stat)>.");
     return;

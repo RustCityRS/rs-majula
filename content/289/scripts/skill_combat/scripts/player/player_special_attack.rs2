@@ -7,7 +7,7 @@ if (~sa_enough_energy = false) {
     return;
 }
 if (%action_delay > map_clock) {
-    p_opnpc(~npc_attack_op);
+    p_opnpc(2);
     return;
 }
 if (npc_stat(hitpoints) = 0) {
@@ -16,7 +16,7 @@ if (npc_stat(hitpoints) = 0) {
 }
 def_obj $weapon = inv_getobj(worn, ^wearpos_rhand);
 %action_delay = add(map_clock, oc_param($weapon, attackrate));
-p_opnpc(~npc_attack_op);
+p_opnpc(2);
 switch_obj($weapon) {
     case dragon_dagger, dragon_dagger_p : @pvm_dragon_dagger_sa;
     case dragon_longsword : @pvm_dragon_longsword_sa;
