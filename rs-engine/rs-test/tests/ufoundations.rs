@@ -44,6 +44,7 @@ const CUTSCENES: u16 = 899;
 /// The cutscene camera's shot (cs2 2765, on interface 899).
 const SHOT: u16 = 1007;
 const TASK_SIDE: u16 = 1056;
+const COMBAT_SIDE: u16 = 884;
 /// The task system's pinned Task (cs2 3973 draws it).
 const PINNED_TASK: u16 = 8576;
 /// The task system popup's Task (cs2 3968).
@@ -202,6 +203,15 @@ fn hints(packets: &[(u16, Vec<u8>)]) -> Vec<(u8, u8, u16)> {
         .filter(|(op, _)| *op == ServerProt::HintArrow as u16)
         .map(|(_, b)| (b[0] >> 5, b[0] & 0x1F, u16::from_be_bytes([b[10], b[11]])))
         .collect()
+}
+
+/// Whether `packets` run clientscript 115 (switchside) with side 1, the task system.
+fn switched_to_task(packets: &[(u16, Vec<u8>)]) -> bool {
+    packets.iter().any(|(op, b)| {
+        *op == ServerProt::RunClientScript as u16
+            && b.len() >= 8
+            && b[b.len() - 8..] == [0, 0, 0, 1, 0, 0, 0, 115]
+    })
 }
 
 /// The hint ring (cache 786 model 40497), as uf.constant's ^uf_hint_ring.
@@ -795,10 +805,13 @@ fn the_squires_gear_and_the_goblin() {
             cycles(engine, &mut client, 2);
             if i < 2 {
                 assert_eq!(progress(engine, &client), 25 + 5 * i as i32);
+                // Combat comes with the sword in hand (4KO2h2xPtdM @82.00), worn last here.
+                assert!(!is_open(engine, &client, COMBAT_SIDE), "no combat tab yet");
             }
         }
         cycles(engine, &mut client, 2);
         assert_eq!(progress(engine, &client), 35, "Kill the Goblin");
+        assert!(is_open(engine, &client, COMBAT_SIDE), "the combat tab");
         assert!(is_open(engine, &client, 387), "the worn equipment tab");
         assert_eq!(
             varbit(engine, &client, FLASH_SIDE),
@@ -853,6 +866,58 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
         assert_eq!(progress(engine, &client), 50, "Check your Quest Journal");
         assert!(is_open(engine, &client, 190), "the quest list tab");
         assert_eq!(varbit(engine, &client, FLASH_SIDE), 4);
+
+        // The journal (quest list row 131), the world map (548:179, then its close 755:44) and
+        // the compass (548:177 "Face North").
+        let button = |client: &mut HarnessClient, iface: i32, com: i32, slot: i32| {
+            let mut p = ClientPacket::new();
+            p.p4((iface << 16) | com).p2_alt3(NONE).p2_alt1(slot);
+            client.send(ClientProt::IfButton1, &p.finish());
+        };
+        button(&mut client, 190, 18, 131);
+        let journal = cycles(engine, &mut client, 3);
+        assert_eq!(progress(engine, &client), 60, "Check your World Map");
+        assert_eq!(varbit(engine, &client, FLASH_SIDE), 19, "the arrow at the globe");
+        assert!(
+            switched_to_task(&journal),
+            "a new Task brings the panel to the task system (4KO2h2xPtdM @83.75, @103.75)"
+        );
+        engine.harness_close_modal(client.pid);
+        button(&mut client, 548, 179, NONE);
+        let map = cycles(engine, &mut client, 3);
+        // The map opens on the cellar the copy was made from (square 57_77, the "Tutorial
+        // Cellar" areas), not the copy's own tiles, with the arrow at its close button.
+        let here = engine
+            .harness_player(client.pid)
+            .unwrap()
+            .varcs
+            .get(&622)
+            .copied()
+            .unwrap_or(-1);
+        let (hx, hz) = ((here >> 14) & 0x3FFF, here & 0x3FFF);
+        assert!(
+            (57 * 64..58 * 64).contains(&hx) && (77 * 64..78 * 64).contains(&hz),
+            "varc 622 on square 57_77, not the copy: {hx},{hz}"
+        );
+        let closearrow = (755 << 16) | 45;
+        assert!(
+            map.iter().any(|(op, b)| *op == ServerProt::IfSetHide as u16
+                && b.len() >= 4
+                && b[..4]
+                    == [
+                        (closearrow >> 16) as u8,
+                        (closearrow >> 24) as u8,
+                        closearrow as u8,
+                        (closearrow >> 8) as u8
+                    ]),
+            "the arrow at the world map's close button (755:45)"
+        );
+        button(&mut client, 755, 44, NONE);
+        cycles(engine, &mut client, 3);
+        assert_eq!(progress(engine, &client), 62, "Realign your Minimap");
+        button(&mut client, 548, 177, NONE);
+        cycles(engine, &mut client, 3);
+        assert_eq!(progress(engine, &client), 65, "Climb the Wall");
 
         // The bag: one parcel of meat.
         let bag = *engine.cache.locs.debugnames.get("sir_vant_s_bag").unwrap();

@@ -105,7 +105,12 @@ if ($p >= 10 & $p <= 15) {
         obj_add(~uf_cellar_coord(32, 13), bronze_sword, 1, ^uf_cellar_obj_duration);
     }
     if ($p = 15) {
-        hint_coord_slot(0, 0, 2, ~uf_cellar_coord(32, 13), 0, 0, ^uf_hint_ring);
+        if (~uf_kit_held = 3) {
+            // All three already held: on as the third pickup would.
+            ~uf_gear_taken;
+        } else {
+            hint_coord_slot(0, 0, 2, ~uf_cellar_coord(32, 13), 0, 0, ^uf_hint_ring);
+        }
     }
 }
 if ($p >= 117) {

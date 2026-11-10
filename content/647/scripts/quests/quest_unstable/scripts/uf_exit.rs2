@@ -14,6 +14,7 @@
 [proc,uf_kit_returned]
 %learning_the_ropes = 128;
 %varclient_1425 = 3513;
+~uf_task_tab;
 ~uf_task_pin;
 sound_speech_volume(vorbis_861, 1, 0, 255);
 ~chatnpc("<p,neutral>Right, I think that's everything. Now we just need a new way out of the cellar.");
@@ -238,6 +239,7 @@ if ($rocks = true) {
 }
 %learning_the_ropes = 160;
 %varclient_1425 = 3516;
+~uf_task_tab;
 ~uf_task_pin;
 sound_speech_volume(vorbis_947, 1, 0, 255);
 ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Oh, well done! Climb through the hole, and we can all get out of this cellar.");
@@ -286,6 +288,7 @@ if ($rocks = true) {
     if (stat_base(mining) >= 2 & %learning_the_ropes = 140) {
         %learning_the_ropes = 150;
         %varclient_1425 = 3518;
+        ~uf_task_tab;
         ~uf_task_pin;
         sound_speech_volume(vorbis_1074, 1, 0, 255);
         ~chatnpc_specific("Roddeck", roddeck, "<p,neutral>Congratulations, you've reached level 2. You should now be able to mine through the rocks in the damaged wall.");
@@ -308,6 +311,7 @@ if ($rocks = true) {
     if (stat_base(woodcutting) >= 2 & %learning_the_ropes = 140) {
         %learning_the_ropes = 150;
         %varclient_1425 = 3517;
+        ~uf_task_tab;
         ~uf_task_pin;
         sound_speech_volume(vorbis_1142, 1, 0, 255);
         ~chatnpc_specific("Roddeck", roddeck, "<p,neutral>Congratulations, you've reached level 2. You should now be able to chop through the tree roots in the damaged wall.");
@@ -326,5 +330,6 @@ if (%learning_the_ropes < 160) {
 if (%learning_the_ropes < 170) {
     %learning_the_ropes = 170;
     %varclient_1425 = 3514;
+    ~uf_task_tab;
     ~uf_task_pin;
 }

@@ -17,7 +17,7 @@ if (getwindowmode = 1) {
 if_setevents(tutorial3_cameracontrols:listener, 0, 0, calc(^if_op1 | ^if_op2 | ^if_op3 | ^if_op4), 0, 0, false, false);
 // The yellow arrow at the task system tab, flashing it while another tab shows (8jKH_7To46o @56,
 // options open): varbit 3756 is the tab to flash, + 1 (cs2 117 flashside_vartransmit, 2756
-// flashside_arrow); the client drops the arrow while that tab is the one showing.
+// flashside_arrow); clicking that tab stops both (uf_tabs.rs2, uf_side_clicked).
 %varplayerbit_3756 = 2;
 
 [proc,uf_controls_close]
@@ -47,7 +47,16 @@ hint_stop_slot(0);
 %varplayerbit_3756 = 0;
 // Interface 1055 wakes on varc 1425 (cs2 3968) and shows the Task's title under "TASK COMPLETE!".
 %varclient_1425 = 3522;
+~uf_task_tab;
 ~uf_task_pin;
+
+// A new Task brings the side panel round to the task system (slot 1), with no click: 4KO2h2xPtdM
+// (2011-04-30) @83.75 (the inventory showing as "Kill the Goblin" comes) and @103.75 (worn
+// equipment showing, "Find Out Sir Vant's Plan"), the cursor nowhere near the tab, and the Task
+// panel up at every later Task in it (@140, @151, @184, @426). No clientscript switches to slot
+// 1 by itself; switchside (clientscript 115) is the client's own tab switch.
+[proc,uf_task_tab]
+runclientscript("switchside(1)");
 
 // The task system's panel shows the tutorial's current Task (cs2 3973 draws varbit 8576's when
 // varc 1428 arrives): Rotate Your Camera while the overlay is up, then cs2 4098's Task for the

@@ -215,6 +215,7 @@ if_close;
 // a yellow arrow over Sir Vant (@57.8; also C-kHSxIgZH0 2010-10-13 @216-220).
 %learning_the_ropes = 10;
 %varclient_1425 = 3500;
+~uf_task_tab;
 ~uf_task_pin;
 if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 2, 0) = true) {
     hint_npc_slot(0, 0, ^uf_hint_ring);

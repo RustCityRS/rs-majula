@@ -59,6 +59,7 @@ return(region_getcoord(0, calc(16 + $x - 3200), calc(16 + $z - 3232)));
 [proc,uf_complete]
 %learning_the_ropes = 1000;
 %varclient_1425 = 3519;
+~uf_task_tab;
 ~uf_task_pin;
 ~initalltabs;
 mes("Congratulations! Quest complete!");
@@ -131,5 +132,6 @@ sound_speech_volume(vorbis_3177, 1, 0, 255);
 ~chatnpc_specific("Explorer Jack", explorer_jack_13295, "<p,neutral>You'll always earn some money, sometimes additional goodies, and often progress towards a piece of armour with special effects. Look at the Rewards tab for a Task to learn more.");
 %varplayerbit_6494 = 3;
 %varclient_1425 = 3520;
+~uf_task_tab;
 ~uf_task_pin;
 

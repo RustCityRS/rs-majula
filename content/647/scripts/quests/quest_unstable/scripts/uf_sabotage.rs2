@@ -95,6 +95,7 @@ if (%learning_the_ropes = 95) {
     inv_add(inv, sir_vant_s_oil_can, 1);
     %learning_the_ropes = 96;
     %varclient_1425 = 3511;
+    ~uf_task_tab;
     ~uf_task_pin;
     sound_speech_volume(vorbis_1488, 1, 0, 255);
     ~objbox(cloth, "You search Sir Vant's bag and take a selection of supplies.", 250, 0, 0);

@@ -43,9 +43,13 @@ if (add(%lastcombat, 8) > map_clock) {
 if (~uf_worldmap_allowed = false) {
     return;
 }
-%worldmap_focus = coord;
-%worldmap_player_coord = coord;
+// Unstable Foundations' cellar and Explorer Jack's house are copies: the map
+// opens on the tiles they were copied from (quest_unstable/uf_journal.rs2).
+def_coord $here = ~uf_worldmap_coord;
+%worldmap_focus = $here;
+%worldmap_player_coord = $here;
 if_opentop(worldmap);
+~uf_worldmap_opened;
 // The key's option lines (below) send their ops only from the slots enabled
 // here. void-634 enables 0-182, every line of the key; which range 2011 used
 // is not known, and only the option lines (0-19) mean anything to the server.

@@ -51,23 +51,30 @@ hint_stop_slot(0);
 // The arrow at the inventory tab, flashing it while another tab shows (4KO2h2xPtdM @79-80).
 %varplayerbit_3756 = 5;
 %varclient_1425 = 3502;
+~uf_task_tab;
 ~uf_task_pin;
 
 // From equip.rs2, after each piece is put on.
-[proc,uf_gear_worn]
+[proc,uf_gear_worn](obj $obj)
 if (%learning_the_ropes < 20 | %learning_the_ropes > 30) {
     return;
 }
 def_int $worn = ~uf_kit_worn;
+// The combat tab comes with the sword in hand (4KO2h2xPtdM @82.00, the sword leaving the pack the
+// second piece worn: which of the two brings it, that recording cannot tell), worn equipment
+// with the third piece (@83.25, its arrow with it).
+if ($obj = bronze_sword) {
+    ~uf_open_tab(0);
+}
 if ($worn < 3) {
     %learning_the_ropes = calc(20 + 5 * $worn);
     return;
 }
 %learning_the_ropes = 35;
-~uf_open_tab(0);
 ~uf_open_tab(5);
 %varplayerbit_3756 = 6;
 %varclient_1425 = 3503;
+~uf_task_tab;
 ~uf_task_pin;
 if (npc_find(~uf_cellar_coord(34, 13), goblin_8862, 4, 0) = true) {
     hint_npc_slot(0, 0, ^uf_hint_ring);
@@ -135,6 +142,7 @@ if (%learning_the_ropes ! 40 | region_findbycoord(coord) = false) {
 }
 %learning_the_ropes = 45;
 %varclient_1425 = 3504;
+~uf_task_tab;
 ~uf_task_pin;
 if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 3, 0) = true) {
     hint_npc_slot(0, 0, ^uf_hint_ring);
