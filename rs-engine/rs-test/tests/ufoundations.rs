@@ -121,6 +121,20 @@ fn npc_tile(engine: &Engine, name: &str) -> Option<(u16, u16)> {
         .map(|n| (n.npc.pathing.coord.x(), n.npc.pathing.coord.z()))
 }
 
+/// The fine coords an npc was last told to face (npc_facesquare): compare with
+/// `CoordGrid::fine` of the tile (u16, so they wrap at these world coords).
+fn npc_face(engine: &Engine, name: &str) -> Option<(u16, u16)> {
+    let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+    let npc = &engine
+        .npc_list
+        .npcs
+        .iter()
+        .flatten()
+        .find(|n| n.npc.uid.id() == id)?
+        .npc;
+    Some((npc.info.orientation_x?, npc.info.orientation_z?))
+}
+
 /// A world tile of the cellar copy as square 57_77's local (x, z).
 fn local(engine: &Engine, (x, z): (u16, u16)) -> (u16, u16) {
     let source = engine
@@ -390,6 +404,7 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             Vec::new(),
             npc_tile(engine, "squire_8857"),
         )];
+        let mut squire_face = vec![npc_face(engine, "squire_8857")];
         for _ in 0..80 {
             assert!(
                 is_open(engine, &client, CUTSCENES),
@@ -399,6 +414,7 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             let packets = client.packets();
             let now = shot(engine, &client);
             ticks.push((now, packets, npc_tile(engine, "squire_8857")));
+            squire_face.push(npc_face(engine, "squire_8857"));
             if now == 0 {
                 break;
             }
@@ -532,6 +548,30 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             fired,
             vec![five - 1],
             "the fireball leaves a tick before shot 5"
+        );
+        // Shot 5 opens on him facing the fire, the doorway (32, 17), not Sir Vant on (32, 16)
+        // behind it (4KO2 @33.9; in-client ufdragon17 he faced away till his "Aaargh!").
+        let origin = cellar_origin(engine);
+        assert_eq!(
+            squire_face[five],
+            Some((
+                CoordGrid::fine(origin.0 + 32, 1),
+                CoordGrid::fine(origin.1 + 17, 1)
+            )),
+            "the squire faces the fire as shot 5 opens"
+        );
+        // Seq 12226 (raise the shield and vanish, 0.56 s; NPC_INFO's anim block, as Sir Vant's
+        // swing below) with his "Aaargh!" as the fire lands, not as shot 5 opens: there it hid him
+        // before the fire came (in-client ufdragon18).
+        let shield = [0x2F, 0xC2u8.wrapping_add(128)].repeat(4);
+        let hides = |packets: &[(u16, Vec<u8>)]| {
+            packets.iter().any(|(op, body)| {
+                *op == ServerProt::NpcInfo as u16 && body.windows(8).any(|w| w == shield)
+            })
+        };
+        assert!(
+            !hides(&ticks[five].1) && hides(&ticks[five + 1].1),
+            "the squire's seq 12226 a tick into shot 5"
         );
         assert!(
             sent_text(&ticks[five + 1].1, "Aaargh!"),

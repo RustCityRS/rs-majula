@@ -56,6 +56,12 @@ if (npc_find(~uf_cellar_coord(33, 13), squire_8857, 2, 0) = true) {
 }
 p_delay(3);
 %varclient_1007 = 3;
+// At the ladder's foot he turns to the doorway and the dragon while no shot shows him: shot 5
+// opens on him facing the fire, shield up (4KO2 @33.9-34.1), where ours turned him only with his
+// "Aaargh!" and showed him facing the player till then (in-client ufdragon17 @28.4-28.6).
+if (npc_find(~uf_cellar_coord(32, 13), squire_8857, 2, 0) = true) {
+    npc_facesquare(~uf_cellar_coord(32, 17));
+}
 // The dragon (one throughout, red, size 5: refs GAPS 18): shot 3 shows it face-on in the main
 // cellar looking south toward the camera on (32, 22), ~2 tiles further back than (30, 24) put it
 // (uf18e); shot 4 has it walk in from the north to just
@@ -105,8 +111,10 @@ projanim_map(~uf_cellar_coord(32, 18), ~uf_cellar_coord(32, 12), spotanim_2148, 
 p_delay(0);
 %varclient_1007 = 5;
 p_delay(0);
-// "Aaargh!" @34.35 (tick 29) with his scream, clip 1292; seq 12226 raises his shield, crouches
-// and hides him as the fire covers him (@34.6-34.9).
+// "Aaargh!" @34.35 (tick 29) with his scream, clip 1292. Till then he stands facing the fire in
+// his own stance, sword up and shield raised (@33.9-34.3, his "board up" of shot 1). Seq 12226
+// (0.56 s) raises his shield and hides him as the fire covers him (@34.6-34.9): started with
+// the cut a tick earlier it hid him before the fire came (in-client ufdragon18 @28.55).
 if (npc_find(~uf_cellar_coord(32, 13), squire_8857, 2, 0) = true) {
     npc_say("Aaargh!");
     sound_speech_volume(vorbis_1292, 1, 0, 255);
