@@ -8,8 +8,9 @@
 //   complete!" then "You have unlocked a new music track: Harmony."; @612 "You've just advanced 2
 //   Mining levels! You have reached level 4." and TASK COMPLETE "To Freedom!", every tab open;
 // - @636-655 talking to Explorer Jack: s079-s086 (Jack, Roddeck, Sir Vant).
-// The house is the player's own copy until they walk out of it (the user's account of 2011);
-// Explorer Jack stands in it on (3204, 3241) as in the static world (n50_50).
+// The house is the player's own copy, a large one of Lumbridge, until they walk out of it (the
+// user's account of 2011, and 4KO2's minimap: uf_house_enter); Explorer Jack stands in it on
+// (3204, 3241) as in the static world (n50_50).
 
 // The ladder up (loc 45784 on local (6, 21)).
 [oploc1,ladder_45784]
@@ -20,19 +21,25 @@ anim(human_reachforladder, 0);
 p_delay(0);
 ~uf_house_enter;
 
-// Explorer Jack's house, square 50_50's zones (400-401, 404-405): a copy two zones in, as the
-// cellar's, so local (dx, dz) from (3200, 3232) is the region's (16 + dx, 16 + dz).
+// Explorer Jack's house in a large copy of Lumbridge. In 4KO2h2xPtdM (2011-04-30) the minimap in
+// the house shows the castle, the streets and their icons all round it with no edge (@606-655), up
+// to the player's steps into the street; only then "As you leave, Roddeck wanders off home." and
+// "Loading - please wait." (@661-666), and the world's npcs and players show on the minimap. The
+// copy here: 12 x 12 zones, (3160, 3192)-(3255, 3287), the house (3201-3214, 3238-3245) near its
+// middle, every level, no npcs but the three added; two zones in, as the cellar's, so local
+// (dx, dz) from (3160, 3192) is the region's (16 + dx, 16 + dz). Its size: inference (more than the
+// minimap and the 3D view reach from the house and the street before it).
 [proc,uf_house_enter]
-region_create(2, 6, 6);
+region_create(4, 14, 14);
 def_int $level = 0;
 def_int $a = 0;
 def_int $b = 0;
-while ($level < 2) {
+while ($level < 4) {
     $a = 0;
-    while ($a < 2) {
+    while ($a < 12) {
         $b = 0;
-        while ($b < 2) {
-            region_set($level, calc(2 + $a), calc(2 + $b), movecoord(0_50_50_0_32, calc($a * 8), $level, calc($b * 8)), 0);
+        while ($b < 12) {
+            region_set($level, calc(2 + $a), calc(2 + $b), movecoord(0_49_49_24_56, calc($a * 8), $level, calc($b * 8)), 0);
             $b = calc($b + 1);
         }
         $a = calc($a + 1);
@@ -50,7 +57,7 @@ p_delay(1);
 ~uf_complete;
 softtimer(uf_house_watch, 1);
 
-// Whether the player stands in Explorer Jack's house copy (two zones in, 16x16).
+// Whether the player stands in Explorer Jack's house copy (two zones in, 96x96).
 [proc,uf_in_house]()(boolean)
 if (%learning_the_ropes < 1000 | region_findbycoord(coord) = false) {
     return(false);
@@ -58,11 +65,11 @@ if (%learning_the_ropes < 1000 | region_findbycoord(coord) = false) {
 def_coord $origin = region_getcoord(0, 16, 16);
 def_int $dx = calc(coordx(coord) - coordx($origin));
 def_int $dz = calc(coordz(coord) - coordz($origin));
-return($dx >= 0 & $dx < 16 & $dz >= 0 & $dz < 16);
+return($dx >= 0 & $dx < 96 & $dz >= 0 & $dz < 96);
 
 // A Lumbridge tile in the house copy the player stands in.
 [proc,uf_house_coord](int $x, int $z)(coord)
-return(region_getcoord(0, calc(16 + $x - 3200), calc(16 + $z - 3232)));
+return(region_getcoord(0, calc(16 + $x - 3160), calc(16 + $z - 3192)));
 
 // The quest's end: 1 quest point, level 4 in the skill chosen (the 2011 wiki's Reward:
 // "Level 4 Mining/Woodcutting"), Harmony, every tab, and the Task panel on Explorer Jack.
@@ -111,9 +118,9 @@ if (region_findbycoord(coord) = false) {
     clearsofttimer(uf_house_watch);
     return;
 }
-def_coord $base = ~uf_house_coord(3200, 3232);
-def_int $x = calc(3200 + coordx(coord) - coordx($base));
-def_int $z = calc(3232 + coordz(coord) - coordz($base));
+def_coord $base = ~uf_house_coord(3160, 3192);
+def_int $x = calc(3160 + coordx(coord) - coordx($base));
+def_int $z = calc(3192 + coordz(coord) - coordz($base));
 if ($x >= 3201 & $x <= 3214 & $z >= 3238 & $z <= 3245) {
     return;
 }
@@ -125,7 +132,7 @@ clearsofttimer(uf_house_watch);
 // s087 (IwS6rBpkcyE @500, 17/31), N58 (clip 1653).
 sound_speech_volume(vorbis_1653, 1, 0, 255);
 mes("As you leave, Roddeck wanders off home.");
-p_telejump(movecoord(0_50_50_0_32, calc($x - 3200), coordy(coord), calc($z - 3232)));
+p_telejump(movecoord(0_49_49_24_56, calc($x - 3160), coordy(coord), calc($z - 3192)));
 
 // Explorer Jack in his house: s079-s086 (Task-build lines R81, R78, R5; V90, V42; R14; R79 for
 // both of Jack's boxes, clips 3180, 3173, 1282, 688, 687, 1253, 3177).

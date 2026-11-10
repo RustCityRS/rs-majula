@@ -1456,6 +1456,16 @@ fn the_way_out_to_lumbridge() {
         oploc1(&mut client, loc_id(engine, "ladder_45784"), lx, lz);
         let up = cycles(engine, &mut client, 8);
         assert_eq!(progress(engine, &client), 1000, "the quest complete");
+        // The house is a large copy of Lumbridge: 2011's minimap shows the town all round it,
+        // castle and streets, with no edge (4KO2h2xPtdM @606-655). Forty tiles out from the
+        // player's (3207, 3240) is still copied Lumbridge.
+        let here = engine.harness_player(client.pid).unwrap().pathing.coord;
+        let far = CoordGrid::new(here.x() - 40, 0, here.z() + 40);
+        assert_eq!(
+            engine.regions.source(far).map(|c| (c.x(), c.z())),
+            Some((3167, 3280)),
+            "Lumbridge round the house"
+        );
         let messages: Vec<String> = HarnessClient::game_messages(&up)
             .into_iter()
             .map(|(_, m)| m)

@@ -46,8 +46,9 @@ return(true);
 // finds the area holding varc 622, so the copy's own tiles fell back to the surface map. 4KO2h2xPtdM
 // (2011-04-30) @144-149: "Tutorial Cellar", "Pillars", "Bag of supplies", the note "The world map
 // screen shows you where you are, and where important features may be found." (clientscript
-// worldmap_elements_update) and "You are here". Explorer Jack's house copies Lumbridge's 50_50
-// zones (uf_freedom.rs2): no recording opens the map there; Lumbridge is the tile it copies.
+// worldmap_elements_update) and "You are here". Explorer Jack's house copies 12 x 12 zones of
+// Lumbridge from (3160, 3192) (uf_freedom.rs2): no recording opens the map there; Lumbridge is the
+// tile it copies.
 [proc,uf_worldmap_coord]()(coord)
 if (region_findbycoord(coord) = false) {
     return(coord);
@@ -60,8 +61,8 @@ def_int $level = calc(coordy(coord) - coordy($origin));
 if (%learning_the_ropes < 1000) {
     return(movecoord(0_57_77_0_0, $dx, $level, $dz));
 }
-if ($dx >= 0 & $dx < 16 & $dz >= 0 & $dz < 16) {
-    return(movecoord(0_50_50_0_32, $dx, $level, $dz));
+if ($dx >= 0 & $dx < 96 & $dz >= 0 & $dz < 96) {
+    return(movecoord(0_49_49_24_56, $dx, $level, $dz));
 }
 return(coord);
 
