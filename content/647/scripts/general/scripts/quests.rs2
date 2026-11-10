@@ -30,6 +30,8 @@ if ($random < 32) {       // The least common music that plays when completing a
 // below it, and the total (277's "Quest Points:", com7), as every 2011 scroll
 // found shows (Doric's, Cook's, Imp Catcher's, ...; void-634's Cook.kt too).
 if_settext(questscroll_ver3:quest_title_ver3, $questmessage);
+// The cache's own line (277:9), set again: Unstable Foundations' scroll changes it to "You gain:".
+if_settext(questscroll_ver3:quest_awardedtext_ver3, "You are awarded:");
 if_setobject(questscroll_ver3:quest_model_ver3, $obj, $objscale);
 if_settext(questscroll_ver3:quest_points_ver3, tostring(%qp));
 if ($questpoints = 1) {

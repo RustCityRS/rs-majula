@@ -1460,15 +1460,20 @@ fn the_way_out_to_lumbridge() {
             .into_iter()
             .map(|(_, m)| m)
             .collect();
+        // Once, then Harmony's unlock (4KO2h2xPtdM @608.5; in-client run 19 printed it twice).
+        let complete: Vec<usize> = (0..messages.len())
+            .filter(|&i| messages[i] == "Congratulations! Quest complete!")
+            .collect();
+        assert_eq!(complete.len(), 1, "{messages:?}");
+        let harmony = messages.iter().position(|m| m.contains("Harmony"));
+        assert!(harmony.is_some_and(|h| h > complete[0]), "{messages:?}");
+        // This quest's scroll reads "You gain:" over its rewards (@608.5), 277:9's own text being
+        // "You are awarded:".
         assert!(
-            messages
+            rs_test::talk::settexts(&up)
                 .iter()
-                .any(|m| m.contains("Congratulations! Quest complete!")),
-            "{messages:?}"
-        );
-        assert!(
-            messages.iter().any(|m| m.contains("Harmony")),
-            "{messages:?}"
+                .any(|(_, t)| t == "You gain:"),
+            "the scroll's You gain:"
         );
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(player.stats.base_levels[14], 4, "Mining 4");

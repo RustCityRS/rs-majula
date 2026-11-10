@@ -72,15 +72,20 @@ return(region_getcoord(0, calc(16 + $x - 3200), calc(16 + $z - 3232)));
 ~uf_task_tab;
 ~uf_task_pin;
 ~initalltabs;
-mes("Congratulations! Quest complete!");
-~music_unlock_play(music_Harmony);
 def_obj $tool = bronze_pickaxe;
 def_string $reward = "Level 4 Mining";
 if (%varplayerbit_6495 >= 2) {
     $tool = bronze_hatchet;
     $reward = "Level 4 Woodcutting";
 }
+// The scroll's own "Congratulations! Quest complete!" is the only one, then Harmony's unlock
+// (4KO2h2xPtdM @608.5: the Task's line, Quest complete!, Harmony; ours printed Quest complete!
+// twice, in-client run 19). 2011's scroll for this quest reads "You gain:" over its rewards
+// (@608.5) where the others read "You are awarded:" (Cook's Assistant, PnoZkxqcszs 2011-05-20
+// @403; cache 786's 277:9).
 ~send_quest_complete2(^questlist_unstable, $tool, 250, 1, "You have completed Unstable Foundations!", $reward);
+if_settext(questscroll_ver3:quest_awardedtext_ver3, "You gain:");
+~music_unlock_play(music_Harmony);
 // Level 4 is 276 xp; the practice leaves the player on 84 (two 42s), so 192 more. A player who
 // practised past level 2 ends a little above 276, still level 4 below 388.
 if (%varplayerbit_6495 >= 2) {
