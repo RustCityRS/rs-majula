@@ -1474,6 +1474,8 @@ pub trait ScriptPlayer {
     /// * `level`, `x`, `z` - The tile.
     /// * `height` - The arrow's height over the tile.
     /// * `range` - How far away the minimap shows it, in 32-tile units.
+    /// * `model` - A model the client draws at the local player's feet,
+    ///   turned toward the tile, or none.
     #[cfg(since_647)]
     #[allow(clippy::too_many_arguments)]
     fn hint_coord_slot(
@@ -1486,11 +1488,25 @@ pub trait ScriptPlayer {
         z: u16,
         height: u8,
         range: u16,
+        model: Option<u16>,
     );
 
     /// Rev-647: clears the hint arrow in one slot, leaving the others.
     #[cfg(since_647)]
     fn hint_stop_slot(&mut self, slot: u8);
+
+    /// Rev-647: a hint arrow over an npc in one of the client's eight slots,
+    /// with a model the client draws at the local player's feet, turned toward
+    /// the npc (`PlayerEntity` hint drawing).
+    ///
+    /// # Arguments
+    /// * `nid` - The npc's world index.
+    /// * `slot` - The client's arrow slot, `0`--`7`.
+    /// * `icon` - An index into the hint_headicons, hint_mapmarkers and
+    ///   hint_mapedge sprite sheets.
+    /// * `model` - The model drawn at the player's feet, or `None`.
+    #[cfg(since_647)]
+    fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<u16>);
 
     /// Returns the player's gender.
     ///

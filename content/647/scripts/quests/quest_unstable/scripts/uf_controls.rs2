@@ -41,6 +41,7 @@ if (%learning_the_ropes ! 6) {
 }
 %learning_the_ropes = 7;
 ~uf_controls_close;
+hint_stop_slot(0);
 // No arrow shows after this (8jKH_7To46o @63-70, the task tab open): when 2011 cleared it, no
 // source shows; here with the Task.
 %varplayerbit_3756 = 0;

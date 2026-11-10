@@ -7,32 +7,140 @@
 // (3.5 #2), and the cellar's track, The Mentor (3.5 #6; the 2011 wiki's "Tutorial Cellar").
 [proc,uf_start]
 ~uf_cellar_enter_at(30, 9);
-// Sir Vant in the start room's north doorway and his squire south of it: the 2011 minimaps put
-// them on (32, 16) and (33, 15) (4KO2h2xPtdM and VwpdbjfigD4, fitted against ours), and the 3D
-// view shows the knight in the doorway. Of cache 786's six Sir Vants, 8850 (bas_1614) is the one
-// holding his orange shield up in front, feet wide, as 2011's does (4KO2h2xPtdM 9-14 s). Which
-// way each faces: not yet matched.
-npc_add(~uf_cellar_coord(32, 16), sir_vant_8850, 0);
-npc_add(~uf_cellar_coord(33, 15), squire_8857, 0);
+// A login in the dragon cutscene starts it again from the talk.
+if (%learning_the_ropes = 9) {
+    %learning_the_ropes = 7;
+}
+~uf_cellar_populate;
 // The side panel opens on the options tab, as 2011's first frame in the cellar shows it
-// (8jKH_7To46o @56, a yellow arrow pointing at the task system tab: not built yet); the other
-// tabs stay shut until unlocked (uf_tabs.rs2).
+// (8jKH_7To46o @56, a yellow arrow pointing at the task system tab); the other tabs stay shut
+// until unlocked (uf_tabs.rs2).
 if_settabactive(12);
 if (%learning_the_ropes < 7) {
     ~uf_controls_open;
 }
 ~uf_task_pin;
-// How long 2011 left the plank on the floor: no source found. Players pick it up minutes in
-// (Kw7h2jY9ANQ @265 s), so it stays for the cellar's life.
-obj_add(~uf_cellar_coord(35, 15), plank_15276, 1, ^uf_cellar_obj_duration);
 // The Mentor plays without being unlocked: no recording shows an unlock message in the cellar
 // (only Harmony's, on arrival in Lumbridge), and the 2011 wiki unlocks it "after defeating the
-// dragon". As music.rs2's music_play, without its jump.
-if_settext(music_v3:now_playing_text, db_getfield(music_The_Mentor, music:name, 0));
-%currentsong = db_getfield(music_The_Mentor, music:track, 0);
-%musicstart = map_clock;
-%musiclength = midi_length(%currentsong);
-midi_song(%currentsong);
+// dragon".
+~uf_play_song(music_The_Mentor);
+
+// What stands in the cellar at each step: a fresh cellar for a new player, and the cellar as the
+// step left it for a login mid-tutorial (where 2011 put such a player: no source found).
+[proc,uf_cellar_populate]
+// A login in the sleep cutscene starts it again from the meat.
+if (%learning_the_ropes = 82 | %learning_the_ropes = 83) {
+    %learning_the_ropes = 80;
+    %varplayerbit_6487 = 0;
+    if (inv_total(inv, drugged_meat) = 0) {
+        inv_add(inv, drugged_meat, 1);
+    }
+}
+def_int $p = %learning_the_ropes;
+// Sir Vant in the start room's north doorway and his squire south of it: the 2011 minimaps put
+// them on (32, 16) and (33, 15) (4KO2h2xPtdM and VwpdbjfigD4, fitted against ours), and the 3D
+// view shows the knight in the doorway. Of cache 786's six Sir Vants, 8850 (bas_1614) is the one
+// holding his orange shield up in front, feet wide, as 2011's does (4KO2h2xPtdM 9-14 s).
+if ($p < 90) {
+    npc_add(~uf_cellar_coord(32, 16), sir_vant_8850, 0);
+    npc_setmode(none);
+    // Until the camera is turned a hint points the new player at Sir Vant: the yellow ring and
+    // arrow at their feet (vGlx_SDOI7s 2011-02-28 @13.6-15.6; gone once Rotate Your Camera is
+    // done, @17.6); again after the dragon cutscene (4KO2h2xPtdM @54.8-75) and after the goblin.
+    if ($p < 7 | $p = 10 | ($p >= 45 & $p <= 49)) {
+        hint_npc_slot(0, 0, ^uf_hint_ring);
+    }
+}
+if ($p < 9) {
+    npc_add(~uf_cellar_coord(33, 15), squire_8857, 0);
+    npc_setmode(none);
+}
+if ($p >= 10) {
+    // The dragon's fire burnt the ladder (shot 5).
+    if (loc_find(~uf_cellar_coord(32, 12), ladder_45785) = true) {
+        loc_change(ladder_45786, ^uf_cellar_obj_duration);
+    }
+}
+if ($p >= 10 & $p < 90) {
+    // At the wall over Sir Vant, as the cutscene leaves it.
+    npc_add(~uf_cellar_coord(30, 18), dragon_8858, 0);
+    npc_setmode(none);
+    npc_facesquare(~uf_cellar_coord(32, 16));
+}
+if ($p >= 90 & $p < 117) {
+    // Asleep on its nest, as the sleep cutscene leaves it (uf_sleep.rs2), until the roof comes
+    // down on it.
+    npc_add(~uf_cellar_coord(19, 33), dragon_8861, 0);
+    npc_setmode(none);
+    npc_facesquare(~uf_cellar_coord(17, 35));
+}
+if ($p >= 90 & $p < 117) {
+    // By the pillars from the sleep cutscene on.
+    npc_add(~uf_cellar_coord(26, 30), sir_vant_8850, 0);
+    npc_setmode(none);
+    npc_facesquare(~uf_cellar_coord(24, 31));
+    if ($p = 93) {
+        hint_npc_slot(0, 0, ^uf_hint_ring);
+    }
+}
+if ($p >= 10 & $p < 45) {
+    // At Sir Vant's bag, as the cutscene leaves it.
+    npc_add(~uf_cellar_coord(34, 13), goblin_8862, 0);
+    npc_setmode(none);
+    npc_facesquare(~uf_cellar_coord(35, 13));
+    npc_settimer(1);
+    if ($p >= 35) {
+        hint_npc_slot(0, 0, ^uf_hint_ring);
+    }
+}
+if ($p >= 10 & $p <= 15) {
+    // The squire's kit where he burnt (shot 5), less what is already held.
+    if (inv_total(inv, bronze_platebody) + inv_total(worn, bronze_platebody) = 0) {
+        obj_add(~uf_cellar_coord(32, 13), bronze_platebody, 1, ^uf_cellar_obj_duration);
+    }
+    if (inv_total(inv, bronze_sq_shield) + inv_total(worn, bronze_sq_shield) = 0) {
+        obj_add(~uf_cellar_coord(32, 13), bronze_sq_shield, 1, ^uf_cellar_obj_duration);
+    }
+    if (inv_total(inv, bronze_sword) + inv_total(worn, bronze_sword) = 0) {
+        obj_add(~uf_cellar_coord(32, 13), bronze_sword, 1, ^uf_cellar_obj_duration);
+    }
+    if ($p = 15) {
+        hint_coord_slot(0, 0, 2, ~uf_cellar_coord(32, 13), 0, 0, ^uf_hint_ring);
+    }
+}
+if ($p >= 117) {
+    // After the roof came down: Roddeck's cellar in the region, Sir Vant by the rubble, Roddeck
+    // out of his cupboard (uf_collapse.rs2).
+    ~uf_cellar_collapsed;
+    npc_add(~uf_cellar_coord(28, 31), sir_vant_8850, 0);
+    npc_setmode(none);
+    npc_add(~uf_cellar_coord(32, 32), roddeck, 0);
+    npc_setmode(none);
+    if (%learning_the_ropes = 117) {
+        %learning_the_ropes = 120;
+    }
+    if (%learning_the_ropes >= 160) {
+        if (loc_find(~uf_cellar_coord(14, 11), rock_45595) = true & %varplayerbit_6495 <= 1) {
+            loc_change(hole_45597, ^uf_cellar_obj_duration);
+        }
+        if (loc_find(~uf_cellar_coord(14, 14), roots_45598) = true & %varplayerbit_6495 >= 2) {
+            loc_change(hole_45600, ^uf_cellar_obj_duration);
+        }
+    }
+}
+// How long 2011 left the plank on the floor: no source found. Players pick it up minutes in
+// (Kw7h2jY9ANQ @265 s), so it stays for the cellar's life.
+if ($p < 75 & inv_total(inv, plank_15276) = 0) {
+    obj_add(~uf_cellar_coord(35, 15), plank_15276, 1, ^uf_cellar_obj_duration);
+}
+
+// ::ufstage <n> puts you in a fresh cellar at step n of varp 281, as a login there would.
+[debugproc,ufstage](int $n)
+if_close;
+if (p_finduid(uid) = false) { return; }
+%learning_the_ropes = $n;
+~uf_start;
+~initalltabs;
 
 // Each player gets their own copy of the cellar, map square 57_77, every level. Cache 786's
 // l57_77.jm2 places its bag, bowl, pillars, walls, cupboard and ladder, and the square is not part
@@ -96,6 +204,8 @@ if (region_findbycoord(coord) = false) {
     return;
 }
 npc_add(~uf_cellar_coord($x, $z), $npc, 0);
+// Held where it is put (a dragon's default wander took it out of shot in the ufactor probe).
+npc_setmode(none);
 
 // ::ufhead <n> shows Sir Vant's first line with chathead expression n, and ::ufheadp <n> the
 // player's "Hello!", to match each against the 2011 recordings frame by frame. n: 1 neutral,
@@ -158,3 +268,140 @@ if ($n = 2) {
     $song = music_Harmony;
 }
 midi_song(db_getfield($song, music:track, 0));
+
+// ::uffire <spotanim> <z> <height> <end height> <duration> flies a fireball candidate from (32, z),
+// north of the start room's door, onto (32, 13), where the squire burns in the dragon cutscene's
+// shot 5 (4KO2h2xPtdM @34.0-35.0), to find which of cache 786's spotanims 2011 used and how it
+// flew. Heights are the packet's (the 647 client draws 16 units, 1/32 tile, per step).
+[debugproc,uffire](spotanim $anim, int $z, int $height, int $end_height, int $duration)
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+projanim_map(~uf_cellar_coord(32, $z), ~uf_cellar_coord(32, 13), $anim, $height, $end_height, 0, $duration, 0, 0);
+
+// ::ufmapanim <spotanim> <height> plays a spotanim on (32, 13), the squire's tile.
+[debugproc,ufmapanim](spotanim $anim, int $height)
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+spotanim_map($anim, ~uf_cellar_coord(32, 13), $height, 0);
+
+// ::ufspot <npc> <spotanim> plays a spotanim on the nearest npc of a type.
+[debugproc,ufspot](npc $npc, spotanim $anim)
+if (npc_find(coord, $npc, 16, 0) = true) {
+    spotanim_npc($anim, 0, 0);
+}
+
+// ::ufat <x> <z> moves you to a tile of the cellar you are in, and ::ufnpcat <npc> <x> <z> moves
+// the nearest npc of a type there (out of wander mode), and ::ufsay <npc> <text> makes it speak:
+// for fitting where 2011's actors stand in each cutscene shot.
+[debugproc,ufat](int $x, int $z)
+if (p_finduid(uid) = false) { return; }
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+p_telejump(~uf_cellar_coord($x, $z));
+
+[debugproc,ufnpcat](npc $npc, int $x, int $z)
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+if (npc_find(coord, $npc, 32, 0) = true) {
+    npc_setmode(none);
+    npc_tele(~uf_cellar_coord($x, $z));
+}
+
+[debugproc,ufsay](npc $npc, string $text)
+if (npc_find(coord, $npc, 32, 0) = true) {
+    npc_say($text);
+}
+
+// ::ufanim <seq> plays a seq on you, turned to the squire's tile (32, 13): for fitting the
+// player's moves in the dragon cutscene against the recordings.
+[debugproc,ufanim](int $seq)
+if (p_finduid(uid) = false) { return; }
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+facesquare(~uf_cellar_coord(32, 13));
+anim($seq, 0);
+
+// One of the tutorial's tracks, as music.rs2's music_play without its jump and without unlocking
+// it: Destiny during character creation, The Mentor in the cellar (refs GAPS 6).
+[proc,uf_play_song](dbrow $song)
+if_settext(music_v3:now_playing_text, db_getfield($song, music:name, 0));
+%currentsong = db_getfield($song, music:track, 0);
+%musicstart = map_clock;
+%musiclength = midi_length(%currentsong);
+midi_song(%currentsong);
+
+// ::ufvanttype <npc> turns Sir Vant into one of cache 786's other Sir Vants (8851-8853, each
+// with its own ready seq) for 200 ticks, to match his stance in each cutscene shot.
+[debugproc,ufvanttype](npc $type)
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+if (npc_find(coord, sir_vant_8850, 32, 0) = true) {
+    npc_setmode(none);
+    npc_facesquare(~uf_cellar_coord(32, 20));
+    npc_changetype($type, 200);
+}
+
+// ::ufavcal plays a voice clip and snaps the camera in the same tick, so a recording shows how far
+// its audio sits from its video.
+[debugproc,ufavcal]
+if (p_finduid(uid) = false) { return; }
+cam_moveto(movecoord(coord, 6, 0, 6), 600, 100, 100);
+cam_lookat(movecoord(coord, -6, 0, -6), 0, 100, 100);
+sound_speech_volume(vorbis_1284, 1, 0, 255);
+
+// ::ufhint <model> <icon> puts a hint arrow over Sir Vant with a model at the player's feet (-1 for
+// none), to find the yellow ring 2011 draws under a new player (vGlx_SDOI7s @13.6, refs GAPS 18).
+// ::ufhintstop clears it.
+[debugproc,ufhint](int $model, int $icon)
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+if (npc_find(coord, sir_vant_8850, 32, 0) = true) {
+    hint_npc_slot(0, $icon, $model);
+}
+
+[debugproc,ufhintstop]
+hint_stop_slot(0);
+
+// ::ufcam <x> <z> <height> <lookx> <lookz> <lookheight> puts the camera on a cellar tile looking at
+// another, at once, for close looks at the cutscene's actors (::ufshot 0 first: the cutscene
+// interface drives the camera while it is open).
+[debugproc,ufcam](int $x, int $z, int $height, int $lookx, int $lookz, int $lookheight)
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+cam_moveto(~uf_cellar_coord($x, $z), $height, 100, 100);
+cam_lookat(~uf_cellar_coord($lookx, $lookz), $lookheight, 100, 100);
+
+// ::ufnpcanim <npc> <seq> plays a seq on the nearest npc of a type anywhere in the cellar (::animnpc
+// looks only 8 tiles from the player), held still where it stands.
+[debugproc,ufnpcanim](npc $npc, int $seq)
+if (npc_find(coord, $npc, 40, 0) = true) {
+    npc_setmode(none);
+    npc_anim($seq, 0);
+}
+
+// ::ufnpcface <npc> <x> <z> turns the nearest npc of a type in the cellar toward a tile (held).
+[debugproc,ufnpcface](npc $npc, int $x, int $z)
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+if (npc_find(coord, $npc, 40, 0) = true) {
+    npc_setmode(none);
+    npc_facesquare(~uf_cellar_coord($x, $z));
+}

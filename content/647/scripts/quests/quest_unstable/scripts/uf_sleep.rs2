@@ -1,0 +1,116 @@
+// Unstable Foundations: "Put the Dragon to Sleep" (Task 3510, varp 281 80-90), the bowl and the
+// sleep cutscene, as 4KO2h2xPtdM (2011-04-30) shows them (refs GAPS 20):
+// - @190-199 the player walks to the nest and puts the meat in the bowl beside it;
+// - @199.1 s019 "It's smelled the meat! Hide!" (Sir Vant, V52 clip 715); @202 the player runs;
+// - the cutscene: cuts @202.64 (the minimap black), 206.24, 211.01, 216.42 (to the shot's tick: 6,
+//   8, 9), one static view of the nest from 216.42 (the dragon eats, turns and lies down, ~25
+//   ticks), a fade to black ~231.4-234.53 (5 ticks), the last shot from 234.53, s020 @237.1, and
+//   the minimap back @244.81, after s020 is continued.
+// The bowl is loc 45795, a multiloc on varbit 6487: 0 the empty bowl, else the bowl with the
+// meat (op Search).
+
+// The meat in the bowl.
+[oplocu,dragon_s_food_bowl]
+if (last_useitem ! drugged_meat) {
+    // N48 (clip 1737) is for an item on the dragon; for the bowl, the default.
+    ~displaymessage(^dm_default);
+    return;
+}
+if (%learning_the_ropes ! 80) {
+    ~displaymessage(^dm_default);
+    return;
+}
+anim(human_pickuptable, 0);
+p_delay(0);
+inv_del(inv, drugged_meat, 1);
+%varplayerbit_6487 = 1;
+%learning_the_ropes = 82;
+~uf_task_pin;
+~uf_hint_box_close;
+sound_speech_volume(vorbis_715, 1, 0, 255);
+~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,shock>It's smelled the meat! Hide!");
+~uf_sleep_cutscene;
+
+// Searching the bowl once the meat is in: V106 (clip 992; V107, clip 703, is another take of the
+// same line). Texts from the takes: no recording shows the box.
+[oploc1,dragon_s_food_bowl_1761]
+sound_speech_volume(vorbis_992, 1, 0, 255);
+~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>You've already lured the dragon to the right place. We don't need to mess around with its food anymore.");
+
+// The hiding place and where Sir Vant waits after: by the wooden pillar south-east of the nest
+// (Task 1715's hint: "by the wooden pillar just south-east of the dragon's nest"; the pillar is
+// cache 786's loc 45564 on (24, 31); the last shot looks along z = 30 from x 27 to 20).
+// The tiles themselves: inference, to be fitted against the recordings.
+[proc,uf_sleep_cutscene]
+if (region_findbycoord(coord) = false) {
+    return;
+}
+~uf_cutscene_open;
+%learning_the_ropes = 83;
+p_walk(~uf_cellar_coord(25, 31));
+%varclient_1007 = 101;
+// "your character will run to a hole" (the 2011 wiki, Unstable Foundations, 2011-05-05): the
+// hiding place, once the camera has left the player. 2011's shots show Sir Vant's overhead at the
+// wall and the dragon at its nest, so the player stood within npc view (15 tiles) of both: here
+// (26, 25), between them (inference; which tile, no source).
+p_teleport(~uf_cellar_coord(26, 25));
+// Shot 101 (6 ticks): Sir Vant at the wall, "Grub's up! Shoo!" (@204-205, V23 clip 850).
+p_delay(0);
+if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 2, 0) = true) {
+    npc_say("Grub's up! Shoo!");
+    sound_speech_volume(vorbis_850, 1, 0, 255);
+}
+p_delay(4);
+// Shot 102 (8 ticks): the dragon turns from the wall and goes.
+%varclient_1007 = 102;
+if (npc_find(~uf_cellar_coord(30, 18), dragon_8858, 4, 0) = true) {
+    npc_walk(~uf_cellar_coord(30, 26));
+}
+p_delay(7);
+// Shot 103 (9 ticks): across the cellar to the nest.
+%varclient_1007 = 103;
+if (npc_find(~uf_cellar_coord(30, 24), dragon_8858, 8, 0) = true) {
+    npc_walk(~uf_cellar_coord(19, 33));
+}
+// Sir Vant goes to the pillars while the camera is on the dragon.
+if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 2, 0) = true) {
+    npc_tele(~uf_cellar_coord(26, 30));
+    npc_facesquare(~uf_cellar_coord(24, 31));
+}
+p_delay(8);
+// Shot 104 (~25 ticks): the static view of the nest; the dragon eats, then lies down.
+%varclient_1007 = 104;
+if (npc_find(~uf_cellar_coord(19, 33), dragon_8858, 8, 0) = true) {
+    npc_tele(~uf_cellar_coord(19, 33));
+    npc_facesquare(~uf_cellar_coord(17, 35));
+    npc_anim(seq_14255, 0);
+}
+p_delay(19);
+if (npc_find(~uf_cellar_coord(19, 33), dragon_8858, 2, 0) = true) {
+    npc_anim(seq_14260, 0);
+}
+p_delay(4);
+// Shot 106 (5 ticks): the fade to black; the dragon asleep (8861, its ready seq 12255 a breathing
+// loop) once the screen is black.
+%varclient_1007 = 106;
+p_delay(1);
+if (npc_find(~uf_cellar_coord(19, 33), dragon_8858, 2, 0) = true) {
+    npc_changetype(dragon_8861, ^uf_cellar_obj_duration);
+}
+p_delay(2);
+// Shot 107: Sir Vant by the pillars; s020 (V88 clip 958) ~4 ticks in, the cutscene open until it
+// is continued.
+%varclient_1007 = 107;
+p_delay(3);
+%learning_the_ropes = 93;
+%varclient_1425 = 3510;
+~uf_task_pin;
+sound_speech_volume(vorbis_958, 1, 0, 255);
+split_init("<p,neutral>Well done. Come out of hiding and I'll tell you what we're doing next.", 380, 4, q8_full);
+~chatnpc_page("Sir Vant", sir_vant_8850, 0);
+p_pausebutton;
+if_close;
+~uf_cutscene_close;
+if (npc_find(~uf_cellar_coord(26, 30), sir_vant_8850, 2, 0) = true) {
+    hint_npc_slot(0, 0, ^uf_hint_ring);
+}

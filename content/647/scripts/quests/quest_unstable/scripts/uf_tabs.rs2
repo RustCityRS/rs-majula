@@ -12,10 +12,68 @@ if (%learning_the_ropes < 5 | %learning_the_ropes >= 1000) {
 }
 // The start, "Rotate Your Camera" to "Gather the Squire's Gear" (varp 281 5-15): the task
 // system (slot 1) and options (slot 12) only.
+if ($slot = 1 | $slot = 12) {
+    return(true);
+}
 if (%learning_the_ropes <= 15) {
-    if ($slot = 1 | $slot = 12) {
-        return(true);
-    }
     return(false);
 }
-return(true);
+// The squire's gear picked up (20-30, "Equip Yourself"): the inventory (slot 4).
+if ($slot = 4) {
+    return(true);
+}
+if (%learning_the_ropes <= 30) {
+    return(false);
+}
+// The gear worn (35 on): combat (slot 0) and worn equipment (slot 5).
+if ($slot = 0 | $slot = 5) {
+    return(true);
+}
+// "Check your Quest Journal" (50 on): the quest list (slot 3).
+if ($slot = 3) {
+    return(%learning_the_ropes >= 50);
+}
+// The first practice xp (140 on, once the skill has moved): stats (slot 2).
+if ($slot = 2) {
+    return(%learning_the_ropes >= 140 & (stat_base(mining) > 1 | stat_base(woodcutting) > 1));
+}
+// Prayer, magic, friends, ignore, clan, emotes, music and notes: on arrival in Lumbridge (1000,
+// handled above).
+return(false);
+
+// A tab opening as the tutorial unlocks it, with the events its interface needs (as
+// ~initalltabs sets them at login, login.rs2).
+[proc,uf_open_tab](int $slot)
+if (getwindowmode = 1) {
+    switch_int ($slot) {
+        case 0 : if_opensub(combat_side, toplevel:side0);
+        case 2 : if_opensub(stats, toplevel:side2);
+        case 3 : if_opensub(questlist_v4, toplevel:side3);
+        case 4 : if_opensub(inventory, toplevel:side4);
+        case 5 : if_opensub(wornitems, toplevel:side5);
+    }
+} else {
+    switch_int ($slot) {
+        case 0 : if_opensub(combat_side, toplevel_fullscreen:side0);
+        case 2 : if_opensub(stats, toplevel_fullscreen:side2);
+        case 3 : if_opensub(questlist_v4, toplevel_fullscreen:side3);
+        case 4 : if_opensub(inventory, toplevel_fullscreen:side4);
+        case 5 : if_opensub(wornitems, toplevel_fullscreen:side5);
+    }
+}
+switch_int ($slot) {
+    case 0 :
+        if_setevents(combat_side:button1, -1, -1, ^if_op1, 0, 0, false, false);
+        if_setevents(combat_side:button2, -1, -1, ^if_op1, 0, 0, false, false);
+        if_setevents(combat_side:button3, -1, -1, ^if_op1, 0, 0, false, false);
+        if_setevents(combat_side:button4, -1, -1, ^if_op1, 0, 0, false, false);
+    case 3 :
+        if_setevents(questlist_v4:quests, 0, 300, ^if_op1, 0, 0, false, false);
+        ~update_questlist;
+    case 4 :
+        inv_transmit(inv, inventory:inv);
+        if_setevents(inventory:inv, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^no_op, ^no_op, ^no_op, ^if_op7, ^if_op8, ^no_op, ^if_op10), ~inv_useon(^useon_grounditem, ^useon_npc, ^useon_loc, ^useon_player, ^no_op, ^useon_component, ^no_op), 1, true, true);
+        if_setevents(inventory:inv, 28, 55, ^no_op, ^no_op, 0, true, false);
+    case 5 :
+        inv_transmit(worn, wornitems:hat_container);
+}

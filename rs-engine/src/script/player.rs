@@ -1160,13 +1160,19 @@ impl ScriptPlayer for ActivePlayer {
         z: u16,
         height: u8,
         range: u16,
+        model: Option<u16>,
     ) {
-        self.hint_coord_slot(slot, icon, offset, level, x, z, height, range);
+        self.hint_coord_slot(slot, icon, offset, level, x, z, height, range, model);
     }
 
     #[cfg(since_647)]
     fn hint_stop_slot(&mut self, slot: u8) {
         self.hint_stop_slot(slot);
+    }
+
+    #[cfg(since_647)]
+    fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<u16>) {
+        self.hint_npc_slot(nid, slot, icon, model);
     }
 
     /// Returns the player's gender (`0` = male, `1` = female).

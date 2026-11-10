@@ -1,0 +1,63 @@
+// Unstable Foundations' quest journal, world map and minimap Tasks (3506, 3508, 3509; varp 281
+// 50-62), as 4KO2h2xPtdM (2011-04-30) shows them:
+// - @120 the quest tab open, "Unstable Foundations" under Tutorial; @123-126 its journal;
+// - @129 TASK COMPLETE "Check your Quest Journal", "Check your World Map", the arrow at the globe;
+// - @144-147 the world map on the cellar ("You are here"); closed by @150;
+// - @153 TASK COMPLETE "Check your World Map", "Realign your Minimap", the arrow at the compass;
+// - @156 TASK COMPLETE "Realign your Minimap", "Climb the Wall".
+// The values between the bands (55-57 inside "Check your Quest Journal"): no source; this goes
+// 50 -> 60 -> 62 -> 65.
+
+// The journal (quest 131, its row in 2011's quest list). Every recording that opens it does so
+// at ~50-57, scrolled to the bottom, and nobody scrolls up (design note 3.5 #5): the entries
+// above the struck-through line, and the ones after, no recording shows. The two shown here are
+// 4KO2h2xPtdM @124's.
+[label,questlist_unstable]
+// Every step shows the one state the recordings show: what 2011 wrote before 50 or after 57, no
+// source found.
+def_string $text = "@str@Once his bag of supplies was safe, Sir Vant asked me to help him kill the dragon.||@dbl@Quest journals record what needs to be done next in each quest. If you ever forget what you have been asked to do, take a look in the journal to remind yourself. You can also click the @red@Get QuestHelp @dbl@link to receive more detailed hints for how to proceed with the quest.||@dbl@Sir Vant asked me to take some @red@drugged meat @dbl@from his @red@bag of supplies @dbl@and place it in a food bowl near @red@two wooden pillars@dbl@.";
+~quest_journal("Unstable Foundations", $text);
+if (%learning_the_ropes >= 50 & %learning_the_ropes < 60) {
+    %learning_the_ropes = 60;
+    %varclient_1425 = 3506;
+    // The arrow at the globe (cs2 2756: 18 + 1).
+    %varplayerbit_3756 = 19;
+    ~uf_task_pin;
+}
+
+// From worldmap.rs2: the map may open from "Check your World Map" on; before it, the step it
+// belongs to has not come (s006 "We'll come back to that in a moment.", the guide's U90, clip
+// 1502: a world map click is one of the actions it answers, design note 3.7).
+[proc,uf_worldmap_allowed]()(boolean)
+if (%learning_the_ropes >= 5 & %learning_the_ropes < 60) {
+    sound_speech_volume(vorbis_1502, 1, 0, 255);
+    ~mesbox("We'll come back to that in a moment.");
+    return(false);
+}
+return(true);
+
+// From worldmap.rs2, as the map closes.
+[proc,uf_worldmap_closed]
+if (%learning_the_ropes = 60) {
+    %learning_the_ropes = 62;
+    %varclient_1425 = 3508;
+    // The arrow at the compass (cs2 2756: 19 + 1).
+    %varplayerbit_3756 = 20;
+    ~uf_task_pin;
+}
+
+// The compass's "Face North" (548:176 / 746's compass, op 1, transmitted by the cache's
+// component): the client turns the camera north itself.
+[if_button1,toplevel:compass_clickzone] ~uf_compass;
+[if_button1,toplevel_fullscreen:compass_clickzone] ~uf_compass;
+
+[proc,uf_compass]
+if (p_finduid(uid) = false) {
+    return;
+}
+if (%learning_the_ropes = 62) {
+    %learning_the_ropes = 65;
+    %varclient_1425 = 3509;
+    %varplayerbit_3756 = 0;
+    ~uf_task_pin;
+}

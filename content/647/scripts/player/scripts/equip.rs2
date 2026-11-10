@@ -123,6 +123,10 @@ if (p_finduid(uid) = true) {
     // }
 
     ~update_all($previous)
+    // Unstable Foundations' "Equip Yourself" (quest_unstable/uf_gear.rs2).
+    if (%learning_the_ropes >= 20 & %learning_the_ropes <= 30) {
+        ~uf_gear_worn;
+    }
 }
 
 [proc,unequip](int $slot)

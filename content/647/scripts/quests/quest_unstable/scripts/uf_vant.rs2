@@ -8,7 +8,42 @@
 [opnpc1,sir_vant_8850]
 if (%learning_the_ropes = 7) {
     ~uf_vant_hello;
+} else if (%learning_the_ropes = 10) {
+    ~uf_vant_assist;
+} else if (%learning_the_ropes = 15) {
+    // V55 (enum 3039 #55, clip 811; text from its take, no recording shows the box).
+    sound_speech_volume(vorbis_811, 1, 0, 255);
+    ~chatnpc("<p,neutral>My squire dropped his sword and armour when he died. You can pick them up and use them to defend my bag from the goblin.");
+} else if (%learning_the_ropes >= 20 & %learning_the_ropes <= 30) {
+    // V94 (clip 788; V95, clip 846, is another take of the same line).
+    sound_speech_volume(vorbis_788, 1, 0, 255);
+    ~chatnpc("<p,neutral>When you've got the rest of my squire's kit equipped, you'll be ready to deal with the goblin.");
+} else if (%learning_the_ropes = 35) {
+    // V12 (clip 978).
+    sound_speech_volume(vorbis_978, 1, 0, 255);
+    ~chatnpc("<p,neutral>Excellent! You look ready to fight. You can deal with the goblin now.");
+} else if (%learning_the_ropes = 40) {
+    // V21 (clip 729).
+    sound_speech_volume(vorbis_729, 1, 0, 255);
+    ~chatnpc("<p,neutral>Go on, finish off the goblin. It's too weak to be a real threat.");
+} else if (%learning_the_ropes >= 45 & %learning_the_ropes < 90) {
+    ~uf_vant_plan;
+} else if (%learning_the_ropes >= 93 & %learning_the_ropes < 120) {
+    ~uf_vant_sabotage;
+} else if (%learning_the_ropes >= 120) {
+    ~uf_vant_exit;
 }
+
+// "Assist Sir Vant" (Task 3501, 10): s004 and s005 (4KO2h2xPtdM @64-73; IwS6rBpkcyE @45-47),
+// V69 and V31 (clips 887, 807). "Gather the Squire's Gear" (15) shows as s005 opens (@66.5).
+[proc,uf_vant_assist]
+sound_speech_volume(vorbis_887, 1, 0, 255);
+~chatnpc("<p,neutral>Thank goodness you're here! My squire's dead, and there's a goblin going through my bag!");
+%learning_the_ropes = 15;
+~uf_task_pin;
+sound_speech_volume(vorbis_807, 1, 0, 255);
+~chatnpc("<p,neutral>I can't turn my back on this dragon. I need you to take my squire's equipment and deal with the goblin!");
+queue(uf_gear_hint, 2, 0);
 
 [proc,uf_vant_hello]
 // "Hello." in the player's voice: enum 3041 is the male one, 3042 the female (median pitch
@@ -23,3 +58,12 @@ sound_speech_volume(vorbis_770, 1, 0, 255);
 ~chatnpc("<p,shock>Wait a moment - there's a dragon coming!");
 %learning_the_ropes = 9;
 ~uf_dragon_cutscene;
+
+// A line in the player's voice: enum 3041 is the male one, 3042 the female (median pitch 115-160
+// Hz against 263-309 Hz).
+[proc,uf_player_voice](vorbis $male, vorbis $female)
+if (compare(text_gender("m", "f"), "m") = 0) {
+    sound_speech_volume($male, 1, 0, 255);
+} else {
+    sound_speech_volume($female, 1, 0, 255);
+}

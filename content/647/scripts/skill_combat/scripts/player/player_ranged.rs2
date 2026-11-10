@@ -4,7 +4,7 @@ if (~npc_is_attackable = false) {
 }
 
 if (%action_delay > map_clock) {
-    p_opnpc(2);
+    p_opnpc(~npc_attack_op);
     return;
 }
 
@@ -62,7 +62,7 @@ if ($damage > 0 & $poison_severity > 0 & random(8) = 0) { // 1/8 chance to poiso
     ~npc_poison_start(max(sub($poison_severity, 14), 0)); // lowered by 14 if ranged attack
 }
 
-p_opnpc(2);
+p_opnpc(~npc_attack_op);
 
 //mes("attackstyle: <tostring(%attackstyle)>, damagestyle: <tostring(%damagestyle)>, damage: <tostring($damage)>, damagetype: <tostring(%damagetype)>");
 anim(%com_attackanim, 0);

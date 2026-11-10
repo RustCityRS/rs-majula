@@ -510,6 +510,8 @@ pub const SOUND_SPEECH_VOLUME: u16 = 5021;
 #[cfg(since_647)]
 pub const SOUND_SPEECH_STOP: u16 = 5022;
 #[cfg(since_647)]
+pub const HINT_NPC_SLOT: u16 = 5023;
+#[cfg(since_647)]
 pub const REGION_FINDBYCOORD: u16 = 5200;
 #[cfg(since_647)]
 pub const REGION_GETCOORD: u16 = 5201;

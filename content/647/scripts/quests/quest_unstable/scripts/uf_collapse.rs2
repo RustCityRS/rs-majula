@@ -1,0 +1,121 @@
+// Unstable Foundations: the fire, the roof coming down on the dragon, and Roddeck (varp 281
+// 115 -> 120), as 4KO2h2xPtdM (2011-04-30) shows it (refs GAPS 21):
+// - @390-394 the player lights the far pillar's fuse, Sir Vant his; s037 "It's burning! Run!"
+//   @392.1 (V51, clip 881); @395-396 the player runs south;
+// - the cutscene: the minimap black @396.23; shot 201, a fixed view of the nest from the east
+//   (cs2 tutorial3_explosion), both pillars burning, the dragon asleep, @396.33-406.04 (16 ticks);
+//   the roof falls @406; black with "Please wait" @406.04-410.18 (7 ticks: the client rebuilding
+//   the map, the advisor button appearing ~408); shot 203, the rubble from the east, the player
+//   and Sir Vant ("Wow!" @413-414, V97 clip 782), ~10 ticks; shot 204, Roddeck out of his
+//   cupboard door (37, 30) @416-418; s038-s040 @419.3; the minimap back @427.13 with s041.
+// The rubble over the nest after the collapse: which locs, no source found yet.
+
+[proc,uf_light_pillars]
+if (region_findbycoord(coord) = false) {
+    return;
+}
+anim(human_createfire, 0);
+p_delay(1);
+%varplayerbit_6497 = 3;
+%varplayerbit_6496 = 3;
+sound_speech_volume(vorbis_881, 1, 0, 255);
+~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,shock>It's burning! Run!");
+p_walk(~uf_cellar_coord(30, 26));
+p_delay(1);
+~uf_cutscene_open;
+%learning_the_ropes = 117;
+%varclient_1007 = 201;
+p_delay(1);
+%varplayerbit_6497 = 4;
+%varplayerbit_6496 = 4;
+p_delay(13);
+// The roof falls: the screen goes black while the cellar changes.
+%varclient_1007 = 202;
+p_delay(0);
+if (npc_find(~uf_cellar_coord(19, 33), dragon_8861, 8, 0) = true) {
+    npc_del;
+}
+~uf_cellar_collapsed;
+p_teleport(~uf_cellar_coord(27, 33));
+if (npc_find(~uf_cellar_coord(26, 30), sir_vant_8850, 3, 0) = true) {
+    npc_tele(~uf_cellar_coord(28, 31));
+    npc_facesquare(~uf_cellar_coord(19, 35));
+}
+p_delay(5);
+// Shot 203: the rubble; Sir Vant's "Wow!".
+%varclient_1007 = 203;
+p_delay(2);
+if (npc_find(~uf_cellar_coord(28, 31), sir_vant_8850, 3, 0) = true) {
+    npc_say("Wow!");
+    sound_speech_volume(vorbis_782, 1, 0, 255);
+}
+p_delay(6);
+// Shot 204: Roddeck out of his cupboard.
+%varclient_1007 = 204;
+if (loc_find(~uf_cellar_coord(37, 30), cupboard_door) = true) {
+    loc_change(cupboard_door_45790, 20);
+}
+npc_add(~uf_cellar_coord(36, 30), roddeck, 0);
+npc_setmode(none);
+npc_walk(~uf_cellar_coord(32, 32));
+p_delay(4);
+// s038-s040 (IwS6rBpkcyE @340; 4KO2h2xPtdM @419.3), V1, R43, V56 (clips 763, 1102, 785).
+sound_speech_volume(vorbis_763, 1, 0, 255);
+~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Ah, here you are, Roddeck. The White Knights got your message and sent me to slay your dragon.");
+sound_speech_volume(vorbis_1102, 1, 0, 255);
+~chatnpc_specific("Roddeck", roddeck, "<p,neutral>Thank you both very much! It's had me trapped in the cupboard for ages. I'd completely lost control of it.");
+sound_speech_volume(vorbis_785, 1, 0, 255);
+~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Next time, get a puppy!");
+~uf_cutscene_close;
+%learning_the_ropes = 120;
+%varclient_1425 = 3512;
+~uf_task_pin;
+~uf_vant_kit_ask;
+
+// After the roof comes down: the pillars are stumps and Roddeck's cellar, west of the start room,
+// joins the region (2011's minimap shows the room beside the start room only from the exit stage,
+// 4KO2h2xPtdM sampled every 15 s; refs GAPS 15). The rebuild is the black "Please wait" screen.
+[proc,uf_cellar_collapsed]
+def_int $level = 0;
+def_int $a = 0;
+def_int $b = 0;
+while ($level < 4) {
+    $a = 0;
+    while ($a < 3) {
+        $b = 0;
+        while ($b < 3) {
+            region_set($level, calc(2 + $a), calc(2 + $b), movecoord(0_57_77_0_0, calc($a * 8), $level, calc($b * 8)), 0);
+            $b = calc($b + 1);
+        }
+        $a = calc($a + 1);
+    }
+    $level = calc($level + 1);
+}
+
+// "Return the Squire's Gear" (Task 3513, 120-127): s041 (IwS6rBpkcyE @357, 24/31), V5 (clip 705);
+// still wearing it, s041c (7_neJ6mCLXc @358), V4 (clip 3169).
+[proc,uf_vant_kit_ask]
+if (~uf_kit_worn > 0) {
+    sound_speech_volume(vorbis_3169, 1, 0, 255);
+    ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>I'd like my squire's kit back so I can return it to the poor chap's family. Take it off and hand it to me, please. I'd like my tinderbox and oil can too.");
+} else {
+    sound_speech_volume(vorbis_705, 1, 0, 255);
+    ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Before we go any further, could I have my squire's kit back, please? I ought to return it to the poor chap's family. I'd like my tinderbox and oil can too.");
+}
+
+// Each piece handed to Sir Vant: s041a (V76, clip 744) until the last, then s043 (V? clip: the
+// box "Right, I think that's everything. Now we just need a new way out of the cellar.").
+[proc,uf_return_item](obj $item)
+if ($item ! bronze_platebody & $item ! bronze_sq_shield & $item ! bronze_sword & $item ! tinderbox & $item ! sir_vant_s_oil_can) {
+    // V57 (clip 908).
+    sound_speech_volume(vorbis_908, 1, 0, 255);
+    ~chatnpc("<p,neutral>No thanks. Drop it on the floor if you don't need it.");
+    return;
+}
+inv_del(inv, $item, 1);
+if (~uf_kit_held = 0 & inv_total(inv, tinderbox) = 0 & inv_total(inv, sir_vant_s_oil_can) = 0) {
+    ~uf_kit_returned;
+    return;
+}
+sound_speech_volume(vorbis_744, 1, 0, 255);
+~chatnpc("<p,neutral>Thanks. Keep 'em coming, please.");

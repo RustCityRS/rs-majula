@@ -151,6 +151,13 @@ if_settext(music_v3:now_playing_text, db_getfield($song, music:name, 0));
 @music_play(db_getfield($song, music:track, 0));
 
 [label,music_playbyregion](coord $coord)
+// Not during Unstable Foundations (varp 281 below 1000, character creation included): 2011 plays
+// Destiny while the character is designed and The Mentor in the cellar, and unlocks Harmony only on
+// arrival in Lumbridge at the end (Qh_-AMJpVd0 2011-05-10; 4KO2h2xPtdM ~607: "You have unlocked a
+// new music track: Harmony."). A new account's spawn square would otherwise play and unlock its own.
+if (%learning_the_ropes < 1000) {
+    return;
+}
 // first, search for the song linked to this mapsquare
 def_int $map_x = calc(coordx($coord) / 64 * 64);
 def_int $map_z = calc(coordz($coord) / 64 * 64);

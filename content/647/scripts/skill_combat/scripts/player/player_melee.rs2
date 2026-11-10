@@ -6,7 +6,7 @@ if (~npc_is_attackable() = false) {
 }
 
 if (%action_delay > map_clock) {
-    p_opnpc(2); // it is guaranteed here that we are already within op distance
+    p_opnpc(~npc_attack_op); // it is guaranteed here that we are already within op distance
     return;
 }
 
@@ -58,4 +58,4 @@ if ($weapon = null) {
     %action_delay = add(map_clock, oc_param($weapon, attackrate));
 }
 
-p_opnpc(2);
+p_opnpc(~npc_attack_op);

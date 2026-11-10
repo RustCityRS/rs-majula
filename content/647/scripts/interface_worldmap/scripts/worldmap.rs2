@@ -39,6 +39,10 @@ if (add(%lastcombat, 8) > map_clock) {
     mes("Please finish what you are doing before opening the world map.");
     return;
 }
+// Unstable Foundations opens it at its own step (quest_unstable/uf_journal.rs2).
+if (~uf_worldmap_allowed = false) {
+    return;
+}
 %worldmap_focus = coord;
 %worldmap_player_coord = coord;
 if_opentop(worldmap);
@@ -74,6 +78,7 @@ if (getwindowmode = 1) {
 } else {
     if_opentop_mode(toplevel_fullscreen, 2);
 }
+~uf_worldmap_closed;
 
 // The key (755:49, "Show key"). Its order and four options live in varp 463,
 // which the client reads and redraws from (if_setonvartransmit in
@@ -167,7 +172,7 @@ if ($coord = %worldmap_lastclick & sub(map_clock, %worldmap_lastclick_clock) <= 
 // largest range. Its slot (7, clear of quests' 0) and height (0) are not
 // known.
 [proc,worldmap_marker_arrow]
-hint_coord_slot(^worldmap_marker_slot, ^worldmap_marker_icon, ^worldmap_marker_offset, %playerdesign2_col, 0, ^worldmap_marker_range);
+hint_coord_slot(^worldmap_marker_slot, ^worldmap_marker_icon, ^worldmap_marker_offset, %playerdesign2_col, 0, ^worldmap_marker_range, -1);
 
 [proc,worldmap_marker_clear]
 %playerdesign2_col = null;

@@ -107,6 +107,15 @@ if (randominc($attack_roll) > randominc($defence_roll)) {
 return(false);
 
 // allows any npc with op2 defined to be attacked
+// The op that attacks the active npc: 2, as on every 289 npc, or 1 where cache 786 gives Attack
+// as op 1 and nothing as op 2 (Unstable Foundations' goblin): p_opnpc does nothing for an op the
+// npc lacks, so a fight continued on op 2 would stop after its first swing.
+[proc,npc_attack_op]()(int)
+if (npc_hasop(2) = false & npc_hasop(1) = true) {
+    return(1);
+}
+return(2);
+
 [proc,npc_is_attackable]()(boolean)
 // https://web.archive.org/web/20060828222012/http://www.trillionareguild.com/runescape/dragon.php at the very end of the guide
 // it says "You have no reason to do that.", so its prob this osrs message.
@@ -194,6 +203,11 @@ if (npc_type = vampire_slayer_qip_count) {
     }
 }
 
+// Unstable Foundations' goblin has Attack as op 1 (cache 786; quest_unstable/uf_gear.rs2 checks
+// the squire's kit first).
+if (npc_type = goblin_8862) {
+    return(true);
+}
 if (npc_hasop(2) = true) {
     return (true);
 }

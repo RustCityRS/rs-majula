@@ -24,6 +24,9 @@ if ($hair ! -1) { %playerdesign3_head = $hair; }
 
 if_opentop(playerdesign4);
 allowdesign(^true);
+// 2011 plays Destiny while the character is designed (Qh_-AMJpVd0, 2011-05-10, 40-159 s, matched by
+// chroma; the 2011 wiki's Destiny page @ 2011-05-07: "character creation"), not the region's track.
+~uf_play_song(music_Destiny);
 ~cc_enable_events();
 ~cc_transmit_invs();
 

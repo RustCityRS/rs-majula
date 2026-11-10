@@ -203028,6 +203028,24 @@ model7=model_24491
 head1=model_24209
 unknown119=1
 cursorattack=cursor_attack
+// Unstable Foundations' goblin: level 2, 50 life points, max hit 16 (the 2011 wiki's "Goblin
+// (Unstable Foundations)", 2011-04-16). Its bonuses, anims and sounds are the cellar-free
+// goblin's (same bas_86 skeleton); the 2011 values for this one: no source found.
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
+param=damagetype,^crush_style
+param=attack_anim,goblin_attack_unarmed
+param=defend_anim,goblin_block
+param=death_anim,goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
 
 // 8863
 [tutorial3_advisor_walkoverrocks]

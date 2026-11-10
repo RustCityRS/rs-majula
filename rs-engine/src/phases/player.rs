@@ -138,6 +138,11 @@ impl Engine {
         Self::process_timers(self.clock, active, TimerPriority::Soft);
         // - engine queue
         Self::process_engine_queue(active);
+        // 647: the face lock an op script holds ends with the script.
+        #[cfg(since_647)]
+        if active.player.state.active_script.is_none() {
+            active.player.interaction.script_focus = None;
+        }
         active.player.set_face_entity();
         active.player.pathing.follow_coord = active.player.pathing.last_step_coord;
         // - interactions
@@ -558,6 +563,21 @@ impl Engine {
                     active.message_game("I can't reach that!");
                     active.player.clear_interaction();
                 }
+            }
+        }
+
+        // 647: an op script that suspends (a dialogue, a delay, a cutscene) keeps the player turned
+        // to the npc or player it was started on until it ends, so a scripted walk meanwhile
+        // side-steps or backs away facing it (the client picks walk_l/walk_r/walk_b only under a
+        // face lock: SpotShadowsClientOption.method2920). Unstable Foundations' dragon cutscene
+        // shows it: the player backs away from Sir Vant, facing him (4KO2h2xPtdM @17.3-18.2).
+        #[cfg(since_647)]
+        if interacted && active.player.state.active_script.is_some() {
+            if let Some(
+                target @ (InteractionTarget::Npc { .. } | InteractionTarget::Player { .. }),
+            ) = active.player.interaction.target
+            {
+                active.player.interaction.script_focus = Some(target);
             }
         }
 

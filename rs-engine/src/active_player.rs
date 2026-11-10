@@ -1285,6 +1285,7 @@ impl ActivePlayer {
         z: u16,
         height: u8,
         range: u16,
+        model: Option<u16>,
     ) {
         self.write(HintArrow {
             slot,
@@ -1297,7 +1298,20 @@ impl ActivePlayer {
                 height,
                 range,
             },
-            model_id: 0xFFFF,
+            model_id: model.unwrap_or(0xFFFF),
+        });
+    }
+
+    /// Rev-647: a hint arrow over an npc in one of the client's eight slots,
+    /// with a model the client draws at the local player's feet, turned toward
+    /// the npc, or none.
+    #[cfg(since_647)]
+    pub fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<u16>) {
+        self.write(HintArrow {
+            slot,
+            icon,
+            kind: HintArrowKind::Npc { npc_index: nid },
+            model_id: model.unwrap_or(0xFFFF),
         });
     }
 

@@ -1,0 +1,292 @@
+// Unstable Foundations: "Talk to Sir Vant Again" (Task 3511, varp 281 93-95) and "Sabotage!"
+// (3512, 96-115): the supplies, the oily rags and fuses on the two wooden pillars, the tinderbox,
+// and the fire. Lines from 2011's recordings (design note 3.4 s021-s037) and the voiced takes
+// (3.7); 4KO2h2xPtdM (2011-04-30) @289-396 for the order and the inventory:
+// - after s023 the backpack holds two tinderboxes, the cloth, a fuse of each of cache 786's two
+//   fuse objs (15282, 15283), and the oil can, in that order (@292);
+// - the cloth is ripped first, each rag soaked, wrapped, then the fuses (@294-357).
+// The pillars are locs 45564 (24, 31) and 45565 (24, 39), multilocs on varbits 6496 and 6497: 0
+// bare, 1 the oily rag on, 2 the fuse on, 3 the fuse alight (seq 12242), 4 burning (seq 12243).
+// Sir Vant stands by the first (Task 1715: "by the wooden pillar just south-east of the dragon's
+// nest"); the player lights "the pillar farthest from Sir Vant" (the 2011 wiki, Unstable
+// Foundations, 2011-05-05), "the fuse on the right" (Task 1716).
+// The values inside the band (96 the supplies taken, 98 the cloth ripped, 100 the rags soaked,
+// 105 both rags on, 110 both fuses on, 115 Sir Vant's tinderbox given): no source; cs2 4098/3227
+// read only the band.
+
+// "Talk to Sir Vant Again" (93): s021, s022 (V87, V8; clips 911, 993).
+[proc,uf_vant_sabotage]
+if (%learning_the_ropes = 93) {
+    hint_stop_slot(0);
+    sound_speech_volume(vorbis_911, 1, 0, 255);
+    ~chatnpc("<p,neutral>We need to destroy these pillars to collapse the ceiling on the dragon.");
+    sound_speech_volume(vorbis_993, 1, 0, 255);
+    ~chatnpc("<p,neutral>Could you get the rest of the supplies from my bag please?");
+    %learning_the_ropes = 95;
+    ~uf_task_pin;
+    return;
+}
+if (%learning_the_ropes = 95) {
+    // V24 (clip 870), then s022a and s022b (VwpdbjfigD4 2011-01-17 @392-395; P4, V60).
+    sound_speech_volume(vorbis_870, 1, 0, 255);
+    ~chatnpc("<p,neutral>Have you got the stuff from my bag?");
+    ~uf_player_voice(vorbis_1819, vorbis_640);
+    ~chatplayer("<p,neutral>I haven't searched it yet.");
+    sound_speech_volume(vorbis_932, 1, 0, 255);
+    ~chatnpc("<p,neutral>Oh. Well, search my bag and bring the supplies to me before the dragon wakes up!");
+    return;
+}
+if (%learning_the_ropes >= 96 & %learning_the_ropes < 115) {
+    if (%varplayerbit_6496 = 2 & %varplayerbit_6497 = 2) {
+        // s034 (V73, clip 931): both pillars ready.
+        sound_speech_volume(vorbis_931, 1, 0, 255);
+        ~chatnpc("<p,neutral>Thanks, that's perfect. Now, hand me a tinderbox.");
+        return;
+    }
+    if (%learning_the_ropes = 96) {
+        // s024-s026 (VwpdbjfigD4 @411-419; V58, V14, V98, clips 795, 876, 844).
+        sound_speech_volume(vorbis_795, 1, 0, 255);
+        ~chatnpc("<p,neutral>Now we're going to burn these wooden pillars and bring the ceiling down on this fat old worm!");
+        sound_speech_volume(vorbis_876, 1, 0, 255);
+        ~chatnpc("<p,neutral>First, we need to wrap the pillars in oily rags. There was a big cloth in my bag. Rip it in half, then soak the pieces in oil.");
+        sound_speech_volume(vorbis_844, 1, 0, 255);
+        ~chatnpc("<p,neutral>Wrap the oily rags around the pillars, then add a fuse to each one.");
+        return;
+    }
+    // s026a-s026e (rX5vda5px3w 2011-01-28 @66-81; V29 clip 757, V54 clip 907).
+    sound_speech_volume(vorbis_757, 1, 0, 255);
+    ~chatnpc("<p,neutral>How are you getting on?");
+    def_int $choice = ~p_choice3("What am I meant to be doing?", 1, "I'm getting there.", 2, "Why don't you do it yourself?", 3);
+    if ($choice = 1) {
+        ~uf_player_voice(vorbis_1880, vorbis_661);
+        ~chatplayer("<p,neutral>What am I meant to be doing?");
+        sound_speech_volume(vorbis_844, 1, 0, 255);
+        ~chatnpc("<p,neutral>Wrap the oily rags around the pillars, then add a fuse to each one.");
+    } else if ($choice = 2) {
+        ~uf_player_voice(vorbis_1839, vorbis_414);
+        ~chatplayer("<p,neutral>I'm getting there.");
+    } else {
+        ~uf_player_voice(vorbis_1859, vorbis_578);
+        ~chatplayer("<p,neutral>Why don't you do it yourself?");
+        sound_speech_volume(vorbis_907, 1, 0, 255);
+        ~chatnpc("<p,neutral>Me? Touch oily rags? You've clearly never tried to clean oil off white armour!");
+        ~chatnpc("<p,neutral>No, I'll let you have all the fun.");
+    }
+    return;
+}
+if (%learning_the_ropes = 115) {
+    // s036 again (V72, clip 893).
+    sound_speech_volume(vorbis_893, 1, 0, 255);
+    ~chatnpc("<p,neutral>Thank you. When you're ready, set fire to the other pillar. I'll light this one at the same moment.");
+}
+
+// The supplies: s023 (IwS6rBpkcyE @234, 23/31), N28 (clip 1488); afterwards N27 (clip 1739).
+[proc,uf_bag_supplies]
+if (%learning_the_ropes = 95) {
+    if (inv_freespace(inv) < 6) {
+        ~mesbox("You don't have enough inventory space.");
+        return;
+    }
+    inv_add(inv, tinderbox, 1);
+    inv_add(inv, tinderbox, 1);
+    inv_add(inv, cloth, 1);
+    inv_add(inv, fuse_15282, 1);
+    inv_add(inv, fuse_15283, 1);
+    inv_add(inv, sir_vant_s_oil_can, 1);
+    %learning_the_ropes = 96;
+    %varclient_1425 = 3511;
+    ~uf_task_pin;
+    sound_speech_volume(vorbis_1488, 1, 0, 255);
+    ~objbox(cloth, "You search Sir Vant's bag and take a selection of supplies.", 250, 0, 0);
+    return;
+}
+sound_speech_volume(vorbis_1739, 1, 0, 255);
+~mesbox("There's nothing useful left in the bag except for Sir Vant's spare underpants, which you leave well alone.");
+
+// Rip: s027 / s030 (N10, N11; clips 1382, 1452).
+[opheld1,cloth]
+inv_del(inv, cloth, 1);
+inv_add(inv, rag, 2);
+if (%learning_the_ropes = 96) {
+    %learning_the_ropes = 98;
+}
+sound_speech_volume(vorbis_1382, 1, 0, 255);
+~objbox(rag, "You rip the cloth and end up with two rags.", 250, 0, 0);
+
+[opheld1,oily_cloth]
+inv_del(inv, oily_cloth, 1);
+inv_add(inv, oily_rag, 2);
+if (%learning_the_ropes = 96) {
+    %learning_the_ropes = 100;
+}
+sound_speech_volume(vorbis_1452, 1, 0, 255);
+~objbox(oily_rag, "You rip the oily cloth and end up with two oily rags.", 250, 0, 0);
+
+// Soak: the oil can with the cloth or a rag, either way round (s028 N13 clip 1379, s029 N12 clip
+// 1541; already soaked: s031 N14 / N15, clips 1344, 1598; on a fuse: N16, clip 1770).
+[opheldu,sir_vant_s_oil_can] ~uf_soak(last_item, last_useitem);
+[opheldu,cloth] ~uf_soak(last_item, last_useitem);
+[opheldu,rag] ~uf_soak(last_item, last_useitem);
+[opheldu,oily_rag] ~uf_soak(last_item, last_useitem);
+[opheldu,oily_cloth] ~uf_soak(last_item, last_useitem);
+[opheldu,fuse_15282] ~uf_soak(last_item, last_useitem);
+[opheldu,fuse_15283] ~uf_soak(last_item, last_useitem);
+
+[proc,uf_soak](obj $held, obj $other)
+def_obj $item = $held;
+if ($item = sir_vant_s_oil_can) {
+    $item = $other;
+} else if ($other ! sir_vant_s_oil_can) {
+    ~displaymessage(^dm_default);
+    return;
+}
+if ($item = cloth) {
+    inv_del(inv, cloth, 1);
+    inv_add(inv, oily_cloth, 1);
+    sound_speech_volume(vorbis_1541, 1, 0, 255);
+    ~objbox(oily_cloth, "You soak the cloth in oil.", 250, 0, 0);
+} else if ($item = rag) {
+    inv_del(inv, rag, 1);
+    inv_add(inv, oily_rag, 1);
+    if (%learning_the_ropes = 98 & inv_total(inv, rag) = 0) {
+        %learning_the_ropes = 100;
+    }
+    sound_speech_volume(vorbis_1379, 1, 0, 255);
+    ~objbox(oily_rag, "You soak the rag in oil.", 250, 0, 0);
+} else if ($item = oily_cloth) {
+    sound_speech_volume(vorbis_1344, 1, 0, 255);
+    ~mesbox("The cloth has already been soaked in oil.");
+} else if ($item = oily_rag) {
+    sound_speech_volume(vorbis_1598, 1, 0, 255);
+    ~mesbox("The rag has already been soaked in oil.");
+} else if ($item = fuse_15282 | $item = fuse_15283) {
+    sound_speech_volume(vorbis_1770, 1, 0, 255);
+    ~mesbox("There's no need to put oil on the fuse.");
+} else {
+    ~displaymessage(^dm_default);
+}
+
+// Items on a pillar.
+[oplocu,wooden_pillar] ~uf_pillar_use(last_useitem);
+[oplocu,wooden_pillar_45567] ~uf_pillar_use(last_useitem);
+[oplocu,wooden_pillar_45568] ~uf_pillar_use(last_useitem);
+[oplocu,wooden_pillar_45569] ~uf_pillar_use(last_useitem);
+[oplocu,wooden_pillar_45570] ~uf_pillar_use(last_useitem);
+
+[proc,uf_pillar_use](obj $item)
+if (region_findbycoord(coord) = false) {
+    return;
+}
+// Which pillar: Sir Vant's (24, 31), varbit 6496, or the other (24, 39), 6497.
+def_boolean $his = false;
+if (coordz(loc_coord) < coordz(~uf_cellar_coord(24, 35))) {
+    $his = true;
+}
+def_int $state = %varplayerbit_6497;
+if ($his = true) {
+    $state = %varplayerbit_6496;
+}
+if ($item = oily_rag) {
+    if ($state > 0) {
+        // V77 (clip 786; N21, clip 1773, is the narrator's).
+        sound_speech_volume(vorbis_786, 1, 0, 255);
+        ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>That pillar's already got an oil-soaked cloth around it.");
+        return;
+    }
+    inv_del(inv, oily_rag, 1);
+    ~uf_pillar_set($his, 1);
+    sound_speech_volume(vorbis_1698, 1, 0, 255);
+    ~objbox(oily_rag, "You wrap the oily rag around the pillar.", 250, 0, 0);
+    if (%varplayerbit_6496 >= 1 & %varplayerbit_6497 >= 1 & %learning_the_ropes < 105) {
+        %learning_the_ropes = 105;
+    }
+    return;
+}
+if ($item = rag) {
+    // s031a (promi6pWj8k @627), V105 (clip 750).
+    sound_speech_volume(vorbis_750, 1, 0, 255);
+    ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>You're supposed to soak the rag in oil first. Try using the rag with the oil can.");
+    return;
+}
+if ($item = cloth | $item = oily_cloth) {
+    // V103 (clip 791).
+    sound_speech_volume(vorbis_791, 1, 0, 255);
+    ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>You're supposed to rip the cloth in half first.");
+    return;
+}
+if ($item = fuse_15282 | $item = fuse_15283) {
+    if ($state = 0) {
+        // V41 (clip 991): its take runs on; the box keeps the first sentence.
+        sound_speech_volume(vorbis_991, 1, 0, 255);
+        ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>I think you should wrap the oily rag around the pillar before adding the fuse.");
+        return;
+    }
+    if ($state >= 2) {
+        // V79 (clip 905).
+        sound_speech_volume(vorbis_905, 1, 0, 255);
+        ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>The pillar's already fully prepared for burning.");
+        return;
+    }
+    inv_del(inv, $item, 1);
+    ~uf_pillar_set($his, 2);
+    sound_speech_volume(vorbis_1621, 1, 0, 255);
+    ~objbox($item, "You attach the fuse to the pillar.", 250, 0, 0);
+    if (%varplayerbit_6496 = 2 & %varplayerbit_6497 = 2 & %learning_the_ropes < 110) {
+        %learning_the_ropes = 110;
+    }
+    return;
+}
+if ($item = tinderbox) {
+    if (%varplayerbit_6496 ! 2 | %varplayerbit_6497 ! 2) {
+        // s033a (p7ufqPwAXLg 2011-03-07 @464), V83 (clip 833).
+        sound_speech_volume(vorbis_833, 1, 0, 255);
+        ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Wait a minute! You're supposed to get both pillars prepared before we light them.");
+        return;
+    }
+    if (%learning_the_ropes < 115) {
+        // s034a (7_neJ6mCLXc 2010-12-23 @299), V101 (clip 913).
+        sound_speech_volume(vorbis_913, 1, 0, 255);
+        ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>You'll need to give me a tinderbox first - otherwise, I can't light my pillar at the same time as you light yours.");
+        return;
+    }
+    if ($his = true) {
+        // V39 (clip 799): its take runs on; the box keeps the first sentence.
+        sound_speech_volume(vorbis_799, 1, 0, 255);
+        ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>I think it would be better if you lit the other pillar.");
+        return;
+    }
+    ~uf_light_pillars;
+    return;
+}
+~displaymessage(^dm_default);
+
+[proc,uf_pillar_set](boolean $his, int $state)
+if ($his = true) {
+    %varplayerbit_6496 = $state;
+} else {
+    %varplayerbit_6497 = $state;
+}
+
+// The tinderbox to Sir Vant: s035 (N53, clip 1556), s036 (V72, clip 893). Anything else: s033b
+// (V32, clip 798).
+[opnpcu,sir_vant_8850]
+if (last_useitem = tinderbox & %learning_the_ropes >= 96 & %learning_the_ropes < 115) {
+    if (%varplayerbit_6496 ! 2 | %varplayerbit_6497 ! 2) {
+        sound_speech_volume(vorbis_833, 1, 0, 255);
+        ~chatnpc("<p,neutral>Wait a minute! You're supposed to get both pillars prepared before we light them.");
+        return;
+    }
+    inv_del(inv, tinderbox, 1);
+    %learning_the_ropes = 115;
+    sound_speech_volume(vorbis_1556, 1, 0, 255);
+    ~objbox(tinderbox, "You offer Sir Vant a tinderbox.", 250, 0, 0);
+    sound_speech_volume(vorbis_893, 1, 0, 255);
+    ~chatnpc("<p,neutral>Thank you. When you're ready, set fire to the other pillar. I'll light this one at the same moment.");
+    return;
+}
+if (%learning_the_ropes >= 120 & %learning_the_ropes < 128) {
+    ~uf_return_item(last_useitem);
+    return;
+}
+sound_speech_volume(vorbis_798, 1, 0, 255);
+~chatnpc("<p,neutral>I don't think I need that just at the moment, thank you.");

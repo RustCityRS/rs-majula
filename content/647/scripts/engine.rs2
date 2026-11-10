@@ -388,10 +388,16 @@
 // $icon its colour (an index into hint_headicons, hint_mapmarkers and
 // hint_mapedge), $offset 2 the tile's centre or 3-6 the middle of its west,
 // east, south or north edge, $range how far the minimap shows it, in 32-tile
-// units (0 keeps it off the minimap)
-[command,hint_coord_slot](int $slot, int $icon, int $offset, coord $coord, int $height, int $range)
+// units (0 keeps it off the minimap), and $model a model the client draws at
+// the player's feet turned toward the tile (-1 for none)
+[command,hint_coord_slot](int $slot, int $icon, int $offset, coord $coord, int $height, int $range, int $model)
 // info: 647: clear the hint arrow in one slot, leaving the others
 [command,hint_stop_slot](int $slot)
+// info: 647: a hint arrow over the active npc in one of the client's eight
+// slots, $icon as hint_coord_slot's, and $model a model the client draws at
+// the player's feet turned toward the npc (-1 for none)
+[command,hint_npc_slot](int $slot, int $icon, int $model)
+[command,.hint_npc_slot](int $slot, int $icon, int $model)
 // info: Start a softtimer on the active_player
 [command,softtimer]/*(softtimer $timer, int $interval, ...)*/
 // info: Start a softtimer on the secondary active_player

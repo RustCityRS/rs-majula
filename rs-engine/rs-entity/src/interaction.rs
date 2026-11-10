@@ -137,6 +137,8 @@ pub struct InteractionState {
     pub target_z: i32,
     pub last_path_src: u32,
     pub last_path_dst: u32,
+    #[cfg(since_647)]
+    pub script_focus: Option<InteractionTarget>,
 }
 
 impl InteractionState {
@@ -155,6 +157,8 @@ impl InteractionState {
             target_x: -1,
             target_z: -1,
             last_path_src: 0,
+            #[cfg(since_647)]
+            script_focus: None,
             last_path_dst: 0,
         }
     }
@@ -233,7 +237,13 @@ impl InteractionState {
     /// Marks the mask if the value changed.
     pub fn set_face_entity(&self, info: &mut EntityMasks, kind: FocusKind) {
         let temp = info.face_entity;
-        if let Some(target) = self.target {
+        // 647: a player stays turned to the npc or player its op script was started on for as
+        // long as that script is suspended (see `script_focus`).
+        #[cfg(since_647)]
+        let target = self.target.or(self.script_focus);
+        #[cfg(before_647)]
+        let target = self.target;
+        if let Some(target) = target {
             match &target {
                 InteractionTarget::Player { pid } => {
                     info.set_face_entity_check(kind, *pid + 32768);

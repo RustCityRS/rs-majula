@@ -1,0 +1,15 @@
+// Unstable Foundations' goblin (8862) at Sir Vant's bag, from the dragon cutscene's shot 9 until the
+// player fights it. It talks to itself as it rummages: "Heh heh heh.", "Mine, all mine!", "Ooh!" and
+// "Me get rich!" (4KO2h2xPtdM 2011-04-30 @56.0, 60.6, 65.5, 68.5, 75.6; read at 3x). Which line
+// comes next looks random; the gaps between them, about 8, 8, 5 and 12 ticks (one frame a second),
+// look like a 1-in-8 chance every tick rather than a fixed timer. That cadence is fitted to those
+// four gaps; no script source gives it.
+[ai_timer,goblin_8862]
+if (random(8) = 0) {
+    switch_int (random(4)) {
+        case 0 : npc_say("Heh heh heh.");
+        case 1 : npc_say("Mine, all mine!");
+        case 2 : npc_say("Ooh!");
+        case 3 : npc_say("Me get rich!");
+    }
+}

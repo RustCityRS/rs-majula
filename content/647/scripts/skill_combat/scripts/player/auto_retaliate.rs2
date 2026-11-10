@@ -23,7 +23,7 @@ if (%option_nodef = ^player_auto_retaliate_on & npc_finduid($nid) = true & busy2
         %action_delay = add(map_clock, $delay);
     }
 
-    p_opnpc(2);
+    p_opnpc(~npc_attack_op);
 }
 
 // this needs fixing, and .queue support

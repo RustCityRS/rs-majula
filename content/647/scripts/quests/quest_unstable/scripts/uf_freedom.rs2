@@ -1,0 +1,135 @@
+// Unstable Foundations' end: up the ladder from Explorer Jack's cellar into his house in Lumbridge
+// (Task 3519 "To Freedom!", varp 281 170 -> 1000), Explorer Jack (3520, varbit 6494), and "The
+// Journey Begins" (3521). As 4KO2h2xPtdM (2011-04-30) shows it:
+// - @596-600 the player by the ladder in Explorer Jack's cellar, s078 from Sir Vant;
+// - @603 "Loading - please wait", @606 Lumbridge;
+// - @609 the quest scroll: "Congratulations!" / "You have completed Unstable Foundations!" / "You
+//   gain:" / "1 Quest Point" / "Level 4 Mining", a pickaxe; in the chat "Congratulations! Quest
+//   complete!" then "You have unlocked a new music track: Harmony."; @612 "You've just advanced 2
+//   Mining levels! You have reached level 4." and TASK COMPLETE "To Freedom!", every tab open;
+// - @636-655 talking to Explorer Jack: s079-s086 (Jack, Roddeck, Sir Vant).
+// The house is the player's own copy until they walk out of it (the user's account of 2011);
+// Explorer Jack stands in it on (3204, 3241) as in the static world (n50_50).
+
+// The ladder up (loc 45784 on local (6, 21)).
+[oploc1,ladder_45784]
+if (%learning_the_ropes < 170) {
+    return;
+}
+anim(human_reachforladder, 0);
+p_delay(0);
+~uf_house_enter;
+
+// Explorer Jack's house, square 50_50's zones (400-401, 404-405): a copy two zones in, as the
+// cellar's, so local (dx, dz) from (3200, 3232) is the region's (16 + dx, 16 + dz).
+[proc,uf_house_enter]
+region_create(2, 6, 6);
+def_int $level = 0;
+def_int $a = 0;
+def_int $b = 0;
+while ($level < 2) {
+    $a = 0;
+    while ($a < 2) {
+        $b = 0;
+        while ($b < 2) {
+            region_set($level, calc(2 + $a), calc(2 + $b), movecoord(0_50_50_0_32, calc($a * 8), $level, calc($b * 8)), 0);
+            $b = calc($b + 1);
+        }
+        $a = calc($a + 1);
+    }
+    $level = calc($level + 1);
+}
+p_telejump(~uf_house_coord(3207, 3240));
+npc_add(~uf_house_coord(3204, 3241), explorer_jack_13295, 0);
+npc_setmode(none);
+npc_add(~uf_house_coord(3206, 3239), roddeck, 0);
+npc_setmode(none);
+npc_add(~uf_house_coord(3205, 3240), sir_vant_8850, 0);
+npc_setmode(none);
+p_delay(1);
+~uf_complete;
+softtimer(uf_house_watch, 1);
+
+// A Lumbridge tile in the house copy the player stands in.
+[proc,uf_house_coord](int $x, int $z)(coord)
+return(region_getcoord(0, calc(16 + $x - 3200), calc(16 + $z - 3232)));
+
+// The quest's end: 1 quest point, level 4 in the skill chosen (the 2011 wiki's Reward:
+// "Level 4 Mining/Woodcutting"), Harmony, every tab, and the Task panel on Explorer Jack.
+[proc,uf_complete]
+%learning_the_ropes = 1000;
+%varclient_1425 = 3519;
+~uf_task_pin;
+~initalltabs;
+mes("Congratulations! Quest complete!");
+~music_unlock_play(music_Harmony);
+def_obj $tool = bronze_pickaxe;
+def_string $reward = "Level 4 Mining";
+if (%varplayerbit_6495 >= 2) {
+    $tool = bronze_hatchet;
+    $reward = "Level 4 Woodcutting";
+}
+~send_quest_complete2(^questlist_unstable, $tool, 250, 1, "You have completed Unstable Foundations!", $reward);
+// Level 4 is 276 xp; the practice leaves the player on 84 (two 42s), so 192 more. A player who
+// practised past level 2 ends a little above 276, still level 4 below 388.
+if (%varplayerbit_6495 >= 2) {
+    if (stat_base(woodcutting) < 4) {
+        stat_advance(woodcutting, 1920);
+    }
+} else {
+    if (stat_base(mining) < 4) {
+        stat_advance(mining, 1920);
+    }
+}
+
+// Out of the house copy: the same tile in the world. The house: x 3201-3214, z 3238-3245 (its
+// walls in l50_50; inference: which way out 2011 took, no source).
+[softtimer,uf_house_watch]
+if (region_findbycoord(coord) = false) {
+    clearsofttimer(uf_house_watch);
+    return;
+}
+def_coord $base = ~uf_house_coord(3200, 3232);
+def_int $x = calc(3200 + coordx(coord) - coordx($base));
+def_int $z = calc(3232 + coordz(coord) - coordz($base));
+if ($x >= 3201 & $x <= 3214 & $z >= 3238 & $z <= 3245) {
+    return;
+}
+// Busy (a dialogue, a delay): try again next tick.
+if (p_finduid(uid) = false) {
+    return;
+}
+clearsofttimer(uf_house_watch);
+// s087 (IwS6rBpkcyE @500, 17/31), N58 (clip 1653).
+sound_speech_volume(vorbis_1653, 1, 0, 255);
+mes("As you leave, Roddeck wanders off home.");
+p_telejump(movecoord(0_50_50_0_32, calc($x - 3200), coordy(coord), calc($z - 3232)));
+
+// Explorer Jack in his house: s079-s086 (Task-build lines R81, R78, R5; V90, V42; R14; R79 for
+// both of Jack's boxes, clips 3180, 3173, 1282, 688, 687, 1253, 3177).
+[opnpc1,explorer_jack_13295]
+if (%learning_the_ropes < 1000 | %varplayerbit_6494 >= 3) {
+    return;
+}
+sound_speech_volume(vorbis_3180, 1, 0, 255);
+~chatnpc("<p,neutral>Good grief! Where did you three come from?");
+sound_speech_volume(vorbis_3173, 1, 0, 255);
+~chatnpc_specific("Roddeck", roddeck, "<p,neutral>I'll explain later, Jack.");
+sound_speech_volume(vorbis_1282, 1, 0, 255);
+~chatnpc_specific("Roddeck", roddeck, "<p,neutral>At last, we're out! Now, Sir Vant has accomplished his mission - to rescue me from my pet dragon - so I suppose he'll be off.");
+sound_speech_volume(vorbis_688, 1, 0, 255);
+~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Well, my mission is accomplished now: Roddeck's dragon is no longer a threat.");
+sound_speech_volume(vorbis_687, 1, 0, 255);
+~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>I'd better head back to Falador. My squire's family will need to be informed of his death. It's been a pleasure working with you.");
+sound_speech_volume(vorbis_1253, 1, 0, 255);
+~chatnpc_specific("Roddeck", roddeck, "<p,neutral>Goodbye, Sir Vant, and thank you again!");
+if (npc_find(coord, sir_vant_8850, 8, 0) = true) {
+    npc_del;
+}
+sound_speech_volume(vorbis_3177, 1, 0, 255);
+~chatnpc_specific("Explorer Jack", explorer_jack_13295, "<p,neutral>Once you're out and about, you can use the Task System to suggest aims and endeavours to go for. Every one you do will get you a reward.");
+~chatnpc_specific("Explorer Jack", explorer_jack_13295, "<p,neutral>You'll always earn some money, sometimes additional goodies, and often progress towards a piece of armour with special effects. Look at the Rewards tab for a Task to learn more.");
+%varplayerbit_6494 = 3;
+%varclient_1425 = 3520;
+~uf_task_pin;
+

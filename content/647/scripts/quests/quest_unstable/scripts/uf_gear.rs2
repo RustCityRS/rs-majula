@@ -1,0 +1,162 @@
+// Unstable Foundations: the squire's gear and the goblin, Tasks 3502-3504 (varp 281 15-40), as
+// 4KO2h2xPtdM (2011-04-30) shows them second by second (refs GAPS 19):
+// - s005 opens with "Gather the Squire's Gear" on the panel (@66.5): 15 comes with s005, and no
+//   TASK COMPLETE shows for "Assist Sir Vant".
+// - The hint arrow and ring stay on Sir Vant after the talk (@74-75) and are on the gear by @76.
+// - The third piece picked up (@79): the inventory tab, the arrow at it, "Equip Yourself", the
+//   hint gone; TASK COMPLETE "Gather the Squire's Gear" fades in after (@80.5).
+// - The third piece worn (@83-83.5): the combat and worn equipment tabs, the arrow at worn
+//   equipment, "Kill the Goblin", TASK COMPLETE "Equip Yourself"; the hint arrow and ring on the
+//   goblin (@86).
+// The values inside the bands (20/25/30 for none, one or two pieces worn, 35 all worn, 40
+// fighting): no source gives them; cs2 4098/3227 read only the bands (design note 3.1).
+
+[proc,uf_kit_count](inv $inv)(int)
+def_int $n = 0;
+if (inv_total($inv, bronze_platebody) > 0) {
+    $n = calc($n + 1);
+}
+if (inv_total($inv, bronze_sq_shield) > 0) {
+    $n = calc($n + 1);
+}
+if (inv_total($inv, bronze_sword) > 0) {
+    $n = calc($n + 1);
+}
+return($n);
+
+[proc,uf_kit_worn]()(int)
+return(~uf_kit_count(worn));
+
+[proc,uf_kit_held]()(int)
+return(calc(~uf_kit_count(inv) + ~uf_kit_count(worn)));
+
+// Two ticks after the talk the hint leaves Sir Vant for the gear (4KO2h2xPtdM @74-76), the ring
+// at the player's feet turned toward it.
+[queue,uf_gear_hint]
+if (region_findbycoord(coord) = false) {
+    return;
+}
+if (%learning_the_ropes = 15) {
+    hint_coord_slot(0, 0, 2, ~uf_cellar_coord(32, 13), 0, 0, ^uf_hint_ring);
+}
+
+// From pickup.rs2, each time a ground obj is taken while the gear is to gather.
+[proc,uf_gear_taken]
+if (%learning_the_ropes ! 15 | ~uf_kit_held < 3) {
+    return;
+}
+%learning_the_ropes = 20;
+hint_stop_slot(0);
+~uf_open_tab(4);
+// The arrow at the inventory tab, flashing it while another tab shows (4KO2h2xPtdM @79-80).
+%varplayerbit_3756 = 5;
+%varclient_1425 = 3502;
+~uf_task_pin;
+
+// From equip.rs2, after each piece is put on.
+[proc,uf_gear_worn]
+if (%learning_the_ropes < 20 | %learning_the_ropes > 30) {
+    return;
+}
+def_int $worn = ~uf_kit_worn;
+if ($worn < 3) {
+    %learning_the_ropes = calc(20 + 5 * $worn);
+    return;
+}
+%learning_the_ropes = 35;
+~uf_open_tab(0);
+~uf_open_tab(5);
+%varplayerbit_3756 = 6;
+%varclient_1425 = 3503;
+~uf_task_pin;
+if (npc_find(~uf_cellar_coord(34, 13), goblin_8862, 4, 0) = true) {
+    hint_npc_slot(0, 0, ^uf_hint_ring);
+}
+
+// The goblin: level 2, 50 life points, max hit 16; it never leaves its square, hits back once for
+// each hit, goes back to rummaging when left alone, and can be fought only in all three pieces of
+// the squire's gear, Sir Vant stopping you otherwise (the 2011 wiki's "Goblin (Unstable
+// Foundations)", 2011-04-16). Its op 1 is Attack (cache 786).
+[apnpc1,goblin_8862]
+if (~uf_goblin_may_fight = false) {
+    return;
+}
+@player_combat_start_ap;
+
+[opnpc1,goblin_8862]
+if (~uf_goblin_may_fight = false) {
+    return;
+}
+@player_combat_start;
+
+[proc,uf_goblin_may_fight]()(boolean)
+if (%learning_the_ropes >= 35 & ~uf_kit_worn = 3) {
+    if (%learning_the_ropes = 35) {
+        %learning_the_ropes = 40;
+    }
+    return(true);
+}
+if (~uf_kit_held = 3) {
+    // Holding the kit, not wearing all of it: V85 (enum 3039 #85, clip 758; text from its
+    // take, no recording shows the box).
+    sound_speech_volume(vorbis_758, 1, 0, 255);
+    ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Wait, you're not properly armed. You should equip all the kit you've picked up.");
+} else {
+    // s005a (E4MP65bl3sI 2011-01-15 @200), V86 (clip 988).
+    sound_speech_volume(vorbis_988, 1, 0, 255);
+    ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Wait! You're not properly armed. Pick up the kit dropped by my squire, then attack the goblin when you've equipped it.");
+}
+return(false);
+
+// It hits back once for each hit it takes, from its own square: never the default retaliation's
+// opplayer2 mode, which would follow the player and keep attacking.
+[ai_queue1,goblin_8862]
+if (finduid(%npc_aggressive_player) = false) {
+    return;
+}
+if (npc_range(coord) > 1) {
+    return;
+}
+%npc_attacking_uid = %npc_aggressive_player;
+gosub(npc_default_attack);
+
+[ai_queue3,goblin_8862]
+if (finduid(%npc_aggressive_player) = true) {
+    if (%learning_the_ropes = 40) {
+        queue(uf_goblin_killed, 2, 0);
+    }
+}
+gosub(npc_death);
+
+// s007 (4KO2h2xPtdM; IwS6rBpkcyE @75), V71 (clip 730): "Find Out Sir Vant's Plan" (45).
+[queue,uf_goblin_killed]
+if (%learning_the_ropes ! 40 | region_findbycoord(coord) = false) {
+    return;
+}
+%learning_the_ropes = 45;
+%varclient_1425 = 3504;
+~uf_task_pin;
+if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 3, 0) = true) {
+    hint_npc_slot(0, 0, ^uf_hint_ring);
+}
+sound_speech_volume(vorbis_730, 1, 0, 255);
+~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Thank you! Now to deal with the dragon. Come here, and I'll tell you my plan.");
+
+// Sir Vant's bag before he gives leave: s008 (fE0GdVcmJ9E 2011-01-23 @285), V109 (clip 739).
+[oploc1,sir_vant_s_bag]
+if (%learning_the_ropes < 45) {
+    sound_speech_volume(vorbis_739, 1, 0, 255);
+    ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>I don't believe I gave you permission to go through my bag.");
+    return;
+}
+~uf_bag_search;
+
+// The low wall by Sir Vant before its step: s006 (4KO2h2xPtdM @84 "Climb-over Low wall", the
+// guide narrator's U90, clip 1502).
+[oploc1,low_wall_45603]
+if (%learning_the_ropes < 65) {
+    sound_speech_volume(vorbis_1502, 1, 0, 255);
+    ~mesbox("We'll come back to that in a moment.");
+    return;
+}
+~uf_low_wall;

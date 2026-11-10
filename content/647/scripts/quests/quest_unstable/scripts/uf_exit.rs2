@@ -1,0 +1,330 @@
+// Unstable Foundations: the kit back to Sir Vant (Task 3513, varp 281 120-127), the way out
+// (3514 "Discover an Exit", 3515/3516 "Cutting a Path" / "Breaking Through", 3517/3518 the skill
+// Tasks; 128-165) and the hole (3519 "To Freedom!", 170). Lines from 2011's recordings (design
+// note 3.4 s041-s078) and the voiced takes (3.7).
+// Varbit 6495 is the way chosen (cs2 task_requirements_fulfilled reads it): 0 the rocks, 2 the
+// roots; 1 and 3 the same with the practice spots live (the practice rocks' multilocs give "Mine"
+// at 1, the practice roots' "Chop" at 3).
+// The values inside the bands (128 asked, 130 the tool given, 135 the blockage tried, 140 the
+// practice spot shown, 150 level 2, 160 the blockage cleared, 170 through the hole): no source;
+// cs2 3227 reads >127, >160, >165, >170.
+
+// The kit is all back: s043-s045 (IwS6rBpkcyE @368-369; V66, V93, V48: clips 861, 935, 837) and
+// s046's menu.
+[proc,uf_kit_returned]
+%learning_the_ropes = 128;
+%varclient_1425 = 3513;
+~uf_task_pin;
+sound_speech_volume(vorbis_861, 1, 0, 255);
+~chatnpc("<p,neutral>Right, I think that's everything. Now we just need a new way out of the cellar.");
+sound_speech_volume(vorbis_935, 1, 0, 255);
+~chatnpc("<p,neutral>When the ceiling collapsed, it damaged that wall. It looks like there are two places where you could break through. One's blocked by rocks, the other by tree roots.");
+sound_speech_volume(vorbis_837, 1, 0, 255);
+~chatnpc("<p,neutral>I'm sure Roddeck can teach you how to clear the rocks or the tree roots out of the way.");
+~uf_get_on_with_it;
+if (npc_find(coord, roddeck, 12, 0) = true) {
+    hint_npc_slot(0, 0, ^uf_hint_ring);
+}
+
+// s046 (22/31) -> s047 / s048, s048a (V89, clip 922).
+[proc,uf_get_on_with_it]
+def_int $choice = ~p_choice2("Okay, I'll get on with it.", 1, "Why don't you do it yourself?", 2);
+if ($choice = 2) {
+    ~uf_player_voice(vorbis_1859, vorbis_578);
+    ~chatplayer("<p,neutral>Why don't you do it yourself?");
+    sound_speech_volume(vorbis_922, 1, 0, 255);
+    ~chatnpc("<p,neutral>Well, I would, but my armour is terribly hard to clean when it gets dirty.");
+}
+~uf_player_voice(vorbis_1843, vorbis_677);
+~chatplayer("<p,neutral>Okay, I'll get on with it.");
+
+// Sir Vant through these steps.
+[proc,uf_vant_exit]
+if (%learning_the_ropes >= 120 & %learning_the_ropes < 128) {
+    if (~uf_kit_held > 0 | inv_total(inv, tinderbox) > 0 | inv_total(inv, sir_vant_s_oil_can) > 0) {
+        // s042 (rX5vda5px3w @227), V63 (clip 920).
+        sound_speech_volume(vorbis_920, 1, 0, 255);
+        ~chatnpc("<p,neutral>Please hand over my squire's kit.");
+        return;
+    }
+    ~uf_kit_returned;
+    return;
+}
+if (%learning_the_ropes >= 128 & %learning_the_ropes < 160) {
+    // V67 (clip 745).
+    sound_speech_volume(vorbis_745, 1, 0, 255);
+    ~chatnpc("<p,neutral>See if you can dig us out of this cellar. Roddeck will advise you on what to do. I'll just stand here and watch.");
+    return;
+}
+if (%learning_the_ropes >= 160 & %learning_the_ropes < 170) {
+    sound_speech_volume(vorbis_947, 1, 0, 255);
+    ~chatnpc("<p,neutral>Oh, well done! Climb through the hole, and we can all get out of this cellar.");
+    return;
+}
+if (%learning_the_ropes >= 170 & %learning_the_ropes < 1000) {
+    // s078 (V70, clip 704).
+    sound_speech_volume(vorbis_704, 1, 0, 255);
+    ~chatnpc("<p,neutral>Thank you again for your help with the dragon. You'll receive a little reward for completing the quest when you get outside.");
+}
+
+// Roddeck: the choice (s052-s058; R52, R49, P7 / P5, N74 / N75), then his advice.
+[opnpc1,roddeck]
+if (%learning_the_ropes < 128) {
+    // R9 (clip 1141).
+    sound_speech_volume(vorbis_1141, 1, 0, 255);
+    ~chatnpc("<p,neutral>Could you perhaps come and have a chat with me before doing that?");
+    return;
+}
+if (%learning_the_ropes = 128) {
+    hint_stop_slot(0);
+    sound_speech_volume(vorbis_1085, 1, 0, 255);
+    ~chatnpc("<p,neutral>We need you to break through one of the damaged wall sections by clearing some rocks or tree roots.");
+    sound_speech_volume(vorbis_1068, 1, 0, 255);
+    ~chatnpc("<p,neutral>The choice is yours: would you like to mine through the rocks or chop through the roots?");
+    def_int $choice = ~p_choice2("I'll mine through the rocks.", 1, "I'll chop through the roots.", 2);
+    if ($choice = 1) {
+        ~uf_player_voice(vorbis_1886, vorbis_683);
+        ~chatplayer("<p,neutral>I'll mine through the rocks.");
+        %varplayerbit_6495 = 0;
+        inv_add(inv, bronze_pickaxe, 1);
+        %learning_the_ropes = 130;
+        sound_speech_volume(vorbis_1509, 1, 0, 255);
+        ~objbox(bronze_pickaxe, "Roddeck gives you a pickaxe.", 250, 0, 0);
+    } else {
+        ~uf_player_voice(vorbis_1844, vorbis_655);
+        ~chatplayer("<p,neutral>I'll chop through the roots.");
+        %varplayerbit_6495 = 2;
+        inv_add(inv, bronze_hatchet, 1);
+        %learning_the_ropes = 130;
+        sound_speech_volume(vorbis_1341, 1, 0, 255);
+        ~objbox(bronze_hatchet, "Roddeck gives you a hatchet.", 250, 0, 0);
+    }
+    ~uf_task_pin;
+    return;
+}
+if (%learning_the_ropes = 135) {
+    // s061a / s062a then s061b / s062b (R71 / R72, R2 / R1).
+    if (~uf_mining = true) {
+        sound_speech_volume(vorbis_3174, 1, 0, 255);
+        ~chatnpc("<p,neutral>So, your aim is to get a Mining level of 2? Okay, I'll find you something to train on.");
+        sound_speech_volume(vorbis_1067, 1, 0, 255);
+        ~chatnpc("<p,neutral>Ah, I have something! You can practice mining on the rocks that fell into my cellar when the roof collapsed.");
+        %varplayerbit_6495 = 1;
+    } else {
+        sound_speech_volume(vorbis_3172, 1, 0, 255);
+        ~chatnpc("<p,neutral>So, your aim is to get a Woodcutting level of 2? Okay, I'll find you something to train on.");
+        sound_speech_volume(vorbis_1101, 1, 0, 255);
+        ~chatnpc("<p,neutral>Ah, I have something! You can practice chopping those roots growing through the wall.");
+        %varplayerbit_6495 = 3;
+    }
+    %learning_the_ropes = 140;
+    ~uf_task_pin;
+    return;
+}
+if (%learning_the_ropes = 140) {
+    if (~uf_mining = true) {
+        // R31 (clip 1028).
+        sound_speech_volume(vorbis_1028, 1, 0, 255);
+        ~chatnpc("<p,neutral>Keep mining those rocks until your level reaches 2.");
+    } else {
+        sound_speech_volume(vorbis_1148, 1, 0, 255);
+        ~chatnpc("<p,neutral>Keep chopping those roots until your level reaches 2.");
+    }
+    return;
+}
+if (%learning_the_ropes = 150) {
+    if (~uf_mining = true) {
+        sound_speech_volume(vorbis_3179, 1, 0, 255);
+        ~chatnpc("<p,neutral>You should be able to mine your way through the rubble blocking that left-hand doorway now.");
+    } else {
+        sound_speech_volume(vorbis_3175, 1, 0, 255);
+        ~chatnpc("<p,neutral>You should be able to chop your way through the roots blocking that right-hand doorway now.");
+    }
+    return;
+}
+if (%learning_the_ropes >= 160 & %learning_the_ropes < 1000) {
+    sound_speech_volume(vorbis_1065, 1, 0, 255);
+    ~chatnpc("<p,neutral>Great! We can climb through the hole in the wall now. Thank you.");
+    return;
+}
+if (%learning_the_ropes >= 1000) {
+    // s087a (RUM_me2Dl9A 2010-12-23 @392), R77 (clip 3170).
+    sound_speech_volume(vorbis_3170, 1, 0, 255);
+    ~chatnpc("<p,neutral>Thank you once again for your assistance.");
+}
+
+[proc,uf_mining]()(boolean)
+if (%varplayerbit_6495 <= 1) {
+    return(true);
+}
+return(false);
+
+// The blockages: the rock (14, 11) and the roots (14, 14) in the wall Sir Vant points at.
+[oploc1,rock_45595]
+if (%learning_the_ropes < 130 | ~uf_mining = false) {
+    // R46 (clip 1097): text from its take.
+    sound_speech_volume(vorbis_1097, 1, 0, 255);
+    ~chatnpc_specific("Roddeck", roddeck, "<p,neutral>That bit of damaged wall is blocked by rocks, not tree roots.");
+    return;
+}
+~uf_blockage(true);
+
+[oploc1,roots_45598]
+if (%learning_the_ropes < 130 | ~uf_mining = true) {
+    sound_speech_volume(vorbis_1046, 1, 0, 255);
+    ~chatnpc_specific("Roddeck", roddeck, "<p,neutral>That bit of damaged wall is blocked by tree roots, not rocks.");
+    return;
+}
+~uf_blockage(false);
+
+// s059 / s060, then s061 / s062 at level 1, or s072 / s073 and s074 / s075 at 2.
+[proc,uf_blockage](boolean $rocks)
+if (region_findbycoord(coord) = false) {
+    return;
+}
+if ($rocks = true) {
+    anim(human_mining_bronze_pickaxe, 0);
+    sound_speech_volume(vorbis_1680, 1, 0, 255);
+    mes("You attempt to mine through the rocks.");
+} else {
+    anim(human_woodcutting_bronze_hatchet, 0);
+    sound_speech_volume(vorbis_1420, 1, 0, 255);
+    mes("You attempt to chop through the roots.");
+}
+p_delay(2);
+anim(null, 0);
+if ($rocks = true & stat_base(mining) < 2) {
+    sound_speech_volume(vorbis_1531, 1, 0, 255);
+    ~mesbox("You'll need a Mining level of 2 to clear the rocks. Your Mining level is 1.");
+    if (%learning_the_ropes = 130) {
+        %learning_the_ropes = 135;
+        ~uf_task_pin;
+    }
+    return;
+}
+if ($rocks = false & stat_base(woodcutting) < 2) {
+    sound_speech_volume(vorbis_1353, 1, 0, 255);
+    ~mesbox("You find that you'll need a Woodcutting level of 2 to clear the roots. Your Woodcutting level is 1.");
+    if (%learning_the_ropes = 130) {
+        %learning_the_ropes = 135;
+        ~uf_task_pin;
+    }
+    return;
+}
+// The blockage breaks (rock 45596 / roots 45599 carry the break seqs 12279 / 12281) and leaves
+// the hole (45597 / 45600, Climb-through).
+if ($rocks = true) {
+    loc_change(rock_45596, ^uf_cellar_obj_duration);
+    p_delay(2);
+    if (loc_find(~uf_cellar_coord(14, 11), rock_45596) = true) {
+        loc_change(hole_45597, ^uf_cellar_obj_duration);
+    }
+    sound_speech_volume(vorbis_1586, 1, 0, 255);
+    ~mesbox("You succeed in clearing the rocks from the hole.");
+    inv_del(inv, bronze_pickaxe, 1);
+    sound_speech_volume(vorbis_1632, 1, 0, 255);
+    ~objbox(bronze_pickaxe, "Roddeck retrieves his pickaxe from you.", 250, 0, 0);
+} else {
+    loc_change(roots_45599, ^uf_cellar_obj_duration);
+    p_delay(2);
+    if (loc_find(~uf_cellar_coord(14, 14), roots_45599) = true) {
+        loc_change(hole_45600, ^uf_cellar_obj_duration);
+    }
+    sound_speech_volume(vorbis_1629, 1, 0, 255);
+    ~mesbox("You succeed in clearing the roots from the hole.");
+    inv_del(inv, bronze_hatchet, 1);
+    sound_speech_volume(vorbis_1484, 1, 0, 255);
+    ~objbox(bronze_hatchet, "Roddeck retrieves his hatchet from you.", 250, 0, 0);
+}
+%learning_the_ropes = 160;
+%varclient_1425 = 3516;
+~uf_task_pin;
+sound_speech_volume(vorbis_947, 1, 0, 255);
+~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>Oh, well done! Climb through the hole, and we can all get out of this cellar.");
+
+// The practice spots: two successes, 42 xp each (Task 1721/1722's hints: "Each root knole you
+// successfully chop will yield some chippings and 42 experience ... Gaining 83 experience ...
+// will allow you to reach level 2"). s063 / s064, s065m / s065 the first time ("Once more should
+// suffice.", unvoiced), s065a after; the first chippings bring s066 / s067 (R73 / R74).
+[oploc1,rock_45573] ~uf_practice(true);
+[oploc1,rock_45576] ~uf_practice(true);
+[oploc1,rock_45579] ~uf_practice(true);
+[oploc1,rock_45582] ~uf_practice(true);
+[oploc1,rock_45585] ~uf_practice(true);
+[oploc1,tree_root_45588] ~uf_practice(false);
+[oploc1,tree_root_45591] ~uf_practice(false);
+[oploc1,tree_root_45594] ~uf_practice(false);
+
+[proc,uf_practice](boolean $rocks)
+if ($rocks = true) {
+    anim(human_mining_bronze_pickaxe, 0);
+    sound_speech_volume(vorbis_1431, 1, 0, 255);
+    mes("You swing your pick at the rock.");
+} else {
+    anim(human_woodcutting_bronze_hatchet, 0);
+    sound_speech_volume(vorbis_1684, 1, 0, 255);
+    mes("You swing your hatchet at the root.");
+}
+p_delay(3);
+anim(null, 0);
+def_boolean $first = false;
+if ($rocks = true) {
+    if (inv_total(inv, stone_clippings) = 0 & stat(mining) < 2) {
+        $first = true;
+    }
+    inv_add(inv, stone_clippings, 1);
+    stat_advance(mining, 420);
+    ~uf_open_tab(2);
+    if ($first = true) {
+        mes("You break off some bits of rock, gaining 42 Mining experience. Once more should suffice.");
+        sound_speech_volume(vorbis_3176, 1, 0, 255);
+        ~chatnpc_specific("Roddeck", roddeck, "<p,neutral>You've mined a few stone chippings from that rock. The chippings are now in your inventory - they're not particularly useful, but you'll get more useful goods from mining once you're out of this cellar.");
+    } else {
+        sound_speech_volume(vorbis_1482, 1, 0, 255);
+        mes("You break off some more bits of rock.");
+    }
+    if (stat_base(mining) >= 2 & %learning_the_ropes = 140) {
+        %learning_the_ropes = 150;
+        %varclient_1425 = 3518;
+        ~uf_task_pin;
+        sound_speech_volume(vorbis_1074, 1, 0, 255);
+        ~chatnpc_specific("Roddeck", roddeck, "<p,neutral>Congratulations, you've reached level 2. You should now be able to mine through the rocks in the damaged wall.");
+    }
+} else {
+    if (inv_total(inv, root_chippings) = 0 & stat(woodcutting) < 2) {
+        $first = true;
+    }
+    inv_add(inv, root_chippings, 1);
+    stat_advance(woodcutting, 420);
+    ~uf_open_tab(2);
+    if ($first = true) {
+        mes("You break off some bits of wood, gaining 42 Woodcutting experience. Once more should suffice.");
+        sound_speech_volume(vorbis_3171, 1, 0, 255);
+        ~chatnpc_specific("Roddeck", roddeck, "<p,neutral>You've chopped off a few wood chippings from that root. The chippings are now in your inventory - they're not particularly useful, but you'll get more useful goods from cutting wood once you're out of this cellar.");
+    } else {
+        sound_speech_volume(vorbis_1777, 1, 0, 255);
+        mes("You break off some more bits of wood.");
+    }
+    if (stat_base(woodcutting) >= 2 & %learning_the_ropes = 140) {
+        %learning_the_ropes = 150;
+        %varclient_1425 = 3517;
+        ~uf_task_pin;
+        sound_speech_volume(vorbis_1142, 1, 0, 255);
+        ~chatnpc_specific("Roddeck", roddeck, "<p,neutral>Congratulations, you've reached level 2. You should now be able to chop through the tree roots in the damaged wall.");
+    }
+}
+
+// Through the hole: "To Freedom!" (170).
+[oploc1,hole_45597] ~uf_through_hole;
+[oploc1,hole_45600] ~uf_through_hole;
+
+[proc,uf_through_hole]
+if (%learning_the_ropes < 160) {
+    return;
+}
+~agility_exactmove(human_walk_crumbledwall, 30, 2, coord, movecoord(coord, -2, 0, 0), 30, 100, ^exact_west, false);
+if (%learning_the_ropes < 170) {
+    %learning_the_ropes = 170;
+    %varclient_1425 = 3514;
+    ~uf_task_pin;
+}

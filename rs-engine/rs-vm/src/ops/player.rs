@@ -347,6 +347,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 5019: a tile hint arrow in one of 647's eight slots.
         #[cfg(since_647)]
         active_player_mut!(m, HINT_COORD_SLOT => |s, player| {
+            let model = s.pop_int();
             let range = s.pop_int_as::<u16>()?;
             let height = s.pop_int_as::<u8>()?;
             let coord = pop_coord(s)?;
@@ -367,7 +368,27 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 coord.z(),
                 height,
                 range,
+                u16::try_from(model).ok(),
             );
+        });
+
+        // 5023: an npc hint arrow in one of 647's eight slots, with a model at the
+        // player's feet (-1 for none).
+        #[cfg(since_647)]
+        active_player_mut!(m, HINT_NPC_SLOT => |s, player| {
+            let model = s.pop_int();
+            let icon = s.pop_int_as::<u8>()?;
+            let slot = s.pop_int_as::<u8>()?;
+            if slot > 7 {
+                return Err(ScriptError::Runtime(format!(
+                    "hint_npc_slot: slot {slot} (0-7)"
+                )));
+            }
+            let nid = if s.int_operand() != 0 { s.active_npc2 } else { s.active_npc }
+                .ok_or_else(|| ScriptError::Runtime("no active_npc".into()))?
+                .nid();
+            let model = (model >= 0).then_some(model as u16);
+            player.hint_npc_slot(nid, slot, icon, model);
         });
 
         // 5020: clears one of 647's eight hint arrow slots.

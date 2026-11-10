@@ -1,0 +1,170 @@
+// Unstable Foundations: Sir Vant's plan, the drugged meat, and the wall (Tasks 3505, 3506-3509,
+// 3507, 3523; varp 281 45-80). Lines from 2011's recordings (design note 3.4, s009-s016) and the
+// voiced takes (3.7).
+
+// "Find Out Sir Vant's Plan" (Task 3505, 45-49): s009-s012 (IwS6rBpkcyE 2010-11-27 @81-87,
+// 24/31 recordings), V81, V61, V49, V47 (clips 732, 943, 806, 726). One value a line, 46-49:
+// inference, cs2 4098 reads only the band. Then "Check your Quest Journal" (50) with the quest
+// list tab (4KO2h2xPtdM ~130 s, refs GAPS 13).
+[proc,uf_vant_plan]
+if (%learning_the_ropes >= 45 & %learning_the_ropes <= 49) {
+    hint_stop_slot(0);
+    sound_speech_volume(vorbis_732, 1, 0, 255);
+    ~chatnpc("<p,neutral>This dragon's a tougher customer than I'd expected, but I know a way we can defeat it.");
+    %learning_the_ropes = 46;
+    sound_speech_volume(vorbis_943, 1, 0, 255);
+    ~chatnpc("<p,neutral>One corner of the ceiling is held up by wooden pillars. We're going to lure the dragon there and then collapse the roof on top of it.");
+    %learning_the_ropes = 47;
+    sound_speech_volume(vorbis_806, 1, 0, 255);
+    ~chatnpc("<p,neutral>In my bag is some meat I've prepared with a sleeping potion. I need you to put the meat in the food bowl by the wooden pillars. The dragon will eat it and fall asleep.");
+    %learning_the_ropes = 48;
+    sound_speech_volume(vorbis_726, 1, 0, 255);
+    ~chatnpc("<p,neutral>I'll keep the dragon's attention. Once you've got the drugged meat you'll need to climb over the wall next to me.");
+    %learning_the_ropes = 50;
+    ~uf_open_tab(3);
+    %varplayerbit_3756 = 4;
+    %varclient_1425 = 3505;
+    ~uf_task_pin;
+    return;
+}
+if (%learning_the_ropes < 80) {
+    if (inv_total(inv, drugged_meat) > 0) {
+        // V64 (clip 773).
+        sound_speech_volume(vorbis_773, 1, 0, 255);
+        ~chatnpc("<p,neutral>Put that drugged meat in the food bowl by the wooden pillars, please.");
+    } else if (inv_total(inv, plank_15276) > 0) {
+        // V35 (clip 859).
+        sound_speech_volume(vorbis_859, 1, 0, 255);
+        ~chatnpc("<p,neutral>I see you're holding a plank. You could use it against the wall to create a ramp.");
+    } else {
+        // V20 (clip 966).
+        sound_speech_volume(vorbis_966, 1, 0, 255);
+        ~chatnpc("<p,neutral>Get some more meat from my bag and put it in the food bowl by the wooden pillars, please.");
+    }
+}
+
+// Sir Vant's bag once he has given leave: s013 (IwS6rBpkcyE @?; 22/31 recordings), N26 (clip
+// 1608); a second parcel: N50 (clip 1459); no room: N49 (clip 1406). Texts of N49 and N50 from
+// their takes: no recording shows the boxes.
+[proc,uf_bag_search]
+if (%learning_the_ropes < 50) {
+    sound_speech_volume(vorbis_739, 1, 0, 255);
+    ~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>I don't believe I gave you permission to go through my bag.");
+    return;
+}
+if (%learning_the_ropes >= 93) {
+    ~uf_bag_supplies;
+    return;
+}
+if (%learning_the_ropes >= 80) {
+    // N50 (clip 1459) holds after the meat is placed too: no source shows the bag then.
+    sound_speech_volume(vorbis_1459, 1, 0, 255);
+    ~mesbox("You won't need any more meat now.");
+    return;
+}
+if (inv_total(inv, drugged_meat) > 0) {
+    sound_speech_volume(vorbis_1459, 1, 0, 255);
+    ~mesbox("You won't need any more meat now.");
+    return;
+}
+if (inv_freespace(inv) = 0) {
+    sound_speech_volume(vorbis_1406, 1, 0, 255);
+    ~mesbox("You don't have enough inventory space to pick up the meat.");
+    return;
+}
+inv_add(inv, drugged_meat, 1);
+sound_speech_volume(vorbis_1608, 1, 0, 255);
+~objbox(drugged_meat, "The bag contains several parcels of meat, all wrapped up in paper. You take one.", 250, 0, 0);
+
+// The low wall by Sir Vant, "Climb the Wall" (65, 75) and "Make a Ramp" (70). Cache 786's ramp is
+// loc 45604 on the same tile, multiloc on varp 281: nothing to 74, the ramp from 75.
+// - Climbing it with no ramp: s015 (IwS6rBpkcyE @140), N30 (clip 1769); the next Task is "Make a
+//   Ramp" (70). When 2011 set 70: no source; here on that first try.
+// - The ramp up, without the meat: s013b (VwpdbjfigD4 2011-01-17 @239).
+[proc,uf_low_wall]
+if (%learning_the_ropes < 75) {
+    sound_speech_volume(vorbis_1769, 1, 0, 255);
+    ~mesbox("Even this low section of the wall is too high for you to climb over.");
+    if (%learning_the_ropes = 65) {
+        %learning_the_ropes = 70;
+        ~uf_task_pin;
+    }
+    return;
+}
+if (%learning_the_ropes >= 80) {
+    return;
+}
+if (inv_total(inv, drugged_meat) = 0) {
+    ~mesbox("You should take some meat from Sir Vant's bag before you venture out.");
+    return;
+}
+~uf_climb_wall;
+
+// The plank on the low wall: s016 (IwS6rBpkcyE @146, 25/31), N34 (clip 1401). After it, the
+// running hint (s017, 15/31): not built yet.
+[oplocu,low_wall_45603]
+if (last_useitem ! plank_15276) {
+    ~displaymessage(^dm_default);
+    return;
+}
+if (%learning_the_ropes < 65) {
+    sound_speech_volume(vorbis_1502, 1, 0, 255);
+    ~mesbox("We'll come back to that in a moment.");
+    return;
+}
+if (%learning_the_ropes >= 75) {
+    // P15 (clip 1828): s016a (E4MP65bl3sI @343).
+    ~chatplayer("<p,neutral>There doesn't seem much point in messing around with this wall now that I've built a ramp.");
+    return;
+}
+inv_del(inv, plank_15276, 1);
+%learning_the_ropes = 75;
+// TASK COMPLETE comes with the ramp (4KO2h2xPtdM @177-178, from 65 with no try at the wall
+// first): "Make a Ramp" here, its title unreadable in the recording.
+%varclient_1425 = 3523;
+~uf_task_pin;
+sound_speech_volume(vorbis_1401, 1, 0, 255);
+~objbox(plank_15276, "You use the plank to construct a crude ramp.", 250, 0, 0);
+
+// Over the wall by the ramp (4KO2h2xPtdM @180-182): "Put the Dragon to Sleep" (80) and TASK
+// COMPLETE "Climb the Wall"; then the running hint, s017 (@186-188, 15/31 recordings), with the
+// arrow at the run orb. The climb's seq and how far it carries: Crandor's crumbled wall's, two
+// tiles (the low wall is cache 786's 1x2 low_wall_45603): not yet matched against a recording.
+[proc,uf_climb_wall]
+~agility_exactmove(human_walk_crumbledwall, 30, 2, coord, movecoord(coord, 0, 0, 3), 30, 100, ^exact_north, false);
+%learning_the_ropes = 80;
+%varclient_1425 = 3507;
+~uf_task_pin;
+p_delay(2);
+// The arrow at the run orb (cs2 2756: 16 + 1).
+%varplayerbit_3756 = 17;
+~uf_hint_box("topstat_icon,2", 20, 20, "Your character can <col=ff0000>run</col> if they have sufficient <col=ff0000>energy</col>.<br><br>You can make your character run automatically by turning on <col=ff0000>run mode</col>. Click the <col=ff0000>boot</col> icon by the minimap.<br><br>If you hold down the <col=ff0000>CTRL</col> key while clicking on the floor or minimap, your character will run to their destination.");
+
+// The tutorial's hint box in the chat area, no "Click here to continue": interface 896
+// tutorial3_chatoverlay, which cs2 2778 builds from varc 1004 (a sprite at the left, varcs 1005
+// and 1006 its size) and varcstr 1713 (centred black text, tutorial_font). 2011's run hint
+// (4KO2h2xPtdM @186) is this box: the run orb's boot (topstat_icon,2) beside three paragraphs.
+// Which chat slot it opened into: the chat area's overlay here.
+[proc,uf_hint_box](graphic $graphic, int $width, int $height, string $text)
+%varclient_1003 = null;
+%varclient_1004 = $graphic;
+%varclient_1005 = $width;
+%varclient_1006 = $height;
+%varclient_1713 = $text;
+%varclient_1714 = "";
+if_opensub(tutorial3_chatoverlay, chattop:chatoverlay);
+
+[proc,uf_hint_box_close]
+if_closesub(chattop:chatoverlay);
+
+// The high wall either side of Sir Vant: s014 (4KO2h2xPtdM @166-171, "Climb-over Wall"), V102
+// (clip 755). V26 (clip 1016, "you'll land on the dragon") is for the section by the dragon by
+// its text; no recording shows which section answers with it.
+[oploc1,wall_45608] ~uf_high_wall;
+[oploc1,wall_45609] ~uf_high_wall;
+[oploc1,wall_45610] ~uf_high_wall;
+[oploc1,wall_45612] ~uf_high_wall;
+
+[proc,uf_high_wall]
+sound_speech_volume(vorbis_755, 1, 0, 255);
+~chatnpc_specific("Sir Vant", sir_vant_8850, "<p,neutral>You'll never get over the wall there. Try going to the eastern end where it's lower.");
