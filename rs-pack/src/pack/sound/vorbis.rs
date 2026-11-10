@@ -90,7 +90,7 @@ pub fn packets(data: &[u8]) -> Result<Vec<Vec<u8>>> {
         );
         sequence += 1;
         ensure!(
-            (header[5] & 1 != 0) == !partial.is_empty(),
+            (header[5] & 1 != 0) != partial.is_empty(),
             "Invalid Ogg continuation"
         );
         let count = header[26] as usize;

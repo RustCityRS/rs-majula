@@ -302,6 +302,8 @@ macro_rules! registry_files {
 
             /// Every registry, named: a field left out of the list doesn't
             /// compile, so no registry's lookups go unrecorded.
+            // The pushes carry each field's cfg, which a vec![] cannot.
+            #[allow(clippy::vec_init_then_push)]
             fn files_mut(&mut self) -> Vec<(&'static str, &mut PackFile)> {
                 let PackRegistry {
                     $($(#[$cfg])* $field,)*
