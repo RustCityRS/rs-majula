@@ -113,23 +113,40 @@ if (%task_tut4_how_to_2 = 1 | stat_base(mining) < 2) {
 // task_get_progress): done on a walk taken with run on (void-634's LumbridgeBeginnerTasks: moved
 // while running). Not in Unstable Foundations: 4KO2h2xPtdM (2011-04-30) runs in the cellar with the
 // orb lit (@186-198) and has the Task only after the tutorial (@680); Qh_-AMJpVd0 (2011-05-10) has
-// it in Explorer Jack's house right after the quest (@432.5). The walktrigger is one slot, shared
-// with stuns and freezes: armed only when free, again at each login.
+// it in Explorer Jack's house right after the quest (@432.5). A soft timer each tick: the player's
+// tile changed with run on. Not a walktrigger: the engine runs one with protected access before
+// every interaction, which closed shops and cut eats and spells short (rs-test rune_mysteries,
+// held_ops, magic). Last tick's tile is kept in varp 79, one of cache 786's untransmitted varps
+// no script used (Jordan: reuse those, no new ids). Armed at the quest's end and at each login.
 [proc,task_on_the_run_arm]
 if (%varplayerbit_8522 = 1 | %tutorial < 1000) {
     return;
 }
-if (getwalktrigger = null) {
-    walktrigger(task_on_the_run);
-}
+%varplayer_79 = ~task_on_the_run_tile;
+softtimer(task_on_the_run, 1);
 
-[walktrigger,task_on_the_run]
+[proc,task_on_the_run_tile]()(int)
+return(calc(coordx(coord) * 16384 + coordz(coord)));
+
+[softtimer,task_on_the_run]
 if (%varplayerbit_8522 = 1 | %tutorial < 1000) {
+    clearsofttimer(task_on_the_run);
     return;
 }
-if (%option_run = ^player_run_on) {
-    %varplayerbit_8522 = 1;
-    ~task_complete(363);
+def_int $tile = ~task_on_the_run_tile;
+if (%option_run = ^player_run_on & $tile ! %varplayer_79) {
+    // Completed from a queue: a soft timer runs unprotected, and taking access here
+    // (p_finduid) cut the player's interaction short (rs-test combat_fight). The queue
+    // waits out a dialogue or a delay.
+    clearsofttimer(task_on_the_run);
+    queue(task_on_the_run_done, 0, 0);
     return;
 }
-walktrigger(task_on_the_run);
+%varplayer_79 = $tile;
+
+[queue,task_on_the_run_done]
+if (%varplayerbit_8522 = 1) {
+    return;
+}
+%varplayerbit_8522 = 1;
+~task_complete(363);

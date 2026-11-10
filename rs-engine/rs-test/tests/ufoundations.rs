@@ -1710,7 +1710,8 @@ fn the_way_out_to_lumbridge() {
         run_orb(&mut client);
         cycles(engine, &mut client, 1);
         walk_near(engine, &mut client);
-        let ran = cycles(engine, &mut client, 2);
+        // The step, the soft timer seeing it, the queue completing the Task.
+        let ran = cycles(engine, &mut client, 3);
         assert!(
             HarnessClient::game_messages(&ran)
                 .iter()
