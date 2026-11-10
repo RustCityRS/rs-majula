@@ -52,13 +52,9 @@ pub fn load_engine() -> anyhow::Result<Engine> {
     // exactly as the server's does.
     let cache: &'static CacheStore = unsafe { &*cache_ptr };
 
-    let (dat, idx) = runec::compile_memory_with_tests(
-        &content.join("scripts"),
-        Some(&pack),
-        false,
-        true,
-    )
-    .map_err(|e| anyhow::anyhow!("compile with tests: {e}"))?;
+    let (dat, idx) =
+        runec::compile_memory_with_tests(&content.join("scripts"), Some(&pack), false, true)
+            .map_err(|e| anyhow::anyhow!("compile with tests: {e}"))?;
     let scripts = ScriptProvider::from_bytes(&dat, &idx);
     info!("compiled {} scripts with tests", scripts.count());
 

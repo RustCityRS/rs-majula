@@ -1,20 +1,19 @@
 use crate::active_npc::ActiveNpc;
 use crate::active_player::ActivePlayer;
 use crate::build::ActiveBuildArea;
-use crate::engine::{OtherPlayers, engine};
+#[cfg(before_647)]
+use crate::engine::OtherPlayers;
+use crate::engine::engine;
 use crate::watch::Target;
 use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS, Npc, PathingEntity, Player};
 #[cfg(since_647)]
 use rs_entity::{MoveSpeed, dir_delta, face_dir};
 use rs_grid::CoordGrid;
-#[cfg(before_647)]
-use rs_info::EntityMasks;
 use rs_info::Visibility;
-use rs_info::{NpcRenderer, PlayerRenderer};
+use rs_info::{NpcRenderer, Observer, PlayerRenderer};
 use rs_io::Packet;
 use rs_io::packet::BitWriter;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
-use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_zone::zone_map::ZoneMap;
 use std::mem;
 use std::ops::Deref;
@@ -47,8 +46,7 @@ impl PlayerSnapshot {
     pub const ACTIVE: u8 = 1 << 1;
     pub const TELE: u8 = 1 << 2;
     pub const VIS_HARD: u8 = 1 << 3;
-    pub const HAS_EXACTMOVE: u8 = 1 << 4;
-    pub const JUMP: u8 = 1 << 5;
+    pub const JUMP: u8 = 1 << 4;
 
     /// The "no live player here" entry the snapshot is reset to each tick.
     pub const ABSENT: PlayerSnapshot = PlayerSnapshot {
@@ -70,9 +68,6 @@ impl PlayerSnapshot {
         }
         if p.info.vis == Visibility::Hard {
             flags |= PlayerSnapshot::VIS_HARD;
-        }
-        if p.info.masks & PlayerInfoProt::ExactMove as u16 != 0 {
-            flags |= PlayerSnapshot::HAS_EXACTMOVE;
         }
         if p.pathing.jump {
             flags |= PlayerSnapshot::JUMP;
@@ -505,10 +500,7 @@ pub struct PlayerInfo {
     #[cfg(before_647)]
     tracked: Vec<u16>,
     bw: BitWriter,
-    // The pid of the player this packet is for: 2011 paints the hits they
-    // took or dealt bright, everyone else's darker.
-    #[cfg(since_647)]
-    observer: u16,
+    observer: Observer,
 }
 
 impl PlayerInfo {
@@ -538,8 +530,7 @@ impl PlayerInfo {
             #[cfg(before_647)]
             tracked: Vec::with_capacity(BuildArea::PREFERRED_PLAYERS as usize),
             bw: BitWriter::new(),
-            #[cfg(since_647)]
-            observer: 0,
+            observer: Observer::default(),
         }
     }
 
@@ -554,7 +545,6 @@ impl PlayerInfo {
     pub fn encode(
         &mut self,
         renderer: &mut PlayerRenderer,
-        players: OtherPlayers<'_>,
         snap: &PlayerSnapshots,
         map: &ZoneMap,
         active: &mut ActivePlayer,
@@ -562,10 +552,11 @@ impl PlayerInfo {
         dz: i32,
         rebuild: bool,
     ) -> (&[u8], &[u8]) {
-        #[cfg(since_647)]
-        {
-            self.observer = active.player.uid.pid();
-        }
+        self.observer = Observer {
+            pid: active.player.uid.pid(),
+            #[cfg(before_647)]
+            origin: active.player.build_area.origin,
+        };
         #[cfg(before_647)]
         {
             let (px, py, pz) = (
@@ -590,7 +581,7 @@ impl PlayerInfo {
         }
         #[cfg(since_647)]
         {
-            let _ = (dx, dz, rebuild, map, players);
+            let _ = (dx, dz, rebuild, map);
             active.player.build_area.resize();
         }
 
@@ -600,8 +591,8 @@ impl PlayerInfo {
         #[cfg(before_647)]
         {
             self.write_local_player(renderer, snap, active);
-            self.write_players(players, snap, renderer, active);
-            self.write_new_players(map, players, snap, renderer, active);
+            self.write_players(snap, renderer, active);
+            self.write_new_players(map, snap, renderer, active);
             if self.updates.pos > 0 {
                 self.bw
                     .pbit::<{ Self::BITS_END }>(&mut self.buf, MAX_PLAYERS as i32 - 1);
@@ -646,7 +637,7 @@ impl PlayerInfo {
             write_movement(&mut self.bw, &mut self.buf, s.code, s.bits, extend);
         }
         if extend {
-            self.highdefinition(renderer, active, active);
+            renderer.write_high_block_for(&mut self.updates, pid, self.observer);
         }
     }
 
@@ -657,7 +648,6 @@ impl PlayerInfo {
     #[cfg(before_647)]
     fn write_players(
         &mut self,
-        players: OtherPlayers<'_>,
         snap: &[PlayerSnapshot],
         renderer: &mut PlayerRenderer,
         active: &mut ActivePlayer,
@@ -685,7 +675,7 @@ impl PlayerInfo {
             let extend = s.len > 0 && self.fits(bits + later, s.len as usize);
             write_movement(&mut self.bw, &mut self.buf, s.code, s.bits, extend);
             if extend {
-                self.highdefinition_tracked(players, renderer, active, pid, s.flags);
+                renderer.write_high_block_for(&mut self.updates, pid, self.observer);
             }
         }
         active.player.build_area.players.swap_ids(&mut self.tracked);
@@ -747,7 +737,6 @@ impl PlayerInfo {
     fn write_new_players(
         &mut self,
         map: &ZoneMap,
-        players: OtherPlayers<'_>,
         snap: &PlayerSnapshots,
         renderer: &mut PlayerRenderer,
         active: &mut ActivePlayer,
@@ -783,11 +772,6 @@ impl PlayerInfo {
                 return;
             }
             let coord = CoordGrid::from(s.coord);
-            let exact = if s.flags & PlayerSnapshot::HAS_EXACTMOVE != 0 {
-                players.get(pid).map(|other| &other.player.info)
-            } else {
-                None
-            };
             self.add(
                 renderer,
                 active,
@@ -795,14 +779,12 @@ impl PlayerInfo {
                 coord.x() as i32 - active.player.pathing.coord.x() as i32,
                 coord.z() as i32 - active.player.pathing.coord.z() as i32,
                 s.flags & PlayerSnapshot::JUMP != 0,
-                exact,
             );
         }
     }
 
     /// Encodes a player-add entry (23 bits) with position delta and jump flag,
     /// followed by the low-definition update block.
-    #[allow(clippy::too_many_arguments)]
     #[inline(always)]
     #[cfg(before_647)]
     fn add(
@@ -813,7 +795,6 @@ impl PlayerInfo {
         x: i32,
         z: i32,
         jump: bool,
-        exact: Option<&EntityMasks>,
     ) {
         // 11 + 5 + 5 + 1 + 1 = 23 bits
         self.bw.pbit::<23>(
@@ -821,8 +802,8 @@ impl PlayerInfo {
             ((pid as i32) << 12) | ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | ((jump as i32) << 1) | 1,
         );
         renderer.ready_low(pid);
-        let masks = Self::low_masks(renderer, active, pid);
-        self.write_blocks(renderer, active, pid, exact, masks);
+        let appearance = Self::low_appearance(renderer, active, pid);
+        renderer.write_low_block_for(&mut self.updates, pid, self.observer, appearance);
         active.player.build_area.players.insert(pid);
     }
 
@@ -867,169 +848,16 @@ impl PlayerInfo {
         self.bw.pbit::<1>(&mut self.buf, 0);
     }
 
-    /// A player's update block. The observer doesn't get its own chat back,
-    /// and an exact move is relative to the observer's build area.
+    /// Whether a newly added player's blocks carry its appearance: only when
+    /// the observer doesn't already have it.
     #[inline(always)]
-    #[cfg(before_647)]
-    fn highdefinition(
-        &mut self,
-        renderer: &mut PlayerRenderer,
-        active: &ActivePlayer,
-        other: &ActivePlayer,
-    ) {
-        let pid = other.player.uid.pid();
-        let masks = other.player.info.masks;
-        let exact = Some(&other.player.info);
-        if active.player.uid.pid() == pid {
-            self.write_blocks(
-                renderer,
-                active,
-                pid,
-                exact,
-                masks & !(PlayerInfoProt::Chat as u16),
-            );
-        } else if masks & PlayerInfoProt::ExactMove as u16 != 0 {
-            self.write_blocks(renderer, active, pid, exact, masks);
-        } else {
-            let blk = renderer.high_block(pid);
-            self.updates.pdata(blk, 0, blk.len());
-        }
-    }
-
-    /// [`highdefinition`](Self::highdefinition) without reading the player
-    /// unless the block depends on the observer.
-    #[inline(always)]
-    #[cfg(before_647)]
-    fn highdefinition_tracked(
-        &mut self,
-        players: OtherPlayers<'_>,
-        renderer: &mut PlayerRenderer,
-        active: &ActivePlayer,
-        pid: u16,
-        flags: u8,
-    ) {
-        if pid == active.player.uid.pid() || flags & PlayerSnapshot::HAS_EXACTMOVE != 0 {
-            let other = unsafe { players.get(pid).unwrap_unchecked() };
-            self.highdefinition(renderer, active, other);
-        } else {
-            let blk = renderer.high_block(pid);
-            self.updates.pdata(blk, 0, blk.len());
-        }
-    }
-
-    /// A newly added player's blocks: what [`PlayerRenderer::cache_low`]
-    /// noted, and its appearance unless the observer already has it.
-    #[inline(always)]
-    fn low_masks(renderer: &PlayerRenderer, active: &mut ActivePlayer, pid: u16) -> u16 {
-        let masks = renderer.low_masks(pid);
+    fn low_appearance(renderer: &PlayerRenderer, active: &mut ActivePlayer, pid: u16) -> bool {
         match renderer.appearance_clock(pid) {
             Some(clock) if !active.player.build_area.has_appearance(pid, clock) => {
                 active.player.build_area.save_appearance(pid, clock);
-                masks | PlayerInfoProt::Appearance as u16
+                true
             }
-            _ => masks & !(PlayerInfoProt::Appearance as u16),
-        }
-    }
-
-    /// Writes the individual update blocks (appearance, anim, face entity,
-    /// say, damage, face coord, chat, spot anim, exact move) into the
-    /// updates buffer based on the active mask bits.
-    ///
-    /// If the mask exceeds 0xFF, a two-byte extended mask header is written.
-    #[inline(always)]
-    #[cfg(before_647)]
-    fn write_blocks(
-        &mut self,
-        renderer: &mut PlayerRenderer,
-        active: &ActivePlayer,
-        pid: u16,
-        exact: Option<&EntityMasks>,
-        masks: u16,
-    ) {
-        if masks > 0xff {
-            self.updates.p2_alt1(masks | PlayerInfoProt::BigInfo as u16);
-        } else {
-            self.updates.p1(masks as u8);
-        }
-        if masks & PlayerInfoProt::Appearance as u16 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::Appearance);
-        }
-        if masks & PlayerInfoProt::Anim as u16 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::Anim);
-        }
-        if masks & PlayerInfoProt::FaceEntity as u16 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::FaceEntity);
-        }
-        if masks & PlayerInfoProt::Say as u16 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::Say);
-        }
-        if masks & PlayerInfoProt::Damage as u16 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::Damage);
-        }
-        if masks & PlayerInfoProt::FaceCoord as u16 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::FaceCoord);
-        }
-        if masks & PlayerInfoProt::Chat as u16 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::Chat);
-        }
-        if masks & PlayerInfoProt::SpotAnim as u16 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::SpotAnim);
-        }
-        if masks & PlayerInfoProt::ExactMove as u16 != 0 {
-            let info = exact.unwrap();
-            let x = CoordGrid::zone_origin(active.player.build_area.origin.x());
-            let z = CoordGrid::zone_origin(active.player.build_area.origin.z());
-            renderer.write_exactmove(
-                &mut self.updates,
-                (info.exactmove_start_x.unwrap() - x) as u8,
-                (info.exactmove_start_z.unwrap() - z) as u8,
-                (info.exactmove_end_x.unwrap() - x) as u8,
-                (info.exactmove_end_z.unwrap() - z) as u8,
-                info.exactmove_begin.unwrap(),
-                info.exactmove_finish.unwrap(),
-                info.exactmove_dir.unwrap(),
-            )
-        }
-        #[cfg(since_244)]
-        if masks & PlayerInfoProt::Damage2 as u16 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::Damage2);
-        }
-    }
-
-    #[cfg(since_647)]
-    fn write_blocks(&mut self, renderer: &PlayerRenderer, pid: u16, masks: u16) {
-        let wire = PlayerInfoProt::mask(masks);
-        let (header, len) = PlayerInfoProt::header(wire);
-        self.updates.pdata(&header, 0, len);
-        if wire & PlayerInfoProt::FaceCoord as u32 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::FaceCoord);
-        }
-        if wire & PlayerInfoProt::TempMoveType as u32 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::TempMoveType);
-        }
-        if wire & PlayerInfoProt::Anim as u32 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::Anim);
-        }
-        if wire & PlayerInfoProt::MoveType as u32 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::MoveType);
-        }
-        if wire & PlayerInfoProt::ExactMove as u32 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::ExactMove);
-        }
-        if wire & PlayerInfoProt::Damage as u32 != 0 {
-            renderer.write_hits_for(&mut self.updates, pid, self.observer);
-        }
-        if wire & PlayerInfoProt::FaceEntity as u32 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::FaceEntity);
-        }
-        if wire & PlayerInfoProt::SpotAnim as u32 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::SpotAnim);
-        }
-        if wire & PlayerInfoProt::Say as u32 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::Say);
-        }
-        if wire & PlayerInfoProt::Appearance as u32 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::Appearance);
+            _ => false,
         }
     }
 
@@ -1073,9 +901,12 @@ impl PlayerInfo {
                     true,
                     true,
                 );
-                let masks = Self::keyframe_masks(renderer, active);
-                let pid = active.player.uid.pid();
-                info.write_blocks(renderer, active, pid, Some(&active.player.info), masks);
+                renderer.write_keyframe_block(
+                    &mut info.updates,
+                    active.player.uid.pid(),
+                    &active.player.info,
+                    coord,
+                );
             } else {
                 info.idle();
             }
@@ -1102,10 +933,12 @@ impl PlayerInfo {
                     ((pid as i32) << 12) | ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | (1 << 1) | 1,
                 );
                 match other {
-                    Some(other) => {
-                        let masks = Self::keyframe_masks(renderer, other);
-                        info.write_blocks(renderer, active, pid, Some(&other.player.info), masks);
-                    }
+                    Some(other) => renderer.write_keyframe_block(
+                        &mut info.updates,
+                        pid,
+                        &other.player.info,
+                        other.player.pathing.coord,
+                    ),
                     // Gone this tick: the live stream drops it next.
                     None => info.updates.p1(0),
                 }
@@ -1124,19 +957,6 @@ impl PlayerInfo {
                 return bodies;
             }
         }
-    }
-
-    /// What a keyframe shows of `other`: its appearance and which way it
-    /// faces, as a new observer's add does.
-    #[cfg(before_647)]
-    fn keyframe_masks(renderer: &mut PlayerRenderer, other: &ActivePlayer) -> u16 {
-        let pid = other.player.uid.pid();
-        let appearance = if renderer.has(pid, PlayerInfoProt::Appearance) {
-            PlayerInfoProt::Appearance as u16
-        } else {
-            0
-        };
-        appearance | renderer.cache_facing(pid, &other.player.info, other.player.pathing.coord)
     }
 
     #[cfg(since_647)]
@@ -1196,7 +1016,7 @@ impl PlayerInfo {
                 if removing {
                     self.remove_player(renderer, observer, index);
                 } else if updating {
-                    self.highdefinition(renderer, index as u16);
+                    renderer.write_high_block_for(&mut self.updates, index as u16, self.observer);
                 }
             }
             before += pass[w].count_ones() as usize;
@@ -1325,8 +1145,8 @@ impl PlayerInfo {
         self.bw.pbit::<1>(&mut self.buf, 1);
 
         renderer.ready_low(index as u16);
-        let masks = Self::low_masks(renderer, observer, index as u16);
-        self.write_blocks(renderer, index as u16, masks);
+        let appearance = Self::low_appearance(renderer, observer, index as u16);
+        renderer.write_low_block_for(&mut self.updates, index as u16, self.observer, appearance);
 
         observer.player.build_area.players.insert(index as u16);
     }
@@ -1341,11 +1161,6 @@ impl PlayerInfo {
             update_coordinates(&mut self.bw, &mut self.buf, last, region);
         }
     }
-
-    #[cfg(since_647)]
-    fn highdefinition(&mut self, renderer: &mut PlayerRenderer, pid: u16) {
-        renderer.write_high_block_for(&mut self.updates, pid, self.observer);
-    }
 }
 
 /// Encodes the NPC info update packet for a single game tick.
@@ -1358,9 +1173,6 @@ pub struct NpcInfo {
     updates: Packet,
     tracked: Vec<u16>,
     bw: BitWriter,
-    // The pid of the player this packet is for: 2011 paints the hits they
-    // dealt bright, everyone else's darker.
-    #[cfg(since_647)]
     observer: u16,
 }
 
@@ -1393,7 +1205,6 @@ impl NpcInfo {
             updates: Packet::new(MAX_PACKET_SIZE),
             tracked: Vec::with_capacity(BuildArea::PREFERRED_NPCS as usize),
             bw: BitWriter::new(),
-            #[cfg(since_647)]
             observer: 0,
         }
     }
@@ -1416,10 +1227,7 @@ impl NpcInfo {
         dz: i32,
         rebuild: bool,
     ) -> (&[u8], &[u8]) {
-        #[cfg(since_647)]
-        {
-            self.observer = active.player.uid.pid();
-        }
+        self.observer = active.player.uid.pid();
         let build: &mut BuildArea = &mut active.player.build_area;
 
         if rebuild
@@ -1499,7 +1307,7 @@ impl NpcInfo {
             let extend = s.len > 0 && room(&bw, &self.updates, bits + later, s.len as usize);
             write_movement(&mut bw, &mut self.buf, s.code as u64, s.bits, extend);
             if extend {
-                self.highdefinition(renderer, nid);
+                renderer.write_high_block_for(&mut self.updates, nid, self.observer);
             }
         }
         self.bw = bw;
@@ -1600,8 +1408,7 @@ impl NpcInfo {
             self.bw.pbit::<1>(&mut self.buf, 0);
         }
         renderer.ready_low(nid);
-        let masks = renderer.low_masks(nid);
-        self.write_blocks(renderer, nid, masks);
+        renderer.write_low_block_for(&mut self.updates, nid, self.observer);
         active.player.build_area.npcs.insert(nid);
     }
 
@@ -1620,90 +1427,6 @@ impl NpcInfo {
                 .watch
                 .anticheat
                 .lost(Target::Npc(other), engine().clock);
-        }
-    }
-
-    /// Writes the pre-coalesced high-definition update block for an NPC with a
-    /// single `pdata`.
-    ///
-    /// NPC high-def blocks are observer-independent, so the entire block (mask
-    /// header + every field) was pre-built in the producer
-    /// ([`NpcRenderer::compute_info`]); the encoder needs only `nid`. (The
-    /// low-def add path still uses the field-by-field `write_blocks`, since its
-    /// mask is recomputed per observer.)
-    #[inline(always)]
-    fn highdefinition(&mut self, renderer: &NpcRenderer, nid: u16) {
-        #[cfg(before_647)]
-        {
-            let blk = renderer.high_block(nid);
-            self.updates.pdata(blk, 0, blk.len());
-        }
-        #[cfg(since_647)]
-        renderer.write_high_block_for(&mut self.updates, nid, self.observer);
-    }
-
-    /// Writes the individual NPC update blocks (anim, face entity, say,
-    /// damage, change type, spot anim, face coord) into the updates buffer
-    /// based on the active mask bits.
-    #[inline(always)]
-    #[cfg(before_647)]
-    fn write_blocks(&mut self, renderer: &mut NpcRenderer, nid: u16, masks: u16) {
-        self.updates.p1(masks as u8);
-        // ----
-        // an optimization *could* be made where all of these are just 1 block of bytes...
-        // the same could NOT be done for players bcuz of how exact_move works...
-        #[cfg(since_244)]
-        if masks & NpcInfoProt::Damage2 as u16 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::Damage2);
-        }
-        if masks & NpcInfoProt::Anim as u16 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::Anim);
-        }
-        if masks & NpcInfoProt::FaceEntity as u16 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::FaceEntity);
-        }
-        if masks & NpcInfoProt::Say as u16 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::Say);
-        }
-        if masks & NpcInfoProt::Damage as u16 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::Damage);
-        }
-        if masks & NpcInfoProt::ChangeType as u16 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::ChangeType);
-        }
-        if masks & NpcInfoProt::SpotAnim as u16 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::SpotAnim);
-        }
-        if masks & NpcInfoProt::FaceCoord as u16 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::FaceCoord);
-        }
-    }
-
-    #[cfg(since_647)]
-    fn write_blocks(&mut self, renderer: &NpcRenderer, nid: u16, masks: u16) {
-        let wire = NpcInfoProt::mask(masks);
-        let (header, len) = NpcInfoProt::header(wire);
-        self.updates.pdata(&header, 0, len);
-        if wire & NpcInfoProt::ChangeType as u32 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::ChangeType);
-        }
-        if wire & NpcInfoProt::FaceCoord as u32 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::FaceCoord);
-        }
-        if wire & NpcInfoProt::SpotAnim as u32 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::SpotAnim);
-        }
-        if wire & NpcInfoProt::FaceEntity as u32 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::FaceEntity);
-        }
-        if wire & NpcInfoProt::Say as u32 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::Say);
-        }
-        if wire & NpcInfoProt::Damage as u32 != 0 {
-            renderer.write_hits_for(&mut self.updates, nid, self.observer);
-        }
-        if wire & NpcInfoProt::Anim as u32 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::Anim);
         }
     }
 
@@ -1765,10 +1488,12 @@ impl NpcInfo {
                 info.bw
                     .pbit::<12>(&mut info.buf, ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | 2 | 1);
                 match other {
-                    Some(other) => {
-                        let masks = Self::keyframe_masks(renderer, other);
-                        info.write_blocks(renderer, nid, masks);
-                    }
+                    Some(other) => renderer.write_keyframe_block(
+                        &mut info.updates,
+                        nid,
+                        &other.npc.info,
+                        other.npc.pathing.coord,
+                    ),
                     // Gone this tick: the live stream drops it next.
                     None => info.updates.p1(0),
                 }
@@ -1789,18 +1514,6 @@ impl NpcInfo {
                 return bodies;
             }
         }
-    }
-
-    /// What a keyframe shows of `other`: which way it faces, as a new
-    /// observer's add does.
-    #[cfg(before_647)]
-    fn keyframe_masks(renderer: &mut NpcRenderer, other: &ActiveNpc) -> u16 {
-        renderer.cache_facing(
-            other.npc.uid.nid(),
-            &other.npc.info,
-            other.npc.pathing.coord,
-            1,
-        )
     }
 }
 
@@ -2017,7 +1730,15 @@ mod client_decode_tests {
         active.player.info.masks = PlayerInfoProt::Appearance as u16;
         for gender in [0, 1] {
             active.player.gender = gender;
-            for (headicons, prayer) in [(0, -1), (8, 0), (16, 1), (32, 2), (56, 2)] {
+            for (headicons, skull, prayer) in [
+                (0, -1, -1),
+                (1, 0, -1),
+                (8, -1, 0),
+                (16, -1, 1),
+                (32, -1, 2),
+                (56, -1, 2),
+                (1 | 16, 0, 1),
+            ] {
                 active.player.headicons = headicons;
                 active.generateappearance(17);
                 assert_eq!(active.player.info.last_appearance, Some(17));
@@ -2027,7 +1748,7 @@ mod client_decode_tests {
                 assert_eq!(r.g1(), 0x4);
                 assert_eq!(r.g1_alt3() as usize, bytes.len() - 2);
                 assert_eq!(r.g1(), gender as i32);
-                assert_eq!((r.byte(), r.byte(), r.byte()), (-1, -1, prayer));
+                assert_eq!((r.byte(), r.byte(), r.byte()), (-1, skull, prayer));
                 assert_eq!(r.g1(), 0);
                 for kit in [0, 0, 0, 0, 274, 0, 282, 292, 256, 289, 298, 266] {
                     let hi = r.g1();
@@ -2102,8 +1823,7 @@ mod client_decode_tests {
         info.anim_delay = Some(3);
         renderer.compute_info(9, &info);
         let mut npc_info = NpcInfo::new();
-        npc_info.observer = 5;
-        npc_info.highdefinition(&renderer, 9);
+        renderer.write_high_block_for(&mut npc_info.updates, 9, 5);
         let bytes = &npc_info.updates.data[..npc_info.updates.pos];
 
         let mut r = Reader { b: bytes, pos: 0 };
@@ -2164,8 +1884,7 @@ mod client_decode_tests {
         info.say = Some("Hi".into());
         renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
         let mut player_info = PlayerInfo::new();
-        player_info.observer = 7;
-        player_info.highdefinition(&mut renderer, 7);
+        renderer.write_high_block_for(&mut player_info.updates, 7, Observer { pid: 7 });
         let bytes = &player_info.updates.data[..player_info.updates.pos];
 
         let mut r = Reader { b: bytes, pos: 0 };
@@ -2220,7 +1939,7 @@ mod client_decode_tests {
         info.exactmove_dir = Some(1);
         renderer.compute_info(7, &info, CoordGrid::new(3078, 0, 9786));
         let mut player_info = PlayerInfo::new();
-        player_info.highdefinition(&mut renderer, 7);
+        renderer.write_high_block_for(&mut player_info.updates, 7, Observer::default());
         let bytes = &player_info.updates.data[..player_info.updates.pos];
 
         let mut r = Reader { b: bytes, pos: 0 };
@@ -2265,8 +1984,8 @@ mod client_decode_tests {
         let mut info = PlayerInfo::new();
         renderer.cache_low(7, &other.player.info, other.player.pathing.coord);
         renderer.ready_low(7);
-        let masks = PlayerInfo::low_masks(&renderer, &mut active, 7);
-        info.write_blocks(&renderer, 7, masks);
+        let appearance = PlayerInfo::low_appearance(&renderer, &mut active, 7);
+        renderer.write_low_block_for(&mut info.updates, 7, Observer::default(), appearance);
         let mut r = Reader {
             b: &info.updates.data[..info.updates.pos],
             pos: 0,
@@ -2286,8 +2005,7 @@ mod client_decode_tests {
         info.apply_damage(300, 3, 128, u8::MAX, PlayerInfoProt::Damage as u16);
         renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
         let mut player_info = PlayerInfo::new();
-        player_info.observer = 7;
-        player_info.highdefinition(&mut renderer, 7);
+        renderer.write_high_block_for(&mut player_info.updates, 7, Observer { pid: 7 });
         let bytes = &player_info.updates.data[..player_info.updates.pos];
 
         let mut r = Reader { b: bytes, pos: 0 };
@@ -2305,8 +2023,7 @@ mod client_decode_tests {
         renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
         player_info.updates.pos = 0;
         // A bystander's view is the shared block.
-        player_info.observer = 9;
-        player_info.write_blocks(&renderer, 7, info.masks);
+        renderer.write_high_block_for(&mut player_info.updates, 7, Observer { pid: 9 });
         assert_eq!(
             &player_info.updates.data[..player_info.updates.pos],
             renderer.high_block(7),
@@ -2330,8 +2047,7 @@ mod client_decode_tests {
         info.damage2_soak = Some(30000);
         renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
         let mut player_info = PlayerInfo::new();
-        player_info.observer = 7;
-        player_info.highdefinition(&mut renderer, 7);
+        renderer.write_high_block_for(&mut player_info.updates, 7, Observer { pid: 7 });
         let bytes = &player_info.updates.data[..player_info.updates.pos];
 
         let mut r = Reader { b: bytes, pos: 0 };
@@ -2349,7 +2065,7 @@ mod client_decode_tests {
         info.apply_damage(150, 0, 200, u8::MAX, PlayerInfoProt::Damage as u16);
         renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
         player_info.updates.pos = 0;
-        player_info.highdefinition(&mut renderer, 7);
+        renderer.write_high_block_for(&mut player_info.updates, 7, Observer { pid: 7 });
         let bytes = &player_info.updates.data[..player_info.updates.pos];
         let mut r = Reader { b: bytes, pos: 0 };
         assert_eq!(r.g1(), 0x2);
@@ -2385,10 +2101,9 @@ mod client_decode_tests {
         info.damage2_base = Some(u8::MAX);
         renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
 
-        let mut seen = |observer: u16| {
+        let seen = |observer: u16| {
             let mut player_info = PlayerInfo::new();
-            player_info.observer = observer;
-            player_info.highdefinition(&mut renderer, 7);
+            renderer.write_high_block_for(&mut player_info.updates, 7, Observer { pid: observer });
             let bytes = player_info.updates.data[..player_info.updates.pos].to_vec();
             let mut r = Reader { b: &bytes, pos: 0 };
             let mask = r.g1();
@@ -2432,8 +2147,7 @@ mod client_decode_tests {
         info.apply_damage(40, 9, 255, u8::MAX, PlayerInfoProt::Damage as u16);
         renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
         let mut player_info = PlayerInfo::new();
-        player_info.observer = 11;
-        player_info.highdefinition(&mut renderer, 7);
+        renderer.write_high_block_for(&mut player_info.updates, 7, Observer { pid: 11 });
         let bytes = &player_info.updates.data[..player_info.updates.pos];
         let mut r = Reader { b: bytes, pos: 0 };
         assert_eq!(r.g1(), 0x2);

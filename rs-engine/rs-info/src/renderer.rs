@@ -1,7 +1,26 @@
 use crate::EntityMasks;
 use rs_grid::CoordGrid;
 use rs_io::Packet;
+#[cfg(since_647)]
+use rs_protocol::network::game::info::hit::Hit;
+use rs_protocol::network::game::info::npc::{
+    anim::NpcInfoAnim, changetype::NpcInfoChangeType, damage::NpcInfoDamage,
+    face_coord::NpcInfoFaceCoord, face_entity::NpcInfoFaceEntity, say::NpcInfoSay,
+    spotanim::NpcInfoSpotAnim,
+};
+#[cfg(before_647)]
+use rs_protocol::network::game::info::player::chat::PlayerInfoChat;
+use rs_protocol::network::game::info::player::{
+    anim::PlayerInfoAnim, appearance::PlayerInfoAppearance, damage::PlayerInfoDamage,
+    exactmove::PlayerInfoExactMove, face_coord::PlayerInfoFaceCoord,
+    face_entity::PlayerInfoFaceEntity, say::PlayerInfoSay, spotanim::PlayerInfoSpotAnim,
+};
+#[cfg(since_647)]
+use rs_protocol::network::game::info::player::{
+    move_type::PlayerInfoMoveType, temp_move_type::PlayerInfoTempMoveType,
+};
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
+use rs_protocol::network::game::info_prot_message::InfoMessage;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::npc_info::add_direction;
 use std::mem;
@@ -14,20 +33,6 @@ const MAX_NPCS: usize = 16384;
 #[cfg(since_647)]
 const MAX_NPCS: usize = 32768;
 
-#[cfg(rev = "225")]
-const PLAYER_PROT_COUNT: usize = 8;
-#[cfg(all(since_244, before_647))]
-const PLAYER_PROT_COUNT: usize = 9;
-#[cfg(since_647)]
-const PLAYER_PROT_COUNT: usize = 10;
-
-#[cfg(rev = "225")]
-const NPC_PROT_COUNT: usize = 7;
-#[cfg(all(since_244, before_647))]
-const NPC_PROT_COUNT: usize = 8; // +1 for the Damage2 fixed slot
-#[cfg(since_647)]
-const NPC_PROT_COUNT: usize = 7;
-
 #[cfg(before_647)]
 const SLOT_SIZE: usize = 8;
 // Two soaked hits are the largest block: a count, then per hit 32767, mark,
@@ -37,6 +42,13 @@ const SLOT_SIZE: usize = 24;
 #[cfg(since_647)]
 const DEFAULT_MOVE_TYPE: u8 = 1;
 
+/// The size a player faces from, and before 647 an npc.
+const ONE_TILE: u8 = 1;
+
+/// The mask header an add's size estimate counts.
+const LOW_HEADER: usize = 1;
+
+/// One entity's block, encoded.
 #[derive(Clone, Copy)]
 #[repr(C)]
 struct Slot {
@@ -45,300 +57,67 @@ struct Slot {
 }
 
 impl Slot {
-    const EMPTY: Self = Self {
-        data: [0; SLOT_SIZE],
-        len: 0,
-    };
-
-    /// Checks whether this slot contains serialized data.
-    ///
-    /// A slot is considered set when its `len` field is greater than zero,
-    /// meaning one of the `set_*` methods has been called to store a value.
-    #[inline(always)]
-    const fn is_set(&self) -> bool {
-        self.len > 0
-    }
-
-    /// Returns the serialized bytes this slot holds (`data[0..len]`).
-    ///
-    /// Used when pre-coalescing an entity's high-definition update block so
-    /// the bytes are guaranteed identical to what [`Slot::write_to`] emits.
+    /// The encoded block (`data[..len]`), empty when the slot holds none.
     #[inline(always)]
     fn bytes(&self) -> &[u8] {
-        unsafe { self.data.get_unchecked(0..self.len as usize) }
+        unsafe { self.data.get_unchecked(..self.len as usize) }
     }
 
-    /// Writes the serialized slot data into a packet buffer.
-    ///
-    /// Copies exactly `self.len` bytes from the internal `data` array into
-    /// `buf` via `Packet::pdata`. This should only be called on slots where
-    /// `is_set()` returns `true`; calling it on an empty slot writes zero
-    /// bytes harmlessly.
+    /// Encodes `block` in place of the one the slot held.
     #[inline(always)]
-    fn write_to(&self, buf: &mut Packet) {
-        buf.pdata(&self.data, 0, self.len as usize);
-    }
-
-    /// Stores a single 2-byte big-endian value into the slot.
-    ///
-    /// Sets `len` to 2 and writes the big-endian representation of `a` into
-    /// `data[0..2]`.
-    #[inline(always)]
-    fn set_p2(&mut self, a: u16) {
+    fn set(&mut self, block: &impl InfoMessage) {
         let mut buf = Packet::from(&mut self.data[..]);
-        buf.p2(a);
-        self.len = buf.pos as u8;
-    }
-
-    /// Stores a 2-byte big-endian value followed by a 1-byte value into the slot.
-    #[inline(always)]
-    #[cfg(before_647)]
-    fn set_p2_p1(&mut self, a: u16, b: u8) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p2(a);
-        buf.p1(b);
-        self.len = buf.pos as u8;
-    }
-
-    /// Stores four individual bytes into the slot.
-    #[inline(always)]
-    #[cfg(before_647)]
-    fn set_p1_p1_p1_p1(&mut self, a: u8, b: u8, c: u8, d: u8) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p1(a);
-        buf.p1(b);
-        buf.p1(c);
-        buf.p1(d);
-        self.len = buf.pos as u8;
-    }
-
-    /// Stores two 2-byte big-endian values into the slot.
-    #[inline(always)]
-    #[cfg(before_647)]
-    fn set_p2_p2(&mut self, a: u16, b: u16) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p2(a);
-        buf.p2(b);
-        self.len = buf.pos as u8;
-    }
-
-    /// Stores a 2-byte big-endian value followed by a 4-byte big-endian value.
-    #[inline(always)]
-    #[cfg(before_647)]
-    fn set_p2_p4(&mut self, a: u16, b: i32) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p2(a);
-        buf.p4(b);
-        self.len = buf.pos as u8;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn set_p2_ip2(&mut self, x: u16, z: u16) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p2(x);
-        buf.p2_alt1(z);
-        self.len = buf.pos as u8;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn set_p1(&mut self, a: u8) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p1(a);
-        self.len = buf.pos as u8;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn set_p2_alt2(&mut self, a: u16) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p2_alt2(a);
-        self.len = buf.pos as u8;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn set_p2_alt3(&mut self, a: u16) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p2_alt3(a);
-        self.len = buf.pos as u8;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn set_ip2(&mut self, a: u16) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p2_alt1(a);
-        self.len = buf.pos as u8;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn set_p1_alt2(&mut self, a: u8) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p1_alt2(a);
-        self.len = buf.pos as u8;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    #[allow(clippy::too_many_arguments)]
-    fn set_exactmove(
-        &mut self,
-        start_x: i8,
-        start_z: i8,
-        end_x: i8,
-        end_z: i8,
-        begin: u16,
-        finish: u16,
-        dir: u8,
-    ) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p1_alt3(start_x as u8);
-        buf.p1(start_z as u8);
-        buf.p1_alt2(end_x as u8);
-        buf.p1_alt3(end_z as u8);
-        buf.p2_alt2(begin);
-        buf.p2(finish);
-        buf.p1_alt2(dir);
-        self.len = buf.pos as u8;
-    }
-
-    /// The hits as a player who neither dealt nor took them sees them
-    /// ([`put_hit`]); the hit's receiver and dealer get theirs re-encoded
-    /// bright ([`PlayerRenderer::write_hits_for`]).
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn set_hits(&mut self, count: u8, hits: &[Hit]) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p1(count);
-        for hit in hits {
-            put_hit(&mut buf, hit, false);
-        }
-        self.len = buf.pos as u8;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn set_player_anim(&mut self, anim: u16, delay: u8) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        for _ in 0..4 {
-            buf.p2(anim);
-        }
-        buf.p1_alt1(delay);
-        self.len = buf.pos as u8;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn set_npc_anim(&mut self, anim: u16, delay: u8) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        for _ in 0..4 {
-            buf.p2_alt2(anim);
-        }
-        buf.p1_alt2(delay);
-        self.len = buf.pos as u8;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn set_player_spotanim(&mut self, id: u16, height: u16, delay: u16) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p2_alt2(id);
-        buf.p4_alt3(((height as i32) << 16) | delay as i32);
-        buf.p1_alt3(15 << 3);
-        self.len = buf.pos as u8;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn set_npc_spotanim(&mut self, id: u16, height: u16, delay: u16) {
-        let mut buf = Packet::from(&mut self.data[..]);
-        buf.p2_alt3(id);
-        buf.p4_alt3(((height as i32) << 16) | delay as i32);
-        buf.p1_alt1(15 << 3);
+        block.encode(&mut buf);
         self.len = buf.pos as u8;
     }
 }
 
-#[cfg(since_647)]
-fn face_angle(src_x: i32, src_z: i32, dst_x: i32, dst_z: i32) -> u16 {
-    let dx = src_x - dst_x;
-    let dz = src_z - dst_z;
-    if dx == 0 && dz == 0 {
-        return 0;
-    }
-    let angle = (f64::atan2(dx as f64, dz as f64) * 2607.5945876176133) as i32;
-    (angle & 0x3FFF) as u16
-}
-
-#[cfg(since_647)]
-#[derive(Clone, Copy, Default)]
-struct Hit {
-    hitmark: i32,
-    damage: i32,
-    soak: i32,
-    health_percent: u8,
-}
-
-/// The first smart of a hit that carries a second mark (`Class244`).
-#[cfg(since_647)]
-const HIT_DOUBLE: i32 = 32767;
-
-/// The first smart of a hit with no splat, only its health bar (`Class244`).
-#[cfg(since_647)]
-const HIT_NONE: i32 = 32766;
-
-/// Hitmark config 5, the blue splat with the shield icon: damage soaked
-/// (2011 wiki, Hitsplat, 2011-04-13; void-634 `HitSplat.Mark.Absorb`).
-#[cfg(since_647)]
-const HITMARK_SOAK: i32 = 5;
-
-/// Hitmark config 9, the heal, which 2011 never darkens ("this splat has no
-/// dark version": 2011 wiki, Hitsplat, 2011-04-13; void-634 `HitSplat`).
-#[cfg(since_647)]
-const HITMARK_HEAL: i32 = 9;
-
-/// Cache 786's hitmarks 14-27 are 0-13 on darker backgrounds: what a player
-/// sees of a hit they neither dealt nor took (2011 wiki, Hitsplat: "Darker
-/// splats appear when someone takes damage not dealt or received by you";
-/// "Damage absorbed by other players has a darker splat"; void-634
-/// `HitSplat` adds 14).
-#[cfg(since_647)]
-const HITMARK_DARKER: i32 = 14;
-
-/// One hit as the client reads it (`Class244`, mask 0x2): a soaked hit is one
-/// entry with two marks, which the client paints side by side (32767, the
-/// hit's mark and damage, the soak mark and the amount soaked; void-634
-/// `HitSplat.write`). `bright` is the view of its receiver and dealer; anyone
-/// else sees it darker, and sees no splat for a hit of nothing (32766), only
-/// the health bar (void-634 `HitSplat.write`). Both views are the same length.
-#[cfg(since_647)]
+/// Encodes a block that can outgrow a [`Slot`] in place of the one `bytes`
+/// held.
 #[inline(always)]
-fn put_hit<T: AsRef<[u8]> + AsMut<[u8]>>(buf: &mut Packet<T>, hit: &Hit, bright: bool) {
-    if !bright && hit.damage == 0 {
-        buf.psmart1or2(HIT_NONE);
-    } else {
-        let darker = |mark: i32| {
-            if bright || mark == HITMARK_HEAL {
-                mark
-            } else {
-                mark + HITMARK_DARKER
-            }
-        };
-        if hit.soak > 0 {
-            buf.psmart1or2(HIT_DOUBLE);
-        }
-        buf.psmart1or2(darker(hit.hitmark));
-        buf.psmart1or2(hit.damage);
-        if hit.soak > 0 {
-            buf.psmart1or2(darker(HITMARK_SOAK));
-            buf.psmart1or2(hit.soak);
+fn set_bytes(bytes: &mut Option<Vec<u8>>, block: &impl InfoMessage) {
+    let bytes = bytes.get_or_insert_with(Vec::new);
+    bytes.clear();
+    bytes.resize(block.sizeof(), 0);
+    block.encode(&mut Packet::from(&mut bytes[..]));
+}
+
+/// Blocks as their bits in the mask header (`masks`) and as where they sit
+/// in the order the client reads them (`order`, a bit per `to_index`).
+#[derive(Clone, Copy, Default)]
+struct Blocks {
+    masks: u16,
+    order: u16,
+}
+
+impl Blocks {
+    const fn player(prot: PlayerInfoProt) -> Blocks {
+        Blocks {
+            masks: prot as u16,
+            order: 1 << prot.to_index(),
         }
     }
-    buf.psmart1or2(0);
-    buf.p1(hit.health_percent);
+
+    const fn npc(prot: NpcInfoProt) -> Blocks {
+        Blocks {
+            masks: prot as u16,
+            order: 1 << prot.to_index(),
+        }
+    }
+
+    const fn with(self, other: Blocks) -> Blocks {
+        Blocks {
+            masks: self.masks | other.masks,
+            order: self.order | other.order,
+        }
+    }
+
+    const fn without(self, other: Blocks) -> Blocks {
+        Blocks {
+            masks: self.masks & !other.masks,
+            order: self.order & !other.order,
+        }
+    }
 }
 
 /// Where an entity's update block sits in this tick's block buffer.
@@ -358,33 +137,89 @@ impl Span {
 }
 
 /// Which way an entity faces for an observer that adds it: the entity it
-/// faces, if any, and the tile it faces (this tick's, else its orientation,
-/// else its own), noted in the info phase.
+/// faces, if any, and the tile it faces, noted in the info phase.
 #[derive(Clone, Copy, Default)]
-struct LowFace {
+struct LowFace<C> {
     entity: Option<u16>,
-    x: u16,
-    z: u16,
-    #[cfg(since_647)]
-    coord: CoordGrid,
+    coord: C,
 }
 
-impl LowFace {
-    fn of(info: &EntityMasks, coord: CoordGrid, size: u8) -> LowFace {
-        let (x, z) = info
-            .face_x
-            .zip(info.face_z)
-            .or_else(|| info.orientation_x.zip(info.orientation_z))
-            .unwrap_or((
-                CoordGrid::fine(coord.x(), size),
-                CoordGrid::fine(coord.z(), size),
-            ));
-        LowFace {
-            entity: info.face_entity,
-            x,
-            z,
-            #[cfg(since_647)]
-            coord,
+/// The fine coords an entity of `size` tiles at `coord` faces: this tick's
+/// face coord, else its orientation, else its own.
+fn facing(info: &EntityMasks, coord: CoordGrid, size: u8) -> (u16, u16) {
+    info.face_x
+        .zip(info.face_z)
+        .or_else(|| info.orientation_x.zip(info.orientation_z))
+        .unwrap_or((
+            CoordGrid::fine(coord.x(), size),
+            CoordGrid::fine(coord.z(), size),
+        ))
+}
+
+/// A player at `coord` facing fine coords `x`, `z`.
+fn face_coord(
+    x: u16,
+    z: u16,
+    #[cfg_attr(before_647, allow(unused_variables))] coord: CoordGrid,
+) -> PlayerInfoFaceCoord {
+    PlayerInfoFaceCoord {
+        x,
+        z,
+        #[cfg(since_647)]
+        from_x: CoordGrid::fine(coord.x(), ONE_TILE),
+        #[cfg(since_647)]
+        from_z: CoordGrid::fine(coord.z(), ONE_TILE),
+    }
+}
+
+/// The player a block is written for and, before 647, where its client's
+/// build area starts: an exact move is sent relative to it.
+#[derive(Clone, Copy, Default)]
+pub struct Observer {
+    pub pid: u16,
+    #[cfg(before_647)]
+    pub origin: CoordGrid,
+}
+
+/// A player's exact move this tick in world tiles, for each observer to get
+/// relative to its build area.
+#[cfg(before_647)]
+#[derive(Clone, Copy, Default)]
+struct ExactMove {
+    start_x: u16,
+    start_z: u16,
+    end_x: u16,
+    end_z: u16,
+    begin: u16,
+    finish: u16,
+    dir: u8,
+}
+
+#[cfg(before_647)]
+impl ExactMove {
+    fn of(info: &EntityMasks) -> ExactMove {
+        ExactMove {
+            start_x: info.exactmove_start_x.unwrap(),
+            start_z: info.exactmove_start_z.unwrap(),
+            end_x: info.exactmove_end_x.unwrap(),
+            end_z: info.exactmove_end_z.unwrap(),
+            begin: info.exactmove_begin.unwrap(),
+            finish: info.exactmove_finish.unwrap(),
+            dir: info.exactmove_dir.unwrap(),
+        }
+    }
+
+    /// The move as a client whose build area starts at `origin` reads it.
+    fn block(&self, origin: CoordGrid) -> PlayerInfoExactMove {
+        let (x, z) = (origin.zone_origin_x(), origin.zone_origin_z());
+        PlayerInfoExactMove {
+            start_x: (self.start_x - x) as u8,
+            start_z: (self.start_z - z) as u8,
+            end_x: (self.end_x - x) as u8,
+            end_z: (self.end_z - z) as u8,
+            begin: self.begin,
+            finish: self.finish,
+            dir: self.dir,
         }
     }
 }
@@ -397,7 +232,6 @@ impl LowFace {
 struct HitView {
     hits: [Hit; 2],
     count: u8,
-    count_byte: u8,
     bright: [[Option<u16>; 2]; 2],
     offset: u16,
     len: u16,
@@ -405,40 +239,31 @@ struct HitView {
 
 #[cfg(since_647)]
 impl HitView {
-    fn sees_bright(&self, observer: u16) -> bool {
-        self.bright[..self.count as usize]
-            .iter()
-            .any(|who| who.contains(&Some(observer)))
+    fn hits(&self) -> &[Hit] {
+        &self.hits[..self.count as usize]
     }
 
-    fn write_for(&self, buf: &mut Packet, observer: u16) {
-        buf.p1(self.count_byte);
-        for i in 0..self.count as usize {
-            put_hit(buf, &self.hits[i], self.bright[i].contains(&Some(observer)));
+    /// The hits `observer` sees bright, a bit each.
+    fn bright(&self, observer: u16) -> u8 {
+        let mut bright = 0;
+        for (i, who) in self.bright[..self.count as usize].iter().enumerate() {
+            if who.contains(&Some(observer)) {
+                bright |= 1 << i;
+            }
         }
-    }
-
-    /// `block` (an entity's high block) as `observer` sees it.
-    fn write_block_for(&self, buf: &mut Packet, block: &[u8], observer: u16) {
-        if self.count == 0 || !self.sees_bright(observer) {
-            buf.pdata(block, 0, block.len());
-            return;
-        }
-        let (offset, len) = (self.offset as usize, self.len as usize);
-        buf.pdata(block, 0, offset);
-        self.write_for(buf, observer);
-        buf.pdata(block, offset + len, block.len() - offset - len);
+        bright
     }
 }
 
+/// `block` with its `len` bytes at `offset` replaced by what `write` writes.
 #[cfg(since_647)]
-fn health_percent(current: Option<u8>, base: Option<u8>) -> u8 {
-    match (current, base) {
-        (Some(current), Some(base)) if base > 0 => {
-            ((current as u32 * 255) / (base as u32)).min(255) as u8
-        }
-        _ => 0,
-    }
+#[cold]
+#[inline(never)]
+fn splice(buf: &mut Packet, block: &[u8], offset: u16, len: u16, write: impl FnOnce(&mut Packet)) {
+    let (offset, len) = (offset as usize, len as usize);
+    buf.pdata(block, 0, offset);
+    write(buf);
+    buf.pdata(block, offset + len, block.len() - offset - len);
 }
 
 /// Each hit's dealer, in [`hits`]' order.
@@ -454,51 +279,51 @@ fn hit_sources(info: &EntityMasks, first: bool, second: bool) -> [Option<u16>; 2
 
 #[cfg(since_647)]
 fn hits(info: &EntityMasks, first: bool, second: bool) -> ([Hit; 2], usize) {
-    let mut out = [Hit {
-        hitmark: 0,
-        damage: 0,
-        soak: 0,
-        health_percent: 0,
-    }; 2];
+    let mut out = [Hit::default(); 2];
     let mut n = 0;
     if first {
         out[n] = Hit {
-            hitmark: info.damage_type.unwrap_or(0) as i32,
-            damage: info.damage_taken.unwrap_or(0) as i32,
-            soak: info.damage_soak.unwrap_or(0) as i32,
-            health_percent: health_percent(info.damage_current, info.damage_base),
+            hitmark: info.damage_type.unwrap_or(0),
+            damage: info.damage_taken.unwrap_or(0),
+            soak: info.damage_soak.unwrap_or(0),
+            health: Hit::health(
+                info.damage_current.unwrap_or(0),
+                info.damage_base.unwrap_or(0),
+            ),
         };
         n += 1;
     }
     if second {
         out[n] = Hit {
-            hitmark: info.damage2_type.unwrap_or(0) as i32,
-            damage: info.damage2_taken.unwrap_or(0) as i32,
-            soak: info.damage2_soak.unwrap_or(0) as i32,
-            health_percent: health_percent(info.damage2_current, info.damage2_base),
+            hitmark: info.damage2_type.unwrap_or(0),
+            damage: info.damage2_taken.unwrap_or(0),
+            soak: info.damage2_soak.unwrap_or(0),
+            health: Hit::health(
+                info.damage2_current.unwrap_or(0),
+                info.damage2_base.unwrap_or(0),
+            ),
         };
         n += 1;
     }
     (out, n)
 }
 
-/// Pre-computed player info update storage for efficient network serialization.
+/// Every player's info blocks this tick, encoded once in the info phase and
+/// copied into each observer's packet.
 ///
-/// `PlayerRenderer` maintains a set of 2048 player slots, one per possible
-/// player index, where each slot holds pre-serialized protocol field data.
-/// Fixed-size fields (Anim, FaceEntity, Damage, FaceCoord, SpotAnim) are
-/// stored in inline [`Slot`] buffers, while variable-length fields
-/// (Appearance, Say, Chat) use heap-allocated `Vec<u8>` buffers.
-///
-/// Two accumulated byte-size counters (`highs` and `lows`) track the total
-/// serialized size of high-definition and low-definition updates per player,
-/// enabling the info output phase to perform capacity checks before writing.
+/// Fixed-size blocks live in inline [`Slot`]s, one row per block in the
+/// client's read order, while the appearance, say and chat use `Vec<u8>`
+/// buffers. Each player's blocks are also kept together under their mask
+/// header in one high block, with its length (`highs`) and the most an add's
+/// blocks take (`lows`) for the output phase's capacity checks.
 pub struct PlayerRenderer {
-    fixed: Box<[[Slot; MAX_PLAYERS]; PLAYER_PROT_COUNT]>,
+    fixed: Box<[[Slot; MAX_PLAYERS]; PlayerInfoProt::COUNT]>,
     appearances: Vec<Option<Vec<u8>>>,
     says: Vec<Option<Vec<u8>>>,
     #[cfg(before_647)]
     chats: Vec<Option<Vec<u8>>>,
+    #[cfg(before_647)]
+    exact_moves: Box<[ExactMove; MAX_PLAYERS]>,
     #[cfg(since_647)]
     move_types: Box<[u8; MAX_PLAYERS]>,
     #[cfg(since_647)]
@@ -513,19 +338,13 @@ pub struct PlayerRenderer {
     spans: Box<[Span; MAX_PLAYERS]>,
     highs: Box<[u16; MAX_PLAYERS]>,
     lows: Box<[u16; MAX_PLAYERS]>,
-    low_masks: Box<[u16; MAX_PLAYERS]>,
-    low_faces: Box<[LowFace; MAX_PLAYERS]>,
+    ticks: Box<[Blocks; MAX_PLAYERS]>,
+    low_faces: Box<[LowFace<PlayerInfoFaceCoord>; MAX_PLAYERS]>,
     appearance_clocks: Box<[Option<u32>; MAX_PLAYERS]>,
     written: Vec<u16>,
 }
 
 impl PlayerRenderer {
-    /// Creates a new `PlayerRenderer` with all slots initialized to empty.
-    ///
-    /// Allocates the fixed-size slot arrays on the heap via `Box`, and
-    /// initializes the variable-length appearance, say, and chat vectors
-    /// with `None` for all 2048 player indices. All high-def and low-def
-    /// byte-size counters start at zero.
     #[inline]
     pub fn new() -> PlayerRenderer {
         PlayerRenderer {
@@ -534,6 +353,8 @@ impl PlayerRenderer {
             says: vec![None; MAX_PLAYERS],
             #[cfg(before_647)]
             chats: vec![None; MAX_PLAYERS],
+            #[cfg(before_647)]
+            exact_moves: Box::new([ExactMove::default(); MAX_PLAYERS]),
             #[cfg(since_647)]
             move_types: Box::new([DEFAULT_MOVE_TYPE; MAX_PLAYERS]),
             #[cfg(since_647)]
@@ -548,7 +369,7 @@ impl PlayerRenderer {
             spans: Box::new([Span::default(); MAX_PLAYERS]),
             highs: Box::new([0; MAX_PLAYERS]),
             lows: Box::new([0; MAX_PLAYERS]),
-            low_masks: Box::new([0; MAX_PLAYERS]),
+            ticks: Box::new([Blocks::default(); MAX_PLAYERS]),
             low_faces: Box::new([LowFace::default(); MAX_PLAYERS]),
             appearance_clocks: Box::new([None; MAX_PLAYERS]),
             written: Vec::new(),
@@ -556,22 +377,12 @@ impl PlayerRenderer {
     }
 
     /// Notes what an observer adding player `pid` this tick gets besides its
-    /// appearance: this tick's blocks, which way it faces and, on 647, its
-    /// move type. Once a tick in the info phase, so an add doesn't read the
-    /// player; [`ready_low`](Self::ready_low) writes the blocks it caches.
+    /// blocks: which way it faces, and which appearance it has. Once a tick
+    /// in the info phase, so an add doesn't read the player;
+    /// [`ready_low`](Self::ready_low) writes the blocks it notes.
     #[inline(always)]
     pub fn cache_low(&mut self, pid: u16, info: &EntityMasks, coord: CoordGrid) {
-        let face = LowFace::of(info, coord, 1);
-        let mut masks = info.masks | PlayerInfoProt::FaceCoord as u16;
-        if face.entity.is_some() {
-            masks |= PlayerInfoProt::FaceEntity as u16;
-        }
-        #[cfg(since_647)]
-        {
-            masks |= PlayerInfoProt::MoveType as u16;
-        }
-        self.low_masks[pid as usize] = masks;
-        self.low_faces[pid as usize] = face;
+        self.low_faces[pid as usize] = Self::low_face(info, coord);
         self.appearance_clocks[pid as usize] = info.last_appearance;
     }
 
@@ -582,12 +393,6 @@ impl PlayerRenderer {
         self.cache_face(pid, self.low_faces[pid as usize]);
         #[cfg(since_647)]
         self.cache_move_type(pid);
-    }
-
-    /// The blocks [`cache_low`](Self::cache_low) noted for player `pid`.
-    #[inline(always)]
-    pub fn low_masks(&self, pid: u16) -> u16 {
-        self.low_masks[pid as usize]
     }
 
     /// Which appearance player `pid` has this tick, if it has one.
@@ -643,15 +448,8 @@ impl PlayerRenderer {
         &self.regions[..]
     }
 
-    /// Pre-computes and serializes all active info masks for a player.
-    ///
-    /// Iterates over every flag set in `info.masks` and serializes the
-    /// corresponding field data into the appropriate slot or variable-length
-    /// buffer for the given player index. Also accumulates the total
-    /// high-definition and low-definition byte sizes (including the mask
-    /// header) into `self.highs[pid]` and `self.lows[pid]`.
-    ///
-    /// Returns immediately if `info.masks` is zero (no updates pending).
+    /// Encodes player `pid`'s blocks this tick (`info.masks`) into its slots
+    /// and, under their mask header, its high block, and notes their sizes.
     #[inline]
     pub fn compute_info(
         &mut self,
@@ -660,287 +458,194 @@ impl PlayerRenderer {
         #[cfg_attr(before_647, allow(unused_variables))] coord: CoordGrid,
     ) {
         let masks = info.masks;
-
         if masks == 0 {
             return;
         }
-
         self.written.push(pid as u16);
-        unsafe { self.compute_info_inner(pid, masks, info, coord) }
-    }
 
-    #[inline(always)]
-    unsafe fn compute_info_inner(
-        &mut self,
-        pid: usize,
-        masks: u16,
-        info: &EntityMasks,
-        #[cfg_attr(before_647, allow(unused_variables))] coord: CoordGrid,
-    ) {
-        unsafe {
-            let mut active: u16 = 0;
-
-            if masks & PlayerInfoProt::Appearance as u16 != 0 {
-                let bytes = info.last_appearance_info.as_ref().unwrap();
-                let slot = self
-                    .appearances
-                    .get_unchecked_mut(pid)
-                    .get_or_insert_with(|| Vec::with_capacity(bytes.len() + 1));
-                slot.clear();
-                slot.push(if cfg!(since_647) {
-                    128u8.wrapping_sub(bytes.len() as u8)
-                } else {
-                    bytes.len() as u8
-                });
-                slot.extend_from_slice(bytes);
-                active |= 1 << PlayerInfoProt::Appearance.to_index();
-            }
-            if masks & PlayerInfoProt::Anim as u16 != 0 {
-                let slot = self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::Anim.to_index())
-                    .get_unchecked_mut(pid);
-                #[cfg(before_647)]
-                slot.set_p2_p1(info.anim_id.unwrap_or(u16::MAX), info.anim_delay.unwrap());
-                #[cfg(since_647)]
-                slot.set_player_anim(
-                    info.anim_id.unwrap_or(u16::MAX),
-                    info.anim_delay.unwrap_or(0),
-                );
-                active |= 1 << PlayerInfoProt::Anim.to_index();
-            }
-            if masks & PlayerInfoProt::FaceEntity as u16 != 0 {
-                let slot = self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::FaceEntity.to_index())
-                    .get_unchecked_mut(pid);
-                #[cfg(before_647)]
-                slot.set_p2(info.face_entity.unwrap_or(u16::MAX));
-                #[cfg(since_647)]
-                slot.set_p2_alt3(info.face_entity.unwrap_or(u16::MAX));
-                active |= 1 << PlayerInfoProt::FaceEntity.to_index();
-            }
-            if masks & PlayerInfoProt::Say as u16 != 0 {
-                let bytes = info.say.as_ref().unwrap().as_bytes();
-                let slot = self
-                    .says
-                    .get_unchecked_mut(pid)
-                    .get_or_insert_with(|| Vec::with_capacity(bytes.len() + 1));
-                slot.clear();
-                slot.extend_from_slice(bytes);
-                slot.push(if cfg!(since_647) { 0 } else { 10 });
-                active |= 1 << PlayerInfoProt::Say.to_index();
-            }
+        let mut order = 0;
+        if masks & PlayerInfoProt::Appearance as u16 != 0 {
+            let bytes = info.last_appearance_info.as_deref().unwrap();
+            set_bytes(&mut self.appearances[pid], &PlayerInfoAppearance { bytes });
+            order |= 1 << PlayerInfoProt::Appearance.to_index();
+        }
+        if masks & PlayerInfoProt::Anim as u16 != 0 {
+            let anim = PlayerInfoAnim {
+                seq: info.anim_id.unwrap_or(u16::MAX),
+                delay: info.anim_delay.unwrap_or(0),
+            };
+            order |= self.set(PlayerInfoProt::Anim, pid, &anim);
+        }
+        if masks & PlayerInfoProt::FaceEntity as u16 != 0 {
+            let entity = info.face_entity.unwrap_or(u16::MAX);
+            order |= self.set(
+                PlayerInfoProt::FaceEntity,
+                pid,
+                &PlayerInfoFaceEntity { entity },
+            );
+        }
+        if masks & PlayerInfoProt::Say as u16 != 0 {
+            let say = info.say.as_deref().unwrap();
+            set_bytes(&mut self.says[pid], &PlayerInfoSay { say });
+            order |= 1 << PlayerInfoProt::Say.to_index();
+        }
+        #[cfg(before_647)]
+        if masks & PlayerInfoProt::Damage as u16 != 0 {
+            let damage = PlayerInfoDamage {
+                damage: info.damage_taken.unwrap() as u8,
+                damage_type: info.damage_type.unwrap(),
+                current: info.damage_current.unwrap(),
+                base: info.damage_base.unwrap(),
+            };
+            order |= self.set(PlayerInfoProt::Damage, pid, &damage);
+        }
+        if masks & PlayerInfoProt::FaceCoord as u16 != 0 {
+            let here = (
+                CoordGrid::fine(coord.x(), ONE_TILE),
+                CoordGrid::fine(coord.z(), ONE_TILE),
+            );
+            let (x, z) = info.face_x.zip(info.face_z).unwrap_or(here);
+            order |= self.set(PlayerInfoProt::FaceCoord, pid, &face_coord(x, z, coord));
+        }
+        #[cfg(before_647)]
+        if masks & PlayerInfoProt::Chat as u16 != 0 {
+            let chat = PlayerInfoChat {
+                colour: info.chat_colour.unwrap(),
+                effects: info.chat_effects.unwrap(),
+                ignored: info.chat_ignored.unwrap(),
+                bytes: info.chat_bytes.as_deref().unwrap(),
+            };
+            set_bytes(&mut self.chats[pid], &chat);
+            order |= 1 << PlayerInfoProt::Chat.to_index();
+        }
+        if masks & PlayerInfoProt::SpotAnim as u16 != 0 {
+            let spotanim = PlayerInfoSpotAnim {
+                spotanim: info.spotanim.unwrap_or(u16::MAX),
+                height: info.spotanim_height.unwrap_or(0),
+                delay: info.spotanim_delay.unwrap_or(0),
+            };
+            order |= self.set(PlayerInfoProt::SpotAnim, pid, &spotanim);
+        }
+        if masks & PlayerInfoProt::ExactMove as u16 != 0 {
             #[cfg(before_647)]
-            if masks & PlayerInfoProt::Damage as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(PlayerInfoProt::Damage.to_index())
-                    .get_unchecked_mut(pid)
-                    .set_p1_p1_p1_p1(
-                        info.damage_taken.unwrap() as u8,
-                        info.damage_type.unwrap(),
-                        info.damage_current.unwrap(),
-                        info.damage_base.unwrap(),
-                    );
-                active |= 1 << PlayerInfoProt::Damage.to_index();
+            {
+                self.exact_moves[pid] = ExactMove::of(info);
+                order |= 1 << PlayerInfoProt::ExactMove.to_index();
             }
-            if masks & PlayerInfoProt::FaceCoord as u16 != 0 {
-                let slot = self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::FaceCoord.to_index())
-                    .get_unchecked_mut(pid);
-                #[cfg(before_647)]
-                slot.set_p2_p2(info.face_x.unwrap(), info.face_z.unwrap());
-                #[cfg(since_647)]
-                {
-                    let src_x = CoordGrid::fine(coord.x(), 1) as i32;
-                    let src_z = CoordGrid::fine(coord.z(), 1) as i32;
-                    let angle = match (info.face_x, info.face_z) {
-                        (Some(x), Some(z)) => face_angle(src_x, src_z, x as i32, z as i32),
-                        _ => 0,
-                    };
-                    slot.set_p2_alt2(angle);
-                }
-                active |= 1 << PlayerInfoProt::FaceCoord.to_index();
-            }
-            #[cfg(before_647)]
-            if masks & PlayerInfoProt::Chat as u16 != 0 {
-                let chat = info.chat_bytes.as_ref().unwrap();
-                let slot = self
-                    .chats
-                    .get_unchecked_mut(pid)
-                    .get_or_insert_with(|| Vec::with_capacity(chat.len() + 4));
-                slot.clear();
-                slot.extend_from_slice(&[
-                    info.chat_colour.unwrap(),
-                    info.chat_effects.unwrap(),
-                    info.chat_ignored.unwrap(),
-                    chat.len() as u8,
-                ]);
-                slot.extend_from_slice(chat);
-                active |= 1 << PlayerInfoProt::Chat.to_index();
-            }
-            if masks & PlayerInfoProt::SpotAnim as u16 != 0 {
-                let slot = self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::SpotAnim.to_index())
-                    .get_unchecked_mut(pid);
-                #[cfg(before_647)]
-                slot.set_p2_p4(
-                    info.spotanim.unwrap(),
-                    ((info.spotanim_height.unwrap() as i32) << 16)
-                        | info.spotanim_delay.unwrap() as i32,
-                );
-                #[cfg(since_647)]
-                slot.set_player_spotanim(
-                    info.spotanim.unwrap_or(u16::MAX),
-                    info.spotanim_height.unwrap_or(0),
-                    info.spotanim_delay.unwrap_or(0),
-                );
-                active |= 1 << PlayerInfoProt::SpotAnim.to_index();
-            }
-            #[cfg(all(since_244, before_647))]
-            if masks & PlayerInfoProt::Damage2 as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(PlayerInfoProt::Damage2.to_index())
-                    .get_unchecked_mut(pid)
-                    .set_p1_p1_p1_p1(
-                        info.damage2_taken.unwrap() as u8,
-                        info.damage2_type.unwrap(),
-                        info.damage2_current.unwrap(),
-                        info.damage2_base.unwrap(),
-                    );
-                active |= 1 << PlayerInfoProt::Damage2.to_index();
-            }
+            // The client adds these to the player's own tile, where the move
+            // has already put him (`Class244`, mask 0x4000): tile offsets
+            // from `coord`, not world coordinates.
             #[cfg(since_647)]
             {
-                if masks & PlayerInfoProt::MoveType as u16 != 0 {
-                    let move_type = info.move_type.unwrap_or(0);
-                    self.move_types[pid] = move_type;
-                    self.fixed[PlayerInfoProt::MoveType.to_index()][pid].set_p1(move_type);
-                    active |= 1 << PlayerInfoProt::MoveType.to_index();
-                }
-                if masks & PlayerInfoProt::TempMoveType as u16 != 0 {
-                    self.fixed[PlayerInfoProt::TempMoveType.to_index()][pid]
-                        .set_p1_alt2(info.temp_move_type.unwrap_or(0));
-                    active |= 1 << PlayerInfoProt::TempMoveType.to_index();
-                }
-                if masks & PlayerInfoProt::ExactMove as u16 != 0 {
-                    // The client adds these to the player's own tile, where
-                    // the move has already put him (`Class244`, mask 0x4000):
-                    // tile offsets from `coord`, not world coordinates.
-                    let offset = |tile: Option<u16>, here: u16| {
-                        (i32::from(tile.unwrap_or(here)) - i32::from(here)) as i8
-                    };
-                    self.fixed[PlayerInfoProt::ExactMove.to_index()][pid].set_exactmove(
-                        offset(info.exactmove_start_x, coord.x()),
-                        offset(info.exactmove_start_z, coord.z()),
-                        offset(info.exactmove_end_x, coord.x()),
-                        offset(info.exactmove_end_z, coord.z()),
-                        info.exactmove_begin.unwrap_or(0),
-                        info.exactmove_finish.unwrap_or(0),
-                        info.exactmove_dir.unwrap_or(0),
-                    );
-                    active |= 1 << PlayerInfoProt::ExactMove.to_index();
-                }
-                let first = masks & PlayerInfoProt::Damage as u16 != 0;
-                let second = masks & PlayerInfoProt::Damage2 as u16 != 0;
-                if first || second {
-                    let (hits, count) = hits(info, first, second);
-                    self.fixed[PlayerInfoProt::Damage.to_index()][pid]
-                        .set_hits(count as u8, &hits[..count]);
-                    active |= 1 << PlayerInfoProt::Damage.to_index();
-                    // The player takes each hit, so sees it bright, as its
-                    // dealer does.
-                    let me = Some(pid as u16);
-                    self.hit_views[pid] = HitView {
-                        hits,
-                        count: count as u8,
-                        count_byte: count as u8,
-                        bright: hit_sources(info, first, second).map(|by| [me, by]),
-                        offset: 0,
-                        len: 0,
-                    };
-                }
-            }
-
-            let start = self.blocks.len();
-            #[cfg(before_647)]
-            {
-                let wire = if masks > 0xff {
-                    masks | PlayerInfoProt::BigInfo as u16
-                } else {
-                    masks
+                let offset = |tile: Option<u16>, here: u16| {
+                    (i32::from(tile.unwrap_or(here)) - i32::from(here)) as u8
                 };
-                self.blocks
-                    .extend_from_slice(&wire.to_le_bytes()[..Self::header(masks) as usize]);
-            }
-            #[cfg(since_647)]
-            if active != 0 {
-                let (header, len) = PlayerInfoProt::header(PlayerInfoProt::mask(masks));
-                self.blocks.extend_from_slice(&header[..len]);
-            }
-            for index in 0..PLAYER_PROT_COUNT {
-                if active & (1 << index) == 0 {
-                    continue;
-                }
-                let bytes = match index {
-                    i if i == PlayerInfoProt::Appearance.to_index() => self
-                        .appearances
-                        .get_unchecked(pid)
-                        .as_deref()
-                        .unwrap_or_default(),
-                    i if i == PlayerInfoProt::Say.to_index() => {
-                        self.says.get_unchecked(pid).as_deref().unwrap_or_default()
-                    }
-                    #[cfg(before_647)]
-                    i if i == PlayerInfoProt::Chat.to_index() => {
-                        self.chats.get_unchecked(pid).as_deref().unwrap_or_default()
-                    }
-                    _ => self.fixed.get_unchecked(index).get_unchecked(pid).bytes(),
+                let exactmove = PlayerInfoExactMove {
+                    start_x: offset(info.exactmove_start_x, coord.x()),
+                    start_z: offset(info.exactmove_start_z, coord.z()),
+                    end_x: offset(info.exactmove_end_x, coord.x()),
+                    end_z: offset(info.exactmove_end_z, coord.z()),
+                    begin: info.exactmove_begin.unwrap_or(0),
+                    finish: info.exactmove_finish.unwrap_or(0),
+                    dir: info.exactmove_dir.unwrap_or(0),
                 };
-                #[cfg(since_647)]
-                if index == PlayerInfoProt::Damage.to_index() {
-                    let view = self.hit_views.get_unchecked_mut(pid);
-                    view.offset = (self.blocks.len() - start) as u16;
-                    view.len = bytes.len() as u16;
-                }
-                self.blocks.extend_from_slice(bytes);
+                order |= self.set(PlayerInfoProt::ExactMove, pid, &exactmove);
             }
-            #[cfg(before_647)]
-            if active != 0 || masks & PlayerInfoProt::ExactMove as u16 != 0 {
-                self.highs[pid] = (self.blocks.len() - start) as u16
-                    + if masks & PlayerInfoProt::ExactMove as u16 != 0 {
-                        9
-                    } else {
-                        0
-                    };
+        }
+        #[cfg(all(since_244, before_647))]
+        if masks & PlayerInfoProt::Damage2 as u16 != 0 {
+            let damage = PlayerInfoDamage {
+                damage: info.damage2_taken.unwrap() as u8,
+                damage_type: info.damage2_type.unwrap(),
+                current: info.damage2_current.unwrap(),
+                base: info.damage2_base.unwrap(),
+            };
+            order |= self.set(PlayerInfoProt::Damage2, pid, &damage);
+        }
+        #[cfg(since_647)]
+        {
+            if masks & PlayerInfoProt::MoveType as u16 != 0 {
+                let move_type = info.move_type.unwrap_or(0);
+                self.move_types[pid] = move_type;
+                order |= self.set(
+                    PlayerInfoProt::MoveType,
+                    pid,
+                    &PlayerInfoMoveType { move_type },
+                );
             }
+            if masks & PlayerInfoProt::TempMoveType as u16 != 0 {
+                let move_type = info.temp_move_type.unwrap_or(0);
+                order |= self.set(
+                    PlayerInfoProt::TempMoveType,
+                    pid,
+                    &PlayerInfoTempMoveType { move_type },
+                );
+            }
+            let first = masks & PlayerInfoProt::Damage as u16 != 0;
+            let second = masks & PlayerInfoProt::Damage2 as u16 != 0;
+            if first || second {
+                let (hits, count) = hits(info, first, second);
+                let damage = PlayerInfoDamage {
+                    hits: &hits[..count],
+                    bright: 0,
+                };
+                order |= self.set(PlayerInfoProt::Damage, pid, &damage);
+                // The player takes each hit, so sees it bright, as its
+                // dealer does.
+                let me = Some(pid as u16);
+                self.hit_views[pid] = HitView {
+                    hits,
+                    count: count as u8,
+                    bright: hit_sources(info, first, second).map(|by| [me, by]),
+                    offset: 0,
+                    len: 0,
+                };
+            }
+        }
+        self.ticks[pid] = Blocks { masks, order };
+
+        let mut blocks = mem::take(&mut self.blocks);
+        let start = blocks.len();
+        let (header, len) = PlayerInfoProt::header(masks);
+        blocks.extend_from_slice(&header[..len]);
+        let mut bits = order;
+        while bits != 0 {
+            let index = bits.trailing_zeros() as usize;
+            bits &= bits - 1;
+            blocks.extend_from_slice(self.bytes(index, pid));
             #[cfg(since_647)]
-            {
-                self.highs[pid] = (self.blocks.len() - start) as u16;
+            if index == PlayerInfoProt::Damage.to_index() {
+                let len = self.fixed[index][pid].len as usize;
+                let view = &mut self.hit_views[pid];
+                view.offset = (blocks.len() - len - start) as u16;
+                view.len = len as u16;
             }
+        }
+        let high = blocks.len() - start;
+        self.spans[pid] = Span::new(start, blocks.len());
+        self.blocks = blocks;
+        #[cfg(before_647)]
+        let high = if masks & PlayerInfoProt::ExactMove as u16 != 0 {
+            high + PlayerInfoExactMove::default().sizeof()
+        } else {
+            high
+        };
+        self.highs[pid] = high as u16;
 
-            self.spans[pid] = Span::new(start, self.blocks.len());
-
-            if masks
-                & (PlayerInfoProt::Appearance as u16
-                    | PlayerInfoProt::FaceEntity as u16
-                    | PlayerInfoProt::FaceCoord as u16)
-                != 0
-            {
-                let appearance_len = self
-                    .appearances
-                    .get_unchecked(pid)
-                    .as_ref()
-                    .map_or(0, |v| v.len()) as u16;
-                self.lows[pid] = 1 + appearance_len + 2 + if cfg!(since_647) { 2 + 1 } else { 4 };
-            }
+        if masks
+            & (PlayerInfoProt::Appearance as u16
+                | PlayerInfoProt::FaceEntity as u16
+                | PlayerInfoProt::FaceCoord as u16)
+            != 0
+        {
+            let appearance = self.appearances[pid].as_ref().map_or(0, Vec::len);
+            self.lows[pid] = (appearance + Self::low_facing()) as u16;
         }
     }
 
     /// Returns the precomputed high-definition block for a player.
-    /// Before 647, the encoder appends observer-relative `ExactMove` data.
+    /// Before 647 it leaves out an exact move, which is relative to the
+    /// observer.
     #[inline(always)]
     pub fn high_block(&self, id: u16) -> &[u8] {
         unsafe {
@@ -950,201 +655,214 @@ impl PlayerRenderer {
         }
     }
 
-    /// Writes a player's high block as `observer` (a pid) sees it: the block
-    /// carries every hit as a bystander sees it, and the hits `observer` took
-    /// or dealt are written bright in their place.
-    #[cfg(since_647)]
+    /// Writes player `pid`'s blocks this tick as `observer` sees them: the
+    /// high block, but a player doesn't get its own chat back, and an exact
+    /// move is relative to the observer's build area.
+    #[cfg(before_647)]
     #[inline(always)]
-    pub fn write_high_block_for(&self, buf: &mut Packet, id: u16, observer: u16) {
-        self.hit_views[id as usize].write_block_for(buf, self.high_block(id), observer);
-    }
-
-    /// Writes a player's hits (the Damage block) as `observer` sees them.
-    #[cfg(since_647)]
-    #[inline(always)]
-    pub fn write_hits_for(&self, buf: &mut Packet, id: u16, observer: u16) {
-        self.hit_views[id as usize].write_for(buf, observer);
-    }
-
-    /// Writes the pre-computed data for a specific protocol field to a packet buffer.
-    ///
-    /// Dispatches on `prot` to select the correct storage: variable-length
-    /// buffers for Appearance, Say, and Chat, or the inline fixed slot for
-    /// all other protocol types. The raw bytes are copied directly into
-    /// `buf` without further encoding.
-    #[inline(always)]
-    pub fn write(&self, buf: &mut Packet, id: u16, prot: PlayerInfoProt) {
-        let idx = id as usize;
-        unsafe {
-            match prot {
-                PlayerInfoProt::Appearance => {
-                    if let Some(bytes) = self.appearances.get_unchecked(idx) {
-                        buf.pdata(bytes, 0, bytes.len());
-                    }
-                }
-                PlayerInfoProt::Say => {
-                    if let Some(bytes) = self.says.get_unchecked(idx) {
-                        buf.pdata(bytes, 0, bytes.len());
-                    }
-                }
-                #[cfg(before_647)]
-                PlayerInfoProt::Chat => {
-                    if let Some(bytes) = self.chats.get_unchecked(idx) {
-                        buf.pdata(bytes, 0, bytes.len());
-                    }
-                }
-                #[cfg(since_647)]
-                PlayerInfoProt::BigInfo | PlayerInfoProt::BigInfo2 => {}
-                _ => {
-                    self.fixed
-                        .get_unchecked(prot.to_index())
-                        .get_unchecked(idx)
-                        .write_to(buf);
-                }
-            }
+    pub fn write_high_block_for(&self, buf: &mut Packet, pid: u16, observer: Observer) {
+        let tick = self.ticks[pid as usize];
+        let blocks = if pid == observer.pid {
+            tick.without(Blocks::player(PlayerInfoProt::Chat))
+        } else {
+            tick
+        };
+        if blocks.masks != tick.masks || tick.masks & PlayerInfoProt::ExactMove as u16 != 0 {
+            self.write_blocks(buf, pid, blocks, observer);
+        } else {
+            let block = self.high_block(pid);
+            buf.pdata(block, 0, block.len());
         }
     }
 
-    /// Writes exact-move data inline to a packet buffer.
-    ///
-    /// Unlike other protocol fields, exact-move is not pre-computed into a
-    /// slot because its 9-byte payload exceeds the 8-byte `Slot` capacity.
-    /// Instead, the caller provides all values and they are written directly
-    /// into the packet using individual `p1` and `p2` calls.
-    #[allow(clippy::too_many_arguments)]
+    /// Writes a player's high block as `observer` sees it: the block carries
+    /// every hit as a bystander sees it, and the hits `observer` took or
+    /// dealt are written bright in their place.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn write_high_block_for(&self, buf: &mut Packet, pid: u16, observer: Observer) {
+        let block = self.high_block(pid);
+        let view = &self.hit_views[pid as usize];
+        let bright = view.bright(observer.pid);
+        if bright == 0 {
+            buf.pdata(block, 0, block.len());
+        } else {
+            splice(buf, block, view.offset, view.len, |buf| {
+                PlayerInfoDamage {
+                    hits: view.hits(),
+                    bright,
+                }
+                .encode(buf)
+            });
+        }
+    }
+
+    /// Writes what `observer` gets of player `pid` as it adds it: this tick's
+    /// blocks, which way the player faces (and on 647 its move type), and
+    /// its appearance if `appearance`.
     #[inline]
-    #[cfg(before_647)]
-    pub fn write_exactmove(
+    pub fn write_low_block_for(
         &self,
         buf: &mut Packet,
-        start_x: u8,
-        start_z: u8,
-        end_x: u8,
-        end_z: u8,
-        begin: u16,
-        finish: u16,
-        dir: u8,
+        pid: u16,
+        observer: Observer,
+        appearance: bool,
     ) {
-        buf.p1(start_x);
-        buf.p1(start_z);
-        buf.p1(end_x);
-        buf.p1(end_z);
-        buf.p2(begin);
-        buf.p2(finish);
-        buf.p1(dir);
+        let mut blocks = self.ticks[pid as usize].with(Blocks::player(PlayerInfoProt::FaceCoord));
+        if self.low_faces[pid as usize].entity.is_some() {
+            blocks = blocks.with(Blocks::player(PlayerInfoProt::FaceEntity));
+        }
+        #[cfg(since_647)]
+        {
+            blocks = blocks.with(Blocks::player(PlayerInfoProt::MoveType));
+        }
+        let appearance_block = Blocks::player(PlayerInfoProt::Appearance);
+        blocks = if appearance {
+            blocks.with(appearance_block)
+        } else {
+            blocks.without(appearance_block)
+        };
+        self.write_blocks(buf, pid, blocks, observer);
     }
 
-    /// Checks whether pre-computed data exists for a specific protocol field.
-    ///
-    /// For variable-length fields (Appearance, Say, Chat), checks that the
-    /// `Option<Vec<u8>>` is `Some` and non-empty. For fixed-size fields,
-    /// delegates to `Slot::is_set`.
+    /// Writes what a session replay's keyframe shows of player `pid`: which
+    /// way it faces, cached for the tick as for an add, and its appearance
+    /// if it has one.
+    pub fn write_keyframe_block(
+        &mut self,
+        buf: &mut Packet,
+        pid: u16,
+        info: &EntityMasks,
+        coord: CoordGrid,
+    ) {
+        let face = Self::low_face(info, coord);
+        self.cache_face(pid, face);
+        let mut blocks = Blocks::player(PlayerInfoProt::FaceCoord);
+        if face.entity.is_some() {
+            blocks = blocks.with(Blocks::player(PlayerInfoProt::FaceEntity));
+        }
+        if self.has(pid, PlayerInfoProt::Appearance) {
+            blocks = blocks.with(Blocks::player(PlayerInfoProt::Appearance));
+        }
+        self.write_blocks(buf, pid, blocks, Observer::default());
+    }
+
+    /// Writes `blocks` of player `pid` under their mask header, in the order
+    /// the client reads them, as `observer` sees them.
+    fn write_blocks(&self, buf: &mut Packet, pid: u16, blocks: Blocks, observer: Observer) {
+        let (header, len) = PlayerInfoProt::header(blocks.masks);
+        buf.pdata(&header, 0, len);
+        let mut order = blocks.order;
+        while order != 0 {
+            let index = order.trailing_zeros() as usize;
+            order &= order - 1;
+            #[cfg(before_647)]
+            if index == PlayerInfoProt::ExactMove.to_index() {
+                self.exact_moves[pid as usize]
+                    .block(observer.origin)
+                    .encode(buf);
+                continue;
+            }
+            #[cfg(since_647)]
+            if index == PlayerInfoProt::Damage.to_index() {
+                let view = &self.hit_views[pid as usize];
+                PlayerInfoDamage {
+                    hits: view.hits(),
+                    bright: view.bright(observer.pid),
+                }
+                .encode(buf);
+                continue;
+            }
+            let bytes = self.bytes(index, pid as usize);
+            buf.pdata(bytes, 0, bytes.len());
+        }
+    }
+
+    /// Encodes `block` as player `pid`'s `prot` block, and returns its bit in
+    /// the read order.
     #[inline(always)]
-    pub fn has(&self, id: u16, prot: PlayerInfoProt) -> bool {
+    fn set(&mut self, prot: PlayerInfoProt, pid: usize, block: &impl InfoMessage) -> u16 {
+        let index = prot.to_index();
+        self.fixed[index][pid].set(block);
+        1 << index
+    }
+
+    /// Player `pid`'s encoded block at `index` in the read order, empty when
+    /// it has none.
+    #[inline(always)]
+    fn bytes(&self, index: usize, pid: usize) -> &[u8] {
         unsafe {
-            match prot {
-                PlayerInfoProt::Appearance => self
+            match index {
+                i if i == PlayerInfoProt::Appearance.to_index() => self
                     .appearances
-                    .get_unchecked(id as usize)
-                    .as_ref()
-                    .is_some_and(|v| !v.is_empty()),
-                PlayerInfoProt::Say => self
-                    .says
-                    .get_unchecked(id as usize)
-                    .as_ref()
-                    .is_some_and(|v| !v.is_empty()),
+                    .get_unchecked(pid)
+                    .as_deref()
+                    .unwrap_or_default(),
+                i if i == PlayerInfoProt::Say.to_index() => {
+                    self.says.get_unchecked(pid).as_deref().unwrap_or_default()
+                }
                 #[cfg(before_647)]
-                PlayerInfoProt::Chat => self
-                    .chats
-                    .get_unchecked(id as usize)
-                    .as_ref()
-                    .is_some_and(|v| !v.is_empty()),
-                #[cfg(since_647)]
-                PlayerInfoProt::BigInfo | PlayerInfoProt::BigInfo2 => false,
-                _ => self
-                    .fixed
-                    .get_unchecked(prot.to_index())
-                    .get_unchecked(id as usize)
-                    .is_set(),
+                i if i == PlayerInfoProt::Chat.to_index() => {
+                    self.chats.get_unchecked(pid).as_deref().unwrap_or_default()
+                }
+                _ => self.fixed.get_unchecked(index).get_unchecked(pid).bytes(),
             }
         }
     }
 
-    /// The blocks a new observer gets for which way player `pid` faces: its
-    /// face entity, if it has one, and always a face coord (this tick's,
-    /// else its orientation, else south), each cached for the tick.
     #[inline(always)]
-    pub fn cache_facing(&mut self, pid: u16, info: &EntityMasks, coord: CoordGrid) -> u16 {
-        let face = LowFace::of(info, coord, 1);
-        self.cache_face(pid, face);
-        if face.entity.is_some() {
-            PlayerInfoProt::FaceCoord as u16 | PlayerInfoProt::FaceEntity as u16
-        } else {
-            PlayerInfoProt::FaceCoord as u16
+    fn has(&self, pid: u16, prot: PlayerInfoProt) -> bool {
+        !self.bytes(prot.to_index(), pid as usize).is_empty()
+    }
+
+    fn low_face(info: &EntityMasks, coord: CoordGrid) -> LowFace<PlayerInfoFaceCoord> {
+        let (x, z) = facing(info, coord, ONE_TILE);
+        LowFace {
+            entity: info.face_entity,
+            coord: face_coord(x, z, coord),
         }
     }
 
+    /// The header and facing blocks an add carries besides the appearance
+    /// and this tick's blocks.
+    fn low_facing() -> usize {
+        let facing = LOW_HEADER
+            + PlayerInfoFaceEntity { entity: 0 }.sizeof()
+            + PlayerInfoFaceCoord::default().sizeof();
+        #[cfg(since_647)]
+        let facing = facing + PlayerInfoMoveType { move_type: 0 }.sizeof();
+        facing
+    }
+
+    /// Caches the blocks for which way player `pid` faces, for this tick's
+    /// adds, unless it has them this tick.
     #[inline(always)]
-    fn cache_face(&mut self, pid: u16, face: LowFace) {
+    fn cache_face(&mut self, pid: u16, face: LowFace<PlayerInfoFaceCoord>) {
         if let Some(entity) = face.entity
             && !self.has(pid, PlayerInfoProt::FaceEntity)
         {
-            self.cache_face_entity(pid, entity);
+            self.written.push(pid);
+            self.set(
+                PlayerInfoProt::FaceEntity,
+                pid as usize,
+                &PlayerInfoFaceEntity { entity },
+            );
         }
         if !self.has(pid, PlayerInfoProt::FaceCoord) {
-            #[cfg(before_647)]
-            self.cache_face_coord(pid, face.x, face.z);
-            #[cfg(since_647)]
-            self.cache_face_coord(pid, face.x, face.z, face.coord);
-        }
-    }
-
-    /// Caches a face-entity value for low-definition updates.
-    ///
-    /// Writes the entity target into the FaceEntity slot so it persists
-    /// across ticks for players entering the viewport who need the cached
-    /// low-definition state. This is separate from `compute_info`, which
-    /// handles the per-tick high-definition update.
-    #[inline(always)]
-    pub fn cache_face_entity(&mut self, id: u16, entity: u16) {
-        self.written.push(id);
-        let slot = &mut self.fixed[PlayerInfoProt::FaceEntity.to_index()][id as usize];
-        #[cfg(before_647)]
-        slot.set_p2(entity);
-        #[cfg(since_647)]
-        slot.set_p2_alt3(entity);
-    }
-
-    /// Caches face-coordinate values for low-definition updates.
-    #[inline(always)]
-    #[cfg(before_647)]
-    pub fn cache_face_coord(&mut self, id: u16, x: u16, z: u16) {
-        self.written.push(id);
-        unsafe {
-            let slot = self
-                .fixed
-                .as_mut_ptr()
-                .add(PlayerInfoProt::FaceCoord.to_index());
-            (*slot)
-                .as_mut_ptr()
-                .add(id as usize)
-                .as_mut()
-                .unwrap_unchecked()
-                .set_p2_p2(x, z);
+            self.written.push(pid);
+            self.set(PlayerInfoProt::FaceCoord, pid as usize, &face.coord);
         }
     }
 
     #[cfg(since_647)]
     #[inline(always)]
-    pub fn cache_face_coord(&mut self, id: u16, x: u16, z: u16, coord: CoordGrid) {
-        self.written.push(id);
-        let angle = face_angle(
-            CoordGrid::fine(coord.x(), 1) as i32,
-            CoordGrid::fine(coord.z(), 1) as i32,
-            x as i32,
-            z as i32,
-        );
-        self.fixed[PlayerInfoProt::FaceCoord.to_index()][id as usize].set_p2_alt2(angle);
+    fn cache_move_type(&mut self, pid: u16) {
+        let move_type = self.move_types[pid as usize];
+        let slot = &mut self.fixed[PlayerInfoProt::MoveType.to_index()][pid as usize];
+        if slot.bytes().is_empty() {
+            self.written.push(pid);
+        }
+        slot.set(&PlayerInfoMoveType { move_type });
     }
 
     /// Returns the total pre-computed high-definition byte size for a player.
@@ -1153,74 +871,37 @@ impl PlayerRenderer {
         unsafe { *self.highs.as_ptr().add(id as usize) as usize }
     }
 
-    /// Returns the total pre-computed low-definition byte size for a player.
-    ///
-    /// This includes the mask header plus Appearance, FaceEntity, and
-    /// FaceCoord field sizes. A return value of zero means no low-definition
-    /// update is pending for this player.
+    /// The most an add's blocks take besides this tick's: the mask header,
+    /// the appearance and which way the player faces.
     #[inline(always)]
     pub const fn lowdefinitions(&self, id: u16) -> usize {
         unsafe { *self.lows.as_ptr().add(id as usize) as usize }
     }
 
-    /// Clears per-tick temporary data for every player written this tick.
-    ///
-    /// Drains the internal `written` list (player indices recorded by
-    /// `compute_info` and `cache_face_*`) and, for each entry, resets the
-    /// high-definition byte-size counter and clears every temporary
-    /// protocol slot (Anim, FaceEntity, Damage, FaceCoord, SpotAnim) back
-    /// to `Slot::EMPTY`. Also clears the variable-length Say and Chat
-    /// buffers. Appearance data and low-definition counters are preserved
-    /// because they persist across ticks. Players that were never written
-    /// this tick cost nothing.
+    /// Clears the blocks of every player written this tick. Appearances and
+    /// add sizes persist; players never written this tick cost nothing.
     #[inline]
     pub fn remove_temporary(&mut self) {
         let written = mem::take(&mut self.written);
         for &pid in &written {
             let idx = pid as usize;
-            unsafe {
-                *self.highs.get_unchecked_mut(idx) = 0;
-                *self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::Anim.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::FaceEntity.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::Damage.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::FaceCoord.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::SpotAnim.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                #[cfg(since_647)]
-                for prot in [
-                    PlayerInfoProt::MoveType,
-                    PlayerInfoProt::TempMoveType,
-                    PlayerInfoProt::ExactMove,
-                ] {
-                    self.fixed[prot.to_index()][idx] = Slot::EMPTY;
-                }
-                #[cfg(since_647)]
-                {
-                    self.hit_views[idx].count = 0;
-                }
-                if let Some(v) = self.says.get_unchecked_mut(idx) {
-                    v.clear();
-                }
-                #[cfg(before_647)]
-                if let Some(v) = self.chats.get_unchecked_mut(idx) {
-                    v.clear();
-                }
-                *self.spans.get_unchecked_mut(idx) = Span::default();
+            self.highs[idx] = 0;
+            for slots in self.fixed.iter_mut() {
+                slots[idx].len = 0;
             }
+            if let Some(say) = &mut self.says[idx] {
+                say.clear();
+            }
+            #[cfg(before_647)]
+            if let Some(chat) = &mut self.chats[idx] {
+                chat.clear();
+            }
+            #[cfg(since_647)]
+            {
+                self.hit_views[idx].count = 0;
+            }
+            self.spans[idx] = Span::default();
+            self.ticks[idx] = Blocks::default();
         }
         self.blocks.clear();
         self.written = written;
@@ -1235,12 +916,7 @@ impl PlayerRenderer {
         }
     }
 
-    /// Performs a full cleanup of all renderer data for a player.
-    ///
-    /// Called when a player logs out or is otherwise permanently removed
-    /// from the game. Resets both byte-size counters to zero and drops
-    /// the appearance buffer by setting it to `None`, freeing its heap
-    /// allocation.
+    /// Drops everything kept for a player that logged out.
     #[inline]
     pub fn remove_permanent(&mut self, id: u16) {
         let idx = id as usize;
@@ -1248,71 +924,32 @@ impl PlayerRenderer {
         {
             self.move_types[idx] = DEFAULT_MOVE_TYPE;
         }
-        unsafe {
-            *self.highs.get_unchecked_mut(idx) = 0;
-            *self.lows.get_unchecked_mut(idx) = 0;
-            *self.spans.get_unchecked_mut(idx) = Span::default();
-            *self.appearances.get_unchecked_mut(idx) = None;
-        }
-    }
-
-    /// Computes the mask header size based on the combined mask value.
-    ///
-    /// If the mask value fits in a single byte (0x00..0xFF), the header is
-    /// 1 byte. Otherwise, 2 bytes are needed to encode the full mask.
-    #[inline(always)]
-    #[cfg(before_647)]
-    const fn header(masks: u16) -> u16 {
-        if masks > 0xff { 2 } else { 1 }
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    pub fn cache_move_type(&mut self, id: u16) {
-        let move_type = self.move_types[id as usize];
-        let slot = &mut self.fixed[PlayerInfoProt::MoveType.to_index()][id as usize];
-        if !slot.is_set() {
-            self.written.push(id);
-        }
-        slot.set_p1(move_type);
+        self.highs[idx] = 0;
+        self.lows[idx] = 0;
+        self.spans[idx] = Span::default();
+        self.appearances[idx] = None;
     }
 }
 
-/// Pre-computed NPC info update storage for efficient network serialization.
-///
-/// `NpcRenderer` maintains a set of NPC slots, one per possible NPC
-/// index, where each slot holds pre-serialized protocol field data. Fixed-size
-/// fields (Anim, FaceEntity, Damage, ChangeType, SpotAnim, FaceCoord) are
-/// stored in inline [`Slot`] buffers, while the variable-length Say field
-/// uses a heap-allocated `Vec<u8>` buffer.
-///
-/// A byte-size counter (`highs`) tracks the serialized size of each NPC's
-/// high-definition update so the info output phase can check capacity
-/// before adding it to the observer's packet.
-///
-/// This mirrors [`PlayerRenderer`] but with NPC-specific protocol types
-/// and a larger index space.
+/// Every NPC's info blocks this tick, encoded once in the info phase and
+/// copied into each observer's packet: [`PlayerRenderer`]'s layout over the
+/// NPC blocks and index space.
 pub struct NpcRenderer {
-    fixed: Box<[[Slot; MAX_NPCS]; NPC_PROT_COUNT]>,
+    fixed: Box<[[Slot; MAX_NPCS]; NpcInfoProt::COUNT]>,
     says: Vec<Option<Vec<u8>>>,
     #[cfg(since_647)]
     hit_views: Vec<HitView>,
     blocks: Vec<u8>,
     spans: Box<[Span; MAX_NPCS]>,
     highs: Box<[u16; MAX_NPCS]>,
-    low_masks: Box<[u16; MAX_NPCS]>,
-    low_faces: Box<[LowFace; MAX_NPCS]>,
+    ticks: Box<[Blocks; MAX_NPCS]>,
+    low_faces: Box<[LowFace<NpcInfoFaceCoord>; MAX_NPCS]>,
     #[cfg(since_647)]
     add_directions: Box<[u8; MAX_NPCS]>,
     written: Vec<u16>,
 }
 
 impl NpcRenderer {
-    /// Creates a new `NpcRenderer` with all slots initialized to empty.
-    ///
-    /// Allocates the fixed-size slot arrays on the heap via `Box`, and
-    /// initializes the variable-length say vector with `None` for all
-    /// NPC indices. All high-def byte-size counters start at zero.
     #[inline]
     pub fn new() -> NpcRenderer {
         NpcRenderer {
@@ -1323,7 +960,7 @@ impl NpcRenderer {
             blocks: Vec::new(),
             spans: Box::new([Span::default(); MAX_NPCS]),
             highs: Box::new([0; MAX_NPCS]),
-            low_masks: Box::new([0; MAX_NPCS]),
+            ticks: Box::new([Blocks::default(); MAX_NPCS]),
             low_faces: Box::new([LowFace::default(); MAX_NPCS]),
             #[cfg(since_647)]
             add_directions: Box::new([0; MAX_NPCS]),
@@ -1331,10 +968,10 @@ impl NpcRenderer {
         }
     }
 
-    /// Notes what an observer adding NPC `nid` this tick gets: this tick's
-    /// blocks and which way it faces, and on 647 the facing its add entry
+    /// Notes what an observer adding NPC `nid` this tick gets besides its
+    /// blocks: which way it faces, and on 647 the facing its add entry
     /// carries. Once a tick in the info phase, so an add doesn't read the
-    /// NPC; [`ready_low`](Self::ready_low) writes the blocks it caches.
+    /// NPC; [`ready_low`](Self::ready_low) writes the blocks it notes.
     #[inline(always)]
     pub fn cache_low(
         &mut self,
@@ -1344,14 +981,8 @@ impl NpcRenderer {
         #[cfg_attr(before_647, allow(unused_variables))] size: u8,
     ) {
         #[cfg(before_647)]
-        let size = 1;
-        let face = LowFace::of(info, coord, size);
-        let mut masks = info.masks | NpcInfoProt::FaceCoord as u16;
-        if face.entity.is_some() {
-            masks |= NpcInfoProt::FaceEntity as u16;
-        }
-        self.low_masks[nid as usize] = masks;
-        self.low_faces[nid as usize] = face;
+        let size = ONE_TILE;
+        self.low_faces[nid as usize] = Self::low_face(info, coord, size);
         #[cfg(since_647)]
         {
             let facing = info
@@ -1364,7 +995,7 @@ impl NpcRenderer {
                         CoordGrid::fine(coord.z(), size) as i32 - fz as i32,
                     )
                 });
-            self.add_directions[nid as usize] = add_direction(facing) as u8;
+            self.add_directions[nid as usize] = add_direction(facing);
         }
     }
 
@@ -1375,12 +1006,6 @@ impl NpcRenderer {
         self.cache_face(nid, self.low_faces[nid as usize]);
     }
 
-    /// The blocks [`cache_low`](Self::cache_low) noted for NPC `nid`.
-    #[inline(always)]
-    pub fn low_masks(&self, nid: u16) -> u16 {
-        self.low_masks[nid as usize]
-    }
-
     /// Which way NPC `nid` faces in its add entry this tick.
     #[cfg(since_647)]
     #[inline(always)]
@@ -1388,187 +1013,119 @@ impl NpcRenderer {
         self.add_directions[nid as usize]
     }
 
-    /// Pre-computes and serializes all active info masks for an NPC.
-    ///
-    /// Iterates over every flag set in `info.masks` and serializes the
-    /// corresponding field data into the appropriate slot or variable-length
-    /// buffer for the given NPC index. Also accumulates the total
-    /// high-definition byte size (including the mask header) into
-    /// `self.highs[nid]`.
-    ///
-    /// Returns immediately if `info.masks` is zero (no updates pending).
+    /// Encodes NPC `nid`'s blocks this tick (`info.masks`) into its slots
+    /// and, under their mask header, its high block, and notes its size.
     #[inline]
     pub fn compute_info(&mut self, nid: usize, info: &EntityMasks) {
         let masks = info.masks;
-
         if masks == 0 {
             return;
         }
-
         self.written.push(nid as u16);
-        unsafe { self.compute_info_inner(nid, masks, info) }
-    }
 
-    #[inline(always)]
-    unsafe fn compute_info_inner(&mut self, nid: usize, masks: u16, info: &EntityMasks) {
-        unsafe {
-            let mut active: u16 = 0;
-
-            if masks & NpcInfoProt::Anim as u16 != 0 {
-                let slot = self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::Anim.to_index())
-                    .get_unchecked_mut(nid);
-                #[cfg(before_647)]
-                slot.set_p2_p1(info.anim_id.unwrap_or(u16::MAX), info.anim_delay.unwrap());
-                #[cfg(since_647)]
-                slot.set_npc_anim(
-                    info.anim_id.unwrap_or(u16::MAX),
-                    info.anim_delay.unwrap_or(0),
-                );
-                active |= 1 << NpcInfoProt::Anim.to_index();
-            }
-            if masks & NpcInfoProt::FaceEntity as u16 != 0 {
-                let slot = self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::FaceEntity.to_index())
-                    .get_unchecked_mut(nid);
-                #[cfg(before_647)]
-                slot.set_p2(info.face_entity.unwrap_or(u16::MAX));
-                #[cfg(since_647)]
-                slot.set_ip2(info.face_entity.unwrap_or(u16::MAX));
-                active |= 1 << NpcInfoProt::FaceEntity.to_index();
-            }
-            if masks & NpcInfoProt::Say as u16 != 0 {
-                let bytes = info.say.as_ref().unwrap().as_bytes();
-                let slot = self
-                    .says
-                    .get_unchecked_mut(nid)
-                    .get_or_insert_with(|| Vec::with_capacity(bytes.len() + 1));
-                slot.clear();
-                slot.extend_from_slice(bytes);
-                slot.push(if cfg!(since_647) { 0 } else { 10 });
-                active |= 1 << NpcInfoProt::Say.to_index();
-            }
-            #[cfg(before_647)]
-            if masks & NpcInfoProt::Damage as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(NpcInfoProt::Damage.to_index())
-                    .get_unchecked_mut(nid)
-                    .set_p1_p1_p1_p1(
-                        info.damage_taken.unwrap() as u8,
-                        info.damage_type.unwrap(),
-                        info.damage_current.unwrap(),
-                        info.damage_base.unwrap(),
-                    );
-                active |= 1 << NpcInfoProt::Damage.to_index();
-            }
-            if masks & NpcInfoProt::ChangeType as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(NpcInfoProt::ChangeType.to_index())
-                    .get_unchecked_mut(nid)
-                    .set_p2(info.changetype.unwrap());
-                active |= 1 << NpcInfoProt::ChangeType.to_index();
-            }
-            if masks & NpcInfoProt::SpotAnim as u16 != 0 {
-                let slot = self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::SpotAnim.to_index())
-                    .get_unchecked_mut(nid);
-                #[cfg(before_647)]
-                slot.set_p2_p4(
-                    info.spotanim.unwrap(),
-                    ((info.spotanim_height.unwrap() as i32) << 16)
-                        | info.spotanim_delay.unwrap() as i32,
-                );
-                #[cfg(since_647)]
-                slot.set_npc_spotanim(
-                    info.spotanim.unwrap_or(u16::MAX),
-                    info.spotanim_height.unwrap_or(0),
-                    info.spotanim_delay.unwrap_or(0),
-                );
-                active |= 1 << NpcInfoProt::SpotAnim.to_index();
-            }
-            if masks & NpcInfoProt::FaceCoord as u16 != 0 {
-                let slot = self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::FaceCoord.to_index())
-                    .get_unchecked_mut(nid);
-                #[cfg(before_647)]
-                slot.set_p2_p2(info.face_x.unwrap(), info.face_z.unwrap());
-                #[cfg(since_647)]
-                slot.set_p2_ip2(info.face_x.unwrap(), info.face_z.unwrap());
-                active |= 1 << NpcInfoProt::FaceCoord.to_index();
-            }
-            #[cfg(all(since_244, before_647))]
-            if masks & NpcInfoProt::Damage2 as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(NpcInfoProt::Damage2.to_index())
-                    .get_unchecked_mut(nid)
-                    .set_p1_p1_p1_p1(
-                        info.damage2_taken.unwrap() as u8,
-                        info.damage2_type.unwrap(),
-                        info.damage2_current.unwrap(),
-                        info.damage2_base.unwrap(),
-                    );
-                active |= 1 << NpcInfoProt::Damage2.to_index();
-            }
-            #[cfg(since_647)]
-            {
-                let first = masks & NpcInfoProt::Damage as u16 != 0;
-                let second = masks & NpcInfoProt::Damage2 as u16 != 0;
-                if first || second {
-                    let (hits, count) = hits(info, first, second);
-                    self.fixed[NpcInfoProt::Damage.to_index()][nid]
-                        .set_hits((count as u8).wrapping_add(128), &hits[..count]);
-                    active |= 1 << NpcInfoProt::Damage.to_index();
-                    // Only a hit's dealer sees an npc's hit bright.
-                    self.hit_views[nid] = HitView {
-                        hits,
-                        count: count as u8,
-                        count_byte: (count as u8).wrapping_add(128),
-                        bright: hit_sources(info, first, second).map(|by| [by, None]),
-                        offset: 0,
-                        len: 0,
-                    };
-                }
-            }
-
-            let start = self.blocks.len();
-            #[cfg(before_647)]
-            self.blocks.push(masks as u8);
-            #[cfg(since_647)]
-            if active != 0 {
-                let (header, len) = NpcInfoProt::header(NpcInfoProt::mask(masks));
-                self.blocks.extend_from_slice(&header[..len]);
-            }
-            for index in 0..NPC_PROT_COUNT {
-                if active & (1 << index) == 0 {
-                    continue;
-                }
-                let bytes = if index == NpcInfoProt::Say.to_index() {
-                    self.says.get_unchecked(nid).as_deref().unwrap_or_default()
-                } else {
-                    self.fixed.get_unchecked(index).get_unchecked(nid).bytes()
-                };
-                #[cfg(since_647)]
-                if index == NpcInfoProt::Damage.to_index() {
-                    let view = self.hit_views.get_unchecked_mut(nid);
-                    view.offset = (self.blocks.len() - start) as u16;
-                    view.len = bytes.len() as u16;
-                }
-                self.blocks.extend_from_slice(bytes);
-            }
-            if active != 0 {
-                *self.highs.get_unchecked_mut(nid) = (self.blocks.len() - start) as u16;
-            }
-            *self.spans.get_unchecked_mut(nid) = Span::new(start, self.blocks.len());
+        let mut order = 0;
+        if masks & NpcInfoProt::Anim as u16 != 0 {
+            let anim = NpcInfoAnim {
+                seq: info.anim_id.unwrap_or(u16::MAX),
+                delay: info.anim_delay.unwrap_or(0),
+            };
+            order |= self.set(NpcInfoProt::Anim, nid, &anim);
         }
+        if masks & NpcInfoProt::FaceEntity as u16 != 0 {
+            let entity = info.face_entity.unwrap_or(u16::MAX);
+            order |= self.set(NpcInfoProt::FaceEntity, nid, &NpcInfoFaceEntity { entity });
+        }
+        if masks & NpcInfoProt::Say as u16 != 0 {
+            let say = info.say.as_deref().unwrap();
+            set_bytes(&mut self.says[nid], &NpcInfoSay { say });
+            order |= 1 << NpcInfoProt::Say.to_index();
+        }
+        #[cfg(before_647)]
+        if masks & NpcInfoProt::Damage as u16 != 0 {
+            let damage = NpcInfoDamage {
+                damage: info.damage_taken.unwrap() as u8,
+                damage_type: info.damage_type.unwrap(),
+                current: info.damage_current.unwrap(),
+                base: info.damage_base.unwrap(),
+            };
+            order |= self.set(NpcInfoProt::Damage, nid, &damage);
+        }
+        if masks & NpcInfoProt::ChangeType as u16 != 0 {
+            let ntype = info.changetype.unwrap();
+            order |= self.set(NpcInfoProt::ChangeType, nid, &NpcInfoChangeType { ntype });
+        }
+        if masks & NpcInfoProt::SpotAnim as u16 != 0 {
+            let spotanim = NpcInfoSpotAnim {
+                spotanim: info.spotanim.unwrap_or(u16::MAX),
+                height: info.spotanim_height.unwrap_or(0),
+                delay: info.spotanim_delay.unwrap_or(0),
+            };
+            order |= self.set(NpcInfoProt::SpotAnim, nid, &spotanim);
+        }
+        if masks & NpcInfoProt::FaceCoord as u16 != 0 {
+            let coord = NpcInfoFaceCoord {
+                x: info.face_x.unwrap(),
+                z: info.face_z.unwrap(),
+            };
+            order |= self.set(NpcInfoProt::FaceCoord, nid, &coord);
+        }
+        #[cfg(all(since_244, before_647))]
+        if masks & NpcInfoProt::Damage2 as u16 != 0 {
+            let damage = NpcInfoDamage {
+                damage: info.damage2_taken.unwrap() as u8,
+                damage_type: info.damage2_type.unwrap(),
+                current: info.damage2_current.unwrap(),
+                base: info.damage2_base.unwrap(),
+            };
+            order |= self.set(NpcInfoProt::Damage2, nid, &damage);
+        }
+        #[cfg(since_647)]
+        {
+            let first = masks & NpcInfoProt::Damage as u16 != 0;
+            let second = masks & NpcInfoProt::Damage2 as u16 != 0;
+            if first || second {
+                let (hits, count) = hits(info, first, second);
+                let damage = NpcInfoDamage {
+                    hits: &hits[..count],
+                    bright: 0,
+                };
+                order |= self.set(NpcInfoProt::Damage, nid, &damage);
+                // Only a hit's dealer sees an npc's hit bright.
+                self.hit_views[nid] = HitView {
+                    hits,
+                    count: count as u8,
+                    bright: hit_sources(info, first, second).map(|by| [by, None]),
+                    offset: 0,
+                    len: 0,
+                };
+            }
+        }
+        self.ticks[nid] = Blocks { masks, order };
+
+        let mut blocks = mem::take(&mut self.blocks);
+        let start = blocks.len();
+        let (header, len) = NpcInfoProt::header(masks);
+        blocks.extend_from_slice(&header[..len]);
+        let mut bits = order;
+        while bits != 0 {
+            let index = bits.trailing_zeros() as usize;
+            bits &= bits - 1;
+            blocks.extend_from_slice(self.bytes(index, nid));
+            #[cfg(since_647)]
+            if index == NpcInfoProt::Damage.to_index() {
+                let len = self.fixed[index][nid].len as usize;
+                let view = &mut self.hit_views[nid];
+                view.offset = (blocks.len() - len - start) as u16;
+                view.len = len as u16;
+            }
+        }
+        self.highs[nid] = (blocks.len() - start) as u16;
+        self.spans[nid] = Span::new(start, blocks.len());
+        self.blocks = blocks;
     }
 
     /// Returns the pre-coalesced full high-definition block for an NPC (mask
-    /// header + every field), written by the encoder with a single `pdata`.
-    /// See [`compute_info`](Self::compute_info).
+    /// header + every block), written by the encoder with a single `pdata`.
     #[inline(always)]
     pub fn high_block(&self, id: u16) -> &[u8] {
         unsafe {
@@ -1578,127 +1135,146 @@ impl NpcRenderer {
         }
     }
 
-    /// Writes an npc's high block as `observer` (a pid) sees it: the hits
-    /// they dealt bright, the rest as a bystander sees them.
-    #[cfg(since_647)]
+    /// Writes an NPC's high block as `observer` (a pid) sees it: on 647 the
+    /// hits they dealt bright, the rest as a bystander sees them.
     #[inline(always)]
-    pub fn write_high_block_for(&self, buf: &mut Packet, id: u16, observer: u16) {
-        self.hit_views[id as usize].write_block_for(buf, self.high_block(id), observer);
-    }
-
-    /// Writes an npc's hits (the Damage block) as `observer` sees them.
-    #[cfg(since_647)]
-    #[inline(always)]
-    pub fn write_hits_for(&self, buf: &mut Packet, id: u16, observer: u16) {
-        self.hit_views[id as usize].write_for(buf, observer);
-    }
-
-    /// Writes the pre-computed data for a specific protocol field to a packet buffer.
-    ///
-    /// Dispatches on `prot` to select the correct storage: the variable-length
-    /// buffer for Say, or the inline fixed slot for all other protocol types.
-    /// The raw bytes are copied directly into `buf` without further encoding.
-    #[inline(always)]
-    pub fn write(&self, buf: &mut Packet, id: u16, prot: NpcInfoProt) {
-        unsafe {
-            match prot {
-                NpcInfoProt::Say => {
-                    if let Some(bytes) = self.says.get_unchecked(id as usize) {
-                        buf.pdata(bytes, 0, bytes.len());
+    pub fn write_high_block_for(
+        &self,
+        buf: &mut Packet,
+        nid: u16,
+        #[cfg_attr(before_647, allow(unused_variables))] observer: u16,
+    ) {
+        let block = self.high_block(nid);
+        #[cfg(since_647)]
+        {
+            let view = &self.hit_views[nid as usize];
+            let bright = view.bright(observer);
+            if bright != 0 {
+                splice(buf, block, view.offset, view.len, |buf| {
+                    NpcInfoDamage {
+                        hits: view.hits(),
+                        bright,
                     }
-                }
-                #[cfg(since_647)]
-                NpcInfoProt::BigInfo | NpcInfoProt::BigInfo2 => {}
-                _ => {
-                    self.fixed
-                        .get_unchecked(prot.to_index())
-                        .get_unchecked(id as usize)
-                        .write_to(buf);
-                }
+                    .encode(buf)
+                });
+                return;
             }
         }
+        buf.pdata(block, 0, block.len());
     }
 
-    /// Checks whether pre-computed data exists for a specific protocol field.
-    ///
-    /// For the variable-length Say field, checks that the `Option<Vec<u8>>`
-    /// is `Some` and non-empty. For all fixed-size fields, delegates to
-    /// `Slot::is_set`.
-    #[inline(always)]
-    pub fn has(&self, id: u16, prot: NpcInfoProt) -> bool {
-        unsafe {
-            match prot {
-                NpcInfoProt::Say => self
-                    .says
-                    .get_unchecked(id as usize)
-                    .as_ref()
-                    .is_some_and(|v| !v.is_empty()),
-                #[cfg(since_647)]
-                NpcInfoProt::BigInfo | NpcInfoProt::BigInfo2 => false,
-                _ => self
-                    .fixed
-                    .get_unchecked(prot.to_index())
-                    .get_unchecked(id as usize)
-                    .is_set(),
-            }
+    /// Writes what `observer` gets of NPC `nid` as it adds it: this tick's
+    /// blocks and which way the NPC faces.
+    #[inline]
+    pub fn write_low_block_for(&self, buf: &mut Packet, nid: u16, observer: u16) {
+        let mut blocks = self.ticks[nid as usize].with(Blocks::npc(NpcInfoProt::FaceCoord));
+        if self.low_faces[nid as usize].entity.is_some() {
+            blocks = blocks.with(Blocks::npc(NpcInfoProt::FaceEntity));
         }
+        self.write_blocks(buf, nid, blocks, observer);
     }
 
-    /// [`PlayerRenderer::cache_facing`] for an NPC of `size` tiles.
-    #[inline(always)]
-    pub fn cache_facing(
+    /// Writes what a session replay's keyframe shows of NPC `nid`: which way
+    /// it faces, cached for the tick as for an add.
+    pub fn write_keyframe_block(
         &mut self,
+        buf: &mut Packet,
         nid: u16,
         info: &EntityMasks,
         coord: CoordGrid,
-        size: u8,
-    ) -> u16 {
-        let face = LowFace::of(info, coord, size);
+    ) {
+        let face = Self::low_face(info, coord, ONE_TILE);
         self.cache_face(nid, face);
+        let mut blocks = Blocks::npc(NpcInfoProt::FaceCoord);
         if face.entity.is_some() {
-            NpcInfoProt::FaceCoord as u16 | NpcInfoProt::FaceEntity as u16
-        } else {
-            NpcInfoProt::FaceCoord as u16
+            blocks = blocks.with(Blocks::npc(NpcInfoProt::FaceEntity));
+        }
+        self.write_blocks(buf, nid, blocks, 0);
+    }
+
+    /// Writes `blocks` of NPC `nid` under their mask header, in the order the
+    /// client reads them, as `observer` (a pid) sees them.
+    fn write_blocks(
+        &self,
+        buf: &mut Packet,
+        nid: u16,
+        blocks: Blocks,
+        #[cfg_attr(before_647, allow(unused_variables))] observer: u16,
+    ) {
+        let (header, len) = NpcInfoProt::header(blocks.masks);
+        buf.pdata(&header, 0, len);
+        let mut order = blocks.order;
+        while order != 0 {
+            let index = order.trailing_zeros() as usize;
+            order &= order - 1;
+            #[cfg(since_647)]
+            if index == NpcInfoProt::Damage.to_index() {
+                let view = &self.hit_views[nid as usize];
+                NpcInfoDamage {
+                    hits: view.hits(),
+                    bright: view.bright(observer),
+                }
+                .encode(buf);
+                continue;
+            }
+            let bytes = self.bytes(index, nid as usize);
+            buf.pdata(bytes, 0, bytes.len());
+        }
+    }
+
+    /// Encodes `block` as NPC `nid`'s `prot` block, and returns its bit in
+    /// the read order.
+    #[inline(always)]
+    fn set(&mut self, prot: NpcInfoProt, nid: usize, block: &impl InfoMessage) -> u16 {
+        let index = prot.to_index();
+        self.fixed[index][nid].set(block);
+        1 << index
+    }
+
+    /// NPC `nid`'s encoded block at `index` in the read order, empty when it
+    /// has none.
+    #[inline(always)]
+    fn bytes(&self, index: usize, nid: usize) -> &[u8] {
+        unsafe {
+            if index == NpcInfoProt::Say.to_index() {
+                self.says.get_unchecked(nid).as_deref().unwrap_or_default()
+            } else {
+                self.fixed.get_unchecked(index).get_unchecked(nid).bytes()
+            }
         }
     }
 
     #[inline(always)]
-    fn cache_face(&mut self, nid: u16, face: LowFace) {
+    fn has(&self, nid: u16, prot: NpcInfoProt) -> bool {
+        !self.bytes(prot.to_index(), nid as usize).is_empty()
+    }
+
+    fn low_face(info: &EntityMasks, coord: CoordGrid, size: u8) -> LowFace<NpcInfoFaceCoord> {
+        let (x, z) = facing(info, coord, size);
+        LowFace {
+            entity: info.face_entity,
+            coord: NpcInfoFaceCoord { x, z },
+        }
+    }
+
+    /// Caches the blocks for which way NPC `nid` faces, for this tick's adds,
+    /// unless it has them this tick.
+    #[inline(always)]
+    fn cache_face(&mut self, nid: u16, face: LowFace<NpcInfoFaceCoord>) {
         if let Some(entity) = face.entity
             && !self.has(nid, NpcInfoProt::FaceEntity)
         {
-            self.cache_face_entity(nid, entity);
+            self.written.push(nid);
+            self.set(
+                NpcInfoProt::FaceEntity,
+                nid as usize,
+                &NpcInfoFaceEntity { entity },
+            );
         }
         if !self.has(nid, NpcInfoProt::FaceCoord) {
-            self.cache_face_coord(nid, face.x, face.z);
+            self.written.push(nid);
+            self.set(NpcInfoProt::FaceCoord, nid as usize, &face.coord);
         }
-    }
-
-    /// Caches a face-entity value for low-definition updates.
-    ///
-    /// Writes the entity target into the FaceEntity slot so it persists
-    /// across ticks for NPCs entering the viewport who need the cached
-    /// low-definition state. This is separate from `compute_info`, which
-    /// handles the per-tick high-definition update.
-    #[inline(always)]
-    pub fn cache_face_entity(&mut self, id: u16, entity: u16) {
-        self.written.push(id);
-        let slot = &mut self.fixed[NpcInfoProt::FaceEntity.to_index()][id as usize];
-        #[cfg(before_647)]
-        slot.set_p2(entity);
-        #[cfg(since_647)]
-        slot.set_ip2(entity);
-    }
-
-    /// Caches face-coordinate values for low-definition NPC updates.
-    #[inline(always)]
-    pub fn cache_face_coord(&mut self, id: u16, x: u16, z: u16) {
-        self.written.push(id);
-        let slot = &mut self.fixed[NpcInfoProt::FaceCoord.to_index()][id as usize];
-        #[cfg(before_647)]
-        slot.set_p2_p2(x, z);
-        #[cfg(since_647)]
-        slot.set_p2_ip2(x, z);
     }
 
     #[inline(always)]
@@ -1709,69 +1285,35 @@ impl NpcRenderer {
     /// The most a low-definition update can be: the face coord is always
     /// sent, and the face entity with it when the NPC has one, under one
     /// mask header.
-    pub const LOW_LEN: usize = 1 + 2 + 4;
+    pub const LOW_LEN: usize = LOW_HEADER + size_of::<u16>() + 2 * size_of::<u16>();
 
-    /// Clears per-tick temporary data for every NPC written this tick.
-    ///
-    /// Drains the internal `written` list (NPC indices recorded by
-    /// `compute_info` and `cache_face_*`) and, for each entry, resets the
-    /// high-definition byte-size counter and clears every temporary
-    /// protocol slot (Anim, FaceEntity, Damage, ChangeType, SpotAnim,
-    /// FaceCoord) back to `Slot::EMPTY`. Also clears the variable-length
-    /// Say buffer. NPCs that were never written this tick cost nothing.
+    /// Clears the blocks of every NPC written this tick. NPCs never written
+    /// this tick cost nothing.
     #[inline]
     pub fn remove_temporary(&mut self) {
         let written = mem::take(&mut self.written);
         for &nid in &written {
             let idx = nid as usize;
-            unsafe {
-                *self.highs.get_unchecked_mut(idx) = 0;
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::Anim.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::FaceEntity.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                if let Some(v) = self.says.get_unchecked_mut(idx) {
-                    v.clear();
-                }
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::Damage.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                #[cfg(since_647)]
-                {
-                    self.hit_views[idx].count = 0;
-                }
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::ChangeType.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::SpotAnim.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::FaceCoord.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self.spans.get_unchecked_mut(idx) = Span::default();
+            self.highs[idx] = 0;
+            for slots in self.fixed.iter_mut() {
+                slots[idx].len = 0;
             }
+            if let Some(say) = &mut self.says[idx] {
+                say.clear();
+            }
+            #[cfg(since_647)]
+            {
+                self.hit_views[idx].count = 0;
+            }
+            self.spans[idx] = Span::default();
+            self.ticks[idx] = Blocks::default();
         }
         self.blocks.clear();
         self.written = written;
         self.written.clear();
     }
 
-    /// Performs a full cleanup of all renderer data for an NPC.
-    ///
-    /// Called when an NPC despawns or is otherwise permanently removed
-    /// from the game. Resets the byte-size counter to zero. Unlike
-    /// `PlayerRenderer::remove_permanent`, no variable-length buffer
-    /// is dropped here because NPCs do not have persistent appearance
-    /// data.
+    /// Drops everything kept for an NPC that despawned.
     #[inline]
     pub fn remove_permanent(&mut self, id: u16) {
         let idx = id as usize;
@@ -1779,10 +1321,8 @@ impl NpcRenderer {
         {
             self.says[idx] = None;
         }
-        unsafe {
-            *self.highs.get_unchecked_mut(idx) = 0;
-            *self.spans.get_unchecked_mut(idx) = Span::default();
-        }
+        self.highs[idx] = 0;
+        self.spans[idx] = Span::default();
     }
 }
 
@@ -1843,8 +1383,13 @@ mod move_type_tests {
         info.move_type = Some(2);
         player.compute_info(7, &info, coord);
         assert_eq!(player.high_block(7), &[0x8, 2]);
-        player.cache_face_coord(7, 6445, 6437, coord);
-        player.cache_face_entity(7, 42);
+        player.cache_face(
+            7,
+            LowFace {
+                entity: Some(42),
+                coord: face_coord(6445, 6437, coord),
+            },
+        );
         player.cache_move_type(7);
         assert_eq!(player.high_block(7), &[0x8, 2]);
         assert_eq!(player.highdefinitions(7), 2);
@@ -1854,8 +1399,13 @@ mod move_type_tests {
         info.changetype = Some(4231);
         npc.compute_info(9, &info);
         assert_eq!(npc.high_block(9), &[0x2, 0x10, 0x87]);
-        npc.cache_face_coord(9, 6445, 6437);
-        npc.cache_face_entity(9, 42);
+        npc.cache_face(
+            9,
+            LowFace {
+                entity: Some(42),
+                coord: NpcInfoFaceCoord { x: 6445, z: 6437 },
+            },
+        );
         assert_eq!(npc.high_block(9), &[0x2, 0x10, 0x87]);
         assert_eq!(npc.highdefinitions(9), 3);
 
@@ -1864,33 +1414,5 @@ mod move_type_tests {
         assert!(player.high_block(7).is_empty());
         assert!(npc.high_block(9).is_empty());
         assert!(player.has(7, PlayerInfoProt::Appearance));
-    }
-}
-
-#[cfg(all(test, since_647))]
-mod npc_spotanim_tests {
-    use super::*;
-
-    #[test]
-    fn npc_spotanim_roundtrips_through_client_decode() {
-        let mut slot = Slot::EMPTY;
-        slot.set_npc_spotanim(74, 92, 0);
-        assert_eq!(slot.len, 7, "spotanim block is 7 bytes (2+4+1)");
-
-        let b = &slot.data[..7];
-        assert_eq!(b, &[202, 0, 92, 0, 0, 0, 248], "exact spotanim wire bytes");
-
-        let lo = b[0].wrapping_sub(128) as u16;
-        let hi = b[1] as u16;
-        assert_eq!((hi << 8) | lo, 74, "id round-trips");
-
-        let g4 =
-            ((b[2] as u32) << 16) | ((b[3] as u32) << 24) | (b[4] as u32) | ((b[5] as u32) << 8);
-        assert_eq!(g4 >> 16, 92, "height = g4 >> 16");
-        assert_eq!(g4 & 0xFFFF, 0, "delay = g4 & 0xFFFF");
-
-        let g1 = b[6].wrapping_sub(128);
-        assert_eq!(g1 & 0x7, 0, "type = 0");
-        assert_eq!((g1 >> 3) & 0xF, 15, "label = 15 (no attachment)");
     }
 }

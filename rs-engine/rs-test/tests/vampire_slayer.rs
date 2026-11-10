@@ -802,7 +802,12 @@ fn the_coffin_plays_2011s_cutscene() {
             "he goes once the player is away"
         );
         assert!(
-            loc_at(engine, "vampire_slayer_qip_coffin_closed_stake", COFFIN.1, COFFIN.2),
+            loc_at(
+                engine,
+                "vampire_slayer_qip_coffin_closed_stake",
+                COFFIN.1,
+                COFFIN.2
+            ),
             "the coffin closes once he has gone"
         );
     });
@@ -855,7 +860,12 @@ fn a_staked_count_does_not_rise_again() {
             "no Count"
         );
         assert!(
-            loc_at(engine, "vampire_slayer_qip_coffin_closed_stake", COFFIN.1, COFFIN.2),
+            loc_at(
+                engine,
+                "vampire_slayer_qip_coffin_closed_stake",
+                COFFIN.1,
+                COFFIN.2
+            ),
             "the coffin stays shut"
         );
     });

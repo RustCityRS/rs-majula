@@ -267,10 +267,7 @@ fn two_thousand_eleven_s_bookcases_and_coffins_on_289_s_spots() {
         op_loc1(&mut client, loc_id("di2_coffin_open"), COFFIN.0, COFFIN.2);
         cycles(engine, 6);
         assert!(said("You close the coffin."));
-        assert!(
-            loc_at(engine, "di2_coffin", COFFIN.0, 0, COFFIN.2),
-            "shut"
-        );
+        assert!(loc_at(engine, "di2_coffin", COFFIN.0, 0, COFFIN.2), "shut");
     });
 }
 
@@ -435,7 +432,10 @@ fn varrock_s_manhole_opens_closes_and_climbs_down() {
         op_loc2(&mut client, loc_id("manholeopen"), MANHOLE.0, MANHOLE.2);
         cycles(engine, 6);
         assert!(said("You place the cover back over the manhole."));
-        assert!(loc_at(engine, "manholeclosed", MANHOLE.0, 0, MANHOLE.2), "shut");
+        assert!(
+            loc_at(engine, "manholeclosed", MANHOLE.0, 0, MANHOLE.2),
+            "shut"
+        );
 
         op_loc1(&mut client, loc_id("manholeclosed"), MANHOLE.0, MANHOLE.2);
         cycles(engine, 6);

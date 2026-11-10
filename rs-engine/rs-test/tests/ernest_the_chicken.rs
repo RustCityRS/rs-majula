@@ -212,7 +212,11 @@ fn the_candle_sconce_opens_the_secret_room() {
 fn the_front_doors_open_from_outside_only() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let door = (loc(engine, "fai_draynor_exterior_wall_door_closed"), 3108, 3353);
+        let door = (
+            loc(engine, "fai_draynor_exterior_wall_door_closed"),
+            3108,
+            3353,
+        );
         let mut client = login(engine, "ernest_doors_out", (3108, 0, 3352));
         op_loc1(&mut client, door);
         ticks(engine, &mut client, 10);

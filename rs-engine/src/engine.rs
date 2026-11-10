@@ -546,12 +546,14 @@ pub struct NpcOrder {
     revision: u64,
     values: Vec<u16>,
 }
+
 impl Deref for NpcOrder {
     type Target = [u16];
     fn deref(&self) -> &[u16] {
         &self.values
     }
 }
+
 impl<'a> IntoIterator for &'a NpcOrder {
     type Item = &'a u16;
     type IntoIter = Iter<'a, u16>;
@@ -559,6 +561,7 @@ impl<'a> IntoIterator for &'a NpcOrder {
         self.values.iter()
     }
 }
+
 pub struct NpcList {
     pub npcs: Vec<Option<Box<ActiveNpc>>>,
     pub processing: HashTable<u16>,

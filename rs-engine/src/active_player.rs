@@ -193,6 +193,7 @@ use rs_protocol::network::game::client_prot::{
 };
 use rs_protocol::network::game::client_prot_category::ClientProtCategory;
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
+use rs_protocol::network::game::info::player::appearance::{Appearance, Look, WEAR_SLOTS, Wear};
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_protocol::network::game::server::ServerProtMessage;
 #[cfg(before_647)]
@@ -406,6 +407,30 @@ pub struct ActivePlayer {
 fn root_layer(com: rs_vm::ComId) -> Option<i32> {
     Some(com >> 16)
 }
+
+/// The wear positions (`equip.constant`) that show the body kits.
+const WEARPOS_TORSO: usize = 4;
+const WEARPOS_ARMS: usize = 6;
+const WEARPOS_LEGS: usize = 7;
+const WEARPOS_HEAD: usize = 8;
+const WEARPOS_HANDS: usize = 9;
+const WEARPOS_FEET: usize = 10;
+const WEARPOS_JAW: usize = 11;
+
+/// Where each of the player's seven body kits shows, in `body` order.
+const BODY_WEARPOS: [usize; 7] = [
+    WEARPOS_HEAD,
+    WEARPOS_JAW,
+    WEARPOS_TORSO,
+    WEARPOS_ARMS,
+    WEARPOS_HANDS,
+    WEARPOS_LEGS,
+    WEARPOS_FEET,
+];
+
+/// The BAS a player has until scripts set one: 2011's unarmed stance.
+#[cfg(since_647)]
+const DEFAULT_BAS: u16 = 1426;
 
 impl ActivePlayer {
     /// Creates a new `ActivePlayer` with default spawn coordinates,
@@ -3509,10 +3534,9 @@ impl ActivePlayer {
         }
     }
 
-    /// Generates and caches this player's appearance body.
-    ///
-    /// Includes equipment, body kits, colours, animations, name and levels
-    /// in the revision's wire format.
+    /// Generates and caches this player's appearance body (rs-protocol's
+    /// [`Appearance`]): equipment, body kits, colours, animations, name and
+    /// levels.
     ///
     /// # Arguments
     /// * `clock` - The current game tick, stored as the appearance timestamp.
@@ -3523,76 +3547,33 @@ impl ActivePlayer {
 
         let appearance: Box<[u8]> = SCRATCH.with_borrow_mut(|buf| {
             buf.pos = 0;
-            #[cfg(before_647)]
-            {
-                buf.p1(self.player.gender);
-                buf.p1(self.player.headicons);
+            let info = &self.player.info;
+            Appearance {
+                gender: self.player.gender,
+                headicons: self.player.headicons,
+                look: self.look(),
+                colours: &self.player.colours,
+                #[cfg(before_647)]
+                anims: [
+                    info.readyanim.unwrap(),
+                    info.turnanim.unwrap(),
+                    info.walkanim.unwrap(),
+                    info.walkanim_b.unwrap(),
+                    info.walkanim_l.unwrap(),
+                    info.walkanim_r.unwrap(),
+                    info.runanim.unwrap(),
+                ],
+                #[cfg(before_647)]
+                username37: self.uid().username37(),
+                #[cfg(since_647)]
+                bas: info.readyanim.unwrap_or(DEFAULT_BAS),
+                #[cfg(since_647)]
+                name: &self.player.shown_name(),
+                combat_level: self.player.combat_level,
+                #[cfg(since_274)]
+                skill_level: self.player.skill_level,
             }
-            #[cfg(since_647)]
-            {
-                buf.p1((self.player.gender & 0x1) | ((self.player.skill_level != 0) as u8) << 2);
-                buf.p1(u8::MAX);
-                buf.p1(u8::MAX);
-                let prayer = if self.player.headicons & (1 << 5) != 0 {
-                    2
-                } else if self.player.headicons & (1 << 4) != 0 {
-                    1
-                } else if self.player.headicons & (1 << 3) != 0 {
-                    0
-                } else {
-                    u8::MAX
-                };
-                buf.p1(prayer);
-                buf.p1(0);
-            }
-
-            #[cfg(before_254)]
-            self.put_appearance_inv(buf);
-            #[cfg(since_254)]
-            match self.player.transmog {
-                None => self.put_appearance_inv(buf),
-                Some(transmog) => {
-                    buf.p2(u16::MAX);
-                    buf.p2(transmog);
-                    #[cfg(since_647)]
-                    buf.p1(0);
-                }
-            }
-
-            for &colour in &self.player.colours {
-                buf.p1(colour);
-            }
-
-            #[cfg(before_647)]
-            {
-                buf.p2(self.player.info.readyanim.unwrap());
-                buf.p2(self.player.info.turnanim.unwrap());
-                buf.p2(self.player.info.walkanim.unwrap());
-                buf.p2(self.player.info.walkanim_b.unwrap());
-                buf.p2(self.player.info.walkanim_l.unwrap());
-                buf.p2(self.player.info.walkanim_r.unwrap());
-                buf.p2(self.player.info.runanim.unwrap());
-                buf.p8(self.uid().username37() as i64);
-            }
-            #[cfg(since_647)]
-            {
-                buf.p2(self.player.info.readyanim.unwrap_or(1426));
-                buf.pjstr(&self.player.shown_name(), 0);
-            }
-            buf.p1(self.player.combat_level);
-            #[cfg(all(since_274, before_647))]
-            buf.p2(self.player.skill_level);
-            #[cfg(since_647)]
-            {
-                if self.player.skill_level != 0 {
-                    buf.p2(self.player.skill_level);
-                } else {
-                    buf.p1(0);
-                    buf.p1(u8::MAX);
-                }
-                buf.p1(0);
-            }
-
+            .encode(buf);
             Box::from(&buf.data[..buf.pos])
         });
 
@@ -3600,84 +3581,68 @@ impl ActivePlayer {
         self.player.info.last_appearance_info = Some(appearance);
     }
 
-    /// Writes the visible equipment and body kits in wear-position order.
-    ///
-    /// Items hide the additional slots named by their wearpos2/wearpos3.
-    /// Empty visible slots fall back to the player's body kits.
-    fn put_appearance_inv(&self, buf: &mut Packet) {
+    /// What the player looks like: what they wear, or the npc they turned
+    /// into.
+    fn look(&self) -> Look {
+        #[cfg(since_254)]
+        if let Some(npc) = self.player.transmog {
+            return Look::Npc(npc);
+        }
+        Look::Worn(self.worn())
+    }
+
+    /// What the player wears in each wear position: an item, else their body
+    /// kit. Items hide the additional slots named by their wearpos2/wearpos3.
+    fn worn(&self) -> [Wear; WEAR_SLOTS] {
         let worn = self
             .player
             .invs
             .get(&self.player.info.appearance.unwrap_or(0));
-        let mut skipped_slots = [false; 12];
+        let mut skipped_slots = [false; WEAR_SLOTS];
         if let Some(worn) = worn {
             let objs = engine().objs();
             for item in worn.slots.iter().flatten() {
                 if let Some(obj) = objs.get_by_id(item.obj) {
-                    if let Some(wp2) = obj.wearpos2.filter(|&w| (w as usize) < 12) {
+                    if let Some(wp2) = obj.wearpos2.filter(|&w| (w as usize) < WEAR_SLOTS) {
                         skipped_slots[wp2 as usize] = true;
                     }
-                    if let Some(wp3) = obj.wearpos3.filter(|&w| (w as usize) < 12) {
+                    if let Some(wp3) = obj.wearpos3.filter(|&w| (w as usize) < WEAR_SLOTS) {
                         skipped_slots[wp3 as usize] = true;
                     }
                 }
             }
         }
 
-        for slot in 0..12 {
-            if skipped_slots[slot as usize] {
-                buf.p1(0);
+        let mut slots = [Wear::None; WEAR_SLOTS];
+        for (slot, wear) in slots.iter_mut().enumerate() {
+            if skipped_slots[slot] {
                 continue;
             }
-            if let Some(item) = worn.and_then(|inv| inv.get(slot)) {
+            if let Some(item) = worn.and_then(|inv| inv.get(slot as u16)) {
                 #[cfg(before_647)]
-                buf.p2(0x200 + item.obj);
+                {
+                    *wear = Wear::Obj(item.obj);
+                }
                 #[cfg(since_647)]
-                match engine()
+                if let Some(wearid) = engine()
                     .objs()
                     .get_by_id(item.obj)
                     .and_then(|obj| obj.wearid)
                 {
-                    Some(wearid) => buf.p2(0x8000 + wearid),
-                    None => buf.p1(0),
+                    *wear = Wear::Obj(wearid);
                 }
-            } else {
-                let appearance_value = self.get_appearance_in_slot(slot as usize);
-                if appearance_value < 1 {
-                    buf.p1(0);
-                } else {
-                    buf.p2(appearance_value as u16);
-                }
+            } else if let Some(kit) = self.body_kit(slot) {
+                *wear = Wear::Kit(kit);
             }
         }
-        #[cfg(since_647)]
-        buf.p2(0);
+        slots
     }
 
-    /// Returns the body model kit value for the given equipment slot when
-    /// no item is worn there.
-    ///
-    /// Maps equipment slot indices to body part indices and returns the
-    /// kit ID offset by 0x100. Returns 0 for slots that have no body
-    /// part mapping or when the body part is hidden (value < 0).
-    ///
-    /// # Arguments
-    /// * `slot` - The equipment slot index (0..12).
-    ///
-    /// # Returns
-    /// The kit model value (0x100 + body_part), or 0 if hidden/unmapped.
-    fn get_appearance_in_slot(&self, slot: usize) -> i32 {
-        let part = match slot {
-            8 => self.player.body[0],
-            11 => self.player.body[1],
-            4 => self.player.body[2],
-            6 => self.player.body[3],
-            9 => self.player.body[4],
-            7 => self.player.body[5],
-            10 => self.player.body[6],
-            _ => return 0,
-        };
-        if part < 0 { 0 } else { 0x100 + part }
+    /// The body kit shown in wear position `slot` when nothing is worn there:
+    /// none for a slot without a body part or a hidden part.
+    fn body_kit(&self, slot: usize) -> Option<u16> {
+        let part = BODY_WEARPOS.iter().position(|&wearpos| wearpos == slot)?;
+        u16::try_from(self.player.body[part]).ok()
     }
 
     /// Plays an animation (sequence) on this player, respecting priority.

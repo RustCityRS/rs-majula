@@ -333,9 +333,7 @@ mod tests {
     #[test]
     fn every_dbrow_value_names_something() {
         let registry = registry();
-        let source = Path::new("..")
-            .join(crate::CONTENT_DIR)
-            .join("scripts");
+        let source = Path::new("..").join(crate::CONTENT_DIR).join("scripts");
         let constants = load_constants(&source);
         let tables =
             parse_config_sections(&collect_config_files(&source, "dbtable"), &constants).unwrap();

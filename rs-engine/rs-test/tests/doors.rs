@@ -228,7 +228,10 @@ fn ardougnes_level_one_locked_door_is_locked_from_outside_and_open_from_in() {
         // door_34812 on the east edge of 2672,3301 (angle 2). On its own tile
         // a player is outside (289's ~check_axis_locactive: on the door's
         // column), as void-634 has it (`tile.x <= target.tile.x` is locked).
-        assert_eq!(loc_at(engine, "area_ardougne_door2_locked", 2672, 3301), Some(2));
+        assert_eq!(
+            loc_at(engine, "area_ardougne_door2_locked", 2672, 3301),
+            Some(2)
+        );
         let door = (loc_id(engine, "area_ardougne_door2_locked"), 2672, 3301);
         let mut client = visitor(engine, "outsider", 2672, 3301);
         op_loc(&mut client, ClientProt::OpLoc1, door);
@@ -256,7 +259,10 @@ fn ardougnes_level_one_locked_door_picks_from_outside() {
         // The row sets no `trap_successchance`, its table's last column: 289
         // counts it as no fields, and so must a 647 row that stops short of it.
         // The door's other placement, 2672,3308: the test world is shared.
-        assert_eq!(loc_at(engine, "area_ardougne_door2_locked", 2672, 3308), Some(2));
+        assert_eq!(
+            loc_at(engine, "area_ardougne_door2_locked", 2672, 3308),
+            Some(2)
+        );
         let door = (loc_id(engine, "area_ardougne_door2_locked"), 2672, 3308);
         let mut client = visitor(engine, "picklock", 2672, 3308);
         let player = engine.harness_player_mut(client.pid).unwrap();

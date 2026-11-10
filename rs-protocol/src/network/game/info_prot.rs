@@ -36,14 +36,38 @@ pub enum PlayerInfoProt {
 }
 
 impl PlayerInfoProt {
+    /// How many blocks [`to_index`](Self::to_index) orders.
+    #[cfg(rev = "225")]
+    pub const COUNT: usize = 9;
+    #[cfg(all(since_244, before_647))]
+    pub const COUNT: usize = 10;
     #[cfg(since_647)]
-    pub const fn header(wire: u32) -> ([u8; 3], usize) {
-        mask_header(wire, Self::BigInfo as u32, Self::BigInfo2 as u32)
+    pub const COUNT: usize = 10;
+
+    /// The mask header for the blocks in `masks`, and how many of its bytes
+    /// are sent.
+    #[cfg(before_647)]
+    pub const fn header(masks: u16) -> ([u8; 3], usize) {
+        if masks > 0xff {
+            let wire = masks | Self::BigInfo as u16;
+            ([wire as u8, (wire >> 8) as u8, 0], 2)
+        } else {
+            ([masks as u8, 0, 0], 1)
+        }
+    }
+
+    #[cfg(since_647)]
+    pub const fn header(masks: u16) -> ([u8; 3], usize) {
+        mask_header(
+            Self::mask(masks),
+            Self::BigInfo as u32,
+            Self::BigInfo2 as u32,
+        )
     }
 
     /// Combines the engine's two damage slots into the 647 hit block.
     #[cfg(since_647)]
-    pub const fn mask(masks: u16) -> u32 {
+    const fn mask(masks: u16) -> u32 {
         let wire = masks & !(Self::Damage2 as u16);
         if masks & Self::Damage2 as u16 != 0 {
             (wire | Self::Damage as u16) as u32
@@ -52,6 +76,7 @@ impl PlayerInfoProt {
         }
     }
 
+    /// Where the block sits in the order the client reads them.
     #[cfg(before_647)]
     #[inline]
     pub const fn to_index(self) -> usize {
@@ -64,10 +89,10 @@ impl PlayerInfoProt {
             PlayerInfoProt::FaceCoord => 5,
             PlayerInfoProt::Chat => 6,
             PlayerInfoProt::SpotAnim => 7,
+            PlayerInfoProt::ExactMove => 8,
             #[cfg(since_244)]
-            PlayerInfoProt::Damage2 => 8,
-            PlayerInfoProt::BigInfo => 255,   // unused
-            PlayerInfoProt::ExactMove => 255, // unused
+            PlayerInfoProt::Damage2 => 9,
+            PlayerInfoProt::BigInfo => 255, // unused
         }
     }
 
@@ -122,14 +147,33 @@ pub enum NpcInfoProt {
 }
 
 impl NpcInfoProt {
+    /// How many blocks [`to_index`](Self::to_index) orders.
+    #[cfg(rev = "225")]
+    pub const COUNT: usize = 7;
+    #[cfg(all(since_244, before_647))]
+    pub const COUNT: usize = 8;
     #[cfg(since_647)]
-    pub const fn header(wire: u32) -> ([u8; 3], usize) {
-        mask_header(wire, Self::BigInfo as u32, Self::BigInfo2 as u32)
+    pub const COUNT: usize = 7;
+
+    /// The mask header for the blocks in `masks`, and how many of its bytes
+    /// are sent.
+    #[cfg(before_647)]
+    pub const fn header(masks: u16) -> ([u8; 3], usize) {
+        ([masks as u8, 0, 0], 1)
+    }
+
+    #[cfg(since_647)]
+    pub const fn header(masks: u16) -> ([u8; 3], usize) {
+        mask_header(
+            Self::mask(masks),
+            Self::BigInfo as u32,
+            Self::BigInfo2 as u32,
+        )
     }
 
     /// Combines the engine's two damage slots into the 647 hit block.
     #[cfg(since_647)]
-    pub const fn mask(masks: u16) -> u32 {
+    const fn mask(masks: u16) -> u32 {
         let wire = masks & !(Self::Damage2 as u16);
         if masks & Self::Damage2 as u16 != 0 {
             (wire | Self::Damage as u16) as u32
@@ -138,6 +182,7 @@ impl NpcInfoProt {
         }
     }
 
+    /// Where the block sits in the order the client reads them.
     #[cfg(before_647)]
     #[inline]
     pub const fn to_index(self) -> usize {
@@ -196,8 +241,15 @@ mod tests {
             (0x4000, ([0x20, 0x40, 0], 2), ([0x8, 0x40, 0], 2)),
             (0x10000, ([0x20, 0x80, 1], 3), ([0x8, 1, 1], 3)),
         ] {
-            assert_eq!(PlayerInfoProt::header(wire), player);
-            assert_eq!(NpcInfoProt::header(wire), npc);
+            let big = (PlayerInfoProt::BigInfo, PlayerInfoProt::BigInfo2);
+            assert_eq!(mask_header(wire, big.0 as u32, big.1 as u32), player);
+            let big = (NpcInfoProt::BigInfo, NpcInfoProt::BigInfo2);
+            assert_eq!(mask_header(wire, big.0 as u32, big.1 as u32), npc);
         }
+        assert_eq!(
+            PlayerInfoProt::header(PlayerInfoProt::Damage2 as u16),
+            ([0x2, 0, 0], 1),
+            "the second hit goes in the hit block"
+        );
     }
 }

@@ -246,12 +246,7 @@ fn every_demon_slayer_npc_answers_every_branch() {
             ("npc_9359", Demon::stage(0), 0, &[]),
             ("npc_9359", Demon::stage(1), 0, &[]),
             ("npc_9359", Demon::stage(2), 0, &[]),
-            (
-                "npc_9359",
-                Demon::stage(2),
-                0,
-                &[("silverlight_key_2", 1)],
-            ),
+            ("npc_9359", Demon::stage(2), 0, &[("silverlight_key_2", 1)]),
             (
                 "npc_9359",
                 Demon {
@@ -285,12 +280,7 @@ fn every_demon_slayer_npc_answers_every_branch() {
             ("traiborn", Demon::stage(2), 25, &[]),
             ("traiborn", Demon::stage(2), 25, &[("bones", 3)]),
             ("traiborn", Demon::stage(2), -1, &[]),
-            (
-                "traiborn",
-                Demon::stage(2),
-                -1,
-                &[("silverlight_key_1", 1)],
-            ),
+            ("traiborn", Demon::stage(2), -1, &[("silverlight_key_1", 1)]),
         ];
         for &(npc, at, bones, items) in cases {
             let _ = engine.script_errors.take();
@@ -384,10 +374,7 @@ fn captain_rovin_gives_his_key() {
         );
         assert_eq!(talk.unanswered, None, "{:?}", talk.texts);
         no_script_errors(engine, "Rovin");
-        assert_eq!(
-            total(engine, &client, "inv", "silverlight_key_2"),
-            1
-        );
+        assert_eq!(total(engine, &client, "inv", "silverlight_key_2"), 1);
     });
 }
 
@@ -445,10 +432,7 @@ fn traiborn_takes_25_bones_for_his_key() {
             5,
             "he takes only 15"
         );
-        assert_eq!(
-            total(engine, &client, "inv", "silverlight_key_1"),
-            1
-        );
+        assert_eq!(total(engine, &client, "inv", "silverlight_key_1"), 1);
         assert_eq!(bones(engine, &client), -1, "all given");
     });
 }
@@ -506,10 +490,7 @@ fn water_washes_the_drain_key_into_the_sewer() {
             "{:?}",
             talk.texts
         );
-        assert_eq!(
-            total(engine, &client, "inv", "silverlight_key_3"),
-            1
-        );
+        assert_eq!(total(engine, &client, "inv", "silverlight_key_3"), 1);
         assert_eq!(demon(engine, &client).drain, 2, "mud where the key lay");
     });
 }

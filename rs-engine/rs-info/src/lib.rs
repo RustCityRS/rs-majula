@@ -1,7 +1,7 @@
 use std::ops::{Deref, DerefMut};
 mod renderer;
 
-pub use renderer::{NpcRenderer, PlayerRenderer};
+pub use renderer::{NpcRenderer, Observer, PlayerRenderer};
 pub use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 
 /// Discriminator for selecting the correct protocol mask bits when setting

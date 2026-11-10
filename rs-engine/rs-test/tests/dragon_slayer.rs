@@ -348,7 +348,11 @@ fn oziach_takes_elvargs_head() {
         );
         settle(engine, &mut client, 4);
         assert_eq!(var(engine, &client, "dragonquest"), 10, "complete");
-        assert_eq!(held(engine, &client, "dragon_slayer_qip_elvargs_head"), 0, "Oziach keeps it");
+        assert_eq!(
+            held(engine, &client, "dragon_slayer_qip_elvargs_head"),
+            0,
+            "Oziach keeps it"
+        );
     });
 }
 
@@ -651,7 +655,11 @@ fn melzars_maze_doors_take_2011s_keys() {
                 .any(|m| m == "You use the key and the door opens."),
             "{said:?}"
         );
-        assert_eq!(held(engine, &client, "melzarkey"), 1, "the maze key is kept");
+        assert_eq!(
+            held(engine, &client, "melzarkey"),
+            1,
+            "the maze key is kept"
+        );
 
         give(engine, &client, 1, "redkey", 1);
         tele(engine, &mut client, 2927, 0, 3244);
@@ -1075,7 +1083,11 @@ fn elvarg_slain_gives_her_head() {
         }
         assert!(said.iter().any(|m| m == line), "2011's line: {said:?}");
         settle(engine, &mut client, 3);
-        assert_eq!(held(engine, &client, "dragon_slayer_qip_elvargs_head"), 1, "her head");
+        assert_eq!(
+            held(engine, &client, "dragon_slayer_qip_elvargs_head"),
+            1,
+            "her head"
+        );
         assert_eq!(
             var(engine, &client, "dragonquest"),
             9,

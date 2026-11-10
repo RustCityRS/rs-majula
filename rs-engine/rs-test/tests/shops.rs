@@ -271,11 +271,7 @@ fn a_sale_pays_289_s_price_and_bob_takes_only_his_stock() {
         let (mut client, nid) = customer(
             engine,
             "axeseller",
-            &[
-                ("steel_axe", 1),
-                ("steel_axe", 1),
-                ("bronze_dagger", 1),
-            ],
+            &[("steel_axe", 1), ("steel_axe", 1), ("bronze_dagger", 1)],
         );
         trade(engine, &mut client, nid);
         let value = cost(engine, "steel_axe");
@@ -294,10 +290,7 @@ fn a_sale_pays_289_s_price_and_bob_takes_only_his_stock() {
         button(&mut client, ClientProt::IfButton2, BACKPACK, 0);
         said(engine, &mut client, 1);
         assert_eq!(count(engine, client.pid, "inv", "coins"), price(0));
-        assert_eq!(
-            count(engine, client.pid, "axeshop", "steel_axe"),
-            base + 1
-        );
+        assert_eq!(count(engine, client.pid, "axeshop", "steel_axe"), base + 1);
         button(&mut client, ClientProt::IfButton1, BACKPACK, 1);
         assert_eq!(
             said(engine, &mut client, 1),

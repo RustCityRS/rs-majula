@@ -145,7 +145,6 @@ impl Engine {
 
         let player_info = self.player_info.encode(
             &mut self.player_renderer,
-            others,
             &self.player_snapshots,
             &self.zones,
             active,

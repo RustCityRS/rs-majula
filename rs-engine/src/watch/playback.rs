@@ -423,7 +423,12 @@ mod tests {
         assert_eq!(
             header["wtl_lightmaze_notes"],
             json!([
-                [10_000, "No right click", "rabbit_flag", "menu_without_right_click"],
+                [
+                    10_000,
+                    "No right click",
+                    "rabbit_flag",
+                    "menu_without_right_click"
+                ],
                 [40_000, "Walk here"],
                 [40_000, "", "rabbit_flag", "clicked_unseen"],
                 [40_000, "Stack underflow", "error", "[opnpc1,man]"],
@@ -450,7 +455,10 @@ mod tests {
         let header: Value = serde_json::from_slice(&file[9..9 + header_len]).unwrap();
         assert_eq!(header["frames"], 3);
         assert_eq!(header["durationMs"], 600);
-        assert_eq!(header["wtl_lightmaze_notes"][1], json!([600, "Walk to 3200, 3200"]));
+        assert_eq!(
+            header["wtl_lightmaze_notes"][1],
+            json!([600, "Walk to 3200, 3200"])
+        );
 
         let frames = &file[9 + header_len..];
         // Login frame, then one server frame with both tick-0 packets merged.
@@ -552,7 +560,10 @@ mod tests {
         assert_eq!(start_header["frames"], 2);
         assert_eq!(next_header["frames"], 1);
         assert_eq!(next_header["durationMs"], whole_header["durationMs"]);
-        assert_eq!(next_header["wtl_lightmaze_notes"], json!([[600, "Take Logs"]]));
+        assert_eq!(
+            next_header["wtl_lightmaze_notes"],
+            json!([[600, "Take Logs"]])
+        );
         let (nothing_header, nothing_frames) = split(&nothing);
         assert!(nothing_frames.is_empty());
         assert_eq!(nothing_header["wtl_lightmaze_notes"], json!([]));
@@ -587,6 +598,9 @@ mod tests {
             header["inputs"].as_array().unwrap().last().unwrap()[0],
             6000
         );
-        assert_eq!(header["wtl_lightmaze_notes"][0], json!([6000, "Say \"Hi\""]));
+        assert_eq!(
+            header["wtl_lightmaze_notes"][0],
+            json!([6000, "Say \"Hi\""])
+        );
     }
 }

@@ -217,11 +217,7 @@ fn the_lamp_advances_the_stat_picked_on_2011_s_lamp() {
         for (button, value) in [(54, 25), (52, 22), (50, 23), (41, 19), (47, 18), (30, 1)] {
             button1(&mut client, com(LAMP, button), 0xFFFF, 0xFFFF);
             ticks(engine, &mut client, 1);
-            assert_eq!(
-                varp(engine, &client, "if1"),
-                value,
-                "button {button}"
-            );
+            assert_eq!(varp(engine, &client, "if1"), value, "button {button}");
         }
 
         // Confirm: Attack, at level 1, takes 10 xp (the engine's tenths).
