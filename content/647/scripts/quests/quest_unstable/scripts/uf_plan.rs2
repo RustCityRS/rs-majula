@@ -130,10 +130,15 @@ sound_speech_volume(vorbis_1401, 1, 0, 255);
 
 // Over the wall by the ramp (4KO2h2xPtdM @180-182): "Put the Dragon to Sleep" (80) and TASK
 // COMPLETE "Climb the Wall"; then the running hint, s017 (@186-188, 15/31 recordings), with the
-// arrow at the run orb. The climb's seq and how far it carries: Crandor's crumbled wall's, two
-// tiles (the low wall is cache 786's 1x2 low_wall_45603): not yet matched against a recording.
+// arrow at the run orb. The climb: up the plank, on the wall with both arms spread wide, then
+// down the far side, nothing in hand (4KO2h2xPtdM @180.0-181.5). Seq 840 (human_walk_crumbledwall,
+// 289's) puts an object in the right hand in cache 786 (replaceheldright), which in-client reads
+// as a map held up (USER, 2026-11-10; ufrest10 @46.5-46.9). Seq 12274, on the player's skeleton
+// from Unstable Foundations' own range (1.8 s, three footstep synths), is 2011's: in-client
+// (ufrest12 player_12274 +3.5-4.1) the player rises with both arms spread and comes down with
+// them out, as @180.5 and @181.0.
 [proc,uf_climb_wall]
-~agility_exactmove(human_walk_crumbledwall, 30, 2, coord, movecoord(coord, 0, 0, 3), 30, 100, ^exact_north, false);
+~agility_exactmove(seq_12274, 30, 2, coord, movecoord(coord, 0, 0, 3), 30, 100, ^exact_north, false);
 %learning_the_ropes = 80;
 %varclient_1425 = 3507;
 ~uf_task_tab;
