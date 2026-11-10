@@ -414,6 +414,13 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         assert_eq!(order, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0], "{shots:?}");
         let lengths: Vec<u32> = shots[1..10].iter().map(|(_, n)| *n).collect();
         assert_eq!(lengths, vec![6, 3, 13, 6, 7, 4, 4, 9, 3], "{shots:?}");
+        // 899 stays a tick after varc 1007 reaches 0, for its hook to reset the camera.
+        assert!(
+            is_open(engine, &client, CUTSCENES),
+            "899 still open on the tick its hook runs"
+        );
+        engine.cycle();
+        client.packets();
         assert!(
             !is_open(engine, &client, CUTSCENES),
             "the camera is the player's again"
@@ -1098,6 +1105,16 @@ fn the_dragon_is_put_to_sleep() {
             "{texts:?}"
         );
         assert!(sent_text(&packets, "Grub's up! Shoo!"));
+        // 2011's shots (4KO2h2xPtdM @202.64-234.53): clientscript 2762's 101, 102, 104, 105, the
+        // fade 106, then 107; no 103. Varc 1007 by VARC_SMALL, `p1_alt2 value, p2_alt1 varc`.
+        let mut sent_shots: Vec<i32> = packets
+            .iter()
+            .filter(|(op, p)| *op == ServerProt::VarcSmall as u16 && p.len() >= 3)
+            .filter(|(_, p)| u16::from_le_bytes([p[1], p[2]]) == SHOT)
+            .map(|(_, p)| 0u8.wrapping_sub(p[0]) as i8 as i32)
+            .collect();
+        sent_shots.dedup();
+        assert_eq!(sent_shots, vec![101, 102, 104, 105, 106, 107, 0]);
         let clips = speech(&packets);
         for clip in [715, 850, 958] {
             assert!(clips.contains(&clip), "clip {clip} in {clips:?}");
@@ -1110,7 +1127,7 @@ fn the_dragon_is_put_to_sleep() {
         );
         assert_eq!(
             npc_tile(engine, "dragon_8861").map(|t| local(engine, t)),
-            Some((19, 33)),
+            Some((18, 33)),
             "the dragon asleep on its nest"
         );
         assert_eq!(

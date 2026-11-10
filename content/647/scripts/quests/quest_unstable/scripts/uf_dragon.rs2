@@ -239,6 +239,11 @@ if (getwindowmode = 1) {
 
 [proc,uf_cutscene_close]
 %varclient_1007 = 0;
+// The camera comes back through interface 899's own hook: clientscript 2765 runs cam_smoothreset
+// when varc 1007 arrives at 0. Closed in the same tick, 899 was gone before its hook ran and the
+// camera stayed on the last shot (in-client run ufrest10, 2026-11-10: the pillars talk and the
+// sabotage under the sleep cutscene's last camera); it stays open a tick for the hook.
+p_delay(0);
 if (getwindowmode = 1) {
     if_closesub(toplevel:mainoverlay);
 } else {

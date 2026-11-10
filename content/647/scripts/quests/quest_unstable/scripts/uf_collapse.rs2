@@ -32,7 +32,7 @@ p_delay(13);
 // The roof falls: the screen goes black while the cellar changes.
 %varclient_1007 = 202;
 p_delay(0);
-if (npc_find(~uf_cellar_coord(19, 33), dragon_8861, 8, 0) = true) {
+if (npc_find(~uf_cellar_coord(18, 33), dragon_8861, 8, 0) = true) {
     npc_del;
 }
 ~uf_cellar_collapsed;

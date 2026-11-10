@@ -2,9 +2,9 @@
 // sleep cutscene, as 4KO2h2xPtdM (2011-04-30) shows them (refs GAPS 20):
 // - @190-199 the player walks to the nest and puts the meat in the bowl beside it;
 // - @199.1 s019 "It's smelled the meat! Hide!" (Sir Vant, V52 clip 715); @202 the player runs;
-// - the cutscene: cuts @202.64 (the minimap black), 206.24, 211.01, 216.42 (to the shot's tick: 6,
-//   8, 9), one static view of the nest from 216.42 (the dragon eats, turns and lies down, ~25
-//   ticks), a fade to black ~231.4-234.53 (5 ticks), the last shot from 234.53, s020 @237.1, and
+// - the cutscene: clientscript 2762's shots 101 @202.64 (the minimap black), 102 @206.24, 104
+//   @211.01, 105 @216.42 (6, 8 and 9 ticks), 105 the static view of the nest (the dragon lands,
+//   eats and lies down, ~25 ticks), a fade to black ~231.4-234.53 (5 ticks), the last shot from 234.53, s020 @237.1, and
 //   the minimap back @244.81, after s020 is continued.
 // The bowl is loc 45795, a multiloc on varbit 6487: 0 the empty bowl, else the bowl with the
 // meat (op Search).
@@ -67,10 +67,12 @@ if (npc_find(~uf_cellar_coord(30, 18), dragon_8858, 4, 0) = true) {
     npc_walk(~uf_cellar_coord(30, 26));
 }
 p_delay(7);
-// Shot 103 (9 ticks): across the cellar to the nest.
-%varclient_1007 = 103;
+// Shot 104 (9 ticks, 4KO2h2xPtdM @211.01-216.42): clientscript 2762's 104, low at the nest looking
+// east at (32, 29), the dragon coming at the camera. 2011 sends no 103 (2762's high view south
+// along x 32): @206.24-211.01 is one shot, 102's.
+%varclient_1007 = 104;
 if (npc_find(~uf_cellar_coord(30, 24), dragon_8858, 8, 0) = true) {
-    npc_walk(~uf_cellar_coord(19, 33));
+    npc_walk(~uf_cellar_coord(18, 33));
 }
 // Sir Vant goes to the pillars while the camera is on the dragon.
 if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 2, 0) = true) {
@@ -79,23 +81,31 @@ if (npc_find(~uf_cellar_coord(32, 16), sir_vant_8850, 2, 0) = true) {
 }
 ~uf_bag_by_pillars;
 p_delay(8);
-// Shot 104 (~25 ticks): the static view of the nest; the dragon eats, then lies down.
-%varclient_1007 = 104;
-if (npc_find(~uf_cellar_coord(19, 33), dragon_8858, 8, 0) = true) {
-    npc_tele(~uf_cellar_coord(19, 33));
+// Shot 105 (25 ticks, @216.42-231.4): 2762's 105, high, looking west down at the bowl (18, 35).
+// The dragon (size 5) settles on the nest, cache 786's 5x5 floor at x 18-22, z 33-37 (locs
+// 45732-45754), its corner (18, 33), facing the bowl on (17, 35): on it @221, the head down to the
+// bowl @227-228, curled up @229-231. Its eat and lie-down seqs (14255, 14260): to be matched
+// against those frames.
+%varclient_1007 = 105;
+p_delay(7);
+if (npc_find(~uf_cellar_coord(18, 33), dragon_8858, 8, 0) = true) {
+    npc_tele(~uf_cellar_coord(18, 33));
     npc_facesquare(~uf_cellar_coord(17, 35));
+}
+p_delay(9);
+if (npc_find(~uf_cellar_coord(18, 33), dragon_8858, 2, 0) = true) {
     npc_anim(seq_14255, 0);
 }
-p_delay(19);
-if (npc_find(~uf_cellar_coord(19, 33), dragon_8858, 2, 0) = true) {
+p_delay(3);
+if (npc_find(~uf_cellar_coord(18, 33), dragon_8858, 2, 0) = true) {
     npc_anim(seq_14260, 0);
 }
-p_delay(4);
+p_delay(2);
 // Shot 106 (5 ticks): the fade to black; the dragon asleep (8861, its ready seq 12255 a breathing
 // loop) once the screen is black.
 %varclient_1007 = 106;
 p_delay(1);
-if (npc_find(~uf_cellar_coord(19, 33), dragon_8858, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(18, 33), dragon_8858, 2, 0) = true) {
     npc_changetype(dragon_8861, ^uf_cellar_obj_duration);
 }
 p_delay(2);

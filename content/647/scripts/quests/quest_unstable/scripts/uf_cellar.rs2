@@ -70,7 +70,7 @@ if ($p >= 10 & $p < 90) {
 if ($p >= 90 & $p < 117) {
     // Asleep on its nest, as the sleep cutscene leaves it (uf_sleep.rs2), until the roof comes
     // down on it.
-    npc_add(~uf_cellar_coord(19, 33), dragon_8861, 0);
+    npc_add(~uf_cellar_coord(18, 33), dragon_8861, 0);
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(17, 35));
 }
