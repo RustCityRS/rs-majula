@@ -18,6 +18,15 @@ pub struct VarcStrSmall<'a> {
 }
 
 #[cfg(since_647)]
+impl VarcStrSmall<'_> {
+    /// The frame size this packet would need for `val`: above 255 it does not fit, and the
+    /// string goes as CLIENT_SETVARCSTR_LARGE instead.
+    pub fn sizeof_str(val: &str) -> usize {
+        Packet::sizejstr(val) + size_of::<u16>()
+    }
+}
+
+#[cfg(since_647)]
 impl ServerProtMessage for VarcStrSmall<'_> {
     fn encode(&self, buf: &mut Packet) {
         buf.pjstr(self.val, STRING_TERMINATOR);

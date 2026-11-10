@@ -333,6 +333,8 @@ use rs_protocol::network::game::server::varc_large::VarcLarge;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::varc_small::VarcSmall;
 #[cfg(since_647)]
+use rs_protocol::network::game::server::varc_str_large::VarcStrLarge;
+#[cfg(since_647)]
 use rs_protocol::network::game::server::varc_str_small::VarcStrSmall;
 use rs_protocol::network::game::server::varp_large::VarpLarge;
 use rs_protocol::network::game::server::varp_small::VarpSmall;
@@ -2457,7 +2459,14 @@ impl ActivePlayer {
     #[cfg(since_647)]
     pub fn varc_str_transmit(&mut self, id: u16, val: &str) {
         self.player.varc_strings.insert(id, val.into());
-        self.write(VarcStrSmall { id, val });
+        // CLIENT_SETVARCSTR_SMALL's frame size is one byte: a longer string (Unstable
+        // Foundations' run hint) wrapped it, the client read the stream out of step and dropped
+        // the connection ("Connection lost", in-client runs ufrest10 and ufrest13).
+        if VarcStrSmall::sizeof_str(val) > u8::MAX as usize {
+            self.write(VarcStrLarge { id, val });
+        } else {
+            self.write(VarcStrSmall { id, val });
+        }
     }
 
     /// Rev-647: invokes a clientscript (cs2) with no parameters.

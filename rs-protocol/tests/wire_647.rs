@@ -216,6 +216,33 @@ fn varp_small_matches_client() {
     }
 }
 
+/// Client (CLIENT_SETVARCSTR_LARGE, 119, var-short): `g2_alt1 varc` (big-endian, the low byte
+/// +128: this port's `g2_alt2`), `gjstr value`. A string over CLIENT_SETVARCSTR_SMALL's one-byte
+/// frame goes this way: Unstable Foundations' run hint wrapped the small frame and the client
+/// dropped the connection.
+#[test]
+fn varc_str_large_matches_client() {
+    use rs_protocol::network::game::server::varc_str_large::VarcStrLarge;
+    use rs_protocol::network::game::server::varc_str_small::VarcStrSmall;
+    let long = "x".repeat(300);
+    assert!(
+        VarcStrSmall::sizeof_str(&long) > 255,
+        "too long for the small frame"
+    );
+    let msg = VarcStrLarge {
+        id: 1713,
+        val: &long,
+    };
+    let mut pkt = Packet::new(512);
+    msg.encode(&mut pkt);
+    let bytes = pkt.data[..pkt.pos].to_vec();
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g2_alt2(), 1713, "varc id");
+    assert_eq!(p.gjstr(), long);
+    p.done(bytes.len());
+    assert_eq!(msg.sizeof(), bytes.len());
+}
+
 /// Client: `g2 varp`, `g4s_alt2 value`.
 #[test]
 fn varp_large_matches_client() {

@@ -552,6 +552,7 @@ server_prot! {
     VarpSmall = 116,
     MessagePublic = 117,
     IfSetAnim = 118,
+    VarcStrLarge = 119,
     ObjCount = 121,
     RunClientScript = 122,
     SpotanimSpecific = 126,
