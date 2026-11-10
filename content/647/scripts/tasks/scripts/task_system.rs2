@@ -108,3 +108,28 @@ if (%varplayerbit_9018 = 1 | stat_base(mining) < 2) {
 }
 %varplayerbit_9018 = 1;
 ~task_complete(425);
+
+// Task 363 "On the Run" (struct 1518, "Run somewhere.", its var varbit 8522 in the client's
+// task_get_progress): done on a walk taken with run on (void-634's LumbridgeBeginnerTasks: moved
+// while running). Not in Unstable Foundations: 4KO2h2xPtdM (2011-04-30) runs in the cellar with the
+// orb lit (@186-198) and has the Task only after the tutorial (@680); Qh_-AMJpVd0 (2011-05-10) has
+// it in Explorer Jack's house right after the quest (@432.5). The walktrigger is one slot, shared
+// with stuns and freezes: armed only when free, again at each login.
+[proc,task_on_the_run_arm]
+if (%varplayerbit_8522 = 1 | %learning_the_ropes < 1000) {
+    return;
+}
+if (getwalktrigger = null) {
+    walktrigger(task_on_the_run);
+}
+
+[walktrigger,task_on_the_run]
+if (%varplayerbit_8522 = 1 | %learning_the_ropes < 1000) {
+    return;
+}
+if (%option_run = ^player_run_on) {
+    %varplayerbit_8522 = 1;
+    ~task_complete(363);
+    return;
+}
+walktrigger(task_on_the_run);

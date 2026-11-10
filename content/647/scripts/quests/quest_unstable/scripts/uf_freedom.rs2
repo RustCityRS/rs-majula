@@ -77,6 +77,8 @@ return(region_getcoord(0, calc(16 + $x - 3160), calc(16 + $z - 3192)));
 %learning_the_ropes = 1000;
 ~uf_task_tab;
 ~uf_task_pin;
+// On the Run waits for the tutorial's end (tasks/task_system.rs2).
+~task_on_the_run_arm;
 ~initalltabs;
 def_obj $tool = bronze_pickaxe;
 def_string $reward = "Level 4 Mining";

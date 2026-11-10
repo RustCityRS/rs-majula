@@ -173,6 +173,7 @@ if (getwindowmode = 1) {
 // The Task System's tab: the set for where the player stands, and its six slots.
 ~task_area_here;
 ~task_refresh;
+~task_on_the_run_arm;
 
 // Every tab's events follow its if_opensub. Opening a sub where one is already
 // open closes it first, and the client's close drops every event the server

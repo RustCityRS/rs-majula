@@ -78,6 +78,31 @@ fn arrow_key(client: &mut HarnessClient) {
     client.send(ClientProt::IfButton1, &p.finish());
 }
 
+/// The run orb (topstat_run 750:1, op 1): turns run on with full energy.
+fn run_orb(client: &mut HarnessClient) {
+    let mut p = ClientPacket::new();
+    p.p4(750 << 16 | 1).p2_alt3(NONE).p2_alt1(NONE);
+    client.send(ClientProt::IfButton1, &p.finish());
+}
+
+/// A click on the floor near the player: the first walkable tile of a few nearby.
+fn walk_near(engine: &Engine, client: &mut HarnessClient) {
+    let here = engine.harness_player(client.pid).unwrap().pathing.coord;
+    let (x, z) = [(2i32, 0i32), (-2, 0), (0, 2), (0, -2), (1, 1), (-1, -1)]
+        .into_iter()
+        .map(|(a, b)| {
+            (
+                (i32::from(here.x()) + a) as u16,
+                (i32::from(here.z()) + b) as u16,
+            )
+        })
+        .find(|&(tx, tz)| !rsmod::is_flagged(tx, tz, 0, 0x100 | 0x200000))
+        .expect("a walkable tile nearby");
+    let mut p = ClientPacket::new();
+    p.p2_alt1(i32::from(x)).p1_alt1(0).p2(i32::from(z));
+    client.send(ClientProt::MoveGameClick, &p.finish());
+}
+
 fn varp(engine: &Engine, name: &str) -> u16 {
     *engine.cache.varps.debugnames.get(name).unwrap()
 }
@@ -1395,6 +1420,19 @@ fn the_way_out_to_lumbridge() {
 
         engine.harness_telejump(client.pid, origin.0 + 29, 0, origin.1 + 31);
         cycles(engine, &mut client, 3);
+        // Running in the cellar does not do On the Run (4KO2h2xPtdM runs @186-198, the Task @680).
+        run_orb(&mut client);
+        cycles(engine, &mut client, 1);
+        walk_near(engine, &mut client);
+        cycles(engine, &mut client, 3);
+        assert_eq!(
+            varbit_named(engine, &client, "varplayerbit_8522"),
+            0,
+            "not in the tutorial"
+        );
+        run_orb(&mut client); // off again
+        engine.harness_telejump(client.pid, origin.0 + 29, 0, origin.1 + 31);
+        cycles(engine, &mut client, 3);
         // The kit, the tinderbox and the oil can in the pack, as the collapse leaves a player:
         // talking gets s042 only; each piece used on him is taken, the last with s043 (in-client
         // run 18 talked to him holding it and got no further).
@@ -1581,6 +1619,20 @@ fn the_way_out_to_lumbridge() {
         );
         assert!(jack.said("Look at the Rewards tab for a Task to learn more."));
         assert_eq!(varbit_named(engine, &client, "varplayerbit_6494"), 3);
+        // On the Run (363) on the first walk with run on after the tutorial (Qh_-AMJpVd0
+        // 2011-05-10 @432.5, in this house).
+        run_orb(&mut client);
+        cycles(engine, &mut client, 1);
+        walk_near(engine, &mut client);
+        let ran = cycles(engine, &mut client, 2);
+        assert!(
+            HarnessClient::game_messages(&ran)
+                .iter()
+                .any(|(_, m)| m == "You have completed the Task 'On the Run'!"),
+            "{:?}",
+            HarnessClient::game_messages(&ran)
+        );
+        assert_eq!(varbit_named(engine, &client, "varplayerbit_8522"), 1);
         assert_eq!(
             varbit(engine, &client, PINNED_TASK),
             3521,
