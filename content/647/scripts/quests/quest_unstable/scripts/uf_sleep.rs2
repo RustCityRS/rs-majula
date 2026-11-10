@@ -155,14 +155,17 @@ if (npc_find(~uf_cellar_coord(18, 33), dragon_8858, 8, 0) = true) {
     npc_del;
 }
 ~uf_dragon_asleep;
-// 107 opens on Sir Vant beside his bag by the barrel (27, 29), facing it, who then walks west to
-// the pillar (@234.6-237.6). He is added on his place by the pillars (26, 30), as a login after
-// the cutscene finds him (uf_cellar.rs2), and stands at the bag for the shot.
+// Stage 2's cellar (cache 786's tutorial3_2 from 93): its start room, rebuilt in the black, the
+// client's "Loading - please wait." with it (@233); the bag by the pillars.
+~uf_cellar_stage2;
+// 107 opens on Sir Vant beside his bag (27, 29), facing it, who then walks west to the pillar
+// (@234.6-237.6). He is added on his place by the pillars (26, 30), as a login after the cutscene
+// finds him (uf_cellar.rs2), and stands at the bag for the shot.
 ~uf_bag_by_pillars;
 npc_add(~uf_cellar_coord(26, 30), sir_vant_8850, 0);
 npc_setmode(none);
 npc_tele(~uf_cellar_coord(28, 30));
-npc_facesquare(~uf_cellar_coord(28, 29));
+npc_facesquare(~uf_cellar_coord(27, 29));
 p_delay(2);
 // Shot 107 (from @234.53): s020 (V88 clip 958) ~4 ticks in, the cutscene open until it is
 // continued.

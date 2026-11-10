@@ -67,6 +67,10 @@ if ($p >= 10 & $p < 90) {
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(32, 16));
 }
+if ($p >= 90) {
+    // The start room as stage 2 has it, from the sleep cutscene on (uf_cellar_stage2).
+    ~uf_cellar_stage2;
+}
 if ($p >= 90 & $p < 117) {
     // Asleep on its nest, as the sleep cutscene leaves it (uf_sleep.rs2), until the roof comes
     // down on it.
@@ -167,7 +171,9 @@ while ($level < 4) {
             // nothing west of the start room until the exit stage (4KO2h2xPtdM, sampled every
             // 15 s); our copy of the whole square showed a room there from the start. The
             // boundary is read off our own minimap (that room spans about x 12-24, z 5-16).
-            if ($a > 2 | $b > 2) {
+            // Nor the square's x 56-63: the start room as stage 2 has it (uf_cellar_stage2), which
+            // tutorial3_1 does not draw (its subareas: x 24-55, z 0-63 and x 0-23, z 24-47).
+            if (($a > 2 | $b > 2) & $a < 7) {
                 region_set($level, calc(2 + $a), calc(2 + $b), movecoord(0_57_77_0_0, calc($a * 8), $level, calc($b * 8)), 0);
             }
             $b = calc($b + 1);
@@ -410,15 +416,28 @@ if (npc_find(coord, $npc, 40, 0) = true) {
     npc_facesquare(~uf_cellar_coord($x, $z));
 }
 
-// Sir Vant's bag by the pillars once he is there (uf_sleep.rs2): 4KO2h2xPtdM (2011-04-30) @262-304,
-// the player stays in the corner by Sir Vant and the pillar while he asks for the supplies, and
-// @284 "Search Sir Vant's bag" is beside them, against the room's edge on his far side from the
-// pillar. Cache 786's map places the bag only in the start room (35, 13), behind the low wall:
-// here a second one, on (28, 29) by the barrel (the tile: inference). Its forceapproach is east,
-// turned with the loc: angle 1 opens its south side to the room, the barrel being on its west.
+// The cellar from the sleep cutscene's end (varp 281 93) on. Cache 786's world map area
+// tutorial3_2 (clientscript 2785 picks it from 93; tutorial3_3, from 120, keeps these three
+// subareas) draws the start room's east half, local x 32-39, z 8-23, from the square's x 56-63,
+// z 0-15: the same room with a plain barrel where Sir Vant's bag stood (35, 13), no blocker in his
+// doorway (32, 16), ladder 45787 for the burnt one and a few wall pieces on x 37 changed. 2011
+// rebuilds in sleep cutscene 106's black: "Loading - please wait." (4KO2h2xPtdM 2011-04-30 @233).
+[proc,uf_cellar_stage2]
+def_int $level = 0;
+while ($level < 4) {
+    region_set($level, 6, 3, movecoord(0_57_77_0_0, 56, $level, 0), 0);
+    region_set($level, 6, 4, movecoord(0_57_77_0_0, 56, $level, 8), 0);
+    $level = calc($level + 1);
+}
+
+// Sir Vant's bag by the pillars once he is there: tutorial3_2's "Bag of supplies" (mapelement_711)
+// is on (27, 29), the map's barrel there. The bag's model is a barrel with the bedroll over it, the
+// sack beside and a flask in front (2011's shot 107 @234.6; @283.5-289 "Search Sir Vant's bag" by
+// the pillar), and stage 2's start room has a plain barrel where the bag was: so the bag takes the
+// barrel's place, as the barrel stands (angle 3: the sack on its north side, as @234.6 shows).
 [proc,uf_bag_by_pillars]
-if (loc_find(~uf_cellar_coord(28, 29), sir_vant_s_bag) = false) {
-    loc_add(~uf_cellar_coord(28, 29), sir_vant_s_bag, 1, centrepiece_straight, ^uf_cellar_obj_duration);
+if (loc_find(~uf_cellar_coord(27, 29), barrel_45654) = true) {
+    loc_change(sir_vant_s_bag, ^uf_cellar_obj_duration);
 }
 
 // The dragon asleep on its nest's corner (18, 33), lying as the sleep cutscene's lie-down ends:

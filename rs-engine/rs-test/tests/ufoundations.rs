@@ -1164,6 +1164,25 @@ fn the_dragon_is_put_to_sleep() {
             .collect();
         sent_shots.dedup();
         assert_eq!(sent_shots, vec![101, 102, 103, 104, 105, 106, 107, 0]);
+        // Stage 2's cellar is built in 106's black: 2011's "Loading - please wait." @233.
+        let at_shot = |n: i32| {
+            packets
+                .iter()
+                .position(|(op, p)| {
+                    *op == ServerProt::VarcSmall as u16
+                        && p.len() >= 3
+                        && u16::from_le_bytes([p[1], p[2]]) == SHOT
+                        && 0u8.wrapping_sub(p[0]) as i8 as i32 == n
+                })
+                .unwrap()
+        };
+        let (fade, last) = (at_shot(106), at_shot(107));
+        assert!(
+            packets[fade..last]
+                .iter()
+                .any(|(op, _)| *op == ServerProt::RebuildRegion as u16),
+            "the cellar rebuilt in the fade"
+        );
         let clips = speech(&packets);
         for clip in [715, 850, 958] {
             assert!(clips.contains(&clip), "clip {clip} in {clips:?}");
@@ -1211,7 +1230,7 @@ fn the_dragon_is_put_to_sleep() {
         oploc1(
             &mut client,
             loc_id(engine, "sir_vant_s_bag"),
-            origin.0 + 28,
+            origin.0 + 27,
             origin.1 + 29,
         );
         let bag = converse(engine, &mut client, &[], 60);
@@ -1220,7 +1239,7 @@ fn the_dragon_is_put_to_sleep() {
             "{:?} stage {} locs {:?} at {:?} msgs {:?}",
             bag.texts,
             progress(engine, &client),
-            loc_ids(engine, origin.0 + 28, origin.1 + 29),
+            loc_ids(engine, origin.0 + 27, origin.1 + 29),
             cellar_tile(engine, &client),
             HarnessClient::game_messages(&bag.packets)
         );
@@ -1257,11 +1276,19 @@ fn the_pillars_burn_and_the_roof_comes_down() {
         );
         assert_eq!(progress(engine, &client), 95);
 
-        // The bag, on the other side of the wall.
-        engine.harness_telejump(client.pid, origin.0 + 34, 0, origin.1 + 12);
+        // The bag by the pillars on (27, 29) (tutorial3_2's Bag of supplies); in stage 2's start room
+        // a plain barrel stands where it was (35, 13).
+        let bag_id = loc_id(engine, "sir_vant_s_bag");
+        let (sx, sz) = at(35, 13);
+        assert!(
+            !loc_ids(engine, sx, sz).contains(&bag_id),
+            "no bag in the start room"
+        );
+        assert!(loc_ids(engine, sx, sz).contains(&loc_id(engine, "barrel_45654")));
+        engine.harness_telejump(client.pid, origin.0 + 27, 0, origin.1 + 31);
         cycles(engine, &mut client, 3);
-        let (bx, bz) = at(35, 13);
-        oploc1(&mut client, loc_id(engine, "sir_vant_s_bag"), bx, bz);
+        let (bx, bz) = at(27, 29);
+        oploc1(&mut client, bag_id, bx, bz);
         let bag = converse(engine, &mut client, &[], 60);
         assert!(bag.said("You search Sir Vant's bag and take a selection of supplies."));
         assert_eq!(progress(engine, &client), 96);
