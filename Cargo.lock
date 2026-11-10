@@ -2985,10 +2985,11 @@ dependencies = [
 
 [[package]]
 name = "rs-pathfinder"
-version = "0.1.7"
+version = "0.1.8"
 dependencies = [
  "once_cell",
  "rand 0.10.3",
+ "rayon",
 ]
 
 [[package]]
@@ -3023,7 +3024,7 @@ dependencies = [
 
 [[package]]
 name = "rs-runec"
-version = "0.5.14"
+version = "0.5.15"
 dependencies = [
  "anyhow",
  "clap",

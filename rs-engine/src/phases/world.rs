@@ -1,4 +1,4 @@
-use crate::engine::{Engine, engine_mut};
+use crate::core::{Engine, engine_mut};
 use rs_pack::types::HuntModeType;
 use rs_vm::state::{ExecutionState, ScriptState};
 

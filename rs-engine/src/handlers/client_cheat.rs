@@ -1,7 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::DbRequest;
 use crate::clients::client_game::create_io;
-use crate::engine::{engine, engine_mut};
+use crate::core::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use core::str::Split;
 use num_enum::TryFromPrimitive;
@@ -685,7 +685,7 @@ fn cheat_spawn_local_bots(active: &mut ActivePlayer) -> Result<(), ScriptError> 
 /// Spawns up to `count` bots across a square grid, reusing tiles when the count
 /// exceeds the grid area. Stops when no player slots remain and clamps tile
 /// positions to the world bounds.
-fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
+pub(crate) fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
     let half = (grid_size >> 1) as i32;
     let engine = engine_mut();
     let mut spawned = 0;

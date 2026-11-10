@@ -1,5 +1,5 @@
-use crate::engine::{Engine, PendingZoneEvent};
-use crate::game_map::apply_loc_collision;
+use crate::core::{Engine, PendingZoneEvent};
+use crate::map::apply_loc_collision;
 use rs_entity::EntityLifeTime;
 use std::mem;
 use std::time::Instant;

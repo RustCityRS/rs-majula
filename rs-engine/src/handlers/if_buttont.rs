@@ -8,7 +8,7 @@
 //! The rules below are the pre-647 handlers' own.
 
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{engine, engine_mut};
+use crate::core::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_pack::types::InvScope;
 use rs_protocol::network::game::client_prot::IfButtonT;

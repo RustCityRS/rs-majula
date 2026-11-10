@@ -8,7 +8,7 @@
 //! (`Examines.kt`). A type with no `desc` gets no answer, as in void.
 
 use crate::active_player::ActivePlayer;
-use crate::engine::engine;
+use crate::core::engine;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client_prot::{ExamineLoc, ExamineNpc, ExamineObj};
 use rs_vm::ScriptError;

@@ -1,5 +1,5 @@
 use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap};
-use crate::engine::Engine;
+use crate::core::Engine;
 use rs_entity::build::MAX_PLAYERS;
 use rs_protocol::LoginResponse;
 #[cfg(before_647)]

@@ -2989,7 +2989,7 @@ pub use zone_coord::ZoneCoordGrid;
 `CoordGrid` and `ZoneCoordGrid` are flattened to the crate root; `MapsquareCoordGrid` is reachable only through its
 module path `rs_grid::mapsquare_coord::MapsquareCoordGrid` (`rs-grid/src/mapsquare_coord.rs:22`). That asymmetry is not
 an accident: `MapsquareCoordGrid` is an *internal* addressing primitive used almost exclusively inside the map decoder (
-`rs-engine/src/game_map.rs`), whereas the other two are pervasive engine-wide types. The module visibility encodes the
+`rs-engine/src/map.rs`), whereas the other two are pervasive engine-wide types. The module visibility encodes the
 intended blast radius of each type.
 
 ### The three spatial scales
@@ -3326,17 +3326,17 @@ bytes, so by-value is optimal) and shift-and-mask out each field.
 
 #### Role in map decoding
 
-The whole purpose of this type is to be a `usize` array index. In `GameMap` (`rs-engine/src/game_map.rs`), the
+The whole purpose of this type is to be a `usize` array index. In `GameMap` (`rs-engine/src/map.rs`), the
 per-mapsquare collision/terrain flag array `lands` is indexed by `coord.packed() as usize`:
 
 - `load_lands` decodes terrain opcodes and writes `lands[coord.packed() as usize] = opcode - 49` (
-  `game_map.rs:160-172`).
+  `map.rs:160-172`).
 - `load_locs` reads the bridge flag with `(lands[coord.packed() as usize] & LINK_BELOW) == LINK_BELOW` (
-  `game_map.rs:183-204`, `255-266`). When a tile is bridged, it reconstructs the level-1 lookup coordinate via
+  `map.rs:183-204`, `255-266`). When a tile is bridged, it reconstructs the level-1 lookup coordinate via
   `MapsquareCoordGrid::new(coord.x(), 1, coord.z())` — re-using the decoded X/Z but forcing the level to 1 to read the
   flag below the bridge.
 - `load_locs` / `load_objs` rebuild a typed coordinate from an accumulated offset with
-  `MapsquareCoordGrid::from(coord as u16)` (`game_map.rs:257,365,426`).
+  `MapsquareCoordGrid::from(coord as u16)` (`map.rs:257,365,426`).
 
 Because the packed layout is contiguous and dense, the `lands` table is a flat `[_; 16384]`-style array rather than a
 hash map: indexing is a bounds-checked array read with no hashing, which is exactly what a per-tile flag lookup hammered
@@ -4520,7 +4520,7 @@ flowchart LR
     N["'n' npcs"]:::c
     O["'o' objs"]:::c
   end
-  subgraph load["GameMap::load (game_map.rs:81)"]
+  subgraph load["GameMap::load (map.rs:81)"]
     LG["load_ground -> change_floor / change_roof"]
     LL["load_locations -> change_loc_collision"]
   end
@@ -4575,7 +4575,7 @@ Design consequences the engine relies on:
   `allocate_if_absent_return`, `collision.rs:71`, fills with `CollisionFlag::Open = 0`). An unallocated zone reads back
   as `CollisionFlag::Null = 0x7FFF_FFFF` (`collision.rs:38`) — i.e. *every* bit but the sign set, so any walkability
   test against it fails closed. This is why `load_ground` explicitly calls `rsmod::allocate_if_absent` on a sparse 7×7
-  stride (`game_map.rs:186-188`): it pre-materializes the zones touched by a mapsquare so that genuinely open tiles read
+  stride (`map.rs:186-188`): it pre-materializes the zones touched by a mapsquare so that genuinely open tiles read
   `Open`, not `Null`. Players also probe `is_zone_allocated` before allowing movement into a region (
   `active_player.rs:1959`, `:2202`; `active_npc.rs:278`).
 - **`u32` per tile, bit-packed.** All wall, projectile, route-blocker, floor, roof, npc, and player state for a tile fit
@@ -4617,25 +4617,25 @@ indoors" (`:178`).
 
 ### Building the collision map at load
 
-`GameMap::load` (`game_map.rs:81`) is called once at startup. It enumerates every `'m'` mapsquare key in the cache, and
+`GameMap::load` (`map.rs:81`) is called once at startup. It enumerates every `'m'` mapsquare key in the cache, and
 for each `(mx, mz)` computes the tile origin `originx = mx << 6`, `originz = mz << 6` (64 tiles per mapsquare; constants
-`X = Z = 64`, `Y = 4`, `game_map.rs:14-18`). It then decompresses and loads up to four data layers per square — ground (
+`X = Z = 64`, `Y = 4`, `map.rs:14-18`). It then decompresses and loads up to four data layers per square — ground (
 `'m'`), locations (`'l'`), npcs (`'n'`), objects (`'o'`) — each a BZip2 blob prefixed with a 4-byte big-endian
-uncompressed size (`decompress_map`, `game_map.rs:49`).
+uncompressed size (`decompress_map`, `map.rs:49`).
 
 #### Ground → floor and roof flags
 
-`load_ground` (`game_map.rs:156`) runs two passes over the 64×4×64 = `MAPSQUARE` tiles:
+`load_ground` (`map.rs:156`) runs two passes over the 64×4×64 = `MAPSQUARE` tiles:
 
 1. **Decode pass.** A per-tile opcode stream populates a local `lands: [u8; MAPSQUARE]` of land flags. Opcodes ≤ 49
-   carry skippable height/overlay bytes; opcodes 50–81 store `opcode - 49` as the land flag (`game_map.rs:161-174`).
+   carry skippable height/overlay bytes; opcodes 50–81 store `opcode - 49` as the land flag (`map.rs:161-174`).
    Only the *flags* survive into collision; heights/overlays are rendering data the server discards.
-2. **Apply pass.** For each tile it (a) sparsely allocates the zone on a 7×7 stride (`game_map.rs:186`), (b) sets `Roof`
+2. **Apply pass.** For each tile it (a) sparsely allocates the zone on a 7×7 stride (`map.rs:186`), (b) sets `Roof`
    if `REMOVE_ROOFS (0x4)` is set (`change_roof`, `:193`), and (c) if `BLOCK_MAP_SQUARE (0x1)` is set, sets `Floor` via
    `change_floor` — but with **bridge logic**: if the level-1 tile carries `LINK_BELOW (0x2)`, the floor flag is pushed
    down one level (`bridge = y - 1`), and a resulting negative level is skipped (`:200-212`).
 
-The land-flag constants (`game_map.rs:23-33`) are: `BLOCK_MAP_SQUARE 0x1`, `LINK_BELOW 0x2`, `REMOVE_ROOFS 0x4`,
+The land-flag constants (`map.rs:23-33`) are: `BLOCK_MAP_SQUARE 0x1`, `LINK_BELOW 0x2`, `REMOVE_ROOFS 0x4`,
 `VISIBLE_BELOW 0x8`, `NOT_LOW_DETAIL 0x10`. Only the first three affect collision; the rest are rendering hints retained
 for completeness but never written to the grid.
 
@@ -4646,12 +4646,12 @@ walkable surface must live on the lower level's grid.
 
 #### Locations → wall / loc / decoration flags
 
-`load_locations` (`game_map.rs:239`) walks the delta-encoded loc stream (`gsmart1or2` deltas for both id and packed
+`load_locations` (`map.rs:239`) walks the delta-encoded loc stream (`gsmart1or2` deltas for both id and packed
 coord, `:248-260`), applies the same bridge adjustment per loc (`:262-276`), and for each loc resolves its `LocType`
 from the cache. It extracts geometry directly from the 8-bit `info` byte:
 
 ```rust
-let shape = LocShape::try_from_primitive(info > > 2).unwrap();   // game_map.rs:285
+let shape = LocShape::try_from_primitive(info > > 2).unwrap();   // map.rs:285
 let layer = shape.layer();                                       // :286 (LocShape::layer())
 let angle = LocAngle::try_from_primitive(info & 0x3).unwrap();   // :287
 ```
@@ -4663,20 +4663,20 @@ interactable, and vice versa.
 
 ### The `change_loc_collision` dispatch — the heart of loc collision
 
-`change_loc_collision` (`game_map.rs:553`) is the single funnel that turns a
+`change_loc_collision` (`map.rs:553`) is the single funnel that turns a
 `(shape, layer, angle, blockrange, width, length, active)` tuple into `rsmod` writes. It switches on **layer** (
-`game_map.rs:567`):
+`map.rs:567`):
 
 | `LocLayer`    | rsmod call                                                       | behavior                                                      |
 |---------------|------------------------------------------------------------------|---------------------------------------------------------------|
 | `Wall`        | `change_wall(x,z,y, angle, shape as i8, blockrange, false, add)` | Edge flags chosen by wall shape + angle                       |
-| `WallDecor`   | *(none)*                                                         | Decorations never block; the arm is empty (`game_map.rs:571`) |
+| `WallDecor`   | *(none)*                                                         | Decorations never block; the arm is empty (`map.rs:571`) |
 | `Ground`      | `change_loc(x,z,y, len/wid, wid/len, blockrange, false, add)`    | Full-tile rectangle; **width/length swap on E/W angles**      |
 | `GroundDecor` | `change_floor(x,z,y, add)` *only if* `active == Some(true)`      | Treated as floor for collision                                |
 
 Two engineering details:
 
-- **The angle-driven dimension swap** (`game_map.rs:572-579`): for a `Ground` loc, North/South orientation passes
+- **The angle-driven dimension swap** (`map.rs:572-579`): for a `Ground` loc, North/South orientation passes
   `(length, width)`; West/East passes `(width, length)`. This rotates the loc's footprint without rotating the data —
   the rectangle the route finder blocks matches the loc's on-screen orientation.
 - **`change_wall` shape decoding lives in `rsmod`** (`lib.rs:203`). It maps `LocShape` to one of three wall geometries —
@@ -4690,9 +4690,9 @@ Two engineering details:
 The same dispatch serves three callers, which is the key to runtime coherence:
 
 - `GameMap::load_locations` — static map load (`:295`).
-- `apply_loc_collision(cache, loc, coord, add)` (`game_map.rs:469`) — looks up the live loc's type, and only if
+- `apply_loc_collision(cache, loc, coord, add)` (`map.rs:469`) — looks up the live loc's type, and only if
   `blockwalk`, forwards `loc.shape()/layer()/angle()`. Used by every dynamic loc transition.
-- `apply_collision_by_id(cache, id, shape, layer, angle, coord, add)` (`game_map.rs:503`) — same, but with
+- `apply_collision_by_id(cache, id, shape, layer, angle, coord, add)` (`map.rs:503`) — same, but with
   caller-supplied shape/angle (used when a loc *changes* into a different type).
 
 ### Dynamic loc changes keep the grid in lock-step
@@ -6863,7 +6863,7 @@ pub struct Stats<const N: usize> {
 
 The player stat indices are fixed by `PlayerStat` (`rs-pack/src/types.rs:825`):
 `Attack=0, Defence=1, Strength=2, Hitpoints=3, Ranged=4, Prayer=5, Magic=6, Cooking=7 … Runecraft=20`. New players are
-seeded by `apply_new_player_defaults` (`rs-engine/src/player_save.rs:502`): all stats xp=0/level=1 *except* Hitpoints,
+seeded by `apply_new_player_defaults` (`rs-engine/src/save.rs:502`): all stats xp=0/level=1 *except* Hitpoints,
 which is set to level 10 with `get_exp_by_level(10)` xp and base level 10 — exactly mirroring the canonical RS2 starting
 account.
 
@@ -9143,7 +9143,7 @@ on.
 
 ### 1. `PlayerProfile`: the canonical intermediate representation
 
-All persistence flows through a single value type, `PlayerProfile` (`src/player_save.rs:37-56`). It is deliberately
+All persistence flows through a single value type, `PlayerProfile` (`src/save.rs:37-56`). It is deliberately
 *not* the live `Player` entity — it is a flattened, scope-filtered snapshot containing only persistent state, decoupling
 the wire/DB representation from the in-memory entity layout. Both the binary `.sav` codec and the SQL codec read and
 write this one struct, so there is exactly one definition of "what a player's saved state is."
@@ -9157,7 +9157,7 @@ write this one struct, so there is exactly one definition of "what a player's sa
 | `gender`                                  | `u8`                    | 0 = male, 1 = female                                              |
 | `runenergy`                               | `u16`                   | Run energy, 0–10000 (one decimal place)                           |
 | `playtime`                                | `i32`                   | Ticks played, incremented every tick                              |
-| `stats`                                   | `[i32; 21]`             | Experience per skill (`STAT_COUNT = 21`, `src/player_save.rs:22`) |
+| `stats`                                   | `[i32; 21]`             | Experience per skill (`STAT_COUNT = 21`, `src/save.rs:22`) |
 | `levels`                                  | `[u8; 21]`              | Current (possibly boosted/drained) level per skill                |
 | `varps`                                   | `Vec<(u16, i32)>`       | Perm-scope player variables: `(id, value)`                        |
 | `invs`                                    | `Vec<PlayerProfileInv>` | Perm-scope inventories                                            |
@@ -9166,51 +9166,51 @@ write this one struct, so there is exactly one definition of "what a player's sa
 | `public_chat`/`private_chat`/`trade_chat` | `u8`                    | Chat privacy settings (enum-as-byte)                              |
 | `last_date`                               | `i64`                   | Unix epoch seconds of last login                                  |
 
-`PlayerProfileInv` (`src/player_save.rs:28-31`) holds an `inv_type: u16` and `items: Vec<(u16, u16, u32)>` —
+`PlayerProfileInv` (`src/save.rs:28-31`) holds an `inv_type: u16` and `items: Vec<(u16, u16, u32)>` —
 `(slot, obj_id, count)` tuples. Note the *sparse* representation: only occupied slots are stored, not a dense
 capacity-sized array. This is the first of several space optimizations that distinguish the in-memory/DB form from the
 on-disk binary form (which is dense — see §3).
 
 #### 1.1 `extract_profile` — live entity → profile (scope filtering)
 
-`extract_profile(player, cache)` (`src/player_save.rs:69-130`) walks the player's varps and inventories and applies the
+`extract_profile(player, cache)` (`src/save.rs:69-130`) walks the player's varps and inventories and applies the
 cache's *scope* metadata to decide what is persistent:
 
 - **Varps:** iterate every varp id, look up `VarPlayerScope` from `cache.varps`. Only `VarPlayerScope::Perm` varps are
-  kept, and only if their value is non-zero (`src/player_save.rs:78-83`). Unknown ids default to `Temp` and are dropped.
+  kept, and only if their value is non-zero (`src/save.rs:78-83`). Unknown ids default to `Temp` and are dropped.
   This is both a size win and a correctness guarantee — transient combat/UI state never leaks into a save.
 - **Inventories:** iterate `player.invs`, look up `InvScope` from `cache.invs`, skip anything not `InvScope::Perm` (
-  `src/player_save.rs:91-95`). Empty inventories (no occupied slots) are omitted entirely (`src/player_save.rs:102`).
+  `src/save.rs:91-95`). Empty inventories (no occupied slots) are omitted entirely (`src/save.rs:102`).
 
 Everything else (coords, appearance, stats, chat settings, AFK zones, `last_date`) is copied wholesale. The result is a
 self-contained profile that can be serialised by either backend.
 
 #### 1.2 `apply_profile` — profile → live entity (with derivation)
 
-`apply_profile(profile, player, cache)` (`src/player_save.rs:150-215`) is the inverse, but it does *more* than copy
+`apply_profile(profile, player, cache)` (`src/save.rs:150-215`) is the inverse, but it does *more* than copy
 fields — it reconstructs derived state that is intentionally not persisted:
 
 - Sets `pathing.coord`, and seeds `last_step_coord`/`follow_coord` to one tile west of spawn (`x-1`, saturating) so
-  movement interpolation has a sane prior (`src/player_save.rs:151-155`).
+  movement interpolation has a sane prior (`src/save.rs:151-155`).
 - Restores `stats.xp` and `stats.levels`, then **recomputes** `base_levels[i]` from XP via `get_level_by_exp` (
-  `src/player_save.rs:163-165`) and recomputes `combat_level` via `get_combat_level()` (`src/player_save.rs:166`). Base
+  `src/save.rs:163-165`) and recomputes `combat_level` via `get_combat_level()` (`src/save.rs:166`). Base
   level and combat level are derived, never stored — eliminating a class of save corruption where stored level and
   stored XP disagree.
 - Decodes the three chat-settings bytes into their typed enums (`ChatSettingsPublic`/`Private`/`TradeDuel`), with the
-  numeric mapping inverse to `extract_profile`'s `as u8` cast (`src/player_save.rs:172-187`).
+  numeric mapping inverse to `extract_profile`'s `as u8` cast (`src/save.rs:172-187`).
 - Applies varps through `VarValue::from_int(varp_type.var_type, value)`, guarding `id < player.varps.len()` and skipping
-  unknown ids (`src/player_save.rs:189-197`).
+  unknown ids (`src/save.rs:189-197`).
 - Rebuilds each inventory using the cache's declared `size` and `stackall` flag, choosing `StackMode::Always` or
-  `StackMode::Normal`, and refuses out-of-range slots (`src/player_save.rs:199-214`). Capacity defaults to 28 if the inv
+  `StackMode::Normal`, and refuses out-of-range slots (`src/save.rs:199-214`). Capacity defaults to 28 if the inv
   type is unknown.
 
 Crucially, `last_date` is restored into *both* `player.last_date` and `player.last_login_date` (
-`src/player_save.rs:169-170`) — the loaded value is the *previous* login, used to show "welcome back" timing, and is
+`src/save.rs:169-170`) — the loaded value is the *previous* login, used to show "welcome back" timing, and is
 then overwritten with `now()` at the end of `accept_login` (see §5.4).
 
 ### 2. The `.sav` binary format (TS-compatible fallback)
 
-The binary codec (`save_binary`/`load_binary`, `src/player_save.rs:231-482`) exists so the server can persist players
+The binary codec (`save_binary`/`load_binary`, `src/save.rs:231-482`) exists so the server can persist players
 even when PostgreSQL is unreachable, and so it can interoperate with the reference TypeScript server's save files. It is
 written with `rs_io::Packet`, whose `p2`/`p4`/`p8` primitives emit **big-endian** integers (matching the JVM/RS wire
 convention).
@@ -9219,8 +9219,8 @@ convention).
 
 | Const         | Value         | Source                  |
 |---------------|---------------|-------------------------|
-| `SAV_MAGIC`   | `0x2004`      | `src/player_save.rs:16` |
-| `SAV_VERSION` | `6` (current) | `src/player_save.rs:19` |
+| `SAV_MAGIC`   | `0x2004`      | `src/save.rs:16` |
+| `SAV_VERSION` | `6` (current) | `src/save.rs:19` |
 
 The file is a flat byte stream terminated by a 4-byte CRC32 trailer. Layout (offsets relative to start; multi-byte
 values big-endian):
@@ -9255,16 +9255,16 @@ values big-endian):
 
 Two encoding subtleties matter:
 
-- **Varps are dense in the file** (`src/player_save.rs:257-276`): the writer emits one `i32` for *every* varp slot in
+- **Varps are dense in the file** (`src/save.rs:257-276`): the writer emits one `i32` for *every* varp slot in
   the cache, writing the value if the slot is Perm-scope and 0 otherwise. This trades file size for positional
   addressing (no id stored per varp). The DB form, by contrast, is sparse. `load_binary` reverses this by reading
   `varp_count` consecutive `i32`s and keeping only the non-zero ones with their positional index (
-  `src/player_save.rs:397-404`).
-- **Inventories are dense per slot** (`src/player_save.rs:282-307`): for each saved inv, the writer emits `type`,
+  `src/save.rs:397-404`).
+- **Inventories are dense per slot** (`src/save.rs:282-307`): for each saved inv, the writer emits `type`,
   `capacity`, then `capacity` entries. Each occupied slot writes `obj_id + 1` (so 0 is reserved for "empty"), then a
   count that is either a single byte (`< 255`) or a `255` sentinel followed by a full `i32` for large stacks (
-  `src/player_save.rs:288-304`). Empty slots write a single `p2(0)`. The `inv_count` byte is back-patched after the loop
-  via `sav.data[inv_count_pos] = inv_count` (`src/player_save.rs:278-307`).
+  `src/save.rs:288-304`). Empty slots write a single `p2(0)`. The `inv_count` byte is back-patched after the loop
+  via `sav.data[inv_count_pos] = inv_count` (`src/save.rs:278-307`).
 
 The `+1` obj-id biasing and `255`-sentinel count encoding are exact mirrors of the TS reference server, preserving
 binary interoperability.
@@ -9272,7 +9272,7 @@ binary interoperability.
 #### 2.2 Versioned, forward-compatible reads
 
 `load_binary` validates `magic`, rejects `version > SAV_VERSION`, then verifies the CRC32 trailer *before* parsing any
-payload (`src/player_save.rs:346-366`). It reads older formats by gating fields on the version:
+payload (`src/save.rs:346-366`). It reads older formats by gating fields on the version:
 
 | Field                           | Introduced                      |
 |---------------------------------|---------------------------------|
@@ -9287,8 +9287,8 @@ This monotonic versioning lets a running server upgrade old saves transparently 
 #### 2.3 Local file I/O
 
 Three thin helpers manage the `data/players/{username}.sav` path: `save_to_file` (creates the dir, writes, logs on
-error — `src/player_save.rs:527-538`), `load_from_file` (returns `Option<Vec<u8>>` — `src/player_save.rs:547-552`), and
-`delete_save_file` (best-effort `remove_file` — `src/player_save.rs:560-565`). The filename stem is the raw base37
+error — `src/save.rs:527-538`), `load_from_file` (returns `Option<Vec<u8>>` — `src/save.rs:547-552`), and
+`delete_save_file` (best-effort `remove_file` — `src/save.rs:560-565`). The filename stem is the raw base37
 username, so it round-trips through `to_userhash`/`to_raw_username`.
 
 ### 3. The PostgreSQL schema (columnar + relational)
@@ -9501,7 +9501,7 @@ sequenceDiagram
 3. If a `profile` is present, `apply_profile` it (`:2169-2171`).
 4. **New-player detection by content, not flag**: if after applying, all 21 XP values are zero,
    `apply_new_player_defaults` runs (`:2172-2174`). This catches both `Some(None)` (no DB row) *and* a degenerate
-   all-zero existing row. `apply_new_player_defaults` (`src/player_save.rs:502-512`) zeroes all skills, sets all levels
+   all-zero existing row. `apply_new_player_defaults` (`src/save.rs:502-512`) zeroes all skills, sets all levels
    to 1, then sets Hitpoints to level 10 with the matching XP via `get_exp_by_level(10)`, and recomputes combat level —
    the canonical RS starting state.
 5. Stamp `last_date = now()` (`:2176-2179`).
@@ -13262,7 +13262,7 @@ for npcs, maps through `MoveRestrict` to a `CollisionType`/extra-flag pair (sect
 **BlockWalk vs zone membership decoupling** — A deliberate map-load invariant: a static loc
 contributes to collision *only if* its type's `blockwalk` is set, but is added to a zone's
 loc list *only if* its type's `active == Some(true)` — the two are independent
-(`rs-engine/src/game_map.rs:239`).
+(`rs-engine/src/map.rs:239`).
 
 **cam (camera)** — The `rs-cam` crate plus the `CamReset`/`CamShake`/etc. server packets.
 Camera ops are queued in absolute world coordinates and localized to build-area-relative
@@ -13380,7 +13380,7 @@ external `rs-crypto` crate, not the workspace.
 
 **JAG / mapsquare data** — Packed cache archives (`Arc<[u8]>` in `CacheStore`). Mapsquare
 ground/loc/npc/obj data is decompressed (BZip2) on map load to build the collision map and
-static entity lists (`rs-engine/src/game_map.rs`).
+static entity lists (`rs-engine/src/map.rs`).
 
 **loc (location)** — A static or dynamic *scenery* object placed on a tile: trees, doors,
 walls, etc. (the `l` in mapsquare data, `LocType` in the cache). At runtime a loc bit-packs
@@ -13391,13 +13391,13 @@ local `x&7`, `z&7`, and layer (`loc.rs:204`).
 
 **LocAngle** — The 2-bit rotation of a loc: `West = 0, North = 1, East = 2, South = 3`
 (`rs-pack/src/types.rs:42`). On East/West angles, ground-loc collision swaps width/length
-(`game_map.rs:572`).
+(`map.rs:572`).
 
 **LocLayer** — Which of four render/collision layers a loc occupies:
 `Wall = 0, WallDecor = 1, Ground = 2, GroundDecor = 3` (`rs-pack/src/types.rs:51`). The layer
 selects the collision dispatch in `change_loc_collision` — Wall -> `change_wall`, WallDecor
 -> no-op (decorations never block), Ground -> `change_loc`, GroundDecor -> `change_floor`
-(`game_map.rs:553`).
+(`map.rs:553`).
 
 **LocShape** — The geometric/visual sub-form of a loc within its layer (16 variants:
 `WallStraight = 0`, `WallDiagonalCorner = 1`, `WallL = 2`, … `CentrepieceStraight = 10`, …)

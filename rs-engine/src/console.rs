@@ -1,7 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{DbRequest, LoadResult, SaveOutcome};
-use crate::engine::Engine;
-use crate::player_save::{PlayerProfile, PlayerProfileInv, inv_vars};
+use crate::core::Engine;
+use crate::save::{PlayerProfile, PlayerProfileInv, inv_vars};
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, StackMode};
 use rs_pack::cache::CacheStore;

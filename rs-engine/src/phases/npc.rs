@@ -1,6 +1,6 @@
 use crate::active_npc::ActiveNpc;
-use crate::engine::{Engine, NpcEvent, NpcEventKind};
-use crate::engine::{engine, engine_mut};
+use crate::core::{Engine, NpcEvent, NpcEventKind};
+use crate::core::{engine, engine_mut};
 use crate::phases::shared::{EntityId, panic_message};
 #[cfg(target_arch = "x86_64")]
 use core::arch::x86_64::{_MM_HINT_T0, _mm_prefetch};

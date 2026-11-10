@@ -1,5 +1,5 @@
 use crate::active_player::ActivePlayer;
-use crate::engine::{engine, engine_mut};
+use crate::core::{engine, engine_mut};
 use rs_entity::{InteractionTarget, Loc, Obj};
 use rs_grid::CoordGrid;
 use rs_pack::types::InvScope;

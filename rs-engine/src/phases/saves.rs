@@ -2,8 +2,8 @@ use crate::active_player::ActivePlayer;
 #[cfg(since_647)]
 use crate::clients::client_db::SetDisplayNameResult;
 use crate::clients::client_db::{AuthResult, DbResponse, LoadResult, ModOutcome, SaveOutcome};
-use crate::engine::Engine;
-use crate::player_save::delete_save_file;
+use crate::core::Engine;
+use crate::save::delete_save_file;
 use rs_db::ModAction;
 use rs_entity::StaffModLevel;
 use rs_protocol::LoginResponse;

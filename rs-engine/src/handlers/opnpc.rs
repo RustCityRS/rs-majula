@@ -1,5 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::engine;
+use crate::core::engine;
 use crate::handlers::ClientGameHandler;
 use crate::watch::Op;
 use rs_entity::InteractionTarget;

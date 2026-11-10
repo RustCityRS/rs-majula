@@ -1,8 +1,8 @@
 use crate::active_player::ActivePlayer;
 use crate::clients::client_ether::{EtherOutbound, MAX_IGNORES};
+use crate::core::engine;
 #[cfg(before_647)]
 use crate::counters::AutoBan;
-use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client_prot::IgnoreListAdd;
 #[cfg(before_647)]

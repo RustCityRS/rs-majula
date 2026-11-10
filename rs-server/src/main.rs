@@ -33,6 +33,7 @@ use std::sync::{Arc, Mutex, PoisonError, RwLock};
 use std::thread::{self, Builder as ThreadBuilder};
 #[cfg(debug_assertions)]
 use std::time::Instant;
+use std::time::{SystemTime, UNIX_EPOCH};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
 use tokio::runtime::Builder as RuntimeBuilder;
@@ -40,7 +41,7 @@ use tokio::signal::ctrl_c;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{mpsc, oneshot, watch};
 use tokio::task::{JoinHandle, spawn_blocking, yield_now};
-use tokio::time::{self, Duration};
+use tokio::time::{self, Duration, Instant as TokioInstant, Interval};
 use tokio_tungstenite::WebSocketStream;
 use tokio_tungstenite::tungstenite::Message;
 use tracing::{Level, debug, error, info, warn};
@@ -416,6 +417,12 @@ struct Args {
     client_pathfinder: bool,
     #[arg(long, action = ArgAction::Set)]
     staff_isolation: Option<bool>,
+    #[arg(long, default_value_t = 1, value_parser = clap::value_parser!(u8).range(1..=64),
+        help = "Search threads per world; 1 runs on the engine thread")]
+    pathfinder_threads: u8,
+    #[arg(long, value_parser = clap::value_parser!(u16).range(0..600),
+        help = "Align ticks to this millisecond offset within the 600 ms cycle")]
+    tick_offset_ms: Option<u16>,
     #[arg(long, default_value = "false")]
     no_tui: bool,
     #[arg(long, default_value = "true", action = ArgAction::Set)]
@@ -880,6 +887,7 @@ async fn bootstrap(
         db_rx,
     );
     engine.replay_tx = replay_tx;
+    engine.set_pathfinder_threads(args.pathfinder_threads as usize)?;
     if let Some(isolation) = args.staff_isolation {
         engine.staff_isolation = isolation;
     }
@@ -892,6 +900,7 @@ async fn bootstrap(
     restore_purge_delay(purge_delay);
 
     let (admin_tx, admin_rx) = unbounded_channel();
+    let tick_offset_ms = args.tick_offset_ms;
     // The tick has a thread and a timer of its own: busy network workers
     // can't hold up a tick, and a tick never holds up a network worker.
     ThreadBuilder::new()
@@ -912,6 +921,7 @@ async fn bootstrap(
                     shutdown_rx,
                     admin_rx,
                     replay_task,
+                    tick_offset_ms,
                 ));
         })
         .context("couldn't start the engine thread")?;
@@ -1364,6 +1374,27 @@ fn apply_reload(engine: &mut Engine, reload: Reload) {
     release_freed_memory();
 }
 
+fn tick_interval(clock_ms: u64, offset_ms: Option<u16>) -> Interval {
+    let period = Duration::from_millis(clock_ms);
+    let mut interval = if let Some(offset) = offset_ms {
+        let elapsed = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap_or_default();
+        let phase = (elapsed.as_millis() % clock_ms as u128) as u64;
+        let offset = offset as u64 % clock_ms;
+        let delay = if offset >= phase {
+            offset - phase
+        } else {
+            clock_ms - (phase - offset)
+        };
+        time::interval_at(TokioInstant::now() + Duration::from_millis(delay), period)
+    } else {
+        time::interval(period)
+    };
+    interval.set_missed_tick_behavior(MissedTickBehavior::Skip);
+    interval
+}
+
 /// World tick loop, on the engine thread - runs Engine::cycle() every 600ms.
 ///
 /// Also wakes immediately when a hot-reload result arrives to swap the
@@ -1375,11 +1406,11 @@ async fn engine_tick(
     mut shutdown_rx: UnboundedReceiver<()>,
     mut admin_rx: UnboundedReceiver<admin::EngineJob>,
     mut replay_task: Option<JoinHandle<()>>,
+    tick_offset_ms: Option<u16>,
 ) {
     ENGINE_RUNNING.store(true, Ordering::Release);
     let mut clock_ms: u64 = 600;
-    let mut interval = time::interval(Duration::from_millis(clock_ms));
-    interval.set_missed_tick_behavior(MissedTickBehavior::Skip);
+    let mut interval = tick_interval(clock_ms, tick_offset_ms);
     loop {
         if clock_ms == 0 {
             yield_now().await;
@@ -1395,8 +1426,7 @@ async fn engine_tick(
             if clock_rate_rx.has_changed().unwrap_or(false) {
                 clock_ms = *clock_rate_rx.borrow_and_update();
                 if clock_ms != 0 {
-                    interval = time::interval(Duration::from_millis(clock_ms));
-                    interval.set_missed_tick_behavior(MissedTickBehavior::Skip);
+                    interval = tick_interval(clock_ms, tick_offset_ms);
                     info!("Engine clock rate changed to {}ms", clock_ms);
                 }
             }
@@ -1420,8 +1450,7 @@ async fn engine_tick(
                 Ok(()) = clock_rate_rx.changed() => {
                     clock_ms = *clock_rate_rx.borrow_and_update();
                     if clock_ms != 0 {
-                        interval = time::interval(Duration::from_millis(clock_ms));
-                        interval.set_missed_tick_behavior(MissedTickBehavior::Skip);
+                        interval = tick_interval(clock_ms, tick_offset_ms);
                     }
                     info!("Engine clock rate changed to {}ms", clock_ms);
                     continue;

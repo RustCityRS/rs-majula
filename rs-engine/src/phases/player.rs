@@ -1,6 +1,6 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::Engine;
-use crate::engine::{engine, engine_mut};
+use crate::core::Engine;
+use crate::core::{engine, engine_mut};
 use crate::handlers::op_common::{HeldCheck, check_held};
 use crate::phases::shared::{EntityId, panic_message};
 #[cfg(target_arch = "x86_64")]
@@ -732,7 +732,8 @@ impl Engine {
         if let Some(target) = &active.player.interaction.target {
             let src = active.player.pathing.coord.packed();
             let dst = Self::target_coord(target).packed();
-            if active.player.pathing.is_last_or_no_waypoint()
+            if active.pending_path.is_none()
+                && active.player.pathing.is_last_or_no_waypoint()
                 && src == active.player.interaction.last_path_src
                 && dst == active.player.interaction.last_path_dst
             {
@@ -740,7 +741,11 @@ impl Engine {
             }
             active.player.interaction.last_path_src = src;
             active.player.interaction.last_path_dst = dst;
-            Self::entity_path_to_target(&mut active.player.pathing, target, client_pathfinder);
+            if let Some(request) =
+                Self::entity_path_request(&mut active.player.pathing, target, client_pathfinder)
+            {
+                active.request_path(request);
+            }
         };
     }
 

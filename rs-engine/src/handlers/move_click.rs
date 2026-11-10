@@ -1,5 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::engine;
+use crate::core::engine;
 use crate::handlers::ClientGameHandler;
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
@@ -10,6 +10,7 @@ use rs_protocol::network::game::client::move_opclick::MoveOpClick;
 use rs_protocol::network::game::client::pack_coord;
 use rs_protocol::network::game::client::unpack_coord;
 use rs_vm::ScriptError;
+use rsmod::PathRequest;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
 /// Handles the `MoveGameClick` client protocol message.
@@ -189,27 +190,22 @@ fn handle(
         active.process_walktrigger();
     } else {
         let (dest_x, dest_z) = unpack_coord(path[path.len() - 1]);
-        active.player.pathing.queue_waypoints(rsmod::find_path(
+        active.request_path(PathRequest {
             y,
-            active.player.pathing.coord.x(),
-            active.player.pathing.coord.z(),
+            src_x: active.player.pathing.coord.x(),
+            src_z: active.player.pathing.coord.z(),
             dest_x,
             dest_z,
-            1,
-            1,
-            1,
-            0,
-            -1,
-            true,
-            0,
-            25,
-            CollisionType::Normal,
-        ));
-        // The client-path branch above fires the walk trigger once the steps
-        // are queued; a server-pathed walk must too, or a trigger set on the
-        // player (289's [walktrigger,stunned]) never runs on a walk click:
-        // 647's walk carries only the destination.
-        #[cfg(since_647)]
+            src_size: 1,
+            dest_width: 1,
+            dest_length: 1,
+            angle: 0,
+            shape: -1,
+            move_near: true,
+            block_access_flags: 0,
+            max_waypoints: 25,
+            collision: CollisionType::Normal,
+        });
         active.process_walktrigger();
     }
 

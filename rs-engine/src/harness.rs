@@ -14,10 +14,11 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{profile_from_save, to_save};
 use crate::clients::client_game::create_io;
-use crate::engine::{Engine, LoginRequest, engine_mut};
+use crate::core::{Engine, LoginRequest, engine_mut};
+use crate::handlers::client_cheat::spawn_bots;
 use crate::phases::controller::Controllers;
-use crate::player_save::{PlayerProfile, load_binary, save_binary};
 use crate::region::{login_coord, place_returning};
+use crate::save::{PlayerProfile, load_binary, save_binary};
 use rs_crypto::isaac::{Isaac, IsaacPair};
 use rs_db::LoginDevice;
 use rs_entity::build::STAT_COUNT;
@@ -343,6 +344,10 @@ impl Engine {
     pub fn harness_inputs(&mut self) {
         let engine = self as *mut Engine;
         with_engine(self, || unsafe { &mut *engine }.inputs());
+    }
+
+    pub fn harness_local_bots(&mut self, coord: CoordGrid, count: u16) -> u16 {
+        with_engine(self, || spawn_bots(coord, count, 15))
     }
 
     /// Moves a player as `p_telejump` does: placed, not walked, and the

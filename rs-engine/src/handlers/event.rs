@@ -1,7 +1,7 @@
 #[cfg(any(rev = "225", all(since_254, before_647)))]
 use crate::active_player::ActivePlayer;
 #[cfg(all(since_254, before_647))]
-use crate::engine::engine;
+use crate::core::engine;
 #[cfg(any(rev = "225", all(since_254, before_647)))]
 use crate::handlers::ClientGameHandler;
 #[cfg(all(since_254, before_647))]

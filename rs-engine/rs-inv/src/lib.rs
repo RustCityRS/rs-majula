@@ -55,7 +55,7 @@ impl Inventory {
     /// A new `Inventory` with the specified stack mode and all empty slots.
     ///
     /// # Call Stack
-    /// **Called by:** `Engine::get_shared_inv`, player save loading (`player_save.rs`),
+    /// **Called by:** `Engine::get_shared_inv`, player save loading (`save.rs`),
     /// VM `INV_TRANSMIT` op.
     /// **Calls:** nothing.
     pub fn with_stack_mode(capacity: usize, stack_mode: StackMode) -> Self {

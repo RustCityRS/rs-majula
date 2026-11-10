@@ -1,8 +1,9 @@
 use crate::clients::client_db::{AUTO_BAN_HOURS, DbRequest};
 use crate::clients::client_game::{ClientHandle, MAX_UNSENT};
+use crate::core::{Engine, OtherPlayers, engine, engine_mut};
 use crate::counters::{self, AutoBan, COUNTERS};
-use crate::engine::{Engine, OtherPlayers, engine, engine_mut};
 use crate::handlers::ClientGameHandler;
+use crate::pathfinding::PendingPath;
 use crate::phases::logout::TIMEOUT_NO_RESPONSE;
 use crate::phases::shared::EntityId;
 #[cfg(since_647)]
@@ -399,6 +400,7 @@ pub struct ActivePlayer {
     pub ignores: Vec<i64>,
     pub watch: Box<Watch>,
     pub(crate) capture: Option<Vec<Vec<u8>>>,
+    pub(crate) pending_path: Option<PendingPath>,
 }
 
 /// From 647 a component is addressed as `interface << 16 | component`, so its
@@ -482,6 +484,7 @@ impl ActivePlayer {
             ignores: Vec::new(),
             watch: Box::default(),
             capture: None,
+            pending_path: None,
         }
     }
 
@@ -703,7 +706,7 @@ impl ActivePlayer {
     /// ISAAC-encrypted before sending. Messages larger than [`MAX_PACKET_SIZE`]
     /// are silently dropped. During a tick the message joins the player's
     /// output instead (see
-    /// [`Engine::gather_output`](crate::engine::Engine::gather_output)).
+    /// [`Engine::gather_output`](crate::core::Engine::gather_output)).
     ///
     /// # Arguments
     /// * `message` - The server protocol message to send immediately.
@@ -3959,6 +3962,25 @@ impl EnginePlayer for ActivePlayer {
         }
         self.watch.client(engine().clock, &prot, opcode, &buf.data);
 
+        let independent = match prot {
+            ClientProt::MoveGameClick
+            | ClientProt::MoveMinimapClick
+            | ClientProt::MessagePublic
+            | ClientProt::NoTimeout => true,
+            #[cfg(before_647)]
+            ClientProt::MoveOpClick => true,
+            #[cfg(any(rev = "225", since_254))]
+            ClientProt::EventCameraPosition => true,
+            #[cfg(since_254)]
+            ClientProt::EventAppletFocus
+            | ClientProt::EventMouseClick
+            | ClientProt::EventMouseMove => true,
+            _ => false,
+        };
+        if !independent {
+            engine_mut().flush_input_paths();
+        }
+
         #[rustfmt::skip]
         let success = if malformed {
             debug!("Malformed {prot:?}: {} byte(s)", buf.len());
@@ -4728,6 +4750,7 @@ impl EnginePlayer for ActivePlayer {
         match self.player.pathing.teleport(coord) {
             None => self.message_game("Invalid teleport!"),
             Some((look_x, look_z)) => {
+                self.cancel_input_path();
                 #[cfg(since_647)]
                 if coord.x() >= REGION_X && from.x() < REGION_X {
                     self.player.region_entry = Some(from);

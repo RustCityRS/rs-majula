@@ -1,7 +1,7 @@
 use crate::active_player::ActivePlayer;
 #[cfg(any(before_647, debug_assertions))]
-use crate::engine::engine;
-use crate::engine::engine_mut;
+use crate::core::engine;
+use crate::core::engine_mut;
 use crate::handlers::ClientGameHandler;
 #[cfg(before_647)]
 use rs_pack::types::IfButtonType;

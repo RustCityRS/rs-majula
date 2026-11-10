@@ -1,7 +1,7 @@
 use crate::active_player::ActivePlayer;
 #[cfg(debug_assertions)]
-use crate::engine::engine;
-use crate::engine::engine_mut;
+use crate::core::engine;
+use crate::core::engine_mut;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::if_buttond::IfButtonD;
 use rs_vm::ScriptError;

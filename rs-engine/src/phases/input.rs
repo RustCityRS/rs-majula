@@ -1,7 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 #[cfg(since_647)]
-use crate::engine::engine;
-use crate::engine::{Engine, engine_mut};
+use crate::core::engine;
+use crate::core::{Engine, engine_mut};
 use crate::handlers::client_cheat::bot_tick;
 use crate::phases::shared::{EntityId, panic_message};
 use rs_vm::engine::ScriptPlayer;
@@ -47,6 +47,7 @@ impl Engine {
     /// **Calls:** `check_afk`, `ActivePlayer::decode`, `post_process`,
     ///   `refresh_presence`
     pub(crate) fn inputs(&mut self) {
+        self.input_paths.stats = Default::default();
         let pids = self.player_list.take_pids();
         let mut start = 0;
         loop {
@@ -59,15 +60,19 @@ impl Engine {
             match result {
                 Ok(()) => break,
                 Err(panic) => {
+                    self.input_paths.current = None;
                     let pid = pids[start];
                     let msg = panic_message(&panic);
                     error!("panic during input processing for pid {pid}: {msg}");
+                    self.flush_input_paths();
                     self.emergency_remove_player(pid);
                     start += 1;
                 }
             }
         }
         self.player_list.put_pids(pids);
+        self.input_paths.current = None;
+        self.flush_input_paths();
     }
 
     #[inline(always)]
@@ -75,6 +80,7 @@ impl Engine {
         let Some(active) = self.player_list.players[pid as usize].as_mut() else {
             return;
         };
+        self.input_paths.current = Some(active.player.uid);
 
         Self::check_afk(self.clock, active);
         if active.decode() {
@@ -89,6 +95,12 @@ impl Engine {
             error!("bot {pid} tick: {e}");
         }
         Self::post_process(active);
+        active.finish_input_path();
+        self.input_paths.current = None;
+
+        if active.player.pathing.presence != active.player.pathing.coord {
+            engine_mut().flush_input_paths();
+        }
 
         let block_walk = active.player.block_walk;
         Engine::refresh_presence(

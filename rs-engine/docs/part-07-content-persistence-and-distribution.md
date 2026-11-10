@@ -443,7 +443,7 @@ on.
 
 ### 1. `PlayerProfile`: the canonical intermediate representation
 
-All persistence flows through a single value type, `PlayerProfile` (`src/player_save.rs:37-56`). It is deliberately
+All persistence flows through a single value type, `PlayerProfile` (`src/save.rs:37-56`). It is deliberately
 *not* the live `Player` entity — it is a flattened, scope-filtered snapshot containing only persistent state, decoupling
 the wire/DB representation from the in-memory entity layout. Both the binary `.sav` codec and the SQL codec read and
 write this one struct, so there is exactly one definition of "what a player's saved state is."
@@ -457,7 +457,7 @@ write this one struct, so there is exactly one definition of "what a player's sa
 | `gender`                                  | `u8`                    | 0 = male, 1 = female                                              |
 | `runenergy`                               | `u16`                   | Run energy, 0–10000 (one decimal place)                           |
 | `playtime`                                | `i32`                   | Ticks played, incremented every tick                              |
-| `stats`                                   | `[i32; 21]`             | Experience per skill (`STAT_COUNT = 21`, `src/player_save.rs:22`) |
+| `stats`                                   | `[i32; 21]`             | Experience per skill (`STAT_COUNT = 21`, `src/save.rs:22`) |
 | `levels`                                  | `[u8; 21]`              | Current (possibly boosted/drained) level per skill                |
 | `varps`                                   | `Vec<(u16, i32)>`       | Perm-scope player variables: `(id, value)`                        |
 | `invs`                                    | `Vec<PlayerProfileInv>` | Perm-scope inventories                                            |
@@ -466,51 +466,51 @@ write this one struct, so there is exactly one definition of "what a player's sa
 | `public_chat`/`private_chat`/`trade_chat` | `u8`                    | Chat privacy settings (enum-as-byte)                              |
 | `last_date`                               | `i64`                   | Unix epoch seconds of last login                                  |
 
-`PlayerProfileInv` (`src/player_save.rs:28-31`) holds an `inv_type: u16` and `items: Vec<(u16, u16, u32)>` —
+`PlayerProfileInv` (`src/save.rs:28-31`) holds an `inv_type: u16` and `items: Vec<(u16, u16, u32)>` —
 `(slot, obj_id, count)` tuples. Note the *sparse* representation: only occupied slots are stored, not a dense
 capacity-sized array. This is the first of several space optimizations that distinguish the in-memory/DB form from the
 on-disk binary form (which is dense — see §3).
 
 #### 1.1 `extract_profile` — live entity → profile (scope filtering)
 
-`extract_profile(player, cache)` (`src/player_save.rs:69-130`) walks the player's varps and inventories and applies the
+`extract_profile(player, cache)` (`src/save.rs:69-130`) walks the player's varps and inventories and applies the
 cache's *scope* metadata to decide what is persistent:
 
 - **Varps:** iterate every varp id, look up `VarPlayerScope` from `cache.varps`. Only `VarPlayerScope::Perm` varps are
-  kept, and only if their value is non-zero (`src/player_save.rs:78-83`). Unknown ids default to `Temp` and are dropped.
+  kept, and only if their value is non-zero (`src/save.rs:78-83`). Unknown ids default to `Temp` and are dropped.
   This is both a size win and a correctness guarantee — transient combat/UI state never leaks into a save.
 - **Inventories:** iterate `player.invs`, look up `InvScope` from `cache.invs`, skip anything not `InvScope::Perm` (
-  `src/player_save.rs:91-95`). Empty inventories (no occupied slots) are omitted entirely (`src/player_save.rs:102`).
+  `src/save.rs:91-95`). Empty inventories (no occupied slots) are omitted entirely (`src/save.rs:102`).
 
 Everything else (coords, appearance, stats, chat settings, AFK zones, `last_date`) is copied wholesale. The result is a
 self-contained profile that can be serialised by either backend.
 
 #### 1.2 `apply_profile` — profile → live entity (with derivation)
 
-`apply_profile(profile, player, cache)` (`src/player_save.rs:150-215`) is the inverse, but it does *more* than copy
+`apply_profile(profile, player, cache)` (`src/save.rs:150-215`) is the inverse, but it does *more* than copy
 fields — it reconstructs derived state that is intentionally not persisted:
 
 - Sets `pathing.coord`, and seeds `last_step_coord`/`follow_coord` to one tile west of spawn (`x-1`, saturating) so
-  movement interpolation has a sane prior (`src/player_save.rs:151-155`).
+  movement interpolation has a sane prior (`src/save.rs:151-155`).
 - Restores `stats.xp` and `stats.levels`, then **recomputes** `base_levels[i]` from XP via `get_level_by_exp` (
-  `src/player_save.rs:163-165`) and recomputes `combat_level` via `get_combat_level()` (`src/player_save.rs:166`). Base
+  `src/save.rs:163-165`) and recomputes `combat_level` via `get_combat_level()` (`src/save.rs:166`). Base
   level and combat level are derived, never stored — eliminating a class of save corruption where stored level and
   stored XP disagree.
 - Decodes the three chat-settings bytes into their typed enums (`ChatSettingsPublic`/`Private`/`TradeDuel`), with the
-  numeric mapping inverse to `extract_profile`'s `as u8` cast (`src/player_save.rs:172-187`).
+  numeric mapping inverse to `extract_profile`'s `as u8` cast (`src/save.rs:172-187`).
 - Applies varps through `VarValue::from_int(varp_type.var_type, value)`, guarding `id < player.varps.len()` and skipping
-  unknown ids (`src/player_save.rs:189-197`).
+  unknown ids (`src/save.rs:189-197`).
 - Rebuilds each inventory using the cache's declared `size` and `stackall` flag, choosing `StackMode::Always` or
-  `StackMode::Normal`, and refuses out-of-range slots (`src/player_save.rs:199-214`). Capacity defaults to 28 if the inv
+  `StackMode::Normal`, and refuses out-of-range slots (`src/save.rs:199-214`). Capacity defaults to 28 if the inv
   type is unknown.
 
 Crucially, `last_date` is restored into *both* `player.last_date` and `player.last_login_date` (
-`src/player_save.rs:169-170`) — the loaded value is the *previous* login, used to show "welcome back" timing, and is
+`src/save.rs:169-170`) — the loaded value is the *previous* login, used to show "welcome back" timing, and is
 then overwritten with `now()` at the end of `accept_login` (see §5.4).
 
 ### 2. The `.sav` binary format (TS-compatible fallback)
 
-The binary codec (`save_binary`/`load_binary`, `src/player_save.rs:231-482`) exists so the server can persist players
+The binary codec (`save_binary`/`load_binary`, `src/save.rs:231-482`) exists so the server can persist players
 even when PostgreSQL is unreachable, and so it can interoperate with the reference TypeScript server's save files. It is
 written with `rs_io::Packet`, whose `p2`/`p4`/`p8` primitives emit **big-endian** integers (matching the JVM/RS wire
 convention).
@@ -519,8 +519,8 @@ convention).
 
 | Const         | Value         | Source                  |
 |---------------|---------------|-------------------------|
-| `SAV_MAGIC`   | `0x2004`      | `src/player_save.rs:16` |
-| `SAV_VERSION` | `6` (current) | `src/player_save.rs:19` |
+| `SAV_MAGIC`   | `0x2004`      | `src/save.rs:16` |
+| `SAV_VERSION` | `6` (current) | `src/save.rs:19` |
 
 The file is a flat byte stream terminated by a 4-byte CRC32 trailer. Layout (offsets relative to start; multi-byte
 values big-endian):
@@ -555,16 +555,16 @@ values big-endian):
 
 Two encoding subtleties matter:
 
-- **Varps are dense in the file** (`src/player_save.rs:257-276`): the writer emits one `i32` for *every* varp slot in
+- **Varps are dense in the file** (`src/save.rs:257-276`): the writer emits one `i32` for *every* varp slot in
   the cache, writing the value if the slot is Perm-scope and 0 otherwise. This trades file size for positional
   addressing (no id stored per varp). The DB form, by contrast, is sparse. `load_binary` reverses this by reading
   `varp_count` consecutive `i32`s and keeping only the non-zero ones with their positional index (
-  `src/player_save.rs:397-404`).
-- **Inventories are dense per slot** (`src/player_save.rs:282-307`): for each saved inv, the writer emits `type`,
+  `src/save.rs:397-404`).
+- **Inventories are dense per slot** (`src/save.rs:282-307`): for each saved inv, the writer emits `type`,
   `capacity`, then `capacity` entries. Each occupied slot writes `obj_id + 1` (so 0 is reserved for "empty"), then a
   count that is either a single byte (`< 255`) or a `255` sentinel followed by a full `i32` for large stacks (
-  `src/player_save.rs:288-304`). Empty slots write a single `p2(0)`. The `inv_count` byte is back-patched after the loop
-  via `sav.data[inv_count_pos] = inv_count` (`src/player_save.rs:278-307`).
+  `src/save.rs:288-304`). Empty slots write a single `p2(0)`. The `inv_count` byte is back-patched after the loop
+  via `sav.data[inv_count_pos] = inv_count` (`src/save.rs:278-307`).
 
 The `+1` obj-id biasing and `255`-sentinel count encoding are exact mirrors of the TS reference server, preserving
 binary interoperability.
@@ -572,7 +572,7 @@ binary interoperability.
 #### 2.2 Versioned, forward-compatible reads
 
 `load_binary` validates `magic`, rejects `version > SAV_VERSION`, then verifies the CRC32 trailer *before* parsing any
-payload (`src/player_save.rs:346-366`). It reads older formats by gating fields on the version:
+payload (`src/save.rs:346-366`). It reads older formats by gating fields on the version:
 
 | Field                           | Introduced                      |
 |---------------------------------|---------------------------------|
@@ -587,8 +587,8 @@ This monotonic versioning lets a running server upgrade old saves transparently 
 #### 2.3 Local file I/O
 
 Three thin helpers manage the `data/players/{username}.sav` path: `save_to_file` (creates the dir, writes, logs on
-error — `src/player_save.rs:527-538`), `load_from_file` (returns `Option<Vec<u8>>` — `src/player_save.rs:547-552`), and
-`delete_save_file` (best-effort `remove_file` — `src/player_save.rs:560-565`). The filename stem is the raw base37
+error — `src/save.rs:527-538`), `load_from_file` (returns `Option<Vec<u8>>` — `src/save.rs:547-552`), and
+`delete_save_file` (best-effort `remove_file` — `src/save.rs:560-565`). The filename stem is the raw base37
 username, so it round-trips through `to_userhash`/`to_raw_username`.
 
 ### 3. The PostgreSQL schema (columnar + relational)
@@ -801,7 +801,7 @@ sequenceDiagram
 3. If a `profile` is present, `apply_profile` it (`:2169-2171`).
 4. **New-player detection by content, not flag**: if after applying, all 21 XP values are zero,
    `apply_new_player_defaults` runs (`:2172-2174`). This catches both `Some(None)` (no DB row) *and* a degenerate
-   all-zero existing row. `apply_new_player_defaults` (`src/player_save.rs:502-512`) zeroes all skills, sets all levels
+   all-zero existing row. `apply_new_player_defaults` (`src/save.rs:502-512`) zeroes all skills, sets all levels
    to 1, then sets Hitpoints to level 10 with the matching XP via `get_exp_by_level(10)`, and recomputes combat level —
    the canonical RS starting state.
 5. Stamp `last_date = now()` (`:2176-2179`).

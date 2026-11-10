@@ -1,11 +1,11 @@
 use crate::console::home_for;
-use crate::engine::{Engine, PendingZoneEvent};
-use crate::game_map::{
+use crate::core::{Engine, PendingZoneEvent};
+use crate::map::{
     BLOCK_MAP_SQUARE, GameMap, LINK_BELOW, MAPSQUARE, REMOVE_ROOFS, SquareTemplate,
     apply_loc_collision, change_loc_collision,
 };
 use crate::phases::shared::EntityId;
-use crate::player_save::PlayerProfile;
+use crate::save::PlayerProfile;
 use num_enum::TryFromPrimitive;
 use rs_entity::{EntityLifeTime, Loc, LocSerial};
 use rs_grid::mapsquare_coord::MapsquareCoordGrid;

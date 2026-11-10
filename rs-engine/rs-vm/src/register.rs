@@ -16,7 +16,7 @@ pub type Handler = fn(&mut ScriptState) -> crate::Result<()>;
 /// opcodes at runtime.
 ///
 /// # Call Stack
-/// **Called by:** `Engine::new` via `register_ops` (rs-engine/src/engine.rs)
+/// **Called by:** `Engine::new` via `register_ops` (rs-engine/src/script/mod.rs)
 /// **Used by:** `vm::execute` (rs-vm/src/vm.rs)
 pub struct OpsRegistry {
     table: Box<[Option<Handler>]>,

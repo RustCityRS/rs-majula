@@ -545,6 +545,8 @@ before `migrate`).
 | `--node-id <ID>` | `10` | The world's node id. 10 is world 1, 11 is world 2, and so on. The ports below are worked out from it. |
 | `--members <BOOL>` | `true` | Members or free-to-play rules. `--members false` runs a free world. |
 | `--client-pathfinder` | `true` | Trust the paths the client works out for walking. |
+| `--pathfinder-threads` | `1` | Search threads per world. `1` runs on the engine thread; larger values use a bounded worker pool. Input keeps the final route request per player while processing each click's walk trigger. |
+| `--tick-offset-ms` | unset | Align ticks to an offset from `0` to `599` ms within the tick cycle. Four worlds sharing four cores can use `0`, `150`, `300`, and `450` to spread their CPU work. |
 | `--verify` | `true` | Check at startup that the packed cache matches byte for byte. |
 | `--pack-cache <BOOL>` | `true` in debug, `false` in release | Reuse what earlier startups packed from content that hasn't changed since, kept in `data/pack-cache/<rev>`, to speed up development. `--pack-cache false` packs everything. |
 | `--no-tui` | `false` | Log to stdout instead of showing the dashboard. It does this by itself when stdout isn't a terminal. |

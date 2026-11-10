@@ -6,9 +6,9 @@ use crate::active_player::ActivePlayer;
 #[cfg(before_647)]
 use crate::clients::client_ether::EtherOutbound;
 #[cfg(before_647)]
-use crate::counters::{self, AutoBan, CHAT_PRIVATE, COUNTERS};
+use crate::core::engine;
 #[cfg(before_647)]
-use crate::engine::engine;
+use crate::counters::{self, AutoBan, CHAT_PRIVATE, COUNTERS};
 #[cfg(before_647)]
 use crate::handlers::ClientGameHandler;
 #[cfg(before_647)]

@@ -1,5 +1,5 @@
 use crate::active_player::EnginePlayer;
-use crate::engine::Engine;
+use crate::core::Engine;
 use rs_vm::engine::ScriptPlayer;
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::state::{QueuePriority, ScriptArgument, ScriptState};

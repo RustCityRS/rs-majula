@@ -1,4 +1,4 @@
-use crate::engine::{Engine, engine, engine_mut};
+use crate::core::{Engine, engine, engine_mut};
 use crate::phases::shared::EntityId;
 use rs_entity::{EntityLifeTime, Npc, NpcUid};
 use rs_grid::CoordGrid;

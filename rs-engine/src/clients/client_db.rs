@@ -1,6 +1,6 @@
 use crate::counters::{self, COUNTERS, mod_action_index};
 use crate::phases::login::{LOGIN_FAILURE_WINDOW_SECS, MAX_LOGIN_FAILURES};
-use crate::player_save::{
+use crate::save::{
     PlayerProfile, PlayerProfileInv, delete_save_file, load_binary, load_from_file,
     orphan_save_file, save_orphan, save_to_file,
 };

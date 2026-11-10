@@ -35,9 +35,9 @@ impl VarSet {
     ///   from `cache.varps` type definitions.
     /// - `Engine::add_npc_spawned` (rs-engine/src/engine.rs) -- NPC varns from
     ///   `cache.varns` type definitions.
-    /// - `GameMap` NPC loading (rs-engine/src/game_map.rs) -- NPC varns during
+    /// - `GameMap` NPC loading (rs-engine/src/map.rs) -- NPC varns during
     ///   map deserialization.
-    /// - `Player::new` (rs-engine/src/player_save.rs) -- player varps during
+    /// - `Player::new` (rs-engine/src/save.rs) -- player varps during
     ///   player construction.
     ///
     /// **Calls:** [`VarValue::default_for`] for each type.
@@ -66,7 +66,7 @@ impl VarSet {
     ///   (rs-engine/src/active_player.rs) -- reads varp values for client sync.
     /// - NPC hunt phase checks (rs-engine/src/phases/npc.rs) -- reads varps
     ///   and varns during hunt condition evaluation.
-    /// - Player save serialization (rs-engine/src/player_save.rs) -- reads
+    /// - Player save serialization (rs-engine/src/save.rs) -- reads
     ///   each permanent varp for persistence.
     #[inline]
     pub fn get(&self, id: u16) -> &VarValue {

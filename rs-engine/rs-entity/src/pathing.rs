@@ -26,6 +26,7 @@ pub enum MoveStrategy {
 pub struct PathingEntity {
     pub last_movement: u32,
     pub waypoints: Waypoints,
+    pub path_revision: u32,
     pub coord: CoordGrid,
     pub presence: CoordGrid,
     pub walk_step: Option<Direction>,
@@ -68,6 +69,7 @@ impl PathingEntity {
             run_dir: -1,
             walk_step: None,
             waypoints: Waypoints::new(),
+            path_revision: 0,
             steps_taken: 0,
             last_movement: 0,
             jump: true,
@@ -203,6 +205,7 @@ impl PathingEntity {
     /// # Side Effects
     /// * Sets `waypoints[0]` to the packed coordinate and `waypoint_index` to 0.
     pub fn queue_waypoint(&mut self, coord: CoordGrid) {
+        self.path_revision = self.path_revision.wrapping_add(1);
         self.waypoints[0] = coord;
         self.waypoints.index = 0;
     }
@@ -219,6 +222,7 @@ impl PathingEntity {
     /// # Side Effects
     /// * Fills `self.waypoints` in reverse and sets `self.waypoints.index` accordingly.
     pub fn queue_waypoints(&mut self, waypoints: &[u32]) {
+        self.path_revision = self.path_revision.wrapping_add(1);
         let len = if waypoints.len() < Waypoints::CAPACITY {
             waypoints.len()
         } else {
@@ -237,6 +241,7 @@ impl PathingEntity {
     /// # Side Effects
     /// * Sets `waypoint_index` to -1.
     pub const fn clear_waypoints(&mut self) {
+        self.path_revision = self.path_revision.wrapping_add(1);
         self.waypoints.index = -1;
     }
 

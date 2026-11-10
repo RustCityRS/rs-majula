@@ -2,8 +2,8 @@ use crate::active_npc::ActiveNpc;
 use crate::active_player::ActivePlayer;
 use crate::build::ActiveBuildArea;
 #[cfg(before_647)]
-use crate::engine::OtherPlayers;
-use crate::engine::engine;
+use crate::core::OtherPlayers;
+use crate::core::engine;
 use crate::watch::Target;
 use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS, Npc, PathingEntity, Player};
 #[cfg(since_647)]
@@ -1553,6 +1553,7 @@ mod client_decode_tests {
             ignores: Vec::new(),
             watch: Box::default(),
             capture: None,
+            pending_path: None,
         }
     }
 

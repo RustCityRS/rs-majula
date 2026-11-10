@@ -1,6 +1,6 @@
 use crate::active_player::ActivePlayer;
 use crate::clients::client_ether::EtherOutbound;
-use crate::engine::engine;
+use crate::core::engine;
 use crate::handlers::ClientGameHandler;
 use rs_entity::{ChatSettingsPrivate, ChatSettingsPublic, ChatSettingsTradeDuel};
 use rs_protocol::network::game::client_prot::ChatSetMode;

@@ -1,4 +1,4 @@
-use crate::engine::Engine;
+use crate::core::Engine;
 use crate::info::{NpcSnapshot, PlayerSnapshot};
 use crate::phases::shared::panic_message;
 #[cfg(since_647)]

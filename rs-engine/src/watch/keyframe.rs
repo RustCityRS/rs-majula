@@ -1,5 +1,5 @@
 use crate::active_player::ActivePlayer;
-use crate::engine::{Engine, OtherPlayers, engine};
+use crate::core::{Engine, OtherPlayers, engine};
 use crate::info::{NpcInfo, PlayerInfo};
 use rs_entity::EntityLifeTime;
 use rs_inv::Inventory;

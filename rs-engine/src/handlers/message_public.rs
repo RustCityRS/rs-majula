@@ -1,6 +1,6 @@
 use crate::active_player::ActivePlayer;
+use crate::core::engine;
 use crate::counters::{self, CHAT_PUBLIC, COUNTERS};
-use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
 #[cfg(since_647)]
 use rs_entity::player::CHAT_MODE_CLAN;

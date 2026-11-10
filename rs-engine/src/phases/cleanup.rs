@@ -1,4 +1,4 @@
-use crate::engine::Engine;
+use crate::core::Engine;
 use rs_entity::lifetime::EntityLifeTime;
 
 /// Default restock interval (in ticks) for inventory slots that have

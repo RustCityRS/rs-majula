@@ -35,13 +35,26 @@ pub fn content_dir() -> PathBuf {
 ///
 /// Paths are relative to the workspace root, as they are for the server.
 pub fn load_engine() -> anyhow::Result<Engine> {
+    load_engine_inner(cfg!(debug_assertions), true)
+}
+
+pub fn load_engine_cached() -> anyhow::Result<Engine> {
+    load_engine_inner(true, false)
+}
+
+fn load_engine_inner(pack_cache: bool, compile_tests: bool) -> anyhow::Result<Engine> {
     let content = content_dir();
     let pack = PathBuf::from(rs_pack::PACK_DIR);
 
-    let rs_pack::startup::PackResult { store, layout, .. } = rs_pack::pack_all(
+    let rs_pack::startup::PackResult {
+        store,
+        layout,
+        scripts,
+        ..
+    } = rs_pack::pack_all(
         &content,
         &pack,
-        cfg!(debug_assertions).then_some(Path::new(rs_pack::PACK_CACHE_DIR)),
+        pack_cache.then_some(Path::new(rs_pack::PACK_CACHE_DIR)),
         false,
         true,
     )?;
@@ -52,11 +65,16 @@ pub fn load_engine() -> anyhow::Result<Engine> {
     // exactly as the server's does.
     let cache: &'static CacheStore = unsafe { &*cache_ptr };
 
-    let (dat, idx) =
-        runec::compile_memory_with_tests(&content.join("scripts"), Some(&pack), false, true)
-            .map_err(|e| anyhow::anyhow!("compile with tests: {e}"))?;
-    let scripts = ScriptProvider::from_bytes(&dat, &idx);
-    info!("compiled {} scripts with tests", scripts.count());
+    let scripts = if compile_tests {
+        let (dat, idx) =
+            runec::compile_memory_with_tests(&content.join("scripts"), Some(&pack), false, true)
+                .map_err(|e| anyhow::anyhow!("compile with tests: {e}"))?;
+        let scripts = ScriptProvider::from_bytes(&dat, &idx);
+        info!("compiled {} scripts with tests", scripts.count());
+        scripts
+    } else {
+        scripts
+    };
 
     let (_login_tx, login_rx) = mpsc::unbounded_channel();
     let (stats_tx, _stats_rx) = watch::channel(TickStats::default());

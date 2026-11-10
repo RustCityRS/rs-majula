@@ -73,44 +73,82 @@ pub trait ScriptEngine {
     /// The experience multiplier as defined in the environment args on the engine.
     fn multi_experience(&self) -> u8;
 
+    /// Returns the cache's obj types.
     fn objs(&self) -> &ObjTypeProvider;
+    /// Returns the cache's inv types.
     fn invs(&self) -> &InvTypeProvider;
+    /// Returns the cache's varp (player variable) types.
     fn varps(&self) -> &VarPlayerTypeProvider;
+    /// Returns the cache's varbit types, bit ranges of varps.
     #[cfg(since_254)]
     fn varbits(&self) -> &VarbitTypeProvider;
+    /// Returns the cache's varobj types, the vars an obj can carry.
     #[cfg(since_647)]
     fn varobjs(&self) -> &VarObjTypeProvider;
+    /// Returns the cache's varcon (controller variable) types.
     #[cfg(since_647)]
     fn varcons(&self) -> &VarConTypeProvider;
+    /// Returns the cache's varconbit types, bit ranges of varcons.
     #[cfg(since_647)]
     fn varconbits(&self) -> &VarbitTypeProvider;
+    /// Returns the cache's dbrow types.
     fn dbrows(&self) -> &DbRowTypeProvider;
+    /// Returns the cache's dbtable types.
     fn dbtables(&self) -> &DbTableTypeProvider;
+    /// Returns the cache's dbrow index by column value (`db_find`, `db_find_refine`).
     fn dbindex(&self) -> &DbTableIndex;
+    /// Returns the cache's enum types.
     fn enums(&self) -> &EnumTypeProvider;
+    /// Returns the cache's flo (floor) types.
     fn flos(&self) -> &FloTypeProvider;
+    /// Returns the cache's hunt types, the npc hunt modes.
     fn hunts(&self) -> &HuntTypeProvider;
+    /// Returns the cache's idk (identity kit) types.
     fn idks(&self) -> &IdkTypeProvider;
+    /// Returns the cache's loc types.
     fn locs(&self) -> &LocTypeProvider;
+    /// Returns the cache's mesanim (dialogue chathead animation) types.
     fn mesanims(&self) -> &MesAnimTypeProvider;
+    /// Returns the cache's npc types.
     fn npcs(&self) -> &NpcTypeProvider;
+    /// Returns the cache's param types.
     fn params(&self) -> &ParamTypeProvider;
+    /// Returns the cache's seq (animation) types.
     fn seqs(&self) -> &SeqTypeProvider;
+    /// Returns the cache's spotanim (graphic) types.
     fn spotanims(&self) -> &SpotAnimTypeProvider;
+    /// Returns the cache's struct types.
     fn structs(&self) -> &StructTypeProvider;
+    /// Returns the cache's varn (npc variable) types.
     fn varns(&self) -> &VarnTypeProvider;
+    /// Returns the cache's vars (shared variable) types.
     fn varss(&self) -> &VarsTypeProvider;
+    /// Returns the cache's font types.
     fn fonts(&self) -> &FontTypeProvider;
+    /// Returns the cache's category types.
     fn categories(&self) -> &CategoryTypeProvider;
+    /// Returns the cache's interface component types.
     fn interfaces(&self) -> &IfTypeProvider;
+    /// Returns the cache's word filter, which censors chat.
     fn wordenc(&self) -> &WordEncProvider;
 
+    /// Returns how many ticks the midi with `midi` id `id` lasts (from 647 a
+    /// song's own id, or a jingle's plus `MIDI_JINGLE_BASE`), for `midi_length`
+    /// and the delay `midi_jingle` sends; `None` if no length is known.
     #[cfg(since_254)]
     fn midi_tick_length(&self, id: i32) -> Option<u16>;
+    /// Looks up a jingle by name, for rev 225's `midi_jingle`, which sends the
+    /// jingle's data and `length_ms` itself.
     #[cfg(rev = "225")]
     fn jingle_by_name(&self, name: &str) -> Option<&MidiType>;
+    /// Looks up a song by name (`pop_song` lowercases it and turns spaces into
+    /// underscores first), for rev 225's `midi_song`, which sends the song's
+    /// name, crc and byte length.
     #[cfg(rev = "225")]
     fn song_by_name(&self, name: &str) -> Option<&MidiType>;
+    /// Returns the midi id of the song or jingle named `name`, for the
+    /// `midi_song` and `midi_jingle` of 244 and 245.2, whose scripts name the
+    /// music; `None` if no midi has that name, and nothing plays.
     #[cfg(all(since_244, before_254))]
     fn midi_id(&self, name: &str) -> Option<u16>;
 
@@ -238,23 +276,19 @@ pub trait ScriptEngine {
         npcs
     }
 
-    /// Returns the packed coordinates of all players in the specified zone.
+    /// Returns the coordinates of all players in the specified zone.
     ///
     /// # Arguments
-    /// * `x` - The zone X coordinate.
-    /// * `y` - The zone level (height plane).
-    /// * `z` - The zone Z coordinate.
+    /// * `coord` - A coordinate in the zone.
     ///
     /// # Returns
-    /// A `Vec<u32>` of packed `CoordGrid` values for each player in the zone.
+    /// The [`CoordGrid`] of each player in the zone.
     fn get_zone_player_coords(&self, coord: CoordGrid) -> Vec<CoordGrid>;
 
     /// Returns the player slot indices for all players in the specified zone.
     ///
     /// # Arguments
-    /// * `x` - The zone X coordinate.
-    /// * `y` - The zone level (height plane).
-    /// * `z` - The zone Z coordinate.
+    /// * `coord` - A coordinate in the zone.
     ///
     /// # Returns
     /// A slice of player slot indices (`&[u16]`).
@@ -385,9 +419,7 @@ pub trait ScriptEngine {
     /// Returns all locations (locs) present in the specified zone.
     ///
     /// # Arguments
-    /// * `x` - The zone X coordinate.
-    /// * `y` - The zone level (height plane).
-    /// * `z` - The zone Z coordinate.
+    /// * `coord` - A coordinate in the zone.
     ///
     /// # Returns
     /// A `Vec<LocRef>` of location references in the zone.
@@ -396,9 +428,7 @@ pub trait ScriptEngine {
     /// Finds a specific location at the given tile.
     ///
     /// # Arguments
-    /// * `x` - The tile X coordinate.
-    /// * `z` - The tile Z coordinate.
-    /// * `y` - The level (height plane).
+    /// * `coord` - The tile to search.
     /// * `id` - The location type identifier.
     ///
     /// # Returns
@@ -712,12 +742,18 @@ pub trait ScriptEngine {
         duration: i32,
     ) -> crate::Result<ControllerUid>;
 
+    /// Returns the coord controller `uid` stands on, or an error once it has
+    /// been deleted.
     #[cfg(since_647)]
     fn controller_coord(&self, uid: ControllerUid) -> crate::Result<CoordGrid>;
 
+    /// Deletes controller `uid` with its vars, queue and timer, freeing its
+    /// slot for reuse under a new uid; does nothing if it is already gone.
     #[cfg(since_647)]
     fn controller_del(&mut self, uid: ControllerUid);
 
+    /// Finds the controller of type `id` standing exactly on `coord`, the
+    /// earliest added when there are several.
     #[cfg(since_647)]
     fn controller_findexact(&self, coord: CoordGrid, id: u16) -> Option<ControllerUid>;
 
@@ -748,9 +784,13 @@ pub trait ScriptEngine {
     #[cfg(since_647)]
     fn controller_settimer(&mut self, uid: ControllerUid, interval: i32) -> crate::Result<()>;
 
+    /// Reads varcon `id` of controller `uid`; an error if the controller is
+    /// gone or there is no varcon `id`.
     #[cfg(since_647)]
     fn controller_var(&self, uid: ControllerUid, id: u16) -> crate::Result<VarValue>;
 
+    /// Writes varcon `id` of controller `uid`; an error if the controller is
+    /// gone or there is no varcon `id`.
     #[cfg(since_647)]
     fn set_controller_var(
         &mut self,
@@ -1695,8 +1735,7 @@ pub trait ScriptPlayer {
     /// Makes the player face a specific tile.
     ///
     /// # Arguments
-    /// * `x` - The tile X coordinate to face.
-    /// * `z` - The tile Z coordinate to face.
+    /// * `coord` - The tile to face.
     fn facesquare(&mut self, coord: CoordGrid);
 
     /// Plays a synthesized sound effect for the player.
@@ -1905,19 +1944,53 @@ pub trait ScriptPlayer {
     ///
     /// # Arguments
     /// * `script_id` - The timer script identifier to look up.
-    /// * `now` - The current game tick.
     ///
     /// # Returns
     /// The clock of the timer for the given script, or `-1` if the
     /// player has no timer for that script.
     fn gettimer(&self, script_id: i32) -> i32;
 
+    /// Turns the player's camera to look at a tile (`cam_lookat`). The update
+    /// waits on the player's camera queue until the output phase's
+    /// `update_map` drains it, writing `CamLookAt` (`CamLookat` from 647) with
+    /// the tile made local to that tick's build area.
+    ///
+    /// # Arguments
+    /// * `x`, `z` - The absolute tile to look at.
+    /// * `height` - The height above the tile of the point looked at.
+    /// * `rate` - The camera's constant speed (the 647 packet's `const_speed`).
+    /// * `rate2` - Its variable speed (`var_speed`).
+    ///
+    /// # Returns
+    /// Always `Ok(())`; the camera queue takes every update.
     fn cam_lookat(&mut self, x: u16, z: u16, height: u16, rate: u8, rate2: u8)
     -> crate::Result<()>;
 
+    /// Moves the player's camera to a tile (`cam_moveto`), queued and made
+    /// local as [`cam_lookat`](Self::cam_lookat) is and written as `CamMoveTo`
+    /// (`CamMoveto` from 647).
+    ///
+    /// # Arguments
+    /// * `x`, `z` - The absolute tile to move to.
+    /// * `height` - The camera's height above the tile.
+    /// * `rate` - The camera's constant speed (the 647 packet's `const_speed`).
+    /// * `rate2` - Its variable speed (`var_speed`).
+    ///
+    /// # Returns
+    /// Always `Ok(())`; the camera queue takes every update.
     fn cam_moveto(&mut self, x: u16, z: u16, height: u16, rate: u8, rate2: u8)
     -> crate::Result<()>;
 
+    /// Shakes the player's camera (`cam_shake`), writing `CamShake` when the
+    /// script runs rather than through the camera queue, as it names no tile.
+    /// The wobble starts at cycle 0 on every revision: 647's packet carries
+    /// the starting cycle, sent as 0.
+    ///
+    /// # Arguments
+    /// * `direction` - Which of the camera's position or angle values shakes.
+    /// * `jitter` - The size of the random part of the shake.
+    /// * `amplitude` - The size of the wobble.
+    /// * `frequency` - How fast it wobbles.
     fn cam_shake(&mut self, direction: u8, jitter: u8, amplitude: u8, frequency: u8);
 
     /// Returns an immutable reference to a player inventory.
@@ -2008,16 +2081,14 @@ pub trait ScriptPlayer {
     /// Appends a waypoint to the player's movement queue.
     ///
     /// # Arguments
-    /// * `x` - The destination tile X coordinate.
-    /// * `z` - The destination tile Z coordinate.
+    /// * `coord` - The destination tile.
     fn queue_waypoint(&mut self, coord: CoordGrid);
 
     /// Starts the player walking toward the given tile, replacing any
     /// existing waypoints.
     ///
     /// # Arguments
-    /// * `dest_x` - The destination tile X coordinate.
-    /// * `dest_z` - The destination tile Z coordinate.
+    /// * `coord` - The destination tile.
     fn walk(&mut self, coord: CoordGrid);
 
     /// Clears all pending movement waypoints.
@@ -2315,15 +2386,13 @@ pub trait ScriptNpc {
     /// Makes the NPC face a specific tile.
     ///
     /// # Arguments
-    /// * `x` - The tile X coordinate to face.
-    /// * `z` - The tile Z coordinate to face.
+    /// * `coord` - The tile to face.
     fn facesquare(&mut self, coord: CoordGrid);
 
     /// Walks the NPC toward the given tile using pathfinding.
     ///
     /// # Arguments
-    /// * `x` - The destination tile X coordinate.
-    /// * `z` - The destination tile Z coordinate.
+    /// * `coord` - The destination tile.
     fn walk(&mut self, coord: CoordGrid);
 
     /// Sets the maximum hunt range for this NPC's AI.
@@ -2376,11 +2445,10 @@ thread_local! {
     static ENGINE_PTR: Cell<*mut ()> = const { Cell::new(null_mut()) };
 }
 
-/// Stores raw engine and cache pointers into thread-local storage.
+/// Stores the raw engine pointer in thread-local storage.
 ///
 /// # Arguments
 /// * `engine` - A type-erased mutable pointer to the engine instance.
-/// * `cache` - A const pointer to the [`CacheStore`].
 ///
 /// # Side Effects
 /// Overwrites the `ENGINE_PTR` thread-local for the current thread.

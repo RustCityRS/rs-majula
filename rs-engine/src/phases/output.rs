@@ -1,7 +1,7 @@
 #[cfg(since_647)]
 use crate::active_player::ActivePlayer;
 use crate::active_player::EnginePlayer;
-use crate::engine::Engine;
+use crate::core::Engine;
 use crate::phases::shared::panic_message;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
