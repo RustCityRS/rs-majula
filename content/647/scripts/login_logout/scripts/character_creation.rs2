@@ -200,7 +200,7 @@ def_int $colour_feet = struct_param($sub_struct, calc($base_param + 2));
 // Grid handlers: individual body part / colour selection
 // ═════════════════════════════════════════════════════════════════════════
 
-[if_button,playerdesign4:menu]
+[if_button1,playerdesign4:menu]
 if (p_finduid(uid) = true) {
     def_int $slot = last_slot;
     def_int $part = %character_part;
@@ -248,7 +248,7 @@ if (p_finduid(uid) = true) {
 }
 
 // ── Colours grid (com111) — individual colour pick ───────────────────
-[if_button,playerdesign4:colours]
+[if_button1,playerdesign4:colours]
 if (p_finduid(uid) = true) {
     def_int $slot = last_slot;
     def_int $part = %character_part;
@@ -274,7 +274,7 @@ if (p_finduid(uid) = true) {
 }
 
 // ── Skin colour grid (com45) ─────────────────────────────────────────
-[if_button,playerdesign4:skincolours]
+[if_button1,playerdesign4:skincolours]
 if (p_finduid(uid) = true) {
     def_int $slot = last_slot;
     def_int $colour = enum(105, 105, enum_748, $slot);

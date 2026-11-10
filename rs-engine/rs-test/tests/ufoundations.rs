@@ -262,8 +262,96 @@ fn switched_to_task(packets: &[(u16, Vec<u8>)]) -> bool {
     })
 }
 
+/// Whether `packets` run clientscript 4097 on the pack's hint layer with "Click to equip.".
+fn equip_hint_shown(packets: &[(u16, Vec<u8>)]) -> bool {
+    packets.iter().any(|(op, b)| {
+        *op == ServerProt::RunClientScript as u16
+            && b.len() >= 4
+            && b[b.len() - 4..] == 4097u32.to_be_bytes()
+            && b.windows(15).any(|w| w == b"Click to equip.")
+    })
+}
+
+/// Whether `packets` hide the pack's hint layer (inventory 149:1).
+fn equip_hint_hidden(packets: &[(u16, Vec<u8>)]) -> bool {
+    let com: u32 = (149 << 16) | 1;
+    packets.iter().any(|(op, b)| {
+        *op == ServerProt::IfSetHide as u16
+            && b.len() >= 5
+            && b[..4]
+                == [
+                    (com >> 16) as u8,
+                    (com >> 24) as u8,
+                    com as u8,
+                    (com >> 8) as u8,
+                ]
+            && b[4] != 0
+            && b[4] != 128
+    })
+}
+
 /// The hint ring (cache 786 model 40497), as uf.constant's ^uf_hint_ring.
 const HINT_RING: u16 = 40497;
+
+/// The character design screen's grids (playerdesign4, interface 1028): a style or a colour is
+/// picked by the slot clicked, which the engine gives `[if_button1,...]` and refuses a plain
+/// `[if_button,...]` (rs-vm `allows_last_slot`). Two slots a grid, since the screen opens on a
+/// random hair and hair colour.
+#[test]
+fn character_creation_grids_pick_by_the_slot_clicked() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login("uf_designer").expect("login");
+        cycles(engine, &mut client, 3);
+        let click = |engine: &mut Engine, client: &mut HarnessClient, com: i32, slot: i32| {
+            let mut p = ClientPacket::new();
+            p.p4((1028 << 16) | com).p2_alt3(NONE).p2_alt1(slot);
+            client.send(ClientProt::IfButton1, &p.finish());
+            cycles(engine, client, 2);
+        };
+        let varc = |engine: &Engine, client: &HarnessClient, id: u16| {
+            engine
+                .harness_player(client.pid)
+                .unwrap()
+                .varcs
+                .get(&id)
+                .copied()
+        };
+        // The hair page (1028:96), then the styles (1028:107): enum_3304's slots 0 and 1 are
+        // struct_746 "Short" (idkit_5) and struct_747 "Close-cropped" (idkit_6).
+        click(engine, &mut client, 96, NONE);
+        click(engine, &mut client, 107, 0);
+        assert_eq!(varc(engine, &client, 1008), Some(5), "playerdesign3_head");
+        click(engine, &mut client, 107, 1);
+        assert_eq!(varc(engine, &client, 1008), Some(6), "playerdesign3_head");
+        // The hair page's colours (1028:111): enum_2345's slots 0 and 1 are 20 and 19.
+        click(engine, &mut client, 111, 0);
+        assert_eq!(
+            varc(engine, &client, 1015),
+            Some(20),
+            "playerdesign3_haircol"
+        );
+        click(engine, &mut client, 111, 1);
+        assert_eq!(
+            varc(engine, &client, 1015),
+            Some(19),
+            "playerdesign3_haircol"
+        );
+        // The skin colours (1028:45): enum_748's slots 0 and 1 are 9 and 8.
+        click(engine, &mut client, 45, 0);
+        assert_eq!(
+            varc(engine, &client, 1019),
+            Some(9),
+            "playerdesign3_skincol"
+        );
+        click(engine, &mut client, 45, 1);
+        assert_eq!(
+            varc(engine, &client, 1019),
+            Some(8),
+            "playerdesign3_skincol"
+        );
+    });
+}
 
 #[test]
 fn character_creation_starts_unstable_foundations_in_the_cellar() {
@@ -880,12 +968,14 @@ fn the_squires_gear_and_the_goblin() {
         let (gx, gz) = at(32, 13);
         let kit =
             ["bronze_platebody", "bronze_sq_shield", "bronze_sword"].map(|n| obj_id(engine, n));
+        let mut gathering = Vec::new();
         for (i, obj) in kit.iter().enumerate() {
             take(&mut client, *obj, gx, gz);
-            cycles(engine, &mut client, 12);
+            gathering = cycles(engine, &mut client, 12);
             if i < 2 {
                 assert_eq!(progress(engine, &client), 15);
                 assert!(!is_open(engine, &client, INVENTORY), "no inventory yet");
+                assert!(!equip_hint_shown(&gathering), "no hint before the third");
             }
         }
         assert_eq!(progress(engine, &client), 20, "Equip Yourself");
@@ -895,6 +985,8 @@ fn the_squires_gear_and_the_goblin() {
             5,
             "the arrow at the inventory tab"
         );
+        // The pack's "Click to equip." box with the third piece (4KO2h2xPtdM @80.0).
+        assert!(equip_hint_shown(&gathering), "Click to equip.");
 
         // Not yet armed: Sir Vant stops the attack.
         let goblin = npc_nid(engine, "tutorial3_goblin");
@@ -908,7 +1000,11 @@ fn the_squires_gear_and_the_goblin() {
         for (i, obj) in kit.iter().enumerate() {
             let slot = slot_of(engine, &client, *obj).expect("in the backpack");
             wear(&mut client, *obj, slot);
-            wearing.extend(cycles(engine, &mut client, 2));
+            let worn = cycles(engine, &mut client, 2);
+            // The box goes with the first piece worn (4KO2h2xPtdM @81.5) and stays away.
+            assert_eq!(equip_hint_hidden(&worn), i == 0, "piece {i}");
+            assert!(!equip_hint_shown(&worn));
+            wearing.extend(worn);
             if i < 2 {
                 assert_eq!(progress(engine, &client), 25 + 5 * i as i32);
                 // Combat comes with the sword in hand (4KO2h2xPtdM @82.00), worn last here.
@@ -983,11 +1079,39 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             assert!(plan.said(line), "{line}");
         }
         assert_eq!(speech(&plan.packets), vec![732, 943, 806, 726]);
+        // The camera cuts to the pillars for the second line and to the food bowl for the third,
+        // and is the player's again for the fourth (4KO2h2xPtdM @112.9, @114.7, @116.0): each
+        // line's voice clip, with the camera packets around it. A shot's two packets follow its
+        // line's clip: the engine writes camera moves at the end of the tick (update_map), and
+        // cam_reset at once.
+        let (moveto, lookat, reset, voice) = (
+            ServerProt::CamMoveto as u16,
+            ServerProt::CamLookat as u16,
+            ServerProt::CamReset as u16,
+            ServerProt::VorbisSpeechSound as u16,
+        );
+        let shots: Vec<u16> = plan
+            .packets
+            .iter()
+            .filter(|(op, _)| [moveto, lookat, reset, voice].contains(op))
+            .map(|(op, body)| {
+                if *op == voice {
+                    u16::from_be_bytes([body[0], body[1]])
+                } else {
+                    *op
+                }
+            })
+            .collect();
+        assert_eq!(
+            shots,
+            vec![732, 943, moveto, lookat, 806, moveto, lookat, reset, 726],
+            "two shots, then the player's camera"
+        );
         assert_eq!(progress(engine, &client), 50, "Check your Quest Journal");
         assert!(is_open(engine, &client, 190), "the quest list tab");
         assert_eq!(varbit(engine, &client, FLASH_SIDE), 4);
 
-        // The journal (quest list row 131), the world map (548:179, then its close 755:44) and
+        // The journal (quest list row 147), the world map (548:179, then its close 755:44) and
         // the compass (548:177 "Face North").
         let button = |client: &mut HarnessClient, iface: i32, com: i32, slot: i32| {
             let mut p = ClientPacket::new();
@@ -999,7 +1123,11 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
         button(&mut client, 548, 131, NONE);
         cycles(engine, &mut client, 2);
         assert_eq!(varbit(engine, &client, FLASH_SIDE), 0, "the tab clicked");
-        button(&mut client, 190, 18, 131);
+        // The arrow moves to the quest's row: the client draws it at 55 on an Unstable
+        // Foundations account (clientscript 1661; 4KO2h2xPtdM @119.0-120.0).
+        assert_eq!(progress(engine, &client), 55, "the quest list opened");
+        assert_eq!(varbit(engine, &client, 4895), 3, "tutorial_version");
+        button(&mut client, 190, 18, 147);
         let journal = cycles(engine, &mut client, 3);
         assert_eq!(progress(engine, &client), 60, "Check your World Map");
         assert_eq!(
@@ -1467,7 +1595,7 @@ fn the_pillars_burn_and_the_roof_comes_down() {
             said(&texts, "could I have my squire's kit back, please?"),
             "{texts:?}"
         );
-        assert_eq!(progress(engine, &client), 120, "Return the Squire's Gear");
+        assert_eq!(progress(engine, &client), 125, "Return the Squire's Gear");
         assert_eq!(
             npc_tile(engine, "tutorial3_dragon_sleeping"),
             None,

@@ -97,3 +97,10 @@ if (p_finduid(uid) = false) {
     return;
 }
 %varplayerbit_3756 = 0;
+// The quest list opened at "Check your Quest Journal": the arrow moves to Unstable Foundations'
+// row, which cache 786 draws itself at %tutorial = 55 (clientscript 1661: model 41760 on the row,
+// while %tutorial_version = 3). 4KO2h2xPtdM (2011-04-30): the tab's arrow @117.5-118.5, the
+// row's @119.0-120.0, gone with the journal open @120.5.
+if ($side = 3 & %tutorial = 50) {
+    %tutorial = 55;
+}

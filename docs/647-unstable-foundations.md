@@ -1797,6 +1797,69 @@ What the overlay does:
 - The second start room around (56..60, 3..9) is not where players start: it is the start room
   as stage 2 (`uf_cellar_stage2`), and cache 786's world map area tutorial3_1 does not draw
   x 56-63 (its subareas: x 24-55, z 0-63 and x 0-23, z 24-47).
+- The pack's grey "Click to equip." box (4KO2h2xPtdM 2011-04-30: shown @80.0-81.0 under the
+  pack's first row, gone @81.5 with the first piece worn). Inventory 149:1 `tut3_hint` is an
+  empty 113x24 layer at 4,37 that no client script or hook fills. Clientscript 4097
+  (component, height, text) is the one builder nothing in the cache calls: `tooltip_body_1`'s
+  three pieces (8x23: 21 rows of white at alpha 113, 2 rows of shadow) and centred black
+  `p11_full` text. The frame's box is 113 client pixels wide and 21 + 2 high, grey 145 over a
+  background of 58 (white at alpha 113), the text black and centred. The server runs
+  `script4097(inventory:tut3_hint, 23, "Click to equip.")` at stage 20 and hides the layer
+  when the first piece goes on (`uf_gear.rs2`, `uf_equip_hint`). No cache line ties 4097 to
+  149:1: the match is by size, sprite and alpha. Not yet compared in-client.
+- The quest list's row. The client sends the row's child id of `questlist_v4:quests`, which is
+  the key of enum_2252: Unstable Foundations is key 147 (struct_510); key 131 is Wolf Whistle
+  (struct_642). `^questlist_unstable` was 131 (the quest's config id, another id space), so the
+  row did nothing and the tutorial stopped at "Check your Quest Journal" (50) (USER, 2026-11-10).
+  Now 147 (`questlist.constant`); the harness clicks row 147. Not yet run in-client.
+- Sir Vant's plan and its camera (4KO2h2xPtdM 2011-04-30 @111.1-118.5, the game frame as it is:
+  minimap and task panel showing, so not interface 899's cutscene). Line 1 @111.1 on the
+  player's own camera; line 2 @112.9 a hard cut to a still close-up of a wooden pillar's two
+  posts; line 3 @114.7 a hard cut to the food bowl; line 4 @116.0 back on the player's camera
+  with the task panel already at "Check your Quest Journal" (50); the dialogue closed @117.6:
+  TASK COMPLETE "Find Out Sir Vant's Plan" and the arrow at the quest list's tab. Ours had no
+  shots and set 50 after line 4 (USER, 2026-11-10). Now `uf_plan.rs2` sends `cam_moveto` +
+  `cam_lookat` at lines 2 and 3 and `cam_reset` and 50 at line 4. The camera tiles and heights
+  are estimates from the frames ((28,31) h400 -> (24,31) h175; (22,35) h240 -> (17,35) h0), not
+  yet fitted in-client; which of the pillars line 2 shows is not certain.
+- The account's tutorial version and two stages cache 786 reads (written, not yet run):
+  - `%tutorial_version` (varbit 4895) = 3, set with the quest's start at character creation.
+    Clientscript 1886 (run by `toplevel_init` and as varp `tutorial` or `tutorial2_tracking`
+    arrives): `if (%tutorial_version = 3 & %tutorial < 125)` the advisor button is hidden, else
+    shown. 4KO2h2xPtdM (2011-04-30) has no button @80, @119, @300, @406.5 and has it from
+    @408.5. Ours left the varbit at 0, so the button showed throughout. Where 2011 set it: no
+    source. Varp 1255 is now saved with the player.
+  - 55 as the quest list's stone is clicked at its arrow: clientscript 1661 draws the arrow on
+    the quest's row only at `%tutorial_version = 3 & %tutorial = 55` (model 41760, seq 10221).
+    4KO2h2xPtdM: the tab's arrow @117.5-118.5, the row's @119.0-120.0, gone @120.5 with the
+    journal open. Ours went 50 -> 60 with no row arrow.
+  - 125 as the roof falls (cutscene shot 202), where ours held 117 and set 120 after "Next time,
+    get a puppy!": the button's return @408.5 is under the black screen. Which of 125-127: no
+    source; what 2011 used 120 and 123 for: no source.
+  - Side effect, cache-driven: npc 8854 at (2960,3350) in Falador becomes Sir Vant for these
+    accounts (`multivar=tutorial_version`, 3 -> `tutorial3_knight`). His talk there: not ported.
+
+**Open, from the 2026-11-10 play-through (USER):**
+- The fireball's sound. Ours has none: the breath seq we play (14244) and the fireball's
+  spotanim seq (12271) carry no sound in cache 786, and the script sends only the squire's
+  scream (clip 1292, 1.4 s). Qh_-AMJpVd0 (2011-05-10, the one recording with clean game audio):
+  the fireball at the dragon's mouth @183.5-183.6, flying @183.7-184.1, the squire burning
+  @184.2-184.8; its spectrogram has broadband noise @183.7-184.9 with the scream's harmonics
+  @184.1-184.6 inside it. That recording plays the intro at twice the game's speed; slowed to
+  half, the scream matches clip 1292 in length and pitch, and the noise is a separate sound:
+  broadband, starting about 1.05 s before the scream, rising about 15 dB in 0.4 s, level for
+  about 1.3-1.5 s, gone within 0.2 s (about 1.8-2.1 s in all). Which sound it is: not
+  determined. Synth 7284 (seq 12254's, at frame 56), rendered with the client's own synthesis,
+  is a rumble under 1.5 kHz with an instant onset and a slow decay: not that noise. Every synth
+  and vorbis clip of 1.5-2.6 s in cache 786 was scored against the recording's noise; none
+  stands out (music plays under it). No sound is added until one is identified.
+- The goblin at Sir Vant's bag. Ours plays seq 12301, which is the Lumbridge goblin cook's
+  (picked by id range, wrong), and the cellar's populate branch plays nothing. 2011's goblin is
+  bent into the bag (4KO2h2xPtdM @51.5, @60-62, @84-89). Which seq: not determined; candidates
+  on its skeleton to compare in-client: 7311, 7309, 11800, 11848, 12637, 12638, 12654, 12655.
+- The hint arrow and ring with the arrow keys: 4KO2h2xPtdM @7-12 shows neither after the camera
+  task; @84-89 both stay through a camera turn. Ours removes them only at stage 6
+  (`uf_camera_turned`). A later stage where they vanish on a turn: not reproduced yet.
 
 ## 4. Cutscenes and camera (cache 786: client-side camera paths)
 

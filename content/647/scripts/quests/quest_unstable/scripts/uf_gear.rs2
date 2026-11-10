@@ -48,11 +48,27 @@ if (%tutorial ! 15 | ~uf_kit_held < 3) {
 %tutorial = 20;
 hint_stop_slot(0);
 ~uf_open_tab(4);
+~uf_equip_hint;
 // The arrow at the inventory tab, flashing it while another tab shows (4KO2h2xPtdM @79-80).
 %varplayerbit_3756 = 5;
 %varclient_1425 = 3502;
 ~uf_task_tab;
 ~uf_task_pin;
+
+// The grey "Click to equip." box under the pack's first row while the kit is held and no piece
+// is worn (4KO2h2xPtdM 2011-04-30: there @80.0-81.0, gone @81.5 with the first piece worn).
+// Cache 786: inventory 149:1 tut3_hint is an empty 113x24 layer at 4,37 that no client script or
+// hook fills; clientscript 4097 (component, height, text) is the one builder no script or hook
+// calls: tooltip_body_1's three pieces (8x23: 21 rows of white at alpha 113, 2 of shadow) and
+// centred black p11_full text. The frame's box is 113 wide and 21 + 2 high, grey 145 over 58
+// (white at alpha 113), its text black and centred. No cache line ties 4097 to 149:1: the match
+// is by size, sprite and alpha.
+[proc,uf_equip_hint]
+if (%tutorial = 20) {
+    runclientscript("script4097(inventory:tut3_hint, 23, \"Click to equip.\")");
+} else {
+    if_sethide(inventory:tut3_hint, true);
+}
 
 // From equip.rs2, after each piece is put on.
 [proc,uf_gear_worn](obj $obj)
@@ -67,7 +83,15 @@ if ($obj = bronze_sword) {
     ~uf_open_tab(0);
 }
 if ($worn < 3) {
+    // "Click to equip." goes with the first piece worn (4KO2h2xPtdM @81.5).
+    def_boolean $first = false;
+    if (%tutorial = 20) {
+        $first = true;
+    }
     %tutorial = calc(20 + 5 * $worn);
+    if ($first = true) {
+        ~uf_equip_hint;
+    }
     return;
 }
 %tutorial = 35;

@@ -3,29 +3,47 @@
 // voiced takes (3.7).
 
 // "Find Out Sir Vant's Plan" (Task 3505, 45-49): s009-s012 (IwS6rBpkcyE 2010-11-27 @81-87,
-// 24/31 recordings), V81, V61, V49, V47 (clips 732, 943, 806, 726). One value a line, 46-49:
-// inference, cs2 4098 reads only the band. Then "Check your Quest Journal" (50) with the quest
-// list tab (4KO2h2xPtdM ~130 s, refs GAPS 13).
+// 24/31 recordings), V81, V61, V49, V47 (clips 732, 943, 806, 726). One value a line, 46-47:
+// inference, cs2 4098 reads only the band.
+//
+// The camera, 4KO2h2xPtdM (2011-04-30) @111.1-118.5, the game frame as it is (minimap and task
+// panel showing, so not interface 899's cutscene):
+// - line 1 (@111.1) the player's own camera;
+// - line 2 (@112.9) a hard cut to a still close-up of a wooden pillar's two posts, the alcove's
+//   wall down the left;
+// - line 3 (@114.7) a hard cut to the food bowl, the alcove's wall behind it, the dragon's pad in
+//   front;
+// - line 4 (@116.0) a hard cut back to the player's camera, and the task panel already reads
+//   "Check your Quest Journal" (50);
+// - the dialogue closed (@117.6): TASK COMPLETE "Find Out Sir Vant's Plan" fades in and the
+//   arrow flashes at the quest list's tab, the task tab still up.
+// Where the two shots stand: the left pillar (local 24,31) and the bowl (17,35) are the cache's
+// (l57_77); the camera tiles and heights are estimates from the frames, not yet fitted in-client
+// (::ufcam).
 [proc,uf_vant_plan]
 if (%tutorial >= 45 & %tutorial <= 49) {
     hint_stop_slot(0);
     ~speech_line(vorbis_732);
     ~chatnpc("<p,neutral>This dragon's a tougher customer than I'd expected, but I know a way we can defeat it.");
     %tutorial = 46;
+    softtimer(uf_plan_camera, 1);
+    ~uf_plan_shot(28, 31, 400, 24, 31, 175);
     ~speech_line(vorbis_943);
     ~chatnpc("<p,neutral>One corner of the ceiling is held up by wooden pillars. We're going to lure the dragon there and then collapse the roof on top of it.");
     %tutorial = 47;
+    ~uf_plan_shot(22, 35, 240, 17, 35, 0);
     ~speech_line(vorbis_806);
     ~chatnpc("<p,neutral>In my bag is some meat I've prepared with a sleeping potion. I need you to put the meat in the food bowl by the wooden pillars. The dragon will eat it and fall asleep.");
-    %tutorial = 48;
+    clearsofttimer(uf_plan_camera);
+    cam_reset;
+    %tutorial = 50;
+    ~uf_task_pin;
     ~speech_line(vorbis_726);
     ~chatnpc("<p,neutral>I'll keep the dragon's attention. Once you've got the drugged meat you'll need to climb over the wall next to me.");
-    %tutorial = 50;
     ~uf_open_tab(3);
     %varplayerbit_3756 = 4;
     %varclient_1425 = 3505;
     ~uf_task_tab;
-    ~uf_task_pin;
     return;
 }
 if (%tutorial < 80) {
@@ -43,6 +61,23 @@ if (%tutorial < 80) {
         ~chatnpc("<p,neutral>Get some more meat from my bag and put it in the food bowl by the wooden pillars, please.");
     }
 }
+
+// One of the plan's shots: the camera at once on local tile ($x, $z), looking at ($lookx, $lookz).
+[proc,uf_plan_shot](int $x, int $z, int $height, int $lookx, int $lookz, int $lookheight)
+if (region_findbycoord(coord) = false) {
+    return;
+}
+cam_moveto(~uf_cellar_coord($x, $z), $height, 100, 100);
+cam_lookat(~uf_cellar_coord($lookx, $lookz), $lookheight, 100, 100);
+
+// The plan's camera shots end with the talk: walked away from mid-line (the game frame stays
+// clickable under them), the camera comes back. What 2011 did there: no source.
+[softtimer,uf_plan_camera]
+if (busy = true) {
+    return;
+}
+clearsofttimer(uf_plan_camera);
+cam_reset;
 
 // Sir Vant's bag once he has given leave: s013 (IwS6rBpkcyE @?; 22/31 recordings), N26 (clip
 // 1608); a second parcel: N50 (clip 1459); no room: N49 (clip 1406). Texts of N49 and N50 from

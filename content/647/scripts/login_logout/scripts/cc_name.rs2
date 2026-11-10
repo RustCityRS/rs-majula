@@ -115,6 +115,11 @@ allowdesign(^false)
 // Unstable Foundations starts: quest config 131 (all.quest) starts varp 281 at 5 and completes it
 // at 1000 (docs/647-unstable-foundations.md 1.2). 1001, set before, is no value the cache reads.
 %tutorial = 5;
+// The account took Unstable Foundations: cache 786 reads %tutorial_version = 3 for the quest
+// list's row arrow (clientscript 1661), the advisor button hidden until %tutorial reaches 125
+// (clientscript 1886) and Sir Vant in Falador afterwards (npc 8854's multivar). Where 2011 set it:
+// no source; here with the quest's start. 4KO2h2xPtdM (2011-04-30) has no advisor button @80.
+%tutorial_version = 3;
 setgender(%character_creation_female);
 applydesign;
 buildappearance(worn)

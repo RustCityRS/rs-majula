@@ -116,6 +116,10 @@ if ($p >= 10 & $p <= 15) {
         }
     }
 }
+if ($p = 20) {
+    // Logged in with the kit held and none of it worn: the pack's hint again (uf_gear.rs2).
+    ~uf_equip_hint;
+}
 if ($p >= 117) {
     // After the roof came down: Roddeck's cellar in the region, Sir Vant by the rubble, Roddeck
     // out of his cupboard (uf_collapse.rs2).
@@ -125,7 +129,7 @@ if ($p >= 117) {
     npc_add(~uf_cellar_coord(32, 32), tutorial3_advisor_walkoverrocks, 0);
     npc_setmode(none);
     if (%tutorial = 117) {
-        %tutorial = 120;
+        %tutorial = 125;
     }
     if (%tutorial >= 160) {
         if (loc_find(~uf_cellar_coord(14, 35), tutorial3_mine_wall_start) = true & %tutorial3_tool <= 1) {

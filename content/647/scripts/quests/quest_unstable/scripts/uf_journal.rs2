@@ -8,10 +8,10 @@
 // The values between the bands (55-57 inside "Check your Quest Journal"): no source; this goes
 // 50 -> 60 -> 62 -> 65.
 
-// The journal (quest 131, its row in 2011's quest list). Every recording that opens it does so
-// at ~50-57, scrolled to the bottom, and nobody scrolls up (design note 3.5 #5): the entries
-// above the struck-through line, and the ones after, no recording shows. The two shown here are
-// 4KO2h2xPtdM @124's.
+// The journal (row 147 of 2011's quest list: enum_2252, struct_510). Every recording that opens
+// it does so at ~50-57, scrolled to the bottom, and nobody scrolls up (design note 3.5 #5): the
+// entries above the struck-through line, and the ones after, no recording shows. The two shown
+// here are 4KO2h2xPtdM @124's.
 [label,questlist_unstable]
 // Every step shows the one state the recordings show: what 2011 wrote before 50 or after 57, no
 // source found.

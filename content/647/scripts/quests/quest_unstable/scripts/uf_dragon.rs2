@@ -93,7 +93,7 @@ if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) 
 }
 p_delay(8);
 // Tick 24, ~5.4 s into shot 4 (@31.4): it rears, wings up, and drops its head over the wall to
-// breathe: seq 14244 (frames on the dragon's skeleton, group 2931; 66 frames, 203 cycles), ranked
+// breathe: seq 14244 (frames on the dragon's skeleton, group 2931; 27 frames, 76 cycles), ranked
 // first of seven by both matchers against 4KO2 under shot 4's own camera (ufinger: frame motion
 // 0.264 against 0.293 next; DINOv2 0.189 against 0.194), its fit starting ~0.5-0.8 s into the seq.
 if (npc_find(~uf_cellar_coord(32, 20), tutorial3_dragon_initial, 6, 0) = true) {

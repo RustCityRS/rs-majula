@@ -1,5 +1,5 @@
 // Unstable Foundations: the fire, the roof coming down on the dragon, and Roddeck (varp 281
-// 115 -> 120), as 4KO2h2xPtdM (2011-04-30) shows it (refs GAPS 21):
+// 115 -> 125), as 4KO2h2xPtdM (2011-04-30) shows it (refs GAPS 21):
 // - @390-394 the player lights the far pillar's fuse, Sir Vant his; s037 "It's burning! Run!"
 //   @392.1 (V51, clip 881); @395-396 the player runs south;
 // - the cutscene: the minimap black @396.23; shot 201, a fixed view of the nest from the east
@@ -29,7 +29,11 @@ p_delay(1);
 %tutorial3_rightpillar = 4;
 %tutorial3_leftpillar = 4;
 p_delay(13);
-// The roof falls: the screen goes black while the cellar changes.
+// The roof falls: the screen goes black while the cellar changes. The advisor button comes back
+// under the black (4KO2h2xPtdM 2011-04-30: none @406.5, there @408.5), which cache 786 shows from
+// %tutorial = 125 (clientscript 1886, run as varp 281 arrives). Which of 125-127 ("Return the
+// Squire's Gear" runs to 127): no source; the lowest.
+%tutorial = 125;
 %tutorial3_cutscene_tracker = 202;
 p_delay(0);
 if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_sleeping, 8, 0) = true) {
@@ -67,7 +71,6 @@ p_delay(4);
 ~speech_line(vorbis_785);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Next time, get a puppy!");
 ~uf_cutscene_close;
-%tutorial = 120;
 %varclient_1425 = 3512;
 ~uf_task_tab;
 ~uf_task_pin;

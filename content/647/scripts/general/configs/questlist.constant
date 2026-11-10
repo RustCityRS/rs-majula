@@ -15,8 +15,10 @@
 ^questlist_runemysteries = 13 // 289: Rune Mysteries Quest
 ^questlist_blackarmgang = 15
 ^questlist_vampire = 16
-// 2011's tutorial, quest config 131 (not a 289 quest).
-^questlist_unstable = 131
+// 2011's tutorial (not a 289 quest). Its row is the quest enum's key: enum_2252 val=147,struct_510
+// (param_845 "Unstable Foundations", param_847 147). 131 is its quest config, another id space:
+// row 131 is Wolf Whistle's (struct_642).
+^questlist_unstable = 147
 ^questlist_chompybird = 20
 ^questlist_biohazard = 21
 ^questlist_cog = 23
