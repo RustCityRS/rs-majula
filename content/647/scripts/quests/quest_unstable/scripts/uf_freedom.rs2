@@ -68,7 +68,6 @@ return(region_getcoord(0, calc(16 + $x - 3200), calc(16 + $z - 3232)));
 // "Level 4 Mining/Woodcutting"), Harmony, every tab, and the Task panel on Explorer Jack.
 [proc,uf_complete]
 %learning_the_ropes = 1000;
-%varclient_1425 = 3519;
 ~uf_task_tab;
 ~uf_task_pin;
 ~initalltabs;
@@ -97,6 +96,13 @@ if (%varplayerbit_6495 >= 2) {
         stat_advance(mining, 1920);
     }
 }
+// TASK COMPLETE! To Freedom! pops once the scroll is closed, with the level-up's line before it
+// (4KO2h2xPtdM @611); set with the scroll, it popped over it (in-client runs 19 and 20). A queued
+// script waits for the scroll, as the level-up's does.
+queue(uf_freedom_done, 0, 0);
+
+[queue,uf_freedom_done]
+%varclient_1425 = 3519;
 
 // Out of the house copy: the same tile in the world. The house: x 3201-3214, z 3238-3245 (its
 // walls in l50_50; inference: which way out 2011 took, no source).

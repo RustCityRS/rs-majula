@@ -1479,7 +1479,18 @@ fn the_way_out_to_lumbridge() {
         assert_eq!(player.stats.base_levels[14], 4, "Mining 4");
 
         // The scroll closed, the level-up queued behind it runs: 2011's one line for the two
-        // levels and no level-up box (4KO2h2xPtdM @610-636, VwpdbjfigD4 @788-796).
+        // levels and no level-up box (4KO2h2xPtdM @610-636, VwpdbjfigD4 @788-796). TASK COMPLETE!
+        // To Freedom! (3519) pops only then, not over the scroll (@611).
+        let pid = client.pid;
+        let popup = |engine: &Engine| {
+            engine
+                .harness_player(pid)
+                .unwrap()
+                .varcs
+                .get(&POPUP_TASK)
+                .copied()
+        };
+        assert_ne!(popup(engine), Some(3519), "no To Freedom! over the scroll");
         engine.harness_close_modal(client.pid);
         let after = cycles(engine, &mut client, 3);
         let lines: Vec<String> = HarnessClient::game_messages(&after)
@@ -1493,6 +1504,7 @@ fn the_way_out_to_lumbridge() {
             "{lines:?}"
         );
         assert!(!is_open(engine, &client, 740), "no level-up box");
+        assert_eq!(popup(engine), Some(3519), "TASK COMPLETE! To Freedom!");
         talk_to(&mut client, npc_nid(engine, "explorer_jack_13295"));
         let jack = converse(engine, &mut client, &[], 60);
         assert!(
