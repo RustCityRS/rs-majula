@@ -217,7 +217,7 @@ if ($rocks = false & stat_base(woodcutting) < 2) {
 if ($rocks = true) {
     loc_change(rock_45596, ^uf_cellar_obj_duration);
     p_delay(2);
-    if (loc_find(~uf_cellar_coord(14, 11), rock_45596) = true) {
+    if (loc_find(~uf_cellar_coord(14, 35), rock_45596) = true) {
         loc_change(hole_45597, ^uf_cellar_obj_duration);
     }
     sound_speech_volume(vorbis_1586, 1, 0, 255);
@@ -228,7 +228,7 @@ if ($rocks = true) {
 } else {
     loc_change(roots_45599, ^uf_cellar_obj_duration);
     p_delay(2);
-    if (loc_find(~uf_cellar_coord(14, 14), roots_45599) = true) {
+    if (loc_find(~uf_cellar_coord(14, 38), roots_45599) = true) {
         loc_change(hole_45600, ^uf_cellar_obj_duration);
     }
     sound_speech_volume(vorbis_1629, 1, 0, 255);

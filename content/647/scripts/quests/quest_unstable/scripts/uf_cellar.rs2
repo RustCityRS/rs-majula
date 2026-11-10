@@ -126,10 +126,10 @@ if ($p >= 117) {
         %learning_the_ropes = 120;
     }
     if (%learning_the_ropes >= 160) {
-        if (loc_find(~uf_cellar_coord(14, 11), rock_45595) = true & %varplayerbit_6495 <= 1) {
+        if (loc_find(~uf_cellar_coord(14, 35), rock_45595) = true & %varplayerbit_6495 <= 1) {
             loc_change(hole_45597, ^uf_cellar_obj_duration);
         }
-        if (loc_find(~uf_cellar_coord(14, 14), roots_45598) = true & %varplayerbit_6495 >= 2) {
+        if (loc_find(~uf_cellar_coord(14, 38), roots_45598) = true & %varplayerbit_6495 >= 2) {
             loc_change(hole_45600, ^uf_cellar_obj_duration);
         }
     }

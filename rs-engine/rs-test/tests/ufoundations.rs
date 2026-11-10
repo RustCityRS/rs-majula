@@ -1330,9 +1330,9 @@ fn the_way_out_to_lumbridge() {
         assert_eq!(progress(engine, &client), 130);
 
         // The blockage at level 1.
-        engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 11);
+        engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 35);
         cycles(engine, &mut client, 3);
-        let (rx, rz) = at(14, 11);
+        let (rx, rz) = at(14, 35);
         oploc1(&mut client, loc_id(engine, "rock_45595"), rx, rz);
         assert!(
             converse(engine, &mut client, &[], 60)
@@ -1346,10 +1346,11 @@ fn the_way_out_to_lumbridge() {
         assert!(spot.said("You can practice mining on the rocks that fell into my cellar"));
         assert_eq!(progress(engine, &client), 140);
 
-        // Two practice rocks to level 2: the practice rock on (17, 14), live at varbit 6495 = 1.
-        engine.harness_telejump(client.pid, origin.0 + 17, 0, origin.1 + 13);
+        // Two practice rocks to level 2: the practice rock on (17, 38) (the map's (17, 14), the block
+        // moved north by the collapse), live at varbit 6495 = 1.
+        engine.harness_telejump(client.pid, origin.0 + 17, 0, origin.1 + 37);
         cycles(engine, &mut client, 3);
-        let (px, pz) = at(17, 14);
+        let (px, pz) = at(17, 38);
         for _ in 0..2 {
             oploc1(&mut client, loc_id(engine, "loc_45571"), px, pz);
             converse(engine, &mut client, &[], 120);
@@ -1357,7 +1358,7 @@ fn the_way_out_to_lumbridge() {
         }
         assert_eq!(progress(engine, &client), 150, "Mining level 2");
 
-        engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 11);
+        engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 35);
         cycles(engine, &mut client, 3);
         oploc1(&mut client, loc_id(engine, "rock_45595"), rx, rz);
         let cleared = converse(engine, &mut client, &[], 120);
@@ -1368,9 +1369,9 @@ fn the_way_out_to_lumbridge() {
         assert_eq!(progress(engine, &client), 170, "To Freedom!");
 
         // The ladder up: Explorer Jack's house, the quest's end.
-        engine.harness_telejump(client.pid, origin.0 + 6, 0, origin.1 + 20);
+        engine.harness_telejump(client.pid, origin.0 + 6, 0, origin.1 + 44);
         cycles(engine, &mut client, 3);
-        let (lx, lz) = at(6, 21);
+        let (lx, lz) = at(6, 45);
         oploc1(&mut client, loc_id(engine, "ladder_45784"), lx, lz);
         let up = cycles(engine, &mut client, 8);
         assert_eq!(progress(engine, &client), 1000, "the quest complete");
@@ -1503,5 +1504,59 @@ fn the_books_the_cabbage_and_the_drop_hint() {
             drop.texts
         );
         assert!(speech(&drop.packets).contains(&1669));
+    });
+}
+
+/// The tiles a player can walk to from `start` inside the cellar copy (64 x 64 from `origin`).
+fn walkable_from(origin: (u16, u16), start: (u16, u16)) -> std::collections::HashSet<(u16, u16)> {
+    use rsmod::rsmod::collision::collision_strategy::CollisionType;
+    let mut seen = std::collections::HashSet::new();
+    let mut todo = vec![(origin.0 + start.0, origin.1 + start.1)];
+    while let Some((x, z)) = todo.pop() {
+        if !seen.insert((x - origin.0, z - origin.1)) {
+            continue;
+        }
+        for (dx, dz) in [(1i8, 0i8), (-1, 0), (0, 1), (0, -1)] {
+            let (nx, nz) = (
+                x.wrapping_add_signed(dx as i16),
+                z.wrapping_add_signed(dz as i16),
+            );
+            if nx < origin.0 || nz < origin.1 || nx >= origin.0 + 64 || nz >= origin.1 + 64 {
+                continue;
+            }
+            if rsmod::can_travel(0, x, z, dx, dz, 1, 0, CollisionType::Normal)
+                && !seen.contains(&(nx - origin.0, nz - origin.1))
+            {
+                todo.push((nx, nz));
+            }
+        }
+    }
+    seen
+}
+
+/// After the collapse the way out is on foot: 4KO2h2xPtdM (2011-04-30) @526-542, from Roddeck to
+/// the rocks in the damaged wall in ~8 s with no climb; then through the hole and up the ladder.
+#[test]
+fn the_way_out_is_walkable_from_roddeck() {
+    runner::on_loaded_engine(|engine| {
+        let client = at_stage(engine, "uf_route", 120);
+        let origin = player_origin(engine, &client);
+        let seen = walkable_from(origin, (31, 32));
+        let near = |x: u16, z: u16| {
+            [(1i16, 0i16), (-1, 0), (0, 1), (0, -1)]
+                .iter()
+                .any(|&(dx, dz)| seen.contains(&((x as i16 + dx) as u16, (z as i16 + dz) as u16)))
+        };
+        let mut map = String::new();
+        for z in (0..48u16).rev() {
+            for x in 0..64u16 {
+                map.push(if seen.contains(&(x, z)) { '.' } else { '#' });
+            }
+            map.push_str(&format!(" {z}\n"));
+        }
+        assert!(
+            near(14, 35) || near(14, 38),
+            "the rocks or roots from Roddeck:\n{map}"
+        );
     });
 }

@@ -76,6 +76,12 @@ sound_speech_volume(vorbis_785, 1, 0, 255);
 // After the roof comes down: the pillars are stumps and Roddeck's cellar, west of the start room,
 // joins the region (2011's minimap shows the room beside the start room only from the exit stage,
 // 4KO2h2xPtdM sampled every 15 s; refs GAPS 15). The rebuild is the black "Please wait" screen.
+// After the collapse the square's south-west 24x24 (Explorer Jack's cellar, the damaged wall with
+// its rocks and roots, the practice room) stands 24 tiles north of where the map has it, in place
+// of the nest's side of the cellar: cache 786's world map area tutorial3_3 (varp 281 120 on,
+// clientscript 2785) draws source 3648-3671, 4928-4951 at 0-23, 24-47, where tutorial3_1 and _2
+// keep that place's own tiles. So in 2011 the rocks are a short walk from Roddeck with no climb
+// (4KO2h2xPtdM 2011-04-30 @526-542, ~8 s). Here those zones go to the copy's zone rows 3-5.
 [proc,uf_cellar_collapsed]
 def_int $level = 0;
 def_int $a = 0;
@@ -85,7 +91,7 @@ while ($level < 4) {
     while ($a < 3) {
         $b = 0;
         while ($b < 3) {
-            region_set($level, calc(2 + $a), calc(2 + $b), movecoord(0_57_77_0_0, calc($a * 8), $level, calc($b * 8)), 0);
+            region_set($level, calc(2 + $a), calc(5 + $b), movecoord(0_57_77_0_0, calc($a * 8), $level, calc($b * 8)), 0);
             $b = calc($b + 1);
         }
         $a = calc($a + 1);
