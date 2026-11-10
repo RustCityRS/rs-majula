@@ -806,10 +806,11 @@ fn the_squires_gear_and_the_goblin() {
             "Wait, you're not properly armed. You should equip all the kit you've picked up."
         ));
 
+        let mut wearing = Vec::new();
         for (i, obj) in kit.iter().enumerate() {
             let slot = slot_of(engine, &client, *obj).expect("in the backpack");
             wear(&mut client, *obj, slot);
-            cycles(engine, &mut client, 2);
+            wearing.extend(cycles(engine, &mut client, 2));
             if i < 2 {
                 assert_eq!(progress(engine, &client), 25 + 5 * i as i32);
                 // Combat comes with the sword in hand (4KO2h2xPtdM @82.00), worn last here.
@@ -824,6 +825,13 @@ fn the_squires_gear_and_the_goblin() {
             varbit(engine, &client, FLASH_SIDE),
             6,
             "the arrow at worn equipment"
+        );
+        // The ring moves to the goblin as the third piece goes on (the equip runs in a script
+        // with no region selected: ufrest13's "no active_region").
+        assert!(
+            hints(&wearing).contains(&(0, 1, HINT_RING)),
+            "{:?}",
+            hints(&wearing)
         );
 
         // The fight, to the goblin's end and Sir Vant's s007.
