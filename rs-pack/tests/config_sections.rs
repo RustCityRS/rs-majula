@@ -115,6 +115,6 @@ fn unpack_rejects_existing_configs_before_writing() {
         .to_string();
     assert!(error.contains("already contains configs"), "{error}");
     assert_eq!(fs::read(&files[0]).unwrap(), before);
-    assert!(!root.join("scripts/configs/_unpack").exists());
+    assert!(!root.join("scripts/_unpack").exists());
     assert!(!root.join("pack").exists());
 }

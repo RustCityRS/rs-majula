@@ -520,7 +520,7 @@ fn pack_id(kind: &str, name: &str) -> i32 {
 /// (`all.seq`: `frameN=<delay>:<frame>:<frame set>`).
 fn frame_sets(seq: &str) -> BTreeSet<String> {
     let path = format!(
-        "{}/../../content/647/scripts/configs/_unpack/all.seq",
+        "{}/../../content/647/scripts/_unpack/all.seq",
         env!("CARGO_MANIFEST_DIR")
     );
     let all = fs::read_to_string(&path).expect(&path);

@@ -1654,10 +1654,11 @@ mod tests {
 
     #[test]
     fn client_pathfinder_stays_a_plain_flag() {
-        assert!(
+        assert_eq!(
             Args::try_parse_from(["rs-server"])
                 .unwrap()
-                .client_pathfinder
+                .client_pathfinder,
+            cfg!(before_647)
         );
         assert!(
             Args::try_parse_from(["rs-server", "--client-pathfinder"])

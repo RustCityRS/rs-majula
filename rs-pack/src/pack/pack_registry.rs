@@ -612,6 +612,7 @@ impl PackRegistry {
     }
 
     pub fn check_client_ids(&self) -> Result<()> {
+        #[cfg_attr(before_254, allow(clippy::single_element_loop))]
         for (kind, pack) in [
             ("varp", &self.varp),
             #[cfg(since_647)]

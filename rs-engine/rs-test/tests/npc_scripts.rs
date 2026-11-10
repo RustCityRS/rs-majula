@@ -30,6 +30,11 @@ fn pack_id(kind: &str, name: &str) -> i32 {
         .unwrap_or_else(|| panic!("{name} is not in {kind}.pack"))
 }
 
+/// The id the engine gave the script its header names.
+fn script_id(engine: &rs_engine::Engine, name: &str) -> i32 {
+    engine.scripts.get_by_name(name).expect(name).id
+}
+
 /// The script an npc runs for `trigger`: its own, else its category's.
 fn npc_script(engine: &rs_engine::Engine, trigger: ServerTriggerType, npc: u16) -> Option<i32> {
     let category = engine
@@ -62,7 +67,7 @@ fn attack_script(engine: &rs_engine::Engine, npc: u16) -> Option<i32> {
     npc_script(engine, ServerTriggerType::AiOpPlayer2, npc)
 }
 
-/// Alberich (3246, 2011's `barbarian`) runs 289's barbarian trigger; Fasolt,
+/// Alberich (3246, 2011's `fai_barbarian_1`) runs 289's barbarian trigger; Fasolt,
 /// Minarch and Brunnhilde, 2011's barbarians of 289's category, its
 /// category's. Both jump to 289's battle cry.
 #[test]
@@ -70,9 +75,9 @@ fn barbarian_village_s_barbarians_attack_with_289_s_battle_cry() {
     runner::on_loaded_engine(|engine| {
         assert_eq!(
             attack_script(engine, 3246),
-            Some(pack_id("script", "[ai_opplayer2,barbarian]"))
+            Some(script_id(engine, "[ai_opplayer2,fai_barbarian_1]"))
         );
-        let category = pack_id("script", "[ai_opplayer2,_barbarian]");
+        let category = script_id(engine, "[ai_opplayer2,_barbarian]");
         for npc in [3248, 3253, 3260] {
             assert_eq!(attack_script(engine, npc), Some(category), "{npc}");
         }
@@ -119,9 +124,9 @@ fn aitan_shoots_and_every_barbarian_talks() {
     runner::on_loaded_engine(|engine| {
         assert_eq!(
             npc_script(engine, ServerTriggerType::AiOpPlayer2, 3259),
-            Some(pack_id("script", "[ai_opplayer2,barbarian_3259]"))
+            Some(script_id(engine, "[ai_opplayer2,fai_barbarian_14]"))
         );
-        let talk = pack_id("script", "[opnpc1,_barbarian]");
+        let talk = script_id(engine, "[opnpc1,_barbarian]");
         for npc in [3246, 3247, 3259, 3263] {
             assert_eq!(
                 npc_script(engine, ServerTriggerType::OpNpc1, npc),
@@ -140,7 +145,7 @@ fn aitan_shoots_and_every_barbarian_talks() {
 #[test]
 fn monks_of_zamorak_zap_with_their_level_s_max() {
     runner::on_loaded_engine(|engine| {
-        let label = pack_id("script", "[label,monk_of_zamorak_attack]");
+        let label = script_id(engine, "[label,monk_of_zamorak_attack]");
         for (npc, max) in [(188u16, 80), (189, 60), (190, 130), (8178, 60)] {
             let script = engine
                 .script_by_key(ServerTriggerType::AiOpPlayer2, Some(i32::from(npc)), None)

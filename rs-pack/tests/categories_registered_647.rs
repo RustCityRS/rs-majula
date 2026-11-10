@@ -1,4 +1,4 @@
-//! Every category an authored 647 config names is in `category.pack`.
+//! Every category a 647 config names is in `category.pack`.
 //!
 //! The obj, loc and npc packers look a `category=` value up in the registry
 //! and, finding nothing, write no category at all -- no warning. The compiler
@@ -21,9 +21,7 @@ fn configs(dir: &Path, out: &mut Vec<PathBuf>) {
     for entry in fs::read_dir(dir).unwrap().flatten() {
         let path = entry.path();
         if path.is_dir() {
-            if path.file_name().is_some_and(|n| n != "_unpack") {
-                configs(&path, out);
-            }
+            configs(&path, out);
         } else if path
             .extension()
             .is_some_and(|e| e == "obj" || e == "loc" || e == "npc")
@@ -45,13 +43,14 @@ fn every_config_category_is_registered() {
 
     let mut files = Vec::new();
     configs(&root.join("content/647/scripts"), &mut files);
-    assert!(files.len() > 10, "found only {} configs", files.len());
 
+    let mut checked = 0;
     let mut missing = Vec::new();
     for path in files {
         let text = fs::read_to_string(&path).unwrap();
         for (n, line) in text.lines().enumerate() {
             if let Some(name) = line.trim().strip_prefix("category=") {
+                checked += 1;
                 if !registered.contains(name) {
                     missing.push(format!(
                         "{}:{}: `{name}`",
@@ -62,6 +61,7 @@ fn every_config_category_is_registered() {
             }
         }
     }
+    assert!(checked > 10, "found only {checked} categories");
     assert!(
         missing.is_empty(),
         "categories not in content/647/pack/category.pack (the packer drops them):\n  {}",

@@ -1,6 +1,6 @@
 //! 2011's re-issued npcs answer their 289 base's triggers.
 //!
-//! `npc_clones_2011.npc` (since 9217853428 folded into `configs/_unpack/all.npc`) gives 362 of 2011's npcs the server config of a 289
+//! `npc_clones_2011.npc` (since 9217853428 folded into `_unpack/all.npc`) gives 362 of 2011's npcs the server config of a 289
 //! npc, named in each section's comment ("289's [cow]"). Config alone left 127
 //! of them without some of their base's own triggers, so they fell to 647's
 //! defaults: a fire giant dropped only its bones, a chaos druid never cast, a
@@ -100,11 +100,11 @@ fn pack(kind: &str) -> HashMap<String, i32> {
 
 /// Each clone (a section whose comment names "289's [base]") and the 289 npc
 /// that comment names. The clones' sections were `npc_clones_2011.npc` until
-/// 9217853428 folded every authored npc section into `configs/_unpack/all.npc`,
-/// where the comment follows the cache's lines.
+/// 9217853428 folded every authored npc section into `_unpack/all.npc`, where
+/// the comment follows the cache's lines.
 fn clones() -> Vec<(String, String)> {
     let path = format!(
-        "{}/../../content/647/scripts/configs/_unpack/all.npc",
+        "{}/../../content/647/scripts/_unpack/all.npc",
         env!("CARGO_MANIFEST_DIR")
     );
     let text = fs::read_to_string(&path).expect(&path);
@@ -179,7 +179,6 @@ fn every_2011_clone_answers_its_289_base_s_triggers() {
 fn clones_jump_to_their_base_s_label() {
     runner::on_loaded_engine(|engine| {
         let npcs = pack("npc");
-        let scripts = pack("script");
         #[rustfmt::skip]
         let cases = [
             (ServerTriggerType::AiQueue3, "firegiant", "firegiant2", "[label,fire_giant_drop_table]"),
@@ -197,7 +196,7 @@ fn clones_jump_to_their_base_s_label() {
             (ServerTriggerType::OpNpc3, "man", "rimmington_hengel", "[label,attempt_pick_pocket]"),
         ];
         for (trigger, base, clone, label) in cases {
-            let label = scripts[label];
+            let label = engine.scripts.get_by_name(label).expect(label).id;
             for npc in [base, clone] {
                 let script = engine
                     .script_by_key(trigger, Some(npcs[npc]), None)

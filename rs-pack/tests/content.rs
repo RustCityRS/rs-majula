@@ -36,6 +36,7 @@ fn a_registry_rename_stops_packing() {
     fs::create_dir_all(output.join("server")).unwrap();
     fs::write(pack.join("seq.pack"), "893=human_shearing\n").unwrap();
     fs::write(pack.join("npc.pack"), "1=guard\n").unwrap();
+    fs::write(pack.join("loc.pack"), "").unwrap();
     fs::write(
         content.join("scripts/configs/_unpack/all.npc"),
         "[guard]\nmultivar=renamed_varp\nmultinpc=1,guard\n",
@@ -169,10 +170,13 @@ fn authored_properties_reach_the_packed_configs() {
     }
 
     // general/configs/shops.inv -- stock on a cache inv.
-    let shop = config.invs.get_by_id(id(&registry.inv, "inv_486")).unwrap();
+    let shop = config
+        .invs
+        .get_by_id(id(&registry.inv, "poh_costume_room_treasure_trail_2a_inv"))
+        .unwrap();
     assert_eq!(
         shop.stockobj.as_deref().unwrap().first().copied(),
-        Some(id(&registry.obj, "junk_19713"))
+        Some(id(&registry.obj, "playerkit_dummy_shadow_necklace"))
     );
 
     let tackler = config
@@ -181,7 +185,7 @@ fn authored_properties_reach_the_packed_configs() {
         .unwrap();
     let check = tackler.check_inv.as_ref().unwrap();
     assert_eq!(check.inv, id(&registry.inv, "worn"));
-    assert_eq!(check.obj, id(&registry.obj, "gnomeball"));
+    assert_eq!(check.obj, id(&registry.obj, "ball_gnomeball_game"));
     assert_eq!((check.condition.as_str(), check.value), (">", 0));
     let gujuo = config.hunts.get_by_id(id(&registry.hunt, "gujuo")).unwrap();
     assert_eq!(gujuo.extracheck_vars.len(), 2);
@@ -203,7 +207,7 @@ fn authored_properties_reach_the_packed_configs() {
     // player/configs/perm.varp -- persistence on a cache varp.
     let varp = config
         .varps
-        .get_by_id(id(&registry.varp, "learning_the_ropes"))
+        .get_by_id(id(&registry.varp, "tutorial"))
         .unwrap();
     assert_eq!(varp.scope, VarPlayerScope::Perm);
 

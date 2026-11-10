@@ -843,7 +843,11 @@ fn client_var_tables_write_their_opcodes() {
 fn server_only_table_keeps_the_cache_ids() {
     let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("server_only_table");
     fs::create_dir_all(path.join("_unpack")).unwrap();
-    fs::write(path.join("hunt.pack"), "0=first\n2=third\n3=ours\n").unwrap();
+    fs::write(
+        path.join("hunt.pack"),
+        "// client_count=3\n0=first\n2=third\n3=ours\n",
+    )
+    .unwrap();
     fs::write(
         path.join("_unpack/all.hunt"),
         "[first]\ntype=player\n\n[third]\n",

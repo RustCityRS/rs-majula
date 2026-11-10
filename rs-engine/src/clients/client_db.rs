@@ -349,7 +349,7 @@ async fn prune_logs_task(config: DbConfig) {
     loop {
         let prunes = [
             (
-                "mah1_raft_log",
+                "log",
                 LOG_DAYS,
                 db.prune_logs(LOG_DAYS, LOG_PRUNE_BATCH).await,
             ),
@@ -1542,37 +1542,9 @@ fn random_name(rng: &mut JavaRandom) -> String {
         "Fire", "Ice", "Earth", "Water", "Air", "Mind", "Body", "Soul",
     ];
     const SUFFIXES: &[&str] = &[
-        "blade",
-        "shade",
-        "fall",
-        "hawk",
-        "fury",
-        "kuradal_prerelease_controller",
-        "light",
-        "vale",
-        "spark",
-        "peak",
-        "rune",
-        "forge",
-        "ward",
-        "drift",
-        "crest",
-        "reign",
-        "born",
-        "strike",
-        "keep",
-        "gaze",
-        "bane",
-        "doe",
-        "wolf",
-        "rd_fox",
-        "eagle_winged",
-        "lore_raven_1",
-        "owl",
-        "sparrow",
-        "jay",
-        "crow",
-        "game_brew_blue_parrot_helper",
+        "blade", "shade", "fall", "hawk", "fury", "fly", "light", "vale", "spark", "peak", "rune",
+        "forge", "ward", "drift", "crest", "reign", "born", "strike", "keep", "gaze", "bane",
+        "doe", "wolf", "fox", "eagle", "raven", "owl", "sparrow", "jay", "crow", "parrot",
     ];
     let prefix = PREFIXES[rng.next_int_bound(PREFIXES.len() as i32) as usize];
     let suffix = SUFFIXES[rng.next_int_bound(SUFFIXES.len() as i32) as usize];

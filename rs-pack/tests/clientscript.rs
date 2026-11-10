@@ -4,16 +4,31 @@ use rs_io::js5::Js5Store;
 use rs_pack::archive;
 use rs_pack::pack::names::AssetNames;
 use runec::clientscript::{self, Source, decode::Script, decompile as source, format::Format};
-use runec::sources::{Scope, engine_file};
+use runec::sources::{Scope, Visibility, engine_file};
+use runec::symbol::SymbolRegistry;
 use runec::types::Type;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
 
+/// The 647 registry for a source kept outside the content tree, which the
+/// tree's visibility rules (which folder sees which script or config) don't
+/// cover.
+fn detached_registry(source_dir: &Path, pack: &Path) -> SymbolRegistry {
+    let mut registry = clientscript::registry(source_dir, pack).unwrap();
+    registry.set_visibility(Visibility::default());
+    registry
+}
+
 #[test]
 #[ignore = "requires the 647 reference cache and generated sources"]
 fn sources_without_metadata_match_every_reference_clientscript() {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap();
+    let expected = root.join("expected");
+    if !expected.is_dir() {
+        eprintln!("skipped: no reference cache at {}", expected.display());
+        return;
+    }
     let pack = root.join("content/647/pack");
     let dir = root.join("content/647/scripts");
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
@@ -36,7 +51,7 @@ fn sources_without_metadata_match_every_reference_clientscript() {
             assert!(compiled.insert(id as u32, bytes).is_none());
         }
     }
-    let mut store = Js5Store::open(root.join("expected")).unwrap();
+    let mut store = Js5Store::open(expected).unwrap();
     let groups = store
         .reference_table(archive::CLIENTSCRIPT)
         .unwrap()
@@ -214,7 +229,7 @@ fn command_arguments_use_typed_names_without_changing_bytes() {
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
-    let mut registry = clientscript::registry(&source_dir, &pack).unwrap();
+    let mut registry = detached_registry(&source_dir, &pack);
     registry.register_entity_id("options_boxes,1".to_owned(), Type::Obj, 99999);
     let path = Path::new("names.cs2");
     let text = r#"[proc,clientscript_100003]()
@@ -267,7 +282,7 @@ fn structured_flow_and_typed_procedures_need_no_stack_helpers() {
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
-    let mut registry = clientscript::registry(&source_dir, &pack).unwrap();
+    let mut registry = detached_registry(&source_dir, &pack);
     let path = Path::new("structured.cs2");
     let text = r#"
         [proc,clientscript_100004](int $component, int $graphic, int $colour)
@@ -369,7 +384,7 @@ fn dump_formatting_preserves_local_slots_grouping_constants_and_bare_calls() {
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
-    let mut registry = clientscript::registry(&source_dir, &pack).unwrap();
+    let mut registry = detached_registry(&source_dir, &pack);
     let path = Path::new("formatting.cs2");
     let text = r#"[proc,clientscript_100008](int $parent)
         def_int $child = $parent;
@@ -447,7 +462,7 @@ fn dynamic_return_types_use_normal_command_names() {
     )
     .unwrap();
     let format = Format::load(&pack.join("cs2_command.pack")).unwrap();
-    let mut registry = clientscript::registry(&source_dir, &pack).unwrap();
+    let mut registry = detached_registry(&source_dir, &pack);
     registry.register_param_type(99999, Type::String);
     let path = Path::new("dynamic.cs2");
     let text = r#"[proc,clientscript_100007]()
