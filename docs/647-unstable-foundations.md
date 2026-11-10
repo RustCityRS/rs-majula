@@ -1787,9 +1787,16 @@ What the overlay does:
 
 **Still open:**
 - 2011's arrival camera sits lower and closer.
-- 2011's minimap shows only the start room and a strip north of it, where ours also shows the
-  room to its west. Cache 786 places a second start room around (56..60, 3..9). Whether 2011
-  started players there: to be fitted.
+
+**Closed since:**
+- The minimap. 2011 shows only the start room and a strip north of it until the exit stage
+  (4KO2h2xPtdM, sampled every 15 s); our copy of the whole square also showed the room to its
+  west. The start region now leaves out the square's south-west 24x24 (zones x 0-2, z 0-2) and
+  x 56-63 (`uf_cellar.rs2`), and the west room joins after the collapse (`uf_collapse.rs2`).
+  In-client the arrival minimap matches 8jKH_7To46o @56.
+- The second start room around (56..60, 3..9) is not where players start: it is the start room
+  as stage 2 (`uf_cellar_stage2`), and cache 786's world map area tutorial3_1 does not draw
+  x 56-63 (its subareas: x 24-55, z 0-63 and x 0-23, z 24-47).
 
 ## 4. Cutscenes and camera (cache 786: client-side camera paths)
 
