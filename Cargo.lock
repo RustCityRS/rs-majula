@@ -2986,6 +2986,8 @@ dependencies = [
 [[package]]
 name = "rs-pathfinder"
 version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "115dffa59c88dccc2da83f57ea5970a5054042c83da51975a0902de442f94f49"
 dependencies = [
  "once_cell",
  "rand 0.10.3",
@@ -3025,6 +3027,8 @@ dependencies = [
 [[package]]
 name = "rs-runec"
 version = "0.5.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e24cc8c68c809bf6ab23076ba50ec18c0c6e18eaff1d3012ab6fe3575f7ba5a1"
 dependencies = [
  "anyhow",
  "clap",
