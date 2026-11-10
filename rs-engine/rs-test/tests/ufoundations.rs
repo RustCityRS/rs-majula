@@ -1359,9 +1359,41 @@ fn the_way_out_to_lumbridge() {
 
         engine.harness_telejump(client.pid, origin.0 + 29, 0, origin.1 + 31);
         cycles(engine, &mut client, 3);
-        talk_to(&mut client, npc_nid(engine, "sir_vant_8850"));
-        let kit = converse(engine, &mut client, &["Okay, I'll get on with it."], 160);
-        assert!(kit.said("Right, I think that's everything."));
+        // The kit, the tinderbox and the oil can in the pack, as the collapse leaves a player:
+        // talking gets s042 only; each piece used on him is taken, the last with s043 (in-client
+        // run 18 talked to him holding it and got no further).
+        let names = [
+            "bronze_platebody",
+            "bronze_sq_shield",
+            "bronze_sword",
+            "tinderbox",
+            "sir_vant_s_oil_can",
+        ];
+        for (slot, name) in names.iter().enumerate() {
+            give(engine, &client, slot as u16, obj_id(engine, name), 1);
+        }
+        cycles(engine, &mut client, 1);
+        let vant = npc_nid(engine, "sir_vant_8850");
+        talk_to(&mut client, vant);
+        let held = converse(engine, &mut client, &[], 60);
+        assert!(held.said("Please hand over my squire's kit."));
+        assert_eq!(progress(engine, &client), 120);
+        let mut last = None;
+        for (slot, name) in names.iter().enumerate() {
+            use_on_npc(&mut client, obj_id(engine, name), slot as u16, vant);
+            last = Some(converse(
+                engine,
+                &mut client,
+                &["Okay, I'll get on with it."],
+                160,
+            ));
+        }
+        let kit = last.unwrap();
+        assert!(
+            kit.said("Right, I think that's everything."),
+            "{:?}",
+            kit.texts
+        );
         assert_eq!(progress(engine, &client), 128, "Discover an Exit");
 
         talk_to(&mut client, npc_nid(engine, "roddeck"));
