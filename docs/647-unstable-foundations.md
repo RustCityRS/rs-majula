@@ -1853,13 +1853,27 @@ What the overlay does:
   is a rumble under 1.5 kHz with an instant onset and a slow decay: not that noise. Every synth
   and vorbis clip of 1.5-2.6 s in cache 786 was scored against the recording's noise; none
   stands out (music plays under it). No sound is added until one is identified.
-- The goblin at Sir Vant's bag. Ours plays seq 12301, which is the Lumbridge goblin cook's
-  (picked by id range, wrong), and the cellar's populate branch plays nothing. 2011's goblin is
-  bent into the bag (4KO2h2xPtdM @51.5, @60-62, @84-89). Which seq: not determined; candidates
-  on its skeleton to compare in-client: 7311, 7309, 11800, 11848, 12637, 12638, 12654, 12655.
-- The hint arrow and ring with the arrow keys: 4KO2h2xPtdM @7-12 shows neither after the camera
-  task; @84-89 both stay through a camera turn. Ours removes them only at stage 6
-  (`uf_camera_turned`). A later stage where they vanish on a turn: not reproduced yet.
+- The goblin at Sir Vant's bag: done. Ours played seq 12301, the Lumbridge goblin cook's
+  (picked by id range, wrong), and the cellar's populate branch played nothing. 2011's goblin is
+  bent into the bag (4KO2h2xPtdM @51.5, @60-62, @84-89). Now, in the dragon cutscene's shot 9
+  (4KO2h2xPtdM, cut @46.42): it lands crouched by the pillar (seq 9965, +0.41 s), walks on the
+  shot's tick 4 (+2.31..2.38 s), "Ooh, shiny!" on tick 5 (+3.05 s), rummages (seq 9963) from
+  tick 8 (+5.09 s); from stage 10 the cellar builds it at the bag, rummaging. Not known from
+  any source: whether 2011 played seq 9966 at the pillar, and when the goblin goes back to
+  rummaging after a hit.
+- The hint arrow and ring with the arrow keys. At the first Task 2011 drops them as ours does:
+  vGlx_SDOI7s (2011-02-28) has the ring under the player @13-16.6 (blinking: out @16.4, back
+  @16.6) while the camera starts to turn @16.2, and gone @16.8 as the panel goes on to "Talk to
+  Sir Vant"; nothing under the player or over Sir Vant @17-21. 4KO2h2xPtdM @7-12 shows neither
+  after the camera task; @84-89 both stay through a camera turn. The overlay's clientscript
+  2773 only turns the camera and lights the key; each key is sent as an op, so the server ends
+  the Task on the first one it hears. Ours removes them only at stage 6 (`uf_camera_turned`).
+  A later stage where they vanish on a turn: not reproduced yet.
+- The red footprints either side of the plan's food bowl are the map's: static locs
+  `tutorial3_cellar_dragon_footprint_01` at (17,36) and `..._mirror` at (17,34), shape 22, in
+  cache 786's 57_77 (2011-05-17). U9ajh4bwWsI (2011-05-21) @145.0-145.6 shows them;
+  4KO2h2xPtdM (2011-04-30) @115.2 shows none (a map change between the two dates or that
+  recorder's settings: no source decides).
 
 ## 4. Cutscenes and camera (cache 786: client-side camera paths)
 
