@@ -61,13 +61,14 @@ p_delay(2);
 // fitted in-client, not read from any source: here (30, 25), where shot 3's idle frame has its
 // front feet as far apart as 4KO2 @25.6 (~180 px of a 512-wide frame there, ~170 px ours, at the
 // same height; from (30, 26) ~140 px and higher, from (30, 24) too close).
-// Not matched: 2011's stands still through shot 3 and is at the wall 2.44-2.54 s into shot 4 (4KO2
-// cut @25.96: wing tip in frame +1.64, head +1.94, wings settled +2.74-3.04), where ours, walking a
-// tile a tick, is there at +3.1-3.4 s. Tried in-client and not kept: walked two tiles a tick from
-// the cut tick, ours tracks those frames within ~0.2 s (wing tip +1.82, head +2.02, at the wall
-// +2.6-2.7) with the same walk seq, so 2011's moves so; that is read from frames, not a script.
-// The cache gives it no faster movement seq (bas 1618: ready 12249, walk 12247) and the engine has
-// no command for an npc's speed.
+// 2011's stands still through shot 3 and is at the wall 2.44-2.54 s into shot 4 (4KO2 cut @25.96:
+// wing tip in frame +1.64, head +1.94, wings settled +2.74-3.04): seven tiles in under 2.6 s is
+// two tiles a tick, a running npc. Walking a tile a tick from shot 3's last tick ours was there
+// at +3.1-3.4 s; running from the cut tick it tracks those frames within ~0.2 s (wing tip +1.82,
+// head +2.02, at the wall +2.6-2.7; run uf-dragon-run). The client shows the walk seq at twice
+// the pace: the cache gives the dragon no run seq (bas 1618: ready 12249, walk 12247). That it
+// runs is read from the frames; the command 2011's script used for it no source names (npc_run
+// here, engine.rs2).
 npc_add(~uf_cellar_coord(30, 25), tutorial3_dragon_initial, ^uf_cellar_obj_duration);
 npc_setmode(none);
 npc_facesquare(~uf_cellar_coord(32, 16));
@@ -91,13 +92,13 @@ if (npc_find(~uf_cellar_coord(32, 13), tutorial3_squire, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(32, 17));
 }
 p_delay(1);
-// It sets off on shot 3's last tick: in uf18e, leaving as shot 4 opened, it reached the wall ~2 s
-// after 2011's (now ~0.7-0.9 s after, see above).
-if (npc_find(~uf_cellar_coord(32, 27), tutorial3_dragon_initial, 4, 0) = true) {
-    npc_walk(~uf_cellar_coord(30, 18));
-}
 p_delay(0);
 %tutorial3_cutscene_tracker = 4;
+// It sets off as shot 4 opens, running (see above).
+if (npc_find(~uf_cellar_coord(32, 27), tutorial3_dragon_initial, 4, 0) = true) {
+    npc_run(1);
+    npc_walk(~uf_cellar_coord(30, 18));
+}
 // From shot 4 Sir Vant holds his shield up and his feet still while the dragon comes (4KO2 @26-41),
 // where 8850's ready seq (12235) paces: cache 786's Sir Vant 8851 (bas 1615, ready 12234, a
 // 16-frame loop) stands so. Fitted by eye (ufbatch), not read from a source. Back to 8850 as the
@@ -112,6 +113,8 @@ p_delay(8);
 // first of seven by both matchers against 4KO2 under shot 4's own camera (ufinger: frame motion
 // 0.264 against 0.293 next; DINOv2 0.189 against 0.194), its fit starting ~0.5-0.8 s into the seq.
 if (npc_find(~uf_cellar_coord(32, 20), tutorial3_dragon_initial, 6, 0) = true) {
+    // At the wall: it walks from here on (to the nest, 4KO2 @208.5-223.4, a tile a tick).
+    npc_run(0);
     npc_facesquare(~uf_cellar_coord(32, 16));
     npc_anim(seq_14244, 0);
 }

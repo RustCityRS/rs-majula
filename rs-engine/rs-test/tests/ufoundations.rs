@@ -546,6 +546,7 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         )];
         let mut squire_face = vec![npc_face(engine, "tutorial3_squire")];
         let mut goblin = vec![npc_tile(engine, "tutorial3_goblin")];
+        let mut dragon = vec![npc_tile(engine, "tutorial3_dragon_initial")];
         for _ in 0..80 {
             assert!(
                 is_open(engine, &client, CUTSCENES),
@@ -557,6 +558,7 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             ticks.push((now, packets, npc_tile(engine, "tutorial3_squire")));
             squire_face.push(npc_face(engine, "tutorial3_squire"));
             goblin.push(npc_tile(engine, "tutorial3_goblin"));
+            dragon.push(npc_tile(engine, "tutorial3_dragon_initial"));
             if now == 0 {
                 break;
             }
@@ -572,6 +574,26 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         assert_eq!(order, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0], "{shots:?}");
         let lengths: Vec<u32> = shots[1..10].iter().map(|(_, n)| *n).collect();
         assert_eq!(lengths, vec![6, 3, 13, 6, 7, 4, 4, 9, 3], "{shots:?}");
+
+        // The dragon stands through shot 3 and runs to the wall as shot 4 opens, two tiles a
+        // tick: 4KO2h2xPtdM has it at the wall 2.44-2.54 s after the cut @25.96, seven tiles on.
+        let four = shots_start(&ticks, 4);
+        let walk: Vec<Option<(u16, u16)>> = dragon[four..four + 6]
+            .iter()
+            .map(|tile| tile.map(|tile| local(engine, tile)))
+            .collect();
+        assert_eq!(
+            walk,
+            vec![
+                Some((30, 25)),
+                Some((30, 23)),
+                Some((30, 21)),
+                Some((30, 19)),
+                Some((30, 18)),
+                Some((30, 18)),
+            ],
+            "the dragon runs to the wall from shot 4's first tick"
+        );
         // 899 stays a tick after varc 1007 reaches 0, for its hook to reset the camera.
         assert!(
             is_open(engine, &client, CUTSCENES),

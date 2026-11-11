@@ -729,6 +729,11 @@
 [command,npc_walk](coord $coord)
 // info: Walk the secondary npc to $coord
 [command,.npc_walk](coord $coord)
+// info: Toggle the npc's run-mode: two tiles a tick while on, as a running player
+// (647; no source names Jagex's command for it, so this is p_run's name for an npc)
+[command,npc_run](int $state)
+// info: Toggle the secondary npc's run-mode
+[command,.npc_run](int $state)
 // info: Get the npc's attack range
 [command,npc_attackrange]()(int)
 // info: Get the secondary npc's attack range

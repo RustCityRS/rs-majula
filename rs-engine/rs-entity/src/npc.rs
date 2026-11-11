@@ -287,6 +287,11 @@ impl Npc {
             self.hero_points.clear();
             self.state.queues.queue.clear();
             self.pathing.clear_waypoints();
+            // A respawned npc walks again (647's `npc_run`).
+            #[cfg(since_647)]
+            {
+                self.pathing.move_speed = crate::MoveSpeed::Walk;
+            }
             self.pathing.tele = true;
             self.pathing.jump = true;
             self.lifecycle_at = None;

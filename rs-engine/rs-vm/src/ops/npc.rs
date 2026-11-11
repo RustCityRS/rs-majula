@@ -644,6 +644,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             npc.walk(pop_coord(s)?);
         });
 
+        // 5024 (647). No source names Jagex's command for a running npc; this is P_RUN's
+        // shape for an npc.
+        #[cfg(since_647)]
+        active_npc_mut!(m, NPC_RUN => |s, npc| {
+            npc.run(s.pop_int_as::<u8>()?);
+        });
+
         // 2545
         // https://x.com/JagexAsh/status/1780932943038345562
         active_npc_mut!(m, NPC_WALKTRIGGER => |s, npc| {

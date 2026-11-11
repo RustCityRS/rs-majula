@@ -1,5 +1,7 @@
 use crate::active_npc::ActiveNpc;
 use crate::core::{Engine, engine};
+#[cfg(since_647)]
+use rs_entity::MoveSpeed;
 use rs_entity::NpcUid;
 use rs_entity::{InteractionTarget, ObjSerial};
 use rs_grid::CoordGrid;
@@ -378,6 +380,22 @@ impl ScriptNpc for ActiveNpc {
     /// **Calls:** `Pathing::queue_waypoint`
     fn walk(&mut self, coord: CoordGrid) {
         self.npc.pathing.queue_waypoint(coord);
+    }
+
+    /// Sets the NPC's run mode: `MoveSpeed::Run` takes a second step each tick, which
+    /// NPC_INFO already writes as a run. It lasts until set back or the npc respawns.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptNpc` trait
+    /// **Calls:** sets `self.npc.pathing.move_speed`
+    #[cfg(since_647)]
+    fn run(&mut self, run: u8) {
+        self.npc.pathing.move_speed = if run == 1 {
+            MoveSpeed::Run
+        } else {
+            MoveSpeed::Walk
+        };
     }
 
     /// Sets the maximum hunt range for this NPC's AI.

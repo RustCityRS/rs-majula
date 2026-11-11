@@ -2411,6 +2411,14 @@ pub trait ScriptNpc {
     /// * `coord` - The destination tile.
     fn walk(&mut self, coord: CoordGrid);
 
+    /// Sets the NPC's run mode (rev-647 `npc_run`): while on it takes two steps a tick,
+    /// as a running player does.
+    ///
+    /// # Arguments
+    /// * `run` - 1 to run, anything else to walk.
+    #[cfg(since_647)]
+    fn run(&mut self, run: u8);
+
     /// Sets the maximum hunt range for this NPC's AI.
     ///
     /// # Arguments
