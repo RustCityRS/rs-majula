@@ -665,9 +665,8 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         assert_eq!(shots[9], (10, 8), "shot 10 for as long as s003 is unread");
 
         // The dragon stands through shot 3 and runs to the wall as shot 4 opens, two tiles a
-        // tick, to (28, 19), where 4KO2h2xPtdM's minimap has it after the cutscene (@55-104).
-        // Two tiles west, then six south: there on the fourth tick, as 2011's is 2.44-2.54 s after
-        // the cut @25.96.
+        // tick, to (30, 18): 4KO2h2xPtdM has it at the wall 2.44-2.54 s after the cut @25.96,
+        // seven tiles on.
         let four = shots_start(&ticks, 4);
         let walk: Vec<Option<(u16, u16)>> = dragon[four..four + 6]
             .iter()
@@ -677,16 +676,30 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             walk,
             vec![
                 Some((30, 25)),
-                Some((28, 25)),
-                Some((28, 23)),
-                Some((28, 21)),
-                Some((28, 19)),
-                Some((28, 19)),
+                Some((30, 23)),
+                Some((30, 21)),
+                Some((30, 19)),
+                Some((30, 18)),
+                Some((30, 18)),
             ],
             "the dragon runs to the wall from shot 4's first tick"
         );
-        // Shot 9: the goblin's "Ooh, shiny!" with its clip; shot 10: Sir Vant's s003 with his.
+        // It keeps that tile through shot 8 and stands on (28, 19) as shot 10 opens (4KO2h2xPtdM
+        // @44.1-46.4 against @52.2-52.8, and its minimap after the cutscene @55-104).
         let nine = shots_start(&ticks, 9);
+        let ten = shots_start(&ticks, 10);
+        assert!(
+            dragon[four + 4..=nine]
+                .iter()
+                .all(|tile| tile.map(|tile| local(engine, tile)) == Some((30, 18))),
+            "the dragon over Sir Vant through shot 8"
+        );
+        assert_eq!(
+            dragon[ten - 1].map(|tile| local(engine, tile)),
+            Some((28, 19)),
+            "the dragon north-west of Sir Vant a tick before shot 10 opens"
+        );
+        // Shot 9: the goblin's "Ooh, shiny!" with its clip; shot 10: Sir Vant's s003 with his.
         let shiny = ticks[nine..nine + 9]
             .iter()
             .position(|(_, packets, _)| sent_text(packets, "Ooh, shiny!"))
