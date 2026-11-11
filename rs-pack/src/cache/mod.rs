@@ -17,6 +17,8 @@ use crate::cache::spotanim::SpotAnimTypeProvider;
 use crate::cache::r#struct::StructTypeProvider;
 #[cfg(since_254)]
 use crate::cache::varbit::VarbitTypeProvider;
+#[cfg(since_647)]
+use crate::cache::varc::VarClientTypeProvider;
 use crate::cache::varn::VarnTypeProvider;
 use crate::cache::varp::VarPlayerTypeProvider;
 use crate::cache::vars::VarsTypeProvider;
@@ -110,6 +112,8 @@ pub mod texture;
 #[cfg(since_254)]
 pub mod varbit;
 #[cfg(since_647)]
+pub mod varc;
+#[cfg(since_647)]
 pub mod varcon;
 pub mod varn;
 #[cfg(since_647)]
@@ -138,6 +142,8 @@ pub struct CacheStore {
     pub objs: ObjTypeProvider,
     pub invs: InvTypeProvider,
     pub varps: VarPlayerTypeProvider,
+    #[cfg(since_647)]
+    pub varcs: VarClientTypeProvider,
     #[cfg(since_254)]
     pub varbits: VarbitTypeProvider,
     pub dbrows: DbRowTypeProvider,
@@ -228,6 +234,8 @@ pub enum VarValue {
     #[cfg(since_647)]
     Graphic(i32),
     #[cfg(since_647)]
+    ChatPhrase(i32),
+    #[cfg(since_647)]
     Jingle(i32),
     #[cfg(since_647)]
     ChatCat(i32),
@@ -278,6 +286,8 @@ impl VarValue {
             ScriptVarType::MapArea => VarValue::MapArea(value),
             #[cfg(since_647)]
             ScriptVarType::Graphic => VarValue::Graphic(value),
+            #[cfg(since_647)]
+            ScriptVarType::ChatPhrase => VarValue::ChatPhrase(value),
             #[cfg(since_647)]
             ScriptVarType::Jingle => VarValue::Jingle(value),
             #[cfg(since_647)]
@@ -334,6 +344,7 @@ impl VarValue {
             VarValue::Cursor(v)
             | VarValue::MapArea(v)
             | VarValue::Graphic(v)
+            | VarValue::ChatPhrase(v)
             | VarValue::Jingle(v)
             | VarValue::ChatCat(v)
             | VarValue::Model(v)

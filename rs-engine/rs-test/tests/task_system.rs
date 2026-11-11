@@ -61,10 +61,7 @@ fn slots(engine: &Engine, client: &HarnessClient) -> Vec<i32> {
 /// many of them are done, as the tab shows them.
 fn progress(engine: &Engine, client: &HarnessClient) -> (i32, i32) {
     let varcs = &engine.harness_player(client.pid).unwrap().varcs;
-    (
-        varcs.get(&1423).copied().unwrap_or(-1),
-        varcs.get(&1424).copied().unwrap_or(-1),
-    )
+    (varcs.get(1423).as_int(), varcs.get(1424).as_int())
 }
 
 /// task_progress_overall (varbit 8601: varp 1958 bits 0-11).

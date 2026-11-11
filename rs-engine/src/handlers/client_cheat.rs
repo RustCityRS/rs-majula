@@ -321,6 +321,7 @@ fn cheat_debugproc(
             ScriptVarType::Cursor
             | ScriptVarType::MapArea
             | ScriptVarType::Graphic
+            | ScriptVarType::ChatPhrase
             | ScriptVarType::Jingle
             | ScriptVarType::ChatCat
             | ScriptVarType::Model

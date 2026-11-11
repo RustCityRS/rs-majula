@@ -609,7 +609,7 @@ pub(crate) fn teleport_allowed<E: ScriptEngine + 'static>(
 ) -> bool {
     let allowed = region_allows::<E>(state, player.coord(), to);
     if !allowed {
-        player.mes("Invalid teleport!");
+        player.invalid_teleport();
     }
     allowed
 }

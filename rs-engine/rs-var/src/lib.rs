@@ -1,4 +1,5 @@
 use rs_pack::cache::{ScriptVarType, VarValue};
+use std::ops::{Index, IndexMut};
 
 /// Type-aware variable storage container backed by a [`Vec<VarValue>`].
 ///
@@ -8,14 +9,30 @@ use rs_pack::cache::{ScriptVarType, VarValue};
 /// [`ScriptVarType::Obj`], [`ScriptVarType::Npc`],
 /// [`ScriptVarType::Coord`], and [`ScriptVarType::Boolean`].
 ///
-/// `VarSet` is used in two contexts:
+/// `VarSet` stores entity and world variables, including:
 /// - **Player variables (varps):** stored on each [`Player`] and accessed by
 ///   the VM through the `PlayerEngine::get_var` / `PlayerEngine::set_var`
 ///   trait methods.
 /// - **NPC variables (varns):** stored on each [`ActiveNpc`] and accessed by
 ///   the VM through the `NpcEngine::get_var` / `NpcEngine::set_var` trait
 ///   methods.
+/// - **Client variables (varcs):** stored on each player, with integer and
+///   string IDs mapped to separate slots by the cache provider.
 pub struct VarSet(Vec<VarValue>);
+
+impl Index<usize> for VarSet {
+    type Output = VarValue;
+
+    fn index(&self, index: usize) -> &Self::Output {
+        &self.0[index]
+    }
+}
+
+impl IndexMut<usize> for VarSet {
+    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
+        &mut self.0[index]
+    }
+}
 
 impl VarSet {
     /// Creates a new `VarSet` by mapping each [`ScriptVarType`] to its

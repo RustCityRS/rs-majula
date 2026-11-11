@@ -125,9 +125,7 @@ pub struct Player {
     pub skill_level: u16,
     pub vars: VarSet,
     #[cfg(since_647)]
-    pub varcs: FxHashMap<u16, i32>,
-    #[cfg(since_647)]
-    pub varc_strings: FxHashMap<u16, Box<str>>,
+    pub varcs: VarSet,
     pub state: EntityState,
     pub interaction: InteractionState,
     pub cam_queue: CamQueue,
@@ -283,9 +281,7 @@ impl Player {
             skill_level: 0,
             vars,
             #[cfg(since_647)]
-            varcs: FxHashMap::default(),
-            #[cfg(since_647)]
-            varc_strings: FxHashMap::default(),
+            varcs: VarSet::new([].into_iter()),
             state: EntityState::new(),
             info: EntityMasks::new(),
             interaction: InteractionState::new(),

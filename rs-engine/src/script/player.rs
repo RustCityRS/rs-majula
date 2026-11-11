@@ -805,12 +805,17 @@ impl ScriptPlayer for ActivePlayer {
 
     #[cfg(since_647)]
     fn varc(&self, id: u16) -> i32 {
-        self.player.varcs.get(&id).copied().unwrap_or(0)
+        let index = engine().varcs().index(id, false);
+        self.player.varcs[index].as_int()
     }
 
     #[cfg(since_647)]
     fn varc_str(&self, id: u16) -> &str {
-        self.player.varc_strings.get(&id).map_or("", |value| value)
+        let index = engine().varcs().index(id, true);
+        match &self.player.varcs[index] {
+            VarValue::String(value) => value,
+            _ => unreachable!(),
+        }
     }
 
     #[cfg(since_647)]
@@ -847,10 +852,7 @@ impl ScriptPlayer for ActivePlayer {
             c_legs,
             c_feet,
             c_skin,
-        ] = engine()
-            .layout
-            .design
-            .map(|id| self.player.varcs.get(&id).copied().unwrap_or(0));
+        ] = engine().layout.design.map(|id| self.varc(id));
         let [c_hair, c_top, c_legs, c_feet, c_skin] =
             [c_hair, c_top, c_legs, c_feet, c_skin].map(|colour| colour as u8);
 

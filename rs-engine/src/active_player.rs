@@ -475,6 +475,10 @@ impl ActivePlayer {
         }));
 
         let mut player = Player::new(uid, coord, vars, bot);
+        #[cfg(since_647)]
+        {
+            player.varcs = VarSet::new(engine().varcs().types().map(|v| v.var_type));
+        }
         player.low_memory = low_memory;
 
         ActivePlayer {
@@ -2429,7 +2433,9 @@ impl ActivePlayer {
     /// server-side consumers (`applydesign`) can read the design preview back.
     #[cfg(since_647)]
     pub fn varc_transmit(&mut self, id: u16, val: i32) {
-        self.player.varcs.insert(id, val);
+        let varcs = engine().varcs();
+        let varc = varcs.get_by_id(id, false).unwrap();
+        self.player.varcs[varcs.index(id, false)] = VarValue::from_int(varc.var_type, val);
         if (-128..=127).contains(&val) {
             self.write(VarcSmall { id, val: val as u8 });
         } else {
@@ -2440,7 +2446,8 @@ impl ActivePlayer {
     /// Rev-647: transmits a string client variable.
     #[cfg(since_647)]
     pub fn varc_str_transmit(&mut self, id: u16, val: &str) {
-        self.player.varc_strings.insert(id, val.into());
+        let index = engine().varcs().index(id, true);
+        self.player.varcs[index] = VarValue::String(val.into());
         // CLIENT_SETVARCSTR_SMALL's frame size is one byte: a longer string (Unstable
         // Foundations' run hint) wrapped it, the client read the stream out of step and dropped
         // the connection ("Connection lost", in-client runs ufrest10 and ufrest13).
@@ -4706,9 +4713,9 @@ impl EnginePlayer for ActivePlayer {
 
     /// Teleports the player to the given coordinate.
     ///
-    /// If the target zone is not allocated, sends an "Invalid teleport!"
-    /// game message instead of teleporting. If the destination is on a
-    /// different level, a jump flag is set.
+    /// If the target zone is not allocated, reports an invalid teleport
+    /// instead of teleporting. If the destination is on a different level,
+    /// a jump flag is set.
     ///
     /// # Arguments
     /// * `coord` - The destination coordinate.
@@ -4723,7 +4730,7 @@ impl EnginePlayer for ActivePlayer {
         #[cfg(since_647)]
         let from = self.player.pathing.coord;
         match self.player.pathing.teleport(coord) {
-            None => self.message_game("Invalid teleport!"),
+            None => self.invalid_teleport(),
             Some((look_x, look_z)) => {
                 self.cancel_input_path();
                 #[cfg(since_647)]

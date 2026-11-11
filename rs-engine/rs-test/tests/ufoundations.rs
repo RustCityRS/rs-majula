@@ -129,9 +129,8 @@ fn shot(engine: &Engine, client: &HarnessClient) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .varcs
-        .get(&SHOT)
-        .copied()
-        .unwrap_or(0)
+        .get(SHOT)
+        .as_int()
 }
 
 /// The world tile of the first npc of a type, if one is in the world.
@@ -327,42 +326,26 @@ fn character_creation_grids_pick_by_the_slot_clicked() {
                 .harness_player(client.pid)
                 .unwrap()
                 .varcs
-                .get(&id)
-                .copied()
+                .get(id)
+                .as_int()
         };
         // The hair page (1028:96), then the styles (1028:107): enum_3304's slots 0 and 1 are
         // struct_746 "Short" (idkit_5) and struct_747 "Close-cropped" (idkit_6).
         click(engine, &mut client, 96, NONE);
         click(engine, &mut client, 107, 0);
-        assert_eq!(varc(engine, &client, 1008), Some(5), "playerdesign3_head");
+        assert_eq!(varc(engine, &client, 1008), 5, "playerdesign3_head");
         click(engine, &mut client, 107, 1);
-        assert_eq!(varc(engine, &client, 1008), Some(6), "playerdesign3_head");
+        assert_eq!(varc(engine, &client, 1008), 6, "playerdesign3_head");
         // The hair page's colours (1028:111): enum_2345's slots 0 and 1 are 20 and 19.
         click(engine, &mut client, 111, 0);
-        assert_eq!(
-            varc(engine, &client, 1015),
-            Some(20),
-            "playerdesign3_haircol"
-        );
+        assert_eq!(varc(engine, &client, 1015), 20, "playerdesign3_haircol");
         click(engine, &mut client, 111, 1);
-        assert_eq!(
-            varc(engine, &client, 1015),
-            Some(19),
-            "playerdesign3_haircol"
-        );
+        assert_eq!(varc(engine, &client, 1015), 19, "playerdesign3_haircol");
         // The skin colours (1028:45): enum_748's slots 0 and 1 are 9 and 8.
         click(engine, &mut client, 45, 0);
-        assert_eq!(
-            varc(engine, &client, 1019),
-            Some(9),
-            "playerdesign3_skincol"
-        );
+        assert_eq!(varc(engine, &client, 1019), 9, "playerdesign3_skincol");
         click(engine, &mut client, 45, 1);
-        assert_eq!(
-            varc(engine, &client, 1019),
-            Some(8),
-            "playerdesign3_skincol"
-        );
+        assert_eq!(varc(engine, &client, 1019), 8, "playerdesign3_skincol");
     });
 }
 
@@ -477,9 +460,9 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             .harness_player(client.pid)
             .unwrap()
             .varcs
-            .get(&POPUP_TASK)
-            .copied();
-        assert_eq!(popup, Some(3522), "TASK COMPLETE! Rotate Your Camera");
+            .get(POPUP_TASK)
+            .as_int();
+        assert_eq!(popup, 3522, "TASK COMPLETE! Rotate Your Camera");
         assert_eq!(
             varbit(engine, &client, PINNED_TASK),
             3500,
@@ -676,9 +659,9 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
                 .harness_player(client.pid)
                 .unwrap()
                 .varcs
-                .get(&POPUP_TASK)
-                .copied(),
-            Some(3500),
+                .get(POPUP_TASK)
+                .as_int(),
+            3500,
             "TASK COMPLETE! Talk to Sir Vant"
         );
         assert_eq!(face(engine), None, "the lock ends with the talk's script");
@@ -1234,9 +1217,8 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             .harness_player(client.pid)
             .unwrap()
             .varcs
-            .get(&622)
-            .copied()
-            .unwrap_or(-1);
+            .get(622)
+            .as_int();
         let (hx, hz) = ((here >> 14) & 0x3FFF, here & 0x3FFF);
         assert!(
             (57 * 64..58 * 64).contains(&hx) && (77 * 64..78 * 64).contains(&hz),
@@ -1861,9 +1843,9 @@ fn the_way_out_to_lumbridge() {
                 .harness_player(client.pid)
                 .unwrap()
                 .varcs
-                .get(&POPUP_TASK)
-                .copied(),
-            Some(425),
+                .get(POPUP_TASK)
+                .as_int(),
+            425,
             "TASK COMPLETE! How To Train and Level"
         );
 
@@ -1940,10 +1922,10 @@ fn the_way_out_to_lumbridge() {
                 .harness_player(pid)
                 .unwrap()
                 .varcs
-                .get(&POPUP_TASK)
-                .copied()
+                .get(POPUP_TASK)
+                .as_int()
         };
-        assert_ne!(popup(engine), Some(3519), "no To Freedom! over the scroll");
+        assert_ne!(popup(engine), 3519, "no To Freedom! over the scroll");
         engine.harness_close_modal(client.pid);
         let after = cycles(engine, &mut client, 3);
         let lines: Vec<String> = HarnessClient::game_messages(&after)
@@ -1957,7 +1939,7 @@ fn the_way_out_to_lumbridge() {
             "{lines:?}"
         );
         assert!(!is_open(engine, &client, 740), "no level-up box");
-        assert_eq!(popup(engine), Some(3519), "TASK COMPLETE! To Freedom!");
+        assert_eq!(popup(engine), 3519, "TASK COMPLETE! To Freedom!");
         // Pinned till Jack is talked to: Introducing...Explorer Jack (@607-640), then the Task
         // after it.
         assert_eq!(

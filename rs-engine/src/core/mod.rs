@@ -412,6 +412,21 @@ impl Engine {
         new_scripts: ScriptProvider,
         #[cfg(since_647)] layout: InterfaceLayout,
     ) {
+        #[cfg(since_647)]
+        for active in self.player_list.players.iter_mut().flatten() {
+            let mut varcs = VarSet::new(new_store.varcs.types().map(|v| v.var_type));
+            for varc in new_store.varcs.types() {
+                let string = varc.var_type.is_string();
+                if let Some(old) = self.cache.varcs.get_by_id(varc.id, string)
+                    && old.var_type == varc.var_type
+                {
+                    let from = self.cache.varcs.index(varc.id, string);
+                    let to = new_store.varcs.index(varc.id, string);
+                    varcs[to] = active.player.varcs[from].clone();
+                }
+            }
+            active.player.varcs = varcs;
+        }
         unsafe {
             std::ptr::drop_in_place(self.cache_ptr);
             std::ptr::write(self.cache_ptr, *new_store);

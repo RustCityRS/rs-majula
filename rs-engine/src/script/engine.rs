@@ -36,6 +36,8 @@ use rs_pack::cache::r#struct::StructTypeProvider;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitTypeProvider;
 #[cfg(since_647)]
+use rs_pack::cache::varc::VarClientTypeProvider;
+#[cfg(since_647)]
 use rs_pack::cache::varcon::VarConTypeProvider;
 use rs_pack::cache::varn::VarnTypeProvider;
 #[cfg(since_647)]
@@ -114,6 +116,11 @@ impl ScriptEngine for Engine {
 
     fn varps(&self) -> &VarPlayerTypeProvider {
         &self.cache.varps
+    }
+
+    #[cfg(since_647)]
+    fn varcs(&self) -> &VarClientTypeProvider {
+        &self.cache.varcs
     }
 
     #[cfg(since_254)]

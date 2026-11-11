@@ -39,6 +39,8 @@ use rs_pack::cache::seq::SeqTypeRaw;
 use rs_pack::cache::spotanim::SpotAnimTypeRaw;
 use rs_pack::cache::r#struct::{StructType, StructTypeRaw};
 #[cfg(since_647)]
+use rs_pack::cache::varc::VarClientTypeProvider;
+#[cfg(since_647)]
 use rs_pack::pack::config::bas::pack_bases;
 #[cfg(since_647)]
 use rs_pack::pack::config::billboard::pack_billboards;
@@ -67,7 +69,7 @@ use rs_pack::types::HuntCheckAfk;
 #[cfg(since_647)]
 use rs_pack::types::HuntModeType;
 #[cfg(since_647)]
-use rs_pack::types::{ScriptVarType, WearPos};
+use rs_pack::types::{ScriptVarType, VarPlayerScope, WearPos};
 #[cfg(since_647)]
 use rs_pack::unpack::config::bas::emit_bas_props;
 #[cfg(since_647)]
@@ -784,11 +786,12 @@ fn empty_tables_use_registered_ids() {
 fn client_var_tables_write_their_opcodes() {
     let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("client_var_tables");
     fs::create_dir_all(path.join("_unpack")).unwrap();
-    fs::write(path.join("varc.pack"), "0=varc_0\n2=named\n").unwrap();
+    fs::write(path.join("varc.pack"), "0=varc_0\n2=named\n3=phrase\n").unwrap();
     fs::write(path.join("varcstr.pack"), "0=varc_3\n1=varc_4\n").unwrap();
     fs::write(
         path.join("_unpack/all.varc"),
         "// 0\n[varc_0]\ntype=int\nscope=perm\n\n// 2\n[named]\ntype=namedobj\n\n\
+         // 3\n[phrase]\ntype=chatphrase\n\n\
          // 0\n[varc_3]\ntype=string\n\n// 1\n[varc_4]\ntype=string\nscope=perm\n",
     )
     .unwrap();
@@ -807,13 +810,43 @@ fn client_var_tables_write_their_opcodes() {
             .map(|(_, data)| data.to_vec())
             .collect()
     };
-    let varcs = pack_varcs(&cache, &registry.varc, &constants).unwrap();
+    let varcs = pack_varcs(&cache, &registry.varc, &constants)
+        .unwrap()
+        .client
+        .unwrap();
+    let strings = pack_varc_strings(&cache, &registry.varcstr, &constants)
+        .unwrap()
+        .client
+        .unwrap();
+    let provider = VarClientTypeProvider::from_indexed_bytes(&varcs, &strings).unwrap();
+    let types: Vec<_> = provider.types().map(|v| (v.var_type, v.scope)).collect();
     assert_eq!(
-        bytes(varcs.client.unwrap()),
-        [vec![1, 105, 2, 0], Vec::new(), vec![1, b'O', 0]]
+        types,
+        [
+            (ScriptVarType::Int, VarPlayerScope::Perm),
+            (ScriptVarType::Int, VarPlayerScope::Temp),
+            (ScriptVarType::NamedObj, VarPlayerScope::Temp),
+            (ScriptVarType::ChatPhrase, VarPlayerScope::Temp),
+            (ScriptVarType::String, VarPlayerScope::Temp),
+            (ScriptVarType::String, VarPlayerScope::Perm),
+        ]
     );
-    let strings = pack_varc_strings(&cache, &registry.varcstr, &constants).unwrap();
-    assert_eq!(bytes(strings.client.unwrap()), [vec![0], vec![2, 0]]);
+    assert_eq!(provider.index(0, false), 0);
+    assert_eq!(provider.index(0, true), 4);
+    assert_eq!(provider.get_by_id(0, false).unwrap().id, 0);
+    assert_eq!(provider.get_by_id(0, true).unwrap().id, 0);
+    assert!(provider.get_by_id(4, false).is_none());
+    assert!(provider.get_by_id(2, true).is_none());
+    assert_eq!(
+        bytes(varcs),
+        [
+            vec![1, 105, 2, 0],
+            Vec::new(),
+            vec![1, b'O', 0],
+            vec![1, b'e', 0]
+        ]
+    );
+    assert_eq!(bytes(strings), [vec![0], vec![2, 0]]);
     let settings = pack_varclansettings(&cache, &registry.varclansetting, &constants).unwrap();
     assert_eq!(
         bytes(settings.client.unwrap()),

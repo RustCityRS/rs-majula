@@ -29,6 +29,8 @@ use rs_pack::cache::r#struct::StructTypeProvider;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitTypeProvider;
 #[cfg(since_647)]
+use rs_pack::cache::varc::VarClientTypeProvider;
+#[cfg(since_647)]
 use rs_pack::cache::varcon::VarConTypeProvider;
 use rs_pack::cache::varn::VarnTypeProvider;
 #[cfg(since_647)]
@@ -79,6 +81,9 @@ pub trait ScriptEngine {
     fn invs(&self) -> &InvTypeProvider;
     /// Returns the cache's varp (player variable) types.
     fn varps(&self) -> &VarPlayerTypeProvider;
+    /// Returns the cache's client variable types.
+    #[cfg(since_647)]
+    fn varcs(&self) -> &VarClientTypeProvider;
     /// Returns the cache's varbit types, bit ranges of varps.
     #[cfg(since_254)]
     fn varbits(&self) -> &VarbitTypeProvider;
@@ -1337,7 +1342,8 @@ pub trait ScriptPlayer {
     #[cfg(since_647)]
     fn sendvarc_str(&mut self, id: u16, val: &str);
 
-    /// Rev-647: the value last transmitted for a client variable, 0 if none.
+    /// Rev-647: the value last transmitted for a client variable, or its
+    /// type's default if none.
     #[cfg(since_647)]
     fn varc(&self, id: u16) -> i32;
 
@@ -1830,6 +1836,11 @@ pub trait ScriptPlayer {
     /// `Ok(())` on success, or a [`ScriptError`](crate::ScriptError) if stopping
     /// fails.
     fn stopaction(&mut self) -> crate::Result<()>;
+
+    /// Tells the player a teleport was rejected.
+    fn invalid_teleport(&mut self) {
+        self.mes("Invalid teleport!");
+    }
 
     /// Instantly moves the player to a coordinate without walking (no
     /// intermediate tiles are processed).

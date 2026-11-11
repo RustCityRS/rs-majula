@@ -26,6 +26,7 @@ use crate::cache::seq::SeqTypeRaw;
 use crate::cache::spotanim::SpotAnimTypeRaw;
 use crate::cache::r#struct::StructTypeRaw;
 use crate::cache::varbit::VarbitType;
+use crate::cache::varc::VarClientTypeProvider;
 use crate::cache::varcon::VarConType;
 use crate::cache::varn::VarnType;
 use crate::cache::varobj::VarObjType;
@@ -197,6 +198,10 @@ fn load_cache(
     let structs = load_config::<StructTypeRaw, _>(assets, "struct", ())?;
     let varbits = load_config::<VarbitType, _>(assets, "varpbit", ())?;
     let varps = load_config::<VarPlayerTypeRaw, _>(assets, "varp", ())?;
+    let varcs = VarClientTypeProvider::from_indexed_bytes(
+        client_config(assets, "varc")?,
+        client_config(assets, "varcstr")?,
+    )?;
     let idks = load_config::<IdkTypeRaw, _>(assets, "idk", ())?;
     let hunts = load_config::<HuntType, _>(assets, "hunt", ())?;
     let flos = load_config::<FloTypeRaw, _>(assets, "flo", ())?;
@@ -230,6 +235,7 @@ fn load_cache(
         objs,
         invs,
         varps,
+        varcs,
         varbits,
         dbrows,
         dbtables,
@@ -446,6 +452,16 @@ fn load_wide_screen_ifaces(
             layout.wide_screen_ifaces.insert(iface as u16);
         }
     }
+}
+
+fn client_config<'a>(
+    assets: &'a HashMap<String, PackedFile>,
+    name: &str,
+) -> Result<&'a PackedData> {
+    assets
+        .get(name)
+        .and_then(|asset| asset.client.as_ref())
+        .with_context(|| format!("Missing {name} client config"))
 }
 
 fn load_config<Raw: CacheType, Stored: From<Raw>>(

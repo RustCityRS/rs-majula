@@ -366,6 +366,8 @@ pub enum ScriptVarType {
     #[cfg(since_647)]
     Graphic = 100,
     #[cfg(since_647)]
+    ChatPhrase = 101,
+    #[cfg(since_647)]
     Jingle = 106,
     #[cfg(since_647)]
     ChatCat = 107,
@@ -422,6 +424,8 @@ impl ScriptVarType {
             #[cfg(since_647)]
             "graphic" => Self::Graphic,
             #[cfg(since_647)]
+            "chatphrase" => Self::ChatPhrase,
+            #[cfg(since_647)]
             "jingle" => Self::Jingle,
             #[cfg(since_647)]
             "chatcat" => Self::ChatCat,
@@ -471,6 +475,8 @@ impl ScriptVarType {
             Self::MapArea => "maparea",
             #[cfg(since_647)]
             Self::Graphic => "graphic",
+            #[cfg(since_647)]
+            Self::ChatPhrase => "chatphrase",
             #[cfg(since_647)]
             Self::Jingle => "jingle",
             #[cfg(since_647)]
