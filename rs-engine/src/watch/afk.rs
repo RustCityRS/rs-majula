@@ -1,11 +1,3 @@
-// From rev 647 the anti-cheat is inert: it judges the jag-era client's
-// reports (heartbeats, op checks, mouse and camera input) and 647 sends
-// none of them, so what reads them goes unused there.
-#![cfg_attr(
-    since_647,
-    allow(dead_code, unused_variables, unused_imports, unreachable_code)
-)]
-
 use super::anticheat::Spread;
 
 /// A stretch without actions this long (ms) is judged.
@@ -93,6 +85,7 @@ impl AntiAfk {
     }
 
     /// The client said it's idle.
+    #[cfg(before_647)]
     pub fn idle(&mut self) {
         self.idle = true;
     }
@@ -198,10 +191,14 @@ mod tests {
                 a.moved(start + m * MIN + 50, 180, 140);
             }
         }
+        assert!(flags(&a, 183 * MIN).is_empty());
         // Away: the client says it's idle.
-        a.activity(200 * MIN);
-        a.idle();
-        assert!(flags(&a, 290 * MIN).is_empty());
+        #[cfg(before_647)]
+        {
+            a.activity(200 * MIN);
+            a.idle();
+            assert!(flags(&a, 290 * MIN).is_empty());
+        }
         // Short stretches between actions don't count.
         let mut busy = AntiAfk::default();
         for m in 0..120 {

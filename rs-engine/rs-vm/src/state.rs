@@ -45,6 +45,7 @@ pub struct ScriptState {
     pub(crate) ssp: i32,
     pub(crate) int_locals: Vec<i32>,
     pub(crate) string_locals: Vec<String>,
+    pub(crate) arrays: [Vec<i32>; 5],
     pub(crate) int_base: usize,
     pub(crate) string_base: usize,
     pub(crate) gosub_frame_stack: Vec<GoSubFrame>,
@@ -164,6 +165,7 @@ impl ScriptState {
             ssp: 0,
             int_locals,
             string_locals,
+            arrays: Default::default(),
             int_base: 0,
             string_base: 0,
             gosub_frame_stack: Vec::new(),
@@ -321,6 +323,9 @@ impl ScriptState {
         // -- Stacks: just reset pointers. Values are overwritten before read. --
         self.isp = 0;
         self.ssp = 0;
+        for array in &mut self.arrays {
+            array.clear();
+        }
 
         // -- Frame stacks: clear contents, retain capacity --
         self.gosub_frame_stack.clear();
@@ -1384,6 +1389,27 @@ mod tests {
         assert_eq!((s.int_base, s.string_base), (0, 0));
         assert_eq!(s.int_locals, [0, 7]);
         assert_eq!(s.string_locals, ["root"]);
+    }
+
+    #[test]
+    fn arrays_survive_calls_and_suspension_but_reset_between_invocations() {
+        let mut s = state();
+        s.arrays[4] = vec![7];
+        s.gosub_frame(proc(0, 0, 0, 0)).unwrap();
+        assert_eq!(s.arrays[4], [7]);
+        s.arrays[4][0] = 9;
+        s.pop_frame();
+        assert_eq!(s.arrays[4], [9]);
+        s.goto_frame(proc(0, 0, 0, 0)).unwrap();
+        assert_eq!(s.arrays[4], [9]);
+        s.execution = ExecutionState::Suspended;
+        let mut suspended = s.clone();
+        s.arrays[4][0] = 11;
+        suspended.execution = ExecutionState::Running;
+        assert_eq!(suspended.arrays[4], [9]);
+        assert!(state().arrays.iter().all(Vec::is_empty));
+        s.reset(Arc::clone(&s.script), None, None, None);
+        assert!(s.arrays.iter().all(Vec::is_empty));
     }
 
     #[test]

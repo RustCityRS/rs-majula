@@ -1,9 +1,6 @@
 // Rev 647's client sends no heartbeats, op checks or minimap trailer, so what
 // reads those goes unused there.
-#![cfg_attr(
-    since_647,
-    allow(dead_code, unused_variables, unused_imports, unreachable_code)
-)]
+#![cfg_attr(since_647, allow(dead_code, unused_variables, unused_imports))]
 
 use super::Target;
 use super::afk::AntiAfk;

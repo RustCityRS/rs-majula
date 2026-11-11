@@ -399,13 +399,49 @@ mod tests {
         assert_eq!(out[2].input, Input::Outside);
     }
 
-    #[cfg(all(since_254, before_647))]
+    /// 647's `EVENT_MOUSE_MOVE`: its three sizes of sample, 20ms a unit, and
+    /// a cursor that leaves by the frame's left edge. A report cut short
+    /// keeps what came whole.
+    #[cfg(since_647)]
+    #[test]
+    fn decodes_647_mouse_moves() {
+        let mut buf = Packet::new(11);
+        buf.p1(192 + 3);
+        buf.p4((200 << 16) | 100);
+        buf.p2((2 << 12) | ((2 + 32) << 6) | (32 - 1));
+        buf.p1(128 + 1);
+        buf.p1(128 - 103);
+        buf.p1(128);
+        buf.p1(192);
+        let mut decoder = InputDecoder::default();
+        let mut out = Vec::new();
+        decoder.mouse_move(10_000, &decode(&buf.data).unwrap(), &mut out);
+        let moves: Vec<(u32, Input)> = out.iter().map(|t| (t.ms, t.input)).collect();
+        assert_eq!(
+            moves,
+            [
+                (8_060, Input::Move { x: 100, y: 200 }),
+                (8_100, Input::Move { x: 102, y: 199 }),
+                (8_120, Input::Outside),
+            ]
+        );
+    }
+
+    #[cfg(since_254)]
     #[test]
     fn decodes_clicks() {
         let mut decoder = InputDecoder::default();
         let mut out = Vec::new();
-        let v: u32 = (12 << 20) + (1 << 19) + 300 * 765 + 400;
-        decoder.mouse_click(3_000, &decode(&v.to_be_bytes()).unwrap(), &mut out);
+        #[cfg(before_647)]
+        let data = ((12 << 20) + (1 << 19) + 300 * 765 + 400_u32).to_be_bytes();
+        #[cfg(since_647)]
+        let data = {
+            let mut buf = Packet::new(6);
+            buf.p2((1 << 15) | 12);
+            buf.p4_alt2((300 << 16) | 400);
+            buf.data
+        };
+        decoder.mouse_click(3_000, &decode(&data).unwrap(), &mut out);
         assert_eq!(
             out[0].input,
             Input::Click {

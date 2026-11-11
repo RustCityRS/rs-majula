@@ -13,6 +13,8 @@ use rs_pack::cache::script::*;
 #[cfg(since_254)]
 use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
 
+const MAX_ARRAY_SIZE: i32 = 5000;
+
 /// Registers the core virtual machine opcodes that handle stack manipulation,
 /// control flow, variable access, and subroutine management.
 ///
@@ -34,7 +36,7 @@ use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
 ///   `GOSUB_WITH_PARAMS`, `JUMP_WITH_PARAMS`
 /// - **Locals:** `PUSH_INT_LOCAL`, `POP_INT_LOCAL`, `PUSH_STRING_LOCAL`, `POP_STRING_LOCAL`
 /// - **Stack housekeeping:** `POP_INT_DISCARD`, `POP_STRING_DISCARD`, `JOIN_STRING`
-/// - **Arrays:** `DEFINE_ARRAY`, `PUSH_ARRAY_INT`, `POP_ARRAY_INT` (stubs)
+/// - **Arrays:** `DEFINE_ARRAY`, `PUSH_ARRAY_INT`, `POP_ARRAY_INT`
 ///
 /// # Call Stack
 ///
@@ -325,19 +327,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 44
-        none!(m, DEFINE_ARRAY => |_s| {
-            Err(ScriptError::Runtime("Not implemented".to_string()))?;
-        });
+        m.insert(DEFINE_ARRAY, define_array);
 
         // 45
-        none!(m, PUSH_ARRAY_INT => |_s| {
-            Err(ScriptError::Runtime("Not implemented".to_string()))?;
-        });
+        m.insert(PUSH_ARRAY_INT, push_array_int);
 
         // 46
-        none!(m, POP_ARRAY_INT => |_s| {
-            Err(ScriptError::Runtime("Not implemented".to_string()))?;
-        });
+        m.insert(POP_ARRAY_INT, pop_array_int);
 
         // 47
         #[cfg(since_647)]
@@ -527,4 +523,166 @@ fn branch_if(s: &mut ScriptState, pred: fn(i32, i32) -> bool) -> Result<()> {
         s.pc += s.int_operand();
     }
     Ok(())
+}
+
+fn define_array(s: &mut ScriptState) -> Result<()> {
+    let operand = s.int_operand();
+    let id = operand >> 16;
+    let kind = operand & 0xFFFF;
+    let size = s.pop_int();
+    if !(0..=MAX_ARRAY_SIZE).contains(&size) {
+        return Err(ScriptError::Runtime(format!("Invalid array size: {size}")));
+    }
+    let array = s
+        .arrays
+        .get_mut(id as usize)
+        .ok_or_else(|| ScriptError::Runtime(format!("Invalid array: {id}")))?;
+    let default = if kind == i32::from(b'i') { 0 } else { -1 };
+    array.clear();
+    array.resize(size as usize, default);
+    Ok(())
+}
+
+fn push_array_int(s: &mut ScriptState) -> Result<()> {
+    let id = s.int_operand();
+    let index = s.pop_int();
+    let value = *array_element(s, id, index)?;
+    s.push_int(value);
+    Ok(())
+}
+
+fn pop_array_int(s: &mut ScriptState) -> Result<()> {
+    let id = s.int_operand();
+    let value = s.pop_int();
+    let index = s.pop_int();
+    *array_element(s, id, index)? = value;
+    Ok(())
+}
+
+fn array_element(s: &mut ScriptState, id: i32, index: i32) -> Result<&mut i32> {
+    let array = s
+        .arrays
+        .get_mut(id as usize)
+        .ok_or_else(|| ScriptError::Runtime(format!("Invalid array: {id}")))?;
+    let size = array.len();
+    array.get_mut(index as usize).ok_or_else(|| {
+        ScriptError::Runtime(format!(
+            "Array {id} index out of bounds: {index} (size {size})"
+        ))
+    })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use runec::project::{Options, Project, Target};
+    use runec::sources::Scope;
+    use runec::symbol::SymbolRegistry;
+    use runec::types::{BaseVarType, Type};
+    use runec::writer::encode_bundle;
+    use std::sync::Arc;
+
+    fn compile_arrays(body: &str) -> ScriptState {
+        let mut project = Project::new(Target::Rune, SymbolRegistry::new(), Options::default());
+        project.open("arrays.rs2", Scope::Rune, 1, format!("[proc,test]\n{body}"));
+        let result = project.compile();
+        assert!(
+            !result.analysis.diagnostics.has_errors(),
+            "{:?}",
+            result.analysis.diagnostics
+        );
+        let (dat, idx) = encode_bundle(&[result.artifacts.into_iter().next().unwrap().bytes]);
+        let scripts = ScriptProvider::from_bytes(&dat, &idx);
+        ScriptState::init(Arc::clone(scripts.get_by_id(0).unwrap()), None, None, None)
+    }
+
+    fn run_arrays(s: &mut ScriptState) -> Result<()> {
+        loop {
+            s.pc += 1;
+            match s.script.opcodes[s.pc as usize] {
+                PUSH_CONSTANT_INT => s.push_int(s.int_operand()),
+                DEFINE_ARRAY => define_array(s)?,
+                PUSH_ARRAY_INT => push_array_int(s)?,
+                POP_ARRAY_INT => pop_array_int(s)?,
+                RETURN => return Ok(()),
+                opcode => panic!("Unexpected opcode: {opcode}"),
+            }
+        }
+    }
+
+    #[test]
+    fn arrays_execute_compiled_definitions_reads_and_writes() {
+        let mut s = compile_arrays(
+            "def_int $ints(3); def_obj $objs(2); def_boolean $bools(1);\n\
+             def_coord $coords(1); def_component $components(5000);\n\
+             $ints(2) = 42; $ints(0) = $ints(2); $objs(1) = null;\n\
+             $components(4999) = $components(0);",
+        );
+        run_arrays(&mut s).unwrap();
+        assert_eq!(s.arrays[0], [42, 0, 42]);
+        assert_eq!(s.arrays[1], [-1, -1]);
+        assert_eq!(s.arrays[2], [-1]);
+        assert_eq!(s.arrays[3], [-1]);
+        assert_eq!(s.arrays[4], vec![-1; 5000]);
+        assert_eq!((s.isp, s.ssp), (0, 0));
+
+        let mut s = compile_arrays("def_int $intarray4(1); $intarray4(0) = 5;");
+        run_arrays(&mut s).unwrap();
+        assert!(s.arrays[..4].iter().all(Vec::is_empty));
+        assert_eq!(s.arrays[4], [5]);
+    }
+
+    #[test]
+    fn arrays_support_every_integer_backed_client_type() {
+        for kind in Type::CHARS.chars() {
+            let ty = Type::from_char(kind).unwrap();
+            if ty.base_type() != BaseVarType::Integer {
+                continue;
+            }
+            let mut s = compile_arrays(&format!(
+                "def_{} $items(2); $items(1) = $items(0);",
+                ty.name(),
+            ));
+            run_arrays(&mut s).unwrap();
+            let default = if kind == 'i' { 0 } else { -1 };
+            assert_eq!(s.arrays[0], [default; 2], "{}", ty.name());
+            assert_eq!((s.isp, s.ssp), (0, 0), "{}", ty.name());
+        }
+    }
+
+    #[test]
+    fn arrays_reinitialize_values_and_enforce_runtime_bounds() {
+        let mut s = compile_arrays("def_int $items(3); $items(1) = 42; def_int $items(2);");
+        run_arrays(&mut s).unwrap();
+        assert_eq!(s.arrays[0], [0, 0]);
+        let mut s = compile_arrays("def_int $items(0);");
+        run_arrays(&mut s).unwrap();
+        assert!(s.arrays[0].is_empty());
+
+        for body in [
+            "def_int $items(-1);",
+            "def_int $items(5001);",
+            "def_int $items(0); $items(0) = 1;",
+            "def_int $items(2); $items(-1) = 1;",
+            "def_int $items(2); $items(2) = 1;",
+            "def_int $items(2); $items(0) = $items(-1);",
+            "def_int $items(2); $items(0) = $items(2);",
+            "def_int $items(2); def_int $items(1); $items(1) = 1;",
+            "def_int $items(); $items(0) = 1;",
+        ] {
+            let mut s = compile_arrays(body);
+            assert!(run_arrays(&mut s).is_err(), "{body}");
+        }
+
+        let mut s = compile_arrays("def_int $items(1);");
+        for id in [-1, 5, i32::MAX] {
+            assert!(array_element(&mut s, id, 0).is_err());
+            let mut script = Arc::try_unwrap(s.script).unwrap();
+            script.int_operands = Box::new([id << 16 | i32::from(b'i')]);
+            s.script = Arc::new(script);
+            s.pc = 0;
+            s.push_int(1);
+            assert!(define_array(&mut s).is_err());
+        }
+    }
 }

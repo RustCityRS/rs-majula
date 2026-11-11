@@ -1,13 +1,7 @@
-// From rev 647 the anti-cheat is inert: it judges the jag-era client's
-// reports (heartbeats, op checks, mouse and camera input) and 647 sends
-// none of them, so what reads them goes unused there.
-#![cfg_attr(
-    since_647,
-    allow(dead_code, unused_variables, unused_imports, unreachable_code)
-)]
-
 use super::format::{Entry, Reader};
-use super::input::{Input, InputDecoder, Timed, decode};
+#[cfg(before_647)]
+use super::input::decode;
+use super::input::{Input, InputDecoder, Timed};
 use flate2::read::DeflateDecoder;
 #[cfg(before_647)]
 use rs_protocol::network::game::client::client_cheat::ClientCheat;
@@ -20,6 +14,7 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 #[cfg(before_647)]
 use rs_util::base37::{to_raw_username, to_screen_name};
+#[cfg(before_647)]
 use rs_util::wordpack;
 use serde_json::{Map, Value, json};
 use std::io::Read;
@@ -39,13 +34,14 @@ const MINIMAP_LAG_MS: u32 = 3000;
 
 /// The prefixes the client reads a chat line's colour and effect from, by
 /// number.
+#[cfg(before_647)]
 const CHAT_COLOURS: [&str; 12] = [
     "", "red:", "green:", "cyan:", "purple:", "white:", "flash1:", "flash2:", "flash3:", "glow1:",
     "glow2:", "glow3:",
 ];
 #[cfg(before_289)]
 const CHAT_EFFECTS: [&str; 3] = ["", "wave:", "scroll:"];
-#[cfg(since_289)]
+#[cfg(all(since_289, before_647))]
 const CHAT_EFFECTS: [&str; 6] = ["", "wave:", "wave2:", "shake:", "scroll:", "slide:"];
 
 pub const MAGIC: &[u8; 4] = b"RSRP";
@@ -399,9 +395,10 @@ mod tests {
         // 225's camera report isn't from a click.
         assert_eq!(inputs[2][0], 2_000);
     }
+    #[cfg(before_647)]
+    use crate::watch::format::CLIENT;
     use crate::watch::format::{
-        CLIENT, KEYFRAME, LOGIN, NOTE, SERVER, TICK, TICK_DELTA, put_bytes, put_error, put_flag,
-        put_varint,
+        KEYFRAME, LOGIN, NOTE, SERVER, TICK, TICK_DELTA, put_bytes, put_error, put_flag, put_varint,
     };
 
     #[test]

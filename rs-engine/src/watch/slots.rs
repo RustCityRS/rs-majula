@@ -1,11 +1,3 @@
-// From rev 647 the anti-cheat is inert: it judges the jag-era client's
-// reports (heartbeats, op checks, mouse and camera input) and 647 sends
-// none of them, so what reads them goes unused there.
-#![cfg_attr(
-    since_647,
-    allow(dead_code, unused_variables, unused_imports, unreachable_code)
-)]
-
 use serde_json::{Value, json};
 use std::collections::VecDeque;
 use std::mem;
