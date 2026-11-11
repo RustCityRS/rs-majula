@@ -91,6 +91,8 @@ if ($p >= 10 & $p < 45) {
     npc_add(~uf_cellar_coord(34, 13), tutorial3_goblin, 0);
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(35, 13));
+    // Rummaging, as the cutscene's shot 9 leaves it (uf_dragon.rs2: seq 9963).
+    npc_anim(seq_9963, 0);
     npc_settimer(1);
     if ($p >= 35) {
         hint_npc_slot(0, 0, ^uf_hint_ring);

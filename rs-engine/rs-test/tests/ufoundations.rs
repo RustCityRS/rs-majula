@@ -207,6 +207,16 @@ fn sent_text(packets: &[(u16, Vec<u8>)], text: &str) -> bool {
         .any(|(_, body)| body.windows(text.len()).any(|w| w == text))
 }
 
+/// Whether a tick's NPC_INFO carries an anim block for `seq`: 647 writes the id once for each of
+/// its four channels (info.rs's 0x80 npc block), each the high byte then the low byte plus 128.
+fn npc_anim_sent(packets: &[(u16, Vec<u8>)], seq: u16) -> bool {
+    let [hi, lo] = seq.to_be_bytes();
+    let block = [hi, lo.wrapping_add(128)].repeat(4);
+    packets
+        .iter()
+        .any(|(_, body)| body.windows(block.len()).any(|w| w == block))
+}
+
 /// The voice-over clips a tick's packets play.
 fn speech(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
     packets
@@ -532,6 +542,7 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             npc_tile(engine, "tutorial3_squire"),
         )];
         let mut squire_face = vec![npc_face(engine, "tutorial3_squire")];
+        let mut goblin = vec![npc_tile(engine, "tutorial3_goblin")];
         for _ in 0..80 {
             assert!(
                 is_open(engine, &client, CUTSCENES),
@@ -542,6 +553,7 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             let now = shot(engine, &client);
             ticks.push((now, packets, npc_tile(engine, "tutorial3_squire")));
             squire_face.push(npc_face(engine, "tutorial3_squire"));
+            goblin.push(npc_tile(engine, "tutorial3_goblin"));
             if now == 0 {
                 break;
             }
@@ -583,6 +595,36 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             speech(&ticks[nine + shiny].1),
             vec![1215],
             "the goblin's take"
+        );
+        // The goblin drops in beside the pillar as the shot opens (seq 9965), and is rummaging in
+        // the bag a tick before the shot ends (seq 9963; 4KO2 @46.5-46.9 and @51.5).
+        assert!(
+            npc_anim_sent(&ticks[nine].1, 9965),
+            "the goblin's drop as shot 9 opens"
+        );
+        let rummage = ticks[nine..nine + 9]
+            .iter()
+            .position(|(_, packets, _)| npc_anim_sent(packets, 9963));
+        assert_eq!(rummage, Some(8), "the goblin's rummage on shot 9's tick 8");
+        // Its walk to the bag is asked for on tick 3 and moves it on tick 4, one tick before the
+        // overhead (4KO2: it starts to turn and walk @48.73-48.80, the overhead is up @49.47).
+        assert!(goblin[nine].is_some(), "the goblin is in as shot 9 opens");
+        let walk = goblin[nine..nine + 9]
+            .iter()
+            .position(|tile| *tile != goblin[nine]);
+        assert_eq!(
+            walk,
+            Some(4),
+            "the goblin leaves the pillar on shot 9's tick 4"
+        );
+        // Its mutters wait for the rummage: "Ooh, shiny!" stays overhead to the shot's end.
+        assert!(
+            !ticks[nine..nine + 9].iter().any(|(_, packets, _)| {
+                ["Heh heh heh.", "Mine, all mine!", "Ooh!", "Me get rich!"]
+                    .iter()
+                    .any(|line| sent_text(packets, line))
+            }),
+            "no mutter replaces Ooh, shiny! inside shot 9"
         );
         let ten = shots_start(&ticks, 10);
         assert!(
@@ -923,8 +965,14 @@ fn at_stage(engine: &mut Engine, name: &str, stage: i32) -> HarnessClient {
     cheat(&mut client, &format!("~ufstage {stage}"));
     // The creation's cellar, left empty, is freed after 50 ticks: then its Sir Vant and the rest
     // are gone, and npc lookups find this cellar's.
-    cycles(engine, &mut client, 56);
+    let packets = cycles(engine, &mut client, 56);
     assert_eq!(progress(engine, &client), stage);
+    if (10..45).contains(&stage) {
+        assert!(
+            npc_anim_sent(&packets, 9963),
+            "a cellar built with the goblin in it has it rummaging"
+        );
+    }
     // Back to a player's level: the engine counts isolated (staff) players as they log in, and
     // a level raised after it would be taken off that count at logout.
     engine

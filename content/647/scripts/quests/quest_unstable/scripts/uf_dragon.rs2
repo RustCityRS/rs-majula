@@ -6,7 +6,7 @@
 // ticks. The minimap goes black for it (8jKH_7To46o @88).
 // The squire's part is 4KO2's, timed at 30 fps (refs GAPS 18): "Uh-oh" and "Help!" in shots 1-2,
 // then in shot 5 the dragon's fire burns him and the ladder.
-// Not yet: the fireball's true start (from the dragon's mouth), the goblin's seq at the bag.
+// Not yet: the fireball's true start (from the dragon's mouth).
 [proc,uf_dragon_cutscene]
 // The actors' tiles are the cellar copy's: the region the player stands in.
 if (region_findbycoord(coord) = false) {
@@ -166,40 +166,52 @@ if (npc_find(~uf_cellar_coord(32, 20), tutorial3_dragon_initial, 6, 0) = true) {
 }
 p_delay(3);
 %tutorial3_cutscene_tracker = 9;
-// Shot 9 (4KO2h2xPtdM 46.41-51.83, the cut measured to 10 ms against ours): goblin 8862 stands
-// hunched at the stone pillar's west side (32, 11) from ~0.5 s in, starts to walk on the shot's
-// tick 4 (@48.24), says "Ooh, shiny!" a tick later (overhead first on frame @49.5; the 2011 wiki's
-// caption, clip 1215), and is bent into Sir Vant's bag (35, 13) by the shot's end (@51.4). It
-// stays there for "Kill the Goblin" (Task 3504).
-// - Its tile, (31, 12): fitted from the frames (ufgob2: the goblin at the pillar's right edge,
-//   feet within a few pixels of 2011's).
-// - Its hunch, at the pillar and in the bag: seq 12301, the one seq on its skeleton (base 1415)
-//   in Unstable Foundations' id range (12226-12280 are the cutscene's others); a 32-frame loop.
-npc_add(~uf_cellar_coord(31, 12), tutorial3_goblin, ^uf_cellar_obj_duration);
+// Shot 9 (4KO2h2xPtdM 46.41-51.83, the cut measured to 10 ms against ours): goblin 8862 drops in
+// from above beside the stone pillar (in the air at the frame's top @46.5, arms up @46.7, landed
+// crouched @46.83), stands there side-on, starts to turn and walk @48.73-48.80, says "Ooh, shiny!"
+// (overhead first on frame @49.47, and still up on the shot's last frame; the 2011 wiki's caption,
+// clip 1215), reaches Sir Vant's bag (35, 13) about @50.5 and is bent into it from @51.5. It stays
+// there for "Kill the Goblin" (Task 3504).
+// - Its seqs: cache 786 has three on the goblin's frame set (2449, skeleton base 1415) and no
+//   others: 9963, 9965 and 9966. 9965 (20 frames, 1.2 s) is the drop: played in our client
+//   through this shot's camera it shows 2011's three poses at the same 0.2 s steps. 9963 (85
+//   frames, looping from frame 76 on, with four synths) is the rummage: its pose is 2011's at the
+//   bag (@62). 9966 is a short hunch back to the stance; no frame tells whether 2011 played it
+//   at the pillar, so it is not played.
+// - Its tiles, fitted in our client through this shot's camera with no seq playing (a seq can
+//   move the model off its tile): (32, 12) facing (32, 11) puts it at the pillar's right edge
+//   as @47.5 has it, and (34, 13) facing (35, 13) at the bag as @51.5 has it.
+// - Its walk is its own (bas_86's squat walk), two tiles. 2011 has it moving one tick before the
+//   overhead (2.3 s and 3.05 s after the cut), so the walk is asked for on tick 3: an npc_walk
+//   from this script moves the npc on the next tick (seen in our client: asked for on tick 4, it
+//   moved with tick 5's overhead). The rummage starts on tick 8 (@51.2): fitted to the frames,
+//   which show it bent lower from @51.5.
+// - Its mutters (uf_goblin.rs2) start with the rummage, so that none replaces "Ooh, shiny!"
+//   inside the shot, as 2011 has it (the first in that recording is @56.0).
+npc_add(~uf_cellar_coord(32, 12), tutorial3_goblin, ^uf_cellar_obj_duration);
 npc_setmode(none);
-npc_facesquare(~uf_cellar_coord(32, 13));
-npc_anim(seq_12301, 0);
+npc_facesquare(~uf_cellar_coord(32, 11));
+npc_anim(seq_9965, 0);
 if (npc_find(~uf_cellar_coord(32, 20), tutorial3_dragon_initial, 6, 0) = true) {
     npc_facesquare(~uf_cellar_coord(32, 16));
 }
-p_delay(3);
-if (npc_find(~uf_cellar_coord(31, 12), tutorial3_goblin, 2, 0) = true) {
-    npc_anim(null, 0);
+p_delay(2);
+if (npc_find(~uf_cellar_coord(32, 12), tutorial3_goblin, 2, 0) = true) {
     npc_walk(~uf_cellar_coord(34, 13));
 }
-p_delay(0);
-if (npc_find(~uf_cellar_coord(32, 13), tutorial3_goblin, 3, 0) = true) {
+p_delay(1);
+if (npc_find(~uf_cellar_coord(33, 13), tutorial3_goblin, 3, 0) = true) {
     npc_say("Ooh, shiny!");
     ~speech_line(vorbis_1215);
-    // Then it mutters as it rummages (uf_goblin.rs2), from the tick after.
-    npc_settimer(1);
 }
-p_delay(3);
-%tutorial3_cutscene_tracker = 10;
+p_delay(2);
 if (npc_find(~uf_cellar_coord(34, 13), tutorial3_goblin, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(35, 13));
-    npc_anim(seq_12301, 0);
+    npc_anim(seq_9963, 0);
+    npc_settimer(1);
 }
+p_delay(0);
+%tutorial3_cutscene_tracker = 10;
 // Shot 10 opens under Sir Vant's "I need some help over here!" (@51.9, s003, his clip 882): the
 // chat box is up while the camera still flies (4KO2 @52-53.7 shows Continue), so its page opens
 // here and is waited on once the camera is the player's again.
