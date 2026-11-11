@@ -1410,7 +1410,19 @@ fn the_dragon_is_put_to_sleep() {
             origin.0 + 17,
             origin.1 + 35,
         );
-        let (texts, packets) = play_out(engine, &mut client, &[], 260);
+        // The meat shows in the bowl once it is put there (4KO2h2xPtdM @200.2 to @223.65).
+        let first = cycles(engine, &mut client, 4);
+        assert_eq!(
+            varbit_named(engine, &client, "tutorial3_meatplacement"),
+            1,
+            "the meat in the bowl"
+        );
+        let (mut texts, mut packets) = play_out(engine, &mut client, &[], 256);
+        texts.splice(
+            0..0,
+            rs_test::talk::settexts(&first).into_iter().map(|(_, t)| t),
+        );
+        packets.splice(0..0, first);
         assert!(said(&texts, "It's smelled the meat! Hide!"), "{texts:?}");
         assert!(
             said(
@@ -1463,10 +1475,12 @@ fn the_dragon_is_put_to_sleep() {
             assert!(clips.contains(&clip), "clip {clip} in {clips:?}");
         }
         assert_eq!(progress(engine, &client), 93, "Talk to Sir Vant Again");
+        // The dragon eats it: from @227.9, the first frame the bowl shows again past the dragon,
+        // it is the bowl with the bone that the cellar starts with.
         assert_eq!(
             varbit_named(engine, &client, "tutorial3_meatplacement"),
-            1,
-            "the meat in the bowl"
+            0,
+            "the meat eaten, the bone bowl again"
         );
         assert_eq!(
             npc_tile(engine, "tutorial3_dragon_sleeping").map(|t| local(engine, t)),

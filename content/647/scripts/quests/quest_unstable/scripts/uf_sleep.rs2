@@ -6,8 +6,11 @@
 //   101 @202.67 (the minimap black), 102 @206.27, 103 @211.04, 104 @215.35, 105 @216.45 (6, 8, 7,
 //   2 and 25 ticks), a fade to black ~231.4-234.53 (106, 5 ticks), 107 from 234.53, s020 @237.1,
 //   and the minimap back @244.81, after s020 is continued.
-// The bowl is loc 45795, a multiloc on varbit 6487: 0 the empty bowl, else the bowl with the
-// meat (op Search).
+// The bowl is loc 45795, a multiloc on varbit 6487 (cache 786): 0 loc 1758, the bowl with a bone
+// in it and no op; else loc 1761, the bowl with the meat (op Search). 2011 shows the bone bowl
+// before the meat (@196, @198.6), the meat from @200.2 to @223.65 as the dragon reaches the nest,
+// and the bone bowl again from @227.9, the first frame it shows past the dragon: the dragon eats
+// the meat, so the varbit goes back to 0 in the cutscene.
 
 // The meat in the bowl.
 [oplocu,tutorial3_foodbowl_empty_big]
@@ -131,6 +134,11 @@ if (npc_find(~uf_cellar_coord(29, 33), tutorial3_dragon_initial, 8, 0) = true) {
     npc_walk(~uf_cellar_coord(18, 33));
 }
 p_delay(16);
+// The meat is eaten: the bone bowl again. 2011's tick for it is not seen, the dragon standing
+// over the bowl hides it from @223.9 to @227.8; it has the meat @223.65 and the bone @227.9, a
+// tick after the lie-down starts (@227.25). Put on the lie-down's tick, which fits; which tick
+// of those seven 2011 used is unknown.
+%tutorial3_meatplacement = 0;
 if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_initial, 2, 0) = true) {
     npc_anim(seq_12254, 0);
 }
