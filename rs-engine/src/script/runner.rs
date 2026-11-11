@@ -500,6 +500,13 @@ impl Engine {
                 if let Some(active_script) = &active.player.state.active_script {
                     if active_script.root_script_id == state.root_script_id {
                         active.player.state.active_script = None;
+                        // A dialogue that ends on a choice leaves its resume buttons: with no
+                        // suspended script left, close_modal does not clear them, and 647's
+                        // RESUME_PAUSEBUTTON check would refuse the next dialogue's button.
+                        #[cfg(since_647)]
+                        {
+                            active.player.resume_buttons = None;
+                        }
                         if active.player.modal_state & MODAL_MAIN == MODAL_NONE {
                             if let Err(e) = active.close_modal(false) {
                                 error!(

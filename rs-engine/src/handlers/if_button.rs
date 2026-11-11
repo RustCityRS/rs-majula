@@ -145,7 +145,13 @@ fn handle(
     }
 
     let uid = active.player.uid;
-    if op <= 1
+    // A 647 component sends whichever of its ten ops was clicked, and a resume button is not
+    // always op 1: quest_intro's "Click here to show" is op 10.
+    #[cfg(before_647)]
+    let resumes = op <= 1;
+    #[cfg(since_647)]
+    let resumes = true;
+    if resumes
         && active
             .player
             .resume_buttons
