@@ -68,8 +68,8 @@ if_close;
 // Shot 101 (6 ticks): Sir Vant at the wall, "Grub's up! Shoo!" (@204-205, V23 clip 850), his back
 // to the camera and his face to the dragon over the wall (@205.6).
 p_delay(0);
-if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) = true) {
-    npc_facesquare(~uf_cellar_coord(32, 20));
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_distracting, 2, 0) = true) {
+    npc_facesquare(~uf_cellar_coord(30, 21));
     npc_say("Grub's up! Shoo!");
     ~speech_line(vorbis_850);
 }
@@ -81,12 +81,13 @@ p_delay(4);
 %tutorial3_cutscene_tracker = 102;
 // In the hole by now, turned to face out of it (@245.4).
 facesquare(~uf_cellar_coord(20, 30));
-if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 6, 0) = true) {
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_distracting, 6, 0) = true) {
     npc_del;
 }
-// The dragon still faces the wall @207.0 and turns from it @208.5.
+// The dragon still faces the wall @207.0 and turns from it @208.5. Shots 102-103 were fitted
+// with it on (30, 18); its way to (30, 26) from (28, 19) (uf_cellar.rs2) is not re-filmed.
 p_delay(1);
-if (npc_find(~uf_cellar_coord(30, 18), tutorial3_dragon_initial, 4, 0) = true) {
+if (npc_find(~uf_cellar_coord(28, 19), tutorial3_dragon_initial, 4, 0) = true) {
     npc_walk(~uf_cellar_coord(30, 26));
 }
 p_delay(5);

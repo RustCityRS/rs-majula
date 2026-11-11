@@ -57,8 +57,8 @@ if (npc_find(~uf_cellar_coord(33, 13), tutorial3_squire, 2, 0) = true) {
 p_delay(2);
 // The dragon (one throughout, red, size 5: refs GAPS 18): shot 3 shows it face-on in the main
 // cellar looking south toward the camera on (32, 22); shot 4 has it walk in from the north to just
-// behind the doorway's wall and face Sir Vant over it. Its south-west tile here and at the wall are
-// fitted in-client, not read from any source: here (30, 25), where shot 3's idle frame has its
+// behind the doorway's wall and face Sir Vant over it. Its south-west tile here is fitted in-client,
+// not read from any source: (30, 25), where shot 3's idle frame has its
 // front feet as far apart as 4KO2 @25.6 (~180 px of a 512-wide frame there, ~170 px ours, at the
 // same height; from (30, 26) ~140 px and higher, from (30, 24) too close).
 // 2011's stands still through shot 3 and is at the wall 2.44-2.54 s into shot 4 (4KO2 cut @25.96:
@@ -94,10 +94,14 @@ if (npc_find(~uf_cellar_coord(32, 13), tutorial3_squire, 2, 0) = true) {
 p_delay(1);
 p_delay(0);
 %tutorial3_cutscene_tracker = 4;
-// It sets off as shot 4 opens, running (see above).
+// It sets off as shot 4 opens, running (see above), to the wall north-west of the doorway:
+// (28, 19), where the minimap has it once the cutscene is over (4KO2 @55-104: uf_cellar.rs2).
+// It goes two tiles west, then six south: eight tiles, there on the fourth tick, as
+// 2011's is 2.44-2.54 s in. Not re-filmed since the wall tile was (30, 18): its two tiles west
+// in the first tick against shot 4's frames.
 if (npc_find(~uf_cellar_coord(32, 27), tutorial3_dragon_initial, 4, 0) = true) {
     npc_run(1);
-    npc_walk(~uf_cellar_coord(30, 18));
+    npc_walk(~uf_cellar_coord(28, 19));
 }
 // From shot 4 Sir Vant holds his shield up and his feet still while the dragon comes (4KO2 @26-41),
 // where 8850's ready seq (12235) paces: cache 786's Sir Vant 8851 (bas 1615, ready 12234, a

@@ -42,6 +42,19 @@ if (%tutorial >= 45 & %tutorial <= 49) {
     clearsofttimer(uf_plan_camera);
     cam_reset;
     %tutorial = 50;
+    // From here Sir Vant keeps the dragon's attention: cache 786's Sir Vant 8852,
+    // tutorial3_knight_distracting (bas 1616, ready seq 12233), who "bangs his sword on his
+    // shield" when "distracting the dragon" (wiki, Sir Vant, 2011-05-18). 4KO2h2xPtdM has him
+    // still with his shield up before this talk (@101-110) and swinging his sword after it
+    // (@128-134, @168-175, and in the sleep cutscene's first shot @204.5-205.9). He is turned
+    // to the dragon's middle tile, as that shot has him. Open: whether he changes with this
+    // line or with its continue, and seq 12233 against those frames one by one.
+    if (region_findbycoord(coord) = true) {
+        if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) = true) {
+            npc_changetype(tutorial3_knight_distracting, ^uf_cellar_obj_duration);
+            npc_facesquare(~uf_cellar_coord(30, 21));
+        }
+    }
     ~uf_task_pin;
     ~speech_line(vorbis_726);
     ~chatnpc("<p,neutral>I'll keep the dragon's attention. Once you've got the drugged meat you'll need to climb over the wall next to me.");

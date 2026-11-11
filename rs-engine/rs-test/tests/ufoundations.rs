@@ -189,10 +189,11 @@ fn local(engine: &Engine, (x, z): (u16, u16)) -> (u16, u16) {
 }
 
 /// The world tile of the cellar copy's local (0, 0): Sir Vant stands on local (32, 16) (as 8850,
-/// or 8851 while the dragon cutscene changes him).
+/// 8851 while the dragon cutscene changes him, or 8852 once he keeps the dragon's attention).
 fn cellar_origin(engine: &Engine) -> (u16, u16) {
     let (x, z) = npc_tile(engine, "tutorial3_knight_waitingforbattle")
         .or_else(|| npc_tile(engine, "tutorial3_knight_battle"))
+        .or_else(|| npc_tile(engine, "tutorial3_knight_distracting"))
         .expect("Sir Vant in the cellar");
     assert_eq!(local(engine, (x, z)), (32, 16));
     (x - 32, z - 16)
@@ -664,7 +665,9 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         assert_eq!(shots[9], (10, 8), "shot 10 for as long as s003 is unread");
 
         // The dragon stands through shot 3 and runs to the wall as shot 4 opens, two tiles a
-        // tick: 4KO2h2xPtdM has it at the wall 2.44-2.54 s after the cut @25.96, seven tiles on.
+        // tick, to (28, 19), where 4KO2h2xPtdM's minimap has it after the cutscene (@55-104).
+        // Two tiles west, then six south: there on the fourth tick, as 2011's is 2.44-2.54 s after
+        // the cut @25.96.
         let four = shots_start(&ticks, 4);
         let walk: Vec<Option<(u16, u16)>> = dragon[four..four + 6]
             .iter()
@@ -674,11 +677,11 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             walk,
             vec![
                 Some((30, 25)),
-                Some((30, 23)),
-                Some((30, 21)),
-                Some((30, 19)),
-                Some((30, 18)),
-                Some((30, 18)),
+                Some((28, 25)),
+                Some((28, 23)),
+                Some((28, 21)),
+                Some((28, 19)),
+                Some((28, 19)),
             ],
             "the dragon runs to the wall from shot 4's first tick"
         );
@@ -985,8 +988,8 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         );
         assert_eq!(
             npc_tile(engine, "tutorial3_dragon_initial").map(|tile| local(engine, tile)),
-            Some((30, 18)),
-            "the dragon stays at the wall over Sir Vant"
+            Some((28, 19)),
+            "the dragon stays at the wall north-west of Sir Vant"
         );
     });
 }
@@ -1276,6 +1279,13 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             assert!(plan.said(line), "{line}");
         }
         assert_eq!(speech(&plan.packets), vec![732, 943, 806, 726]);
+        // From the plan's last line he keeps the dragon's attention: cache 786's Sir Vant 8852.
+        assert_eq!(
+            npc_tile(engine, "tutorial3_knight_distracting").map(|t| local(engine, t)),
+            Some((32, 16)),
+            "Sir Vant distracting the dragon"
+        );
+        assert_eq!(npc_tile(engine, "tutorial3_knight_waitingforbattle"), None);
         // The camera cuts to the pillars for the second line and to the food bowl for the third,
         // and is the player's again for the fourth (4KO2h2xPtdM @112.9, @114.7, @116.0): each
         // line's voice clip, with the camera packets around it. A shot's two packets follow its
@@ -1530,6 +1540,11 @@ fn the_dragon_is_put_to_sleep() {
     runner::on_loaded_engine(|engine| {
         let mut client = at_stage(engine, "uf_sleep", 80);
         let origin = player_origin(engine, &client);
+        // A login at 80 finds Sir Vant keeping the dragon's attention (8852).
+        assert_eq!(
+            npc_tile(engine, "tutorial3_knight_distracting").map(|t| local(engine, t)),
+            Some((32, 16))
+        );
         let meat = obj_id(engine, "tutorial3_meat");
         give(engine, &client, 0, meat, 1);
         engine.harness_telejump(client.pid, origin.0 + 17, 0, origin.1 + 37);
@@ -2027,6 +2042,14 @@ fn the_pillars_burn_and_the_roof_comes_down() {
             "Roddeck beside the player"
         );
         assert_eq!(cellar_tile(engine, &client), Some((25, 34)));
+        // And stays: a walked npc heads back to the tile it was added on once its mode is its
+        // default again, here the cupboard.
+        cycles(engine, &mut client, 100);
+        assert_eq!(
+            npc_tile(engine, "tutorial3_advisor_walkoverrocks").map(|t| local(engine, t)),
+            Some((26, 33)),
+            "Roddeck stays beside the player"
+        );
     });
 }
 

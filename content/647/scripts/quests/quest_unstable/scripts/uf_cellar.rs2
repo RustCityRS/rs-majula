@@ -41,7 +41,7 @@ def_int $p = %tutorial;
 // them on (32, 16) and (33, 15) (4KO2h2xPtdM and VwpdbjfigD4, fitted against ours), and the 3D
 // view shows the knight in the doorway. Of cache 786's six Sir Vants, 8850 (bas_1614) is the one
 // holding his orange shield up in front, feet wide, as 2011's does (4KO2h2xPtdM 9-14 s).
-if ($p < 90) {
+if ($p < 50) {
     npc_add(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 0);
     npc_setmode(none);
     // Until the camera is turned a hint points the new player at Sir Vant: the yellow ring and
@@ -50,6 +50,12 @@ if ($p < 90) {
     if ($p < 7 | $p = 10 | ($p >= 45 & $p <= 49)) {
         hint_npc_slot(0, 0, ^uf_hint_ring);
     }
+} else if ($p < 90) {
+    // Keeping the dragon's attention, from the plan's last line to the sleep cutscene: cache
+    // 786's Sir Vant 8852, turned to the dragon's middle tile (uf_plan.rs2).
+    npc_add(~uf_cellar_coord(32, 16), tutorial3_knight_distracting, 0);
+    npc_setmode(none);
+    npc_facesquare(~uf_cellar_coord(30, 21));
 }
 if ($p < 9) {
     npc_add(~uf_cellar_coord(33, 15), tutorial3_squire, 0);
@@ -62,8 +68,13 @@ if ($p >= 10) {
     }
 }
 if ($p >= 10 & $p < 90) {
-    // At the wall over Sir Vant, as the cutscene leaves it.
-    npc_add(~uf_cellar_coord(30, 18), tutorial3_dragon_initial, 0);
+    // At the wall north-west of the doorway, as the cutscene leaves it. 4KO2h2xPtdM's minimap
+    // has its dot on (30.4-30.8, 21.1-21.6) @55, @58, @62, @80 and @104, fitted with the
+    // goblin's on (34, 13) and Sir Vant's on (32, 16); the client draws an npc's dot on the
+    // tile of its middle, for a size-5 npc its south-west tile + 2: (28, 19). The sleep
+    // cutscene's first shots agree: 2011's dragon is ~11% of the view right of Sir Vant where
+    // ours on (30, 18) was 23% (@204-207).
+    npc_add(~uf_cellar_coord(28, 19), tutorial3_dragon_initial, 0);
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(32, 16));
 }

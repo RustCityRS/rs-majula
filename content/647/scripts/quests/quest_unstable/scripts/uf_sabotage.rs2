@@ -268,6 +268,11 @@ if ($his = true) {
     %tutorial3_rightpillar = $state;
 }
 
+// Anything used on Sir Vant while he keeps the dragon's attention (8852): s033b, as below.
+[opnpcu,tutorial3_knight_distracting]
+~speech_line(vorbis_798);
+~chatnpc("<p,neutral>I don't think I need that just at the moment, thank you.");
+
 // The tinderbox to Sir Vant: s035 (N53, clip 1556), s036 (V72, clip 893). Anything else: s033b
 // (V32, clip 798).
 [opnpcu,tutorial3_knight_waitingforbattle]
