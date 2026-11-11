@@ -1577,12 +1577,45 @@ fn the_dragon_is_put_to_sleep() {
             1,
             "the meat in the bowl"
         );
-        let (mut texts, mut packets) = play_out(engine, &mut client, &[], 256);
-        texts.splice(
-            0..0,
-            rs_test::talk::settexts(&first).into_iter().map(|(_, t)| t),
+        // Tick by tick to the fade, for the dragon's way north: the shot and its tile.
+        let mut texts: Vec<String> = rs_test::talk::settexts(&first)
+            .into_iter()
+            .map(|(_, t)| t)
+            .collect();
+        let mut packets = first;
+        let mut trail: Vec<(i32, Option<(u16, u16)>)> = Vec::new();
+        for _ in 0..120 {
+            let talk = converse(engine, &mut client, &[], 1);
+            texts.extend(talk.texts);
+            packets.extend(talk.packets);
+            let now = shot(engine, &client);
+            let tile = npc_tile(engine, "tutorial3_dragon_initial").map(|t| local(engine, t));
+            trail.push((now, tile));
+            if now == 106 {
+                break;
+            }
+        }
+        let (more_texts, more) = play_out(engine, &mut client, &[], 256);
+        texts.extend(more_texts);
+        packets.extend(more);
+        // One walk north from the wall, (28, 19), to the nest's row, (29, 33): a step east on
+        // shot 102's third tick, then up x 29 a tile a tick. 4KO2h2xPtdM has it about (29, 26)
+        // facing north as shot 103 opens (@211.12) and about (29, 33), all but still, through
+        // shot 104 (@215.45-216.35): ours is a tile short of each as the shot opens.
+        let opens = |n: i32| trail.iter().position(|(now, _)| *now == n).unwrap();
+        let way: Vec<(u16, u16)> = trail[opens(102)..opens(105)]
+            .iter()
+            .filter_map(|(_, tile)| *tile)
+            .collect();
+        assert!(
+            way.windows(2).all(|w| w[1].1 - w[0].1 <= 1
+                && (w[1].0 == 29 || w[1] == w[0])
+                && w[1].1 >= w[0].1),
+            "north up x 29, a tile a tick: {trail:?}"
         );
-        packets.splice(0..0, first);
+        assert_eq!(trail[opens(103)].1, Some((29, 25)), "{trail:?}");
+        assert_eq!(trail[opens(104)].1, Some((29, 32)), "{trail:?}");
+        assert_eq!(trail[opens(105)].1, Some((29, 33)), "{trail:?}");
         assert!(said(&texts, "It's smelled the meat! Hide!"), "{texts:?}");
         assert!(
             said(

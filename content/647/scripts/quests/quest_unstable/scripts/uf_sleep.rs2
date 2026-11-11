@@ -84,35 +84,39 @@ facesquare(~uf_cellar_coord(20, 30));
 if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_distracting, 6, 0) = true) {
     npc_del;
 }
-// The dragon still faces the wall @207.0 and turns from it @208.5. Shots 102-103 were fitted
-// with it on (30, 18); its way to (30, 26) from (28, 19) (uf_cellar.rs2) is not re-filmed.
-p_delay(1);
-if (npc_find(~uf_cellar_coord(28, 19), tutorial3_dragon_initial, 4, 0) = true) {
-    npc_walk(~uf_cellar_coord(30, 26));
-}
-p_delay(5);
-// Shot 103 (7 ticks, @211.04-215.35): 2762's 103, the camera following the dragon north along
-// x 32 from z 21 to 26, looking north: the dragon walks away from it the whole shot (@211.2-214.5).
-// Shot 104 (2 ticks, @215.35-216.45): 2762's 104, low by the nest looking east at (32, 29): the
-// dragon side-on facing north, a little left of the frame's middle, no one else in view
-// (@215.8), so about (29, 31) (by the shot's view angles); and 105 opens with it under the camera
-// on (32, 31). Its way north is x 29 (a size-5 body on x 30 would meet the barrel and crates on
-// x 34, z 33-37: l57_77).
-%tutorial3_cutscene_tracker = 103;
-if (npc_find(~uf_cellar_coord(30, 26), tutorial3_dragon_initial, 8, 0) = true) {
-    npc_walk(~uf_cellar_coord(29, 31));
-}
-p_delay(6);
-%tutorial3_cutscene_tracker = 104;
+// The dragon goes north in one walk from (28, 19) (uf_cellar.rs2) to the nest's row, (29, 33):
+// a step east, then up x 29 (the step north-east is not open to its size-5 body there, and on
+// x 30 it would meet the barrel and crates on x 34, z 33-37: l57_77). From z 33 its walk west is
+// straight, its last step west, so it stops facing the bowl (walked from z 31, its path ended on
+// a step north, side-on on the nest: in-client runs ufrest16-18).
+// Its tiles are read off 4KO2's frames against ours filmed through the same cameras, each to
+// about a tile:
+// - shot 102: it faces the wall 1.4 s in and is turning 1.8 s in (@207.67, @208.07), faces north
+//   @209.3 and leaves the frame's bottom (@209.4-210.6);
+// - shot 103 (looking north along x 32): it faces north from the first frame (@211.12), a little
+//   left of the frame's middle, about (29, 26), and still strides @215.1;
+// - shot 104 (looking east from the nest): it is about (29, 33), facing north, and all but still
+//   (@215.45-216.35).
+// Asked for on the shot's second tick, its first step is on the third: it is on z 25 as 103
+// opens, on z 32 as 104 opens and on z 33 a tick later, a tile short of both readings, and it
+// turns from the wall a tick sooner than 2011's does. A tick later it would turn when 2011's does
+// and be two tiles short. Fitted between the two; no frame shows its first step.
+// Earlier it went to (30, 26), then to (29, 31) and stood, then two steps on in 104: behind
+// 2011's in each shot, and turning in shot 103's first frames.
 p_delay(0);
-// Two steps more north, facing north as 104 shows it (@215.8), to the nest's row, z 33: from there
-// its walk west is straight, its last step west, so it stops facing the bowl. Walked from z 31,
-// its path went west first and ended on a step north, turning it side-on on the nest (headless
-// path log; in-client runs ufrest16-18).
-if (npc_find(~uf_cellar_coord(29, 31), tutorial3_dragon_initial, 8, 0) = true) {
+if (npc_find(~uf_cellar_coord(28, 19), tutorial3_dragon_initial, 4, 0) = true) {
     npc_walk(~uf_cellar_coord(29, 33));
 }
-p_delay(0);
+p_delay(6);
+// Shot 103 (7 ticks, @211.04-215.35): 2762's 103, the camera following the dragon north along
+// x 32 from z 21 to 26, looking north: the dragon walks away from it the whole shot (@211.2-215.1).
+// Shot 104 (2 ticks, @215.35-216.45): 2762's 104, low by the nest looking east at (32, 29): the
+// dragon side-on facing north, no one else in view (@215.8); and 105 opens with it under the
+// camera on (32, 31).
+%tutorial3_cutscene_tracker = 103;
+p_delay(6);
+%tutorial3_cutscene_tracker = 104;
+p_delay(1);
 // Shot 105 (25 ticks, @216.45-231.4): 2762's 105, high, moving west and looking west down at the
 // nest (18, 35). The dragon (size 5) passes under the camera (@216.5-219) and walks west onto the
 // nest, cache 786's 5x5 floor at x 18-22, z 33-37 (locs 45732-45754), its corner (18, 33), there
