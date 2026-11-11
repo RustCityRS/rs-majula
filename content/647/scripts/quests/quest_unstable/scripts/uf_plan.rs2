@@ -18,8 +18,13 @@
 // - the dialogue closed (@117.6): TASK COMPLETE "Find Out Sir Vant's Plan" fades in and the
 //   arrow flashes at the quest list's tab, the task tab still up.
 // Where the two shots stand: the left pillar (local 24,31) and the bowl (17,35) are the cache's
-// (l57_77); the camera tiles and heights are estimates from the frames, not yet fitted in-client
-// (::ufcam).
+// (l57_77). The cameras are fitted in-client (::ufcam) against 4KO2h2xPtdM's two frames, each
+// still correlated with its frame over the game view: the pillars from local 27,32 at height 300
+// towards 24,31 (0.90; the tiles beside it under 0.46, heights 295 and 305 at 0.78 and 0.70), the
+// bowl from 21,35 at height 200 towards 17,35 (0.97; the tiles and heights beside it under 0.47).
+// The look heights are not fixed by the frames: the pillars' stills are the same picture from 110
+// to 150 (105 is not), the bowl's at 0 and 50, the client holding its flattest pitch. 150 and 0
+// are choices inside that.
 [proc,uf_vant_plan]
 if (%tutorial >= 45 & %tutorial <= 49) {
     hint_stop_slot(0);
@@ -27,11 +32,11 @@ if (%tutorial >= 45 & %tutorial <= 49) {
     ~chatnpc("<p,neutral>This dragon's a tougher customer than I'd expected, but I know a way we can defeat it.");
     %tutorial = 46;
     softtimer(uf_plan_camera, 1);
-    ~uf_plan_shot(28, 31, 400, 24, 31, 175);
+    ~uf_plan_shot(27, 32, 300, 24, 31, 150);
     ~speech_line(vorbis_943);
     ~chatnpc("<p,neutral>One corner of the ceiling is held up by wooden pillars. We're going to lure the dragon there and then collapse the roof on top of it.");
     %tutorial = 47;
-    ~uf_plan_shot(22, 35, 240, 17, 35, 0);
+    ~uf_plan_shot(21, 35, 200, 17, 35, 0);
     ~speech_line(vorbis_806);
     ~chatnpc("<p,neutral>In my bag is some meat I've prepared with a sleeping potion. I need you to put the meat in the food bowl by the wooden pillars. The dragon will eat it and fall asleep.");
     clearsofttimer(uf_plan_camera);
