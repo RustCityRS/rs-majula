@@ -61,10 +61,13 @@ p_delay(2);
 // fitted in-client, not read from any source: here (30, 25), where shot 3's idle frame has its
 // front feet as far apart as 4KO2 @25.6 (~180 px of a 512-wide frame there, ~170 px ours, at the
 // same height; from (30, 26) ~140 px and higher, from (30, 24) too close).
-// Not matched: 2011's reaches the wall ~2.6-2.8 s into shot 4 after standing still through shot 3,
-// about two tiles a tick, where ours walks one and is there at ~3.4-3.8 s. The cache gives it no
-// faster movement seq (bas 1618: ready 12249, walk 12247) and the engine has no command for an
-// npc's speed.
+// Not matched: 2011's stands still through shot 3 and is at the wall 2.44-2.54 s into shot 4 (4KO2
+// cut @25.96: wing tip in frame +1.64, head +1.94, wings settled +2.74-3.04), where ours, walking a
+// tile a tick, is there at +3.1-3.4 s. Tried in-client and not kept: walked two tiles a tick from
+// the cut tick, ours tracks those frames within ~0.2 s (wing tip +1.82, head +2.02, at the wall
+// +2.6-2.7) with the same walk seq, so 2011's moves so; that is read from frames, not a script.
+// The cache gives it no faster movement seq (bas 1618: ready 12249, walk 12247) and the engine has
+// no command for an npc's speed.
 npc_add(~uf_cellar_coord(30, 25), tutorial3_dragon_initial, ^uf_cellar_obj_duration);
 npc_setmode(none);
 npc_facesquare(~uf_cellar_coord(32, 16));
@@ -89,7 +92,7 @@ if (npc_find(~uf_cellar_coord(32, 13), tutorial3_squire, 2, 0) = true) {
 }
 p_delay(1);
 // It sets off on shot 3's last tick: in uf18e, leaving as shot 4 opened, it reached the wall ~2 s
-// after 2011's (now ~0.8-1.0 s after, see above).
+// after 2011's (now ~0.7-0.9 s after, see above).
 if (npc_find(~uf_cellar_coord(32, 27), tutorial3_dragon_initial, 4, 0) = true) {
     npc_walk(~uf_cellar_coord(30, 18));
 }
