@@ -276,7 +276,14 @@ if ($his = true) {
 // The tinderbox to Sir Vant: s035 (N53, clip 1556), s036 (V72, clip 893). Anything else: s033b
 // (V32, clip 798).
 [opnpcu,tutorial3_knight_waitingforbattle]
-if (last_useitem = tinderbox & %tutorial >= 96 & %tutorial < 115) {
+~uf_vant_given(last_useitem);
+
+// By the pillars he is 8848 (uf_sleep.rs2).
+[opnpcu,tutorial3_knight]
+~uf_vant_given(last_useitem);
+
+[proc,uf_vant_given](obj $item)
+if ($item = tinderbox & %tutorial >= 96 & %tutorial < 115) {
     if (%tutorial3_leftpillar ! 2 | %tutorial3_rightpillar ! 2) {
         ~speech_line(vorbis_833);
         ~chatnpc("<p,neutral>Wait a minute! You're supposed to get both pillars prepared before we light them.");
@@ -291,7 +298,7 @@ if (last_useitem = tinderbox & %tutorial >= 96 & %tutorial < 115) {
     return;
 }
 if (%tutorial >= 120 & %tutorial < 128) {
-    ~uf_return_item(last_useitem);
+    ~uf_return_item($item);
     return;
 }
 ~speech_line(vorbis_798);

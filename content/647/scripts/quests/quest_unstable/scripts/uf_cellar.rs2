@@ -88,8 +88,8 @@ if ($p >= 90 & $p < 117) {
     ~uf_dragon_asleep;
 }
 if ($p >= 90 & $p < 117) {
-    // By the pillars from the sleep cutscene on.
-    npc_add(~uf_cellar_coord(26, 30), tutorial3_knight_waitingforbattle, 0);
+    // By the pillars from the sleep cutscene on, at ease (8848: uf_sleep.rs2).
+    npc_add(~uf_cellar_coord(26, 30), tutorial3_knight, 0);
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(24, 31));
     if ($p = 93) {

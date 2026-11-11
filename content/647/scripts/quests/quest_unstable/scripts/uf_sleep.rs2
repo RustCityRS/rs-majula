@@ -166,8 +166,12 @@ if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_initial, 8, 0) = true) {
 // 107 opens on Sir Vant beside his bag (27, 29), facing it, who then walks west to the pillar
 // (@234.6-237.6). He is added on his place by the pillars (26, 30), as a login after the cutscene
 // finds him (uf_cellar.rs2), and stands at the bag for the shot.
+// From here to the collapse he is tutorial3_knight (8848): in shot 107 and after it he stands at
+// ease, sword down at his right and shield at his left side (4KO2h2xPtdM @235.7-236.3, @240.5-243,
+// @246-262), the stance bas_1613 gives 8848, 8849 and 8854; 8850's (bas_1614) holds the shield
+// up before him, as he stands in the doorway before the dragon comes.
 ~uf_bag_by_pillars;
-npc_add(~uf_cellar_coord(26, 30), tutorial3_knight_waitingforbattle, 0);
+npc_add(~uf_cellar_coord(26, 30), tutorial3_knight, 0);
 npc_setmode(none);
 npc_tele(~uf_cellar_coord(28, 30));
 npc_facesquare(~uf_cellar_coord(27, 29));
@@ -176,7 +180,7 @@ p_delay(2);
 // continued.
 %tutorial3_cutscene_tracker = 107;
 p_delay(1);
-if (npc_find(~uf_cellar_coord(28, 30), tutorial3_knight_waitingforbattle, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(28, 30), tutorial3_knight, 2, 0) = true) {
     npc_walk(~uf_cellar_coord(26, 30));
 }
 p_delay(1);
@@ -187,7 +191,7 @@ p_delay(1);
 ~uf_task_pin;
 ~speech_line(vorbis_958);
 split_init("<p,neutral>Well done. Come out of hiding and I'll tell you what we're doing next.", 380, 4, q8_full);
-~chatnpc_page("Sir Vant", tutorial3_knight_waitingforbattle, 0);
+~chatnpc_page("Sir Vant", tutorial3_knight, 0);
 p_pausebutton;
 if_close;
 // s020 continued @244.6 ("Please wait..." to @244.8): the camera back on the player in the hole
@@ -196,7 +200,7 @@ if_close;
 // out to Sir Vant themselves.
 ~uf_cutscene_release;
 %varclient_1425 = 3510;
-if (npc_find(~uf_cellar_coord(26, 30), tutorial3_knight_waitingforbattle, 2, 0) = true) {
+if (npc_find(~uf_cellar_coord(26, 30), tutorial3_knight, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(24, 31));
     hint_npc_slot(0, 0, ^uf_hint_ring);
 }

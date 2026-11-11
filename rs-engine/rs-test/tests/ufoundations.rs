@@ -1703,9 +1703,14 @@ fn the_dragon_is_put_to_sleep() {
             "the dragon asleep on its nest"
         );
         assert_eq!(
-            npc_tile(engine, "tutorial3_knight_waitingforbattle").map(|t| local(engine, t)),
+            npc_tile(engine, "tutorial3_knight").map(|t| local(engine, t)),
             Some((26, 30)),
-            "Sir Vant by the pillars"
+            "Sir Vant by the pillars, at ease (8848)"
+        );
+        assert_eq!(
+            npc_tile(engine, "tutorial3_knight_waitingforbattle"),
+            None,
+            "not as he stood in the doorway"
         );
         assert!(
             !is_open(engine, &client, CUTSCENES),
@@ -1722,10 +1727,7 @@ fn the_dragon_is_put_to_sleep() {
         // In the hole, the recess in the wall south of the nest (4KO2h2xPtdM @245.4), from where
         // talking to Sir Vant walks on to the pillars.
         assert_eq!(cellar_tile(engine, &client), Some((20, 29)), "in the hole");
-        talk_to(
-            &mut client,
-            npc_nid(engine, "tutorial3_knight_waitingforbattle"),
-        );
+        talk_to(&mut client, npc_nid(engine, "tutorial3_knight"));
         let next = converse(engine, &mut client, &[], 60);
         assert!(
             next.said("We need to destroy these pillars to collapse the ceiling on the dragon."),
@@ -1755,7 +1757,7 @@ fn the_dragon_is_put_to_sleep() {
         // was added once its mode goes back to its default (in-client run ufrest15, Sir Vant back
         // in the doorway (32, 16) for the sabotage).
         cycles(engine, &mut client, 100);
-        let (vx, vz) = npc_tile(engine, "tutorial3_knight_waitingforbattle")
+        let (vx, vz) = npc_tile(engine, "tutorial3_knight")
             .map(|t| local(engine, t))
             .expect("Sir Vant");
         assert!(
@@ -1776,10 +1778,7 @@ fn the_pillars_burn_and_the_roof_comes_down() {
 
         engine.harness_telejump(client.pid, origin.0 + 27, 0, origin.1 + 31);
         cycles(engine, &mut client, 3);
-        talk_to(
-            &mut client,
-            npc_nid(engine, "tutorial3_knight_waitingforbattle"),
-        );
+        talk_to(&mut client, npc_nid(engine, "tutorial3_knight"));
         let talk = converse(engine, &mut client, &[], 120);
         assert!(
             talk.said("We need to destroy these pillars to collapse the ceiling on the dragon.")
@@ -1872,7 +1871,7 @@ fn the_pillars_burn_and_the_roof_comes_down() {
             &mut client,
             tinderbox,
             t,
-            npc_nid(engine, "tutorial3_knight_waitingforbattle"),
+            npc_nid(engine, "tutorial3_knight"),
         );
         let given = converse(engine, &mut client, &[], 60);
         assert!(given.said("You offer Sir Vant a tinderbox."));
