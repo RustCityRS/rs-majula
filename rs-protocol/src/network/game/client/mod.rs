@@ -51,12 +51,6 @@ pub mod event_mouse_move;
 #[cfg(before_274)]
 pub mod event_tracking;
 #[cfg(since_647)]
-pub mod examine_loc;
-#[cfg(since_647)]
-pub mod examine_npc;
-#[cfg(since_647)]
-pub mod examine_obj;
-#[cfg(since_647)]
 pub mod face_square;
 #[cfg(since_647)]
 pub mod friend_setrank;
@@ -123,6 +117,8 @@ pub mod oploc2;
 pub mod oploc3;
 pub mod oploc4;
 pub mod oploc5;
+#[cfg(since_647)]
+pub mod oploc6;
 pub mod oploct;
 pub mod oplocu;
 pub mod opnpc1;
@@ -130,6 +126,8 @@ pub mod opnpc2;
 pub mod opnpc3;
 pub mod opnpc4;
 pub mod opnpc5;
+#[cfg(since_647)]
+pub mod opnpc6;
 pub mod opnpct;
 pub mod opnpcu;
 pub mod opobj1;
@@ -137,6 +135,8 @@ pub mod opobj2;
 pub mod opobj3;
 pub mod opobj4;
 pub mod opobj5;
+#[cfg(since_647)]
+pub mod opobj6;
 pub mod opobjt;
 pub mod opobju;
 pub mod opplayer1;

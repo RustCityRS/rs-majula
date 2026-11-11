@@ -20,6 +20,8 @@ use rs_entity::player::*;
 use rs_entity::{EntityLifeTime, Player};
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_info::FocusKind;
+#[cfg(since_647)]
+use rs_info::PlayerRenderer;
 use rs_inv::Inventory;
 use rs_io::{Packet, PacketFrame};
 use rs_pack::cache::inv::InvScope;
@@ -186,12 +188,12 @@ use rs_protocol::network::game::client_prot::{
     UrlRequest, VideoEnd, WorldLatency, WorldlistFetch,
 };
 #[cfg(since_647)]
-use rs_protocol::network::game::client_prot::{ExamineLoc, ExamineNpc, ExamineObj};
-#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::{
     IfButton1, IfButton2, IfButton3, IfButton4, IfButton5, IfButton6, IfButton7, IfButton8,
     IfButton9, IfButton10,
 };
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::{OpLoc6, OpNpc6, OpObj6};
 use rs_protocol::network::game::client_prot_category::ClientProtCategory;
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::info::player::appearance::{Appearance, Look, WEAR_SLOTS, Wear};
@@ -347,7 +349,6 @@ use rs_protocol::network::game::server_prot_priority::ServerProtPriority;
 #[cfg(since_254)]
 use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
 use rs_var::VarSet;
-use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::QueuePriority;
 #[cfg(since_647)]
@@ -355,6 +356,7 @@ use rs_vm::state::ScriptArgument;
 use rs_vm::state::ScriptState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
+use rs_vm::{ComId, ScriptError};
 use rs_zone::ZoneMessage;
 use rs_zone::zone_map::ZoneMap;
 #[cfg(before_647)]
@@ -405,11 +407,17 @@ pub struct ActivePlayer {
     pub(crate) pending_path: Option<PendingPath>,
 }
 
-/// From 647 a component is addressed as `interface << 16 | component`, so its
-/// interface is the hash's high half.
-#[cfg(since_647)]
-fn root_layer(com: rs_vm::ComId) -> Option<i32> {
-    Some(com >> 16)
+/// The interface a component is on. From 647 a component is addressed as
+/// `interface << 16 | component`, so that is the hash's high half.
+fn root_layer(com: ComId) -> Option<i32> {
+    #[cfg(before_647)]
+    let root = engine()
+        .interfaces()
+        .get_by_id(com as u16)
+        .map(|i| i.root_layer);
+    #[cfg(since_647)]
+    let root = Some(com >> 16);
+    root
 }
 
 /// The wear positions (`equip.constant`) that show the body kits.
@@ -547,29 +555,6 @@ impl ActivePlayer {
         self.watch.remember(M::PROT as u8, M::FRAME as usize, rest);
     }
 
-    /// Queues `packet`, a [`plaintext`](Self::plaintext) `M`, as
-    /// [`write`](Self::write) queues the message itself.
-    #[cfg(since_647)]
-    pub(crate) fn queue_plaintext<M>(&mut self, packet: &[u8])
-    where
-        M: ServerProtMessage,
-    {
-        if let Some(capture) = &mut self.capture {
-            capture.push(packet.to_vec());
-            return;
-        }
-        let start = self.buffered.pos;
-        let end = start + packet.len();
-        if self.buffered.data.len() < end {
-            self.buffered.data.resize(end, 0);
-        }
-        self.buffered.data[start..end].copy_from_slice(packet);
-        self.buffered.pos = end;
-        self.buffered_starts.push(start as u32);
-        self.watch
-            .remember(M::PROT as u8, M::FRAME as usize, &packet[1..]);
-    }
-
     /// [`plaintext`](Self::plaintext) written at the end of `out`, which
     /// grows to fit. Whether it fit in a packet.
     fn encode_into<M>(out: &mut Packet, message: M) -> bool
@@ -613,7 +598,7 @@ impl ActivePlayer {
 
     /// A message as a packet: opcode (unciphered), frame and body. `None`
     /// past [`MAX_PACKET_SIZE`].
-    pub(crate) fn plaintext<M>(message: M) -> Option<Packet>
+    fn plaintext<M>(message: M) -> Option<Packet>
     where
         M: ServerProtMessage,
     {
@@ -1147,15 +1132,18 @@ impl ActivePlayer {
     }
 
     /// Sends the chat filter settings (public, private, trade) to the client.
-    pub fn chat_filter_settings(&mut self, public: u8, private: u8, trade: u8) {
+    /// Rev 647 splits them: public and trade in CHAT_FILTER_SETTINGS, private
+    /// in its own packet.
+    pub fn chat_filter_settings(&mut self) {
+        let public = self.player.public_chat();
+        let private = self.player.private_chat();
+        let trade = self.player.trade_chat();
         #[cfg(before_647)]
         self.write(ChatFilterSettings {
             public,
             private,
             trade,
         });
-        // Rev-647 splits the settings across two packets: public/trade in
-        // CHAT_FILTER_SETTINGS and private in its own packet.
         #[cfg(since_647)]
         {
             self.write(ChatFilterSettings { public, trade });
@@ -1701,15 +1689,14 @@ impl ActivePlayer {
         let _ = (com, tab);
     }
 
-    /// Switches the client's currently selected (active) tab.
+    /// Switches the client's currently selected (active) tab. 2011's client
+    /// has no tab packet: it keeps its selected tab in the `if_switchside_varc`
+    /// varc, in the same order as the tabs.
     pub fn if_settabactive(&mut self, tab: u8) {
         #[cfg(before_647)]
         self.write(IfSetTabActive { tab });
-        // 2011's client has no tab packet: it keeps its selected tab in varc
-        // 168, in the same order as the tabs (clientscript 71, called by 1302
-        // with it), and void-634 switches tabs by setting it.
         #[cfg(since_647)]
-        self.varc_transmit(168, tab as i32);
+        self.varc_transmit(engine().layout.switch_side, tab as i32);
     }
 
     /// Sets the text content of an interface component.
@@ -1937,7 +1924,8 @@ impl ActivePlayer {
         match op {
             Op::Npc { op, nid } => engine
                 .get_npc(nid)
-                .and_then(|n| engine.npcs().get_by_id(n.npc.uid.id()))
+                .and_then(|n| self.shown_npc(n.npc.uid.id()))
+                .and_then(|id| engine.npcs().get_by_id(id))
                 .is_some_and(|t| {
                     let level = t.vislevel.map_or(-1, i32::from);
                     !menu::npc(t.op.as_deref(), op, level, self.player.combat_level.into())
@@ -2031,7 +2019,7 @@ impl ActivePlayer {
         if !self.watch.recording() {
             return;
         }
-        let name = self.component_name(com);
+        let name = self.component_name(com.into());
         self.watch
             .note_fmt(engine().clock, format_args!("Click {name}"));
     }
@@ -2042,29 +2030,25 @@ impl ActivePlayer {
     /// which the client offers no options on.
     #[cfg(since_289)]
     pub fn shown_loc(&self, id: u16) -> Option<u16> {
-        let engine = engine();
-        let Some(ty) = engine.locs().get_by_id(id) else {
-            return Some(id);
-        };
-        if ty.multiloc.is_none() {
-            return Some(id);
+        match engine().locs().get_by_id(id) {
+            Some(ty) => ty.multi_loc(self.multivar(ty.multivar)),
+            None => Some(id),
         }
-        #[cfg(before_647)]
-        if ty.multivar.is_none() {
-            return Some(id);
-        }
-        let value = match ty.multivar {
-            Some(MultiVar::Varbit(var)) => {
-                engine.varbits().get_by_id(var).map(|var| self.varbit(var))
-            }
+    }
+
+    /// What the variable a transform is picked by holds: -1 without one, which
+    /// picks the transform's default.
+    #[cfg(since_289)]
+    fn multivar(&self, var: Option<MultiVar>) -> i32 {
+        let value = match var {
+            Some(MultiVar::Varbit(var)) => engine()
+                .varbits()
+                .get_by_id(var)
+                .map(|var| self.varbit(var)),
             Some(MultiVar::Varp(var)) => Some(self.player.vars.get(var).as_int()),
             None => None,
         };
-        #[cfg(before_647)]
-        let value = value?;
-        #[cfg(since_647)]
-        let value = value.unwrap_or(-1);
-        ty.multi_loc(value)
+        value.unwrap_or(-1)
     }
 
     #[cfg(before_289)]
@@ -2078,21 +2062,15 @@ impl ActivePlayer {
     /// 3280). `None` when it shows as nothing.
     #[cfg(since_647)]
     pub fn shown_npc(&self, id: u16) -> Option<u16> {
-        let engine = engine();
-        let Some(ty) = engine.npcs().get_by_id(id) else {
-            return Some(id);
-        };
-        if ty.multinpc.is_none() {
-            return Some(id);
+        match engine().npcs().get_by_id(id) {
+            Some(ty) => ty.multi_npc(self.multivar(ty.multivar)),
+            None => Some(id),
         }
-        let value = match ty.multivar {
-            Some(MultiVar::Varbit(var)) => {
-                engine.varbits().get_by_id(var).map(|var| self.varbit(var))
-            }
-            Some(MultiVar::Varp(var)) => Some(self.player.vars.get(var).as_int()),
-            None => None,
-        };
-        ty.multi_npc(value.unwrap_or(-1))
+    }
+
+    #[cfg(before_647)]
+    pub fn shown_npc(&self, id: u16) -> Option<u16> {
+        Some(id)
     }
 
     fn map_base(&self) -> MapBase {
@@ -2132,12 +2110,16 @@ impl ActivePlayer {
     }
 
     /// An interface component's name, e.g. `magic:wind_strike`.
-    fn component_name(&self, com: u16) -> Cow<'static, str> {
-        engine()
+    fn component_name(&self, com: ComId) -> Cow<'static, str> {
+        #[cfg(before_647)]
+        let name = engine()
             .interfaces()
-            .get_by_id(com)
+            .get_by_id(com as u16)
             .and_then(|i| i.com_name.as_deref())
-            .map_or_else(|| Cow::Owned(format!("component {com}")), Cow::Borrowed)
+            .map_or_else(|| Cow::Owned(format!("component {com}")), Cow::Borrowed);
+        #[cfg(since_647)]
+        let name = engine().layout.component_name(com);
+        name
     }
 
     /// Writes how the player saw `op` in their menu, e.g. "Attack Goblin",
@@ -2309,7 +2291,7 @@ impl ActivePlayer {
             z: coord.z() as i16,
             y: i16::from(coord.y()),
             event_type,
-            item: obj_type.debugname().unwrap_or("null").to_owned(),
+            item: obj_type.debugname.to_string(),
             count,
             value: (i64::from(obj_type.cost) * i64::from(count)).clamp(0, i64::from(i32::MAX))
                 as i32,
@@ -2492,30 +2474,22 @@ impl ActivePlayer {
         self.write(RunClientScript { script_id, params });
     }
 
-    /// Rev-647 public chat delivery: one MESSAGE_PUBLIC server packet per
-    /// nearby hearer (including the speaker), written by the broadcast step
-    /// of the output phase.
+    /// Rev-647 public chat: `MESSAGE_PUBLIC` for each player this client
+    /// tracks, itself included, that spoke this tick. The client drops chat
+    /// from a player it doesn't have, so this follows the tick's player info.
     #[cfg(since_647)]
-    pub fn message_public(&mut self, packet: &[u8]) {
-        self.queue_plaintext::<message_public::MessagePublic>(packet);
-    }
-
-    /// Rev-647 public chat as a plaintext packet, the same for every hearer.
-    #[cfg(since_647)]
-    pub fn public_chat(
-        from_index: u16,
-        effects: u16,
-        staffmodlevel: u8,
-        char_count: usize,
-        huffman_data: &[u8],
-    ) -> Option<Packet> {
-        Self::plaintext(message_public::MessagePublic {
-            from_index,
-            effects,
-            staffmodlevel,
-            char_count,
-            huffman_data,
-        })
+    pub fn update_chats(&mut self, renderer: &PlayerRenderer) {
+        for (w, &spoke) in renderer.chatted().iter().enumerate() {
+            let mut bits = spoke & self.player.build_area.locals[w];
+            while bits != 0 {
+                let pid = ((w << 6) | bits.trailing_zeros() as usize) as u16;
+                bits &= bits - 1;
+                self.write(message_public::MessagePublic {
+                    pid,
+                    chat: renderer.chat(pid),
+                });
+            }
+        }
     }
 
     /// Sends the pre-encoded NPC info update payload to the client.
@@ -2567,21 +2541,17 @@ impl ActivePlayer {
         }
     }
 
-    /// Opens the count dialog (number input) on the client.
+    /// Opens the count dialog (number input) on the client. Rev 647 has no
+    /// packet for it: the `meslayer_mode7` clientscript shows the prompt,
+    /// 289's client's, in the chat box and answers RESUME_P_COUNTDIALOG.
     pub fn p_countdialog(&mut self) {
         #[cfg(before_647)]
         self.write(PCountDialog);
-        // Rev-647 asks for a number with clientscript 108 (void-634
-        // `int_entry`): it shows its text in the chat box and takes digits
-        // (varc 5 = 7), and the client answers RESUME_P_COUNTDIALOG. The text
-        // is 289's client's prompt.
         #[cfg(since_647)]
-        {
-            self.write(RunClientScript {
-                script_id: 108,
-                params: vec![ScriptParam::Str("Enter amount:".into())],
-            });
-        }
+        self.write(RunClientScript {
+            script_id: engine().layout.count_dialog,
+            params: vec![ScriptParam::Str("Enter amount:".into())],
+        });
     }
 
     /// Sends the rebuild (map region) packet to the client if the player has
@@ -2850,9 +2820,9 @@ impl ActivePlayer {
     }
 
     /// Tells the client to stop expecting inventory updates for a component.
-    pub fn update_inv_stop_transmit(&mut self, com: rs_vm::ComId) {
+    pub fn update_inv_stop_transmit(&mut self, com: ComId) {
         #[cfg(before_647)]
-        self.write(UpdateInvStopTransmit { com });
+        self.write(UpdateInvStopTransmit { com: com as u16 });
         // TODO(647): port with the inventory milestone — no rev-647
         // stop-transmit packet is modelled yet.
         #[cfg(since_647)]
@@ -2989,7 +2959,9 @@ impl ActivePlayer {
             // Before 647 first sight is per component; from 647 it is per inv
             // (below), so the per-component scratch payload is never built.
             #[cfg(before_647)]
-            let any_first_seen = coms.iter().any(|c| !self.player.inv_first_seen.contains(c));
+            let any_first_seen = coms
+                .iter()
+                .any(|&c| !self.player.inv_first_seen.contains(&(c as u16)));
             #[cfg(since_647)]
             let any_first_seen = false;
 
@@ -3038,6 +3010,7 @@ impl ActivePlayer {
             }
             #[cfg(before_647)]
             for &com in coms {
+                let com = com as u16;
                 if !self.player.inv_first_seen.contains(&com) {
                     FULL.with_borrow(|f| self.update_inv_full(com, f));
                     self.player.inv_first_seen.insert(com);
@@ -3146,6 +3119,7 @@ impl ActivePlayer {
             }
             #[cfg(before_647)]
             {
+                let com = com as u16;
                 let first_seen = !self.player.inv_first_seen.contains(&com);
                 let has_dirty = !inv.dirty_slots.is_empty();
                 if first_seen {
@@ -4094,11 +4068,11 @@ impl EnginePlayer for ActivePlayer {
                 #[cfg(since_647)]
                 ClientProt::IfButtonT => IfButtonT::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
-                ClientProt::ExamineNpc => ExamineNpc::decode(&mut buf, len).handle(self),
+                ClientProt::OpNpc6 => OpNpc6::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
-                ClientProt::ExamineLoc => ExamineLoc::decode(&mut buf, len).handle(self),
+                ClientProt::OpLoc6 => OpLoc6::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
-                ClientProt::ExamineObj => ExamineObj::decode(&mut buf, len).handle(self),
+                ClientProt::OpObj6 => OpObj6::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::WindowStatus => WindowStatus::decode(&mut buf, len).handle(self),
                 ClientProt::IgnoreListAdd => IgnoreListAdd::decode(&mut buf, len).handle(self),
@@ -4306,11 +4280,7 @@ impl EnginePlayer for ActivePlayer {
             self.player.info.masks |= PlayerInfoProt::Appearance as u16;
         }
         self.rebuild_normal(false);
-        self.chat_filter_settings(
-            self.player.public as u8,
-            self.player.private as u8,
-            self.player.trade as u8,
-        );
+        self.chat_filter_settings();
         #[cfg(since_254)]
         if engine().ether_tx.is_some() {
             self.friendlist_loaded(1);
@@ -4627,9 +4597,6 @@ impl EnginePlayer for ActivePlayer {
         self.player.modal_state = MODAL_NONE;
         self.player.clear_suspended_script();
 
-        #[cfg(before_647)]
-        let interfaces = engine().interfaces();
-
         if let Some(modal_main) = self.player.modal_main {
             if let Err(e) = engine_mut().run_script_by_trigger(
                 (ServerTriggerType::IfClose, Some(modal_main as i32), None),
@@ -4643,11 +4610,6 @@ impl EnginePlayer for ActivePlayer {
                 return Err(e);
             }
             let modal = self.player.modal_main;
-            #[cfg(before_647)]
-            let cleared = self.player.clear_interface_listeners(modal, |com| {
-                interfaces.get_by_id(com).map(|i| i.root_layer)
-            });
-            #[cfg(since_647)]
             let cleared = self.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
                 self.clear_inv_transmits(com);
@@ -4668,11 +4630,6 @@ impl EnginePlayer for ActivePlayer {
                 return Err(e);
             }
             let modal = self.player.modal_chat;
-            #[cfg(before_647)]
-            let cleared = self.player.clear_interface_listeners(modal, |com| {
-                interfaces.get_by_id(com).map(|i| i.root_layer)
-            });
-            #[cfg(since_647)]
             let cleared = self.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
                 self.clear_inv_transmits(com);
@@ -4693,11 +4650,6 @@ impl EnginePlayer for ActivePlayer {
                 return Err(e);
             }
             let modal = self.player.modal_side;
-            #[cfg(before_647)]
-            let cleared = self.player.clear_interface_listeners(modal, |com| {
-                interfaces.get_by_id(com).map(|i| i.root_layer)
-            });
-            #[cfg(since_647)]
             let cleared = self.player.clear_interface_listeners(modal, root_layer);
             for com in cleared {
                 self.clear_inv_transmits(com);

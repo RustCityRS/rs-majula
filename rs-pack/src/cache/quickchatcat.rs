@@ -40,8 +40,4 @@ impl CacheType for QuickChatCatType {
             }
         }
     }
-
-    fn debugname(&self) -> Option<&str> {
-        None
-    }
 }

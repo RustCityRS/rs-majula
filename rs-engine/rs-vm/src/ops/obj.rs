@@ -177,7 +177,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .objs()
                 .get_by_id(obj.id)
                 .ok_or(ScriptError::ObjNotFound(obj.id as i32))?;
-            s.push_string(obj_type.name.as_deref().unwrap_or(obj_type.debugname().unwrap_or("null")));
+            s.push_string(obj_type.name.as_deref().unwrap_or(&obj_type.debugname));
         });
 
         // 3509

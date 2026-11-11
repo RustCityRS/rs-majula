@@ -165,7 +165,7 @@ impl Engine {
                                 let _ = tx.send(EtherOutbound::PlayerResync {
                                     user37: active.uid().username37(),
                                     pid,
-                                    private_mode: active.player.private as u8,
+                                    private_mode: active.player.private_chat(),
                                     max_friends: max_friends_cap(active.player.is_member),
                                     ip: active.remote_ip,
                                 });

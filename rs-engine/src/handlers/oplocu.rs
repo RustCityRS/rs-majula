@@ -4,7 +4,6 @@ use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{
     HeldCheck, check_held, in_build_area, loc_target, members_blocked, use_component_ok, zone_loc,
 };
-#[cfg(before_647)]
 use crate::watch::{Target, Using};
 use rs_grid::CoordGrid;
 #[cfg(before_647)]
@@ -16,7 +15,13 @@ use rs_vm::{ComId, ScriptError};
 impl ClientGameHandler for OpLocU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         handle(
-            self.x, self.z, self.loc, self.com, self.slot, self.obj, active,
+            self.x,
+            self.z,
+            self.loc,
+            self.com.into(),
+            self.slot,
+            self.obj,
+            active,
         )
     }
 }
@@ -30,7 +35,6 @@ pub(super) fn handle(
     obj: u16,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
-    #[cfg(before_647)]
     active.watch_use(Using::Item(obj), Target::Loc { id: loc, x, z });
     if active.player.state.delayed {
         active.unset_map_flag();
@@ -47,7 +51,6 @@ pub(super) fn handle(
         active.unset_map_flag();
         return Ok(());
     };
-    #[cfg(before_647)]
     if active.shown_loc(loc.id()).is_none() {
         active.unset_map_flag();
         return Ok(());

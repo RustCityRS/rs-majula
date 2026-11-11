@@ -23,9 +23,6 @@ pub fn pack_varps(
     #[cfg(since_647)]
     client_configs.retain(|_, props| !is_string_var(props));
     let mut server = PackedData::new(pack.max);
-    #[cfg(before_647)]
-    let client_count = pack.max;
-    #[cfg(since_647)]
     let client_count = pack.client_count();
     let mut client = PackedData::new(client_count);
 

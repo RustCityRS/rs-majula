@@ -70,7 +70,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .get_by_id(id)
                 .ok_or(ScriptError::VarpNotFound(id as i32))?;
             if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[secondary as usize]) && varp.protect {
-                return Err(ScriptError::Runtime(format!("Varp: {:?} requires protected access!", varp.debugname())))
+                return Err(ScriptError::Runtime(format!("Varp: {} requires protected access!", varp.debugname)))
             }
             let value = if varp.var_type == ScriptVarType::String {
                 VarValue::String(s.pop_string())
@@ -225,7 +225,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .get_by_id(varbit.basevar)
                 .ok_or(ScriptError::VarpNotFound(varbit.basevar as i32))?;
             if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[secondary as usize]) && basevar.protect {
-                return Err(ScriptError::Runtime(format!("Varbit: {:?} requires protected access!", varbit.debugname())))
+                return Err(ScriptError::Runtime(format!("Varbit: {} requires protected access!", varbit.debugname())))
             }
             let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
             let mut value = s.pop_int();

@@ -40,13 +40,7 @@ pub struct ObjType {
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     #[cfg(since_647)]
     pub objvar: Option<Box<[u16]>>,
-    debugname: Option<Box<str>>,
-}
-
-impl ObjType {
-    pub fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
-    }
+    pub debugname: Box<str>,
 }
 
 impl From<ObjTypeRaw> for ObjType {
@@ -180,7 +174,7 @@ pub struct ObjTypeRaw {
     pub objvar: Option<Box<[u16]>>,
     pub respawnrate: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
     pub opcode_order: Vec<u8>,
     pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
@@ -357,7 +351,7 @@ impl CacheType for ObjTypeRaw {
             objvar: None,
             respawnrate: 100,
             params: None,
-            debugname: None,
+            debugname: Box::default(),
             opcode_order: Vec::new(),
             raw_opcodes: Vec::new(),
         }
@@ -502,7 +496,7 @@ impl CacheType for ObjTypeRaw {
                             .get_or_insert_with(|| Box::new(FxHashMap::default())),
                     );
                 }
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("obj", code),
             }
             self.raw_opcodes
@@ -591,8 +585,8 @@ impl CacheType for ObjTypeRaw {
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 

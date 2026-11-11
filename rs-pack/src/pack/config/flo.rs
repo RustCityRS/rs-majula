@@ -164,19 +164,13 @@ pub fn pack_flos(
         }
 
         // 6
+        server.p1(6);
+        server.pjstr(debugname);
         #[cfg(before_647)]
         if !debugname.starts_with("flo_") {
             // yes, this was originally transmitted!
             client.p1(6);
             client.pjstr(debugname);
-            server.p1(6);
-            server.pjstr(debugname);
-        }
-
-        #[cfg(since_647)]
-        {
-            server.p1(250);
-            server.pjstr(debugname);
         }
 
         // done

@@ -5,9 +5,10 @@ use crate::handlers::ClientGameHandler;
 #[cfg(since_647)]
 use rs_entity::player::CHAT_MODE_CLAN;
 #[cfg(since_647)]
+use rs_io::Packet;
+#[cfg(since_647)]
 use rs_io::cp1252::{decode_string, encode_string};
 use rs_protocol::network::game::client::message_public::MessagePublic;
-#[cfg(before_647)]
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 #[cfg(before_647)]
 use rs_util::wordpack::{pack, unpack};
@@ -133,17 +134,23 @@ impl ClientGameHandler for MessagePublic {
         if let Some(first) = decoded.first_mut() {
             first.make_ascii_uppercase();
         }
-        let char_count = decoded.len();
-        let mut encoded = vec![0; char_count << 2];
-        let len = engine().cache.huffman.encode(&decoded, &mut encoded);
-        encoded.truncate(len);
+        let mut bytes = Packet::new(2 + (decoded.len() << 2));
+        bytes.psmart1or2(decoded.len() as i32);
+        let len = engine()
+            .cache
+            .huffman
+            .encode(&decoded, &mut bytes.data[bytes.pos..]);
+        bytes.data.truncate(bytes.pos + len);
+        active.player.info.chat_bytes = Some(bytes.data.into_boxed_slice());
+        active.player.info.chat_colour = Some(self.colour);
+        active.player.info.chat_effects = Some(self.effect);
+        active.player.info.chat_ignored = Some(active.staffmodlevel().min(2));
+        active.player.info.masks |= PlayerInfoProt::Chat as u16;
 
         active.last_social = Some(clock);
         counters::add(&COUNTERS.chat[CHAT_PUBLIC], 1);
         active.log_chat(None, text);
-        let effects = self.effect as u16 | (self.colour as u16) << 8;
-        let rights = active.staffmodlevel();
-        active.player.pending_public_chat = Some((effects, rights, char_count, encoded));
+
         Ok(())
     }
 }

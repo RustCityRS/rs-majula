@@ -9,6 +9,8 @@ use rs_protocol::network::game::client::oploc2::OpLoc2;
 use rs_protocol::network::game::client::oploc3::OpLoc3;
 use rs_protocol::network::game::client::oploc4::OpLoc4;
 use rs_protocol::network::game::client::oploc5::OpLoc5;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::oploc6::OpLoc6;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptEngine;
 use rs_vm::trigger::ServerTriggerType;
@@ -80,6 +82,21 @@ impl ClientGameHandler for OpLoc4 {
 impl ClientGameHandler for OpLoc5 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         handle(5, self.x, self.z, self.loc, active)
+    }
+}
+
+/// Handles the `OpLoc6` client protocol message: Examine. The client sends
+/// only the loc type it shows, and walks nowhere; the answer is the type's
+/// `desc`.
+#[cfg(since_647)]
+impl ClientGameHandler for OpLoc6 {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        active.watch_op(Op::Other);
+        let desc = engine().locs().get_by_id(self.loc);
+        if let Some(desc) = desc.and_then(|t| t.desc.as_deref()) {
+            active.message_game(desc);
+        }
+        Ok(())
     }
 }
 

@@ -1,5 +1,5 @@
 use crate::active_player::ActivePlayer;
-use crate::core::engine_mut;
+use crate::core::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client_prot::{
     ClickWorldMap, ClientDetailoptionsStatus, EventKeyboard, MapBuildLoading, SoundSongPreloaded,
@@ -29,24 +29,30 @@ client_status!(
     WorldLatency,
 );
 
-/// Handles `ClickWorldMap` — rev-647 CLICKWORLDMAP (opcode 60).
-///
-/// The client sends it on every press on the world map (interface 755's map,
-/// clientcode 1400; client.java:436-457), with the tile under the pointer
-/// packed as a coord: `level << 28 | x << 14 | z`. What a press means is
-/// content's to decide, so the engine only hands the tile on: it runs
-/// `[proc,clickworldmap](coord)` by name, as `WindowStatus` runs
-/// `[proc,switch_window_mode]`. There is no trigger type for it in
-/// `ServerTriggerType`.
-///
-/// # Side Effects
-///
-/// * Runs `[proc,clickworldmap]` with the pressed tile, unprotected. Content
-///   without that proc ignores the packet, as before.
+/// Handles `ClickWorldMap`, rev-647 CLICKWORLDMAP (opcode 60): a press on the
+/// world map (clientcode 1400) with the tile as `level << 28 | x << 14 | z`.
+/// The client sends coord 0 for a press off every map area. What a press
+/// means is content's to decide: this runs `[proc,clickworldmap](coord)`
+/// unprotected, as the map's buttons run, and content without the proc
+/// ignores the packet.
 impl ClientGameHandler for ClickWorldMap {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        let iface = engine().layout.world_map;
+        if !active.player.is_interface_open(iface) {
+            return Err(ScriptError::Client(format!(
+                "Interface is not visible: {iface}"
+            )));
+        }
+        if self.coord >> 30 != 0 {
+            return Err(ScriptError::Client(format!(
+                "Invalid coord: {}",
+                self.coord
+            )));
+        }
+        if self.coord == 0 {
+            return Ok(());
+        }
         match engine_mut().run_script_by_name(
-            // Compiled scripts are named by their header.
             "[proc,clickworldmap]",
             Some(ScriptSubject::Player(active.player.uid)),
             None,

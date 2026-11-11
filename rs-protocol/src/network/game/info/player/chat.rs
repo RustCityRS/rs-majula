@@ -13,6 +13,7 @@ impl InfoMessage for PlayerInfoChat<'_> {
         buf.p1(self.colour);
         buf.p1(self.effects);
         buf.p1(self.ignored);
+        #[cfg(before_647)]
         buf.p1(self.bytes.len() as u8);
         buf.pdata(self.bytes, 0, self.bytes.len());
     }
@@ -21,7 +22,7 @@ impl InfoMessage for PlayerInfoChat<'_> {
         size_of_val(&self.colour)
             + size_of_val(&self.effects)
             + size_of_val(&self.ignored)
-            + 1
+            + cfg!(before_647) as usize
             + self.bytes.len()
     }
 }

@@ -1,6 +1,5 @@
-// From rev 647 the anti-cheat is inert: it judges the jag-era client's
-// reports (heartbeats, op checks, mouse and camera input) and 647 sends
-// none of them, so what reads them goes unused there.
+// Rev 647's client sends no heartbeats, op checks or minimap trailer, so what
+// reads those goes unused there.
 #![cfg_attr(
     since_647,
     allow(dead_code, unused_variables, unused_imports, unreachable_code)
@@ -18,13 +17,13 @@ use super::slots::{Slot, SlotClicks, SlotStats};
 use Field::*;
 use rs_db::{LoginDevice, ReplayReport};
 use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS};
-#[cfg(all(since_254, before_647))]
+#[cfg(since_254)]
 use rs_protocol::network::game::client::event_applet_focus::EventAppletFocus;
-#[cfg(any(rev = "225", all(since_254, before_647)))]
+#[cfg(any(rev = "225", since_254))]
 use rs_protocol::network::game::client::event_camera_position::EventCameraPosition;
-#[cfg(all(since_254, before_647))]
+#[cfg(since_254)]
 use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
-#[cfg(all(since_254, before_647))]
+#[cfg(since_254)]
 use rs_protocol::network::game::client::event_mouse_move::EventMouseMove;
 #[cfg(before_274)]
 use rs_protocol::network::game::client::event_tracking::EventTracking;
@@ -616,7 +615,7 @@ impl AntiCheat {
     }
 
     /// An `EVENT_MOUSE_MOVE`, `ms` into the session.
-    #[cfg(all(since_254, before_647))]
+    #[cfg(since_254)]
     pub fn mouse_move(&mut self, ms: u32, msg: &EventMouseMove) {
         if self.off {
             return;
@@ -626,7 +625,7 @@ impl AntiCheat {
     }
 
     /// An `EVENT_MOUSE_CLICK`, `ms` into the session on tick `clock`.
-    #[cfg(all(since_254, before_647))]
+    #[cfg(since_254)]
     pub fn mouse_click(&mut self, ms: u32, clock: u32, msg: &EventMouseClick) {
         if self.off {
             return;
@@ -636,7 +635,7 @@ impl AntiCheat {
     }
 
     /// An `EVENT_APPLET_FOCUS`, `ms` into the session.
-    #[cfg(all(since_254, before_647))]
+    #[cfg(since_254)]
     pub fn focus(&mut self, ms: u32, clock: u32, msg: &EventAppletFocus) {
         if self.off {
             return;
@@ -646,7 +645,7 @@ impl AntiCheat {
     }
 
     /// An `EVENT_CAMERA_POSITION`, `ms` into the session.
-    #[cfg(any(rev = "225", all(since_254, before_647)))]
+    #[cfg(any(rev = "225", since_254))]
     pub fn camera(&mut self, ms: u32, msg: &EventCameraPosition) {
         if self.off {
             return;
@@ -1189,7 +1188,7 @@ impl AntiCheat {
             .filter(|((_, from_loop), _)| *from_loop)
             .map(|(_, &n)| n)
             .sum();
-        if self.ops >= MIN_OPS && loop_beats == 0 {
+        if cfg!(before_647) && self.ops >= MIN_OPS && loop_beats == 0 {
             flags.push(("no_heartbeat", 40));
         }
         let beat_ratio = self.beat_ratio();
@@ -1217,7 +1216,7 @@ impl AntiCheat {
             .iter()
             .zip(&self.op_received)
             .any(|(&expected, &received)| expected >= 3 && (received << 1) < expected);
-        if missing {
+        if cfg!(before_647) && missing {
             flags.push(("missing_op_checks", 40));
         }
         if cfg!(since_254) && self.ops >= MIN_OPS && (self.ops_unclicked << 2) > self.ops {
@@ -1231,8 +1230,9 @@ impl AntiCheat {
             flags.push(("no_mouse_movement", 30));
         }
         // 225's web client reports presses but not moves, so every click
-        // looks like a jump; so does every tap.
-        if cfg!(since_244)
+        // looks like a jump; so does every tap. 647's move reports can lag
+        // the click they led to.
+        if cfg!(all(since_244, before_647))
             && !self.touch
             && self.clicks >= MIN_CLICKS
             && (self.jumps << 1) > self.clicks
@@ -1611,7 +1611,7 @@ mod tests {
         let flags = clockwork_jumps(false);
         assert_eq!(
             flags.contains(&"cursor_jumps"),
-            cfg!(since_244),
+            cfg!(all(since_244, before_647)),
             "{flags:?}"
         );
         assert!(flags.contains(&"robotic_click_timing"), "{flags:?}");

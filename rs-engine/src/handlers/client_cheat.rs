@@ -564,7 +564,7 @@ fn cheat_setvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(),
             return Ok(());
         }
         let value = args.next().unwrap_or("0").parse::<i32>().unwrap_or(0);
-        active.message_game(&format!("Set {:?}: to {:?}", varbit.debugname(), value));
+        active.message_game(&format!("Set {}: to {:?}", varbit.debugname(), value));
         active.set_varbit(varbit, value);
         return Ok(());
     }
@@ -573,7 +573,7 @@ fn cheat_setvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(),
             return;
         }
         let value = build_var_value(v, args);
-        active.message_game(&format!("Set {:?}: to {:?}", v.debugname(), value));
+        active.message_game(&format!("Set {}: to {:?}", v.debugname, value));
         active.set_varp(v.id, value, v.transmit);
     })
 }
@@ -617,12 +617,12 @@ fn cheat_getvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(),
     #[cfg(since_254)]
     if let Some(varbit) = name.and_then(|n| engine().varbits().get_by_debugname(n)) {
         let value = active.varbit(varbit);
-        active.message_game(&format!("Get {:?}: {:?}", varbit.debugname(), value));
+        active.message_game(&format!("Get {}: {:?}", varbit.debugname(), value));
         return Ok(());
     }
     parse_varp(name, |v| {
         let value = active.player.vars.get(v.id);
-        active.message_game(&format!("Get {:?}: {:?}", v.debugname(), value));
+        active.message_game(&format!("Get {}: {:?}", v.debugname, value));
     })
 }
 

@@ -1,11 +1,12 @@
-use super::config_entry;
 #[cfg(since_647)]
-use super::param::type_name_to_char;
+use super::client_table_with;
+use super::config_entry;
 use crate::ParamValue;
 use crate::pack::config::param::get_param_value_for_type;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
+use crate::pack::util::parse_script_var_type;
 use crate::types::ScriptVarType;
 use anyhow::Result;
 use std::collections::HashMap;
@@ -20,40 +21,15 @@ pub fn pack_enums(
     let configs = parse_config_sections_cached(file_cache, "enum", constants)?;
 
     let mut server = PackedData::new(pack.max);
-    #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("enum", pack, constants)?;
-    #[cfg(since_647)]
-    let client_count = client_configs
-        .keys()
-        .filter_map(|name| pack.get_by_debugname(name))
-        .max()
-        .map_or(0, |id| id + 1);
-    #[cfg(since_647)]
-    let mut client = PackedData::new(client_count);
     for id in 0..pack.max {
         server.start_entry();
 
         let Some((debugname, props)) = config_entry("enum", pack, &configs, id) else {
             server.finish_entry();
-            #[cfg(since_647)]
-            if id < client_count {
-                client.skip_entry();
-            }
             continue;
         };
 
         encode_enum(&mut server, props, registry, debugname);
-
-        #[cfg(since_647)]
-        if id < client_count {
-            if let Some(props) = client_configs.get(debugname) {
-                client.start_entry();
-                encode_enum(&mut client, props, registry, debugname);
-                client.finish_entry();
-            } else {
-                client.skip_entry();
-            }
-        }
 
         // 250
         server.p1(250);
@@ -63,79 +39,61 @@ pub fn pack_enums(
         server.finish_entry();
     }
 
-    Ok(PackedFile {
-        server,
-        #[cfg(before_647)]
-        client: None,
-        #[cfg(since_647)]
-        client: Some(client),
-    })
+    #[cfg(before_647)]
+    let client = None;
+    #[cfg(since_647)]
+    let client = Some(client_table_with(
+        file_cache,
+        "enum",
+        pack,
+        constants,
+        |client, name, props| encode_enum(client, props, registry, name),
+    )?);
+
+    Ok(PackedFile { server, client })
 }
 
 /// An enum's key or value type as packed. As in 2004scape, namedobj keeps its
 /// own type ('O'), the one the compiler pushes for `enum(int, namedobj, ...)`,
 /// where other configs pack it as obj.
-#[cfg(before_647)]
 fn enum_var_type(name: &str) -> ScriptVarType {
-    match name {
-        "namedobj" => ScriptVarType::NamedObj,
-        _ => ScriptVarType::from_type_name(name),
+    if name == "namedobj" {
+        return ScriptVarType::NamedObj;
     }
-}
-
-#[cfg(since_647)]
-fn enum_var_type(name: &str) -> ScriptVarType {
-    ScriptVarType::try_from(type_name_to_char(name) as u8).expect("Invalid enum type")
+    let mut ty = ScriptVarType::Int;
+    parse_script_var_type(name, |c| {
+        ty = ScriptVarType::try_from(c as u8).expect("Invalid enum type");
+    });
+    ty
 }
 
 fn enum_value(ty: &str, registry: &PackRegistry, value: &str) -> Option<ParamValue> {
-    #[cfg(since_647)]
     if ty == "string" {
-        return Some(ParamValue::String(value.into()));
+        return get_param_value_for_type(ty, registry, value);
     }
-    #[cfg(since_647)]
-    if ty != "string" {
-        match value.trim() {
-            "yes" | "true" | "^true" => return Some(ParamValue::Int(1)),
-            "no" | "false" | "^false" => return Some(ParamValue::Int(0)),
-            _ => {}
-        }
-        return get_param_value_for_type(ty, registry, value.trim());
+    match value.trim() {
+        "yes" | "true" => Some(ParamValue::Int(1)),
+        "no" | "false" => Some(ParamValue::Int(0)),
+        value => get_param_value_for_type(ty, registry, value),
     }
-    get_param_value_for_type(ty, registry, value)
 }
+
 fn encode_enum(
     packed: &mut PackedData,
     props: &[(String, String)],
     registry: &PackRegistry,
     debugname: &str,
 ) {
-    let inputtype = props
-        .iter()
-        .find(|(k, _)| k == "inputtype")
-        .map(|(_, v)| v.as_str());
-    #[cfg(before_647)]
-    let inputtype =
-        inputtype.unwrap_or_else(|| panic!("Enum config: {debugname} is missing inputtype"));
-    #[cfg(since_647)]
-    let inputtype = inputtype.unwrap_or("int");
-
-    let outputtype = props
-        .iter()
-        .find(|(k, _)| k == "outputtype")
-        .map(|(_, v)| v.as_str());
-    #[cfg(before_647)]
-    let outputtype =
-        outputtype.unwrap_or_else(|| panic!("Enum config: {debugname} is missing outputtype"));
-    #[cfg(since_647)]
-    let outputtype = outputtype.unwrap_or("int");
-
-    // Collected fields written after the loop
-    #[cfg(before_647)]
-    let mut vals: Vec<&str> = Vec::new();
+    let type_of = |key: &str| {
+        props
+            .iter()
+            .find(|(k, _)| k == key)
+            .map_or("int", |(_, v)| v.as_str())
+    };
+    let inputtype = type_of("inputtype");
+    let outputtype = type_of("outputtype");
 
     for group in props.chunk_by(|a, b| (a.0 == "val") == (b.0 == "val")) {
-        #[cfg(since_647)]
         if group[0].0 == "val" {
             let vals: Vec<_> = group.iter().map(|(_, value)| value.as_str()).collect();
             pack_values(packed, &vals, inputtype, outputtype, registry, debugname);
@@ -180,17 +138,11 @@ fn encode_enum(
                     }
                 }
 
-                // 5 or 6
-                #[cfg(before_647)]
-                "val" => vals.push(value),
-
                 // not found
                 _ => panic!("Unrecognized enum config key: {key}"),
             }
         }
     }
-    #[cfg(before_647)]
-    pack_values(packed, &vals, inputtype, outputtype, registry, debugname);
 }
 
 fn pack_values(

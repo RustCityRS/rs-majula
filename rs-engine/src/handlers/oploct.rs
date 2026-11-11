@@ -1,34 +1,27 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::handlers::ClientGameHandler;
+#[cfg(since_647)]
+use crate::handlers::op_common::transmitted_inv;
 use crate::handlers::op_common::{
     action_target, in_build_area, loc_target, spell_component_ok, zone_loc,
 };
 #[cfg(since_647)]
 use crate::handlers::oplocu;
-#[cfg(before_647)]
 use crate::watch::{Target, Using};
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::oploct::OpLocT;
-use rs_vm::ScriptError;
 use rs_vm::trigger::ServerTriggerType;
+use rs_vm::{ComId, ScriptError};
 
 impl ClientGameHandler for OpLocT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        let com = self.com as ComId;
         #[cfg(since_647)]
-        if self.obj != u16::MAX {
-            return oplocu::handle(
-                self.x,
-                self.z,
-                self.loc,
-                self.com as i32,
-                self.slot,
-                self.obj,
-                active,
-            );
+        if transmitted_inv(active, com).is_some() {
+            return oplocu::handle(self.x, self.z, self.loc, com, self.slot, self.obj, active);
         }
-        #[cfg(before_647)]
         active.watch_use(
-            Using::Spell(self.com),
+            Using::Spell(com),
             Target::Loc {
                 id: self.loc,
                 x: self.x,
@@ -40,11 +33,7 @@ impl ClientGameHandler for OpLocT {
             return Ok(());
         }
 
-        #[cfg(before_647)]
-        let spell_com = self.com;
-        #[cfg(since_647)]
-        let spell_com = self.com as i32;
-        if !spell_component_ok(active, spell_com, action_target::LOC) {
+        if !spell_component_ok(active, com, action_target::LOC) {
             active.unset_map_flag();
             return Ok(());
         }
@@ -59,7 +48,6 @@ impl ClientGameHandler for OpLocT {
             active.unset_map_flag();
             return Ok(());
         };
-        #[cfg(before_647)]
         if active.shown_loc(self.loc).is_none() {
             active.unset_map_flag();
             return Ok(());
@@ -71,7 +59,7 @@ impl ClientGameHandler for OpLocT {
         active
             .player
             .set_interaction(target, ServerTriggerType::ApLocT as u8, true);
-        active.player.interaction.target_subject_com = Some(spell_com);
+        active.player.interaction.target_subject_com = Some(com);
         active.player.opcalled = true;
 
         Ok(())

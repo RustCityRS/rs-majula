@@ -516,6 +516,7 @@ mod tests {
     use super::*;
     use crate::cache::map::*;
     use crate::pack::other::map::*;
+    use rs_io::Packet;
     const TILES_PER_MAP: usize = 4 << 12;
 
     #[test]
@@ -631,24 +632,27 @@ mod tests {
     #[test]
     fn smart_roundtrip() {
         for val in [0, 1, 127, 128, 255, 1000, 32766] {
-            let mut buf = Vec::new();
-            write_smart(&mut buf, val);
-            let mut cur = buf.as_slice();
-            let decoded = gsmart(&mut cur);
-            assert_eq!(decoded, val, "smart roundtrip failed for {}", val);
-            assert!(cur.is_empty());
+            let mut out = Vec::new();
+            write_smart(&mut out, val);
+            let mut buf = Packet::from(out.as_slice());
+            assert_eq!(buf.gsmart1or2(), val, "smart roundtrip failed for {}", val);
+            assert_eq!(buf.remaining(), 0);
         }
     }
 
     #[test]
     fn lsmart_roundtrip() {
         for val in [0, 1, 32766, 32767, 32768, 65534, 65535, 100_000] {
-            let mut buf = Vec::new();
-            write_lsmart(&mut buf, val);
-            let mut cur = buf.as_slice();
-            let decoded = glargesmart(&mut cur);
-            assert_eq!(decoded, val, "lsmart roundtrip failed for {}", val);
-            assert!(cur.is_empty());
+            let mut out = Vec::new();
+            write_lsmart(&mut out, val);
+            let mut buf = Packet::from(out.as_slice());
+            assert_eq!(
+                buf.gextended1or2(),
+                val,
+                "lsmart roundtrip failed for {}",
+                val
+            );
+            assert_eq!(buf.remaining(), 0);
         }
     }
 

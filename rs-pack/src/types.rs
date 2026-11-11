@@ -272,19 +272,7 @@ pub enum ForceApproach {
 }
 
 impl ForceApproach {
-    #[cfg(before_647)]
-    pub fn from_config_str(s: &str) -> Self {
-        match s {
-            "north" => Self::North,
-            "east" => Self::East,
-            "south" => Self::South,
-            "west" => Self::West,
-            _ => panic!("Invalid forceapproach value: {s}"),
-        }
-    }
-
     /// One or more comma separated sides; each clears its bit.
-    #[cfg(since_647)]
     pub fn from_config_str(s: &str) -> Self {
         let bits = s.split(',').fold(0b1111, |bits, side| {
             bits & !match side.trim() {
@@ -329,6 +317,17 @@ pub enum ParamValue {
 pub enum MultiVar {
     Varbit(u16),
     Varp(u16),
+}
+
+impl MultiVar {
+    /// The variable a transform is picked by, the varbit before the varp;
+    /// -1 is none.
+    pub fn new(varbit: i32, varp: i32) -> Option<Self> {
+        u16::try_from(varbit)
+            .ok()
+            .map(Self::Varbit)
+            .or_else(|| u16::try_from(varp).ok().map(Self::Varp))
+    }
 }
 
 #[repr(u8)]

@@ -2,6 +2,7 @@
 use crate::archive;
 #[cfg(since_647)]
 use anyhow::{Context, Result};
+use rs_io::Packet;
 #[cfg(since_647)]
 use rs_io::js5::java_string_hash;
 #[cfg(since_647)]
@@ -150,40 +151,30 @@ pub fn parse_terrain_binary(data: &[u8]) -> TerrainData {
 }
 
 pub fn parse_terrain_binary_levels(data: &[u8], levels: usize) -> TerrainData {
-    let tile_count = levels * 64 * 64;
+    let tile_count = levels << 12;
     let mut tiles = Vec::with_capacity(tile_count);
-    let mut pos = 0usize;
+    let mut buf = Packet::from(data);
 
     for _ in 0..tile_count {
         let mut tile = TerrainTile::default();
 
-        loop {
-            if pos >= data.len() {
-                break;
-            }
-            let opcode = data[pos] as u16;
-            pos += 1;
+        while buf.remaining() > 0 {
+            let opcode = buf.g1();
 
             if opcode == 0 {
                 break;
             } else if opcode == 1 {
-                if pos < data.len() {
-                    tile.height = Some(data[pos]);
-                    pos += 1;
-                }
+                tile.height = Some(buf.g1());
                 break;
             } else if opcode <= 49 {
                 let packed = opcode - 2;
-                tile.overlay_shape = (packed >> 2) as u8;
-                tile.overlay_rotation = (packed & 3) as u8;
-                if pos < data.len() {
-                    tile.overlay_id = Some(data[pos]);
-                    pos += 1;
-                }
+                tile.overlay_shape = packed >> 2;
+                tile.overlay_rotation = packed & 3;
+                tile.overlay_id = Some(buf.g1());
             } else if opcode <= 81 {
-                tile.flags = Some((opcode - 49) as u8);
+                tile.flags = Some(opcode - 49);
             } else {
-                tile.underlay_id = Some((opcode - 81) as u8);
+                tile.underlay_id = Some(opcode - 81);
             }
         }
 
@@ -199,37 +190,32 @@ pub fn parse_terrain_binary_levels(data: &[u8], levels: usize) -> TerrainData {
         let mut skybox = None;
         let mut camera = None;
 
-        while pos < data.len() {
-            let opcode = data[pos];
-            pos += 1;
+        while buf.remaining() > 0 {
+            let opcode = buf.g1();
             env_opcode_order.push(opcode);
 
             match opcode {
                 0 => {
-                    environment = Some(parse_environment(data, &mut pos));
+                    environment = Some(parse_environment(&mut buf));
                 }
                 1 => {
-                    let count = read_u8(data, &mut pos);
+                    let count = buf.g1();
                     for _ in 0..count {
-                        lights.push(parse_light(data, &mut pos));
+                        lights.push(parse_light(&mut buf));
                     }
                 }
                 2 => {
                     env_params = Some(EnvParams {
-                        values: [
-                            read_u8(data, &mut pos),
-                            read_u8(data, &mut pos),
-                            read_u8(data, &mut pos),
-                        ],
+                        values: [buf.g1(), buf.g1(), buf.g1()],
                     });
                 }
                 128 => {
                     skybox = Some(SkyboxData {
-                        param0: read_u16(data, &mut pos),
-                        param1: read_i16(data, &mut pos),
-                        param2: read_i16(data, &mut pos),
-                        param3: read_i16(data, &mut pos),
-                        param4: read_u16(data, &mut pos),
+                        param0: buf.g2(),
+                        param1: buf.g2s(),
+                        param2: buf.g2s(),
+                        param3: buf.g2s(),
+                        param4: buf.g2(),
                     });
                 }
                 129 => {
@@ -240,14 +226,14 @@ pub fn parse_terrain_binary_levels(data: &[u8], levels: usize) -> TerrainData {
                         CameraPlane::Clear,
                     ];
                     for plane in &mut planes {
-                        let ptype = read_i8(data, &mut pos);
+                        let ptype = buf.g1s();
                         match ptype {
                             0 => *plane = CameraPlane::Clear,
                             1 => {
                                 let mut cells = Vec::with_capacity(256);
                                 for _ in 0..16 {
                                     for _ in 0..16 {
-                                        cells.push(read_i8(data, &mut pos));
+                                        cells.push(buf.g1s());
                                     }
                                 }
                                 *plane = CameraPlane::Data(cells);
@@ -291,56 +277,45 @@ pub fn parse_terrain_binary_levels(data: &[u8], levels: usize) -> TerrainData {
 }
 
 #[cfg(since_647)]
-fn parse_environment(data: &[u8], pos: &mut usize) -> EnvironmentData {
-    let flags = read_u8(data, pos);
+fn parse_environment(buf: &mut Packet<&[u8]>) -> EnvironmentData {
+    let flags = buf.g1();
     let sun_color = if flags & 0x01 != 0 {
-        Some(read_u32(data, pos))
+        Some(buf.g4s() as u32)
     } else {
         None
     };
     let ambient = if flags & 0x02 != 0 {
-        Some(read_u16(data, pos))
+        Some(buf.g2())
     } else {
         None
     };
     let sunlight = if flags & 0x04 != 0 {
-        Some(read_u16(data, pos))
+        Some(buf.g2())
     } else {
         None
     };
     let backlight = if flags & 0x08 != 0 {
-        Some(read_u16(data, pos))
+        Some(buf.g2())
     } else {
         None
     };
     let sun_angle = if flags & 0x10 != 0 {
-        Some([
-            read_i16(data, pos),
-            read_i16(data, pos),
-            read_i16(data, pos),
-        ])
+        Some([buf.g2s(), buf.g2s(), buf.g2s()])
     } else {
         None
     };
     let fog_color = if flags & 0x20 != 0 {
-        Some(read_u32(data, pos))
+        Some(buf.g4s() as u32)
     } else {
         None
     };
     let fog_depth = if flags & 0x40 != 0 {
-        Some(read_u16(data, pos))
+        Some(buf.g2())
     } else {
         None
     };
     let env_map = if flags & 0x80 != 0 {
-        Some([
-            read_u16(data, pos),
-            read_u16(data, pos),
-            read_u16(data, pos),
-            read_u16(data, pos),
-            read_u16(data, pos),
-            read_u16(data, pos),
-        ])
+        Some([buf.g2(), buf.g2(), buf.g2(), buf.g2(), buf.g2(), buf.g2()])
     } else {
         None
     };
@@ -357,22 +332,22 @@ fn parse_environment(data: &[u8], pos: &mut usize) -> EnvironmentData {
 }
 
 #[cfg(since_647)]
-fn parse_light(data: &[u8], pos: &mut usize) -> LightData {
-    let flags_raw = read_u8(data, pos);
-    let x = read_u16(data, pos);
-    let y = read_u16(data, pos);
-    let z = read_u16(data, pos);
-    let radius = read_u8(data, pos);
-    let color_count = (radius as usize) * 2 + 1;
+fn parse_light(buf: &mut Packet<&[u8]>) -> LightData {
+    let flags_raw = buf.g1();
+    let x = buf.g2();
+    let y = buf.g2();
+    let z = buf.g2();
+    let radius = buf.g1();
+    let color_count = ((radius as usize) << 1) + 1;
     let mut colors = Vec::with_capacity(color_count);
     for _ in 0..color_count {
-        colors.push(read_u16(data, pos));
+        colors.push(buf.g2());
     }
-    let hsl = read_u16(data, pos);
-    let type_packed = read_u8(data, pos);
+    let hsl = buf.g2();
+    let type_packed = buf.g1();
     let light_type = type_packed & 0x1F;
     let light_type_ref = if light_type == 31 {
-        Some(read_u16(data, pos))
+        Some(buf.g2())
     } else {
         None
     };
@@ -389,69 +364,29 @@ fn parse_light(data: &[u8], pos: &mut usize) -> LightData {
     }
 }
 
-#[cfg(since_647)]
-fn read_u8(data: &[u8], pos: &mut usize) -> u8 {
-    let v = data.get(*pos).copied().unwrap_or(0);
-    *pos += 1;
-    v
-}
-
-#[cfg(since_647)]
-fn read_i8(data: &[u8], pos: &mut usize) -> i8 {
-    read_u8(data, pos) as i8
-}
-
-#[cfg(since_647)]
-fn read_u16(data: &[u8], pos: &mut usize) -> u16 {
-    let hi = data.get(*pos).copied().unwrap_or(0) as u16;
-    let lo = data.get(*pos + 1).copied().unwrap_or(0) as u16;
-    *pos += 2;
-    (hi << 8) | lo
-}
-
-#[cfg(since_647)]
-fn read_i16(data: &[u8], pos: &mut usize) -> i16 {
-    read_u16(data, pos) as i16
-}
-
-#[cfg(since_647)]
-fn read_u32(data: &[u8], pos: &mut usize) -> u32 {
-    let a = data.get(*pos).copied().unwrap_or(0) as u32;
-    let b = data.get(*pos + 1).copied().unwrap_or(0) as u32;
-    let c = data.get(*pos + 2).copied().unwrap_or(0) as u32;
-    let d = data.get(*pos + 3).copied().unwrap_or(0) as u32;
-    *pos += 4;
-    (a << 24) | (b << 16) | (c << 8) | d
-}
-
 pub fn parse_landscape_binary(data: &[u8]) -> Vec<LocEntry> {
     let mut locs = Vec::new();
-    let mut cur = data;
+    let mut buf = Packet::from(data);
     let mut loc_id: i32 = -1;
 
-    loop {
+    while buf.remaining() > 0 {
         #[cfg(since_647)]
-        let delta = glargesmart(&mut cur);
+        let delta = buf.gextended1or2();
         #[cfg(before_647)]
-        let delta = gsmart(&mut cur);
+        let delta = buf.gsmart1or2();
         if delta == 0 {
             break;
         }
         loc_id += delta;
 
         let mut tile_pos: i32 = 0;
-        loop {
-            let offset = gsmart(&mut cur);
+        while buf.remaining() > 0 {
+            let offset = buf.gsmart1or2();
             if offset == 0 {
                 break;
             }
             tile_pos += offset - 1;
-
-            if cur.is_empty() {
-                break;
-            }
-            let packed = cur[0];
-            cur = &cur[1..];
+            let packed = buf.g1();
 
             locs.push(LocEntry {
                 loc_id: loc_id as u32,
@@ -470,10 +405,10 @@ pub fn parse_landscape_binary(data: &[u8]) -> Vec<LocEntry> {
 #[cfg(since_647)]
 pub fn parse_npc_spawn_binary(data: &[u8]) -> Vec<NpcSpawn> {
     let mut spawns = Vec::new();
-    let mut pos = 0;
-    while pos + 3 < data.len() {
-        let pos_key = read_u16(data, &mut pos);
-        let npc_id = read_u16(data, &mut pos);
+    let mut buf = Packet::from(data);
+    while buf.remaining() >= 4 {
+        let pos_key = buf.g2();
+        let npc_id = buf.g2();
         let level = (pos_key >> 14) as u8;
         let x = ((pos_key >> 7) & 0x3f) as u8;
         let z = (pos_key & 0x3f) as u8;
@@ -490,11 +425,11 @@ pub fn parse_npc_spawn_binary(data: &[u8]) -> Vec<NpcSpawn> {
 #[cfg(since_647)]
 pub fn parse_obj_spawn_binary(data: &[u8]) -> Vec<ObjSpawn> {
     let mut spawns = Vec::new();
-    let mut pos = 0;
-    while pos + 5 < data.len() {
-        let pos_key = read_u16(data, &mut pos);
-        let obj_id = read_u16(data, &mut pos);
-        let count = read_u16(data, &mut pos);
+    let mut buf = Packet::from(data);
+    while buf.remaining() >= 6 {
+        let pos_key = buf.g2();
+        let obj_id = buf.g2();
+        let count = buf.g2();
         spawns.push(ObjSpawn {
             level: (pos_key >> 12) as u8,
             x: ((pos_key >> 6) & 0x3f) as u8,
@@ -504,37 +439,6 @@ pub fn parse_obj_spawn_binary(data: &[u8]) -> Vec<ObjSpawn> {
         });
     }
     spawns
-}
-
-pub(crate) fn gsmart(cur: &mut &[u8]) -> i32 {
-    if cur.is_empty() {
-        return 0;
-    }
-    if cur[0] < 128 {
-        let v = cur[0] as i32;
-        *cur = &cur[1..];
-        v
-    } else {
-        if cur.len() < 2 {
-            *cur = &[];
-            return 0;
-        }
-        let v = u16::from_be_bytes([cur[0], cur[1]]) as i32 - 32768;
-        *cur = &cur[2..];
-        v
-    }
-}
-
-#[cfg(since_647)]
-pub(crate) fn glargesmart(cur: &mut &[u8]) -> i32 {
-    let mut total = 0i32;
-    loop {
-        let seg = gsmart(cur);
-        if seg != 32767 {
-            return total + seg;
-        }
-        total += 32767;
-    }
 }
 
 /// XTEA keys for map region decryption, keyed by name hash of "l{mx}_{mz}".

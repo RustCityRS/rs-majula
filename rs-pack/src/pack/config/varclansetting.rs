@@ -16,23 +16,27 @@ pub fn pack_varclansettings(
         "varclansetting",
         pack,
         constants,
-        |client, key, value| match key {
-            // 1
-            "type" => parse_script_var_type(value, |v| {
-                client.p1(1);
-                client.p1(v as u8);
-            }),
+        |client, _, props| {
+            for (key, value) in props {
+                match key.as_str() {
+                    // 1
+                    "type" => parse_script_var_type(value, |v| {
+                        client.p1(1);
+                        client.p1(v as u8);
+                    }),
 
-            // 2
-            "basevar" => parse_ref(pack, "varclansetting", value, |v| {
-                client.p1(2);
-                client.p2(v);
-            }),
-            "startbit" => parse_number(value, |v| client.p1(v)),
-            "endbit" => parse_number(value, |v| client.p1(v)),
+                    // 2
+                    "basevar" => parse_ref(pack, "varclansetting", value, |v| {
+                        client.p1(2);
+                        client.p2(v);
+                    }),
+                    "startbit" => parse_number(value, |v| client.p1(v)),
+                    "endbit" => parse_number(value, |v| client.p1(v)),
 
-            // not found
-            _ => panic!("Unrecognized varclansetting config key: {key}"),
+                    // not found
+                    _ => panic!("Unrecognized varclansetting config key: {key}"),
+                }
+            }
         },
     )?;
     Ok(PackedFile {

@@ -9,7 +9,7 @@ pub fn emit_inv_props(
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let mut props: Vec<(String, String)> = Vec::new();
-    if def.has_scope {
+    if def.opcode_order.contains(&1) {
         let s = match def.scope {
             InvScope::Temp => "temp".to_string(),
             InvScope::Perm => "perm".to_string(),
@@ -17,7 +17,7 @@ pub fn emit_inv_props(
         };
         props.push(("scope".into(), s));
     }
-    if def.size != 0 {
+    if def.opcode_order.contains(&2) {
         props.push(("size".into(), def.size.to_string()));
     }
     if def.stackall {

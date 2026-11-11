@@ -1,6 +1,6 @@
 #[cfg(since_254)]
 use crate::network::game::client::ClientProtMessage;
-#[cfg(all(since_254, before_647))]
+#[cfg(since_254)]
 use crate::network::game::client::event_mouse_move::Cursor;
 #[cfg(since_254)]
 use crate::network::game::client_prot_category::ClientProtCategory;
@@ -12,8 +12,9 @@ use rs_io::Packet;
 #[cfg(since_254)]
 use rs_protocol_macros::client_prot;
 
-#[cfg(all(since_254, before_647))]
-#[client_prot(Fixed(4), ClientEvent)]
+#[cfg(since_254)]
+#[cfg_attr(before_647, client_prot(Fixed(4), ClientEvent))]
+#[cfg_attr(since_647, client_prot(Fixed(6), ClientEvent))]
 pub struct EventMouseClick {
     pub at: Cursor,
     pub right: bool,
@@ -31,18 +32,16 @@ impl ClientProtMessage for EventMouseClick {
         }
     }
 }
-#[cfg(since_647)]
-#[client_prot(Fixed(6), ClientEvent)]
-pub struct EventMouseClick {
-    pub info: u16,
-    pub position: i32,
-}
 
 #[cfg(since_647)]
 impl ClientProtMessage for EventMouseClick {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let info = buf.g2();
-        let position = buf.g4s_alt2();
-        EventMouseClick { info, position }
+        let at = Cursor::unpack(buf.g4s_alt2() as u32);
+        EventMouseClick {
+            at,
+            right: info >> 15 == 1,
+            gap: info & 0x7fff,
+        }
     }
 }

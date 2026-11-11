@@ -1,31 +1,19 @@
 use super::UnpackedPacks;
 use crate::archive::QUICKCHAT_GLOBAL_FIRST;
-use crate::cache::quickchatphrase::{QuickChatCommand, QuickChatPhraseType};
+use crate::cache::quickchatphrase::{
+    QuickChatCommand, QuickChatDynamicCommand, QuickChatPhraseType,
+};
 use std::collections::HashMap;
 
 fn command_text(command: &QuickChatCommand, packs: &UnpackedPacks) -> String {
-    let param = |index: usize, kind: &str| packs.reference(kind, command.params[index]);
-    match command.id {
-        0 => format!("listdialog({})", param(0, "enum")),
-        1 => "objdialog()".to_owned(),
-        2 => "countdialog()".to_owned(),
-        4 => format!("stat_base({})", param(0, "stat")),
-        6 => format!("enum_string({},{})", param(0, "enum"), param(1, "varp")),
-        7 => format!("enum_string_clan({})", param(0, "enum")),
-        8 => format!("tostring_varp({})", param(0, "varp")),
-        9 => format!("tostring_varbit({})", param(0, "varpbit")),
-        10 => "objtradedialog()".to_owned(),
-        11 => format!(
-            "enum_string_statbase({},{})",
-            param(0, "enum"),
-            param(1, "stat")
-        ),
-        12 => "acc_getcount_world()".to_owned(),
-        13 => "acc_getmeancombatlevel()".to_owned(),
-        14 => format!("tostring_shared({})", param(0, "vars")),
-        15 => "activecombatlevel()".to_owned(),
-        id => panic!("Unknown quickchat command {id}"),
-    }
+    let dynamic = QuickChatDynamicCommand::from_id(command.id);
+    let params: Vec<_> = dynamic
+        .params
+        .iter()
+        .zip(command.params.iter())
+        .map(|(kind, &id)| packs.reference(kind, id))
+        .collect();
+    format!("{}({})", dynamic.name, params.join(","))
 }
 
 pub fn emit_quickchatphrase_props(

@@ -389,7 +389,7 @@ impl Engine {
             Some((
                 active.uid().username37(),
                 active.player.is_member,
-                active.player.private as u8,
+                active.player.private_chat(),
             ))
         } else {
             None
@@ -563,7 +563,7 @@ impl Engine {
         }
 
         let user37 = active.uid().username37();
-        let private_mode = active.player.private as u8;
+        let private_mode = active.player.private_chat();
         let is_member = active.player.is_member;
         let username = active.player.uid.username();
 

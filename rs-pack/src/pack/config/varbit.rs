@@ -16,9 +16,6 @@ pub fn pack_varbits(
     let configs = parse_config_sections_cached(file_cache, "varpbit", constants)?;
 
     let mut server = PackedData::new(pack.max);
-    #[cfg(before_647)]
-    let client_count = pack.max;
-    #[cfg(since_647)]
     let client_count = pack.client_count();
     let mut client = PackedData::new(client_count);
 

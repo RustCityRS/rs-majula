@@ -99,8 +99,4 @@ impl CacheType for BasType {
             }
         }
     }
-
-    fn debugname(&self) -> Option<&str> {
-        None
-    }
 }

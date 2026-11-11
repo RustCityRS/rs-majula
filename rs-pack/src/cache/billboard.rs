@@ -49,8 +49,4 @@ impl CacheType for BillboardType {
             }
         }
     }
-
-    fn debugname(&self) -> Option<&str> {
-        None
-    }
 }

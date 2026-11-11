@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use super::client_table_with;
 use super::config_entry;
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
@@ -17,22 +19,12 @@ pub fn pack_structs(
     let configs = parse_config_sections_cached(file_cache, "struct", constants)?;
 
     let mut server = PackedData::new(r#struct.max);
-    #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("struct", r#struct, constants)?;
-    #[cfg(since_647)]
-    let client_count = r#struct.client_count();
-    #[cfg(since_647)]
-    let mut client = PackedData::new(client_count);
 
     for id in 0..r#struct.max {
         server.start_entry();
 
         let Some((debugname, props)) = config_entry("struct", r#struct, &configs, id) else {
             server.skip_entry();
-            #[cfg(since_647)]
-            if id < client_count {
-                client.skip_entry();
-            }
             continue;
         };
 
@@ -49,17 +41,6 @@ pub fn pack_structs(
         // handle 249
         parse_params(registry, param_types, &mut server, props, debugname);
 
-        #[cfg(since_647)]
-        if id < client_count {
-            if let Some(props) = client_configs.get(debugname) {
-                client.start_entry();
-                parse_params(registry, param_types, &mut client, props, debugname);
-                client.finish_entry();
-            } else {
-                client.skip_entry();
-            }
-        }
-
         // 250
         server.p1(250);
         server.pjstr(debugname);
@@ -68,11 +49,16 @@ pub fn pack_structs(
         server.finish_entry();
     }
 
-    Ok(PackedFile {
-        server,
-        #[cfg(before_647)]
-        client: None,
-        #[cfg(since_647)]
-        client: Some(client),
-    })
+    #[cfg(before_647)]
+    let client = None;
+    #[cfg(since_647)]
+    let client = Some(client_table_with(
+        file_cache,
+        "struct",
+        r#struct,
+        constants,
+        |client, name, props| parse_params(registry, param_types, client, props, name),
+    )?);
+
+    Ok(PackedFile { server, client })
 }

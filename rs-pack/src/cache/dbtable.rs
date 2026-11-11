@@ -22,7 +22,7 @@ pub struct DbTableType {
     pub id: u16,
     pub types: DbTableTypes,
     pub defaults: DbTableDefaults,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
     pub columns: DbTableColumns,
     pub props: Option<Box<[u8]>>,
 }
@@ -75,7 +75,7 @@ impl CacheType for DbTableType {
             id,
             types: None,
             defaults: None,
-            debugname: None,
+            debugname: Box::default(),
             columns: None,
             props: None,
         }
@@ -106,7 +106,7 @@ impl CacheType for DbTableType {
                     self.types = Some(types);
                     self.defaults = Some(defaults);
                 }
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 251 => {
                     self.columns = Some(read_array(buf, |buf| {
                         buf.gjstr(STRING_TERMINATOR).into_boxed_str()
@@ -118,8 +118,8 @@ impl CacheType for DbTableType {
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 

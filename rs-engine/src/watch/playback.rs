@@ -357,7 +357,7 @@ impl Builder {
         let mut header = extra;
         #[cfg(before_647)]
         header.insert("logout".into(), json!(ServerProt::Logout as u8));
-        #[cfg(any(rev = "225", all(since_254, before_647)))]
+        #[cfg(any(rev = "225", since_254))]
         header.insert(
             "cameraOp".into(),
             json!(ClientProt::EventCameraPosition as u8),

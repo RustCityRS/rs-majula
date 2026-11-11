@@ -164,17 +164,11 @@ fn handle(
     // ctrl-click temporarily runs for this move; a normal click leaves
     // temp-run off (so movement follows the persistent run toggle). Low
     // energy (<100) cancels a ctrl temp-run.
-    #[cfg(before_647)]
-    {
-        active.player.temprun = if active.player.runenergy < 100 && ctrl {
-            false
-        } else {
-            ctrl
-        };
-    }
-    // Rev-647: ctrl flips the run orb for this walk; a plain click follows it.
-    #[cfg(since_647)]
-    active.player.click_temprun(ctrl);
+    active.player.temprun = if active.player.runenergy < 100 && ctrl {
+        false
+    } else {
+        ctrl
+    };
 
     active.player.move_clicked = true;
 

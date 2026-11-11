@@ -13,7 +13,7 @@ pub struct ParamType {
     pub default_int: i32,
     pub autodisable: bool,
     pub default_str: Option<Box<str>>,
-    debugname: Option<Box<str>>,
+    pub debugname: Box<str>,
 }
 
 impl ParamType {
@@ -57,7 +57,7 @@ pub struct ParamTypeRaw {
     pub default_int: i32,
     pub autodisable: bool,
     pub default_str: Option<Box<str>>,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
     pub opcode_order: Vec<u8>,
 }
 
@@ -68,10 +68,10 @@ impl CacheType for ParamTypeRaw {
         Self {
             id,
             var_type: ScriptVarType::Int,
-            default_int: if cfg!(since_647) { 0 } else { -1 },
+            default_int: -1,
             autodisable: true,
             default_str: None,
-            debugname: None,
+            debugname: Box::default(),
             opcode_order: Vec::new(),
         }
     }
@@ -88,14 +88,14 @@ impl CacheType for ParamTypeRaw {
                 2 => self.default_int = buf.g4s(),
                 4 => self.autodisable = false,
                 5 => self.default_str = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("param", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 
@@ -109,11 +109,5 @@ impl From<ParamTypeRaw> for ParamType {
             default_str: p.default_str,
             debugname: p.debugname,
         }
-    }
-}
-
-impl ParamType {
-    pub fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
     }
 }

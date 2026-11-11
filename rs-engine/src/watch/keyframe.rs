@@ -11,6 +11,7 @@ use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::rebuild_normal::RebuildNormal;
 use rs_protocol::network::game::server::update_zone_full_follows::UpdateZoneFullFollows;
 use rs_protocol::network::game::server::update_zone_partial_follows::UpdateZonePartialFollows;
+use rs_vm::ComId;
 use rs_vm::engine::ScriptEngine;
 use rs_zone::zone_map::ZoneMap;
 use rustc_hash::FxHashMap;
@@ -129,7 +130,7 @@ impl ActivePlayer {
     /// The inventories shown on the client's interfaces, in full.
     fn keyframe_invs(&mut self, shared: &FxHashMap<u16, Inventory>) {
         let invs = engine().invs();
-        let transmits: Vec<(u16, Vec<u16>)> = self
+        let transmits: Vec<(u16, Vec<ComId>)> = self
             .player
             .inv_transmits
             .iter()
@@ -151,7 +152,7 @@ impl ActivePlayer {
                 .map(|i| i.map(|it| (it.obj, it.num as i32)))
                 .collect();
             for com in coms {
-                self.update_inv_full(com, &full);
+                self.update_inv_full(com as u16, &full);
             }
         }
     }

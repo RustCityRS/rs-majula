@@ -26,7 +26,7 @@ pub struct HuntType {
     pub check_invparam: Option<HuntCheckInvParam>,
     pub check_invcat: Option<HuntCheckInvCat>,
     pub extracheck_vars: Vec<HuntExtraCheckVar>,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 pub struct HuntCheckInv {
@@ -81,7 +81,7 @@ impl CacheType for HuntType {
             check_invparam: None,
             check_invcat: None,
             extracheck_vars: Vec::new(),
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
@@ -144,14 +144,14 @@ impl CacheType for HuntType {
                     });
                 }
                 19..=21 => self.decode_check_var(buf),
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("hunt", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 

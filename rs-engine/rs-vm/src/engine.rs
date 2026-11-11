@@ -1,7 +1,7 @@
 use crate::state::{LocRef, NpcRef, ObjRef, QueuePriority, ScriptArgument, TimerPriority};
+use crate::{ComId, ObjSerial, PlayerUid};
 #[cfg(since_647)]
 use crate::{ControllerUid, RegionUid};
-use crate::{ObjSerial, PlayerUid};
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, Item};
 use rs_pack::cache::VarValue;
@@ -247,12 +247,11 @@ pub trait ScriptEngine {
     where
         Self: Sized;
 
-    /// Runs the `opheld{op}` trigger for the item `obj_id` at `slot` in the
-    /// player's inventory (rev-647 `p_opheld` command). Sets the player's
-    /// last_item/last_slot context first. Ops 1-5 map to OpHeld1-5; ops 6-10
-    /// have no opheld trigger and are a no-op (handled inline by if_button).
-    #[cfg(since_647)]
-    fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj_id: u16, slot: i32);
+    /// Runs the `opheld{op}` script of the item `obj` at `slot` (`p_opheld`),
+    /// with them as `last_item` and `last_slot`. Ops 1-5 have a trigger; any
+    /// other op does nothing. The script runs within the protected access
+    /// its caller holds, and the caller keeps it.
+    fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj: u16, slot: u16);
 
     /// Rev-647 `p_setdisplayname`: asks the DB service to validate and claim
     /// `name` for the player. The saves phase resumes the player's
@@ -1356,7 +1355,7 @@ pub trait ScriptPlayer {
     #[cfg(since_647)]
     fn runclientscript_with_params(&mut self, script_id: i32, args: Vec<ScriptArgument>);
 
-    /// Rev-647: applies the character-design preview varcs (1008-1019) to the
+    /// Rev-647: applies the character-design preview varcs (`playerdesign3_*`) to the
     /// player's body kit and colours.
     #[cfg(since_647)]
     fn applydesign(&mut self);
@@ -2059,7 +2058,7 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `inv_id` - The inventory definition ID.
     /// * `com` - The interface component ID that will display the inventory.
-    fn add_inv_transmit(&mut self, inv_id: u16, com: crate::ComId);
+    fn add_inv_transmit(&mut self, inv_id: u16, com: ComId);
 
     /// Checks whether a given interface component has a transmit binding.
     ///
@@ -2068,13 +2067,13 @@ pub trait ScriptPlayer {
     ///
     /// # Returns
     /// `Some(inv_id)` if the component is bound, `None` otherwise.
-    fn has_inv_transmit(&self, com: crate::ComId) -> Option<u16>;
+    fn has_inv_transmit(&self, com: ComId) -> Option<u16>;
 
     /// Removes every transmit binding of the given interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component whose bindings should be cleared.
-    fn clear_inv_transmits(&mut self, com: crate::ComId);
+    fn clear_inv_transmits(&mut self, com: ComId);
 
     /// Registers a cross-player inventory listener: mirrors another player's
     /// inventory onto an interface component (`invother_transmit`).
@@ -2083,7 +2082,7 @@ pub trait ScriptPlayer {
     /// * `com` - The interface component ID that will display the inventory.
     /// * `inv_id` - The inventory definition ID to display.
     /// * `uid` - The script-uid of the source player whose inventory is shown.
-    fn add_inv_other_transmit(&mut self, com: crate::ComId, inv_id: u16, uid: i32);
+    fn add_inv_other_transmit(&mut self, com: ComId, inv_id: u16, uid: i32);
 
     /// Returns the cross-player inventory listener bound to a component, if any.
     ///
@@ -2092,7 +2091,7 @@ pub trait ScriptPlayer {
     ///
     /// # Returns
     /// `Some((uid, inv_id))` if `com` mirrors another player's inventory, else `None`.
-    fn has_inv_other_transmit(&self, com: crate::ComId) -> Option<(i32, u16)>;
+    fn has_inv_other_transmit(&self, com: ComId) -> Option<(i32, u16)>;
 
     /// Appends a waypoint to the player's movement queue.
     ///
@@ -2150,7 +2149,7 @@ pub trait ScriptPlayer {
     ///
     /// # Arguments
     /// * `com` - The spell or use component id to key the interaction trigger on.
-    fn set_interaction_spell(&mut self, com: crate::ComId);
+    fn set_interaction_spell(&mut self, com: ComId);
 
     /// Checks whether the player is within operable distance of a location.
     ///

@@ -1,6 +1,5 @@
 use super::provider::CacheType;
 use rs_io::Packet;
-use rs_ver::STRING_TERMINATOR;
 
 pub struct FluType {
     pub id: u16,
@@ -9,7 +8,6 @@ pub struct FluType {
     pub size: u16,
     pub op4: bool,
     pub op5: bool,
-    debugname: Option<Box<str>>,
     pub opcode_order: Vec<u8>,
 }
 
@@ -24,7 +22,6 @@ impl CacheType for FluType {
             size: 128,
             op4: false,
             op5: false,
-            debugname: None,
             opcode_order: Vec::new(),
         }
     }
@@ -42,13 +39,8 @@ impl CacheType for FluType {
                 3 => self.size = buf.g2(),
                 4 => self.op4 = true,
                 5 => self.op5 = true,
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
                 _ => crate::unknown_opcode!("flu", code),
             }
         }
-    }
-
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
     }
 }

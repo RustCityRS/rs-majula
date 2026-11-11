@@ -54,14 +54,10 @@ pub struct NpcType {
     #[cfg(since_647)]
     pub multinpc: Option<Box<[i32]>>,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    pub debugname: Box<str>,
 }
 
 impl NpcType {
-    pub fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
-    }
-
     /// The npc this one shows as when its var is `var_value`: the entry at
     /// that index, else the default (the list's last), as
     /// [`LocType::multi_loc`](super::loc::LocType::multi_loc) picks. `None`
@@ -116,10 +112,7 @@ impl From<NpcTypeRaw> for NpcType {
             #[cfg(since_289)]
             turnspeed: raw.turnspeed,
             #[cfg(since_647)]
-            multivar: u16::try_from(raw.transform_varbit)
-                .ok()
-                .map(MultiVar::Varbit)
-                .or_else(|| u16::try_from(raw.transform_varp).ok().map(MultiVar::Varp)),
+            multivar: MultiVar::new(raw.transform_varbit, raw.transform_varp),
             #[cfg(since_647)]
             multinpc: raw.transforms,
             params: raw.params,
@@ -284,7 +277,7 @@ pub struct NpcTypeRaw {
     #[cfg(since_647)]
     pub sound_range_min: u8,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
     pub opcode_order: Vec<u8>,
     pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
@@ -447,7 +440,7 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_647)]
             sound_range_min: 0,
             params: None,
-            debugname: None,
+            debugname: Box::default(),
             opcode_order: Vec::new(),
             raw_opcodes: Vec::new(),
         }
@@ -486,10 +479,7 @@ impl CacheType for NpcTypeRaw {
                 22 => self.moverestrict = MoveRestrict::try_from(buf.g1()).unwrap(),
                 23 => self.blockwalk = BlockWalk::try_from(buf.g1()).unwrap(),
                 24 => self.defaultmode = NpcMode::try_from(buf.g1()).unwrap(),
-                #[cfg(before_647)]
                 25 => self.huntmode = Some(buf.g1() as u16),
-                #[cfg(since_647)]
-                25 => self.huntmode = Some(buf.g2()),
                 26 => self.wanderrange = buf.g2(),
                 27 => self.maxrange = Some(buf.g2()),
                 28 => self.huntrange = buf.g1(),
@@ -643,7 +633,7 @@ impl CacheType for NpcTypeRaw {
                             .get_or_insert_with(|| Box::new(FxHashMap::default())),
                     );
                 }
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("npc", code),
             }
             self.raw_opcodes
@@ -651,8 +641,8 @@ impl CacheType for NpcTypeRaw {
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 
@@ -669,6 +659,6 @@ impl NpcTypeRaw {
         self.transform_varbit = read_id(buf);
         self.transform_varp = read_id(buf);
         let default = if has_default { read_id(buf) } else { -1 };
-        self.transforms = Some(read_transforms(buf, Some(default)));
+        self.transforms = Some(read_transforms(buf, default));
     }
 }

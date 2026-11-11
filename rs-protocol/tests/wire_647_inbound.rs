@@ -571,11 +571,13 @@ fn apcoordt_matches_client() {
 #[test]
 fn event_mouse_click_matches_client() {
     use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
+    use rs_protocol::network::game::client::event_mouse_move::Cursor;
 
     let mut p = ClientPacket::new();
     p.p2(1 << 15 | 40).p4_alt2(512 | 300 << 16);
 
     let m: EventMouseClick = decode(&p);
-    assert_eq!(m.info, 1 << 15 | 40, "flag and time");
-    assert_eq!(m.position, 512 | 300 << 16, "position");
+    assert!(m.right, "the right button");
+    assert_eq!(m.gap, 40, "time since the last press");
+    assert_eq!(m.at, Cursor::At { x: 512, y: 300 }, "position");
 }

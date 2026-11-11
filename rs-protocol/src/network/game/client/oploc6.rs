@@ -6,12 +6,12 @@ use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
 #[client_prot(Fixed(2), UserEvent)]
-pub struct ExamineObj {
-    pub id: u16,
+pub struct OpLoc6 {
+    pub loc: u16,
 }
 
-impl ClientProtMessage for ExamineObj {
+impl ClientProtMessage for OpLoc6 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        ExamineObj { id: buf.g2() }
+        OpLoc6 { loc: buf.g2() }
     }
 }

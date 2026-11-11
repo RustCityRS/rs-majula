@@ -46,14 +46,13 @@ pub fn emit_enum_props(
             }
             5 | 6 if !entries_emitted => {
                 entries_emitted = true;
-                // Entries — emit in decode order, using ordered_entries
-                // which preserves duplicates with their original values.
+                // Entries, in decode order, duplicates included.
                 #[cfg(since_647)]
                 let (input, output) = (
                     char_to_type_name(def.inputtype as u8),
                     char_to_type_name(def.outputtype as u8),
                 );
-                for (key, value) in &def.ordered_entries {
+                for (key, value) in &def.values {
                     #[cfg(since_647)]
                     let key = registry.typed_value(&input, *key);
                     match value {
@@ -97,7 +96,7 @@ pub fn emit_enum_props(
         if def.default_int != 0 {
             props.push(("defaultint".into(), def.default_int.to_string()));
         }
-        for (key, value) in &def.ordered_entries {
+        for (key, value) in &def.values {
             match value {
                 ParamValue::String(s) => {
                     props.push(("val".into(), format!("{key},{s}")));

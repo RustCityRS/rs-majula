@@ -159,7 +159,7 @@ fn handle(
         )));
     };
 
-    match check_held(active, com, slot, obj) {
+    match check_held(active, com.into(), slot, obj) {
         HeldCheck::Ok => {}
         HeldCheck::NoTransmit => {
             return Err(ScriptError::Client(format!(
@@ -246,11 +246,7 @@ fn handle(
     match result {
         Err(ScriptError::TriggerNotFound(_)) => {
             #[cfg(debug_assertions)]
-            active.message_game(&format!(
-                "No trigger for [opheld{},{}]",
-                op,
-                obj.debugname().unwrap_or(&obj.id.to_string())
-            ));
+            active.message_game(&format!("No trigger for [opheld{},{}]", op, obj.debugname));
         }
         other => other?,
     }

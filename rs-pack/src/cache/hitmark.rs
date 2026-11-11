@@ -69,8 +69,4 @@ impl CacheType for HitmarkType {
             }
         }
     }
-
-    fn debugname(&self) -> Option<&str> {
-        None
-    }
 }

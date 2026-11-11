@@ -7,7 +7,7 @@ pub type MesAnimTypeProvider = TypeProvider<MesAnimType>;
 pub struct MesAnimType {
     pub id: u16,
     pub len: [Option<u16>; 4],
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 impl CacheType for MesAnimType {
@@ -17,7 +17,7 @@ impl CacheType for MesAnimType {
         MesAnimType {
             id,
             len: [None; 4],
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
@@ -29,13 +29,13 @@ impl CacheType for MesAnimType {
             }
             match code {
                 1..=4 => self.len[code as usize - 1] = Some(buf.g2()),
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("mesanim", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }

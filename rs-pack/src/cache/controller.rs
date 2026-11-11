@@ -10,7 +10,7 @@ pub struct ControllerType {
     pub id: u16,
     pub vars: Box<[(u16, ParamValue)]>,
     pub varbits: Box<[(u16, i32)]>,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 impl CacheType for ControllerType {
@@ -21,7 +21,7 @@ impl CacheType for ControllerType {
             id,
             vars: Box::new([]),
             varbits: Box::new([]),
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
@@ -50,13 +50,13 @@ impl CacheType for ControllerType {
                     let count = buf.g1() as usize;
                     self.varbits = (0..count).map(|_| (buf.g2(), buf.g4s())).collect();
                 }
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("controller", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }

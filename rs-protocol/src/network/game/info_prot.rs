@@ -29,6 +29,7 @@ pub enum PlayerInfoProt {
     SpotAnim = 0x40,
     Anim = 0x80,
     Say = 0x200,
+    Chat = 0x400,
     TempMoveType = 0x800,
     Damage2 = 0x1000,
     ExactMove = 0x4000,
@@ -65,10 +66,11 @@ impl PlayerInfoProt {
         )
     }
 
-    /// Combines the engine's two damage slots into the 647 hit block.
+    /// The blocks in `masks` as the 647 client reads them: the engine's two
+    /// damage slots are one hit block, and chat goes out as `MESSAGE_PUBLIC`.
     #[cfg(since_647)]
     const fn mask(masks: u16) -> u32 {
-        let wire = masks & !(Self::Damage2 as u16);
+        let wire = masks & !(Self::Damage2 as u16 | Self::Chat as u16);
         if masks & Self::Damage2 as u16 != 0 {
             (wire | Self::Damage as u16) as u32
         } else {
@@ -110,7 +112,7 @@ impl PlayerInfoProt {
             Self::SpotAnim => 7,
             Self::Say => 8,
             Self::Appearance => 9,
-            Self::BigInfo | Self::BigInfo2 => 255,
+            Self::BigInfo | Self::BigInfo2 | Self::Chat => 255,
         }
     }
 }

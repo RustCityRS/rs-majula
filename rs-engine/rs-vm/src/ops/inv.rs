@@ -77,7 +77,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let inventory = get_inv_mut::<E>(from_inv.id, player)?;
             let items: Vec<_> = inventory.slots.iter().filter_map(|s| *s).collect();
             inventory.clear();
-            let from_name = from_inv.debugname().unwrap_or("null");
+            let from_name = &from_inv.debugname;
             for item in &items {
                 player.log_handover(from_name, item.obj, item.num as i32, to_uid.username37());
             }
@@ -102,7 +102,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
             if !inv.dummyinv && obj.dummyitem != DummyItem::None {
-                return Err(ScriptError::Runtime(format!("dummyitem in non-dummyinv: {:?} -> {:?}", obj.debugname(), inv.debugname())));
+                return Err(ScriptError::Runtime(format!("dummyitem in non-dummyinv: {} -> {}", obj.debugname, inv.debugname)));
             }
             if refuses_shared::<E>(s, inv, player) {
                 return Ok(());
@@ -153,7 +153,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4306
         none!(m, INV_DEBUGNAME => |s| {
             let inv = pop_inv::<E>(s)?;
-            s.push_string(inv.debugname().unwrap_or("null"));
+            s.push_string(&inv.debugname);
         });
 
         // 4307
@@ -482,7 +482,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let inv = pop_inv::<E>(s)?;
             require_inv_access(s, inv, s.int_operand() as usize)?;
             if !inv.dummyinv && obj.dummyitem != DummyItem::None {
-                return Err(ScriptError::Runtime(format!("dummyitem in non-dummyinv: {:?} -> {:?}", obj.debugname(), inv.debugname())));
+                return Err(ScriptError::Runtime(format!("dummyitem in non-dummyinv: {} -> {}", obj.debugname, inv.debugname)));
             }
             if refuses_shared::<E>(s, inv, player) {
                 return Ok(());
@@ -513,7 +513,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4326
         active_player_mut!(m, INV_STOPTRANSMIT => |s, player| {
-            let com = s.pop_int() as crate::ComId;
+            let com = s.pop_int();
             if player.has_inv_transmit(com).is_some() {
                 player.clear_inv_transmits(com);
             }
@@ -568,7 +568,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 4331
         active_player_mut!(m, INV_TRANSMIT => |s, player| {
-            let com = s.pop_int() as crate::ComId;
+            let com = s.pop_int();
             let inv = pop_inv::<E>(s)?;
             if player.has_inv_transmit(com).is_some_and(|id| id == inv.id) {
                 return Ok(());
@@ -598,7 +598,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if com == -1 {
                 return Err(ScriptError::Runtime("invother_transmit: com is null".into()));
             }
-            let com = com as crate::ComId;
             if player.has_inv_other_transmit(com) == Some((uid, inv.id)) {
                 return Ok(());
             }

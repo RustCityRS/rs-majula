@@ -131,8 +131,4 @@ impl CacheType for ParticleEmitterType {
             }
         }
     }
-
-    fn debugname(&self) -> Option<&str> {
-        None
-    }
 }

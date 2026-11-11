@@ -1,6 +1,5 @@
 pub mod anim;
 pub mod appearance;
-#[cfg(before_647)]
 pub mod chat;
 pub mod damage;
 pub mod exactmove;

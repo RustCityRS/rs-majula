@@ -26,11 +26,6 @@ pub use obj_serial::ObjSerial;
 
 /// An interface component as scripts and packets address it: the component's
 /// own id before rev 647, and from 647 the `interface << 16 | component` hash.
-/// Narrowing a 647 hash to `u16` keeps only the component index, so every
-/// interface's component 0 would collide.
-#[cfg(before_647)]
-pub type ComId = u16;
-#[cfg(since_647)]
 pub type ComId = i32;
 pub use player_uid::PlayerUid;
 #[cfg(since_647)]

@@ -24,6 +24,17 @@ struct LocModelShape {
     shape: u8,
 }
 
+/// A yes/no key that also takes the byte itself.
+fn flag(value: &str) -> u8 {
+    match value {
+        "yes" | "true" => 1,
+        "no" | "false" => 0,
+        _ => value
+            .parse()
+            .unwrap_or_else(|e| panic!("Invalid flag value '{value}': {e}")),
+    }
+}
+
 pub fn pack_locs(
     file_cache: &FileCache,
     registry: &PackRegistry,
@@ -33,15 +44,6 @@ pub fn pack_locs(
     let pack = &registry.loc;
 
     let configs = parse_config_sections_cached(file_cache, "loc", constants)?;
-
-    #[cfg(since_647)]
-    let mut loc_ids = HashMap::new();
-    #[cfg(since_647)]
-    for id in 0..pack.max {
-        if let Some(name) = pack.get_by_id(id) {
-            loc_ids.entry(name).or_insert(id);
-        }
-    }
 
     #[cfg(since_647)]
     let client_params = registry.param.client_count();
@@ -147,13 +149,11 @@ pub fn pack_locs(
                     }),
 
                     // 17 or 27
-                    #[cfg(since_647)]
-                    "blockwalk" => parse_bool(value, |v| client.p1(if v { 27 } else { 17 })),
-
-                    #[cfg(before_647)]
                     "blockwalk" => parse_bool(value, |v| {
                         if !v {
                             client.p1(17);
+                        } else if cfg!(since_647) {
+                            client.p1(27);
                         }
                     }),
 
@@ -165,23 +165,13 @@ pub fn pack_locs(
                     }),
 
                     // 19
-                    #[cfg(before_647)]
-                    "active" => parse_bool(value, |v| {
+                    "active" => {
+                        let v = flag(value);
                         client.p1(19);
-                        client.p1(v as u8);
+                        client.p1(v);
                         #[cfg(before_647)]
                         {
                             active = v as i8;
-                        }
-                    }),
-
-                    #[cfg(since_647)]
-                    "active" => {
-                        client.p1(19);
-                        if matches!(value.as_str(), "yes" | "no" | "true" | "false") {
-                            parse_bool(value, |v| client.p1(v as u8));
-                        } else {
-                            parse_number(value, |v| client.p1(v));
                         }
                     }
 
@@ -200,13 +190,11 @@ pub fn pack_locs(
                     }),
 
                     // 23 or 103
-                    #[cfg(since_647)]
-                    "occlude" => parse_bool(value, |v| client.p1(if v { 23 } else { 103 })),
-
-                    #[cfg(before_647)]
                     "occlude" => parse_bool(value, |v| {
                         if v {
                             client.p1(23);
+                        } else if cfg!(since_647) {
+                            client.p1(103);
                         }
                     }),
 
@@ -322,9 +310,6 @@ pub fn pack_locs(
 
                     // 69
                     "forceapproach" => {
-                        #[cfg(before_647)]
-                        let val = ForceApproach::from_config_str(value);
-                        #[cfg(since_647)]
                         let val = value.parse::<u8>().map_or_else(
                             |_| ForceApproach::from_config_str(value),
                             |v| ForceApproach::try_from(v).expect("Invalid forceapproach"),
@@ -334,39 +319,18 @@ pub fn pack_locs(
                     }
 
                     // 70
-                    #[cfg(before_647)]
-                    "offsetx" => parse_number(value, |v| {
-                        client.p1(70);
-                        client.p2(v);
-                    }),
-
-                    #[cfg(since_647)]
                     "offsetx" => parse_number(value, |v: i16| {
                         client.p1(70);
                         client.p2(v as u16);
                     }),
 
                     // 71
-                    #[cfg(before_647)]
-                    "offsety" => parse_number(value, |v| {
-                        client.p1(71);
-                        client.p2(v);
-                    }),
-
-                    #[cfg(since_647)]
                     "offsety" => parse_number(value, |v: i16| {
                         client.p1(71);
                         client.p2(v as u16);
                     }),
 
                     // 72
-                    #[cfg(before_647)]
-                    "offsetz" => parse_number(value, |v| {
-                        client.p1(72);
-                        client.p2(v);
-                    }),
-
-                    #[cfg(since_647)]
                     "offsetz" => parse_number(value, |v: i16| {
                         client.p1(72);
                         client.p2(v as u16);
@@ -389,20 +353,9 @@ pub fn pack_locs(
 
                     // 75
                     #[cfg(since_254)]
-                    #[cfg(before_647)]
-                    "raiseobject" => parse_bool(value, |v| {
-                        client.p1(75);
-                        client.p1(v as u8);
-                    }),
-
-                    #[cfg(since_647)]
                     "raiseobject" => {
                         client.p1(75);
-                        if matches!(value.as_str(), "yes" | "no" | "true" | "false") {
-                            parse_bool(value, |v| client.p1(v as u8));
-                        } else {
-                            parse_number(value, |v| client.p1(v));
-                        }
+                        client.p1(flag(value));
                     }
 
                     // 77 (collected, emitted after the loop)
@@ -696,7 +649,7 @@ pub fn pack_locs(
             }
 
             // handle 77 (multivar / multiloc morph)
-            #[cfg(all(since_289, before_647))]
+            #[cfg(since_289)]
             if let Some(varbit_name) = multivar {
                 let varbit_id = registry
                     .varbit
@@ -838,37 +791,13 @@ pub fn pack_locs(
         }
 
         // handle 249
-        let params: Vec<_> = props
-            .iter()
-            .filter(|(key, _)| key == "param")
-            .cloned()
-            .collect();
-        #[cfg(since_647)]
-        let params: Vec<_> = params
-            .into_iter()
-            .map(|(key, value)| {
-                let (param, val) = value.split_once(',').expect("Invalid loc param");
-                let val = val.trim();
-                let ty = param_types.get(param.trim()).map_or("int", String::as_str);
-                let id = if matches!(ty, "int" | "loc") && val.parse::<i32>().is_err() {
-                    loc_ids.get(val).copied().or_else(|| {
-                        if ty == "int" {
-                            registry
-                                .obj
-                                .get_by_debugname(val)
-                                .or_else(|| registry.seq.get_by_debugname(val))
-                                .or_else(|| registry.npc.get_by_debugname(val))
-                        } else {
-                            None
-                        }
-                    })
-                } else {
-                    None
-                };
-                (key, id.map_or(value.clone(), |id| format!("{param},{id}")))
-            })
-            .collect();
-        parse_params(registry, param_types, &mut server, &params, debugname);
+        parse_params(
+            registry,
+            param_types,
+            &mut server,
+            props.iter().filter(|(key, _)| key == "param"),
+            debugname,
+        );
 
         // 250
         server.p1(250);

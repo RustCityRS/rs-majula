@@ -117,7 +117,7 @@ impl ClientGameHandler for OpHeldU {
 
         // `com` and `com2` are equal (checked above), so both slots resolve through
         // the same transmitted inventory and either check can report for `self.com`.
-        match check_held(active, self.com, self.slot, self.obj) {
+        match check_held(active, self.com.into(), self.slot, self.obj) {
             HeldCheck::Ok => {}
             HeldCheck::NoTransmit => {
                 return Err(ScriptError::Client(format!(
@@ -148,7 +148,7 @@ impl ClientGameHandler for OpHeldU {
             )));
         };
 
-        match check_held(active, self.com2, self.slot2, self.obj2) {
+        match check_held(active, self.com2.into(), self.slot2, self.obj2) {
             HeldCheck::Ok => {}
             HeldCheck::NoTransmit => {
                 return Err(ScriptError::Client(format!(
@@ -212,10 +212,7 @@ impl ClientGameHandler for OpHeldU {
             )?;
         } else {
             #[cfg(debug_assertions)]
-            active.message_game(&format!(
-                "No trigger for [opheldu,{}]",
-                obj.debugname().unwrap_or(&obj.id.to_string())
-            ));
+            active.message_game(&format!("No trigger for [opheldu,{}]", obj.debugname));
             active.message_game("Nothing interesting happens.");
         }
 

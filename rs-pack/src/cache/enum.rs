@@ -14,7 +14,7 @@ pub struct EnumType {
     pub default_str: Option<Box<str>>,
     pub default_int: i32,
     pub values: FxHashMap<i32, ParamValue>,
-    debugname: Option<Box<str>>,
+    pub debugname: Box<str>,
 }
 
 pub struct EnumTypeRaw {
@@ -23,10 +23,8 @@ pub struct EnumTypeRaw {
     pub outputtype: ScriptVarType,
     pub default_str: Option<Box<str>>,
     pub default_int: i32,
-    pub values: FxHashMap<i32, ParamValue>,
-    debugname: Option<Box<str>>,
-    #[cfg(since_647)]
-    pub ordered_entries: Vec<(i32, ParamValue)>,
+    pub values: Vec<(i32, ParamValue)>,
+    debugname: Box<str>,
     pub opcode_order: Vec<u8>,
 }
 
@@ -40,10 +38,8 @@ impl CacheType for EnumTypeRaw {
             outputtype: ScriptVarType::Int,
             default_str: None,
             default_int: 0,
-            values: FxHashMap::default(),
-            debugname: None,
-            #[cfg(since_647)]
-            ordered_entries: Vec::new(),
+            values: Vec::new(),
+            debugname: Box::default(),
             opcode_order: Vec::new(),
         }
     }
@@ -63,8 +59,6 @@ impl CacheType for EnumTypeRaw {
                 5 | 6 => {
                     let count = buf.g2() as usize;
                     self.values.reserve(count);
-                    #[cfg(since_647)]
-                    self.ordered_entries.reserve(count);
                     for _ in 0..count {
                         let key = buf.g4s();
                         let value = if code == 5 {
@@ -72,19 +66,17 @@ impl CacheType for EnumTypeRaw {
                         } else {
                             ParamValue::Int(buf.g4s())
                         };
-                        #[cfg(since_647)]
-                        self.ordered_entries.push((key, value.clone()));
-                        self.values.insert(key, value);
+                        self.values.push((key, value));
                     }
                 }
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("enum", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 
@@ -96,14 +88,8 @@ impl From<EnumTypeRaw> for EnumType {
             outputtype: e.outputtype,
             default_str: e.default_str,
             default_int: e.default_int,
-            values: e.values,
+            values: e.values.into_iter().collect(),
             debugname: e.debugname,
         }
-    }
-}
-
-impl EnumType {
-    pub fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
     }
 }

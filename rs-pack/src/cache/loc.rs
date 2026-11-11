@@ -1,8 +1,6 @@
-#[cfg(since_647)]
-use super::decode::read_id;
-#[cfg(since_289)]
-use super::decode::read_transforms;
 use super::decode::{read_array, read_pairs};
+#[cfg(since_289)]
+use super::decode::{read_id, read_transforms};
 use super::param::ParamType;
 use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
@@ -37,7 +35,7 @@ pub struct LocType {
     pub multivar: Option<MultiVar>,
     pub multiloc: Option<Box<[i32]>>,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    pub debugname: Box<str>,
     #[cfg(since_647)]
     look: Option<Box<[u16]>>,
 }
@@ -73,10 +71,6 @@ impl<'a> LocLook<'a> {
 }
 
 impl LocType {
-    pub fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
-    }
-
     #[cfg(since_647)]
     pub fn look(&self) -> LocLook<'_> {
         let Some(&[flags, models, recols, ref rest @ ..]) = self.look.as_deref() else {
@@ -94,18 +88,16 @@ impl LocType {
         }
     }
 
-    #[cfg(since_289)]
     pub fn multi_loc(&self, var_value: i32) -> Option<u16> {
         let Some(multi) = self.multiloc.as_deref() else {
             return Some(self.id);
         };
-        let pick = multi
+        multi
             .get(var_value as usize)
             .copied()
-            .filter(|&id| id != -1);
-        #[cfg(since_647)]
-        let pick = pick.or_else(|| multi.last().copied());
-        pick.and_then(|id| u16::try_from(id).ok())
+            .filter(|&id| id != -1)
+            .or_else(|| multi.last().copied())
+            .and_then(|id| u16::try_from(id).ok())
     }
 }
 
@@ -170,19 +162,8 @@ impl From<LocTypeRaw> for LocType {
             op,
             category: raw.category,
             forceapproach: raw.forceapproach,
-            #[cfg(all(since_289, before_647))]
-            multivar: raw.multivar.map(MultiVar::Varbit),
-            #[cfg(since_647)]
-            multivar: u16::try_from(raw.transform_varbit)
-                .ok()
-                .map(MultiVar::Varbit)
-                .or_else(|| u16::try_from(raw.transform_varp).ok().map(MultiVar::Varp)),
-            #[cfg(before_289)]
-            multivar: None,
-            #[cfg(since_289)]
+            multivar: MultiVar::new(raw.transform_varbit, raw.transform_varp),
             multiloc: raw.multiloc,
-            #[cfg(before_289)]
-            multiloc: None,
             params: raw.params,
             debugname: raw.debugname,
             #[cfg(since_647)]
@@ -240,13 +221,8 @@ pub struct LocTypeRaw {
     pub breakroutefinding: bool,
     #[cfg(since_254)]
     pub raiseobject: Option<u8>,
-    #[cfg(all(since_289, before_647))]
-    pub multivar: Option<u16>,
-    #[cfg(since_647)]
     pub transform_varbit: i32,
-    #[cfg(since_647)]
     pub transform_varp: i32,
-    #[cfg(since_289)]
     pub multiloc: Option<Box<[i32]>>,
     #[cfg(since_647)]
     pub ambient_sfx_id: i32,
@@ -319,7 +295,7 @@ pub struct LocTypeRaw {
     #[cfg(since_647)]
     pub op178: u8,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
     pub opcode_order: Vec<u8>,
     pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
@@ -376,13 +352,8 @@ impl CacheType for LocTypeRaw {
             breakroutefinding: false,
             #[cfg(since_254)]
             raiseobject: None,
-            #[cfg(all(since_289, before_647))]
-            multivar: None,
-            #[cfg(since_647)]
             transform_varbit: -1,
-            #[cfg(since_647)]
             transform_varp: -1,
-            #[cfg(since_289)]
             multiloc: None,
             #[cfg(since_647)]
             ambient_sfx_id: 0,
@@ -455,7 +426,7 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             op178: 0,
             params: None,
-            debugname: None,
+            debugname: Box::default(),
             opcode_order: Vec::new(),
             raw_opcodes: Vec::new(),
         }
@@ -665,7 +636,7 @@ impl CacheType for LocTypeRaw {
                             .get_or_insert_with(|| Box::new(FxHashMap::default())),
                     );
                 }
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("loc", code),
             }
             self.raw_opcodes
@@ -694,27 +665,19 @@ impl CacheType for LocTypeRaw {
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 
 impl LocTypeRaw {
     #[cfg(since_289)]
-    fn decode_multiloc(&mut self, buf: &mut Packet, _has_default: bool) {
-        #[cfg(before_647)]
-        {
-            self.multivar = Some(buf.g2());
-        }
-        #[cfg(since_647)]
-        {
-            self.transform_varbit = read_id(buf);
+    fn decode_multiloc(&mut self, buf: &mut Packet, has_default: bool) {
+        self.transform_varbit = read_id(buf);
+        if cfg!(since_647) {
             self.transform_varp = read_id(buf);
         }
-        #[cfg(before_647)]
-        let default = None;
-        #[cfg(since_647)]
-        let default = Some(if _has_default { read_id(buf) } else { -1 });
+        let default = if has_default { read_id(buf) } else { -1 };
         self.multiloc = Some(read_transforms(buf, default));
     }
 }

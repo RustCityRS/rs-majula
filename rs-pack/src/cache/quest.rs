@@ -114,8 +114,4 @@ impl CacheType for QuestType {
             }
         }
     }
-
-    fn debugname(&self) -> Option<&str> {
-        None
-    }
 }

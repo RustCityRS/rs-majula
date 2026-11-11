@@ -61,12 +61,6 @@ pub use crate::network::game::client::event_mouse_move::EventMouseMove;
 #[cfg(before_274)]
 pub use crate::network::game::client::event_tracking::EventTracking;
 #[cfg(since_647)]
-pub use crate::network::game::client::examine_loc::ExamineLoc;
-#[cfg(since_647)]
-pub use crate::network::game::client::examine_npc::ExamineNpc;
-#[cfg(since_647)]
-pub use crate::network::game::client::examine_obj::ExamineObj;
-#[cfg(since_647)]
 pub use crate::network::game::client::face_square::FaceSquare;
 #[cfg(since_647)]
 pub use crate::network::game::client::friend_setrank::FriendSetRank;
@@ -150,6 +144,8 @@ pub use crate::network::game::client::oploc2::OpLoc2;
 pub use crate::network::game::client::oploc3::OpLoc3;
 pub use crate::network::game::client::oploc4::OpLoc4;
 pub use crate::network::game::client::oploc5::OpLoc5;
+#[cfg(since_647)]
+pub use crate::network::game::client::oploc6::OpLoc6;
 pub use crate::network::game::client::oploct::OpLocT;
 #[cfg(before_647)]
 pub use crate::network::game::client::oplocu::OpLocU;
@@ -158,6 +154,8 @@ pub use crate::network::game::client::opnpc2::OpNpc2;
 pub use crate::network::game::client::opnpc3::OpNpc3;
 pub use crate::network::game::client::opnpc4::OpNpc4;
 pub use crate::network::game::client::opnpc5::OpNpc5;
+#[cfg(since_647)]
+pub use crate::network::game::client::opnpc6::OpNpc6;
 pub use crate::network::game::client::opnpct::OpNpcT;
 #[cfg(before_647)]
 pub use crate::network::game::client::opnpcu::OpNpcU;
@@ -166,6 +164,8 @@ pub use crate::network::game::client::opobj2::OpObj2;
 pub use crate::network::game::client::opobj3::OpObj3;
 pub use crate::network::game::client::opobj4::OpObj4;
 pub use crate::network::game::client::opobj5::OpObj5;
+#[cfg(since_647)]
+pub use crate::network::game::client::opobj6::OpObj6;
 pub use crate::network::game::client::opobjt::OpObjT;
 #[cfg(before_647)]
 pub use crate::network::game::client::opobju::OpObjU;
@@ -785,7 +785,7 @@ client_prot! {
 client_prot! {
     NoTimeout = 0,
     EventAppletFocus = 1,
-    ExamineObj = 2,
+    OpObj6 = 2,
     SendSnapshot = 3,
     FriendListDel = 4,
     FaceSquare = 5,
@@ -812,9 +812,9 @@ client_prot! {
     OpNpc3 = 26,
     UrlRequest = 27,
     ResumePClanforumqfcDialog = 28,
-    ExamineNpc = 29,
+    OpNpc6 = 29,
     OpPlayer3 = 30,
-    ExamineLoc = 31,
+    OpLoc6 = 31,
     MessagePrivate = 32,
     ClanJoinchatLeavechat = 33,
     IfButton6 = 34,

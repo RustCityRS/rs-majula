@@ -306,10 +306,10 @@ fn params_share_type_key_value_order() {
     let npc: NpcTypeRaw = decode(&data);
     let obj: ObjTypeRaw = decode(&data);
     let raw: StructTypeRaw = decode(&data);
-    assert_eq!(loc.debugname(), Some("test"));
-    assert_eq!(npc.debugname(), Some("test"));
-    assert_eq!(obj.debugname(), Some("test"));
-    assert_eq!(raw.debugname(), Some("test"));
+    assert_eq!(loc.debugname(), "test");
+    assert_eq!(npc.debugname(), "test");
+    assert_eq!(obj.debugname(), "test");
+    assert_eq!(raw.debugname(), "test");
     for codes in [&loc.opcode_order, &npc.opcode_order, &obj.opcode_order] {
         assert_eq!(codes.as_slice(), [249, 249, 249, 250]);
     }
@@ -499,14 +499,11 @@ fn transforms_preserve_missing_ids_and_default_targets() {
     let data = [92, 0, 5, 255, 255, 0, 99, 1, 255, 254, 255, 255, 14, 3, 0];
     let loc: LocTypeRaw = decode(&data);
     assert_eq!(loc.width, 3);
+    assert_eq!((loc.transform_varbit, loc.transform_varp), (5, -1));
     #[cfg(before_647)]
-    {
-        assert_eq!(loc.multivar, Some(5));
-        assert_eq!(loc.multiloc.unwrap().as_ref(), [65534, -1]);
-    }
+    assert_eq!(loc.multiloc.unwrap().as_ref(), [65534, -1, -1]);
     #[cfg(since_647)]
     {
-        assert_eq!((loc.transform_varbit, loc.transform_varp), (5, -1));
         assert_eq!(loc.multiloc.unwrap().as_ref(), [65534, -1, 99]);
         let npc: NpcTypeRaw =
             decode(&[118, 0, 5, 255, 255, 0, 99, 1, 255, 254, 255, 255, 12, 3, 0]);
@@ -559,40 +556,26 @@ fn npc_hunt_ids_survive_packing() {
     let npc: NpcTypeRaw = decode(&server[2..]);
     assert_eq!(npc.huntmode, Some(255));
     assert_eq!(npc.timer, Some(257));
-    assert_eq!(npc.debugname(), Some("hellhound"));
+    assert_eq!(npc.debugname(), "hellhound");
     let npc: NpcTypeRaw = decode(&client[2..]);
     assert_eq!(npc.huntmode, None);
     assert_eq!(npc.name.as_deref(), Some("Hellhound"));
-    #[cfg(since_647)]
-    {
-        fs::write(path.join("hunt.pack"), "396=cowardly\n").unwrap();
-        let registry = PackRegistry::load(&path).unwrap();
-        let packed = pack_npcs(
-            &FileCache::new(&path),
-            &registry,
-            &HashMap::new(),
-            &HashMap::new(),
-        )
-        .unwrap();
-        let npc: NpcTypeRaw = decode(&packed.server.dat[2..]);
-        assert_eq!(npc.huntmode, Some(396));
 
-        fs::write(path.join("hunt.pack"), "65536=cowardly\n").unwrap();
-        let registry = PackRegistry::load(&path).unwrap();
-        let error = pack_npcs(
-            &FileCache::new(&path),
-            &registry,
-            &HashMap::new(),
-            &HashMap::new(),
-        )
-        .err()
-        .expect("Oversized hunt ID must fail packing");
-        assert!(
-            error
-                .to_string()
-                .contains("huntmode 'cowardly' exceeds 65535")
-        );
-    }
+    fs::write(path.join("hunt.pack"), "256=cowardly\n").unwrap();
+    let registry = PackRegistry::load(&path).unwrap();
+    let error = pack_npcs(
+        &FileCache::new(&path),
+        &registry,
+        &HashMap::new(),
+        &HashMap::new(),
+    )
+    .err()
+    .expect("Oversized hunt ID must fail packing");
+    assert!(
+        error
+            .to_string()
+            .contains("huntmode 'cowardly' exceeds 255")
+    );
 }
 
 #[cfg(since_647)]
@@ -878,45 +861,8 @@ fn server_only_table_keeps_the_cache_ids() {
 #[test]
 fn npc_server_codes_use_upstream_layout() {
     let npc: NpcTypeRaw = decode(&[
-        19,
-        1,
-        2,
-        20,
-        2,
-        3,
-        21,
-        3,
-        4,
-        22,
-        6,
-        23,
-        1,
-        24,
-        2,
-        25,
-        #[cfg(since_647)]
-        0,
-        255,
-        26,
-        4,
-        5,
-        27,
-        5,
-        6,
-        28,
-        7,
-        29,
-        255,
-        35,
-        1,
-        1,
-        2,
-        3,
-        4,
-        8,
-        36,
-        37,
-        0,
+        19, 1, 2, 20, 2, 3, 21, 3, 4, 22, 6, 23, 1, 24, 2, 25, 255, 26, 4, 5, 27, 5, 6, 28, 7, 29,
+        255, 35, 1, 1, 2, 3, 4, 8, 36, 37, 0,
     ]);
     assert_eq!(npc.timer, Some(0x102));
     assert_eq!(npc.respawnrate, 0x203);

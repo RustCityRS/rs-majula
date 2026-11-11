@@ -8,7 +8,7 @@ pub type VarnTypeProvider = TypeProvider<VarnType>;
 pub struct VarnType {
     pub id: u16,
     pub var_type: ScriptVarType,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 impl CacheType for VarnType {
@@ -18,7 +18,7 @@ impl CacheType for VarnType {
         VarnType {
             id,
             var_type: ScriptVarType::Int,
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
@@ -30,13 +30,13 @@ impl CacheType for VarnType {
             }
             match code {
                 1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("varn", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }

@@ -104,7 +104,11 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
         );
         engine.harness_inputs();
         let player = engine.harness_player(client.pid).unwrap();
-        assert_eq!(player.last_item, tinderbox, "keyed on the tinderbox");
+        assert_eq!(
+            player.last_item,
+            Some(tinderbox as u16),
+            "keyed on the tinderbox"
+        );
         assert_eq!(
             player.last_use_item,
             Some(logs as u16),
@@ -130,7 +134,7 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
         );
         engine.harness_inputs();
         let player = engine.harness_player(client.pid).unwrap();
-        assert_eq!(player.last_item, tinderbox);
+        assert_eq!(player.last_item, Some(tinderbox as u16));
         assert_eq!(player.last_use_item, Some(logs as u16));
         assert!(lit_logs(engine, client.pid), "either order lights the logs");
 
@@ -152,8 +156,12 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
         client.send(ClientProt::IfButtonT, &p.finish());
         engine.harness_inputs();
         let player = engine.harness_player(client.pid).unwrap();
-        assert_eq!(player.last_item, logs, "the target is last_item");
-        assert_eq!(player.last_slot, 1);
+        assert_eq!(
+            player.last_item,
+            Some(logs as u16),
+            "the target is last_item"
+        );
+        assert_eq!(player.last_slot, Some(1));
         assert_eq!(player.last_use_item, None, "a spell is not a used item");
 
         // A target the slot does not hold is dropped: nothing runs.

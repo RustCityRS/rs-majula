@@ -28,15 +28,15 @@ fn examine_answers_with_the_types_desc() {
             .expect("tinderbox");
 
         assert_eq!(
-            examine(engine, ClientProt::ExamineNpc, npc),
+            examine(engine, ClientProt::OpNpc6, npc),
             [(0, "Servant of the Duke of Lumbridge.".to_string())]
         );
         assert_eq!(
-            examine(engine, ClientProt::ExamineLoc, loc),
+            examine(engine, ClientProt::OpLoc6, loc),
             [(0, "A commonly found tree.".to_string())]
         );
         assert_eq!(
-            examine(engine, ClientProt::ExamineObj, obj),
+            examine(engine, ClientProt::OpObj6, obj),
             [(0, "Useful for lighting a fire.".to_string())]
         );
 
@@ -50,7 +50,7 @@ fn examine_answers_with_the_types_desc() {
                     .is_some_and(|t| t.desc.is_none())
             })
             .expect("an obj with no desc");
-        assert_eq!(examine(engine, ClientProt::ExamineObj, bare), []);
+        assert_eq!(examine(engine, ClientProt::OpObj6, bare), []);
     });
 }
 

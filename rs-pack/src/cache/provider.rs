@@ -9,7 +9,12 @@ pub trait CacheType: Sized {
     fn new(id: u16) -> Self;
     fn decode(&mut self, buf: &mut Packet);
     fn post_decode(_types: &mut Vec<Self>, _ctx: &Self::Context) {}
-    fn debugname(&self) -> Option<&str>;
+
+    /// The name configs and scripts know the record by. Client records carry
+    /// none.
+    fn debugname(&self) -> &str {
+        ""
+    }
 }
 
 pub struct TypeProvider<T> {
@@ -64,7 +69,8 @@ impl<T> TypeProvider<T> {
         let mut types = Vec::with_capacity(count);
 
         for (index, raw) in raws.into_iter().enumerate() {
-            if let Some(debugname) = raw.debugname() {
+            let debugname = raw.debugname();
+            if !debugname.is_empty() {
                 debugnames.insert(Box::from(debugname), index as u16);
             }
 

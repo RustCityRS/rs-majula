@@ -30,10 +30,7 @@ pub(super) fn read_id(buf: &mut Packet) -> i32 {
 }
 
 #[cfg(since_289)]
-pub(super) fn read_transforms(buf: &mut Packet, default: Option<i32>) -> Box<[i32]> {
+pub(super) fn read_transforms(buf: &mut Packet, default: i32) -> Box<[i32]> {
     let count = buf.g1() as usize + 1;
-    let mut ids = Vec::with_capacity(count + usize::from(default.is_some()));
-    ids.extend((0..count).map(|_| read_id(buf)));
-    ids.extend(default);
-    ids.into_boxed_slice()
+    (0..count).map(|_| read_id(buf)).chain([default]).collect()
 }

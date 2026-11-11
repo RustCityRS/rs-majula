@@ -88,6 +88,7 @@ fn a_targeted_op_takes_its_source_from_the_packet() {
         spell_on_npc(engine);
         item_on_player(engine);
         forged_item_is_dropped(engine);
+        the_component_picks_the_trigger(engine);
     });
 }
 
@@ -288,4 +289,45 @@ fn forged_item_is_dropped(engine: &mut Engine) {
     let player = engine.harness_player(client.pid).unwrap();
     assert_eq!(player.interaction.target_op, None, "no interaction");
     assert_eq!(player.last_use_item, None, "nothing recorded as used");
+}
+
+/// The source component picks the trigger, not the packet's obj: a spell
+/// sent with a stray obj is still cast, and the backpack sent with no obj is
+/// still an item use, one that holds nothing.
+fn the_component_picks_the_trigger(engine: &mut Engine) {
+    let tinderbox = obj(engine, "tinderbox");
+    let wind_strike = (192 << 16) | 25;
+    let on_tree = |source: i32, obj: i32| {
+        let mut p = ClientPacket::new();
+        p.p2_alt2(obj)
+            .p2_alt2(0)
+            .p2(3450)
+            .p4_alt2(source)
+            .p2_alt2(2552)
+            .p1_alt1(0)
+            .p2_alt1(1276);
+        p.finish()
+    };
+
+    let mut client = player_at(engine, "op_t_stray_obj", TILE.0, TILE.1);
+    hold(engine, client.pid, 0, tinderbox);
+    client.send(ClientProt::OpLocT, &on_tree(wind_strike, tinderbox as i32));
+    engine.harness_inputs();
+    let player = engine.harness_player(client.pid).unwrap();
+    assert_eq!(
+        player.interaction.target_op,
+        Some(ServerTriggerType::ApLocT as u8),
+        "a spell with a stray obj is still a spell"
+    );
+    assert_eq!(player.last_use_item, None, "and no item is used");
+
+    let mut client = player_at(engine, "op_t_no_obj", TILE.0, TILE.1);
+    hold(engine, client.pid, 0, tinderbox);
+    client.send(ClientProt::OpLocT, &on_tree(BACKPACK, NO_OBJ));
+    engine.harness_inputs();
+    let player = engine.harness_player(client.pid).unwrap();
+    assert_eq!(
+        player.interaction.target_op, None,
+        "the backpack with no obj is an item use that holds nothing"
+    );
 }

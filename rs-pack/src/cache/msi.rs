@@ -40,8 +40,4 @@ impl CacheType for MsiType {
             }
         }
     }
-
-    fn debugname(&self) -> Option<&str> {
-        None
-    }
 }

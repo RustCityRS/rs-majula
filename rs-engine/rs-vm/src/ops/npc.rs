@@ -68,15 +68,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1432296606376906752
         active_npc_mut!(m, NPC_ARRIVEDELAY => |s, npc| {
             let clock = engine::<E>().clock();
-            if npc.last_movement() < clock.saturating_sub(1) {
+            let last_tick = clock.saturating_sub(1);
+            if npc.last_movement() < last_tick {
                 return Ok(());
             }
-            // On the world's first tick there is no tick before it; at 647 a
-            // move then is as recent as one on the last tick.
-            #[cfg(before_647)]
-            let last_tick = clock - 1;
-            #[cfg(since_647)]
-            let last_tick = clock.saturating_sub(1);
             if npc.last_movement() == last_tick {
                 npc.delay(clock + 1);
             } else {
@@ -132,12 +127,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2509
         active_npc_mut!(m, NPC_DAMAGE => |s, npc| {
-            // 2011's npc hits are life points, which pass a byte (2011 wiki,
-            // Constitution: monsters have up to 30,000).
-            #[cfg(since_647)]
             let amount = s.pop_int_as::<u16>()?;
-            #[cfg(before_647)]
-            let amount = u16::from(s.pop_int_as::<u8>()?);
             let damage_type = s.pop_int_as::<u8>()?;
             #[cfg(since_647)]
             if test::recording() {
@@ -444,7 +434,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 }
                 _ => npc_type,
             };
-            s.push_string(npc_type.name.as_deref().unwrap_or(npc_type.debugname().unwrap_or("null")));
+            s.push_string(npc_type.name.as_deref().unwrap_or(&npc_type.debugname));
         });
 
         // 2529

@@ -152,7 +152,7 @@ impl MousePaths {
             if self.straight * 10 >= self.moves * 6 {
                 flags.push(("straight_mouse_moves", 25));
             }
-            if self.steady * 10 >= self.moves * 6 {
+            if cfg!(before_647) && self.steady * 10 >= self.moves * 6 {
                 flags.push(("steady_mouse_moves", 25));
             }
         }
@@ -258,13 +258,19 @@ mod tests {
     #[test]
     fn bots_move_straight_and_steady() {
         let p = moves(|_| 9, |_, t| t, |_, _| 0.0);
+        #[cfg(before_647)]
         assert_eq!(flags(&p), ["straight_mouse_moves", "steady_mouse_moves"]);
+        #[cfg(since_647)]
+        assert_eq!(flags(&p), ["straight_mouse_moves"]);
     }
 
     #[test]
     fn bots_repeat_their_curves() {
         let p = moves(|_| 9, |_, t| ease(t), |_, t| (t * PI).sin() * 30.0);
         // Eased at an even pace, so steady too.
+        #[cfg(before_647)]
         assert_eq!(flags(&p), ["steady_mouse_moves", "repeated_mouse_curves"]);
+        #[cfg(since_647)]
+        assert_eq!(flags(&p), ["repeated_mouse_curves"]);
     }
 }

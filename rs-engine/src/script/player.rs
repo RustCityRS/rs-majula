@@ -55,20 +55,8 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `Option::map`, `Option::unwrap_or`
-    #[cfg(before_647)]
     fn last_com(&self) -> i32 {
-        self.player.last_com.map(|v| v as i32).unwrap_or(-1)
-    }
-
-    /// Returns the 32-bit component hash of the last interface button clicked,
-    /// or `-1` if none.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** VM ops via `ScriptPlayer` trait
-    #[cfg(since_647)]
-    fn last_com(&self) -> i32 {
-        self.player.last_com
+        self.player.last_com.unwrap_or(-1)
     }
 
     /// Returns the inventory slot index from the last interaction, or `-1` if none.
@@ -77,15 +65,8 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `Option::map`, `Option::unwrap_or`
-    #[cfg(before_647)]
     fn last_slot(&self) -> i32 {
         self.player.last_slot.map(|v| v as i32).unwrap_or(-1)
-    }
-
-    /// Rev-647: slot carried by the IfButton1-10 packet; -1 = none.
-    #[cfg(since_647)]
-    fn last_slot(&self) -> i32 {
-        self.player.last_slot
     }
 
     /// Returns the use-slot index from an item-on-X interaction, or `-1` if none.
@@ -124,15 +105,8 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `Option::map`, `Option::unwrap_or`
-    #[cfg(before_647)]
     fn last_item(&self) -> i32 {
         self.player.last_item.map(|v| v as i32).unwrap_or(-1)
-    }
-
-    /// Rev-647: obj id carried by the IfButton1-10 packet; -1 = none.
-    #[cfg(since_647)]
-    fn last_item(&self) -> i32 {
-        self.player.last_item
     }
 
     /// Returns the use-item type ID from an item-on-X interaction, or `-1` if none.
@@ -849,7 +823,7 @@ impl ScriptPlayer for ActivePlayer {
         self.run_client_script_with_params(script_id, args);
     }
 
-    /// Applies the character-design preview varcs (1008-1019) to the player's
+    /// Applies the character-design preview varcs (`playerdesign3_*`) to the player's
     /// body kit and colours. `sendvarc` mirrors each design varc server-side;
     /// this reads them back and commits the design, the rev-647 replacement
     /// for the 2004-era IdkSaveDesign packet (the 647 client never sends one).
@@ -860,21 +834,25 @@ impl ScriptPlayer for ActivePlayer {
     /// **Calls:** `setidkit`, writes `self.player.colours`
     #[cfg(since_647)]
     fn applydesign(&mut self) {
-        let varc = |id: u16| -> i32 { self.player.varcs.get(&id).copied().unwrap_or(0) };
-
-        let hair = varc(1008);
-        let beard = varc(1009);
-        let top = varc(1010);
-        let arms = varc(1011);
-        let hands = varc(1012);
-        let legs = varc(1013);
-        let feet = varc(1014);
-
-        let c_hair = varc(1015) as u8;
-        let c_top = varc(1016) as u8;
-        let c_legs = varc(1017) as u8;
-        let c_feet = varc(1018) as u8;
-        let c_skin = varc(1019) as u8;
+        let [
+            hair,
+            beard,
+            top,
+            arms,
+            hands,
+            legs,
+            feet,
+            c_hair,
+            c_top,
+            c_legs,
+            c_feet,
+            c_skin,
+        ] = engine()
+            .layout
+            .design
+            .map(|id| self.player.varcs.get(&id).copied().unwrap_or(0));
+        let [c_hair, c_top, c_legs, c_feet, c_skin] =
+            [c_hair, c_top, c_legs, c_feet, c_skin].map(|colour| colour as u8);
 
         let female = self.player.gender == 1;
         let mut apply = |id: i32, colour: u8| {

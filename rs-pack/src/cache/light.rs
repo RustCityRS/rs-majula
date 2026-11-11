@@ -40,8 +40,4 @@ impl CacheType for LightType {
             }
         }
     }
-
-    fn debugname(&self) -> Option<&str> {
-        None
-    }
 }

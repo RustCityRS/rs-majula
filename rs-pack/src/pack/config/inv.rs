@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use super::client_table_with;
 use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -17,24 +19,12 @@ pub fn pack_invs(
     let configs = parse_config_sections_cached(file_cache, "inv", constants)?;
 
     let mut server = PackedData::new(pack.max);
-    #[cfg(since_647)]
-    let client_count = pack.client_count();
-    #[cfg(since_647)]
-    let mut client = PackedData::new(client_count);
 
     for id in 0..pack.max {
         server.start_entry();
-        #[cfg(since_647)]
-        if id < client_count {
-            client.start_entry();
-        }
 
         let Some((debugname, props)) = config_entry("inv", pack, &configs, id) else {
             server.finish_entry();
-            #[cfg(since_647)]
-            if id < client_count {
-                client.finish_entry();
-            }
             continue;
         };
 
@@ -50,11 +40,6 @@ pub fn pack_invs(
                 "size" => parse_number(value, |v| {
                     server.p1(2);
                     server.p2(v);
-                    #[cfg(since_647)]
-                    if id < client_count {
-                        client.p1(2);
-                        client.p2(v);
-                    }
                 }),
 
                 // 3
@@ -144,17 +129,27 @@ pub fn pack_invs(
 
         // done
         server.finish_entry();
-        #[cfg(since_647)]
-        if id < client_count {
-            client.finish_entry();
-        }
     }
 
-    Ok(PackedFile {
-        server,
-        #[cfg(before_647)]
-        client: None,
-        #[cfg(since_647)]
-        client: Some(client),
-    })
+    #[cfg(before_647)]
+    let client = None;
+    #[cfg(since_647)]
+    let client = Some(client_table_with(
+        file_cache,
+        "inv",
+        pack,
+        constants,
+        |client, _, props| {
+            for (key, value) in props {
+                if key == "size" {
+                    parse_number(value, |v| {
+                        client.p1(2);
+                        client.p2(v);
+                    });
+                }
+            }
+        },
+    )?);
+
+    Ok(PackedFile { server, client })
 }

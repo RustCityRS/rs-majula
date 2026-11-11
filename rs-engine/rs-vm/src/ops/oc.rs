@@ -45,7 +45,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4203
         none!(m, OC_DEBUGNAME => |s| {
             let obj = pop_obj::<E>(s)?;
-            s.push_string(obj.debugname().unwrap_or("null"));
+            s.push_string(&obj.debugname);
         });
 
         // 4204
@@ -68,7 +68,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4207
         none!(m, OC_NAME => |s| {
             let obj = pop_obj::<E>(s)?;
-            s.push_string(obj.name.as_deref().unwrap_or(obj.debugname().unwrap_or("null")));
+            s.push_string(obj.name.as_deref().unwrap_or(&obj.debugname));
         });
 
         // 4209

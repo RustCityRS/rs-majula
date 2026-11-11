@@ -63,43 +63,20 @@ pub struct PackResult {
 /// `if_opensub` parent component without hardcoded constants.
 #[derive(Debug, Clone, Default)]
 pub struct InterfaceLayout {
-    /// interface_id → component_id for the `mainmodal` target.
     pub main_screen: HashMap<u16, u16>,
-    /// interface_id → component_id for the toplevel's full-size main slot:
-    /// the game view on fixed (548:8 `mainoverlay_clipped`), the whole window
-    /// on resizable (746:8 `mainmodal_fullscreen`).
     pub wide_screen: HashMap<u16, u16>,
-    /// The main-screen interfaces that open in `wide_screen` instead: the
-    /// content `wide_screen_enum` (2011's skill guide, whose own backdrop
-    /// fills its slot).
     pub wide_screen_ifaces: HashSet<u16>,
-    /// interface_id → component_id for the `sidemodal` target, the slot
-    /// over the side panels that side modals mount on.
     pub overlay_tab: HashMap<u16, u16>,
-    /// interface_id → component_id for the `mainoverlay` target, the
-    /// full-size slot over the game view that `if_openoverlay` mounts on
-    /// (548:7, 746:6), which Jagex's full-screen overlays size themselves to
-    /// (clientscript 709).
     pub overlay: HashMap<u16, u16>,
-    /// interface_id → component_id for the `chattop` target.
     pub chatbox: HashMap<u16, u16>,
-    /// component_id → interface_id (root_layer) for interface listener cleanup.
     pub component_roots: HashMap<u16, i32>,
     pub component_names: HashMap<i32, Box<str>>,
-    /// Parent component hash (`chatbox_iface << 16 | dialogue_box_index`) where
-    /// dialogue_box interfaces (npc/player chat, message box, multi-choice)
-    /// mount. Rev-647: the chatbox interface (752) hosts the dialogue_box at
-    /// child component 13 — matching void `dialogue_box parent="chat_box"
-    /// index=13`. Dialogues nest *inside* the chatbox frame here, rather than
-    /// replacing it at `toplevel:chattop`. 0 if the chatbox interface
-    /// wasn't found.
     pub dialogue_parent_hash: i32,
-    /// Per-interface override of the chatbox dialogue slot: dialogue interface
-    /// id → parent component hash it mounts on. Sourced from the content
-    /// `dialogue_slot_enum` (e.g. objbox/doubleobjbox → chatbox child 12,
-    /// `chatmodal`). Any dialogue *not* in this map uses
-    /// `dialogue_parent_hash` (the default `dialogue_box` slot, child 13).
     pub dialogue_slots: HashMap<u16, i32>,
+    pub count_dialog: i32,
+    pub world_map: u16,
+    pub switch_side: u16,
+    pub design: [u16; 12],
 }
 
 impl InterfaceLayout {
@@ -176,6 +153,11 @@ pub fn pack_all(
     let mut layout = load_interface_layout(pack_dir);
     load_dialogue_slots(pack_dir, &store.enums, &mut layout);
     load_wide_screen_ifaces(pack_dir, &store.enums, &mut layout);
+    layout.count_dialog = asset_names.id("clientscript", COUNT_DIALOG)? as i32;
+    layout.switch_side = asset_names.id("varc", SWITCH_SIDE)? as u16;
+    for (varc, name) in layout.design.iter_mut().zip(DESIGN) {
+        *varc = asset_names.id("varc", name)? as u16;
+    }
     info!(
         "Pack complete in {:.2}s: {} groups, {} scripts",
         start.elapsed().as_secs_f64(),
@@ -301,6 +283,31 @@ const DIALOGUE_BOX_INDEX: i32 = 13;
 
 const CHATBOX_INTERFACE: &str = "chattop";
 
+const WORLD_MAP_INTERFACE: &str = "worldmap";
+
+/// The varc the client keeps its selected side tab in.
+const SWITCH_SIDE: &str = "if_switchside_varc";
+
+/// The varcs of the character design screen, in the order `applydesign`
+/// reads them: seven body kits, then five colours.
+const DESIGN: [&str; 12] = [
+    "playerdesign3_head",
+    "playerdesign3_jaw",
+    "playerdesign3_torso",
+    "playerdesign3_arms",
+    "playerdesign3_hands",
+    "playerdesign3_legs",
+    "playerdesign3_feet",
+    "playerdesign3_haircol",
+    "playerdesign3_torsocol",
+    "playerdesign3_legscol",
+    "playerdesign3_feetcol",
+    "playerdesign3_skincol",
+];
+
+/// The clientscript `p_countdialog` runs to ask for a number in the chat box.
+const COUNT_DIALOG: &str = "[clientscript,meslayer_mode7]";
+
 /// The layout slot a component of the fixed (`toplevel`, 548) or resizable
 /// (`toplevel_fullscreen`, 746) toplevel fills, by Jagex's names.
 fn toplevel_slot<'a>(
@@ -342,10 +349,14 @@ fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
             // Top-level interface line `<id>=<name>` (no component). Capture the
             // chatbox interface id so dialogues can mount on its dialogue_box
             // child instead of clobbering the chatbox at `toplevel:chattop`.
-            if name == CHATBOX_INTERFACE
-                && let Ok(iface) = id_str.parse::<u16>()
-            {
-                layout.dialogue_parent_hash = ((iface as i32) << 16) | DIALOGUE_BOX_INDEX;
+            if let Ok(iface) = id_str.parse::<u16>() {
+                match name {
+                    CHATBOX_INTERFACE => {
+                        layout.dialogue_parent_hash = ((iface as i32) << 16) | DIALOGUE_BOX_INDEX;
+                    }
+                    WORLD_MAP_INTERFACE => layout.world_map = iface,
+                    _ => {}
+                }
             }
             continue;
         };

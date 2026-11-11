@@ -133,8 +133,4 @@ impl CacheType for MelType {
             }
         }
     }
-
-    fn debugname(&self) -> Option<&str> {
-        None
-    }
 }

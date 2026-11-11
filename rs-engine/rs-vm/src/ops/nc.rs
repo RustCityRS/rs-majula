@@ -31,7 +31,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4001
         none!(m, NC_DEBUGNAME => |s| {
             let npc = pop_npc::<E>(s)?;
-            s.push_string(npc.debugname().unwrap_or("null"));
+            s.push_string(&npc.debugname);
         });
 
         // 4002
@@ -43,7 +43,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4003
         none!(m, NC_NAME => |s| {
             let npc = pop_npc::<E>(s)?;
-            s.push_string(npc.name.as_deref().unwrap_or(npc.debugname().unwrap_or("null")));
+            s.push_string(npc.name.as_deref().unwrap_or(&npc.debugname));
         });
 
         // 4004

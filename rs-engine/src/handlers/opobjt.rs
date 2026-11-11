@@ -1,34 +1,27 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::handlers::ClientGameHandler;
+#[cfg(since_647)]
+use crate::handlers::op_common::transmitted_inv;
 use crate::handlers::op_common::{action_target, in_build_area, spell_component_ok, zone_obj};
 #[cfg(since_647)]
 use crate::handlers::opobju;
-#[cfg(before_647)]
 use crate::watch::{Target, Using};
 use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::opobjt::OpObjT;
-use rs_vm::ScriptError;
 use rs_vm::engine::ScriptPlayer;
 use rs_vm::trigger::ServerTriggerType;
+use rs_vm::{ComId, ScriptError};
 
 impl ClientGameHandler for OpObjT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        let com = self.com as ComId;
         #[cfg(since_647)]
-        if self.obj2 != u16::MAX {
-            return opobju::handle(
-                self.x,
-                self.z,
-                self.obj,
-                self.com as i32,
-                self.slot,
-                self.obj2,
-                active,
-            );
+        if transmitted_inv(active, com).is_some() {
+            return opobju::handle(self.x, self.z, self.obj, com, self.slot, self.obj2, active);
         }
-        #[cfg(before_647)]
         active.watch_use(
-            Using::Spell(self.com),
+            Using::Spell(com),
             Target::Obj {
                 id: self.obj,
                 x: self.x,
@@ -40,11 +33,7 @@ impl ClientGameHandler for OpObjT {
             return Ok(());
         }
 
-        #[cfg(before_647)]
-        let spell_com = self.com;
-        #[cfg(since_647)]
-        let spell_com = self.com as i32;
-        if !spell_component_ok(active, spell_com, action_target::OBJ) {
+        if !spell_component_ok(active, com, action_target::OBJ) {
             active.unset_map_flag();
             return Ok(());
         }
@@ -71,7 +60,7 @@ impl ClientGameHandler for OpObjT {
         active
             .player
             .set_interaction(target, ServerTriggerType::ApObjT as u8, true);
-        active.player.interaction.target_subject_com = Some(spell_com);
+        active.player.interaction.target_subject_com = Some(com);
         active.player.opcalled = true;
 
         Ok(())

@@ -4,7 +4,6 @@ use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{
     HeldCheck, check_held, members_blocked, npc_target_ok, use_component_ok,
 };
-#[cfg(before_647)]
 use crate::watch::{Target, Using};
 use rs_entity::InteractionTarget;
 #[cfg(before_647)]
@@ -15,7 +14,7 @@ use rs_vm::{ComId, ScriptError};
 #[cfg(before_647)]
 impl ClientGameHandler for OpNpcU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(self.nid, self.com, self.slot, self.obj, active)
+        handle(self.nid, self.com.into(), self.slot, self.obj, active)
     }
 }
 
@@ -26,7 +25,6 @@ pub(super) fn handle(
     obj: u16,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
-    #[cfg(before_647)]
     active.watch_use(Using::Item(obj), Target::Npc(nid));
     if active.player.state.delayed {
         active.unset_map_flag();

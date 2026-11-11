@@ -8,13 +8,7 @@ pub struct SeqType {
     pub id: u16,
     pub duration: u32,
     pub priority: u8,
-    debugname: Option<Box<str>>,
-}
-
-impl SeqType {
-    pub fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
-    }
+    pub debugname: Box<str>,
 }
 
 impl From<SeqTypeRaw> for SeqType {
@@ -62,7 +56,7 @@ pub struct SeqTypeRaw {
     pub op19: Vec<(u8, u8)>,
     #[cfg(since_647)]
     pub op20: Vec<(u8, u16, u16)>,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
     pub opcode_order: Vec<u8>,
     pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
@@ -107,7 +101,7 @@ impl CacheType for SeqTypeRaw {
             op19: Vec::new(),
             #[cfg(since_647)]
             op20: Vec::new(),
-            debugname: None,
+            debugname: Box::default(),
             opcode_order: Vec::new(),
             raw_opcodes: Vec::new(),
         }
@@ -199,7 +193,7 @@ impl CacheType for SeqTypeRaw {
                     let b = buf.g2();
                     self.op20.push((idx, a, b));
                 }
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("seq", code),
             }
             self.raw_opcodes
@@ -245,8 +239,8 @@ impl CacheType for SeqTypeRaw {
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 

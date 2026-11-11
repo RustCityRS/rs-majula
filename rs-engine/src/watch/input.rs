@@ -1,28 +1,14 @@
-// From rev 647 the anti-cheat is inert: it judges the jag-era client's
-// reports (heartbeats, op checks, mouse and camera input) and 647 sends
-// none of them, so what reads them goes unused there.
-#![cfg_attr(
-    since_647,
-    allow(
-        dead_code,
-        unused_variables,
-        unused_imports,
-        unreachable_code,
-        clippy::ptr_arg
-    )
-)]
-
 #[cfg(before_647)]
 use super::anticheat::plausible;
 use rs_io::Packet;
 use rs_protocol::network::game::client::ClientProtMessage;
-#[cfg(all(since_254, before_647))]
+#[cfg(since_254)]
 use rs_protocol::network::game::client::event_applet_focus::EventAppletFocus;
-#[cfg(any(rev = "225", all(since_254, before_647)))]
+#[cfg(any(rev = "225", since_254))]
 use rs_protocol::network::game::client::event_camera_position::EventCameraPosition;
-#[cfg(all(since_254, before_647))]
+#[cfg(since_254)]
 use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
-#[cfg(all(since_254, before_647))]
+#[cfg(since_254)]
 use rs_protocol::network::game::client::event_mouse_move::{Cursor, EventMouseMove, MouseMoved};
 #[cfg(before_274)]
 use rs_protocol::network::game::client::event_tracking::{EventTracking, TrackedEvent};
@@ -30,12 +16,18 @@ use rs_protocol::network::game::client::event_tracking::{EventTracking, TrackedE
 use rs_protocol::network::game::client::move_minimapclick::MoveMinimapClick;
 use rs_protocol::network::game::client_prot::ClientProt;
 
-/// `EVENT_MOUSE_MOVE` samples the cursor this often.
+/// The unit `EVENT_MOUSE_MOVE` times its samples in: before 647 the cursor
+/// is sampled this often, and 647 reports each of the mouse's own events.
 #[cfg(all(since_254, before_647))]
 const SAMPLE_MS: u32 = 50;
-/// A move report holds at most this many samples (the client sends at 40).
-#[cfg(all(since_254, before_647))]
-const MAX_SAMPLES_MS: u32 = 40 * SAMPLE_MS;
+#[cfg(since_647)]
+const SAMPLE_MS: u32 = 20;
+/// A move report covers at most this long: the client sends one by then.
+#[cfg(since_254)]
+const REPORT_MS: u32 = 2_000;
+/// The unit `EVENT_MOUSE_CLICK` times the gap since the last press in.
+#[cfg(since_254)]
+const CLICK_GAP_MS: u32 = 50;
 /// `EVENT_TRACKING` measures gaps in 10ms steps.
 #[cfg(before_274)]
 const TRACK_STEP_MS: u32 = 10;
@@ -93,11 +85,11 @@ pub struct Timed {
 /// reports build on earlier ones.
 #[derive(Default)]
 pub struct InputDecoder {
-    #[cfg(all(since_254, before_647))]
+    #[cfg(since_254)]
     move_ms: Option<u32>,
-    #[cfg(all(since_254, before_647))]
+    #[cfg(since_254)]
     move_x: i32,
-    #[cfg(all(since_254, before_647))]
+    #[cfg(since_254)]
     move_y: i32,
     #[cfg(before_274)]
     track_ms: u32,
@@ -115,14 +107,6 @@ pub(super) fn decode<M: ClientProtMessage>(data: &[u8]) -> Option<M> {
     (data.len() >= M::FRAME.min()).then(|| M::decode(&mut Packet::from(data.to_vec()), data.len()))
 }
 
-#[cfg(all(since_254, before_647))]
-fn cursor(at: Cursor) -> Input {
-    match at {
-        Cursor::At { x, y } => Input::Move { x, y },
-        Cursor::Outside => Input::Outside,
-    }
-}
-
 impl InputDecoder {
     /// A recorded `prot` body that arrived at `at`, if it's an input report.
     /// Returns whether it was. (Live ones come in by their handlers.)
@@ -134,25 +118,25 @@ impl InputDecoder {
         out: &mut Vec<Timed>,
     ) -> bool {
         match prot {
-            #[cfg(all(since_254, before_647))]
+            #[cfg(since_254)]
             ClientProt::EventMouseMove => {
                 if let Some(msg) = decode(data) {
                     self.mouse_move(at, &msg, out);
                 }
             }
-            #[cfg(all(since_254, before_647))]
+            #[cfg(since_254)]
             ClientProt::EventMouseClick => {
                 if let Some(msg) = decode(data) {
                     self.mouse_click(at, &msg, out);
                 }
             }
-            #[cfg(all(since_254, before_647))]
+            #[cfg(since_254)]
             ClientProt::EventAppletFocus => {
                 if let Some(msg) = decode(data) {
                     self.focus(at, &msg, out);
                 }
             }
-            #[cfg(any(rev = "225", all(since_254, before_647)))]
+            #[cfg(any(rev = "225", since_254))]
             ClientProt::EventCameraPosition => {
                 if let Some(msg) = decode(data) {
                     self.camera(at, &msg, out);
@@ -184,33 +168,36 @@ impl InputDecoder {
         true
     }
 
-    /// An `EVENT_MOUSE_MOVE` that arrived at `at`: cursor samples 50ms
-    /// apart, each change after how many samples it stood still.
-    #[cfg(all(since_254, before_647))]
+    /// An `EVENT_MOUSE_MOVE` that arrived at `at`: where the cursor went,
+    /// each sample so many [`SAMPLE_MS`] after the one before. A cursor that
+    /// left by the frame's top or left reads as a negative position.
+    #[cfg(since_254)]
     pub fn mouse_move(&mut self, at: u32, msg: &EventMouseMove, out: &mut Vec<Timed>) {
         // A report covers at most two seconds, so a chain that fell behind
         // (the tab was in the background) picks up from there.
-        let floor = at.saturating_sub(MAX_SAMPLES_MS);
+        let floor = at.saturating_sub(REPORT_MS);
         let mut ms = self.move_ms.unwrap_or(floor).max(floor);
         for sample in &msg.samples {
-            let input = match sample.moved {
-                MouseMoved::By { dx, dy } => Input::Move {
+            let to = match sample.moved {
+                MouseMoved::By { dx, dy } => Cursor::At {
                     x: (self.move_x + i32::from(dx)) as i16,
                     y: (self.move_y + i32::from(dy)) as i16,
                 },
-                MouseMoved::To(at) => cursor(at),
+                MouseMoved::To(to) => to,
             };
-            match input {
-                Input::Move { x, y } => {
+            let input = match to {
+                Cursor::At { x, y } if x >= 0 && y >= 0 => {
                     self.move_x = x.into();
                     self.move_y = y.into();
+                    Input::Move { x, y }
                 }
                 _ => {
                     self.move_x = -1;
                     self.move_y = -1;
+                    Input::Outside
                 }
-            }
-            ms = (ms + (u32::from(sample.still) + 1) * SAMPLE_MS).min(at);
+            };
+            ms = (ms + u32::from(sample.gap) * SAMPLE_MS).min(at);
             out.push(Timed { ms, input });
         }
         self.move_ms = Some(ms);
@@ -218,7 +205,7 @@ impl InputDecoder {
 
     /// An `EVENT_MOUSE_CLICK` that arrived at `at`. The client sends its
     /// last moves just before it, so it happened when they end.
-    #[cfg(all(since_254, before_647))]
+    #[cfg(since_254)]
     pub fn mouse_click(&mut self, at: u32, msg: &EventMouseClick, out: &mut Vec<Timed>) {
         let ms = self.move_ms.filter(|&m| at - m < 1000).unwrap_or(at);
         let Cursor::At { x, y } = msg.at else {
@@ -230,7 +217,7 @@ impl InputDecoder {
                 x,
                 y,
                 right: msg.right,
-                gap_ms: u32::from(msg.gap) * SAMPLE_MS,
+                gap_ms: u32::from(msg.gap) * CLICK_GAP_MS,
             },
         });
     }
@@ -306,7 +293,7 @@ impl InputDecoder {
     }
 
     /// `EVENT_APPLET_FOCUS`.
-    #[cfg(all(since_254, before_647))]
+    #[cfg(since_254)]
     pub fn focus(&mut self, at: u32, msg: &EventAppletFocus, out: &mut Vec<Timed>) {
         out.push(Timed {
             ms: at,
@@ -316,7 +303,7 @@ impl InputDecoder {
 
     /// `EVENT_CAMERA_POSITION`: pitch and yaw (and on 225, the minimap's
     /// tilt and zoom).
-    #[cfg(any(rev = "225", all(since_254, before_647)))]
+    #[cfg(any(rev = "225", since_254))]
     pub fn camera(&mut self, at: u32, msg: &EventCameraPosition, out: &mut Vec<Timed>) {
         out.push(Timed {
             ms: at,
@@ -340,7 +327,7 @@ impl InputDecoder {
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[cfg(any(rev = "225", all(since_254, before_647)))]
+    #[cfg(any(rev = "225", since_254))]
     use rs_protocol::network::game::client_prot_message::ClientProtMessageInfo;
     #[cfg(all(since_254, before_647))]
     use std::iter;
@@ -432,15 +419,17 @@ mod tests {
 
     /// A recorded packet goes through its message too, and a short one is
     /// passed over.
-    #[cfg(before_647)]
     #[test]
     fn decodes_recorded_packets() {
         let mut decoder = InputDecoder::default();
         let mut out = Vec::new();
         assert!(!decoder.packet(&ClientProt::NoTimeout, 1_000, &[], &mut out));
-        #[cfg(any(rev = "225", all(since_254, before_647)))]
+        #[cfg(any(rev = "225", since_254))]
         {
+            #[cfg(before_647)]
             let data = [0x01, 0x80, 0x02, 0x00, 0, 0];
+            #[cfg(since_647)]
+            let data = [0x02, 0x80, 0x80, 0x01];
             let len = <EventCameraPosition as ClientProtMessageInfo>::FRAME.min();
             assert!(decoder.packet(
                 &ClientProt::EventCameraPosition,

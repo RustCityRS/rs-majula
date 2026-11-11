@@ -121,7 +121,7 @@ pub fn loc_target(coord: CoordGrid, loc: &Loc) -> InteractionTarget {
 /// to the player; `false` otherwise (a bad or lagging client).
 #[cfg(before_647)]
 pub fn use_component_ok(active: &ActivePlayer, com: ComId) -> bool {
-    let Some(interface) = engine().interfaces().get_by_id(com) else {
+    let Some(interface) = engine().interfaces().get_by_id(com as u16) else {
         return false;
     };
     interface.usable && active.player.is_interface_visible(interface.root_layer)
@@ -146,7 +146,7 @@ pub fn use_component_ok(active: &ActivePlayer, com: ComId) -> bool {
 /// visible to the player; `false` otherwise (a bad or lagging client).
 #[cfg(before_647)]
 pub fn spell_component_ok(active: &ActivePlayer, com: ComId, target: u16) -> bool {
-    let Some(interface) = engine().interfaces().get_by_id(com) else {
+    let Some(interface) = engine().interfaces().get_by_id(com as u16) else {
         return false;
     };
     interface.action_target & target != 0
@@ -215,6 +215,16 @@ pub fn members_blocked(active: &mut ActivePlayer, obj: u16) -> bool {
     false
 }
 
+/// The inventory transmitted to component `com`, if any.
+pub fn transmitted_inv(active: &ActivePlayer, com: ComId) -> Option<u16> {
+    active
+        .player
+        .inv_transmits
+        .iter()
+        .find(|(_, coms)| coms.contains(&com))
+        .map(|(id, _)| *id)
+}
+
 /// Outcome of [`check_held`].
 ///
 /// The `U` handler family treats every failure the same way; the `OpHeld*`
@@ -248,14 +258,7 @@ pub enum HeldCheck {
 /// [`HeldCheck::Ok`] when the item is really there, otherwise the specific
 /// reason the claim was rejected.
 pub fn check_held(active: &mut ActivePlayer, com: ComId, slot: u16, obj: u16) -> HeldCheck {
-    let inv_id = active
-        .player
-        .inv_transmits
-        .iter()
-        .find(|(_, coms)| coms.contains(&com))
-        .map(|(id, _)| *id);
-
-    let Some(inv_id) = inv_id else {
+    let Some(inv_id) = transmitted_inv(active, com) else {
         return HeldCheck::NoTransmit;
     };
 

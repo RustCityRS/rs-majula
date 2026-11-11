@@ -40,7 +40,7 @@ use rs_vm::trigger::ServerTriggerType;
 /// **Calls:** `engine_mut().run_script_by_trigger`
 impl ClientGameHandler for OpHeldT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        active.watch_use(Using::Spell(self.com2), Target::Item(self.obj));
+        active.watch_use(Using::Spell(self.com2.into()), Target::Item(self.obj));
         if active.player.state.delayed {
             // normal: cannot interact while delayed
             return Ok(());
@@ -95,7 +95,7 @@ impl ClientGameHandler for OpHeldT {
             )));
         }
 
-        match check_held(active, self.com, self.slot, self.obj) {
+        match check_held(active, self.com.into(), self.slot, self.obj) {
             HeldCheck::Ok => {}
             HeldCheck::NoTransmit => {
                 return Err(ScriptError::Client(format!(

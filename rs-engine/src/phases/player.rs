@@ -880,10 +880,6 @@ impl Engine {
                 // loc's own (type, then category).
                 if let Some(shown) = active.shown_loc(*id).filter(|s| s != id).and_then(loc) {
                     let com = active.player.interaction.target_subject_com;
-                    // A 647 component is already the `i32` hash scripts are
-                    // keyed on.
-                    #[cfg(before_647)]
-                    let com = com.map(i32::from);
                     let script = |t: u16| {
                         engine().has_script_for(trigger, Some(com.unwrap_or(i32::from(t))), -1)
                     };
@@ -911,9 +907,6 @@ impl Engine {
         }
 
         if let Some(com) = active.player.interaction.target_subject_com {
-            // A 647 component is already the `i32` hash scripts are keyed on.
-            #[cfg(before_647)]
-            let com = com as i32;
             type_id = com;
         }
 
@@ -1161,22 +1154,15 @@ impl Engine {
                     InteractionTarget::Obj { id, .. } => engine()
                         .objs()
                         .get_by_id(*id)
-                        .and_then(|t| t.debugname().map(|s| s.to_string()))
-                        .unwrap_or_else(|| id.to_string()),
+                        .map_or_else(|| id.to_string(), |t| t.debugname.to_string()),
                     InteractionTarget::Loc { id, .. } => engine()
                         .locs()
                         .get_by_id(*id)
-                        .and_then(|t| t.debugname().map(|s| s.to_string()))
-                        .unwrap_or_else(|| id.to_string()),
+                        .map_or_else(|| id.to_string(), |t| t.debugname.to_string()),
                     InteractionTarget::Npc { nid } => engine()
                         .get_npc(*nid)
-                        .and_then(|n| {
-                            engine()
-                                .npcs()
-                                .get_by_id(n.npc.uid.id())
-                                .and_then(|t| t.debugname().map(|s| s.to_string()))
-                        })
-                        .unwrap_or_else(|| nid.to_string()),
+                        .and_then(|n| engine().npcs().get_by_id(n.npc.uid.id()))
+                        .map_or_else(|| nid.to_string(), |t| t.debugname.to_string()),
                     InteractionTarget::Player { pid } => pid.to_string(),
                 };
                 active.message_game(&format!("No trigger for [{},{}]", trigger_name, debugname));
@@ -1200,6 +1186,12 @@ impl Engine {
     /// a queued action with a modal open, behavior confirmed as far back as
     /// 2005.
     ///
+    /// Before 647 a player runs when run or temprun is set and a script has
+    /// set a run animation (`runanim`). At 647 the appearance always carries
+    /// one, and temprun flips run for that walk (`run XOR temprun`): the
+    /// client sets it only while ctrl is held (`ProgressBarElement.method1322`,
+    /// key 82).
+    ///
     /// # Safety Note
     ///
     /// Takes `*mut` to avoid noalias -- see [`process_timers`].
@@ -1222,32 +1214,12 @@ impl Engine {
             return false;
         }
 
-        if active.player.run {
-            active.player.pathing.move_speed = MoveSpeed::Run;
-        } else {
-            active.player.pathing.move_speed = MoveSpeed::Walk;
-        }
-
-        // 2004-era: running needs a script-set runanim (the appearance has no
-        // movement anims); temp-run upgrades a walk.
         #[cfg(before_647)]
-        if active.player.info.runanim.is_none() {
-            active.player.pathing.move_speed = MoveSpeed::Walk;
-        } else if active.player.temprun {
-            active.player.pathing.move_speed = MoveSpeed::Run;
-        }
-
-        // Rev-647: movement anims come from the appearance render anim, and
-        // temp-run *toggles* the persistent run mode rather than upgrading it
-        // (`should_run = run XOR temprun` in the reference server).
+        let run =
+            active.player.info.runanim.is_some() && (active.player.run || active.player.temprun);
         #[cfg(since_647)]
-        {
-            active.player.pathing.move_speed = if active.player.run != active.player.temprun {
-                MoveSpeed::Run
-            } else {
-                MoveSpeed::Walk
-            };
-        }
+        let run = active.player.run != active.player.temprun;
+        active.player.pathing.move_speed = if run { MoveSpeed::Run } else { MoveSpeed::Walk };
 
         let members = engine().members;
         let steps_taken = active.player.pathing.process_movement(

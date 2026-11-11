@@ -79,8 +79,8 @@ impl ClientGameHandler for IfButtonT {
 
 /// `[opheldt,<spell>]`, with the target as `last_item` / `last_slot`.
 fn spell_on_item(packet: IfButtonT, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-    active.player.last_item = packet.obj2 as i32;
-    active.player.last_slot = packet.slot2 as i32;
+    active.player.last_item = Some(packet.obj2);
+    active.player.last_slot = Some(packet.slot2);
     active.clear_pending_action()?;
     active.player.info.clear_face_entity_player();
 
@@ -130,8 +130,8 @@ fn item_on_item(packet: IfButtonT, active: &mut ActivePlayer) -> Result<(), Scri
         )));
     };
 
-    active.player.last_item = target.id as i32;
-    active.player.last_slot = packet.slot2 as i32;
+    active.player.last_item = Some(target.id);
+    active.player.last_slot = Some(packet.slot2);
     active.player.last_use_item = Some(used.id);
     active.player.last_use_slot = Some(packet.slot);
     active.clear_pending_action()?;
@@ -160,10 +160,7 @@ fn item_on_item(packet: IfButtonT, active: &mut ActivePlayer) -> Result<(), Scri
 
     let Some((script, swap)) = found else {
         #[cfg(debug_assertions)]
-        active.message_game(&format!(
-            "No trigger for [opheldu,{}]",
-            target.debugname().unwrap_or(&target.id.to_string())
-        ));
+        active.message_game(&format!("No trigger for [opheldu,{}]", target.debugname));
         active.message_game("Nothing interesting happens.");
         return Ok(());
     };
@@ -171,12 +168,8 @@ fn item_on_item(packet: IfButtonT, active: &mut ActivePlayer) -> Result<(), Scri
     // `last_item` names.
     if swap {
         let player = &mut active.player;
-        let item = player.last_item;
-        let slot = player.last_slot;
-        player.last_item = used.id as i32;
-        player.last_slot = packet.slot as i32;
-        player.last_use_item = Some(item as u16);
-        player.last_use_slot = Some(slot as u16);
+        player.last_use_item = player.last_item.replace(used.id);
+        player.last_use_slot = player.last_slot.replace(packet.slot);
     }
 
     let uid = active.player.uid;

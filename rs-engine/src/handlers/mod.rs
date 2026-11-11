@@ -9,8 +9,6 @@ pub mod event;
 #[cfg(before_274)]
 pub mod event_tracking;
 #[cfg(since_647)]
-pub mod examine;
-#[cfg(since_647)]
 pub mod face_square;
 pub mod friendlist_add;
 pub mod friendlist_del;

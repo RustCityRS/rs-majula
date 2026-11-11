@@ -1,31 +1,11 @@
 use super::client_config_table;
 use crate::archive::QUICKCHAT_GLOBAL_FIRST;
+use crate::cache::quickchatphrase::QuickChatDynamicCommand;
 use crate::pack::pack::FileCache;
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::util::{parse_bool, parse_ref};
 use anyhow::Result;
 use std::collections::HashMap;
-
-/// The id and the parameters' tables of a command the text can name.
-fn command(name: &str) -> Option<(u16, &'static [&'static str])> {
-    Some(match name {
-        "listdialog" => (0, &["enum"]),
-        "objdialog" => (1, &[]),
-        "countdialog" => (2, &[]),
-        "stat_base" => (4, &["stat"]),
-        "enum_string" => (6, &["enum", "varp"]),
-        "enum_string_clan" => (7, &["enum"]),
-        "tostring_varp" => (8, &["varp"]),
-        "tostring_varbit" => (9, &["varpbit"]),
-        "objtradedialog" => (10, &[]),
-        "enum_string_statbase" => (11, &["enum", "stat"]),
-        "acc_getcount_world" => (12, &[]),
-        "acc_getmeancombatlevel" => (13, &[]),
-        "tostring_shared" => (14, &["vars"]),
-        "activecombatlevel" => (15, &[]),
-        _ => return None,
-    })
-}
 
 fn parameter(registry: &PackRegistry, kind: &str, value: &str) -> u16 {
     let pack = match kind {
@@ -60,21 +40,26 @@ fn parse_phrase(registry: &PackRegistry, phrase: &str) -> (String, Vec<(u16, Vec
         else {
             continue;
         };
-        let Some((id, kinds)) = command(name) else {
+        let Some(command) = QuickChatDynamicCommand::from_name(name) else {
             continue;
         };
-        let params = if kinds.is_empty() {
+        let params = if command.params.is_empty() {
             Vec::new()
         } else {
             let values: Vec<_> = params.split(',').collect();
-            assert_eq!(values.len(), kinds.len(), "Invalid quickchat command");
-            kinds
+            assert_eq!(
+                values.len(),
+                command.params.len(),
+                "Invalid quickchat command"
+            );
+            command
+                .params
                 .iter()
                 .zip(values)
                 .map(|(kind, value)| parameter(registry, kind, value))
                 .collect()
         };
-        commands.push((id, params));
+        commands.push((command.id, params));
         rest = &rest[end + 1..];
     }
     text.push_str(rest);

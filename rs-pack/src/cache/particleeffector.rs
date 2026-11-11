@@ -49,8 +49,4 @@ impl CacheType for ParticleEffectorType {
             }
         }
     }
-
-    fn debugname(&self) -> Option<&str> {
-        None
-    }
 }

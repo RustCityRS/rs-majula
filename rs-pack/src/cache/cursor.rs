@@ -34,8 +34,4 @@ impl CacheType for CursorType {
             }
         }
     }
-
-    fn debugname(&self) -> Option<&str> {
-        None
-    }
 }

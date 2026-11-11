@@ -108,12 +108,7 @@ fn stats() -> impl Iterator<Item = (u8, String)> {
 fn obj_name(cache: &CacheStore, id: u16) -> String {
     cache.objs.get_by_id(id).map_or_else(
         || format!("obj_{id}"),
-        |obj| {
-            obj.name
-                .as_deref()
-                .or(obj.debugname())
-                .map_or_else(|| format!("obj_{id}"), str::to_owned)
-        },
+        |obj| obj.name.as_deref().unwrap_or(&obj.debugname).to_owned(),
     )
 }
 
@@ -144,7 +139,7 @@ fn empty_inv(inv: &InvType) -> Inventory {
 
 fn sheet_inv(cache: &CacheStore, inv: &InvType, items: Vec<(u16, u16, u32)>) -> SheetInv {
     SheetInv {
-        name: inv.debugname().unwrap_or("?").to_owned(),
+        name: inv.debugname.to_string(),
         size: inv.size,
         items: items
             .into_iter()
@@ -167,7 +162,7 @@ fn listed_invs(
         .filter_map(|id| cache.invs.get_by_id(id))
         .filter(move |inv| {
             inv.scope == InvScope::Perm
-                && (has_items(inv.id) || inv.debugname().is_some_and(|n| LISTED_INVS.contains(&n)))
+                && (has_items(inv.id) || LISTED_INVS.contains(&&*inv.debugname))
         })
 }
 
@@ -498,10 +493,11 @@ impl Engine {
         Some(ItemForms {
             id: item.id,
             name: obj_name(self.cache, item.id),
-            debugname: item.debugname().unwrap_or_default().to_owned(),
+            debugname: item.debugname.to_string(),
             debugnames: forms
                 .iter()
-                .filter_map(|&id| objs.get_by_id(id)?.debugname().map(str::to_owned))
+                .filter_map(|&id| objs.get_by_id(id))
+                .map(|obj| obj.debugname.to_string())
                 .collect(),
             forms,
         })
@@ -512,8 +508,7 @@ impl Engine {
         u16::try_from(id)
             .ok()
             .and_then(|id| self.cache.invs.get_by_id(id))
-            .and_then(|inv| inv.debugname())
-            .map_or_else(|| format!("inv_{id}"), str::to_owned)
+            .map_or_else(|| format!("inv_{id}"), |inv| inv.debugname.to_string())
     }
 
     /// Items whose name or config name contains `query`, at most `limit`.
@@ -528,7 +523,7 @@ impl Engine {
             .filter_map(|id| objs.get_by_id(id))
             .filter(|obj| {
                 Some(obj.id) == exact
-                    || obj.debugname().is_some_and(|n| n.contains(&query))
+                    || obj.debugname.contains(&query)
                     || obj
                         .name
                         .as_deref()
@@ -540,7 +535,7 @@ impl Engine {
         found.sort_by_key(|obj| {
             (
                 Some(obj.id) != exact,
-                obj.debugname() != Some(query.as_str()),
+                *obj.debugname != *query,
                 obj.name.as_deref().map(str::to_lowercase).as_deref() != Some(query.as_str()),
                 obj.id,
             )
@@ -551,7 +546,7 @@ impl Engine {
             .map(|obj| ObjMatch {
                 id: obj.id,
                 name: obj_name(self.cache, obj.id),
-                debugname: obj.debugname().unwrap_or_default().to_owned(),
+                debugname: obj.debugname.to_string(),
                 stackable: obj.stackable,
             })
             .collect()

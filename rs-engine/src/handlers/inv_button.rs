@@ -167,7 +167,7 @@ fn handle(
         .player
         .inv_transmits
         .iter()
-        .find(|(_, coms)| coms.contains(&com))
+        .find(|(_, coms)| coms.contains(&com.into()))
         .map(|(id, _)| *id);
 
     let Some(inv_id) = inv_id else {

@@ -10,13 +10,13 @@ pub type StructTypeProvider = TypeProvider<StructType>;
 pub struct StructType {
     pub id: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    pub debugname: Box<str>,
 }
 
 pub struct StructTypeRaw {
     pub id: u16,
     pub params: Option<Vec<(i32, ParamValue)>>,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 impl CacheType for StructTypeRaw {
@@ -26,7 +26,7 @@ impl CacheType for StructTypeRaw {
         Self {
             id,
             params: None,
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
@@ -45,14 +45,14 @@ impl CacheType for StructTypeRaw {
                         params.push(ParamType::decode_param(buf));
                     }
                 }
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("struct", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 
@@ -65,11 +65,5 @@ impl From<StructTypeRaw> for StructType {
                 .map(|params| Box::new(params.into_iter().collect())),
             debugname: s.debugname,
         }
-    }
-}
-
-impl StructType {
-    pub fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
     }
 }

@@ -104,75 +104,6 @@ pub enum MoveSpeed {
     Run = 3,
 }
 
-/// Public chat visibility setting.
-#[repr(u8)]
-#[derive(Debug, Copy, Clone)]
-pub enum ChatSettingsPublic {
-    /// Public chat visible to all.
-    On = 0,
-    /// Public chat visible to friends only.
-    Friends = 1,
-    /// Public chat disabled.
-    Off = 2,
-    /// Public chat hidden from the player's own view.
-    Hide = 3,
-}
-
-/// Private message visibility setting.
-#[repr(u8)]
-#[derive(Debug, Copy, Clone)]
-pub enum ChatSettingsPrivate {
-    /// Private messages from anyone.
-    On = 0,
-    /// Private messages from friends only.
-    Friends = 1,
-    /// Private messages disabled.
-    Off = 2,
-}
-
-/// Trade and duel request visibility setting.
-#[repr(u8)]
-#[derive(Debug, Copy, Clone)]
-pub enum ChatSettingsTradeDuel {
-    /// Trade/duel requests from anyone.
-    On = 0,
-    /// Trade/duel requests from friends only.
-    Friends = 1,
-    /// Trade/duel requests disabled.
-    Off = 2,
-}
-
-impl ChatSettingsPublic {
-    pub const fn from_u8(value: u8) -> Self {
-        match value {
-            1 => Self::Friends,
-            2 => Self::Off,
-            3 => Self::Hide,
-            _ => Self::On,
-        }
-    }
-}
-
-impl ChatSettingsPrivate {
-    pub const fn from_u8(value: u8) -> Self {
-        match value {
-            1 => Self::Friends,
-            2 => Self::Off,
-            _ => Self::On,
-        }
-    }
-}
-
-impl ChatSettingsTradeDuel {
-    pub const fn from_u8(value: u8) -> Self {
-        match value {
-            1 => Self::Friends,
-            2 => Self::Off,
-            _ => Self::On,
-        }
-    }
-}
-
 /// A player entity in the game world with full game state.
 ///
 /// Contains all per-player state: identity, movement/pathing, combat stats, skill
@@ -193,6 +124,10 @@ pub struct Player {
     #[cfg(since_274)]
     pub skill_level: u16,
     pub vars: VarSet,
+    #[cfg(since_647)]
+    pub varcs: FxHashMap<u16, i32>,
+    #[cfg(since_647)]
+    pub varc_strings: FxHashMap<u16, Box<str>>,
     pub state: EntityState,
     pub interaction: InteractionState,
     pub cam_queue: CamQueue,
@@ -225,9 +160,7 @@ pub struct Player {
     pub refresh_modal: bool,
     pub refresh_modal_close: bool,
     pub request_modal_close: bool,
-    pub public: ChatSettingsPublic,
-    pub private: ChatSettingsPrivate,
-    pub trade: ChatSettingsTradeDuel,
+    pub chat_filters: u8,
     pub logout_requested: bool,
     pub logout_idle_requested: bool,
     pub logout_prevented_until: Option<u32>,
@@ -243,8 +176,6 @@ pub struct Player {
     #[cfg(since_647)]
     pub pending_login: bool,
     #[cfg(since_647)]
-    pub pending_public_chat: Option<(u16, u8, usize, Vec<u8>)>,
-    #[cfg(since_647)]
     pub chat_mode: u8,
     #[cfg(since_647)]
     pub toplevel: u16,
@@ -254,10 +185,6 @@ pub struct Player {
     pub window_width: u16,
     #[cfg(since_647)]
     pub window_height: u16,
-    #[cfg(since_647)]
-    pub varcs: FxHashMap<u16, i32>,
-    #[cfg(since_647)]
-    pub varc_strings: FxHashMap<u16, Box<str>>,
     #[cfg(since_647)]
     pub display_name: Option<String>,
     #[cfg(since_647)]
@@ -289,23 +216,13 @@ pub struct PlayerCold {
     pub last_login_date: i64,
     pub hero_points: HeroPoints,
     pub allow_design: bool,
-    #[cfg(before_647)]
-    pub last_com: Option<u16>,
-    #[cfg(since_647)]
-    pub last_com: i32,
-    pub last_comsubid: Option<u16>,
-    #[cfg(before_647)]
+    pub last_com: Option<ComId>,
     pub last_slot: Option<u16>,
-    #[cfg(since_647)]
-    pub last_slot: i32,
     pub last_target_slot: Option<u16>,
     #[cfg(since_647)]
     pub last_target_com: Option<i32>,
     pub last_use_slot: Option<u16>,
-    #[cfg(before_647)]
     pub last_item: Option<u16>,
-    #[cfg(since_647)]
-    pub last_item: i32,
     pub last_use_item: Option<u16>,
     pub last_use_com: Option<ComId>,
     pub resume_buttons: Option<Vec<i32>>,
@@ -365,6 +282,10 @@ impl Player {
             #[cfg(since_274)]
             skill_level: 0,
             vars,
+            #[cfg(since_647)]
+            varcs: FxHashMap::default(),
+            #[cfg(since_647)]
+            varc_strings: FxHashMap::default(),
             state: EntityState::new(),
             info: EntityMasks::new(),
             interaction: InteractionState::new(),
@@ -401,15 +322,11 @@ impl Player {
             refresh_modal: false,
             refresh_modal_close: false,
             request_modal_close: false,
-            public: ChatSettingsPublic::On,
-            private: ChatSettingsPrivate::On,
-            trade: ChatSettingsTradeDuel::On,
+            chat_filters: 0,
             logout_requested: false,
             logout_idle_requested: false,
             #[cfg(since_647)]
             pending_login: true,
-            #[cfg(since_647)]
-            pending_public_chat: None,
             #[cfg(since_647)]
             chat_mode: CHAT_MODE_PUBLIC,
             #[cfg(since_647)]
@@ -420,10 +337,6 @@ impl Player {
             window_width: 765,
             #[cfg(since_647)]
             window_height: 503,
-            #[cfg(since_647)]
-            varcs: FxHashMap::default(),
-            #[cfg(since_647)]
-            varc_strings: FxHashMap::default(),
             #[cfg(since_647)]
             display_name: None,
             #[cfg(since_647)]
@@ -462,23 +375,13 @@ impl Player {
                 last_login_date: 0,
                 hero_points: HeroPoints::new(),
                 allow_design: false,
-                #[cfg(before_647)]
                 last_com: None,
-                #[cfg(since_647)]
-                last_com: -1,
-                last_comsubid: None,
-                #[cfg(before_647)]
                 last_slot: None,
-                #[cfg(since_647)]
-                last_slot: -1,
                 last_target_slot: None,
                 #[cfg(since_647)]
                 last_target_com: None,
                 last_use_slot: None,
-                #[cfg(before_647)]
                 last_item: None,
-                #[cfg(since_647)]
-                last_item: -1,
                 last_use_item: None,
                 last_use_com: None,
                 resume_buttons: None,
@@ -677,7 +580,7 @@ impl Player {
         // Before 647 a component is seen afresh once it stops; from 647 the
         // client keys inventories by inv id, and so does first-sight.
         #[cfg(before_647)]
-        self.inv_first_seen.remove(&com);
+        self.inv_first_seen.remove(&(com as u16));
         // From 647 an inventory no component transmits any more is dropped:
         // it stops going to the client (a closed shop's restocks), and the
         // next transmit sends it whole again.
@@ -1173,18 +1076,27 @@ impl Player {
         run_disabled
     }
 
-    /// Rev-647: sets `temprun` for a walk the player just clicked.
-    ///
-    /// The effective speed is `run XOR temprun` (`Engine::process_movement`),
-    /// so ctrl flips the run orb for that one walk. The client sets the flag
-    /// only while ctrl is held (`ProgressBarElement.method1322`, key 82). A
-    /// plain click follows the orb. Running needs energy; walking does not.
-    ///
-    /// # Call Stack
-    /// **Called by:** `move_click::handle`
-    #[cfg(since_647)]
-    pub fn click_temprun(&mut self, ctrl: bool) {
-        self.temprun = ctrl && (self.run || self.runenergy >= 100);
+    /// Stores the public, private and trade chat filters as `public << 4 |
+    /// private << 2 | trade`: on, friends, off, and for public chat hide.
+    /// Returns `false`, storing nothing, when one is out of range.
+    pub const fn set_chat_filters(&mut self, public: u8, private: u8, trade: u8) -> bool {
+        if public > 3 || private > 2 || trade > 2 {
+            return false;
+        }
+        self.chat_filters = (public << 4) | (private << 2) | trade;
+        true
+    }
+
+    pub const fn public_chat(&self) -> u8 {
+        self.chat_filters >> 4
+    }
+
+    pub const fn private_chat(&self) -> u8 {
+        (self.chat_filters >> 2) & 0x3
+    }
+
+    pub const fn trade_chat(&self) -> u8 {
+        self.chat_filters & 0x3
     }
 
     /// Rev-647: settles this tick's MoveType and TempMoveType blocks.
@@ -1366,39 +1278,6 @@ mod move_type_tests {
         p.pathing.jump = true;
         tick(&mut p, -1, -1, true);
         assert_eq!(temp(&p), Some(MOVE_TYPE_TELEPORT), "a jump is placed");
-    }
-
-    /// The bug the T3 RunTest caught: every plain click ran with run off,
-    /// and walked with run on, because a plain click set temprun.
-    #[test]
-    fn a_plain_click_follows_the_run_orb() {
-        let mut p = make_player();
-        for run in [false, true] {
-            p.run = run;
-            p.click_temprun(false);
-            assert!(!p.temprun, "run={run}");
-        }
-    }
-
-    #[test]
-    fn ctrl_flips_the_orb_for_one_walk() {
-        let mut p = make_player();
-        p.click_temprun(true);
-        assert!(p.temprun, "run off: ctrl runs");
-        p.run = true;
-        p.click_temprun(true);
-        assert!(p.temprun, "run on: ctrl walks");
-    }
-
-    #[test]
-    fn ctrl_cannot_run_without_energy_but_can_walk() {
-        let mut p = make_player();
-        p.runenergy = 99;
-        p.click_temprun(true);
-        assert!(!p.temprun, "no energy: ctrl does not run");
-        p.run = true;
-        p.click_temprun(true);
-        assert!(p.temprun, "ctrl-walking needs no energy");
     }
 
     #[test]

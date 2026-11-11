@@ -46,11 +46,11 @@ impl ClientGameHandler for IfButtonD {
                 )));
             }
         }
-        active.player.last_com = com;
-        active.player.last_slot = self.slot as i32;
+        active.player.last_com = Some(com);
+        active.player.last_slot = Some(self.slot);
         active.player.last_target_slot = Some(self.slot2);
         active.player.last_target_com = Some(self.com2 as i32);
-        active.player.last_item = self.obj as i32;
+        active.player.last_item = Some(self.obj);
 
         // As before 647 (`InvButtonD`: protected unless its root is an
         // overlay), a drag on a modal runs protected: the bank's tab drops

@@ -20,7 +20,7 @@ pub struct DbRowType {
     pub types: DbRowTypes,
     pub columns: DbRowColumns,
     pub table: u16,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 impl DbRowType {
@@ -49,7 +49,7 @@ impl CacheType for DbRowType {
             types: None,
             columns: None,
             table: 0,
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
@@ -76,14 +76,14 @@ impl CacheType for DbRowType {
                     self.columns = Some(columns);
                 }
                 4 => self.table = buf.g2(),
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("dbrow", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 

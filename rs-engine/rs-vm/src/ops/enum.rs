@@ -29,8 +29,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             if e.inputtype as u8 != inputtype as u8 || e.outputtype as u8 != outputtype as u8 {
                 return Err(ScriptError::Runtime(format!(
-                    "Enum: {:?} Expected input: {}, Got: {}, Expected output: {}, Got: {}",
-                    e.debugname(),
+                    "Enum: {} Expected input: {}, Got: {}, Expected output: {}, Got: {}",
+                    e.debugname,
                     e.inputtype as u8,
                     inputtype as u8,
                     e.outputtype as u8,

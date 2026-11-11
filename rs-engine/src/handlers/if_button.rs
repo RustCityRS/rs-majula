@@ -75,7 +75,7 @@ impl ClientGameHandler for IfButton {
             )));
         }
 
-        active.player.last_com = Some(self.com);
+        active.player.last_com = Some(self.com.into());
 
         let uid = active.player.uid;
         if active
@@ -187,9 +187,9 @@ fn handle_if_button(
         )));
     }
 
-    active.player.last_com = com;
-    active.player.last_slot = slot;
-    active.player.last_item = obj;
+    active.player.last_com = Some(com);
+    active.player.last_slot = u16::try_from(slot).ok();
+    active.player.last_item = u16::try_from(obj).ok();
 
     let uid = active.player.uid;
 

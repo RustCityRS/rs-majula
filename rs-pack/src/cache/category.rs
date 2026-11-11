@@ -6,7 +6,7 @@ pub type CategoryTypeProvider = TypeProvider<CategoryType>;
 
 pub struct CategoryType {
     pub id: u16,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 impl CacheType for CategoryType {
@@ -15,7 +15,7 @@ impl CacheType for CategoryType {
     fn new(id: u16) -> Self {
         CategoryType {
             id,
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
@@ -26,13 +26,13 @@ impl CacheType for CategoryType {
                 break;
             }
             match code {
-                1 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                1 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("category", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }

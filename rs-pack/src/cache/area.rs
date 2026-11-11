@@ -23,7 +23,7 @@ const TILES: usize = 1 << 12;
 pub struct AreaType {
     pub id: u16,
     pub trigger: bool,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 impl CacheType for AreaType {
@@ -33,7 +33,7 @@ impl CacheType for AreaType {
         AreaType {
             id,
             trigger: false,
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
@@ -48,14 +48,14 @@ impl CacheType for AreaType {
                     buf.g3();
                 }
                 2 => self.trigger = true,
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("area", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 

@@ -336,9 +336,9 @@ fn floorcol(worldmap_dir: &Path, flos: &TypeProvider<FloType>) -> Vec<u8> {
     let mut out = Vec::with_capacity(2 + (flos.count() << 3));
     out.extend_from_slice(&(flos.count() as u16).to_be_bytes());
     for flo in flos.types.iter() {
-        let (underlay, overlay) = flo
-            .debugname()
-            .and_then(|name| table.get(name).copied())
+        let (underlay, overlay) = table
+            .get(&*flo.debugname)
+            .copied()
             .unwrap_or_else(|| (hsl(flo.colour), flo.colour as u32));
         out.extend_from_slice(&underlay.to_be_bytes());
         out.extend_from_slice(&overlay.to_be_bytes());

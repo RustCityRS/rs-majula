@@ -36,7 +36,7 @@ pub struct IdkTypeRaw {
     #[cfg(since_647)]
     pub retex_d: Option<Box<[u16]>>,
     pub heads: Option<Box<[u16]>>,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
     pub opcode_order: Vec<u8>,
 }
 
@@ -56,7 +56,7 @@ impl CacheType for IdkTypeRaw {
             #[cfg(since_647)]
             retex_d: None,
             heads: None,
-            debugname: None,
+            debugname: Box::default(),
             opcode_order: Vec::new(),
         }
     }
@@ -98,13 +98,13 @@ impl CacheType for IdkTypeRaw {
                         .get_or_insert_with(|| vec![0; 10].into_boxed_slice())
                         [code as usize - 60] = buf.g2();
                 }
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("idk", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }

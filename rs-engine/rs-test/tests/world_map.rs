@@ -480,11 +480,16 @@ fn varp_sends(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
         .collect()
 }
 
-/// A press on the map: CLICKWORLDMAP, `p4_alt2(level << 28 | x << 14 | z)`.
-fn click_map(client: &mut HarnessClient, x: u16, z: u16) {
+/// CLICKWORLDMAP: `p4_alt2(level << 28 | x << 14 | z)`.
+fn press(client: &mut HarnessClient, coord: i32) {
     let mut p = ClientPacket::new();
-    p.p4_alt2(packed(0, x, z));
+    p.p4_alt2(coord);
     client.send(ClientProt::ClickWorldMap, &p.finish());
+}
+
+/// A press on the map at `x`, `z`.
+fn click_map(client: &mut HarnessClient, x: u16, z: u16) {
+    press(client, packed(0, x, z));
 }
 
 /// A double-click on the map at `x`, `z`: two presses in one tick.
@@ -639,5 +644,32 @@ fn a_map_press_without_the_proc_is_ignored() {
             .insert("[proc,clickworldmap]".into(), id);
         assert_eq!(messages(&packets), Vec::<String>::new(), "no error");
         assert_eq!(varp(engine, client.pid, MARKER), -1, "no marker");
+    });
+}
+
+/// A press with the map shut (stale or forged) runs nothing.
+#[test]
+fn a_map_press_with_the_map_shut_is_refused() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "wm_press_shut", 1);
+        let packets = double_click(engine, &mut client, SPOT.0, SPOT.1);
+        assert_eq!(varp(engine, client.pid, MARKER), -1, "no marker");
+        assert_eq!(hints(&packets), Vec::<Hint>::new(), "no arrow");
+    });
+}
+
+/// A level above 3 is not a coord, and coord 0 is a press off the map.
+#[test]
+fn a_bad_coord_sets_nothing() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "wm_bad_coord", 1);
+        open_map(engine, &mut client);
+        for coord in [packed(4, SPOT.0, SPOT.1), 0] {
+            press(&mut client, coord);
+            press(&mut client, coord);
+            let packets = ticks(engine, &mut client, 1);
+            assert_eq!(varp(engine, client.pid, MARKER), -1, "{coord}: no marker");
+            assert_eq!(hints(&packets), Vec::<Hint>::new(), "{coord}: no arrow");
+        }
     });
 }

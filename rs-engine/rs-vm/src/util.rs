@@ -2,7 +2,7 @@
 use crate::engine::ProjAnimHalfsq;
 use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::state::{LocRef, ObjRef, ScriptState};
-use crate::{NpcUid, ObjSerial, PlayerUid, Result, ScriptError};
+use crate::{ComId, NpcUid, ObjSerial, PlayerUid, Result, ScriptError};
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, Item, STACK_LIMIT, StackMode};
 use rs_pack::ParamValue;
@@ -47,8 +47,8 @@ pub(crate) fn require_inv_access(state: &ScriptState, inv: &InvType, idx: usize)
         && inv.scope != InvScope::Shared
     {
         return Err(ScriptError::Runtime(format!(
-            "Inv: {:?} requires protected access!",
-            inv.debugname()
+            "Inv: {} requires protected access!",
+            inv.debugname
         )));
     }
     Ok(())
@@ -124,8 +124,8 @@ pub(crate) fn require_objvar<E: ScriptEngine + 'static>(
         return Ok(());
     }
     Err(ScriptError::Runtime(format!(
-        "Obj {:?} has no varobj {:?}",
-        obj_type.debugname(),
+        "Obj {} has no varobj {}",
+        obj_type.debugname,
         varobj.debugname()
     )))
 }
@@ -598,6 +598,30 @@ pub(crate) fn region_allows<E: ScriptEngine + 'static>(
     _to: CoordGrid,
 ) -> bool {
     true
+}
+
+/// Whether `player` may be put at `to` ([`region_allows`]), telling it so
+/// when not.
+pub(crate) fn teleport_allowed<E: ScriptEngine + 'static>(
+    state: &ScriptState,
+    player: &mut impl ScriptPlayer,
+    to: CoordGrid,
+) -> bool {
+    let allowed = region_allows::<E>(state, player.coord(), to);
+    if !allowed {
+        player.mes("Invalid teleport!");
+    }
+    allowed
+}
+
+/// Pops an interface component. Before 647 it is the component's own id,
+/// which must fit a `u16`.
+pub(crate) fn pop_com(state: &mut ScriptState) -> Result<ComId> {
+    #[cfg(before_647)]
+    let com = ComId::from(state.pop_int_as::<u16>()?);
+    #[cfg(since_647)]
+    let com = state.pop_int();
+    Ok(com)
 }
 
 pub(crate) fn pop_coord(state: &mut ScriptState) -> Result<CoordGrid> {

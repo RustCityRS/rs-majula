@@ -487,16 +487,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2038
-        // Interface components are u16 ids pre-647 and 32-bit hashes
-        // (iface<<16|com) at 647; the com parameter is i32 end-to-end and the
-        // pre-647 packet write narrows it (see ActivePlayer::if_set*).
         active_player_mut!(m, IF_SETANIM => |s, player| {
             let seq = s.pop_int();
-            // Before 647 a component id must fit a u16, as upstream checks.
-            #[cfg(before_647)]
-            let com = i32::from(s.pop_int_as::<u16>()?);
-            #[cfg(since_647)]
-            let com = s.pop_int();
+            let com = pop_com(s)?;
             if seq == -1 {
                 return Ok(());
             }
@@ -510,33 +503,21 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2039
         active_player_mut!(m, IF_SETCOLOUR => |s, player| {
             let colour = s.pop_int();
-            // Before 647 a component id must fit a u16, as upstream checks.
-            #[cfg(before_647)]
-            let com = i32::from(s.pop_int_as::<u16>()?);
-            #[cfg(since_647)]
-            let com = s.pop_int();
+            let com = pop_com(s)?;
             player.if_setcolour(com, rgb24_to_15(colour));
         });
 
         // 2040
         active_player_mut!(m, IF_SETHIDE => |s, player| {
             let hide = s.pop_int();
-            // Before 647 a component id must fit a u16, as upstream checks.
-            #[cfg(before_647)]
-            let com = i32::from(s.pop_int_as::<u16>()?);
-            #[cfg(since_647)]
-            let com = s.pop_int();
+            let com = pop_com(s)?;
             player.if_sethide(com, hide == 1);
         });
 
         // 2041
         active_player_mut!(m, IF_SETMODEL => |s, player| {
             let model = s.pop_int_as::<u16>()?;
-            // Before 647 a component id must fit a u16, as upstream checks.
-            #[cfg(before_647)]
-            let com = i32::from(s.pop_int_as::<u16>()?);
-            #[cfg(since_647)]
-            let com = s.pop_int();
+            let com = pop_com(s)?;
             player.if_setmodel(com, model);
         });
 
@@ -551,11 +532,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2042
         active_player_mut!(m, IF_SETNPCHEAD => |s, player| {
             let npc = s.pop_int_as::<u16>()?;
-            // Before 647 a component id must fit a u16, as upstream checks.
-            #[cfg(before_647)]
-            let com = i32::from(s.pop_int_as::<u16>()?);
-            #[cfg(since_647)]
-            let com = s.pop_int();
+            let com = pop_com(s)?;
             player.if_setnpchead(com, npc);
         });
 
@@ -563,21 +540,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, IF_SETOBJECT => |s, player| {
             let scale = s.pop_int();
             let obj = s.pop_int_as::<u16>()?;
-            // Before 647 a component id must fit a u16, as upstream checks.
-            #[cfg(before_647)]
-            let com = i32::from(s.pop_int_as::<u16>()?);
-            #[cfg(since_647)]
-            let com = s.pop_int();
+            let com = pop_com(s)?;
             player.if_setobject(com, obj, scale);
         });
 
         // 2044
         active_player_mut!(m, IF_SETPLAYERHEAD => |s, player| {
-            // Before 647 a component id must fit a u16, as upstream checks.
-            #[cfg(before_647)]
-            let com = i32::from(s.pop_int_as::<u16>()?);
-            #[cfg(since_647)]
-            let com = s.pop_int();
+            let com = pop_com(s)?;
             player.if_setplayerhead(com);
         });
 
@@ -585,11 +554,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, IF_SETPOSITION => |s, player| {
             let y = s.pop_int();
             let x = s.pop_int();
-            // Before 647 a component id must fit a u16, as upstream checks.
-            #[cfg(before_647)]
-            let com = i32::from(s.pop_int_as::<u16>()?);
-            #[cfg(since_647)]
-            let com = s.pop_int();
+            let com = pop_com(s)?;
             player.if_setposition(com, x as u16, y as u16);
         });
 
@@ -628,11 +593,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2050
         active_player_mut!(m, IF_SETTEXT => |s, player| {
-            // Before 647 a component id must fit a u16, as upstream checks.
-            #[cfg(before_647)]
-            let com = i32::from(s.pop_int_as::<u16>()?);
-            #[cfg(since_647)]
-            let com = s.pop_int();
+            let com = pop_com(s)?;
             player.if_settext(com, s.peek_string(0));
             s.drop_strings(1);
         });
@@ -1044,8 +1005,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let begin = s.pop_int();
             let end = pop_coord(s)?;
             let start = pop_coord(s)?;
-            if !region_allows::<E>(s, player.coord(), end) {
-                player.mes("Invalid teleport!");
+            if !teleport_allowed::<E>(s, player, end) {
                 return Ok(());
             }
             player.clear_waypoints();
@@ -1117,29 +1077,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2076
-        #[cfg(before_647)]
-        active_player!(m, P_OPHELD => |s, _player| {
-            Err(ScriptError::Runtime("Unimplemented.".to_string()))?;
-        });
-
-        // 2076
-        // Rev-647: inventory item ops arrive as IfButton{op} packets and route
-        // through [if_button{op},inventory:inv] content, which calls
-        // p_opheld($op, $inv, $slot). Runs the opheld{op} trigger for the item
-        // at $slot in $inv (ops 1-5; 6-10 have no opheld trigger -> no-op).
-        #[cfg(since_647)]
         protected_active_player_mut!(m, P_OPHELD => |s, player| {
-            let slot = s.pop_int();
+            let slot = s.pop_int() as u16;
             let inv = pop_inv::<E>(s)?;
             let op = s.pop_int();
-            let Some(obj_id) = get_inv::<E>(inv, player)?
-                .get(slot as u16)
-                .map(|item| item.obj)
-            else {
+            let Some(obj) = get_inv::<E>(inv, player)?.get(slot).map(|item| item.obj) else {
                 return Ok(());
             };
             let uid = player.uid();
-            engine_mut::<E>().run_opheld(uid, op, obj_id, slot);
+            engine_mut::<E>().run_opheld(uid, op, obj, slot);
         });
 
         // 2077
@@ -1227,7 +1173,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             player.stopaction()?;
             player.set_interaction_npc(nid, ServerTriggerType::ApNpcT as u8);
-            player.set_interaction_spell(spell as ComId);
+            player.set_interaction_spell(spell);
         });
 
         // 2080
@@ -1291,7 +1237,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             player.stopaction()?;
             player.set_interaction_player(target.pid(), ServerTriggerType::ApPlayerT as u8);
-            player.set_interaction_spell(spell as ComId);
+            player.set_interaction_spell(spell);
         });
 
         // 2083
@@ -1323,10 +1269,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1697517518007541917
         protected_active_player_mut!(m, P_TELEJUMP => |s, player| {
             let coord = pop_coord(s)?;
-            if region_allows::<E>(s, player.coord(), coord) {
+            if teleport_allowed::<E>(s, player, coord) {
                 player.telejump(coord);
-            } else {
-                player.mes("Invalid teleport!");
             }
         });
 
@@ -1335,10 +1279,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1790684996480442796
         protected_active_player_mut!(m, P_TELEPORT => |s, player| {
             let coord = pop_coord(s)?;
-            if region_allows::<E>(s, player.coord(), coord) {
+            if teleport_allowed::<E>(s, player, coord) {
                 player.teleport(coord);
-            } else {
-                player.mes("Invalid teleport!");
             }
         });
 
@@ -1706,7 +1648,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2251
-        // Applies the character-design preview varcs (1008-1019) to the
+        // Applies the character-design preview varcs (`playerdesign3_*`) to the
         // player's body kit and colours; buildappearance then makes it render.
         #[cfg(since_647)]
         active_player_mut!(m, APPLYDESIGN => |_s, player| {
@@ -1788,11 +1730,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         #[cfg(since_245_2)]
         active_player_mut!(m, IF_SETSCROLLPOS => |s, player| {
             let y = s.pop_int_as::<u16>()?;
-            // Before 647 a component id must fit a u16, as upstream checks.
-            #[cfg(before_647)]
-            let com = i32::from(s.pop_int_as::<u16>()?);
-            #[cfg(since_647)]
-            let com = s.pop_int();
+            let com = pop_com(s)?;
             player.if_setscrollpos(com, y);
         });
 

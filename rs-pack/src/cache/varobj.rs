@@ -9,7 +9,7 @@ pub struct VarObjType {
     pub id: u16,
     pub start_bit: u8,
     pub end_bit: u8,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 impl CacheType for VarObjType {
@@ -20,7 +20,7 @@ impl CacheType for VarObjType {
             id,
             start_bit: 0,
             end_bit: 0,
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
@@ -35,13 +35,13 @@ impl CacheType for VarObjType {
                     self.start_bit = buf.g1();
                     self.end_bit = buf.g1();
                 }
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("varobj", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }

@@ -282,24 +282,27 @@ pub(super) fn mark_client_params(
         .collect()
 }
 
-/// The cache's table with each client property written by `write`.
+/// The cache's table: the entries the registry counts as the client's, each
+/// section written by `write`. Ids past them are the server's own configs,
+/// which stay out of the cache.
 #[cfg(since_647)]
 pub(super) fn client_table_with(
     file_cache: &FileCache,
     kind: &str,
     pack: &PackFile,
     constants: &HashMap<String, String>,
-    mut write: impl FnMut(&mut PackedData, &str, &str),
+    mut write: impl FnMut(&mut PackedData, &str, &ConfigProperties),
 ) -> Result<PackedData> {
     let configs = file_cache.client_configs(kind, pack, constants)?;
     let count = pack.client_count();
     let mut client = PackedData::new(count);
     for id in 0..count {
-        if let Some(props) = pack.get_by_id(id).and_then(|name| configs.get(name)) {
+        let section = pack
+            .get_by_id(id)
+            .and_then(|name| configs.get(name).map(|props| (name, props)));
+        if let Some((name, props)) = section {
             client.start_entry();
-            for (key, value) in props {
-                write(&mut client, key, value);
-            }
+            write(&mut client, name, props);
             client.finish_entry();
         } else {
             client.skip_entry();

@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use super::client_table_with;
 use super::config_entry;
 use crate::ParamValue;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
@@ -24,43 +26,18 @@ pub fn pack_params(
     let configs = parse_config_sections_cached(file_cache, "param", constants)?;
 
     let mut server = PackedData::new(pack.max);
-    #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("param", pack, constants)?;
-    #[cfg(since_647)]
-    let client_count = client_configs
-        .keys()
-        .filter_map(|name| pack.get_by_debugname(name))
-        .max()
-        .map_or(0, |id| id + 1);
-    #[cfg(since_647)]
-    let mut client = PackedData::new(client_count);
 
     for id in 0..pack.max {
         server.start_entry();
 
         let Some((debugname, props)) = config_entry("param", pack, &configs, id) else {
             server.finish_entry();
-            #[cfg(since_647)]
-            if id < client_count {
-                client.skip_entry();
-            }
             continue;
         };
 
         encode_param(&mut server, props, registry, debugname);
         server.p1(250);
         server.pjstr(debugname);
-
-        #[cfg(since_647)]
-        if id < client_count {
-            if let Some(props) = client_configs.get(debugname) {
-                client.start_entry();
-                encode_param(&mut client, props, registry, debugname);
-                client.finish_entry();
-            } else {
-                client.skip_entry();
-            }
-        }
 
         // done
         server.finish_entry();
@@ -86,7 +63,13 @@ pub fn pack_params(
     };
 
     #[cfg(since_647)]
-    let client = Some(client);
+    let client = Some(client_table_with(
+        file_cache,
+        "param",
+        pack,
+        constants,
+        |client, name, props| encode_param(client, props, registry, name),
+    )?);
 
     Ok(PackedFile { server, client })
 }

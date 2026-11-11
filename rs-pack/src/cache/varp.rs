@@ -13,7 +13,7 @@ pub struct VarPlayerType {
     pub protect: bool,
     pub clientcode: u16,
     pub transmit: bool,
-    debugname: Option<Box<str>>,
+    pub debugname: Box<str>,
 }
 
 pub struct VarPlayerTypeRaw {
@@ -23,7 +23,7 @@ pub struct VarPlayerTypeRaw {
     pub protect: bool,
     pub clientcode: u16,
     pub transmit: bool,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
     pub opcode_order: Vec<u8>,
 }
 
@@ -38,7 +38,7 @@ impl CacheType for VarPlayerTypeRaw {
             protect: true,
             clientcode: 0,
             transmit: false,
-            debugname: None,
+            debugname: Box::default(),
             opcode_order: Vec::new(),
         }
     }
@@ -56,14 +56,14 @@ impl CacheType for VarPlayerTypeRaw {
                 4 => self.protect = false,
                 5 => self.clientcode = buf.g2(),
                 6 => self.transmit = true,
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("varp", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 
@@ -78,11 +78,5 @@ impl From<VarPlayerTypeRaw> for VarPlayerType {
             transmit: v.transmit,
             debugname: v.debugname,
         }
-    }
-}
-
-impl VarPlayerType {
-    pub fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
     }
 }

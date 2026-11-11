@@ -39,7 +39,7 @@ impl ClientGameHandler for ResumePauseButton {
         active.watch_note("Click here to continue");
         #[cfg(before_647)]
         {
-            active.player.last_com = Some(self.com);
+            active.player.last_com = Some(self.com.into());
         }
         let Some(state) = &active.player.state.active_script else {
             return Err(ScriptError::Client(
@@ -65,7 +65,7 @@ impl ClientGameHandler for ResumePauseButton {
                     "Interface is not visible: {iface}"
                 )));
             }
-            active.player.last_com = self.com as i32;
+            active.player.last_com = Some(self.com as i32);
         }
 
         engine_mut().run_script_by_state(

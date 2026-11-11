@@ -24,7 +24,8 @@ pub fn emit_flo_props(
         if !def.occlude {
             p.push((5, "occlude".into(), "no".into()));
         }
-        if let Some(name) = def.debugname() {
+        let name = def.debugname();
+        if !name.is_empty() {
             _registry.flo_names.insert(def.id, name.to_string());
         }
     }

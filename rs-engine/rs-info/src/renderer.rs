@@ -8,11 +8,9 @@ use rs_protocol::network::game::info::npc::{
     face_coord::NpcInfoFaceCoord, face_entity::NpcInfoFaceEntity, say::NpcInfoSay,
     spotanim::NpcInfoSpotAnim,
 };
-#[cfg(before_647)]
-use rs_protocol::network::game::info::player::chat::PlayerInfoChat;
 use rs_protocol::network::game::info::player::{
-    anim::PlayerInfoAnim, appearance::PlayerInfoAppearance, damage::PlayerInfoDamage,
-    exactmove::PlayerInfoExactMove, face_coord::PlayerInfoFaceCoord,
+    anim::PlayerInfoAnim, appearance::PlayerInfoAppearance, chat::PlayerInfoChat,
+    damage::PlayerInfoDamage, exactmove::PlayerInfoExactMove, face_coord::PlayerInfoFaceCoord,
     face_entity::PlayerInfoFaceEntity, say::PlayerInfoSay, spotanim::PlayerInfoSpotAnim,
 };
 #[cfg(since_647)]
@@ -320,8 +318,9 @@ pub struct PlayerRenderer {
     fixed: Box<[[Slot; MAX_PLAYERS]; PlayerInfoProt::COUNT]>,
     appearances: Vec<Option<Vec<u8>>>,
     says: Vec<Option<Vec<u8>>>,
-    #[cfg(before_647)]
     chats: Vec<Option<Vec<u8>>>,
+    #[cfg(since_647)]
+    chatted: Box<[u64; MAX_PLAYERS >> 6]>,
     #[cfg(before_647)]
     exact_moves: Box<[ExactMove; MAX_PLAYERS]>,
     #[cfg(since_647)]
@@ -351,8 +350,9 @@ impl PlayerRenderer {
             fixed: unsafe { Box::new_zeroed().assume_init() },
             appearances: vec![None; MAX_PLAYERS],
             says: vec![None; MAX_PLAYERS],
-            #[cfg(before_647)]
             chats: vec![None; MAX_PLAYERS],
+            #[cfg(since_647)]
+            chatted: Box::new([0; MAX_PLAYERS >> 6]),
             #[cfg(before_647)]
             exact_moves: Box::new([ExactMove::default(); MAX_PLAYERS]),
             #[cfg(since_647)]
@@ -448,8 +448,24 @@ impl PlayerRenderer {
         &self.regions[..]
     }
 
+    /// The slots whose player spoke this tick, one bit each.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn chatted(&self) -> &[u64] {
+        &self.chatted[..]
+    }
+
+    /// What player `pid` said this tick, as `MESSAGE_PUBLIC` carries it after
+    /// the pid.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn chat(&self, pid: u16) -> &[u8] {
+        self.chats[pid as usize].as_deref().unwrap_or_default()
+    }
+
     /// Encodes player `pid`'s blocks this tick (`info.masks`) into its slots
     /// and, under their mask header, its high block, and notes their sizes.
+    /// From 647 chat is no block: it is kept for [`chat`](Self::chat).
     #[inline]
     pub fn compute_info(
         &mut self,
@@ -507,7 +523,6 @@ impl PlayerRenderer {
             let (x, z) = info.face_x.zip(info.face_z).unwrap_or(here);
             order |= self.set(PlayerInfoProt::FaceCoord, pid, &face_coord(x, z, coord));
         }
-        #[cfg(before_647)]
         if masks & PlayerInfoProt::Chat as u16 != 0 {
             let chat = PlayerInfoChat {
                 colour: info.chat_colour.unwrap(),
@@ -516,7 +531,14 @@ impl PlayerRenderer {
                 bytes: info.chat_bytes.as_deref().unwrap(),
             };
             set_bytes(&mut self.chats[pid], &chat);
-            order |= 1 << PlayerInfoProt::Chat.to_index();
+            #[cfg(before_647)]
+            {
+                order |= 1 << PlayerInfoProt::Chat.to_index();
+            }
+            #[cfg(since_647)]
+            {
+                self.chatted[pid >> 6] |= 1 << (pid & 63);
+            }
         }
         if masks & PlayerInfoProt::SpotAnim as u16 != 0 {
             let spotanim = PlayerInfoSpotAnim {
@@ -601,6 +623,9 @@ impl PlayerRenderer {
                     len: 0,
                 };
             }
+        }
+        if order == 0 {
+            return;
         }
         self.ticks[pid] = Blocks { masks, order };
 
@@ -892,12 +917,12 @@ impl PlayerRenderer {
             if let Some(say) = &mut self.says[idx] {
                 say.clear();
             }
-            #[cfg(before_647)]
             if let Some(chat) = &mut self.chats[idx] {
                 chat.clear();
             }
             #[cfg(since_647)]
             {
+                self.chatted[idx >> 6] &= !(1 << (idx & 63));
                 self.hit_views[idx].count = 0;
             }
             self.spans[idx] = Span::default();
@@ -1353,6 +1378,25 @@ mod move_type_tests {
             Some(2),
             "and the add still says run"
         );
+    }
+
+    #[test]
+    fn chat_is_kept_for_message_public_and_makes_no_block() {
+        let mut r = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = PlayerInfoProt::Chat as u16;
+        info.chat_bytes = Some(vec![2, 0x48, 0x69].into_boxed_slice());
+        info.chat_colour = Some(3);
+        info.chat_effects = Some(1);
+        info.chat_ignored = Some(2);
+        r.compute_info(70, &info, CoordGrid::new(3222, 0, 3218));
+        assert_eq!(r.chat(70), [3, 1, 2, 2, 0x48, 0x69]);
+        assert_eq!(r.chatted()[1], 1 << 6);
+        assert_eq!(r.highdefinitions(70), 0, "chat alone is no update block");
+
+        r.remove_temporary();
+        assert!(r.chat(70).is_empty());
+        assert_eq!(r.chatted()[1], 0);
     }
 
     #[test]

@@ -86,7 +86,7 @@ pub fn emit_loc_props(
             ));
         }
         #[cfg(since_289)]
-        if let Some(var) = def.multivar {
+        if let Ok(var) = u16::try_from(def.transform_varbit) {
             p.push((77, "multivar".into(), super::varbit_ref(var, registry)));
             if let Some(locs) = &def.multiloc {
                 for (i, &loc) in locs.iter().enumerate() {

@@ -19,8 +19,8 @@ use client_packet::ClientPacket;
 use rs_engine::harness::HarnessClient;
 use rs_engine::{Engine, EtherOutbound};
 use rs_entity::player::{CHAT_MODE_CLAN, CHAT_MODE_PUBLIC};
-use rs_entity::{ChatSettingsPrivate, ChatSettingsPublic, ChatSettingsTradeDuel};
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rs_util::base37::to_userhash;
 use std::iter;
@@ -59,17 +59,14 @@ fn privacy_filters(engine: &mut Engine) {
     engine.harness_inputs();
 
     let player = engine.harness_player(client.pid).unwrap();
-    assert!(
-        matches!(player.public, ChatSettingsPublic::Friends),
-        "public"
-    );
-    assert!(
-        matches!(player.private, ChatSettingsPrivate::Off),
-        "private"
-    );
-    assert!(
-        matches!(player.trade, ChatSettingsTradeDuel::Friends),
-        "trade"
+    assert_eq!(
+        (
+            player.public_chat(),
+            player.private_chat(),
+            player.trade_chat()
+        ),
+        (1, 2, 1),
+        "public friends, private off, trade friends"
     );
     let sent = drain(&mut ether);
     assert!(
@@ -89,18 +86,7 @@ fn a_filter_out_of_range_drops_the_packet(engine: &mut Engine) {
     engine.harness_inputs();
 
     let player = engine.harness_player(client.pid).unwrap();
-    assert!(
-        matches!(player.public, ChatSettingsPublic::On),
-        "public unchanged"
-    );
-    assert!(
-        matches!(player.private, ChatSettingsPrivate::On),
-        "private unchanged"
-    );
-    assert!(
-        matches!(player.trade, ChatSettingsTradeDuel::On),
-        "trade unchanged"
-    );
+    assert_eq!(player.chat_filters, 0, "filters unchanged");
 }
 
 /// `CHAT_SETMODE` (CS2 op 5006) picks where typed chat goes. In clan mode a
@@ -123,7 +109,7 @@ fn chat_mode_routes_typed_chat(engine: &mut Engine) {
     let player = engine.harness_player(client.pid).unwrap();
     assert_eq!(player.chat_mode, CHAT_MODE_CLAN, "mode set");
     assert!(
-        player.pending_public_chat.is_none(),
+        player.info.chat_bytes.is_none(),
         "clan-mode chat stays off public chat"
     );
 
@@ -133,8 +119,34 @@ fn chat_mode_routes_typed_chat(engine: &mut Engine) {
     let player = engine.harness_player(client.pid).unwrap();
     assert_eq!(player.chat_mode, CHAT_MODE_PUBLIC, "mode set back");
     assert!(
-        player.pending_public_chat.is_some(),
+        player.info.chat_bytes.is_some(),
         "public-mode chat is staged for broadcast"
+    );
+
+    client.packets();
+    engine.cycle();
+    let packets = client.packets();
+    let heard: Vec<_> = packets
+        .iter()
+        .filter(|(op, _)| *op == ServerProt::MessagePublic as u16)
+        .collect();
+    assert_eq!(heard.len(), 1, "the speaker hears its own chat once");
+    let body = &heard[0].1;
+    let pid = client.pid;
+    assert_eq!(
+        body[..4],
+        [(pid >> 8) as u8, pid as u8, 0, 0],
+        "pid, colour, effect"
+    );
+    assert_eq!(body[5..], say(engine)[2..], "char count and text");
+    assert!(
+        engine
+            .harness_player(pid)
+            .unwrap()
+            .info
+            .chat_bytes
+            .is_none(),
+        "and it is gone with the tick"
     );
 }
 

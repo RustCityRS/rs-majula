@@ -18,14 +18,12 @@ pub struct InvType {
     pub protect: bool,
     pub runweight: bool,
     pub dummyinv: bool,
-    debugname: Option<Box<str>>,
+    pub debugname: Box<str>,
 }
 
 pub struct InvTypeRaw {
     pub id: u16,
     pub scope: InvScope,
-    #[cfg(since_647)]
-    pub has_scope: bool,
     pub size: u16,
     pub stackall: bool,
     pub stockobj: Option<Box<[u16]>>,
@@ -36,7 +34,8 @@ pub struct InvTypeRaw {
     pub protect: bool,
     pub runweight: bool,
     pub dummyinv: bool,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
+    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for InvTypeRaw {
@@ -46,9 +45,7 @@ impl CacheType for InvTypeRaw {
         InvTypeRaw {
             id,
             scope: InvScope::Temp,
-            #[cfg(since_647)]
-            has_scope: false,
-            size: if cfg!(since_647) { 0 } else { 1 },
+            size: 1,
             stackall: false,
             stockobj: None,
             stockcount: None,
@@ -58,7 +55,8 @@ impl CacheType for InvTypeRaw {
             protect: true,
             runweight: false,
             dummyinv: false,
-            debugname: None,
+            debugname: Box::default(),
+            opcode_order: Vec::new(),
         }
     }
 
@@ -68,14 +66,9 @@ impl CacheType for InvTypeRaw {
             if code == 0 {
                 break;
             }
+            self.opcode_order.push(code);
             match code {
-                1 => {
-                    self.scope = InvScope::try_from(buf.g1()).unwrap();
-                    #[cfg(since_647)]
-                    {
-                        self.has_scope = true;
-                    }
-                }
+                1 => self.scope = InvScope::try_from(buf.g1()).unwrap(),
                 2 => self.size = buf.g2(),
                 3 => self.stackall = true,
                 4 => self.decode_stock(buf),
@@ -84,14 +77,14 @@ impl CacheType for InvTypeRaw {
                 7 => self.protect = false,
                 8 => self.runweight = true,
                 9 => self.dummyinv = true,
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 _ => crate::unknown_opcode!("inv", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 
@@ -129,11 +122,5 @@ impl From<InvTypeRaw> for InvType {
             dummyinv: raw.dummyinv,
             debugname: raw.debugname,
         }
-    }
-}
-
-impl InvType {
-    pub fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
     }
 }

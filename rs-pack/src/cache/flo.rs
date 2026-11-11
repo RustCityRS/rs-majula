@@ -10,7 +10,7 @@ pub struct FloType {
     pub texture: Option<u16>,
     pub overlay: bool,
     pub occlude: bool,
-    debugname: Option<Box<str>>,
+    pub debugname: Box<str>,
 }
 
 pub struct FloTypeRaw {
@@ -41,7 +41,7 @@ pub struct FloTypeRaw {
     pub op14_u8: Option<u8>,
     #[cfg(since_647)]
     pub op16_u8: Option<u8>,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
     pub opcode_order: Vec<u8>,
 }
 
@@ -77,7 +77,7 @@ impl CacheType for FloTypeRaw {
             op14_u8: None,
             #[cfg(since_647)]
             op16_u8: None,
-            debugname: None,
+            debugname: Box::default(),
             opcode_order: Vec::new(),
         }
     }
@@ -108,8 +108,7 @@ impl CacheType for FloTypeRaw {
                     self.texture_u16_raw = v;
                 }
                 5 => self.occlude = false,
-                #[cfg(before_647)]
-                6 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+                6 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 #[cfg(since_647)]
                 7 => self.water_color = buf.g3(),
                 #[cfg(since_647)]
@@ -128,15 +127,13 @@ impl CacheType for FloTypeRaw {
                 14 => self.op14_u8 = Some(buf.g1()),
                 #[cfg(since_647)]
                 16 => self.op16_u8 = Some(buf.g1()),
-                #[cfg(since_647)]
-                250 => self.debugname = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
                 _ => crate::unknown_opcode!("flo", code),
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 
@@ -150,11 +147,5 @@ impl From<FloTypeRaw> for FloType {
             occlude: f.occlude,
             debugname: f.debugname,
         }
-    }
-}
-
-impl FloType {
-    pub fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
     }
 }

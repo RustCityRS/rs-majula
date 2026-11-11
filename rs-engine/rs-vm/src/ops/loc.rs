@@ -144,7 +144,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .locs()
                 .get_by_id(loc.id)
                 .ok_or(ScriptError::LocNotFound(loc.id as i32))?;
-            s.push_string(loc.name.as_deref().unwrap_or(loc.debugname().unwrap_or("null")));
+            s.push_string(loc.name.as_deref().unwrap_or(&loc.debugname));
         });
 
         // 3011
@@ -237,12 +237,7 @@ fn merge_look<E: ScriptEngine + 'static>(
     let base = locs
         .get_by_id(loc.id)
         .ok_or(ScriptError::LocNotFound(loc.id as i32))?;
-    let refuse = |why: &str| {
-        let name = base
-            .debugname()
-            .map_or_else(|| loc.id.to_string(), str::to_owned);
-        ScriptError::Runtime(format!("loc_merge: {name} {why}"))
-    };
+    let refuse = |why: &str| ScriptError::Runtime(format!("loc_merge: {} {why}", base.debugname));
     let have = base.look();
     let shape = loc.shape.model_shape();
     if base.multiloc.is_some() {

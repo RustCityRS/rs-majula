@@ -61,9 +61,7 @@ use rs_vm::ScriptError;
 use rs_vm::engine::ProjAnimHalfsq;
 use rs_vm::engine::{ScriptEngine, ScriptFault, ScriptNpc, ScriptPlayer};
 use rs_vm::state::*;
-#[cfg(since_647)]
 use rs_vm::subject::ScriptSubject;
-#[cfg(since_647)]
 use rs_vm::trigger::ServerTriggerType;
 #[cfg(since_647)]
 use rs_vm::{ControllerUid, RegionUid};
@@ -73,6 +71,7 @@ use rs_zone::ZoneMessage;
 use rsmod::rsmod::flag::collision_flag::CollisionFlag;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use std::sync::Arc;
+use tracing::warn;
 
 impl ScriptEngine for Engine {
     /// Returns the current game clock tick.
@@ -364,10 +363,7 @@ impl ScriptEngine for Engine {
             .and_then(|pid| self.player_list.get(pid).map(|p| p.player.uid))
     }
 
-    #[cfg(since_647)]
-    fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj_id: u16, slot: i32) {
-        // Rev-647 has no opheld beyond 5; inventory ops 6-10 are handled inline
-        // by the if_button{op} content, not a per-item opheld trigger.
+    fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj: u16, slot: u16) {
         let trigger = match op {
             1 => ServerTriggerType::OpHeld1,
             2 => ServerTriggerType::OpHeld2,
@@ -379,25 +375,17 @@ impl ScriptEngine for Engine {
         let category = self
             .cache
             .objs
-            .get_by_id(obj_id)
+            .get_by_id(obj)
             .and_then(|o| o.category)
-            .map(|c| c as i32)
-            .unwrap_or(-1);
-        // Bind the held-item context the opheld script reads (last_item/last_slot).
-        // A caller on a modal (the stats screen's backpack) already holds
-        // protected access: its handler ran it protected. The item's op runs
-        // within that access, as it does from the backpack tab, whose caller
-        // took it with p_finduid; skipped as "busy" otherwise.
-        let held = match self.player_list.get_mut(uid.pid()) {
-            Some(active) => {
-                active.player.last_item = obj_id as i32;
-                active.player.last_slot = slot;
-                active.player.state.protect
-            }
-            None => false,
+            .map_or(-1, |c| c as i32);
+        let Some(active) = self.player_list.get_mut(uid.pid()) else {
+            return;
         };
+        active.player.last_item = Some(obj);
+        active.player.last_slot = Some(slot);
+        let held = active.player.state.protect;
         if let Err(e) = self.run_script_by_trigger(
-            (trigger, Some(obj_id as i32), Some(category)),
+            (trigger, Some(obj as i32), Some(category)),
             Some(ScriptSubject::Player(uid)),
             None,
             Some(true),
@@ -405,9 +393,8 @@ impl ScriptEngine for Engine {
             None,
         ) && !matches!(e, ScriptError::TriggerNotFound(_))
         {
-            tracing::warn!(error = %e, op, obj_id, "[P_OPHELD] opheld script error");
+            warn!(error = %e, op, obj, "[P_OPHELD] opheld script error");
         }
-        // The nested run clears the flag it found set; the caller still holds it.
         if held && let Some(active) = self.player_list.get_mut(uid.pid()) {
             active.player.state.protect = true;
         }
@@ -1543,8 +1530,7 @@ impl ScriptEngine for Engine {
                 npc: Some(
                     <Self as ScriptEngine>::npcs(self)
                         .get_by_id(id)
-                        .and_then(|t| t.debugname())
-                        .map_or_else(|| format!("npc_{id}"), str::to_owned),
+                        .map_or_else(|| format!("npc_{id}"), |t| t.debugname.to_string()),
                 ),
                 x: coord.x() as i16,
                 z: coord.z() as i16,

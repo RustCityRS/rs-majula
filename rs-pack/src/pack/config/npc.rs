@@ -197,19 +197,11 @@ pub fn pack_npcs(
                             .get_by_debugname(value)
                             .or_else(|| value.parse().ok())
                             .with_context(|| format!("{debugname}: unknown huntmode '{value}'"))?;
-                        #[cfg(before_647)]
                         let hunt = u8::try_from(hunt).with_context(|| {
                             format!("{debugname}: huntmode '{value}' exceeds 255")
                         })?;
-                        #[cfg(since_647)]
-                        let hunt = u16::try_from(hunt).with_context(|| {
-                            format!("{debugname}: huntmode '{value}' exceeds 65535")
-                        })?;
                         server.p1(25);
-                        #[cfg(before_647)]
                         server.p1(hunt);
-                        #[cfg(since_647)]
-                        server.p2(hunt);
                     }
 
                     // 26

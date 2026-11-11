@@ -1,5 +1,5 @@
 use rs_entity::build;
-use rs_entity::player::{ChatSettingsPrivate, ChatSettingsPublic, ChatSettingsTradeDuel, Player};
+use rs_entity::player::Player;
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, Item, StackMode};
 use rs_io::{Packet, crc};
@@ -137,9 +137,9 @@ pub fn extract_profile(player: &Player, cache: &CacheStore) -> PlayerProfile {
         invs,
         afk_zones: player.afk_zones,
         last_afk_zone: player.last_afk_zone,
-        public_chat: player.public as u8,
-        private_chat: player.private as u8,
-        trade_chat: player.trade as u8,
+        public_chat: player.public_chat(),
+        private_chat: player.private_chat(),
+        trade_chat: player.trade_chat(),
         last_date: player.last_date,
         // The engine knows the regions, and fills it in (`profile_of`).
         exit: None,
@@ -188,9 +188,13 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
         player.display_name = profile.display_name.clone();
     }
 
-    player.public = ChatSettingsPublic::from_u8(profile.public_chat);
-    player.private = ChatSettingsPrivate::from_u8(profile.private_chat);
-    player.trade = ChatSettingsTradeDuel::from_u8(profile.trade_chat);
+    if !player.set_chat_filters(
+        profile.public_chat,
+        profile.private_chat,
+        profile.trade_chat,
+    ) {
+        player.chat_filters = 0;
+    }
 
     for &(id, value) in &profile.varps {
         if (id as usize) < player.vars.len()
