@@ -22,6 +22,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, settexts, talk_to};
+use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
 const SEDRIDOR: u16 = 300;
@@ -53,20 +54,18 @@ fn visitor(engine: &mut Engine, name: &str, id: u16, stage: i32) -> (HarnessClie
     let (nid, x, z) = npc(engine, id);
     let mut client = engine.harness_login_returning(name).expect("login");
     engine.cycle();
-    let (sx, sz) = [
-        (1, 0),
-        (-1, 0),
-        (0, 1),
-        (0, -1),
-        (1, 1),
-        (-1, -1),
-        (2, 0),
-        (0, 2),
-    ]
-    .into_iter()
-    .map(|(dx, dz)| (x.wrapping_add_signed(dx), z.wrapping_add_signed(dz)))
-    .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
-    .expect("a walkable tile beside the npc");
+    // A tile one step from the npc reaches, so no wall stands between them (npcs wander).
+    let (sx, sz) = [(1i8, 0i8), (-1, 0), (0, 1), (0, -1)]
+        .into_iter()
+        .filter(|&(dx, dz)| rsmod::can_travel(0, x, z, dx, dz, 1, 0, CollisionType::Normal))
+        .map(|(dx, dz)| {
+            (
+                x.wrapping_add_signed(dx as i16),
+                z.wrapping_add_signed(dz as i16),
+            )
+        })
+        .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
+        .expect("a walkable tile beside the npc");
     engine.harness_telejump(client.pid, sx, 0, sz);
     let varp = *engine.cache.varps.debugnames.get("runemysteries").unwrap();
     engine
