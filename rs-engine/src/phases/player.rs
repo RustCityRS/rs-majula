@@ -1169,7 +1169,7 @@ impl Engine {
             }
         }
 
-        active.message_game("Nothing interesting happens.");
+        active.nothing_interesting();
         active.player.clear_waypoints();
     }
 

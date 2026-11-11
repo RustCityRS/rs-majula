@@ -5,7 +5,7 @@ use crate::handlers::op_common::{HeldCheck, action_target, check_held};
 use crate::watch::{Target, Using};
 use rs_protocol::network::game::client::opheldt::OpHeldT;
 use rs_vm::ScriptError;
-use rs_vm::engine::ScriptEngine;
+use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 
@@ -143,7 +143,7 @@ impl ClientGameHandler for OpHeldT {
                     "No trigger for [opheldt,{}]",
                     spell_interface.com_name.as_deref().unwrap_or("?")
                 ));
-                active.message_game("Nothing interesting happens.");
+                active.nothing_interesting();
             }
             other => other?,
         }

@@ -5,7 +5,7 @@ use crate::handlers::op_common::{HeldCheck, check_held};
 use crate::watch::{Target, Using};
 use rs_protocol::network::game::client::opheldu::OpHeldU;
 use rs_vm::ScriptError;
-use rs_vm::engine::ScriptEngine;
+use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::ScriptState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
@@ -213,7 +213,7 @@ impl ClientGameHandler for OpHeldU {
         } else {
             #[cfg(debug_assertions)]
             active.message_game(&format!("No trigger for [opheldu,{}]", obj.debugname));
-            active.message_game("Nothing interesting happens.");
+            active.nothing_interesting();
         }
 
         Ok(())

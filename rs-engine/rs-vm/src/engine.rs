@@ -1305,6 +1305,11 @@ pub trait ScriptPlayer {
     /// * `msg` - The message text to display.
     fn mes(&mut self, msg: &str);
 
+    /// Tells the player an interaction had no effect.
+    fn nothing_interesting(&mut self) {
+        self.mes("Nothing interesting happens.");
+    }
+
     /// Rev-647 client window mode (0 = fixed, 1 = resizable), from the login
     /// block.
     #[cfg(since_647)]

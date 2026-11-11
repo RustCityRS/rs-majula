@@ -13,7 +13,7 @@ use crate::handlers::ClientGameHandler;
 use rs_pack::types::InvScope;
 use rs_protocol::network::game::client_prot::IfButtonT;
 use rs_vm::ScriptError;
-use rs_vm::engine::ScriptEngine;
+use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::ScriptState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
@@ -100,7 +100,7 @@ fn spell_on_item(packet: IfButtonT, active: &mut ActivePlayer) -> Result<(), Scr
                 "No trigger for [opheldt,{}]",
                 engine().layout.component_name(spell)
             ));
-            active.message_game("Nothing interesting happens.");
+            active.nothing_interesting();
             Ok(())
         }
         other => other,
@@ -161,7 +161,7 @@ fn item_on_item(packet: IfButtonT, active: &mut ActivePlayer) -> Result<(), Scri
     let Some((script, swap)) = found else {
         #[cfg(debug_assertions)]
         active.message_game(&format!("No trigger for [opheldu,{}]", target.debugname));
-        active.message_game("Nothing interesting happens.");
+        active.nothing_interesting();
         return Ok(());
     };
     // Keyed on the used item: it is the script's subject, so it is the one
