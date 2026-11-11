@@ -1492,6 +1492,23 @@ fn the_dragon_is_put_to_sleep() {
             "seq 12254 in shot 105"
         );
         assert!(!npc_anim_sent(&packets, 14260), "seq 14260 is not played");
+        // TASK COMPLETE! Put the Dragon to Sleep (varc 1425 = 3510, by VARC_LARGE
+        // `p4_alt1 value, p2_alt3 varc`) comes as the cutscene closes, once s020 is continued:
+        // 4KO2h2xPtdM has no banner over shot 107 @236-244.6 and its first frame @244.9, with
+        // the camera back on the player.
+        let banner = packets
+            .iter()
+            .position(|(op, p)| {
+                *op == ServerProt::VarcLarge as u16
+                    && p.len() >= 6
+                    && u16::from_le_bytes([p[4].wrapping_sub(128), p[5]]) == POPUP_TASK
+                    && i32::from_le_bytes([p[0], p[1], p[2], p[3]]) == 3510
+            })
+            .expect("TASK COMPLETE! Put the Dragon to Sleep");
+        assert!(
+            banner > at_shot(0),
+            "the banner after the cutscene closes, not over shot 107"
+        );
         let clips = speech(&packets);
         for clip in [715, 850, 958] {
             assert!(clips.contains(&clip), "clip {clip} in {clips:?}");

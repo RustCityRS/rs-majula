@@ -175,8 +175,9 @@ if (npc_find(~uf_cellar_coord(28, 30), tutorial3_knight_waitingforbattle, 2, 0) 
     npc_walk(~uf_cellar_coord(26, 30));
 }
 p_delay(1);
+// The side panel turns to the Task, Talk to Sir Vant Again, with s020 (@237.1; the panel still
+// the pack @237.25, the Task from @237.5).
 %tutorial = 93;
-%varclient_1425 = 3510;
 ~uf_task_tab;
 ~uf_task_pin;
 ~speech_line(vorbis_958);
@@ -184,8 +185,12 @@ split_init("<p,neutral>Well done. Come out of hiding and I'll tell you what we'r
 ~chatnpc_page("Sir Vant", tutorial3_knight_waitingforbattle, 0);
 p_pausebutton;
 if_close;
-// The camera back on the player in the hole (@245.4); they walk out to Sir Vant themselves.
+// s020 continued @244.6 ("Please wait..." to @244.8): the camera back on the player in the hole
+// and the minimap back @244.9, and in that frame TASK COMPLETE! Put the Dragon to Sleep starts
+// to open (full by @245.6). 4KO2h2xPtdM shows no banner over shot 107 (@236-244.8). They walk
+// out to Sir Vant themselves.
 ~uf_cutscene_close;
+%varclient_1425 = 3510;
 if (npc_find(~uf_cellar_coord(26, 30), tutorial3_knight_waitingforbattle, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(24, 31));
     hint_npc_slot(0, 0, ^uf_hint_ring);
