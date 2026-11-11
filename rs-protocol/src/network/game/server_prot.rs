@@ -505,6 +505,7 @@ server_prot! {
     IfSetScrollPos = 58,
     NpcAnimSpecific = 60,
     IfOpentop = 61,
+    Logout = 62,
     IfSetRetex = 63,
     MessageQuickchatPrivate = 64,
     IfSetVideo = 65,

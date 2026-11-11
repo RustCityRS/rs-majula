@@ -446,6 +446,19 @@ fn vorbis_speech_sound_matches_client() {
     p.done(6);
 }
 
+/// Client LOGOUT (`ServerProt.java`: id 62, size 0; `MapAreaConfig.java:331`): reads nothing,
+/// closes the connection and goes to the lobby when the client came from it, else the login
+/// screen (`MSITypeList.method2035`). A connection closed without it reads as lost, and the
+/// client reconnects.
+#[test]
+fn logout_matches_client() {
+    use rs_protocol::network::game::server::logout::Logout;
+    use rs_protocol::network::game::server_prot::ServerProt;
+    assert_eq!(ServerProt::Logout as u8, 62);
+    assert!(encode(&Logout).is_empty());
+    assert_eq!(Logout.sizeof(), 0);
+}
+
 /// Client VORBIS_SPEECH_STOP (`ServerProt.java`: id 66, size 0; `MapAreaConfig.java:401`):
 /// reads nothing and stops every queued voice-over clip.
 #[test]

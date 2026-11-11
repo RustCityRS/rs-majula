@@ -10,6 +10,9 @@
 //!
 //! - 289's set_sail on 2011's ship journey (299, route varp 75), and 289's
 //!   logout button as the logout tab's Exit to Login (182 com10).
+//! - Exit to Lobby (182 com5), and five idle minutes, send LOGOUT (62): 2011's
+//!   client takes a connection closed without it for a lost one and
+//!   reconnects.
 //!
 //! A tab button is IF_BUTTON1, `p4(com) p2_alt3(obj) p2_alt1(slot)`.
 
@@ -199,6 +202,12 @@ fn set_sail_shows_2011_s_ship_journey() {
     });
 }
 
+fn logged_out(packets: &[(u16, Vec<u8>)]) -> bool {
+    packets
+        .iter()
+        .any(|(op, _)| *op == ServerProt::Logout as u16)
+}
+
 // 289's logout button is 2011's Exit to Lobby (182 com5) and Exit to Login
 // (com10): both log out, and not during a duel.
 #[test]
@@ -217,5 +226,37 @@ fn the_logout_tab_logs_out() {
             }
         }
         assert!(gone, "logged out");
+    });
+}
+
+#[test]
+fn exit_to_lobby_sends_logout() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "lobbyist");
+        engine.harness_open_side(client.pid, 182);
+        engine.cycle();
+        let packets = click(engine, &mut client, com(182, 5));
+        assert!(logged_out(&packets), "told to log out");
+    });
+}
+
+// 2011's client sends no idle packet, only its keepalive: five minutes (500
+// ticks) without an action, the server logs the player out.
+#[test]
+fn an_idle_player_is_logged_out() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "idler");
+        let idle_from = engine.harness_player(client.pid).unwrap().last_active;
+        let mut logout = None;
+        while engine.harness_player(client.pid).is_some() && engine.clock < idle_from + 510 {
+            let tick = engine.clock;
+            client.send(ClientProt::NoTimeout, &[]);
+            engine.cycle();
+            if logged_out(&client.packets()) {
+                logout.get_or_insert(tick - idle_from);
+            }
+        }
+        assert_eq!(logout, Some(500), "told to log out five minutes on");
+        assert!(engine.harness_player(client.pid).is_none(), "logged out");
     });
 }

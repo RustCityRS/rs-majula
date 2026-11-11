@@ -275,7 +275,6 @@ use rs_protocol::network::game::server::if_settext::IfSetText;
 use rs_protocol::network::game::server::last_login_info::LastLoginInfo;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_del::LocDel;
-#[cfg(before_647)]
 use rs_protocol::network::game::server::logout::Logout;
 use rs_protocol::network::game::server::message_game::MessageGame;
 #[cfg(since_647)]
@@ -1720,10 +1719,7 @@ impl ActivePlayer {
     pub fn logout(&mut self) {
         self.watch_end();
         self.player.logout_sent = true;
-        #[cfg(before_647)]
         self.write(Logout);
-        // TODO(647): port with the network milestone — the rev-647 logout
-        // packet is not modelled yet.
     }
 
     /// Notes how the session is ending, for how fast the player comes back.
