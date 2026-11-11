@@ -61,8 +61,8 @@ p_teleport(~uf_cellar_coord(25, 34));
 facesquare(~uf_cellar_coord(19, 34));
 // Sir Vant is added on his new place, as a login after the collapse finds him (uf_cellar.rs2):
 // an npc's place is the tile it was added on, and his kind (wanderrange 0) walks back to it,
-// which a teleport from (26, 30) had him doing within 8 ticks (ufoundations.rs).
-if (npc_find(~uf_cellar_coord(26, 30), tutorial3_knight, 3, 0) = true) {
+// which a teleport from his place by the pillars had him doing within 8 ticks (ufoundations.rs).
+if (npc_find(~uf_cellar_coord(25, 30), tutorial3_knight, 3, 0) = true) {
     npc_del;
 }
 npc_add(~uf_cellar_coord(27, 38), tutorial3_knight_waitingforbattle, 0);

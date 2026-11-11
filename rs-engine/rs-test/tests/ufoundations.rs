@@ -1750,8 +1750,17 @@ fn the_dragon_is_put_to_sleep() {
         );
         assert_eq!(
             npc_tile(engine, "tutorial3_knight").map(|t| local(engine, t)),
-            Some((26, 30)),
+            Some((25, 30)),
             "Sir Vant by the pillars, at ease (8848)"
+        );
+        // Facing west, as shot 107's walk from his bag leaves him (4KO2h2xPtdM @240-244).
+        assert_eq!(
+            npc_face(engine, "tutorial3_knight"),
+            Some((
+                CoordGrid::fine(origin.0 + 24, 1),
+                CoordGrid::fine(origin.1 + 30, 1)
+            )),
+            "Sir Vant faces west by the pillars"
         );
         assert_eq!(
             npc_tile(engine, "tutorial3_knight_waitingforbattle"),
@@ -1807,7 +1816,7 @@ fn the_dragon_is_put_to_sleep() {
             .map(|t| local(engine, t))
             .expect("Sir Vant");
         assert!(
-            (i32::from(vx) - 26).abs() <= 5 && (i32::from(vz) - 30).abs() <= 5,
+            (i32::from(vx) - 25).abs() <= 5 && (i32::from(vz) - 30).abs() <= 5,
             "Sir Vant by the pillars, not ({vx}, {vz})"
         );
     });
