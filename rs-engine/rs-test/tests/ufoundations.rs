@@ -773,6 +773,19 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             "the player's panic, seq 12270, as shot 7 opens"
         );
 
+        // The dragon's roar, seq 12259, starts on shot 2's last tick: its head thrust (the seq's
+        // roar sound, 43 cycles in) comes 0.25-0.5 s after shot 3 opens (4KO2 @24.6-24.8 against
+        // the cut @24.3; vGlx cut ~@33.1, thrust @33.35-33.5).
+        let three = shot_at(3);
+        assert!(
+            npc_anim_sent(&ticks[three - 1].1, 12259),
+            "the roar starts a tick before shot 3"
+        );
+        assert!(
+            !npc_anim_sent(&ticks[three].1, 12259),
+            "and is not restarted as shot 3 opens"
+        );
+
         // Shot 6: Sir Vant's swing, seq 12232, from the shot's first tick (NPC_INFO's anim block:
         // four ids, each big-endian with 128 added to its low byte).
         let swing = [0x2F, 0xC8u8.wrapping_add(128)].repeat(4);

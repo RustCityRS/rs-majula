@@ -54,7 +54,32 @@ p_delay(0);
 if (npc_find(~uf_cellar_coord(33, 13), tutorial3_squire, 2, 0) = true) {
     npc_walk(~uf_cellar_coord(32, 13));
 }
-p_delay(3);
+p_delay(2);
+// The dragon (one throughout, red, size 5: refs GAPS 18): shot 3 shows it face-on in the main
+// cellar looking south toward the camera on (32, 22); shot 4 has it walk in from the north to just
+// behind the doorway's wall and face Sir Vant over it. Its south-west tile here and at the wall are
+// fitted in-client, not read from any source: here (30, 25), where shot 3's idle frame has its
+// front feet as far apart as 4KO2 @25.6 (~180 px of a 512-wide frame there, ~170 px ours, at the
+// same height; from (30, 26) ~140 px and higher, from (30, 24) too close).
+// Not matched: 2011's reaches the wall ~2.6-2.8 s into shot 4 after standing still through shot 3,
+// about two tiles a tick, where ours walks one and is there at ~3.4-3.8 s. The cache gives it no
+// faster movement seq (bas 1618: ready 12249, walk 12247) and the engine has no command for an
+// npc's speed.
+npc_add(~uf_cellar_coord(30, 25), tutorial3_dragon_initial, ^uf_cellar_obj_duration);
+npc_setmode(none);
+npc_facesquare(~uf_cellar_coord(32, 16));
+// Its roar, head thrust at the camera then back: seq 12259 (frames on the dragon's skeleton, group
+// 2931; 27 frames, 76 cycles; its roar sound, synth 7265, UF-only, 43 cycles = 0.86 s in). It
+// starts here, on shot 2's last tick: 2011's thrust comes 0.15-0.35 s after shot 3 opens (4KO2 cut
+// @24.36, thrust @24.5-24.7, idle from ~@25.1; vGlx_SDOI7s cut ~@33.1, thrust @33.35-33.5), where
+// started with shot 3 ours came 0.8-0.9 s in and ran into shot 4; from here ours comes ~0.4-0.6 s
+// in. Ours then shows from behind for shot 2's last tick (0.44 s in-client); 2011's shows so for
+// 0.1 s in one recording (4KO2 @24.26-24.36) and not at all in the other (vGlx_SDOI7s), and why it
+// is mid-roar yet barely seen before the cut no source says. Seq 4972 is the same roar's older
+// copy (same 27 delays, no sounds). The seq is matched by eye (ufactor3) and the tick fitted to
+// those frames, neither read from a script.
+npc_anim(seq_12259, 0);
+p_delay(0);
 %tutorial3_cutscene_tracker = 3;
 // At the ladder's foot he turns to the doorway and the dragon while no shot shows him: shot 5
 // opens on him facing the fire, shield up (4KO2 @33.9-34.1), where ours turned him only with his
@@ -62,23 +87,10 @@ p_delay(3);
 if (npc_find(~uf_cellar_coord(32, 13), tutorial3_squire, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(32, 17));
 }
-// The dragon (one throughout, red, size 5: refs GAPS 18): shot 3 shows it face-on in the main
-// cellar looking south toward the camera on (32, 22), ~2 tiles further back than (30, 24) put it
-// (uf18e); shot 4 has it walk in from the north to just
-// behind the doorway's wall (in by @28.0, tick 18; at the wall by ~@29.5, tick 21) and face Sir
-// Vant over it. Its south-west tile here and at the wall are fitted in-client, not read from any
-// source; its roar (shot 3) and breath (shot 4) seqs are still to fit (GAPS 18).
-npc_add(~uf_cellar_coord(30, 26), tutorial3_dragon_initial, ^uf_cellar_obj_duration);
-npc_setmode(none);
-npc_facesquare(~uf_cellar_coord(32, 16));
-// Its roar, head thrust at the camera then back (@24.4-24.8): seq 12259 (frames on the dragon's
-// skeleton, group 2931; 27 frames, 76 cycles = shot 3's 1.7 s; its own sounds at frames 15-16,
-// synth 7265 being UF-only). Matched by eye up close (ufactor3), not read from a script.
-npc_anim(seq_12259, 0);
 p_delay(1);
 // It sets off on shot 3's last tick: in uf18e, leaving as shot 4 opened, it reached the wall ~2 s
-// after 2011's.
-if (npc_find(~uf_cellar_coord(32, 28), tutorial3_dragon_initial, 4, 0) = true) {
+// after 2011's (now ~0.8-1.0 s after, see above).
+if (npc_find(~uf_cellar_coord(32, 27), tutorial3_dragon_initial, 4, 0) = true) {
     npc_walk(~uf_cellar_coord(30, 18));
 }
 p_delay(0);
