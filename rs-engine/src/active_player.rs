@@ -2113,7 +2113,7 @@ impl ActivePlayer {
     }
 
     /// An interface component's name, e.g. `magic:wind_strike`.
-    fn component_name(&self, com: ComId) -> Cow<'static, str> {
+    pub(crate) fn component_name(&self, com: ComId) -> Cow<'static, str> {
         #[cfg(before_647)]
         let name = engine()
             .interfaces()

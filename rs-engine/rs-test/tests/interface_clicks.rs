@@ -112,20 +112,37 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
             engine.harness_player(client.pid).unwrap().run,
             "cache-defined static button is enabled"
         );
+        client.send(
+            ClientProt::IfButton1,
+            &button((387 << 16) | 42, u16::MAX, u16::MAX),
+        );
+        engine.cycle();
+        assert!(client.packets().iter().any(|(prot, bytes)| {
+            *prot == ServerProt::MessageGame as u16
+                && bytes
+                    .ends_with(b"No trigger for [if_button1,wornitems:pricechecker_container]\0")
+        }));
 
         for case in 0..7 {
             let (mut client, inv, logs, sword) = fresh(engine);
             let (slot, obj, com2, slot2, obj2) = match case {
-                0 => (0, sword, BACKPACK, 33, u16::MAX),
+                0 => (5, sword, BACKPACK, 33, u16::MAX),
                 1 => (0, logs, BACKPACK, 56, u16::MAX),
                 2 => (28, u16::MAX, BACKPACK, 33, u16::MAX),
-                3 => (0, logs, BACKPACK, 1, logs),
+                3 => (0, sword, BACKPACK, 1, logs),
                 4 => (0, logs, RUN_ORB, u16::MAX, u16::MAX),
                 5 => (0, u16::MAX, BACKPACK, 33, u16::MAX),
                 _ => (0, logs, BACKPACK, 33, u16::MAX),
             };
-            if case == 6 {
+            if matches!(case, 3 | 6) {
                 engine.harness_player_mut(client.pid).unwrap().state.delayed = true;
+            }
+            if case == 5 {
+                engine
+                    .harness_player_mut(client.pid)
+                    .unwrap()
+                    .if_events
+                    .insert((BACKPACK, 0), 0);
             }
             if matches!(case, 3 | 6) {
                 engine
@@ -189,7 +206,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
         let (mut client, inv, logs, _) = fresh(engine);
         client.send(
             ClientProt::IfButtonD,
-            &drag(BACKPACK, 0, logs, BACKPACK, 33, u16::MAX),
+            &drag(BACKPACK, 0, u16::MAX, BACKPACK, 33, u16::MAX),
         );
         engine.harness_inputs();
         let held = engine

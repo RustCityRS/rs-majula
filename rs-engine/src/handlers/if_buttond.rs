@@ -3,9 +3,7 @@ use crate::core::engine_mut;
 use crate::handlers::ClientGameHandler;
 #[cfg(since_647)]
 use crate::handlers::op_common::component_events;
-use crate::handlers::op_common::{
-    component, component_protected, inventory, require_held, transmitted_inv,
-};
+use crate::handlers::op_common::{component, component_protected, inventory, transmitted_inv};
 #[cfg(since_647)]
 use rs_protocol::network::game::client::if_buttond::IfButtonD;
 #[cfg(before_647)]
@@ -20,10 +18,8 @@ impl ClientGameHandler for InvButtonD {
         handle(
             self.com.into(),
             self.slot,
-            None,
             self.com.into(),
             self.slot2,
-            None,
             active,
         )
     }
@@ -32,25 +28,15 @@ impl ClientGameHandler for InvButtonD {
 #[cfg(since_647)]
 impl ClientGameHandler for IfButtonD {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(
-            self.com,
-            self.slot,
-            Some(self.obj),
-            self.com2,
-            self.slot2,
-            Some(self.obj2),
-            active,
-        )
+        handle(self.com, self.slot, self.com2, self.slot2, active)
     }
 }
 
 fn handle(
     com: ComId,
     slot: u16,
-    obj: Option<u16>,
     com2: ComId,
     slot2: u16,
-    obj2: Option<u16>,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     let _interface = component(active, com)?;
@@ -77,43 +63,32 @@ fn handle(
             "No inv transmit for interface with id: {com}"
         )));
     }
-    if let Some(inv) = source_inv {
+    let _item = if let Some(inv) = source_inv {
         let inventory = inventory(active, inv)
             .ok_or_else(|| ScriptError::Client(format!("Inv {inv} not found for com: {com}")))?;
         if !inventory.valid_slot(slot) {
             return Err(ScriptError::Client(format!("Invalid slot: {slot}")));
         }
-        if inventory
-            .get(slot)
-            .is_none_or(|item| obj.is_some_and(|obj| item.obj != obj))
-        {
+        let Some(item) = inventory.get(slot) else {
             resync(active, com, slot, com2, slot2);
             return Ok(());
-        }
-    }
+        };
+        Some(item.obj)
+    } else {
+        None
+    };
     if let Some(inv) = transmitted_inv(active, com2) {
         #[cfg(before_647)]
         let check_slot = true;
         #[cfg(since_647)]
-        let check_slot = obj2 != Some(u16::MAX)
-            || component_events(active, com2, slot2).is_some_and(|events| events.is_draggable());
+        let check_slot =
+            component_events(active, com2, slot2).is_some_and(|events| events.is_draggable());
         if check_slot {
             let inventory = inventory(active, inv).ok_or_else(|| {
                 ScriptError::Client(format!("Inv {inv} not found for com: {com2}"))
             })?;
             if !inventory.valid_slot(slot2) {
                 return Err(ScriptError::Client(format!("Invalid slot: {slot2}")));
-            }
-            if let Some(obj2) = obj2 {
-                let held = if obj2 == u16::MAX {
-                    inventory.get(slot2).is_none()
-                } else {
-                    require_held(active, com2, slot2, obj2)?
-                };
-                if !held {
-                    resync(active, com, slot, com2, slot2);
-                    return Ok(());
-                }
             }
         }
     }
@@ -128,7 +103,7 @@ fn handle(
     {
         active.player.last_com = Some(com);
         active.player.last_target_com = Some(com2);
-        active.player.last_item = obj.filter(|&obj| obj != u16::MAX);
+        active.player.last_item = _item;
     }
     let protect = component_protected(active, com);
     match engine_mut().run_script_by_trigger(
@@ -141,10 +116,16 @@ fn handle(
     ) {
         Err(ScriptError::TriggerNotFound(_)) => {
             #[cfg(debug_assertions)]
-            active.message_game(&format!(
-                "No trigger for [inv_buttond,{}]",
-                _interface.com_name.as_deref().unwrap_or(&com.to_string())
-            ));
+            {
+                #[cfg(before_647)]
+                let trigger = "inv_buttond";
+                #[cfg(since_647)]
+                let trigger = "if_buttond";
+                active.message_game(&format!(
+                    "No trigger for [{trigger},{}]",
+                    active.component_name(com)
+                ));
+            }
         }
         other => other?,
     }

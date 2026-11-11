@@ -15,8 +15,10 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_grid::CoordGrid;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_test::runner;
 use rs_vm::ops::test::{calls_for, forget_calls};
 
@@ -119,6 +121,23 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
             lit_logs(engine, client.pid),
             "[opheldu,tinderbox] dropped and lit the logs; mes: {:?}",
             calls_for("mes")
+        );
+        let player = &mut engine.player_list.players[client.pid as usize]
+            .as_mut()
+            .unwrap()
+            .player;
+        player.reorient(None);
+        assert_eq!(player.info.face_x, Some(CoordGrid::fine(FIRE_TILE.0, 1)));
+        assert_eq!(player.info.face_z, Some(CoordGrid::fine(FIRE_TILE.1, 1)));
+        engine.player_renderer.compute_info(
+            client.pid as usize,
+            &player.info,
+            player.pathing.coord,
+        );
+        assert_eq!(
+            engine.player_renderer.high_block(client.pid)[0] & PlayerInfoProt::FaceCoord as u8,
+            0,
+            "lighting logs underfoot must not force a turn south"
         );
 
         // The logs used on the tinderbox: the target is searched first, so the

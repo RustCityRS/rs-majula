@@ -26,7 +26,7 @@ fn a_drag_moves_and_swaps_backpack_slots() {
         let sword = *engine.cache.objs.debugnames.get("bronze_sword").unwrap();
 
         // Into an empty slot: the obj moves and its slot empties.
-        let slots = drag(engine, &[(0, logs)], 0, 5);
+        let slots = drag(engine, &[(0, logs)], 0, 5, true);
         assert_eq!(
             (slots[0], slots[5]),
             (None, Some(logs)),
@@ -34,18 +34,26 @@ fn a_drag_moves_and_swaps_backpack_slots() {
         );
 
         // Onto an occupied slot: the two change places.
-        let slots = drag(engine, &[(0, logs), (3, sword)], 0, 3);
-        assert_eq!(
-            (slots[0], slots[3]),
-            (Some(sword), Some(logs)),
-            "logs and sword swapped"
-        );
+        for backing in [true, false] {
+            let slots = drag(engine, &[(0, logs), (3, sword)], 0, 3, backing);
+            assert_eq!(
+                (slots[0], slots[3]),
+                (Some(sword), Some(logs)),
+                "logs and sword swapped"
+            );
+        }
     });
 }
 
 /// A returning player holding `held`, after one drag from `from` onto the
 /// backing sprite of `to`. Returns the backpack, slot by slot.
-fn drag(engine: &mut Engine, held: &[(u16, u16)], from: u16, to: u16) -> Vec<Option<u16>> {
+fn drag(
+    engine: &mut Engine,
+    held: &[(u16, u16)],
+    from: u16,
+    to: u16,
+    backing: bool,
+) -> Vec<Option<u16>> {
     engine.harness_reset();
     let mut client = engine.harness_login_returning("dragger").expect("login");
     engine.cycle();
@@ -59,17 +67,27 @@ fn drag(engine: &mut Engine, held: &[(u16, u16)], from: u16, to: u16) -> Vec<Opt
     for &(slot, obj) in held {
         backpack.set(slot, obj, 1);
     }
-    let from_obj = held.iter().find(|(s, _)| *s == from).unwrap().1;
+    let source_obj = held.iter().find(|(s, _)| *s == from).unwrap().1;
+    // inventory_drag swaps the component objects before IF_BUTTOND reads them.
+    let displayed_obj = held
+        .iter()
+        .find(|(s, _)| *s == to)
+        .map_or(-1, |(_, obj)| *obj as i32);
 
     let mut p = ClientPacket::new();
     p.p4(BACKPACK)
         .p2_alt3(from as i32)
-        .p2_alt3(28 + to as i32)
+        .p2_alt3(if backing { 28 + to as i32 } else { to as i32 })
         .p4_alt2(BACKPACK)
-        .p2_alt1(from_obj as i32)
-        .p2(-1);
+        .p2_alt1(displayed_obj)
+        .p2(if backing { -1 } else { source_obj as i32 });
     client.send(ClientProt::IfButtonD, &p.finish());
     engine.cycle();
+
+    assert_eq!(
+        engine.harness_player(client.pid).unwrap().last_item,
+        Some(source_obj)
+    );
 
     let backpack = engine
         .harness_player(client.pid)

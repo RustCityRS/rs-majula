@@ -68,7 +68,7 @@ fn if_buttond_matches_client() {
         .p2_alt3(3) // arg1.child_id -- source slot
         .p2_alt3(20 + 28) // arg0.child_id -- target slot (bank 2; see login.rs2)
         .p4_alt2(target_com) // arg0.id       -- target component
-        .p2_alt1(1511) // arg1.object_id -- source obj
+        .p2_alt1(-1) // arg1.object_id -- empty after inventory_drag moves the item
         .p2(-1); // arg0.object_id -- target obj (empty backing sprite)
 
     let m: IfButtonD = decode(&p);
@@ -76,7 +76,8 @@ fn if_buttond_matches_client() {
     assert_eq!(m.slot, 3, "source slot");
     assert_eq!(m.slot2, 48, "target slot");
     assert_eq!(m.com2, target_com, "target component");
-    assert_eq!(m.obj, 1511, "source obj");
+    assert_eq!(m.obj, u16::MAX, "source component after the drag hook");
+    assert_eq!(m.obj2, u16::MAX, "empty backing sprite");
 }
 
 // ---------------------------------------------------------------------------

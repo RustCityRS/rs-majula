@@ -210,10 +210,19 @@ fn handle(
     match result {
         Err(ScriptError::TriggerNotFound(_)) => {
             #[cfg(debug_assertions)]
-            active.message_game(&format!(
-                "No trigger for [{trigger:?},{}]",
-                _interface.com_name.as_deref().unwrap_or(&com.to_string()),
-            ));
+            {
+                let trigger = match op {
+                    0 => "if_button".to_owned(),
+                    #[cfg(before_647)]
+                    _ => format!("inv_button{op}"),
+                    #[cfg(since_647)]
+                    _ => format!("if_button{op}"),
+                };
+                active.message_game(&format!(
+                    "No trigger for [{trigger},{}]",
+                    active.component_name(com),
+                ));
+            }
         }
         other => other?,
     }

@@ -382,7 +382,14 @@ impl PlayerRenderer {
     /// [`ready_low`](Self::ready_low) writes the blocks it notes.
     #[inline(always)]
     pub fn cache_low(&mut self, pid: u16, info: &EntityMasks, coord: CoordGrid) {
-        self.low_faces[pid as usize] = Self::low_face(info, coord);
+        let next = Self::low_face(info, coord);
+        let face = &mut self.low_faces[pid as usize];
+        face.entity = next.entity;
+        if next.coord.x != CoordGrid::fine(coord.x(), ONE_TILE)
+            || next.coord.z != CoordGrid::fine(coord.z(), ONE_TILE)
+        {
+            face.coord = next.coord;
+        }
         self.appearance_clocks[pid as usize] = info.last_appearance;
     }
 
@@ -467,13 +474,17 @@ impl PlayerRenderer {
     /// and, under their mask header, its high block, and notes their sizes.
     /// From 647 chat is no block: it is kept for [`chat`](Self::chat).
     #[inline]
-    pub fn compute_info(
-        &mut self,
-        pid: usize,
-        info: &EntityMasks,
-        #[cfg_attr(before_647, allow(unused_variables))] coord: CoordGrid,
-    ) {
+    pub fn compute_info(&mut self, pid: usize, info: &EntityMasks, coord: CoordGrid) {
         let masks = info.masks;
+        let masks = if masks & PlayerInfoProt::FaceCoord as u16 != 0
+            && info.face_x.zip(info.face_z).is_none_or(|(x, z)| {
+                x == CoordGrid::fine(coord.x(), ONE_TILE)
+                    && z == CoordGrid::fine(coord.z(), ONE_TILE)
+            }) {
+            masks & !(PlayerInfoProt::FaceCoord as u16)
+        } else {
+            masks
+        };
         if masks == 0 {
             return;
         }
@@ -949,6 +960,7 @@ impl PlayerRenderer {
         {
             self.move_types[idx] = DEFAULT_MOVE_TYPE;
         }
+        self.low_faces[idx] = LowFace::default();
         self.highs[idx] = 0;
         self.lows[idx] = 0;
         self.spans[idx] = Span::default();
@@ -1348,6 +1360,63 @@ impl NpcRenderer {
         }
         self.highs[idx] = 0;
         self.spans[idx] = Span::default();
+    }
+}
+
+#[cfg(test)]
+mod face_tests {
+    use super::*;
+
+    #[test]
+    fn facing_the_current_tile_preserves_the_previous_direction() {
+        let mut r = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        let coord = CoordGrid::new(3222, 0, 3218);
+        let (x, z) = (
+            CoordGrid::fine(coord.x(), ONE_TILE),
+            CoordGrid::fine(coord.z(), ONE_TILE),
+        );
+        info.focus_player(x + 2, z, true);
+        r.compute_info(7, &info, coord);
+        r.cache_low(7, &info, coord);
+        let east = r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7).to_vec();
+        #[cfg(before_647)]
+        assert_eq!(east, [0x19, 0x2F, 0x19, 0x25]);
+        #[cfg(since_647)]
+        assert_eq!(east, [0x30, 0x80]);
+
+        r.remove_temporary();
+        info.reset();
+        info.focus_player(x, z, true);
+        r.compute_info(7, &info, coord);
+        r.cache_low(7, &info, coord);
+        assert!(
+            r.high_block(7).is_empty(),
+            "no angle update for the player's own tile"
+        );
+        r.ready_low(7);
+        assert_eq!(r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7), east);
+
+        r.remove_temporary();
+        info.masks |= PlayerInfoProt::Anim as u16;
+        info.anim_id = Some(733);
+        info.anim_delay = Some(0);
+        r.compute_info(7, &info, coord);
+        assert_eq!(r.ticks[7].masks, PlayerInfoProt::Anim as u16);
+        assert!(!r.has(7, PlayerInfoProt::FaceCoord));
+        assert!(r.has(7, PlayerInfoProt::Anim));
+
+        r.remove_temporary();
+        info.reset();
+        info.focus_player(x, z - 2, true);
+        r.compute_info(7, &info, coord);
+        #[cfg(before_647)]
+        assert_eq!(
+            r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7),
+            [0x19, 0x2D, 0x19, 0x23]
+        );
+        #[cfg(since_647)]
+        assert_eq!(r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7), [0, 0x80]);
     }
 }
 
