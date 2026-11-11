@@ -8,12 +8,15 @@ use crate::handlers::opplayeru;
 use crate::watch::{Target, Using};
 use rs_entity::InteractionTarget;
 use rs_protocol::network::game::client::opplayert::OpPlayerT;
+use rs_vm::ScriptError;
 use rs_vm::trigger::ServerTriggerType;
-use rs_vm::{ComId, ScriptError};
 
 impl ClientGameHandler for OpPlayerT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let com = self.com as ComId;
+        #[cfg(before_647)]
+        let com = self.com.into();
+        #[cfg(since_647)]
+        let com = self.com;
         #[cfg(since_647)]
         if transmitted_inv(active, com).is_some() {
             return opplayeru::handle(self.pid, com, self.slot, self.obj, active);
@@ -24,7 +27,16 @@ impl ClientGameHandler for OpPlayerT {
             return Ok(());
         }
 
-        if !spell_component_ok(active, com, action_target::PLAYER) {
+        #[cfg(before_647)]
+        let slot = u16::MAX;
+        #[cfg(since_647)]
+        let slot = self.slot;
+        #[cfg(since_647)]
+        if self.obj != u16::MAX {
+            active.unset_map_flag();
+            return Ok(());
+        }
+        if !spell_component_ok(active, com, slot, action_target::PLAYER) {
             active.unset_map_flag();
             return Ok(());
         }

@@ -2,7 +2,7 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 #[cfg(before_647)]
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{
-    HeldCheck, check_held, members_blocked, npc_target_ok, use_component_ok,
+    HeldCheck, action_target, check_held, members_blocked, npc_target_ok, use_component_ok,
 };
 use crate::watch::{Target, Using};
 use rs_entity::InteractionTarget;
@@ -31,7 +31,7 @@ pub(super) fn handle(
         return Ok(());
     }
 
-    if !use_component_ok(active, com) {
+    if !use_component_ok(active, com, slot, action_target::NPC) {
         active.unset_map_flag();
         return Ok(());
     }

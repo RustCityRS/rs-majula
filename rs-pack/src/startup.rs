@@ -254,10 +254,7 @@ fn load_cache(
         varns,
         varss,
         categories,
-        interfaces: IfTypeProvider {
-            names: HashMap::new(),
-            types: Vec::new(),
-        },
+        interfaces: IfTypeProvider::from_cache(cache)?,
         fonts,
         wordenc: WordEncProvider::empty(),
         songs: MidiProvider {

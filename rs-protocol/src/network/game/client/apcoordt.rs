@@ -11,7 +11,7 @@ pub struct ApCoordT {
     pub z: u16,
     pub obj: u16,
     pub slot: u16,
-    pub com: u32,
+    pub com: i32,
 }
 
 impl ClientProtMessage for ApCoordT {
@@ -20,7 +20,7 @@ impl ClientProtMessage for ApCoordT {
         let slot = buf.g2();
         let obj = buf.g2_alt2();
         let z = buf.g2_alt2();
-        let com = buf.g4s() as u32;
+        let com = buf.g4s();
         ApCoordT {
             x,
             z,

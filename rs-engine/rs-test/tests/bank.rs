@@ -460,14 +460,33 @@ fn game_messages(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
 
 /// A drag from the bank's slot `from` onto `to_com` (a tab button: no slot) or
 /// onto bank slot `to_slot`.
-fn bank_drag(client: &mut HarnessClient, from: u16, from_obj: u16, to_com: i32, to_slot: i32) {
+fn bank_drag(
+    engine: &Engine,
+    client: &mut HarnessClient,
+    from: u16,
+    from_obj: u16,
+    to_com: i32,
+    to_slot: i32,
+) {
+    let bank = *engine.cache.invs.debugnames.get("bank").unwrap();
+    let target = if to_com == BANK_INV {
+        engine
+            .harness_player(client.pid)
+            .unwrap()
+            .invs
+            .get(&bank)
+            .and_then(|inv| inv.get(to_slot as u16))
+            .map_or(-1, |item| item.obj as i32)
+    } else {
+        -1
+    };
     let mut p = ClientPacket::new();
     p.p4(BANK_INV)
         .p2_alt3(from as i32)
         .p2_alt3(to_slot)
         .p4_alt2(to_com)
         .p2_alt1(from_obj as i32)
-        .p2(-1);
+        .p2(target);
     client.send(ClientProt::IfButtonD, &p.finish());
 }
 
@@ -706,13 +725,13 @@ fn a_drag_onto_a_tab_button_makes_a_tab_and_taking_it_all_out_ends_it() {
         );
 
         // The bar onto the new-tab button (tab 1): it leads the bank in tab 1.
-        bank_drag(&mut client, 2, bar, tab_button(1), -1);
+        bank_drag(engine, &mut client, 2, bar, tab_button(1), -1);
         ticks(engine, &mut client, 1);
         assert_eq!(bank_objs(engine, &client), vec![bar, logs, coins]);
         assert_eq!(tab_size(engine, &client, 1), 1);
 
         // Coins onto tab 2's button, past the first empty one: tab 2.
-        bank_drag(&mut client, 2, coins, tab_button(5), -1);
+        bank_drag(engine, &mut client, 2, coins, tab_button(5), -1);
         ticks(engine, &mut client, 1);
         assert_eq!(bank_objs(engine, &client), vec![bar, coins, logs]);
         assert_eq!(
@@ -746,7 +765,7 @@ fn a_new_item_goes_into_the_tab_on_view_and_collapse_returns_it() {
             obj(engine, "coins"),
             obj(engine, "bronze_bar"),
         );
-        bank_drag(&mut client, 1, coins, tab_button(1), -1);
+        bank_drag(engine, &mut client, 1, coins, tab_button(1), -1);
         ticks(engine, &mut client, 1);
         button(&mut client, 1, tab_button(1), 0xFFFF, 0xFFFF);
         give(engine, &client, "inv", 0, bar, 1);
@@ -781,12 +800,12 @@ fn inserting_into_another_tab_moves_the_item_to_it() {
             obj(engine, "coins"),
             obj(engine, "bronze_bar"),
         );
-        bank_drag(&mut client, 2, bar, tab_button(1), -1);
+        bank_drag(engine, &mut client, 2, bar, tab_button(1), -1);
         ticks(engine, &mut client, 1);
         // Insert mode (com15), then logs from the rest onto the bar.
         button(&mut client, 1, (BANK as i32) << 16 | 15, 0xFFFF, 0xFFFF);
         ticks(engine, &mut client, 1);
-        bank_drag(&mut client, 1, logs, BANK_INV, 0);
+        bank_drag(engine, &mut client, 1, logs, BANK_INV, 0);
         ticks(engine, &mut client, 1);
         assert_eq!(bank_objs(engine, &client), vec![logs, bar, coins]);
         assert_eq!(tab_size(engine, &client, 1), 2, "the logs joined tab 1");

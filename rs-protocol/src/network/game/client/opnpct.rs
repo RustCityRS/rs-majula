@@ -28,7 +28,7 @@ pub struct OpNpcT {
     pub nid: u16,
     pub obj: u16,
     pub slot: u16,
-    pub com: u32,
+    pub com: i32,
     pub ctrl: bool,
 }
 
@@ -38,7 +38,7 @@ impl ClientProtMessage for OpNpcT {
         let obj = buf.g2_alt2();
         let slot = buf.g2_alt2();
         let nid = buf.g2_alt1();
-        let com = buf.g4s_alt3() as u32;
+        let com = buf.g4s_alt3();
         let ctrl = buf.g1_alt2() != 0;
         OpNpcT {
             nid,

@@ -7,16 +7,16 @@ use rs_protocol_macros::client_prot;
 
 #[client_prot(Fixed(8), UserEvent)]
 pub struct IfButton3 {
-    pub com: u32,
-    pub slot: i16,
-    pub obj: i16,
+    pub com: i32,
+    pub slot: u16,
+    pub obj: u16,
 }
 
 impl ClientProtMessage for IfButton3 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let com = buf.g4s() as u32;
-        let obj = buf.g2_alt3() as i16;
-        let slot = buf.g2_alt1() as i16;
+        let com = buf.g4s();
+        let obj = buf.g2_alt3();
+        let slot = buf.g2_alt1();
         IfButton3 { com, slot, obj }
     }
 }

@@ -10,12 +10,15 @@ use crate::handlers::oplocu;
 use crate::watch::{Target, Using};
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::oploct::OpLocT;
+use rs_vm::ScriptError;
 use rs_vm::trigger::ServerTriggerType;
-use rs_vm::{ComId, ScriptError};
 
 impl ClientGameHandler for OpLocT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let com = self.com as ComId;
+        #[cfg(before_647)]
+        let com = self.com.into();
+        #[cfg(since_647)]
+        let com = self.com;
         #[cfg(since_647)]
         if transmitted_inv(active, com).is_some() {
             return oplocu::handle(self.x, self.z, self.loc, com, self.slot, self.obj, active);
@@ -33,7 +36,16 @@ impl ClientGameHandler for OpLocT {
             return Ok(());
         }
 
-        if !spell_component_ok(active, com, action_target::LOC) {
+        #[cfg(before_647)]
+        let slot = u16::MAX;
+        #[cfg(since_647)]
+        let slot = self.slot;
+        #[cfg(since_647)]
+        if self.obj != u16::MAX {
+            active.unset_map_flag();
+            return Ok(());
+        }
+        if !spell_component_ok(active, com, slot, action_target::LOC) {
             active.unset_map_flag();
             return Ok(());
         }

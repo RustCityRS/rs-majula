@@ -88,7 +88,7 @@ fn a_targeted_op_takes_its_source_from_the_packet() {
         spell_on_npc(engine);
         item_on_player(engine);
         forged_item_is_dropped(engine);
-        the_component_picks_the_trigger(engine);
+        a_forged_spell_source_is_dropped(engine);
     });
 }
 
@@ -291,10 +291,8 @@ fn forged_item_is_dropped(engine: &mut Engine) {
     assert_eq!(player.last_use_item, None, "nothing recorded as used");
 }
 
-/// The source component picks the trigger, not the packet's obj: a spell
-/// sent with a stray obj is still cast, and the backpack sent with no obj is
-/// still an item use, one that holds nothing.
-fn the_component_picks_the_trigger(engine: &mut Engine) {
+/// A spell cannot claim an inventory item or target an unsupported entity.
+fn a_forged_spell_source_is_dropped(engine: &mut Engine) {
     let tinderbox = obj(engine, "tinderbox");
     let wind_strike = (192 << 16) | 25;
     let on_tree = |source: i32, obj: i32| {
@@ -315,9 +313,8 @@ fn the_component_picks_the_trigger(engine: &mut Engine) {
     engine.harness_inputs();
     let player = engine.harness_player(client.pid).unwrap();
     assert_eq!(
-        player.interaction.target_op,
-        Some(ServerTriggerType::ApLocT as u8),
-        "a spell with a stray obj is still a spell"
+        player.interaction.target_op, None,
+        "a forged spell source does not start an interaction"
     );
     assert_eq!(player.last_use_item, None, "and no item is used");
 

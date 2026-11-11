@@ -2,9 +2,13 @@ use crate::active_player::ActivePlayer;
 use crate::core::{engine, engine_mut};
 use rs_entity::{InteractionTarget, Loc, Obj};
 use rs_grid::CoordGrid;
+use rs_inv::Inventory;
+use rs_pack::cache::r#if::IfType;
+#[cfg(since_647)]
+use rs_pack::types::IfEvents;
 use rs_pack::types::InvScope;
-use rs_vm::ComId;
 use rs_vm::engine::ScriptEngine;
+use rs_vm::{ComId, ScriptError};
 
 const BUILD_AREA_RADIUS: i32 = 52;
 
@@ -19,6 +23,76 @@ pub mod action_target {
     pub const PLAYER: u16 = 0x8;
     #[cfg(before_647)]
     pub const HELD: u16 = 0x10;
+    #[cfg(since_647)]
+    pub const HELD: u16 = 0x20;
+}
+
+pub fn component(active: &ActivePlayer, com: ComId) -> Result<&'static IfType, ScriptError> {
+    let interface = engine()
+        .interfaces()
+        .get_by_id(com)
+        .ok_or_else(|| ScriptError::Client(format!("No interface with id: {com}")))?;
+    #[cfg(before_647)]
+    let visible = active.player.is_interface_visible(interface.root_layer);
+    #[cfg(since_647)]
+    let visible = active.player.is_interface_open((com as u32 >> 16) as u16);
+    if !visible {
+        return Err(ScriptError::Client(format!(
+            "Interface is not visible: {}",
+            interface.root_layer
+        )));
+    }
+    Ok(interface)
+}
+
+pub fn component_protected(active: &ActivePlayer, com: ComId) -> bool {
+    #[cfg(before_647)]
+    {
+        let _ = active;
+        engine()
+            .interfaces()
+            .get_by_id(com)
+            .and_then(|interface| engine().interfaces().get_by_id(interface.root_layer))
+            .is_some_and(|root| !root.overlay)
+    }
+    #[cfg(since_647)]
+    {
+        let mut iface = (com as u32 >> 16) as u16;
+        for _ in 0..16 {
+            if [
+                active.player.modal_main,
+                active.player.modal_side,
+                active.player.modal_chat,
+            ]
+            .contains(&Some(iface))
+            {
+                return true;
+            }
+            let Some(parent) = active
+                .player
+                .open_subs
+                .iter()
+                .find(|(_, (sub, _))| *sub == iface)
+                .map(|(&parent, _)| (parent as u32 >> 16) as u16)
+            else {
+                break;
+            };
+            iface = parent;
+        }
+        false
+    }
+}
+
+#[cfg(since_647)]
+pub fn component_events(active: &ActivePlayer, com: ComId, slot: u16) -> Option<IfEvents> {
+    let interface = component(active, com).ok()?;
+    active
+        .player
+        .if_events
+        .get(&(com, slot))
+        .copied()
+        .or_else(|| (slot == u16::MAX).then_some(interface.active_properties))
+        .map(IfEvents)
 }
 
 /// Returns `true` if the tile is inside the player's build area.
@@ -120,16 +194,13 @@ pub fn loc_target(coord: CoordGrid, loc: &Loc) -> InteractionTarget {
 /// `true` if the component exists, is flagged usable, and is currently visible
 /// to the player; `false` otherwise (a bad or lagging client).
 #[cfg(before_647)]
-pub fn use_component_ok(active: &ActivePlayer, com: ComId) -> bool {
-    let Some(interface) = engine().interfaces().get_by_id(com as u16) else {
-        return false;
-    };
-    interface.usable && active.player.is_interface_visible(interface.root_layer)
+pub fn use_component_ok(active: &ActivePlayer, com: ComId, _: u16, _: u16) -> bool {
+    component(active, com).is_ok_and(|interface| interface.usable)
 }
 
 #[cfg(since_647)]
-pub fn use_component_ok(active: &ActivePlayer, com: ComId) -> bool {
-    active.player.is_interface_open((com >> 16) as u16)
+pub fn use_component_ok(active: &ActivePlayer, com: ComId, slot: u16, target: u16) -> bool {
+    component_events(active, com, slot).is_some_and(|events| events.allows_target(target))
 }
 
 /// Returns `true` if a spell component may be cast on the given kind of target.
@@ -145,17 +216,36 @@ pub fn use_component_ok(active: &ActivePlayer, com: ComId) -> bool {
 /// `true` if the component exists, accepts this target kind, and is currently
 /// visible to the player; `false` otherwise (a bad or lagging client).
 #[cfg(before_647)]
-pub fn spell_component_ok(active: &ActivePlayer, com: ComId, target: u16) -> bool {
-    let Some(interface) = engine().interfaces().get_by_id(com as u16) else {
-        return false;
-    };
-    interface.action_target & target != 0
-        && active.player.is_interface_visible(interface.root_layer)
+pub fn spell_component_ok(active: &ActivePlayer, com: ComId, _: u16, target: u16) -> bool {
+    component(active, com).is_ok_and(|interface| interface.action_target & target != 0)
 }
 
 #[cfg(since_647)]
-pub fn spell_component_ok(active: &ActivePlayer, com: ComId, _: u16) -> bool {
-    active.player.is_interface_open((com >> 16) as u16)
+pub fn spell_component_ok(active: &ActivePlayer, com: ComId, slot: u16, target: u16) -> bool {
+    use_component_ok(active, com, slot, target)
+}
+
+pub fn held_component_ok(active: &ActivePlayer, com: ComId, slot: u16) -> bool {
+    #[cfg(before_647)]
+    {
+        use_component_ok(active, com, slot, action_target::HELD)
+    }
+    #[cfg(since_647)]
+    {
+        component_events(active, com, slot).is_some_and(IfEvents::is_targetable)
+    }
+}
+
+pub fn inventory(active: &mut ActivePlayer, inv_id: u16) -> Option<&mut Inventory> {
+    if engine()
+        .invs()
+        .get_by_id(inv_id)
+        .is_some_and(|inv| inv.scope == InvScope::Shared)
+    {
+        engine_mut().get_shared_inv_mut(inv_id)
+    } else {
+        active.player.invs.get_mut(&inv_id)
+    }
 }
 
 /// Returns `true` if an NPC is a valid interaction target for the player.
@@ -170,10 +260,13 @@ pub fn spell_component_ok(active: &ActivePlayer, com: ComId, _: u16) -> bool {
 /// `true` if the NPC exists, is not delayed, and is visible on the player's
 /// client; `false` otherwise.
 pub fn npc_target_ok(active: &ActivePlayer, nid: u16) -> bool {
-    let Some(delayed) = engine().get_npc(nid).map(|n| n.npc.state.delayed) else {
+    let Some((delayed, id)) = engine()
+        .get_npc(nid)
+        .map(|n| (n.npc.state.delayed, n.npc.uid.id()))
+    else {
         return false;
     };
-    !delayed && active.player.build_area.npcs.contains(nid)
+    !delayed && active.player.build_area.npcs.contains(nid) && active.shown_npc(id).is_some()
 }
 
 /// Returns `true` if another player is a valid interaction target.
@@ -262,16 +355,7 @@ pub fn check_held(active: &mut ActivePlayer, com: ComId, slot: u16, obj: u16) ->
         return HeldCheck::NoTransmit;
     };
 
-    let shared = engine()
-        .invs()
-        .get_by_id(inv_id)
-        .is_some_and(|t| t.scope == InvScope::Shared);
-
-    let Some(inventory) = (if shared {
-        engine_mut().get_shared_inv_mut(inv_id)
-    } else {
-        active.player.invs.get_mut(&inv_id)
-    }) else {
+    let Some(inventory) = inventory(active, inv_id) else {
         return HeldCheck::NoInv(inv_id);
     };
 
@@ -284,4 +368,23 @@ pub fn check_held(active: &mut ActivePlayer, com: ComId, slot: u16, obj: u16) ->
     }
 
     HeldCheck::Ok
+}
+
+pub fn require_held(
+    active: &mut ActivePlayer,
+    com: ComId,
+    slot: u16,
+    obj: u16,
+) -> Result<bool, ScriptError> {
+    match check_held(active, com, slot, obj) {
+        HeldCheck::Ok => Ok(true),
+        HeldCheck::NotHeld => Ok(false),
+        HeldCheck::NoTransmit => Err(ScriptError::Client(format!(
+            "No inv transmit for interface with id: {com}"
+        ))),
+        HeldCheck::NoInv(inv) => Err(ScriptError::Client(format!(
+            "Inv {inv} not found for com: {com}"
+        ))),
+        HeldCheck::InvalidSlot => Err(ScriptError::Client(format!("Invalid slot: {slot}"))),
+    }
 }

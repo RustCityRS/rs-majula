@@ -34,7 +34,7 @@ pub struct OpLocT {
     pub z: u16,
     pub obj: u16,
     pub slot: u16,
-    pub com: u32,
+    pub com: i32,
     pub ctrl: bool,
 }
 
@@ -44,7 +44,7 @@ impl ClientProtMessage for OpLocT {
         let obj = buf.g2_alt2();
         let slot = buf.g2_alt2();
         let z = buf.g2();
-        let com = buf.g4s_alt2() as u32;
+        let com = buf.g4s_alt2();
         let x = buf.g2_alt2();
         let ctrl = buf.g1_alt1() != 0;
         let loc = buf.g2_alt1();

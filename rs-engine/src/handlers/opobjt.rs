@@ -9,13 +9,16 @@ use crate::watch::{Target, Using};
 use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::opobjt::OpObjT;
+use rs_vm::ScriptError;
 use rs_vm::engine::ScriptPlayer;
 use rs_vm::trigger::ServerTriggerType;
-use rs_vm::{ComId, ScriptError};
 
 impl ClientGameHandler for OpObjT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        let com = self.com as ComId;
+        #[cfg(before_647)]
+        let com = self.com.into();
+        #[cfg(since_647)]
+        let com = self.com;
         #[cfg(since_647)]
         if transmitted_inv(active, com).is_some() {
             return opobju::handle(self.x, self.z, self.obj, com, self.slot, self.obj2, active);
@@ -33,7 +36,16 @@ impl ClientGameHandler for OpObjT {
             return Ok(());
         }
 
-        if !spell_component_ok(active, com, action_target::OBJ) {
+        #[cfg(before_647)]
+        let slot = u16::MAX;
+        #[cfg(since_647)]
+        let slot = self.slot;
+        #[cfg(since_647)]
+        if self.obj2 != u16::MAX {
+            active.unset_map_flag();
+            return Ok(());
+        }
+        if !spell_component_ok(active, com, slot, action_target::OBJ) {
             active.unset_map_flag();
             return Ok(());
         }

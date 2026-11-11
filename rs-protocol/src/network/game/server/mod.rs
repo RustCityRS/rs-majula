@@ -184,7 +184,6 @@ pub mod update_ignorelist;
 #[cfg(since_647)]
 pub mod update_ignorelist_full;
 pub mod update_inv_full;
-#[cfg(before_647)]
 pub mod update_inv_partial;
 #[cfg(before_647)]
 pub mod update_inv_stop_transmit;

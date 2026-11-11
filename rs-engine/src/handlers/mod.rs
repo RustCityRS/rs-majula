@@ -15,16 +15,11 @@ pub mod friendlist_del;
 pub mod idk_savedesign;
 pub mod idle_timer;
 pub mod if_button;
-#[cfg(since_647)]
 pub mod if_buttond;
 #[cfg(since_647)]
 pub mod if_buttont;
 pub mod ignorelist_add;
 pub mod ignorelist_del;
-#[cfg(before_647)]
-pub mod inv_button;
-#[cfg(before_647)]
-pub mod inv_buttond;
 pub mod map_build_complete;
 pub mod message_private;
 pub mod message_public;
@@ -33,9 +28,7 @@ pub mod no_timeout;
 pub mod op_common;
 #[cfg(before_647)]
 pub mod opheld;
-#[cfg(before_647)]
 pub mod opheldt;
-#[cfg(before_647)]
 pub mod opheldu;
 pub mod oploc;
 pub mod oploct;

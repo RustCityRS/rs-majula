@@ -1,204 +1,156 @@
 use crate::active_player::ActivePlayer;
-#[cfg(any(before_647, debug_assertions))]
+#[cfg(since_647)]
 use crate::core::engine;
 use crate::core::engine_mut;
 use crate::handlers::ClientGameHandler;
+use crate::handlers::op_common::{component, component_protected, require_held};
+#[cfg(since_647)]
+use crate::handlers::op_common::{component_events, transmitted_inv};
+#[cfg(before_647)]
+use crate::watch::Op;
 #[cfg(before_647)]
 use rs_pack::types::IfButtonType;
 #[cfg(before_647)]
-use rs_protocol::network::game::client::if_button::IfButton;
+use rs_protocol::network::game::client::{
+    if_button::IfButton, inv_button1::InvButton1, inv_button2::InvButton2, inv_button3::InvButton3,
+    inv_button4::InvButton4, inv_button5::InvButton5,
+};
 #[cfg(since_647)]
 use rs_protocol::network::game::client::{
     if_button1::IfButton1, if_button2::IfButton2, if_button3::IfButton3, if_button4::IfButton4,
     if_button5::IfButton5, if_button6::IfButton6, if_button7::IfButton7, if_button8::IfButton8,
     if_button9::IfButton9, if_button10::IfButton10,
 };
-use rs_vm::ScriptError;
-#[cfg(before_647)]
+#[cfg(since_647)]
 use rs_vm::engine::ScriptEngine;
 use rs_vm::state::ExecutionState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
+use rs_vm::{ComId, ScriptError};
 
-/// Handles the `IfButton` client protocol message.
-///
-/// Processes a click on a non-inventory interface button. Validates the interface
-/// exists, has a button type, and is currently visible. If the player has an active
-/// script paused on a button wait and the clicked component is in the resume button
-/// set, the paused script is resumed. Otherwise, the handler looks up and runs the
-/// `ServerTriggerType::IfButton` trigger script for the clicked component.
-///
-/// # Arguments
-///
-/// * `active` - The active player whose client sent this message.
-///
-/// # Returns
-///
-/// * `Ok(())` on success or if no trigger is found (a game message is sent instead).
-/// * `Err(ScriptError)` if the interface does not exist, has no button type,
-///   is not visible, or a script execution error occurs.
-///
-/// # Side Effects
-///
-/// * Sets `last_com` on the player to the clicked component ID.
-/// * May resume a paused script if the button matches `resume_buttons`.
-/// * May run the `IfButton` trigger script for the component.
-///
-/// # Call Stack
-///
-/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
-/// **Calls:** `engine_mut().run_script_by_state` (resume), `engine_mut().run_script_by_trigger`
 #[cfg(before_647)]
 impl ClientGameHandler for IfButton {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_button(self.com);
-        let interfaces = engine().interfaces();
-
-        let Some(interface) = interfaces.get_by_id(self.com) else {
-            return Err(ScriptError::Client(format!(
-                "No interface with id: {}",
-                self.com
-            )));
-        };
-
-        if interface.button_type == IfButtonType::None {
-            return Err(ScriptError::Client(format!(
-                "Interface has no button type: {}",
-                self.com
-            )));
-        }
-
-        if !active.player.is_interface_visible(interface.root_layer) {
-            return Err(ScriptError::Client(format!(
-                "Interface is not visible: {}",
-                interface.root_layer
-            )));
-        }
-
-        active.player.last_com = Some(self.com.into());
-
-        let uid = active.player.uid;
-        if active
-            .player
-            .resume_buttons
-            .as_ref()
-            .is_some_and(|b| b.contains(&(self.com as i32)))
-        {
-            if let Some(state) = &active.player.state.active_script
-                && state.execution == ExecutionState::PauseButton
-            {
-                engine_mut().run_script_by_state(
-                    (**state).clone(),
-                    Some(ScriptSubject::Player(uid)),
-                    Some(true),
-                    Some(true),
-                )?;
-            }
-        } else {
-            let protect = interfaces
-                .get_by_id(interface.root_layer as u16)
-                .is_some_and(|root| !root.overlay);
-
-            let result = engine_mut().run_script_by_trigger(
-                (ServerTriggerType::IfButton, Some(self.com as i32), None),
-                Some(ScriptSubject::Player(uid)),
-                None,
-                Some(protect),
-                None,
-                None,
-            );
-
-            match result {
-                Err(ScriptError::TriggerNotFound(_)) => {
-                    #[cfg(debug_assertions)]
-                    active.message_game(&format!(
-                        "No trigger for [if_button,{}]",
-                        interface
-                            .com_name
-                            .as_deref()
-                            .unwrap_or(&self.com.to_string())
-                    ));
-                }
-                other => other?,
-            }
-        }
-
-        Ok(())
+        handle(0, self.com.into(), u16::MAX, u16::MAX, active)
     }
 }
 
-/// Maps the IfButton packet op (1-10) to its `if_button{op}` server trigger.
-/// Rev-647 merged OpHeld/InvButton into IfButton1-10; the engine names this
-/// trigger family `InvButton{op}` (bytes 149-153, 173-177) — see
-/// `ServerTriggerType`.
-#[cfg(since_647)]
-fn op_trigger(op: usize) -> Option<ServerTriggerType> {
-    Some(match op {
-        1 => ServerTriggerType::InvButton1,
-        2 => ServerTriggerType::InvButton2,
-        3 => ServerTriggerType::InvButton3,
-        4 => ServerTriggerType::InvButton4,
-        5 => ServerTriggerType::InvButton5,
-        6 => ServerTriggerType::InvButton6,
-        7 => ServerTriggerType::InvButton7,
-        8 => ServerTriggerType::InvButton8,
-        9 => ServerTriggerType::InvButton9,
-        10 => ServerTriggerType::InvButton10,
-        _ => return None,
-    })
+macro_rules! impl_button_handler {
+    ($($ty:ty => $op:expr),* $(,)?) => {
+        $(
+            impl ClientGameHandler for $ty {
+                fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+                    #[cfg(before_647)]
+                    active.watch_op(Op::InvButton {
+                        op: $op, obj: self.obj, slot: self.slot, com: self.com,
+                    });
+                    #[cfg(before_647)]
+                    let com = self.com.into();
+                    #[cfg(since_647)]
+                    let com = self.com;
+                    handle($op, com, self.slot, self.obj, active)
+                }
+            }
+        )*
+    };
 }
 
-/// Handles the rev-647 `IfButton{1..10}` client protocol messages.
-///
-/// Rev-647 addresses interface components by a 32-bit component hash
-/// (`iface << 16 | com`) and carries the clicked slot and obj in the same
-/// packet. If the player has a script paused on a button wait and the
-/// clicked component is in the resume-button set, the paused script is
-/// resumed. Otherwise the op-specific `if_button{op}` trigger is fired for
-/// the component (e.g. `[if_button1,inventory:inv]`), falling back to the
-/// generic op-less `if_button` trigger for components that don't
-/// distinguish ops (character creation / options use
-/// `[if_button,iface:comp]`).
-///
-/// # Side Effects
-///
-/// * Sets `last_com`, `last_slot`, and `last_item` on the player.
-/// * May resume a paused script if the button matches `resume_buttons`.
-/// * May run the `if_button{op}` or `if_button` trigger script.
-///
-/// # Call Stack
-///
-/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
-/// **Calls:** `engine_mut().run_script_by_state` (resume), `engine_mut().run_script_by_trigger`
+#[cfg(before_647)]
+impl_button_handler!(
+    InvButton1 => 1, InvButton2 => 2, InvButton3 => 3, InvButton4 => 4, InvButton5 => 5,
+);
 #[cfg(since_647)]
-fn handle_if_button(
-    op: usize,
-    com: i32,
-    slot: i32,
-    obj: i32,
+impl_button_handler!(
+    IfButton1 => 1, IfButton2 => 2, IfButton3 => 3, IfButton4 => 4, IfButton5 => 5,
+    IfButton6 => 6, IfButton7 => 7, IfButton8 => 8, IfButton9 => 9, IfButton10 => 10,
+);
+
+fn handle(
+    op: u8,
+    com: ComId,
+    slot: u16,
+    obj: u16,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
-    // As before 647: a button on an interface that is not on screen is a bad
-    // client or lag, and nothing runs.
-    let iface = (com as u32 >> 16) as u16;
-    if !active.player.is_interface_open(iface) {
+    #[cfg(before_647)]
+    if op != 0 && active.player.state.delayed {
+        return Ok(());
+    }
+
+    let _interface = component(active, com)?;
+    #[cfg(before_647)]
+    {
+        if op == 0 {
+            if _interface.button_type == IfButtonType::None {
+                return Err(ScriptError::Client(format!(
+                    "Interface has no button type: {com}"
+                )));
+            }
+        } else if _interface
+            .iop
+            .as_ref()
+            .and_then(|ops| ops.get(op as usize - 1))
+            .is_none_or(Option::is_none)
+        {
+            return Err(ScriptError::Client(format!(
+                "No iop option {op} for interface with id: {com}"
+            )));
+        }
+    }
+    #[cfg(since_647)]
+    if component_events(active, com, slot).is_none_or(|events| !events.allows_op(op)) {
         return Err(ScriptError::Client(format!(
-            "Interface is not visible: {iface}"
+            "Interface option {op} is disabled: {com}, slot {slot}"
         )));
     }
 
+    #[cfg(before_647)]
+    let inventory_click = op != 0;
+    #[cfg(since_647)]
+    let inventory_click = transmitted_inv(active, com).is_some() && slot != u16::MAX;
+    #[cfg(since_647)]
+    if obj != u16::MAX && active.player.state.delayed {
+        return Ok(());
+    }
+    if inventory_click && (active.player.state.delayed || !require_held(active, com, slot, obj)?) {
+        return Ok(());
+    }
+    #[cfg(since_647)]
+    if !inventory_click && slot != u16::MAX {
+        if let Some(&(uid, inv)) = active.player.inv_other_transmits.get(&com) {
+            let held = engine()
+                .get_player((uid & 0x7FF) as u16)
+                .filter(|source| source.player.uid.packed() as i32 == uid)
+                .and_then(|source| source.player.invs.get(&inv))
+                .is_some_and(|inv| inv.valid_slot(slot) && inv.has_at(slot, obj));
+            if !held {
+                return Ok(());
+            }
+        } else if obj != u16::MAX {
+            return Err(ScriptError::Client(format!(
+                "No inv transmit for interface with id: {com}"
+            )));
+        }
+    }
+    #[cfg(since_647)]
+    if obj != u16::MAX && engine().objs().get_by_id(obj).is_none() {
+        return Err(ScriptError::Client(format!("Unknown obj: {obj}")));
+    }
+
     active.player.last_com = Some(com);
-    active.player.last_slot = u16::try_from(slot).ok();
-    active.player.last_item = u16::try_from(obj).ok();
+    if op != 0 {
+        active.player.last_slot = (slot != u16::MAX).then_some(slot);
+        active.player.last_item = (obj != u16::MAX).then_some(obj);
+    }
 
     let uid = active.player.uid;
-
-    // "Click here to continue" — resume a script paused on this button.
-    if active
-        .player
-        .resume_buttons
-        .as_ref()
-        .is_some_and(|b| b.contains(&com))
+    if op <= 1
+        && active
+            .player
+            .resume_buttons
+            .as_ref()
+            .is_some_and(|buttons| buttons.contains(&com))
     {
         if let Some(state) = &active.player.state.active_script
             && state.execution == ExecutionState::PauseButton
@@ -213,75 +165,57 @@ fn handle_if_button(
         return Ok(());
     }
 
-    // As before 647, a button on a modal runs protected and one on an overlay
-    // does not (289: its root interface's `overlay`, true for the tabs and
-    // if_openoverlay's). 2011's cache marks no interface an overlay, and the
-    // server opens tabs and side modals alike as type-1 subs, so the modal is
-    // one the server opened as such: main, side or chat.
-    let protect = [
-        active.player.modal_main,
-        active.player.modal_side,
-        active.player.modal_chat,
-    ]
-    .contains(&Some(iface));
-
-    if let Some(trigger) = op_trigger(op) {
-        match engine_mut().run_script_by_trigger(
-            (trigger, Some(com), None),
-            Some(ScriptSubject::Player(uid)),
-            None,
-            Some(protect),
-            None,
-            None,
-        ) {
-            Err(ScriptError::TriggerNotFound(_)) => {} // fall through to generic if_button
-            other => return other,
-        }
-    }
-
-    match engine_mut().run_script_by_trigger(
-        (ServerTriggerType::IfButton, Some(com), None),
+    let trigger = match op {
+        0 => ServerTriggerType::IfButton,
+        1 => ServerTriggerType::InvButton1,
+        2 => ServerTriggerType::InvButton2,
+        3 => ServerTriggerType::InvButton3,
+        4 => ServerTriggerType::InvButton4,
+        5 => ServerTriggerType::InvButton5,
+        #[cfg(since_647)]
+        6 => ServerTriggerType::InvButton6,
+        #[cfg(since_647)]
+        7 => ServerTriggerType::InvButton7,
+        #[cfg(since_647)]
+        8 => ServerTriggerType::InvButton8,
+        #[cfg(since_647)]
+        9 => ServerTriggerType::InvButton9,
+        #[cfg(since_647)]
+        10 => ServerTriggerType::InvButton10,
+        _ => return Err(ScriptError::Client(format!("Invalid interface op: {op}"))),
+    };
+    let protect = component_protected(active, com);
+    let result = engine_mut().run_script_by_trigger(
+        (trigger, Some(com), None),
         Some(ScriptSubject::Player(uid)),
         None,
         Some(protect),
         None,
         None,
-    ) {
+    );
+    #[cfg(since_647)]
+    let result = if op == 1 && matches!(result, Err(ScriptError::TriggerNotFound(_))) {
+        engine_mut().run_script_by_trigger(
+            (ServerTriggerType::IfButton, Some(com), None),
+            Some(ScriptSubject::Player(uid)),
+            None,
+            Some(protect),
+            None,
+            None,
+        )
+    } else {
+        result
+    };
+
+    match result {
         Err(ScriptError::TriggerNotFound(_)) => {
             #[cfg(debug_assertions)]
             active.message_game(&format!(
-                "No trigger for [if_button,{}]",
-                engine().layout.component_name(com)
+                "No trigger for [{trigger:?},{}]",
+                _interface.com_name.as_deref().unwrap_or(&com.to_string()),
             ));
         }
         other => other?,
     }
     Ok(())
 }
-
-#[cfg(since_647)]
-macro_rules! impl_if_button_handler {
-    ($($ty:ty => $op:expr),* $(,)?) => {
-        $(
-            impl ClientGameHandler for $ty {
-                fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-                    handle_if_button($op, self.com as i32, self.slot as i32, self.obj as i32, active)
-                }
-            }
-        )*
-    };
-}
-
-#[cfg(since_647)]
-impl_if_button_handler!(
-    IfButton1 => 1,
-    IfButton2 => 2,
-    IfButton3 => 3,
-    IfButton4 => 4,
-    IfButton5 => 5,
-    IfButton6 => 6,
-    IfButton7 => 7,
-    IfButton8 => 8,
-    IfButton9 => 9,
-    IfButton10 => 10,
-);

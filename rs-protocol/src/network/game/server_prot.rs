@@ -527,6 +527,7 @@ server_prot! {
     SetPlayerOp = 84,
     ClanchannelFull = 87,
     MidiJingle = 88,
+    UpdateInvPartial = 89,
     ClanchannelDelta = 90,
     IfSetModel = 91,
     ObjAdd = 92,

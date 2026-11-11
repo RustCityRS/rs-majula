@@ -2,7 +2,8 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 #[cfg(before_647)]
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{
-    HeldCheck, check_held, in_build_area, loc_target, members_blocked, use_component_ok, zone_loc,
+    HeldCheck, action_target, check_held, in_build_area, loc_target, members_blocked,
+    use_component_ok, zone_loc,
 };
 use crate::watch::{Target, Using};
 use rs_grid::CoordGrid;
@@ -58,7 +59,7 @@ pub(super) fn handle(
 
     let target = loc_target(CoordGrid::new(x, y, z), loc);
 
-    if !use_component_ok(active, com) {
+    if !use_component_ok(active, com, slot, action_target::LOC) {
         active.unset_map_flag();
         return Ok(());
     }

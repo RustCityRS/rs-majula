@@ -317,7 +317,6 @@ use rs_protocol::network::game::server::unset_map_flag::UnsetMapFlag;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::update_inv_full::InvItem;
 use rs_protocol::network::game::server::update_inv_full::UpdateInvFull;
-#[cfg(before_647)]
 use rs_protocol::network::game::server::update_inv_partial::UpdateInvPartial;
 #[cfg(before_647)]
 use rs_protocol::network::game::server::update_inv_stop_transmit::UpdateInvStopTransmit;
@@ -2420,6 +2419,13 @@ impl ActivePlayer {
     /// Rev-647: sets the client-side event mask for a component slot range.
     #[cfg(since_647)]
     pub fn if_set_events(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32) {
+        let from = if slot1 == u16::MAX { -1 } else { slot1 as i32 };
+        let to = if slot2 == u16::MAX { -1 } else { slot2 as i32 };
+        for slot in from..=to {
+            self.player
+                .if_events
+                .insert((com, slot as u16), settings as u32);
+        }
         self.write(IfSetEvents {
             com,
             slot1,
@@ -2814,16 +2820,19 @@ impl ActivePlayer {
         });
     }
 
-    /// Sends a partial inventory update to the client for the given component.
+    /// Sends a partial inventory update to the client.
     ///
     /// Each entry is `(slot, item)` for one changed slot.
-    pub fn update_inv_partial(&mut self, com: u16, objs: &[(u16, Option<(u16, i32)>)]) {
-        #[cfg(before_647)]
-        self.write(UpdateInvPartial { com, objs });
-        // TODO(647): port with the inventory milestone — rev-647 partial
-        // updates are inv-id keyed (UPDATE_INV_PARTIAL not modelled yet).
-        #[cfg(since_647)]
-        let _ = (com, objs);
+    pub fn update_inv_partial(&mut self, id: u16, objs: &[(u16, Option<(u16, i32)>)]) {
+        self.write(UpdateInvPartial {
+            #[cfg(before_647)]
+            com: id,
+            #[cfg(since_647)]
+            inv_id: id,
+            #[cfg(since_647)]
+            other: false,
+            objs,
+        });
     }
 
     /// Tells the client to stop expecting inventory updates for a component.
@@ -2995,9 +3004,8 @@ impl ActivePlayer {
             let mut any_full = false;
             // Rev-647 clients key inventories by inv id, and the interface
             // binding lives in the cache component defs — so send one full
-            // update per inv (first sight and whenever a slot changed; there
-            // is no 647 partial-update packet modelled yet), regardless of
-            // how many components transmit it.
+            // update per inv on first sight and whenever a slot changed,
+            // regardless of how many components transmit it.
             #[cfg(since_647)]
             {
                 let _ = coms;
@@ -3106,8 +3114,8 @@ impl ActivePlayer {
 
             // Rev-647 clients key another player's inv by its inv id and the
             // "other" flag, apart from their own copy of that inv: send it
-            // whole on first sight and whenever a slot changed (no 647 partial
-            // update is modelled yet), as the player's own invs go.
+            // whole on first sight and whenever a slot changed, as the
+            // player's own invs go.
             #[cfg(since_647)]
             {
                 let _ = com;

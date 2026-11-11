@@ -2,7 +2,8 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 #[cfg(before_647)]
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{
-    HeldCheck, check_held, in_build_area, members_blocked, use_component_ok, zone_obj,
+    HeldCheck, action_target, check_held, in_build_area, members_blocked, use_component_ok,
+    zone_obj,
 };
 use crate::watch::{Target, Using};
 use rs_entity::InteractionTarget;
@@ -61,7 +62,7 @@ pub(super) fn handle(
         serial: obj.serial(),
     };
 
-    if !use_component_ok(active, com) {
+    if !use_component_ok(active, com, slot, action_target::OBJ) {
         active.unset_map_flag();
         return Ok(());
     }

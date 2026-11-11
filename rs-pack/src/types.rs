@@ -964,6 +964,63 @@ impl BodyType {
 
 // --- interface ---
 
+#[cfg(since_647)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq)]
+pub struct IfEvents(pub u32);
+
+#[cfg(since_647)]
+impl IfEvents {
+    const OPS_SHIFT: u32 = 1;
+    const OPS_MASK: u32 = 0x3FF;
+    const TARGETS_SHIFT: u32 = 11;
+    const TARGETS_MASK: u32 = 0x7F;
+    const DRAG_DEPTH_SHIFT: u32 = 18;
+    const DRAG_DEPTH_MASK: u32 = 0x7;
+    const DROP_TARGET: u32 = 1 << 21;
+    const TARGETABLE: u32 = 1 << 22;
+    const PAUSE: u32 = 1;
+
+    pub const fn new(
+        ops: i32,
+        targets: i32,
+        depth: i32,
+        allow_drag: bool,
+        can_target: bool,
+    ) -> Self {
+        Self(
+            ((ops as u32 & Self::OPS_MASK) << Self::OPS_SHIFT)
+                | ((targets as u32 & Self::TARGETS_MASK) << Self::TARGETS_SHIFT)
+                | ((depth as u32 & Self::DRAG_DEPTH_MASK) << Self::DRAG_DEPTH_SHIFT)
+                | if allow_drag { Self::DROP_TARGET } else { 0 }
+                | if can_target { Self::TARGETABLE } else { 0 },
+        )
+    }
+
+    pub const fn allows_op(self, op: u8) -> bool {
+        op >= 1 && op <= 10 && self.0 & (1 << op) != 0
+    }
+
+    pub const fn allows_target(self, target: u16) -> bool {
+        (self.0 >> Self::TARGETS_SHIFT) & target as u32 != 0
+    }
+
+    pub const fn is_draggable(self) -> bool {
+        (self.0 >> Self::DRAG_DEPTH_SHIFT) & Self::DRAG_DEPTH_MASK != 0
+    }
+
+    pub const fn is_drop_target(self) -> bool {
+        self.0 & Self::DROP_TARGET != 0
+    }
+
+    pub const fn is_targetable(self) -> bool {
+        self.0 & Self::TARGETABLE != 0
+    }
+
+    pub const fn is_pause_button(self) -> bool {
+        self.0 & Self::PAUSE != 0
+    }
+}
+
 #[repr(u8)]
 #[derive(Debug, Default, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
 pub enum IfComponentType {

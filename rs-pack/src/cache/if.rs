@@ -1,7 +1,15 @@
 #[cfg(since_647)]
+use crate::archive;
+#[cfg(since_647)]
 use crate::cache::decode::read_id;
+#[cfg(since_647)]
+use crate::cache::js5::PackedCache;
 use crate::types::{IfButtonType, IfComponentType};
+#[cfg(since_647)]
+use anyhow::{Context, Result};
 use rs_io::Packet;
+#[cfg(since_647)]
+use rs_io::js5::split_group_entries;
 use rs_ver::STRING_TERMINATOR;
 #[cfg(since_647)]
 use runec::clientscript::HookValue;
@@ -30,6 +38,8 @@ pub struct IfType {
     pub x: i16,
     pub y: i16,
     pub scrolls: bool,
+    #[cfg(since_647)]
+    pub active_properties: u32,
 }
 
 impl IfType {
@@ -68,7 +78,16 @@ impl From<IfTypeRaw> for IfType {
             button_type: raw.button_type,
             width: raw.width,
             height: raw.height,
-            draggable: raw.draggable,
+            draggable: {
+                #[cfg(before_245_2)]
+                {
+                    raw.draggable
+                }
+                #[cfg(since_245_2)]
+                {
+                    raw.draggable || raw.swappable
+                }
+            },
             operable: raw.operable,
             usable: raw.usable,
             margin_x: raw.margin_x as u8,
@@ -89,6 +108,8 @@ impl From<IfTypeRaw> for IfType {
             x: 0,
             y: 0,
             scrolls: false,
+            #[cfg(since_647)]
+            active_properties: raw.active_properties,
         }
     }
 }
@@ -673,8 +694,8 @@ fn parse_transmitlist(buf: &mut Packet) -> Option<Vec<i32>> {
 }
 
 pub struct IfTypeProvider {
-    pub names: HashMap<Box<str>, u16>,
-    pub types: Vec<Option<Box<IfType>>>,
+    pub names: HashMap<Box<str>, i32>,
+    pub types: HashMap<i32, Box<IfType>>,
 }
 
 impl IfTypeProvider {
@@ -684,7 +705,7 @@ impl IfTypeProvider {
         let count = buf.g2() as usize;
 
         let mut names = HashMap::new();
-        let mut types: Vec<Option<Box<IfType>>> = (0..count).map(|_| None).collect();
+        let mut types = HashMap::with_capacity(count);
 
         let mut root_layer: i32 = -1;
         // Each layer's children and where it puts them: (layer, child, x, y).
@@ -703,7 +724,7 @@ impl IfTypeProvider {
             if let Some(name) = &com.com_name
                 && !name.is_empty()
             {
-                names.insert(name.clone(), id);
+                names.insert(name.clone(), id as i32);
             }
 
             if com.com_type == IfComponentType::Layer && com.scroll > com.height {
@@ -712,8 +733,8 @@ impl IfTypeProvider {
             for &(child, x, y) in &com.children {
                 placed.push((id, child, x, y));
             }
-            if (id as usize) < types.len() {
-                types[id as usize] = Some(Box::new(IfType::from(com)));
+            if (id as usize) < count {
+                types.insert(id as i32, Box::new(IfType::from(com)));
             }
         }
 
@@ -722,10 +743,7 @@ impl IfTypeProvider {
             .into_iter()
             .map(|(layer, child, x, y)| (child, (layer, x, y)))
             .collect();
-        for (id, com) in types.iter_mut().enumerate() {
-            let Some(com) = com else {
-                continue;
-            };
+        for (&id, com) in &mut types {
             let mut at = id as u16;
             // A layer can't hold itself, but stop all the same if one does.
             for _ in 0..32 {
@@ -742,8 +760,31 @@ impl IfTypeProvider {
         IfTypeProvider { names, types }
     }
 
-    pub fn get_by_id(&self, id: u16) -> Option<&IfType> {
-        self.types.get(id as usize).and_then(|t| t.as_deref())
+    #[cfg(since_647)]
+    pub fn from_cache(cache: &PackedCache) -> Result<Self> {
+        let table = cache
+            .reference_table(archive::INTERFACES)
+            .context("Missing interfaces archive")?;
+        let mut types = HashMap::new();
+        for group in &table.groups {
+            let data = cache
+                .read_group_raw_decompressed(archive::INTERFACES, group.id)?
+                .with_context(|| format!("Missing interface {}", group.id))?;
+            for entry in split_group_entries(data, &group.files) {
+                let mut buf = Packet::from(entry.data().to_vec());
+                let raw = IfTypeRaw::decode(&mut buf, entry.id as u16, group.id as i32);
+                let com = ((group.id as i32) << 16) | entry.id as i32;
+                types.insert(com, Box::new(IfType::from(raw)));
+            }
+        }
+        Ok(Self {
+            names: HashMap::new(),
+            types,
+        })
+    }
+
+    pub fn get_by_id(&self, id: impl Into<i32>) -> Option<&IfType> {
+        self.types.get(&id.into()).map(Box::as_ref)
     }
 
     pub fn get_by_debugname(&self, name: &str) -> Option<&IfType> {

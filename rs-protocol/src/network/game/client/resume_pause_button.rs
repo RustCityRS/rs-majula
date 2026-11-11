@@ -21,7 +21,7 @@ impl ClientProtMessage for ResumePauseButton {
 #[cfg(since_647)]
 #[client_prot(Fixed(6), UserEvent)]
 pub struct ResumePauseButton {
-    pub com: u32,
+    pub com: i32,
     pub slot: u16,
 }
 
@@ -29,7 +29,7 @@ pub struct ResumePauseButton {
 impl ClientProtMessage for ResumePauseButton {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let slot = buf.g2_alt1();
-        let com = buf.g4s_alt2() as u32;
+        let com = buf.g4s_alt2();
         ResumePauseButton { com, slot }
     }
 }

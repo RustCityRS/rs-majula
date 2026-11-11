@@ -72,10 +72,10 @@ fn if_buttond_matches_client() {
         .p2(-1); // arg0.object_id -- target obj (empty backing sprite)
 
     let m: IfButtonD = decode(&p);
-    assert_eq!(m.com, source_com as u32, "source component");
+    assert_eq!(m.com, source_com, "source component");
     assert_eq!(m.slot, 3, "source slot");
     assert_eq!(m.slot2, 48, "target slot");
-    assert_eq!(m.com2, target_com as u32, "target component");
+    assert_eq!(m.com2, target_com, "target component");
     assert_eq!(m.obj, 1511, "source obj");
 }
 
@@ -284,7 +284,7 @@ fn oploct_matches_client() {
     assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
     assert_eq!(m.z, 3218, "z");
-    assert_eq!(m.com, FROM_COM as u32, "source component");
+    assert_eq!(m.com, FROM_COM, "source component");
     assert_eq!(m.x, 3222, "x");
     assert!(m.ctrl, "ctrl-run");
     assert_eq!(m.loc, 1530, "loc id");
@@ -306,7 +306,7 @@ fn opnpct_matches_client() {
     assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
     assert_eq!(m.nid, 4231, "npc id");
-    assert_eq!(m.com, FROM_COM as u32, "source component");
+    assert_eq!(m.com, FROM_COM, "source component");
     assert!(m.ctrl, "ctrl-run");
 }
 
@@ -328,7 +328,7 @@ fn opobjt_matches_client() {
     assert_eq!(m.obj2, FROM_OBJ as u16, "source obj");
     assert_eq!(m.obj, 1530, "target obj");
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
-    assert_eq!(m.com, FROM_COM as u32, "source component");
+    assert_eq!(m.com, FROM_COM, "source component");
     assert!(m.ctrl, "ctrl-run");
     assert_eq!(m.z, 3218, "z");
     assert_eq!(m.x, 3222, "x");
@@ -349,7 +349,7 @@ fn opplayert_matches_client() {
     let m: OpPlayerT = decode(&p);
     assert_eq!(m.pid, 4231, "player id");
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
-    assert_eq!(m.com, FROM_COM as u32, "source component");
+    assert_eq!(m.com, FROM_COM, "source component");
     assert!(m.ctrl, "ctrl-run");
     assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
 }
@@ -368,13 +368,18 @@ macro_rules! button_op {
         #[test]
         fn $test() {
             use rs_protocol::network::game::client::$module::$ty;
-            let mut p = ClientPacket::new();
-            p.p4(FROM_COM).p2_alt3(FROM_OBJ).p2_alt1(FROM_SLOT);
-            let m: $ty = decode(&p);
-            assert_eq!(m.com, FROM_COM as u32, "component");
-            // IfButton keeps these signed: an empty slot arrives as -1.
-            assert_eq!(m.obj, FROM_OBJ as i16, "obj");
-            assert_eq!(m.slot, FROM_SLOT as i16, "slot");
+            for (com, obj, slot) in [
+                (FROM_COM, FROM_OBJ, FROM_SLOT),
+                (i32::MIN | 3, 0x8001, 0x8002),
+                (-1, 0xFFFF, 0xFFFF),
+            ] {
+                let mut p = ClientPacket::new();
+                p.p4(com).p2_alt3(obj).p2_alt1(slot);
+                let m: $ty = decode(&p);
+                assert_eq!(m.com, com, "component");
+                assert_eq!(m.obj, obj as u16, "obj");
+                assert_eq!(m.slot, slot as u16, "slot");
+            }
         }
     };
 }
@@ -382,6 +387,12 @@ macro_rules! button_op {
 button_op!(if_button1_matches_client, if_button1::IfButton1);
 button_op!(if_button2_matches_client, if_button2::IfButton2);
 button_op!(if_button8_matches_client, if_button8::IfButton8);
+button_op!(if_button3_matches_client, if_button3::IfButton3);
+button_op!(if_button4_matches_client, if_button4::IfButton4);
+button_op!(if_button5_matches_client, if_button5::IfButton5);
+button_op!(if_button6_matches_client, if_button6::IfButton6);
+button_op!(if_button7_matches_client, if_button7::IfButton7);
+button_op!(if_button9_matches_client, if_button9::IfButton9);
 button_op!(if_button10_matches_client, if_button10::IfButton10);
 
 /// "Use this interface item on that one" -- the cross-interface drag, and the
@@ -400,11 +411,11 @@ fn if_buttont_matches_client() {
         .p2(995);
 
     let m: IfButtonT = decode(&p);
-    assert_eq!(m.com2, to_com as u32, "target component");
+    assert_eq!(m.com2, to_com, "target component");
     assert_eq!(m.slot2, 12, "target slot");
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
     assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
-    assert_eq!(m.com, FROM_COM as u32, "source component");
+    assert_eq!(m.com, FROM_COM, "source component");
     assert_eq!(m.obj2, 995, "target obj");
 }
 
@@ -564,7 +575,7 @@ fn apcoordt_matches_client() {
     assert_eq!((m.x, m.z), (3222, 3218), "tile");
     assert_eq!(m.slot, FROM_SLOT as u16, "source slot");
     assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
-    assert_eq!(m.com, FROM_COM as u32, "source component");
+    assert_eq!(m.com, FROM_COM, "source component");
 }
 
 /// `VarbitType`: `p2(flag << 15 | time) p4_alt2(x | y << 16)`.

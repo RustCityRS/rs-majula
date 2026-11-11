@@ -152,6 +152,8 @@ pub struct Player {
     pub modal_side_parent: i32,
     #[cfg(since_647)]
     pub open_subs: FxHashMap<i32, (u16, u8)>,
+    #[cfg(since_647)]
+    pub if_events: FxHashMap<(i32, u16), u32>,
     pub modal_side: Option<u16>,
     pub last_modal_side: Option<u16>,
     pub modal_tutorial: Option<u16>,
@@ -312,6 +314,8 @@ impl Player {
             modal_side_parent: 0,
             #[cfg(since_647)]
             open_subs: FxHashMap::default(),
+            #[cfg(since_647)]
+            if_events: FxHashMap::default(),
             modal_side: None,
             last_modal_side: None,
             modal_tutorial: None,
@@ -418,6 +422,8 @@ impl Player {
         let Some((closed, _)) = self.open_subs.remove(&parent) else {
             return;
         };
+        self.if_events
+            .retain(|&(com, _), _| (com as u32 >> 16) as u16 != closed);
         let children: Vec<i32> = self
             .open_subs
             .iter()
@@ -569,6 +575,8 @@ impl Player {
     /// # Side Effects
     /// * Removes `com` from every entry in `self.inv_transmits`.
     pub fn clear_inv_transmits(&mut self, com: ComId) {
+        #[cfg(since_647)]
+        self.if_events.retain(|&(component, _), _| component != com);
         for coms in self.inv_transmits.values_mut() {
             coms.retain(|&c| c != com);
         }

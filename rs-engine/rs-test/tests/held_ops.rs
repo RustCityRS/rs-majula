@@ -199,6 +199,12 @@ fn eating_cave_nightshade_hurts_150_life_points() {
         engine.cycle();
         let before = life(engine, client.pid);
         assert_eq!(before, 990);
+        *engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .if_events
+            .get_mut(&(BACKPACK, 0))
+            .unwrap() |= 1 << 4;
         let mut p = ClientPacket::new();
         p.p4(BACKPACK).p2_alt3(nightshade as i32).p2_alt1(0);
         client.send(ClientProt::IfButton4, &p.finish());
@@ -219,7 +225,15 @@ fn eating_cave_nightshade_hurts_150_life_points() {
             .modal_chat
             .expect("the player says Ahhhh");
         let mut p = ClientPacket::new();
-        p.p2(0xFFFF).p4_alt2((chat as i32) << 16);
+        let com = engine
+            .cache
+            .interfaces
+            .types
+            .iter()
+            .find(|(_, com)| com.root_layer == chat as i32 && com.active_properties & 1 != 0)
+            .map(|(&id, _)| id)
+            .expect("continue button");
+        p.p2_alt1(0xFFFF).p4_alt2(com);
         client.send(ClientProt::ResumePauseButton, &p.finish());
         for _ in 0..3 {
             engine.cycle();

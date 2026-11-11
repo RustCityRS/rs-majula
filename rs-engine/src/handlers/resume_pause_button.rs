@@ -1,6 +1,8 @@
 use crate::active_player::ActivePlayer;
 use crate::core::engine_mut;
 use crate::handlers::ClientGameHandler;
+#[cfg(since_647)]
+use crate::handlers::op_common::component_events;
 use crate::watch::Op;
 use rs_protocol::network::game::client::resume_pause_button::ResumePauseButton;
 use rs_vm::ScriptError;
@@ -59,13 +61,21 @@ impl ClientGameHandler for ResumePauseButton {
         // left alone it would still hold whatever button came before.
         #[cfg(since_647)]
         {
-            let iface = (self.com >> 16) as u16;
-            if !active.player.is_interface_open(iface) {
+            if component_events(active, self.com, self.slot)
+                .is_none_or(|events| !events.is_pause_button())
+                || active
+                    .player
+                    .resume_buttons
+                    .as_ref()
+                    .is_some_and(|buttons| !buttons.contains(&self.com))
+            {
                 return Err(ScriptError::Client(format!(
-                    "Interface is not visible: {iface}"
+                    "Component is not an active pause button: {}",
+                    self.com
                 )));
             }
-            active.player.last_com = Some(self.com as i32);
+            active.player.last_com = Some(self.com);
+            active.player.last_slot = (self.slot != u16::MAX).then_some(self.slot);
         }
 
         engine_mut().run_script_by_state(

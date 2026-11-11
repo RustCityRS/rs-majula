@@ -28,6 +28,7 @@ use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
 use rs_protocol::network::game::server::sound_area::SoundArea;
 use rs_protocol::network::game::server::sound_vorbis_area::SoundVorbisArea;
 use rs_protocol::network::game::server::text_coord::TextCoord;
+use rs_protocol::network::game::server::update_inv_partial::UpdateInvPartial;
 use rs_protocol::network::game::server_prot_message::ServerProtMessageInfo;
 use rs_protocol::network::game::zone_prot::ZoneProt;
 
@@ -981,6 +982,45 @@ fn update_inv_full_matches_client() {
         }
         assert_eq!(slots, [(995, 100_000), (-1, 0), (1351, 1)]);
         p.done(bytes.len());
+    }
+}
+
+#[test]
+fn update_inv_partial_matches_client() {
+    let changes = [
+        (0, Some((995, 1))),
+        (127, None),
+        (128, Some((1351, 254))),
+        (255, Some((995, 255))),
+        (32767, Some((995, i32::MAX))),
+    ];
+    for other in [false, true] {
+        for objs in [&changes[..], &[]] {
+            let update = UpdateInvPartial {
+                inv_id: 90,
+                other,
+                objs,
+            };
+            let bytes = encode(&update);
+            assert_eq!(update.sizeof(), bytes.len());
+            let mut p = ClientPacket::new(&bytes);
+            assert_eq!(p.g2(), 90);
+            assert_eq!(p.g1() & 1 == 1, other);
+            let mut slots = Vec::new();
+            while p.pos < bytes.len() {
+                let slot = p.gsmart1or2() as u16;
+                let obj = p.g2();
+                let item = if obj == 0 {
+                    None
+                } else {
+                    let count = p.g1();
+                    Some(((obj - 1) as u16, if count == 255 { p.g4s() } else { count }))
+                };
+                slots.push((slot, item));
+            }
+            assert_eq!(slots, objs);
+            p.done(bytes.len());
+        }
     }
 }
 

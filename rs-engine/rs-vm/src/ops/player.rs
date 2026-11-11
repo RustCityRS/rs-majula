@@ -11,6 +11,8 @@ use crate::*;
 use rs_pack::cache::MIDI_JINGLE_BASE;
 use rs_pack::cache::script::*;
 use rs_pack::types::HuntCheckVis;
+#[cfg(since_647)]
+use rs_pack::types::IfEvents;
 use rs_util::colour::rgb24_to_15;
 
 /// The player whose script is running, who a queued hit belongs to: at 647 a
@@ -782,17 +784,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let slot1 = s.pop_int();
             let com = s.pop_int();
 
-            let mut settings = (ops & 0x3FF) << 1;
-            settings |= (useon_flags & 0x7F) << 11;
-            settings |= (depth & 0x7) << 18;
-            if allow_drag {
-                settings |= 1 << 21;
-            }
-            if can_target {
-                settings |= 1 << 22;
-            }
-
-            player.if_setevents(com, slot1 as u16, slot2 as u16, settings);
+            let settings = IfEvents::new(ops, useon_flags, depth, allow_drag, can_target);
+            player.if_setevents(com, slot1 as u16, slot2 as u16, settings.0 as i32);
         });
 
         // 5000
