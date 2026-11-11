@@ -78,25 +78,23 @@ pub fn emit_spotanim_props(
     }
     #[cfg(since_647)]
     {
-        for (code, set, key) in [
-            (9, def.op9, "unknown9"),
-            (10, def.op10, "allowloop"),
-            (11, def.op11, "unknown11"),
-            (12, def.op12, "unknown12"),
-            (13, def.op13, "unknown13"),
-        ] {
-            if set {
-                p.push((code, key.into(), "yes".into()));
-            }
+        if def.allowloop {
+            p.push((10, "allowloop".into(), "yes".into()));
         }
-        if opcode == 14 {
-            p.push((14, "unknown14".into(), def.op14.unwrap().to_string()));
-        }
-        if opcode == 15 {
-            p.push((15, "unknown15".into(), def.op15.unwrap().to_string()));
-        }
-        if opcode == 16 {
-            p.push((16, "unknown16".into(), def.op16.unwrap_or(-1).to_string()));
+        let param = def.hillskew_param.unwrap_or(-1);
+        let hillchange = match opcode {
+            9 => Some("rotate".to_owned()),
+            11 => Some("skew".to_owned()),
+            12 => Some("ceiling_skew".to_owned()),
+            13 => Some("skew_to_fit".to_owned()),
+            14 => Some(format!("tree_skew,{}", param >> 8)),
+            15 => Some(format!("rotate,{param}")),
+            16 if u16::try_from(param).is_ok() => Some(format!("rotate,{param},32")),
+            16 => Some(format!("rotate,{param}")),
+            _ => None,
+        };
+        if let Some(value) = hillchange {
+            p.push((opcode, "hillchange".into(), value));
         }
         for (i, (&s, &d)) in recol_d.iter().zip(recol_s).enumerate() {
             let [(ks, vs), (kd, vd)] = super::recol_pair(i + 1, s, d, _reverse_hsl);

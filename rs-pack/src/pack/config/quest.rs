@@ -146,10 +146,15 @@ pub fn pack_quests(
                     }
 
                     // 12
-                    "unknown12" => parse_number(value, |v: i32| {
+                    "viacoord" => {
+                        let coord = if value == "null" {
+                            -1
+                        } else {
+                            parse_coord(value).expect("Invalid quest viacoord")
+                        };
                         client.p1(12);
-                        client.p4(v);
-                    }),
+                        client.p4(coord);
+                    }
 
                     // 13
                     "questreq" if first => {

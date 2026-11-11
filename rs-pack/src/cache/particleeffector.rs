@@ -9,6 +9,7 @@ pub struct ParticleEffectorType {
     pub falloff_type: u8,
     pub falloff: i32,
     pub effect_type: u8,
+    pub reversedirection: bool,
 }
 
 impl CacheType for ParticleEffectorType {
@@ -23,6 +24,7 @@ impl CacheType for ParticleEffectorType {
             falloff_type: 0,
             falloff: 0,
             effect_type: 0,
+            reversedirection: false,
         }
     }
 
@@ -36,7 +38,8 @@ impl CacheType for ParticleEffectorType {
                 self.falloff = buf.g4s();
             }
             6 => self.effect_type = buf.g1(),
-            8..=10 => {}
+            8 | 9 => {}
+            10 => self.reversedirection = true,
             _ => crate::unknown_opcode!("particleeffector", code),
         }
     }

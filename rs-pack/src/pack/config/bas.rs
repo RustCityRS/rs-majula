@@ -22,7 +22,6 @@ fn anim_code(key: &str) -> Option<u8> {
         "walkanim_r" => 42,
         "unknown43" => 43,
         "unknown44" => 44,
-        "unknown45" => 45,
         "crawlturn_l" => 46,
         "crawlturn_r" => 47,
         "runturn_l" => 48,
@@ -146,6 +145,11 @@ pub fn pack_bases(
                     "walkspeed" => parse_number(value, |v: u8| {
                         client.p1(37);
                         client.p1(v);
+                    }),
+
+                    "overlayheight" => parse_number(value, |v: u16| {
+                        client.p1(45);
+                        client.p2(v);
                     }),
 
                     // 52

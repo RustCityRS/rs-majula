@@ -27,21 +27,11 @@ pub struct SpotAnimTypeRaw {
     pub ambient: u8,
     pub contrast: u8,
     #[cfg(since_647)]
-    pub op9: bool,
+    pub hillskew: u8,
     #[cfg(since_647)]
-    pub op10: bool,
+    pub hillskew_param: Option<i32>,
     #[cfg(since_647)]
-    pub op11: bool,
-    #[cfg(since_647)]
-    pub op12: bool,
-    #[cfg(since_647)]
-    pub op13: bool,
-    #[cfg(since_647)]
-    pub op14: Option<u8>,
-    #[cfg(since_647)]
-    pub op15: Option<u16>,
-    #[cfg(since_647)]
-    pub op16: Option<i32>,
+    pub allowloop: bool,
     pub recol_s: Option<Box<[u16]>>,
     pub recol_d: Option<Box<[u16]>>,
     #[cfg(since_647)]
@@ -66,21 +56,11 @@ impl CacheType for SpotAnimTypeRaw {
             ambient: 0,
             contrast: 0,
             #[cfg(since_647)]
-            op9: false,
+            hillskew: 0,
             #[cfg(since_647)]
-            op10: false,
+            hillskew_param: None,
             #[cfg(since_647)]
-            op11: false,
-            #[cfg(since_647)]
-            op12: false,
-            #[cfg(since_647)]
-            op13: false,
-            #[cfg(since_647)]
-            op14: None,
-            #[cfg(since_647)]
-            op15: None,
-            #[cfg(since_647)]
-            op16: None,
+            allowloop: false,
             recol_s: None,
             recol_d: None,
             #[cfg(since_647)]
@@ -103,23 +83,33 @@ impl CacheType for SpotAnimTypeRaw {
             7 => self.ambient = buf.g1(),
             8 => self.contrast = buf.g1(),
             #[cfg(since_647)]
-            9 => self.op9 = true,
+            9 => {
+                self.hillskew = 3;
+                self.hillskew_param = Some(8224);
+            }
             #[cfg(since_647)]
-            10 => self.op10 = true,
+            10 => self.allowloop = true,
             #[cfg(since_647)]
-            11 => self.op11 = true,
+            11 => self.hillskew = 1,
             #[cfg(since_647)]
-            12 => self.op12 = true,
+            12 => self.hillskew = 4,
             #[cfg(since_647)]
-            13 => self.op13 = true,
+            13 => self.hillskew = 5,
             #[cfg(since_647)]
-            14 => self.op14 = Some(buf.g1()),
+            14 => {
+                self.hillskew = 2;
+                self.hillskew_param = Some((buf.g1() as i32) << 8);
+            }
             #[cfg(since_647)]
-            15 => self.op15 = Some(buf.g2()),
+            15 => {
+                self.hillskew = 3;
+                self.hillskew_param = Some(buf.g2() as i32);
+            }
             #[cfg(since_647)]
             16 => {
+                self.hillskew = 3;
                 let param = buf.g4s();
-                self.op16 = (param != -1).then_some(param);
+                self.hillskew_param = (param != -1).then_some(param);
             }
             #[cfg(since_647)]
             40 | 41 => {

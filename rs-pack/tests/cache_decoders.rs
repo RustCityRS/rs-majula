@@ -262,7 +262,7 @@ fn explicit_defaults_and_sentinels_survive_unpacking() {
         ),
         [
             ("colour".into(), "0x0".into()),
-            ("unknown2".into(), "0".into()),
+            ("texture".into(), "material_0".into()),
             ("material".into(), "material_256".into()),
         ]
     );

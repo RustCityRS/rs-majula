@@ -76,6 +76,9 @@ pub fn emit_bas_props(
     if let Some(speed) = def.walkspeed {
         p.push((37, "walkspeed".into(), speed.to_string()));
     }
+    if let Some(height) = def.overlayheight {
+        p.push((45, "overlayheight".into(), height.to_string()));
+    }
     for (anim, weight) in &def.readyanim_random {
         let anim = packs.reference("seq", *anim);
         p.push((52, "randomreadyanim".into(), format!("{anim},{weight}")));

@@ -39,8 +39,8 @@ pub fn emit_particleeffector_props(
     if opcode == 9 {
         p.push((9, "unknown9".into(), "yes".into()));
     }
-    if opcode == 10 {
-        p.push((10, "unknown10".into(), "yes".into()));
+    if def.reversedirection {
+        p.push((10, "reversedirection".into(), "yes".into()));
     }
     p.into_iter()
         .filter(|(code, _, _)| *code == opcode)

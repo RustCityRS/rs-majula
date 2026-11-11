@@ -20,6 +20,7 @@ pub struct BasType {
     pub pitchmax: u16,
     pub pitch: i16,
     pub walkspeed: Option<u8>,
+    pub overlayheight: Option<u16>,
     pub readyanim_random: Vec<(u16, u8)>,
     pub noshadow: bool,
     pub op54: (u8, u8),
@@ -48,6 +49,7 @@ impl CacheType for BasType {
             pitchmax: 0,
             pitch: 0,
             walkspeed: None,
+            overlayheight: None,
             readyanim_random: Vec::new(),
             noshadow: false,
             op54: (0, 0),
@@ -62,7 +64,7 @@ impl CacheType for BasType {
                 self.readyanim = read_optional_id(buf);
                 self.walkanim = read_optional_id(buf);
             }
-            2..=9 | 38..=51 => self.anims.push((code, buf.g2())),
+            2..=9 | 38..=44 | 46..=51 => self.anims.push((code, buf.g2())),
             26 => self.rotate = (buf.g1(), buf.g1()),
             27 => {
                 let slot = buf.g1();
@@ -85,6 +87,7 @@ impl CacheType for BasType {
             35 => self.pitchmax = buf.g2(),
             36 => self.pitch = buf.g2s(),
             37 => self.walkspeed = Some(buf.g1()),
+            45 => self.overlayheight = Some(buf.g2()),
             52 => {
                 self.readyanim_random = (0..buf.g1()).map(|_| (buf.g2(), buf.g1())).collect();
             }

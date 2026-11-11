@@ -622,7 +622,7 @@ pub fn pack_npcs(
 
                     // 165
                     #[cfg(since_647)]
-                    "unknown165" => parse_number(value, |v: u8| {
+                    "picksizeshift" => parse_number(value, |v: u8| {
                         client.p1(165);
                         client.p1(v);
                     }),

@@ -28,19 +28,19 @@ pub struct FloTypeRaw {
     #[cfg(since_647)]
     pub op8_flomark: bool,
     #[cfg(since_647)]
-    pub op9_u16: u16,
+    pub texturescale: u16,
     #[cfg(since_647)]
-    pub op10_bool34_false: bool,
+    pub hardshadow: bool,
     #[cfg(since_647)]
-    pub op11_values: Vec<u8>,
+    pub priority: Vec<u8>,
     #[cfg(since_647)]
-    pub op12_bool33_true: bool,
+    pub smoothedges: bool,
     #[cfg(since_647)]
-    pub op13_u24: u32,
+    pub waterfogcolour: u32,
     #[cfg(since_647)]
-    pub op14_u8: u8,
+    pub waterfogscale: u8,
     #[cfg(since_647)]
-    pub op16_u8: u8,
+    pub waterfogoffset: u8,
     debugname: Box<str>,
 }
 
@@ -63,19 +63,19 @@ impl CacheType for FloTypeRaw {
             #[cfg(since_647)]
             op8_flomark: false,
             #[cfg(since_647)]
-            op9_u16: 128,
+            texturescale: 128,
             #[cfg(since_647)]
-            op10_bool34_false: false,
+            hardshadow: true,
             #[cfg(since_647)]
-            op11_values: Vec::new(),
+            priority: Vec::new(),
             #[cfg(since_647)]
-            op12_bool33_true: false,
+            smoothedges: false,
             #[cfg(since_647)]
-            op13_u24: 1190717,
+            waterfogcolour: 1190717,
             #[cfg(since_647)]
-            op14_u8: 16,
+            waterfogscale: 16,
             #[cfg(since_647)]
-            op16_u8: 127,
+            waterfogoffset: 127,
             debugname: Box::default(),
         }
     }
@@ -106,19 +106,19 @@ impl CacheType for FloTypeRaw {
             #[cfg(since_647)]
             8 => self.op8_flomark = true,
             #[cfg(since_647)]
-            9 => self.op9_u16 = buf.g2(),
+            9 => self.texturescale = buf.g2(),
             #[cfg(since_647)]
-            10 => self.op10_bool34_false = true,
+            10 => self.hardshadow = false,
             #[cfg(since_647)]
-            11 => self.op11_values.push(buf.g1()),
+            11 => self.priority.push(buf.g1()),
             #[cfg(since_647)]
-            12 => self.op12_bool33_true = true,
+            12 => self.smoothedges = true,
             #[cfg(since_647)]
-            13 => self.op13_u24 = buf.g3() as u32,
+            13 => self.waterfogcolour = buf.g3() as u32,
             #[cfg(since_647)]
-            14 => self.op14_u8 = buf.g1(),
+            14 => self.waterfogscale = buf.g1(),
             #[cfg(since_647)]
-            16 => self.op16_u8 = buf.g1(),
+            16 => self.waterfogoffset = buf.g1(),
             _ => crate::unknown_opcode!("flo", code),
         }
     }

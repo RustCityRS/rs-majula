@@ -29,7 +29,7 @@ pub struct ParticleEmitterType {
     pub speed_percent: u8,
     pub target_speed: Option<i32>,
     pub size_percent: u8,
-    pub effectors25: Vec<u16>,
+    pub globaleffectors: Vec<u16>,
     pub target_size: Option<u16>,
     pub target_size_percent: u8,
     pub unused29: i16,
@@ -73,7 +73,7 @@ impl CacheType for ParticleEmitterType {
             speed_percent: 100,
             target_speed: None,
             size_percent: 100,
-            effectors25: Vec::new(),
+            globaleffectors: Vec::new(),
             target_size: None,
             target_size_percent: 100,
             unused29: 0,
@@ -116,7 +116,7 @@ impl CacheType for ParticleEmitterType {
                 self.target_speed = (speed != -1).then_some(speed);
             }
             23 => self.size_percent = buf.g1(),
-            25 => self.effectors25 = effector_list(buf),
+            25 => self.globaleffectors = effector_list(buf),
             27 => self.target_size = Some(buf.g2()),
             28 => self.target_size_percent = buf.g1(),
             29 => self.unused29 = buf.g2s(),

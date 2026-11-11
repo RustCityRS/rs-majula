@@ -119,7 +119,7 @@ pub fn emit_particleemitter_props(
         ));
     }
     if opcode == 25 {
-        p.push((25, "unknown25".into(), joined(&def.effectors25)));
+        p.push((25, "globaleffectors".into(), joined(&def.globaleffectors)));
     }
     if opcode == 27 {
         p.push((

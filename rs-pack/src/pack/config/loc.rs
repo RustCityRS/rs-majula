@@ -527,7 +527,7 @@ pub fn pack_locs(
 
                     // 105
                     #[cfg(since_647)]
-                    "unknown105" => parse_bool(value, |v| {
+                    "msimirror" => parse_bool(value, |v| {
                         if v {
                             client.p1(105);
                         }
@@ -558,21 +558,21 @@ pub fn pack_locs(
 
                     // 164
                     #[cfg(since_647)]
-                    "unknown164" => parse_number(value, |v: i16| {
+                    "postoffsetx" => parse_number(value, |v: i16| {
                         client.p1(164);
                         client.p2(v as u16);
                     }),
 
                     // 165
                     #[cfg(since_647)]
-                    "unknown165" => parse_number(value, |v: i16| {
+                    "postoffsety" => parse_number(value, |v: i16| {
                         client.p1(165);
                         client.p2(v as u16);
                     }),
 
                     // 166
                     #[cfg(since_647)]
-                    "unknown166" => parse_number(value, |v: i16| {
+                    "postoffsetz" => parse_number(value, |v: i16| {
                         client.p1(166);
                         client.p2(v as u16);
                     }),

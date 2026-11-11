@@ -11,6 +11,8 @@ use crate::pack::util::parse_bool;
 use crate::pack::util::{pack_pairs, parse_retex};
 use crate::pack::util::{parse_number, parse_recol, parse_ref};
 use anyhow::Result;
+#[cfg(since_647)]
+use anyhow::bail;
 use std::collections::HashMap;
 
 pub fn pack_spotanims(
@@ -116,60 +118,36 @@ pub fn pack_spotanims(
                 }),
 
                 #[cfg(since_647)]
-                "unknown9" => {
-                    server.p1(9);
-                    client.p1(9);
+                "hillchange" => {
+                    let parts: Vec<_> = value.split(',').map(str::trim).collect();
+                    let (code, param) = match parts.as_slice() {
+                        ["rotate"] => (9, 0),
+                        ["skew"] => (11, 0),
+                        ["ceiling_skew"] => (12, 0),
+                        ["skew_to_fit"] => (13, 0),
+                        ["tree_skew", param] => (14, param.parse::<u8>()? as i32),
+                        ["rotate", param] => {
+                            let param = param.parse::<i32>()?;
+                            (if u16::try_from(param).is_ok() { 15 } else { 16 }, param)
+                        }
+                        ["rotate", param, "32"] => (16, param.parse::<i32>()?),
+                        _ => bail!("{debugname}: invalid hillchange '{value}'"),
+                    };
+                    for stream in [&mut server, &mut client] {
+                        stream.p1(code);
+                        match code {
+                            14 => stream.p1(param as u8),
+                            15 => stream.p2(param as u16),
+                            16 => stream.p4(param),
+                            _ => {}
+                        }
+                    }
                 }
 
                 #[cfg(since_647)]
                 "allowloop" => {
                     server.p1(10);
                     client.p1(10);
-                }
-
-                #[cfg(since_647)]
-                "unknown11" => {
-                    server.p1(11);
-                    client.p1(11);
-                }
-
-                #[cfg(since_647)]
-                "unknown12" => {
-                    server.p1(12);
-                    client.p1(12);
-                }
-
-                #[cfg(since_647)]
-                "unknown13" => {
-                    server.p1(13);
-                    client.p1(13);
-                }
-
-                #[cfg(since_647)]
-                "unknown14" => {
-                    let v: u8 = value.parse().expect("Invalid spotanim value");
-                    server.p1(14);
-                    server.p1(v);
-                    client.p1(14);
-                    client.p1(v);
-                }
-
-                #[cfg(since_647)]
-                "unknown15" => {
-                    let v: u16 = value.parse().expect("Invalid spotanim value");
-                    server.p1(15);
-                    server.p2(v);
-                    client.p1(15);
-                    client.p2(v);
-                }
-
-                #[cfg(since_647)]
-                "unknown16" => {
-                    let v: i32 = value.parse().expect("Invalid spotanim value");
-                    server.p1(16);
-                    server.p4(v);
-                    client.p1(16);
-                    client.p4(v);
                 }
 
                 // 40-60

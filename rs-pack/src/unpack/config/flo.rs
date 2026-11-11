@@ -37,7 +37,11 @@ pub fn emit_flo_props(
             p.push((1, "colour".into(), format!("0x{:x}", def.colour)));
         }
         if opcode == 2 {
-            p.push((2, "unknown2".into(), def.texture_u8_raw.to_string()));
+            p.push((
+                2,
+                "texture".into(),
+                _registry.reference("texture", def.texture_u8_raw as u16),
+            ));
         }
         if opcode == 3 {
             let material = _registry.reference("texture", def.texture_u16_raw);
@@ -53,28 +57,28 @@ pub fn emit_flo_props(
             p.push((8, "unknown8".into(), "yes".into()));
         }
         if opcode == 9 {
-            let v = def.op9_u16;
+            let v = def.texturescale;
             p.push((9, "texturescale".into(), v.to_string()));
         }
-        if def.op10_bool34_false {
-            p.push((10, "unknown10".into(), "yes".into()));
+        if !def.hardshadow {
+            p.push((10, "hardshadow".into(), "no".into()));
         }
-        if let Some(v) = def.op11_values.last() {
+        if let Some(v) = def.priority.last() {
             p.push((11, "priority".into(), v.to_string()));
         }
-        if def.op12_bool33_true {
+        if def.smoothedges {
             p.push((12, "smoothedges".into(), "yes".into()));
         }
         if opcode == 13 {
-            let v = def.op13_u24;
+            let v = def.waterfogcolour;
             p.push((13, "waterfogcolour".into(), format!("0x{v:x}")));
         }
         if opcode == 14 {
-            let v = def.op14_u8;
+            let v = def.waterfogscale;
             p.push((14, "waterfogscale".into(), v.to_string()));
         }
         if opcode == 16 {
-            let v = def.op16_u8;
+            let v = def.waterfogoffset;
             p.push((16, "waterfogoffset".into(), v.to_string()));
         }
     }

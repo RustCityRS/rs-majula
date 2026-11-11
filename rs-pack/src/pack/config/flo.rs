@@ -42,20 +42,15 @@ pub fn pack_flos(
                 }),
 
                 // 2
-                #[cfg(before_647)]
                 "texture" => parse_ref(&registry.texture, "texture", value, |v| {
-                    client.p1(2);
-                    client.p1(v as u8);
-                    server.p1(2);
-                    server.p1(v as u8);
-                }),
-
-                #[cfg(since_647)]
-                "unknown2" => parse_number(value, |v: u8| {
-                    server.p1(2);
-                    server.p1(v);
+                    #[cfg(before_647)]
+                    let v = v as u8;
+                    #[cfg(since_647)]
+                    let v = u8::try_from(v).expect("Floor texture exceeds 255");
                     client.p1(2);
                     client.p1(v);
+                    server.p1(2);
+                    server.p1(v);
                 }),
 
                 // 3
@@ -110,10 +105,12 @@ pub fn pack_flos(
 
                 // 10
                 #[cfg(since_647)]
-                "unknown10" => {
-                    server.p1(10);
-                    client.p1(10);
-                }
+                "hardshadow" => parse_bool(value, |v| {
+                    if !v {
+                        server.p1(10);
+                        client.p1(10);
+                    }
+                }),
 
                 // 11
                 #[cfg(since_647)]

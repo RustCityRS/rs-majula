@@ -155,7 +155,7 @@ pub fn pack_particleemitters(
                     "linkcolourchannels" => client.p1(24),
 
                     // 25
-                    "unknown25" => write_list(client, 25, value),
+                    "globaleffectors" => write_list(client, 25, value),
 
                     // 26
                     "enabled" => client.p1(26),

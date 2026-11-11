@@ -398,12 +398,12 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.unknown_97 {
+    if def.msirotate {
         p.push((97, "msirotate".into(), "yes".into()));
     }
 
     #[cfg(since_647)]
-    if def.unknown_98 {
+    if def.hasparticles {
         p.push((98, "hasparticles".into(), "yes".into()));
     }
 
@@ -454,8 +454,8 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.unknown_105 {
-        p.push((105, "unknown105".into(), "yes".into()));
+    if def.msimirror {
+        p.push((105, "msimirror".into(), "yes".into()));
     }
 
     #[cfg(since_647)]
@@ -505,24 +505,24 @@ pub fn emit_loc_props(
             "tint".into(),
             format!(
                 "{},{},{},{}",
-                def.op163[0], def.op163[1], def.op163[2], def.op163[3]
+                def.tint[0], def.tint[1], def.tint[2], def.tint[3]
             ),
         ));
     }
 
     #[cfg(since_647)]
     if opcode == 164 {
-        p.push((164, "unknown164".into(), def.op164.to_string()));
+        p.push((164, "postoffsetx".into(), def.postoffsetx.to_string()));
     }
 
     #[cfg(since_647)]
     if opcode == 165 {
-        p.push((165, "unknown165".into(), def.op165.to_string()));
+        p.push((165, "postoffsety".into(), def.postoffsety.to_string()));
     }
 
     #[cfg(since_647)]
     if opcode == 166 {
-        p.push((166, "unknown166".into(), def.op166.to_string()));
+        p.push((166, "postoffsetz".into(), def.postoffsetz.to_string()));
     }
 
     #[cfg(since_647)]

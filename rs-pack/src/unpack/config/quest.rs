@@ -40,7 +40,7 @@ pub fn emit_quest_props(
         ));
     }
     if opcode == 5 {
-        p.push((5, "parent".into(), packs.reference("quest", def.op5)));
+        p.push((5, "parent".into(), packs.reference("quest", def.parent)));
     }
     if opcode == 6 {
         let ty = match def.quest_type {
@@ -69,14 +69,18 @@ pub fn emit_quest_props(
     }
     if opcode == 10 {
         let values: Vec<_> = def
-            .op10
+            .mainstartcoord
             .iter()
             .map(|&coord| packs.typed_value("coord", coord))
             .collect();
         p.push((10, "mainstartcoord".into(), values.join(",")));
     }
     if opcode == 12 {
-        p.push((12, "unknown12".into(), def.op12.to_string()));
+        p.push((
+            12,
+            "viacoord".into(),
+            packs.typed_value("coord", def.viacoord),
+        ));
     }
     for quest in &def.questrequirement {
         p.push((13, "questreq".into(), packs.reference("quest", *quest)));

@@ -106,7 +106,7 @@ impl LocType {
 #[cfg(since_647)]
 fn pack_look(raw: &LocTypeRaw) -> Option<Box<[u16]>> {
     let animated =
-        raw.anim.is_some() || raw.random_anim_ids.is_some() || raw.unknown_98 || raw.unknown_177;
+        raw.anim.is_some() || raw.random_anim_ids.is_some() || raw.hasparticles || raw.unknown_177;
     let two_model_sets = raw.hd_models.is_some() && raw.hd_models != raw.models;
     let flags = animated as u16 | (two_model_sets as u16) << 1 | (raw.models.is_some() as u16) << 2;
     let models: Vec<u16> = raw
@@ -247,9 +247,9 @@ pub struct LocTypeRaw {
     #[cfg(since_647)]
     pub members_only: bool,
     #[cfg(since_647)]
-    pub unknown_97: bool,
+    pub msirotate: bool,
     #[cfg(since_647)]
-    pub unknown_98: bool,
+    pub hasparticles: bool,
     #[cfg(since_647)]
     pub cursor_op1: Option<(u8, u16)>,
     #[cfg(since_647)]
@@ -259,7 +259,7 @@ pub struct LocTypeRaw {
     #[cfg(since_647)]
     pub interaction_side_flags: u8,
     #[cfg(since_647)]
-    pub unknown_105: bool,
+    pub msimirror: bool,
     #[cfg(since_647)]
     pub random_anim_ids: Option<Box<[u16]>>,
     #[cfg(since_647)]
@@ -271,13 +271,13 @@ pub struct LocTypeRaw {
     #[cfg(since_647)]
     pub quest_ids: Option<Box<[u16]>>,
     #[cfg(since_647)]
-    pub op163: [i8; 4],
+    pub tint: [i8; 4],
     #[cfg(since_647)]
-    pub op164: i16,
+    pub postoffsetx: i16,
     #[cfg(since_647)]
-    pub op165: i16,
+    pub postoffsety: i16,
     #[cfg(since_647)]
-    pub op166: i16,
+    pub postoffsetz: i16,
     #[cfg(since_647)]
     pub op167: i32,
     #[cfg(since_647)]
@@ -376,9 +376,9 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             members_only: false,
             #[cfg(since_647)]
-            unknown_97: false,
+            msirotate: false,
             #[cfg(since_647)]
-            unknown_98: false,
+            hasparticles: false,
             #[cfg(since_647)]
             cursor_op1: None,
             #[cfg(since_647)]
@@ -388,7 +388,7 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             interaction_side_flags: 255,
             #[cfg(since_647)]
-            unknown_105: false,
+            msimirror: false,
             #[cfg(since_647)]
             random_anim_ids: None,
             #[cfg(since_647)]
@@ -400,13 +400,13 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             quest_ids: None,
             #[cfg(since_647)]
-            op163: [0; 4],
+            tint: [0; 4],
             #[cfg(since_647)]
-            op164: 0,
+            postoffsetx: 0,
             #[cfg(since_647)]
-            op165: 0,
+            postoffsety: 0,
             #[cfg(since_647)]
-            op166: 0,
+            postoffsetz: 0,
             #[cfg(since_647)]
             op167: 0,
             #[cfg(since_647)]
@@ -547,9 +547,9 @@ impl CacheType for LocTypeRaw {
                 self.hillskew_param = (param != -1).then_some(param);
             }
             #[cfg(since_647)]
-            97 => self.unknown_97 = true,
+            97 => self.msirotate = true,
             #[cfg(since_647)]
-            98 => self.unknown_98 = true,
+            98 => self.hasparticles = true,
             #[cfg(since_647)]
             99 => self.cursor_op1 = Some((buf.g1(), buf.g2())),
             #[cfg(since_647)]
@@ -563,7 +563,7 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             104 => self.interaction_side_flags = buf.g1(),
             #[cfg(since_647)]
-            105 => self.unknown_105 = true,
+            105 => self.msimirror = true,
             #[cfg(since_647)]
             106 => {
                 let count = buf.g1() as usize;
@@ -597,13 +597,13 @@ impl CacheType for LocTypeRaw {
                 self.hillskew_param = (param != -1).then_some(param);
             }
             #[cfg(since_647)]
-            163 => self.op163 = [buf.g1s(), buf.g1s(), buf.g1s(), buf.g1s()],
+            163 => self.tint = [buf.g1s(), buf.g1s(), buf.g1s(), buf.g1s()],
             #[cfg(since_647)]
-            164 => self.op164 = buf.g2s(),
+            164 => self.postoffsetx = buf.g2s(),
             #[cfg(since_647)]
-            165 => self.op165 = buf.g2s(),
+            165 => self.postoffsety = buf.g2s(),
             #[cfg(since_647)]
-            166 => self.op166 = buf.g2s(),
+            166 => self.postoffsetz = buf.g2s(),
             #[cfg(since_647)]
             167 => self.op167 = buf.g2() as i32,
             #[cfg(since_647)]

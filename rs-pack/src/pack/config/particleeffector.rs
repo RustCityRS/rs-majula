@@ -69,7 +69,7 @@ pub fn pack_particleeffectors(
                     }),
 
                     // 10
-                    "unknown10" => parse_bool(value, |v| {
+                    "reversedirection" => parse_bool(value, |v| {
                         if v {
                             client.p1(10);
                         }

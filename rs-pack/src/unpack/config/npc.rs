@@ -403,7 +403,7 @@ pub fn emit_npc_props(
     }
     #[cfg(since_647)]
     if opcode == 165 {
-        p.push((165, "unknown165".into(), def.pick_size_shift.to_string()));
+        p.push((165, "picksizeshift".into(), def.pick_size_shift.to_string()));
     }
     #[cfg(since_647)]
     if opcode == 168 {
