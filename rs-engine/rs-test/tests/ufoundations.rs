@@ -194,8 +194,11 @@ fn loc_ids(engine: &Engine, x: u16, z: u16) -> Vec<u16> {
         .collect()
 }
 
+/// One tick of a cutscene: its shot, its packets, and where the squire stands.
+type CutsceneTick = (i32, Vec<(u16, Vec<u8>)>, Option<(u16, u16)>);
+
 /// The index of the first tick showing `shot`.
-fn shots_start(ticks: &[(i32, Vec<(u16, Vec<u8>)>, Option<(u16, u16)>)], shot: i32) -> usize {
+fn shots_start(ticks: &[CutsceneTick], shot: i32) -> usize {
     ticks.iter().position(|(now, _, _)| *now == shot).unwrap()
 }
 
@@ -536,7 +539,7 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             Some(nid),
             "facing Sir Vant as the cutscene opens"
         );
-        let mut ticks: Vec<(i32, Vec<(u16, Vec<u8>)>, Option<(u16, u16)>)> = vec![(
+        let mut ticks: Vec<CutsceneTick> = vec![(
             shot(engine, &client),
             Vec::new(),
             npc_tile(engine, "tutorial3_squire"),

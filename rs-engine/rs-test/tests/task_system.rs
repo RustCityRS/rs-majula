@@ -166,13 +166,12 @@ fn finishing_cooks_assistant_completes_its_task() {
             "no total for a first Task; {:?}",
             talk.messages
         );
-        for line in ["You have completed the Task 'Cook's Assistant'!"] {
-            assert!(
-                talk.messages.iter().any(|m| m == line),
-                "2011's message {line:?}; {:?}",
-                talk.messages
-            );
-        }
+        let line = "You have completed the Task 'Cook's Assistant'!";
+        assert!(
+            talk.messages.iter().any(|m| m == line),
+            "2011's message {line:?}; {:?}",
+            talk.messages
+        );
         assert_eq!(overall(engine, &client), 1, "one task in total");
         assert_eq!(
             progress(engine, &client),
