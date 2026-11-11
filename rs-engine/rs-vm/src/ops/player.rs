@@ -1227,7 +1227,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             player.stopaction()?;
             player.set_interaction_npc(nid, ServerTriggerType::ApNpcT as u8);
-            player.set_interaction_spell(spell as crate::ComId);
+            player.set_interaction_spell(spell as ComId);
         });
 
         // 2080
@@ -1291,7 +1291,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             player.stopaction()?;
             player.set_interaction_player(target.pid(), ServerTriggerType::ApPlayerT as u8);
-            player.set_interaction_spell(spell as crate::ComId);
+            player.set_interaction_spell(spell as ComId);
         });
 
         // 2083

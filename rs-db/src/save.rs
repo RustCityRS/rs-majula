@@ -30,8 +30,6 @@ pub struct PlayerSave {
     pub inv_objs: Vec<i32>,
     pub inv_counts: Vec<i32>,
     pub inv_vars: Vec<i32>,
-    /// Where a player saved inside a region logs back in, -1 when it saved
-    /// outside region space.
     pub exit_x: i16,
     pub exit_z: i16,
     pub exit_y: i16,

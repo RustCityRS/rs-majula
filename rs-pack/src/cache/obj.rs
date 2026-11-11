@@ -639,6 +639,7 @@ fn gen_lent(obj: &mut ObjTypeRaw, template: &ObjTypeRaw, link: &ObjTypeRaw) {
     obj.ambient = link.ambient;
     obj.contrast = link.contrast;
 }
+
 #[cfg(since_647)]
 fn gen_bought(obj: &mut ObjTypeRaw, template: &ObjTypeRaw, link: &ObjTypeRaw) {
     obj.xof2d = template.xof2d;

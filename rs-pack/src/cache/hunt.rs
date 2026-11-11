@@ -60,7 +60,7 @@ impl CacheType for HuntType {
     type Context = ();
 
     fn new(id: u16) -> Self {
-        Self {
+        HuntType {
             id,
             hunt_type: HuntModeType::Off,
             check_vis: HuntCheckVis::Off,

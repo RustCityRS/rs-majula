@@ -43,7 +43,7 @@ impl CacheType for InvTypeRaw {
     type Context = ();
 
     fn new(id: u16) -> Self {
-        Self {
+        InvTypeRaw {
             id,
             scope: InvScope::Temp,
             #[cfg(since_647)]

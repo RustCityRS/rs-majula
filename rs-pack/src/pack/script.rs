@@ -86,6 +86,7 @@ pub(crate) fn compile(source: &Path, pack: &Path) -> Result<(Vec<u8>, Vec<u8>)> 
             let (dat, idx) =
                 runec::compile_memory_with_ids(&scripts, Some(private.path()), &mut ids)
                     .map_err(|e| anyhow::anyhow!("{e}"))?;
+            let _ = runec::lint(&scripts, Some(private.path()));
             Ok(CompiledScripts {
                 dat,
                 idx,

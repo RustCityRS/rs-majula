@@ -16,6 +16,7 @@ use rs_pack::cache::area::{NO_AREAS, TileAreas};
 use rs_pack::types::{BlockWalk, MoveRestrict, PlayerStat};
 use rs_stat::Stats;
 use rs_var::VarSet;
+use rs_vm::ComId;
 pub use rs_vm::PlayerUid;
 use rs_vm::state::ExecutionState;
 use rustc_hash::{FxHashMap, FxHashSet};
@@ -200,12 +201,8 @@ pub struct Player {
     pub run_step: Option<Direction>,
     pub run: bool,
     pub temprun: bool,
-    /// Rev-647: the move type the client has stored for this player, as last
-    /// sent in a MoveType block; `None` until one has gone out this session.
     #[cfg(since_647)]
     pub client_move_type: Option<u8>,
-    /// Rev-647: the tile of the map the player last left for region space,
-    /// where it goes back to from a region with no exit coord.
     #[cfg(since_647)]
     pub region_entry: Option<CoordGrid>,
     pub move_request: bool,
@@ -214,26 +211,12 @@ pub struct Player {
     pub last_modal_main: Option<u16>,
     pub modal_chat: Option<u16>,
     pub last_modal_chat: Option<u16>,
-    /// Rev-647: the parent component hash the chat modal was actually mounted
-    /// on, so `if_close` can close it in the slot it opened in.
-    ///
-    /// Dialogues are sub-interfaces at 647, not a screen-wide chat modal, and
-    /// `IF_CLOSESUB` closes by parent hash. Most mount on the default
-    /// `dialogue_box` child; objbox and doubleobjbox use the small slot. Closing
-    /// the default when the small one is open leaves the dialogue on screen.
     #[cfg(since_647)]
     pub modal_chat_parent: i32,
-    /// Rev-647: the component hash the main-screen modal is mounted on, 0
-    /// when none is.
     #[cfg(since_647)]
     pub modal_main_parent: i32,
-    /// Rev-647: the component hash the side modal is mounted on, 0 when none
-    /// is.
     #[cfg(since_647)]
     pub modal_side_parent: i32,
-    /// Rev-647: every sub-interface the client holds, by the component hash
-    /// it is mounted on, with IF_OPENSUB's type byte. Kept by the same rules
-    /// as the client's own table, so the server can tell what is on screen.
     #[cfg(since_647)]
     pub open_subs: FxHashMap<i32, (u16, u8)>,
     pub modal_side: Option<u16>,
@@ -257,54 +240,33 @@ pub struct Player {
     pub move_clicked: bool,
     pub block_walk: BlockWalk,
     pub invs: FxHashMap<u16, Inventory>,
-    /// Rev-647: true until the first REBUILD_NORMAL is sent — the login
-    /// rebuild carries the GPI init bit-stream.
     #[cfg(since_647)]
     pub pending_login: bool,
-    /// Rev-647 public chat staged by the MESSAGE_PUBLIC handler for the
-    /// broadcast phase: `(effects, rights, char_count, huffman_data)`.
     #[cfg(since_647)]
     pub pending_public_chat: Option<(u16, u8, usize, Vec<u8>)>,
-    /// Rev-647: where the player's typed chat goes, as the client last set it
-    /// with CHAT_SETMODE -- [`CHAT_MODE_PUBLIC`] or [`CHAT_MODE_CLAN`].
     #[cfg(since_647)]
     pub chat_mode: u8,
-    /// Rev-647 root interface currently open (set by IF_OPENTOP).
     #[cfg(since_647)]
     pub toplevel: u16,
-    /// Rev-647 client window mode from WINDOW_STATUS: 1 = fixed, 2 = resizable,
-    /// 3 = fullscreen. Content only tests `= 1`, which is what decides whether
-    /// the gameframe mounts under `toplevel` or `toplevel_fullscreen`.
     #[cfg(since_647)]
     pub window_mode: u8,
-    /// Rev-647 client viewport width in pixels, from WINDOW_STATUS.
     #[cfg(since_647)]
     pub window_width: u16,
-    /// Rev-647 client viewport height in pixels, from WINDOW_STATUS.
     #[cfg(since_647)]
     pub window_height: u16,
-    /// Rev-647: server-side mirror of transmitted client variables (varcs);
-    /// `applydesign` reads the character-design preview varcs back from it.
     #[cfg(since_647)]
     pub varcs: FxHashMap<u16, i32>,
     #[cfg(since_647)]
     pub varc_strings: FxHashMap<u16, Box<str>>,
-    /// Rev-647: display name claimed via `p_setdisplayname`; falls back to the
-    /// login username when unset.
     #[cfg(since_647)]
     pub display_name: Option<String>,
-    /// Rev-647: available display-name suggestions from the DB (name taken).
     #[cfg(since_647)]
     pub name_suggestions: Vec<String>,
-    /// Rev-647: current page into `name_suggestions` (3 names per page).
     #[cfg(since_647)]
     pub name_suggestion_page: usize,
-    pub inv_transmits: FxHashMap<u16, Vec<rs_vm::ComId>>,
-    pub inv_other_transmits: FxHashMap<rs_vm::ComId, (i32, u16)>,
+    pub inv_transmits: FxHashMap<u16, Vec<ComId>>,
+    pub inv_other_transmits: FxHashMap<ComId, (i32, u16)>,
     pub inv_first_seen: FxHashSet<u16>,
-    /// From 647: the other players' invs (`invother_transmit`) the client
-    /// has whole, by inv id. The client keeps its copy of another player's
-    /// inv apart from the player's own (trade's other offer is inv 90 too).
     #[cfg(since_647)]
     pub inv_other_first_seen: FxHashSet<u16>,
     pub build_area: BuildArea,
@@ -329,8 +291,6 @@ pub struct PlayerCold {
     pub allow_design: bool,
     #[cfg(before_647)]
     pub last_com: Option<u16>,
-    /// Rev-647: interface components are addressed by the full 32-bit
-    /// component hash (`iface << 16 | com`); -1 = none.
     #[cfg(since_647)]
     pub last_com: i32,
     pub last_comsubid: Option<u16>,
@@ -339,9 +299,6 @@ pub struct PlayerCold {
     #[cfg(since_647)]
     pub last_slot: i32,
     pub last_target_slot: Option<u16>,
-    /// The component a 647 drag ended on (`iface << 16 | com`): the
-    /// drag packet carries both ends, and a drop onto another component
-    /// (a bank tab's button) is told apart by it.
     #[cfg(since_647)]
     pub last_target_com: Option<i32>,
     pub last_use_slot: Option<u16>,
@@ -350,9 +307,7 @@ pub struct PlayerCold {
     #[cfg(since_647)]
     pub last_item: i32,
     pub last_use_item: Option<u16>,
-    /// The used item's component: its id before 647, its interface hash
-    /// from 647 (`rs_vm::ComId`).
-    pub last_use_com: Option<rs_vm::ComId>,
+    pub last_use_com: Option<ComId>,
     pub resume_buttons: Option<Vec<i32>>,
     pub tabs: [Option<u16>; 14],
     pub gender: u8,
@@ -673,9 +628,9 @@ impl Player {
         &mut self,
         root: Option<u16>,
         get_root_layer: F,
-    ) -> Vec<rs_vm::ComId>
+    ) -> Vec<ComId>
     where
-        F: Fn(rs_vm::ComId) -> Option<i32>,
+        F: Fn(ComId) -> Option<i32>,
     {
         let Some(root) = root else {
             return Vec::new();
@@ -714,7 +669,7 @@ impl Player {
     ///
     /// # Side Effects
     /// * Removes `com` from every entry in `self.inv_transmits`.
-    pub fn clear_inv_transmits(&mut self, com: rs_vm::ComId) {
+    pub fn clear_inv_transmits(&mut self, com: ComId) {
         for coms in self.inv_transmits.values_mut() {
             coms.retain(|&c| c != com);
         }

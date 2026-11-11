@@ -566,7 +566,7 @@ async fn main() -> Result<()> {
                      rs_engine::player_save=warn,\
                      rs_protocol=warn,\
                      sqlx=warn,\
-                     runec=error",
+                     runec=warn",
             )
         })
     };

@@ -1021,18 +1021,6 @@ impl Engine {
             .as_ref()
             .is_some_and(|t| t.is_pathing_entity());
         let in_op = Self::in_operable_distance(active);
-        // Why an interaction did or did not run is invisible from outside: a
-        // loc op that is refused here looks exactly like content with no
-        // handler -- no message, no error, nothing on the wire. This was an
-        // unconditional `info!` for objs only; at debug level it covers every
-        // target kind without shouting, which is what you want the first time a
-        // "the bot just stands there" report comes in.
-        tracing::debug!(
-            target: "interact",
-            "{:?}: has_op={has_op} has_ap={has_ap} is_pathing={is_pathing} \
-             in_op={in_op} allow_op_scenery={allow_op_scenery}",
-            active.player.interaction.target
-        );
 
         if has_op && (is_pathing || allow_op_scenery) && in_op {
             if Self::drop_unheld_use(active) {
@@ -1267,10 +1255,6 @@ impl Engine {
             &mut active.player.info,
             FocusKind::Player,
         );
-
-        // Rev-647: the speed the client plays this step at is settled in the
-        // info phase (`Player::sync_move_types`), once run energy and every
-        // teleport for the tick have had their say.
 
         if !steps_taken {
             active.player.temprun = false;
