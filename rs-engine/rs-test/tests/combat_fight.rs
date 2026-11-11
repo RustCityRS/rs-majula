@@ -49,6 +49,8 @@ fn a_fight_runs_on_life_points() {
             .npcs
             .iter()
             .flatten()
+            // An unhurt one: the cases share an engine and its cows keep their wounds.
+            .filter(|n| n.npc.stats.levels[NpcStat::Hitpoints as usize] == COW_LIFE_POINTS)
             .map(|n| (n.npc.uid.nid(), n.npc.uid.id(), n.npc.pathing.coord))
             .find(|(_, id, c)| {
                 *id == COW && (3254..3265).contains(&c.x()) && (3256..3297).contains(&c.z())
@@ -186,6 +188,8 @@ fn the_player_fights_beside_the_cow_not_inside_it() {
             .npcs
             .iter()
             .flatten()
+            // An unhurt one: the cases share an engine and its cows keep their wounds.
+            .filter(|n| n.npc.stats.levels[NpcStat::Hitpoints as usize] == COW_LIFE_POINTS)
             .map(|n| (n.npc.uid.nid(), n.npc.uid.id(), n.npc.pathing.coord))
             .find(|(_, id, c)| {
                 *id == COW && (3254..3262).contains(&c.x()) && (3256..3297).contains(&c.z())

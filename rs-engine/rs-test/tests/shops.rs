@@ -137,6 +137,22 @@ fn button(client: &mut HarnessClient, prot: ClientProt, com: i32, slot: i32) {
     client.send(prot, &p.finish());
 }
 
+/// A click on the side panel's slot: there the client's slot component carries the obj
+/// (interface_inv_draw_slot_big's cc_setobject), so the click names it.
+fn side_button(
+    engine: &Engine,
+    client: &mut HarnessClient,
+    prot: ClientProt,
+    slot: i32,
+    obj: &str,
+) {
+    let mut p = ClientPacket::new();
+    p.p4(BACKPACK)
+        .p2_alt3(id(engine, "obj", obj) as i32)
+        .p2_alt1(slot);
+    client.send(prot, &p.finish());
+}
+
 /// The game messages over `ticks`.
 fn said(engine: &mut Engine, client: &mut HarnessClient, ticks: usize) -> Vec<String> {
     let mut said = Vec::new();
@@ -282,22 +298,28 @@ fn a_sale_pays_289_s_price_and_bob_takes_only_his_stock() {
         // 289: Bob buys at 60% of the value, less 2% for each one he holds
         // over his base.
         let price = |over: u32| value * (600 - 20 * over) / 1000;
-        button(&mut client, ClientProt::IfButton1, BACKPACK, 0);
+        side_button(engine, &mut client, ClientProt::IfButton1, 0, "steel_axe");
         assert_eq!(
             said(engine, &mut client, 1),
             [format!("Steel hatchet: shop will buy for {}gp.", price(0))]
         );
-        button(&mut client, ClientProt::IfButton2, BACKPACK, 0);
+        side_button(engine, &mut client, ClientProt::IfButton2, 0, "steel_axe");
         said(engine, &mut client, 1);
         assert_eq!(count(engine, client.pid, "inv", "coins"), price(0));
         assert_eq!(count(engine, client.pid, "axeshop", "steel_axe"), base + 1);
-        button(&mut client, ClientProt::IfButton1, BACKPACK, 1);
+        side_button(engine, &mut client, ClientProt::IfButton1, 1, "steel_axe");
         assert_eq!(
             said(engine, &mut client, 1),
             [format!("Steel hatchet: shop will buy for {}gp.", price(1))]
         );
 
-        button(&mut client, ClientProt::IfButton2, BACKPACK, 2);
+        side_button(
+            engine,
+            &mut client,
+            ClientProt::IfButton2,
+            2,
+            "bronze_dagger",
+        );
         assert_eq!(
             said(engine, &mut client, 1),
             ["You can't sell this item to this shop."],

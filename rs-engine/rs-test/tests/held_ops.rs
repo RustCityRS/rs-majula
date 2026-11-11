@@ -218,15 +218,10 @@ fn eating_cave_nightshade_hurts_150_life_points() {
         engine.cycle();
         let before = life(engine, client.pid);
         assert_eq!(before, 990);
-        *engine
-            .harness_player_mut(client.pid)
-            .unwrap()
-            .if_events
-            .get_mut(&(BACKPACK, 0))
-            .unwrap() |= 1 << 4;
+        // The client puts an obj's iop4 on the slot's op 7.
         let mut p = ClientPacket::new();
         p.p4(BACKPACK).p2_alt3(nightshade as i32).p2_alt1(0);
-        client.send(ClientProt::IfButton4, &p.finish());
+        client.send(ClientProt::IfButton7, &p.finish());
         for _ in 0..5 {
             engine.cycle();
         }

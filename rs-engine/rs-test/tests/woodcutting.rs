@@ -169,7 +169,13 @@ fn chop(case: Chop) {
         client.send(ClientProt::OpLoc1, &p.finish());
 
         let mut said = Vec::new();
-        for _ in 0..250 {
+        for tick in 0..600 {
+            // The client's keep-alive, as the 2011 client sends it: ivy that takes
+            // over 100 ticks to give would log a silent woodcutter out
+            // (TIMEOUT_NO_RESPONSE, phases/logout.rs).
+            if tick % 20 == 19 {
+                client.send(ClientProt::NoTimeout, &[]);
+            }
             engine.cycle();
             said.extend(
                 HarnessClient::game_messages(&client.packets())

@@ -4,9 +4,10 @@
 //! [`talk_to`] sends Talk-to (OPNPC1). [`converse`] then cycles the engine:
 //! on each chat box it clicks "Click here to continue", and on each
 //! multi-choice box the option whose text starts with the next of the given
-//! choices. Each click is a RESUME_PAUSEBUTTON (`p2(slot) p4_alt2(com)`) on an
-//! open interface, which is all the handler checks
-//! (`handlers/resume_pause_button.rs`).
+//! choices. Each click is a RESUME_PAUSEBUTTON (`p2(slot) p4_alt2(com)`) on a
+//! pause button of an open interface, as the handler checks
+//! (`handlers/resume_pause_button.rs`): a chat box's is its "Click here to
+//! continue", found by the cache's active properties.
 //!
 //! The dialogue interfaces are content's (`interface_chat/scripts/chat.rs2`):
 //! - player chat 64-67 (chat1-4);
@@ -105,6 +106,19 @@ pub fn cp1252(bytes: &[u8]) -> String {
         .collect()
 }
 
+/// The first pause button of `iface`: a chat box's "Click here to continue".
+fn continue_button(engine: &Engine, iface: u16) -> u16 {
+    (0..64u16)
+        .find(|&com| {
+            engine
+                .cache
+                .interfaces
+                .get_by_id((iface as i32) << 16 | com as i32)
+                .is_some_and(|c| c.active_properties & 1 != 0)
+        })
+        .unwrap_or_else(|| panic!("interface {iface} has no pause button"))
+}
+
 fn resume(client: &mut HarnessClient, iface: u16, com: u16) {
     let v = ((iface as i32) << 16) | com as i32;
     let p = [
@@ -174,7 +188,7 @@ pub fn converse(
         } else if let Some(&iface) = CHAT_BOXES.iter().find(|i| player.is_interface_open(**i)) {
             idle = 0;
             seen = true;
-            resume(client, iface, 0);
+            resume(client, iface, continue_button(engine, iface));
         } else if seen {
             idle += 1;
             if idle > 4 {
@@ -245,7 +259,7 @@ pub fn converse_path(
         } else if let Some(&iface) = CHAT_BOXES.iter().find(|i| player.is_interface_open(**i)) {
             idle = 0;
             seen = true;
-            resume(client, iface, 0);
+            resume(client, iface, continue_button(engine, iface));
         } else if seen {
             idle += 1;
             if idle > 4 {

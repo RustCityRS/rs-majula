@@ -22,6 +22,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, settexts, talk_to};
+use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
 const AERECK: u16 = 456;
 const GHOST: u16 = 457;
@@ -122,6 +123,33 @@ fn oploc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 
+/// Opens the shut coffin. A case before this one on the shared engine may have left it
+/// open (300 ticks, and the harness reset leaves locs as they are): closed first, then.
+fn open_the_coffin(engine: &mut Engine, client: &mut HarnessClient) {
+    let (shut, x, z) = COFFIN;
+    let here = |engine: &Engine, id: u16| {
+        engine
+            .zones
+            .zone(x, 0, z)
+            .and_then(|zone| zone.get_loc(x, z, id))
+            .is_some()
+    };
+    if !here(engine, shut) {
+        assert!(here(engine, OPEN_COFFIN), "the coffin is open or shut");
+        oploc1(client, (OPEN_COFFIN, x, z));
+        // The open coffin is reached from another tile than the shut one: a few steps.
+        let mut said = Vec::new();
+        for _ in 0..12 {
+            if here(engine, shut) {
+                break;
+            }
+            said.extend(messages(engine, client, 1));
+        }
+        assert!(here(engine, shut), "the open coffin closes: {said:?}");
+    }
+    oploc1(client, COFFIN);
+}
+
 fn messages(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<String> {
     let mut said = Vec::new();
     for _ in 0..n {
@@ -138,9 +166,29 @@ fn messages(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<St
     said
 }
 
+/// The npc's nid and a tile beside it that one step from the npc reaches, so no wall stands
+/// between (npcs wander: Father Urhney's east was at times the outside of his shack).
 fn beside(engine: &Engine, npc: u16) -> (u16, (u16, u16)) {
     let (nid, x, z) = npc_near(engine, npc).expect("spawned");
-    (nid, (x + 1, z))
+    let at = [(1i8, 0i8), (-1, 0), (0, 1), (0, -1)]
+        .into_iter()
+        .find(|&(dx, dz)| {
+            rsmod::can_travel(0, x, z, dx, dz, 1, 0, CollisionType::Normal)
+                && !rsmod::is_flagged(
+                    x.wrapping_add_signed(dx as i16),
+                    z.wrapping_add_signed(dz as i16),
+                    0,
+                    0x100 | 0x200000,
+                )
+        })
+        .map(|(dx, dz)| {
+            (
+                x.wrapping_add_signed(dx as i16),
+                z.wrapping_add_signed(dz as i16),
+            )
+        })
+        .expect("a tile beside the npc");
+    (nid, at)
 }
 
 /// "I'm looking for a quest." opens 2011's quest-start window (interface 178), and its Yes
@@ -191,7 +239,13 @@ fn father_urhney_gives_the_amulet() {
             80,
         );
         assert!(talk.unanswered.is_none(), "{:?}", talk.unanswered);
-        assert_eq!(stage(engine, &client), 2);
+        assert_eq!(
+            stage(engine, &client),
+            2,
+            "{:?} {:?}",
+            talk.texts,
+            talk.messages
+        );
         assert_eq!(total(engine, &client, "inv", "amulet_of_ghostspeak"), 1);
     });
 }
@@ -200,7 +254,7 @@ fn father_urhney_gives_the_amulet() {
 fn the_ghost_rises_and_asks_for_its_skull() {
     runner::on_loaded_engine(|engine| {
         let mut client = player(engine, 2, &[], Some("amulet_of_ghostspeak"), (3249, 3191));
-        oploc1(&mut client, COFFIN);
+        open_the_coffin(engine, &mut client);
         messages(engine, &mut client, 6);
         let (nid, _, _) = npc_near(engine, GHOST).expect("the ghost rises from the coffin");
         talk_to(&mut client, nid);
@@ -211,7 +265,7 @@ fn the_ghost_rises_and_asks_for_its_skull() {
             80,
         );
         assert!(talk.unanswered.is_none(), "{:?}", talk.unanswered);
-        assert!(talk.said("attacked by a warlock"));
+        assert!(talk.said("attacked by a warlock"), "{:?}", talk.texts);
         assert_eq!(stage(engine, &client), 3);
     });
 }
@@ -267,7 +321,7 @@ fn the_skull_in_the_coffin_lays_the_ghost_to_rest() {
         let skull = id(engine, "ghostskull");
         let mut client = player(engine, 4, &["ghostskull"], None, (3249, 3191));
         let prayer = engine.harness_player(client.pid).unwrap().stats.xp[PRAYER];
-        oploc1(&mut client, COFFIN);
+        open_the_coffin(engine, &mut client);
         messages(engine, &mut client, 6);
         let mut p = ClientPacket::new();
         p.p2_alt2(skull as i32)

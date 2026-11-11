@@ -198,15 +198,24 @@ fn resume(client: &mut HarnessClient, com: i32) {
     client.send(ClientProt::ResumePauseButton, &p.finish());
 }
 
-/// A component of the dialogue open in the chatbox: 2011's client names the
-/// button it continues from, and the server checks its interface is open.
+/// The "Click here to continue" of the dialogue open in the chatbox: 2011's client names the
+/// button it continues from, and the server checks it is that interface's pause button.
 fn open_chat(engine: &Engine, pid: u16) -> i32 {
     let chat = engine
         .harness_player(pid)
         .unwrap()
         .modal_chat
-        .expect("a dialogue is open");
-    (chat as i32) << 16
+        .expect("a dialogue is open") as i32;
+    (0..64)
+        .map(|com| chat << 16 | com)
+        .find(|&com| {
+            engine
+                .cache
+                .interfaces
+                .get_by_id(com)
+                .is_some_and(|c| c.active_properties & 1 != 0)
+        })
+        .unwrap_or_else(|| panic!("interface {chat} has no pause button"))
 }
 
 fn paused(engine: &Engine, pid: u16) -> bool {

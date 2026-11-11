@@ -88,11 +88,11 @@ fn button1(client: &mut HarnessClient, com: i32, slot: i32, obj: i32) {
     client.send(ClientProt::IfButton1, &p.finish());
 }
 
-/// Inventory op 4 (Rub) on the backpack's slot 0.
+/// An obj's iop4 (Rub) on the backpack's slot 0: the client puts iop4 on the slot's op 7.
 fn rub(client: &mut HarnessClient, obj: u16) {
     let mut p = ClientPacket::new();
     p.p4(BACKPACK).p2_alt3(obj as i32).p2_alt1(0);
-    client.send(ClientProt::IfButton4, &p.finish());
+    client.send(ClientProt::IfButton7, &p.finish());
 }
 
 /// An option of a multi-choice box: RESUME_PAUSEBUTTON, `p2(slot) p4_alt2(com)`.

@@ -194,7 +194,21 @@ impl HarnessClient {
                         .unwrap_or(p.len() - pos);
                 (kind, String::from_utf8_lossy(&p[pos..end]).into_owned())
             })
-            .filter(|(_, text)| !text.starts_with("Warning [cpu time]"))
+            // A debug build's cpu-time warning is wrapped at the chat box's width: its
+            // lines run from "Warning [cpu time]" to the one with "opcount:".
+            .filter({
+                let mut warning = false;
+                move |(_, text)| {
+                    if text.starts_with("Warning [cpu time]") {
+                        warning = true;
+                    }
+                    let keep = !warning;
+                    if warning && text.contains("opcount:") {
+                        warning = false;
+                    }
+                    keep
+                }
+            })
             .collect()
     }
 }
@@ -436,7 +450,6 @@ impl Engine {
         SESSIONS.with(|s| s.borrow_mut().clear());
         self.world_queue.clear();
         self.obj_delayed_queue.clear();
-        self.zones_tracking.clear();
         self.pending_zone_events.clear();
         self.invs.clear();
         self.pending_logins.clear();
@@ -453,6 +466,14 @@ impl Engine {
         }
         for uid in self.regions.uids() {
             self.free_region(uid);
+        }
+        // What a test did outside a cycle (and the logouts above) leaves events on the
+        // zones it touched: they go with the tracking, as at the end of a tick. A zone
+        // with events that is not tracked is one no player may be sent.
+        for coord in self.zones_tracking.drain() {
+            if let Some(zone) = self.zones.zones.get_mut(&coord) {
+                zone.reset();
+            }
         }
         self.drop_region_zones();
         self.controllers = Controllers::default();
