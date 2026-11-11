@@ -29,16 +29,16 @@
 if (%tutorial >= 45 & %tutorial <= 49) {
     hint_stop_slot(0);
     ~speech_line(vorbis_732);
-    ~chatnpc("<p,neutral>This dragon's a tougher customer than I'd expected, but I know a way we can defeat it.");
+    ~chatnpcnoturn("<p,neutral>This dragon's a tougher customer than I'd expected, but I know a way we can defeat it.");
     %tutorial = 46;
     softtimer(uf_plan_camera, 1);
     ~uf_plan_shot(27, 32, 300, 24, 31, 150);
     ~speech_line(vorbis_943);
-    ~chatnpc("<p,neutral>One corner of the ceiling is held up by wooden pillars. We're going to lure the dragon there and then collapse the roof on top of it.");
+    ~chatnpcnoturn("<p,neutral>One corner of the ceiling is held up by wooden pillars. We're going to lure the dragon there and then collapse the roof on top of it.");
     %tutorial = 47;
     ~uf_plan_shot(21, 35, 200, 17, 35, 0);
     ~speech_line(vorbis_806);
-    ~chatnpc("<p,neutral>In my bag is some meat I've prepared with a sleeping potion. I need you to put the meat in the food bowl by the wooden pillars. The dragon will eat it and fall asleep.");
+    ~chatnpcnoturn("<p,neutral>In my bag is some meat I've prepared with a sleeping potion. I need you to put the meat in the food bowl by the wooden pillars. The dragon will eat it and fall asleep.");
     clearsofttimer(uf_plan_camera);
     cam_reset;
     %tutorial = 50;
@@ -47,8 +47,15 @@ if (%tutorial >= 45 & %tutorial <= 49) {
     // shield" when "distracting the dragon" (wiki, Sir Vant, 2011-05-18). 4KO2h2xPtdM has him
     // still with his shield up before this talk (@101-110) and swinging his sword after it
     // (@128-134, @168-175, and in the sleep cutscene's first shot @204.5-205.9). He is turned
-    // to the dragon's middle tile, as that shot has him. Open: whether he changes with this
-    // line or with its continue, and seq 12233 against those frames one by one.
+    // to the dragon's middle tile, as that shot has him. He changes with this line, not with
+    // its continue: the line opens @116.0 and his sword is up overhead from @116.8. In-client,
+    // 8852 on (32, 16) turned to (30, 21) and filmed from the south is @131.5-136.6's picture
+    // (his back, the shield at his left, the sword waved overhead); turned south it is not, and
+    // 8851 holds its sword still.
+    // He does not turn to the player through the talk (chatnpcnoturn): his shield stays up to
+    // the dragon @111-112.8 and @116.0-116.6, and his back is to the player after it
+    // (@117.6-120). chatnpc's turn took the facing below away from him. His later lines here
+    // (meat, plank) are in no recording: they keep it.
     if (region_findbycoord(coord) = true) {
         if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) = true) {
             npc_changetype(tutorial3_knight_distracting, ^uf_cellar_obj_duration);
@@ -57,7 +64,7 @@ if (%tutorial >= 45 & %tutorial <= 49) {
     }
     ~uf_task_pin;
     ~speech_line(vorbis_726);
-    ~chatnpc("<p,neutral>I'll keep the dragon's attention. Once you've got the drugged meat you'll need to climb over the wall next to me.");
+    ~chatnpcnoturn("<p,neutral>I'll keep the dragon's attention. Once you've got the drugged meat you'll need to climb over the wall next to me.");
     ~uf_open_tab(3);
     %varplayerbit_3756 = 4;
     %varclient_1425 = 3505;
@@ -68,15 +75,15 @@ if (%tutorial < 80) {
     if (inv_total(inv, tutorial3_meat) > 0) {
         // V64 (clip 773).
         ~speech_line(vorbis_773);
-        ~chatnpc("<p,neutral>Put that drugged meat in the food bowl by the wooden pillars, please.");
+        ~chatnpcnoturn("<p,neutral>Put that drugged meat in the food bowl by the wooden pillars, please.");
     } else if (inv_total(inv, tutorial3_plank) > 0) {
         // V35 (clip 859).
         ~speech_line(vorbis_859);
-        ~chatnpc("<p,neutral>I see you're holding a plank. You could use it against the wall to create a ramp.");
+        ~chatnpcnoturn("<p,neutral>I see you're holding a plank. You could use it against the wall to create a ramp.");
     } else {
         // V20 (clip 966).
         ~speech_line(vorbis_966);
-        ~chatnpc("<p,neutral>Get some more meat from my bag and put it in the food bowl by the wooden pillars, please.");
+        ~chatnpcnoturn("<p,neutral>Get some more meat from my bag and put it in the food bowl by the wooden pillars, please.");
     }
 }
 

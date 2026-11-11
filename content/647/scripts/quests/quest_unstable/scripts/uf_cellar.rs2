@@ -44,6 +44,9 @@ def_int $p = %tutorial;
 if ($p < 50) {
     npc_add(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 0);
     npc_setmode(none);
+    // Facing north, to where the dragon comes: his back to the camera south of him @12-15, his
+    // shield's front to the camera north of him @61-74 (4KO2h2xPtdM).
+    npc_facesquare(~uf_cellar_coord(32, 20));
     // Until the camera is turned a hint points the new player at Sir Vant: the yellow ring and
     // arrow at their feet (vGlx_SDOI7s 2011-02-28 @13.6-15.6; gone once Rotate Your Camera is
     // done, @17.6); again after the dragon cutscene (4KO2h2xPtdM @54.8-75) and after the goblin.

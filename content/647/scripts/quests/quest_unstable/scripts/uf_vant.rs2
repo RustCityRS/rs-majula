@@ -16,6 +16,10 @@ if (%tutorial >= 93 & %tutorial < 120) {
 // - Varp 6, the Controls overlay still up: what talking did then, no recording shows.
 // - After the talk, 9: cs2 4098 still pins Talk to Sir Vant at 9, as 2011's panel shows it while
 //   the dragon cutscene plays (8jKH_7To46o @88); 10 (Assist Sir Vant) comes with the cutscene's end.
+// - In the doorway he does not turn to the player while he talks (chatnpcnoturn): 4KO2h2xPtdM has
+//   him facing north, his back to the player south of him, through the hello (@12-15) and through
+//   "Thank goodness you're here!" and "I can't turn my back on this dragon" (@61-74). His lines at
+//   15-40 are in no recording: they keep it, as he stands the same there.
 [opnpc1,tutorial3_knight_waitingforbattle]
 if (%tutorial = 7) {
     ~uf_vant_hello;
@@ -24,19 +28,19 @@ if (%tutorial = 7) {
 } else if (%tutorial = 15) {
     // V55 (enum 3039 #55, clip 811; text from its take, no recording shows the box).
     ~speech_line(vorbis_811);
-    ~chatnpc("<p,neutral>My squire dropped his sword and armour when he died. You can pick them up and use them to defend my bag from the goblin.");
+    ~chatnpcnoturn("<p,neutral>My squire dropped his sword and armour when he died. You can pick them up and use them to defend my bag from the goblin.");
 } else if (%tutorial >= 20 & %tutorial <= 30) {
     // V94 (clip 788; V95, clip 846, is another take of the same line).
     ~speech_line(vorbis_788);
-    ~chatnpc("<p,neutral>When you've got the rest of my squire's kit equipped, you'll be ready to deal with the goblin.");
+    ~chatnpcnoturn("<p,neutral>When you've got the rest of my squire's kit equipped, you'll be ready to deal with the goblin.");
 } else if (%tutorial = 35) {
     // V12 (clip 978).
     ~speech_line(vorbis_978);
-    ~chatnpc("<p,neutral>Excellent! You look ready to fight. You can deal with the goblin now.");
+    ~chatnpcnoturn("<p,neutral>Excellent! You look ready to fight. You can deal with the goblin now.");
 } else if (%tutorial = 40) {
     // V21 (clip 729).
     ~speech_line(vorbis_729);
-    ~chatnpc("<p,neutral>Go on, finish off the goblin. It's too weak to be a real threat.");
+    ~chatnpcnoturn("<p,neutral>Go on, finish off the goblin. It's too weak to be a real threat.");
 } else if (%tutorial >= 45 & %tutorial < 90) {
     ~uf_vant_plan;
 } else if (%tutorial >= 93 & %tutorial < 120) {
@@ -49,11 +53,11 @@ if (%tutorial = 7) {
 // V69 and V31 (clips 887, 807). "Gather the Squire's Gear" (15) shows as s005 opens (@66.5).
 [proc,uf_vant_assist]
 ~speech_line(vorbis_887);
-~chatnpc("<p,neutral>Thank goodness you're here! My squire's dead, and there's a goblin going through my bag!");
+~chatnpcnoturn("<p,neutral>Thank goodness you're here! My squire's dead, and there's a goblin going through my bag!");
 %tutorial = 15;
 ~uf_task_pin;
 ~speech_line(vorbis_807);
-~chatnpc("<p,neutral>I can't turn my back on this dragon. I need you to take my squire's equipment and deal with the goblin!");
+~chatnpcnoturn("<p,neutral>I can't turn my back on this dragon. I need you to take my squire's equipment and deal with the goblin!");
 queue(uf_gear_hint, 2, 0);
 
 [proc,uf_vant_hello]
@@ -66,7 +70,7 @@ if (compare(text_gender("m", "f"), "m") = 0) {
 }
 ~chatplayer("<p,neutral>Hello!");
 ~speech_line(vorbis_770);
-~chatnpc("<p,shock>Wait a moment - there's a dragon coming!");
+~chatnpcnoturn("<p,shock>Wait a moment - there's a dragon coming!");
 %tutorial = 9;
 ~uf_dragon_cutscene;
 

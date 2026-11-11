@@ -179,6 +179,17 @@ fn npc_face(engine: &Engine, name: &str) -> Option<(u16, u16)> {
     Some((npc.info.orientation_x?, npc.info.orientation_z?))
 }
 
+/// Whether the first npc of a type is turned to someone (chatnpc's face mode keeps its target).
+fn npc_has_target(engine: &Engine, name: &str) -> bool {
+    let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+    engine
+        .npc_list
+        .npcs
+        .iter()
+        .flatten()
+        .any(|n| n.npc.uid.id() == id && n.npc.interaction.target.is_some())
+}
+
 /// A world tile of the cellar copy as square 57_77's local (x, z).
 fn local(engine: &Engine, (x, z): (u16, u16)) -> (u16, u16) {
     let source = engine
@@ -1160,7 +1171,28 @@ fn the_squires_gear_and_the_goblin() {
             &mut client,
             npc_nid(engine, "tutorial3_knight_waitingforbattle"),
         );
+        // In the doorway he faces north, to the dragon, and does not turn to the player while he
+        // talks (4KO2h2xPtdM @61-74: his shield's front to a camera north of him, the player
+        // behind him).
+        let north = Some((
+            CoordGrid::fine(origin.0 + 32, 1),
+            CoordGrid::fine(origin.1 + 20, 1),
+        ));
+        assert_eq!(
+            npc_face(engine, "tutorial3_knight_waitingforbattle"),
+            north,
+            "Sir Vant faces north in the doorway"
+        );
         let talk = converse(engine, &mut client, &[], 200);
+        assert_eq!(
+            npc_face(engine, "tutorial3_knight_waitingforbattle"),
+            north,
+            "Sir Vant still faces north after the talk"
+        );
+        assert!(
+            !npc_has_target(engine, "tutorial3_knight_waitingforbattle"),
+            "Sir Vant did not turn to the player"
+        );
         assert!(talk.said(
             "Thank goodness you're here! My squire's dead, and there's a goblin going through my bag!"
         ));
@@ -1299,6 +1331,20 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             "Sir Vant distracting the dragon"
         );
         assert_eq!(npc_tile(engine, "tutorial3_knight_waitingforbattle"), None);
+        // Turned to the dragon's middle tile, and not to the player by the line that follows the
+        // change (4KO2h2xPtdM @117.6-120, @131.5-136.6: his back to the player south of him).
+        assert_eq!(
+            npc_face(engine, "tutorial3_knight_distracting"),
+            Some((
+                CoordGrid::fine(origin.0 + 30, 1),
+                CoordGrid::fine(origin.1 + 21, 1)
+            )),
+            "Sir Vant faces the dragon after the plan"
+        );
+        assert!(
+            !npc_has_target(engine, "tutorial3_knight_distracting"),
+            "Sir Vant did not turn to the player"
+        );
         // The camera cuts to the pillars for the second line and to the food bowl for the third,
         // and is the player's again for the fourth (4KO2h2xPtdM @112.9, @114.7, @116.0): each
         // line's voice clip, with the camera packets around it. A shot's two packets follow its
