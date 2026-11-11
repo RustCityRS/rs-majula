@@ -24,7 +24,11 @@ if (add(%lastcombat, 8) > map_clock) {
     return;
 }
 ~random_event_gift_fill;
-inv_transmit(macro_certer, ame_rewards:menu);
+// The client draws the choices from the inv's id, seven components a choice, and the one
+// clicked carries no obj: the click's slot is a component, not a slot of the inv. So the
+// inv is not bound to ame_rewards:menu, where the engine would read the click as one on a
+// held obj, but to com_0, which is never clicked.
+inv_transmit(macro_certer, ame_rewards:com_0);
 if_openmain(ame_rewards);
 // The choices are clientscript-built children of com_15 (choice * 7); the
 // client sends their ops only on the slots the server grants.

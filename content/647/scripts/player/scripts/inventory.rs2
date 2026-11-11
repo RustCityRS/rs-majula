@@ -1,8 +1,9 @@
-// Inventory item options. Like void: item-configurable ops (1-5) go through the
-// p_opheld bridge to [opheld{op}] (op2 = Equip -> [opheld2]); the universal ops
-// Drop (op8) and Examine (op10) are handled DIRECTLY here, since opheld only
-// covers 1-5 and Drop/Examine are the same for every item.
-// Op numbers (void inventory.ifaces.toml): Equip=op2, Drop=op8, Examine=op10.
+// Inventory item options. An obj's iops go through the p_opheld bridge to
+// [opheld{op}]; Drop (op 8) and Examine (op 10) are handled here, being the same
+// for every item.
+// The client's script inventory_setophelds_specified puts an obj's iop1-3 on the
+// slot's ops 1-3, iop4 on op 7, iop5 (Drop) on op 8 and Examine on op 10, so those
+// six are the buttons the client can send.
 // As 289's OPHELD did (clear_pending_action, then the op, protected), an op
 // closes any modal first: a player reading a clue who clicks another item
 // gets that item's op, not nothing. Examine leaves the modal open.
@@ -28,8 +29,7 @@ if ($obj ! null) {
 [if_button1,inventory:inv] ~handle_inv_button(1, last_slot);
 [if_button2,inventory:inv] ~handle_inv_button(2, last_slot);
 [if_button3,inventory:inv] ~handle_inv_button(3, last_slot);
-[if_button4,inventory:inv] ~handle_inv_button(4, last_slot);
-[if_button5,inventory:inv] ~handle_inv_button(5, last_slot);
+[if_button7,inventory:inv] ~handle_inv_button(4, last_slot);
 [if_button8,inventory:inv] ~handle_inv_button(8, last_slot);
 [if_button10,inventory:inv] ~handle_inv_button(10, last_slot);
 

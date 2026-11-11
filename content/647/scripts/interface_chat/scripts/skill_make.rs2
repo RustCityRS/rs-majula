@@ -48,7 +48,9 @@ if ($obj10 ! null) { %varclient_1802 = oc_name($obj10); }
 if_openchat(skillmulti2010);
 if_opensub(skillmulti2010_numbers, skillmulti2010:numbers);
 if_settext(skillmulti2010_numbers:text, $text);
-if_setevents(skillmulti2010_numbers:all, 0, 0, ^if_op1, 0, 0, ^false, ^false);
+// "All" is the component itself, not a child of it (the client's script 2020 sets its op with
+// if_setop), so its click comes with no slot: the events go on -1, as void-634's unlock does.
+if_setevents(skillmulti2010_numbers:all, -1, -1, ^if_op1, 0, 0, ^false, ^false);
 p_pausebutton;
 def_component $com = last_com;
 if_close;

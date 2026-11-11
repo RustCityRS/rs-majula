@@ -11,6 +11,10 @@
 // 1/5/10/50, Examine.
 [opnpc3,_shop_keeper] ~openshop_activenpc;
 
+// The client draws the stock from the inv's id (clientscript 2723), six components a slot,
+// and the one clicked carries no obj: a click's slot is a component, not a slot of the inv.
+// So the stock is not bound to shop_template:main, where the engine would read the click
+// as one on a held obj, but to the window's background, which is never clicked.
 [proc,openshop](inv $shop, int $shop_buy, int $shop_sell, int $shop_haggle, string $title)
 %shop = $shop;
 %shop_buy = $shop_buy;
@@ -18,7 +22,7 @@
 %shop_haggle = $shop_haggle;
 if_settext(shop_template:shop_title, $title);
 inv_transmit(inv, shop_template_side:inventory_layer);
-inv_transmit($shop, shop_template:main);
+inv_transmit($shop, shop_template:background);
 if_openmain_side(shop_template, shop_template_side);
 ~openshop_2011;
 
@@ -29,7 +33,7 @@ if_openmain_side(shop_template, shop_template_side);
 %shop_haggle = npc_param(shop_delta);
 if_settext(shop_template:shop_title, npc_param(shop_title));
 inv_transmit(inv, shop_template_side:inventory_layer);
-inv_transmit(%shop, shop_template:main);
+inv_transmit(%shop, shop_template:background);
 if_openmain_side(shop_template, shop_template_side);
 ~openshop_2011;
 
@@ -94,7 +98,7 @@ return(0);
 
 [if_close,shop_template]
 inv_stoptransmit(shop_template_side:inventory_layer);
-inv_stoptransmit(shop_template:main);
+inv_stoptransmit(shop_template:background);
 
 [proc,can_sell_obj](obj $item)(boolean)
 def_boolean $item_is_tradable = oc_tradeable(oc_uncert($item));

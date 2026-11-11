@@ -43,25 +43,29 @@ allowdesign(^true);
 %playerdesign3_legscol = 0
 %playerdesign3_feetcol = 0
 
+// The invs go out on the screen's backdrop, which nobody clicks: a click with a slot on a
+// component that transmits an inv is an inventory click to the engine (handlers/if_button.rs),
+// dropped unless that slot holds the obj clicked, and the skin colours are clicked by slot.
+// UPDATE_INV_FULL carries the inv alone, so the client sees no difference.
 [proc,cc_transmit_invs]()
-inv_transmit(ranging_guild_bowshop_skillcape, playerdesign4:skincolours)
-inv_transmit(poh_costume_room_treasure_trail_2a_inv, playerdesign4:skincolours)
-inv_transmit(poh_costume_room_treasure_trail_2a_inv_check, playerdesign4:skincolours)
-inv_transmit(playerkit_default, playerdesign4:skincolours)
-inv_transmit(playerkit_mage, playerdesign4:skincolours)
-inv_transmit(playerkit_chef, playerdesign4:skincolours)
-inv_transmit(playerkit_crafter, playerdesign4:skincolours)
-inv_transmit(playerkit_fletcher, playerdesign4:skincolours)
-inv_transmit(playerkit_herbalist, playerdesign4:skincolours)
-inv_transmit(playerkit_priest, playerdesign4:skincolours)
-inv_transmit(playerkit_slayer, playerdesign4:skincolours)
-inv_transmit(playerkit_smith, playerdesign4:skincolours)
-inv_transmit(playerkit_warrior, playerdesign4:skincolours)
-inv_transmit(playerkit_woodcutter, playerdesign4:skincolours)
-inv_transmit(playerkit_fisher, playerdesign4:skincolours)
-inv_transmit(playerkit_farmer, playerdesign4:skincolours)
-inv_transmit(playerkit_runecrafter, playerdesign4:skincolours)
-inv_transmit(playerkit_summoner, playerdesign4:skincolours)
+inv_transmit(ranging_guild_bowshop_skillcape, playerdesign4:com_0)
+inv_transmit(poh_costume_room_treasure_trail_2a_inv, playerdesign4:com_0)
+inv_transmit(poh_costume_room_treasure_trail_2a_inv_check, playerdesign4:com_0)
+inv_transmit(playerkit_default, playerdesign4:com_0)
+inv_transmit(playerkit_mage, playerdesign4:com_0)
+inv_transmit(playerkit_chef, playerdesign4:com_0)
+inv_transmit(playerkit_crafter, playerdesign4:com_0)
+inv_transmit(playerkit_fletcher, playerdesign4:com_0)
+inv_transmit(playerkit_herbalist, playerdesign4:com_0)
+inv_transmit(playerkit_priest, playerdesign4:com_0)
+inv_transmit(playerkit_slayer, playerdesign4:com_0)
+inv_transmit(playerkit_smith, playerdesign4:com_0)
+inv_transmit(playerkit_warrior, playerdesign4:com_0)
+inv_transmit(playerkit_woodcutter, playerdesign4:com_0)
+inv_transmit(playerkit_fisher, playerdesign4:com_0)
+inv_transmit(playerkit_farmer, playerdesign4:com_0)
+inv_transmit(playerkit_runecrafter, playerdesign4:com_0)
+inv_transmit(playerkit_summoner, playerdesign4:com_0)
 
 [proc,cc_enable_events]()
 if_setevents(playerdesign4:skincolours, 0, 20, ^if_op1, 0, 0, ^false, ^false)
