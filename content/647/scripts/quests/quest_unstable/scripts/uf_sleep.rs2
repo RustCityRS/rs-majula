@@ -189,9 +189,10 @@ if_close;
 // and the minimap back @244.9, and in that frame TASK COMPLETE! Put the Dragon to Sleep starts
 // to open (full by @245.6). 4KO2h2xPtdM shows no banner over shot 107 (@236-244.8). They walk
 // out to Sir Vant themselves.
-~uf_cutscene_close;
+~uf_cutscene_release;
 %varclient_1425 = 3510;
 if (npc_find(~uf_cellar_coord(26, 30), tutorial3_knight_waitingforbattle, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(24, 31));
     hint_npc_slot(0, 0, ^uf_hint_ring);
 }
+~uf_cutscene_end;

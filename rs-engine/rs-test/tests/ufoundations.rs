@@ -145,6 +145,26 @@ fn npc_tile(engine: &Engine, name: &str) -> Option<(u16, u16)> {
         .map(|n| (n.npc.pathing.coord.x(), n.npc.pathing.coord.z()))
 }
 
+/// An npc's tile and its spawn tile as the cellar's local (x, z), and its mode.
+type NpcTrace = ((u16, u16), (u16, u16), Option<u8>);
+
+/// The first npc of a type, traced.
+fn npc_trace(engine: &Engine, name: &str) -> Option<NpcTrace> {
+    let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+    let npc = &engine
+        .npc_list
+        .npcs
+        .iter()
+        .flatten()
+        .find(|n| n.npc.uid.id() == id)?
+        .npc;
+    Some((
+        local(engine, (npc.pathing.coord.x(), npc.pathing.coord.z())),
+        local(engine, (npc.spawn_coord.x(), npc.spawn_coord.z())),
+        npc.interaction.target_op,
+    ))
+}
+
 /// The fine coords an npc was last told to face (npc_facesquare): compare with
 /// `CoordGrid::fine` of the tile (u16, so they wrap at these world coords).
 fn npc_face(engine: &Engine, name: &str) -> Option<(u16, u16)> {
@@ -196,9 +216,86 @@ fn loc_ids(engine: &Engine, x: u16, z: u16) -> Vec<u16> {
 /// One tick of a cutscene: its shot, its packets, and where the squire stands.
 type CutsceneTick = (i32, Vec<(u16, Vec<u8>)>, Option<(u16, u16)>);
 
+/// One tick of the collapse: the shot, whether "Wow!" went out, the door open, Roddeck there, s038.
+type CollapseTick = (i32, bool, bool, bool, bool);
+
 /// The index of the first tick showing `shot`.
 fn shots_start(ticks: &[CutsceneTick], shot: i32) -> usize {
     ticks.iter().position(|(now, _, _)| *now == shot).unwrap()
+}
+
+/// Where `packets` set the TASK COMPLETE! popup (varc 1425, by VARC_LARGE `p4_alt1 value,
+/// p2_alt3 varc`) to `task`.
+fn popup_at(packets: &[(u16, Vec<u8>)], task: i32) -> Option<usize> {
+    packets.iter().position(|(op, p)| {
+        *op == ServerProt::VarcLarge as u16
+            && p.len() >= 6
+            && u16::from_le_bytes([p[4].wrapping_sub(128), p[5]]) == POPUP_TASK
+            && i32::from_le_bytes([p[0], p[1], p[2], p[3]]) == task
+    })
+}
+
+/// Where `packets` last put varc 1007 back at 0 (VARC_SMALL `p1_alt2 value, p2_alt1 varc`): a
+/// cutscene's release.
+fn shot_zero_at(packets: &[(u16, Vec<u8>)]) -> Option<usize> {
+    packets.iter().rposition(|(op, p)| {
+        *op == ServerProt::VarcSmall as u16
+            && p.len() >= 3
+            && u16::from_le_bytes([p[1], p[2]]) == SHOT
+            && p[0] == 0
+    })
+}
+
+/// The tick packet `i` went out on, counted in PLAYER_INFOs. A tick's Immediate packets (varps,
+/// varcs) are written as its scripts run, then its PLAYER_INFO and NPC_INFO, then its Buffered
+/// ones (interfaces, clientscripts, the minimap): `buffered` says which kind packet `i` is.
+fn tick_of(packets: &[(u16, Vec<u8>)], i: usize, buffered: bool) -> usize {
+    let infos = packets[..i]
+        .iter()
+        .filter(|(op, _)| *op == ServerProt::PlayerInfo as u16)
+        .count();
+    if buffered { infos - 1 } else { infos }
+}
+
+/// What is wrong with a cellar cutscene's release, if anything: the minimap back and `task`'s
+/// TASK COMPLETE! on the tick varc 1007 is back at 0.
+fn release_fault(packets: &[(u16, Vec<u8>)], task: i32) -> Option<String> {
+    let minimap = packets
+        .iter()
+        .rposition(|(op, b)| *op == ServerProt::MinimapToggle as u16 && b[0] == 0);
+    let zero = shot_zero_at(packets);
+    let banner = popup_at(packets, task);
+    let (Some(z), Some(m), Some(b)) = (zero, minimap, banner) else {
+        return Some(format!(
+            "varc 1007 at 0 {zero:?}, minimap {minimap:?}, banner {banner:?}"
+        ));
+    };
+    let (zt, mt, bt) = (
+        tick_of(packets, z, false),
+        tick_of(packets, m, true),
+        tick_of(packets, b, false),
+    );
+    if zt == mt && zt == bt {
+        return None;
+    }
+    Some(format!(
+        "varc 1007 at 0 is packet {z} (tick {zt}), the minimap {m} (tick {mt}), the banner {b} (tick {bt}): {}",
+        around(packets, z.min(m).min(b), z.max(m).max(b))
+    ))
+}
+
+/// The opcodes of packets `a..=b` and two either side, PLAYER_INFO as "PI".
+fn around(packets: &[(u16, Vec<u8>)], a: usize, b: usize) -> String {
+    (a.saturating_sub(2)..(b + 3).min(packets.len()))
+        .map(|i| {
+            if packets[i].0 == ServerProt::PlayerInfo as u16 {
+                format!("{i}:PI")
+            } else {
+                format!("{i}:{}", packets[i].0)
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(" ")
 }
 
 /// Whether a tick's packets carry `text` (an NPC_INFO say is the bare string).
@@ -530,6 +627,9 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         let mut squire_face = vec![npc_face(engine, "tutorial3_squire")];
         let mut goblin = vec![npc_tile(engine, "tutorial3_goblin")];
         let mut dragon = vec![npc_tile(engine, "tutorial3_dragon_initial")];
+        // Shot 10 holds until s003 is continued (1.7 s to 5.5 s in seven 2010-2011 recordings):
+        // eight ticks of it here, more than any timer of ours ran, with nothing ending it.
+        let mut held = 0;
         for _ in 0..80 {
             assert!(
                 is_open(engine, &client, CUTSCENES),
@@ -542,8 +642,12 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             squire_face.push(npc_face(engine, "tutorial3_squire"));
             goblin.push(npc_tile(engine, "tutorial3_goblin"));
             dragon.push(npc_tile(engine, "tutorial3_dragon_initial"));
-            if now == 0 {
-                break;
+            assert_ne!(now, 0, "the cutscene ends only when s003 is continued");
+            if now == 10 {
+                held += 1;
+                if held == 8 {
+                    break;
+                }
             }
         }
         let mut shots: Vec<(i32, u32)> = Vec::new();
@@ -554,9 +658,10 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             }
         }
         let order: Vec<i32> = shots.iter().map(|(shot, _)| *shot).collect();
-        assert_eq!(order, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0], "{shots:?}");
-        let lengths: Vec<u32> = shots[1..10].iter().map(|(_, n)| *n).collect();
-        assert_eq!(lengths, vec![6, 3, 13, 6, 7, 4, 4, 9, 3], "{shots:?}");
+        assert_eq!(order, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "{shots:?}");
+        let lengths: Vec<u32> = shots[1..9].iter().map(|(_, n)| *n).collect();
+        assert_eq!(lengths, vec![6, 3, 13, 6, 7, 4, 4, 9], "{shots:?}");
+        assert_eq!(shots[9], (10, 8), "shot 10 for as long as s003 is unread");
 
         // The dragon stands through shot 3 and runs to the wall as shot 4 opens, two tiles a
         // tick: 4KO2h2xPtdM has it at the wall 2.44-2.54 s after the cut @25.96, seven tiles on.
@@ -577,18 +682,6 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             ],
             "the dragon runs to the wall from shot 4's first tick"
         );
-        // 899 stays a tick after varc 1007 reaches 0, for its hook to reset the camera.
-        assert!(
-            is_open(engine, &client, CUTSCENES),
-            "899 still open on the tick its hook runs"
-        );
-        engine.cycle();
-        client.packets();
-        assert!(
-            !is_open(engine, &client, CUTSCENES),
-            "the camera is the player's again"
-        );
-
         // Shot 9: the goblin's "Ooh, shiny!" with its clip; shot 10: Sir Vant's s003 with his.
         let nine = shots_start(&ticks, 9);
         let shiny = ticks[nine..nine + 9]
@@ -646,9 +739,44 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             "still the cutscene's stage until s003 is read"
         );
         assert_eq!(face(engine), Some(nid), "still facing Sir Vant under s003");
-        let read = converse(engine, &mut client, &[], 20);
+        // s003 continued. The tick that takes it has the camera back (varc 1007 = 0, with 899
+        // still open for its hook), the minimap back and TASK COMPLETE! Talk to Sir Vant, as 2011
+        // has them in the frame the box goes (4KO2h2xPtdM @53.7; 8jKH_7To46o @128.7-129.3);
+        // 899 closes a tick later.
+        let read = converse(engine, &mut client, &[], 1);
+        assert_eq!(
+            shot(engine, &client),
+            10,
+            "shot 10 until the continue is taken"
+        );
         engine.cycle();
-        let after: Vec<(u16, Vec<u8>)> = read.packets.into_iter().chain(client.packets()).collect();
+        let release = client.packets();
+        assert_eq!(shot(engine, &client), 0, "the camera released on that tick");
+        assert!(
+            release
+                .iter()
+                .any(|(op, b)| *op == ServerProt::MinimapToggle as u16 && b[0] == 0),
+            "the minimap back on the release's tick"
+        );
+        assert!(
+            popup_at(&release, 3500).is_some(),
+            "TASK COMPLETE! on the release's tick"
+        );
+        assert!(
+            is_open(engine, &client, CUTSCENES),
+            "899 still open on the tick its hook runs"
+        );
+        engine.cycle();
+        assert!(
+            !is_open(engine, &client, CUTSCENES),
+            "899 closed a tick after the release"
+        );
+        let after: Vec<(u16, Vec<u8>)> = read
+            .packets
+            .into_iter()
+            .chain(release)
+            .chain(client.packets())
+            .collect();
         assert_eq!(
             hints(&after),
             vec![(0, 1, HINT_RING)],
@@ -1491,6 +1619,11 @@ fn the_dragon_is_put_to_sleep() {
             banner > at_shot(0),
             "the banner after the cutscene closes, not over shot 107"
         );
+        assert_eq!(
+            release_fault(&packets, 3510),
+            None,
+            "the minimap and the banner with the camera's release (4KO2h2xPtdM @244.9)"
+        );
         let clips = speech(&packets);
         for clip in [715, 850, 958] {
             assert!(clips.contains(&clip), "clip {clip} in {clips:?}");
@@ -1693,11 +1826,189 @@ fn the_pillars_burn_and_the_roof_comes_down() {
             wx,
             wz,
         );
-        let (texts, packets) = play_out(engine, &mut client, &[], 300);
-        assert!(said(&texts, "It's burning! Run!"), "{texts:?}");
-        assert!(sent_text(&packets, "Wow!"));
+        // s037, then the cutscene a tick at a time up to s038 (4KO2h2xPtdM 2011-04-30, frame by
+        // frame): the black 6 ticks (@405.97-409.64), shot 203 9 ticks (@409.64-415.05) with
+        // "Wow!" 5 ticks in (@412.4-412.6), the cupboard door a tick into shot 204 (@415.4-415.6),
+        // Roddeck two ticks in (@416.3-416.5), s038 seven ticks in (@419.0-419.2).
+        let lit = converse(engine, &mut client, &[], 30);
+        assert!(lit.said("It's burning! Run!"), "{:?}", lit.texts);
+        assert!(
+            matches!(shot(engine, &client), 0 | 201),
+            "s037 ends before the black"
+        );
+        let mut texts = lit.texts;
+        let mut packets = lit.packets;
+        let door_open = loc_id(engine, "tutorial3_wardrobe_door_open");
+        let (dx, dz) = at(37, 30);
+        // Each tick: the shot, whether "Wow!" went out, the door open, Roddeck there, s038.
+        let mut ticks: Vec<CollapseTick> = Vec::new();
+        let mut vant = vec![npc_trace(engine, "tutorial3_knight_waitingforbattle")];
+        for _ in 0..80 {
+            let sent = cycles(engine, &mut client, 1);
+            let lines: Vec<String> = rs_test::talk::settexts(&sent)
+                .into_iter()
+                .map(|(_, t)| t)
+                .collect();
+            let s038 = said(&lines, "Ah, here you are, Roddeck.");
+            let now = shot(engine, &client);
+            ticks.push((
+                now,
+                sent_text(&sent, "Wow!"),
+                loc_ids(engine, dx, dz).contains(&door_open),
+                npc_tile(engine, "tutorial3_advisor_walkoverrocks").is_some(),
+                s038,
+            ));
+            vant.push(npc_trace(engine, "tutorial3_knight_waitingforbattle"));
+            if now == 203 {
+                assert_eq!(
+                    cellar_tile(engine, &client),
+                    Some((25, 34)),
+                    "the player before the rubble"
+                );
+                assert_eq!(
+                    npc_tile(engine, "tutorial3_knight_waitingforbattle").map(|t| local(engine, t)),
+                    Some((27, 38)),
+                    "Sir Vant north-east of the player: {vant:?}"
+                );
+                assert_eq!(varbit_named(engine, &client, "tutorial3_leftpillar"), 5);
+                assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 5);
+            }
+            texts.extend(lines);
+            packets.extend(sent);
+            if s038 {
+                break;
+            }
+        }
+        // The rock fall (4KO2h2xPtdM @404.87-405.97): seven MAP_ANIMs (zone prot 6: the tile in
+        // its zone, the spotanim, a height, the wait in client cycles, a zero) in one tick's
+        // UPDATE_ZONE_PARTIAL_ENCLOSEDs, 14 ticks into shot 201 and 2 before the black.
+        let mut rocks: Vec<(usize, u8, u16, u16)> = Vec::new();
+        for (i, (op, body)) in packets.iter().enumerate() {
+            if *op != ServerProt::UpdateZonePartialEnclosed as u16 {
+                continue;
+            }
+            for j in 0..body.len().saturating_sub(7) {
+                let anim = u16::from_be_bytes([body[j + 2], body[j + 3]]);
+                if body[j] == ZoneProt::MapAnim as u8
+                    && (anim == 2149 || anim == 2150)
+                    && body[j + 4] == 0
+                    && body[j + 7] == 0
+                {
+                    let wait = u16::from_be_bytes([body[j + 5], body[j + 6]]);
+                    rocks.push((tick_of(&packets, i, true), body[j + 1], anim, wait));
+                }
+            }
+        }
+        let mut fall: Vec<(u8, u16, u16)> = rocks.iter().map(|r| (r.1, r.2, r.3)).collect();
+        fall.sort_by_key(|r| r.2);
+        assert_eq!(
+            fall,
+            vec![
+                (0x17, 2149, 0),
+                (0x05, 2150, 2),
+                (0x04, 2149, 10),
+                (0x71, 2149, 14),
+                (0x50, 2150, 22),
+                (0x22, 2150, 33),
+                (0x56, 2150, 44),
+            ],
+            "the rock fall: {rocks:?}"
+        );
+        let fell = rocks[0].0;
+        assert!(rocks.iter().all(|r| r.0 == fell), "one tick: {rocks:?}");
+        // 201 and 202 do not fit VARC_SMALL's signed byte: VARC_LARGE, `p4_alt1 value, p2_alt3 varc`.
+        let shot_at = |n: i32| {
+            let i = packets
+                .iter()
+                .position(|(op, p)| {
+                    *op == ServerProt::VarcLarge as u16
+                        && p.len() >= 6
+                        && u16::from_le_bytes([p[4].wrapping_sub(128), p[5]]) == SHOT
+                        && i32::from_le_bytes([p[0], p[1], p[2], p[3]]) == n
+                })
+                .unwrap_or_else(|| panic!("no shot {n}"));
+            tick_of(&packets, i, false)
+        };
+        assert_eq!(shot_at(202) - shot_at(201), 16, "shot 201: {ticks:?}");
+        assert_eq!(shot_at(202) - fell, 2, "the rocks before the black");
+        let first = |what: &str, f: &dyn Fn(&CollapseTick) -> bool| {
+            ticks
+                .iter()
+                .position(f)
+                .unwrap_or_else(|| panic!("no {what}: {ticks:?}"))
+        };
+        let count = |n: i32| ticks.iter().filter(|t| t.0 == n).count();
+        let s203 = first("shot 203", &|t| t.0 == 203);
+        let s204 = first("shot 204", &|t| t.0 == 204);
+        assert_eq!(count(202), 6, "the black: {ticks:?}");
+        assert_eq!(count(203), 9, "shot 203: {ticks:?}");
+        assert_eq!(first("Wow!", &|t| t.1) - s203, 5, "Wow!: {ticks:?}");
+        assert_eq!(first("door", &|t| t.2) - s204, 1, "the door: {ticks:?}");
+        assert_eq!(first("Roddeck", &|t| t.3) - s204, 2, "Roddeck: {ticks:?}");
+        assert_eq!(first("s038", &|t| t.4) - s204, 7, "s038: {ticks:?}");
+        let (more, rest) = play_out(engine, &mut client, &[], 300);
+        texts.extend(more);
+        packets.extend(rest);
         assert!(said(&texts, "Ah, here you are, Roddeck."), "{texts:?}");
         assert!(said(&texts, "Next time, get a puppy!"), "{texts:?}");
+        // The release (4KO2h2xPtdM @427.16-429.06): the minimap and the kit-ask box on the tick
+        // the camera is released, the Task panel a tick on, the banner only once the kit-ask
+        // box has been continued.
+        let zero = shot_zero_at(&packets).expect("varc 1007 back at 0");
+        let at = |what: &str, i: Option<usize>| {
+            i.unwrap_or_else(|| {
+                panic!(
+                    "no {what}: {texts:?} {}",
+                    around(&packets, zero, packets.len())
+                )
+            })
+        };
+        let minimap = at(
+            "minimap",
+            packets
+                .iter()
+                .rposition(|(op, b)| *op == ServerProt::MinimapToggle as u16 && b[0] == 0),
+        );
+        let kit = at(
+            "kit-ask",
+            packets.iter().position(|(_, b)| {
+                let t = b"could I have my squire's kit";
+                b.windows(t.len()).any(|w| w == t)
+            }),
+        );
+        let tab = at(
+            "Task panel",
+            packets.iter().rposition(|(op, b)| {
+                *op == ServerProt::RunClientScript as u16
+                    && b.len() >= 8
+                    && b[b.len() - 8..] == [0, 0, 0, 1, 0, 0, 0, 115]
+            }),
+        );
+        let banner = at("banner", popup_at(&packets, 3512));
+        let released = tick_of(&packets, zero, false);
+        let ctx = format!(
+            "zero {zero} minimap {minimap} kit {kit} tab {tab} banner {banner}: {}",
+            around(&packets, zero, tab.max(banner))
+        );
+        assert_eq!(
+            tick_of(&packets, minimap, true),
+            released,
+            "the minimap: {ctx}"
+        );
+        assert_eq!(
+            tick_of(&packets, kit, true),
+            released,
+            "the kit-ask box: {ctx}"
+        );
+        assert_eq!(
+            tick_of(&packets, tab, true),
+            released + 1,
+            "the Task panel: {ctx}"
+        );
+        assert!(
+            tick_of(&packets, banner, false) > released + 1,
+            "the banner after the kit-ask box: {ctx}"
+        );
         assert!(
             said(&texts, "could I have my squire's kit back, please?"),
             "{texts:?}"
@@ -1708,10 +2019,14 @@ fn the_pillars_burn_and_the_roof_comes_down() {
             None,
             "the dragon is under the rubble"
         );
-        assert!(
-            npc_tile(engine, "tutorial3_advisor_walkoverrocks").is_some(),
-            "Roddeck is out"
+        // Roddeck walks from his cupboard to the player's side (the minimap @428.5 and @431: his
+        // dot a tile south and a tile east of the player's).
+        assert_eq!(
+            npc_tile(engine, "tutorial3_advisor_walkoverrocks").map(|t| local(engine, t)),
+            Some((26, 33)),
+            "Roddeck beside the player"
         );
+        assert_eq!(cellar_tile(engine, &client), Some((25, 34)));
     });
 }
 
@@ -2141,5 +2456,9 @@ fn the_way_out_is_walkable_from_roddeck() {
             near(14, 35) || near(14, 38),
             "the rocks or roots from Roddeck:\n{map}"
         );
+        // Where the collapse leaves the three of them (4KO2h2xPtdM @428.5-431).
+        for tile in [(25, 34), (26, 33), (27, 38)] {
+            assert!(seen.contains(&tile), "{tile:?} is floor:\n{map}");
+        }
     });
 }

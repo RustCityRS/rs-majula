@@ -126,9 +126,9 @@ if ($p >= 117) {
     // After the roof came down: Roddeck's cellar in the region, Sir Vant by the rubble, Roddeck
     // out of his cupboard (uf_collapse.rs2).
     ~uf_cellar_collapsed;
-    npc_add(~uf_cellar_coord(28, 31), tutorial3_knight_waitingforbattle, 0);
+    npc_add(~uf_cellar_coord(27, 38), tutorial3_knight_waitingforbattle, 0);
     npc_setmode(none);
-    npc_add(~uf_cellar_coord(32, 32), tutorial3_advisor_walkoverrocks, 0);
+    npc_add(~uf_cellar_coord(26, 33), tutorial3_advisor_walkoverrocks, 0);
     npc_setmode(none);
     if (%tutorial = 117) {
         %tutorial = 125;
@@ -303,6 +303,31 @@ if (region_findbycoord(coord) = false) {
     return;
 }
 spotanim_map($anim, ~uf_cellar_coord(32, 13), $height, 0);
+
+// ::ufrocks plays the collapse's rock fall in the cellar you stand in.
+[debugproc,ufrocks]
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+~uf_collapse_rocks;
+
+// ::ufrockpair <spotanim> <x> <z> <spotanim> <x> <z> plays two spotanims on cellar tiles at once.
+[debugproc,ufrockpair](spotanim $first, int $x1, int $z1, spotanim $second, int $x2, int $z2)
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+spotanim_map($first, ~uf_cellar_coord($x1, $z1), 0, 0);
+spotanim_map($second, ~uf_cellar_coord($x2, $z2), 0, 0);
+
+// ::ufmapanimat <spotanim> <x> <z> <height> <delay> plays a spotanim on a cellar tile.
+[debugproc,ufmapanimat](spotanim $anim, int $x, int $z, int $height, int $delay)
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+spotanim_map($anim, ~uf_cellar_coord($x, $z), $height, $delay);
 
 // ::ufspot <npc> <spotanim> plays a spotanim on the nearest npc of a type.
 [debugproc,ufspot](npc $npc, spotanim $anim)

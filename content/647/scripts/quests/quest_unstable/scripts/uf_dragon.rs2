@@ -230,9 +230,12 @@ if (npc_find(~uf_cellar_coord(34, 13), tutorial3_goblin, 2, 0) = true) {
 }
 p_delay(0);
 %tutorial3_cutscene_tracker = 10;
-// Shot 10 opens under Sir Vant's "I need some help over here!" (@51.9, s003, his clip 882): the
-// chat box is up while the camera still flies (4KO2 @52-53.7 shows Continue), so its page opens
-// here and is waited on once the camera is the player's again.
+// Shot 10 opens under Sir Vant's "I need some help over here!" (@51.9, s003, his clip 882) and
+// holds until the line is continued. From the cut to the release 2010-2011 recordings take 1.7 s
+// to 5.5 s (vGlx_SDOI7s 56.32-57.99, 4KO2h2xPtdM 51.85-53.7, BwlLu6M0Puw 158.0-160.2,
+// dSHLzIzwXq4 54.6-57.7, KYxDa0aq2q0 60.23-63.43, o_WcLur14kc 69.13-72.97, 8jKH_7To46o
+// 122.7-128.7), and 4KO2's box reads "Click here to continue" @51.9-53.2, "Please wait..."
+// @53.3-53.6 and is gone @53.7 with the camera's release.
 // His shock chathead: ranked first of nine against 4KO2's s003 frames by shape (0.096 against
 // 0.157 next) and by DINOv2 (0.068 against 0.075).
 split_init("<p,shock>I need some help over here!", 380, 4, q8_full);
@@ -240,13 +243,12 @@ if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_battle, 2, 0) = true) {
     ~chatnpc_page("Sir Vant", tutorial3_knight_waitingforbattle, 0);
     ~speech_line(vorbis_882);
 }
-p_delay(2);
-~uf_cutscene_close;
+p_pausebutton;
+if_close;
+~uf_cutscene_release;
 if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_battle, 2, 0) = true) {
     npc_changetype(tutorial3_knight_waitingforbattle, ^uf_cellar_obj_duration);
 }
-p_pausebutton;
-if_close;
 // Assist Sir Vant (Task 3501; cs2 4098: 10). Once s003 is read 2011 shows "TASK COMPLETE! Talk to
 // Sir Vant" (Task 3500, 4KO2h2xPtdM @54.8), the yellow ring and arrow at the player's feet again and
 // a yellow arrow over Sir Vant (@57.8; also C-kHSxIgZH0 2010-10-13 @216-220).
@@ -257,6 +259,7 @@ if_close;
 if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) = true) {
     hint_npc_slot(0, 0, ^uf_hint_ring);
 }
+~uf_cutscene_end;
 
 [proc,uf_squire_say](string $text, vorbis $clip)
 if (npc_find(~uf_cellar_coord(32, 14), tutorial3_squire, 4, 0) = true) {
@@ -275,16 +278,23 @@ if (getwindowmode = 1) {
     if_opensub(tutorial3_cutscenes, toplevel_fullscreen:mainoverlay);
 }
 
-[proc,uf_cutscene_close]
+// A cutscene's release, on the tick its last chat box is continued. In the frame that box goes
+// 2011 has the camera starting back to the player, the minimap back and the caller's TASK
+// COMPLETE starting to open (the dragon's: 4KO2h2xPtdM @53.65-53.75, 8jKH_7To46o @128.7-129.3;
+// the sleep's @244.84-244.94; the collapse's banner waits on Sir Vant's next line, see
+// uf_collapse). The camera comes back through interface 899's own hook: clientscript 2765 runs
+// cam_smoothreset when varc 1007 arrives at 0.
+[proc,uf_cutscene_release]
 %tutorial3_cutscene_tracker = 0;
-// The camera comes back through interface 899's own hook: clientscript 2765 runs cam_smoothreset
-// when varc 1007 arrives at 0. Closed in the same tick, 899 was gone before its hook ran and the
-// camera stayed on the last shot (in-client run ufrest10, 2026-11-10: the pillars talk and the
-// sabotage under the sleep cutscene's last camera); it stays open a tick for the hook.
+minimap_toggle(0);
+
+// Closed in the release's tick, 899 was gone before its hook ran and the camera stayed on the
+// last shot (in-client run ufrest10, 2026-11-10: the pillars talk and the sabotage under the
+// sleep cutscene's last camera); it stays open a tick for the hook.
+[proc,uf_cutscene_end]
 p_delay(0);
 if (getwindowmode = 1) {
     if_closesub(toplevel:mainoverlay);
 } else {
     if_closesub(toplevel_fullscreen:mainoverlay);
 }
-minimap_toggle(0);
