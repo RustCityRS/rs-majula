@@ -225,7 +225,7 @@ pub struct LocTypeRaw {
     pub transform_varp: i32,
     pub multiloc: Option<Box<[i32]>>,
     #[cfg(since_647)]
-    pub ambient_sfx_id: i32,
+    pub ambient_sfx_id: Option<u16>,
     #[cfg(since_647)]
     pub ambient_sfx_range: u8,
     #[cfg(since_647)]
@@ -235,7 +235,7 @@ pub struct LocTypeRaw {
     #[cfg(since_647)]
     pub sfx_random_ids: Option<Box<[u16]>>,
     #[cfg(since_647)]
-    pub hillskew_param: i32,
+    pub hillskew_param: Option<i32>,
     #[cfg(since_647)]
     pub hide_minimap: bool,
     #[cfg(since_647)]
@@ -255,7 +255,7 @@ pub struct LocTypeRaw {
     #[cfg(since_647)]
     pub cursor_op2: Option<(u8, u16)>,
     #[cfg(since_647)]
-    pub msi_id: i32,
+    pub msi_id: Option<u16>,
     #[cfg(since_647)]
     pub interaction_side_flags: u8,
     #[cfg(since_647)]
@@ -265,7 +265,7 @@ pub struct LocTypeRaw {
     #[cfg(since_647)]
     pub random_anim_weights: Option<Box<[u8]>>,
     #[cfg(since_647)]
-    pub map_element: i32,
+    pub map_element: Option<u16>,
     #[cfg(since_647)]
     pub members_op: [Option<Box<str>>; 5],
     #[cfg(since_647)]
@@ -356,7 +356,7 @@ impl CacheType for LocTypeRaw {
             transform_varp: -1,
             multiloc: None,
             #[cfg(since_647)]
-            ambient_sfx_id: 0,
+            ambient_sfx_id: None,
             #[cfg(since_647)]
             ambient_sfx_range: 0,
             #[cfg(since_647)]
@@ -366,7 +366,7 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             sfx_random_ids: None,
             #[cfg(since_647)]
-            hillskew_param: -1,
+            hillskew_param: None,
             #[cfg(since_647)]
             hide_minimap: false,
             #[cfg(since_647)]
@@ -386,7 +386,7 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             cursor_op2: None,
             #[cfg(since_647)]
-            msi_id: -1,
+            msi_id: None,
             #[cfg(since_647)]
             interaction_side_flags: 255,
             #[cfg(since_647)]
@@ -396,7 +396,7 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             random_anim_weights: None,
             #[cfg(since_647)]
-            map_element: -1,
+            map_element: None,
             #[cfg(since_647)]
             members_op: [const { None }; 5],
             #[cfg(since_647)]
@@ -416,11 +416,11 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             randomsound_vorbis: false,
             #[cfg(since_647)]
-            op170: 0,
+            op170: 960,
             #[cfg(since_647)]
             op171: 0,
             #[cfg(since_647)]
-            op173: (0, 0),
+            op173: (256, 256),
             #[cfg(since_647)]
             unknown_177: false,
             #[cfg(since_647)]
@@ -517,7 +517,7 @@ impl CacheType for LocTypeRaw {
                 77 => self.decode_multiloc(buf, false),
                 #[cfg(since_647)]
                 78 => {
-                    self.ambient_sfx_id = buf.g2() as i32;
+                    self.ambient_sfx_id = Some(buf.g2());
                     self.ambient_sfx_range = buf.g1();
                 }
                 #[cfg(since_647)]
@@ -530,7 +530,7 @@ impl CacheType for LocTypeRaw {
                 #[cfg(since_647)]
                 81 => {
                     self.hillskew = 2;
-                    self.hillskew_param = (buf.g1() as i32) * 256;
+                    self.hillskew_param = Some((buf.g1() as i32) * 256);
                 }
                 #[cfg(since_647)]
                 82 => self.hide_minimap = true,
@@ -547,14 +547,15 @@ impl CacheType for LocTypeRaw {
                 #[cfg(since_647)]
                 93 => {
                     self.hillskew = 3;
-                    self.hillskew_param = buf.g2() as i32;
+                    self.hillskew_param = Some(buf.g2() as i32);
                 }
                 #[cfg(since_647)]
                 94 => self.hillskew = 4,
                 #[cfg(since_647)]
                 95 => {
                     self.hillskew = 5;
-                    self.hillskew_param = buf.g2s() as i32;
+                    let param = buf.g2s() as i32;
+                    self.hillskew_param = (param != -1).then_some(param);
                 }
                 #[cfg(since_647)]
                 97 => self.unknown_97 = true,
@@ -567,7 +568,7 @@ impl CacheType for LocTypeRaw {
                 #[cfg(since_647)]
                 101 => self.mapfunction = Some(buf.g1() as u16),
                 #[cfg(since_647)]
-                102 => self.msi_id = buf.g2() as i32,
+                102 => self.msi_id = Some(buf.g2()),
                 #[cfg(since_647)]
                 103 => self.occlude = false,
                 #[cfg(since_647)]
@@ -587,7 +588,7 @@ impl CacheType for LocTypeRaw {
                     self.random_anim_weights = Some(weights.into_boxed_slice());
                 }
                 #[cfg(since_647)]
-                107 => self.map_element = buf.g2() as i32,
+                107 => self.map_element = Some(buf.g2()),
                 #[cfg(since_647)]
                 150..=154 => {
                     let slot = (code - 150) as usize;
@@ -603,7 +604,8 @@ impl CacheType for LocTypeRaw {
                 #[cfg(since_647)]
                 162 => {
                     self.hillskew = 3;
-                    self.hillskew_param = buf.g4s();
+                    let param = buf.g4s();
+                    self.hillskew_param = (param != -1).then_some(param);
                 }
                 #[cfg(since_647)]
                 163 => self.op163 = [buf.g1s(), buf.g1s(), buf.g1s(), buf.g1s()],

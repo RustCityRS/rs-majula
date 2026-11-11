@@ -3,10 +3,10 @@ use crate::cache::mel::{MelType, ShowVar};
 use std::collections::HashMap;
 
 fn condition(var: &ShowVar, packs: &UnpackedPacks) -> String {
-    let name = if var.varbit != u16::MAX {
-        packs.reference("varpbit", var.varbit)
+    let name = if let Some(varbit) = var.varbit {
+        packs.reference("varpbit", varbit)
     } else {
-        packs.reference("varp", var.varp)
+        packs.reference("varp", var.varp.unwrap_or(u16::MAX))
     };
     format!("{name},{},{}", var.min, var.max)
 }
@@ -19,10 +19,14 @@ pub fn emit_mel_props(
     let has = |code| def.opcode_order.contains(&code);
     let mut p: Vec<(u8, String, String)> = Vec::new();
     if has(1) {
-        p.push((1, "sprite".into(), packs.reference("sprites", def.sprite)));
+        p.push((
+            1,
+            "sprite".into(),
+            packs.reference("sprites", def.sprite.unwrap()),
+        ));
     }
     if has(2) {
-        let sprite = packs.reference("sprites", def.mouseovergraphic);
+        let sprite = packs.reference("sprites", def.mouseovergraphic.unwrap());
         p.push((2, "mouseovergraphic".into(), sprite));
     }
     if has(3) {
@@ -32,7 +36,7 @@ pub fn emit_mel_props(
         p.push((4, "textcolour".into(), format_colour(def.textcolour)));
     }
     if has(5) {
-        let colour = format_colour(def.textmouseovercolour);
+        let colour = format_colour(def.textmouseovercolour.unwrap());
         p.push((5, "textmouseovercolour".into(), colour));
     }
     if has(6) {
@@ -89,11 +93,15 @@ pub fn emit_mel_props(
         p.push((17, "opbase".into(), def.opbase.clone()));
     }
     if has(18) {
-        let sprite = packs.reference("sprites", def.worldmaparrow);
+        let sprite = packs.reference("sprites", def.worldmaparrow.unwrap());
         p.push((18, "worldmaparrow".into(), sprite));
     }
     if has(19) {
-        p.push((19, "category".into(), format!("category_{}", def.category)));
+        p.push((
+            19,
+            "category".into(),
+            format!("category_{}", def.category.unwrap()),
+        ));
     }
     if let Some(var) = &def.showvar2 {
         p.push((20, "condition2".into(), condition(var, packs)));
@@ -106,7 +114,7 @@ pub fn emit_mel_props(
         p.push((22, "textbackgroundfill".into(), format_colour(*colour)));
     }
     if has(23) {
-        let (a, b, c) = def.polygonoutlinedash;
+        let (a, b, c) = def.polygonoutlinedash.unwrap();
         p.push((23, "polygonoutlinedash".into(), format!("{a},{b},{c}")));
     }
     if has(24) {

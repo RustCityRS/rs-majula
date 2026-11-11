@@ -218,7 +218,10 @@ pub fn emit_npc_props(
             (if has_default { 118 } else { 106 }, "multinpc"),
             "npc",
             has_default,
-            (def.transform_varbit, def.transform_varp),
+            (
+                def.transform_varbit.map_or(-1, i32::from),
+                def.transform_varp.map_or(-1, i32::from),
+            ),
             transforms,
             registry,
         ));
@@ -251,8 +254,8 @@ pub fn emit_npc_props(
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&114)
-        || def.primary_shadow_modifier != 0
-        || def.secondary_shadow_modifier != 0
+        || def.primary_shadow_modifier != -96
+        || def.secondary_shadow_modifier != -16
     {
         p.push((
             114,
@@ -274,24 +277,20 @@ pub fn emit_npc_props(
         }
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&122) || def.hitbar_sprite != -1 {
-        p.push((122, "unknown122".into(), def.hitbar_sprite.to_string()));
+    if let Some(hitbar_sprite) = def.hitbar_sprite {
+        p.push((122, "unknown122".into(), hitbar_sprite.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&123) || def.height != -1 {
-        p.push((123, "overlayheight".into(), def.height.to_string()));
+    if let Some(height) = def.height {
+        p.push((123, "overlayheight".into(), height.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&125) || def.respawn_direction != 0 {
+    if def.opcode_order.contains(&125) || def.respawn_direction != 4 {
         p.push((125, "respawndir".into(), def.respawn_direction.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&127) || def.render_emote != -1 {
-        p.push((
-            127,
-            "bas".into(),
-            registry.reference("bas", def.render_emote as u16),
-        ));
+    if let Some(render_emote) = def.render_emote {
+        p.push((127, "bas".into(), registry.reference("bas", render_emote)));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&128) || def.op128 != 0 {
@@ -305,10 +304,10 @@ pub fn emit_npc_props(
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&134)
-        || def.idle_sound != -1
-        || def.crawl_sound != -1
-        || def.walk_sound != -1
-        || def.run_sound != -1
+        || def.idle_sound.is_some()
+        || def.crawl_sound.is_some()
+        || def.walk_sound.is_some()
+        || def.run_sound.is_some()
     {
         let kind = if def.vorbis { "vorbis" } else { "synth" };
         let sounds = [
@@ -317,7 +316,7 @@ pub fn emit_npc_props(
             def.walk_sound,
             def.run_sound,
         ]
-        .map(|sound| registry.reference(kind, sound as u16));
+        .map(|sound| registry.reference(kind, sound.unwrap_or(u16::MAX)));
         p.push((
             134,
             "bgsound".into(),
@@ -325,51 +324,43 @@ pub fn emit_npc_props(
         ));
     }
     #[cfg(since_647)]
-    if def.primary_cursor != 0 || def.primary_cursor_op != 0 {
+    if let (Some(cursor), Some(op)) = (def.primary_cursor, def.primary_cursor_op) {
         p.push((
             135,
             "cursor1".into(),
-            format!(
-                "{},{}",
-                def.primary_cursor_op + 1,
-                registry.reference("cursor", def.primary_cursor as u16)
-            ),
+            format!("{},{}", op + 1, registry.reference("cursor", cursor)),
         ));
     }
     #[cfg(since_647)]
-    if def.secondary_cursor != 0 || def.secondary_cursor_op != 0 {
+    if let (Some(cursor), Some(op)) = (def.secondary_cursor, def.secondary_cursor_op) {
         p.push((
             136,
             "cursor2".into(),
-            format!(
-                "{},{}",
-                def.secondary_cursor_op + 1,
-                registry.reference("cursor", def.secondary_cursor as u16)
-            ),
+            format!("{},{}", op + 1, registry.reference("cursor", cursor)),
         ));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&137) || def.attack_cursor != -1 {
+    if let Some(attack_cursor) = def.attack_cursor {
         p.push((
             137,
             "cursorattack".into(),
-            registry.reference("cursor", def.attack_cursor as u16),
+            registry.reference("cursor", attack_cursor),
         ));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&138) || def.army_icon != -1 {
+    if let Some(army_icon) = def.army_icon {
         p.push((
             138,
             "covermarker".into(),
-            registry.reference("sprites", def.army_icon as u16),
+            registry.reference("sprites", army_icon),
         ));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&139) || def.sprite_id != -1 {
-        p.push((139, "unknown139".into(), def.sprite_id.to_string()));
+    if let Some(sprite_id) = def.sprite_id {
+        p.push((139, "unknown139".into(), sprite_id.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&140) || def.ambient_sound_volume != 0 {
+    if def.opcode_order.contains(&140) || def.ambient_sound_volume != 255 {
         p.push((
             140,
             "bgsoundvolume".into(),
@@ -381,11 +372,11 @@ pub fn emit_npc_props(
         p.push((141, "familiar".into(), "yes".into()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&142) || def.mapfunction != -1 {
+    if let Some(mapfunction) = def.mapfunction {
         p.push((
             142,
             "mapelement".into(),
-            registry.reference("mel", def.mapfunction as u16),
+            registry.reference("mel", mapfunction),
         ));
     }
     #[cfg(since_647)]
@@ -419,8 +410,8 @@ pub fn emit_npc_props(
         ));
     }
     #[cfg(since_647)]
-    if def.main_option_index != -1 {
-        let (op, value) = if def.main_option_index == 1 {
+    if let Some(index) = def.main_option_index {
+        let (op, value) = if index == 1 {
             (158, "yes")
         } else {
             (159, "no")
@@ -436,11 +427,11 @@ pub fn emit_npc_props(
         p.push((160, "quest".into(), quests.join(",")));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&163) || def.slayer_type != 0 {
-        p.push((163, "roughbounding".into(), def.slayer_type.to_string()));
+    if let Some(slayer_type) = def.slayer_type {
+        p.push((163, "roughbounding".into(), slayer_type.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&164) || def.sound_rate_min != 0 || def.sound_rate_max != 0 {
+    if def.opcode_order.contains(&164) || def.sound_rate_min != 256 || def.sound_rate_max != 256 {
         p.push((
             164,
             "bgsoundrate".into(),

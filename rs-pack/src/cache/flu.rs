@@ -1,10 +1,11 @@
+use super::decode::read_optional_id;
 use super::provider::CacheType;
 use rs_io::Packet;
 
 pub struct FluType {
     pub id: u16,
     pub color: i32,
-    pub texture: u16,
+    pub texture: Option<u16>,
     pub size: u16,
     pub op4: bool,
     pub op5: bool,
@@ -18,7 +19,7 @@ impl CacheType for FluType {
         Self {
             id,
             color: 0,
-            texture: u16::MAX,
+            texture: None,
             size: 128,
             op4: false,
             op5: false,
@@ -35,7 +36,7 @@ impl CacheType for FluType {
             self.opcode_order.push(code);
             match code {
                 1 => self.color = buf.g3(),
-                2 => self.texture = buf.g2(),
+                2 => self.texture = read_optional_id(buf),
                 3 => self.size = buf.g2(),
                 4 => self.op4 = true,
                 5 => self.op5 = true,

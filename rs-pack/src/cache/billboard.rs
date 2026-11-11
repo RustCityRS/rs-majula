@@ -1,9 +1,10 @@
+use super::decode::read_optional_id;
 use super::provider::CacheType;
 use rs_io::Packet;
 
 pub struct BillboardType {
     pub id: u16,
-    pub material: u16,
+    pub material: Option<u16>,
     pub width_minus_one: u16,
     pub height_minus_one: u16,
     pub unused: u8,
@@ -18,12 +19,12 @@ impl CacheType for BillboardType {
     fn new(id: u16) -> Self {
         Self {
             id,
-            material: 0,
-            width_minus_one: 0,
-            height_minus_one: 0,
+            material: None,
+            width_minus_one: 63,
+            height_minus_one: 63,
             unused: 0,
-            blend_src: 0,
-            blend_dst: 0,
+            blend_src: 2,
+            blend_dst: 1,
             opcode_order: Vec::new(),
         }
     }
@@ -36,7 +37,7 @@ impl CacheType for BillboardType {
             }
             self.opcode_order.push(code);
             match code {
-                1 => self.material = buf.g2(),
+                1 => self.material = read_optional_id(buf),
                 2 => {
                     self.width_minus_one = buf.g2();
                     self.height_minus_one = buf.g2();

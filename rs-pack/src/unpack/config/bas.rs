@@ -35,8 +35,8 @@ pub fn emit_bas_props(
     let has = |code| def.opcode_order.contains(&code);
     let mut p: Vec<(u8, String, String)> = Vec::new();
     if has(1) {
-        let ready = packs.reference("seq", def.readyanim);
-        let walk = packs.reference("seq", def.walkanim);
+        let ready = packs.reference("seq", def.readyanim.unwrap_or(u16::MAX));
+        let walk = packs.reference("seq", def.walkanim.unwrap_or(u16::MAX));
         p.push((1, "readyanim".into(), format!("{ready},{walk}")));
     }
     for (code, anim) in &def.anims {
@@ -51,7 +51,11 @@ pub fn emit_bas_props(
         p.push((27, "transform".into(), format!("{slot},{values}")));
     }
     if has(28) {
-        let values: Vec<_> = def.op28.iter().map(u8::to_string).collect();
+        let values: Vec<_> = def
+            .op28
+            .iter()
+            .map(|value| value.unwrap_or(u8::MAX).to_string())
+            .collect();
         p.push((28, "unknown28".into(), values.join(",")));
     }
     for (code, key, value) in [
@@ -63,11 +67,13 @@ pub fn emit_bas_props(
         (34, "pitchspeed", def.pitchspeed.to_string()),
         (35, "pitchmax", def.pitchmax.to_string()),
         (36, "pitch", def.pitch.to_string()),
-        (37, "walkspeed", def.walkspeed.to_string()),
     ] {
         if has(code) {
             p.push((code, key.into(), value));
         }
+    }
+    if let Some(speed) = def.walkspeed {
+        p.push((37, "walkspeed".into(), speed.to_string()));
     }
     for (anim, weight) in &def.readyanim_random {
         let anim = packs.reference("seq", *anim);

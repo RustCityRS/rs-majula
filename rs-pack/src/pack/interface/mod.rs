@@ -890,7 +890,7 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
     out.p1(comp.x_mode as u8);
     out.p1(comp.y_mode as u8);
 
-    out.p2(comp.parent_id);
+    out.p2(comp.parent_id.unwrap_or(u16::MAX));
     out.p1(comp.flags);
 
     let var2: i32 = if comp.version == 255 {
@@ -908,7 +908,7 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
     }
 
     if comp.com_type == IfComponentType::Graphic {
-        out.p4(comp.graphic);
+        out.p4(comp.graphic.unwrap_or(-1));
         out.p2(comp.angle_2d);
         let sf = comp.tiling as u8 | ((comp.alpha as u8) << 1);
         out.p1(sf);
@@ -1013,9 +1013,9 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
 
     let target_mask = (comp.active_properties >> 11) & 0x7F;
     if target_mask != 0 {
-        out.p2(comp.target_object_id as u16);
-        out.p2(comp.target_enter_cursor as u16);
-        out.p2(comp.target_leave_cursor as u16);
+        out.p2(comp.target_object_id.unwrap_or(u16::MAX));
+        out.p2(comp.target_enter_cursor.unwrap_or(u16::MAX));
+        out.p2(comp.target_leave_cursor.unwrap_or(u16::MAX));
     }
 
     for hook in &comp.hooks {
@@ -1084,14 +1084,9 @@ pub fn parse_components(
                 id: position as u16,
                 root_layer: group as i32,
                 version: u8::MAX,
-                parent_id: u16::MAX,
-                graphic: -1,
                 model: -1,
                 anim: -1,
                 font: -1,
-                target_object_id: -1,
-                target_enter_cursor: -1,
-                target_leave_cursor: -1,
                 ..IfTypeRaw::default()
             };
             ensure!(
@@ -1179,12 +1174,15 @@ fn parse_property(
         "heightmode" => comp.height_mode = mode(&SIZE_MODES)? as i8,
         "xmode" => comp.x_mode = mode(&X_MODES)? as i8,
         "ymode" => comp.y_mode = mode(&Y_MODES)? as i8,
-        "layer" => comp.parent_id = names.component_id(group, value)? as u16,
+        "layer" => comp.parent_id = Some(names.component_id(group, value)? as u16),
         "hide" => comp.flags |= 1,
         "scrollwidth" => comp.scroll_width = value.parse()?,
         "scrollheight" => comp.scroll = value.parse()?,
         "noclickthrough" => comp.no_click_through = true,
-        "graphic" => comp.graphic = reference("sprites")?,
+        "graphic" => {
+            let graphic = reference("sprites")?;
+            comp.graphic = (graphic != -1).then_some(graphic);
+        }
         "2dangle" => comp.angle_2d = value.parse()?,
         "tiling" => comp.tiling = true,
         "alpha" => comp.alpha = true,
@@ -1251,9 +1249,18 @@ fn parse_property(
         "dragdeadtime" => comp.drag_deadtime = value.parse()?,
         "dragrenderbehaviour" => comp.drag_renderbehavior = value.parse()?,
         "targetverb" => comp.target_verb = value.to_owned(),
-        "targetobj" => comp.target_object_id = reference("obj")?,
-        "targetcursor2" => comp.target_enter_cursor = reference("cursor")?,
-        "targetcursor3" => comp.target_leave_cursor = reference("cursor")?,
+        "targetobj" => {
+            let id = reference("obj")? as u16;
+            comp.target_object_id = (id != u16::MAX).then_some(id);
+        }
+        "targetcursor2" => {
+            let id = reference("cursor")? as u16;
+            comp.target_enter_cursor = (id != u16::MAX).then_some(id);
+        }
+        "targetcursor3" => {
+            let id = reference("cursor")? as u16;
+            comp.target_leave_cursor = (id != u16::MAX).then_some(id);
+        }
         _ => {
             if let Some(op) = key.strip_prefix("opkey") {
                 let mut parts = value.split(',');

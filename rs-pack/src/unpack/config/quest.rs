@@ -92,7 +92,7 @@ pub fn emit_quest_props(
             17,
             "icon".into(),
             packs
-                .reference("sprites", def.graphic)
+                .reference("sprites", def.graphic.unwrap())
                 .trim_matches('"')
                 .to_owned(),
         ));

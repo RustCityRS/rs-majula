@@ -88,13 +88,13 @@ pub fn emit_spotanim_props(
             }
         }
         if def.opcode_order.contains(&14) {
-            p.push((14, "unknown14".into(), def.op14.to_string()));
+            p.push((14, "unknown14".into(), def.op14.unwrap().to_string()));
         }
         if def.opcode_order.contains(&15) {
-            p.push((15, "unknown15".into(), def.op15.to_string()));
+            p.push((15, "unknown15".into(), def.op15.unwrap().to_string()));
         }
         if def.opcode_order.contains(&16) {
-            p.push((16, "unknown16".into(), def.op16.to_string()));
+            p.push((16, "unknown16".into(), def.op16.unwrap_or(-1).to_string()));
         }
         for (i, (&s, &d)) in recol_d.iter().zip(recol_s).enumerate() {
             let [(ks, vs), (kd, vd)] = super::recol_pair(i + 1, s, d, _reverse_hsl);

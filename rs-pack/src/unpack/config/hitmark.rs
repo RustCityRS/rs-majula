@@ -13,7 +13,7 @@ pub fn emit_hitmark_props(
         p.push((
             1,
             "damagefont".into(),
-            packs.reference("fontmetrics", def.damagefont),
+            packs.reference("fontmetrics", def.damagefont.unwrap()),
         ));
     }
     if has(2) {
@@ -26,7 +26,11 @@ pub fn emit_hitmark_props(
         (6, "rightgraphic", def.rightgraphic),
     ] {
         if has(code) {
-            p.push((code, key.into(), packs.reference("sprites", sprite)));
+            p.push((
+                code,
+                key.into(),
+                packs.reference("sprites", sprite.unwrap()),
+            ));
         }
     }
     if has(7) {
@@ -49,13 +53,17 @@ pub fn emit_hitmark_props(
         p.push((11, "fadeout".into(), "no".into()));
     }
     if has(12) {
-        p.push((12, "replacemode".into(), def.replacemode.to_string()));
+        p.push((
+            12,
+            "replacemode".into(),
+            def.replacemode.unwrap().to_string(),
+        ));
     }
     if has(13) {
         p.push((13, "damageyof".into(), def.damageyof.to_string()));
     }
     if has(14) {
-        p.push((14, "fadeout".into(), def.fadeout.to_string()));
+        p.push((14, "fadeout".into(), def.fadeout.unwrap().to_string()));
     }
     super::reorder_by_opcode(&def.opcode_order, p)
 }

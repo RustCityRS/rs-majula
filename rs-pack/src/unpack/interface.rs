@@ -837,11 +837,11 @@ fn emit_component(
     if comp.y_mode != 0 {
         writeln!(out, "ymode={}", mode_name(&Y_MODES, comp.y_mode as u8))?;
     }
-    if comp.parent_id != u16::MAX {
+    if let Some(parent) = comp.parent_id {
         writeln!(
             out,
             "layer={}",
-            identifier_form(&names.component_name(group, comp.parent_id as u32))
+            identifier_form(&names.component_name(group, parent as u32))
         )?;
     }
     if comp.flags & 1 != 0 {
@@ -887,7 +887,7 @@ fn emit_component(
         ("targetcursor2", "cursor", comp.target_enter_cursor),
         ("targetcursor3", "cursor", comp.target_leave_cursor),
     ] {
-        if value != -1 {
+        if let Some(value) = value {
             writeln!(out, "{key}={}", names.reference(kind, value as i64))?;
         }
     }
@@ -949,8 +949,8 @@ fn emit_text(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<(
 
 #[cfg(since_647)]
 fn emit_graphic(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
-    if comp.graphic != -1 {
-        let graphic = names.reference("sprites", comp.graphic as i64);
+    if let Some(graphic) = comp.graphic {
+        let graphic = names.reference("sprites", graphic as i64);
         if graphic.contains(',') {
             writeln!(out, "graphic=\"{graphic}\"")?;
         } else {

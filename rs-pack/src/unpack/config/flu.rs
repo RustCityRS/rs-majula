@@ -15,7 +15,7 @@ pub fn emit_flu_props(
         p.push((
             2,
             "material".into(),
-            packs.reference("texture", def.texture),
+            packs.reference("texture", def.texture.unwrap_or(u16::MAX)),
         ));
     }
     if def.opcode_order.contains(&3) {

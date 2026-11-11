@@ -24,11 +24,11 @@ pub struct FloTypeRaw {
     pub overlay: bool,
     pub occlude: bool,
     #[cfg(since_647)]
-    pub water_color: i32,
+    pub water_color: Option<i32>,
     #[cfg(since_647)]
     pub op8_flomark: bool,
     #[cfg(since_647)]
-    pub op9_u16: Option<u16>,
+    pub op9_u16: u16,
     #[cfg(since_647)]
     pub op10_bool34_false: bool,
     #[cfg(since_647)]
@@ -36,11 +36,11 @@ pub struct FloTypeRaw {
     #[cfg(since_647)]
     pub op12_bool33_true: bool,
     #[cfg(since_647)]
-    pub op13_u24: Option<u32>,
+    pub op13_u24: u32,
     #[cfg(since_647)]
-    pub op14_u8: Option<u8>,
+    pub op14_u8: u8,
     #[cfg(since_647)]
-    pub op16_u8: Option<u8>,
+    pub op16_u8: u8,
     debugname: Box<str>,
     pub opcode_order: Vec<u8>,
 }
@@ -60,11 +60,11 @@ impl CacheType for FloTypeRaw {
             overlay: false,
             occlude: true,
             #[cfg(since_647)]
-            water_color: -1,
+            water_color: None,
             #[cfg(since_647)]
             op8_flomark: false,
             #[cfg(since_647)]
-            op9_u16: None,
+            op9_u16: 128,
             #[cfg(since_647)]
             op10_bool34_false: false,
             #[cfg(since_647)]
@@ -72,11 +72,11 @@ impl CacheType for FloTypeRaw {
             #[cfg(since_647)]
             op12_bool33_true: false,
             #[cfg(since_647)]
-            op13_u24: None,
+            op13_u24: 1190717,
             #[cfg(since_647)]
-            op14_u8: None,
+            op14_u8: 16,
             #[cfg(since_647)]
-            op16_u8: None,
+            op16_u8: 127,
             debugname: Box::default(),
             opcode_order: Vec::new(),
         }
@@ -110,11 +110,11 @@ impl CacheType for FloTypeRaw {
                 5 => self.occlude = false,
                 6 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
                 #[cfg(since_647)]
-                7 => self.water_color = buf.g3(),
+                7 => self.water_color = Some(buf.g3()),
                 #[cfg(since_647)]
                 8 => self.op8_flomark = true,
                 #[cfg(since_647)]
-                9 => self.op9_u16 = Some(buf.g2()),
+                9 => self.op9_u16 = buf.g2(),
                 #[cfg(since_647)]
                 10 => self.op10_bool34_false = true,
                 #[cfg(since_647)]
@@ -122,11 +122,11 @@ impl CacheType for FloTypeRaw {
                 #[cfg(since_647)]
                 12 => self.op12_bool33_true = true,
                 #[cfg(since_647)]
-                13 => self.op13_u24 = Some(buf.g3() as u32),
+                13 => self.op13_u24 = buf.g3() as u32,
                 #[cfg(since_647)]
-                14 => self.op14_u8 = Some(buf.g1()),
+                14 => self.op14_u8 = buf.g1(),
                 #[cfg(since_647)]
-                16 => self.op16_u8 = Some(buf.g1()),
+                16 => self.op16_u8 = buf.g1(),
                 _ => crate::unknown_opcode!("flo", code),
             }
         }

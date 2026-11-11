@@ -323,7 +323,7 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&78) || def.ambient_sfx_id != 0 {
+    if let Some(ambient_sfx_id) = def.ambient_sfx_id {
         let kind = if def.bgsound_vorbis {
             "vorbis"
         } else {
@@ -334,7 +334,7 @@ pub fn emit_loc_props(
             "bgsound".into(),
             format!(
                 "{},{}",
-                registry.reference(kind, def.ambient_sfx_id as u16),
+                registry.reference(kind, ambient_sfx_id),
                 def.ambient_sfx_range
             ),
         ));
@@ -361,7 +361,7 @@ pub fn emit_loc_props(
         p.push((
             81,
             "hillchange".into(),
-            format!("tree_skew,{}", def.hillskew_param / 256),
+            format!("tree_skew,{}", def.hillskew_param.unwrap_or(-1) / 256),
         ));
     }
 
@@ -393,7 +393,7 @@ pub fn emit_loc_props(
     // Disambiguate by range: if param fits in 0..65535, it is the 2 byte form.
     #[cfg(since_647)]
     if def.hillskew == 3 {
-        let code = if (0..=65535).contains(&def.hillskew_param) {
+        let code = if (0..=65535).contains(&def.hillskew_param.unwrap_or(-1)) {
             93
         } else {
             162
@@ -401,7 +401,7 @@ pub fn emit_loc_props(
         p.push((
             code,
             "hillchange".into(),
-            format!("rotate,{}", def.hillskew_param),
+            format!("rotate,{}", def.hillskew_param.unwrap_or(-1)),
         ));
     }
 
@@ -415,7 +415,7 @@ pub fn emit_loc_props(
         p.push((
             95,
             "hillchange".into(),
-            format!("skew_to_fit,{}", def.hillskew_param & 0xffff),
+            format!("skew_to_fit,{}", def.hillskew_param.unwrap_or(-1) & 0xffff),
         ));
     }
 
@@ -457,12 +457,8 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&102) || def.msi_id != -1 {
-        p.push((
-            102,
-            "msi".into(),
-            registry.reference("msi", def.msi_id as u16),
-        ));
+    if let Some(msi_id) = def.msi_id {
+        p.push((102, "msi".into(), registry.reference("msi", msi_id)));
     }
 
     #[cfg(since_647)]
@@ -496,11 +492,11 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&107) || def.map_element != -1 {
+    if let Some(map_element) = def.map_element {
         p.push((
             107,
             "mapelement".into(),
-            registry.reference("mel", def.map_element as u16),
+            registry.reference("mel", map_element),
         ));
     }
 
@@ -557,7 +553,7 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&170) || def.op170 != 0 {
+    if def.opcode_order.contains(&170) || def.op170 != 960 {
         p.push((170, "unknown170".into(), def.op170.to_string()));
     }
 
@@ -567,7 +563,7 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&173) || def.op173 != (0, 0) {
+    if def.opcode_order.contains(&173) || def.op173 != (256, 256) {
         p.push((
             173,
             "bgsoundrate".into(),

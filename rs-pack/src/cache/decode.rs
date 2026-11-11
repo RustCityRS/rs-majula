@@ -34,3 +34,9 @@ pub(super) fn read_transforms(buf: &mut Packet, default: i32) -> Box<[i32]> {
     let count = buf.g1() as usize + 1;
     (0..count).map(|_| read_id(buf)).chain([default]).collect()
 }
+
+#[cfg(since_647)]
+pub(super) fn read_optional_id(buf: &mut Packet) -> Option<u16> {
+    let id = buf.g2();
+    (id != u16::MAX).then_some(id)
+}

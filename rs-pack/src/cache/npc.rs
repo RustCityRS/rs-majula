@@ -1,6 +1,6 @@
 use super::decode::{read_array, read_pairs};
 #[cfg(since_647)]
-use super::decode::{read_id, read_transforms};
+use super::decode::{read_id, read_optional_id, read_transforms};
 use super::param::ParamType;
 use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
@@ -112,7 +112,10 @@ impl From<NpcTypeRaw> for NpcType {
             #[cfg(since_289)]
             turnspeed: raw.turnspeed,
             #[cfg(since_647)]
-            multivar: MultiVar::new(raw.transform_varbit, raw.transform_varp),
+            multivar: raw
+                .transform_varbit
+                .map(MultiVar::Varbit)
+                .or_else(|| raw.transform_varp.map(MultiVar::Varp)),
             #[cfg(since_647)]
             multinpc: raw.transforms,
             params: raw.params,
@@ -184,9 +187,9 @@ pub struct NpcTypeRaw {
     #[cfg(since_289)]
     pub turnspeed: u16,
     #[cfg(since_647)]
-    pub transform_varbit: i32,
+    pub transform_varbit: Option<u16>,
     #[cfg(since_647)]
-    pub transform_varp: i32,
+    pub transform_varp: Option<u16>,
     #[cfg(since_647)]
     pub transforms: Option<Box<[i32]>>,
     #[cfg(since_647)]
@@ -209,45 +212,45 @@ pub struct NpcTypeRaw {
     #[allow(clippy::type_complexity)]
     pub translations: Option<Box<[(u8, [i8; 3])]>>,
     #[cfg(since_647)]
-    pub hitbar_sprite: i32,
+    pub hitbar_sprite: Option<u16>,
     #[cfg(since_647)]
-    pub height: i32,
+    pub height: Option<u16>,
     #[cfg(since_647)]
     pub respawn_direction: i8,
     #[cfg(since_647)]
-    pub render_emote: i32,
+    pub render_emote: Option<u16>,
     #[cfg(since_647)]
     pub op128: u8,
     #[cfg(since_647)]
-    pub idle_sound: i32,
+    pub idle_sound: Option<u16>,
     #[cfg(since_647)]
-    pub crawl_sound: i32,
+    pub crawl_sound: Option<u16>,
     #[cfg(since_647)]
-    pub walk_sound: i32,
+    pub walk_sound: Option<u16>,
     #[cfg(since_647)]
-    pub run_sound: i32,
+    pub run_sound: Option<u16>,
     #[cfg(since_647)]
     pub sound_distance: u8,
     #[cfg(since_647)]
-    pub primary_cursor_op: u8,
+    pub primary_cursor_op: Option<u8>,
     #[cfg(since_647)]
-    pub primary_cursor: i32,
+    pub primary_cursor: Option<u16>,
     #[cfg(since_647)]
-    pub secondary_cursor_op: u8,
+    pub secondary_cursor_op: Option<u8>,
     #[cfg(since_647)]
-    pub secondary_cursor: i32,
+    pub secondary_cursor: Option<u16>,
     #[cfg(since_647)]
-    pub attack_cursor: i32,
+    pub attack_cursor: Option<u16>,
     #[cfg(since_647)]
-    pub army_icon: i32,
+    pub army_icon: Option<u16>,
     #[cfg(since_647)]
-    pub sprite_id: i32,
+    pub sprite_id: Option<u16>,
     #[cfg(since_647)]
     pub ambient_sound_volume: u8,
     #[cfg(since_647)]
     pub visible_priority: bool,
     #[cfg(since_647)]
-    pub mapfunction: i32,
+    pub mapfunction: Option<u16>,
     #[cfg(since_647)]
     pub invisible_priority: bool,
     #[cfg(since_647)]
@@ -261,13 +264,13 @@ pub struct NpcTypeRaw {
     #[cfg(since_647)]
     pub opacity: i8,
     #[cfg(since_647)]
-    pub main_option_index: i8,
+    pub main_option_index: Option<i8>,
     #[cfg(since_647)]
     pub campaigns: Option<Box<[i16]>>,
     #[cfg(since_647)]
     pub vorbis: bool,
     #[cfg(since_647)]
-    pub slayer_type: u8,
+    pub slayer_type: Option<u8>,
     #[cfg(since_647)]
     pub sound_rate_min: i32,
     #[cfg(since_647)]
@@ -348,9 +351,9 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_289)]
             turnspeed: if cfg!(since_647) { 32 } else { 0 },
             #[cfg(since_647)]
-            transform_varbit: -1,
+            transform_varbit: None,
             #[cfg(since_647)]
-            transform_varp: -1,
+            transform_varp: None,
             #[cfg(since_647)]
             transforms: None,
             #[cfg(since_647)]
@@ -364,53 +367,53 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_647)]
             secondary_shadow_colour: 0,
             #[cfg(since_647)]
-            primary_shadow_modifier: 0,
+            primary_shadow_modifier: -96,
             #[cfg(since_647)]
-            secondary_shadow_modifier: 0,
+            secondary_shadow_modifier: -16,
             #[cfg(since_647)]
             walkmask: 0,
             #[cfg(since_647)]
             translations: None,
             #[cfg(since_647)]
-            hitbar_sprite: -1,
+            hitbar_sprite: None,
             #[cfg(since_647)]
-            height: -1,
+            height: None,
             #[cfg(since_647)]
-            respawn_direction: 0,
+            respawn_direction: 4,
             #[cfg(since_647)]
-            render_emote: -1,
+            render_emote: None,
             #[cfg(since_647)]
             op128: 0,
             #[cfg(since_647)]
-            idle_sound: -1,
+            idle_sound: None,
             #[cfg(since_647)]
-            crawl_sound: -1,
+            crawl_sound: None,
             #[cfg(since_647)]
-            walk_sound: -1,
+            walk_sound: None,
             #[cfg(since_647)]
-            run_sound: -1,
+            run_sound: None,
             #[cfg(since_647)]
             sound_distance: 0,
             #[cfg(since_647)]
-            primary_cursor_op: 0,
+            primary_cursor_op: None,
             #[cfg(since_647)]
-            primary_cursor: 0,
+            primary_cursor: None,
             #[cfg(since_647)]
-            secondary_cursor_op: 0,
+            secondary_cursor_op: None,
             #[cfg(since_647)]
-            secondary_cursor: 0,
+            secondary_cursor: None,
             #[cfg(since_647)]
-            attack_cursor: -1,
+            attack_cursor: None,
             #[cfg(since_647)]
-            army_icon: -1,
+            army_icon: None,
             #[cfg(since_647)]
-            sprite_id: -1,
+            sprite_id: None,
             #[cfg(since_647)]
-            ambient_sound_volume: 0,
+            ambient_sound_volume: 255,
             #[cfg(since_647)]
             visible_priority: false,
             #[cfg(since_647)]
-            mapfunction: -1,
+            mapfunction: None,
             #[cfg(since_647)]
             invisible_priority: false,
             #[cfg(since_647)]
@@ -424,17 +427,17 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_647)]
             opacity: 0,
             #[cfg(since_647)]
-            main_option_index: -1,
+            main_option_index: None,
             #[cfg(since_647)]
             campaigns: None,
             #[cfg(since_647)]
             vorbis: false,
             #[cfg(since_647)]
-            slayer_type: 0,
+            slayer_type: None,
             #[cfg(since_647)]
-            sound_rate_min: 0,
+            sound_rate_min: 256,
             #[cfg(since_647)]
-            sound_rate_max: 0,
+            sound_rate_max: 256,
             #[cfg(since_647)]
             pick_size_shift: 0,
             #[cfg(since_647)]
@@ -554,45 +557,45 @@ impl CacheType for NpcTypeRaw {
                     }));
                 }
                 #[cfg(since_647)]
-                122 => self.hitbar_sprite = buf.g2() as i32,
+                122 => self.hitbar_sprite = Some(buf.g2()),
                 #[cfg(since_647)]
-                123 => self.height = buf.g2() as i32,
+                123 => self.height = Some(buf.g2()),
                 #[cfg(since_647)]
                 125 => self.respawn_direction = buf.g1s(),
                 #[cfg(since_647)]
-                127 => self.render_emote = buf.g2() as i32,
+                127 => self.render_emote = Some(buf.g2()),
                 #[cfg(since_647)]
                 128 => self.op128 = buf.g1(),
                 #[cfg(since_647)]
                 134 => {
-                    self.idle_sound = read_id(buf);
-                    self.crawl_sound = read_id(buf);
-                    self.walk_sound = read_id(buf);
-                    self.run_sound = read_id(buf);
+                    self.idle_sound = read_optional_id(buf);
+                    self.crawl_sound = read_optional_id(buf);
+                    self.walk_sound = read_optional_id(buf);
+                    self.run_sound = read_optional_id(buf);
                     self.sound_distance = buf.g1();
                 }
                 #[cfg(since_647)]
                 135 => {
-                    self.primary_cursor_op = buf.g1();
-                    self.primary_cursor = buf.g2() as i32;
+                    self.primary_cursor_op = Some(buf.g1());
+                    self.primary_cursor = Some(buf.g2());
                 }
                 #[cfg(since_647)]
                 136 => {
-                    self.secondary_cursor_op = buf.g1();
-                    self.secondary_cursor = buf.g2() as i32;
+                    self.secondary_cursor_op = Some(buf.g1());
+                    self.secondary_cursor = Some(buf.g2());
                 }
                 #[cfg(since_647)]
-                137 => self.attack_cursor = buf.g2() as i32,
+                137 => self.attack_cursor = Some(buf.g2()),
                 #[cfg(since_647)]
-                138 => self.army_icon = buf.g2() as i32,
+                138 => self.army_icon = Some(buf.g2()),
                 #[cfg(since_647)]
-                139 => self.sprite_id = buf.g2() as i32,
+                139 => self.sprite_id = Some(buf.g2()),
                 #[cfg(since_647)]
                 140 => self.ambient_sound_volume = buf.g1(),
                 #[cfg(since_647)]
                 141 => self.visible_priority = true,
                 #[cfg(since_647)]
-                142 => self.mapfunction = buf.g2() as i32,
+                142 => self.mapfunction = Some(buf.g2()),
                 #[cfg(since_647)]
                 143 => self.invisible_priority = true,
                 #[cfg(since_647)]
@@ -608,15 +611,15 @@ impl CacheType for NpcTypeRaw {
                     self.opacity = buf.g1s();
                 }
                 #[cfg(since_647)]
-                158 => self.main_option_index = 1,
+                158 => self.main_option_index = Some(1),
                 #[cfg(since_647)]
-                159 => self.main_option_index = 0,
+                159 => self.main_option_index = Some(0),
                 #[cfg(since_647)]
                 160 => self.campaigns = Some(read_array(buf, Packet::g2s)),
                 #[cfg(since_647)]
                 162 => self.vorbis = true,
                 #[cfg(since_647)]
-                163 => self.slayer_type = buf.g1(),
+                163 => self.slayer_type = Some(buf.g1()),
                 #[cfg(since_647)]
                 164 => {
                     self.sound_rate_min = buf.g2() as i32;
@@ -656,8 +659,8 @@ impl NpcTypeRaw {
 
     #[cfg(since_647)]
     fn decode_multinpc(&mut self, buf: &mut Packet, has_default: bool) {
-        self.transform_varbit = read_id(buf);
-        self.transform_varp = read_id(buf);
+        self.transform_varbit = read_optional_id(buf);
+        self.transform_varp = read_optional_id(buf);
         let default = if has_default { read_id(buf) } else { -1 };
         self.transforms = Some(read_transforms(buf, default));
     }

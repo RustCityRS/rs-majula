@@ -44,13 +44,14 @@ pub fn emit_flo_props(
         if !def.occlude {
             p.push((5, "occlude".into(), "no".into()));
         }
-        if def.water_color >= 0 {
-            p.push((7, "mapcolour".into(), format!("0x{:x}", def.water_color)));
+        if let Some(colour) = def.water_color {
+            p.push((7, "mapcolour".into(), format!("0x{colour:x}")));
         }
         if def.op8_flomark {
             p.push((8, "unknown8".into(), "yes".into()));
         }
-        if let Some(v) = def.op9_u16 {
+        if def.opcode_order.contains(&9) {
+            let v = def.op9_u16;
             p.push((9, "texturescale".into(), v.to_string()));
         }
         if def.op10_bool34_false {
@@ -62,13 +63,16 @@ pub fn emit_flo_props(
         if def.op12_bool33_true {
             p.push((12, "smoothedges".into(), "yes".into()));
         }
-        if let Some(v) = def.op13_u24 {
+        if def.opcode_order.contains(&13) {
+            let v = def.op13_u24;
             p.push((13, "waterfogcolour".into(), format!("0x{v:x}")));
         }
-        if let Some(v) = def.op14_u8 {
+        if def.opcode_order.contains(&14) {
+            let v = def.op14_u8;
             p.push((14, "waterfogscale".into(), v.to_string()));
         }
-        if let Some(v) = def.op16_u8 {
+        if def.opcode_order.contains(&16) {
+            let v = def.op16_u8;
             p.push((16, "waterfogoffset".into(), v.to_string()));
         }
     }

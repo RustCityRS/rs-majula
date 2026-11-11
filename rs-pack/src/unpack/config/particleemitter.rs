@@ -61,7 +61,7 @@ pub fn emit_particleemitter_props(
         p.push((14, "unknown14".into(), def.max_particles.to_string()));
     }
     if has(15) {
-        p.push((15, "material".into(), def.material.to_string()));
+        p.push((15, "material".into(), def.material.unwrap().to_string()));
     }
     if has(16) {
         p.push((
@@ -69,12 +69,15 @@ pub fn emit_particleemitter_props(
             "unknown16".into(),
             format!(
                 "{},{},{},{}",
-                def.cycle_start, def.cycle_offset, def.cycle_duration, def.cycle_repeat
+                def.cycle_start,
+                def.cycle_offset.unwrap(),
+                def.cycle_duration.unwrap(),
+                def.cycle_repeat
             ),
         ));
     }
     if has(17) {
-        p.push((17, "unknown17".into(), def.material17.to_string()));
+        p.push((17, "unknown17".into(), def.material17.unwrap().to_string()));
     }
     if has(18) {
         p.push((
@@ -101,7 +104,11 @@ pub fn emit_particleemitter_props(
         ));
     }
     if has(22) {
-        p.push((22, "speedtarget".into(), def.target_speed.to_string()));
+        p.push((
+            22,
+            "speedtarget".into(),
+            def.target_speed.unwrap_or(-1).to_string(),
+        ));
     }
     if has(23) {
         p.push((
@@ -114,7 +121,11 @@ pub fn emit_particleemitter_props(
         p.push((25, "unknown25".into(), joined(&def.effectors25)));
     }
     if has(27) {
-        p.push((27, "sizetarget".into(), def.target_size.to_string()));
+        p.push((
+            27,
+            "sizetarget".into(),
+            def.target_size.unwrap().to_string(),
+        ));
     }
     if has(28) {
         p.push((

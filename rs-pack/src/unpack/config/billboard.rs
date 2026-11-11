@@ -13,7 +13,7 @@ pub fn emit_billboard_props(
         p.push((
             1,
             "material".into(),
-            packs.reference("texture", def.material),
+            packs.reference("texture", def.material.unwrap_or(u16::MAX)),
         ));
     }
     if has(2) {

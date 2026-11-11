@@ -1,7 +1,7 @@
 #[cfg(since_647)]
 use crate::archive;
 #[cfg(since_647)]
-use crate::cache::decode::read_id;
+use crate::cache::decode::{read_id, read_optional_id};
 #[cfg(since_647)]
 use crate::cache::js5::PackedCache;
 use crate::types::{IfButtonType, IfComponentType};
@@ -143,7 +143,7 @@ pub struct IfTypeRaw {
     pub y_mode: i8,
     pub over_layer: Option<u16>,
     #[cfg(since_647)]
-    pub parent_id: u16,
+    pub parent_id: Option<u16>,
     #[cfg(since_647)]
     pub flags: u8,
     pub comparators: Vec<(u8, i16)>,
@@ -184,7 +184,7 @@ pub struct IfTypeRaw {
     #[cfg(before_647)]
     pub graphic: String,
     #[cfg(since_647)]
-    pub graphic: i32,
+    pub graphic: Option<i32>,
     pub active_graphic: String,
     #[cfg(since_647)]
     pub angle_2d: u16,
@@ -252,11 +252,11 @@ pub struct IfTypeRaw {
     #[cfg(since_647)]
     pub target_verb: String,
     #[cfg(since_647)]
-    pub target_object_id: i32,
+    pub target_object_id: Option<u16>,
     #[cfg(since_647)]
-    pub target_enter_cursor: i32,
+    pub target_enter_cursor: Option<u16>,
     #[cfg(since_647)]
-    pub target_leave_cursor: i32,
+    pub target_leave_cursor: Option<u16>,
     #[cfg(since_647)]
     pub hooks: [Option<Vec<HookValue>>; 20],
     #[cfg(since_647)]
@@ -273,6 +273,8 @@ impl IfTypeRaw {
         let mut com = Self {
             id,
             root_layer,
+            #[cfg(since_647)]
+            line_width: 1,
             ..Self::default()
         };
         #[cfg(before_647)]
@@ -319,7 +321,7 @@ impl IfTypeRaw {
             com.height_mode = buf.g1s();
             com.x_mode = buf.g1s();
             com.y_mode = buf.g1s();
-            com.parent_id = buf.g2();
+            com.parent_id = read_optional_id(buf);
             com.flags = buf.g1();
         }
         match com.com_type {
@@ -409,7 +411,8 @@ impl IfTypeRaw {
                 }
                 #[cfg(since_647)]
                 {
-                    com.graphic = buf.g4s();
+                    let graphic = buf.g4s();
+                    com.graphic = (graphic != -1).then_some(graphic);
                     com.angle_2d = buf.g2();
                     let flags = buf.g1();
                     com.tiling = flags & 1 != 0;
@@ -539,13 +542,10 @@ impl IfTypeRaw {
             com.drag_deadtime = buf.g1();
             com.drag_renderbehavior = buf.g1();
             com.target_verb = buf.gjstr(STRING_TERMINATOR);
-            com.target_object_id = -1;
-            com.target_enter_cursor = -1;
-            com.target_leave_cursor = -1;
             if (com.active_properties >> 11) & 0x7f != 0 {
-                com.target_object_id = read_id(buf);
-                com.target_enter_cursor = read_id(buf);
-                com.target_leave_cursor = read_id(buf);
+                com.target_object_id = read_optional_id(buf);
+                com.target_enter_cursor = read_optional_id(buf);
+                com.target_leave_cursor = read_optional_id(buf);
             }
             com.hooks = from_fn(|_| parse_hook(buf));
             com.transmit_lists = from_fn(|_| parse_transmitlist(buf));

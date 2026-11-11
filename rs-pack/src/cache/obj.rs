@@ -94,7 +94,7 @@ pub struct ObjTypeRaw {
     pub tradeable: bool,
     pub members: bool,
     #[cfg(since_647)]
-    pub multistack: u16,
+    pub multistack: Option<u16>,
     pub manwear: Option<u16>,
     pub manweary: i8,
     pub manwear2: Option<u16>,
@@ -143,9 +143,9 @@ pub struct ObjTypeRaw {
     #[cfg(since_289)]
     pub team: u8,
     #[cfg(since_647)]
-    pub lentlink: u16,
+    pub lentlink: Option<u16>,
     #[cfg(since_647)]
-    pub lenttemplate: u16,
+    pub lenttemplate: Option<u16>,
     #[cfg(since_647)]
     pub manwear_xoff: i8,
     #[cfg(since_647)]
@@ -167,9 +167,9 @@ pub struct ObjTypeRaw {
     #[cfg(since_647)]
     pub picksizeshift: u8,
     #[cfg(since_647)]
-    pub boughtlink: u16,
+    pub boughtlink: Option<u16>,
     #[cfg(since_647)]
-    pub boughttemplate: u16,
+    pub boughttemplate: Option<u16>,
     #[cfg(since_647)]
     pub objvar: Option<Box<[u16]>>,
     pub respawnrate: u16,
@@ -271,7 +271,7 @@ impl CacheType for ObjTypeRaw {
             tradeable: true,
             members: false,
             #[cfg(since_647)]
-            multistack: 0,
+            multistack: None,
             manwear: None,
             manweary: 0,
             manwear2: None,
@@ -320,9 +320,9 @@ impl CacheType for ObjTypeRaw {
             #[cfg(since_289)]
             team: 0,
             #[cfg(since_647)]
-            lentlink: 0,
+            lentlink: None,
             #[cfg(since_647)]
-            lenttemplate: 0,
+            lenttemplate: None,
             #[cfg(since_647)]
             manwear_xoff: 0,
             #[cfg(since_647)]
@@ -344,9 +344,9 @@ impl CacheType for ObjTypeRaw {
             #[cfg(since_647)]
             picksizeshift: 0,
             #[cfg(since_647)]
-            boughtlink: 0,
+            boughtlink: None,
             #[cfg(since_647)]
-            boughttemplate: 0,
+            boughttemplate: None,
             #[cfg(since_647)]
             objvar: None,
             respawnrate: 100,
@@ -387,7 +387,7 @@ impl CacheType for ObjTypeRaw {
                 #[cfg(since_647)]
                 17 => self.objvar = Some(read_array(buf, Packet::g2)),
                 #[cfg(since_647)]
-                18 => self.multistack = buf.g2(),
+                18 => self.multistack = Some(buf.g2()),
                 23 => {
                     self.manwear = Some(buf.g2());
                     #[cfg(before_647)]
@@ -457,9 +457,9 @@ impl CacheType for ObjTypeRaw {
                 #[cfg(since_289)]
                 115 => self.team = buf.g1(),
                 #[cfg(since_647)]
-                121 => self.lentlink = buf.g2(),
+                121 => self.lentlink = Some(buf.g2()),
                 #[cfg(since_647)]
-                122 => self.lenttemplate = buf.g2(),
+                122 => self.lenttemplate = Some(buf.g2()),
                 #[cfg(since_647)]
                 125 => {
                     self.manwear_xoff = buf.g1() as i8;
@@ -485,9 +485,9 @@ impl CacheType for ObjTypeRaw {
                 #[cfg(since_647)]
                 134 => self.picksizeshift = buf.g1(),
                 #[cfg(since_647)]
-                139 => self.boughtlink = buf.g2(),
+                139 => self.boughtlink = Some(buf.g2()),
                 #[cfg(since_647)]
-                140 => self.boughttemplate = buf.g2(),
+                140 => self.boughttemplate = Some(buf.g2()),
                 201 => self.respawnrate = buf.g2(),
                 249 => {
                     ParamType::decode_params(
@@ -558,18 +558,22 @@ impl CacheType for ObjTypeRaw {
             }
             #[cfg(since_647)]
             {
-                if objs[id].lenttemplate != 0 {
-                    let template_id = objs[id].lenttemplate as usize;
-                    let link_id = objs[id].lentlink as usize;
+                if let (Some(template_id), Some(link_id)) =
+                    (objs[id].lenttemplate, objs[id].lentlink)
+                {
+                    let template_id = template_id as usize;
+                    let link_id = link_id as usize;
                     if template_id < objs.len() && link_id < objs.len() {
                         let template = objs[template_id].clone();
                         let link = objs[link_id].clone();
                         gen_lent(&mut objs[id], &template, &link);
                     }
                 }
-                if objs[id].boughttemplate != 0 {
-                    let template_id = objs[id].boughttemplate as usize;
-                    let link_id = objs[id].boughtlink as usize;
+                if let (Some(template_id), Some(link_id)) =
+                    (objs[id].boughttemplate, objs[id].boughtlink)
+                {
+                    let template_id = template_id as usize;
+                    let link_id = link_id as usize;
                     if template_id < objs.len() && link_id < objs.len() {
                         let template = objs[template_id].clone();
                         let link = objs[link_id].clone();

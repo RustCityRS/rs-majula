@@ -151,10 +151,10 @@ fn wearable_ids_include_linked_items_and_both_genders() {
     objs[1].manwear = Some(123);
     objs[2].womanwear = Some(456);
     objs[3].wearpos = Some(WearPos::Ring);
-    objs[4].lenttemplate = 6;
-    objs[4].lentlink = 1;
-    objs[5].boughttemplate = 6;
-    objs[5].boughtlink = 2;
+    objs[4].lenttemplate = Some(6);
+    objs[4].lentlink = Some(1);
+    objs[5].boughttemplate = Some(6);
+    objs[5].boughtlink = Some(2);
     let objs = TypeProvider::<ObjType>::from_types(
         objs,
         ObjContext {
@@ -509,7 +509,7 @@ fn transforms_preserve_missing_ids_and_default_targets() {
         assert_eq!(loc.multiloc.unwrap().as_ref(), [65534, -1, 99]);
         let npc: NpcTypeRaw =
             decode(&[118, 0, 5, 255, 255, 0, 99, 1, 255, 254, 255, 255, 12, 3, 0]);
-        assert_eq!((npc.transform_varbit, npc.transform_varp), (5, -1));
+        assert_eq!((npc.transform_varbit, npc.transform_varp), (Some(5), None));
         assert_eq!(npc.transforms.unwrap().as_ref(), [65534, -1, 99]);
         assert_eq!(npc.size, 3);
     }

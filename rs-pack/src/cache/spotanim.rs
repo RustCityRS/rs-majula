@@ -37,11 +37,11 @@ pub struct SpotAnimTypeRaw {
     #[cfg(since_647)]
     pub op13: bool,
     #[cfg(since_647)]
-    pub op14: u8,
+    pub op14: Option<u8>,
     #[cfg(since_647)]
-    pub op15: u16,
+    pub op15: Option<u16>,
     #[cfg(since_647)]
-    pub op16: i32,
+    pub op16: Option<i32>,
     pub recol_s: Option<Box<[u16]>>,
     pub recol_d: Option<Box<[u16]>>,
     #[cfg(since_647)]
@@ -77,11 +77,11 @@ impl CacheType for SpotAnimTypeRaw {
             #[cfg(since_647)]
             op13: false,
             #[cfg(since_647)]
-            op14: 0,
+            op14: None,
             #[cfg(since_647)]
-            op15: 0,
+            op15: None,
             #[cfg(since_647)]
-            op16: 0,
+            op16: None,
             recol_s: None,
             recol_d: None,
             #[cfg(since_647)]
@@ -121,11 +121,14 @@ impl CacheType for SpotAnimTypeRaw {
                 #[cfg(since_647)]
                 13 => self.op13 = true,
                 #[cfg(since_647)]
-                14 => self.op14 = buf.g1(),
+                14 => self.op14 = Some(buf.g1()),
                 #[cfg(since_647)]
-                15 => self.op15 = buf.g2(),
+                15 => self.op15 = Some(buf.g2()),
                 #[cfg(since_647)]
-                16 => self.op16 = buf.g4s(),
+                16 => {
+                    let param = buf.g4s();
+                    self.op16 = (param != -1).then_some(param);
+                }
                 #[cfg(since_647)]
                 40 | 41 => {
                     let (s, d) = if code == 40 {

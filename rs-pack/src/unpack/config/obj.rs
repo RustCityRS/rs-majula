@@ -110,8 +110,8 @@ pub fn emit_obj_props(
         p.push((16, "members".into(), "yes".into()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&18) || def.multistack != 0 {
-        p.push((18, "multistack".into(), obj_name(registry, def.multistack)));
+    if let Some(multistack) = def.multistack {
+        p.push((18, "multistack".into(), obj_name(registry, multistack)));
     }
     if def.opcode_order.contains(&23) || def.manwear.unwrap_or(0) != 0 {
         p.push((23, "manwear".into(), {
@@ -314,16 +314,12 @@ pub fn emit_obj_props(
         p.push((115, "team".into(), def.team.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&121) || def.lentlink != 0 {
-        p.push((121, "lentlink".into(), obj_name(registry, def.lentlink)));
+    if let Some(lentlink) = def.lentlink {
+        p.push((121, "lentlink".into(), obj_name(registry, lentlink)));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&122) || def.lenttemplate != 0 {
-        p.push((
-            122,
-            "lenttemplate".into(),
-            obj_name(registry, def.lenttemplate),
-        ));
+    if let Some(lenttemplate) = def.lenttemplate {
+        p.push((122, "lenttemplate".into(), obj_name(registry, lenttemplate)));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&125)
@@ -395,15 +391,15 @@ pub fn emit_obj_props(
         p.push((134, "picksizeshift".into(), def.picksizeshift.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&139) || def.boughtlink != 0 {
-        p.push((139, "boughtlink".into(), obj_name(registry, def.boughtlink)));
+    if let Some(boughtlink) = def.boughtlink {
+        p.push((139, "boughtlink".into(), obj_name(registry, boughtlink)));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&140) || def.boughttemplate != 0 {
+    if let Some(boughttemplate) = def.boughttemplate {
         p.push((
             140,
             "boughttemplate".into(),
-            obj_name(registry, def.boughttemplate),
+            obj_name(registry, boughttemplate),
         ));
     }
     #[cfg(since_647)]

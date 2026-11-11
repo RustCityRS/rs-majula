@@ -16,7 +16,7 @@ impl CacheType for MsiType {
     fn new(id: u16) -> Self {
         Self {
             id,
-            sprite: u16::MAX,
+            sprite: 0,
             colour: 0,
             locsize: false,
             nosprite: false,

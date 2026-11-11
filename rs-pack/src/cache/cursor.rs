@@ -14,7 +14,7 @@ impl CacheType for CursorType {
     fn new(id: u16) -> Self {
         Self {
             id,
-            sprite: u16::MAX,
+            sprite: 0,
             hotspot: (0, 0),
             opcode_order: Vec::new(),
         }
