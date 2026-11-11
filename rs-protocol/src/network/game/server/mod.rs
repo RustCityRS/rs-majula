@@ -208,6 +208,7 @@ pub mod varc_large;
 pub mod varc_small;
 #[cfg(since_647)]
 pub mod varc_str_large;
+#[cfg(since_647)]
 pub mod varc_str_small;
 pub mod varp_large;
 pub mod varp_small;
