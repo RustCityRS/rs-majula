@@ -1450,6 +1450,14 @@ fn the_dragon_is_put_to_sleep() {
                 .any(|(op, _)| *op == ServerProt::RebuildRegion as u16),
             "the cellar rebuilt in the fade"
         );
+        // Shot 105: the dragon circles and lies down on its nest by seq 12254 alone
+        // (4KO2h2xPtdM @227.25-230.8), not by turns and seq 14260.
+        let nest = at_shot(105);
+        assert!(
+            npc_anim_sent(&packets[nest..fade], 12254),
+            "seq 12254 in shot 105"
+        );
+        assert!(!npc_anim_sent(&packets, 14260), "seq 14260 is not played");
         let clips = speech(&packets);
         for clip in [715, 850, 958] {
             assert!(clips.contains(&clip), "clip {clip} in {clips:?}");

@@ -112,14 +112,15 @@ p_delay(0);
 // Shot 105 (25 ticks, @216.45-231.4): 2762's 105, high, moving west and looking west down at the
 // nest (18, 35). The dragon (size 5) passes under the camera (@216.5-219) and walks west onto the
 // nest, cache 786's 5x5 floor at x 18-22, z 33-37 (locs 45732-45754), its corner (18, 33), there
-// by @223.4, facing the bowl on (17, 35) (its back to the camera). @227.3 it turns to its left the
-// long way round, the standing pose side-on: south @227.8, east @228.55, north @229.05; then it
-// lies down facing north, head to the camera's right, flat by @230.8-231.0. Seq 14260 is the
-// lie-down (base_290's only one, 4.48 s, flat at about 2.4 s); the eat seq 14255 (wings opening,
-// 13.3 s) shows nowhere in 2011. 2011's frames @226.4-231.0 beside ours: run ufrest14's
-// uf_nest2_probe (B: facing north with 14260 ends as @231.0 does). The turns a tick apart from
-// @227.25 reach south, east and north at 2011's times (in-client run ufrest16); 14260 with the
-// turn east is to lie it flat by @230.8 (with the turn north, run 16, it was ~0.5 s late).
+// by @223.4, facing the bowl on (17, 35) (its back to the camera). @227.3 it comes round to its
+// left on its feet, wings held up (side-on, tail to the camera's left, @229.4-230.4), drops
+// @230.6 and is flat by @230.8-231.0, head to the camera's right. That is one seq, 12254, played
+// facing the bowl: 65 frames, 4.08 s, its own steps (synth_6645 on frames 5 to 45) and thud
+// (synth_7284 on frame 56, 3.36 s in), and it holds its last frame. Set beside 2011 every 0.2 s
+// (probe uf_nest3_probe, facing west) it is the same pose by pose, started on the tick @227.25.
+// Earlier this was three turns a tick apart and seq 14260, whose last pose is the same but which
+// spreads its wings low for ~2 s first, which 2011 does not show. The eat seq 14255 (wings
+// opening, 13.3 s) shows nowhere in 2011.
 %tutorial3_cutscene_tracker = 105;
 p_delay(0);
 // West to the nest, there by 105's 12th tick (@223.4 in 2011, ~7 s in). Its face target is the
@@ -130,20 +131,11 @@ if (npc_find(~uf_cellar_coord(29, 33), tutorial3_dragon_initial, 8, 0) = true) {
     npc_walk(~uf_cellar_coord(18, 33));
 }
 p_delay(16);
-// The nest's middle is (20, 35).
 if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_initial, 2, 0) = true) {
-    npc_facesquare(~uf_cellar_coord(20, 28));
+    npc_anim(seq_12254, 0);
 }
-p_delay(0);
-if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_initial, 2, 0) = true) {
-    npc_facesquare(~uf_cellar_coord(27, 35));
-    npc_anim(seq_14260, 0);
-}
-p_delay(0);
-if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_initial, 2, 0) = true) {
-    npc_facesquare(~uf_cellar_coord(20, 42));
-}
-p_delay(4);
+// Seven ticks to the end of shot 105 (its 25 ticks end @231.45), as the turns and 14260 took.
+p_delay(6);
 // Shot 106 (5 ticks): the fade to black. Once the screen is black the dragon is the sleeping one
 // (8861, its ready seq 12255 a breathing loop) and Sir Vant is back, each added where it now
 // stays: an npc moved by a script walks back to where it was added once its mode goes back to
