@@ -2097,7 +2097,13 @@ fn the_way_out_to_lumbridge() {
         );
         let choice = converse(engine, &mut client, &["I'll mine through the rocks."], 160);
         assert!(choice.said("Roddeck gives you a pickaxe."));
-        assert_eq!(progress(engine, &client), 130);
+        assert_eq!(progress(engine, &client), 135);
+        // The Task panel's overview: Discover an Exit, Breaking Through, four empty
+        // (4KO2h2xPtdM @532).
+        assert_eq!(varbit(engine, &client, PINNED_TASK), 4091, "the overview");
+        assert_eq!(varbit(engine, &client, 8587), 3514);
+        assert_eq!(varbit(engine, &client, 8588), 3516);
+        assert_eq!(varbit(engine, &client, 8589), 4091);
 
         // The blockage at level 1.
         engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 35);
@@ -2113,7 +2119,12 @@ fn the_way_out_to_lumbridge() {
             converse(engine, &mut client, &[], 60)
                 .said("You'll need a Mining level of 2 to clear the rocks.")
         );
-        assert_eq!(progress(engine, &client), 135);
+        // Its continue: the practice rocks live (varbit 6495 = 1) and the stats stone with its
+        // arrow, with no word from Roddeck (4KO2h2xPtdM @549.0).
+        assert_eq!(progress(engine, &client), 140);
+        assert_eq!(varbit(engine, &client, 6495), 1, "the practice rocks");
+        assert_eq!(varbit(engine, &client, FLASH_SIDE), 3, "the stats stone");
+        assert_eq!(varbit(engine, &client, 8589), 3518, "Skill in Mining");
         engine.harness_telejump(client.pid, origin.0 + 31, 0, origin.1 + 32);
         cycles(engine, &mut client, 3);
         talk_to(
@@ -2122,7 +2133,7 @@ fn the_way_out_to_lumbridge() {
         );
         let spot = converse(engine, &mut client, &[], 200);
         assert!(spot.said("You can practice mining on the rocks that fell into my cellar"));
-        assert_eq!(progress(engine, &client), 140);
+        assert_eq!(progress(engine, &client), 145);
 
         // Two practice rocks to level 2: the practice rock on (17, 38) (the map's (17, 14), the block
         // moved north by the collapse), live at varbit 6495 = 1.
@@ -2141,6 +2152,20 @@ fn the_way_out_to_lumbridge() {
             practice.extend(cycles(engine, &mut client, 4));
         }
         assert_eq!(progress(engine, &client), 150, "Mining level 2");
+        // The level's box, then Roddeck, the panel on Breaking Through's summary
+        // (4KO2h2xPtdM @568-571.2).
+        let boxes: Vec<String> = rs_test::talk::settexts(&practice)
+            .into_iter()
+            .map(|(_, t)| t)
+            .collect();
+        let level = boxes
+            .iter()
+            .position(|t| t.contains("You have reached level 2 Mining."));
+        let roddeck = boxes
+            .iter()
+            .position(|t| t.contains("Congratulations, you've reached level 2."));
+        assert!(level.is_some() && level < roddeck, "{boxes:?}");
+        assert_eq!(varbit(engine, &client, PINNED_TASK), 3516);
         // The Task System's How To Train and Level (425) once the boxes are closed, its line alone
         // (a first Task), and no Skill in Mining (3518) popup (4KO2h2xPtdM @569-577).
         let lines: Vec<String> = HarnessClient::game_messages(&practice)
@@ -2181,8 +2206,36 @@ fn the_way_out_to_lumbridge() {
             rx,
             rz,
         );
-        cycles(engine, &mut client, 8);
+        // The click: TASK COMPLETE! Breaking Through; through the hole Roddeck takes his
+        // pickaxe back; TASK COMPLETE! Discover an Exit once that box is closed
+        // (4KO2h2xPtdM @582.9-589.7).
+        let pickaxe = obj_id(engine, "bronze_pickaxe");
+        assert!(slot_of(engine, &client, pickaxe).is_some());
+        let hole = cycles(engine, &mut client, 8);
         assert_eq!(progress(engine, &client), 170, "To Freedom!");
+        assert!(slot_of(engine, &client, pickaxe).is_none());
+        assert_eq!(varbit(engine, &client, PINNED_TASK), 3519);
+        assert!(
+            rs_test::talk::settexts(&hole)
+                .iter()
+                .any(|(_, t)| t.contains("Roddeck retrieves his pickaxe from you."))
+        );
+        let popup = engine
+            .harness_player(client.pid)
+            .unwrap()
+            .varcs
+            .get(POPUP_TASK)
+            .as_int();
+        assert_eq!(popup, 3516, "TASK COMPLETE! Breaking Through");
+        converse(engine, &mut client, &[], 20);
+        cycles(engine, &mut client, 2);
+        let popup = engine
+            .harness_player(client.pid)
+            .unwrap()
+            .varcs
+            .get(POPUP_TASK)
+            .as_int();
+        assert_eq!(popup, 3514, "TASK COMPLETE! Discover an Exit");
 
         // The ladder up: Explorer Jack's house, the quest's end.
         engine.harness_telejump(client.pid, origin.0 + 6, 0, origin.1 + 44);
@@ -2299,7 +2352,7 @@ fn the_way_out_to_lumbridge() {
 #[test]
 fn the_books_the_cabbage_and_the_drop_hint() {
     runner::on_loaded_engine(|engine| {
-        let mut client = at_stage(engine, "uf_shelf", 130);
+        let mut client = at_stage(engine, "uf_shelf", 135);
         let origin = player_origin(engine, &client);
         let diary = obj_id(engine, "tutorial3_diary");
         let manual = obj_id(engine, "tutorial3_book");

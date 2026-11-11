@@ -69,7 +69,41 @@ if (%tutorial < 7) {
     // the quest's end until that talk (4KO2h2xPtdM 2011-04-30 @607-640), where 4098 gives 1000
     // The Journey Begins (3521), the Task after it (in-client runs 19 and 20 showed 3521).
     %varplayerbit_8576 = 3520;
+} else if (%tutorial >= 135 & %tutorial <= 160) {
+    // The way out, the tool held: the panel's overview (a null-like pin, cs2 3973) until
+    // level 2, then the blockage Task's summary (4KO2h2xPtdM @532 and @571.2; U9ajh4bwWsI
+    // @432 and @487.0).
+    ~uf_task_slots;
+    if (%tutorial < 150) {
+        %varplayerbit_8576 = 4091;
+    } else if (%tutorial3_tool <= 1) {
+        %varplayerbit_8576 = 3516;
+    } else {
+        %varplayerbit_8576 = 3515;
+    }
 } else {
     %varplayerbit_8576 = ~script4098;
 }
 %varclient_1428 = 0;
+
+// The overview's slots on the way out: Discover an Exit, then the blockage's Task, by the
+// client's own rules for them (4KO2h2xPtdM @532: 3514, 3516, four empty; U9ajh4bwWsI @432:
+// 3514, 3515). The skill Task as a third slot at level 1 from 140 follows from the same
+// rules; no recording shows the overview then. "Progress: 16/21" (@532, and still @572.4 at
+// level 2): what makes up the 21 is not known, so the two numbers are set as read.
+[proc,uf_task_slots]
+def_int $slot = 1;
+def_int $index = 3514;
+while ($index <= 3518) {
+    if (~task_done($index) = false & ~task_requirements_fulfilled($index) = true) {
+        ~task_set_slot($slot, $index);
+        $slot = add($slot, 1);
+    }
+    $index = add($index, 1);
+}
+while ($slot <= 6) {
+    ~task_set_slot($slot, 4091);
+    $slot = add($slot, 1);
+}
+%varclient_1423 = 21;
+%varclient_1424 = 16;

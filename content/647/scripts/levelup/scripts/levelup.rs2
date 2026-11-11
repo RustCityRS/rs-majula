@@ -38,6 +38,7 @@ if ($stat = mining & $level >= 2 & %task_tut4_how_to_2 = 0) {
 if (%tutorial >= 5 & %tutorial < 1000) {
     spotanim_pl(levelup_anim, 124, 0);
     ~mesbox("Congratulations: You have reached level <tostring($level)> <~stat_name($stat)>.");
+    ~uf_levelled($stat);
     return;
 }
 // 2011's line, game-wide: "You've just advanced a Woodcutting level! You have reached level 4."

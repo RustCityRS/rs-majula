@@ -1,8 +1,8 @@
 // Unstable Foundations unlocks the side panel's tabs as the tutorial goes (4KO2h2xPtdM,
 // 2011-04-30, its tab rows read every second: refs GAPS.md 13). From arrival only the task
 // system and the options tab show; the inventory comes with the squire's gear, combat and worn
-// equipment once it is worn, the quest list at the quest journal step, stats with the first
-// practice xp, and the rest on arrival in Lumbridge. Each stage's unlock joins this list as
+// equipment once it is worn, the quest list at the quest journal step, stats once the
+// blockage has been tried at level 1, and the rest on arrival in Lumbridge. Each stage's unlock joins this list as
 // the stage is built; until then a tab past the start stays as it was (all open).
 //
 // ~initalltabs opens a side slot only when this says so. Outside the tutorial every tab is open.
@@ -37,9 +37,10 @@ if ($slot = 0 | $slot = 5) {
 if ($slot = 3) {
     return(%tutorial >= 50);
 }
-// The first practice xp (140 on, once the skill has moved): stats (slot 2).
+// The level-1 box at the blockage closed (140 on): stats (slot 2), 4KO2h2xPtdM @549.0,
+// U9ajh4bwWsI 2011-05-21 @447.0.
 if ($slot = 2) {
-    return(%tutorial >= 140 & (stat_base(mining) > 1 | stat_base(woodcutting) > 1));
+    return(%tutorial >= 140);
 }
 // Prayer, magic, friends, ignore, clan, emotes, music and notes: on arrival in Lumbridge (1000,
 // handled above).

@@ -14,6 +14,11 @@
 // set's first index, struct param_1269 the next; 4091, 450 and 4094 end it), skipping those done
 // or not yet open to the player, the pinned task in its pinned slot (void-634's refreshSlots).
 [proc,task_refresh]
+if (%tutorial >= 135 & %tutorial <= 160) {
+    // Unstable Foundations' way out fills the slots itself (uf_task_slots).
+    ~uf_task_slots;
+    return;
+}
 def_int $index = enum(int, int, enum_3482, %varplayerbit_8575);
 def_int $slot = 1;
 def_int $total = 0;
